@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0557E7FA4D9
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Nov 2023 16:36:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E046A7FA4D8
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Nov 2023 16:36:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 50DF0836;
-	Mon, 27 Nov 2023 16:36:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 50DF0836
+	by alsa0.perex.cz (Postfix) with ESMTPS id D9E9E83E;
+	Mon, 27 Nov 2023 16:36:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D9E9E83E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701099397;
-	bh=ii0m9U9eGLM0JaSj4MdRpS4P7gneGNSwH3Z6Pu6Mn84=;
+	s=default; t=1701099384;
+	bh=c5zk7aGDfWbjNCLheBXZ2WEzSvhU+9BDv+s0EYGulng=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=o49eVuynttZSXHRNtBLwEQ4JZjTRCHmlRnnmgRj7eiuypDSB5cgEDzf6Xj5nrACYH
-	 9EjsXVQu0+tAm6QUb6VqKnZzI46eeQn4vkJ++nC6WybpBAUIx8Z+A6tUUVPQ/2qgki
-	 YIxQOtKQH52rk3qpxw+anetn5aPfXm47NmhhP8YM=
+	b=p/AP1soMTtNLLsTPoJ6eda4QtpD9Wp3f1NIx3Y5V7VYpTAYy4m9JQ0LCNJmbJCK/M
+	 BJqvIAiY7yH90nL066krrllHyoba41pBdRxDTGbSmzi7p14IkA7MNAnjbhbNIykGkw
+	 uQFM/JSEnzz3IQLx/DnyltHbQV9h3Exw8omi0sOM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9F4DAF80603; Mon, 27 Nov 2023 16:35:40 +0100 (CET)
+	id C1453F805CA; Mon, 27 Nov 2023 16:35:32 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id ACD52F805FB;
-	Mon, 27 Nov 2023 16:35:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9B250F805C9;
+	Mon, 27 Nov 2023 16:35:31 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7C52BF80570; Mon, 27 Nov 2023 16:35:29 +0100 (CET)
+	id 330B2F8055A; Mon, 27 Nov 2023 16:35:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,40 +35,40 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B61CBF80104
-	for <alsa-devel@alsa-project.org>; Mon, 27 Nov 2023 16:35:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B61CBF80104
+	by alsa1.perex.cz (Postfix) with ESMTPS id D6AFEF801D5
+	for <alsa-devel@alsa-project.org>; Mon, 27 Nov 2023 16:35:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D6AFEF801D5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=FhOHN19k
+ header.s=Intel header.b=IAKCEr+3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1701099322; x=1732635322;
+  t=1701099323; x=1732635323;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=ii0m9U9eGLM0JaSj4MdRpS4P7gneGNSwH3Z6Pu6Mn84=;
-  b=FhOHN19kAIEma2SZRWrbELYN6VfJKy6zJ4cAvcUkO3i62a/uZgB9NhMD
-   iwJrB9KHS9sAYNuNSNTAAwu7hBOWQMSo2rzPZVPnb4Po8Cx89WdUYXXwR
-   YHV5vhO0rSVTVOSK4EwH7h8K24lR4q5vpnG7UPY2mLl6GJtDN4h/QrzaW
-   Qd3v3G9mBNiZtXCIMH7fFOUIp1AagME2+RqPUo61yFLtKIiQuvWreVxxp
-   LmhjV/yidfG0pEeDMZfNJM67l+ZEYTHG/3VZxpDVsi2LkCVwprNR3QzXl
-   nAM4H52Gd1OlbzwmwDi62xv5QwMmg9iV3YQPnSMVxgmxbYaz00herqZQ0
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10907"; a="372894367"
+  bh=c5zk7aGDfWbjNCLheBXZ2WEzSvhU+9BDv+s0EYGulng=;
+  b=IAKCEr+3A+LJUPAtlmleRjTKDeI03rRD/nP9PV2vAEzbgeAjb3vtQ0c4
+   cUp6pUqLKy6LzJhjHUAjN2yPMD5NF43afkuYUDQYscFBw8Yoz+5tFSSgF
+   Kxva0JCYfxp7WRmAtq2o3sDjHpg9aTrtJx3RM6+07omZ4GRsvpFLGPjms
+   wKg0Xff2GD6yv+kyKIKi6qY7ri3o547GGzJj11vXGpEIMGBQcnksVHMjJ
+   eLu5xF22hlsfcWDQdTDSOKfidCi+qH1UbShju3Ed2mIxLO2HFoSAzPX+P
+   gpEsOGIw1O+6OBG1lv5XMdfPmW8oh6C3Oq1UJTBZ5s7dWi+sPh1rD+Qo7
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10907"; a="372894380"
 X-IronPort-AV: E=Sophos;i="6.04,231,1695711600";
-   d="scan'208";a="372894367"
+   d="scan'208";a="372894380"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
   by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Nov 2023 07:26:24 -0800
+ 27 Nov 2023 07:26:27 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10907"; a="771956165"
+X-IronPort-AV: E=McAfee;i="6600,9927,10907"; a="771956210"
 X-IronPort-AV: E=Sophos;i="6.04,231,1695711600";
-   d="scan'208";a="771956165"
+   d="scan'208";a="771956210"
 Received: from acornagl-mobl.ger.corp.intel.com (HELO
  pujfalus-desk.ger.corp.intel.com) ([10.252.58.144])
   by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Nov 2023 07:26:22 -0800
+ 27 Nov 2023 07:26:24 -0800
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com,
 	broonie@kernel.org
@@ -79,16 +79,17 @@ Cc: alsa-devel@alsa-project.org,
 	ranjani.sridharan@linux.intel.com,
 	yung-chuan.liao@linux.intel.com,
 	chao.song@linux.intel.com
-Subject: [PATCH 01/27] ASoC: Intel: sof_ssp_amp: remove dead code
-Date: Mon, 27 Nov 2023 17:26:28 +0200
-Message-ID: <20231127152654.28204-2-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH 02/27] ASoC: Intel: sof_maxim_common: add else between 2 if
+ test
+Date: Mon, 27 Nov 2023 17:26:29 +0200
+Message-ID: <20231127152654.28204-3-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20231127152654.28204-1-peter.ujfalusi@linux.intel.com>
 References: <20231127152654.28204-1-peter.ujfalusi@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: QWNLGL2NGOFCZV5K6IPZ3ENRCZHBZWDY
-X-Message-ID-Hash: QWNLGL2NGOFCZV5K6IPZ3ENRCZHBZWDY
+Message-ID-Hash: 4RUR2GSPUO6BGEGHN3LEU4WJHOQ6ZUMC
+X-Message-ID-Hash: 4RUR2GSPUO6BGEGHN3LEU4WJHOQ6ZUMC
 X-MailFrom: peter.ujfalusi@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -101,57 +102,42 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QWNLGL2NGOFCZV5K6IPZ3ENRCZHBZWDY/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4RUR2GSPUO6BGEGHN3LEU4WJHOQ6ZUMC/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Brent Lu <brent.lu@intel.com>
+From: Bard Liao <yung-chuan.liao@linux.intel.com>
 
-This patch fixes a dead code problem when calculating BE ID for each
-HDMI-In link.
+if (!strcmp(codec_dai->component->name, MAX_98373_DEV0_NAME)) and
+if (!strcmp(codec_dai->component->name, MAX_98373_DEV1_NAME)) can't be
+true at the same time. Add an else to clarify it.
 
-Signed-off-by: Brent Lu <brent.lu@intel.com>
-Reviewed-by: Balamurugan C <balamurugan.c@intel.com>
+Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Chao Song <chao.song@linux.intel.com>
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 ---
- sound/soc/intel/boards/sof_ssp_amp.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ sound/soc/intel/boards/sof_maxim_common.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/sound/soc/intel/boards/sof_ssp_amp.c b/sound/soc/intel/boards/sof_ssp_amp.c
-index 137ba64254bc..22f37cf3a2ad 100644
---- a/sound/soc/intel/boards/sof_ssp_amp.c
-+++ b/sound/soc/intel/boards/sof_ssp_amp.c
-@@ -124,6 +124,7 @@ sof_card_dai_links_create(struct device *dev, enum sof_ssp_codec amp_type,
- 		/* the topology supports HDMI-IN uses fixed BE ID for DAI links */
- 		fixed_be = true;
- 
-+		be_id = HDMI_IN_BE_ID;
- 		for (i = 1; i <= num_of_hdmi_ssp; i++) {
- 			int port = (i == 1 ? (sof_ssp_amp_quirk & SOF_HDMI_CAPTURE_1_SSP_MASK) >>
- 						SOF_HDMI_CAPTURE_1_SSP_SHIFT :
-@@ -138,7 +139,7 @@ sof_card_dai_links_create(struct device *dev, enum sof_ssp_codec amp_type,
- 			links[id].name = devm_kasprintf(dev, GFP_KERNEL, "SSP%d-HDMI", port);
- 			if (!links[id].name)
- 				return NULL;
--			links[id].id = fixed_be ? (HDMI_IN_BE_ID + i - 1) : id;
-+			links[id].id = be_id;
- 			links[id].codecs = &snd_soc_dummy_dlc;
- 			links[id].num_codecs = 1;
- 			links[id].platforms = platform_component;
-@@ -147,6 +148,7 @@ sof_card_dai_links_create(struct device *dev, enum sof_ssp_codec amp_type,
- 			links[id].no_pcm = 1;
- 			links[id].num_cpus = 1;
- 			id++;
-+			be_id++;
+diff --git a/sound/soc/intel/boards/sof_maxim_common.c b/sound/soc/intel/boards/sof_maxim_common.c
+index 3c00afc32805..f64124077ca7 100644
+--- a/sound/soc/intel/boards/sof_maxim_common.c
++++ b/sound/soc/intel/boards/sof_maxim_common.c
+@@ -67,8 +67,7 @@ static int max_98373_hw_params(struct snd_pcm_substream *substream,
+ 		if (!strcmp(codec_dai->component->name, MAX_98373_DEV0_NAME)) {
+ 			/* DEV0 tdm slot configuration */
+ 			snd_soc_dai_set_tdm_slot(codec_dai, 0x03, 3, 8, 32);
+-		}
+-		if (!strcmp(codec_dai->component->name, MAX_98373_DEV1_NAME)) {
++		} else if (!strcmp(codec_dai->component->name, MAX_98373_DEV1_NAME)) {
+ 			/* DEV1 tdm slot configuration */
+ 			snd_soc_dai_set_tdm_slot(codec_dai, 0x0C, 3, 8, 32);
  		}
- 	}
- 
 -- 
 2.43.0
 

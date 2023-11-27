@@ -2,115 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B05E7FA934
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Nov 2023 19:47:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 431817FAD5E
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Nov 2023 23:21:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A54EB84D;
-	Mon, 27 Nov 2023 19:46:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A54EB84D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8817D836;
+	Mon, 27 Nov 2023 23:21:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8817D836
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701110814;
-	bh=geXNpVRgk3I20R80hxfUGqxn435aRrCWq3UP1y1Q65Q=;
+	s=default; t=1701123682;
+	bh=DGKrtDGdQPRgKJyhYhrxsoa1aDtlSRmC0I45VLz7qFM=;
 	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=lAn3JUXywykY2ISbYOsMfHDN8YKpq4Wm9VCR3rtlyK+BXT6GjWK5vYeyQAGSmfvT+
-	 VsRO3GcapikvujakCrk8t/w+uPTew1fhnjU6M9zAv5qYE8/ycHk5SZ3btXsef5y79h
-	 IY2fai3N24G1IfID7nYLkq6Fe8Xo1k+Akadc0kBU=
+	b=P/2Ewh6RB1JB1rwKdvi4ln2CaEl5tZIVDsUmF/yu4hu0t+UzDpMcJOclXKo3khrsc
+	 CNFfT+AMm/1/TqXO/31RsWs8E1rBRnp7kb19Sdpe0oS0fFplLWwYbtGAdCJpguIln/
+	 1QcCGCmh1DuFim4bJAM0pmqRL8hGWs8EGlic9NFw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 40900F8057A; Mon, 27 Nov 2023 19:46:23 +0100 (CET)
+	id 0CD60F8055A; Mon, 27 Nov 2023 23:20:38 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 62B89F80578;
-	Mon, 27 Nov 2023 19:46:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5C8F4F8055C;
+	Mon, 27 Nov 2023 23:20:38 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A0CD7F801D5; Mon, 27 Nov 2023 19:46:19 +0100 (CET)
+	id 39F2BF801D5; Mon, 27 Nov 2023 23:16:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H5,
-	RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
- [66.111.4.29])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [IPv6:2a00:1450:4864:20::32e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8BE9CF8007E
-	for <alsa-devel@alsa-project.org>; Mon, 27 Nov 2023 19:46:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8BE9CF8007E
+	by alsa1.perex.cz (Postfix) with ESMTPS id CA0EAF800F5
+	for <alsa-devel@alsa-project.org>; Mon, 27 Nov 2023 23:15:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CA0EAF800F5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=system76.com header.i=@system76.com header.a=rsa-sha256
- header.s=fm1 header.b=e+SHTisB;
-	dkim=pass (2048-bit key,
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm1 header.b=OWuzH4lW
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
-	by mailout.nyi.internal (Postfix) with ESMTP id 79C335C01EA;
-	Mon, 27 Nov 2023 13:46:12 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
-  by compute1.internal (MEProxy); Mon, 27 Nov 2023 13:46:12 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=system76.com; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:message-id:mime-version:reply-to:sender:subject
-	:subject:to:to; s=fm1; t=1701110772; x=1701197172; bh=8+TngcIMRg
-	F81R1bqa99WS9iwPqGLiZkgYXXdVzQ87k=; b=e+SHTisB7ZRXSSsaUuuXrusLaw
-	MVR4lWzO8Nd9T0+Ogt2kMjtUzSE5QM0frqrLD2nmz1Pvj+vXfPlz99bsgbSujxpk
-	kpLI85pYqpgqDPV7YEGvUeG1nlDq+KTbghQ2kXQH4t1xHAtmeu7hpEMe96A5rofS
-	k4hITJzXig8aVx1LA7pFQyZTV1ZgkNI9bgsxzzv0PUHwYf421vOOkBn+VKreBJmy
-	/LhJ7ushiWUYOkJFKSP6N0UWWUFCl+dZjpaq52GKd/fPb5BIwURXvZIdcU8iXkzw
-	qHcD0RdQxhJBXJtn3dWnJ99GtBOtd+XA8kCQFhgbgJEXWFkemSEN47nDzIdQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm1; t=1701110772; x=1701197172; bh=8+TngcIMRgF81
-	R1bqa99WS9iwPqGLiZkgYXXdVzQ87k=; b=OWuzH4lW1U4UobvDgAv4gQ3yxcmto
-	bVwUvaG2tp1Ebr4CiFOlJzHX0feSecOX8c4AKiTfhnEQL4qzJYlp05fReDIrQXBr
-	/jG7HRahgGsy0jVLBkngQpHHyyJtMsjWTFqJu4u+mnwmDuFuGFipBBKMijPdQEgT
-	hdmYvZ9EkFqvuUgKXFEWV/CgmzbGnbDdZWCTNNvSSslfH7wwAczNtWvxFMIwN4w6
-	QM9w9HGgjK9YcbxS8ohKUAs2L4dNRqYKgZQsPFtYXYpYQho/xF9ZEc3zFzGPRZSn
-	eLO87GBVdNKYWHtKo5gIh+rWdK/VbCeHK5LbknGgIQ0GphNFvb+fx1WMg==
-X-ME-Sender: <xms:9ONkZQFuvBfRk19Rym5vLqL4dyUiw1DWeD-t4OqOx9HgDCopj2gBmg>
-    <xme:9ONkZZXY8fQuwbFMVJ1T6Lv5505I0o8ZvirJE087sedBq-jcz0hQpTyQ8OzQGgaKB
-    PXFDxKy1RGEl2VMwQ>
-X-ME-Received: 
- <xmr:9ONkZaJtS2r7m2zjJPoNno56wf0WxX21aEh9C5sCqfVm1yrx_uZbt8M3hr_FvGxT8STbWhJxmlGi8YD2k-Hoby9NQKw9yf4cww>
-X-ME-Proxy-Cause: 
- gggruggvucftvghtrhhoucdtuddrgedvkedrudeiuddguddujecutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
-    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
-    enucfjughrpefhvfevufffkffoggfgsedtkeertdertddtnecuhfhrohhmpefvihhmucev
-    rhgrfihfohhrugcuoehttghrrgiffhhorhgusehshihsthgvmhejiedrtghomheqnecugg
-    ftrfgrthhtvghrnhepkefgteefvdeivdfhffdtfffgieffhfetgeduudekieefueeutdel
-    fedtveeuheefnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrh
-    homhepthgtrhgrfihfohhrugesshihshhtvghmjeeirdgtohhm
-X-ME-Proxy: <xmx:9ONkZSGm2NiEu6vXHYqJGZb7h54_UZDY4bKpbu-POuQqOzkzxGwa_g>
-    <xmx:9ONkZWUmMPqD4mj89x4QAiqDb9F_A_6A7xriZdnTLXUBmhTo7Tzgbg>
-    <xmx:9ONkZVOzAUX7IFNbuyz9VZaC_rgjIiq2xgynxks7ZT8QOYCvTLNC5Q>
-    <xmx:9ONkZVQQQFEfm8bZyOkXK0W7m3f1CarSQMIxP9MGRrx16oHjdDotQw>
-Feedback-ID: i1761444e:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 27 Nov 2023 13:46:11 -0500 (EST)
-From: Tim Crawford <tcrawford@system76.com>
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=PbBvG+Wi
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-40b479b9c35so9006195e9.1
+        for <alsa-devel@alsa-project.org>;
+ Mon, 27 Nov 2023 14:15:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1701123357; x=1701728157;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=+rYVD6pv2AkTe+bgU1Vf149fg5BMC7DKEF46un8wVt0=;
+        b=PbBvG+WiQT5C/N5+RfSyTxqvCxOM5m8fsI+ia3hMrEhPGetqXB6Zyx4iDDvWg8Nwas
+         c5PLWxo9CPaw3JyCAfqBYdvhhbg9/kO4tV+BVw84flmutKYr1pR48g1rUX1i0iys4/gK
+         DW/0fC2Tj71XlzLUXWIybqK0YAh32Jzqqm/dMzlF7rA6PEs3nM/6mux5rLrlZKrzzUuh
+         N7tREinBX0UdjERBEZxmSEmrDTSzfPXhiozjNuQmFhkTXduuuf7OJvs12zB9uNkSVgsf
+         AfkRA0CKGTppJjJAiT8nsyYhYzjN/4g3hAnbTovLhz5TGxjTz0E5nilIIL5SOoXtOhFy
+         YusA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1701123357; x=1701728157;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=+rYVD6pv2AkTe+bgU1Vf149fg5BMC7DKEF46un8wVt0=;
+        b=litQty1mA1ghBjrXlm1OQvZcJVhYHigqIOhHuKZ+t6J8D5stCvBZ8PX8JtjMtt0JKo
+         NU/9ydVm85Kx0pQItYdm8EH7FIN67NO0j4AI5c2rgPsQ+M2vJbRgjmpnpP4C9lVvL8db
+         ObbEjQG79eCzxCPvURvN8+0A3nA7+LRlE4iMnbUjCYb1HWGYvPkJmFmUC01lWcp9cpOf
+         r/kAicSqwYv+0RO3bzxOkf0Jx0DBAcWnEDLKqYT55nBZaYJ44qZz5jLyjoZ/TeqXUkP4
+         QYiLG0kFeaeFOVlqbhRl62DTJa2WuUEY2WPUzuVBtHe4kuViccawTCh/tzRrRVcLmWNz
+         Jrhg==
+X-Gm-Message-State: AOJu0Yzbf+fxo5F5O0Pj2M7MdYqikzIaQ9oY1mKIPS5EXNsmE3ZYUm0x
+	AcY/bH6+nua7gZ3R+uXXVOG2DTcCGwo=
+X-Google-Smtp-Source: 
+ AGHT+IGGzRjM6xztXac9UAao5f9z7DFOWDjt5e+u8gKdJnjuH93e5m6ZoB7cywZZvxn8X8OExDAUDA==
+X-Received: by 2002:a05:600c:1f8c:b0:40b:385f:4182 with SMTP id
+ je12-20020a05600c1f8c00b0040b385f4182mr10171621wmb.27.1701123357094;
+        Mon, 27 Nov 2023 14:15:57 -0800 (PST)
+Received: from napoleon2.. ([2a02:908:1980:b9c0::5b7a])
+        by smtp.gmail.com with ESMTPSA id
+ e18-20020a05600c4e5200b0040b43da0bbasm6696022wmq.30.2023.11.27.14.15.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 27 Nov 2023 14:15:56 -0800 (PST)
+From: Julian Sikorski <belegdol@gmail.com>
+X-Google-Original-From: Julian Sikorski <belegdol+github@gmail.com>
 To: alsa-devel@alsa-project.org
-Cc: broonie@kernel.org,
-	productdev@system76.com,
-	Jeremy Soller <jeremy@system76.com>,
-	Tim Crawford <tcrawford@system76.com>
-Subject: [RESEND] ASoC: amd: yc: Add DMI entry to support System76 Pangolin 13
-Date: Mon, 27 Nov 2023 11:42:38 -0700
-Message-ID: <20231127184237.32077-2-tcrawford@system76.com>
+Cc: Julian Sikorski <belegdol+github@gmail.com>
+Subject: [PATCH] Add a quirk for Yamaha YIT-W12TX transmitter
+Date: Mon, 27 Nov 2023 23:15:52 +0100
+Message-ID: <20231127221552.19087-1-belegdol+github@gmail.com>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 5WQDA2GTZ434SBMVM3GOSV6BIOWTXEUC
-X-Message-ID-Hash: 5WQDA2GTZ434SBMVM3GOSV6BIOWTXEUC
-X-MailFrom: tcrawford@system76.com
+Message-ID-Hash: Y3J57K7F7NZBNZFTUS2PSB36LRN2RHOY
+X-Message-ID-Hash: Y3J57K7F7NZBNZFTUS2PSB36LRN2RHOY
+X-MailFrom: belegdol@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -122,7 +108,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5WQDA2GTZ434SBMVM3GOSV6BIOWTXEUC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Y3J57K7F7NZBNZFTUS2PSB36LRN2RHOY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -131,34 +117,27 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Jeremy Soller <jeremy@system76.com>
+The device fails to initialize otherwise, giving the following error:
+[ 3676.671641] usb 2-1.1: 1:1: cannot get freq at ep 0x1
 
-Add pang13 quirk to enable the internal microphone.
-
-Signed-off-by: Jeremy Soller <jeremy@system76.com>
-Signed-off-by: Tim Crawford <tcrawford@system76.com>
+Signed-off-by: Julian Sikorski <belegdol+github@gmail.com>
 ---
- sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ sound/usb/quirks.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
-index 3ec15b46fa35..fd5b7d6c6eec 100644
---- a/sound/soc/amd/yc/acp6x-mach.c
-+++ b/sound/soc/amd/yc/acp6x-mach.c
-@@ -353,6 +353,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
- 			DMI_MATCH(DMI_PRODUCT_VERSION, "pang12"),
- 		}
- 	},
-+	{
-+		.driver_data = &acp6x_card,
-+		.matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "System76"),
-+			DMI_MATCH(DMI_PRODUCT_VERSION, "pang13"),
-+		}
-+	},
- 	{}
- };
- 
+diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
+index ab2b938502eb..bf0a7cca90d0 100644
+--- a/sound/usb/quirks.c
++++ b/sound/usb/quirks.c
+@@ -2031,6 +2031,8 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
+ 		   QUIRK_FLAG_CTL_MSG_DELAY_1M | QUIRK_FLAG_IGNORE_CTL_ERROR),
+ 	DEVICE_FLG(0x0499, 0x1509, /* Steinberg UR22 */
+ 		   QUIRK_FLAG_GENERIC_IMPLICIT_FB),
++	DEVICE_FLG(0x0499, 0x3108, /* Yamaha YIT-W12TX */
++		   QUIRK_FLAG_GET_SAMPLE_RATE),
+ 	DEVICE_FLG(0x04d8, 0xfeea, /* Benchmark DAC1 Pre */
+ 		   QUIRK_FLAG_GET_SAMPLE_RATE),
+ 	DEVICE_FLG(0x04e8, 0xa051, /* Samsung USBC Headset (AKG) */
 -- 
-2.41.0
+2.43.0
 

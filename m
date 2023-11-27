@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D61537FA4F0
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Nov 2023 16:40:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DFF27FA4F1
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Nov 2023 16:40:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 885C8DE5;
-	Mon, 27 Nov 2023 16:40:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 885C8DE5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 487C4E8A;
+	Mon, 27 Nov 2023 16:40:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 487C4E8A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701099630;
-	bh=2/PlK81RDS/YXT5w7vXXLMG5XVn5aYXtHWj/zVHQOHE=;
+	s=default; t=1701099647;
+	bh=/aZ5dxakQtq/x5Qt5/UYeLdfsoMev4N846nYiIvN8pQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=vUabKd5AtSzCJDKxGhST6rVd5UOdsbVkZeUPb0GXUNVDi4K1eEsj8PP+XIQkod5WK
-	 67InoOURcoZApeHElwk3JcucZ6Mw+k7vb06O7JUImVpVrvbsQihQxzL/dadeVutb89
-	 IacwasXnc58avXCxb644KAeJH7AfbdM0qW5dOZDA=
+	b=l+ueS/0Ed0Orm8EeCF/kExhPNcbOqQjuA6Zfqq/Nd/vV7V0C/LKoGZPif5XMpTVVx
+	 baq2GK7/DTFOVP7JyXImi+qI6Qf+Dg/ruqaN3bzH3h9y1c3+u/OtLpNyQsdLI2+E5p
+	 xGLV16cK8/9KbCEMfzoSTjXpCRKo1qeMfGR2qIuw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CD4C8F80CC1; Mon, 27 Nov 2023 16:36:12 +0100 (CET)
+	id 198B7F89629; Mon, 27 Nov 2023 16:36:14 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 39D8AF80CB8;
-	Mon, 27 Nov 2023 16:36:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8E917F8962A;
+	Mon, 27 Nov 2023 16:36:14 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BE9CEF8076A; Mon, 27 Nov 2023 16:35:58 +0100 (CET)
+	id 8CE36F807D1; Mon, 27 Nov 2023 16:36:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,40 +35,40 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5D39EF805F5
+	by alsa1.perex.cz (Postfix) with ESMTPS id ABDACF80605
 	for <alsa-devel@alsa-project.org>; Mon, 27 Nov 2023 16:35:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D39EF805F5
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ABDACF80605
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=Wp2QNahJ
+ header.s=Intel header.b=OMW2aX8L
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1701099341; x=1732635341;
+  t=1701099342; x=1732635342;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=2/PlK81RDS/YXT5w7vXXLMG5XVn5aYXtHWj/zVHQOHE=;
-  b=Wp2QNahJYk+cvg+o2Dvj/NPvixM+JGiBgE1Q86n3DKATMpQzA5x17PS9
-   GJKLt3gUwuGywaVg1lJuKUMLsrrtTUBgXVrZfhoI1lguiftzdNvpR77VZ
-   UflofnKWV3Z1J+B9QApkRsVQsHPfALsgRM0xwnaKEx8iFT3ZCgug+Es/k
-   xDXMQIwTXfFWmqfsIQLQY0chE7a8gHQX6M/04fmTqVsZkNTrwNPuwvqDL
-   HXD1XMUox1wlC4GqkuE5mRU8L6PxOvR8gorSVKvBOpz26izM7jujo2qp0
-   cRm0meU7UDPzcgq6m+dnlJF0KuMWDfdLW/BTzWM2obTq001myLYQVA8He
+  bh=/aZ5dxakQtq/x5Qt5/UYeLdfsoMev4N846nYiIvN8pQ=;
+  b=OMW2aX8LnX7L53jSMcfH7K1kD4uSuf2XqBbmXYHrvD8MiOPzEx92l9L8
+   mGTplO4sk7+7BHihYmyU/0xUBCxvpn8Vro2W4TJc1SdYZqCfMTnKdA4II
+   gqCoTMwqZqN5Z0n7gc9KWXfGVYDLHFLaa1OjffINFHALL9geoF8mhK677
+   tXBIVo+loPJC4MTb0PnOiP/DWf81SCfM3Rbg55cOplRswQHLka05z3Wya
+   W8VEOcGlss+Am9wPQ98zPaZtvWxqClXVHmcnt/klTY8YSKAOyNl6+U0+D
+   TvAUr1EQ42jz/BinlV2m6XKkNw95vMkYrp/FDMtqw/j02AVA7yXoydYmS
    Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10907"; a="372894601"
+X-IronPort-AV: E=McAfee;i="6600,9927,10907"; a="372894618"
 X-IronPort-AV: E=Sophos;i="6.04,231,1695711600";
-   d="scan'208";a="372894601"
+   d="scan'208";a="372894618"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
   by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Nov 2023 07:27:15 -0800
+ 27 Nov 2023 07:27:17 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10907"; a="771956957"
+X-IronPort-AV: E=McAfee;i="6600,9927,10907"; a="771957000"
 X-IronPort-AV: E=Sophos;i="6.04,231,1695711600";
-   d="scan'208";a="771956957"
+   d="scan'208";a="771957000"
 Received: from acornagl-mobl.ger.corp.intel.com (HELO
  pujfalus-desk.ger.corp.intel.com) ([10.252.58.144])
   by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Nov 2023 07:27:12 -0800
+ 27 Nov 2023 07:27:15 -0800
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com,
 	broonie@kernel.org
@@ -79,17 +79,17 @@ Cc: alsa-devel@alsa-project.org,
 	ranjani.sridharan@linux.intel.com,
 	yung-chuan.liao@linux.intel.com,
 	chao.song@linux.intel.com
-Subject: [PATCH 19/27] ASoC: Intel: sof_rt5682: use common module for BT
+Subject: [PATCH 20/27] ASoC: Intel: sof_ssp_amp: use common module for BT
  offload link
-Date: Mon, 27 Nov 2023 17:26:46 +0200
-Message-ID: <20231127152654.28204-20-peter.ujfalusi@linux.intel.com>
+Date: Mon, 27 Nov 2023 17:26:47 +0200
+Message-ID: <20231127152654.28204-21-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20231127152654.28204-1-peter.ujfalusi@linux.intel.com>
 References: <20231127152654.28204-1-peter.ujfalusi@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: SGVAV3ZK6Z2LPPV7QIK5APCPFYNTPPK5
-X-Message-ID-Hash: SGVAV3ZK6Z2LPPV7QIK5APCPFYNTPPK5
+Message-ID-Hash: DV7ALAO4EG3UVEHZCZNUZ56GE55VZSAF
+X-Message-ID-Hash: DV7ALAO4EG3UVEHZCZNUZ56GE55VZSAF
 X-MailFrom: peter.ujfalusi@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -102,7 +102,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SGVAV3ZK6Z2LPPV7QIK5APCPFYNTPPK5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DV7ALAO4EG3UVEHZCZNUZ56GE55VZSAF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,15 +120,15 @@ Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 ---
- sound/soc/intel/boards/sof_rt5682.c | 30 ++++++++++++-----------------
- 1 file changed, 12 insertions(+), 18 deletions(-)
+ sound/soc/intel/boards/sof_ssp_amp.c | 31 ++++++++++------------------
+ 1 file changed, 11 insertions(+), 20 deletions(-)
 
-diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
-index 777d1db5c6ad..22dd85129a51 100644
---- a/sound/soc/intel/boards/sof_rt5682.c
-+++ b/sound/soc/intel/boards/sof_rt5682.c
-@@ -720,23 +720,11 @@ sof_card_dai_links_create(struct device *dev, enum sof_ssp_codec codec_type,
- 		int port = (sof_rt5682_quirk & SOF_BT_OFFLOAD_SSP_MASK) >>
+diff --git a/sound/soc/intel/boards/sof_ssp_amp.c b/sound/soc/intel/boards/sof_ssp_amp.c
+index c463bc698c10..72505f6a6501 100644
+--- a/sound/soc/intel/boards/sof_ssp_amp.c
++++ b/sound/soc/intel/boards/sof_ssp_amp.c
+@@ -215,29 +215,14 @@ sof_card_dai_links_create(struct device *dev, enum sof_ssp_codec amp_type,
+ 		int port = (sof_ssp_amp_quirk & SOF_BT_OFFLOAD_SSP_MASK) >>
  				SOF_BT_OFFLOAD_SSP_SHIFT;
  
 -		links[id].id = id;
@@ -152,33 +152,38 @@ index 777d1db5c6ad..22dd85129a51 100644
 +		if (ret)
 +			return NULL;
 +
-+		id++;
+ 		id++;
  	}
  
- 	/* HDMI-In SSP */
-@@ -843,6 +831,10 @@ static int sof_audio_probe(struct platform_device *pdev)
+ 	return links;
+-devm_err:
+-	return NULL;
+ }
  
- 	dev_dbg(&pdev->dev, "sof_rt5682_quirk = %lx\n", sof_rt5682_quirk);
+ static int sof_ssp_amp_probe(struct platform_device *pdev)
+@@ -261,6 +246,10 @@ static int sof_ssp_amp_probe(struct platform_device *pdev)
+ 	else
+ 		ctx->dmic_be_num = 0;
  
 +	/* port number of peripherals attached to ssp interface */
-+	ctx->ssp_bt = (sof_rt5682_quirk & SOF_BT_OFFLOAD_SSP_MASK) >>
++	ctx->ssp_bt = (sof_ssp_amp_quirk & SOF_BT_OFFLOAD_SSP_MASK) >>
 +			SOF_BT_OFFLOAD_SSP_SHIFT;
 +
- 	ctx->ssp_amp = (sof_rt5682_quirk & SOF_RT5682_SSP_AMP_MASK) >>
- 			SOF_RT5682_SSP_AMP_SHIFT;
+ 	ctx->ssp_amp = sof_ssp_amp_quirk & SOF_AMPLIFIER_SSP_MASK;
  
-@@ -854,8 +846,10 @@ static int sof_audio_probe(struct platform_device *pdev)
- 	if (ctx->amp_type != CODEC_NONE)
- 		sof_audio_card_rt5682.num_links++;
+ 	/* set number of dai links */
+@@ -288,8 +277,10 @@ static int sof_ssp_amp_probe(struct platform_device *pdev)
+ 		ctx->hdmi_num = 0;
+ 	}
  
--	if (sof_rt5682_quirk & SOF_SSP_BT_OFFLOAD_PRESENT)
-+	if (sof_rt5682_quirk & SOF_SSP_BT_OFFLOAD_PRESENT) {
+-	if (sof_ssp_amp_quirk & SOF_SSP_BT_OFFLOAD_PRESENT)
++	if (sof_ssp_amp_quirk & SOF_SSP_BT_OFFLOAD_PRESENT) {
 +		ctx->bt_offload_present = true;
- 		sof_audio_card_rt5682.num_links++;
+ 		sof_ssp_amp_card.num_links++;
 +	}
  
- 	if (sof_rt5682_quirk & SOF_SSP_HDMI_CAPTURE_PRESENT_MASK)
- 		sof_audio_card_rt5682.num_links +=
+ 	dai_links = sof_card_dai_links_create(&pdev->dev, ctx->amp_type,
+ 					      ctx->ssp_amp, ctx->dmic_be_num,
 -- 
 2.43.0
 

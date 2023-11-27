@@ -2,93 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 576A07FA929
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Nov 2023 19:42:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CF357FA8FF
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Nov 2023 19:33:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BAC16DEC;
-	Mon, 27 Nov 2023 19:42:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BAC16DEC
+	by alsa0.perex.cz (Postfix) with ESMTPS id B6F3484D;
+	Mon, 27 Nov 2023 19:33:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6F3484D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701110561;
-	bh=ocdAfY8jzn+hMTXj3yEo5xBI/FMZYl5m4SnwH6zy1iQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1701110001;
+	bh=ii26YioRm1dVaNmafDquet6vORNU5vVrSjgLkugEVf4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Dio0c0fDNlpL6r3Oznc2BE0/qU96B/wswbtZrGExNYfrXHzX8HkkRGMuIWSGB40LT
-	 W9f89RSFm8itv3gL9LXQbsjrcho95KSqUBR2nvFqpULptj0tx3ke3oMAg7tYxVeFPm
-	 +7SKeTy+g+Czza0xxdgXS/AfAGkMJgauZ2/3qUR0=
+	b=TUd6Plj2SoaoBez9Cid2lelb8KjHOWh6qRAnlgQPr+q1ZUjiCkftf5EH2/687amRN
+	 uTwnAd+yQdrdrGp+etKEBYJWebcW0yGUeMi3mEWY/RZ/GAWwUgeQNkKYEJ44FLpZF8
+	 HHgIzHiCKYKRDV5MoKywBCNylI+00I6W2JscKqFs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 257B6F805AA; Mon, 27 Nov 2023 19:42:00 +0100 (CET)
+	id B070EF80579; Mon, 27 Nov 2023 19:32:50 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6FB2EF805BD;
-	Mon, 27 Nov 2023 19:42:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D1A4BF80579;
+	Mon, 27 Nov 2023 19:32:49 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6DF2FF805A8; Mon, 27 Nov 2023 19:41:57 +0100 (CET)
+	id 4329FF801D5; Mon, 27 Nov 2023 19:32:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from m.b4.vu (m.b4.vu [203.16.231.148])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5FDCEF800F5
-	for <alsa-devel@alsa-project.org>; Mon, 27 Nov 2023 19:41:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5FDCEF800F5
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=gMlbUV/K
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1701110508; x=1732646508;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=ocdAfY8jzn+hMTXj3yEo5xBI/FMZYl5m4SnwH6zy1iQ=;
-  b=gMlbUV/Ke9C5kATge66ETxTjt02r3ILPCCO1nwwhfZ+2NJHC3aELKaeV
-   qPryzyt72/74BE/TvXBOQiLLFQfAIrERdepqbi0E6jJ70k4KQSv2p0DBe
-   9GADtGtNPrSyOFfnUAl2Ip1kdAl9kPam+D1mjhFNhvILyGMlMDPdVx6wY
-   TOljiR6CRWGFBmh8oPn5l76uGcxplZVuqMt1uE1gscqCSieGJPCuD8Isp
-   wN7AbrWhtp2wdy6LSOD/bVy5JbXHCztBwwTZLHx1TK5dKMp+M3ekHZ3qx
-   xcpkKTpZ0+jgJPYuP/mRVe33Rwv8r0kfd334YyoZ94KNpr/QBaSXeeNW9
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10907"; a="392517689"
-X-IronPort-AV: E=Sophos;i="6.04,231,1695711600";
-   d="scan'208";a="392517689"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
-  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Nov 2023 10:41:41 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10907"; a="891820937"
-X-IronPort-AV: E=Sophos;i="6.04,231,1695711600";
-   d="scan'208";a="891820937"
-Received: from alanpai-mobl.amr.corp.intel.com (HELO [10.209.65.171])
- ([10.209.65.171])
-  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Nov 2023 10:41:41 -0800
-Message-ID: <a177e7c1-3a28-464e-888f-315df72d528c@linux.intel.com>
-Date: Mon, 27 Nov 2023 11:44:43 -0600
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6B0F4F800F5
+	for <alsa-devel@alsa-project.org>; Mon, 27 Nov 2023 19:32:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B0F4F800F5
+Received: by m.b4.vu (Postfix, from userid 1000)
+	id 5CE5A604F550; Tue, 28 Nov 2023 05:02:26 +1030 (ACDT)
+Date: Tue, 28 Nov 2023 05:02:26 +1030
+From: "Geoffrey D. Bennett" <g@b4.vu>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org
+Subject: Re: [PATCH RFC v2] ALSA: scarlett2: Add ioctls for user-space access
+Message-ID: <ZWTgusFsOUfb90Xt@m.b4.vu>
+References: <ZSqehHhedJQY9h/1@m.b4.vu>
+ <76c1526d-78be-92d2-cf2b-148278394575@perex.cz>
+ <ZS0tajzKr68CZ5uA@m.b4.vu>
+ <123242ed-c343-dab8-fed1-9f5d2da44d7a@perex.cz>
+ <ZS1asqF0cXRUzBwb@m.b4.vu>
+ <87edhtn0r2.wl-tiwai@suse.de>
+ <ZVpHX33vfzdjpH0z@m.b4.vu>
+ <871qcfqnht.wl-tiwai@suse.de>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] soundwire: stream: fix NULL pointer dereference for
- multi_link
-Content-Language: en-US
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>,
- Sanyog Kale <sanyog.r.kale@intel.com>, Shreyas NC <shreyas.nc@intel.com>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-References: <20231124180136.390621-1-krzysztof.kozlowski@linaro.org>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20231124180136.390621-1-krzysztof.kozlowski@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: VWBRU3D54ON3HADSDSW2DHVNNQUIUMEB
-X-Message-ID-Hash: VWBRU3D54ON3HADSDSW2DHVNNQUIUMEB
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <871qcfqnht.wl-tiwai@suse.de>
+Message-ID-Hash: CYHPVIXRSDADN4K6BYV2GKSOXZJV6YTQ
+X-Message-ID-Hash: CYHPVIXRSDADN4K6BYV2GKSOXZJV6YTQ
+X-MailFrom: g@b4.vu
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -100,7 +74,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VWBRU3D54ON3HADSDSW2DHVNNQUIUMEB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CYHPVIXRSDADN4K6BYV2GKSOXZJV6YTQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,77 +83,160 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Hi Takashi,
 
-
-On 11/24/23 12:01, Krzysztof Kozlowski wrote:
-> If bus is marked as multi_link, but number of masters in the stream is
-> not higher than bus->hw_sync_min_links (bus->multi_link && m_rt_count >=
-> bus->hw_sync_min_links), bank switching should not happen.  The first
-> part of do_bank_switch() code properly takes these conditions into
-> account, but second part (sdw_ml_sync_bank_switch()) relies purely on
-> bus->multi_link property.  This is not balanced and leads to NULL
-> pointer dereference:
+On Fri, Nov 24, 2023 at 02:39:26PM +0100, Takashi Iwai wrote:
+> On Sun, 19 Nov 2023 18:35:27 +0100,
+> Geoffrey D. Bennett wrote:
+> > 
+> > Hi Jaroslav, Takashi,
+> > 
+> > I took your feedback onboard about not providing generic access to the
+> > scarlett2_usb() function from user-space.
+> > 
+> > After a few iterations, I've come up with this hwdep interface to
+> > support reset-to-factory-defaults, reset-to-factory-firmware, and
+> > firmware-update in a safe way:
+> > 
+> > -----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----
+> > 
+> > /* Get protocol version */
+> > #define SCARLETT2_IOCTL_PVERSION _IOR('S', 0x60, int)
+> > 
+> > /* Reboot */
+> > #define SCARLETT2_IOCTL_REBOOT _IO('S', 0x61)
+> > 
+> > /* Select flash segment */
+> > #define SCARLETT2_SEGMENT_ID_SETTINGS 0
+> > #define SCARLETT2_SEGMENT_ID_FIRMWARE 1
+> > #define SCARLETT2_SEGMENT_ID_COUNT 2
+> > 
+> > #define SCARLETT2_IOCTL_SELECT_FLASH_SEGMENT _IOW('S', 0x62, int)
+> > 
+> > /* Erase selected flash segment */
+> > #define SCARLETT2_IOCTL_ERASE_FLASH_SEGMENT _IO('S', 0x63)
+> > 
+> > /* Get selected flash segment erase progress
+> >  * 1 through to num_blocks, or 255 for complete
+> >  */
+> > struct scarlett2_flash_segment_erase_progress {
+> >         unsigned char progress;
+> >         unsigned char num_blocks;
+> > };
+> > #define SCARLETT2_IOCTL_GET_ERASE_PROGRESS \
+> >         _IOR('S', 0x64, struct scarlett2_flash_segment_erase_progress)
+> > 
+> > -----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----
+> > 
+> > Does that look reasonable to you?
+> > 
+> > Broadly, it's used like this:
+> > 
+> > Reset to factory default configuration:
+> > 
+> > - ioctl select_flash_segment SCARLETT2_SEGMENT_ID_SETTINGS
+> > - ioctl erase_flash_segment
+> > - ioctl get_erase_progress (optional)
 > 
->   Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
->   ...
->   Call trace:
->    wait_for_completion_timeout+0x124/0x1f0
->    do_bank_switch+0x370/0x6f8
->    sdw_prepare_stream+0x2d0/0x438
->    qcom_snd_sdw_prepare+0xa0/0x118
->    sm8450_snd_prepare+0x128/0x148
->    snd_soc_link_prepare+0x5c/0xe8
->    __soc_pcm_prepare+0x28/0x1ec
->    dpcm_be_dai_prepare+0x1e0/0x2c0
->    dpcm_fe_dai_prepare+0x108/0x28c
->    snd_pcm_do_prepare+0x44/0x68
->    snd_pcm_action_single+0x54/0xc0
->    snd_pcm_action_nonatomic+0xe4/0xec
->    snd_pcm_prepare+0xc4/0x114
->    snd_pcm_common_ioctl+0x1154/0x1cc0
->    snd_pcm_ioctl+0x54/0x74
+> So the erase operation is asynchronous?  This sounds a bit dangerous.
+> Will the driver block further conflicting operations until the erase
+> finishes?
+
+Yes it is asynchronous. I've made it so that it's not dangerous by
+locking out any conflicting operations:
+- Mixer operations that require device access return EBUSY
+- The hwdep is marked as exclusive so other processes can't use it
+- Subsequent hwdep operations (if get_erase_progress wasn't called)
+  will block until the erase is complete
+
+> > Erase firmware (reverts to factory firmware which is stored in a
+> > different flash segment, inaccessible from these ioctls):
+> > 
+> > - ioctl select_flash_segment SCARLETT2_SEGMENT_ID_FIRMWARE
+> > - ioctl erase_flash_segment
+> > - ioctl get_erase_progress (optional)
+> > 
+> > Upload new firmware:
+> > 
+> > - write() <- a bunch of these, only permitted after the previous erase
+> >   step was completed
 > 
-> Fixes: ce6e74d008ff ("soundwire: Add support for multi link bank switch")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> The write op must accept partial writes, and it becomes cumbersome.
+> Can it be a one-shot ioctl, too?
 
-LGTM, thanks for the patch.
+I considered one-shot ioctls, but as the erase & write operations take
+some seconds, then it is not possible to provide feedback to the
+end-user while the erase & write operations happen.
 
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-
-
-> ---
->  drivers/soundwire/stream.c | 7 ++++---
->  1 file changed, 4 insertions(+), 3 deletions(-)
+> > On completion:
+> > 
+> > - ioctl reboot
+> > 
+> > To confirm that this interface is sufficient, I have implemented it in
+> > the scarlett2 driver and written a user-space utility which can
+> > perform all the above operations.
+> > 
+> > I will clean up the implementation a bit and then submit for review;
+> > just wanted to share the interface first in case you have any comments
+> > at this point.
 > 
-> diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
-> index 9dc6399f206a..f9c0adc0738d 100644
-> --- a/drivers/soundwire/stream.c
-> +++ b/drivers/soundwire/stream.c
-> @@ -742,14 +742,15 @@ static int sdw_bank_switch(struct sdw_bus *bus, int m_rt_count)
->   * sdw_ml_sync_bank_switch: Multilink register bank switch
->   *
->   * @bus: SDW bus instance
-> + * @multi_link: whether this is a multi-link stream with hardware-based sync
->   *
->   * Caller function should free the buffers on error
->   */
-> -static int sdw_ml_sync_bank_switch(struct sdw_bus *bus)
-> +static int sdw_ml_sync_bank_switch(struct sdw_bus *bus, bool multi_link)
->  {
->  	unsigned long time_left;
->  
-> -	if (!bus->multi_link)
-> +	if (!multi_link)
->  		return 0;
->  
->  	/* Wait for completion of transfer */
-> @@ -847,7 +848,7 @@ static int do_bank_switch(struct sdw_stream_runtime *stream)
->  			bus->bank_switch_timeout = DEFAULT_BANK_SWITCH_TIMEOUT;
->  
->  		/* Check if bank switch was successful */
-> -		ret = sdw_ml_sync_bank_switch(bus);
-> +		ret = sdw_ml_sync_bank_switch(bus, multi_link);
->  		if (ret < 0) {
->  			dev_err(bus->dev,
->  				"multi link bank switch failed: %d\n", ret);
+> IMO, from the user POV, it's easier to have per-purpose ioctls,
+> instead of combining multiple ioctl sequences.  Of course, it won't
+> scale too much, but for the limited number of operations, it's
+> clearer.
+> 
+> That is, we can provide just a few ioctls for reset-to-factory,
+> reset-to-something-else, and update.
+> 
+> But, if you need asynchronous operations inevitably by some reason,
+> it's a different story, though.
+
+Just to provide progress feedback to the end-user.
+
+I've written the CLI tool using the proposed ioctl interface, and it
+works nicely:
+
+https://github.com/geoffreybennett/scarlett2
+
+[g@fedora ~]$ time scarlett2 update
+Selected device Scarlett 4th Gen Solo
+Found firmware version 2115 for Scarlett 4th Gen Solo:
+  /usr/lib/firmware/scarlett2/scarlett2-1235-8218-2115.bin
+Updating Scarlett 4th Gen Solo from firmware version 1974 to 2115
+Resetting configuration to factory default...
+Erase progress: Done!
+Erasing upgrade firmware...
+Erase progress: Done!
+Firmware write progress: Done!
+Rebooting interface...
+
+real    0m5.919s
+user    0m0.007s
+sys     0m0.034s
+
+The user experience would not be as nice with one-shot ioctls. And
+using ioctls which block for a long time would make using them from
+the GUI https://github.com/geoffreybennett/alsa-scarlett-gui/ rather
+awkward. None of the other operations on the interface block for an
+appreciable amount of time.
+
+I've got a first draft of firmware update and Scarlett 4th Gen support
+that I am sharing with others to test now. It's 48 commits, divided
+into:
+- 5 commits to add extra checks that are missing
+- 5 commits for firmware management
+- 20 commits refactoring the existing driver to allow Scarlett 4th Gen
+  support to be added
+- 18 commits adding the support (although the underlying Gen 4
+  protocol is the same as the other series, there are many new
+  different types of controls)
+
+I've put those commits on this branch:
+https://github.com/geoffreybennett/scarlett-gen2/tree/scarlett-gen4
+
+Do you want me to share all 48 commits on the mailing list at once? Or
+maybe just the first 5+5 commits for now and the rest after I get some
+feedback from others?
+
+Thanks,
+Geoffrey.

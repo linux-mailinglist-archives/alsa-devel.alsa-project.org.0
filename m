@@ -2,67 +2,115 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CF357FA8FF
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Nov 2023 19:33:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B05E7FA934
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Nov 2023 19:47:00 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B6F3484D;
-	Mon, 27 Nov 2023 19:33:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6F3484D
+	by alsa0.perex.cz (Postfix) with ESMTPS id A54EB84D;
+	Mon, 27 Nov 2023 19:46:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A54EB84D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701110001;
-	bh=ii26YioRm1dVaNmafDquet6vORNU5vVrSjgLkugEVf4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=TUd6Plj2SoaoBez9Cid2lelb8KjHOWh6qRAnlgQPr+q1ZUjiCkftf5EH2/687amRN
-	 uTwnAd+yQdrdrGp+etKEBYJWebcW0yGUeMi3mEWY/RZ/GAWwUgeQNkKYEJ44FLpZF8
-	 HHgIzHiCKYKRDV5MoKywBCNylI+00I6W2JscKqFs=
+	s=default; t=1701110814;
+	bh=geXNpVRgk3I20R80hxfUGqxn435aRrCWq3UP1y1Q65Q=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=lAn3JUXywykY2ISbYOsMfHDN8YKpq4Wm9VCR3rtlyK+BXT6GjWK5vYeyQAGSmfvT+
+	 VsRO3GcapikvujakCrk8t/w+uPTew1fhnjU6M9zAv5qYE8/ycHk5SZ3btXsef5y79h
+	 IY2fai3N24G1IfID7nYLkq6Fe8Xo1k+Akadc0kBU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B070EF80579; Mon, 27 Nov 2023 19:32:50 +0100 (CET)
+	id 40900F8057A; Mon, 27 Nov 2023 19:46:23 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D1A4BF80579;
-	Mon, 27 Nov 2023 19:32:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 62B89F80578;
+	Mon, 27 Nov 2023 19:46:22 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4329FF801D5; Mon, 27 Nov 2023 19:32:45 +0100 (CET)
+	id A0CD7F801D5; Mon, 27 Nov 2023 19:46:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from m.b4.vu (m.b4.vu [203.16.231.148])
+X-Spam-Status: No, score=-6.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H5,
+	RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
+ [66.111.4.29])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6B0F4F800F5
-	for <alsa-devel@alsa-project.org>; Mon, 27 Nov 2023 19:32:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B0F4F800F5
-Received: by m.b4.vu (Postfix, from userid 1000)
-	id 5CE5A604F550; Tue, 28 Nov 2023 05:02:26 +1030 (ACDT)
-Date: Tue, 28 Nov 2023 05:02:26 +1030
-From: "Geoffrey D. Bennett" <g@b4.vu>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org
-Subject: Re: [PATCH RFC v2] ALSA: scarlett2: Add ioctls for user-space access
-Message-ID: <ZWTgusFsOUfb90Xt@m.b4.vu>
-References: <ZSqehHhedJQY9h/1@m.b4.vu>
- <76c1526d-78be-92d2-cf2b-148278394575@perex.cz>
- <ZS0tajzKr68CZ5uA@m.b4.vu>
- <123242ed-c343-dab8-fed1-9f5d2da44d7a@perex.cz>
- <ZS1asqF0cXRUzBwb@m.b4.vu>
- <87edhtn0r2.wl-tiwai@suse.de>
- <ZVpHX33vfzdjpH0z@m.b4.vu>
- <871qcfqnht.wl-tiwai@suse.de>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8BE9CF8007E
+	for <alsa-devel@alsa-project.org>; Mon, 27 Nov 2023 19:46:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8BE9CF8007E
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=system76.com header.i=@system76.com header.a=rsa-sha256
+ header.s=fm1 header.b=e+SHTisB;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm1 header.b=OWuzH4lW
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+	by mailout.nyi.internal (Postfix) with ESMTP id 79C335C01EA;
+	Mon, 27 Nov 2023 13:46:12 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+  by compute1.internal (MEProxy); Mon, 27 Nov 2023 13:46:12 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=system76.com; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:sender:subject
+	:subject:to:to; s=fm1; t=1701110772; x=1701197172; bh=8+TngcIMRg
+	F81R1bqa99WS9iwPqGLiZkgYXXdVzQ87k=; b=e+SHTisB7ZRXSSsaUuuXrusLaw
+	MVR4lWzO8Nd9T0+Ogt2kMjtUzSE5QM0frqrLD2nmz1Pvj+vXfPlz99bsgbSujxpk
+	kpLI85pYqpgqDPV7YEGvUeG1nlDq+KTbghQ2kXQH4t1xHAtmeu7hpEMe96A5rofS
+	k4hITJzXig8aVx1LA7pFQyZTV1ZgkNI9bgsxzzv0PUHwYf421vOOkBn+VKreBJmy
+	/LhJ7ushiWUYOkJFKSP6N0UWWUFCl+dZjpaq52GKd/fPb5BIwURXvZIdcU8iXkzw
+	qHcD0RdQxhJBXJtn3dWnJ99GtBOtd+XA8kCQFhgbgJEXWFkemSEN47nDzIdQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm1; t=1701110772; x=1701197172; bh=8+TngcIMRgF81
+	R1bqa99WS9iwPqGLiZkgYXXdVzQ87k=; b=OWuzH4lW1U4UobvDgAv4gQ3yxcmto
+	bVwUvaG2tp1Ebr4CiFOlJzHX0feSecOX8c4AKiTfhnEQL4qzJYlp05fReDIrQXBr
+	/jG7HRahgGsy0jVLBkngQpHHyyJtMsjWTFqJu4u+mnwmDuFuGFipBBKMijPdQEgT
+	hdmYvZ9EkFqvuUgKXFEWV/CgmzbGnbDdZWCTNNvSSslfH7wwAczNtWvxFMIwN4w6
+	QM9w9HGgjK9YcbxS8ohKUAs2L4dNRqYKgZQsPFtYXYpYQho/xF9ZEc3zFzGPRZSn
+	eLO87GBVdNKYWHtKo5gIh+rWdK/VbCeHK5LbknGgIQ0GphNFvb+fx1WMg==
+X-ME-Sender: <xms:9ONkZQFuvBfRk19Rym5vLqL4dyUiw1DWeD-t4OqOx9HgDCopj2gBmg>
+    <xme:9ONkZZXY8fQuwbFMVJ1T6Lv5505I0o8ZvirJE087sedBq-jcz0hQpTyQ8OzQGgaKB
+    PXFDxKy1RGEl2VMwQ>
+X-ME-Received: 
+ <xmr:9ONkZaJtS2r7m2zjJPoNno56wf0WxX21aEh9C5sCqfVm1yrx_uZbt8M3hr_FvGxT8STbWhJxmlGi8YD2k-Hoby9NQKw9yf4cww>
+X-ME-Proxy-Cause: 
+ gggruggvucftvghtrhhoucdtuddrgedvkedrudeiuddguddujecutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+    enucfjughrpefhvfevufffkffoggfgsedtkeertdertddtnecuhfhrohhmpefvihhmucev
+    rhgrfihfohhrugcuoehttghrrgiffhhorhgusehshihsthgvmhejiedrtghomheqnecugg
+    ftrfgrthhtvghrnhepkefgteefvdeivdfhffdtfffgieffhfetgeduudekieefueeutdel
+    fedtveeuheefnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrh
+    homhepthgtrhgrfihfohhrugesshihshhtvghmjeeirdgtohhm
+X-ME-Proxy: <xmx:9ONkZSGm2NiEu6vXHYqJGZb7h54_UZDY4bKpbu-POuQqOzkzxGwa_g>
+    <xmx:9ONkZWUmMPqD4mj89x4QAiqDb9F_A_6A7xriZdnTLXUBmhTo7Tzgbg>
+    <xmx:9ONkZVOzAUX7IFNbuyz9VZaC_rgjIiq2xgynxks7ZT8QOYCvTLNC5Q>
+    <xmx:9ONkZVQQQFEfm8bZyOkXK0W7m3f1CarSQMIxP9MGRrx16oHjdDotQw>
+Feedback-ID: i1761444e:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 27 Nov 2023 13:46:11 -0500 (EST)
+From: Tim Crawford <tcrawford@system76.com>
+To: alsa-devel@alsa-project.org
+Cc: broonie@kernel.org,
+	productdev@system76.com,
+	Jeremy Soller <jeremy@system76.com>,
+	Tim Crawford <tcrawford@system76.com>
+Subject: [RESEND] ASoC: amd: yc: Add DMI entry to support System76 Pangolin 13
+Date: Mon, 27 Nov 2023 11:42:38 -0700
+Message-ID: <20231127184237.32077-2-tcrawford@system76.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <871qcfqnht.wl-tiwai@suse.de>
-Message-ID-Hash: CYHPVIXRSDADN4K6BYV2GKSOXZJV6YTQ
-X-Message-ID-Hash: CYHPVIXRSDADN4K6BYV2GKSOXZJV6YTQ
-X-MailFrom: g@b4.vu
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: 5WQDA2GTZ434SBMVM3GOSV6BIOWTXEUC
+X-Message-ID-Hash: 5WQDA2GTZ434SBMVM3GOSV6BIOWTXEUC
+X-MailFrom: tcrawford@system76.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -74,7 +122,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CYHPVIXRSDADN4K6BYV2GKSOXZJV6YTQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5WQDA2GTZ434SBMVM3GOSV6BIOWTXEUC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -83,160 +131,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Takashi,
+From: Jeremy Soller <jeremy@system76.com>
 
-On Fri, Nov 24, 2023 at 02:39:26PM +0100, Takashi Iwai wrote:
-> On Sun, 19 Nov 2023 18:35:27 +0100,
-> Geoffrey D. Bennett wrote:
-> > 
-> > Hi Jaroslav, Takashi,
-> > 
-> > I took your feedback onboard about not providing generic access to the
-> > scarlett2_usb() function from user-space.
-> > 
-> > After a few iterations, I've come up with this hwdep interface to
-> > support reset-to-factory-defaults, reset-to-factory-firmware, and
-> > firmware-update in a safe way:
-> > 
-> > -----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----
-> > 
-> > /* Get protocol version */
-> > #define SCARLETT2_IOCTL_PVERSION _IOR('S', 0x60, int)
-> > 
-> > /* Reboot */
-> > #define SCARLETT2_IOCTL_REBOOT _IO('S', 0x61)
-> > 
-> > /* Select flash segment */
-> > #define SCARLETT2_SEGMENT_ID_SETTINGS 0
-> > #define SCARLETT2_SEGMENT_ID_FIRMWARE 1
-> > #define SCARLETT2_SEGMENT_ID_COUNT 2
-> > 
-> > #define SCARLETT2_IOCTL_SELECT_FLASH_SEGMENT _IOW('S', 0x62, int)
-> > 
-> > /* Erase selected flash segment */
-> > #define SCARLETT2_IOCTL_ERASE_FLASH_SEGMENT _IO('S', 0x63)
-> > 
-> > /* Get selected flash segment erase progress
-> >  * 1 through to num_blocks, or 255 for complete
-> >  */
-> > struct scarlett2_flash_segment_erase_progress {
-> >         unsigned char progress;
-> >         unsigned char num_blocks;
-> > };
-> > #define SCARLETT2_IOCTL_GET_ERASE_PROGRESS \
-> >         _IOR('S', 0x64, struct scarlett2_flash_segment_erase_progress)
-> > 
-> > -----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----
-> > 
-> > Does that look reasonable to you?
-> > 
-> > Broadly, it's used like this:
-> > 
-> > Reset to factory default configuration:
-> > 
-> > - ioctl select_flash_segment SCARLETT2_SEGMENT_ID_SETTINGS
-> > - ioctl erase_flash_segment
-> > - ioctl get_erase_progress (optional)
-> 
-> So the erase operation is asynchronous?  This sounds a bit dangerous.
-> Will the driver block further conflicting operations until the erase
-> finishes?
+Add pang13 quirk to enable the internal microphone.
 
-Yes it is asynchronous. I've made it so that it's not dangerous by
-locking out any conflicting operations:
-- Mixer operations that require device access return EBUSY
-- The hwdep is marked as exclusive so other processes can't use it
-- Subsequent hwdep operations (if get_erase_progress wasn't called)
-  will block until the erase is complete
+Signed-off-by: Jeremy Soller <jeremy@system76.com>
+Signed-off-by: Tim Crawford <tcrawford@system76.com>
+---
+ sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-> > Erase firmware (reverts to factory firmware which is stored in a
-> > different flash segment, inaccessible from these ioctls):
-> > 
-> > - ioctl select_flash_segment SCARLETT2_SEGMENT_ID_FIRMWARE
-> > - ioctl erase_flash_segment
-> > - ioctl get_erase_progress (optional)
-> > 
-> > Upload new firmware:
-> > 
-> > - write() <- a bunch of these, only permitted after the previous erase
-> >   step was completed
-> 
-> The write op must accept partial writes, and it becomes cumbersome.
-> Can it be a one-shot ioctl, too?
+diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
+index 3ec15b46fa35..fd5b7d6c6eec 100644
+--- a/sound/soc/amd/yc/acp6x-mach.c
++++ b/sound/soc/amd/yc/acp6x-mach.c
+@@ -353,6 +353,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
+ 			DMI_MATCH(DMI_PRODUCT_VERSION, "pang12"),
+ 		}
+ 	},
++	{
++		.driver_data = &acp6x_card,
++		.matches = {
++			DMI_MATCH(DMI_BOARD_VENDOR, "System76"),
++			DMI_MATCH(DMI_PRODUCT_VERSION, "pang13"),
++		}
++	},
+ 	{}
+ };
+ 
+-- 
+2.41.0
 
-I considered one-shot ioctls, but as the erase & write operations take
-some seconds, then it is not possible to provide feedback to the
-end-user while the erase & write operations happen.
-
-> > On completion:
-> > 
-> > - ioctl reboot
-> > 
-> > To confirm that this interface is sufficient, I have implemented it in
-> > the scarlett2 driver and written a user-space utility which can
-> > perform all the above operations.
-> > 
-> > I will clean up the implementation a bit and then submit for review;
-> > just wanted to share the interface first in case you have any comments
-> > at this point.
-> 
-> IMO, from the user POV, it's easier to have per-purpose ioctls,
-> instead of combining multiple ioctl sequences.  Of course, it won't
-> scale too much, but for the limited number of operations, it's
-> clearer.
-> 
-> That is, we can provide just a few ioctls for reset-to-factory,
-> reset-to-something-else, and update.
-> 
-> But, if you need asynchronous operations inevitably by some reason,
-> it's a different story, though.
-
-Just to provide progress feedback to the end-user.
-
-I've written the CLI tool using the proposed ioctl interface, and it
-works nicely:
-
-https://github.com/geoffreybennett/scarlett2
-
-[g@fedora ~]$ time scarlett2 update
-Selected device Scarlett 4th Gen Solo
-Found firmware version 2115 for Scarlett 4th Gen Solo:
-  /usr/lib/firmware/scarlett2/scarlett2-1235-8218-2115.bin
-Updating Scarlett 4th Gen Solo from firmware version 1974 to 2115
-Resetting configuration to factory default...
-Erase progress: Done!
-Erasing upgrade firmware...
-Erase progress: Done!
-Firmware write progress: Done!
-Rebooting interface...
-
-real    0m5.919s
-user    0m0.007s
-sys     0m0.034s
-
-The user experience would not be as nice with one-shot ioctls. And
-using ioctls which block for a long time would make using them from
-the GUI https://github.com/geoffreybennett/alsa-scarlett-gui/ rather
-awkward. None of the other operations on the interface block for an
-appreciable amount of time.
-
-I've got a first draft of firmware update and Scarlett 4th Gen support
-that I am sharing with others to test now. It's 48 commits, divided
-into:
-- 5 commits to add extra checks that are missing
-- 5 commits for firmware management
-- 20 commits refactoring the existing driver to allow Scarlett 4th Gen
-  support to be added
-- 18 commits adding the support (although the underlying Gen 4
-  protocol is the same as the other series, there are many new
-  different types of controls)
-
-I've put those commits on this branch:
-https://github.com/geoffreybennett/scarlett-gen2/tree/scarlett-gen4
-
-Do you want me to share all 48 commits on the mailing list at once? Or
-maybe just the first 5+5 commits for now and the rest after I get some
-feedback from others?
-
-Thanks,
-Geoffrey.

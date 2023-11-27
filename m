@@ -2,95 +2,157 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 441957FA4FB
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Nov 2023 16:42:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5FA47FA4C7
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Nov 2023 16:33:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CA0F884D;
-	Mon, 27 Nov 2023 16:42:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA0F884D
+	by alsa0.perex.cz (Postfix) with ESMTPS id B7426820;
+	Mon, 27 Nov 2023 16:33:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7426820
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701099762;
-	bh=zyYJlFkKqB0EVboHd0HVXx2hTiGrmgC9jgqUPqfWYO4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1701099217;
+	bh=5inwWuXYV/4uFhke7lUGT/pMDtcXNYcMpBmcMWzLQP0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=UbU0Tj5irlXsUrLcFvGmfufYTKlTEmAreBNnZatb6/fFrMCKX71XyfK8eAAdsIfYa
-	 Qidfg5PFAl6U/EKT+VfRLwxqW/D0Uo9q8dQ7WPUYhizaQNJCq5Q7/ZjPj6z1w/UpZw
-	 dBlnLEIp9WBtLLn0hHDdSlOAQcKNtY5anxyI5/Yc=
+	b=vN34YG2LoFSgp4UBvIePFAmXrW9wkb2md8j0/1/q02+AAAs63xLd6KiXBcB5br0Iy
+	 XV2TzbqZ49ARWg+Lx3dLQUs9kflBj4L0QFzrQofZoVKQ84aIxOsB8/7WviVK+FmMYY
+	 e/zbt4X8k7tJP+TcD8BAD6ukI8LjIPNe654hjaKI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AF643F89782; Mon, 27 Nov 2023 16:36:32 +0100 (CET)
+	id CA176F80589; Mon, 27 Nov 2023 16:33:06 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 82F50F8976E;
-	Mon, 27 Nov 2023 16:36:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2C5A0F80579;
+	Mon, 27 Nov 2023 16:33:06 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A3386F8968A; Mon, 27 Nov 2023 16:36:19 +0100 (CET)
+	id CC8D4F801D5; Mon, 27 Nov 2023 16:32:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.151])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20616.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe59::616])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B7202F8081A
-	for <alsa-devel@alsa-project.org>; Mon, 27 Nov 2023 16:35:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7202F8081A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6FBCBF8007E
+	for <alsa-devel@alsa-project.org>; Mon, 27 Nov 2023 16:32:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6FBCBF8007E
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=Oe/a+P9X
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1701099360; x=1732635360;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=zyYJlFkKqB0EVboHd0HVXx2hTiGrmgC9jgqUPqfWYO4=;
-  b=Oe/a+P9XUA+2No2a7wL7HK1CNL1+97hUMolxsLyU2Exum1N/7tKwpF/3
-   noyaYLZtCYLaXqJOw7JhsxeXCGy1lJIsZbQgvUTTltQzQI4fkBpqMH24U
-   N06D28F/Ta7oTZ1JhtaRQgioSGH6L7vf3OWoX6FmzpGIMRnvPm542yEy1
-   uE/82Fa+LDhtSveYrP6anQpoFnrsi83k7BTHxkDGRbdRGvPYDwE0oHMdR
-   x1JZWoGG5kZ9tvF1vos3VpNdZI5+qEYwBH8iQp1ktPDPIRuyMRoCuR3BW
-   1rCC5Gr97YaooxgrlU/gw3q3aqiNY4MdhfLhN+49pd4e16vji02vMeain
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10907"; a="372894694"
-X-IronPort-AV: E=Sophos;i="6.04,231,1695711600";
-   d="scan'208";a="372894694"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
-  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Nov 2023 07:27:37 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10907"; a="771957225"
-X-IronPort-AV: E=Sophos;i="6.04,231,1695711600";
-   d="scan'208";a="771957225"
-Received: from acornagl-mobl.ger.corp.intel.com (HELO
- pujfalus-desk.ger.corp.intel.com) ([10.252.58.144])
-  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Nov 2023 07:27:34 -0800
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org
-Cc: alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org,
-	pierre-louis.bossart@linux.intel.com,
-	kai.vehmanen@linux.intel.com,
-	ranjani.sridharan@linux.intel.com,
-	yung-chuan.liao@linux.intel.com,
-	chao.song@linux.intel.com
-Subject: [PATCH 27/27] ASoC: Intel: sof_rt5682: use common module for DAI link
- generation
-Date: Mon, 27 Nov 2023 17:26:54 +0200
-Message-ID: <20231127152654.28204-28-peter.ujfalusi@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20231127152654.28204-1-peter.ujfalusi@linux.intel.com>
-References: <20231127152654.28204-1-peter.ujfalusi@linux.intel.com>
+	dkim=pass (1024-bit key,
+ unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
+ header.s=selector1 header.b=pE5g1gai
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=PsCsQwY4akAMg/AktgWExIrre1ysXKCKpZn6fhTWLWvDEG1FqFgBZKkslM1fnsCT2Vv8us3fEhSO7528S92fnGR+XYyf0vZl6wJvrPANqw3OO76Jh61BZvnPTnK5igSzqeYBsCtPo+LEraYtJ+0Vjl0It1ocsfs2zMtMD/QN4vp+gsysrUgvvFyiSkVzbB17qx3jFRnegw2XbHhqNmaiJJJjtL3iGHKNdRcZYZcBbYXMl5IkohyCvmlxuv/tIN9cRmfiTGnWc3mLgZgrVtqE9C3XWwbiznOpho0WMDAeca7Q7oj7Q3Rma5urrHFR2+ZEFHJF9/PttYvuzWu/BxktlQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MmtmsfpAu3Q19HT58qzh2GOSyoryLbFV6SBY5phTCaA=;
+ b=Z2IT85lXq4iGJcYdiMAmrG6i0L68UqinZGHyhns4Hdc8EzORzaX6sNuq4kaMwz9XSmNHfduIrNirykl5xNVPEwg/eQpUjeCEghNkQA/mVTQ48WwdHmUX2ByRJ34uW0R3vSVJKiwQcVpHN8qvLXpW+EV688RJjeOueI+6omuac7Tdl4kWFYr7yM7Md4L1m3TywbRkqBcNpaAuO06gmzjyT5qvfuw70uhp8IOh7TpzmV4N+k6jw9ce4kGh2q5PA4oXq8kJ9aZAZpkpMB5NtQG5xEIDOpspN8Up3nOT4jLwiVBgE9FuQ0wpxsYCjsLTNrJvqV0cwpD4IaxP27iVY/mySw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MmtmsfpAu3Q19HT58qzh2GOSyoryLbFV6SBY5phTCaA=;
+ b=pE5g1gaiYfGRHtRmkxSxDxIfnILw0u3b1bF3wVCX3HEeWCplaf7pxEyoqQzXrFta7XOgLE7ijFRkp2g5TkXr/83OmN78tHo+/r0zqbrDiT4DpSxnrMezlUu+MjHTXxd1SO4gWkTPoyzs7MWAagKv2GJCVX4wOUp0iEMVbroNsfo=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
+ by BN9PR12MB5212.namprd12.prod.outlook.com (2603:10b6:408:11d::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.29; Mon, 27 Nov
+ 2023 15:32:45 +0000
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::83d7:9c4f:4d9b:1f2a]) by MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::83d7:9c4f:4d9b:1f2a%5]) with mapi id 15.20.7025.022; Mon, 27 Nov 2023
+ 15:32:45 +0000
+Message-ID: <08590a87-e10c-4d05-9c4f-39d170a17832@amd.com>
+Date: Mon, 27 Nov 2023 09:32:43 -0600
+User-Agent: Mozilla Thunderbird
+Subject: Re: ASoC: amd: yc: Fix non-functional mic on ASUS E1504FA
+Content-Language: en-US
+To: Malcolm Hart <malcolm@5harts.com>, Mark Brown <broonie@kernel.org>
+Cc: Sven Frotscher <sven.frotscher@gmail.com>, git@augustwikerfors.se,
+ alsa-devel@alsa-project.org, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, regressions@lists.linux.dev,
+ stable@vger.kernel.org
+References: <b9dd23931ee8709a63d884e4bd012723c9563f39.camel@5harts.com>
+ <ZWSckMPyqJl4Ebib@finisterre.sirena.org.uk> <87leajgqz1.fsf@5harts.com>
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <87leajgqz1.fsf@5harts.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SN1PR12CA0055.namprd12.prod.outlook.com
+ (2603:10b6:802:20::26) To MN0PR12MB6101.namprd12.prod.outlook.com
+ (2603:10b6:208:3cb::10)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: BXSC5TEEPVNGXPEHHOX5MB4GND7TUWKB
-X-Message-ID-Hash: BXSC5TEEPVNGXPEHHOX5MB4GND7TUWKB
-X-MailFrom: peter.ujfalusi@linux.intel.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|BN9PR12MB5212:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6e141aaa-5ca8-4499-773e-08dbef5e1aa7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	OjPJkVofyZvsh33RExE/T9v16gBmUPxKwrtMg804IPOP1eDw0DnhUwRFmUxIoX1FSVV7brYIiaaSBM30LkjMulCMHgQEFCue9WWaQCnttnYfD2wQK9oEfTHkrdWRSBpBuXcLL/M+i51DX1UND57Rx1fHQEs5JwjLHgqHNX4P04g7gGcQ8Waxxni/C9FXTYjWCPL+gtaIl2MG4vX3fPaTAeiaOGu2nzNcTG4RYMMZIz30nOOPtWXxbeQLCQ8sv6X4q3az7mMBoxObfNVrG4pRSjn6+BZn4PoxFBKZ0z9kfpf4dRmCfIitIPYMtkvuAJ7nDIJn6W+xbOPkFuOWvwuCc5d+/pTFMpStQwhfmW8Vuz2zte6RjM2rgnX18/tirP8LCeKFyBNUFk7qJ/qNrP1eoZQQikDUudoWObl2aBSXSZx+XWve3BTHySGmltPFGVy81kR48r8Z27n/96SnbU5QjpOLMTEB+0cItFuAezPovylcHW7OP7LKNXIeR3SBoPO7+1VlyGhqUPoXnLBanC7csnySofXrrAupmgwFkAmsN9+ZobgLFtEP/MNhpKLrFUbkWsiv+JUiq3PNTnDURnhgJug6zAyxMGRmCSvhp+mM9NMARCK+grUyc8J9YKeSIy9Zh+OGYVLB/e2Rq3nFpw7U3g==
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN0PR12MB6101.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(136003)(376002)(396003)(39860400002)(366004)(346002)(230922051799003)(64100799003)(186009)(451199024)(1800799012)(53546011)(2616005)(26005)(478600001)(6506007)(6512007)(83380400001)(2906002)(4326008)(5660300002)(41300700001)(66476007)(66556008)(66946007)(966005)(6486002)(8676002)(8936002)(44832011)(316002)(110136005)(38100700002)(86362001)(36756003)(31696002)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?utf-8?B?NUxTcm9PN2l3SnhEaGx4M2hjVGdVd1BITmV5NTR5N1Byb1lKaGQ3L0J3SThW?=
+ =?utf-8?B?NUhWOUg2V1VVMXY3NnBVWVdpNkp0ajd4dDBPZmtrcVhuM2lkUXhXYmw1N3Mz?=
+ =?utf-8?B?VjF2WlVocW5LWE9NWW0xb1FZNWJlaGtKcHBiKysyaVhXVUgwaDQyN3VrNWtK?=
+ =?utf-8?B?TUxqT1NKajlNeTJ2ZW5XUHF5b0Rjd20wYTlqVnpBVnU1NVZ2ZTlIMlhlN29j?=
+ =?utf-8?B?TXgxS3lPcG1ZRTBXdzFMbFovNW4xdjlhTFNXelMvekp3cmpVNXcrWWhpQjVC?=
+ =?utf-8?B?WGZWS2hzcGZIUHFnd0xRcUVxZ0Rtd1BpbSt3d0k0emFIb3BaQ2diZkRSOThr?=
+ =?utf-8?B?U0d2Tk1haTh4SGZZcU1WU2ZiSlRqaEtCRmY2NnVzeWg1TXhxNitLZlVvcWhm?=
+ =?utf-8?B?VVZRamdJK1Q3TG4vQkZjcDc0TVJtVmwydEtIck1yM1pVWkl0SWdrTFhmVXY4?=
+ =?utf-8?B?MUJHM2lYdG0vREgzamZ1TFEybUtZTDlrVkFJQzJNa2ROb2ZyNTluZnU1ZGJB?=
+ =?utf-8?B?dUNmYTluRENEZVZUSFp5b01NRmgzT1pBVUZKRW5qQWdlc05rdVR3dWNqemVr?=
+ =?utf-8?B?NVZjbE55WjJLWVh4c3N5Rzd3ZW9VTlpYeHdadGdCaG1TVHpxQStmbi9HdnhJ?=
+ =?utf-8?B?bU1zTGl0czlUVjJ1MjJMOWc3bm1QTVIyQnU2b2ZYOXBqV3VkYkZiYk1rZ2tN?=
+ =?utf-8?B?YnBFV25VVHB0WDZTVnJiVjJ4YmtNcVpqK05mNlIzNU45K0pHUlFaRm1IWEV2?=
+ =?utf-8?B?cklybVpFNkJsbGV0dC94eHk4OU1kcnQzWVg2TkVXVzk3WHRjb1FEM3pELzEx?=
+ =?utf-8?B?a2l0Q3hDY3RsQk9zR05GZ2pzbkhHdlFoeFE5RjltaENxellwUUYrYWx6RWNv?=
+ =?utf-8?B?V3E3WW5uSUk4bldvRyt4K0ZGWnFETW9Db3BVMjdCZlRaM0RSZDZnZFpoVVll?=
+ =?utf-8?B?QmwraHV6ZlQvRE5KUndJRlllL2o5cThRVWY5Rk95Q0NtQUZmakd4bWxmNEh5?=
+ =?utf-8?B?Njl4OE9qSWd4aUFsZWk4U004Skp6OG41TDhwQ1k3UU5FcFEySEhNQmtlOXBl?=
+ =?utf-8?B?OXhKR1dwZjRSYk9Ed2tLUno1MjF5dTdYYkN0L1U3SlpVVm5STVI2aDNhS21L?=
+ =?utf-8?B?TmtYbGgvQmlOWEhzWlo2SFF1SGtqWmhVOWcyemdMLzhEVUFtcVRHUHJHdklj?=
+ =?utf-8?B?SkxUVHpkakp1c0FNT3lYak1pdnA2NDZwN1gzUUd5NEpzUWxkUmk0TXhMcm5I?=
+ =?utf-8?B?RWVtWVVuVXpxUHVPQWgxd2l2b0drcVBxUW1ZWE1KMlBXeDBwdFNObHdMTSti?=
+ =?utf-8?B?Y3ZtckdLb0JXVEQ4WGU0WUlCZFFVTm9UYzBYcVZhcHJrWTExVHc4KzZudSth?=
+ =?utf-8?B?aGtZVCtiNTFzL1FWUDd0U1pYYUNGY0RQWGhLRkl6RlorKys3bWdObWRLemJu?=
+ =?utf-8?B?UDNwMmU0TDRWOWtuZjF3Y0o2bCtTQ24xRTRWRE1CQjBQWUpoUE9ibEFiMnBO?=
+ =?utf-8?B?N0RGUk9kUjY0UzJDM05aODdlWUhmSncvQjVXNy8vVWtNbXcyWmRvc2tEUnUy?=
+ =?utf-8?B?TGl6enRRamZaSkxFZERoK1NQU1h0UkxNY0xlRWF5R3BvcHF4cTZjV09qeHJZ?=
+ =?utf-8?B?dkNvTldKWWxGVWtSNG9TM0tUVlFTUjMyZzdUVERQZG1kUjQ1TEdJRm5qTW1l?=
+ =?utf-8?B?ak1yUnN0dk5jTnovMFJHbUwvcEhmTmhYZ1FPOFYvb1lra1NQaDY2S3QrYkIw?=
+ =?utf-8?B?NW5PYnhWOVRXV29KRnZKaXV6T1ZEVHJRRThGWk53RXNkVEV2SnBVakN4UXhn?=
+ =?utf-8?B?c2l4dng3RVJINjZPdng1alVvcUcxSFFPb3ZzN0RmWVdJTWkvNi93K2p4YXZs?=
+ =?utf-8?B?SFJJalNqMk1oRGM0SUFRa0VkbVp4eE9aNVluYVdLcGZGRG9QajlmUGpTTlNy?=
+ =?utf-8?B?akpETnVJWUhqOU45QXFzdEpSNGRpcWk2dnM3OEcvVy9SOVpPMy9SSGR6dnpt?=
+ =?utf-8?B?ZWhIUkJMbnVoMi9FUXorNXlBcGNFNzhwZXhmc3BlM05pRkNlMWREbnNHdUhN?=
+ =?utf-8?B?VGNaTmtnODY2eC8vSUNQUWxwWkY4MitQaUY5RjJiektEMWl3SXV3bU1QZTN3?=
+ =?utf-8?Q?+MkJ1NcjCwM3tzdKsJNjOlGJq?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 6e141aaa-5ca8-4499-773e-08dbef5e1aa7
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2023 15:32:45.7744
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ iRJhmxz4fiyLN1rg5syIt8uOhIbH2fFcAt0DjTCrdvFF3v1nmu1d6/lmWuCk//ftZQeX6gGddGDTF9lglgVpTg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5212
+Message-ID-Hash: OD76FJLINF4GAVSQV5ZKUMW4NS7AA6VJ
+X-Message-ID-Hash: OD76FJLINF4GAVSQV5ZKUMW4NS7AA6VJ
+X-MailFrom: Mario.Limonciello@amd.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -102,7 +164,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BXSC5TEEPVNGXPEHHOX5MB4GND7TUWKB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OD76FJLINF4GAVSQV5ZKUMW4NS7AA6VJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -111,315 +173,68 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Brent Lu <brent.lu@intel.com>
+On 11/27/2023 09:23, Malcolm Hart wrote:
+> 
+>  From da1e023a39987c1bc2d5b27ecf659d61d9a4724c Mon Sep 17 00:00:00 2001
+> From: foolishhart <62256078+foolishhart@users.noreply.github.com>
+> Date: Mon, 27 Nov 2023 11:51:04 +0000
+> Subject: [PATCH] Update acp6x-mach.c
+> 
+> Added 	ASUSTeK COMPUTER INC  "E1504FA" to quirks file to enable microphone array on ASUS Vivobook GO 15.
 
-Use intel_board module to generate DAI link array and update
-num_links field in snd_soc_card structure.
+You're missing a Signed-off-by: tag.
+Also as this should be going to stable you should have a tag for:
 
-Signed-off-by: Brent Lu <brent.lu@intel.com>
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
----
- sound/soc/intel/boards/sof_rt5682.c | 242 +++++++++-------------------
- 1 file changed, 75 insertions(+), 167 deletions(-)
+Cc: stable@vger.kernel.org
 
-diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
-index d353ad758c60..cd50f26d1edb 100644
---- a/sound/soc/intel/boards/sof_rt5682.c
-+++ b/sound/soc/intel/boards/sof_rt5682.c
-@@ -563,52 +563,45 @@ static struct snd_soc_dai_link_component rt5650_components[] = {
- 	}
- };
- 
--static struct snd_soc_dai_link *
--sof_card_dai_links_create(struct device *dev, enum sof_ssp_codec codec_type,
--			  enum sof_ssp_codec amp_type, int ssp_codec,
--			  int ssp_amp, int dmic_be_num, int hdmi_num,
--			  bool idisp_codec, bool is_legacy_cpu)
-+static int
-+sof_card_dai_links_create(struct device *dev, struct snd_soc_card *card,
-+			  struct sof_card_private *ctx)
- {
--	struct snd_soc_dai_link *links;
--	int i;
--	int id = 0;
- 	int ret;
- 
--	links = devm_kcalloc(dev, sof_audio_card_rt5682.num_links,
--			    sizeof(struct snd_soc_dai_link), GFP_KERNEL);
--	if (!links)
--		goto devm_err;
--
--	/* codec SSP */
--	ret = sof_intel_board_set_codec_link(dev, &links[id], id, codec_type,
--					     ssp_codec);
-+	ret = sof_intel_board_set_dai_link(dev, card, ctx);
- 	if (ret)
--		return NULL;
-+		return ret;
-+
-+	if (!ctx->codec_link) {
-+		dev_err(dev, "codec link not available");
-+		return -EINVAL;
-+	}
- 
--	/* codec-specific fields */
--	switch (codec_type) {
-+	/* codec-specific fields for headphone codec */
-+	switch (ctx->codec_type) {
- 	case CODEC_RT5650:
--		links[id].codecs = &rt5650_components[0];
--		links[id].num_codecs = 1;
-+		ctx->codec_link->codecs = &rt5650_components[0];
-+		ctx->codec_link->num_codecs = 1;
- 		break;
- 	case CODEC_RT5682:
--		links[id].codecs = rt5682_component;
--		links[id].num_codecs = ARRAY_SIZE(rt5682_component);
-+		ctx->codec_link->codecs = rt5682_component;
-+		ctx->codec_link->num_codecs = ARRAY_SIZE(rt5682_component);
- 		break;
- 	case CODEC_RT5682S:
--		links[id].codecs = rt5682s_component;
--		links[id].num_codecs = ARRAY_SIZE(rt5682s_component);
-+		ctx->codec_link->codecs = rt5682s_component;
-+		ctx->codec_link->num_codecs = ARRAY_SIZE(rt5682s_component);
- 		break;
- 	default:
--		dev_err(dev, "invalid codec type %d\n", codec_type);
--		return NULL;
-+		dev_err(dev, "invalid codec type %d\n", ctx->codec_type);
-+		return -EINVAL;
- 	}
- 
--	links[id].init = sof_rt5682_codec_init;
--	links[id].exit = sof_rt5682_codec_exit;
--	links[id].ops = &sof_rt5682_ops;
-+	ctx->codec_link->init = sof_rt5682_codec_init;
-+	ctx->codec_link->exit = sof_rt5682_codec_exit;
-+	ctx->codec_link->ops = &sof_rt5682_ops;
- 
--	if (!is_legacy_cpu) {
-+	if (!ctx->rt5682.is_legacy_cpu) {
- 		/*
- 		 * Currently, On SKL+ platforms MCLK will be turned off in sof
- 		 * runtime suspended, and it will go into runtime suspended
-@@ -618,130 +611,64 @@ sof_card_dai_links_create(struct device *dev, enum sof_ssp_codec codec_type,
- 		 * avoid the noise.
- 		 * It can be removed once we can control MCLK by driver.
- 		 */
--		links[id].ignore_pmdown_time = 1;
-+		ctx->codec_link->ignore_pmdown_time = 1;
- 	}
--	id++;
- 
--	/* dmic */
--	if (dmic_be_num > 0) {
--		/* at least we have dmic01 */
--		ret = sof_intel_board_set_dmic_link(dev, &links[id], id,
--						    SOF_DMIC_01);
--		if (ret)
--			return NULL;
--
--		id++;
--	}
-+	if (ctx->amp_type == CODEC_NONE)
-+		return 0;
- 
--	if (dmic_be_num > 1) {
--		/* set up 2 BE links at most */
--		ret = sof_intel_board_set_dmic_link(dev, &links[id], id,
--						    SOF_DMIC_16K);
--		if (ret)
--			return NULL;
--
--		id++;
--	}
--
--	/* HDMI */
--	for (i = 1; i <= hdmi_num; i++) {
--		ret = sof_intel_board_set_intel_hdmi_link(dev, &links[id], id,
--							  i, idisp_codec);
--		if (ret)
--			return NULL;
--
--		id++;
--	}
--
--	/* speaker amp */
--	if (amp_type != CODEC_NONE) {
--		ret = sof_intel_board_set_ssp_amp_link(dev, &links[id], id,
--						       amp_type, ssp_amp);
--		if (ret)
--			return NULL;
--
--		/* codec-specific fields */
--		switch (amp_type) {
--		case CODEC_MAX98357A:
--			max_98357a_dai_link(&links[id]);
--			break;
--		case CODEC_MAX98360A:
--			max_98360a_dai_link(&links[id]);
--			break;
--		case CODEC_MAX98373:
--			links[id].codecs = max_98373_components;
--			links[id].num_codecs = ARRAY_SIZE(max_98373_components);
--			links[id].init = max_98373_spk_codec_init;
--			links[id].ops = &max_98373_ops;
--			break;
--		case CODEC_MAX98390:
--			max_98390_dai_link(dev, &links[id]);
--			break;
--		case CODEC_RT1011:
--			sof_rt1011_dai_link(&links[id]);
--			break;
--		case CODEC_RT1015:
--			sof_rt1015_dai_link(&links[id]);
--			break;
--		case CODEC_RT1015P:
--			sof_rt1015p_dai_link(&links[id]);
--			break;
--		case CODEC_RT1019P:
--			sof_rt1019p_dai_link(&links[id]);
--			break;
--		case CODEC_RT5650:
--			/* use AIF2 to support speaker pipeline */
--			links[id].codecs = &rt5650_components[1];
--			links[id].num_codecs = 1;
--			links[id].init = rt5650_spk_init;
--			links[id].ops = &sof_rt5682_ops;
--			break;
--		default:
--			dev_err(dev, "invalid amp type %d\n", amp_type);
--			return NULL;
--		}
--
--		id++;
--	}
--
--	/* BT audio offload */
--	if (sof_rt5682_quirk & SOF_SSP_BT_OFFLOAD_PRESENT) {
--		int port = (sof_rt5682_quirk & SOF_BT_OFFLOAD_SSP_MASK) >>
--				SOF_BT_OFFLOAD_SSP_SHIFT;
--
--		ret = sof_intel_board_set_bt_link(dev, &links[id], id, port);
--		if (ret)
--			return NULL;
--
--		id++;
-+	if (!ctx->amp_link) {
-+		dev_err(dev, "amp link not available");
-+		return -EINVAL;
- 	}
- 
--	/* HDMI-In SSP */
--	if (sof_rt5682_quirk & SOF_SSP_HDMI_CAPTURE_PRESENT_MASK) {
--		unsigned long hdmi_in_ssp = (sof_rt5682_quirk &
--				SOF_SSP_HDMI_CAPTURE_PRESENT_MASK) >>
--				SOF_NO_OF_HDMI_CAPTURE_SSP_SHIFT;
--		int port = 0;
--
--		for_each_set_bit(port, &hdmi_in_ssp, 32) {
--			ret = sof_intel_board_set_hdmi_in_link(dev, &links[id],
--							       id, port);
--			if (ret)
--				return NULL;
--
--			id++;
--		}
-+	/* codec-specific fields for speaker amplifier */
-+	switch (ctx->amp_type) {
-+	case CODEC_MAX98357A:
-+		max_98357a_dai_link(ctx->amp_link);
-+		break;
-+	case CODEC_MAX98360A:
-+		max_98360a_dai_link(ctx->amp_link);
-+		break;
-+	case CODEC_MAX98373:
-+		ctx->amp_link->codecs = max_98373_components;
-+		ctx->amp_link->num_codecs = ARRAY_SIZE(max_98373_components);
-+		ctx->amp_link->init = max_98373_spk_codec_init;
-+		ctx->amp_link->ops = &max_98373_ops;
-+		break;
-+	case CODEC_MAX98390:
-+		max_98390_dai_link(dev, ctx->amp_link);
-+		break;
-+	case CODEC_RT1011:
-+		sof_rt1011_dai_link(ctx->amp_link);
-+		break;
-+	case CODEC_RT1015:
-+		sof_rt1015_dai_link(ctx->amp_link);
-+		break;
-+	case CODEC_RT1015P:
-+		sof_rt1015p_dai_link(ctx->amp_link);
-+		break;
-+	case CODEC_RT1019P:
-+		sof_rt1019p_dai_link(ctx->amp_link);
-+		break;
-+	case CODEC_RT5650:
-+		/* use AIF2 to support speaker pipeline */
-+		ctx->amp_link->codecs = &rt5650_components[1];
-+		ctx->amp_link->num_codecs = 1;
-+		ctx->amp_link->init = rt5650_spk_init;
-+		ctx->amp_link->ops = &sof_rt5682_ops;
-+		break;
-+	default:
-+		dev_err(dev, "invalid amp type %d\n", ctx->amp_type);
-+		return -EINVAL;
- 	}
- 
--	return links;
--devm_err:
--	return NULL;
-+	return 0;
- }
- 
- static int sof_audio_probe(struct platform_device *pdev)
- {
- 	struct snd_soc_acpi_mach *mach = pdev->dev.platform_data;
--	struct snd_soc_dai_link *dai_links;
- 	struct sof_card_private *ctx;
- 	int ret;
- 
-@@ -821,32 +748,13 @@ static int sof_audio_probe(struct platform_device *pdev)
- 
- 	ctx->ssp_codec = sof_rt5682_quirk & SOF_RT5682_SSP_CODEC_MASK;
- 
--	/* compute number of dai links */
--	sof_audio_card_rt5682.num_links = 1 + ctx->dmic_be_num + ctx->hdmi_num;
--
--	if (ctx->amp_type != CODEC_NONE)
--		sof_audio_card_rt5682.num_links++;
--
--	if (sof_rt5682_quirk & SOF_SSP_BT_OFFLOAD_PRESENT) {
-+	if (sof_rt5682_quirk & SOF_SSP_BT_OFFLOAD_PRESENT)
- 		ctx->bt_offload_present = true;
--		sof_audio_card_rt5682.num_links++;
--	}
- 
--	if (sof_rt5682_quirk & SOF_SSP_HDMI_CAPTURE_PRESENT_MASK)
--		sof_audio_card_rt5682.num_links +=
--			hweight32((sof_rt5682_quirk & SOF_SSP_HDMI_CAPTURE_PRESENT_MASK) >>
--					SOF_NO_OF_HDMI_CAPTURE_SSP_SHIFT);
--
--	dai_links = sof_card_dai_links_create(&pdev->dev, ctx->codec_type,
--					      ctx->amp_type, ctx->ssp_codec,
--					      ctx->ssp_amp, ctx->dmic_be_num,
--					      ctx->hdmi_num,
--					      ctx->hdmi.idisp_codec,
--					      ctx->rt5682.is_legacy_cpu);
--	if (!dai_links)
--		return -ENOMEM;
--
--	sof_audio_card_rt5682.dai_link = dai_links;
-+	/* update dai_link */
-+	ret = sof_card_dai_links_create(&pdev->dev, &sof_audio_card_rt5682, ctx);
-+	if (ret)
-+		return ret;
- 
- 	/* update codec_conf */
- 	switch (ctx->amp_type) {
--- 
-2.43.0
+> ---
+>   sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
+>   1 file changed, 7 insertions(+)
+> 
+> diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
+> index 15a864dcd7bd3a..3babb17a56bb55 100644
+> --- a/sound/soc/amd/yc/acp6x-mach.c
+> +++ b/sound/soc/amd/yc/acp6x-mach.c
+> @@ -283,6 +283,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
+>   			DMI_MATCH(DMI_PRODUCT_NAME, "M6500RC"),
+>   		}
+>   	},
+> +	{
+> +		.driver_data = &acp6x_card,
+> +		.matches = {
+> +			DMI_MATCH(DMI_BOARD_VENDOR, "ASUSTeK COMPUTER INC."),
+> +			DMI_MATCH(DMI_PRODUCT_NAME, "E1504FA"),
+> +		}
+> +	},
+>   	{
+>   		.driver_data = &acp6x_card,
+>   		.matches = {
+> 
+> 
+> 
+> 
+> 
+> Mark Brown <broonie@kernel.org> writes:
+> 
+>> [[PGP Signed Part:Undecided]]
+>> On Mon, Nov 27, 2023 at 12:24:59PM +0000, Malcolm Hart wrote:
+>>> Like other ASUS models the Asus Vivobook E1504FA requires an entry in
+>>> the quirk list to enable the internal microphone.
+>>>
+>>> Showing
+>>> with 7 additions and 0 deletions.
+>>> 7 changes: 7 additions & 0 deletions 7
+>>> sound/soc/amd/yc/acp6x-mach.c
+>>> @@ -283,6 +283,13 @@ static const struct dmi_system_id
+>>> yc_acp_quirk_table[] = {
+>>
+>> The patch appears to have been unusably corrupted by your e-mail
+>> software and is also missing a Signed-off-by.  See email-cleints.rst for
+>> some suggestions on configuring things, or it might be worth looking
+>> into b4 and it's web submission endpoint:
+>>
+>>     https://b4.docs.kernel.org/en/latest/
+>>
+>> [[End of PGP Signed Part]]
+> 
 

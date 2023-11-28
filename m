@@ -2,104 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A8D97FB65A
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Nov 2023 10:54:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D58767FB675
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Nov 2023 10:59:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 47749950;
-	Tue, 28 Nov 2023 10:53:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 47749950
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6FD747F8;
+	Tue, 28 Nov 2023 10:59:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6FD747F8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701165245;
-	bh=Ze3suMCTxMx1XPVCl0jboSQdHdduZbjsqMTzoxtQyUc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1701165563;
+	bh=5ArrUEd+VDRb8Mp2oGnmeMS9uZXS+0nOcVm4HzoTmAE=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=nc9dTun29leLBBH/Ex9l8THXS/9QKWNq3npbxCiItIGJUVa+rj31SAX5XHfE571Pd
-	 QS3w0SSvFwrOJOh3VqINBxHHRZtDn299vF4Tk7mXuAYbXbCpoT59Po8oXImzl9Va/i
-	 mMKJWOgo1PhajDNMCNk4xjqwnLGNcZU8V7Xm0pD4=
+	b=SGBDDOZLrozUO38lFpjPCPcBmKSYmWlgTNrBaDajkl/TuzsMgeKfH+zdsZO7VDLN8
+	 LjMd+aMBUxuENkAfxqK4+BR/smdlNMLX6/LqLY3sobSMYNOwoE85uotL14aRdPy0Ir
+	 RObXxrhJnbiq536FqIhbWRp31EHuywKY6JINsfDg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 530C5F8057B; Tue, 28 Nov 2023 10:53:34 +0100 (CET)
+	id 2316EF80570; Tue, 28 Nov 2023 10:58:51 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8E416F80578;
-	Tue, 28 Nov 2023 10:53:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 74B7AF8055B;
+	Tue, 28 Nov 2023 10:58:51 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 66648F8016E; Tue, 28 Nov 2023 10:53:30 +0100 (CET)
+	id 6144FF8016E; Tue, 28 Nov 2023 10:58:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,
-	RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6A723F800F5
-	for <alsa-devel@alsa-project.org>; Tue, 28 Nov 2023 10:53:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A723F800F5
+	by alsa1.perex.cz (Postfix) with ESMTPS id DA53BF80114
+	for <alsa-devel@alsa-project.org>; Tue, 28 Nov 2023 10:58:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA53BF80114
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=MmU2JeLp
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1701165207; x=1732701207;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=Ze3suMCTxMx1XPVCl0jboSQdHdduZbjsqMTzoxtQyUc=;
-  b=MmU2JeLpMO3qF5BZ6llNeRdvmq4Ics3HgcbzPpbTIxPujoR8/5dGS0ye
-   l5cuuKD2IXPbxd+cnB9Ie6vozL5cMU8Fwgc/iWoYIEYkwbrb/HwjF2pVy
-   iqQDhYPVzqRJCdrdDySiAUi73iEzXMIqTZXjgar2Z+Xj132c/Yqv2skDc
-   kVlZlsYk43zl4ERBhzGcGRbaZFqLsnsfVFf6z7obh1LzZ9wSpGcotD5Qk
-   RycKEUCN0vccQrfGRNQ0NsRgGrADesAwef6mNMnTD3HL9pkkUHttT0BjA
-   Wrmzo7qFR0ta3kQi/9I2Q5dxVzXv52ykaSqOWpBU13459XQESr+uxzcW8
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10907"; a="424042140"
-X-IronPort-AV: E=Sophos;i="6.04,233,1695711600";
-   d="scan'208";a="424042140"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
-  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Nov 2023 01:53:24 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10907"; a="744847068"
-X-IronPort-AV: E=Sophos;i="6.04,233,1695711600";
-   d="scan'208";a="744847068"
-Received: from anikafix-mobl.ger.corp.intel.com (HELO [10.251.221.103])
- ([10.251.221.103])
-  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Nov 2023 01:53:21 -0800
-Message-ID: <e40a3b5d-425e-427c-bec2-6b82d8f5ee94@linux.intel.com>
-Date: Tue, 28 Nov 2023 11:53:56 +0200
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=m6C5rTA2
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by ams.source.kernel.org (Postfix) with ESMTP id 99052B839B9;
+	Tue, 28 Nov 2023 09:58:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30C22C433C8;
+	Tue, 28 Nov 2023 09:58:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1701165522;
+	bh=5ArrUEd+VDRb8Mp2oGnmeMS9uZXS+0nOcVm4HzoTmAE=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=m6C5rTA2jAjEF8afeKlTB6aBB9Y5ULymK2S/fsN64B3SFI91nsJ6ePILQZqYd9eSY
+	 mAweO/BFcgEkt6UqPYBX19PmJ9vxOQxLdfXLtsFMAX8HtzdA6prob5zH4W3nN2oyUF
+	 32SQbTFqlZMIog6XdU2X9+hJzfbcM+E01OpMIjjqnDBcn5qRsN9q97q+AmZByEioxm
+	 a+SpdW2IGa9U3m/Vrgdm++h0wKzuNkN8e6SCsicjYGJivIlw1fa0eZzxG16nM+r52N
+	 T0oPjRqtiodzRpUZi2YQKOPcCvydBjMfi4neVq8Fo62ly1aHxVRJ33yKgYalYvsw0w
+	 Gt2MLo5g/4Brw==
+From: Vinod Koul <vkoul@kernel.org>
+To: Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Sanyog Kale <sanyog.r.kale@intel.com>, Shreyas NC <shreyas.nc@intel.com>,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: stable@vger.kernel.org
+In-Reply-To: <20231124180136.390621-1-krzysztof.kozlowski@linaro.org>
+References: <20231124180136.390621-1-krzysztof.kozlowski@linaro.org>
+Subject: Re: [PATCH] soundwire: stream: fix NULL pointer dereference for
+ multi_link
+Message-Id: <170116551879.73476.11576514501948917974.b4-ty@kernel.org>
+Date: Tue, 28 Nov 2023 15:28:38 +0530
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] ALSA: hda/hdmi: Add helper function to check if a
- device is HDMI codec
-Content-Language: en-US
-To: Takashi Iwai <tiwai@suse.de>
-Cc: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- pierre-louis.bossart@linux.intel.com, kai.vehmanen@linux.intel.com,
- ranjani.sridharan@linux.intel.com
-References: <20231127130245.24295-1-peter.ujfalusi@linux.intel.com>
- <20231127130245.24295-2-peter.ujfalusi@linux.intel.com>
- <87jzq3pc6r.wl-tiwai@suse.de>
- <d2fff7cd-ea4b-41b9-992b-fab6ba6549ec@linux.intel.com>
- <87cyvvp8t6.wl-tiwai@suse.de>
- <8ede931b-8c9c-4b95-83e5-5f0db9819e8e@linux.intel.com>
- <878r6jp6jd.wl-tiwai@suse.de>
- <b0c4b724-fe34-4e55-81fe-146e1b52839d@linux.intel.com>
- <875y1np5g2.wl-tiwai@suse.de>
- <be4c418d-5147-4d4b-aa9b-a8e6f3c10a30@linux.intel.com>
- <87y1eimd23.wl-tiwai@suse.de>
-From: =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
-In-Reply-To: <87y1eimd23.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: VCDNJFPTSM3UGARXGERQIM3NFYMRPDHV
-X-Message-ID-Hash: VCDNJFPTSM3UGARXGERQIM3NFYMRPDHV
-X-MailFrom: peter.ujfalusi@linux.intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.12.3
+Message-ID-Hash: TT2UERHOEA6IMAVFDC4HILUAREGFV7UE
+X-Message-ID-Hash: TT2UERHOEA6IMAVFDC4HILUAREGFV7UE
+X-MailFrom: vkoul@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -111,7 +90,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VCDNJFPTSM3UGARXGERQIM3NFYMRPDHV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TT2UERHOEA6IMAVFDC4HILUAREGFV7UE/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -121,21 +100,24 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
+On Fri, 24 Nov 2023 19:01:36 +0100, Krzysztof Kozlowski wrote:
+> If bus is marked as multi_link, but number of masters in the stream is
+> not higher than bus->hw_sync_min_links (bus->multi_link && m_rt_count >=
+> bus->hw_sync_min_links), bank switching should not happen.  The first
+> part of do_bank_switch() code properly takes these conditions into
+> account, but second part (sdw_ml_sync_bank_switch()) relies purely on
+> bus->multi_link property.  This is not balanced and leads to NULL
+> pointer dereference:
+> 
+> [...]
 
-On 28/11/2023 11:39, Takashi Iwai wrote:
-> Hm...  I still find it's a bad move to use an exported symbol from
-> another codec driver.
+Applied, thanks!
 
-The other option is to check for 0x4 (or address 2), but I'm not sure if
-this is Intel only or universally true for HDMI codecs.
+[1/1] soundwire: stream: fix NULL pointer dereference for multi_link
+      commit: e199bf52ffda8f98f129728d57244a9cd9ad5623
 
-> And, I wonder what if you have a system that has only one HDMI codec
-> without analog one?  Would it still work with your change? 
-
-Yes, it works with only HDMI codec (for example on SoundWire laptops) or
-with UP2 board which only have HDMI audio support by default.
-
-It also works if we disable HDMI and only have analog codec.
-
+Best regards,
 -- 
-Péter
+~Vinod
+
+

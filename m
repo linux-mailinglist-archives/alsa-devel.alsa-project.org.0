@@ -2,107 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8868E7FB9F4
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Nov 2023 13:16:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA05D7FBA47
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Nov 2023 13:39:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CDF5C84B;
-	Tue, 28 Nov 2023 13:16:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CDF5C84B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0F2CC1F3;
+	Tue, 28 Nov 2023 13:39:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F2CC1F3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701173817;
-	bh=7wlfTkVA9T4sl4yTRAFwFkuqKuwz/x+zFV6VkHQubcM=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=hcXTDA0iXPGlZu2119zQnYU3yYEHgC7FHrf0mrVSA/30dT8owdaQxPX4epkjfscEj
-	 OIac/gr9VRX3DKnrHHIizz/k7BJ0Yakf2Mrd3Fu+toCLGw1+jqiH5EOevgeATPadog
-	 SJK+5NtzFYF4HDOghey/QEBJfzIAZEyOlXiG3L44=
+	s=default; t=1701175172;
+	bh=7Lbzx4VBaCgA0END4fgHmnWy/gj8Gd4i3Yj/nCvYbPw=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=fCVq6I6FOd69VAg7eSKsQihjE2GBtdIdRacUp+DffoKvQgWAttATvYOhuz3vTF7Gt
+	 DkPiOtPC3UFhi7e+uwxT5W365cwodpqqeORBVD7cMAEiXNbSfj7MGDLU4f3iNBWfak
+	 cRD8ENa5D+js7BvnPYaD3qbgMIa1oEet9l19L7AY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7DC9CF8057F; Tue, 28 Nov 2023 13:16:26 +0100 (CET)
+	id 35BD7F80578; Tue, 28 Nov 2023 13:38:59 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DD9E0F80104;
-	Tue, 28 Nov 2023 13:16:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8BACDF80254;
+	Tue, 28 Nov 2023 13:38:59 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 75870F8016E; Tue, 28 Nov 2023 13:16:22 +0100 (CET)
+	id 9BA82F8016E; Tue, 28 Nov 2023 13:38:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.93])
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.126])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 820D7F80104
-	for <alsa-devel@alsa-project.org>; Tue, 28 Nov 2023 13:16:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 820D7F80104
+	by alsa1.perex.cz (Postfix) with ESMTPS id D6FCAF800F5
+	for <alsa-devel@alsa-project.org>; Tue, 28 Nov 2023 13:38:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D6FCAF800F5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=A3bq3rTR
+ header.s=Intel header.b=RTqsPc2i
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1701173779; x=1732709779;
-  h=message-id:date:mime-version:subject:from:to:cc:
-   references:in-reply-to:content-transfer-encoding;
-  bh=7wlfTkVA9T4sl4yTRAFwFkuqKuwz/x+zFV6VkHQubcM=;
-  b=A3bq3rTRuTeZFM8PQ9qv+NvKnSu1rtezmSwBNWfDI/6j2OrtzB0xCj0Q
-   90rMQSdHMglR7EQfDub6eMB2IpNVdqY01DgIUe11JQbpRxBJ0zuXWntFp
-   RYhSrPlcWEDCnUqPAuIrx5QWPwzmsep0O/ODSGZpWulfS1sOrMTLAFekh
-   zVEJJOnrE/1w2sbco11/9JEKUcTUGiHLDmw+7Zf5PeTesS+Q/w68EsQI6
-   o4LzjS1x/Abd3t63xvI5e66X28MJ1X1xjqR7mIQFNbHSdR6PJHNyCLDYB
-   F9R3oGVrO3RlMBIgfWTbaxb/E+p5bPE5AeANjWAkFmN9r8sjS71ytA0nj
+  t=1701175128; x=1732711128;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=7Lbzx4VBaCgA0END4fgHmnWy/gj8Gd4i3Yj/nCvYbPw=;
+  b=RTqsPc2if5e5NTlH4D9UHSO26fZCmVeBUCGg4AiDN4NUw5Ao7fSgUCCx
+   FToBkdq6e4wqdQRNrDHxhGUG+xp5CkrQGgEHiE0hW7F2mLgR6DfIk/8FY
+   ggcnzDKnMyzrTBeno4MLsted0xRWeRmRdbQBjCVnnIJDETtttcfsy81tn
+   W0GWBLW6PD+dNgVJYSXA1WhSQ719CPV+4wh+NaSN341CfFGYxSq5O/XX/
+   aVGI835c3xdPW+wuQm4mJr0UjZhvOm/b5y9KTIFGkDconAmr1QbUtJlAK
+   My6A/oajp9qckgXasHx541hvSDhE+kPzjkrmRmZIim1ezbgh/Ir8IoNmd
    g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10907"; a="390065363"
+X-IronPort-AV: E=McAfee;i="6600,9927,10907"; a="377941918"
 X-IronPort-AV: E=Sophos;i="6.04,233,1695711600";
-   d="scan'208";a="390065363"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
-  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Nov 2023 04:15:57 -0800
+   d="scan'208";a="377941918"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Nov 2023 04:38:41 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10907"; a="941901099"
+X-IronPort-AV: E=McAfee;i="6600,9927,10907"; a="1015899204"
 X-IronPort-AV: E=Sophos;i="6.04,233,1695711600";
-   d="scan'208";a="941901099"
-Received: from anikafix-mobl.ger.corp.intel.com (HELO [10.251.221.103])
- ([10.251.221.103])
-  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Nov 2023 04:15:54 -0800
-Message-ID: <30f05de0-f431-4972-9315-6b377cf43cf4@linux.intel.com>
-Date: Tue, 28 Nov 2023 14:16:29 +0200
+   d="scan'208";a="1015899204"
+Received: from anikafix-mobl.ger.corp.intel.com (HELO
+ pujfalus-desk.ger.corp.intel.com) ([10.251.221.103])
+  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Nov 2023 04:38:39 -0800
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org,
+	tiwai@suse.de
+Cc: alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org,
+	pierre-louis.bossart@linux.intel.com,
+	kai.vehmanen@linux.intel.com,
+	ranjani.sridharan@linux.intel.com
+Subject: [PATCH v2] ASoC: hdac_hda: Conditionally register dais for HDMI and
+ Analog
+Date: Tue, 28 Nov 2023 14:39:14 +0200
+Message-ID: <20231128123914.3986-1-peter.ujfalusi@linux.intel.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] ALSA: hda/hdmi: Add helper function to check if a
- device is HDMI codec
-Content-Language: en-US
-From: =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- pierre-louis.bossart@linux.intel.com, kai.vehmanen@linux.intel.com,
- ranjani.sridharan@linux.intel.com
-References: <20231127130245.24295-1-peter.ujfalusi@linux.intel.com>
- <20231127130245.24295-2-peter.ujfalusi@linux.intel.com>
- <87jzq3pc6r.wl-tiwai@suse.de>
- <d2fff7cd-ea4b-41b9-992b-fab6ba6549ec@linux.intel.com>
- <87cyvvp8t6.wl-tiwai@suse.de>
- <8ede931b-8c9c-4b95-83e5-5f0db9819e8e@linux.intel.com>
- <878r6jp6jd.wl-tiwai@suse.de>
- <b0c4b724-fe34-4e55-81fe-146e1b52839d@linux.intel.com>
- <875y1np5g2.wl-tiwai@suse.de>
- <be4c418d-5147-4d4b-aa9b-a8e6f3c10a30@linux.intel.com>
- <87y1eimd23.wl-tiwai@suse.de>
- <e40a3b5d-425e-427c-bec2-6b82d8f5ee94@linux.intel.com>
- <87ttp6mc04.wl-tiwai@suse.de>
- <96d334c1-9c6b-415b-bfb8-1fab29b1d223@linux.intel.com>
- <87plzum9w4.wl-tiwai@suse.de>
- <6710fd66-2a70-4948-aafb-2fcf3d6d2b25@linux.intel.com>
-In-Reply-To: <6710fd66-2a70-4948-aafb-2fcf3d6d2b25@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: CHRBJZDP52MI55FIH4ICMMPZSMEXYBLC
-X-Message-ID-Hash: CHRBJZDP52MI55FIH4ICMMPZSMEXYBLC
+Message-ID-Hash: VYQJXAZHO2ZWC6B73V3Q72USD7A4CLQD
+X-Message-ID-Hash: VYQJXAZHO2ZWC6B73V3Q72USD7A4CLQD
 X-MailFrom: peter.ujfalusi@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -115,7 +98,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CHRBJZDP52MI55FIH4ICMMPZSMEXYBLC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VYQJXAZHO2ZWC6B73V3Q72USD7A4CLQD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -124,51 +107,95 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+The current driver is registering the same dais for each hdev found in the
+system which results duplicated widgets to be registered and the kernel
+log contains similar prints:
+snd_hda_codec_realtek ehdaudio0D0: ASoC: sink widget AIF1TX overwritten
+snd_hda_codec_realtek ehdaudio0D0: ASoC: source widget AIF1RX overwritten
+skl_hda_dsp_generic skl_hda_dsp_generic: ASoC: sink widget hifi3 overwritten
+skl_hda_dsp_generic skl_hda_dsp_generic: ASoC: sink widget hifi2 overwritten
+skl_hda_dsp_generic skl_hda_dsp_generic: ASoC: sink widget hifi1 overwritten
+skl_hda_dsp_generic skl_hda_dsp_generic: ASoC: source widget Codec Output Pin1 overwritten
+skl_hda_dsp_generic skl_hda_dsp_generic: ASoC: sink widget Codec Input Pin1 overwritten
+skl_hda_dsp_generic skl_hda_dsp_generic: ASoC: sink widget Analog Codec Playback overwritten
+skl_hda_dsp_generic skl_hda_dsp_generic: ASoC: sink widget Digital Codec Playback overwritten
+skl_hda_dsp_generic skl_hda_dsp_generic: ASoC: sink widget Alt Analog Codec Playback overwritten
+skl_hda_dsp_generic skl_hda_dsp_generic: ASoC: source widget Analog Codec Capture overwritten
+skl_hda_dsp_generic skl_hda_dsp_generic: ASoC: source widget Digital Codec Capture overwritten
+skl_hda_dsp_generic skl_hda_dsp_generic: ASoC: source widget Alt Analog Codec Capture overwritten
 
+To avoid such issue, split the dai array into HDMI and non HDMI array and
+register them conditionally:
+for HDMI hdev only register the dais needed for HDMI
+for non HDMI hdev do not  register the HDMI dais.
 
-On 28/11/2023 13:58, Péter Ujfalusi wrote:
-> 
-> 
-> On 28/11/2023 12:48, Takashi Iwai wrote:
->>> Well, it is a bit more 'interesting' from that angle.
->>> for patch two we needed:
->>> https://lore.kernel.org/linux-sound/20231124124015.15878-1-peter.ujfalusi@linux.intel.com/
->>
->> Ouch, this kind of information has to be mentioned in the patch
->> description.  Otherwise one would take only this series and face a
->> problem easily.  I can imagine such a problem on the stable tree.
-> 
-> OK, I will update the commit message
-> 
->>> I would rather not risk to move the hdac_hda as Intel only using address
->>> 2 as HDMI indication - which I'm still not sure if it is Intel only or
->>> generic HDA convention.
->>
->> Sure, it doesn't sound right, either.
->>
->> Can we then add DAPM widgets and routes later conditionally instead of
->> having it in component driver definition?
-> 
-> The issue is with the DAIs. If I remove the dai registering from
-> hdac_hda_dev_probe() to be done in hdac_hda_codec_probe() then the probe
-> will not happen since we do not have the needed components/DAIs to probe
-> the card.
-> 
-> If we don't have HDMI then the machine driver will substitute it with
-> dummy-dai, but if we have HDMI then we are not going to probe at all.
-> 
-> It is a sort of chicken and egg situation, right?
+Depends-on: 3d1dc8b1030d ("ASoC: Intel: skl_hda_dsp_generic: Drop HDMI routes when HDMI is not available")
+Link: https://github.com/thesofproject/linux/issues/4509
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+---
+Hi,
 
-I think I have found a workaround without the need to export a function,
-it is going to be a single patch and should be OK for non Intel
-platforms in the future.
+Changes since v1:
+- Drop the patch for patch_hdmi to export a funtion to match the device
+- Use the struct hdac_hda_priv.need_display_power boolean as indication that the
+  device is a HDMI/DP audio codec
 
-struct hdac_hda_priv *hda_pvt = dev_get_drvdata(&hdev->dev);
-..
-if (hda_pvt->need_display_power)
-	/* HDMI/DP */
-else
-	/* Non HDMI */
+Regards,
+Peter
 
+ sound/soc/codecs/hdac_hda.c | 23 ++++++++++++++++++++---
+ 1 file changed, 20 insertions(+), 3 deletions(-)
+
+diff --git a/sound/soc/codecs/hdac_hda.c b/sound/soc/codecs/hdac_hda.c
+index 355f30779a34..b075689db2dc 100644
+--- a/sound/soc/codecs/hdac_hda.c
++++ b/sound/soc/codecs/hdac_hda.c
+@@ -132,6 +132,9 @@ static struct snd_soc_dai_driver hdac_hda_dais[] = {
+ 		.sig_bits = 24,
+ 	},
+ },
++};
++
++static struct snd_soc_dai_driver hdac_hda_hdmi_dais[] = {
+ {
+ 	.id = HDAC_HDMI_0_DAI_ID,
+ 	.name = "intel-hdmi-hifi1",
+@@ -607,8 +610,16 @@ static const struct snd_soc_component_driver hdac_hda_codec = {
+ 	.endianness		= 1,
+ };
+ 
++static const struct snd_soc_component_driver hdac_hda_hdmi_codec = {
++	.probe			= hdac_hda_codec_probe,
++	.remove			= hdac_hda_codec_remove,
++	.idle_bias_on		= false,
++	.endianness		= 1,
++};
++
+ static int hdac_hda_dev_probe(struct hdac_device *hdev)
+ {
++	struct hdac_hda_priv *hda_pvt = dev_get_drvdata(&hdev->dev);
+ 	struct hdac_ext_link *hlink;
+ 	int ret;
+ 
+@@ -621,9 +632,15 @@ static int hdac_hda_dev_probe(struct hdac_device *hdev)
+ 	snd_hdac_ext_bus_link_get(hdev->bus, hlink);
+ 
+ 	/* ASoC specific initialization */
+-	ret = devm_snd_soc_register_component(&hdev->dev,
+-					 &hdac_hda_codec, hdac_hda_dais,
+-					 ARRAY_SIZE(hdac_hda_dais));
++	if (hda_pvt->need_display_power)
++		ret = devm_snd_soc_register_component(&hdev->dev,
++						&hdac_hda_hdmi_codec, hdac_hda_hdmi_dais,
++						ARRAY_SIZE(hdac_hda_hdmi_dais));
++	else
++		ret = devm_snd_soc_register_component(&hdev->dev,
++						&hdac_hda_codec, hdac_hda_dais,
++						ARRAY_SIZE(hdac_hda_dais));
++
+ 	if (ret < 0) {
+ 		dev_err(&hdev->dev, "failed to register HDA codec %d\n", ret);
+ 		return ret;
 -- 
-Péter
+2.43.0
+

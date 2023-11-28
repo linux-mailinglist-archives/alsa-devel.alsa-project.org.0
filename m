@@ -2,105 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C89307FB88B
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Nov 2023 11:48:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B434A7FB8AE
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Nov 2023 11:56:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A943D846;
-	Tue, 28 Nov 2023 11:48:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A943D846
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4AD0C950;
+	Tue, 28 Nov 2023 11:56:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4AD0C950
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701168536;
-	bh=mZaBvcnkFkYP3odWHI+cOG1/o92SpiAH0TczCQ6eG5E=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=BMsO3Ih5xAxTDwJDRVx/baTE1GBu7NmxD5gNBE64j5MxgjrLfBEmrfnvQU2LKVreP
-	 sdN4KDA2aWjEge2k+k97S9de5I1ku9qmMGWS27QrjVu4Nt8cw6M5BwNXyvp/HeM6+5
-	 SeB0MhI9C0MmIgXChpSDIZNx9bocEiqlCL50abYo=
+	s=default; t=1701168971;
+	bh=m2fTBFmCzr/K6uqZqRhPE0KGTUGPsJ73zAx639A66gY=;
+	h=Date:From:To:Subject:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=LR7/3v7Q07X8j4hAuq2vBHgFzxXfh5OGttb9i5bRHQiBXUeusZ0Pk+SoQ3WcminZj
+	 1IX75+zqxTP/nIzxoSmlqyNymuGBjybpT2Dn+d60o6dQGN7zw3MZZu0PjDOD5tFIp+
+	 rGTSu9v24CK31+CVhiGRm0IbC6CbA8/WdH9grN1Q=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 594F4F8057F; Tue, 28 Nov 2023 11:48:24 +0100 (CET)
+	id C64BBF80579; Tue, 28 Nov 2023 11:55:39 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 89630F8055A;
-	Tue, 28 Nov 2023 11:48:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A9FBEF80571;
+	Tue, 28 Nov 2023 11:55:38 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 18A0FF8016E; Tue, 28 Nov 2023 11:48:20 +0100 (CET)
+	id 60A91F8016E; Tue, 28 Nov 2023 11:55:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from metis.whiteo.stw.pengutronix.de
+ (metis.whiteo.stw.pengutronix.de [IPv6:2a0a:edc0:2:b01:1d::104])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D385CF800F5
-	for <alsa-devel@alsa-project.org>; Tue, 28 Nov 2023 11:48:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D385CF800F5
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+	by alsa1.perex.cz (Postfix) with ESMTPS id A1752F800F5
+	for <alsa-devel@alsa-project.org>; Tue, 28 Nov 2023 11:55:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1752F800F5
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1r7vkV-00012k-Ft; Tue, 28 Nov 2023 11:55:27 +0100
+Received: from [2a0a:edc0:0:b01:1d::7b] (helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.94.2)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1r7vkU-00C9S6-Jt; Tue, 28 Nov 2023 11:55:26 +0100
+Received: from pengutronix.de (unknown [172.20.34.65])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 559E01F74B;
-	Tue, 28 Nov 2023 10:48:12 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 03C0113763;
-	Tue, 28 Nov 2023 10:48:11 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id QNchO2vFZWVvdwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Tue, 28 Nov 2023 10:48:11 +0000
-Date: Tue, 28 Nov 2023 11:48:11 +0100
-Message-ID: <87plzum9w4.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: =?ISO-8859-1?Q?P=E9ter?= Ujfalusi <peter.ujfalusi@linux.intel.com>
-Cc: lgirdwood@gmail.com,
-	broonie@kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com,
-	alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org,
-	pierre-louis.bossart@linux.intel.com,
-	kai.vehmanen@linux.intel.com,
-	ranjani.sridharan@linux.intel.com
-Subject: Re: [PATCH 1/2] ALSA: hda/hdmi: Add helper function to check if a
- device is HDMI codec
-In-Reply-To: <96d334c1-9c6b-415b-bfb8-1fab29b1d223@linux.intel.com>
-References: <20231127130245.24295-1-peter.ujfalusi@linux.intel.com>
-	<20231127130245.24295-2-peter.ujfalusi@linux.intel.com>
-	<87jzq3pc6r.wl-tiwai@suse.de>
-	<d2fff7cd-ea4b-41b9-992b-fab6ba6549ec@linux.intel.com>
-	<87cyvvp8t6.wl-tiwai@suse.de>
-	<8ede931b-8c9c-4b95-83e5-5f0db9819e8e@linux.intel.com>
-	<878r6jp6jd.wl-tiwai@suse.de>
-	<b0c4b724-fe34-4e55-81fe-146e1b52839d@linux.intel.com>
-	<875y1np5g2.wl-tiwai@suse.de>
-	<be4c418d-5147-4d4b-aa9b-a8e6f3c10a30@linux.intel.com>
-	<87y1eimd23.wl-tiwai@suse.de>
-	<e40a3b5d-425e-427c-bec2-6b82d8f5ee94@linux.intel.com>
-	<87ttp6mc04.wl-tiwai@suse.de>
-	<96d334c1-9c6b-415b-bfb8-1fab29b1d223@linux.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Server: rspamd1
-Authentication-Results: smtp-out2.suse.de;
-	none
-X-Rspamd-Queue-Id: 559E01F74B
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	 REPLY(-4.00)[]
-Message-ID-Hash: G2A3EMJCAUBDGLQPTOEXLPWLN4AQSUJR
-X-Message-ID-Hash: G2A3EMJCAUBDGLQPTOEXLPWLN4AQSUJR
-X-MailFrom: tiwai@suse.de
+	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 52436254FDE;
+	Tue, 28 Nov 2023 10:55:26 +0000 (UTC)
+Date: Tue, 28 Nov 2023 11:55:25 +0100
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+	Baojun Xu <baojun.xu@ti.com>, Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, alsa-devel@alsa-project.org
+Subject: tlv320aic3x: Failed to init class D
+Message-ID: <20231128-frail-parted-f6e66c217965-mkl@pengutronix.de>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="tkh5oc4fgwgfuy5i"
+Content-Disposition: inline
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: mkl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: alsa-devel@alsa-project.org
+Message-ID-Hash: I6FQMLX7OZIEJ5HCCI2GSR627FMR6UBP
+X-Message-ID-Hash: I6FQMLX7OZIEJ5HCCI2GSR627FMR6UBP
+X-MailFrom: mkl@pengutronix.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -112,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/G2A3EMJCAUBDGLQPTOEXLPWLN4AQSUJR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/I6FQMLX7OZIEJ5HCCI2GSR627FMR6UBP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -121,78 +98,44 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 28 Nov 2023 11:16:00 +0100,
-Péter Ujfalusi wrote:
-> 
-> 
-> 
-> On 28/11/2023 12:02, Takashi Iwai wrote:
-> > On Tue, 28 Nov 2023 10:53:56 +0100,
-> > Péter Ujfalusi wrote:
-> >>
-> >>
-> >>
-> >> On 28/11/2023 11:39, Takashi Iwai wrote:
-> >>> Hm...  I still find it's a bad move to use an exported symbol from
-> >>> another codec driver.
-> >>
-> >> The other option is to check for 0x4 (or address 2), but I'm not sure if
-> >> this is Intel only or universally true for HDMI codecs.
-> >>
-> >>> And, I wonder what if you have a system that has only one HDMI codec
-> >>> without analog one?  Would it still work with your change? 
-> >>
-> >> Yes, it works with only HDMI codec (for example on SoundWire laptops) or
-> >> with UP2 board which only have HDMI audio support by default.
-> > 
-> > Interesting.  With your patch 2, hdac_hda_hdmi_codec is without the
-> > DAPM definitions, and even if that's the only one that is registered,
-> > it will still work?  So it means that it works without DAPM
-> > definitions at all?
-> 
-> Well, it is a bit more 'interesting' from that angle.
-> for patch two we needed:
-> https://lore.kernel.org/linux-sound/20231124124015.15878-1-peter.ujfalusi@linux.intel.com/
 
-Ouch, this kind of information has to be mentioned in the patch
-description.  Otherwise one would take only this series and face a
-problem easily.  I can imagine such a problem on the stable tree.
+--tkh5oc4fgwgfuy5i
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> The reason is that prior to patch 2 the analog codec would create the
-> DAPM widgets for the HDMI also and the DAPM route would be available but
-> the HDMI would still not work:
-> we had PCMs for HDMI but non operational ones.
-> 
-> If we had a codec+HDMI then we would have the warnings that the second
-> codec is registering the same DAPM widgets again.
-> 
-> With the linked patch plus this series we will not register the DAPM
-> widgets and the machine driver would drop the routes.
-> The PCMs will be still created and they will be still non functional but
-> we will have no warning when the system have two codecs.
-> 
-> The core HDA+patch_hdmi is needed for the hdac_hda to have working HDMI
-> audio, but the patch init is after the codec driver's probe:
-> 
-> # dmesg | grep peter
-> [ 4088.698111] [peter] hdac_hda_dev_probe: is_hdmi_codec(): 0
-> [ 4088.698112] [peter] hdac_hda_dev_probe: hdev->is_hdmi: 0
-> [ 4088.698114] [peter] hdac_hda_dev_probe: snd_hda_device_is_hdmi(): 1
-> [ 4088.862882] [peter] patch_i915_tgl_hdmi: ENTER
-> [ 4088.862886] [peter] alloc_intel_hdmi: ENTER
-> [ 4088.872269] [peter] generic_hdmi_build_pcms: ENTER
-> [ 4088.872279] [peter] hdac_hda_codec_probe: is_hdmi_codec(): 1
-> 
-> We need to know if the codec is HDMI or not in hdac_hda_dev_probe()
-> 
-> I would rather not risk to move the hdac_hda as Intel only using address
-> 2 as HDMI indication - which I'm still not sure if it is Intel only or
-> generic HDA convention.
+Hello,
 
-Sure, it doesn't sound right, either.
+we are using an I2C connected ti,tlv320aic3007. During probe,
+regmap_register_patch() returns -6, which leads to the error message:
+"tlv320aic3x 2-0018: Failed to init class D: -6". I think this is
+because the codec is still in reset and does not respond to the I2C
+transfers.
 
-Can we then add DAPM widgets and routes later conditionally instead of
-having it in component driver definition?
+How to get rid of the error message? Power on the codec, just to write
+the register sequence or don't print the error message on "-6"?
 
+regards, Marc
 
-Takashi
+--=20
+Pengutronix e.K.                 | Marc Kleine-Budde          |
+Embedded Linux                   | https://www.pengutronix.de |
+Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
+Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
+
+--tkh5oc4fgwgfuy5i
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEDs2BvajyNKlf9TJQvlAcSiqKBOgFAmVlxxsACgkQvlAcSiqK
+BOg/Kwf9GnusR7B6hfTl6uMhuDtlF/ilNveCjI4FZ+T34h5+7l7VHcmj8fGcGEXe
+47xPwwon7CfJcbItiN54ebtyYs+hrawOcRigV65BkTPFxXrHUb0S+DM1+CssTDbY
+D9pN2ITqmD1WP61i+pU6rj7BA7JgDTWV/is7RhBZBQUxVYhf72fPjIACkOCF0/fb
+Cb5bH8SjYS/6qD5If6Ok2DkkgUaSZbcxM6IEex/hf2NzqXJPYpuqVaQ2/Q1c3dWz
+N+jRwZ47hYtrH9jKLySTe4Om9juXcJIewYS/HSY6493AZQvWmnJd+pHJaecQG67Z
+oAEWWO7Rnv1fQXLr53SlHTU6eZugjA==
+=InmG
+-----END PGP SIGNATURE-----
+
+--tkh5oc4fgwgfuy5i--

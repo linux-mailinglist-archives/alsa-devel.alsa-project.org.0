@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 453E77FC0AE
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Nov 2023 18:54:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 493BB7FC0B4
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Nov 2023 18:55:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B07DAE10;
-	Tue, 28 Nov 2023 18:54:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B07DAE10
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9701C836;
+	Tue, 28 Nov 2023 18:54:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9701C836
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701194089;
-	bh=7EyciSBoMRp/uy5JEafkZ9mCsmBqjMjPCjZFngsv27E=;
+	s=default; t=1701194109;
+	bh=qIrihs3bgqghpQQf+Q4tySVJ/cFlr64il/GtOmU5bi4=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=aGjRqgxhPm0dLTCf6qndbff/P1x7pZ750uuX6cCVkwMAasuy+Qf3p34mwu/mxeUHz
-	 nAufOLdaCfQ5nxwz9z36Y1S/OBoYUWiukWE0s5B/yAIs39Fo5ExASgNJVgM3v/GCtf
-	 E2OPmZ+OpfwkPWASN/4PN5X5rCzYdoE5w3nlY8o8=
+	b=LRoo6TejwPo/BN2k3ZP5WCec7HMqbInzguMduGtGpjRKRRTUZxkQ53m5ogR9zacIU
+	 6jA1n1Y9jHFhQYfhKW7mUTTu5R3ugXXH7jTHLfvIXCFI9IAZ8Pl6FZyE9FA8Fbo7pC
+	 Xeg9ek/S2TopPoXJjFEP+aPm9sitvHu0tQEcdj/I=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2F86AF805BE; Tue, 28 Nov 2023 18:54:09 +0100 (CET)
+	id 62408F805D4; Tue, 28 Nov 2023 18:54:13 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 64FBDF805BE;
-	Tue, 28 Nov 2023 18:54:09 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4453CF805E6;
+	Tue, 28 Nov 2023 18:54:12 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8A3A5F8055B; Tue, 28 Nov 2023 18:54:05 +0100 (CET)
+	id 6DA2FF805A9; Tue, 28 Nov 2023 18:54:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -36,65 +36,60 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8D85AF80114
-	for <alsa-devel@alsa-project.org>; Tue, 28 Nov 2023 18:53:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D85AF80114
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0CBD8F80104
+	for <alsa-devel@alsa-project.org>; Tue, 28 Nov 2023 18:54:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0CBD8F80104
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=LW1vMRzt
+ header.s=Intel header.b=Z5TXnyoF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1701194040; x=1732730040;
+  t=1701194042; x=1732730042;
   h=message-id:date:mime-version:subject:to:cc:references:
    from:in-reply-to:content-transfer-encoding;
-  bh=7EyciSBoMRp/uy5JEafkZ9mCsmBqjMjPCjZFngsv27E=;
-  b=LW1vMRztvv5CJT54HNc1TtQgoa4EtFCBK1qFX4b9Sfnn1Go/zKP8A14q
-   ATRrN+ZtiSyi+nSDsAnHOy/8yVf4jGbf9xwmKTuUUHe7FLAnk3bsieeCx
-   S7G0V7oXZEN0edxNPyqnPljlzLuJTv3GGr0PXfQ/5FvGmjwAUfIIdIfE8
-   898TQFXVDVIx2/8xlomjFGu48tb+sMUI2eLEcuTylzCxBxXTP/B4Mgj7i
-   Km5lv5BS0uUbDZV/vdxzJOJGaTOqSvmUfshnrZPsQzZbZopP+m8ztHsp/
-   IO9sJ02y/n28f29xc7augUFUSo9ewlZPuYlKFTYch95tDvbi2yqXfXCOA
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10908"; a="424127079"
+  bh=qIrihs3bgqghpQQf+Q4tySVJ/cFlr64il/GtOmU5bi4=;
+  b=Z5TXnyoFbMB7KG14mea7mRYUlIEc0OxdUeqr5G/x1qEoSF2UbFUknvD3
+   cGntYD/h7i+oxCwye0Mvp/4VTGA3gFEYrFX2slbgEdGpqkV93Yt95xIC9
+   V2DTDPCKQwkYQySp26tw47iGSU1cVXqIuSqv/iHsRWZRC6IWGx4bik/SN
+   c5h7mjjIk2buNnBGPwYzFRK1sN7ieU+onySXgESkBQPR76None84aKnnT
+   ewRPwHK2G+76Hs1fYoANv1SIK74gNrUj5zaIYnvmOSUEIsCYdRIup54Y0
+   SFDE2sLbPsX0TU/FXjqbJpmq3A/5ayfIgkFjSLWcyALBj5anD6Q+Y4vQg
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10908"; a="424127086"
 X-IronPort-AV: E=Sophos;i="6.04,234,1695711600";
-   d="scan'208";a="424127079"
+   d="scan'208";a="424127086"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
   by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Nov 2023 09:53:56 -0800
+ 28 Nov 2023 09:53:57 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10908"; a="834715299"
+X-IronPort-AV: E=McAfee;i="6600,9927,10908"; a="834715306"
 X-IronPort-AV: E=Sophos;i="6.04,234,1695711600";
-   d="scan'208";a="834715299"
+   d="scan'208";a="834715306"
 Received: from skumarso-mobl33.amr.corp.intel.com (HELO [10.255.231.208])
  ([10.255.231.208])
   by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Nov 2023 09:53:54 -0800
-Message-ID: <5e9b0b69-6108-4909-90e8-257c13c2d886@linux.intel.com>
-Date: Tue, 28 Nov 2023 09:23:32 -0600
+ 28 Nov 2023 09:53:56 -0800
+Message-ID: <e43db38a-206d-4ea5-8813-23e1f918dd65@linux.intel.com>
+Date: Tue, 28 Nov 2023 09:35:56 -0600
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/7] ASoC: Intel: soc-acpi-intel-tgl-match: add cs42l43
- and cs56l56 support
+Subject: Re: [PATCH] soundwire: qcom: allow multi-link on newer devices
 Content-Language: en-US
-To: Richard Fitzgerald <rf@opensource.cirrus.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, lgirdwood@gmail.com,
- broonie@kernel.org
-Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- kai.vehmanen@linux.intel.com, ranjani.sridharan@linux.intel.com,
- cezary.rojewski@intel.com, yung-chuan.liao@linux.intel.com,
- ckeepax@opensource.cirrus.com, yong.zhi@intel.com, chao.song@linux.intel.com
-References: <20231127133448.18449-1-peter.ujfalusi@linux.intel.com>
- <20231127133448.18449-7-peter.ujfalusi@linux.intel.com>
- <9660e9df-2061-4b2c-ba59-5e6f8a61f07d@opensource.cirrus.com>
- <cb768f03-9d46-432e-ad67-8ff1ef075385@linux.intel.com>
- <6038c9fa-8cb1-46e1-b856-d759a3f990b3@opensource.cirrus.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Sanyog Kale <sanyog.r.kale@intel.com>, linux-arm-msm@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Cc: Mark Brown <broonie@kernel.org>
+References: <20231128150049.412236-1-krzysztof.kozlowski@linaro.org>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <6038c9fa-8cb1-46e1-b856-d759a3f990b3@opensource.cirrus.com>
+In-Reply-To: <20231128150049.412236-1-krzysztof.kozlowski@linaro.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: YTHJA5HW7ROUYZUP3BS6SFKH6S63SA66
-X-Message-ID-Hash: YTHJA5HW7ROUYZUP3BS6SFKH6S63SA66
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: 5YIIS5M4CNVNRED5EYGMFN5C6GAIXCGC
+X-Message-ID-Hash: 5YIIS5M4CNVNRED5EYGMFN5C6GAIXCGC
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -107,7 +102,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YTHJA5HW7ROUYZUP3BS6SFKH6S63SA66/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5YIIS5M4CNVNRED5EYGMFN5C6GAIXCGC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,120 +113,79 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
 
-On 11/28/23 04:31, Richard Fitzgerald wrote:
-> On 27/11/2023 17:36, Pierre-Louis Bossart wrote:
->>
->>>> +static const struct snd_soc_acpi_adr_device cs35l56_0_adr[] = {
->>>> +    {
->>>> +        .adr = 0x00003301FA355601ull,
->>>> +        .num_endpoints = 1,
->>>> +        .endpoints = &spk_r_endpoint,
->>>
->>> Assigning CS35L56 to "left" or "right" endpoints might be confusing.
->>> All CS35L56 in a system receive both left and right channels and by
->>> default they output a mono-mix of left+right.
->>>
->>> The left/right of an amp is determined by the firmware file (.bin) that
->>> is loaded and the current settings of the "Posture" ALSA control. So
->>> this amp might be the left channel after a .bin is loaded.
->>
->> That's a problem if the kernel does not know which amplifier is on which
->> side, no? How would one change the balance if this information is known
->> only within a binary/opaque firmware?
->>
+On 11/28/23 09:00, Krzysztof Kozlowski wrote:
+> Newer Qualcomm SoCs like X1E80100 might come with four speakers spread
+> over two Soundwire controllers, thus they need a multi-link Soundwire
+> stream runtime.
 > 
-> SDCA allows the posture (orientation) of amplifiers to be changed at
-> runtime. CS35L56 is designed as a SDCA device so it doesn't have any
-> hardwired position. SDCA doesn't define what the posture numbers mean,
-> they are an integer that is system-specific.
+> Cc: Mark Brown <broonie@kernel.org>
+> Cc: alsa-devel@alsa-project.org
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 > 
-> Because SDCA doesn't define the meaning of postures, and an SDCA device
-> should work with a generic SDCA driver (which obviously wouldn't have
-> hardcoded knowledge of the system) the speaker positions and postures
-> are coded into the firmware
+> ---
 > 
-> It's difficult to say what is "default". For example, if you say that
-> the default for a tablet is left/right/top/bottom, assuming it is
-> used in portrait orientation, that would be wrong if the user always
-> uses it in landscape.
+> This is an entirely different approach than my previous try here:
+> https://lore.kernel.org/all/20231025144601.268645-1-krzysztof.kozlowski@linaro.org/
+> ---
+>  drivers/soundwire/qcom.c | 22 ++++++++++++++++++++++
+>  1 file changed, 22 insertions(+)
 > 
-> Matching by what amp is on what bus doesn't work well here because two
-> systems could have the same arrangement of CS35L56 on each bus but use
-> them for different purposes. So they could both match the "2 on bus 0, 2
-> on bus 1" table entry, but could be left/right/top/bottom on one device
-> and left woofer/right woofer/left tweeter/right tweeter on another
-> device.
+> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
+> index 412b8e663a0a..57943724f0eb 100644
+> --- a/drivers/soundwire/qcom.c
+> +++ b/drivers/soundwire/qcom.c
+> @@ -920,6 +920,18 @@ static int qcom_swrm_init(struct qcom_swrm_ctrl *ctrl)
+>  	return 0;
+>  }
+>  
+> +static int qcom_swrm_read_prop(struct sdw_bus *bus)
+> +{
+> +	struct qcom_swrm_ctrl *ctrl = to_qcom_sdw(bus);
+> +
+> +	if (ctrl->version >= SWRM_VERSION_2_0_0) {
+> +		bus->multi_link = true;
+> +		bus->hw_sync_min_links = 3;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>  static enum sdw_command_response qcom_swrm_xfer_msg(struct sdw_bus *bus,
+>  						    struct sdw_msg *msg)
+>  {
+> @@ -1078,6 +1090,7 @@ static const struct sdw_master_port_ops qcom_swrm_port_ops = {
+>  };
+>  
+>  static const struct sdw_master_ops qcom_swrm_ops = {
+> +	.read_prop = qcom_swrm_read_prop,
 
-In the absence of any platform firmware information, I am not sure how
-we can deal with such systems. The match tables are already hard to
-support given that a number of OEMs get the _ADR wrong, the speaker
-position is the next-level...
+nit-pick: read_prop() literally means "read platform properties".
 
-Or did you just volunteer to maintain a DMI quirk table for Cirrus-based
-systems :-)
+The functionality implemented in this callback looks more like an
+initialization done in a probe, no?
 
-I also bet that at some point the wrong firmware will be loaded on the
-wrong amplifiers, that could be fun as well.
+>  	.xfer_msg = qcom_swrm_xfer_msg,
+>  	.pre_bank_switch = qcom_swrm_pre_bank_switch,
+>  	.post_bank_switch = qcom_swrm_post_bank_switch,
+> @@ -1196,6 +1209,15 @@ static int qcom_swrm_stream_alloc_ports(struct qcom_swrm_ctrl *ctrl,
+>  
+>  	mutex_lock(&ctrl->port_lock);
+>  	list_for_each_entry(m_rt, &stream->master_list, stream_node) {
 
-> I assume that if the system supports rotation there should be something
-> in the UCM or other userland that manages this. At least, it seems like
-> it's a UCM problem to decide which speakers are doing what audio.
-> If Linux-based distros don't have something like that - well, that just
-> means Linux is behind Windows.
+just realizing this now, are you sure the 'port_lock' is the proper
+means to protecting the stream->master_list? I don't see this used
+anywhere else in stream.c. I think you need to use bus_lock.
 
-SDCA has lots of fancy concepts, posture is one. Last time I checked we
-don't have any reports of the hinge angle in Linux so the best we can do
-is landscape/portrait, and even that is questionable given that tablets
-or detachables have not reached any developers so far. CI automation is
-another fun issue, we'll need robotic arms to move the device around and
-intelligent alsa-bat-v2 to verify sound levels...
 
-The notion of which speakers do what is something that will clearly take
-years to figure out. For now the main issue is to get all parts
-connected and basic "loud enough" sound working.
-
->>> It would be better to have generic names for the endpoint that don't
->>> imply position, for example:
->>>
->>> group1_spk1_endpoint
->>> group1_spk2_endpoint
->>> group1_spk3_endpoint
->>> group1_spk4_endpoint.
->>
->> The notion of endpoint is completely half-baked today and the settings
->> used have no bearing on the behavior and user-experience. I am inches
->> away from sending a patch that removes all of the endpoint definitions,
->> we can re-add them if/when we can get the information from platform
->> firmware.
->>
->>>> +        .name_prefix = "cs35l56-8"
->>>
->>> Can these prefixes be "AMPn" to match the CS35L41, CS35L51 and
->>> CS35L56-hda driver? This prefix is used to find the matching firmware
->>> files and our naming convention for these has been cs35lxx-xxxx-ampn
->>>
->>> Is there anything that depends on the prefixes being "cs35l56-n" ?
->>
->> IIRC this name_prefix is just used for the codec_conf and hence for
->> control names/UCM. At some point userspace/driver need to know if amp5
->> is left or right.
->>
->> We can certainly align on conventions but the values set in this ACPI
->> match table will not be used for firmware download - different scope.
->>
-> 
-> They are used for our firmware download. Each amp can have its own
-> unique firmware file. The ALSA prefix is used to identify which firmware
-> file to load to which amp.
-
-The prefix will only be used when the card is created, specifically for
-control names.
-The firmware should be selected and downloaded when the device shows up
-on the bus.
-Card creation and device enumeration/initialization happen on different
-timelines, if the machine driver is "blacklisted" or unbound I am not
-sure what happens.
-
-There is a dependency between machine driver probe and codec firmware
-download that I am not able to follow, can you please elaborate?
-
+> +		/*
+> +		 * For streams with multiple masters:
+> +		 * Allocate ports only for devices connected to this master.
+> +		 * Such devices will have ports allocated by their own master
+> +		 * and its qcom_swrm_stream_alloc_ports() call.
+> +		 */
+> +		if (ctrl->bus.id != m_rt->bus->id)
+> +			continue;
+> +
+>  		if (m_rt->direction == SDW_DATA_DIR_RX) {
+>  			maxport = ctrl->num_dout_ports;
+>  			port_mask = &ctrl->dout_port_mask;

@@ -2,107 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A0817FB55D
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Nov 2023 10:15:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 720897FB56A
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Nov 2023 10:17:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C7FAA84A;
-	Tue, 28 Nov 2023 10:15:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C7FAA84A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1195E82C;
+	Tue, 28 Nov 2023 10:16:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1195E82C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701162910;
-	bh=Ly8ibmF3JWVUPnLDlDiYBrh96c1WqBKlTXh1duiyW/s=;
+	s=default; t=1701163027;
+	bh=9O39JMlt9cecMGrOhG5k5hA7QZU458FI9TkVb3GvDmA=;
 	h=Date:From:Subject:To:Cc:References:In-Reply-To:Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=FS7By/mMZmttRdwchKpGq0OvsMg5qe5bTObxd+ywOH3UIPJtUw3yBBdXwpny/FG9Z
-	 IgpBfhG44DyqeWBw+tjZQBUGmoTE1ZjAz6u9+IlsPUt1F03mfcTQYmtFmzNkClGmam
-	 KIVZbHlMgH8PC3H//xjcWcElUvtxUlwcVoAplXvM=
+	b=i38P7cVZErar2Ru+4mdCghmswEC/GoV/zWNTVRxTWgFpokYtPlekg5hG/15MXeXsL
+	 fSrWPKR0EpdSLwDnzV3BfKJGaCuT6GwfTmnLGnB5nkLf/793tOT9oLpNNG+4wEpGD2
+	 YWFslah519cmWxO1iIMEysEIkbyMrWGrxT5arapE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BF8FDF80567; Tue, 28 Nov 2023 10:14:39 +0100 (CET)
+	id 8A747F80114; Tue, 28 Nov 2023 10:16:46 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0AEE7F80579;
-	Tue, 28 Nov 2023 10:14:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2DC42F80571;
+	Tue, 28 Nov 2023 10:16:46 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B1D73F8016E; Tue, 28 Nov 2023 10:14:35 +0100 (CET)
+	id 1C4C8F8016E; Tue, 28 Nov 2023 10:16:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [IPv6:2a00:1450:4864:20::432])
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [IPv6:2a00:1450:4864:20::32d])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E1112F800F5
-	for <alsa-devel@alsa-project.org>; Tue, 28 Nov 2023 10:14:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1112F800F5
+	by alsa1.perex.cz (Postfix) with ESMTPS id 65209F80114
+	for <alsa-devel@alsa-project.org>; Tue, 28 Nov 2023 10:16:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 65209F80114
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=gz2tfRUL
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-332ed1bd4cbso2242813f8f.2
+ header.s=google header.b=c65DSUnQ
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-40b472f99a0so12911565e9.3
         for <alsa-devel@alsa-project.org>;
- Tue, 28 Nov 2023 01:14:32 -0800 (PST)
+ Tue, 28 Nov 2023 01:16:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1701162871; x=1701767671;
+        d=linaro.org; s=google; t=1701162997; x=1701767797;
  darn=alsa-project.org;
         h=content-transfer-encoding:in-reply-to:organization:autocrypt
          :references:cc:to:content-language:subject:reply-to:from:user-agent
          :mime-version:date:message-id:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=2Kjtii/FN0kaVr+RySKyiRhJOaMJhIbqBNo40CkvcnQ=;
-        b=gz2tfRULxr2XpIR1Q6C+slhtO6JZ4wY3HjVvTIowCG/V2beoeNbiv5jHfMabWk7EoY
-         Djhwz4c3WlKLbLJzSUgUEGxhTnvdd6KF0tixtdYHJdd+7O/E/MqPQ+VD+n9zfuM8vzYY
-         PUmP3iQUZb1UurAHs2+qrtSSKaMzvqo7RTtN09BiE1xiroJY9lXIfc1Odvou7tWd1aQX
-         NZf+vGDdyiuYGWz8puT4vGkAnCU5/hNv2GPvZUBWBjl6PGB3R9Sn1Ibnl3XePEvMFMdl
-         ++YfSG5P8nrr8O0nFXL2OBRfWlGLfGnDm71ywxUiyP8mU4WQP0Gx4Gk7lrsUikUnkJjo
-         nkPw==
+        bh=I1ixJzL+G4ExhL3zGwuOlyXJPv0jAqiyItVDxcyAzs0=;
+        b=c65DSUnQNKmfc8ZC0jE1YhYOPewHgA5rrAdAT/c/WI3F7zO/XoDNvmZYariNqXfNQf
+         0y/1fZImdy/sYY9joKKLqSPEUqbMyLsvAB6z/9pRzAx7uijQ5vnI70ASkrKO2Ghax5LK
+         j8bMK5K6vD7B/GVpc2IeV0jaghCd148gYOExx/9wTn26f0ouTkRaTBX2LvOlkATAdeGa
+         PvBPXoux7dBMgLTyjvbeFSjpDlSzrWzyxavqIRP1pxzN0mVn0hzKw4qEPyS2ubenmST6
+         ZCJ1YNCl/7lyCgkfily9DLjYVnXJjMw75mzpc6OtgNhBDACbd5h+7MtXfvQhtXssOvOq
+         4RIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701162871; x=1701767671;
+        d=1e100.net; s=20230601; t=1701162997; x=1701767797;
         h=content-transfer-encoding:in-reply-to:organization:autocrypt
          :references:cc:to:content-language:subject:reply-to:from:user-agent
          :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=2Kjtii/FN0kaVr+RySKyiRhJOaMJhIbqBNo40CkvcnQ=;
-        b=m++IbIdR3fqvSxdkudaT3ldcX9GLtA1ro5++v60cqFM/cyv/AINB5Dnbf3q7IjcTHm
-         MqQex/UFrRybhN5/5S55bFctLp4DiQ0WbBD8Y8x8cQKZ/xPnpwv0CwIZCs42alheZ416
-         61bkPS4u1w8HZR2GGnVdDqMRknJ67/+xkPuTykVT1dyA8dnOpN468Laq0f0DcOSkpCwo
-         j7j+SRjW614QrhbpMTWZb71nm6xDxkKKR2vPewr9uzbtKCaz8ffBFtL1xlIVj/YwwzIq
-         7ELeb6J3CgI6w92H2Q7dc4+JkSH8VeEnj3ALRMylQyySYRaf90Aw6B2JjVhIKLU7z3gN
-         Qepg==
-X-Gm-Message-State: AOJu0Yynntv4cmtR/5JsorpA7fgKJlfhUwhRVAcd55ZLdfTOWAqDaKds
-	GIVfvV1RMbLz6Ozr0bnrtveMQw==
+        bh=I1ixJzL+G4ExhL3zGwuOlyXJPv0jAqiyItVDxcyAzs0=;
+        b=JJ/+NhFTMfkezi3E7PiNR/wEcPSvaA9v7peBcU99smbw84v7YGHDVnwM8g8WWPQsz+
+         9XcuXYaVIqmktWc0aeD+hUrEpBdSWnjTcby0pdDNWFzNW2fPksD6RDP5NKhvDJc0b9f2
+         Jy7y1yTJ2cYnAbqcLxEuZzN4ECFtbieNEho8RK+hNFqwYaYIq1UKR+Y3eAk9H0zqOg1q
+         /OkWOk2k1v3hR1WPj6qmXf41tog7XrFKR5dH/bDDwX/us2pHDEAbefbHeNl+Jt8zNCcB
+         kVZQ0iogkQ9tseIyo3HzqfRAeN+4XFOrfpEp3aBsZiBYn3ZlWSewywq9EvnNumAAGA/0
+         L/LQ==
+X-Gm-Message-State: AOJu0YzsrqQKKZneATZwkWjX9RxiIfu4VOleUAwwMgfdVyK5ZcySw5RC
+	xvR+dtOJLp9Nh0z47fToX8eJpQ==
 X-Google-Smtp-Source: 
- AGHT+IEQUMczIYX8hA+zLKx022wQyd14G8CqIVm0T/Hdr+d/ZVMnwjy4MFWloEOBHn7FeV7wpwnPnA==
-X-Received: by 2002:a5d:49d1:0:b0:32d:9d99:d0a5 with SMTP id
- t17-20020a5d49d1000000b0032d9d99d0a5mr9526680wrs.5.1701162870857;
-        Tue, 28 Nov 2023 01:14:30 -0800 (PST)
+ AGHT+IG6ukaNt2ZgVZQMXe58TmnXHGQqqHO07e+EHx+fN6PCfUc66ZTyBG1sDU5facr7QJDgD0fR8Q==
+X-Received: by 2002:a05:600c:4fcc:b0:40b:338b:5f38 with SMTP id
+ o12-20020a05600c4fcc00b0040b338b5f38mr10094963wmq.8.1701162996775;
+        Tue, 28 Nov 2023 01:16:36 -0800 (PST)
 Received: from ?IPV6:2a01:e0a:982:cbb0:eada:f40e:7ab3:2afe?
  ([2a01:e0a:982:cbb0:eada:f40e:7ab3:2afe])
         by smtp.gmail.com with ESMTPSA id
- l15-20020a5d560f000000b00332f8f4960fsm7891464wrv.0.2023.11.28.01.14.29
+ az21-20020a05600c601500b0040b47c53610sm5045039wmb.14.2023.11.28.01.16.35
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 28 Nov 2023 01:14:30 -0800 (PST)
-Message-ID: <752f5347-703a-4b38-b2b1-3493d270389c@linaro.org>
-Date: Tue, 28 Nov 2023 10:14:29 +0100
+        Tue, 28 Nov 2023 01:16:36 -0800 (PST)
+Message-ID: <095f6e9d-dbee-4cfe-91dc-5443608c386d@linaro.org>
+Date: Tue, 28 Nov 2023 10:16:35 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: neil.armstrong@linaro.org
-Subject: Re: [PATCH 2/5] ASoC: dt-bindings: document WCD939x Audio Codec
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 4/5] ASoC: codecs: Add WCD939x Soundwire slave driver
 Content-Language: en-US, fr
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+To: Konrad Dybcio <konrad.dybcio@linaro.org>,
  Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
  Banajit Goswami <bgoswami@quicinc.com>, Andy Gross <agross@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Liam Girdwood
- <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
  Takashi Iwai <tiwai@suse.com>
@@ -111,10 +109,8 @@ Cc: linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
  linux-kernel@vger.kernel.org
 References: 
  <20231123-topic-sm8650-upstream-wcd939x-codec-v1-0-21d4ad9276de@linaro.org>
- <20231123-topic-sm8650-upstream-wcd939x-codec-v1-2-21d4ad9276de@linaro.org>
- <160fc6c4-b07d-49c5-976b-aa0fa35e4f0f@linaro.org>
- <b637c287-93e5-4214-9275-80fac3c6181b@linaro.org>
- <60c9ba5d-a2b8-43cd-8b8d-2c709b8e5d04@linaro.org>
+ <20231123-topic-sm8650-upstream-wcd939x-codec-v1-4-21d4ad9276de@linaro.org>
+ <a7725504-89fd-4f62-b8d0-6ec863bd059a@linaro.org>
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
  GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
@@ -140,11 +136,11 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro Developer Services
-In-Reply-To: <60c9ba5d-a2b8-43cd-8b8d-2c709b8e5d04@linaro.org>
+In-Reply-To: <a7725504-89fd-4f62-b8d0-6ec863bd059a@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: 2Y3TVKOIISGGBJXNDEQS2W4WB3AINWKT
-X-Message-ID-Hash: 2Y3TVKOIISGGBJXNDEQS2W4WB3AINWKT
+Message-ID-Hash: OAMQQCFXW7CEQVG5HG7L4DKDY6DMBABV
+X-Message-ID-Hash: OAMQQCFXW7CEQVG5HG7L4DKDY6DMBABV
 X-MailFrom: neil.armstrong@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -158,7 +154,7 @@ Reply-To: neil.armstrong@linaro.org
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2Y3TVKOIISGGBJXNDEQS2W4WB3AINWKT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OAMQQCFXW7CEQVG5HG7L4DKDY6DMBABV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -167,64 +163,129 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 28/11/2023 10:04, Krzysztof Kozlowski wrote:
-> On 28/11/2023 09:59, Neil Armstrong wrote:
->> On 24/11/2023 09:33, Krzysztof Kozlowski wrote:
->>> On 23/11/2023 15:49, Neil Armstrong wrote:
->>>
->>>> +  Qualcomm WCD9390/WCD9395 Codec is a standalone Hi-Fi audio codec IC.
->>>> +  It has RX and TX Soundwire slave devices.
->>>> +  The WCD9390/WCD9395 IC has a functionally separate USB-C Mux subsystem
->>>> +  accessible over an I2C interface.
->>>> +  The Audio Headphone and Microphone data path between the Codec and the USB-C Mux
->>>> +  subsystems are external to the IC, thus requiring DT port-endpoint graph description
->>>> +  to handle USB-C altmode & orientation switching for Audio Accessory Mode.
->>>> +
->>>> +allOf:
->>>> +  - $ref: dai-common.yaml#
->>>> +  - $ref: qcom,wcd93xx-common.yaml#
->>>> +
->>>> +properties:
->>>> +  compatible:
->>>> +    enum:
->>>> +      - qcom,wcd9390-codec
->>>> +      - qcom,wcd9395-codec
->>>
->>> 9395 should be compatible with 9390, so please express it with a list
->>> using fallback. I know that earlier wcd93xx do not follow that concept,
->>> but maybe we will fix them some point as well.
+On 25/11/2023 12:55, Konrad Dybcio wrote:
+> On 23.11.2023 15:49, Neil Armstrong wrote:
+>> Add Soundwire Slave driver for the WCD9390/WCD9395 Audio Codec.
 >>
->> I don't get why this would be needed, yes their are compatible but still
->> two separate ICs with different internal capabilities.
+>> The WCD9390/WCD9395 Soundwire Slaves will be used by the
+>> main WCD9390/WCD9395 Audio Codec driver to access registers
+>> and configure Soundwire RX and TX ports.
 >>
->> It the first time I get such request for new documentation
+>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+>> ---
+> [...]
 > 
-> Maybe it is first time for you, but I ask about this all the time. What
-> is important is whether the programming model or how the OS uses the
-> device is the same.
-
-I agree for new version of HW, anyway..
+> 
+>> +static struct wcd939x_sdw_ch_info wcd939x_sdw_tx_ch_info[] = {
+>> +	WCD_SDW_CH(WCD939X_ADC1, WCD939X_ADC_1_4_PORT, BIT(0)),
+>> +	WCD_SDW_CH(WCD939X_ADC2, WCD939X_ADC_1_4_PORT, BIT(1)),
+>> +	WCD_SDW_CH(WCD939X_ADC3, WCD939X_ADC_1_4_PORT, BIT(2)),
+>> +	WCD_SDW_CH(WCD939X_ADC4, WCD939X_ADC_1_4_PORT, BIT(3)),
+>> +	// TOFIX support ADC3/4 & DMIC0/1 on port 2
+> Well, fix it or drop it :D
+> 
+>> +	//WCD_SDW_CH(WCD939X_ADC3, WCD939X_ADC_DMIC_1_2_PORT, BIT(0)),
+>> +	//WCD_SDW_CH(WCD939X_ADC4, WCD939X_ADC_DMIC_1_2_PORT, BIT(1)),
+>> +	//WCD_SDW_CH(WCD939X_DMIC0, WCD939X_ADC_DMIC_1_2_PORT, BIT(2)),
+>> +	//WCD_SDW_CH(WCD939X_DMIC1, WCD939X_ADC_DMIC_1_2_PORT, BIT(3)),
+>> +	WCD_SDW_CH(WCD939X_DMIC0, WCD939X_DMIC_0_3_MBHC_PORT, BIT(0)),
+>> +	WCD_SDW_CH(WCD939X_DMIC1, WCD939X_DMIC_0_3_MBHC_PORT, BIT(1)),
+>> +	WCD_SDW_CH(WCD939X_MBHC, WCD939X_DMIC_0_3_MBHC_PORT, BIT(2)),
+>> +	WCD_SDW_CH(WCD939X_DMIC2, WCD939X_DMIC_0_3_MBHC_PORT, BIT(2)),
+>> +	WCD_SDW_CH(WCD939X_DMIC3, WCD939X_DMIC_0_3_MBHC_PORT, BIT(3)),
+>> +	WCD_SDW_CH(WCD939X_DMIC4, WCD939X_DMIC_3_7_PORT, BIT(0)),
+>> +	WCD_SDW_CH(WCD939X_DMIC5, WCD939X_DMIC_3_7_PORT, BIT(1)),
+>> +	WCD_SDW_CH(WCD939X_DMIC6, WCD939X_DMIC_3_7_PORT, BIT(2)),
+>> +	WCD_SDW_CH(WCD939X_DMIC7, WCD939X_DMIC_3_7_PORT, BIT(3)),
+>> +};
+> [...]
+> 
+>> +
+>> +int wcd939x_swr_get_current_bank(struct sdw_slave *sdev)
+>> +{
+>> +	int bank;
+>> +
+>> +	bank = sdw_read(sdev, SDW_SCP_CTRL);
+>> +
+>> +	return ((bank & 0x40) ? 1 : 0);
+> bool conversion?
+> 
+> Also, 0x40 == BIT(6), can you look up what it means and #define it?
+Ack
 
 > 
-> Here the device exposes its version in registers, so you can easily rely
-> on the compatibility. That's also the case multiple times talked on the
-> mailing lists.
+> [...]
+> 
+>> +
+>> +static int wcd9390_bus_config(struct sdw_slave *slave,
+>> +			      struct sdw_bus_params *params)
+>> +{
+>> +	sdw_write(slave, SWRS_SCP_HOST_CLK_DIV2_CTL_BANK(params->next_bank),
+>> +		  0x01);
+> similar, BIT(0)
+Ack
 
-... you're right here version can be determined at runtime.
+> [...]
+> 
+>> +	{ WCD939X_EAR_STATUS_REG_2, 0x08 },
+>> +	{ WCD939X_FLYBACK_NEW_CTRL_2, 0x00 }, //??
+>> +	{ WCD939X_FLYBACK_NEW_CTRL_3, 0x00 }, //??
+>> +	{ WCD939X_FLYBACK_NEW_CTRL_4, 0x44 }, //??
+> drop //s
 
-But, since both are compatible, there's no primary part number, right?
+Ack
 
-so why use "qcom,wcd9395-codec", "qcom,wcd9390-codec"
-when "qcom,wcd9390-codec", "qcom,wcd9395-codec" should
-also be valid, so in this can why not use :
-"qcom,wcd9390-codec", "qcom,wcd939x-codec"
-or
-"qcom,wcd9395-codec", "qcom,wcd939x-codec"
+> [...]
+> 
+>> +static bool wcd939x_volatile_register(struct device *dev, unsigned int reg)
+>> +{
+>> +	if (reg <= WCD939X_BASE)
+>> +		return false;
+> Maybe move this check to readonly_register
+>> +
+>> +	if (wcd939x_readonly_register(dev, reg))
+>> +		return true;
+> and call readonly for .volatile_reg as well?
+> [...]
 
-?
+Hmm, let me check
 
 > 
-> Best regards,
-> Krzysztof
+>> +	/**
+>> +	 * Port map index starts with 0, however the data port for this codec
+>> +	 * are from index 1
+>> +	 */
+> This is not kerneldoc
+
+Ack
+
 > 
+>> +	if (of_property_read_bool(dev->of_node, "qcom,tx-port-mapping")) {
+>> +		wcd->is_tx = true;
+>> +		ret = of_property_read_u32_array(dev->of_node,
+>> +						 "qcom,tx-port-mapping",
+>> +						 &pdev->m_port_map[1],
+>> +						 WCD939X_MAX_TX_SWR_PORTS);
+>> +	} else {
+>> +		ret = of_property_read_u32_array(dev->of_node,
+>> +						 "qcom,rx-port-mapping",
+>> +						 &pdev->m_port_map[1],
+>> +						 WCD939X_MAX_RX_SWR_PORTS);
+>> +	}
+> This is used in wcd9380 and will be used in wcd9370 when that happens some
+> day, maybe it'd be worth to commonize it as qcom_{rx/tx}_portmap_get?
+> [...]
+
+OK but where ?
+
+> 
+>> +static const struct sdw_device_id wcd9390_slave_id[] = {
+>> +	SDW_SLAVE_ENTRY(0x0217, 0x10e, 0),
+> 0x10e - WCD9380 or 9385 slave? an inline comment at the end of the line
+> would be cool!
+
+Ack
+
+> 
+> Konrad
 

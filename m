@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44F227FB3BE
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Nov 2023 09:15:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1636F7FB3B5
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Nov 2023 09:12:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8C12C9F6;
-	Tue, 28 Nov 2023 09:15:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8C12C9F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id F3494844;
+	Tue, 28 Nov 2023 09:12:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F3494844
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701159325;
-	bh=9OkI3VIkOx+kopRWNap/18wXfTFPUow8TWJDtXAiUcc=;
+	s=default; t=1701159154;
+	bh=SLdv1Wu/iWUFqtI2GoageWNEwb9p1DxB7RCbE1O+upk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=LlLfOHXJPQf1PeqSmZbldhT0IKzkTicZsejtatilJu1IdsKxNo8hR0l+pU1BXz0el
-	 uOXZMqm9e7e67+RcT1pFTHM0YE1DPDUx8FrbMVmnzaEKCCcJ5fwafHMB7hiVjIL5nf
-	 tMXj160IAObqMX8bVIgfMWXZDQ2DSiXn3Nnex/cs=
+	b=jjynfmPeB1isTaiuPCDUaP6vzosrr0JzESNixHRR2FR62PLC5Aizxkck8Y4ZBo2bv
+	 tbAgFPsrpWiE/d/EuYTQWliHMLmLf6NaolmTkynxrLPXfkvA14WhjxEhZQbrzRQJE3
+	 PZoEQh5FvNOLvQRn7gYx1bBeERdDC8+SxaYXFBBw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E799AF8057B; Tue, 28 Nov 2023 09:14:54 +0100 (CET)
+	id D8915F80114; Tue, 28 Nov 2023 09:12:01 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CB95BF80578;
-	Tue, 28 Nov 2023 09:14:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3C065F8055A;
+	Tue, 28 Nov 2023 09:12:01 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9A4E6F805A1; Tue, 28 Nov 2023 09:12:10 +0100 (CET)
+	id 62A57F80236; Tue, 28 Nov 2023 09:11:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-4.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -37,28 +37,28 @@ Received: from EUR04-DB3-obe.outbound.protection.outlook.com
  [IPv6:2a01:111:f400:fe0c::617])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B7239F80166
-	for <alsa-devel@alsa-project.org>; Tue, 28 Nov 2023 09:11:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7239F80166
+	by alsa1.perex.cz (Postfix) with ESMTPS id 18728F80114
+	for <alsa-devel@alsa-project.org>; Tue, 28 Nov 2023 09:11:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18728F80114
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com
- header.a=rsa-sha256 header.s=selector2-NXP1-onmicrosoft-com header.b=SB/5p0X/
+ header.a=rsa-sha256 header.s=selector2-NXP1-onmicrosoft-com header.b=A20XC7FZ
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gMQ7Y2NRiuSII4ehSCSsp/Z8dqTrPSp4pEoN5aecWZZNHGebS7RHpXyA1/XlD8ddcJOIAHb2qbP6F9y3YXJ+u7uKsGz7p+ReZrCrfxheUBFV0HsaS4F42wsFfFUouXelBeyMPQ7nAo3G63AptfW5215M8um3MLrawCa3Ysennd7QK0TFCxXYmv3wFZPx++6PcbDh0jWsTn6EkLh5AwpAeXr85Ssl866CC0cNsEhFEyLZNyKs80RiVYrKvylXPo5e19qEiBF42kCBTfTOXYP5Z0owxxdeLaCk7tzsinCciv7rG9RJ+ry64ilmg7pT6MB+B0cjFR3cFLs/45pCeBJ5bg==
+ b=TCkcjKPev4BW8CJoKaOvnH4dqWVUD26hHd655VtHBC2dO/t2/Pyv0Kdmqv0KPMNZZ8ueG8Q4ZzASHkzyw8qcqSz7AzNu8HpCefiNLPXdWvKl56SUHnINi16TXoFrMeI8rcrOJH2gXA0xz0IkqYfjMlggcafB5eRWukiW03U4kP5rtHzG6gvxYvVQoqoo5kXYvmQEqX6pTf0ut7R+qm4CMbI7nQhw8Apas/PnICqYQbygfNOHuL66qFC8Q0U4Qce41MyRzVJJMZyMYAe3WLNvNu8tdYWgwothGNNd+OnK1tu81w69bB8qTRpsKi+WcmgzmGf41NOwFxwhpME94AgL8Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2xa+BJtwOvvRKi1r0bDd0E+h8/KdUd8qm4TnbvqahfE=;
- b=QZQtmqweImENzSh31YC1ucFjgLEDreZIDTzLScaqxrSQF5TWB0/qSayyRIIalYWoUVSR4I1VHyUchMyKN+nMy2C9v9M/x9Znc85BbndTOAHZddgLX72A8rt4xFubn7ZKc8n+7u0nfn3eTzgN+2RbCB52r3f9yWItihQvA+88qDplPeRFyPfRhBDN49+sxUA2sPPDCfNo0Ghs77+k7nCbRr9HT7c5zKbwaQ0YEH7zT6UwQzOOpGOpn6QpA0GxeEIFmRrqM4uaWapA+XnJSJnln/VwloAdzk2e3kjoU+U6cWO734aR96nwrCkhOlWSgkMPg0s3OBY1+aopPuJKfCg9fg==
+ bh=dm2FDg0t+Tna5IV6r/T026XdzCOt13LyOTVstv9GeGg=;
+ b=aeha1ORHOkR08YU+dXnmf4WMqjuqPMfpbCuREzXKmH7xPCVPhdUkSjSukMwDwcA6ahn7plpIhijgFOXiP1ERTW/2U1VnHumoJtPl/tv4fpYC9JFEiCWNSvoBoGaWb+dOvIY5Pt/jKKsQKE2MkBFNCAPQC3NPLN0jwVBZ6JQ/unHXFI5xQA8tgkhVTFcMmSBeb2Q6S3xxwxOal54S7BRh9nbFB4zf/JyBv7vikfj3p6XvtVnKBTy28LNq6ggOB2Ev60lzUjtfKYMrTfRTFi9JD/kCp7XMRAoMgrn/toRbWRtTUhb3LDZdZR+KckVnCkiFx5u8CIn7igRugkg0tTLjeg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
  dkim=pass header.d=oss.nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
  s=selector2-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2xa+BJtwOvvRKi1r0bDd0E+h8/KdUd8qm4TnbvqahfE=;
- b=SB/5p0X/FN6csv+J7Jc5gfaVamvt9w2J37uUi4TyHGvrTp3YLt8XL613qRyUHcorNETpHtgeyICnDsYipyHWcrBXh0gMXBuxNgEa9DqPEwbFg49A0xlYjQZ8llRFz159nEu9EzGK0M45xJPt0T+gsWmuDfld5aBOP/h8dpcrBjk=
+ bh=dm2FDg0t+Tna5IV6r/T026XdzCOt13LyOTVstv9GeGg=;
+ b=A20XC7FZ3IWsIDZA5F3eJrPpInlDixoZ/EECASiQLmaLVnJttNvhLld5SymXJuHRQSVxtkMK+qmFvxyoOpMWOeixEVRGhOxAEQrCs1qQFNmnPSyrzC64qCDRfAycA/M54GMBxbfN1wUNmf/ph/eF3r/QVwD7C1wiI9JyLjQNgbQ=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=oss.nxp.com;
 Received: from VI1PR04MB5151.eurprd04.prod.outlook.com (2603:10a6:803:61::28)
@@ -69,7 +69,7 @@ Received: from VI1PR04MB5151.eurprd04.prod.outlook.com (2603:10a6:803:61::28)
 Received: from VI1PR04MB5151.eurprd04.prod.outlook.com
  ([fe80::c688:1f14:2ab1:c78a]) by VI1PR04MB5151.eurprd04.prod.outlook.com
  ([fe80::c688:1f14:2ab1:c78a%4]) with mapi id 15.20.7046.015; Tue, 28 Nov 2023
- 08:11:43 +0000
+ 08:11:44 +0000
 From: Daniel Baluta <daniel.baluta@oss.nxp.com>
 To: broonie@kernel.org,
 	robh+dt@kernel.org
@@ -81,10 +81,10 @@ Cc: kuninori.morimoto.gx@renesas.com,
 	alsa-devel@alsa-project.org,
 	iuliana.prodan@nxp.com,
 	shengjiu.wang@nxp.com
-Subject: [PATCH v4 1/2] ASoC: audio-graph-card2: Introduce
- playback-only/capture-only DAI link flags
-Date: Tue, 28 Nov 2023 10:11:18 +0200
-Message-Id: <20231128081119.106360-2-daniel.baluta@oss.nxp.com>
+Subject: [PATCH v4 2/2] ASoC: dt-bindings: audio-graph-port: Document new DAI
+ link flags playback-only/capture-only
+Date: Tue, 28 Nov 2023 10:11:19 +0200
+Message-Id: <20231128081119.106360-3-daniel.baluta@oss.nxp.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20231128081119.106360-1-daniel.baluta@oss.nxp.com>
 References: <20231128081119.106360-1-daniel.baluta@oss.nxp.com>
@@ -97,61 +97,61 @@ MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: VI1PR04MB5151:EE_|PAXPR04MB9445:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7fdb4ff4-4dcb-4eee-44b3-08dbefe9a52c
+X-MS-Office365-Filtering-Correlation-Id: 0355fa44-7b9b-4593-13e7-08dbefe9a5de
 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info: 
-	1iQzlQjOW43HEB8RA1vPBqjDunvxaVO76koBfK8Sv5VncKYr88bs3GMT4nhUMHLfZtsIDMWJMGFhrorq40VGeZ6zabH03UGqWyJCrogA6Ge0bHx5N23v0eeq9IhastyUv9mfOk8heYtc68F771UiklYDWqDdHO/DA2IrDNgP2R8UBYUzbWctF8vCGtvvKmmaZ3heipF9h0axysePmq3B/gjA913fKG7axEFKmYft0vTecnVcC6Wz0eUDUpgvplfoxgD0I0aE8aHG4nkuZ2ZvIBkfoBwlRxSZK8wKop7fGl5YOBBFOjiegBaClN6ndFZt7YsAY8sXHDlh/a2vNmKkKMpi3GW+HLPYUIIOqkacdQ3pp6WZWZ6kSnxdWrFKr7WXoy5gxcq7NA5Qasf/sNdKYU0whH2waN14qRBROZJdeFfUHjICjV2Yq9GQHen7GLSaruplAktGZr1NwlBR6WLdIOkb2x8SKAljh4fLTZ0c97U3TuCC0I/U17+W2ryPL6bnJ9kCQVAVWZ1+vY1F9sVELvHZUPqF65iILie+hOuihXnX9d6pFIr091x2BT96yxf3Qa0F/GhvNv3XXqQzOmNNedqDZvfA72QT7OE8G7dFia7IcFn/2k1ref4YfDVgSICo
+	GO/uLctfVmBsBXnSk//dOglC0wGJtb4LY7MZYjqeWMOagaxZllqsoKq55sXgpPaeRrAJ226T875FNOQXc4h0Edc8d8aA7lhh8Cz4gCebMTma2L229TNV1qLL6LKrMo3PdxK2GPZuJ+ZMHgNEcRVodNPHx2hXA/pi8eF5yuhwIFgLnDkcbRXk0kSrDsgb7fPaCzEs+MuWaJP+XqWGUvY4YAF7O8WrT22b5AOYu+OONZiyCobP9cNIJnCOlBcdqIehkQfskIqUgV5wqWSjSzOTDeKcghqm3xF6r5c4yvEea9UrSzHd13ot7/VQpE0pE+erVwGwYfIH6/DjWoHwDb6nP/6/pFvb75m7LCK2ZnU3vQSy9/zT1wWSX2nZe+Nzv/QX7nTgvv0nioO+CL2CP85bIIx0bE7i2vtjF3nxOi1hRKd3DtS1TvcSluguxgmjJaf4WW7VFKpOg+Eyo308TvId/rClSFH2gl5v0KtElZE00o2/h0v3di4Q/sWgLrVJbhd7KLpZ/wrkLPHzN1sUlNbWT9ocKP1vHtIkOWUa9uwf/rGwqJyDOeL25oLFV4z402ayna+pAS2iXG6Okhp5YTfV5QlF0wbykOxJrfPPtaXXrJLtvK+l8o1o3kWw1zJTiXD2
 X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5151.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39860400002)(376002)(366004)(346002)(396003)(136003)(230922051799003)(1800799012)(64100799003)(451199024)(186009)(83380400001)(38100700002)(2013699003)(86362001)(316002)(66946007)(66476007)(6486002)(66556008)(478600001)(41300700001)(4326008)(5660300002)(44832011)(8676002)(8936002)(2906002)(1076003)(2616005)(6666004)(6506007)(52116002)(6512007);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5151.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39860400002)(376002)(366004)(346002)(396003)(136003)(230922051799003)(1800799012)(64100799003)(451199024)(186009)(38100700002)(2013699003)(86362001)(316002)(66946007)(66476007)(6486002)(66556008)(478600001)(41300700001)(4326008)(5660300002)(44832011)(8676002)(8936002)(2906002)(1076003)(2616005)(6666004)(6506007)(52116002)(6512007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?li5RRS2NGZvhll8vVA7hr1ECPLqqUO4VhHrySMwswsyb16OTRY+ym1k/tuEB?=
- =?us-ascii?Q?LDxId49WJ5abW/uIyv9Pbdu5mVgXZsDtlWjtZ6gFcDwYdUBLl+HOajOxFgEc?=
- =?us-ascii?Q?MQqyFBEiEGD4fXQZGM/a5LX9xpK/8I6M5vw9f90aD3k3E3fV1XSUtlE89Dib?=
- =?us-ascii?Q?kZmgTNmKsTB+IWFF4V2vSCxQYdQl7C60oIDUpwWT/FeHVPkww9fOyHpinzma?=
- =?us-ascii?Q?s+YpaoCLaJ4wxwClRfcSXXd+hfb7LakeE0Y3AHEjINolmNlqbfRGfu45Y1rP?=
- =?us-ascii?Q?THgRZv47MH2bHh3HocG77JPdvsIrUteEZzv1IvT9btorvubV++khimJ9VTw4?=
- =?us-ascii?Q?HvXknAZ+DS+Hvt9PxgSjNv5Z0xePkkHmMc113FtoDzoWsC+IzX9IQrN8IwbG?=
- =?us-ascii?Q?aWIO+puSkUzVJigyWfxlu/brQxW7wjh/kzGfVKxmvqPeyxvj7S0/8BJd08L4?=
- =?us-ascii?Q?edIQ8exIQsYpgfLJRW1O6ZByTDNMihT41FPDKF9old8SXyskHRAmMDeprslj?=
- =?us-ascii?Q?uVPQnNzp4dKBpO9iKewGlTvxMmwcQJlhFq/gv7fJy5pub8lmIJWDbtea0qP4?=
- =?us-ascii?Q?CR13NQfF4+hSsfSH7SwSkawzfwksGaGUJkllPyZjVlO022wEWydQ8vF++4OP?=
- =?us-ascii?Q?OWsQb6TD6Tj7VLsDCiyACLjB80HR2bg/XnM7oL3fFo+3NSoaSNzMzJZDr8us?=
- =?us-ascii?Q?KDF3xLU9xKs5QR5I3eNN4baAH9lBBJARb8XIAyl37/nv37rb1YuApcsGUmT6?=
- =?us-ascii?Q?miyrH9fzoXkZo7uE8bcBBnItWGex7Dl6s3e0i+gHUtW/j08SfzWdQstvpCTc?=
- =?us-ascii?Q?KhgNPOjHOh6JbLjm4ol0ftwqkrxjZ0Z0spRuuHNz2AHmhksyrlzOabWCJccs?=
- =?us-ascii?Q?tGKTDSoY3H3S0lueY8ntwUQ38rfYpidhA3LFHyWC9IS9w9v4NHH+ZF3gtfgG?=
- =?us-ascii?Q?TV1djaigfFvsvhzkDLFEumHTyY9TgNcu0VZABf+nk/u2Mu3u7TTG5WegEOVG?=
- =?us-ascii?Q?qQt6D3S/r7jxBq3b/zyIxZYYAMP/n+tJNfzmsDsVXVZkhEcmuImbIBfFJUFr?=
- =?us-ascii?Q?VMj8+P9zHwhqkvpyrLTikqb6fTgwErpIn1iw7H5UOLxCAS7d7eB8w5f0d+uC?=
- =?us-ascii?Q?JEyxuyRP+8IsZd1vR1fxB7uY9bV7CdOI8X4fDk611lOMavjXboB9CSRuYenW?=
- =?us-ascii?Q?o+Apujg/44ZSgDQH3TeOHzu9d9NCEvAfCAXDuYyBHylmBCVEqK4EgndM4tdD?=
- =?us-ascii?Q?0pmB0VC035lA9up69eZjBrXtUAWVkdgirHyUTI+kIHkdHx0RDOBLXxCFCN+G?=
- =?us-ascii?Q?ojyxIQacfLgRNKljT9/+WHQFVNzOX8i1YwdceVrd+heTvh8C61R52wwRw2aj?=
- =?us-ascii?Q?7ruWMaotUclGjcEaRdrOZqcnSHU6RH20Mbp+Qa+Qf5EZ3UbBgpM9tC2e78z6?=
- =?us-ascii?Q?iJMedVUQ+jBmVBZrtBTMPA3tSpNcvF06Axa0yU/W/8k3NhpsPXYTO7SRQTh4?=
- =?us-ascii?Q?/slhGVZ6z26+BMp2ydk6m96UlX7VV3j5PXkVNVVegkeAcRZox1Ali7PFuLO4?=
- =?us-ascii?Q?57hLlA6ptV/NcU5j1CqT4acCGGsnQe9mCt0MDDrg+BEhLEoknkPBYnoAfugz?=
- =?us-ascii?Q?v255V/BPLTZjUtfEW6xyE/2+sCimaqzcnUCxWhBeTtfIwDpHQZ6JCFDt2NPd?=
- =?us-ascii?Q?BoacbQ=3D=3D?=
+	=?us-ascii?Q?OvsJ/77dhZtYbGVk7S+kvMLpjAafmz4gH3bmbUJ3NWLPjMP3B/90nh+bYQql?=
+ =?us-ascii?Q?bxiOxC3QOs6LwR1yJUma3lMXf7uDbyG+e5KD5n0+KzC8mCfw6DdCBtDN6g+A?=
+ =?us-ascii?Q?DIVzx7E6j67rQna/dZujyHDl6Sdo9Rwfv1dOFDGCC7WtFMTgmkSlPieDDxJR?=
+ =?us-ascii?Q?WDcTdzGnr9XhibVrSpHVxomWMsVvaxFtiugV68kWDNLrj6gZMyuzwN1zEu4G?=
+ =?us-ascii?Q?R+DzJX6cOVx4udNcdTHmLVcGOxKcZdDen4BDsBzRlGXJKLR3QA44sPV7jX8s?=
+ =?us-ascii?Q?VHo7JGca9Y+MxKgs2NwPvjEtVGxZ6wMCtlZ9DODHNUIORzat4dkUOM/IKiwN?=
+ =?us-ascii?Q?HZxSPMfJ7r0rhphKM5hEO3fOHMC+DKcciUzcNi+RcaAht2V+dxhaUEU/98my?=
+ =?us-ascii?Q?mXAkEjotsxYkEfHs7MfAXZwQufw17yBFaT3k24QNkjwsUI/rHPAuSWGmIQ0y?=
+ =?us-ascii?Q?Yukg2C1kA67Wc0oSoWBsJKmEDXM1caNqGS+AontJV49MFg66pGuVy3FrH0tt?=
+ =?us-ascii?Q?LxdVUdSxZl2Rzp7M5e/VYt/aOYEYnVzOYTTePYsT06dxFx70dpgRJ9Si5jeb?=
+ =?us-ascii?Q?SvboxwvF3zoRR4rSAPpZKUzYb4TO4O9MhrzYMGNIvCB6u+F3Ss3XurJXf65F?=
+ =?us-ascii?Q?qV0frxEsKYPyS/w4vYpKH0MivQF7/lmCMQS2QcxrS+X58fdSq27u7mwrMHe0?=
+ =?us-ascii?Q?OhqkI6FqOxSLFpgblMsk//UD3V8bIVLvrTbZyiXI6UkutkVhcE6eh/b/Jnun?=
+ =?us-ascii?Q?YON4UiWlKYzYim2XTWfBhx+KgTNHURiRGY/xrcE2KtZ/bgpCrRQq4DfGcLkN?=
+ =?us-ascii?Q?a9CCw6JbO7+mWxR8ZhxwflaZUuda3S+0ilYGXjcIoIYWm8ghtbsIjarcL8Jt?=
+ =?us-ascii?Q?kstwa5pxiIivTw9M+tXi9RNxZQA/Kj2Ks48gUMq+7XwZ0I4MnzJdlJ5a6fPY?=
+ =?us-ascii?Q?VT7TWqNXi/XUo/uG75O1mJh5OMQdrorBv2WxyV20wlSxGbcs8zF2mJ1pH5wR?=
+ =?us-ascii?Q?pNmKI4ZbdXlH6vjUvPF7Yv6CYaI2n7j0lsRU1ugzFCqbtf8nIb5tpP8tMAb6?=
+ =?us-ascii?Q?bLg7xbBZFL/PEA3vJPGa7XLnNzD+2ZibQi3akaWnJ12yDSETy+1m0jPRCqYi?=
+ =?us-ascii?Q?gofxeE0Vqxa4+sTHNeOllytvfcR0szt47VKJ4zvpipjF4bZ7IZ1cw3pZzRwe?=
+ =?us-ascii?Q?kuMK7jjjDS5vOinyxTzswXd8NqB27tFijd5glqqAqvcNTPpmKzmCN+JRpYf6?=
+ =?us-ascii?Q?lt5Nx17rHVzLvCr8MumbPb6w6RsUiFscIC64i0AA+IFx5muI1R5eQa3uEeLr?=
+ =?us-ascii?Q?V43sVKwP3wLDonCTZRRLDqrdLn8u6t18MRQjzLhsa7QZFxEMNCpznoheUrrf?=
+ =?us-ascii?Q?CErcKuq+/rRXTV8dhWWLPQM4rB3d+ATy7d+xaZejuoTsayk0fNA2rXCltsnU?=
+ =?us-ascii?Q?uMTsU51Ry7egT3QpKycDYBKusEefCCI6khgpT9USCrosqLNOr8Fp9+l5akKS?=
+ =?us-ascii?Q?jR91S+3u/MwRiS1B9tTyIyaqvBoipP7vxYtM9ZUeHx7Qa0H8JmutmpZOFw50?=
+ =?us-ascii?Q?nGbWUEo89+XQRuennCMFAFteRoR0MNZEqVoxwJlONaNK6D//nInQrJ7Sf2KQ?=
+ =?us-ascii?Q?ccQhogZFDWSftWACaMa5ffwrRA2+ihC6YAbwCqNLSSGII0RtkhkeJoG21Vis?=
+ =?us-ascii?Q?yJA+aw=3D=3D?=
 X-OriginatorOrg: oss.nxp.com
 X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 7fdb4ff4-4dcb-4eee-44b3-08dbefe9a52c
+ 0355fa44-7b9b-4593-13e7-08dbefe9a5de
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5151.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Nov 2023 08:11:38.3222
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Nov 2023 08:11:39.5102
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
 X-MS-Exchange-CrossTenant-UserPrincipalName: 
- mmk9/DWikcql40f26N94APnfuqjgLX1MtD6ZHJuWLzyUMgomVOwmcA4+azrC0pTCFWZ53svSsaMeJtwm3/7GZA==
+ 71OWlyU62xDp7gJDlfzUdnhgqE861WQoq8WpTC0DfMfl/kPQcEKgizbPY9VA3RorxUkOlcGV8USe5icO9gVKiA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9445
-Message-ID-Hash: KBGPZYH6LGCREFMYMR4YYADZNOG3CF2G
-X-Message-ID-Hash: KBGPZYH6LGCREFMYMR4YYADZNOG3CF2G
+Message-ID-Hash: 4QVO5MLF3DCEB5UYTCDPH7NVUDUXAFMX
+X-Message-ID-Hash: 4QVO5MLF3DCEB5UYTCDPH7NVUDUXAFMX
 X-MailFrom: daniel.baluta@oss.nxp.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -164,7 +164,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KBGPZYH6LGCREFMYMR4YYADZNOG3CF2G/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4QVO5MLF3DCEB5UYTCDPH7NVUDUXAFMX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -175,84 +175,32 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Daniel Baluta <daniel.baluta@nxp.com>
 
-We need this to support MICFIL PDM found on i.MX8MP where the DAI link
-supports only capture direction.
+Document new playback-only and capture-only flags which can be used
+when dai link can only support just one direction: playback or capture
+but not both.
 
 Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
 ---
- include/sound/simple_card_utils.h     |  3 +++
- sound/soc/generic/audio-graph-card2.c |  6 ++++++
- sound/soc/generic/simple-card-utils.c | 19 +++++++++++++++++++
- 3 files changed, 28 insertions(+)
+ .../devicetree/bindings/sound/audio-graph-port.yaml         | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/include/sound/simple_card_utils.h b/include/sound/simple_card_utils.h
-index e5da10b4c43b..ad67957b7b48 100644
---- a/include/sound/simple_card_utils.h
-+++ b/include/sound/simple_card_utils.h
-@@ -195,6 +195,9 @@ int graph_util_is_ports0(struct device_node *port);
- int graph_util_parse_dai(struct device *dev, struct device_node *ep,
- 			 struct snd_soc_dai_link_component *dlc, int *is_single_link);
+diff --git a/Documentation/devicetree/bindings/sound/audio-graph-port.yaml b/Documentation/devicetree/bindings/sound/audio-graph-port.yaml
+index 60b5e3fd1115..b13c08de505e 100644
+--- a/Documentation/devicetree/bindings/sound/audio-graph-port.yaml
++++ b/Documentation/devicetree/bindings/sound/audio-graph-port.yaml
+@@ -19,6 +19,12 @@ definitions:
+     properties:
+       mclk-fs:
+         $ref: simple-card.yaml#/definitions/mclk-fs
++      playback-only:
++        description: port connection used only for playback
++        $ref: /schemas/types.yaml#/definitions/flag
++      capture-only:
++        description: port connection used only for capture
++        $ref: /schemas/types.yaml#/definitions/flag
  
-+int graph_util_parse_link_direction(struct device_node *np,
-+				    bool *is_playback_only, bool *is_capture_only);
-+
- #ifdef DEBUG
- static inline void simple_util_debug_dai(struct simple_util_priv *priv,
- 					 char *name,
-diff --git a/sound/soc/generic/audio-graph-card2.c b/sound/soc/generic/audio-graph-card2.c
-index 7146611df730..04c2eac881c2 100644
---- a/sound/soc/generic/audio-graph-card2.c
-+++ b/sound/soc/generic/audio-graph-card2.c
-@@ -597,6 +597,7 @@ static void graph_link_init(struct simple_util_priv *priv,
- 	struct device_node *ep;
- 	struct device_node *ports;
- 	unsigned int daifmt = 0, daiclk = 0;
-+	bool playback_only = 0, capture_only = 0;
- 	unsigned int bit_frame = 0;
- 
- 	if (graph_lnk_is_multi(port)) {
-@@ -635,6 +636,11 @@ static void graph_link_init(struct simple_util_priv *priv,
- 	if (is_cpu_node)
- 		daiclk = snd_soc_daifmt_clock_provider_flipped(daiclk);
- 
-+	graph_util_parse_link_direction(port, &playback_only, &capture_only);
-+
-+	dai_link->playback_only = playback_only;
-+	dai_link->capture_only = capture_only;
-+
- 	dai_link->dai_fmt	= daifmt | daiclk;
- 	dai_link->init		= simple_util_dai_init;
- 	dai_link->ops		= &graph_ops;
-diff --git a/sound/soc/generic/simple-card-utils.c b/sound/soc/generic/simple-card-utils.c
-index cfa70a56ff0f..9006ef5e95f5 100644
---- a/sound/soc/generic/simple-card-utils.c
-+++ b/sound/soc/generic/simple-card-utils.c
-@@ -1129,6 +1129,25 @@ int graph_util_parse_dai(struct device *dev, struct device_node *ep,
- }
- EXPORT_SYMBOL_GPL(graph_util_parse_dai);
- 
-+int graph_util_parse_link_direction(struct device_node *np,
-+				    bool *playback_only, bool *capture_only)
-+{
-+	bool is_playback_only = false;
-+	bool is_capture_only = false;
-+
-+	is_playback_only = of_property_read_bool(np, "playback-only");
-+	is_capture_only = of_property_read_bool(np, "capture-only");
-+
-+	if (is_playback_only && is_capture_only)
-+		return -EINVAL;
-+
-+	*playback_only = is_playback_only;
-+	*capture_only = is_capture_only;
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(graph_util_parse_link_direction);
-+
- /* Module information */
- MODULE_AUTHOR("Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>");
- MODULE_DESCRIPTION("ALSA SoC Simple Card Utils");
+   endpoint-base:
+     allOf:
 -- 
 2.25.1
 

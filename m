@@ -2,72 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3A5A7FD69E
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Nov 2023 13:20:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E68A47FD6A6
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Nov 2023 13:22:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2B4E2DEF;
-	Wed, 29 Nov 2023 13:20:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B4E2DEF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4F590BC0;
+	Wed, 29 Nov 2023 13:22:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4F590BC0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701260434;
-	bh=58dNflj4gktJ609m3w+Zgx50tZFYg2Vm5gW6Jl/OgJI=;
+	s=default; t=1701260563;
+	bh=+h/1jrB8qMUMeoBFiHU2NC+s08NbthFNAtV/926NzjQ=;
 	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=jXvfwEIWJ6hNKkPQZuxkKugLLXPjXZM3ZI91tNViujNXxj+KZO/JbSxTJef8kyOuh
-	 7ewZULCKfXQNKwCdEnFMGwfbgFNIEvUtmszNi52mk8SwzCvhpal7s/wlrws0wIrGKU
-	 9VYs1oM9B2cZbbSmqQCEEwINbdVp6U2tXBLU2Bx4=
+	b=TlHnDrNEmggyHA87eF/3xO2V7Yk983VIN/wK997KOuk3xiFX0qu+nEcw+VuC0TrBq
+	 VB+05cdzxcUgYWUxpg9Vkzer6fbY1nXTCAFEf8uItmy5kCulPRLgvzxJWNvhQR+S75
+	 qV7j4CMX2UkDx1hlGRdEGexDLmBcDLQdewbpT70s=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CBFFAF80589; Wed, 29 Nov 2023 13:20:02 +0100 (CET)
+	id AB89CF8055A; Wed, 29 Nov 2023 13:22:12 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7A2A5F8016E;
-	Wed, 29 Nov 2023 13:20:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C95A9F80570;
+	Wed, 29 Nov 2023 13:22:11 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7647FF8016E; Wed, 29 Nov 2023 13:19:57 +0100 (CET)
+	id 96926F8016E; Wed, 29 Nov 2023 13:22:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9B766F8007E
-	for <alsa-devel@alsa-project.org>; Wed, 29 Nov 2023 13:19:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B766F8007E
+	by alsa1.perex.cz (Postfix) with ESMTPS id AC7B2F8007E
+	for <alsa-devel@alsa-project.org>; Wed, 29 Nov 2023 13:22:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC7B2F8007E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=l7ORp3DI
+ header.s=Intel header.b=IkcrLzHp
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1701260393; x=1732796393;
+  t=1701260525; x=1732796525;
   h=from:to:cc:subject:date:message-id:mime-version:
    content-transfer-encoding;
-  bh=58dNflj4gktJ609m3w+Zgx50tZFYg2Vm5gW6Jl/OgJI=;
-  b=l7ORp3DIC594928v0gM2hSwj2IKJiW4gl6M/ocPnHpJQ3RGCRKXe3BMF
-   01/nyhcSAtT4QiGAinhVsVxgDACDdpTn+SLgVAD0B1aDsk08COEIIyXvJ
-   wzQqCFd9cJrxH1BnCPzl+I5Tt2lVT+KRXf+8EzkI7R1y49trvxUtFrWlM
-   lB5mProtq06QvPkp06UU8WVQ0j54iA/wI0Vl9Qk1QLPAkKrjSs7UCU03+
-   GSf0ZvK4nnmNqzaR/mzsXpNoC3pUxRhDdC/RdJs8/AKxUQ1AEgt/ZeY+d
-   zOuPfL66AaGI/3WXRhPBBxcmWKV9gFcOdBjndx9aosx2GCgFsk3CCRI9Q
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10908"; a="6421109"
+  bh=+h/1jrB8qMUMeoBFiHU2NC+s08NbthFNAtV/926NzjQ=;
+  b=IkcrLzHp5LMbcwmH7Gtbo4p+zbc6Bak3k5k65qYt7MLDXQ5v2EsC7ZQR
+   4ZRFKQxR6WAyYgcPREzB8hEcOBy4+5mP9l/qNPmIq5+GEkcX9vtm02Fvd
+   PXOBVayfcfvrb6pwlkLFrEtL7jhohDUisQ+yz6rj0yl3KYCWgBkW/NtFe
+   /PrSx0rV6fUTDY0tvBnsMmiqZQMtx0jEKeWMTJV/nBZLiNjJG1yNh8wCQ
+   4VeWdvyYMLg5rpOaeevQ68LHAjocHH6Nd0eE64y735/NcBm9BPHPD8qaN
+   JVgUYBdqJOuKY41d1F5w1feKINZgRnFqXbnJ6wMrAx876YswUm7Xo6Xcl
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10908"; a="397051476"
 X-IronPort-AV: E=Sophos;i="6.04,235,1695711600";
-   d="scan'208";a="6421109"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Nov 2023 04:19:48 -0800
+   d="scan'208";a="397051476"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Nov 2023 04:22:02 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10908"; a="834995169"
+X-IronPort-AV: E=McAfee;i="6600,9927,10908"; a="718746647"
 X-IronPort-AV: E=Sophos;i="6.04,235,1695711600";
-   d="scan'208";a="834995169"
+   d="scan'208";a="718746647"
 Received: from klitkey1-mobl1.ger.corp.intel.com (HELO
  pujfalus-desk.ger.corp.intel.com) ([10.252.44.16])
-  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Nov 2023 04:19:45 -0800
+  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Nov 2023 04:21:59 -0800
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com,
 	broonie@kernel.org
@@ -76,16 +76,19 @@ Cc: alsa-devel@alsa-project.org,
 	pierre-louis.bossart@linux.intel.com,
 	kai.vehmanen@linux.intel.com,
 	ranjani.sridharan@linux.intel.com,
-	yung-chuan.liao@linux.intel.com
-Subject: [PATCH] ASoC: SOF: ipc4: check return value of snd_sof_ipc_msg_data
-Date: Wed, 29 Nov 2023 14:20:21 +0200
-Message-ID: <20231129122021.679-1-peter.ujfalusi@linux.intel.com>
+	yung-chuan.liao@linux.intel.com,
+	baofeng.tian@intel.com,
+	chao.song@linux.intel.com
+Subject: [PATCH] ASoC: SOF: ipc4-topology: Add module ID print during module
+ set up
+Date: Wed, 29 Nov 2023 14:22:34 +0200
+Message-ID: <20231129122234.14515-1-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 6JT373EANFAVSMFWQCEXXKZ7NE7UYKKJ
-X-Message-ID-Hash: 6JT373EANFAVSMFWQCEXXKZ7NE7UYKKJ
+Message-ID-Hash: KZ3YQOPYLN7UNDKJ23433Z3LLBPHJXLP
+X-Message-ID-Hash: KZ3YQOPYLN7UNDKJ23433Z3LLBPHJXLP
 X-MailFrom: peter.ujfalusi@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -98,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6JT373EANFAVSMFWQCEXXKZ7NE7UYKKJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KZ3YQOPYLN7UNDKJ23433Z3LLBPHJXLP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,38 +110,60 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
+From: Baofeng Tian <baofeng.tian@intel.com>
 
-snd_sof_ipc_msg_data could return error.
+This module ID will be used for module performance automatic analysis
+for different modules, module name, module ID and module instance ID
+will be combined as a new generated ID for current module, this ID
+will be further used by analysis tools to identify current module.
 
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Take below case as example:
+0x030006 gain.11.1
+3 is module instance ID, 6 is module ID and gain.11.1 is module name.
+
+For pipeline widget print, keep as it is.
+
+Signed-off-by: Baofeng Tian <baofeng.tian@intel.com>
+Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Chao Song <chao.song@linux.intel.com>
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 ---
- sound/soc/sof/ipc4.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ sound/soc/sof/ipc4-topology.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/sof/ipc4.c b/sound/soc/sof/ipc4.c
-index a9d9800d2fcc..145d319e041f 100644
---- a/sound/soc/sof/ipc4.c
-+++ b/sound/soc/sof/ipc4.c
-@@ -713,7 +713,14 @@ static void sof_ipc4_rx_msg(struct snd_sof_dev *sdev)
- 			return;
- 
- 		ipc4_msg->data_size = data_size;
--		snd_sof_ipc_msg_data(sdev, NULL, ipc4_msg->data_ptr, ipc4_msg->data_size);
-+		err = snd_sof_ipc_msg_data(sdev, NULL, ipc4_msg->data_ptr, ipc4_msg->data_size);
-+		if (err < 0) {
-+			dev_err(sdev->dev, "failed to read IPC notification data: %d\n", err);
-+			kfree(ipc4_msg->data_ptr);
-+			ipc4_msg->data_ptr = NULL;
-+			ipc4_msg->data_size = 0;
-+			return;
-+		}
+diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
+index b89065abb511..01f3f56495cd 100644
+--- a/sound/soc/sof/ipc4-topology.c
++++ b/sound/soc/sof/ipc4-topology.c
+@@ -2392,6 +2392,8 @@ static int sof_ipc4_widget_setup(struct snd_sof_dev *sdev, struct snd_sof_widget
  	}
  
- 	/* Handle notifications with payload */
+ 	if (swidget->id != snd_soc_dapm_scheduler) {
++		int module_id = msg->primary & SOF_IPC4_MOD_ID_MASK;
++
+ 		ret = sof_ipc4_widget_assign_instance_id(sdev, swidget);
+ 		if (ret < 0) {
+ 			dev_err(sdev->dev, "failed to assign instance id for %s\n",
+@@ -2407,9 +2409,15 @@ static int sof_ipc4_widget_setup(struct snd_sof_dev *sdev, struct snd_sof_widget
+ 
+ 		msg->extension &= ~SOF_IPC4_MOD_EXT_PPL_ID_MASK;
+ 		msg->extension |= SOF_IPC4_MOD_EXT_PPL_ID(pipe_widget->instance_id);
++
++		dev_dbg(sdev->dev, "Create widget %s (pipe %d) - ID %d, instance %d, core %d\n",
++			swidget->widget->name, swidget->pipeline_id, module_id,
++			swidget->instance_id, swidget->core);
++	} else {
++		dev_dbg(sdev->dev, "Create pipeline %s (pipe %d) - instance %d, core %d\n",
++			swidget->widget->name, swidget->pipeline_id,
++			swidget->instance_id, swidget->core);
+ 	}
+-	dev_dbg(sdev->dev, "Create widget %s instance %d - pipe %d - core %d\n",
+-		swidget->widget->name, swidget->instance_id, swidget->pipeline_id, swidget->core);
+ 
+ 	msg->data_size = ipc_size;
+ 	msg->data_ptr = ipc_data;
 -- 
 2.43.0
 

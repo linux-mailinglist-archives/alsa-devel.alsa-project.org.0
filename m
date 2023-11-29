@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2C737FD72D
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Nov 2023 13:54:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24B927FD72C
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Nov 2023 13:53:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0A085DEB;
-	Wed, 29 Nov 2023 13:54:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A085DEB
+	by alsa0.perex.cz (Postfix) with ESMTPS id C156CBC0;
+	Wed, 29 Nov 2023 13:53:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C156CBC0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701262452;
-	bh=L9bbJWoQMIIHaeUsfS4fLqEci5gtCPfK3LJW90mngWs=;
+	s=default; t=1701262435;
+	bh=cXLGZEakbaAkxmkvwPl6WOp7DGM87+pLBb4YKcO2cGM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=JNxv3zmqh6vuJlt9CutlRNpLngHVecc3LdpAmEBiIaZPsMphi1Yd5ky48Rh16uzSY
-	 uE0Enq6aDc7cYrXkuGaNqZ1Dm6t1U04+YKOqGfDK2wFhT54OXS9WtbCMuPQy9vTFeQ
-	 6g/+b4lTbsM1lk27ZhvRmO577rMCbz8yQ0chnZ9c=
+	b=M0ezGrREI27aobtCFGbVZSg9lzEqt2Wk9aimFYhvdhvnANUk6B1Fqi28x+0oOjvt5
+	 gZe9h+kOLvlA+YKdJDS856xqaftVRKWtQjEz5rNO5uftM7pnThe/8bO22Fp9Uhwsz3
+	 SQRax8vuBU2qalchniw4fJ8fJazNcyV2CI3PqkEs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EF225F805E7; Wed, 29 Nov 2023 13:53:15 +0100 (CET)
+	id B2BCBF805BF; Wed, 29 Nov 2023 13:53:14 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 997E1F805E9;
-	Wed, 29 Nov 2023 13:53:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 759AFF805C0;
+	Wed, 29 Nov 2023 13:53:13 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0A5EFF8057F; Wed, 29 Nov 2023 13:53:09 +0100 (CET)
+	id C0540F8025A; Wed, 29 Nov 2023 13:53:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,39 +35,39 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8EB9CF8016E
-	for <alsa-devel@alsa-project.org>; Wed, 29 Nov 2023 13:52:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8EB9CF8016E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6443BF80166
+	for <alsa-devel@alsa-project.org>; Wed, 29 Nov 2023 13:52:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6443BF80166
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=Ahg5/zBD
+ header.s=Intel header.b=CM/O9eeT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1701262379; x=1732798379;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=L9bbJWoQMIIHaeUsfS4fLqEci5gtCPfK3LJW90mngWs=;
-  b=Ahg5/zBDIOyujqlTk36bJ6ddvTUl7arTwfL6mzv06sEW5GTxpSE+VCx7
-   LeahG1H7LXIbU4XP7Ybc6dxJ6vfpChyo+DdciMPbJh4LgT0Csvs8UJGAG
-   W8QrXyXYNQdnpI8R0GEJ5KYR6u2vVNHBn+WyDAT+gMGrBHo+B234aAkto
-   dtxfeQAyUsWv0ADtSDf7FfExnClwHd04svyMp48/1pCAJg3p3ldhnUkiC
-   Tw/I0ljjvHAeMmg3n1ZdPWc2C22eYUcAtmzYOQzM97V5w9Pruef8Ay/NA
-   XseakieR5mpq9yZ5v2uGJtS46O4I30Csheeak10+zXecg1WLDecWDhKBO
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10908"; a="392022874"
+  bh=cXLGZEakbaAkxmkvwPl6WOp7DGM87+pLBb4YKcO2cGM=;
+  b=CM/O9eeTkGU+qGXZivikmFgCovDJDdDAbw0H7gvFWcfkez2N3/BMN+gf
+   lGalGGUKdFpmvzCYeutaFEfr7J6UnWXJ0D4TeIyn4h6CcmlKVFxH56pr5
+   81hGoh6gm1q3+HNZCUbrox2da8a6OwR40a+dM1Xp3uxWgb9nEbtwEtsO0
+   +E4APJx0VkJG7YQ/MmXK3pA8Iie07HGyfUB56wD/WZf1nHmj2dt1zdpcm
+   uCuAPF0ss32SfFqPjrwo5YEN9DE861KfoO5dSKitalmX+XLJ2qEG0Vvld
+   nAmDr+87y0AbdOCq74E9AVHEVxRGYRDv/aMR23cNg/lsf6ivi/fIPuJtu
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10908"; a="392022885"
 X-IronPort-AV: E=Sophos;i="6.04,235,1695711600";
-   d="scan'208";a="392022874"
+   d="scan'208";a="392022885"
 Received: from fmviesa001.fm.intel.com ([10.60.135.141])
   by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Nov 2023 04:52:55 -0800
+ 29 Nov 2023 04:52:57 -0800
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.04,235,1695711600";
-   d="scan'208";a="17174592"
+   d="scan'208";a="17174601"
 Received: from klitkey1-mobl1.ger.corp.intel.com (HELO
  pujfalus-desk.ger.corp.intel.com) ([10.252.44.16])
   by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Nov 2023 04:52:54 -0800
+ 29 Nov 2023 04:52:56 -0800
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com,
 	broonie@kernel.org
@@ -76,17 +76,17 @@ Cc: alsa-devel@alsa-project.org,
 	pierre-louis.bossart@linux.intel.com,
 	kai.vehmanen@linux.intel.com,
 	ranjani.sridharan@linux.intel.com
-Subject: [PATCH 01/13] ASoC: SOF: Move sof_of_machine_select() to sof-of-dev.c
- from sof-audio.c
-Date: Wed, 29 Nov 2023 14:53:15 +0200
-Message-ID: <20231129125327.23708-2-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH 02/13] ASoC: SOF: Move sof_machine_* functions from
+ sof-audio.c to core.c
+Date: Wed, 29 Nov 2023 14:53:16 +0200
+Message-ID: <20231129125327.23708-3-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20231129125327.23708-1-peter.ujfalusi@linux.intel.com>
 References: <20231129125327.23708-1-peter.ujfalusi@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: I5HAV7OQP6CV4IRKLNWA3R54AV4XLTFB
-X-Message-ID-Hash: I5HAV7OQP6CV4IRKLNWA3R54AV4XLTFB
+Message-ID-Hash: MJWK3ZMOSDJ24HB7WFF7BOEDUUHRL6IF
+X-Message-ID-Hash: MJWK3ZMOSDJ24HB7WFF7BOEDUUHRL6IF
 X-MailFrom: peter.ujfalusi@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -98,113 +98,276 @@ X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: <>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MJWK3ZMOSDJ24HB7WFF7BOEDUUHRL6IF/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Move the sof_of_machine_select() function to sof-of-dev.c file and provide
-an inline stub in case of non OF builds.
+Relocate the machine handling functions from sof-audio.c to core.c to
+maintain code separation.
+
+While doing the move, drop the redundant
+IS_ERR_OR_NULL(plat_data->pdev_mach) check from
+sof_machine_unregister()
 
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 ---
- sound/soc/sof/sof-audio.c  | 22 ----------------------
- sound/soc/sof/sof-of-dev.c | 23 +++++++++++++++++++++++
- sound/soc/sof/sof-of-dev.h |  9 +++++++++
- 3 files changed, 32 insertions(+), 22 deletions(-)
+ sound/soc/sof/core.c      | 95 +++++++++++++++++++++++++++++++++++++
+ sound/soc/sof/sof-audio.c | 98 ---------------------------------------
+ sound/soc/sof/sof-priv.h  |  2 -
+ 3 files changed, 95 insertions(+), 100 deletions(-)
 
-diff --git a/sound/soc/sof/sof-audio.c b/sound/soc/sof/sof-audio.c
-index 77cc64ac7113..4972a66c6007 100644
---- a/sound/soc/sof/sof-audio.c
-+++ b/sound/soc/sof/sof-audio.c
-@@ -1007,28 +1007,6 @@ int sof_dai_get_bclk(struct snd_soc_pcm_runtime *rtd)
- }
- EXPORT_SYMBOL(sof_dai_get_bclk);
+diff --git a/sound/soc/sof/core.c b/sound/soc/sof/core.c
+index d7b090224f1b..a87522ea4301 100644
+--- a/sound/soc/sof/core.c
++++ b/sound/soc/sof/core.c
+@@ -13,6 +13,7 @@
+ #include <sound/soc.h>
+ #include <sound/sof.h>
+ #include "sof-priv.h"
++#include "sof-of-dev.h"
+ #include "ops.h"
  
--static struct snd_sof_of_mach *sof_of_machine_select(struct snd_sof_dev *sdev)
--{
--	struct snd_sof_pdata *sof_pdata = sdev->pdata;
--	const struct sof_dev_desc *desc = sof_pdata->desc;
--	struct snd_sof_of_mach *mach = desc->of_machines;
--
--	if (!mach)
--		return NULL;
--
--	for (; mach->compatible; mach++) {
--		if (of_machine_is_compatible(mach->compatible)) {
--			sof_pdata->tplg_filename = mach->sof_tplg_filename;
--			if (mach->fw_filename)
--				sof_pdata->fw_filename = mach->fw_filename;
--
--			return mach;
--		}
--	}
--
--	return NULL;
--}
--
- /*
-  * SOF Driver enumeration.
-  */
-diff --git a/sound/soc/sof/sof-of-dev.c b/sound/soc/sof/sof-of-dev.c
-index c6be8a91e74b..432b511bf8c4 100644
---- a/sound/soc/sof/sof-of-dev.c
-+++ b/sound/soc/sof/sof-of-dev.c
-@@ -41,6 +41,29 @@ static void sof_of_probe_complete(struct device *dev)
- 	pm_runtime_enable(dev);
+ #define CREATE_TRACE_POINTS
+@@ -143,6 +144,66 @@ void sof_set_fw_state(struct snd_sof_dev *sdev, enum sof_fw_state new_state)
  }
+ EXPORT_SYMBOL(sof_set_fw_state);
  
-+struct snd_sof_of_mach *sof_of_machine_select(struct snd_sof_dev *sdev)
++/* SOF Driver enumeration */
++static int sof_machine_check(struct snd_sof_dev *sdev)
 +{
 +	struct snd_sof_pdata *sof_pdata = sdev->pdata;
 +	const struct sof_dev_desc *desc = sof_pdata->desc;
-+	struct snd_sof_of_mach *mach = desc->of_machines;
++	struct snd_soc_acpi_mach *mach;
 +
-+	if (!mach)
-+		return NULL;
++	if (!IS_ENABLED(CONFIG_SND_SOC_SOF_FORCE_NOCODEC_MODE)) {
++		const struct snd_sof_of_mach *of_mach;
 +
-+	for (; mach->compatible; mach++) {
-+		if (of_machine_is_compatible(mach->compatible)) {
-+			sof_pdata->tplg_filename = mach->sof_tplg_filename;
-+			if (mach->fw_filename)
-+				sof_pdata->fw_filename = mach->fw_filename;
++		if (IS_ENABLED(CONFIG_SND_SOC_SOF_NOCODEC_DEBUG_SUPPORT) &&
++		    sof_debug_check_flag(SOF_DBG_FORCE_NOCODEC))
++			goto nocodec;
 +
-+			return mach;
++		/* find machine */
++		mach = snd_sof_machine_select(sdev);
++		if (mach) {
++			sof_pdata->machine = mach;
++
++			if (sof_pdata->subsystem_id_set) {
++				mach->mach_params.subsystem_vendor = sof_pdata->subsystem_vendor;
++				mach->mach_params.subsystem_device = sof_pdata->subsystem_device;
++				mach->mach_params.subsystem_id_set = true;
++			}
++
++			snd_sof_set_mach_params(mach, sdev);
++			return 0;
 +		}
++
++		of_mach = sof_of_machine_select(sdev);
++		if (of_mach) {
++			sof_pdata->of_machine = of_mach;
++			return 0;
++		}
++
++		if (!IS_ENABLED(CONFIG_SND_SOC_SOF_NOCODEC)) {
++			dev_err(sdev->dev, "error: no matching ASoC machine driver found - aborting probe\n");
++			return -ENODEV;
++		}
++	} else {
++		dev_warn(sdev->dev, "Force to use nocodec mode\n");
 +	}
 +
-+	return NULL;
-+}
-+EXPORT_SYMBOL(sof_of_machine_select);
++nocodec:
++	/* select nocodec mode */
++	dev_warn(sdev->dev, "Using nocodec machine driver\n");
++	mach = devm_kzalloc(sdev->dev, sizeof(*mach), GFP_KERNEL);
++	if (!mach)
++		return -ENOMEM;
 +
- int sof_of_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
-diff --git a/sound/soc/sof/sof-of-dev.h b/sound/soc/sof/sof-of-dev.h
-index b6cc70595f3b..547e358a37e3 100644
---- a/sound/soc/sof/sof-of-dev.h
-+++ b/sound/soc/sof/sof-of-dev.h
-@@ -16,6 +16,15 @@ struct snd_sof_of_mach {
- 	const char *sof_tplg_filename;
- };
++	mach->drv_name = "sof-nocodec";
++	if (!sof_pdata->tplg_filename)
++		sof_pdata->tplg_filename = desc->nocodec_tplg_filename;
++
++	sof_pdata->machine = mach;
++	snd_sof_set_mach_params(mach, sdev);
++
++	return 0;
++}
++
+ /*
+  *			FW Boot State Transition Diagram
+  *
+@@ -527,6 +588,40 @@ int snd_sof_device_shutdown(struct device *dev)
+ }
+ EXPORT_SYMBOL(snd_sof_device_shutdown);
  
-+#if IS_ENABLED(CONFIG_SND_SOC_SOF_OF_DEV)
-+struct snd_sof_of_mach *sof_of_machine_select(struct snd_sof_dev *sdev);
-+#else
-+static inline struct snd_sof_of_mach *sof_of_machine_select(struct snd_sof_dev *sdev)
++/* Machine driver registering and unregistering */
++int sof_machine_register(struct snd_sof_dev *sdev, void *pdata)
 +{
-+	return NULL;
-+}
-+#endif
++	struct snd_sof_pdata *plat_data = pdata;
++	const char *drv_name;
++	const void *mach;
++	int size;
 +
- extern const struct dev_pm_ops sof_of_pm;
++	drv_name = plat_data->machine->drv_name;
++	mach = plat_data->machine;
++	size = sizeof(*plat_data->machine);
++
++	/* register machine driver, pass machine info as pdata */
++	plat_data->pdev_mach =
++		platform_device_register_data(sdev->dev, drv_name,
++					      PLATFORM_DEVID_NONE, mach, size);
++	if (IS_ERR(plat_data->pdev_mach))
++		return PTR_ERR(plat_data->pdev_mach);
++
++	dev_dbg(sdev->dev, "created machine %s\n",
++		dev_name(&plat_data->pdev_mach->dev));
++
++	return 0;
++}
++EXPORT_SYMBOL(sof_machine_register);
++
++void sof_machine_unregister(struct snd_sof_dev *sdev, void *pdata)
++{
++	struct snd_sof_pdata *plat_data = pdata;
++
++	platform_device_unregister(plat_data->pdev_mach);
++}
++EXPORT_SYMBOL(sof_machine_unregister);
++
+ MODULE_AUTHOR("Liam Girdwood");
+ MODULE_DESCRIPTION("Sound Open Firmware (SOF) Core");
+ MODULE_LICENSE("Dual BSD/GPL");
+diff --git a/sound/soc/sof/sof-audio.c b/sound/soc/sof/sof-audio.c
+index 4972a66c6007..9163975c9c3f 100644
+--- a/sound/soc/sof/sof-audio.c
++++ b/sound/soc/sof/sof-audio.c
+@@ -11,7 +11,6 @@
+ #include <linux/bitfield.h>
+ #include <trace/events/sof.h>
+ #include "sof-audio.h"
+-#include "sof-of-dev.h"
+ #include "ops.h"
  
- int sof_of_probe(struct platform_device *pdev);
+ static bool is_virtual_widget(struct snd_sof_dev *sdev, struct snd_soc_dapm_widget *widget,
+@@ -1006,100 +1005,3 @@ int sof_dai_get_bclk(struct snd_soc_pcm_runtime *rtd)
+ 	return sof_dai_get_clk(rtd, SOF_DAI_CLK_INTEL_SSP_BCLK);
+ }
+ EXPORT_SYMBOL(sof_dai_get_bclk);
+-
+-/*
+- * SOF Driver enumeration.
+- */
+-int sof_machine_check(struct snd_sof_dev *sdev)
+-{
+-	struct snd_sof_pdata *sof_pdata = sdev->pdata;
+-	const struct sof_dev_desc *desc = sof_pdata->desc;
+-	struct snd_soc_acpi_mach *mach;
+-
+-	if (!IS_ENABLED(CONFIG_SND_SOC_SOF_FORCE_NOCODEC_MODE)) {
+-		const struct snd_sof_of_mach *of_mach;
+-
+-		if (IS_ENABLED(CONFIG_SND_SOC_SOF_NOCODEC_DEBUG_SUPPORT) &&
+-		    sof_debug_check_flag(SOF_DBG_FORCE_NOCODEC))
+-			goto nocodec;
+-
+-		/* find machine */
+-		mach = snd_sof_machine_select(sdev);
+-		if (mach) {
+-			sof_pdata->machine = mach;
+-
+-			if (sof_pdata->subsystem_id_set) {
+-				mach->mach_params.subsystem_vendor = sof_pdata->subsystem_vendor;
+-				mach->mach_params.subsystem_device = sof_pdata->subsystem_device;
+-				mach->mach_params.subsystem_id_set = true;
+-			}
+-
+-			snd_sof_set_mach_params(mach, sdev);
+-			return 0;
+-		}
+-
+-		of_mach = sof_of_machine_select(sdev);
+-		if (of_mach) {
+-			sof_pdata->of_machine = of_mach;
+-			return 0;
+-		}
+-
+-		if (!IS_ENABLED(CONFIG_SND_SOC_SOF_NOCODEC)) {
+-			dev_err(sdev->dev, "error: no matching ASoC machine driver found - aborting probe\n");
+-			return -ENODEV;
+-		}
+-	} else {
+-		dev_warn(sdev->dev, "Force to use nocodec mode\n");
+-	}
+-
+-nocodec:
+-	/* select nocodec mode */
+-	dev_warn(sdev->dev, "Using nocodec machine driver\n");
+-	mach = devm_kzalloc(sdev->dev, sizeof(*mach), GFP_KERNEL);
+-	if (!mach)
+-		return -ENOMEM;
+-
+-	mach->drv_name = "sof-nocodec";
+-	if (!sof_pdata->tplg_filename)
+-		sof_pdata->tplg_filename = desc->nocodec_tplg_filename;
+-
+-	sof_pdata->machine = mach;
+-	snd_sof_set_mach_params(mach, sdev);
+-
+-	return 0;
+-}
+-EXPORT_SYMBOL(sof_machine_check);
+-
+-int sof_machine_register(struct snd_sof_dev *sdev, void *pdata)
+-{
+-	struct snd_sof_pdata *plat_data = pdata;
+-	const char *drv_name;
+-	const void *mach;
+-	int size;
+-
+-	drv_name = plat_data->machine->drv_name;
+-	mach = plat_data->machine;
+-	size = sizeof(*plat_data->machine);
+-
+-	/* register machine driver, pass machine info as pdata */
+-	plat_data->pdev_mach =
+-		platform_device_register_data(sdev->dev, drv_name,
+-					      PLATFORM_DEVID_NONE, mach, size);
+-	if (IS_ERR(plat_data->pdev_mach))
+-		return PTR_ERR(plat_data->pdev_mach);
+-
+-	dev_dbg(sdev->dev, "created machine %s\n",
+-		dev_name(&plat_data->pdev_mach->dev));
+-
+-	return 0;
+-}
+-EXPORT_SYMBOL(sof_machine_register);
+-
+-void sof_machine_unregister(struct snd_sof_dev *sdev, void *pdata)
+-{
+-	struct snd_sof_pdata *plat_data = pdata;
+-
+-	if (!IS_ERR_OR_NULL(plat_data->pdev_mach))
+-		platform_device_unregister(plat_data->pdev_mach);
+-}
+-EXPORT_SYMBOL(sof_machine_unregister);
+diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
+index f4185012eb69..faa8a19ed737 100644
+--- a/sound/soc/sof/sof-priv.h
++++ b/sound/soc/sof/sof-priv.h
+@@ -814,8 +814,6 @@ int sof_stream_pcm_open(struct snd_sof_dev *sdev,
+ int sof_stream_pcm_close(struct snd_sof_dev *sdev,
+ 			 struct snd_pcm_substream *substream);
+ 
+-int sof_machine_check(struct snd_sof_dev *sdev);
+-
+ /* SOF client support */
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_CLIENT)
+ int sof_client_dev_register(struct snd_sof_dev *sdev, const char *name, u32 id,
 -- 
 2.43.0
 

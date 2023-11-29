@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FB7C7FD73F
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Nov 2023 13:55:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD3AB7FD73C
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Nov 2023 13:55:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BC7F0E72;
-	Wed, 29 Nov 2023 13:55:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC7F0E72
+	by alsa0.perex.cz (Postfix) with ESMTPS id B9BB7844;
+	Wed, 29 Nov 2023 13:55:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B9BB7844
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701262548;
-	bh=lqQiFIs0p9s2KrlZP8z+iUyiVQdSrOyJh+D15uaRyLY=;
+	s=default; t=1701262529;
+	bh=7o5Df0wGKeyYfnVIG1saGTKWLSJETSw4n9hnQZo8JuU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=bD1KEvLU67njHIjXnn+8KwFKq0pfeBG6n3LeSSumw6lUw7yjCP0Ao1Us9nxzP9BBW
-	 2kyWADVjCchDxcU45bZXG+F38NWFNYjhG1bqtJDh0mN+tW2eEttZW3exkEVECArW6G
-	 JTwm+HUlWCHZOZYRsYRiyiIVfLl8MKNcvd64J02U=
+	b=he/9tlKplieF9qa6jAk7NGrAcW/U26PlSIsdND/+1yyYoZzQWqNkU4J6x3wlO19g6
+	 CwKefBPLQS/eFp1hzVakhgzg5KRJe1pwwzCHiVXlZSZTdxyl3lag3DVjiXvckUS8gF
+	 460KUn92UGdie3cFB9Imowxr3u4ouoiJ3jObXVwA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 82FC4F806C2; Wed, 29 Nov 2023 13:53:36 +0100 (CET)
+	id C2FB8F806A1; Wed, 29 Nov 2023 13:53:31 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DB2ACF806CD;
-	Wed, 29 Nov 2023 13:53:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A49EEF806B3;
+	Wed, 29 Nov 2023 13:53:30 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BA250F8069E; Wed, 29 Nov 2023 13:53:28 +0100 (CET)
+	id DC232F80640; Wed, 29 Nov 2023 13:53:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,39 +35,39 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 403F4F8056F
-	for <alsa-devel@alsa-project.org>; Wed, 29 Nov 2023 13:53:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 403F4F8056F
+	by alsa1.perex.cz (Postfix) with ESMTPS id A0343F8060B
+	for <alsa-devel@alsa-project.org>; Wed, 29 Nov 2023 13:53:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0343F8060B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=MDuBdhWt
+ header.s=Intel header.b=B7pF+UYt
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1701262399; x=1732798399;
+  t=1701262400; x=1732798400;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=lqQiFIs0p9s2KrlZP8z+iUyiVQdSrOyJh+D15uaRyLY=;
-  b=MDuBdhWti4MXO7yL+XctFZKWJv9ejB4qautkcVmOyWZ4vfCji0VauXOi
-   46hywB3zwp3q1Qdo7gYItfRKYh5RfnoAgy+sBEujtCzIMKtIocRJ7rpM7
-   WQ3aWgu4gdOPZvnr7tB8QBmRVLTmZ4DqR7kl8jczTkbnrZsIkBn2Qc4D+
-   jcraHDbd6iN86c/Pxst+JcTB0NTjLDMjmO0zZF4zAbgfkBChQhpp9a9aC
-   3GIUp4Kx9CBm1OBmJEC8D9toqvcXgieNZG/QmRotXjw/iIj2Bt6qhqpgB
-   qDSq+YTnTTvOt2m4IT6aawBagccsCGVLRnRJiS8A1xarsXRy67e0txBEm
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10908"; a="392022958"
+  bh=7o5Df0wGKeyYfnVIG1saGTKWLSJETSw4n9hnQZo8JuU=;
+  b=B7pF+UYt3SHt7kSUrC6Dcs7ze9JdnnSAU8OSDghz6zjyJq3R1IVEOSqC
+   6Ld9pQwOMR8yR61LqpNlb/RBjO/8672+3aVc9nAtyl/u+Q567Mmb3gbEY
+   vHr4TC1lqfMK7rCCVJW3cAMVN6GbKmGCBE/RMDBGsJ8DXfbYCOPIbHsyY
+   InBpnZUgcGkIi/V2MNILgpDWayD1vWS3VGPjg2kTa5H8xOx5pL3irRpZ+
+   iHBjtgAX65Xj/ayBmHOuI7lgdMQEZr3bBxoEIGMmFEuC/kVB1hOkngu27
+   avjhbddMUxdyFzfWp0lB53mBYY9hFv9T7Ye9uudPrG/XHptZkwubwZJlX
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10908"; a="392022965"
 X-IronPort-AV: E=Sophos;i="6.04,235,1695711600";
-   d="scan'208";a="392022958"
+   d="scan'208";a="392022965"
 Received: from fmviesa001.fm.intel.com ([10.60.135.141])
   by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Nov 2023 04:53:15 -0800
+ 29 Nov 2023 04:53:17 -0800
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.04,235,1695711600";
-   d="scan'208";a="17174646"
+   d="scan'208";a="17174647"
 Received: from klitkey1-mobl1.ger.corp.intel.com (HELO
  pujfalus-desk.ger.corp.intel.com) ([10.252.44.16])
   by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Nov 2023 04:53:13 -0800
+ 29 Nov 2023 04:53:15 -0800
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com,
 	broonie@kernel.org
@@ -76,17 +76,17 @@ Cc: alsa-devel@alsa-project.org,
 	pierre-louis.bossart@linux.intel.com,
 	kai.vehmanen@linux.intel.com,
 	ranjani.sridharan@linux.intel.com
-Subject: [PATCH 10/13] ASoC: SOF: sof-pci-dev: Rely on core to create the file
- paths
-Date: Wed, 29 Nov 2023 14:53:24 +0200
-Message-ID: <20231129125327.23708-11-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH 11/13] ASoC: SOF: core: Add helper for initialization of
+ paths, ops
+Date: Wed, 29 Nov 2023 14:53:25 +0200
+Message-ID: <20231129125327.23708-12-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20231129125327.23708-1-peter.ujfalusi@linux.intel.com>
 References: <20231129125327.23708-1-peter.ujfalusi@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: PDVYAIEIGKUOPAVOQGCC6PH3FEM6DKDE
-X-Message-ID-Hash: PDVYAIEIGKUOPAVOQGCC6PH3FEM6DKDE
+Message-ID-Hash: PTBDCBWSEDFUCIXC3LLSL74UNXWE2YGE
+X-Message-ID-Hash: PTBDCBWSEDFUCIXC3LLSL74UNXWE2YGE
 X-MailFrom: peter.ujfalusi@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -98,8 +98,7 @@ X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PDVYAIEIGKUOPAVOQGCC6PH3FEM6DKDE/>
+Archived-At: <>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,157 +107,92 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The core is now using the information from ipc_file_profile_base to create
-the paths for the loadable files, no need to set it in here anymore.
+Add sof_init_environment() as a helper function to contain path and ops
+initialization.
 
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 ---
- sound/soc/sof/sof-pci-dev.c | 115 ++++++------------------------------
- 1 file changed, 17 insertions(+), 98 deletions(-)
+ sound/soc/sof/core.c | 56 +++++++++++++++++++++++++++-----------------
+ 1 file changed, 34 insertions(+), 22 deletions(-)
 
-diff --git a/sound/soc/sof/sof-pci-dev.c b/sound/soc/sof/sof-pci-dev.c
-index becc85b27d51..aab5c900cecf 100644
---- a/sound/soc/sof/sof-pci-dev.c
-+++ b/sound/soc/sof/sof-pci-dev.c
-@@ -233,120 +233,39 @@ int sof_pci_probe(struct pci_dev *pci, const struct pci_device_id *pci_id)
- 	sof_pdata->desc = desc;
- 	sof_pdata->dev = dev;
+diff --git a/sound/soc/sof/core.c b/sound/soc/sof/core.c
+index f1a083de9f9e..a2e9506e0f85 100644
+--- a/sound/soc/sof/core.c
++++ b/sound/soc/sof/core.c
+@@ -265,6 +265,38 @@ static int sof_select_ipc_and_paths(struct snd_sof_dev *sdev)
+ 	return 0;
+ }
  
--	sof_pdata->ipc_type = desc->ipc_default;
-+	path_override = &sof_pdata->ipc_file_profile_base;
- 
- 	if (sof_pci_ipc_type < 0) {
--		sof_pdata->ipc_type = desc->ipc_default;
--	} else {
--		dev_info(dev, "overriding default IPC %d to requested %d\n",
--			 desc->ipc_default, sof_pci_ipc_type);
--		if (sof_pci_ipc_type >= SOF_IPC_TYPE_COUNT) {
--			dev_err(dev, "invalid request value %d\n", sof_pci_ipc_type);
--			ret = -EINVAL;
--			goto out;
--		}
--		if (!(BIT(sof_pci_ipc_type) & desc->ipc_supported_mask)) {
--			dev_err(dev, "invalid request value %d, supported mask is %#x\n",
--				sof_pci_ipc_type, desc->ipc_supported_mask);
--			ret = -EINVAL;
--			goto out;
--		}
--		sof_pdata->ipc_type = sof_pci_ipc_type;
--	}
--
--	if (fw_filename) {
--		sof_pdata->fw_filename = fw_filename;
--
--		dev_dbg(dev, "Module parameter used, changed fw filename to %s\n",
--			sof_pdata->fw_filename);
-+		path_override->ipc_type = desc->ipc_default;
-+	} else if (sof_pci_ipc_type < SOF_IPC_TYPE_COUNT) {
-+		path_override->ipc_type = sof_pci_ipc_type;
- 	} else {
--		sof_pdata->fw_filename = desc->default_fw_filename[sof_pdata->ipc_type];
-+		dev_err(dev, "Invalid IPC type requested: %d\n", sof_pci_ipc_type);
-+		ret = -EINVAL;
-+		goto out;
++static int sof_init_environment(struct snd_sof_dev *sdev)
++{
++	int ret;
++
++	ret = sof_select_ipc_and_paths(sdev);
++	if (ret)
++		return ret;
++
++	/* init ops, if necessary */
++	ret = sof_ops_init(sdev);
++	if (ret < 0)
++		return ret;
++
++	/* check all mandatory ops */
++	if (!sof_ops(sdev) || !sof_ops(sdev)->probe) {
++		dev_err(sdev->dev, "missing mandatory ops\n");
++		sof_ops_free(sdev);
++		return -EINVAL;
++	}
++
++	if (!sdev->dspless_mode_selected &&
++	    (!sof_ops(sdev)->run || !sof_ops(sdev)->block_read ||
++	     !sof_ops(sdev)->block_write || !sof_ops(sdev)->send_msg ||
++	     !sof_ops(sdev)->load_firmware || !sof_ops(sdev)->ipc_msg_data)) {
++		dev_err(sdev->dev, "missing mandatory DSP ops\n");
++		sof_ops_free(sdev);
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
+ /*
+  *			FW Boot State Transition Diagram
+  *
+@@ -503,31 +535,11 @@ int snd_sof_device_probe(struct device *dev, struct snd_sof_pdata *plat_data)
+ 		}
  	}
  
--	/*
--	 * for platforms using the SOF community key, change the
--	 * default path automatically to pick the right files from the
--	 * linux-firmware tree. This can be overridden with the
--	 * fw_path kernel parameter, e.g. for developers.
--	 */
--
--	/* alternate fw and tplg filenames ? */
--	if (fw_path) {
--		sof_pdata->fw_filename_prefix = fw_path;
--
--		dev_dbg(dev,
--			"Module parameter used, changed fw path to %s\n",
--			sof_pdata->fw_filename_prefix);
--
--	} else if (dmi_check_system(community_key_platforms) && sof_dmi_use_community_key) {
--		sof_pdata->fw_filename_prefix =
--			devm_kasprintf(dev, GFP_KERNEL, "%s/%s",
--				       sof_pdata->desc->default_fw_path[sof_pdata->ipc_type],
--				       "community");
--
--		dev_dbg(dev,
--			"Platform uses community key, changed fw path to %s\n",
--			sof_pdata->fw_filename_prefix);
--	} else {
--		sof_pdata->fw_filename_prefix =
--			sof_pdata->desc->default_fw_path[sof_pdata->ipc_type];
--	}
-+	path_override->fw_path = fw_path;
-+	path_override->fw_name = fw_filename;
-+	path_override->fw_lib_path = lib_path;
-+	path_override->tplg_path = tplg_path;
+-	ret = sof_select_ipc_and_paths(sdev);
++	/* Initialize loadable file paths and check the environment validity */
++	ret = sof_init_environment(sdev);
+ 	if (ret)
+ 		return ret;
  
--	if (lib_path) {
--		sof_pdata->fw_lib_prefix = lib_path;
+-	/* init ops, if necessary */
+-	ret = sof_ops_init(sdev);
+-	if (ret < 0)
+-		return ret;
 -
--		dev_dbg(dev, "Module parameter used, changed fw_lib path to %s\n",
--			sof_pdata->fw_lib_prefix);
--
--	} else if (sof_pdata->desc->default_lib_path[sof_pdata->ipc_type]) {
--		if (dmi_check_system(community_key_platforms) && sof_dmi_use_community_key) {
--			sof_pdata->fw_lib_prefix =
--				devm_kasprintf(dev, GFP_KERNEL, "%s/%s",
--					sof_pdata->desc->default_lib_path[sof_pdata->ipc_type],
--					"community");
--
--			dev_dbg(dev,
--				"Platform uses community key, changed fw_lib path to %s\n",
--				sof_pdata->fw_lib_prefix);
--		} else {
--			sof_pdata->fw_lib_prefix =
--				sof_pdata->desc->default_lib_path[sof_pdata->ipc_type];
--		}
-+	if (dmi_check_system(community_key_platforms) &&
-+	    sof_dmi_use_community_key) {
-+		path_override->fw_path_postfix = "community";
-+		path_override->fw_lib_path_postfix = "community";
- 	}
- 
--	if (tplg_path)
--		sof_pdata->tplg_filename_prefix = tplg_path;
--	else
--		sof_pdata->tplg_filename_prefix =
--			sof_pdata->desc->default_tplg_path[sof_pdata->ipc_type];
--
- 	/*
- 	 * the topology filename will be provided in the machine descriptor, unless
- 	 * it is overridden by a module parameter or DMI quirk.
- 	 */
- 	if (tplg_filename) {
--		sof_pdata->tplg_filename = tplg_filename;
--
--		dev_dbg(dev, "Module parameter used, changed tplg filename to %s\n",
--			sof_pdata->tplg_filename);
-+		path_override->tplg_name = tplg_filename;
- 	} else {
- 		dmi_check_system(sof_tplg_table);
- 		if (sof_dmi_override_tplg_name)
--			sof_pdata->tplg_filename = sof_dmi_override_tplg_name;
+-	/* check all mandatory ops */
+-	if (!sof_ops(sdev) || !sof_ops(sdev)->probe) {
+-		sof_ops_free(sdev);
+-		dev_err(dev, "missing mandatory ops\n");
+-		return -EINVAL;
 -	}
 -
--	path_override = &sof_pdata->ipc_file_profile_base;
--	path_override->ipc_type = sof_pdata->ipc_type;
--	path_override->fw_path = fw_path;
--	path_override->fw_name = fw_filename;
--	path_override->fw_lib_path = lib_path;
--	path_override->tplg_path = tplg_path;
--	path_override->tplg_name = sof_pdata->tplg_filename;
+-	if (!sdev->dspless_mode_selected &&
+-	    (!sof_ops(sdev)->run || !sof_ops(sdev)->block_read ||
+-	     !sof_ops(sdev)->block_write || !sof_ops(sdev)->send_msg ||
+-	     !sof_ops(sdev)->load_firmware || !sof_ops(sdev)->ipc_msg_data)) {
+-		sof_ops_free(sdev);
+-		dev_err(dev, "missing mandatory DSP ops\n");
+-		return -EINVAL;
+-	}
 -
--	if (dmi_check_system(community_key_platforms) &&
--	    sof_dmi_use_community_key) {
--		path_override->fw_path_postfix = "community";
--		path_override->fw_lib_path_postfix = "community";
-+			path_override->tplg_name = sof_dmi_override_tplg_name;
- 	}
- 
- 	/* set callback to be called on successful device probe to enable runtime_pm */
+ 	INIT_LIST_HEAD(&sdev->pcm_list);
+ 	INIT_LIST_HEAD(&sdev->kcontrol_list);
+ 	INIT_LIST_HEAD(&sdev->widget_list);
 -- 
 2.43.0
 

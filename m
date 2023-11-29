@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B4547FDF9C
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Nov 2023 19:46:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FF1B7FDFA2
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Nov 2023 19:47:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 11D2ADE5;
-	Wed, 29 Nov 2023 19:46:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 11D2ADE5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6F009E0F;
+	Wed, 29 Nov 2023 19:46:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F009E0F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701283591;
-	bh=FN4I76ZU7Cwagn6Bgl8OaeZ+LRU0T1R0zOgimIt+bG4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=PBbhMcF3n+FNbVgJJQl3uEjln1N582x7KvqTFq2diBLI68I5fH7+z+2TNfhM7qpR3
-	 V2YnTnWhymY5y87k/NisN1xyLfnklmh+Ye9XscWywMk+aqNnoim4EAZ8FbuWc3UX8f
-	 pY64Mm2eqhwP81SA2bkmtAyx7lujPe3gGf5r/6m8=
+	s=default; t=1701283623;
+	bh=VesGDOaehDA9Fg1TH+ih/jgS5o/DVG5HPfhsdBxy2o8=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=f938lr7p7oAo6Fm+C942pg1dBrUEwmzaPyagnwlQFcw13tgptVv018MEKBPvCPrDS
+	 +AEUa6oOJXZdVIXU3pWyEthBNE1/JJEgGViUKGINtKuuG65In4nN0kgvviZcUqU/mf
+	 UOIjYvNsoobutfQNNZT5yISmsORayct+acACV/FM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BFCA9F80254; Wed, 29 Nov 2023 19:45:58 +0100 (CET)
+	id 8E4D3F805EC; Wed, 29 Nov 2023 19:46:04 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9A3EFF80579;
-	Wed, 29 Nov 2023 19:45:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 97C3CF805D3;
+	Wed, 29 Nov 2023 19:46:03 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 32300F80236; Wed, 29 Nov 2023 19:45:53 +0100 (CET)
+	id 65F6FF80588; Wed, 29 Nov 2023 19:46:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -36,67 +36,67 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1AFF6F8007E
-	for <alsa-devel@alsa-project.org>; Wed, 29 Nov 2023 19:45:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1AFF6F8007E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 55AC3F8016E
+	for <alsa-devel@alsa-project.org>; Wed, 29 Nov 2023 19:45:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55AC3F8016E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=Ef+f+pvD
+ header.s=Intel header.b=PtYikKH7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1701283546; x=1732819546;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=FN4I76ZU7Cwagn6Bgl8OaeZ+LRU0T1R0zOgimIt+bG4=;
-  b=Ef+f+pvDe/UXQW9GRhlTaAsgjsYUUc7KjFvYn2l8W+pmvgLcJTGifGji
-   HAE+ocEh79rBd9XBxG2MkQNvKslXkC38WZe199YzIZttyDH4ZYQPwgyKu
-   dSEN9xOa8bWUEM4BvioQjFJyxzR9Fcnwc4zXeTv7zx2u5V/veVpbE79FB
-   ZQKUG6Hp9vIUR7cIusgQ9yN8FbJjexGl1QpQ08ELKjiLQAjo/dhAxT9wc
-   kfQNYtMOcVCT7N7SHY3YirYPWe/v51HbMEEf+Xy4AiGbao2/Ua+k22s9R
-   6RIlKoZmUCgJH7ZNKemT0qUJRMmbXpAnOz7JFf+hpBr+RWF2v+FCaRTL3
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10909"; a="383602785"
+  t=1701283548; x=1732819548;
+  h=message-id:date:mime-version:subject:to:references:from:
+   in-reply-to:content-transfer-encoding;
+  bh=VesGDOaehDA9Fg1TH+ih/jgS5o/DVG5HPfhsdBxy2o8=;
+  b=PtYikKH7eBqsRjJ9PTXMtVQTJ+6CIyGRDCFbkaRq2Or9tFDg+DhssG9w
+   VhvAlbtKPnagQv5LHevomUNLdFd8z2wpQQmF4MvxzsrpDllawwSskturA
+   W8ILZp4SolyfgyPQaYdCKwLu6ktvhrw3n5YwYE0zat7B91xHb+1UJyeX5
+   iOJ1YyR6M89vDoqSkN3LWoiueIliasRaYrID7/NOTJSSgHIFtWo+pmV4v
+   Brkmn5pKfzKQFHpHVWtdzvvvAswL1Ll+ekci8TAUBo9lV7UQUqtUKeq60
+   E+/uwdbXmkv7sx7MiAKP1Sw1pAqznLYlMk9/UgYFl+2gaBqxGvdzXIxv3
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10909"; a="383602796"
 X-IronPort-AV: E=Sophos;i="6.04,237,1695711600";
-   d="scan'208";a="383602785"
+   d="scan'208";a="383602796"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
   by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Nov 2023 10:45:42 -0800
+ 29 Nov 2023 10:45:43 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10909"; a="942421659"
+X-IronPort-AV: E=McAfee;i="6600,9927,10909"; a="942421671"
 X-IronPort-AV: E=Sophos;i="6.04,237,1695711600";
-   d="scan'208";a="942421659"
+   d="scan'208";a="942421671"
 Received: from caw1-mobl1.amr.corp.intel.com (HELO [10.255.229.136])
  ([10.255.229.136])
   by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Nov 2023 10:45:41 -0800
-Message-ID: <7bae01ac-a0de-47d9-9bd3-6bdfc48e02c1@linux.intel.com>
-Date: Wed, 29 Nov 2023 10:39:08 -0600
+ 29 Nov 2023 10:45:42 -0800
+Message-ID: <598015b0-68e1-434c-96d3-571040a3814e@linux.intel.com>
+Date: Wed, 29 Nov 2023 10:46:52 -0600
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/7] ASoC: Intel: soc-acpi-intel-tgl-match: add cs42l43
- and cs56l56 support
+Subject: Re: [PATCH 1/2] ASoC: qcom: Add helper for allocating Soundwire
+ stream runtime
 Content-Language: en-US
-To: Richard Fitzgerald <rf@opensource.cirrus.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, lgirdwood@gmail.com,
- broonie@kernel.org
-Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- kai.vehmanen@linux.intel.com, ranjani.sridharan@linux.intel.com,
- cezary.rojewski@intel.com, yung-chuan.liao@linux.intel.com,
- ckeepax@opensource.cirrus.com, yong.zhi@intel.com, chao.song@linux.intel.com
-References: <20231127133448.18449-1-peter.ujfalusi@linux.intel.com>
- <20231127133448.18449-7-peter.ujfalusi@linux.intel.com>
- <9660e9df-2061-4b2c-ba59-5e6f8a61f07d@opensource.cirrus.com>
- <cb768f03-9d46-432e-ad67-8ff1ef075385@linux.intel.com>
- <6038c9fa-8cb1-46e1-b856-d759a3f990b3@opensource.cirrus.com>
- <5e9b0b69-6108-4909-90e8-257c13c2d886@linux.intel.com>
- <d2de7d4c-3984-4737-b879-a1fa829007ff@opensource.cirrus.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, linux-arm-msm@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ linux-sound@vger.kernel.org
+References: <20231128165638.757665-1-krzysztof.kozlowski@linaro.org>
+ <ce46c729-48de-4b71-ace3-9b88f95e8e28@linux.intel.com>
+ <5ffed1e6-ac60-42e1-8322-4f5e419ef86d@linaro.org>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <d2de7d4c-3984-4737-b879-a1fa829007ff@opensource.cirrus.com>
+In-Reply-To: <5ffed1e6-ac60-42e1-8322-4f5e419ef86d@linaro.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: ZAOWTDLIEMI4OGHRIG4LVSRKKDYBYYCC
-X-Message-ID-Hash: ZAOWTDLIEMI4OGHRIG4LVSRKKDYBYYCC
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: TNDOI4ZTGRFA4OYDQEVE53ENIIENBTX6
+X-Message-ID-Hash: TNDOI4ZTGRFA4OYDQEVE53ENIIENBTX6
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -109,7 +109,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZAOWTDLIEMI4OGHRIG4LVSRKKDYBYYCC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TNDOI4ZTGRFA4OYDQEVE53ENIIENBTX6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,73 +119,56 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
->>>>>> +        .name_prefix = "cs35l56-8"
->>>>>
->>>>> Can these prefixes be "AMPn" to match the CS35L41, CS35L51 and
->>>>> CS35L56-hda driver? This prefix is used to find the matching firmware
->>>>> files and our naming convention for these has been cs35lxx-xxxx-ampn
->>>>>
->>>>> Is there anything that depends on the prefixes being "cs35l56-n" ?
->>>>
->>>> IIRC this name_prefix is just used for the codec_conf and hence for
->>>> control names/UCM. At some point userspace/driver need to know if amp5
->>>> is left or right.
->>>>
->>>> We can certainly align on conventions but the values set in this ACPI
->>>> match table will not be used for firmware download - different scope.
->>>>
->>>
->>> They are used for our firmware download. Each amp can have its own
->>> unique firmware file. The ALSA prefix is used to identify which firmware
->>> file to load to which amp.
->>
->> The prefix will only be used when the card is created, specifically for
->> control names.
->> The firmware should be selected and downloaded when the device shows up
->> on the bus.
->> Card creation and device enumeration/initialization happen on different
->> timelines, if the machine driver is "blacklisted" or unbound I am not
->> sure what happens.
->>
->> There is a dependency between machine driver probe and codec firmware
->> download that I am not able to follow, can you please elaborate?
->>
-> 
-> The codec driver has to choose which firmware to load from under
-> /lib/firmware. It does this using a combination of SSID (to identify the
-> target product), the ALSA prefix string (to identify which amp) and
-> in some systems a GPIO on the motherboard to select between different
-> models of speaker when they have multiple suppliers. This results in a
-> firmware name like:
-> 
-> cs35l56-<silicon rev>-dsp1-misc-<SSID>[-<SPEAKER MODEL>]-<ALSA PREFIX>
-> 
-> You can see this if you look in the linux-firmware repo under cirrus/
-> for cs35l41 firmware files (though the ALSA PREFIX section in those
-> cases is not "AMPn" because they are not SDCA parts with rotation,
-> they have a fixed left/right assignment.)
-> 
-> We have to be careful of the length of the prefix. The 44 characters of
-> an ALSA control name get eaten up very quickly when we start creating
-> fully-qualified names for controls published by the firmware. So "AMPn"
-> was nice because it was descriptive enough but only uses 5 characters
-> of the 44.
-> 
-> Having said that, I've calculated that we have enough characters (just)
-> to use a prefix of "cs35l56-n". If there's a reason why that is
-> necessary/desirable for SOF or SoundWire then we could do that. But we'd
-> intended to use "AMPn" prefixes.
-> 
-> We just need to decide whether to go with "AMPn". Or switch to using
-> "cs35l56-n" for the ALSA prefix (the therefore the qualifier at the end
-> of the firmware filename).
 
-Yes we have similar issues with control names in topology, the limit is
-hit very quickly.
+On 11/29/23 10:35, Krzysztof Kozlowski wrote:
+> On 28/11/2023 18:39, Pierre-Louis Bossart wrote:
+>>
+>>> +int qcom_snd_sdw_startup(struct snd_pcm_substream *substream)
+>>> +{
+>>> +	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+>>> +	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
+>>> +	struct sdw_stream_runtime *sruntime;
+>>> +	struct snd_soc_dai *codec_dai;
+>>> +	int ret, i;
+>>> +
+>>> +	sruntime = sdw_alloc_stream(cpu_dai->name);
+>>> +	if (!sruntime)
+>>> +		return -ENOMEM;
+>>> +
+>>> +	for_each_rtd_codec_dais(rtd, i, codec_dai) {
+>>> +		ret = snd_soc_dai_set_stream(codec_dai, sruntime,
+>>> +					     substream->stream);
+>>> +		if (ret < 0 && ret != -ENOTSUPP) {
+>>
+>> I know this is existing code moved into a helper, but out of curiosity
+>> why is -ENOTSUPP ignored? Isn't this problematic?
+> 
+> This is for all DAI links, so if some don't have set_stream callback, we
+> assume it is not needed. For example few codecs do not need it because
+> they are not on Soundwire bus at all and they don't care about the stream.
 
-I think you missed my point though that the ALSA prefix is only set when
-the card is created, which can be sometime after the firmware needs to
-be downloaded. I guess you could pick the firmware in the component
-probe, which happens during the card creation, but that could be
-sub-optimal. Given the download times you want the download to proceed
-as early as possible.
+Humm, it was my understanding that the substream is mapped 1:1 with a
+dailink, so not sure how SoundWire and non-SoundWire DAIs could be part
+of the same dailink?
+
+I am not saying this test is silly, just wondering if there is any case
+where this error code is returned. Worst-case it's always false but
+harmless.
+
+>>
+>>> +			dev_err(rtd->dev, "Failed to set sdw stream on %s\n",
+>>> +				codec_dai->name);
+>>> +			goto err_set_stream;
+>>> +		}
+>>> +	}
+>>
+>> Also should the CPU DAIs also be used to set the stream information?
+>> it's not clear to me why only the CODEC DAIs are used.
+> 
+> I don't know, we never did. As you pointed out, I am just moving things
+> around, so I don't really know the original intention.
+
+Fair enough, I've been in your shoes :-)
+Not always easy to grade 3+ yr code as 'miss', 'bug', 'optimization' or
+'feature'...
+

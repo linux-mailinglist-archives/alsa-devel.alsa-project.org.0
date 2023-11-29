@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AECB7FD730
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Nov 2023 13:54:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF5C07FD72E
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Nov 2023 13:54:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5F833846;
-	Wed, 29 Nov 2023 13:54:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F833846
+	by alsa0.perex.cz (Postfix) with ESMTPS id D73CBE75;
+	Wed, 29 Nov 2023 13:54:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D73CBE75
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701262485;
-	bh=sYLfqhSfdwPusKgPVDUZjtWRIRsMeQ3oJLzattU+fQI=;
+	s=default; t=1701262465;
+	bh=jCpn9ZNcLLcLhZMJvK9OlpkgsWy+ExRNpQspOpbl0XY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=f7YqyI5mxSiJm+1MJYZY6b3CC6MDLGJqlihMHDvGUqJVEYecJAk4aQTYf8RTeAADr
-	 nNfh6dfmoNGzaxFjOt55iJnleTpOjptdQMLEeAPFBmVuPWxnTmWXr6SWYq0tZdev/1
-	 iq041256ygHbhCZbFD2zT9rl9Htjl/pdXD5CQ4dA=
+	b=HW475EofnmG0U9Mq997lo8E/LXVuzj9+NX94j7wnLiDQK3HGSIfCs5ybuRFfeoKdt
+	 iWByqKRD0l6eruHK3ZO0Sln5GPGi4yhMSuMM5ZjEXcW2mY8eQi6kXvwp94eXc0QCH7
+	 mtyNHc1ZSTE78nn3rzl4XKlOhrYm2YPCbqGao/SE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A3FABF8063B; Wed, 29 Nov 2023 13:53:23 +0100 (CET)
+	id 311F8F80608; Wed, 29 Nov 2023 13:53:20 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6D8E8F80612;
-	Wed, 29 Nov 2023 13:53:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E4F87F80604;
+	Wed, 29 Nov 2023 13:53:19 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 57DB1F805C1; Wed, 29 Nov 2023 13:53:13 +0100 (CET)
+	id 12B05F805AA; Wed, 29 Nov 2023 13:53:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,39 +35,39 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B323AF801D5
-	for <alsa-devel@alsa-project.org>; Wed, 29 Nov 2023 13:53:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B323AF801D5
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6D9B6F805A1
+	for <alsa-devel@alsa-project.org>; Wed, 29 Nov 2023 13:53:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6D9B6F805A1
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=Erxz/0AJ
+ header.s=Intel header.b=CGqvhvIk
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1701262385; x=1732798385;
+  t=1701262389; x=1732798389;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=sYLfqhSfdwPusKgPVDUZjtWRIRsMeQ3oJLzattU+fQI=;
-  b=Erxz/0AJenhYQDG3qBc9mJrmnozPoMHxqIAu3Y2AQXpnfts9XcMifxxo
-   8rBZLw/UMeh4we4Um+vlcB5z4sjvWeN5RIfi4rDTybGdf6+UQ6KWpIW+H
-   znUWiVRWkP6pEEF/N5ESE0OjOv2PJLofz72NYdkRdhmpjea7+mbLsiA8w
-   fiCBlF3rWwezR7bpQNTCM9Y/gwiaXMt1vB7xzKjq1bCqmX1ueOmE8JlG9
-   hcDoWYjLoS6toa7AJXW6XSPpKA1ztmh0HacXe35VOTQtt6yQgs/nIQnP+
-   UinSArcC2mtjJeqVbmQXKja+2R3k61M9ahE7NfqSXhrm4R9G0AvGUgz0B
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10908"; a="392022909"
+  bh=jCpn9ZNcLLcLhZMJvK9OlpkgsWy+ExRNpQspOpbl0XY=;
+  b=CGqvhvIkoCKMpYEqlVsO2sPNoSeqeeKrpVEyn4E24DZt5BytaL+JTqCf
+   5DxNfWoLfcp/fROXzrqGUwqLG2eTA/GMYib6C7YkBMJn7N/xuzsvV5HEt
+   ZXT7rTjPQcajOHDX0pX0WrnIY0jZXsoZeocu5K6OjizrCfyV+3dHHeI1q
+   TGKr9nh2iVYfp4IWDfKpqVdSOo8Eak2mfuEX5t6mZNas4u3Dn1NWehs1y
+   iOeubVMgGqDeU6lE8AqE0BtzJPuH1DmJjpde+riwR4F8Wir89br/u88rI
+   c+5GVIhc8CsZ56QT7YloMUMgmwR/Sf+M0MngWgJ1Ura63awyOh28hzwes
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10908"; a="392022924"
 X-IronPort-AV: E=Sophos;i="6.04,235,1695711600";
-   d="scan'208";a="392022909"
+   d="scan'208";a="392022924"
 Received: from fmviesa001.fm.intel.com ([10.60.135.141])
   by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Nov 2023 04:53:04 -0800
+ 29 Nov 2023 04:53:06 -0800
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.04,235,1695711600";
-   d="scan'208";a="17174623"
+   d="scan'208";a="17174631"
 Received: from klitkey1-mobl1.ger.corp.intel.com (HELO
  pujfalus-desk.ger.corp.intel.com) ([10.252.44.16])
   by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Nov 2023 04:53:02 -0800
+ 29 Nov 2023 04:53:04 -0800
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com,
 	broonie@kernel.org
@@ -76,17 +76,17 @@ Cc: alsa-devel@alsa-project.org,
 	pierre-louis.bossart@linux.intel.com,
 	kai.vehmanen@linux.intel.com,
 	ranjani.sridharan@linux.intel.com
-Subject: [PATCH 05/13] ASoC: SOF: sof-of-dev: Save the default IPC type and
+Subject: [PATCH 06/13] ASoC: SOF: sof-pci-dev: Save the default IPC type and
  path overrides
-Date: Wed, 29 Nov 2023 14:53:19 +0200
-Message-ID: <20231129125327.23708-6-peter.ujfalusi@linux.intel.com>
+Date: Wed, 29 Nov 2023 14:53:20 +0200
+Message-ID: <20231129125327.23708-7-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20231129125327.23708-1-peter.ujfalusi@linux.intel.com>
 References: <20231129125327.23708-1-peter.ujfalusi@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: VDLTUBC5LLKFURUWRIXCQHS5M7BTVMDZ
-X-Message-ID-Hash: VDLTUBC5LLKFURUWRIXCQHS5M7BTVMDZ
+Message-ID-Hash: BJ22IVZTNOPQ6GYU5FGE5T6L2CIM3Z6R
+X-Message-ID-Hash: BJ22IVZTNOPQ6GYU5FGE5T6L2CIM3Z6R
 X-MailFrom: peter.ujfalusi@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -99,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VDLTUBC5LLKFURUWRIXCQHS5M7BTVMDZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BJ22IVZTNOPQ6GYU5FGE5T6L2CIM3Z6R/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,29 +108,46 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Store the default IPC type and the firmware and topology path overrides to
-ipc_file_profile_base
+Store the default IPC type and the overrides to ipc_file_profile_base
 
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 ---
- sound/soc/sof/sof-of-dev.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ sound/soc/sof/sof-pci-dev.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-diff --git a/sound/soc/sof/sof-of-dev.c b/sound/soc/sof/sof-of-dev.c
-index 432b511bf8c4..7b58f45790f7 100644
---- a/sound/soc/sof/sof-of-dev.c
-+++ b/sound/soc/sof/sof-of-dev.c
-@@ -99,6 +99,10 @@ int sof_of_probe(struct platform_device *pdev)
- 	else
- 		sof_pdata->tplg_filename_prefix = desc->default_tplg_path[SOF_IPC_TYPE_3];
+diff --git a/sound/soc/sof/sof-pci-dev.c b/sound/soc/sof/sof-pci-dev.c
+index 64b326e3ef85..becc85b27d51 100644
+--- a/sound/soc/sof/sof-pci-dev.c
++++ b/sound/soc/sof/sof-pci-dev.c
+@@ -190,6 +190,7 @@ static void sof_pci_probe_complete(struct device *dev)
  
-+	sof_pdata->ipc_file_profile_base.ipc_type = desc->ipc_default;
-+	sof_pdata->ipc_file_profile_base.fw_path = fw_path;
-+	sof_pdata->ipc_file_profile_base.tplg_path = tplg_path;
+ int sof_pci_probe(struct pci_dev *pci, const struct pci_device_id *pci_id)
+ {
++	struct sof_loadable_file_profile *path_override;
+ 	struct device *dev = &pci->dev;
+ 	const struct sof_dev_desc *desc =
+ 		(const struct sof_dev_desc *)pci_id->driver_data;
+@@ -334,6 +335,20 @@ int sof_pci_probe(struct pci_dev *pci, const struct pci_device_id *pci_id)
+ 			sof_pdata->tplg_filename = sof_dmi_override_tplg_name;
+ 	}
+ 
++	path_override = &sof_pdata->ipc_file_profile_base;
++	path_override->ipc_type = sof_pdata->ipc_type;
++	path_override->fw_path = fw_path;
++	path_override->fw_name = fw_filename;
++	path_override->fw_lib_path = lib_path;
++	path_override->tplg_path = tplg_path;
++	path_override->tplg_name = sof_pdata->tplg_filename;
++
++	if (dmi_check_system(community_key_platforms) &&
++	    sof_dmi_use_community_key) {
++		path_override->fw_path_postfix = "community";
++		path_override->fw_lib_path_postfix = "community";
++	}
 +
  	/* set callback to be called on successful device probe to enable runtime_pm */
- 	sof_pdata->sof_probe_complete = sof_of_probe_complete;
+ 	sof_pdata->sof_probe_complete = sof_pci_probe_complete;
  
 -- 
 2.43.0

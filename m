@@ -2,96 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 734AA7FD885
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Nov 2023 14:46:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92B3D7FD88A
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Nov 2023 14:46:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 82438AEA;
-	Wed, 29 Nov 2023 14:46:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 82438AEA
+	by alsa0.perex.cz (Postfix) with ESMTPS id C31C8AEA;
+	Wed, 29 Nov 2023 14:46:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C31C8AEA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701265574;
-	bh=o3IR1MWqz3silM2od98MvF2WzHWyiWlL3urvrMsQojc=;
+	s=default; t=1701265588;
+	bh=XyAdl7d2bcjt9TvorkmOyYlcXwoXipBu9gYOGaZjgQk=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=PlTC6QzhCUlwiN/zbpLXOQsC534Ep6tGSmrQkLQ8Mx2d7nSxzUGX4XRNc/4BBNCdd
-	 +e2n2aGt8XmLUKdVT50K2MRegLCs494kIGidevVG1GJkKiihyby/jd/sC+G29n6SVv
-	 fh4MVz/pWv4BSRPrYZbjvawZwhrL8wZ0+7h/f7ew=
+	b=r2cCiwzoxDdb44ES4MlZ1fMOZ25jo2fs63H4meBUimoZSkCa/WfVIXH8T0uYNBwVI
+	 wqSXwvKCXjvtITDk50kXjJaAt0NoX+1p9iNoi2uT47ltv1WesI/GnDHcBN/LK5P94d
+	 cZMi5DcktIqON/hV4esmdlyoPMBLsMD12Eo18Ehw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 532EEF8058C; Wed, 29 Nov 2023 14:45:41 +0100 (CET)
+	id 6CE42F805A8; Wed, 29 Nov 2023 14:46:14 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 86C72F80578;
-	Wed, 29 Nov 2023 14:45:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 98449F805A1;
+	Wed, 29 Nov 2023 14:46:13 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A9FF1F8016E; Wed, 29 Nov 2023 14:45:37 +0100 (CET)
+	id 9E29AF8016E; Wed, 29 Nov 2023 14:46:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [IPv6:2a00:1450:4864:20::632])
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [IPv6:2a00:1450:4864:20::633])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1A9E2F800F5
-	for <alsa-devel@alsa-project.org>; Wed, 29 Nov 2023 14:45:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A9E2F800F5
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1A862F80114
+	for <alsa-devel@alsa-project.org>; Wed, 29 Nov 2023 14:46:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A862F80114
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=qU0PlYQl
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-a178d491014so65899266b.3
+ header.s=google header.b=xEqGCuWw
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-a00a9c6f1e9so965057266b.3
         for <alsa-devel@alsa-project.org>;
- Wed, 29 Nov 2023 05:45:30 -0800 (PST)
+ Wed, 29 Nov 2023 05:46:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1701265529; x=1701870329;
+        d=linaro.org; s=google; t=1701265566; x=1701870366;
  darn=alsa-project.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=clXr2bW5K5Ltu9os070jk2tl5a3SSGmsxkIeOTVUebs=;
-        b=qU0PlYQl9AZLHhWJ3eNuKI4REPAxlf+789f0dm4FF5nkxomF2olTick0Um6y/n89hR
-         fAkAc0x9iQW7NqU/qsWa6kJ0Av7T+DRGfeWiFE5x5a7KeRYRhhimQvFbrLWkPzXsa9OM
-         V8vKU6P/HQcVsRruSQbadvk7cZ2wLqJMFzc+b/o8K9BqvIAlG8SaVxCl8wincXC/Oz9W
-         LIe2MapvAlUW2H1ooukbuULZ2I+VImibGLRHId2sKRUjKD1GvzTTjANv67nFRJ9KAGD6
-         l2riFAsrxMiTr5n93MMecjkYT3WX7jjoHopt/vcS9R1TEkgSNYXJOIV9vdI3vZIk0lEy
-         k4zw==
+        bh=cBSFdLwbP6iBVNXIZiTcHgh2DF6/dUUBZvh33dWqRVw=;
+        b=xEqGCuWwSkx/6On7EkyACtpt3WVpXZI24A0pFJN6IaeFn63WVpOq9PGkuUWz5kaGzw
+         ACRUHH8G0bCxqGrapW+qevS7Q1xDXo1nUF71f7adxI9F3OIf24xGT27lz+0ntn6acgCa
+         CtF1QWznvDZ6tl/tjfbbXfRBA2O8x+zfbQZaklSDYWhKelmjDVp9+9j6xp9dYMArRWyp
+         Fhey8/QKDtwBbkLFvN0YBzdwkDAcv27mGemrIFsQW9YmSJwB0vuhzIGIWlhvd8aIsGWT
+         843WixvBhmLUjnRotj+WT7Qba2+Manw/m+1PQWXPL50BbBenL28ZS21OSI54BfAdd54S
+         sNbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701265529; x=1701870329;
+        d=1e100.net; s=20230601; t=1701265566; x=1701870366;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=clXr2bW5K5Ltu9os070jk2tl5a3SSGmsxkIeOTVUebs=;
-        b=YxhefyJ6ahU7Xa43EPjzbc3qOONoJifHWrAOL0wKwGkckC+xzpY7WotSumGSdymRN+
-         63thIPguMSFGcuhGsPbcf2BQXx8fejw0/XHVOVhxnapqdEsN4S1KpbJ/GJQ8SEdkbWhu
-         ngIApgT1nckCPNEKOroKCAT5vSxfhLgo+gWeIY+rTGe69qptZjPUUfUDJxvqcpcPBeVU
-         GCFE1UZxFWAdNQgBhJenqd13JDfVmuZiRT2AGtsJAEy3b1LJ4elaqyODTcvbXNYx15Ij
-         fLQuSqPxZ7UlXAP1h1pTY5Pa/i/Zz1KjOSQE87L+HIhove6RDs20jm4kymyRIVkD3QDB
-         /5Nw==
-X-Gm-Message-State: AOJu0Yxf6CQ2qUyK0GBWtLlc2sm+9Il076TiDC7JAhCIUodrOqcTnw5b
-	fQAz5wsPW0gl68RorYs3g0gu9Q==
+        bh=cBSFdLwbP6iBVNXIZiTcHgh2DF6/dUUBZvh33dWqRVw=;
+        b=tEX44dgTKFK5L+e/XF8cIGjxVHqQje0x7BcuQ9FrhGYQV5oiHZDLZ7/5T8yQyGcG9+
+         bTK4T1yMnN2ENwoDi7q0Ej3DkKbzzrMXeJYsL+llvUvdGEptH4kjWc5F/epobApDe/Wq
+         0x41mnhu52pj4Fci387msNK4TBMDHbuMmkPt3wk0EEP7qMyHtvQVS3BkP8YScjjXkPJ4
+         7zCL0ZUZuh5IXhRMLSCt+KgWgZS0oCrRb5e4FVzunBUT0Aj7gnaARKFcppxQc0pxM00i
+         zNhORdVzR24ZSqDmKlmZfL/cwlqwcAmxbz+D72FzXqi41Hl3XrYYgxqZ9zLIMhGCzkVc
+         IZ7Q==
+X-Gm-Message-State: AOJu0Yw25jeNLtdwMwPcCJ20uemZlqNshYSQT/WleRpyIPi8bpgiTJej
+	bBr4cA30l+GEBvvtg9snL43wKg==
 X-Google-Smtp-Source: 
- AGHT+IH77YADLNW4Ao0P/5mMFH9qPw8pYmfM3OqBaotcxgJCbP4txXJo0/dBxMyQLk46fR06Dok0Vw==
-X-Received: by 2002:a17:906:2511:b0:9c2:2d0a:320c with SMTP id
- i17-20020a170906251100b009c22d0a320cmr13447658ejb.46.1701265529452;
-        Wed, 29 Nov 2023 05:45:29 -0800 (PST)
+ AGHT+IEDLfeyaa/cILOO4tDHn+EEvUTwqz2+8nc3XcAYN2nENkKkAzsj23smEfgm2ZV7pfSa8xuUOQ==
+X-Received: by 2002:a17:906:b299:b0:a03:ad29:a00b with SMTP id
+ q25-20020a170906b29900b00a03ad29a00bmr15555698ejz.36.1701265566229;
+        Wed, 29 Nov 2023 05:46:06 -0800 (PST)
 Received: from [192.168.209.173]
  (178235187166.dynamic-4-waw-k-2-3-0.vectranet.pl. [178.235.187.166])
         by smtp.gmail.com with ESMTPSA id
- f8-20020a17090624c800b009fd77d78f7fsm7910195ejb.116.2023.11.29.05.45.27
+ f8-20020a17090624c800b009fd77d78f7fsm7910195ejb.116.2023.11.29.05.46.04
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 29 Nov 2023 05:45:29 -0800 (PST)
-Message-ID: <4fdab723-8549-4e1f-9930-9e856034437c@linaro.org>
-Date: Wed, 29 Nov 2023 14:45:26 +0100
+        Wed, 29 Nov 2023 05:46:05 -0800 (PST)
+Message-ID: <eaa034cb-06e8-4204-befa-4389bcb7d9e8@linaro.org>
+Date: Wed, 29 Nov 2023 14:46:04 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/5] ASoC: codecs: Add WCD939x Soundwire slave driver
+Subject: Re: [PATCH 5/5] ASoC: codecs: Add WCD939x Codec driver
 Content-Language: en-US
 To: neil.armstrong@linaro.org,
  Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
@@ -106,9 +106,9 @@ Cc: linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
  linux-kernel@vger.kernel.org
 References: 
  <20231123-topic-sm8650-upstream-wcd939x-codec-v1-0-21d4ad9276de@linaro.org>
- <20231123-topic-sm8650-upstream-wcd939x-codec-v1-4-21d4ad9276de@linaro.org>
- <a7725504-89fd-4f62-b8d0-6ec863bd059a@linaro.org>
- <095f6e9d-dbee-4cfe-91dc-5443608c386d@linaro.org>
+ <20231123-topic-sm8650-upstream-wcd939x-codec-v1-5-21d4ad9276de@linaro.org>
+ <ad9a7c4b-82f4-4347-b4dd-a394e4ba95f0@linaro.org>
+ <42a6f6e0-2846-4cdc-8702-493fadbafb98@linaro.org>
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
 Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
  xsFNBF9ALYUBEADWAhxdTBWrwAgDQQzc1O/bJ5O7b6cXYxwbBd9xKP7MICh5YA0DcCjJSOum
@@ -145,11 +145,11 @@ Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
  bGqMHex48FVZhexNPYOd58EY9/7mL5u0sJmo+jTeb4JBgIbFPJCFyng4HwbniWgQJZ1WqaUC
  nas9J77uICis2WH7N8Bs9jy0wQYezNzqS+FxoNXmDQg2jetX8en4bO2Di7Pmx0jXA4TOb9TM
  izWDgYvmBE8=
-In-Reply-To: <095f6e9d-dbee-4cfe-91dc-5443608c386d@linaro.org>
+In-Reply-To: <42a6f6e0-2846-4cdc-8702-493fadbafb98@linaro.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: Q2N6XH7ZV55RG7ZLA3DHH53VSIGRDOUU
-X-Message-ID-Hash: Q2N6XH7ZV55RG7ZLA3DHH53VSIGRDOUU
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: 5M3RF7H6DANSNWUIYCVF4YYOPAVK5B4T
+X-Message-ID-Hash: 5M3RF7H6DANSNWUIYCVF4YYOPAVK5B4T
 X-MailFrom: konrad.dybcio@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -162,7 +162,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Q2N6XH7ZV55RG7ZLA3DHH53VSIGRDOUU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5M3RF7H6DANSNWUIYCVF4YYOPAVK5B4T/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -171,24 +171,33 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 28.11.2023 10:16, Neil Armstrong wrote:
-> On 25/11/2023 12:55, Konrad Dybcio wrote:
->> On 23.11.2023 15:49, Neil Armstrong wrote:
->>> Add Soundwire Slave driver for the WCD9390/WCD9395 Audio Codec.
->>>
->>> The WCD9390/WCD9395 Soundwire Slaves will be used by the
->>> main WCD9390/WCD9395 Audio Codec driver to access registers
->>> and configure Soundwire RX and TX ports.
->>>
->>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
->>> ---
-[...]
-
->> This is used in wcd9380 and will be used in wcd9370 when that happens some
->> day, maybe it'd be worth to commonize it as qcom_{rx/tx}_portmap_get?
->> [...]
+On 28.11.2023 16:01, Neil Armstrong wrote:
+> On 25/11/2023 13:07, Konrad Dybcio wrote:
 > 
-> OK but where ?
-qcom-wcd-sdw-common.c?
+> <snip>
+> 
+>>> +
+>>> +static int wcd939x_io_init(struct snd_soc_component *component)
+>>> +{
+>>> +    snd_soc_component_write_field(component, WCD939X_ANA_BIAS,
+>>> +                      WCD939X_BIAS_ANALOG_BIAS_EN, 1);
+>> All of these values are BIT()s or 2-4 ORed BIT()s, can you check what they
+>> mean?
+>>
+>> Same for almost all other snd_soc_component_ write/modify functions
+> 
+> It uses snd_soc_component_write_field() with is the same as
+> regmap_write_bits(REGISTER, REGISTER_MASK,
+>                   FIELD_PREP(REGISTER_MASK, value);
+> 
+> So the 1 mean write in enable mask in this case, and mask is single bit,
+> read it exactly like if it was using FIELD_PREP(), but even for BITs.
+> 
+> I did check every single snd_soc_component_write_field() so far to check
+> it matches.
+> 
+> Or it's another question ?
+What I wanted to ask is whether it's possible to #define these magic
+values within these fields
 
 Konrad

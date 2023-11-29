@@ -2,111 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 975EB7FC68C
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Nov 2023 21:59:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 201887FD025
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Nov 2023 08:54:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0E0C3A4D;
-	Tue, 28 Nov 2023 21:59:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E0C3A4D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 76419DEB;
+	Wed, 29 Nov 2023 08:54:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 76419DEB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701205198;
-	bh=XFNgKWR3IH7MGWbzX9aPWGhwHVOfoXbpzEd0eLnZQf0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=NAb3z0tu6bizgyhZkOrqOzr4Qghqfl+6KxeR0oSWThbIunvMFhUzG9/4uzKYQC7jF
-	 oOwg9CI8iiWCxebW8lDIwg9/5KRa+wH4Fp68YP35MHOwVmdt32Dd7+oRv6MOePhyzt
-	 hyM6Jelivymg7BCGLEzx+FUMyLwg3fCHAa3mm040=
+	s=default; t=1701244458;
+	bh=WDrAnTf3IevnuKxV9jOx0UnIhQW1/zYLFndExfoWs9c=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=UJ8sst3uha06CXNEF7RHzT7ApV5Ue5SmjlxD7QVGB724Y+g+TZPqvwbNEg6LJMpwP
+	 wu6NcHI5UEwF0G7WLD+hnDsYABSJcTcKcDxKsK3ObDzCJ7/2O9R/2KEDfS3WzC9LQD
+	 3JUf9vWMoehwGjxZkjOgcUiCv8Daw7eujNZYgrq0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B6E87F80236; Tue, 28 Nov 2023 21:59:36 +0100 (CET)
+	id 0F9AFF80579; Wed, 29 Nov 2023 08:53:46 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3CDD3F8055A;
-	Tue, 28 Nov 2023 21:59:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1C974F80571;
+	Wed, 29 Nov 2023 08:53:46 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DF019F8016E; Tue, 28 Nov 2023 21:59:29 +0100 (CET)
+	id 0F5C9F8016E; Wed, 29 Nov 2023 08:52:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from metis.whiteo.stw.pengutronix.de
- (metis.whiteo.stw.pengutronix.de [IPv6:2a0a:edc0:2:b01:1d::104])
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
- server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id ED6D8F800F5
-	for <alsa-devel@alsa-project.org>; Tue, 28 Nov 2023 21:59:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED6D8F800F5
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
-	by metis.whiteo.stw.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-	(Exim 4.92)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1r85AN-0006nV-7B; Tue, 28 Nov 2023 21:58:47 +0100
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.94.2)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1r85AI-00CFt4-DE; Tue, 28 Nov 2023 21:58:42 +0100
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1r85AI-00AOAR-2T; Tue, 28 Nov 2023 21:58:42 +0100
-Date: Tue, 28 Nov 2023 21:58:41 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Thierry Reding <thierry.reding@gmail.com>
-Cc: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>, Lee Jones <lee@kernel.org>,
-	Ulf Hansson <ulf.hansson@linaro.org>,
-	Tomasz Figa <tomasz.figa@gmail.com>,
-	Sylwester Nawrocki <s.nawrocki@samsung.com>,
-	Linus Walleij <linus.walleij@linaro.org>,
-	Alessandro Zummo <a.zummo@towertech.it>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaehoon Chung <jh80.chung@samsung.com>,
-	Sam Protsenko <semen.protsenko@linaro.org>,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org, linux-i2c@vger.kernel.org,
-	linux-iio@vger.kernel.org, linux-mmc@vger.kernel.org,
-	linux-gpio@vger.kernel.org, linux-pwm@vger.kernel.org,
-	linux-rtc@vger.kernel.org, linux-serial@vger.kernel.org,
-	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: Re: (subset) [PATCH 00/17] dt-bindings: samsung: add specific
- compatibles for existing SoC
-Message-ID: <20231128205841.al23ra5s34rn3muj@pengutronix.de>
-References: <20231108104343.24192-1-krzysztof.kozlowski@linaro.org>
- <170119374454.445690.515311393756577368.b4-ty@gmail.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 60ABEF8007E
+	for <alsa-devel@alsa-project.org>; Wed, 29 Nov 2023 08:52:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60ABEF8007E
+X-SpamFilter-By: ArmorX SpamTrap 5.78 with qID 3AT7qEI412624970,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (rtexh36505.realtek.com.tw[172.21.6.25])
+	by rtits2.realtek.com.tw (8.15.2/2.95/5.92) with ESMTPS id 3AT7qEI412624970
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 29 Nov 2023 15:52:15 +0800
+Received: from RTEXDAG01.realtek.com.tw (172.21.6.100) by
+ RTEXH36505.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.32; Wed, 29 Nov 2023 15:52:14 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXDAG01.realtek.com.tw (172.21.6.100) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.7; Wed, 29 Nov 2023 15:52:14 +0800
+Received: from RTEXMBS01.realtek.com.tw ([fe80::540c:c8d6:1d0f:ab9f]) by
+ RTEXMBS01.realtek.com.tw ([fe80::540c:c8d6:1d0f:ab9f%5]) with mapi id
+ 15.01.2507.034; Wed, 29 Nov 2023 15:52:14 +0800
+From: Kailang <kailang@realtek.com>
+To: "Takashi Iwai (tiwai@suse.de)" <tiwai@suse.de>
+CC: " (alsa-devel@alsa-project.org)" <alsa-devel@alsa-project.org>
+Subject: Add ALC257 support for ChromeOS
+Thread-Topic: Add ALC257 support for ChromeOS
+Thread-Index: AdoimMNVqCS8t6AJSbKn3EBrnQgKMA==
+Date: Wed, 29 Nov 2023 07:52:13 +0000
+Message-ID: <99a88a7dbdb045fd9d934abeb6cec15f@realtek.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: yes
+x-originating-ip: [172.22.102.106]
+x-kse-serverinfo: RTEXDAG01.realtek.com.tw, 9
+x-kse-antispam-interceptor-info: fallback
+x-kse-antivirus-interceptor-info: fallback
+Content-Type: multipart/mixed;
+	boundary="_002_99a88a7dbdb045fd9d934abeb6cec15frealtekcom_"
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="bibczb2zawwhoawf"
-Content-Disposition: inline
-In-Reply-To: <170119374454.445690.515311393756577368.b4-ty@gmail.com>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: alsa-devel@alsa-project.org
-Message-ID-Hash: UVXGZIMXXIMAOEMSI6I7ABLAIC4XSOAD
-X-Message-ID-Hash: UVXGZIMXXIMAOEMSI6I7ABLAIC4XSOAD
-X-MailFrom: ukl@pengutronix.de
+X-KSE-AntiSpam-Interceptor-Info: fallback
+X-KSE-ServerInfo: RTEXH36505.realtek.com.tw, 9
+X-KSE-AntiSpam-Interceptor-Info: fallback
+X-KSE-Antivirus-Interceptor-Info: fallback
+X-KSE-AntiSpam-Interceptor-Info: fallback
+Message-ID-Hash: MZ2PAQTRRLBCVJFOGTVOLQG6BR246PG6
+X-Message-ID-Hash: MZ2PAQTRRLBCVJFOGTVOLQG6BR246PG6
+X-MailFrom: kailang@realtek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -118,76 +92,58 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UVXGZIMXXIMAOEMSI6I7ABLAIC4XSOAD/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MZ2PAQTRRLBCVJFOGTVOLQG6BR246PG6/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-
---bibczb2zawwhoawf
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+--_002_99a88a7dbdb045fd9d934abeb6cec15frealtekcom_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Nov 28, 2023 at 06:49:23PM +0100, Thierry Reding wrote:
->=20
-> On Wed, 08 Nov 2023 11:43:26 +0100, Krzysztof Kozlowski wrote:
-> > Merging
-> > =3D=3D=3D=3D=3D=3D=3D
-> > I propose to take entire patchset through my tree (Samsung SoC), becaus=
-e:
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Hi Takashi,
 
-> > 1. Next cycle two new SoCs will be coming (Google GS101 and ExynosAutov=
-920), so
-> >    they will touch the same lines in some of the DT bindings (not all, =
-though).
-> >    It is reasonable for me to take the bindings for the new SoCs, to ha=
-ve clean
-> >    `make dtbs_check` on the new DTS.
-> > 2. Having it together helps me to have clean `make dtbs_check` within m=
-y tree
-> >    on the existing DTS.
-> > 3. No drivers are affected by this change.
-> > 4. I plan to do the same for Tesla FSD and Exynos ARM32 SoCs, thus expe=
-ct
-> >    follow up patchsets.
-> >=20
-> > [...]
->=20
-> Applied, thanks!
->=20
-> [12/17] dt-bindings: pwm: samsung: add specific compatibles for existing =
-SoC
->         commit: 5d67b8f81b9d598599366214e3b2eb5f84003c9f
+Chromebook want to support ALC257.
 
-You didn't honor (or even comment) Krzysztof's proposal to take the
-whole patchset via his tree (marked above). Was there some off-list
-agreement?
+BR,
+Kailang
 
-Best regards
-Uwe
+--_002_99a88a7dbdb045fd9d934abeb6cec15frealtekcom_
+Content-Type: application/octet-stream; name="0000-alc257-chromeOS.patch"
+Content-Description: 0000-alc257-chromeOS.patch
+Content-Disposition: attachment; filename="0000-alc257-chromeOS.patch";
+	size=1394; creation-date="Wed, 29 Nov 2023 07:41:03 GMT";
+	modification-date="Wed, 29 Nov 2023 07:49:33 GMT"
+Content-Transfer-Encoding: base64
 
---=20
-Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
-Industrial Linux Solutions                 | https://www.pengutronix.de/ |
+RnJvbSAyZGVjOWZlYzc2YjMwMGFhNjlmZDBiNWZiOTU2OWM2NTRiMTEzYmM1IE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBLYWlsYW5nIFlhbmcgPGthaWxhbmdAcmVhbHRlay5jb20+CkRh
+dGU6IFdlZCwgMjkgTm92IDIwMjMgMTU6Mzg6NDAgKzA4MDAKU3ViamVjdDogW1BBVENIXSBBTFNB
+OiBoZGEvcmVhbHRlazogQWRkIHN1cHBvcnRlZCBBTEMyNTcgZm9yIENocm9tZU9TCgpDaHJvbWVP
+UyB3YW50IHRvIHN1cHBvcnQgQUxDMjU3LgpBZGQgY29kZWMgSUQgdG8gc29tZSByZWxhdGlvbiBm
+dW5jdGlvbi4KClNpZ25lZC1vZmYtYnk6IEthaWxhbmcgWWFuZyA8a2FpbGFuZ0ByZWFsdGVrLmNv
+bT4KZGlmZiAtLWdpdCBhL3NvdW5kL3BjaS9oZGEvcGF0Y2hfcmVhbHRlay5jIGIvc291bmQvcGNp
+L2hkYS9wYXRjaF9yZWFsdGVrLmMKaW5kZXggMGRmNDRiMTg3NmYzLi4xZDVkM2Q4OTE3NTggMTAw
+NjQ0Ci0tLSBhL3NvdW5kL3BjaS9oZGEvcGF0Y2hfcmVhbHRlay5jCisrKyBiL3NvdW5kL3BjaS9o
+ZGEvcGF0Y2hfcmVhbHRlay5jCkBAIC0zMjU2LDYgKzMyNTYsNyBAQCBzdGF0aWMgdm9pZCBhbGNf
+ZGlzYWJsZV9oZWFkc2V0X2phY2tfa2V5KHN0cnVjdCBoZGFfY29kZWMgKmNvZGVjKQogCWNhc2Ug
+MHgxMGVjMDIzMDoKIAljYXNlIDB4MTBlYzAyMzY6CiAJY2FzZSAweDEwZWMwMjU2OgorCWNhc2Ug
+MHgxMGVjMDI1NzoKIAljYXNlIDB4MTllNTgzMjY6CiAJCWFsY193cml0ZV9jb2VmX2lkeChjb2Rl
+YywgMHg0OCwgMHgwKTsKIAkJYWxjX3VwZGF0ZV9jb2VmX2lkeChjb2RlYywgMHg0OSwgMHgwMDQ1
+LCAweDApOwpAQCAtMzI4NSw2ICszMjg2LDcgQEAgc3RhdGljIHZvaWQgYWxjX2VuYWJsZV9oZWFk
+c2V0X2phY2tfa2V5KHN0cnVjdCBoZGFfY29kZWMgKmNvZGVjKQogCWNhc2UgMHgxMGVjMDIzMDoK
+IAljYXNlIDB4MTBlYzAyMzY6CiAJY2FzZSAweDEwZWMwMjU2OgorCWNhc2UgMHgxMGVjMDI1NzoK
+IAljYXNlIDB4MTllNTgzMjY6CiAJCWFsY193cml0ZV9jb2VmX2lkeChjb2RlYywgMHg0OCwgMHhk
+MDExKTsKIAkJYWxjX3VwZGF0ZV9jb2VmX2lkeChjb2RlYywgMHg0OSwgMHgwMDdmLCAweDAwNDUp
+OwpAQCAtNjQ5Niw2ICs2NDk4LDcgQEAgc3RhdGljIHZvaWQgYWxjX2NvbWJvX2phY2tfaHBfamRf
+cmVzdGFydChzdHJ1Y3QgaGRhX2NvZGVjICpjb2RlYykKIAljYXNlIDB4MTBlYzAyMzY6CiAJY2Fz
+ZSAweDEwZWMwMjU1OgogCWNhc2UgMHgxMGVjMDI1NjoKKwljYXNlIDB4MTBlYzAyNTc6CiAJY2Fz
+ZSAweDE5ZTU4MzI2OgogCQlhbGNfdXBkYXRlX2NvZWZfaWR4KGNvZGVjLCAweDFiLCAweDgwMDAs
+IDEgPDwgMTUpOyAvKiBSZXNldCBIUCBKRCAqLwogCQlhbGNfdXBkYXRlX2NvZWZfaWR4KGNvZGVj
+LCAweDFiLCAweDgwMDAsIDAgPDwgMTUpOwo=
 
---bibczb2zawwhoawf
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmVmVIAACgkQj4D7WH0S
-/k4mPQgAuzfJsEw0Nil25KsPJwyY53qFjfCGd8WTObzTDFpeIlzV2EL87bWT2Gtd
-vEFgfX2Uj+RoOLX5CNnyuEfwH5e+O5oVYF9gfpsdqtRTJ3zyPV3dUiFCaIh2KNqZ
-aaY1tsb4vECeh7dmEL/y2VUWoO2bAa08sZe6EpJXOkeUWN54VdTCMBwncH1utjgh
-Tb/pHhjkfvdcbXuvxsFY4gL86pT8BER5EjIRZZaPN0kHDrGTBR+ZqjFvMVWTrFbq
-IUK1gAMX+BOooJDwVFE4SeRta6p/lfClW73PbWk1++SyLPA2KbTp8jTul4qgXWKT
-IbIJY8Qwg5trzJ0LHDMX3a02COS9hg==
-=P7ML
------END PGP SIGNATURE-----
-
---bibczb2zawwhoawf--
+--_002_99a88a7dbdb045fd9d934abeb6cec15frealtekcom_--

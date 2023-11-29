@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C934F7FDBD4
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Nov 2023 16:46:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA8B17FDBDB
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Nov 2023 16:47:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 08FA0DE5;
-	Wed, 29 Nov 2023 16:46:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08FA0DE5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2B3DCAEA;
+	Wed, 29 Nov 2023 16:46:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B3DCAEA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701272809;
-	bh=xUYYYEmBSXhImlVIW4C43XXNMTyeIO7EA57oEmOiMbQ=;
+	s=default; t=1701272829;
+	bh=81ncXv3FOgRAUVXX00kkWCrx3GmkGUHC7/9F7iblTDU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=pHkhABlnErNtDHgjtD3I59X6ikOzmG+smYKsgaf0dhSoeyUNNla08pUhhYMVZrXep
-	 VDLOa3z9sDOJe1jcdtMH1xfn55UuapM0Vyi+mge/u+eRCijNpUCCxOPngvf8yftzkQ
-	 5DZENCajHVJ4xVr6HBLgCFIFIjOSSNER1rZi3uG4=
+	b=rffP8KCynl2Pv+LMx2rXBCX2PQ5+/5LQpc/lLbDnxTFpzxAbFfpwVy9xgmJ7wZOfF
+	 ++T0jGGL0rNN852Q43OesmGwRgli99SGqy3pU7nkpCq+y6Z3qzbMLZcjlrR17KnEW7
+	 1LVfOzJBfPQSOGCCPd8uKOVGv8J10hnAwOX/v9WY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A365FF8057A; Wed, 29 Nov 2023 16:46:17 +0100 (CET)
+	id 1EDF4F805C5; Wed, 29 Nov 2023 16:46:27 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D56CAF80571;
-	Wed, 29 Nov 2023 16:46:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F3B89F805BA;
+	Wed, 29 Nov 2023 16:46:26 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AC359F8016E; Wed, 29 Nov 2023 16:46:11 +0100 (CET)
+	id 44FC7F805A0; Wed, 29 Nov 2023 16:46:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-4.3 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
@@ -39,63 +39,63 @@ Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6713BF800F5
-	for <alsa-devel@alsa-project.org>; Wed, 29 Nov 2023 16:46:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6713BF800F5
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4C856F80588
+	for <alsa-devel@alsa-project.org>; Wed, 29 Nov 2023 16:46:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4C856F80588
 Received: by mail-ot1-f48.google.com with SMTP id
- 46e09a7af769-6d7e6df999fso4160220a34.1
+ 46e09a7af769-6d7e51638e7so4099764a34.1
         for <alsa-devel@alsa-project.org>;
- Wed, 29 Nov 2023 07:46:04 -0800 (PST)
+ Wed, 29 Nov 2023 07:46:22 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701272763; x=1701877563;
+        d=1e100.net; s=20230601; t=1701272781; x=1701877581;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=EX6FM92SzLMJeCUeRB2dg8tFHhzxvahPIFNJy6PUioE=;
-        b=Y5H+6YMcyE9N4j1qquCO2bxlqv1joiKTM9yyXc4LBh1jL9wBEyp9dvpnLbCQ2VE8IA
-         KgTBGUjYP5qclFLaocCIpQvc7KOVjdYZhk6EpI2J4sA0oWZ8bwCJmbqVJB/WAp7HU+dl
-         Dc/hrBKU4mO5jXFhFd0s5lqcZBdSOsHHeVnkIqrFjKaOtFnFXwXEXGespWdbqiYlUGNZ
-         v6mEM6hVYE3h61zet5GK8HFA1q+52nPl9ga49+by74vwFxUsZYQfgZ7fX8+6jhN17xmv
-         HJ7DBLFzspzcuVHJuNklgy2yYZE/MHLgoReGxHdrQVDFUU9mZ+xhn8PE9dEqnVJkFDm/
-         e0Iw==
-X-Gm-Message-State: AOJu0YzhFRJhYOGjPtMDRYGamJXQoUvfkJW0O2/sY1nUye/Rs7S7iBPB
-	FA9Qap96WaAQoh+nWgSW/w==
+        bh=B8jMtEURiNzR4V3tdQ4vuSuj4P0isAcJrjE2/UNfHDQ=;
+        b=XpgcgP4UmvcY58rIvw/SAL879iWNPkv4RioeJKtEpnQJ1SQihzLGTMb8Vi7iVlUIxx
+         08wPFfWEwlIASQRpZ6m/7YnjozpdQRPNgmMzytZYwxFIbETvuonXM3C3SkJK80QwdTC8
+         hsDYzNCfpylUtth6AgphF82qrUmBBdeZ6+AZwpOHFQQtGqZvij6RtRRw6RrBWpQSxKU6
+         tVSLecLC67IZbdCBZ0H5/w5caC49lWKHsJVXYPBLLKd3RdYSHgi+1kKQFZu/HHwSJDxo
+         iVMoigM+xIW86SX67zgjRg2/vbmCoz9wzr/0LHYGr5rGFoXY/EOWhGUZa42K0PenTnPn
+         Uakw==
+X-Gm-Message-State: AOJu0YzfYXhgey5TOFec+l2sruV0CluiI68VO2RLU9JgXc4PVKwSfRWN
+	Tb0+IrSfVLUsCM4ZmkrzFQ==
 X-Google-Smtp-Source: 
- AGHT+IFe/c2yEjmho9fO5Ng0eyX8TfjC8a7UEywCU9SJ9uswigu1VI/ra5Lv1itLA8JDaUdHSpMlJg==
-X-Received: by 2002:a05:6830:1450:b0:6d8:53a5:7033 with SMTP id
- w16-20020a056830145000b006d853a57033mr1459616otp.0.1701272763215;
-        Wed, 29 Nov 2023 07:46:03 -0800 (PST)
+ AGHT+IGE0FmftmamTD2bgVIC10iZESFjXyDwF9aWF/EtRfooeilxapLNar/m/IJCblrGuTRSzRLwcQ==
+X-Received: by 2002:a05:6830:1bf2:b0:6bb:1629:ab44 with SMTP id
+ k18-20020a0568301bf200b006bb1629ab44mr20743883otb.7.1701272780883;
+        Wed, 29 Nov 2023 07:46:20 -0800 (PST)
 Received: from herring.priv (66-90-144-107.dyn.grandenetworks.net.
  [66.90.144.107])
         by smtp.gmail.com with ESMTPSA id
- l14-20020a0568302b0e00b006ce33ba6474sm2019660otv.4.2023.11.29.07.46.01
+ k2-20020a9d7dc2000000b006d691456571sm2007686otn.64.2023.11.29.07.46.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 Nov 2023 07:46:02 -0800 (PST)
-Received: (nullmailer pid 2540896 invoked by uid 1000);
-	Wed, 29 Nov 2023 15:46:01 -0000
-Date: Wed, 29 Nov 2023 09:46:01 -0600
+        Wed, 29 Nov 2023 07:46:20 -0800 (PST)
+Received: (nullmailer pid 2541343 invoked by uid 1000);
+	Wed, 29 Nov 2023 15:46:17 -0000
+Date: Wed, 29 Nov 2023 09:46:17 -0600
 From: Rob Herring <robh@kernel.org>
 To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- devicetree@vger.kernel.org,
+Cc: Liam Girdwood <lgirdwood@gmail.com>, linux-sound@vger.kernel.org,
+ Banajit Goswami <bgoswami@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
+ Mark Brown <broonie@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ linux-kernel@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>,
  Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Herring <robh+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, Andy Gross <agross@kernel.org>,
+ devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Banajit Goswami <bgoswami@quicinc.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Subject: Re: [PATCH 1/4] ASoC: dt-bindings: qcom,lpass-rx-macro: Add SM8650
- LPASS RX
-Message-ID: <170127276101.2540836.14444552479968015113.robh@kernel.org>
+ Andy Gross <agross@kernel.org>, Konrad Dybcio <konrad.dybcio@linaro.org>
+Subject: Re: [PATCH 2/4] ASoC: dt-bindings: qcom,lpass-tx-macro: Add SM8650
+ LPASS TX
+Message-ID: <170127277741.2541304.17955532974724492715.robh@kernel.org>
 References: <20231129113014.38837-1-krzysztof.kozlowski@linaro.org>
+ <20231129113014.38837-2-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20231129113014.38837-1-krzysztof.kozlowski@linaro.org>
-Message-ID-Hash: BCOXVSUH5NNHN2FE2CA2VNJWVF53JU62
-X-Message-ID-Hash: BCOXVSUH5NNHN2FE2CA2VNJWVF53JU62
+In-Reply-To: <20231129113014.38837-2-krzysztof.kozlowski@linaro.org>
+Message-ID-Hash: J2F52THA2HZ2XSDKHK22AT4OALBZEBDW
+X-Message-ID-Hash: J2F52THA2HZ2XSDKHK22AT4OALBZEBDW
 X-MailFrom: robherring2@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -108,7 +108,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BCOXVSUH5NNHN2FE2CA2VNJWVF53JU62/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/J2F52THA2HZ2XSDKHK22AT4OALBZEBDW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,15 +118,15 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
-On Wed, 29 Nov 2023 12:30:11 +0100, Krzysztof Kozlowski wrote:
-> Add bindings for Qualcomm SM8650 Low Power Audio SubSystem (LPASS) RX
+On Wed, 29 Nov 2023 12:30:12 +0100, Krzysztof Kozlowski wrote:
+> Add bindings for Qualcomm SM8650 Low Power Audio SubSystem (LPASS) TX
 > macro codec, which looks like compatible with earlier SM8550.
 > 
 > Cc: Neil Armstrong <neil.armstrong@linaro.org>
 > Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 > ---
->  .../bindings/sound/qcom,lpass-rx-macro.yaml   | 21 ++++++++++++-------
->  1 file changed, 13 insertions(+), 8 deletions(-)
+>  .../bindings/sound/qcom,lpass-tx-macro.yaml   | 23 +++++++++++--------
+>  1 file changed, 14 insertions(+), 9 deletions(-)
 > 
 
 Acked-by: Rob Herring <robh@kernel.org>

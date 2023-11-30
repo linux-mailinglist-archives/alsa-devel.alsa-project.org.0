@@ -2,113 +2,107 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3ED907FE36B
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Nov 2023 23:42:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B24877FEC71
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Nov 2023 11:00:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C6B99DEC;
-	Wed, 29 Nov 2023 23:42:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C6B99DEC
+	by alsa0.perex.cz (Postfix) with ESMTPS id ECC57DEF;
+	Thu, 30 Nov 2023 11:00:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ECC57DEF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701297762;
-	bh=hRE/ZeKeoYNX6Vf/61W7vqKcLPREr2ot/tRo97pnCMA=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:List-Id:
+	s=default; t=1701338443;
+	bh=XJXTd0OT4xNI7eBFH2hkpydz+XyJc2sXDu1qAxhmFMU=;
+	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=EMwWOojOhakmuMCOmPsPcn26u6Dv9EmdWC6jjKPrh8f/3gu+Gwmqtl2U3atF1xh2r
-	 6s6U6c//uDrsIzIBK/2pBW21cEKdoFCFWSb/tFvG27qLBXVl1IGuYQvRVlFgZ3SL+o
-	 CicYlpN/3QxsuI7CAJs1Ajn6Aq5ohqF0v6MXrMkU=
+	b=vh7iQ2GyLj7LFXgPKSLVNDXiegK+eFahlTpLMgl2yROBbRW9roxPpxHbC+pryyiXo
+	 sVF3Dan2qGqhcRd5a6b4SxmAQ2v0oyFEfmfOatH/iPOTQgcea3IrGya6MfwueUrays
+	 YZXDjsZzZFMgRMMos6YIbsl2KtvpgFYUKu1EQQ5w=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 636B9F805AD; Wed, 29 Nov 2023 23:41:54 +0100 (CET)
+	id 04861F80564; Thu, 30 Nov 2023 11:00:10 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 64FAAF805BA;
-	Wed, 29 Nov 2023 23:41:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6BCE6F80571;
+	Thu, 30 Nov 2023 11:00:10 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8BAD3F8016E; Wed, 29 Nov 2023 23:35:52 +0100 (CET)
+	id 682F9F8016E; Thu, 30 Nov 2023 10:58:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [IPv6:2a00:1450:4864:20::12d])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3A64FF8007E
-	for <alsa-devel@alsa-project.org>; Wed, 29 Nov 2023 23:35:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3A64FF8007E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5D76FF800F5
+	for <alsa-devel@alsa-project.org>; Thu, 30 Nov 2023 10:58:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D76FF800F5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=FNeTxJ9z
-Received: by mail-lf1-x12d.google.com with SMTP id
- 2adb3069b0e04-50bc4fe8158so537419e87.0
-        for <alsa-devel@alsa-project.org>;
- Wed, 29 Nov 2023 14:35:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1701297325; x=1701902125;
- darn=alsa-project.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=hRE/ZeKeoYNX6Vf/61W7vqKcLPREr2ot/tRo97pnCMA=;
-        b=FNeTxJ9z4OtMe7kd0NRgEBGaK0rE8vaVqvrhiLd9niTkRDBvkrnMjk2W5v59wPvZBA
-         yK4YSTNaHzdJKpo5ShLPwQc4UlB20W8CdnOhOufjFaBz3/rzMgZIr8Evw3GGK+bVVv81
-         +QiyYZJbImYmBVZFlBZp5dr8alIykRFoRBRBbvxriqnfjGE8b4f55TClzFXJMZuc/Pu5
-         WOOglUdykdX8Ev54PpDeWA/EyDxEdnj7gmPqFFqIuI4DZatg3pJnf5/yJFT5p5W+9RTx
-         OQdwM2m+vVJiSHsBmXnnbZ3I+ii0n9xvufZ/9i2sQfB5isZScfw8uyUCTfxXLWmV9gGb
-         MO1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701297325; x=1701902125;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=hRE/ZeKeoYNX6Vf/61W7vqKcLPREr2ot/tRo97pnCMA=;
-        b=Lqs35d7Z+pc7JBTiHBuU6IPCiMPTHyGOqy1Aua0heOT+71JMVDpl/uo7hQh4xhmSvO
-         q7HTs5N4eKwd/6V28AP80tMli0eFuw1DrZ9M0/hNkBJ2UWMy7R+oLXQhvbiH77SK8CDt
-         1pwL66/fYhoHD4zESYZjYcum9pDWNFLl55VDbxIMlkhlI0OuyKoy+29scOm7ZTDOOtfr
-         8CIMp3DptbO3yS6Ujlo2L2MvGpOXNh2MpGtOke+hsF/z9yfNPenqDJA6XiZaAqCXW9Na
-         HhEbCuJA7su4e/Uyb3N1pLx4pIBPamycenAgrzLxpDUWnHIn2gWLpD2yLVN00sEMr71x
-         RZHQ==
-X-Gm-Message-State: AOJu0Yxe4hP6jobKO6+2B/ngU48bqOt9eQxHaIapLDtufZUNlq8RKsDi
-	9aMklKqY3X2KST6ovmxPiFs=
-X-Google-Smtp-Source: 
- AGHT+IHMTtewj1OpKKrv9w8dlqrbUmKXuKo1rZmXlkmDpu59ZY+dRugABrqRKS87dzEHJMDpaTHD+g==
-X-Received: by 2002:a2e:8691:0:b0:2c9:bc5b:4694 with SMTP id
- l17-20020a2e8691000000b002c9bc5b4694mr2604639lji.1.1701297325288;
-        Wed, 29 Nov 2023 14:35:25 -0800 (PST)
-Received: from giga-mm-2.home ([2a02:1210:8629:800:82ee:73ff:feb8:99e3])
-        by smtp.gmail.com with ESMTPSA id
- j8-20020a1709062a0800b00a0185ccedcasm8372160eje.223.2023.11.29.14.35.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 Nov 2023 14:35:25 -0800 (PST)
-Message-ID: <8d6a9317cd45f2841020e091000344f5683c11a4.camel@gmail.com>
-Subject: Re: [PATCH 07/10] ASoC: cirrus: edb93xx: Drop legacy include
-From: Alexander Sverdlin <alexander.sverdlin@gmail.com>
-To: Linus Walleij <linus.walleij@linaro.org>, Paul Handrigan
- <Paul.Handrigan@cirrus.com>, James Schulman <james.schulman@cirrus.com>,
- David Rhodes <david.rhodes@cirrus.com>, Richard Fitzgerald
- <rf@opensource.cirrus.com>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
- <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
- <tiwai@suse.com>, Hartley Sweeten <hsweeten@visionengravers.com>, Nikita
- Shubin <nikita.shubin@maquefel.me>
-Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
-	linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Date: Wed, 29 Nov 2023 23:35:24 +0100
-In-Reply-To: <20231129-descriptors-sound-cirrus-v1-7-31aa74425ff8@linaro.org>
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=DyD2BmfQ
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 3AU794Rx032229;
+	Thu, 30 Nov 2023 03:58:47 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
+	date:from:to:cc:subject:message-id:references:mime-version
+	:content-type:in-reply-to; s=PODMain02222019; bh=1rOwpFjOxzEjLmE
+	ZDplb6yDZq9WDb8VUAMixCUzaH4g=; b=DyD2BmfQHB0BvZFAzh87LUECHRuw7RE
+	f6x/idiqOmNFOS/TUrUXtDf5/fzDyk0CV4u0Fd1h9HQS90Zh8PlRh+5bE//C5aPc
+	TcCD34t4nD5DvavIZrkhw7o/4Iqv6D82VjKXV0UOcFqFCajZOXziJyRpjMtTi0LG
+	ylXkvbrHYyDcAi+QS7fJ98/Bu9OqeVDtwvF+MdkXQfc/J9f078jyVJ8dTQtEbV+l
+	VAxA5jYmt5rmrnWPvMtUJDB/lhcE1kB0IEWvxj4GLGc2QMM61cSeqsydsCOsoBJ5
+	S9E9FxTUcl3Nm3wFHF1e4/LWgHbPE4VwEQ7HGTchgE8wyxggWF2tFvw==
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3unvhp9vgn-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 30 Nov 2023 03:58:47 -0600 (CST)
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.39; Thu, 30 Nov
+ 2023 09:58:44 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.39 via Frontend Transport; Thu, 30 Nov 2023 09:58:39 +0000
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com
+ [198.61.86.93])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 7B3F646B;
+	Thu, 30 Nov 2023 09:58:39 +0000 (UTC)
+Date: Thu, 30 Nov 2023 09:58:39 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Linus Walleij <linus.walleij@linaro.org>
+CC: Paul Handrigan <Paul.Handrigan@cirrus.com>,
+        James Schulman
+	<james.schulman@cirrus.com>,
+        David Rhodes <david.rhodes@cirrus.com>,
+        "Richard
+ Fitzgerald" <rf@opensource.cirrus.com>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Jaroslav Kysela <perex@perex.cz>, "Takashi
+ Iwai" <tiwai@suse.com>,
+        Hartley Sweeten <hsweeten@visionengravers.com>,
+        Alexander Sverdlin <alexander.sverdlin@gmail.com>,
+        Nikita Shubin
+	<nikita.shubin@maquefel.me>,
+        <alsa-devel@alsa-project.org>, <patches@opensource.cirrus.com>,
+        <linux-sound@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [PATCH 00/10] ASoC: Convert Cirrus codecs to GPIO descriptors
+Message-ID: <20231130095839.GS32655@ediswmail.ad.cirrus.com>
 References: <20231129-descriptors-sound-cirrus-v1-0-31aa74425ff8@linaro.org>
-	 <20231129-descriptors-sound-cirrus-v1-7-31aa74425ff8@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.48.4 
 MIME-Version: 1.0
-Message-ID-Hash: TYWC5EUHHMR7EFF6E44NSS6FYNOXSCGP
-X-Message-ID-Hash: TYWC5EUHHMR7EFF6E44NSS6FYNOXSCGP
-X-MailFrom: alexander.sverdlin@gmail.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20231129-descriptors-sound-cirrus-v1-0-31aa74425ff8@linaro.org>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-GUID: zg2bKV2ldjblk2ECC4yce6v9havYl31k
+X-Proofpoint-ORIG-GUID: zg2bKV2ldjblk2ECC4yce6v9havYl31k
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: JDRZURIVONNY265J6GM7X67HBQV3ADCR
+X-Message-ID-Hash: JDRZURIVONNY265J6GM7X67HBQV3ADCR
+X-MailFrom: prvs=76980857b9=ckeepax@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -120,7 +114,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TYWC5EUHHMR7EFF6E44NSS6FYNOXSCGP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JDRZURIVONNY265J6GM7X67HBQV3ADCR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -129,39 +123,22 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Linus,
-
-On Wed, 2023-11-29 at 22:28 +0100, Linus Walleij wrote:
-> This driver includes the legacy GPIO API <linux/gpio.h> but
-> does not use any symbols from it.
->=20
-> Drop the include.
->=20
+On Wed, Nov 29, 2023 at 10:28:36PM +0100, Linus Walleij wrote:
+> This series walks over the Cirrus Logic ASoC drivers and
+> clean out the use of legacy GPIO numbers and legacy
+> GPIO APIs.
+> 
+> The CS4271 affects an ASoC driver for EP93xx which Nikita is
+> actively working on moving over to device tree, so I don't
+> know about that patch specifically, but I think the collision
+> would be max "the file was deleted".
+> 
 > Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
-
-Reviewed-by: Alexander Sverdlin <alexander.sverdlin@gmail.com>
-
-This file is going away as well at some point,
-Link: https://patchwork.kernel.org/project/alsa-devel/patch/20231122-ep93xx=
--v5-38-d59a76d5df29@maquefel.me/
-
 > ---
-> =C2=A0sound/soc/cirrus/edb93xx.c | 1 -
-> =C2=A01 file changed, 1 deletion(-)
->=20
-> diff --git a/sound/soc/cirrus/edb93xx.c b/sound/soc/cirrus/edb93xx.c
-> index 6b6817256331..8bb67d7d2b4b 100644
-> --- a/sound/soc/cirrus/edb93xx.c
-> +++ b/sound/soc/cirrus/edb93xx.c
-> @@ -11,7 +11,6 @@
-> =C2=A0 */
-> =C2=A0
-> =C2=A0#include <linux/platform_device.h>
-> -#include <linux/gpio.h>
-> =C2=A0#include <linux/module.h>
-> =C2=A0#include <linux/soc/cirrus/ep93xx.h>
-> =C2=A0#include <sound/core.h>
 
---=20
-Alexander Sverdlin.
+Except for the typo Mark spotted the series looks good to me:
 
+Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+
+Thanks,
+Charles

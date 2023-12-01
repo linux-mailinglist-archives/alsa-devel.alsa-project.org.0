@@ -2,97 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F903800BC9
-	for <lists+alsa-devel@lfdr.de>; Fri,  1 Dec 2023 14:24:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AE90800BB6
+	for <lists+alsa-devel@lfdr.de>; Fri,  1 Dec 2023 14:22:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A4368E81;
-	Fri,  1 Dec 2023 14:24:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A4368E81
+	by alsa0.perex.cz (Postfix) with ESMTPS id CE2489F6;
+	Fri,  1 Dec 2023 14:22:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE2489F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701437095;
-	bh=SBQDx5IN/nv40xRtXs5OxMSZOlXd17oftSK+d5JhdKM=;
+	s=default; t=1701436930;
+	bh=WI/twEGHsi9gKS/venwQAPiDjbuLKdvLJUifKTl1C7o=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=MyTlKTJWqLIVd1M7NZ872tpp6/qPhHNGsP6P3+WnjCIoGeuJbmEyRUiZA+GPUpEAa
-	 0N4ClaaDOEcZ/drhz/7dcAbeS1zSvZKupIdOvOA3Znf7IN1wWBaX4S+xx7wPymrKDw
-	 sFtwSLlZfMMcG6f89j39hw5wGa3eE7COnNwOE3Ag=
+	b=bFIke3HmIbYWE6x6GqYa67C6dgEQAtzOao7Usn3Lf9j5/usAaGLMgLkLiCcsVnkMX
+	 tZifKwGfh5qXO0llbw3uhO34zHjX35hA61vzlWMPbHVPp3AaTbxvbfRK/MKOu8ELM3
+	 RytWVcrQJxVeDH71llA6Vwd2xl7Pit4Xi+cXeDJk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 28C0EF805E8; Fri,  1 Dec 2023 14:23:58 +0100 (CET)
+	id CEAB0F80604; Fri,  1 Dec 2023 14:20:58 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CC2ECF805E0;
-	Fri,  1 Dec 2023 14:23:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7422BF80609;
+	Fri,  1 Dec 2023 14:20:57 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C018FF805BA; Fri,  1 Dec 2023 14:23:54 +0100 (CET)
+	id F15E8F8016E; Fri,  1 Dec 2023 14:20:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=unavailable autolearn_force=no version=3.4.6
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [IPv6:2a00:1450:4864:20::12a])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2D8D7F80246
-	for <alsa-devel@alsa-project.org>; Fri,  1 Dec 2023 14:20:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D8D7F80246
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3C3FDF80114
+	for <alsa-devel@alsa-project.org>; Fri,  1 Dec 2023 14:20:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C3FDF80114
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=B/qv3M9d
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-50abbb23122so2950017e87.3
+ header.s=google header.b=HSuRDzgc
+Received: by mail-lf1-x12a.google.com with SMTP id
+ 2adb3069b0e04-50aab20e828so2879212e87.2
         for <alsa-devel@alsa-project.org>;
- Fri, 01 Dec 2023 05:20:40 -0800 (PST)
+ Fri, 01 Dec 2023 05:20:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1701436838; x=1702041638;
+        d=linaro.org; s=google; t=1701436839; x=1702041639;
  darn=alsa-project.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=5WhXxuLZNgkWwHrPw1QLUfir5/y69DK46Q+annr/jjk=;
-        b=B/qv3M9dEODIBgLch+uqXtbsMJ9nxe+RfasxZym51hxvoKKMxf0W1a3b/nKS6qF204
-         EhG/lW1pPzbtqY6JIlutINC7ZCrQcN/PpLuI4pM/eFxqwpf7Y1wedJRdCGJoeNswCEGK
-         nvqaxiOs3b9XK62P+xfz1XI1mOoOwjp+f8z0jGvNyHsrgHzgYhKkCgivuAyTZjjW9fWX
-         xqYClysiGOjwwc3d378cjBK8lZ5xwe10G5aUGiNxP3cveB2JWcQzhnQTAUVCj0ihSYhn
-         47ViRAUKW3ndJSCW6VOKy/9LZCP3dgDR2BfNpkkvYuzSNDebMx8gCeT8Hrenk3EKNR5w
-         5QMw==
+        bh=h1YwCm+XH2HIMFvp7NT2GALpzlzAqPDpRrGRX4ZS3D8=;
+        b=HSuRDzgcD/jJMtQi1krU3xgs7xIM9mybAy3DmdRS6I9O40xQZq27LLdB8iwQ4QWV33
+         rIonyrAR9rqT4Pa5kzvH7gWDswpopEh33cUpZiePtPUxzmSfntZ3gRSP1g8yIZwZkqEJ
+         jkcD7oe3W4uv0jbsN2cyyj6wPFsMcFdbgYztuP7b1uaTZVqWG/vjURp3uPWPFlfAGumC
+         rFZBKbbNW5Ml3N1Nv2cydpMUq6/6tKEbltMs6a8prnqvxDYNNAbuAQSP3PNIxgX/uz6v
+         LUVWFW9jpH6CxgAvo3MAWqHb7VNEemJSMYK5Ci2FPT2rdP1fECdtmh1W9I4BguCCMKcR
+         9WPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701436838; x=1702041638;
+        d=1e100.net; s=20230601; t=1701436839; x=1702041639;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=5WhXxuLZNgkWwHrPw1QLUfir5/y69DK46Q+annr/jjk=;
-        b=UjMrJolHGmnh7R/ufWcrh9OSy8Uv2gowxMTRfMEuE7/fAfB8ZYZuaPP/BzI1coDc3D
-         ospaZzg2ICUoiH6yPgW8QY0MSug4FsPmK5zyUYL7p/9FgoN0gfM+HcYUpNIAdPIi1dkH
-         yYCPnjy5SbENWKcUWq3JWRxoJ/sGFAKeWfSpvNEac1xruZQ9JXpjA1YenaRKUzgyiA2V
-         0ZspgASHH4oI/oaz/cPVXJg/cP3aE2SpY83zkPKNkVGpEVB7GvVWGisz8PeQUF05UHtq
-         x7fcOtEY7V+oP0aivrJ3yG4KdOb6YgmwAI0Eo7J/wxMhW7T/WtP9AP9xvCdMaDDEbSBv
-         w+Tg==
-X-Gm-Message-State: AOJu0YwMleWEdcqqU+pEvcnbUS2PQgXfAUPlEoAQlVqE5WbCMD711FUr
-	HZ6MRGO3FM8rgfLxbXiTV/GViFaYFWbh+sdx164=
+        bh=h1YwCm+XH2HIMFvp7NT2GALpzlzAqPDpRrGRX4ZS3D8=;
+        b=GMIdb2cCDECiNemPt0fUx6Oug4pcOTQKcKk0oW00u3djRvlCOEUjCfJH1+SJZ10eq8
+         emmCiV1frguZbWOTS0RV5JHWtJGc46wJp8h27ZGR6gmDTDgXyuJzk9AxIf+XkUMmPrRK
+         hqdVS3pnua6CnqQJ9xzIy3IgdP9FRG2m5qocSMJ5pr/bCprYnuUpgCXPvZz1uKoiGfMw
+         5J54cms1ZVLaZMA8gG081ZatUsX5EPYpOcgmiFMP4NqRI8ugTFDATEcgMFM2p1V9LwZr
+         jOTeJTeN6d1j6zxTtSuspBLzhlfAgJR2askYXvgGR3YrYHP7xK264Gvr/keYz+mQdnqh
+         Ol9w==
+X-Gm-Message-State: AOJu0YyoZo2rhzjnd5nyd3SeN43qAFDJD2o3qp8sFhsMCEeGhnn0JuJP
+	TKrq3a1QZXuMTGsSbVcR+BOCIjx1aVrANI5GKfA=
 X-Google-Smtp-Source: 
- AGHT+IHsLRMMFCTZlDmh+/PBoPEELtq/DFrM73vYAwtEFpAp1w/UNgpsq/nwT/BE4N79+osG9ZAmHQ==
-X-Received: by 2002:ac2:5586:0:b0:50b:c9e7:2949 with SMTP id
- v6-20020ac25586000000b0050bc9e72949mr792476lfg.40.1701436838667;
-        Fri, 01 Dec 2023 05:20:38 -0800 (PST)
+ AGHT+IHz0vX9CqCj+qD3UQTWnTMff91+vQiG2xdvgEoaXCXAVJNAM8ut2DNGIFy42sB0tfaYdArJbQ==
+X-Received: by 2002:a05:6512:1597:b0:50b:c9c1:19ba with SMTP id
+ bp23-20020a056512159700b0050bc9c119bamr868333lfb.63.1701436839678;
+        Fri, 01 Dec 2023 05:20:39 -0800 (PST)
 Received: from [127.0.1.1] ([85.235.12.238])
         by smtp.gmail.com with ESMTPSA id
- u25-20020ac243d9000000b0050be054b4e8sm1081lfl.121.2023.12.01.05.20.37
+ u25-20020ac243d9000000b0050be054b4e8sm1081lfl.121.2023.12.01.05.20.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 01 Dec 2023 05:20:38 -0800 (PST)
+        Fri, 01 Dec 2023 05:20:39 -0800 (PST)
 From: Linus Walleij <linus.walleij@linaro.org>
-Date: Fri, 01 Dec 2023 14:20:35 +0100
-Subject: [PATCH v2 06/10] ASoC: cs4271: Convert to GPIO descriptors
+Date: Fri, 01 Dec 2023 14:20:36 +0100
+Subject: [PATCH v2 07/10] ASoC: cirrus: edb93xx: Drop legacy include
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20231201-descriptors-sound-cirrus-v2-6-ee9f9d4655eb@linaro.org>
+Message-Id: <20231201-descriptors-sound-cirrus-v2-7-ee9f9d4655eb@linaro.org>
 References: <20231201-descriptors-sound-cirrus-v2-0-ee9f9d4655eb@linaro.org>
 In-Reply-To: <20231201-descriptors-sound-cirrus-v2-0-ee9f9d4655eb@linaro.org>
 To: Paul Handrigan <Paul.Handrigan@cirrus.com>,
@@ -109,8 +109,8 @@ Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
  Linus Walleij <linus.walleij@linaro.org>,
  Charles Keepax <ckeepax@opensource.cirrus.com>
 X-Mailer: b4 0.12.4
-Message-ID-Hash: JUR257JYD72KK3WA2YDOYZTJW3XMCC74
-X-Message-ID-Hash: JUR257JYD72KK3WA2YDOYZTJW3XMCC74
+Message-ID-Hash: HKDZIMCRAIOG5YCLPBJQ566KVE4ZEY2N
+X-Message-ID-Hash: HKDZIMCRAIOG5YCLPBJQ566KVE4ZEY2N
 X-MailFrom: linus.walleij@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -123,7 +123,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JUR257JYD72KK3WA2YDOYZTJW3XMCC74/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HKDZIMCRAIOG5YCLPBJQ566KVE4ZEY2N/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -132,220 +132,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-This converts the Cirrus CS4271 ASoC codec driver to use
-GPIO descriptors.
+This driver includes the legacy GPIO API <linux/gpio.h> but
+does not use any symbols from it.
 
-It turns out that there are two in-kernel users of the platform
-data passing mechanism so these are switched over as well.
-
-One locally defined GPIO "gpio_disabled" is declared in the
-state struct but completely unused in the driver, so we delete
-it.
+Drop the include.
 
 Reviewed-by: Alexander Sverdlin <alexander.sverdlin@gmail.com>
+Link: https://patchwork.kernel.org/project/alsa-devel/patch/20231122-ep93xx-v5-38-d59a76d5df29@maquefel.me/
 Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
 ---
-NB: the affected platform EP93xx is being converted to device tree
-I don't know if that is happening in this merge window, but the
-colission should be manageable.
----
- arch/arm/mach-ep93xx/edb93xx.c       | 32 +++++++++++++++++++++++++----
- arch/arm/mach-ep93xx/vision_ep9307.c | 12 ++++++++++-
- include/sound/cs4271.h               |  1 -
- sound/soc/codecs/cs4271.c            | 39 ++++++++++++------------------------
- 4 files changed, 52 insertions(+), 32 deletions(-)
+ sound/soc/cirrus/edb93xx.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/arch/arm/mach-ep93xx/edb93xx.c b/arch/arm/mach-ep93xx/edb93xx.c
-index 4b90899a66e9..dbdb822a0100 100644
---- a/arch/arm/mach-ep93xx/edb93xx.c
-+++ b/arch/arm/mach-ep93xx/edb93xx.c
-@@ -88,7 +88,7 @@ static void __init edb93xx_register_i2c(void)
-  * EDB93xx SPI peripheral handling
-  *************************************************************************/
- static struct cs4271_platform_data edb93xx_cs4271_data = {
--	.gpio_nreset	= -EINVAL,	/* filled in later */
-+	/* Intentionally left blank */
- };
+diff --git a/sound/soc/cirrus/edb93xx.c b/sound/soc/cirrus/edb93xx.c
+index 6b6817256331..8bb67d7d2b4b 100644
+--- a/sound/soc/cirrus/edb93xx.c
++++ b/sound/soc/cirrus/edb93xx.c
+@@ -11,7 +11,6 @@
+  */
  
- static struct spi_board_info edb93xx_spi_board_info[] __initdata = {
-@@ -114,14 +114,38 @@ static struct ep93xx_spi_info edb93xx_spi_info __initdata = {
- 	/* Intentionally left blank */
- };
- 
-+static struct gpiod_lookup_table edb93xx_cs4272_edb9301_gpio_table = {
-+	.dev_id = "spi0.0", /* CS0 on SPI0 */
-+	.table = {
-+		GPIO_LOOKUP("A", 1, "reset", GPIO_ACTIVE_LOW),
-+		{ },
-+	},
-+};
-+
-+static struct gpiod_lookup_table edb93xx_cs4272_edb9302_gpio_table = {
-+	.dev_id = "spi0.0", /* CS0 on SPI0 */
-+	.table = {
-+		GPIO_LOOKUP("H", 2, "reset", GPIO_ACTIVE_LOW),
-+		{ },
-+	},
-+};
-+
-+static struct gpiod_lookup_table edb93xx_cs4272_edb9315_gpio_table = {
-+	.dev_id = "spi0.0", /* CS0 on SPI0 */
-+	.table = {
-+		GPIO_LOOKUP("B", 6, "reset", GPIO_ACTIVE_LOW),
-+		{ },
-+	},
-+};
-+
- static void __init edb93xx_register_spi(void)
- {
- 	if (machine_is_edb9301() || machine_is_edb9302())
--		edb93xx_cs4271_data.gpio_nreset = EP93XX_GPIO_LINE_EGPIO1;
-+		gpiod_add_lookup_table(&edb93xx_cs4272_edb9301_gpio_table);
- 	else if (machine_is_edb9302a() || machine_is_edb9307a())
--		edb93xx_cs4271_data.gpio_nreset = EP93XX_GPIO_LINE_H(2);
-+		gpiod_add_lookup_table(&edb93xx_cs4272_edb9302_gpio_table);
- 	else if (machine_is_edb9315a())
--		edb93xx_cs4271_data.gpio_nreset = EP93XX_GPIO_LINE_EGPIO14;
-+		gpiod_add_lookup_table(&edb93xx_cs4272_edb9315_gpio_table);
- 
- 	gpiod_add_lookup_table(&edb93xx_spi_cs_gpio_table);
- 	ep93xx_register_spi(&edb93xx_spi_info, edb93xx_spi_board_info,
-diff --git a/arch/arm/mach-ep93xx/vision_ep9307.c b/arch/arm/mach-ep93xx/vision_ep9307.c
-index 30d9cf3791eb..9471938df64c 100644
---- a/arch/arm/mach-ep93xx/vision_ep9307.c
-+++ b/arch/arm/mach-ep93xx/vision_ep9307.c
-@@ -164,7 +164,7 @@ static struct i2c_board_info vision_i2c_info[] __initdata = {
-  * SPI CS4271 Audio Codec
-  *************************************************************************/
- static struct cs4271_platform_data vision_cs4271_data = {
--	.gpio_nreset	= EP93XX_GPIO_LINE_H(2),
-+	/* Intentionally left blank */
- };
- 
- /*************************************************************************
-@@ -241,6 +241,15 @@ static struct spi_board_info vision_spi_board_info[] __initdata = {
- 	},
- };
- 
-+static struct gpiod_lookup_table vision_spi_cs4271_gpio_table = {
-+	.dev_id = "spi0.0", /* cs4271 @ CS0 */
-+	.table = {
-+		/* RESET */
-+		GPIO_LOOKUP_IDX("H", 2, NULL, 0, GPIO_ACTIVE_LOW),
-+		{ },
-+	},
-+};
-+
- static struct gpiod_lookup_table vision_spi_cs_gpio_table = {
- 	.dev_id = "spi0",
- 	.table = {
-@@ -292,6 +301,7 @@ static void __init vision_init_machine(void)
- 
- 	ep93xx_register_i2c(vision_i2c_info,
- 				ARRAY_SIZE(vision_i2c_info));
-+	gpiod_add_lookup_table(&vision_spi_cs4271_gpio_table);
- 	gpiod_add_lookup_table(&vision_spi_mmc_gpio_table);
- 	gpiod_add_lookup_table(&vision_spi_cs_gpio_table);
- 	ep93xx_register_spi(&vision_spi_master, vision_spi_board_info,
-diff --git a/include/sound/cs4271.h b/include/sound/cs4271.h
-index 6ff23ab48894..5a55d135bdea 100644
---- a/include/sound/cs4271.h
-+++ b/include/sound/cs4271.h
-@@ -9,7 +9,6 @@
- #define __CS4271_H
- 
- struct cs4271_platform_data {
--	int gpio_nreset;	/* GPIO driving Reset pin, if any */
- 	bool amutec_eq_bmutec;	/* flag to enable AMUTEC=BMUTEC */
- 
- 	/*
-diff --git a/sound/soc/codecs/cs4271.c b/sound/soc/codecs/cs4271.c
-index 9e6f8a048dd5..74a84832d958 100644
---- a/sound/soc/codecs/cs4271.c
-+++ b/sound/soc/codecs/cs4271.c
-@@ -13,9 +13,8 @@
- #include <linux/module.h>
- #include <linux/slab.h>
- #include <linux/delay.h>
+ #include <linux/platform_device.h>
 -#include <linux/gpio.h>
-+#include <linux/gpio/consumer.h>
- #include <linux/of.h>
--#include <linux/of_gpio.h>
- #include <linux/regulator/consumer.h>
- #include <sound/pcm.h>
- #include <sound/soc.h>
-@@ -160,9 +159,7 @@ struct cs4271_private {
- 	/* Current sample rate for de-emphasis control */
- 	int				rate;
- 	/* GPIO driving Reset pin, if any */
--	int				gpio_nreset;
--	/* GPIO that disable serial bus, if any */
--	int				gpio_disable;
-+	struct gpio_desc		*reset;
- 	/* enable soft reset workaround */
- 	bool				enable_soft_reset;
- 	struct regulator_bulk_data      supplies[ARRAY_SIZE(supply_names)];
-@@ -487,12 +484,10 @@ static int cs4271_reset(struct snd_soc_component *component)
- {
- 	struct cs4271_private *cs4271 = snd_soc_component_get_drvdata(component);
- 
--	if (gpio_is_valid(cs4271->gpio_nreset)) {
--		gpio_direction_output(cs4271->gpio_nreset, 0);
--		mdelay(1);
--		gpio_set_value(cs4271->gpio_nreset, 1);
--		mdelay(1);
--	}
-+	gpiod_direction_output(cs4271->reset, 1);
-+	mdelay(1);
-+	gpiod_set_value(cs4271->reset, 0);
-+	mdelay(1);
- 
- 	return 0;
- }
-@@ -612,9 +607,8 @@ static void cs4271_component_remove(struct snd_soc_component *component)
- {
- 	struct cs4271_private *cs4271 = snd_soc_component_get_drvdata(component);
- 
--	if (gpio_is_valid(cs4271->gpio_nreset))
--		/* Set codec to the reset state */
--		gpio_set_value(cs4271->gpio_nreset, 0);
-+	/* Set codec to the reset state */
-+	gpiod_set_value(cs4271->reset, 1);
- 
- 	regcache_mark_dirty(cs4271->regmap);
- 	regulator_bulk_disable(ARRAY_SIZE(cs4271->supplies), cs4271->supplies);
-@@ -639,7 +633,6 @@ static const struct snd_soc_component_driver soc_component_dev_cs4271 = {
- static int cs4271_common_probe(struct device *dev,
- 			       struct cs4271_private **c)
- {
--	struct cs4271_platform_data *cs4271plat = dev->platform_data;
- 	struct cs4271_private *cs4271;
- 	int i, ret;
- 
-@@ -647,17 +640,11 @@ static int cs4271_common_probe(struct device *dev,
- 	if (!cs4271)
- 		return -ENOMEM;
- 
--	cs4271->gpio_nreset = of_get_named_gpio(dev->of_node, "reset-gpio", 0);
--
--	if (cs4271plat)
--		cs4271->gpio_nreset = cs4271plat->gpio_nreset;
--
--	if (gpio_is_valid(cs4271->gpio_nreset)) {
--		ret = devm_gpio_request(dev, cs4271->gpio_nreset,
--					"CS4271 Reset");
--		if (ret < 0)
--			return ret;
--	}
-+	cs4271->reset = devm_gpiod_get_optional(dev, "reset", GPIOD_ASIS);
-+	if (IS_ERR(cs4271->reset))
-+		return dev_err_probe(dev, PTR_ERR(cs4271->reset),
-+				     "error retrieveing RESET GPIO\n");
-+	gpiod_set_consumer_name(cs4271->reset, "CS4271 Reset");
- 
- 	for (i = 0; i < ARRAY_SIZE(supply_names); i++)
- 		cs4271->supplies[i].supply = supply_names[i];
+ #include <linux/module.h>
+ #include <linux/soc/cirrus/ep93xx.h>
+ #include <sound/core.h>
 
 -- 
 2.34.1

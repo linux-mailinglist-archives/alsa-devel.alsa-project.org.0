@@ -2,100 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C340C800E21
-	for <lists+alsa-devel@lfdr.de>; Fri,  1 Dec 2023 16:10:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D41C800E20
+	for <lists+alsa-devel@lfdr.de>; Fri,  1 Dec 2023 16:09:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9B076828;
-	Fri,  1 Dec 2023 16:10:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B076828
+	by alsa0.perex.cz (Postfix) with ESMTPS id 33EBDA4E;
+	Fri,  1 Dec 2023 16:09:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 33EBDA4E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701443413;
-	bh=38wj4TRML2NmpVWHDGWZ7lyYIsFw7bWFSFPePEL0QD4=;
-	h=From:Subject:Date:To:Cc:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=oGkYbvdbiXFNWFH+F4w/EjFaB5RIDzeDgnzmEsCMS/HZZgB+Q1w/Fyq+bpcNjZ3K7
-	 UxHECHCNgDyfMEWrarvORlVPLfZKKv8khzB8Kw9CnVCbm8R2kpfw13cvEZpaR+51Ww
-	 TaGXuaA9phaLixk3DQ3qwBveYWP+iPZPJbmhm8TA=
+	s=default; t=1701443382;
+	bh=Uglg24nZY1C7ElRVJ4NCgzh7HTGQqFA6AMsN4Ezv9Kk=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=rddFTlMsOU2olzjysqXGY8f0DtmbBM/+vwdgl9f9j0oCzJkyAFav25wawuem+prhE
+	 W5U0mYKD1M2AWt1fGtB0XXFgKXvIRVcc+7NhOsEC4s5VFu8ljjrrY1EMxeTnKITUKI
+	 cSWOk4SsTDguQ1fut3UnDqh0adynJmK9CxY58MlA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 97C9FF805C3; Fri,  1 Dec 2023 16:09:23 +0100 (CET)
+	id 11D00F80580; Fri,  1 Dec 2023 16:09:20 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4B04BF805BF;
-	Fri,  1 Dec 2023 16:09:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id ED8B5F80571;
+	Fri,  1 Dec 2023 16:09:18 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 57739F80254; Fri,  1 Dec 2023 16:09:13 +0100 (CET)
+	id D90BAF8025A; Fri,  1 Dec 2023 16:09:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [IPv6:2a00:1450:4864:20::32d])
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=unavailable autolearn_force=no version=3.4.6
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [IPv6:2a00:1450:4864:20::134])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9D6ACF80114
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2517DF800F5
 	for <alsa-devel@alsa-project.org>; Fri,  1 Dec 2023 16:09:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D6ACF80114
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2517DF800F5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=U/jFevHx
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-40b4c2ef58aso22332805e9.0
+ header.s=google header.b=otAg74Hi
+Received: by mail-lf1-x134.google.com with SMTP id
+ 2adb3069b0e04-50bca79244fso3148979e87.3
         for <alsa-devel@alsa-project.org>;
  Fri, 01 Dec 2023 07:09:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1701443339; x=1702048139;
+        d=linaro.org; s=google; t=1701443341; x=1702048141;
  darn=alsa-project.org;
-        h=cc:to:content-transfer-encoding:mime-version:message-id:date
-         :subject:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=gNZ7R4MQGFffrobU6ni4L3zapKkTqgLoMNn8PZTR5i0=;
-        b=U/jFevHxYmsKHCqvN3HFSLEd/uEkcv8ji+Twag7lxH5aT3VJ4ZekPBYTvoXLbwi00W
-         7tOLGC/qnVDG8B0tuJ6q4c/YiifEHVfkz6xGCkLp6eIGjhzQj+oEIlVwKOdPWp1usMbS
-         ccFtwrgEJ42YHUuWFjxsXUQgox4iaIIJyQbL/fi+KSG1n1ZPNPhKmSGHYPrGuIihYid4
-         a+6BuUrku3VApA9LLjjgjQSfZC/y2BSX2zYsYeJb6GI9RfdRK6ZLdWdKCjJz/245mjCd
-         T1audaQWmimasHBgky/g/tzdkE8bFAQpP6welWOFOa1OsrXLa2a+BHdjfK9yjG5FCU5m
-         LMdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701443339; x=1702048139;
-        h=cc:to:content-transfer-encoding:mime-version:message-id:date
-         :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=gNZ7R4MQGFffrobU6ni4L3zapKkTqgLoMNn8PZTR5i0=;
-        b=Ez0YTPZWZIr54g6HgMC9cvC+jGcsu37qoRow32wLtPSb8TlVcblrY8TISZNkvUcCDC
-         Ipe7uvakbMreDAC4p1EQjs1KQ9MGw2Y62lza1ep/dbdv/DVuB3y8hg62LkVN1vQ+GIxD
-         k6Kx7hRhywtIvN+eaySb1ghrGFwDaFjrnR+Tv6ARnTGm2osvOd/HlpB+8wsmgCT2Yyug
-         60LcV0IBVPL6B8LfvVMNZdfoCdpGKIY6ihswEfeWmxRDu5MFqbSFgPK3g9RJwchgTciq
-         KFgeVcOuW4Js0fIToSVJ0A/SENW7wN2VRVnEyOCTNZrlDkeLR9CnEH/NRLOQ460Vtqab
-         WpHw==
-X-Gm-Message-State: AOJu0Yztct4mzt/oLC7YOweDoiM0LWPxifqvp80Yji3Lj03ziOgFNQ0X
-	HrObxmrm70N5k3ibM9l4WJ/zMA==
+        bh=qINiKytCFGh2MDywcjo0UyglJ8pj6SdN9F5fHmVcUK4=;
+        b=otAg74HipLr9YKF1Bd7EqREwUecDy5hAEloSHxpKORMBx8eYAmvriYkQzrvgOo5FnM
+         IvqCtDoz1vYxoDsg7FpdQ+D1G1SKUnambMeynFf7xOnZF0drovFMcMAp76jGus4Ka3En
+         rKFUUaGleCrToR9acE7Vt+TDd19vSBjiLlibGRNVr4xEKhW5wEjWBUyaDu5KBHSeeRiy
+         +v8cR8+yp9rl/Td0N6kdJTfPLR3okW/52DTAnafghf7fqwx1LZr4/wfU1kWAXD4re0g6
+         RHeiSfHG2+cBT9v/ugrGgeLBkeGxhQ4uAVrb6QdqqgN8VoTwIGXlbVEgcqRAm1qsIJC0
+         Fgpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1701443341; x=1702048141;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=qINiKytCFGh2MDywcjo0UyglJ8pj6SdN9F5fHmVcUK4=;
+        b=v4/K7PvXyPe/f6erPRsIEVeuLHrKuhj2G9q3XJZzfv41aiRK6thJgksB44U4TH2jgw
+         P4SI7AiM6Sdxu5JjOgK50PSwJk0hAyEau+HJq52cJigmoBFoxCwAP06jSYNsGf+63WoF
+         fXB1DQMIF/BWjNROgHxOXOi8JghKi9uW3S2idl/SJ2kTf6DJ8lQS+OP1S4u8UCjiNe5z
+         zT12o3Y5bxvHd2admiq3xnuisVM4Hli71fxW/K+VD2Z1kLNOG5Qmzfa5O0vQmzZ3gzVG
+         jpKTzFsfdtsNrMSNRpdoyVY94vCki6PlU1M9QpLtlju/ht8yPPqPu2CNgBGV3cJqdioY
+         6ltg==
+X-Gm-Message-State: AOJu0YwrA8LRGenG+HhPmK33zokbV5x596obsGSW0kbkuKl3CdaURXyT
+	aEcT4BtIG0qzdQcXcgSGjnYwGQ==
 X-Google-Smtp-Source: 
- AGHT+IFsi7k0cOV2CTRev6zhLhejCpJuKEr2xRKSS7XaIC1GAnoHZJlhes2/zkILjlrM0IT/88e2rw==
-X-Received: by 2002:a1c:4c08:0:b0:40b:5e59:f70e with SMTP id
- z8-20020a1c4c08000000b0040b5e59f70emr273807wmf.128.1701443339595;
-        Fri, 01 Dec 2023 07:08:59 -0800 (PST)
+ AGHT+IGHOPx3B0lJnuEJxE+A1iPYVcIo65FUUu5Hufal2K09q0kYkzSqSA9rbKAvK2xS1blzox1Y8A==
+X-Received: by 2002:a05:6512:1246:b0:50b:d174:56cc with SMTP id
+ fb6-20020a056512124600b0050bd17456ccmr1219711lfb.21.1701443340699;
+        Fri, 01 Dec 2023 07:09:00 -0800 (PST)
 Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:52eb:f6ff:feb3:451a])
         by smtp.gmail.com with ESMTPSA id
- fs20-20020a05600c3f9400b0040b5517ae31sm8569539wmb.6.2023.12.01.07.08.58
+ fs20-20020a05600c3f9400b0040b5517ae31sm8569539wmb.6.2023.12.01.07.08.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 01 Dec 2023 07:08:59 -0800 (PST)
+        Fri, 01 Dec 2023 07:09:00 -0800 (PST)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: [PATCH v2 0/5] ASoC: codecs: add support for WCD939x Codec
-Date: Fri, 01 Dec 2023 16:08:53 +0100
-Message-Id: 
- <20231201-topic-sm8650-upstream-wcd939x-codec-v2-0-94ed814b25aa@linaro.org>
+Date: Fri, 01 Dec 2023 16:08:54 +0100
+Subject: [PATCH v2 1/5] ASoC: dt-bindings: qcom,wcd938x: move out common
+ properties
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAX3aWUC/5WNQQ6CMBAAv0J6dg1doIon/2E41O4CmyglLSKG8
- HcrP/A4c5hZVeQgHNUlW1XgWaL4IQEeMuV6O3QMQokV5lhojQVMfhQH8Xk2VQ6vMU6B7RPejuq
- iXsB5YgeuNK1Bfa8qKlUqjYFbWfbLrUncS5x8+OzTWf/sf/1ZQw6oqbRU48kQXx8y2OCPPnSq2
- bbtCy7L4JHXAAAA
+Message-Id: 
+ <20231201-topic-sm8650-upstream-wcd939x-codec-v2-1-94ed814b25aa@linaro.org>
+References: 
+ <20231201-topic-sm8650-upstream-wcd939x-codec-v2-0-94ed814b25aa@linaro.org>
+In-Reply-To: 
+ <20231201-topic-sm8650-upstream-wcd939x-codec-v2-0-94ed814b25aa@linaro.org>
 To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
  Banajit Goswami <bgoswami@quicinc.com>, Andy Gross <agross@kernel.org>,
  Bjorn Andersson <andersson@kernel.org>,
@@ -110,24 +113,24 @@ Cc: linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
  linux-kernel@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 X-Mailer: b4 0.12.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3757;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6302;
  i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=38wj4TRML2NmpVWHDGWZ7lyYIsFw7bWFSFPePEL0QD4=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBlafcI7JbVO734mB4tTMVAtImtrBrBrmo6qM/8Odho
- ZjHTfjuJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCZWn3CAAKCRB33NvayMhJ0U/UEA
- C8tw+QSmBj0o4fhv+oL9yLD5m+bFeoziZDnIipCce2w/ww24ga5Fkwm6PUYW9KPYeFERzIs7w6EkjM
- Dsbka2UyO8UI195/MxiU4zYpPtjHik3fTsGKSS7J3Crh7ECZRHpXj9FjPPgyD1lXw4bMYW6iozc33A
- 88KiVor6oxDHA5cJJAKjy5v5zQzQw8giP4vpQ1R74LCxpQgSJ9CKvyt4L0ri2iojmzbF+9h+BM3UoT
- X1zRH0RldvIGzFx/GOtUMxu0XRRFo8t1s1mmxdLJ42Myk+wn8X8J7abf5VhrA5u69KUTI11hmaEcLo
- CC1bzjotRh4ZJ5HACBLgXM8N2Sseqj/rab2getI1Rzwo2RZIFvxM7V0UjsAt9Pz/StpTW1jVkM+ABE
- ng+Ve7/Nz5+1ub3k7pBkuRI3upQJz++SjGTxTeBsbw7KazeeEesEhTpvgv3bdGY5MhOig18CX2I5aQ
- zse7mFAEgb38xDOK2O4Q/sXIqmTX4BU9/OkT2MM1jC9fbLk0ostLz41Twn55v9mUW3S1zBumCZJkM9
- TyJle2hymBlbzvCNIt9EM4xp40tWq84vRyVrDZ6eIToupvW+5oF3zm55xJBPF8J3YyaCva8njiME9y
- YJ5vpw3ifN/1lNrp9X5EhKvHxkYB+2xLc//So+bVjOzciiOSt6ot25HSQ0Kw==
+ bh=Uglg24nZY1C7ElRVJ4NCgzh7HTGQqFA6AMsN4Ezv9Kk=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBlafcI4Ga7OWPE8BXAb9PIogtXejM+uW+T/MI/2m1o
+ FGTYhZeJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCZWn3CAAKCRB33NvayMhJ0VGGD/
+ 0c7jnn7TDI6xr5iGFu7eIbI7AMIL8aH0+Z/0raMGJ6OFUQl7hhYQ7t1woKKo+F9ljKMVOaF3ZObEqB
+ j8RZPBObxZF+iTb982sixL4tz7NHkjIO+4ScYxLLTAJKpa3+WQh5E+GDfjuvjpvAzPhpgwnXMfEApm
+ KI/9F1vQDmE8/e5wP8XAqh/rGjwkaU1GAnX9Fogbtgliwb+9/oG60W9cLLjXJvbF1KruymiPl9+205
+ aolB3tAXvCf84Kt/E5nimEa80UzrgDS7irOonN12iFip75liCPcRPmMqAOoCuuvKPoxKfRlZZwi8uf
+ 6x7uPyV9ozDnJRlFcftx+fCNnCZ1Ufiv8+kPZzdMthiAnTz9fwrGQkWsnj1g38Y/M+b0gfneT6LMIv
+ WitZZLi4141bwbqzcNZGI/QNOEmii0vxrxs+XlZxRFSffGhl4qik9hCJ1WVOBlrUI74Q4d35MVkdJK
+ tJzvZTc0qNUq07C7n98I0fsouztQ4Du0oFiBhSIVNgROSi4HqQC9V58FX3Eviocfk+J4DEu1HRfgrs
+ l6RYwE3QCzZ6gIOY9qhKcHiz+F/BW/X/J2aHEtWErapmRzWP6CBW9+tuootL4ISDCL9r+jtaLjqpQ8
+ pNUqGRpXVDB2L3ml+B/yJAg+k/9PZIwrKOGZSSAp0cXU5ugFIXdHkv82d0pA==
 X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
  fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
-Message-ID-Hash: ONE62UIQQBFE3ECYGZMFJEXE4PN6QS5J
-X-Message-ID-Hash: ONE62UIQQBFE3ECYGZMFJEXE4PN6QS5J
+Message-ID-Hash: AAEYYSQX64QZ4KOIPXR7MALX5HH5MVEK
+X-Message-ID-Hash: AAEYYSQX64QZ4KOIPXR7MALX5HH5MVEK
 X-MailFrom: neil.armstrong@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -140,7 +143,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ONE62UIQQBFE3ECYGZMFJEXE4PN6QS5J/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AAEYYSQX64QZ4KOIPXR7MALX5HH5MVEK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -149,88 +152,223 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add the main WCD9390/WCD9395 Audio Codec driver to support:
-- 4 ADC inputs for up to 5 Analog Microphones
-- 4 DMIC inputs for up to 8 Digital Microphones
-- 4 Microphone BIAS
-- Stereo Headphone output
-- Mono EAR output
-- MBHC engine for Headset Detection
+Move out common properties from qcom,wcd938x bindings in preparation
+of adding Qualcomm WCD939x bindings sharing most of the properties.
 
-This adds:
-- bindings
-- MBHC changes to support Type-C muc
-- Soundwire Slave driver
-- Code driver
-
-The USB Mux subsystem support will be submitted separalety
-since it's a functionally separate subsystem connected over
-I2C with it's own reset signal.
-
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
-Changes in v2:
-- Bindings:
-  - Dropped all references to "Slave" or "Host" terminology when possible
-  - Collected review for first patch
-  - Added wcd9395 as fallback of wcd9390
-  - Fixes typos errors
-- MBHC:
-  - Dropped all references to "Slave" or "Host" terminology when possible
-  - Fixed EXPORT_SYMBOL into EXPORT_SYMBOL_GPL
-  - Fixed typo in commit message
-- Soundwire Devices driver
-  - Dropped all references to "Slave" or "Host" terminology when possible
-  - Dropped comments and unused code
-  - Reworked wcd939x_swr_get_current_bank()
-  - Added comments to wcd9390_interrupt_callback()
-  - Reworked regmap's wcd939x_readonly/volatile_register checks
-  - Added comments explaining while bind/unbind are empty
-  - Added comment on SDW_SLAVE_ENTRY meaning
-  - Added more register fields defines
-  - Style fixes
-- Codec driver
-  - Dropped all references to "Slave" or "Host" terminology when possible
-  - Added MICB_BIAS_ values enum and used them in the code
-  - Moved zdet_param to the top
-  - Added TLV data for ear_pa_gain and used it
-  - Defined as much as possible every bit field used on/from register
-  - Replaced 1/0 to true/false when writing to single bit fields
-  - Replaced for loop on all bits with ffs(), simplified code
-  - Simplified MICB fields handling code
-  - Reworked and simplified wcd939x_get/set_compander and other kcontrol get/setters
-  - Reworked and simplified MHGC impedance/zdet/qval code, dropped dead code
-  - Added comments on wcd939x_wd_handle_irq() utility
-  - Added comment on the interrupt handling architecture
-- I've not moved common code yet, I'll probably do later since it would alter wcd939x code
-- Link to v1: https://lore.kernel.org/r/20231123-topic-sm8650-upstream-wcd939x-codec-v1-0-21d4ad9276de@linaro.org
+ .../devicetree/bindings/sound/qcom,wcd938x.yaml    | 81 +-----------------
+ .../bindings/sound/qcom,wcd93xx-common.yaml        | 95 ++++++++++++++++++++++
+ 2 files changed, 96 insertions(+), 80 deletions(-)
 
----
-Neil Armstrong (5):
-      ASoC: dt-bindings: qcom,wcd938x: move out common properties
-      ASoC: dt-bindings: document WCD939x Audio Codec
-      ASoC: codec: wcd-mbhc-v2: add support when connected behind an USB-C audio mux
-      ASoC: codecs: Add WCD939x Soundwire devices driver
-      ASoC: codecs: Add WCD939x Codec driver
+diff --git a/Documentation/devicetree/bindings/sound/qcom,wcd938x.yaml b/Documentation/devicetree/bindings/sound/qcom,wcd938x.yaml
+index 018565793a3e..de333d07d469 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,wcd938x.yaml
++++ b/Documentation/devicetree/bindings/sound/qcom,wcd938x.yaml
+@@ -15,6 +15,7 @@ description: |
+ 
+ allOf:
+   - $ref: dai-common.yaml#
++  - $ref: qcom,wcd93xx-common.yaml#
+ 
+ properties:
+   compatible:
+@@ -22,92 +23,12 @@ properties:
+       - qcom,wcd9380-codec
+       - qcom,wcd9385-codec
+ 
+-  reset-gpios:
+-    description: GPIO spec for reset line to use
+-    maxItems: 1
+-
+   us-euro-gpios:
+     description: GPIO spec for swapping gnd and mic segments
+     maxItems: 1
+ 
+-  vdd-buck-supply:
+-    description: A reference to the 1.8V buck supply
+-
+-  vdd-rxtx-supply:
+-    description: A reference to the 1.8V rx supply
+-
+-  vdd-io-supply:
+-    description: A reference to the 1.8V I/O supply
+-
+-  vdd-mic-bias-supply:
+-    description: A reference to the 3.8V mic bias supply
+-
+-  qcom,tx-device:
+-    $ref: /schemas/types.yaml#/definitions/phandle-array
+-    description: A reference to Soundwire tx device phandle
+-
+-  qcom,rx-device:
+-    $ref: /schemas/types.yaml#/definitions/phandle-array
+-    description: A reference to Soundwire rx device phandle
+-
+-  qcom,micbias1-microvolt:
+-    description: micbias1 voltage
+-    minimum: 1800000
+-    maximum: 2850000
+-
+-  qcom,micbias2-microvolt:
+-    description: micbias2 voltage
+-    minimum: 1800000
+-    maximum: 2850000
+-
+-  qcom,micbias3-microvolt:
+-    description: micbias3 voltage
+-    minimum: 1800000
+-    maximum: 2850000
+-
+-  qcom,micbias4-microvolt:
+-    description: micbias4 voltage
+-    minimum: 1800000
+-    maximum: 2850000
+-
+-  qcom,hphl-jack-type-normally-closed:
+-    description: Indicates that HPHL jack switch type is normally closed
+-    type: boolean
+-
+-  qcom,ground-jack-type-normally-closed:
+-    description: Indicates that Headset Ground switch type is normally closed
+-    type: boolean
+-
+-  qcom,mbhc-headset-vthreshold-microvolt:
+-    description: Voltage threshold value for headset detection
+-    minimum: 0
+-    maximum: 2850000
+-
+-  qcom,mbhc-headphone-vthreshold-microvolt:
+-    description: Voltage threshold value for headphone detection
+-    minimum: 0
+-    maximum: 2850000
+-
+-  qcom,mbhc-buttons-vthreshold-microvolt:
+-    description:
+-      Array of 8 Voltage threshold values corresponding to headset
+-      button0 - button7
+-    minItems: 8
+-    maxItems: 8
+-
+-  '#sound-dai-cells':
+-    const: 1
+-
+ required:
+   - compatible
+-  - reset-gpios
+-  - qcom,tx-device
+-  - qcom,rx-device
+-  - qcom,micbias1-microvolt
+-  - qcom,micbias2-microvolt
+-  - qcom,micbias3-microvolt
+-  - qcom,micbias4-microvolt
+-  - "#sound-dai-cells"
+ 
+ unevaluatedProperties: false
+ 
+diff --git a/Documentation/devicetree/bindings/sound/qcom,wcd93xx-common.yaml b/Documentation/devicetree/bindings/sound/qcom,wcd93xx-common.yaml
+new file mode 100644
+index 000000000000..f78ba148ad25
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/qcom,wcd93xx-common.yaml
+@@ -0,0 +1,95 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/qcom,wcd93xx-common.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Common properties for Qualcomm WCD93xx Audio Codec
++
++maintainers:
++  - Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
++
++properties:
++  reset-gpios:
++    description: GPIO spec for reset line to use
++    maxItems: 1
++
++  vdd-buck-supply:
++    description: A reference to the 1.8V buck supply
++
++  vdd-rxtx-supply:
++    description: A reference to the 1.8V rx supply
++
++  vdd-io-supply:
++    description: A reference to the 1.8V I/O supply
++
++  vdd-mic-bias-supply:
++    description: A reference to the 3.8V mic bias supply
++
++  qcom,tx-device:
++    $ref: /schemas/types.yaml#/definitions/phandle-array
++    description: A reference to Soundwire tx device phandle
++
++  qcom,rx-device:
++    $ref: /schemas/types.yaml#/definitions/phandle-array
++    description: A reference to Soundwire rx device phandle
++
++  qcom,micbias1-microvolt:
++    description: micbias1 voltage
++    minimum: 1800000
++    maximum: 2850000
++
++  qcom,micbias2-microvolt:
++    description: micbias2 voltage
++    minimum: 1800000
++    maximum: 2850000
++
++  qcom,micbias3-microvolt:
++    description: micbias3 voltage
++    minimum: 1800000
++    maximum: 2850000
++
++  qcom,micbias4-microvolt:
++    description: micbias4 voltage
++    minimum: 1800000
++    maximum: 2850000
++
++  qcom,hphl-jack-type-normally-closed:
++    description: Indicates that HPHL jack switch type is normally closed
++    type: boolean
++
++  qcom,ground-jack-type-normally-closed:
++    description: Indicates that Headset Ground switch type is normally closed
++    type: boolean
++
++  qcom,mbhc-headset-vthreshold-microvolt:
++    description: Voltage threshold value for headset detection
++    minimum: 0
++    maximum: 2850000
++
++  qcom,mbhc-headphone-vthreshold-microvolt:
++    description: Voltage threshold value for headphone detection
++    minimum: 0
++    maximum: 2850000
++
++  qcom,mbhc-buttons-vthreshold-microvolt:
++    description:
++      Array of 8 Voltage threshold values corresponding to headset
++      button0 - button7
++    minItems: 8
++    maxItems: 8
++
++  '#sound-dai-cells':
++    const: 1
++
++required:
++  - reset-gpios
++  - qcom,tx-device
++  - qcom,rx-device
++  - qcom,micbias1-microvolt
++  - qcom,micbias2-microvolt
++  - qcom,micbias3-microvolt
++  - qcom,micbias4-microvolt
++  - "#sound-dai-cells"
++
++additionalProperties: true
 
- .../devicetree/bindings/sound/qcom,wcd938x.yaml    |   81 +-
- .../bindings/sound/qcom,wcd939x-sdw.yaml           |   69 +
- .../devicetree/bindings/sound/qcom,wcd939x.yaml    |   96 +
- .../bindings/sound/qcom,wcd93xx-common.yaml        |   95 +
- sound/soc/codecs/Kconfig                           |   18 +
- sound/soc/codecs/Makefile                          |    7 +
- sound/soc/codecs/wcd-clsh-v2.h                     |    1 +
- sound/soc/codecs/wcd-mbhc-v2.c                     |   95 +-
- sound/soc/codecs/wcd-mbhc-v2.h                     |    3 +
- sound/soc/codecs/wcd939x-sdw.c                     | 1584 +++++++++
- sound/soc/codecs/wcd939x.c                         | 3655 ++++++++++++++++++++
- sound/soc/codecs/wcd939x.h                         |  983 ++++++
- 12 files changed, 6592 insertions(+), 95 deletions(-)
----
-base-commit: 07b677953b9dca02928be323e2db853511305fa9
-change-id: 20231123-topic-sm8650-upstream-wcd939x-codec-c46f621b55d4
-
-Best regards,
 -- 
-Neil Armstrong <neil.armstrong@linaro.org>
+2.34.1
 

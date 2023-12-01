@@ -2,104 +2,116 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEF55800D85
-	for <lists+alsa-devel@lfdr.de>; Fri,  1 Dec 2023 15:42:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1AE12800BB3
+	for <lists+alsa-devel@lfdr.de>; Fri,  1 Dec 2023 14:21:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1831C84A;
-	Fri,  1 Dec 2023 15:42:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1831C84A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3938BA4E;
+	Fri,  1 Dec 2023 14:21:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3938BA4E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701441745;
-	bh=EFy9Hh3Cv87FHbJLGd1xdosKaDBGtIirU5TJIkN5is0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=jl/eyUiqPj63agHZfwp8Rmhl+WZyv4zLCPlMFonl4fIIpliJgFgxhZ9GGgX0L67E+
-	 eyoynGrPoOX+2dcCnJi23lgzRU4UiRLmGRzrkQAYkiitxKU+vPBgU3HNIvmO+sQqj3
-	 rKfPo5FeCNS8kQJAFdq0e1cfS5mk9R6DMM1dnrgg=
+	s=default; t=1701436879;
+	bh=Dyw99w10VtyAlsLb9nZnvgYXI/cya0F0brNtz1/uIvI=;
+	h=From:Subject:Date:To:Cc:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=DOogz1h7EW7p7lJw9iU136Bf1D1Zil2uMgW5Pj4Q7uc/4HTRY2tZAyM/36EcdoAsp
+	 4J4n4n2fxdvE0cfq3IGfc7MDN2IDFZxNQNj9u/Ig+scQtLtJw+XttvkM8L5MT9MWSK
+	 dbDnlV5cCiV4So99+DhyEd347eo3B1I59EX4/rmM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7FB62F80563; Fri,  1 Dec 2023 15:41:53 +0100 (CET)
+	id 74246F8057E; Fri,  1 Dec 2023 14:20:47 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 25E37F801D5;
-	Fri,  1 Dec 2023 15:41:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 69520F80580;
+	Fri,  1 Dec 2023 14:20:46 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EF672F8016E; Fri,  1 Dec 2023 15:41:46 +0100 (CET)
+	id 48D21F80114; Fri,  1 Dec 2023 14:20:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.6 required=5.0 tests=DATE_IN_PAST_24_48,
-	DKIMWL_WL_HIGH,DKIM_SIGNED,DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [IPv6:2a00:1450:4864:20::135])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C1496F80114
-	for <alsa-devel@alsa-project.org>; Fri,  1 Dec 2023 15:41:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1496F80114
+	by alsa1.perex.cz (Postfix) with ESMTPS id 36881F80114
+	for <alsa-devel@alsa-project.org>; Fri,  1 Dec 2023 14:20:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36881F80114
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=B60/zozD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1701441696; x=1732977696;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=EFy9Hh3Cv87FHbJLGd1xdosKaDBGtIirU5TJIkN5is0=;
-  b=B60/zozD5p7ctka7o3YfCJoNp5qb/BW+zl4B2iai4IrO862IcjVN0CRw
-   iQZmgirJpfEGRx3v4dLCZTkP0rdYXa6wNVnvSflW9eafp7+bm8DmIt2TQ
-   g65yQuIaWbcC1uA+kxAfnIiBn4Db0p+ECHX0GjFGbfexfzydu3PDbHHNP
-   Wv8XT2P9NimRUHUWFHon8uVgQeKzzINpaJ5mUoE717aFkqWannji/m5U/
-   Sz0N/4dU/4W1QbzB7Gth6rnkQUZgWseWeHiIclUmhW0G5vv0FjHF6nNlW
-   jHOM5DwqIBn7S6iD+4MApDZvb+yI3iDwkGMaLoLZp5h/t83TE8IBXJd0B
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10911"; a="424662190"
-X-IronPort-AV: E=Sophos;i="6.04,241,1695711600";
-   d="scan'208";a="424662190"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
-  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Dec 2023 06:41:25 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10911"; a="943106258"
-X-IronPort-AV: E=Sophos;i="6.04,241,1695711600";
-   d="scan'208";a="943106258"
-Received: from shravans-mobl.amr.corp.intel.com (HELO [10.209.93.166])
- ([10.209.93.166])
-  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Dec 2023 06:41:24 -0800
-Message-ID: <162bf443-37ca-4848-99de-ffb877740f44@linux.intel.com>
-Date: Thu, 30 Nov 2023 08:27:32 -0600
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=CXuWPqSR
+Received: by mail-lf1-x135.google.com with SMTP id
+ 2adb3069b0e04-50bc501081fso3088218e87.1
+        for <alsa-devel@alsa-project.org>;
+ Fri, 01 Dec 2023 05:20:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1701436832; x=1702041632;
+ darn=alsa-project.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=3WxPktasKkZEej0sqgFg3/J9Uo7JHJmWFpjxeLxWfYc=;
+        b=CXuWPqSR64jyxyoLASUvXKedabQd6l10S04z8wi9N/K059TN7UZpNaG/mr0FTklF4B
+         XXC/Zzm+2ARI2zO6uacR8imbuxAjICO6sqc2dIZ9h0NPPJkybYv6zy5WQrvaJoktMcep
+         XsFZacmRn9M0J0TvHL3Q6/4q2qe3WxCWkchm3wrxluMQUCE6G46DAeFoJf3zOdpmUG9+
+         pJXJ1Da2ck3ABjLwPB9NdJeIb8mf/BLYFVLe8vvqZzDGSnqIP89+bq+aLaBBAyyTOY66
+         ftzXbUlyqb4egez4y+lN89KVw7o5k5ZHFGJEzpiDUA81t+/cUMqqLv7kTTuQGqAxZai4
+         QAxw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1701436832; x=1702041632;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=3WxPktasKkZEej0sqgFg3/J9Uo7JHJmWFpjxeLxWfYc=;
+        b=Q8Zc6osY9dit8zVqsQsJvagGahijsVd2oijJ5LHDhVGyMTFEUeqWoiZMNgiBVm+mW2
+         o8WB7M/KzlaT2yN2U4afcS8AzHoOJ/5phVBPk7prihEIF5c3XlIYSoHAXqmmOHIUrgNc
+         ZagOrYw21EgMbxwPVqXQ+mj1LL1Koa3y+cNdphdvEImnX3/5qd84eSrTgML3hFUhFrNx
+         liuuf7E60Bf9t2x+njgvis/fNKJHjAchkCsDwinsfonu39hGRG83EbVHF8t4nqgYsUwC
+         JKQNJZ9o3t5pOnaNJPIl20+SLc3qaSBWl5w/A540TsgFkbwSjcxX95rN8ntpZYXVcVRs
+         oLIQ==
+X-Gm-Message-State: AOJu0Yx0bkmEaN5RbdE3u+K8SYs7B1SZ4tK/b1fyGMZL309fWcaJhCsF
+	bfXZiaq/ssJuwRRU3eEnhopJQZ2HisEP5KUhqms=
+X-Google-Smtp-Source: 
+ AGHT+IHnkI/nqzO/GyNwmeS7iBCAivqXeSYuwkz4bEKNd4hhmJw/EAoXBhuD7RcEBSZRCHCeEWL6mw==
+X-Received: by 2002:a05:6512:239f:b0:50b:c2f4:ad44 with SMTP id
+ c31-20020a056512239f00b0050bc2f4ad44mr1028147lfv.29.1701436831756;
+        Fri, 01 Dec 2023 05:20:31 -0800 (PST)
+Received: from [127.0.1.1] ([85.235.12.238])
+        by smtp.gmail.com with ESMTPSA id
+ u25-20020ac243d9000000b0050be054b4e8sm1081lfl.121.2023.12.01.05.20.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 01 Dec 2023 05:20:31 -0800 (PST)
+From: Linus Walleij <linus.walleij@linaro.org>
+Subject: [PATCH v2 00/10] ASoC: Convert Cirrus codecs to GPIO descriptors
+Date: Fri, 01 Dec 2023 14:20:29 +0100
+Message-Id: <20231201-descriptors-sound-cirrus-v2-0-ee9f9d4655eb@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/7] ASoC: Intel: soc-acpi-intel-tgl-match: add cs42l43
- and cs56l56 support
-Content-Language: en-US
-To: Richard Fitzgerald <rf@opensource.cirrus.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, lgirdwood@gmail.com,
- broonie@kernel.org
-Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- kai.vehmanen@linux.intel.com, ranjani.sridharan@linux.intel.com,
- cezary.rojewski@intel.com, yung-chuan.liao@linux.intel.com,
- ckeepax@opensource.cirrus.com, yong.zhi@intel.com, chao.song@linux.intel.com
-References: <20231127133448.18449-1-peter.ujfalusi@linux.intel.com>
- <20231127133448.18449-7-peter.ujfalusi@linux.intel.com>
- <9660e9df-2061-4b2c-ba59-5e6f8a61f07d@opensource.cirrus.com>
- <cb768f03-9d46-432e-ad67-8ff1ef075385@linux.intel.com>
- <6038c9fa-8cb1-46e1-b856-d759a3f990b3@opensource.cirrus.com>
- <5e9b0b69-6108-4909-90e8-257c13c2d886@linux.intel.com>
- <d2de7d4c-3984-4737-b879-a1fa829007ff@opensource.cirrus.com>
- <7bae01ac-a0de-47d9-9bd3-6bdfc48e02c1@linux.intel.com>
- <1b77a7b5-5988-49b2-b356-0d24bb01909d@opensource.cirrus.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <1b77a7b5-5988-49b2-b356-0d24bb01909d@opensource.cirrus.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: LITJ7AMBRZERR3U3V5XSDF4GBYWI6EFU
-X-Message-ID-Hash: LITJ7AMBRZERR3U3V5XSDF4GBYWI6EFU
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJ3daWUC/42NQQ6CMBBFr0JmbU07gIIr72FYNHSASUxLZoRoC
+ He3cgKX7yfv/Q2UhEnhVmwgtLJyihnwVEA/+TiS4ZAZ0GLpHLYmkPbC8yuJGk1LDKZnkUVNjRh
+ ae3GNbQiyPgsN/D7Sjy7zxJqlz/G0ut/6R3R1xprSeX+tKqyHobk/OXpJ5yQjdPu+fwGdVkqIw
+ QAAAA==
+To: Paul Handrigan <Paul.Handrigan@cirrus.com>,
+ James Schulman <james.schulman@cirrus.com>,
+ David Rhodes <david.rhodes@cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Hartley Sweeten <hsweeten@visionengravers.com>,
+ Alexander Sverdlin <alexander.sverdlin@gmail.com>,
+ Nikita Shubin <nikita.shubin@maquefel.me>
+Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>
+X-Mailer: b4 0.12.4
+Message-ID-Hash: V2JF35IWNK3VN444YDLMZFPRXKYPZR25
+X-Message-ID-Hash: V2JF35IWNK3VN444YDLMZFPRXKYPZR25
+X-MailFrom: linus.walleij@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -111,7 +123,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LITJ7AMBRZERR3U3V5XSDF4GBYWI6EFU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/V2JF35IWNK3VN444YDLMZFPRXKYPZR25/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,96 +132,57 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+This series walks over the Cirrus Logic ASoC drivers and
+clean out the use of legacy GPIO numbers and legacy
+GPIO APIs.
 
+The CS4271 affects an ASoC driver for EP93xx which Nikita is
+actively working on moving over to device tree, so I don't
+know about that patch specifically, but I think the collision
+would be max "the file was deleted".
 
-On 11/30/23 04:15, Richard Fitzgerald wrote:
-> On 29/11/23 16:39, Pierre-Louis Bossart wrote:
->>
->>>>>>>> +        .name_prefix = "cs35l56-8"
->>>>>>>
->>>>>>> Can these prefixes be "AMPn" to match the CS35L41, CS35L51 and
->>>>>>> CS35L56-hda driver? This prefix is used to find the matching
->>>>>>> firmware
->>>>>>> files and our naming convention for these has been cs35lxx-xxxx-ampn
->>>>>>>
->>>>>>> Is there anything that depends on the prefixes being "cs35l56-n" ?
->>>>>>
->>>>>> IIRC this name_prefix is just used for the codec_conf and hence for
->>>>>> control names/UCM. At some point userspace/driver need to know if
->>>>>> amp5
->>>>>> is left or right.
->>>>>>
->>>>>> We can certainly align on conventions but the values set in this ACPI
->>>>>> match table will not be used for firmware download - different scope.
->>>>>>
->>>>>
->>>>> They are used for our firmware download. Each amp can have its own
->>>>> unique firmware file. The ALSA prefix is used to identify which
->>>>> firmware
->>>>> file to load to which amp.
->>>>
->>>> The prefix will only be used when the card is created, specifically for
->>>> control names.
->>>> The firmware should be selected and downloaded when the device shows up
->>>> on the bus.
->>>> Card creation and device enumeration/initialization happen on different
->>>> timelines, if the machine driver is "blacklisted" or unbound I am not
->>>> sure what happens.
->>>>
->>>> There is a dependency between machine driver probe and codec firmware
->>>> download that I am not able to follow, can you please elaborate?
->>>>
->>>
->>> The codec driver has to choose which firmware to load from under
->>> /lib/firmware. It does this using a combination of SSID (to identify the
->>> target product), the ALSA prefix string (to identify which amp) and
->>> in some systems a GPIO on the motherboard to select between different
->>> models of speaker when they have multiple suppliers. This results in a
->>> firmware name like:
->>>
->>> cs35l56-<silicon rev>-dsp1-misc-<SSID>[-<SPEAKER MODEL>]-<ALSA PREFIX>
->>>
->>> You can see this if you look in the linux-firmware repo under cirrus/
->>> for cs35l41 firmware files (though the ALSA PREFIX section in those
->>> cases is not "AMPn" because they are not SDCA parts with rotation,
->>> they have a fixed left/right assignment.)
->>>
->>> We have to be careful of the length of the prefix. The 44 characters of
->>> an ALSA control name get eaten up very quickly when we start creating
->>> fully-qualified names for controls published by the firmware. So "AMPn"
->>> was nice because it was descriptive enough but only uses 5 characters
->>> of the 44.
->>>
->>> Having said that, I've calculated that we have enough characters (just)
->>> to use a prefix of "cs35l56-n". If there's a reason why that is
->>> necessary/desirable for SOF or SoundWire then we could do that. But we'd
->>> intended to use "AMPn" prefixes.
->>>
->>> We just need to decide whether to go with "AMPn". Or switch to using
->>> "cs35l56-n" for the ALSA prefix (the therefore the qualifier at the end
->>> of the firmware filename).
->>
->> Yes we have similar issues with control names in topology, the limit is
->> hit very quickly.
->>
->> I think you missed my point though that the ALSA prefix is only set when
->> the card is created, which can be sometime after the firmware needs to
->> be downloaded. I guess you could pick the firmware in the component
->> probe, which happens during the card creation, but that could be
->> sub-optimal. Given the download times you want the download to proceed
->> as early as possible.
-> 
-> We kick off a background task from our component_probe() to do the
-> firmware download. We need the ALSA prefix, and also the wm_adsp library
-> that actually handles the DSP is ASoC code so it needs a probed
-> component. Doing it in a background work means it doesn't block probe().
-> And the download to multiple amps can proceed in parallel - obviously
-> that's constrained by bus bandwidth but we are seeing that they
-> interleave.
+Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
+---
+Changes in v2:
+- Add explicit <linux/irq.h> include in the cs35l36 driver, apparently
+  the driver useeed this implicitly through the <linux/gpio.h> include.
+- Fix commit messages "gpios" -> "reset" on two patches.
+- Test builds OK
+- Link to v1: https://lore.kernel.org/r/20231129-descriptors-sound-cirrus-v1-0-31aa74425ff8@linaro.org
 
-ah ok, that makes sense. In practice the delta between codec enumeration
-and component probe is probably negligible, and in a multi-amplifier
-setup the download times are much larger.
+---
+Linus Walleij (10):
+      ASoC: cs35l32: Drop legacy include
+      ASoC: cs35l33: Fix GPIO name and drop legacy include
+      ASoC: cs35l34: Fix GPIO name and drop legacy include
+      ASoC: cs35l35: Drop legacy includes
+      ASoC: cs35l36: Drop legacy includes
+      ASoC: cs4271: Convert to GPIO descriptors
+      ASoC: cirrus: edb93xx: Drop legacy include
+      ASoC: cs42l42: Drop legacy include
+      ASoC: cs43130: Drop legacy includes
+      ASoC: cs4349: Drop legacy include
 
-So to circle back to the initial feedback, do you mind submitting a
-patch with the exact naming you'd want for the prefix?
+ arch/arm/mach-ep93xx/edb93xx.c       | 32 +++++++++++++++++++++++++----
+ arch/arm/mach-ep93xx/vision_ep9307.c | 12 ++++++++++-
+ include/sound/cs4271.h               |  1 -
+ sound/soc/cirrus/edb93xx.c           |  1 -
+ sound/soc/codecs/cs35l32.c           |  1 -
+ sound/soc/codecs/cs35l33.c           |  4 +---
+ sound/soc/codecs/cs35l34.c           |  4 +---
+ sound/soc/codecs/cs35l35.c           |  2 --
+ sound/soc/codecs/cs35l36.c           |  3 +--
+ sound/soc/codecs/cs4271.c            | 39 ++++++++++++------------------------
+ sound/soc/codecs/cs42l42.c           |  1 -
+ sound/soc/codecs/cs42l42.h           |  2 +-
+ sound/soc/codecs/cs43130.c           |  2 --
+ sound/soc/codecs/cs4349.c            |  1 -
+ 14 files changed, 56 insertions(+), 49 deletions(-)
+---
+base-commit: 267aea213ae042f779a8054401a8a5f301518605
+change-id: 20231129-descriptors-sound-cirrus-522d9061808e
+
+Best regards,
+-- 
+Linus Walleij <linus.walleij@linaro.org>
+

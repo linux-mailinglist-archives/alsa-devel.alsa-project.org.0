@@ -2,113 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3EAE802C35
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Dec 2023 08:40:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2FB6802C36
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Dec 2023 08:40:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6F2C5843;
-	Mon,  4 Dec 2023 08:40:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F2C5843
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3B631DF0;
+	Mon,  4 Dec 2023 08:40:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B631DF0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701675628;
-	bh=wfuttC72zhocQgWHnGzXAW/a8HHCjWfZozuRqFZq/Uo=;
+	s=default; t=1701675644;
+	bh=UsPI8cJOwLhuVwmeo6wuXRWzRcBEhHjbgG8LyN1/awg=;
 	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=W1LfdGqmWOVza2lBdd4qcEEBtgrpvvbN9rny+gGGOgrQMWHpmHK95S7mhVTGfpg0u
-	 POOdr5xAQqtZe2IiQ15TA84jDYeaX9l54thmjlomBlYGfqW9IEmTPhc2QPOu8ez97s
-	 ov4Qs0RSc+mTzMB1kh46ZlSYn4ZcYz5LHIuIdBt8=
+	b=a7yIw/VMV6CeiQ0w4/Sk4kfzx88JFIReQy1/4EuFG231mI8JnoJFwYxs+0SYSm+WE
+	 m6slfeC7tZHS5zpmhuQ69ZqvFZ/ngWIjxvDdgTcLePCZi5HcpowvhSgJmfj2UcdWHo
+	 ZmMyw4SgLqIRxODihhP2f4bQX0qxRyOu/HFOh0r4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 744CCF805BE; Mon,  4 Dec 2023 08:39:40 +0100 (CET)
+	id EFDF4F805E8; Mon,  4 Dec 2023 08:39:42 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9CA99F805B2;
-	Mon,  4 Dec 2023 08:39:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0D387F805EF;
+	Mon,  4 Dec 2023 08:39:42 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DC730F8016E; Fri,  1 Dec 2023 19:17:09 +0100 (CET)
+	id 3FF49F8016E; Sat,  2 Dec 2023 02:39:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [IPv6:2a00:1450:4864:20::236])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H5,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,
+	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from sender4-of-o53.zoho.com (sender4-of-o53.zoho.com
+ [136.143.188.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id AB0BFF80104
-	for <alsa-devel@alsa-project.org>; Fri,  1 Dec 2023 19:17:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB0BFF80104
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=srd.tw header.i=@srd.tw header.a=rsa-sha256
- header.s=google header.b=VvEe1Iqo
-Received: by mail-lj1-x236.google.com with SMTP id
- 38308e7fff4ca-2c9c30c7eafso30926571fa.0
-        for <alsa-devel@alsa-project.org>;
- Fri, 01 Dec 2023 10:17:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=srd.tw; s=google; t=1701454618; x=1702059418; darn=alsa-project.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Z7FrdAzX37kkU9YcW0NJ4L1EyECNYLSwlEoWGd/OQfs=;
-        b=VvEe1IqoDXf3DTDsHOK8qKbM0DYI1ZrUoAMMLASx6EkE27TMHdTEF3zuHMTPf7bN6U
-         CsFicvpZhujHs8SxRzOg1kI79lOGV7mh/P48Fc/CrS5cDhs3FyDyzYUJW9uk/CqTWk5g
-         zWJe6FHmIyke1x1ctRKavST/LOKMRbnQPla5/g9YKHTTO1ifWfbrwX47d+I8RAJK0Hzg
-         zrmE39bvO5gFPhPqekuYHFfwiiFt8yykss3B50fa30M4Bk8jHAuAXCDhd2IAHoBENutN
-         xf/6KcQm1tv0UKiu4xBUy3IzjLlvs0VPjnv8i0IJuQ2dExDuac9Z1HGfvhDp/Oc/RJ6Q
-         c2vQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701454618; x=1702059418;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Z7FrdAzX37kkU9YcW0NJ4L1EyECNYLSwlEoWGd/OQfs=;
-        b=jtc4WPRgs+d+SReKQsEAx8qNx3zGD4803VIGWQ5LOdt6STb36SpG85Ic7KwWk34b4v
-         ejovR0Blp9kmL+snKV2OmpgML2Gyd8xj72HcLhg5qD+5i2Fjzsr+pw3YijGLXB9aO8hQ
-         xekAKJUUW0MMJ9wXjMAEUrCrinWiTBXGS0WyTwo10OT0NrRhgnFhKQnimoU2kyaw6USG
-         j8ipTTH0myN691SeXhYgE8Eh5/2wefnPB6A2WIjQmoPjXi0yuJki/etUrgMj6Dmkt41M
-         wssRjv8nXYSYPR4SBbOpIT7zUgxpxsAk1RuUNv8eAHMikorkf+XBVj7IS0WFWpvFfk2x
-         mzsA==
-X-Gm-Message-State: AOJu0YzoNahSL4mGizquaibVoaUS1Gp57pRRfkxhqgAvAv0r45PqrQRp
-	uA05iYlEcU6Nnu8UQP2z1ocuwycIMPUa7Wp1OmsJY3bg
-X-Google-Smtp-Source: 
- AGHT+IHVh6uAXoKNyqAekgFNUW2hIEvuHu6zu+cNwhtLyeG8QQcJU1W5eqWUSPc/hecajIu3VPtP5g==
-X-Received: by 2002:a19:7016:0:b0:50b:d763:fe49 with SMTP id
- h22-20020a197016000000b0050bd763fe49mr1058788lfc.100.1701454617927;
-        Fri, 01 Dec 2023 10:16:57 -0800 (PST)
-Received: from fox.fritz.box
- (2a02-a468-ca02-1-e0d7-2fdb-33b4-8bf0.fixed6.kpn.net.
- [2a02:a468:ca02:1:e0d7:2fdb:33b4:8bf0])
-        by smtp.gmail.com with ESMTPSA id
- o18-20020aa7dd52000000b0054b50b024b1sm1837336edw.89.2023.12.01.10.16.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 01 Dec 2023 10:16:57 -0800 (PST)
-From: Sarah Grant <s@srd.tw>
-To: alsa-devel@alsa-project.org
-Cc: Sarah Grant <s@srd.tw>
-Subject: [PATCH] ALSA: usb-audio: Add Pioneer DJM-450 mixer controls
-Date: Fri,  1 Dec 2023 18:16:54 +0000
-Message-Id: <20231201181654.5058-1-s@srd.tw>
-X-Mailer: git-send-email 2.39.3 (Apple Git-145)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9E1DCF800AC
+	for <alsa-devel@alsa-project.org>; Sat,  2 Dec 2023 02:39:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9E1DCF800AC
+Delivered-To: pascal@pascalcompiles.com
+ARC-Seal: i=1; a=rsa-sha256; t=1701481116; cv=none;
+	d=zohomail.com; s=zohoarc;
+	b=YcBAYq3xYJX8OxFwFbP8yxR5AdT4MoK6Q1gYtJ49FZtzq5NCKV5hVJSh+ZPmt3YHJlApsxpHBjNPMFIVLDc87apbfF5t+Ur7Xaj9xXnRZtv7L79d8sMTP7bUAjbxzc6iUgagMwjy8koqgY4xC31YZYADpjWI+9SiJ8ueG9bhD48=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc;
+	t=1701481116;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+	bh=NG3fV4+q2+cTJrIUSZH6I9+RUkj3JuMjAS6T7Sh8Krc=;
+	b=P+48ZMGkORilTtr0rY+ma+EuqL7L7ChAHXmHMvAvmEPKnP7XjEuUGwoSbXruxJ++BppQGqHRjvVAKJYoFPaWE2RnInOLC6vG6p+i4Z1gOcmQYInP1VnzqLr/clQIS5EfuqPoRkKURVhKwIEMJIbZqb04k6yaTptvHDeSKDIFDH0=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	spf=pass  smtp.mailfrom=pascal@pascalcompiles.com;
+	dmarc=pass header.from=<pascal@pascalcompiles.com>
+Received: from rebelrebel.vs.shawcable.net (S01068c763f5f99ac.vs.shawcable.net
+ [96.55.45.185]) by mx.zohomail.com
+	with SMTPS id 17014811156103.491290640252373;
+ Fri, 1 Dec 2023 17:38:35 -0800 (PST)
+From: =?UTF-8?q?Pascal=20No=C3=ABl?= <pascal@pascalcompiles.com>
+To: perex@perex.cz,
+	tiwai@suse.com
+Cc: kailang@realtek.com,
+	sbinding@opensource.cirrus.com,
+	luke@ljones.dev,
+	andy.chi@canonical.com,
+	shenghao-ding@ti.com,
+	l.guzenko@web.de,
+	ruinairas1992@gmail.com,
+	yangyuchi66@gmail.com,
+	vitalyr@opensource.cirrus.com,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	pascal@pascalcompiles.com
+Subject: [PATCH] ALSA: hda/realtek: Apply quirk for ASUS UM3504DA
+Date: Fri,  1 Dec 2023 17:37:44 -0800
+Message-ID: <20231202013744.12369-1-pascal@pascalcompiles.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-MailFrom: s@srd.tw
+X-ZohoMailClient: External
+X-MailFrom: pascal@pascalcompiles.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: UVA4J6W35PZX5IRWJTVAY2ZLIFQQROHW
-X-Message-ID-Hash: UVA4J6W35PZX5IRWJTVAY2ZLIFQQROHW
+Message-ID-Hash: GTFM2EY5NQJ6NTIKU77CWDUAFV4JPTIX
+X-Message-ID-Hash: GTFM2EY5NQJ6NTIKU77CWDUAFV4JPTIX
 X-Mailman-Approved-At: Mon, 04 Dec 2023 07:36:08 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UVA4J6W35PZX5IRWJTVAY2ZLIFQQROHW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GTFM2EY5NQJ6NTIKU77CWDUAFV4JPTIX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,77 +103,26 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-These values mirror those of the Pioneer DJM-250MK2 as the channel layout
-appears identical based on my observations. This duplication could be removed in
-later contributions if desired.
+The ASUS UM3504DA uses a Realtek HDA codec and two CS35L41 amplifiers via I2C.
+Apply existing quirk to model.
 
-Signed-off-by: Sarah Grant <s@srd.tw>
+Signed-off-by: Pascal Noël <pascal@pascalcompiles.com>
 ---
- sound/usb/mixer_quirks.c | 30 ++++++++++++++++++++++++++++++
- 1 file changed, 30 insertions(+)
+ sound/pci/hda/patch_realtek.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/usb/mixer_quirks.c b/sound/usb/mixer_quirks.c
-index 898bc3baca7b..c8d48566e175 100644
---- a/sound/usb/mixer_quirks.c
-+++ b/sound/usb/mixer_quirks.c
-@@ -2978,6 +2978,7 @@ static int snd_bbfpro_controls_create(struct usb_mixer_interface *mixer)
- #define SND_DJM_850_IDX		0x2
- #define SND_DJM_900NXS2_IDX	0x3
- #define SND_DJM_750MK2_IDX	0x4
-+#define SND_DJM_450_IDX		0x5
- 
- 
- #define SND_DJM_CTL(_name, suffix, _default_value, _windex) { \
-@@ -3108,6 +3109,31 @@ static const struct snd_djm_ctl snd_djm_ctls_250mk2[] = {
- };
- 
- 
-+// DJM-450
-+static const u16 snd_djm_opts_450_cap1[] = {
-+	0x0103, 0x0100, 0x0106, 0x0107, 0x0108, 0x0109, 0x010d, 0x010a };
-+
-+static const u16 snd_djm_opts_450_cap2[] = {
-+	0x0203, 0x0200, 0x0206, 0x0207, 0x0208, 0x0209, 0x020d, 0x020a };
-+
-+static const u16 snd_djm_opts_450_cap3[] = {
-+	0x030a, 0x0311, 0x0312, 0x0307, 0x0308, 0x0309, 0x030d };
-+
-+static const u16 snd_djm_opts_450_pb1[] = { 0x0100, 0x0101, 0x0104 };
-+static const u16 snd_djm_opts_450_pb2[] = { 0x0200, 0x0201, 0x0204 };
-+static const u16 snd_djm_opts_450_pb3[] = { 0x0300, 0x0301, 0x0304 };
-+
-+static const struct snd_djm_ctl snd_djm_ctls_450[] = {
-+	SND_DJM_CTL("Capture Level", cap_level, 0, SND_DJM_WINDEX_CAPLVL),
-+	SND_DJM_CTL("Ch1 Input",   450_cap1, 2, SND_DJM_WINDEX_CAP),
-+	SND_DJM_CTL("Ch2 Input",   450_cap2, 2, SND_DJM_WINDEX_CAP),
-+	SND_DJM_CTL("Ch3 Input",   450_cap3, 0, SND_DJM_WINDEX_CAP),
-+	SND_DJM_CTL("Ch1 Output",   450_pb1, 0, SND_DJM_WINDEX_PB),
-+	SND_DJM_CTL("Ch2 Output",   450_pb2, 1, SND_DJM_WINDEX_PB),
-+	SND_DJM_CTL("Ch3 Output",   450_pb3, 2, SND_DJM_WINDEX_PB)
-+};
-+
-+
- // DJM-750
- static const u16 snd_djm_opts_750_cap1[] = {
- 	0x0101, 0x0103, 0x0106, 0x0107, 0x0108, 0x0109, 0x010a, 0x010f };
-@@ -3203,6 +3229,7 @@ static const struct snd_djm_device snd_djm_devices[] = {
- 	[SND_DJM_850_IDX] = SND_DJM_DEVICE(850),
- 	[SND_DJM_900NXS2_IDX] = SND_DJM_DEVICE(900nxs2),
- 	[SND_DJM_750MK2_IDX] = SND_DJM_DEVICE(750mk2),
-+	[SND_DJM_450_IDX] = SND_DJM_DEVICE(450),
- };
- 
- 
-@@ -3454,6 +3481,9 @@ int snd_usb_mixer_apply_create_quirk(struct usb_mixer_interface *mixer)
- 	case USB_ID(0x2b73, 0x0017): /* Pioneer DJ DJM-250MK2 */
- 		err = snd_djm_controls_create(mixer, SND_DJM_250MK2_IDX);
- 		break;
-+	case USB_ID(0x2b73, 0x0013): /* Pioneer DJ DJM-450 */
-+		err = snd_djm_controls_create(mixer, SND_DJM_450_IDX);
-+		break;
- 	case USB_ID(0x08e4, 0x017f): /* Pioneer DJ DJM-750 */
- 		err = snd_djm_controls_create(mixer, SND_DJM_750_IDX);
- 		break;
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index f9ddacfd9..ddd74f5d3 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -9963,6 +9963,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1043, 0x17f3, "ROG Ally RC71L_RC71L", ALC294_FIXUP_ASUS_ALLY),
+ 	SND_PCI_QUIRK(0x1043, 0x1881, "ASUS Zephyrus S/M", ALC294_FIXUP_ASUS_GX502_PINS),
+ 	SND_PCI_QUIRK(0x1043, 0x18b1, "Asus MJ401TA", ALC256_FIXUP_ASUS_HEADSET_MIC),
++	SND_PCI_QUIRK(0x1043, 0x18d3, "ASUS UM3504DA", ALC294_FIXUP_CS35L41_I2C_2),
+ 	SND_PCI_QUIRK(0x1043, 0x18f1, "Asus FX505DT", ALC256_FIXUP_ASUS_HEADSET_MIC),
+ 	SND_PCI_QUIRK(0x1043, 0x194e, "ASUS UX563FD", ALC294_FIXUP_ASUS_HPE),
+ 	SND_PCI_QUIRK(0x1043, 0x1970, "ASUS UX550VE", ALC289_FIXUP_ASUS_GA401),
 -- 
-2.39.3 (Apple Git-145)
+2.43.0
 

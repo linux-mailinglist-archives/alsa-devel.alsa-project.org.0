@@ -2,76 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50DB2801CE4
-	for <lists+alsa-devel@lfdr.de>; Sat,  2 Dec 2023 14:05:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24616801CDA
+	for <lists+alsa-devel@lfdr.de>; Sat,  2 Dec 2023 14:05:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EAB69850;
-	Sat,  2 Dec 2023 14:05:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EAB69850
+	by alsa0.perex.cz (Postfix) with ESMTPS id 70AC4950;
+	Sat,  2 Dec 2023 14:05:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 70AC4950
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701522338;
-	bh=jjP33ia6jjy5jvr8HZhB8wKNTL96MihG/pYl/DUDXE4=;
+	s=default; t=1701522317;
+	bh=mWLgxz9BTQu0Tlzq7LdKY7i41nORifON6v+hcWECQ2o=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=tgJ4i7WH3AgYFcziEt+w/YI5HtIMVURkW2u7L7nyDak4oXVOfUyb6bfRRGKB+MaEl
-	 ORf9b1eE9G7STGQRVVczm0jkLtPCGhbTVEHPDP9kMBEvgOUP6nZZZ0D5cViErvbWhf
-	 3WHMAaMUpyeE1f2INP/R5xuM9xNPFtr3UWKWcDws=
+	b=OO+PqY9r6143j9hzG2h5hIb0ZpJ593uc8sW1mGidtO5hgKIuAIesujcgPm6fyZbVk
+	 CfvS3bhaHk243wDa3rWhYOZJ3dBKPbIMiBzbHcJnTLLAz76X9IkrbjyeB8J+4vU7R+
+	 Yguriz7GHsRBHnBpSDyxa62XJ6E3ryJe2sQQDnwU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2D8EAF805BF; Sat,  2 Dec 2023 14:04:52 +0100 (CET)
+	id B80F3F80568; Sat,  2 Dec 2023 14:04:49 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A562AF80563;
-	Sat,  2 Dec 2023 14:04:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2202DF80571;
+	Sat,  2 Dec 2023 14:04:45 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AEFDDF801D5; Sat,  2 Dec 2023 13:46:47 +0100 (CET)
+	id 8B6F9F80246; Sat,  2 Dec 2023 13:46:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
+	RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,T_SCC_BODY_TEXT_LINE
+	shortcircuit=no autolearn=unavailable autolearn_force=no version=3.4.6
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1D17FF8016E
-	for <alsa-devel@alsa-project.org>; Sat,  2 Dec 2023 13:40:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D17FF8016E
+	by alsa1.perex.cz (Postfix) with ESMTPS id ACD2FF80236
+	for <alsa-devel@alsa-project.org>; Sat,  2 Dec 2023 13:40:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ACD2FF80236
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256
- header.s=mimecast20190719 header.b=H1DBHgGU
+ header.s=mimecast20190719 header.b=KZhfFZgG
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1701520807;
+	s=mimecast20190719; t=1701520808;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=JDCpFfLdsEm148zR6cu7rBXtHBGpX0V9fcZdqpC/P1A=;
-	b=H1DBHgGU5z7vmGCfqtZbzxVhHWg4cty4m2CluZTJCJ5yLkDns+o8ynSL50JyP9j7+5pocS
-	2jGEuLTHUUJCAMBOHe/MZv/70MmKpnW7MtWY1c3A2wq85zNpQFjchO9p2/Pn0EYjKyOVtU
-	i4anBJGM8SlKlKLkNfMO5X0IpH2Ts8g=
+	bh=eGNtXxlETUR2HKEZjsbl8rq9Ox7OuBZNnqk3sLNmuS8=;
+	b=KZhfFZgGNnwFOA8qwjcZwcvkFMQiDpSZvt///APnY9hdsz39JZ76p9NjjslX/HUcgNufFM
+	rrt4MjwTZqlukUuyLBPyuwMA913WBDo2n71/eyLeGrcwfyoorwBsRr+107w1oKsV21yOCH
+	qJx6xRqQU/vgP0YiTaNykQIEB1zM9jA=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-145-d74ZFi7cMNSeYlnwcsbibQ-1; Sat, 02 Dec 2023 07:40:03 -0500
-X-MC-Unique: d74ZFi7cMNSeYlnwcsbibQ-1
+ us-mta-323-PIkTmRgxN-q0h2Rwytu8eA-1; Sat, 02 Dec 2023 07:40:05 -0500
+X-MC-Unique: PIkTmRgxN-q0h2Rwytu8eA-1
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
  [10.11.54.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F117D83FC2D;
-	Sat,  2 Dec 2023 12:40:02 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6CC56101A52D;
+	Sat,  2 Dec 2023 12:40:04 +0000 (UTC)
 Received: from localhost.localdomain (unknown [10.39.192.45])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id C63652026D4C;
-	Sat,  2 Dec 2023 12:40:01 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 2E3142026D4C;
+	Sat,  2 Dec 2023 12:40:03 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
 To: Cezary Rojewski <cezary.rojewski@intel.com>,
 	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
@@ -82,10 +81,10 @@ Cc: Hans de Goede <hdegoede@redhat.com>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
 	David Yang <yangxiaohua@everest-semi.com>,
 	alsa-devel@alsa-project.org
-Subject: [PATCH v2 3/4] ASoC: Intel: bytcht_es8316: Add is_bytcr helper
- variable
-Date: Sat,  2 Dec 2023 13:39:45 +0100
-Message-ID: <20231202123946.54347-4-hdegoede@redhat.com>
+Subject: [PATCH v2 4/4] ASoC: Intel: bytcht_es8316: Determine quirks/routing
+ with codec-dev ACPI DSM
+Date: Sat,  2 Dec 2023 13:39:46 +0100
+Message-ID: <20231202123946.54347-5-hdegoede@redhat.com>
 In-Reply-To: <20231202123946.54347-1-hdegoede@redhat.com>
 References: <20231202123946.54347-1-hdegoede@redhat.com>
 MIME-Version: 1.0
@@ -94,8 +93,8 @@ X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="US-ASCII"; x-default=true
-Message-ID-Hash: ZQF6ODXP27RV4HNAOIRPQWDUKS4CJLFO
-X-Message-ID-Hash: ZQF6ODXP27RV4HNAOIRPQWDUKS4CJLFO
+Message-ID-Hash: PAMZYQCSFIAQ67L4EQZL7ZCWGL4FLOIC
+X-Message-ID-Hash: PAMZYQCSFIAQ67L4EQZL7ZCWGL4FLOIC
 X-MailFrom: hdegoede@redhat.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -108,7 +107,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZQF6ODXP27RV4HNAOIRPQWDUKS4CJLFO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PAMZYQCSFIAQ67L4EQZL7ZCWGL4FLOIC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,46 +116,111 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add a is_bytcr helper variable to probe().
+Add support for querying the same ACPI Device-Specific-Method (DSM) as
+Windows uses to determine things like speaker and mic routing.
 
-This is a preparation patch for determining the quirks through querying
-the ACPI Device-Specific-Method (DSM) on the codec-device.
+This avoids the need to add DMI quirks for each new ESS8316 tablet model.
+
+This has been tested on the following devices:
+
+1. Chuwi Hi12 CHT with stereo speakers and IN2-mic-map,
+   this avoids the need to add a DMI quirk for this model.
+
+2. Nanote UMPC-01 CHT with stereo speakers and IN1-mic-map,
+   the existing DMI quirk is still necessary because of a bug
+   in the DSM return values for the speakers (it returns mono).
+
+3. Onda V80 plus CHT with mono speaker and IN1-mic-map,
+   DSM set quirks match the previously used defaults.
+
+4. GP-electronic T701 BYT with mono speaker and IN2-mic-map,
+   DSM set quirks match the previously used defaults.
 
 Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 ---
- sound/soc/intel/boards/bytcht_es8316.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ sound/soc/intel/boards/bytcht_es8316.c | 62 ++++++++++++++++++++++++++
+ 1 file changed, 62 insertions(+)
 
 diff --git a/sound/soc/intel/boards/bytcht_es8316.c b/sound/soc/intel/boards/bytcht_es8316.c
-index e6ab1ee6ab29..0d6574678317 100644
+index 0d6574678317..1564a88a885e 100644
 --- a/sound/soc/intel/boards/bytcht_es8316.c
 +++ b/sound/soc/intel/boards/bytcht_es8316.c
-@@ -471,10 +471,10 @@ static int snd_byt_cht_es8316_mc_probe(struct platform_device *pdev)
- 	struct byt_cht_es8316_private *priv;
- 	const struct dmi_system_id *dmi_id;
- 	struct fwnode_handle *fwnode;
-+	bool sof_parent, is_bytcr;
- 	const char *platform_name;
- 	struct acpi_device *adev;
- 	struct device *codec_dev;
--	bool sof_parent;
- 	unsigned int cnt = 0;
- 	int dai_index = 0;
- 	int i;
-@@ -524,11 +524,11 @@ static int snd_byt_cht_es8316_mc_probe(struct platform_device *pdev)
- 	es83xx_dsm_dump(priv->codec_dev);
+@@ -462,6 +462,66 @@ static const struct dmi_system_id byt_cht_es8316_quirk_table[] = {
+ 	{}
+ };
  
- 	/* Check for BYTCR or other platform and setup quirks */
-+	is_bytcr = soc_intel_is_byt() && mach->mach_params.acpi_ipc_irq_index == 0;
++static int byt_cht_es8316_get_quirks_from_dsm(struct byt_cht_es8316_private *priv,
++					      bool is_bytcr)
++{
++	int ret, val1, val2, dsm_quirk = 0;
++
++	if (is_bytcr)
++		dsm_quirk |= BYT_CHT_ES8316_SSP0;
++
++	ret = es83xx_dsm(priv->codec_dev, PLATFORM_MAINMIC_TYPE_ARG, &val1);
++	if (ret < 0)
++		return ret;
++
++	ret = es83xx_dsm(priv->codec_dev, PLATFORM_HPMIC_TYPE_ARG, &val2);
++	if (ret < 0)
++		return ret;
++
++	if (val1 == PLATFORM_MIC_AMIC_LIN1RIN1 && val2 == PLATFORM_MIC_AMIC_LIN2RIN2) {
++		dsm_quirk |= BYT_CHT_ES8316_INTMIC_IN1_MAP;
++	} else if (val1 == PLATFORM_MIC_AMIC_LIN2RIN2 && val2 == PLATFORM_MIC_AMIC_LIN1RIN1) {
++		dsm_quirk |= BYT_CHT_ES8316_INTMIC_IN2_MAP;
++	} else {
++		dev_warn(priv->codec_dev, "Unknown mic settings mainmic 0x%02x hpmic 0x%02x\n",
++			 val1, val2);
++		return -EINVAL;
++	}
++
++	ret = es83xx_dsm(priv->codec_dev, PLATFORM_SPK_TYPE_ARG, &val1);
++	if (ret < 0)
++		return ret;
++
++	switch (val1) {
++	case PLATFORM_SPK_MONO:
++		dsm_quirk |= BYT_CHT_ES8316_MONO_SPEAKER;
++		break;
++	case PLATFORM_SPK_STEREO:
++		break;
++	default:
++		dev_warn(priv->codec_dev, "Unknown speaker setting 0x%02x\n", val1);
++		return -EINVAL;
++	}
++
++	ret = es83xx_dsm(priv->codec_dev, PLATFORM_HPDET_INV_ARG, &val1);
++	if (ret < 0)
++		return ret;
++
++	switch (val1) {
++	case PLATFORM_HPDET_NORMAL:
++		break;
++	case PLATFORM_HPDET_INVERTED:
++		dsm_quirk |= BYT_CHT_ES8316_JD_INVERTED;
++		break;
++	default:
++		dev_warn(priv->codec_dev, "Unknown hpdet-inv setting 0x%02x\n", val1);
++		return -EINVAL;
++	}
++
++	quirk = dsm_quirk;
++	return 0;
++}
++
+ static int snd_byt_cht_es8316_mc_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
+@@ -528,6 +588,8 @@ static int snd_byt_cht_es8316_mc_probe(struct platform_device *pdev)
  	dmi_id = dmi_first_match(byt_cht_es8316_quirk_table);
  	if (dmi_id) {
  		quirk = (unsigned long)dmi_id->driver_data;
--	} else if (soc_intel_is_byt() &&
--		   mach->mach_params.acpi_ipc_irq_index == 0) {
-+	} else if (is_bytcr) {
++	} else if (!byt_cht_es8316_get_quirks_from_dsm(priv, is_bytcr)) {
++		dev_info(dev, "Using ACPI DSM info for quirks\n");
+ 	} else if (is_bytcr) {
  		/* On BYTCR default to SSP0, internal-mic-in2-map, mono-spk */
  		quirk = BYT_CHT_ES8316_SSP0 | BYT_CHT_ES8316_INTMIC_IN2_MAP |
- 			BYT_CHT_ES8316_MONO_SPEAKER;
 -- 
 2.41.0
 

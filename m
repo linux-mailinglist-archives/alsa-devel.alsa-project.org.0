@@ -2,78 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D38D806871
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Dec 2023 08:32:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70181806877
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Dec 2023 08:32:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C86D17F4;
-	Wed,  6 Dec 2023 08:31:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C86D17F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0BBFB850;
+	Wed,  6 Dec 2023 08:32:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0BBFB850
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701847927;
-	bh=UpKiTiLV03HLrMK8OyY7m+bGEMtR9L95NOiQzYClrhU=;
+	s=default; t=1701847939;
+	bh=CsNGEBaAgXMuiwwNS3spR69KibgosG3JVUYnC7LWwlU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Y2LJ95sLq9qaFWWqANoHZzZH9PCXscpLP4Z+0CCHoZ0l2HqldBdS84BXiCegpQ5fW
-	 9uWZeAFE01a/QIT537+wALyJkBgRF2ZI0Nxw34PIeer08QNA38tudN4dRJooxequF/
-	 d4QWtlI/Ge2Ct2APJUi/Zkdx1iHcx/5Lpwseyrtk=
+	b=Kg6uVy1CPGfg3XUGRf3Nj3m1QlC3CsepgWfuW2f4WCsQcBNDysDCnDTI5g1SJopyG
+	 Fk5NZXLVpCk5oI3zp21mPqjcdRO6LLvjVDPr/Zxg9TaP8ZwLAyQSuJA1lIlb2vZa8C
+	 vxY1T9p1njroWgtf9iaKlvip1jPq8ICFHxfiUR60=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2692AF80587; Wed,  6 Dec 2023 08:31:28 +0100 (CET)
+	id 77A91F805A0; Wed,  6 Dec 2023 08:31:52 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 418D3F8057A;
-	Wed,  6 Dec 2023 08:31:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 02FF1F805AE;
+	Wed,  6 Dec 2023 08:31:49 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3167DF8024E; Mon,  4 Dec 2023 14:08:13 +0100 (CET)
+	id F1527F8024E; Mon,  4 Dec 2023 19:51:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A7210F800D2
-	for <alsa-devel@alsa-project.org>; Mon,  4 Dec 2023 14:07:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7210F800D2
+	by alsa1.perex.cz (Postfix) with ESMTPS id 81076F800E4
+	for <alsa-devel@alsa-project.org>; Mon,  4 Dec 2023 19:51:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81076F800E4
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=WEIOvZka
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1701695280; x=1733231280;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=UpKiTiLV03HLrMK8OyY7m+bGEMtR9L95NOiQzYClrhU=;
-  b=WEIOvZkaWSTgiLdPZ1KufGJndg7S4Sj8vWbR/eKvXu910sL4UfzZNFu3
-   VTUAyfb4oWg3AprylRpqoEGpV8vxlUCo1NFWxaafTQ/BNbLQneAxW858x
-   cS0lbOoX53s/tDLLCBqSpanSciLUgbY/WkID8OoCQosMGIgomPyV3z/k+
-   7wPKjBkMYH+HLDffBikkmGysdWocspNwBRX78mfxubL+8TeU6qR7amtfK
-   TaAKd14MuJt5gPEaiO3nmobfQY53zG9tLop3qXcRP6IlMq5qguRiqX+sz
-   hLSDDN1YfBKMDc2nhxOJS17VPk3QWPTrdIfmv+sJMzSZZEOcsd/91xa4W
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10913"; a="15275199"
-X-IronPort-AV: E=Sophos;i="6.04,249,1695711600";
-   d="scan'208";a="15275199"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Dec 2023 05:07:37 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10913"; a="763935696"
-X-IronPort-AV: E=Sophos;i="6.04,249,1695711600";
-   d="scan'208";a="763935696"
-Received: from smile.fi.intel.com ([10.237.72.54])
-  by orsmga007.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Dec 2023 05:07:13 -0800
-Received: from andy by smile.fi.intel.com with local (Exim 4.97)
-	(envelope-from <andriy.shevchenko@linux.intel.com>)
-	id 1rA8fA-00000001kqj-2oCl;
-	Mon, 04 Dec 2023 15:07:04 +0200
-Date: Mon, 4 Dec 2023 15:07:04 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256
+ header.s=susede2_rsa header.b=EByuai1M;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=Hx5tOFqY
+Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org
+ [10.150.64.98])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 0C18D1FE69;
+	Mon,  4 Dec 2023 18:51:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_rsa;
+	t=1701715862;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=irUnd9FLl+EUyGzI1qEoZWcYrjl3IwQklkC+h2BTDz0=;
+	b=EByuai1Metf6nZ4eWcflNdTaiOsdOPFT0XIod8qMkiKMfoAVcf9hBeWKzdtVb2Q9NOWDZK
+	2GkC13SE9wa+9d26FAFqWuHScQDST+kxG5daHWbuEs0CGbznv5z+TUXrQ5PP3e35WiK4PB
+	BhH8eD00mImjTD5xHX5KBG9OSRE0wCU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1701715862;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=irUnd9FLl+EUyGzI1qEoZWcYrjl3IwQklkC+h2BTDz0=;
+	b=Hx5tOFqYbxKAaw2ce8F0gO8pu8MpJW6JfFTn3x6iMlbg+lg4BbKQXRRkO5XxWIA39gNH2Z
+	qCm6MjSZZ/3dkqAQ==
+Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id EAE59139E2;
+	Mon,  4 Dec 2023 18:51:01 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([10.150.64.162])
+	by imap2.dmz-prg2.suse.org with ESMTPSA
+	id 3iJWOZUfbmXiYQAAn2gu4w
+	(envelope-from <jack@suse.cz>); Mon, 04 Dec 2023 18:51:01 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 6870FA07DB; Mon,  4 Dec 2023 19:51:01 +0100 (CET)
+Date: Mon, 4 Dec 2023 19:51:01 +0100
+From: Jan Kara <jack@suse.cz>
 To: Yury Norov <yury.norov@gmail.com>
 Cc: linux-kernel@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
 	"H. Peter Anvin" <hpa@zytor.com>,
@@ -143,19 +156,44 @@ Cc: linux-kernel@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
 	Mirsad Todorovac <mirsad.todorovac@alu.unizg.hr>,
 	Matthew Wilcox <willy@infradead.org>,
 	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
 	Maxim Kuvyrkov <maxim.kuvyrkov@linaro.org>,
 	Alexey Klimov <klimov.linux@gmail.com>,
 	Bart Van Assche <bvanassche@acm.org>,
 	Sergey Shtylyov <s.shtylyov@omp.ru>
 Subject: Re: [PATCH v2 00/35] bitops: add atomic find_bit() operations
-Message-ID: <ZW3O-P_98eubKxMU@smile.fi.intel.com>
+Message-ID: <20231204185101.ddmkvsr2xxsmoh2u@quack3>
 References: <20231203192422.539300-1-yury.norov@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 In-Reply-To: <20231203192422.539300-1-yury.norov@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-X-MailFrom: andriy.shevchenko@linux.intel.com
+Authentication-Results: smtp-out2.suse.de;
+	none
+X-Spamd-Result: default: False [-2.10 / 50.00];
+	 ARC_NA(0.00)[];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 BAYES_HAM(-3.00)[100.00%];
+	 FROM_HAS_DN(0.00)[];
+	 TO_DN_SOME(0.00)[];
+	 FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	 NEURAL_HAM_LONG(-1.00)[-1.000];
+	 TAGGED_RCPT(0.00)[];
+	 MIME_GOOD(-0.10)[text/plain];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 TO_MATCH_ENVRCPT_SOME(0.00)[];
+	 DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	 RCPT_COUNT_GT_50(0.00)[100];
+	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email];
+	 FREEMAIL_TO(0.00)[gmail.com];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+];
+	 MID_RHS_NOT_FQDN(0.50)[];
+	 FREEMAIL_CC(0.00)[vger.kernel.org,davemloft.net,zytor.com,linux.ibm.com,microsoft.com,ionos.com,gmail.com,linux-foundation.org,kernel.org,alien8.de,nvidia.com,opensource.wdc.com,linux.intel.com,suse.de,google.com,intel.com,linux-m68k.org,linuxfoundation.org,xs4all.nl,redhat.com,perex.cz,ziepe.ca,kernel.dk,resnulli.us,linux-pingi.de,chromium.org,arm.com,ellerman.id.au,monstr.eu,suse.com,infradead.org,realtek.com,libc.org,linux.alibaba.com,wp.pl,goodmis.org,alpha.franken.de,linutronix.de,users.sourceforge.jp,marvell.com,alsa-project.org,lists.infradead.org,lists.linux.dev,lists.linux-m68k.org,amd.com,lists.ozlabs.org,broadcom.com,suse.cz,alu.unizg.hr,rasmusvillemoes.dk,linaro.org,acm.org,omp.ru];
+	 RCVD_TLS_ALL(0.00)[];
+	 SUSPICIOUS_RECIPS(1.50)[]
+X-MailFrom: jack@suse.cz
 X-Mailman-Rule-Hits: max-recipients
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -163,15 +201,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
  suspicious-header
-Message-ID-Hash: 2NJSDXCYDO3TYRNCZ2SGEGW6NJKYYIMT
-X-Message-ID-Hash: 2NJSDXCYDO3TYRNCZ2SGEGW6NJKYYIMT
-X-Mailman-Approved-At: Wed, 06 Dec 2023 07:30:26 +0000
+Message-ID-Hash: Y7RDDRWCYR5TPHW6F6CREHTTUWTPLFBW
+X-Message-ID-Hash: Y7RDDRWCYR5TPHW6F6CREHTTUWTPLFBW
+X-Mailman-Approved-At: Wed, 06 Dec 2023 07:31:37 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2NJSDXCYDO3TYRNCZ2SGEGW6NJKYYIMT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Y7RDDRWCYR5TPHW6F6CREHTTUWTPLFBW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -180,7 +218,9 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sun, Dec 03, 2023 at 11:23:47AM -0800, Yury Norov wrote:
+Hello Yury!
+
+On Sun 03-12-23 11:23:47, Yury Norov wrote:
 > Add helpers around test_and_{set,clear}_bit() that allow to search for
 > clear or set bits and flip them atomically.
 > 
@@ -207,62 +247,12 @@ On Sun, Dec 03, 2023 at 11:23:47AM -0800, Yury Norov wrote:
 > 
 > Or:
 > 	return find_and_clear_bit(bitmap, nbits);
-> 
-> Obviously, the less routine code people have to write themself, the
-> less probability to make a mistake.
-> 
-> Those are not only handy helpers but also resolve a non-trivial
-> issue of using non-atomic find_bit() together with atomic
-> test_and_{set,clear)_bit().
-> 
-> The trick is that find_bit() implies that the bitmap is a regular
-> non-volatile piece of memory, and compiler is allowed to use such
-> optimization techniques like re-fetching memory instead of caching it.
-> 
-> For example, find_first_bit() is implemented like this:
-> 
->       for (idx = 0; idx * BITS_PER_LONG < sz; idx++) {
->               val = addr[idx];
->               if (val) {
->                       sz = min(idx * BITS_PER_LONG + __ffs(val), sz);
->                       break;
->               }
->       }
-> 
-> On register-memory architectures, like x86, compiler may decide to
-> access memory twice - first time to compare against 0, and second time
-> to fetch its value to pass it to __ffs().
-> 
-> When running find_first_bit() on volatile memory, the memory may get
-> changed in-between, and for instance, it may lead to passing 0 to
-> __ffs(), which is undefined. This is a potentially dangerous call.
-> 
-> find_and_clear_bit() as a wrapper around test_and_clear_bit()
-> naturally treats underlying bitmap as a volatile memory and prevents
-> compiler from such optimizations.
-> 
-> Now that KCSAN is catching exactly this type of situations and warns on
-> undercover memory modifications. We can use it to reveal improper usage
-> of find_bit(), and convert it to atomic find_and_*_bit() as appropriate.
-> 
-> The 1st patch of the series adds the following atomic primitives:
-> 
-> 	find_and_set_bit(addr, nbits);
-> 	find_and_set_next_bit(addr, nbits, start);
-> 	...
-> 
-> Here find_and_{set,clear} part refers to the corresponding
-> test_and_{set,clear}_bit function. Suffixes like _wrap or _lock
-> derive their semantics from corresponding find() or test() functions.
-> 
-> For brevity, the naming omits the fact that we search for zero bit in
-> find_and_set, and correspondingly search for set bit in find_and_clear
-> functions.
-> 
-> The patch also adds iterators with atomic semantics, like
-> for_each_test_and_set_bit(). Here, the naming rule is to simply prefix
-> corresponding atomic operation with 'for_each'.
-> 
+
+These are fine cleanups but they actually don't address the case that has
+triggered all these changes - namely the xarray use of find_next_bit() in
+xas_find_chunk().
+
+...
 > This series is a result of discussion [1]. All find_bit() functions imply
 > exclusive access to the bitmaps. However, KCSAN reports quite a number
 > of warnings related to find_bit() API. Some of them are not pointing
@@ -272,7 +262,16 @@ On Sun, Dec 03, 2023 at 11:23:47AM -0800, Yury Norov wrote:
 > If so, find_bit() can be annotated such that KCSAN will ignore it:
 > 
 >         bit = data_race(find_first_bit(bitmap, nbits));
-> 
+
+No, this is not a correct thing to do. If concurrent bitmap changes can
+happen, find_first_bit() as it is currently implemented isn't ever a safe
+choice because it can call __ffs(0) which is dangerous as you properly note
+above. I proposed adding READ_ONCE() into find_first_bit() / find_next_bit()
+implementation to fix this issue but you disliked that. So other option we
+have is adding find_first_bit() and find_next_bit() variants that take
+volatile 'addr' and we have to use these in code like xas_find_chunk()
+which cannot be converted to your new helpers.
+
 > This series addresses the other important case where people really need
 > atomic find ops. As the following patches show, the resulting code
 > looks safer and more verbose comparing to opencoded loops followed by
@@ -282,19 +281,23 @@ On Sun, Dec 03, 2023 at 11:23:47AM -0800, Yury Norov wrote:
 > switching find_bit() function to treat bitmaps as volatile arrays. On
 > the other hand, kernel robot in the same thread reported +3.7% to the
 > performance of will-it-scale.per_thread_ops test.
-> 
+
+It was actually me who reported the regression here [2] but whatever :)
+
+[2] https://lore.kernel.org/all/20231011150252.32737-1-jack@suse.cz
+
 > Assuming that our compilers are sane and generate better code against
 > properly annotated data, the above discrepancy doesn't look weird. When
 > running on non-volatile bitmaps, plain find_bit() outperforms atomic
 > find_and_bit(), and vice-versa.
+> 
+> So, all users of find_bit() API, where heavy concurrency is expected,
+> are encouraged to switch to atomic find_and_bit() as appropriate.
 
-...
+Well, all users where any concurrency can happen should switch. Otherwise
+they are prone to the (admittedly mostly theoretical) data race issue.
 
-In some cases the better improvements can be achieved by switching
-the (very) old code to utilise IDA framework.
-
+								Honza
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR

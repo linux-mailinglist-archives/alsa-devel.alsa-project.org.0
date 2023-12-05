@@ -2,95 +2,114 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 960AB80595F
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Dec 2023 17:02:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FF148059A4
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Dec 2023 17:13:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4F42B208;
-	Tue,  5 Dec 2023 17:01:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4F42B208
+	by alsa0.perex.cz (Postfix) with ESMTPS id A5301857;
+	Tue,  5 Dec 2023 17:13:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5301857
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701792123;
-	bh=eX8OhMZSokhyU5v3JSffkIZ6nySYH16Uvt5sYcjUftY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1701792834;
+	bh=Gz0cFNyURzYW8J/8UVevGPtWRZuf532kI5dNajlh7dI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Yc7afxG1r3wuid20pNVNe+tqxTa+HfCfajicnD++/O0rrOWczJTXiu6ND3C7RzYWo
-	 DyyiyYAiHL1iHt9CRluvV4R7gPCUfeQ973PA51lY3mrPd8RE/C/gPeNDTWv5aoBUh9
-	 DJ38TBb5QnH+hgpu7yQz9fqYumVhyNSFop3Ue9Oc=
+	b=gvmLXejyAQ/ySCOPqg0CrG+cb13Ys1D++jDRaI7K3yBsBnILg9ITheTiCWvXaIAg7
+	 Ft2tkXU/MvvsWVQSezxNrkYGLVio/1HS06qglicMteE0Cy9z25RjD6y16KDIdi8WWo
+	 c/aOMgj/0Qa4YOYK9sOajkTPM3f+utwpRd9xqXOE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DA6FEF80568; Tue,  5 Dec 2023 17:01:30 +0100 (CET)
+	id 7A470F80557; Tue,  5 Dec 2023 17:13:24 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0BC96F800AC;
-	Tue,  5 Dec 2023 17:01:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9B92FF80571;
+	Tue,  5 Dec 2023 17:13:23 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0702CF8024E; Tue,  5 Dec 2023 17:01:26 +0100 (CET)
+	id EA48AF8025A; Tue,  5 Dec 2023 17:13:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from metis.whiteo.stw.pengutronix.de
+ (metis.whiteo.stw.pengutronix.de [IPv6:2a0a:edc0:2:b01:1d::104])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 96BEBF800F5
-	for <alsa-devel@alsa-project.org>; Tue,  5 Dec 2023 17:01:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96BEBF800F5
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=LRjxj5Cw
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1701792078; x=1733328078;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=eX8OhMZSokhyU5v3JSffkIZ6nySYH16Uvt5sYcjUftY=;
-  b=LRjxj5CwejeaFmrX2HYqI/mmSFf4NbHcsb0C/a1Q5fs7EpzQMmAKSUGh
-   mHHjR43jM2WPu9ShE9ziiyO4sCunEmAJLWFixP19d7tkJo1V+RLyJoCEG
-   h73dgNaI84UXy7DVXmPeJyPKWXaaxqkEAmMpETw4zZIGqLKOFd8Z1ouTk
-   hCG0xtGLooCM0DGhoQEwcxA4F1HDTag/na4PNMJnCNJ5aSwwxbA9b+sqE
-   keBEHAz5ZLwTueGnPAOJ+wu6cktT1QceQpeS+yXVUv05tAH6SJLwKX6Qi
-   NH2aXY5wd/8gb4ho5go9ef46jVVnRvhFT+gvK9aM3VtncJg7bGaF76KY1
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10915"; a="758203"
-X-IronPort-AV: E=Sophos;i="6.04,252,1695711600";
-   d="scan'208";a="758203"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Dec 2023 08:01:11 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10915"; a="914845112"
-X-IronPort-AV: E=Sophos;i="6.04,252,1695711600";
-   d="scan'208";a="914845112"
-Received: from mbapna-mobl1.amr.corp.intel.com (HELO [10.212.151.198])
- ([10.212.151.198])
-  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Dec 2023 08:01:09 -0800
-Message-ID: <a530e70a-2491-4270-b582-cd493d1512b1@linux.intel.com>
-Date: Tue, 5 Dec 2023 10:01:08 -0600
+	by alsa1.perex.cz (Postfix) with ESMTPS id 03680F800AC
+	for <alsa-devel@alsa-project.org>; Tue,  5 Dec 2023 17:13:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03680F800AC
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1rAY21-00048v-Nv; Tue, 05 Dec 2023 17:12:21 +0100
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.94.2)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1rAY1z-00DmUU-DU; Tue, 05 Dec 2023 17:12:19 +0100
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1rAY1z-00EqaV-2n; Tue, 05 Dec 2023 17:12:19 +0100
+Date: Tue, 5 Dec 2023 17:12:18 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Thierry Reding <thierry.reding@gmail.com>
+Cc: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>, Lee Jones <lee@kernel.org>,
+	Ulf Hansson <ulf.hansson@linaro.org>,
+	Tomasz Figa <tomasz.figa@gmail.com>,
+	Sylwester Nawrocki <s.nawrocki@samsung.com>,
+	Linus Walleij <linus.walleij@linaro.org>,
+	Alessandro Zummo <a.zummo@towertech.it>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaehoon Chung <jh80.chung@samsung.com>,
+	Sam Protsenko <semen.protsenko@linaro.org>,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org, linux-i2c@vger.kernel.org,
+	linux-iio@vger.kernel.org, linux-mmc@vger.kernel.org,
+	linux-gpio@vger.kernel.org, linux-pwm@vger.kernel.org,
+	linux-rtc@vger.kernel.org, linux-serial@vger.kernel.org,
+	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+	kernel@pengutronix.de
+Subject: Re: (subset) [PATCH 00/17] dt-bindings: samsung: add specific
+ compatibles for existing SoC
+Message-ID: <20231205161218.wymlzvhk4pnnkwze@pengutronix.de>
+References: <20231108104343.24192-1-krzysztof.kozlowski@linaro.org>
+ <170119374454.445690.515311393756577368.b4-ty@gmail.com>
+ <20231128205841.al23ra5s34rn3muj@pengutronix.de>
+ <ZW8ZNZ_FJSV8fq-U@orome.fritz.box>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] ALSA: hda/tas2563: Add tas2563 HDA driver
-Content-Language: en-US
-To: Gergo Koteles <soyer@irl.hu>, Shenghao Ding <shenghao-ding@ti.com>,
- Kevin Lu <kevin-lu@ti.com>, Baojun Xu <baojun.xu@ti.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
-References: <cover.1701733441.git.soyer@irl.hu>
- <4a2f31d4eb8479789ceb1daf2e93ec0e25c23171.1701733441.git.soyer@irl.hu>
- <90765ee0-a814-4852-9b2a-020cda98d930@linux.intel.com>
- <974d41f6c703d9b65ebcd75a2c659cecf13bd877.camel@irl.hu>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <974d41f6c703d9b65ebcd75a2c659cecf13bd877.camel@irl.hu>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: AEMOX2M6FXDEEGUCH2ESAGWCV5Y6PYG6
-X-Message-ID-Hash: AEMOX2M6FXDEEGUCH2ESAGWCV5Y6PYG6
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="dyjed4xxkou772mg"
+Content-Disposition: inline
+In-Reply-To: <ZW8ZNZ_FJSV8fq-U@orome.fritz.box>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: alsa-devel@alsa-project.org
+Message-ID-Hash: 3LJXBFYKXWKX7WZFI546C4V5DUPZWVTY
+X-Message-ID-Hash: 3LJXBFYKXWKX7WZFI546C4V5DUPZWVTY
+X-MailFrom: ukl@pengutronix.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -102,7 +121,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AEMOX2M6FXDEEGUCH2ESAGWCV5Y6PYG6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3LJXBFYKXWKX7WZFI546C4V5DUPZWVTY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,91 +131,84 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
->>> +
->>> +static void tas2563_fixup_i2c(struct hda_codec *cdc,
->>> +	const struct hda_fixup *fix, int action)
->>> +{
->>> +	 tas2xxx_generic_fixup(cdc, action, "i2c", "INT8866");
->>
->> Any specific reason to use an Intel ACPI identifier? Why not use
->> "TIAS2563" ?
->>
-> INT8866 is in the ACPI.
-> I don't know why Lenovo uses this name.
-> I think it's more internal than intel.
-> 
->    Scope (_SB.I2CD)
->     {
->         Device (TAS)
->         {
->             Name (_HID, "INT8866")  // _HID: Hardware ID
+--dyjed4xxkou772mg
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Ouch, I hope they checked with Intel that this isn't an HID already in
-use...
+Hello Thierry,
 
->             Name (_UID, Zero)  // _UID: Unique ID
->             Method (_CRS, 0, NotSerialized)  // _CRS: Current Resource
-> Settings
->             {
->                 Name (RBUF, ResourceTemplate ()
->                 {
->                     I2cSerialBusV2 (0x004C, ControllerInitiated,
-> 0x00061A80,
->                         AddressingMode7Bit, "\\_SB.I2CD",
->                         0x00, ResourceConsumer, , Exclusive,
->                         )
->                     I2cSerialBusV2 (0x004D, ControllerInitiated,
-> 0x00061A80,
->                         AddressingMode7Bit, "\\_SB.I2CD",
->                         0x00, ResourceConsumer, , Exclusive,
->                         )
->                     GpioInt (Edge, ActiveLow, SharedAndWake, PullNone,
-> 0x0000,
->                         "\\_SB.GPIO", 0x00, ResourceConsumer, ,
->                         )
->                         {   // Pin list
->                             0x0020
->                         }
->                 })
->                 Return (RBUF) /* \_SB_.I2CD.TAS_._CRS.RBUF */
->             }
-> 
->             Method (_STA, 0, NotSerialized)  // _STA: Status
->             {
->                 Return (0x0F)
->             }
->         }
->     }
+On Tue, Dec 05, 2023 at 01:36:05PM +0100, Thierry Reding wrote:
+> On Tue, Nov 28, 2023 at 09:58:41PM +0100, Uwe Kleine-K=F6nig wrote:
+> > On Tue, Nov 28, 2023 at 06:49:23PM +0100, Thierry Reding wrote:
+> > >=20
+> > > On Wed, 08 Nov 2023 11:43:26 +0100, Krzysztof Kozlowski wrote:
+> > > > Merging
+> > > > =3D=3D=3D=3D=3D=3D=3D
+> > > > I propose to take entire patchset through my tree (Samsung SoC), be=
+cause:
+> >     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> >=20
+> > > > 1. Next cycle two new SoCs will be coming (Google GS101 and ExynosA=
+utov920), so
+> > > >    they will touch the same lines in some of the DT bindings (not a=
+ll, though).
+> > > >    It is reasonable for me to take the bindings for the new SoCs, t=
+o have clean
+> > > >    `make dtbs_check` on the new DTS.
+> > > > 2. Having it together helps me to have clean `make dtbs_check` with=
+in my tree
+> > > >    on the existing DTS.
+> > > > 3. No drivers are affected by this change.
+> > > > 4. I plan to do the same for Tesla FSD and Exynos ARM32 SoCs, thus =
+expect
+> > > >    follow up patchsets.
+> > > >=20
+> > > > [...]
+> > >=20
+> > > Applied, thanks!
+> > >=20
+> > > [12/17] dt-bindings: pwm: samsung: add specific compatibles for exist=
+ing SoC
+> > >         commit: 5d67b8f81b9d598599366214e3b2eb5f84003c9f
+> >=20
+> > You didn't honor (or even comment) Krzysztof's proposal to take the
+> > whole patchset via his tree (marked above). Was there some off-list
+> > agreement?
+>=20
+> I had read all that and then looking at patchwork saw that you had
+> marked all other patches in the series as "handled-elsewhere" and only
+> this one was left as "new", so I assumed that, well, everything else was
+> handled elsewhere and I was supposed to pick this one up...
 
->>> +static int tas2563_system_resume(struct device *dev)
->>> +{
->>> +	int ret;
->>> +	struct tas2563_data *tas2563 = dev_get_drvdata(dev);
->>> +
->>> +	dev_dbg(tas2563->dev, "System Resume\n");
->>> +
->>> +	ret = pm_runtime_force_resume(dev);
->>> +	if (ret)
->>> +		return ret;
->>> +
->>> +	for (int i = 0; i < tas2563->ndev; ++i)
->>> +		tas2563_tasdev_setup(tas2563, &tas2563->tasdevs[i]);
->>> +
->>> +	return 0;
->>> +}
->>> +
->>> +static const struct dev_pm_ops tas2563_hda_pm_ops = {
->>> +	SYSTEM_SLEEP_PM_OPS(tas2563_system_suspend, tas2563_system_resume)
->>
->> where's the pm_runtime stuff?
->>
-> 
-> The amp stores its state in software shutdown mode.
-> The tas2563_hda_playback_hook wakes/shutdowns the amp, not the
-> pm_runtime.
+I didn't mark it as handled-elsewhere, but my expectation was that you
+might want to send an Ack only.
 
-My point was that you have all these pm_runtime_ calls in the code, but
-nothing that provides pm_runtime suspend-resume functions so not sure
-what exactly the result is?
+For today's series by Krzysztof I acked and marked the patch as
+handled-elsewhere (together with the rest of the series that isn't pwm
+related). So you have to consult your inbox if you still want to send an
+Ack for that one.
 
+Best regards
+Uwe
 
+--=20
+Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
+Industrial Linux Solutions                 | https://www.pengutronix.de/ |
+
+--dyjed4xxkou772mg
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmVvS+IACgkQj4D7WH0S
+/k4wwAf6AlMbQoIitSxoLyL8EPf/AFm1OReNOJVSWyeoYnXJ6AOvGwmxAqCesfcV
+8NCugoHjF1JiraIJPpyVgrmmas8T0uk5v4N32GPcL7ld1hBZGsH8B9GsuTioS5R7
++pMOUKwLPmf+vPiDCjkvAL9B3HOBCCSHjU6g9vf2b4O0dNvJK+vVFOuKPF5r+GQr
+fFPsuCRnPkkHNn8PWA6HWPUR+0V1rsyiabnsgxlnC6PPyu64tC9aD2Xto0+kM0D0
+WAdt4elH5P373tccyXATCZK4xaJWO4eHbzJTeVOCeEqcjB55BwuzMgVP8xQ85Mrx
+RHto9piBhu5zc5d4EcBjLTp4QpooUg==
+=k470
+-----END PGP SIGNATURE-----
+
+--dyjed4xxkou772mg--

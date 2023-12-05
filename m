@@ -2,92 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59D8A80589B
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Dec 2023 16:27:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90416805903
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Dec 2023 16:41:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F275DECD;
-	Tue,  5 Dec 2023 16:27:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F275DECD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 07E96E80;
+	Tue,  5 Dec 2023 16:41:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 07E96E80
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701790033;
-	bh=/hGchlnVO9M49Ub8L9agrY7aK/JcFgWSpoz50eS3HFw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1701790910;
+	bh=vjrlfMihEwbG4vZyrXSqd2uLeidXw1bqUTeh6X6XMdA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=P9IMcd0ohZCJRraAOBAqpF1LxOZ427gfCqNDj09969gE0OMrbpLJNX0892DrNkKnz
-	 84WxYlTMhgrd+PPfIVAAInvOVDsZ1JdKH97o4jUlHhyCpb0DIjbz/mItefmeFknwwb
-	 TR1+YSPlr7GWeKpFVEKRVNQU/CumEjt7RMlMh6mc=
+	b=of1r7OAVTYtyEtl2V4muWa/4sSl5vcycXJ+yVY7EgAVmI6GqKvYSrAFggwFnAKG+L
+	 2DY6VR5hjQJRtOv+/hUzCvMWaDTwNyTPSpSK/NtzZLVyIhAjoHeV7hVdpuHYEKJ0SQ
+	 BvY+VmIog7eTQI0Q7ZD7szkh65mEXnl8orcgR8Mg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CDB7BF8056F; Tue,  5 Dec 2023 16:25:56 +0100 (CET)
+	id E3D49F8057B; Tue,  5 Dec 2023 16:41:28 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id AB786F80589;
-	Tue,  5 Dec 2023 16:25:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5ABA3F80571;
+	Tue,  5 Dec 2023 16:41:28 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 64FC7F80568; Tue,  5 Dec 2023 16:25:51 +0100 (CET)
+	id 153A4F8024E; Tue,  5 Dec 2023 16:41:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id AFC9CF800AC
-	for <alsa-devel@alsa-project.org>; Tue,  5 Dec 2023 16:25:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AFC9CF800AC
+	by alsa1.perex.cz (Postfix) with ESMTPS id 545C0F800F5
+	for <alsa-devel@alsa-project.org>; Tue,  5 Dec 2023 16:41:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 545C0F800F5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=fflifId7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1701789945; x=1733325945;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=/hGchlnVO9M49Ub8L9agrY7aK/JcFgWSpoz50eS3HFw=;
-  b=fflifId7jbP09eJvO8fKi93pq7u6bAPVd02QeusyaGII3tBvH7fde71N
-   gqBUwO2R+JX+CXYuCDqaifWGQeAT1zaPcVWBXiuwVrGHsS/y382sd96+8
-   mUNIAEMERxBk5oSAoCmearPot4oZDjZ0RRrOaIJSU5WWBkDyCoqa9qBaq
-   FK/RHCLuxM02Aieh+7mZVIyTL1hkfHxX2L7up/vzoxkP8qwIXwErZ7VZ/
-   Spx/fYdOkMW5nEJFWn/oYAxi7tbAnPSmQ/UYvkzKM3rhQ17P/1Rr5be+c
-   c7LGeJQE4C2lTKtTJEySGwS0DKuc+/PTrC+71abeQzSVyn8RvKaARFpvF
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10915"; a="12626117"
-X-IronPort-AV: E=Sophos;i="6.04,252,1695711600";
-   d="scan'208";a="12626117"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Dec 2023 07:25:40 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10915"; a="888975319"
-X-IronPort-AV: E=Sophos;i="6.04,252,1695711600";
-   d="scan'208";a="888975319"
-Received: from mbapna-mobl1.amr.corp.intel.com (HELO [10.212.151.198])
- ([10.212.151.198])
-  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Dec 2023 07:25:39 -0800
-Message-ID: <c14371e7-0974-4d97-b5b8-55937390b684@linux.intel.com>
-Date: Tue, 5 Dec 2023 09:25:27 -0600
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=gk4Blx2p
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id C9AAC617EB;
+	Tue,  5 Dec 2023 15:41:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24464C433C7;
+	Tue,  5 Dec 2023 15:41:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1701790876;
+	bh=vjrlfMihEwbG4vZyrXSqd2uLeidXw1bqUTeh6X6XMdA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=gk4Blx2pzponzHlpb6XMYi385hWWRglOstEEcWEC7P5Vy9bkm+E0bb8MbxMv7EkgY
+	 UvZW7nRXYh7/ELJlu5aFBKhXv8HQ8lad7Rh/YHSCUGEb5lnAZpa7lePSvlLSy0Nts7
+	 M6v6ONHiwr5ZK86lP+oAr4mfBMZAJxBHGmBVfWyHd3JMj7/9PizhkvPKCTuSOmFYCh
+	 h04zydOhe7OAfpbG4sO57yml8m6wuK60lkzht9dZr414oSArn3IGoMfWN0HsR6FUDO
+	 hGpKXGk5qOCycNn0dXTC69W0fnXtk6bLtDG7/AuaEKuTgLg9x9bmpIrvDN7ilZe9CC
+	 0gy/oaJy+2LIQ==
+From: Mark Brown <broonie@kernel.org>
+To: James Schulman <james.schulman@cirrus.com>,
+ David Rhodes <david.rhodes@cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
+ patches@opensource.cirrus.com, linux-sound@vger.kernel.org,
+ Colin Ian King <colin.i.king@gmail.com>
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20231205101740.2820813-1-colin.i.king@gmail.com>
+References: <20231205101740.2820813-1-colin.i.king@gmail.com>
+Subject: Re: [PATCH][next] ASoC: cs4271: Fix spelling mistake "retrieveing"
+ -> "retrieving"
+Message-Id: <170179087386.845405.2039286765455444557.b4-ty@kernel.org>
+Date: Tue, 05 Dec 2023 15:41:13 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH alsa-ucm-conf 2/2] sof-soundwire: Add basic support for a
- 4x cs35l56 configuration
-Content-Language: en-US
-To: Charles Keepax <ckeepax@opensource.cirrus.com>, perex@perex.cz
-Cc: bard.liao@intel.com, mengdong.lin@intel.com,
- patches@opensource.cirrus.com, alsa-devel@alsa-project.org
-References: <20231205142420.1256042-1-ckeepax@opensource.cirrus.com>
- <20231205142420.1256042-2-ckeepax@opensource.cirrus.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20231205142420.1256042-2-ckeepax@opensource.cirrus.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: VSR2TUKNAGJJGBC7HF4DHTF7RYMT2RKF
-X-Message-ID-Hash: VSR2TUKNAGJJGBC7HF4DHTF7RYMT2RKF
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+X-Mailer: b4 0.13-dev-5c066
+Message-ID-Hash: UEAWXRRNAL6NVPA4XODWLBAUZOHWKRXA
+X-Message-ID-Hash: UEAWXRRNAL6NVPA4XODWLBAUZOHWKRXA
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -99,7 +92,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VSR2TUKNAGJJGBC7HF4DHTF7RYMT2RKF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UEAWXRRNAL6NVPA4XODWLBAUZOHWKRXA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,51 +101,36 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-
-
-On 12/5/23 08:24, Charles Keepax wrote:
-> cs35l56 is a boosted speaker amp add UCM support for a 4 amp
-> configuration.
+On Tue, 05 Dec 2023 10:17:40 +0000, Colin Ian King wrote:
+> There is a spelling mistake in a dev_err_probe error message. Fix it.
 > 
-> Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-> ---
->  ucm2/sof-soundwire/cs35l56-4.conf | 24 ++++++++++++++++++++++++
->  1 file changed, 24 insertions(+)
->  create mode 100644 ucm2/sof-soundwire/cs35l56-4.conf
 > 
-> diff --git a/ucm2/sof-soundwire/cs35l56-4.conf b/ucm2/sof-soundwire/cs35l56-4.conf
-> new file mode 100644
-> index 0000000..f5af1e4
-> --- /dev/null
-> +++ b/ucm2/sof-soundwire/cs35l56-4.conf
-> @@ -0,0 +1,24 @@
-> +# Use case Configuration for sof-soundwire card
-> +
-> +SectionDevice."Speaker" {
-> +	Comment "Speaker"
-> +
-> +	EnableSequence [
-> +		cset "name='AMP1 Speaker Switch' 1"
-> +		cset "name='AMP2 Speaker Switch' 1"
-> +		cset "name='AMP3 Speaker Switch' 1"
-> +		cset "name='AMP4 Speaker Switch' 1"
-> +	]
-> +
-> +	DisableSequence [
-> +		cset "name='AMP4 Speaker Switch' 0"
-> +		cset "name='AMP3 Speaker Switch' 0"
-> +		cset "name='AMP2 Speaker Switch' 0"
-> +		cset "name='AMP1 Speaker Switch' 0"
-> +	]
 
-If we only need an on/off switch, I wonder if this can be made
-conditional, i.e. enable/disable a control if it exists. That would
-scale to various numbers of amplifiers without a need to add a 2-amp, 6
-or 8-amp configuration.
+Applied to
 
-> +
-> +	Value {
-> +		PlaybackPriority 100
-> +		PlaybackPCM "hw:${CardId},2"
-> +	}
-> +}
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+
+Thanks!
+
+[1/1] ASoC: cs4271: Fix spelling mistake "retrieveing" -> "retrieving"
+      commit: 0be9595d8a1170474867b8ee2caf14394db45d8b
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+

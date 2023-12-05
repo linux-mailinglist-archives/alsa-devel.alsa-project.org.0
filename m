@@ -2,85 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E06E6805596
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Dec 2023 14:13:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27283805603
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Dec 2023 14:33:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0C5B7DE5;
-	Tue,  5 Dec 2023 14:13:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C5B7DE5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 865E0208;
+	Tue,  5 Dec 2023 14:33:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 865E0208
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701781992;
-	bh=Z6h5KHVxXcZwqHJ9jYxohUKf3Szok2IEy9KLPl804z4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1701783205;
+	bh=6+WBrSgT42RrM7DT7u63I6cXjt19hweBF2PFFZTCcNU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=sXyof0QtpxNp7ajD1NhIEa5xDXf0MvLgZhYIWDInyszcO7WlyLk3rvRgx4zc6NS66
-	 bEfo6vHoHDZYcHmnD2M4m7b8Az1VVC33E6U0v3CLCs9LZIXS/AOEGfcJT14mlBxMaM
-	 ai+FoOsLw6/bZGyIaKgeJpULiLoxAaLN1UxyVdfU=
+	b=dpzOBAW13j8ehtbfyPZoCbsqPHKVAPN5hfZYt3+eBjCC1fFhFbUTDspFpFgIsUFv7
+	 jlkDosWXwVbTLvnjA7FtxkLca2IqZPicZ5HEbSMQHX/iWwRq2xjJHYpGhuLYnJjFQG
+	 67lWpFxug/daZ3NoCKgS0YvBf6JbEmOhoSOMnLOs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E920BF805EC; Tue,  5 Dec 2023 14:12:16 +0100 (CET)
+	id 802CDF8056F; Tue,  5 Dec 2023 14:32:53 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0C2A3F805D7;
-	Tue,  5 Dec 2023 14:12:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A49D6F80571;
+	Tue,  5 Dec 2023 14:32:52 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7BF9CF80589; Tue,  5 Dec 2023 14:12:11 +0100 (CET)
+	id C078BF8024E; Tue,  5 Dec 2023 14:32:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
+ [80.237.130.52])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8B815F800E4
-	for <alsa-devel@alsa-project.org>; Tue,  5 Dec 2023 14:11:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B815F800E4
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=AkvoYi7r
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 6981F61741;
-	Tue,  5 Dec 2023 13:11:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88AB5C433C7;
-	Tue,  5 Dec 2023 13:11:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1701781916;
-	bh=Z6h5KHVxXcZwqHJ9jYxohUKf3Szok2IEy9KLPl804z4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=AkvoYi7rwPmXQztcDTJXAx9e+WnZuqjVic1N58LVCOgq96vWWcFKbYSadK7vToQq8
-	 cBk6dhtxSu8cU/bWwkzY/pW6NMtENaVWUvIRBHexZdGt10E9PgrADtv6gg0GDP2GzJ
-	 k1IwJoamsVLpzQXcbg62lD8UPOKjO1sK/qBRF4sbEyvvFd1vfcSk+AKp6i02rFiSMO
-	 2BCuhrreNOL10weBA99XVKa8TD8YWPd9Bs2+CgD2V3WdZrSgj2eJWjolhqJa6MyQwL
-	 LSDPMCZ8NqLVfSp9UlxLdJB0M4y7+EywCapfe0KRzN5TQW0QlqUxd0+Adzt5m65XDD
-	 vV8W/sdXPywOg==
-From: Mark Brown <broonie@kernel.org>
-To: pierre-louis.bossart@linux.intel.com, peter.ujfalusi@linux.intel.com,
- yung-chuan.liao@linux.intel.com,
- Richard Fitzgerald <rf@opensource.cirrus.com>
-Cc: kai.vehmanen@linux.intel.com, cezary.rojewski@intel.com,
- ranjani.sridharan@linux.intel.com, alsa-devel@alsa-project.org,
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
- patches@opensource.cirrus.com
-In-Reply-To: <20231204135614.2169624-1-rf@opensource.cirrus.com>
-References: <20231204135614.2169624-1-rf@opensource.cirrus.com>
-Subject: Re: [PATCH v3] ASoC: Intel: soc-acpi-intel-tgl-match: add cs42l43
- and cs35l56 support
-Message-Id: <170178191427.32878.1882562725490078312.b4-ty@kernel.org>
-Date: Tue, 05 Dec 2023 13:11:54 +0000
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8DC35F800AC
+	for <alsa-devel@alsa-project.org>; Tue,  5 Dec 2023 14:32:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8DC35F800AC
+Received: from [2a02:8108:8980:2478:8cde:aa2c:f324:937e]; authenticated
+	by wp530.webpack.hosteurope.de running ExIM with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+	id 1rAVXK-0005dK-0Y; Tue, 05 Dec 2023 14:32:30 +0100
+Message-ID: <670a7310-8098-4083-9f30-96987cc5d0aa@leemhuis.info>
+Date: Tue, 5 Dec 2023 14:32:28 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-5c066
-Message-ID-Hash: G6NCDMY3EX766UMUNY7LUXN3FLTLAJUI
-X-Message-ID-Hash: G6NCDMY3EX766UMUNY7LUXN3FLTLAJUI
-X-MailFrom: broonie@kernel.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: Regression apparently caused by commit
+ 088a40980efbc2c449b72f0f2c7ebd82f71d08e2 "ASoC: amd: acp: add pm ops support
+ for acp pci driver"
+Content-Language: en-US, de-DE
+To: syed saba kareem <ssabakar@amd.com>, Marian Postevca
+ <posteuca@mutex.one>,
+ Linux regressions mailing list <regressions@lists.linux.dev>,
+ Bagas Sanjaya <bagasdotme@gmail.com>,
+ Syed Saba Kareem <Syed.SabaKareem@amd.com>
+Cc: broonie@kernel.org, alsa-devel@alsa-project.org,
+ Vijendar.Mukunda@amd.com, Basavaraj.Hiregoudar@amd.com,
+ Sunil-kumar.Dommati@amd.com, Liam Girdwood <lgirdwood@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Yang Yingliang <yangyingliang@huawei.com>,
+ Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
+ V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>,
+ ye xingchen <ye.xingchen@zte.com.cn>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+References: <87a5v8szhc.fsf@mutex.one> <ZUQssoD2rUHSYQ2v@debian.me>
+ <610d562f-0bbc-485c-ad63-9534fa4ba937@amd.com>
+ <d002ad6f-d908-4cf6-afcf-bf0989418e72@leemhuis.info>
+ <6085d2e3-f28e-4d1d-9863-8275931430e6@amd.com> <87fs0x4fn7.fsf@mutex.one>
+ <ac9d4f7b-c7af-4d21-b0b8-d0f188b94b0f@amd.com>
+From: "Linux regression tracking (Thorsten Leemhuis)"
+ <regressions@leemhuis.info>
+In-Reply-To: <ac9d4f7b-c7af-4d21-b0b8-d0f188b94b0f@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-bounce-key: 
+ webpack.hosteurope.de;regressions@leemhuis.info;1701783156;c56de6c9;
+X-HE-SMSGID: 1rAVXK-0005dK-0Y
+Message-ID-Hash: L7ZFJDFX3EOAAL3BRVLF5X64LSSNRAIZ
+X-Message-ID-Hash: L7ZFJDFX3EOAAL3BRVLF5X64LSSNRAIZ
+X-MailFrom: regressions@leemhuis.info
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -89,10 +90,11 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.9
 Precedence: list
+Reply-To: Linux regressions mailing list <regressions@lists.linux.dev>
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/G6NCDMY3EX766UMUNY7LUXN3FLTLAJUI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/L7ZFJDFX3EOAAL3BRVLF5X64LSSNRAIZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -101,42 +103,55 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 04 Dec 2023 13:56:14 +0000, Richard Fitzgerald wrote:
-> This is a test configuration for UpExtreme with Cirrus Logic
-> CS35L56-EIGHT-C board.
+On 23.11.23 14:58, syed saba kareem wrote:
 > 
-> The codec layout is configured as:
->     - Link3: CS42L43 Jack
->     - Link0: 2x CS35L56 Speaker (amps 1 and 2)
->     - Link1: 2x CS35L56 Speaker (amps 7 and 8)
+> On 11/23/23 03:25, Marian Postevca wrote:
+>> syed saba kareem <ssabakar@amd.com> writes:
+>>
+>>> Hi , We have up streamed the patch it is in review.
+>>>
+>>> Please find the below link for the patch details.
+>>>
+>>> https://patchwork.kernel.org/project/alsa-devel/patch/20231113123345.2196504-2-Syed.SabaKareem@amd.com/
+>>>
+>> Sorry maybe I'm not understanding here something, when you are saying
+>> that the patch is in review, where is this review being done?
+>>
+>> As far as I can tell Mark Brown only pulled the first patch from your
+>> series:
 > 
-> [...]
+> We got comments for the second patch and we addressed them.
+> 
+> It seems it may be stuck at review stage as one patch got merged.
+> 
+> Will resend the patch again.
+> 
+> You can find the received review comments for the patch in the below link.
 
-Applied to
+Any news? From a quick look it seems this didn't make any progress at
+all, but I might be missing something.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
+--
+Everything you wanna know about Linux kernel regression tracking:
+https://linux-regtracking.leemhuis.info/about/#tldr
+If I did something stupid, please tell me, as explained on that page.
 
-Thanks!
+#regzbot poke
 
-[1/1] ASoC: Intel: soc-acpi-intel-tgl-match: add cs42l43 and cs35l56 support
-      commit: e17999750649c4bd4ba945419b406d1d1a3e92e2
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+>>> Applied to
+>>>
+>>>     https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git
+>>> for-next
+>>>
+>>> Thanks!
+>>>
+>>> [1/2] ASoC: amd: acp: add Kconfig options for acp7.0 based platform
+>>> driver
+>>>        commit: d3534684ada99ef8c0899eb28c62b4462483ee19
+>>> [2/2] ASoC: amd: acp: add pm ops support for renoir platform
+>>>        (no commit info)
+>>>
+>> I don't see the second patch in for-next.
+> 
+> 

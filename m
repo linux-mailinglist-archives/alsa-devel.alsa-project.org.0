@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F22F880434D
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Dec 2023 01:24:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7063A804353
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Dec 2023 01:24:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4AF931F4;
-	Tue,  5 Dec 2023 01:24:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4AF931F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 703AE857;
+	Tue,  5 Dec 2023 01:24:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 703AE857
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701735856;
-	bh=w95JQcmtzycZwBcoMZgZhon7cdRK0krIC+7XiugEAH0=;
+	s=default; t=1701735876;
+	bh=YDqeFlsgdFWx7XOEAsHImKa3aTbzoQWa4OZlwEWjj+Q=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=kO3+qyZrW1GOZASLh9BTuuiezYSkcRsW/CMD3qHLIQnQhd0TLzyEA/KtLAJJQXr+U
-	 1O+gcPr69KpM0eDxJF1+ZSohaZ5o4nqBCmmLMd37uT2ypmAQ4/ljw1nfpV1i3mKmI5
-	 q5EBMien7vVPehv+52gobILaDE05wKaj//ObPW/U=
+	b=ha8FyIvjAgwIxLfD4EF6roW34b0bQW6a85mnY91e0NGDKxQPeqHTcecaIS8+3cVVr
+	 h69ABhz+uCoGZSTuoFgjfhhp4ehxCgtc02KmBxRLdCn7arxqzY7/BBySL5SmVEf/mm
+	 TYT3RlE8ISB0k7WfkXmr5tt07M5FrpfWLAvr4sqo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EF11DF8056F; Tue,  5 Dec 2023 01:23:43 +0100 (CET)
+	id 41C69F805CB; Tue,  5 Dec 2023 01:23:48 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4C22BF80578;
-	Tue,  5 Dec 2023 01:23:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 78D07F805BA;
+	Tue,  5 Dec 2023 01:23:47 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D1F6AF8025A; Tue,  5 Dec 2023 01:23:38 +0100 (CET)
+	id 0AC18F8055A; Tue,  5 Dec 2023 01:23:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,61 +35,60 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 15550F800E4
-	for <alsa-devel@alsa-project.org>; Tue,  5 Dec 2023 01:23:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 15550F800E4
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1F882F800F5
+	for <alsa-devel@alsa-project.org>; Tue,  5 Dec 2023 01:23:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F882F800F5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=S4ypF68E
+ header.s=Intel header.b=dVgILYr9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1701735809; x=1733271809;
+  t=1701735811; x=1733271811;
   h=message-id:date:mime-version:subject:to:cc:references:
    from:in-reply-to:content-transfer-encoding;
-  bh=w95JQcmtzycZwBcoMZgZhon7cdRK0krIC+7XiugEAH0=;
-  b=S4ypF68ESPS/KoiCIcMZLynBvtfh3pD98y2Wmi7A0XGuA1FVgjk2KNDh
-   wvJEUu8Y+DpDvVQKKLNyFp5SwdH+nDLqEGpFNb5e668qzfxkP15yx4kXT
-   v0mKW9tdR5fp00XZ/l3EOHWdKWiExItF/l5xjvI7pIadpNLZxfnNYgjVE
-   O9RFGKgWSAi87+q+gr+Rjb3k+4HyaI68G2kLLRihZYhvtNCvHY3WoaYSB
-   UWr3WNJ2nAQ2RnHzLrjHijJoshNXZCeTfZy1sLft/jVxgWzjdZNhBTH6A
-   g/mL6+VsrNZJt/3FiSzyY/yBKfPXlKSUaZLlMj8/THUY3wlQlHdapcwUh
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10914"; a="691532"
+  bh=YDqeFlsgdFWx7XOEAsHImKa3aTbzoQWa4OZlwEWjj+Q=;
+  b=dVgILYr9jWOJLlfZwwDZh8skHimSBTV0LgzmvqM/ytTxg7TzFPM3olu2
+   OqfB7+CuSW41m1BFja17nDldyl11Agx9l7t8ts14pL6qGfmQNh3cwzbfM
+   IzNFjKHKeyzC+cojOj2KawfnhI8Ysd3QKfA0VHP0hZ4N5zEdy9FwvBZ9V
+   Nf6uYGZ2UzOjfSaXce0qha4Uc5GL3KpFsRcCZc0gUDn/vexO+pP6H9FCQ
+   tNOv7p/keqiLshcHIjpKZWa/H7wBCvslyc2J2ti4CPyXEcqFC/dSLQ6zX
+   ASAq6WSxuZpVmolC44jtXmylDW4/idlh2y2LlVuNFRYd48UUclZNVaVAr
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10914"; a="691541"
 X-IronPort-AV: E=Sophos;i="6.04,251,1695711600";
-   d="scan'208";a="691532"
+   d="scan'208";a="691541"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
   by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Dec 2023 16:23:22 -0800
+ 04 Dec 2023 16:23:23 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10914"; a="720499134"
+X-IronPort-AV: E=McAfee;i="6600,9927,10914"; a="720499136"
 X-IronPort-AV: E=Sophos;i="6.04,251,1695711600";
-   d="scan'208";a="720499134"
+   d="scan'208";a="720499136"
 Received: from akashams-mobl.amr.corp.intel.com (HELO [10.255.231.189])
  ([10.255.231.189])
   by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Dec 2023 16:23:21 -0800
-Message-ID: <7a919eef-d9b4-4bcb-bc19-9a6868d1cc54@linux.intel.com>
-Date: Mon, 4 Dec 2023 18:05:43 -0600
+ 04 Dec 2023 16:23:22 -0800
+Message-ID: <90765ee0-a814-4852-9b2a-020cda98d930@linux.intel.com>
+Date: Mon, 4 Dec 2023 18:22:02 -0600
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] ASoc: tas2563: DSP Firmware loading support
+Subject: Re: [PATCH 2/2] ALSA: hda/tas2563: Add tas2563 HDA driver
 Content-Language: en-US
 To: Gergo Koteles <soyer@irl.hu>, Shenghao Ding <shenghao-ding@ti.com>,
  Kevin Lu <kevin-lu@ti.com>, Baojun Xu <baojun.xu@ti.com>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
  Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- Dan Murphy <dmurphy@ti.com>
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
 References: <cover.1701733441.git.soyer@irl.hu>
- <c7d0fc477393550cc29624f33361d94ad987259f.1701733441.git.soyer@irl.hu>
+ <4a2f31d4eb8479789ceb1daf2e93ec0e25c23171.1701733441.git.soyer@irl.hu>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 In-Reply-To: 
- <c7d0fc477393550cc29624f33361d94ad987259f.1701733441.git.soyer@irl.hu>
+ <4a2f31d4eb8479789ceb1daf2e93ec0e25c23171.1701733441.git.soyer@irl.hu>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: JU6UR2DOVQCL3JMQXSEJ5I5QHWWDOEEZ
-X-Message-ID-Hash: JU6UR2DOVQCL3JMQXSEJ5I5QHWWDOEEZ
+Message-ID-Hash: HREQT73J6OCRWCPZTDMDY4BKHPWM7ND4
+X-Message-ID-Hash: HREQT73J6OCRWCPZTDMDY4BKHPWM7ND4
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -102,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JU6UR2DOVQCL3JMQXSEJ5I5QHWWDOEEZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HREQT73J6OCRWCPZTDMDY4BKHPWM7ND4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,358 +112,210 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
 
-> Firmware loading is done dymacally and the program and configuration
 
-dynamically
-
-> selection is done by the user.
-> 
-> The binary itself contains a list of instructions for either a single
-> mode write or a burst write.  The single mode write is list of register
-> writes to different books and pages within the register map.
-> The burst writes is a block of data that is written to a specific
-> location in memory.
-> 
-> The firmware loader must parse and load the blocks in real time as the
-> binary may contain different audio profiles.
-> 
-> If the DSP is not needed to do audio preocessing then the DSP program
-
-preprocessing
-
-> can be turned off and the device will effectively turn off the DSP.
-
-> ---
->  {sound/soc/codecs => include/sound}/tas2562.h |   3 +
->  include/sound/tas25xx-dsp.h                   | 100 +++++++
->  sound/soc/codecs/Kconfig                      |   7 +
->  sound/soc/codecs/Makefile                     |   2 +
->  sound/soc/codecs/tas2562.c                    |   2 +-
-
-are tas2562 and tas2563 (from commit subject) the same?
-
->  sound/soc/codecs/tas25xx-dsp.c                | 282 ++++++++++++++++++
->  6 files changed, 395 insertions(+), 1 deletion(-)
->  rename {sound/soc/codecs => include/sound}/tas2562.h (97%)
->  create mode 100644 include/sound/tas25xx-dsp.h
->  create mode 100644 sound/soc/codecs/tas25xx-dsp.c
-> 
-> diff --git a/sound/soc/codecs/tas2562.h b/include/sound/tas2562.h
-> similarity index 97%
-> rename from sound/soc/codecs/tas2562.h
-> rename to include/sound/tas2562.h
-
-> diff --git a/sound/soc/codecs/tas25xx-dsp.c b/sound/soc/codecs/tas25xx-dsp.c
-> new file mode 100644
-> index 000000000000..d5081fa01441
-> --- /dev/null
-> +++ b/sound/soc/codecs/tas25xx-dsp.c
-> @@ -0,0 +1,282 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +//
-> +// Firmware loader for the Texas Instruments TAS25XX DSP
-> +// Copyright (C) 2020 Texas Instruments Inc.
-> +
-> +#include <linux/module.h>
-> +#include <linux/errno.h>
-> +#include <linux/device.h>
-> +#include <linux/firmware.h>
-> +#include <linux/i2c.h>
-> +#include <linux/regmap.h>
-> +#include <linux/slab.h>
-> +#include <linux/delay.h>
-
-nit-pick: alphabetical order?
-
-> +
-> +#include <sound/tas2562.h>
-> +#include <sound/tas25xx-dsp.h>
-> +
-> +
-> +static void tas25xx_process_fw_delay(struct tas25xx_cmd *cmd)
-> +{
-> +	mdelay(cpu_to_be16(cmd->hdr.length));
-
-is this the length of the header, or the duration of the delay?
-
-Someone will get it wrong with this naming...
-
+> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+> index 9677c09cf7a9..1d3e9f77c9d4 100644
+> --- a/sound/pci/hda/patch_realtek.c
+> +++ b/sound/pci/hda/patch_realtek.c
+> @@ -6770,7 +6770,7 @@ static int comp_match_cs35l41_dev_name(struct device *dev, void *data)
+>  	return !strcmp(d + n, tmp);
+>  }
+>  
+> -static int comp_match_tas2781_dev_name(struct device *dev,
+> +static int comp_match_tas2xxx_dev_name(struct device *dev,
+>  	void *data)
+>  {
+>  	struct scodec_dev_name *p = data;
+> @@ -6823,7 +6823,7 @@ static void cs35l41_generic_fixup(struct hda_codec *cdc, int action, const char
+>  	}
+>  }
+>  
+> -static void tas2781_generic_fixup(struct hda_codec *cdc, int action,
+> +static void tas2xxx_generic_fixup(struct hda_codec *cdc, int action,
+>  	const char *bus, const char *hid)
+>  {
+>  	struct device *dev = hda_codec_dev(cdc);
+> @@ -6841,7 +6841,7 @@ static void tas2781_generic_fixup(struct hda_codec *cdc, int action,
+>  		rec->index = 0;
+>  		spec->comps[0].codec = cdc;
+>  		component_match_add(dev, &spec->match,
+> -			comp_match_tas2781_dev_name, rec);
+> +			comp_match_tas2xxx_dev_name, rec);
+>  		ret = component_master_add_with_match(dev, &comp_master_ops,
+>  			spec->match);
+>  		if (ret)
+> @@ -6888,7 +6888,13 @@ static void alc287_fixup_legion_16ithg6_speakers(struct hda_codec *cdc, const st
+>  static void tas2781_fixup_i2c(struct hda_codec *cdc,
+>  	const struct hda_fixup *fix, int action)
+>  {
+> -	 tas2781_generic_fixup(cdc, action, "i2c", "TIAS2781");
+> +	 tas2xxx_generic_fixup(cdc, action, "i2c", "TIAS2781");
 > +}
+
+this sort of rename should be part of a separate patch IMHO, it'd be
+easier to review.
+
 > +
-> +static int tas25xx_process_fw_single(struct regmap *regmap,
-> +	struct tas25xx_cmd *cmd)
+> +static void tas2563_fixup_i2c(struct hda_codec *cdc,
+> +	const struct hda_fixup *fix, int action)
 > +{
+> +	 tas2xxx_generic_fixup(cdc, action, "i2c", "INT8866");
+
+Any specific reason to use an Intel ACPI identifier? Why not use
+"TIAS2563" ?
+
+> +#define TAS2563_REG_INIT_N 12
+
+newline
+
+> +static const struct reg_default tas2563_reg_init[TAS2563_MAX_CHANNELS]
+> +	[TAS2563_REG_INIT_N] = {
+> +	{
+> +		{ TAS2562_TDM_CFG2, 0x5a },
+> +		{ TAS2562_TDM_CFG4, 0xf3 },
+> +		{ TAS2562_TDM_CFG5, 0x42 },
+> +		{ TAS2562_TDM_CFG6, 0x40 },
+> +		{ TAS2562_BOOST_CFG1, 0xd4 },
+> +		{ TAS2562_BOOST_CFG3, 0xa4 },
+> +		{ TAS2562_REG(0x00, 0x36), 0x0b },
+> +		{ TAS2562_REG(0x00, 0x38), 0x21 },
+> +		{ TAS2562_REG(0x00, 0x3c), 0x58 },
+> +		{ TAS2562_BOOST_CFG4, 0xb6 },
+> +		{ TAS2562_ASI_CONFIG3, 0x04},
+> +		{ TAS2562_REG(0x00, 0x47), 0xb1 },
+
+> +/* Update the calibrate data, including speaker impedance, f0, etc, into algo.
+
+update the calibration data,
+
+> + * Calibrate data is done by manufacturer in the factory. These data are used
+
+The manufacturer calibrates the data in the factory.
+
+> + * by Algo for calucating the speaker temperature, speaker membrance excursion
+
+calculating
+
+membrane
+
+
+> +static int tas2563_hda_i2c_probe(struct i2c_client *client)
+> +{
+> +	struct tas2563_data *tas2563;
 > +	int ret;
-> +	int num_writes = cpu_to_be16(cmd->hdr.length);
-> +	struct tas25xx_cmd_reg *reg = &cmd->reg;
-
-reverse x-mas style recommended, e.g. move 'int ret;' last
-
 > +
-> +	for (int i = 0; i < num_writes; i++, reg++) {
-> +		/* Reset Page to 0 to access BOOK_CTRL */
-> +		ret = regmap_write(regmap, TAS2562_PAGE_CTRL, 0);
-> +		if (ret)
-> +			return ret;
+> +	tas2563 = devm_kzalloc(&client->dev, sizeof(struct tas2563_data),
+> +		GFP_KERNEL);
+> +	if (!tas2563)
+> +		return -ENOMEM;
+> +	tas2563->dev = &client->dev;
+> +	tas2563->client = client;
 > +
-> +		ret = regmap_write(regmap, TAS2562_BOOK_CTRL, reg->book);
-> +		if (ret)
-> +			return ret;
+> +	dev_set_drvdata(tas2563->dev, tas2563);
 > +
-> +		ret = regmap_write(regmap, TAS2562_REG(reg->page, reg->offset),
-> +			reg->data);
+> +	ret = tas2563_read_acpi(tas2563);
+> +	if (ret)
+> +		return dev_err_probe(tas2563->dev, ret,
+> +			"Platform not supported\n");
+> +
+> +	for (int i = 0; i < tas2563->ndev; ++i) {
+> +		struct tas2563_dev *tasdev = &tas2563->tasdevs[i];
+> +
+> +		ret = tas2563_tasdev_read_efi(tas2563, tasdev);
 > +		if (ret)
-> +			return ret;
+> +			return dev_err_probe(tas2563->dev, ret,
+> +				"Calibration data cannot be read from EFI\n");
+> +
+> +		ret = tas2563_tasdev_init_client(tas2563, tasdev);
+> +		if (ret)
+> +			return dev_err_probe(tas2563->dev, ret,
+> +				"Failed to init i2c client\n");
+> +
+> +		ret = tas2563_tasdev_init_regmap(tas2563, tasdev);
+> +		if (ret)
+> +			return dev_err_probe(tas2563->dev, ret,
+> +				"Failed to allocate register map\n");
 > +	}
+> +
+> +	ret = component_add(tas2563->dev, &tas2563_hda_comp_ops);
+> +	if (ret) {
+> +		return dev_err_probe(tas2563->dev, ret,
+> +			"Register component failed\n");
+> +	}
+
+I wonder how many of those tests actually depend on deferred probe, and
+if this isn't a case of copy-paste "just in case"?
+
+> +
+> +	pm_runtime_set_autosuspend_delay(tas2563->dev, 3000);
+> +	pm_runtime_use_autosuspend(tas2563->dev);
+> +	pm_runtime_mark_last_busy(tas2563->dev);
+> +	pm_runtime_set_active(tas2563->dev);
+> +	pm_runtime_get_noresume(tas2563->dev);
+> +	pm_runtime_enable(tas2563->dev);
+> +
+> +	pm_runtime_put_autosuspend(tas2563->dev);
+
+the sequence get_noresume/enable/put_autosuspend makes no sense to me.
+doing a get_noresume *before* enable should do exactly nothing, and
+releasing the resource would already be handled with autosuspend based
+on the last_busy mark.
+
 > +
 > +	return 0;
 > +}
 > +
-> +static int tas25xx_process_fw_burst(struct regmap *regmap,
-> +	struct tas25xx_cmd *cmd)
+> +static void tas2563_hda_i2c_remove(struct i2c_client *client)
 > +{
+> +	struct tas2563_data *tas2563 = dev_get_drvdata(&client->dev);
+> +
+> +	pm_runtime_get_sync(tas2563->dev);
+> +	pm_runtime_disable(tas2563->dev);
+> +
+> +	component_del(tas2563->dev, &tas2563_hda_comp_ops);
+> +
+> +	pm_runtime_put_noidle(tas2563->dev);
+
+that pm_runtime sequence also makes no sense to me, if you disable
+pm_runtime the last command is useless/no-op.
+
+> +}
+> +
+> +static int tas2563_system_suspend(struct device *dev)
+> +{
+> +	struct tas2563_data *tas2563 = dev_get_drvdata(dev);
 > +	int ret;
 > +
-> +	/* Reset Page to 0 to access BOOK_CTRL */
-> +	ret = regmap_write(regmap, TAS2562_PAGE_CTRL, 0);
+> +	dev_dbg(tas2563->dev, "System Suspend\n");
+> +
+> +	ret = pm_runtime_force_suspend(dev);
 > +	if (ret)
 > +		return ret;
 > +
-> +	ret = regmap_write(regmap, TAS2562_BOOK_CTRL, cmd->reg.book);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_bulk_write(regmap, TAS2562_REG(cmd->reg.page, cmd->reg.offset), &cmd[1],
-> +				cpu_to_be16(cmd->hdr.length));
-> +	if (ret)
-> +		return ret;
-> +
 > +	return 0;
 > +}
 > +
-> +static int tas25xx_process_block(struct device *dev, struct regmap *regmap,
-> +	struct tas25xx_cmd *cmd, int max_block_size)
+> +static int tas2563_system_resume(struct device *dev)
 > +{
 > +	int ret;
-> +	int block_read;
+> +	struct tas2563_data *tas2563 = dev_get_drvdata(dev);
 > +
-> +	const int hdr_size = sizeof(struct tas25xx_cmd_hdr);
-> +	const int reg_size = sizeof(struct tas25xx_cmd_reg);
-> +	const int cmd_size = sizeof(struct tas25xx_cmd);
+> +	dev_dbg(tas2563->dev, "System Resume\n");
 > +
-> +	switch (cpu_to_be16(cmd->hdr.cmd_type)) {
-> +	case TAS25XX_CMD_SING_W:
-> +		block_read = cpu_to_be16(cmd->hdr.length) * reg_size + hdr_size;
-> +		break;
-> +	case TAS25XX_CMD_BURST:
-> +		block_read = cpu_to_be16(cmd->hdr.length) + cmd_size;
-> +		break;
-> +	case TAS25XX_CMD_DELAY:
-> +		block_read = 4;
-> +		break;
-> +	default:
-> +		block_read = 0;
-> +	}
+> +	ret = pm_runtime_force_resume(dev);
+> +	if (ret)
+> +		return ret;
 > +
-> +	if (block_read > max_block_size) {
-> +		dev_err(dev,
-> +			"Corrupt firmware: block_read > max_block_size %d %d\n",
-> +			block_read, max_block_size);
-> +		return -EINVAL;
-> +	}
-> +
-> +	switch (cpu_to_be16(cmd->hdr.cmd_type)) {
-> +	case TAS25XX_CMD_SING_W:
-> +		ret = tas25xx_process_fw_single(regmap, cmd);
-> +		if (ret) {
-> +			dev_err(dev, "Failed to process single write %d\n",
-> +				ret);
-> +			return ret;
-> +		}
-> +		break;
-> +	case TAS25XX_CMD_BURST:
-> +		ret = tas25xx_process_fw_burst(regmap, cmd);
-> +		if (ret) {
-> +			dev_err(dev, "Failed to process burst write %d\n", ret);
-> +			return ret;
-> +		}
-> +		break;
-> +	case TAS25XX_CMD_DELAY:
-> +		tas25xx_process_fw_delay(cmd);
-> +		break;
-> +	default:
-> +		dev_warn(dev, "Unknown cmd type %d\n",
-> +			cpu_to_be16(cmd->hdr.cmd_type));
-> +		break;
-> +	};
-> +
-> +	return block_read;
-> +}
-> +
-> +
-> +int tas25xx_write_program(struct device *dev, struct regmap *regmap,
-> +	struct tas25xx_fw_data *fw_data, int prog_num)
-> +{
-> +	int offset = 0;
-> +	int length = 0;
-
-useless init
-
-> +	struct tas25xx_program_info *prog_info;
-> +	struct tas25xx_fw_hdr *hdr = fw_data->hdr;
-> +	struct tas25xx_cmd *cmd;
-
-again reverse x-mas style would look much better
-
-> +
-> +	if (prog_num > cpu_to_be32(hdr->num_programs))
-> +		return -EINVAL;
-> +
-> +	for (int i = 0; i < prog_num; i++)
-> +		offset += cpu_to_be32(hdr->prog_size[i]);
-> +
-> +	prog_info = (struct tas25xx_program_info *)&fw_data->prog_data[offset];
-> +	dev_info(dev, "Write program %d: %s\n", prog_num, prog_info->name);
-> +
-> +	int max_offset = offset + cpu_to_be32(hdr->prog_size[prog_num]);
-> +	int num_subblocks = cpu_to_be32(prog_info->blk_data.num_subblocks);
-
-It's not illegal but not consistent to declare variables in the middle
-of code for no good reason.
-
-> +	offset += sizeof(struct tas25xx_program_info);
-> +
-> +	for (int i = 0; i < num_subblocks; i++) {
-> +		cmd = (struct tas25xx_cmd *)&fw_data->prog_data[offset];
-> +		length = tas25xx_process_block(dev, regmap, cmd,
-> +			max_offset - offset);
-> +		if (length < 0)
-> +			return length;
-> +
-> +		offset += length;
-> +	}
-> +
-> +	/* Reset Book to 0 */
-> +	regmap_write(regmap, TAS2562_PAGE_CTRL, 0);
-> +	regmap_write(regmap, TAS2562_BOOK_CTRL, 0);
+> +	for (int i = 0; i < tas2563->ndev; ++i)
+> +		tas2563_tasdev_setup(tas2563, &tas2563->tasdevs[i]);
 > +
 > +	return 0;
 > +}
-> +EXPORT_SYMBOL_GPL(tas25xx_write_program);
 > +
-> +int tas25xx_write_config(struct device *dev, struct regmap *regmap,
-> +	struct tas25xx_fw_data *fw_data, int config_num)
-> +{
-> +	int offset = 0;
-> +	int length = 0;
+> +static const struct dev_pm_ops tas2563_hda_pm_ops = {
+> +	SYSTEM_SLEEP_PM_OPS(tas2563_system_suspend, tas2563_system_resume)
 
-useless init again
+where's the pm_runtime stuff?
 
-> +	struct tas25xx_config_info *cfg_info;
-> +	struct tas25xx_fw_hdr *hdr = fw_data->hdr;
-> +	struct tas25xx_cmd *cmd;
-> +
-> +	if (config_num > cpu_to_be32(hdr->num_configs))
-> +		return -EINVAL;
-> +
-> +	for (int i = 0; i < config_num; i++)
-> +		offset += cpu_to_be32(hdr->config_size[i]);
-> +
-> +	cfg_info = (struct tas25xx_config_info *)&fw_data->config_data[offset];
-> +	dev_info(dev, "Write config %d: %s\n", config_num, cfg_info->name);
-> +
-> +	int max_offset = offset + cpu_to_be32(hdr->config_size[config_num]);
-> +	int num_subblocks = cpu_to_be32(cfg_info->blk_data.num_subblocks);
-> +
-> +	offset += sizeof(struct tas25xx_config_info);
-> +
-> +	for (int i = 0; i < num_subblocks; i++) {
-> +		cmd = (struct tas25xx_cmd *)&fw_data->config_data[offset];
-> +		length = tas25xx_process_block(dev, regmap, cmd,
-> +			max_offset - offset);
-> +		if (length < 0)
-> +			return length;
-> +
-> +		offset += length;
-> +	}
-> +
-> +	/* Reset Book to 0 */
-> +	regmap_write(regmap, TAS2562_PAGE_CTRL, 0);
-> +	regmap_write(regmap, TAS2562_BOOK_CTRL, 0);
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL_GPL(tas25xx_write_config);
-> +
-> +
-> +struct tas25xx_fw_data *tas25xx_parse_fw(struct device *dev,
-> +	const struct firmware *fw)
-> +{
-> +	u32 total_prog_sz = 0;
-> +	u32 total_config_sz = 0;
-> +	u32 prog_num = 0;
-> +	u32 config_num = 0;
+> +};
 
-last two inits are useless
-
-> +	int hdr_size = sizeof(struct tas25xx_fw_hdr);
-> +	struct tas25xx_fw_data *fw_data = NULL;
-> +
-> +	fw_data = devm_kzalloc(dev, sizeof(struct tas25xx_fw_data), GFP_KERNEL);
-> +	if (!fw_data)
-> +		goto err_fw;
-> +
-> +	if (fw->size < hdr_size)
-> +		goto err_data;
-> +
-> +	fw_data->hdr = devm_kzalloc(dev, hdr_size, GFP_KERNEL);
-> +	if (!fw_data->hdr)
-> +		goto err_data;
-> +
-> +	memcpy(fw_data->hdr, &fw->data[0], hdr_size);
-> +
-> +	for (int i = 0; i < cpu_to_be32(fw_data->hdr->num_programs); i++)
-> +		total_prog_sz += cpu_to_be32(fw_data->hdr->prog_size[i]);
-> +
-> +	for (int i = 0; i < cpu_to_be32(fw_data->hdr->num_configs); i++)
-> +		total_config_sz += cpu_to_be32(fw_data->hdr->config_size[i]);
-> +
-> +	if (fw->size < hdr_size + total_prog_sz + total_config_sz)
-> +		goto err_hdr;
-> +
-> +	fw_data->prog_data = devm_kzalloc(dev, total_prog_sz, GFP_KERNEL);
-> +	if (!fw_data->prog_data)
-> +		goto err_hdr;
-> +
-> +	memcpy(fw_data->prog_data, &fw->data[hdr_size], total_prog_sz);
-> +
-> +	fw_data->config_data = devm_kzalloc(dev, total_config_sz, GFP_KERNEL);
-> +	if (!fw_data->config_data)
-> +		goto err_prog;
-> +
-> +	memcpy(fw_data->config_data, &fw->data[hdr_size + total_prog_sz],
-> +		total_config_sz);
-> +
-> +	prog_num = cpu_to_be32(fw_data->hdr->num_programs);
-> +	config_num = cpu_to_be32(fw_data->hdr->num_configs);
-> +	dev_info(dev, "Firmware loaded: programs %d, configs %d\n",
-> +		prog_num, config_num);
-> +
-> +	return fw_data;
-> +
-> +err_prog:
-> +	devm_kfree(dev, fw_data->prog_data);
-> +err_hdr:
-> +	devm_kfree(dev, fw_data->hdr);
-> +err_data:
-> +	devm_kfree(dev, fw_data);
-> +err_fw:
-> +	release_firmware(fw);
-> +
-> +	return NULL;
-> +}
-> +EXPORT_SYMBOL_GPL(tas25xx_parse_fw);
-> +
-> +MODULE_DESCRIPTION("TAS25xx DSP library");
-> +MODULE_AUTHOR("Dan Murphy <dmurphy@ti.com>");
-> +MODULE_LICENSE("GPL");

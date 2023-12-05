@@ -2,61 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 301D080588C
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Dec 2023 16:25:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51F64805879
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Dec 2023 16:23:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CEBCCE0F;
-	Tue,  5 Dec 2023 16:24:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CEBCCE0F
+	by alsa0.perex.cz (Postfix) with ESMTPS id BF7FCDF2;
+	Tue,  5 Dec 2023 16:23:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BF7FCDF2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701789908;
-	bh=xvHOF/YEB3nJV2QutFxkDIzcxAMoNRWrPEwSp+iy8Nk=;
+	s=default; t=1701789802;
+	bh=NP+5h4MpiId0rnKlcO6QXG5qZqYy6d3exD9E2Ro1mo0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=JNX/r+ciQ9A7iWS9PctVi31iLenB2lEbVK3qPc/6d5ByOyTSlgKK5bMfiouvH3TED
-	 CTMLMLUXVdF4+aSFRtNZQSFkadk2Psj+Rx6JdyFgXXVHMXAPmBqSrREh+yNSst8xRX
-	 0t0Ls7kypSEl+lZzy/fctsBkZlmPukTDiQECx0mY=
+	b=N53VAKJCsKcIA7AEEpm/gjRF+yfsi+FaCEb/kATEbKd+nEh2BgtrE76At/JY1s+Kw
+	 qjkhsfuzc2SLyrstBizF75Oq8ntOTLYwbNMKqQ9bbkjk+pzyxLiZmh7+4uKfTiXFtN
+	 6ruECGm3KloKQWUSNvzp/mHP3G2bz2yLuT1IkNAA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 595C2F80750; Tue,  5 Dec 2023 16:22:18 +0100 (CET)
+	id 923EDF80652; Tue,  5 Dec 2023 16:21:57 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 50815F80568;
-	Tue,  5 Dec 2023 16:22:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 25D5CF8063B;
+	Tue,  5 Dec 2023 16:21:57 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EA59FF806E0; Tue,  5 Dec 2023 16:22:10 +0100 (CET)
+	id 0E825F805EF; Tue,  5 Dec 2023 16:21:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,
+	RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
 Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net
- [IPv6:2001:4b98:dc4:8::222])
+ [217.70.183.194])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C7760F80166
+	by alsa1.perex.cz (Postfix) with ESMTPS id CC3F7F8028D
 	for <alsa-devel@alsa-project.org>; Tue,  5 Dec 2023 16:21:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7760F80166
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC3F7F8028D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=bPHz/aVw
-Received: by mail.gandi.net (Postfix) with ESMTPA id 3195C40013;
-	Tue,  5 Dec 2023 15:21:30 +0000 (UTC)
+ header.s=gm1 header.b=kMIMIVJT
+Received: by mail.gandi.net (Postfix) with ESMTPA id C297F4001B;
+	Tue,  5 Dec 2023 15:21:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1701789691;
+	t=1701789692;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=fr/+FFqEM69Z2xWv6TIr9xG1wPePBXpVB6jujvPjf7w=;
-	b=bPHz/aVwC/l9kXBOINLG0e+ZPXA9XHiKjq0rnAjQ2+3dlqMaRErm0OukHPYatzh1mF5cuT
-	xUOWmmJvUJcMfn0vtmLYO7kmuYgxcR9gL5qj3GfUHzOZdBfBA9n5zsgQzY2OHZ+9PaXB5l
-	3NHkcCug1z3oVRxFjDCsWNUHEDRomYRB2+/ExIpGqEyIiNOfxwzJimFlw2p52LZ3517Zoy
-	lgV6itCytQqdL+PVPuZat9ohMt+yiEqmAOxnYfAJXzLbd2XiWwWFFUoEE0jKg13qzMUQXp
-	JLqNpqH1Ni6iD9zqObm+BzheDazJbmyHYobb7VddhIXrGjEu7bpDfVNDhw0Gew==
+	bh=Vd+Rqgrbba9Ay4j5SVMCYkNm38iDM5D9Pbjrfd3n8FE=;
+	b=kMIMIVJTcFmxytn35uLE72UHMHVd+WvxwTSr2dNiRuHZ024u4qvaZRZqwebyFkXhLrOsPJ
+	wLZZDhaVkt70Ja3g6T9/c7qIPd991VGIjf1M7tq5f9heifkkjf+nGIVduWAyaE7MoCVU5P
+	blbIE9x1/w31unNra+yDDnDnkIK2/GSnRzlK/pSsHNwtRVUsonm8Da8N4xzFnTSLZ2kgUv
+	tNQ6/M4S2Uu1sa3ReuLIVLkEGL1K4Z/2wNYUDaL9PqJ1z3sli7oaxUjQf7zMqg5MouQgKM
+	1cMe0fc5I+HDCVivIfXhS1RnafV9IcxjAD+C8Y7AuOiM7loQveOqIDBfiNyo4Q==
 From: Herve Codina <herve.codina@bootlin.com>
 To: Herve Codina <herve.codina@bootlin.com>,
 	Qiang Zhao <qiang.zhao@nxp.com>,
@@ -76,20 +77,18 @@ Cc: Arnd Bergmann <arnd@arndb.de>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	alsa-devel@alsa-project.org,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Andrew Lunn <andrew@lunn.ch>
-Subject: [PATCH v2 05/17] soc: fsl: cpm1: qmc: Remove inline function
- specifiers
-Date: Tue,  5 Dec 2023 16:21:02 +0100
-Message-ID: <20231205152116.122512-6-herve.codina@bootlin.com>
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: [PATCH v2 06/17] soc: fsl: cpm1: qmc: Add support for child devices
+Date: Tue,  5 Dec 2023 16:21:03 +0100
+Message-ID: <20231205152116.122512-7-herve.codina@bootlin.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20231205152116.122512-1-herve.codina@bootlin.com>
 References: <20231205152116.122512-1-herve.codina@bootlin.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-GND-Sasl: herve.codina@bootlin.com
-Message-ID-Hash: OGWE56R4JSFPLF4WZJKF5W4E7VK7O6RF
-X-Message-ID-Hash: OGWE56R4JSFPLF4WZJKF5W4E7VK7O6RF
+Message-ID-Hash: WVX6B44U2237PLU55BVKSQ3UR76XSVR3
+X-Message-ID-Hash: WVX6B44U2237PLU55BVKSQ3UR76XSVR3
 X-MailFrom: herve.codina@bootlin.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -102,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OGWE56R4JSFPLF4WZJKF5W4E7VK7O6RF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WVX6B44U2237PLU55BVKSQ3UR76XSVR3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -111,68 +110,179 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The inline function specifier is present on some functions but it is
-better to let the compiler decide inlining or not these functions.
+QMC child devices support is needed to avoid orphan DT nodes that use a
+simple DT phandle to reference a QMC channel.
 
-Remove inline specifiers.
+Allow to instantiate child devices and also extend the API to get the
+qmc_chan using a child device.
 
-Fixes: 3178d58e0b97 ("soc: fsl: cpm1: Add support for QMC")
 Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-Suggested-by: Andrew Lunn <andrew@lunn.ch>
-Reviewed-by: Christophe Leroy <christophe.leroy@csgroup.eu>
 ---
- drivers/soc/fsl/qe/qmc.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ drivers/soc/fsl/qe/qmc.c | 91 +++++++++++++++++++++++++++++++---------
+ include/soc/fsl/qe/qmc.h |  2 +
+ 2 files changed, 73 insertions(+), 20 deletions(-)
 
 diff --git a/drivers/soc/fsl/qe/qmc.c b/drivers/soc/fsl/qe/qmc.c
-index 4b4832d93c9b..27f2f16deac9 100644
+index 27f2f16deac9..e716f13669a0 100644
 --- a/drivers/soc/fsl/qe/qmc.c
 +++ b/drivers/soc/fsl/qe/qmc.c
-@@ -218,37 +218,37 @@ struct qmc {
- 	struct qmc_chan *chans[64];
+@@ -1425,8 +1425,16 @@ static int qmc_probe(struct platform_device *pdev)
+ 
+ 	platform_set_drvdata(pdev, qmc);
+ 
++	/* Populate channel related devices */
++	ret = devm_of_platform_populate(qmc->dev);
++	if (ret)
++		goto err_disable_txrx;
++
+ 	return 0;
+ 
++err_disable_txrx:
++	qmc_setbits32(qmc->scc_regs + SCC_GSMRL, 0);
++
+ err_disable_intr:
+ 	qmc_write16(qmc->scc_regs + SCC_SCCM, 0);
+ 
+@@ -1465,26 +1473,16 @@ static struct platform_driver qmc_driver = {
  };
+ module_platform_driver(qmc_driver);
  
--static inline void qmc_write16(void __iomem *addr, u16 val)
-+static void qmc_write16(void __iomem *addr, u16 val)
+-struct qmc_chan *qmc_chan_get_byphandle(struct device_node *np, const char *phandle_name)
++static struct qmc_chan *qmc_chan_get_from_qmc(struct device_node *qmc_np, unsigned int chan_index)
  {
- 	iowrite16be(val, addr);
- }
+-	struct of_phandle_args out_args;
+ 	struct platform_device *pdev;
+ 	struct qmc_chan *qmc_chan;
+ 	struct qmc *qmc;
+-	int ret;
  
--static inline u16 qmc_read16(void __iomem *addr)
-+static u16 qmc_read16(void __iomem *addr)
- {
- 	return ioread16be(addr);
- }
+-	ret = of_parse_phandle_with_fixed_args(np, phandle_name, 1, 0,
+-					       &out_args);
+-	if (ret < 0)
+-		return ERR_PTR(ret);
+-
+-	if (!of_match_node(qmc_driver.driver.of_match_table, out_args.np)) {
+-		of_node_put(out_args.np);
++	if (!of_match_node(qmc_driver.driver.of_match_table, qmc_np))
+ 		return ERR_PTR(-EINVAL);
+-	}
  
--static inline void qmc_setbits16(void __iomem *addr, u16 set)
-+static void qmc_setbits16(void __iomem *addr, u16 set)
- {
- 	qmc_write16(addr, qmc_read16(addr) | set);
- }
+-	pdev = of_find_device_by_node(out_args.np);
+-	of_node_put(out_args.np);
++	pdev = of_find_device_by_node(qmc_np);
+ 	if (!pdev)
+ 		return ERR_PTR(-ENODEV);
  
--static inline void qmc_clrbits16(void __iomem *addr, u16 clr)
-+static void qmc_clrbits16(void __iomem *addr, u16 clr)
- {
- 	qmc_write16(addr, qmc_read16(addr) & ~clr);
- }
+@@ -1494,17 +1492,12 @@ struct qmc_chan *qmc_chan_get_byphandle(struct device_node *np, const char *phan
+ 		return ERR_PTR(-EPROBE_DEFER);
+ 	}
  
--static inline void qmc_write32(void __iomem *addr, u32 val)
-+static void qmc_write32(void __iomem *addr, u32 val)
- {
- 	iowrite32be(val, addr);
- }
+-	if (out_args.args_count != 1) {
++	if (chan_index >= ARRAY_SIZE(qmc->chans)) {
+ 		platform_device_put(pdev);
+ 		return ERR_PTR(-EINVAL);
+ 	}
  
--static inline u32 qmc_read32(void __iomem *addr)
-+static u32 qmc_read32(void __iomem *addr)
- {
- 	return ioread32be(addr);
- }
+-	if (out_args.args[0] >= ARRAY_SIZE(qmc->chans)) {
+-		platform_device_put(pdev);
+-		return ERR_PTR(-EINVAL);
+-	}
+-
+-	qmc_chan = qmc->chans[out_args.args[0]];
++	qmc_chan = qmc->chans[chan_index];
+ 	if (!qmc_chan) {
+ 		platform_device_put(pdev);
+ 		return ERR_PTR(-ENOENT);
+@@ -1512,8 +1505,44 @@ struct qmc_chan *qmc_chan_get_byphandle(struct device_node *np, const char *phan
  
--static inline void qmc_setbits32(void __iomem *addr, u32 set)
-+static void qmc_setbits32(void __iomem *addr, u32 set)
- {
- 	qmc_write32(addr, qmc_read32(addr) | set);
+ 	return qmc_chan;
  }
++
++struct qmc_chan *qmc_chan_get_byphandle(struct device_node *np, const char *phandle_name)
++{
++	struct of_phandle_args out_args;
++	struct qmc_chan *qmc_chan;
++	int ret;
++
++	ret = of_parse_phandle_with_fixed_args(np, phandle_name, 1, 0,
++					       &out_args);
++	if (ret < 0)
++		return ERR_PTR(ret);
++
++	if (out_args.args_count != 1) {
++		of_node_put(out_args.np);
++		return ERR_PTR(-EINVAL);
++	}
++
++	qmc_chan = qmc_chan_get_from_qmc(out_args.np, out_args.args[0]);
++	of_node_put(out_args.np);
++	return qmc_chan;
++}
+ EXPORT_SYMBOL(qmc_chan_get_byphandle);
+ 
++struct qmc_chan *qmc_chan_get_bychild(struct device_node *np)
++{
++	struct device_node *qmc_np;
++	u32 chan_index;
++	int ret;
++
++	qmc_np = np->parent;
++	ret = of_property_read_u32(np, "reg", &chan_index);
++	if (ret)
++		return ERR_PTR(-EINVAL);
++
++	return qmc_chan_get_from_qmc(qmc_np, chan_index);
++}
++EXPORT_SYMBOL(qmc_chan_get_bychild);
++
+ void qmc_chan_put(struct qmc_chan *chan)
+ {
+ 	put_device(chan->qmc->dev);
+@@ -1550,6 +1579,28 @@ struct qmc_chan *devm_qmc_chan_get_byphandle(struct device *dev,
+ }
+ EXPORT_SYMBOL(devm_qmc_chan_get_byphandle);
+ 
++struct qmc_chan *devm_qmc_chan_get_bychild(struct device *dev,
++					   struct device_node *np)
++{
++	struct qmc_chan *qmc_chan;
++	struct qmc_chan **dr;
++
++	dr = devres_alloc(devm_qmc_chan_release, sizeof(*dr), GFP_KERNEL);
++	if (!dr)
++		return ERR_PTR(-ENOMEM);
++
++	qmc_chan = qmc_chan_get_bychild(np);
++	if (!IS_ERR(qmc_chan)) {
++		*dr = qmc_chan;
++		devres_add(dev, dr);
++	} else {
++		devres_free(dr);
++	}
++
++	return qmc_chan;
++}
++EXPORT_SYMBOL(devm_qmc_chan_get_bychild);
++
+ MODULE_AUTHOR("Herve Codina <herve.codina@bootlin.com>");
+ MODULE_DESCRIPTION("CPM QMC driver");
+ MODULE_LICENSE("GPL");
+diff --git a/include/soc/fsl/qe/qmc.h b/include/soc/fsl/qe/qmc.h
+index 6f1d6cebc9fe..166484bb4294 100644
+--- a/include/soc/fsl/qe/qmc.h
++++ b/include/soc/fsl/qe/qmc.h
+@@ -17,9 +17,11 @@ struct device;
+ struct qmc_chan;
+ 
+ struct qmc_chan *qmc_chan_get_byphandle(struct device_node *np, const char *phandle_name);
++struct qmc_chan *qmc_chan_get_bychild(struct device_node *np);
+ void qmc_chan_put(struct qmc_chan *chan);
+ struct qmc_chan *devm_qmc_chan_get_byphandle(struct device *dev, struct device_node *np,
+ 					     const char *phandle_name);
++struct qmc_chan *devm_qmc_chan_get_bychild(struct device *dev, struct device_node *np);
+ 
+ enum qmc_mode {
+ 	QMC_TRANSPARENT,
 -- 
 2.43.0
 

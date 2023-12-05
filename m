@@ -2,112 +2,111 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9999806141
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Dec 2023 23:02:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6ECC580630C
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Dec 2023 00:42:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0B23C868;
-	Tue,  5 Dec 2023 23:02:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B23C868
+	by alsa0.perex.cz (Postfix) with ESMTPS id E89BE850;
+	Wed,  6 Dec 2023 00:42:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E89BE850
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701813771;
-	bh=AkPu/oDMqBmK6GGTDU4n4naSkVwn0ixUlP5ozIAIlt0=;
+	s=default; t=1701819773;
+	bh=sveebmIP/A5PQ0/J1NvNbkPj2GKd7PobFCkYntoPgrI=;
 	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=eVBvs4YhLrR2+s1+S8bsWJLNpxhXgtkfKxKROzD4qvGMqJ78b8iM4YV25neA53Od5
-	 Jg1KdiBn90HK9bkAp4yajfhAKOo5xNvSkgjw4frgFJv342x37f8eHo2n9Hse8TOI9w
-	 Ld9W6KTHNWL46I4V8EmIkjni9IGNRjaODh+WN3+Y=
+	b=qIHtNg07qu2HXcUyV62o7n3zDbiI1jj5XoxiS/6VNFYIqt97tuGvYbRTAFlxlM2ES
+	 uqXtAA3WlV/fiWlhVtwPseeCVl0z+gIIQkOk60ZVPSmyY/IjuEn00aqm/quhvNBHMk
+	 +M8DU2YhRmh1dZO5aRahFiQDtl+AvWIYSaNgTN5w=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E7966F800F5; Tue,  5 Dec 2023 23:02:14 +0100 (CET)
+	id 7E2F9F8057D; Wed,  6 Dec 2023 00:42:23 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0A605F8025A;
-	Tue,  5 Dec 2023 23:02:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D3003F80571;
+	Wed,  6 Dec 2023 00:42:22 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 82501F8025A; Tue,  5 Dec 2023 23:02:09 +0100 (CET)
+	id 33719F8024E; Wed,  6 Dec 2023 00:42:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-pl1-x633.google.com (mail-pl1-x633.google.com
- [IPv6:2607:f8b0:4864:20::633])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,
+	RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A0DF5F80166
-	for <alsa-devel@alsa-project.org>; Tue,  5 Dec 2023 23:02:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0DF5F80166
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7102AF800F5
+	for <alsa-devel@alsa-project.org>; Wed,  6 Dec 2023 00:42:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7102AF800F5
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256
- header.s=google header.b=XLdgmQXa
-Received: by mail-pl1-x633.google.com with SMTP id
- d9443c01a7336-1d0bcc0c313so14240075ad.3
-        for <alsa-devel@alsa-project.org>;
- Tue, 05 Dec 2023 14:02:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1701813717; x=1702418517;
- darn=alsa-project.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=UzBMv2W2IEcJ/FXME55CW3PKKvDzbE7hKO1BU/Ge/Xs=;
-        b=XLdgmQXa99Kx8Bs7qOrMtI5yJSz1MtcnHaOTOsV2laLAyuVHrd0+PSavaXzeQTOjOA
-         WAksQdHQlOyIgsTttU/ss/5uuba/EgHCT9ma7k53nzbAuvPlpR+q3uAZORwiITvUT5jT
-         +nmeSnBOIV864vIQGRWJkK0AFlaIUc8U039MQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701813717; x=1702418517;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=UzBMv2W2IEcJ/FXME55CW3PKKvDzbE7hKO1BU/Ge/Xs=;
-        b=bbOi52+4nlHA+IXryf9WyFWFjozqR9MC818KrXe0GGAPC4rgbGiPBYFmgsyOGfyaze
-         DbeUBKNyiK4d4C7DRK9rTYnmbwZnGxCsr3HH1kJy2akaVOqPzroc/qjky8HmPyK5cnVr
-         AN/IZgUsg2kSh3h7Um7WBH1sSIMrajMm2b5Y1MNFRAEOV+orfzlN3q977FJsQq9I7i54
-         WCN4WWThvAoUqqrl0mOYeZDt1bhByzSHiHFw0xomGG2wtFYG84Y5tBSS4Xl5KSK4f9NP
-         UkoAz4cm4K0wGT/7IUvvKYnF1KMWbZo49sp6AHPM0O0gd3IkaEPy1zTaWgvvaewutUnB
-         1EcA==
-X-Gm-Message-State: AOJu0YwBx+SNp7ILUqYbBPHQX5b5xboSiSfn6Rxo3TG21Bx/IIwyDoG/
-	uzbhi2Nn/+0jhWWANBA2SPpPw6pZ+7OJ7SzXbA==
-X-Google-Smtp-Source: 
- AGHT+IEWsGkq6KIx73ug8Zxkk9TYD/i1PWerdkd2oHiAV9/5G6+44jOiX1bPqiL4/NuK+1BdfzZPiA==
-X-Received: by 2002:a17:902:74c2:b0:1d0:5878:d4f4 with SMTP id
- f2-20020a17090274c200b001d05878d4f4mr3255745plt.5.1701813717350;
-        Tue, 05 Dec 2023 14:01:57 -0800 (PST)
-Received: from localhost ([2620:15c:9d:4:1f6:6bca:e65a:b2a3])
-        by smtp.gmail.com with UTF8SMTPSA id
- h6-20020a170902eec600b001d0a6f31519sm4030693plb.188.2023.12.05.14.01.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 05 Dec 2023 14:01:57 -0800 (PST)
-From: cujomalainey@chromium.org
+	dkim=pass (2048-bit key,
+ unprotected) header.d=timbos.se header.i=@timbos.se header.a=rsa-sha256
+ header.s=fm1 header.b=fujrqVsm;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm1 header.b=eX8n/ssS
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+	by mailout.nyi.internal (Postfix) with ESMTP id 36F6F5C0089;
+	Tue,  5 Dec 2023 18:42:05 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+  by compute5.internal (MEProxy); Tue, 05 Dec 2023 18:42:05 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=timbos.se; h=cc
+	:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:sender:subject
+	:subject:to:to; s=fm1; t=1701819725; x=1701906125; bh=wR0aUc71JJ
+	dl7lVlq3tJ9JTylgTrldMTIORN/gVs1NQ=; b=fujrqVsmkPr8VUBhxYV16ORseE
+	Z/48vxolyX9I6vxeGuHu+QiI9pgZM9i5uBg+CFjtNHjx9yiWaLaR3yIicwEXCxtz
+	BqYQArGioxvltiP3vpzooLPX8uYJ1vkD0MUBAgHio2tlug9cXllrdQFAAkJxm0bQ
+	8yvgeBr0465cxne6x6u+DXdH+HcuFOlEJVZ2mcWBZ66O+FahArN0onx5B6b9lgrm
+	VALfAZ35IHzsLz/jJh8h4AHEa5L0A9kKZdBt6EQzF5TZ9FsJO+0wBuUmxSSrJrBs
+	gWF+jH70Ys0IMVAWSTuTf45OBfQ/6vn1MnMxPF3InaQIZ5hfrFEtsfxwn3TA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm1; t=1701819725; x=1701906125; bh=wR0aUc71JJdl7
+	lVlq3tJ9JTylgTrldMTIORN/gVs1NQ=; b=eX8n/ssScLi65KeZqjHBJ3lOjMYaj
+	8CRatV1NLWG8gIZFDovnjwF4HFG8uqlrrBO6tM0A6SdciXyaphEPrBJJVOzkaJFn
+	vETbmM3IyynvHWWrFdp/updTif+xbo/Xlmh9ZIYZhNLs986gttngd//tqEM+9rSY
+	8eS0LE9pe56pfLlvCTuWwZ2nLp6gnkEJ01J7Xj6bglu6Wyo9/VjH6c1J0Ie+HF4Z
+	4zb3DmL2XKHKWtyz6LLBPHnpieemk6qQpRdS5Y+5jM97yeNWyacIRzmyF3gNPsO5
+	I8XchweI80fOVpq3MhFiKgC7QjFzHSuQFYV9xtBhmZRblxs0pF6dggfxA==
+X-ME-Sender: <xms:TLVvZUBeI-Zl0SyBoiXMmKsC00nCGUy_QV2z8RR4nLo7xWWTrCK9Yw>
+    <xme:TLVvZWi9sm6rYMB9GKm8DH1dTyGv_SfwNA_G2qcN35XgXIqRqcgsn2UEEiB8zw1G0
+    EvD2p351KZk1_yix-o>
+X-ME-Received: 
+ <xmr:TLVvZXlthnsslUqTx3ZmnsVwNfsRyzSsB8Kh62ctd0lJtzllgb4ozN0I45UyBMr6XeTqgowuqalHBzvqw5HFIAkuqAalvuuOQKYV_3fu3VueWtpP3KdFSYw>
+X-ME-Proxy-Cause: 
+ gggruggvucftvghtrhhoucdtuddrgedvkedrudejledgudegucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucenucfjughrpefhvfevufffkffoggfgsedtkeertd
+    ertddtnecuhfhrohhmpefvihhmuceuohhsshgvuceofhhlihhnnhesthhimhgsohhsrdhs
+    vgeqnecuggftrfgrthhtvghrnhepffffveelfeffveelledtueevieehieevtdeljeetfe
+    ekfeffvedtleevvdevfeeinecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehm
+    rghilhhfrhhomhepfhhlihhnnhesthhimhgsohhsrdhsvg
+X-ME-Proxy: <xmx:TLVvZay-Bn0MM9k9UyfSNfYXaIY4rqCpj2N7Eqs9S4L0B-sI285QdA>
+    <xmx:TLVvZZR7AXZARqJ3nN4rAOQW1_oW6lglXabiLjBoJr5hkSDIxRb3Dw>
+    <xmx:TLVvZVYy_1hdR7Y9hM5UQW2HASzlIuhLJCnburC5PlEq1Kg5a8gUKQ>
+    <xmx:TbVvZa5gHIyd_dOdo9E7VD6ImQ8EElart3nPAIQF0nRtoY6iBDdAcg>
+Feedback-ID: ideb94765:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 5 Dec 2023 18:42:04 -0500 (EST)
+From: Tim Bosse <flinn@timbos.se>
 To: alsa-devel@alsa-project.org
-Cc: Curtis Malainey <cujomalainey@chromium.org>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Trevor Wu <trevor.wu@mediatek.com>,
-	Tinghan Shen <tinghan.shen@mediatek.com>
-Subject: [PATCH] ASoC: SOF: mediatek: mt8186: Revert Add Google Steelix
- topology compatible
-Date: Tue,  5 Dec 2023 14:01:18 -0800
-Message-ID: <20231205220131.2585913-1-cujomalainey@chromium.org>
-X-Mailer: git-send-email 2.43.0.rc2.451.g8631bc7472-goog
+Cc: Tim Bosse <flinn@timbos.se>
+Subject: [PATCH] ALSA: hda/realtek: add new framework to quirk chain
+Date: Tue,  5 Dec 2023 18:42:00 -0500
+Message-ID: <20231205234200.383832-1-flinn@timbos.se>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 3FMVAODN5P2SDGXSX7ZJA7SNAXCZDNXY
-X-Message-ID-Hash: 3FMVAODN5P2SDGXSX7ZJA7SNAXCZDNXY
-X-MailFrom: cujomalainey@chromium.org
+Message-ID-Hash: 366V7H5XSAPE5KDQQIN4QKHXDSEECCFO
+X-Message-ID-Hash: 366V7H5XSAPE5KDQQIN4QKHXDSEECCFO
+X-MailFrom: flinn@timbos.se
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -119,7 +118,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3FMVAODN5P2SDGXSX7ZJA7SNAXCZDNXY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/366V7H5XSAPE5KDQQIN4QKHXDSEECCFO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -128,32 +127,28 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Curtis Malainey <cujomalainey@chromium.org>
+The Framework Laptop 13 (AMD Ryzen 7040Series) has an ALC 295 with
+a disconnected or faulty headset mic presence detect and works with the
+same quirk chain as 309d7363ca3d9fcdb92ff2d958be14d7e8707f68. This model
+has a VID:PID of f111:0006.
 
-This reverts commit 505c83212da5bfca95109421b8f5d9f8c6cdfef2.
-
-This is not an official topology from the SOF project. Topologies are
-named based on the card configuration and are NOT board specific.
-
-Signed-off-by: Curtis Malainey <cujomalainey@chromium.org>
+Signed-off-by: Tim Bosse <flinn@timbos.se>
 ---
- sound/soc/sof/mediatek/mt8186/mt8186.c | 3 ---
- 1 file changed, 3 deletions(-)
+ sound/pci/hda/patch_realtek.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/soc/sof/mediatek/mt8186/mt8186.c b/sound/soc/sof/mediatek/mt8186/mt8186.c
-index 1d37c9767986f..0d2d7d697de02 100644
---- a/sound/soc/sof/mediatek/mt8186/mt8186.c
-+++ b/sound/soc/sof/mediatek/mt8186/mt8186.c
-@@ -548,9 +548,6 @@ static struct snd_sof_dsp_ops sof_mt8186_ops = {
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index f9ddacfd920e..59f2578839ed 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -10271,6 +10271,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x8086, 0x2081, "Intel NUC 10", ALC256_FIXUP_INTEL_NUC10),
+ 	SND_PCI_QUIRK(0x8086, 0x3038, "Intel NUC 13", ALC295_FIXUP_CHROME_BOOK),
+ 	SND_PCI_QUIRK(0xf111, 0x0001, "Framework Laptop", ALC295_FIXUP_FRAMEWORK_LAPTOP_MIC_NO_PRESENCE),
++	SND_PCI_QUIRK(0xf111, 0x0006, "Framework Laptop", ALC295_FIXUP_FRAMEWORK_LAPTOP_MIC_NO_PRESENCE),
  
- static struct snd_sof_of_mach sof_mt8186_machs[] = {
- 	{
--		.compatible = "google,steelix",
--		.sof_tplg_filename = "sof-mt8186-google-steelix.tplg"
--	}, {
- 		.compatible = "mediatek,mt8186",
- 		.sof_tplg_filename = "sof-mt8186.tplg",
- 	},
+ #if 0
+ 	/* Below is a quirk table taken from the old code.
 -- 
-2.43.0.rc2.451.g8631bc7472-goog
+2.43.0
 

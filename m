@@ -2,107 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D2E3807273
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Dec 2023 15:32:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C777C807278
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Dec 2023 15:33:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8635F839;
-	Wed,  6 Dec 2023 15:32:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8635F839
+	by alsa0.perex.cz (Postfix) with ESMTPS id BF9C782B;
+	Wed,  6 Dec 2023 15:33:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BF9C782B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701873144;
-	bh=ccTUjGfOz2KRUq14IFwb/GQW11P7uhqRz755UAWmwIY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1701873204;
+	bh=qdPNMTqvycX05WJrpwXBuQBqD3LcOZ9tw4YPU2IGd+o=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=FNPO2m3959tWXCV4oZOsF9ls6HZg67rJdThVsU0wWfBfmfol79ZK+f5Rqcr6B+RB0
-	 HqiLD+TMGd9ENIP5nbhz6w59vv96c7gbrk0ZQkjZ1qaPvjIJ6GGC8nQhdVbfdLUu3s
-	 IPnVEr+tr3ZjH912ByepAD8wTJmR3/AGFLtmPDTk=
+	b=dDljnHAhdTqELBLlBofGwkvsA+dENUo1wG01MUdSadfObCP2+2D5bwKfxDyBJ/9KC
+	 Z7rXUJ6AUFFrDVPpT2IUF84wYwLIYb8L56SEUAbCFbGRYLqzLm2Zdn5heS5XcpPrD4
+	 MRzXARPWZuGICVbGOg4bjftVRvkHgp+2Kr9ODQM8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DB3AAF80570; Wed,  6 Dec 2023 15:31:48 +0100 (CET)
+	id B17D5F800AC; Wed,  6 Dec 2023 15:33:04 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 304F4F80570;
-	Wed,  6 Dec 2023 15:31:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AF331F80578;
+	Wed,  6 Dec 2023 15:33:03 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6FABEF8024E; Wed,  6 Dec 2023 15:31:44 +0100 (CET)
+	id A0ED6F8024E; Wed,  6 Dec 2023 15:33:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D9446F800D2
-	for <alsa-devel@alsa-project.org>; Wed,  6 Dec 2023 15:31:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D9446F800D2
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 39492F800AC
+	for <alsa-devel@alsa-project.org>; Wed,  6 Dec 2023 15:32:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 39492F800AC
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=collabora.com header.i=@collabora.com
+ header.a=rsa-sha256 header.s=mail header.b=Q6fLpv9t
+Received: from [100.113.186.2] (cola.collaboradmins.com [195.201.22.229])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id D476C1FD14;
-	Wed,  6 Dec 2023 14:31:37 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B4D79136CD;
-	Wed,  6 Dec 2023 14:31:37 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 7PC0KsmFcGWuOAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Wed, 06 Dec 2023 14:31:37 +0000
-Date: Wed, 06 Dec 2023 15:31:37 +0100
-Message-ID: <87h6kvwgfq.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Tim Bosse <flinn@timbos.se>
-Cc: alsa-devel@alsa-project.org
-Subject: Re: [PATCH v2] ALSA: hda/realtek: add new Framework laptop to quirks
-In-Reply-To: <20231206142629.388615-1-flinn@timbos.se>
-References: <ZW/dfeBFt+9wipXH@geday>
-	<20231206142629.388615-1-flinn@timbos.se>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Queue-Id: D476C1FD14
-X-Spamd-Result: default: False [0.96 / 50.00];
-	 ARC_NA(0.00)[];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	 FROM_HAS_DN(0.00)[];
-	 TO_DN_SOME(0.00)[];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 MIME_GOOD(-0.10)[text/plain];
-	 R_SPF_SOFTFAIL(0.00)[~all:c];
-	 RCVD_COUNT_THREE(0.00)[3];
-	 MX_GOOD(-0.01)[];
-	 RCPT_COUNT_TWO(0.00)[2];
-	 MID_CONTAINS_FROM(1.00)[];
-	 DBL_BLOCKED_OPENRESOLVER(0.00)[timbos.se:email];
-	 FUZZY_BLOCKED(0.00)[rspamd.com];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 R_DKIM_NA(0.00)[];
-	 MIME_TRACE(0.00)[0:+];
-	 RCVD_TLS_ALL(0.00)[];
-	 BAYES_HAM(-0.03)[56.66%];
-	 DMARC_POLICY_SOFTFAIL(0.10)[suse.de : No valid SPF, No valid DKIM,none]
-X-Spamd-Bar: /
-Authentication-Results: smtp-out2.suse.de;
-	dkim=none;
-	dmarc=fail reason="No valid SPF,
- No valid DKIM" header.from=suse.de (policy=none);
-	spf=softfail (smtp-out2.suse.de: 2a07:de40:b281:104:10:150:64:97 is neither
- permitted nor denied by domain of tiwai@suse.de) smtp.mailfrom=tiwai@suse.de
-X-Rspamd-Server: rspamd1
-Message-ID-Hash: 5DFR3RF6FSCQXA4VJG2GWUFZVERN6NQL
-X-Message-ID-Hash: 5DFR3RF6FSCQXA4VJG2GWUFZVERN6NQL
-X-MailFrom: tiwai@suse.de
+	(Authenticated sender: kholk11)
+	by madras.collabora.co.uk (Postfix) with ESMTPSA id AA2E0660734D;
+	Wed,  6 Dec 2023 14:32:31 +0000 (GMT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1701873152;
+	bh=qdPNMTqvycX05WJrpwXBuQBqD3LcOZ9tw4YPU2IGd+o=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Q6fLpv9tqetHcFEuFtAmq3xa0+MGkIDm+0+DkxdHG+6G0zOVJhYLqihNyYX2yd19G
+	 1cLd/Zwuk7xISfEoEDnzwMFpMAVRCau+EgEQG64eODmPpYzx1Kr3FSjQJcvPXS5ogs
+	 RoFtjXTaWICSGEsX/yIKwumo3Tq/JEzD4gCX28tEkjBSDi0D23VvTBn57i13Y41gbD
+	 tunB8XibnxSUu1ELMKtFf7syGd5MlaLXVjtKiWcRLz5mIFWScdnKIEN2dK0evIeRxr
+	 vkFdofoD4B+D//c7s0sgsx2ma6Vz+RSnoQ1Yxo0iZvt7/ZeKMvyOsObTHpCf/xP3c2
+	 iqouGPyUze9pA==
+Message-ID: <b441c416-91aa-4723-a605-a58974dcc444@collabora.com>
+Date: Wed, 6 Dec 2023 15:32:29 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ASoC: SOF: mediatek: mt8186: Revert Add Google Steelix
+ topology compatible
+Content-Language: en-US
+To: cujomalainey@chromium.org, alsa-devel@alsa-project.org
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, Mark Brown
+ <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Trevor Wu <trevor.wu@mediatek.com>, Tinghan Shen <tinghan.shen@mediatek.com>
+References: <20231205220131.2585913-1-cujomalainey@chromium.org>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20231205220131.2585913-1-cujomalainey@chromium.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: HQ64OL7DTMXBKHIVDB67YPY4DRN7Q763
+X-Message-ID-Hash: HQ64OL7DTMXBKHIVDB67YPY4DRN7Q763
+X-MailFrom: angelogioacchino.delregno@collabora.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -114,7 +100,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5DFR3RF6FSCQXA4VJG2GWUFZVERN6NQL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HQ64OL7DTMXBKHIVDB67YPY4DRN7Q763/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -123,18 +109,18 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 06 Dec 2023 15:26:29 +0100,
-Tim Bosse wrote:
+Il 05/12/23 23:01, cujomalainey@chromium.org ha scritto:
+> From: Curtis Malainey <cujomalainey@chromium.org>
 > 
-> The Framework Laptop 13 (AMD Ryzen 7040Series) has an ALC295 with
-> a disconnected or faulty headset mic presence detect similar to the
-> previous models.  It works with the same quirk chain as
-> 309d7363ca3d9fcdb92ff2d958be14d7e8707f68.  This model has a VID:PID
-> of f111:0006.
+> This reverts commit 505c83212da5bfca95109421b8f5d9f8c6cdfef2.
 > 
-> Signed-off-by: Tim Bosse <flinn@timbos.se>
+> This is not an official topology from the SOF project. Topologies are
+> named based on the card configuration and are NOT board specific.
+> 
 
-Thanks, applied now.
+While I can totally agree with that, can you please explain how should the correct
+topology file name be selected instead of machine compatibles?
 
+Thanks,
+Angelo
 
-Takashi

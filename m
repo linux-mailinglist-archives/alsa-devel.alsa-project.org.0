@@ -2,187 +2,128 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 956138068FC
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Dec 2023 08:55:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 086228068FE
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Dec 2023 08:55:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 08872AE9;
-	Wed,  6 Dec 2023 08:55:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08872AE9
+	by alsa0.perex.cz (Postfix) with ESMTPS id EB77EDF1;
+	Wed,  6 Dec 2023 08:55:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB77EDF1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701849339;
-	bh=E89UjMSNncIKtdJ4trgFga49M15bDO/qi72zCpCM2kA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=HrJmUz2+MJY28WA6NXpXCgaOwc2Xbf0ww9kzriTq1AhOXN2COaHKU+H3jYCqrRlPl
-	 G1xVJl2lNzPRo1I1ThS7JeRVK0y5hco9nI00cEtY6KJU9Bym4Jp7JVsNt+hCA/8uyx
-	 9vYQEqqSp9rQskkMx4MI9W69Podox8oZoRuNwfK4=
+	s=default; t=1701849352;
+	bh=Vk5U9uWnHSRqYVR55S41M+SXB4BdimiVcOHnwYsY6og=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=vqHs9YwdYLG4TLbHjZC4t3EgHyh8YbDJ03tzx4c6gdHoPhtM1g9BXVxZjIIlGaAIe
+	 rOqRIizv4z0uH6bqG4u9CanpoV+h2/ruvomVESG08UBRiGwxK4HcPIH60zgfqFhe9M
+	 QpHZyCXzH61oxxOdkTec+oQKegkcef65Z8IqWUek=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 58FC9F80587; Wed,  6 Dec 2023 08:55:19 +0100 (CET)
+	id 5CB7AF805B2; Wed,  6 Dec 2023 08:55:25 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1F8CDF8057F;
-	Wed,  6 Dec 2023 08:55:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E6616F805BA;
+	Wed,  6 Dec 2023 08:55:23 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 04708F800AC; Wed,  6 Dec 2023 06:27:39 +0100 (CET)
+	id AADA8F8025A; Wed,  6 Dec 2023 06:39:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-pf1-x430.google.com (mail-pf1-x430.google.com
- [IPv6:2607:f8b0:4864:20::430])
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [IPv6:2a00:1450:4864:20::32d])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B1241F800AC
-	for <alsa-devel@alsa-project.org>; Wed,  6 Dec 2023 06:25:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B1241F800AC
+	by alsa1.perex.cz (Postfix) with ESMTPS id C80E1F800AC
+	for <alsa-devel@alsa-project.org>; Wed,  6 Dec 2023 06:39:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C80E1F800AC
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=CTgZXZKZ
-Received: by mail-pf1-x430.google.com with SMTP id
- d2e1a72fcca58-6cc02e77a9cso6241064b3a.0
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=rE2wQFBs
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-40c09dfd82aso43215625e9.0
         for <alsa-devel@alsa-project.org>;
- Tue, 05 Dec 2023 21:25:18 -0800 (PST)
+ Tue, 05 Dec 2023 21:39:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1701840315; x=1702445115;
+        d=linaro.org; s=google; t=1701841153; x=1702445953;
  darn=alsa-project.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=6huBbZbAII0X6eZV6S+b7knvK6KuHJo8Bh0bkLgUxxE=;
-        b=CTgZXZKZLipJABB1nbaB4CWprXlPXy84NbTov1JCQAPeALVvWWG+m4rXChzsGSrqgz
-         jsD7HvMZW7bh/Xr6SmMSfQK59PfeQk5r3/LWXxa0FRymon094RHdrRFcpdkqAjJ2n3fT
-         K0UzNJIBDKrh1ro8cq7FrG0bFXplUG0HQNjnwANuktjrPnfR8AnmI3uvjuSrMCZuIxuf
-         Jh8KG/8vZczLaWJT6wbrRcJOFNoVt2s3HS/Q6ISaPe/1diEsnKt/WcBTwDMtLiEteT1g
-         icSaZHB1xeRMJxhDzg6xypNq7Z6lgWFdJy7wAhYVPaPwAPBxrxpHZKFeJYMub/wGrzeu
-         t2tA==
+        h=in-reply-to:content-disposition:mime-version:message-id:subject:cc
+         :to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=O4u7u9EhMLinCMKXbsJZZCgBovG/kdzoMMlzODKZOcY=;
+        b=rE2wQFBsD3FSzlBYMo67IYuEeOklW2Gh//ECpF0XKRv4OxOkoMEbSX6xX330nq44kE
+         4kinHoQib2hveTAPUggrHfEYyb8fBgZJeWmVxCIRZwhXju1cPJWUbiDw87mMemlHLnys
+         d7Rya7kKk3g2eTvH5NPzRUmNI5TTCHUgr14Pq+ixVIeMgwVgoKglIJ6u4ElmTB4o10qd
+         +z/j2JQM9IxFvshwjrlrVkA2OMDBpS5zYYQ7jdqLWHszclCS1OSIk6pnihI5GYxfQQPR
+         CxWFAQ8RgqaUOCtl/BLwf1wqM/iSLzldpdWkY4MS7Tj5D21En3WARe1kNe1sVZaegSYh
+         yAiQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701840315; x=1702445115;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=6huBbZbAII0X6eZV6S+b7knvK6KuHJo8Bh0bkLgUxxE=;
-        b=Dwjbs7N40k1f/UXNtdXKPNURf8yhAECs638CNV+NVShHkLaBAEyfSkZ2Vb0Enh5KsV
-         lWy0cVIZH4v1Pxhg2rVZdUBLxx39JT2E9F6DYer9ND3TTl6icTn1kWq8F1qfu8DQSvbi
-         AVcGbMBvh/w08BAUvlGb0t/SpVcXQ5QEicGuy0Z/bZXa/MBZ/n7UIR0SYRdxyW0QMYPV
-         rNWRrMz9wXjrjBNKpJCsF78ITdxPuEUGBfHxG8fuMAsxwFR8MnDdRUoLnxiW2hVSdi8o
-         INeVNxBzElhhnfycLS4jGbpqYsU0CiqJRyqsHWSBWx6O7dq/0O3aJV+qHm0NsZWPgWYi
-         dMeQ==
-X-Gm-Message-State: AOJu0YxQfAwvV3nHzq8ac7sZmd/lIMt8o+W9Vyvhyp56naZsYA2wR/1x
-	93G3Nyc74i2Bqd/xYpgIu0s=
+        d=1e100.net; s=20230601; t=1701841153; x=1702445953;
+        h=in-reply-to:content-disposition:mime-version:message-id:subject:cc
+         :to:from:date:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=O4u7u9EhMLinCMKXbsJZZCgBovG/kdzoMMlzODKZOcY=;
+        b=gXLllNmeEk3oG6jnhGcUcyj/PzI521GfT68tIkN2v0O22INN2Zv4lklM0BjQowrSoo
+         Vk1QS+9aA0qDKmCUSkHel1m7ikHpPYz93SBgqw35Avd6Ra2xtfM2hGZGLmptuqR0L3oA
+         wNM+hJZJ/2Sc8Keg/bPHIYf9NOeJ8tNZtg9qsn9c48W/jca+E9xJ3QMGkRtP/7Qj/Qaf
+         NCPENz197z2CL7YQ2XBamBs68xPLOUhBKm36ixaXBUSDvv7bJOcimwOvEvLtQXM0EEKr
+         XxijHe3kuvuZQVg+vScmLwULZ0xkY1NgyuI7rMDgn9rFaTTR+I0GvL8gaPF90MbseZwT
+         8fbQ==
+X-Gm-Message-State: AOJu0YwNcBoXCQwn2rQI1PjgJjuoA4ZZn3AO13TcRW4S9HNy6Tx8TIFI
+	LXw9VzDLdoz4uuwoijGCy82MnA==
 X-Google-Smtp-Source: 
- AGHT+IFMxfqg8FxPkhbWeYw87iiXO3hRoVhFhH1xtCbWG3FZaVDEj9UfTpo1oYq4IqfLZ3ft2t7YHQ==
-X-Received: by 2002:a05:6a00:98e:b0:6ce:6420:e174 with SMTP id
- u14-20020a056a00098e00b006ce6420e174mr407397pfg.36.1701840315262;
-        Tue, 05 Dec 2023 21:25:15 -0800 (PST)
-Received: from localhost ([216.228.127.130])
+ AGHT+IFAy6YDNnloe+CZg+064fYW1hphxl7Aimv9oj+A8PdlsOtVdmaSug/MC0yOqj37RYmzI49Gwg==
+X-Received: by 2002:a05:600c:4f15:b0:40c:192f:6ae8 with SMTP id
+ l21-20020a05600c4f1500b0040c192f6ae8mr258952wmq.115.1701841153488;
+        Tue, 05 Dec 2023 21:39:13 -0800 (PST)
+Received: from localhost ([102.36.222.112])
         by smtp.gmail.com with ESMTPSA id
- ka32-20020a056a0093a000b006ce455a7faasm5350125pfb.150.2023.12.05.21.25.14
+ fs16-20020a05600c3f9000b0040b48690c49sm20593171wmb.6.2023.12.05.21.39.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 05 Dec 2023 21:25:14 -0800 (PST)
-Date: Tue, 5 Dec 2023 21:22:59 -0800
-From: Yury Norov <yury.norov@gmail.com>
-To: Jan Kara <jack@suse.cz>
-Cc: linux-kernel@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	"James E.J. Bottomley" <jejb@linux.ibm.com>,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	"Md. Haris Iqbal" <haris.iqbal@ionos.com>,
-	Akinobu Mita <akinobu.mita@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
+        Tue, 05 Dec 2023 21:39:13 -0800 (PST)
+Date: Wed, 6 Dec 2023 08:39:10 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: oe-kbuild@lists.linux.dev, Neil Armstrong <neil.armstrong@linaro.org>,
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	Banajit Goswami <bgoswami@quicinc.com>,
+	Andy Gross <agross@kernel.org>,
 	Bjorn Andersson <andersson@kernel.org>,
-	Borislav Petkov <bp@alien8.de>, Chaitanya Kulkarni <kch@nvidia.com>,
-	Christian Brauner <brauner@kernel.org>,
-	Damien Le Moal <damien.lemoal@opensource.wdc.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	David Disseldorp <ddiss@suse.de>,
-	Edward Cree <ecree.xilinx@gmail.com>,
-	Eric Dumazet <edumazet@google.com>,
-	Fenghua Yu <fenghua.yu@intel.com>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Gregory Greenman <gregory.greenman@intel.com>,
-	Hans Verkuil <hverkuil@xs4all.nl>,
-	Hans de Goede <hdegoede@redhat.com>,
-	Hugh Dickins <hughd@google.com>, Ingo Molnar <mingo@redhat.com>,
-	Jakub Kicinski <kuba@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-	Jason Gunthorpe <jgg@ziepe.ca>, Jens Axboe <axboe@kernel.dk>,
-	Jiri Pirko <jiri@resnulli.us>, Jiri Slaby <jirislaby@kernel.org>,
-	Kalle Valo <kvalo@kernel.org>, Karsten Graul <kgraul@linux.ibm.com>,
-	Karsten Keil <isdn@linux-pingi.de>,
-	Kees Cook <keescook@chromium.org>,
-	Leon Romanovsky <leon@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Martin Habets <habetsm.xilinx@gmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Michal Simek <monstr@monstr.eu>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Oliver Neukum <oneukum@suse.com>, Paolo Abeni <pabeni@redhat.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ping-Ke Shih <pkshih@realtek.com>, Rich Felker <dalias@libc.org>,
-	Rob Herring <robh@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Shuai Xue <xueshuai@linux.alibaba.com>,
-	Stanislaw Gruszka <stf_xl@wp.pl>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	Wenjia Zhang <wenjia@linux.ibm.com>, Will Deacon <will@kernel.org>,
-	Yoshinori Sato <ysato@users.sourceforge.jp>,
-	GR-QLogic-Storage-Upstream@marvell.com, alsa-devel@alsa-project.org,
-	ath10k@lists.infradead.org, dmaengine@vger.kernel.org,
-	iommu@lists.linux.dev, kvm@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-	linux-block@vger.kernel.org, linux-bluetooth@vger.kernel.org,
-	linux-hyperv@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
-	linux-media@vger.kernel.org, linux-mips@vger.kernel.org,
-	linux-net-drivers@amd.com, linux-pci@vger.kernel.org,
-	linux-rdma@vger.kernel.org, linux-s390@vger.kernel.org,
-	linux-scsi@vger.kernel.org, linux-serial@vger.kernel.org,
-	linux-sh@vger.kernel.org, linux-sound@vger.kernel.org,
-	linux-usb@vger.kernel.org, linux-wireless@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, mpi3mr-linuxdrv.pdl@broadcom.com,
-	netdev@vger.kernel.org, sparclinux@vger.kernel.org, x86@kernel.org,
-	Mirsad Todorovac <mirsad.todorovac@alu.unizg.hr>,
-	Matthew Wilcox <willy@infradead.org>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Maxim Kuvyrkov <maxim.kuvyrkov@linaro.org>,
-	Alexey Klimov <klimov.linux@gmail.com>,
-	Bart Van Assche <bvanassche@acm.org>,
-	Sergey Shtylyov <s.shtylyov@omp.ru>
-Subject: Re: [PATCH v2 00/35] bitops: add atomic find_bit() operations
-Message-ID: <ZXAFM2VZugdhM3oE@yury-ThinkPad>
-References: <20231203192422.539300-1-yury.norov@gmail.com>
- <20231204185101.ddmkvsr2xxsmoh2u@quack3>
+	Konrad Dybcio <konrad.dybcio@linaro.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Cc: lkp@intel.com, oe-kbuild-all@lists.linux.dev,
+	linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v2 5/5] ASoC: codecs: Add WCD939x Codec driver
+Message-ID: <1a09512c-aaff-4fb6-914e-db755ce6e667@suswa.mountain>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20231204185101.ddmkvsr2xxsmoh2u@quack3>
-X-MailFrom: yury.norov@gmail.com
+In-Reply-To: 
+ <20231201-topic-sm8650-upstream-wcd939x-codec-v2-5-94ed814b25aa@linaro.org>
+X-MailFrom: dan.carpenter@linaro.org
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: PYDA74CEE5WVWZIETDJX6CLHWGU6ZTAP
-X-Message-ID-Hash: PYDA74CEE5WVWZIETDJX6CLHWGU6ZTAP
+Message-ID-Hash: CNGHI3BVOOER3AFNTS75DCMDQ72UPUPQ
+X-Message-ID-Hash: CNGHI3BVOOER3AFNTS75DCMDQ72UPUPQ
 X-Mailman-Approved-At: Wed, 06 Dec 2023 07:41:35 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PYDA74CEE5WVWZIETDJX6CLHWGU6ZTAP/>
+Archived-At: <>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -191,106 +132,83 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, Dec 04, 2023 at 07:51:01PM +0100, Jan Kara wrote:
-> Hello Yury!
-> 
-> On Sun 03-12-23 11:23:47, Yury Norov wrote:
-> > Add helpers around test_and_{set,clear}_bit() that allow to search for
-> > clear or set bits and flip them atomically.
-> > 
-> > The target patterns may look like this:
-> > 
-> > 	for (idx = 0; idx < nbits; idx++)
-> > 		if (test_and_clear_bit(idx, bitmap))
-> > 			do_something(idx);
-> > 
-> > Or like this:
-> > 
-> > 	do {
-> > 		bit = find_first_bit(bitmap, nbits);
-> > 		if (bit >= nbits)
-> > 			return nbits;
-> > 	} while (!test_and_clear_bit(bit, bitmap));
-> > 	return bit;
-> > 
-> > In both cases, the opencoded loop may be converted to a single function
-> > or iterator call. Correspondingly:
-> > 
-> > 	for_each_test_and_clear_bit(idx, bitmap, nbits)
-> > 		do_something(idx);
-> > 
-> > Or:
-> > 	return find_and_clear_bit(bitmap, nbits);
-> 
-> These are fine cleanups but they actually don't address the case that has
-> triggered all these changes - namely the xarray use of find_next_bit() in
-> xas_find_chunk().
-> 
-> ...
-> > This series is a result of discussion [1]. All find_bit() functions imply
-> > exclusive access to the bitmaps. However, KCSAN reports quite a number
-> > of warnings related to find_bit() API. Some of them are not pointing
-> > to real bugs because in many situations people intentionally allow
-> > concurrent bitmap operations.
-> > 
-> > If so, find_bit() can be annotated such that KCSAN will ignore it:
-> > 
-> >         bit = data_race(find_first_bit(bitmap, nbits));
-> 
-> No, this is not a correct thing to do. If concurrent bitmap changes can
-> happen, find_first_bit() as it is currently implemented isn't ever a safe
-> choice because it can call __ffs(0) which is dangerous as you properly note
-> above. I proposed adding READ_ONCE() into find_first_bit() / find_next_bit()
-> implementation to fix this issue but you disliked that. So other option we
-> have is adding find_first_bit() and find_next_bit() variants that take
-> volatile 'addr' and we have to use these in code like xas_find_chunk()
-> which cannot be converted to your new helpers.
+Hi Neil,
 
-Here is some examples when concurrent operations with plain find_bit()
-are acceptable:
+kernel test robot noticed the following build warnings:
 
- - two threads running find_*_bit(): safe wrt ffs(0) and returns correct
-   value, because underlying bitmap is unchanged;
- - find_next_bit() in parallel with set or clear_bit(), when modifying
-   a bit prior to the start bit to search: safe and correct;
- - find_first_bit() in parallel with set_bit(): safe, but may return wrong
-   bit number;
- - find_first_zero_bit() in parallel with clear_bit(): same as above.
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-In last 2 cases find_bit() may not return a correct bit number, but
-it may be OK if caller requires any (not exactly first) set or clear
-bit, correspondingly.
+url:    https://github.com/intel-lab-lkp/linux/commits/Neil-Armstrong/ASoC-dt-bindings-document-WCD939x-Audio-Codec/20231202-000916
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+patch link:    https://lore.kernel.org/r/20231201-topic-sm8650-upstream-wcd939x-codec-v2-5-94ed814b25aa%40linaro.org
+patch subject: [PATCH v2 5/5] ASoC: codecs: Add WCD939x Codec driver
+config: powerpc64-randconfig-r081-20231204 (https://download.01.org/0day-ci/archive/20231206/202312060127.FLhplIP3-lkp@intel.com/config)
+compiler: powerpc64-linux-gcc (GCC) 13.2.0
+reproduce: (https://download.01.org/0day-ci/archive/20231206/202312060127.FLhplIP3-lkp@intel.com/reproduce)
 
-In such cases, KCSAN may be safely silenced.
- 
-> > This series addresses the other important case where people really need
-> > atomic find ops. As the following patches show, the resulting code
-> > looks safer and more verbose comparing to opencoded loops followed by
-> > atomic bit flips.
-> > 
-> > In [1] Mirsad reported 2% slowdown in a single-thread search test when
-> > switching find_bit() function to treat bitmaps as volatile arrays. On
-> > the other hand, kernel robot in the same thread reported +3.7% to the
-> > performance of will-it-scale.per_thread_ops test.
-> 
-> It was actually me who reported the regression here [2] but whatever :)
-> 
-> [2] https://lore.kernel.org/all/20231011150252.32737-1-jack@suse.cz
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
+| Closes: https://lore.kernel.org/r/202312060127.FLhplIP3-lkp@intel.com/
 
-My apologize.
+New smatch warnings:
+sound/soc/codecs/wcd939x.c:3168 wcd939x_typec_mux_set() error: 'wcd939x' dereferencing possible ERR_PTR()
+sound/soc/codecs/wcd939x.c:3221 wcd939x_swap_gnd_mic() warn: signedness bug returning '(-22)'
 
-> > Assuming that our compilers are sane and generate better code against
-> > properly annotated data, the above discrepancy doesn't look weird. When
-> > running on non-volatile bitmaps, plain find_bit() outperforms atomic
-> > find_and_bit(), and vice-versa.
-> > 
-> > So, all users of find_bit() API, where heavy concurrency is expected,
-> > are encouraged to switch to atomic find_and_bit() as appropriate.
-> 
-> Well, all users where any concurrency can happen should switch. Otherwise
-> they are prone to the (admittedly mostly theoretical) data race issue.
-> 
-> 								Honza
-> -- 
-> Jan Kara <jack@suse.com>
-> SUSE Labs, CR
+Old smatch warnings:
+sound/soc/codecs/wcd939x.c:3170 wcd939x_typec_mux_set() error: 'wcd939x' dereferencing possible ERR_PTR()
+sound/soc/codecs/wcd939x.c:3173 wcd939x_typec_mux_set() error: 'wcd939x' dereferencing possible ERR_PTR()
+sound/soc/codecs/wcd939x.c:3174 wcd939x_typec_mux_set() error: 'wcd939x' dereferencing possible ERR_PTR()
+sound/soc/codecs/wcd939x.c:3176 wcd939x_typec_mux_set() error: 'wcd939x' dereferencing possible ERR_PTR()
+sound/soc/codecs/wcd939x.c:3177 wcd939x_typec_mux_set() error: 'wcd939x' dereferencing possible ERR_PTR()
+sound/soc/codecs/wcd939x.c:3179 wcd939x_typec_mux_set() error: 'wcd939x' dereferencing possible ERR_PTR()
+
+vim +/wcd939x +3168 sound/soc/codecs/wcd939x.c
+
+6c302e2f95b1d1 Neil Armstrong 2023-12-01  3164  static int wcd939x_typec_mux_set(struct typec_mux_dev *mux,
+6c302e2f95b1d1 Neil Armstrong 2023-12-01  3165  				 struct typec_mux_state *state)
+6c302e2f95b1d1 Neil Armstrong 2023-12-01  3166  {
+6c302e2f95b1d1 Neil Armstrong 2023-12-01  3167  	struct wcd939x_priv *wcd939x = typec_mux_get_drvdata(mux);
+6c302e2f95b1d1 Neil Armstrong 2023-12-01 @3168  	unsigned int previous_mode = wcd939x->typec_mode;
+
+The Kconfig should probably depend on CONFIG_TYPEC to avoid a crash here.
+
+6c302e2f95b1d1 Neil Armstrong 2023-12-01  3169  
+6c302e2f95b1d1 Neil Armstrong 2023-12-01  3170  	if (!wcd939x->wcd_mbhc)
+6c302e2f95b1d1 Neil Armstrong 2023-12-01  3171  		return -EINVAL;
+6c302e2f95b1d1 Neil Armstrong 2023-12-01  3172  
+6c302e2f95b1d1 Neil Armstrong 2023-12-01  3173  	if (wcd939x->typec_mode != state->mode) {
+6c302e2f95b1d1 Neil Armstrong 2023-12-01  3174  		wcd939x->typec_mode = state->mode;
+6c302e2f95b1d1 Neil Armstrong 2023-12-01  3175  
+6c302e2f95b1d1 Neil Armstrong 2023-12-01  3176  		if (wcd939x->typec_mode == TYPEC_MODE_AUDIO)
+6c302e2f95b1d1 Neil Armstrong 2023-12-01  3177  			return wcd_mbhc_typec_report_plug(wcd939x->wcd_mbhc);
+6c302e2f95b1d1 Neil Armstrong 2023-12-01  3178  		else if (previous_mode == TYPEC_MODE_AUDIO)
+6c302e2f95b1d1 Neil Armstrong 2023-12-01  3179  			return wcd_mbhc_typec_report_unplug(wcd939x->wcd_mbhc);
+6c302e2f95b1d1 Neil Armstrong 2023-12-01  3180  	}
+6c302e2f95b1d1 Neil Armstrong 2023-12-01  3181  
+6c302e2f95b1d1 Neil Armstrong 2023-12-01  3182  	return 0;
+6c302e2f95b1d1 Neil Armstrong 2023-12-01  3183  }
+
+[ snip ]
+
+6c302e2f95b1d1 Neil Armstrong 2023-12-01  3216  static bool wcd939x_swap_gnd_mic(struct snd_soc_component *component, bool active)
+6c302e2f95b1d1 Neil Armstrong 2023-12-01  3217  {
+6c302e2f95b1d1 Neil Armstrong 2023-12-01  3218  	struct wcd939x_priv *wcd939x = snd_soc_component_get_drvdata(component);
+6c302e2f95b1d1 Neil Armstrong 2023-12-01  3219  
+6c302e2f95b1d1 Neil Armstrong 2023-12-01  3220  	if (!wcd939x->typec_analog_mux || !wcd939x->typec_switch)
+6c302e2f95b1d1 Neil Armstrong 2023-12-01 @3221  		return -EINVAL;
+
+This is type bool.  return false?
+
+6c302e2f95b1d1 Neil Armstrong 2023-12-01  3222  
+6c302e2f95b1d1 Neil Armstrong 2023-12-01  3223  	/* Report inversion via Type Switch of USBSS */
+6c302e2f95b1d1 Neil Armstrong 2023-12-01  3224  	return typec_switch_set(wcd939x->typec_switch,
+6c302e2f95b1d1 Neil Armstrong 2023-12-01  3225  				wcd939x->typec_orientation == TYPEC_ORIENTATION_REVERSE ?
+6c302e2f95b1d1 Neil Armstrong 2023-12-01  3226  					TYPEC_ORIENTATION_NORMAL : TYPEC_ORIENTATION_REVERSE);
+6c302e2f95b1d1 Neil Armstrong 2023-12-01  3227  }
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
+

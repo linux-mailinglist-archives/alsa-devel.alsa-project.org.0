@@ -2,105 +2,114 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63CDA80683A
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Dec 2023 08:28:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 010D280692C
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Dec 2023 09:11:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 07D381CF;
-	Wed,  6 Dec 2023 08:28:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 07D381CF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 95A61843;
+	Wed,  6 Dec 2023 09:11:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95A61843
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701847724;
-	bh=xffnH9F5/s2eglTFcbaIqO0o3VhqJC3mGV+1KbfvF1U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=apcRxE0092ZHdrCJcXCVehKHJXIYzuVG5yREalppifE+4IHpFsL5TzavYdxuojGni
-	 4gKmFBn8XrHnJ0KpBnMil3jDtKxsJEzV5g8lotP3kChEon5Vy1T+UEzYOL+QhRvtUk
-	 QKxVye/vIqY5QFHefiZem8D2cbrZ+Y78b+OmrkMI=
+	s=default; t=1701850284;
+	bh=bacVtzXldBepfdVQ77uti9W1ze20rDbd/2MbMQnii1c=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=VfQcUH6XickyyGt2uw0YbCncufWLQK8OECZSjeI/6irvKJ29nKTEhKP4IOtI/zxTC
+	 uFQ6qC7f2Uab00bcXqMq3a03wyn0w9fG7dP4UWZFSlJ/HUJ9lQX27iLU6jHdYL+quE
+	 XcvSuFM0f+GOmFcQf9ywgdqSptxWTlSoMnsvAWXM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C7103F80568; Wed,  6 Dec 2023 08:28:13 +0100 (CET)
+	id 57A17F802E8; Wed,  6 Dec 2023 09:10:53 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 061F7F80570;
-	Wed,  6 Dec 2023 08:28:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E46EBF80571;
+	Wed,  6 Dec 2023 09:10:50 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E61FDF8024E; Wed,  6 Dec 2023 08:12:36 +0100 (CET)
+	id 24252F8024E; Wed,  6 Dec 2023 09:10:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.8 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No,
+ score=-4.8 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A200BF800D2
-	for <alsa-devel@alsa-project.org>; Wed,  6 Dec 2023 08:11:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A200BF800D2
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=N15KuOqs
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1701846688; x=1733382688;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=xffnH9F5/s2eglTFcbaIqO0o3VhqJC3mGV+1KbfvF1U=;
-  b=N15KuOqskO/td5Lmn+K40uwMVcBTkg6lsKXDmZrzct66cV0JXRUZOKIG
-   LgsOZn9Esv3moXq2WLfjoc0TrIsWHu2Q2Pyh9s4wHmHKuWuW7jmg43Y6A
-   vKWgIbwlJ/nTjAZdJuKWnN7oz2nRNLjQ8aqH1XFKZoTVTdPTnVaHpr1uf
-   MBpnwGm+BmhcK9dGuQ2sFVd2OWEVMbeajr7elRT+RJu32ltyW635uHHE1
-   zcsLLGEU+M/J0wXm/DJ73XoDk/Gg2NPl8epuRBkP9Gvx0WOSgergVXa2w
-   cPeGvQZWWQvlBcfrPyXd4HjUSg6avPn53ZHlKu1g0iIIRGDfmNIYQ67jM
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10915"; a="480215910"
-X-IronPort-AV: E=Sophos;i="6.04,254,1695711600";
-   d="scan'208";a="480215910"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
-  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Dec 2023 23:11:15 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10915"; a="862019409"
-X-IronPort-AV: E=Sophos;i="6.04,254,1695711600";
-   d="scan'208";a="862019409"
-Received: from lkp-server02.sh.intel.com (HELO b07ab15da5fe) ([10.239.97.151])
-  by FMSMGA003.fm.intel.com with ESMTP; 05 Dec 2023 23:11:11 -0800
-Received: from kbuild by b07ab15da5fe with local (Exim 4.96)
-	(envelope-from <lkp@intel.com>)
-	id 1rAm3m-000ARm-1q;
-	Wed, 06 Dec 2023 07:11:07 +0000
-Date: Wed, 6 Dec 2023 15:10:44 +0800
-From: kernel test robot <lkp@intel.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>,
-	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-	Banajit Goswami <bgoswami@quicinc.com>,
-	Andy Gross <agross@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konrad.dybcio@linaro.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v2 5/5] ASoC: codecs: Add WCD939x Codec driver
-Message-ID: <202312061428.ck8TrWdU-lkp@intel.com>
-References: 
- <20231201-topic-sm8650-upstream-wcd939x-codec-v2-5-94ed814b25aa@linaro.org>
+	by alsa1.perex.cz (Postfix) with ESMTPS id E5C82F800D2
+	for <alsa-devel@alsa-project.org>; Wed,  6 Dec 2023 09:09:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5C82F800D2
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id 459A1CE17BE;
+	Wed,  6 Dec 2023 08:09:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E1B3C433C7;
+	Wed,  6 Dec 2023 08:09:38 +0000 (UTC)
+Message-ID: <a318e512-393c-477d-b1db-72c75855b962@xs4all.nl>
+Date: Wed, 6 Dec 2023 09:09:37 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: 
- <20231201-topic-sm8650-upstream-wcd939x-codec-v2-5-94ed814b25aa@linaro.org>
-Message-ID-Hash: 2QD7ONANJ64GDG2ZC2SEW2EJDSKVLICH
-X-Message-ID-Hash: 2QD7ONANJ64GDG2ZC2SEW2EJDSKVLICH
-X-MailFrom: lkp@intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v11 00/15] Add audio support in v4l2 framework
+Content-Language: en-US, nl
+To: Shengjiu Wang <shengjiu.wang@nxp.com>, sakari.ailus@iki.fi,
+ tfiga@chromium.org, m.szyprowski@samsung.com, mchehab@kernel.org,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com, festevam@gmail.com,
+ nicoleotsuka@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
+ perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
+ linuxppc-dev@lists.ozlabs.org
+References: <1700637838-6743-1-git-send-email-shengjiu.wang@nxp.com>
+From: Hans Verkuil <hverkuil@xs4all.nl>
+Autocrypt: addr=hverkuil@xs4all.nl; keydata=
+ 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
+In-Reply-To: <1700637838-6743-1-git-send-email-shengjiu.wang@nxp.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: 736RD3B224YN37IKP5N6U4MLG2TRYZPS
+X-Message-ID-Hash: 736RD3B224YN37IKP5N6U4MLG2TRYZPS
+X-MailFrom: SRS0=PDS5=HR=xs4all.nl=hverkuil@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -111,7 +120,8 @@ X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: <>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/736RD3B224YN37IKP5N6U4MLG2TRYZPS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,43 +130,171 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Neil,
+Hi Shengjiu,
 
-kernel test robot noticed the following build errors:
+On 22/11/2023 08:23, Shengjiu Wang wrote:
+> Audio signal processing also has the requirement for memory to
+> memory similar as Video.
+> 
+> This asrc memory to memory (memory ->asrc->memory) case is a non
+> real time use case.
+> 
+> User fills the input buffer to the asrc module, after conversion, then asrc
+> sends back the output buffer to user. So it is not a traditional ALSA playback
+> and capture case.
+> 
+> It is a specific use case,  there is no reference in current kernel.
+> v4l2 memory to memory is the closed implementation,  v4l2 current
+> support video, image, radio, tuner, touch devices, so it is not
+> complicated to add support for this specific audio case.
+> 
+> Because we had implemented the "memory -> asrc ->i2s device-> codec"
+> use case in ALSA.  Now the "memory->asrc->memory" needs
+> to reuse the code in asrc driver, so the first 3 patches is for refining
+> the code to make it can be shared by the "memory->asrc->memory"
+> driver.
+> 
+> The main change is in the v4l2 side, A /dev/vl4-audioX will be created,
+> user applications only use the ioctl of v4l2 framework.
+> 
+> Other change is to add memory to memory support for two kinds of i.MX ASRC
+> module.
 
-[auto build test ERROR on broonie-sound/for-next]
-[also build test ERROR on linus/master v6.7-rc4 next-20231205]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+I just wanted to let you know that this will have to be postponed until v6.8.
+I need more time to work on the v4l-utils changes, esp. for the fraction bits
+feature, and realistically that is not going to happen before my Christmas
+vacation starts.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Neil-Armstrong/ASoC-dt-bindings-document-WCD939x-Audio-Codec/20231202-000916
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-patch link:    https://lore.kernel.org/r/20231201-topic-sm8650-upstream-wcd939x-codec-v2-5-94ed814b25aa%40linaro.org
-patch subject: [PATCH v2 5/5] ASoC: codecs: Add WCD939x Codec driver
-config: x86_64-randconfig-001-20231203 (https://download.01.org/0day-ci/archive/20231206/202312061428.ck8TrWdU-lkp@intel.com/config)
-compiler: clang version 16.0.4 (https://github.com/llvm/llvm-project.git ae42196bc493ffe877a7e3dff8be32035dea4d07)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20231206/202312061428.ck8TrWdU-lkp@intel.com/reproduce)
+Apologies for the delay.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202312061428.ck8TrWdU-lkp@intel.com/
+Regards,
 
-All errors (new ones prefixed by >>):
+	Hans
 
->> ld.lld: error: undefined symbol: typec_switch_unregister
-   >>> referenced by wcd939x.c:3610 (sound/soc/codecs/wcd939x.c:3610)
-   >>>               sound/soc/codecs/wcd939x.o:(wcd939x_probe) in archive vmlinux.a
---
->> ld.lld: error: undefined symbol: fwnode_typec_switch_get
-   >>> referenced by wcd939x.c:3369 (sound/soc/codecs/wcd939x.c:3369)
-   >>>               sound/soc/codecs/wcd939x.o:(wcd939x_bind) in archive vmlinux.a
---
->> ld.lld: error: undefined symbol: typec_switch_put
-   >>> referenced by wcd939x.c:3483 (sound/soc/codecs/wcd939x.c:3483)
-   >>>               sound/soc/codecs/wcd939x.o:(wcd939x_bind) in archive vmlinux.a
+> 
+> changes in v11
+> - add add-fixed-point-test-controls in vivid.
+> - add v4l2_ctrl_fp_compose() helper function for min and max
+> 
+> changes in v10
+> - remove FIXED_POINT type
+> - change code base on media: v4l2-ctrls: add support for fraction_bits
+> - fix issue reported by kernel test robot
+> - remove module_alias
+> 
+> changes in v9:
+> - add MEDIA_ENT_F_PROC_AUDIO_RESAMPLER.
+> - add MEDIA_INTF_T_V4L_AUDIO
+> - add media controller support
+> - refine the vim2m-audio to support 8k<->16k conversion.
+> 
+> changes in v8:
+> - refine V4L2_CAP_AUDIO_M2M to be 0x00000008
+> - update doc for FIXED_POINT
+> - address comments for imx-asrc
+> 
+> changes in v7:
+> - add acked-by from Mark
+> - separate commit for fixed point, m2m audio class, audio rate controls
+> - use INTEGER_MENU for rate,  FIXED_POINT for rate offset
+> - remove used fmts
+> - address other comments for Hans
+> 
+> changes in v6:
+> - use m2m_prepare/m2m_unprepare/m2m_start/m2m_stop to replace
+>   m2m_start_part_one/m2m_stop_part_one, m2m_start_part_two/m2m_stop_part_two.
+> - change V4L2_CTRL_TYPE_ASRC_RATE to V4L2_CTRL_TYPE_FIXED_POINT
+> - fix warning by kernel test rebot
+> - remove some unused format V4L2_AUDIO_FMT_XX
+> - Get SNDRV_PCM_FORMAT from V4L2_AUDIO_FMT in driver.
+> - rename audm2m to viaudm2m.
+> 
+> changes in v5:
+> - remove V4L2_AUDIO_FMT_LPCM
+> - define audio pixel format like V4L2_AUDIO_FMT_S8...
+> - remove rate and format in struct v4l2_audio_format.
+> - Add V4L2_CID_ASRC_SOURCE_RATE and V4L2_CID_ASRC_DEST_RATE controls
+> - updata document accordingly.
+> 
+> changes in v4:
+> - update document style
+> - separate V4L2_AUDIO_FMT_LPCM and V4L2_CAP_AUDIO_M2M in separate commit
+> 
+> changes in v3:
+> - Modify documents for adding audio m2m support
+> - Add audio virtual m2m driver
+> - Defined V4L2_AUDIO_FMT_LPCM format type for audio.
+> - Defined V4L2_CAP_AUDIO_M2M capability type for audio m2m case.
+> - with modification in v4l-utils, pass v4l2-compliance test.
+> 
+> changes in v2:
+> - decouple the implementation in v4l2 and ALSA
+> - implement the memory to memory driver as a platfrom driver
+>   and move it to driver/media
+> - move fsl_asrc_common.h to include/sound folder
+> 
+> Shengjiu Wang (15):
+>   ASoC: fsl_asrc: define functions for memory to memory usage
+>   ASoC: fsl_easrc: define functions for memory to memory usage
+>   ASoC: fsl_asrc: move fsl_asrc_common.h to include/sound
+>   ASoC: fsl_asrc: register m2m platform device
+>   ASoC: fsl_easrc: register m2m platform device
+>   media: uapi: Add V4L2_CAP_AUDIO_M2M capability flag
+>   media: v4l2: Add audio capture and output support
+>   media: uapi: Define audio sample format fourcc type
+>   media: uapi: Add V4L2_CTRL_CLASS_M2M_AUDIO
+>   media: uapi: Add audio rate controls support
+>   media: uapi: Declare interface types for Audio
+>   media: uapi: Add an entity type for audio resampler
+>   media: vivid: add fixed point test controls
+>   media: imx-asrc: Add memory to memory driver
+>   media: vim2m-audio: add virtual driver for audio memory to memory
+> 
+>  .../media/mediactl/media-types.rst            |   11 +
+>  .../userspace-api/media/v4l/buffer.rst        |    6 +
+>  .../userspace-api/media/v4l/common.rst        |    1 +
+>  .../media/v4l/dev-audio-mem2mem.rst           |   71 +
+>  .../userspace-api/media/v4l/devices.rst       |    1 +
+>  .../media/v4l/ext-ctrls-audio-m2m.rst         |   41 +
+>  .../userspace-api/media/v4l/pixfmt-audio.rst  |   87 ++
+>  .../userspace-api/media/v4l/pixfmt.rst        |    1 +
+>  .../media/v4l/vidioc-enum-fmt.rst             |    2 +
+>  .../media/v4l/vidioc-g-ext-ctrls.rst          |    4 +
+>  .../userspace-api/media/v4l/vidioc-g-fmt.rst  |    4 +
+>  .../media/v4l/vidioc-querycap.rst             |    3 +
+>  .../media/videodev2.h.rst.exceptions          |    3 +
+>  .../media/common/videobuf2/videobuf2-v4l2.c   |    4 +
+>  drivers/media/platform/nxp/Kconfig            |   13 +
+>  drivers/media/platform/nxp/Makefile           |    1 +
+>  drivers/media/platform/nxp/imx-asrc.c         | 1264 +++++++++++++++++
+>  drivers/media/test-drivers/Kconfig            |   11 +
+>  drivers/media/test-drivers/Makefile           |    1 +
+>  drivers/media/test-drivers/vim2m-audio.c      |  799 +++++++++++
+>  drivers/media/test-drivers/vivid/vivid-core.h |    2 +
+>  .../media/test-drivers/vivid/vivid-ctrls.c    |   26 +
+>  drivers/media/v4l2-core/v4l2-compat-ioctl32.c |    9 +
+>  drivers/media/v4l2-core/v4l2-ctrls-defs.c     |   10 +
+>  drivers/media/v4l2-core/v4l2-dev.c            |   21 +
+>  drivers/media/v4l2-core/v4l2-ioctl.c          |   66 +
+>  drivers/media/v4l2-core/v4l2-mem2mem.c        |   13 +-
+>  include/media/v4l2-ctrls.h                    |    3 +
+>  include/media/v4l2-dev.h                      |    2 +
+>  include/media/v4l2-ioctl.h                    |   34 +
+>  .../fsl => include/sound}/fsl_asrc_common.h   |   60 +
+>  include/uapi/linux/media.h                    |    2 +
+>  include/uapi/linux/v4l2-controls.h            |    9 +
+>  include/uapi/linux/videodev2.h                |   41 +
+>  sound/soc/fsl/fsl_asrc.c                      |  144 ++
+>  sound/soc/fsl/fsl_asrc.h                      |    4 +-
+>  sound/soc/fsl/fsl_asrc_dma.c                  |    2 +-
+>  sound/soc/fsl/fsl_easrc.c                     |  233 +++
+>  sound/soc/fsl/fsl_easrc.h                     |    6 +-
+>  39 files changed, 3008 insertions(+), 7 deletions(-)
+>  create mode 100644 Documentation/userspace-api/media/v4l/dev-audio-mem2mem.rst
+>  create mode 100644 Documentation/userspace-api/media/v4l/ext-ctrls-audio-m2m.rst
+>  create mode 100644 Documentation/userspace-api/media/v4l/pixfmt-audio.rst
+>  create mode 100644 drivers/media/platform/nxp/imx-asrc.c
+>  create mode 100644 drivers/media/test-drivers/vim2m-audio.c
+>  rename {sound/soc/fsl => include/sound}/fsl_asrc_common.h (60%)
+> 
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki

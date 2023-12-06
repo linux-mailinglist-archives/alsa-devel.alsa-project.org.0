@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38B30807696
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Dec 2023 18:27:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BEF38076E3
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Dec 2023 18:47:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 182C7868;
-	Wed,  6 Dec 2023 18:27:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 182C7868
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4324783A;
+	Wed,  6 Dec 2023 18:47:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4324783A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701883632;
-	bh=cIM9bRTh2YOUtnfRZdLQZ7bZ9HatiZnO5mDSut66suY=;
+	s=default; t=1701884835;
+	bh=gkLmXxl5SyLzUY4pgOJwOoeb6JPUT1ZN+QBLcQn01RU=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=BZvd1yHN0OaC/Yvc1lijE+TrbiKHiGK/6xa38sy3jOk4YmTOp+/xQs39IPLPtYTUR
-	 MXub9hgAJBGRKzjfxt3Y2Dksgrfj7KcS4QgVO1ib0qMNeQbEgxJ399aishS+9zc9o8
-	 0uUA0ENwq+R6i+MCi0aBtWKk2q0yf13v2mq+hRvw=
+	b=kF262zNDJ5rnauLxsQkRbGY8DHwynlXkjz9NvpvGCtKoP2hkOOQa56H5GAz5U9nrw
+	 u0wMTj55hhIAOY8hoqQbLJV6LO6g83bc2YxmfTfqJVpGOUTYlbGItYvlZAxCV/s46c
+	 mpYh2P75J8xA/RnI0f0uPCgwRz+MwE1kKL0FjsTk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A6E95F80589; Wed,  6 Dec 2023 18:26:40 +0100 (CET)
+	id 22B59F80589; Wed,  6 Dec 2023 18:46:43 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C81D7F80571;
-	Wed,  6 Dec 2023 18:26:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 050ACF80570;
+	Wed,  6 Dec 2023 18:46:43 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AD687F8024E; Wed,  6 Dec 2023 18:26:34 +0100 (CET)
+	id 3D517F8024E; Wed,  6 Dec 2023 18:46:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -37,18 +37,18 @@ Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id AF50AF800AC
-	for <alsa-devel@alsa-project.org>; Wed,  6 Dec 2023 18:26:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 69FA4F800F5
+	for <alsa-devel@alsa-project.org>; Wed,  6 Dec 2023 18:46:26 +0100 (CET)
 Received: from mail1.perex.cz (localhost [127.0.0.1])
-	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 8B10B1A73;
-	Wed,  6 Dec 2023 18:26:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 8B10B1A73
+	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id E63D81625;
+	Wed,  6 Dec 2023 18:46:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz E63D81625
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
-	t=1701883584; bh=FqZbD06Fdl2Rucr5bRuApovf5Ul/G5uMR9aau3o0QqQ=;
+	t=1701884784; bh=ui0t9lCjaPXLFEFF8QGOXCjHBweCjt/nd9yk+d7ezug=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=J3auBWOr0fOy+SJdLWt2oT2Yf0KeyNxPB0kwNYAhGu0DQHITKLq2ZL3iAJsk71ZYq
-	 4FaN/8trLFAHRrxi6yBqiwzep8ehpaDQIQoBJOQe2MDh+CrllILhgM7yiBPMcZ2cHz
-	 rIQq6BvoSXW2hJVWYf1ZYsJnTxMkN6496psalJLM=
+	b=GNNIpWHV8LDn2MpzCudmUZWulQVENkpruE+xb6u/DxN0qomUGkoDIitBxeZEpjWQf
+	 rK/EqBtlEg13wFePK11xrPJ8l6CQK2ytgGRi2PXlpAneexPgw1umbs+gtWz4HJ3mHg
+	 NZMXYJFWA7y2YcJSNf6dxER8k2dm3aRqgxg+MY+s=
 Received: from [192.168.100.98] (unknown [192.168.100.98])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
@@ -56,19 +56,20 @@ Received: from [192.168.100.98] (unknown [192.168.100.98])
 	(No client certificate requested)
 	(Authenticated sender: perex)
 	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
-	Wed,  6 Dec 2023 18:26:18 +0100 (CET)
-Message-ID: <adef7c2f-7c52-46b4-b595-cbf8970b273b@perex.cz>
-Date: Wed, 6 Dec 2023 18:26:17 +0100
+	Wed,  6 Dec 2023 18:46:18 +0100 (CET)
+Message-ID: <f0174ff1-3ee0-4e83-9a4d-c414922c0471@perex.cz>
+Date: Wed, 6 Dec 2023 18:46:18 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH alsa-ucm-conf v3 1/2] sof-soundwire: Add basic support for
- cs42l43
+Subject: Re: [PATCH alsa-ucm-conf v3 2/2] sof-soundwire: Add basic support for
+ basic cs35l56 configurations
 Content-Language: en-US
 To: Charles Keepax <ckeepax@opensource.cirrus.com>
 Cc: pierre-louis.bossart@linux.intel.com, bard.liao@intel.com,
  mengdong.lin@intel.com, patches@opensource.cirrus.com,
  alsa-devel@alsa-project.org
 References: <20231206164612.1362203-1-ckeepax@opensource.cirrus.com>
+ <20231206164612.1362203-2-ckeepax@opensource.cirrus.com>
 From: Jaroslav Kysela <perex@perex.cz>
 Autocrypt: addr=perex@perex.cz; keydata=
  xsFNBFvNeCsBEACUu2ZgwoGXmVFGukNPWjA68/7eMWI7AvNHpekSGv3z42Iy4DGZabs2Jtvk
@@ -113,11 +114,11 @@ Autocrypt: addr=perex@perex.cz; keydata=
  k8vz1gDNeG7HOIh46GnKIrQiUXVzAuUvM5vI9YaW3YRNTcn3pguQRt+Tl9Y6G+j+yvuLL173
  m4zRUU6DOygmpQAVYSOJvKAJ07AhQGaWAAi5msM6BcTU4YGcpW7FHr6+xaFDlRHzf1lkvavX
  WoxP1IA1DFuBMeYMzfyi4qDWjXc+C51ZaQd39EulYMh+JVaWRoY=
-In-Reply-To: <20231206164612.1362203-1-ckeepax@opensource.cirrus.com>
+In-Reply-To: <20231206164612.1362203-2-ckeepax@opensource.cirrus.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: O3VRHYTOCJ7JPKLSYBTC5HB4BLES53PB
-X-Message-ID-Hash: O3VRHYTOCJ7JPKLSYBTC5HB4BLES53PB
+Message-ID-Hash: H54WJ3ACB6UU7UCEWSIFGZWQUCGIZE4A
+X-Message-ID-Hash: H54WJ3ACB6UU7UCEWSIFGZWQUCGIZE4A
 X-MailFrom: perex@perex.cz
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -130,7 +131,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/O3VRHYTOCJ7JPKLSYBTC5HB4BLES53PB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/H54WJ3ACB6UU7UCEWSIFGZWQUCGIZE4A/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -140,64 +141,40 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 On 06. 12. 23 17:46, Charles Keepax wrote:
-> cs42l43 is a codec device, add basic support for it. Including a dual
-> channel DMIC input, stereo headphones, and a mono headset microphone.
+> cs35l56 is a boosted speaker amp, add UCM support for configurations
+> with up to 8 amps.
 > 
 > Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 > ---
 > 
-> No changes since v2.
-> 
-> Thanks,
-> Charles
-> 
->   ucm2/sof-soundwire/cs42l43-dmic.conf | 28 +++++++++++++++++
->   ucm2/sof-soundwire/cs42l43.conf      | 47 ++++++++++++++++++++++++++++
->   2 files changed, 75 insertions(+)
->   create mode 100644 ucm2/sof-soundwire/cs42l43-dmic.conf
->   create mode 100644 ucm2/sof-soundwire/cs42l43.conf
-> 
-> diff --git a/ucm2/sof-soundwire/cs42l43-dmic.conf b/ucm2/sof-soundwire/cs42l43-dmic.conf
-> new file mode 100644
-> index 0000000..bf59eca
-> --- /dev/null
-> +++ b/ucm2/sof-soundwire/cs42l43-dmic.conf
-> @@ -0,0 +1,28 @@
-> +# Use case Configuration for sof-soundwire card
-> +
-> +SectionDevice."Mic" {
-> +	Comment "Microphones"
-> +
-> +	ConflictingDevice [
-> +		"Headset"
-> +	]
-> +
-> +	EnableSequence [
-> +		cset "name='cs42l43 DP1TX1 Input' 'Decimator 3'"
-> +		cset "name='cs42l43 DP1TX2 Input' 'Decimator 4'"
-> +		cset "name='cs42l43 Decimator 3 Switch' on"
-> +		cset "name='cs42l43 Decimator 4 Switch' on"
-> +	]
-> +
-> +	DisableSequence [
-> +		cset "name='cs42l43 Decimator 3 Switch' off"
-> +		cset "name='cs42l43 Decimator 4 Switch' off"
-> +		cset "name='cs42l43 DP1TX1 Input' 'None'"
-> +		cset "name='cs42l43 DP1TX2 Input' 'None'"
-> +	]
-> +
-> +	Value {
-> +		CapturePriority 100
-> +		CapturePCM "hw:${CardId},4"
-> +	}
-> +}
+> Changes since v2:
+>   - Rebased on top of conversion of the Realtek amps.
+>   - Add a macro for each amp to simplify things a bit.
 
-Just curious: Why dmic input does not have Decimator switch/volume controls 
-like Headset output?
+Thanks. This patch was inspiration for me. Could you check modifications in 
+https://github.com/alsa-project/alsa-ucm-conf/pull/370 ? We can use regex to 
+create condition against SpeakerAmps variable, so the configuration may look like:
 
-We can combine mono controls to one stereo in latest UCM.
+...
+	Condition {
+		Type RegexMatch
+		Regex "${var:__ForAmps}"
+		String "${var:SpeakerAmps}"
+	}
+...
+	Macro.num1.cs42l43spk { ForAmps "[12468]" Amp 1 }
+	Macro.num2.cs42l43spk { ForAmps "[2468]" Amp 2 }
+	Macro.num3.cs42l43spk { ForAmps "[468]" Amp 3 }
+	Macro.num4.cs42l43spk { ForAmps "[468]" Amp 4 }
+	Macro.num5.cs42l43spk { ForAmps "[68]" Amp 5 }
+	Macro.num6.cs42l43spk { ForAmps "[68]" Amp 6 }
+	Macro.num7.cs42l43spk { ForAmps "8" Amp 7 }
+	Macro.num8.cs42l43spk { ForAmps "8" Amp 8 }
+...
 
-					Jaroslav
+I assume that only even count for amplifiers is valid (with mono exception).
+
+						Jaroslav
 
 -- 
 Jaroslav Kysela <perex@perex.cz>

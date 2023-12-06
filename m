@@ -2,96 +2,110 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0ECEC8071CE
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Dec 2023 15:09:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD5E0807225
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Dec 2023 15:19:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7242CDEB;
-	Wed,  6 Dec 2023 15:09:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7242CDEB
+	by alsa0.perex.cz (Postfix) with ESMTPS id C5384850;
+	Wed,  6 Dec 2023 15:19:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C5384850
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701871758;
-	bh=j8XHwJmJEXZpV18dD6qX8s43hJ1c5Jk/pHl6UVhlf8A=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1701872382;
+	bh=5TxxHqsxSObAuCSkma5q4e7bXcy8vGyE1WChKfG72a4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=OrDl2Bbf4a5PxF0p9qT/OeHvq4RIxxZCc2jGNPCI1xNFJJG0HaWN3QuS7a5oTZLa5
-	 QRO50z77p/yol2q3yPSxuRBpiHNiUIJE6Vme4tsIXZZFtioS2wKnYr8cTI5/pwsaAJ
-	 O1v4P8vESDWE4hHBOxUdMkEca6D4Mjy4ATB5rWeA=
+	b=VWZw+v3tXsK1aN5hunE7O19g10KOdpEBzMi51AvbyiiHqNQ4+1ye3jxEXE/oUqxl/
+	 RoXriTtmxYmfKDF3+lUNTH+oyTuPanCOyaFE01D+kQt8102aS6BY+vOMzERYsWgFww
+	 GCG1TeEHPqCjTdps/3ITJzUBEMRXAQh8jjsVdknI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 64554F8024E; Wed,  6 Dec 2023 15:08:34 +0100 (CET)
+	id B8630F80580; Wed,  6 Dec 2023 15:19:11 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id AA2FFF805B3;
-	Wed,  6 Dec 2023 15:08:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BF239F80570;
+	Wed,  6 Dec 2023 15:19:10 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A786AF8024E; Wed,  6 Dec 2023 15:06:11 +0100 (CET)
+	id E0CF3F8024E; Wed,  6 Dec 2023 15:19:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C4A5FF800F5
-	for <alsa-devel@alsa-project.org>; Wed,  6 Dec 2023 15:05:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4A5FF800F5
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=RfpP3WRz
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 3B69KGJD027934;
-	Wed, 6 Dec 2023 08:05:51 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	from:to:cc:subject:date:message-id:in-reply-to:references
-	:mime-version:content-transfer-encoding:content-type; s=
-	PODMain02222019; bh=EQ/5Zcx+uo6H2qtGNEXE0eRPgdnWGb91HYL8S+uJyLU=; b=
-	RfpP3WRzQJ39sT1BrM+N2sVKGzZrXZuiLffIOjHkri5voyfsnIt8oGMbejbKM2F9
-	SQ3yVzJ25eNIn9PmZurY4C4BlxAkVZywARN3vRvLDz7Us81SD5MzLzhGWQAYE/XI
-	ov8t8cE2tfhUmS6XY9h4F3pS27OlmIeRRcPWu6iCyuwlcZtIyCPYkx2nt4pyrKQL
-	loGCb0ZefH7Aa76EQ+M8zKizMX/p0SLZIVY4zsYxHxWVwcwqdwbi6MANzlEaBUZM
-	7q2O8M+p8YJBdUP7tbAG+dUp8Zr19EzKKmhcD2CXb9uOdK7tzuz8I3ZzMXApKgGs
-	nKXDZ5AshwP8/401kwiHmg==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3utd1w8rw0-2
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 06 Dec 2023 08:05:50 -0600 (CST)
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Wed, 6 Dec
- 2023 14:05:47 +0000
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.40 via Frontend
- Transport; Wed, 6 Dec 2023 14:05:47 +0000
-Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 60EA311D2;
-	Wed,  6 Dec 2023 14:05:47 +0000 (UTC)
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: <perex@perex.cz>
-CC: <pierre-louis.bossart@linux.intel.com>, <bard.liao@intel.com>,
-        <mengdong.lin@intel.com>, <patches@opensource.cirrus.com>,
-        <alsa-devel@alsa-project.org>
-Subject: [PATCH alsa-ucm-conf v2 2/2] sof-soundwire: Add basic support for a
- 4x cs35l56 configuration
-Date: Wed, 6 Dec 2023 14:05:47 +0000
-Message-ID: <20231206140547.1344041-2-ckeepax@opensource.cirrus.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20231206140547.1344041-1-ckeepax@opensource.cirrus.com>
-References: <20231206140547.1344041-1-ckeepax@opensource.cirrus.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: NH7zV5n461h6TMcJgT5cMkxsYQmc7yzB
-X-Proofpoint-ORIG-GUID: NH7zV5n461h6TMcJgT5cMkxsYQmc7yzB
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: 5LCK4UK74WBFHD2UX7D22LDUAOY7CRW3
-X-Message-ID-Hash: 5LCK4UK74WBFHD2UX7D22LDUAOY7CRW3
-X-MailFrom: prvs=77042597b4=ckeepax@opensource.cirrus.com
+	by alsa1.perex.cz (Postfix) with ESMTPS id 39CEEF800AC
+	for <alsa-devel@alsa-project.org>; Wed,  6 Dec 2023 15:18:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 39CEEF800AC
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id DB90821F7D;
+	Wed,  6 Dec 2023 14:18:51 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C9D8313408;
+	Wed,  6 Dec 2023 14:18:51 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([10.150.64.162])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id nieIMMuCcGUzNAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Wed, 06 Dec 2023 14:18:51 +0000
+Date: Wed, 06 Dec 2023 15:18:47 +0100
+Message-ID: <87jzprwh14.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	alsa-devel@alsa-project.org
+Subject: Re: [GIT PULL] ASoC fixes for v6.7-rc4
+In-Reply-To: <20231206134322.E1A21C433C7@smtp.kernel.org>
+References: <20231206134322.E1A21C433C7@smtp.kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Bar: ++++++++
+Authentication-Results: smtp-out1.suse.de;
+	dkim=none;
+	dmarc=fail reason="No valid SPF,
+ No valid DKIM" header.from=suse.de (policy=none);
+	spf=softfail (smtp-out1.suse.de: 2a07:de40:b281:104:10:150:64:97 is neither
+ permitted nor denied by domain of tiwai@suse.de) smtp.mailfrom=tiwai@suse.de
+X-Rspamd-Server: rspamd2
+X-Spamd-Result: default: False [8.88 / 50.00];
+	 ARC_NA(0.00)[];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	 FROM_HAS_DN(0.00)[];
+	 RCPT_COUNT_THREE(0.00)[3];
+	 FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 MIME_GOOD(-0.10)[text/plain];
+	 NEURAL_SPAM_SHORT(1.09)[0.364];
+	 R_SPF_SOFTFAIL(4.60)[~all:c];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 TO_DN_SOME(0.00)[];
+	 MX_GOOD(-0.01)[];
+	 MID_CONTAINS_FROM(1.00)[];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 R_DKIM_NA(2.20)[];
+	 MIME_TRACE(0.00)[0:+];
+	 FREEMAIL_CC(0.00)[gmail.com,alsa-project.org];
+	 RCVD_TLS_ALL(0.00)[];
+	 BAYES_HAM(-0.00)[41.48%];
+	 DMARC_POLICY_SOFTFAIL(0.10)[suse.de : No valid SPF, No valid DKIM,none]
+X-Rspamd-Queue-Id: DB90821F7D
+Message-ID-Hash: QXMBHVY2TQI374GYZ4NHYDAQ2YV4JVDH
+X-Message-ID-Hash: QXMBHVY2TQI374GYZ4NHYDAQ2YV4JVDH
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -103,7 +117,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5LCK4UK74WBFHD2UX7D22LDUAOY7CRW3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QXMBHVY2TQI374GYZ4NHYDAQ2YV4JVDH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,172 +126,28 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-cs35l56 is a boosted speaker amp, add UCM support for configurations
-with up to 8 amps. This also updates the default naming for the
-speaker amp UCM file to remove the number of amps. Special cases are
-added for the existing amps that require different UCM for different
-numbers of amps, but future additions will defaults to not including
-it in the naming.
+On Wed, 06 Dec 2023 14:43:15 +0100,
+Mark Brown wrote:
+> 
+> The following changes since commit b85ea95d086471afb4ad062012a4d73cd328fa86:
+> 
+>   Linux 6.7-rc1 (2023-11-12 16:19:07 -0800)
+> 
+> are available in the Git repository at:
+> 
+>   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.7-rc4
+> 
+> for you to fetch changes up to 0a10d15280a385e5971fb58a6d2eddbf7c0aa9f3:
+> 
+>   ASoC: qcom: Limit Digital gains on speaker (2023-12-04 21:42:29 +0000)
+> 
+> ----------------------------------------------------------------
+> ASoC: Fixes for v6.7
+> 
+> A crop of fixes for v6.7, one core fix for a merge issue and a bunch of
+> driver specific fixes and new IDs, mostly for x86 platforms.
 
-Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
----
- ucm2/sof-soundwire/HiFi.conf    |  12 +++-
- ucm2/sof-soundwire/cs35l56.conf | 123 ++++++++++++++++++++++++++++++++
- 2 files changed, 134 insertions(+), 1 deletion(-)
- create mode 100644 ucm2/sof-soundwire/cs35l56.conf
+Thanks, pulled now.
 
-diff --git a/ucm2/sof-soundwire/HiFi.conf b/ucm2/sof-soundwire/HiFi.conf
-index a8c1e33..8b32d20 100644
---- a/ucm2/sof-soundwire/HiFi.conf
-+++ b/ucm2/sof-soundwire/HiFi.conf
-@@ -13,7 +13,17 @@ If.spkdev {
- 		Type String
- 		Empty "${var:SpeakerCodec1}"
- 	}
--	False.Include.spkdev.File "/sof-soundwire/${var:SpeakerCodec1}-${var:SpeakerAmps1}.conf"
-+	False {
-+		If.simplespeaker {
-+			Condition {
-+				Type RegexMatch
-+				Regex "(rt1308|rt1316|rt1318)"
-+				String "${var:SpeakerCodec1}"
-+			}
-+			True.Include.spkdev.File "/sof-soundwire/${var:SpeakerCodec1}-${var:SpeakerAmps1}.conf"
-+			False.Include.spkdev.File "/sof-soundwire/${var:SpeakerCodec1}.conf"
-+		}
-+	}
- }
- 
- If.micdev {
-diff --git a/ucm2/sof-soundwire/cs35l56.conf b/ucm2/sof-soundwire/cs35l56.conf
-new file mode 100644
-index 0000000..32c08e7
---- /dev/null
-+++ b/ucm2/sof-soundwire/cs35l56.conf
-@@ -0,0 +1,123 @@
-+# Use case Configuration for sof-soundwire card
-+
-+SectionDevice."Speaker" {
-+	Comment "Speaker"
-+
-+	If.amp1 {
-+		Condition {
-+			Type ControlExists
-+			Control "name='AMP1 Speaker Switch'"
-+		}
-+		True {
-+			EnableSequence [
-+				cset "name='AMP1 Speaker Switch' 1"
-+			]
-+			DisableSequence [
-+				cset "name='AMP1 Speaker Switch' 0"
-+			]
-+		}
-+	}
-+	If.amp2 {
-+		Condition {
-+			Type ControlExists
-+			Control "name='AMP2 Speaker Switch'"
-+		}
-+		True {
-+			EnableSequence [
-+				cset "name='AMP2 Speaker Switch' 1"
-+			]
-+			DisableSequence [
-+				cset "name='AMP2 Speaker Switch' 0"
-+			]
-+		}
-+	}
-+	If.amp3 {
-+		Condition {
-+			Type ControlExists
-+			Control "name='AMP3 Speaker Switch'"
-+		}
-+		True {
-+			EnableSequence [
-+				cset "name='AMP3 Speaker Switch' 1"
-+			]
-+			DisableSequence [
-+				cset "name='AMP3 Speaker Switch' 0"
-+			]
-+		}
-+	}
-+	If.amp4 {
-+		Condition {
-+			Type ControlExists
-+			Control "name='AMP4 Speaker Switch'"
-+		}
-+		True {
-+			EnableSequence [
-+				cset "name='AMP4 Speaker Switch' 1"
-+			]
-+			DisableSequence [
-+				cset "name='AMP4 Speaker Switch' 0"
-+			]
-+		}
-+	}
-+	If.amp5 {
-+		Condition {
-+			Type ControlExists
-+			Control "name='AMP5 Speaker Switch'"
-+		}
-+		True {
-+			EnableSequence [
-+				cset "name='AMP5 Speaker Switch' 1"
-+			]
-+			DisableSequence [
-+				cset "name='AMP5 Speaker Switch' 0"
-+			]
-+		}
-+	}
-+	If.amp6 {
-+		Condition {
-+			Type ControlExists
-+			Control "name='AMP6 Speaker Switch'"
-+		}
-+		True {
-+			EnableSequence [
-+				cset "name='AMP6 Speaker Switch' 1"
-+			]
-+			DisableSequence [
-+				cset "name='AMP6 Speaker Switch' 0"
-+			]
-+		}
-+	}
-+	If.amp7 {
-+		Condition {
-+			Type ControlExists
-+			Control "name='AMP7 Speaker Switch'"
-+		}
-+		True {
-+			EnableSequence [
-+				cset "name='AMP7 Speaker Switch' 1"
-+			]
-+			DisableSequence [
-+				cset "name='AMP7 Speaker Switch' 0"
-+			]
-+		}
-+	}
-+	If.amp8 {
-+		Condition {
-+			Type ControlExists
-+			Control "name='AMP8 Speaker Switch'"
-+		}
-+		True {
-+			EnableSequence [
-+				cset "name='AMP8 Speaker Switch' 1"
-+			]
-+			DisableSequence [
-+				cset "name='AMP8 Speaker Switch' 0"
-+			]
-+		}
-+	}
-+
-+	Value {
-+		PlaybackPriority 100
-+		PlaybackPCM "hw:${CardId},2"
-+	}
-+}
--- 
-2.39.2
 
+Takashi

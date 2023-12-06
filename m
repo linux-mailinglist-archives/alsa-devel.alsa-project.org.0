@@ -2,72 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBD3F807111
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Dec 2023 14:44:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2575080711A
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Dec 2023 14:46:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1466283A;
-	Wed,  6 Dec 2023 14:44:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1466283A
+	by alsa0.perex.cz (Postfix) with ESMTPS id A13F19F6;
+	Wed,  6 Dec 2023 14:45:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A13F19F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701870261;
-	bh=ZpWprhcqOZfTUDEdKhTKsUtp8FWHb9ksHdtItFcAdKM=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=XBHHZUwOQ3KN1rnyNVuxzqHBn426LY7YURWUwcI0Rih/rt+PlZ6uO3dTHTsiagJ+3
-	 VBtcZyY5fQyc1C0+b+0BrWAP7g8ta0SvYDh/bjyFsVtGlGR+yKRtBH4a/DYOZ+OuJS
-	 SQyw5i8lhpoFw8i726RM+j4qUoON5avOiOOqeTnk=
+	s=default; t=1701870369;
+	bh=OOXRFN1r525T5U/njmTicMNcjvpIFxjy3A/HJdvfhfc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=DxynRK8kIndpB+g72GdBc6qIlGzzr/9QkkqbMXJpc3V1dl4b3eI88GyPgD3srfexW
+	 iF77OJbZTbAjGGBcZc5NeplsrdKajNh99SSEr/HhUimaQsczW2SF27BLLnFVtv80VS
+	 QUMac4RvtkiBBxqFRFwuV6F4S97V609b6LU5wVVE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BD52FF80580; Wed,  6 Dec 2023 14:43:49 +0100 (CET)
+	id C7FC2F800F5; Wed,  6 Dec 2023 14:45:39 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1ACF2F80579;
-	Wed,  6 Dec 2023 14:43:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 18EE6F80571;
+	Wed,  6 Dec 2023 14:45:38 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 810B6F8024E; Wed,  6 Dec 2023 14:43:42 +0100 (CET)
+	id 7559EF8024E; Wed,  6 Dec 2023 14:45:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4CA9EF800AC
-	for <alsa-devel@alsa-project.org>; Wed,  6 Dec 2023 14:43:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4CA9EF800AC
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1EF4AF800AC
+	for <alsa-devel@alsa-project.org>; Wed,  6 Dec 2023 14:45:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1EF4AF800AC
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=qrB1Wsfv
+ header.s=k20201202 header.b=YMJkqtlg
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 82974CE1E66;
-	Wed,  6 Dec 2023 13:43:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1A21C433C7;
-	Wed,  6 Dec 2023 13:43:22 +0000 (UTC)
+	by ams.source.kernel.org (Postfix) with ESMTP id 59251B81F7D;
+	Wed,  6 Dec 2023 13:45:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD4B2C433C8;
+	Wed,  6 Dec 2023 13:45:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1701870203;
-	bh=ZpWprhcqOZfTUDEdKhTKsUtp8FWHb9ksHdtItFcAdKM=;
-	h=From:To:Cc:Subject:Date:From;
-	b=qrB1WsfvCUINNlwwcA1qZwXyVSqCwIi76K2b0nfPe5VKA4o5qDGR1OPdKTJqb/5eq
-	 dT74P/qNrPlpbkehFoarEeY9kZrzqR9Q9Z0uVpS2ehRm6hC+Xd/Dzuvy40ZPbMd8bT
-	 6b7cwaPvt+/Jo4XQJXYubSF9zzD0h+SJd76Ov3h2oiJmWvgvMzvW/Mu40KZTWuciO2
-	 i8DVE3oJZkSkcZ1j7FurLsdqbWth6Pvv/RwRykU1VsXg3xX1Hx4StrAld794H6Haon
-	 NHN9poJnmyTT7O+5Uqwo9rWk2IpP6t38Djk8ncz0HbfP07CbKApCkDNSZVqmXJ6q/4
-	 yJnlFf+bUoAeg==
-From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>
-Subject: [GIT PULL] ASoC fixes for v6.7-rc4
-Date: Wed, 06 Dec 2023 13:43:15 +0000
-Message-Id: <20231206134322.E1A21C433C7@smtp.kernel.org>
-Message-ID-Hash: OIINSL2QUC25WO4WJ3YXW7NFNHLYBRFA
-X-Message-ID-Hash: OIINSL2QUC25WO4WJ3YXW7NFNHLYBRFA
-X-MailFrom: broonie@kernel.org
+	s=k20201202; t=1701870326;
+	bh=OOXRFN1r525T5U/njmTicMNcjvpIFxjy3A/HJdvfhfc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=YMJkqtlg1H/lfcxRidEk7JS2+6JHsSK8Oaipk5bLara6T7MNPhJC5VKPOjx+SdPno
+	 uCWxbS/TJs4f1gWuxZaeIOW5th2aEFpvQW+ZfG1wYPG3+aGkgOk6PL04zy4ogMMzHa
+	 Z/8+KlmxPAFiM+m3P77xxqPF/sqPECISOroDNxmuAQcwNidGj8XcM2g8hxB5TxyhI5
+	 TiOGQVFmnoACjmtlMexS14HQGlqjYOp3G92DQhq1DYKE/GaNESYN+tO+JaIRg61lrJ
+	 Kd7vldTl89+fLxEoXKq9BpOq5YbQu60A3cz+84jEz5gyXwM2Uuvzt0l4cMkDwUW7lo
+	 gTVdXRPV9JMBA==
+Date: Wed, 6 Dec 2023 13:45:18 +0000
+From: Lee Jones <lee@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Cc: tudor.ambarus@linaro.org, pratyush@kernel.org,
+	miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com,
+	sbinding@opensource.cirrus.com, james.schulman@cirrus.com,
+	david.rhodes@cirrus.com, rf@opensource.cirrus.com, perex@perex.cz,
+	tiwai@suse.com, Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>,
+	linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	michael@walle.cc, linux-mtd@lists.infradead.org,
+	nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com,
+	claudiu.beznea@tuxon.dev, michal.simek@amd.com,
+	linux-arm-kernel@lists.infradead.org, alsa-devel@alsa-project.org,
+	patches@opensource.cirrus.com, linux-sound@vger.kernel.org,
+	git@amd.com, amitrkcian2002@gmail.com
+Subject: Re: (subset) [PATCH v11 01/10] mfd: tps6594: Use set/get APIs to
+ access spi->chip_select
+Message-ID: <20231206134518.GE3375667@google.com>
+References: <20231125092137.2948-1-amit.kumar-mahapatra@amd.com>
+ <20231125092137.2948-2-amit.kumar-mahapatra@amd.com>
+ <170142465659.3329910.8527538140063947758.b4-ty@kernel.org>
+ <395caa58-a8a0-4c75-85d3-4fa0f6f4a9ba@sirena.org.uk>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <395caa58-a8a0-4c75-85d3-4fa0f6f4a9ba@sirena.org.uk>
+Message-ID-Hash: GIEHG2KFFVFRXWHJ42L7KYBEKIJSZKWG
+X-Message-ID-Hash: GIEHG2KFFVFRXWHJ42L7KYBEKIJSZKWG
+X-MailFrom: lee@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -79,7 +100,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OIINSL2QUC25WO4WJ3YXW7NFNHLYBRFA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GIEHG2KFFVFRXWHJ42L7KYBEKIJSZKWG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -88,124 +109,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The following changes since commit b85ea95d086471afb4ad062012a4d73cd328fa86:
+On Fri, 01 Dec 2023, Mark Brown wrote:
 
-  Linux 6.7-rc1 (2023-11-12 16:19:07 -0800)
+> On Fri, Dec 01, 2023 at 09:57:36AM +0000, Lee Jones wrote:
+> > On Sat, 25 Nov 2023 14:51:28 +0530, Amit Kumar Mahapatra wrote:
+> > > In preparation for adding multiple CS support for a device, set/get
+> > > functions were introduces accessing spi->chip_select in
+> > > 'commit 303feb3cc06a ("spi: Add APIs in spi core to set/get
+> > > spi->chip_select and spi->cs_gpiod")'.
+> > > Replace spi->chip_select with spi_get_chipselect() API.
+> 
+> > Applied, thanks!
+> 
+> > [01/10] mfd: tps6594: Use set/get APIs to access spi->chip_select
+> >         commit: dd636638446c87c95c5beddcd367d95ac6764c6c
+> 
+> Is there a signed tag available for this - without this change the
+> subsequent SPI changes introduce a build breakage.
 
-are available in the Git repository at:
+Not yet, but I can get around to making one.
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.7-rc4
-
-for you to fetch changes up to 0a10d15280a385e5971fb58a6d2eddbf7c0aa9f3:
-
-  ASoC: qcom: Limit Digital gains on speaker (2023-12-04 21:42:29 +0000)
-
-----------------------------------------------------------------
-ASoC: Fixes for v6.7
-
-A crop of fixes for v6.7, one core fix for a merge issue and a bunch of
-driver specific fixes and new IDs, mostly for x86 platforms.
-
-----------------------------------------------------------------
-AngeloGioacchino Del Regno (1):
-      ASoC: SOF: mediatek: mt8186: Add Google Steelix topology compatible
-
-Chancel Liu (1):
-      ASoC: imx-rpmsg: SND_SOC_IMX_RPMSG should depend on OF and I2C
-
-Charles Keepax (1):
-      ASoC: wm8974: Correct boost mixer inputs
-
-David Lin (1):
-      ASoC: nau8822: Fix incorrect type in assignment and cast to restricted __be16
-
-David Rau (1):
-      ASoC: da7219: Support low DC impedance headset
-
-Dinghao Liu (1):
-      ASoC: wm_adsp: fix memleak in wm_adsp_buffer_populate
-
-Jeremy Soller (1):
-      ASoC: amd: yc: Add DMI entry to support System76 Pangolin 13
-
-Johan Hovold (1):
-      ASoC: soc-pcm: fix up bad merge
-
-Kamil Duljas (3):
-      ASoC: Intel: Skylake: Fix mem leak in few functions
-      ASoC: SOF: topology: Fix mem leak in sof_dai_load()
-      ASoC: Intel: Skylake: mem leak in skl register function
-
-Maciej Strozek (2):
-      ASoC: cs43130: Fix the position of const qualifier
-      ASoC: cs43130: Fix incorrect frame delay configuration
-
-Malcolm Hart (1):
-      ASoC: amd: yc: Fix non-functional mic on ASUS E1504FA
-
-Marian Postevca (1):
-      ASoC: amd: acp: Add support for a new Huawei Matebook laptop
-
-Mark Brown (3):
-      ASoC: Fixes for cs43130
-      ASoC: SOF: Extend the enabled DSP core handling
-      ASoC: qcom: Limit Digital gains on speaker
-
-Matus Malych (1):
-      ASoC: amd: yc: Add HP 255 G10 into quirk table
-
-Neil Armstrong (1):
-      ASoC: codecs: lpass-tx-macro: set active_decimator correct default value
-
-Peter Ujfalusi (5):
-      ASoC: Intel: skl_hda_dsp_generic: Drop HDMI routes when HDMI is not available
-      ASoC: Intel: sof_sdw: Always register the HDMI dai links
-      ASoC: hdac_hda: Conditionally register dais for HDMI and Analog
-      ASoC: SOF: ipc4-topology: Correct data structures for the SRC module
-      ASoC: SOF: ipc4-topology: Correct data structures for the GAIN module
-
-Ranjani Sridharan (2):
-      ASoC: SOF: ipc4-topology: Add core_mask in struct snd_sof_pipeline
-      ASoC: SOF: sof-audio: Modify logic for enabling/disabling topology cores
-
-Shengjiu Wang (3):
-      ASoC: fsl_sai: Fix no frame sync clock issue on i.MX8MP
-      ASoC: fsl_xcvr: Enable 2 * TX bit clock for spdif only case
-      ASoC: fsl_xcvr: refine the requested phy clock frequency
-
-Shuming Fan (1):
-      ASoC: rt5650: add mutex to avoid the jack detection failure
-
-Srinivas Kandagatla (2):
-      ASoC: ops: add correct range check for limiting volume
-      ASoC: qcom: sc8280xp: Limit speaker digital volumes
-
- sound/soc/amd/acp-config.c                   | 14 ++++++
- sound/soc/amd/yc/acp6x-mach.c                | 21 +++++++++
- sound/soc/codecs/cs43130.c                   |  6 +--
- sound/soc/codecs/da7219-aad.c                |  2 +-
- sound/soc/codecs/hdac_hda.c                  | 23 ++++++++--
- sound/soc/codecs/lpass-tx-macro.c            |  5 +++
- sound/soc/codecs/nau8822.c                   |  9 ++--
- sound/soc/codecs/rt5645.c                    | 10 ++++-
- sound/soc/codecs/wm8974.c                    |  6 +--
- sound/soc/codecs/wm_adsp.c                   |  8 +++-
- sound/soc/fsl/Kconfig                        |  1 +
- sound/soc/fsl/fsl_sai.c                      | 21 +++++++++
- sound/soc/fsl/fsl_xcvr.c                     | 14 +++++-
- sound/soc/intel/boards/skl_hda_dsp_generic.c |  2 +
- sound/soc/intel/boards/sof_sdw.c             | 17 ++++----
- sound/soc/intel/skylake/skl-pcm.c            |  9 +++-
- sound/soc/intel/skylake/skl-sst-ipc.c        |  4 +-
- sound/soc/qcom/sc8280xp.c                    | 17 ++++++++
- sound/soc/soc-ops.c                          |  2 +-
- sound/soc/soc-pcm.c                          | 11 ++---
- sound/soc/sof/ipc3-topology.c                |  2 +
- sound/soc/sof/ipc4-control.c                 | 20 ++++-----
- sound/soc/sof/ipc4-topology.c                | 61 +++++++++++++++-----------
- sound/soc/sof/ipc4-topology.h                | 34 +++++++++++----
- sound/soc/sof/mediatek/mt8186/mt8186.c       |  3 ++
- sound/soc/sof/sof-audio.c                    | 65 ++++++++++++++++++----------
- sound/soc/sof/sof-audio.h                    |  2 +
- sound/soc/sof/topology.c                     |  4 +-
- 28 files changed, 286 insertions(+), 107 deletions(-)
+-- 
+Lee Jones [李琼斯]

@@ -2,30 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 715AE8070B5
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Dec 2023 14:15:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBD3F807111
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Dec 2023 14:44:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6E2DD857;
-	Wed,  6 Dec 2023 14:15:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E2DD857
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1466283A;
+	Wed,  6 Dec 2023 14:44:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1466283A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701868546;
-	bh=EStk6AojKy4VrHDz7eSOQKX/7HbeZy7ZzJ/2crabbHk=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=AKVbmr7r+gqecLb1aYAxjBOCjiAoUbzCgEXTxXH/tvYUkwF7nmCyb/ZXYeVOiUIH1
-	 BafJbW1+kI4AZov2goylJfpRrCZycfFlNBwICUAvLLQMyaKtAEbnDJ3jqBR0SxkEVz
-	 G5BPkgi5fzJfxkPdB2OyRatFMUXaeywRctGFnhPI=
+	s=default; t=1701870261;
+	bh=ZpWprhcqOZfTUDEdKhTKsUtp8FWHb9ksHdtItFcAdKM=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=XBHHZUwOQ3KN1rnyNVuxzqHBn426LY7YURWUwcI0Rih/rt+PlZ6uO3dTHTsiagJ+3
+	 VBtcZyY5fQyc1C0+b+0BrWAP7g8ta0SvYDh/bjyFsVtGlGR+yKRtBH4a/DYOZ+OuJS
+	 SQyw5i8lhpoFw8i726RM+j4qUoON5avOiOOqeTnk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 08550F80578; Wed,  6 Dec 2023 14:15:14 +0100 (CET)
+	id BD52FF80580; Wed,  6 Dec 2023 14:43:49 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 13DFBF80570;
-	Wed,  6 Dec 2023 14:15:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1ACF2F80579;
+	Wed,  6 Dec 2023 14:43:49 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 24515F8024E; Wed,  6 Dec 2023 14:13:38 +0100 (CET)
+	id 810B6F8024E; Wed,  6 Dec 2023 14:43:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,50 +34,39 @@ X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from sin.source.kernel.org (sin.source.kernel.org
  [IPv6:2604:1380:40e1:4800::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 57305F800AC
-	for <alsa-devel@alsa-project.org>; Wed,  6 Dec 2023 14:12:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57305F800AC
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4CA9EF800AC
+	for <alsa-devel@alsa-project.org>; Wed,  6 Dec 2023 14:43:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4CA9EF800AC
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=pUHMnBj0
+ header.s=k20201202 header.b=qrB1Wsfv
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 10596CE1DF5;
-	Wed,  6 Dec 2023 13:12:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28E6FC433C7;
-	Wed,  6 Dec 2023 13:12:49 +0000 (UTC)
+	by sin.source.kernel.org (Postfix) with ESMTP id 82974CE1E66;
+	Wed,  6 Dec 2023 13:43:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1A21C433C7;
+	Wed,  6 Dec 2023 13:43:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1701868372;
-	bh=EStk6AojKy4VrHDz7eSOQKX/7HbeZy7ZzJ/2crabbHk=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=pUHMnBj0fpV+uqC8lC/kqLL2SDwI80ZQvcD8acliYpy+7Mx25yFwsyR8EnLmLATER
-	 DJNzK3a6Z8osyx1yUzskQq8PAGIfJQHZqEg4ND/T9pSa4fMwrCj7MKAaWnpAKrnE1s
-	 UPHRFLp/CvVHDqYRczUb7LpV5Hw+E/F3MlJ9gp4qmJ9f9BeTly+H68k3m5WnYKqVBb
-	 ykdzlvyp/Oig+Mj/ZdrrYgBYjbpkvFSgGvqtE0ypoPsVADMwYAtCZNHPbyXv5TGVZq
-	 fj3/ZeUSAb32tMlZ0DuJM3o8I5ghrDV8QYkSVwbz8x5hycvMQ3Mgjei4KI9vs2qQq2
-	 ypjE16CzHOXgQ==
+	s=k20201202; t=1701870203;
+	bh=ZpWprhcqOZfTUDEdKhTKsUtp8FWHb9ksHdtItFcAdKM=;
+	h=From:To:Cc:Subject:Date:From;
+	b=qrB1WsfvCUINNlwwcA1qZwXyVSqCwIi76K2b0nfPe5VKA4o5qDGR1OPdKTJqb/5eq
+	 dT74P/qNrPlpbkehFoarEeY9kZrzqR9Q9Z0uVpS2ehRm6hC+Xd/Dzuvy40ZPbMd8bT
+	 6b7cwaPvt+/Jo4XQJXYubSF9zzD0h+SJd76Ov3h2oiJmWvgvMzvW/Mu40KZTWuciO2
+	 i8DVE3oJZkSkcZ1j7FurLsdqbWth6Pvv/RwRykU1VsXg3xX1Hx4StrAld794H6Haon
+	 NHN9poJnmyTT7O+5Uqwo9rWk2IpP6t38Djk8ncz0HbfP07CbKApCkDNSZVqmXJ6q/4
+	 yJnlFf+bUoAeg==
 From: Mark Brown <broonie@kernel.org>
-To: pierre-louis.bossart@linux.intel.com, peter.ujfalusi@linux.intel.com,
- yung-chuan.liao@linux.intel.com, kai.vehmanen@linux.intel.com,
- cezary.rojewski@intel.com, ranjani.sridharan@linux.intel.com,
- Richard Fitzgerald <rf@opensource.cirrus.com>
-Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- linux-kernel@vger.kernel.org, patches@opensource.cirrus.com
-In-Reply-To: <20231205135001.2506070-1-rf@opensource.cirrus.com>
-References: <20231205135001.2506070-1-rf@opensource.cirrus.com>
-Subject: Re: [PATCH] ASoC: Intel: sof_sdw_cs_amp: Connect outputs to a
- speaker widget
-Message-Id: <170186836988.22386.11650594415666700683.b4-ty@kernel.org>
-Date: Wed, 06 Dec 2023 13:12:49 +0000
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-5c066
-Message-ID-Hash: R3VKUDL4V3YIRDTI47GSH5ZL5Z2R64OU
-X-Message-ID-Hash: R3VKUDL4V3YIRDTI47GSH5ZL5Z2R64OU
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>
+Subject: [GIT PULL] ASoC fixes for v6.7-rc4
+Date: Wed, 06 Dec 2023 13:43:15 +0000
+Message-Id: <20231206134322.E1A21C433C7@smtp.kernel.org>
+Message-ID-Hash: OIINSL2QUC25WO4WJ3YXW7NFNHLYBRFA
+X-Message-ID-Hash: OIINSL2QUC25WO4WJ3YXW7NFNHLYBRFA
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -91,7 +79,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/R3VKUDL4V3YIRDTI47GSH5ZL5Z2R64OU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OIINSL2QUC25WO4WJ3YXW7NFNHLYBRFA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,41 +88,124 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 05 Dec 2023 13:50:01 +0000, Richard Fitzgerald wrote:
-> Hookup the CS35L56 DAPM_OUTPUT widgets to a DAPM_SPK widget so
-> that there is a complete logical path to a speaker.
-> 
-> There is no particular reason to use multiple speaker widgets.
-> The CS35L56 are designed to work together as a set so they have
-> all been connected to a single speaker widget.
-> 
-> [...]
+The following changes since commit b85ea95d086471afb4ad062012a4d73cd328fa86:
 
-Applied to
+  Linux 6.7-rc1 (2023-11-12 16:19:07 -0800)
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+are available in the Git repository at:
 
-Thanks!
+  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.7-rc4
 
-[1/1] ASoC: Intel: sof_sdw_cs_amp: Connect outputs to a speaker widget
-      commit: 138a4e2a26ec73197e22fe64ee3957b1594eabb3
+for you to fetch changes up to 0a10d15280a385e5971fb58a6d2eddbf7c0aa9f3:
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+  ASoC: qcom: Limit Digital gains on speaker (2023-12-04 21:42:29 +0000)
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+----------------------------------------------------------------
+ASoC: Fixes for v6.7
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+A crop of fixes for v6.7, one core fix for a merge issue and a bunch of
+driver specific fixes and new IDs, mostly for x86 platforms.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+----------------------------------------------------------------
+AngeloGioacchino Del Regno (1):
+      ASoC: SOF: mediatek: mt8186: Add Google Steelix topology compatible
 
-Thanks,
-Mark
+Chancel Liu (1):
+      ASoC: imx-rpmsg: SND_SOC_IMX_RPMSG should depend on OF and I2C
 
+Charles Keepax (1):
+      ASoC: wm8974: Correct boost mixer inputs
+
+David Lin (1):
+      ASoC: nau8822: Fix incorrect type in assignment and cast to restricted __be16
+
+David Rau (1):
+      ASoC: da7219: Support low DC impedance headset
+
+Dinghao Liu (1):
+      ASoC: wm_adsp: fix memleak in wm_adsp_buffer_populate
+
+Jeremy Soller (1):
+      ASoC: amd: yc: Add DMI entry to support System76 Pangolin 13
+
+Johan Hovold (1):
+      ASoC: soc-pcm: fix up bad merge
+
+Kamil Duljas (3):
+      ASoC: Intel: Skylake: Fix mem leak in few functions
+      ASoC: SOF: topology: Fix mem leak in sof_dai_load()
+      ASoC: Intel: Skylake: mem leak in skl register function
+
+Maciej Strozek (2):
+      ASoC: cs43130: Fix the position of const qualifier
+      ASoC: cs43130: Fix incorrect frame delay configuration
+
+Malcolm Hart (1):
+      ASoC: amd: yc: Fix non-functional mic on ASUS E1504FA
+
+Marian Postevca (1):
+      ASoC: amd: acp: Add support for a new Huawei Matebook laptop
+
+Mark Brown (3):
+      ASoC: Fixes for cs43130
+      ASoC: SOF: Extend the enabled DSP core handling
+      ASoC: qcom: Limit Digital gains on speaker
+
+Matus Malych (1):
+      ASoC: amd: yc: Add HP 255 G10 into quirk table
+
+Neil Armstrong (1):
+      ASoC: codecs: lpass-tx-macro: set active_decimator correct default value
+
+Peter Ujfalusi (5):
+      ASoC: Intel: skl_hda_dsp_generic: Drop HDMI routes when HDMI is not available
+      ASoC: Intel: sof_sdw: Always register the HDMI dai links
+      ASoC: hdac_hda: Conditionally register dais for HDMI and Analog
+      ASoC: SOF: ipc4-topology: Correct data structures for the SRC module
+      ASoC: SOF: ipc4-topology: Correct data structures for the GAIN module
+
+Ranjani Sridharan (2):
+      ASoC: SOF: ipc4-topology: Add core_mask in struct snd_sof_pipeline
+      ASoC: SOF: sof-audio: Modify logic for enabling/disabling topology cores
+
+Shengjiu Wang (3):
+      ASoC: fsl_sai: Fix no frame sync clock issue on i.MX8MP
+      ASoC: fsl_xcvr: Enable 2 * TX bit clock for spdif only case
+      ASoC: fsl_xcvr: refine the requested phy clock frequency
+
+Shuming Fan (1):
+      ASoC: rt5650: add mutex to avoid the jack detection failure
+
+Srinivas Kandagatla (2):
+      ASoC: ops: add correct range check for limiting volume
+      ASoC: qcom: sc8280xp: Limit speaker digital volumes
+
+ sound/soc/amd/acp-config.c                   | 14 ++++++
+ sound/soc/amd/yc/acp6x-mach.c                | 21 +++++++++
+ sound/soc/codecs/cs43130.c                   |  6 +--
+ sound/soc/codecs/da7219-aad.c                |  2 +-
+ sound/soc/codecs/hdac_hda.c                  | 23 ++++++++--
+ sound/soc/codecs/lpass-tx-macro.c            |  5 +++
+ sound/soc/codecs/nau8822.c                   |  9 ++--
+ sound/soc/codecs/rt5645.c                    | 10 ++++-
+ sound/soc/codecs/wm8974.c                    |  6 +--
+ sound/soc/codecs/wm_adsp.c                   |  8 +++-
+ sound/soc/fsl/Kconfig                        |  1 +
+ sound/soc/fsl/fsl_sai.c                      | 21 +++++++++
+ sound/soc/fsl/fsl_xcvr.c                     | 14 +++++-
+ sound/soc/intel/boards/skl_hda_dsp_generic.c |  2 +
+ sound/soc/intel/boards/sof_sdw.c             | 17 ++++----
+ sound/soc/intel/skylake/skl-pcm.c            |  9 +++-
+ sound/soc/intel/skylake/skl-sst-ipc.c        |  4 +-
+ sound/soc/qcom/sc8280xp.c                    | 17 ++++++++
+ sound/soc/soc-ops.c                          |  2 +-
+ sound/soc/soc-pcm.c                          | 11 ++---
+ sound/soc/sof/ipc3-topology.c                |  2 +
+ sound/soc/sof/ipc4-control.c                 | 20 ++++-----
+ sound/soc/sof/ipc4-topology.c                | 61 +++++++++++++++-----------
+ sound/soc/sof/ipc4-topology.h                | 34 +++++++++++----
+ sound/soc/sof/mediatek/mt8186/mt8186.c       |  3 ++
+ sound/soc/sof/sof-audio.c                    | 65 ++++++++++++++++++----------
+ sound/soc/sof/sof-audio.h                    |  2 +
+ sound/soc/sof/topology.c                     |  4 +-
+ 28 files changed, 286 insertions(+), 107 deletions(-)

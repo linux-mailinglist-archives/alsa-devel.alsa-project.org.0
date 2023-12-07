@@ -2,118 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E0E9808EA3
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Dec 2023 18:25:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF1B9808EA9
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Dec 2023 18:30:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D5CF1850;
-	Thu,  7 Dec 2023 18:25:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D5CF1850
+	by alsa0.perex.cz (Postfix) with ESMTPS id 877C5209;
+	Thu,  7 Dec 2023 18:30:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 877C5209
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701969940;
-	bh=OSaCKj49TdBQE/wW0nBbIlYjNisy5X/gJJF/8cHix4E=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=bXo+l2OXu8VYl0HH8XkvYVJOuqJhpgz8g6c62zrckX+kP4RP8vTfXERTyaNSH+cdq
-	 kQk8SF+lCupEKUAsB0A8ZNQ3wE/Fzuv7Kly5IrBGvn0fjK7BOxKSWRUeyiu9JcyoqZ
-	 d1SzsOvyUUcUYGqIEONwJyS1o6yEwKcyFjea0EPM=
+	s=default; t=1701970213;
+	bh=Dhv8KM+9xz4mrV57fruWPSPRB7WEwdVUOFd9ULM5OPU=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=RSHjhKKQEAm2dnk96D1i6TLqO8df4rqxtSBEYGq5yuKuk4r9Gen9R2TUpIpn+yoMt
+	 jo2ZIESAMaOXUaJbo6s34vtiOs0jfUl28/F/9Kfjvg1s/TK1hKftGqTQitgitKsz41
+	 6OT1FveQjmh8u6CRhXM45JxuuxkEVyhXjxPh2Bps=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CEF31F80494; Thu,  7 Dec 2023 18:25:08 +0100 (CET)
+	id DEDDFF80563; Thu,  7 Dec 2023 18:29:41 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CF365F80571;
-	Thu,  7 Dec 2023 18:25:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 441E9F80570;
+	Thu,  7 Dec 2023 18:29:40 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 93C70F8024E; Thu,  7 Dec 2023 18:25:02 +0100 (CET)
+	id 7DAC1F8024E; Thu,  7 Dec 2023 18:29:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [IPv6:2a00:1450:4864:20::62b])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8ACC9F800E4
-	for <alsa-devel@alsa-project.org>; Thu,  7 Dec 2023 18:24:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8ACC9F800E4
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=DF6JpJO5
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-a1f5cb80a91so55383666b.3
-        for <alsa-devel@alsa-project.org>;
- Thu, 07 Dec 2023 09:24:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1701969892; x=1702574692;
- darn=alsa-project.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=OSaCKj49TdBQE/wW0nBbIlYjNisy5X/gJJF/8cHix4E=;
-        b=DF6JpJO5PIN/ogcr0yzAJrM8RebWSvEXdGcqMW5EdTmSy+AfpK+mriZl/wZoAdia9o
-         aJztzYdVijPrklAroh6nIHrfTw4shCcVRl4QaLROk1eP05qIXOBuG/i8E1VTU5yzverk
-         eTDfDvBWVTAuEKfiBCC4mH9cf1+agbVwzHpYYJDUCsh+BvvysiHNPK0jSEPAzgu1cKH5
-         dICEg7YDIUGGIf6UpcXqE6R7pu0xSss+1iDNYaMAwel2qYggzCLJiIezgn8A6cqNCN+e
-         FEsM1Cu/OgtDh9rs/Pqaq5+BlsSxPUyd0yYPSmAkInZkDbOQerAPvrfb5G2QXopmqNOe
-         3GSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701969892; x=1702574692;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=OSaCKj49TdBQE/wW0nBbIlYjNisy5X/gJJF/8cHix4E=;
-        b=pu6tD1YPKfTFa5hitQ3cL+a+cvNzszs80ysl+0yWU1Ne8q9YXXbkS26RzkTkZduHdt
-         6AuyVF0f3VE/FEgm36my/Y7MBq+C0Rii8ryEJDWLv9Z9Kam50HkLk1N73rqEmHr/9KAx
-         Ml7J2YcGCI0nUseWi8h6lU7eDGh3yNK5ngle7loXxEcGZKTJRCl24UtN1ZUqmzTjvVsk
-         6tskmO/go0AZ9lDDtspWGTRdpYOM3+HXc8n9UYo1RRVt7gqCBTC/ICh3SxTRO77DOT4F
-         OOg6cTdWaNjKa3FaLFP7zweuudpnFE1RNB7ZQfBQ2XbxKUnwQveLJbd4mnC8XdvgGfnH
-         qIZA==
-X-Gm-Message-State: AOJu0YztDYsSJSWoL6emCsbuCIdwMY5cRRm5wkZSKpjYXfga4SxGCo6r
-	sB9p06e05KnHVSBTdn4CEUX7kQ==
-X-Google-Smtp-Source: 
- AGHT+IEtTd+pA4mJobxUqdqM7SglT4EunogmAQ8lpbogM+tHlUMEk4Qwu5mWYwLQ9J+s2P4F/4V7+g==
-X-Received: by 2002:a17:907:5020:b0:a19:9b79:8b5d with SMTP id
- fw32-20020a170907502000b00a199b798b5dmr1010958ejc.110.1701969892432;
-        Thu, 07 Dec 2023 09:24:52 -0800 (PST)
-Received: from [192.168.2.107] ([79.115.63.75])
-        by smtp.gmail.com with ESMTPSA id
- a14-20020a170906684e00b009fd0102f71asm1078898ejs.176.2023.12.07.09.24.49
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 07 Dec 2023 09:24:50 -0800 (PST)
-Message-ID: <797b9023-e56b-404b-bb4e-6e178b7ada88@linaro.org>
-Date: Thu, 7 Dec 2023 17:24:48 +0000
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=no autolearn_force=no version=3.4.6
+Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
+ [207.180.221.201])
+	by alsa1.perex.cz (Postfix) with ESMTP id EFA1BF800D2
+	for <alsa-devel@alsa-project.org>; Thu,  7 Dec 2023 18:29:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EFA1BF800D2
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 07/10] mtd: spi-nor: Add stacked memories support in
- spi-nor
-Content-Language: en-US
-To: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>, broonie@kernel.org,
- pratyush@kernel.org, miquel.raynal@bootlin.com, richard@nod.at,
- vigneshr@ti.com, sbinding@opensource.cirrus.com, lee@kernel.org,
- james.schulman@cirrus.com, david.rhodes@cirrus.com,
- rf@opensource.cirrus.com, perex@perex.cz, tiwai@suse.com
-Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
- michael@walle.cc, linux-mtd@lists.infradead.org,
- nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com,
- claudiu.beznea@tuxon.dev, michal.simek@amd.com,
- linux-arm-kernel@lists.infradead.org, alsa-devel@alsa-project.org,
- patches@opensource.cirrus.com, linux-sound@vger.kernel.org, git@amd.com,
- amitrkcian2002@gmail.com
-References: <20231125092137.2948-1-amit.kumar-mahapatra@amd.com>
- <20231125092137.2948-8-amit.kumar-mahapatra@amd.com>
-From: Tudor Ambarus <tudor.ambarus@linaro.org>
-In-Reply-To: <20231125092137.2948-8-amit.kumar-mahapatra@amd.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: J6QM7D3LHDOQUY5UO4OMXTYOLOL3VDFH
-X-Message-ID-Hash: J6QM7D3LHDOQUY5UO4OMXTYOLOL3VDFH
-X-MailFrom: tudor.ambarus@linaro.org
+From: GitHub pull_request - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1701970171980381250-webhooks-bot@alsa-project.org>
+References: <1701970171980381250-webhooks-bot@alsa-project.org>
+Subject: nhlt: Revert SSP_ANALOG device_type field
+Message-Id: <20231207172935.7DAC1F8024E@alsa1.perex.cz>
+Date: Thu,  7 Dec 2023 18:29:35 +0100 (CET)
+Message-ID-Hash: C47QKTKJJCVWHTIUSUGEKXIKARBUYKEM
+X-Message-ID-Hash: C47QKTKJJCVWHTIUSUGEKXIKARBUYKEM
+X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -125,21 +60,29 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/J6QM7D3LHDOQUY5UO4OMXTYOLOL3VDFH/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/C47QKTKJJCVWHTIUSUGEKXIKARBUYKEM/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+alsa-project/alsa-utils pull request #248 was opened from andyross:
 
+This partially reverts commit 3a47ef2487ed ("topology: nhlt: intel: support more device types and directions"), which changed the default device_type in the endpoint descriptor from zero to SSP_ANALOG.
 
-On 11/25/23 09:21, Amit Kumar Mahapatra wrote:
-> The current implementation assumes that a maximum of two flashes are
-> connected in stacked mode and both the flashes are of same make but can
-> differ in sizes. So, except the sizes all other flash parameters of both
-> the flashes are identical.
+This change breaks the Linux kernel NHLT parser (which AFAICT doesn't recognize SSP_ANALOG at all), producing errors like:
 
-Too much restrictions, isn't it? Have you thought about adding a layer
-on top of SPI NOR managing the stacked/parallel flashes?
+  [56458.583812] sof-audio-pci-intel-mtl 0000:00:1f.3: no matching blob for sample rate: 48000 sample width: 32 channels: 2
+  [56458.583833] sof-audio-pci-intel-mtl 0000:00:1f.3: failed to prepare widget dai-copier.SSP.SSP0-Codec.playback
+  [56458.583840] sof-audio-pci-intel-mtl 0000:00:1f.3: Failed to prepare connected widgets
+  [56458.583847] sof-audio-pci-intel-mtl 0000:00:1f.3: error: failed widget list set up for pcm 1 dir 0
+  [56458.583853] sof-audio-pci-intel-mtl 0000:00:1f.3: ASoC: error at snd_soc_pcm_component_hw_params on 0000:00:1f.3: -22
+
+Revert for compatibility.
+
+Request URL   : https://github.com/alsa-project/alsa-utils/pull/248
+Patch URL     : https://github.com/alsa-project/alsa-utils/pull/248.patch
+Repository URL: https://github.com/alsa-project/alsa-utils

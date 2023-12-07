@@ -2,89 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C56C780957A
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Dec 2023 23:37:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3219E809580
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Dec 2023 23:40:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 568E8839;
-	Thu,  7 Dec 2023 23:37:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 568E8839
+	by alsa0.perex.cz (Postfix) with ESMTPS id 43058AE8;
+	Thu,  7 Dec 2023 23:39:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 43058AE8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701988640;
-	bh=NT7BHAqFBOhaRtrY/szkX/r9R8b3Zw9S8V4qsNXM+rg=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1701988804;
+	bh=MsLLpv1+/XDyn3UAs12wR75ZLa9IjOrbPm1kkfTtosE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=gxY+eLwrLrgc6Mzr/b3pIoHUeMFFT5iNNKgvG0IAK8/FeRG1Sn1OB/ih9byitKL9e
-	 G5KZU9/AjYu6xMhZQA8sD/a5ejyQDMki6B1+BTyfADN1rNLOxXWfy8Bl06c16sQOCW
-	 gm86JRerGkAi3nqjUdORAhIMU+SYrDZJR6Xc+21k=
+	b=fsW9h1T4MsRL/3fmj1rlNdzdI4o0cZG5zZHRYuhglHeVMhVUqqNxrMf2jWN7mVxaj
+	 4yoRsyfN+86WQsXZtrwiSviU2oPZJqJ7jRY1CYOKThMsB6V94tJ6vKeLDxRPFfznPi
+	 xnNL9oTOFzr529s0TrBQPoqFYlzQlOtZPSunA92k=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E8912F800E4; Thu,  7 Dec 2023 23:36:57 +0100 (CET)
+	id CA663F8055B; Thu,  7 Dec 2023 23:39:33 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EC06CF8057F;
-	Thu,  7 Dec 2023 23:36:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4DE1BF80570;
+	Thu,  7 Dec 2023 23:39:32 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 717EDF80166; Thu,  7 Dec 2023 23:36:51 +0100 (CET)
+	id 3D130F8024E; Thu,  7 Dec 2023 23:39:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=unavailable
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A3FBAF805EE
-	for <alsa-devel@alsa-project.org>; Thu,  7 Dec 2023 23:35:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3FBAF805EE
+	by alsa1.perex.cz (Postfix) with ESMTPS id D5084F800AC
+	for <alsa-devel@alsa-project.org>; Thu,  7 Dec 2023 23:39:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D5084F800AC
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=fM7G8omP
+ header.s=k20201202 header.b=h7kkiL7A
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 04321620CD;
-	Thu,  7 Dec 2023 22:35:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F8BDC433CA;
-	Thu,  7 Dec 2023 22:35:00 +0000 (UTC)
+	by ams.source.kernel.org (Postfix) with ESMTP id 6EE72B82A87;
+	Thu,  7 Dec 2023 22:39:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3DC8C433C8;
+	Thu,  7 Dec 2023 22:39:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1701988505;
-	bh=NT7BHAqFBOhaRtrY/szkX/r9R8b3Zw9S8V4qsNXM+rg=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=fM7G8omPRZ7ZWXJv3Rg5R2B74Wc7o7Kd0E7svQfW9jKfF2c9SyQMkDDpP2fwOg2PS
-	 TKO6qZXBPmoGXWGrJAefouIWYDB8ffo870ddOmQLfgZp38GIQ2vwXuC+0oI7iBOh5A
-	 Dmzh3SXRzNyYbWZvBRERx2CaEge5kWXD5un3ta2VoAnw3dOgT54u79sJmF7LZRjAi4
-	 wAyE+jsMQiEYPkN4VoQz3jAoz/AqgbXL0XVNVTtIB0JtpatC8cCnYqQ03ZaxLmbyKD
-	 a6Mknh/f6Fz9KzrfxlGNr9kf9sZWMTVB1KDV+sBR/xTblGk3eIJE8dITgwEoK8w1zX
-	 AsY+ipMKgV9Qw==
+	s=k20201202; t=1701988761;
+	bh=MsLLpv1+/XDyn3UAs12wR75ZLa9IjOrbPm1kkfTtosE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=h7kkiL7Ak/7GSuJ1qH4EHyUTxoHiRKTwCqw53xa/OV4dG+kFQuSJLBVZpzq1ocJGa
+	 QIuH0T9Tbb8/jeLEiHZW6rxhzy8mrpYV2qyy0rNpEzPjqkHTXC4eqXH7mOKNTVrMTv
+	 5o7+wMTHoTkQarxlu6vWVUA1lwwSCE40hv+TlBJW4f8Pf64VgaN9dZ8dSr3kbNZjS6
+	 bOaD0RbbdGg8s0e2/vqLwp9n3THviaOJZ2LYhM/PYjonw2zONkzwOSHDuSNqODY/It
+	 RG4qsrMtDz3JS/nbpytfBiewpy1Kp5f+7hll2qUBJGeR9b0D92tSZ73TbZfU2jLYGo
+	 7F3ic/gYzLXRw==
+Date: Thu, 7 Dec 2023 22:39:16 +0000
 From: Mark Brown <broonie@kernel.org>
-To: tudor.ambarus@linaro.org, pratyush@kernel.org,
- miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com,
- sbinding@opensource.cirrus.com, lee@kernel.org, james.schulman@cirrus.com,
- david.rhodes@cirrus.com, rf@opensource.cirrus.com, perex@perex.cz,
- tiwai@suse.com, Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
-Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
- michael@walle.cc, linux-mtd@lists.infradead.org,
- nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com,
- claudiu.beznea@tuxon.dev, michal.simek@amd.com,
- linux-arm-kernel@lists.infradead.org, alsa-devel@alsa-project.org,
- patches@opensource.cirrus.com, linux-sound@vger.kernel.org, git@amd.com,
- amitrkcian2002@gmail.com
-In-Reply-To: <20231125092137.2948-1-amit.kumar-mahapatra@amd.com>
-References: <20231125092137.2948-1-amit.kumar-mahapatra@amd.com>
-Subject: Re: (subset) [PATCH v11 00/10] spi: Add support for
- stacked/parallel memories
-Message-Id: <170198850030.340565.15742297562436442635.b4-ty@kernel.org>
-Date: Thu, 07 Dec 2023 22:35:00 +0000
+To: Gergo Koteles <soyer@irl.hu>
+Cc: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+	Baojun Xu <baojun.xu@ti.com>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+	linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
+Subject: Re: [PATCH 03/16] ASoC: tas2781: disable regmap regcache
+Message-ID: <bf24488f-e4e1-4d3e-a67e-fe74c05acda4@sirena.org.uk>
+References: <cover.1701906455.git.soyer@irl.hu>
+ <21a183b5a08cb23b193af78d4b1114cc59419272.1701906455.git.soyer@irl.hu>
+ <0b836c10-b21b-4275-8dd0-254dd5467497@sirena.org.uk>
+ <47097f19398808b64f4cc87c2a3c7cc462fb2416.camel@irl.hu>
+ <5f3f0306-799f-4f3b-9e05-fbd300c59d5d@sirena.org.uk>
+ <b0ab21657f2e4f0825579de97ca012e294d1e743.camel@irl.hu>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-5c066
-Message-ID-Hash: E2MKHEIWUEIGIQMF3Z7JSZJFRVG6P72N
-X-Message-ID-Hash: E2MKHEIWUEIGIQMF3Z7JSZJFRVG6P72N
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="FPnKMl3SLG0UUQNN"
+Content-Disposition: inline
+In-Reply-To: <b0ab21657f2e4f0825579de97ca012e294d1e743.camel@irl.hu>
+X-Cookie: Two is company, three is an orgy.
+Message-ID-Hash: JGVJXU3CUY6FT2LC6KRHHOFET5ZYZU35
+X-Message-ID-Hash: JGVJXU3CUY6FT2LC6KRHHOFET5ZYZU35
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -97,64 +95,63 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/E2MKHEIWUEIGIQMF3Z7JSZJFRVG6P72N/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JGVJXU3CUY6FT2LC6KRHHOFET5ZYZU35/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sat, 25 Nov 2023 14:51:27 +0530, Amit Kumar Mahapatra wrote:
-> This patch series updated the spi-nor, spi core and the AMD-Xilinx GQSPI
-> driver to add stacked and parallel memories support.
-> 
-> The first nine patches
-> https://lore.kernel.org/all/20230119185342.2093323-1-amit.kumar-mahapatra@amd.com/
-> https://lore.kernel.org/all/20230310173217.3429788-2-amit.kumar-mahapatra@amd.com/
-> https://lore.kernel.org/all/20230310173217.3429788-3-amit.kumar-mahapatra@amd.com/
-> https://lore.kernel.org/all/20230310173217.3429788-4-amit.kumar-mahapatra@amd.com/
-> https://lore.kernel.org/all/20230310173217.3429788-5-amit.kumar-mahapatra@amd.com/
-> https://lore.kernel.org/all/20230310173217.3429788-6-amit.kumar-mahapatra@amd.com/
-> https://lore.kernel.org/all/20230310173217.3429788-7-amit.kumar-mahapatra@amd.com/
-> https://lore.kernel.org/all/20230310173217.3429788-8-amit.kumar-mahapatra@amd.com/
-> https://lore.kernel.org/all/20230310173217.3429788-9-amit.kumar-mahapatra@amd.com/
-> of the previous series got applied to
-> https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git
-> for-next But the rest of the patches in the series did not get applied as
-> failure was reported for spi driver with GPIO CS, so send the remaining
-> patches in the series after rebasing it on top of for-next branch and
-> fixing the issue.
-> 
-> [...]
 
-Applied to
+--FPnKMl3SLG0UUQNN
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
+On Thu, Dec 07, 2023 at 10:12:13PM +0100, Gergo Koteles wrote:
+> On Thu, 2023-12-07 at 20:36 +0000, Mark Brown wrote:
 
-Thanks!
+> > > And only one, because tasdevice_change_chn_book directly changes the
+> > > address of i2c_client, so the unlucky one gets invalid values in its
+> > > actual book from regcache_sync.
 
-[02/10] ALSA: hda/cs35l56: Use set/get APIs to access spi->chip_select
-        commit: f05e2f61fe88092e0d341ea27644a84e3386358d
-[03/10] spi: Add multi-cs memories support in SPI core
-        commit: 4d8ff6b0991d5e86b17b235fc46ec62e9195cb9b
+> > The code creates the impression that writing to one tas2781 writes to
+> > all of them, is that not the case?
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+> Yes, the tasdevice_* functions, but the regcache_sync doesn't know
+> this.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+So this syncing is done in software not hardware?  My understanding was
+that this was a hardware thing.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+> > How would the devices get their configuration restored?
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+> tasdevice_tuning_switch calls tasdevice_select_tuningprm_cfg which
+> checks whether the devices needs a new program or configuration.
 
-Thanks,
-Mark
+> the runtime_suspend and system resume set the devices cur_prog,
+> cur_conf to -1.
 
+...
+
+> The tas2781_hda_playback_hook calls the tasdevice_tuning_switch
+
+And there are no registers other than these programs?
+
+--FPnKMl3SLG0UUQNN
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmVySZQACgkQJNaLcl1U
+h9Dz0Qf9EolHA/7hwfIR8tUUDiJRQu5X9PEQJHjmqNgUo0b2RfbIXugc4S/61wPO
+reW9pzswW/8Uix3UZcpSo16bjD2ZphcGMFoaFuYBfVf+7j8mg9fUMCuX2LcY5ch1
+0EUB6G/1a3qGcVhC8yC9hGtF24lMOogSClM+t3jj8RhH60EU7VLKc1B4GhX+Vm/E
+ROtqapM8Tx5oi1tsQLV8nQ+zGdOXdqsg1kZNp9Arv7EcgQ2YkhqA3C6bnb2lebwF
+2RZzfAdeX1wlXobP0fzO0h626QjKcHq1YqQgPc6Eyl+QIZfIZ67yvY3y0WJwHh6r
+TIHr3QC4TNT60x8XouFh6PuIHtjnaA==
+=eHRJ
+-----END PGP SIGNATURE-----
+
+--FPnKMl3SLG0UUQNN--

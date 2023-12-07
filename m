@@ -2,109 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CD03808FBF
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Dec 2023 19:21:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1678F808FC1
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Dec 2023 19:21:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3D7FFA4E;
-	Thu,  7 Dec 2023 19:21:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D7FFA4E
+	by alsa0.perex.cz (Postfix) with ESMTPS id CCFA183E;
+	Thu,  7 Dec 2023 19:21:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CCFA183E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701973283;
-	bh=A09HAY9CbYwB2X5KOdQq5Q1XPXnytnfX3e8aGJUQkXE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1701973310;
+	bh=AkGup3hcznxKyD5qZYbWXUKeQrXywPgfm2PxkeN+ljQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=uo5CVi37ZFLX5weGUYLT7PaPSJsN1/G3Wi/lcrmMMgXnlIYaQVRL1bNfql/eqHPok
-	 FIu1Tn3/C28SzPz302Sjm9gt6vmFx4Hxn5U47oTG8GMlhxoM0UqxGXqqlVPHh2zjtn
-	 XoSUQlnVt2Qw1VoRUF1pV/quKNf7ZfyXxsghJ2dU=
+	b=dZJE7FElVdARu99/GmRbHqO42YZhxwjtH79dbWwAL/PEK38Iakn17SWlfhOt7gFfN
+	 HizFhAwkTKGlrUFRMvwVfK9QQlKzXLnYVngTHKZGcKMpPB0hMesO6zKXsM72cvNDFR
+	 2Bs7az/tW/544wfcdVDxH73vrFvPlhKQYOza41Vk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C3102F80587; Thu,  7 Dec 2023 19:20:51 +0100 (CET)
+	id 8A241F805A9; Thu,  7 Dec 2023 19:21:30 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 79863F80571;
-	Thu,  7 Dec 2023 19:20:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 96F17F80571;
+	Thu,  7 Dec 2023 19:21:29 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 51BFCF8024E; Thu,  7 Dec 2023 19:20:44 +0100 (CET)
+	id A1BCEF8025A; Thu,  7 Dec 2023 19:21:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B861CF800AC
-	for <alsa-devel@alsa-project.org>; Thu,  7 Dec 2023 19:20:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B861CF800AC
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 142011FBAB;
-	Thu,  7 Dec 2023 18:20:31 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EDD2A13B6A;
-	Thu,  7 Dec 2023 18:20:30 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id EssCOO4McmW/CwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Thu, 07 Dec 2023 18:20:30 +0000
-Date: Thu, 07 Dec 2023 19:20:30 +0100
-Message-ID: <87il59zxg1.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Yevhen Hrubiian <grubian.euhen@gmail.com>
-Cc: alsa-devel@alsa-project.org
-Subject: Re: Bass speaker fixup for Lenovo Yoga Pro 7 14APH8
+	by alsa1.perex.cz (Postfix) with ESMTPS id 058C1F8059F
+	for <alsa-devel@alsa-project.org>; Thu,  7 Dec 2023 19:20:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 058C1F8059F
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=UGL1d6BE
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by ams.source.kernel.org (Postfix) with ESMTP id 43176B829CE;
+	Thu,  7 Dec 2023 18:20:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A40FAC433C8;
+	Thu,  7 Dec 2023 18:20:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1701973254;
+	bh=AkGup3hcznxKyD5qZYbWXUKeQrXywPgfm2PxkeN+ljQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=UGL1d6BE3R6ufSUslO2HlhwFKBs6wMppMCBwaPeb4FwdrkazLQsjoONXUKTvwqja+
+	 uA9l5dia46T7nQmI7KuGEwanRLoYCiKSpEgh3yeA2FKi1Mup9uadrMnBZ3griSY/51
+	 ejn3vv1ysc3Ri54FHMTPlnZX/WsHMlU/zNsivz3XjhCQ/X5BgcRfUXAZDxRdSEjGPj
+	 FhoH9sD53vMhDFjY4KIpMSQ6kdzmNedftxFsWiR0JDuMqJm/7D4bTbCyAxM/ONwHpT
+	 /CQ4D3rh5i2TGw93hZLaIH0oeqEDlLmPNHi6OWz+jIX+aq2UQV/hk74L45uGQVdAM2
+	 DPyfao3RO9hwg==
+Date: Thu, 7 Dec 2023 18:20:49 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Gergo Koteles <soyer@irl.hu>
+Cc: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+	Baojun Xu <baojun.xu@ti.com>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+	linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
+Subject: Re: [PATCH 03/16] ASoC: tas2781: disable regmap regcache
+Message-ID: <0b836c10-b21b-4275-8dd0-254dd5467497@sirena.org.uk>
+References: <cover.1701906455.git.soyer@irl.hu>
+ <21a183b5a08cb23b193af78d4b1114cc59419272.1701906455.git.soyer@irl.hu>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="87ASVyUZXk4suEIf"
+Content-Disposition: inline
 In-Reply-To: 
- <CAGGk=CRRQ1L9p771HsXTN_ebZP41Qj+3gw35Gezurn+nokRewg@mail.gmail.com>
-References: 
- <CAGGk=CRRQ1L9p771HsXTN_ebZP41Qj+3gw35Gezurn+nokRewg@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [7.78 / 50.00];
-	 ARC_NA(0.00)[];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 FROM_HAS_DN(0.00)[];
-	 TO_DN_SOME(0.00)[];
-	 FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 TAGGED_RCPT(0.00)[];
-	 MIME_GOOD(-0.10)[text/plain];
-	 R_SPF_SOFTFAIL(4.60)[~all:c];
-	 RCVD_COUNT_THREE(0.00)[3];
-	 MX_GOOD(-0.01)[];
-	 RCPT_COUNT_TWO(0.00)[2];
-	 MID_CONTAINS_FROM(1.00)[];
-	 FREEMAIL_TO(0.00)[gmail.com];
-	 FUZZY_BLOCKED(0.00)[rspamd.com];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 R_DKIM_NA(2.20)[];
-	 MIME_TRACE(0.00)[0:+];
-	 RCVD_TLS_ALL(0.00)[];
-	 BAYES_HAM(-0.01)[45.87%];
-	 DMARC_POLICY_SOFTFAIL(0.10)[suse.de : No valid SPF, No valid DKIM,none]
-X-Spamd-Bar: +++++++
-Authentication-Results: smtp-out2.suse.de;
-	dkim=none;
-	dmarc=fail reason="No valid SPF,
- No valid DKIM" header.from=suse.de (policy=none);
-	spf=softfail (smtp-out2.suse.de: 2a07:de40:b281:104:10:150:64:97 is neither
- permitted nor denied by domain of tiwai@suse.de) smtp.mailfrom=tiwai@suse.de
-X-Rspamd-Server: rspamd1
-X-Rspamd-Queue-Id: 142011FBAB
-Message-ID-Hash: ILMZNRJEFOIHJD64ACZQXVNJCPXWATZ5
-X-Message-ID-Hash: ILMZNRJEFOIHJD64ACZQXVNJCPXWATZ5
-X-MailFrom: tiwai@suse.de
+ <21a183b5a08cb23b193af78d4b1114cc59419272.1701906455.git.soyer@irl.hu>
+X-Cookie: Two is company, three is an orgy.
+Message-ID-Hash: ZXIF2A7KAOVILGTQE2YD756N72AJ6DYT
+X-Message-ID-Hash: ZXIF2A7KAOVILGTQE2YD756N72AJ6DYT
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -116,7 +92,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ILMZNRJEFOIHJD64ACZQXVNJCPXWATZ5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZXIF2A7KAOVILGTQE2YD756N72AJ6DYT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -125,29 +101,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 24 Nov 2023 17:18:31 +0100,
-Yevhen Hrubiian wrote:
-> 
-> Hello !
-> 
-> I've seen a few patches fixing bass speaker problem for new Lenovo
-> (written by Philipp Jungkamp and later by Pascal Gross), for example
-> this line in linux/sound/pci/hda/patch_realtek.c:
-> 
-> SND_PCI_QUIRK(0x17aa, 0x3801, "Lenovo Yoga9 14IAP7",
-> ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN)
-> 
-> Could you please add this line for a similar model with the same Problem?
-> 
-> SND_PCI_QUIRK(0x17aa, 0x3882, "Lenovo Yoga Pro 7 14APH8",
-> ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN),
-> 
-> I do not have experience in writing kernel patches so I hope I will
-> not irritate you with this letter.
 
-OK, I'll cook the trivial patch.
+--87ASVyUZXk4suEIf
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
+On Thu, Dec 07, 2023 at 12:59:44AM +0100, Gergo Koteles wrote:
 
-thanks,
+> The amp has 3 level addressing (BOOK, PAGE, REG).
+> The regcache couldn't handle it.
 
-Takashi
+So the books aren't currently used so the driver actually works?
+
+>  static int tas2781_system_suspend(struct device *dev)
+> @@ -770,10 +758,7 @@ static int tas2781_system_suspend(struct device *dev)
+>  		return ret;
+> =20
+>  	/* Shutdown chip before system suspend */
+> -	regcache_cache_only(tas_priv->regmap, false);
+>  	tasdevice_tuning_switch(tas_priv, 1);
+> -	regcache_cache_only(tas_priv->regmap, true);
+> -	regcache_mark_dirty(tas_priv->regmap);
+> =20
+>  	/*
+>  	 * Reset GPIO may be shared, so cannot reset here.
+
+How can this work over system suspend?  This just removes the cache with
+no replacement so if the device looses power over suspend (which seems
+likely) then all the register state will be lost.  A similar issue may
+potentially exist over runtime suspend on an ACPI system with
+sufficiently heavily optimised power management.
+
+--87ASVyUZXk4suEIf
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmVyDQAACgkQJNaLcl1U
+h9A5HAf+Nlxq4xn9n9KdkGpBh57gkb+jV1RuCOHHhqKL7UAdfrt91gUdNVLq1Gvi
+ReW5ZeaUE9EjXZo9FGiFaEc6WEP0TzDJi1a7bOyjtR09RU3ec03i8qd32LO7seEd
+n/zyRK+X7umxfYsZGTJiXpzLyN9VC96bh6jNkHJmeToQ5LXZsicJ1bolctD6gfXK
+8c7YEYL6Jrfx4Q3yfloOfHPHMzFrIrA+08fny0Dx+kaMfsWYGk2VcmaSYUbaP9y4
+OhDEOF1sy3RiXsHJxDNIZubb71fuOqSszQQbS2At9b98GwTVTs8xnM61Xx/Yv1gq
+8oQk2dsruB2j4P0IeFFcVp3UOQGKiA==
+=F7Ae
+-----END PGP SIGNATURE-----
+
+--87ASVyUZXk4suEIf--

@@ -2,84 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62165808FE7
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Dec 2023 19:29:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE84480922D
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Dec 2023 21:20:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E6957209;
-	Thu,  7 Dec 2023 19:29:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E6957209
+	by alsa0.perex.cz (Postfix) with ESMTPS id 01FE785D;
+	Thu,  7 Dec 2023 21:20:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 01FE785D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701973758;
-	bh=oUtjZ+VCwu0p6Zdm0+PMZHE5os+JzirK45maCcLFLZk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1701980440;
+	bh=bDTHypQCUWMPwBjq9lbU9JKAAouoTOHpo5bspOQwi4M=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=MhxX4fBtHggN149XH6Vw1RH1D+fyq7OuuRoXwWtQHUdk77awjjtgk57i/Cbf1uEZO
-	 qog11IsUNLGoknmc/q1DdVvtORW9S0xUmS3xDHwNlTgh16X4Wtec8X7SH3BnHlNtTr
-	 D38WOOIzCEKLamRZ3jCI6CoZHpW2K87+JQWkozRs=
+	b=J0H4Kfid8UhBg4tPbp1G6PSznFdoQNr1IPx+f2LVfCoSfckUrsydYtqhzyX3HHLz5
+	 V73ssAYH+KnHQOAF5EO25lQoEcoOEnBoypwdRzHRZHBR68ov//Ex3fRKBcuILBcGgI
+	 7HL3AuLTcPLPbrPs3mSSykF8gmxDRyx18RHJO60c=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0A219F800AC; Thu,  7 Dec 2023 19:28:47 +0100 (CET)
+	id CA6FCF80567; Thu,  7 Dec 2023 21:20:08 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DDE42F80570;
-	Thu,  7 Dec 2023 19:28:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 97D3BF80578;
+	Thu,  7 Dec 2023 21:20:07 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 69264F8024E; Thu,  7 Dec 2023 19:28:40 +0100 (CET)
+	id 4A754F8024E; Thu,  7 Dec 2023 21:19:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from irl.hu (irl.hu [95.85.9.111])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id ED5AFF800AC
-	for <alsa-devel@alsa-project.org>; Thu,  7 Dec 2023 19:28:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED5AFF800AC
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=G41HUC1k
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by ams.source.kernel.org (Postfix) with ESMTP id 186F3B829BE;
-	Thu,  7 Dec 2023 18:28:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78F0CC433C7;
-	Thu,  7 Dec 2023 18:28:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1701973712;
-	bh=oUtjZ+VCwu0p6Zdm0+PMZHE5os+JzirK45maCcLFLZk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=G41HUC1kewwWxdmisy1k+mtURaptTgqBN3Ot5SqLNnSxHulnqvYUQ8hrMoZC3Gj+C
-	 bdOrzxYlaYRd2DhcPRBis+su/vydwNbNU1uNX40OSt2W0Gby3b0UZ0hQcmK8MYbVea
-	 isD9GxQEpcWW6+XJkRe57pNziM8KzouUAJRDzrjTh3qxajLv/Y3cm4waUAYboP19O4
-	 dc1HxrnBESGdJD5nbynnOQvbGH9geK6/rILKW5cHF1BVehqGWk5OZMh4je8gTkm9hb
-	 kFclZCtMB4G5cvWfsTixd9YnZWj3W+AdB9uRl6+PZI8WgVGziEpBAXRJF/nRC8JGbR
-	 gB215Dmnno5pg==
-Date: Thu, 7 Dec 2023 18:28:27 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Gergo Koteles <soyer@irl.hu>
+	by alsa1.perex.cz (Postfix) with UTF8SMTPS id A9968F800D2
+	for <alsa-devel@alsa-project.org>; Thu,  7 Dec 2023 21:19:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9968F800D2
+Received: from [192.168.2.4] (51b690cd.dsl.pool.telekom.hu
+ [::ffff:81.182.144.205])
+  (AUTH: CRAM-MD5 soyer@irl.hu, )
+  by irl.hu with ESMTPSA
+  id 0000000000070A5A.00000000657228D7.0011AE34;
+ Thu, 07 Dec 2023 21:19:35 +0100
+Message-ID: <47097f19398808b64f4cc87c2a3c7cc462fb2416.camel@irl.hu>
+Subject: Re: [PATCH 03/16] ASoC: tas2781: disable regmap regcache
+From: Gergo Koteles <soyer@irl.hu>
+To: Mark Brown <broonie@kernel.org>
 Cc: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
-	Baojun Xu <baojun.xu@ti.com>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
-	linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
-Subject: Re: [PATCH 11/16] ASoC: tas2781: use 0 as default prog/conf index
-Message-ID: <a07270d1-ef63-4558-83aa-223b97b1a93e@sirena.org.uk>
+  Baojun Xu <baojun.xu@ti.com>, Jaroslav Kysela <perex@perex.cz>,
+  Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+  linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
+Date: Thu, 07 Dec 2023 21:19:34 +0100
+In-Reply-To: <0b836c10-b21b-4275-8dd0-254dd5467497@sirena.org.uk>
 References: <cover.1701906455.git.soyer@irl.hu>
- <88229933b7aaf0777cbe611979712e4e144b1ca1.1701906455.git.soyer@irl.hu>
+	 <21a183b5a08cb23b193af78d4b1114cc59419272.1701906455.git.soyer@irl.hu>
+	 <0b836c10-b21b-4275-8dd0-254dd5467497@sirena.org.uk>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.50.1 (3.50.1-1.fc39) 
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Mtri/UqkWBaX0XWB"
-Content-Disposition: inline
-In-Reply-To: 
- <88229933b7aaf0777cbe611979712e4e144b1ca1.1701906455.git.soyer@irl.hu>
-X-Cookie: Two is company, three is an orgy.
-Message-ID-Hash: DG6XJ3DWXDIWRRGPUWJCMTLCSQFNZD25
-X-Message-ID-Hash: DG6XJ3DWXDIWRRGPUWJCMTLCSQFNZD25
-X-MailFrom: broonie@kernel.org
+Message-ID-Hash: I4NLKPKVOQEBOII4C6OT2I7WL4RMUELG
+X-Message-ID-Hash: I4NLKPKVOQEBOII4C6OT2I7WL4RMUELG
+X-MailFrom: soyer@irl.hu
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -91,42 +76,57 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DG6XJ3DWXDIWRRGPUWJCMTLCSQFNZD25/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/I4NLKPKVOQEBOII4C6OT2I7WL4RMUELG/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Thu, 2023-12-07 at 18:20 +0000, Mark Brown wrote:
+> On Thu, Dec 07, 2023 at 12:59:44AM +0100, Gergo Koteles wrote:
+>=20
+> > The amp has 3 level addressing (BOOK, PAGE, REG).
+> > The regcache couldn't handle it.
+>=20
+> So the books aren't currently used so the driver actually works?
+>=20
+It writes to the book 0 and 8c. The initialization works with regcache,
+because it writes also the i2c devices.
 
---Mtri/UqkWBaX0XWB
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+> >  static int tas2781_system_suspend(struct device *dev)
+> > @@ -770,10 +758,7 @@ static int tas2781_system_suspend(struct device *d=
+ev)
+> >  		return ret;
+> > =20
+> >  	/* Shutdown chip before system suspend */
+> > -	regcache_cache_only(tas_priv->regmap, false);
+> >  	tasdevice_tuning_switch(tas_priv, 1);
+> > -	regcache_cache_only(tas_priv->regmap, true);
+> > -	regcache_mark_dirty(tas_priv->regmap);
+> > =20
+> >  	/*
+> >  	 * Reset GPIO may be shared, so cannot reset here.
+>=20
+> How can this work over system suspend?  This just removes the cache with
+> no replacement so if the device looses power over suspend (which seems
+> likely) then all the register state will be lost.  A similar issue may
+> potentially exist over runtime suspend on an ACPI system with
+> sufficiently heavily optimised power management.
 
-On Thu, Dec 07, 2023 at 01:04:27AM +0100, Gergo Koteles wrote:
+In runtime_resume, only one of the two amplifiers goes back.
+The runtime_suspend sets the current book/prog/conf to -1 on all
+devices, and tas2781_hda_playback_hook will restore the
+program/configuration/profile with tasdevice_tuning_switch.
 
-> Invalid indexes are not the best default values.
+And only one, because tasdevice_change_chn_book directly changes the
+address of i2c_client, so the unlucky one gets invalid values in its
+actual book from regcache_sync.
 
-I'm guessing this is just fallout from the previous (not really
-explained patch)?  Is there perhaps some bootstrapping issue here with
-ensuring that the program and configuration get written to the device if
-the user doesn't explicitly select something in a control?
+system_restore doesn't work at all, because regcache_cache_only stays
+true since system_suspend.
 
---Mtri/UqkWBaX0XWB
-Content-Type: application/pgp-signature; name="signature.asc"
+It works without the regcache functions.
 
------BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmVyDsoACgkQJNaLcl1U
-h9DGpQf/TQARSIEymiOBOzo5cGEpx/8ZwokjtMX7jsnFlo7PvAc6gfo8VM9mxveo
-50R+n3iX5Pmcyf+MAXLcFVDfW/+8lHTiGV0X/KZUBoh76QUk1y3Pwfc+xPylhknp
-rxtIAOu+D7ViODrLm00ODKFfVnb69+fpMaZEmfsmQJHsZByc5UU7m1gk9i7IxhDg
-UXJrBimr02zmiF4AWdyzUVP3rJPCqld6ciVFHwgB3uoA4+LnNEfgjiIbnb1Y/ip1
-qwNmUJpIDEa0exen/Vp95H7fdBKM5wV2H2ivj5D4H4He0FlTS+zEjd6C/+eSY3cA
-GCUzFTelOBOyxOEre7TNzJbXivrxzA==
-=45un
------END PGP SIGNATURE-----
-
---Mtri/UqkWBaX0XWB--

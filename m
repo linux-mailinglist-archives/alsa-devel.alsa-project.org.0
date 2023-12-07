@@ -2,54 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F8B98089B4
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Dec 2023 15:00:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27EB38089B5
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Dec 2023 15:00:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 09BA5A4E;
-	Thu,  7 Dec 2023 15:00:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 09BA5A4E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9E7B1DE5;
+	Thu,  7 Dec 2023 15:00:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E7B1DE5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701957619;
-	bh=IL5G6D1SsbuUL/eXPV7buviNWw2rnZNXUQIeRNzSask=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=kWmVjqSntKKdUfpuKJN8ufrYZWbd1iPmQpGJXlUc7LD92sKbwspNnkgiu1cdftY+v
-	 AkYVHjxQgGbTlKoPLCW3ofXqdUuZBKdGGVAfxKM3xfwO2bw7Kr8pSczIzRwF0RfN+o
-	 watVBEZA+IOHOz6dtM3lpMta4vmtQdlb7wVIDPBA=
+	s=default; t=1701957636;
+	bh=xRjuwAzrqlcjnOGRq1pqq7Lp1FZjkiM2NMq1l7NLBm8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=W6cfH6qTmtQKCUtGrm+iIM1N9rf4Y2pxEhju8BZ6icK3IBeBopZIKBdSBiQU6DgOf
+	 /m+PmANbL9098NNvqfWiAnrg2Gr3qbAASqZYfZ9GKIOEvdGDcEsVYkIXPMAj/TUN13
+	 uPqJ8xGEw1WjV9ba+rZQf/Isle3/ksLZeosCUmbc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DDAE4F805DF; Thu,  7 Dec 2023 14:59:15 +0100 (CET)
+	id B175FF8057D; Thu,  7 Dec 2023 14:59:58 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0969BF805E6;
-	Thu,  7 Dec 2023 14:59:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 32A30F80568;
+	Thu,  7 Dec 2023 14:59:58 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 521DFF8024E; Thu,  7 Dec 2023 14:58:35 +0100 (CET)
+	id 85C6CF80557; Thu,  7 Dec 2023 14:59:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
- [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4F2B5F800E4
-	for <alsa-devel@alsa-project.org>; Thu,  7 Dec 2023 14:58:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F2B5F800E4
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id ACCB2F800AC
+	for <alsa-devel@alsa-project.org>; Thu,  7 Dec 2023 14:59:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ACCB2F800AC
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=XltynE0Y
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id 14C8A62104;
+	Thu,  7 Dec 2023 13:59:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E126C433C7;
+	Thu,  7 Dec 2023 13:59:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1701957587;
+	bh=xRjuwAzrqlcjnOGRq1pqq7Lp1FZjkiM2NMq1l7NLBm8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=XltynE0Yrz8pP2zYajfeEZwz3kHRMBES4I4yU8u67sXIEaHd6B94aLUYmaDDdrscG
+	 7hLXQULlN5te4xsCqnggyiqqwcaoWAIah+OH1iDq7pqMJADbocujtq70fHZQwUwVDi
+	 XdBGBfg0JTs9KX/p0Y9rBLhRZOKxdXnENHNAFua9vnohq8T/2UfTtdF74U1QcY4ZfB
+	 1TbMIOyONzJxOGG2iiEJAsWKjfRSIfBYZviyjkTk8OxnwV/6yfdvYlwwjp4tCouODE
+	 2YF4mmVnkZJlgc3OJLrd5gGG2GWS9ly/jYabJgrG/CNLTiYxMqS0zypZzwrizvdNe1
+	 gASijK/MTBhmw==
+From: Mark Brown <broonie@kernel.org>
+To: James Schulman <james.schulman@cirrus.com>,
+ David Rhodes <david.rhodes@cirrus.com>,
+ Lucas Tanure <tanureal@opensource.cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>,
+ Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>
+Cc: Charles Keepax <ckeepax@opensource.cirrus.com>,
+ alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20231206160318.1255034-2-rriveram@opensource.cirrus.com>
+References: <20231206160318.1255034-1-rriveram@opensource.cirrus.com>
+ <20231206160318.1255034-2-rriveram@opensource.cirrus.com>
+Subject: Re: [PATCH 1/3] ASoC: cs35l45: Use modern pm_ops
+Message-Id: <170195758517.40629.8262800996139784314.b4-ty@kernel.org>
+Date: Thu, 07 Dec 2023 13:59:45 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-From: GitHub issues - edited <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1701957513300485373-webhooks-bot@alsa-project.org>
-References: <1701957513300485373-webhooks-bot@alsa-project.org>
-Subject: No sound from frontal case jack AUX [MSI MAG Z690 Tomahawk Wifi]
-Message-Id: <20231207135835.521DFF8024E@alsa1.perex.cz>
-Date: Thu,  7 Dec 2023 14:58:35 +0100 (CET)
-Message-ID-Hash: QHOFYNGBYD7E5XGFHQTQFFFWALFXOJQV
-X-Message-ID-Hash: QHOFYNGBYD7E5XGFHQTQFFFWALFXOJQV
-X-MailFrom: github@alsa-project.org
+X-Mailer: b4 0.13-dev-5c066
+Message-ID-Hash: YC2Y5IXUIQYCUTFR2HT4QK5TRTPNXDRC
+X-Message-ID-Hash: YC2Y5IXUIQYCUTFR2HT4QK5TRTPNXDRC
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -61,7 +94,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QHOFYNGBYD7E5XGFHQTQFFFWALFXOJQV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YC2Y5IXUIQYCUTFR2HT4QK5TRTPNXDRC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -70,43 +103,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-ucm-conf issue #371 was edited from ricciolino:
+On Wed, 06 Dec 2023 10:03:16 -0600, Ricardo Rivera-Matos wrote:
+> Make use of the recently introduced EXPORT_GPL_DEV_PM_OPS() macro, to
+> conditionally export the runtime/system PM functions.
+> 
+> Replace the old SET_{RUNTIME,SYSTEM_SLEEP,NOIRQ_SYSTEM_SLEEP}_PM_OPS()
+> helpers with their modern alternatives and get rid of the now
+> unnecessary '__maybe_unused' annotations on all PM functions.
+> 
+> [...]
 
-I posted [this](https://ubuntuforums.org/showthread.php?t=2486774) some weeks ago and I thought I had been able to solve the issue.
-Unfortunately, it does not seem like so.
+Applied to
 
-**Summary of the issue**: attaching my headphone to the rear jack, sound is emitted correctly, whilst frontal AUX jack it just looks dead (headphone device is correctly recognized in sound system settings but no sound is emitted).
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Summary of steps that brought me to the initial solution.
+Thanks!
 
-Check the sound card USB device with:
-```
-> lsusb | grep -i audio
-Bus 001 Device 003: ID 0db0:b202 Micro Star International USB Audio
-```
+[1/3] ASoC: cs35l45: Use modern pm_ops
+      commit: 12e102b1bd22ee00361559d57a5876445bcb2407
+[2/3] ASoC: cs35l45: Prevent IRQ handling when suspending/resuming
+      commit: c3c8b088949b9ccb88da2f84d3c3cc06580a6a43
+[3/3] ASoC: cs35l45: Prevents spinning during runtime suspend
+      commit: a0ffa8115e1ea9786b03edc3f431d2f4ef3e7a2e
 
-Execute the following commands in sequence:
-```
-sudo mv /usr/share/alsa/ucm /usr/share/alsa/ucm.bak
-sudo mv /usr/share/alsa/ucm2 /usr/share/alsa/ucm2.bak
-curl -L -o alsa-ucm-conf.tar.gz https://github.com/alsa-project/alsa-ucm-conf/archive/refs/heads/master.tar.gz
-sudo tar xvzf alsa-ucm-conf.tar.gz -C /usr/share/alsa --strip-components=1 --wildcards "*/ucm" "*/ucm2"
-rm alsa-ucm-conf.tar.gz
-```
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-Reboot... than check:
-```
-> cat /usr/share/alsa/ucm2/USB-Audio/USB-Audio.conf | grep 0db0:b202
-        # 0db0:b202 MSI MAG Z690 Tomahawk Wifi
-```
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-Attaching the headphone now sound is emitted correctly from frontal AUX jack.
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-After a few weeks I returned to the initial situation, the front AUX jack does not emit any sound. I checked USB-Audio.conf file for being sure still MSI MAG Z690 Tomahawk Wifi MoBo is supported and output is confirmed.
-```
-> cat /usr/share/alsa/ucm2/USB-Audio/USB-Audio.conf | grep 0db0:b202
-        # 0db0:b202 MSI MAG Z690 Tomahawk Wifi
-```
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/371
-Repository URL: https://github.com/alsa-project/alsa-ucm-conf
+Thanks,
+Mark
+

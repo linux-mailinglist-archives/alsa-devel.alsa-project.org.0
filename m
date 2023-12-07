@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0425B8089B0
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Dec 2023 14:59:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F8B98089B4
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Dec 2023 15:00:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3AC017F8;
-	Thu,  7 Dec 2023 14:59:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3AC017F8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 09BA5A4E;
+	Thu,  7 Dec 2023 15:00:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 09BA5A4E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701957594;
-	bh=AmwZ7UAXCBwOAm8zLaVFn1kHlOhwu1bIGhDfD1xkSY8=;
+	s=default; t=1701957619;
+	bh=IL5G6D1SsbuUL/eXPV7buviNWw2rnZNXUQIeRNzSask=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=UsrkWzkJMmrxqeGQIaQvRpekBjo+d5X/WOzCeLK6fkGw4JrxPkwUQtxMOH9leKoc5
-	 WewXPU0mFULFEBv4zJpIam8t/ekwH9j0b7VnIX/01P1temSKtlRBdPIVkuUJYVn446
-	 rQ39s2/+XRkmK/h917Q+rPh72SPmgnKf0GHZTQoU=
+	b=kWmVjqSntKKdUfpuKJN8ufrYZWbd1iPmQpGJXlUc7LD92sKbwspNnkgiu1cdftY+v
+	 AkYVHjxQgGbTlKoPLCW3ofXqdUuZBKdGGVAfxKM3xfwO2bw7Kr8pSczIzRwF0RfN+o
+	 watVBEZA+IOHOz6dtM3lpMta4vmtQdlb7wVIDPBA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DB125F805AE; Thu,  7 Dec 2023 14:59:12 +0100 (CET)
+	id DDAE4F805DF; Thu,  7 Dec 2023 14:59:15 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0BE39F8059F;
-	Thu,  7 Dec 2023 14:59:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0969BF805E6;
+	Thu,  7 Dec 2023 14:59:14 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C11FBF8025A; Thu,  7 Dec 2023 14:58:04 +0100 (CET)
+	id 521DFF8024E; Thu,  7 Dec 2023 14:58:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-3.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
@@ -34,21 +34,21 @@ X-Spam-Status: No, score=-3.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
 	version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
  [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id 509C6F80166
-	for <alsa-devel@alsa-project.org>; Thu,  7 Dec 2023 14:57:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 509C6F80166
+	by alsa1.perex.cz (Postfix) with ESMTP id 4F2B5F800E4
+	for <alsa-devel@alsa-project.org>; Thu,  7 Dec 2023 14:58:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F2B5F800E4
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1701957467800903320-webhooks-bot@alsa-project.org>
-References: <1701957467800903320-webhooks-bot@alsa-project.org>
+In-Reply-To: <1701957513300485373-webhooks-bot@alsa-project.org>
+References: <1701957513300485373-webhooks-bot@alsa-project.org>
 Subject: No sound from frontal case jack AUX [MSI MAG Z690 Tomahawk Wifi]
-Message-Id: <20231207135804.C11FBF8025A@alsa1.perex.cz>
-Date: Thu,  7 Dec 2023 14:58:04 +0100 (CET)
-Message-ID-Hash: MID3FOBW6GCOVO5UTVC2IEYSFMHVENPY
-X-Message-ID-Hash: MID3FOBW6GCOVO5UTVC2IEYSFMHVENPY
+Message-Id: <20231207135835.521DFF8024E@alsa1.perex.cz>
+Date: Thu,  7 Dec 2023 14:58:35 +0100 (CET)
+Message-ID-Hash: QHOFYNGBYD7E5XGFHQTQFFFWALFXOJQV
+X-Message-ID-Hash: QHOFYNGBYD7E5XGFHQTQFFFWALFXOJQV
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -61,7 +61,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MID3FOBW6GCOVO5UTVC2IEYSFMHVENPY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QHOFYNGBYD7E5XGFHQTQFFFWALFXOJQV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,7 +102,7 @@ Reboot... than check:
 
 Attaching the headphone now sound is emitted correctly from frontal AUX jack.
 
-After a few weeks I returned to the initial situation, the front AUX jack does not emit any sound. After a few weeks I returned to the initial situation, the front AUX jack does not emit any sound. I checked USB-Audio.conf file for being sure still MSI MAG Z690 Tomahawk Wifi MoBo is supported and output is confirmed.
+After a few weeks I returned to the initial situation, the front AUX jack does not emit any sound. I checked USB-Audio.conf file for being sure still MSI MAG Z690 Tomahawk Wifi MoBo is supported and output is confirmed.
 ```
 > cat /usr/share/alsa/ucm2/USB-Audio/USB-Audio.conf | grep 0db0:b202
         # 0db0:b202 MSI MAG Z690 Tomahawk Wifi

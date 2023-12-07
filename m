@@ -2,71 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7538F80932C
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Dec 2023 22:13:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FC6480955F
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Dec 2023 23:31:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 023F9204;
-	Thu,  7 Dec 2023 22:12:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 023F9204
+	by alsa0.perex.cz (Postfix) with ESMTPS id 02F6FDED;
+	Thu,  7 Dec 2023 23:31:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 02F6FDED
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701983584;
-	bh=q6Ykbq3nWoNBPSh83megVHyqJWoRgU6FmX/1DLBp2s4=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=KcYdWXF+6+Ah6I6zy1XF3Nq3QPWJCwFYd82ENMDOImETJGQP4AiUdjRLa8NgZNKHb
-	 vJt3G8S6KaQ3seoZUeOzAdi0sNofUO8896voAU2qbgcelTQ//yHvqB4Dz0Z8SYYd7Z
-	 9iwayOe7+fdEHAXaVM1QvJkt7xQpxpBVNU+Z09kU=
+	s=default; t=1701988281;
+	bh=I6zZMG+IpPw2s8Sw0iLkg1F5rzsOKtGLZz9ge2ZVzVw=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=dTOoJ+0Sxphg3ta4rB/hOJvWC3u2yg/M8e/CGVeFFPblean1uWzwFsXvfarM9LecQ
+	 OZesPjZoXOh70eodEcYe2XCM63bSCFiCMg+RUMa2FJGDvHKuG3c0xeIp4HQ8o6JOFr
+	 z8/IDCXjEiBX7nNO11rp9JUbcKpy1YQ9OhPINPGU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8E241F80580; Thu,  7 Dec 2023 22:12:31 +0100 (CET)
+	id 3C758F805F4; Thu,  7 Dec 2023 23:30:39 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 43BADF8055A;
-	Thu,  7 Dec 2023 22:12:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BD835F805CB;
+	Thu,  7 Dec 2023 23:30:36 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CA02CF80166; Thu,  7 Dec 2023 22:12:24 +0100 (CET)
+	id 0190DF8056F; Thu,  7 Dec 2023 23:30:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from irl.hu (irl.hu [95.85.9.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
- server-digest SHA256)
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with UTF8SMTPS id 63423F800AC
-	for <alsa-devel@alsa-project.org>; Thu,  7 Dec 2023 22:12:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63423F800AC
-Received: from [192.168.2.4] (51b690cd.dsl.pool.telekom.hu
- [::ffff:81.182.144.205])
-  (AUTH: CRAM-MD5 soyer@irl.hu, )
-  by irl.hu with ESMTPSA
-  id 00000000000718A4.000000006572352F.0011AF64;
- Thu, 07 Dec 2023 22:12:15 +0100
-Message-ID: <b0ab21657f2e4f0825579de97ca012e294d1e743.camel@irl.hu>
-Subject: Re: [PATCH 03/16] ASoC: tas2781: disable regmap regcache
-From: Gergo Koteles <soyer@irl.hu>
-To: Mark Brown <broonie@kernel.org>
-Cc: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
-  Baojun Xu <baojun.xu@ti.com>, Jaroslav Kysela <perex@perex.cz>,
-  Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
-  linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
-Date: Thu, 07 Dec 2023 22:12:13 +0100
-In-Reply-To: <5f3f0306-799f-4f3b-9e05-fbd300c59d5d@sirena.org.uk>
-References: <cover.1701906455.git.soyer@irl.hu>
-	 <21a183b5a08cb23b193af78d4b1114cc59419272.1701906455.git.soyer@irl.hu>
-	 <0b836c10-b21b-4275-8dd0-254dd5467497@sirena.org.uk>
-	 <47097f19398808b64f4cc87c2a3c7cc462fb2416.camel@irl.hu>
-	 <5f3f0306-799f-4f3b-9e05-fbd300c59d5d@sirena.org.uk>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.50.1 (3.50.1-1.fc39) 
+	by alsa1.perex.cz (Postfix) with ESMTPS id 52F63F800D2
+	for <alsa-devel@alsa-project.org>; Thu,  7 Dec 2023 23:30:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 52F63F800D2
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=nVeR+Y+D
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1701988213; x=1733524213;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=I6zZMG+IpPw2s8Sw0iLkg1F5rzsOKtGLZz9ge2ZVzVw=;
+  b=nVeR+Y+DR3U8D9osrk7c8pOUIN4qaiCz0dps7lhkIeQ95INKLiYMvZDQ
+   TM/H440QrZ9QnuEo1ns0R2PddUbqZ2r0EoxU6t3oeJKmyG2U3ZarTKcRq
+   HAzsN7o1SO2KHOi52OxCndgHA2dRFMepJaPIHGiyWd9Bw7tsonmgEZH3b
+   ATbvhNg7GeXyCXjuo5k4C1DBs44GFQJF196N0n/h6rRdoYGNdX3uul++w
+   a3K5t5QvyDCQtQZWJSIyfrpjE5ckvrvo3WWXE0toucp2oGijrNcYJZeyk
+   sRZstuBrdmj19e+Mc/rc87R9xKIAgvGfUCvoXmg3ip9KorVLGHVHmrBK9
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10917"; a="480516563"
+X-IronPort-AV: E=Sophos;i="6.04,258,1695711600";
+   d="scan'208";a="480516563"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Dec 2023 14:30:06 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10917"; a="895307458"
+X-IronPort-AV: E=Sophos;i="6.04,258,1695711600";
+   d="scan'208";a="895307458"
+Received: from hrcolco-mobl3.amr.corp.intel.com (HELO
+ pbossart-mobl3.amr.corp.intel.com) ([10.212.148.159])
+  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Dec 2023 14:30:05 -0800
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+To: linux-sound@vger.kernel.org
+Cc: alsa-devel@alsa-project.org,
+	tiwai@suse.de,
+	broonie@kernel.org,
+	vinod.koul@intel.com,
+	Bard liao <yung-chuan.liao@linux.intel.com>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	srinivas.kandagatla@linaro.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+	vijendar.mukunda@amd.com,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	Shuming Fan <shumingf@realtek.com>,
+	Jack Yu <jack.yu@realtek.com>,
+	Oder Chiou <oder_chiou@realtek.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: [RFC PATCH 00/16] soundwire/ASoC: speed-up downloads with BTP/BRA
+ protocol
+Date: Thu,  7 Dec 2023 16:29:28 -0600
+Message-Id: <20231207222944.663893-1-pierre-louis.bossart@linux.intel.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Message-ID-Hash: S3JYTKYGMX4EHRDTUR36IRVDNOFVH2TM
-X-Message-ID-Hash: S3JYTKYGMX4EHRDTUR36IRVDNOFVH2TM
-X-MailFrom: soyer@irl.hu
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: JWSG6NWRVENVRPPPMOUDJLYVRBN7XOPG
+X-Message-ID-Hash: JWSG6NWRVENVRPPPMOUDJLYVRBN7XOPG
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -78,113 +108,147 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/S3JYTKYGMX4EHRDTUR36IRVDNOFVH2TM/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JWSG6NWRVENVRPPPMOUDJLYVRBN7XOPG/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 2023-12-07 at 20:36 +0000, Mark Brown wrote:
-> On Thu, Dec 07, 2023 at 09:19:34PM +0100, Gergo Koteles wrote:
-> > On Thu, 2023-12-07 at 18:20 +0000, Mark Brown wrote:
-> > > On Thu, Dec 07, 2023 at 12:59:44AM +0100, Gergo Koteles wrote:
->=20
-> > > > The amp has 3 level addressing (BOOK, PAGE, REG).
-> > > > The regcache couldn't handle it.
->=20
-> > > So the books aren't currently used so the driver actually works?
->=20
-> > It writes to the book 0 and 8c. The initialization works with regcache,
-> > because it writes also the i2c devices.
->=20
-> I can't see any references to 0x8c in the driver?
+This RFC patchset suggests a new API for ASoC codec drivers to use for
+firmware/table downloads.
 
-The firmware has different programs. The programs have blocks, that the
-driver writes to the amplifier. The address comes from the blocks.
+Problem statement:
 
->=20
-> > > >  static int tas2781_system_suspend(struct device *dev)
-> > > > @@ -770,10 +758,7 @@ static int tas2781_system_suspend(struct devic=
-e *dev)
-> > > >  		return ret;
-> > > > =20
-> > > >  	/* Shutdown chip before system suspend */
-> > > > -	regcache_cache_only(tas_priv->regmap, false);
-> > > >  	tasdevice_tuning_switch(tas_priv, 1);
-> > > > -	regcache_cache_only(tas_priv->regmap, true);
-> > > > -	regcache_mark_dirty(tas_priv->regmap);
->=20
-> > > How can this work over system suspend?  This just removes the cache w=
-ith
-> > > no replacement so if the device looses power over suspend (which seem=
-s
-> > > likely) then all the register state will be lost.  A similar issue ma=
-y
-> > > potentially exist over runtime suspend on an ACPI system with
-> > > sufficiently heavily optimised power management.
->=20
-> > In runtime_resume, only one of the two amplifiers goes back.
-> > The runtime_suspend sets the current book/prog/conf to -1 on all
-> > devices, and tas2781_hda_playback_hook will restore the
-> > program/configuration/profile with tasdevice_tuning_switch.
->=20
-> What does "go back" mean? =20
+All existing transfers initiated by codec drivers rely on SoundWire
+read/write commands, which can only support ONE byte per frame. With
+the typical 48kHz frame rate, this means 384 kbits/s.
 
-Sorry for imprecise wording. The speaker is silent, I didn't checked
-why, maybe the amp is in error state or something.
+In addition, the command/control is typically handled with a FIFO and
+interrupts which adds more software overhead. To give a practical
+reference, sending 32Kb takes 2.5s on Intel platforms, which means
+about 105kbit/s only. Additional non-audio activity is likely to
+adversely impact interrupt scheduling and further decrease the
+transfer speeds.
 
->=20
-> > And only one, because tasdevice_change_chn_book directly changes the
-> > address of i2c_client, so the unlucky one gets invalid values in its
-> > actual book from regcache_sync.
->=20
-> The code creates the impression that writing to one tas2781 writes to
-> all of them, is that not the case?
->=20
-Yes, the tasdevice_* functions, but the regcache_sync doesn't know
-this.
+New SDCA-based codecs have a need to download tables and DSP firmware
+which are typically between 20 and 256 Kb. The slow bus operation has
+a direct impact on boot/resume times, and clearly having to wait more
+than 300ms is a showstopper in terms of latency requirements and
+user-experience.
 
-> > system_restore doesn't work at all, because regcache_cache_only stays
-> > true since system_suspend.
->=20
-> Presumably the next runtime resume would make the device writable again?
->=20
-Yes, then one of the speakers works.
+Suggested solution:
 
-> > It works without the regcache functions.
->=20
-> How would the devices get their configuration restored?
->=20
-tasdevice_tuning_switch calls tasdevice_select_tuningprm_cfg which
-checks whether the devices needs a new program or configuration.
+The MIPI specification and most of the new codecs support the Bulk
+Transfer Protocol (BTP) and specifically the Bulk Register Access
+(BRA) configuration. This mode reclaims the 'audio' data space of the
+SoundWire frame to send firmware/coefficients over the DataPort 0
+(DP0).
 
-the runtime_suspend and system resume set the devices cur_prog,
-cur_conf to -1.
+The API suggested is rather simple, with the following sequence
+expected:
+open(): reserve resources and prepare hardware
+send_async(): trigger DMAs and perform SoundWire bank switch
+wait(): wait for DMA completion and disable DMAs
+close(): release resources
 
-for (i =3D 0; i < tas_hda->priv->ndev; i++) {
-	tas_hda->priv->tasdevice[i].cur_book =3D -1;
-	tas_hda->priv->tasdevice[i].cur_prog =3D -1;
-	tas_hda->priv->tasdevice[i].cur_conf =3D -1;
-}
+Benefits:
 
-And the tasdevice_select_tuningprm_cfg checks with=20
-if (tas_priv->tasdevice[i].cur_prog !=3D prm_no ...
+Even after accounting for the protocol overhead, the data can be sent
+8x or 16x faster on the link than with the regular commands.
 
-If needed, it writes the new program/configuration to the device.
+With the use of DMAs, the software overhead becomes limited to the
+initialization. Measured results show that transferring the same 32Kb
+takes about 100ms, a 25x improvement on the baseline write() commands
+with an actual bitrate of 2.6 Mbits/s. These results are a measure of
+bus/hardware performance mainly, and will typically not be too
+modified by the CPU activity and scheduling.
 
-The tas2781_hda_playback_hook calls the tasdevice_tuning_switch
+The performance for reads is similar, with a 25x speedup measured.
 
+Limitations:
 
-> This sounds very much like a case of something working for your specific
-> system in your specific test through some external factor rather than
-> working by design, whatever problems might exist it seems fairly obvious
-> to inspection that this patch would make things worse for other systems.
->=20
-> At a minimum this patch needs a much clearer changelog (all the patches
-> I looked at could use clearer changelogs) which explains what's going on
-> here, I would really expect to see something that replaces the use of
-> the cache sync to restore the device state for example.
+Setting up the transfers over DP0 takes time, and the reliance on DMAs
+on the host side brings alignment restrictions. The BTP/BRA protocol
+is really only relevant for "large" transfers done during boot/resume
+*before* audio transfers take place. Mixing BTP/BRA and audio is a
+nightmare, this patchset suggests a mutual-exclusion between two
+usages.
+
+Scope:
+
+This patchset only exposes the API and a debugfs interface to initiate
+commands, validate results and measure performance. The actual use of
+the API is left as an exercise for codec driver developers.
+
+This patchset depends on a number of pre-requisite patches and will
+not build on top of any for-next branches. The main intent of this RFC
+is to gather comments on the usage, API, benefits and restrictions.
+
+The code and functionality was tested on an Intel LunarLake RVP platform
+connected to a Realtek RT711-SDCA device.
+
+Acknowledgements:
+
+Thanks to Zeek Tsai at Realtek for providing test sequences that
+helped reconcile the data formatted by the host driver with the
+expected results on the code side.
+
+Pierre-Louis Bossart (16):
+  Documentation: driver: add SoundWire BRA description
+  soundwire: cadence: add BTP support for DP0
+  soundwire: stream: extend sdw_alloc_stream() to take 'type' parameter
+  soundwire: extend sdw_stream_type to BPT
+  soundwire: stream: special-case the bus compute_params() routine
+  soundwire: stream: reuse existing code for BPT stream
+  soundwire: bus: add API for BPT protocol
+  soundwire: bus: add bpt_stream pointer
+  soundwire: crc8: add constant table
+  soundwire: cadence: add BTP/BRA helpers to format data
+  soundwire: intel_auxdevice: add indirection for BPT
+    open/close/send_async/wait
+  ASoC: SOF: Intel: hda-sdw-bpt: add helpers for SoundWire BPT DMA
+  soundwire: intel: add BPT context definition
+  soundwire: intel_ace2x: add BPT open/close/send_async/wait
+  soundwire: debugfs: add interface for BPT/BRA transfers
+  ASoC: rt711-sdca: add DP0 support
+
+ Documentation/driver-api/soundwire/bra.rst    | 478 +++++++++++++
+ Documentation/driver-api/soundwire/index.rst  |   1 +
+ Documentation/driver-api/soundwire/stream.rst |   2 +-
+ .../driver-api/soundwire/summary.rst          |   5 +-
+ drivers/soundwire/Kconfig                     |   1 +
+ drivers/soundwire/Makefile                    |   4 +-
+ drivers/soundwire/amd_manager.c               |   2 +-
+ drivers/soundwire/bus.c                       |  77 +++
+ drivers/soundwire/bus.h                       |  18 +
+ drivers/soundwire/cadence_master.c            | 646 +++++++++++++++++-
+ drivers/soundwire/cadence_master.h            |  30 +
+ drivers/soundwire/crc8.c                      | 277 ++++++++
+ drivers/soundwire/crc8.h                      |  11 +
+ drivers/soundwire/debugfs.c                   | 122 +++-
+ .../soundwire/generic_bandwidth_allocation.c  |  84 ++-
+ drivers/soundwire/intel.h                     |  12 +
+ drivers/soundwire/intel_ace2x.c               | 377 ++++++++++
+ drivers/soundwire/intel_auxdevice.c           |  55 ++
+ drivers/soundwire/qcom.c                      |   2 +-
+ drivers/soundwire/stream.c                    | 137 +++-
+ include/linux/soundwire/sdw.h                 |  91 ++-
+ include/linux/soundwire/sdw_intel.h           |  16 +
+ include/sound/hda-sdw-bpt.h                   |  76 +++
+ sound/soc/codecs/rt711-sdca-sdw.c             |   8 +
+ sound/soc/qcom/sdw.c                          |   2 +-
+ sound/soc/sof/intel/Kconfig                   |   8 +-
+ sound/soc/sof/intel/Makefile                  |   4 +
+ sound/soc/sof/intel/hda-sdw-bpt.c             | 328 +++++++++
+ 28 files changed, 2810 insertions(+), 64 deletions(-)
+ create mode 100644 Documentation/driver-api/soundwire/bra.rst
+ create mode 100644 drivers/soundwire/crc8.c
+ create mode 100644 drivers/soundwire/crc8.h
+ create mode 100644 include/sound/hda-sdw-bpt.h
+ create mode 100644 sound/soc/sof/intel/hda-sdw-bpt.c
+
+-- 
+2.39.2
 

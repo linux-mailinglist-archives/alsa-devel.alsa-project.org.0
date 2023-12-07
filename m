@@ -2,53 +2,109 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF1B9808EA9
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Dec 2023 18:30:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CD03808FBF
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Dec 2023 19:21:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 877C5209;
-	Thu,  7 Dec 2023 18:30:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 877C5209
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3D7FFA4E;
+	Thu,  7 Dec 2023 19:21:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D7FFA4E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701970213;
-	bh=Dhv8KM+9xz4mrV57fruWPSPRB7WEwdVUOFd9ULM5OPU=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=RSHjhKKQEAm2dnk96D1i6TLqO8df4rqxtSBEYGq5yuKuk4r9Gen9R2TUpIpn+yoMt
-	 jo2ZIESAMaOXUaJbo6s34vtiOs0jfUl28/F/9Kfjvg1s/TK1hKftGqTQitgitKsz41
-	 6OT1FveQjmh8u6CRhXM45JxuuxkEVyhXjxPh2Bps=
+	s=default; t=1701973283;
+	bh=A09HAY9CbYwB2X5KOdQq5Q1XPXnytnfX3e8aGJUQkXE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=uo5CVi37ZFLX5weGUYLT7PaPSJsN1/G3Wi/lcrmMMgXnlIYaQVRL1bNfql/eqHPok
+	 FIu1Tn3/C28SzPz302Sjm9gt6vmFx4Hxn5U47oTG8GMlhxoM0UqxGXqqlVPHh2zjtn
+	 XoSUQlnVt2Qw1VoRUF1pV/quKNf7ZfyXxsghJ2dU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DEDDFF80563; Thu,  7 Dec 2023 18:29:41 +0100 (CET)
+	id C3102F80587; Thu,  7 Dec 2023 19:20:51 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 441E9F80570;
-	Thu,  7 Dec 2023 18:29:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 79863F80571;
+	Thu,  7 Dec 2023 19:20:50 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7DAC1F8024E; Thu,  7 Dec 2023 18:29:35 +0100 (CET)
+	id 51BFCF8024E; Thu,  7 Dec 2023 19:20:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+X-Spam-Level: 
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
 	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=no autolearn_force=no version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
- [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id EFA1BF800D2
-	for <alsa-devel@alsa-project.org>; Thu,  7 Dec 2023 18:29:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EFA1BF800D2
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub pull_request - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1701970171980381250-webhooks-bot@alsa-project.org>
-References: <1701970171980381250-webhooks-bot@alsa-project.org>
-Subject: nhlt: Revert SSP_ANALOG device_type field
-Message-Id: <20231207172935.7DAC1F8024E@alsa1.perex.cz>
-Date: Thu,  7 Dec 2023 18:29:35 +0100 (CET)
-Message-ID-Hash: C47QKTKJJCVWHTIUSUGEKXIKARBUYKEM
-X-Message-ID-Hash: C47QKTKJJCVWHTIUSUGEKXIKARBUYKEM
-X-MailFrom: github@alsa-project.org
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id B861CF800AC
+	for <alsa-devel@alsa-project.org>; Thu,  7 Dec 2023 19:20:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B861CF800AC
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 142011FBAB;
+	Thu,  7 Dec 2023 18:20:31 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EDD2A13B6A;
+	Thu,  7 Dec 2023 18:20:30 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([10.150.64.162])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id EssCOO4McmW/CwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Thu, 07 Dec 2023 18:20:30 +0000
+Date: Thu, 07 Dec 2023 19:20:30 +0100
+Message-ID: <87il59zxg1.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Yevhen Hrubiian <grubian.euhen@gmail.com>
+Cc: alsa-devel@alsa-project.org
+Subject: Re: Bass speaker fixup for Lenovo Yoga Pro 7 14APH8
+In-Reply-To: 
+ <CAGGk=CRRQ1L9p771HsXTN_ebZP41Qj+3gw35Gezurn+nokRewg@mail.gmail.com>
+References: 
+ <CAGGk=CRRQ1L9p771HsXTN_ebZP41Qj+3gw35Gezurn+nokRewg@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [7.78 / 50.00];
+	 ARC_NA(0.00)[];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 FROM_HAS_DN(0.00)[];
+	 TO_DN_SOME(0.00)[];
+	 FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 TAGGED_RCPT(0.00)[];
+	 MIME_GOOD(-0.10)[text/plain];
+	 R_SPF_SOFTFAIL(4.60)[~all:c];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 MX_GOOD(-0.01)[];
+	 RCPT_COUNT_TWO(0.00)[2];
+	 MID_CONTAINS_FROM(1.00)[];
+	 FREEMAIL_TO(0.00)[gmail.com];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 R_DKIM_NA(2.20)[];
+	 MIME_TRACE(0.00)[0:+];
+	 RCVD_TLS_ALL(0.00)[];
+	 BAYES_HAM(-0.01)[45.87%];
+	 DMARC_POLICY_SOFTFAIL(0.10)[suse.de : No valid SPF, No valid DKIM,none]
+X-Spamd-Bar: +++++++
+Authentication-Results: smtp-out2.suse.de;
+	dkim=none;
+	dmarc=fail reason="No valid SPF,
+ No valid DKIM" header.from=suse.de (policy=none);
+	spf=softfail (smtp-out2.suse.de: 2a07:de40:b281:104:10:150:64:97 is neither
+ permitted nor denied by domain of tiwai@suse.de) smtp.mailfrom=tiwai@suse.de
+X-Rspamd-Server: rspamd1
+X-Rspamd-Queue-Id: 142011FBAB
+Message-ID-Hash: ILMZNRJEFOIHJD64ACZQXVNJCPXWATZ5
+X-Message-ID-Hash: ILMZNRJEFOIHJD64ACZQXVNJCPXWATZ5
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -60,7 +116,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/C47QKTKJJCVWHTIUSUGEKXIKARBUYKEM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ILMZNRJEFOIHJD64ACZQXVNJCPXWATZ5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -69,20 +125,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-utils pull request #248 was opened from andyross:
+On Fri, 24 Nov 2023 17:18:31 +0100,
+Yevhen Hrubiian wrote:
+> 
+> Hello !
+> 
+> I've seen a few patches fixing bass speaker problem for new Lenovo
+> (written by Philipp Jungkamp and later by Pascal Gross), for example
+> this line in linux/sound/pci/hda/patch_realtek.c:
+> 
+> SND_PCI_QUIRK(0x17aa, 0x3801, "Lenovo Yoga9 14IAP7",
+> ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN)
+> 
+> Could you please add this line for a similar model with the same Problem?
+> 
+> SND_PCI_QUIRK(0x17aa, 0x3882, "Lenovo Yoga Pro 7 14APH8",
+> ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN),
+> 
+> I do not have experience in writing kernel patches so I hope I will
+> not irritate you with this letter.
 
-This partially reverts commit 3a47ef2487ed ("topology: nhlt: intel: support more device types and directions"), which changed the default device_type in the endpoint descriptor from zero to SSP_ANALOG.
+OK, I'll cook the trivial patch.
 
-This change breaks the Linux kernel NHLT parser (which AFAICT doesn't recognize SSP_ANALOG at all), producing errors like:
 
-  [56458.583812] sof-audio-pci-intel-mtl 0000:00:1f.3: no matching blob for sample rate: 48000 sample width: 32 channels: 2
-  [56458.583833] sof-audio-pci-intel-mtl 0000:00:1f.3: failed to prepare widget dai-copier.SSP.SSP0-Codec.playback
-  [56458.583840] sof-audio-pci-intel-mtl 0000:00:1f.3: Failed to prepare connected widgets
-  [56458.583847] sof-audio-pci-intel-mtl 0000:00:1f.3: error: failed widget list set up for pcm 1 dir 0
-  [56458.583853] sof-audio-pci-intel-mtl 0000:00:1f.3: ASoC: error at snd_soc_pcm_component_hw_params on 0000:00:1f.3: -22
+thanks,
 
-Revert for compatibility.
-
-Request URL   : https://github.com/alsa-project/alsa-utils/pull/248
-Patch URL     : https://github.com/alsa-project/alsa-utils/pull/248.patch
-Repository URL: https://github.com/alsa-project/alsa-utils
+Takashi

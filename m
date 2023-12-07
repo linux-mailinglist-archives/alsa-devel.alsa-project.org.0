@@ -2,115 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5173808AD3
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Dec 2023 15:40:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0FA0808C14
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Dec 2023 16:43:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C4A6B112;
-	Thu,  7 Dec 2023 15:40:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4A6B112
+	by alsa0.perex.cz (Postfix) with ESMTPS id EB0CB83E;
+	Thu,  7 Dec 2023 16:43:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB0CB83E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701960027;
-	bh=nX9GIzp1duWWelbS6Wf+fsPFl4FsxDJ3STYzJuKdy50=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Rii7sEiNxL/GAvJB13eDyDirE/SWqs/s3aQa2JY55qMsmkdt50LxJLaSr+pcSDSMt
-	 quSL9yRbVVmr2N4UV+Ym6poJ7T7l4wKwvlmPEm3t652o6f/TJ+GN8Sah0PjwGFQC3z
-	 N7bK0vpOYdBwdgz+TUpVkg9LBrKlV6oyVAA/M07w=
+	s=default; t=1701963836;
+	bh=8O1xFEWx7Y+o9oiDa2zEGBGBjNqQ9BccsS9gOW/1NVM=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=LEBUPO5t93P9OFeJTHqbvdUwcRA0gFaTlPVPLyib1GkmxtGve5T8TGUu/A5u/pWxa
+	 m67rQ9jdvxsIqRZ57by20hbn/E9oXtTogXAUSJ3a8Q9CKZu/N0RSsPUEEpVILSlWdG
+	 Mcf2Ip+hAFEdUQaI6R5v9N6/VBnWc6zkIFoCMBdI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 026ABF80580; Thu,  7 Dec 2023 15:39:54 +0100 (CET)
+	id 23E4BF80578; Thu,  7 Dec 2023 16:43:25 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 69097F80570;
-	Thu,  7 Dec 2023 15:39:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 87161F80571;
+	Thu,  7 Dec 2023 16:43:24 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8B58FF8024E; Thu,  7 Dec 2023 15:38:51 +0100 (CET)
+	id B52B6F8024E; Thu,  7 Dec 2023 16:43:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
 	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4A2F6F800E4
-	for <alsa-devel@alsa-project.org>; Thu,  7 Dec 2023 15:38:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A2F6F800E4
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id C28A11FB76;
-	Thu,  7 Dec 2023 14:38:38 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6E28213976;
-	Thu,  7 Dec 2023 14:38:38 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id kkNYGe7YcWUWOQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Thu, 07 Dec 2023 14:38:38 +0000
-Date: Thu, 07 Dec 2023 15:38:37 +0100
-Message-ID: <87y1e6yt5e.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Cc: Gergo Koteles <soyer@irl.hu>,
-	Shenghao Ding <shenghao-ding@ti.com>,
-	Kevin Lu <kevin-lu@ti.com>,
-	Baojun Xu <baojun.xu@ti.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	alsa-devel@alsa-project.org
-Subject: Re: [PATCH 00/16] ALSA: hda/tas2781: Add tas2563 support
-In-Reply-To: <85b7456d-7cf3-4885-8e71-111df53e35fe@sirena.org.uk>
-References: <cover.1701906455.git.soyer@irl.hu>
-	<85b7456d-7cf3-4885-8e71-111df53e35fe@sirena.org.uk>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [7.79 / 50.00];
-	 ARC_NA(0.00)[];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 FROM_HAS_DN(0.00)[];
-	 TO_DN_SOME(0.00)[];
-	 FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 MIME_GOOD(-0.10)[text/plain];
-	 R_SPF_SOFTFAIL(4.60)[~all:c];
-	 RCVD_COUNT_THREE(0.00)[3];
-	 MX_GOOD(-0.01)[];
-	 RCPT_COUNT_SEVEN(0.00)[10];
-	 MID_CONTAINS_FROM(1.00)[];
-	 FUZZY_BLOCKED(0.00)[rspamd.com];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 R_DKIM_NA(2.20)[];
-	 MIME_TRACE(0.00)[0:+];
-	 FREEMAIL_CC(0.00)[irl.hu,ti.com,perex.cz,suse.com,gmail.com,vger.kernel.org,alsa-project.org];
-	 RCVD_TLS_ALL(0.00)[];
-	 BAYES_HAM(-0.00)[17.80%];
-	 DMARC_POLICY_SOFTFAIL(0.10)[suse.de : No valid SPF, No valid DKIM,none]
-X-Spamd-Bar: +++++++
-Authentication-Results: smtp-out2.suse.de;
-	dkim=none;
-	dmarc=fail reason="No valid SPF,
- No valid DKIM" header.from=suse.de (policy=none);
-	spf=softfail (smtp-out2.suse.de: 2a07:de40:b281:104:10:150:64:97 is neither
- permitted nor denied by domain of tiwai@suse.de) smtp.mailfrom=tiwai@suse.de
-X-Rspamd-Server: rspamd1
-X-Rspamd-Queue-Id: C28A11FB76
-Message-ID-Hash: T5EIWCVZRW4EYQQNC2VEYTRRXWGHPH7I
-X-Message-ID-Hash: T5EIWCVZRW4EYQQNC2VEYTRRXWGHPH7I
-X-MailFrom: tiwai@suse.de
+	autolearn=no autolearn_force=no version=3.4.6
+Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
+ [207.180.221.201])
+	by alsa1.perex.cz (Postfix) with ESMTP id 00371F800E4
+	for <alsa-devel@alsa-project.org>; Thu,  7 Dec 2023 16:43:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00371F800E4
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1701963790556613445-webhooks-bot@alsa-project.org>
+References: <1701963790556613445-webhooks-bot@alsa-project.org>
+Subject: multichannel audio -- four out of 16 channels turned off by default
+Message-Id: <20231207154313.B52B6F8024E@alsa1.perex.cz>
+Date: Thu,  7 Dec 2023 16:43:13 +0100 (CET)
+Message-ID-Hash: NLTIBWJT6LTGPTLBZXRPDO4MFLZUGUDV
+X-Message-ID-Hash: NLTIBWJT6LTGPTLBZXRPDO4MFLZUGUDV
+X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -122,7 +60,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/T5EIWCVZRW4EYQQNC2VEYTRRXWGHPH7I/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NLTIBWJT6LTGPTLBZXRPDO4MFLZUGUDV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -131,36 +69,23 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 07 Dec 2023 14:55:25 +0100,
-Mark Brown wrote:
-> 
-> On Thu, Dec 07, 2023 at 01:58:22AM +0100, Gergo Koteles wrote:
-> 
-> > Gergo Koteles (16):
-> >   ASoC: tas2781: add support for fw version 0x0503
-> >   ALSA: hda/tas2781: leave hda_component in usable state
-> >   ASoC: tas2781: disable regmap regcache
-> >   ALSA: hda/tas2781: handle missing calibration data
-> >   ALSA: hda/tas2781: fix typos in comment
-> >   ASoC: tas2781: add ptrs to calibration functions
-> >   ALSA: hda/tas2781: load_calibration just load
-> >   ASoC: tas2781: add configurable global_addr
-> >   ALSA: hda/tas2781: add TAS2563 support for 14ARB7
-> >   ASoC: tas2781: check negative indexes
-> >   ASoC: tas2781: use 0 as default prog/conf index
-> >   ASoC: tas2781: move set_drv_data outside tasdevice_init
-> >   ALSA: hda/tas2781: remove sound controls in unbind
-> >   ALSA: hda/tas2781: call cleaner functions only once
-> >   ALSA: hda/tas2781: reset the amp before component_add
-> >   ALSA: hda/tas2781: configure the amp after firmware load
-> 
-> Please don't randomly interleave ASoC and ALSA patches like this without
-> some strong need, it just makes everything harder to manage.
+alsa-project/alsa-tools issue #22 was opened from jyrkialakuijala:
 
-And, some look really like rather individual fixes; they deserve for
-Fixes tag and Cc-to-stable, at least.
+I'm using UMC1820 and Behringer ultragain digital to have 16 channels of output. I need to use them in 48000/24 bit to use all channels, 96000 can only use 12 channels.
 
+It used to work well in early 2023. There was (likely) a software update around mid 2023 that turned off four channels automatically.
 
-thanks,
+I was able to fix it by issuing commands:
 
-Takashi
+$ amixer --card 2 cset numid=3,iface=MIXER,name='UMC1820 Output Playback Volume' 127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
+
+$ amixer --card 2 cset numid=1,iface=MIXER,name='UMC1820 Output Playback Switch' on,on,on,on,on,on,on,on,on,on,on,on,on,on,on,on
+
+When I turned the audio device (UMC1820) off and back on, then I need to reissue those commands to have all 16 channels in use.
+
+It was not easy to understand what was going on, it could have been a failure in the amplifier, line transformers, the ultragain box -- but turned out to be software config. When I looked at software configs I was first convinced that it was configured to 96000 rate because that also creates the same effect of only four channels being available on the extension box.
+
+It would be nice if the devices were detected properly and all channels would be on by default, not just 12 first channels.
+
+Issue URL     : https://github.com/alsa-project/alsa-tools/issues/22
+Repository URL: https://github.com/alsa-project/alsa-tools

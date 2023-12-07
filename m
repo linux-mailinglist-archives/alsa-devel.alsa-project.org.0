@@ -2,85 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4877780876D
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Dec 2023 13:13:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F96E80879A
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Dec 2023 13:23:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DD589206;
-	Thu,  7 Dec 2023 13:13:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD589206
+	by alsa0.perex.cz (Postfix) with ESMTPS id BA4DC850;
+	Thu,  7 Dec 2023 13:23:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA4DC850
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1701951225;
-	bh=UJfCLWvjaeHxoaivKdYpO1tpsskZ6FpSSxamVKiasE4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1701951808;
+	bh=Ujh58FHcb5tb2jGK1N8YKu30AfBLDN/psJSNOj5NXOI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=e8JdKjfGnqRhQQ4+yne+R3TER5wq+YRXHwM6UnNtA0NfGBhzbxGHziYemtJc7gtix
-	 pcGx6xyUHkGenWZz9BONtXCRlGLo83aIkS35A60l58FmSxuA8w4q1cVRgydX4/n0Ey
-	 SW8VvAlfxHINBkQBRVqQOEVNskp+j6RcOEuDANBM=
+	b=j6r8OzAjGuSOV6LfwtmGLLLEotVvxQcZbFZ7JeWtUBiNS9khAjNQgPB7dTxIWjcf7
+	 zqUHkhIErhL17uQvCFn5RU335JffcoaB1GkXm5403iQIQGQqI2IZ/YwPgj1ci8fpez
+	 imUHDG3EXx9eNYCXXZD7cfxIxulZMXlModZUq7uQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A6C38F8057A; Thu,  7 Dec 2023 13:13:15 +0100 (CET)
+	id EB194F80563; Thu,  7 Dec 2023 13:22:57 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 024BBF80568;
-	Thu,  7 Dec 2023 13:13:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DA377F80571;
+	Thu,  7 Dec 2023 13:22:56 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A6A01F8024E; Thu,  7 Dec 2023 13:13:08 +0100 (CET)
+	id EE119F8024E; Thu,  7 Dec 2023 13:22:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5F241F800E4
-	for <alsa-devel@alsa-project.org>; Thu,  7 Dec 2023 13:13:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5F241F800E4
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8DCEAF800D2
+	for <alsa-devel@alsa-project.org>; Thu,  7 Dec 2023 13:22:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8DCEAF800D2
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=G8dZ/l6Z
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by ams.source.kernel.org (Postfix) with ESMTP id 499D2B82715;
-	Thu,  7 Dec 2023 12:13:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B202C433C8;
-	Thu,  7 Dec 2023 12:12:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1701951179;
-	bh=UJfCLWvjaeHxoaivKdYpO1tpsskZ6FpSSxamVKiasE4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=G8dZ/l6Z9IZjQ+2DP5+9K5RXxEmH9fxYzcEe9AoRNKZv4bF9+GvJHmzxdCTmP1tvM
-	 ZzjkDo6Jr7WDY1OWm+XlP/6LCfSoRZPfR6qgfTBAgDrxrb7+b2Od+KYoy7z/SgNbSU
-	 oeZy4KTYtVRQG6NeiCz2raSVdytX8jM+zM70UHfp6Fv5WU7Raad90OSZCqIkKbPeaz
-	 IMN+qMy5L0SK2KMXmPevZ7F3lkG3BZPkdF9v0g4Pw7kYGbdyj2ln3gfSx+idPHbhZd
-	 equqxlAKq1yZ/ElST3Bj5jY1Ls22NrbdftKsvonhSeLW7+59OeN6PY2eP7DK9o07gr
-	 z06zV/biXLt4g==
-From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org,
- Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
-Cc: Vijendar.Mukunda@amd.com, Basavaraj.Hiregoudar@amd.com,
- Sunil-kumar.Dommati@amd.com, syed.sabakareem@amd.com,
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Marian Postevca <posteuca@mutex.one>,
- "open list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <linux-sound@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>
-In-Reply-To: <20231206110620.1695591-1-venkataprasad.potturu@amd.com>
-References: <20231206110620.1695591-1-venkataprasad.potturu@amd.com>
-Subject: Re: [PATCH 1/7] ASoC: amd: Add new dmi entries for acp5x platform
-Message-Id: <170195117702.26874.2167949057088662653.b4-ty@kernel.org>
-Date: Thu, 07 Dec 2023 12:12:57 +0000
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=kaYuvgwS
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1701951766; x=1733487766;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Ujh58FHcb5tb2jGK1N8YKu30AfBLDN/psJSNOj5NXOI=;
+  b=kaYuvgwStHQxxNnMtxlG1VYRnAIfm+ucKML3LCW2XMMRGdLz5Yysj18/
+   eZ2H1up1kYzg+afIWT6tdjxIYFdHSRJUaxaJV+ZoDOWWBSvzXAIV/MIg9
+   s74uvWwEiri8wIlQz2FGzP9fq7VXyZcpMJUzk/udGG/+DevKwusDP0iLe
+   nY8QIETtrmCjhgTkItXVl7d5idmMpRFztgnbjBoj19gs2I2Qu/Z9T7+Zv
+   G27dLBfHFUoda2IzSgpZaSoRlDhjKoshcAln6s7gvphvb5HhQdUekvejt
+   A9BlqOhCz61CRXsTYWTw+5+6X2HN9074j5XE39N9VNdxdYCbvmhI6WcV5
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10916"; a="7530810"
+X-IronPort-AV: E=Sophos;i="6.04,256,1695711600";
+   d="scan'208";a="7530810"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Dec 2023 04:22:40 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10916"; a="945013859"
+X-IronPort-AV: E=Sophos;i="6.04,256,1695711600";
+   d="scan'208";a="945013859"
+Received: from lkp-server02.sh.intel.com (HELO b07ab15da5fe) ([10.239.97.151])
+  by orsmga005.jf.intel.com with ESMTP; 07 Dec 2023 04:22:37 -0800
+Received: from kbuild by b07ab15da5fe with local (Exim 4.96)
+	(envelope-from <lkp@intel.com>)
+	id 1rBDOk-000CDr-2t;
+	Thu, 07 Dec 2023 12:22:34 +0000
+Date: Thu, 7 Dec 2023 20:21:57 +0800
+From: kernel test robot <lkp@intel.com>
+To: Gergo Koteles <soyer@irl.hu>, Shenghao Ding <shenghao-ding@ti.com>,
+	Kevin Lu <kevin-lu@ti.com>, Baojun Xu <baojun.xu@ti.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+	alsa-devel@alsa-project.org, Gergo Koteles <soyer@irl.hu>
+Subject: Re: [PATCH 13/16] ALSA: hda/tas2781: remove sound controls in unbind
+Message-ID: <202312072037.CYK5reOb-lkp@intel.com>
+References: 
+ <8f16576930682297fd08bba5e063a9a1f3150388.1701906455.git.soyer@irl.hu>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-5c066
-Message-ID-Hash: 3BGAJQK6R2BUVAOAC7L2EPPP4TJL6YXR
-X-Message-ID-Hash: 3BGAJQK6R2BUVAOAC7L2EPPP4TJL6YXR
-X-MailFrom: broonie@kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: 
+ <8f16576930682297fd08bba5e063a9a1f3150388.1701906455.git.soyer@irl.hu>
+Message-ID-Hash: TOJA4P3YG7FJR6CDD5QAY2HTN2B3DZEY
+X-Message-ID-Hash: TOJA4P3YG7FJR6CDD5QAY2HTN2B3DZEY
+X-MailFrom: lkp@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -92,7 +103,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3BGAJQK6R2BUVAOAC7L2EPPP4TJL6YXR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TOJA4P3YG7FJR6CDD5QAY2HTN2B3DZEY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -101,48 +112,62 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 06 Dec 2023 16:36:12 +0530, Venkata Prasad Potturu wrote:
-> Add sys_vendor and product_name dmi entries for acp5x platform.
-> 
-> 
+Hi Gergo,
 
-Applied to
+kernel test robot noticed the following build warnings:
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+[auto build test WARNING on tiwai-sound/for-next]
+[also build test WARNING on tiwai-sound/for-linus broonie-sound/for-next linus/master v6.7-rc4 next-20231207]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Thanks!
+url:    https://github.com/intel-lab-lkp/linux/commits/Gergo-Koteles/ALSA-hda-tas2781-leave-hda_component-in-usable-state/20231207-085947
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
+patch link:    https://lore.kernel.org/r/8f16576930682297fd08bba5e063a9a1f3150388.1701906455.git.soyer%40irl.hu
+patch subject: [PATCH 13/16] ALSA: hda/tas2781: remove sound controls in unbind
+config: x86_64-randconfig-013-20231207 (https://download.01.org/0day-ci/archive/20231207/202312072037.CYK5reOb-lkp@intel.com/config)
+compiler: gcc-12 (Debian 12.2.0-14) 12.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20231207/202312072037.CYK5reOb-lkp@intel.com/reproduce)
 
-[1/7] ASoC: amd: Add new dmi entries for acp5x platform
-      commit: c3ab23a10771bbe06300e5374efa809789c65455
-[2/7] ASoC: amd: vangogh: Add condition check for acp config flag
-      commit: f18818eb0dbe0339c0efd02a34a3f5651749cb84
-[3/7] ASoC: amd: Remove extra dmi parameter
-      commit: e12678141835c539fc17a2318ec4017a845935bd
-[4/7] ASoC: amd: acp: Add new cpu dai and dailink creation for I2S BT instance
-      commit: 671dd2ffbd8b92e2228fa84ea4274a051b704dec
-[5/7] ASoC: amd: acp: Add i2s bt support for nau8821-max card
-      commit: e6a382cf7a69cc80e57978bbf0c7a674dfb09621
-[6/7] ASoC: amd: acp: Enable dpcm_capture for MAX98388 codec
-      commit: e249839bf33f3f9727d6220536ed5c7d4f5bc31d
-[7/7] ASoC: amd: acp: Set bclk as source to set pll for rt5682s codec
-      commit: ff5a698c0ffb08eee9c1ce0dfc79c91f273122d5
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202312072037.CYK5reOb-lkp@intel.com/
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+All warnings (new ones prefixed by >>):
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+   sound/pci/hda/tas2781_hda_i2c.c: In function 'tas2781_runtime_resume':
+>> sound/pci/hda/tas2781_hda_i2c.c:868:1: warning: label 'out' defined but not used [-Wunused-label]
+     868 | out:
+         | ^~~
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+vim +/out +868 sound/pci/hda/tas2781_hda_i2c.c
 
-Thanks,
-Mark
+   852	
+   853	static int tas2781_runtime_resume(struct device *dev)
+   854	{
+   855		struct tas2781_hda *tas_hda = dev_get_drvdata(dev);
+   856	
+   857		dev_dbg(tas_hda->dev, "Runtime Resume\n");
+   858	
+   859		mutex_lock(&tas_hda->priv->codec_lock);
+   860	
+   861		tasdevice_prmg_load(tas_hda->priv, tas_hda->priv->cur_prog);
+   862	
+   863		/* If calibrated data occurs error, dsp will still works with default
+   864		 * calibrated data inside algo.
+   865		 */
+   866		tasdevice_apply_calibration(tas_hda->priv);
+   867	
+ > 868	out:
+   869		mutex_unlock(&tas_hda->priv->codec_lock);
+   870	
+   871		return 0;
+   872	}
+   873	
 
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki

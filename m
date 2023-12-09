@@ -2,128 +2,139 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FCE480B4A2
-	for <lists+alsa-devel@lfdr.de>; Sat,  9 Dec 2023 14:56:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97ECA80B4F6
+	for <lists+alsa-devel@lfdr.de>; Sat,  9 Dec 2023 15:47:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 04E1686E;
-	Sat,  9 Dec 2023 14:56:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04E1686E
+	by alsa0.perex.cz (Postfix) with ESMTPS id AC424836;
+	Sat,  9 Dec 2023 15:47:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC424836
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1702130195;
-	bh=NMaIdSQm3wRvHCNWMUwt6PhsMIK00YTFLS+6kRPLh9U=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=o9L4+ua3Zvt++fio8yx8BASOFVHZPdpBKvGLN9x0LQT6FoG851mogGeSlwSQ//ksP
-	 whMhucX4qsW6zTAQ5Jc35J6NWjgre2HFfh3gPRmO+q5HSQ2eylAgvHfSeq7YFw7avD
-	 XiZUL+iogQdXwIg/YmUt0qtXuaMihZPlFVZGrFDs=
+	s=default; t=1702133268;
+	bh=2PgZSFy0XUjNwcWsfPAjscNmrXoAPS4a1iiCHMMo5X4=;
+	h=To:Cc:From:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=MxvgSo9SPzn37kPkP5uOyCSZwin8tsxhJaZJ2jdJxFp2WIOPkkbeXZLk5zKrJmCfU
+	 BhHg6Bnw5SbmhJpLP4/hj1jr5oHF3mH41xx8yWCs85xym/tQZSS+Agn6vcK46I8bLQ
+	 1DJ2XK9xuFOZab89f52P4TtvlmOs0EBveXMWQsI0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F41EAF80571; Sat,  9 Dec 2023 14:56:03 +0100 (CET)
+	id A4AEBF805AF; Sat,  9 Dec 2023 15:47:27 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8B1B6F80571;
-	Sat,  9 Dec 2023 14:56:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2E333F80570;
+	Sat,  9 Dec 2023 15:47:27 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 75725F8024E; Sat,  9 Dec 2023 14:53:06 +0100 (CET)
+	id 168D5F8024E; Sat,  9 Dec 2023 15:47:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 628D8F800D2
-	for <alsa-devel@alsa-project.org>; Sat,  9 Dec 2023 14:52:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 628D8F800D2
+	by alsa1.perex.cz (Postfix) with ESMTPS id AC665F800E4
+	for <alsa-devel@alsa-project.org>; Sat,  9 Dec 2023 15:47:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC665F800E4
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=eQKVy6KZ
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id A43D1CE2B28;
-	Sat,  9 Dec 2023 13:52:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F20CC433C7;
-	Sat,  9 Dec 2023 13:52:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1702129970;
-	bh=NMaIdSQm3wRvHCNWMUwt6PhsMIK00YTFLS+6kRPLh9U=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=eQKVy6KZCRTVRvsd71nZzG5s5KjSWkPhUwLFD+1yCa+9kJwH4ee8tHmqG6ZJwCiOv
-	 sPUSWg+xJuXA4viCw4ZWe5zZpYgIawWJZT04+4Kn7KOpPY7lxETEB7VzoPNzFUQ/np
-	 T9JLQcLvdmvzwRO5fTr1iq4iZRtV7s/sp7iGE4fMB3S9sxgng/JNwCS9DURzTyQ7aC
-	 Jv7tTU97hRPNyCcto7OhUkIZM9EG5Fqc3e2nHxuM7ZV+44VnVe+OYlvS2e8FTvLE1x
-	 sVsp+QXAnN+OMkBr3KWLlqij0aQJdj+4fJ4p7cSoJ9/80W7BYSQ5KIahBCBiupfhRN
-	 ArzGr+g7S6RXA==
-Message-ID: <bcbcd3a4-803b-4093-a513-79e3ce0d0ef8@kernel.org>
-Date: Sat, 9 Dec 2023 14:52:43 +0100
+ unprotected) header.d=gmx.de header.i=knaack.h@gmx.de header.a=rsa-sha256
+ header.s=s31663417 header.b=afX6mZ/7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.de; s=s31663417;
+	t=1702133227; x=1702738027; i=knaack.h@gmx.de;
+	bh=2PgZSFy0XUjNwcWsfPAjscNmrXoAPS4a1iiCHMMo5X4=;
+	h=X-UI-Sender-Class:To:Cc:From:Subject:Date;
+	b=afX6mZ/7VcPHZUM2upM9ibP4yXKICwwnOIuqQbmDREPq4JwP8x2bDS+azHpxjobZ
+	 clkL/oSuRatu46HdQMVQQKuE3XH4gH3pFd4Hv1oOU9H0cw0tcQ7qK/mBKBntkuufI
+	 LqsejGJUB92PXNRcWridPHkkkB4IWZZ/bEuYESO8539X8O+41KpwAbZVJ1q/3ZfzY
+	 UGugbw9OqqHfgwoDU59xh0Lyecpo37BzwKIZHPKn5DrwOLCXGy58cRQfvnxfMaupm
+	 M2FS7HF0L01CxkE9SJJWH3kKYRAS7vwHh1yAwfx4zJ1oNrsIibGLRD58L7y7w4+0U
+	 ZFC0APZe+/fMo6otQA==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from base.mbs ([91.55.163.97]) by mail.gmx.net (mrgmx005
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MGQjH-1r05R82vtN-00Grt5; Sat, 09
+ Dec 2023 15:47:07 +0100
+To: alsa-devel@alsa-project.org
+Cc: Takashi Iwai <tiwai@suse.de>, Luka Guzenko <l.guzenko@web.de>
+From: Hartmut Knaack <knaack.h@gmx.de>
+Subject: [PATCH] ALSA: hda/realtek: Apply mute LED quirk for HP15-db
+Openpgp: preference=signencrypt
+Autocrypt: addr=knaack.h@gmx.de; prefer-encrypt=mutual; keydata=
+ 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
+Message-ID: <e61815d0-f1c7-b164-e49d-6ca84771476a@gmx.de>
+Date: Sat, 9 Dec 2023 15:47:07 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 SeaMonkey/2.53.17.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 3/3] ASoC: dt-bindings: Add tas2563 into yaml
-To: Shenghao Ding <shenghao-ding@ti.com>, broonie@kernel.org
-Cc: krzysztof.kozlowski@linaro.org, robh+dt@kernel.org,
- andriy.shevchenko@linux.intel.com, lgirdwood@gmail.com, perex@perex.cz,
- pierre-louis.bossart@linux.intel.com, 13916275206@139.com,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- liam.r.girdwood@intel.com, soyer@irl.hu, tiwai@suse.de
-References: <20231209080742.1290-1-shenghao-ding@ti.com>
- <20231209080742.1290-3-shenghao-ding@ti.com>
-Content-Language: en-US
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 fv0=
-In-Reply-To: <20231209080742.1290-3-shenghao-ding@ti.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: ONAMRIHHW7BQORDGUQHSGZDRJ5XJSDBL
-X-Message-ID-Hash: ONAMRIHHW7BQORDGUQHSGZDRJ5XJSDBL
-X-MailFrom: krzk@kernel.org
+Content-Type: text/plain; charset=ISO-8859-15
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:4fQsW37Wjf8Pycqx/Nd+I5bYlT7hyHKC9CrijG++4zhbICAu3hI
+ RaWPqODsSkdVv13xJ2M8U/2jrzd9ItJqKV0WP8874dUC8hoOWGARoSGuOkRnYMKtmNC/dmU
+ fFZlX3cHLrk9zT5BlnXenOeGiDwWxMhE1FuIGmeDQxdBthXGxSN6T6Nq29kCSzb0SoDS/LT
+ d1xrY5KgxrAHN6OkvQu9Q==
+UI-OutboundReport: notjunk:1;M01:P0:fNtvpuXoeaI=;/hFBm3Xcu87rSkxONIp0hl1SPHm
+ gZTq10rIoyGruuD0iwmP5bSgkcu/lG4tq0HPAcNOec/hx2/DX7Izj5ISOYmXy/awkwGfpOAMG
+ 7dYtlz8M7YFHCvW6A/DIo14IOmKgZFoen07DHNawm+abwLXIv957M+pZap4Zb5Eg+WgW5seGx
+ 61BY9j7J9Pf9AxrBBjCoIkilhFtRp3xnWFBCiQV20UzY3sDFu7xQ1pLl2HfXRjPoLVCZQwrOG
+ ozXM9UewZAmg7QpOP5dQOkFEs5Vn7lHZpfqhPjZ8KxIIZUUO9EgAmmvN0iWhMrepmWcAZyQRn
+ k0+yFNqkpMW3QAb5gMR2HRS5IojafMVLjHnDuSBZNmfAiWM7Rdyds0ybfvS6o50mYDZHX0+an
+ iJX4osf8KFNp6YZEj+OXn6s6j4i7iZSAGc2n9T92KvOfd/5a04JINJdq3M6RVwjztVulBVC8b
+ bROqMmh5KnGRTzNks9DjdVX/V5mKNbbWwQj9bOfhL6ES9Svtq4btVmiPZ27kRbN3xaDaXlVAI
+ Gd/rsjRUuoJMN3qDPP2PMghdpRnn9lthvXStG9hNvv9d2y2gm9X8zrw4qlvwnhCGbV7RWCcqO
+ PyIrhMZ7tWG/S718GljyBAh6UbLFyPiPlMjRAbqCea+91zEb69Txp0dtm32GBNnkUTlYEaBlK
+ ImX6uI0/wHOmvvyYkZfnW37sOar3553jK6bYlwTauToNkgHoYbt3cE5k197ORM+QcNDifYOwO
+ ARvFhUjAKl/X1XF9C8YYLmT7cM881ts6A08fA+pCTlTNu4OpgOcwW7ZR762wDFCL3JMaPslzi
+ WiOzeEjubCGFuEaf/5Rhl9/9ze+bttTISidrLlUJcnYwGIHz0zlgSPEo+Zn3B3xvE3FMbJV0p
+ VAF7q9J+11S0hfAjAVyKzU139zZprKLzGYmbypF5vVqfVJ0qCYeCsyQ2f6yefdwFqB97OoqV0
+ h9UJQiaNbCwrtvJ+t8PqG92gSOE=
+Message-ID-Hash: SLAQRZR4EP2SKE2G6HAQMECAZ345XG4M
+X-Message-ID-Hash: SLAQRZR4EP2SKE2G6HAQMECAZ345XG4M
+X-MailFrom: knaack.h@gmx.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -135,7 +146,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ONAMRIHHW7BQORDGUQHSGZDRJ5XJSDBL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SLAQRZR4EP2SKE2G6HAQMECAZ345XG4M/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -144,27 +155,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 09/12/2023 09:07, Shenghao Ding wrote:
-> Support tas2563.
-> 
-> Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
-> ---
->  .../devicetree/bindings/sound/ti,tas2781.yaml   | 17 ++++++++++-------
->  1 file changed, 10 insertions(+), 7 deletions(-)
-> 
+The HP laptop 15-db0403ng uses the ALC236 codec and controls the mute
+LED using COEF 0x07 index 1.
+Sound card subsystem: Hewlett-Packard Company Device [103c:84ae]
 
-Please use scripts/get_maintainers.pl to get a list of necessary people
-and lists to CC. It might happen, that command when run on an older
-kernel, gives you outdated entries. Therefore please be sure you base
-your patches on recent Linux kernel.
+Use the existing quirk for this model.
 
-You missed at least devicetree list (maybe more), so this won't be
-tested by automated tooling. Performing review on untested code might be
-a waste of time, thus I will skip this patch entirely till you follow
-the process allowing the patch to be tested.
+Signed-off-by: Hartmut Knaack <knaack.h@gmx.de>
+=2D--
+ sound/pci/hda/patch_realtek.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Please kindly resend and include all necessary To/Cc entries.
-
-Best regards,
-Krzysztof
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 0377912e9264..e45d4c405f8f 100644
+=2D-- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -9795,6 +9795,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[]=
+ =3D {
+ 	SND_PCI_QUIRK(0x103c, 0x83b9, "HP Spectre x360", ALC269_FIXUP_HP_MUTE_LE=
+D_MIC3),
+ 	SND_PCI_QUIRK(0x103c, 0x841c, "HP Pavilion 15-CK0xx", ALC269_FIXUP_HP_MU=
+TE_LED_MIC3),
+ 	SND_PCI_QUIRK(0x103c, 0x8497, "HP Envy x360", ALC269_FIXUP_HP_MUTE_LED_M=
+IC3),
++	SND_PCI_QUIRK(0x103c, 0x84ae, "HP 15-db0403ng", ALC236_FIXUP_HP_MUTE_LED=
+_COEFBIT2),
+ 	SND_PCI_QUIRK(0x103c, 0x84da, "HP OMEN dc0019-ur", ALC295_FIXUP_HP_OMEN)=
+,
+ 	SND_PCI_QUIRK(0x103c, 0x84e7, "HP Pavilion 15", ALC269_FIXUP_HP_MUTE_LED=
+_MIC3),
+ 	SND_PCI_QUIRK(0x103c, 0x8519, "HP Spectre x360 15-df0xxx", ALC285_FIXUP_=
+HP_SPECTRE_X360),
+=2D-
+2.42.0
 

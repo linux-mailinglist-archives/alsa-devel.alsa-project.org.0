@@ -2,93 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E2E480CC38
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Dec 2023 14:59:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BEB6E80CC50
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Dec 2023 15:00:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 45461BC0;
-	Mon, 11 Dec 2023 14:58:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 45461BC0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7BF59AE8;
+	Mon, 11 Dec 2023 14:59:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7BF59AE8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1702303146;
-	bh=nYxR4vWh+O5VayCadz9yXoEhWfvMNjF5E4OSsSI1OBc=;
+	s=default; t=1702303209;
+	bh=qevDLRP32SAMdYjSN/Ie2iVDY7FiTH9LcdyLcgeiTDA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=pqbukbIkc6u9t76JQV3D4M0hYY4vMxxNzoNF8FP7K3ndIPtaBE0zEKwh5rJG4YGeN
-	 qVJQFAgt9Ql3/Tu+/BoQUso3ns65ZpdvNdRyctxPac4CIFJvookUnt7ZuRpZsgPFN7
-	 dael5Gr+d8MmC8T+fr4KiK8XEPusXP3WKppg2tlg=
+	b=m0yB/NdBcieYl8MzkR8zBDyHd7vyAR2fd7qs8Wwp0JzkE6NMIhYttqd0UJkMiCRd8
+	 47GwnEh+maREZnhn8A0YHMAXV7skiTpzuQTnU1CFOF5yQu0kG3NMBa3ty18p6MX4ZB
+	 4Qfv7YRC24E/Sv1onznbHLnWBZo7zz58EfdVEMSE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 61934F8057B; Mon, 11 Dec 2023 14:58:36 +0100 (CET)
+	id BDA95F8057C; Mon, 11 Dec 2023 14:59:33 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D2E22F80587;
-	Mon, 11 Dec 2023 14:58:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 28AFAF80571;
+	Mon, 11 Dec 2023 14:59:33 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E529AF8061C; Mon, 11 Dec 2023 14:55:41 +0100 (CET)
+	id 49C99F80166; Mon, 11 Dec 2023 14:59:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 21E53F8060D
-	for <alsa-devel@alsa-project.org>; Mon, 11 Dec 2023 14:55:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21E53F8060D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 84BBEF80114
+	for <alsa-devel@alsa-project.org>; Mon, 11 Dec 2023 14:59:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84BBEF80114
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=tHbGwbW+
+ header.s=k20201202 header.b=mEjzYADx
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id BCC0E6123C;
-	Mon, 11 Dec 2023 13:55:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBED4C433C7;
-	Mon, 11 Dec 2023 13:55:36 +0000 (UTC)
+	by ams.source.kernel.org (Postfix) with ESMTP id 2026BB80E58;
+	Mon, 11 Dec 2023 13:59:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66CFDC433C7;
+	Mon, 11 Dec 2023 13:59:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1702302938;
-	bh=nYxR4vWh+O5VayCadz9yXoEhWfvMNjF5E4OSsSI1OBc=;
+	s=k20201202; t=1702303166;
+	bh=qevDLRP32SAMdYjSN/Ie2iVDY7FiTH9LcdyLcgeiTDA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=tHbGwbW+wO/tmGpOeV3jMtWjiK2kCYHsm+jZfUTF2/IxSXh8OsOMhU+Blm18jjQLt
-	 smLydXq4Ie7EpppGqZKf17CudVE+Cfknw2MDSbMMCfYxEHukzkkYlHBCNyI264eDh7
-	 3c+uOTTWvYEmZupajqh8a+epVAlz1uvB2xx+MCHeHxin+6tdZL9exzpgsG6foBoeYp
-	 GKu6jybH49+no5xNkz2effES+jr/rjMHZNmY0gwahF3g4987TUTW84mx6u0xhL2Tfj
-	 xxREmc9I9jyn6N4TtgIRIQhupgNuxcZJqFbCXWzkXIzJJ9XsFU+xIpd54Zd8vCyH82
-	 j70dccCyJc4QQ==
+	b=mEjzYADxbsLAQo99lGtKicN+gxsaT8HW04Uxj+gS27Jij9fvf7g1aU4e3tZALT5EH
+	 9AMhPtTwIrnE7uc2GgvFPvBJTcaqPiGkcjaF+vkldn4ln1WR5X68MrHSU36VEvPwOu
+	 ihQWLIhYGtYraHdlEZCw52fz38iJwdeHcvC8JIE9lHV4vPXTW7DUdp5ybq19d5EYdu
+	 z3aTKywaroYVtDYHSm3K/26xWtsdl11Lbke/N5zgMBle/eibv7HQNnYGKGyEr8HtwQ
+	 L1RpYvo187Ehe05V1tyzid/HvF2uay9KnwqoWHSlJov/flkV+N1VOUhE/y5OCx/eyY
+	 tNu+n6qetjldA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+Cc: Kamil Duljas <kamil.duljas@gmail.com>,
+	=?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>,
 	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
 	cezary.rojewski@intel.com,
+	pierre-louis.bossart@linux.intel.com,
 	liam.r.girdwood@linux.intel.com,
+	peter.ujfalusi@linux.intel.com,
+	yung-chuan.liao@linux.intel.com,
 	ranjani.sridharan@linux.intel.com,
+	kai.vehmanen@linux.intel.com,
 	perex@perex.cz,
 	tiwai@suse.com,
 	kuninori.morimoto.gx@renesas.com,
+	zhangyiqun@phytium.com.cn,
+	suhui@nfschina.com,
 	alsa-devel@alsa-project.org,
 	linux-sound@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.1 12/29] ASoC: Intel: skl_hda_dsp_generic: Drop HDMI
- routes when HDMI is not available
-Date: Mon, 11 Dec 2023 08:53:56 -0500
-Message-ID: <20231211135457.381397-12-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 02/19] ASoC: Intel: Skylake: Fix mem leak in few
+ functions
+Date: Mon, 11 Dec 2023 08:57:36 -0500
+Message-ID: <20231211135908.385694-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20231211135457.381397-1-sashal@kernel.org>
-References: <20231211135457.381397-1-sashal@kernel.org>
+In-Reply-To: <20231211135908.385694-1-sashal@kernel.org>
+References: <20231211135908.385694-1-sashal@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.1.66
+X-stable-base: Linux 5.15.142
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: ZIBYEJMI25XGUQ6QGKMUJML6RBQ65R6J
-X-Message-ID-Hash: ZIBYEJMI25XGUQ6QGKMUJML6RBQ65R6J
+Message-ID-Hash: 33W3GG2SRWXIOWE5N2CRBKXINITFZI6D
+X-Message-ID-Hash: 33W3GG2SRWXIOWE5N2CRBKXINITFZI6D
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -101,7 +107,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZIBYEJMI25XGUQ6QGKMUJML6RBQ65R6J/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/33W3GG2SRWXIOWE5N2CRBKXINITFZI6D/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,41 +116,54 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+From: Kamil Duljas <kamil.duljas@gmail.com>
 
-[ Upstream commit 3d1dc8b1030df8ca0fdfd4905c88ee10db943bf8 ]
+[ Upstream commit d5c65be34df73fa01ed05611aafb73b440d89e29 ]
 
-When the HDMI is not present due to disabled display support
-we will use dummy codec and the HDMI routes will refer to non existent
-DAPM widgets.
+The resources should be freed when function return error.
 
-Trim the route list from the HDMI routes to be able to probe the card even
-if the HDMI dais are not registered.
-
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20231124124015.15878-1-peter.ujfalusi@linux.intel.com
+Signed-off-by: Kamil Duljas <kamil.duljas@gmail.com>
+Reviewed-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
+Link: https://lore.kernel.org/r/20231116125150.1436-1-kamil.duljas@gmail.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/intel/boards/skl_hda_dsp_generic.c | 2 ++
- 1 file changed, 2 insertions(+)
+ sound/soc/intel/skylake/skl-pcm.c     | 4 +++-
+ sound/soc/intel/skylake/skl-sst-ipc.c | 4 +++-
+ 2 files changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/intel/boards/skl_hda_dsp_generic.c b/sound/soc/intel/boards/skl_hda_dsp_generic.c
-index 879ebba528322..463ffb85121d3 100644
---- a/sound/soc/intel/boards/skl_hda_dsp_generic.c
-+++ b/sound/soc/intel/boards/skl_hda_dsp_generic.c
-@@ -157,6 +157,8 @@ static int skl_hda_fill_card_info(struct snd_soc_acpi_mach_params *mach_params)
- 		card->dapm_widgets = skl_hda_widgets;
- 		card->num_dapm_widgets = ARRAY_SIZE(skl_hda_widgets);
- 		if (!ctx->idisp_codec) {
-+			card->dapm_routes = &skl_hda_map[IDISP_ROUTE_COUNT];
-+			num_route -= IDISP_ROUTE_COUNT;
- 			for (i = 0; i < IDISP_DAI_COUNT; i++) {
- 				skl_hda_be_dai_links[i].codecs = dummy_codec;
- 				skl_hda_be_dai_links[i].num_codecs =
+diff --git a/sound/soc/intel/skylake/skl-pcm.c b/sound/soc/intel/skylake/skl-pcm.c
+index db41bd7170650..0d08b0269a662 100644
+--- a/sound/soc/intel/skylake/skl-pcm.c
++++ b/sound/soc/intel/skylake/skl-pcm.c
+@@ -251,8 +251,10 @@ static int skl_pcm_open(struct snd_pcm_substream *substream,
+ 	snd_pcm_set_sync(substream);
+ 
+ 	mconfig = skl_tplg_fe_get_cpr_module(dai, substream->stream);
+-	if (!mconfig)
++	if (!mconfig) {
++		kfree(dma_params);
+ 		return -EINVAL;
++	}
+ 
+ 	skl_tplg_d0i3_get(skl, mconfig->d0i3_caps);
+ 
+diff --git a/sound/soc/intel/skylake/skl-sst-ipc.c b/sound/soc/intel/skylake/skl-sst-ipc.c
+index 7a425271b08b1..fd9624ad5f72b 100644
+--- a/sound/soc/intel/skylake/skl-sst-ipc.c
++++ b/sound/soc/intel/skylake/skl-sst-ipc.c
+@@ -1003,8 +1003,10 @@ int skl_ipc_get_large_config(struct sst_generic_ipc *ipc,
+ 
+ 	reply.size = (reply.header >> 32) & IPC_DATA_OFFSET_SZ_MASK;
+ 	buf = krealloc(reply.data, reply.size, GFP_KERNEL);
+-	if (!buf)
++	if (!buf) {
++		kfree(reply.data);
+ 		return -ENOMEM;
++	}
+ 	*payload = buf;
+ 	*bytes = reply.size;
+ 
 -- 
 2.42.0
 

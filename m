@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33A8B80CC69
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Dec 2023 15:00:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F54080CC6D
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Dec 2023 15:01:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 852EDE79;
-	Mon, 11 Dec 2023 15:00:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 852EDE79
+	by alsa0.perex.cz (Postfix) with ESMTPS id C5EFAE74;
+	Mon, 11 Dec 2023 15:00:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C5EFAE74
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1702303251;
-	bh=Jj+GksRO9MQaTsFCMA0+O82wPw0x4q09R0XtC+T+Mdw=;
+	s=default; t=1702303269;
+	bh=mwRMxAXDSDOt3VEbst4HcA3jGRVpwBIp3rlBTdALsj0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=EbN6wChKDVNLVI9vwmTmFo4el8yIGmz+LFnbu/0i/NRV0sH2oesJaRBatpdwA2wwX
-	 f3GDwLU2koMJUTr3rutRJOX6su+eXKjTNJwxg0W0UEsnXdkugLc81Cyz5pE7TGczLw
-	 t9W1xzcUq6hVy8iblbuK77fNovKIQoONKE33zbA0=
+	b=EsG6A0rksSF/cyEqMm+oReEHrp2ggwrmSEBY2+wdWaxBtHpUkQu55qfOjonOoeprw
+	 WCU0Y7EuWeQipQAW7g6nQG135jnkXlsJ0ihhSHoPRt5B5GbHJ4lUr3reXlnjAk04ev
+	 I44PGrTosiZi83ajRSdLyev014GU1gX7qbsztCy0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 64862F80567; Mon, 11 Dec 2023 14:59:54 +0100 (CET)
+	id A25FEF80619; Mon, 11 Dec 2023 15:00:03 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8497EF805F3;
-	Mon, 11 Dec 2023 14:59:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E56C3F80615;
+	Mon, 11 Dec 2023 15:00:02 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 71EF0F805F1; Mon, 11 Dec 2023 14:59:51 +0100 (CET)
+	id 02713F805FC; Mon, 11 Dec 2023 14:59:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -37,48 +37,49 @@ Received: from sin.source.kernel.org (sin.source.kernel.org
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5A556F805E9
-	for <alsa-devel@alsa-project.org>; Mon, 11 Dec 2023 14:59:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A556F805E9
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4684FF80568
+	for <alsa-devel@alsa-project.org>; Mon, 11 Dec 2023 14:59:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4684FF80568
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=J8XI3j7U
+ header.s=k20201202 header.b=q091HkTK
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 1C2EACE128C;
-	Mon, 11 Dec 2023 13:59:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C7DCC433D9;
-	Mon, 11 Dec 2023 13:59:43 +0000 (UTC)
+	by sin.source.kernel.org (Postfix) with ESMTP id 84867CE128C;
+	Mon, 11 Dec 2023 13:59:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77453C433CD;
+	Mon, 11 Dec 2023 13:59:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1702303185;
-	bh=Jj+GksRO9MQaTsFCMA0+O82wPw0x4q09R0XtC+T+Mdw=;
+	s=k20201202; t=1702303194;
+	bh=mwRMxAXDSDOt3VEbst4HcA3jGRVpwBIp3rlBTdALsj0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=J8XI3j7UZbERZcjHhpEpXZ/0aMrfIQu3afPYiP6k8J17TbQGTWge/m46qdXJVFUB7
-	 TQpiPJrObcsNv2x11Esv8M8YjD2DxPeCsl6Khi58DG3JbgPxyLAEHYz44J3qJgN/yR
-	 Rj7bKugctGfq6r108zSHsV/AH3WJJwaWSNA30lwo3LxiDG66ZMMVegofNFRRU9VoUA
-	 JpNQoyns4wvgZUJ1EqL6lfC/o3DLP4Sgh475wmJmUzjE7XFazMzCImYC/+Tx7/sdC2
-	 1oJusblMKmbmRW2LCU5ZmC0noq50GwU6BlJeGk1yJ9lSRfZVWyBy1fRzWolbvL+4tG
-	 kKTXQauI/0Ahg==
+	b=q091HkTK6RqgSetdvwEEjX+85/ZCSCxwamELpobrFjw9YoWMsEfOoOXw1CGPn9hAI
+	 i3SXDybLzpzKmZfjWUwbafnXnummTLzWfFSnLBL7KABeD0xvBFHIwM1sMXvJR3HL8X
+	 kCsng8Vf7QtUFPmC4/q5sRWOM1AgXmOfW9LShBE4JDwPuIjPM3ebgp810OaJ9KldKE
+	 ecbSBhaHjMLBguNqDlD9AOLvjtiTzcxQpMqefKc7l9Uup+3i2AnFV+ROcOSCB37wu5
+	 Ozg6Ub/KNBx+vAkyBD6RtXAbmp8eisotcmKDJUpzygror6fui0VPaCMN9mwivknq/L
+	 IyiOxZXvjS5Lg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Maciej Strozek <mstrozek@opensource.cirrus.com>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
+Cc: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
 	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	james.schulman@cirrus.com,
-	david.rhodes@cirrus.com,
-	rf@opensource.cirrus.com,
-	lgirdwood@gmail.com,
+	cezary.rojewski@intel.com,
+	liam.r.girdwood@linux.intel.com,
+	ranjani.sridharan@linux.intel.com,
 	perex@perex.cz,
 	tiwai@suse.com,
+	kuninori.morimoto.gx@renesas.com,
 	alsa-devel@alsa-project.org,
-	patches@opensource.cirrus.com,
 	linux-sound@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 06/19] ASoC: cs43130: Fix incorrect frame delay
- configuration
-Date: Mon, 11 Dec 2023 08:57:40 -0500
-Message-ID: <20231211135908.385694-6-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 08/19] ASoC: Intel: skl_hda_dsp_generic: Drop
+ HDMI routes when HDMI is not available
+Date: Mon, 11 Dec 2023 08:57:42 -0500
+Message-ID: <20231211135908.385694-8-sashal@kernel.org>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20231211135908.385694-1-sashal@kernel.org>
 References: <20231211135908.385694-1-sashal@kernel.org>
@@ -87,8 +88,8 @@ X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 5.15.142
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: MUWF4DXBRWMALUOYBTIYWXIIIIPKL2G6
-X-Message-ID-Hash: MUWF4DXBRWMALUOYBTIYWXIIIIPKL2G6
+Message-ID-Hash: CLWPMJ62E5PFN4U32DZTYGYS5SI2TD7M
+X-Message-ID-Hash: CLWPMJ62E5PFN4U32DZTYGYS5SI2TD7M
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -101,7 +102,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MUWF4DXBRWMALUOYBTIYWXIIIIPKL2G6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CLWPMJ62E5PFN4U32DZTYGYS5SI2TD7M/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,32 +111,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Maciej Strozek <mstrozek@opensource.cirrus.com>
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 
-[ Upstream commit aa7e8e5e4011571022dc06e4d7a2f108feb53d1a ]
+[ Upstream commit 3d1dc8b1030df8ca0fdfd4905c88ee10db943bf8 ]
 
-Signed-off-by: Maciej Strozek <mstrozek@opensource.cirrus.com>
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-Link: https://lore.kernel.org/r/20231117141344.64320-3-mstrozek@opensource.cirrus.com
+When the HDMI is not present due to disabled display support
+we will use dummy codec and the HDMI routes will refer to non existent
+DAPM widgets.
+
+Trim the route list from the HDMI routes to be able to probe the card even
+if the HDMI dais are not registered.
+
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Link: https://lore.kernel.org/r/20231124124015.15878-1-peter.ujfalusi@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/cs43130.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/intel/boards/skl_hda_dsp_generic.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/sound/soc/codecs/cs43130.c b/sound/soc/codecs/cs43130.c
-index 0e2cb54ae192d..d3edc5796d669 100644
---- a/sound/soc/codecs/cs43130.c
-+++ b/sound/soc/codecs/cs43130.c
-@@ -579,7 +579,7 @@ static int cs43130_set_sp_fmt(int dai_id, unsigned int bitwidth_sclk,
- 		break;
- 	case SND_SOC_DAIFMT_LEFT_J:
- 		hi_size = bitwidth_sclk;
--		frm_delay = 2;
-+		frm_delay = 0;
- 		frm_phase = 1;
- 		break;
- 	case SND_SOC_DAIFMT_DSP_A:
+diff --git a/sound/soc/intel/boards/skl_hda_dsp_generic.c b/sound/soc/intel/boards/skl_hda_dsp_generic.c
+index f4b4eeca3e03c..0cbacebe0613e 100644
+--- a/sound/soc/intel/boards/skl_hda_dsp_generic.c
++++ b/sound/soc/intel/boards/skl_hda_dsp_generic.c
+@@ -157,6 +157,8 @@ static int skl_hda_fill_card_info(struct snd_soc_acpi_mach_params *mach_params)
+ 		card->dapm_widgets = skl_hda_widgets;
+ 		card->num_dapm_widgets = ARRAY_SIZE(skl_hda_widgets);
+ 		if (!ctx->idisp_codec) {
++			card->dapm_routes = &skl_hda_map[IDISP_ROUTE_COUNT];
++			num_route -= IDISP_ROUTE_COUNT;
+ 			for (i = 0; i < IDISP_DAI_COUNT; i++) {
+ 				skl_hda_be_dai_links[i].codecs = dummy_codec;
+ 				skl_hda_be_dai_links[i].num_codecs =
 -- 
 2.42.0
 

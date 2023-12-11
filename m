@@ -2,88 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A648C80D11A
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Dec 2023 17:21:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3150C80D11E
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Dec 2023 17:22:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8FBAEA4A;
-	Mon, 11 Dec 2023 17:21:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8FBAEA4A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 97879AEA;
+	Mon, 11 Dec 2023 17:22:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 97879AEA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1702311706;
-	bh=tgoKaQNovHS9RWp3+K6M2LkRytAhgXwHG6PjpqOenpU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=p5GUC6M8oYUS3BU3tKh3vglDoG5QlCuWrBIHJsJ9o5uFEmkb8sqwlU4/bHZgRJxp5
-	 QJNPqdBAwi8L1o9PsQxKYBYEXP9c8h3PV0OqxMKsJBVboJXMf3tUQpKuM3g+dkghaX
-	 +TxXGCbBAeo4tbL6mWyIQJcRImwPfwbGjzMI/Vfg=
+	s=default; t=1702311731;
+	bh=3nTV0SkxLpCj5lGOPMqS4WVJVvWuXILN7ErZ+JOAhRo=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=ALDLszdcKc3A7I0YTQhI39cxMkRyif/JHmD86EpC13sbB2mJWyl9hZznldsLI9ucc
+	 eU0VjhcnGeJ4s/zQKlkxxjWddAYarz7HM4i3D4mt6FmhZJeEW/lYN4wdz//mQ5shGH
+	 9VWVOLvhQqj+/O+QZwLYTZnUKXkzm68QiXNUHEC8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C0578F805A0; Mon, 11 Dec 2023 17:21:13 +0100 (CET)
+	id 18D15F805E7; Mon, 11 Dec 2023 17:21:17 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 497E7F8016E;
-	Mon, 11 Dec 2023 17:21:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 89372F805E7;
+	Mon, 11 Dec 2023 17:21:17 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7DB24F80166; Mon, 11 Dec 2023 17:20:21 +0100 (CET)
+	id 44C93F80166; Mon, 11 Dec 2023 17:20:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5D67DF80114
+	by alsa1.perex.cz (Postfix) with ESMTPS id B5648F8001F
 	for <alsa-devel@alsa-project.org>; Mon, 11 Dec 2023 17:20:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D67DF80114
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5648F8001F
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=IhwDGvMD
+ header.s=k20201202 header.b=n8kzE9f4
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 37706CE12B4;
-	Mon, 11 Dec 2023 16:20:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43A08C433C7;
-	Mon, 11 Dec 2023 16:20:06 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 3C014613C5;
+	Mon, 11 Dec 2023 16:20:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEF12C433CD;
+	Mon, 11 Dec 2023 16:20:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1702311610;
-	bh=tgoKaQNovHS9RWp3+K6M2LkRytAhgXwHG6PjpqOenpU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=IhwDGvMDayZhO/ouKOmDaaOJzNx/xwMIjs9YhcTCcKs+t6IObyGFBnqQRsygnWr3/
-	 g8LzhS5VFgM9/a6Dce6Uqb/y5hcsD/2R2ap+NbMQGlvJjQLhjbPNJhppNcVSCciB/p
-	 YDlLzd8uaya95w/+DaKbPa55aUs7hW0YF1bx49uOY4HFCG7BbjKNGpN808LQ0EZOnP
-	 4FgU7ocVEVgoDDxqI0DE5Uf5KKImlv0jsMu9OZpuxGPCCa8fAL9Hsk1uTR67sGVzpr
-	 pRSmAieOqPpI3s4IwjjaxlyX31RaEMJa1bdhhOfpeERwX+9iNrSoCpHy+3JQU9Ish3
-	 f9k5ov4vq0YYA==
+	s=k20201202; t=1702311612;
+	bh=3nTV0SkxLpCj5lGOPMqS4WVJVvWuXILN7ErZ+JOAhRo=;
+	h=From:To:In-Reply-To:References:Subject:Date:From;
+	b=n8kzE9f4/kvptFZBIE/JI71gnycQC2TponbEtW3zPxbUNhCBYROwQ4lDynuoC65sd
+	 9yTNY5awadulGSw2vQPRutWRnFonXii/po+AMg6Ws3rIVGXmLWgtL4AmK66hJL9tTC
+	 /uuJ9ouluS0HVxpq6cLP6GlqvHTzodiU17K9zRRnUuo5EKE37sIpqlIKXUvqJFjOva
+	 9O3oB3a381lQVF09tpclQHyk/VTlHbkR2wKh1aRnWutFODNSyUMQEFeY9/TYu76+MN
+	 gJMyHt+QBFlze31vnHpWXw1nHGozEDCMHqkj8MLnUvpm6P1o3RnszyRXBBN+xFpSf/
+	 dfQoiusfxSUvA==
 From: Mark Brown <broonie@kernel.org>
-To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
  Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
  alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>
-In-Reply-To: <20231129113014.38837-1-krzysztof.kozlowski@linaro.org>
-References: <20231129113014.38837-1-krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH 1/4] ASoC: dt-bindings: qcom,lpass-rx-macro: Add SM8650
- LPASS RX
-Message-Id: <170231160677.85457.6870068020415164910.b4-ty@kernel.org>
-Date: Mon, 11 Dec 2023 16:20:06 +0000
+In-Reply-To: <20231130180758.212172-1-krzysztof.kozlowski@linaro.org>
+References: <20231130180758.212172-1-krzysztof.kozlowski@linaro.org>
+Subject: Re: [PATCH v2 1/3] ASoC: qcom: audioreach: Commonize setting
+ channel mappings
+Message-Id: <170231161062.85457.2289736198838739317.b4-ty@kernel.org>
+Date: Mon, 11 Dec 2023 16:20:10 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-5c066
-Message-ID-Hash: I2FR2UJ2WPUTLU42DV5XJ7P7QTNFAJUH
-X-Message-ID-Hash: I2FR2UJ2WPUTLU42DV5XJ7P7QTNFAJUH
+Message-ID-Hash: PZZCYFPHJGVG26WBPY4YTARH2VVBIEGJ
+X-Message-ID-Hash: PZZCYFPHJGVG26WBPY4YTARH2VVBIEGJ
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -96,7 +90,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/I2FR2UJ2WPUTLU42DV5XJ7P7QTNFAJUH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PZZCYFPHJGVG26WBPY4YTARH2VVBIEGJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -105,9 +99,10 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 29 Nov 2023 12:30:11 +0100, Krzysztof Kozlowski wrote:
-> Add bindings for Qualcomm SM8650 Low Power Audio SubSystem (LPASS) RX
-> macro codec, which looks like compatible with earlier SM8550.
+On Thu, 30 Nov 2023 19:07:56 +0100, Krzysztof Kozlowski wrote:
+> Move code assigning channel mapping values to a common helper function.
+> This simplifies three out of four cases, with the last case using
+> incompatible type (uint16_t array instead of uint8_t array).
 > 
 > 
 
@@ -117,14 +112,12 @@ Applied to
 
 Thanks!
 
-[1/4] ASoC: dt-bindings: qcom,lpass-rx-macro: Add SM8650 LPASS RX
-      commit: 0bfa20b18acbcdd133d41e04e07a2d78bcc04bc5
-[2/4] ASoC: dt-bindings: qcom,lpass-tx-macro: Add SM8650 LPASS TX
-      commit: 5a5085c9ce381f92399c755be6deaf1d76ad57e8
-[3/4] ASoC: dt-bindings: qcom,lpass-va-macro: Add SM8650 LPASS VA
-      commit: f243ef746d0ace20fe092fc1ee9987ecf003f7a4
-[4/4] ASoC: dt-bindings: qcom,lpass-wsa-macro: Add SM8650 LPASS WSA
-      commit: ab8921e1da8fdca14192c44775151f50c1cdb763
+[1/3] ASoC: qcom: audioreach: Commonize setting channel mappings
+      commit: ef14f40a3613ddd43a8dd736b5df6f865dcbb817
+[2/3] ASoC: qcom: audioreach: drop duplicate channel defines
+      commit: bcd684eae5aefc0688fcf43fd555155dd57f27c9
+[3/3] ASoC: qcom: audioreach: Add 4 channel support
+      commit: 3c5fcb20e07e3681a645fc3a8d890478ca320825
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

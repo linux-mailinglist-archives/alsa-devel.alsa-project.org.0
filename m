@@ -2,119 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03B8280C9EB
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Dec 2023 13:33:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8EB9A80CA01
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Dec 2023 13:41:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 39B1DDFA;
-	Mon, 11 Dec 2023 13:33:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 39B1DDFA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9E903BC0;
+	Mon, 11 Dec 2023 13:41:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E903BC0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1702298014;
-	bh=cEc/cgXCUI4jOpC/9ra+aM6JfVp5LWaqbjKdfSGSh5o=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1702298503;
+	bh=ROmUd+olsD+OTnQvuY7AsKIIZPO+4MWpYfD8N5iPbxQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=o14CATA1HOlHqR8VSJkNauilk2Oj8qqXKQIFcKFnAValhty9t1sMyVn+3+dD8hiGx
-	 LLI+SiRmKVEh0sciS7a/5jbS/seboHSBL3ri+bTzjt0jOPaChsckdw4s0nMMLfjIzg
-	 BZ7ThEQtN1//Nr02YfhL7l+9h4LFFRDug4JPAqKk=
+	b=L6djf/SMeVSZB0V+eqLWBQwh6ICzA3em7mrNN+miXc2nxATTyXrxA9/2avOov/f3D
+	 XfblWSGPRwyNAXKDFx6tF7QYYNXgdQAodvZgbmOaPpGrYmoLoI5L0kLem6BMyDzahi
+	 RgWnvJZeuMqeYLUsPEno4igwJ543/otpVsmjpFjg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8231CF8020D; Mon, 11 Dec 2023 13:32:39 +0100 (CET)
+	id 90F37F80124; Mon, 11 Dec 2023 13:41:11 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D0C93F80608;
-	Mon, 11 Dec 2023 13:32:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 94355F80571;
+	Mon, 11 Dec 2023 13:41:10 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C9853F80124; Mon, 11 Dec 2023 13:31:22 +0100 (CET)
+	id 206C2F80166; Mon, 11 Dec 2023 13:41:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [IPv6:2a00:1450:4864:20::334])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7CCA2F80166
-	for <alsa-devel@alsa-project.org>; Mon, 11 Dec 2023 13:31:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7CCA2F80166
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1ED62F800D2
+	for <alsa-devel@alsa-project.org>; Mon, 11 Dec 2023 13:40:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1ED62F800D2
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=j7juCA/q
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-40c2a444311so42789525e9.2
-        for <alsa-devel@alsa-project.org>;
- Mon, 11 Dec 2023 04:31:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1702297874; x=1702902674;
- darn=alsa-project.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=XcGVygFqpR8Db5zL41FG9Nnjti+dXKsBMHzFUY86aEI=;
-        b=j7juCA/qsiByzWwhbVee/XPQJH2QKSc/fEZOSj/ecgs93daPAK34uCxgTtsUQ1cNtm
-         qcY2f7m59CViQPFefTGNx/WS3TrjcL1ky1LjoB0cKWqs+0OrdrZOyX8XVYU1G37a04rp
-         NxY6UBBfuZ6nSkgH6PnubB4xJL6Q+6qB5tr082sBiAtPyXOBtnGA3+ehJzs6Rs5l/aAg
-         BxpdesdIIRdfYyQJ24KH+glTvOjR5V8gau4OnUW1821kaEfysCj+qyMNhhpqsSx8Q6of
-         vPa1wT3UYvaEINNJrc6CgCwxeNK5Y5N/wBLBLdp6aNv16GzWyqdXbfJbimHZFuZLk0EQ
-         aXXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702297874; x=1702902674;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=XcGVygFqpR8Db5zL41FG9Nnjti+dXKsBMHzFUY86aEI=;
-        b=MTsp45DGe7sqCq25f2v+jGYKc77RgJSwaUGf1ZUHKdJLzlM6fha3dwe7kSYL2+eMWT
-         Ojdmk+iZrNvcpfy2XBshfV2sWqkRcSgNkBV2iu2vw4pAn2mNKm4ZhsqpSK6NwzWil5xA
-         KY0m7fSlNbAVdL5TzuwCQZFgNLi0eNSP3sh05jVbg7WAWq9JKmnjkeM2cQ5nbPdxtSpO
-         SSb2O0imGvcY7huOL+O0lBvdonTlcMxolynRP58uHc2OkdtHFqQ56RiPqEFG3ch4ptIp
-         zPFdMxFy1LuYN6jnSjxpxDzu27vrtkDnn5dYxQTD0KgtBUBXL9RB7W1odNyXtqBqapiP
-         pTlA==
-X-Gm-Message-State: AOJu0YzXv1r6osgy/Rllej153u9G7TqKAINkWVFLyV+qlr2Ouiyu2vnA
-	Gjaw5KQvuEBsnxVBWf6PPruE4Q==
-X-Google-Smtp-Source: 
- AGHT+IEgRmUvqRfWL2mgGWOrAr42GAbQoTNF3qLYb8HpdTObG+vmkW4PZV39SZlVRZ5xK8rpQ42IqQ==
-X-Received: by 2002:a7b:c456:0:b0:40c:2c0e:3196 with SMTP id
- l22-20020a7bc456000000b0040c2c0e3196mr1221840wmi.19.1702297874408;
-        Mon, 11 Dec 2023 04:31:14 -0800 (PST)
-Received: from krzk-bin.. ([178.197.218.27])
-        by smtp.gmail.com with ESMTPSA id
- s5-20020a05600c384500b0040b632f31d2sm12932313wmr.5.2023.12.11.04.31.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 11 Dec 2023 04:31:14 -0800 (PST)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-To: Andy Gross <agross@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konrad.dybcio@linaro.org>,
-	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-	Banajit Goswami <bgoswami@quicinc.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [PATCH 4/4] ASoC: dt-bindings: qcom,lpass-rx-macro: Add X1E80100
- LPASS WSA
-Date: Mon, 11 Dec 2023 13:31:04 +0100
-Message-Id: <20231211123104.72963-4-krzysztof.kozlowski@linaro.org>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20231211123104.72963-1-krzysztof.kozlowski@linaro.org>
-References: <20231211123104.72963-1-krzysztof.kozlowski@linaro.org>
+	dkim=pass (1024-bit key,
+ unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org
+ header.a=rsa-sha256 header.s=korg header.b=wBqCxXOY
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id A04DBCE11BD;
+	Mon, 11 Dec 2023 12:40:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DEAFC433C9;
+	Mon, 11 Dec 2023 12:40:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+	s=korg; t=1702298454;
+	bh=ROmUd+olsD+OTnQvuY7AsKIIZPO+4MWpYfD8N5iPbxQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=wBqCxXOYNpBulZcmJMR1DC0+u8gOZ8zF8PsHHkH+vO6zic/ijVRgmtlfPmn8KXhS3
+	 UExzqkGl4Xj9j8055spMkESNoP8FtY0PaUXebUeu6PrvSgqg7dhiNx7G0J7bH5s+lI
+	 XdEgB8Gct0rZUfwGewFcwHQQZ3Kh3X1Z7u/Ja7Qs=
+Date: Mon, 11 Dec 2023 13:40:52 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Johan Hovold <johan@kernel.org>
+Cc: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org,
+	broonie@kernel.org, alsa-devel@alsa-project.org, perex@perex.cz,
+	tiwai@suse.com, linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org, johan+linaro@kernel.org,
+	srinivas.kandagatla@linaro.org
+Subject: Re: [PATCH 0/2] ASoC: qcom: Limit Digital gains on speaker
+Message-ID: <2023121146-hunger-crane-7dee@gregkh>
+References: <20231204124736.132185-1-srinivas.kandagatla@linaro.org>
+ <ZXbDY1iA_DQLIzqq@hovoldconsulting.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: WZ7TF47Y6BWUXCDEDO6V25SVRJQN6YSQ
-X-Message-ID-Hash: WZ7TF47Y6BWUXCDEDO6V25SVRJQN6YSQ
-X-MailFrom: krzysztof.kozlowski@linaro.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ZXbDY1iA_DQLIzqq@hovoldconsulting.com>
+Message-ID-Hash: XIYT35TVJEZWGL27PGVSDGN4ST4DINCS
+X-Message-ID-Hash: XIYT35TVJEZWGL27PGVSDGN4ST4DINCS
+X-MailFrom: gregkh@linuxfoundation.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -126,7 +87,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WZ7TF47Y6BWUXCDEDO6V25SVRJQN6YSQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XIYT35TVJEZWGL27PGVSDGN4ST4DINCS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -135,29 +96,35 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add bindings for Qualcomm X1E80100 SoC Low Power Audio SubSystem (LPASS)
-WSA macro codec, which looks like compatible with earlier SM8550.
+On Mon, Dec 11, 2023 at 09:08:03AM +0100, Johan Hovold wrote:
+> Hi Greg and Sasha,
+> 
+> On Mon, Dec 04, 2023 at 12:47:34PM +0000, srinivas.kandagatla@linaro.org wrote:
+> > From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> > 
+> > Limit the speaker digital gains to 0dB so that the users will not damage them.
+> > Currently there is a limit in UCM, but this does not stop the user form
+> > changing the digital gains from command line. So limit this in driver
+> > which makes the speakers more safer without active speaker protection in
+> > place.
+> > 
+> > Apart from this there is also a range check fix in snd_soc_limit_volume
+> > to allow setting this limit correctly.
+> > 
+> > Tested on Lenovo X13s.
+> > 
+> > Srinivas Kandagatla (2):
+> >   ASoC: ops: add correct range check for limiting volume
+> >   ASoC: qcom: sc8280xp: Limit speaker digital volumes
+> 
+> These were unfortunately not marked for stable, but could you pick them
+> up for 6.6?
+> 
+> The upstream commits are:
+> 
+> 	fb9ad2448508 ("ASoC: ops: add correct range check for limiting volume")
+> 	716d4e5373e9 ("ASoC: qcom: sc8280xp: Limit speaker digital volumes")
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
----
- .../devicetree/bindings/sound/qcom,lpass-wsa-macro.yaml       | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Now queued up, thanks.
 
-diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-wsa-macro.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-wsa-macro.yaml
-index 5fb39d35c8ec..06b5f7be3608 100644
---- a/Documentation/devicetree/bindings/sound/qcom,lpass-wsa-macro.yaml
-+++ b/Documentation/devicetree/bindings/sound/qcom,lpass-wsa-macro.yaml
-@@ -19,7 +19,9 @@ properties:
-           - qcom,sm8550-lpass-wsa-macro
-           - qcom,sc8280xp-lpass-wsa-macro
-       - items:
--          - const: qcom,sm8650-lpass-wsa-macro
-+          - enum:
-+              - qcom,sm8650-lpass-wsa-macro
-+              - qcom,x1e80100-lpass-wsa-macro
-           - const: qcom,sm8550-lpass-wsa-macro
- 
-   reg:
--- 
-2.34.1
-
+greg k-h

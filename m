@@ -2,62 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BEB6E80CC50
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Dec 2023 15:00:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A1E380CC54
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Dec 2023 15:00:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7BF59AE8;
-	Mon, 11 Dec 2023 14:59:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7BF59AE8
+	by alsa0.perex.cz (Postfix) with ESMTPS id A04CBDEF;
+	Mon, 11 Dec 2023 15:00:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A04CBDEF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1702303209;
-	bh=qevDLRP32SAMdYjSN/Ie2iVDY7FiTH9LcdyLcgeiTDA=;
+	s=default; t=1702303215;
+	bh=fzu4t/foF86KmjdXqIwcjRvqMVVQ5X+IEg7bjEkfDUA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=m0yB/NdBcieYl8MzkR8zBDyHd7vyAR2fd7qs8Wwp0JzkE6NMIhYttqd0UJkMiCRd8
-	 47GwnEh+maREZnhn8A0YHMAXV7skiTpzuQTnU1CFOF5yQu0kG3NMBa3ty18p6MX4ZB
-	 4Qfv7YRC24E/Sv1onznbHLnWBZo7zz58EfdVEMSE=
+	b=o8QMtHvBc0d8AbIrKRDEKCGpaE8Aq5aUnooWPm/LHkua7A0gJsvL/W2l/8ieiKfPK
+	 UK+hETJLjVsh++mrpXS+PgIn5EGB/dlfpVCXd9/SCr6JSp6kKjCEE9AH24cxtI7yJ8
+	 x133g+M2SRbBDsjl7lU+kTdkykId5PedLqFSaVuw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BDA95F8057C; Mon, 11 Dec 2023 14:59:33 +0100 (CET)
+	id 67C64F805AB; Mon, 11 Dec 2023 14:59:48 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 28AFAF80571;
-	Mon, 11 Dec 2023 14:59:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C637FF805B2;
+	Mon, 11 Dec 2023 14:59:47 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 49C99F80166; Mon, 11 Dec 2023 14:59:29 +0100 (CET)
+	id 66D81F8025F; Mon, 11 Dec 2023 14:59:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 84BBEF80114
-	for <alsa-devel@alsa-project.org>; Mon, 11 Dec 2023 14:59:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84BBEF80114
+	by alsa1.perex.cz (Postfix) with ESMTPS id B84DCF8016E
+	for <alsa-devel@alsa-project.org>; Mon, 11 Dec 2023 14:59:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B84DCF8016E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=mEjzYADx
+ header.s=k20201202 header.b=C+Jduc/j
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by ams.source.kernel.org (Postfix) with ESMTP id 2026BB80E58;
-	Mon, 11 Dec 2023 13:59:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66CFDC433C7;
-	Mon, 11 Dec 2023 13:59:24 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 9B6E361015;
+	Mon, 11 Dec 2023 13:59:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34E5EC433C9;
+	Mon, 11 Dec 2023 13:59:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1702303166;
-	bh=qevDLRP32SAMdYjSN/Ie2iVDY7FiTH9LcdyLcgeiTDA=;
+	s=k20201202; t=1702303180;
+	bh=fzu4t/foF86KmjdXqIwcjRvqMVVQ5X+IEg7bjEkfDUA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=mEjzYADxbsLAQo99lGtKicN+gxsaT8HW04Uxj+gS27Jij9fvf7g1aU4e3tZALT5EH
-	 9AMhPtTwIrnE7uc2GgvFPvBJTcaqPiGkcjaF+vkldn4ln1WR5X68MrHSU36VEvPwOu
-	 ihQWLIhYGtYraHdlEZCw52fz38iJwdeHcvC8JIE9lHV4vPXTW7DUdp5ybq19d5EYdu
-	 z3aTKywaroYVtDYHSm3K/26xWtsdl11Lbke/N5zgMBle/eibv7HQNnYGKGyEr8HtwQ
-	 L1RpYvo187Ehe05V1tyzid/HvF2uay9KnwqoWHSlJov/flkV+N1VOUhE/y5OCx/eyY
-	 tNu+n6qetjldA==
+	b=C+Jduc/jgYQF616yD+YEJAi/xFhFxjQXOJsvGK7BP5tdrRBfsY1/1LDGm7m8S5Rpw
+	 UhCB97UYIDQzz75DE/nZ26pGrV1b+9bmL3Ep+L86mGXFgcl0j5q0ieeT5Q0vFQ4Gs7
+	 WNMeMs/IAlBwrhNGHogQlUSc+w62TTV0JS/q7yhmPNu11TFU2L/vaUaAzFGcFZWPTp
+	 4cR2QxHqeuXO1flBZApJYHTn/5YbUedoTcAJs/PUnNiRqR1XQurLRMWOA8gwbBmNS4
+	 FYEZLVZN0RbKoZiCiJ6kO8JKn4p/kgl8W8BmB51qPEMT/YPbVrs6pq72MvARrC25KI
+	 BCZC2gp2hMKBQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
@@ -75,15 +75,15 @@ Cc: Kamil Duljas <kamil.duljas@gmail.com>,
 	kai.vehmanen@linux.intel.com,
 	perex@perex.cz,
 	tiwai@suse.com,
-	kuninori.morimoto.gx@renesas.com,
-	zhangyiqun@phytium.com.cn,
 	suhui@nfschina.com,
+	zhangyiqun@phytium.com.cn,
+	kuninori.morimoto.gx@renesas.com,
 	alsa-devel@alsa-project.org,
 	linux-sound@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 02/19] ASoC: Intel: Skylake: Fix mem leak in few
- functions
-Date: Mon, 11 Dec 2023 08:57:36 -0500
-Message-ID: <20231211135908.385694-2-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 04/19] ASoC: Intel: Skylake: mem leak in skl
+ register function
+Date: Mon, 11 Dec 2023 08:57:38 -0500
+Message-ID: <20231211135908.385694-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20231211135908.385694-1-sashal@kernel.org>
 References: <20231211135908.385694-1-sashal@kernel.org>
@@ -93,8 +93,8 @@ X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 5.15.142
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 33W3GG2SRWXIOWE5N2CRBKXINITFZI6D
-X-Message-ID-Hash: 33W3GG2SRWXIOWE5N2CRBKXINITFZI6D
+Message-ID-Hash: ZAB3SES3LHYRWK623LRNRKORXZAZXUQT
+X-Message-ID-Hash: ZAB3SES3LHYRWK623LRNRKORXZAZXUQT
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -107,7 +107,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/33W3GG2SRWXIOWE5N2CRBKXINITFZI6D/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZAB3SES3LHYRWK623LRNRKORXZAZXUQT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,52 +118,45 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Kamil Duljas <kamil.duljas@gmail.com>
 
-[ Upstream commit d5c65be34df73fa01ed05611aafb73b440d89e29 ]
+[ Upstream commit f8ba14b780273fd290ddf7ee0d7d7decb44cc365 ]
 
-The resources should be freed when function return error.
+skl_platform_register() uses krealloc. When krealloc is fail,
+then previous memory is not freed. The leak is also when soc
+component registration failed.
 
 Signed-off-by: Kamil Duljas <kamil.duljas@gmail.com>
 Reviewed-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
-Link: https://lore.kernel.org/r/20231116125150.1436-1-kamil.duljas@gmail.com
+Link: https://lore.kernel.org/r/20231116224112.2209-2-kamil.duljas@gmail.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/intel/skylake/skl-pcm.c     | 4 +++-
- sound/soc/intel/skylake/skl-sst-ipc.c | 4 +++-
- 2 files changed, 6 insertions(+), 2 deletions(-)
+ sound/soc/intel/skylake/skl-pcm.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/sound/soc/intel/skylake/skl-pcm.c b/sound/soc/intel/skylake/skl-pcm.c
-index db41bd7170650..0d08b0269a662 100644
+index 0d08b0269a662..af5af5be42f68 100644
 --- a/sound/soc/intel/skylake/skl-pcm.c
 +++ b/sound/soc/intel/skylake/skl-pcm.c
-@@ -251,8 +251,10 @@ static int skl_pcm_open(struct snd_pcm_substream *substream,
- 	snd_pcm_set_sync(substream);
+@@ -1467,6 +1467,7 @@ int skl_platform_register(struct device *dev)
+ 		dais = krealloc(skl->dais, sizeof(skl_fe_dai) +
+ 				sizeof(skl_platform_dai), GFP_KERNEL);
+ 		if (!dais) {
++			kfree(skl->dais);
+ 			ret = -ENOMEM;
+ 			goto err;
+ 		}
+@@ -1479,8 +1480,10 @@ int skl_platform_register(struct device *dev)
  
- 	mconfig = skl_tplg_fe_get_cpr_module(dai, substream->stream);
--	if (!mconfig)
-+	if (!mconfig) {
-+		kfree(dma_params);
- 		return -EINVAL;
+ 	ret = devm_snd_soc_register_component(dev, &skl_component,
+ 					 skl->dais, num_dais);
+-	if (ret)
++	if (ret) {
++		kfree(skl->dais);
+ 		dev_err(dev, "soc component registration failed %d\n", ret);
 +	}
- 
- 	skl_tplg_d0i3_get(skl, mconfig->d0i3_caps);
- 
-diff --git a/sound/soc/intel/skylake/skl-sst-ipc.c b/sound/soc/intel/skylake/skl-sst-ipc.c
-index 7a425271b08b1..fd9624ad5f72b 100644
---- a/sound/soc/intel/skylake/skl-sst-ipc.c
-+++ b/sound/soc/intel/skylake/skl-sst-ipc.c
-@@ -1003,8 +1003,10 @@ int skl_ipc_get_large_config(struct sst_generic_ipc *ipc,
- 
- 	reply.size = (reply.header >> 32) & IPC_DATA_OFFSET_SZ_MASK;
- 	buf = krealloc(reply.data, reply.size, GFP_KERNEL);
--	if (!buf)
-+	if (!buf) {
-+		kfree(reply.data);
- 		return -ENOMEM;
-+	}
- 	*payload = buf;
- 	*bytes = reply.size;
- 
+ err:
+ 	return ret;
+ }
 -- 
 2.42.0
 

@@ -2,82 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A9AF80CBFF
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Dec 2023 14:56:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E2E480CC38
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Dec 2023 14:59:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B3ACD826;
-	Mon, 11 Dec 2023 14:56:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B3ACD826
+	by alsa0.perex.cz (Postfix) with ESMTPS id 45461BC0;
+	Mon, 11 Dec 2023 14:58:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 45461BC0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1702303004;
-	bh=Y/fWPy6eOLNeEEr/tPtHhud0WX8Ihu8eVmaHugAenks=;
+	s=default; t=1702303146;
+	bh=nYxR4vWh+O5VayCadz9yXoEhWfvMNjF5E4OSsSI1OBc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=rTWyloGD9kVdW8nywzFZ495ADBaEBzAKATAhepnF/rn67bHr0xUDVx1n7XKSVy5ZS
-	 BP8ljnL4Xhw9Uufr/OwW/Yg6lcDJKKgE/JFf8TFdhGUjyGqNf7sFoi44618jQ/DcrY
-	 x4j+VlM20yYE3lHS7+JsWNgouyrKMuWD8IileQFQ=
+	b=pqbukbIkc6u9t76JQV3D4M0hYY4vMxxNzoNF8FP7K3ndIPtaBE0zEKwh5rJG4YGeN
+	 qVJQFAgt9Ql3/Tu+/BoQUso3ns65ZpdvNdRyctxPac4CIFJvookUnt7ZuRpZsgPFN7
+	 dael5Gr+d8MmC8T+fr4KiK8XEPusXP3WKppg2tlg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3847AF80619; Mon, 11 Dec 2023 14:55:37 +0100 (CET)
+	id 61934F8057B; Mon, 11 Dec 2023 14:58:36 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4E8F5F805FE;
-	Mon, 11 Dec 2023 14:55:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D2E22F80587;
+	Mon, 11 Dec 2023 14:58:35 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 29AF8F80494; Mon, 11 Dec 2023 14:55:32 +0100 (CET)
+	id E529AF8061C; Mon, 11 Dec 2023 14:55:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C340BF805A0
-	for <alsa-devel@alsa-project.org>; Mon, 11 Dec 2023 14:55:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C340BF805A0
+	by alsa1.perex.cz (Postfix) with ESMTPS id 21E53F8060D
+	for <alsa-devel@alsa-project.org>; Mon, 11 Dec 2023 14:55:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21E53F8060D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=gtlycSUU
+ header.s=k20201202 header.b=tHbGwbW+
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 44CB0CE0B4D;
-	Mon, 11 Dec 2023 13:55:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 006DAC43395;
-	Mon, 11 Dec 2023 13:55:23 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id BCC0E6123C;
+	Mon, 11 Dec 2023 13:55:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBED4C433C7;
+	Mon, 11 Dec 2023 13:55:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1702302925;
-	bh=Y/fWPy6eOLNeEEr/tPtHhud0WX8Ihu8eVmaHugAenks=;
+	s=k20201202; t=1702302938;
+	bh=nYxR4vWh+O5VayCadz9yXoEhWfvMNjF5E4OSsSI1OBc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=gtlycSUUw8BXX4CJbTTqf/F6n5pxhiiKaEwcl1opaXhvQmSmgcniRrhukpPaPp40w
-	 ac9IrfbF0G+Mmle3tdDY19m3BJ65KCQqoJev/mFHKXiEKGohRZldVgWuekxlaONctW
-	 U7sR+mhw5drJjmPAYHxL9/kOMGrp8PWfe87HDfK6rYkQMAAw0i075ftBBzDFiUR9ms
-	 OILFtX2p26kmawoIUhw2iT4Ynzd8akAxbFbSYJfXMDTKpHNKCdUJtGO/3sFeZbtQr2
-	 afnmbA181Kvi/hecug6uLpzLYOu9Uwi2x+3AlhC1+4Lma1PnJH4iaRUbTzWsFwiUeT
-	 zyi2Qd/N8eOJg==
+	b=tHbGwbW+wO/tmGpOeV3jMtWjiK2kCYHsm+jZfUTF2/IxSXh8OsOMhU+Blm18jjQLt
+	 smLydXq4Ie7EpppGqZKf17CudVE+Cfknw2MDSbMMCfYxEHukzkkYlHBCNyI264eDh7
+	 3c+uOTTWvYEmZupajqh8a+epVAlz1uvB2xx+MCHeHxin+6tdZL9exzpgsG6foBoeYp
+	 GKu6jybH49+no5xNkz2effES+jr/rjMHZNmY0gwahF3g4987TUTW84mx6u0xhL2Tfj
+	 xxREmc9I9jyn6N4TtgIRIQhupgNuxcZJqFbCXWzkXIzJJ9XsFU+xIpd54Zd8vCyH82
+	 j70dccCyJc4QQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Maciej Strozek <mstrozek@opensource.cirrus.com>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
+Cc: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
 	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	james.schulman@cirrus.com,
-	david.rhodes@cirrus.com,
-	rf@opensource.cirrus.com,
-	lgirdwood@gmail.com,
+	cezary.rojewski@intel.com,
+	liam.r.girdwood@linux.intel.com,
+	ranjani.sridharan@linux.intel.com,
 	perex@perex.cz,
 	tiwai@suse.com,
+	kuninori.morimoto.gx@renesas.com,
 	alsa-devel@alsa-project.org,
-	patches@opensource.cirrus.com,
 	linux-sound@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.1 09/29] ASoC: cs43130: Fix incorrect frame delay
- configuration
-Date: Mon, 11 Dec 2023 08:53:53 -0500
-Message-ID: <20231211135457.381397-9-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.1 12/29] ASoC: Intel: skl_hda_dsp_generic: Drop HDMI
+ routes when HDMI is not available
+Date: Mon, 11 Dec 2023 08:53:56 -0500
+Message-ID: <20231211135457.381397-12-sashal@kernel.org>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20231211135457.381397-1-sashal@kernel.org>
 References: <20231211135457.381397-1-sashal@kernel.org>
@@ -86,8 +87,8 @@ X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.1.66
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: GKTPMH6TNFDHCD2ZLCVOAXPTJT757WYT
-X-Message-ID-Hash: GKTPMH6TNFDHCD2ZLCVOAXPTJT757WYT
+Message-ID-Hash: ZIBYEJMI25XGUQ6QGKMUJML6RBQ65R6J
+X-Message-ID-Hash: ZIBYEJMI25XGUQ6QGKMUJML6RBQ65R6J
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -100,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GKTPMH6TNFDHCD2ZLCVOAXPTJT757WYT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZIBYEJMI25XGUQ6QGKMUJML6RBQ65R6J/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,32 +110,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Maciej Strozek <mstrozek@opensource.cirrus.com>
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 
-[ Upstream commit aa7e8e5e4011571022dc06e4d7a2f108feb53d1a ]
+[ Upstream commit 3d1dc8b1030df8ca0fdfd4905c88ee10db943bf8 ]
 
-Signed-off-by: Maciej Strozek <mstrozek@opensource.cirrus.com>
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-Link: https://lore.kernel.org/r/20231117141344.64320-3-mstrozek@opensource.cirrus.com
+When the HDMI is not present due to disabled display support
+we will use dummy codec and the HDMI routes will refer to non existent
+DAPM widgets.
+
+Trim the route list from the HDMI routes to be able to probe the card even
+if the HDMI dais are not registered.
+
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Link: https://lore.kernel.org/r/20231124124015.15878-1-peter.ujfalusi@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/cs43130.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/intel/boards/skl_hda_dsp_generic.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/sound/soc/codecs/cs43130.c b/sound/soc/codecs/cs43130.c
-index 1fcbf2ffccfff..0b8ecd917a086 100644
---- a/sound/soc/codecs/cs43130.c
-+++ b/sound/soc/codecs/cs43130.c
-@@ -579,7 +579,7 @@ static int cs43130_set_sp_fmt(int dai_id, unsigned int bitwidth_sclk,
- 		break;
- 	case SND_SOC_DAIFMT_LEFT_J:
- 		hi_size = bitwidth_sclk;
--		frm_delay = 2;
-+		frm_delay = 0;
- 		frm_phase = 1;
- 		break;
- 	case SND_SOC_DAIFMT_DSP_A:
+diff --git a/sound/soc/intel/boards/skl_hda_dsp_generic.c b/sound/soc/intel/boards/skl_hda_dsp_generic.c
+index 879ebba528322..463ffb85121d3 100644
+--- a/sound/soc/intel/boards/skl_hda_dsp_generic.c
++++ b/sound/soc/intel/boards/skl_hda_dsp_generic.c
+@@ -157,6 +157,8 @@ static int skl_hda_fill_card_info(struct snd_soc_acpi_mach_params *mach_params)
+ 		card->dapm_widgets = skl_hda_widgets;
+ 		card->num_dapm_widgets = ARRAY_SIZE(skl_hda_widgets);
+ 		if (!ctx->idisp_codec) {
++			card->dapm_routes = &skl_hda_map[IDISP_ROUTE_COUNT];
++			num_route -= IDISP_ROUTE_COUNT;
+ 			for (i = 0; i < IDISP_DAI_COUNT; i++) {
+ 				skl_hda_be_dai_links[i].codecs = dummy_codec;
+ 				skl_hda_be_dai_links[i].num_codecs =
 -- 
 2.42.0
 

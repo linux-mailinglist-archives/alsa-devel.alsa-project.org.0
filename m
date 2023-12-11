@@ -2,90 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5BFD680C9E7
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Dec 2023 13:33:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C47B780C9EF
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Dec 2023 13:33:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1C0F5A4B;
-	Mon, 11 Dec 2023 13:32:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C0F5A4B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 14C2CE73;
+	Mon, 11 Dec 2023 13:33:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 14C2CE73
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1702297988;
-	bh=kR9GEwdi/SPM7s4AAo0p9bC5loFAYUN4wod2qakPgFQ=;
+	s=default; t=1702298036;
+	bh=GjEzsMXjmPMj5tgut84noNDMNBftQAdWwb9x/4gmPJc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=TJYdVuzWF0cZ7KZfHaQr3+uErShB/RrtiPEN8II0exsL6iNQa8h2BarDriqAennIi
-	 U84D1BXXPlrslxnBBzsuSfR3J6KyY6oF7D2dTAeP2MaBQJAnWkUQWdzaiACizdRnEk
-	 e/sOexbqsyY1SzAg78k8K4vTNo1geM7O5MHSfmEQ=
+	b=D6iz5+sY+iz+I/OWqb3Yu1I4spSEmxDB0xh11CvyZQj31a2G8G/t+U10pqmcPMnlF
+	 m+lHuhqPCbGJFe2+A61i3nI6n3cb9LcAHdjV6psL303PSXbUc3f8K6sOaPOTjjmJzZ
+	 X5zDpdi7Ro5ZvxttWrR0oEQbHz145IjVP8tQzDeM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1893FF805BE; Mon, 11 Dec 2023 13:32:35 +0100 (CET)
+	id 877C2F805EE; Mon, 11 Dec 2023 13:32:37 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 72960F80570;
-	Mon, 11 Dec 2023 13:32:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9347AF805D8;
+	Mon, 11 Dec 2023 13:32:37 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 00A98F8020D; Mon, 11 Dec 2023 13:31:18 +0100 (CET)
+	id 91E06F8016E; Mon, 11 Dec 2023 13:31:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [IPv6:2a00:1450:4864:20::336])
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [IPv6:2a00:1450:4864:20::333])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B6464F80114
-	for <alsa-devel@alsa-project.org>; Mon, 11 Dec 2023 13:31:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6464F80114
+	by alsa1.perex.cz (Postfix) with ESMTPS id C97D4F80124
+	for <alsa-devel@alsa-project.org>; Mon, 11 Dec 2023 13:31:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C97D4F80124
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=eMgA9dCH
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-40c0fc1cf3dso46376775e9.0
+ header.s=google header.b=FO2MeFTZ
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-40c0e7b8a9bso56565975e9.3
         for <alsa-devel@alsa-project.org>;
- Mon, 11 Dec 2023 04:31:11 -0800 (PST)
+ Mon, 11 Dec 2023 04:31:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1702297871; x=1702902671;
+        d=linaro.org; s=google; t=1702297872; x=1702902672;
  darn=alsa-project.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=RN91HNt5gkaIzgOq9vwezVCDXB7gy5tWKyJ+X5HCihA=;
-        b=eMgA9dCH2HF7cnJm6fjytK8wWCY0JPnpVeShFmayQtxxojicQn8iochbCTItIDQrrB
-         rxqO3CQNZxgYNu/wVKYIewFozRpqTemAOc3ZDzuM6jHb2vxAcJJ78uFKVxmZKnZCK+wi
-         cJdzxLl5qttuAUBTqgRpz8MvnEjr08Tgi4s4nUVHMFjRgwb32BRc5sn6nc8jBGN8o+j6
-         idya2Q/asBL0kBdZUuRgeSTH+HSjvNmqu/LJ5nnPvsAR2wFqpb9i3jihoStP2Q5PbKva
-         aUTBcCjw4ZzRxh8d2Qfk+wWlQ/k9ewawJSebHnCnDvcqEEx0SCTiGhBl9lrr0fDrXfy6
-         m7SA==
+        bh=+fHF1MoshH1NMiiExL+9DYVxymX7ra4O3Ex0Iu1m030=;
+        b=FO2MeFTZHZ8XwPN1y+kpbAehJgfxHdirLvG5qE+pVVz2VU5mm5ZEgA9P8vmr3j0czG
+         6nJfyIGGq4okIkDYZNHAch7AeO8f6cTzPEPVXQVDbnhT8tXPPgWanXqX4QRMhyM0Lmrh
+         e3E/m9bCXsRs7zveqNczC6T7xU+XuGYavVtay73Zg+8OgF/ggTORp0G1idyhO9Z+f7/B
+         sSxvyEdpODAZ92jMcFUaBuXw8YAo0LSaRxwKfNpX1POKfc2vFtIDJGDrcGYRdFQ+4Upr
+         +z3j/298AdA8aSUP5fdLeTasuHmgrAYZkpjZkEswC+5ExKaEt51P1oA6gJo/MDk/d0e4
+         fY8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702297871; x=1702902671;
+        d=1e100.net; s=20230601; t=1702297872; x=1702902672;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=RN91HNt5gkaIzgOq9vwezVCDXB7gy5tWKyJ+X5HCihA=;
-        b=ZK364sviPfjpRI+txf9TeIJk06ei+ejabGTuES30xVQlTLM/UjaUkIVaoP23DaIm3X
-         675s33+6lM+TPGPPy4w4sG1fTVjAC9lMcjJ8DLVDQcUrnpJvUp/tzp/YhwkMvBmJDDl4
-         EErR2pnyRkMHusz+slRqw+YD2wo/4rJZvmhmUaTaUfWL0ZqtxZiDzkufLBh5CdDybkmD
-         hpgMsKMwLZ/LhASaeYCQeablUXzBbEnp+iU8THHqsBUpdyolLXl3Jvs6uajRWfA4h4pa
-         //OhU0bybXK8c+3CkbZDbYOiNuXP0HGZlfENoj8vjJJaQN7LhAY7fBDbXf6ej9NcU7gu
-         qvYw==
-X-Gm-Message-State: AOJu0YxAAv1/TlJHDBwJSm275fKxDcQ6EGDPxk5TZmnuEDBbMExGYa9k
-	xY5qOOe30dhwKTmLAVaOtzz2+w==
+        bh=+fHF1MoshH1NMiiExL+9DYVxymX7ra4O3Ex0Iu1m030=;
+        b=CCmgawkjVYKvMPAZ+BkYArixRv6Q7h3ph0tr9Y8f6UzE+MfKShEahNNSR3CrltzN74
+         bL1bcSHfTOIG5HdZqitND03F7mIbhaFJfZwlowA3Ay1Cqgh0+wUkTwt753mR/CXNJzgd
+         WvFl4lezcqpuugsoUbZSKhNItg3oejLXIyLEfAUZ5KRhNpvhKte4UEh96HNQq/soycJa
+         Op/bDQq1oF4/KO4mXPrcMlVi7u7iJTusnNV06BX45G3do6IWWxP1u/NK27r3Lr+qxlUT
+         77CwE+dqGUd4i31aZuRP/mNPdMkNjl7mmz2ioBmcy84oc5jJ5pgBREJw89NrLVuIHL4Z
+         sTUw==
+X-Gm-Message-State: AOJu0YzKYnsPiJ9j8pAnLdxDxEXNS/tk49GDRrqhm0PDFmbjtwrhRwhe
+	eSzt0kTX43Dvpk/Ke2++YZftSQ==
 X-Google-Smtp-Source: 
- AGHT+IGe0TsF6kU3cIp8ndlWh7qt+klx3I1j7J1zNAl229HSG1N5Cw5CH8QU9alImW7ATLvT821E1g==
-X-Received: by 2002:a7b:c389:0:b0:40c:3820:f004 with SMTP id
- s9-20020a7bc389000000b0040c3820f004mr2353363wmj.132.1702297870759;
-        Mon, 11 Dec 2023 04:31:10 -0800 (PST)
+ AGHT+IFhLh+o2/YSAv/NSFuu3qqjkPLbe6RTQxxI5s75iK6leejwAde+aW5OIximFnGDWjYIaPxR7w==
+X-Received: by 2002:a05:600c:1f1a:b0:40c:16ee:3219 with SMTP id
+ bd26-20020a05600c1f1a00b0040c16ee3219mr2528379wmb.165.1702297872668;
+        Mon, 11 Dec 2023 04:31:12 -0800 (PST)
 Received: from krzk-bin.. ([178.197.218.27])
         by smtp.gmail.com with ESMTPSA id
- s5-20020a05600c384500b0040b632f31d2sm12932313wmr.5.2023.12.11.04.31.08
+ s5-20020a05600c384500b0040b632f31d2sm12932313wmr.5.2023.12.11.04.31.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 11 Dec 2023 04:31:10 -0800 (PST)
+        Mon, 11 Dec 2023 04:31:12 -0800 (PST)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Andy Gross <agross@kernel.org>,
 	Bjorn Andersson <andersson@kernel.org>,
@@ -103,17 +103,17 @@ To: Andy Gross <agross@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [PATCH 2/4] ASoC: dt-bindings: qcom,lpass-rx-macro: Add X1E80100
- LPASS TX
-Date: Mon, 11 Dec 2023 13:31:02 +0100
-Message-Id: <20231211123104.72963-2-krzysztof.kozlowski@linaro.org>
+Subject: [PATCH 3/4] ASoC: dt-bindings: qcom,lpass-rx-macro: Add X1E80100
+ LPASS VA
+Date: Mon, 11 Dec 2023 13:31:03 +0100
+Message-Id: <20231211123104.72963-3-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20231211123104.72963-1-krzysztof.kozlowski@linaro.org>
 References: <20231211123104.72963-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: HIM3S2HHOS4XPGB7J4ANVUDB7WQPIMNM
-X-Message-ID-Hash: HIM3S2HHOS4XPGB7J4ANVUDB7WQPIMNM
+Message-ID-Hash: IBL7ZJJNNNGA24WE3PBE33AWLOKU2ML5
+X-Message-ID-Hash: IBL7ZJJNNNGA24WE3PBE33AWLOKU2ML5
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -126,9 +126,8 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HIM3S2HHOS4XPGB7J4ANVUDB7WQPIMNM/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IBL7ZJJNNNGA24WE3PBE33AWLOKU2ML5/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
@@ -136,26 +135,26 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 Add bindings for Qualcomm X1E80100 SoC Low Power Audio SubSystem (LPASS)
-TX macro codec, which looks like compatible with earlier SM8550.
+VA macro codec, which looks like compatible with earlier SM8550.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- .../devicetree/bindings/sound/qcom,lpass-tx-macro.yaml        | 4 +++-
+ .../devicetree/bindings/sound/qcom,lpass-va-macro.yaml        | 4 +++-
  1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-tx-macro.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-tx-macro.yaml
-index cee79ac42a33..3e2ae16c6aba 100644
---- a/Documentation/devicetree/bindings/sound/qcom,lpass-tx-macro.yaml
-+++ b/Documentation/devicetree/bindings/sound/qcom,lpass-tx-macro.yaml
-@@ -20,7 +20,9 @@ properties:
-           - qcom,sm8550-lpass-tx-macro
-           - qcom,sc8280xp-lpass-tx-macro
+diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml
+index ca6b07d5826d..c03ff9472a85 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml
++++ b/Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml
+@@ -19,7 +19,9 @@ properties:
+           - qcom,sm8550-lpass-va-macro
+           - qcom,sc8280xp-lpass-va-macro
        - items:
--          - const: qcom,sm8650-lpass-tx-macro
+-          - const: qcom,sm8650-lpass-va-macro
 +          - enum:
-+              - qcom,sm8650-lpass-tx-macro
-+              - qcom,x1e80100-lpass-tx-macro
-           - const: qcom,sm8550-lpass-tx-macro
++              - qcom,sm8650-lpass-va-macro
++              - qcom,x1e80100-lpass-va-macro
+           - const: qcom,sm8550-lpass-va-macro
  
    reg:
 -- 

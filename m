@@ -2,75 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E10BE80D661
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Dec 2023 19:33:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F94E80D671
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Dec 2023 19:33:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 33CFBDF8;
-	Mon, 11 Dec 2023 19:33:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 33CFBDF8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 84324DF9;
+	Mon, 11 Dec 2023 19:33:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 84324DF9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1702319593;
-	bh=EeELU8lM1RH9exlQYeS3/1jW32YALY3T4xjBaW1cEdg=;
+	s=default; t=1702319614;
+	bh=BvSqv+mICJXIOsQLFTnmxUjKaMf1+F+25PrRv9NmGzc=;
 	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=U618FYhQ0ogd20io+mhK9dAprgFtbLT+xjAWq/IvBb5E2W/Si2+i/A7ilyFapH34m
-	 KTvC/PRSvc2N3eqGaLis9cmiLkSuqLoZlXRp8vgi4iRaC2quP3Cjg/IVG/cZcB6IeM
-	 Vxamuw5shhvnbB6FmDTCCiXZ2Us00/Aw3xy4dIs8=
+	b=hTqJR61h8PIL/X6S3IZWD2dEzuWXz1vOinqTu6l22sL6LGNsfvBcP1Bivb4SEHfC/
+	 enS+vv5H00UoQpkSL3ncYE8eO2sWBfDA9v0hUfF+AkMbHoJCRXumLJl/vaF5h9nf4n
+	 Op8XwECZnvyvS8hTHk2H8UzF1JePLkcUO5uJmuRk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 05C69F8016E; Mon, 11 Dec 2023 19:33:02 +0100 (CET)
+	id 162E0F80588; Mon, 11 Dec 2023 19:33:04 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A3676F8057B;
-	Mon, 11 Dec 2023 19:33:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 25453F805BD;
+	Mon, 11 Dec 2023 19:33:04 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 95DE7F80557; Mon, 11 Dec 2023 19:32:57 +0100 (CET)
+	id E354EF8016E; Mon, 11 Dec 2023 19:32:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
 	autolearn=unavailable autolearn_force=no version=3.4.6
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 58B8EF800D2
-	for <alsa-devel@alsa-project.org>; Mon, 11 Dec 2023 19:31:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 58B8EF800D2
+	by alsa1.perex.cz (Postfix) with ESMTPS id 64D61F8019B
+	for <alsa-devel@alsa-project.org>; Mon, 11 Dec 2023 19:32:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64D61F8019B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256
- header.s=selector1 header.b=yVdjOT1d
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
-	by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3BBHxgm3023809;
-	Mon, 11 Dec 2023 19:31:34 +0100
+ header.s=selector1 header.b=j+OG/A9I
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+	by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 3BBBp5CV026654;
+	Mon, 11 Dec 2023 19:32:42 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
 	from:to:cc:subject:date:message-id:in-reply-to:references
 	:mime-version:content-transfer-encoding:content-type; s=
-	selector1; bh=iI5H47zvcA4f2T9X0SOLjyUIMcFUo42eiKhj9yV6NCc=; b=yV
-	djOT1deCHGOmPjNVxLwzgMLwCwQ8eecbXf1tx+Vfp57/qfxggvAGhk9UE5llAhDr
-	Z9bFcVO1Nf/riQGFjnM9EOolVSSSO4Bc8rWaqjzOkKVskXlE2hYrhwAzz4nnU+2H
-	yoiyZYT3PHXsbVKo6ksEG/gVUZecZ3MzWJY3kTpzE3/AibBogBB/MKP5YJ7+MHiQ
-	+4aUF3qBMhoP8vhLuE/EUsdOPITtrk9iFTKOvrkkc98qt7S5U0HBunYsvi2cpivH
-	UhyTx2CN5tBFEuP//aUNai5ktyybN4tn0nFoZ4w0Y9Vzragizj7Pc20kBVd0AVYL
-	0HaKp6ASnYUrAApj5+4Q==
+	selector1; bh=Yx/iN2e/UUXXv4odNw1PrUQv1/sBds6u8ptetj9Y7lY=; b=j+
+	OG/A9I1IKBdAWxX2NrSkvaZTb92O6JLyMzrMTQUqCQnjr4ZH5QUV1ST7sgq2eVaZ
+	8yLxSMwXjiWfDwVMOBSIarCAVDoayeN5uhWb66D8oprFEuifzSTIljZBFQvx5XZF
+	B0EVyYVG4PX3RpokIQf5bkCIm0sNIUnnbax8zRLee3Op9851xw2qoqjff13jDu2Z
+	2pF644bnjtY4/UVxd8w/6e5z/5hsd0Xxjfxfzfw4g6CcBiO1CzNblb9Xeo5IdydB
+	dpVPTdV7LOumlYDNe+DIZxVvsp4TTHbVF3LEsZkAiSH11Yel2u8xceYUlMAdPBvX
+	uYkrZqmJxVZtUcC/I8DA==
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
-	by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3uve88r1mb-1
+	by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3uvgf1g0s5-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 11 Dec 2023 19:31:34 +0100 (CET)
+	Mon, 11 Dec 2023 19:32:42 +0100 (CET)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
-	by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 49BAC100064;
-	Mon, 11 Dec 2023 19:31:31 +0100 (CET)
+	by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id F321210005C;
+	Mon, 11 Dec 2023 19:32:41 +0100 (CET)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
-	by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3AFD922FA46;
-	Mon, 11 Dec 2023 19:31:31 +0100 (CET)
+	by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E2DBB23BE03;
+	Mon, 11 Dec 2023 19:32:41 +0100 (CET)
 Received: from localhost (10.252.9.5) by SHFDAG1NODE1.st.com (10.75.129.69)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 11 Dec
- 2023 19:31:30 +0100
+ 2023 19:32:41 +0100
 From: Gatien Chevallier <gatien.chevallier@foss.st.com>
 To: <Oleksii_Moisieiev@epam.com>, <gregkh@linuxfoundation.org>,
         <herbert@gondor.apana.org.au>, <davem@davemloft.net>,
@@ -97,9 +97,9 @@ CC: <linux-crypto@vger.kernel.org>, <devicetree@vger.kernel.org>,
         <linux-usb@vger.kernel.org>,
         Gatien Chevallier
 	<gatien.chevallier@foss.st.com>
-Subject: [PATCH v7 03/13] dt-bindings: bus: document RIFSC
-Date: Mon, 11 Dec 2023 19:30:34 +0100
-Message-ID: <20231211183044.808204-4-gatien.chevallier@foss.st.com>
+Subject: [PATCH v7 04/13] dt-bindings: bus: document ETZPC
+Date: Mon, 11 Dec 2023 19:30:35 +0100
+Message-ID: <20231211183044.808204-5-gatien.chevallier@foss.st.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20231211183044.808204-1-gatien.chevallier@foss.st.com>
 References: <20231211183044.808204-1-gatien.chevallier@foss.st.com>
@@ -112,8 +112,8 @@ X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
  definitions=2023-12-11_08,2023-12-07_01,2023-05-22_02
-Message-ID-Hash: CL56AEDT7VDPRABWDI4EKN6DEGTPHSSJ
-X-Message-ID-Hash: CL56AEDT7VDPRABWDI4EKN6DEGTPHSSJ
+Message-ID-Hash: QGT7P6UDFGDFOCWP64CFXYU4LWG34SJU
+X-Message-ID-Hash: QGT7P6UDFGDFOCWP64CFXYU4LWG34SJU
 X-MailFrom: prvs=0709dd40e0=gatien.chevallier@foss.st.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -126,7 +126,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CL56AEDT7VDPRABWDI4EKN6DEGTPHSSJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QGT7P6UDFGDFOCWP64CFXYU4LWG34SJU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -135,18 +135,18 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Document RIFSC (RIF security controller). RIFSC is a firewall controller
-composed of different kinds of hardware resources.
+Document ETZPC (Extended TrustZone protection controller). ETZPC is a
+firewall controller.
 
 Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
 ---
 
 Changes in V6:
-	- Renamed access-controller to access-controllers
-	- Removal of access-control-provider property
-	- Removal of access-controller and access-controller-names
-	  declaration in the patternProperties field. Add
-	  additionalProperties: true in this field.
+    	- Renamed access-controller to access-controllers
+    	- Removal of access-control-provider property
+    	- Removal of access-controller and access-controller-names
+    	  declaration in the patternProperties field. Add
+    	  additionalProperties: true in this field.
 
 Changes in V5:
 	- Renamed feature-domain* to access-control*
@@ -159,52 +159,38 @@ Changes in V2:
 	- Declare "feature-domain-names" as an optional
 	  property for child nodes
 	- Fix description of "feature-domains" property
+	- Reordered the properties so it matches ETZPC
+	- Add missing "feature-domain-controller" property
 
- .../bindings/bus/st,stm32mp25-rifsc.yaml      | 96 +++++++++++++++++++
- 1 file changed, 96 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/bus/st,stm32mp25-rifsc.yaml
+ .../bindings/bus/st,stm32-etzpc.yaml          | 87 +++++++++++++++++++
+ 1 file changed, 87 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/bus/st,stm32-etzpc.yaml
 
-diff --git a/Documentation/devicetree/bindings/bus/st,stm32mp25-rifsc.yaml b/Documentation/devicetree/bindings/bus/st,stm32mp25-rifsc.yaml
+diff --git a/Documentation/devicetree/bindings/bus/st,stm32-etzpc.yaml b/Documentation/devicetree/bindings/bus/st,stm32-etzpc.yaml
 new file mode 100644
-index 000000000000..95aa7f04c739
+index 000000000000..9ca0ad39bc19
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/bus/st,stm32mp25-rifsc.yaml
-@@ -0,0 +1,96 @@
++++ b/Documentation/devicetree/bindings/bus/st,stm32-etzpc.yaml
+@@ -0,0 +1,87 @@
 +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 +%YAML 1.2
 +---
-+$id: http://devicetree.org/schemas/bus/st,stm32mp25-rifsc.yaml#
++$id: http://devicetree.org/schemas/bus/st,stm32-etzpc.yaml#
 +$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+title: STM32 Resource isolation framework security controller
++title: STM32 Extended TrustZone protection controller
++
++description: |
++  The ETZPC configures TrustZone security in a SoC having bus masters and
++  devices with programmable-security attributes (securable resources).
 +
 +maintainers:
 +  - Gatien Chevallier <gatien.chevallier@foss.st.com>
 +
-+description: |
-+  Resource isolation framework (RIF) is a comprehensive set of hardware blocks
-+  designed to enforce and manage isolation of STM32 hardware resources like
-+  memory and peripherals.
-+
-+  The RIFSC (RIF security controller) is composed of three sets of registers,
-+  each managing a specific set of hardware resources:
-+    - RISC registers associated with RISUP logic (resource isolation device unit
-+      for peripherals), assign all non-RIF aware peripherals to zero, one or
-+      any security domains (secure, privilege, compartment).
-+    - RIMC registers: associated with RIMU logic (resource isolation master
-+      unit), assign all non RIF-aware bus master to one security domain by
-+      setting secure, privileged and compartment information on the system bus.
-+      Alternatively, the RISUP logic controlling the device port access to a
-+      peripheral can assign target bus attributes to this peripheral master port
-+      (supported attribute: CID).
-+    - RISC registers associated with RISAL logic (resource isolation device unit
-+      for address space - Lite version), assign address space subregions to one
-+      security domains (secure, privilege, compartment).
-+
 +properties:
 +  compatible:
 +    contains:
-+      const: st,stm32mp25-rifsc
++      const: st,stm32-etzpc
 +
 +  reg:
 +    maxItems: 1
@@ -244,26 +230,33 @@ index 000000000000..95aa7f04c739
 +
 +examples:
 +  - |
-+    // In this example, the usart2 device refers to rifsc as its domain
++    // In this example, the usart2 device refers to rifsc as its access
 +    // controller.
 +    // Access rights are verified before creating devices.
 +
 +    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/clock/stm32mp13-clks.h>
++    #include <dt-bindings/reset/stm32mp13-resets.h>
 +
-+    rifsc: bus@42080000 {
-+        compatible = "st,stm32mp25-rifsc";
-+        reg = <0x42080000 0x1000>;
++    etzpc: bus@5c007000 {
++        compatible = "st,stm32-etzpc";
++        reg = <0x5c007000 0x400>;
 +        #address-cells = <1>;
 +        #size-cells = <1>;
 +        #access-controller-cells = <1>;
 +        ranges;
 +
-+        usart2: serial@400e0000 {
-+              compatible = "st,stm32h7-uart";
-+              reg = <0x400e0000 0x400>;
-+              interrupts = <GIC_SPI 115 IRQ_TYPE_LEVEL_HIGH>;
-+              clocks = <&ck_flexgen_08>;
-+              access-controllers = <&rifsc 32>;
++        usart2: serial@4c001000 {
++            compatible = "st,stm32h7-uart";
++            reg = <0x4c001000 0x400>;
++            interrupts-extended = <&exti 27 IRQ_TYPE_LEVEL_HIGH>;
++            clocks = <&rcc USART2_K>;
++            resets = <&rcc USART2_R>;
++            wakeup-source;
++            dmas = <&dmamux1 43 0x400 0x5>,
++                    <&dmamux1 44 0x400 0x1>;
++            dma-names = "rx", "tx";
++            access-controllers = <&etzpc 17>;
 +        };
 +    };
 -- 

@@ -2,121 +2,121 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E9518132F0
-	for <lists+alsa-devel@lfdr.de>; Thu, 14 Dec 2023 15:23:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCC8C8132F1
+	for <lists+alsa-devel@lfdr.de>; Thu, 14 Dec 2023 15:23:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0572B843;
-	Thu, 14 Dec 2023 15:23:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0572B843
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3764DDF4;
+	Thu, 14 Dec 2023 15:23:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3764DDF4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1702563806;
-	bh=l5RhzxAetz9bFnk1vZ+yC41mfjjOw0R4OE+AZd2rEcM=;
+	s=default; t=1702563817;
+	bh=S/04W22SUMMsskFK7t/1hkYGCYjmEWYt+My2rDblutk=;
 	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=ZlrXo/5aXsrB9oFerFEOr5M/SM89JR3/MYDwKAju6tlu92FXQQATNGf+P/o8AevHA
-	 l748a6+84+3HyooNYj307RywZ9nkNyuXQmk2woZdKrcerC99bapFK1QE3HLL40AP7/
-	 Z/VBXHASieoi+pJSGi0nKHd8YZpvYUNQJq2kKu8w=
+	b=ueA8/YobdlTdr9stWcHHmgkJZEL3MtXuCqdbHEJmW3R9hcD7QGC2yQcdYFNTRFkeY
+	 OwP9esZw9qSyVSmjmgvrQSOlHh8q5IKU3TTSq38v5uRwpxNQGL6iBWGzcKxJysTwKy
+	 /UkfBegLyH9QENwiqBUor4M165kNlg3/UOiGFIDY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 648C3F8057D; Thu, 14 Dec 2023 15:22:55 +0100 (CET)
+	id 54A9FF805BE; Thu, 14 Dec 2023 15:23:01 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2BF0CF80571;
-	Thu, 14 Dec 2023 15:22:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7DE33F80579;
+	Thu, 14 Dec 2023 15:23:00 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B145AF8016A; Tue, 12 Dec 2023 20:52:57 +0100 (CET)
+	id B6D54F8016E; Wed, 13 Dec 2023 13:36:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [IPv6:2a00:1450:4864:20::334])
+X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-pf1-x435.google.com (mail-pf1-x435.google.com
+ [IPv6:2607:f8b0:4864:20::435])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6A721F8001F
-	for <alsa-devel@alsa-project.org>; Tue, 12 Dec 2023 20:52:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A721F8001F
+	by alsa1.perex.cz (Postfix) with ESMTPS id 87B05F800D2
+	for <alsa-devel@alsa-project.org>; Wed, 13 Dec 2023 13:36:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87B05F800D2
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=ayv2Ysnz
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-40c3fe6c1b5so32053655e9.2
+ header.s=20230601 header.b=Hb0ZbYG7
+Received: by mail-pf1-x435.google.com with SMTP id
+ d2e1a72fcca58-6cea2a38b48so6071027b3a.3
         for <alsa-devel@alsa-project.org>;
- Tue, 12 Dec 2023 11:52:46 -0800 (PST)
+ Wed, 13 Dec 2023 04:36:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1702410765; x=1703015565;
+        d=gmail.com; s=20230601; t=1702470970; x=1703075770;
  darn=alsa-project.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=99wiKlmvZ0yOuhSozih/oH4sju55TXVCbZzwWmMlsn4=;
-        b=ayv2Ysnzp/PYhgTDq9fSFYZPiLXxvoqQU/nF2UkkFBw6HBtuiZfC4AiTARsHwL0V/N
-         LUQQTljGA83ejtyJ7G8wPTT8n0aBHOw+0l9mli7yOKeILNprRV3V1EqGb36vdlwqhmQn
-         DcdzX3xguTxbtZ5KXpsQJLHL9QuLKo3KKc/ZyFPt2xSCp7pPcyPEInfhbN+862W2kGJW
-         aD7ObgPT8yWFU2HSCiIC/3BFdRXpjokZ3hxfN3L0fF3q7DUpPvl1WSp8z70qvSLy6FwV
-         N3bY+N8SOD9jmlgSnDZQcIradw2OGJaYbnWHMvk6JkULE2weFEjjrRY2IklX5wgSNcTq
-         arpw==
+        bh=rYGQmeoSqfkicHbElfiPvY8CF43myiqrL//zoYaASs8=;
+        b=Hb0ZbYG75uY5QyDBUIEkwzyhBaonElqKBOX2FsLU0mJMlEE43k+z9LDvYs42bWEPxB
+         yIL+hJDpIdHDqMzfaOlsiz6OjIrjFVBjQPqK8MHd8rbDlYauvQ/XP9jMQy2RhdvnE9xa
+         2DGdaL/qSnlJR+KPIqZhsvmhnvMnIstfG4vmGpjGYaaxPfKPo9rod+ma6fqQHoKx08h0
+         j2ojXNqo7bMqBDk1Yu40eX6O9RjHTVhnoIOS2eHFUSqWxnpKq6zkGY+w9VO32+9cHlIi
+         1sarOtgR8W/ReCkpK/Xgrld/hcxcshbERRpgy0nLgfZOwd3EoAkfCI0YVX7DeimZkmI/
+         k1Jg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702410765; x=1703015565;
+        d=1e100.net; s=20230601; t=1702470970; x=1703075770;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=99wiKlmvZ0yOuhSozih/oH4sju55TXVCbZzwWmMlsn4=;
-        b=RA560jnPicG8JWopykVayr7odVz/ymMoRp9pEDKL2BuQ7b9ploc0lgpj5UVMBfGAeh
-         nd3Ym5uaIYmU0i0NurIELIo21RJL8oxeJQOhm1i5HPOK3fgKZJKIbMl3V7S+5idqXqpx
-         7Dq9H3I+97JmG9s3E7pr28L85Jv2tVrOsK+KnlQTQTJ958mkWGPlm1S3GQdn9Q+JYYUW
-         Ts+Xy9TrlgYe/7TjTTYX5R7ByVm+OntOOcwtdIqp14WF5/vLaQm/zg+PMelw/O1WHcPk
-         RDhwzfC6R1JHAIctbPi0mYuLnx+Epz4s70gBfnFpZROsNrEbNQNbdfIdEXcCREQGw7Up
-         GZUA==
-X-Gm-Message-State: AOJu0YxnsKTv54tKiVOFF7rO6O8qpWQj26xpQzC7pvoBFZc3w4CIx6ZD
-	dpSWOYTmQNlaR09oiQXASg==
+        bh=rYGQmeoSqfkicHbElfiPvY8CF43myiqrL//zoYaASs8=;
+        b=JMSoIgEEF6jHP2bfr+IBdBCGt8r6fymFH96qVX8I5cbxpYb/OLaPVMFx+mCZFKd0hE
+         Lk0pXa90wQ7CSOCRYb8Igr6EidgTb/uNTsHkLi/0briDNG1FnWySudl4FyGxVGcC4yVi
+         wl0ctfe7/IvfmTc8dx1zIbwy6shS3CqDj77Vftw6owMPj6C370xjZDi4jcZiA+DPXswu
+         rcVRIFwXc6NSqznOCrYk8GAE0tCNab5YfORPv7wLNUJYUFTiiCxSIhEZGj2v85a1u0MB
+         d24T1zFHKTvezzwf2a8MmTCfHPz1lVklIDN+F4n32kSmy1UQRrnU5t7MvstsTJYebzT7
+         tAug==
+X-Gm-Message-State: AOJu0YzpC2p4Y0jpWq0Pm1YyOU2rxYVLxmP9CgoNHf+vHibI0WGgk0TE
+	p9KeCQVQV5yQ+RU36ICfPqc=
 X-Google-Smtp-Source: 
- AGHT+IFOwj3THLrh+pxCdwE4NuSW8VVqSrjWAbsSdvG6RxQkyYixxBUkZ22EmkKXaDkJNOkQowBuOw==
-X-Received: by 2002:a7b:cd87:0:b0:40c:2b4c:623b with SMTP id
- y7-20020a7bcd87000000b0040c2b4c623bmr3150026wmj.52.1702410764505;
-        Tue, 12 Dec 2023 11:52:44 -0800 (PST)
-Received: from alex-pc-ubuntu.lan (31-10-153-16.cgn.dynamic.upc.ch.
- [31.10.153.16])
+ AGHT+IEbx8JLvsojpRz5MPXpDktCT7We9sURVnTHr4RL4smgdlCApyjvryZnRRvdKFVASMyp0xtahg==
+X-Received: by 2002:a05:6a00:2354:b0:6cd:e2c2:13d7 with SMTP id
+ j20-20020a056a00235400b006cde2c213d7mr9982036pfj.23.1702470970088;
+        Wed, 13 Dec 2023 04:36:10 -0800 (PST)
+Received: from localhost.localdomain ([117.189.237.103])
         by smtp.gmail.com with ESMTPSA id
- z4-20020adff1c4000000b003333af25cb2sm11488138wro.66.2023.12.12.11.52.43
+ x3-20020a056a00188300b0068fe5a5a566sm10193584pfh.142.2023.12.13.04.36.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 12 Dec 2023 11:52:44 -0800 (PST)
-From: Aleksandrs Vinarskis <alex.vinarskis@gmail.com>
-To: perex@perex.cz,
-	tiwai@suse.com,
-	sbinding@opensource.cirrus.com
-Cc: james.schulman@cirrus.com,
-	david.rhodes@cirrus.com,
-	alsa-devel@alsa-project.org,
-	patches@opensource.cirrus.com,
+        Wed, 13 Dec 2023 04:36:09 -0800 (PST)
+From: Jianhua Lu <lujianhua000@gmail.com>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	Banajit Goswami <bgoswami@quicinc.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Jasper Smet <josbeir@gmail.com>
-Subject: [PATCH 1/1] ALSA: hda: cs35l41: Dell Fiorano add missing _DSD
- properties
-Date: Tue, 12 Dec 2023 20:52:43 +0100
-Message-Id: <20231212195243.10666-1-alex.vinarskis@gmail.com>
-X-Mailer: git-send-email 2.40.1
+	Jianhua Lu <lujianhua000@gmail.com>
+Subject: [PATCH v3 1/4] ASoC: qcom: common: Add qcom_snd_tdm_hw_params
+ function
+Date: Wed, 13 Dec 2023 20:35:53 +0800
+Message-ID: <20231213123556.20469-1-lujianhua000@gmail.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-MailFrom: alex.vinarskis@gmail.com
+X-MailFrom: lujianhua000@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: JUES2WRID4BEORZZRHB6KI7F2E7LG6K2
-X-Message-ID-Hash: JUES2WRID4BEORZZRHB6KI7F2E7LG6K2
-X-Mailman-Approved-At: Thu, 14 Dec 2023 14:22:49 +0000
+Message-ID-Hash: DETUIL5XEACFDO5RWQTK3J36UG345QO7
+X-Message-ID-Hash: DETUIL5XEACFDO5RWQTK3J36UG345QO7
+X-Mailman-Approved-At: Thu, 14 Dec 2023 14:22:52 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JUES2WRID4BEORZZRHB6KI7F2E7LG6K2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DETUIL5XEACFDO5RWQTK3J36UG345QO7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -125,91 +125,122 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Dell XPS 9530 (2023) has two SPI connected CS35L41 amplifiers, however
-is missing _DSD properties, cs-gpios and has a firmware bug which caps SPI
-controller's speed to unusable 3051Hz. This patch adds _DSD properties and
-sets second cs-gpio. In case SPI speed bug is detected, it will not
-initialize the device to avoid hangs on wake up.
+Add qcom TDM setup function to support TDM ports for qcom platform.
 
-Resolution of SPI speed bug requires either a patch to `intel-lpss.c` or an
-UEFI update with corrected values from Dell. Tested with locally applied
-patch to `intel-lpss` on multiple XPS 9530 devices.
-
-Co-developed-by: Jasper Smet <josbeir@gmail.com>
-Signed-off-by: Jasper Smet <josbeir@gmail.com>
-Signed-off-by: Aleksandrs Vinarskis <alex.vinarskis@gmail.com>
+Signed-off-by: Jianhua Lu <lujianhua000@gmail.com>
 ---
- sound/pci/hda/cs35l41_hda_property.c | 47 ++++++++++++++++++++++++++++
- 1 file changed, 47 insertions(+)
+Changes in v3:
+  1. new patch
+  2. split qcom_snd_tdm_hw_params function from [Patch v2 1/2] to here
 
-diff --git a/sound/pci/hda/cs35l41_hda_property.c b/sound/pci/hda/cs35l41_hda_property.c
-index c83328971728..69446a794397 100644
---- a/sound/pci/hda/cs35l41_hda_property.c
-+++ b/sound/pci/hda/cs35l41_hda_property.c
-@@ -7,9 +7,55 @@
- // Author: Stefan Binding <sbinding@opensource.cirrus.com>
+ sound/soc/qcom/common.c | 69 +++++++++++++++++++++++++++++++++++++++++
+ sound/soc/qcom/common.h |  2 ++
+ 2 files changed, 71 insertions(+)
+
+diff --git a/sound/soc/qcom/common.c b/sound/soc/qcom/common.c
+index 483bbf53a541..c0ab201416ef 100644
+--- a/sound/soc/qcom/common.c
++++ b/sound/soc/qcom/common.c
+@@ -5,6 +5,7 @@
+ #include <dt-bindings/sound/qcom,q6afe.h>
+ #include <linux/module.h>
+ #include <sound/jack.h>
++#include <sound/pcm_params.h>
+ #include <linux/input-event-codes.h>
+ #include "common.h"
  
- #include <linux/gpio/consumer.h>
-+#include <linux/spi/spi.h>
- #include <linux/string.h>
- #include "cs35l41_hda_property.h"
+@@ -13,6 +14,8 @@ static const struct snd_soc_dapm_widget qcom_jack_snd_widgets[] = {
+ 	SND_SOC_DAPM_MIC("Mic Jack", NULL),
+ };
  
-+/*
-+ * Device 10280BEB (Dell XPS 9530) doesn't have _DSD at all. Moreover, pin that is typically
-+ * used for `speaker_id` is missing. SPI's cs-gpios definitions are also missing.
-+ */
-+static int dell_fiorano_no_acpi(struct cs35l41_hda *cs35l41, struct device *physdev, int id,
-+				const char *hid)
-+{
-+	struct cs35l41_hw_cfg *hw_cfg = &cs35l41->hw_cfg;
-+	struct spi_device *spi = to_spi_device(cs35l41->dev);
++static unsigned int tdm_slot_offset[8] = { 0, 4, 8, 12, 16, 20, 24, 28 };
 +
-+	/*
-+	 * 10280BEB has a firmware bug, which wrongly enables clock divider for intel-lpss
-+	 * Resultant SPI clock is 100Mhz/32767=3051Hz, which leads to ~3 minute hang on boot/wake up
-+	 * Avoid initializing device if lpss was not patched/fixed UEFI was not installed
-+	 */
-+	if (spi->max_speed_hz < CS35L41_SPI_MAX_FREQ) {
-+		dev_err(cs35l41->dev, "SPI's max_speed_hz is capped at %u Hz, will not continue to avoid hanging\n",
-+			spi->max_speed_hz);
+ int qcom_snd_parse_of(struct snd_soc_card *card)
+ {
+ 	struct device_node *np;
+@@ -239,4 +242,70 @@ int qcom_snd_wcd_jack_setup(struct snd_soc_pcm_runtime *rtd,
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(qcom_snd_wcd_jack_setup);
++
++int qcom_snd_tdm_hw_params(struct snd_pcm_substream *substream,
++			   struct snd_pcm_hw_params *params)
++{
++	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
++	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
++	int slots = ARRAY_SIZE(tdm_slot_offset);
++	int channels, slot_width, tx_mask, rx_mask;
++	int ret;
++
++	switch (params_format(params)) {
++	case SNDRV_PCM_FORMAT_S16_LE:
++		slot_width = 16;
++		break;
++	case SNDRV_PCM_FORMAT_S24_LE:
++		slot_width = 24;
++		break;
++	case SNDRV_PCM_FORMAT_S32_LE:
++		slot_width = 32;
++		break;
++	default:
++		dev_err(rtd->dev, "%s: invalid param format 0x%x\n", __func__,
++			params_format(params));
 +		return -EINVAL;
 +	}
 +
-+	dev_info(cs35l41->dev, "Adding DSD properties for %s\n", cs35l41->acpi_subsystem_id);
++	channels = params_channels(params);
++	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
++		tx_mask = 0;
++		rx_mask = BIT(channels) - 1;
++		ret = snd_soc_dai_set_tdm_slot(cpu_dai, tx_mask, rx_mask, slots, slot_width);
++		if (ret < 0) {
++			dev_err(rtd->dev, "%s: failed to set tdm slot, err:%d\n",
++				__func__, ret);
++			return ret;
++		}
 +
-+	/* check SPI address to assign the index */
-+	cs35l41->index = id;
-+	cs35l41->channel_index = 0;
-+	/* 10280BEB is missing pin which is typically assigned to `spk-id-gpios` */
-+	cs35l41->speaker_id = cs35l41_get_speaker_id(physdev, cs35l41->index, 2, -1);
-+	cs35l41->reset_gpio = gpiod_get_index(physdev, NULL, 1, GPIOD_OUT_LOW);
++		ret = snd_soc_dai_set_channel_map(cpu_dai, 0, NULL, channels,
++						  tdm_slot_offset);
++		if (ret < 0) {
++			dev_err(rtd->dev, "%s: failed to set channel map, err:%d\n",
++				__func__, ret);
++			return ret;
++		}
++	} else {
++		tx_mask = 0xf;
++		rx_mask = 0;
++		ret = snd_soc_dai_set_tdm_slot(cpu_dai, tx_mask, rx_mask, slots, slot_width);
++		if (ret < 0) {
++			dev_err(rtd->dev, "%s: failed to set tdm slot, err:%d\n",
++				__func__, ret);
++			return ret;
++		}
 +
-+	hw_cfg->spk_pos = cs35l41->index  ? 1 : 0;	// 0th L, 1st R
-+	hw_cfg->bst_type = CS35L41_EXT_BOOST;
-+	hw_cfg->gpio1.func = CS35l41_VSPK_SWITCH;
-+	hw_cfg->gpio1.valid = true;
-+	hw_cfg->gpio2.func = CS35L41_INTERRUPT;
-+	hw_cfg->gpio2.valid = true;
-+	hw_cfg->valid = true;
-+
-+	/* Add second cs-gpio here */
-+	if (cs35l41->index)
-+		spi->cs_gpiod = gpiod_get_index(physdev, NULL, 0, GPIOD_OUT_HIGH);
++		ret = snd_soc_dai_set_channel_map(cpu_dai, channels,
++						  tdm_slot_offset, 0, NULL);
++		if (ret < 0) {
++			dev_err(rtd->dev, "%s: failed to set channel map, err:%d\n",
++				__func__, ret);
++			return ret;
++		}
++	}
 +
 +	return 0;
 +}
-+
- /*
-  * Device CLSA010(0/1) doesn't have _DSD so a gpiod_get by the label reset won't work.
-  * And devices created by serial-multi-instantiate don't have their device struct
-@@ -92,6 +138,7 @@ static const struct cs35l41_prop_model cs35l41_prop_model_table[] = {
- 	{ "CLSA0100", NULL, lenovo_legion_no_acpi },
- 	{ "CLSA0101", NULL, lenovo_legion_no_acpi },
- 	{ "CSC3551", "103C89C6", hp_vision_acpi_fix },
-+	{ "CSC3551", "10280BEB", dell_fiorano_no_acpi },
- 	{}
- };
++EXPORT_SYMBOL_GPL(qcom_snd_tdm_hw_params);
+ MODULE_LICENSE("GPL v2");
+diff --git a/sound/soc/qcom/common.h b/sound/soc/qcom/common.h
+index d7f80ee5ae26..b583110f556e 100644
+--- a/sound/soc/qcom/common.h
++++ b/sound/soc/qcom/common.h
+@@ -9,5 +9,7 @@
+ int qcom_snd_parse_of(struct snd_soc_card *card);
+ int qcom_snd_wcd_jack_setup(struct snd_soc_pcm_runtime *rtd,
+ 			    struct snd_soc_jack *jack, bool *jack_setup);
++int qcom_snd_tdm_hw_params(struct snd_pcm_substream *substream,
++			   struct snd_pcm_hw_params *params);
  
+ #endif
 -- 
-2.40.1
+2.41.0
 

@@ -2,90 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B6D38132FE
-	for <lists+alsa-devel@lfdr.de>; Thu, 14 Dec 2023 15:24:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D52EA813300
+	for <lists+alsa-devel@lfdr.de>; Thu, 14 Dec 2023 15:24:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 39C7EE76;
-	Thu, 14 Dec 2023 15:24:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 39C7EE76
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5B073DE5;
+	Thu, 14 Dec 2023 15:24:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B073DE5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1702563853;
-	bh=Fuj0acgS9892OPPT3C9X19AoFtGTRRk5+byYLdewqCQ=;
+	s=default; t=1702563872;
+	bh=WXB1c7ernYz0tJWArDKhx499nDcfaGA0MDoI3fa3ELE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=OYCHDJwuaXhn5tX7KY/nDaP5SHKQRjK3cEwUuGMF03no/yFeVJj2k5O+y7fEORqN+
-	 KYP/TN7/wJnBONqnFXp5vR/h1RcgpSJR85ix2p3t3r931HyShye09K+DW2Yjcpz5MC
-	 QiQwefTTYqUUrK24tU4abvXb6sI2o5TVoID472zk=
+	b=nbjHSJ41l+dCKwg9ZC3+/H0DHJ1AM8YNfkqSw1WUrqITRUyb0qjU2cLVqkoZrEBHy
+	 DIidyos/3tRJrmBSJw/YmCiM4jMMsdOtc6iJYM/VcsgL2WXv+JMwS/YaH1J2Mvjnwt
+	 xurtcigQNT8pVK9PNi58X8kcICCOaAISkEYCS0c4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C8A5EF80604; Thu, 14 Dec 2023 15:23:07 +0100 (CET)
+	id C0BB5F80639; Thu, 14 Dec 2023 15:23:09 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C7807F80609;
-	Thu, 14 Dec 2023 15:23:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 34B83F8061C;
+	Thu, 14 Dec 2023 15:23:09 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D4AA3F8016A; Wed, 13 Dec 2023 13:36:42 +0100 (CET)
+	id 4FE5DF8016A; Wed, 13 Dec 2023 13:37:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-	RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-pf1-x432.google.com (mail-pf1-x432.google.com
- [IPv6:2607:f8b0:4864:20::432])
+Received: from mail-pg1-x52d.google.com (mail-pg1-x52d.google.com
+ [IPv6:2607:f8b0:4864:20::52d])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 42987F80166
-	for <alsa-devel@alsa-project.org>; Wed, 13 Dec 2023 13:36:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42987F80166
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2A59AF8001F
+	for <alsa-devel@alsa-project.org>; Wed, 13 Dec 2023 13:36:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A59AF8001F
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=GtphP0xq
-Received: by mail-pf1-x432.google.com with SMTP id
- d2e1a72fcca58-6ce934e9d51so4273603b3a.1
+ header.s=20230601 header.b=Md5LqOaU
+Received: by mail-pg1-x52d.google.com with SMTP id
+ 41be03b00d2f7-5c210e34088so5613328a12.2
         for <alsa-devel@alsa-project.org>;
- Wed, 13 Dec 2023 04:36:38 -0800 (PST)
+ Wed, 13 Dec 2023 04:36:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1702470996; x=1703075796;
+        d=gmail.com; s=20230601; t=1702471010; x=1703075810;
  darn=alsa-project.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=6o9+b/zVNvA4/sI4WpDCuE/Pf6Swn7qoeIeF6jMIaTc=;
-        b=GtphP0xqCXLoNqLXMlFXxM57Y5Y/xjQeYLxAl66Mkinf9H7QWg8DGMODZtJmaQIsVB
-         OlEROZJHOoH3fuD+qBgVvBkVhA9IzOt7rFWu2Njx8/H1hMiskPN/5yO61o1gk6WAxGTF
-         pHjOVWQkbM3pWKCwuiUSIOWZ+M+r5aBPXcB+9qXvdyY+5gRxdaYlI/gJQMmfoqa/fx+3
-         xOnFjtsOexwzhzopi4RZ6I7DE5MyiV89o78oHaUO8m8cy1khLFLuyJWaLBYVCYrnZO9k
-         KmqJBUBTfS+lfOjyv/1NYgESLm7mbMXfOYuJuc1HxZrYLfddlNZWrJtI7SPMQ4oppuIx
-         Wbvg==
+        bh=QZihwxl0v63j7g6/9Ub3zyT34OyL1Z04NfBICmYEzJk=;
+        b=Md5LqOaUajfzGRoU5QK5XJqQg0olFalqpbXKXwMvZCewKYZswKLy4OKEUIMk5qXLP+
+         G2g5RXh2F00rGcdwYosm3fDATewnShZ/mxdEmIvsJUuU+9HlH+VU0C6yMzRawVaw2YBf
+         jnpyHTIPun4O0mlYvUvf/OwjHy3vU3v0SshRs5vKj0OcXTVBV8QbUaAjN7PjjJOTqsyg
+         NHFg6jXy8X0hfnGmcey1o5UOAnHXwgTAl9SA87dxInIpNuMSL9kQxy4+j9iGBBq+6QmE
+         urt8VJImbvAkw/rfqSSdBpH8ojISJjQYab5Ew+Ad6v5d6mtjKiLLC6+zEJ5qSIJJ7PDL
+         5IBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702470996; x=1703075796;
+        d=1e100.net; s=20230601; t=1702471010; x=1703075810;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=6o9+b/zVNvA4/sI4WpDCuE/Pf6Swn7qoeIeF6jMIaTc=;
-        b=JeW5NufHgfyPQRQwAaxDQjjgBqKHQyHH1lC3+NwsUCHnxe8LIy8MC+7rWMCL4EQtjm
-         1gBgknyHtJSrj5xj/X92hqQjG8DgHTGSjP4kvYplan9tymCm+6hqfrXN7HKw0o03JsGg
-         ucdRJv6FQOvlfWHoQnGaSyFbE5Q5QMmbf0+vhekn17J0FzR4aiyPQiPE0u7XUf6UqOVc
-         n1bKhXcx21ebpOGBdX9R7z93/uHBUBjPVBD9zYUPvQ/62V9rFTu8wlDHuP51a1q2pH2+
-         /v1QSuVLcUnB1+CVf1DqDxaX/Uj2nHoxdk3+j7EoFJ+HGsrPj05KKgpAVF4SiRQmEbl7
-         sfvw==
-X-Gm-Message-State: AOJu0YwS6w+tPQb7LQVYUvZ7GqPSO2pnQHVvTADl4GJl8I9QjEKn5COy
-	JomNqkMK9OCsEHwsaiWYCN4=
+        bh=QZihwxl0v63j7g6/9Ub3zyT34OyL1Z04NfBICmYEzJk=;
+        b=ZJ/3he9wMsWnD9c6dr6ThfrbsyuSPyiwLGnYs7Iry9N3z20QLFPSOio24tqLFJt5jT
+         696eLJ/W6WR9A3UdTzYIB/yFL2x1ZN1EjPD1ggxDVAhOopzbwJ5bu/awTrm5rY9h22rn
+         X3VUxIo5fpIjBH27tOECPpy3Q+40hg+B0NWVmCjQOxHdpO2m4zV3V0RQT4L80lKxB20l
+         ZjuTYyXNi4eb1mZWCcSQ8KhhPyRq4LPT7zRw2NYtrpG4EU5Ip9CyIkYL5B1TQ/fxPvdw
+         TmQHLIHuAqPdXtCEywzPSxKLMMHWfejFSErMhJ9cuuUbUS/ePwV+JHUYxW3cDip85wYn
+         DvUQ==
+X-Gm-Message-State: AOJu0YzTUCqnI1Zv87mf49b5LMOntNYMpTUO1mHvtG0iVOPwjlFG8rkx
+	hmQVl5nHMg5WITfGkVQabFY=
 X-Google-Smtp-Source: 
- AGHT+IGoI9nmTylJCkQMFXcqOVFTf2O9jztpOZQGEDTcSur6zbqLpwGGseS6UD76b141XTMjdovkrQ==
-X-Received: by 2002:a05:6a00:3305:b0:6ce:6007:9bb with SMTP id
- cq5-20020a056a00330500b006ce600709bbmr4308409pfb.60.1702470996273;
-        Wed, 13 Dec 2023 04:36:36 -0800 (PST)
+ AGHT+IEm5mEDtS1LOQPlg62W3tJlZX2ZCSTzqHOg/4SL8BX/XhHwx2CVtF+Cuq8ajRix5XT7ni3shg==
+X-Received: by 2002:a05:6a20:9481:b0:18b:4a28:6e15 with SMTP id
+ hs1-20020a056a20948100b0018b4a286e15mr8029288pzb.34.1702471009861;
+        Wed, 13 Dec 2023 04:36:49 -0800 (PST)
 Received: from localhost.localdomain ([117.189.237.103])
         by smtp.gmail.com with ESMTPSA id
- x3-20020a056a00188300b0068fe5a5a566sm10193584pfh.142.2023.12.13.04.36.30
+ x3-20020a056a00188300b0068fe5a5a566sm10193584pfh.142.2023.12.13.04.36.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 13 Dec 2023 04:36:35 -0800 (PST)
+        Wed, 13 Dec 2023 04:36:49 -0800 (PST)
 From: Jianhua Lu <lujianhua000@gmail.com>
 To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
 	Banajit Goswami <bgoswami@quicinc.com>,
@@ -97,9 +97,9 @@ Cc: alsa-devel@alsa-project.org,
 	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Jianhua Lu <lujianhua000@gmail.com>
-Subject: [PATCH v3 3/4] Asoc: qcom: sdw: Add TDM support
-Date: Wed, 13 Dec 2023 20:35:55 +0800
-Message-ID: <20231213123556.20469-3-lujianhua000@gmail.com>
+Subject: [PATCH v3 4/4] ASoC: qcom: sm8250: Add TERTIARY_TDM_RX_0 support
+Date: Wed, 13 Dec 2023 20:35:56 +0800
+Message-ID: <20231213123556.20469-4-lujianhua000@gmail.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20231213123556.20469-1-lujianhua000@gmail.com>
 References: <20231213123556.20469-1-lujianhua000@gmail.com>
@@ -111,15 +111,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: XK3CS77CDZJKZ3EETQGAMMXNY4QOUS2S
-X-Message-ID-Hash: XK3CS77CDZJKZ3EETQGAMMXNY4QOUS2S
-X-Mailman-Approved-At: Thu, 14 Dec 2023 14:22:55 +0000
+Message-ID-Hash: WCE3USNLU5A34VDBU4NJM3PPDW6M3SJ6
+X-Message-ID-Hash: WCE3USNLU5A34VDBU4NJM3PPDW6M3SJ6
+X-Mailman-Approved-At: Thu, 14 Dec 2023 14:22:56 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XK3CS77CDZJKZ3EETQGAMMXNY4QOUS2S/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WCE3USNLU5A34VDBU4NJM3PPDW6M3SJ6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -128,56 +128,62 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Setup TDM ports when dai id is matched to *_TDM_*.
+Add TERTIARY_TDM_RX_0 case to make speaker amplifiers working
+on Xiaomi Pad 5 Pro tablet.
 
 Signed-off-by: Jianhua Lu <lujianhua000@gmail.com>
 ---
-Changes in v3:
-  1. split qcom_snd_tdm_hw_params function to common.c
+No changes in v3.
 
-Changes in v2:
-  1. remove EXPORT_SYMBOL_GPL
-  2. remove static modifier
+No changes in v2.
 
- sound/soc/qcom/sdw.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+ sound/soc/qcom/sm8250.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
-diff --git a/sound/soc/qcom/sdw.c b/sound/soc/qcom/sdw.c
-index 77dbe0c28b29..c07d878a1c18 100644
---- a/sound/soc/qcom/sdw.c
-+++ b/sound/soc/qcom/sdw.c
-@@ -5,6 +5,7 @@
- #include <dt-bindings/sound/qcom,q6afe.h>
- #include <linux/module.h>
- #include <sound/soc.h>
-+#include "common.h"
- #include "sdw.h"
+diff --git a/sound/soc/qcom/sm8250.c b/sound/soc/qcom/sm8250.c
+index f298167c2a23..00c89c073e72 100644
+--- a/sound/soc/qcom/sm8250.c
++++ b/sound/soc/qcom/sm8250.c
+@@ -16,6 +16,7 @@
  
- /**
-@@ -109,7 +110,7 @@ int qcom_snd_sdw_hw_params(struct snd_pcm_substream *substream,
- 	struct snd_soc_dai *codec_dai;
+ #define DRIVER_NAME		"sm8250"
+ #define MI2S_BCLK_RATE		1536000
++#define TDM_BCLK_RATE		12288000
+ 
+ struct sm8250_snd_data {
+ 	bool stream_prepared[AFE_PORT_MAX];
+@@ -53,6 +54,7 @@ static int sm8250_snd_startup(struct snd_pcm_substream *substream)
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
  	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
- 	struct sdw_stream_runtime *sruntime;
--	int i;
-+	int ret, i;
+ 	struct snd_soc_dai *codec_dai = snd_soc_rtd_to_codec(rtd, 0);
++	int ret, j;
  
  	switch (cpu_dai->id) {
- 	case WSA_CODEC_DMA_RX_0:
-@@ -125,6 +126,14 @@ int qcom_snd_sdw_hw_params(struct snd_pcm_substream *substream,
- 				*psruntime = sruntime;
- 		}
+ 	case TERTIARY_MI2S_RX:
+@@ -63,6 +65,23 @@ static int sm8250_snd_startup(struct snd_pcm_substream *substream)
+ 		snd_soc_dai_set_fmt(cpu_dai, fmt);
+ 		snd_soc_dai_set_fmt(codec_dai, codec_dai_fmt);
  		break;
-+	case PRIMARY_TDM_RX_0...QUINARY_TDM_TX_7:
-+		ret = qcom_snd_tdm_hw_params(substream, params);
-+		if (ret < 0) {
-+			dev_err(rtd->dev, "%s: failed to setup TDM err:%d\n",
-+				__func__, ret);
-+			return ret;
++	case TERTIARY_TDM_RX_0:
++		codec_dai_fmt |= SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_DSP_A;
++		snd_soc_dai_set_sysclk(cpu_dai,
++			Q6AFE_LPASS_CLK_ID_TER_TDM_IBIT,
++			TDM_BCLK_RATE, SNDRV_PCM_STREAM_PLAYBACK);
++
++		for_each_rtd_codec_dais(rtd, j, codec_dai) {
++			ret = snd_soc_dai_set_fmt(codec_dai, codec_dai_fmt);
++			snd_soc_dai_set_sysclk(codec_dai,
++				0,
++				TDM_BCLK_RATE, SNDRV_PCM_STREAM_PLAYBACK);
++			if (ret < 0) {
++				dev_err(rtd->dev, "TDM fmt err:%d\n", ret);
++				return ret;
++			}
 +		}
 +		break;
+ 	default:
+ 		break;
  	}
- 
- 	return 0;
 -- 
 2.41.0
 

@@ -2,90 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE928814250
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Dec 2023 08:25:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 827E0814251
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Dec 2023 08:25:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6E6EB844;
-	Fri, 15 Dec 2023 08:25:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E6EB844
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1A907844;
+	Fri, 15 Dec 2023 08:25:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A907844
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1702625121;
-	bh=JggYM8FWdgCSc1DopFNKb3Yiz7a2sGMoFPvdfGQaHV8=;
+	s=default; t=1702625134;
+	bh=4GkQfSSvwVnF2rLdHRJNHNQhFKK5mD0j6Qal0HlvyZQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=mM0keAWfjloBbihrtPP4zC5Gra4uuKJ5WMaZaLcaiq4NbOCdPB6QpJQzY8Tl7x4Zg
-	 U5IVfKP7+4+nr0jYxs0Ad0+9tM2Xq/7ae79ljXovAotpaaoakrK9rQcxpWvJSu89DR
-	 hx51ys9dqjWyQMr50AHbCCb5+h72vgbM2B4StP2k=
+	b=KPwy+RQkFTOs+EmjOTVy5QMpXnXACMHZKutxRM5vUJErZ0W0Zzm5IPVlg+JJBgrQa
+	 P/nTEpS02R0xv59u3kdvLbFwTP+P+IUYtMCxH5LzdYJ2j7+U50k935l/PlydEmjZRY
+	 S3tyGXKZOfwm06b9P4nU8t58z2ra7Q83ru+CGLBo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AD393F8016A; Fri, 15 Dec 2023 08:24:49 +0100 (CET)
+	id 171E5F805AC; Fri, 15 Dec 2023 08:24:59 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B90FEF80563;
-	Fri, 15 Dec 2023 08:24:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 41C63F805C1;
+	Fri, 15 Dec 2023 08:24:59 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 308C5F8016A; Thu, 14 Dec 2023 16:52:15 +0100 (CET)
+	id 7DB26F8016A; Thu, 14 Dec 2023 17:55:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-	RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-pg1-x529.google.com (mail-pg1-x529.google.com
- [IPv6:2607:f8b0:4864:20::529])
+Received: from mail-pj1-x1030.google.com (mail-pj1-x1030.google.com
+ [IPv6:2607:f8b0:4864:20::1030])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EDB94F8001F
-	for <alsa-devel@alsa-project.org>; Thu, 14 Dec 2023 16:52:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EDB94F8001F
+	by alsa1.perex.cz (Postfix) with ESMTPS id F27F2F80124
+	for <alsa-devel@alsa-project.org>; Thu, 14 Dec 2023 17:55:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F27F2F80124
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=igan6bac
-Received: by mail-pg1-x529.google.com with SMTP id
- 41be03b00d2f7-5ca1b4809b5so2143525a12.3
+ header.s=20230601 header.b=J2m0gHgf
+Received: by mail-pj1-x1030.google.com with SMTP id
+ 98e67ed59e1d1-28aeacb2dfdso1299712a91.0
         for <alsa-devel@alsa-project.org>;
- Thu, 14 Dec 2023 07:52:07 -0800 (PST)
+ Thu, 14 Dec 2023 08:55:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1702569125; x=1703173925;
+        d=gmail.com; s=20230601; t=1702572923; x=1703177723;
  darn=alsa-project.org;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=LJYbFg0YusLQd7kau+7yl+2+5aq7Aytpc7bFv1yVVFU=;
-        b=igan6bacQexx7nPThvCIUo/C6VlwiXWpGEuQK5AMn1/ck2QXu0scyT7jXlUhlstOyd
-         pljIoEY8tNdpNLnhMMz29yJe7T9H34Z/sYR052UUb7u6k7yGjOp2V3rQLRrheCvgxJDg
-         N0tnIuWXMmMIiKzDhEr8Px3kbcKMwZSyEExsHYINmAJ4Z/WokEaVHlaoB2hVbSSGirIc
-         z4gxuS4xb6+yVB1rPBK3cLwNwgl9s98W00foCxMzub0swxOhbRUslxFmWEbXUqGSCEKx
-         OH/WBnoGkBwSCwfn7MsEAJ0JKCaR6dxHtaEFeLSGkqezGI2yyLCqyxEavBV/sbOI/n+H
-         Kulg==
+        bh=MAfq8J8C5KAtCB8rcO3YT1HYm/yjjDzGk9Gqq0ijzyA=;
+        b=J2m0gHgfUOH1xyDmwmDQje2HMlE2kAAAztULQ96Dfr0DuCdyb0KHn+v7v+LrcAvBjI
+         NNFLFg1KVAGKO6ebGiJwp6zesa0gwLlxMP5Eudcb89WNt6ad8UaKvGTxQW+hxz8OjIqD
+         Wad1dtk7TohzCmY4HKR/9tI1I5qd9ZNSo9m6D6ex/1FVHd29JsffOJAVxcVjk++ceksC
+         evicJVj0IpMdUfSnRgVtOD2ZMV/2t3zSSr9IjuS6p1WjLx7pZWcLxNIyrc4fpdqqWyaZ
+         wb+0ZPpiFu56W/R2zM4G21XQfn2+AnKHyNXsNTWn5naDCU1ReG5BPwffSTNO6ypSa4sg
+         2AtQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702569125; x=1703173925;
+        d=1e100.net; s=20230601; t=1702572923; x=1703177723;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=LJYbFg0YusLQd7kau+7yl+2+5aq7Aytpc7bFv1yVVFU=;
-        b=RRcqJ+bNlyFPy9vLs7a6IuIhpCQqiM1N082DKJNNha0c0AU5uCZD5gIshSbQXA1KMX
-         svVM0DyCwJTr/usutPOM7Ndt3PP8m/2eAjiZsclkWXg/32jwqC/pTkqmlDvb/tJjtqiX
-         yS0QY1Wrxi3tx0u3fwnXkQljM0Vum8j0pn+bKfzWr1GMxdggxcJvJxfy+h4SxHrHQuO6
-         uX3Zw1YsplapTS2e76xdbcVJjn2hMoGd7MsbbOyO4DCXl17MWMKf4z5Y8pPo2xE+8iD0
-         sCaE8mrd9D9TzDPUpo7Gd6vPz/Q3hAn6jg9QaZhh1fU7iXj1oGKTYjrutAYyCD8IC2PY
-         r1AA==
-X-Gm-Message-State: AOJu0YzzKo1FpNEEWEoooEoR+Gon1YBZ8mL80MzP/Pa3ODuazBl8eR9J
-	PMPd/HH66pDrptWgEjIINiA=
+        bh=MAfq8J8C5KAtCB8rcO3YT1HYm/yjjDzGk9Gqq0ijzyA=;
+        b=MNQgOKF69FPoLx9K9E/5emisOo2ZhgHAvsXKwZeww7qKmV/8e7w8rrq1Ctk7cbwlBO
+         RoMD7PolrYCycL+QHXwq7PEuzggiK24NksE4kB0Z3xHdx877PyfqUAY8JxM9h1m99o9S
+         /qPDSu8QusNmQ4WP30J2gjJ2LzT5sFBGK9dT6I8CVn7g4kHAY7yBojHXsorC623RZPy1
+         DGW4v8fPHAUouTD0s4immxGp9fpfYzHuriTyd0/k4hL3tbRSneDkoMxG3dsAPPjyW7+o
+         fi7R3SQkxsRKhJgrUSj9OqxhQhR/2+C7XYzBpfEQHTB+k4m+PDWEWQjb1DkDE2vnWp9+
+         zOxg==
+X-Gm-Message-State: AOJu0YznOsuXCIeGTlY7RTvzm1DEMomzC+ApVNK4a0Cgh6Cd4ysIEeoy
+	01rWVQNRb8mH54iliyOfpdM=
 X-Google-Smtp-Source: 
- AGHT+IGLVtkXrMWtZzPCAej2kU9rW+T3NVD3Oj2+SwbxBlJMUum28HpOEywNDJUC+UADtGETmjTfLQ==
-X-Received: by 2002:a17:90b:34a:b0:286:bd7a:9f7e with SMTP id
- fh10-20020a17090b034a00b00286bd7a9f7emr4439129pjb.29.1702569125260;
-        Thu, 14 Dec 2023 07:52:05 -0800 (PST)
+ AGHT+IF7MooXa4kxbQW00+77DwdpwEn1ms3nqj2gxkPcOMCX1QO8nz22V4Z7dd0pF5kA1bOSrP7nXw==
+X-Received: by 2002:a17:90a:5797:b0:286:6cc1:5fde with SMTP id
+ g23-20020a17090a579700b002866cc15fdemr4833396pji.97.1702572923165;
+        Thu, 14 Dec 2023 08:55:23 -0800 (PST)
 Received: from Gentoo ([117.189.237.103])
         by smtp.gmail.com with ESMTPSA id
- nd10-20020a17090b4cca00b0028af27eeaf1sm2784079pjb.36.2023.12.14.07.51.59
+ oe16-20020a17090b395000b0028b21d24ba6sm277441pjb.15.2023.12.14.08.55.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 14 Dec 2023 07:52:04 -0800 (PST)
-Date: Thu, 14 Dec 2023 23:51:50 +0800
+        Thu, 14 Dec 2023 08:55:22 -0800 (PST)
+Date: Fri, 15 Dec 2023 00:55:08 +0800
 From: Jianhua Lu <lujianhua000@gmail.com>
 To: Mark Brown <broonie@kernel.org>
 Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
@@ -96,28 +96,30 @@ Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
 	linux-kernel@vger.kernel.org
 Subject: Re: [PATCH v3 1/4] ASoC: qcom: common: Add qcom_snd_tdm_hw_params
  function
-Message-ID: <ZXsklsO7nOqBFgzt@Gentoo>
+Message-ID: <ZXszbA5fVq2AMjEb@Gentoo>
 References: <20231213123556.20469-1-lujianhua000@gmail.com>
  <7b13b8b6-9048-48a3-b1a1-e62de88e8171@sirena.org.uk>
+ <ZXsklsO7nOqBFgzt@Gentoo>
+ <bee0ab28-6bd3-4904-8afc-44fe7ddacb79@sirena.org.uk>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <7b13b8b6-9048-48a3-b1a1-e62de88e8171@sirena.org.uk>
+In-Reply-To: <bee0ab28-6bd3-4904-8afc-44fe7ddacb79@sirena.org.uk>
 X-MailFrom: lujianhua000@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: XZWP3QJPET27WKOFHDDCQQ5PKKDQK4VN
-X-Message-ID-Hash: XZWP3QJPET27WKOFHDDCQQ5PKKDQK4VN
-X-Mailman-Approved-At: Fri, 15 Dec 2023 07:24:44 +0000
+Message-ID-Hash: NSYIDH6QVNFQ4ZLKQPB56KMWASIPZMNJ
+X-Message-ID-Hash: NSYIDH6QVNFQ4ZLKQPB56KMWASIPZMNJ
+X-Mailman-Approved-At: Fri, 15 Dec 2023 07:24:54 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XZWP3QJPET27WKOFHDDCQQ5PKKDQK4VN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NSYIDH6QVNFQ4ZLKQPB56KMWASIPZMNJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -126,27 +128,23 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, Dec 14, 2023 at 11:11:06AM +0000, Mark Brown wrote:
-> On Wed, Dec 13, 2023 at 08:35:53PM +0800, Jianhua Lu wrote:
+On Thu, Dec 14, 2023 at 03:56:52PM +0000, Mark Brown wrote:
+> On Thu, Dec 14, 2023 at 11:51:50PM +0800, Jianhua Lu wrote:
+> > On Thu, Dec 14, 2023 at 11:11:06AM +0000, Mark Brown wrote:
 > 
-> > Add qcom TDM setup function to support TDM ports for qcom platform.
+> > > The expectation is that TDM is set up by the machine driver, not from
+> > > hw_params - if the TDM setup can be changed from within hw_params then
+> > > it's hard to see how it's going to interact well with other TDM users on
+> > > the bus.  More usually hw_params() would be influenced by the setup done
+> > > in set_tdm_slot().
 > 
-> > +int qcom_snd_tdm_hw_params(struct snd_pcm_substream *substream,
-> > +			   struct snd_pcm_hw_params *params)
-> > +{
+> > Currently, qcom TDM setup need to read hw_params, if we want to move it
+> > to machine driver, we must hardcode some params, but it will reduce reduce
+> > readability.
 > 
-> ...
-> 
-> > +		ret = snd_soc_dai_set_tdm_slot(cpu_dai, tx_mask, rx_mask, slots, slot_width);
-> > +		if (ret < 0) {
-> 
-> The expectation is that TDM is set up by the machine driver, not from
-> hw_params - if the TDM setup can be changed from within hw_params then
-> it's hard to see how it's going to interact well with other TDM users on
-> the bus.  More usually hw_params() would be influenced by the setup done
-> in set_tdm_slot().
+> What makes you say that TDM setup needs to read hw_params?
 
-Currently, qcom TDM setup need to read hw_params, if we want to move it
-to machine driver, we must hardcode some params, but it will reduce reduce
-readability.
+qcom_snd_tdm_hw_params function read PCM_FORMAT to set slot_width value, read
+channels to set rx_mask value.
+
 

@@ -2,146 +2,171 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FC948125A8
-	for <lists+alsa-devel@lfdr.de>; Thu, 14 Dec 2023 04:00:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D345812E1D
+	for <lists+alsa-devel@lfdr.de>; Thu, 14 Dec 2023 12:06:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2AF429F6;
-	Thu, 14 Dec 2023 03:59:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2AF429F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 40F72AEA;
+	Thu, 14 Dec 2023 12:06:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 40F72AEA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1702522799;
-	bh=Kat+EPq7KUnx7IIYtY6tS5Ef1K8mqvCA9fGdf56Lug4=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=WTWeDlgOdmD5cp9jyUcDNuje7v9vG937s8Y/fbI5gv0YDT0Q32+f3ZexBYLOz+fMj
-	 X7hDXn6X8RPAH7PTVWRZrY0rw3W5mMfwXqBNT4q0tkB8dPJOZ+FGECZoPvw7Q8KGXn
-	 gF9bbVB67cpslcIdVJMBfgM6SX77RXtRuHXyJCY8=
+	s=default; t=1702552013;
+	bh=zrqkafiHONgxn0z1O6jgua3ne8+UtNxmiMVU70g+8BE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=F/2ZrAn5bFC3SHzEiDjFJ/ABbHyjRBugj2p5kJCTphNQCcnuewA3ghYzY8TovCPF/
+	 blePPtRI1PVjfP3bX6Ae1LFT015H9/MVlWUX6VeTq2pFlar+PRki9rBjGobThlffLP
+	 2G6lGztGd+zJVGAqeNpbOptFyRx7kreG5ZAIqhx0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C6598F8055B; Thu, 14 Dec 2023 03:59:23 +0100 (CET)
+	id DD66FF80124; Thu, 14 Dec 2023 12:06:22 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 499D4F80578;
-	Thu, 14 Dec 2023 03:59:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 19685F80579;
+	Thu, 14 Dec 2023 12:06:21 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 573A2F8016A; Thu, 14 Dec 2023 03:57:08 +0100 (CET)
+	id D0975F8016A; Thu, 14 Dec 2023 12:03:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FORGED_SPF_HELO,RCVD_IN_DNSWL_HI,
-	SPF_HELO_PASS,T_SCC_BODY_TEXT_LINE,T_SPF_PERMERROR,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from EUR01-DB5-obe.outbound.protection.outlook.com
- (mail-db5eur01on062c.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe02::62c])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6165BF8001F
-	for <alsa-devel@alsa-project.org>; Thu, 14 Dec 2023 03:57:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6165BF8001F
+	by alsa1.perex.cz (Postfix) with ESMTPS id D3CBEF8001F
+	for <alsa-devel@alsa-project.org>; Thu, 14 Dec 2023 12:03:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3CBEF8001F
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256
- header.s=selector2 header.b=DOAnGD09
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=K4P1Cagj+RPHCUF0ZI/bm+de2g2pC2qoVU43aMxpOOAurS5x68JldDGKsgECUFX1ZGTOg1ypjrZuFBk44hKEchWUDfaURLES/lL/JWk6zgpTYdplGVGdD+u4CYHo+h25tjqeLoZFpjS4MMuYRYEibIUhWouzRFs4hOCf54AihEUknVQXriR9mpl2Wg71292jOFIPmQ/lpShtH1pVl3tW5WFT/138o7a5exMuzb6S6TXnh7FAm5L3Z5vu4zrlmgLizVBMO3bAf4DydZO0TzGIiIrsp1CHn5KvZKB4+UgS3QCN8UoYsCidIBWjxyjkBUInMw8YMHfrTNotinbm7YH4SQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=U92VO5zwbDT/SCI7maFN5uvSQuqt14i9qxiWd/vqibE=;
- b=n5x8xSnC4fqhd7a1ixisFIF2VLY8ZTiQp31xcmh5x7f+7friklLSZYRJUJaowKa7ldiG9DM6EYAXICGRwvrmpX3pz2wnxbDq9Ri4kThOPBzqE2oOHM/0QCkkAZh0lJs3VothgpeCNEoMxrapZTaOl2S4T90wGFrqZACe7/U5zC1coQ1xN9XG/mOqTNeOcTz2hwi2tOUoX9pIl1tmhLCxShrvePso0D2uXPFK87Xl9ONOcrIVBKFzgaC2rLQ7sb62HMpvlgZBtypzzhslkJTC4wUQ3kXSI1S7o0eqk2j1vnapa+ToF5q1jgDy9mVEJBi8c3v+WlWhvBrpyR+N36kvQA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=U92VO5zwbDT/SCI7maFN5uvSQuqt14i9qxiWd/vqibE=;
- b=DOAnGD09awU2/Z+hs+DSdUcQu99iVYneeeUP3dZUDZjtJFZWWO5pMqd7NF1KS8haiV2l8jX7fYtZX0e16ybtI0TPO1x1mbXd02v4V5EegKO3Uyey0Okr8mvNNw2V4dpPNgBqoXxB5tbmBcHgcZIV1cUw+H4U+H4f9eTl5SS4FKk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from DB9PR04MB9498.eurprd04.prod.outlook.com (2603:10a6:10:360::21)
- by AM7PR04MB7190.eurprd04.prod.outlook.com (2603:10a6:20b:115::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7091.28; Thu, 14 Dec
- 2023 02:56:59 +0000
-Received: from DB9PR04MB9498.eurprd04.prod.outlook.com
- ([fe80::2a3c:9a90:b09f:293c]) by DB9PR04MB9498.eurprd04.prod.outlook.com
- ([fe80::2a3c:9a90:b09f:293c%3]) with mapi id 15.20.7091.028; Thu, 14 Dec 2023
- 02:56:59 +0000
-From: Chancel Liu <chancel.liu@nxp.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org,
-	perex@perex.cz,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=DkFwTiB/;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=vZZ/CcA4;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=Xl+0ARMS;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=LKlFm42W
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 29243220A1;
+	Thu, 14 Dec 2023 11:02:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1702551780;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=yLX0zWLQjJXwutevBe3jiLxXnEsG/QKzwGJR5yjOdc8=;
+	b=DkFwTiB/OJ4a8hIZOPMOVfLztYJhwaTUNbhIgxWl+ULc3qZyFTIM1BryBqHYJB9tkky7hZ
+	o2umm5cfLTRG3pHfzgPHIz+nBLGLQ05zJ79cTxzx8ma4MIHyHwA+FG9fy/CyCfOnVYiPMt
+	9G7Zfl/R1796Fl45WULwEPiKOXhpylg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1702551780;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=yLX0zWLQjJXwutevBe3jiLxXnEsG/QKzwGJR5yjOdc8=;
+	b=vZZ/CcA4RvHFogtMsN23SEA9CX2EYTr+u78SmcxVo29Ldt2wSIZqsya5f8PckHW5r02QTj
+	sBTCBYnD5YW2F+AQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1702551779;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=yLX0zWLQjJXwutevBe3jiLxXnEsG/QKzwGJR5yjOdc8=;
+	b=Xl+0ARMSYReu2w0/JAdwZwClAf6cUPmwe3izDedpGDjRTOhTnmElf1gXPqA01+DmE+P7ze
+	INAUz6uGm2W5suJV5caR2c0firEMzVVwzLUXEAnAE4wgvYXKt24r7AHeJ2sB+3tQ1htEbC
+	XyXvdRQQmuOjooEtTnrGOksyyLgBRjI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1702551779;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=yLX0zWLQjJXwutevBe3jiLxXnEsG/QKzwGJR5yjOdc8=;
+	b=LKlFm42W6vPSg88nuSGyJls9BGAzyqqjhdt2fWpS/GqjGaQdDGzXi9KSbUAfvARhlEFx6b
+	BwaBIjCeoG/ZldBw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BEF70137E8;
+	Thu, 14 Dec 2023 11:02:58 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([10.150.64.162])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 0xiCLOLgemWZZgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Thu, 14 Dec 2023 11:02:58 +0000
+Date: Thu, 14 Dec 2023 12:02:58 +0100
+Message-ID: <87fs05qc65.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: patches@opensource.cirrus.com
+Cc: Aleksandrs Vinarskis <alex.vinarskis@gmail.com>,
+    perex@perex.cz,
 	tiwai@suse.com,
-	linux-sound@vger.kernel.org,
+	sbinding@opensource.cirrus.com,
+	james.schulman@cirrus.com,
+	david.rhodes@cirrus.com,
+	alsa-devel@alsa-project.org,
 	linux-kernel@vger.kernel.org,
-	alsa-devel@alsa-project.org
-Cc: Chancel Liu <chancel.liu@nxp.com>
-Subject: [RESEND] ASoC: soc-pcm.c: Complete the active count for components
- without DAIs
-Date: Thu, 14 Dec 2023 10:34:25 +0800
-Message-Id: <20231214023425.10572-1-chancel.liu@nxp.com>
-X-Mailer: git-send-email 2.17.1
-Content-Type: text/plain
-X-ClientProxiedBy: PA7P264CA0275.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:102:373::11) To DB9PR04MB9498.eurprd04.prod.outlook.com
- (2603:10a6:10:360::21)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB9PR04MB9498:EE_|AM7PR04MB7190:EE_
-X-MS-Office365-Filtering-Correlation-Id: ec7ee500-2a75-4c84-de77-08dbfc5056f7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	pgtkC1CwFconKcE6Q1oR4ZymB4RoU3ApythgVnvjMbP+qcYf//cEFXU+GwxgJmKpXCSWojBF5cDTV7OXru+U5h/DDo/KsYR7gXmN1kw7yLt0iL4ScbXUUBFQ3taIJQEpCU1x2aDdzdjk/uagT1K2wL0pC8W0U3bjgIRhIK+PEE06p2SCitARXddHzFiQFPnqp5Lc70dY4HBXGVSZXYTEGkEAsf9tvPA81/c2TmWhtXvqVJpmaqVqSnMZ6nynok4qXf7mooMH6p5l+fNP+/vWA2qCgilS/Bmk1ZLRbGRUIpiYZlVaY+jXdPxFeU7QsVtnR9Q+4WDGxxk34yvq/yGxyBvbRwFVc8GTpbKYofB8VNj6gG0Jq4H9EArTEUQ0ZGeVF5gYX0+ih9fxpEANt0z+g29QiG0zXal02877Z13rEeQAsXt6Otf2P0qW/Y8LeE14mLbaVyWl9bJvkInDMgz+oOcDFWczm0Aecu7Z7faa0uuvz/j3vekIeczfLu9PfGkFBCPEVYywFe6bjFo3V1tUVeLs3S5pOwZEDp+96+rT/XHQ7T9su6JicfnNjOQOj4qXwPjlMjA1SWMqF3VRrbPzm6eoeMDth5nYPvhG6LETBX2qivSD0N9hD9sg/ddxHUC1
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR04MB9498.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39860400002)(366004)(376002)(346002)(136003)(396003)(230922051799003)(1800799012)(451199024)(64100799003)(186009)(8676002)(4326008)(8936002)(44832011)(2906002)(5660300002)(6486002)(6506007)(478600001)(6512007)(6666004)(52116002)(66476007)(66946007)(66556008)(316002)(41300700001)(38100700002)(86362001)(36756003)(38350700005)(83380400001)(2616005)(1076003)(26005);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?xaXA4Iyej5Dx2gRFJiSATxRo1Mx+I70mjFrpg5IENW5lDH2LfSwKEwEdsXDV?=
- =?us-ascii?Q?B/DEztLKJqm4fgdXnJkqOQ8syXe7Idvr8gj05FQeIQsDdhL+JwTHzihwzFlQ?=
- =?us-ascii?Q?RMq/3HM13r/jeTqQBsOBWrGFriyb9YKikfoLLJZoIMRJnu0Fi+MMMabb7H+9?=
- =?us-ascii?Q?TaxlVEfc6mboWU1NtBeTxDa/XPnNioMlmbT4rQpmcgU6pIxjq3zcX5JfFMOD?=
- =?us-ascii?Q?9gwA4o4dl1yiCyxSPTzl2udgQwgY12yA95+xzYlChpKz0cnY8iyaXYU78Eyw?=
- =?us-ascii?Q?dJBu4jSxaDnAFGY7R2AvoWHEVO8hkZs+1BQxHL4D+GVGHna6TREOYd/peS+q?=
- =?us-ascii?Q?Z4oK28vgkV1ieLZ0iCSGVw8SZ+Qya0aPZyJ1QGxRZhtkcRwi28/rbyifkcu/?=
- =?us-ascii?Q?Dp6CE975trnxMBW2bRZguAzl4TZqYbHJC6C44+rh+/U2d85aKF7VVw5U7Nzu?=
- =?us-ascii?Q?AM+XedVD9cxi/wDK0WAX+PKXIZBm1pRRYBSXqqJW9xrIN9hG0Sm8YbkX92GN?=
- =?us-ascii?Q?Wp7KEbH2DAzsl5r6QTGZYw1Q9dQG+ugnXXVVnaLW3hAs3+yg9pXENZoBH8pC?=
- =?us-ascii?Q?10fZdY9veQcn3No0P/3vf9wTF/4aPfF65Z4hzmWwXpjhmKxpIfSKPaxkdcd4?=
- =?us-ascii?Q?3uNJd6Y8PSWcJkKfjbkRYpDkJAKTRx+eBwDCBh21FoNQHWx+5bImY+VAz9M4?=
- =?us-ascii?Q?kKqc3AtYZQAnY8oKIImCMXzh2r2yObSMGGgqro7Qw/WPrKepuxPxGbV2OMnU?=
- =?us-ascii?Q?0XJQFqr+rEWm91CVgFcDYbLQra4SUAPbsNwpwsWaJCE+jGDuYu2AQQkoYZiE?=
- =?us-ascii?Q?RnZNtgS1jbLNdFrrg6Sii0B6ERB/o0A3M43pZ1LEWzzW8xs8OPLq5QuxVClK?=
- =?us-ascii?Q?a1Q+GXXZW99UEdjLJHTi6sUbmRLJt2dFdZ4jEXsY56ldicnvzmhZR8Z8mMdX?=
- =?us-ascii?Q?SXRhNZly7UlVp4lW1OuUFDMqmogKdZVn3dnqFEjqOx6zRAr39swZbU8OGqMJ?=
- =?us-ascii?Q?msqhmkyE9q0q1JfzHFB6kfVTkYFKhv8XAhDAeSlh9QCD6wivHigdB9lFELoq?=
- =?us-ascii?Q?ksIJmdIsyYeXIH++5FkTkCxv+DYBm+jJ3ib3IC94bdghjSLsrHXDTh11Swci?=
- =?us-ascii?Q?Be+7ENuWI9UskMZmsAixv6r5f3Ts1R+AH/EEKEhbs/pCPI1XUiafTzv/y7C9?=
- =?us-ascii?Q?VpyTJtHJz2hl/2CULxdOWExVQVR3GE1C9OzSKM3DLKuw9sjvhIfOKi0X/jg5?=
- =?us-ascii?Q?lJUzde9YZeXhFjtWBR03u8276Ze119H7eckkP/rBe1VboWgJx08EH0f8uEOG?=
- =?us-ascii?Q?+LGrB2YC0O6AWg+JRweZxZZHpfaCqK3NwNHRZEC93Not2opFTmwkmixiRfhW?=
- =?us-ascii?Q?OD5OMZhBHFgsOgoFsOhZH+rAeBqlen1KT+hMQsVvlcv2QWJvHWrHLT5Dl+hM?=
- =?us-ascii?Q?rhpc4ygL7hcC94ceKOOBufrSIAPhy5S13+tJV+TkWVO3PBeGjUjTcIWf6nzQ?=
- =?us-ascii?Q?qzXLd9HCHbuS33+TXn0Y720g3RKQ6rYmUBHaQApLhRqPsi7G9jTvtNTfSHXb?=
- =?us-ascii?Q?4MY9H7lA8ZWXnvBF0vxmT6tsnHRcT5L803Pg8TqP?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- ec7ee500-2a75-4c84-de77-08dbfc5056f7
-X-MS-Exchange-CrossTenant-AuthSource: DB9PR04MB9498.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Dec 2023 02:56:59.3196
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- Ed8NnnBtmy+uIORwiEVOSjUjv6VjmiF+Ci9o7S0+bNJGXDzQvB7/ESpX4RXGuBjGN4MWFdAtZUejI6J9kr+ofA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB7190
-Message-ID-Hash: 6Z5DCAIFU4CUVSRDHHG5PTUPC4ZIJBSE
-X-Message-ID-Hash: 6Z5DCAIFU4CUVSRDHHG5PTUPC4ZIJBSE
-X-MailFrom: chancel.liu@nxp.com
+	Jasper Smet <josbeir@gmail.com>
+Subject: Re: [PATCH 1/1] ALSA: hda: cs35l41: Dell Fiorano add missing _DSD
+ properties
+In-Reply-To: <20231212195243.10666-1-alex.vinarskis@gmail.com>
+References: <20231212195243.10666-1-alex.vinarskis@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Queue-Id: 29243220A1
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=Xl+0ARMS;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=LKlFm42W;
+	dmarc=pass (policy=none) header.from=suse.de;
+	spf=softfail (smtp-out1.suse.de: 2a07:de40:b281:104:10:150:64:97 is neither
+ permitted nor denied by domain of tiwai@suse.de) smtp.mailfrom=tiwai@suse.de
+X-Spamd-Result: default: False [-10.31 / 50.00];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 TO_DN_SOME(0.00)[];
+	 R_SPF_SOFTFAIL(0.00)[~all:c];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 DKIM_TRACE(0.00)[suse.de:+];
+	 DMARC_POLICY_ALLOW(0.00)[suse.de,none];
+	 RCPT_COUNT_SEVEN(0.00)[10];
+	 MX_GOOD(-0.01)[];
+	 DMARC_POLICY_ALLOW_WITH_FAILURES(-0.50)[];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+];
+	 BAYES_HAM(-3.00)[100.00%];
+	 ARC_NA(0.00)[];
+	 R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	 FROM_HAS_DN(0.00)[];
+	 DWL_DNSWL_MED(-2.00)[suse.de:dkim];
+	 FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 TAGGED_RCPT(0.00)[];
+	 MIME_GOOD(-0.10)[text/plain];
+	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	 WHITELIST_DMARC(-7.00)[suse.de:D:+];
+	 MID_CONTAINS_FROM(1.00)[];
+	 DBL_BLOCKED_OPENRESOLVER(0.00)[cirrus.com:email,suse.de:dkim];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
+	 FREEMAIL_CC(0.00)[gmail.com,perex.cz,suse.com,opensource.cirrus.com,cirrus.com,alsa-project.org,vger.kernel.org];
+	 RCVD_TLS_ALL(0.00)[];
+	 SUSPICIOUS_RECIPS(1.50)[];
+	 RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+Message-ID-Hash: CCGXXLVV4QZY4FXMLTR2N4TXHOIX5CFH
+X-Message-ID-Hash: CCGXXLVV4QZY4FXMLTR2N4TXHOIX5CFH
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -153,7 +178,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6Z5DCAIFU4CUVSRDHHG5PTUPC4ZIJBSE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CCGXXLVV4QZY4FXMLTR2N4TXHOIX5CFH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -162,44 +187,102 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Some components like platforms don't have DAIs. If the active count of
-these components is ignored pinctrl may be wrongly selected between
-default and sleep state. So need to increment or decrement the active
-count for components without DAIs to avoid it.
+On Tue, 12 Dec 2023 20:52:43 +0100,
+Aleksandrs Vinarskis wrote:
+> 
+> Dell XPS 9530 (2023) has two SPI connected CS35L41 amplifiers, however
+> is missing _DSD properties, cs-gpios and has a firmware bug which caps SPI
+> controller's speed to unusable 3051Hz. This patch adds _DSD properties and
+> sets second cs-gpio. In case SPI speed bug is detected, it will not
+> initialize the device to avoid hangs on wake up.
+> 
+> Resolution of SPI speed bug requires either a patch to `intel-lpss.c` or an
+> UEFI update with corrected values from Dell. Tested with locally applied
+> patch to `intel-lpss` on multiple XPS 9530 devices.
+> 
+> Co-developed-by: Jasper Smet <josbeir@gmail.com>
+> Signed-off-by: Jasper Smet <josbeir@gmail.com>
+> Signed-off-by: Aleksandrs Vinarskis <alex.vinarskis@gmail.com>
 
-Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
----
-Add alsa-devel@alsa-project.org in RESEND. No other changes.
+Can Cirrus team review this?
 
- sound/soc/soc-pcm.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
 
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index efde4203bbf7..7dd4d41f680a 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -292,6 +292,7 @@ static void dpcm_set_be_update_state(struct snd_soc_pcm_runtime *be,
- void snd_soc_runtime_action(struct snd_soc_pcm_runtime *rtd,
- 			    int stream, int action)
- {
-+	struct snd_soc_component *component;
- 	struct snd_soc_dai *dai;
- 	int i;
+thanks,
 
-@@ -299,6 +300,13 @@ void snd_soc_runtime_action(struct snd_soc_pcm_runtime *rtd,
+Takashi
 
- 	for_each_rtd_dais(rtd, i, dai)
- 		snd_soc_dai_action(dai, stream, action);
-+
-+	/* Increments/Decrements the active count for components without DAIs */
-+	for_each_rtd_components(rtd, i, component) {
-+		if (component->num_dai)
-+			continue;
-+		component->active += action;
-+	}
- }
- EXPORT_SYMBOL_GPL(snd_soc_runtime_action);
-
---
-2.42.0
-
+> ---
+>  sound/pci/hda/cs35l41_hda_property.c | 47 ++++++++++++++++++++++++++++
+>  1 file changed, 47 insertions(+)
+> 
+> diff --git a/sound/pci/hda/cs35l41_hda_property.c b/sound/pci/hda/cs35l41_hda_property.c
+> index c83328971728..69446a794397 100644
+> --- a/sound/pci/hda/cs35l41_hda_property.c
+> +++ b/sound/pci/hda/cs35l41_hda_property.c
+> @@ -7,9 +7,55 @@
+>  // Author: Stefan Binding <sbinding@opensource.cirrus.com>
+>  
+>  #include <linux/gpio/consumer.h>
+> +#include <linux/spi/spi.h>
+>  #include <linux/string.h>
+>  #include "cs35l41_hda_property.h"
+>  
+> +/*
+> + * Device 10280BEB (Dell XPS 9530) doesn't have _DSD at all. Moreover, pin that is typically
+> + * used for `speaker_id` is missing. SPI's cs-gpios definitions are also missing.
+> + */
+> +static int dell_fiorano_no_acpi(struct cs35l41_hda *cs35l41, struct device *physdev, int id,
+> +				const char *hid)
+> +{
+> +	struct cs35l41_hw_cfg *hw_cfg = &cs35l41->hw_cfg;
+> +	struct spi_device *spi = to_spi_device(cs35l41->dev);
+> +
+> +	/*
+> +	 * 10280BEB has a firmware bug, which wrongly enables clock divider for intel-lpss
+> +	 * Resultant SPI clock is 100Mhz/32767=3051Hz, which leads to ~3 minute hang on boot/wake up
+> +	 * Avoid initializing device if lpss was not patched/fixed UEFI was not installed
+> +	 */
+> +	if (spi->max_speed_hz < CS35L41_SPI_MAX_FREQ) {
+> +		dev_err(cs35l41->dev, "SPI's max_speed_hz is capped at %u Hz, will not continue to avoid hanging\n",
+> +			spi->max_speed_hz);
+> +		return -EINVAL;
+> +	}
+> +
+> +	dev_info(cs35l41->dev, "Adding DSD properties for %s\n", cs35l41->acpi_subsystem_id);
+> +
+> +	/* check SPI address to assign the index */
+> +	cs35l41->index = id;
+> +	cs35l41->channel_index = 0;
+> +	/* 10280BEB is missing pin which is typically assigned to `spk-id-gpios` */
+> +	cs35l41->speaker_id = cs35l41_get_speaker_id(physdev, cs35l41->index, 2, -1);
+> +	cs35l41->reset_gpio = gpiod_get_index(physdev, NULL, 1, GPIOD_OUT_LOW);
+> +
+> +	hw_cfg->spk_pos = cs35l41->index  ? 1 : 0;	// 0th L, 1st R
+> +	hw_cfg->bst_type = CS35L41_EXT_BOOST;
+> +	hw_cfg->gpio1.func = CS35l41_VSPK_SWITCH;
+> +	hw_cfg->gpio1.valid = true;
+> +	hw_cfg->gpio2.func = CS35L41_INTERRUPT;
+> +	hw_cfg->gpio2.valid = true;
+> +	hw_cfg->valid = true;
+> +
+> +	/* Add second cs-gpio here */
+> +	if (cs35l41->index)
+> +		spi->cs_gpiod = gpiod_get_index(physdev, NULL, 0, GPIOD_OUT_HIGH);
+> +
+> +	return 0;
+> +}
+> +
+>  /*
+>   * Device CLSA010(0/1) doesn't have _DSD so a gpiod_get by the label reset won't work.
+>   * And devices created by serial-multi-instantiate don't have their device struct
+> @@ -92,6 +138,7 @@ static const struct cs35l41_prop_model cs35l41_prop_model_table[] = {
+>  	{ "CLSA0100", NULL, lenovo_legion_no_acpi },
+>  	{ "CLSA0101", NULL, lenovo_legion_no_acpi },
+>  	{ "CSC3551", "103C89C6", hp_vision_acpi_fix },
+> +	{ "CSC3551", "10280BEB", dell_fiorano_no_acpi },
+>  	{}
+>  };
+>  
+> -- 
+> 2.40.1
+> 

@@ -2,89 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA3FA813744
-	for <lists+alsa-devel@lfdr.de>; Thu, 14 Dec 2023 18:06:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25070813CB7
+	for <lists+alsa-devel@lfdr.de>; Thu, 14 Dec 2023 22:37:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D4ED7AE8;
-	Thu, 14 Dec 2023 18:05:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D4ED7AE8
+	by alsa0.perex.cz (Postfix) with ESMTPS id E75BFAE8;
+	Thu, 14 Dec 2023 22:37:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E75BFAE8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1702573559;
-	bh=C97ruMhJD+gwin8Xnu1LxzszeY6cxubadNcfiKJUIwg=;
+	s=default; t=1702589834;
+	bh=ovVVMU8E8yXV3Ds1ifruC1fVHIL8MLboBHLyUCuvLfc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=sWvhq6F/NgpnhjMu+KTm9AGwMYJva4nQ5hfqaTVHHYJ8VHlC5NwKse0K/jJPIyqbW
-	 2EXEmQs0PeU+WyPYWRFO4Or4qFdruRCkVUNB3IJu8JryZB6M5qaTy6zevu3boF3GwT
-	 YpQtBWqnyAWelR4ElWBR3sugdOhDDV55aymnMBuM=
+	b=g8wF7W0Tr0gCgD3z1ljWKJlKlHBMQoe6eKM1IwFrP1XXzmCLPpa1TxF+F9ylx3zvW
+	 axgSvtHRkgHK1030FGliE/XgrFtuPI5q+O8GXq8YwyrW+YN5vC/7aKxEzcOnAbGAUg
+	 xfwGcMw7dWH4hvkdMmgIq4qNun/YPxe/Yj44Gvsw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 82D18F80166; Thu, 14 Dec 2023 18:05:27 +0100 (CET)
+	id EB999F80166; Thu, 14 Dec 2023 22:36:49 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7736BF80571;
-	Thu, 14 Dec 2023 18:05:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4B504F80571;
+	Thu, 14 Dec 2023 22:36:49 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CBAD1F8016A; Thu, 14 Dec 2023 18:05:23 +0100 (CET)
+	id 33981F8016A; Thu, 14 Dec 2023 22:36:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+X-Spam-Status: No, score=-4.3 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+	RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Received: from mail-oo1-f49.google.com (mail-oo1-f49.google.com
+ [209.85.161.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9BB18F80124
-	for <alsa-devel@alsa-project.org>; Thu, 14 Dec 2023 18:05:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9BB18F80124
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=YI3IJG6L
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id DA7F4CE2557;
-	Thu, 14 Dec 2023 17:04:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 339BAC433C7;
-	Thu, 14 Dec 2023 17:04:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1702573497;
-	bh=C97ruMhJD+gwin8Xnu1LxzszeY6cxubadNcfiKJUIwg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YI3IJG6Lrj/HrM1w+0YF6QRLpTy5ywxmGCt1xrbg3M6yQAZkbul9dR7KVAh61p3Vy
-	 6O/cITES1ZMQMJmH/7O1zvs3FaUz1bhz1fIgD4u3zjObCyYA7ilwzbFmUtvNuE0HHG
-	 AGZeBj1VZD3AWNK4ZSxz0UwGUoLUdqfqW/Gfp0OHS4xyaGXSJIxZasuQBpziKeN9M2
-	 gquPYYYZgeqkbl2jfiuXPFKMdVgueXfGox1LOBEXfVx7bj/Q/r+9uVaRkL3UXoD2wT
-	 PM/uwb4ivacX+FDYVjDe1awrKPWQhzqt0GdzScTAPZvSyxlLAS3tWzOQ4wEIfdrIYc
-	 JCKbhjGAeITLA==
-Date: Thu, 14 Dec 2023 17:04:52 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Jianhua Lu <lujianhua000@gmail.com>
-Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-	Banajit Goswami <bgoswami@quicinc.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/4] ASoC: qcom: common: Add qcom_snd_tdm_hw_params
- function
-Message-ID: <cd926fd5-e607-491f-8bf8-40f404d56ea3@sirena.org.uk>
-References: <20231213123556.20469-1-lujianhua000@gmail.com>
- <7b13b8b6-9048-48a3-b1a1-e62de88e8171@sirena.org.uk>
- <ZXsklsO7nOqBFgzt@Gentoo>
- <bee0ab28-6bd3-4904-8afc-44fe7ddacb79@sirena.org.uk>
- <ZXszbA5fVq2AMjEb@Gentoo>
+	by alsa1.perex.cz (Postfix) with ESMTPS id A20E5F80114
+	for <alsa-devel@alsa-project.org>; Thu, 14 Dec 2023 22:36:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A20E5F80114
+Received: by mail-oo1-f49.google.com with SMTP id
+ 006d021491bc7-5913e3a9e05so33870eaf.1
+        for <alsa-devel@alsa-project.org>;
+ Thu, 14 Dec 2023 13:36:04 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1702589763; x=1703194563;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=dOfIXMQdmVXtw/LaT+kEhtAy+i/QDIyW7XZdUFyrkYc=;
+        b=TteU4b/47FKIKcd/x7KNgL7m1TbQJdtzgMpS4Pxybi4aO0t+0rZ2T6EizhdunG8r+b
+         wun1oOm0RVzx7SCosxcv01RVwpmmtvnU83EoOFMWrfGrlBB78+s0j5oV+UNsE+OiuoC3
+         71Cr/4rfXNqFnViyJdYwfJey+ACwZaPqduv5Dq7CgYNJZEwtvhIOjX5zliVdDF9qc7zy
+         U1fDns4aoltj848YyzpwanhPesm7dth7+7bgTR2Nu+Tc5bVYhNQFbWGUZGfuGu1FRfJV
+         p8fQWR6ZRvqs91k+PDHGCTPiRYKYdFwXyDN4GZwgAF3d9Q0VRIHhf6GhZPPw5xZam/zE
+         JpTQ==
+X-Gm-Message-State: AOJu0Yw2wVl/OzGEi/+UdvvMZREgyH1RCaoxNkxr2rLvak0Z3TEOCg3/
+	88O3kMqzzsqZzCjpq0ttSQ==
+X-Google-Smtp-Source: 
+ AGHT+IGQwAEAEsXKwPod/9C7p+UERtNGBRBhXv6kCpyQfnL61ttM0xzFs0wx/qtEEGJNigaSx/FJbw==
+X-Received: by 2002:a05:6820:1c88:b0:58e:272a:7da1 with SMTP id
+ ct8-20020a0568201c8800b0058e272a7da1mr10570842oob.2.1702589762638;
+        Thu, 14 Dec 2023 13:36:02 -0800 (PST)
+Received: from herring.priv (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107])
+        by smtp.gmail.com with ESMTPSA id
+ az2-20020a056830458200b006d87b9d84bfsm3359255otb.12.2023.12.14.13.36.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 14 Dec 2023 13:36:02 -0800 (PST)
+Received: (nullmailer pid 978584 invoked by uid 1000);
+	Thu, 14 Dec 2023 21:36:00 -0000
+Date: Thu, 14 Dec 2023 15:36:00 -0600
+From: Rob Herring <robh@kernel.org>
+To: Conor Dooley <conor@kernel.org>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/4] ASoC: dt-bindings: qcom,lpass-rx-macro: Add X1E80100
+ LPASS RX
+Message-ID: <20231214213600.GA975481-robh@kernel.org>
+References: <20231211123104.72963-1-krzysztof.kozlowski@linaro.org>
+ <20231211-cardstock-elevator-3e19f9d41ac2@spud>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="JCIFsr6HNtGfUJfo"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ZXszbA5fVq2AMjEb@Gentoo>
-X-Cookie: Preserve the old, but know the new.
-Message-ID-Hash: 4J3S6WZF5K66LALJONIC3BW2NB7CLJDZ
-X-Message-ID-Hash: 4J3S6WZF5K66LALJONIC3BW2NB7CLJDZ
-X-MailFrom: broonie@kernel.org
+In-Reply-To: <20231211-cardstock-elevator-3e19f9d41ac2@spud>
+Message-ID-Hash: Q5G5F3SQFFJ5YH2PNP7RE2S3ZZZBSJFG
+X-Message-ID-Hash: Q5G5F3SQFFJ5YH2PNP7RE2S3ZZZBSJFG
+X-MailFrom: robherring2@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -96,7 +109,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4J3S6WZF5K66LALJONIC3BW2NB7CLJDZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Q5G5F3SQFFJ5YH2PNP7RE2S3ZZZBSJFG/>
 List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
@@ -104,46 +117,18 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Mon, Dec 11, 2023 at 05:29:50PM +0000, Conor Dooley wrote:
+> On Mon, Dec 11, 2023 at 01:31:01PM +0100, Krzysztof Kozlowski wrote:
+> > Add bindings for Qualcomm X1E80100 SoC Low Power Audio SubSystem (LPASS)
+> > RX macro codec, which looks like compatible with earlier SM8550.
+> > 
+> > Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> 
+> I wish you'd send cover letters when you send series of trivial patches
+> like this that could be acked in one go.
 
---JCIFsr6HNtGfUJfo
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Or just one patch because it's basically all the same changes and it's 
+all going to 1 tree and the same set of people that will care to look 
+at it.
 
-On Fri, Dec 15, 2023 at 12:55:08AM +0800, Jianhua Lu wrote:
-> On Thu, Dec 14, 2023 at 03:56:52PM +0000, Mark Brown wrote:
-> > On Thu, Dec 14, 2023 at 11:51:50PM +0800, Jianhua Lu wrote:
-
-> > > Currently, qcom TDM setup need to read hw_params, if we want to move it
-> > > to machine driver, we must hardcode some params, but it will reduce reduce
-> > > readability.
-
-> > What makes you say that TDM setup needs to read hw_params?
-
-> qcom_snd_tdm_hw_params function read PCM_FORMAT to set slot_width value, read
-> channels to set rx_mask value.
-
-A large part of the purpose of doing TDM configuration is to fix the
-slot width and assign which slots are in use by this interface - the TDM
-configuration is a constraint on what hardware paramters can be set and
-should always be followed regardless of what is being done with the
-audio stream.  If you're just trying to configure the sample size for
-DSP modes then that shouldn't go through the TDM configuration API,
-that's just normal hw_params() so should be done directly.  Possibly the
-hardware doesn't support manual TDM configuration?
-
---JCIFsr6HNtGfUJfo
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmV7NbMACgkQJNaLcl1U
-h9CaTAf/QuuvzKht/LhszwAptQsmHYSw9+3gn9Ddg+d9YAEb6/OWNMxB2kDd2hJ+
-pfflmY+FKXTgJS6MskMch8Dxuc0QV/eInQwS6waQO4QjCZ/rqAHTutMLj/Hf7GDq
-51FCW7bGjJOnnTn353AW3e6LoiwP6CMKhnw0ZVue2advz+frgtPZQF1NfWoVroIf
-AJn1YspPewXTyysr99iHRJVNAGWevm5yg/fhUDtJA39qa0VM1l4AnYnW6ONoAT+Q
-lNlFkDH22WUAzLS2lh+vqU+hd6ji18ldAzZ4KaiXFqBFQ2ag7Af7sckObeANsBLZ
-fq5EK41S13Jqa3AZ5k1Q0CemAw0jZg==
-=xdNX
------END PGP SIGNATURE-----
-
---JCIFsr6HNtGfUJfo--
+Rob

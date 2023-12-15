@@ -2,79 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0933814684
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Dec 2023 12:14:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 887F481488F
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Dec 2023 13:55:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4012CAE8;
-	Fri, 15 Dec 2023 12:14:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4012CAE8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7B0EEE80;
+	Fri, 15 Dec 2023 13:55:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B0EEE80
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1702638899;
-	bh=/UKm33n9GHu7W5yUZDsiTWIrSOMpvk4I+p7977w81Gc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:Reply-To:List-Id:
+	s=default; t=1702644949;
+	bh=GiYX2dByBC38vzkmfO+cvnHpKmaS1UwkM/jOuD6+MsE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=heLmVYusdBR/zzIZ0SLjRcZHK15BPZDifplmvpoCfa1wlQtbeGvBOaZDsKcJ1yhL1
-	 nyiLAkIEINtHbONUp5Vb+ZbSp3hD6Czg9alPU0m0ZOb6znOyqXkYWIjzHRAvLNFgpP
-	 B8tEAD6AFC7gcjbgxTBUcqsx6eaXgswLQIeesvH8=
+	b=XUIreXp56Dq4Sb3jxnIyBGMQqbV8glvdfS21QBTQ4Fz5a3HVkNqSGCu17NPjUpua+
+	 pZuU7fj+LlngG6VX7Gvr0Qd7V1TlRvCvtgrqz9TLCdHNVFTabUpIbgOpt2oMWuf3wX
+	 Nz35wYtBIb8B7rN/5G6Bxn7Kvxt6btXyUwvcIWqY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BF904F8059F; Fri, 15 Dec 2023 12:14:28 +0100 (CET)
+	id B80F9F80570; Fri, 15 Dec 2023 13:55:16 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id F26C8F80570;
-	Fri, 15 Dec 2023 12:14:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E0185F80571;
+	Fri, 15 Dec 2023 13:55:15 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E7630F8016A; Fri, 15 Dec 2023 12:14:22 +0100 (CET)
+	id D2F8DF8016A; Fri, 15 Dec 2023 13:55:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
- [80.237.130.52])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
- server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 41787F8001F
-	for <alsa-devel@alsa-project.org>; Fri, 15 Dec 2023 12:14:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41787F8001F
-Received: from [2a02:8108:8980:2478:8cde:aa2c:f324:937e]; authenticated
-	by wp530.webpack.hosteurope.de running ExIM with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
-	id 1rE68w-0002u5-G6; Fri, 15 Dec 2023 12:14:10 +0100
-Message-ID: <b8a905a7-8fae-4482-9a6d-d9ed2f5dafbc@leemhuis.info>
-Date: Fri, 15 Dec 2023 12:14:12 +0100
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3DF2FF800D2
+	for <alsa-devel@alsa-project.org>; Fri, 15 Dec 2023 13:55:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3DF2FF800D2
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=QCEG2K7I
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by ams.source.kernel.org (Postfix) with ESMTP id CCBEBB81D96;
+	Fri, 15 Dec 2023 12:55:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35C4EC433C7;
+	Fri, 15 Dec 2023 12:55:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1702644906;
+	bh=GiYX2dByBC38vzkmfO+cvnHpKmaS1UwkM/jOuD6+MsE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=QCEG2K7IiXiNW0BI/LX22IFcDdFusaB0moxk4gM3tIFE17Vusj49rkITKod49BNzQ
+	 OxVv+oG3u0n7o5+DW57hrGNpYug3BGRf6cp3SxPegL+ozSQEOv4K+Ci6/93SRG35Kd
+	 vxueSxAxnbKat/x7UDCu3vElVp5A1abi0elOXYrB1mBPR/pQ3oCAOcr1fTdZcnAGTg
+	 tqJS3Eci1X+DdZhiSG+dUXr6c3hgEmGpQnlzCPqg2p/lyqjLXVH07YiOluruNjr4e2
+	 ll/xiGi5OPW8PNKJ/2ORIQ4Xg/xHTSON/76jxQI3hp0romU3I8wGDHQACqGc3SqF4O
+	 kN9Y2xYa6KH0Q==
+Date: Fri, 15 Dec 2023 12:55:00 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Gergo Koteles <soyer@irl.hu>
+Cc: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+	Baojun Xu <baojun.xu@ti.com>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+	linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
+Subject: Re: [PATCH 03/16] ASoC: tas2781: disable regmap regcache
+Message-ID: <5b2eb7eb-761e-406d-8d55-b7ea8cddefa8@sirena.org.uk>
+References: <cover.1701906455.git.soyer@irl.hu>
+ <21a183b5a08cb23b193af78d4b1114cc59419272.1701906455.git.soyer@irl.hu>
+ <0b836c10-b21b-4275-8dd0-254dd5467497@sirena.org.uk>
+ <47097f19398808b64f4cc87c2a3c7cc462fb2416.camel@irl.hu>
+ <5f3f0306-799f-4f3b-9e05-fbd300c59d5d@sirena.org.uk>
+ <b0ab21657f2e4f0825579de97ca012e294d1e743.camel@irl.hu>
+ <bf24488f-e4e1-4d3e-a67e-fe74c05acda4@sirena.org.uk>
+ <9a2b85a8a19e002093e2471a97850d26e335900f.camel@irl.hu>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V2 2/2] ASoC: amd: acp: add pm ops support for renoir
- platform
-Content-Language: en-US, de-DE
-To: Syed Saba Kareem <Syed.SabaKareem@amd.com>, broonie@kernel.org,
- alsa-devel@alsa-project.org
-Cc: Vijendar.Mukunda@amd.com, Basavaraj.Hiregoudar@amd.com,
- Sunil-kumar.Dommati@amd.com, mario.limonciello@amd.com, richgong@amd.com,
- posteuca@mutex.one, Liam Girdwood <lgirdwood@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- open list <linux-kernel@vger.kernel.org>,
- Linux kernel regressions list <regressions@lists.linux.dev>
-References: <20231113123345.2196504-1-Syed.SabaKareem@amd.com>
- <20231113123345.2196504-2-Syed.SabaKareem@amd.com>
-From: "Linux regression tracking (Thorsten Leemhuis)"
- <regressions@leemhuis.info>
-In-Reply-To: <20231113123345.2196504-2-Syed.SabaKareem@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-bounce-key: 
- webpack.hosteurope.de;regressions@leemhuis.info;1702638853;3116c105;
-X-HE-SMSGID: 1rE68w-0002u5-G6
-Message-ID-Hash: YOWD4V24OWLIZ7KWOL2TAEH32CLVLQDW
-X-Message-ID-Hash: YOWD4V24OWLIZ7KWOL2TAEH32CLVLQDW
-X-MailFrom: regressions@leemhuis.info
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="shU18Ze4Jixd/qwv"
+Content-Disposition: inline
+In-Reply-To: <9a2b85a8a19e002093e2471a97850d26e335900f.camel@irl.hu>
+X-Cookie: PARDON me, am I speaking ENGLISH?
+Message-ID-Hash: 7TOD6MMSUDPJ3L7BQETJKSMVOJTCKBPF
+X-Message-ID-Hash: 7TOD6MMSUDPJ3L7BQETJKSMVOJTCKBPF
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -83,11 +94,10 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.9
 Precedence: list
-Reply-To: Linux regressions mailing list <regressions@lists.linux.dev>
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YOWD4V24OWLIZ7KWOL2TAEH32CLVLQDW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7TOD6MMSUDPJ3L7BQETJKSMVOJTCKBPF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,94 +106,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi, Thorsten here, the Linux kernel's regression tracker. Top-posting
-for once, to make this easily accessible to everyone.
 
-Does anyone know what happened to below patch? It afaics was meant to
-fix a regression that made it into 6.6. For details see:
+--shU18Ze4Jixd/qwv
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-https://lore.kernel.org/lkml/87a5v8szhc.fsf@mutex.one/
-https://lore.kernel.org/lkml/ac9d4f7b-c7af-4d21-b0b8-d0f188b94b0f@amd.com/
+On Fri, Dec 15, 2023 at 02:17:01AM +0100, Gergo Koteles wrote:
+> On Thu, 2023-12-07 at 22:39 +0000, Mark Brown wrote:
+> > On Thu, Dec 07, 2023 at 10:12:13PM +0100, Gergo Koteles wrote:
+> > > On Thu, 2023-12-07 at 20:36 +0000, Mark Brown wrote:
 
-Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
---
-Everything you wanna know about Linux kernel regression tracking:
-https://linux-regtracking.leemhuis.info/about/#tldr
-If I did something stupid, please tell me, as explained on that page.
+> > > > The code creates the impression that writing to one tas2781 writes to
+> > > > all of them, is that not the case?
 
-On 13.11.23 13:33, Syed Saba Kareem wrote:
-> Add pm ops for renoir platform.
-> 
-> Signed-off-by: Syed Saba Kareem <Syed.SabaKareem@amd.com>
-> ---
->  sound/soc/amd/acp/acp-renoir.c | 38 +++++++++++++++++++++++++++++++++-
->  1 file changed, 37 insertions(+), 1 deletion(-)
-> 
-> diff --git a/sound/soc/amd/acp/acp-renoir.c b/sound/soc/amd/acp/acp-renoir.c
-> index a591482a0726..8539fbacdf4c 100644
-> --- a/sound/soc/amd/acp/acp-renoir.c
-> +++ b/sound/soc/amd/acp/acp-renoir.c
-> @@ -20,6 +20,7 @@
->  #include <sound/soc.h>
->  #include <sound/soc-dai.h>
->  #include <linux/dma-mapping.h>
-> +#include <linux/pm_runtime.h>
->  
->  #include "amd.h"
->  #include "acp-mach.h"
-> @@ -195,7 +196,11 @@ static int renoir_audio_probe(struct platform_device *pdev)
->  	dev_set_drvdata(dev, adata);
->  	acp_enable_interrupts(adata);
->  	acp_platform_register(dev);
-> -
-> +	pm_runtime_set_autosuspend_delay(&pdev->dev, ACP_SUSPEND_DELAY_MS);
-> +	pm_runtime_use_autosuspend(&pdev->dev);
-> +	pm_runtime_mark_last_busy(&pdev->dev);
-> +	pm_runtime_set_active(&pdev->dev);
-> +	pm_runtime_enable(&pdev->dev);
->  	return 0;
->  }
->  
-> @@ -208,11 +213,42 @@ static void renoir_audio_remove(struct platform_device *pdev)
->  	acp_platform_unregister(dev);
->  }
->  
-> +static int __maybe_unused rn_pcm_resume(struct device *dev)
-> +{
-> +	struct acp_dev_data *adata = dev_get_drvdata(dev);
-> +	struct acp_stream *stream;
-> +	struct snd_pcm_substream *substream;
-> +	snd_pcm_uframes_t buf_in_frames;
-> +	u64 buf_size;
-> +
-> +	spin_lock(&adata->acp_lock);
-> +	list_for_each_entry(stream, &adata->stream_list, list) {
-> +		substream = stream->substream;
-> +		if (substream && substream->runtime) {
-> +			buf_in_frames = (substream->runtime->buffer_size);
-> +			buf_size = frames_to_bytes(substream->runtime, buf_in_frames);
-> +			config_pte_for_stream(adata, stream);
-> +			config_acp_dma(adata, stream, buf_size);
-> +			if (stream->dai_id)
-> +				restore_acp_i2s_params(substream, adata, stream);
-> +			else
-> +				restore_acp_pdm_params(substream, adata);
-> +		}
-> +	}
-> +	spin_unlock(&adata->acp_lock);
-> +	return 0;
-> +}
-> +
-> +static const struct dev_pm_ops rn_dma_pm_ops = {
-> +	SET_SYSTEM_SLEEP_PM_OPS(NULL, rn_pcm_resume)
-> +};
-> +
->  static struct platform_driver renoir_driver = {
->  	.probe = renoir_audio_probe,
->  	.remove_new = renoir_audio_remove,
->  	.driver = {
->  		.name = "acp_asoc_renoir",
-> +		.pm = &rn_dma_pm_ops,
->  	},
->  };
->  
+> > > Yes, the tasdevice_* functions, but the regcache_sync doesn't know
+> > > this.
+
+> > So this syncing is done in software not hardware?  My understanding was
+> > that this was a hardware thing.
+
+> If you mean that the amplifier does not know that there are several
+> programs or configurations or profiles, but only runs the current one,
+> yes.
+
+No, I mean that the amplifiers don't talk to each other at a hardware
+level and the grouping is all in software.
+
+--shU18Ze4Jixd/qwv
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmV8TKQACgkQJNaLcl1U
+h9BTCwf+Pa4K2iMEqoqOz+oegGtyQpvdi/qVCmxb4ZTXaxolUdaQy2PaXjRLd8HX
+JvKRqh83icW7itxjaoT9Agm9u5YYtIitbHZa0EZgFPu7W7wbssEMC/PJDVde1FcF
+roRv64St87ObvZdagd/XFu2ZGqmFkVbRuvwsiDMAL6XImcCmZPixV8rT73+Vef+U
+FmJ7f31B6G07xb2nO5MklywF98z97eXc75Rg8QDleMNPe4/H6bDyLbfTDUF5DAnG
+vIzC6Qxm5+dXLLa2V5yZhY0xWOCNJDrmwv7bv0c9M74QigdTTtsI/JmOIj0yJjg/
+m5ZFOlNVFJgDi9IzWD5gcsxzhvTymA==
+=DJ8M
+-----END PGP SIGNATURE-----
+
+--shU18Ze4Jixd/qwv--

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAD6F814ACF
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Dec 2023 15:43:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49DCC814AD0
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Dec 2023 15:43:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 103F9DEB;
-	Fri, 15 Dec 2023 15:42:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 103F9DEB
+	by alsa0.perex.cz (Postfix) with ESMTPS id DBA23E0F;
+	Fri, 15 Dec 2023 15:43:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DBA23E0F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1702651386;
-	bh=GWWuE548LAYXB4wcTCB7TiVUkJN/xLPViXcqV1s1VgQ=;
+	s=default; t=1702651396;
+	bh=A8MfXhmO0cUZAjyAbKT8qOjXN4eGyDGnvWLqKievLDI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ahuZ3NjSBu5tyQH6hnfzak+2Hw8k3dntNVoyeo/ca8drrjSmtXrEy86C4Z270QiRX
-	 bUo5uLp5cFTr3btQ9NUOsU69J3o90za0NdZEF5l0mrhIc4ZBVtjeLroYEfCyAsVgV5
-	 xZgbzKb4PghOOZOHz2yYyJO2xU+0vq0KXOsR5thM=
+	b=gtvXhVoh3Yo/KdbEIzUBHG6ghToLfgSUTMxptWNjLpBhLg+a823qW3uojKxc2oTrk
+	 mVwKGmpGazxi4HyXMU89clSzuA8UurkjE+nnRC5u0neA/Li6XdMRWLGYTOFIVFkiN+
+	 wP8Cbo7t7G/6MOq0bK6F/e5cF6P/zdRKCTYXhUEo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CC48EF80606; Fri, 15 Dec 2023 15:42:02 +0100 (CET)
+	id C5CF6F80640; Fri, 15 Dec 2023 15:42:05 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 259D7F80608;
-	Fri, 15 Dec 2023 15:42:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 39EA2F8062F;
+	Fri, 15 Dec 2023 15:42:05 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7BB91F805F0; Fri, 15 Dec 2023 15:41:58 +0100 (CET)
+	id E6229F80166; Fri, 15 Dec 2023 15:41:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -38,41 +38,41 @@ Received: from mail.savoirfairelinux.com (mail.savoirfairelinux.com
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 77DB7F805AF
-	for <alsa-devel@alsa-project.org>; Fri, 15 Dec 2023 15:41:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 77DB7F805AF
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8F1FDF805C7
+	for <alsa-devel@alsa-project.org>; Fri, 15 Dec 2023 15:41:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8F1FDF805C7
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=savoirfairelinux.com header.i=@savoirfairelinux.com
  header.a=rsa-sha256 header.s=DFC430D2-D198-11EC-948E-34200CB392D2
- header.b=J8JstCrc
+ header.b=fvoXpfG8
 Received: from localhost (localhost [127.0.0.1])
-	by mail.savoirfairelinux.com (Postfix) with ESMTP id 5C07E9C284E;
-	Fri, 15 Dec 2023 09:41:46 -0500 (EST)
+	by mail.savoirfairelinux.com (Postfix) with ESMTP id 39D0E9C284E;
+	Fri, 15 Dec 2023 09:41:55 -0500 (EST)
 Received: from mail.savoirfairelinux.com ([127.0.0.1])
  by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10032)
- with ESMTP id btENrUOmHMkY; Fri, 15 Dec 2023 09:41:45 -0500 (EST)
+ with ESMTP id 4iRhmJzQO8LN; Fri, 15 Dec 2023 09:41:54 -0500 (EST)
 Received: from localhost (localhost [127.0.0.1])
-	by mail.savoirfairelinux.com (Postfix) with ESMTP id 47FA29C40CB;
-	Fri, 15 Dec 2023 09:41:45 -0500 (EST)
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.savoirfairelinux.com 47FA29C40CB
+	by mail.savoirfairelinux.com (Postfix) with ESMTP id C79929C40E8;
+	Fri, 15 Dec 2023 09:41:54 -0500 (EST)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.savoirfairelinux.com C79929C40E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=savoirfairelinux.com; s=DFC430D2-D198-11EC-948E-34200CB392D2;
-	t=1702651305; bh=HeMH17/3e3dpPsBU0lBJ2AfWK04qqF/RmKUslC/3Z08=;
+	t=1702651314; bh=UiaPRtB78O/TxKdZ0KogRi45bm5TmsI0TncGDAFUtsc=;
 	h=From:To:Date:Message-Id:MIME-Version;
-	b=J8JstCrcMcSTKhKC0VnMkOcu6dG+hMPD46RIx4zRF6qmDvdD+DTXWeAGo6y0ZEhCk
-	 ofkzG5YaAWMBVSuGWk6lC160FypD9ccZUoeGubHkrDQ6JKWM5PoYVSxSViX4pbmFGF
-	 3FfRbRUf8LuCiwGYweTDiygHsQ5npHLDb1S9QTFH9n+r88AOgKquj/yLYwmhEj47JO
-	 TnSl6+mrdln+MLyDnfIwUteA5gKEVsrrPOJ3jxccKo/meMxDKiZHTqvZExUpdH85hx
-	 KDHmPMjfGj6HLJGLjJOMzRHNXTOse9zREE2Os/WX80xE5HEP6oG6mt2MeMv6BAES4K
-	 Jbpd+bBJEE8AQ==
+	b=fvoXpfG8NMlTtDJ1lAMXRXEuoX/HRUnFqRxRmn9NDqKM4yP47XebKslkVHqOer6eO
+	 cWBlPQMTNih/zHH6UlH/8kDquXFBKBMs5xa/yWq41SIJCtvEoIWtWLDjz15YnrZk6B
+	 btjPI/1xBQPF7WjOsFqST563H2czdjURVs0iJDSbPfUTjVw5/pMr/5zdL0qMSdfMS5
+	 DCBUWyRHOOwTM6DAGE9uICeYSuUsgF2VsobEUjS34q/t02y5VGvI+ZU8N2Ibi7qnxr
+	 ZjNK6nh1JnO7Gi7/pLeMHUSO9qojK0koqNzI6CLDkGB3nlcPK80iF2sB9OrgmvGKvV
+	 hHZr4uBbdTBMw==
 X-Virus-Scanned: amavis at mail.savoirfairelinux.com
 Received: from mail.savoirfairelinux.com ([127.0.0.1])
  by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10026)
- with ESMTP id RJVjOulGs7Mx; Fri, 15 Dec 2023 09:41:45 -0500 (EST)
+ with ESMTP id ZSzFvIElhNmm; Fri, 15 Dec 2023 09:41:54 -0500 (EST)
 Received: from gerard.rennes.sfl (unknown [192.168.216.3])
-	by mail.savoirfairelinux.com (Postfix) with ESMTPSA id 3EA889C284E;
-	Fri, 15 Dec 2023 09:41:44 -0500 (EST)
+	by mail.savoirfairelinux.com (Postfix) with ESMTPSA id DA0E59C284E;
+	Fri, 15 Dec 2023 09:41:53 -0500 (EST)
 From: Elinor Montmasson <elinor.montmasson@savoirfairelinux.com>
 To: shengjiu.wang@gmail.com,
 	Xiubo.Lee@gmail.com,
@@ -80,17 +80,17 @@ To: shengjiu.wang@gmail.com,
 Cc: elinor.montmasson@savoirfairelinux.com,
 	alsa-devel@alsa-project.org,
 	philip-dylan.gleonec@savoirfairelinux.com
-Subject: [PATCHv3 03/10] ASoC: fsl-asoc-card: add compatibility to use 2
- codecs in dai-links
-Date: Fri, 15 Dec 2023 15:39:58 +0100
-Message-Id: <20231215144005.934728-4-elinor.montmasson@savoirfairelinux.com>
+Subject: [PATCHv3 04/10] ASoC: fsl-asoc-card: add new compatible for a generic
+ codec use case
+Date: Fri, 15 Dec 2023 15:39:59 +0100
+Message-Id: <20231215144005.934728-5-elinor.montmasson@savoirfairelinux.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20231215144005.934728-1-elinor.montmasson@savoirfairelinux.com>
 References: <20231215144005.934728-1-elinor.montmasson@savoirfairelinux.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: ZI4YSTQ7MMHVBFOCSYUHCMDSSPYKPDUY
-X-Message-ID-Hash: ZI4YSTQ7MMHVBFOCSYUHCMDSSPYKPDUY
+Message-ID-Hash: 5TVFCRSHOZQ4W45D63C2ZDBJDRSAFHNJ
+X-Message-ID-Hash: 5TVFCRSHOZQ4W45D63C2ZDBJDRSAFHNJ
 X-MailFrom: elinor.montmasson@savoirfairelinux.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -103,7 +103,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZI4YSTQ7MMHVBFOCSYUHCMDSSPYKPDUY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5TVFCRSHOZQ4W45D63C2ZDBJDRSAFHNJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,453 +112,95 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Adapt the driver to work with configurations using two codecs or more.
-Modify fsl_asoc_card_probe() to handle use cases where 2 codecs are
-given in the device tree.
-This will be needed for the generic codec case.
-
-Use cases using one codec will ignore any given codecs other than the
-first.
+Add the new compatible "fsl,imx-audio-generic" for a generic codec
+use case. It allows using the fsl-asoc-card driver with the
+spdif_receiver and spdif_transmitter codec drivers used as dummy codecs.
+It can be used for cases where there is no real codec or codecs which do
+not require declaring controls.
 
 Signed-off-by: Elinor Montmasson <elinor.montmasson@savoirfairelinux.com>
 Co-authored-by: Philip-Dylan Gleonec <philip-dylan.gleonec@savoirfairelin=
 ux.com>
 ---
- sound/soc/fsl/fsl-asoc-card.c | 233 ++++++++++++++++++++--------------
- 1 file changed, 136 insertions(+), 97 deletions(-)
+ sound/soc/fsl/fsl-asoc-card.c | 29 ++++++++++++++++++++++++++---
+ 1 file changed, 26 insertions(+), 3 deletions(-)
 
 diff --git a/sound/soc/fsl/fsl-asoc-card.c b/sound/soc/fsl/fsl-asoc-card.=
 c
-index a62f26fe9802..5dd5493cb931 100644
+index 5dd5493cb931..71048c1250ec 100644
 --- a/sound/soc/fsl/fsl-asoc-card.c
 +++ b/sound/soc/fsl/fsl-asoc-card.c
-@@ -98,7 +98,7 @@ struct fsl_asoc_card_priv {
- 	struct simple_util_jack hp_jack;
- 	struct simple_util_jack mic_jack;
- 	struct platform_device *pdev;
--	struct codec_priv codec_priv;
-+	struct codec_priv codec_priv[2];
- 	struct cpu_priv cpu_priv;
- 	struct snd_soc_card card;
- 	u8 streams;
-@@ -171,11 +171,13 @@ static int fsl_asoc_card_hw_params(struct snd_pcm_s=
-ubstream *substream,
- 	struct snd_soc_pcm_runtime *rtd =3D snd_soc_substream_to_rtd(substream)=
-;
- 	struct fsl_asoc_card_priv *priv =3D snd_soc_card_get_drvdata(rtd->card)=
-;
- 	bool tx =3D substream->stream =3D=3D SNDRV_PCM_STREAM_PLAYBACK;
--	struct codec_priv *codec_priv =3D &priv->codec_priv;
-+	struct codec_priv *codec_priv;
-+	struct snd_soc_dai *codec_dai;
- 	struct cpu_priv *cpu_priv =3D &priv->cpu_priv;
- 	struct device *dev =3D rtd->card->dev;
- 	unsigned int pll_out;
- 	int ret;
-+	int i;
-=20
- 	priv->sample_rate =3D params_rate(params);
- 	priv->sample_format =3D params_format(params);
-@@ -207,28 +209,32 @@ static int fsl_asoc_card_hw_params(struct snd_pcm_s=
-ubstream *substream,
- 	}
-=20
- 	/* Specific configuration for PLL */
--	if (codec_priv->pll_id >=3D 0 && codec_priv->fll_id >=3D 0) {
--		if (priv->sample_format =3D=3D SNDRV_PCM_FORMAT_S24_LE)
--			pll_out =3D priv->sample_rate * 384;
--		else
--			pll_out =3D priv->sample_rate * 256;
-+	for_each_rtd_codec_dais(rtd, i, codec_dai) {
-+		codec_priv =3D &priv->codec_priv[i];
-=20
--		ret =3D snd_soc_dai_set_pll(snd_soc_rtd_to_codec(rtd, 0),
--					  codec_priv->pll_id,
--					  codec_priv->mclk_id,
--					  codec_priv->mclk_freq, pll_out);
--		if (ret) {
--			dev_err(dev, "failed to start FLL: %d\n", ret);
--			goto fail;
--		}
-+		if (codec_priv->pll_id >=3D 0 && codec_priv->fll_id >=3D 0) {
-+			if (priv->sample_format =3D=3D SNDRV_PCM_FORMAT_S24_LE)
-+				pll_out =3D priv->sample_rate * 384;
-+			else
-+				pll_out =3D priv->sample_rate * 256;
-=20
--		ret =3D snd_soc_dai_set_sysclk(snd_soc_rtd_to_codec(rtd, 0),
--					     codec_priv->fll_id,
--					     pll_out, SND_SOC_CLOCK_IN);
-+			ret =3D snd_soc_dai_set_pll(codec_dai,
-+						codec_priv->pll_id,
-+						codec_priv->mclk_id,
-+						codec_priv->mclk_freq, pll_out);
-+			if (ret) {
-+				dev_err(dev, "failed to start FLL: %d\n", ret);
-+				goto fail;
-+			}
-=20
--		if (ret && ret !=3D -ENOTSUPP) {
--			dev_err(dev, "failed to set SYSCLK: %d\n", ret);
--			goto fail;
-+			ret =3D snd_soc_dai_set_sysclk(codec_dai,
-+						codec_priv->fll_id,
-+						pll_out, SND_SOC_CLOCK_IN);
-+
-+			if (ret && ret !=3D -ENOTSUPP) {
-+				dev_err(dev, "failed to set SYSCLK: %d\n", ret);
-+				goto fail;
-+			}
- 		}
- 	}
-=20
-@@ -243,28 +249,34 @@ static int fsl_asoc_card_hw_free(struct snd_pcm_sub=
-stream *substream)
- {
- 	struct snd_soc_pcm_runtime *rtd =3D substream->private_data;
- 	struct fsl_asoc_card_priv *priv =3D snd_soc_card_get_drvdata(rtd->card)=
-;
--	struct codec_priv *codec_priv =3D &priv->codec_priv;
-+	struct codec_priv *codec_priv;
-+	struct snd_soc_dai *codec_dai;
- 	struct device *dev =3D rtd->card->dev;
- 	int ret;
-+	int i;
-=20
- 	priv->streams &=3D ~BIT(substream->stream);
-=20
--	if (!priv->streams && codec_priv->pll_id >=3D 0 && codec_priv->fll_id >=
-=3D 0) {
--		/* Force freq to be free_freq to avoid error message in codec */
--		ret =3D snd_soc_dai_set_sysclk(snd_soc_rtd_to_codec(rtd, 0),
--					     codec_priv->mclk_id,
--					     codec_priv->free_freq,
--					     SND_SOC_CLOCK_IN);
--		if (ret) {
--			dev_err(dev, "failed to switch away from FLL: %d\n", ret);
--			return ret;
--		}
-+	for_each_rtd_codec_dais(rtd, i, codec_dai) {
-+		codec_priv =3D &priv->codec_priv[i];
-=20
--		ret =3D snd_soc_dai_set_pll(snd_soc_rtd_to_codec(rtd, 0),
--					  codec_priv->pll_id, 0, 0, 0);
--		if (ret && ret !=3D -ENOTSUPP) {
--			dev_err(dev, "failed to stop FLL: %d\n", ret);
--			return ret;
-+		if (!priv->streams && codec_priv->pll_id >=3D 0 && codec_priv->fll_id =
->=3D 0) {
-+			/* Force freq to be free_freq to avoid error message in codec */
-+			ret =3D snd_soc_dai_set_sysclk(codec_dai,
-+						codec_priv->mclk_id,
-+						codec_priv->free_freq,
-+						SND_SOC_CLOCK_IN);
-+			if (ret) {
-+				dev_err(dev, "failed to switch away from FLL: %d\n", ret);
-+				return ret;
-+			}
-+
-+			ret =3D snd_soc_dai_set_pll(codec_dai,
-+						codec_priv->pll_id, 0, 0, 0);
-+			if (ret && ret !=3D -ENOTSUPP) {
-+				dev_err(dev, "failed to stop FLL: %d\n", ret);
-+				return ret;
-+			}
- 		}
- 	}
-=20
-@@ -504,10 +516,11 @@ static int fsl_asoc_card_late_probe(struct snd_soc_=
-card *card)
- 	struct fsl_asoc_card_priv *priv =3D snd_soc_card_get_drvdata(card);
- 	struct snd_soc_pcm_runtime *rtd =3D list_first_entry(
- 			&card->rtd_list, struct snd_soc_pcm_runtime, list);
--	struct snd_soc_dai *codec_dai =3D snd_soc_rtd_to_codec(rtd, 0);
--	struct codec_priv *codec_priv =3D &priv->codec_priv;
-+	struct snd_soc_dai *codec_dai;
-+	struct codec_priv *codec_priv;
- 	struct device *dev =3D card->dev;
- 	int ret;
-+	int i;
-=20
- 	if (fsl_asoc_card_is_ac97(priv)) {
- #if IS_ENABLED(CONFIG_SND_AC97_CODEC)
-@@ -526,31 +539,36 @@ static int fsl_asoc_card_late_probe(struct snd_soc_=
-card *card)
- 		return 0;
- 	}
-=20
--	ret =3D snd_soc_dai_set_sysclk(codec_dai, codec_priv->mclk_id,
--				     codec_priv->mclk_freq, SND_SOC_CLOCK_IN);
--	if (ret && ret !=3D -ENOTSUPP) {
--		dev_err(dev, "failed to set sysclk in %s\n", __func__);
--		return ret;
--	}
-+	for_each_rtd_codec_dais(rtd, i, codec_dai) {
-+		codec_priv =3D &priv->codec_priv[i];
-=20
--	if (!IS_ERR_OR_NULL(codec_priv->mclk))
--		clk_prepare_enable(codec_priv->mclk);
-+		ret =3D snd_soc_dai_set_sysclk(codec_dai, codec_priv->mclk_id,
-+					codec_priv->mclk_freq, SND_SOC_CLOCK_IN);
-+		if (ret && ret !=3D -ENOTSUPP) {
-+			dev_err(dev, "failed to set sysclk in %s\n", __func__);
-+			return ret;
-+		}
-+
-+		if (!IS_ERR_OR_NULL(codec_priv->mclk))
-+			clk_prepare_enable(codec_priv->mclk);
-+	}
-=20
- 	return 0;
- }
-=20
- static int fsl_asoc_card_probe(struct platform_device *pdev)
- {
--	struct device_node *cpu_np, *codec_np, *asrc_np;
-+	struct device_node *cpu_np, *asrc_np;
-+	struct device_node *codec_np[2];
- 	struct device_node *np =3D pdev->dev.of_node;
- 	struct platform_device *asrc_pdev =3D NULL;
- 	struct device_node *bitclkprovider =3D NULL;
- 	struct device_node *frameprovider =3D NULL;
+@@ -567,6 +567,7 @@ static int fsl_asoc_card_probe(struct platform_device=
+ *pdev)
  	struct platform_device *cpu_pdev;
  	struct fsl_asoc_card_priv *priv;
--	struct device *codec_dev =3D NULL;
-+	struct device *codec_dev[2] =3D { NULL, NULL };
+ 	struct device *codec_dev[2] =3D { NULL, NULL };
++	const char *generic_codec_dai_names[2];
  	const char *codec_dai_name;
--	const char *codec_dev_name;
-+	const char *codec_dev_name[2];
+ 	const char *codec_dev_name[2];
  	u32 asrc_fmt =3D 0;
- 	u32 width;
- 	int ret;
-@@ -576,21 +594,25 @@ static int fsl_asoc_card_probe(struct platform_devi=
-ce *pdev)
- 		goto fail;
- 	}
-=20
--	codec_np =3D of_parse_phandle(np, "audio-codec", 0);
--	if (codec_np) {
--		struct platform_device *codec_pdev;
--		struct i2c_client *codec_i2c;
-+	codec_np[0] =3D of_parse_phandle(np, "audio-codec", 0);
-+	codec_np[1] =3D of_parse_phandle(np, "audio-codec", 1);
-=20
--		codec_i2c =3D of_find_i2c_device_by_node(codec_np);
--		if (codec_i2c) {
--			codec_dev =3D &codec_i2c->dev;
--			codec_dev_name =3D codec_i2c->name;
--		}
--		if (!codec_dev) {
--			codec_pdev =3D of_find_device_by_node(codec_np);
--			if (codec_pdev) {
--				codec_dev =3D &codec_pdev->dev;
--				codec_dev_name =3D codec_pdev->name;
-+	for (int i =3D 0; i < 2; i++) {
-+		if (codec_np[i]) {
-+			struct platform_device *codec_pdev;
-+			struct i2c_client *codec_i2c;
-+
-+			codec_i2c =3D of_find_i2c_device_by_node(codec_np[i]);
-+			if (codec_i2c) {
-+				codec_dev[i] =3D &codec_i2c->dev;
-+				codec_dev_name[i] =3D codec_i2c->name;
-+			}
-+			if (!codec_dev[i]) {
-+				codec_pdev =3D of_find_device_by_node(codec_np[i]);
-+				if (codec_pdev) {
-+					codec_dev[i] =3D &codec_pdev->dev;
-+					codec_dev_name[i] =3D codec_pdev->name;
-+				}
- 			}
- 		}
- 	}
-@@ -600,12 +622,14 @@ static int fsl_asoc_card_probe(struct platform_devi=
-ce *pdev)
- 		asrc_pdev =3D of_find_device_by_node(asrc_np);
-=20
- 	/* Get the MCLK rate only, and leave it controlled by CODEC drivers */
--	if (codec_dev) {
--		struct clk *codec_clk =3D clk_get(codec_dev, NULL);
-+	for (int i =3D 0; i < 2; i++) {
-+		if (codec_dev[i]) {
-+			struct clk *codec_clk =3D clk_get(codec_dev[i], NULL);
-=20
--		if (!IS_ERR(codec_clk)) {
--			priv->codec_priv.mclk_freq =3D clk_get_rate(codec_clk);
--			clk_put(codec_clk);
-+			if (!IS_ERR(codec_clk)) {
-+				priv->codec_priv[i].mclk_freq =3D clk_get_rate(codec_clk);
-+				clk_put(codec_clk);
-+			}
- 		}
- 	}
-=20
-@@ -625,25 +649,27 @@ static int fsl_asoc_card_probe(struct platform_devi=
-ce *pdev)
- 	priv->card.num_dapm_routes =3D ARRAY_SIZE(audio_map);
- 	priv->card.driver_name =3D DRIVER_NAME;
-=20
--	priv->codec_priv.fll_id =3D -1;
--	priv->codec_priv.pll_id =3D -1;
-+	for (int i =3D 0; i < 2; i++) {
-+		priv->codec_priv[i].fll_id =3D -1;
-+		priv->codec_priv[i].pll_id =3D -1;
-+	}
-=20
- 	/* Diversify the card configurations */
- 	if (of_device_is_compatible(np, "fsl,imx-audio-cs42888")) {
- 		codec_dai_name =3D "cs42888";
--		priv->cpu_priv.sysclk_freq[TX] =3D priv->codec_priv.mclk_freq;
--		priv->cpu_priv.sysclk_freq[RX] =3D priv->codec_priv.mclk_freq;
-+		priv->cpu_priv.sysclk_freq[TX] =3D priv->codec_priv[0].mclk_freq;
-+		priv->cpu_priv.sysclk_freq[RX] =3D priv->codec_priv[0].mclk_freq;
- 		priv->cpu_priv.sysclk_dir[TX] =3D SND_SOC_CLOCK_OUT;
- 		priv->cpu_priv.sysclk_dir[RX] =3D SND_SOC_CLOCK_OUT;
- 		priv->cpu_priv.slot_width =3D 32;
- 		priv->dai_fmt |=3D SND_SOC_DAIFMT_CBC_CFC;
- 	} else if (of_device_is_compatible(np, "fsl,imx-audio-cs427x")) {
- 		codec_dai_name =3D "cs4271-hifi";
--		priv->codec_priv.mclk_id =3D CS427x_SYSCLK_MCLK;
-+		priv->codec_priv[0].mclk_id =3D CS427x_SYSCLK_MCLK;
- 		priv->dai_fmt |=3D SND_SOC_DAIFMT_CBP_CFP;
- 	} else if (of_device_is_compatible(np, "fsl,imx-audio-sgtl5000")) {
- 		codec_dai_name =3D "sgtl5000";
--		priv->codec_priv.mclk_id =3D SGTL5000_SYSCLK;
-+		priv->codec_priv[0].mclk_id =3D SGTL5000_SYSCLK;
- 		priv->dai_fmt |=3D SND_SOC_DAIFMT_CBP_CFP;
- 	} else if (of_device_is_compatible(np, "fsl,imx-audio-tlv320aic32x4")) =
-{
- 		codec_dai_name =3D "tlv320aic32x4-hifi";
-@@ -659,14 +685,14 @@ static int fsl_asoc_card_probe(struct platform_devi=
-ce *pdev)
- 		priv->card.num_dapm_routes =3D ARRAY_SIZE(audio_map_tx);
- 	} else if (of_device_is_compatible(np, "fsl,imx-audio-wm8962")) {
- 		codec_dai_name =3D "wm8962";
--		priv->codec_priv.mclk_id =3D WM8962_SYSCLK_MCLK;
--		priv->codec_priv.fll_id =3D WM8962_SYSCLK_FLL;
--		priv->codec_priv.pll_id =3D WM8962_FLL;
-+		priv->codec_priv[0].mclk_id =3D WM8962_SYSCLK_MCLK;
-+		priv->codec_priv[0].fll_id =3D WM8962_SYSCLK_FLL;
-+		priv->codec_priv[0].pll_id =3D WM8962_FLL;
- 		priv->dai_fmt |=3D SND_SOC_DAIFMT_CBP_CFP;
- 	} else if (of_device_is_compatible(np, "fsl,imx-audio-wm8960")) {
- 		codec_dai_name =3D "wm8960-hifi";
--		priv->codec_priv.fll_id =3D WM8960_SYSCLK_AUTO;
--		priv->codec_priv.pll_id =3D WM8960_SYSCLK_AUTO;
-+		priv->codec_priv[0].fll_id =3D WM8960_SYSCLK_AUTO;
-+		priv->codec_priv[0].pll_id =3D WM8960_SYSCLK_AUTO;
- 		priv->dai_fmt |=3D SND_SOC_DAIFMT_CBP_CFP;
- 	} else if (of_device_is_compatible(np, "fsl,imx-audio-ac97")) {
- 		codec_dai_name =3D "ac97-hifi";
-@@ -698,20 +724,20 @@ static int fsl_asoc_card_probe(struct platform_devi=
-ce *pdev)
- 	} else if (of_device_is_compatible(np, "fsl,imx-audio-wm8958")) {
- 		codec_dai_name =3D "wm8994-aif1";
- 		priv->dai_fmt |=3D SND_SOC_DAIFMT_CBP_CFP;
--		priv->codec_priv.mclk_id =3D WM8994_FLL_SRC_MCLK1;
--		priv->codec_priv.fll_id =3D WM8994_SYSCLK_FLL1;
--		priv->codec_priv.pll_id =3D WM8994_FLL1;
--		priv->codec_priv.free_freq =3D priv->codec_priv.mclk_freq;
-+		priv->codec_priv[0].mclk_id =3D WM8994_FLL_SRC_MCLK1;
-+		priv->codec_priv[0].fll_id =3D WM8994_SYSCLK_FLL1;
-+		priv->codec_priv[0].pll_id =3D WM8994_FLL1;
-+		priv->codec_priv[0].free_freq =3D priv->codec_priv[0].mclk_freq;
- 		priv->card.dapm_routes =3D NULL;
- 		priv->card.num_dapm_routes =3D 0;
- 	} else if (of_device_is_compatible(np, "fsl,imx-audio-nau8822")) {
- 		codec_dai_name =3D "nau8822-hifi";
--		priv->codec_priv.mclk_id =3D NAU8822_CLK_MCLK;
--		priv->codec_priv.fll_id =3D NAU8822_CLK_PLL;
--		priv->codec_priv.pll_id =3D NAU8822_CLK_PLL;
-+		priv->codec_priv[0].mclk_id =3D NAU8822_CLK_MCLK;
-+		priv->codec_priv[0].fll_id =3D NAU8822_CLK_PLL;
-+		priv->codec_priv[0].pll_id =3D NAU8822_CLK_PLL;
+@@ -738,6 +739,11 @@ static int fsl_asoc_card_probe(struct platform_devic=
+e *pdev)
  		priv->dai_fmt |=3D SND_SOC_DAIFMT_CBM_CFM;
--		if (codec_dev)
--			priv->codec_priv.mclk =3D devm_clk_get(codec_dev, NULL);
-+		if (codec_dev[0])
-+			priv->codec_priv[0].mclk =3D devm_clk_get(codec_dev[0], NULL);
+ 		if (codec_dev[0])
+ 			priv->codec_priv[0].mclk =3D devm_clk_get(codec_dev[0], NULL);
++	} else if (of_device_is_compatible(np, "fsl,imx-audio-generic")) {
++		generic_codec_dai_names[0] =3D "dit-hifi";
++		generic_codec_dai_names[1] =3D "dir-hifi";
++		priv->dai_link[0].num_codecs =3D 2;
++		priv->dai_link[2].num_codecs =3D 2;
  	} else {
  		dev_err(&pdev->dev, "unknown Device Tree compatible\n");
  		ret =3D -EINVAL;
-@@ -722,18 +748,30 @@ static int fsl_asoc_card_probe(struct platform_devi=
-ce *pdev)
- 	 * Allow setting mclk-id from the device-tree node. Otherwise, the
- 	 * default value for each card configuration is used.
- 	 */
--	of_property_read_u32(np, "mclk-id", &priv->codec_priv.mclk_id);
-+	for (int i =3D 0; i < 2; i++) {
-+		of_property_read_u32_index(np, "mclk-id", i,
-+					&priv->codec_priv[i].mclk_id);
-+	}
-=20
- 	/* Format info from DT is optional. */
- 	snd_soc_daifmt_parse_clock_provider_as_phandle(np, NULL, &bitclkprovide=
-r, &frameprovider);
- 	if (bitclkprovider || frameprovider) {
- 		unsigned int daifmt =3D snd_soc_daifmt_parse_format(np, NULL);
-+		bool codec_bitclkprovider =3D false;
-+		bool codec_frameprovider =3D false;
-+
-+		for (int i =3D 0; i < 2; i++) {
-+			if (bitclkprovider && codec_np[i] =3D=3D bitclkprovider)
-+				codec_bitclkprovider =3D true;
-+			if (frameprovider && codec_np[i] =3D=3D frameprovider)
-+				codec_frameprovider =3D true;
-+		}
-=20
--		if (codec_np =3D=3D bitclkprovider)
--			daifmt |=3D (codec_np =3D=3D frameprovider) ?
-+		if (codec_bitclkprovider)
-+			daifmt |=3D (codec_frameprovider) ?
- 				SND_SOC_DAIFMT_CBP_CFP : SND_SOC_DAIFMT_CBP_CFC;
- 		else
--			daifmt |=3D (codec_np =3D=3D frameprovider) ?
-+			daifmt |=3D (codec_frameprovider) ?
- 				SND_SOC_DAIFMT_CBC_CFP : SND_SOC_DAIFMT_CBC_CFC;
-=20
- 		/* Override dai_fmt with value from DT */
-@@ -749,7 +787,7 @@ static int fsl_asoc_card_probe(struct platform_device=
- *pdev)
- 	of_node_put(bitclkprovider);
- 	of_node_put(frameprovider);
-=20
--	if (!fsl_asoc_card_is_ac97(priv) && !codec_dev) {
-+	if (!fsl_asoc_card_is_ac97(priv) && !codec_dev[0]) {
- 		dev_dbg(&pdev->dev, "failed to find codec device\n");
+@@ -792,6 +798,12 @@ static int fsl_asoc_card_probe(struct platform_devic=
+e *pdev)
  		ret =3D -EPROBE_DEFER;
  		goto asrc_fail;
-@@ -789,7 +827,7 @@ static int fsl_asoc_card_probe(struct platform_device=
- *pdev)
- 	ret =3D snd_soc_of_parse_card_name(&priv->card, "model");
- 	if (ret) {
- 		snprintf(priv->name, sizeof(priv->name), "%s-audio",
--			 fsl_asoc_card_is_ac97(priv) ? "ac97" : codec_dev_name);
-+			 fsl_asoc_card_is_ac97(priv) ? "ac97" : codec_dev_name[0]);
- 		priv->card.name =3D priv->name;
  	}
- 	priv->card.dai_link =3D priv->dai_link;
-@@ -814,7 +852,7 @@ static int fsl_asoc_card_probe(struct platform_device=
- *pdev)
- 	priv->dai_link[0].codecs[0].dai_name =3D codec_dai_name;
++	if (of_device_is_compatible(np, "fsl,imx-audio-generic")
++	  && !codec_dev[1]) {
++		dev_dbg(&pdev->dev, "failed to find second codec device\n");
++		ret =3D -EPROBE_DEFER;
++		goto asrc_fail;
++	}
 =20
- 	if (!fsl_asoc_card_is_ac97(priv))
--		priv->dai_link[0].codecs[0].of_node =3D codec_np;
-+		priv->dai_link[0].codecs[0].of_node =3D codec_np[0];
- 	else {
+ 	/* Common settings for corresponding Freescale CPU DAI driver */
+ 	if (of_node_name_eq(cpu_np, "ssi")) {
+@@ -849,11 +861,21 @@ static int fsl_asoc_card_probe(struct platform_devi=
+ce *pdev)
+=20
+ 	/* Normal DAI Link */
+ 	priv->dai_link[0].cpus->of_node =3D cpu_np;
+-	priv->dai_link[0].codecs[0].dai_name =3D codec_dai_name;
+=20
+-	if (!fsl_asoc_card_is_ac97(priv))
++	if (of_device_is_compatible(np, "fsl,imx-audio-generic")) {
++		priv->dai_link[0].codecs[0].dai_name =3D
++			generic_codec_dai_names[0];
++		priv->dai_link[0].codecs[1].dai_name =3D
++			generic_codec_dai_names[1];
++	} else {
++		priv->dai_link[0].codecs[0].dai_name =3D codec_dai_name;
++	}
++
++	if (!fsl_asoc_card_is_ac97(priv)) {
+ 		priv->dai_link[0].codecs[0].of_node =3D codec_np[0];
+-	else {
++		if (of_device_is_compatible(np, "fsl,imx-audio-generic"))
++			priv->dai_link[0].codecs[1].of_node =3D codec_np[1];
++	} else {
  		u32 idx;
 =20
-@@ -922,7 +960,8 @@ static int fsl_asoc_card_probe(struct platform_device=
- *pdev)
-=20
- asrc_fail:
- 	of_node_put(asrc_np);
--	of_node_put(codec_np);
-+	of_node_put(codec_np[0]);
-+	of_node_put(codec_np[1]);
- 	put_device(&cpu_pdev->dev);
- fail:
- 	of_node_put(cpu_np);
+ 		ret =3D of_property_read_u32(cpu_np, "cell-index", &idx);
+@@ -983,6 +1005,7 @@ static const struct of_device_id fsl_asoc_card_dt_id=
+s[] =3D {
+ 	{ .compatible =3D "fsl,imx-audio-si476x", },
+ 	{ .compatible =3D "fsl,imx-audio-wm8958", },
+ 	{ .compatible =3D "fsl,imx-audio-nau8822", },
++	{ .compatible =3D "fsl,imx-audio-generic", },
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(of, fsl_asoc_card_dt_ids);
 --=20
 2.25.1
 

@@ -2,146 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6BC08148F1
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Dec 2023 14:20:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0AAC814AC1
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Dec 2023 15:42:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ECB11E10;
-	Fri, 15 Dec 2023 14:20:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ECB11E10
+	by alsa0.perex.cz (Postfix) with ESMTPS id 120FDE7A;
+	Fri, 15 Dec 2023 15:42:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 120FDE7A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1702646424;
-	bh=9kZ6kAD1vWCImwKBvfgLferuTpo9DtqzX4wfbO0I+ro=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To:Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=AHW2zr8krcRVXa6tF94+QH3tg01MTKFFp6tnedwwgU3xKlOiLaz5nO5qwqYcpm5b5
-	 Ar8Z1IFQljHka0KwMdpVGcSj69Po73Qn9D5wCHIUm8OZsbmTJLY3HJ28y5NeO+pDFA
-	 3dbI4vuTsgEviCOnG0aSOUXLdZkklxRiXjL5MR7k=
+	s=default; t=1702651339;
+	bh=KIqUJtcQAeVNj7LufLzBhALLpX6lmp5ouAOaUySaj98=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=b2uw64bp6B7Cvhbb/bitAGgimQTbJtnakf+YV01VZdSgG6TCCRV6nWQzhWiZAUEZ9
+	 D5R0v0ZOYR4N/sJIugY0Fd/geq7giYHcdXZrWPFynH+pceiokC1j3XuEPbLwkHeb+m
+	 PfzQTK73+vc/CaUk7XUzQgd+X6XwET5b/zHS03oQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4CA96F80557; Fri, 15 Dec 2023 14:20:01 +0100 (CET)
+	id 38A2EF8057E; Fri, 15 Dec 2023 15:41:47 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 64C6DF80494;
-	Fri, 15 Dec 2023 14:20:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 08F74F80571;
+	Fri, 15 Dec 2023 15:41:47 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3F13DF8016A; Fri, 15 Dec 2023 14:19:57 +0100 (CET)
+	id A60F3F8016A; Fri, 15 Dec 2023 15:41:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [IPv6:2a00:1450:4864:20::435])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Received: from mail.savoirfairelinux.com (mail.savoirfairelinux.com
+ [208.88.110.44])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B3F76F800D2
-	for <alsa-devel@alsa-project.org>; Fri, 15 Dec 2023 14:19:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3F76F800D2
+	by alsa1.perex.cz (Postfix) with ESMTPS id 84494F80114
+	for <alsa-devel@alsa-project.org>; Fri, 15 Dec 2023 15:41:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84494F80114
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=MzMZK5Mr
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-3332efd75c9so476180f8f.2
-        for <alsa-devel@alsa-project.org>;
- Fri, 15 Dec 2023 05:19:52 -0800 (PST)
+ unprotected) header.d=savoirfairelinux.com header.i=@savoirfairelinux.com
+ header.a=rsa-sha256 header.s=DFC430D2-D198-11EC-948E-34200CB392D2
+ header.b=EGOU63j7
+Received: from localhost (localhost [127.0.0.1])
+	by mail.savoirfairelinux.com (Postfix) with ESMTP id 321009C284E;
+	Fri, 15 Dec 2023 09:41:19 -0500 (EST)
+Received: from mail.savoirfairelinux.com ([127.0.0.1])
+ by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10032)
+ with ESMTP id zcChLUFl3JJK; Fri, 15 Dec 2023 09:41:18 -0500 (EST)
+Received: from localhost (localhost [127.0.0.1])
+	by mail.savoirfairelinux.com (Postfix) with ESMTP id A6CF39C2C7D;
+	Fri, 15 Dec 2023 09:41:18 -0500 (EST)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.savoirfairelinux.com A6CF39C2C7D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1702646391; x=1703251191;
- darn=alsa-project.org;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :references:cc:to:content-language:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=dwNp0sgW48z+F5oUMsIxJsVhA8NF2XoB7VYgvdpehl4=;
-        b=MzMZK5Mru2Qhvck/d+/ejuMUcvpmIE5XkeItMBDTQ93ut7qajoHM3vf1bDhFMTeR7d
-         DJY3BzlctWYjm5yD/xxncU745ca/YClb9nGIrl8PJRfDNQ6UQ0ugdYhApCUgd7xmQRyT
-         LjC1fKeLfNyfALmUCrvKlRsm857Wv7O9J48TtuI5VQW1jO299wrqmafLGrTGChWpjjRr
-         WTPlFbYIHbX8L6lS08GtBhnkOpWDioUYfPdk0cIS1LYgj7FxOuKsg+RDCqkyl/r46Fq0
-         EJ4aA19FG+dwIZis0daX59UQ4zrMs1aqAONPZQiClwnTe/7mSEpfZFGGUXAq6bwAdixO
-         Nbuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702646391; x=1703251191;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :references:cc:to:content-language:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=dwNp0sgW48z+F5oUMsIxJsVhA8NF2XoB7VYgvdpehl4=;
-        b=YlOoipT6ptS4E5wKgNcfpJrH9CsoPasdz9hdCI9iqinJ2yqZP+E00DpYYo+T9caAsg
-         UpkiwYgfbB9WxPWT5qwxi2IozIHN9LUN6fX6Jn1r4bU+KjWAy2IQqBXAbVd87SMWLyaw
-         w2gHb4Y3x6875fqzrDyO1sbCT3Vjv12EyoSDCopwSldjcVf/4oZ+BtqbUC0aPVqa0GkM
-         Iwn12wp844/rNiVBipSSIt/ySdxlYv1h+S3XiWEqj8s1onZFX4ERSCJlPMjlUOvZxxGw
-         ZCplo5BImKPyvAS5JUzoifuO5UoIBw56VGZhwcXMNsg+dpYAgle7gTLvmH2WZ2rAmbYY
-         r+yg==
-X-Gm-Message-State: AOJu0YwYnT+v4xhrvQ1DlelBTJDC3Y3rTNcikfwxhs2rwLW5s+sF1glg
-	YdmqsNou2Lj/Z9/1PPfiVOOfOA==
-X-Google-Smtp-Source: 
- AGHT+IEDD6bxhoN6uIYdEQ2w4hHbUIflkHy6qPGABXfxSyBAawfdYuz9kwdPIXVJPxY5ZT4EWLZU9g==
-X-Received: by 2002:adf:e4c9:0:b0:336:42ce:f83e with SMTP id
- v9-20020adfe4c9000000b0033642cef83emr968835wrm.59.1702646391432;
-        Fri, 15 Dec 2023 05:19:51 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:982:cbb0:bfe9:1376:5584:1682?
- ([2a01:e0a:982:cbb0:bfe9:1376:5584:1682])
-        by smtp.gmail.com with ESMTPSA id
- j8-20020adfb308000000b003365964ba85sm430767wrd.28.2023.12.15.05.19.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 15 Dec 2023 05:19:50 -0800 (PST)
-Message-ID: <d41d4cc3-81eb-431c-b158-673b7ef92727@linaro.org>
-Date: Fri, 15 Dec 2023 14:19:50 +0100
+	d=savoirfairelinux.com; s=DFC430D2-D198-11EC-948E-34200CB392D2;
+	t=1702651278; bh=vfZKw4jnkY9FWDRkFPVjPBhiaSS6dSG1yAeVWklGAr4=;
+	h=From:To:Date:Message-Id:MIME-Version;
+	b=EGOU63j7uwa1EN1BmGjCuhaTlGslIy0EOvKZ21/O9Wt8EMtwTSuI+gZ35JNnlSpym
+	 ybREU1KsHvJIys5I5m7kTjcPFNirDFaH4oKLYbEdsjEnosKYs+C/Ut7uSzrai6flBw
+	 qiPhWfLNy7P9QxPH/DUlHFsvsFfbSaVD4aUStEmo7s98AxfW294ZMBPtiwJKiXpJiP
+	 HAiP4JEdQ0q3sfikl2zUBAfgR1RkVy7vSxFLMliWcmjzViqXN9z7Pi8hXpkfGdoeIf
+	 3F0JTq3YYNqFPjbd4esL8lNslZe02H511FYEXuMegqLiPrceUvaDiZ3meDPaRlnm5r
+	 +bK0SbkgLpXdg==
+X-Virus-Scanned: amavis at mail.savoirfairelinux.com
+Received: from mail.savoirfairelinux.com ([127.0.0.1])
+ by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10026)
+ with ESMTP id toWEancgtTin; Fri, 15 Dec 2023 09:41:18 -0500 (EST)
+Received: from gerard.rennes.sfl (unknown [192.168.216.3])
+	by mail.savoirfairelinux.com (Postfix) with ESMTPSA id B3BEC9C284E;
+	Fri, 15 Dec 2023 09:41:17 -0500 (EST)
+From: Elinor Montmasson <elinor.montmasson@savoirfairelinux.com>
+To: shengjiu.wang@gmail.com,
+	Xiubo.Lee@gmail.com,
+	broonie@kernel.org
+Cc: elinor.montmasson@savoirfairelinux.com,
+	alsa-devel@alsa-project.org,
+	philip-dylan.gleonec@savoirfairelinux.com
+Subject: [PATCHv3 00/10] ASoC: fsl-asoc-card: compatibility integration of a
+ generic codec use case for use with S/PDIF controller
+Date: Fri, 15 Dec 2023 15:39:55 +0100
+Message-Id: <20231215144005.934728-1-elinor.montmasson@savoirfairelinux.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v3 4/5] ASoC: codecs: Add WCD939x Soundwire devices driver
-Content-Language: en-US, fr
-To: Mark Brown <broonie@kernel.org>
-Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@quicinc.com>, Andy Gross <agross@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Liam Girdwood
- <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, linux-arm-msm@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: 
- <20231207-topic-sm8650-upstream-wcd939x-codec-v3-0-6df9585ec7c8@linaro.org>
- <20231207-topic-sm8650-upstream-wcd939x-codec-v3-4-6df9585ec7c8@linaro.org>
- <e8b5099c-ceb2-4605-94bc-efd09ad55cb7@sirena.org.uk>
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro Developer Services
-In-Reply-To: <e8b5099c-ceb2-4605-94bc-efd09ad55cb7@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: BRPDHDPEL4KP33IEEUG5RCMXGMJF2VTO
-X-Message-ID-Hash: BRPDHDPEL4KP33IEEUG5RCMXGMJF2VTO
-X-MailFrom: neil.armstrong@linaro.org
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: 7BITVVO6HILOWY5Q4RAOHMHLAVH7L5QM
+X-Message-ID-Hash: 7BITVVO6HILOWY5Q4RAOHMHLAVH7L5QM
+X-MailFrom: elinor.montmasson@savoirfairelinux.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -150,11 +97,10 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.9
 Precedence: list
-Reply-To: neil.armstrong@linaro.org
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BRPDHDPEL4KP33IEEUG5RCMXGMJF2VTO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7BITVVO6HILOWY5Q4RAOHMHLAVH7L5QM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -163,110 +109,88 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 13/12/2023 19:31, Mark Brown wrote:
-> On Thu, Dec 07, 2023 at 11:28:07AM +0100, Neil Armstrong wrote:
->> Add Soundwire Slave driver for the WCD9390/WCD9395 Audio Codec.
->>
->> The WCD9390/WCD9395 Soundwire devices will be used by the
->> main WCD9390/WCD9395 Audio Codec driver to access registers
->> and configure Soundwire RX and TX ports.
-> 
->> +static const struct reg_default wcd939x_defaults[] = {
-> 
->> +	{ WCD939X_DIGITAL_MODE_STATUS_0, 0x00 },
->> +	{ WCD939X_DIGITAL_MODE_STATUS_1, 0x00 },
-> 
-> There's a bunch of registers like this which look like they should be
-> volatile and are actually volatile which makes supplying defaults rather
-> strange - in general volatile registers shouldn't have defaults.
+Hello,
 
-Indeed I'll clean those up
+This is the v3 of the series of patch aiming to make the machine driver
+"fsl-asoc-card" compatible with use cases where there is no real codec
+driver.
+It proposes to use the "spdif_receiver" and "spdif_transmitter"
+drivers instead of the dummy codec.
+This is a first step in using the S/PDIF controller with the ASRC.
 
-> 
->> +	{ WCD939X_DIGITAL_EFUSE_REG_0, 0x00 },
->> +	{ WCD939X_DIGITAL_EFUSE_REG_1, 0xff },
->> +	{ WCD939X_DIGITAL_EFUSE_REG_2, 0xff },
-> 
-> With the fuse registers even though I'd expect them to be cachable the
-> whole point is usually that these are programmable per device and
-> therefore I'd not expect defaults, I'd expect them to be cached on first
-> use.
+The five first patches add compatibility with the pair of codecs
+"spdif_receiver" and "spdif_transmitter" with a new compatible,
+"fsl,imx-audio-generic".
+Codec parameters are set with default values.
+Consequently, the driver is modified to work with multi-codec use cases.
+It can get 2 codecs phandles from the device tree, and the
+"fsl_asoc_card_priv" struct now has 2 "codec_priv" to store properties
+of both codecs. It is fixed to 2 codecs as only "fsl,imx-audio-generic"
+uses multiple codecs at the moment.
+However, the driver now uses for_each_codecs macros when possible to
+ease future implementations of multi-codec configurations.
 
-Ack
+The remaining patches add configuration options for the device tree.
+They configure the CPU DAI when using "fsl,imx-audio-generic".
+These options are usually hard-coded in "fsl-asoc-card.c" for each
+audio codec.
+Because the generic codec could be used with other CPU DAIs than
+the S/PDIF controller, setting these parameters could be required.
 
-> 
->> +static bool wcd939x_readonly_register(struct device *dev, unsigned int reg)
->> +{
-> 
->> +	case WCD939X_DIGITAL_CHIP_ID0:
->> +	case WCD939X_DIGITAL_CHIP_ID1:
->> +	case WCD939X_DIGITAL_CHIP_ID2:
->> +	case WCD939X_DIGITAL_CHIP_ID3:
-> 
->> +	case WCD939X_DIGITAL_EFUSE_REG_0:
->> +	case WCD939X_DIGITAL_EFUSE_REG_1:
->> +	case WCD939X_DIGITAL_EFUSE_REG_2:
-> 
->> +	/* Consider all readonly registers as volatile */
->> +	.volatile_reg = wcd939x_readonly_register,
-> 
-> There's a bunch of the readonly registers that I'd expect to be cachable
-> at runtime - I *hope* the chip ID doesn't change at runtime!  OTOH it
-> likely doesn't matter so perhaps it's fine but the comment could use
-> some improvement.
+This series of patch was successfully built for arm64 and x86 on top of
+the latest for-next branch of the ASoC git tree on the 14th of December.
+These modifications have also been tested on an i.MX8MN evaluation
+board, with a linux kernel RT v6.1.26-rt8.
+
+Best regards,
+Elinor Montmasson
 
 
-I'll improve this
+Changelog:
+v2 -> v3:
+* when the bitmaster or framemaster are retrieved from the device tree,
+  the driver will now compare them with the two codecs possibly given in
+  the device tree, and not just the first codec.
+* improve driver modifications to use multiple codecs for better
+  integration of future multi-codec use cases:
+    * use for_each_codec macros when possible.
+    * "fsl_asoc_card_priv" struct now has 2 "codec_priv" as the driver
+      can currently retrieve 2 codec phandles from the device tree.
+* fix subject of patch 10/10 to follow the style of the subsystem and
+  previous commits of the file.
+* v2 patch series at:
+https://lore.kernel.org/alsa-devel/20231027144734.3654829-1-elinor.montma=
+sson@savoirfairelinux.com/
 
-> 
->> +static int wcd939x_sdw_component_bind(struct device *dev, struct device *master,
->> +				      void *data)
->> +{
->> +	/* Bind is required by component framework */
->> +	return 0;
->> +}
->> +
->> +static void wcd939x_sdw_component_unbind(struct device *dev,
->> +					 struct device *master, void *data)
->> +{
->> +	/* Unbind is required by component framework */
->> +}
->> +
->> +static const struct component_ops wcd939x_sdw_component_ops = {
->> +	.bind = wcd939x_sdw_component_bind,
->> +	.unbind = wcd939x_sdw_component_unbind,
->> +};
-> 
-> So what exactly is the component framework *doing* here then?  It really
-> would be better to get this fixed in the component framework if this is
-> a sensible usage.
+v1 -> v2:
+* replace use of the dummy codec by the pair of codecs
+  "spdif_receiver" / " spdif_transmitter".
+* adapt how dai links codecs are used to take into account the
+  possibility for multiple codecs per link.
+* change compatible name.
+* adapt driver to be able to register two codecs given in the device
+  tree.
+* v1 patch series at:
+https://lore.kernel.org/alsa-devel/20230901144550.520072-1-elinor.montmas=
+son@savoirfairelinux.com/
 
-So the component framework is here to synchronize probes of the main codec
-and soundwire devices, because the main codec needs the soundwire devices
-to access registers.
-I assume this design was chosen to limit probe defer infinite loops waiting
-for the soundwire devices to probe
 
-I'll propose a change on the component framework, without any insurance it
-would be accepted.
+Elinor Montmasson (10):
+  ASoC: fsl-asoc-card: add support for dai links with multiple codecs
+  ASoC: fsl-asoc-card: add second dai link component for codecs
+  ASoC: fsl-asoc-card: add compatibility to use 2 codecs in dai-links
+  ASoC: fsl-asoc-card: add new compatible for a generic codec use case
+  ASoC: fsl-asoc-card: set generic codec as clock provider
+  ASoC: fsl-asoc-card: add dts property "cpu-slot-width"
+  ASoC: fsl-asoc-card: add dts property "cpu-slot-num"
+  ASoC: fsl-asoc-card: add dts properties "cpu-sysclk-freq"
+  ASoC: fsl-asoc-card: add dts properties "cpu-sysclk-dir-out"
+  ASoC: bindings: fsl-asoc-card: add compatible for generic codec
 
-> 
->> +static int __maybe_unused wcd939x_sdw_runtime_resume(struct device *dev)
->> +{
->> +	struct wcd939x_sdw_priv *wcd = dev_get_drvdata(dev);
->> +
->> +	if (wcd->regmap) {
->> +		regcache_cache_only(wcd->regmap, false);
->> +		regcache_sync(wcd->regmap);
->> +	}
->> +
->> +	pm_runtime_mark_last_busy(dev);
-> 
-> The pm_runtime_mark_last_busy() in the resume function is a bit of a
-> weird pattern - usually this is something that the user updates and more
-> normally when releasing a runtime PM reference.
+ .../bindings/sound/fsl-asoc-card.txt          |  28 +-
+ sound/soc/fsl/fsl-asoc-card.c                 | 299 +++++++++++-------
+ 2 files changed, 218 insertions(+), 109 deletions(-)
 
-I took this from wcd938x_sd, I'll check the rationale of it in the resume function.
+--=20
+2.25.1
 
-Thanks,
-Neil

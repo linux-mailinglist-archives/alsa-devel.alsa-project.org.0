@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0AAC814AC1
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Dec 2023 15:42:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32CB1814AC4
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Dec 2023 15:42:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 120FDE7A;
-	Fri, 15 Dec 2023 15:42:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 120FDE7A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6CA1FE93;
+	Fri, 15 Dec 2023 15:42:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6CA1FE93
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1702651339;
-	bh=KIqUJtcQAeVNj7LufLzBhALLpX6lmp5ouAOaUySaj98=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=b2uw64bp6B7Cvhbb/bitAGgimQTbJtnakf+YV01VZdSgG6TCCRV6nWQzhWiZAUEZ9
-	 D5R0v0ZOYR4N/sJIugY0Fd/geq7giYHcdXZrWPFynH+pceiokC1j3XuEPbLwkHeb+m
-	 PfzQTK73+vc/CaUk7XUzQgd+X6XwET5b/zHS03oQ=
+	s=default; t=1702651353;
+	bh=4sMjpEWPnxTpFeZtEZi9FJ/TO2equr8HTkptmC/bILs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=ZdQVAEMF7zjrh/J0FOcQCXoaJgHeXrPWtsyXi0EiukUCCkAMijPY/yhm9ld+/F0yu
+	 O9fV6TuPWkjSyXjvqGnVb6f6b8c8MDMWlfdgJ1oktoRSvluOBbLJpSDyhwbeRpLuPF
+	 XL4L3kwy8lfo4tm0D8eHPMKPV5DVBIZnXPNZTVXw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 38A2EF8057E; Fri, 15 Dec 2023 15:41:47 +0100 (CET)
+	id B13A1F805B5; Fri, 15 Dec 2023 15:41:49 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 08F74F80571;
-	Fri, 15 Dec 2023 15:41:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 08BD8F805B1;
+	Fri, 15 Dec 2023 15:41:49 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A60F3F8016A; Fri, 15 Dec 2023 15:41:31 +0100 (CET)
+	id A74CCF8016A; Fri, 15 Dec 2023 15:41:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -37,41 +38,41 @@ Received: from mail.savoirfairelinux.com (mail.savoirfairelinux.com
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 84494F80114
-	for <alsa-devel@alsa-project.org>; Fri, 15 Dec 2023 15:41:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84494F80114
+	by alsa1.perex.cz (Postfix) with ESMTPS id EB598F80114
+	for <alsa-devel@alsa-project.org>; Fri, 15 Dec 2023 15:41:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB598F80114
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=savoirfairelinux.com header.i=@savoirfairelinux.com
  header.a=rsa-sha256 header.s=DFC430D2-D198-11EC-948E-34200CB392D2
- header.b=EGOU63j7
+ header.b=lfGSds8N
 Received: from localhost (localhost [127.0.0.1])
-	by mail.savoirfairelinux.com (Postfix) with ESMTP id 321009C284E;
-	Fri, 15 Dec 2023 09:41:19 -0500 (EST)
+	by mail.savoirfairelinux.com (Postfix) with ESMTP id 95DFF9C34B5;
+	Fri, 15 Dec 2023 09:41:29 -0500 (EST)
 Received: from mail.savoirfairelinux.com ([127.0.0.1])
  by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10032)
- with ESMTP id zcChLUFl3JJK; Fri, 15 Dec 2023 09:41:18 -0500 (EST)
+ with ESMTP id 3UoH7cEvh9C5; Fri, 15 Dec 2023 09:41:29 -0500 (EST)
 Received: from localhost (localhost [127.0.0.1])
-	by mail.savoirfairelinux.com (Postfix) with ESMTP id A6CF39C2C7D;
-	Fri, 15 Dec 2023 09:41:18 -0500 (EST)
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.savoirfairelinux.com A6CF39C2C7D
+	by mail.savoirfairelinux.com (Postfix) with ESMTP id 3F66D9C40CA;
+	Fri, 15 Dec 2023 09:41:29 -0500 (EST)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.savoirfairelinux.com 3F66D9C40CA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=savoirfairelinux.com; s=DFC430D2-D198-11EC-948E-34200CB392D2;
-	t=1702651278; bh=vfZKw4jnkY9FWDRkFPVjPBhiaSS6dSG1yAeVWklGAr4=;
+	t=1702651289; bh=u9QYi3UK49RvCOM0jwOPRvXLix0O7m+OZA9DnyWKw9g=;
 	h=From:To:Date:Message-Id:MIME-Version;
-	b=EGOU63j7uwa1EN1BmGjCuhaTlGslIy0EOvKZ21/O9Wt8EMtwTSuI+gZ35JNnlSpym
-	 ybREU1KsHvJIys5I5m7kTjcPFNirDFaH4oKLYbEdsjEnosKYs+C/Ut7uSzrai6flBw
-	 qiPhWfLNy7P9QxPH/DUlHFsvsFfbSaVD4aUStEmo7s98AxfW294ZMBPtiwJKiXpJiP
-	 HAiP4JEdQ0q3sfikl2zUBAfgR1RkVy7vSxFLMliWcmjzViqXN9z7Pi8hXpkfGdoeIf
-	 3F0JTq3YYNqFPjbd4esL8lNslZe02H511FYEXuMegqLiPrceUvaDiZ3meDPaRlnm5r
-	 +bK0SbkgLpXdg==
+	b=lfGSds8NceELmpDGkIfOdxSVLeAzC359f9r5vPwrH1HB+0KrKb3XZtYSCK/o/s9TU
+	 DGwWn6e25pLc4AtUFWIxYCdR54jC9Cnym3uxKsKcbT2Yxsg55tJTiDmHrxGmLU2Xz+
+	 1YkAHZeDUGUh9wDcPIpv6uS3UE4lk0guYsfbA/HKMuO04Vt7EP4zgpOv5bgZMzl3Cc
+	 v9GY8Ys9LIVMgCaEpflIg+OMt/q5zhSLG09w0X4+zeX0y4lBOHAZxlm7tICkUVfSwH
+	 2TibZ1R1dUcq3no2XSrhFIPBqb9TIbG88BwPRuzpjctZsKWtJgsEb/YQ2MQ7186SFJ
+	 1ta36btbnzVzg==
 X-Virus-Scanned: amavis at mail.savoirfairelinux.com
 Received: from mail.savoirfairelinux.com ([127.0.0.1])
  by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10026)
- with ESMTP id toWEancgtTin; Fri, 15 Dec 2023 09:41:18 -0500 (EST)
+ with ESMTP id TPQJnDtSDriJ; Fri, 15 Dec 2023 09:41:29 -0500 (EST)
 Received: from gerard.rennes.sfl (unknown [192.168.216.3])
-	by mail.savoirfairelinux.com (Postfix) with ESMTPSA id B3BEC9C284E;
-	Fri, 15 Dec 2023 09:41:17 -0500 (EST)
+	by mail.savoirfairelinux.com (Postfix) with ESMTPSA id 560AC9C34B5;
+	Fri, 15 Dec 2023 09:41:28 -0500 (EST)
 From: Elinor Montmasson <elinor.montmasson@savoirfairelinux.com>
 To: shengjiu.wang@gmail.com,
 	Xiubo.Lee@gmail.com,
@@ -79,15 +80,17 @@ To: shengjiu.wang@gmail.com,
 Cc: elinor.montmasson@savoirfairelinux.com,
 	alsa-devel@alsa-project.org,
 	philip-dylan.gleonec@savoirfairelinux.com
-Subject: [PATCHv3 00/10] ASoC: fsl-asoc-card: compatibility integration of a
- generic codec use case for use with S/PDIF controller
-Date: Fri, 15 Dec 2023 15:39:55 +0100
-Message-Id: <20231215144005.934728-1-elinor.montmasson@savoirfairelinux.com>
+Subject: [PATCHv3 01/10] ASoC: fsl-asoc-card: add support for dai links with
+ multiple codecs
+Date: Fri, 15 Dec 2023 15:39:56 +0100
+Message-Id: <20231215144005.934728-2-elinor.montmasson@savoirfairelinux.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20231215144005.934728-1-elinor.montmasson@savoirfairelinux.com>
+References: <20231215144005.934728-1-elinor.montmasson@savoirfairelinux.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: 7BITVVO6HILOWY5Q4RAOHMHLAVH7L5QM
-X-Message-ID-Hash: 7BITVVO6HILOWY5Q4RAOHMHLAVH7L5QM
+Message-ID-Hash: WO26NILSRKR2M2BDRJ4HEENYUGP6THDZ
+X-Message-ID-Hash: WO26NILSRKR2M2BDRJ4HEENYUGP6THDZ
 X-MailFrom: elinor.montmasson@savoirfairelinux.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -100,7 +103,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7BITVVO6HILOWY5Q4RAOHMHLAVH7L5QM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WO26NILSRKR2M2BDRJ4HEENYUGP6THDZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,88 +112,75 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hello,
+Add support for dai links using multiple codecs for multi-codec
+use cases.
 
-This is the v3 of the series of patch aiming to make the machine driver
-"fsl-asoc-card" compatible with use cases where there is no real codec
-driver.
-It proposes to use the "spdif_receiver" and "spdif_transmitter"
-drivers instead of the dummy codec.
-This is a first step in using the S/PDIF controller with the ASRC.
+Signed-off-by: Elinor Montmasson <elinor.montmasson@savoirfairelinux.com>
+Co-authored-by: Philip-Dylan Gleonec <philip-dylan.gleonec@savoirfairelin=
+ux.com>
+---
+ sound/soc/fsl/fsl-asoc-card.c | 22 ++++++++++++++--------
+ 1 file changed, 14 insertions(+), 8 deletions(-)
 
-The five first patches add compatibility with the pair of codecs
-"spdif_receiver" and "spdif_transmitter" with a new compatible,
-"fsl,imx-audio-generic".
-Codec parameters are set with default values.
-Consequently, the driver is modified to work with multi-codec use cases.
-It can get 2 codecs phandles from the device tree, and the
-"fsl_asoc_card_priv" struct now has 2 "codec_priv" to store properties
-of both codecs. It is fixed to 2 codecs as only "fsl,imx-audio-generic"
-uses multiple codecs at the moment.
-However, the driver now uses for_each_codecs macros when possible to
-ease future implementations of multi-codec configurations.
-
-The remaining patches add configuration options for the device tree.
-They configure the CPU DAI when using "fsl,imx-audio-generic".
-These options are usually hard-coded in "fsl-asoc-card.c" for each
-audio codec.
-Because the generic codec could be used with other CPU DAIs than
-the S/PDIF controller, setting these parameters could be required.
-
-This series of patch was successfully built for arm64 and x86 on top of
-the latest for-next branch of the ASoC git tree on the 14th of December.
-These modifications have also been tested on an i.MX8MN evaluation
-board, with a linux kernel RT v6.1.26-rt8.
-
-Best regards,
-Elinor Montmasson
-
-
-Changelog:
-v2 -> v3:
-* when the bitmaster or framemaster are retrieved from the device tree,
-  the driver will now compare them with the two codecs possibly given in
-  the device tree, and not just the first codec.
-* improve driver modifications to use multiple codecs for better
-  integration of future multi-codec use cases:
-    * use for_each_codec macros when possible.
-    * "fsl_asoc_card_priv" struct now has 2 "codec_priv" as the driver
-      can currently retrieve 2 codec phandles from the device tree.
-* fix subject of patch 10/10 to follow the style of the subsystem and
-  previous commits of the file.
-* v2 patch series at:
-https://lore.kernel.org/alsa-devel/20231027144734.3654829-1-elinor.montma=
-sson@savoirfairelinux.com/
-
-v1 -> v2:
-* replace use of the dummy codec by the pair of codecs
-  "spdif_receiver" / " spdif_transmitter".
-* adapt how dai links codecs are used to take into account the
-  possibility for multiple codecs per link.
-* change compatible name.
-* adapt driver to be able to register two codecs given in the device
-  tree.
-* v1 patch series at:
-https://lore.kernel.org/alsa-devel/20230901144550.520072-1-elinor.montmas=
-son@savoirfairelinux.com/
-
-
-Elinor Montmasson (10):
-  ASoC: fsl-asoc-card: add support for dai links with multiple codecs
-  ASoC: fsl-asoc-card: add second dai link component for codecs
-  ASoC: fsl-asoc-card: add compatibility to use 2 codecs in dai-links
-  ASoC: fsl-asoc-card: add new compatible for a generic codec use case
-  ASoC: fsl-asoc-card: set generic codec as clock provider
-  ASoC: fsl-asoc-card: add dts property "cpu-slot-width"
-  ASoC: fsl-asoc-card: add dts property "cpu-slot-num"
-  ASoC: fsl-asoc-card: add dts properties "cpu-sysclk-freq"
-  ASoC: fsl-asoc-card: add dts properties "cpu-sysclk-dir-out"
-  ASoC: bindings: fsl-asoc-card: add compatible for generic codec
-
- .../bindings/sound/fsl-asoc-card.txt          |  28 +-
- sound/soc/fsl/fsl-asoc-card.c                 | 299 +++++++++++-------
- 2 files changed, 218 insertions(+), 109 deletions(-)
-
+diff --git a/sound/soc/fsl/fsl-asoc-card.c b/sound/soc/fsl/fsl-asoc-card.=
+c
+index 7518ab9d768e..cde31fd38262 100644
+--- a/sound/soc/fsl/fsl-asoc-card.c
++++ b/sound/soc/fsl/fsl-asoc-card.c
+@@ -809,10 +809,10 @@ static int fsl_asoc_card_probe(struct platform_devi=
+ce *pdev)
+=20
+ 	/* Normal DAI Link */
+ 	priv->dai_link[0].cpus->of_node =3D cpu_np;
+-	priv->dai_link[0].codecs->dai_name =3D codec_dai_name;
++	priv->dai_link[0].codecs[0].dai_name =3D codec_dai_name;
+=20
+ 	if (!fsl_asoc_card_is_ac97(priv))
+-		priv->dai_link[0].codecs->of_node =3D codec_np;
++		priv->dai_link[0].codecs[0].of_node =3D codec_np;
+ 	else {
+ 		u32 idx;
+=20
+@@ -823,11 +823,11 @@ static int fsl_asoc_card_probe(struct platform_devi=
+ce *pdev)
+ 			goto asrc_fail;
+ 		}
+=20
+-		priv->dai_link[0].codecs->name =3D
++		priv->dai_link[0].codecs[0].name =3D
+ 				devm_kasprintf(&pdev->dev, GFP_KERNEL,
+ 					       "ac97-codec.%u",
+ 					       (unsigned int)idx);
+-		if (!priv->dai_link[0].codecs->name) {
++		if (!priv->dai_link[0].codecs[0].name) {
+ 			ret =3D -ENOMEM;
+ 			goto asrc_fail;
+ 		}
+@@ -838,13 +838,19 @@ static int fsl_asoc_card_probe(struct platform_devi=
+ce *pdev)
+ 	priv->card.num_links =3D 1;
+=20
+ 	if (asrc_pdev) {
++		int i;
++		struct snd_soc_dai_link_component *codec;
++		struct snd_soc_dai_link *link;
++
+ 		/* DPCM DAI Links only if ASRC exists */
+ 		priv->dai_link[1].cpus->of_node =3D asrc_np;
+ 		priv->dai_link[1].platforms->of_node =3D asrc_np;
+-		priv->dai_link[2].codecs->dai_name =3D codec_dai_name;
+-		priv->dai_link[2].codecs->of_node =3D codec_np;
+-		priv->dai_link[2].codecs->name =3D
+-				priv->dai_link[0].codecs->name;
++		link =3D &(priv->dai_link[2]);
++		for_each_link_codecs(link, i, codec) {
++			codec->dai_name =3D priv->dai_link[0].codecs[i].dai_name;
++			codec->of_node =3D priv->dai_link[0].codecs[i].of_node;
++			codec->name =3D priv->dai_link[0].codecs[i].name;
++		}
+ 		priv->dai_link[2].cpus->of_node =3D cpu_np;
+ 		priv->dai_link[2].dai_fmt =3D priv->dai_fmt;
+ 		priv->card.num_links =3D 3;
 --=20
 2.25.1
 

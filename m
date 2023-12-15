@@ -2,204 +2,118 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9675822184
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A177822183
 	for <lists+alsa-devel@lfdr.de>; Tue,  2 Jan 2024 19:58:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A1B79152F;
+	by alsa0.perex.cz (Postfix) with ESMTPS id AB0B81539;
 	Tue,  2 Jan 2024 19:57:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A1B79152F
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB0B81539
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
 	s=default; t=1704221885;
-	bh=94cy1d42LwDp1V3sIq4TDavurB97LUabmdMDHjRakC0=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
+	bh=JJPHl/frXCxWYkp8j/fa7Y6yDGtOBUVUKJEm8ULgotY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=MAKZuW3AJPyhfiVJHaQiV2FNETdSTx6WAfGV4Qn9dL82QS+q42dwWclDrNuVBPrjm
-	 sC3McfL+cFXbAnsAy2sSyMNtATm6n/202AlilHgOZWxUI7ePnWiO9noMENO1imhAPk
-	 imHqGsbF4U4FCcsSjZ16He+7b0LA1Hfan6vhUCj8=
+	b=Eq7S6jaFc/p71YLg6pXua7HXpufY0jK9KdVLyIY3fiWrDoNcsb+PZnX3Es8ezRBT+
+	 rhDNmW7vfRW572NL0om0PheRdRPgaEWoJfV1egidJQ+6JaSPMLUpeK5j8GzJkWuh9h
+	 MpwT9VOfjLkNVRrJ+/AGSZ3dYlc7r0ak9Cd1SH2k=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 81DD5F89786; Tue,  2 Jan 2024 19:51:15 +0100 (CET)
+	id 854F1F897FF; Tue,  2 Jan 2024 19:51:16 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A402EF897B4;
-	Tue,  2 Jan 2024 19:51:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 99701F8980D;
+	Tue,  2 Jan 2024 19:51:16 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8AFE0F8016A; Fri, 15 Dec 2023 12:21:12 +0100 (CET)
+	id 4E3F6F80166; Fri, 15 Dec 2023 23:55:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-20.7 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,ENV_AND_HDR_SPF_MATCH,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+	USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2061d.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e83::61d])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [IPv6:2a00:1450:4864:20::32e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3072DF8001F
-	for <alsa-devel@alsa-project.org>; Fri, 15 Dec 2023 12:21:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3072DF8001F
+	by alsa1.perex.cz (Postfix) with ESMTPS id D167DF8001F
+	for <alsa-devel@alsa-project.org>; Fri, 15 Dec 2023 23:55:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D167DF8001F
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=SCd44z9T
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jtutqEtg8ZzX3xIBYrwJUoN9Dy401jMJfUkrhJmahk160vF5DwpRAS38IZGpdUeneL8RBK5cGN0ZCfvH+yM1Jf1ObLmekq+KlUN7+MzKBKUV/PJP4EvODoX2coZbnQpLiLEmUCx1K4/ryY+qZFqJk/ZAz5yrb9GDpAwRLhrwODudQ8XiycR76DvdFW4hud8OY3oIeIQKgPKgQBgcr5kLp4iYyfYD9s/JM0YVtP0x2ff25LTGz4iVF5z/HTr/lEo5covB/8PoRmFmVIjdPMJX4cum83xrsPyoxjELbgG/bhjFVSz2eQW2Ua6hhxRjt4nM0nFOmXI25dnBVeh0Fw0KGg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=94cy1d42LwDp1V3sIq4TDavurB97LUabmdMDHjRakC0=;
- b=bDcK/qiNZ3j6zhFgFeUPs3TJLoGePcDWOYNb8ySh0RVzaFHDg6cv+nHCmLufoZ+ESbFJIRX1aYLJzm+g61UhCIxfXdCW3lSIdfrPK25Wi9W1w/1pcKfEFoNumoEoPSRgaMDUKocC99T/rWeLyXdGNpzbqGxHWWrtEmOB5NzxKqbAz49Z4dftwrfmwLglL+voOEOwPXV+x2IKaOEtkKe6dEu602B1PCKUrzMPNxRczwa4Kt9BWC9W+AsY602GAt0lJKYpp0dkBX9QFsV4UnOdYBXCWY0toY/DQchq6PFAcT20V5kcKPYZ+czbiC8uTHN+aOgUb6/XrAeVHXFHj252tQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=94cy1d42LwDp1V3sIq4TDavurB97LUabmdMDHjRakC0=;
- b=SCd44z9T+Ro9OjEHI0m9WEtpe54Kefj+Ad6S763c9VcFaB5Lg3o28WScV5HY5AzQWXRxclPFDGqVYmwiGs1hthfCxhcfYArC+GLRHo6EPfDbd5qO/R0NGkXmAoj6z5zpWEZBtfjXSri3MCf5XOaIrhlTTjhuFvk7n5SEdsA3lLU=
-Received: from BN7PR12MB2802.namprd12.prod.outlook.com (2603:10b6:408:25::33)
- by PH0PR12MB8821.namprd12.prod.outlook.com (2603:10b6:510:28d::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7091.32; Fri, 15 Dec
- 2023 11:20:55 +0000
-Received: from BN7PR12MB2802.namprd12.prod.outlook.com
- ([fe80::2a35:852d:bc78:ed64]) by BN7PR12MB2802.namprd12.prod.outlook.com
- ([fe80::2a35:852d:bc78:ed64%7]) with mapi id 15.20.7091.029; Fri, 15 Dec 2023
- 11:20:55 +0000
-From: "Mahapatra, Amit Kumar" <amit.kumar-mahapatra@amd.com>
-To: Tudor Ambarus <tudor.ambarus@linaro.org>, "broonie@kernel.org"
-	<broonie@kernel.org>, "pratyush@kernel.org" <pratyush@kernel.org>,
-	"miquel.raynal@bootlin.com" <miquel.raynal@bootlin.com>, "richard@nod.at"
-	<richard@nod.at>, "vigneshr@ti.com" <vigneshr@ti.com>,
-	"sbinding@opensource.cirrus.com" <sbinding@opensource.cirrus.com>,
-	"lee@kernel.org" <lee@kernel.org>, "james.schulman@cirrus.com"
-	<james.schulman@cirrus.com>, "david.rhodes@cirrus.com"
-	<david.rhodes@cirrus.com>, "rf@opensource.cirrus.com"
-	<rf@opensource.cirrus.com>, "perex@perex.cz" <perex@perex.cz>,
-	"tiwai@suse.com" <tiwai@suse.com>
-CC: "linux-spi@vger.kernel.org" <linux-spi@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"michael@walle.cc" <michael@walle.cc>, "linux-mtd@lists.infradead.org"
-	<linux-mtd@lists.infradead.org>, "nicolas.ferre@microchip.com"
-	<nicolas.ferre@microchip.com>, "alexandre.belloni@bootlin.com"
-	<alexandre.belloni@bootlin.com>, "claudiu.beznea@tuxon.dev"
-	<claudiu.beznea@tuxon.dev>, "Simek, Michal" <michal.simek@amd.com>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "alsa-devel@alsa-project.org"
-	<alsa-devel@alsa-project.org>, "patches@opensource.cirrus.com"
-	<patches@opensource.cirrus.com>, "linux-sound@vger.kernel.org"
-	<linux-sound@vger.kernel.org>, "git (AMD-Xilinx)" <git@amd.com>,
-	"amitrkcian2002@gmail.com" <amitrkcian2002@gmail.com>
-Subject: RE: [PATCH v11 07/10] mtd: spi-nor: Add stacked memories support in
- spi-nor
-Thread-Topic: [PATCH v11 07/10] mtd: spi-nor: Add stacked memories support in
- spi-nor
-Thread-Index: 
- AQHaH4D9pFM5xtDoeEuMNIpXuxvtzbCcYmwAgAEJ+aCABhoaAIAAMcLwgAAzdICAADdZAIABtmWAgAQ4ECCAAAuVAIAAD5dQgAAYdQCAAAF/8A==
-Date: Fri, 15 Dec 2023 11:20:55 +0000
-Message-ID: 
- <BN7PR12MB280237CDD7BB148479932874DC93A@BN7PR12MB2802.namprd12.prod.outlook.com>
-References: <20231125092137.2948-1-amit.kumar-mahapatra@amd.com>
- <20231125092137.2948-8-amit.kumar-mahapatra@amd.com>
- <e2305642-55f1-4893-bea3-b170ac0a5348@linaro.org>
- <BN7PR12MB2802BEDFB821A1748185794CDC8AA@BN7PR12MB2802.namprd12.prod.outlook.com>
- <f5a47024-514a-4846-bc16-08cf0f9af912@linaro.org>
- <BN7PR12MB2802BB3DA682D9C13EF7DE08DC8FA@BN7PR12MB2802.namprd12.prod.outlook.com>
- <5a6f6764-6779-42b0-b6c6-3f638b85ef78@linaro.org>
- <BN7PR12MB28029EB1A7D09882878499A2DC8FA@BN7PR12MB2802.namprd12.prod.outlook.com>
- <c3fa1e04-92ed-48ab-a509-98e43abd5cd6@linaro.org>
- <BN7PR12MB2802E87F1A6CD22D904CAEACDC93A@BN7PR12MB2802.namprd12.prod.outlook.com>
- <b3d3c457-a43b-478a-85b3-52558227d139@linaro.org>
- <BN7PR12MB28027E62D66460A374E3CFEADC93A@BN7PR12MB2802.namprd12.prod.outlook.com>
- <e212f9fa-83c5-4b9e-8636-c8c6183096ab@linaro.org>
-In-Reply-To: <e212f9fa-83c5-4b9e-8636-c8c6183096ab@linaro.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN7PR12MB2802:EE_|PH0PR12MB8821:EE_
-x-ms-office365-filtering-correlation-id: bf8119ce-9021-4ca7-b31e-08dbfd5fe79e
-x-ld-processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- yQgcRgF8EaQqh3pewhNxLOTi1Rwz2Za/MMGQlOxZZZEf9Nc9lVLRbey5ch1DP+xrODro2wLQtNGjORzBdc0EItMbX8jihY/KwAFmJcGt9e2Y3FLDwgCbsWaILKiJjTJuph7hCpFWDc9IriDHTn075zq9aMxRa+ifIkaXjHseclx9LR+1MlJYVJevZGdSFBEAfSjV0Vf1QkIgpJ5cG0MJlCF2n5MsPSv9yVmFK68/AzpUia/bCexc1b/Dj7ki+mrNLXPM5fMQYZdsRjK2mmO28tV0Ty8QPPsz+VG+I3Cn9QDCFm18saVtObJor1MFmmpQSs98BH++FO8MTpjFKPArfPXjygW0lWQ25jpahJKo9TdY3bwKPo88iXA/N6XDf8Yfke8CZ9M5PzIzxgi/ztTp9D5PNqzXJ+tX3IeoBDUhnfM82N8k7wQApXhaZlo/TIVqzMv5EJ/wj9pyCpRn2EI2mKAHuGVh12f4vpgiOkLT0vx5eSTIHrMFVOqaAFoeqtGguMTShWOXtRauBJVpdR/Br4ojFKynYIidsnfKch1KC+RRm59kCN6V6fygI8HvsOcRZn05/JXDrC63cOY3vx/ivOFDBuEtPOXNTEIvhSofVdCv662lKHGZ1nawYgjV8/oP67yCfJydGDkeQMO7WKRtJA==
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN7PR12MB2802.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366004)(346002)(376002)(396003)(39860400002)(136003)(230922051799003)(64100799003)(1800799012)(451199024)(186009)(2906002)(33656002)(4326008)(8676002)(8936002)(52536014)(86362001)(5660300002)(7416002)(38070700009)(921008)(41300700001)(53546011)(26005)(9686003)(55016003)(83380400001)(478600001)(6506007)(7696005)(71200400001)(38100700002)(122000001)(110136005)(76116006)(66446008)(54906003)(66476007)(64756008)(66946007)(66556008)(316002);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?utf-8?B?NW1aaklqYzlDTjZVSHFtL3l1Ym5keGg3ZS94d0d5a0paSzRoNGt0azFIR2dr?=
- =?utf-8?B?aldlVTYzdlcxc3lRbWtXWjNXUzUxaENDVVg1OE50a1ViRnhzd1pxVGpoR2Rr?=
- =?utf-8?B?QVpvQjVaM3dqWGNKS2NXMXNpTjJmQXE4NXE4eDN2Z1VSbmxMR1ZuWFBZbVBW?=
- =?utf-8?B?M2VFR0FvZ2RwTk5SL0xMaDVGL3RPVnpqWUd2V0VTUjFvS3FRamdrVGJtVFgz?=
- =?utf-8?B?cUNwMWpaWWtwNHZZSFQvVUxXZWxMQ0V1UmdBNnpMNjNDMG91dHBwR1JFMzJU?=
- =?utf-8?B?OVRBdkIxY01mYzBQa3dsV1VNNFpjUFMvdWFTNnEvU25ta1RJV3RaTUFET2t1?=
- =?utf-8?B?cFpMRUxzN0JNa1p1U0lkbTVVMEJxTTE0TWQvVU9rd04wRDF3Vjc4THR6V0RF?=
- =?utf-8?B?UlJmRUdjcFBsb1ZXNDNIMEY4Tk8wV2dFMUpsc3U5MGY1b1phcUVHeGF6Nmxt?=
- =?utf-8?B?ZS9SdXZxcm9mUWN2U1VTc3BIVUw1Y3Q1a2s4amhvZjJkUTl3ZUgwcUZMcXQ5?=
- =?utf-8?B?cUpMV2wzdkYzdEtNUWY3K3FWaStNcWM5aW1Pa3ByaWs5blZtSi9WRnIwbmtm?=
- =?utf-8?B?SXpycE1BQVhsVDdjaHlBZzRBVFVDL1Iyaml5dmNoeWtCOG1yaWJpUWx4WUFX?=
- =?utf-8?B?R2t5QWU5VjEvekZBYUdlZDNjSTQ2TFNwaU8rWGJMcEh3RUZxVnFNWm9IYzBP?=
- =?utf-8?B?TUJ5ZGN1MkI0dmlYTWZUbzdYd0FmbzNkN0hwZmlkWWYrMlVqVUx3TkhGYXBn?=
- =?utf-8?B?NFJaOTdqZ2NEQjR0WWU0VTZhMkdKcXNPVlI2NWY3bVV4VlRhVEhUMlRHenJq?=
- =?utf-8?B?SkNPaWx5aXZRRzRCREt6Rkg3c1NPUVRZWDZpYlhTeHVSQ3JVSHNGR3pIbWVw?=
- =?utf-8?B?RWt6T3BuK0U2cFBvUDlsTGQxcGUxSlZlRlVDOWhFWTFLT0hKQTR1aHY5TkVE?=
- =?utf-8?B?NFRUSis0RU1IQy9wQ3F5RHU5OVZESjh1ckE2ekZFWGl2aHZJYllaalExTytu?=
- =?utf-8?B?YWdlcXF6b24ralNiSVZTTnpNbEs0eXBGYUZVOXdKWlZDK0tZU29WUjdjSTBh?=
- =?utf-8?B?OGF0TFVlcVUvTS84MlJ3UlBCRUlReE9wOEV0Vks5UHY2UlRjRlErZ1FHbVFo?=
- =?utf-8?B?aVVvaTVvVUVzSFRsOU9oVmpXbGt2eURmY0M5ZUlmRFFOUjJxVzFLekJFSzR6?=
- =?utf-8?B?emloVG1hcUdNSjg2Vkxxb1lYbEwxb3YwMmdXK2p6elo0Yys3RVVxdkNiTDIv?=
- =?utf-8?B?Smx5bzhjR3JYR3U2aTY4UlVXaG9RNFgyd0FxNWxzdHpTS1BRdklHRFBYRmFt?=
- =?utf-8?B?TzR6dG5NQnhkaC9pbjB5eEszUVRpR2hocUphS2I1RE9jTmFQVWxLeWlFS2Jo?=
- =?utf-8?B?a0RaazNmWDArNXRtRnZEOFhiQXVXUGVvb2t1TUR6TldQOE1KYXNFVGx5MXlR?=
- =?utf-8?B?UDQxUkplZFB2OGsrczVNUk5JQjVKRUlyM2dMVE9sakE3aGltZWFxenRxd0p2?=
- =?utf-8?B?TE9PMy8wdldmOEQvU2Y3QkczaXZ0NXQ1QmhNdGVrMjJxUm13MFU4OG5Vak4w?=
- =?utf-8?B?bHhGd1NTOGxrbG1URGlydnNMejFrcTNmK2dlN0tJYThYUExVWjRNdlU5dy9u?=
- =?utf-8?B?TjVsM2cxKzZoQmdvb0lrMTdjajdDMXJ2TFR4SnNpNnJIK3BGbW5iTHluWWpq?=
- =?utf-8?B?TlB5TjRubmNKL1FNUmV0NDkxM0kvNytiY283a1hoWStCOXVsRDF2Z1doRXdR?=
- =?utf-8?B?aG9OR2h1Q3hyU2RTRG1TVkgzY1NIL2NEbEZpb1pUQXF4UU5tc2cvVFBoMXZF?=
- =?utf-8?B?RlpGN1A3U3Z6aGFYaitiSXE3d3Q5MlNWeUU4WFlWMi94K3pkVkV3SGtXekND?=
- =?utf-8?B?Mmp6UGlXZXExamVLZklFMnBTYkp5QXdySTJWWlVzblNXVUp2QlhTU3ZYek9l?=
- =?utf-8?B?d0ROMldaakhFM3QrZWJ5U0xwSGw4SDFJVFlmaVEwTmNWcUZYeEhmR3pWdkI1?=
- =?utf-8?B?MnNhb3RBOStkN1VWZERSL3FkaDRTamFya3VSZ0x5TlhGRXFVQzJlTWdrWWJn?=
- =?utf-8?B?SFBKekdZaGFNVWZRYTVXRlFWNGJHckVJYUErZC9ubVhEM2QyRUkzazErZGJz?=
- =?utf-8?Q?40N4=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key,
+ unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
+ header.s=20230601 header.b=EEK7RQDQ
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-40c39ef63d9so12303885e9.3
+        for <alsa-devel@alsa-project.org>;
+ Fri, 15 Dec 2023 14:55:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20230601; t=1702680928; x=1703285728;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=bfWah5pIv+cdtVmyxWmUY/L3xG6Co4HLc34UhFBOkUw=;
+        b=EEK7RQDQ7Nvm3bqW6gRYA4vR+Z8gPnXl0fJZhQKRVIctGbNVxJ410RAc4Ty238nRwq
+         s17a4SuVyLNVVFGGdav0oIZNhamQBLicvPmtqESxtOtlye/xFyZ3eiRQ6whwWdCv+KMY
+         HaCDHIDcKnoxd/KCaFMjD2JTLWy1B4NlxKg59u1Bn3wtYhDRuBAGsIh1DoTY9AopNPtT
+         k7P50t6peaRg6bWiIWNYtGlInFhoYSRs3TfY5NoyI9WUtofZsetAIKB/QVzvTKFvwFEd
+         Z8qRsFi8yJNolkFr9W7GUmrqQaW66A+p+xJUFkDG9yWlEdhN9JiwaZI0/4Cy5CBKyAN+
+         9nVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1702680928; x=1703285728;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=bfWah5pIv+cdtVmyxWmUY/L3xG6Co4HLc34UhFBOkUw=;
+        b=tIiZsU20u7qn62Zb4JJxqkCwcmLR0nyKltKCdgBN2JNRxtJRbLYpGgjqUapQ4J3SN2
+         wdtO8ghPJJypYub+G5bKn1iL/BtO6JpsnRMcO6Yf7OIf2pzrP/x6KiuQio36ywQTCnzE
+         6kfzoP54GGALwedcjNVkNVn8ZmzuwB+RYjJLQ7fSZwCdvL+ghXOkVFxrWXcQSD5y11x+
+         9TzOoYEneCT+Mu8NbYSg3eqiEcmvFrdYd/AnrfdHYQqH3MmkJcTXneiXmHE8ecakyNxd
+         f9aIw67YEz9K+vaNITEv35Xdz4/myl6H/uVNVjA0G1eLNbga1Zc2W64Y2ctYLczTzfh3
+         MMPw==
+X-Gm-Message-State: AOJu0YxM0j03wCqGjKXyi9j4U4u3SU22H9pULgwew2joImV/qg/RzOBo
+	+pJUkT2TCni+Evs6W9i8hltSqQRCCaUpbeUgxQJNng==
+X-Google-Smtp-Source: 
+ AGHT+IFIB5xNMOQoGlg74oNU/TZnz/9PWSKGUJ3pLK/UQ1Nqs6+/vrrIi0CB3YqMFOOPJKuW3z2k6ksi5MjBtn5J/9M=
+X-Received: by 2002:a05:600c:4507:b0:40b:5e21:cc15 with SMTP id
+ t7-20020a05600c450700b0040b5e21cc15mr6325717wmo.64.1702680928219; Fri, 15 Dec
+ 2023 14:55:28 -0800 (PST)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN7PR12MB2802.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- bf8119ce-9021-4ca7-b31e-08dbfd5fe79e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Dec 2023 11:20:55.2244
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 
- rURVtZ/X12o6Q9qHuu0+GhwVXPdmN4hvT+41mKlyMj8CdR02fR5U8K4qYUGNcEdIhufUOPE+d/jFCHGMT9LBvA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8821
-X-MailFrom: amit.kumar-mahapatra@amd.com
+References: <20231106104013.704356-1-jbrunet@baylibre.com>
+ <CADYyEwTNyY+fR9SgfDa-g6iiDwkU3MUdPVCYexs2_3wbcM8_vg@mail.gmail.com>
+ <1jil4zq2on.fsf@starbuckisacylon.baylibre.com>
+In-Reply-To: <1jil4zq2on.fsf@starbuckisacylon.baylibre.com>
+From: Hsin-Yi Wang <hsinyi@google.com>
+Date: Fri, 15 Dec 2023 14:55:00 -0800
+Message-ID: 
+ <CACb=7PXkaKYupZafD2BTiqusHZ1nEFq8AfWVot7VL07kxm0uWw@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: hdmi-codec: register hpd callback on component
+ probe
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: Zhengqiao Xia <xiazhengqiao@huaqin.corp-partner.google.com>,
+	Mark Brown <broonie@kernel.org>, alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-MailFrom: hsinyi@google.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: UL3YTB2GDGT6YBU27QJDVVGW7MOPO433
-X-Message-ID-Hash: UL3YTB2GDGT6YBU27QJDVVGW7MOPO433
-X-Mailman-Approved-At: Mon, 01 Jan 2024 13:15:07 +0000
+Message-ID-Hash: BIRUNXCRQMRQR6YQ4QCJIGQH65QZMD24
+X-Message-ID-Hash: BIRUNXCRQMRQR6YQ4QCJIGQH65QZMD24
+X-Mailman-Approved-At: Mon, 01 Jan 2024 13:15:08 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7CGVGUK2JHX3P2KRR2DF5CZC4H6R5LAB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BIRUNXCRQMRQR6YQ4QCJIGQH65QZMD24/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -208,74 +122,180 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-SGVsbG8gVHVkb3IsDQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogVHVk
-b3IgQW1iYXJ1cyA8dHVkb3IuYW1iYXJ1c0BsaW5hcm8ub3JnPg0KPiBTZW50OiBGcmlkYXksIERl
-Y2VtYmVyIDE1LCAyMDIzIDQ6MDMgUE0NCj4gVG86IE1haGFwYXRyYSwgQW1pdCBLdW1hciA8YW1p
-dC5rdW1hci1tYWhhcGF0cmFAYW1kLmNvbT47DQo+IGJyb29uaWVAa2VybmVsLm9yZzsgcHJhdHl1
-c2hAa2VybmVsLm9yZzsgbWlxdWVsLnJheW5hbEBib290bGluLmNvbTsNCj4gcmljaGFyZEBub2Qu
-YXQ7IHZpZ25lc2hyQHRpLmNvbTsgc2JpbmRpbmdAb3BlbnNvdXJjZS5jaXJydXMuY29tOw0KPiBs
-ZWVAa2VybmVsLm9yZzsgamFtZXMuc2NodWxtYW5AY2lycnVzLmNvbTsgZGF2aWQucmhvZGVzQGNp
-cnJ1cy5jb207DQo+IHJmQG9wZW5zb3VyY2UuY2lycnVzLmNvbTsgcGVyZXhAcGVyZXguY3o7IHRp
-d2FpQHN1c2UuY29tDQo+IENjOiBsaW51eC1zcGlAdmdlci5rZXJuZWwub3JnOyBsaW51eC1rZXJu
-ZWxAdmdlci5rZXJuZWwub3JnOyBtaWNoYWVsQHdhbGxlLmNjOw0KPiBsaW51eC1tdGRAbGlzdHMu
-aW5mcmFkZWFkLm9yZzsgbmljb2xhcy5mZXJyZUBtaWNyb2NoaXAuY29tOw0KPiBhbGV4YW5kcmUu
-YmVsbG9uaUBib290bGluLmNvbTsgY2xhdWRpdS5iZXpuZWFAdHV4b24uZGV2OyBTaW1laywgTWlj
-aGFsDQo+IDxtaWNoYWwuc2ltZWtAYW1kLmNvbT47IGxpbnV4LWFybS1rZXJuZWxAbGlzdHMuaW5m
-cmFkZWFkLm9yZzsgYWxzYS0NCj4gZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZzsgcGF0Y2hlc0BvcGVu
-c291cmNlLmNpcnJ1cy5jb207IGxpbnV4LQ0KPiBzb3VuZEB2Z2VyLmtlcm5lbC5vcmc7IGdpdCAo
-QU1ELVhpbGlueCkgPGdpdEBhbWQuY29tPjsNCj4gYW1pdHJrY2lhbjIwMDJAZ21haWwuY29tDQo+
-IFN1YmplY3Q6IFJlOiBbUEFUQ0ggdjExIDA3LzEwXSBtdGQ6IHNwaS1ub3I6IEFkZCBzdGFja2Vk
-IG1lbW9yaWVzIHN1cHBvcnQNCj4gaW4gc3BpLW5vcg0KPiANCj4gDQo+IA0KPiBPbiAxMi8xNS8y
-MyAxMDowMiwgTWFoYXBhdHJhLCBBbWl0IEt1bWFyIHdyb3RlOg0KPiA+IEhlbGxvIFR1ZG9yLA0K
-PiANCj4gSGksDQo+IA0KPiA+DQo+ID4+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+ID4+
-IEZyb206IFR1ZG9yIEFtYmFydXMgPHR1ZG9yLmFtYmFydXNAbGluYXJvLm9yZz4NCj4gPj4gU2Vu
-dDogRnJpZGF5LCBEZWNlbWJlciAxNSwgMjAyMyAxOjQwIFBNDQo+ID4+IFRvOiBNYWhhcGF0cmEs
-IEFtaXQgS3VtYXIgPGFtaXQua3VtYXItbWFoYXBhdHJhQGFtZC5jb20+Ow0KPiA+PiBicm9vbmll
-QGtlcm5lbC5vcmc7IHByYXR5dXNoQGtlcm5lbC5vcmc7IG1pcXVlbC5yYXluYWxAYm9vdGxpbi5j
-b207DQo+ID4+IHJpY2hhcmRAbm9kLmF0OyB2aWduZXNockB0aS5jb207IHNiaW5kaW5nQG9wZW5z
-b3VyY2UuY2lycnVzLmNvbTsNCj4gPj4gbGVlQGtlcm5lbC5vcmc7IGphbWVzLnNjaHVsbWFuQGNp
-cnJ1cy5jb207IGRhdmlkLnJob2Rlc0BjaXJydXMuY29tOw0KPiA+PiByZkBvcGVuc291cmNlLmNp
-cnJ1cy5jb207IHBlcmV4QHBlcmV4LmN6OyB0aXdhaUBzdXNlLmNvbQ0KPiA+PiBDYzogbGludXgt
-c3BpQHZnZXIua2VybmVsLm9yZzsgbGludXgta2VybmVsQHZnZXIua2VybmVsLm9yZzsNCj4gPj4g
-bWljaGFlbEB3YWxsZS5jYzsgbGludXgtbXRkQGxpc3RzLmluZnJhZGVhZC5vcmc7DQo+ID4+IG5p
-Y29sYXMuZmVycmVAbWljcm9jaGlwLmNvbTsgYWxleGFuZHJlLmJlbGxvbmlAYm9vdGxpbi5jb207
-DQo+ID4+IGNsYXVkaXUuYmV6bmVhQHR1eG9uLmRldjsgU2ltZWssIE1pY2hhbCA8bWljaGFsLnNp
-bWVrQGFtZC5jb20+Ow0KPiA+PiBsaW51eC0gYXJtLWtlcm5lbEBsaXN0cy5pbmZyYWRlYWQub3Jn
-OyBhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmc7DQo+ID4+IHBhdGNoZXNAb3BlbnNvdXJjZS5j
-aXJydXMuY29tOyBsaW51eC1zb3VuZEB2Z2VyLmtlcm5lbC5vcmc7IGdpdCAoQU1ELQ0KPiA+PiBY
-aWxpbngpIDxnaXRAYW1kLmNvbT47IGFtaXRya2NpYW4yMDAyQGdtYWlsLmNvbQ0KPiA+PiBTdWJq
-ZWN0OiBSZTogW1BBVENIIHYxMSAwNy8xMF0gbXRkOiBzcGktbm9yOiBBZGQgc3RhY2tlZCBtZW1v
-cmllcw0KPiA+PiBzdXBwb3J0IGluIHNwaS1ub3INCj4gPj4NCj4gPj4NCj4gPj4NCj4gPj4gT24g
-MTUuMTIuMjAyMyAwOTo1NSwgTWFoYXBhdHJhLCBBbWl0IEt1bWFyIHdyb3RlOg0KPiA+Pj4+IFRo
-YW5rcyEgQ2FuIHlvdSBzaGFyZSB3aXRoIHVzIHdoYXQgZmxhc2hlcyB5b3UgdXNlZCBmb3IgdGVz
-dGluZyBpbg0KPiA+Pj4+IHRoZSBzdGFja2VkIGFuZCBwYXJhbGxlbCBjb25maWd1cmF0aW9ucz8N
-Cj4gPj4+IEkgdXNlZCBTUEktTk9SIFFTUEkgZmxhc2hlcyBmb3IgdGVzdGluZyBzdGFja2VkIGFu
-ZCBwYXJhbGxlbC4NCj4gPj4NCj4gPj4gSSBnb3QgdGhhdCwgSSB3YW50ZWQgdGhlIGZsYXNoIG5h
-bWUgb3IgZGV2aWNlIElELg0KPiA+DQo+ID4gTjI1UTAwQSwgTVg2NlUyRzQ1RywgSVMyNUxQMDFH
-ICYgVzI1SDAySlYgYXJlIHNvbWUgb2YgdGhlIFFTUEkNCj4gZmxhc2hlcw0KPiA+IG9uIHdoaWNo
-IHdlIHRlc3RlZC4gQWRkaXRpb25hbGx5LCB3ZSBjb25kdWN0ZWQgdGVzdHMgb24gb3ZlciAzMA0K
-PiA+IGRpZmZlcmVudCBRU1BJIGZsYXNoZXMgZnJvbSBmb3VyIGRpc3RpbmN0IHZlbmRvcnMgKE1p
-cm9uLCBXaW5ib25kLA0KPiBNYWNyb25peCwgYW5kIElTU0kpLg0KPiA+DQo+IA0KPiBHcmVhdC4N
-Cj4gDQo+ID4+IFdoYXQgSSdtIGludGVyZXN0ZWQgaXMgaWYgZWFjaCBmbGFzaCBpcyBpbiBpdHMg
-b3duIHBhY2thZ2UuIEFyZSB0aGV5Pw0KPiA+DQo+ID4gSSdtIHNvcnJ5LCBidXQgSSBkb24ndCBx
-dWl0ZSB1bmRlcnN0YW5kIHdoYXQgeW91IG1lYW4gYnkgImlmIGVhY2gNCj4gPiBmbGFzaCBpbiBp
-dHMgb3duIHBhY2thZ2UuIg0KPiA+DQo+IA0KPiBUaGVyZSBhcmUgZmxhc2hlcyB0aGF0IGFyZSBz
-dGFja2VkIGF0IHRoZSBwaHlzaWNhbCBsZXZlbC4gSXQncyBhIHNpbmdsZSBmbGFzaCB3aXRoDQo+
-IG11bHRpcGxlIGRpZXMsIHRoYXQgYXJlIGFsbCB1bmRlciBhIHNpbmdsZSBwaHlzaWNhbCBwYWNr
-YWdlLg0KDQpHb3QgaXQuIFRoZSBXMjVIMDJKViBRU1BJIGZsYXNoIEkgbWVudGlvbmVkIGVhcmxp
-ZXIgaXMgYSBkZXZpY2Ugd2l0aCANCndpdGggZm91ciBkaWVzIHRoYXQgYXJlIHN0YWNrZWQgYXQg
-dGhlIHBoeXNpY2FsIGxldmVsLg0KDQo+IA0KPiBBcyBJIHVuZGVyc3RhbmQsIHlvdXIgc3RhY2tl
-ZCBmbGFzaCBtb2RlbCBpcyBhdCBsb2dpY2FsIGxldmVsLiBZb3UgaGF2ZQ0KPiAyIGZsYXNoZXMg
-ZWFjaCBpbiBpdHMgb3duIHBhY2thZ2UuIDIgZGlmZmVyZW50IGVudGl0aWVzLiBJcyBteSB1bmRl
-cnN0YW5kaW5nDQo+IGNvcnJlY3Q/DQoNClllcywgdGhhdOKAmXMgY29ycmVjdC4NCg0KSSdkIGxp
-a2UgdG8gY29udHJpYnV0ZSB0byB5b3VyIGVhcmxpZXIgcG9pbnQgcmVnYXJkaW5nIHRoZSBwbGFj
-ZW1lbnQgb2YgDQp0aGUgc3RhY2tlZCBsYXllci4gQXMgeW91IGNvcnJlY3RseSBoaWdobGlnaHRl
-ZCwgaXQgc2hvdWxkIGJlIGluIHRoZSANCnNwaS1tZW0gZ2VuZXJpYyBsYXllci4gRm9yIGluc3Rh
-bmNlLCB3aGVuIGEgcmVhZC93cml0ZSBvcGVyYXRpb24gZXh0ZW5kcyANCmFjcm9zcyBtdWx0aXBs
-ZSBmbGFzaGVzICh3aGV0aGVyIFNQSS1OT1Igb3IgU1BJLU5BTkQpLCB0aGUgc3RhY2tlZCBsYXll
-ciANCm11c3QgaGFuZGxlIHRoZSBmbGFzaCBjcm9zc292ZXIuIFRoaXMgcmVxdWlyZXMgc2V0dGlu
-ZyB0aGUgYXBwcm9wcmlhdGUgQ1MgDQppbmRleCBpbiBtZW0tPnNwaS0+Y3NfaW5kZXhfbWFzayB0
-byBzZWxlY3QgdGhlIGNvcnJlY3Qgc2xhdmUgZGV2aWNlIGFuZCANCnVwZGF0aW5nIHRoZSBkYXRh
-IGJ1ZmZlciwgYWRkcmVzcyAmIGRhdGEgbGVuZ3RoIGluIHNwaV9tZW1fb3Agc3RydWN0IA0KdmFy
-aWFibGUuIERvZXMgdGhpcyBhbGlnbiB3aXRoIHlvdXIgdW5kZXJzdGFuZGluZz8NCg0KUmVnYXJk
-cywNCkFtaXQNCj4gDQo+IENoZWVycywNCj4gdGENCg==
+On Fri, Dec 15, 2023 at 12:40=E2=80=AFAM Jerome Brunet <jbrunet@baylibre.co=
+m> wrote:
+>
+>
+> On Fri 15 Dec 2023 at 12:51, Zhengqiao Xia <xiazhengqiao@huaqin.corp-part=
+ner.google.com> wrote:
+>
+> > Hi Jerome,
+> >
+> > After my testing, I found that this patch will cause the audio on the e=
+xternal display to not work properly after
+> > restart.
+> > You move the plugged_cb to run in hdmi_probe, at this time hcp- > jack =
+=3D NULL, the driver cannot report `SND_JACK_LINEOUT
+> > ` normally.
+> > static void hdmi_codec_jack_report(struct hdmi_codec_priv *hcp,
+> >                                  unsigned int jack_status)
+> > {
+> >       printk("xzq-866 hdmi_codec_jack_report: jack=3D%x, jack_status=3D=
+%d", hcp->jack, jack_status !=3D hcp->jack_status);
+> >       if (hcp->jack && jack_status !=3D hcp->jack_status) {
+> >               snd_soc_jack_report(hcp->jack, jack_status, SND_JACK_LINE=
+OUT);
+> >               hcp->jack_status =3D jack_status;
+> >       }
+> > }
+> > So we must call  plugged_cb  in hdmi_codec_set_jack,  Can you make some=
+ changes?
+>
+> Hi Zhengqiao,
+>
+> That is unfortunate. Sorry.
+>
+> This patch has changed when the hpd callback is registered, no when it
+> comes in effect. This is still dependent on calling .set_jack() and it
+> is not happening any later than it was before. So, in theory, it should
+> not have changed anything, if your driver actually relies on the HPD
+> event.
+>
+> Trying to guess what is happening for you, I suppose your HDMI driver is
+> "faking" an HPD event to report the initial jack status when the
+> hook_plugged_cb() is called. Could you point me to the hdmi driver you
+> are using so I can have a look ?
+>
+> My reference when testing this was dw-hdmi-i2s-audio and it does not do
+> that, it just registers the callback. I think this is what it supposed
+> to do TBH.
+>
+> An idea I have been thinking about for a while is have the hdmi-codec
+> insert the jack in the card itself, instead of the card doing. That
+> would give the jack "for free" to any user of the HDMI codec and might
+> also solve your issue. It would require a small rework of the cards doing
+> the hdmi jack register, but there are not many of these AFAIK.
+>
+
+The driver is it6505. The implementation of hook_plugged_cb():
+1. register plugged_cb
+2. call plugged_cb(bool plugged)
+
+bridge detect callback it6505_detect would also call plugged_cb, but
+only on the first time hpd status changed (eg. changed from connect
+<--> disconnect)
+it6505_detect() {
+  status =3D it6505->hpd_state ...
+  ...
+  if (it6505->connector_status !=3D status) {
+    it6505->connector_status =3D status;
+    it6505_plugged_status_to_codec(it6505); // this will call plugged_cb
+  }
+}
+
+Unfortunately the first time after boot that hpd status changed was
+detected before set_jack. If we replug hdmi, the plugged_cb() was
+called by bridge_detect, which is expected.
+
+Prior to this patch, the initial plugged_cb() was called by hook_plugged_cb=
+().
+After the patch, plugged_cb() should be called by hpd change (by
+bridge detect), but due to the driver logic only calling it on the
+first hpd state change, it fails to call plugged_cb() again when jack
+is set.
+
+I checked the dw-hdmi.c's bridge_detect, and it's similar in that it
+also checks the last_connector_result, so maybe it's due to a timing
+difference?
+
+> >
+> > On Mon, Nov 6, 2023 at 6:40=E2=80=AFPM Jerome Brunet <jbrunet@baylibre.=
+com> wrote:
+> >
+> >  The HDMI hotplug callback to the hdmi-codec is currently registered wh=
+en
+> >  jack is set.
+> >
+> >  The hotplug not only serves to report the ASoC jack state but also to =
+get
+> >  the ELD. It should be registered when the component probes instead, so=
+ it
+> >  does not depend on the card driver registering a jack for the HDMI to
+> >  properly report the ELD.
+> >
+> >  Fixes: 25ce4f2b3593 ("ASoC: hdmi-codec: Get ELD in before reporting pl=
+ugged event")
+> >  Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
+> >  ---
+> >   sound/soc/codecs/hdmi-codec.c | 27 +++++++++++++++++++--------
+> >   1 file changed, 19 insertions(+), 8 deletions(-)
+> >
+> >  diff --git a/sound/soc/codecs/hdmi-codec.c b/sound/soc/codecs/hdmi-cod=
+ec.c
+> >  index 09eef6042aad..20da1eaa4f1c 100644
+> >  --- a/sound/soc/codecs/hdmi-codec.c
+> >  +++ b/sound/soc/codecs/hdmi-codec.c
+> >  @@ -877,18 +877,13 @@ static int hdmi_codec_set_jack(struct snd_soc_co=
+mponent *component,
+> >                                 void *data)
+> >   {
+> >          struct hdmi_codec_priv *hcp =3D snd_soc_component_get_drvdata(=
+component);
+> >  -       int ret =3D -ENOTSUPP;
+> >
+> >          if (hcp->hcd.ops->hook_plugged_cb) {
+> >                  hcp->jack =3D jack;
+> >  -               ret =3D hcp->hcd.ops->hook_plugged_cb(component->dev->=
+parent,
+> >  -                                                   hcp->hcd.data,
+> >  -                                                   plugged_cb,
+> >  -                                                   component->dev);
+> >  -               if (ret)
+> >  -                       hcp->jack =3D NULL;
+> >  +               return 0;
+> >          }
+> >  -       return ret;
+> >  +
+> >  +       return -ENOTSUPP;
+> >   }
+> >
+> >   static int hdmi_dai_spdif_probe(struct snd_soc_dai *dai)
+> >  @@ -982,6 +977,21 @@ static int hdmi_of_xlate_dai_id(struct snd_soc_co=
+mponent *component,
+> >          return ret;
+> >   }
+> >
+> >  +static int hdmi_probe(struct snd_soc_component *component)
+> >  +{
+> >  +       struct hdmi_codec_priv *hcp =3D snd_soc_component_get_drvdata(=
+component);
+> >  +       int ret =3D 0;
+> >  +
+> >  +       if (hcp->hcd.ops->hook_plugged_cb) {
+> >  +               ret =3D hcp->hcd.ops->hook_plugged_cb(component->dev->=
+parent,
+> >  +                                                   hcp->hcd.data,
+> >  +                                                   plugged_cb,
+> >  +                                                   component->dev);
+> >  +       }
+> >  +
+> >  +       return ret;
+> >  +}
+> >  +
+> >   static void hdmi_remove(struct snd_soc_component *component)
+> >   {
+> >          struct hdmi_codec_priv *hcp =3D snd_soc_component_get_drvdata(=
+component);
+> >  @@ -992,6 +1002,7 @@ static void hdmi_remove(struct snd_soc_component =
+*component)
+> >   }
+> >
+> >   static const struct snd_soc_component_driver hdmi_driver =3D {
+> >  +       .probe                  =3D hdmi_probe,
+> >          .remove                 =3D hdmi_remove,
+> >          .dapm_widgets           =3D hdmi_widgets,
+> >          .num_dapm_widgets       =3D ARRAY_SIZE(hdmi_widgets),
+>
+>
+> --
+> Jerome

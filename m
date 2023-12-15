@@ -2,99 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F9CE8148C4
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Dec 2023 14:12:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6BC08148F1
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Dec 2023 14:20:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B5F0CDF3;
-	Fri, 15 Dec 2023 14:12:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B5F0CDF3
+	by alsa0.perex.cz (Postfix) with ESMTPS id ECB11E10;
+	Fri, 15 Dec 2023 14:20:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ECB11E10
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1702645964;
-	bh=YVAj81xR3UGWwi9IwTdMMiN5qIvtNDMXbLSVFQDC2Zw=;
+	s=default; t=1702646424;
+	bh=9kZ6kAD1vWCImwKBvfgLferuTpo9DtqzX4wfbO0I+ro=;
 	h=Date:From:Subject:To:Cc:References:In-Reply-To:Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Pr6PE7+Obnzbbd5l74ohpoHXK6D94YAJVc7RTUTygLTGvQ75PqysxpLmfS/VpznT/
-	 OpTmtfbi4fQkOYNqLeb954tVEAMwWqaYmq/2KBId5M5IOwFsj0LiMgFVGAupNVUYby
-	 Y372jjYoWDwC5rrON06jPEM0tLjY+Lg8ewHbk3zk=
+	b=AHW2zr8krcRVXa6tF94+QH3tg01MTKFFp6tnedwwgU3xKlOiLaz5nO5qwqYcpm5b5
+	 Ar8Z1IFQljHka0KwMdpVGcSj69Po73Qn9D5wCHIUm8OZsbmTJLY3HJ28y5NeO+pDFA
+	 3dbI4vuTsgEviCOnG0aSOUXLdZkklxRiXjL5MR7k=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BB1C9F80579; Fri, 15 Dec 2023 14:12:12 +0100 (CET)
+	id 4CA96F80557; Fri, 15 Dec 2023 14:20:01 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3C822F80578;
-	Fri, 15 Dec 2023 14:12:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 64C6DF80494;
+	Fri, 15 Dec 2023 14:20:01 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A8442F8016A; Fri, 15 Dec 2023 14:12:09 +0100 (CET)
+	id 3F13DF8016A; Fri, 15 Dec 2023 14:19:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [IPv6:2a00:1450:4864:20::32f])
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [IPv6:2a00:1450:4864:20::435])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2C6F4F8001F
-	for <alsa-devel@alsa-project.org>; Fri, 15 Dec 2023 14:12:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C6F4F8001F
+	by alsa1.perex.cz (Postfix) with ESMTPS id B3F76F800D2
+	for <alsa-devel@alsa-project.org>; Fri, 15 Dec 2023 14:19:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3F76F800D2
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=DfqBNkLa
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-40c256ffdbcso7413695e9.2
+ header.s=google header.b=MzMZK5Mr
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-3332efd75c9so476180f8f.2
         for <alsa-devel@alsa-project.org>;
- Fri, 15 Dec 2023 05:12:01 -0800 (PST)
+ Fri, 15 Dec 2023 05:19:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1702645920; x=1703250720;
+        d=linaro.org; s=google; t=1702646391; x=1703251191;
  darn=alsa-project.org;
         h=content-transfer-encoding:in-reply-to:organization:autocrypt
          :references:cc:to:content-language:subject:reply-to:from:user-agent
          :mime-version:date:message-id:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=elp6Thk4qtd/V/VmcwBF9x0WrXlslVQD7aBSrD8E/B4=;
-        b=DfqBNkLarwFFWQXYBUNtBrgqE2KOQ4lRhZQDLXLDg4XHoR9IlwM04kgK0bKmgz9apk
-         TmLahhm3XolpiM1+gD41TVfgTzRl/wFWBWMOp9pu3fUOgP248ehlzXMffmT9arH6uQWt
-         dRRVDYfVG6HdV9L3UtZumUotcRZVT2dI34EEIb+HTT7PcybKdbHiJxyppeY55wr1CIW0
-         tQYJIMxrcKdgPhiX0WXn5UUHL3dbHEwmY7MzevtWzMfmMs3cWbIhRnneVsq4CyXZ11WR
-         chCeXx25l2GJTrIbKSNE8d0ZDZXMYUdkoNoCrSshCaPliK+Gd68Y1stzS2tYHniuZmau
-         gQoA==
+        bh=dwNp0sgW48z+F5oUMsIxJsVhA8NF2XoB7VYgvdpehl4=;
+        b=MzMZK5Mru2Qhvck/d+/ejuMUcvpmIE5XkeItMBDTQ93ut7qajoHM3vf1bDhFMTeR7d
+         DJY3BzlctWYjm5yD/xxncU745ca/YClb9nGIrl8PJRfDNQ6UQ0ugdYhApCUgd7xmQRyT
+         LjC1fKeLfNyfALmUCrvKlRsm857Wv7O9J48TtuI5VQW1jO299wrqmafLGrTGChWpjjRr
+         WTPlFbYIHbX8L6lS08GtBhnkOpWDioUYfPdk0cIS1LYgj7FxOuKsg+RDCqkyl/r46Fq0
+         EJ4aA19FG+dwIZis0daX59UQ4zrMs1aqAONPZQiClwnTe/7mSEpfZFGGUXAq6bwAdixO
+         Nbuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702645920; x=1703250720;
+        d=1e100.net; s=20230601; t=1702646391; x=1703251191;
         h=content-transfer-encoding:in-reply-to:organization:autocrypt
          :references:cc:to:content-language:subject:reply-to:from:user-agent
          :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=elp6Thk4qtd/V/VmcwBF9x0WrXlslVQD7aBSrD8E/B4=;
-        b=X6KioYxrDrpbUUykccXsUMmM7eKQHjr5QDKvp2OauJNuqxZrQPag/VK0bZ7vhOb45H
-         aMrFq1eu0oAbCM+WENdDmacBdhRT9dEJa7YHbQ1kC4hbN9sYIxRb8kvA0lyCtQR/SlDn
-         45QzdGEWF0OOuHPCfPFMUR7vlCRvNWGoPdrXn4biVlV5d8SPJK4zl3mjZrWrNEH2SIgz
-         AIIqBWuueufnCzI5r8c2or3RanhRl0KuWHT8tws1RomQx18osuc0hfI4tmaraqsezBma
-         IxL9Gn7xRucrNVcBE5rvCIf2yz9zK0HQTZfARLLIzpqCP1hS3X1BWVXpGbzshmmTKskM
-         5oUQ==
-X-Gm-Message-State: AOJu0YwAdzr3UL26os2VZELE4bEIlgWc5ZrXvYBCL8j+yjTkWaAX1n6Y
-	m8qQkKqWoroNoRxKa90Qd4aBOw==
+        bh=dwNp0sgW48z+F5oUMsIxJsVhA8NF2XoB7VYgvdpehl4=;
+        b=YlOoipT6ptS4E5wKgNcfpJrH9CsoPasdz9hdCI9iqinJ2yqZP+E00DpYYo+T9caAsg
+         UpkiwYgfbB9WxPWT5qwxi2IozIHN9LUN6fX6Jn1r4bU+KjWAy2IQqBXAbVd87SMWLyaw
+         w2gHb4Y3x6875fqzrDyO1sbCT3Vjv12EyoSDCopwSldjcVf/4oZ+BtqbUC0aPVqa0GkM
+         Iwn12wp844/rNiVBipSSIt/ySdxlYv1h+S3XiWEqj8s1onZFX4ERSCJlPMjlUOvZxxGw
+         ZCplo5BImKPyvAS5JUzoifuO5UoIBw56VGZhwcXMNsg+dpYAgle7gTLvmH2WZ2rAmbYY
+         r+yg==
+X-Gm-Message-State: AOJu0YwYnT+v4xhrvQ1DlelBTJDC3Y3rTNcikfwxhs2rwLW5s+sF1glg
+	YdmqsNou2Lj/Z9/1PPfiVOOfOA==
 X-Google-Smtp-Source: 
- AGHT+IGMLOefGAWydo1H4s1lMv7uUuyJss4sJUB5Q94jIew2eAFblDKp0NXWewGQfoB3FGjV3sHXtA==
-X-Received: by 2002:a05:600c:164a:b0:40b:5e59:c566 with SMTP id
- o10-20020a05600c164a00b0040b5e59c566mr6001053wmn.144.1702645919664;
-        Fri, 15 Dec 2023 05:11:59 -0800 (PST)
+ AGHT+IEDD6bxhoN6uIYdEQ2w4hHbUIflkHy6qPGABXfxSyBAawfdYuz9kwdPIXVJPxY5ZT4EWLZU9g==
+X-Received: by 2002:adf:e4c9:0:b0:336:42ce:f83e with SMTP id
+ v9-20020adfe4c9000000b0033642cef83emr968835wrm.59.1702646391432;
+        Fri, 15 Dec 2023 05:19:51 -0800 (PST)
 Received: from ?IPV6:2a01:e0a:982:cbb0:bfe9:1376:5584:1682?
  ([2a01:e0a:982:cbb0:bfe9:1376:5584:1682])
         by smtp.gmail.com with ESMTPSA id
- be9-20020a05600c1e8900b0040596352951sm31552567wmb.5.2023.12.15.05.11.58
+ j8-20020adfb308000000b003365964ba85sm430767wrd.28.2023.12.15.05.19.50
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 15 Dec 2023 05:11:59 -0800 (PST)
-Message-ID: <eb805e37-20a5-4462-8285-8942f8bfc74c@linaro.org>
-Date: Fri, 15 Dec 2023 14:11:58 +0100
+        Fri, 15 Dec 2023 05:19:50 -0800 (PST)
+Message-ID: <d41d4cc3-81eb-431c-b158-673b7ef92727@linaro.org>
+Date: Fri, 15 Dec 2023 14:19:50 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v3 5/5] ASoC: codecs: Add WCD939x Codec driver
+Subject: Re: [PATCH v3 4/5] ASoC: codecs: Add WCD939x Soundwire devices driver
 Content-Language: en-US, fr
 To: Mark Brown <broonie@kernel.org>
 Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
@@ -109,8 +109,8 @@ Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 References: 
  <20231207-topic-sm8650-upstream-wcd939x-codec-v3-0-6df9585ec7c8@linaro.org>
- <20231207-topic-sm8650-upstream-wcd939x-codec-v3-5-6df9585ec7c8@linaro.org>
- <4dae5296-9984-4c3b-803a-f6024edd0dd9@sirena.org.uk>
+ <20231207-topic-sm8650-upstream-wcd939x-codec-v3-4-6df9585ec7c8@linaro.org>
+ <e8b5099c-ceb2-4605-94bc-efd09ad55cb7@sirena.org.uk>
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
  GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
@@ -136,11 +136,11 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro Developer Services
-In-Reply-To: <4dae5296-9984-4c3b-803a-f6024edd0dd9@sirena.org.uk>
+In-Reply-To: <e8b5099c-ceb2-4605-94bc-efd09ad55cb7@sirena.org.uk>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: 5A2YZKBXI7IPYGTRSL6PN4OLVS6XR5V7
-X-Message-ID-Hash: 5A2YZKBXI7IPYGTRSL6PN4OLVS6XR5V7
+Message-ID-Hash: BRPDHDPEL4KP33IEEUG5RCMXGMJF2VTO
+X-Message-ID-Hash: BRPDHDPEL4KP33IEEUG5RCMXGMJF2VTO
 X-MailFrom: neil.armstrong@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -154,7 +154,7 @@ Reply-To: neil.armstrong@linaro.org
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5A2YZKBXI7IPYGTRSL6PN4OLVS6XR5V7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BRPDHDPEL4KP33IEEUG5RCMXGMJF2VTO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -163,46 +163,110 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 13/12/2023 20:20, Mark Brown wrote:
-> On Thu, Dec 07, 2023 at 11:28:08AM +0100, Neil Armstrong wrote:
+On 13/12/2023 19:31, Mark Brown wrote:
+> On Thu, Dec 07, 2023 at 11:28:07AM +0100, Neil Armstrong wrote:
+>> Add Soundwire Slave driver for the WCD9390/WCD9395 Audio Codec.
+>>
+>> The WCD9390/WCD9395 Soundwire devices will be used by the
+>> main WCD9390/WCD9395 Audio Codec driver to access registers
+>> and configure Soundwire RX and TX ports.
 > 
->> +static int wcd939x_rx_hph_mode_put(struct snd_kcontrol *kcontrol,
->> +				   struct snd_ctl_elem_value *ucontrol)
+>> +static const struct reg_default wcd939x_defaults[] = {
+> 
+>> +	{ WCD939X_DIGITAL_MODE_STATUS_0, 0x00 },
+>> +	{ WCD939X_DIGITAL_MODE_STATUS_1, 0x00 },
+> 
+> There's a bunch of registers like this which look like they should be
+> volatile and are actually volatile which makes supplying defaults rather
+> strange - in general volatile registers shouldn't have defaults.
+
+Indeed I'll clean those up
+
+> 
+>> +	{ WCD939X_DIGITAL_EFUSE_REG_0, 0x00 },
+>> +	{ WCD939X_DIGITAL_EFUSE_REG_1, 0xff },
+>> +	{ WCD939X_DIGITAL_EFUSE_REG_2, 0xff },
+> 
+> With the fuse registers even though I'd expect them to be cachable the
+> whole point is usually that these are programmable per device and
+> therefore I'd not expect defaults, I'd expect them to be cached on first
+> use.
+
+Ack
+
+> 
+>> +static bool wcd939x_readonly_register(struct device *dev, unsigned int reg)
 >> +{
->> +	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
->> +	struct wcd939x_priv *wcd939x = snd_soc_component_get_drvdata(component);
->> +	u32 mode_val;
->> +
->> +	mode_val = ucontrol->value.enumerated.item[0];
->> +
->> +	if (wcd939x->variant == WCD9390) {
->> +		if (mode_val == CLS_H_HIFI || mode_val == CLS_AB_HIFI) {
->> +			dev_dbg(component->dev, "%s: Invalid HPH Mode\n", __func__);
->> +			return -EINVAL;
->> +		}
->> +	}
->> +	if (mode_val == CLS_H_NORMAL) {
->> +		dev_dbg(component->dev, "%s: Unsupported HPH Mode\n", __func__);
->> +		return -EINVAL;
->> +	}
->> +
->> +	wcd939x->hph_mode = mode_val;
 > 
-> This seems strange - the code will accept any value other than a small
-> number of specifically enumerated ones?  I would have expected us to
-> check a defined list of modes and reject anything that isn't in that
-> list.  This also means that the get() function can return out of bounds
-> values which is buggy.  Please use the mixer-test selftest on a card
-> with this driver running, it should identify at least that issue.
+>> +	case WCD939X_DIGITAL_CHIP_ID0:
+>> +	case WCD939X_DIGITAL_CHIP_ID1:
+>> +	case WCD939X_DIGITAL_CHIP_ID2:
+>> +	case WCD939X_DIGITAL_CHIP_ID3:
 > 
->> +
->> +	return 1;
+>> +	case WCD939X_DIGITAL_EFUSE_REG_0:
+>> +	case WCD939X_DIGITAL_EFUSE_REG_1:
+>> +	case WCD939X_DIGITAL_EFUSE_REG_2:
+> 
+>> +	/* Consider all readonly registers as volatile */
+>> +	.volatile_reg = wcd939x_readonly_register,
+> 
+> There's a bunch of the readonly registers that I'd expect to be cachable
+> at runtime - I *hope* the chip ID doesn't change at runtime!  OTOH it
+> likely doesn't matter so perhaps it's fine but the comment could use
+> some improvement.
+
+
+I'll improve this
+
+> 
+>> +static int wcd939x_sdw_component_bind(struct device *dev, struct device *master,
+>> +				      void *data)
+>> +{
+>> +	/* Bind is required by component framework */
+>> +	return 0;
 >> +}
+>> +
+>> +static void wcd939x_sdw_component_unbind(struct device *dev,
+>> +					 struct device *master, void *data)
+>> +{
+>> +	/* Unbind is required by component framework */
+>> +}
+>> +
+>> +static const struct component_ops wcd939x_sdw_component_ops = {
+>> +	.bind = wcd939x_sdw_component_bind,
+>> +	.unbind = wcd939x_sdw_component_unbind,
+>> +};
 > 
-> This will also unconditionally report that the value of the mux changed,
-> the function should return 0 if the value written is the control value
-> hasn't changed.
+> So what exactly is the component framework *doing* here then?  It really
+> would be better to get this fixed in the component framework if this is
+> a sensible usage.
 
-Ack, I'll fix this, I wasn't happy anyway with the design
+So the component framework is here to synchronize probes of the main codec
+and soundwire devices, because the main codec needs the soundwire devices
+to access registers.
+I assume this design was chosen to limit probe defer infinite loops waiting
+for the soundwire devices to probe
 
+I'll propose a change on the component framework, without any insurance it
+would be accepted.
+
+> 
+>> +static int __maybe_unused wcd939x_sdw_runtime_resume(struct device *dev)
+>> +{
+>> +	struct wcd939x_sdw_priv *wcd = dev_get_drvdata(dev);
+>> +
+>> +	if (wcd->regmap) {
+>> +		regcache_cache_only(wcd->regmap, false);
+>> +		regcache_sync(wcd->regmap);
+>> +	}
+>> +
+>> +	pm_runtime_mark_last_busy(dev);
+> 
+> The pm_runtime_mark_last_busy() in the resume function is a bit of a
+> weird pattern - usually this is something that the user updates and more
+> normally when releasing a runtime PM reference.
+
+I took this from wcd938x_sd, I'll check the rationale of it in the resume function.
+
+Thanks,
 Neil

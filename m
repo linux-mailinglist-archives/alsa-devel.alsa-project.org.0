@@ -2,119 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F8F38153D5
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Dec 2023 23:39:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4318C815A82
+	for <lists+alsa-devel@lfdr.de>; Sat, 16 Dec 2023 17:49:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5FFA6839;
-	Fri, 15 Dec 2023 23:39:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5FFA6839
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1F563DF1;
+	Sat, 16 Dec 2023 17:49:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F563DF1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1702679985;
-	bh=JpwWHuPcZm4x2cFqyuxsMrjmRDLhgAuKluiZmzGcA58=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=fl68AQ2FYZBYxOFaA+6JR7meuXH8CBppH2TdeBHgWZksxiJyIKXhjn96C2RQUEMpR
-	 NpS9p4kr+txk4mqXa3FtKApyrsrwA1znFIHxbLr+YnWzCioGgC065n6+Ktw87dSWTn
-	 GLSIp88ZYDOcVnlHFFrOoPNWRmooH1k54KNuWurQ=
+	s=default; t=1702745359;
+	bh=OnYPNDYYL5a1VVwtVnRbkMJu+Fkmdo8zdDGtsqWLGBw=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=qOb3kkmxEojKfRCRktPtXAB4CNgCXaMQLAzUt9CyZHC1leNI5bFlFuXaL4hoIsjUE
+	 7A4kRZimCDUUOWKntSpCp3KJCNoAkRLDqW4FVnizt7SdUftXAvEOoGEYjNFWI+7H97
+	 DwIihrjyhKjvC3uunk8E9VOkyCjZom1hZhbRWY8c=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8B21EF80578; Fri, 15 Dec 2023 23:39:13 +0100 (CET)
+	id A4C11F80537; Sat, 16 Dec 2023 17:48:46 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D4D90F80537;
-	Fri, 15 Dec 2023 23:39:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3428CF80537;
+	Sat, 16 Dec 2023 17:48:46 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 084BFF80166; Fri, 15 Dec 2023 23:39:08 +0100 (CET)
+	id 7C654F8016A; Sat, 16 Dec 2023 17:47:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H5,
+	RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from smtp.smtpout.orange.fr (smtp-16.smtpout.orange.fr
+ [80.12.242.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D6F7AF8001F
-	for <alsa-devel@alsa-project.org>; Fri, 15 Dec 2023 23:38:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D6F7AF8001F
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2E548F80124
+	for <alsa-devel@alsa-project.org>; Sat, 16 Dec 2023 17:47:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E548F80124
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=FnRbQ5ZE
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 3BFLVMlU023006;
-	Fri, 15 Dec 2023 22:38:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
-	message-id:date:mime-version:subject:to:cc:references:from
-	:in-reply-to:content-type:content-transfer-encoding; s=
-	qcppdkim1; bh=i5e3VNsHMtLdnZjKEnpBG17/DfBO8lIAIhhbJZLJYwE=; b=Fn
-	RbQ5ZEXEHBuX4ttkNQ3M26mGIGsNg+wmUPp6CqOydH0nusvg8tWBlYDjqu4R515P
-	M6JPdi1pZRKj2oiaLOB7/TbqlHISBFpqGsMY34Wyk7nOFyvNr3V+8+E2EpdRLjT7
-	TiNUDoHwPFLLMLpSoGrECEDlDeXr9OF+F8dc50JpJtoxAf+qqkxmGesOZXKZqKSz
-	8l+msL9CiH43M8XgJbHQeilIGAmXG1d/WZJYH102Z9ZmsGvHBIgkYefwo38sVoDn
-	hkgAu7M3DuOP/LBoquOzViJd1H3A5BqJKjODHH0z7yf9jJ4vimXkDJ5OJ0eIuFZb
-	thCIunEJ7q6mR+pN6Rhg==
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3v0m46hrg1-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 15 Dec 2023 22:38:56 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
-	by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
- 3BFMct9A027457
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 15 Dec 2023 22:38:55 GMT
-Received: from [10.110.36.237] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Fri, 15 Dec
- 2023 14:38:54 -0800
-Message-ID: <80111881-13dd-4b05-876a-a97eb3889726@quicinc.com>
-Date: Fri, 15 Dec 2023 14:38:53 -0800
+ unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.a=rsa-sha256
+ header.s=t20230301 header.b=tN79UuHH
+Received: from pop-os.home ([92.140.202.140])
+	by smtp.orange.fr with ESMTPA
+	id EXpEryfYLLMHAEXpEr0s2X; Sat, 16 Dec 2023 17:47:41 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
+	s=t20230301; t=1702745261;
+	bh=WZUiXIzL+1Xu6VLydlUDdYsPfdAWNV1xrKK5PwkOP6U=;
+	h=From:To:Cc:Subject:Date;
+	b=tN79UuHHlTwW6A2typtF5+qkXQaaeMWtvf7mFzssLvxbnxe7It0Ky5japWAhjuj4b
+	 guRsIEBzyOoyG4x1Yw6Ap+MOs6puK97GHapRIovBQvj+kWnXRZ0p7ftv+x7fpyntXz
+	 fU5QhEnpynGKQ6In0P6K9r4ZrF6rsDEEt2G7q8VksHPksdLod6imsCAvoYFnyhg3Dg
+	 sDA0U5vlPAmPgZ1reiqWYHvcZ5Rxgub44OT9kd1aRlysapJxOpFGMoYlTg3mNaPWhH
+	 NLdzuObSjGFIDQ/ZLwerrf1XZWs2fz8zGCwJ3Ck4RxoodIWJQSE0UOt3npPROeZKq6
+	 E907+JCRlg2kA==
+X-ME-Helo: pop-os.home
+X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
+X-ME-Date: Sat, 16 Dec 2023 17:47:41 +0100
+X-ME-IP: 92.140.202.140
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-kernel@vger.kernel.org,
+	kernel-janitors@vger.kernel.org,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	alsa-devel@alsa-project.org
+Subject: [PATCH] slimbus: core: Remove usage of the deprecated ida_simple_xx()
+ API
+Date: Sat, 16 Dec 2023 17:47:34 +0100
+Message-Id: 
+ <8402a9a8a45937fe2e62617ff0c7408503692b20.1702745212.git.christophe.jaillet@wanadoo.fr>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 18/41] ALSA: usb-audio: qcom: Add USB QMI definitions
-Content-Language: en-US
-To: Wesley Cheng <quic_wcheng@quicinc.com>, <srinivas.kandagatla@linaro.org>,
-        <mathias.nyman@intel.com>, <perex@perex.cz>, <conor+dt@kernel.org>,
-        <corbet@lwn.net>, <gregkh@linuxfoundation.org>, <lgirdwood@gmail.com>,
-        <andersson@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
-        <konrad.dybcio@linaro.org>, <Thinh.Nguyen@synopsys.com>,
-        <broonie@kernel.org>, <bgoswami@quicinc.com>, <tiwai@suse.com>,
-        <robh+dt@kernel.org>, <agross@kernel.org>
-CC: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-sound@vger.kernel.org>, <linux-usb@vger.kernel.org>,
-        <linux-arm-msm@vger.kernel.org>, <linux-doc@vger.kernel.org>,
-        <alsa-devel@alsa-project.org>
-References: <20231215214955.12110-1-quic_wcheng@quicinc.com>
- <20231215214955.12110-19-quic_wcheng@quicinc.com>
-From: Jeff Johnson <quic_jjohnson@quicinc.com>
-In-Reply-To: <20231215214955.12110-19-quic_wcheng@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: y0Zvylxqky0dYnXVoe0CvMAArWBxbEqy
-X-Proofpoint-ORIG-GUID: y0Zvylxqky0dYnXVoe0CvMAArWBxbEqy
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-12-09_01,2023-12-07_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- suspectscore=0 adultscore=0 phishscore=0 mlxscore=0 clxscore=1011
- mlxlogscore=899 impostorscore=0 malwarescore=0 bulkscore=0 spamscore=0
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2311290000 definitions=main-2312150159
-Message-ID-Hash: M44RKD3EDOB2TDKSTFMRYCQPPMQDE7O7
-X-Message-ID-Hash: M44RKD3EDOB2TDKSTFMRYCQPPMQDE7O7
-X-MailFrom: quic_jjohnson@quicinc.com
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: E7B42W6KXQQ3M3JWNX3GX3EWTUQR2EDQ
+X-Message-ID-Hash: E7B42W6KXQQ3M3JWNX3GX3EWTUQR2EDQ
+X-MailFrom: christophe.jaillet@wanadoo.fr
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -126,7 +88,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/M44RKD3EDOB2TDKSTFMRYCQPPMQDE7O7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/E7B42W6KXQQ3M3JWNX3GX3EWTUQR2EDQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -135,41 +97,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 12/15/2023 1:49 PM, Wesley Cheng wrote:
-> The Qualcomm USB audio offload driver utilizes the QMI protocol to
-> communicate with the audio DSP.  Add the necessary QMI header and field
-> definitions, so the QMI interface driver is able to route the QMI packet
-> received to the USB audio offload driver.
-> 
-> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
-> ---
->  sound/usb/qcom/usb_audio_qmi_v01.c | 892 +++++++++++++++++++++++++++++
->  sound/usb/qcom/usb_audio_qmi_v01.h | 162 ++++++
->  2 files changed, 1054 insertions(+)
->  create mode 100644 sound/usb/qcom/usb_audio_qmi_v01.c
->  create mode 100644 sound/usb/qcom/usb_audio_qmi_v01.h
-> 
-> diff --git a/sound/usb/qcom/usb_audio_qmi_v01.c b/sound/usb/qcom/usb_audio_qmi_v01.c
-> new file mode 100644
-> index 000000000000..bdfd67d980eb
-> --- /dev/null
-> +++ b/sound/usb/qcom/usb_audio_qmi_v01.c
-> @@ -0,0 +1,892 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (c) 2022-2023 Qualcomm Innovation Center, Inc. All rights reserved.
-> + */
-> +
-> +#include <linux/soc/qcom/qmi.h>
-> +
-> +#include "usb_audio_qmi_v01.h"
-> +
-> +static struct qmi_elem_info mem_info_v01_ei[] = {
+ida_alloc() and ida_free() should be preferred to the deprecated
+ida_simple_get() and ida_simple_remove().
 
-I believe all of the struct qmi_elem_info arrays can be const.
+Note that the upper limit of ida_simple_get() is exclusive, but the one of
+ida_alloc_range() is inclusive. So change this change allows one more
+device. Previously address 0xFE was never used.
 
-At least that was the goal of commit ff6d365898d4 ("soc: qcom: qmi: use
-const for struct qmi_elem_info")
+Fixes: 46a2bb5a7f7e ("slimbus: core: Add slim controllers support")
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+---
+/!\ Untested /!\
 
-/jeff
+The change of behavior is motivated by the comment in
+drivers/slimbus/slimbus.h stating that /* Manager's logical address is set
+to 0xFF per spec */, so all other values, including 0xFE should be valid,
+IMHO.
+
+So considering this as a bug-fix, I added a Fixes tag.
+---
+ drivers/slimbus/core.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/slimbus/core.c b/drivers/slimbus/core.c
+index d43873bb5fe6..01cbd4621981 100644
+--- a/drivers/slimbus/core.c
++++ b/drivers/slimbus/core.c
+@@ -436,8 +436,8 @@ static int slim_device_alloc_laddr(struct slim_device *sbdev,
+ 		if (ret < 0)
+ 			goto err;
+ 	} else if (report_present) {
+-		ret = ida_simple_get(&ctrl->laddr_ida,
+-				     0, SLIM_LA_MANAGER - 1, GFP_KERNEL);
++		ret = ida_alloc_max(&ctrl->laddr_ida,
++				    SLIM_LA_MANAGER - 1, GFP_KERNEL);
+ 		if (ret < 0)
+ 			goto err;
+ 
+-- 
+2.34.1
 

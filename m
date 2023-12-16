@@ -2,118 +2,186 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A177822183
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Jan 2024 19:58:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80BA0822160
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Jan 2024 19:51:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AB0B81539;
-	Tue,  2 Jan 2024 19:57:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB0B81539
+	by alsa0.perex.cz (Postfix) with ESMTPS id C69C8DF;
+	Tue,  2 Jan 2024 19:51:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C69C8DF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1704221885;
-	bh=JJPHl/frXCxWYkp8j/fa7Y6yDGtOBUVUKJEm8ULgotY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1704221483;
+	bh=DXqSB687J1DGJsdZPDlAkkTZslSMUh3h5BKO67JSaNM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Eq7S6jaFc/p71YLg6pXua7HXpufY0jK9KdVLyIY3fiWrDoNcsb+PZnX3Es8ezRBT+
-	 rhDNmW7vfRW572NL0om0PheRdRPgaEWoJfV1egidJQ+6JaSPMLUpeK5j8GzJkWuh9h
-	 MpwT9VOfjLkNVRrJ+/AGSZ3dYlc7r0ak9Cd1SH2k=
+	b=D7nsDO7SpVTdOlR6UgaoGVKyH9u+afRybFZah8I5ZMXfiK8I1mk2cab5cM3tYm1uG
+	 ZRZvZ8mXSg+7vXxdMQBTWfxGftOkmj/XThZlrguPv/+aaxjHmIP29XiPXPgk+uEOej
+	 9V9TYfW71eQhUxEV5VY9BBphC+VvheW/gSeHNfXw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 854F1F897FF; Tue,  2 Jan 2024 19:51:16 +0100 (CET)
+	id DB05BF80537; Tue,  2 Jan 2024 19:50:50 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 99701F8980D;
-	Tue,  2 Jan 2024 19:51:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 90BE2F80570;
+	Tue,  2 Jan 2024 19:50:49 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4E3F6F80166; Fri, 15 Dec 2023 23:55:38 +0100 (CET)
+	id 1D51AF8016A; Sat, 16 Dec 2023 22:48:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-20.7 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,ENV_AND_HDR_SPF_MATCH,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-	USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [IPv6:2a00:1450:4864:20::32e])
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-ot1-x333.google.com (mail-ot1-x333.google.com
+ [IPv6:2607:f8b0:4864:20::333])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D167DF8001F
-	for <alsa-devel@alsa-project.org>; Fri, 15 Dec 2023 23:55:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D167DF8001F
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9F2D8F80124
+	for <alsa-devel@alsa-project.org>; Sat, 16 Dec 2023 22:48:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F2D8F80124
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
- header.s=20230601 header.b=EEK7RQDQ
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-40c39ef63d9so12303885e9.3
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=HT+O2cS5
+Received: by mail-ot1-x333.google.com with SMTP id
+ 46e09a7af769-6d9e993d94dso1504101a34.0
         for <alsa-devel@alsa-project.org>;
- Fri, 15 Dec 2023 14:55:30 -0800 (PST)
+ Sat, 16 Dec 2023 13:48:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1702680928; x=1703285728;
+        d=gmail.com; s=20230601; t=1702763300; x=1703368100;
  darn=alsa-project.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=bfWah5pIv+cdtVmyxWmUY/L3xG6Co4HLc34UhFBOkUw=;
-        b=EEK7RQDQ7Nvm3bqW6gRYA4vR+Z8gPnXl0fJZhQKRVIctGbNVxJ410RAc4Ty238nRwq
-         s17a4SuVyLNVVFGGdav0oIZNhamQBLicvPmtqESxtOtlye/xFyZ3eiRQ6whwWdCv+KMY
-         HaCDHIDcKnoxd/KCaFMjD2JTLWy1B4NlxKg59u1Bn3wtYhDRuBAGsIh1DoTY9AopNPtT
-         k7P50t6peaRg6bWiIWNYtGlInFhoYSRs3TfY5NoyI9WUtofZsetAIKB/QVzvTKFvwFEd
-         Z8qRsFi8yJNolkFr9W7GUmrqQaW66A+p+xJUFkDG9yWlEdhN9JiwaZI0/4Cy5CBKyAN+
-         9nVA==
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=NUQpZPD/c05+/8BhIN1J/cQeLxUmIOzSz7QCay9VzCE=;
+        b=HT+O2cS5AUFuZRgwn9wIz9QLJPpmMtxgILSIeTiAoPy+6lk+/PAPxkinFl3uU/H2uN
+         93de8SSQy1MB1WuwaU4YQKy2jh+L+0fn7+A3Yc2tmID4MDpU3jXZ3AEvFfxrFULwsrbj
+         98KpM1hDfVueXZmXXy4lPYU3Et+BvfzAEwquSuaxAwy42lotcqZ9ZrS0LNpRf78L81XU
+         6FjLx++nCrh6r0jDiLSIvzPO+72TCbmpY62w8tIgaSBdQ6eAREml5I2mKa7RfGPANbg/
+         d1yDo6zHGakqLfWxzWt649X5s9TihrGIHqiWAzn4E/FR5CHYoVE48Trws54COk3UHc18
+         DZWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702680928; x=1703285728;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=bfWah5pIv+cdtVmyxWmUY/L3xG6Co4HLc34UhFBOkUw=;
-        b=tIiZsU20u7qn62Zb4JJxqkCwcmLR0nyKltKCdgBN2JNRxtJRbLYpGgjqUapQ4J3SN2
-         wdtO8ghPJJypYub+G5bKn1iL/BtO6JpsnRMcO6Yf7OIf2pzrP/x6KiuQio36ywQTCnzE
-         6kfzoP54GGALwedcjNVkNVn8ZmzuwB+RYjJLQ7fSZwCdvL+ghXOkVFxrWXcQSD5y11x+
-         9TzOoYEneCT+Mu8NbYSg3eqiEcmvFrdYd/AnrfdHYQqH3MmkJcTXneiXmHE8ecakyNxd
-         f9aIw67YEz9K+vaNITEv35Xdz4/myl6H/uVNVjA0G1eLNbga1Zc2W64Y2ctYLczTzfh3
-         MMPw==
-X-Gm-Message-State: AOJu0YxM0j03wCqGjKXyi9j4U4u3SU22H9pULgwew2joImV/qg/RzOBo
-	+pJUkT2TCni+Evs6W9i8hltSqQRCCaUpbeUgxQJNng==
+        d=1e100.net; s=20230601; t=1702763300; x=1703368100;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=NUQpZPD/c05+/8BhIN1J/cQeLxUmIOzSz7QCay9VzCE=;
+        b=rhtdt0QOOerM00wNvC0lsvRHPH6kRDxgZTg5nUTVbtkdpqlQd6s+yx32vTvoIT9uK4
+         WJL3T9v9VI98YcNhHtHZMBCzrPd7RHJbH7TrTr/Q3H+RSlKwRSiSr13qefmudmfI48B5
+         FezwXuSzarBpwjWRZWTwNSLrluyYAyDTMSCuyYDElVPt5A0JDS2MHAhNtpk0EsYlt2T2
+         qlqa+cWdb4u7xnv7PH7O3Xf3KunUbXwn+IfGIkHc7awSrRxQSSvpCBtrUnq6TcHyy/DN
+         d4a42MFtT8MM87k9agSskZ5+65rVsnNYTQtxfrmmPiQpNL//HYC4RSXYIMcYT+NCp7SV
+         M7UQ==
+X-Gm-Message-State: AOJu0YxQcEg7uxXZglvF/l04zFJ/Ymr22oVLN67g1oGtQTFyKQXurXda
+	UtvzI4/rZkLVw5+3SDYias0=
 X-Google-Smtp-Source: 
- AGHT+IFIB5xNMOQoGlg74oNU/TZnz/9PWSKGUJ3pLK/UQ1Nqs6+/vrrIi0CB3YqMFOOPJKuW3z2k6ksi5MjBtn5J/9M=
-X-Received: by 2002:a05:600c:4507:b0:40b:5e21:cc15 with SMTP id
- t7-20020a05600c450700b0040b5e21cc15mr6325717wmo.64.1702680928219; Fri, 15 Dec
- 2023 14:55:28 -0800 (PST)
+ AGHT+IFAZquuH097Av+/ztaIvHAct5BHBdf+5D2NTKxYyfNfNcV2HR26lQ0bCSd6CXKBysIoEd8l8w==
+X-Received: by 2002:a05:6808:1819:b0:3b8:b063:6658 with SMTP id
+ bh25-20020a056808181900b003b8b0636658mr13429212oib.79.1702763299744;
+        Sat, 16 Dec 2023 13:48:19 -0800 (PST)
+Received: from localhost ([2601:344:8301:57f0:4a5e:2f67:f6d1:4a98])
+        by smtp.gmail.com with ESMTPSA id
+ l6-20020a25bcc6000000b00dbd22a3eb4fsm60955ybm.51.2023.12.16.13.48.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 16 Dec 2023 13:48:19 -0800 (PST)
+Date: Sat, 16 Dec 2023 13:48:18 -0800
+From: Yury Norov <yury.norov@gmail.com>
+To: linux-kernel@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	"James E.J. Bottomley" <jejb@linux.ibm.com>,
+	"K. Y. Srinivasan" <kys@microsoft.com>,
+	"Md. Haris Iqbal" <haris.iqbal@ionos.com>,
+	Akinobu Mita <akinobu.mita@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Borislav Petkov <bp@alien8.de>, Chaitanya Kulkarni <kch@nvidia.com>,
+	Christian Brauner <brauner@kernel.org>,
+	Damien Le Moal <damien.lemoal@opensource.wdc.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	David Disseldorp <ddiss@suse.de>,
+	Edward Cree <ecree.xilinx@gmail.com>,
+	Eric Dumazet <edumazet@google.com>,
+	Fenghua Yu <fenghua.yu@intel.com>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Gregory Greenman <gregory.greenman@intel.com>,
+	Hans Verkuil <hverkuil@xs4all.nl>,
+	Hans de Goede <hdegoede@redhat.com>,
+	Hugh Dickins <hughd@google.com>, Ingo Molnar <mingo@redhat.com>,
+	Jakub Kicinski <kuba@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+	Jason Gunthorpe <jgg@ziepe.ca>, Jens Axboe <axboe@kernel.dk>,
+	Jiri Pirko <jiri@resnulli.us>, Jiri Slaby <jirislaby@kernel.org>,
+	Kalle Valo <kvalo@kernel.org>, Karsten Graul <kgraul@linux.ibm.com>,
+	Karsten Keil <isdn@linux-pingi.de>,
+	Kees Cook <keescook@chromium.org>,
+	Leon Romanovsky <leon@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Martin Habets <habetsm.xilinx@gmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Michal Simek <monstr@monstr.eu>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Oliver Neukum <oneukum@suse.com>, Paolo Abeni <pabeni@redhat.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ping-Ke Shih <pkshih@realtek.com>, Rich Felker <dalias@libc.org>,
+	Rob Herring <robh@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Shuai Xue <xueshuai@linux.alibaba.com>,
+	Stanislaw Gruszka <stf_xl@wp.pl>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Wenjia Zhang <wenjia@linux.ibm.com>, Will Deacon <will@kernel.org>,
+	Yoshinori Sato <ysato@users.sourceforge.jp>,
+	GR-QLogic-Storage-Upstream@marvell.com, alsa-devel@alsa-project.org,
+	ath10k@lists.infradead.org, dmaengine@vger.kernel.org,
+	iommu@lists.linux.dev, kvm@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+	linux-block@vger.kernel.org, linux-bluetooth@vger.kernel.org,
+	linux-hyperv@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
+	linux-media@vger.kernel.org, linux-mips@vger.kernel.org,
+	linux-net-drivers@amd.com, linux-pci@vger.kernel.org,
+	linux-rdma@vger.kernel.org, linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org, linux-serial@vger.kernel.org,
+	linux-sh@vger.kernel.org, linux-sound@vger.kernel.org,
+	linux-usb@vger.kernel.org, linux-wireless@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, mpi3mr-linuxdrv.pdl@broadcom.com,
+	netdev@vger.kernel.org, sparclinux@vger.kernel.org, x86@kernel.org
+Cc: Jan Kara <jack@suse.cz>,
+	Mirsad Todorovac <mirsad.todorovac@alu.unizg.hr>,
+	Matthew Wilcox <willy@infradead.org>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Maxim Kuvyrkov <maxim.kuvyrkov@linaro.org>,
+	Alexey Klimov <klimov.linux@gmail.com>,
+	Bart Van Assche <bvanassche@acm.org>,
+	Sergey Shtylyov <s.shtylyov@omp.ru>
+Subject: Re: [PATCH v3 00/35] bitops: add atomic find_bit() operations
+Message-ID: <ZX4bIisLzpW8c4WM@yury-ThinkPad>
+References: <20231212022749.625238-1-yury.norov@gmail.com>
 MIME-Version: 1.0
-References: <20231106104013.704356-1-jbrunet@baylibre.com>
- <CADYyEwTNyY+fR9SgfDa-g6iiDwkU3MUdPVCYexs2_3wbcM8_vg@mail.gmail.com>
- <1jil4zq2on.fsf@starbuckisacylon.baylibre.com>
-In-Reply-To: <1jil4zq2on.fsf@starbuckisacylon.baylibre.com>
-From: Hsin-Yi Wang <hsinyi@google.com>
-Date: Fri, 15 Dec 2023 14:55:00 -0800
-Message-ID: 
- <CACb=7PXkaKYupZafD2BTiqusHZ1nEFq8AfWVot7VL07kxm0uWw@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: hdmi-codec: register hpd callback on component
- probe
-To: Jerome Brunet <jbrunet@baylibre.com>
-Cc: Zhengqiao Xia <xiazhengqiao@huaqin.corp-partner.google.com>,
-	Mark Brown <broonie@kernel.org>, alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-MailFrom: hsinyi@google.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20231212022749.625238-1-yury.norov@gmail.com>
+X-MailFrom: yury.norov@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: BIRUNXCRQMRQR6YQ4QCJIGQH65QZMD24
-X-Message-ID-Hash: BIRUNXCRQMRQR6YQ4QCJIGQH65QZMD24
-X-Mailman-Approved-At: Mon, 01 Jan 2024 13:15:08 +0000
+Message-ID-Hash: B2UWXTKDFZF4V7PBAOQMAWDIXJUG6IO4
+X-Message-ID-Hash: B2UWXTKDFZF4V7PBAOQMAWDIXJUG6IO4
+X-Mailman-Approved-At: Mon, 01 Jan 2024 13:16:43 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BIRUNXCRQMRQR6YQ4QCJIGQH65QZMD24/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/B2UWXTKDFZF4V7PBAOQMAWDIXJUG6IO4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -122,180 +190,133 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, Dec 15, 2023 at 12:40=E2=80=AFAM Jerome Brunet <jbrunet@baylibre.co=
-m> wrote:
->
->
-> On Fri 15 Dec 2023 at 12:51, Zhengqiao Xia <xiazhengqiao@huaqin.corp-part=
-ner.google.com> wrote:
->
-> > Hi Jerome,
-> >
-> > After my testing, I found that this patch will cause the audio on the e=
-xternal display to not work properly after
-> > restart.
-> > You move the plugged_cb to run in hdmi_probe, at this time hcp- > jack =
-=3D NULL, the driver cannot report `SND_JACK_LINEOUT
-> > ` normally.
-> > static void hdmi_codec_jack_report(struct hdmi_codec_priv *hcp,
-> >                                  unsigned int jack_status)
-> > {
-> >       printk("xzq-866 hdmi_codec_jack_report: jack=3D%x, jack_status=3D=
-%d", hcp->jack, jack_status !=3D hcp->jack_status);
-> >       if (hcp->jack && jack_status !=3D hcp->jack_status) {
-> >               snd_soc_jack_report(hcp->jack, jack_status, SND_JACK_LINE=
-OUT);
-> >               hcp->jack_status =3D jack_status;
-> >       }
-> > }
-> > So we must call  plugged_cb  in hdmi_codec_set_jack,  Can you make some=
- changes?
->
-> Hi Zhengqiao,
->
-> That is unfortunate. Sorry.
->
-> This patch has changed when the hpd callback is registered, no when it
-> comes in effect. This is still dependent on calling .set_jack() and it
-> is not happening any later than it was before. So, in theory, it should
-> not have changed anything, if your driver actually relies on the HPD
-> event.
->
-> Trying to guess what is happening for you, I suppose your HDMI driver is
-> "faking" an HPD event to report the initial jack status when the
-> hook_plugged_cb() is called. Could you point me to the hdmi driver you
-> are using so I can have a look ?
->
-> My reference when testing this was dw-hdmi-i2s-audio and it does not do
-> that, it just registers the callback. I think this is what it supposed
-> to do TBH.
->
-> An idea I have been thinking about for a while is have the hdmi-codec
-> insert the jack in the card itself, instead of the card doing. That
-> would give the jack "for free" to any user of the HDMI codec and might
-> also solve your issue. It would require a small rework of the cards doing
-> the hdmi jack register, but there are not many of these AFAIK.
->
+On Mon, Dec 11, 2023 at 06:27:14PM -0800, Yury Norov wrote:
+> Add helpers around test_and_{set,clear}_bit() that allow to search for
+> clear or set bits and flip them atomically.
+> 
+> The target patterns may look like this:
+> 
+> 	for (idx = 0; idx < nbits; idx++)
+> 		if (test_and_clear_bit(idx, bitmap))
+> 			do_something(idx);
+> 
+> Or like this:
+> 
+> 	do {
+> 		bit = find_first_bit(bitmap, nbits);
+> 		if (bit >= nbits)
+> 			return nbits;
+> 	} while (!test_and_clear_bit(bit, bitmap));
+> 	return bit;
+> 
+> In both cases, the opencoded loop may be converted to a single function
+> or iterator call. Correspondingly:
+> 
+> 	for_each_test_and_clear_bit(idx, bitmap, nbits)
+> 		do_something(idx);
+> 
+> Or:
+> 	return find_and_clear_bit(bitmap, nbits);
+> 
+> Obviously, the less routine code people have to write themself, the
+> less probability to make a mistake.
+> 
+> Those are not only handy helpers but also resolve a non-trivial
+> issue of using non-atomic find_bit() together with atomic
+> test_and_{set,clear)_bit().
+> 
+> The trick is that find_bit() implies that the bitmap is a regular
+> non-volatile piece of memory, and compiler is allowed to use such
+> optimization techniques like re-fetching memory instead of caching it.
+> 
+> For example, find_first_bit() is implemented like this:
+> 
+>       for (idx = 0; idx * BITS_PER_LONG < sz; idx++) {
+>               val = addr[idx];
+>               if (val) {
+>                       sz = min(idx * BITS_PER_LONG + __ffs(val), sz);
+>                       break;
+>               }
+>       }
+> 
+> On register-memory architectures, like x86, compiler may decide to
+> access memory twice - first time to compare against 0, and second time
+> to fetch its value to pass it to __ffs().
+> 
+> When running find_first_bit() on volatile memory, the memory may get
+> changed in-between, and for instance, it may lead to passing 0 to
+> __ffs(), which is undefined. This is a potentially dangerous call.
+> 
+> find_and_clear_bit() as a wrapper around test_and_clear_bit()
+> naturally treats underlying bitmap as a volatile memory and prevents
+> compiler from such optimizations.
+> 
+> Now that KCSAN is catching exactly this type of situations and warns on
+> undercover memory modifications. We can use it to reveal improper usage
+> of find_bit(), and convert it to atomic find_and_*_bit() as appropriate.
+> 
+> In some cases concurrent operations with plain find_bit() are acceptable.
+> For example:
+> 
+>  - two threads running find_*_bit(): safe wrt ffs(0) and returns correct
+>    value, because underlying bitmap is unchanged;
+>  - find_next_bit() in parallel with set or clear_bit(), when modifying
+>    a bit prior to the start bit to search: safe and correct;
+>  - find_first_bit() in parallel with set_bit(): safe, but may return wrong
+>    bit number;
+>  - find_first_zero_bit() in parallel with clear_bit(): same as above.
+> 
+> In last 2 cases find_bit() may not return a correct bit number, but
+> it may be OK if caller requires any (not exactly the first) set or clear
+> bit, correspondingly.
+> 
+> In such cases, KCSAN may be safely silenced with data_race(). But in most
+> cases where KCSAN detects concurrency people should carefully review their
+> code and likely protect critical sections or switch to atomic
+> find_and_bit(), as appropriate.
+> 
+> The 1st patch of the series adds the following atomic primitives:
+> 
+> 	find_and_set_bit(addr, nbits);
+> 	find_and_set_next_bit(addr, nbits, start);
+> 	...
+> 
+> Here find_and_{set,clear} part refers to the corresponding
+> test_and_{set,clear}_bit function. Suffixes like _wrap or _lock
+> derive their semantics from corresponding find() or test() functions.
+> 
+> For brevity, the naming omits the fact that we search for zero bit in
+> find_and_set, and correspondingly search for set bit in find_and_clear
+> functions.
+> 
+> The patch also adds iterators with atomic semantics, like
+> for_each_test_and_set_bit(). Here, the naming rule is to simply prefix
+> corresponding atomic operation with 'for_each'.
+> 
+> In [1] Jan reported 2% slowdown in a single-thread search test when
+> switching find_bit() function to treat bitmaps as volatile arrays. On
+> the other hand, kernel robot in the same thread reported +3.7% to the
+> performance of will-it-scale.per_thread_ops test.
+> 
+> Assuming that our compilers are sane and generate better code against
+> properly annotated data, the above discrepancy doesn't look weird. When
+> running on non-volatile bitmaps, plain find_bit() outperforms atomic
+> find_and_bit(), and vice-versa.
+> 
+> So, all users of find_bit() API, where heavy concurrency is expected,
+> are encouraged to switch to atomic find_and_bit() as appropriate.
+> 
+> The 1st patch of this series adds atomic find_and_bit() API, 2nd adds
+> a basic test for new API, and all the following patches spread it over
+> the kernel.
+> 
+> They can be applied separately from each other on per-subsystems basis,
+> or I can pull them in bitmap tree, as appropriate.
+> 
+> [1] https://lore.kernel.org/lkml/634f5fdf-e236-42cf-be8d-48a581c21660@alu.unizg.hr/T/#m3e7341eb3571753f3acf8fe166f3fb5b2c12e615
+ 
+Thank you all for reviews and comments. Now moving the series to
+bitmap-for-next for testing.
 
-The driver is it6505. The implementation of hook_plugged_cb():
-1. register plugged_cb
-2. call plugged_cb(bool plugged)
-
-bridge detect callback it6505_detect would also call plugged_cb, but
-only on the first time hpd status changed (eg. changed from connect
-<--> disconnect)
-it6505_detect() {
-  status =3D it6505->hpd_state ...
-  ...
-  if (it6505->connector_status !=3D status) {
-    it6505->connector_status =3D status;
-    it6505_plugged_status_to_codec(it6505); // this will call plugged_cb
-  }
-}
-
-Unfortunately the first time after boot that hpd status changed was
-detected before set_jack. If we replug hdmi, the plugged_cb() was
-called by bridge_detect, which is expected.
-
-Prior to this patch, the initial plugged_cb() was called by hook_plugged_cb=
-().
-After the patch, plugged_cb() should be called by hpd change (by
-bridge detect), but due to the driver logic only calling it on the
-first hpd state change, it fails to call plugged_cb() again when jack
-is set.
-
-I checked the dw-hdmi.c's bridge_detect, and it's similar in that it
-also checks the last_connector_result, so maybe it's due to a timing
-difference?
-
-> >
-> > On Mon, Nov 6, 2023 at 6:40=E2=80=AFPM Jerome Brunet <jbrunet@baylibre.=
-com> wrote:
-> >
-> >  The HDMI hotplug callback to the hdmi-codec is currently registered wh=
-en
-> >  jack is set.
-> >
-> >  The hotplug not only serves to report the ASoC jack state but also to =
-get
-> >  the ELD. It should be registered when the component probes instead, so=
- it
-> >  does not depend on the card driver registering a jack for the HDMI to
-> >  properly report the ELD.
-> >
-> >  Fixes: 25ce4f2b3593 ("ASoC: hdmi-codec: Get ELD in before reporting pl=
-ugged event")
-> >  Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
-> >  ---
-> >   sound/soc/codecs/hdmi-codec.c | 27 +++++++++++++++++++--------
-> >   1 file changed, 19 insertions(+), 8 deletions(-)
-> >
-> >  diff --git a/sound/soc/codecs/hdmi-codec.c b/sound/soc/codecs/hdmi-cod=
-ec.c
-> >  index 09eef6042aad..20da1eaa4f1c 100644
-> >  --- a/sound/soc/codecs/hdmi-codec.c
-> >  +++ b/sound/soc/codecs/hdmi-codec.c
-> >  @@ -877,18 +877,13 @@ static int hdmi_codec_set_jack(struct snd_soc_co=
-mponent *component,
-> >                                 void *data)
-> >   {
-> >          struct hdmi_codec_priv *hcp =3D snd_soc_component_get_drvdata(=
-component);
-> >  -       int ret =3D -ENOTSUPP;
-> >
-> >          if (hcp->hcd.ops->hook_plugged_cb) {
-> >                  hcp->jack =3D jack;
-> >  -               ret =3D hcp->hcd.ops->hook_plugged_cb(component->dev->=
-parent,
-> >  -                                                   hcp->hcd.data,
-> >  -                                                   plugged_cb,
-> >  -                                                   component->dev);
-> >  -               if (ret)
-> >  -                       hcp->jack =3D NULL;
-> >  +               return 0;
-> >          }
-> >  -       return ret;
-> >  +
-> >  +       return -ENOTSUPP;
-> >   }
-> >
-> >   static int hdmi_dai_spdif_probe(struct snd_soc_dai *dai)
-> >  @@ -982,6 +977,21 @@ static int hdmi_of_xlate_dai_id(struct snd_soc_co=
-mponent *component,
-> >          return ret;
-> >   }
-> >
-> >  +static int hdmi_probe(struct snd_soc_component *component)
-> >  +{
-> >  +       struct hdmi_codec_priv *hcp =3D snd_soc_component_get_drvdata(=
-component);
-> >  +       int ret =3D 0;
-> >  +
-> >  +       if (hcp->hcd.ops->hook_plugged_cb) {
-> >  +               ret =3D hcp->hcd.ops->hook_plugged_cb(component->dev->=
-parent,
-> >  +                                                   hcp->hcd.data,
-> >  +                                                   plugged_cb,
-> >  +                                                   component->dev);
-> >  +       }
-> >  +
-> >  +       return ret;
-> >  +}
-> >  +
-> >   static void hdmi_remove(struct snd_soc_component *component)
-> >   {
-> >          struct hdmi_codec_priv *hcp =3D snd_soc_component_get_drvdata(=
-component);
-> >  @@ -992,6 +1002,7 @@ static void hdmi_remove(struct snd_soc_component =
-*component)
-> >   }
-> >
-> >   static const struct snd_soc_component_driver hdmi_driver =3D {
-> >  +       .probe                  =3D hdmi_probe,
-> >          .remove                 =3D hdmi_remove,
-> >          .dapm_widgets           =3D hdmi_widgets,
-> >          .num_dapm_widgets       =3D ARRAY_SIZE(hdmi_widgets),
->
->
-> --
-> Jerome
+Thanks,
+Yury

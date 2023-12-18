@@ -2,86 +2,146 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B6FA8178BD
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Dec 2023 18:30:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC51681791D
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Dec 2023 18:49:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 31AA2AE9;
-	Mon, 18 Dec 2023 18:29:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 31AA2AE9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8302F83E;
+	Mon, 18 Dec 2023 18:49:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8302F83E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1702920601;
-	bh=71aBY2g687fY1ei3QKJuZYPBscgOTCn59XxQrrVnxZs=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=bZgCtJLtcl2Jpk5KkAY8C9tDmdyoHktFIqe2ftuQycCN8RaJ/mFVTIOMlPcS6qG1e
-	 79G2uP4oeG+UqSnMv2IbSSV3A6ImvlP8pbAZM6TkoIylOApjUvCdFMWdcYV/MVc8t4
-	 GkaLGYpIq2log1xCyT+FrkdtdvOP9fj0LVvmXV7k=
+	s=default; t=1702921758;
+	bh=3DwYD/QRVcsDe/P2lE4y82aABCICaXWb+jJ0UGtPO2Q=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=Xh5VQllcpeTP3T5gqm6TO+Hp894iiM2OYA2PRuY9Yy5YzWAVFbS2ayl0+Eh1O9Mw4
+	 DfrLCit5u753psBeukx5VokerotTS13BGaYX2CsuOJXPWHldUcK052TlGb+ofBk4Ag
+	 YOwq/p4G0Y+Vpj0pY+i7R1DTKsqSHA+4z4DB8br4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 60EF7F80614; Mon, 18 Dec 2023 18:28:40 +0100 (CET)
+	id 54B8CF805A1; Mon, 18 Dec 2023 18:48:45 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CFB0DF80612;
-	Mon, 18 Dec 2023 18:28:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F2893F80537;
+	Mon, 18 Dec 2023 18:48:44 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DB247F8056F; Mon, 18 Dec 2023 18:28:34 +0100 (CET)
+	id ADDB5F80431; Mon, 18 Dec 2023 18:48:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 61DB4F80425
-	for <alsa-devel@alsa-project.org>; Mon, 18 Dec 2023 18:28:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61DB4F80425
+	by alsa1.perex.cz (Postfix) with ESMTPS id 77D17F800BD
+	for <alsa-devel@alsa-project.org>; Mon, 18 Dec 2023 18:48:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 77D17F800BD
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Zu1JCP57
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 27B6CCE128C;
-	Mon, 18 Dec 2023 17:28:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1036C433CA;
-	Mon, 18 Dec 2023 17:28:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1702920504;
-	bh=71aBY2g687fY1ei3QKJuZYPBscgOTCn59XxQrrVnxZs=;
-	h=From:To:In-Reply-To:References:Subject:Date:From;
-	b=Zu1JCP57xJMRG3pv/d+TTgL+/yuPxRnh8osA9xj3XEhlp+Uzcj+L69pZ/j9TzgHQl
-	 UYDy1gonb7tV1tZxBi7Ck3bTPTEVs1XbsyeNNOAZ8Ht7CaiGFr+0jdwoNs8VlqyS/0
-	 TMtB3nqLDx9rkAwlTmtpvGuCxZP68g5pVxHdaIBpppWj5fn1LWKetkDNO1uxT296KL
-	 aUqn9bhsZFioPg2APmY5eT+fZ2/+ThYzJx+LMUehJQmisncDzuBCSruVTKpyq1dsZJ
-	 J0cTfGMmtyVMsgpD21TvPi9joGBw1Ol+ePBV5MfW55WuX0mwdvesXZwwxMZPwK3fZP
-	 Bkr+LBxwyKO4g==
-From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@quicinc.com>, Andy Gross <agross@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
- linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20231204100116.211898-1-krzysztof.kozlowski@linaro.org>
-References: <20231204100116.211898-1-krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH 1/2] ASoC: qcom: Add x1e80100 sound machine driver
-Message-Id: <170292050070.89121.1154893046353970509.b4-ty@kernel.org>
-Date: Mon, 18 Dec 2023 17:28:20 +0000
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-5c066
-Message-ID-Hash: PXG4PIH2J2LBXKXVC2PMLDJZROGTJBXT
-X-Message-ID-Hash: PXG4PIH2J2LBXKXVC2PMLDJZROGTJBXT
-X-MailFrom: broonie@kernel.org
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=fo3WRtpx;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=jCecfQhV;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=fo3WRtpx;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=jCecfQhV
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id AE5C51F450;
+	Mon, 18 Dec 2023 17:48:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1702921714;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mByW+MzACC2iIlFrod5tliLDSa6iODdWULR3MPvcv1k=;
+	b=fo3WRtpxplWsMWAJAgHAABgqYDphcx0eUH7HkrMTOkrTsEDgB8JYls43teIEmtgWVGHD4M
+	QU8ucJXRpx3lcnVgXXYVrUjzMdpLCNQeOsnioexAX5m33H/UvnWDxJq9CEE9gPcZlKqJRL
+	5vlqaV5As/6sl2lQAwGfDdY0Rw3WFKI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1702921714;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mByW+MzACC2iIlFrod5tliLDSa6iODdWULR3MPvcv1k=;
+	b=jCecfQhVtAhd+AteH8NwM9577MFzdVRpmEKwRYQFlQ5bL9gc/dwl0vWgmLthDCxI0ZMZbz
+	5SmBHLRmHBcru5CQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1702921714;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mByW+MzACC2iIlFrod5tliLDSa6iODdWULR3MPvcv1k=;
+	b=fo3WRtpxplWsMWAJAgHAABgqYDphcx0eUH7HkrMTOkrTsEDgB8JYls43teIEmtgWVGHD4M
+	QU8ucJXRpx3lcnVgXXYVrUjzMdpLCNQeOsnioexAX5m33H/UvnWDxJq9CEE9gPcZlKqJRL
+	5vlqaV5As/6sl2lQAwGfDdY0Rw3WFKI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1702921714;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mByW+MzACC2iIlFrod5tliLDSa6iODdWULR3MPvcv1k=;
+	b=jCecfQhVtAhd+AteH8NwM9577MFzdVRpmEKwRYQFlQ5bL9gc/dwl0vWgmLthDCxI0ZMZbz
+	5SmBHLRmHBcru5CQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6E08713894;
+	Mon, 18 Dec 2023 17:48:34 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([10.150.64.162])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id dOEwGfKFgGUSKgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 18 Dec 2023 17:48:34 +0000
+Date: Mon, 18 Dec 2023 18:48:34 +0100
+Message-ID: <878r5rz9jh.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Stefan Binding <sbinding@opensource.cirrus.com>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	<alsa-devel@alsa-project.org>,
+	<linux-sound@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>,
+	<patches@opensource.cirrus.com>
+Subject: Re: [PATCH v1 0/7] Add support for various laptops using CS35L41 HDA
+ without _DSD
+In-Reply-To: <20231218151221.388745-1-sbinding@opensource.cirrus.com>
+References: <20231218151221.388745-1-sbinding@opensource.cirrus.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [0.90 / 50.00];
+	 ARC_NA(0.00)[];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 FROM_HAS_DN(0.00)[];
+	 TO_DN_SOME(0.00)[];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 MIME_GOOD(-0.10)[text/plain];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	 RCPT_COUNT_SEVEN(0.00)[7];
+	 MID_CONTAINS_FROM(1.00)[];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+];
+	 RCVD_TLS_ALL(0.00)[]
+Authentication-Results: smtp-out2.suse.de;
+	none
+Message-ID-Hash: ZR5FO4DL4BQLWOFNZYMLVV7F2VHEGZGS
+X-Message-ID-Hash: ZR5FO4DL4BQLWOFNZYMLVV7F2VHEGZGS
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -93,7 +153,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PXG4PIH2J2LBXKXVC2PMLDJZROGTJBXT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZR5FO4DL4BQLWOFNZYMLVV7F2VHEGZGS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,40 +162,47 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 04 Dec 2023 11:01:15 +0100, Krzysztof Kozlowski wrote:
-> Add sound machine driver for the soundcards on Qualcomm X1E80100 SoC,
-> supporting up to four channel audio playback over Soundwire bus.  The
-> driver is based on existing sc8280xp.c driver.
+On Mon, 18 Dec 2023 16:12:14 +0100,
+Stefan Binding wrote:
 > 
+> The CS35L41 HDA driver requires various system defined properties to configure
+> the driver for an individual system. For some laptops, these properties are
+> missing in the BIOS. To be able to support these laptops, there is a mechanism
+> in the driver to get this configuration from a lookup table, to be able to add
+> or patch _DSD as necessary.
 > 
+> However this mechanism currently only allows for laptops to be patched one at
+> a time, however, in the case where there are many laptops which need to be
+> configured generically, a generic function has been added, with an additional
+> lookup table to the individual laptops, indexed by SSID.
+> 
+> To support laptops using SPI without _DSD, an additional workaround is needed
+> to be able to support the SPI Chip Select GPIOs whose resources are defined
+> inside the _CRS for the Speaker ACPI Node. This workaround only works for
+> SPI laptops which contain up to 2 amps, since the SPI controller would not
+> allow more than 2 amps to be instantiated without the cs-gpios entry in
+> _DSD.
+> 
+> These patches add support for various ASUS laptops without _DSD, but the
+> framework added here allows for support for more laptops in the future
+> for other manufacturers. Support for laptops without _DSD from other
+> manufacturers is coming in the future.
+> 
+> Note: for systems which use modified _DSD to emulate the missing _DSD,
+> these patches are incompatible, and the modified _DSD must be removed in
+> order for the support through this framework to work for those laptops.
+> 
+> Stefan Binding (7):
+>   ALSA: hda: cs35l41: Add config table to support many laptops without
+>     _DSD
+>   ALSA: hda: cs35l41: Support additional ASUS ROG 2023 models
+>   ALSA: hda/realtek: Add quirks for ASUS ROG 2023 models
+>   ALSA: hda: cs35l41: Support additional ASUS Zenbook 2022 Models
+>   ALSA: hda/realtek: Add quirks for ASUS Zenbook 2022 Models
+>   ALSA: hda: cs35l41: Support additional ASUS Zenbook 2023 Models
+>   ALSA: hda/realtek: Add quirks for ASUS Zenbook 2023 Models
 
-Applied to
+Applied all seven patches now.  Thanks.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Thanks!
-
-[1/2] ASoC: qcom: Add x1e80100 sound machine driver
-      commit: 6b9dc2da66578acff36401ba87fee93c2abf2a6e
-[2/2] ASoC: dt-bindings: qcom,sm8250: Add X1E80100 sound card
-      commit: 337d93b4285a92280edd7d0a910c3b7cbc70d717
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+Takashi

@@ -2,64 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DA59816D15
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Dec 2023 12:56:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81C40816D3A
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Dec 2023 13:01:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 59A7D844;
-	Mon, 18 Dec 2023 12:56:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 59A7D844
+	by alsa0.perex.cz (Postfix) with ESMTPS id EF5F7843;
+	Mon, 18 Dec 2023 13:01:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF5F7843
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1702900601;
-	bh=I7ksKDOitB86N7lt6ezJkH+UJhPIeJM2YzBoqBSdqrM=;
+	s=default; t=1702900917;
+	bh=SS2aMK/kcWtpfUXjJXi8h7eIQA2KvJE0yiiiMAEfYjg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=MeowT2OOJXU8bJqcjEr7I0dyb4W/wtFnxCiO02iOVwmbJy8la8Yt6eggHRcCzTAmz
-	 lYlFa0qieQLp0gfunIEtVLwkLxtAirdUqIfvjLcIysLW0littVk6vHFzFHi/GgfkXH
-	 1XJGiNHrtjPXLnla1uyWmU4tGa6pUJEYGZYgSFwg=
+	b=mLUIZlAu2I29L6AXuiHXyzowWHdpSD/f0dS05eJMiz/yN+1pMctyruoXvEA5RZsmu
+	 DcuWc3yKZaHZ65IFVQZY2kGfiowfxMUrskHZBuKX8Is92PIjiVJMQxnl4SD38cm/IJ
+	 82BK+4lMIIHlB6SuEN/DmAdXxuN2ch1rwyaDMAog=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4F5C8F8057C; Mon, 18 Dec 2023 12:56:09 +0100 (CET)
+	id EAA95F80578; Mon, 18 Dec 2023 13:01:26 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 74912F8057C;
-	Mon, 18 Dec 2023 12:56:09 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C2BAAF80579;
+	Mon, 18 Dec 2023 13:01:25 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4A155F80425; Mon, 18 Dec 2023 12:56:06 +0100 (CET)
+	id 514CDF80425; Mon, 18 Dec 2023 13:01:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+X-Spam-Status: No, score=-2.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7BF53F800BD
-	for <alsa-devel@alsa-project.org>; Mon, 18 Dec 2023 12:56:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7BF53F800BD
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4BC99F80124
+	for <alsa-devel@alsa-project.org>; Mon, 18 Dec 2023 13:01:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4BC99F80124
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=P5sF7QdK
+ header.s=k20201202 header.b=XfylIkpl
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id D24CB60F7D;
-	Mon, 18 Dec 2023 11:56:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B8B6C433C8;
-	Mon, 18 Dec 2023 11:55:59 +0000 (UTC)
+	by ams.source.kernel.org (Postfix) with ESMTP id 94B4EB80E63;
+	Mon, 18 Dec 2023 12:01:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E1D4C433C8;
+	Mon, 18 Dec 2023 12:01:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1702900560;
-	bh=I7ksKDOitB86N7lt6ezJkH+UJhPIeJM2YzBoqBSdqrM=;
+	s=k20201202; t=1702900868;
+	bh=SS2aMK/kcWtpfUXjJXi8h7eIQA2KvJE0yiiiMAEfYjg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=P5sF7QdK+FTt+mTIF691q9wiZH+mRygUC953REKGDPzYGxdwf8J3T8zYj7sBaYkoo
-	 vRMYeHKyMZXJkvJWo7X5lwTbiKLgyk/+8sbrORdWtIEigAW0FnMmu+8aomGetWbDAK
-	 2jCD4ACx/GEWlwAOetD27KNuoS9Iwzute3SlIp2pHAJtTeoLw0gLzaOCBVdv65sQ5W
-	 JrVkg91+axBzT58A0dUx+OLsZ/+xCCxyIMseowbs37fKG0it+XjbKTW77wR1EnChOu
-	 QqtUcvg2K2f2GyX/bAv1YAmF9Z6cLvLRzoRZ45KuKthvXLCPLohJcj6UJ9R3vztrvR
-	 7UAynGjd5EXWA==
-Date: Mon, 18 Dec 2023 17:25:55 +0530
+	b=XfylIkplBhYQ+nBNhpfT5UTDhXeN8ASJ8CN8lWR7q04cj+KfVBTtSgotYR3E4cGMh
+	 g0+qTPv9fWreW32OvyPNJsBN4juunQcH3yeVFG5mUgGV9OirjGnRLJVmS7wewWOPgq
+	 15sVAH1TWnTh6feuysqEHbTEO42/S2+si221wk29UF6MQzsIk7ONQBdEb4cO+lUtEj
+	 eRXw0hhYCRz1iT7du6LgCoV2QhadIsqd8VvDDIpm89nV44NSr2PVTvdkEOZisurorn
+	 XqGR9ARK4tNera9EH/n8JbUMnT+BqHcz2bQt5rHdq3j5VQgmAp+0lmixkJD0z/qcaH
+	 MbTqnlJMUkrPQ==
+Date: Mon, 18 Dec 2023 17:31:04 +0530
 From: Vinod Koul <vkoul@kernel.org>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Cc: linux-sound@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.de,
@@ -75,16 +76,16 @@ Cc: linux-sound@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.de,
 	Richard Fitzgerald <rf@opensource.cirrus.com>,
 	Shuming Fan <shumingf@realtek.com>, Jack Yu <jack.yu@realtek.com>,
 	Oder Chiou <oder_chiou@realtek.com>
-Subject: Re: [RFC PATCH 08/16] soundwire: bus: add bpt_stream pointer
-Message-ID: <ZYAzS3tggqQg8_PW@matsya>
+Subject: Re: [RFC PATCH 09/16] soundwire: crc8: add constant table
+Message-ID: <ZYA0gKf3bZgY4X_s@matsya>
 References: <20231207222944.663893-1-pierre-louis.bossart@linux.intel.com>
- <20231207222944.663893-9-pierre-louis.bossart@linux.intel.com>
+ <20231207222944.663893-10-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20231207222944.663893-9-pierre-louis.bossart@linux.intel.com>
-Message-ID-Hash: BTIEDMMG7Y25UR2INHRNUXAYRJR3Q725
-X-Message-ID-Hash: BTIEDMMG7Y25UR2INHRNUXAYRJR3Q725
+In-Reply-To: <20231207222944.663893-10-pierre-louis.bossart@linux.intel.com>
+Message-ID-Hash: BCZLIH6JEDDKKABKUZSO743QOX5MQJJM
+X-Message-ID-Hash: BCZLIH6JEDDKKABKUZSO743QOX5MQJJM
 X-MailFrom: vkoul@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -97,7 +98,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BTIEDMMG7Y25UR2INHRNUXAYRJR3Q725/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BCZLIH6JEDDKKABKUZSO743QOX5MQJJM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,36 +108,342 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 On 07-12-23, 16:29, Pierre-Louis Bossart wrote:
-> Add a convenience pointer to the 'sdw_bus' structure. BPT is a
-> dedicated stream which will typically not be handled by DAIs or
-> dailinks. Since there's only one BPT stream per link, storing the
-> pointer at the link level seems rather natural.
+> Add the lookup table required by crc8(). All configuration values were
+> directly table from the MIPI SoundWire 1.x specification.
 > 
 > Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 > ---
->  include/linux/soundwire/sdw.h | 2 ++
->  1 file changed, 2 insertions(+)
+>  drivers/soundwire/Makefile |   4 +-
+>  drivers/soundwire/crc8.c   | 277 +++++++++++++++++++++++++++++++++++++
+>  drivers/soundwire/crc8.h   |  11 ++
+>  3 files changed, 291 insertions(+), 1 deletion(-)
+>  create mode 100644 drivers/soundwire/crc8.c
+>  create mode 100644 drivers/soundwire/crc8.h
 > 
-> diff --git a/include/linux/soundwire/sdw.h b/include/linux/soundwire/sdw.h
-> index e54c5bbd2b91..8db0cd7d0d89 100644
-> --- a/include/linux/soundwire/sdw.h
-> +++ b/include/linux/soundwire/sdw.h
-> @@ -965,6 +965,7 @@ struct sdw_master_ops {
->   * @stream_refcount: number of streams currently using this bus
->   * @btp_stream_refcount: number of BTP streams currently using this bus (should
->   * be zero or one, multiple streams per link is not supported).
-> + * @bpt_stream: pointer stored for convenience.
->   */
->  struct sdw_bus {
->  	struct device *dev;
-> @@ -996,6 +997,7 @@ struct sdw_bus {
->  	int hw_sync_min_links;
->  	int stream_refcount;
->  	int bpt_stream_refcount;
-> +	struct sdw_stream_runtime *bpt_stream;
+> diff --git a/drivers/soundwire/Makefile b/drivers/soundwire/Makefile
+> index 657f5888a77b..170128dd9318 100644
+> --- a/drivers/soundwire/Makefile
+> +++ b/drivers/soundwire/Makefile
+> @@ -5,7 +5,9 @@
+>  
+>  #Bus Objs
+>  soundwire-bus-y := bus_type.o bus.o master.o slave.o mipi_disco.o stream.o  \
+> -			sysfs_slave.o sysfs_slave_dpn.o
+> +			sysfs_slave.o sysfs_slave_dpn.o \
+> +			crc8.o
+> +
+>  obj-$(CONFIG_SOUNDWIRE) += soundwire-bus.o
+>  
+>  soundwire-generic-allocation-objs := generic_bandwidth_allocation.o
+> diff --git a/drivers/soundwire/crc8.c b/drivers/soundwire/crc8.c
+> new file mode 100644
+> index 000000000000..b6b984d7f39a
+> --- /dev/null
+> +++ b/drivers/soundwire/crc8.c
+> @@ -0,0 +1,277 @@
+> +// SPDX-License-Identifier: (GPL-2.0 OR BSD-3-Clause)
+> +// Copyright(c) 2024 Intel Corporation.
+> +
+> +#include <linux/crc8.h>
+> +#include <linux/module.h>
+> +#include "crc8.h"
+> +
+> +/*
+> + * the MIPI SoundWire CRC8 polynomial is X^8 + X^6 + X^3 + X^2 + 1, MSB first
+> + * The value is (1)01001101 = 0x4D
+> + *
+> + * the table below was generated with
+> + *
+> + *	u8 crc8_lookup_table[CRC8_TABLE_SIZE];
+> + *	crc8_populate_msb(crc8_lookup_table, SDW_CRC8_POLY);
 
-So we are limiting to single stream? Can we have multiple transfers
-queued up, which I guess might imply multiple streams?
+Good that you found this API, so next question would be why should we
+have this static table in kernel and not generate on probe if bpt is
+supported..? Many subsystems use these APIs to generate the tables..
+
+
+> + *
+> + */
+> +
+> +const u8 sdw_crc8_lookup_msb[CRC8_TABLE_SIZE] = {
+> +	0x00, /* 0 */
+> +	0x4d, /* 1 */
+> +	0x9a, /* 2 */
+> +	0xd7, /* 3 */
+> +	0x79, /* 4 */
+> +	0x34, /* 5 */
+> +	0xe3, /* 6 */
+> +	0xae, /* 7 */
+> +	0xf2, /* 8 */
+> +	0xbf, /* 9 */
+> +	0x68, /* 10 */
+> +	0x25, /* 11 */
+> +	0x8b, /* 12 */
+> +	0xc6, /* 13 */
+> +	0x11, /* 14 */
+> +	0x5c, /* 15 */
+> +	0xa9, /* 16 */
+> +	0xe4, /* 17 */
+> +	0x33, /* 18 */
+> +	0x7e, /* 19 */
+> +	0xd0, /* 20 */
+> +	0x9d, /* 21 */
+> +	0x4a, /* 22 */
+> +	0x07, /* 23 */
+> +	0x5b, /* 24 */
+> +	0x16, /* 25 */
+> +	0xc1, /* 26 */
+> +	0x8c, /* 27 */
+> +	0x22, /* 28 */
+> +	0x6f, /* 29 */
+> +	0xb8, /* 30 */
+> +	0xf5, /* 31 */
+> +	0x1f, /* 32 */
+> +	0x52, /* 33 */
+> +	0x85, /* 34 */
+> +	0xc8, /* 35 */
+> +	0x66, /* 36 */
+> +	0x2b, /* 37 */
+> +	0xfc, /* 38 */
+> +	0xb1, /* 39 */
+> +	0xed, /* 40 */
+> +	0xa0, /* 41 */
+> +	0x77, /* 42 */
+> +	0x3a, /* 43 */
+> +	0x94, /* 44 */
+> +	0xd9, /* 45 */
+> +	0x0e, /* 46 */
+> +	0x43, /* 47 */
+> +	0xb6, /* 48 */
+> +	0xfb, /* 49 */
+> +	0x2c, /* 50 */
+> +	0x61, /* 51 */
+> +	0xcf, /* 52 */
+> +	0x82, /* 53 */
+> +	0x55, /* 54 */
+> +	0x18, /* 55 */
+> +	0x44, /* 56 */
+> +	0x09, /* 57 */
+> +	0xde, /* 58 */
+> +	0x93, /* 59 */
+> +	0x3d, /* 60 */
+> +	0x70, /* 61 */
+> +	0xa7, /* 62 */
+> +	0xea, /* 63 */
+> +	0x3e, /* 64 */
+> +	0x73, /* 65 */
+> +	0xa4, /* 66 */
+> +	0xe9, /* 67 */
+> +	0x47, /* 68 */
+> +	0x0a, /* 69 */
+> +	0xdd, /* 70 */
+> +	0x90, /* 71 */
+> +	0xcc, /* 72 */
+> +	0x81, /* 73 */
+> +	0x56, /* 74 */
+> +	0x1b, /* 75 */
+> +	0xb5, /* 76 */
+> +	0xf8, /* 77 */
+> +	0x2f, /* 78 */
+> +	0x62, /* 79 */
+> +	0x97, /* 80 */
+> +	0xda, /* 81 */
+> +	0x0d, /* 82 */
+> +	0x40, /* 83 */
+> +	0xee, /* 84 */
+> +	0xa3, /* 85 */
+> +	0x74, /* 86 */
+> +	0x39, /* 87 */
+> +	0x65, /* 88 */
+> +	0x28, /* 89 */
+> +	0xff, /* 90 */
+> +	0xb2, /* 91 */
+> +	0x1c, /* 92 */
+> +	0x51, /* 93 */
+> +	0x86, /* 94 */
+> +	0xcb, /* 95 */
+> +	0x21, /* 96 */
+> +	0x6c, /* 97 */
+> +	0xbb, /* 98 */
+> +	0xf6, /* 99 */
+> +	0x58, /* 100 */
+> +	0x15, /* 101 */
+> +	0xc2, /* 102 */
+> +	0x8f, /* 103 */
+> +	0xd3, /* 104 */
+> +	0x9e, /* 105 */
+> +	0x49, /* 106 */
+> +	0x04, /* 107 */
+> +	0xaa, /* 108 */
+> +	0xe7, /* 109 */
+> +	0x30, /* 110 */
+> +	0x7d, /* 111 */
+> +	0x88, /* 112 */
+> +	0xc5, /* 113 */
+> +	0x12, /* 114 */
+> +	0x5f, /* 115 */
+> +	0xf1, /* 116 */
+> +	0xbc, /* 117 */
+> +	0x6b, /* 118 */
+> +	0x26, /* 119 */
+> +	0x7a, /* 120 */
+> +	0x37, /* 121 */
+> +	0xe0, /* 122 */
+> +	0xad, /* 123 */
+> +	0x03, /* 124 */
+> +	0x4e, /* 125 */
+> +	0x99, /* 126 */
+> +	0xd4, /* 127 */
+> +	0x7c, /* 128 */
+> +	0x31, /* 129 */
+> +	0xe6, /* 130 */
+> +	0xab, /* 131 */
+> +	0x05, /* 132 */
+> +	0x48, /* 133 */
+> +	0x9f, /* 134 */
+> +	0xd2, /* 135 */
+> +	0x8e, /* 136 */
+> +	0xc3, /* 137 */
+> +	0x14, /* 138 */
+> +	0x59, /* 139 */
+> +	0xf7, /* 140 */
+> +	0xba, /* 141 */
+> +	0x6d, /* 142 */
+> +	0x20, /* 143 */
+> +	0xd5, /* 144 */
+> +	0x98, /* 145 */
+> +	0x4f, /* 146 */
+> +	0x02, /* 147 */
+> +	0xac, /* 148 */
+> +	0xe1, /* 149 */
+> +	0x36, /* 150 */
+> +	0x7b, /* 151 */
+> +	0x27, /* 152 */
+> +	0x6a, /* 153 */
+> +	0xbd, /* 154 */
+> +	0xf0, /* 155 */
+> +	0x5e, /* 156 */
+> +	0x13, /* 157 */
+> +	0xc4, /* 158 */
+> +	0x89, /* 159 */
+> +	0x63, /* 160 */
+> +	0x2e, /* 161 */
+> +	0xf9, /* 162 */
+> +	0xb4, /* 163 */
+> +	0x1a, /* 164 */
+> +	0x57, /* 165 */
+> +	0x80, /* 166 */
+> +	0xcd, /* 167 */
+> +	0x91, /* 168 */
+> +	0xdc, /* 169 */
+> +	0x0b, /* 170 */
+> +	0x46, /* 171 */
+> +	0xe8, /* 172 */
+> +	0xa5, /* 173 */
+> +	0x72, /* 174 */
+> +	0x3f, /* 175 */
+> +	0xca, /* 176 */
+> +	0x87, /* 177 */
+> +	0x50, /* 178 */
+> +	0x1d, /* 179 */
+> +	0xb3, /* 180 */
+> +	0xfe, /* 181 */
+> +	0x29, /* 182 */
+> +	0x64, /* 183 */
+> +	0x38, /* 184 */
+> +	0x75, /* 185 */
+> +	0xa2, /* 186 */
+> +	0xef, /* 187 */
+> +	0x41, /* 188 */
+> +	0x0c, /* 189 */
+> +	0xdb, /* 190 */
+> +	0x96, /* 191 */
+> +	0x42, /* 192 */
+> +	0x0f, /* 193 */
+> +	0xd8, /* 194 */
+> +	0x95, /* 195 */
+> +	0x3b, /* 196 */
+> +	0x76, /* 197 */
+> +	0xa1, /* 198 */
+> +	0xec, /* 199 */
+> +	0xb0, /* 200 */
+> +	0xfd, /* 201 */
+> +	0x2a, /* 202 */
+> +	0x67, /* 203 */
+> +	0xc9, /* 204 */
+> +	0x84, /* 205 */
+> +	0x53, /* 206 */
+> +	0x1e, /* 207 */
+> +	0xeb, /* 208 */
+> +	0xa6, /* 209 */
+> +	0x71, /* 210 */
+> +	0x3c, /* 211 */
+> +	0x92, /* 212 */
+> +	0xdf, /* 213 */
+> +	0x08, /* 214 */
+> +	0x45, /* 215 */
+> +	0x19, /* 216 */
+> +	0x54, /* 217 */
+> +	0x83, /* 218 */
+> +	0xce, /* 219 */
+> +	0x60, /* 220 */
+> +	0x2d, /* 221 */
+> +	0xfa, /* 222 */
+> +	0xb7, /* 223 */
+> +	0x5d, /* 224 */
+> +	0x10, /* 225 */
+> +	0xc7, /* 226 */
+> +	0x8a, /* 227 */
+> +	0x24, /* 228 */
+> +	0x69, /* 229 */
+> +	0xbe, /* 230 */
+> +	0xf3, /* 231 */
+> +	0xaf, /* 232 */
+> +	0xe2, /* 233 */
+> +	0x35, /* 234 */
+> +	0x78, /* 235 */
+> +	0xd6, /* 236 */
+> +	0x9b, /* 237 */
+> +	0x4c, /* 238 */
+> +	0x01, /* 239 */
+> +	0xf4, /* 240 */
+> +	0xb9, /* 241 */
+> +	0x6e, /* 242 */
+> +	0x23, /* 243 */
+> +	0x8d, /* 244 */
+> +	0xc0, /* 245 */
+> +	0x17, /* 246 */
+> +	0x5a, /* 247 */
+> +	0x06, /* 248 */
+> +	0x4b, /* 249 */
+> +	0x9c, /* 250 */
+> +	0xd1, /* 251 */
+> +	0x7f, /* 252 */
+> +	0x32, /* 253 */
+> +	0xe5, /* 254 */
+> +	0xa8  /* 255 */
+> +};
+> +EXPORT_SYMBOL(sdw_crc8_lookup_msb);
+> diff --git a/drivers/soundwire/crc8.h b/drivers/soundwire/crc8.h
+> new file mode 100644
+> index 000000000000..9a88d3866016
+> --- /dev/null
+> +++ b/drivers/soundwire/crc8.h
+> @@ -0,0 +1,11 @@
+> +/* SPDX-License-Identifier: (GPL-2.0 OR BSD-3-Clause) */
+> +/* Copyright(c) 2024 Intel Corporation. */
+> +
+> +#ifndef __SDW_CRC8_H
+> +#define __SDW_CRC8_H
+> +
+> +#define SDW_CRC8_SEED 0xFF
+> +#define SDW_CRC8_POLY 0x4D
+> +extern const u8 sdw_crc8_lookup_msb[CRC8_TABLE_SIZE];
+> +
+> +#endif /* __SDW_CRC8_H */
+> -- 
+> 2.39.2
+> 
 
 -- 
 ~Vinod

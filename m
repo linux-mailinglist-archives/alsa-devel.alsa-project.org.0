@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10613816E34
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Dec 2023 13:45:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46229816E37
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Dec 2023 13:45:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 59812E7F;
-	Mon, 18 Dec 2023 13:44:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 59812E7F
+	by alsa0.perex.cz (Postfix) with ESMTPS id D8998E84;
+	Mon, 18 Dec 2023 13:45:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D8998E84
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1702903507;
-	bh=eIcgxwsPlmas7K2hDexMjPqCN1x9JjKMYN5z+zsn2Io=;
+	s=default; t=1702903524;
+	bh=dc1LCqLuSPTEP4ibWpGKxG3/cyTLReiW3GApgwj4T4Y=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=FD1N5ffE1T9Jr/4dCiJkvQnjqZqb2gIIszHhol5ppktW1OZ3Q09LfFkfC9viwxb8a
-	 9GRD+cdhZlc+jGEEGH/knjm5lZYFNePRlqxi+tcDUBmOipcccN9ANqexNW/yRGXmyP
-	 oqtUM15qCJbV9aVDFGW3fPjLzq+jDN0Zy8HjJ9ac=
+	b=tLX6ZJuqig3jIb1hYZ+H+v+8stFgPykvqqlr1YUKEOtXSD+w8kOAvtlKZqXb2s5Z5
+	 YI/eIv+ONX4IeomIMebsJVvt9m5AnPfofMy8p88q9jOyZ4bqUnYijEjEUCEUDmLyPr
+	 cpRHFhca5SBwedhseLYyxeXEYDw7v+OoFlLflZg8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2E368F80698; Mon, 18 Dec 2023 13:43:26 +0100 (CET)
+	id 4931BF8069E; Mon, 18 Dec 2023 13:43:28 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 41464F80693;
-	Mon, 18 Dec 2023 13:43:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B8F70F806A0;
+	Mon, 18 Dec 2023 13:43:27 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EF885F80635; Mon, 18 Dec 2023 13:43:17 +0100 (CET)
+	id E79C2F8063A; Mon, 18 Dec 2023 13:43:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -38,41 +38,41 @@ Received: from mail.savoirfairelinux.com (mail.savoirfairelinux.com
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BE0BEF805FC
-	for <alsa-devel@alsa-project.org>; Mon, 18 Dec 2023 13:43:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE0BEF805FC
+	by alsa1.perex.cz (Postfix) with ESMTPS id E73B5F8061E
+	for <alsa-devel@alsa-project.org>; Mon, 18 Dec 2023 13:43:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E73B5F8061E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=savoirfairelinux.com header.i=@savoirfairelinux.com
  header.a=rsa-sha256 header.s=DFC430D2-D198-11EC-948E-34200CB392D2
- header.b=Rt8zNJB3
+ header.b=A1cKtatz
 Received: from localhost (localhost [127.0.0.1])
-	by mail.savoirfairelinux.com (Postfix) with ESMTP id B51119C4171;
-	Mon, 18 Dec 2023 07:43:11 -0500 (EST)
+	by mail.savoirfairelinux.com (Postfix) with ESMTP id A68539C31CC;
+	Mon, 18 Dec 2023 07:43:14 -0500 (EST)
 Received: from mail.savoirfairelinux.com ([127.0.0.1])
  by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10032)
- with ESMTP id jamzEq0JDc2f; Mon, 18 Dec 2023 07:43:11 -0500 (EST)
+ with ESMTP id Z2HT4vLoBD6V; Mon, 18 Dec 2023 07:43:14 -0500 (EST)
 Received: from localhost (localhost [127.0.0.1])
-	by mail.savoirfairelinux.com (Postfix) with ESMTP id 292149C416C;
-	Mon, 18 Dec 2023 07:43:11 -0500 (EST)
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.savoirfairelinux.com 292149C416C
+	by mail.savoirfairelinux.com (Postfix) with ESMTP id 53F209C335A;
+	Mon, 18 Dec 2023 07:43:14 -0500 (EST)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.savoirfairelinux.com 53F209C335A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=savoirfairelinux.com; s=DFC430D2-D198-11EC-948E-34200CB392D2;
-	t=1702903391; bh=qDza+013LR5YLHqPM6YnPsoEtdDkLVQiJ4ZqxAAikIw=;
+	t=1702903394; bh=3qPcaZHdj1kfz+pc5ad/l6BFAvniuOuBLv61aSrT+ic=;
 	h=From:To:Date:Message-Id:MIME-Version;
-	b=Rt8zNJB3q/wN5XxFj9z7eAirDix+Bc5AbPs9An14Ol0WQq8AgH3em0oBBtTYMaTBH
-	 0PqmUIenabz5PoekbB4o8h02REzLzfr7yUZ0Hb32pjm+zll2hEUU/yMLcjIMA94nVs
-	 YVM2OtUFCfJXvaCW6Ws/EHsBjRdazG5gX71T/rWsLWAIIsGcqbuTYmuWydtyNdFASg
-	 NBy53cI6MtB40/ISKJeBy4WpHKn5VncZOHeI+6SxTvQvWQRK7jh7EIu0qWirtM4ENl
-	 8n4bXUTqvZThYnCqxjt+aYr89RI6WQ7L0lHW7IW4XhjlGrmAcLXM7rwnk+YDfijfls
-	 A4+lBcew9THNw==
+	b=A1cKtatzptEFyfbWxiNdgAOzT9yvvqzzrNPrmrSTSxM3esRuzRv0V5jwwCWwNuV1Z
+	 zhBrUKFEGIjHw3Q3UZ5TYXztgjMcecpfLuCWnBJrjyJCTfkMCU4JxXG8TjNwhv+SJ3
+	 aHKUyket3qK42sN6weGZ8soRQKPjPhfU/fweFWqFVBop1zeA0BmCtiGx1WeCep4tfo
+	 xDFfQ33H5kKo/e9g3azCcAnKpq4oZFpKTHlN3WtO1OB8Unlpj64PKJ+KiUDvHAmPfg
+	 kWF6CEOCH/xEGSB8XJZ2m6L1sgnId/LSJOHE8MkAADTQYh1z0GTnszgID/KaZbdwlQ
+	 1lSogOMlAWpLw==
 X-Virus-Scanned: amavis at mail.savoirfairelinux.com
 Received: from mail.savoirfairelinux.com ([127.0.0.1])
  by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10026)
- with ESMTP id U-2a40zU7fG6; Mon, 18 Dec 2023 07:43:11 -0500 (EST)
+ with ESMTP id kx59VGcxw8Q3; Mon, 18 Dec 2023 07:43:14 -0500 (EST)
 Received: from gerard.rennes.sfl (unknown [192.168.216.3])
-	by mail.savoirfairelinux.com (Postfix) with ESMTPSA id 24E7A9C4169;
-	Mon, 18 Dec 2023 07:43:09 -0500 (EST)
+	by mail.savoirfairelinux.com (Postfix) with ESMTPSA id 51EA89C31CC;
+	Mon, 18 Dec 2023 07:43:12 -0500 (EST)
 From: Elinor Montmasson <elinor.montmasson@savoirfairelinux.com>
 To: Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>,
@@ -92,17 +92,17 @@ Cc: linux-sound@vger.kernel.org,
 	linuxppc-dev@lists.ozlabs.org,
 	Elinor Montmasson <elinor.montmasson@savoirfairelinux.com>,
 	Philip-Dylan <philip-dylan.gleonec@savoirfairelinux.com>
-Subject: [PATCHv3 RESEND 07/10] ASoC: fsl-asoc-card: add dts property
- "cpu-slot-num"
-Date: Mon, 18 Dec 2023 13:40:55 +0100
-Message-Id: <20231218124058.2047167-8-elinor.montmasson@savoirfairelinux.com>
+Subject: [PATCHv3 RESEND 08/10] ASoC: fsl-asoc-card: add dts properties
+ "cpu-sysclk-freq"
+Date: Mon, 18 Dec 2023 13:40:56 +0100
+Message-Id: <20231218124058.2047167-9-elinor.montmasson@savoirfairelinux.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20231218124058.2047167-1-elinor.montmasson@savoirfairelinux.com>
 References: <20231218124058.2047167-1-elinor.montmasson@savoirfairelinux.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: QIVBZ6PC53NXJDNTM3GMTR6T7YSSBXUI
-X-Message-ID-Hash: QIVBZ6PC53NXJDNTM3GMTR6T7YSSBXUI
+Message-ID-Hash: AJO7UE2YEMT5SI4IO4NIA33OVPJKYEIE
+X-Message-ID-Hash: AJO7UE2YEMT5SI4IO4NIA33OVPJKYEIE
 X-MailFrom: elinor.montmasson@savoirfairelinux.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -115,7 +115,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QIVBZ6PC53NXJDNTM3GMTR6T7YSSBXUI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AJO7UE2YEMT5SI4IO4NIA33OVPJKYEIE/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -124,28 +124,32 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add new optional dts property "cpu-slot-num", which allows setting a
-custom number of TDM slots for the CPU DAI when using the generic codec.
+Add new optional dts property "cpu-sysclk-freq" to set
+custom sysclk frequencies for the CPU DAI with the generic codec.
+The way values are used is up to the CPU DAI driver implementation.
 
 Signed-off-by: Elinor Montmasson <elinor.montmasson@savoirfairelinux.com>
 Co-authored-by: Philip-Dylan Gleonec <philip-dylan.gleonec@savoirfairelin=
 ux.com>
 ---
- sound/soc/fsl/fsl-asoc-card.c | 1 +
- 1 file changed, 1 insertion(+)
+ sound/soc/fsl/fsl-asoc-card.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
 diff --git a/sound/soc/fsl/fsl-asoc-card.c b/sound/soc/fsl/fsl-asoc-card.=
 c
-index 012c8d3666aa..6f6cc8bd3acd 100644
+index 6f6cc8bd3acd..7b0d7df7ae27 100644
 --- a/sound/soc/fsl/fsl-asoc-card.c
 +++ b/sound/soc/fsl/fsl-asoc-card.c
-@@ -746,6 +746,7 @@ static int fsl_asoc_card_probe(struct platform_device=
- *pdev)
- 		priv->dai_link[2].num_codecs =3D 2;
+@@ -747,6 +747,10 @@ static int fsl_asoc_card_probe(struct platform_devic=
+e *pdev)
  		priv->dai_fmt |=3D SND_SOC_DAIFMT_CBP_CFP;
  		of_property_read_u32(np, "cpu-slot-width", &priv->cpu_priv.slot_width)=
 ;
-+		of_property_read_u32(np, "cpu-slot-num", &priv->cpu_priv.slot_num);
+ 		of_property_read_u32(np, "cpu-slot-num", &priv->cpu_priv.slot_num);
++		of_property_read_u32(np, "cpu-sysclk-freq-rx",
++					(u32 *)&priv->cpu_priv.sysclk_freq[RX]);
++		of_property_read_u32(np, "cpu-sysclk-freq-tx",
++					(u32 *)&priv->cpu_priv.sysclk_freq[TX]);
  	} else {
  		dev_err(&pdev->dev, "unknown Device Tree compatible\n");
  		ret =3D -EINVAL;

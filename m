@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D9AC818774
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Dec 2023 13:28:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B557818776
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Dec 2023 13:28:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7BDE3857;
-	Tue, 19 Dec 2023 13:27:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7BDE3857
+	by alsa0.perex.cz (Postfix) with ESMTPS id 57CAADF6;
+	Tue, 19 Dec 2023 13:28:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 57CAADF6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1702988884;
-	bh=AR/FTncpP3HZDm6f9IH+uJbJm+jxlPJQsQuijcUY4ak=;
+	s=default; t=1702988897;
+	bh=XjeWIz1mpH5jVwObJLbapYiqEsmu7EHDGU47gm/OWGM=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=QCe49iUewrfQm4yIE3ZVYMDbz5APzlVhvpTHc5OOoprOzfgshx8HMqNImnZLPFDAo
-	 soCKT52DMyRdNOAnOjmig6lygM93o5AwaMCWEi3tROZqf7IiDBEIBIxpxqm9qyPK9Z
-	 9UMR4hyoUCn7BCGTNcX6AeiWSMbGjexVbOmZ4mAA=
+	b=SfuqHTnKVF3PoE3mxjlqdo6lHopy4dAu7TLjANAQuHEyBM+qlm60vwRBGKpnum3ZO
+	 yVdjlzYX/Qle66cA8MtWIK/HbvtbWb1NS7NHy6pyUcRYa7i+gMqFwpA7Xt2mRMFxFm
+	 X+TVPDM4ff5TSvii3AZyXiU+9E341OaD27AkgtF8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 42AF6F80425; Tue, 19 Dec 2023 13:27:34 +0100 (CET)
+	id C6A53F805AC; Tue, 19 Dec 2023 13:27:44 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D503BF8057A;
-	Tue, 19 Dec 2023 13:27:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A2FE2F805BA;
+	Tue, 19 Dec 2023 13:27:43 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 223F2F80431; Tue, 19 Dec 2023 13:27:25 +0100 (CET)
+	id 898DFF80431; Tue, 19 Dec 2023 13:27:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-4.4 required=5.0 tests=DATE_IN_PAST_12_24,
@@ -35,46 +35,45 @@ X-Spam-Status: No, score=-4.4 required=5.0 tests=DATE_IN_PAST_12_24,
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E8097F80124
-	for <alsa-devel@alsa-project.org>; Tue, 19 Dec 2023 13:27:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8097F80124
+	by alsa1.perex.cz (Postfix) with ESMTPS id 23DEFF8016E
+	for <alsa-devel@alsa-project.org>; Tue, 19 Dec 2023 13:27:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23DEFF8016E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=O8beV8by
+ header.s=Intel header.b=dZqrKNkf
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1702988839; x=1734524839;
+  t=1702988841; x=1734524841;
   h=message-id:date:mime-version:subject:to:cc:references:
    from:in-reply-to:content-transfer-encoding;
-  bh=AR/FTncpP3HZDm6f9IH+uJbJm+jxlPJQsQuijcUY4ak=;
-  b=O8beV8byr5bfJyNqHa41L6wKU3yT3hRypZ6a6+MiSykCA/in1chqXnPi
-   FmYbT45nTACT/bRFOLQtQg/Lga9wH6xsEDRVRHk94+HL0+h1vi8J4KnJp
-   sm5SjZrouxiyP/tUjeOEdSJKm33B6UKLJCZbcq0H/a0lCbKihkpc5Qogn
-   UIrHAIZn1/xUUxE3ulh3T/ZwNxIRpZGTcGwL9vfH3qPw5HmcjFVdiSmUj
-   qtbCE4Hnrfs0C5fyWFuNwq+kRb9SeZPxJM1iO7FHsHuZvql4jBmmZj+bt
-   Sbr2tI1fxuZ4Izn8UwP4yTx4Wlzx78S4dnHjqqpe5FsZw7fzoT7qkkzi6
+  bh=XjeWIz1mpH5jVwObJLbapYiqEsmu7EHDGU47gm/OWGM=;
+  b=dZqrKNkfYZioqL4xwh9kUgdOOreQ5ODYYHRALVvCt6IbZRfSaOOKwN1o
+   /yI1G0GUVny9j4cIzswxB1MVqIrfzyHLeUU/nr6atHGhYTBLXiWoWGBkT
+   aR8whR0jAQBjktePhlT8qLRy8Q+Nn1QVeM5P0affmafWGR4HDSRlmA2gB
+   2Y4OBEgRddMn3lQup1YNjt4G47DK49tqoFGs6nIV7zRQBnKpFAFIG4Y69
+   Xf5KWnWB5edGQfuWX5Yll1Zx0Mbp4cpeR2iCVSK7I8ekDd8sjPFKPdCl3
+   1/huLRdLBSXstgbME6kIz5ZLOxCZGoc1FnjiSUud34530cdGIcBJslklX
    A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10928"; a="14338230"
+X-IronPort-AV: E=McAfee;i="6600,9927,10928"; a="14338248"
 X-IronPort-AV: E=Sophos;i="6.04,288,1695711600";
-   d="scan'208";a="14338230"
+   d="scan'208";a="14338248"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
   by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Dec 2023 04:27:13 -0800
+ 19 Dec 2023 04:27:19 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10928"; a="1107335078"
+X-IronPort-AV: E=McAfee;i="6600,9927,10928"; a="1107335187"
 X-IronPort-AV: E=Sophos;i="6.04,288,1695711600";
-   d="scan'208";a="1107335078"
+   d="scan'208";a="1107335187"
 Received: from hierlema-mobl.ger.corp.intel.com (HELO [10.252.34.230])
  ([10.252.34.230])
   by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Dec 2023 04:27:08 -0800
-Message-ID: <a4bfdc56-b323-4c13-a09e-c0f5baf40450@linux.intel.com>
-Date: Mon, 18 Dec 2023 17:33:02 +0100
+ 19 Dec 2023 04:27:14 -0800
+Message-ID: <884fa264-8d6b-4ac2-af57-b6fc07040361@linux.intel.com>
+Date: Mon, 18 Dec 2023 17:44:15 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 01/16] Documentation: driver: add SoundWire BRA
- description
+Subject: Re: [RFC PATCH 07/16] soundwire: bus: add API for BPT protocol
 Content-Language: en-US
 To: Charles Keepax <ckeepax@opensource.cirrus.com>
 Cc: Vinod Koul <vkoul@kernel.org>, linux-sound@vger.kernel.org,
@@ -88,16 +87,16 @@ Cc: Vinod Koul <vkoul@kernel.org>, linux-sound@vger.kernel.org,
  Shuming Fan <shumingf@realtek.com>, Jack Yu <jack.yu@realtek.com>,
  Oder Chiou <oder_chiou@realtek.com>
 References: <20231207222944.663893-1-pierre-louis.bossart@linux.intel.com>
- <20231207222944.663893-2-pierre-louis.bossart@linux.intel.com>
- <ZYAvoFbEP8RH_x0Y@matsya>
- <a5d0e3a7-e45c-4971-8ad7-7ba19702acf1@linux.intel.com>
- <20231218142946.GZ14858@ediswmail.ad.cirrus.com>
+ <20231207222944.663893-8-pierre-louis.bossart@linux.intel.com>
+ <ZYAy9ZM0o3uAk2qY@matsya>
+ <4f66f792-79c0-4221-82b5-a0d9ec5a898b@linux.intel.com>
+ <20231218145716.GA14858@ediswmail.ad.cirrus.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20231218142946.GZ14858@ediswmail.ad.cirrus.com>
+In-Reply-To: <20231218145716.GA14858@ediswmail.ad.cirrus.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: WAJ5KUVIZWM4X6MAZ4VMY45RS4QZQ2W2
-X-Message-ID-Hash: WAJ5KUVIZWM4X6MAZ4VMY45RS4QZQ2W2
+Message-ID-Hash: QBOOKLDBGXANWEPIA4RAQBLSGQDUNC3X
+X-Message-ID-Hash: QBOOKLDBGXANWEPIA4RAQBLSGQDUNC3X
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -110,7 +109,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WAJ5KUVIZWM4X6MAZ4VMY45RS4QZQ2W2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QBOOKLDBGXANWEPIA4RAQBLSGQDUNC3X/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -121,38 +120,42 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
 
-On 12/18/23 08:29, Charles Keepax wrote:
-> On Mon, Dec 18, 2023 at 01:58:47PM +0100, Pierre-Louis Bossart wrote:
->>> why not have a single API that does both? First check if it is supported
->>> and then allocate buffers and do the transfer.. What are the advantages
->>> of using this two step process
+On 12/18/23 08:57, Charles Keepax wrote:
+> On Mon, Dec 18, 2023 at 02:12:36PM +0100, Pierre-Louis Bossart wrote:
+>>> Is this a protocol requirement?
 >>
->> Symmetry is the only thing that comes to my mind. Open - close and send
->> - wait are natural matches, aren't they?
+>> No, it's an implementation requirement.
 >>
->> We do need a wait(), so bundling open() and send() would be odd.
+>> We could move this to host-specific parts but then the codec drivers
+>> will have to know about alignment requirements for each host they are
+>> use with. IOW, it's more work for codec drivers if we don't have a
+>> minimum bar for alignment requirement across all platforms.
 >>
 > 
-> I agree send->wait->close would be odd, But you just bundle close
-> into wait. So the API becomes just send->wait, which seems pretty
-> logical.
-
-Fair enough, send()/wait() would work indeed.
-
-I guess I wanted to keep the callbacks reasonably small (already 200
-lines for the open), but we can split the 'send' callback into smaller
-helpers to keep the code readable. There's no good reason to expose
-these smaller helpers to codec drivers.
-
->> But you have a point that the open() is not generic in that it also
->> prepares the DMA buffers for transmission. Maybe it's more natural to
->> follow the traditional open(), hw_params(), hw_free, close() from ALSA.
+> I do certainly see that side of the argument and it does probably
+> warrant some thought as to how a slave might learn the alignment
+> requirements. I guess maybe some sort of core helper function to
+> return the alignment? Or putting it in properties the slave can
+> access? One could even keep the check here, but just pull the
+> value from something system specific.
 > 
-> I think this just makes it worse, you are now adding even more
-> calls. The problem I see here is that, open and close (at least to
-> me) strongly implies that you can do multiple operations between
-> them and unless I have misunderstood something here you can't.
+> The danger with putting it in the core is IMHO:
+> 
+> a) It rules out certain use-cases, generally I think its a bad
+> idea if the framework design prohibits stuff the underlying bus
+> could do because someone will, at some point, want to do it.
 
-That's right, the open was not compatible with multiple operations.
-Collapsing open/send and wait/close sounds more logical, thanks for the
-feedback.
+SoundWire has lots of fancy and borderline nebulous concepts, my take is
+"let's do few things and do them well". We can always revisit new usages
+later, for now my main objective is "speed up downloads".
+
+> b) The core limit could get a bit out of hand once more
+> controllers are added. The core limit needs to be a multiple of
+> all the controller limits, if a controller comes along with a
+> weird alignment requirement, that gets problematic fast.
+
+I don't have any information on other controllers, but I wouldn't be
+surprised if most of the quirks are due to peripheral limitations and
+ambiguous interpretations of what 'ACK' means. I tried writing to
+reserved parts of the memory or non-existent registers and nothing bad
+was reported...

@@ -2,186 +2,119 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80BA0822160
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Jan 2024 19:51:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7B96822161
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Jan 2024 19:51:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C69C8DF;
-	Tue,  2 Jan 2024 19:51:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C69C8DF
+	by alsa0.perex.cz (Postfix) with ESMTPS id C5102950;
+	Tue,  2 Jan 2024 19:51:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C5102950
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1704221483;
-	bh=DXqSB687J1DGJsdZPDlAkkTZslSMUh3h5BKO67JSaNM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1704221492;
+	bh=UHw0iYzMzI3PwqgkCNZFQ4grq8hrenFPPolEPSXUz1M=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=D7nsDO7SpVTdOlR6UgaoGVKyH9u+afRybFZah8I5ZMXfiK8I1mk2cab5cM3tYm1uG
-	 ZRZvZ8mXSg+7vXxdMQBTWfxGftOkmj/XThZlrguPv/+aaxjHmIP29XiPXPgk+uEOej
-	 9V9TYfW71eQhUxEV5VY9BBphC+VvheW/gSeHNfXw=
+	b=hz4oDqYjDhgfBtK6aHnhklw7lq/sDHMGK8h9E/vhOoQNMe7kFH3YkUtHNLJraFw4p
+	 zoMnccZVpi0KWec/adLidQzkJMWkKv3sx4WsB2iwWTqnv7+iFKDpqCIAHwbuyAWqLo
+	 wcU+BuG27Q0GjL/3aFNREcH9snoF++lOlQ92q36g=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DB05BF80537; Tue,  2 Jan 2024 19:50:50 +0100 (CET)
+	id B7559F805E2; Tue,  2 Jan 2024 19:50:52 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 90BE2F80570;
-	Tue,  2 Jan 2024 19:50:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BAE40F805DA;
+	Tue,  2 Jan 2024 19:50:51 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1D51AF8016A; Sat, 16 Dec 2023 22:48:38 +0100 (CET)
+	id BB3DBF80425; Mon, 18 Dec 2023 13:11:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,HTML_MESSAGE,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ot1-x333.google.com (mail-ot1-x333.google.com
- [IPv6:2607:f8b0:4864:20::333])
+Received: from mail-oo1-xc33.google.com (mail-oo1-xc33.google.com
+ [IPv6:2607:f8b0:4864:20::c33])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9F2D8F80124
-	for <alsa-devel@alsa-project.org>; Sat, 16 Dec 2023 22:48:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F2D8F80124
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3B180F80124
+	for <alsa-devel@alsa-project.org>; Mon, 18 Dec 2023 13:11:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B180F80124
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=HT+O2cS5
-Received: by mail-ot1-x333.google.com with SMTP id
- 46e09a7af769-6d9e993d94dso1504101a34.0
+ unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
+ header.s=20230601 header.b=dMiVOabB
+Received: by mail-oo1-xc33.google.com with SMTP id
+ 006d021491bc7-5907ded6287so2048156eaf.0
         for <alsa-devel@alsa-project.org>;
- Sat, 16 Dec 2023 13:48:22 -0800 (PST)
+ Mon, 18 Dec 2023 04:11:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1702763300; x=1703368100;
+        d=google.com; s=20230601; t=1702901474; x=1703506274;
  darn=alsa-project.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=NUQpZPD/c05+/8BhIN1J/cQeLxUmIOzSz7QCay9VzCE=;
-        b=HT+O2cS5AUFuZRgwn9wIz9QLJPpmMtxgILSIeTiAoPy+6lk+/PAPxkinFl3uU/H2uN
-         93de8SSQy1MB1WuwaU4YQKy2jh+L+0fn7+A3Yc2tmID4MDpU3jXZ3AEvFfxrFULwsrbj
-         98KpM1hDfVueXZmXXy4lPYU3Et+BvfzAEwquSuaxAwy42lotcqZ9ZrS0LNpRf78L81XU
-         6FjLx++nCrh6r0jDiLSIvzPO+72TCbmpY62w8tIgaSBdQ6eAREml5I2mKa7RfGPANbg/
-         d1yDo6zHGakqLfWxzWt649X5s9TihrGIHqiWAzn4E/FR5CHYoVE48Trws54COk3UHc18
-         DZWg==
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=XipVSqQzKqtglGoKtAjvOkS+gpcglshIzvLg4VLg3es=;
+        b=dMiVOabBBayif+urzsz/Xwjl1iBeIrM8gpotP5edcb1MJuR9a+mB3FhrsewAiLfA9v
+         qseUIs1nHb/F4rcl5tGPW9oPNP7XZl7dm0gnDpCv6j4vnAM0NRYQ2EYSXGAOLIfSYVP1
+         dGLIlRDhP15fOEO16ilFABQEWU16EvpdnDCuPlSHB837jvgT0jkppwdQk5xP1sZYmWte
+         snfSjsvCUFMKTCtK3P9LQV710FxQO9un9c+oYqgvWUFiIIPePh3nP2GfKdadv2zsFWWX
+         1vosHwHCPAQtbNA2PLJJZRDdhC3XugHstKkKLFDlH2NCH+q/0ffixryZCajls9Q/K5B9
+         8omA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702763300; x=1703368100;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=NUQpZPD/c05+/8BhIN1J/cQeLxUmIOzSz7QCay9VzCE=;
-        b=rhtdt0QOOerM00wNvC0lsvRHPH6kRDxgZTg5nUTVbtkdpqlQd6s+yx32vTvoIT9uK4
-         WJL3T9v9VI98YcNhHtHZMBCzrPd7RHJbH7TrTr/Q3H+RSlKwRSiSr13qefmudmfI48B5
-         FezwXuSzarBpwjWRZWTwNSLrluyYAyDTMSCuyYDElVPt5A0JDS2MHAhNtpk0EsYlt2T2
-         qlqa+cWdb4u7xnv7PH7O3Xf3KunUbXwn+IfGIkHc7awSrRxQSSvpCBtrUnq6TcHyy/DN
-         d4a42MFtT8MM87k9agSskZ5+65rVsnNYTQtxfrmmPiQpNL//HYC4RSXYIMcYT+NCp7SV
-         M7UQ==
-X-Gm-Message-State: AOJu0YxQcEg7uxXZglvF/l04zFJ/Ymr22oVLN67g1oGtQTFyKQXurXda
-	UtvzI4/rZkLVw5+3SDYias0=
+        d=1e100.net; s=20230601; t=1702901474; x=1703506274;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=XipVSqQzKqtglGoKtAjvOkS+gpcglshIzvLg4VLg3es=;
+        b=wghbQez6TsGjMlRuWQjHDcBdYy9Jm3lui7rdv5ppEIN452TXeTO2NmCbfgluqLtGKB
+         Ste4FpWUxuRTTqVRSWr8KjQ4UuENv8KQqvK48H61GbkOFK7soXq5eB9eh8+M4Bvmqj6z
+         B+kn+nPC3NLYe4EiynQigPfWqSU3tpasUwHAEPqZH1sA6JGmc1M9W2PC+V1lcQF3PG8z
+         Tn4N6Ty6lm9VZCETD2buMFWCQbJHJiPiBwkepg8WFe8LaZKUXvH2oThXnkwq8B4wgLEB
+         wzllwYdyzKzIz3XGywHOm75NiP4GLsJXEKg0dv6gq4kFCaFghFeq6DYodFjHg2ZOfTmx
+         NVzg==
+X-Gm-Message-State: AOJu0YyJprWZeOGmWKIV7PTN3q1GvLu239rCXhqtiOHFxA3Tf2zYsZYN
+	+E2N3qmQ4TtQtM2HWvhU9quvpM6WGew7jF8V+SklTw==
 X-Google-Smtp-Source: 
- AGHT+IFAZquuH097Av+/ztaIvHAct5BHBdf+5D2NTKxYyfNfNcV2HR26lQ0bCSd6CXKBysIoEd8l8w==
-X-Received: by 2002:a05:6808:1819:b0:3b8:b063:6658 with SMTP id
- bh25-20020a056808181900b003b8b0636658mr13429212oib.79.1702763299744;
-        Sat, 16 Dec 2023 13:48:19 -0800 (PST)
-Received: from localhost ([2601:344:8301:57f0:4a5e:2f67:f6d1:4a98])
-        by smtp.gmail.com with ESMTPSA id
- l6-20020a25bcc6000000b00dbd22a3eb4fsm60955ybm.51.2023.12.16.13.48.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 16 Dec 2023 13:48:19 -0800 (PST)
-Date: Sat, 16 Dec 2023 13:48:18 -0800
-From: Yury Norov <yury.norov@gmail.com>
-To: linux-kernel@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	"James E.J. Bottomley" <jejb@linux.ibm.com>,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	"Md. Haris Iqbal" <haris.iqbal@ionos.com>,
-	Akinobu Mita <akinobu.mita@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Borislav Petkov <bp@alien8.de>, Chaitanya Kulkarni <kch@nvidia.com>,
-	Christian Brauner <brauner@kernel.org>,
-	Damien Le Moal <damien.lemoal@opensource.wdc.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	David Disseldorp <ddiss@suse.de>,
-	Edward Cree <ecree.xilinx@gmail.com>,
-	Eric Dumazet <edumazet@google.com>,
-	Fenghua Yu <fenghua.yu@intel.com>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Gregory Greenman <gregory.greenman@intel.com>,
-	Hans Verkuil <hverkuil@xs4all.nl>,
-	Hans de Goede <hdegoede@redhat.com>,
-	Hugh Dickins <hughd@google.com>, Ingo Molnar <mingo@redhat.com>,
-	Jakub Kicinski <kuba@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-	Jason Gunthorpe <jgg@ziepe.ca>, Jens Axboe <axboe@kernel.dk>,
-	Jiri Pirko <jiri@resnulli.us>, Jiri Slaby <jirislaby@kernel.org>,
-	Kalle Valo <kvalo@kernel.org>, Karsten Graul <kgraul@linux.ibm.com>,
-	Karsten Keil <isdn@linux-pingi.de>,
-	Kees Cook <keescook@chromium.org>,
-	Leon Romanovsky <leon@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Martin Habets <habetsm.xilinx@gmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Michal Simek <monstr@monstr.eu>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Oliver Neukum <oneukum@suse.com>, Paolo Abeni <pabeni@redhat.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ping-Ke Shih <pkshih@realtek.com>, Rich Felker <dalias@libc.org>,
-	Rob Herring <robh@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Shuai Xue <xueshuai@linux.alibaba.com>,
-	Stanislaw Gruszka <stf_xl@wp.pl>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	Wenjia Zhang <wenjia@linux.ibm.com>, Will Deacon <will@kernel.org>,
-	Yoshinori Sato <ysato@users.sourceforge.jp>,
-	GR-QLogic-Storage-Upstream@marvell.com, alsa-devel@alsa-project.org,
-	ath10k@lists.infradead.org, dmaengine@vger.kernel.org,
-	iommu@lists.linux.dev, kvm@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-	linux-block@vger.kernel.org, linux-bluetooth@vger.kernel.org,
-	linux-hyperv@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
-	linux-media@vger.kernel.org, linux-mips@vger.kernel.org,
-	linux-net-drivers@amd.com, linux-pci@vger.kernel.org,
-	linux-rdma@vger.kernel.org, linux-s390@vger.kernel.org,
-	linux-scsi@vger.kernel.org, linux-serial@vger.kernel.org,
-	linux-sh@vger.kernel.org, linux-sound@vger.kernel.org,
-	linux-usb@vger.kernel.org, linux-wireless@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, mpi3mr-linuxdrv.pdl@broadcom.com,
-	netdev@vger.kernel.org, sparclinux@vger.kernel.org, x86@kernel.org
-Cc: Jan Kara <jack@suse.cz>,
-	Mirsad Todorovac <mirsad.todorovac@alu.unizg.hr>,
-	Matthew Wilcox <willy@infradead.org>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Maxim Kuvyrkov <maxim.kuvyrkov@linaro.org>,
-	Alexey Klimov <klimov.linux@gmail.com>,
-	Bart Van Assche <bvanassche@acm.org>,
-	Sergey Shtylyov <s.shtylyov@omp.ru>
-Subject: Re: [PATCH v3 00/35] bitops: add atomic find_bit() operations
-Message-ID: <ZX4bIisLzpW8c4WM@yury-ThinkPad>
-References: <20231212022749.625238-1-yury.norov@gmail.com>
+ AGHT+IHiLeNQ4XJ8jteCHRP/OxdiZsSsZ+qKJ0sbqVmNnKqY6rauNBm19Pn+z/k7E2ue+/HY3oSHL7yIAFyiWEZKVXA=
+X-Received: by 2002:a4a:b086:0:b0:591:935f:3669 with SMTP id
+ k6-20020a4ab086000000b00591935f3669mr3195111oon.14.1702901474415; Mon, 18 Dec
+ 2023 04:11:14 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20231212022749.625238-1-yury.norov@gmail.com>
-X-MailFrom: yury.norov@gmail.com
+References: <20231106104013.704356-1-jbrunet@baylibre.com>
+ <CADYyEwTNyY+fR9SgfDa-g6iiDwkU3MUdPVCYexs2_3wbcM8_vg@mail.gmail.com>
+ <1jil4zq2on.fsf@starbuckisacylon.baylibre.com>
+ <CACb=7PXkaKYupZafD2BTiqusHZ1nEFq8AfWVot7VL07kxm0uWw@mail.gmail.com>
+ <1j5y0v22ol.fsf@starbuckisacylon.baylibre.com>
+In-Reply-To: <1j5y0v22ol.fsf@starbuckisacylon.baylibre.com>
+From: Zhengqiao Xia <xiazhengqiao@huaqin.corp-partner.google.com>
+Date: Mon, 18 Dec 2023 20:11:03 +0800
+Message-ID: 
+ <CADYyEwSuZuV8WKisrRszKtWhJbGFkVoRagt8_Rpqy+beih8t4A@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: hdmi-codec: register hpd callback on component
+ probe
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: Hsin-Yi Wang <hsinyi@google.com>, Mark Brown <broonie@kernel.org>,
+ alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org
+X-MailFrom: xiazhengqiao@huaqin.corp-partner.google.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: B2UWXTKDFZF4V7PBAOQMAWDIXJUG6IO4
-X-Message-ID-Hash: B2UWXTKDFZF4V7PBAOQMAWDIXJUG6IO4
+Message-ID-Hash: GNBPG4VVAGASQBLRVYI2FR6JG73S2VG6
+X-Message-ID-Hash: GNBPG4VVAGASQBLRVYI2FR6JG73S2VG6
 X-Mailman-Approved-At: Mon, 01 Jan 2024 13:16:43 +0000
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 3.3.9
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/B2UWXTKDFZF4V7PBAOQMAWDIXJUG6IO4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GNBPG4VVAGASQBLRVYI2FR6JG73S2VG6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -190,133 +123,143 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, Dec 11, 2023 at 06:27:14PM -0800, Yury Norov wrote:
-> Add helpers around test_and_{set,clear}_bit() that allow to search for
-> clear or set bits and flip them atomically.
-> 
-> The target patterns may look like this:
-> 
-> 	for (idx = 0; idx < nbits; idx++)
-> 		if (test_and_clear_bit(idx, bitmap))
-> 			do_something(idx);
-> 
-> Or like this:
-> 
-> 	do {
-> 		bit = find_first_bit(bitmap, nbits);
-> 		if (bit >= nbits)
-> 			return nbits;
-> 	} while (!test_and_clear_bit(bit, bitmap));
-> 	return bit;
-> 
-> In both cases, the opencoded loop may be converted to a single function
-> or iterator call. Correspondingly:
-> 
-> 	for_each_test_and_clear_bit(idx, bitmap, nbits)
-> 		do_something(idx);
-> 
-> Or:
-> 	return find_and_clear_bit(bitmap, nbits);
-> 
-> Obviously, the less routine code people have to write themself, the
-> less probability to make a mistake.
-> 
-> Those are not only handy helpers but also resolve a non-trivial
-> issue of using non-atomic find_bit() together with atomic
-> test_and_{set,clear)_bit().
-> 
-> The trick is that find_bit() implies that the bitmap is a regular
-> non-volatile piece of memory, and compiler is allowed to use such
-> optimization techniques like re-fetching memory instead of caching it.
-> 
-> For example, find_first_bit() is implemented like this:
-> 
->       for (idx = 0; idx * BITS_PER_LONG < sz; idx++) {
->               val = addr[idx];
->               if (val) {
->                       sz = min(idx * BITS_PER_LONG + __ffs(val), sz);
->                       break;
->               }
->       }
-> 
-> On register-memory architectures, like x86, compiler may decide to
-> access memory twice - first time to compare against 0, and second time
-> to fetch its value to pass it to __ffs().
-> 
-> When running find_first_bit() on volatile memory, the memory may get
-> changed in-between, and for instance, it may lead to passing 0 to
-> __ffs(), which is undefined. This is a potentially dangerous call.
-> 
-> find_and_clear_bit() as a wrapper around test_and_clear_bit()
-> naturally treats underlying bitmap as a volatile memory and prevents
-> compiler from such optimizations.
-> 
-> Now that KCSAN is catching exactly this type of situations and warns on
-> undercover memory modifications. We can use it to reveal improper usage
-> of find_bit(), and convert it to atomic find_and_*_bit() as appropriate.
-> 
-> In some cases concurrent operations with plain find_bit() are acceptable.
-> For example:
-> 
->  - two threads running find_*_bit(): safe wrt ffs(0) and returns correct
->    value, because underlying bitmap is unchanged;
->  - find_next_bit() in parallel with set or clear_bit(), when modifying
->    a bit prior to the start bit to search: safe and correct;
->  - find_first_bit() in parallel with set_bit(): safe, but may return wrong
->    bit number;
->  - find_first_zero_bit() in parallel with clear_bit(): same as above.
-> 
-> In last 2 cases find_bit() may not return a correct bit number, but
-> it may be OK if caller requires any (not exactly the first) set or clear
-> bit, correspondingly.
-> 
-> In such cases, KCSAN may be safely silenced with data_race(). But in most
-> cases where KCSAN detects concurrency people should carefully review their
-> code and likely protect critical sections or switch to atomic
-> find_and_bit(), as appropriate.
-> 
-> The 1st patch of the series adds the following atomic primitives:
-> 
-> 	find_and_set_bit(addr, nbits);
-> 	find_and_set_next_bit(addr, nbits, start);
-> 	...
-> 
-> Here find_and_{set,clear} part refers to the corresponding
-> test_and_{set,clear}_bit function. Suffixes like _wrap or _lock
-> derive their semantics from corresponding find() or test() functions.
-> 
-> For brevity, the naming omits the fact that we search for zero bit in
-> find_and_set, and correspondingly search for set bit in find_and_clear
-> functions.
-> 
-> The patch also adds iterators with atomic semantics, like
-> for_each_test_and_set_bit(). Here, the naming rule is to simply prefix
-> corresponding atomic operation with 'for_each'.
-> 
-> In [1] Jan reported 2% slowdown in a single-thread search test when
-> switching find_bit() function to treat bitmaps as volatile arrays. On
-> the other hand, kernel robot in the same thread reported +3.7% to the
-> performance of will-it-scale.per_thread_ops test.
-> 
-> Assuming that our compilers are sane and generate better code against
-> properly annotated data, the above discrepancy doesn't look weird. When
-> running on non-volatile bitmaps, plain find_bit() outperforms atomic
-> find_and_bit(), and vice-versa.
-> 
-> So, all users of find_bit() API, where heavy concurrency is expected,
-> are encouraged to switch to atomic find_and_bit() as appropriate.
-> 
-> The 1st patch of this series adds atomic find_and_bit() API, 2nd adds
-> a basic test for new API, and all the following patches spread it over
-> the kernel.
-> 
-> They can be applied separately from each other on per-subsystems basis,
-> or I can pull them in bitmap tree, as appropriate.
-> 
-> [1] https://lore.kernel.org/lkml/634f5fdf-e236-42cf-be8d-48a581c21660@alu.unizg.hr/T/#m3e7341eb3571753f3acf8fe166f3fb5b2c12e615
- 
-Thank you all for reviews and comments. Now moving the series to
-bitmap-for-next for testing.
-
-Thanks,
-Yury
+T24gTW9uLCBEZWMgMTgsIDIwMjMgYXQgNzowM+KAr1BNIEplcm9tZSBCcnVuZXQgPGpicnVuZXRA
+YmF5bGlicmUuY29tPiB3cm90ZToNCg0KPg0KPiBPbiBGcmkgMTUgRGVjIDIwMjMgYXQgMTQ6NTUs
+IEhzaW4tWWkgV2FuZyA8aHNpbnlpQGdvb2dsZS5jb20+IHdyb3RlOg0KPg0KPiA+IE9uIEZyaSwg
+RGVjIDE1LCAyMDIzIGF0IDEyOjQw4oCvQU0gSmVyb21lIEJydW5ldCA8amJydW5ldEBiYXlsaWJy
+ZS5jb20+DQo+IHdyb3RlOg0KPiA+Pg0KPiA+Pg0KPiA+PiBPbiBGcmkgMTUgRGVjIDIwMjMgYXQg
+MTI6NTEsIFpoZW5ncWlhbyBYaWENCj4gPj4gPHhpYXpoZW5ncWlhb0BodWFxaW4uY29ycC1wYXJ0
+bmVyLmdvb2dsZS5jb20+IHdyb3RlOg0KPiA+Pg0KPiA+PiA+IEhpIEplcm9tZSwNCj4gPj4gPg0K
+PiA+PiA+IEFmdGVyIG15IHRlc3RpbmcsIEkgZm91bmQgdGhhdCB0aGlzIHBhdGNoIHdpbGwgY2F1
+c2UgdGhlIGF1ZGlvIG9uIHRoZQ0KPiBleHRlcm5hbCBkaXNwbGF5IHRvIG5vdCB3b3JrIHByb3Bl
+cmx5IGFmdGVyDQo+ID4+ID4gcmVzdGFydC4NCj4gPj4gPiBZb3UgbW92ZSB0aGUgcGx1Z2dlZF9j
+YiB0byBydW4gaW4gaGRtaV9wcm9iZSwgYXQgdGhpcyB0aW1lIGhjcC0gPg0KPiBqYWNrID0gTlVM
+TCwgdGhlIGRyaXZlciBjYW5ub3QgcmVwb3J0IGBTTkRfSkFDS19MSU5FT1VUDQo+ID4+ID4gYCBu
+b3JtYWxseS4NCj4gPj4gPiBzdGF0aWMgdm9pZCBoZG1pX2NvZGVjX2phY2tfcmVwb3J0KHN0cnVj
+dCBoZG1pX2NvZGVjX3ByaXYgKmhjcCwNCj4gPj4gPiAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICB1bnNpZ25lZCBpbnQgamFja19zdGF0dXMpDQo+ID4+ID4gew0KPiA+PiA+ICAgICAg
+IHByaW50aygieHpxLTg2NiBoZG1pX2NvZGVjX2phY2tfcmVwb3J0OiBqYWNrPSV4LA0KPiBqYWNr
+X3N0YXR1cz0lZCIsIGhjcC0+amFjaywgamFja19zdGF0dXMgIT0gaGNwLT5qYWNrX3N0YXR1cyk7
+DQo+ID4+ID4gICAgICAgaWYgKGhjcC0+amFjayAmJiBqYWNrX3N0YXR1cyAhPSBoY3AtPmphY2tf
+c3RhdHVzKSB7DQo+ID4+ID4gICAgICAgICAgICAgICBzbmRfc29jX2phY2tfcmVwb3J0KGhjcC0+
+amFjaywgamFja19zdGF0dXMsDQo+IFNORF9KQUNLX0xJTkVPVVQpOw0KPiA+PiA+ICAgICAgICAg
+ICAgICAgaGNwLT5qYWNrX3N0YXR1cyA9IGphY2tfc3RhdHVzOw0KPiA+PiA+ICAgICAgIH0NCj4g
+Pj4gPiB9DQo+ID4+ID4gU28gd2UgbXVzdCBjYWxsICBwbHVnZ2VkX2NiICBpbiBoZG1pX2NvZGVj
+X3NldF9qYWNrLCAgQ2FuIHlvdSBtYWtlDQo+IHNvbWUgY2hhbmdlcz8NCj4gPj4NCj4gPj4gSGkg
+WmhlbmdxaWFvLA0KPiA+Pg0KPiA+PiBUaGF0IGlzIHVuZm9ydHVuYXRlLiBTb3JyeS4NCj4gPj4N
+Cj4gPj4gVGhpcyBwYXRjaCBoYXMgY2hhbmdlZCB3aGVuIHRoZSBocGQgY2FsbGJhY2sgaXMgcmVn
+aXN0ZXJlZCwgbm8gd2hlbiBpdA0KPiA+PiBjb21lcyBpbiBlZmZlY3QuIFRoaXMgaXMgc3RpbGwg
+ZGVwZW5kZW50IG9uIGNhbGxpbmcgLnNldF9qYWNrKCkgYW5kIGl0DQo+ID4+IGlzIG5vdCBoYXBw
+ZW5pbmcgYW55IGxhdGVyIHRoYW4gaXQgd2FzIGJlZm9yZS4gU28sIGluIHRoZW9yeSwgaXQgc2hv
+dWxkDQo+ID4+IG5vdCBoYXZlIGNoYW5nZWQgYW55dGhpbmcsIGlmIHlvdXIgZHJpdmVyIGFjdHVh
+bGx5IHJlbGllcyBvbiB0aGUgSFBEDQo+ID4+IGV2ZW50Lg0KPiA+Pg0KPiA+PiBUcnlpbmcgdG8g
+Z3Vlc3Mgd2hhdCBpcyBoYXBwZW5pbmcgZm9yIHlvdSwgSSBzdXBwb3NlIHlvdXIgSERNSSBkcml2
+ZXIgaXMNCj4gPj4gImZha2luZyIgYW4gSFBEIGV2ZW50IHRvIHJlcG9ydCB0aGUgaW5pdGlhbCBq
+YWNrIHN0YXR1cyB3aGVuIHRoZQ0KPiA+PiBob29rX3BsdWdnZWRfY2IoKSBpcyBjYWxsZWQuIENv
+dWxkIHlvdSBwb2ludCBtZSB0byB0aGUgaGRtaSBkcml2ZXIgeW91DQo+ID4+IGFyZSB1c2luZyBz
+byBJIGNhbiBoYXZlIGEgbG9vayA/DQo+ID4+DQo+ID4+IE15IHJlZmVyZW5jZSB3aGVuIHRlc3Rp
+bmcgdGhpcyB3YXMgZHctaGRtaS1pMnMtYXVkaW8gYW5kIGl0IGRvZXMgbm90IGRvDQo+ID4+IHRo
+YXQsIGl0IGp1c3QgcmVnaXN0ZXJzIHRoZSBjYWxsYmFjay4gSSB0aGluayB0aGlzIGlzIHdoYXQg
+aXQgc3VwcG9zZWQNCj4gPj4gdG8gZG8gVEJILg0KPiA+Pg0KPiA+PiBBbiBpZGVhIEkgaGF2ZSBi
+ZWVuIHRoaW5raW5nIGFib3V0IGZvciBhIHdoaWxlIGlzIGhhdmUgdGhlIGhkbWktY29kZWMNCj4g
+Pj4gaW5zZXJ0IHRoZSBqYWNrIGluIHRoZSBjYXJkIGl0c2VsZiwgaW5zdGVhZCBvZiB0aGUgY2Fy
+ZCBkb2luZy4gVGhhdA0KPiA+PiB3b3VsZCBnaXZlIHRoZSBqYWNrICJmb3IgZnJlZSIgdG8gYW55
+IHVzZXIgb2YgdGhlIEhETUkgY29kZWMgYW5kIG1pZ2h0DQo+ID4+IGFsc28gc29sdmUgeW91ciBp
+c3N1ZS4gSXQgd291bGQgcmVxdWlyZSBhIHNtYWxsIHJld29yayBvZiB0aGUgY2FyZHMNCj4gZG9p
+bmcNCj4gPj4gdGhlIGhkbWkgamFjayByZWdpc3RlciwgYnV0IHRoZXJlIGFyZSBub3QgbWFueSBv
+ZiB0aGVzZSBBRkFJSy4NCj4gPj4NCj4gPg0KPiA+IFRoZSBkcml2ZXIgaXMgaXQ2NTA1LiBUaGUg
+aW1wbGVtZW50YXRpb24gb2YgaG9va19wbHVnZ2VkX2NiKCk6DQo+ID4gMS4gcmVnaXN0ZXIgcGx1
+Z2dlZF9jYg0KPiA+IDIuIGNhbGwgcGx1Z2dlZF9jYihib29sIHBsdWdnZWQpDQo+ID4NCj4gPiBi
+cmlkZ2UgZGV0ZWN0IGNhbGxiYWNrIGl0NjUwNV9kZXRlY3Qgd291bGQgYWxzbyBjYWxsIHBsdWdn
+ZWRfY2IsIGJ1dA0KPiA+IG9ubHkgb24gdGhlIGZpcnN0IHRpbWUgaHBkIHN0YXR1cyBjaGFuZ2Vk
+IChlZy4gY2hhbmdlZCBmcm9tIGNvbm5lY3QNCj4gPiA8LS0+IGRpc2Nvbm5lY3QpDQo+ID4gaXQ2
+NTA1X2RldGVjdCgpIHsNCj4gPiAgIHN0YXR1cyA9IGl0NjUwNS0+aHBkX3N0YXRlIC4uLg0KPiA+
+ICAgLi4uDQo+ID4gICBpZiAoaXQ2NTA1LT5jb25uZWN0b3Jfc3RhdHVzICE9IHN0YXR1cykgew0K
+PiA+ICAgICBpdDY1MDUtPmNvbm5lY3Rvcl9zdGF0dXMgPSBzdGF0dXM7DQo+ID4gICAgIGl0NjUw
+NV9wbHVnZ2VkX3N0YXR1c190b19jb2RlYyhpdDY1MDUpOyAvLyB0aGlzIHdpbGwgY2FsbCBwbHVn
+Z2VkX2NiDQo+ID4gICB9DQo+ID4gfQ0KPiA+DQo+ID4gVW5mb3J0dW5hdGVseSB0aGUgZmlyc3Qg
+dGltZSBhZnRlciBib290IHRoYXQgaHBkIHN0YXR1cyBjaGFuZ2VkIHdhcw0KPiA+IGRldGVjdGVk
+IGJlZm9yZSBzZXRfamFjay4gSWYgd2UgcmVwbHVnIGhkbWksIHRoZSBwbHVnZ2VkX2NiKCkgd2Fz
+DQo+ID4gY2FsbGVkIGJ5IGJyaWRnZV9kZXRlY3QsIHdoaWNoIGlzIGV4cGVjdGVkLg0KPiA+DQo+
+ID4gUHJpb3IgdG8gdGhpcyBwYXRjaCwgdGhlIGluaXRpYWwgcGx1Z2dlZF9jYigpIHdhcyBjYWxs
+ZWQgYnkNCj4gaG9va19wbHVnZ2VkX2NiKCkuDQo+ID4gQWZ0ZXIgdGhlIHBhdGNoLCBwbHVnZ2Vk
+X2NiKCkgc2hvdWxkIGJlIGNhbGxlZCBieSBocGQgY2hhbmdlIChieQ0KPiA+IGJyaWRnZSBkZXRl
+Y3QpLCBidXQgZHVlIHRvIHRoZSBkcml2ZXIgbG9naWMgb25seSBjYWxsaW5nIGl0IG9uIHRoZQ0K
+PiA+IGZpcnN0IGhwZCBzdGF0ZSBjaGFuZ2UsIGl0IGZhaWxzIHRvIGNhbGwgcGx1Z2dlZF9jYigp
+IGFnYWluIHdoZW4gamFjaw0KPiA+IGlzIHNldC4NCj4NCj4gVGhpcyBpcyB3aGF0IHRob3VnaHQN
+Cj4NCj4gPg0KPiA+IEkgY2hlY2tlZCB0aGUgZHctaGRtaS5jJ3MgYnJpZGdlX2RldGVjdCwgYW5k
+IGl0J3Mgc2ltaWxhciBpbiB0aGF0IGl0DQo+ID4gYWxzbyBjaGVja3MgdGhlIGxhc3RfY29ubmVj
+dG9yX3Jlc3VsdCwgc28gbWF5YmUgaXQncyBkdWUgdG8gYSB0aW1pbmcNCj4gPiBkaWZmZXJlbmNl
+Pw0KPg0KPiBObywgSSBoYXZlIG92ZXJsb29rZWQgdGhhdC4NCj4gSSdtIHByZXBhcmluZyBhIGZp
+eC4gSSdsbCBDYyB5b3UuDQo+DQo+IEV2ZW50dWFsbHksIEkgc3RpbGwgd291bGQgbGlrZSB0byBt
+YWtlIGl0IGVhc2llciBmb3IgY2FyZHMgdG8gdXNlIHRoZQ0KPiBIRE1JIGphY2sgYW5kIGhhdmUg
+dG8gY29kZWMgZG8gdGhhdCByZWdpc3RyYXRpb24gb24gaXRzIG93bi4gSXQgd2lsbA0KPiByZXF1
+aXJlIHNvbWUgcmV3b3JrIG9mIGNhcmRzIGFscmVhZHkgZG9pbmcgaXQuDQo+DQo+IEkndmUgb25s
+eSBzZWVuIDIgY2FyZHMgZG9pbmcgdGhhdCBhdCB0aGUgbW9tZW50Og0KPiAqIGlteC1oZG1pLmMN
+Cj4gKiBtdDgxODgtbXQ2MzU5LmMNCj4NCj4gQ291bGQgeW91IHBvaW50IG1lIHRvIHlvdXJzID8N
+Cg0KDQppdCBpcyBtdDgxODYtbXQ2MzY2LXJ0MTAxOS1ydDU2ODJzLmMgOg0KaHR0cHM6Ly9zb3Vy
+Y2UuY2hyb21pdW0ub3JnL2Nocm9taXVtb3MvY2hyb21pdW1vcy9jb2Rlc2VhcmNoLysvbWFpbjpz
+cmMvdGhpcmRfcGFydHkva2VybmVsL3Y1LjE1L3NvdW5kL3NvYy9tZWRpYXRlay9tdDgxODYvbXQ4
+MTg2LW10NjM2Ni1ydDEwMTktcnQ1Njgycy5jDQoNCj4NCj4NCj4NCj4gPj4gPg0KPiA+PiA+IE9u
+IE1vbiwgTm92IDYsIDIwMjMgYXQgNjo0MOKAr1BNIEplcm9tZSBCcnVuZXQgPGpicnVuZXRAYmF5
+bGlicmUuY29tPg0KPiB3cm90ZToNCj4gPj4gPg0KPiA+PiA+ICBUaGUgSERNSSBob3RwbHVnIGNh
+bGxiYWNrIHRvIHRoZSBoZG1pLWNvZGVjIGlzIGN1cnJlbnRseSByZWdpc3RlcmVkDQo+IHdoZW4N
+Cj4gPj4gPiAgamFjayBpcyBzZXQuDQo+ID4+ID4NCj4gPj4gPiAgVGhlIGhvdHBsdWcgbm90IG9u
+bHkgc2VydmVzIHRvIHJlcG9ydCB0aGUgQVNvQyBqYWNrIHN0YXRlIGJ1dCBhbHNvDQo+IHRvIGdl
+dA0KPiA+PiA+ICB0aGUgRUxELiBJdCBzaG91bGQgYmUgcmVnaXN0ZXJlZCB3aGVuIHRoZSBjb21w
+b25lbnQgcHJvYmVzIGluc3RlYWQsDQo+IHNvIGl0DQo+ID4+ID4gIGRvZXMgbm90IGRlcGVuZCBv
+biB0aGUgY2FyZCBkcml2ZXIgcmVnaXN0ZXJpbmcgYSBqYWNrIGZvciB0aGUgSERNSSB0bw0KPiA+
+PiA+ICBwcm9wZXJseSByZXBvcnQgdGhlIEVMRC4NCj4gPj4gPg0KPiA+PiA+ICBGaXhlczogMjVj
+ZTRmMmIzNTkzICgiQVNvQzogaGRtaS1jb2RlYzogR2V0IEVMRCBpbiBiZWZvcmUgcmVwb3J0aW5n
+DQo+IHBsdWdnZWQgZXZlbnQiKQ0KPiA+PiA+ICBTaWduZWQtb2ZmLWJ5OiBKZXJvbWUgQnJ1bmV0
+IDxqYnJ1bmV0QGJheWxpYnJlLmNvbT4NCj4gPj4gPiAgLS0tDQo+ID4+ID4gICBzb3VuZC9zb2Mv
+Y29kZWNzL2hkbWktY29kZWMuYyB8IDI3ICsrKysrKysrKysrKysrKysrKystLS0tLS0tLQ0KPiA+
+PiA+ICAgMSBmaWxlIGNoYW5nZWQsIDE5IGluc2VydGlvbnMoKyksIDggZGVsZXRpb25zKC0pDQo+
+ID4+ID4NCj4gPj4gPiAgZGlmZiAtLWdpdCBhL3NvdW5kL3NvYy9jb2RlY3MvaGRtaS1jb2RlYy5j
+DQo+IGIvc291bmQvc29jL2NvZGVjcy9oZG1pLWNvZGVjLmMNCj4gPj4gPiAgaW5kZXggMDllZWY2
+MDQyYWFkLi4yMGRhMWVhYTRmMWMgMTAwNjQ0DQo+ID4+ID4gIC0tLSBhL3NvdW5kL3NvYy9jb2Rl
+Y3MvaGRtaS1jb2RlYy5jDQo+ID4+ID4gICsrKyBiL3NvdW5kL3NvYy9jb2RlY3MvaGRtaS1jb2Rl
+Yy5jDQo+ID4+ID4gIEBAIC04NzcsMTggKzg3NywxMyBAQCBzdGF0aWMgaW50IGhkbWlfY29kZWNf
+c2V0X2phY2soc3RydWN0DQo+IHNuZF9zb2NfY29tcG9uZW50ICpjb21wb25lbnQsDQo+ID4+ID4g
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB2b2lkICpkYXRhKQ0KPiA+PiA+ICAgew0K
+PiA+PiA+ICAgICAgICAgIHN0cnVjdCBoZG1pX2NvZGVjX3ByaXYgKmhjcCA9DQo+IHNuZF9zb2Nf
+Y29tcG9uZW50X2dldF9kcnZkYXRhKGNvbXBvbmVudCk7DQo+ID4+ID4gIC0gICAgICAgaW50IHJl
+dCA9IC1FTk9UU1VQUDsNCj4gPj4gPg0KPiA+PiA+ICAgICAgICAgIGlmIChoY3AtPmhjZC5vcHMt
+Pmhvb2tfcGx1Z2dlZF9jYikgew0KPiA+PiA+ICAgICAgICAgICAgICAgICAgaGNwLT5qYWNrID0g
+amFjazsNCj4gPj4gPiAgLSAgICAgICAgICAgICAgIHJldCA9DQo+IGhjcC0+aGNkLm9wcy0+aG9v
+a19wbHVnZ2VkX2NiKGNvbXBvbmVudC0+ZGV2LT5wYXJlbnQsDQo+ID4+ID4gIC0gICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBoY3AtPmhjZC5kYXRhLA0K
+PiA+PiA+ICAtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgcGx1Z2dlZF9jYiwNCj4gPj4gPiAgLSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIGNvbXBvbmVudC0+ZGV2KTsNCj4gPj4gPiAgLSAgICAgICAgICAg
+ICAgIGlmIChyZXQpDQo+ID4+ID4gIC0gICAgICAgICAgICAgICAgICAgICAgIGhjcC0+amFjayA9
+IE5VTEw7DQo+ID4+ID4gICsgICAgICAgICAgICAgICByZXR1cm4gMDsNCj4gPj4gPiAgICAgICAg
+ICB9DQo+ID4+ID4gIC0gICAgICAgcmV0dXJuIHJldDsNCj4gPj4gPiAgKw0KPiA+PiA+ICArICAg
+ICAgIHJldHVybiAtRU5PVFNVUFA7DQo+ID4+ID4gICB9DQo+ID4+ID4NCj4gPj4gPiAgIHN0YXRp
+YyBpbnQgaGRtaV9kYWlfc3BkaWZfcHJvYmUoc3RydWN0IHNuZF9zb2NfZGFpICpkYWkpDQo+ID4+
+ID4gIEBAIC05ODIsNiArOTc3LDIxIEBAIHN0YXRpYyBpbnQgaGRtaV9vZl94bGF0ZV9kYWlfaWQo
+c3RydWN0DQo+IHNuZF9zb2NfY29tcG9uZW50ICpjb21wb25lbnQsDQo+ID4+ID4gICAgICAgICAg
+cmV0dXJuIHJldDsNCj4gPj4gPiAgIH0NCj4gPj4gPg0KPiA+PiA+ICArc3RhdGljIGludCBoZG1p
+X3Byb2JlKHN0cnVjdCBzbmRfc29jX2NvbXBvbmVudCAqY29tcG9uZW50KQ0KPiA+PiA+ICArew0K
+PiA+PiA+ICArICAgICAgIHN0cnVjdCBoZG1pX2NvZGVjX3ByaXYgKmhjcCA9DQo+IHNuZF9zb2Nf
+Y29tcG9uZW50X2dldF9kcnZkYXRhKGNvbXBvbmVudCk7DQo+ID4+ID4gICsgICAgICAgaW50IHJl
+dCA9IDA7DQo+ID4+ID4gICsNCj4gPj4gPiAgKyAgICAgICBpZiAoaGNwLT5oY2Qub3BzLT5ob29r
+X3BsdWdnZWRfY2IpIHsNCj4gPj4gPiAgKyAgICAgICAgICAgICAgIHJldCA9DQo+IGhjcC0+aGNk
+Lm9wcy0+aG9va19wbHVnZ2VkX2NiKGNvbXBvbmVudC0+ZGV2LT5wYXJlbnQsDQo+ID4+ID4gICsg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBoY3AtPmhj
+ZC5kYXRhLA0KPiA+PiA+ICArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgcGx1Z2dlZF9jYiwNCj4gPj4gPiAgKyAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvbXBvbmVudC0+ZGV2KTsNCj4gPj4gPiAgKyAg
+ICAgICB9DQo+ID4+ID4gICsNCj4gPj4gPiAgKyAgICAgICByZXR1cm4gcmV0Ow0KPiA+PiA+ICAr
+fQ0KPiA+PiA+ICArDQo+ID4+ID4gICBzdGF0aWMgdm9pZCBoZG1pX3JlbW92ZShzdHJ1Y3Qgc25k
+X3NvY19jb21wb25lbnQgKmNvbXBvbmVudCkNCj4gPj4gPiAgIHsNCj4gPj4gPiAgICAgICAgICBz
+dHJ1Y3QgaGRtaV9jb2RlY19wcml2ICpoY3AgPQ0KPiBzbmRfc29jX2NvbXBvbmVudF9nZXRfZHJ2
+ZGF0YShjb21wb25lbnQpOw0KPiA+PiA+ICBAQCAtOTkyLDYgKzEwMDIsNyBAQCBzdGF0aWMgdm9p
+ZCBoZG1pX3JlbW92ZShzdHJ1Y3QNCj4gc25kX3NvY19jb21wb25lbnQgKmNvbXBvbmVudCkNCj4g
+Pj4gPiAgIH0NCj4gPj4gPg0KPiA+PiA+ICAgc3RhdGljIGNvbnN0IHN0cnVjdCBzbmRfc29jX2Nv
+bXBvbmVudF9kcml2ZXIgaGRtaV9kcml2ZXIgPSB7DQo+ID4+ID4gICsgICAgICAgLnByb2JlICAg
+ICAgICAgICAgICAgICAgPSBoZG1pX3Byb2JlLA0KPiA+PiA+ICAgICAgICAgIC5yZW1vdmUgICAg
+ICAgICAgICAgICAgID0gaGRtaV9yZW1vdmUsDQo+ID4+ID4gICAgICAgICAgLmRhcG1fd2lkZ2V0
+cyAgICAgICAgICAgPSBoZG1pX3dpZGdldHMsDQo+ID4+ID4gICAgICAgICAgLm51bV9kYXBtX3dp
+ZGdldHMgICAgICAgPSBBUlJBWV9TSVpFKGhkbWlfd2lkZ2V0cyksDQo+ID4+DQo+ID4+DQo+ID4+
+IC0tDQo+ID4+IEplcm9tZQ0KPg0KPg0KPiAtLQ0KPiBKZXJvbWUNCj4NCg==

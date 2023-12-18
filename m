@@ -2,95 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FF50816B79
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Dec 2023 11:47:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5244A816A3D
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Dec 2023 10:52:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CE04DE12;
-	Mon, 18 Dec 2023 11:47:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE04DE12
+	by alsa0.perex.cz (Postfix) with ESMTPS id BF696DF6;
+	Mon, 18 Dec 2023 10:52:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BF696DF6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1702896448;
-	bh=zAyQ5UH+r5YxvrIXMRC6ZH0irL4Aw9kXIfCoGJNnn00=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1702893134;
+	bh=FmaCO3wtJYJhExGyeV79viD3s/bYDN671VCwnX/sC8o=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=bwB307z8ii+90tSpEqqOXCrfxURscRlAabBjkJEBHjw17VKql/T2k9UvBAgluFeaU
-	 eBS10b9k2VlWQyJa7Cf2zFO6rRUIVkDlXQYOA7FuMTOHMf/HKOJng2nCIrofRlPy/N
-	 A3vVNsGs8/p7rhXXPDMxZWAJ5CwbRfqzMt7ZoFBA=
+	b=VAJYebt6s2m/1wd/lnH358Yh45Gw5EhLyng3q4VdA/tI85Y+VwF3oC5PnaberDKDb
+	 wrkrs36u41Me7vuvX6FhPzJ5/K97ajGdK5YCjN6e90HkHL+gH4VqE9rRG/DeGwDlE8
+	 rHF3eZbruUhxsVoSB8YMW7T3JjJANN30HCr+7pDI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E9D03F8059F; Mon, 18 Dec 2023 11:46:42 +0100 (CET)
+	id 71CD0F8057A; Mon, 18 Dec 2023 10:51:53 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 95E4AF805B6;
-	Mon, 18 Dec 2023 11:46:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CBEE8F800D2;
+	Mon, 18 Dec 2023 10:51:52 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1504CF80425; Mon, 18 Dec 2023 11:46:38 +0100 (CET)
+	id 68449F80425; Mon, 18 Dec 2023 10:49:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail.savoirfairelinux.com (mail.savoirfairelinux.com
+ [208.88.110.44])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2C257F80212
-	for <alsa-devel@alsa-project.org>; Mon, 18 Dec 2023 11:46:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C257F80212
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8DAF0F80124
+	for <alsa-devel@alsa-project.org>; Mon, 18 Dec 2023 10:49:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8DAF0F80124
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=VEJr5Yyr
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1702896392; x=1734432392;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=zAyQ5UH+r5YxvrIXMRC6ZH0irL4Aw9kXIfCoGJNnn00=;
-  b=VEJr5Yyr18h8kepgT1662HU3Ezz4XUJQnDBVwqLcqXbXRUAtj2+reBa4
-   yAfesf2lBCfJBJztnSkBS+c32vm4IibcTg3l1jOw0XpXh/Ed5HTiMJ9cI
-   2pPlEVF7rQOYqJcEtpdFyP0Z3skWRVZ1CiOvT1tgh6CI3rIDMH/2/de//
-   iwFwWy/2PnMRk3kxvd68gV9dmmiqU2s2u2wwyFlZYfd9m8ucArzVf/OVA
-   XDFjHmBmmTGDgJqVxd77GewVlhOoNNgsBpK80pGVroSIPYwomSWTySp8E
-   NyzRmoPWUBhdsVEHc1L4sgc7fyES01w3gfRcDmLa4VIsWCCQfQJ9XoYha
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10927"; a="8851358"
-X-IronPort-AV: E=Sophos;i="6.04,285,1695711600";
-   d="scan'208";a="8851358"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Dec 2023 02:46:29 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10927"; a="779048123"
-X-IronPort-AV: E=Sophos;i="6.04,285,1695711600";
-   d="scan'208";a="779048123"
-Received: from mmaiores-mobl1.ger.corp.intel.com (HELO [10.249.34.197])
- ([10.249.34.197])
-  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Dec 2023 02:46:26 -0800
-Message-ID: <8efc7277-44ae-406c-8406-badd894f028f@linux.intel.com>
-Date: Mon, 18 Dec 2023 10:41:07 +0100
+ unprotected) header.d=savoirfairelinux.com header.i=@savoirfairelinux.com
+ header.a=rsa-sha256 header.s=DFC430D2-D198-11EC-948E-34200CB392D2
+ header.b=HyHheC1v
+Received: from localhost (localhost [127.0.0.1])
+	by mail.savoirfairelinux.com (Postfix) with ESMTP id 2EB359C33AB;
+	Mon, 18 Dec 2023 04:49:12 -0500 (EST)
+Received: from mail.savoirfairelinux.com ([127.0.0.1])
+ by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10032)
+ with ESMTP id s6ZKCH3O2aXC; Mon, 18 Dec 2023 04:49:11 -0500 (EST)
+Received: from localhost (localhost [127.0.0.1])
+	by mail.savoirfairelinux.com (Postfix) with ESMTP id 845349C3346;
+	Mon, 18 Dec 2023 04:49:11 -0500 (EST)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.savoirfairelinux.com 845349C3346
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=savoirfairelinux.com; s=DFC430D2-D198-11EC-948E-34200CB392D2;
+	t=1702892951; bh=3NZgtEjTStQ/jkKNdfYik4JJQNYF7QsQDfiVemLglq0=;
+	h=Date:From:To:Message-ID:MIME-Version;
+	b=HyHheC1vBfTJZ0kyKTmzxPSomAhy4RyySgCvLGz8Z0k4+9VvPoJIUQaI+jwLrARBo
+	 CCi8JBr2svVlQaxcrS0uqnPPlwu/o3FmAxE5pzI88Cdq8ScMBvgZg/4M7mL/vZW/l3
+	 G6CuzJteO3d8jF2AhylH3RRQLVHFsD2v6je4vggWSfx6i8Mjd5OsHfgKK57b5iXxsP
+	 Athk2Zuf8im3sOYJlyXkng56xqhClbmneHwR6wLY5XqrxDRrIA2TslJHfA+jQvcawR
+	 qHP+bkKsnd2Q3cZiTCSlOagtGedzim5AgkAxO6HevBMivGTzvsestA1tIUFd8q5KlD
+	 Uyubo7VH/RQ0A==
+X-Virus-Scanned: amavis at mail.savoirfairelinux.com
+Received: from mail.savoirfairelinux.com ([127.0.0.1])
+ by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10026)
+ with ESMTP id XYt_5ncQDLll; Mon, 18 Dec 2023 04:49:11 -0500 (EST)
+Received: from mail.savoirfairelinux.com (mail.savoirfairelinux.com
+ [192.168.48.237])
+	by mail.savoirfairelinux.com (Postfix) with ESMTP id 38AC49C29FD;
+	Mon, 18 Dec 2023 04:49:11 -0500 (EST)
+Date: Mon, 18 Dec 2023 04:49:11 -0500 (EST)
+From: Elinor Montmasson <elinor.montmasson@savoirfairelinux.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: shengjiu wang <shengjiu.wang@gmail.com>, Xiubo Lee <Xiubo.Lee@gmail.com>,
+	broonie@kernel.org, alsa-devel@alsa-project.org,
+	Philip-Dylan Gleonec <philip-dylan.gleonec@savoirfairelinux.com>
+Message-ID: 
+ <299362992.190017.1702892951148.JavaMail.zimbra@savoirfairelinux.com>
+In-Reply-To: <d095614a-071c-4ee8-8e47-5bf073aaabea@kernel.org>
+References: <20231215144005.934728-1-elinor.montmasson@savoirfairelinux.com>
+ <20231215144005.934728-11-elinor.montmasson@savoirfairelinux.com>
+ <d095614a-071c-4ee8-8e47-5bf073aaabea@kernel.org>
+Subject: Re: [PATCHv3 10/10] ASoC: bindings: fsl-asoc-card: add compatible
+ for generic codec
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] ASoC: Intel: bytcr_rt5640: Add new swapped-speakers
- quirk
-Content-Language: en-US
-To: Hans de Goede <hdegoede@redhat.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Mark Brown <broonie@kernel.org>
-Cc: alsa-devel@alsa-project.org
-References: <20231217213221.49424-1-hdegoede@redhat.com>
- <20231217213221.49424-2-hdegoede@redhat.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20231217213221.49424-2-hdegoede@redhat.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: 7YWBX6LKMI23CLUM4XNOHJ5P2HIGAO5S
-X-Message-ID-Hash: 7YWBX6LKMI23CLUM4XNOHJ5P2HIGAO5S
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+X-Mailer: Zimbra 8.8.15_GA_4562 (ZimbraWebClient - GC112
+ (Linux)/8.8.15_GA_4570)
+Thread-Topic: ASoC: bindings: fsl-asoc-card: add compatible for generic codec
+Thread-Index: 1UupPn4f95lG/dGdK+HKOlbDdPS56g==
+Message-ID-Hash: CWBIPQL3AWNO4U3OCF7AB2ERNMFYOMZK
+X-Message-ID-Hash: CWBIPQL3AWNO4U3OCF7AB2ERNMFYOMZK
+X-MailFrom: elinor.montmasson@savoirfairelinux.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -102,7 +109,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7YWBX6LKMI23CLUM4XNOHJ5P2HIGAO5S/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CWBIPQL3AWNO4U3OCF7AB2ERNMFYOMZK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -111,21 +118,80 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Hello,
 
-
-On 12/17/23 15:32, Hans de Goede wrote:
-> Some BYTCR x86 tablets with a rt5640 codec have the left and right channels
-> of their speakers swapped.
+> > Add documentation about new dts bindings following new support 
+> > for compatible "fsl,imx-audio-generic". 
 > 
-> Add a new BYT_RT5640_SWAPPED_SPEAKERS quirk for this which sets
-> cfg-spk:swapped in the components string to let userspace know
-> about the swapping so that the UCM profile can configure the mixer
-> to correct this.
-> 
-> Enable this new quirk on the Medion Lifetab S10346 which has its
-> speakers swapped.
-> 
-> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+> Please use subject prefixes matching the subsystem. You can get them for 
+> example with `git log --oneline -- DIRECTORY_OR_FILE` on the directory 
+> your patch is touching. 
 
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+I saw that most of the commits use "ASoC: dt-bindings:" prefix, but
+commits related to "fsl-asoc-card.txt" use "ASoC: bindings:" prefix.
+Should I follow the general style or the file style ?
 
+
+> Please use scripts/get_maintainers.pl to get a list of necessary people 
+> and lists to CC. It might happen, that command when run on an older 
+> kernel, gives you outdated entries. Therefore please be sure you base 
+> your patches on recent Linux kernel. 
+> 
+> You missed at least devicetree list (maybe more), so this won't be 
+> tested by automated tooling. Performing review on untested code might be 
+> a waste of time, thus I will skip this patch entirely till you follow 
+> the process allowing the patch to be tested. 
+> 
+> Please kindly resend and include all necessary To/Cc entries. 
+
+Sorry for the mistake, I will resend patches with the correct list from
+the get_maintainers.pl script.
+
+
+> > Some CPU DAI don't require a real audio codec. The new compatible 
+> > "fsl,imx-audio-generic" allows using the driver with codec drivers 
+> > SPDIF DIT and SPDIF DIR as dummy codecs. 
+> > It also allows using not pre-configured audio codecs which 
+> > don't require specific control through a codec driver. 
+> > 
+> > The new dts properties give the possibility to set some parameters 
+> > about the CPU DAI usually set through the codec configuration. 
+> > 
+> > Signed-off-by: Elinor Montmasson <elinor.montmasson@savoirfairelinux.com> 
+> > Co-authored-by: Philip-Dylan Gleonec <philip-dylan.gleonec@savoirfairelinux.com> 
+> > --- 
+> > .../bindings/sound/fsl-asoc-card.txt | 28 ++++++++++++++++++- 
+> > 1 file changed, 27 insertions(+), 1 deletion(-) 
+> > 
+> > diff --git a/Documentation/devicetree/bindings/sound/fsl-asoc-card.txt b/Documentation/devicetree/bindings/sound/fsl-asoc-card.txt 
+> > index 4e8dbc5abfd1..f137ef2154e3 100644 
+> > --- a/Documentation/devicetree/bindings/sound/fsl-asoc-card.txt 
+> > +++ b/Documentation/devicetree/bindings/sound/fsl-asoc-card.txt 
+> > @@ -17,6 +17,9 @@ Note: The card is initially designed for those sound cards who use AC'97, I2S 
+> > and PCM DAI formats. However, it'll be also possible to support those non 
+> > AC'97/I2S/PCM type sound cards, such as S/PDIF audio and HDMI audio, as 
+> > long as the driver has been properly upgraded. 
+> > + To use CPU DAIs that do not require a codec such as an S/PDIF controller, 
+> > + or to use a DAI to output or capture raw I2S/TDM data, you can 
+> > + use the compatible "fsl,imx-audio-generic". 
+> > 
+> > 
+> > The compatible list for this generic sound card currently: 
+> > @@ -48,6 +51,8 @@ The compatible list for this generic sound card currently: 
+> > 
+> > "fsl,imx-audio-nau8822" 
+> > 
+> > + "fsl,imx-audio-generic" 
+> 
+> Generic does not look like hardware specific.
+
+Even if our end goal is to use it with the S/PDIF controller, this new
+support can be used with different hardware that doesn't
+require a codec. Thus, we don't really want to specify "spdif" in it.
+
+Is this compatible string not suitable ?
+Should we rename it to something else, like "fsl,imx-audio-no-codec" ?
+
+
+Best regards,
+Elinor Montmasson

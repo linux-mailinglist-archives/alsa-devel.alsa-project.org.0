@@ -2,114 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76CB9817394
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Dec 2023 15:30:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A206817462
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Dec 2023 15:57:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C13F183E;
-	Mon, 18 Dec 2023 15:30:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C13F183E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 14542DF9;
+	Mon, 18 Dec 2023 15:57:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 14542DF9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1702909843;
-	bh=mQ8vItNtUZTK887rAjwKJVy2mtNEO7Zj2fCFRfQmnCo=;
-	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=XlkWt3qUdLubaHhRv836oUVH9RRAg2ae2PKbDEUSiZvTSlIaxpuo0eY9/ferANVNI
-	 A4eE7bzM/ERM8kyvDKNiKAnm5O90I8mJTUUtr/jMXY5J2uQZJVEr/HVQOukw1ax/hD
-	 ndFAA47D9OZAu5icE2+W5jG88J6CEH1mCxQd5rJI=
+	s=default; t=1702911476;
+	bh=hgcNamp20IyxtVSNO1BYbtlnzacLKyoMbM+jZwGBK3w=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=sCOqMknluEfmbommq2uwrk2hwkJy2kVBUbA8Y7KamSZi2BU5fPyPUJJFChGLtv+AZ
+	 6L/BXd4CUAsTc/1IlIWLHpcl7C/WGvc8Syd6fIFTGBu785V/YUQC6kJZa5fMTpsLFL
+	 9sNUFi8biDvqU/EiF/zbofI57R2w2MsklDWXH++Y=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 15341F8056F; Mon, 18 Dec 2023 15:30:12 +0100 (CET)
+	id 00800F8057A; Mon, 18 Dec 2023 15:57:23 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 904EBF8055C;
-	Mon, 18 Dec 2023 15:30:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 39A6FF8057A;
+	Mon, 18 Dec 2023 15:57:23 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DE789F80425; Mon, 18 Dec 2023 15:30:02 +0100 (CET)
+	id 976ECF80425; Mon, 18 Dec 2023 15:57:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [IPv6:2a00:1450:4864:20::32c])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 30DFBF800BD
-	for <alsa-devel@alsa-project.org>; Mon, 18 Dec 2023 15:29:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30DFBF800BD
+	by alsa1.perex.cz (Postfix) with ESMTPS id D5DFCF80124
+	for <alsa-devel@alsa-project.org>; Mon, 18 Dec 2023 15:57:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D5DFCF80124
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=RcIiff7Z
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 3BI5ucvm029947;
-	Mon, 18 Dec 2023 08:29:49 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	date:from:to:cc:subject:message-id:references:mime-version
-	:content-type:in-reply-to; s=PODMain02222019; bh=Q3K2jRhiUj+p3q9
-	pzVaLQolrGJbvLSKGMXyIqTW5100=; b=RcIiff7ZLBLLuGCvlQSuI/wrkRxCGcM
-	XcKikPcRb2cP+YcM7UZMMLGWgZWvYZcG4ZM61M3e+VandUWQ8solAnlhFGx3q1Yg
-	Q4dNUU8EH9/jXU8oo/SnTHnAlvigBTJMBBQhcLdM5cNTCtRUPJMLvIxhJcqnOWUE
-	aillJMRALIzLY09P30aaUClvAkthbWOPpEhzCYqFAvsCXm+r3fDzL7F9nU54UUXJ
-	YPZ3RGLrNjbUTTtWaeGdCnHEO3VBHYG0I/2S+pNd6OSjD3lIRh9rBd1ds/+zv1zY
-	DjKta/cQfIL6ti7DL9J7FOPkoEwDKJDl2/FVPkOiU0c30yahSYu2hIA==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3v1a622scj-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 18 Dec 2023 08:29:49 -0600 (CST)
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Mon, 18 Dec
- 2023 14:29:46 +0000
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.40 via Frontend Transport; Mon, 18 Dec 2023 14:29:46 +0000
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com
- [198.61.86.93])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id DDEF915A2;
-	Mon, 18 Dec 2023 14:29:46 +0000 (UTC)
-Date: Mon, 18 Dec 2023 14:29:46 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-CC: Vinod Koul <vkoul@kernel.org>, <linux-sound@vger.kernel.org>,
-        <alsa-devel@alsa-project.org>, <tiwai@suse.de>, <broonie@kernel.org>,
-        <vinod.koul@intel.com>, Bard liao <yung-chuan.liao@linux.intel.com>,
-        Ranjani
- Sridharan <ranjani.sridharan@linux.intel.com>,
-        Peter Ujfalusi
-	<peter.ujfalusi@linux.intel.com>,
-        Kai Vehmanen
-	<kai.vehmanen@linux.intel.com>,
-        <srinivas.kandagatla@linaro.org>,
-        Krzysztof
- Kozlowski <krzysztof.kozlowski@linaro.org>,
-        <vijendar.mukunda@amd.com>,
-        Richard Fitzgerald <rf@opensource.cirrus.com>,
-        Shuming Fan
-	<shumingf@realtek.com>, Jack Yu <jack.yu@realtek.com>,
-        Oder Chiou
-	<oder_chiou@realtek.com>
-Subject: Re: [RFC PATCH 01/16] Documentation: driver: add SoundWire BRA
- description
-Message-ID: <20231218142946.GZ14858@ediswmail.ad.cirrus.com>
-References: <20231207222944.663893-1-pierre-louis.bossart@linux.intel.com>
- <20231207222944.663893-2-pierre-louis.bossart@linux.intel.com>
- <ZYAvoFbEP8RH_x0Y@matsya>
- <a5d0e3a7-e45c-4971-8ad7-7ba19702acf1@linux.intel.com>
+ unprotected) header.d=baylibre-com.20230601.gappssmtp.com
+ header.i=@baylibre-com.20230601.gappssmtp.com header.a=rsa-sha256
+ header.s=20230601 header.b=l4F5EP6M
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-40c38de1ee4so31375055e9.0
+        for <alsa-devel@alsa-project.org>;
+ Mon, 18 Dec 2023 06:57:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1702911431;
+ x=1703516231; darn=alsa-project.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=ejW8mYTHsaSP2x9nTPGi1Vc36flABAG/m92kKNfgtE0=;
+        b=l4F5EP6McYxFhiXNhMhQ8tCQaPF6jTOzIHU2/19pegb7EYQa3oMHlCxmE853YpNKSl
+         Pb0FsnVKrUFleENM5xYDGMgmYFtrCuraOMCHHiK0+mS+R+w6p/ZLFB17QgDGz/YxIW8L
+         q8WNs40az0utArtzO2UkIf4f8WYlX6CzMMHzV4o5CnPTGD0LaU6xPkW8DhK2V3PRuJe8
+         sD1gN+xt3D4SlnkBBA0jmxWr22iebtqPTSixPJ2McmGctnyklmtMbOMa4+T1MtPLbods
+         Q2XiDTRdJcJKKt2n/00tOdHlt7mXM8evjwuugBvxXQejHwr6D4hh2mk7fUvrIRUt0iBK
+         wUIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1702911431; x=1703516231;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=ejW8mYTHsaSP2x9nTPGi1Vc36flABAG/m92kKNfgtE0=;
+        b=ZfSjEwQWsU2jv+nG0OPUmX4/3RSY0db8HHTo7iHWLMkA7dMvxeOf+fXa2tsP3QY0Bm
+         Z/syS1juPPzhU34uV0wePHkQXX2HPW1XO556p+zfKzp2Rx8J/Br7wVXo63KNiMRZ/B0A
+         cJXwD2WjY7hDlgIM+bkdc+N9w0rTOaomatLLKidUZrfWo5MlQIKIMej7JNf22sOQtv6k
+         q5gOoh8nZ6Y9NGRUGKmvDCXSk6yxiGx1PcSMwqfAm0ptuzT8E30plyWcUUCQIJQqpqkj
+         hiB/oH1wxjkjYl86ZmoWUnBpUpi/vXpYMOWyU2TOBIIhI6orx7ocPRXDz6LLZLZh0VF1
+         fNVQ==
+X-Gm-Message-State: AOJu0Yz4ldlg8CAi9ZNYhYZNTEy2+UT4F8iBL3ySBcy5CH9jOY6DvjXo
+	Q/dVCOQRbL8RdNUQbFlauqW4YA==
+X-Google-Smtp-Source: 
+ AGHT+IGMmNT1wjDlCVxKWzxDjNxrJWY/X56rrN+bYXUA9s8NkWBJWZr4tcv3yKeTlvtQ6zaikL0UVQ==
+X-Received: by 2002:a05:600c:46cf:b0:40c:3d90:49f1 with SMTP id
+ q15-20020a05600c46cf00b0040c3d9049f1mr7972031wmo.125.1702911431628;
+        Mon, 18 Dec 2023 06:57:11 -0800 (PST)
+Received: from toaster.lan ([2a01:e0a:3c5:5fb1:29f2:94ce:d35d:aa25])
+        by smtp.googlemail.com with ESMTPSA id
+ fc17-20020a05600c525100b0040c42681fcesm35465477wmb.15.2023.12.18.06.57.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 18 Dec 2023 06:57:11 -0800 (PST)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Jerome Brunet <jbrunet@baylibre.com>,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	Zhengqiao Xia <xiazhengqiao@huaqin.corp-partner.google.com>,
+	Hsin-Yi Wang <hsinyi@google.com>
+Subject: [PATCH] ASoC: hdmi-codec: fix missing report for jack initial status
+Date: Mon, 18 Dec 2023 15:56:52 +0100
+Message-ID: <20231218145655.134929-1-jbrunet@baylibre.com>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <a5d0e3a7-e45c-4971-8ad7-7ba19702acf1@linux.intel.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-GUID: fTecLkRAfwiwFOOz9SQ3rNt-s_rvS7z5
-X-Proofpoint-ORIG-GUID: fTecLkRAfwiwFOOz9SQ3rNt-s_rvS7z5
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: G3R54MVOCTFFLNSJM57S5TK2EFKR2A6C
-X-Message-ID-Hash: G3R54MVOCTFFLNSJM57S5TK2EFKR2A6C
-X-MailFrom: prvs=771681532f=ckeepax@opensource.cirrus.com
+X-Patchwork-Bot: notify
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: YXMSYDKUGKNQUI22EU3XI57NKB5PNIYR
+X-Message-ID-Hash: YXMSYDKUGKNQUI22EU3XI57NKB5PNIYR
+X-MailFrom: jbrunet@baylibre.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -121,7 +112,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/G3R54MVOCTFFLNSJM57S5TK2EFKR2A6C/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YXMSYDKUGKNQUI22EU3XI57NKB5PNIYR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -130,29 +121,60 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, Dec 18, 2023 at 01:58:47PM +0100, Pierre-Louis Bossart wrote:
-> > why not have a single API that does both? First check if it is supported
-> > and then allocate buffers and do the transfer.. What are the advantages
-> > of using this two step process
-> 
-> Symmetry is the only thing that comes to my mind. Open - close and send
-> - wait are natural matches, aren't they?
-> 
-> We do need a wait(), so bundling open() and send() would be odd.
-> 
+This fixes a problem introduced while fixing ELD reporting with no jack
+set.
 
-I agree send->wait->close would be odd, But you just bundle close
-into wait. So the API becomes just send->wait, which seems pretty
-logical.
+Most driver using the hdmi-codec will call the 'plugged_cb' callback
+directly when registered to report the initial state of the HDMI connector.
 
-> But you have a point that the open() is not generic in that it also
-> prepares the DMA buffers for transmission. Maybe it's more natural to
-> follow the traditional open(), hw_params(), hw_free, close() from ALSA.
+With the commit mentionned, this occurs before jack is ready and the
+initial report is lost for platforms actually providing a jack for HDMI.
 
-I think this just makes it worse, you are now adding even more
-calls. The problem I see here is that, open and close (at least to
-me) strongly implies that you can do multiple operations between
-them and unless I have misunderstood something here you can't.
+Fix this by storing the hdmi connector status regardless of jack being set
+or not and report the last status when jack gets set.
 
-Thanks,
-Charles
+With this, the initial state is reported correctly even if it is
+disconnected. This was not done initially and is also a fix.
+
+Fixes: 15be353d55f9 ("ASoC: hdmi-codec: register hpd callback on component probe")
+Reported-by: Zhengqiao Xia <xiazhengqiao@huaqin.corp-partner.google.com>
+Closes: https://lore.kernel.org/alsa-devel/CADYyEwTNyY+fR9SgfDa-g6iiDwkU3MUdPVCYexs2_3wbcM8_vg@mail.gmail.com/
+Cc: Hsin-Yi Wang <hsinyi@google.com>
+Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
+---
+ sound/soc/codecs/hdmi-codec.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/sound/soc/codecs/hdmi-codec.c b/sound/soc/codecs/hdmi-codec.c
+index 20da1eaa4f1c..0938671700c6 100644
+--- a/sound/soc/codecs/hdmi-codec.c
++++ b/sound/soc/codecs/hdmi-codec.c
+@@ -850,8 +850,9 @@ static int hdmi_dai_probe(struct snd_soc_dai *dai)
+ static void hdmi_codec_jack_report(struct hdmi_codec_priv *hcp,
+ 				   unsigned int jack_status)
+ {
+-	if (hcp->jack && jack_status != hcp->jack_status) {
+-		snd_soc_jack_report(hcp->jack, jack_status, SND_JACK_LINEOUT);
++	if (jack_status != hcp->jack_status) {
++		if (hcp->jack)
++			snd_soc_jack_report(hcp->jack, jack_status, SND_JACK_LINEOUT);
+ 		hcp->jack_status = jack_status;
+ 	}
+ }
+@@ -880,6 +881,13 @@ static int hdmi_codec_set_jack(struct snd_soc_component *component,
+ 
+ 	if (hcp->hcd.ops->hook_plugged_cb) {
+ 		hcp->jack = jack;
++
++		/*
++		 * Report the initial jack status which may have been provided
++		 * by the parent hdmi driver while the hpd hook was registered.
++		 */
++		snd_soc_jack_report(jack, hcp->jack_status, SND_JACK_LINEOUT);
++
+ 		return 0;
+ 	}
+ 
+-- 
+2.42.0
+

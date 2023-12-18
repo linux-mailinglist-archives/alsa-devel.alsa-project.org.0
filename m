@@ -2,88 +2,114 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A53D817200
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Dec 2023 15:05:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76CB9817394
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Dec 2023 15:30:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CB01BE72;
-	Mon, 18 Dec 2023 15:05:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CB01BE72
+	by alsa0.perex.cz (Postfix) with ESMTPS id C13F183E;
+	Mon, 18 Dec 2023 15:30:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C13F183E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1702908330;
-	bh=k0DsLMv1mYh5Ev1M+XlYsASwzVoRwAGWCEUYM7QIuj0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1702909843;
+	bh=mQ8vItNtUZTK887rAjwKJVy2mtNEO7Zj2fCFRfQmnCo=;
+	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=tgxI5PKXfCghCDumgY0mdK0BeWqV5ypiPEZeKqZHN1JhDCrztxR7uIeXlac7INWP2
-	 54Hanz7AgfDbkKN0CjPDtFF55SaHcYnWu6lWAV30KwgHLULlOTI2Hg6pctb3zCYVK+
-	 vZqiXrNA9giCPQXOue2jcxgV6KuSm5e/SK7pmHLg=
+	b=XlkWt3qUdLubaHhRv836oUVH9RRAg2ae2PKbDEUSiZvTSlIaxpuo0eY9/ferANVNI
+	 A4eE7bzM/ERM8kyvDKNiKAnm5O90I8mJTUUtr/jMXY5J2uQZJVEr/HVQOukw1ax/hD
+	 ndFAA47D9OZAu5icE2+W5jG88J6CEH1mCxQd5rJI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0B998F8057D; Mon, 18 Dec 2023 15:04:59 +0100 (CET)
+	id 15341F8056F; Mon, 18 Dec 2023 15:30:12 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 25249F80557;
-	Mon, 18 Dec 2023 15:04:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 904EBF8055C;
+	Mon, 18 Dec 2023 15:30:11 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 950F9F80425; Mon, 18 Dec 2023 15:04:55 +0100 (CET)
+	id DE789F80425; Mon, 18 Dec 2023 15:30:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F07CEF800BD
-	for <alsa-devel@alsa-project.org>; Mon, 18 Dec 2023 15:04:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F07CEF800BD
+	by alsa1.perex.cz (Postfix) with ESMTPS id 30DFBF800BD
+	for <alsa-devel@alsa-project.org>; Mon, 18 Dec 2023 15:29:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30DFBF800BD
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=s+Q42Mrf
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 8E6D360FF8;
-	Mon, 18 Dec 2023 14:04:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE989C433C9;
-	Mon, 18 Dec 2023 14:04:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1702908287;
-	bh=k0DsLMv1mYh5Ev1M+XlYsASwzVoRwAGWCEUYM7QIuj0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=s+Q42Mrf303qA6N5Ka8JkGzWO3W6sxr8bZuA2VpMj0mJY+b3Pw67ElV8RcnErwEFj
-	 mmm/nYYkRZL2/HGzFMZ/V191Z07Al1D30zgcRpqHEecvtpFI+6Uze/N7gI6Bp6mWRO
-	 4F5NOsf72biKrLip3DcSMdd5bPDz1uhrdoFrgAZPe8um5/0QZBHy189huIjuxgryyT
-	 lpTNaM5+GWdGJ6t91naqdjgtG/s/VwyfqFMt4ghnhTO+6FOekzGA8aF4eu1vnXDVUK
-	 DoIaTe8X0rVbXryb4e6lTjx4jYSUHE0Dv2JU09C8SJ/IBYxm+MadlQdZJC8XfugEpv
-	 7PPLfO5luHAAA==
-Date: Mon, 18 Dec 2023 14:04:42 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Elinor Montmasson <elinor.montmasson@savoirfairelinux.com>,
-	shengjiu wang <shengjiu.wang@gmail.com>,
-	Xiubo Lee <Xiubo.Lee@gmail.com>, alsa-devel@alsa-project.org,
-	Philip-Dylan Gleonec <philip-dylan.gleonec@savoirfairelinux.com>
-Subject: Re: [PATCHv3 10/10] ASoC: bindings: fsl-asoc-card: add compatible
- for generic codec
-Message-ID: <c8e151f8-1fda-41af-b591-d76a60487371@sirena.org.uk>
-References: <20231215144005.934728-1-elinor.montmasson@savoirfairelinux.com>
- <20231215144005.934728-11-elinor.montmasson@savoirfairelinux.com>
- <d095614a-071c-4ee8-8e47-5bf073aaabea@kernel.org>
- <299362992.190017.1702892951148.JavaMail.zimbra@savoirfairelinux.com>
- <66caf181-dc54-4161-81db-e77932c33327@kernel.org>
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=RcIiff7Z
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 3BI5ucvm029947;
+	Mon, 18 Dec 2023 08:29:49 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
+	date:from:to:cc:subject:message-id:references:mime-version
+	:content-type:in-reply-to; s=PODMain02222019; bh=Q3K2jRhiUj+p3q9
+	pzVaLQolrGJbvLSKGMXyIqTW5100=; b=RcIiff7ZLBLLuGCvlQSuI/wrkRxCGcM
+	XcKikPcRb2cP+YcM7UZMMLGWgZWvYZcG4ZM61M3e+VandUWQ8solAnlhFGx3q1Yg
+	Q4dNUU8EH9/jXU8oo/SnTHnAlvigBTJMBBQhcLdM5cNTCtRUPJMLvIxhJcqnOWUE
+	aillJMRALIzLY09P30aaUClvAkthbWOPpEhzCYqFAvsCXm+r3fDzL7F9nU54UUXJ
+	YPZ3RGLrNjbUTTtWaeGdCnHEO3VBHYG0I/2S+pNd6OSjD3lIRh9rBd1ds/+zv1zY
+	DjKta/cQfIL6ti7DL9J7FOPkoEwDKJDl2/FVPkOiU0c30yahSYu2hIA==
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3v1a622scj-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 18 Dec 2023 08:29:49 -0600 (CST)
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Mon, 18 Dec
+ 2023 14:29:46 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.40 via Frontend Transport; Mon, 18 Dec 2023 14:29:46 +0000
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com
+ [198.61.86.93])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id DDEF915A2;
+	Mon, 18 Dec 2023 14:29:46 +0000 (UTC)
+Date: Mon, 18 Dec 2023 14:29:46 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+CC: Vinod Koul <vkoul@kernel.org>, <linux-sound@vger.kernel.org>,
+        <alsa-devel@alsa-project.org>, <tiwai@suse.de>, <broonie@kernel.org>,
+        <vinod.koul@intel.com>, Bard liao <yung-chuan.liao@linux.intel.com>,
+        Ranjani
+ Sridharan <ranjani.sridharan@linux.intel.com>,
+        Peter Ujfalusi
+	<peter.ujfalusi@linux.intel.com>,
+        Kai Vehmanen
+	<kai.vehmanen@linux.intel.com>,
+        <srinivas.kandagatla@linaro.org>,
+        Krzysztof
+ Kozlowski <krzysztof.kozlowski@linaro.org>,
+        <vijendar.mukunda@amd.com>,
+        Richard Fitzgerald <rf@opensource.cirrus.com>,
+        Shuming Fan
+	<shumingf@realtek.com>, Jack Yu <jack.yu@realtek.com>,
+        Oder Chiou
+	<oder_chiou@realtek.com>
+Subject: Re: [RFC PATCH 01/16] Documentation: driver: add SoundWire BRA
+ description
+Message-ID: <20231218142946.GZ14858@ediswmail.ad.cirrus.com>
+References: <20231207222944.663893-1-pierre-louis.bossart@linux.intel.com>
+ <20231207222944.663893-2-pierre-louis.bossart@linux.intel.com>
+ <ZYAvoFbEP8RH_x0Y@matsya>
+ <a5d0e3a7-e45c-4971-8ad7-7ba19702acf1@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="eiRFjsflfaTrtW9N"
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <66caf181-dc54-4161-81db-e77932c33327@kernel.org>
-X-Cookie: I'm proud of my humility.
-Message-ID-Hash: ZNTNZ7TVD6JLKAA6Z2MEUSTVHKBX6H72
-X-Message-ID-Hash: ZNTNZ7TVD6JLKAA6Z2MEUSTVHKBX6H72
-X-MailFrom: broonie@kernel.org
+In-Reply-To: <a5d0e3a7-e45c-4971-8ad7-7ba19702acf1@linux.intel.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-GUID: fTecLkRAfwiwFOOz9SQ3rNt-s_rvS7z5
+X-Proofpoint-ORIG-GUID: fTecLkRAfwiwFOOz9SQ3rNt-s_rvS7z5
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: G3R54MVOCTFFLNSJM57S5TK2EFKR2A6C
+X-Message-ID-Hash: G3R54MVOCTFFLNSJM57S5TK2EFKR2A6C
+X-MailFrom: prvs=771681532f=ckeepax@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -95,7 +121,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZNTNZ7TVD6JLKAA6Z2MEUSTVHKBX6H72/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/G3R54MVOCTFFLNSJM57S5TK2EFKR2A6C/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,41 +130,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Mon, Dec 18, 2023 at 01:58:47PM +0100, Pierre-Louis Bossart wrote:
+> > why not have a single API that does both? First check if it is supported
+> > and then allocate buffers and do the transfer.. What are the advantages
+> > of using this two step process
+> 
+> Symmetry is the only thing that comes to my mind. Open - close and send
+> - wait are natural matches, aren't they?
+> 
+> We do need a wait(), so bundling open() and send() would be odd.
+> 
 
---eiRFjsflfaTrtW9N
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+I agree send->wait->close would be odd, But you just bundle close
+into wait. So the API becomes just send->wait, which seems pretty
+logical.
 
-On Mon, Dec 18, 2023 at 10:51:44AM +0100, Krzysztof Kozlowski wrote:
-> On 18/12/2023 10:49, Elinor Montmasson wrote:
+> But you have a point that the open() is not generic in that it also
+> prepares the DMA buffers for transmission. Maybe it's more natural to
+> follow the traditional open(), hw_params(), hw_free, close() from ALSA.
 
-> > Is this compatible string not suitable ?
-> > Should we rename it to something else, like "fsl,imx-audio-no-codec" ?
+I think this just makes it worse, you are now adding even more
+calls. The problem I see here is that, open and close (at least to
+me) strongly implies that you can do multiple operations between
+them and unless I have misunderstood something here you can't.
 
-> Maybe Mark or Rob will help here, but for me "imx-audio" is just way too
-> generic.
-
-I think it's fine.
-
-> Also, you add several new properties, so I really expect either
-> converting old binding to DT schema first or adding new device in DT
-> schema format.
-
-So long as the binding conversion can go through quickly...
-
---eiRFjsflfaTrtW9N
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmWAUXoACgkQJNaLcl1U
-h9BS9Qf/WPVjFYHFsabKFmOWsnA/UyOA2Yh9LNOOrslVz9zRH5oAUFmf04QYNQc6
-PGAn3Di60uyuQjKoKaoZVp4Rj2SBsgtXv9Oc1uW5Dw+xYtgJcVRJjEMjwmDHvBOp
-13nfEILmBnw5RjaQOJh6nDAjyqGuRNsRTGnHUATQINHpWYCqVpYKsYFekv/DmEjT
-B/qRvjy3sU96eRxBv2+bT+F3cgpEfOsjv+/mW1d0gMHmOE8vVzPxWuhQzHxZ6FAf
-ZlN99qPR9R5cU+wy6stlZNodFkwvUCqXVLpKqn5L6o/j//nrOjVE5Po7AHjT4CF1
-GviprxqZJhWYRwOjFRBKiRxUxHYJAw==
-=QBLD
------END PGP SIGNATURE-----
-
---eiRFjsflfaTrtW9N--
+Thanks,
+Charles

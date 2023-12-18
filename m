@@ -2,172 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F93F816DD9
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Dec 2023 13:22:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE9E2816E1A
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Dec 2023 13:43:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D78E5DF8;
-	Mon, 18 Dec 2023 13:22:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D78E5DF8
+	by alsa0.perex.cz (Postfix) with ESMTPS id D544BDF3;
+	Mon, 18 Dec 2023 13:42:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D544BDF3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1702902149;
-	bh=1y2bdokQW1KyKGtFmZnHByHMGsKwFPOBn8uZA6ft8Qk=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=L14rNUd9rw3RB+aUcVDcy5KLYmPOaJbpk40nRaSId3VYXtQFHQwEBreQSmnx/7T5z
-	 gIJENrwUT7omPVdwyCBrKs3tSMI8Y8KD42sk/VpYrEKful+qYj3N57USDmfBCIjeTB
-	 A+TJEHTXDd6/P8lKY4jX6XiREtEBy23VpykTimg4=
+	s=default; t=1702903383;
+	bh=A4YXoBo3ZnQj28qLW3aBQIRZWLN8dnLpsmz1qKDFEu8=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=gtr+j4AF6oJf8uaAeIqMONpJ3NFNhtpUa0hG8pIra809LB9LxFLOhtgHaD8IQYTeM
+	 oukr0LIOKKqtwqCUEr3IV9mbhmlpVf4lC34ym0omudLE/mx9Jr4Ix6kF8URBMBYwGc
+	 BoqbEi7RzN8M8F0GdVX2V1E5HBP+8z44cJUSBxv4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 819AEF80537; Mon, 18 Dec 2023 13:22:08 +0100 (CET)
+	id A5732F8057F; Mon, 18 Dec 2023 13:42:31 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0DE45F800BD;
-	Mon, 18 Dec 2023 13:22:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1E55FF8057B;
+	Mon, 18 Dec 2023 13:42:31 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AECE9F80425; Mon, 18 Dec 2023 13:22:02 +0100 (CET)
+	id 8A260F80431; Mon, 18 Dec 2023 13:42:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on20612.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe5a::612])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail.savoirfairelinux.com (mail.savoirfairelinux.com
+ [208.88.110.44])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 19D36F80124
-	for <alsa-devel@alsa-project.org>; Mon, 18 Dec 2023 13:21:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 19D36F80124
+	by alsa1.perex.cz (Postfix) with ESMTPS id 90ED9F800D2
+	for <alsa-devel@alsa-project.org>; Mon, 18 Dec 2023 13:42:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90ED9F800D2
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=ApuFB82S
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=X5i215aaRkXuIM/vtcgwqv7U+QLkJZjZFk8okWDNVGLCDT5ayZa+g4jcwpQjni8vxHyIcjoGbNSiY4E1WZ25UxTpgojrpbEYpV//EGCBGtChAvBA5XEwWvyU/ygehIA1d2BEcCAZU07PNg+6i1iHa7tgsi6szTKYmG14lHgftS3vRGvz3wUHl95PgRoZtKpt1zz8WmvaMtwMPa1an6wKbvhlbvB7R/vA5jojFqTgfyV0XurvrDsFx+kVY6HgaXkTZc3fEnd/AfL+M3Ss0BT/WvI6YtJ5ete3XKGWVafLljSFsEE1F33SCKRZgPiPpctSQuHmVNDe+qkpP714NB+biQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1y2bdokQW1KyKGtFmZnHByHMGsKwFPOBn8uZA6ft8Qk=;
- b=B7kjTdRJAtZa20XEtv0sXsE8fAJJ3LZw1vWd3jZvHi3oCyDWiZLo40Y96k31vOOMyWAGjkkTtjw9OzfRbtXJQCdSv2X8frLEea59x8BItKubIPE1+AcpOQPjnuJLeu+LGxfxAHzdxRkOun+GuvEGg1EvuFzWTYDr32xJMveBtd/u9idQvOiqAHFDHgbDxLNrRlydx7DlzWJMEemZ303Co5kax6dAQFYXNlCSASuU5sgrBEs/ByWYhblUJEKO864aDRQAJKr7eQoPU7KgFSo7FNKJesOb3nXmpykOJRcoVmbDcC7LQGuasOF4/ZY/3b7LwcEpZvkVwHHzzQHWsGD0/g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1y2bdokQW1KyKGtFmZnHByHMGsKwFPOBn8uZA6ft8Qk=;
- b=ApuFB82SGhQ3qJs0z3/xqCminol2odasf74It+6sBmvsCksmcwJD/TOsYXc7R9vBgXNuFjgv4utMvr0F0UnLtGJqfkxBIwBxZ9mSQcqAlcxB4mwtApTpeo9uzdVDP5YrqIB2ETHG/v8b+YJXEl/PxGLddP/fN3870ZcgNqq322c=
-Received: from MN2PR12MB3661.namprd12.prod.outlook.com (2603:10b6:208:169::31)
- by SN7PR12MB8004.namprd12.prod.outlook.com (2603:10b6:806:341::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7091.38; Mon, 18 Dec
- 2023 12:21:45 +0000
-Received: from MN2PR12MB3661.namprd12.prod.outlook.com
- ([fe80::6d62:cc7:cf1d:86eb]) by MN2PR12MB3661.namprd12.prod.outlook.com
- ([fe80::6d62:cc7:cf1d:86eb%7]) with mapi id 15.20.7091.034; Mon, 18 Dec 2023
- 12:21:45 +0000
-From: "Saba Kareem, Syed" <Syed.SabaKareem@amd.com>
-To: Linux regressions mailing list <regressions@lists.linux.dev>,
-	"broonie@kernel.org" <broonie@kernel.org>, "alsa-devel@alsa-project.org"
-	<alsa-devel@alsa-project.org>
-CC: "Mukunda, Vijendar" <Vijendar.Mukunda@amd.com>, "Hiregoudar, Basavaraj"
-	<Basavaraj.Hiregoudar@amd.com>, "Dommati, Sunil-kumar"
-	<Sunil-kumar.Dommati@amd.com>, "Limonciello, Mario"
-	<Mario.Limonciello@amd.com>, "Gong, Richard" <Richard.Gong@amd.com>,
-	"posteuca@mutex.one" <posteuca@mutex.one>, Liam Girdwood
-	<lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
-	<tiwai@suse.com>, Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	=?utf-8?B?VXdlIEtsZWluZS1Lw7ZuaWc=?= <u.kleine-koenig@pengutronix.de>, open
- list <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH V2 2/2] ASoC: amd: acp: add pm ops support for renoir
- platform
-Thread-Topic: [PATCH V2 2/2] ASoC: amd: acp: add pm ops support for renoir
- platform
-Thread-Index: AQHaFi25zl1Prjuux0WT1b9NUOGoC7CqY04AgATJbYA=
-Date: Mon, 18 Dec 2023 12:21:45 +0000
-Message-ID: 
- <MN2PR12MB3661BA672C138AC6A0E002C8FC90A@MN2PR12MB3661.namprd12.prod.outlook.com>
-References: <20231113123345.2196504-1-Syed.SabaKareem@amd.com>
- <20231113123345.2196504-2-Syed.SabaKareem@amd.com>
- <b8a905a7-8fae-4482-9a6d-d9ed2f5dafbc@leemhuis.info>
-In-Reply-To: <b8a905a7-8fae-4482-9a6d-d9ed2f5dafbc@leemhuis.info>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: 
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=04b0f258-7532-4607-a062-3ca336c2b61e;MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-12-18T12:20:10Z;MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MN2PR12MB3661:EE_|SN7PR12MB8004:EE_
-x-ms-office365-filtering-correlation-id: e2cb4341-b8a7-4dcc-20dc-08dbffc3e6b8
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- SjgSTT3XzEPxnxntA0O9dHptIsxTqKRwuGE1kRCoNGdOykBf910Og1STGCLSSKTOS4BI0auWY2opTOgkuAwSKmWEYZjIBbJ6KxEKaPSFtUaqJnOL8pQ5vQN8vIDb4GsVhAlURieXmOpSJ5Vg1QXeCbmkgsJH4nmf5VC4qDj2mCwqbE/cJTuOvK4SU1x3sbAzO9ZksWtMxHMzpH+hvplZyvz4QdCB+MCw9AUxmNf+trZT/OhG18ZIIUkMdO05/iApgxell1EhQNCiir6DiYen0XJ7XucplPEEzYImJRKuFuE8SqF4YmhiUXtpl0ayar+18WamaLhNq1+Z20XQRhXkxxmiom6qFyWGpOLq0rBuWtB54bze0ROOICfMT0XEXvs7mUux2Re0p+SNm82tELUZQxqdazj+KwwdqkN3B1cXOoZWnxGnyHfTxoVW9pqYk06vTv+g7XXESDHP3BvJzJbOKUqpG8dEq9bpJGs3+GYyMaFswlgoR9b3jOXPQbIs25REShZ8aWRlXvRLjpz5xVaehucvOUdF4UAzlrIku9GE2DHJP+MvsUclmx4XxC4T4s70c53N7tSPlOKKapfj+9X0WwsXnqdsV/q9oZUG8AqKNF4T1K0FcIaPRsMyv39/6cs0eD6pH71pfQ8KzNqzWxUL/Q==
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN2PR12MB3661.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366004)(376002)(396003)(346002)(39860400002)(136003)(230922051799003)(64100799003)(186009)(1800799012)(451199024)(55016003)(66574015)(26005)(71200400001)(38100700002)(122000001)(33656002)(86362001)(38070700009)(83380400001)(52536014)(5660300002)(9686003)(53546011)(6506007)(7696005)(4326008)(8936002)(8676002)(66946007)(66556008)(76116006)(316002)(66446008)(110136005)(64756008)(66476007)(7416002)(2906002)(966005)(54906003)(478600001)(41300700001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?utf-8?B?VlpwdmpLbmtZczJicS9vQ3hiTjhSbGNFM0FZVFZOdUFUa3h4NFcvNXQ1UjFa?=
- =?utf-8?B?Z2xZeldTRUZlNmFYR1NaSVBPcGY3TE9LZlJrTFNqc1dOaXpTcTRWdmx3UjdB?=
- =?utf-8?B?WSs0dlJYUUd0cjhXUElpSzg2UERoRHhlQ3dTT3ZoUENZMmNBUUIzS0ZVZWN2?=
- =?utf-8?B?WUFGK0pJQkhERzlaTHlhTyt1ZTloamZibEFBQlRnWW5kcVBpTlJ5L1NUL3Bj?=
- =?utf-8?B?dERuQ1lwME8yWFVwZHFiTTY3RVE1dDY4MHF3bit6R0tMQ3hhQmRzaGdSSVJ0?=
- =?utf-8?B?YWk2ZnNJOWtWWnpaYUU3MXZwVXlLOWZFcjVTY2ptd3diRUJkdW9sREpCZXRJ?=
- =?utf-8?B?aWVieVdacW1nVUJLNkptVGVrSjcwcGpoMTF3ODhVdThwUC9mWGJvSkcvZGVT?=
- =?utf-8?B?TlhJSTZ0WGgrZTZFS1p3aUFNR0JiSzUxMWNCVDNCNTFnUDF1Y2RyODBIbFJi?=
- =?utf-8?B?QllWT3pYZHYzZ3cvazFhY05Yczg1OUtvbDNwdXZsTEc2WC9CVGhKR2xETnJX?=
- =?utf-8?B?aHdLaTJieEJNb05QTFZ1djcrNFY2aTRVbENybjBWTUxFaDE3SXhXNVJEYm5q?=
- =?utf-8?B?QmxZN2pBRHBTM0l0cURJU0RCOFd1d2ZZRkdjZ245OEVtVVFBSVVqc1U2MlBP?=
- =?utf-8?B?eGpDY0gvYXZIQVJNRzhQeVkwbHh3S3Z4ekl0ZDh2TVpkck5XMTZzWGhyMHJJ?=
- =?utf-8?B?WHFJeVBVb21UbDJ0NmNGMVhyYlhXcC92RWNRWWFNSHFJbzNRYVFvQ25BTnRk?=
- =?utf-8?B?MXQrUlFDUWo2V1QxaEVuZ0dqQXk3dEVVQm13akU1YVZzakdYZnhrM0F2SHFT?=
- =?utf-8?B?cm14aHc4K3JqUDZ1bkJpQm1kUnpha0VZdHZFV1dxMmlFRGZTbTJVdVpLU2kx?=
- =?utf-8?B?UWw3VzRuRkJjWE1weHUxVHJZT3lHNENsWFR4N3E4eStBMlVpUVBoZTFHQlcr?=
- =?utf-8?B?QkZTZzZOZ0Q3YWdWN0MwUlNBRnFWK0E0L2NVTFo2UXlUZ1d3Z0I3NGgwbzNu?=
- =?utf-8?B?dGhFa3l2QkdpUERuY0tzMFE1VVJkVHk1Y3V3Nld0QnROSnR6TU51bzQrMFo0?=
- =?utf-8?B?UlFMOVN2a3lzK3RXREhNSGxWL0YyRURZaXR3T25zL2pRWlB0RUZMUXhZcWd3?=
- =?utf-8?B?aWxOOEdWK0pkY2o4Z2xSNEV5NDRVRHk5ZkRyWks1R3YrR0NyK1djYjk5bVBw?=
- =?utf-8?B?MXlsTERKQmJJOHQwRXpXVDhMSGJ4K08rRHNZOCtaMkdZU0RJSDg1N3RwaGhU?=
- =?utf-8?B?aUlzQS9iMzRCM2F0djFNSG1BL2xlMnZRSVhLbzIvdXhwbzh5OENYUGJ1MG5H?=
- =?utf-8?B?aHhDSWJ6ejNGd2ZlZUhKUEVOdWlBUFRQU2x1ejVSeHpscmV3cUxJcElXQXNK?=
- =?utf-8?B?TkVkbzkzZGdXUFlEYm1VYlQyQy90dlI5a2JoelRCeW5jUjc4N0pvcEFTTFdM?=
- =?utf-8?B?bXc3MEJJK21VK3VDNnNLU1FLdGZHZVN4QjYvdDZUaThGUFdPaGQyYndzSDQw?=
- =?utf-8?B?S2kvcGM2ZWcyWkRLWEpncTlDMXhTMTBMcVBhRFFBRkUrSGtSZjRXd1UvTisx?=
- =?utf-8?B?RFVsRkoxZUVGd1RaWmdRUzk2enpNbUF2NVhSTVpObzRTTi9XODQyVTkrKzVv?=
- =?utf-8?B?cndEczJQdHpmb0k4azZlVkVtT2VuM1RINXFMVmVaV2MzR3o3MEI3ZThTVGN3?=
- =?utf-8?B?RGpWRmZDYnlUamc3ek1aVjZIMHowQWVUdGlBRmJLQXpWQ2xNU0dpODNZRmNn?=
- =?utf-8?B?Sm5oU01Vb1FTU0ZOUGRRd2M4NEk5bWZmQjUvTFBxYkozUTdIcnFEaUE4akha?=
- =?utf-8?B?Qm5VN2tDZHhiditkdVAxS2grbGhjS3hjMWpVRExsTHVzYXRhSTdxRnA2YzBa?=
- =?utf-8?B?TVZsVGxEN2hEZE9SVmRUaEY1WkRwNXdib29xYk5mOVhVakRlNjcvelQ2ZWNF?=
- =?utf-8?B?djFDSXVBQlR6ejNrd0k3R0hyd1pJa2w1Q0N6dWJUakhvNUFnZFpZbWF2VlZS?=
- =?utf-8?B?R2Y4KzdpckMxcTIvbExGeG52dnRnU2JydWlQOGJyUmFoTW5PM1VUSTVsQXgz?=
- =?utf-8?B?RmY3S2lOOElicXpsS0VEZXRsZWl0cXR1NjlSM1JreGpzOFdRTGhlRDZ2SzdZ?=
- =?utf-8?Q?rHpI=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key,
+ unprotected) header.d=savoirfairelinux.com header.i=@savoirfairelinux.com
+ header.a=rsa-sha256 header.s=DFC430D2-D198-11EC-948E-34200CB392D2
+ header.b=KC9IcCdB
+Received: from localhost (localhost [127.0.0.1])
+	by mail.savoirfairelinux.com (Postfix) with ESMTP id CB7159C04BD;
+	Mon, 18 Dec 2023 07:42:09 -0500 (EST)
+Received: from mail.savoirfairelinux.com ([127.0.0.1])
+ by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10032)
+ with ESMTP id a22CMRJ0P6OD; Mon, 18 Dec 2023 07:42:09 -0500 (EST)
+Received: from localhost (localhost [127.0.0.1])
+	by mail.savoirfairelinux.com (Postfix) with ESMTP id 22D809C068C;
+	Mon, 18 Dec 2023 07:42:09 -0500 (EST)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.savoirfairelinux.com 22D809C068C
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=savoirfairelinux.com; s=DFC430D2-D198-11EC-948E-34200CB392D2;
+	t=1702903329; bh=nNJwBxDmzL960mEI1mqFgHu2Oy9OWJ5ye2uPUgqVOL8=;
+	h=From:To:Date:Message-Id:MIME-Version;
+	b=KC9IcCdB/ndeBn1iClkNzQdFvCYwcAae8mB8HjDOuwe7VNhtuAysf0Iv6nV2CFid3
+	 DkpOU2cx0klXMN+DKDOxk8e5e0ixq2mAUckeyG+WHeX0HMe6UFvdS6vptU3NuVN3w1
+	 Buxz9EwOLYdfBjg/iEgA4UtCe5oey/qmQdjEU6C4zKRpXHs1q9zZGJA+F+NBEnF0dw
+	 r0vOh6SZZXliSB5dt9R7WXiMEIAFVE3xhro3SfHWX/ctYXpktccGcICcIpgsfVPuOm
+	 a1vT4MAYhBo7gsLEKK0Dw9QAqWr8piej7xrY6Is2n8gO1A6mDQeUYFKWFp3b8/X/9g
+	 yiTaqU9TxyFFA==
+X-Virus-Scanned: amavis at mail.savoirfairelinux.com
+Received: from mail.savoirfairelinux.com ([127.0.0.1])
+ by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10026)
+ with ESMTP id OZ6vMlRS6mOD; Mon, 18 Dec 2023 07:42:08 -0500 (EST)
+Received: from gerard.rennes.sfl (unknown [192.168.216.3])
+	by mail.savoirfairelinux.com (Postfix) with ESMTPSA id F0A0F9C04BD;
+	Mon, 18 Dec 2023 07:42:06 -0500 (EST)
+From: Elinor Montmasson <elinor.montmasson@savoirfairelinux.com>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Shengjiu Wang <shengjiu.wang@gmail.com>,
+	Xiubo Li <Xiubo.Lee@gmail.com>,
+	Fabio Estevam <festevam@gmail.com>,
+	Nicolin Chen <nicoleotsuka@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	alsa-devel@alsa-project.org,
+	linuxppc-dev@lists.ozlabs.org,
+	Elinor Montmasson <elinor.montmasson@savoirfairelinux.com>,
+	Philip-Dylan <philip-dylan.gleonec@savoirfairelinux.com>
+Subject: [PATCHv3 RESEND 00/10] ASoC: fsl-asoc-card: compatibility integration
+ of a generic codec use case for use with S/PDIF controller
+Date: Mon, 18 Dec 2023 13:40:48 +0100
+Message-Id: <20231218124058.2047167-1-elinor.montmasson@savoirfairelinux.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3661.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- e2cb4341-b8a7-4dcc-20dc-08dbffc3e6b8
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Dec 2023 12:21:45.7360
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 
- ROUdt9Ndsc8mpT2IJG/NTKAorKE2hPUJwlYeTXS/5EAEO/ml/iJt79QeWHLim4G/ifbPOfQ97Vka/JA6B9xVJw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8004
-Message-ID-Hash: PCN52KDRFS2MPI7Y5VO6Z3MQ6ICIVA5F
-X-Message-ID-Hash: PCN52KDRFS2MPI7Y5VO6Z3MQ6ICIVA5F
-X-MailFrom: Syed.SabaKareem@amd.com
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: OS43CBJ73AVINV2RXRE6IGPKUJAXU5AF
+X-Message-ID-Hash: OS43CBJ73AVINV2RXRE6IGPKUJAXU5AF
+X-MailFrom: elinor.montmasson@savoirfairelinux.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -179,7 +112,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QQSZRPYXMPA72RYGIB25EPJL426OAIA3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OS43CBJ73AVINV2RXRE6IGPKUJAXU5AF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -188,86 +121,126 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEdlbmVyYWxdDQoNCkhpIFRob3JzdGVuLA0KVGhlIHBh
-dGNoIGdvdCBtZXJnZWQgdG8gYnJvb25pZSBnaXQuDQpQbGVhc2UgZmluZCB0aGUgYmVsb3cgbGlu
-ayBmb3IgdGhlIGRldGFpbHMuDQpodHRwczovL2dpdC5rZXJuZWwub3JnL3B1Yi9zY20vbGludXgv
-a2VybmVsL2dpdC9icm9vbmllL3NvdW5kLmdpdC9jb21taXQvc291bmQvc29jL2FtZC9hY3A/aWQ9
-Yzk1YTJhMGJlMGIxYmJhMmUwNTFmYWExMDVjMmUwNDAxZmMyZGUzMw0KDQpUaGFua3MsDQpTeWVk
-IFNhYmEgS2FyZWVtLg0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogTGludXgg
-cmVncmVzc2lvbiB0cmFja2luZyAoVGhvcnN0ZW4gTGVlbWh1aXMpIDxyZWdyZXNzaW9uc0BsZWVt
-aHVpcy5pbmZvPg0KU2VudDogRnJpZGF5LCBEZWNlbWJlciAxNSwgMjAyMyA0OjQ0IFBNDQpUbzog
-U2FiYSBLYXJlZW0sIFN5ZWQgPFN5ZWQuU2FiYUthcmVlbUBhbWQuY29tPjsgYnJvb25pZUBrZXJu
-ZWwub3JnOyBhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmcNCkNjOiBNdWt1bmRhLCBWaWplbmRh
-ciA8VmlqZW5kYXIuTXVrdW5kYUBhbWQuY29tPjsgSGlyZWdvdWRhciwgQmFzYXZhcmFqIDxCYXNh
-dmFyYWouSGlyZWdvdWRhckBhbWQuY29tPjsgRG9tbWF0aSwgU3VuaWwta3VtYXIgPFN1bmlsLWt1
-bWFyLkRvbW1hdGlAYW1kLmNvbT47IExpbW9uY2llbGxvLCBNYXJpbyA8TWFyaW8uTGltb25jaWVs
-bG9AYW1kLmNvbT47IEdvbmcsIFJpY2hhcmQgPFJpY2hhcmQuR29uZ0BhbWQuY29tPjsgcG9zdGV1
-Y2FAbXV0ZXgub25lOyBMaWFtIEdpcmR3b29kIDxsZ2lyZHdvb2RAZ21haWwuY29tPjsgSmFyb3Ns
-YXYgS3lzZWxhIDxwZXJleEBwZXJleC5jej47IFRha2FzaGkgSXdhaSA8dGl3YWlAc3VzZS5jb20+
-OyBLdW5pbm9yaSBNb3JpbW90byA8a3VuaW5vcmkubW9yaW1vdG8uZ3hAcmVuZXNhcy5jb20+OyBO
-aWNvbGFzIEZlcnJlIDxuaWNvbGFzLmZlcnJlQG1pY3JvY2hpcC5jb20+OyBVd2UgS2xlaW5lLUvD
-tm5pZyA8dS5rbGVpbmUta29lbmlnQHBlbmd1dHJvbml4LmRlPjsgb3BlbiBsaXN0IDxsaW51eC1r
-ZXJuZWxAdmdlci5rZXJuZWwub3JnPjsgTGludXgga2VybmVsIHJlZ3Jlc3Npb25zIGxpc3QgPHJl
-Z3Jlc3Npb25zQGxpc3RzLmxpbnV4LmRldj4NClN1YmplY3Q6IFJlOiBbUEFUQ0ggVjIgMi8yXSBB
-U29DOiBhbWQ6IGFjcDogYWRkIHBtIG9wcyBzdXBwb3J0IGZvciByZW5vaXIgcGxhdGZvcm0NCg0K
-SGksIFRob3JzdGVuIGhlcmUsIHRoZSBMaW51eCBrZXJuZWwncyByZWdyZXNzaW9uIHRyYWNrZXIu
-IFRvcC1wb3N0aW5nIGZvciBvbmNlLCB0byBtYWtlIHRoaXMgZWFzaWx5IGFjY2Vzc2libGUgdG8g
-ZXZlcnlvbmUuDQoNCkRvZXMgYW55b25lIGtub3cgd2hhdCBoYXBwZW5lZCB0byBiZWxvdyBwYXRj
-aD8gSXQgYWZhaWNzIHdhcyBtZWFudCB0byBmaXggYSByZWdyZXNzaW9uIHRoYXQgbWFkZSBpdCBp
-bnRvIDYuNi4gRm9yIGRldGFpbHMgc2VlOg0KDQpodHRwczovL2xvcmUua2VybmVsLm9yZy9sa21s
-Lzg3YTV2OHN6aGMuZnNmQG11dGV4Lm9uZS8NCmh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2xrbWwv
-YWM5ZDRmN2ItYzdhZi00ZDIxLWIwYjgtZDBmMTg4Yjk0YjBmQGFtZC5jb20vDQoNCkNpYW8sIFRo
-b3JzdGVuICh3ZWFyaW5nIGhpcyAndGhlIExpbnV4IGtlcm5lbCdzIHJlZ3Jlc3Npb24gdHJhY2tl
-cicgaGF0KQ0KLS0NCkV2ZXJ5dGhpbmcgeW91IHdhbm5hIGtub3cgYWJvdXQgTGludXgga2VybmVs
-IHJlZ3Jlc3Npb24gdHJhY2tpbmc6DQpodHRwczovL2xpbnV4LXJlZ3RyYWNraW5nLmxlZW1odWlz
-LmluZm8vYWJvdXQvI3RsZHINCklmIEkgZGlkIHNvbWV0aGluZyBzdHVwaWQsIHBsZWFzZSB0ZWxs
-IG1lLCBhcyBleHBsYWluZWQgb24gdGhhdCBwYWdlLg0KDQpPbiAxMy4xMS4yMyAxMzozMywgU3ll
-ZCBTYWJhIEthcmVlbSB3cm90ZToNCj4gQWRkIHBtIG9wcyBmb3IgcmVub2lyIHBsYXRmb3JtLg0K
-Pg0KPiBTaWduZWQtb2ZmLWJ5OiBTeWVkIFNhYmEgS2FyZWVtIDxTeWVkLlNhYmFLYXJlZW1AYW1k
-LmNvbT4NCj4gLS0tDQo+ICBzb3VuZC9zb2MvYW1kL2FjcC9hY3AtcmVub2lyLmMgfCAzOA0KPiAr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKystDQo+ICAxIGZpbGUgY2hhbmdlZCwgMzcg
-aW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQ0KPg0KPiBkaWZmIC0tZ2l0IGEvc291bmQvc29j
-L2FtZC9hY3AvYWNwLXJlbm9pci5jDQo+IGIvc291bmQvc29jL2FtZC9hY3AvYWNwLXJlbm9pci5j
-IGluZGV4IGE1OTE0ODJhMDcyNi4uODUzOWZiYWNkZjRjDQo+IDEwMDY0NA0KPiAtLS0gYS9zb3Vu
-ZC9zb2MvYW1kL2FjcC9hY3AtcmVub2lyLmMNCj4gKysrIGIvc291bmQvc29jL2FtZC9hY3AvYWNw
-LXJlbm9pci5jDQo+IEBAIC0yMCw2ICsyMCw3IEBADQo+ICAjaW5jbHVkZSA8c291bmQvc29jLmg+
-DQo+ICAjaW5jbHVkZSA8c291bmQvc29jLWRhaS5oPg0KPiAgI2luY2x1ZGUgPGxpbnV4L2RtYS1t
-YXBwaW5nLmg+DQo+ICsjaW5jbHVkZSA8bGludXgvcG1fcnVudGltZS5oPg0KPg0KPiAgI2luY2x1
-ZGUgImFtZC5oIg0KPiAgI2luY2x1ZGUgImFjcC1tYWNoLmgiDQo+IEBAIC0xOTUsNyArMTk2LDEx
-IEBAIHN0YXRpYyBpbnQgcmVub2lyX2F1ZGlvX3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2Ug
-KnBkZXYpDQo+ICAgICAgIGRldl9zZXRfZHJ2ZGF0YShkZXYsIGFkYXRhKTsNCj4gICAgICAgYWNw
-X2VuYWJsZV9pbnRlcnJ1cHRzKGFkYXRhKTsNCj4gICAgICAgYWNwX3BsYXRmb3JtX3JlZ2lzdGVy
-KGRldik7DQo+IC0NCj4gKyAgICAgcG1fcnVudGltZV9zZXRfYXV0b3N1c3BlbmRfZGVsYXkoJnBk
-ZXYtPmRldiwgQUNQX1NVU1BFTkRfREVMQVlfTVMpOw0KPiArICAgICBwbV9ydW50aW1lX3VzZV9h
-dXRvc3VzcGVuZCgmcGRldi0+ZGV2KTsNCj4gKyAgICAgcG1fcnVudGltZV9tYXJrX2xhc3RfYnVz
-eSgmcGRldi0+ZGV2KTsNCj4gKyAgICAgcG1fcnVudGltZV9zZXRfYWN0aXZlKCZwZGV2LT5kZXYp
-Ow0KPiArICAgICBwbV9ydW50aW1lX2VuYWJsZSgmcGRldi0+ZGV2KTsNCj4gICAgICAgcmV0dXJu
-IDA7DQo+ICB9DQo+DQo+IEBAIC0yMDgsMTEgKzIxMyw0MiBAQCBzdGF0aWMgdm9pZCByZW5vaXJf
-YXVkaW9fcmVtb3ZlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpDQo+ICAgICAgIGFjcF9w
-bGF0Zm9ybV91bnJlZ2lzdGVyKGRldik7DQo+ICB9DQo+DQo+ICtzdGF0aWMgaW50IF9fbWF5YmVf
-dW51c2VkIHJuX3BjbV9yZXN1bWUoc3RydWN0IGRldmljZSAqZGV2KSB7DQo+ICsgICAgIHN0cnVj
-dCBhY3BfZGV2X2RhdGEgKmFkYXRhID0gZGV2X2dldF9kcnZkYXRhKGRldik7DQo+ICsgICAgIHN0
-cnVjdCBhY3Bfc3RyZWFtICpzdHJlYW07DQo+ICsgICAgIHN0cnVjdCBzbmRfcGNtX3N1YnN0cmVh
-bSAqc3Vic3RyZWFtOw0KPiArICAgICBzbmRfcGNtX3VmcmFtZXNfdCBidWZfaW5fZnJhbWVzOw0K
-PiArICAgICB1NjQgYnVmX3NpemU7DQo+ICsNCj4gKyAgICAgc3Bpbl9sb2NrKCZhZGF0YS0+YWNw
-X2xvY2spOw0KPiArICAgICBsaXN0X2Zvcl9lYWNoX2VudHJ5KHN0cmVhbSwgJmFkYXRhLT5zdHJl
-YW1fbGlzdCwgbGlzdCkgew0KPiArICAgICAgICAgICAgIHN1YnN0cmVhbSA9IHN0cmVhbS0+c3Vi
-c3RyZWFtOw0KPiArICAgICAgICAgICAgIGlmIChzdWJzdHJlYW0gJiYgc3Vic3RyZWFtLT5ydW50
-aW1lKSB7DQo+ICsgICAgICAgICAgICAgICAgICAgICBidWZfaW5fZnJhbWVzID0gKHN1YnN0cmVh
-bS0+cnVudGltZS0+YnVmZmVyX3NpemUpOw0KPiArICAgICAgICAgICAgICAgICAgICAgYnVmX3Np
-emUgPSBmcmFtZXNfdG9fYnl0ZXMoc3Vic3RyZWFtLT5ydW50aW1lLCBidWZfaW5fZnJhbWVzKTsN
-Cj4gKyAgICAgICAgICAgICAgICAgICAgIGNvbmZpZ19wdGVfZm9yX3N0cmVhbShhZGF0YSwgc3Ry
-ZWFtKTsNCj4gKyAgICAgICAgICAgICAgICAgICAgIGNvbmZpZ19hY3BfZG1hKGFkYXRhLCBzdHJl
-YW0sIGJ1Zl9zaXplKTsNCj4gKyAgICAgICAgICAgICAgICAgICAgIGlmIChzdHJlYW0tPmRhaV9p
-ZCkNCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmVzdG9yZV9hY3BfaTJzX3BhcmFt
-cyhzdWJzdHJlYW0sIGFkYXRhLCBzdHJlYW0pOw0KPiArICAgICAgICAgICAgICAgICAgICAgZWxz
-ZQ0KPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZXN0b3JlX2FjcF9wZG1fcGFyYW1z
-KHN1YnN0cmVhbSwgYWRhdGEpOw0KPiArICAgICAgICAgICAgIH0NCj4gKyAgICAgfQ0KPiArICAg
-ICBzcGluX3VubG9jaygmYWRhdGEtPmFjcF9sb2NrKTsNCj4gKyAgICAgcmV0dXJuIDA7DQo+ICt9
-DQo+ICsNCj4gK3N0YXRpYyBjb25zdCBzdHJ1Y3QgZGV2X3BtX29wcyBybl9kbWFfcG1fb3BzID0g
-ew0KPiArICAgICBTRVRfU1lTVEVNX1NMRUVQX1BNX09QUyhOVUxMLCBybl9wY21fcmVzdW1lKSB9
-Ow0KPiArDQo+ICBzdGF0aWMgc3RydWN0IHBsYXRmb3JtX2RyaXZlciByZW5vaXJfZHJpdmVyID0g
-ew0KPiAgICAgICAucHJvYmUgPSByZW5vaXJfYXVkaW9fcHJvYmUsDQo+ICAgICAgIC5yZW1vdmVf
-bmV3ID0gcmVub2lyX2F1ZGlvX3JlbW92ZSwNCj4gICAgICAgLmRyaXZlciA9IHsNCj4gICAgICAg
-ICAgICAgICAubmFtZSA9ICJhY3BfYXNvY19yZW5vaXIiLA0KPiArICAgICAgICAgICAgIC5wbSA9
-ICZybl9kbWFfcG1fb3BzLA0KPiAgICAgICB9LA0KPiAgfTsNCj4NCg==
+Hello,
+
+This is the v3 of the series of patch aiming to make the machine driver
+"fsl-asoc-card" compatible with use cases where there is no real codec
+driver.
+It proposes to use the "spdif_receiver" and "spdif_transmitter"
+drivers instead of the dummy codec.
+This is a first step in using the S/PDIF controller with the ASRC.
+
+The five first patches add compatibility with the pair of codecs
+"spdif_receiver" and "spdif_transmitter" with a new compatible,
+"fsl,imx-audio-generic".
+Codec parameters are set with default values.
+Consequently, the driver is modified to work with multi-codec use cases.
+It can get 2 codecs phandles from the device tree, and the
+"fsl_asoc_card_priv" struct now has 2 "codec_priv" to store properties
+of both codecs. It is fixed to 2 codecs as only "fsl,imx-audio-generic"
+uses multiple codecs at the moment.
+However, the driver now uses for_each_codecs macros when possible to
+ease future implementations of multi-codec configurations.
+
+The remaining patches add configuration options for the device tree.
+They configure the CPU DAI when using "fsl,imx-audio-generic".
+These options are usually hard-coded in "fsl-asoc-card.c" for each
+audio codec.
+Because the generic codec could be used with other CPU DAIs than
+the S/PDIF controller, setting these parameters could be required.
+
+This series of patch was successfully built for arm64 and x86 on top of
+the latest for-next branch of the ASoC git tree on the 14th of December.
+These modifications have also been tested on an i.MX8MN evaluation
+board, with a linux kernel RT v6.1.26-rt8.
+
+
+We also have a few questions, following remarks made by
+Krzysztof Kozlowski in a previous email for patch 10/10:
+
+> >>> The compatible list for this generic sound card currently:
+> >>> @@ -48,6 +51,8 @@ The compatible list for this generic sound card
+> >>> currently:
+> >>>
+> >>> "fsl,imx-audio-nau8822"
+> >>>
+> >>> + "fsl,imx-audio-generic"
+> >>
+> >> Generic does not look like hardware specific.
+> >
+> > Even if our end goal is to use it with the S/PDIF controller, this ne=
+w
+> > support can be used with different hardware that doesn't
+> > require a codec. Thus, we don't really want to specify "spdif" in it.
+> >
+> > Is this compatible string not suitable ?
+> > Should we rename it to something else, like "fsl,imx-audio-no-codec" =
+?
+>=20
+> Maybe Mark or Rob will help here, but for me "imx-audio" is just way to=
+o
+> generic.
+
+* Which generic name should we use ? Or how should we change it?
+=20
+> Also, you add several new properties, so I really expect either
+> converting old binding to DT schema first or adding new device in DT
+> schema format.
+
+* fsl-asoc-card.txt currently follows the old dt-bindings format.
+Should we update it to DT schema format in this patch series
+before adding my new properties?
+
+
+Best regards,
+Elinor Montmasson
+
+
+Changelog:
+v2 -> v3:
+* when the bitmaster or framemaster are retrieved from the device tree,
+  the driver will now compare them with the two codecs possibly given in
+  the device tree, and not just the first codec.
+* improve driver modifications to use multiple codecs for better
+  integration of future multi-codec use cases:
+    * use for_each_codec macros when possible.
+    * "fsl_asoc_card_priv" struct now has 2 "codec_priv" as the driver
+      can currently retrieve 2 codec phandles from the device tree.
+* fix subject of patch 10/10 to follow the style of the subsystem and
+  previous commits of the file.
+* v2 patch series at:
+https://lore.kernel.org/alsa-devel/20231027144734.3654829-1-elinor.montma=
+sson@savoirfairelinux.com/
+
+v1 -> v2:
+* replace use of the dummy codec by the pair of codecs
+  "spdif_receiver" / " spdif_transmitter".
+* adapt how dai links codecs are used to take into account the
+  possibility for multiple codecs per link.
+* change compatible name.
+* adapt driver to be able to register two codecs given in the device
+  tree.
+* v1 patch series at:
+https://lore.kernel.org/alsa-devel/20230901144550.520072-1-elinor.montmas=
+son@savoirfairelinux.com/
+
+
+Elinor Montmasson (10):
+  ASoC: fsl-asoc-card: add support for dai links with multiple codecs
+  ASoC: fsl-asoc-card: add second dai link component for codecs
+  ASoC: fsl-asoc-card: add compatibility to use 2 codecs in dai-links
+  ASoC: fsl-asoc-card: add new compatible for a generic codec use case
+  ASoC: fsl-asoc-card: set generic codec as clock provider
+  ASoC: fsl-asoc-card: add dts property "cpu-slot-width"
+  ASoC: fsl-asoc-card: add dts property "cpu-slot-num"
+  ASoC: fsl-asoc-card: add dts properties "cpu-sysclk-freq"
+  ASoC: fsl-asoc-card: add dts properties "cpu-sysclk-dir-out"
+  ASoC: bindings: fsl-asoc-card: add compatible for generic codec
+
+ .../bindings/sound/fsl-asoc-card.txt          |  28 +-
+ sound/soc/fsl/fsl-asoc-card.c                 | 299 +++++++++++-------
+ 2 files changed, 218 insertions(+), 109 deletions(-)
+
+--=20
+2.25.1
+

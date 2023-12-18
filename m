@@ -2,122 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2426B817B8D
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Dec 2023 20:59:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA546817D20
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Dec 2023 23:11:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B1EBFE11;
-	Mon, 18 Dec 2023 20:58:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1EBFE11
+	by alsa0.perex.cz (Postfix) with ESMTPS id E4F0BE10;
+	Mon, 18 Dec 2023 23:10:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4F0BE10
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1702929539;
-	bh=cnYHUK2gjkGipwmX1hJ0JFg+5AOVUTObZEpAzrA4jZ0=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
+	s=default; t=1702937465;
+	bh=V67jUA/X4iuuyWPHvIFmIMQeerw4rwp8jEY/OLK5Slg=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=phHafOyZ8HT3hKMXyIjnDMzv9XtSzxn2gzR8tfB29iRaPke7uEmM8NeOf+POq/Qb4
-	 DM3vC08PpJ4rYvIZTA3w9Bd57iC3KBXN0jsBPhBKE4TXu9NDLc39ACDh2Fs53Zrhg8
-	 LNwCjLfTbK4U0JNxz4Kdh4JA5w1RUrjf9vbBwfu4=
+	b=WJ7sBSzEfjcKpGefYd7eCvONZ2ofiagoIM8khVt6/6uWAABkDIR7gDFH9nmgYE4h9
+	 eeJDwi2l8+q0nIoinv5mKyttInWB8eZhlbqXsfGbh3rdmOVVl4hukdxBMqFjdUV7rG
+	 rJ4ArjCutewKH0hcRwX71nmiV0qt0BdqwDJpgHvo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 58E7DF8057A; Mon, 18 Dec 2023 20:58:28 +0100 (CET)
+	id 3C6DAF805A0; Mon, 18 Dec 2023 23:10:33 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id AA9BFF8057F;
-	Mon, 18 Dec 2023 20:58:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9F7DCF80431;
+	Mon, 18 Dec 2023 23:10:33 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4177CF80425; Mon, 18 Dec 2023 20:58:22 +0100 (CET)
+	id 5CDE0F80425; Mon, 18 Dec 2023 23:10:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,
+	T_SCC_BODY_TEXT_LINE,T_SPF_PERMERROR shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from lithops.sigma-star.at (lithops.sigma-star.at [195.201.40.130])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E3A55F80124
-	for <alsa-devel@alsa-project.org>; Mon, 18 Dec 2023 20:58:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3A55F80124
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=OR2h4lEM
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 3BII7awl009072;
-	Mon, 18 Dec 2023 19:58:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
-	message-id:date:mime-version:subject:to:cc:references:from
-	:in-reply-to:content-type:content-transfer-encoding; s=
-	qcppdkim1; bh=t0bpCimWvMhWfdI+TsPYGoHOoVAQBV1OEIZbPnpfoak=; b=OR
-	2h4lEM4dBzCsLd+KqD8zxpFrlQcglcplmQPVD6bBdBUEtesGx8DRYqcbadwSyAX5
-	jmEiOQcHKgdSvekkRMgu9/U7x2Li4Pfk0oD+VytunYIV4/Zu9CzuGNsd64EHQGHx
-	0h/KLdwKGOZ1bxSjn740snWNNAyIdoFnB0R0rlP4H309nRNyae940OtHLcoDVNFR
-	9kwAtUEG8ocQ1EmG9hIUXLQc6xsBO0xwZ4lTk7GSRi4anORUkKffrYR7LsalsFhK
-	6kPH+oFrTklJRRu9hpxsGH7MOU+qSRZ48m1HJpCUP9NU3z8d6oyGYbIL8Y4A5DvK
-	9AY1uv0JExp/EJLocjBw==
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3v2mfe1euh-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 18 Dec 2023 19:58:09 +0000 (GMT)
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
-	by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
- 3BIJw8YC027591
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 18 Dec 2023 19:58:08 GMT
-Received: from [10.110.97.107] (10.80.80.8) by nalasex01b.na.qualcomm.com
- (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Mon, 18 Dec
- 2023 11:58:06 -0800
-Message-ID: <0a3a6277-62f6-2d6c-d36a-46a442c89b67@quicinc.com>
-Date: Mon, 18 Dec 2023 11:58:02 -0800
+	by alsa1.perex.cz (Postfix) with ESMTPS id C22A6F800BD
+	for <alsa-devel@alsa-project.org>; Mon, 18 Dec 2023 23:10:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C22A6F800BD
+Received: from localhost (localhost [127.0.0.1])
+	by lithops.sigma-star.at (Postfix) with ESMTP id E1BDC6343B3B;
+	Mon, 18 Dec 2023 23:10:21 +0100 (CET)
+Received: from lithops.sigma-star.at ([127.0.0.1])
+	by localhost (lithops.sigma-star.at [127.0.0.1]) (amavisd-new, port 10032)
+	with ESMTP id 9keEN92ZV6OF; Mon, 18 Dec 2023 23:10:21 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+	by lithops.sigma-star.at (Postfix) with ESMTP id 6AB616343B3C;
+	Mon, 18 Dec 2023 23:10:21 +0100 (CET)
+Received: from lithops.sigma-star.at ([127.0.0.1])
+	by localhost (lithops.sigma-star.at [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id nR8uZpRh0SkQ; Mon, 18 Dec 2023 23:10:21 +0100 (CET)
+Received: from lithops.sigma-star.at (lithops.sigma-star.at [195.201.40.130])
+	by lithops.sigma-star.at (Postfix) with ESMTP id 2459D6343B3B;
+	Mon, 18 Dec 2023 23:10:21 +0100 (CET)
+Date: Mon, 18 Dec 2023 23:10:20 +0100 (CET)
+From: Richard Weinberger <richard@nod.at>
+To: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
+Cc: Mark Brown <broonie@kernel.org>, Tudor Ambarus <tudor.ambarus@linaro.org>,
+	pratyush <pratyush@kernel.org>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	sbinding@opensource.cirrus.com, Lee Jones <lee@kernel.org>,
+	james schulman <james.schulman@cirrus.com>,
+	david rhodes <david.rhodes@cirrus.com>, rf@opensource.cirrus.com,
+	Jaroslav Kysela <perex@perex.cz>, tiwai@suse.com,
+	linux-spi <linux-spi@vger.kernel.org>,
+	linux-kernel <linux-kernel@vger.kernel.org>,
+	Michael Walle <michael@walle.cc>,
+	linux-mtd <linux-mtd@lists.infradead.org>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	michal simek <michal.simek@amd.com>,
+	linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
+	alsa-devel <alsa-devel@alsa-project.org>,
+	patches@opensource.cirrus.com, linux-sound@vger.kernel.org,
+	git@amd.com, amitrkcian2002@gmail.com
+Message-ID: <1953466568.133535.1702937420979.JavaMail.zimbra@nod.at>
+In-Reply-To: <20231125092137.2948-1-amit.kumar-mahapatra@amd.com>
+References: <20231125092137.2948-1-amit.kumar-mahapatra@amd.com>
+Subject: Re: [PATCH v11 00/10] spi: Add support for stacked/parallel
+ memories
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Subject: Re: [PATCH v10 18/41] ALSA: usb-audio: qcom: Add USB QMI definitions
-Content-Language: en-US
-To: Jeff Johnson <quic_jjohnson@quicinc.com>,
- <srinivas.kandagatla@linaro.org>,
-        <mathias.nyman@intel.com>, <perex@perex.cz>, <conor+dt@kernel.org>,
-        <corbet@lwn.net>, <gregkh@linuxfoundation.org>, <lgirdwood@gmail.com>,
-        <andersson@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
-        <konrad.dybcio@linaro.org>, <Thinh.Nguyen@synopsys.com>,
-        <broonie@kernel.org>, <bgoswami@quicinc.com>, <tiwai@suse.com>,
-        <robh+dt@kernel.org>, <agross@kernel.org>
-CC: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-sound@vger.kernel.org>, <linux-usb@vger.kernel.org>,
-        <linux-arm-msm@vger.kernel.org>, <linux-doc@vger.kernel.org>,
-        <alsa-devel@alsa-project.org>
-References: <20231215214955.12110-1-quic_wcheng@quicinc.com>
- <20231215214955.12110-19-quic_wcheng@quicinc.com>
- <80111881-13dd-4b05-876a-a97eb3889726@quicinc.com>
-From: Wesley Cheng <quic_wcheng@quicinc.com>
-In-Reply-To: <80111881-13dd-4b05-876a-a97eb3889726@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: P-tbYw2YI5KNM16_-dyXNk1fYgg76NOe
-X-Proofpoint-GUID: P-tbYw2YI5KNM16_-dyXNk1fYgg76NOe
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-12-09_01,2023-12-07_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- clxscore=1015 suspectscore=0 malwarescore=0 lowpriorityscore=0 mlxscore=0
- mlxlogscore=999 phishscore=0 adultscore=0 impostorscore=0 spamscore=0
- bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2311290000 definitions=main-2312180148
-Message-ID-Hash: 54LI63IOZQCISTAMOIVF2LXEFXCDAAAH
-X-Message-ID-Hash: 54LI63IOZQCISTAMOIVF2LXEFXCDAAAH
-X-MailFrom: quic_wcheng@quicinc.com
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Originating-IP: [195.201.40.130]
+X-Mailer: Zimbra 8.8.12_GA_3807 (ZimbraWebClient - FF97
+ (Linux)/8.8.12_GA_3809)
+Thread-Topic: Add support for stacked/parallel memories
+Thread-Index: Gp+EE7t5zvexUhLdnkyaadGyCIq7oQ==
+Message-ID-Hash: ZN6VDFCZD7HLBCBUKAXGOQ7P45PJRSMB
+X-Message-ID-Hash: ZN6VDFCZD7HLBCBUKAXGOQ7P45PJRSMB
+X-MailFrom: richard@nod.at
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -129,7 +102,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/54LI63IOZQCISTAMOIVF2LXEFXCDAAAH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZN6VDFCZD7HLBCBUKAXGOQ7P45PJRSMB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -138,47 +111,22 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Jeff,
+----- Urspr=C3=BCngliche Mail -----
+> Von: "Amit Kumar Mahapatra" <amit.kumar-mahapatra@amd.com>
 
-On 12/15/2023 2:38 PM, Jeff Johnson wrote:
-> On 12/15/2023 1:49 PM, Wesley Cheng wrote:
->> The Qualcomm USB audio offload driver utilizes the QMI protocol to
->> communicate with the audio DSP.  Add the necessary QMI header and field
->> definitions, so the QMI interface driver is able to route the QMI packet
->> received to the USB audio offload driver.
->>
->> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
->> ---
->>   sound/usb/qcom/usb_audio_qmi_v01.c | 892 +++++++++++++++++++++++++++++
->>   sound/usb/qcom/usb_audio_qmi_v01.h | 162 ++++++
->>   2 files changed, 1054 insertions(+)
->>   create mode 100644 sound/usb/qcom/usb_audio_qmi_v01.c
->>   create mode 100644 sound/usb/qcom/usb_audio_qmi_v01.h
->>
->> diff --git a/sound/usb/qcom/usb_audio_qmi_v01.c b/sound/usb/qcom/usb_audio_qmi_v01.c
->> new file mode 100644
->> index 000000000000..bdfd67d980eb
->> --- /dev/null
->> +++ b/sound/usb/qcom/usb_audio_qmi_v01.c
->> @@ -0,0 +1,892 @@
->> +// SPDX-License-Identifier: GPL-2.0
->> +/*
->> + * Copyright (c) 2022-2023 Qualcomm Innovation Center, Inc. All rights reserved.
->> + */
->> +
->> +#include <linux/soc/qcom/qmi.h>
->> +
->> +#include "usb_audio_qmi_v01.h"
->> +
->> +static struct qmi_elem_info mem_info_v01_ei[] = {
-> 
-> I believe all of the struct qmi_elem_info arrays can be const.
-> 
-> At least that was the goal of commit ff6d365898d4 ("soc: qcom: qmi: use
-> const for struct qmi_elem_info")
-> 
+> This patch series updated the spi-nor, spi core and the AMD-Xilinx GQSPI
+> driver to add stacked and parallel memories support.
 
-Thanks for the review.  Will fix this.
+I wish the series had a real cover letter which explains the big picture
+in more detail.
 
-Thanks
-Wesley Cheng
+What I didn't really get so far, is it really necessary to support multiple
+chip selects within a single mtd?
+You changes introduce hard to maintain changes into the spi-nor/mtd core co=
+de
+which alert me.
+Why can't we have one mtd for each cs and, if needed, combine them later?
+We have drivers such as mtdconcat for reasons.
+
+Thanks,
+//richard

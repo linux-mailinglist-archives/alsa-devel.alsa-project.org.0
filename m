@@ -2,97 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0ABA8186E1
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Dec 2023 13:02:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DADF8186E7
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Dec 2023 13:02:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 40D9EDF3;
-	Tue, 19 Dec 2023 13:02:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 40D9EDF3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8EEDA83B;
+	Tue, 19 Dec 2023 13:02:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8EEDA83B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1702987351;
-	bh=QlXDKx+2+EQbtrJIyNOxx5MaNmx1xvfXdzafB1H0Kak=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1702987372;
+	bh=DYBIPyzTDX4DrE8BJLW2OwzGk5Q0dmTKbtsTF4nQkyk=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=eWA89aZOV5y6aj9buvP1207Ju50IOOCb2flVV7XF25sqXgIoHm1EGgj2TMpSAKSir
-	 Nxl0iWSwpThxSCfdg6OlFt8/NlK3v2lbPQdlrrt9IIiiU2qASK8vKoaWsfElek1F7O
-	 Fuu3gAjXnQI4/Dxts2ZjyHPbrlBIeb2vThCZDX80=
+	b=c5CGYizyju9C4Av0j55bng7nJ1Y71AC80irpBs2DDEPiTT/Mu8KiMlx1IgGBJqtsN
+	 /b48JHlbp6jAg3tvYCGc7uTmoWkZuxCD+J3I3rZDhT0x+YrgnZ9H3k8cep8YdvvrH3
+	 gnwu5fh4wjGBmwaKQKvtpx4PCo1wEh5V7JUgJuJg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 49E50F80124; Tue, 19 Dec 2023 13:01:58 +0100 (CET)
+	id 5429EF805BB; Tue, 19 Dec 2023 13:02:11 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 27681F8057A;
-	Tue, 19 Dec 2023 13:01:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E2CDFF805BD;
+	Tue, 19 Dec 2023 13:02:08 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 35790F80425; Tue, 19 Dec 2023 13:01:32 +0100 (CET)
+	id 7024DF805A9; Tue, 19 Dec 2023 13:02:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: ***
-X-Spam-Status: No, score=3.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,RCVD_IN_SBL_CSS,
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_SBL_CSS,
 	SPF_HELO_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=no autolearn_force=no version=3.4.6
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [IPv6:2a00:1450:4864:20::632])
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [IPv6:2a00:1450:4864:20::634])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3C2E2F80124
-	for <alsa-devel@alsa-project.org>; Tue, 19 Dec 2023 13:01:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C2E2F80124
+	by alsa1.perex.cz (Postfix) with ESMTPS id 12CEAF8016E
+	for <alsa-devel@alsa-project.org>; Tue, 19 Dec 2023 13:01:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12CEAF8016E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=aFiJVJIT
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-a2370535060so217602366b.1
+ header.s=google header.b=IGwCTj++
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-a1f33c13ff2so364480566b.3
         for <alsa-devel@alsa-project.org>;
- Tue, 19 Dec 2023 04:01:28 -0800 (PST)
+ Tue, 19 Dec 2023 04:01:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1702987288; x=1703592088;
+        d=linaro.org; s=google; t=1702987311; x=1703592111;
  darn=alsa-project.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=xYTg9juDWxZcIBckJUEaGgG12ZfS5cBo/+tlYXpzWNI=;
-        b=aFiJVJITNKaC8UsRQlx8xrm1r2mI9+AMPjPiliS3IqTOsuQTqBRZg8hOPLARBWHf/G
-         uBzou+o8zRKcuZBUmZ8WNcOebnaCnNv/znlNXNtbdQ4YwgOXQ6CZNw9Ps6xGhKS0h8IJ
-         fs18gMNbqS4v9FxpID2FcW87O5mpbvQdyCPgdTSmrVi9UAgcDte/FOmdnYtXnd+gjeKG
-         OfIOmp31+pCtlYuwIo3qnHQu08Mf2u5mWI017fV7IYnFR+bhYPZghuZlcUxy4pseY4wN
-         keSMqtOH6F/1KQHA5S3KanKU/CPj5Y9G3zps+EJO7/kEGO5KD6teyF2JIbwO4IDe7ud+
-         ca9g==
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :from:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=YVvvKQRps43iz6LpvgBs+AvFLcUj1lrxhvkgfLbhk5Y=;
+        b=IGwCTj++WQwSV0DsuUkbFBNY13CdR8N+7qg9jvvnkISdWebA7lqAeIHzrQb71NeRlu
+         cX+JZDYB2iv9FQEkPE7aWcvFNUSxGG8fpAXVcH5LKTtbdnAy3l34TKYmD6OEwNtZfBWN
+         93bz+plvEPFGAcMNyjU97BRsV7FuiGSrGcgwgHNhuyZoqD6TsF8qCmtRKmAwd/jSTnEW
+         Kccg0jalgCGuyEB9oogqTxC2vyGE2jeQ2z3dvw9Wkgz9k/RXseXQOjJ+7pjF2VluTTvv
+         jpe2cUkGmEq4gBEVwyOh0GZ0ioqGrnrtqYwZmfkyCKhuk7zrjdCFWCTAxoLQUD388A8s
+         P1Ow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702987288; x=1703592088;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=xYTg9juDWxZcIBckJUEaGgG12ZfS5cBo/+tlYXpzWNI=;
-        b=gzYl60+vzvxJpTkWtFfoQvTlMm0FnKefTHc1e+Jw+ncliRE2rhwO4JNCz3RYJzOSO1
-         +DMXYWRCIdTBI/9lY/qTOyFSOYji0jeQPMu/AMm3f2cV9So4RgRPdCGvkDW67XYPEs+A
-         e/iLdeJgGBBZQKPG523wvhd2rRf5PCSmK4qtuBITSeZkIEUAO7wr0rqKuzRrwGC7NYcZ
-         F/H4mM3oJNtCoUfquC4hM00Y1upvz1BaOTbyOncgtwAuh4S1/Xr3Yb/EjKvIV2yTVAcM
-         2ZQ07ElO9EzYc3AlHaWEAGNxJU2RLzaKAC9DscdZ0E+TG5I6zlhhbv6rOp8/weDgCwoT
-         NLPw==
-X-Gm-Message-State: AOJu0YzMdHOguGo+NMJLJyfmuVwF+tUMKiDcUQNA/k1SNKe7jMyMQFO6
-	yxAzImG7CMwlkTG1wLPn+HOZ9A==
+        d=1e100.net; s=20230601; t=1702987311; x=1703592111;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :from:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=YVvvKQRps43iz6LpvgBs+AvFLcUj1lrxhvkgfLbhk5Y=;
+        b=LB/CP/TS/GaZ9APv6VZWEov/XVkvnBK+WB1KqgejYkUIEG3uRBblNxo5Nu1l8c/Dot
+         PETtlzhApm4zby1NwS0vTPVKQRwsASo/2aV1dujMcipHp2Ietq60n3wyTUH2utIgaKiy
+         zO4lHdG+Ex9mVASORl7WbOcL234Hg9WKYYaCK4/56Vsik6OmiV2ma+F3y4DPAah1siC+
+         lyPQeMOLbrrP9zhftoEzv3v/xmsGRrxQs42dPgxj7FQK/7kS6+T65xCRtKpX2FN74lAD
+         nJHrxS8qV5eo2syGueDjlIz6BN/vpeqd2eRGJhGnWM9Fq0mcBLjggp4PxIFFW+7tdy82
+         9CUQ==
+X-Gm-Message-State: AOJu0YxIDSDdik5n63vQCgVNotlm9C8Uw5KImQrDRZUXiAOgEEgO/6TK
+	rmKHXIJVXvdrVVRg1gzXfUkOdA==
 X-Google-Smtp-Source: 
- AGHT+IGZR13abm6xSkWVYuuhV9Qk7aYDgUNIM6tTPh2sieIdPWD79f7wwxOnWNLPqKuo2dnW88SnOA==
-X-Received: by 2002:a17:906:1194:b0:a1c:d8c6:c21 with SMTP id
- n20-20020a170906119400b00a1cd8c60c21mr947426eja.67.1702987288015;
-        Tue, 19 Dec 2023 04:01:28 -0800 (PST)
+ AGHT+IHfEJcj5sqilHKdlPgFubmK4nI/7tH8em/CPcCCZeiKmAjLc3BZXIWyh3bOrm4xpr41lMaPbg==
+X-Received: by 2002:a17:907:9016:b0:a23:339f:3313 with SMTP id
+ ay22-20020a170907901600b00a23339f3313mr2181362ejc.55.1702987311149;
+        Tue, 19 Dec 2023 04:01:51 -0800 (PST)
 Received: from [192.168.199.59]
  (178235179206.dynamic-4-waw-k-1-3-0.vectranet.pl. [178.235.179.206])
         by smtp.gmail.com with ESMTPSA id
- lm11-20020a17090718cb00b00a1db76f99c8sm15508227ejc.93.2023.12.19.04.01.25
+ lm11-20020a17090718cb00b00a1db76f99c8sm15508227ejc.93.2023.12.19.04.01.48
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 19 Dec 2023 04:01:27 -0800 (PST)
-Message-ID: <4b644ed4-358d-4caa-bed8-ca76e0baadb3@linaro.org>
-Date: Tue, 19 Dec 2023 13:01:24 +0100
+        Tue, 19 Dec 2023 04:01:50 -0800 (PST)
+Message-ID: <da5df198-6e17-46f0-a12e-0083a5601785@linaro.org>
+Date: Tue, 19 Dec 2023 13:01:48 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v10 18/41] ALSA: usb-audio: qcom: Add USB QMI definitions
 Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
 To: Wesley Cheng <quic_wcheng@quicinc.com>, srinivas.kandagatla@linaro.org,
  mathias.nyman@intel.com, perex@perex.cz, conor+dt@kernel.org,
  corbet@lwn.net, gregkh@linuxfoundation.org, lgirdwood@gmail.com,
@@ -105,7 +107,7 @@ Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
  alsa-devel@alsa-project.org
 References: <20231215214955.12110-1-quic_wcheng@quicinc.com>
  <20231215214955.12110-19-quic_wcheng@quicinc.com>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
+ <4b644ed4-358d-4caa-bed8-ca76e0baadb3@linaro.org>
 Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
  xsFNBF9ALYUBEADWAhxdTBWrwAgDQQzc1O/bJ5O7b6cXYxwbBd9xKP7MICh5YA0DcCjJSOum
  BB/OmIWU6X+LZW6P88ZmHe+KeyABLMP5s1tJNK1j4ntT7mECcWZDzafPWF4F6m4WJOG27kTJ
@@ -141,11 +143,11 @@ Autocrypt: addr=konrad.dybcio@linaro.org; keydata=
  bGqMHex48FVZhexNPYOd58EY9/7mL5u0sJmo+jTeb4JBgIbFPJCFyng4HwbniWgQJZ1WqaUC
  nas9J77uICis2WH7N8Bs9jy0wQYezNzqS+FxoNXmDQg2jetX8en4bO2Di7Pmx0jXA4TOb9TM
  izWDgYvmBE8=
-In-Reply-To: <20231215214955.12110-19-quic_wcheng@quicinc.com>
+In-Reply-To: <4b644ed4-358d-4caa-bed8-ca76e0baadb3@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: X7MG6I5FCE473YPZN2SM3IJHAKYI5DNC
-X-Message-ID-Hash: X7MG6I5FCE473YPZN2SM3IJHAKYI5DNC
+Message-ID-Hash: XOQUQGIXAP5M4DMFBVRTQRXSSXUTNDV7
+X-Message-ID-Hash: XOQUQGIXAP5M4DMFBVRTQRXSSXUTNDV7
 X-MailFrom: konrad.dybcio@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -158,7 +160,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/X7MG6I5FCE473YPZN2SM3IJHAKYI5DNC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XOQUQGIXAP5M4DMFBVRTQRXSSXUTNDV7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -167,36 +169,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 15.12.2023 22:49, Wesley Cheng wrote:
-> The Qualcomm USB audio offload driver utilizes the QMI protocol to
-> communicate with the audio DSP.  Add the necessary QMI header and field
-> definitions, so the QMI interface driver is able to route the QMI packet
-> received to the USB audio offload driver.
-> 
-> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
-> ---
->  sound/usb/qcom/usb_audio_qmi_v01.c | 892 +++++++++++++++++++++++++++++
->  sound/usb/qcom/usb_audio_qmi_v01.h | 162 ++++++
->  2 files changed, 1054 insertions(+)
->  create mode 100644 sound/usb/qcom/usb_audio_qmi_v01.c
->  create mode 100644 sound/usb/qcom/usb_audio_qmi_v01.h
-> 
-> diff --git a/sound/usb/qcom/usb_audio_qmi_v01.c b/sound/usb/qcom/usb_audio_qmi_v01.c
-> new file mode 100644
-> index 000000000000..bdfd67d980eb
-> --- /dev/null
-> +++ b/sound/usb/qcom/usb_audio_qmi_v01.c
-> @@ -0,0 +1,892 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (c) 2022-2023 Qualcomm Innovation Center, Inc. All rights reserved.
-> + */
-> +
-> +#include <linux/soc/qcom/qmi.h>
-> +
-> +#include "usb_audio_qmi_v01.h"
-> +
-> +static struct qmi_elem_info mem_info_v01_ei[] = {
-can these be const?
+On 19.12.2023 13:01, Konrad Dybcio wrote:
+> On 15.12.2023 22:49, Wesley Cheng wrote:
+>> The Qualcomm USB audio offload driver utilizes the QMI protocol to
+>> communicate with the audio DSP.  Add the necessary QMI header and field
+>> definitions, so the QMI interface driver is able to route the QMI packet
+>> received to the USB audio offload driver.
+>>
+>> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
+>> ---
+>>  sound/usb/qcom/usb_audio_qmi_v01.c | 892 +++++++++++++++++++++++++++++
+>>  sound/usb/qcom/usb_audio_qmi_v01.h | 162 ++++++
+>>  2 files changed, 1054 insertions(+)
+>>  create mode 100644 sound/usb/qcom/usb_audio_qmi_v01.c
+>>  create mode 100644 sound/usb/qcom/usb_audio_qmi_v01.h
+>>
+>> diff --git a/sound/usb/qcom/usb_audio_qmi_v01.c b/sound/usb/qcom/usb_audio_qmi_v01.c
+>> new file mode 100644
+>> index 000000000000..bdfd67d980eb
+>> --- /dev/null
+>> +++ b/sound/usb/qcom/usb_audio_qmi_v01.c
+>> @@ -0,0 +1,892 @@
+>> +// SPDX-License-Identifier: GPL-2.0
+>> +/*
+>> + * Copyright (c) 2022-2023 Qualcomm Innovation Center, Inc. All rights reserved.
+>> + */
+>> +
+>> +#include <linux/soc/qcom/qmi.h>
+>> +
+>> +#include "usb_audio_qmi_v01.h"
+>> +
+>> +static struct qmi_elem_info mem_info_v01_ei[] = {
+> can these be const?
+Sorry, it was already pointed out.
 
 Konrad

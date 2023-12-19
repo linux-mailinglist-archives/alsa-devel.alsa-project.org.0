@@ -2,114 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69CD3822166
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Jan 2024 19:52:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0FB1822165
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Jan 2024 19:52:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 05477AE8;
-	Tue,  2 Jan 2024 19:52:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 05477AE8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 728B3E84;
+	Tue,  2 Jan 2024 19:51:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 728B3E84
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1704221540;
-	bh=fsaPUQlWzMu0T1JDNsFpX1qHfwvcZZB2BT+r/1bVaqQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=HIPd37j2SoY4gAVIBAw1biw3UhUUzgRwmcPqMSgk858wSJWMo7sMy2Ls59uv5CxBN
-	 6XQ7ok2LebFmo7npYxBST9hmy0JmzvliGJbEwtLwO57+iHMd6poGu/Pj7ukvDE7oMf
-	 fEEpPHWApSh7eeUmsilEFtvLC396cOXUr/p9+ri8=
+	s=default; t=1704221526;
+	bh=tueOFQBgCD2B3oRGng+uqU8LtI6YztW4wWLZC0YK9eY=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=CWLSNOMq/AMdO7t/YWdnallxtolPosvXQ5EM9FXNSoLWuxL6DWzZnxiSFgEvjpk8N
+	 4MB/mb5PM/K2Rn4ojbQkRTIjthga9Q/71pCQsXs/ykqFh5h8p7IvlUvUzwAS0+qVDP
+	 0rOv4Rspd5AtaK+mOGCKhuI5a3vKFbixEkV967RA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C923AF8065C; Tue,  2 Jan 2024 19:50:53 +0100 (CET)
+	id E1A45F80642; Tue,  2 Jan 2024 19:50:54 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2E810F80610;
-	Tue,  2 Jan 2024 19:50:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 10041F80613;
+	Tue,  2 Jan 2024 19:50:54 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3FC60F80425; Tue, 19 Dec 2023 06:28:46 +0100 (CET)
+	id 8781CF80425; Tue, 19 Dec 2023 21:15:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,HTML_MESSAGE,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-oo1-xc35.google.com (mail-oo1-xc35.google.com
- [IPv6:2607:f8b0:4864:20::c35])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Received: from mx.dolansoft.org (s2.dolansoft.org [212.51.146.245])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 88770F8016E
-	for <alsa-devel@alsa-project.org>; Tue, 19 Dec 2023 06:28:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 88770F8016E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 280D0F800D2
+	for <alsa-devel@alsa-project.org>; Tue, 19 Dec 2023 21:15:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 280D0F800D2
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
- header.s=20230601 header.b=w/cj2sUj
-Received: by mail-oo1-xc35.google.com with SMTP id
- 006d021491bc7-5913922ab10so2564720eaf.1
-        for <alsa-devel@alsa-project.org>;
- Mon, 18 Dec 2023 21:28:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1702963709; x=1703568509;
- darn=alsa-project.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=zWxwuUiCn8vp2HBl8LMU799KIIXKiR1QHKcb8ywkNrE=;
-        b=w/cj2sUjxJZQEkQRTJA8AINnfB22MgpsUEBUtEDtuKwCCaP6RmeH5aepdd0Hi3Bid7
-         4Rm9vKuJlJaFodNIFwcPa1BFbvFVnoW84UtAtOAieUqoBn+hqrtFhsAniN/rhSj6S9NM
-         7PUDX+e2oh52kgWHeI8qRMXQ9jAOU9TRwZG90X54lYBHG83uC4qirbRepLJP4cPcfhXs
-         hdxP0yYBhgOLa4oPczfmmQPUy/g+u+bx73Z2G0fGyqSj4O8pjuqh6F80x2X/MW90lV8G
-         FXGorDemVb48Ja4DYZacVuP4TZ/zWnpKpIPcMVEl3NIPdPl+vyr79VLtDSI7vEOjWSwL
-         aofA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702963709; x=1703568509;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=zWxwuUiCn8vp2HBl8LMU799KIIXKiR1QHKcb8ywkNrE=;
-        b=J87ymVLhgLLKSuy7/+3eP7WV8kEzSkeBGJGhU6GsOtRZicZ5Iut5Aq8gZKf7/ReY5v
-         z/SWog3VN38evZl6r0mb4qlQvE1+SEAYu1qK3tzNo25plkbuy7X3An1udDitjzYcauMS
-         143A0r70BPAnKagnPKd0XweVdqWsk1qPZ3tzOHGfc/FEh+9saOU+PeMoWaYaNUeL7dUi
-         ifLnvi+cQKrmitIDqP2xzR0Iz7UeB6PeywMA+ucrXHVdEP6Kmu8VmNErD/nClGXHZAzl
-         w17V0mSSZRb6VIaCt9nHbOvb2ssyoKys88hWhF/a6Ba3+H2YVwWSMH/zqZkiF2W20U8Q
-         0mug==
-X-Gm-Message-State: AOJu0YyIfv9tW4X6R6ELMwHwjlE0VI15E37902ML0IGaj+x740VXxcTj
-	cAnq/yDmKwhBfF+r7Rzne2MKQ1dkKEvaCZmUa8W20A==
-X-Google-Smtp-Source: 
- AGHT+IHZPUkndNRPQTeCn1TdP/K0+1jBXYjg6c05tzxJgCy+FQakA4SEsLqkpt4cM0YW8LQfp6MLVrL59204WA1AAI4=
-X-Received: by 2002:a4a:ad02:0:b0:591:dde9:359c with SMTP id
- r2-20020a4aad02000000b00591dde9359cmr1384697oon.16.1702963709400; Mon, 18 Dec
- 2023 21:28:29 -0800 (PST)
+ unprotected) header.d=brun.one header.i=@brun.one header.a=rsa-sha256
+ header.s=s1 header.b=HZDwUo/H
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=brun.one;
+	s=s1; h=MIME-Version:Message-ID:Date:Subject:Cc:To:From:In-Reply-To:
+	References:From:To:Subject:Date:Message-ID:Reply-To;
+	bh=zv1tp5EJGy8vjqEhUz2XKQPecD+fBNOlCqIMeS8hFok=; b=HZDwUo/HPafCCF6LR6WBQcfZB0
+	W/7uxNvRnhBNOfvvH7YLkV34y29UK0zD7dytiRTcakH0Lo20grPg17B1cnOTAx2jf5Xsam/Ev+Qt2
+	rO2K5x/z+iZbMB8nFA9KYKeJDoXTmFv0RQsJUTbUmybP/X+T4h3PZNjKu+F9eAdlrwAsYSQHZWYU3
+	v5+NKDpn+uuQhfFyWRX5QlOAXvCqHFvz8ylnFp8OEok11hNlH+OOx8ruh2a7v7xF0pzsQbACubwqc
+	7r32ZKNkXe780MnPvE1iA+rO6HkCCjCh/vePDlQHjm7eR3g99EQDUVQ1fLVj7YUMIrp48gGBY74oY
+	Al4B57rA==;
+Received: from [212.51.153.89] (helo=blacklava.cluster.local)
+	by mx.dolansoft.org with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <lorenz@dolansoft.org>)
+	id 1rFgUr-000rhY-1N;
+	Tue, 19 Dec 2023 20:15:21 +0000
+From: Lorenz Brun <lorenz@brun.one>
+To: James Schulman <james.schulman@cirrus.com>,
+	David Rhodes <david.rhodes@cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org,
+	patches@opensource.cirrus.com,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ALSA: hda: cs35l41: Add HP override
+Date: Tue, 19 Dec 2023 21:15:11 +0100
+Message-ID: <20231219201513.2172580-1-lorenz@brun.one>
 MIME-Version: 1.0
-References: <20231218145655.134929-1-jbrunet@baylibre.com>
-In-Reply-To: <20231218145655.134929-1-jbrunet@baylibre.com>
-From: Zhengqiao Xia <xiazhengqiao@huaqin.corp-partner.google.com>
-Date: Tue, 19 Dec 2023 13:28:18 +0800
-Message-ID: 
- <CADYyEwT0vba5+JQdTESi8xh4vKtB+1rPfnnRyuDn=V_OMUPFMQ@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: hdmi-codec: fix missing report for jack initial
- status
-To: Jerome Brunet <jbrunet@baylibre.com>
-Cc: Mark Brown <broonie@kernel.org>, alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org, Hsin-Yi Wang <hsinyi@google.com>
-X-MailFrom: xiazhengqiao@huaqin.corp-partner.google.com
+Content-Transfer-Encoding: 8bit
+Sender: lorenz@dolansoft.org
+X-MailFrom: lorenz@brun.one
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: GYQFXGSGGHDPTZ3XLTZSOQA2EOLRXHGC
-X-Message-ID-Hash: GYQFXGSGGHDPTZ3XLTZSOQA2EOLRXHGC
+Message-ID-Hash: WWWMD2AYGCGOOS3BYGK5564L6XOWJBUB
+X-Message-ID-Hash: WWWMD2AYGCGOOS3BYGK5564L6XOWJBUB
 X-Mailman-Approved-At: Mon, 01 Jan 2024 13:16:43 +0000
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 3.3.9
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GYQFXGSGGHDPTZ3XLTZSOQA2EOLRXHGC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WWWMD2AYGCGOOS3BYGK5564L6XOWJBUB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,50 +97,102 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-VGVzdGVkLWJ5OiBaaGVuZ3FpYW8gWGlhIDx4aWF6aGVuZ3FpYW9AaHVhcWluLmNvcnAtcGFydG5l
-ci5nb29nbGUuY29tPg0KDQpPbiBNb24sIERlYyAxOCwgMjAyMyBhdCAxMDo1N+KAr1BNIEplcm9t
-ZSBCcnVuZXQgPGpicnVuZXRAYmF5bGlicmUuY29tPiB3cm90ZToNCg0KPiBUaGlzIGZpeGVzIGEg
-cHJvYmxlbSBpbnRyb2R1Y2VkIHdoaWxlIGZpeGluZyBFTEQgcmVwb3J0aW5nIHdpdGggbm8gamFj
-aw0KPiBzZXQuDQo+DQo+IE1vc3QgZHJpdmVyIHVzaW5nIHRoZSBoZG1pLWNvZGVjIHdpbGwgY2Fs
-bCB0aGUgJ3BsdWdnZWRfY2InIGNhbGxiYWNrDQo+IGRpcmVjdGx5IHdoZW4gcmVnaXN0ZXJlZCB0
-byByZXBvcnQgdGhlIGluaXRpYWwgc3RhdGUgb2YgdGhlIEhETUkgY29ubmVjdG9yLg0KPg0KPiBX
-aXRoIHRoZSBjb21taXQgbWVudGlvbm5lZCwgdGhpcyBvY2N1cnMgYmVmb3JlIGphY2sgaXMgcmVh
-ZHkgYW5kIHRoZQ0KPiBpbml0aWFsIHJlcG9ydCBpcyBsb3N0IGZvciBwbGF0Zm9ybXMgYWN0dWFs
-bHkgcHJvdmlkaW5nIGEgamFjayBmb3IgSERNSS4NCj4NCj4gRml4IHRoaXMgYnkgc3RvcmluZyB0
-aGUgaGRtaSBjb25uZWN0b3Igc3RhdHVzIHJlZ2FyZGxlc3Mgb2YgamFjayBiZWluZyBzZXQNCj4g
-b3Igbm90IGFuZCByZXBvcnQgdGhlIGxhc3Qgc3RhdHVzIHdoZW4gamFjayBnZXRzIHNldC4NCj4N
-Cj4gV2l0aCB0aGlzLCB0aGUgaW5pdGlhbCBzdGF0ZSBpcyByZXBvcnRlZCBjb3JyZWN0bHkgZXZl
-biBpZiBpdCBpcw0KPiBkaXNjb25uZWN0ZWQuIFRoaXMgd2FzIG5vdCBkb25lIGluaXRpYWxseSBh
-bmQgaXMgYWxzbyBhIGZpeC4NCj4NCj4gRml4ZXM6IDE1YmUzNTNkNTVmOSAoIkFTb0M6IGhkbWkt
-Y29kZWM6IHJlZ2lzdGVyIGhwZCBjYWxsYmFjayBvbiBjb21wb25lbnQNCj4gcHJvYmUiKQ0KPiBS
-ZXBvcnRlZC1ieTogWmhlbmdxaWFvIFhpYSA8eGlhemhlbmdxaWFvQGh1YXFpbi5jb3JwLXBhcnRu
-ZXIuZ29vZ2xlLmNvbT4NCj4gQ2xvc2VzOg0KPiBodHRwczovL2xvcmUua2VybmVsLm9yZy9hbHNh
-LWRldmVsL0NBRFl5RXdUTnlZK2ZSOVNnZkRhLWc2aWlEd2tVM01VZFBWQ1lleHMyXzN3YmNNOF92
-Z0BtYWlsLmdtYWlsLmNvbS8NCj4gQ2M6IEhzaW4tWWkgV2FuZyA8aHNpbnlpQGdvb2dsZS5jb20+
-DQo+IFNpZ25lZC1vZmYtYnk6IEplcm9tZSBCcnVuZXQgPGpicnVuZXRAYmF5bGlicmUuY29tPg0K
-PiAtLS0NCj4gIHNvdW5kL3NvYy9jb2RlY3MvaGRtaS1jb2RlYy5jIHwgMTIgKysrKysrKysrKy0t
-DQo+ICAxIGZpbGUgY2hhbmdlZCwgMTAgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkNCj4N
-Cj4gZGlmZiAtLWdpdCBhL3NvdW5kL3NvYy9jb2RlY3MvaGRtaS1jb2RlYy5jIGIvc291bmQvc29j
-L2NvZGVjcy9oZG1pLWNvZGVjLmMNCj4gaW5kZXggMjBkYTFlYWE0ZjFjLi4wOTM4NjcxNzAwYzYg
-MTAwNjQ0DQo+IC0tLSBhL3NvdW5kL3NvYy9jb2RlY3MvaGRtaS1jb2RlYy5jDQo+ICsrKyBiL3Nv
-dW5kL3NvYy9jb2RlY3MvaGRtaS1jb2RlYy5jDQo+IEBAIC04NTAsOCArODUwLDkgQEAgc3RhdGlj
-IGludCBoZG1pX2RhaV9wcm9iZShzdHJ1Y3Qgc25kX3NvY19kYWkgKmRhaSkNCj4gIHN0YXRpYyB2
-b2lkIGhkbWlfY29kZWNfamFja19yZXBvcnQoc3RydWN0IGhkbWlfY29kZWNfcHJpdiAqaGNwLA0K
-PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHVuc2lnbmVkIGludCBqYWNrX3N0
-YXR1cykNCj4gIHsNCj4gLSAgICAgICBpZiAoaGNwLT5qYWNrICYmIGphY2tfc3RhdHVzICE9IGhj
-cC0+amFja19zdGF0dXMpIHsNCj4gLSAgICAgICAgICAgICAgIHNuZF9zb2NfamFja19yZXBvcnQo
-aGNwLT5qYWNrLCBqYWNrX3N0YXR1cywNCj4gU05EX0pBQ0tfTElORU9VVCk7DQo+ICsgICAgICAg
-aWYgKGphY2tfc3RhdHVzICE9IGhjcC0+amFja19zdGF0dXMpIHsNCj4gKyAgICAgICAgICAgICAg
-IGlmIChoY3AtPmphY2spDQo+ICsgICAgICAgICAgICAgICAgICAgICAgIHNuZF9zb2NfamFja19y
-ZXBvcnQoaGNwLT5qYWNrLCBqYWNrX3N0YXR1cywNCj4gU05EX0pBQ0tfTElORU9VVCk7DQo+ICAg
-ICAgICAgICAgICAgICBoY3AtPmphY2tfc3RhdHVzID0gamFja19zdGF0dXM7DQo+ICAgICAgICAg
-fQ0KPiAgfQ0KPiBAQCAtODgwLDYgKzg4MSwxMyBAQCBzdGF0aWMgaW50IGhkbWlfY29kZWNfc2V0
-X2phY2soc3RydWN0DQo+IHNuZF9zb2NfY29tcG9uZW50ICpjb21wb25lbnQsDQo+DQo+ICAgICAg
-ICAgaWYgKGhjcC0+aGNkLm9wcy0+aG9va19wbHVnZ2VkX2NiKSB7DQo+ICAgICAgICAgICAgICAg
-ICBoY3AtPmphY2sgPSBqYWNrOw0KPiArDQo+ICsgICAgICAgICAgICAgICAvKg0KPiArICAgICAg
-ICAgICAgICAgICogUmVwb3J0IHRoZSBpbml0aWFsIGphY2sgc3RhdHVzIHdoaWNoIG1heSBoYXZl
-IGJlZW4NCj4gcHJvdmlkZWQNCj4gKyAgICAgICAgICAgICAgICAqIGJ5IHRoZSBwYXJlbnQgaGRt
-aSBkcml2ZXIgd2hpbGUgdGhlIGhwZCBob29rIHdhcw0KPiByZWdpc3RlcmVkLg0KPiArICAgICAg
-ICAgICAgICAgICovDQo+ICsgICAgICAgICAgICAgICBzbmRfc29jX2phY2tfcmVwb3J0KGphY2ss
-IGhjcC0+amFja19zdGF0dXMsDQo+IFNORF9KQUNLX0xJTkVPVVQpOw0KPiArDQo+ICAgICAgICAg
-ICAgICAgICByZXR1cm4gMDsNCj4gICAgICAgICB9DQo+DQo+IC0tDQo+IDIuNDIuMA0KPg0KPg0K
+This adds an override for a series of notebooks using a common config
+taken from HP's proprietary Windows driver (csaudioext).
+
+This has been tested on a HP 15-ey0xxxx device (subsystem 103C8A31)
+together with another Realtek quirk and the calibration files from the
+proprietary driver.
+
+Signed-off-by: Lorenz Brun <lorenz@brun.one>
+---
+ sound/pci/hda/cs35l41_hda_property.c | 59 ++++++++++++++++++++++++++++
+ 1 file changed, 59 insertions(+)
+
+diff --git a/sound/pci/hda/cs35l41_hda_property.c b/sound/pci/hda/cs35l41_hda_property.c
+index c83328971728..8135ea532a94 100644
+--- a/sound/pci/hda/cs35l41_hda_property.c
++++ b/sound/pci/hda/cs35l41_hda_property.c
+@@ -6,6 +6,7 @@
+ //
+ // Author: Stefan Binding <sbinding@opensource.cirrus.com>
+ 
++#include <linux/acpi.h>
+ #include <linux/gpio/consumer.h>
+ #include <linux/string.h>
+ #include "cs35l41_hda_property.h"
+@@ -81,6 +82,42 @@ static int hp_vision_acpi_fix(struct cs35l41_hda *cs35l41, struct device *physde
+ 	return 0;
+ }
+ 
++/*
++ * HP 2-channel I2C configuration with internal boost (4.1A inductor current) with no _DSD,
++ * reset GPIO can still be extracted from ACPI by index. Covers HP configurations 251, 252,
++ * 253, 254, 351, 352 and 353 in the proprietary driver (csaudioext).
++ */
++static int hp_i2c_2ch_vbst_ipk41(struct cs35l41_hda *cs35l41, struct device *physdev, int id,
++			      const char *hid)
++{
++	// In case a valid _DSD exists, use that instead of the override. This stops applying
++	// the override in case HP ever fixes their firmware.
++	if (device_property_count_u32(physdev, "cirrus,dev-index") > 0)
++		return -ENOENT;
++
++	struct cs35l41_hw_cfg *hw_cfg = &cs35l41->hw_cfg;
++
++	cs35l41->index = id == 0x40 ? 0 : 1;
++	cs35l41->channel_index = 0;
++	// Get reset GPIO (shared for both instances) from ACPI GpioIo at index 0.
++	cs35l41->reset_gpio = gpiod_get_index(physdev, NULL, 0, GPIOD_OUT_HIGH);
++	// Speaker ID GPIO is ACPI GpioIo index 1.
++	cs35l41->speaker_id = cs35l41_get_speaker_id(physdev, 0, 0, 1);
++
++	hw_cfg->spk_pos = cs35l41->index ? 1 : 0; // left:right
++	hw_cfg->gpio1.func = CS35L41_NOT_USED;
++	hw_cfg->gpio1.valid = true;
++	hw_cfg->gpio2.func = CS35L41_INTERRUPT;
++	hw_cfg->gpio2.valid = true;
++	hw_cfg->bst_type = CS35L41_INT_BOOST;
++	hw_cfg->bst_ind = 1000;
++	hw_cfg->bst_ipk = 4100;
++	hw_cfg->bst_cap = 10; // Exact value unknown, maps into correct range
++	hw_cfg->valid = true;
++
++	return 0;
++}
++
+ struct cs35l41_prop_model {
+ 	const char *hid;
+ 	const char *ssid;
+@@ -92,6 +129,28 @@ static const struct cs35l41_prop_model cs35l41_prop_model_table[] = {
+ 	{ "CLSA0100", NULL, lenovo_legion_no_acpi },
+ 	{ "CLSA0101", NULL, lenovo_legion_no_acpi },
+ 	{ "CSC3551", "103C89C6", hp_vision_acpi_fix },
++	{ "CSC3551", "103C8A28", hp_i2c_2ch_vbst_ipk41 },
++	{ "CSC3551", "103C8A29", hp_i2c_2ch_vbst_ipk41 },
++	{ "CSC3551", "103C8A2A", hp_i2c_2ch_vbst_ipk41 },
++	{ "CSC3551", "103C8A2B", hp_i2c_2ch_vbst_ipk41 },
++	{ "CSC3551", "103C8A2C", hp_i2c_2ch_vbst_ipk41 },
++	{ "CSC3551", "103C8A2D", hp_i2c_2ch_vbst_ipk41 },
++	{ "CSC3551", "103C8A2E", hp_i2c_2ch_vbst_ipk41 },
++	{ "CSC3551", "103C8A30", hp_i2c_2ch_vbst_ipk41 },
++	{ "CSC3551", "103C8A31", hp_i2c_2ch_vbst_ipk41 },
++	{ "CSC3551", "103C8BB3", hp_i2c_2ch_vbst_ipk41 },
++	{ "CSC3551", "103C8BB4", hp_i2c_2ch_vbst_ipk41 },
++	{ "CSC3551", "103C8BDF", hp_i2c_2ch_vbst_ipk41 },
++	{ "CSC3551", "103C8BE0", hp_i2c_2ch_vbst_ipk41 },
++	{ "CSC3551", "103C8BE1", hp_i2c_2ch_vbst_ipk41 },
++	{ "CSC3551", "103C8BE2", hp_i2c_2ch_vbst_ipk41 },
++	{ "CSC3551", "103C8BE9", hp_i2c_2ch_vbst_ipk41 },
++	{ "CSC3551", "103C8BDD", hp_i2c_2ch_vbst_ipk41 },
++	{ "CSC3551", "103C8BDE", hp_i2c_2ch_vbst_ipk41 },
++	{ "CSC3551", "103C8BE3", hp_i2c_2ch_vbst_ipk41 },
++	{ "CSC3551", "103C8BE5", hp_i2c_2ch_vbst_ipk41 },
++	{ "CSC3551", "103C8BE6", hp_i2c_2ch_vbst_ipk41 },
++	{ "CSC3551", "103C8B3A", hp_i2c_2ch_vbst_ipk41 },
+ 	{}
+ };
+ 
+-- 
+2.42.0
+

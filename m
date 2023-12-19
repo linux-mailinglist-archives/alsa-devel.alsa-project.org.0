@@ -2,84 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CC3A817DF2
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Dec 2023 00:14:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 915FA818023
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Dec 2023 04:13:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7DED8E11;
-	Tue, 19 Dec 2023 00:14:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7DED8E11
+	by alsa0.perex.cz (Postfix) with ESMTPS id EFF2783E;
+	Tue, 19 Dec 2023 04:13:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EFF2783E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1702941284;
-	bh=dwaaajvlQK+RoYnfVG+3t7HenD2yCmVctNtVdSjZIFg=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=iVLWqOtDBktErtQ8wx4EepomwHKuJmPgoUYfEvWLsqLNTlXR4qaA27BtbncZaSQRY
-	 TZycTOkzaZhUyA5sltXH0sI9xiOQbT7wU7xe9dOSDWKkDYvVczhIhPi7S/rg6O//nr
-	 gCYIcs4akzH5OkequJYh9//HCzN+WkEiQqCFIqKU=
+	s=default; t=1702955592;
+	bh=a+mm+4wbBWlQ1BFKye0hoRVMcM95R2BJ/arzA6Dg2Ck=;
+	h=From:To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=vVc7uVf5hXxPaThPlACiYpbubeXuToH3XpP3PdupPYYYNUjJnQk1AP6ds7aJZo5hJ
+	 qixvvefxboegwIn5lCrnrfw6Tsk4jBQx8siSTgnDtK0uwoDlMQLnRkEhUFFJSyGhBE
+	 1IL3VG+MD6Hf9x2lUmw4lG1LK8iLo58tjg55lWjE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 84097F80587; Tue, 19 Dec 2023 00:14:12 +0100 (CET)
+	id 493A9F8057B; Tue, 19 Dec 2023 04:12:41 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DB02EF8057A;
-	Tue, 19 Dec 2023 00:14:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 73549F8057A;
+	Tue, 19 Dec 2023 04:12:40 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 967A9F80425; Tue, 19 Dec 2023 00:14:05 +0100 (CET)
+	id 10253F80425; Tue, 19 Dec 2023 04:12:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D5EEDF800D2
-	for <alsa-devel@alsa-project.org>; Tue, 19 Dec 2023 00:13:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D5EEDF800D2
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=qm2qaUbJ
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 3719761166;
-	Mon, 18 Dec 2023 23:13:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A303CC433C7;
-	Mon, 18 Dec 2023 23:13:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1702941235;
-	bh=dwaaajvlQK+RoYnfVG+3t7HenD2yCmVctNtVdSjZIFg=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=qm2qaUbJ/40YK3uGi4p6xy+nqAu4D9fLiqeMagrlDlDF7ZRg7L0lxIVoTG2KReFN5
-	 Jsuh/TkZDy/BRJ6GXf2ntJRXTQ+pCpiJqusas8zrgrF3gTDic+Rjj+gz/9if0Cc4GZ
-	 Js/hCp+IhHYn4h61cGPCdS8Rj+ROp6wQyKZMMh7iwTH2gsEDVwP8cQz8x+LYQHul9v
-	 ioFq1K3gRY4urp4u8Z4lEVRvXoeHDFxnQQcby7S61TRwMSBKAVOwBJMKL71PaBnqaz
-	 hvhAfq46Vw6omYIpWuno2bPBck2g7TlPuZKwVNvQj1su541KAWpQ/n/M8ynS/7nhk6
-	 f2kBXWiMEfw5Q==
-From: Mark Brown <broonie@kernel.org>
-To: Cezary Rojewski <cezary.rojewski@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Hans de Goede <hdegoede@redhat.com>
-Cc: alsa-devel@alsa-project.org
-In-Reply-To: <20231217213221.49424-1-hdegoede@redhat.com>
-References: <20231217213221.49424-1-hdegoede@redhat.com>
-Subject: Re: [PATCH 1/2] ASoC: Intel: bytcr_rt5640: Add quirk for the
- Medion Lifetab S10346
-Message-Id: <170294123437.160555.15530673310757573225.b4-ty@kernel.org>
-Date: Mon, 18 Dec 2023 23:13:54 +0000
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-5c066
-Message-ID-Hash: JECZ4464SOGA5SS5JSNN7WEMGJ7RFX3M
-X-Message-ID-Hash: JECZ4464SOGA5SS5JSNN7WEMGJ7RFX3M
-X-MailFrom: broonie@kernel.org
+	by alsa1.perex.cz (Postfix) with ESMTPS id 84F2DF8016E
+	for <alsa-devel@alsa-project.org>; Tue, 19 Dec 2023 04:12:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84F2DF8016E
+Received: from inva021.nxp.com (localhost [127.0.0.1])
+	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 0AFCF200584;
+	Tue, 19 Dec 2023 04:12:25 +0100 (CET)
+Received: from aprdc01srsp001v.ap-rdc01.nxp.com
+ (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
+	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id C653C2005A1;
+	Tue, 19 Dec 2023 04:12:24 +0100 (CET)
+Received: from localhost.localdomain (shlinux2.ap.freescale.net
+ [10.192.224.44])
+	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 0423E1802201;
+	Tue, 19 Dec 2023 11:12:22 +0800 (+08)
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+To: shengjiu.wang@gmail.com,
+	Xiubo.Lee@gmail.com,
+	festevam@gmail.com,
+	nicoleotsuka@gmail.com,
+	lgirdwood@gmail.com,
+	broonie@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	alsa-devel@alsa-project.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org
+Subject: [PATCH v2] ASoC: fsl_sai: Fix channel swap issue on i.MX8MP
+Date: Tue, 19 Dec 2023 10:30:57 +0800
+Message-Id: <1702953057-4499-1-git-send-email-shengjiu.wang@nxp.com>
+X-Mailer: git-send-email 2.7.4
+X-Virus-Scanned: ClamAV using ClamSMTP
+Message-ID-Hash: GHID6ISBFR7VOCRV2UF6PP4W6FXXGXM7
+X-Message-ID-Hash: GHID6ISBFR7VOCRV2UF6PP4W6FXXGXM7
+X-MailFrom: shengjiu.wang@nxp.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -91,7 +79,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JECZ4464SOGA5SS5JSNN7WEMGJ7RFX3M/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GHID6ISBFR7VOCRV2UF6PP4W6FXXGXM7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,40 +88,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sun, 17 Dec 2023 22:32:20 +0100, Hans de Goede wrote:
-> Add a quirk for the Medion Lifetab S10346, this BYTCR tablet has no CHAN
-> package in its ACPI tables and uses SSP0-AIF1 rather then SSP0-AIF2 which
-> is the default for BYTCR devices.
-> 
-> 
+When flag mclk_with_tere and mclk_direction_output enabled,
+The SAI transmitter or receiver will be enabled in very early
+stage, that if FSL_SAI_xMR is set by previous case,
+for example previous case is one channel, current case is
+two channels, then current case started with wrong xMR in
+the beginning, then channel swap happen.
 
-Applied to
+The patch is to clear xMR in hw_free() to avoid such
+channel swap issue.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Fixes: 3e4a82612998 ("ASoC: fsl_sai: MCLK bind with TX/RX enable bit")
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+---
+changes in v2:
+- add fixes tag
 
-Thanks!
+ sound/soc/fsl/fsl_sai.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-[1/2] ASoC: Intel: bytcr_rt5640: Add quirk for the Medion Lifetab S10346
-      commit: 99c7bb44f5749373bc01b73af02b50b69bcbf43d
-[2/2] ASoC: Intel: bytcr_rt5640: Add new swapped-speakers quirk
-      commit: b1b6131bca35a55a69fadc39d51577968fa2ee97
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
+index 32bbe5056a63..546bd4e333b5 100644
+--- a/sound/soc/fsl/fsl_sai.c
++++ b/sound/soc/fsl/fsl_sai.c
+@@ -714,6 +714,9 @@ static int fsl_sai_hw_free(struct snd_pcm_substream *substream,
+ 	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
+ 	unsigned int ofs = sai->soc_data->reg_offset;
+ 
++	/* Clear xMR to avoid channel swap with mclk_with_tere enabled case */
++	regmap_write(sai->regmap, FSL_SAI_xMR(tx), 0);
++
+ 	regmap_update_bits(sai->regmap, FSL_SAI_xCR3(tx, ofs),
+ 			   FSL_SAI_CR3_TRCE_MASK, 0);
+ 
+-- 
+2.34.1
 

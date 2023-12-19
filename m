@@ -2,88 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 921E9818F3F
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Dec 2023 19:07:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D947818F42
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Dec 2023 19:07:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DA085E75;
-	Tue, 19 Dec 2023 19:07:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA085E75
+	by alsa0.perex.cz (Postfix) with ESMTPS id DA905EA5;
+	Tue, 19 Dec 2023 19:07:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA905EA5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1703009247;
-	bh=2AlFxLi7oJh7Wa2NVO96A7tL3W01cNMV+NcW1zh9qDM=;
+	s=default; t=1703009258;
+	bh=mX3mXPFqXXqC4VfTi5VYr6tit84H9mmIsAtrlGk12M4=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=AMB6meUnYLUwkLd6DdUjJ7YtaUlvKKVKSmh3op0GZoGSs3vU3alq72hhLYZ0EaGi2
-	 cZg4lQrCnyi4yJnIRY3a5d6LBH1aUSE1HL4ijkJlNRJFw4z+hXM1Un5Ws8k0YwooBw
-	 p6sRreYUXMmmaeQawg2Tj8b6Xg1u3dzakun6IWFo=
+	b=Nf2/dWtbzp01WWwnM7jb7ukkI2tOeO/wcuAmHVJfFse4iesKhERWNbqQlAi91QmH+
+	 gTs5uB0+5/LptQYXSyQwMmXHgcuUTePbaAnf1vjjyAyQOEnKOShy10QmzNnsaHF3C0
+	 3l0HTAUzFkf5M5wQFOnuBXol5zJ0f7y6dqWI+4GE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B9DFCF8058C; Tue, 19 Dec 2023 19:06:55 +0100 (CET)
+	id 80379F805AC; Tue, 19 Dec 2023 19:07:06 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C4A84F8055C;
-	Tue, 19 Dec 2023 19:06:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EAC95F805AC;
+	Tue, 19 Dec 2023 19:07:05 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F3BE3F80425; Tue, 19 Dec 2023 19:06:48 +0100 (CET)
+	id 39F13F805AB; Tue, 19 Dec 2023 19:07:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BAA9CF800D2
-	for <alsa-devel@alsa-project.org>; Tue, 19 Dec 2023 19:06:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BAA9CF800D2
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6BDFEF80431
+	for <alsa-devel@alsa-project.org>; Tue, 19 Dec 2023 19:06:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6BDFEF80431
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=n0x1jHOM
+ header.s=k20201202 header.b=X5Fso2ZC
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by ams.source.kernel.org (Postfix) with ESMTP id 40CD5B81A3C;
-	Tue, 19 Dec 2023 18:06:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FC1EC433C8;
-	Tue, 19 Dec 2023 18:06:36 +0000 (UTC)
+	by ams.source.kernel.org (Postfix) with ESMTP id 51E96B81A38;
+	Tue, 19 Dec 2023 18:06:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA685C433C8;
+	Tue, 19 Dec 2023 18:06:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1703009199;
-	bh=2AlFxLi7oJh7Wa2NVO96A7tL3W01cNMV+NcW1zh9qDM=;
+	s=k20201202; t=1703009211;
+	bh=mX3mXPFqXXqC4VfTi5VYr6tit84H9mmIsAtrlGk12M4=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=n0x1jHOM5g1uy9hxI58NgHZwTsQEJjCGuV3K/cBxMRRFgUyHp/TndRdTCsbAlSNud
-	 F2fV1NFM8jwNWonTXby5r/bEyKmcc4qTFXE6RhHQRHe7k2Wfa9u4snAogXXEoU2sbQ
-	 jULiZXGkQ1uzOzqf7Nol9zwJ9O/8EFhmdGcgUFSqeAVv26irpJ62lzFHFo/wTJe/a9
-	 g59D7OcAyl+B+YvhpMbR+WqGwmRYWEnS1J/R56kDJuWceOcFJvomejes37rlEZxYYu
-	 i38C2M1kPKzrR6OG+/hbCSczVKLbDAOqgR89+V2tkvMzeJ4XDtIukGdjfBif5LmLQk
-	 o5V3yMKRvh5SA==
+	b=X5Fso2ZCkdNDxjJZZapeGbWEXbNpXHrr/4p5/ujJt/5RtrF3t8asF2x5nme2jy1N5
+	 7KTgrcZAY0pujvMa6oG5oJ2diHwOt6ruMB6o3odVE41XqPwh8IrO7+7SfOqrtGT8u4
+	 /cylYGU+K8WdpRjw0P9hVXKMYYpkMB1CKj82MX5R4jiY7+m+pbk7Ranq6/qrP2Yicu
+	 O3PL493IODo8cBQJcaygpw+7fAUN7j6f2Wmuzmm3waVPt5geVqDNWMv0Yoz3G/Q+fI
+	 7SolOBOKW9RNblTRIJ8SKVjRQN/vovtQY0ezs6Usd1iBwRiKwqqnwW4Ilmfaae6p4F
+	 fVbRINzxgN6rQ==
 From: Mark Brown <broonie@kernel.org>
-To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Neil Armstrong <neil.armstrong@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: 
- <20231212-topic-sm8650-upstream-snd-card-v1-0-fbfc38471204@linaro.org>
-References: 
- <20231212-topic-sm8650-upstream-snd-card-v1-0-fbfc38471204@linaro.org>
-Subject: Re: [PATCH 0/2] ASoC: qcom: add sound card support for SM8650
-Message-Id: <170300919611.125466.12203726463843347252.b4-ty@kernel.org>
-Date: Tue, 19 Dec 2023 18:06:36 +0000
+To: Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Brent Lu <brent.lu@intel.com>, Cezary Rojewski <cezary.rojewski@intel.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>, Jaroslav Kysela <perex@perex.cz>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Shengjiu Wang <shengjiu.wang@gmail.com>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>, Takashi Iwai <tiwai@suse.com>,
+ Xiubo Li <Xiubo.Lee@gmail.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: Fabio Estevam <festevam@gmail.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Nicolin Chen <nicoleotsuka@gmail.com>, alsa-devel@alsa-project.org,
+ linux-sound@vger.kernel.org
+In-Reply-To: <87il5ebvom.wl-kuninori.morimoto.gx@renesas.com>
+References: <87il5ebvom.wl-kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH 0/5] ASoC: don't use original dummy dlc
+Message-Id: <170300920760.125466.4732601724586976464.b4-ty@kernel.org>
+Date: Tue, 19 Dec 2023 18:06:47 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-5c066
-Message-ID-Hash: U6RYX3Y37LNFD5HZ5MUI5VRSRTIAQARY
-X-Message-ID-Hash: U6RYX3Y37LNFD5HZ5MUI5VRSRTIAQARY
+Message-ID-Hash: GCMFUSALC4BOW4DOCY55VAOMRR4HDIMH
+X-Message-ID-Hash: GCMFUSALC4BOW4DOCY55VAOMRR4HDIMH
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -96,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/U6RYX3Y37LNFD5HZ5MUI5VRSRTIAQARY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GCMFUSALC4BOW4DOCY55VAOMRR4HDIMH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -105,12 +110,16 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 12 Dec 2023 09:08:18 +0100, Neil Armstrong wrote:
-> Document the SM8650 sound card using the SM8450 fallback
-> and add the SM8650 compatible to the sc8280xp sound card
-> driver to use the sm8650 card driver_name like SM8450 & SM8550.
+On Mon, 04 Dec 2023 01:31:10 +0000, Kuninori Morimoto wrote:
+> This patch-set try to not use original dummy dlc.
 > 
+> "Empty" dlc might be used on Platform, but "dummy" dlc is not needed
+> for it. [PATCH 1/5][PATCH 2/5] removes "dummy" dlc from Platform.
 > 
+> Now ASoC have common dummy dlc (= snd_soc_dummy_dlc).
+> [PATCH 3/5][PATCH 4/5] will use it instead of original dummy dlc.
+> 
+> [...]
 
 Applied to
 
@@ -118,10 +127,16 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: dt-bindings: qcom,sm8250: document SM8650 sound card
-      commit: 773df207fdd6e17d7a43abf83ea155ade9a95f79
-[2/2] ASoC: qcom: sc8280xp: Add support for SM8650
-      commit: 7211094dd065908747a143f9adeff41cfdcf37c0
+[1/5] ASoC: fsl: fsl-asoc-card: don't need DUMMY Platform
+      commit: 7465582e0b18859d3681192ec2ccf22a81370040
+[2/5] ASoC: samsung: odroid: don't need DUMMY Platform
+      commit: 56558d6ab8c09c416bdb6d72b7e02894539a882a
+[3/5] ASoC: intel: hdaudio.c: use snd_soc_dummy_dlc
+      commit: c2dfe29f30d8850af324449f416491b171af19aa
+[4/5] ASoC: sof: use snd_soc_dummy_dlc
+      commit: e8776ff9ce9f5a8a9d8294101fd2924cebdd2da1
+[5/5] ASoC: soc.h: don't create dummy Component via COMP_DUMMY()
+      commit: 13f58267cda3d6946c8f4de368ad5d4a003baa61
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

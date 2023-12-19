@@ -2,163 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 269058188D1
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Dec 2023 14:44:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C5EC818BCD
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Dec 2023 17:06:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7988BDF1;
-	Tue, 19 Dec 2023 14:44:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7988BDF1
+	by alsa0.perex.cz (Postfix) with ESMTPS id AB59AE84;
+	Tue, 19 Dec 2023 17:06:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB59AE84
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1702993487;
-	bh=pe/SLWb/JHE15SXsXYyG5myNC/6luDFfXmOgPL4BKKo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=EW9f1YT+/RDcVNv+9KcMw4Li9ZZfui3Y2Jya1WIOHIeCgDmMug3wky9Owtl/n+Qr9
-	 IBRp41FWLwuBNXIqHqv39i3dJM4ThdVoMXNt+sI0XVz7/5cF021HaL9z5b9fo6CSUo
-	 HuWhSCrr6Wh7snpvQQ9tFjzSXakV6ntFu6a0tokE=
+	s=default; t=1703002003;
+	bh=dFfTW4Ywg/AnVhHHspPjP/ls8JhEBJSKWAKuZw3hh00=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=P320QcwshGMQSLitJtioU1FdOaC7kIc32FQnCnzeIKi2iyMdc/kLTSXUfI/8nvfWP
+	 vq6CitMB3Y60HbFwaR3f+nDIAaVY/qoPkwqw123/Kcad2U+bzHORlwmUg+dxGI2EGE
+	 JFI3reWr3MBAwj6Lxj2lVfYBjBvOr4XX5WCYG8iY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9D113F8057D; Tue, 19 Dec 2023 14:44:15 +0100 (CET)
+	id 43164F805C3; Tue, 19 Dec 2023 17:06:02 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E0987F8057B;
-	Tue, 19 Dec 2023 14:44:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9B273F80580;
+	Tue, 19 Dec 2023 17:06:02 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 85DC5F80425; Tue, 19 Dec 2023 14:44:10 +0100 (CET)
+	id 6CAD6F80212; Tue, 19 Dec 2023 17:05:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [IPv6:2a00:1450:4864:20::532])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DACA2F80124
-	for <alsa-devel@alsa-project.org>; Tue, 19 Dec 2023 14:44:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DACA2F80124
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4741DF800D2
+	for <alsa-devel@alsa-project.org>; Tue, 19 Dec 2023 17:05:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4741DF800D2
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=qJ/ZKxQQ
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-553a45208ffso747609a12.3
-        for <alsa-devel@alsa-project.org>;
- Tue, 19 Dec 2023 05:44:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1702993442; x=1703598242;
- darn=alsa-project.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=6po6KMiINGJs5wNst8xWPOi02cNvHAcYG9RtuorVPJs=;
-        b=qJ/ZKxQQ4kMW15hPP3xIrTvtrdMrXMJfC80apWMQuncWreAp+Dmy6jEYLE36NGLPVA
-         Zh9+K/hEVyBrPKhPRT7Oqvpgp9yL9A8ej5vnsQX8mmTnU5CjlsedYCrcJDRpMfqzKual
-         IDuoceSndT2xYyN62UETsIozNf4Cpqg/MGKUQY0LFTTnGxtYVxkri9W0/+HzGhti6wgd
-         vxt6q88bK2/WfbX0mDYiGqjU6oPvn69o4lgD9W9vTQvm2emrjdPhUDma+qfRHtRSnVkD
-         0UrLn/jMqBa4g8LiKCEoQWbHyjmj8TzUxq8TaPLGtdj9MeWFZf30WCbHFZO140pXwT+B
-         1osw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702993442; x=1703598242;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=6po6KMiINGJs5wNst8xWPOi02cNvHAcYG9RtuorVPJs=;
-        b=QoOjEY9zr5P8Ctod8SVttP8XdbvbqjvABo5nASLq0gGjDH4lqDUHy/kstlsUEQY5IK
-         l7Wl0m1XiObJyxRjr3iAAD7tU4APHF7Rojb0boDRE4x9bxt3KUj6LYTyibp0pljk4A+g
-         9ARSBAdqFNO6OLQAyBU2KoYij9bKfwbRnVGNQZ6F0iYcILX1S/nblFxqjOPESX9hg1I2
-         D/BSbF+LSaef0wydNDhtuaERKH2f/VBYDKhYgUzKJOdlpFKIvP/NvSrjLpmNAfnWTGzA
-         1tg0i7t1cmmSTbL8aFm4DSJDNveO/nZOHF7GPDZ1NTfqUUZAMq+9Z3+DHtfgSOei1N7H
-         I8xw==
-X-Gm-Message-State: AOJu0Yxhl3oidoGV6fwwOyn3e1R51DkZ2pJlA/jTcPSnAi05VCY3n7QH
-	ZinUuzyFBc8UNuG7Xj3tfii6Dg==
-X-Google-Smtp-Source: 
- AGHT+IEy//AKQpCkTtEgDyWAS+2xkqN4uRHNIq2B2im9iWDLdRwfYvCMu2RI1Ibdo4kCapH+4Ej0sQ==
-X-Received: by 2002:a17:906:2086:b0:a23:2c38:753b with SMTP id
- 6-20020a170906208600b00a232c38753bmr1228938ejq.173.1702993442665;
-        Tue, 19 Dec 2023 05:44:02 -0800 (PST)
-Received: from [192.168.1.20] ([178.197.218.27])
-        by smtp.gmail.com with ESMTPSA id
- uv8-20020a170907cf4800b00a1d232b39b9sm15254867ejc.184.2023.12.19.05.44.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 19 Dec 2023 05:44:01 -0800 (PST)
-Message-ID: <bb5f7150-e9ab-4fd0-a727-db348912d371@linaro.org>
-Date: Tue, 19 Dec 2023 14:43:58 +0100
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=EZwCGzKC
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id B8D2961403;
+	Tue, 19 Dec 2023 16:05:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 394FBC433CA;
+	Tue, 19 Dec 2023 16:05:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1703001943;
+	bh=dFfTW4Ywg/AnVhHHspPjP/ls8JhEBJSKWAKuZw3hh00=;
+	h=From:To:In-Reply-To:References:Subject:Date:From;
+	b=EZwCGzKC1l35Wk38SgOiMAWDej7vsInLJWFf/Frx6JArZxgiihEL+axeTVAJsz8T9
+	 BF2WyoDd3J8XObr7sn6XbhFCj1GaPxJvsuOB26BoXIGsM5dqyxOEDgwtZpxIoN4wwi
+	 Oau/Dh7rsZIAH7WPof7tDf+Y1jGRB0L/WgyF5mMM6P7cOcok1IMlwib1ptQK178ZCz
+	 wb+qf/ORQBpg1stzbdAc6tDWW4c8dxskTSMSnScN/3C73rgJFvyPbCXNHFHnGDEv6A
+	 1EuZx2G/QCEhRZ/HFwGlwV/SZNullZWiCAkrbsClFSf3rJdxOHoipDbqoN3QooPE/Y
+	 ZLIdkrUJ5KF4w==
+From: Mark Brown <broonie@kernel.org>
+To: shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com, festevam@gmail.com,
+ nicoleotsuka@gmail.com, lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
+ alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org,
+ Shengjiu Wang <shengjiu.wang@nxp.com>
+In-Reply-To: <1702953057-4499-1-git-send-email-shengjiu.wang@nxp.com>
+References: <1702953057-4499-1-git-send-email-shengjiu.wang@nxp.com>
+Subject: Re: [PATCH v2] ASoC: fsl_sai: Fix channel swap issue on i.MX8MP
+Message-Id: <170300194095.59057.18227409280630031139.b4-ty@kernel.org>
+Date: Tue, 19 Dec 2023 16:05:40 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ASoC: dt-bindings: qcom,lpass-va-macro: remove spurious
- contains in if statement
-Content-Language: en-US
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@quicinc.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Liam Girdwood
- <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: 
- <20231219-topic-sm8x50-upstream-va-macro-bindings-fix-v1-1-ae133886f70e@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
- 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
- D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: 
- <20231219-topic-sm8x50-upstream-va-macro-bindings-fix-v1-1-ae133886f70e@linaro.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: YOQIL7MCBRPH4H3DLG2QGQA7TYNCIXWR
-X-Message-ID-Hash: YOQIL7MCBRPH4H3DLG2QGQA7TYNCIXWR
-X-MailFrom: krzysztof.kozlowski@linaro.org
+X-Mailer: b4 0.13-dev-5c066
+Message-ID-Hash: XXFPQVHXAIYY4GEIUAVQCMDKIGSZEBE3
+X-Message-ID-Hash: XXFPQVHXAIYY4GEIUAVQCMDKIGSZEBE3
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -170,31 +89,49 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YOQIL7MCBRPH4H3DLG2QGQA7TYNCIXWR/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XXFPQVHXAIYY4GEIUAVQCMDKIGSZEBE3/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 19/12/2023 14:23, Neil Armstrong wrote:
-> Remove this spurious "contains" which causes the bindings check of
-> qcom,sm8450-lpass-va-macro compatible to fail with:
-> codec@33f0000: clocks: [[156, 57, 1], [156, 102, 1], [156, 103, 1], [156, 70, 1]] is too long
->         from schema $id: http://devicetree.org/schemas/sound/qcom,lpass-va-macro.yaml#
-> codec@33f0000: clock-names: ['mclk', 'macro', 'dcodec', 'npl'] is too long
->         from schema $id: http://devicetree.org/schemas/sound/qcom,lpass-va-macro.yaml#
+On Tue, 19 Dec 2023 10:30:57 +0800, Shengjiu Wang wrote:
+> When flag mclk_with_tere and mclk_direction_output enabled,
+> The SAI transmitter or receiver will be enabled in very early
+> stage, that if FSL_SAI_xMR is set by previous case,
+> for example previous case is one channel, current case is
+> two channels, then current case started with wrong xMR in
+> the beginning, then channel swap happen.
 > 
-> Seems the double "contains" was considered as valid by the tool but broke
-> the entire if statements.
-> 
-> Fixes: f243ef746d0a ("ASoC: dt-bindings: qcom,lpass-va-macro: Add SM8650 LPASS VA")
+> [...]
 
+Applied to
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Best regards,
-Krzysztof
+Thanks!
+
+[1/1] ASoC: fsl_sai: Fix channel swap issue on i.MX8MP
+      commit: 8f0f01647550daf9cd8752c1656dcb0136d79ce1
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 

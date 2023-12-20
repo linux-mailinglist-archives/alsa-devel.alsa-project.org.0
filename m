@@ -2,101 +2,119 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49FDB81A1CD
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Dec 2023 16:06:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C189781A205
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Dec 2023 16:17:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 870BD83A;
-	Wed, 20 Dec 2023 16:06:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 870BD83A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5769C836;
+	Wed, 20 Dec 2023 16:17:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5769C836
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1703084783;
-	bh=Fn78F//SgOCPwTkyAwA2Ps1c7j0bHGkF3dZIGscnqd8=;
+	s=default; t=1703085437;
+	bh=ooCIIsodHdSkzvsLyZj9BJniMAGsODY3Idjs1nuTlr0=;
 	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=oWNZAk9hvBppqNNlbk+sSwtkpeezHqVi5wygBLiAFwho6b+8BR5qaEriFNxRtl1Mh
-	 pUx9wgFTw1QvVxz7hbImZzCfUYmAVnnAlNwgXxIKGV+o2B1qoZSAWZ54Ia9Tiw+xKO
-	 jYmVedFGP3g7zSSBAMoeGlRgxL9zgW1IBHdf9eNE=
+	b=Zi0GfOkr4pe5SrQpdCmUAm+xg3G/pqnPrjWCvOUSJ7v2UQiaYWTbAQia9lRLJSy+I
+	 J45P9cq+FEeNPGQ5jcS/O/XsFRUa7AkVMypcO9j+pgUMW3ulOeEKWo01iPiB9v54k+
+	 GUTnrRnjiym7zqg6Av7X/uffp0kDyUK3Ql2LclPQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8B859F80563; Wed, 20 Dec 2023 16:05:52 +0100 (CET)
+	id 6A0FBF8055A; Wed, 20 Dec 2023 16:16:45 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 047A5F8056F;
-	Wed, 20 Dec 2023 16:05:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A2EECF8057B;
+	Wed, 20 Dec 2023 16:16:45 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1B093F80425; Wed, 20 Dec 2023 16:05:47 +0100 (CET)
+	id 4330BF800D2; Wed, 20 Dec 2023 16:16:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BEDE4F800D2
-	for <alsa-devel@alsa-project.org>; Wed, 20 Dec 2023 16:05:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BEDE4F800D2
+	by alsa1.perex.cz (Postfix) with ESMTPS id B68B2F800D2
+	for <alsa-devel@alsa-project.org>; Wed, 20 Dec 2023 16:16:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B68B2F800D2
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=dee+QAkN
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 3BKC0EC3006041;
-	Wed, 20 Dec 2023 09:05:36 -0600
+ header.s=PODMain02222019 header.b=OU7qWuhi
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 3BKFAu6j013270;
+	Wed, 20 Dec 2023 09:16:33 -0600
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
 	date:from:to:cc:subject:message-id:references:mime-version
-	:content-type:in-reply-to; s=PODMain02222019; bh=VoS23jY/2oEqOUF
-	sm3GzzqEiLhJ034GXskQI+tgrc7U=; b=dee+QAkNAinYv7/7btgw9BYo9vmwgjg
-	Ugi8oWb+WzxtsHdYI/RmNDdnqNFyswVxKvqfGGVjkQyyFDPZ4kS4NwgEpJJPc+TS
-	6OgvFkduHH1BtR663ieyDE/agr9DSGS1KSmiWM13ZCbOgf2Fe5rEF6+KniyWKcYx
-	VISklsB6go6QWz0wBgg0Pl0ZXp4Bx/iDtjzMQmc3M8kxHq9USRsy7xWopQKqkbTE
-	v21+2qhe5DX0npPzUvYBcGxUtEAsBKj75G6RXCALrvYoU5/Hy1uMXqqz92bbSkgX
-	6pVK8uL06169pIS1tCkkNUes+vyZM9rN0JOWMGH1Zu6a72MnKvwGmKA==
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3v196ndjhm-1
+	:content-type:in-reply-to; s=PODMain02222019; bh=H40IqBOxm3jSi5g
+	QtOQ0V4uc0WBm+P5NltYmz5Hxiyc=; b=OU7qWuhiV4gvDR3uVcl2RGqDOv37Ft2
+	2P4VNcVU5enDwtHtX6KTsW5uUToTLLdeoRYnVN1phNMjev7AbZTqMnfkEw0GRdJ/
+	QhdOLa1ew70PcZfZkTWRAZy//BvQw/wimLqf1cTSx2XIj6KvZh1UlYvagdpfgxCb
+	S/pEQk1oeU0QLE2bEL+uPhQdfck2H3/6S4Cuz1vJQ701+OFGkaSOeMxh96QDLG6V
+	bI9fW5AwHyNVoixUStF4Syf0fTacxWEJWN1gQKKdQdb1/kT3n/zb0kB0Di6GJXku
+	ESL5vbnnc3ygpdEQ7SwWA3P8jsiOZNC/nN5b8IhBvey2VjAH1N2AN4Q==
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3v1a625mqb-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 20 Dec 2023 09:05:36 -0600 (CST)
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+	Wed, 20 Dec 2023 09:16:33 -0600 (CST)
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Wed, 20 Dec
- 2023 15:05:34 +0000
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.40 via Frontend Transport; Wed, 20 Dec 2023 15:05:34 +0000
+ 2023 15:16:31 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.40 via Frontend
+ Transport; Wed, 20 Dec 2023 15:16:31 +0000
 Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com
  [198.61.86.93])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 7612011CC;
-	Wed, 20 Dec 2023 15:05:34 +0000 (UTC)
-Date: Wed, 20 Dec 2023 15:05:34 +0000
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 69CD611D1;
+	Wed, 20 Dec 2023 15:16:31 +0000 (UTC)
+Date: Wed, 20 Dec 2023 15:16:31 +0000
 From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Jaroslav Kysela <perex@perex.cz>
-CC: <pierre-louis.bossart@linux.intel.com>, <bard.liao@intel.com>,
-        <mengdong.lin@intel.com>, <patches@opensource.cirrus.com>,
-        <alsa-devel@alsa-project.org>
-Subject: Re: [PATCH alsa-ucm-conf v3 1/2] sof-soundwire: Add basic support
- for cs42l43
-Message-ID: <20231220150534.GC14858@ediswmail.ad.cirrus.com>
-References: <20231206164612.1362203-1-ckeepax@opensource.cirrus.com>
- <adef7c2f-7c52-46b4-b595-cbf8970b273b@perex.cz>
- <20231207095524.GM14858@ediswmail.ad.cirrus.com>
- <d3ed56d5-2b1a-4626-8b18-0f9c8bb48c73@perex.cz>
- <20231208120026.GO14858@ediswmail.ad.cirrus.com>
- <20231219164539.GB14858@ediswmail.ad.cirrus.com>
- <4ba79276-3b37-46ea-ad6f-805f51788c0c@perex.cz>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+CC: Mark Brown <broonie@kernel.org>, <linux-sound@vger.kernel.org>,
+        <alsa-devel@alsa-project.org>, <tiwai@suse.de>,
+ <vinod.koul@intel.com>,
+        Bard
+ liao <yung-chuan.liao@linux.intel.com>,
+        Ranjani Sridharan
+	<ranjani.sridharan@linux.intel.com>,
+        Peter Ujfalusi
+	<peter.ujfalusi@linux.intel.com>,
+        Kai Vehmanen
+	<kai.vehmanen@linux.intel.com>,
+        <srinivas.kandagatla@linaro.org>,
+        Krzysztof
+ Kozlowski <krzysztof.kozlowski@linaro.org>,
+        <vijendar.mukunda@amd.com>,
+        Richard Fitzgerald <rf@opensource.cirrus.com>,
+        Shuming Fan
+	<shumingf@realtek.com>, Jack Yu <jack.yu@realtek.com>,
+        Oder Chiou
+	<oder_chiou@realtek.com>
+Subject: Re: [RFC PATCH 01/16] Documentation: driver: add SoundWire BRA
+ description
+Message-ID: <20231220151631.GD14858@ediswmail.ad.cirrus.com>
+References: <20231207222944.663893-1-pierre-louis.bossart@linux.intel.com>
+ <20231207222944.663893-2-pierre-louis.bossart@linux.intel.com>
+ <38d0c1c9-d60c-4ddd-b2ee-091d1717a377@sirena.org.uk>
+ <5b8e74ad-460f-4e68-a17b-3131d810f29b@linux.intel.com>
+ <ZXOPWRWvrRddOWpT@finisterre.sirena.org.uk>
+ <700e564d-7e87-463a-a764-c4713ddf11cd@linux.intel.com>
+ <bec481f0-5361-4090-b69c-1123f83ac8ac@sirena.org.uk>
+ <f24a2a89-3d8a-4a6d-849a-cddbae4c1e03@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <4ba79276-3b37-46ea-ad6f-805f51788c0c@perex.cz>
+In-Reply-To: <f24a2a89-3d8a-4a6d-849a-cddbae4c1e03@linux.intel.com>
 User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-ORIG-GUID: ibc3TvWmVPSEaBtM_-8okC8rOUqO5j3e
-X-Proofpoint-GUID: ibc3TvWmVPSEaBtM_-8okC8rOUqO5j3e
+X-Proofpoint-GUID: z-sJ_nunaaRtA2h0EEviAt3_2TDvFNd3
+X-Proofpoint-ORIG-GUID: z-sJ_nunaaRtA2h0EEviAt3_2TDvFNd3
 X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: WEQBSMOGI75ADZBSGLKXELNGC5KB525J
-X-Message-ID-Hash: WEQBSMOGI75ADZBSGLKXELNGC5KB525J
+Message-ID-Hash: FT4E2VPS2HVFEZLYNQZUG2EPLRYCFOBC
+X-Message-ID-Hash: FT4E2VPS2HVFEZLYNQZUG2EPLRYCFOBC
 X-MailFrom: prvs=7718adeda9=ckeepax@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -109,7 +127,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WEQBSMOGI75ADZBSGLKXELNGC5KB525J/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FT4E2VPS2HVFEZLYNQZUG2EPLRYCFOBC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,57 +136,44 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, Dec 19, 2023 at 07:29:21PM +0100, Jaroslav Kysela wrote:
-> On 19. 12. 23 17:45, Charles Keepax wrote:
-> >On Fri, Dec 08, 2023 at 12:00:26PM +0000, Charles Keepax wrote:
-> >>On Thu, Dec 07, 2023 at 02:56:17PM +0100, Jaroslav Kysela wrote:
-> >>>On 07. 12. 23 10:55, Charles Keepax wrote:
-> >>>>On Wed, Dec 06, 2023 at 06:26:17PM +0100, Jaroslav Kysela wrote:
-> >>>>>On 06. 12. 23 17:46, Charles Keepax wrote:
-> @@ -148,7 +148,7 @@ static snd_ctl_numid_t
-> *remap_numid_child_new(snd_ctl_remap_t *priv, unsigned in
+On Tue, Dec 19, 2023 at 06:08:15PM +0100, Pierre-Louis Bossart wrote:
+> On 12/19/23 17:53, Mark Brown wrote:
+> > On Tue, Dec 19, 2023 at 05:50:30PM +0100, Pierre-Louis Bossart wrote:
+> >>> grep for regmap_.*async - cs_dsp.c is the upstream example in a driver,
+> >>> or there's the rbtree cache sync code which uses a back door to go into
+> >>> an async mode.  Basically just variants of all the normal regmap I/O
+> >>> calls with a _complete() call you can use to wait for everything to
+> >>> happen.  The implementation is a bit heavyweight since it was written to
+> >>> work with fairly slow buses.
+> > 
+> >> I spent a fair amount of time this afternoon trying to understand the
+> >> regmap_async parts, and I am not following where in the code there is an
+> >> ordering requirement/enforcement between async and sync usages.
+> > 
+> > The only actual async implementation is SPI which processes things in
+> > order of submission, the sync API wraps the async API.
+> > 
+> >> Also is this just me spacing out or there is no regmap_raw_read_async()?
+> > 
+> > Right, there was never any need.
 > 
->         if (numid_child == 0)
->                 return NULL;
-> -       if (remap_find_numid_app(priv, numid_child)) {
-> +       if (priv->numid_remap_active && remap_find_numid_app(priv, numid_child)) {
+> ok. I am starting to think that we could have a new type of regmap, say
+> "regmap-sdw-bra", where the use of write_raw_async() would rely on the
+> send/wait bus primitives, and write_raw() would fallback to the regular
+> read/write commands. We'd need a mutual exclusion to prevent parallel
+> async/sync access to the same regmap.
 > 
+> In other words, "memory" areas that are used for firmware downloads
+> would be moved to a different regmap with async capabilities and no
+> caching support.
 
-This fix seems to work for me, thanks.
-
-> >It would seem the primary issue is here, one needs to add:
-> >
-> >CaptureCTL "default:${CardId}"
-> >PlaybackCTL "default:${CardId}"
-> 
-> Look for 'PlaybackMixer "default:' strings in configs for sound
-> servers and PlaybackMixerElem corresponding values. Sound servers
-> does not use the control API directly but the simple mixer API.
-> 
-> The LibraryConfig blocks are added to the standard configuration and
-> there are 2 ways to use them.
-> 
-> 1) private configuration - _ucm####. prefix (only in memory for UCM apps)
-> 2) blocks can be saved using cfg-save sequence command (used in
-> ucm2/lib/ctl-remap.conf)
-> 
-> The second case - ctl-remap.conf - should save new configurations to
-> /var/lib/alsa/card#.conf.d and the global configuration
-> (/usr/share/alsa/alsa.conf) will include them. So the default
-> devices should be modified. You may also prepare/test configs in
-> ~/.asoundrc and then copy them to ucm configuration files.
-> 
-> Also note that the remapping is for the application side (API), UCM
-> sequences are using the direct hw: controls.
-
-Can I just check I follow here, you are saying it would be
-unexpected to use the remapped controls in the ucm configuration
-itself, only other applications would be expected to use the
-remapped controls?
-
-Thank you very much for the detailed reply, there is a lot for me
-to think through there so I will try to go through that and
-likely be back with a new spin of the patch in the new year.
+I would be a little inclined to say leave adding a regmap for a
+follow up series, whether we add it to the existing regmap or add
+a new one, or whatever, it should all sit happily on top of the
+API being added in this series. Makes it a little more contained
+to focus on one area at a time, and leave this series as adding
+core support for BRA. But that said, if we really want to I don't
+feel mega strongly on this one.
 
 Thanks,
 Charles

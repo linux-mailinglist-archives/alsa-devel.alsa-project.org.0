@@ -2,154 +2,122 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BD5281B288
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 Dec 2023 10:37:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F74E81B2D8
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 Dec 2023 10:47:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DEDD783E;
-	Thu, 21 Dec 2023 10:37:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DEDD783E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3360B844;
+	Thu, 21 Dec 2023 10:47:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3360B844
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1703151452;
-	bh=w076BQh5dHLwPvxVT09CAQD0wPnab9geAUgUysm4WGs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1703152044;
+	bh=2mPypVus8kxF8qkjRR0Akx7qGIv3qn15L01qU9PKMkc=;
+	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=FaL+hTjhcf4DjcRipXgS62alanmlRQ/G8u4tyP8/ggyFiJggQuS6SbLYLbyvZelEo
-	 PlMXnktbiN+U4NYyZbraj3HXcOv+XcodefiZqrrEVtbdutdlNkSAnSzJ9EkjFnM2S2
-	 QuiJfO+AeqwM2qZ4KfZjdxvmW9Ud16/LPGJDyY8w=
+	b=kBERjIptJTmNJQfxyPyxBelQQ6YaprirT4PyDh7DYpOfuJ9cImzt88+mKnjZbXTH7
+	 KvjkRLe4NBNfFbWIfdshhoiAT18wiN3CB3R8ym+SHoS7/VGKlSULFaneKcsZSoU4Rd
+	 vBvly3NAbXrSvfts26fnXw1ISf3ofHBADeV076DA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 897F6F80587; Thu, 21 Dec 2023 10:37:06 +0100 (CET)
+	id 6779EF8055C; Thu, 21 Dec 2023 10:46:52 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E3845F80571;
-	Thu, 21 Dec 2023 10:37:05 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3CEC8F80571;
+	Thu, 21 Dec 2023 10:46:51 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 64872F80153; Thu, 21 Dec 2023 10:36:59 +0100 (CET)
+	id 385CDF80153; Thu, 21 Dec 2023 10:46:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 16103F800F5
-	for <alsa-devel@alsa-project.org>; Thu, 21 Dec 2023 10:36:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 16103F800F5
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1DC0BF800F5
+	for <alsa-devel@alsa-project.org>; Thu, 21 Dec 2023 10:46:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1DC0BF800F5
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=SrTer4no;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=ywr/+jLd;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=SrTer4no;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=ywr/+jLd
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 06671219C7;
-	Thu, 21 Dec 2023 09:36:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1703151406;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jpyugYPGDfPA4iIibcSdhT+W1y7H878ZPzo94O2QO9Y=;
-	b=SrTer4noz9f3Vv5AJNW7fbhZz6IpSKxYmIOZhaRbqF3wZcZofHc2rlu7DRc4Twt1h+46mN
-	BJavC4ZTehvQo11uYePVz6X50O6kxMfzB6GggA1LdCq8hanYUAXyAFDbIAnNkBM06Iqb/X
-	vvVrFoZpewZuHOnFAx/DyB0sV+M4V0M=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1703151406;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jpyugYPGDfPA4iIibcSdhT+W1y7H878ZPzo94O2QO9Y=;
-	b=ywr/+jLdUvdcx/DsHk66OtrAzI5xtR4IqrRoFeCbY28FnFw3/wmxUM1TA9IO6UB3+zUYJ0
-	8oU65GJxZ8o2oNDQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1703151406;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jpyugYPGDfPA4iIibcSdhT+W1y7H878ZPzo94O2QO9Y=;
-	b=SrTer4noz9f3Vv5AJNW7fbhZz6IpSKxYmIOZhaRbqF3wZcZofHc2rlu7DRc4Twt1h+46mN
-	BJavC4ZTehvQo11uYePVz6X50O6kxMfzB6GggA1LdCq8hanYUAXyAFDbIAnNkBM06Iqb/X
-	vvVrFoZpewZuHOnFAx/DyB0sV+M4V0M=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1703151406;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jpyugYPGDfPA4iIibcSdhT+W1y7H878ZPzo94O2QO9Y=;
-	b=ywr/+jLdUvdcx/DsHk66OtrAzI5xtR4IqrRoFeCbY28FnFw3/wmxUM1TA9IO6UB3+zUYJ0
-	8oU65GJxZ8o2oNDQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E5A3513725;
-	Thu, 21 Dec 2023 09:36:45 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id XcWkNy0HhGVDNAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Thu, 21 Dec 2023 09:36:45 +0000
-Date: Thu, 21 Dec 2023 10:36:41 +0100
-Message-ID: <s5hzfy3ucba.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Stefan Binding <sbinding@opensource.cirrus.com>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	<alsa-devel@alsa-project.org>,
-	<linux-sound@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>,
-	<patches@opensource.cirrus.com>
-Subject: Re: [PATCH v1 0/3] Support Dell models without _DSD
-In-Reply-To: <20231220165829.160711-1-sbinding@opensource.cirrus.com>
-References: <20231220165829.160711-1-sbinding@opensource.cirrus.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-1.75 / 50.00];
-	 ARC_NA(0.00)[];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	 FROM_HAS_DN(0.00)[];
-	 TO_DN_SOME(0.00)[];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 MIME_GOOD(-0.10)[text/plain];
-	 RCVD_COUNT_THREE(0.00)[3];
-	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	 DKIM_TRACE(0.00)[suse.de:+];
-	 MX_GOOD(-0.01)[];
-	 RCPT_COUNT_SEVEN(0.00)[7];
-	 MID_CONTAINS_FROM(1.00)[];
-	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+];
-	 RCVD_TLS_ALL(0.00)[];
-	 BAYES_HAM(-2.44)[97.45%];
-	 RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=SrTer4no;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="ywr/+jLd"
-X-Rspamd-Queue-Id: 06671219C7
-Message-ID-Hash: 55YABBKCTPGL4NSCIX2X5LTE5T7GXXEV
-X-Message-ID-Hash: 55YABBKCTPGL4NSCIX2X5LTE5T7GXXEV
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=p0Ir59av
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 3BL8GX9d016665;
+	Thu, 21 Dec 2023 03:46:39 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
+	date:from:to:cc:subject:message-id:references:mime-version
+	:content-type:in-reply-to; s=PODMain02222019; bh=2mPypVus8kxF8qk
+	jRR0Akx7qGIv3qn15L01qU9PKMkc=; b=p0Ir59avbb3yhpZallP84N7sBsN5pwU
+	fbq3ZAskCt+o54H0h9lwEUfPKl3FhsL0IiIxMcykxJgJ5gG1JLKAC0CXX3t2Yw0a
+	3vha9VaZMjjIYQwMS9FyWJ/w7GOjBw9S13/QK2H5WEXVhI2edTGTcAysPGETk+M9
+	Vzpvkge+iy8R5WwG3d0u6k3SOte0UStGHh/ddVhA93xrxw4nSUzBP30P3fbtPTP0
+	mhvf5rOfukCNq69ix9XEAQaCKK6utn5r9C5B4ReHDaVnQuNrQGs2oeBoRn967pv1
+	bHwDzicVqaNmmhxASvGwrC0a0Htbdusot2fC2UWKnSjJhoM2AwJiC8g==
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3v1a6273rs-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 21 Dec 2023 03:46:38 -0600 (CST)
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Thu, 21 Dec
+ 2023 09:46:36 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.40 via Frontend Transport; Thu, 21 Dec 2023 09:46:36 +0000
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com
+ [198.61.86.93])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 347AD15B4;
+	Thu, 21 Dec 2023 09:46:36 +0000 (UTC)
+Date: Thu, 21 Dec 2023 09:46:36 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+CC: Mark Brown <broonie@kernel.org>, <linux-sound@vger.kernel.org>,
+        <alsa-devel@alsa-project.org>, <tiwai@suse.de>,
+ <vinod.koul@intel.com>,
+        Bard
+ liao <yung-chuan.liao@linux.intel.com>,
+        Ranjani Sridharan
+	<ranjani.sridharan@linux.intel.com>,
+        Peter Ujfalusi
+	<peter.ujfalusi@linux.intel.com>,
+        Kai Vehmanen
+	<kai.vehmanen@linux.intel.com>,
+        <srinivas.kandagatla@linaro.org>,
+        Krzysztof
+ Kozlowski <krzysztof.kozlowski@linaro.org>,
+        <vijendar.mukunda@amd.com>,
+        Richard Fitzgerald <rf@opensource.cirrus.com>,
+        Shuming Fan
+	<shumingf@realtek.com>, Jack Yu <jack.yu@realtek.com>,
+        Oder Chiou
+	<oder_chiou@realtek.com>
+Subject: Re: [RFC PATCH 01/16] Documentation: driver: add SoundWire BRA
+ description
+Message-ID: <20231221094636.GE14858@ediswmail.ad.cirrus.com>
+References: <20231207222944.663893-1-pierre-louis.bossart@linux.intel.com>
+ <20231207222944.663893-2-pierre-louis.bossart@linux.intel.com>
+ <38d0c1c9-d60c-4ddd-b2ee-091d1717a377@sirena.org.uk>
+ <5b8e74ad-460f-4e68-a17b-3131d810f29b@linux.intel.com>
+ <ZXOPWRWvrRddOWpT@finisterre.sirena.org.uk>
+ <700e564d-7e87-463a-a764-c4713ddf11cd@linux.intel.com>
+ <bec481f0-5361-4090-b69c-1123f83ac8ac@sirena.org.uk>
+ <f24a2a89-3d8a-4a6d-849a-cddbae4c1e03@linux.intel.com>
+ <20231220151631.GD14858@ediswmail.ad.cirrus.com>
+ <546d698c-3e23-4a92-9081-f1bebd6b33ae@linux.intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <546d698c-3e23-4a92-9081-f1bebd6b33ae@linux.intel.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-GUID: oKBkNLvCQh8eI1M36pKd7t46MudCjgxN
+X-Proofpoint-ORIG-GUID: oKBkNLvCQh8eI1M36pKd7t46MudCjgxN
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: IUUDWEAQV3B326E2XOJSRHX7Q3AGJWKG
+X-Message-ID-Hash: IUUDWEAQV3B326E2XOJSRHX7Q3AGJWKG
+X-MailFrom: prvs=7719ccbd94=ckeepax@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -161,37 +129,24 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/55YABBKCTPGL4NSCIX2X5LTE5T7GXXEV/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IUUDWEAQV3B326E2XOJSRHX7Q3AGJWKG/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 20 Dec 2023 17:58:26 +0100,
-Stefan Binding wrote:
-> 
-> Add Quirks and driver properties for Dell models.
-> Driver properties are required since these models do not have _DSD.
-> Additionally, some laptops, including some of these, have an issue
-> with their BIOS which causes the SPI speed to be set too slow.
-> To ensure a decent performance for laptops with this slow speed,
-> disable firmware loading. Running without firmware results in lower
-> volume.
-> 
-> Stefan Binding (3):
->   ALSA: hda: cs35l41: Support additional Dell models without _DSD
->   ALSA: hda: cs35l41: Prevent firmware load if SPI speed too low
->   ALSA: hda/realtek: Add quirks for Dell models
+On Wed, Dec 20, 2023 at 07:26:24PM +0100, Pierre-Louis Bossart wrote:
+> On 12/20/23 16:16, Charles Keepax wrote:
+> > On Tue, Dec 19, 2023 at 06:08:15PM +0100, Pierre-Louis Bossart wrote:
+> >> On 12/19/23 17:53, Mark Brown wrote:
+> >>> On Tue, Dec 19, 2023 at 05:50:30PM +0100, Pierre-Louis Bossart wrote:
+> Put differently: is there any sustained objection to the proposal of
+> extending regmap with async BRA transfers?
 
-The series doesn't seem applied cleanly.
-Could you rebase to my for-linus branch and resubmit?
+Seems good to me, was not my intention to object to the idea itself.
 
-Though, I feel that it's a bit too much for 6.7 at this very late
-stage.  So, I'll likely skip this series and apply to 6.8.
-
-
-thanks,
-
-Takashi
+Thanks,
+Charles

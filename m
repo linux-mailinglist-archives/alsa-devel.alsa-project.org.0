@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3986981B9B3
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 Dec 2023 15:40:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A31581B9BF
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 Dec 2023 15:42:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 306BD207;
-	Thu, 21 Dec 2023 15:40:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 306BD207
+	by alsa0.perex.cz (Postfix) with ESMTPS id BA4BABC0;
+	Thu, 21 Dec 2023 15:42:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA4BABC0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1703169641;
-	bh=EfDpHN4WSMBhJVoFAooWZp4yWFs/ylynn70pHnqp8dg=;
+	s=default; t=1703169774;
+	bh=1rUHiSbBzjZVq93Y196VyIHTz/47RV9BbEGJsxBHTvo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ca0RYyfro39/irLBogUAIuQ54nl1Kz9VEIGmCx2LGf7kTi+nXwnR1hZKn8aN7SA1/
-	 cFLYjbSYVVSv5t9Wd+a1W+VJ3PNU1OzijghK8S/peBPNYZEAh51S002s424khVDnDs
-	 ZRPhgu34dWNXcLmw6JmyxyeX02Hps8kUCSAbxV3A=
+	b=Q99qcvLbWWm6YmLwSZm2u+rmldTY3o6c4jO9poApLqXptLRPYd66DqHqFqUZ07QEI
+	 FHvsUq8AFC/qimgpwki26G2NZY9xRliVBTt8gZklJeNI6ZVWtD5ui4oI8shqg7Eu/2
+	 F9t9uAdToMaQ3lwpHrER9OXat+3x43KOYGpaP3OQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DF73DF80212; Thu, 21 Dec 2023 15:40:09 +0100 (CET)
+	id D4B86F80124; Thu, 21 Dec 2023 15:42:23 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D971FF8024E;
-	Thu, 21 Dec 2023 15:40:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 81ADDF8024E;
+	Thu, 21 Dec 2023 15:42:22 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8CEFBF80153; Thu, 21 Dec 2023 15:40:02 +0100 (CET)
+	id 521FDF80153; Thu, 21 Dec 2023 15:42:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,32 +34,31 @@ X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	autolearn_force=no version=3.4.6
 Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8BCE4F800D2
-	for <alsa-devel@alsa-project.org>; Thu, 21 Dec 2023 15:39:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8BCE4F800D2
+	by alsa1.perex.cz (Postfix) with ESMTPS id 686B0F800D2
+	for <alsa-devel@alsa-project.org>; Thu, 21 Dec 2023 15:42:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 686B0F800D2
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=QpcJZq0z
+ header.s=k20201202 header.b=k8/PFBQP
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 484DFCE1F87;
-	Thu, 21 Dec 2023 14:39:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A604C433C7;
-	Thu, 21 Dec 2023 14:39:45 +0000 (UTC)
+	by sin.source.kernel.org (Postfix) with ESMTP id 33E5CCE1F63;
+	Thu, 21 Dec 2023 14:42:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84BA1C433C7;
+	Thu, 21 Dec 2023 14:42:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1703169587;
-	bh=EfDpHN4WSMBhJVoFAooWZp4yWFs/ylynn70pHnqp8dg=;
+	s=k20201202; t=1703169729;
+	bh=1rUHiSbBzjZVq93Y196VyIHTz/47RV9BbEGJsxBHTvo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=QpcJZq0zvBsItx2hHM5ZlLjRWoH7xgvtc6E3L04RXa9mpRmGVtAB1vT/9Iy0anL2I
-	 zDI7utMf50m9WUxfLVaQKN+k9CCcg8akfHAs07XzntMWsnyAVMJgL/mmhn941Tnepu
-	 acXRbI3/3bh8eU7Yf09Wu6WFClu44NVQTETTsH2oXj6FCOuQzEzxN6+939hSI6/YEm
-	 sFA1qP9beSHUaRv6BfIF9Zf7ZKhAtffd+jXMrSll3cHEfdX4cDcT2S8d9z6nvn8HYH
-	 XJ5fnGObRbP0M/dcIXyvBSFJtTijNzU2ER50greGYZbJnWOum28rMpW2dxwrYFRClS
-	 JBNIzvTJBEc/g==
-Date: Thu, 21 Dec 2023 20:09:42 +0530
+	b=k8/PFBQPxgb8+8FO147mx3fDfrJK0dIOwopwg0IfJtTJaIEL/ipCAvacL8FX2u59O
+	 RB0TuxRKwJVqV8PLujLJ3SdiSvNs3tj15Yl0IDYqeuioyp9G48ZVJVLbkAwH6Gj2/h
+	 QsKslRgtF3NPheJNkvHutSZYx+hcYkpM4UW4tgq3LQVu52kFWsiYodwQ7olrsGIove
+	 qqEvDbVHjPaudwZAHZmKfLuceNkWMui4zgtOWveBBysvijkbdZ8Hr+8kvE2WEiO9gf
+	 IW2xeDs9FpcJYdMw6T+TZU76W7dlpqccXW7uo1vD/nelr+OiUmZ5T3ItFXb31+ikCT
+	 yj9MrMtqv+7Tg==
+Date: Thu, 21 Dec 2023 20:12:05 +0530
 From: Vinod Koul <vkoul@kernel.org>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Cc: linux-sound@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.de,
@@ -75,18 +74,18 @@ Cc: linux-sound@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.de,
 	Richard Fitzgerald <rf@opensource.cirrus.com>,
 	Shuming Fan <shumingf@realtek.com>, Jack Yu <jack.yu@realtek.com>,
 	Oder Chiou <oder_chiou@realtek.com>
-Subject: Re: [RFC PATCH 08/16] soundwire: bus: add bpt_stream pointer
-Message-ID: <ZYROLuFZNdwGHReR@matsya>
+Subject: Re: [RFC PATCH 09/16] soundwire: crc8: add constant table
+Message-ID: <ZYROvUA7RrqQknlM@matsya>
 References: <20231207222944.663893-1-pierre-louis.bossart@linux.intel.com>
- <20231207222944.663893-9-pierre-louis.bossart@linux.intel.com>
- <ZYAzS3tggqQg8_PW@matsya>
- <87b3fc89-f967-4251-b709-0d439c6f1cf7@linux.intel.com>
+ <20231207222944.663893-10-pierre-louis.bossart@linux.intel.com>
+ <ZYA0gKf3bZgY4X_s@matsya>
+ <121b44fb-9d2f-4e1f-beca-a54b16d7e13c@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <87b3fc89-f967-4251-b709-0d439c6f1cf7@linux.intel.com>
-Message-ID-Hash: MZC5WJRXA24VRNQV2E6AATGDPEGC4YUZ
-X-Message-ID-Hash: MZC5WJRXA24VRNQV2E6AATGDPEGC4YUZ
+In-Reply-To: <121b44fb-9d2f-4e1f-beca-a54b16d7e13c@linux.intel.com>
+Message-ID-Hash: BSIA5LG7OASZUZJFYJWX5U6JJS7C7XWO
+X-Message-ID-Hash: BSIA5LG7OASZUZJFYJWX5U6JJS7C7XWO
 X-MailFrom: vkoul@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -99,7 +98,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MZC5WJRXA24VRNQV2E6AATGDPEGC4YUZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BSIA5LG7OASZUZJFYJWX5U6JJS7C7XWO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,61 +107,77 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 18-12-23, 14:20, Pierre-Louis Bossart wrote:
+On 18-12-23, 14:26, Pierre-Louis Bossart wrote:
 > 
 > 
-> On 12/18/23 05:55, Vinod Koul wrote:
+> On 12/18/23 06:01, Vinod Koul wrote:
 > > On 07-12-23, 16:29, Pierre-Louis Bossart wrote:
-> >> Add a convenience pointer to the 'sdw_bus' structure. BPT is a
-> >> dedicated stream which will typically not be handled by DAIs or
-> >> dailinks. Since there's only one BPT stream per link, storing the
-> >> pointer at the link level seems rather natural.
+> >> Add the lookup table required by crc8(). All configuration values were
+> >> directly table from the MIPI SoundWire 1.x specification.
 > >>
 > >> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 > >> ---
-> >>  include/linux/soundwire/sdw.h | 2 ++
-> >>  1 file changed, 2 insertions(+)
+> >>  drivers/soundwire/Makefile |   4 +-
+> >>  drivers/soundwire/crc8.c   | 277 +++++++++++++++++++++++++++++++++++++
+> >>  drivers/soundwire/crc8.h   |  11 ++
+> >>  3 files changed, 291 insertions(+), 1 deletion(-)
+> >>  create mode 100644 drivers/soundwire/crc8.c
+> >>  create mode 100644 drivers/soundwire/crc8.h
 > >>
-> >> diff --git a/include/linux/soundwire/sdw.h b/include/linux/soundwire/sdw.h
-> >> index e54c5bbd2b91..8db0cd7d0d89 100644
-> >> --- a/include/linux/soundwire/sdw.h
-> >> +++ b/include/linux/soundwire/sdw.h
-> >> @@ -965,6 +965,7 @@ struct sdw_master_ops {
-> >>   * @stream_refcount: number of streams currently using this bus
-> >>   * @btp_stream_refcount: number of BTP streams currently using this bus (should
-> >>   * be zero or one, multiple streams per link is not supported).
-> >> + * @bpt_stream: pointer stored for convenience.
-> >>   */
-> >>  struct sdw_bus {
-> >>  	struct device *dev;
-> >> @@ -996,6 +997,7 @@ struct sdw_bus {
-> >>  	int hw_sync_min_links;
-> >>  	int stream_refcount;
-> >>  	int bpt_stream_refcount;
-> >> +	struct sdw_stream_runtime *bpt_stream;
+> >> diff --git a/drivers/soundwire/Makefile b/drivers/soundwire/Makefile
+> >> index 657f5888a77b..170128dd9318 100644
+> >> --- a/drivers/soundwire/Makefile
+> >> +++ b/drivers/soundwire/Makefile
+> >> @@ -5,7 +5,9 @@
+> >>  
+> >>  #Bus Objs
+> >>  soundwire-bus-y := bus_type.o bus.o master.o slave.o mipi_disco.o stream.o  \
+> >> -			sysfs_slave.o sysfs_slave_dpn.o
+> >> +			sysfs_slave.o sysfs_slave_dpn.o \
+> >> +			crc8.o
+> >> +
+> >>  obj-$(CONFIG_SOUNDWIRE) += soundwire-bus.o
+> >>  
+> >>  soundwire-generic-allocation-objs := generic_bandwidth_allocation.o
+> >> diff --git a/drivers/soundwire/crc8.c b/drivers/soundwire/crc8.c
+> >> new file mode 100644
+> >> index 000000000000..b6b984d7f39a
+> >> --- /dev/null
+> >> +++ b/drivers/soundwire/crc8.c
+> >> @@ -0,0 +1,277 @@
+> >> +// SPDX-License-Identifier: (GPL-2.0 OR BSD-3-Clause)
+> >> +// Copyright(c) 2024 Intel Corporation.
+> >> +
+> >> +#include <linux/crc8.h>
+> >> +#include <linux/module.h>
+> >> +#include "crc8.h"
+> >> +
+> >> +/*
+> >> + * the MIPI SoundWire CRC8 polynomial is X^8 + X^6 + X^3 + X^2 + 1, MSB first
+> >> + * The value is (1)01001101 = 0x4D
+> >> + *
+> >> + * the table below was generated with
+> >> + *
+> >> + *	u8 crc8_lookup_table[CRC8_TABLE_SIZE];
+> >> + *	crc8_populate_msb(crc8_lookup_table, SDW_CRC8_POLY);
 > > 
-> > So we are limiting to single stream? Can we have multiple transfers
-> > queued up, which I guess might imply multiple streams?
+> > Good that you found this API, so next question would be why should we
+> > have this static table in kernel and not generate on probe if bpt is
+> > supported..? Many subsystems use these APIs to generate the tables..
 > 
+> The table is going to be the same for all hosts, it's simpler if
+> everyone uses a constant table, no? We're talking about 256 bytes added
+> for the common bus parts, be it with dynamically allocated memory or a
+> static table.
 > 
-> Yes for now there is a BTP/BRA single stream active when there are no
-> audio transfers taking place. This is the only way to guarantee
-> predictable download/resume times.
-> 
-> There is no mechanism to queue up transfers, be it from the same
-> peripheral device or different ones. It would be up to the peripheral
-> driver to wait for the BTP stream to be available.
-> 
-> Adding a queuing mechanism is a bridge too far for now, most platforms
-> only have 1 or 2 devices only, and a peripheral driver may or may not be
-> ok with delayed downloads. For now the main ask is to reduce download
-> times, a single stream is already a good start. There are other
-> refinements we need to add as well, such as changing clocks to use the
-> fastest gear. I'd like to proceed with baby steps...
+> I don't mind reverting to a dynamically allocated table populated at
+> boot if that was the consensus.
 
-Since the API is async in nature, I think it is very reasonable that we
-add the queue support (a simple list would do) and notify when the
-transfer is complete..
+Most of the kernel users I looked have dynamically allocated table
+populated at boot, also out of many users how many would support BTP.?
+Your older platforms, current qcom dont, so not point is adding for
+everyone...
+
 
 -- 
 ~Vinod

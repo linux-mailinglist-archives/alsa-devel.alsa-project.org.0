@@ -2,93 +2,206 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95FB682216A
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Jan 2024 19:53:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7058822173
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Jan 2024 19:55:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C8D53EEA;
-	Tue,  2 Jan 2024 19:53:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8D53EEA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 676671284;
+	Tue,  2 Jan 2024 19:55:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 676671284
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1704221628;
-	bh=3x347wbIYvVw3C5OVM9Y7w4wTYkaJ8uGIBiqqeJLksU=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1704221711;
+	bh=RoaHEXw7g/wem4PuUHfB8p3nDu7+oAkdcF/+XFOTUbU=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=tTupQ2Rc3kGf67grtYSDRrIJ9qWrPDOw3BlnhlVxH/+x+M3GH9QLGmomDeefAmk3C
-	 QJbY9E4MVrgvGTYMYoJVd1NnthFKQkQIYWRsiRi3lYwveavA7diUrhDpBCl0q1tMTd
-	 NOnV7uSBFOOjVnNDnO9y//VZF8uvY0ThObPsNA38=
+	b=LppnhLXX6G0Qupwhc6GVZSX57TI2P6mh2UdohsAyWmpVYc958RQErzv7qx+jJLG4c
+	 1+783tCtTVlo6AVzrxBrr3p/8ZBhIR6zG8wL2mG7kIKLfL4O+8MYlXGkwvQdPAXJt3
+	 wnZFjK4DS9JkpBGxn+nNKq/GOhhlAd63R783Uv6E=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3D3C2F806C5; Tue,  2 Jan 2024 19:50:58 +0100 (CET)
+	id 02F25F80799; Tue,  2 Jan 2024 19:50:59 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5A7C2F806D5;
-	Tue,  2 Jan 2024 19:50:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 41E15F80718;
+	Tue,  2 Jan 2024 19:50:59 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EC82DF80212; Thu, 21 Dec 2023 04:32:53 +0100 (CET)
+	id 99BDAF80153; Thu, 21 Dec 2023 07:55:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from fd01.gateway.ufhost.com (fd01.gateway.ufhost.com
- [61.152.239.71])
-	(using TLSv1 with cipher ADH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on20601.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:2412::601])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C0684F800F5
-	for <alsa-devel@alsa-project.org>; Thu, 21 Dec 2023 04:32:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0684F800F5
-Received: from EXMBX165.cuchost.com (unknown [175.102.18.54])
-	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(Client CN "EXMBX165", Issuer "EXMBX165" (not verified))
-	by fd01.gateway.ufhost.com (Postfix) with ESMTP id 2EA118068;
-	Thu, 21 Dec 2023 11:32:26 +0800 (CST)
-Received: from EXMBX061.cuchost.com (172.16.6.61) by EXMBX165.cuchost.com
- (172.16.6.75) with Microsoft SMTP Server (TLS) id 15.0.1497.42; Thu, 21 Dec
- 2023 11:32:26 +0800
-Received: from localhost.localdomain (113.72.145.47) by EXMBX061.cuchost.com
- (172.16.6.61) with Microsoft SMTP Server (TLS) id 15.0.1497.42; Thu, 21 Dec
- 2023 11:32:24 +0800
-From: Xingyu Wu <xingyu.wu@starfivetech.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-	Claudiu Beznea <Claudiu.Beznea@microchip.com>, Jaroslav Kysela
-	<perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Rob Herring
-	<robh+dt@kernel.org>, Krzysztof Kozlowski
-	<krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
-	<conor.dooley@microchip.com>
-CC: Walker Chen <walker.chen@starfivetech.com>, Xingyu Wu
-	<xingyu.wu@starfivetech.com>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <alsa-devel@alsa-project.org>,
-	<linux-sound@vger.kernel.org>
-Subject: [PATCH v1 2/2] ASoC: starfive: Add drivers of Cadence Multi-Channel
- I2S Controller
-Date: Thu, 21 Dec 2023 11:32:23 +0800
-Message-ID: <20231221033223.73201-3-xingyu.wu@starfivetech.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20231221033223.73201-1-xingyu.wu@starfivetech.com>
-References: <20231221033223.73201-1-xingyu.wu@starfivetech.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id B0AD5F800D2
+	for <alsa-devel@alsa-project.org>; Thu, 21 Dec 2023 07:54:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0AD5F800D2
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
+ header.s=selector1 header.b=vrO0+8xp
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=B75hqmOHyfW+jezpRK/QjA55ccAHqTZhp//UBqKQ7XQqRNSpr9ueyQV+rg9rQnamm7GelUvG+yA3Nwab3CL5XOGyOkFmWQUFhCPmG9z2m8hLS/o85OvJLvNG12YNVhhkAbuX0Tx2wKjPRTLpDCbCxp8coqqoNyzUAvK4WxEW0bGul6GvQ8W4o+NSY6ASHGvd3ZoYSBJ5Rt1tLsoP/Id+OPL1/0SysHxTitd6IpwrPIBWsgJD5LVzsxuVxxXGmKk2oUJoRn5dfup0Hhb3ZejhPnvN/824fjWHjP3uDb8SXP36N/c2a3qFCtKAVtWxLSzckKzBQUm3lsPyShOy/wIZAw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RoaHEXw7g/wem4PuUHfB8p3nDu7+oAkdcF/+XFOTUbU=;
+ b=ene0QntwWQ+qIxasHuPz8i4iLinHqqvVb2QITeBqKmPBnk22vE1LuAmKZqk05/W7HRQun9Jg8dcI8zqHCCnbbJLwxOMRB0b5yVkwTySZQZxAw2eNYNl1XRM2Xcc4q111zI2uJYRAEWqzYrgo+7dgZsdpCrYgJai9xHCFdlFcxgGUkeEJaYIfFgeKCK9gXRRXtCZg/UWyeigUN2040GzYvQqo2YmCdMQ/1fZCpFHpnNHsgwFYLQ2Vv3riwPzAHD+S1nNh/i04WSHDVPGpu3F8Ink2HDeJyGzz0SmIa4jW+xV5RictaJQsJOT89ylwoOF8yowqCWG9W254cTgElz8LJg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RoaHEXw7g/wem4PuUHfB8p3nDu7+oAkdcF/+XFOTUbU=;
+ b=vrO0+8xpSXQhramAcBVGnCwyuXKS5+I3ReeSz+NMefvXPwGgTUgn39mZQWxgRmeL9+zsmjd7npXYPfJgrmWwNqY+nvNGm3r4AT11tGKEXNKEePeMtcfdd+7feZdu6tiGEl0zFPV3ecHP5pkWrPUcMvGbt6/8h4hRrWcDvlb2kVs=
+Received: from BN7PR12MB2802.namprd12.prod.outlook.com (2603:10b6:408:25::33)
+ by SJ1PR12MB6148.namprd12.prod.outlook.com (2603:10b6:a03:459::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7113.21; Thu, 21 Dec
+ 2023 06:54:22 +0000
+Received: from BN7PR12MB2802.namprd12.prod.outlook.com
+ ([fe80::2a35:852d:bc78:ed64]) by BN7PR12MB2802.namprd12.prod.outlook.com
+ ([fe80::2a35:852d:bc78:ed64%7]) with mapi id 15.20.7113.016; Thu, 21 Dec 2023
+ 06:54:22 +0000
+From: "Mahapatra, Amit Kumar" <amit.kumar-mahapatra@amd.com>
+To: Tudor Ambarus <tudor.ambarus@linaro.org>, "broonie@kernel.org"
+	<broonie@kernel.org>, "pratyush@kernel.org" <pratyush@kernel.org>,
+	"miquel.raynal@bootlin.com" <miquel.raynal@bootlin.com>, "richard@nod.at"
+	<richard@nod.at>, "vigneshr@ti.com" <vigneshr@ti.com>,
+	"sbinding@opensource.cirrus.com" <sbinding@opensource.cirrus.com>,
+	"lee@kernel.org" <lee@kernel.org>, "james.schulman@cirrus.com"
+	<james.schulman@cirrus.com>, "david.rhodes@cirrus.com"
+	<david.rhodes@cirrus.com>, "rf@opensource.cirrus.com"
+	<rf@opensource.cirrus.com>, "perex@perex.cz" <perex@perex.cz>,
+	"tiwai@suse.com" <tiwai@suse.com>
+CC: "linux-spi@vger.kernel.org" <linux-spi@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"michael@walle.cc" <michael@walle.cc>, "linux-mtd@lists.infradead.org"
+	<linux-mtd@lists.infradead.org>, "nicolas.ferre@microchip.com"
+	<nicolas.ferre@microchip.com>, "alexandre.belloni@bootlin.com"
+	<alexandre.belloni@bootlin.com>, "claudiu.beznea@tuxon.dev"
+	<claudiu.beznea@tuxon.dev>, "Simek, Michal" <michal.simek@amd.com>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "alsa-devel@alsa-project.org"
+	<alsa-devel@alsa-project.org>, "patches@opensource.cirrus.com"
+	<patches@opensource.cirrus.com>, "linux-sound@vger.kernel.org"
+	<linux-sound@vger.kernel.org>, "git (AMD-Xilinx)" <git@amd.com>,
+	"amitrkcian2002@gmail.com" <amitrkcian2002@gmail.com>
+Subject: RE: [PATCH v11 07/10] mtd: spi-nor: Add stacked memories support in
+ spi-nor
+Thread-Topic: [PATCH v11 07/10] mtd: spi-nor: Add stacked memories support in
+ spi-nor
+Thread-Index: 
+ AQHaH4D9pFM5xtDoeEuMNIpXuxvtzbCcYmwAgAEJ+aCABhoaAIAAMcLwgAAzdICAADdZAIABtmWAgAQ4ECCAAAuVAIAAD5dQgAAYdQCAAAF/8IAGJHEAgAFe7KA=
+Date: Thu, 21 Dec 2023 06:54:22 +0000
+Message-ID: 
+ <BN7PR12MB2802F288C6A6B1580CF07959DC95A@BN7PR12MB2802.namprd12.prod.outlook.com>
+References: <20231125092137.2948-1-amit.kumar-mahapatra@amd.com>
+ <20231125092137.2948-8-amit.kumar-mahapatra@amd.com>
+ <e2305642-55f1-4893-bea3-b170ac0a5348@linaro.org>
+ <BN7PR12MB2802BEDFB821A1748185794CDC8AA@BN7PR12MB2802.namprd12.prod.outlook.com>
+ <f5a47024-514a-4846-bc16-08cf0f9af912@linaro.org>
+ <BN7PR12MB2802BB3DA682D9C13EF7DE08DC8FA@BN7PR12MB2802.namprd12.prod.outlook.com>
+ <5a6f6764-6779-42b0-b6c6-3f638b85ef78@linaro.org>
+ <BN7PR12MB28029EB1A7D09882878499A2DC8FA@BN7PR12MB2802.namprd12.prod.outlook.com>
+ <c3fa1e04-92ed-48ab-a509-98e43abd5cd6@linaro.org>
+ <BN7PR12MB2802E87F1A6CD22D904CAEACDC93A@BN7PR12MB2802.namprd12.prod.outlook.com>
+ <b3d3c457-a43b-478a-85b3-52558227d139@linaro.org>
+ <BN7PR12MB28027E62D66460A374E3CFEADC93A@BN7PR12MB2802.namprd12.prod.outlook.com>
+ <e212f9fa-83c5-4b9e-8636-c8c6183096ab@linaro.org>
+ <BN7PR12MB280237CDD7BB148479932874DC93A@BN7PR12MB2802.namprd12.prod.outlook.com>
+ <576d56ed-d24b-40f9-9ae4-a02c50eea2ab@linaro.org>
+In-Reply-To: <576d56ed-d24b-40f9-9ae4-a02c50eea2ab@linaro.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BN7PR12MB2802:EE_|SJ1PR12MB6148:EE_
+x-ms-office365-filtering-correlation-id: 2af5c642-be5e-42bc-6cbc-08dc01f1a9bd
+x-ld-processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ u0qaZAV5h0xRHSxrSBxbtnRlr5oMJA6pqqsUTGDtnwRRMPT0U6vmgWnb8dL3JWH0b6MFHuy9ScoWhl5ZPiTiK5VNSHmkporN/q4CISI7LsHT1p1vPB3ZaPWFzfJHmBnQH9/5msMvYur/sQfAzeJVVxbFtBfWYJJxAdQlg2cwpABQrTzbs8/d7hZimr0Z5dfZS+tZz+ib+JpU0U+yfZz4Z0wd45EmsXtDwUskIuzaWCHwt8T/FBwU6n4ULQgA++RJeG33NK+yzb42RPJm3fNIFnR6JVAZwO9uJcwwF1330YdIKXwv8EPqxA29BwbOedCvapsgGlH+8d1jpizJFhz6PxrFYLvl7kZScWLlzcna1Gs8GpK496ml8GM19mvqtyTMc7LdXqAMmRa08N27wrt6tu/psKcXuYBixIuxAeImJXEfm94C0XaGqhWzTUemaiKvoTqoteFRjAIBmUh8tTVR47Isb2mYsvld7XYIhRVvMi2J40oV535WiRF2i4P7l59iirHafX5VpvJfiXNVpG2X4vyWMNBOP5UULt0p6xCNbojaLSoCMBUK7E2RHHDa8FKLjuhfZmRBU+kUy/KZiP51ipTmr6nn+kZPgBumCcRWOhKLZudqf4211Mv/e+Gcts+J
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN7PR12MB2802.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(39860400002)(136003)(396003)(346002)(366004)(230922051799003)(451199024)(186009)(1800799012)(64100799003)(122000001)(86362001)(38100700002)(41300700001)(52536014)(4326008)(9686003)(6506007)(53546011)(8676002)(8936002)(7416002)(5660300002)(26005)(33656002)(478600001)(966005)(76116006)(66946007)(64756008)(66446008)(66476007)(66556008)(316002)(54906003)(110136005)(55016003)(71200400001)(7696005)(38070700009)(2906002)(921008)(83380400001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?utf-8?B?MDdublpzZXF1WWlFaFB5dWZZM0NETjJxeVZETG01TCt1ZEZ0K0ZlTkNtUzha?=
+ =?utf-8?B?NUNyd1NSK29DVzBrNUNmb01nZXF2eFJVYlkwME44bUlZUjRBaHkycjUrbHRM?=
+ =?utf-8?B?eCswMFBUUUh5YVFhcmxDWXliVFp4em1lbE5lK0hMNzZBNmdhWU01WHhoVXRZ?=
+ =?utf-8?B?Z1FlWXFTd2x4Z0d2OHJTaUJFSy90Y3ZvazBoUWpFOVhmclVCSmZITVh5VW5s?=
+ =?utf-8?B?ekJvZzdaeXo0NThwS09OUy91Yks5aFVET0dBTkVRSnRiejh1NFpINGhKdmdK?=
+ =?utf-8?B?bnNEVFNqc2pNZzJBTlFGZTMvUm9YUzhaSHBYQXJhMzNVY0YrSlZ3T01YNmh2?=
+ =?utf-8?B?NHhGU3hsd0RlUjdSS3hNTE5jbEl1dklRMlBabDR1eFYxYkhGenU0MjlCcmhi?=
+ =?utf-8?B?NUptSWlLRjlMN2xYWEtxdENiK1dvSExVZVFDUjFCS0RpSWtXQXQwWWRtUU9G?=
+ =?utf-8?B?N2ZUN0JDcHBNY0xuTnFyK3pPSEtEUThrcEE1MTVGNWlwbmUvSDc5cHFEZWI2?=
+ =?utf-8?B?WEtOcm9odi9NUUI3Y2VZdmFpKzl2VmhaSVdXRkE5eC9vZWczaHdFVmdpckRq?=
+ =?utf-8?B?VHRYSUlvaHkvczdzNHBMVDRLYlFMWnpnckNueVNpck40OG9ST2w4UFc0ZXhY?=
+ =?utf-8?B?cEd6Q1pES2lSL20rVTRETkkweVpCSUhIMVVqa2FPRjZjVmh2Wk1sT2NpQ3Nr?=
+ =?utf-8?B?dzlTZzFXcXEvTjcyeklpSmRobXF3LzgvVTZiQVpvdTVnMjk2VEc5dUhOR1J0?=
+ =?utf-8?B?UkRtLzZGMnBGWVFBN29GY09OQTVJeG5KVVZ5VldwR0NEc2w5VGE2T3ZWS0NC?=
+ =?utf-8?B?WUxoMUhqbG9DSGFsdUFQTzRXckN4V1dYQlo1YkY5N2w0Q0dKQW1GNU5LTGZU?=
+ =?utf-8?B?K2x3U2l1VXNzZnovWnRRRGNJN1NiWGk5M3BJZEUrL3BWckI2UWpiUUNUaG9y?=
+ =?utf-8?B?aDVqdzhmT1hqWkZpZTdjeFlXMEFwaEtqb3p0aml0aDVKOGxQeHN5QWdQWFgy?=
+ =?utf-8?B?OVkxbElyNnduR05TUllvODdLcGYrbXRkQzJ0S2pwZ0Ezc3J6KzZwRWZiRHpj?=
+ =?utf-8?B?dWE3QzBqV3ppS1Rzd1lBU3FuQzBPNGVLUlRkUHlKSm80R0l3Y1h5UXpwUWJW?=
+ =?utf-8?B?T0ExL2l0ZnRZQWxkRXAzQ3BaQjZqNGVIQS9hTHZ6NytxQjQxbVZJL2NGeHBB?=
+ =?utf-8?B?VkpzWDBVTktYT1BnRy9jdlV0TElWbUtoSWtKNnVmVnJtUTU5eGNLZ0ZxUWNM?=
+ =?utf-8?B?ajVSYlp6NDRNRFB1RDhPWjVLT0Y0UDVtcjhwNzJPSzhUQ2Q5dVdFZGRuSWpY?=
+ =?utf-8?B?NkhBMWt0TzJCRUdZdmFnQUMwVDYzbEtibCtwM2UwcCtseUZvVUlRZm9WSGlL?=
+ =?utf-8?B?OHA0K0hTdkFHZnh1SUZ6ZC9PQVI0N0VGS24wNzVuaWE5U1VRWmtrSTg5d0pa?=
+ =?utf-8?B?VzB0Y1FiZjBLTUtnVVNFWDZkSk1SSWdFTkw0LzE4OEpaOStxdnZaNkJjbStQ?=
+ =?utf-8?B?bHNXUnczajJZaVNRU0V5QXBUSlNWQThneDlrR2dmQkZVWmNrZStHVXY0L01t?=
+ =?utf-8?B?Y0ZYVFFLM2JscitGdG1JMDFTRHVpQWxMcU9MN2w2dDd0WlV0REFUaGx2OXA4?=
+ =?utf-8?B?akovbmxZWWpoVG1WWTJVbGFxYnpJcTYzQmozWlAxeldKVkJaZndNUko4TUNt?=
+ =?utf-8?B?ckNzRjhEOW9UcTV0Vm5IT1U3amN0eWJpRVBDQ3ZHSUFTbjZKdVJYMWY3R1hp?=
+ =?utf-8?B?dzRPNzBDYTJ1UmdXWlJ6RTRpT1lnTFJmSHcrSzk0VGdwSDhzaHpKN2ZMbW1C?=
+ =?utf-8?B?T01vV3N3aWNzK2k5aUMzQ3JUY3lxRDVpT1hFb1J6RFVnSTdQYTdZbjBCbUdK?=
+ =?utf-8?B?TkJhREY5TEdMK2xNSEtacHl1V2pmbnFXQXRXWTA5MTBaVHZpSGk4UUFyTGlT?=
+ =?utf-8?B?bGtVUWJBb0s2RVZmMWVsQkdtWDNZQnFiMllMTUMxcnFQdlBqOEpzQnZCUFBt?=
+ =?utf-8?B?SzR6cDZFcXdTNjRDcGlLQk9BOEZ1NnVsNktLenhIak5uTUJHSVl4ak8zSmxm?=
+ =?utf-8?B?V0pTTkRTaUxDczQzVXJKYmgyemhzYTJTSXluUHJraWJuaUliMTlrUklOQVUr?=
+ =?utf-8?Q?3J6E=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [113.72.145.47]
-X-ClientProxiedBy: EXCAS061.cuchost.com (172.16.6.21) To EXMBX061.cuchost.com
- (172.16.6.61)
-X-YovoleRuleAgent: yovoleflag
-Content-Transfer-Encoding: quoted-printable
-X-MailFrom: xingyu.wu@starfivetech.com
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN7PR12MB2802.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 2af5c642-be5e-42bc-6cbc-08dc01f1a9bd
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Dec 2023 06:54:22.6065
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 
+ w6wOg3yv922iwQvSQxdiUM22riDLqdMz9F1eo02rFXq8x7/FiM7uZy30kBISfD1yK8ke+BaiXxfl46IuzAqZ8w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6148
+X-MailFrom: amit.kumar-mahapatra@amd.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: GBZFBDGY5MTTVFKELYAOYFYFCEJWPTO6
-X-Message-ID-Hash: GBZFBDGY5MTTVFKELYAOYFYFCEJWPTO6
-X-Mailman-Approved-At: Mon, 01 Jan 2024 13:17:34 +0000
+Message-ID-Hash: U2GHNYAUPSHMMRTOTQCKTHAY4WKIDGPJ
+X-Message-ID-Hash: U2GHNYAUPSHMMRTOTQCKTHAY4WKIDGPJ
+X-Mailman-Approved-At: Mon, 01 Jan 2024 13:17:35 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GBZFBDGY5MTTVFKELYAOYFYFCEJWPTO6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7VARECLKWGTKUO5NCPN4KHZBBO6JNYL7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -97,1322 +210,131 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add the drivers of Cadence Multi-Channel I2S Controller on the
-StarFive JH8100 SoC.
-
-The Cadence I2S Controller implements a function of the multi-channel
-(up to 8-channel) bus. Each stereo channel combines functions of a
-transmitter and a receiver. Each channel has independent gating, clock
-and interruption control. It alos support some of these channels are
-used as playback and others can also be used as record in the same time.
-
-Signed-off-by: Xingyu Wu <xingyu.wu@starfivetech.com>
----
- MAINTAINERS                              |   7 +
- sound/soc/starfive/Kconfig               |  18 +
- sound/soc/starfive/Makefile              |   4 +
- sound/soc/starfive/cdns-jh8100-i2s-pcm.c | 262 ++++++++
- sound/soc/starfive/cdns-jh8100-i2s.c     | 727 +++++++++++++++++++++++
- sound/soc/starfive/cdns-jh8100-i2s.h     | 171 ++++++
- 6 files changed, 1189 insertions(+)
- create mode 100644 sound/soc/starfive/cdns-jh8100-i2s-pcm.c
- create mode 100644 sound/soc/starfive/cdns-jh8100-i2s.c
- create mode 100644 sound/soc/starfive/cdns-jh8100-i2s.h
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 9104430e148e..f920297e1594 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -20658,6 +20658,13 @@ F:	Documentation/devicetree/bindings/power/starf=
-ive*
- F:	drivers/pmdomain/starfive/
- F:	include/dt-bindings/power/starfive,jh7110-pmu.h
-=20
-+STARFIVE JH8100 CDNS I2S CONTROLLER DRIVER
-+M:	Xingyu Wu <xingyu.wu@starfivetech.com>
-+M:	Walker Chen <walker.chen@starfivetech.com>
-+S:	Supported
-+F:	Documentation/devicetree/bindings/sound/cdns,jh8100-i2s.yaml
-+F:	sound/soc/starfive/cdns-jh8100-i2s*
-+
- STARFIVE SOC DRIVERS
- M:	Conor Dooley <conor@kernel.org>
- S:	Maintained
-diff --git a/sound/soc/starfive/Kconfig b/sound/soc/starfive/Kconfig
-index 279ac5c1d309..f2ee72e8536d 100644
---- a/sound/soc/starfive/Kconfig
-+++ b/sound/soc/starfive/Kconfig
-@@ -22,3 +22,21 @@ config SND_SOC_JH7110_TDM
- 	select SND_SOC_GENERIC_DMAENGINE_PCM
- 	help
- 	  Say Y or M if you want to add support for StarFive TDM driver.
-+
-+config SND_SOC_JH8100_CADENCE_I2S
-+        tristate "Cadence I2S Controller Device Driver for StarFive JH81=
-00 SoC"
-+	depends on HAVE_CLK && SND_SOC_STARFIVE
-+        select SND_SOC_GENERIC_DMAENGINE_PCM
-+        help
-+         Say Y or M if you want to add support for I2S driver for the
-+         StarFive JH8100 Cadence Multi-Channel I2S Controller device.
-+
-+
-+config SND_SOC_JH8100_CADENCE_I2S_PCM
-+        bool "PCM PIO extension for CDNS I2S driver on the StarFive JH81=
-00 SoC"
-+        depends on SND_SOC_JH8100_CADENCE_I2S
-+        help
-+         Say Y or N if you want to add a custom ALSA extension that regi=
-sters
-+         a PCM and uses PIO to transfer data.
-+         This functionality is specially suited for I2S devices that don=
-'t have
-+         DMA support.
-diff --git a/sound/soc/starfive/Makefile b/sound/soc/starfive/Makefile
-index 9e958f70ef51..9f8fd0ad6187 100644
---- a/sound/soc/starfive/Makefile
-+++ b/sound/soc/starfive/Makefile
-@@ -1,3 +1,7 @@
- # StarFive Platform Support
- obj-$(CONFIG_SND_SOC_JH7110_PWMDAC) +=3D jh7110_pwmdac.o
- obj-$(CONFIG_SND_SOC_JH7110_TDM) +=3D jh7110_tdm.o
-+
-+obj-$(CONFIG_SND_SOC_JH8100_CADENCE_I2S) +=3D jh8100-i2s.o
-+jh8100-i2s-y :=3D cdns-jh8100-i2s.o
-+jh8100-i2s-$(CONFIG_SND_SOC_JH8100_CADENCE_I2S_PCM) +=3D cdns-jh8100-i2s=
--pcm.o
-diff --git a/sound/soc/starfive/cdns-jh8100-i2s-pcm.c b/sound/soc/starfiv=
-e/cdns-jh8100-i2s-pcm.c
-new file mode 100644
-index 000000000000..e0172d109925
---- /dev/null
-+++ b/sound/soc/starfive/cdns-jh8100-i2s-pcm.c
-@@ -0,0 +1,262 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Cadence Multi-Channel I2S controller PCM driver
-+ *
-+ * Copyright (c) 2022-2023 StarFive Technology Co., Ltd.
-+ */
-+
-+#include <linux/io.h>
-+#include <linux/rcupdate.h>
-+#include <sound/pcm_params.h>
-+#include "cdns-jh8100-i2s.h"
-+
-+#define PERIOD_BYTES_MIN	4096
-+#define BUFFER_BYTES_MAX	(3 * 2 * 8 * PERIOD_BYTES_MIN)
-+#define PERIODS_MIN		2
-+
-+static unsigned int cdns_jh8100_i2s_pcm_tx(struct cdns_jh8100_i2s_dev *d=
-ev,
-+					   struct snd_pcm_runtime *runtime,
-+					   unsigned int tx_ptr, bool *period_elapsed,
-+					   snd_pcm_format_t format)
-+{
-+	unsigned int period_pos =3D tx_ptr % runtime->period_size;
-+	const u16 (*p16)[2] =3D (void *)runtime->dma_area;
-+	const u32 (*p32)[2] =3D (void *)runtime->dma_area;
-+	u32 data[2];
-+	int i;
-+
-+	for (i =3D 0; i < CDNS_JH8100_I2S_FIFO_DEPTH; i++) {
-+		if (format =3D=3D SNDRV_PCM_FORMAT_S16_LE) {
-+			data[0] =3D p16[tx_ptr][0];
-+			data[1] =3D p16[tx_ptr][1];
-+		} else if (format =3D=3D SNDRV_PCM_FORMAT_S32_LE) {
-+			data[0] =3D p32[tx_ptr][0];
-+			data[1] =3D p32[tx_ptr][1];
-+		}
-+
-+		iowrite32(data[0], dev->base + CDNS_JH8100_FIFO_MEM);
-+		iowrite32(data[1], dev->base + CDNS_JH8100_FIFO_MEM);
-+		period_pos++;
-+		if (++tx_ptr >=3D runtime->buffer_size)
-+			tx_ptr =3D 0;
-+	}
-+
-+	*period_elapsed =3D period_pos >=3D runtime->period_size;
-+	return tx_ptr;
-+}
-+
-+static unsigned int cdns_jh8100_i2s_pcm_rx(struct cdns_jh8100_i2s_dev *d=
-ev,
-+					   struct snd_pcm_runtime *runtime,
-+					   unsigned int rx_ptr, bool *period_elapsed,
-+					   snd_pcm_format_t format)
-+{
-+	unsigned int period_pos =3D rx_ptr % runtime->period_size;
-+	u16 (*p16)[2] =3D (void *)runtime->dma_area;
-+	u32 (*p32)[2] =3D (void *)runtime->dma_area;
-+	u32 data[2];
-+	int i;
-+
-+	for (i =3D 0; i < CDNS_JH8100_I2S_FIFO_DEPTH; i++) {
-+		data[0] =3D ioread32(dev->base + CDNS_JH8100_FIFO_MEM);
-+		data[1] =3D ioread32(dev->base + CDNS_JH8100_FIFO_MEM);
-+		if (format =3D=3D SNDRV_PCM_FORMAT_S16_LE) {
-+			p16[rx_ptr][0] =3D data[0];
-+			p16[rx_ptr][1] =3D data[1];
-+		} else if (format =3D=3D SNDRV_PCM_FORMAT_S32_LE) {
-+			p32[rx_ptr][0] =3D data[0];
-+			p32[rx_ptr][1] =3D data[1];
-+		}
-+
-+		period_pos++;
-+		if (++rx_ptr >=3D runtime->buffer_size)
-+			rx_ptr =3D 0;
-+	}
-+
-+	*period_elapsed =3D period_pos >=3D runtime->period_size;
-+	return rx_ptr;
-+}
-+
-+static const struct snd_pcm_hardware cdns_jh8100_i2s_pcm_hardware =3D {
-+	.info =3D SNDRV_PCM_INFO_INTERLEAVED |
-+		SNDRV_PCM_INFO_MMAP |
-+		SNDRV_PCM_INFO_MMAP_VALID |
-+		SNDRV_PCM_INFO_BLOCK_TRANSFER |
-+		SNDRV_PCM_INFO_PAUSE |
-+		SNDRV_PCM_INFO_RESUME,
-+	.rates =3D SNDRV_PCM_RATE_8000 |
-+		SNDRV_PCM_RATE_11025 |
-+		SNDRV_PCM_RATE_16000 |
-+		SNDRV_PCM_RATE_22050 |
-+		SNDRV_PCM_RATE_32000 |
-+		SNDRV_PCM_RATE_44100 |
-+		SNDRV_PCM_RATE_48000,
-+	.rate_min =3D 8000,
-+	.rate_max =3D 48000,
-+	.formats =3D SNDRV_PCM_FMTBIT_S16_LE |
-+		SNDRV_PCM_FMTBIT_S32_LE,
-+	.channels_min =3D 2,
-+	.channels_max =3D 2,
-+	.buffer_bytes_max =3D BUFFER_BYTES_MAX,
-+	.period_bytes_min =3D PERIOD_BYTES_MIN,
-+	.period_bytes_max =3D BUFFER_BYTES_MAX / PERIODS_MIN,
-+	.periods_min =3D PERIODS_MIN,
-+	.periods_max =3D BUFFER_BYTES_MAX / PERIOD_BYTES_MIN,
-+	.fifo_size =3D 16,
-+};
-+
-+static void cdns_jh8100_i2s_pcm_transfer(struct cdns_jh8100_i2s_dev *dev=
-, bool push)
-+{
-+	struct snd_pcm_substream *substream;
-+	bool active, period_elapsed;
-+
-+	rcu_read_lock();
-+	if (push)
-+		substream =3D rcu_dereference(dev->tx_substream);
-+	else
-+		substream =3D rcu_dereference(dev->rx_substream);
-+
-+	active =3D substream && snd_pcm_running(substream);
-+	if (active) {
-+		unsigned int ptr;
-+		unsigned int new_ptr;
-+
-+		if (push) {
-+			ptr =3D READ_ONCE(dev->tx_ptr);
-+			new_ptr =3D dev->tx_fn(dev, substream->runtime, ptr,
-+					&period_elapsed, dev->format);
-+			cmpxchg(&dev->tx_ptr, ptr, new_ptr);
-+		} else {
-+			ptr =3D READ_ONCE(dev->rx_ptr);
-+			new_ptr =3D dev->rx_fn(dev, substream->runtime, ptr,
-+					&period_elapsed, dev->format);
-+			cmpxchg(&dev->rx_ptr, ptr, new_ptr);
-+		}
-+
-+		if (period_elapsed)
-+			snd_pcm_period_elapsed(substream);
-+	}
-+	rcu_read_unlock();
-+}
-+
-+void cdns_jh8100_i2s_pcm_push_tx(struct cdns_jh8100_i2s_dev *dev)
-+{
-+	cdns_jh8100_i2s_pcm_transfer(dev, true);
-+}
-+
-+void cdns_jh8100_i2s_pcm_pop_rx(struct cdns_jh8100_i2s_dev *dev)
-+{
-+	cdns_jh8100_i2s_pcm_transfer(dev, false);
-+}
-+
-+static int cdns_jh8100_i2s_pcm_open(struct snd_soc_component *component,
-+				    struct snd_pcm_substream *substream)
-+{
-+	struct snd_pcm_runtime *runtime =3D substream->runtime;
-+	struct snd_soc_pcm_runtime *rtd =3D snd_soc_substream_to_rtd(substream)=
-;
-+	struct cdns_jh8100_i2s_dev *dev =3D snd_soc_dai_get_drvdata(snd_soc_rtd=
-_to_cpu(rtd, 0));
-+
-+	snd_soc_set_runtime_hwparams(substream, &cdns_jh8100_i2s_pcm_hardware);
-+	snd_pcm_hw_constraint_integer(runtime, SNDRV_PCM_HW_PARAM_PERIODS);
-+	runtime->private_data =3D dev;
-+
-+	return 0;
-+}
-+
-+static int cdns_jh8100_i2s_pcm_close(struct snd_soc_component *component=
-,
-+				     struct snd_pcm_substream *substream)
-+{
-+	synchronize_rcu();
-+	return 0;
-+}
-+
-+static int cdns_jh8100_i2s_pcm_hw_params(struct snd_soc_component *compo=
-nent,
-+					 struct snd_pcm_substream *substream,
-+					 struct snd_pcm_hw_params *hw_params)
-+{
-+	struct snd_pcm_runtime *runtime =3D substream->runtime;
-+	struct cdns_jh8100_i2s_dev *dev =3D runtime->private_data;
-+
-+	dev->format =3D params_format(hw_params);
-+	dev->tx_fn =3D cdns_jh8100_i2s_pcm_tx;
-+	dev->rx_fn =3D cdns_jh8100_i2s_pcm_rx;
-+
-+	return 0;
-+}
-+
-+static int cdns_jh8100_i2s_pcm_trigger(struct snd_soc_component *compone=
-nt,
-+				       struct snd_pcm_substream *substream, int cmd)
-+{
-+	struct snd_pcm_runtime *runtime =3D substream->runtime;
-+	struct cdns_jh8100_i2s_dev *dev =3D runtime->private_data;
-+	int ret =3D 0;
-+
-+	switch (cmd) {
-+	case SNDRV_PCM_TRIGGER_START:
-+	case SNDRV_PCM_TRIGGER_RESUME:
-+	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
-+		if (substream->stream =3D=3D SNDRV_PCM_STREAM_PLAYBACK) {
-+			WRITE_ONCE(dev->tx_ptr, 0);
-+			rcu_assign_pointer(dev->tx_substream, substream);
-+		} else {
-+			WRITE_ONCE(dev->rx_ptr, 0);
-+			rcu_assign_pointer(dev->rx_substream, substream);
-+		}
-+		break;
-+	case SNDRV_PCM_TRIGGER_STOP:
-+	case SNDRV_PCM_TRIGGER_SUSPEND:
-+	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-+		if (substream->stream =3D=3D SNDRV_PCM_STREAM_PLAYBACK)
-+			rcu_assign_pointer(dev->tx_substream, NULL);
-+		else
-+			rcu_assign_pointer(dev->rx_substream, NULL);
-+		break;
-+	default:
-+		ret =3D -EINVAL;
-+		break;
-+	}
-+
-+	return ret;
-+}
-+
-+static snd_pcm_uframes_t cdns_jh8100_i2s_pcm_pointer(struct snd_soc_comp=
-onent *component,
-+						     struct snd_pcm_substream *substream)
-+{
-+	struct snd_pcm_runtime *runtime =3D substream->runtime;
-+	struct cdns_jh8100_i2s_dev *dev =3D runtime->private_data;
-+	snd_pcm_uframes_t pos;
-+
-+	if (substream->stream =3D=3D SNDRV_PCM_STREAM_PLAYBACK)
-+		pos =3D READ_ONCE(dev->tx_ptr);
-+	else
-+		pos =3D READ_ONCE(dev->rx_ptr);
-+
-+	return pos < runtime->buffer_size ? pos : 0;
-+}
-+
-+static int cdns_jh8100_i2s_pcm_new(struct snd_soc_component *component,
-+				   struct snd_soc_pcm_runtime *rtd)
-+{
-+	size_t size =3D cdns_jh8100_i2s_pcm_hardware.buffer_bytes_max;
-+
-+	snd_pcm_set_managed_buffer_all(rtd->pcm,
-+				       SNDRV_DMA_TYPE_CONTINUOUS,
-+				       NULL, size, size);
-+
-+	return 0;
-+}
-+
-+static const struct snd_soc_component_driver cdns_jh8100_i2s_pcm_compone=
-nt =3D {
-+	.open		=3D cdns_jh8100_i2s_pcm_open,
-+	.close		=3D cdns_jh8100_i2s_pcm_close,
-+	.hw_params	=3D cdns_jh8100_i2s_pcm_hw_params,
-+	.trigger	=3D cdns_jh8100_i2s_pcm_trigger,
-+	.pointer	=3D cdns_jh8100_i2s_pcm_pointer,
-+	.pcm_construct	=3D cdns_jh8100_i2s_pcm_new,
-+};
-+
-+int cdns_jh8100_i2s_pcm_register(struct platform_device *pdev)
-+{
-+	return devm_snd_soc_register_component(&pdev->dev,
-+					       &cdns_jh8100_i2s_pcm_component,
-+					       NULL, 0);
-+}
-diff --git a/sound/soc/starfive/cdns-jh8100-i2s.c b/sound/soc/starfive/cd=
-ns-jh8100-i2s.c
-new file mode 100644
-index 000000000000..924f12af9f3a
---- /dev/null
-+++ b/sound/soc/starfive/cdns-jh8100-i2s.c
-@@ -0,0 +1,727 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Cadence Multi-Channel I2S controller driver on the StarFive JH8100 So=
-C
-+ *
-+ * Copyright (c) 2023 StarFive Technology Co., Ltd.
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/io.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/reset.h>
-+#include <sound/pcm_params.h>
-+#include <sound/soc.h>
-+
-+#include "cdns-jh8100-i2s.h"
-+
-+static void cdns_jh8100_i2s_set_fifo_mask(struct cdns_jh8100_i2s_dev *i2=
-s, u32 type)
-+{
-+	unsigned int temp =3D readl(i2s->base + CDNS_JH8100_CID_CTRL);
-+
-+	temp &=3D ~CDNS_JH8100_I2S_IT_ALL;
-+	temp |=3D type;
-+	writel(temp, i2s->base + CDNS_JH8100_CID_CTRL);
-+}
-+
-+static inline void cdns_jh8100_i2s_clear_int(struct cdns_jh8100_i2s_dev =
-*i2s)
-+{
-+	writel(0, i2s->base + CDNS_JH8100_I2S_INTR_STAT);
-+}
-+
-+static int cdns_jh8100_i2s_reset_mask(struct cdns_jh8100_i2s_dev *i2s, u=
-32 mask)
-+{
-+	unsigned int val =3D readl(i2s->base + CDNS_JH8100_I2S_CTRL);
-+
-+	val &=3D ~mask;
-+	writel(val, i2s->base + CDNS_JH8100_I2S_CTRL);
-+
-+	/* Wait for the reset bit to done and is set to 1 */
-+	return readl_poll_timeout_atomic(i2s->base + CDNS_JH8100_I2S_CTRL, val,
-+					 (val & mask), 0,
-+					 CDNS_JH8100_FIFO_ACK_TIMEOUT_US);
-+}
-+
-+/* Reset for TX and RX control unit  */
-+static void cdns_jh8100_i2s_reset_txrx_unit(struct cdns_jh8100_i2s_dev *=
-i2s)
-+{
-+	unsigned int val =3D readl(i2s->base + CDNS_JH8100_I2S_CTRL);
-+
-+	val |=3D CDNS_JH8100_I2S_CTRL_TXRX_RST;
-+	writel(val, i2s->base + CDNS_JH8100_I2S_CTRL);
-+}
-+
-+static void cdns_jh8100_i2s_set_ms_mode(struct cdns_jh8100_i2s_dev *i2s)
-+{
-+	unsigned int val =3D readl(i2s->base + CDNS_JH8100_I2S_CTRL);
-+
-+	val &=3D ~(CDNS_JH8100_I2S_CTRL_T_MS_MASK | CDNS_JH8100_I2S_CTRL_R_MS_M=
-ASK);
-+	val |=3D (FIELD_PREP(CDNS_JH8100_I2S_CTRL_T_MS_MASK, i2s->tx_sync_ms_mo=
-de) |
-+		FIELD_PREP(CDNS_JH8100_I2S_CTRL_R_MS_MASK, i2s->rx_sync_ms_mode));
-+
-+	writel(val, i2s->base + CDNS_JH8100_I2S_CTRL);
-+}
-+
-+/* The threshold of almost empty & full config */
-+static void cdns_jh8100_i2s_set_aempty_afull_th(struct cdns_jh8100_i2s_d=
-ev *i2s,
-+						unsigned int aempty,
-+						unsigned int afull)
-+{
-+	unsigned int val =3D aempty | (afull << CDNS_TRFIFO_CTRL_AFULL_THRESHOL=
-D_SHIFT);
-+
-+	writel(val, i2s->base + CDNS_JH8100_TFIFO_CTRL);
-+	writel(val, i2s->base + CDNS_JH8100_RFIFO_CTRL);
-+}
-+
-+static void cdns_jh8100_i2s_set_channel_strobes(struct cdns_jh8100_i2s_d=
-ev *i2s,
-+						u32 ch, bool strobe)
-+{
-+	unsigned int val =3D readl(i2s->base + CDNS_JH8100_CID_CTRL);
-+
-+	/* Active Low */
-+	if (strobe)
-+		val &=3D ~ch;
-+	else
-+		val |=3D ch;
-+
-+	writel(val, i2s->base + CDNS_JH8100_CID_CTRL);
-+}
-+
-+/* Enable TX or RX clock */
-+static void cdns_jh8100_i2s_enable_clock(struct cdns_jh8100_i2s_dev *i2s=
-,
-+					 bool is_rx)
-+{
-+	unsigned int val =3D readl(i2s->base + CDNS_JH8100_CID_CTRL);
-+	unsigned int mask =3D (is_rx ? CDNS_JH8100_CID_CTRL_STROBE_TX :
-+			     CDNS_JH8100_CID_CTRL_STROBE_RX);
-+
-+	/* Active Low */
-+	val &=3D ~mask;
-+	writel(val, i2s->base + CDNS_JH8100_CID_CTRL);
-+}
-+
-+static void cdns_jh8100_i2s_set_transmitter_receiver(struct cdns_jh8100_=
-i2s_dev *i2s,
-+						     u32 ch, bool is_transmit)
-+{
-+	unsigned int val =3D readl(i2s->base + CDNS_JH8100_I2S_CTRL);
-+
-+	/* 1: Transmitter, 0: Receiver */
-+	if (is_transmit)
-+		val |=3D (ch << CDNS_JH8100_I2S_CTRL_TR_CFG_0_SHIFT);
-+	else
-+		val &=3D ~(ch << CDNS_JH8100_I2S_CTRL_TR_CFG_0_SHIFT);
-+
-+	writel(val, i2s->base + CDNS_JH8100_I2S_CTRL);
-+}
-+
-+static irqreturn_t cdns_jh8100_i2s_irq_handler(int irq, void *data)
-+{
-+	struct cdns_jh8100_i2s_dev *i2s =3D data;
-+	unsigned int val =3D readl(i2s->base + CDNS_JH8100_I2S_INTR_STAT);
-+	irqreturn_t ret =3D IRQ_NONE;
-+
-+	cdns_jh8100_i2s_clear_int(i2s);
-+
-+	if (val & CDNS_JH8100_I2S_STAT_TX_UNDERRUN)
-+		dev_err(i2s->dev, "TX underrun on channel %ld!\n",
-+			FIELD_GET(CDNS_JH8100_I2S_STAT_UNDERR_CODE, val));
-+
-+	if (val & CDNS_JH8100_I2S_STAT_RX_OVERRUN)
-+		dev_err(i2s->dev, "RX overrun on channel %ld!\n",
-+			FIELD_GET(CDNS_JH8100_I2S_STAT_OVERR_CODE, val));
-+
-+	/* FIFO is empty when playback start and I2S also need to push the data=
-. */
-+	if (val & (CDNS_JH8100_I2S_STAT_TFIFO_AEMPTY | CDNS_JH8100_I2S_STAT_TFI=
-FO_EMPTY)) {
-+		cdns_jh8100_i2s_pcm_push_tx(i2s);
-+		ret =3D IRQ_HANDLED;
-+	}
-+
-+	if (val & CDNS_JH8100_I2S_STAT_RFIFO_AFULL) {
-+		cdns_jh8100_i2s_pcm_pop_rx(i2s);
-+		ret =3D IRQ_HANDLED;
-+	}
-+
-+	return ret;
-+}
-+
-+static void cdns_jh8100_i2s_enable_channel(struct cdns_jh8100_i2s_dev *i=
-2s,
-+					   u32 ch, bool enable)
-+{
-+	unsigned int val =3D readl(i2s->base + CDNS_JH8100_I2S_CTRL);
-+
-+	/* Active High */
-+	if (enable)
-+		val |=3D ch;
-+	else
-+		val &=3D ~ch;
-+
-+	writel(val, i2s->base + CDNS_JH8100_I2S_CTRL);
-+}
-+
-+/* Bit masking all interrupt requests */
-+static void cdns_jh8100_i2s_set_all_irq_mask(struct cdns_jh8100_i2s_dev =
-*i2s, bool mask)
-+{
-+	unsigned int val =3D readl(i2s->base + CDNS_JH8100_CID_CTRL);
-+
-+	/* Active Low: IRQ are masked */
-+	if (mask)
-+		val &=3D ~CDNS_JH8100_CID_CTRL_INTREQ_MASK;
-+	else
-+		val |=3D CDNS_JH8100_CID_CTRL_INTREQ_MASK;
-+
-+	writel(val, i2s->base + CDNS_JH8100_CID_CTRL);
-+}
-+
-+static void cdns_jh8100_i2s_enable_channel_int(struct cdns_jh8100_i2s_de=
-v *i2s,
-+					       u32 ch, bool enable)
-+{
-+	unsigned int val =3D readl(i2s->base + CDNS_JH8100_CID_CTRL);
-+
-+	/* Active High */
-+	if (enable)
-+		val |=3D (ch << CDNS_JH8100_CID_CTRL_I2S_MASK_0_SHIFT);
-+	else
-+		val &=3D ~(ch << CDNS_JH8100_CID_CTRL_I2S_MASK_0_SHIFT);
-+
-+	writel(val, i2s->base + CDNS_JH8100_CID_CTRL);
-+}
-+
-+static void cdns_jh8100_i2s_channel_start(struct cdns_jh8100_i2s_dev *i2=
-s,
-+					  u32 ch, bool is_transmit)
-+{
-+	cdns_jh8100_i2s_set_transmitter_receiver(i2s, ch, is_transmit);
-+	cdns_jh8100_i2s_enable_channel(i2s, ch, true);
-+	cdns_jh8100_i2s_set_channel_strobes(i2s, ch, true);
-+	if (i2s->irq >=3D 0)
-+		cdns_jh8100_i2s_enable_channel_int(i2s, ch, true);
-+}
-+
-+static void cdns_jh8100_i2s_channel_stop(struct cdns_jh8100_i2s_dev *i2s=
-, u32 ch)
-+{
-+	cdns_jh8100_i2s_enable_channel(i2s, ch, false);
-+	if (i2s->irq >=3D 0)
-+		cdns_jh8100_i2s_enable_channel_int(i2s, ch, false);
-+}
-+
-+static int cdns_jh8100_i2s_start(struct cdns_jh8100_i2s_dev *i2s,
-+				 struct snd_pcm_substream *substream)
-+{
-+	struct snd_pcm_runtime *runtime =3D substream->runtime;
-+	unsigned char max_ch =3D i2s->max_channels;
-+	unsigned char i2s_ch;
-+	int i;
-+
-+	/* Each channel is stereo */
-+	i2s_ch =3D runtime->channels / 2;
-+	if (substream->stream =3D=3D SNDRV_PCM_STREAM_PLAYBACK) {
-+		if ((i2s_ch + i2s->rx_using_channels) > max_ch) {
-+			dev_err(i2s->dev,
-+				"Max %d channels: using %d for RX, do not support %d for TX\n",
-+				max_ch, i2s->rx_using_channels, i2s_ch);
-+			return -ENOMEM;
-+		}
-+
-+		i2s->tx_using_channels =3D i2s_ch;
-+		/* Enable channels from 0 to 'max_ch' as tx */
-+		for (i =3D 0; i < i2s_ch; i++)
-+			cdns_jh8100_i2s_channel_start(i2s, CDNS_JH8100_I2S_CM_0 << i,
-+						      CDNS_JH8100_I2S_TC_TRANSMITTER);
-+
-+	} else {
-+		if ((i2s_ch + i2s->tx_using_channels) > max_ch) {
-+			dev_err(i2s->dev,
-+				"Max %d channels: using %d for TX, do not support %d for RX\n",
-+				max_ch, i2s->tx_using_channels, i2s_ch);
-+			return -ENOMEM;
-+		}
-+
-+		i2s->rx_using_channels =3D i2s_ch;
-+		/* Enable channels from 'max_ch' to 0 as rx */
-+		for (i =3D (max_ch - 1); i > (max_ch - i2s_ch - 1); i--) {
-+			if (i < 0)
-+				return -EINVAL;
-+
-+			cdns_jh8100_i2s_channel_start(i2s, CDNS_JH8100_I2S_CM_0 << i,
-+						      CDNS_JH8100_I2S_TC_RECEIVER);
-+		}
-+	}
-+	cdns_jh8100_i2s_enable_clock(i2s, substream->stream);
-+
-+	if (i2s->irq >=3D 0)
-+		cdns_jh8100_i2s_set_all_irq_mask(i2s, false);
-+
-+	cdns_jh8100_i2s_clear_int(i2s);
-+
-+	return 0;
-+}
-+
-+static int cdns_jh8100_i2s_stop(struct cdns_jh8100_i2s_dev *i2s,
-+				struct snd_pcm_substream *substream)
-+{
-+	unsigned char i2s_ch;
-+	int i;
-+
-+	cdns_jh8100_i2s_clear_int(i2s);
-+
-+	if (substream->stream =3D=3D SNDRV_PCM_STREAM_PLAYBACK) {
-+		i2s_ch =3D i2s->tx_using_channels;
-+		for (i =3D 0; i < i2s_ch; i++)
-+			cdns_jh8100_i2s_channel_stop(i2s, (CDNS_JH8100_I2S_CM_0 << i));
-+
-+		i2s->tx_using_channels =3D 0;
-+	} else {
-+		unsigned char max_ch =3D i2s->max_channels;
-+
-+		i2s_ch =3D i2s->rx_using_channels;
-+		for (i =3D (max_ch - 1); i > (max_ch - i2s_ch - 1); i--) {
-+			if (i < 0)
-+				return -EINVAL;
-+
-+			cdns_jh8100_i2s_channel_stop(i2s, (CDNS_JH8100_I2S_CM_0 << i));
-+		}
-+
-+		i2s->rx_using_channels =3D 0;
-+	}
-+
-+	if (i2s->irq >=3D 0 && !i2s->tx_using_channels && !i2s->rx_using_channe=
-ls)
-+		cdns_jh8100_i2s_set_all_irq_mask(i2s, true);
-+
-+	return 0;
-+}
-+
-+static int cdns_jh8100_i2s_startup(struct snd_pcm_substream *substream,
-+				   struct snd_soc_dai *dai)
-+{
-+	struct cdns_jh8100_i2s_dev *i2s =3D snd_soc_dai_get_drvdata(dai);
-+	struct snd_soc_pcm_runtime *rtd =3D snd_soc_substream_to_rtd(substream)=
-;
-+	struct snd_soc_dai_link *dai_link =3D rtd->dai_link;
-+
-+	if (i2s->irq < 0)
-+		dai_link->trigger_stop =3D SND_SOC_TRIGGER_ORDER_LDC;
-+
-+	return 0;
-+}
-+
-+static void cdns_jh8100_i2s_config(struct cdns_jh8100_i2s_dev *i2s, int =
-stream)
-+{
-+	unsigned int val =3D readl(i2s->base + CDNS_JH8100_I2S_SRR);
-+
-+	if (stream =3D=3D SNDRV_PCM_STREAM_PLAYBACK) {
-+		val &=3D ~(CDNS_JH8100_I2S_SRR_TRATE_MASK | CDNS_JH8100_I2S_SRR_TRESOL=
-UTION_MASK);
-+		val |=3D (FIELD_PREP(CDNS_JH8100_I2S_SRR_TRATE_MASK, i2s->sample_rate_=
-param) |
-+			FIELD_PREP(CDNS_JH8100_I2S_SRR_TRESOLUTION_MASK, (i2s->resolution - 1=
-)));
-+	} else {
-+		val &=3D ~(CDNS_JH8100_I2S_SRR_RRATE_MASK | CDNS_JH8100_I2S_SRR_RRESOL=
-UTION_MASK);
-+		val |=3D (FIELD_PREP(CDNS_JH8100_I2S_SRR_RRATE_MASK, i2s->sample_rate_=
-param) |
-+			FIELD_PREP(CDNS_JH8100_I2S_SRR_RRESOLUTION_MASK, (i2s->resolution - 1=
-)));
-+	}
-+
-+	writel(val, i2s->base + CDNS_JH8100_I2S_SRR);
-+}
-+
-+static int cdns_jh8100_i2s_hw_params(struct snd_pcm_substream *substream=
-,
-+				     struct snd_pcm_hw_params *params,
-+				     struct snd_soc_dai *dai)
-+{
-+	struct cdns_jh8100_i2s_dev *i2s =3D snd_soc_dai_get_drvdata(dai);
-+	unsigned int sample_rate =3D params_rate(params);
-+	unsigned int channels =3D params_channels(params);
-+	unsigned int fclk_hz =3D clk_get_rate(i2s->clks[2].clk); /* mclk_inner =
-*/
-+	unsigned int bclk_rate;
-+	int ret;
-+	struct snd_dmaengine_dai_dma_data *dma_data;
-+
-+	if (substream->stream =3D=3D SNDRV_PCM_STREAM_PLAYBACK)
-+		dma_data =3D &i2s->tx_dma_data;
-+	else
-+		dma_data =3D &i2s->rx_dma_data;
-+
-+	switch (sample_rate) {
-+	case 8000:
-+		bclk_rate =3D 512000;
-+		break;
-+	case 11025:
-+		bclk_rate =3D 705600;
-+		break;
-+	case 16000:
-+		bclk_rate =3D 1024000;
-+		break;
-+	case 22050:
-+		bclk_rate =3D 1411200;
-+		break;
-+	case 32000:
-+		bclk_rate =3D 2048000;
-+		break;
-+	case 44100:
-+		bclk_rate =3D 2822400;
-+		break;
-+	case 48000:
-+		bclk_rate =3D 3072000;
-+		break;
-+	default:
-+		dev_err(dai->dev, "%d rate not supported\n", sample_rate);
-+		return -EINVAL;
-+	}
-+
-+	switch (params_format(params)) {
-+	case SNDRV_PCM_FORMAT_S16_LE:
-+		dma_data->addr_width =3D DMA_SLAVE_BUSWIDTH_2_BYTES;
-+		break;
-+	case SNDRV_PCM_FORMAT_S32_LE:
-+		dma_data->addr_width =3D DMA_SLAVE_BUSWIDTH_4_BYTES;
-+		break;
-+	default:
-+		dev_err(i2s->dev, "unsupported PCM fmt\n");
-+		return -EINVAL;
-+	}
-+
-+	ret =3D clk_set_rate(i2s->clks[0].clk, bclk_rate); /* bclk */
-+	if (ret < 0) {
-+		dev_err(i2s->dev, "Can't set i2s bclk: %d\n", ret);
-+		return ret;
-+	}
-+
-+	i2s->resolution =3D params_width(params);
-+	i2s->sample_rate_param =3D fclk_hz / (sample_rate * channels * 32);
-+	cdns_jh8100_i2s_config(i2s, substream->stream);
-+
-+	if (i2s->irq < 0)
-+		snd_soc_dai_set_dma_data(dai, substream, dma_data);
-+
-+	return 0;
-+}
-+
-+static int cdns_jh8100_i2s_trigger(struct snd_pcm_substream *substream,
-+				   int cmd, struct snd_soc_dai *dai)
-+{
-+	struct cdns_jh8100_i2s_dev *i2s =3D snd_soc_dai_get_drvdata(dai);
-+	int ret =3D 0;
-+
-+	switch (cmd) {
-+	case SNDRV_PCM_TRIGGER_START:
-+	case SNDRV_PCM_TRIGGER_RESUME:
-+	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
-+		ret =3D cdns_jh8100_i2s_start(i2s, substream);
-+		break;
-+
-+	case SNDRV_PCM_TRIGGER_STOP:
-+	case SNDRV_PCM_TRIGGER_SUSPEND:
-+	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-+		ret =3D cdns_jh8100_i2s_stop(i2s, substream);
-+		break;
-+	default:
-+		ret =3D -EINVAL;
-+		break;
-+	}
-+
-+	return ret;
-+}
-+
-+static int cdns_jh8100_i2s_set_fmt(struct snd_soc_dai *cpu_dai,
-+				   unsigned int fmt)
-+{
-+	struct cdns_jh8100_i2s_dev *i2s =3D snd_soc_dai_get_drvdata(cpu_dai);
-+	int ret =3D 0;
-+
-+	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
-+	case SND_SOC_DAIFMT_CBM_CFM:
-+		i2s->tx_sync_ms_mode =3D CDNS_JH8100_I2S_MASTER_MODE;
-+		i2s->rx_sync_ms_mode =3D CDNS_JH8100_I2S_MASTER_MODE;
-+		cdns_jh8100_i2s_set_ms_mode(i2s);
-+		break;
-+	case SND_SOC_DAIFMT_CBS_CFS:
-+		i2s->tx_sync_ms_mode =3D CDNS_JH8100_I2S_SLAVE_MODE;
-+		i2s->rx_sync_ms_mode =3D CDNS_JH8100_I2S_SLAVE_MODE;
-+		cdns_jh8100_i2s_set_ms_mode(i2s);
-+		break;
-+	case SND_SOC_DAIFMT_CBM_CFS:
-+	case SND_SOC_DAIFMT_CBS_CFM:
-+		ret =3D -EINVAL;
-+		break;
-+	default:
-+		dev_dbg(i2s->dev, "Invalid master/slave format\n");
-+		ret =3D -EINVAL;
-+		break;
-+	}
-+	return ret;
-+}
-+
-+static int cdns_jh8100_i2s_dai_probe(struct snd_soc_dai *dai)
-+{
-+	struct cdns_jh8100_i2s_dev *i2s =3D snd_soc_dai_get_drvdata(dai);
-+	struct snd_dmaengine_dai_dma_data *tx =3D &i2s->tx_dma_data;
-+	struct snd_dmaengine_dai_dma_data *rx =3D &i2s->rx_dma_data;
-+
-+	if (i2s->irq >=3D 0)
-+		return 0;
-+
-+	/* Buswidth will be set by framework */
-+	tx->addr_width =3D DMA_SLAVE_BUSWIDTH_UNDEFINED;
-+	tx->addr =3D i2s->phybase + CDNS_JH8100_FIFO_MEM;
-+	tx->maxburst =3D 16;
-+	tx->fifo_size =3D 16;
-+
-+	rx->addr_width =3D DMA_SLAVE_BUSWIDTH_UNDEFINED;
-+	rx->addr =3D i2s->phybase + CDNS_JH8100_FIFO_MEM;
-+	rx->maxburst =3D 16;
-+	rx->fifo_size =3D 16;
-+
-+	snd_soc_dai_init_dma_data(dai, tx, rx);
-+
-+	return 0;
-+}
-+
-+static const struct snd_soc_component_driver cdns_jh8100_i2s_component =3D=
- {
-+	.name =3D "cdns-jh8100-i2s",
-+};
-+
-+static const struct snd_soc_dai_ops cdns_jh8100_i2s_dai_ops =3D {
-+	.probe		=3D cdns_jh8100_i2s_dai_probe,
-+	.startup	=3D cdns_jh8100_i2s_startup,
-+	.hw_params	=3D cdns_jh8100_i2s_hw_params,
-+	.trigger	=3D cdns_jh8100_i2s_trigger,
-+	.set_fmt	=3D cdns_jh8100_i2s_set_fmt,
-+};
-+
-+static struct snd_soc_dai_driver cdns_jh8100_i2s_dai =3D {
-+	.name =3D "cdns-jh8100-i2s",
-+	.id =3D 0,
-+	.playback =3D {
-+		.stream_name =3D "Playback",
-+		.channels_min =3D 2,
-+		.channels_max =3D 8,
-+		.rates =3D SNDRV_PCM_RATE_8000_48000,
-+		.formats =3D SNDRV_PCM_FMTBIT_S16_LE |
-+			   SNDRV_PCM_FMTBIT_S32_LE,
-+	},
-+	.capture =3D {
-+		.stream_name =3D "Capture",
-+		.channels_min =3D 2,
-+		.channels_max =3D 8,
-+		.rates =3D SNDRV_PCM_RATE_8000_48000,
-+		.formats =3D SNDRV_PCM_FMTBIT_S16_LE |
-+			   SNDRV_PCM_FMTBIT_S32_LE,
-+	},
-+	.ops =3D &cdns_jh8100_i2s_dai_ops,
-+	.symmetric_rate =3D 1,
-+};
-+
-+static int cdns_jh8100_i2s_runtime_suspend(struct device *dev)
-+{
-+	struct cdns_jh8100_i2s_dev *i2s =3D dev_get_drvdata(dev);
-+
-+	clk_disable_unprepare(i2s->clks[1].clk); /* ICG clock */
-+	return 0;
-+}
-+
-+static int cdns_jh8100_i2s_runtime_resume(struct device *dev)
-+{
-+	struct cdns_jh8100_i2s_dev *i2s =3D dev_get_drvdata(dev);
-+
-+	return clk_prepare_enable(i2s->clks[1].clk); /* ICG clock */
-+}
-+
-+static int cdns_jh8100_i2s_crg_init(struct cdns_jh8100_i2s_dev *i2s)
-+{
-+	struct reset_control *reset =3D devm_reset_control_get_exclusive(i2s->d=
-ev, NULL);
-+	int ret;
-+
-+	if (IS_ERR(reset))
-+		return dev_err_probe(i2s->dev, PTR_ERR(reset), "failed to get i2s rese=
-ts\n");
-+
-+	i2s->clks[0].id =3D "bclk";
-+	i2s->clks[1].id =3D "icg";
-+	i2s->clks[2].id =3D "mclk_inner";
-+
-+	ret =3D devm_clk_bulk_get(i2s->dev, ARRAY_SIZE(i2s->clks), i2s->clks);
-+	if (ret)
-+		return dev_err_probe(i2s->dev, ret, "failed to get i2s clocks\n");
-+
-+	ret =3D clk_prepare_enable(i2s->clks[1].clk); /* ICG clock */
-+	if (ret)
-+		return dev_err_probe(i2s->dev, ret, "failed to enable icg clock\n");
-+
-+	ret =3D reset_control_deassert(reset);
-+	if (ret)
-+		goto rst_err;
-+
-+	return 0;
-+
-+rst_err:
-+	clk_disable_unprepare(i2s->clks[1].clk);
-+	return ret;
-+}
-+
-+static int cdns_jh8100_i2s_init(struct cdns_jh8100_i2s_dev *i2s)
-+{
-+	int ret	=3D cdns_jh8100_i2s_crg_init(i2s);
-+	unsigned int tmp;
-+
-+	if (ret)
-+		return ret;
-+
-+	/* Software reset i2s controller */
-+	ret =3D cdns_jh8100_i2s_reset_mask(i2s, CDNS_JH8100_I2S_CTRL_SFR_RST_MA=
-SK);
-+	if (ret) {
-+		dev_err(i2s->dev, "Failed to reset I2S.\n");
-+		return ret;
-+	}
-+
-+	/* reset TX FIFO */
-+	ret =3D cdns_jh8100_i2s_reset_mask(i2s, CDNS_JH8100_I2S_CTRL_TFIFO_RST_=
-MASK);
-+	if (ret) {
-+		dev_err(i2s->dev, "Failed to reset tx fifo.\n");
-+		return ret;
-+	}
-+
-+	/* reset RX FIFO */
-+	ret =3D cdns_jh8100_i2s_reset_mask(i2s, CDNS_JH8100_I2S_CTRL_RFIFO_RST_=
-MASK);
-+	if (ret) {
-+		dev_err(i2s->dev, "Failed to reset rx fifo.\n");
-+		return ret;
-+	}
-+
-+	/* default master mode to init */
-+	i2s->tx_sync_ms_mode =3D CDNS_JH8100_I2S_MASTER_MODE;
-+	i2s->rx_sync_ms_mode =3D CDNS_JH8100_I2S_MASTER_MODE;
-+	cdns_jh8100_i2s_set_ms_mode(i2s);
-+
-+	/* Should do it after setting Master/Slave mode */
-+	cdns_jh8100_i2s_reset_txrx_unit(i2s);
-+	cdns_jh8100_i2s_clear_int(i2s);
-+
-+	cdns_jh8100_i2s_set_aempty_afull_th(i2s, (CDNS_JH8100_I2S_FIFO_DEPTH / =
-4),
-+					    (CDNS_JH8100_I2S_FIFO_DEPTH / 4 * 3));
-+	cdns_jh8100_i2s_set_fifo_mask(i2s, CDNS_JH8100_I2S_IT_TFIFO_AEMPTY |
-+				      CDNS_JH8100_I2S_IT_RFIFO_AFULL);
-+
-+	i2s->rx_using_channels =3D 0;
-+	i2s->tx_using_channels =3D 0;
-+
-+	/* cdns,i2s-max-channels is optional property and default 8 */
-+	ret =3D device_property_read_u32(i2s->dev, "cdns,i2s-max-channels", &tm=
-p);
-+	if (ret) {
-+		i2s->max_channels =3D CDNS_JH8100_I2S_CHANNEL_MAX;
-+	} else {
-+		if (tmp > CDNS_JH8100_I2S_CHANNEL_MAX) {
-+			dev_err(i2s->dev,
-+				"The number %d of max channels from DTS is out of range!\n",
-+				tmp);
-+			return -EINVAL;
-+		}
-+
-+		i2s->max_channels =3D tmp;
-+	}
-+
-+	return 0;
-+}
-+
-+static int cdns_jh8100_i2s_probe(struct platform_device *pdev)
-+{
-+	struct cdns_jh8100_i2s_dev *i2s;
-+	struct resource *res;
-+	int ret;
-+
-+	i2s =3D devm_kzalloc(&pdev->dev, sizeof(*i2s), GFP_KERNEL);
-+	if (!i2s) {
-+		ret =3D -ENOMEM;
-+		goto err;
-+	}
-+	platform_set_drvdata(pdev, i2s);
-+
-+	i2s->base =3D devm_platform_get_and_ioremap_resource(pdev, 0, &res);
-+	if (IS_ERR(i2s->base)) {
-+		ret =3D PTR_ERR(i2s->base);
-+		goto err;
-+	}
-+
-+	i2s->dev =3D &pdev->dev;
-+	i2s->phybase =3D res->start;
-+
-+	ret =3D cdns_jh8100_i2s_init(i2s);
-+	if (ret)
-+		goto err;
-+
-+	i2s->irq =3D platform_get_irq(pdev, 0);
-+	if (i2s->irq >=3D 0) {
-+		ret =3D devm_request_irq(&pdev->dev, i2s->irq, cdns_jh8100_i2s_irq_han=
-dler,
-+				       0, pdev->name, i2s);
-+		if (ret < 0) {
-+			dev_err(&pdev->dev, "request_irq failed\n");
-+			goto err;
-+		}
-+	}
-+
-+	ret =3D devm_snd_soc_register_component(&pdev->dev,
-+					      &cdns_jh8100_i2s_component,
-+					      &cdns_jh8100_i2s_dai, 1);
-+	if (ret < 0) {
-+		dev_err(&pdev->dev, "couldn't register component\n");
-+		goto err;
-+	}
-+
-+	if (i2s->irq >=3D 0)
-+		ret =3D cdns_jh8100_i2s_pcm_register(pdev);
-+	else
-+		ret =3D devm_snd_dmaengine_pcm_register(&pdev->dev, NULL, 0);
-+
-+	if (ret) {
-+		dev_err(&pdev->dev, "could not register pcm: %d\n", ret);
-+		goto err;
-+	}
-+
-+	pm_runtime_enable(&pdev->dev);
-+	if (pm_runtime_enabled(&pdev->dev))
-+		cdns_jh8100_i2s_runtime_suspend(&pdev->dev);
-+
-+	dev_info(&pdev->dev, "I2S supports %d stereo channels with %s.\n",
-+		 i2s->max_channels, ((i2s->irq < 0) ? "dma" : "interrupt"));
-+
-+	return 0;
-+
-+err:
-+	return ret;
-+}
-+
-+static int cdns_jh8100_i2s_remove(struct platform_device *pdev)
-+{
-+	pm_runtime_disable(&pdev->dev);
-+	if (!pm_runtime_status_suspended(&pdev->dev))
-+		cdns_jh8100_i2s_runtime_suspend(&pdev->dev);
-+
-+	return 0;
-+}
-+
-+#ifdef CONFIG_OF
-+static const struct of_device_id cdns_jh8100_i2s_of_match[] =3D {
-+	{ .compatible =3D "starfive,jh8100-i2s", },
-+	{},
-+};
-+MODULE_DEVICE_TABLE(of, cdns_jh8100_i2s_of_match);
-+#endif
-+
-+static const struct dev_pm_ops cdns_jh8100_i2s_pm_ops =3D {
-+	SET_RUNTIME_PM_OPS(cdns_jh8100_i2s_runtime_suspend,
-+			   cdns_jh8100_i2s_runtime_resume, NULL)
-+	SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
-+				pm_runtime_force_resume)
-+};
-+
-+static struct platform_driver cdns_jh8100_i2s_driver =3D {
-+	.probe   =3D cdns_jh8100_i2s_probe,
-+	.remove  =3D cdns_jh8100_i2s_remove,
-+	.driver  =3D {
-+		.name =3D "cdns-jh8100-i2s",
-+		.of_match_table =3D of_match_ptr(cdns_jh8100_i2s_of_match),
-+		.pm =3D &cdns_jh8100_i2s_pm_ops,
-+	},
-+};
-+
-+module_platform_driver(cdns_jh8100_i2s_driver);
-+
-+MODULE_AUTHOR("Xingyu Wu <xingyu.wu@starfivetech.com>");
-+MODULE_AUTHOR("Walker Chen <walker.chen@starfivetech.com>");
-+MODULE_DESCRIPTION("Cadence Multi-Channel I2S controller driver for Star=
-Five JH8100 SoC");
-+MODULE_LICENSE("GPL");
-diff --git a/sound/soc/starfive/cdns-jh8100-i2s.h b/sound/soc/starfive/cd=
-ns-jh8100-i2s.h
-new file mode 100644
-index 000000000000..d4e0350de7bf
---- /dev/null
-+++ b/sound/soc/starfive/cdns-jh8100-i2s.h
-@@ -0,0 +1,171 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Cadence Multi-Channel I2S Controller driver header file for StarFive =
-JH8100 SoC
-+ *
-+ * Copyright (c) 2023 StarFive Technology Co., Ltd.
-+ * Author: Walker Chen <walker.chen@starfivetech.com>
-+ *         Xingyu Wu <xingyu.wu@starfivetech.com>
-+ */
-+
-+#ifndef __CDNS_JH8100_I2S_MC_H
-+#define __CDNS_JH8100_I2S_MC_H
-+
-+#include <linux/clk.h>
-+#include <sound/dmaengine_pcm.h>
-+#include <sound/pcm.h>
-+
-+#define CDNS_JH8100_I2S_FIFO_DEPTH		128
-+#define CDNS_JH8100_FIFO_ACK_TIMEOUT_US		200
-+#define CDNS_JH8100_I2S_CHANNEL_MAX		8
-+
-+/* I2S REGS */
-+#define CDNS_JH8100_I2S_CTRL		0x00
-+#define CDNS_JH8100_I2S_INTR_STAT	0x04
-+#define CDNS_JH8100_I2S_SRR		0x08
-+#define CDNS_JH8100_CID_CTRL		0x0c
-+#define CDNS_JH8100_TFIFO_CTRL		0x18
-+#define CDNS_JH8100_RFIFO_CTRL		0x1c
-+#define CDNS_JH8100_FIFO_MEM		0x3c
-+
-+/*
-+ * I2S_CTRL: I2S transceiver control register
-+ */
-+#define CDNS_JH8100_I2S_CTRL_TR_CFG_0_SHIFT	8
-+#define CDNS_JH8100_I2S_CTRL_SFR_RST_MASK	BIT(20)
-+#define CDNS_JH8100_I2S_CTRL_T_MS_MASK		BIT(21)
-+#define CDNS_JH8100_I2S_CTRL_R_MS_MASK		BIT(22)
-+#define CDNS_JH8100_I2S_CTRL_TFIFO_RST_MASK	BIT(23)
-+#define CDNS_JH8100_I2S_CTRL_RFIFO_RST_MASK	BIT(24)
-+#define CDNS_JH8100_I2S_CTRL_TXRX_RST		GENMASK(26, 25)
-+
-+/*
-+ * I2S_INTR_STAT: I2S Interrupt status register
-+ */
-+#define CDNS_JH8100_I2S_STAT_TX_UNDERRUN	BIT(0)
-+#define CDNS_JH8100_I2S_STAT_UNDERR_CODE	GENMASK(3, 1)
-+#define CDNS_JH8100_I2S_STAT_RX_OVERRUN		BIT(4)
-+#define CDNS_JH8100_I2S_STAT_OVERR_CODE		GENMASK(7, 5)
-+#define CDNS_JH8100_I2S_STAT_TFIFO_EMPTY	BIT(8)
-+#define CDNS_JH8100_I2S_STAT_TFIFO_AEMPTY	BIT(9)
-+#define CDNS_JH8100_I2S_STAT_RFIFO_AFULL	BIT(15)
-+
-+/*
-+ * CID_CTRL: Clock strobes and interrupt masks control register
-+ */
-+#define CDNS_JH8100_CID_CTRL_STROBE_TX			BIT(8)
-+#define CDNS_JH8100_CID_CTRL_STROBE_RX			BIT(9)
-+#define CDNS_JH8100_CID_CTRL_INTREQ_MASK		BIT(15)
-+#define CDNS_JH8100_CID_CTRL_I2S_MASK_0_SHIFT		16
-+
-+/*
-+ * I2S_SRR: Sample rate and resolution control register
-+ */
-+#define CDNS_JH8100_I2S_SRR_TRATE_MASK			GENMASK(9, 0)
-+#define CDNS_JH8100_I2S_SRR_RRATE_MASK			GENMASK(25, 16)
-+#define CDNS_JH8100_I2S_SRR_TRESOLUTION_MASK		GENMASK(15, 11)
-+#define CDNS_JH8100_I2S_SRR_RRESOLUTION_MASK		GENMASK(31, 27)
-+
-+/*
-+ * TFIFO_CTRL & RFIFO_CTRL: The FIFO thresholds control register
-+ * AEMPTY: [15:0]
-+ * AFULL: [31:16]
-+ */
-+#define CDNS_TRFIFO_CTRL_AFULL_THRESHOLD_SHIFT		16
-+
-+enum cdns_jh8100_i2s_channel_mask {
-+	CDNS_JH8100_I2S_CM_0   =3D BIT(0),
-+	CDNS_JH8100_I2S_CM_1   =3D BIT(1),
-+	CDNS_JH8100_I2S_CM_2   =3D BIT(2),
-+	CDNS_JH8100_I2S_CM_3   =3D BIT(3),
-+	CDNS_JH8100_I2S_CM_4   =3D BIT(4),
-+	CDNS_JH8100_I2S_CM_5   =3D BIT(5),
-+	CDNS_JH8100_I2S_CM_6   =3D BIT(6),
-+	CDNS_JH8100_I2S_CM_7   =3D BIT(7),
-+	CDNS_JH8100_I2S_CM_ALL =3D GENMASK(7, 0),
-+};
-+
-+enum i2s_int_type {
-+	CDNS_JH8100_I2S_IT_TFIFO_EMPTY  =3D BIT(24),
-+	CDNS_JH8100_I2S_IT_TFIFO_AEMPTY =3D BIT(25),
-+	CDNS_JH8100_I2S_IT_TFIFO_FULL   =3D BIT(26),
-+	CDNS_JH8100_I2S_IT_TFIFO_AFULL  =3D BIT(27),
-+	CDNS_JH8100_I2S_IT_RFIFO_EMPTY  =3D BIT(28),
-+	CDNS_JH8100_I2S_IT_RFIFO_AEMPTY =3D BIT(29),
-+	CDNS_JH8100_I2S_IT_RFIFO_FULL   =3D BIT(30),
-+	CDNS_JH8100_I2S_IT_RFIFO_AFULL  =3D BIT(31),
-+	CDNS_JH8100_I2S_IT_ALL          =3D GENMASK(31, 24),
-+};
-+
-+enum cdns_jh8100_i2s_master_slave_mode {
-+	CDNS_JH8100_I2S_SLAVE_MODE =3D 0,
-+	CDNS_JH8100_I2S_MASTER_MODE =3D 1,
-+};
-+
-+enum cdns_jh8100_i2s_transmit_config {
-+	CDNS_JH8100_I2S_TC_RECEIVER =3D 0,
-+	CDNS_JH8100_I2S_TC_TRANSMITTER =3D 1,
-+};
-+
-+struct cdns_jh8100_i2s_dev {
-+	struct device *dev;
-+	struct clk_bulk_data clks[3];
-+	void __iomem *base;
-+	resource_size_t	phybase; /* the physical memory */
-+	int irq;
-+	unsigned int sample_rate_param;
-+	unsigned char resolution;
-+	unsigned char max_channels /* up to CDNS_JH8100_I2S_CHANNEL_MAX */;
-+	unsigned char tx_using_channels;
-+	unsigned char rx_using_channels;
-+
-+	/*
-+	 * Master (value '1') or slave (value '0') configuration bit
-+	 * for unit synchronizing all transmitters(receivers) with I2S bus
-+	 */
-+	bool tx_sync_ms_mode;
-+	bool rx_sync_ms_mode;
-+
-+#if IS_ENABLED(CONFIG_SND_SOC_JH8100_CADENCE_I2S_PCM)
-+	/* current playback substream. NULL if not playing.
-+	 *
-+	 * Access to that field is synchronized between the interrupt handler
-+	 * and userspace through RCU.
-+	 *
-+	 * Interrupt handler (threaded part) does PIO on substream data in RCU
-+	 * read-side critical section. Trigger callback sets and clears the
-+	 * pointer when the playback is started and stopped with
-+	 * rcu_assign_pointer. When userspace is about to free the playback
-+	 * stream in the pcm_close callback it synchronizes with the interrupt
-+	 * handler by means of synchronize_rcu call.
-+	 */
-+	struct snd_pcm_substream __rcu *tx_substream;
-+	struct snd_pcm_substream __rcu *rx_substream;
-+	unsigned int (*tx_fn)(struct cdns_jh8100_i2s_dev *i2s,
-+			      struct snd_pcm_runtime *runtime, unsigned int tx_ptr,
-+			      bool *period_elapsed, snd_pcm_format_t format);
-+	unsigned int (*rx_fn)(struct cdns_jh8100_i2s_dev *dev,
-+			      struct snd_pcm_runtime *runtime, unsigned int rx_ptr,
-+			      bool *period_elapsed, snd_pcm_format_t format);
-+	snd_pcm_format_t format;
-+	unsigned int tx_ptr; /* next frame index in the sample buffer */
-+	unsigned int rx_ptr;
-+#endif
-+
-+	struct snd_dmaengine_dai_dma_data tx_dma_data;
-+	struct snd_dmaengine_dai_dma_data rx_dma_data;
-+};
-+
-+#if IS_ENABLED(CONFIG_SND_SOC_JH8100_CADENCE_I2S_PCM)
-+void cdns_jh8100_i2s_pcm_push_tx(struct cdns_jh8100_i2s_dev *dev);
-+void cdns_jh8100_i2s_pcm_pop_rx(struct cdns_jh8100_i2s_dev *dev);
-+int cdns_jh8100_i2s_pcm_register(struct platform_device *pdev);
-+#else
-+void cdns_jh8100_i2s_pcm_push_tx(struct cdns_jh8100_i2s_dev *dev) { }
-+void cdns_jh8100_i2s_pcm_pop_rx(struct cdns_jh8100_i2s_dev *dev) { }
-+int cdns_jh8100_i2s_pcm_register(struct platform_device *pdev)
-+{
-+	return -EINVAL;
-+}
-+#endif
-+
-+#endif /* __CDNS_JH8100_I2S_MC_H */
---=20
-2.25.1
-
+SGVsbG8gVHVkb3IsDQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogVHVk
+b3IgQW1iYXJ1cyA8dHVkb3IuYW1iYXJ1c0BsaW5hcm8ub3JnPg0KPiBTZW50OiBUdWVzZGF5LCBE
+ZWNlbWJlciAxOSwgMjAyMyAxOjU2IFBNDQo+IFRvOiBNYWhhcGF0cmEsIEFtaXQgS3VtYXIgPGFt
+aXQua3VtYXItbWFoYXBhdHJhQGFtZC5jb20+Ow0KPiBicm9vbmllQGtlcm5lbC5vcmc7IHByYXR5
+dXNoQGtlcm5lbC5vcmc7IG1pcXVlbC5yYXluYWxAYm9vdGxpbi5jb207DQo+IHJpY2hhcmRAbm9k
+LmF0OyB2aWduZXNockB0aS5jb207IHNiaW5kaW5nQG9wZW5zb3VyY2UuY2lycnVzLmNvbTsNCj4g
+bGVlQGtlcm5lbC5vcmc7IGphbWVzLnNjaHVsbWFuQGNpcnJ1cy5jb207IGRhdmlkLnJob2Rlc0Bj
+aXJydXMuY29tOw0KPiByZkBvcGVuc291cmNlLmNpcnJ1cy5jb207IHBlcmV4QHBlcmV4LmN6OyB0
+aXdhaUBzdXNlLmNvbQ0KPiBDYzogbGludXgtc3BpQHZnZXIua2VybmVsLm9yZzsgbGludXgta2Vy
+bmVsQHZnZXIua2VybmVsLm9yZzsNCj4gbWljaGFlbEB3YWxsZS5jYzsgbGludXgtbXRkQGxpc3Rz
+LmluZnJhZGVhZC5vcmc7DQo+IG5pY29sYXMuZmVycmVAbWljcm9jaGlwLmNvbTsgYWxleGFuZHJl
+LmJlbGxvbmlAYm9vdGxpbi5jb207DQo+IGNsYXVkaXUuYmV6bmVhQHR1eG9uLmRldjsgU2ltZWss
+IE1pY2hhbCA8bWljaGFsLnNpbWVrQGFtZC5jb20+OyBsaW51eC0NCj4gYXJtLWtlcm5lbEBsaXN0
+cy5pbmZyYWRlYWQub3JnOyBhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmc7DQo+IHBhdGNoZXNA
+b3BlbnNvdXJjZS5jaXJydXMuY29tOyBsaW51eC1zb3VuZEB2Z2VyLmtlcm5lbC5vcmc7IGdpdCAo
+QU1ELQ0KPiBYaWxpbngpIDxnaXRAYW1kLmNvbT47IGFtaXRya2NpYW4yMDAyQGdtYWlsLmNvbQ0K
+PiBTdWJqZWN0OiBSZTogW1BBVENIIHYxMSAwNy8xMF0gbXRkOiBzcGktbm9yOiBBZGQgc3RhY2tl
+ZCBtZW1vcmllcyBzdXBwb3J0DQo+IGluIHNwaS1ub3INCj4gDQo+IA0KPiANCj4gT24gMTUuMTIu
+MjAyMyAxMzoyMCwgTWFoYXBhdHJhLCBBbWl0IEt1bWFyIHdyb3RlOg0KPiA+IEhlbGxvIFR1ZG9y
+LA0KPiA+DQo+IA0KPiBIaSENCj4gDQo+ID4+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+
+ID4+IEZyb206IFR1ZG9yIEFtYmFydXMgPHR1ZG9yLmFtYmFydXNAbGluYXJvLm9yZz4NCj4gPj4g
+U2VudDogRnJpZGF5LCBEZWNlbWJlciAxNSwgMjAyMyA0OjAzIFBNDQo+ID4+IFRvOiBNYWhhcGF0
+cmEsIEFtaXQgS3VtYXIgPGFtaXQua3VtYXItbWFoYXBhdHJhQGFtZC5jb20+Ow0KPiA+PiBicm9v
+bmllQGtlcm5lbC5vcmc7IHByYXR5dXNoQGtlcm5lbC5vcmc7IG1pcXVlbC5yYXluYWxAYm9vdGxp
+bi5jb207DQo+ID4+IHJpY2hhcmRAbm9kLmF0OyB2aWduZXNockB0aS5jb207IHNiaW5kaW5nQG9w
+ZW5zb3VyY2UuY2lycnVzLmNvbTsNCj4gPj4gbGVlQGtlcm5lbC5vcmc7IGphbWVzLnNjaHVsbWFu
+QGNpcnJ1cy5jb207IGRhdmlkLnJob2Rlc0BjaXJydXMuY29tOw0KPiA+PiByZkBvcGVuc291cmNl
+LmNpcnJ1cy5jb207IHBlcmV4QHBlcmV4LmN6OyB0aXdhaUBzdXNlLmNvbQ0KPiA+PiBDYzogbGlu
+dXgtc3BpQHZnZXIua2VybmVsLm9yZzsgbGludXgta2VybmVsQHZnZXIua2VybmVsLm9yZzsNCj4g
+Pj4gbWljaGFlbEB3YWxsZS5jYzsgbGludXgtbXRkQGxpc3RzLmluZnJhZGVhZC5vcmc7DQo+ID4+
+IG5pY29sYXMuZmVycmVAbWljcm9jaGlwLmNvbTsgYWxleGFuZHJlLmJlbGxvbmlAYm9vdGxpbi5j
+b207DQo+ID4+IGNsYXVkaXUuYmV6bmVhQHR1eG9uLmRldjsgU2ltZWssIE1pY2hhbCA8bWljaGFs
+LnNpbWVrQGFtZC5jb20+Ow0KPiA+PiBsaW51eC1hcm0ta2VybmVsQGxpc3RzLmluZnJhZGVhZC5v
+cmc7IGFsc2EtIGRldmVsQGFsc2EtcHJvamVjdC5vcmc7DQo+ID4+IHBhdGNoZXNAb3BlbnNvdXJj
+ZS5jaXJydXMuY29tOyBsaW51eC0gc291bmRAdmdlci5rZXJuZWwub3JnOyBnaXQNCj4gPj4gKEFN
+RC1YaWxpbngpIDxnaXRAYW1kLmNvbT47IGFtaXRya2NpYW4yMDAyQGdtYWlsLmNvbQ0KPiA+PiBT
+dWJqZWN0OiBSZTogW1BBVENIIHYxMSAwNy8xMF0gbXRkOiBzcGktbm9yOiBBZGQgc3RhY2tlZCBt
+ZW1vcmllcw0KPiA+PiBzdXBwb3J0IGluIHNwaS1ub3INCj4gPj4NCj4gPj4NCj4gPj4NCj4gPj4g
+T24gMTIvMTUvMjMgMTA6MDIsIE1haGFwYXRyYSwgQW1pdCBLdW1hciB3cm90ZToNCj4gPj4+IEhl
+bGxvIFR1ZG9yLA0KPiA+Pg0KPiA+PiBIaSwNCj4gPj4NCj4gPj4+DQo+ID4+Pj4gLS0tLS1Pcmln
+aW5hbCBNZXNzYWdlLS0tLS0NCj4gPj4+PiBGcm9tOiBUdWRvciBBbWJhcnVzIDx0dWRvci5hbWJh
+cnVzQGxpbmFyby5vcmc+DQo+ID4+Pj4gU2VudDogRnJpZGF5LCBEZWNlbWJlciAxNSwgMjAyMyAx
+OjQwIFBNDQo+ID4+Pj4gVG86IE1haGFwYXRyYSwgQW1pdCBLdW1hciA8YW1pdC5rdW1hci1tYWhh
+cGF0cmFAYW1kLmNvbT47DQo+ID4+Pj4gYnJvb25pZUBrZXJuZWwub3JnOyBwcmF0eXVzaEBrZXJu
+ZWwub3JnOyBtaXF1ZWwucmF5bmFsQGJvb3RsaW4uY29tOw0KPiA+Pj4+IHJpY2hhcmRAbm9kLmF0
+OyB2aWduZXNockB0aS5jb207IHNiaW5kaW5nQG9wZW5zb3VyY2UuY2lycnVzLmNvbTsNCj4gPj4+
+PiBsZWVAa2VybmVsLm9yZzsgamFtZXMuc2NodWxtYW5AY2lycnVzLmNvbTsNCj4gZGF2aWQucmhv
+ZGVzQGNpcnJ1cy5jb207DQo+ID4+Pj4gcmZAb3BlbnNvdXJjZS5jaXJydXMuY29tOyBwZXJleEBw
+ZXJleC5jejsgdGl3YWlAc3VzZS5jb20NCj4gPj4+PiBDYzogbGludXgtc3BpQHZnZXIua2VybmVs
+Lm9yZzsgbGludXgta2VybmVsQHZnZXIua2VybmVsLm9yZzsNCj4gPj4+PiBtaWNoYWVsQHdhbGxl
+LmNjOyBsaW51eC1tdGRAbGlzdHMuaW5mcmFkZWFkLm9yZzsNCj4gPj4+PiBuaWNvbGFzLmZlcnJl
+QG1pY3JvY2hpcC5jb207IGFsZXhhbmRyZS5iZWxsb25pQGJvb3RsaW4uY29tOw0KPiA+Pj4+IGNs
+YXVkaXUuYmV6bmVhQHR1eG9uLmRldjsgU2ltZWssIE1pY2hhbCA8bWljaGFsLnNpbWVrQGFtZC5j
+b20+Ow0KPiA+Pj4+IGxpbnV4LSBhcm0ta2VybmVsQGxpc3RzLmluZnJhZGVhZC5vcmc7IGFsc2Et
+ZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZzsNCj4gPj4+PiBwYXRjaGVzQG9wZW5zb3VyY2UuY2lycnVz
+LmNvbTsgbGludXgtc291bmRAdmdlci5rZXJuZWwub3JnOyBnaXQNCj4gPj4+PiAoQU1ELQ0KPiA+
+Pj4+IFhpbGlueCkgPGdpdEBhbWQuY29tPjsgYW1pdHJrY2lhbjIwMDJAZ21haWwuY29tDQo+ID4+
+Pj4gU3ViamVjdDogUmU6IFtQQVRDSCB2MTEgMDcvMTBdIG10ZDogc3BpLW5vcjogQWRkIHN0YWNr
+ZWQgbWVtb3JpZXMNCj4gPj4+PiBzdXBwb3J0IGluIHNwaS1ub3INCj4gPj4+Pg0KPiA+Pj4+DQo+
+ID4+Pj4NCj4gPj4+PiBPbiAxNS4xMi4yMDIzIDA5OjU1LCBNYWhhcGF0cmEsIEFtaXQgS3VtYXIg
+d3JvdGU6DQo+ID4+Pj4+PiBUaGFua3MhIENhbiB5b3Ugc2hhcmUgd2l0aCB1cyB3aGF0IGZsYXNo
+ZXMgeW91IHVzZWQgZm9yIHRlc3RpbmcNCj4gPj4+Pj4+IGluIHRoZSBzdGFja2VkIGFuZCBwYXJh
+bGxlbCBjb25maWd1cmF0aW9ucz8NCj4gPj4+Pj4gSSB1c2VkIFNQSS1OT1IgUVNQSSBmbGFzaGVz
+IGZvciB0ZXN0aW5nIHN0YWNrZWQgYW5kIHBhcmFsbGVsLg0KPiA+Pj4+DQo+ID4+Pj4gSSBnb3Qg
+dGhhdCwgSSB3YW50ZWQgdGhlIGZsYXNoIG5hbWUgb3IgZGV2aWNlIElELg0KPiA+Pj4NCj4gPj4+
+IE4yNVEwMEEsIE1YNjZVMkc0NUcsIElTMjVMUDAxRyAmIFcyNUgwMkpWIGFyZSBzb21lIG9mIHRo
+ZSBRU1BJDQo+ID4+IGZsYXNoZXMNCj4gPj4+IG9uIHdoaWNoIHdlIHRlc3RlZC4gQWRkaXRpb25h
+bGx5LCB3ZSBjb25kdWN0ZWQgdGVzdHMgb24gb3ZlciAzMA0KPiA+Pj4gZGlmZmVyZW50IFFTUEkg
+Zmxhc2hlcyBmcm9tIGZvdXIgZGlzdGluY3QgdmVuZG9ycyAoTWlyb24sIFdpbmJvbmQsDQo+ID4+
+IE1hY3Jvbml4LCBhbmQgSVNTSSkuDQo+ID4+Pg0KPiA+Pg0KPiA+PiBHcmVhdC4NCj4gPj4NCj4g
+Pj4+PiBXaGF0IEknbSBpbnRlcmVzdGVkIGlzIGlmIGVhY2ggZmxhc2ggaXMgaW4gaXRzIG93biBw
+YWNrYWdlLiBBcmUgdGhleT8NCj4gPj4+DQo+ID4+PiBJJ20gc29ycnksIGJ1dCBJIGRvbid0IHF1
+aXRlIHVuZGVyc3RhbmQgd2hhdCB5b3UgbWVhbiBieSAiaWYgZWFjaA0KPiA+Pj4gZmxhc2ggaW4g
+aXRzIG93biBwYWNrYWdlLiINCj4gPj4+DQo+ID4+DQo+ID4+IFRoZXJlIGFyZSBmbGFzaGVzIHRo
+YXQgYXJlIHN0YWNrZWQgYXQgdGhlIHBoeXNpY2FsIGxldmVsLiBJdCdzIGENCj4gPj4gc2luZ2xl
+IGZsYXNoIHdpdGggbXVsdGlwbGUgZGllcywgdGhhdCBhcmUgYWxsIHVuZGVyIGEgc2luZ2xlIHBo
+eXNpY2FsIHBhY2thZ2UuDQo+ID4NCj4gPiBHb3QgaXQuIFRoZSBXMjVIMDJKViBRU1BJIGZsYXNo
+IEkgbWVudGlvbmVkIGVhcmxpZXIgaXMgYSBkZXZpY2Ugd2l0aA0KPiA+IHdpdGggZm91ciBkaWVz
+IHRoYXQgYXJlIHN0YWNrZWQgYXQgdGhlIHBoeXNpY2FsIGxldmVsLg0KPiA+DQo+ID4+DQo+ID4+
+IEFzIEkgdW5kZXJzdGFuZCwgeW91ciBzdGFja2VkIGZsYXNoIG1vZGVsIGlzIGF0IGxvZ2ljYWwg
+bGV2ZWwuIFlvdQ0KPiA+PiBoYXZlDQo+ID4+IDIgZmxhc2hlcyBlYWNoIGluIGl0cyBvd24gcGFj
+a2FnZS4gMiBkaWZmZXJlbnQgZW50aXRpZXMuIElzIG15DQo+ID4+IHVuZGVyc3RhbmRpbmcgY29y
+cmVjdD8NCj4gPg0KPiA+IFllcywgdGhhdOKAmXMgY29ycmVjdC4NCj4gPg0KPiA+IEknZCBsaWtl
+IHRvIGNvbnRyaWJ1dGUgdG8geW91ciBlYXJsaWVyIHBvaW50IHJlZ2FyZGluZyB0aGUgcGxhY2Vt
+ZW50DQo+ID4gb2YgdGhlIHN0YWNrZWQgbGF5ZXIuIEFzIHlvdSBjb3JyZWN0bHkgaGlnaGxpZ2h0
+ZWQsIGl0IHNob3VsZCBiZSBpbg0KPiA+IHRoZSBzcGktbWVtIGdlbmVyaWMgbGF5ZXIuIEZvciBp
+bnN0YW5jZSwgd2hlbiBhIHJlYWQvd3JpdGUgb3BlcmF0aW9uDQo+ID4gZXh0ZW5kcyBhY3Jvc3Mg
+bXVsdGlwbGUgZmxhc2hlcyAod2hldGhlciBTUEktTk9SIG9yIFNQSS1OQU5EKSwgdGhlDQo+ID4g
+c3RhY2tlZCBsYXllciBtdXN0IGhhbmRsZSB0aGUgZmxhc2ggY3Jvc3NvdmVyLiBUaGlzIHJlcXVp
+cmVzIHNldHRpbmcNCj4gPiB0aGUgYXBwcm9wcmlhdGUgQ1MgaW5kZXggaW4gbWVtLT5zcGktPmNz
+X2luZGV4X21hc2sgdG8gc2VsZWN0IHRoZQ0KPiA+IGNvcnJlY3Qgc2xhdmUgZGV2aWNlIGFuZCB1
+cGRhdGluZyB0aGUgZGF0YSBidWZmZXIsIGFkZHJlc3MgJiBkYXRhDQo+ID4gbGVuZ3RoIGluIHNw
+aV9tZW1fb3Agc3RydWN0IHZhcmlhYmxlLiBEb2VzIHRoaXMgYWxpZ24gd2l0aCB5b3VyDQo+IHVu
+ZGVyc3RhbmRpbmc/DQo+ID4NCj4gDQo+IFRoaXMgd2FzIHRoZSBpbml0aWFsIGlkZWEsIHllcywg
+YnV0IHdlJ2xsIGhhdmUgdG8gc2VlIGhvdyBtdGQgY29uY2F0IGZpdHMgaW4uDQo+IE1heWJlIHRo
+ZSBhYnN0cmFjdGlvbiBjYW4gYmUgbWFkZSBhdCB0aGUgbXRkIGxldmVsLCB3aGljaCBJIHN1c3Bl
+Y3QgbXRkDQo+IGNvbmNhdCBkb2VzLiBJIGhhdmUgdG8gcmVhZCB0aGF0IGRyaXZlciwgbmV2ZXIg
+b3BlbmVkIGl0Lg0KDQpJIGhhdmVuJ3QgZXhwbG9yZWQgdGhlIG10ZCBjb25jYXQgZHJpdmVyIGVp
+dGhlci4NCg0KPiANCj4gU29tZXRoaW5nIGVsc2UgdG8gY29uc2lkZXI6IEkgc2VlIHRoYXQgTWlj
+cm9uIGhhcyBhIHR3aW4gcXVhZCBtb2RlOg0KPiBodHRwczovL21lZGlhLXd3dy5taWNyb24uY29t
+Ly0NCj4gL21lZGlhL2NsaWVudC9nbG9iYWwvZG9jdW1lbnRzL3Byb2R1Y3RzL2RhdGEtc2hlZXQv
+bm9yLWZsYXNoL3NlcmlhbC0NCj4gbm9yL210MjV0L2dlbmVyYXRpb24tDQo+IGIvbXQyNXRfcWxq
+c19sXzUxMl94YmFfMC5wZGY/cmV2PWRlNzBiNzcwYzVkYzRkYThiOGVhZDA2YjU3YzAzNTAwDQo+
+IA0KPiBUaGUgbWljcm9uJ3MgIlNlcGFyYXRlIENoaXAtU2VsZWN0IGFuZCBDbG9jayBTaWduYWxz
+IiByZXNlbWJsZXMgdGhlIEFNRCdzDQo+IGR1YWwgcGFyYWxsZWwgOC1iaXQuDQoNClllcywgSSBh
+Z3JlZS4NCg0KPiBNaWNyb24ncyAiU2hhcmVkIENoaXAtU2VsZWN0IGFuZCBDbG9jayBTaWduYWxz
+IiBkaWZmZXJzIGZyb20gdGhlIEFNRCdzDQo+IHN0YWNrZWQgbW9kZSwgYXMgTWljcm9uIHVzZXMg
+RFFbMzowXSBhbmQgRFFbNzo0XSwgd2hlcmVhcyBBTUQgY29uc2lkZXJzDQo+IGJvdGggYXMgRFFb
+MzowXS4NCg0KWWVzLCBjb3JyZWN0Lg0KDQo+IA0KPiBJIGhhZCBhIHNob3J0IGNoYXQgd2l0aCBN
+aWNoYWVsIGFuZCBoZSBoaWdobGlnaHRlZCB0aGF0IGluc3RlYWQgb2YgdGhlIHBhcmFsbGVsDQo+
+IG1vZGUsIG9uZSB3b3VsZCBiZSBiZXR0ZXIgb2Ygd2l0aCBhbiBvY3RhbCBkZXZpY2UuIEkgd29u
+ZGVyIHdoZXRoZXIgdGhlDQo+IHF1YWQgcGFyYWxsZWwgaXMgd29ydGggdGhlIGVmZm9ydC4gSSBz
+ZWUgQU1EIGNhbiBzZWxlY3QgZWl0aGVyIHF1YWQNCj4gKHNpbmdsZS9zdGFja2VkL3BhcmFsbGVs
+KSBvciBvY3RhbCAoc2luZ2xlL3N0YWNrZWQpLiBJcyB0aGUgcGFyYWxsZWwgbW9kZQ0KIA0KSW5k
+ZWVkLCBjdXN0b21lcnMgaGF2ZSB0aGUgZmxleGliaWxpdHkgdG8gY2hvb3NlIGJldHdlZW4gcXVh
+ZCBvciBvY3RhbCANCm9wdGlvbnMuIEhvd2V2ZXIsIHNvbWUgb3B0IGZvciBhIGNvc3QtZWZmZWN0
+aXZlIHN0cmF0ZWd5IGJ5IHNlbGVjdGluZyANCm9ubHkgUXVhZCBTUEkgaW4gdGhlaXIgY2hpcHNl
+dCBhbmQgYm9vc3RpbmcgdGhyb3VnaHB1dCB0aHJvdWdoIHRoZSANCnBhcmFsbGVsIHVzZSBvZiB0
+d28gZmxhc2hlcy4gVG8gZ2F1Z2UgdGhlIHBvcHVsYXJpdHkgb2YgdGhpcyANCmNvbmZpZ3VyYXRp
+b24sIEkgd2lsbCBjb25zdWx0IHdpdGggb3VyIG1hcmtldGluZyB0ZWFtIGZvciBmdXJ0aGVyIA0K
+aW5zaWdodHMuIEdpdmVuIHRoYXQgcGFyYWxsZWwgaXMgYSBjb250cm9sbGVyIGZlYXR1cmUsIGl0
+IGNhbiBiZSANCmludGVncmF0ZWQgaW50byB0aGUgZHJpdmVyIGZpbGUuIEF0IHByZXNlbnQsIHdl
+IGNhbiBlbXBoYXNpcyBvbiANCmltcGxlbWVudGluZyBzdXBwb3J0IGZvciBzdGFja2VkIG1vZGUs
+IGVpdGhlciB0aHJvdWdoIGEgbmV3IGludGVyZmFjZSANCmxpa2UgbXRkL3NwaS1ub3Ivc3RhY2tl
+ZC5jIG9yIGJ5IHV0aWxpemluZyB0aGUgbXRkIGNvbmNhdCBkcml2ZXIuDQoNCj4gY29uc2lkZXJl
+ZCBvYnNvbGV0ZSBmb3IgbmV3IElQcz8NCg0KTm8sIHRoZSBwYXJhbGxlbCBtb2RlIGZlYXR1cmUg
+aXMgc3RpbGwgcHJlc2VudCBpbiBBTUQncyBuZXcgSVBzLg0KDQpSZWdhcmRzLA0KQW1pdA0KPiAN
+Cj4gQ2hlZXJzLA0KPiB0YQ0K

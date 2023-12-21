@@ -2,114 +2,116 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FC5C822179
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Jan 2024 19:56:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC17D822177
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Jan 2024 19:55:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B878A1507;
-	Tue,  2 Jan 2024 19:55:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B878A1507
+	by alsa0.perex.cz (Postfix) with ESMTPS id 91C1FF73;
+	Tue,  2 Jan 2024 19:55:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 91C1FF73
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1704221760;
-	bh=W7WluWnLd2+ye3nUeyJGSgdbLTM4HABDfTaUaDegwfc=;
-	h=References:In-Reply-To:From:Date:Subject:To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=rk2UYDVDC2SbLto+le0uT5GOn5r4FVo2CRx0zDJzRNXshO4Ql1wG5N57194dZPBd4
-	 T+1pOCUVMTpyCDBKVG0sd5uN9BbQKBBPwBDfsJE2mHdktxKPDzulSlJ0cRVGg7gSlr
-	 mjwO6xp131ysjpMAJwZznnqkB1C7dMs4o0GpfTbc=
+	s=default; t=1704221741;
+	bh=wVhTpALcMiNCntelNMpcmyS353uCxC0tr69XZxUeP7w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=FLMeo52+NILWGZyRIL65jnit0rzP6LAGhuoQduhCMjx9JjQMGzLNwZjzTeo6zMbkb
+	 gMfYhJ0avfYEN9iXopxGEucTYNFyrtMusG7I6o2wSobCsJfkzUSwvi4GXWjXv7LnM0
+	 iNC7MsIFUJxN2ZQcsunihulQstcPoupfO/tdOi7E=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 78EECF80224; Tue,  2 Jan 2024 19:51:02 +0100 (CET)
+	id EF35FF80C0F; Tue,  2 Jan 2024 19:51:03 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 22598F8087D;
+	by alsa1.perex.cz (Postfix) with ESMTP id C8AF3F80862;
 	Tue,  2 Jan 2024 19:51:02 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A1148F80153; Thu, 21 Dec 2023 19:01:05 +0100 (CET)
+	id 79345F80153; Thu, 21 Dec 2023 22:51:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-	HTML_MESSAGE,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-ua1-x92e.google.com (mail-ua1-x92e.google.com
- [IPv6:2607:f8b0:4864:20::92e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-4.8 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DB124F800BD
-	for <alsa-devel@alsa-project.org>; Thu, 21 Dec 2023 19:00:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DB124F800BD
+	by alsa1.perex.cz (Postfix) with ESMTPS id 89AB7F800BD
+	for <alsa-devel@alsa-project.org>; Thu, 21 Dec 2023 22:51:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89AB7F800BD
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=Cvaa+WHx
-Received: by mail-ua1-x92e.google.com with SMTP id
- a1e0cc1a2514c-7cc242dad2bso232820241.1
-        for <alsa-devel@alsa-project.org>;
- Thu, 21 Dec 2023 10:00:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1703181657; x=1703786457;
- darn=alsa-project.org;
-        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=0zgqhz3gU0ngKgXXY84DKw25FNO497Ngp+gIFMzuC7w=;
-        b=Cvaa+WHx0c1A6MRlwW3nRiTF8/QGeF3CPrCjRlaFemyNVJwd4d1HTrYEpf4aVffVhh
-         KvgNXOqLAsgqgVdLMxwFOEadrfy2qBRkmhxLtd8jqiYSnvyrF/mkQol2VzF0R0z9wrbR
-         jeOf38ysmPqnyBsHJSX9OYSxVaCkN/WFTFAU4QIIx2NDubZ0AgVQ9c9pihas8dElZTyG
-         KBO2J844o52G8FImWZMNxU5QJO3P7gCnkqxqwvBjMglTYQeqAg+6osTY3/VQKz080M8q
-         ZIEnHdveoOKU0ofdfqXP8WzRVyEWu1vFth9pkSLzAVRKico7/sEHjNASN6vENg09yD75
-         Jl7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1703181657; x=1703786457;
-        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=0zgqhz3gU0ngKgXXY84DKw25FNO497Ngp+gIFMzuC7w=;
-        b=lZuFEtf7SYt/1dIvwvFIStXHK7PIjRO2dceSW/QFfL+9op/s3lhANUIZ/JH0wO1s0B
-         Pnk1HKhsFfCM551cVPRNOimZ6z9FhiKDvK+gLQq7fqDkqPugwqc+za44XqSh3c9+v/S2
-         IFUCXOkFn4FV4Bqm4KTL3bnkR4ust82a9/XvbS/fAvnPpUvF6z+Nl5DPFiVqxp7NiWKb
-         mMaxJ1R4yHXI/3CtaBLvhXS5K3q1nVenNupnMEZg2KZ6rHcE8shjgsKbYMYPvgRbNV11
-         /0sXM9BZs1/n7oT4A9OIzYokq5Luq9NNBO7MbhF6Wg5uQUT4pTQs9JFxYLP8PYYJsnIf
-         3ceg==
-X-Gm-Message-State: AOJu0Yxy+RJg9dhXZ2dF3QeelF/GFs2svn7exj/T1b/sFpIuSoXp4C2e
-	SRbUL33M94ws5CGdwbAsyP0XYRF5pKOJMPKV5tVmrMHNaPE=
-X-Google-Smtp-Source: 
- AGHT+IFrLKY5Rq9Xe7zM7cDVOxKuiSFALGN9bj2aLyZ445I0C4VOAcm0c85ei4E+0WU3cNDoZqJF9VXUQdCdg+isBBA=
-X-Received: by 2002:a05:6122:221f:b0:4b7:1507:5c07 with SMTP id
- bb31-20020a056122221f00b004b715075c07mr9585vkb.9.1703181657364; Thu, 21 Dec
- 2023 10:00:57 -0800 (PST)
+	dkim=fail reason="signature verification failed" (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=grvlhMPd
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id 0D95ACE210F;
+	Thu, 21 Dec 2023 21:51:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E29B9C433C9;
+	Thu, 21 Dec 2023 21:51:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1703195502;
+	bh=wVhTpALcMiNCntelNMpcmyS353uCxC0tr69XZxUeP7w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=grvlhMPdSPsEsMrM435z6Ee777r4kKrlEfU5VJO4IHAn4V7pnANe2YaPn9yqlGBHg
+	 U7IjIExcXlK1D9VjptD8QyQ+42pMJbqVtaZr9Lh6/W9NcKiHa/4Pi1lg/vqCN4EdnL
+	 6kO0lUSi+dNbPKTQgm7u7+8N5icMjEm+Xx0mdV8DwQ4PENu1D0ga/Kb1YDb+J4XM0f
+	 ANsuXOYE3cY800vWiRTMZq07yWnLPeaBKYK201IO8zMr9PmgVqaDHP5agM0fLCgIzx
+	 SLr/TsqKDLJRLArQCYcVOAdjwxzBrLiXnruS1js2v2YjfWlxH3LNi3VupaDmJHLxBr
+	 igbLYfklcAyjA==
+Received: (nullmailer pid 153686 invoked by uid 1000);
+	Thu, 21 Dec 2023 21:51:38 -0000
+Date: Thu, 21 Dec 2023 15:51:38 -0600
+From: Rob Herring <robh@kernel.org>
+To: Gatien Chevallier <gatien.chevallier@foss.st.com>
+Cc: pabeni@redhat.com, netdev@vger.kernel.org, lars@metafoo.de,
+	linux-media@vger.kernel.org, hugues.fruchet@foss.st.com,
+	olivier.moysan@foss.st.com, lee@kernel.org,
+	alexandre.torgue@foss.st.com, catalin.marinas@arm.com,
+	peng.fan@oss.nxp.com, linux-mmc@vger.kernel.org,
+	linux-phy@lists.infradead.org, linux-serial@vger.kernel.org,
+	robh+dt@kernel.org, wg@grandegger.com, arnaud.pouliquen@foss.st.com,
+	alsa-devel@alsa-project.org, linux-iio@vger.kernel.org,
+	vkoul@kernel.org, conor+dt@kernel.org, mkl@pengutronix.de,
+	Frank Rowand <frowand.list@gmail.com>, linux-crypto@vger.kernel.org,
+	edumazet@google.com, linux-kernel@vger.kernel.org,
+	dmaengine@vger.kernel.org, linux-spi@vger.kernel.org,
+	linux-usb@vger.kernel.org, linux-i2c@vger.kernel.org,
+	Oleksii Moisieiev <oleksii_moisieiev@epam.com>, arnd@kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com, davem@davemloft.net,
+	krzysztof.kozlowski+dt@linaro.org, ulf.hansson@linaro.org,
+	will@kernel.org, rcsekar@samsung.com,
+	linux-arm-kernel@lists.infradea, d.org@alsa-project.org,
+	kuba@kernel.org, mchehab@kernel.org, gregkh@linuxfoundation.org,
+	jic23@kernel.org, devicetree@vger.kernel.org,
+	richardcochran@gmail.com, Oleksii_Moisieiev@epam.com,
+	andi.shyti@kernel.org, herbert@gondor.apana.org.au,
+	fabrice.gasnier@foss.st.com
+Subject: Re: [PATCH v8 01/13] dt-bindings: document generic access controllers
+Message-ID: <170319549389.153568.1692332156021513651.robh@kernel.org>
+References: <20231212152356.345703-1-gatien.chevallier@foss.st.com>
+ <20231212152356.345703-2-gatien.chevallier@foss.st.com>
 MIME-Version: 1.0
-References: 
- <CAGTfBuhGbEXgSDfpwUoGo8wAV9Huh1nfN9o+j27hWG+85vzCkA@mail.gmail.com>
-In-Reply-To: 
- <CAGTfBuhGbEXgSDfpwUoGo8wAV9Huh1nfN9o+j27hWG+85vzCkA@mail.gmail.com>
-From: R Guerra <xbox360liveteam21@gmail.com>
-Date: Thu, 21 Dec 2023 18:00:46 +0000
-Message-ID: 
- <CAGTfBujLtpVXwOK1aiwuJBA+ZoazOv7uCey6P5trtigiCY4jUQ@mail.gmail.com>
-Subject: Re: Re: [PATCH] ALSA: hda/realtek: the bass speaker can't output
- sound on Yoga 9i
-To: alsa-devel@alsa-project.org
-X-MailFrom: xbox360liveteam21@gmail.com
-X-Mailman-Rule-Hits: nonmember-moderation
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20231212152356.345703-2-gatien.chevallier@foss.st.com>
+X-MailFrom: robh@kernel.org
+X-Mailman-Rule-Hits: max-recipients
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: O5U4DPVHVX427KN4BS3TK4ETUBFHHWBS
-X-Message-ID-Hash: O5U4DPVHVX427KN4BS3TK4ETUBFHHWBS
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
+ suspicious-header
+Message-ID-Hash: FC64QRXJ6JS3CQQ76BHSYQCHPAOXKAYY
+X-Message-ID-Hash: FC64QRXJ6JS3CQQ76BHSYQCHPAOXKAYY
 X-Mailman-Approved-At: Mon, 01 Jan 2024 13:18:25 +0000
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 3.3.9
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/O5U4DPVHVX427KN4BS3TK4ETUBFHHWBS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FC64QRXJ6JS3CQQ76BHSYQCHPAOXKAYY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,4 +120,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-QnR3LCBJ4oCZbSB1c2luZyBNYW5qYXJvLg0K
+
+On Tue, 12 Dec 2023 16:23:44 +0100, Gatien Chevallier wrote:
+> From: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
+> 
+> Introducing of the generic access controllers bindings for the
+> access controller provider and consumer devices. Those bindings are
+> intended to allow a better handling of accesses to resources in a
+> hardware architecture supporting several compartments.
+> 
+> This patch is based on [1]. It is integrated in this patchset as it
+> provides a use-case for it.
+> 
+> Diffs with [1]:
+> 	- Rename feature-domain* properties to access-control* to narrow
+> 	  down the scope of the binding
+> 	- YAML errors and typos corrected.
+> 	- Example updated
+> 	- Some rephrasing in the binding description
+> 
+> [1]: https://lore.kernel.org/lkml/0c0a82bb-18ae-d057-562b
+> 
+> Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
+> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
+> ---
+> 
+> Changes in V6:
+> 	- Renamed access-controller to access-controllers
+> 	- Example updated
+> 	- Removal of access-control-provider property
+> 
+> Changes in V5:
+> 	- Diffs with [1]
+> 	- Discarded the [IGNORE] tag as the patch is now part of the
+> 	  patchset
+> 
+>  .../access-controllers.yaml                   | 84 +++++++++++++++++++
+>  1 file changed, 84 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/access-controllers/access-controllers.yaml
+> 
+
+Reviewed-by: Rob Herring <robh@kernel.org>
+

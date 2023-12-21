@@ -2,92 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F65681B9D7
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 Dec 2023 15:50:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 929C981BA44
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 Dec 2023 16:10:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CEDFF868;
-	Thu, 21 Dec 2023 15:50:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CEDFF868
+	by alsa0.perex.cz (Postfix) with ESMTPS id 33CBBDEF;
+	Thu, 21 Dec 2023 16:10:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 33CBBDEF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1703170235;
-	bh=FkGWRi5sZe9i5G/7+3x2Dpn2AKCY0J1cCujMB77+wP8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1703171453;
+	bh=BVc9gjOKq45tIWu0rLzGYm6MwVotxhFnpIChDY8/1zU=;
+	h=From:To:CC:References:In-Reply-To:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=WhP9kcVv6+w+ZiBtwaaHgzeyigrihpdqH4fAYiIUjw0oOeAu2LZk+1bnX013OJD60
-	 bNtXdgvlTs7Bq0okzKNdiKDZYDtsTfaSeLNkdy4+v27IjNjhtuDC+J5rzGHL3zwALv
-	 Ryw9KHjWjBo4aNel4ur/PWhKf5DRdfIHwkIu5CqA=
+	b=ntsKwydQhjDhgHsmvKsQcTSPq1Pfb53tCU+xGthYxU3sOxkH3vZlYB83jrx0M8wXN
+	 IWQZfs6gmrI3A2+n4uqHrl938TUQyo0+e41EU9EJEEKA3hhM2X6HgUlQQQKvAo9qPe
+	 L6lfgP9sjz2ScCJedUBRyIDW9Q2Q84m8dEW34Bro=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4B741F8057C; Thu, 21 Dec 2023 15:50:13 +0100 (CET)
+	id EA2E8F80579; Thu, 21 Dec 2023 16:10:22 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 10A24F80570;
-	Thu, 21 Dec 2023 15:50:13 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 06177F80570;
+	Thu, 21 Dec 2023 16:10:20 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4AC20F80153; Thu, 21 Dec 2023 15:50:09 +0100 (CET)
+	id C061BF80153; Thu, 21 Dec 2023 16:09:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-2.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SORTED_RECIPS,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D7F32F800D2
-	for <alsa-devel@alsa-project.org>; Thu, 21 Dec 2023 15:50:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D7F32F800D2
+	by alsa1.perex.cz (Postfix) with ESMTPS id CCBECF800BD
+	for <alsa-devel@alsa-project.org>; Thu, 21 Dec 2023 16:09:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CCBECF800BD
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=hhQX3TdJ
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by ams.source.kernel.org (Postfix) with ESMTP id 8A22CB82060;
-	Thu, 21 Dec 2023 14:50:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 051C4C433C7;
-	Thu, 21 Dec 2023 14:50:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1703170203;
-	bh=FkGWRi5sZe9i5G/7+3x2Dpn2AKCY0J1cCujMB77+wP8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=hhQX3TdJww9UCdvOo5jGM/GKNNSVXU+/7kWbHEZ4Or4dyyerklw+lTZgeD4/WTtlP
-	 owqIqGy8hJ2EbAuZnUcYgq7tQZkVNwT7AF6QUbIhIjqVIUSUp82fYt79O45G1ie3Lm
-	 HHbp7aDpmfjEfct2lR6/mv1+ow1ldcgfdM9sUwAsgD7PuYfoKtpHfVDJC9mCw74JpO
-	 vqcJYpVqHVkQ+dKIblY92GZAvve3wj+5H99MU16ATI9+VA7tW0jYXsnPXFHMuQMGSC
-	 VIafYR1DZBpYvz7LQ5cjdl2Zt0QlFeQPY4bIeDIdDe6CC6ZAtET65Ef+vAIuoL2tZG
-	 rOvTEbyw0rXvw==
-Date: Thu, 21 Dec 2023 20:19:58 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: linux-sound@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.de,
-	broonie@kernel.org, vinod.koul@intel.com,
-	Bard liao <yung-chuan.liao@linux.intel.com>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	srinivas.kandagatla@linaro.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
-	vijendar.mukunda@amd.com,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	Shuming Fan <shumingf@realtek.com>, Jack Yu <jack.yu@realtek.com>,
-	Oder Chiou <oder_chiou@realtek.com>
-Subject: Re: [RFC PATCH 07/16] soundwire: bus: add API for BPT protocol
-Message-ID: <ZYRQliKCliLcLAG0@matsya>
-References: <20231207222944.663893-1-pierre-louis.bossart@linux.intel.com>
- <20231207222944.663893-8-pierre-louis.bossart@linux.intel.com>
- <ZYAy9ZM0o3uAk2qY@matsya>
- <4f66f792-79c0-4221-82b5-a0d9ec5a898b@linux.intel.com>
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=VHlOqkgc
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 3BL8GXM6016665;
+	Thu, 21 Dec 2023 09:09:19 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
+	from:to:cc:references:in-reply-to:subject:date:message-id
+	:mime-version:content-type:content-transfer-encoding; s=
+	PODMain02222019; bh=UUKCRXUyzIolQ67Odwnf0tn0G/BtVWfqdW/OIg89/54=; b=
+	VHlOqkgc5XBXgUxu6eh/m5IddhQBC+0RlGzeQWcMR3DNZMkRQIG5fh0TLI5z54Mp
+	dUqg5GvFfhAH0EARa5s9oSGJzZsPBqcZZssQvVj8WIqub2KT1umDlilHc9runJpl
+	oH/kVeLoNwO+q88jtP69Sk/0+rMwOdU1vDIjcuOfEnkOu1hAvzb9QaRG3nJ3l1aq
+	/g2NoaFkgCEJ8i8R/PtZhwAkVUwfizBcOIJ/BJemScy5IuY35vRsdTu/X6oCCcPH
+	vBYGZgv18j3zZXwexO5Y0lGsqU0sYN5B2+VnIDOzp+VsoQi1VdJuNYeUokmx/4Q4
+	XBABs9MfMeeGY91/g3dstw==
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3v1a627hj3-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 21 Dec 2023 09:09:19 -0600 (CST)
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Thu, 21 Dec
+ 2023 15:09:17 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.40 via Frontend Transport; Thu, 21 Dec 2023 15:09:17 +0000
+Received: from LONN2DGDQ73 (LONN2DGDQ73.ad.cirrus.com [198.61.64.132])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id F327046B;
+	Thu, 21 Dec 2023 15:09:16 +0000 (UTC)
+From: Stefan Binding <sbinding@opensource.cirrus.com>
+To: 'Aleksandrs Vinarskis' <alex.vinarskis@gmail.com>
+CC: <alsa-devel@alsa-project.org>, <david.rhodes@cirrus.com>,
+        <james.schulman@cirrus.com>, <josbeir@gmail.com>,
+        <linux-kernel@vger.kernel.org>, <patches@opensource.cirrus.com>,
+        <perex@perex.cz>, <stuarth@opensource.cirrus.com>, <tiwai@suse.com>,
+        <tiwai@suse.de>
+References: <8170413d-07a8-4e77-b43d-78cd9e4ea76f@opensource.cirrus.com>
+ <20231221112434.13730-1-alex.vinarskis@gmail.com>
+In-Reply-To: <20231221112434.13730-1-alex.vinarskis@gmail.com>
+Subject: RE: [PATCH v2 1/2] ALSA: hda: cs35l41: Safety-guard against capped
+ SPI speed
+Date: Thu, 21 Dec 2023 15:09:16 +0000
+Message-ID: <006c01da341f$aa9dcdb0$ffd96910$@opensource.cirrus.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4f66f792-79c0-4221-82b5-a0d9ec5a898b@linux.intel.com>
-Message-ID-Hash: FOL4XBOF2EGVENANFCMAKMP3IX45YRY2
-X-Message-ID-Hash: FOL4XBOF2EGVENANFCMAKMP3IX45YRY2
-X-MailFrom: vkoul@kernel.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQHBvASMLXdMRoUjXEjgpQelQ430kgGT5HMZsNgh7ZA=
+X-Proofpoint-GUID: sDeIMgik0km7oVfqZVOMTz4p3zI_h9d1
+X-Proofpoint-ORIG-GUID: sDeIMgik0km7oVfqZVOMTz4p3zI_h9d1
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: JNEJ64N66SGBRREYTR7MHWGVNNEU2LIP
+X-Message-ID-Hash: JNEJ64N66SGBRREYTR7MHWGVNNEU2LIP
+X-MailFrom: prvs=7719b567d4=sbinding@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -99,7 +108,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FOL4XBOF2EGVENANFCMAKMP3IX45YRY2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JNEJ64N66SGBRREYTR7MHWGVNNEU2LIP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,148 +117,145 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 18-12-23, 14:12, Pierre-Louis Bossart wrote:
-> 
-> >> +int sdw_bpt_open_stream(struct sdw_bus *bus,
-> >> +			struct sdw_slave *slave,
-> >> +			enum sdw_bpt_type mode,
-> >> +			struct sdw_bpt_msg *msg)
-> >> +{
-> >> +	int ret;
-> >> +
-> >> +	/* only Bulk Register Access (BRA) is supported for now */
-> >> +	if (mode != SDW_BRA)
-> >> +		return -EINVAL;
-> >> +
-> >> +	if (msg->len < SDW_BPT_MSG_MIN_BYTES) {
-> >> +		dev_err(bus->dev, "BPT message length %d, min supported %d\n",
-> >> +			msg->len, SDW_BPT_MSG_MIN_BYTES);
-> >> +		return -EINVAL;
-> >> +	}
-> >> +
-> >> +	if (msg->len % SDW_BPT_MSG_BYTE_ALIGNMENT) {
-> >> +		dev_err(bus->dev, "BPT message length %d is not a multiple of %d bytes\n",
-> >> +			msg->len, SDW_BPT_MSG_BYTE_ALIGNMENT);
-> >> +		return -EINVAL;
-> >> +	}
-> > 
-> > Is this a protocol requirement?
-> 
-> No, it's an implementation requirement.
-> 
-> We could move this to host-specific parts but then the codec drivers
-> will have to know about alignment requirements for each host they are
-> use with. IOW, it's more work for codec drivers if we don't have a
-> minimum bar for alignment requirement across all platforms.
-> 
-> > 
-> >> +
-> >> +	/* check device is enumerated */
-> >> +	if (slave->dev_num == SDW_ENUM_DEV_NUM ||
-> >> +	    slave->dev_num > SDW_MAX_DEVICES)
-> >> +		return -ENODEV;
-> >> +
-> >> +	/* make sure all callbacks are defined */
-> >> +	if (!bus->ops->bpt_open_stream ||
-> >> +	    !bus->ops->bpt_close_stream ||
-> >> +	    !bus->ops->bpt_send_async ||
-> >> +	    !bus->ops->bpt_wait)
-> >> +		return -ENOTSUPP;
-> > 
-> > should this not be checked at probe time, if device declares the support
-> 
-> sdw_bpt_open_stream() would be called by the peripheral driver (or
-> regmap as a proxy). The peripheral driver could also decide to check for
-> those callback during its probe, but that's beyond the scope of this
-> patchset.
+Hi,
 
-I would think that it is better to have capablities registered by the
-driver and those are checked at registration, so we know if bpt is
-supported or not for a particular platform.
-
-This make more sense to me as some driver, depending on the SoC may or
-maynot support this, so easy way would be to turn off caps, what do you
-think?
-
+> -----Original Message-----
+> From: Aleksandrs Vinarskis <alex.vinarskis@gmail.com>
+> Sent: Thursday, December 21, 2023 11:25 AM
+> To: sbinding@opensource.cirrus.com
+> Cc: alex.vinarskis@gmail.com; alsa-devel@alsa-project.org;
+> david.rhodes@cirrus.com; james.schulman@cirrus.com;
+> josbeir@gmail.com; linux-kernel@vger.kernel.org;
+> patches@opensource.cirrus.com; perex@perex.cz;
+> stuarth@opensource.cirrus.com; tiwai@suse.com; tiwai@suse.de
+> Subject: Re: [PATCH v2 1/2] ALSA: hda: cs35l41: Safety-guard against
+> capped SPI speed
 > 
-> These checks are just there for paranoia, in case a peripheral driver
-> uses BTP/BRA on a host where they are not supported.
+> Sorry for incorrect expression and confusion, it is indeed not the
+driver
+> that hangs. What I meant is that _computer_ "hangs" on wake up from
+> suspend. Unlike boot, where driver does not delay boot process, on
+wake
+> up
+> from suspend it seems it does - after lid was opened/power button
+> pressed,
+> with firmware loading taking ~180seconds in total, computer still
+has
+> black screen and is irresponsive for said duration, which is
+completely
+> unacceptable.
 > 
-> It's not science-fiction, we see AMD- and INTEL-based platforms using
-> the same SoundWire-based codecs.
+> I do not have enough expertise in particular area, but it sounds
+very weird
+> to me that audio driver is delaying system wake up process at first
+place.
+> Was this intentional? I would assume/guess most correct solution
+would be
+> for driver to run non-blocking, like it does on boot, but again, I
+am not
+> too familiar with the subject.
+> 
+> > (~80s per amp) to load the firmware.
+> 
+> Besides firmware loading, there are general
+initialization/communication
+> taking place as well. I have disabled firmware loading to try: at a
+speed
+> of 3051Hz, it takes ~16 seconds on boot (non blocking, so not a big
+deal)
+> and ~7-8 seconds on wake up from suspend (blocking, so it is still
+not
+> acceptable).
 
-Ofcourse, it is entrely reasonable thing to do, event across x86/arm64
+In my opinion it would be wrong to kill the speaker driver because the
+SPI
+performance is so poor, even if the cost is an extra ~8s on wake up.
+In the case where an extra 8s on wake up is unacceptable, there are
+easier
+ways to disable the driver without having to modify kernel code, than
+if you
+had to do the opposite, and re-enable it in code.
+
+Thanks,
+Stefan
 
 > 
-> >> +	ret = bus->ops->bpt_open_stream(bus, slave, mode, msg);
-> >> +	if (ret < 0)
-> >> +		dev_err(bus->dev, "BPT stream open, err %d\n", ret);
-> >> +
-> >> +	return ret;
-> >> +}
-> >> +EXPORT_SYMBOL(sdw_bpt_open_stream);
-> > 
-> > can we open multiple times (i dont see a check preventing that), how do
-> > we close..?
+> I am myself extremely exited to get support for 9530 in upstream,
+but I am
+> just afraid that such a big wake up delay is a huge hit on a end
+user, and
+> would affect everyone with 9530 where intel-lpss patch was not
+applied
+> yet.
 > 
-> there's a refcount preventing multiples BTP streams from being opened.
+> > Instead I would prefer that we instead disable the loading of the
+> > firmware in this case.
+> > Without loading firmware, the volume is much lower, but at least
+you
+> > still have audio.
 > 
-> > Re-iterating my comment on documentation patch, can we do with a async api
-> > and wait api, that makes symantics a lot simpler, right..?
+> This indeed sounds like a better approach, I did not think of that.
+This
+> should work much better for generic cases, but unfortunately, will
+still
+> not prevent devices with _extremely_ slow SPI from badly affecting
+UX
 > 
-> see reply in previous email, combining open+send is weird IMHO.
+> Taking into account the above, and unless driver being blocking on
+wake up
+> can be resolved, perhaps it would makes sense to do both?
+> a) Your suggestion - disable firmware loading if SPI speed is not in
+MHz
+> range and
+> b) Do not initialize device at all, if SPI speed is ridiculously low
+(like
+> for example 3051 Hz)?
 > 
-> >> +
-> >> +int sdw_bpt_send_async(struct sdw_bus *bus,
-> >> +		       struct sdw_slave *slave,
-> >> +		       struct sdw_bpt_msg *msg)
-> >> +{
-> >> +	if (msg->len > SDW_BPT_MSG_MAX_BYTES)
-> >> +		return -EINVAL;
-> >> +
-> >> +	return bus->ops->bpt_send_async(bus, slave, msg);
-> >> +}
-> >> +EXPORT_SYMBOL(sdw_bpt_send_async);
-> > 
-> > Can we call this multiple times after open, it is unclear to me. Can you
-> > please add kernel-doc comments about the APIs here as well
+> I have tested on 9530 without firmware loading, with SPI speed set
+to
+> 50000Hz: it delays wake up by ~0.9-1 seconds. Subjectively, I think
+this is
+> the maximum acceptable delay.
 > 
-> This can be called multiple times but it's useless: all the buffers are
-> prepared in the open() stage. This is the moral equivalent of a trigger
-> step, just enable data transfers.
+> > I have a patch to do that, which I was planning on pushing up
+> > (hopefully) today.
 > 
-> > 
-> >>  struct sdw_master_ops {
-> >>  	int (*read_prop)(struct sdw_bus *bus);
-> >> @@ -869,6 +913,20 @@ struct sdw_master_ops {
-> >>  	void (*new_peripheral_assigned)(struct sdw_bus *bus,
-> >>  					struct sdw_slave *slave,
-> >>  					int dev_num);
-> >> +	int (*bpt_open_stream)(struct sdw_bus *bus,
-> >> +			       struct sdw_slave *slave,
-> >> +			       enum sdw_bpt_type mode,
-> >> +			       struct sdw_bpt_msg *msg);
-> >> +	int (*bpt_close_stream)(struct sdw_bus *bus,
-> >> +				struct sdw_slave *slave,
-> >> +				enum sdw_bpt_type mode,
-> >> +				struct sdw_bpt_msg *msg);
-> >> +	int (*bpt_send_async)(struct sdw_bus *bus,
-> >> +			      struct sdw_slave *slave,
-> >> +			      struct sdw_bpt_msg *msg);
-> >> +	int (*bpt_wait)(struct sdw_bus *bus,
-> >> +			struct sdw_slave *slave,
-> >> +			struct sdw_bpt_msg *msg);
-> > 
-> > do we need both bus and slave, that was a mistake in orignal design IMO.
-> > We should fix that for bpt_ apis
+> Thanks for following up on this!
 > 
-> No disagreement. All the routines follow the same template, if we change
-> one we should also change the others.
+> >
+> > Thanks,
+> >
+> > Stefan
+> >
+> > >   		/*
+> > >   		 * Manually set the Chip Select for the second
+amp
+> <cs_gpio_index> in the node.
+> > >   		 * This is only supported for systems with 2
+amps, since
+> we cannot expand the
+> > > @@ -219,8 +232,6 @@ static int generic_dsd_config(struct
+> cs35l41_hda *cs35l41, struct device *physde
+> > >   		 * first.
+> > >   		 */
+> > >   		if (cfg->cs_gpio_index >= 0) {
+> > > -			spi = to_spi_device(cs35l41->dev);
+> > > -
+> > >   			if (cfg->num_amps != 2) {
+> > >   				dev_warn(cs35l41->dev,
+> > >   					 "Cannot update SPI
+CS, Number
+> of Amps (%d) != 2\n",
 > 
-> The main question as discussed with Charles is whether we want to pass
-> the 'msg' argument in all routines.
+> FYI intel-lpss patch was submitted for review [1]. However, as it is
+in
+> different tree, it cannot be guaranteed that it will be always
+applied
+> when your patch for 9530 and other Dell devices will be applied,
+which is
+> why I am insisting on safety guard against _extremely_ low SPI
+speeds.
+> 
+> [1]: https://lore.kernel.org/all/20231220205621.8575-1-
+> alex.vinarskis@gmail.com/
 
-Lets revisit when we have new API
-
--- 
-~Vinod

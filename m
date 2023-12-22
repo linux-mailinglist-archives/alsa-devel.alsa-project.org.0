@@ -2,91 +2,115 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5694881CCA9
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Dec 2023 17:19:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5241281CD95
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Dec 2023 18:32:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6B420AE9;
-	Fri, 22 Dec 2023 17:19:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B420AE9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 826B4DF8;
+	Fri, 22 Dec 2023 18:32:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 826B4DF8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1703261982;
-	bh=sFyXLqvCSCBVIhDV6X2IZpUbgvA4jiAGHM2EZhVLSlc=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1703266332;
+	bh=4W93Y1QtU9VAimDWzfA9jON2MFwA8AVGb+1PvBT7CtE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=PZOi4fHy/Wp+jlDaWgtBL8EYfoJIBD8qM3Mrn30U5XHvkM6j+a0fnMHq82lr1EPNg
-	 FdUDjr/aa9DWBogo/jMDabJcGUHnQDb3Bynh48XbjQo1HJima/k47yzAD13c5f2kmK
-	 C8nw4jl1ftfNnfLZCoJqSHs76H21urcFNGmZzCEA=
+	b=t7+JbHHbc8IDZa93cwxSnCdG9cjLcNfQEnN7Lje0G11PUmRD4s7uMZnVIg3IXtIAU
+	 zJRe5zW8nGtx8M6O2pnznqHnj/p+yOlz6bcC4VVnwveci73kSG158Hl7Wmx65dqdSw
+	 Z0ebefsAbNSsjJL/zyWfBYj/7R6rbtdcNGQrVqr4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 57388F804DA; Fri, 22 Dec 2023 17:19:21 +0100 (CET)
+	id 76007F800F5; Fri, 22 Dec 2023 18:31:41 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B193EF80570;
-	Fri, 22 Dec 2023 17:19:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D1AD6F80578;
+	Fri, 22 Dec 2023 18:31:40 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E8D88F8016E; Fri, 22 Dec 2023 17:19:14 +0100 (CET)
+	id 097FAF8016E; Fri, 22 Dec 2023 18:31:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_FILL_THIS_FORM_SHORT,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail-ua1-x92e.google.com (mail-ua1-x92e.google.com
+ [IPv6:2607:f8b0:4864:20::92e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F3EC2F800D2
-	for <alsa-devel@alsa-project.org>; Fri, 22 Dec 2023 17:19:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3EC2F800D2
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9C874F800F5
+	for <alsa-devel@alsa-project.org>; Fri, 22 Dec 2023 18:31:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9C874F800F5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=UCPpy92g
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id BC5A8CE220C;
-	Fri, 22 Dec 2023 16:18:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1808EC433C7;
-	Fri, 22 Dec 2023 16:18:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1703261936;
-	bh=sFyXLqvCSCBVIhDV6X2IZpUbgvA4jiAGHM2EZhVLSlc=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=UCPpy92g601dTI7dvHpzT4blOVWMfSvem7QoBoxijwV4aUK95R8nccnISdSTUHu91
-	 zso3T+h0zkaEPYlWAqpx5PVehlivGfhTcSbM96MZknFHSUiQGMKQELUvhPexkD52Q0
-	 iRScgtx0OfIul3NcKYx/ulXdt2KXtKj6lFv2+E6U5nprGQuFxOUST8Ps7jMqY7IFwb
-	 hp5e9AZVDQQ8ISVlltvPGJ+9lCDB8ZsTYVJQ2PvO40EATRYlKf5VDLVmie/v+0ilEX
-	 WfbahfO504NHMHQczmsIboru/k5VWYll1/UFhd0LxO8edYIj7sU0FmGSMFxEqHBgcp
-	 Yc8K62r5Wb7Tg==
-Received: (nullmailer pid 2480748 invoked by uid 1000);
-	Fri, 22 Dec 2023 16:18:53 -0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+ unprotected) header.d=bgdev-pl.20230601.gappssmtp.com
+ header.i=@bgdev-pl.20230601.gappssmtp.com header.a=rsa-sha256
+ header.s=20230601 header.b=IXnpPST/
+Received: by mail-ua1-x92e.google.com with SMTP id
+ a1e0cc1a2514c-7cb6386a5ffso403244241.3
+        for <alsa-devel@alsa-project.org>;
+ Fri, 22 Dec 2023 09:31:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bgdev-pl.20230601.gappssmtp.com; s=20230601; t=1703266276;
+ x=1703871076; darn=alsa-project.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=nNBg0y+Bd68VL0xW77WB7jMSRPSja3ZQujiu0gSBfM4=;
+        b=IXnpPST/jHo11j+yGvFykcMBQz9rXUuKj6tqaPybE8lgdO6Xy6JZfMRctbiOnEV2Z5
+         m9b3UdDUky5ojQE6NtmWkZyGnVNdouH5PjP4OajG+bO7LZWZXm9OlrdBiELJTDLawCyB
+         Rw5goSPedRv1WhDUO4FrqVUi1mqWCIDBc1v8GIf/UM+1h/fAeDjTXomzJo+VYJh+Qi20
+         Rn9UycyuUqIq3u0nyFIPYpAO7XgWItTLmyV01BRDzCv0Td57oZn0Bf6pJQ15L9oH/0u2
+         wDjvLpkmpsdm9/a9Ws8A0FZWXraXAd0Lgjb+zL6+5Ss6XdRmdtxEdV/D6RLVDElEhIGQ
+         vJFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1703266276; x=1703871076;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=nNBg0y+Bd68VL0xW77WB7jMSRPSja3ZQujiu0gSBfM4=;
+        b=gP2KMdJmfortxiF+V2RSfm8oL77qCPIWbQBS+C2T2FKHZU58kl5z9kCaaZ809XhUBB
+         zP4/TT8fDnewILbkTVGuYL8LQx743KGvw+ykVwGcHWpgG2tpL8R58VGPJ2NS0uRDOphG
+         DLoYQ+gQSHoJxSDW8rm4vm/EwmaisxTYpn6G6VbqcAnnWbzqvQEKXcCnwEPQlS0Z7qYA
+         csuVcTD/zLpYrNVEPLJoqSiZ5+7OS7o194JKLRK1XUVThDrXJ3IUo74ib+RG1LMqV3if
+         TIc+/Hg6KXTU1H/ZjO+lreU7SeQDxIHOWOzsYbAicK15dKdn7WvLO0TXu/iGNKkzZp3y
+         y6GA==
+X-Gm-Message-State: AOJu0Yw5IizFaIblmZFbsUSeZUvCHFDtp3q3tnU1qyMmhYlbfeecg2qI
+	K4v0sUS42o+REtT1x24JpVCJh8qHhj+xcaYvf4PvF1526aOScw==
+X-Google-Smtp-Source: 
+ AGHT+IGqLB66JX2gzTB1urxa7lDtLfALa1+ydylvLoLSgnxVdq2TDvAEO7RX0xIhIqnPbSyiHZDZBoecmHefDqpDxl0=
+X-Received: by 2002:a05:6122:3bc3:b0:4b6:c5ae:26cc with SMTP id
+ ft3-20020a0561223bc300b004b6c5ae26ccmr719754vkb.14.1703266275645; Fri, 22 Dec
+ 2023 09:31:15 -0800 (PST)
 MIME-Version: 1.0
-From: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: linux-sound@vger.kernel.org,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Sean Anderson <sean.anderson@seco.com>, Bartosz Golaszewski <brgl@bgdev.pl>,
- Mark Brown <broonie@kernel.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@quicinc.com>,
- Rob Herring <robh+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>, devicetree@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Jaroslav Kysela <perex@perex.cz>, Philipp Zabel <p.zabel@pengutronix.de>
-In-Reply-To: <20231222150133.732662-4-krzysztof.kozlowski@linaro.org>
 References: <20231222150133.732662-1-krzysztof.kozlowski@linaro.org>
- <20231222150133.732662-4-krzysztof.kozlowski@linaro.org>
-Message-Id: <170326193305.2480732.11136927518876044020.robh@kernel.org>
-Subject: Re: [PATCH 3/4] ASoC: dt-bindings: qcom,wsa8840: Add reset-gpios
- for shared line
-Date: Fri, 22 Dec 2023 10:18:53 -0600
-Message-ID-Hash: BQ4XCY52BZ2L7EUWQAI6AL2SXVRFUGFX
-X-Message-ID-Hash: BQ4XCY52BZ2L7EUWQAI6AL2SXVRFUGFX
-X-MailFrom: robh@kernel.org
+ <20231222150133.732662-2-krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20231222150133.732662-2-krzysztof.kozlowski@linaro.org>
+From: Bartosz Golaszewski <brgl@bgdev.pl>
+Date: Fri, 22 Dec 2023 18:31:04 +0100
+Message-ID: 
+ <CAMRc=MdYPuW8C_+EAY4UTCjqNggx6RAkp9OmLU-hRxjZNRQRHw@mail.gmail.com>
+Subject: Re: [PATCH 1/4] reset: instantiate reset GPIO controller for shared
+ reset-gpios
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>,
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>,
+	linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Sean Anderson <sean.anderson@seco.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: CDWMNHFLWKJSUURJTYNOYSJPATYHAY6Q
+X-Message-ID-Hash: CDWMNHFLWKJSUURJTYNOYSJPATYHAY6Q
+X-MailFrom: brgl@bgdev.pl
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -98,7 +122,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BQ4XCY52BZ2L7EUWQAI6AL2SXVRFUGFX/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CDWMNHFLWKJSUURJTYNOYSJPATYHAY6Q/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,95 +131,205 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-
-On Fri, 22 Dec 2023 16:01:32 +0100, Krzysztof Kozlowski wrote:
-> On newer Qualcomm platforms, like X1E80100-CRD, the WSA884x speakers
-> share SD_N GPIOs between two speakers, thus a coordinated assertion is
-> needed.  Linux supports handling shared GPIO lines through "reset-gpios"
-> property, thus allow specifying either powerdown or reset GPIOs (these
-> are the same).
-> 
+On Fri, Dec 22, 2023 at 4:01=E2=80=AFPM Krzysztof Kozlowski
+<krzysztof.kozlowski@linaro.org> wrote:
+>
+> Devices sharing a reset GPIO could use the reset framework for
+> coordinated handling of that shared GPIO line.  We have several cases of
+> such needs, at least for Devicetree-based platforms.
+>
+> If Devicetree-based device requests a reset line which is missing but
+> there is a reset-gpios property, instantiate a new "reset-gpio" platform
+> device which will handle such reset line.  This allows seamless handling
+> of such shared reset-gpios without need of changing Devicetree binding [1=
+].
+>
+> The "reset-gpio" driver follows shortly.
+>
+> Link: https://lore.kernel.org/all/YXi5CUCEi7YmNxXM@robh.at.kernel.org/
 > Cc: Bartosz Golaszewski <brgl@bgdev.pl>
 > Cc: Sean Anderson <sean.anderson@seco.com>
 > Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> 
 > ---
-> 
-> If previous patches are fine, then this commit is independent and could
-> be taken via ASoC.
-> ---
->  .../devicetree/bindings/sound/qcom,wsa8840.yaml          | 9 ++++++++-
->  1 file changed, 8 insertions(+), 1 deletion(-)
-> 
+>  drivers/reset/core.c             | 70 +++++++++++++++++++++++++++-----
+>  include/linux/reset-controller.h |  2 +
+>  2 files changed, 61 insertions(+), 11 deletions(-)
+>
+> diff --git a/drivers/reset/core.c b/drivers/reset/core.c
+> index 4d5a78d3c085..a1f0f515a7e0 100644
+> --- a/drivers/reset/core.c
+> +++ b/drivers/reset/core.c
+> @@ -10,9 +10,12 @@
+>  #include <linux/export.h>
+>  #include <linux/kernel.h>
+>  #include <linux/kref.h>
+> +#include <linux/gpio/consumer.h>
+>  #include <linux/module.h>
+>  #include <linux/of.h>
+> +#include <linux/of_gpio.h>
+>  #include <linux/acpi.h>
+> +#include <linux/platform_device.h>
+>  #include <linux/reset.h>
+>  #include <linux/reset-controller.h>
+>  #include <linux/slab.h>
+> @@ -813,13 +816,59 @@ static void __reset_control_put_internal(struct res=
+et_control *rstc)
+>         kref_put(&rstc->refcnt, __reset_control_release);
+>  }
+>
+> +static int __reset_add_reset_gpio_device(struct device_node *node,
+> +                                        const struct gpio_desc **out)
+> +{
+> +       struct platform_device *pdev;
+> +       int gpio;
+> +
+> +       /* Don't care about deprecated '-gpio' suffix. */
+> +       gpio =3D of_get_named_gpio(node, "reset-gpios", 0);
 
-My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-on your patch (DT_CHECKER_FLAGS is new in v5.13):
+Sorry but NAK. This is a legacy API, we've managed to remove all of_
+GPIO interfaces but this one. Please don't use it. Any function that
+deals with the global GPIO numberspace is deprecated. See below how I
+would approach it.
 
-yamllint warnings/errors:
+Side note: do we have any formal way of deprecating interfaces in the kerne=
+l?
 
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/qcom,wsa8840.yaml: oneOf:0: 'powerdown-gpios' is not of type 'object', 'boolean'
-	from schema $id: http://json-schema.org/draft-07/schema#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/qcom,wsa8840.yaml: oneOf:1: 'reset-gpios' is not of type 'object', 'boolean'
-	from schema $id: http://json-schema.org/draft-07/schema#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/qcom,wsa8840.yaml: oneOf: ['powerdown-gpios', 'reset-gpios'] should not be valid under {'items': {'propertyNames': {'const': 'const'}, 'required': ['const']}}
-	hint: Use 'enum' rather than 'oneOf' + 'const' entries
-	from schema $id: http://devicetree.org/meta-schemas/keywords.yaml#
-Traceback (most recent call last):
-  File "/usr/local/bin/dt-validate", line 8, in <module>
-    sys.exit(main())
-             ^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/dtschema/dtb_validate.py", line 144, in main
-    sg.check_dtb(filename)
-  File "/usr/local/lib/python3.11/dist-packages/dtschema/dtb_validate.py", line 89, in check_dtb
-    self.check_subtree(dt, subtree, False, "/", "/", filename)
-  File "/usr/local/lib/python3.11/dist-packages/dtschema/dtb_validate.py", line 82, in check_subtree
-    self.check_subtree(tree, value, disabled, name, fullname + name, filename)
-  File "/usr/local/lib/python3.11/dist-packages/dtschema/dtb_validate.py", line 82, in check_subtree
-    self.check_subtree(tree, value, disabled, name, fullname + name, filename)
-  File "/usr/local/lib/python3.11/dist-packages/dtschema/dtb_validate.py", line 82, in check_subtree
-    self.check_subtree(tree, value, disabled, name, fullname + name, filename)
-  File "/usr/local/lib/python3.11/dist-packages/dtschema/dtb_validate.py", line 77, in check_subtree
-    self.check_node(tree, subtree, disabled, nodename, fullname, filename)
-  File "/usr/local/lib/python3.11/dist-packages/dtschema/dtb_validate.py", line 33, in check_node
-    for error in self.validator.iter_errors(node, filter=match_schema_file):
-  File "/usr/local/lib/python3.11/dist-packages/dtschema/validator.py", line 403, in iter_errors
-    for error in self.DtValidator(sch,
-  File "/usr/local/lib/python3.11/dist-packages/jsonschema/validators.py", line 288, in iter_errors
-    for error in errors:
-  File "/usr/local/lib/python3.11/dist-packages/jsonschema/_validators.py", line 414, in if_
-    yield from validator.descend(instance, then, schema_path="then")
-  File "/usr/local/lib/python3.11/dist-packages/jsonschema/validators.py", line 305, in descend
-    for error in self.evolve(schema=schema).iter_errors(instance):
-  File "/usr/local/lib/python3.11/dist-packages/jsonschema/validators.py", line 288, in iter_errors
-    for error in errors:
-  File "/usr/local/lib/python3.11/dist-packages/jsonschema/_validators.py", line 383, in oneOf
-    errs = list(validator.descend(instance, subschema, schema_path=index))
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/jsonschema/validators.py", line 305, in descend
-    for error in self.evolve(schema=schema).iter_errors(instance):
-  File "/usr/local/lib/python3.11/dist-packages/jsonschema/validators.py", line 278, in iter_errors
-    scope = id_of(_schema)
-            ^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/jsonschema/validators.py", line 101, in _id_of
-    return schema.get("$id", "")
-           ^^^^^^^^^^
-AttributeError: 'str' object has no attribute 'get'
+> +       if (!gpio_is_valid(gpio))
+> +               return gpio;
+> +
+> +       pdev =3D platform_device_register_data(NULL, "reset-gpio",
+> +                                            PLATFORM_DEVID_AUTO, &node,
+> +                                            sizeof(node));
 
-doc reference errors (make refcheckdocs):
+You seem to make an assumption (in __reset_find_rcdev()) that this
+device will get bound to its driver before this function returns.
+There is no such guarantee. There are many situations where this may
+not happen immediately (think loading the reset-gpio driver as a
+module from the filesystem). You should set up a notifier callback on
+the platform bus that will get invoked on bus events and wait for this
+device's BUS_NOTIFY_BOUND_DRIVER event.
 
-See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20231222150133.732662-4-krzysztof.kozlowski@linaro.org
+> +       if (!IS_ERR(pdev))
+> +               *out =3D gpio_to_desc(gpio);
+> +
+> +       return PTR_ERR_OR_ZERO(pdev);
+> +}
+> +
+> +static struct reset_controller_dev *__reset_find_rcdev(const struct of_p=
+handle_args *args,
+> +                                                      const void *cookie=
+)
+> +{
+> +       struct reset_controller_dev *r, *rcdev;
+> +
+> +       lockdep_assert_held(&reset_list_mutex);
+> +
+> +       rcdev =3D NULL;
+> +       list_for_each_entry(r, &reset_controller_list, list) {
+> +               if (args && args->np) {
+> +                       if (args->np =3D=3D r->of_node) {
+> +                               rcdev =3D r;
+> +                               break;
+> +                       }
+> +               } else if (cookie) {
+> +                       if (cookie =3D=3D r->cookie) {
 
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
+As I said in private: there's no guarantee that the same GPIO
+descriptor will always reference the same GPIO line. It happens to be
+the case currently but it's an implementation detail.
 
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
+> +                               rcdev =3D r;
+> +                               break;
+> +                       }
+> +               }
+> +       }
+> +
+> +       return rcdev;
+> +}
+> +
+>  struct reset_control *
+>  __of_reset_control_get(struct device_node *node, const char *id, int ind=
+ex,
+>                        bool shared, bool optional, bool acquired)
+>  {
+> +       const struct gpio_desc *gpio =3D NULL;
+> +       struct of_phandle_args args =3D {0};
+>         struct reset_control *rstc;
+> -       struct reset_controller_dev *r, *rcdev;
+> -       struct of_phandle_args args;
+> +       struct reset_controller_dev *rcdev;
+>         int rstc_id;
+>         int ret;
+>
+> @@ -839,17 +888,16 @@ __of_reset_control_get(struct device_node *node, co=
+nst char *id, int index,
+>                                          index, &args);
+>         if (ret =3D=3D -EINVAL)
+>                 return ERR_PTR(ret);
+> -       if (ret)
+> -               return optional ? NULL : ERR_PTR(ret);
+> +       if (ret) {
+> +               ret =3D __reset_add_reset_gpio_device(node, &gpio);
+> +               if (ret)
+> +                       return optional ? NULL : ERR_PTR(ret);
+> +
+> +               args.args_count =3D 1; /* reset-gpio has only one reset l=
+ine */
+> +       }
+>
+>         mutex_lock(&reset_list_mutex);
+> -       rcdev =3D NULL;
+> -       list_for_each_entry(r, &reset_controller_list, list) {
+> -               if (args.np =3D=3D r->of_node) {
+> -                       rcdev =3D r;
+> -                       break;
+> -               }
+> -       }
+> +       rcdev =3D __reset_find_rcdev(&args, gpio);
+>
+>         if (!rcdev) {
+>                 rstc =3D ERR_PTR(-EPROBE_DEFER);
+> diff --git a/include/linux/reset-controller.h b/include/linux/reset-contr=
+oller.h
+> index 0fa4f60e1186..c0a99a8ea29e 100644
+> --- a/include/linux/reset-controller.h
+> +++ b/include/linux/reset-controller.h
+> @@ -61,6 +61,7 @@ struct reset_control_lookup {
+>   * @dev: corresponding driver model device struct
+>   * @of_node: corresponding device tree node as phandle target
+>   * @of_reset_n_cells: number of cells in reset line specifiers
+> + * @cookie: for reset-gpios controllers: corresponding GPIO instead of o=
+f_node
+>   * @of_xlate: translation function to translate from specifier as found =
+in the
+>   *            device tree to id as given to the reset control ops, defau=
+lts
+>   *            to :c:func:`of_reset_simple_xlate`.
+> @@ -74,6 +75,7 @@ struct reset_controller_dev {
+>         struct device *dev;
+>         struct device_node *of_node;
+>         int of_reset_n_cells;
+> +       const void *cookie;
+>         int (*of_xlate)(struct reset_controller_dev *rcdev,
+>                         const struct of_phandle_args *reset_spec);
+>         unsigned int nr_resets;
+> --
+> 2.34.1
+>
 
-pip3 install dtschema --upgrade
+I dislike this approach entirely. Here's what I would do:
 
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+In the reset core: parse the phandle of the reset-gpios property. Use
+the resulting node with gpio_device_find_by_fwnode(). If the device is
+not up yet, defer probe. You'll now have the GPIO device object.
+Retrieve its label using gpio_device_get_label(). Now you should have
+everything you need (the offset and flags of the GPIO you'll get from
+__of_parse_phandle_with_args()) to set up the lookup tables. See
+include/linux/gpio/machine.h. An example of that would be in:
+bcm2835_spi_setup() in drivers/spi/spi-bcm2835.c.
 
+Then with a lookup table in place, you instantiate your device and
+it'll get its GPIO as it should. This is not ideal but much better
+than the above.
+
+Bartosz

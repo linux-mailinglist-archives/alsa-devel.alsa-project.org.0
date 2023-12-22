@@ -2,99 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DBD781CBC5
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Dec 2023 16:10:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6497E81CC0C
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Dec 2023 16:17:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A530BDF9;
-	Fri, 22 Dec 2023 16:09:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A530BDF9
+	by alsa0.perex.cz (Postfix) with ESMTPS id C0F7483B;
+	Fri, 22 Dec 2023 16:17:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C0F7483B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1703257799;
-	bh=lGFaUdj4s4HqOAV2YSYLYlynMCkYZeqIMiKLrMeYJlo=;
+	s=default; t=1703258261;
+	bh=VMFhy3gYFTqUVPSHQhjhnc5p+ivP7i+63yX3kxdeaJE=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=JqpvSUsAOGaU0uH/WeRZfnAreGdBNQRBjfR23WGrvELOo8Z1UdiZ2wlEfWipFHju6
-	 S8jdRMc/6ht43T7xEdnBhD//1trG8Fwl9A9d6Ay9DTEG5L74uOCIlyxVXGsOQD9Hb/
-	 McXi2PCS27nMhzTIzKho0kivhd3f1g3ORioRLM7I=
+	b=PycmpVO9pC/fHFmxz1KAMBH1zCsGBVl/QqR4EfbgdsbahgCnQjigvMdnvMxNpiSs6
+	 GJlviLtD2rw0jDjUBWcclNTcMiuOvZ+dIzuid3FEYrpENr35Pg0Djv8iUQPbgT0sK2
+	 SCEWGg/Q4w6NEHm4XFnvYb7MvGIEBfkk1OKDdrc4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D9868F8057C; Fri, 22 Dec 2023 16:09:28 +0100 (CET)
+	id CE74CF8056F; Fri, 22 Dec 2023 16:17:10 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 214F5F80563;
-	Fri, 22 Dec 2023 16:09:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 215BEF80153;
+	Fri, 22 Dec 2023 16:17:10 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C89AEF8016E; Fri, 22 Dec 2023 16:09:25 +0100 (CET)
+	id B0F2FF8016E; Fri, 22 Dec 2023 16:17:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [IPv6:2a00:1450:4864:20::530])
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [IPv6:2a00:1450:4864:20::634])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4B5B6F800F5
-	for <alsa-devel@alsa-project.org>; Fri, 22 Dec 2023 16:09:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B5B6F800F5
+	by alsa1.perex.cz (Postfix) with ESMTPS id 861A4F800D2
+	for <alsa-devel@alsa-project.org>; Fri, 22 Dec 2023 16:17:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 861A4F800D2
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=yI0Mcunn
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-5545aa3532aso644918a12.1
+ header.s=google header.b=C4m5YSOK
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-a22deb95d21so245352566b.3
         for <alsa-devel@alsa-project.org>;
- Fri, 22 Dec 2023 07:09:22 -0800 (PST)
+ Fri, 22 Dec 2023 07:17:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1703257761; x=1703862561;
+        d=linaro.org; s=google; t=1703258222; x=1703863022;
  darn=alsa-project.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=klND5eviMWjqCFc2JRjl7wfCCC6ki6+noUjZExFi2BA=;
-        b=yI0Mcunn+OuPGWF+KgKKcEfeVXhOn2aO7obSebUIycfIMKHFX+IYNyoEVl8KuwRoDl
-         STmuLN0ZAl1woRAOCNGYrjrAZ75DlzZnz0vMUweK5to/fzEhcXcoG5gGyZHBJMFRlHSW
-         3MCEZp9DasL1m2oOYuEfg18sKvOgJDvApadSWGBt8TRLh2COCV5awyHWfJfkacwMYM6T
-         9VVJHteYuh1lPo58TFZSQftVZ18FJ8+VXBfb7ZuaDTzbkGvu97qYCz6YeSrj6/AcJc+Z
-         asBkVJxHilbMgi9LLhthvinZWV3aF0nXgfkeFFo3b3PMi2s+ZBH/U6AHcD1DU39nTsFl
-         Ikgg==
+        bh=8nbivf6JQ00DNNqOkZI3zn/7lSai7x6SkeaJzjc73tI=;
+        b=C4m5YSOKpAsmuBEH2xmoDSm+xljJN0ELMXx1GZghi9FK9vfmODGWGOxAs+qDZHkDdt
+         PBPLhP0Wer7IyMmb6K0M+usRFx/pPWV+E4rS5OIzq7YLp64PPGTyI301snAAAxuphGBs
+         07kelPmpLrqjggrOejqmqwEFMUi1qKwUWZrzXRk6oZpY95YEdc6RgzaCBS3PGqRj92Va
+         LWpQCvkTOkxd1prWySSYXYojq4DsmSnAQGnX/skp/AjUPpmFHQpkh20HQ+LPaEEGCWC/
+         q9C0O1sD18mSLLTcq1Jn4KONiB7EctLQ4wc2czXGX/PR8tpQGITQAlp/4KM3/M84JXKT
+         ZNuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1703257761; x=1703862561;
+        d=1e100.net; s=20230601; t=1703258222; x=1703863022;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=klND5eviMWjqCFc2JRjl7wfCCC6ki6+noUjZExFi2BA=;
-        b=Xc73RwIBOnwAwmvNiu2/SD8VkJonJArn6Zxah26LUtKzE4yZNw2SKW+kLh2/8JxyEQ
-         yMKahMjzdQhWM8E8SBiBw4J8+GCqs4SpqgMZX3KRIKuHTpE+hVqZXw4iuyac/K1SdDmt
-         aJbzzvf9U5RhAaosdq7IbLGxNGJ9LZuFQGmAKrKSPdfB7byU89fHledwNPzu4uzf6UFr
-         jcC/XZ5WzMMtb0yZCIEThhFuD+Rd7odBwu5e1rswSTkvif0eYyQZgA6f3pCH52qkbxOw
-         r/mJfHk0exrOSNVR2PKMsbRPEE2CTTAHH4B/HCo3ZM21KCUGnKZ1bZBNEwXXZpV644a3
-         mbYA==
-X-Gm-Message-State: AOJu0YzoW5xcvYEgzsIpFv/V/lrR08fsmgE/yLgQNnnvwoHpQYM7pdBl
-	3/VuwYWzMfWc2/5Q3IcSjxg/jUQ+6jSW8g==
+        bh=8nbivf6JQ00DNNqOkZI3zn/7lSai7x6SkeaJzjc73tI=;
+        b=VoMymgz8ruMxseLBKV8UZbJWIZD1s50A07piAHMkbBhBvXVEj1d6a4LLIIi4pLHryd
+         YvrVh0MFa8C1hM+RYan/bXLpRwybTbUp3PAY+jMfdZRTFnS8GEZqkRJoEpt9n64jj15M
+         kTX+8VG7JILRKkX/DuHEf8O04VWrKV4b41JNrJBjRQA96Ko2WnpLPtKS+8NF9n+ffUcR
+         A8WjzaXBcSNmQcyAOeVL8EYL79hwmwlvEoHWRNjAfGpgzIQylmDdirtKEvfkOQBW1Ml2
+         DPsFijfH7KSYq7CNZgfLL0iplSIOrdVqygRrBhz2oXMsECCgc+5z7oS635L7P7E4g/Ad
+         Wawg==
+X-Gm-Message-State: AOJu0YzAEilxCXie48QrV5hTX1zvvRTOAt/kDE/5BFFpeXeE7q/qk0k4
+	ja8KSLpwyOPb8UUGCMXPbcX+aHsXG61ALQ==
 X-Google-Smtp-Source: 
- AGHT+IE7ej6Twp4tGUiwq63QuEa+hvJMZkS7XMiI1DP0rx0M9RtceR1+vN2dE+tV/G2HjTzHykPm6g==
-X-Received: by 2002:a50:8d12:0:b0:553:2294:8170 with SMTP id
- s18-20020a508d12000000b0055322948170mr746312eds.11.1703257761123;
-        Fri, 22 Dec 2023 07:09:21 -0800 (PST)
+ AGHT+IG1N+vqCddcisCWaN5C4p3czVlmpXft3RrjQw2Kxyv7hs5Jfh3fxYlpjupeXFIdGLawZgbc5Q==
+X-Received: by 2002:a17:906:da:b0:a26:bf53:db0e with SMTP id
+ 26-20020a17090600da00b00a26bf53db0emr515411eji.80.1703258222100;
+        Fri, 22 Dec 2023 07:17:02 -0800 (PST)
 Received: from [192.168.0.22] ([78.10.206.178])
         by smtp.gmail.com with ESMTPSA id
- ek19-20020a056402371300b0055383eb043csm2668141edb.56.2023.12.22.07.09.19
+ j16-20020a170906051000b00a2304386f4bsm2125111eja.211.2023.12.22.07.17.00
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 22 Dec 2023 07:09:20 -0800 (PST)
-Message-ID: <89256009-3c97-4a8a-8ea6-3d3bfa800fce@linaro.org>
-Date: Fri, 22 Dec 2023 16:09:19 +0100
+        Fri, 22 Dec 2023 07:17:01 -0800 (PST)
+Message-ID: <3cb40729-df3e-4427-8f11-55d449e41664@linaro.org>
+Date: Fri, 22 Dec 2023 16:16:59 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/4] reset: gpio: ASoC: shared GPIO resets
+Subject: Re: [PATCH 3/4] ASoC: dt-bindings: qcom,wsa8840: Add reset-gpios for
+ shared line
 Content-Language: en-US
-To: Bartosz Golaszewski <brgl@bgdev.pl>
-Cc: Chris Packham <chris.packham@alliedtelesis.co.nz>,
- Bjorn Andersson <andersson@kernel.org>,
+To: Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konrad.dybcio@linaro.org>,
  Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
  Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
@@ -104,8 +103,11 @@ Cc: Chris Packham <chris.packham@alliedtelesis.co.nz>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
  linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
  linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Sean Anderson <sean.anderson@seco.com>
+ linux-kernel@vger.kernel.org
+Cc: Bartosz Golaszewski <brgl@bgdev.pl>,
+ Sean Anderson <sean.anderson@seco.com>
 References: <20231222150133.732662-1-krzysztof.kozlowski@linaro.org>
+ <20231222150133.732662-4-krzysztof.kozlowski@linaro.org>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -151,11 +153,11 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
  fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
  D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <20231222150133.732662-1-krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20231222150133.732662-4-krzysztof.kozlowski@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: IHEBOI7ADPNH4FAC6YDF224BDTODPMYW
-X-Message-ID-Hash: IHEBOI7ADPNH4FAC6YDF224BDTODPMYW
+Message-ID-Hash: 7D2C5ZITLTXW6QX6PF3XAT2WNADJLNXC
+X-Message-ID-Hash: 7D2C5ZITLTXW6QX6PF3XAT2WNADJLNXC
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -168,7 +170,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IHEBOI7ADPNH4FAC6YDF224BDTODPMYW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7D2C5ZITLTXW6QX6PF3XAT2WNADJLNXC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -178,15 +180,25 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 On 22/12/2023 16:01, Krzysztof Kozlowski wrote:
-> Hi,
-> 
-> We have at least few cases where hardware engineers decided to use one
-> powerdown/shutdown/reset GPIO line for multiple devices:
-> 
+> @@ -37,11 +41,14 @@ properties:
+>  required:
+>    - compatible
+>    - reg
+> -  - powerdown-gpios
+>    - '#sound-dai-cells'
+>    - vdd-1p8-supply
+>    - vdd-io-supply
+>  
+> +oneOf:
+> +  - powerdown-gpios
+> +  - reset-gpios
 
-Bartosz,
-Please kindly provide feedback whether my way of using "struct
-gpio_desc" to compare cookies is acceptable.
+And this obviously was not tested, so Krzysztof:
+
+It does not look like you tested the bindings, at least after quick
+look. Please run `make dt_binding_check` (see
+Documentation/devicetree/bindings/writing-schema.rst for instructions).
+Maybe you need to update your dtschema and yamllint.
 
 Best regards,
 Krzysztof

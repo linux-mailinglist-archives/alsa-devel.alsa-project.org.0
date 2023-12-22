@@ -2,83 +2,119 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 418D481CAC0
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Dec 2023 14:30:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9A5D81CB9D
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Dec 2023 16:02:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 32077AEA;
-	Fri, 22 Dec 2023 14:30:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 32077AEA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3851ADEC;
+	Fri, 22 Dec 2023 16:02:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3851ADEC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1703251845;
-	bh=RuNb2lHj56WZdYXpKxgjEW4dhGWjWseHrdtSaaLBKfI=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=vVvkFQ+rUReBFAIUUY4WYBiLnIUHdOsz5Kg0VSrsfWs5iJsggB+H3Lg24xeK1pUe6
-	 fU32HK2Cpz7XMdC1rk4pH5hmAfvoSM1CZGm6/TMgj1acODGDOK6sJFkMKcF+NE52i9
-	 xJleAkE4lhmYgY81SkE/JDm0ZDLNu5jYvBuHyoMc=
+	s=default; t=1703257354;
+	bh=4s9smf/RCgwD+JD7P5WN65k34eyM5Ua7SKx8OcpjyNI=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=crHN83lZIsCxcnif5vaLdpTpNn9OGKsj1HgncQJWjj8v50tlbE8WMzdaoeaYN5z1w
+	 AYUnMnrE2u+wF9BCWyeRWqDC//ItrrBNiS8YVEgFyZEsrcVx/r6Zo2IkXNtQo3YEvR
+	 hxO7s18Hir92ZpH2ZEPdwN+4cYPxFW9J7YWYvu3Q=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5B72DF80578; Fri, 22 Dec 2023 14:30:13 +0100 (CET)
+	id CF240F80564; Fri, 22 Dec 2023 16:02:01 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DA147F80431;
-	Fri, 22 Dec 2023 14:30:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B609FF80580;
+	Fri, 22 Dec 2023 16:02:00 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 718D5F8016E; Fri, 22 Dec 2023 14:30:07 +0100 (CET)
+	id ACD38F80425; Fri, 22 Dec 2023 16:01:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [IPv6:2a00:1450:4864:20::633])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 088FDF800F5
-	for <alsa-devel@alsa-project.org>; Fri, 22 Dec 2023 14:29:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 088FDF800F5
+	by alsa1.perex.cz (Postfix) with ESMTPS id 67C87F800F5
+	for <alsa-devel@alsa-project.org>; Fri, 22 Dec 2023 16:01:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67C87F800F5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=YLAcLAc9
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by ams.source.kernel.org (Postfix) with ESMTP id 3C3FAB822EB;
-	Fri, 22 Dec 2023 13:29:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28391C433C7;
-	Fri, 22 Dec 2023 13:29:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1703251794;
-	bh=RuNb2lHj56WZdYXpKxgjEW4dhGWjWseHrdtSaaLBKfI=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=YLAcLAc9ur45/i2UyYKihEApRbSgZEPeX8YWSoekT4rnIlMO4xPjoD1/nsRrHModR
-	 ziS6SIg1vUjg67rdXKdqkG08CzOBDb4+7Cctq/LT6cwNuAkOXCnx3mh3Y6eAk4nCrx
-	 F5SjW5BIMj5dnFDowUAMicURP6JVrKhMI6W/vz/jDg48tpkwmrULEJg40ita/N3maX
-	 5HvdWhzQk5zJM2fjxPEU/Y+D9DfDGfI4Y0OPVlxVgc+GG7q1AdqYZqoJOdYjdxDcsy
-	 drLZDI148h8kgUpE7wnM4Q9ufm/hZSC+ayyFfJeAApljMmaMeumKJtvUdSsj9DBFn1
-	 ysLslW6bZIfbw==
-From: Mark Brown <broonie@kernel.org>
-To: Cezary Rojewski <cezary.rojewski@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Hans de Goede <hdegoede@redhat.com>
-Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org
-In-Reply-To: <20231126214024.300505-1-hdegoede@redhat.com>
-References: <20231126214024.300505-1-hdegoede@redhat.com>
-Subject: Re: [PATCH 0/7] ASoC: rt5645: Add Acer Switch V 10 quirk + report
- quirks in components string
-Message-Id: <170325179287.61152.14578936748460657175.b4-ty@kernel.org>
-Date: Fri, 22 Dec 2023 13:29:52 +0000
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=pOW0E8H4
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-a2339262835so216223866b.3
+        for <alsa-devel@alsa-project.org>;
+ Fri, 22 Dec 2023 07:01:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1703257303; x=1703862103;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=W4lx9wwE1i9du74XL1yxBGJ3vsI1REncsFrgYBE3k74=;
+        b=pOW0E8H4DHIqjznwVWLK8Y1Z21cBUHqNTSQFZRVh0Orpn1kgslQIfV8C9NI4yU6su3
+         x6I3vZa7wecQNL3jQqLTJceqm97wG053ZbWO657ecgskJyAzCMPvzmcY2avU3BFVvhdg
+         O0czhvnALwGovdnOdfNZPfXGhqpBj60PIKpFGQaxae1l2gVfKYtXI0wDlfXv4POirSQt
+         DSrjCbZsuCylTjitseKiCf3lHklDFr5TuxSmv4pAxAw60iebEAXp+fWSAjtZ1h9Kk+UT
+         FrVeLeDGuiorK/1aYTQXiAqj4/SARi8wy2QWSenwrayJMEDZckfnN37lrTRhelCtGrNU
+         JkdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1703257303; x=1703862103;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=W4lx9wwE1i9du74XL1yxBGJ3vsI1REncsFrgYBE3k74=;
+        b=L0yIe0Z9B5XqPSpHx8Ra111233wGIaimYRFdS/47wxPlez36aLlVEqZ13gUJsLFdau
+         2HlQpx00bHiLNSl5hlZhOOeqK9vp3f5KWhFoSujb+4jbwwVwV6hT5/IfeBpdxkZCZFf4
+         ctICKz08YB5yfSslWTnoVoLgSWC1kucE3lI4LJGYvE5O2cqmrsY9uBmfis1NkldJQf3O
+         9rbr2jWs8SyBsTMLfTQXwg1hbcHjtP3oDGJU4Xv4zei0LOmNAkzeMao4A/D3ifl9uQXi
+         T0kqtgQfS00r/IsYvVIu0C6RrOCfr228dEPikDaqL1XdZVkvfImOZSvxDPq+tLuuT4M5
+         HPTg==
+X-Gm-Message-State: AOJu0YwmMis38u9WTST8Qc11hrTUMXBuWkHy+X2NSz9sBXAjI9DM9Pjo
+	7iX77A/Ol9JYu7rgr8+OZiOWLhZcfhP6hw==
+X-Google-Smtp-Source: 
+ AGHT+IHRKrti1VwxIc09jY0oOuJy9YPs+JgtifApCY/xsD7vtw0cq160pet+7Cxzey11G3sc5FPgzg==
+X-Received: by 2002:a17:906:278e:b0:a23:577f:5fbc with SMTP id
+ j14-20020a170906278e00b00a23577f5fbcmr849058ejc.79.1703257303016;
+        Fri, 22 Dec 2023 07:01:43 -0800 (PST)
+Received: from krzk-bin.. ([78.10.206.178])
+        by smtp.gmail.com with ESMTPSA id
+ h1-20020a17090791c100b00a26af35c171sm1275671ejz.0.2023.12.22.07.01.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 22 Dec 2023 07:01:42 -0800 (PST)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konrad.dybcio@linaro.org>,
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	Banajit Goswami <bgoswami@quicinc.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-arm-msm@vger.kernel.org,
+	alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+	Chris Packham <chris.packham@alliedtelesis.co.nz>,
+	Bartosz Golaszewski <brgl@bgdev.pl>,
+	Sean Anderson <sean.anderson@seco.com>
+Subject: [PATCH 0/4] reset: gpio: ASoC: shared GPIO resets
+Date: Fri, 22 Dec 2023 16:01:29 +0100
+Message-Id: <20231222150133.732662-1-krzysztof.kozlowski@linaro.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-5c066
-Message-ID-Hash: UAHBVQOXPP5YH3KRSEI7U42EAJ6MSDGX
-X-Message-ID-Hash: UAHBVQOXPP5YH3KRSEI7U42EAJ6MSDGX
-X-MailFrom: broonie@kernel.org
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: HJK6JLK6PMPP5MOPMZ2DJWTBO2GFZKY6
+X-Message-ID-Hash: HJK6JLK6PMPP5MOPMZ2DJWTBO2GFZKY6
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -90,7 +126,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UAHBVQOXPP5YH3KRSEI7U42EAJ6MSDGX/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HJK6JLK6PMPP5MOPMZ2DJWTBO2GFZKY6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,53 +135,47 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sun, 26 Nov 2023 22:40:17 +0100, Hans de Goede wrote:
-> This patch-series adds a quirk for the Acer Switch V 10, which uses
-> a DMIC on the DMIC2 input, rather then the default analog mic on IN2.
-> 
-> Most of the patches are actually for adding a component string with
-> mic and speaker routing information so that the UCM profile can use this
-> instead of duplicating all the DMI quirks in the UCM profile.
-> 
-> [...]
+Hi,
 
-Applied to
+We have at least few cases where hardware engineers decided to use one
+powerdown/shutdown/reset GPIO line for multiple devices:
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+1. WSA884x (this and previous patch):
+https://lore.kernel.org/all/b7aeda24-d638-45b7-8e30-80d287f498f8@sirena.org.uk/
+2. https://lore.kernel.org/all/20231027033104.1348921-1-chris.packham@alliedtelesis.co.nz/
+3. https://lore.kernel.org/lkml/20191030120440.3699-1-peter.ujfalusi@ti.com/
+4. https://lore.kernel.org/all/20211018234923.1769028-1-sean.anderson@seco.com/
+5. https://social.treehouse.systems/@marcan/111268780311634160
 
-Thanks!
+I try to solve my case, hopefuly Chris' (2), partially Sean's (4) and maybe
+Hectors (5), using Rob's suggestion:
 
-[1/7] ASoC: rt5645: Drop double EF20 entry from dmi_platform_data[]
-      commit: 51add1687f39292af626ac3c2046f49241713273
-[2/7] ASoC: rt5645: Add platform-data for Acer Switch V 10
-      commit: 8f28e1996a786a7538d65e5258d3eecb92943673
-[3/7] ASoC: rt5645: Refactor rt5645_parse_dt()
-      commit: f72a9c2b8f1487181302d69fb82d5c76226be3fb
-[4/7] ASoC: rt5645: Add rt5645_get_pdata() helper
-      commit: b4635b9cd9ae48050d72b645cc53175788bebf52
-[5/7] ASoC: rt5645: Add a rt5645_components() helper
-      commit: 4cd7654553b3cf1ce5a7560f0492f0431785dfae
-[6/7] ASoC: rt5645: Add mono speaker information to the components string
-      commit: 8184e1db699befc5101bcfe401283becfc228a0b
-[7/7] ASoC: Intel: cht_bsw_rt5645: Set card.components string
-      commit: f87b4402163be352601f7a012ab0d8dba7ecc64d
+https://lore.kernel.org/all/YXi5CUCEi7YmNxXM@robh.at.kernel.org/
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Best regards,
+Krzysztof
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+Cc: Chris Packham <chris.packham@alliedtelesis.co.nz>
+Cc: Bartosz Golaszewski <brgl@bgdev.pl>
+Cc: Sean Anderson <sean.anderson@seco.com>
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+Krzysztof Kozlowski (4):
+  reset: instantiate reset GPIO controller for shared reset-gpios
+  reset: add GPIO-based reset controller
+  ASoC: dt-bindings: qcom,wsa8840: Add reset-gpios for shared line
+  ASoC: codecs: wsa884x: Allow sharing reset GPIO
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+ .../bindings/sound/qcom,wsa8840.yaml          |   9 +-
+ MAINTAINERS                                   |   5 +
+ drivers/reset/Kconfig                         |   9 ++
+ drivers/reset/Makefile                        |   1 +
+ drivers/reset/core.c                          |  70 ++++++++++--
+ drivers/reset/reset-gpio.c                    | 105 ++++++++++++++++++
+ include/linux/reset-controller.h              |   2 +
+ sound/soc/codecs/wsa884x.c                    |  52 +++++++--
+ 8 files changed, 231 insertions(+), 22 deletions(-)
+ create mode 100644 drivers/reset/reset-gpio.c
 
-Thanks,
-Mark
+-- 
+2.34.1
 

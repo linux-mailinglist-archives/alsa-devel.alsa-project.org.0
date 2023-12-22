@@ -2,88 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 622D381CC5F
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Dec 2023 16:46:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5694881CCA9
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Dec 2023 17:19:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DBF98DF3;
-	Fri, 22 Dec 2023 16:46:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DBF98DF3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6B420AE9;
+	Fri, 22 Dec 2023 17:19:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B420AE9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1703260013;
-	bh=WhROq6fxnNV/9LI7/csVWNcx/nYTzRP6g5WWhYCUuNE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1703261982;
+	bh=sFyXLqvCSCBVIhDV6X2IZpUbgvA4jiAGHM2EZhVLSlc=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=d6cfGfiASXbBu3Zsy/iS/2i4opzz3xCh84xz5dFfbcOAS0PZVEPo8gIiTfyiCI8hq
-	 vQWPxmWz9DkILeVggmxJ5lxQZspS4U0RrHjgwPxD4pAWl9rUDgq4C76cLWCWEQnqb6
-	 2TPMbZ53fr5wP9r2vs7ZmUPJKy8ELLWnEozK2fzY=
+	b=PZOi4fHy/Wp+jlDaWgtBL8EYfoJIBD8qM3Mrn30U5XHvkM6j+a0fnMHq82lr1EPNg
+	 FdUDjr/aa9DWBogo/jMDabJcGUHnQDb3Bynh48XbjQo1HJima/k47yzAD13c5f2kmK
+	 C8nw4jl1ftfNnfLZCoJqSHs76H21urcFNGmZzCEA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BBD9FF8057D; Fri, 22 Dec 2023 16:46:21 +0100 (CET)
+	id 57388F804DA; Fri, 22 Dec 2023 17:19:21 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id F2A8FF80431;
-	Fri, 22 Dec 2023 16:46:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B193EF80570;
+	Fri, 22 Dec 2023 17:19:20 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 36473F8016E; Fri, 22 Dec 2023 16:46:13 +0100 (CET)
+	id E8D88F8016E; Fri, 22 Dec 2023 17:19:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+	SPF_PASS,T_FILL_THIS_FORM_SHORT,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5B227F800D2
-	for <alsa-devel@alsa-project.org>; Fri, 22 Dec 2023 16:46:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B227F800D2
+	by alsa1.perex.cz (Postfix) with ESMTPS id F3EC2F800D2
+	for <alsa-devel@alsa-project.org>; Fri, 22 Dec 2023 17:19:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3EC2F800D2
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Qizy9SzF
+ header.s=k20201202 header.b=UCPpy92g
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 45F7A61C31;
-	Fri, 22 Dec 2023 15:46:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C3DFC433C9;
-	Fri, 22 Dec 2023 15:46:03 +0000 (UTC)
+	by sin.source.kernel.org (Postfix) with ESMTP id BC5A8CE220C;
+	Fri, 22 Dec 2023 16:18:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1808EC433C7;
+	Fri, 22 Dec 2023 16:18:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1703259964;
-	bh=WhROq6fxnNV/9LI7/csVWNcx/nYTzRP6g5WWhYCUuNE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Qizy9SzFWYEh7GuqWHk5sN61dU1zluBDr2eiyV5ul86BnAWICg7vCzRhmMvfpfqRF
-	 bRd3p+nmLBqpeJ8wDX5ok5OTYWdQjBWXuHoulKeRZHvQHJWJHmOepJO3r6Gcz+dfkc
-	 5iya6ox8Wn1qI6TAZaMKmR5phr2kNyP0OxniPLG9qyV+BTLU1GrVD5eDVgHF7LkGIi
-	 O203Ey4xbjKTSq6EymOWWhQSRWEfkgnUbZsbFKIRU04uv75HHnzsfQx8qmwW4C+c7n
-	 tTjePTVEzWNj0YZSdSaSGBCUS2uHnl3wRSb5ZRak+7hN1xF/ZI2SZ4ast7O8S9oZkj
-	 3cu7s8j++sGpw==
-Date: Fri, 22 Dec 2023 21:15:59 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
-Cc: broonie@kernel.org, alsa-devel@alsa-project.org,
-	Basavaraj.Hiregoudar@amd.com, Sunil-kumar.Dommati@amd.com,
-	pierre-louis.bossart@linux.intel.com, vinod.koul@intel.com,
-	venkataprasad.potturu@amd.com,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Sanyog Kale <sanyog.r.kale@intel.com>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 04/12] drivers: soundwire: refactor soundwire pads enable
-Message-ID: <ZYWvNxpLPUGCGElA@matsya>
-References: <20231221073558.3181911-1-Vijendar.Mukunda@amd.com>
- <20231221073558.3181911-5-Vijendar.Mukunda@amd.com>
- <ZYRqEbVADgU4fNtB@matsya>
- <6d98c43d-fb90-4cfa-a22e-8fd6d5a6eb50@amd.com>
- <ZYVVD2mL5kAePXDE@matsya>
- <0ab000c3-be7f-41f3-8017-28738cf0a698@amd.com>
+	s=k20201202; t=1703261936;
+	bh=sFyXLqvCSCBVIhDV6X2IZpUbgvA4jiAGHM2EZhVLSlc=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=UCPpy92g601dTI7dvHpzT4blOVWMfSvem7QoBoxijwV4aUK95R8nccnISdSTUHu91
+	 zso3T+h0zkaEPYlWAqpx5PVehlivGfhTcSbM96MZknFHSUiQGMKQELUvhPexkD52Q0
+	 iRScgtx0OfIul3NcKYx/ulXdt2KXtKj6lFv2+E6U5nprGQuFxOUST8Ps7jMqY7IFwb
+	 hp5e9AZVDQQ8ISVlltvPGJ+9lCDB8ZsTYVJQ2PvO40EATRYlKf5VDLVmie/v+0ilEX
+	 WfbahfO504NHMHQczmsIboru/k5VWYll1/UFhd0LxO8edYIj7sU0FmGSMFxEqHBgcp
+	 Yc8K62r5Wb7Tg==
+Received: (nullmailer pid 2480748 invoked by uid 1000);
+	Fri, 22 Dec 2023 16:18:53 -0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <0ab000c3-be7f-41f3-8017-28738cf0a698@amd.com>
-Message-ID-Hash: Y3ELQSRR7SNNMUFBQNT5NCJNTSOK3V2Q
-X-Message-ID-Hash: Y3ELQSRR7SNNMUFBQNT5NCJNTSOK3V2Q
-X-MailFrom: vkoul@kernel.org
+From: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: linux-sound@vger.kernel.org,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Sean Anderson <sean.anderson@seco.com>, Bartosz Golaszewski <brgl@bgdev.pl>,
+ Mark Brown <broonie@kernel.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@quicinc.com>,
+ Rob Herring <robh+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ Liam Girdwood <lgirdwood@gmail.com>, devicetree@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Jaroslav Kysela <perex@perex.cz>, Philipp Zabel <p.zabel@pengutronix.de>
+In-Reply-To: <20231222150133.732662-4-krzysztof.kozlowski@linaro.org>
+References: <20231222150133.732662-1-krzysztof.kozlowski@linaro.org>
+ <20231222150133.732662-4-krzysztof.kozlowski@linaro.org>
+Message-Id: <170326193305.2480732.11136927518876044020.robh@kernel.org>
+Subject: Re: [PATCH 3/4] ASoC: dt-bindings: qcom,wsa8840: Add reset-gpios
+ for shared line
+Date: Fri, 22 Dec 2023 10:18:53 -0600
+Message-ID-Hash: BQ4XCY52BZ2L7EUWQAI6AL2SXVRFUGFX
+X-Message-ID-Hash: BQ4XCY52BZ2L7EUWQAI6AL2SXVRFUGFX
+X-MailFrom: robh@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -95,7 +98,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Y3ELQSRR7SNNMUFBQNT5NCJNTSOK3V2Q/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BQ4XCY52BZ2L7EUWQAI6AL2SXVRFUGFX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,27 +107,95 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 22-12-23, 16:04, Mukunda,Vijendar wrote:
-> On 22/12/23 14:51, Vinod Koul wrote:
-> > On 22-12-23, 12:45, Mukunda,Vijendar wrote:
-> >> On 21/12/23 22:08, Vinod Koul wrote:
-> >>> so the code is copied from a GPL declared file to now and GPL + BSD one!
-> >>> Have you had lawyers look into this... why change one file license ?
-> >> As per recommendations from our legal team, we have updated the license as dual
-> >> one for amd_init.c file.
-> >> We have also observed that license terms should be updated for other files as
-> >> well (amd_manager.c, amd_manager.h & sdw_amd.h) as dual one, which we have
-> >> planned to submit as a supplement patch.
-> > Lets change that first before we move code from one license file to
-> > another
-> Will push the license update patch first.
-> >
-> > Btw why would you want to do the change of license form GPL to dual?
-> As this code being used by AMD SOF stack which uses dual license,
-> So we want to maintain the same license terms.
 
-SOF is firmware, do you share this kernel code with sofproject, that
-doesnt make sense to me, maybe I am missing something
+On Fri, 22 Dec 2023 16:01:32 +0100, Krzysztof Kozlowski wrote:
+> On newer Qualcomm platforms, like X1E80100-CRD, the WSA884x speakers
+> share SD_N GPIOs between two speakers, thus a coordinated assertion is
+> needed.  Linux supports handling shared GPIO lines through "reset-gpios"
+> property, thus allow specifying either powerdown or reset GPIOs (these
+> are the same).
+> 
+> Cc: Bartosz Golaszewski <brgl@bgdev.pl>
+> Cc: Sean Anderson <sean.anderson@seco.com>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> 
+> ---
+> 
+> If previous patches are fine, then this commit is independent and could
+> be taken via ASoC.
+> ---
+>  .../devicetree/bindings/sound/qcom,wsa8840.yaml          | 9 ++++++++-
+>  1 file changed, 8 insertions(+), 1 deletion(-)
+> 
 
--- 
-~Vinod
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
+
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/qcom,wsa8840.yaml: oneOf:0: 'powerdown-gpios' is not of type 'object', 'boolean'
+	from schema $id: http://json-schema.org/draft-07/schema#
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/qcom,wsa8840.yaml: oneOf:1: 'reset-gpios' is not of type 'object', 'boolean'
+	from schema $id: http://json-schema.org/draft-07/schema#
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/qcom,wsa8840.yaml: oneOf: ['powerdown-gpios', 'reset-gpios'] should not be valid under {'items': {'propertyNames': {'const': 'const'}, 'required': ['const']}}
+	hint: Use 'enum' rather than 'oneOf' + 'const' entries
+	from schema $id: http://devicetree.org/meta-schemas/keywords.yaml#
+Traceback (most recent call last):
+  File "/usr/local/bin/dt-validate", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/dtschema/dtb_validate.py", line 144, in main
+    sg.check_dtb(filename)
+  File "/usr/local/lib/python3.11/dist-packages/dtschema/dtb_validate.py", line 89, in check_dtb
+    self.check_subtree(dt, subtree, False, "/", "/", filename)
+  File "/usr/local/lib/python3.11/dist-packages/dtschema/dtb_validate.py", line 82, in check_subtree
+    self.check_subtree(tree, value, disabled, name, fullname + name, filename)
+  File "/usr/local/lib/python3.11/dist-packages/dtschema/dtb_validate.py", line 82, in check_subtree
+    self.check_subtree(tree, value, disabled, name, fullname + name, filename)
+  File "/usr/local/lib/python3.11/dist-packages/dtschema/dtb_validate.py", line 82, in check_subtree
+    self.check_subtree(tree, value, disabled, name, fullname + name, filename)
+  File "/usr/local/lib/python3.11/dist-packages/dtschema/dtb_validate.py", line 77, in check_subtree
+    self.check_node(tree, subtree, disabled, nodename, fullname, filename)
+  File "/usr/local/lib/python3.11/dist-packages/dtschema/dtb_validate.py", line 33, in check_node
+    for error in self.validator.iter_errors(node, filter=match_schema_file):
+  File "/usr/local/lib/python3.11/dist-packages/dtschema/validator.py", line 403, in iter_errors
+    for error in self.DtValidator(sch,
+  File "/usr/local/lib/python3.11/dist-packages/jsonschema/validators.py", line 288, in iter_errors
+    for error in errors:
+  File "/usr/local/lib/python3.11/dist-packages/jsonschema/_validators.py", line 414, in if_
+    yield from validator.descend(instance, then, schema_path="then")
+  File "/usr/local/lib/python3.11/dist-packages/jsonschema/validators.py", line 305, in descend
+    for error in self.evolve(schema=schema).iter_errors(instance):
+  File "/usr/local/lib/python3.11/dist-packages/jsonschema/validators.py", line 288, in iter_errors
+    for error in errors:
+  File "/usr/local/lib/python3.11/dist-packages/jsonschema/_validators.py", line 383, in oneOf
+    errs = list(validator.descend(instance, subschema, schema_path=index))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/jsonschema/validators.py", line 305, in descend
+    for error in self.evolve(schema=schema).iter_errors(instance):
+  File "/usr/local/lib/python3.11/dist-packages/jsonschema/validators.py", line 278, in iter_errors
+    scope = id_of(_schema)
+            ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/jsonschema/validators.py", line 101, in _id_of
+    return schema.get("$id", "")
+           ^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'get'
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20231222150133.732662-4-krzysztof.kozlowski@linaro.org
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+

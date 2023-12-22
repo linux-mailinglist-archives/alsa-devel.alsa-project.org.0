@@ -2,101 +2,106 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C1D081CF82
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Dec 2023 22:35:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D280F81CFF3
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Dec 2023 23:52:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6169FDEE;
-	Fri, 22 Dec 2023 22:35:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6169FDEE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 55490A4E;
+	Fri, 22 Dec 2023 23:52:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 55490A4E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1703280931;
-	bh=dpqNdfS4ahJoafXVsQek4DZnUBoFniH8a9Xe1zk0FlM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=It3PA+u0DUZB3KMS/mtGAJMbU+JTqIP4X7nSDkr134xs75KCfXpycM9J+rI7vJpIl
-	 EEKfE2lpcXUuZqRAcejDhSoH8A32uiHkUiY9ox/41OQ7dA2YRKLnDoowDJmVPxt6yv
-	 SdQjJdvrQkpqfwohH0KEXjC/1D4/Sgjc9QmzJaJI=
+	s=default; t=1703285577;
+	bh=v7ypKlogWSytD7lf1SVbYFZwVbn6mIgx5yAUcapzsz0=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=mTMHIhnfwzKg8Z78wJNYmC8IMAyDDn8A11bnclVM3XVhSbVJUPHinKGgbguFdgIYJ
+	 WkVH6iQWG0XJIxeEHmB1rRyTUvkUeNYoSFv0y7FpSHgNZHV6LpADIN4flZOstAPJrT
+	 iK5+073wycuadlGXbMUfnn6yu0Ji41OMFc9XEBq0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 08842F8057C; Fri, 22 Dec 2023 22:34:58 +0100 (CET)
+	id CF976F8056F; Fri, 22 Dec 2023 23:52:26 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 51F02F80571;
-	Fri, 22 Dec 2023 22:34:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 38AD3F80579;
+	Fri, 22 Dec 2023 23:52:26 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 399AAF8016E; Fri, 22 Dec 2023 22:34:52 +0100 (CET)
+	id 0D4AEF80587; Fri, 22 Dec 2023 23:51:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from metis.whiteo.stw.pengutronix.de
+ (metis.whiteo.stw.pengutronix.de [IPv6:2a0a:edc0:2:b01:1d::104])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C6EF2F800F5
-	for <alsa-devel@alsa-project.org>; Fri, 22 Dec 2023 22:34:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6EF2F800F5
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=A2j7/Gmh
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1703280883; x=1734816883;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=dpqNdfS4ahJoafXVsQek4DZnUBoFniH8a9Xe1zk0FlM=;
-  b=A2j7/GmhGB6BrckwR2LTAt/BIRowaxu5lUyA2clXUgWG200PnTBhSuJJ
-   es5ZhLNXdMvgaI9lKfhjW744L+Ozquw9m3hpbs3h7QKoQvdnBZLaKydv2
-   ssKOSdXkCIy4LLpWozG1eJYaWy46NRxZ1Qgr6H6xlP0LnOKRDlam+q4SW
-   GeN1Scp7LSW0sr6iu/x076lHsM6D7MQBiNU3M1zdUFbfcIY0Es15zsxdI
-   RgQ6dXOYR9hsuYC6QIj5+uKRMAluGHadD1WVT32amX8wdJxCVzi4GX4dx
-   r7C/vy2qsjhgSmYC4rHbVZ9zWxSvvkV3F9wovK3w8crgGUrX2puEYB5NL
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10932"; a="395052349"
-X-IronPort-AV: E=Sophos;i="6.04,297,1695711600";
-   d="scan'208";a="395052349"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Dec 2023 13:34:36 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10932"; a="895566717"
-X-IronPort-AV: E=Sophos;i="6.04,297,1695711600";
-   d="scan'208";a="895566717"
-Received: from lkp-server02.sh.intel.com (HELO b07ab15da5fe) ([10.239.97.151])
-  by fmsmga002.fm.intel.com with ESMTP; 22 Dec 2023 13:34:33 -0800
-Received: from kbuild by b07ab15da5fe with local (Exim 4.96)
-	(envelope-from <lkp@intel.com>)
-	id 1rGn9p-0009tc-1J;
-	Fri, 22 Dec 2023 21:34:16 +0000
-Date: Sat, 23 Dec 2023 05:32:31 +0800
-From: kernel test robot <lkp@intel.com>
-To: Xingyu Wu <xingyu.wu@starfivetech.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Claudiu Beznea <Claudiu.Beznea@microchip.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor.dooley@microchip.com>
-Cc: oe-kbuild-all@lists.linux.dev,
-	Walker Chen <walker.chen@starfivetech.com>,
-	Xingyu Wu <xingyu.wu@starfivetech.com>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org
-Subject: Re: [PATCH v1 2/2] ASoC: starfive: Add drivers of Cadence
- Multi-Channel I2S Controller
-Message-ID: <202312230525.gch9VlZT-lkp@intel.com>
-References: <20231221033223.73201-3-xingyu.wu@starfivetech.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 26B0BF80124
+	for <alsa-devel@alsa-project.org>; Fri, 22 Dec 2023 23:51:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26B0BF80124
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1rGoMN-0005ZT-6G; Fri, 22 Dec 2023 23:51:15 +0100
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.94.2)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1rGoMJ-000qus-6T; Fri, 22 Dec 2023 23:51:12 +0100
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.96)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1rGoMK-000Ff0-0a;
+	Fri, 22 Dec 2023 23:51:12 +0100
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Thomas Gleixner <tglx@linutronix.de>
+Cc: linux-kernel@vger.kernel.org,
+	Shawn Guo <shawnguo@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	NXP Linux Team <linux-imx@nxp.com>,
+	linux-arm-kernel@lists.infradead.org,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	alsa-devel@alsa-project.org,
+	patches@opensource.cirrus.com,
+	Andrew Lunn <andrew@lunn.ch>,
+	Gregory Clement <gregory.clement@bootlin.com>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	linux-stm32@st-md-mailman.stormreply.com,
+	kernel@pengutronix.de
+Subject: [PATCH 00/13] irqchip: Convert to platform remove callback returning
+ void
+Date: Fri, 22 Dec 2023 23:50:31 +0100
+Message-ID: <cover.1703284359.git.u.kleine-koenig@pengutronix.de>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20231221033223.73201-3-xingyu.wu@starfivetech.com>
-Message-ID-Hash: QEJRRJUKNQDZK3MK2FAJLAELRKQR75MJ
-X-Message-ID-Hash: QEJRRJUKNQDZK3MK2FAJLAELRKQR75MJ
-X-MailFrom: lkp@intel.com
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2268;
+ i=u.kleine-koenig@pengutronix.de; h=from:subject:message-id;
+ bh=v7ypKlogWSytD7lf1SVbYFZwVbn6mIgx5yAUcapzsz0=;
+ b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBlhhK27tJuAJCvbukbs16KJeuc3ApgCd8jJ8GTK
+ l8H4WsKneuJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZYYStgAKCRCPgPtYfRL+
+ TkK3CACh/9LhWoUb7uG4ZFk74M/1Wv7x80WVfz/wC3medJ17C55KyYQ/zbGzeV3ZqDEs8dkKGRr
+ H1kdYdtDzZ6UbfeMGe77IfZiVoG3qmk1nV6i/EAugMPQlwLXhUXnFV3TORzeXtLyW57YO1slDs8
+ TnBRPg9ewko76aj9/nV+RSjsNZqjULCDuEEuTM/l9BowT+eLuFEINuiXBqBKjpSuSlbjXq0xWdF
+ MWtK8hBR+9mWftaTGWNXGJjhfYw+MuIgj67jPhies0kQdC4wzpgDeZMG9Oh7fZhhVUVRoBol+cn
+ xAN1YXJwjax3mT9f8wCFhZ8G61WtWZe8UShwnwTp48ztg9Ik
+X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
+ fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: alsa-devel@alsa-project.org
+Message-ID-Hash: IOCEWWIVJH72MLOPRJ2B5BBPJLUOYORM
+X-Message-ID-Hash: IOCEWWIVJH72MLOPRJ2B5BBPJLUOYORM
+X-MailFrom: ukl@pengutronix.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -108,7 +113,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QEJRRJUKNQDZK3MK2FAJLAELRKQR75MJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IOCEWWIVJH72MLOPRJ2B5BBPJLUOYORM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,47 +122,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Xingyu,
+this series converts all drivers below drivers/irqchip to use
+.remove_new(). See commit 5c5a7680e67b ("platform: Provide a remove
+callback that returns no value") for an extended explanation and the
+eventual goal. The TL;DR; is to make it harder for driver authors to
+leak resources.
 
-kernel test robot noticed the following build warnings:
+The drivers touched here are all fine though and don't return early in
+.remove(). So all conversions in this series are trivial.
 
-[auto build test WARNING on broonie-sound/for-next]
-[also build test WARNING on robh/for-next linus/master v6.7-rc6 next-20231222]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Best regards
+Uwe
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Xingyu-Wu/dt-bindings-ASoC-Add-Cadence-I2S-controller-for-StarFive-JH8100-SoC/20231222-172628
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-patch link:    https://lore.kernel.org/r/20231221033223.73201-3-xingyu.wu%40starfivetech.com
-patch subject: [PATCH v1 2/2] ASoC: starfive: Add drivers of Cadence Multi-Channel I2S Controller
-config: parisc-allyesconfig (https://download.01.org/0day-ci/archive/20231223/202312230525.gch9VlZT-lkp@intel.com/config)
-compiler: hppa-linux-gcc (GCC) 13.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20231223/202312230525.gch9VlZT-lkp@intel.com/reproduce)
+Uwe Kleine-König (13):
+  irqchip/imgpdc: Convert to platform remove callback returning void
+  irqchip/imx-intmux: Convert to platform remove callback returning void
+  irqchip/imx-irqsteer: Convert to platform remove callback returning void
+  irqchip/keystone: Convert to platform remove callback returning void
+  irqchip/ls-scfg-msi: Convert to platform remove callback returning void
+  irqchip/madera: Convert to platform remove callback returning void
+  irqchip/mvebu-pic: Convert to platform remove callback returning void
+  irqchip/pruss-intc: Convert to platform remove callback returning void
+  irqchip/renesas-intc-irqpin: Convert to platform remove callback returning void
+  irqchip/renesas-irqc: Convert to platform remove callback returning void
+  irqchip/renesas-rza1: Convert to platform remove callback returning void
+  irqchip/stm32-exti: Convert to platform remove callback returning void
+  irqchip/ts4800: Convert to platform remove callback returning void
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202312230525.gch9VlZT-lkp@intel.com/
+ drivers/irqchip/irq-imgpdc.c              | 5 ++---
+ drivers/irqchip/irq-imx-intmux.c          | 6 ++----
+ drivers/irqchip/irq-imx-irqsteer.c        | 6 ++----
+ drivers/irqchip/irq-keystone.c            | 5 ++---
+ drivers/irqchip/irq-ls-scfg-msi.c         | 6 ++----
+ drivers/irqchip/irq-madera.c              | 6 ++----
+ drivers/irqchip/irq-mvebu-pic.c           | 6 ++----
+ drivers/irqchip/irq-pruss-intc.c          | 6 ++----
+ drivers/irqchip/irq-renesas-intc-irqpin.c | 5 ++---
+ drivers/irqchip/irq-renesas-irqc.c        | 5 ++---
+ drivers/irqchip/irq-renesas-rza1.c        | 5 ++---
+ drivers/irqchip/irq-stm32-exti.c          | 5 ++---
+ drivers/irqchip/irq-ts4800.c              | 6 ++----
+ 13 files changed, 26 insertions(+), 46 deletions(-)
 
-All warnings (new ones prefixed by >>):
-
->> sound/soc/starfive/cdns-jh8100-i2s.c:519:12: warning: 'cdns_jh8100_i2s_runtime_resume' defined but not used [-Wunused-function]
-     519 | static int cdns_jh8100_i2s_runtime_resume(struct device *dev)
-         |            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-vim +/cdns_jh8100_i2s_runtime_resume +519 sound/soc/starfive/cdns-jh8100-i2s.c
-
-   518	
- > 519	static int cdns_jh8100_i2s_runtime_resume(struct device *dev)
-   520	{
-   521		struct cdns_jh8100_i2s_dev *i2s = dev_get_drvdata(dev);
-   522	
-   523		return clk_prepare_enable(i2s->clks[1].clk); /* ICG clock */
-   524	}
-   525	
-
+base-commit: 39676dfe52331dba909c617f213fdb21015c8d10
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.42.0
+

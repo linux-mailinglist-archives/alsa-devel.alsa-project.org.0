@@ -2,161 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E766981D12B
-	for <lists+alsa-devel@lfdr.de>; Sat, 23 Dec 2023 03:05:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7F9B81D30B
+	for <lists+alsa-devel@lfdr.de>; Sat, 23 Dec 2023 08:51:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 16407E0E;
-	Sat, 23 Dec 2023 03:05:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 16407E0E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2F3A4E12;
+	Sat, 23 Dec 2023 08:51:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F3A4E12
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1703297126;
-	bh=JnfozvaNLJbdTmA+URUbXIJ6MI3dYqBOC+fluEDa+mU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=WMkAzznwJn/jz0fs4HsriUheXrCEmeTgi4sPVNK2gYIYyYbC5kIb2D3UFQGx3BoSD
-	 1RUlxU0o5diir+uo9H+0uio/67h/4x5ZKZhZ/z18HpGIdZNBF15BFBjDZCJ1QCMwwb
-	 RzXpHqHoWi7akZgbaeka3EkzgpVZfUnOY8Q4DW4o=
+	s=default; t=1703317916;
+	bh=tRD2d23yR/etjAPYqXgW6vmhGIV69h7SsFViMmb7w24=;
+	h=Date:From:To:Cc:Subject:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=uqm2+L8tFBedbQqNKEisYjwgwB/0OTAh80Io5niBJYZGrk1qy/QGuVFjpOmLTGY+S
+	 GclG2gKpUmftNwOLbQa7/rmbXKC+zmrAlDeKO2LhrDwo1A+7lOzfPHejeU7YGWbAif
+	 yforH2E//07IBl6OiVh0r2mNol+xAo/bscLrP38I=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9F032F804DA; Sat, 23 Dec 2023 03:04:54 +0100 (CET)
+	id 123B8F800BD; Sat, 23 Dec 2023 08:51:24 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A5679F80571;
-	Sat, 23 Dec 2023 03:04:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 579BBF80567;
+	Sat, 23 Dec 2023 08:51:24 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D9A41F8016E; Sat, 23 Dec 2023 03:04:45 +0100 (CET)
+	id 26AABF8016E; Sat, 23 Dec 2023 08:48:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,WEIRD_PORT shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on20609.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eb2::609])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 35F35F800BD
-	for <alsa-devel@alsa-project.org>; Sat, 23 Dec 2023 03:04:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35F35F800BD
+	by alsa1.perex.cz (Postfix) with ESMTPS id 35CF7F800F5
+	for <alsa-devel@alsa-project.org>; Sat, 23 Dec 2023 08:47:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35CF7F800F5
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=iODX4eP5
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=n0Qgf9ZQCngzcIJbgcF/YgNLhljcZZ0PI/X5jFf/No9G7fChUT7ZY542lLSVJJ2FgcV1jMr5x6+ym6LV8qZx2l5Opt6BFUMLvf0ww8v7V3/RbYMqBvxe/8lXR78usQa9E9uwtl62PGoq1FTvPn+hDXI9bssrtCUPVaqqQ+zFeNk+G4qFo4Sl3rC8GcfEO0Etgsnx63Izbi1vbT4ijSqB8ZRQM7+104/1HVFzHepD9sLsvbotmJkV+hYSMgxQLwJTbjvc2fdLhpxMSrXFga+dcFBK7fxS2k9YmQNrj7WhTuMQY2WmWuHqyDhKnGYP24kR4CEEEVdp53qKKmuMHp3DtQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JnfozvaNLJbdTmA+URUbXIJ6MI3dYqBOC+fluEDa+mU=;
- b=e+isczMB3Sb6MqkYQyLxEnJ0seRyzWR+b4Uucj5iFw34LADChoISn8FgfWs4Ofiq8H0LiBwUQKBRzm4tqok2TahwvYm5tThcVnx6yMlSTMSoVvi/NQvXYcGiCQ9ZVSRjDKR30HSSEQ1kOlrqulL/HPsGtiQY1T/XX6r0mpsF6EwwmCGBTNYCUmcfSj4OM3xYOeNMayBWPTIUd3Q9tIpgpvHdjIcd5lHCmZkzZ42kuHtaK3i666VQzoEt//Wr7x1A565ZJahq2uhaxYi0kufdx1NMUAQP9uffSIA0jLIfE2ZAKhYYJYVRBbfS5dPb39SCUTd5dJvMTcOtRKDqzS2FUw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JnfozvaNLJbdTmA+URUbXIJ6MI3dYqBOC+fluEDa+mU=;
- b=iODX4eP5kj8qdcIo7gW+6TQA1E0dZWaP2dx62gX8xM2fDu/z/xtTEeRWPLAA7wCtchZ36Wcuqn+jU1Wr3q1bgHsnsdWmsoaU/L+BufG5T6C5pIEaDfEN8VkcduPKpaf/1TicnHpJxNwsf9IPHDguE9SRNx1d/NgQ++laInmzGhc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB4123.namprd12.prod.outlook.com (2603:10b6:5:21f::23)
- by SA1PR12MB8642.namprd12.prod.outlook.com (2603:10b6:806:383::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7113.21; Sat, 23 Dec
- 2023 02:04:31 +0000
-Received: from DM6PR12MB4123.namprd12.prod.outlook.com
- ([fe80::59d1:c9f5:2c67:1da6]) by DM6PR12MB4123.namprd12.prod.outlook.com
- ([fe80::59d1:c9f5:2c67:1da6%4]) with mapi id 15.20.7113.019; Sat, 23 Dec 2023
- 02:04:31 +0000
-Message-ID: <a5b4c3ba-9d72-4127-abae-8e547b2cca7b@amd.com>
-Date: Sat, 23 Dec 2023 07:34:21 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 04/12] drivers: soundwire: refactor soundwire pads enable
-Content-Language: en-US
-To: Vinod Koul <vkoul@kernel.org>
-Cc: broonie@kernel.org, alsa-devel@alsa-project.org,
- Basavaraj.Hiregoudar@amd.com, Sunil-kumar.Dommati@amd.com,
- pierre-louis.bossart@linux.intel.com, vinod.koul@intel.com,
- venkataprasad.potturu@amd.com, Bard Liao <yung-chuan.liao@linux.intel.com>,
- Sanyog Kale <sanyog.r.kale@intel.com>,
- open list <linux-kernel@vger.kernel.org>
-References: <20231221073558.3181911-1-Vijendar.Mukunda@amd.com>
- <20231221073558.3181911-5-Vijendar.Mukunda@amd.com> <ZYRqEbVADgU4fNtB@matsya>
- <6d98c43d-fb90-4cfa-a22e-8fd6d5a6eb50@amd.com> <ZYVVD2mL5kAePXDE@matsya>
- <0ab000c3-be7f-41f3-8017-28738cf0a698@amd.com> <ZYWvNxpLPUGCGElA@matsya>
-From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
-In-Reply-To: <ZYWvNxpLPUGCGElA@matsya>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN3PR01CA0050.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:98::11) To DM6PR12MB4123.namprd12.prod.outlook.com
- (2603:10b6:5:21f::23)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4123:EE_|SA1PR12MB8642:EE_
-X-MS-Office365-Filtering-Correlation-Id: 25cffa51-7651-4648-5fb6-08dc035b7fab
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	0QS8Dj2K+mNPwQvRNmEsXLkUdciq0vIoFemV1ORbeyIw2IUfw5620Cd/WhdE3G4n4mGwhd66BW42c288xD9/Gk516u8hNRjDCiqHm39M9ui0103a4+eddQU6xT8fVAJlu2j1M2JcJY4Rj4TvVuESTall6ZL6YchuflGuCqGeNfA3Ye4w3aAfzvatxQGX0mVJZfLQXzlzdl0OI0ez75AX+sGyHhKnBVdEui7w/DPxYXOY3P8nfSxB/pqk7s94eseUd+6bD27tMLHMGYI1CafHAGP+TQw7XnoX5SLnhpvn8mvxrPSTXRt2OufV6ZN1jPpt3OVpDT0bpFS02tcPfC4LMnRTQN6vZdqrvHqp5v/Nd9zjB0G9YuaqISweUpR9oCAS8NE6BCAPS9DEovBe973Xnz6KtYpoHCLTS0gQXTB1fPDapxNAAdC14mNLLeKmLvZ+uDSuNkquzfhmRebWpcZQSljyUM+76AaiBSwLQu7A0/ubOfdONmcJ9QGwKXho8YEga0sBpSRyiUwcIQCn8gv5DdRrm9FH1NKVBtEUMuZ6z9qq3BdeeNN12XdJEqqrljQiDVJr6ZDn9Qe4HLdje0AdsEvhfyj4a63WsLFFg2ZwbKnXWNrxSzE6wdNN7zpryKAiY5oiykH8WHJM2CH4Brp7QQ==
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4123.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(136003)(366004)(396003)(39860400002)(376002)(230922051799003)(64100799003)(451199024)(1800799012)(186009)(4326008)(8676002)(8936002)(66946007)(66476007)(66556008)(54906003)(316002)(6916009)(2906002)(36756003)(86362001)(41300700001)(31696002)(38100700002)(5660300002)(2616005)(6486002)(26005)(83380400001)(478600001)(6506007)(53546011)(6666004)(6512007)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?ZldVcXlDaGw3MnFqSGczOVZucDljUTludUhjdWQxbVRYVWJuYTlHSG8vTDJP?=
- =?utf-8?B?dmVGL2V5dkprVlFaVVQ1NzZqeElaT01hT2dzaitvZkZJems2SE5ocE1oT0gr?=
- =?utf-8?B?VUJRNmxSMGY3dnIvN05jd29DNGVCQkFFWTlVMEJnbldXMWhIalJmc0NrZU1t?=
- =?utf-8?B?azdjZ2FhL0VwL2F6aXhObzBiV3JYNWRkRUxUQVhVMGxwQTl5STkzRnpGRkFz?=
- =?utf-8?B?anF5TDVmdnZaYk5MRVYwNm9ycndLTGh4Z1l3QVNzY1ZkaFdLYUtKZ3RzMUhS?=
- =?utf-8?B?WFRLRU5adFVOR2NJV2wyY0xVdDhIYmppUVhKdFc1V1gxYVBDRlBNdGx3WVEw?=
- =?utf-8?B?emJyMjBqN2dMYjdrVkNWZTI0MldCQW9BUUh3clBobWdXS2dVdmkxVHhOSjNh?=
- =?utf-8?B?L0VjMXFiWWtmTmpISjhyTGxTZllwWTgyejZCSHhyZlNKaUFSWElsK3p3V1lB?=
- =?utf-8?B?Nis4cjhvOS9iWHloV2RVWW40eGNaa0gxRks0UnJQN3NYRUVlSnV4enJxeHVY?=
- =?utf-8?B?b3pvREJjcDZUNXEyL0FvY3M4ZUZuTlZpVjZObmJvVDdmNUV3R0V4OHNxbkpx?=
- =?utf-8?B?cTA4YkIwMHBtTkcvdFlEaDJiZEY5cHpsT0NTQnc4d05ud0FKTmdUM2ZXaU5C?=
- =?utf-8?B?c0p4NU5VL3R5Y3JZZENlR2Q2QjBheXhuWmpoSHJNdnR5eVg4eElWZVQvamZZ?=
- =?utf-8?B?anhJcTVnTW1rT1JXVzFRZnlFVWl0S25tekhxdGpPN0JyWFVIeUQ3bDk3L2pG?=
- =?utf-8?B?Q2ROMFRUSEN5Ty9VQXZWOHJNc1RNc09jU2Q5aFJPdnNoT0N6eGJoOW1HZXg5?=
- =?utf-8?B?MXllbzlqNElSRUdLU3lRZWxmRTY3b3NCOFpmTlhpWVZ5dDZpL2pOMTRLck5k?=
- =?utf-8?B?L3FPNHBtTE5TRzZSTTlKWW9OcXpCSXFraGR5N3BEODVyQnovZXVYamtQc05t?=
- =?utf-8?B?Yk1DQ1VyZ0s4LzV5M2prMmFKODJsaXBwN2k4TDMrR1hpc2h4dngrUFhFbkd5?=
- =?utf-8?B?UTJ1NldUYjluM1FkVnpvLzN5a1I5b1NLM3ZWRlB6Q0xYSG9mbmdwdno3Y1ps?=
- =?utf-8?B?eTE3SUZlaEt0bEFxSHBMTVdjcDRoS3Y0MDdCU1Y5dGJRR0Z2R3ovV05NWG04?=
- =?utf-8?B?VDdEQXRtcnhXS2RmYW9DVFk0ZWdZdm55Zm11emUxZ3R6WEQ4akZUTUhkN3J1?=
- =?utf-8?B?eG5VTHd6dSsrdEttb0k5aDc4VFYwQmpMZUlNekpwR001d2V3NzNzYkdIdmlF?=
- =?utf-8?B?YW4zeDRBZVdJanBHVlJwWG5ZT1lKcnlScTlBRTNzd3NMQUVzREswdllCeXlp?=
- =?utf-8?B?SXEzdW5pbGFCZ2hrR1VjdzNIbE44NXlTVHgwc0RDNmU3RTFWdkZJMms1M1JM?=
- =?utf-8?B?UUduNnF1VTV5YWRYOE5Yc2lsYWs5ajE3ck1mWU95VDFaa0dpV05nS0drbjlF?=
- =?utf-8?B?WjRRUE0zTjJoNy9GSzNtaE50WE4xTE9STDloaUlmNy9HbG1IeU9WTkpCSk0z?=
- =?utf-8?B?UHpSSDlxRFQ0Uy8xaCtuT2VudnBnbGZFMndtZnRwR09lVzBvU2d5VVRwZys1?=
- =?utf-8?B?SXZrQlFCOGJjUDFuYnJ6eVpwbWtmV1hqeHY1cDJnVHpiZGlFcUwrcE9QaVpL?=
- =?utf-8?B?ZHF0c25acTFWSnJjVW55UWN1Ky9VenVKdHVJOU43MGliU0hlaFp6dkh6SmlV?=
- =?utf-8?B?aFA5M3loK2dldUNvTzM0RDlyem1VS1MrZUdTWXppS3ErSHA2UVNXcXdHRUx5?=
- =?utf-8?B?akUwM0hWMVozQjVrVWFKdHQ3R2ZpbzNVOXE4eVdHTy9tbHZnUytqWWZLbUho?=
- =?utf-8?B?MmYyYm1pZ1JyWi9GWUIreFczaUthSzJKZFlxcjNaVXhBclNjWEFMcGZVYkVN?=
- =?utf-8?B?a2ZqVjBGVWMvTDVXSGpkUHJBZHBaR1dJZVFNd0VwNWRJRlRieWlqTE92QkNZ?=
- =?utf-8?B?WmhkeFJqVGV6ckp2clNCMFpjSnFidTRLZjJXQ0RjUzRabTNldVloQ3BBR1po?=
- =?utf-8?B?RnFPQStCVE9CNEpZMHZSVXJ1WWU4bEp1SXU5ak1LZHp4cWNtVGQvdzhZWHlC?=
- =?utf-8?B?aHlXMWZZN0pROE8wN2JJSmtYRXlYaWM2eVhwbkZBNUV6ekEwOUFYbXQrSUZr?=
- =?utf-8?Q?0aqV07IpK1c5BW6JA3VCyLfr6?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 25cffa51-7651-4648-5fb6-08dc035b7fab
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4123.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Dec 2023 02:04:30.8806
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- oANxEhy5mzphvo3CzW2JYb79VXXcnyQ73c1PP7XtULgLkCjN7SZBZKnlBTKtzYhSuCCXKqeLQeIZSeDAx9myXg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8642
-Message-ID-Hash: ZDD3NSITURWFXDHXLJI6K735YF24N4XB
-X-Message-ID-Hash: ZDD3NSITURWFXDHXLJI6K735YF24N4XB
-X-MailFrom: Vijendar.Mukunda@amd.com
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=PLiRlLjb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1703317675; x=1734853675;
+  h=date:from:to:cc:subject:message-id;
+  bh=tRD2d23yR/etjAPYqXgW6vmhGIV69h7SsFViMmb7w24=;
+  b=PLiRlLjbUy1pIUTt8vuDMPJIImHp53JwJ0+gomG+4KEhEQ5UtbtrmKoR
+   h5w9NjsEykEJg6bAS72Wzg1dJ1PT4gOVcQTf0+hv9q9g7Bf8V910sctKw
+   YdGTudf29ze7ZTmfvLJa2UngPMc+epImTlQY2GE5MAq6qjIRIz39kYtiu
+   3PzXQ/OcjnXQmUkZLdhrXgueeKGVQxrAmZZKEaV8hdUJXvmxR4ys45sz+
+   Uud52oZGT+ljJ0ieQ+pp/sLf2mwTYyvIHgiRLnKKIW4Fuicw5f18WetKH
+   +X60STuVMip1K7aDjcRYcMfPZnuP4f4kyQ84ELW9y/xaN/ogAj3AMV36w
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10932"; a="14868167"
+X-IronPort-AV: E=Sophos;i="6.04,298,1695711600";
+   d="scan'208";a="14868167"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Dec 2023 23:45:57 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10932"; a="770554474"
+X-IronPort-AV: E=Sophos;i="6.04,298,1695711600";
+   d="scan'208";a="770554474"
+Received: from lkp-server02.sh.intel.com (HELO b07ab15da5fe) ([10.239.97.151])
+  by orsmga007.jf.intel.com with ESMTP; 22 Dec 2023 23:45:50 -0800
+Received: from kbuild by b07ab15da5fe with local (Exim 4.96)
+	(envelope-from <lkp@intel.com>)
+	id 1rGwhc-000AQv-1K;
+	Sat, 23 Dec 2023 07:45:46 +0000
+Date: Sat, 23 Dec 2023 15:44:46 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Linux Memory Management List <linux-mm@kvack.org>,
+ alsa-devel@alsa-project.org, amd-gfx@lists.freedesktop.org,
+ ceph-devel@vger.kernel.org, dmaengine@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ intel-wired-lan@lists.osuosl.org, kasan-dev@googlegroups.com,
+ kunit-dev@googlegroups.com, linux-arm-msm@vger.kernel.org,
+ linux-atm-general@lists.sourceforge.net, linux-bcachefs@vger.kernel.org,
+ linux-cifs@vger.kernel.org, linux-csky@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ linux-ide@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-scsi@vger.kernel.org, mpi3mr-linuxdrv.pdl@broadcom.com
+Subject: [linux-next:master] BUILD REGRESSION
+ 39676dfe52331dba909c617f213fdb21015c8d10
+Message-ID: <202312231534.UWFO81PH-lkp@intel.com>
+User-Agent: s-nail v14.9.24
+Message-ID-Hash: P42WQJOY3575QMTBJ6VCTN3VMKDUSODZ
+X-Message-ID-Hash: P42WQJOY3575QMTBJ6VCTN3VMKDUSODZ
+X-MailFrom: lkp@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -168,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZDD3NSITURWFXDHXLJI6K735YF24N4XB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/P42WQJOY3575QMTBJ6VCTN3VMKDUSODZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -177,27 +110,1512 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 22/12/23 21:15, Vinod Koul wrote:
-> On 22-12-23, 16:04, Mukunda,Vijendar wrote:
->> On 22/12/23 14:51, Vinod Koul wrote:
->>> On 22-12-23, 12:45, Mukunda,Vijendar wrote:
->>>> On 21/12/23 22:08, Vinod Koul wrote:
->>>>> so the code is copied from a GPL declared file to now and GPL + BSD one!
->>>>> Have you had lawyers look into this... why change one file license ?
->>>> As per recommendations from our legal team, we have updated the license as dual
->>>> one for amd_init.c file.
->>>> We have also observed that license terms should be updated for other files as
->>>> well (amd_manager.c, amd_manager.h & sdw_amd.h) as dual one, which we have
->>>> planned to submit as a supplement patch.
->>> Lets change that first before we move code from one license file to
->>> another
->> Will push the license update patch first.
->>> Btw why would you want to do the change of license form GPL to dual?
->> As this code being used by AMD SOF stack which uses dual license,
->> So we want to maintain the same license terms.
-> SOF is firmware, do you share this kernel code with sofproject, that
-> doesnt make sense to me, maybe I am missing something
-We meant to say this code being used by AMD sof driver stack
-(sound/soc/sof/amd) which has dual license.
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: 39676dfe52331dba909c617f213fdb21015c8d10  Add linux-next specific files for 20231222
 
+Error/Warning reports:
 
+https://lore.kernel.org/oe-kbuild-all/202312222155.w90Evz26-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202312230634.3AIMQ3OP-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202312230642.EBF6kiYY-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202312231042.LGJY7ydP-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202312231258.L3C56jBw-lkp@intel.com
+
+Error/Warning: (recently discovered and may have been fixed)
+
+drivers/dma/xilinx/xdma.c:555: warning: Function parameter or member 'dst_addr' not described in 'xdma_fill_descs'
+drivers/dma/xilinx/xdma.c:555: warning: Function parameter or member 'filled_descs_num' not described in 'xdma_fill_descs'
+drivers/dma/xilinx/xdma.c:555: warning: Function parameter or member 'size' not described in 'xdma_fill_descs'
+drivers/dma/xilinx/xdma.c:555: warning: Function parameter or member 'src_addr' not described in 'xdma_fill_descs'
+drivers/dma/xilinx/xdma.c:555: warning: Function parameter or member 'sw_desc' not described in 'xdma_fill_descs'
+drivers/dma/xilinx/xdma.c:555: warning: Function parameter or struct member 'dst_addr' not described in 'xdma_fill_descs'
+drivers/dma/xilinx/xdma.c:555: warning: Function parameter or struct member 'filled_descs_num' not described in 'xdma_fill_descs'
+drivers/dma/xilinx/xdma.c:555: warning: Function parameter or struct member 'size' not described in 'xdma_fill_descs'
+drivers/dma/xilinx/xdma.c:555: warning: Function parameter or struct member 'src_addr' not described in 'xdma_fill_descs'
+drivers/dma/xilinx/xdma.c:555: warning: Function parameter or struct member 'sw_desc' not described in 'xdma_fill_descs'
+drivers/dma/xilinx/xdma.c:729:1: warning: no previous prototype for 'xdma_prep_interleaved_dma' [-Wmissing-prototypes]
+drivers/dma/xilinx/xdma.c:729:1: warning: no previous prototype for function 'xdma_prep_interleaved_dma' [-Wmissing-prototypes]
+drivers/dma/xilinx/xdma.c:757:68: warning: operator '?:' has lower precedence than '+'; '+' will be evaluated first [-Wparentheses]
+drivers/dma/xilinx/xdma.c:894:3: warning: variable 'desc' is uninitialized when used here [-Wuninitialized]
+lib/aolib.h:366:16: error: variable 'key2' has initializer but incomplete type
+lib/aolib.h:366:34: error: storage size of 'key2' isn't known
+lib/aolib.h:369:46: error: invalid use of undefined type 'struct tcp_ao_add'
+lib/aolib.h:382:16: error: variable 'tmp' has initializer but incomplete type
+lib/aolib.h:382:27: error: storage size of 'tmp' isn't known
+lib/aolib.h:390:43: error: 'TCP_AO_ADD_KEY' undeclared (first use in this function)
+lib/aolib.h:406:16: error: variable 'ao2' has initializer but incomplete type
+lib/aolib.h:406:32: error: storage size of 'ao2' isn't known
+lib/aolib.h:418:16: error: variable 'ao' has initializer but incomplete type
+lib/aolib.h:418:32: error: storage size of 'ao' isn't known
+lib/kconfig.c:47:16: error: variable 'tmp' has initializer but incomplete type
+lib/kconfig.c:47:27: error: storage size of 'tmp' isn't known
+lib/kconfig.c:64:41: error: 'TCP_AO_ADD_KEY' undeclared (first use in this function)
+lib/repair.c:115:6: error: conflicting types for 'test_ao_checkpoint'; have 'void(int,  struct tcp_ao_repair *)'
+lib/repair.c:117:31: error: invalid application of 'sizeof' to incomplete type 'struct tcp_ao_repair'
+lib/repair.c:122:39: error: 'TCP_AO_REPAIR' undeclared (first use in this function); did you mean 'TCP_REPAIR'?
+lib/repair.c:222:6: error: conflicting types for 'test_ao_restore'; have 'void(int,  struct tcp_ao_repair *)'
+lib/sock.c:136:5: error: conflicting types for 'test_prepare_key_sockaddr'; have 'int(struct tcp_ao_add *, const char *, void *, size_t,  _Bool,  _Bool,  uint8_t,  uint8_t,  uint8_t,  uint8_t,  uint8_t,  uint8_t,  uint8_t,  const char *)' {aka 'int(struct tcp_ao_add *, const char *, void *, long unsigned int,  _Bool,  _Bool,  unsigned char,  unsigned char,  unsigned char,  unsigned char,  unsigned char,  unsigned char,  unsigned char,  const char *)'}
+lib/sock.c:142:30: error: invalid application of 'sizeof' to incomplete type 'struct tcp_ao_add'
+lib/sock.c:144:11: error: invalid use of undefined type 'struct tcp_ao_add'
+lib/sock.c:161:26: error: 'TCP_AO_MAXKEYLEN' undeclared (first use in this function); did you mean 'TCP_MD5SIG_MAXKEYLEN'?
+lib/sock.c:167:16: error: variable 'tmp' has initializer but incomplete type
+lib/sock.c:167:34: error: storage size of 'tmp' isn't known
+lib/sock.c:174:43: error: 'TCP_AO_GET_KEYS' undeclared (first use in this function)
+lib/sock.c:180:5: error: conflicting types for 'test_get_one_ao'; have 'int(int,  struct tcp_ao_getsockopt *, void *, size_t,  uint8_t,  uint8_t,  uint8_t)' {aka 'int(int,  struct tcp_ao_getsockopt *, void *, long unsigned int,  unsigned char,  unsigned char,  unsigned char)'}
+lib/sock.c:199:14: error: invalid use of undefined type 'struct tcp_ao_getsockopt'
+lib/sock.c:203:5: error: conflicting types for 'test_get_ao_info'; have 'int(int,  struct tcp_ao_info_opt *)'
+lib/sock.c:205:30: error: invalid application of 'sizeof' to incomplete type 'struct tcp_ao_info_opt'
+lib/sock.c:207:12: error: invalid use of undefined type 'struct tcp_ao_info_opt'
+lib/sock.c:209:41: error: 'TCP_AO_INFO' undeclared (first use in this function); did you mean 'TCP_CC_INFO'?
+lib/sock.c:216:5: error: conflicting types for 'test_set_ao_info'; have 'int(int,  struct tcp_ao_info_opt *)'
+lib/sock.c:227:5: error: conflicting types for 'test_cmp_getsockopt_setsockopt'; have 'int(const struct tcp_ao_add *, const struct tcp_ao_getsockopt *)'
+lib/sock.c:233:38: error: invalid use of undefined type 'const struct tcp_ao_add'
+lib/sock.c:240:14: error: invalid use of undefined type 'const struct tcp_ao_getsockopt'
+lib/sock.c:299:5: error: conflicting types for 'test_cmp_getsockopt_setsockopt_ao'; have 'int(const struct tcp_ao_info_opt *, const struct tcp_ao_info_opt *)'
+lib/sock.c:303:14: error: invalid use of undefined type 'const struct tcp_ao_info_opt'
+lib/sock.c:337:39: error: invalid application of 'sizeof' to incomplete type 'struct tcp_ao_getsockopt'
+lib/sock.c:338:16: error: variable 'info' has initializer but incomplete type
+lib/sock.c:338:32: error: storage size of 'info' isn't known
+powerpc64-linux-ld: warning: orphan section `.bss..Lubsan_data794' from `kernel/ptrace.o' being placed in section `.bss..Lubsan_data794'
+
+Unverified Error/Warning (likely false positive, please contact us if interested):
+
+drivers/dma/xilinx/xdma.c:894 xdma_channel_isr() error: potentially dereferencing uninitialized 'desc'.
+fs/smb/client/file.c:2744:(.text+0x95ae): relocation truncated to fit: R_CKCORE_PCREL_IMM16BY4 against `__jump_table'
+include/linux/pagemap.h:231:(.text+0x968c): relocation truncated to fit: R_CKCORE_PCREL_IMM16BY4 against `__jump_table'
+include/linux/syscalls.h:257:9: internal compiler error: in change_address_1, at emit-rtl.cc:2287
+sound/pci/hda/cs35l41_hda_property.c:176:27: warning: unused variable 'cs_gpiod' [-Wunused-variable]
+sound/pci/hda/cs35l41_hda_property.c:177:28: warning: unused variable 'spi' [-Wunused-variable]
+{standard input}:21016: Warning: overflow in branch to .L4838; converted into longer instruction sequence
+{standard input}:26527: Error: pcrel too far
+{standard input}:6990: Warning: overflow in branch to .L1661; converted into longer instruction sequence
+
+Error/Warning ids grouped by kconfigs:
+
+gcc_recent_errors
+|-- alpha-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Excess-function-parameter-context-description-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Function-parameter-or-struct-member-state-not-described-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dc_dmub_srv.c:warning:Function-parameter-or-struct-member-context-not-described-in-populate_subvp_cmd_drr_info
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- arc-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Excess-function-parameter-context-description-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Function-parameter-or-struct-member-state-not-described-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dc_dmub_srv.c:warning:Function-parameter-or-struct-member-context-not-described-in-populate_subvp_cmd_drr_info
+|   |-- drivers-gpu-drm-msm-disp-dpu1-dpu_encoder.c:warning:Excess-struct-member-debugfs_root-description-in-dpu_encoder_virt
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- arc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Excess-function-parameter-context-description-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Function-parameter-or-struct-member-state-not-described-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dc_dmub_srv.c:warning:Function-parameter-or-struct-member-context-not-described-in-populate_subvp_cmd_drr_info
+|   |-- drivers-gpu-drm-msm-disp-dpu1-dpu_encoder.c:warning:Excess-struct-member-debugfs_root-description-in-dpu_encoder_virt
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- arc-randconfig-002-20231222
+|   |-- drivers-dma-xilinx-xdma.c:warning:Function-parameter-or-member-dst_addr-not-described-in-xdma_fill_descs
+|   |-- drivers-dma-xilinx-xdma.c:warning:Function-parameter-or-member-filled_descs_num-not-described-in-xdma_fill_descs
+|   |-- drivers-dma-xilinx-xdma.c:warning:Function-parameter-or-member-size-not-described-in-xdma_fill_descs
+|   |-- drivers-dma-xilinx-xdma.c:warning:Function-parameter-or-member-src_addr-not-described-in-xdma_fill_descs
+|   `-- drivers-dma-xilinx-xdma.c:warning:Function-parameter-or-member-sw_desc-not-described-in-xdma_fill_descs
+|-- arc-randconfig-r122-20231222
+|   |-- fs-bcachefs-btree_iter.c:sparse:sparse:incompatible-types-in-comparison-expression-(different-address-spaces):
+|   |-- fs-bcachefs-btree_locking.c:sparse:sparse:incompatible-types-in-comparison-expression-(different-address-spaces):
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- arm-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Excess-function-parameter-context-description-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Function-parameter-or-struct-member-state-not-described-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dc_dmub_srv.c:warning:Function-parameter-or-struct-member-context-not-described-in-populate_subvp_cmd_drr_info
+|   |-- drivers-gpu-drm-msm-disp-dpu1-dpu_encoder.c:warning:Excess-struct-member-debugfs_root-description-in-dpu_encoder_virt
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- arm-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Excess-function-parameter-context-description-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Function-parameter-or-struct-member-state-not-described-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dc_dmub_srv.c:warning:Function-parameter-or-struct-member-context-not-described-in-populate_subvp_cmd_drr_info
+|   |-- drivers-gpu-drm-msm-disp-dpu1-dpu_encoder.c:warning:Excess-struct-member-debugfs_root-description-in-dpu_encoder_virt
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- arm-randconfig-001-20231222
+|   |-- WARNING:modpost:missing-MODULE_DESCRIPTION()-in-lib-zlib_inflate-zlib_inflate.o
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- arm-randconfig-002-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- arm-randconfig-003-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- arm-randconfig-004-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- arm64-defconfig
+|   |-- drivers-gpu-drm-imagination-pvr_mmu.c:warning:Excess-struct-member-l0_free_tables-description-in-pvr_mmu_op_context
+|   |-- drivers-gpu-drm-imagination-pvr_mmu.c:warning:Excess-struct-member-l0_prealloc_tables-description-in-pvr_mmu_op_context
+|   |-- drivers-gpu-drm-imagination-pvr_mmu.c:warning:Excess-struct-member-l1_free_tables-description-in-pvr_mmu_op_context
+|   |-- drivers-gpu-drm-imagination-pvr_mmu.c:warning:Excess-struct-member-l1_prealloc_tables-description-in-pvr_mmu_op_context
+|   |-- drivers-gpu-drm-imagination-pvr_mmu.c:warning:Excess-struct-member-pvr_dev-description-in-pvr_mmu_backing_page
+|   |-- drivers-gpu-drm-imagination-pvr_mmu.c:warning:Excess-struct-member-sgt-description-in-pvr_mmu_op_context
+|   |-- drivers-gpu-drm-imagination-pvr_mmu.c:warning:Excess-struct-member-sgt_offset-description-in-pvr_mmu_op_context
+|   `-- drivers-gpu-drm-msm-disp-dpu1-dpu_encoder.c:warning:Excess-struct-member-debugfs_root-description-in-dpu_encoder_virt
+|-- arm64-randconfig-002-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- arm64-randconfig-003-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- arm64-randconfig-r061-20231222
+|   |-- drivers-gpu-drm-msm-disp-dpu1-dpu_encoder.c:warning:Excess-struct-member-debugfs_root-description-in-dpu_encoder_virt
+|   |-- drivers-net-ethernet-intel-ice-ice_base.c:error:storage-size-of-desc-isn-t-known
+|   |-- drivers-net-ethernet-intel-ice-ice_base.c:error:variable-desc-has-initializer-but-incomplete-type
+|   |-- drivers-net-ethernet-intel-ice-ice_base.c:warning:unused-variable-desc
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- arm64-randconfig-r063-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- csky-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Excess-function-parameter-context-description-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Function-parameter-or-struct-member-state-not-described-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dc_dmub_srv.c:warning:Function-parameter-or-struct-member-context-not-described-in-populate_subvp_cmd_drr_info
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- csky-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Excess-function-parameter-context-description-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Function-parameter-or-struct-member-state-not-described-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dc_dmub_srv.c:warning:Function-parameter-or-struct-member-context-not-described-in-populate_subvp_cmd_drr_info
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- csky-buildonly-randconfig-r004-20230509
+|   |-- drivers-dma-xilinx-xdma.c:warning:Function-parameter-or-struct-member-dst_addr-not-described-in-xdma_fill_descs
+|   |-- drivers-dma-xilinx-xdma.c:warning:Function-parameter-or-struct-member-filled_descs_num-not-described-in-xdma_fill_descs
+|   |-- drivers-dma-xilinx-xdma.c:warning:Function-parameter-or-struct-member-size-not-described-in-xdma_fill_descs
+|   |-- drivers-dma-xilinx-xdma.c:warning:Function-parameter-or-struct-member-src_addr-not-described-in-xdma_fill_descs
+|   |-- drivers-dma-xilinx-xdma.c:warning:Function-parameter-or-struct-member-sw_desc-not-described-in-xdma_fill_descs
+|   `-- drivers-dma-xilinx-xdma.c:warning:no-previous-prototype-for-xdma_prep_interleaved_dma
+|-- csky-randconfig-001-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- csky-randconfig-r023-20220124
+|   |-- fs-smb-client-file.c:(.text):relocation-truncated-to-fit:R_CKCORE_PCREL_IMM16BY4-against-__jump_table
+|   `-- include-linux-pagemap.h:(.text):relocation-truncated-to-fit:R_CKCORE_PCREL_IMM16BY4-against-__jump_table
+|-- csky-randconfig-r111-20231222
+|   |-- arch-csky-kernel-vdso-vgettimeofday.c:sparse:sparse:function-__vdso_clock_gettime-with-external-linkage-has-definition
+|   |-- fs-bcachefs-btree_iter.c:sparse:sparse:incompatible-types-in-comparison-expression-(different-address-spaces):
+|   |-- fs-bcachefs-btree_locking.c:sparse:sparse:incompatible-types-in-comparison-expression-(different-address-spaces):
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- i386-buildonly-randconfig-002-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- i386-buildonly-randconfig-006-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- i386-randconfig-001-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- i386-randconfig-002-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- i386-randconfig-004-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- i386-randconfig-005-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- i386-randconfig-006-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- i386-randconfig-051-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- i386-randconfig-052-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- i386-randconfig-054-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- i386-randconfig-061-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- i386-randconfig-141-20231222
+|   |-- drivers-ata-ata_piix.c-piix_init_sata_map()-error:buffer-overflow-map
+|   |-- fs-ceph-addr.c-writepages_finish()-error:page-dereferencing-possible-ERR_PTR()
+|   |-- lib-kunit-device.c-kunit_device_register_with_driver()-warn:passing-zero-to-ERR_CAST
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- i386-randconfig-r121-20231222
+|   `-- drivers-hwmon-max31827.c:sparse:sparse:dubious:x-y
+|-- loongarch-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Excess-function-parameter-context-description-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Function-parameter-or-struct-member-state-not-described-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dc_dmub_srv.c:warning:Function-parameter-or-struct-member-context-not-described-in-populate_subvp_cmd_drr_info
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-hwss-dcn35-dcn35_hwseq.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   |-- drivers-gpu-drm-msm-disp-dpu1-dpu_encoder.c:warning:Excess-struct-member-debugfs_root-description-in-dpu_encoder_virt
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- loongarch-defconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Excess-function-parameter-context-description-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Function-parameter-or-struct-member-state-not-described-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dc_dmub_srv.c:warning:Function-parameter-or-struct-member-context-not-described-in-populate_subvp_cmd_drr_info
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-hwss-dcn35-dcn35_hwseq.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- loongarch-loongson3_defconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Excess-function-parameter-context-description-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Function-parameter-or-struct-member-state-not-described-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dc_dmub_srv.c:warning:Function-parameter-or-struct-member-context-not-described-in-populate_subvp_cmd_drr_info
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-hwss-dcn35-dcn35_hwseq.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- loongarch-randconfig-001-20231222
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Excess-function-parameter-context-description-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Function-parameter-or-struct-member-state-not-described-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dc_dmub_srv.c:warning:Function-parameter-or-struct-member-context-not-described-in-populate_subvp_cmd_drr_info
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-hwss-dcn35-dcn35_hwseq.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- loongarch-randconfig-002-20231222
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Excess-function-parameter-context-description-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Function-parameter-or-struct-member-state-not-described-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dc_dmub_srv.c:warning:Function-parameter-or-struct-member-context-not-described-in-populate_subvp_cmd_drr_info
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-hwss-dcn35-dcn35_hwseq.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   `-- drivers-gpu-drm-msm-disp-dpu1-dpu_encoder.c:warning:Excess-struct-member-debugfs_root-description-in-dpu_encoder_virt
+|-- loongarch-randconfig-r131-20231222
+|   |-- drivers-hwmon-max31827.c:sparse:sparse:dubious:x-y
+|   |-- sound-pci-hda-cs35l41_hda_property.c:warning:unused-variable-cs_gpiod
+|   `-- sound-pci-hda-cs35l41_hda_property.c:warning:unused-variable-spi
+|-- m68k-allmodconfig
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- m68k-allyesconfig
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- m68k-defconfig
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- microblaze-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Excess-function-parameter-context-description-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Function-parameter-or-struct-member-state-not-described-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dc_dmub_srv.c:warning:Function-parameter-or-struct-member-context-not-described-in-populate_subvp_cmd_drr_info
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- microblaze-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Excess-function-parameter-context-description-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Function-parameter-or-struct-member-state-not-described-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dc_dmub_srv.c:warning:Function-parameter-or-struct-member-context-not-described-in-populate_subvp_cmd_drr_info
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- mips-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Excess-function-parameter-context-description-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Function-parameter-or-struct-member-state-not-described-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dc_dmub_srv.c:warning:Function-parameter-or-struct-member-context-not-described-in-populate_subvp_cmd_drr_info
+|   |-- drivers-gpu-drm-msm-disp-dpu1-dpu_encoder.c:warning:Excess-struct-member-debugfs_root-description-in-dpu_encoder_virt
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- nios2-allmodconfig
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- nios2-allyesconfig
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- nios2-randconfig-001-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- nios2-randconfig-002-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- nios2-randconfig-r064-20231222
+|   |-- WARNING:modpost:missing-MODULE_DESCRIPTION()-in-lib-zlib_inflate-zlib_inflate.o
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- openrisc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Excess-function-parameter-context-description-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Function-parameter-or-struct-member-state-not-described-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dc_dmub_srv.c:warning:Function-parameter-or-struct-member-context-not-described-in-populate_subvp_cmd_drr_info
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- parisc-allmodconfig
+|   |-- WARNING:modpost:missing-MODULE_DESCRIPTION()-in-drivers-tty-serial-8250_parisc.o
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Excess-function-parameter-context-description-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Function-parameter-or-struct-member-state-not-described-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dc_dmub_srv.c:warning:Function-parameter-or-struct-member-context-not-described-in-populate_subvp_cmd_drr_info
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- parisc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Excess-function-parameter-context-description-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Function-parameter-or-struct-member-state-not-described-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dc_dmub_srv.c:warning:Function-parameter-or-struct-member-context-not-described-in-populate_subvp_cmd_drr_info
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- parisc-randconfig-001-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- powerpc-ppc64_defconfig
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- powerpc-randconfig-001-20231222
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Excess-function-parameter-context-description-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Function-parameter-or-struct-member-state-not-described-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dc_dmub_srv.c:warning:Function-parameter-or-struct-member-context-not-described-in-populate_subvp_cmd_drr_info
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- powerpc-randconfig-002-20231222
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Excess-function-parameter-context-description-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Function-parameter-or-struct-member-state-not-described-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dc_dmub_srv.c:warning:Function-parameter-or-struct-member-context-not-described-in-populate_subvp_cmd_drr_info
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- powerpc-randconfig-003-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- powerpc64-randconfig-001-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- powerpc64-randconfig-002-20231222
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Excess-function-parameter-context-description-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Function-parameter-or-struct-member-state-not-described-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dc_dmub_srv.c:warning:Function-parameter-or-struct-member-context-not-described-in-populate_subvp_cmd_drr_info
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-hwss-dcn35-dcn35_hwseq.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- powerpc64-randconfig-003-20231222
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Excess-function-parameter-context-description-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Function-parameter-or-struct-member-state-not-described-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dc_dmub_srv.c:warning:Function-parameter-or-struct-member-context-not-described-in-populate_subvp_cmd_drr_info
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-hwss-dcn35-dcn35_hwseq.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- powerpc64-randconfig-r035-20211208
+|   `-- powerpc64-linux-ld:warning:orphan-section-bss..Lubsan_data794-from-kernel-ptrace.o-being-placed-in-section-.bss..Lubsan_data794
+|-- powerpc64-randconfig-r113-20231222
+|   |-- drivers-hwmon-max31827.c:sparse:sparse:dubious:x-y
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- riscv-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Excess-function-parameter-context-description-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Function-parameter-or-struct-member-state-not-described-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dc_dmub_srv.c:warning:Function-parameter-or-struct-member-context-not-described-in-populate_subvp_cmd_drr_info
+|   |-- drivers-gpu-drm-msm-disp-dpu1-dpu_encoder.c:warning:Excess-struct-member-debugfs_root-description-in-dpu_encoder_virt
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- riscv-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Excess-function-parameter-context-description-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Function-parameter-or-struct-member-state-not-described-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dc_dmub_srv.c:warning:Function-parameter-or-struct-member-context-not-described-in-populate_subvp_cmd_drr_info
+|   |-- drivers-gpu-drm-msm-disp-dpu1-dpu_encoder.c:warning:Excess-struct-member-debugfs_root-description-in-dpu_encoder_virt
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- riscv-randconfig-002-20231222
+|   |-- drivers-gpu-drm-msm-disp-dpu1-dpu_encoder.c:warning:Excess-struct-member-debugfs_root-description-in-dpu_encoder_virt
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- s390-allmodconfig
+|   |-- WARNING:modpost:missing-MODULE_DESCRIPTION()-in-drivers-s390-block-dasd_diag_mod.o
+|   |-- WARNING:modpost:missing-MODULE_DESCRIPTION()-in-drivers-s390-block-dasd_eckd_mod.o
+|   |-- WARNING:modpost:missing-MODULE_DESCRIPTION()-in-drivers-s390-block-dasd_fba_mod.o
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Excess-function-parameter-context-description-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Function-parameter-or-struct-member-state-not-described-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dc_dmub_srv.c:warning:Function-parameter-or-struct-member-context-not-described-in-populate_subvp_cmd_drr_info
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- s390-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Excess-function-parameter-context-description-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Function-parameter-or-struct-member-state-not-described-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dc_dmub_srv.c:warning:Function-parameter-or-struct-member-context-not-described-in-populate_subvp_cmd_drr_info
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- s390-defconfig
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- sh-allmodconfig
+|   |-- include-linux-syscalls.h:internal-compiler-error:in-change_address_1-at-emit-rtl.cc
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|   `-- standard-input:Error:pcrel-too-far
+|-- sh-allnoconfig
+|   |-- standard-input:Error:pcrel-too-far
+|   `-- standard-input:Warning:overflow-in-branch-to-.L1609-converted-into-longer-instruction-sequence
+|-- sh-allyesconfig
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- sh-randconfig-001-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- sh-randconfig-002-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- sh-randconfig-r032-20220320
+|   `-- standard-input:Warning:overflow-in-branch-to-.L4838-converted-into-longer-instruction-sequence
+|-- sh-randconfig-r123-20231222
+|   |-- fs-bcachefs-btree_iter.c:sparse:sparse:incompatible-types-in-comparison-expression-(different-address-spaces):
+|   |-- fs-bcachefs-btree_locking.c:sparse:sparse:incompatible-types-in-comparison-expression-(different-address-spaces):
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|   |-- standard-input:Error:pcrel-too-far
+|   `-- standard-input:Warning:overflow-in-branch-to-.L1661-converted-into-longer-instruction-sequence
+|-- sparc-allmodconfig
+|   |-- arch-sparc-kernel-module.c:warning:variable-strtab-set-but-not-used
+|   |-- arch-sparc-mm-init_64.c:warning:variable-hv_pgsz_idx-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Excess-function-parameter-context-description-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Function-parameter-or-struct-member-state-not-described-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dc_dmub_srv.c:warning:Function-parameter-or-struct-member-context-not-described-in-populate_subvp_cmd_drr_info
+|   |-- drivers-gpu-drm-msm-disp-dpu1-dpu_encoder.c:warning:Excess-struct-member-debugfs_root-description-in-dpu_encoder_virt
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- sparc-allnoconfig
+|   |-- arch-sparc-mm-leon_mm.c:warning:variable-paddrbase-set-but-not-used
+|   `-- arch-sparc-mm-srmmu.c:warning:variable-clear-set-but-not-used
+|-- sparc-defconfig
+|   |-- arch-sparc-kernel-module.c:warning:variable-strtab-set-but-not-used
+|   |-- arch-sparc-mm-leon_mm.c:warning:variable-paddrbase-set-but-not-used
+|   `-- arch-sparc-mm-srmmu.c:warning:variable-clear-set-but-not-used
+|-- sparc-randconfig-001-20231222
+|   `-- arch-sparc-mm-init_64.c:warning:variable-hv_pgsz_idx-set-but-not-used
+|-- sparc-randconfig-002-20231222
+|   |-- arch-sparc-mm-init_64.c:warning:variable-hv_pgsz_idx-set-but-not-used
+|   |-- arch-sparc-mm-init_64.c:warning:variable-pagecv_flag-set-but-not-used
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- sparc-randconfig-r133-20231222
+|   |-- (.head.text):relocation-truncated-to-fit:R_SPARC_WDISP22-against-init.text
+|   |-- arch-sparc-kernel-module.c:warning:variable-strtab-set-but-not-used
+|   |-- arch-sparc-mm-leon_mm.c:warning:variable-paddrbase-set-but-not-used
+|   |-- arch-sparc-mm-srmmu.c:warning:variable-clear-set-but-not-used
+|   |-- fs-bcachefs-btree_iter.c:sparse:sparse:incompatible-types-in-comparison-expression-(different-address-spaces):
+|   |-- fs-bcachefs-btree_locking.c:sparse:sparse:incompatible-types-in-comparison-expression-(different-address-spaces):
+|   |-- parport_pc.c:(.text):undefined-reference-to-ebus_dma_enable
+|   |-- parport_pc.c:(.text):undefined-reference-to-ebus_dma_irq_enable
+|   |-- parport_pc.c:(.text):undefined-reference-to-ebus_dma_register
+|   |-- sparc-linux-ld:parport_pc.c:(.text):undefined-reference-to-ebus_dma_enable
+|   |-- sparc-linux-ld:parport_pc.c:(.text):undefined-reference-to-ebus_dma_irq_enable
+|   |-- sparc-linux-ld:parport_pc.c:(.text):undefined-reference-to-ebus_dma_prepare
+|   |-- sparc-linux-ld:parport_pc.c:(.text):undefined-reference-to-ebus_dma_request
+|   |-- sparc-linux-ld:parport_pc.c:(.text):undefined-reference-to-ebus_dma_residue
+|   `-- sparc-linux-ld:parport_pc.c:(.text):undefined-reference-to-ebus_dma_unregister
+|-- sparc64-allmodconfig
+|   |-- arch-sparc-kernel-module.c:warning:variable-strtab-set-but-not-used
+|   |-- arch-sparc-mm-init_64.c:warning:variable-hv_pgsz_idx-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Excess-function-parameter-context-description-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Function-parameter-or-struct-member-state-not-described-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dc_dmub_srv.c:warning:Function-parameter-or-struct-member-context-not-described-in-populate_subvp_cmd_drr_info
+|   |-- drivers-gpu-drm-msm-disp-dpu1-dpu_encoder.c:warning:Excess-struct-member-debugfs_root-description-in-dpu_encoder_virt
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- sparc64-allyesconfig
+|   |-- arch-sparc-kernel-module.c:warning:variable-strtab-set-but-not-used
+|   |-- arch-sparc-mm-init_64.c:warning:variable-hv_pgsz_idx-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Excess-function-parameter-context-description-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Function-parameter-or-struct-member-state-not-described-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dc_dmub_srv.c:warning:Function-parameter-or-struct-member-context-not-described-in-populate_subvp_cmd_drr_info
+|   |-- drivers-gpu-drm-msm-disp-dpu1-dpu_encoder.c:warning:Excess-struct-member-debugfs_root-description-in-dpu_encoder_virt
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- sparc64-defconfig
+|   |-- arch-sparc-kernel-module.c:warning:variable-strtab-set-but-not-used
+|   `-- arch-sparc-mm-init_64.c:warning:variable-hv_pgsz_idx-set-but-not-used
+|-- sparc64-randconfig-001-20231222
+|   |-- arch-sparc-kernel-module.c:warning:variable-strtab-set-but-not-used
+|   |-- arch-sparc-mm-init_64.c:warning:variable-pagecv_flag-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Excess-function-parameter-context-description-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Function-parameter-or-struct-member-state-not-described-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dc_dmub_srv.c:warning:Function-parameter-or-struct-member-context-not-described-in-populate_subvp_cmd_drr_info
+|   `-- fbcon.c:(.text):undefined-reference-to-fb_is_primary_device
+|-- sparc64-randconfig-002-20231222
+|   `-- arch-sparc-kernel-module.c:warning:variable-strtab-set-but-not-used
+|-- x86_64-allnoconfig
+|   `-- include-linux-sched.h:linux-cache.h-is-included-more-than-once.
+|-- x86_64-buildonly-randconfig-001-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- x86_64-buildonly-randconfig-002-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- x86_64-buildonly-randconfig-003-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- x86_64-buildonly-randconfig-004-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- x86_64-buildonly-randconfig-005-20231222
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Excess-function-parameter-context-description-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Function-parameter-or-struct-member-state-not-described-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dc_dmub_srv.c:warning:Function-parameter-or-struct-member-context-not-described-in-populate_subvp_cmd_drr_info
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-hwss-dcn35-dcn35_hwseq.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- x86_64-buildonly-randconfig-006-20231222
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Excess-function-parameter-context-description-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Function-parameter-or-struct-member-state-not-described-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dc_dmub_srv.c:warning:Function-parameter-or-struct-member-context-not-described-in-populate_subvp_cmd_drr_info
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-hwss-dcn35-dcn35_hwseq.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- x86_64-randconfig-011-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- x86_64-randconfig-014-20231222
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Excess-function-parameter-context-description-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Function-parameter-or-struct-member-state-not-described-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dc_dmub_srv.c:warning:Function-parameter-or-struct-member-context-not-described-in-populate_subvp_cmd_drr_info
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-hwss-dcn35-dcn35_hwseq.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- x86_64-randconfig-015-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- x86_64-randconfig-072-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- x86_64-randconfig-073-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- x86_64-randconfig-075-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- x86_64-randconfig-076-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- x86_64-randconfig-101-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- x86_64-randconfig-102-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- x86_64-randconfig-103-20231222
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Excess-function-parameter-context-description-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Function-parameter-or-struct-member-state-not-described-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dc_dmub_srv.c:warning:Function-parameter-or-struct-member-context-not-described-in-populate_subvp_cmd_drr_info
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-hwss-dcn35-dcn35_hwseq.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- x86_64-randconfig-161-20231222
+|   |-- drivers-atm-idt77252.c-idt77252_rx_raw()-warn:possible-spectre-second-half.-vc
+|   |-- drivers-atm-idt77252.c-idt77252_rx_raw()-warn:potential-spectre-issue-card-vcs-r
+|   |-- drivers-dma-xilinx-xdma.c-xdma_channel_isr()-error:potentially-dereferencing-uninitialized-desc-.
+|   |-- drivers-hwmon-pmbus-ltc4286.c-ltc4286_probe()-warn:passing-zero-to-dev_err_probe
+|   |-- drivers-scsi-mpi3mr-mpi3mr_app.c-mpi3mr_bsg_build_sgl()-warn:missing-unwind-goto
+|   |-- drivers-scsi-mpi3mr-mpi3mr_app.c-mpi3mr_map_data_buffer_dma()-warn:returning-instead-of-ENOMEM-is-sloppy
+|   |-- fs-bcachefs-inode.c-bch2_delete_dead_inodes()-error:potentially-using-uninitialized-ret-.
+|   |-- lib-kunit-device.c-kunit_device_register_with_driver()-warn:passing-zero-to-ERR_CAST
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- x86_64-rhel-8.3-bpf
+|   |-- lib-aolib.h:error:TCP_AO_ADD_KEY-undeclared-(first-use-in-this-function)
+|   |-- lib-aolib.h:error:invalid-use-of-undefined-type-struct-tcp_ao_add
+|   |-- lib-aolib.h:error:storage-size-of-ao-isn-t-known
+|   |-- lib-aolib.h:error:storage-size-of-ao2-isn-t-known
+|   |-- lib-aolib.h:error:storage-size-of-key2-isn-t-known
+|   |-- lib-aolib.h:error:storage-size-of-tmp-isn-t-known
+|   |-- lib-aolib.h:error:variable-ao-has-initializer-but-incomplete-type
+|   |-- lib-aolib.h:error:variable-ao2-has-initializer-but-incomplete-type
+|   |-- lib-aolib.h:error:variable-key2-has-initializer-but-incomplete-type
+|   |-- lib-aolib.h:error:variable-tmp-has-initializer-but-incomplete-type
+|   |-- lib-kconfig.c:error:TCP_AO_ADD_KEY-undeclared-(first-use-in-this-function)
+|   |-- lib-kconfig.c:error:storage-size-of-tmp-isn-t-known
+|   |-- lib-kconfig.c:error:variable-tmp-has-initializer-but-incomplete-type
+|   |-- lib-repair.c:error:TCP_AO_REPAIR-undeclared-(first-use-in-this-function)
+|   |-- lib-repair.c:error:conflicting-types-for-test_ao_checkpoint-have-void(int-struct-tcp_ao_repair-)
+|   |-- lib-repair.c:error:conflicting-types-for-test_ao_restore-have-void(int-struct-tcp_ao_repair-)
+|   |-- lib-repair.c:error:invalid-application-of-sizeof-to-incomplete-type-struct-tcp_ao_repair
+|   |-- lib-sock.c:error:TCP_AO_GET_KEYS-undeclared-(first-use-in-this-function)
+|   |-- lib-sock.c:error:TCP_AO_INFO-undeclared-(first-use-in-this-function)
+|   |-- lib-sock.c:error:TCP_AO_MAXKEYLEN-undeclared-(first-use-in-this-function)
+|   |-- lib-sock.c:error:conflicting-types-for-test_cmp_getsockopt_setsockopt-have-int(const-struct-tcp_ao_add-const-struct-tcp_ao_getsockopt-)
+|   |-- lib-sock.c:error:conflicting-types-for-test_cmp_getsockopt_setsockopt_ao-have-int(const-struct-tcp_ao_info_opt-const-struct-tcp_ao_info_opt-)
+|   |-- lib-sock.c:error:conflicting-types-for-test_get_ao_info-have-int(int-struct-tcp_ao_info_opt-)
+|   |-- lib-sock.c:error:conflicting-types-for-test_get_one_ao-have-int(int-struct-tcp_ao_getsockopt-void-size_t-uint8_t-uint8_t-uint8_t)-aka-int(int-struct-tcp_ao_getsockopt-void-long-unsigned-int-unsigned-c
+|   |-- lib-sock.c:error:conflicting-types-for-test_prepare_key_sockaddr-have-int(struct-tcp_ao_add-const-char-void-size_t-_Bool-_Bool-uint8_t-uint8_t-uint8_t-uint8_t-uint8_t-uint8_t-uint8_t-const-char-)-aka-
+|   |-- lib-sock.c:error:conflicting-types-for-test_set_ao_info-have-int(int-struct-tcp_ao_info_opt-)
+|   |-- lib-sock.c:error:invalid-application-of-sizeof-to-incomplete-type-struct-tcp_ao_add
+|   |-- lib-sock.c:error:invalid-application-of-sizeof-to-incomplete-type-struct-tcp_ao_getsockopt
+|   |-- lib-sock.c:error:invalid-application-of-sizeof-to-incomplete-type-struct-tcp_ao_info_opt
+|   |-- lib-sock.c:error:invalid-use-of-undefined-type-const-struct-tcp_ao_add
+|   |-- lib-sock.c:error:invalid-use-of-undefined-type-const-struct-tcp_ao_getsockopt
+|   |-- lib-sock.c:error:invalid-use-of-undefined-type-const-struct-tcp_ao_info_opt
+|   |-- lib-sock.c:error:invalid-use-of-undefined-type-struct-tcp_ao_add
+|   |-- lib-sock.c:error:invalid-use-of-undefined-type-struct-tcp_ao_getsockopt
+|   |-- lib-sock.c:error:invalid-use-of-undefined-type-struct-tcp_ao_info_opt
+|   |-- lib-sock.c:error:storage-size-of-info-isn-t-known
+|   |-- lib-sock.c:error:storage-size-of-tmp-isn-t-known
+|   |-- lib-sock.c:error:variable-info-has-initializer-but-incomplete-type
+|   `-- lib-sock.c:error:variable-tmp-has-initializer-but-incomplete-type
+`-- xtensa-randconfig-001-20231222
+    |-- WARNING:modpost:missing-MODULE_DESCRIPTION()-in-fs-exportfs-exportfs.o
+    |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Excess-function-parameter-context-description-in-dc_state_rem_all_planes_for_stream
+    |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Function-parameter-or-struct-member-state-not-described-in-dc_state_rem_all_planes_for_stream
+    `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dc_dmub_srv.c:warning:Function-parameter-or-struct-member-context-not-described-in-populate_subvp_cmd_drr_info
+clang_recent_errors
+|-- arm-defconfig
+|   |-- WARNING:modpost:vmlinux:section-mismatch-in-reference:at91_poweroff_probe-(section:.text)-at91_wakeup_status-(section:.init.text)
+|   |-- WARNING:modpost:vmlinux:section-mismatch-in-reference:at91_shdwc_probe-(section:.text)-at91_wakeup_status-(section:.init.text)
+|   `-- drivers-gpu-drm-msm-disp-dpu1-dpu_encoder.c:warning:Excess-struct-member-debugfs_root-description-in-dpu_encoder_virt
+|-- arm-randconfig-r052-20231222
+|   `-- WARNING:modpost:vmlinux:section-mismatch-in-reference:at91_poweroff_probe-(section:.text)-at91_wakeup_status-(section:.init.text)
+|-- arm64-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Excess-function-parameter-context-description-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Function-parameter-or-struct-member-state-not-described-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dc_dmub_srv.c:warning:Function-parameter-or-struct-member-context-not-described-in-populate_subvp_cmd_drr_info
+|   |-- drivers-gpu-drm-imagination-pvr_mmu.c:warning:Excess-struct-member-l0_free_tables-description-in-pvr_mmu_op_context
+|   |-- drivers-gpu-drm-imagination-pvr_mmu.c:warning:Excess-struct-member-l0_prealloc_tables-description-in-pvr_mmu_op_context
+|   |-- drivers-gpu-drm-imagination-pvr_mmu.c:warning:Excess-struct-member-l1_free_tables-description-in-pvr_mmu_op_context
+|   |-- drivers-gpu-drm-imagination-pvr_mmu.c:warning:Excess-struct-member-l1_prealloc_tables-description-in-pvr_mmu_op_context
+|   |-- drivers-gpu-drm-imagination-pvr_mmu.c:warning:Excess-struct-member-pvr_dev-description-in-pvr_mmu_backing_page
+|   |-- drivers-gpu-drm-imagination-pvr_mmu.c:warning:Excess-struct-member-sgt-description-in-pvr_mmu_op_context
+|   |-- drivers-gpu-drm-imagination-pvr_mmu.c:warning:Excess-struct-member-sgt_offset-description-in-pvr_mmu_op_context
+|   |-- drivers-gpu-drm-msm-disp-dpu1-dpu_encoder.c:warning:Excess-struct-member-debugfs_root-description-in-dpu_encoder_virt
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- arm64-allyesconfig
+|   |-- drivers-dma-xilinx-xdma.c:warning:no-previous-prototype-for-function-xdma_prep_interleaved_dma
+|   |-- drivers-dma-xilinx-xdma.c:warning:operator:has-lower-precedence-than-will-be-evaluated-first
+|   |-- drivers-dma-xilinx-xdma.c:warning:variable-desc-is-uninitialized-when-used-here
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Excess-function-parameter-context-description-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Function-parameter-or-struct-member-state-not-described-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dc_dmub_srv.c:warning:Function-parameter-or-struct-member-context-not-described-in-populate_subvp_cmd_drr_info
+|   |-- drivers-gpu-drm-imagination-pvr_mmu.c:warning:Excess-struct-member-l0_free_tables-description-in-pvr_mmu_op_context
+|   |-- drivers-gpu-drm-imagination-pvr_mmu.c:warning:Excess-struct-member-l0_prealloc_tables-description-in-pvr_mmu_op_context
+|   |-- drivers-gpu-drm-imagination-pvr_mmu.c:warning:Excess-struct-member-l1_free_tables-description-in-pvr_mmu_op_context
+|   |-- drivers-gpu-drm-imagination-pvr_mmu.c:warning:Excess-struct-member-l1_prealloc_tables-description-in-pvr_mmu_op_context
+|   |-- drivers-gpu-drm-imagination-pvr_mmu.c:warning:Excess-struct-member-pvr_dev-description-in-pvr_mmu_backing_page
+|   |-- drivers-gpu-drm-imagination-pvr_mmu.c:warning:Excess-struct-member-sgt-description-in-pvr_mmu_op_context
+|   |-- drivers-gpu-drm-imagination-pvr_mmu.c:warning:Excess-struct-member-sgt_offset-description-in-pvr_mmu_op_context
+|   |-- drivers-gpu-drm-msm-disp-dpu1-dpu_encoder.c:warning:Excess-struct-member-debugfs_root-description-in-dpu_encoder_virt
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- hexagon-allmodconfig
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- hexagon-allyesconfig
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- hexagon-randconfig-001-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- i386-allmodconfig
+|   |-- drivers-gpu-drm-msm-disp-dpu1-dpu_encoder.c:warning:Excess-struct-member-debugfs_root-description-in-dpu_encoder_virt
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- i386-allyesconfig
+|   |-- drivers-gpu-drm-msm-disp-dpu1-dpu_encoder.c:warning:Excess-struct-member-debugfs_root-description-in-dpu_encoder_virt
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- i386-randconfig-013-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- i386-randconfig-014-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- i386-randconfig-016-20231222
+|   `-- drivers-net-ethernet-intel-ice-ice_base.c:error:variable-has-incomplete-type-struct-xsk_cb_desc
+|-- mips-randconfig-r051-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- mips-randconfig-r054-20231222
+|   |-- WARNING:modpost:missing-MODULE_DESCRIPTION()-in-lib-zlib_inflate-zlib_inflate.o
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- powerpc-allmodconfig
+|   |-- drivers-dma-xilinx-xdma.c:warning:no-previous-prototype-for-function-xdma_prep_interleaved_dma
+|   |-- drivers-dma-xilinx-xdma.c:warning:operator:has-lower-precedence-than-will-be-evaluated-first
+|   |-- drivers-dma-xilinx-xdma.c:warning:variable-desc-is-uninitialized-when-used-here
+|   |-- drivers-gpu-drm-msm-disp-dpu1-dpu_encoder.c:warning:Excess-struct-member-debugfs_root-description-in-dpu_encoder_virt
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- powerpc-allyesconfig
+|   |-- drivers-dma-xilinx-xdma.c:warning:no-previous-prototype-for-function-xdma_prep_interleaved_dma
+|   |-- drivers-dma-xilinx-xdma.c:warning:operator:has-lower-precedence-than-will-be-evaluated-first
+|   |-- drivers-dma-xilinx-xdma.c:warning:variable-desc-is-uninitialized-when-used-here
+|   |-- drivers-gpu-drm-msm-disp-dpu1-dpu_encoder.c:warning:Excess-struct-member-debugfs_root-description-in-dpu_encoder_virt
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- s390-randconfig-002-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- x86_64-allmodconfig
+|   |-- drivers-dma-xilinx-xdma.c:warning:no-previous-prototype-for-function-xdma_prep_interleaved_dma
+|   |-- drivers-dma-xilinx-xdma.c:warning:operator:has-lower-precedence-than-will-be-evaluated-first
+|   |-- drivers-dma-xilinx-xdma.c:warning:variable-desc-is-uninitialized-when-used-here
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Excess-function-parameter-context-description-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Function-parameter-or-struct-member-state-not-described-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dc_dmub_srv.c:warning:Function-parameter-or-struct-member-context-not-described-in-populate_subvp_cmd_drr_info
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-hwss-dcn35-dcn35_hwseq.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   |-- drivers-gpu-drm-msm-disp-dpu1-dpu_encoder.c:warning:Excess-struct-member-debugfs_root-description-in-dpu_encoder_virt
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- x86_64-allyesconfig
+|   |-- drivers-dma-xilinx-xdma.c:warning:no-previous-prototype-for-function-xdma_prep_interleaved_dma
+|   |-- drivers-dma-xilinx-xdma.c:warning:operator:has-lower-precedence-than-will-be-evaluated-first
+|   |-- drivers-dma-xilinx-xdma.c:warning:variable-desc-is-uninitialized-when-used-here
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Excess-function-parameter-context-description-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Function-parameter-or-struct-member-state-not-described-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dc_dmub_srv.c:warning:Function-parameter-or-struct-member-context-not-described-in-populate_subvp_cmd_drr_info
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-hwss-dcn35-dcn35_hwseq.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   |-- drivers-gpu-drm-msm-disp-dpu1-dpu_encoder.c:warning:Excess-struct-member-debugfs_root-description-in-dpu_encoder_virt
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- x86_64-randconfig-001-20231222
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Excess-function-parameter-context-description-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-core-dc_state.c:warning:Function-parameter-or-struct-member-state-not-described-in-dc_state_rem_all_planes_for_stream
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dc_dmub_srv.c:warning:Function-parameter-or-struct-member-context-not-described-in-populate_subvp_cmd_drr_info
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-hwss-dcn35-dcn35_hwseq.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- x86_64-randconfig-006-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- x86_64-randconfig-121-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|   |-- mm-kasan-common.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-restricted-gfp_t-usertype-flags-got-unsigned-long-usertype-size
+|   `-- mm-kasan-common.c:sparse:sparse:symbol-unpoison_slab_object-was-not-declared.-Should-it-be-static
+|-- x86_64-randconfig-122-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|-- x86_64-randconfig-123-20231222
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+|   |-- mm-kasan-common.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-restricted-gfp_t-usertype-flags-got-unsigned-long-usertype-size
+|   `-- mm-kasan-common.c:sparse:sparse:symbol-unpoison_slab_object-was-not-declared.-Should-it-be-static
+|-- x86_64-randconfig-r132-20231222
+|   |-- drivers-hwmon-max31827.c:sparse:sparse:dubious:x-y
+|   |-- fs-bcachefs-btree_iter.c:sparse:sparse:incompatible-types-in-comparison-expression-(different-address-spaces):
+|   |-- fs-bcachefs-btree_iter.c:sparse:struct-btree_path
+|   |-- fs-bcachefs-btree_iter.c:sparse:struct-btree_path-noderef-__rcu
+|   |-- fs-bcachefs-btree_locking.c:sparse:sparse:incompatible-types-in-comparison-expression-(different-address-spaces):
+|   |-- fs-bcachefs-btree_locking.c:sparse:struct-btree_path
+|   |-- fs-bcachefs-btree_locking.c:sparse:struct-btree_path-noderef-__rcu
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+|   |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+|   `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+`-- x86_64-rhel-8.3-rust
+    |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-drv-not-described-in-kunit_device_register_with_driver
+    |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register
+    |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_device_register_with_driver
+    |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-name-not-described-in-kunit_driver_create
+    |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register
+    |-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_device_register_with_driver
+    `-- lib-kunit-device.c:warning:Function-parameter-or-struct-member-test-not-described-in-kunit_driver_create
+
+elapsed time: 1537m
+
+configs tested: 177
+configs skipped: 3
+
+tested configs:
+alpha                             allnoconfig   gcc  
+alpha                            allyesconfig   gcc  
+alpha                               defconfig   gcc  
+arc                              allmodconfig   gcc  
+arc                               allnoconfig   gcc  
+arc                              allyesconfig   gcc  
+arc                      axs103_smp_defconfig   gcc  
+arc                                 defconfig   gcc  
+arc                   randconfig-001-20231222   gcc  
+arc                   randconfig-002-20231222   gcc  
+arm                              allmodconfig   gcc  
+arm                               allnoconfig   gcc  
+arm                              allyesconfig   gcc  
+arm                                 defconfig   clang
+arm                           h3600_defconfig   gcc  
+arm                        keystone_defconfig   gcc  
+arm                            mmp2_defconfig   clang
+arm                   randconfig-001-20231222   gcc  
+arm                   randconfig-002-20231222   gcc  
+arm                   randconfig-003-20231222   gcc  
+arm                   randconfig-004-20231222   gcc  
+arm                         wpcm450_defconfig   gcc  
+arm64                            allmodconfig   clang
+arm64                             allnoconfig   gcc  
+arm64                               defconfig   gcc  
+arm64                 randconfig-001-20231222   gcc  
+arm64                 randconfig-002-20231222   gcc  
+arm64                 randconfig-003-20231222   gcc  
+arm64                 randconfig-004-20231222   gcc  
+csky                             allmodconfig   gcc  
+csky                              allnoconfig   gcc  
+csky                             allyesconfig   gcc  
+csky                                defconfig   gcc  
+csky                  randconfig-001-20231222   gcc  
+csky                  randconfig-002-20231222   gcc  
+hexagon                          allmodconfig   clang
+hexagon                           allnoconfig   clang
+hexagon                          allyesconfig   clang
+hexagon                             defconfig   clang
+hexagon               randconfig-001-20231222   clang
+hexagon               randconfig-002-20231222   clang
+i386                             allmodconfig   clang
+i386                              allnoconfig   clang
+i386                             allyesconfig   clang
+i386         buildonly-randconfig-001-20231222   gcc  
+i386         buildonly-randconfig-002-20231222   gcc  
+i386         buildonly-randconfig-003-20231222   gcc  
+i386         buildonly-randconfig-004-20231222   gcc  
+i386         buildonly-randconfig-005-20231222   gcc  
+i386         buildonly-randconfig-006-20231222   gcc  
+i386                                defconfig   gcc  
+i386                  randconfig-001-20231222   gcc  
+i386                  randconfig-002-20231222   gcc  
+i386                  randconfig-003-20231222   gcc  
+i386                  randconfig-004-20231222   gcc  
+i386                  randconfig-005-20231222   gcc  
+i386                  randconfig-006-20231222   gcc  
+i386                  randconfig-011-20231222   clang
+i386                  randconfig-012-20231222   clang
+i386                  randconfig-013-20231222   clang
+i386                  randconfig-014-20231222   clang
+i386                  randconfig-015-20231222   clang
+i386                  randconfig-016-20231222   clang
+loongarch                        allmodconfig   gcc  
+loongarch                         allnoconfig   gcc  
+loongarch                           defconfig   gcc  
+loongarch                 loongson3_defconfig   gcc  
+loongarch             randconfig-001-20231222   gcc  
+loongarch             randconfig-002-20231222   gcc  
+m68k                             allmodconfig   gcc  
+m68k                              allnoconfig   gcc  
+m68k                             allyesconfig   gcc  
+m68k                                defconfig   gcc  
+microblaze                       allmodconfig   gcc  
+microblaze                        allnoconfig   gcc  
+microblaze                       allyesconfig   gcc  
+microblaze                          defconfig   gcc  
+mips                              allnoconfig   clang
+mips                             allyesconfig   gcc  
+mips                        qi_lb60_defconfig   clang
+nios2                            allmodconfig   gcc  
+nios2                             allnoconfig   gcc  
+nios2                            allyesconfig   gcc  
+nios2                               defconfig   gcc  
+nios2                 randconfig-001-20231222   gcc  
+nios2                 randconfig-002-20231222   gcc  
+openrisc                          allnoconfig   gcc  
+openrisc                         allyesconfig   gcc  
+openrisc                            defconfig   gcc  
+openrisc                  or1klitex_defconfig   gcc  
+parisc                           allmodconfig   gcc  
+parisc                            allnoconfig   gcc  
+parisc                           allyesconfig   gcc  
+parisc                              defconfig   gcc  
+parisc                randconfig-001-20231222   gcc  
+parisc                randconfig-002-20231222   gcc  
+parisc64                            defconfig   gcc  
+powerpc                     akebono_defconfig   clang
+powerpc                          allmodconfig   clang
+powerpc                           allnoconfig   gcc  
+powerpc                          allyesconfig   clang
+powerpc                       eiger_defconfig   gcc  
+powerpc                     powernv_defconfig   clang
+powerpc                     ppa8548_defconfig   gcc  
+powerpc                       ppc64_defconfig   gcc  
+powerpc               randconfig-001-20231222   gcc  
+powerpc               randconfig-002-20231222   gcc  
+powerpc               randconfig-003-20231222   gcc  
+powerpc64             randconfig-001-20231222   gcc  
+powerpc64             randconfig-002-20231222   gcc  
+powerpc64             randconfig-003-20231222   gcc  
+riscv                            allmodconfig   gcc  
+riscv                             allnoconfig   clang
+riscv                            allyesconfig   gcc  
+riscv                               defconfig   gcc  
+riscv                 randconfig-001-20231222   gcc  
+riscv                 randconfig-002-20231222   gcc  
+riscv                          rv32_defconfig   clang
+s390                             allmodconfig   gcc  
+s390                              allnoconfig   gcc  
+s390                             allyesconfig   gcc  
+s390                                defconfig   gcc  
+s390                  randconfig-001-20231222   clang
+s390                  randconfig-002-20231222   clang
+sh                               allmodconfig   gcc  
+sh                                allnoconfig   gcc  
+sh                               allyesconfig   gcc  
+sh                                  defconfig   gcc  
+sh                    randconfig-001-20231222   gcc  
+sh                    randconfig-002-20231222   gcc  
+sh                           se7750_defconfig   gcc  
+sparc                            allmodconfig   gcc  
+sparc64                          allmodconfig   gcc  
+sparc64                          allyesconfig   gcc  
+sparc64                             defconfig   gcc  
+sparc64               randconfig-001-20231222   gcc  
+sparc64               randconfig-002-20231222   gcc  
+um                               allmodconfig   clang
+um                                allnoconfig   clang
+um                               allyesconfig   clang
+um                                  defconfig   gcc  
+um                             i386_defconfig   gcc  
+um                    randconfig-001-20231222   gcc  
+um                    randconfig-002-20231222   gcc  
+um                           x86_64_defconfig   gcc  
+x86_64                            allnoconfig   gcc  
+x86_64                           allyesconfig   clang
+x86_64       buildonly-randconfig-001-20231222   gcc  
+x86_64       buildonly-randconfig-002-20231222   gcc  
+x86_64       buildonly-randconfig-003-20231222   gcc  
+x86_64       buildonly-randconfig-004-20231222   gcc  
+x86_64       buildonly-randconfig-005-20231222   gcc  
+x86_64       buildonly-randconfig-006-20231222   gcc  
+x86_64                              defconfig   gcc  
+x86_64                randconfig-001-20231222   clang
+x86_64                randconfig-002-20231222   clang
+x86_64                randconfig-003-20231222   clang
+x86_64                randconfig-004-20231222   clang
+x86_64                randconfig-005-20231222   clang
+x86_64                randconfig-006-20231222   clang
+x86_64                randconfig-011-20231222   gcc  
+x86_64                randconfig-012-20231222   gcc  
+x86_64                randconfig-013-20231222   gcc  
+x86_64                randconfig-014-20231222   gcc  
+x86_64                randconfig-015-20231222   gcc  
+x86_64                randconfig-016-20231222   gcc  
+x86_64                randconfig-071-20231222   gcc  
+x86_64                randconfig-072-20231222   gcc  
+x86_64                randconfig-073-20231222   gcc  
+x86_64                randconfig-074-20231222   gcc  
+x86_64                randconfig-075-20231222   gcc  
+x86_64                randconfig-076-20231222   gcc  
+x86_64                          rhel-8.3-rust   clang
+xtensa                            allnoconfig   gcc  
+xtensa                       common_defconfig   gcc  
+xtensa                randconfig-001-20231222   gcc  
+xtensa                randconfig-002-20231222   gcc  
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki

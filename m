@@ -2,99 +2,161 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0589881CFEE
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Dec 2023 23:52:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E766981D12B
+	for <lists+alsa-devel@lfdr.de>; Sat, 23 Dec 2023 03:05:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E8CD3DF9;
-	Fri, 22 Dec 2023 23:51:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8CD3DF9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 16407E0E;
+	Sat, 23 Dec 2023 03:05:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 16407E0E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1703285521;
-	bh=oNyOtJmRK/PlWo4BKGbaCJgMzouADPvq3uSryPTzQhI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1703297126;
+	bh=JnfozvaNLJbdTmA+URUbXIJ6MI3dYqBOC+fluEDa+mU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=IuKLYtMS4xirijslTrtv64B0wYutd5JkUz4FLU28gQT6R9vw2L084lo8hdNfxOYqM
-	 LA8tFRu5HE9Z17e2t4hleP68JalW3Em+a7QyDCekjqJlkDx3NLrrHeN/AawFNP8Gbo
-	 9ny8030olqMrG7ylpT5ejSpYuBfeAU2/2HWp+7Pw=
+	b=WMkAzznwJn/jz0fs4HsriUheXrCEmeTgi4sPVNK2gYIYyYbC5kIb2D3UFQGx3BoSD
+	 1RUlxU0o5diir+uo9H+0uio/67h/4x5ZKZhZ/z18HpGIdZNBF15BFBjDZCJ1QCMwwb
+	 RzXpHqHoWi7akZgbaeka3EkzgpVZfUnOY8Q4DW4o=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 15ECFF80425; Fri, 22 Dec 2023 23:51:29 +0100 (CET)
+	id 9F032F804DA; Sat, 23 Dec 2023 03:04:54 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 55BEAF80578;
-	Fri, 22 Dec 2023 23:51:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A5679F80571;
+	Sat, 23 Dec 2023 03:04:53 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8FFDFF8016E; Fri, 22 Dec 2023 23:51:23 +0100 (CET)
+	id D9A41F8016E; Sat, 23 Dec 2023 03:04:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from metis.whiteo.stw.pengutronix.de
- (metis.whiteo.stw.pengutronix.de [IPv6:2a0a:edc0:2:b01:1d::104])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
- server-digest SHA256)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on20609.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eb2::609])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 85198F80124
-	for <alsa-devel@alsa-project.org>; Fri, 22 Dec 2023 23:51:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 85198F80124
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
-	by metis.whiteo.stw.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-	(Exim 4.92)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1rGoML-0005bm-T8; Fri, 22 Dec 2023 23:51:13 +0100
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.94.2)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1rGoMK-000qvD-D7; Fri, 22 Dec 2023 23:51:13 +0100
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.96)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1rGoML-000FfO-1L;
-	Fri, 22 Dec 2023 23:51:13 +0100
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Thomas Gleixner <tglx@linutronix.de>
-Cc: Charles Keepax <ckeepax@opensource.cirrus.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	alsa-devel@alsa-project.org,
-	patches@opensource.cirrus.com,
-	linux-kernel@vger.kernel.org,
-	kernel@pengutronix.de
-Subject: [PATCH 06/13] irqchip/madera: Convert to platform remove callback
- returning void
-Date: Fri, 22 Dec 2023 23:50:37 +0100
-Message-ID: 
- <64c2f79760c53f29651e7126418c407ff699317d.1703284359.git.u.kleine-koenig@pengutronix.de>
-X-Mailer: git-send-email 2.42.0
-In-Reply-To: <cover.1703284359.git.u.kleine-koenig@pengutronix.de>
-References: <cover.1703284359.git.u.kleine-koenig@pengutronix.de>
-MIME-Version: 1.0
+	by alsa1.perex.cz (Postfix) with ESMTPS id 35F35F800BD
+	for <alsa-devel@alsa-project.org>; Sat, 23 Dec 2023 03:04:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35F35F800BD
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
+ header.s=selector1 header.b=iODX4eP5
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=n0Qgf9ZQCngzcIJbgcF/YgNLhljcZZ0PI/X5jFf/No9G7fChUT7ZY542lLSVJJ2FgcV1jMr5x6+ym6LV8qZx2l5Opt6BFUMLvf0ww8v7V3/RbYMqBvxe/8lXR78usQa9E9uwtl62PGoq1FTvPn+hDXI9bssrtCUPVaqqQ+zFeNk+G4qFo4Sl3rC8GcfEO0Etgsnx63Izbi1vbT4ijSqB8ZRQM7+104/1HVFzHepD9sLsvbotmJkV+hYSMgxQLwJTbjvc2fdLhpxMSrXFga+dcFBK7fxS2k9YmQNrj7WhTuMQY2WmWuHqyDhKnGYP24kR4CEEEVdp53qKKmuMHp3DtQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JnfozvaNLJbdTmA+URUbXIJ6MI3dYqBOC+fluEDa+mU=;
+ b=e+isczMB3Sb6MqkYQyLxEnJ0seRyzWR+b4Uucj5iFw34LADChoISn8FgfWs4Ofiq8H0LiBwUQKBRzm4tqok2TahwvYm5tThcVnx6yMlSTMSoVvi/NQvXYcGiCQ9ZVSRjDKR30HSSEQ1kOlrqulL/HPsGtiQY1T/XX6r0mpsF6EwwmCGBTNYCUmcfSj4OM3xYOeNMayBWPTIUd3Q9tIpgpvHdjIcd5lHCmZkzZ42kuHtaK3i666VQzoEt//Wr7x1A565ZJahq2uhaxYi0kufdx1NMUAQP9uffSIA0jLIfE2ZAKhYYJYVRBbfS5dPb39SCUTd5dJvMTcOtRKDqzS2FUw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JnfozvaNLJbdTmA+URUbXIJ6MI3dYqBOC+fluEDa+mU=;
+ b=iODX4eP5kj8qdcIo7gW+6TQA1E0dZWaP2dx62gX8xM2fDu/z/xtTEeRWPLAA7wCtchZ36Wcuqn+jU1Wr3q1bgHsnsdWmsoaU/L+BufG5T6C5pIEaDfEN8VkcduPKpaf/1TicnHpJxNwsf9IPHDguE9SRNx1d/NgQ++laInmzGhc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB4123.namprd12.prod.outlook.com (2603:10b6:5:21f::23)
+ by SA1PR12MB8642.namprd12.prod.outlook.com (2603:10b6:806:383::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7113.21; Sat, 23 Dec
+ 2023 02:04:31 +0000
+Received: from DM6PR12MB4123.namprd12.prod.outlook.com
+ ([fe80::59d1:c9f5:2c67:1da6]) by DM6PR12MB4123.namprd12.prod.outlook.com
+ ([fe80::59d1:c9f5:2c67:1da6%4]) with mapi id 15.20.7113.019; Sat, 23 Dec 2023
+ 02:04:31 +0000
+Message-ID: <a5b4c3ba-9d72-4127-abae-8e547b2cca7b@amd.com>
+Date: Sat, 23 Dec 2023 07:34:21 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 04/12] drivers: soundwire: refactor soundwire pads enable
+Content-Language: en-US
+To: Vinod Koul <vkoul@kernel.org>
+Cc: broonie@kernel.org, alsa-devel@alsa-project.org,
+ Basavaraj.Hiregoudar@amd.com, Sunil-kumar.Dommati@amd.com,
+ pierre-louis.bossart@linux.intel.com, vinod.koul@intel.com,
+ venkataprasad.potturu@amd.com, Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20231221073558.3181911-1-Vijendar.Mukunda@amd.com>
+ <20231221073558.3181911-5-Vijendar.Mukunda@amd.com> <ZYRqEbVADgU4fNtB@matsya>
+ <6d98c43d-fb90-4cfa-a22e-8fd6d5a6eb50@amd.com> <ZYVVD2mL5kAePXDE@matsya>
+ <0ab000c3-be7f-41f3-8017-28738cf0a698@amd.com> <ZYWvNxpLPUGCGElA@matsya>
+From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+In-Reply-To: <ZYWvNxpLPUGCGElA@matsya>
 Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1755;
- i=u.kleine-koenig@pengutronix.de; h=from:subject:message-id;
- bh=oNyOtJmRK/PlWo4BKGbaCJgMzouADPvq3uSryPTzQhI=;
- b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBlhhK9Y8lRVhNFkK9eJWWYKEZRt6Vy9FJ7h2sj6
- VryWfbz2laJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZYYSvQAKCRCPgPtYfRL+
- TngFCACHKhMzBPTBKVocA6VfvDGmuukvynuqR9RfEljwyjneu/L12qaidTDwjPFQtNSEm6HZUBa
- K7ywfUFIwGDqS1YVFVeBCOV8jGXoZQ1+LY1U/MmzIzFuLOaUIu8bU2Rtqzq4dKUaXpuQFQ4XgN/
- zHN+B6RKZtpT46Rivq79vpIoz+ujbj3zvTwiti73wKa72M9tvxC8H0l0UV1oqbQtq8wqtMMTNru
- aZL67AYTcfqSmIXXkOi0XtADOuwcMMChC1mY4F/J7L2+ro3Wf8NrGMpdohxtssProziTgnyhXrJ
- LUKLwQ6vOC4EWnqbFzHzpsKePslWuOr8y1HurRhaWAvl7i9V
-X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
- fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
-Content-Transfer-Encoding: 8bit
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: alsa-devel@alsa-project.org
-Message-ID-Hash: 2XTNERJJ6RVNCKKWKEVHZQZYNPAIDI3M
-X-Message-ID-Hash: 2XTNERJJ6RVNCKKWKEVHZQZYNPAIDI3M
-X-MailFrom: ukl@pengutronix.de
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN3PR01CA0050.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:98::11) To DM6PR12MB4123.namprd12.prod.outlook.com
+ (2603:10b6:5:21f::23)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4123:EE_|SA1PR12MB8642:EE_
+X-MS-Office365-Filtering-Correlation-Id: 25cffa51-7651-4648-5fb6-08dc035b7fab
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	0QS8Dj2K+mNPwQvRNmEsXLkUdciq0vIoFemV1ORbeyIw2IUfw5620Cd/WhdE3G4n4mGwhd66BW42c288xD9/Gk516u8hNRjDCiqHm39M9ui0103a4+eddQU6xT8fVAJlu2j1M2JcJY4Rj4TvVuESTall6ZL6YchuflGuCqGeNfA3Ye4w3aAfzvatxQGX0mVJZfLQXzlzdl0OI0ez75AX+sGyHhKnBVdEui7w/DPxYXOY3P8nfSxB/pqk7s94eseUd+6bD27tMLHMGYI1CafHAGP+TQw7XnoX5SLnhpvn8mvxrPSTXRt2OufV6ZN1jPpt3OVpDT0bpFS02tcPfC4LMnRTQN6vZdqrvHqp5v/Nd9zjB0G9YuaqISweUpR9oCAS8NE6BCAPS9DEovBe973Xnz6KtYpoHCLTS0gQXTB1fPDapxNAAdC14mNLLeKmLvZ+uDSuNkquzfhmRebWpcZQSljyUM+76AaiBSwLQu7A0/ubOfdONmcJ9QGwKXho8YEga0sBpSRyiUwcIQCn8gv5DdRrm9FH1NKVBtEUMuZ6z9qq3BdeeNN12XdJEqqrljQiDVJr6ZDn9Qe4HLdje0AdsEvhfyj4a63WsLFFg2ZwbKnXWNrxSzE6wdNN7zpryKAiY5oiykH8WHJM2CH4Brp7QQ==
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4123.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(136003)(366004)(396003)(39860400002)(376002)(230922051799003)(64100799003)(451199024)(1800799012)(186009)(4326008)(8676002)(8936002)(66946007)(66476007)(66556008)(54906003)(316002)(6916009)(2906002)(36756003)(86362001)(41300700001)(31696002)(38100700002)(5660300002)(2616005)(6486002)(26005)(83380400001)(478600001)(6506007)(53546011)(6666004)(6512007)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?utf-8?B?ZldVcXlDaGw3MnFqSGczOVZucDljUTludUhjdWQxbVRYVWJuYTlHSG8vTDJP?=
+ =?utf-8?B?dmVGL2V5dkprVlFaVVQ1NzZqeElaT01hT2dzaitvZkZJems2SE5ocE1oT0gr?=
+ =?utf-8?B?VUJRNmxSMGY3dnIvN05jd29DNGVCQkFFWTlVMEJnbldXMWhIalJmc0NrZU1t?=
+ =?utf-8?B?azdjZ2FhL0VwL2F6aXhObzBiV3JYNWRkRUxUQVhVMGxwQTl5STkzRnpGRkFz?=
+ =?utf-8?B?anF5TDVmdnZaYk5MRVYwNm9ycndLTGh4Z1l3QVNzY1ZkaFdLYUtKZ3RzMUhS?=
+ =?utf-8?B?WFRLRU5adFVOR2NJV2wyY0xVdDhIYmppUVhKdFc1V1gxYVBDRlBNdGx3WVEw?=
+ =?utf-8?B?emJyMjBqN2dMYjdrVkNWZTI0MldCQW9BUUh3clBobWdXS2dVdmkxVHhOSjNh?=
+ =?utf-8?B?L0VjMXFiWWtmTmpISjhyTGxTZllwWTgyejZCSHhyZlNKaUFSWElsK3p3V1lB?=
+ =?utf-8?B?Nis4cjhvOS9iWHloV2RVWW40eGNaa0gxRks0UnJQN3NYRUVlSnV4enJxeHVY?=
+ =?utf-8?B?b3pvREJjcDZUNXEyL0FvY3M4ZUZuTlZpVjZObmJvVDdmNUV3R0V4OHNxbkpx?=
+ =?utf-8?B?cTA4YkIwMHBtTkcvdFlEaDJiZEY5cHpsT0NTQnc4d05ud0FKTmdUM2ZXaU5C?=
+ =?utf-8?B?c0p4NU5VL3R5Y3JZZENlR2Q2QjBheXhuWmpoSHJNdnR5eVg4eElWZVQvamZZ?=
+ =?utf-8?B?anhJcTVnTW1rT1JXVzFRZnlFVWl0S25tekhxdGpPN0JyWFVIeUQ3bDk3L2pG?=
+ =?utf-8?B?Q2ROMFRUSEN5Ty9VQXZWOHJNc1RNc09jU2Q5aFJPdnNoT0N6eGJoOW1HZXg5?=
+ =?utf-8?B?MXllbzlqNElSRUdLU3lRZWxmRTY3b3NCOFpmTlhpWVZ5dDZpL2pOMTRLck5k?=
+ =?utf-8?B?L3FPNHBtTE5TRzZSTTlKWW9OcXpCSXFraGR5N3BEODVyQnovZXVYamtQc05t?=
+ =?utf-8?B?Yk1DQ1VyZ0s4LzV5M2prMmFKODJsaXBwN2k4TDMrR1hpc2h4dngrUFhFbkd5?=
+ =?utf-8?B?UTJ1NldUYjluM1FkVnpvLzN5a1I5b1NLM3ZWRlB6Q0xYSG9mbmdwdno3Y1ps?=
+ =?utf-8?B?eTE3SUZlaEt0bEFxSHBMTVdjcDRoS3Y0MDdCU1Y5dGJRR0Z2R3ovV05NWG04?=
+ =?utf-8?B?VDdEQXRtcnhXS2RmYW9DVFk0ZWdZdm55Zm11emUxZ3R6WEQ4akZUTUhkN3J1?=
+ =?utf-8?B?eG5VTHd6dSsrdEttb0k5aDc4VFYwQmpMZUlNekpwR001d2V3NzNzYkdIdmlF?=
+ =?utf-8?B?YW4zeDRBZVdJanBHVlJwWG5ZT1lKcnlScTlBRTNzd3NMQUVzREswdllCeXlp?=
+ =?utf-8?B?SXEzdW5pbGFCZ2hrR1VjdzNIbE44NXlTVHgwc0RDNmU3RTFWdkZJMms1M1JM?=
+ =?utf-8?B?UUduNnF1VTV5YWRYOE5Yc2lsYWs5ajE3ck1mWU95VDFaa0dpV05nS0drbjlF?=
+ =?utf-8?B?WjRRUE0zTjJoNy9GSzNtaE50WE4xTE9STDloaUlmNy9HbG1IeU9WTkpCSk0z?=
+ =?utf-8?B?UHpSSDlxRFQ0Uy8xaCtuT2VudnBnbGZFMndtZnRwR09lVzBvU2d5VVRwZys1?=
+ =?utf-8?B?SXZrQlFCOGJjUDFuYnJ6eVpwbWtmV1hqeHY1cDJnVHpiZGlFcUwrcE9QaVpL?=
+ =?utf-8?B?ZHF0c25acTFWSnJjVW55UWN1Ky9VenVKdHVJOU43MGliU0hlaFp6dkh6SmlV?=
+ =?utf-8?B?aFA5M3loK2dldUNvTzM0RDlyem1VS1MrZUdTWXppS3ErSHA2UVNXcXdHRUx5?=
+ =?utf-8?B?akUwM0hWMVozQjVrVWFKdHQ3R2ZpbzNVOXE4eVdHTy9tbHZnUytqWWZLbUho?=
+ =?utf-8?B?MmYyYm1pZ1JyWi9GWUIreFczaUthSzJKZFlxcjNaVXhBclNjWEFMcGZVYkVN?=
+ =?utf-8?B?a2ZqVjBGVWMvTDVXSGpkUHJBZHBaR1dJZVFNd0VwNWRJRlRieWlqTE92QkNZ?=
+ =?utf-8?B?WmhkeFJqVGV6ckp2clNCMFpjSnFidTRLZjJXQ0RjUzRabTNldVloQ3BBR1po?=
+ =?utf-8?B?RnFPQStCVE9CNEpZMHZSVXJ1WWU4bEp1SXU5ak1LZHp4cWNtVGQvdzhZWHlC?=
+ =?utf-8?B?aHlXMWZZN0pROE8wN2JJSmtYRXlYaWM2eVhwbkZBNUV6ekEwOUFYbXQrSUZr?=
+ =?utf-8?Q?0aqV07IpK1c5BW6JA3VCyLfr6?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 25cffa51-7651-4648-5fb6-08dc035b7fab
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4123.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Dec 2023 02:04:30.8806
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ oANxEhy5mzphvo3CzW2JYb79VXXcnyQ73c1PP7XtULgLkCjN7SZBZKnlBTKtzYhSuCCXKqeLQeIZSeDAx9myXg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8642
+Message-ID-Hash: ZDD3NSITURWFXDHXLJI6K735YF24N4XB
+X-Message-ID-Hash: ZDD3NSITURWFXDHXLJI6K735YF24N4XB
+X-MailFrom: Vijendar.Mukunda@amd.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -106,7 +168,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2XTNERJJ6RVNCKKWKEVHZQZYNPAIDI3M/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZDD3NSITURWFXDHXLJI6K735YF24N4XB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,52 +177,27 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The .remove() callback for a platform driver returns an int which makes
-many driver authors wrongly assume it's possible to do error handling by
-returning an error code. However the value returned is ignored (apart
-from emitting a warning) and this typically results in resource leaks.
+On 22/12/23 21:15, Vinod Koul wrote:
+> On 22-12-23, 16:04, Mukunda,Vijendar wrote:
+>> On 22/12/23 14:51, Vinod Koul wrote:
+>>> On 22-12-23, 12:45, Mukunda,Vijendar wrote:
+>>>> On 21/12/23 22:08, Vinod Koul wrote:
+>>>>> so the code is copied from a GPL declared file to now and GPL + BSD one!
+>>>>> Have you had lawyers look into this... why change one file license ?
+>>>> As per recommendations from our legal team, we have updated the license as dual
+>>>> one for amd_init.c file.
+>>>> We have also observed that license terms should be updated for other files as
+>>>> well (amd_manager.c, amd_manager.h & sdw_amd.h) as dual one, which we have
+>>>> planned to submit as a supplement patch.
+>>> Lets change that first before we move code from one license file to
+>>> another
+>> Will push the license update patch first.
+>>> Btw why would you want to do the change of license form GPL to dual?
+>> As this code being used by AMD SOF stack which uses dual license,
+>> So we want to maintain the same license terms.
+> SOF is firmware, do you share this kernel code with sofproject, that
+> doesnt make sense to me, maybe I am missing something
+We meant to say this code being used by AMD sof driver stack
+(sound/soc/sof/amd) which has dual license.
 
-To improve here there is a quest to make the remove callback return
-void. In the first step of this quest all drivers are converted to
-.remove_new(), which already returns void. Eventually after all drivers
-are converted, .remove_new() will be renamed to .remove().
-
-Trivially convert this driver from always returning zero in the remove
-callback to the void returning variant.
-
-Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
----
- drivers/irqchip/irq-madera.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/irqchip/irq-madera.c b/drivers/irqchip/irq-madera.c
-index 3eb1f8cdf674..b424c0a327f7 100644
---- a/drivers/irqchip/irq-madera.c
-+++ b/drivers/irqchip/irq-madera.c
-@@ -222,7 +222,7 @@ static int madera_irq_probe(struct platform_device *pdev)
- 	return 0;
- }
- 
--static int madera_irq_remove(struct platform_device *pdev)
-+static void madera_irq_remove(struct platform_device *pdev)
- {
- 	struct madera *madera = dev_get_drvdata(pdev->dev.parent);
- 
-@@ -232,13 +232,11 @@ static int madera_irq_remove(struct platform_device *pdev)
- 	 */
- 	madera->irq_dev = NULL;
- 	regmap_del_irq_chip(madera->irq, madera->irq_data);
--
--	return 0;
- }
- 
- static struct platform_driver madera_irq_driver = {
- 	.probe	= &madera_irq_probe,
--	.remove = &madera_irq_remove,
-+	.remove_new = madera_irq_remove,
- 	.driver = {
- 		.name	= "madera-irq",
- 		.pm	= &madera_irq_pm_ops,
--- 
-2.42.0
 

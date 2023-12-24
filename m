@@ -2,74 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 490E081DC1F
-	for <lists+alsa-devel@lfdr.de>; Sun, 24 Dec 2023 20:31:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A138681DC20
+	for <lists+alsa-devel@lfdr.de>; Sun, 24 Dec 2023 20:31:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D15C2EA1;
-	Sun, 24 Dec 2023 20:30:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D15C2EA1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3A146E7F;
+	Sun, 24 Dec 2023 20:31:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3A146E7F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1703446260;
-	bh=sm1marMdAu021M5/t7M9aqFIkf5fLIdmsWLdJVEejEE=;
+	s=default; t=1703446276;
+	bh=qqMSLPksOosY7hz6ylmI0nSjy9lcyXy8vXUTPbiT++U=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=vGhk1pzBVnpFpWPQlHPxI3wyR22/ZZNah/TrYtXFcHMILlbh4HWQ62uM8tbeHV188
-	 ygp9ZSHYPAraHpD8KNeO8ZESjkp+CYtDTm+sAQvvKHSYTnHnKqxcWbSbS4p6SbUFI2
-	 0PHlUQpG526khna8QkYn28ED0yHafhVSU15E5L3I=
+	b=bMkbFQAlc5KjEF4tbewKb+kfuqHH1qwbzN7uBGP+xI/EFd4hnQvvim8u/mC0k4aLH
+	 nc3KfXp5HkVaBkQP4jX3CqeCJjQvkEgdADg188PLj6R5mLeKaBiyX2ukRyopcCL5b0
+	 q9WrH907P6wbgqLxM3ICqe4/85TYifugpPCJepx8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DAF4AF805BD; Sun, 24 Dec 2023 20:30:25 +0100 (CET)
+	id 05147F805E4; Sun, 24 Dec 2023 20:30:39 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2555DF805B5;
-	Sun, 24 Dec 2023 20:30:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 67C16F805A1;
+	Sun, 24 Dec 2023 20:30:38 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AA49FF80589; Sun, 24 Dec 2023 20:30:20 +0100 (CET)
+	id 74323F805D3; Sun, 24 Dec 2023 20:30:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=unavailable autolearn_force=no version=3.4.6
 Received: from m.b4.vu (m.b4.vu [203.16.231.148])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A2E0EF80537
-	for <alsa-devel@alsa-project.org>; Sun, 24 Dec 2023 20:29:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2E0EF80537
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0E0E6F8015B
+	for <alsa-devel@alsa-project.org>; Sun, 24 Dec 2023 20:29:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E0E6F8015B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=b4.vu header.i=@b4.vu header.a=rsa-sha256 header.s=m1
- header.b=eRmUCfTF
+ header.b=POx7HiuA
 Received: by m.b4.vu (Postfix, from userid 1000)
-	id 9E2E0604B9CB; Mon, 25 Dec 2023 05:59:14 +1030 (ACDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 m.b4.vu 9E2E0604B9CB
+	id 23645604B9CB; Mon, 25 Dec 2023 05:59:26 +1030 (ACDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 m.b4.vu 23645604B9CB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=b4.vu; s=m1;
-	t=1703446154; bh=AOH0L5pnCAa8PxWf1PuI2dpJVX3q5VQRkjTAe5+4AnE=;
+	t=1703446166; bh=uTs3ihStZMMCJ2YFywuDKABp6F9xZHmw0jxxTY1iht8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=eRmUCfTFv28QU4DKB7WBg8TyfSSGlFHSQEFa+VUZQtmpm3+qUt+U2XawiRvv3R/Cc
-	 p5ResCpj1B5BJLScLzmOz7T8APF1NnhIEhF8ctvWO9PJBr+BXxbCP0Cui3/iI0HMIl
-	 mkMUY0jUND6lvy7SM5fE0nSqw44TxAIgIenWMrLEtWUKn8UR6h3WpUn5HruD2dCHZA
-	 tpouHX0f4skv8AUe6OroItLFRQ1KbWh7Uh+XSJEMIP1BitTeoeepl4qXyxP9GpP/v7
-	 W8qJufwfHgsy+kw9UxFLr+VoSJyELugvQ5jRRSgmj+8CDG7rSLVZ5gx7vhspRnnurM
-	 kULVmb4CdTWgA==
-Date: Mon, 25 Dec 2023 05:59:14 +1030
+	b=POx7HiuANHmIwooO5y+IDgC/15gZPq3IaoJrzAgiguqiPx0BntN//nLSEbEhsRJrr
+	 PhCNt50XUJAOd7NEJgRMZA2NznD69yjqqseSX0x7v3i14MUD5iCNKMW/X8sf/v6h+o
+	 Bm+g9MKDqU/U0JjYuNVPl1SMyMb3Z2AERu0Is3Q+jm+I/UPPGShvCSDk/RSZhUJOr8
+	 yeelQh86EN+rgp0jumoJNtdYJ2oAtXuDR9+A7dbXbw/YouCCwuXU6dIDkaEw8fmwLX
+	 7zz1NyAaHiDtAstiItEAfu776hpeZR7U2OUas9rbXAqn6i/qONIOhyJHluxpYB4Oy/
+	 YrTG88JMjRhJQ==
+Date: Mon, 25 Dec 2023 05:59:26 +1030
 From: "Geoffrey D. Bennett" <g@b4.vu>
 To: Takashi Iwai <tiwai@suse.de>
 Cc: Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
 	linux-sound@vger.kernel.org
-Subject: [PATCH 16/23] ALSA: scarlett2: Split dim_mute_update from vol_updated
-Message-ID: <bf63f48bcc68ae739bd9948c8ee2f87ee7af22a2.1703444932.git.g@b4.vu>
+Subject: [PATCH 17/23] ALSA: scarlett2: Remove line_out_hw_vol device info
+ entry
+Message-ID: <307c4f8d6d2e034f3e386b51d72a39d77c8a9fce.1703444932.git.g@b4.vu>
 References: <cover.1703444932.git.g@b4.vu>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 In-Reply-To: <cover.1703444932.git.g@b4.vu>
-Message-ID-Hash: UDMX4FK4X7O326L2WZRSNUAWAXEZCSW6
-X-Message-ID-Hash: UDMX4FK4X7O326L2WZRSNUAWAXEZCSW6
+Message-ID-Hash: GVGA4MC5J7MTAQ77UG2RFITK76WCFVCX
+X-Message-ID-Hash: GVGA4MC5J7MTAQ77UG2RFITK76WCFVCX
 X-MailFrom: g@b4.vu
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -82,7 +83,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UDMX4FK4X7O326L2WZRSNUAWAXEZCSW6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GVGA4MC5J7MTAQ77UG2RFITK76WCFVCX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -91,143 +92,327 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Scarlett Gen 2 and Gen 3 devices combine volume and dim/mute
-notifications. The Scarlett 4i4 Gen 4 has volume change notification
-but no dim/mute control so split dim_mute_update out from vol_update.
+By splitting config set gen2 into gen2a/b (for 6i6/18i8 vs 18i20), and
+gen3b into gen3b/c (for 4i4/8i6 vs 18i8/18i20), we can use
+scarlett2_has_config_item() instead of the per-device line_out_hw_vol.
+
+As Gen 4 has a master volume control but no SW/HW switches, check for
+both SCARLETT2_CONFIG_MASTER_VOLUME and SCARLETT2_CONFIG_SW_HW_SWITCH
+as needed, even though for Gen 2 and Gen 3 the former implies the
+latter.
 
 Signed-off-by: Geoffrey D. Bennett <g@b4.vu>
 ---
- sound/usb/mixer_scarlett2.c | 63 ++++++++++++++++++++++++-------------
- 1 file changed, 42 insertions(+), 21 deletions(-)
+ sound/usb/mixer_scarlett2.c | 145 ++++++++++++++++++++++++------------
+ 1 file changed, 96 insertions(+), 49 deletions(-)
 
 diff --git a/sound/usb/mixer_scarlett2.c b/sound/usb/mixer_scarlett2.c
-index b3f76476ce52..1393b7da436d 100644
+index 1393b7da436d..e8a93fd339f7 100644
 --- a/sound/usb/mixer_scarlett2.c
 +++ b/sound/usb/mixer_scarlett2.c
-@@ -628,6 +628,7 @@ struct scarlett2_data {
- 	u16 scarlett2_seq;
- 	u8 sync_updated;
- 	u8 vol_updated;
-+	u8 dim_mute_updated;
- 	u8 input_other_updated;
- 	u8 monitor_other_updated;
- 	u8 mux_updated;
-@@ -2222,7 +2223,6 @@ static int scarlett2_update_volumes(struct usb_mixer_interface *mixer)
- 	const struct scarlett2_device_info *info = private->info;
+@@ -321,8 +321,31 @@ struct scarlett2_config_set {
+ 	const struct scarlett2_config items[SCARLETT2_CONFIG_COUNT];
+ };
+ 
+-/* Gen 2 devices: 6i6, 18i8, 18i20 */
+-static const struct scarlett2_config_set scarlett2_config_set_gen2 = {
++/* Gen 2 devices without SW/HW volume switch: 6i6, 18i8 */
++
++static const struct scarlett2_config_set scarlett2_config_set_gen2a = {
++	.notifications = scarlett2_notifications,
++	.items = {
++		[SCARLETT2_CONFIG_LINE_OUT_VOLUME] = {
++			.offset = 0x34, .size = 16, .activate = 1 },
++
++		[SCARLETT2_CONFIG_MUTE_SWITCH] = {
++			.offset = 0x5c, .size = 8, .activate = 1 },
++
++		[SCARLETT2_CONFIG_LEVEL_SWITCH] = {
++			.offset = 0x7c, .size = 8, .activate = 7 },
++
++		[SCARLETT2_CONFIG_PAD_SWITCH] = {
++			.offset = 0x84, .size = 8, .activate = 8 },
++
++		[SCARLETT2_CONFIG_STANDALONE_SWITCH] = {
++			.offset = 0x8d, .size = 8, .activate = 6 },
++	}
++};
++
++/* Gen 2 devices with SW/HW volume switch: 18i20 */
++
++static const struct scarlett2_config_set scarlett2_config_set_gen2b = {
+ 	.notifications = scarlett2_notifications,
+ 	.items = {
+ 		[SCARLETT2_CONFIG_DIM_MUTE] = {
+@@ -375,8 +398,41 @@ static const struct scarlett2_config_set scarlett2_config_set_gen3a = {
+ 	}
+ };
+ 
+-/* Gen 3 devices: 4i4, 8i6, 18i8, 18i20 */
++/* Gen 3 devices without SW/HW volume switch: 4i4, 8i6 */
+ static const struct scarlett2_config_set scarlett2_config_set_gen3b = {
++	.notifications = scarlett2_notifications,
++	.items = {
++		[SCARLETT2_CONFIG_LINE_OUT_VOLUME] = {
++			.offset = 0x34, .size = 16, .activate = 1 },
++
++		[SCARLETT2_CONFIG_MUTE_SWITCH] = {
++			.offset = 0x5c, .size = 8, .activate = 1 },
++
++		[SCARLETT2_CONFIG_LEVEL_SWITCH] = {
++			.offset = 0x7c, .size = 8, .activate = 7 },
++
++		[SCARLETT2_CONFIG_PAD_SWITCH] = {
++			.offset = 0x84, .size = 8, .activate = 8 },
++
++		[SCARLETT2_CONFIG_AIR_SWITCH] = {
++			.offset = 0x8c, .size = 8, .activate = 8 },
++
++		[SCARLETT2_CONFIG_STANDALONE_SWITCH] = {
++			.offset = 0x95, .size = 8, .activate = 6 },
++
++		[SCARLETT2_CONFIG_PHANTOM_SWITCH] = {
++			.offset = 0x9c, .size = 1, .activate = 8 },
++
++		[SCARLETT2_CONFIG_MSD_SWITCH] = {
++			.offset = 0x9d, .size = 8, .activate = 6 },
++
++		[SCARLETT2_CONFIG_PHANTOM_PERSISTENCE] = {
++			.offset = 0x9e, .size = 8, .activate = 6 },
++	}
++};
++
++/* Gen 3 devices with SW/HW volume switch: 18i8, 18i20 */
++static const struct scarlett2_config_set scarlett2_config_set_gen3c = {
+ 	.notifications = scarlett2_notifications,
+ 	.items = {
+ 		[SCARLETT2_CONFIG_DIM_MUTE] = {
+@@ -540,9 +596,6 @@ struct scarlett2_device_info {
+ 	/* which set of configuration parameters the device uses */
+ 	const struct scarlett2_config_set *config_set;
+ 
+-	/* line out hw volume is sw controlled */
+-	u8 line_out_hw_vol;
+-
+ 	/* support for main/alt speaker switching */
+ 	u8 has_speaker_switching;
+ 
+@@ -672,7 +725,7 @@ struct scarlett2_data {
+ /*** Model-specific data ***/
+ 
+ static const struct scarlett2_device_info s6i6_gen2_info = {
+-	.config_set = &scarlett2_config_set_gen2,
++	.config_set = &scarlett2_config_set_gen2a,
+ 	.level_input_count = 2,
+ 	.pad_input_count = 2,
+ 
+@@ -722,7 +775,7 @@ static const struct scarlett2_device_info s6i6_gen2_info = {
+ };
+ 
+ static const struct scarlett2_device_info s18i8_gen2_info = {
+-	.config_set = &scarlett2_config_set_gen2,
++	.config_set = &scarlett2_config_set_gen2a,
+ 	.level_input_count = 2,
+ 	.pad_input_count = 4,
+ 
+@@ -775,8 +828,7 @@ static const struct scarlett2_device_info s18i8_gen2_info = {
+ };
+ 
+ static const struct scarlett2_device_info s18i20_gen2_info = {
+-	.config_set = &scarlett2_config_set_gen2,
+-	.line_out_hw_vol = 1,
++	.config_set = &scarlett2_config_set_gen2b,
+ 
+ 	.line_out_descrs = {
+ 		"Monitor L",
+@@ -959,8 +1011,7 @@ static const struct scarlett2_device_info s8i6_gen3_info = {
+ };
+ 
+ static const struct scarlett2_device_info s18i8_gen3_info = {
+-	.config_set = &scarlett2_config_set_gen3b,
+-	.line_out_hw_vol = 1,
++	.config_set = &scarlett2_config_set_gen3c,
+ 	.has_speaker_switching = 1,
+ 	.level_input_count = 2,
+ 	.pad_input_count = 4,
+@@ -1039,8 +1090,7 @@ static const struct scarlett2_device_info s18i8_gen3_info = {
+ };
+ 
+ static const struct scarlett2_device_info s18i20_gen3_info = {
+-	.config_set = &scarlett2_config_set_gen3b,
+-	.line_out_hw_vol = 1,
++	.config_set = &scarlett2_config_set_gen3c,
+ 	.has_speaker_switching = 1,
+ 	.has_talkback = 1,
+ 	.level_input_count = 2,
+@@ -1111,7 +1161,6 @@ static const struct scarlett2_device_info s18i20_gen3_info = {
+ 
+ static const struct scarlett2_device_info clarett_2pre_info = {
+ 	.config_set = &scarlett2_config_set_clarett,
+-	.line_out_hw_vol = 1,
+ 	.level_input_count = 2,
+ 	.air_input_count = 2,
+ 
+@@ -1159,7 +1208,6 @@ static const struct scarlett2_device_info clarett_2pre_info = {
+ 
+ static const struct scarlett2_device_info clarett_4pre_info = {
+ 	.config_set = &scarlett2_config_set_clarett,
+-	.line_out_hw_vol = 1,
+ 	.level_input_count = 2,
+ 	.air_input_count = 4,
+ 
+@@ -1212,7 +1260,6 @@ static const struct scarlett2_device_info clarett_4pre_info = {
+ 
+ static const struct scarlett2_device_info clarett_8pre_info = {
+ 	.config_set = &scarlett2_config_set_clarett,
+-	.line_out_hw_vol = 1,
+ 	.level_input_count = 2,
+ 	.air_input_count = 8,
+ 
+@@ -2220,27 +2267,28 @@ static int scarlett2_add_sync_ctl(struct usb_mixer_interface *mixer)
+ static int scarlett2_update_volumes(struct usb_mixer_interface *mixer)
+ {
+ 	struct scarlett2_data *private = mixer->private_data;
+-	const struct scarlett2_device_info *info = private->info;
  	s16 vol;
  	int err, i;
--	int mute;
  
  	private->vol_updated = 0;
  
-@@ -2238,22 +2238,9 @@ static int scarlett2_update_volumes(struct usb_mixer_interface *mixer)
- 	private->master_vol = clamp(vol + SCARLETT2_VOLUME_BIAS,
- 				    0, SCARLETT2_VOLUME_BIAS);
- 
+-	if (!info->line_out_hw_vol)
+-		return 0;
+-
 -	err = scarlett2_usb_get_config(
--		mixer, SCARLETT2_CONFIG_DIM_MUTE,
--		SCARLETT2_DIM_MUTE_COUNT, private->dim_mute);
+-		mixer, SCARLETT2_CONFIG_MASTER_VOLUME,
+-		1, &vol);
 -	if (err < 0)
 -		return err;
--
--	for (i = 0; i < SCARLETT2_DIM_MUTE_COUNT; i++)
--		private->dim_mute[i] = !!private->dim_mute[i];
--
--	mute = private->dim_mute[SCARLETT2_BUTTON_MUTE];
--
- 	for (i = 0; i < private->num_line_out; i++)
--		if (private->vol_sw_hw_switch[i]) {
-+		if (private->vol_sw_hw_switch[i])
- 			private->vol[i] = private->master_vol;
--			private->mute_switch[i] = mute;
--		}
++	if (scarlett2_has_config_item(private,
++				      SCARLETT2_CONFIG_MASTER_VOLUME)) {
++		err = scarlett2_usb_get_config(
++			mixer, SCARLETT2_CONFIG_MASTER_VOLUME,
++			1, &vol);
++		if (err < 0)
++			return err;
+ 
+-	private->master_vol = clamp(vol + SCARLETT2_VOLUME_BIAS,
+-				    0, SCARLETT2_VOLUME_BIAS);
++		private->master_vol = clamp(vol + SCARLETT2_VOLUME_BIAS,
++					    0, SCARLETT2_VOLUME_BIAS);
+ 
+-	for (i = 0; i < private->num_line_out; i++)
+-		if (private->vol_sw_hw_switch[i])
+-			private->vol[i] = private->master_vol;
++		if (scarlett2_has_config_item(private,
++					      SCARLETT2_CONFIG_SW_HW_SWITCH))
++			for (i = 0; i < private->num_line_out; i++)
++				if (private->vol_sw_hw_switch[i])
++					private->vol[i] = private->master_vol;
++	}
  
  	return 0;
  }
-@@ -2401,6 +2388,36 @@ static const struct snd_kcontrol_new scarlett2_line_out_volume_ctl = {
- 
- /*** Mute Switch Controls ***/
- 
-+static int scarlett2_update_dim_mute(struct usb_mixer_interface *mixer)
-+{
-+	struct scarlett2_data *private = mixer->private_data;
-+	const struct scarlett2_device_info *info = private->info;
-+	int err, i;
-+	u8 mute;
-+
-+	private->dim_mute_updated = 0;
-+
-+	if (!info->line_out_hw_vol)
-+		return 0;
-+
-+	err = scarlett2_usb_get_config(
-+		mixer, SCARLETT2_CONFIG_DIM_MUTE,
-+		SCARLETT2_DIM_MUTE_COUNT, private->dim_mute);
-+	if (err < 0)
-+		return err;
-+
-+	for (i = 0; i < SCARLETT2_DIM_MUTE_COUNT; i++)
-+		private->dim_mute[i] = !!private->dim_mute[i];
-+
-+	mute = private->dim_mute[SCARLETT2_BUTTON_MUTE];
-+
-+	for (i = 0; i < private->num_line_out; i++)
-+		if (private->vol_sw_hw_switch[i])
-+			private->mute_switch[i] = mute;
-+
-+	return 0;
-+}
-+
- static int scarlett2_mute_ctl_get(struct snd_kcontrol *kctl,
- 					struct snd_ctl_elem_value *ucontrol)
+@@ -2391,13 +2439,12 @@ static const struct snd_kcontrol_new scarlett2_line_out_volume_ctl = {
+ static int scarlett2_update_dim_mute(struct usb_mixer_interface *mixer)
  {
-@@ -2417,8 +2434,8 @@ static int scarlett2_mute_ctl_get(struct snd_kcontrol *kctl,
- 		goto unlock;
- 	}
+ 	struct scarlett2_data *private = mixer->private_data;
+-	const struct scarlett2_device_info *info = private->info;
+ 	int err, i;
+ 	u8 mute;
  
--	if (private->vol_updated) {
--		err = scarlett2_update_volumes(mixer);
-+	if (private->dim_mute_updated) {
-+		err = scarlett2_update_dim_mute(mixer);
+ 	private->dim_mute_updated = 0;
+ 
+-	if (!info->line_out_hw_vol)
++	if (!scarlett2_has_config_item(private, SCARLETT2_CONFIG_SW_HW_SWITCH))
+ 		return 0;
+ 
+ 	err = scarlett2_usb_get_config(
+@@ -3669,7 +3716,8 @@ static int scarlett2_add_line_out_ctls(struct usb_mixer_interface *mixer)
+ 	char s[SNDRV_CTL_ELEM_ID_NAME_MAXLEN];
+ 
+ 	/* Add R/O HW volume control */
+-	if (info->line_out_hw_vol) {
++	if (scarlett2_has_config_item(private,
++				      SCARLETT2_CONFIG_MASTER_VOLUME)) {
+ 		snprintf(s, sizeof(s), "Master HW Playback Volume");
+ 		err = scarlett2_add_new_ctl(mixer,
+ 					    &scarlett2_master_volume_ctl,
+@@ -3708,14 +3756,16 @@ static int scarlett2_add_line_out_ctls(struct usb_mixer_interface *mixer)
  		if (err < 0)
- 			goto unlock;
- 	}
-@@ -3575,8 +3592,8 @@ static int scarlett2_dim_mute_ctl_get(struct snd_kcontrol *kctl,
- 		goto unlock;
- 	}
+ 			return err;
  
--	if (private->vol_updated) {
--		err = scarlett2_update_volumes(mixer);
-+	if (private->dim_mute_updated) {
-+		err = scarlett2_update_dim_mute(mixer);
- 		if (err < 0)
- 			goto unlock;
- 	}
-@@ -4582,6 +4599,10 @@ static int scarlett2_read_configs(struct usb_mixer_interface *mixer)
- 	if (err < 0)
- 		return err;
- 
-+	err = scarlett2_update_dim_mute(mixer);
-+	if (err < 0)
-+		return err;
+-		/* Make the fader and mute controls read-only if the
+-		 * SW/HW switch is set to HW
+-		 */
+-		if (private->vol_sw_hw_switch[index])
+-			scarlett2_vol_ctl_set_writable(mixer, i, 0);
+-
+ 		/* SW/HW Switch */
+-		if (info->line_out_hw_vol) {
++		if (scarlett2_has_config_item(private,
++					      SCARLETT2_CONFIG_SW_HW_SWITCH)) {
 +
- 	for (i = 0; i < private->num_mix_out; i++) {
- 		err = scarlett2_usb_get_mix(mixer, i);
- 		if (err < 0)
-@@ -4633,11 +4654,11 @@ static void scarlett2_notify_dim_mute(struct usb_mixer_interface *mixer)
- 	const struct scarlett2_device_info *info = private->info;
++			/* Make the fader and mute controls read-only if the
++			 * SW/HW switch is set to HW
++			 */
++			if (private->vol_sw_hw_switch[index])
++				scarlett2_vol_ctl_set_writable(mixer, i, 0);
++
+ 			snprintf(s, sizeof(s),
+ 				 "Line Out %02d Volume Control Playback Enum",
+ 				 i + 1);
+@@ -3735,7 +3785,7 @@ static int scarlett2_add_line_out_ctls(struct usb_mixer_interface *mixer)
+ 	}
+ 
+ 	/* Add dim/mute controls */
+-	if (info->line_out_hw_vol)
++	if (scarlett2_has_config_item(private, SCARLETT2_CONFIG_DIM_MUTE))
+ 		for (i = 0; i < SCARLETT2_DIM_MUTE_COUNT; i++) {
+ 			err = scarlett2_add_new_ctl(
+ 				mixer, &scarlett2_dim_mute_ctl,
+@@ -4518,7 +4568,6 @@ static int scarlett2_get_flash_segment_nums(struct usb_mixer_interface *mixer)
+ static int scarlett2_read_configs(struct usb_mixer_interface *mixer)
+ {
+ 	struct scarlett2_data *private = mixer->private_data;
+-	const struct scarlett2_device_info *info = private->info;
+ 	int err, i;
+ 	s16 sw_vol[SCARLETT2_ANALOGUE_MAX];
+ 
+@@ -4583,7 +4632,8 @@ static int scarlett2_read_configs(struct usb_mixer_interface *mixer)
+ 			!!private->mute_switch[i];
+ 
+ 	/* read SW/HW switches */
+-	if (info->line_out_hw_vol) {
++	if (scarlett2_has_config_item(private,
++				      SCARLETT2_CONFIG_SW_HW_SWITCH)) {
+ 		err = scarlett2_usb_get_config(
+ 			mixer, SCARLETT2_CONFIG_SW_HW_SWITCH,
+ 			private->num_line_out, &private->vol_sw_hw_switch);
+@@ -4628,11 +4678,9 @@ static void scarlett2_notify_monitor(struct usb_mixer_interface *mixer)
+ {
+ 	struct snd_card *card = mixer->chip->card;
+ 	struct scarlett2_data *private = mixer->private_data;
+-	const struct scarlett2_device_info *info = private->info;
  	int i;
  
--	private->vol_updated = 1;
--
- 	if (!info->line_out_hw_vol)
+-	/* if line_out_hw_vol is 0, there are no controls to update */
+-	if (!info->line_out_hw_vol)
++	if (!scarlett2_has_config_item(private, SCARLETT2_CONFIG_SW_HW_SWITCH))
  		return;
  
-+	private->dim_mute_updated = 1;
-+
- 	for (i = 0; i < SCARLETT2_DIM_MUTE_COUNT; i++)
- 		snd_ctl_notify(card, SNDRV_CTL_EVENT_MASK_VALUE,
- 			       &private->dim_mute_ctls[i]->id);
+ 	private->vol_updated = 1;
+@@ -4651,10 +4699,9 @@ static void scarlett2_notify_dim_mute(struct usb_mixer_interface *mixer)
+ {
+ 	struct snd_card *card = mixer->chip->card;
+ 	struct scarlett2_data *private = mixer->private_data;
+-	const struct scarlett2_device_info *info = private->info;
+ 	int i;
+ 
+-	if (!info->line_out_hw_vol)
++	if (!scarlett2_has_config_item(private, SCARLETT2_CONFIG_SW_HW_SWITCH))
+ 		return;
+ 
+ 	private->dim_mute_updated = 1;
 -- 
 2.43.0
 

@@ -2,120 +2,121 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5931822216
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Jan 2024 20:35:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B52282221D
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Jan 2024 20:36:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 50FE1EBD;
-	Tue,  2 Jan 2024 20:35:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 50FE1EBD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2604CE9D;
+	Tue,  2 Jan 2024 20:36:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2604CE9D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1704224149;
-	bh=Xt6ZUFAhdugRe+ribp7EMvtbkOelIDWmNfEFHyW5CYk=;
+	s=default; t=1704224182;
+	bh=cj2aQztrLECqQO5ttdMXf+9t9trVbYJkFWCVOYNyDZM=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=SxizW03YX+Rn5NvR7LPwQtHn7mhIRRM4aGg2Lc68nVK9oHVtlwlf0Mq+cuNdLGTVo
-	 SNBUPJfZg74cSPxuvgEkIkGJAoSnTFxTT6BXt3TmQHAAXYk1Pw/oEG0dDWMq4EG21B
-	 iaJwxMmBOqnjkCHadmRc2/e7XyomGeZJl9IYNszI=
+	b=O2w+HK7LKlt6wnJVMTAUGaee9vxkn6TW8YgOiEI+nBadIGe+9mwrZ9AzSSNe0xs6A
+	 4t3CRUoKKfItfRq9LTTe7yeBkkvqLxUyDyb5XymdJ0XO4gYeENfixYqyCmcS7OyfTJ
+	 UufIN3/mTvSoFEVngATs9ugIFdMX8Y18jSXaRgo4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 27DF0F805C1; Tue,  2 Jan 2024 20:35:08 +0100 (CET)
+	id 9896AF80611; Tue,  2 Jan 2024 20:35:14 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DC53FF805AE;
-	Tue,  2 Jan 2024 20:35:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DEA21F80603;
+	Tue,  2 Jan 2024 20:35:13 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 71515F80549; Tue,  2 Jan 2024 20:35:01 +0100 (CET)
+	id 2C59DF80580; Tue,  2 Jan 2024 20:35:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 08C85F80224
+	by alsa1.perex.cz (Postfix) with ESMTPS id DB881F80074
 	for <alsa-devel@alsa-project.org>; Tue,  2 Jan 2024 20:34:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08C85F80224
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DB881F80074
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=bQCLWE58;
+ header.s=susede2_rsa header.b=FRVD7qeQ;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=eSQlK6FV;
+ header.s=susede2_ed25519 header.b=pzTmEvk3;
 	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=bQCLWE58;
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=FRVD7qeQ;
 	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=eSQlK6FV
+ header.s=susede2_ed25519 header.b=pzTmEvk3
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 6B47E1F7BA;
-	Fri, 29 Dec 2023 15:06:55 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 49AFA1FD32;
+	Fri, 29 Dec 2023 15:08:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1703862415;
+	t=1703862534;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=TwSloUaHhIdJaEHD8xijbH/JrSmQwCnnAODCtHCepqc=;
-	b=bQCLWE581EGILzWlD6iMj7RpfgGb0x7CosnhMLfp1StqcdZ3b4SCCG0i2j4osk+pG3bPd3
-	7pt/eIs93abkDK2vFJLxzVkVSJn56EGlRdCuWJ8zgJdvwH9SDCc2CO86xBFIA95f5537zx
-	06AAqwoKVgsD8YBjp9ksKs7Vf+Mzob0=
+	bh=gQgIrfQv5/fxFKI+6NCuWK/yeY8eiMhu8aDJCVlquNU=;
+	b=FRVD7qeQc9e0FTz/o1c//sPPHaQ9Au1+r7j5ZdgBLu3Bv48mPBP9txYJw1oS9K0RgZnl8H
+	tmI7gwZgiP2y9JzkpjMoKSvru1Hvt87OCFZEXU9moTApBtM4S9RFQpaf63yx8ojMJ8U6Xw
+	xkyg2UthlcVUI/kBFBTTB5VSHYj6KK8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1703862415;
+	s=susede2_ed25519; t=1703862534;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=TwSloUaHhIdJaEHD8xijbH/JrSmQwCnnAODCtHCepqc=;
-	b=eSQlK6FV9hI1DmncWhjtTpQk1tYSV4BwUaU7GL7RcF4hKbE372r35Ac6NrYi6oK+Eia/tw
-	9UPz39MlXb6bpMCw==
+	bh=gQgIrfQv5/fxFKI+6NCuWK/yeY8eiMhu8aDJCVlquNU=;
+	b=pzTmEvk3CTYJhU48xxot3jlMWt0WycqjhzcjAFrnKcy4up43mKv4sv04zQJEX6ZgqTz83c
+	7EVP3qTBdziUNRDA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1703862415;
+	t=1703862534;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=TwSloUaHhIdJaEHD8xijbH/JrSmQwCnnAODCtHCepqc=;
-	b=bQCLWE581EGILzWlD6iMj7RpfgGb0x7CosnhMLfp1StqcdZ3b4SCCG0i2j4osk+pG3bPd3
-	7pt/eIs93abkDK2vFJLxzVkVSJn56EGlRdCuWJ8zgJdvwH9SDCc2CO86xBFIA95f5537zx
-	06AAqwoKVgsD8YBjp9ksKs7Vf+Mzob0=
+	bh=gQgIrfQv5/fxFKI+6NCuWK/yeY8eiMhu8aDJCVlquNU=;
+	b=FRVD7qeQc9e0FTz/o1c//sPPHaQ9Au1+r7j5ZdgBLu3Bv48mPBP9txYJw1oS9K0RgZnl8H
+	tmI7gwZgiP2y9JzkpjMoKSvru1Hvt87OCFZEXU9moTApBtM4S9RFQpaf63yx8ojMJ8U6Xw
+	xkyg2UthlcVUI/kBFBTTB5VSHYj6KK8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1703862415;
+	s=susede2_ed25519; t=1703862534;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=TwSloUaHhIdJaEHD8xijbH/JrSmQwCnnAODCtHCepqc=;
-	b=eSQlK6FV9hI1DmncWhjtTpQk1tYSV4BwUaU7GL7RcF4hKbE372r35Ac6NrYi6oK+Eia/tw
-	9UPz39MlXb6bpMCw==
+	bh=gQgIrfQv5/fxFKI+6NCuWK/yeY8eiMhu8aDJCVlquNU=;
+	b=pzTmEvk3CTYJhU48xxot3jlMWt0WycqjhzcjAFrnKcy4up43mKv4sv04zQJEX6ZgqTz83c
+	7EVP3qTBdziUNRDA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 36D6B133E5;
-	Fri, 29 Dec 2023 15:06:55 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 13078133E5;
+	Fri, 29 Dec 2023 15:08:54 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([10.150.64.162])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id QoXmC4/gjmU6AgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Fri, 29 Dec 2023 15:06:55 +0000
-Date: Fri, 29 Dec 2023 16:06:54 +0100
-Message-ID: <87edf5xd2p.wl-tiwai@suse.de>
+	id FgYiAwbhjmWTAgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Fri, 29 Dec 2023 15:08:54 +0000
+Date: Fri, 29 Dec 2023 16:08:53 +0100
+Message-ID: <87cyupxcze.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: "Geoffrey D. Bennett" <g@b4.vu>
-Cc: Takashi Iwai <tiwai@suse.com>,
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
 	alsa-devel@alsa-project.org,
 	linux-sound@vger.kernel.org
-Subject: Re: [PATCH 00/20] ALSA: scarlett2: Add support for Scarlett 4th Gen
-In-Reply-To: <cover.1703612638.git.g@b4.vu>
-References: <cover.1703612638.git.g@b4.vu>
+Subject: Re: [PATCH 00/11] ALSA: scarlett2: Firmware Upgrade and Error
+ Handling Improvements
+In-Reply-To: <cover.1703001053.git.g@b4.vu>
+References: <cover.1703001053.git.g@b4.vu>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
@@ -123,10 +124,10 @@ X-Spamd-Result: default: False [-2.10 / 50.00];
 	 ARC_NA(0.00)[];
 	 RCVD_VIA_SMTP_AUTH(0.00)[];
 	 FROM_HAS_DN(0.00)[];
-	 RCPT_COUNT_THREE(0.00)[4];
 	 TO_DN_SOME(0.00)[];
 	 TO_MATCH_ENVRCPT_ALL(0.00)[];
 	 MIME_GOOD(-0.10)[text/plain];
+	 RCPT_COUNT_FIVE(0.00)[5];
 	 RCVD_COUNT_THREE(0.00)[3];
 	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
 	 MID_CONTAINS_FROM(1.00)[];
@@ -137,8 +138,8 @@ X-Spamd-Result: default: False [-2.10 / 50.00];
 	 BAYES_HAM(-3.00)[100.00%]
 Authentication-Results: smtp-out2.suse.de;
 	none
-Message-ID-Hash: PYOLGD32YVSAIHUOPWTYDE75R4EPNWDE
-X-Message-ID-Hash: PYOLGD32YVSAIHUOPWTYDE75R4EPNWDE
+Message-ID-Hash: JN7Q2JX3R74DIA3ZFF73FDZTVE4HR3IC
+X-Message-ID-Hash: JN7Q2JX3R74DIA3ZFF73FDZTVE4HR3IC
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -151,7 +152,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PYOLGD32YVSAIHUOPWTYDE75R4EPNWDE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JN7Q2JX3R74DIA3ZFF73FDZTVE4HR3IC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -160,64 +161,100 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 26 Dec 2023 19:05:43 +0100,
+On Tue, 19 Dec 2023 18:36:04 +0100,
 Geoffrey D. Bennett wrote:
 > 
 > Hi Takashi,
 > 
-> This patch series adds support for the Focusrite Scarlett 4th Gen
-> interfaces. It builds on top of the two previous patch series I sent:
+> 11 patches to improve error handling and add firmware upgrade support
+> to the scarlett2 driver. The notes below incorporate your feedback &
+> include answers to your questions in response to my previous RFC v2
+> email.
 > 
-> - https://lore.kernel.org/linux-sound/cover.1703001053.git.g@b4.vu/
->   ("ALSA: scarlett2: Firmware Upgrade and Error Handling Improvements")
+> Patch 1 adds GitHub links for the repo where I share this code before
+> submission here, and for issue reporting.
 > 
-> - https://lore.kernel.org/linux-sound/cover.1703444932.git.g@b4.vu/
->   ("ALSA: scarlett2: Refactor in preparation for gen4")
+> Patches 2-5 add missing error/bounds checks.
 > 
-> I already sent patch #1 in this series below separately:
-> https://lore.kernel.org/linux-sound/ZYsBIE3DSKdi4YC%2F@m.b4.vu/
-> as it should go in to 6.7. I wasn't sure if I should include it again
-> here or not; sorry if I guessed wrong.
+> Patch 6 adds a missing lock.
 > 
-> Patch #2 is a little cleanup I missed before sending the previous
-> series and would have gone there had I noticed.
+> Patches 7-11 add support for firmware upgrades.
 > 
-> Patches #3-18 add the new controls, etc. needed for the Gen 4 support.
+> The usage of the hwdep interface is as per my previous proposal:
 > 
-> Patch #19 adds the USB IDs and configuration data to enable support
-> for the new interfaces.
+> - ioctl pversion to check the protocol version
+> - ioctl select_flash_segment SCARLETT2_SEGMENT_ID_SETTINGS
+> - ioctl erase_flash_segment
+> - ioctl get_erase_progress (optional)
+> - ioctl select_flash_segment SCARLETT2_SEGMENT_ID_FIRMWARE
+> - ioctl erase_flash_segment
+> - ioctl get_erase_progress (optional)
+> - write() the firmware
+> - ioctl reboot
 > 
-> Patch #20 adds a last-minute new control that is only present on the
-> Solo Gen 4.
+> Notes on the hwdep interface:
 > 
-> Regards,
+> - Conflicting mixer operations are denied with EBUSY.
+> 
+> - The hwdep interface is marked as exclusive so there can't be
+>   conflicting hwdep operations.
+> 
+> - Invalid sequences of operations (e.g. erase before select, write
+>   before erase) return an error.
+> 
+> - The erase operation is asynchronous, and the progress can optionally
+>   be monitored by calling get_erase_progress.
+> 
+> - If the erase progress is not monitored then subsequent hwdep
+>   operations will wait until the erase is complete.
+> 
+> - The write operation is synchronous, but <1KB can be written per
+>   call, and it returns very quickly. On the user-side it looks like
+>   this with error checking omitted:
+> 
+>   while (offset < len)
+>     offset += snd_hwdep_write(hwdep, buf + offset, len - offset);
+> 
+> - By using a subset of the firmware-upgrade steps, other useful
+>   high-level operations can be performed: reset-to-factory-defaults,
+>   reset-to-factory-firmware, or just reboot.
+> 
+> - I considered combining the select and erase operations, but that
+>   would prevent a future read-flash operation if that ever become
+>   possible.
+> 
+> - I considered separate one-shot ioctls for reset-to-factory, etc.,
+>   but that prevents providing progress feedback.
+> 
+> - In case the purpose of the other firmware segments is discovered in
+>   the future, this implementation would be able to support
+>   erase/write/read of them with minimal changes.
+> 
+> Here is a user-space implementation of all of the above:
+> https://github.com/geoffreybennett/scarlett2
+> 
+> This has been tested by me on every supported Scarlett 2nd, 3rd, 4th
+> Gen and Clarett+ device, and tested by a handful of others on their
+> Scarlett 4th Gen devices.
+> 
+> Thanks,
 > Geoffrey.
 > 
-> Geoffrey D. Bennett (20):
->   ALSA: scarlett2: Convert meter levels from little-endian
->   ALSA: scarlett2: Remove repeated elem->head.mixer references
->   ALSA: scarlett2: Add support for air/phantom control on input 2
->   ALSA: scarlett2: Add support for Gen 4 style parameters
->   ALSA: scarlett2: Allow for controls with a "mute mode"
->   ALSA: scarlett2: Add support for Air Presence + Drive option
->   ALSA: scarlett2: Add support for software-controllable input gain
->   ALSA: scarlett2: Minor refactor MSD mode check
->   ALSA: scarlett2: Disable input controls while autogain is running
->   ALSA: scarlett2: Disable autogain during phantom power state change
->   ALSA: scarlett2: Add power status control
->   ALSA: scarlett2: Store mix_ctls for Gen 4 Direct Monitor
->   ALSA: scarlett2: Handle Gen 4 Direct Monitor mix updates
->   ALSA: scarlett2: Add support for custom Gen 4 Direct Monitor mixes
->   ALSA: scarlett2: Add support for DSP mux channels
->   ALSA: scarlett2: Rename DSP mux channels
->   ALSA: scarlett2: Add minimum firmware version check
->   ALSA: scarlett2: Add R/O headphone volume control
->   ALSA: scarlett2: Add support for Solo, 2i2, and 4i4 Gen 4
->   ALSA: scarlett2: Add PCM Input Switch for Solo Gen 4
+> Geoffrey D. Bennett (11):
+>   ALSA: scarlett2: Update maintainer info
+>   ALSA: scarlett2: Add missing error check to scarlett2_config_save()
+>   ALSA: scarlett2: Add missing error check to scarlett2_usb_set_config()
+>   ALSA: scarlett2: Add missing error checks to *_ctl_get()
+>   ALSA: scarlett2: Add clamp() in scarlett2_mixer_ctl_put()
+>   ALSA: scarlett2: Add missing mutex lock around get meter levels
+>   ALSA: scarlett2: Add #defines for firmware upgrade
+>   ALSA: scarlett2: Retrieve useful flash segment numbers
+>   ALSA: scarlett2: Add skeleton hwdep/ioctl interface
+>   ALSA: scarlett2: Add ioctl commands to erase flash segments
+>   ALSA: scarlett2: Add support for uploading new firmware
 
-Now applied to topic/scarlett2 branch (merged to for-next).
-
-The first patch was already taken in for-linus branch for 6.7.
+Now all patches have been merged to topic/scarlett2 branch (merged to
+for-next branch for 6.8).
 
 
 thanks,

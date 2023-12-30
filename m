@@ -2,156 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E618C8221E8
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Jan 2024 20:20:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CDEF8221B1
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Jan 2024 20:03:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 981C5EA2;
-	Tue,  2 Jan 2024 20:20:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 981C5EA2
+	by alsa0.perex.cz (Postfix) with ESMTPS id A9963E99;
+	Tue,  2 Jan 2024 20:03:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A9963E99
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1704223235;
-	bh=x9ZNq+8m5LyQ2HoLwKmU+pzVjBOFJBHnToS+5FwGVCo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1704222212;
+	bh=8Ravzv9YjJ24x/D4R+FvGvMLYujnkbJinbqh1xS4Yls=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=fNiN9kKI2gAqE0BOp7oiTHWxGhC0x673mFN3aPUXe+G9pvDeEm0k9yKWW5N3wNdBI
-	 msRRp7IxLTXZW1RdzzoVyoK/b6RUEr1Q5Zn3s8xLejamsJSVSPPSFdX+bJCvmoDhtf
-	 j8nLORFAztlSSUQ+SSpFIEEF2Mg4oIZOgI/CBQhc=
+	b=pFkXUljuGNnbEYhuDmfXhz/PUu7fXv+yvmzG6rgsNlamQhNWm1qmn2VK69ZuFxrj1
+	 b/+PluYix7pL8k2j9qj2aq1/jl2+YVHHBk6dgwJd8j4JZymKtYgRN3Z+1l6KhL77ON
+	 Oxd06QGTjgs5CtDkAY13MOf6k6nK0298NhhqL+tQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 02ACBF80558; Tue,  2 Jan 2024 20:20:04 +0100 (CET)
+	id B2DA4F805D8; Tue,  2 Jan 2024 20:02:51 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 944C3F8055B;
-	Tue,  2 Jan 2024 20:20:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 91A1AF805C6;
+	Tue,  2 Jan 2024 20:02:50 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 25164F80424; Tue,  2 Jan 2024 20:19:59 +0100 (CET)
+	id 4A5F4F8065A; Tue,  2 Jan 2024 19:59:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from irl.hu (irl.hu [95.85.9.111])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 50ACFF80051
-	for <alsa-devel@alsa-project.org>; Tue,  2 Jan 2024 20:19:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50ACFF80051
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=S/eGzVmA;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=rD9XuYYr;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=S/eGzVmA;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=rD9XuYYr
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id B323821CF2;
-	Fri, 29 Dec 2023 17:11:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1703869904;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tZehKtOidM/ksrl2T81jqfsSZp7GZn6XIl7nNRgrGng=;
-	b=S/eGzVmAA6Ap3PuXn45nqNlTdrP2TIxrszu9GDoIwfM/hIItuegORKSbqkl4g7x9vrZyWg
-	6vojizgLs7Ep0wNvKj6ITcUGUsGovOJGRM+zd3Jlw82s4BlM8BO5vwnJZbvpFYvPFtS2+6
-	YX6Xns0fJC3ftU54pV11SuW8bM5UZls=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1703869904;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tZehKtOidM/ksrl2T81jqfsSZp7GZn6XIl7nNRgrGng=;
-	b=rD9XuYYrGWY+QjCpAVprJTrwz2N7yEqzQxaPnNIWB/zCeDtfIY7h13wWZsT+SjIdzu4hQ2
-	meSBlXwAe3zLE+CQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1703869904;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tZehKtOidM/ksrl2T81jqfsSZp7GZn6XIl7nNRgrGng=;
-	b=S/eGzVmAA6Ap3PuXn45nqNlTdrP2TIxrszu9GDoIwfM/hIItuegORKSbqkl4g7x9vrZyWg
-	6vojizgLs7Ep0wNvKj6ITcUGUsGovOJGRM+zd3Jlw82s4BlM8BO5vwnJZbvpFYvPFtS2+6
-	YX6Xns0fJC3ftU54pV11SuW8bM5UZls=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1703869904;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tZehKtOidM/ksrl2T81jqfsSZp7GZn6XIl7nNRgrGng=;
-	b=rD9XuYYrGWY+QjCpAVprJTrwz2N7yEqzQxaPnNIWB/zCeDtfIY7h13wWZsT+SjIdzu4hQ2
-	meSBlXwAe3zLE+CQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 42738133E5;
-	Fri, 29 Dec 2023 17:11:44 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id MIFiDtD9jmVDFwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Fri, 29 Dec 2023 17:11:44 +0000
-Date: Fri, 29 Dec 2023 18:11:43 +0100
-Message-ID: <874jg1x7ao.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Dominik Brodowski <linux@dominikbrodowski.net>
-Cc: peter.ujfalusi@linux.intel.com,
-	lgirdwood@gmail.com,
-	broonie@kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com,
-	alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org,
-	pierre-louis.bossart@linux.intel.com,
-	kai.vehmanen@linux.intel.com,
-	ranjani.sridharan@linux.intel.com,
-	linux-kernel@vger.kernel.org,
-	regressions@lists.linux.dev
-Subject: Re: Oops in hdac_hda_dev_probe (6.7-rc7)
-In-Reply-To: <ZY7kosArPqhlCfOA@shine.dominikbrodowski.net>
-References: <ZYvUIxtrqBQZbNlC@shine.dominikbrodowski.net>
-	<87sf3lxiet.wl-tiwai@suse.de>
-	<ZY7kosArPqhlCfOA@shine.dominikbrodowski.net>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-2.10 / 50.00];
-	 ARC_NA(0.00)[];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 FROM_HAS_DN(0.00)[];
-	 TO_DN_SOME(0.00)[];
-	 FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 MIME_GOOD(-0.10)[text/plain];
-	 RCVD_COUNT_THREE(0.00)[3];
-	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	 RCPT_COUNT_TWELVE(0.00)[13];
-	 MID_CONTAINS_FROM(1.00)[];
-	 FUZZY_BLOCKED(0.00)[rspamd.com];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+];
-	 FREEMAIL_CC(0.00)[linux.intel.com,gmail.com,kernel.org,perex.cz,suse.com,alsa-project.org,vger.kernel.org,lists.linux.dev];
-	 RCVD_TLS_ALL(0.00)[];
-	 BAYES_HAM(-3.00)[100.00%]
-Authentication-Results: smtp-out1.suse.de;
-	none
-Message-ID-Hash: 33IJVOL667SKZY3UYTZUKCZWBOQXMATR
-X-Message-ID-Hash: 33IJVOL667SKZY3UYTZUKCZWBOQXMATR
-X-MailFrom: tiwai@suse.de
+	by alsa1.perex.cz (Postfix) with UTF8SMTPS id 0C77BF8067B
+	for <alsa-devel@alsa-project.org>; Tue,  2 Jan 2024 19:54:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C77BF8067B
+Received: from fedori.lan (51b6838a.dsl.pool.telekom.hu
+ [::ffff:81.182.131.138])
+  (AUTH: CRAM-MD5 soyer@irl.hu, )
+  by irl.hu with ESMTPSA
+  id 0000000000071EB8.00000000658F5FCE.0014D494;
+ Sat, 30 Dec 2023 01:09:50 +0100
+From: Gergo Koteles <soyer@irl.hu>
+To: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+  Baojun Xu <baojun.xu@ti.com>, Jaroslav Kysela <perex@perex.cz>,
+  Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+  Mark Brown <broonie@kernel.org>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+  alsa-devel@alsa-project.org, Gergo Koteles <soyer@irl.hu>
+Subject: [PATCH v2 0/4] ALSA: hda/tas2781: Add tas2563 support
+Date: Sat, 30 Dec 2023 01:09:41 +0100
+Message-ID: <cover.1703891777.git.soyer@irl.hu>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1701906455.git.soyer@irl.hu>
+References: <cover.1701906455.git.soyer@irl.hu>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+X-Mime-Autoconverted: from 8bit to 7bit by courier 1.0
+Message-ID-Hash: EXKAEBWNVPU7GALGDGGKNXDJ7LFBX32P
+X-Message-ID-Hash: EXKAEBWNVPU7GALGDGGKNXDJ7LFBX32P
+X-MailFrom: soyer@irl.hu
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -163,7 +76,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/33IJVOL667SKZY3UYTZUKCZWBOQXMATR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EXKAEBWNVPU7GALGDGGKNXDJ7LFBX32P/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -172,85 +85,52 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 29 Dec 2023 16:24:18 +0100,
-Dominik Brodowski wrote:
-> 
-> Hi Takashi,
-> 
-> many thanks for your response. Your patch helps half-way: the oops goes
-> away, but so does the sound... With your patch, the decisive lines in dmesg
-> are:
-> 
-> 	sof-audio-pci-intel-tgl 0000:00:1f.3: Firmware info: version 2:2:0-57864
-> 	sof-audio-pci-intel-tgl 0000:00:1f.3: Firmware: ABI 3:22:1 Kernel ABI 3:23:0
-> 	sof_sdw sof_sdw: ASoC: CODEC DAI intel-hdmi-hifi1 not registered
-> 	sof_sdw sof_sdw: snd_soc_register_card failed -517
-> 	sof_sdw sof_sdw: ASoC: CODEC DAI intel-hdmi-hifi1 not registered
-> 	sof_sdw sof_sdw: snd_soc_register_card failed -517
-> 	platform sof_sdw: deferred probe pending
-> 
-> With a revert of the a0575b4add21, it is:
-> 
-> 	sof-audio-pci-intel-tgl 0000:00:1f.3: Firmware info: version 2:2:0-57864
-> 	sof-audio-pci-intel-tgl 0000:00:1f.3: Firmware: ABI 3:22:1 Kernel ABI 3:23:0
-> 	sof-audio-pci-intel-tgl 0000:00:1f.3: Topology: ABI 3:22:1 Kernel ABI 3:23:0
-> 	sof_sdw sof_sdw: ASoC: Parent card not yet available, widget card binding deferred
-> 	sof_sdw sof_sdw: hda_dsp_hdmi_build_controls: no PCM in topology for HDMI converter 3
-> 	input: sof-soundwire HDMI/DP,pcm=5 as /devices/pci0000:00/0000:00:1f.3/sof_sdw/sound/card0/input14
-> 	input: sof-soundwire HDMI/DP,pcm=6 as /devices/pci0000:00/0000:00:1f.3/sof_sdw/sound/card0/input15
-> 	input: sof-soundwire HDMI/DP,pcm=7 as /devices/pci0000:00/0000:00:1f.3/sof_sdw/sound/card0/input16
-> 
-> Maybe this helps a bit further?
+The tas2781-hda driver can be modified to support tas2563 as well.
+Before knowing this information, I created another series for a
+new driver.
+Link: https://lore.kernel.org/lkml/cover.1701733441.git.soyer@irl.hu/
 
-Thanks for quick testing.
-It shows at least that my guess wasn't wrong.
+This series now extends tas2781-hda.
 
-The problem could be the initialization order in the caller side.
-Can the patch below work instead?
+The tas2563 is a smart amplifier. Similar to tas2562 but with DSP. Some
+Lenovo laptops have it to drive the bass speakers. By default, it is in
+software shutdown state.
+
+To make the DSP work it needs a firmware and some calibration data.
+The latter can be read from the EFI in Lenovo laptops.
+
+For the correct configuration it needs additional register data.
+It captured after running the Windows driver.
+
+The firmware can be extracted as TAS2563Firmware.bin from the Windows
+driver with innoextract.
+https://download.lenovo.com/consumer/mobiles/h5yd037fbfyy7kd0.exe
+
+The driver will search for it as TAS2XXX3870.bin with the Lenovo Yoga 7 
+14ARB7.
+
+The captured registers extracted with TI's regtool: 
+https://github.com/soyersoyer/tas2563rca/raw/main/INT8866RCA2.bin
+
+Changes since v1:
+- fixes were sent as individual patches
+- rebased onto for-next
+- adding the missed fixup
+
+Gergo Koteles (4):
+  ALSA: hda/tas2781: add ptrs to calibration functions
+  ALSA: hda/tas2781: add configurable global i2c address
+  ALSA: hda/tas2781: add TAS2563 support for 14ARB7
+  ALSA: hda/tas2781: add fixup for Lenovo 14ARB7
+
+ include/sound/tas2781.h           |   8 +++
+ sound/pci/hda/patch_realtek.c     |  14 ++++
+ sound/pci/hda/tas2781_hda_i2c.c   | 115 ++++++++++++++++++++++++++----
+ sound/soc/codecs/tas2781-comlib.c |  15 ++++
+ 4 files changed, 137 insertions(+), 15 deletions(-)
 
 
-Takashi
+base-commit: 64bf8dec54cfe57f416884a6b3d54c7f4259e93f
+-- 
+2.43.0
 
--- 8< --
---- a/sound/soc/sof/intel/hda-codec.c
-+++ b/sound/soc/sof/intel/hda-codec.c
-@@ -113,7 +113,9 @@ EXPORT_SYMBOL_NS_GPL(hda_codec_jack_check, SND_SOC_SOF_HDA_AUDIO_CODEC);
- #define is_generic_config(x)	0
- #endif
- 
--static struct hda_codec *hda_codec_device_init(struct hdac_bus *bus, int addr, int type)
-+static struct hda_codec *hda_codec_device_init(struct hdac_bus *bus, int addr,
-+					       int type,
-+					       struct hdac_hda_priv *hda_priv)
- {
- 	struct hda_codec *codec;
- 	int ret;
-@@ -126,6 +128,10 @@ static struct hda_codec *hda_codec_device_init(struct hdac_bus *bus, int addr, i
- 
- 	codec->core.type = type;
- 
-+	hda_priv->codec = codec;
-+	hda_priv->dev_index = addr;
-+	dev_set_drvdata(&codec->core.dev, hda_priv);
-+
- 	ret = snd_hdac_device_register(&codec->core);
- 	if (ret) {
- 		dev_err(bus->dev, "failed to register hdac device\n");
-@@ -163,15 +169,12 @@ static int hda_codec_probe(struct snd_sof_dev *sdev, int address)
- 	if (!hda_priv)
- 		return -ENOMEM;
- 
--	codec = hda_codec_device_init(&hbus->core, address, HDA_DEV_LEGACY);
-+	codec = hda_codec_device_init(&hbus->core, address, HDA_DEV_LEGACY,
-+				      hda_priv);
- 	ret = PTR_ERR_OR_ZERO(codec);
- 	if (ret < 0)
- 		return ret;
- 
--	hda_priv->codec = codec;
--	hda_priv->dev_index = address;
--	dev_set_drvdata(&codec->core.dev, hda_priv);
--
- 	if ((resp & 0xFFFF0000) == IDISP_VID_INTEL) {
- 		if (!hbus->core.audio_component) {
- 			dev_dbg(sdev->dev,

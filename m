@@ -2,91 +2,163 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3974F8226C5
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 Jan 2024 03:07:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12FCD82223E
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Jan 2024 20:45:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 36CB6E0D;
-	Wed,  3 Jan 2024 03:07:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 36CB6E0D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5B55E210;
+	Tue,  2 Jan 2024 20:45:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B55E210
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1704247669;
-	bh=IZqRdiCLUY+UhePVJsN7JPh7U6N7t4e8nM0WPFSQvVs=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=V4Vr4o8yr9cuXoGTrADESZPkcT+yLZ8XoMYSm9CS0SwHM2XNLnKfzAqJldZX8eIwk
-	 JoGcJTJDqnX0yYM7cftHL82l6BPn4eeQecWjR3PfX74Buxji2O0cwgKGTYVCBNgMTB
-	 r1AWMQJqsX9BvXgo0GsYFSBhO2CQxy4RtmNJdJDw=
+	s=default; t=1704224735;
+	bh=izZpDHGBLawqj6vP+9KB7DJLdV8gomZ53KLFrSNOLuk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=DnC6lacc8cMo/KyVid4zFal1d1lzAg2iAT+N1AjAAMybdULruWOLbpPbuTkddxkMI
+	 ++7ANLlZQGLPHEQocaeaOEEPsFK3e10hbYe5pFpzMR0w01C+/XYgUMlqx6W1t6DzS1
+	 +ApLwdK59U6T2jatzgrQ5nX4a8Wz2Q9vYuOV4CEs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 527BEF80074; Wed,  3 Jan 2024 03:07:18 +0100 (CET)
+	id 0B0DEF80558; Tue,  2 Jan 2024 20:45:03 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BA74EF80578;
-	Wed,  3 Jan 2024 03:07:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 35D5FF80549;
+	Tue,  2 Jan 2024 20:45:03 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D8B42F80424; Wed,  3 Jan 2024 03:07:12 +0100 (CET)
+	id C0568F8047D; Tue,  2 Jan 2024 20:44:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 841A4F80051
-	for <alsa-devel@alsa-project.org>; Wed,  3 Jan 2024 03:06:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 841A4F80051
+	by alsa1.perex.cz (Postfix) with ESMTPS id AD9A2F80051
+	for <alsa-devel@alsa-project.org>; Tue,  2 Jan 2024 20:44:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AD9A2F80051
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
- header.s=ti-com-17Q1 header.b=gOHXLzpD
-Received: from lelv0265.itg.ti.com ([10.180.67.224])
-	by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id 3BUAoIqC129102;
-	Sat, 30 Dec 2023 04:50:18 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
-	s=ti-com-17Q1; t=1703933418;
-	bh=iy2zWH+NW3lElFVQhzfYk0FwXztRp5REtkmqB+gJFeA=;
-	h=From:To:CC:Subject:Date;
-	b=gOHXLzpDU0dZUT2IGhDa7SRdJPKrput5eo3pggLrdqIYi1KihmGRk4AE/6aHgnCxT
-	 Vd2R6EKoEvXYp2F1RRXhDHvL58gChoy+V1995Wx79hOCa/b0tXhgoVSlCqFvdG+A/g
-	 Ut0JKP3eRxQ0Sx92duT7NoFkkfZTyb1JyebHT/0U=
-Received: from DFLE102.ent.ti.com (dfle102.ent.ti.com [10.64.6.23])
-	by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 3BUAoIIk017577
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Sat, 30 Dec 2023 04:50:18 -0600
-Received: from DFLE110.ent.ti.com (10.64.6.31) by DFLE102.ent.ti.com
- (10.64.6.23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Sat, 30
- Dec 2023 04:50:18 -0600
-Received: from lelvsmtp6.itg.ti.com (10.180.75.249) by DFLE110.ent.ti.com
- (10.64.6.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
- Frontend Transport; Sat, 30 Dec 2023 04:50:18 -0600
-Received: from LT5CG31242FY.dhcp.ti.com ([10.250.161.227])
-	by lelvsmtp6.itg.ti.com (8.15.2/8.15.2) with ESMTP id 3BUAoCRg036817;
-	Sat, 30 Dec 2023 04:50:12 -0600
-From: Shenghao Ding <shenghao-ding@ti.com>
-To: <broonie@kernel.org>
-CC: <andriy.shevchenko@linux.intel.com>, <lgirdwood@gmail.com>,
-        <perex@perex.cz>, <pierre-louis.bossart@linux.intel.com>,
-        <13916275206@139.com>, <alsa-devel@alsa-project.org>,
-        <linux-kernel@vger.kernel.org>, <liam.r.girdwood@intel.com>,
-        <mengdong.lin@intel.com>, <yung-chuan.liao@linux.intel.com>,
-        <baojun.xu@ti.com>, <kevin-lu@ti.com>, <peeyush@ti.com>,
-        <navada@ti.com>, <tiwai@suse.de>, Shenghao Ding <shenghao-ding@ti.com>
-Subject: [PATCH v4] ASoc: tas2783: Add tas2783 codec driver
-Date: Sat, 30 Dec 2023 18:50:07 +0800
-Message-ID: <20231230105008.997-1-shenghao-ding@ti.com>
-X-Mailer: git-send-email 2.33.0.windows.2
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Message-ID-Hash: 4X53UGHY2OC4CY37SRQZQWZISORPRJBI
-X-Message-ID-Hash: 4X53UGHY2OC4CY37SRQZQWZISORPRJBI
-X-MailFrom: shenghao-ding@ti.com
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=QsXO5n2h;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=irZxf2fQ;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=QsXO5n2h;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=irZxf2fQ
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 6417C1F822;
+	Sat, 30 Dec 2023 16:59:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1703955551;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/vfzN6NhKAtjc7zH+0FmYY2Pnf+rrbAm9voajSr74Ws=;
+	b=QsXO5n2h3CJlV1/tpiefgXlPVF2QMUdBk1cvz6d/QWU4YaokynC1LLSThKSX6ShGDmIF0K
+	wRwXvK4SRkWKV2tuS9IX5xBifRn4eM7HuB6AOxEi3VI9SbWDnvkvaMHSJtNd2JY4FW4S41
+	NYgoaBWBZom1uh15Pk1GAvMddcYlpIs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1703955551;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/vfzN6NhKAtjc7zH+0FmYY2Pnf+rrbAm9voajSr74Ws=;
+	b=irZxf2fQhY4IsGPJzRxNohxJkXBKdpT2hX6AL9tmZlN6+jS5ki/f4zyo2hLy0m+95kKLSX
+	4+hMkNyT0uXbwaDA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1703955551;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/vfzN6NhKAtjc7zH+0FmYY2Pnf+rrbAm9voajSr74Ws=;
+	b=QsXO5n2h3CJlV1/tpiefgXlPVF2QMUdBk1cvz6d/QWU4YaokynC1LLSThKSX6ShGDmIF0K
+	wRwXvK4SRkWKV2tuS9IX5xBifRn4eM7HuB6AOxEi3VI9SbWDnvkvaMHSJtNd2JY4FW4S41
+	NYgoaBWBZom1uh15Pk1GAvMddcYlpIs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1703955551;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/vfzN6NhKAtjc7zH+0FmYY2Pnf+rrbAm9voajSr74Ws=;
+	b=irZxf2fQhY4IsGPJzRxNohxJkXBKdpT2hX6AL9tmZlN6+jS5ki/f4zyo2hLy0m+95kKLSX
+	4+hMkNyT0uXbwaDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0D6BE13782;
+	Sat, 30 Dec 2023 16:59:11 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([10.150.64.162])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id SOxdAV9MkGW4AgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Sat, 30 Dec 2023 16:59:11 +0000
+Date: Sat, 30 Dec 2023 17:59:10 +0100
+Message-ID: <87il4fwrs1.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Gergo Koteles <soyer@irl.hu>
+Cc: Shenghao Ding <shenghao-ding@ti.com>,
+	Kevin Lu <kevin-lu@ti.com>,
+	Baojun Xu <baojun.xu@ti.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	alsa-devel@alsa-project.org
+Subject: Re: [PATCH v2 0/4] ALSA: hda/tas2781: Add tas2563 support
+In-Reply-To: <cover.1703891777.git.soyer@irl.hu>
+References: <cover.1701906455.git.soyer@irl.hu>
+	<cover.1703891777.git.soyer@irl.hu>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=QsXO5n2h;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=irZxf2fQ
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-2.74 / 50.00];
+	 ARC_NA(0.00)[];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	 FROM_HAS_DN(0.00)[];
+	 TO_DN_SOME(0.00)[];
+	 FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 MIME_GOOD(-0.10)[text/plain];
+	 NEURAL_HAM_LONG(-1.00)[-1.000];
+	 DWL_DNSWL_MED(-2.00)[suse.de:dkim];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	 DKIM_TRACE(0.00)[suse.de:+];
+	 MX_GOOD(-0.01)[];
+	 RCPT_COUNT_SEVEN(0.00)[11];
+	 MID_CONTAINS_FROM(1.00)[];
+	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+];
+	 NEURAL_HAM_SHORT(-0.14)[-0.701];
+	 FREEMAIL_CC(0.00)[ti.com,perex.cz,suse.com,gmail.com,kernel.org,vger.kernel.org,alsa-project.org];
+	 RCVD_TLS_ALL(0.00)[];
+	 BAYES_HAM(-0.29)[74.81%]
+X-Rspamd-Queue-Id: 6417C1F822
+Message-ID-Hash: CCGPRU4TDR7J4PDPV4DA65JMKXNJ44XU
+X-Message-ID-Hash: CCGPRU4TDR7J4PDPV4DA65JMKXNJ44XU
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -98,7 +170,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4X53UGHY2OC4CY37SRQZQWZISORPRJBI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CCGPRU4TDR7J4PDPV4DA65JMKXNJ44XU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,1018 +179,62 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Create files for tas2783 driver.
+On Sat, 30 Dec 2023 01:09:41 +0100,
+Gergo Koteles wrote:
+> 
+> The tas2781-hda driver can be modified to support tas2563 as well.
+> Before knowing this information, I created another series for a
+> new driver.
+> Link: https://lore.kernel.org/lkml/cover.1701733441.git.soyer@irl.hu/
+> 
+> This series now extends tas2781-hda.
+> 
+> The tas2563 is a smart amplifier. Similar to tas2562 but with DSP. Some
+> Lenovo laptops have it to drive the bass speakers. By default, it is in
+> software shutdown state.
+> 
+> To make the DSP work it needs a firmware and some calibration data.
+> The latter can be read from the EFI in Lenovo laptops.
+> 
+> For the correct configuration it needs additional register data.
+> It captured after running the Windows driver.
+> 
+> The firmware can be extracted as TAS2563Firmware.bin from the Windows
+> driver with innoextract.
+> https://download.lenovo.com/consumer/mobiles/h5yd037fbfyy7kd0.exe
+> 
+> The driver will search for it as TAS2XXX3870.bin with the Lenovo Yoga 7 
+> 14ARB7.
+> 
+> The captured registers extracted with TI's regtool: 
+> https://github.com/soyersoyer/tas2563rca/raw/main/INT8866RCA2.bin
+> 
+> Changes since v1:
+> - fixes were sent as individual patches
+> - rebased onto for-next
+> - adding the missed fixup
+> 
+> Gergo Koteles (4):
+>   ALSA: hda/tas2781: add ptrs to calibration functions
+>   ALSA: hda/tas2781: add configurable global i2c address
+>   ALSA: hda/tas2781: add TAS2563 support for 14ARB7
+>   ALSA: hda/tas2781: add fixup for Lenovo 14ARB7
 
-Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
+Thanks, I guess I'll take this series later for 6.8 unless any
+objection is raised from reviewers.
 
----
-Change in v4:
- - simplify tasdevice_set_sdw_stream
- - fixed some Linux coding style
- - fixed the spelling mistakes
- - Select left/right channel based on unique id
----
- sound/soc/codecs/Kconfig       |  15 +
- sound/soc/codecs/Makefile      |   2 +
- sound/soc/codecs/tas2783-sdw.c | 824 +++++++++++++++++++++++++++++++++
- sound/soc/codecs/tas2783.h     | 104 +++++
- 4 files changed, 945 insertions(+)
- create mode 100644 sound/soc/codecs/tas2783-sdw.c
- create mode 100644 sound/soc/codecs/tas2783.h
+But, I'd like to hear clarifications of some points beforehand:
 
-diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index 3429419ca694..58b0e7f71cd8 100644
---- a/sound/soc/codecs/Kconfig
-+++ b/sound/soc/codecs/Kconfig
-@@ -247,6 +247,7 @@ config SND_SOC_ALL_CODECS
- 	imply SND_SOC_TAS2781_COMLIB
- 	imply SND_SOC_TAS2781_FMWLIB
- 	imply SND_SOC_TAS2781_I2C
-+	imply SND_SOC_TAS2783
- 	imply SND_SOC_TAS5086
- 	imply SND_SOC_TAS571X
- 	imply SND_SOC_TAS5720
-@@ -1843,6 +1844,20 @@ config SND_SOC_TAS2781_I2C
- 	  algo coefficient setting, for one, two or even multiple TAS2781
- 	  chips.
- 
-+config SND_SOC_TAS2783
-+        tristate "Texas Instruments TAS2783 speaker amplifier (sdw)"
-+        depends on SOUNDWIRE
-+        depends on EFI
-+        select REGMAP
-+        select REGMAP_SOUNDWIRE
-+        select CRC8
-+        help
-+          Enable support for Texas Instruments TAS2783 Smart Amplifier
-+          Digital input mono Class-D and DSP-inside audio power amplifiers.
-+          Note the TAS2783 driver implements a flexible and configurable
-+          algorithm coefficient setting, for one, two or multiple TAS2783
-+          chips.
-+
- config SND_SOC_TAS5086
- 	tristate "Texas Instruments TAS5086 speaker amplifier"
- 	depends on I2C
-diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
-index 2078bb0d981e..a5e231789dff 100644
---- a/sound/soc/codecs/Makefile
-+++ b/sound/soc/codecs/Makefile
-@@ -283,6 +283,7 @@ snd-soc-tas2770-objs := tas2770.o
- snd-soc-tas2781-comlib-objs := tas2781-comlib.o
- snd-soc-tas2781-fmwlib-objs := tas2781-fmwlib.o
- snd-soc-tas2781-i2c-objs := tas2781-i2c.o
-+snd-soc-tas2783-objs := tas2783-sdw.o
- snd-soc-tfa9879-objs := tfa9879.o
- snd-soc-tfa989x-objs := tfa989x.o
- snd-soc-tlv320adc3xxx-objs := tlv320adc3xxx.o
-@@ -662,6 +663,7 @@ obj-$(CONFIG_SND_SOC_TAS2780)	+= snd-soc-tas2780.o
- obj-$(CONFIG_SND_SOC_TAS2781_COMLIB)	+= snd-soc-tas2781-comlib.o
- obj-$(CONFIG_SND_SOC_TAS2781_FMWLIB)	+= snd-soc-tas2781-fmwlib.o
- obj-$(CONFIG_SND_SOC_TAS2781_I2C)	+= snd-soc-tas2781-i2c.o
-+obj-$(CONFIG_SND_SOC_TAS2783)	+= snd-soc-tas2783.o
- obj-$(CONFIG_SND_SOC_TAS5086)	+= snd-soc-tas5086.o
- obj-$(CONFIG_SND_SOC_TAS571X)	+= snd-soc-tas571x.o
- obj-$(CONFIG_SND_SOC_TAS5720)	+= snd-soc-tas5720.o
-diff --git a/sound/soc/codecs/tas2783-sdw.c b/sound/soc/codecs/tas2783-sdw.c
-new file mode 100644
-index 000000000000..1ca60aedb5b6
---- /dev/null
-+++ b/sound/soc/codecs/tas2783-sdw.c
-@@ -0,0 +1,824 @@
-+// SPDX-License-Identifier: GPL-2.0
-+//
-+// ALSA SoC Texas Instruments TAS2783 Audio Smart Amplifier
-+//
-+// Copyright (C) 2023 Texas Instruments Incorporated
-+// https://www.ti.com
-+//
-+// The TAS2783 driver implements a flexible and configurable
-+// algorithm coefficient setting for one, two or even multiple
-+// TAS2783 chips.
-+//
-+// Author: Baojun Xu <baojun.xu@ti.com>
-+//	Kevin Lu <kevin-lu@ti.com>
-+//	Shenghao Ding <shenghao-ding@ti.com>
-+//
-+
-+#include <linux/crc32.h>
-+#include <linux/efi.h>
-+#include <linux/err.h>
-+#include <linux/firmware.h>
-+#include <linux/init.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <sound/pcm_params.h>
-+#include <linux/pm.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/regmap.h>
-+#include <linux/slab.h>
-+#include <linux/soundwire/sdw.h>
-+#include <linux/soundwire/sdw_registers.h>
-+#include <linux/soundwire/sdw_type.h>
-+#include <sound/sdw.h>
-+#include <sound/soc.h>
-+#include <sound/tlv.h>
-+#include <sound/tas2781-tlv.h>
-+
-+#include "tas2783.h"
-+
-+static const unsigned int tas2783_cali_reg[] = {
-+	TAS2783_CALIBRATION_RE,		/* Resistance */
-+	TAS2783_CALIBRATION_RE_LOW,	/* Low limitation of RE */
-+	TAS2783_CALIBRATION_INV_RE,	/* Invert of RE */
-+	TAS2783_CALIBRATION_POW,	/* RMS Power */
-+	TAS2783_CALIBRATION_TLIMIT	/* Temperature limitation */
-+};
-+
-+static const struct reg_default tas2783_reg_defaults[] = {
-+	/* Default values for ROM mode. Activated. */
-+	{ 0x8002, 0x1a},	/* AMP inactive. */
-+	{ 0x8097, 0xc8},
-+	{ 0x80b5, 0x74},
-+	{ 0x8099, 0x20},
-+	{ 0xfe8d, 0x0d},
-+	{ 0xfebe, 0x4a},
-+	{ 0x8230, 0x00},
-+	{ 0x8231, 0x00},
-+	{ 0x8232, 0x00},
-+	{ 0x8233, 0x01},
-+	{ 0x8418, 0x00},	/* Set volume to 0 dB. */
-+	{ 0x8419, 0x00},
-+	{ 0x841a, 0x00},
-+	{ 0x841b, 0x00},
-+	{ 0x8428, 0x40},	/* Unmute channel */
-+	{ 0x8429, 0x00},
-+	{ 0x842a, 0x00},
-+	{ 0x842b, 0x00},
-+	{ 0x8548, 0x00},	/* Set volume to 0 dB. */
-+	{ 0x8549, 0x00},
-+	{ 0x854a, 0x00},
-+	{ 0x854b, 0x00},
-+	{ 0x8558, 0x40},	/* Unmute channel */
-+	{ 0x8559, 0x00},
-+	{ 0x855a, 0x00},
-+	{ 0x855b, 0x00},
-+	{ 0x800a, 0x3a},	/* Enable both channel */
-+	{ 0x800e, 0x44},
-+	{ 0x800f, 0x40},
-+	{ 0x805c, 0x99},
-+	{ 0x40400088, 0},	/* FUNC_1, FU21, SEL_1(Mute) */
-+	{ 0x40400090, 0},	/* FUNC_1, FU21, SEL_2(Channel volume) */
-+	{ 0x40400108, 0},	/* FUNC_1, FU23, MUTE */
-+};
-+
-+static bool tas2783_readable_register(struct device *dev,
-+	unsigned int reg)
-+{
-+	switch (reg) {
-+	case 0x8000 ... 0xc000:	/* Page 0 ~ 127. */
-+	case 0xfe80 ... 0xfeff:	/* Page 253. */
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
-+static bool tas2783_volatile_register(struct device *dev,
-+	unsigned int reg)
-+{
-+	switch (reg) {
-+	case 0x8001:
-+		/* Only reset register was volatiled.
-+		 * Write any value into this register, mean RESET device.
-+		 */
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
-+static const struct regmap_config tasdevice_regmap = {
-+	.reg_bits = 32,
-+	.val_bits = 8,
-+	.readable_reg = tas2783_readable_register,
-+	.volatile_reg = tas2783_volatile_register,
-+	.max_register = 0x41008000 + TASDEVICE_REG(0xa1, 0x60, 0x7f),
-+	.reg_defaults = tas2783_reg_defaults,
-+	.num_reg_defaults = ARRAY_SIZE(tas2783_reg_defaults),
-+	.cache_type = REGCACHE_RBTREE,
-+	.use_single_read = true,
-+	.use_single_write = true,
-+};
-+
-+static int tasdevice_clamp(int val, int max, unsigned int invert)
-+{
-+	/* Keep in valid area, out of range value don't care. */
-+	if (val > max)
-+		val = max;
-+	if (invert)
-+		val = max - val;
-+	if (val < 0)
-+		val = 0;
-+	return val;
-+}
-+
-+static int tas2783_digital_getvol(struct snd_kcontrol *kcontrol,
-+	struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component
-+		= snd_soc_kcontrol_component(kcontrol);
-+	struct tasdevice_priv *tas_dev =
-+		snd_soc_component_get_drvdata(component);
-+	struct soc_mixer_control *mc =
-+		(struct soc_mixer_control *)kcontrol->private_value;
-+	struct regmap *map = tas_dev->regmap;
-+	int val = 0, ret;
-+
-+	if (!ucontrol) {
-+		dev_err(tas_dev->dev, "%s, wrong parameter.\n", __func__);
-+		return -EINVAL;
-+	}
-+	/* Read current volume from the device. */
-+	ret = regmap_read(map, mc->reg, &val);
-+	if (ret) {
-+		dev_err(tas_dev->dev, "%s, get digital vol error %x.\n",
-+			__func__, ret);
-+		return ret;
-+	}
-+	ucontrol->value.integer.value[0] =
-+		tasdevice_clamp(val, mc->max, mc->invert);
-+
-+	return ret;
-+}
-+
-+static int tas2783_digital_putvol(struct snd_kcontrol *kcontrol,
-+	struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component
-+		= snd_soc_kcontrol_component(kcontrol);
-+	struct tasdevice_priv *tas_dev =
-+		snd_soc_component_get_drvdata(component);
-+	struct soc_mixer_control *mc =
-+		(struct soc_mixer_control *)kcontrol->private_value;
-+	struct regmap *map = tas_dev->regmap;
-+	int val, ret;
-+
-+	if (!ucontrol) {
-+		dev_err(tas_dev->dev, "%s, wrong parameter.\n", __func__);
-+		return -EINVAL;
-+	}
-+	val = tasdevice_clamp(ucontrol->value.integer.value[0],
-+		mc->max, mc->invert);
-+
-+	ret = regmap_write(map, mc->reg, val);
-+	if (ret != 0) {
-+		dev_dbg(tas_dev->dev, "%s, Put vol %d into %x %x.\n",
-+		__func__, val, mc->reg, ret);
-+	}
-+
-+	return ret;
-+}
-+
-+static int tas2783_amp_getvol(struct snd_kcontrol *kcontrol,
-+	struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component
-+		= snd_soc_kcontrol_component(kcontrol);
-+	struct tasdevice_priv *tas_dev =
-+		snd_soc_component_get_drvdata(component);
-+	struct soc_mixer_control *mc =
-+		(struct soc_mixer_control *)kcontrol->private_value;
-+	struct regmap *map = tas_dev->regmap;
-+	unsigned char mask = 0;
-+	int ret, val = 0;
-+
-+	if (!ucontrol) {
-+		dev_err(tas_dev->dev, "%s, wrong parameter.\n", __func__);
-+		return -EINVAL;
-+	}
-+	/* Read current volume from the device. */
-+	ret = regmap_read(map, mc->reg, &val);
-+	if (ret != 0) {
-+		dev_err(tas_dev->dev, "%s get AMP vol from %x with %d.\n",
-+			__func__, mc->reg, ret);
-+		return ret;
-+	}
-+
-+	mask = (1 << fls(mc->max)) - 1;
-+	mask <<= mc->shift;
-+	val = (val & mask) >> mc->shift;
-+	ucontrol->value.integer.value[0] = tasdevice_clamp(val, mc->max,
-+		mc->invert);
-+
-+	return ret;
-+}
-+
-+static int tas2783_amp_putvol(struct snd_kcontrol *kcontrol,
-+	struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component
-+		= snd_soc_kcontrol_component(kcontrol);
-+	struct tasdevice_priv *tas_dev =
-+		snd_soc_component_get_drvdata(component);
-+	struct soc_mixer_control *mc =
-+		(struct soc_mixer_control *)kcontrol->private_value;
-+	struct regmap *map = tas_dev->regmap;
-+	unsigned char mask;
-+	int val, ret;
-+
-+	if (!ucontrol) {
-+		dev_err(tas_dev->dev, "%s, wrong parameter.\n", __func__);
-+		return -EINVAL;
-+	}
-+	mask = (1 << fls(mc->max)) - 1;
-+	mask <<= mc->shift;
-+	val = tasdevice_clamp(ucontrol->value.integer.value[0], mc->max,
-+		mc->invert);
-+	ret = regmap_update_bits(map, mc->reg, mask, val << mc->shift);
-+	if (ret != 0)
-+		dev_err(tas_dev->dev, "Write @%#x..%#x:%d\n",
-+			mc->reg, val, ret);
-+
-+	return ret;
-+}
-+
-+static const struct snd_kcontrol_new tas2783_snd_controls[] = {
-+	SOC_SINGLE_RANGE_EXT_TLV("Amp Gain Volume", TAS2783_AMP_LEVEL,
-+		1, 0, 20, 0, tas2783_amp_getvol,
-+		tas2783_amp_putvol, amp_vol_tlv),
-+	SOC_SINGLE_RANGE_EXT_TLV("Digital Volume", TAS2783_DVC_LVL,
-+		0, 0, 200, 1, tas2783_digital_getvol,
-+		tas2783_digital_putvol, dvc_tlv),
-+};
-+
-+static void tas2783_apply_calib(
-+	struct tasdevice_priv *tas_dev, unsigned int *cali_data)
-+{
-+	struct regmap *map = tas_dev->regmap;
-+	u8 *reg_start;
-+	int ret;
-+
-+	if (!tas_dev->sdw_peripheral) {
-+		dev_err(tas_dev->dev, "%s, slaver doesn't exist.\n",
-+			__func__);
-+		return;
-+	}
-+	if ((tas_dev->sdw_peripheral->id.unique_id < TAS2783_ID_MIN) ||
-+		(tas_dev->sdw_peripheral->id.unique_id > TAS2783_ID_MAX))
-+		return;
-+	reg_start = (u8 *)(cali_data+(tas_dev->sdw_peripheral->id.unique_id
-+		- TAS2783_ID_MIN) * sizeof(tas2783_cali_reg));
-+	for (int i = 0; i < ARRAY_SIZE(tas2783_cali_reg); i++) {
-+		ret = regmap_bulk_write(map, tas2783_cali_reg[i],
-+			reg_start + i, 4);
-+		if (ret != 0) {
-+			dev_err(tas_dev->dev, "Cali failed %x:%d\n",
-+			tas2783_cali_reg[i], ret);
-+			break;
-+		}
-+	}
-+}
-+
-+static int tas2783_calibration(struct tasdevice_priv *tas_dev)
-+{
-+	efi_guid_t efi_guid = EFI_GUID(0x1f52d2a1, 0xbb3a, 0x457d, 0xbc,
-+			0x09, 0x43, 0xa3, 0xf4, 0x31, 0x0a, 0x92);
-+	static efi_char16_t efi_name[] = L"CALI_DATA";
-+	struct tm *tm = &tas_dev->tm;
-+	unsigned int attr = 0, crc;
-+	unsigned int *tmp_val;
-+	efi_status_t status;
-+
-+	tas_dev->cali_data.total_sz = 128;
-+	/* Sometimes, calibration was performed from Windows,
-+	 * and data was saved in UEFI.
-+	 * So we can share it from linux, and data size is variable.
-+	 * Get real size and read it from UEFI.
-+	 */
-+	status = efi.get_variable(efi_name, &efi_guid, &attr,
-+		&tas_dev->cali_data.total_sz, tas_dev->cali_data.data);
-+	if (status == EFI_BUFFER_TOO_SMALL) {
-+		status = efi.get_variable(efi_name, &efi_guid, &attr,
-+			&tas_dev->cali_data.total_sz,
-+			tas_dev->cali_data.data);
-+		dev_dbg(tas_dev->dev, "cali get %lx bytes result:%ld\n",
-+			tas_dev->cali_data.total_sz, status);
-+	}
-+	if (status != 0) {
-+		/* Failed got calibration data from EFI. */
-+		dev_dbg(tas_dev->dev, "No calibration data in UEFI.");
-+		return 0;
-+	}
-+
-+	tmp_val = (unsigned int *)tas_dev->cali_data.data;
-+
-+	crc = crc32(~0, tas_dev->cali_data.data, 84) ^ ~0;
-+
-+	if (crc == tmp_val[21]) {
-+		/* Date and time of calibration was done. */
-+		time64_to_tm(tmp_val[20], 0, tm);
-+		dev_dbg(tas_dev->dev, "%4ld-%2d-%2d, %2d:%2d:%2d\n",
-+			tm->tm_year, tm->tm_mon, tm->tm_mday,
-+			tm->tm_hour, tm->tm_min, tm->tm_sec);
-+		tas2783_apply_calib(tas_dev, tmp_val);
-+	} else {
-+		dev_dbg(tas_dev->dev, "CRC 0x%08x not match 0x%08x\n",
-+			crc, tmp_val[21]);
-+		tas_dev->cali_data.total_sz = 0;
-+	}
-+
-+	return 0;
-+}
-+
-+static void tasdevice_rca_ready(const struct firmware *fmw,
-+	void *context)
-+{
-+	struct tasdevice_priv *tas_dev =
-+		(struct tasdevice_priv *) context;
-+	struct tas2783_firmware_node *p;
-+	struct regmap *map = tas_dev->regmap;
-+	unsigned char *buf = NULL;
-+	int offset = 0, img_sz;
-+	int ret, value_sdw;
-+
-+	mutex_lock(&tas_dev->codec_lock);
-+
-+	if (!fmw || !fmw->data) {
-+		/* No firmware binary, devices will work in ROM mode. */
-+		dev_err(tas_dev->dev,
-+		"Failed to read %s, no side-effect on driver running\n",
-+		tas_dev->rca_binaryname);
-+		ret = -EINVAL;
-+		goto out;
-+	}
-+	buf = (unsigned char *)fmw->data;
-+
-+	img_sz = le32_to_cpup((__le32 *)&buf[offset]);
-+	offset  += sizeof(img_sz);
-+	if (img_sz != fmw->size) {
-+		dev_err(tas_dev->dev, "Size not matching, %d %u",
-+			(int)fmw->size, img_sz);
-+		ret = -EINVAL;
-+		goto out;
-+	}
-+
-+	while (offset < img_sz) {
-+		p = (struct tas2783_firmware_node *)(buf + offset);
-+		if (p->length > 1) {
-+			ret = regmap_bulk_write(map, p->download_addr,
-+			buf + offset + sizeof(unsigned int)*5, p->length);
-+		} else
-+			ret = regmap_write(map, p->download_addr,
-+				*(buf + offset + sizeof(unsigned int) * 5));
-+
-+		if (ret != 0) {
-+			dev_dbg(tas_dev->dev, "Load FW fail: %d.\n", ret);
-+			goto out;
-+		}
-+		offset += sizeof(unsigned int)*5 + p->length;
-+	}
-+	/* Select left/right channel based on unique id. */
-+	value_sdw = 0x1a;
-+	value_sdw += ((tas_dev->sdw_peripheral->dev_num & 1) << 4);
-+	dev_dbg(tas_dev->dev, "%s dev_num = %u", __func__,
-+		tas_dev->sdw_peripheral->dev_num);
-+	regmap_write(map, TASDEVICE_REG(0, 0, 0x0a), value_sdw);
-+
-+	tas2783_calibration(tas_dev);
-+
-+out:
-+	mutex_unlock(&tas_dev->codec_lock);
-+	if (fmw)
-+		release_firmware(fmw);
-+}
-+
-+static const struct snd_soc_dapm_widget tasdevice_dapm_widgets[] = {
-+	SND_SOC_DAPM_AIF_IN("ASI", "ASI Playback", 0, SND_SOC_NOPM, 0, 0),
-+	SND_SOC_DAPM_AIF_OUT("ASI OUT", "ASI Capture", 0, SND_SOC_NOPM,
-+		0, 0),
-+	SND_SOC_DAPM_OUTPUT("OUT"),
-+	SND_SOC_DAPM_INPUT("DMIC")
-+};
-+
-+static const struct snd_soc_dapm_route tasdevice_audio_map[] = {
-+	{"OUT", NULL, "ASI"},
-+	{"ASI OUT", NULL, "DMIC"}
-+};
-+
-+static int tasdevice_set_sdw_stream(struct snd_soc_dai *dai,
-+	void *sdw_stream, int direction)
-+{
-+	snd_soc_dai_dma_data_set(dai, direction, sdw_stream);
-+
-+	return 0;
-+}
-+
-+static void tasdevice_sdw_shutdown(struct snd_pcm_substream *substream,
-+	struct snd_soc_dai *dai)
-+{
-+	struct sdw_stream_data *stream;
-+
-+	stream = snd_soc_dai_get_dma_data(dai, substream);
-+	snd_soc_dai_set_dma_data(dai, substream, NULL);
-+	kfree(stream);
-+}
-+
-+static int tasdevice_sdw_hw_params(struct snd_pcm_substream *substream,
-+	struct snd_pcm_hw_params *params, struct snd_soc_dai *dai)
-+{
-+	struct snd_soc_component *component = dai->component;
-+	struct tasdevice_priv *tas_priv =
-+		snd_soc_component_get_drvdata(component);
-+	struct sdw_stream_config stream_config = {0};
-+	struct sdw_port_config port_config = {0};
-+	struct sdw_stream_data *stream;
-+	int ret;
-+
-+	dev_dbg(dai->dev, "%s %s", __func__, dai->name);
-+	stream = snd_soc_dai_get_dma_data(dai, substream);
-+
-+	if (!stream)
-+		return -EINVAL;
-+
-+	if (!tas_priv->sdw_peripheral)
-+		return -EINVAL;
-+
-+	/* SoundWire specific configuration */
-+	snd_sdw_params_to_config(substream, params,
-+		&stream_config, &port_config);
-+
-+	/* port 1 for playback */
-+	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-+		port_config.num = 1;
-+	else
-+		port_config.num = 2;
-+
-+	ret = sdw_stream_add_slave(tas_priv->sdw_peripheral,
-+		&stream_config, &port_config, 1, stream->sdw_stream);
-+	if (ret) {
-+		dev_err(dai->dev, "Unable to configure port\n");
-+		return ret;
-+	}
-+
-+	dev_dbg(dai->dev, "%s fomrat: %d rate: %u\n", __func__,
-+		params_format(params), params_rate(params));
-+
-+	return 0;
-+}
-+
-+static int tasdevice_sdw_pcm_hw_free(struct snd_pcm_substream *substream,
-+	struct snd_soc_dai *dai)
-+{
-+	struct snd_soc_component *component = dai->component;
-+	struct tasdevice_priv *tas_priv =
-+		snd_soc_component_get_drvdata(component);
-+	struct sdw_stream_data *stream =
-+		snd_soc_dai_get_dma_data(dai, substream);
-+
-+	if (!tas_priv->sdw_peripheral)
-+		return -EINVAL;
-+
-+	sdw_stream_remove_slave(tas_priv->sdw_peripheral,
-+		stream->sdw_stream);
-+
-+	return 0;
-+}
-+
-+static int tasdevice_mute(struct snd_soc_dai *dai, int mute,
-+	int direction)
-+{
-+	struct snd_soc_component *component = dai->component;
-+	struct tasdevice_priv *tas_dev =
-+		snd_soc_component_get_drvdata(component);
-+	struct regmap *map = tas_dev->regmap;
-+	int ret;
-+
-+	dev_dbg(tas_dev->dev, "Mute or unmute %d.\n", mute);
-+
-+	if (mute) {
-+		/* Echo channel can't be shutdown while tas2783 must keep
-+		 * working state while playback is on.
-+		 */
-+		if (direction == SNDRV_PCM_STREAM_CAPTURE
-+			&& tas_dev->pstream == true)
-+			return 0;
-+		/* FU23 mute (0x40400108) */
-+		ret = regmap_write(map, SDW_SDCA_CTL(1, 2, 1, 0), 1);
-+		ret |= regmap_write(map, TASDEVICE_REG(0, 0, 0x02), 0x1a);
-+		tas_dev->pstream = false;
-+	} else {
-+		/* FU23 Unmute, 0x40400108. */
-+		ret = regmap_write(map, SDW_SDCA_CTL(1, 2, 1, 0), 0);
-+		ret |= regmap_write(map, TASDEVICE_REG(0, 0, 0x02), 0x0);
-+		if (direction == SNDRV_PCM_STREAM_PLAYBACK)
-+			tas_dev->pstream = true;
-+	}
-+
-+	if (ret)
-+		dev_err(tas_dev->dev, "Mute or unmute %d failed %d.\n",
-+			mute, ret);
-+
-+	return ret;
-+}
-+
-+static const struct snd_soc_dai_ops tasdevice_dai_ops = {
-+	.mute_stream	= tasdevice_mute,
-+	.hw_params	= tasdevice_sdw_hw_params,
-+	.hw_free	= tasdevice_sdw_pcm_hw_free,
-+	.set_stream	= tasdevice_set_sdw_stream,
-+	.shutdown	= tasdevice_sdw_shutdown,
-+};
-+
-+static struct snd_soc_dai_driver tasdevice_dai_driver[] = {
-+	{
-+		.name = "tas2783-codec",
-+		.id = 0,
-+		.playback = {
-+			.stream_name	= "Playback",
-+			.channels_min	= 1,
-+			.channels_max	= 4,
-+			.rates		= TAS2783_DEVICE_RATES,
-+			.formats	= TAS2783_DEVICE_FORMATS,
-+		},
-+		.capture = {
-+			.stream_name	= "Capture",
-+			.channels_min	= 1,
-+			.channels_max	= 4,
-+			.rates		= TAS2783_DEVICE_RATES,
-+			.formats	= TAS2783_DEVICE_FORMATS,
-+		},
-+		.ops = &tasdevice_dai_ops,
-+		.symmetric_rate = 1,
-+	},
-+};
-+
-+static void tas2783_reset(struct tasdevice_priv *tas_dev)
-+{
-+	struct regmap *map = tas_dev->regmap;
-+	int ret;
-+
-+	ret = regmap_write(map, TAS2873_REG_SWRESET, 1);
-+	if (ret) {
-+		dev_err(tas_dev->dev, "Reset failed.\n");
-+		return;
-+	}
-+	usleep_range(1000, 1050);
-+}
-+
-+static int tasdevice_component_probe(struct snd_soc_component *component)
-+{
-+	struct tasdevice_priv *tas_dev =
-+		snd_soc_component_get_drvdata(component);
-+
-+	/* Codec Lock Hold */
-+	mutex_lock(&tas_dev->codec_lock);
-+
-+	tas_dev->component = component;
-+
-+	/* Codec Lock Release*/
-+	mutex_unlock(&tas_dev->codec_lock);
-+
-+	dev_dbg(tas_dev->dev, "%s was called.\n", __func__);
-+
-+	return 0;
-+}
-+
-+static const struct snd_soc_component_driver
-+	soc_codec_driver_tasdevice = {
-+	.probe		= tasdevice_component_probe,
-+	.controls	= tas2783_snd_controls,
-+	.num_controls	= ARRAY_SIZE(tas2783_snd_controls),
-+	.dapm_widgets	= tasdevice_dapm_widgets,
-+	.num_dapm_widgets = ARRAY_SIZE(tasdevice_dapm_widgets),
-+	.dapm_routes	= tasdevice_audio_map,
-+	.num_dapm_routes = ARRAY_SIZE(tasdevice_audio_map),
-+	.idle_bias_on	= 1,
-+	.endianness	= 1,
-+};
-+
-+static int tasdevice_init(struct tasdevice_priv *tas_dev)
-+{
-+	int ret;
-+
-+	dev_set_drvdata(tas_dev->dev, tas_dev);
-+
-+	mutex_init(&tas_dev->codec_lock);
-+	ret = devm_snd_soc_register_component(tas_dev->dev,
-+		&soc_codec_driver_tasdevice,
-+		tasdevice_dai_driver, ARRAY_SIZE(tasdevice_dai_driver));
-+	if (ret) {
-+		dev_err(tas_dev->dev, "%s: codec register error:%d.\n",
-+			__func__, ret);
-+	}
-+
-+	tas2783_reset(tas_dev);
-+	/* tas2783-8[9,...,f].bin was copied into /lib/firmware/ */
-+	scnprintf(tas_dev->rca_binaryname, 64, "tas2783-%01x.bin",
-+		tas_dev->sdw_peripheral->id.unique_id);
-+
-+	ret = request_firmware_nowait(THIS_MODULE, FW_ACTION_UEVENT,
-+		tas_dev->rca_binaryname, tas_dev->dev, GFP_KERNEL,
-+		tas_dev, tasdevice_rca_ready);
-+	if (ret) {
-+		dev_dbg(tas_dev->dev,
-+		"%s: request_firmware %x open status: %d.\n",
-+		__func__, tas_dev->sdw_peripheral->id.unique_id, ret);
-+	}
-+
-+	/* set autosuspend parameters */
-+	pm_runtime_set_autosuspend_delay(tas_dev->dev, 3000);
-+	pm_runtime_use_autosuspend(tas_dev->dev);
-+
-+	/* make sure the device does not suspend immediately */
-+	pm_runtime_mark_last_busy(tas_dev->dev);
-+
-+	pm_runtime_enable(tas_dev->dev);
-+
-+	dev_dbg(tas_dev->dev, "%s was called for TAS2783.\n",  __func__);
-+
-+	return ret;
-+}
-+
-+static int tasdevice_read_prop(struct sdw_slave *slave)
-+{
-+	struct sdw_slave_prop *prop = &slave->prop;
-+	int nval;
-+	int i, j;
-+	u32 bit;
-+	unsigned long addr;
-+	struct sdw_dpn_prop *dpn;
-+
-+	prop->scp_int1_mask =
-+		SDW_SCP_INT1_BUS_CLASH | SDW_SCP_INT1_PARITY;
-+	prop->quirks = SDW_SLAVE_QUIRKS_INVALID_INITIAL_PARITY;
-+
-+	prop->paging_support = true;
-+
-+	/* first we need to allocate memory for set bits in port lists */
-+	prop->source_ports = 0x04; /* BITMAP: 00000100 */
-+	prop->sink_ports = 0x2; /* BITMAP:  00000010 */
-+
-+	nval = hweight32(prop->source_ports);
-+	prop->src_dpn_prop = devm_kcalloc(&slave->dev, nval,
-+		sizeof(*prop->src_dpn_prop), GFP_KERNEL);
-+	if (!prop->src_dpn_prop)
-+		return -ENOMEM;
-+
-+	i = 0;
-+	dpn = prop->src_dpn_prop;
-+	addr = prop->source_ports;
-+	for_each_set_bit(bit, &addr, 32) {
-+		dpn[i].num = bit;
-+		dpn[i].type = SDW_DPN_FULL;
-+		dpn[i].simple_ch_prep_sm = true;
-+		dpn[i].ch_prep_timeout = 10;
-+		i++;
-+	}
-+
-+	/* do this again for sink now */
-+	nval = hweight32(prop->sink_ports);
-+	prop->sink_dpn_prop = devm_kcalloc(&slave->dev, nval,
-+		sizeof(*prop->sink_dpn_prop), GFP_KERNEL);
-+	if (!prop->sink_dpn_prop)
-+		return -ENOMEM;
-+
-+	j = 0;
-+	dpn = prop->sink_dpn_prop;
-+	addr = prop->sink_ports;
-+	for_each_set_bit(bit, &addr, 32) {
-+		dpn[j].num = bit;
-+		dpn[j].type = SDW_DPN_FULL;
-+		dpn[j].simple_ch_prep_sm = true;
-+		dpn[j].ch_prep_timeout = 10;
-+		j++;
-+	}
-+
-+	/* set the timeout values */
-+	prop->clk_stop_timeout = 20;
-+
-+	return 0;
-+}
-+
-+static int tasdevice_io_init(struct device *dev, struct sdw_slave *slave)
-+{
-+	struct tasdevice_priv *tas_priv = dev_get_drvdata(dev);
-+
-+	if (tas_priv->hw_init)
-+		return 0;
-+
-+	/* Mark Slave initialization complete */
-+	tas_priv->hw_init = true;
-+
-+	return 0;
-+}
-+
-+static int tasdevice_update_status(struct sdw_slave *slave,
-+	enum sdw_slave_status status)
-+{
-+	struct  tasdevice_priv *tas_priv = dev_get_drvdata(&slave->dev);
-+
-+	/* Update the status */
-+	tas_priv->status = status;
-+
-+	if (status == SDW_SLAVE_UNATTACHED)
-+		tas_priv->hw_init = false;
-+
-+	/* Perform initialization only if slave status
-+	 * is present and hw_init flag is false
-+	 */
-+	if (tas_priv->hw_init || tas_priv->status != SDW_SLAVE_ATTACHED)
-+		return 0;
-+
-+	/* perform I/O transfers required for Slave initialization */
-+	return tasdevice_io_init(&slave->dev, slave);
-+}
-+
-+/*
-+ * slave_ops: callbacks for get_clock_stop_mode, clock_stop and
-+ * port_prep are not defined for now
-+ */
-+static const struct sdw_slave_ops tasdevice_sdw_ops = {
-+	.read_prop	= tasdevice_read_prop,
-+	.update_status	= tasdevice_update_status,
-+};
-+
-+static void tasdevice_remove(struct tasdevice_priv *tas_dev)
-+{
-+	mutex_destroy(&tas_dev->codec_lock);
-+}
-+
-+static int tasdevice_sdw_probe(struct sdw_slave *peripheral,
-+	const struct sdw_device_id *id)
-+{
-+	struct device *dev = &peripheral->dev;
-+	struct tasdevice_priv *tas_dev;
-+	int ret;
-+
-+	tas_dev = devm_kzalloc(dev, sizeof(*tas_dev), GFP_KERNEL);
-+	if (!tas_dev)
-+		return -ENOMEM;
-+
-+	tas_dev->dev = dev;
-+	tas_dev->chip_id = id->driver_data;
-+	tas_dev->sdw_peripheral = peripheral;
-+	tas_dev->hw_init = false;
-+
-+	dev_set_drvdata(dev, tas_dev);
-+
-+	tas_dev->regmap = devm_regmap_init_sdw(peripheral,
-+		&tasdevice_regmap);
-+	if (IS_ERR(tas_dev->regmap)) {
-+		ret = PTR_ERR(tas_dev->regmap);
-+		dev_err(dev, "Failed %d of devm_regmap_init_sdw.", ret);
-+	} else
-+		ret = tasdevice_init(tas_dev);
-+
-+	if (ret < 0)
-+		tasdevice_remove(tas_dev);
-+
-+	return ret;
-+}
-+
-+static int tasdevice_sdw_remove(struct sdw_slave *peripheral)
-+{
-+	struct tasdevice_priv *tas_dev = dev_get_drvdata(&peripheral->dev);
-+
-+	pm_runtime_disable(tas_dev->dev);
-+	tasdevice_remove(tas_dev);
-+
-+	return 0;
-+}
-+
-+static const struct sdw_device_id tasdevice_sdw_id[] = {
-+	SDW_SLAVE_ENTRY(0x0102, 0x0000, 0),
-+	{},
-+};
-+
-+MODULE_DEVICE_TABLE(sdw, tasdevice_sdw_id);
-+
-+static struct sdw_driver tasdevice_sdw_driver = {
-+	.driver = {
-+		.name = "slave-tas2783",
-+	},
-+	.probe = tasdevice_sdw_probe,
-+	.remove = tasdevice_sdw_remove,
-+	.ops = &tasdevice_sdw_ops,
-+	.id_table = tasdevice_sdw_id,
-+};
-+
-+module_sdw_driver(tasdevice_sdw_driver);
-+
-+MODULE_AUTHOR("Baojun Xu <baojun.xu@ti.com>");
-+MODULE_AUTHOR("Shenghao Ding <shenghao-ding@ti.com>");
-+MODULE_DESCRIPTION("ASoC TAS2783 SoundWire Driver");
-+MODULE_LICENSE("GPL");
-diff --git a/sound/soc/codecs/tas2783.h b/sound/soc/codecs/tas2783.h
-new file mode 100644
-index 000000000000..5811e758c9a9
---- /dev/null
-+++ b/sound/soc/codecs/tas2783.h
-@@ -0,0 +1,104 @@
-+/* SPDX-License-Identifier: GPL-2.0
-+ *
-+ * ALSA SoC Texas Instruments TAS2783 Audio Smart Amplifier
-+ *
-+ * Copyright (C) 2023 Texas Instruments Incorporated
-+ * https://www.ti.com
-+ *
-+ * The TAS2783 driver implements a flexible and configurable
-+ * algorithm coefficient setting for single TAS2783 chips.
-+ *
-+ * Author: Baojun Xu <baojun.xu@ti.com>
-+ *	Shenghao Ding <shenghao-ding@ti.com>
-+ */
-+
-+#ifndef __TAS2783_H__
-+#define __TAS2783_H__
-+
-+#define TAS2783_DEVICE_RATES		(SNDRV_PCM_RATE_44100 | \
-+					SNDRV_PCM_RATE_48000 | \
-+					SNDRV_PCM_RATE_96000 | \
-+					SNDRV_PCM_RATE_88200)
-+
-+#define TAS2783_DEVICE_FORMATS		(SNDRV_PCM_FMTBIT_S16_LE | \
-+					SNDRV_PCM_FMTBIT_S24_LE | \
-+					SNDRV_PCM_FMTBIT_S32_LE)
-+
-+/* BOOK, PAGE Control Register */
-+#define TASDEVICE_REG(book, page, reg)	((book * 256 * 256) + 0x8000 + \
-+					(page * 128) + reg)
-+
-+/*Software Reset */
-+#define TAS2873_REG_SWRESET		TASDEVICE_REG(0x0, 0X0, 0x01)
-+
-+/* Volume control */
-+#define TAS2783_DVC_LVL			TASDEVICE_REG(0x0, 0x00, 0x1A)
-+#define TAS2783_AMP_LEVEL		TASDEVICE_REG(0x0, 0x00, 0x03)
-+#define TAS2783_AMP_LEVEL_MASK		GENMASK(5, 1)
-+
-+/* Calibration data */
-+#define TAS2783_CALIBRATION_RE		TASDEVICE_REG(0x0, 0x17, 0x74)
-+#define TAS2783_CALIBRATION_RE_LOW	TASDEVICE_REG(0x0, 0x18, 0x14)
-+#define TAS2783_CALIBRATION_INV_RE	TASDEVICE_REG(0x0, 0x18, 0x0c)
-+#define TAS2783_CALIBRATION_POW		TASDEVICE_REG(0x0, 0x0d, 0x3c)
-+#define TAS2783_CALIBRATION_TLIMIT	TASDEVICE_REG(0x0, 0x18, 0x7c)
-+
-+/* Unique id start */
-+#define TAS2783_ID_MIN			0x08
-+/* Unique id end */
-+#define TAS2783_ID_MAX			0x0F
-+
-+/* TAS2783 SDCA Control - function number */
-+#define FUNC_NUM_SMART_AMP		0x01
-+
-+/* TAS2783 SDCA entity */
-+#define TAS2783_SDCA_ENT_PDE23		0x0C
-+#define TAS2783_SDCA_ENT_PDE22		0x0B
-+#define TAS2783_SDCA_ENT_FU21		0x01
-+#define TAS2783_SDCA_ENT_UDMPU21	0x10
-+
-+/* TAS2783 SDCA control */
-+#define TAS2783_SDCA_CTL_REQ_POWER_STATE	0x01
-+#define TAS2783_SDCA_CTL_FU_MUTE	0x01
-+#define TAS2783_SDCA_CTL_UDMPU_CLUSTER	0x10
-+
-+#define TAS2783_DEVICE_CHANNEL_LEFT	1
-+#define TAS2783_DEVICE_CHANNEL_RIGHT	2
-+
-+#define TAS2783_MAX_CALIDATA_SIZE	252
-+
-+struct tas2783_firmware_node {
-+	unsigned int vendor_id;
-+	unsigned int file_id;
-+	unsigned int version_id;
-+	unsigned int length;
-+	unsigned int download_addr;
-+};
-+
-+struct calibration_data {
-+	unsigned long total_sz;
-+	unsigned char data[TAS2783_MAX_CALIDATA_SIZE];
-+};
-+
-+struct tasdevice_priv {
-+	struct snd_soc_component *component;
-+	struct calibration_data cali_data;
-+	struct sdw_slave *sdw_peripheral;
-+	enum sdw_slave_status status;
-+	struct sdw_bus_params params;
-+	struct mutex codec_lock;
-+	struct regmap *regmap;
-+	struct device *dev;
-+	struct tm tm;
-+	unsigned char rca_binaryname[64];
-+	unsigned char dev_name[32];
-+	unsigned int chip_id;
-+	bool pstream;
-+	bool hw_init;
-+};
-+
-+struct sdw_stream_data {
-+	struct sdw_stream_runtime *sdw_stream;
-+};
-+
-+#endif /*__TAS2783_H__ */
--- 
-2.34.1
+- Did we get consensus about the ACPI HID?  I didn't follow the
+  previous thread completely.
 
+  Since those models have been already in the market for quite some
+  time, we'd have to accept "INT8866", I'm afraid.  But it's still
+  very important to know whether a similar problem can be avoided in
+  future.
+
+- Will be the firmware files upstreamed to linux-firmware tree later?
+  Otherwise users will have significant difficulties.
+
+
+Takashi

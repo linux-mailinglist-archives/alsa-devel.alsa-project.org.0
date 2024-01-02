@@ -2,87 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 972ED8221BF
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Jan 2024 20:08:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E04E78225E3
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 Jan 2024 01:19:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1647BE9D;
-	Tue,  2 Jan 2024 20:08:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1647BE9D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9FC72E12;
+	Wed,  3 Jan 2024 01:19:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9FC72E12
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1704222495;
-	bh=jClnt4rzvFUUv7Eom43v4OTG5gscrsuV/WZCXvUpXa8=;
+	s=default; t=1704241158;
+	bh=FY89b4AJ2MZiRPSwlr36/UQZwgxvjhJn6VGbhtCiZ10=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=pTk1BFdevuaYcI0QC8U1VGljiaP8xnwoC8YO65Uflgix4j6Fhy22fV/jIwI4Zq5ap
-	 T/3+duE+dQBr9I7F6JHMq0735tOlSXcYgt1JU+buCKGBdRgga1G7xGnb45DYE54mel
-	 NsKK5I1/IwV81Obd53pMgYGZebYTNIRzVIq6LAyc=
+	b=M4PqI+diPfqfjvIbWG3HAifB0hO1izIfckcnavIJzpZ2YkIem85xX239HdncSsDPH
+	 szgPNV9w/GF06Ie9uYEYtXpo8HDBRCvvCewJeZ7eltOgqkoAu/XK/ADdy5AcO+T9xe
+	 ndQ9vAFgXDBwXmNyrBoy2GXqfSwwTXZlgic6mi8o=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2DFE7F80616; Tue,  2 Jan 2024 20:06:50 +0100 (CET)
+	id 81192F80612; Wed,  3 Jan 2024 01:18:21 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 116D3F8061E;
-	Tue,  2 Jan 2024 20:06:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 73A2FF8060C;
+	Wed,  3 Jan 2024 01:18:20 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3C72FF8065C; Tue,  2 Jan 2024 20:00:04 +0100 (CET)
+	id 46B93F8059F; Wed,  3 Jan 2024 01:17:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=unavailable autolearn_force=no version=3.4.6
-Received: from isilmar-4.linta.de (isilmar-4.linta.de [136.243.71.142])
+X-Spam-Status: No, score=-4.8 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+	URIBL_BLOCKED shortcircuit=no autolearn=unavailable autolearn_force=no
+	version=3.4.6
+Received: from mail1.merlins.org (magic.merlins.org [209.81.13.136])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4AAB7F80699
-	for <alsa-devel@alsa-project.org>; Tue,  2 Jan 2024 19:54:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4AAB7F80699
-X-isilmar-external: YES
-X-isilmar-external: YES
-X-isilmar-external: YES
-X-isilmar-external: YES
-X-isilmar-external: YES
-X-isilmar-external: YES
-X-isilmar-external: YES
-X-isilmar-external: YES
-X-isilmar-external: YES
-X-isilmar-external: YES
-X-isilmar-external: YES
-X-isilmar-external: YES
-X-isilmar-external: YES
-Received: from shine.dominikbrodowski.net (shine.brodo.linta [10.2.0.112])
-	by isilmar-4.linta.de (Postfix) with ESMTPSA id 2AAD42002EC;
-	Tue,  2 Jan 2024 17:38:32 +0000 (UTC)
-Received: by shine.dominikbrodowski.net (Postfix, from userid 1000)
-	id E6FCBA0083; Tue,  2 Jan 2024 18:37:45 +0100 (CET)
-Date: Tue, 2 Jan 2024 18:37:45 +0100
-From: Dominik Brodowski <linux@dominikbrodowski.net>
-To: =?iso-8859-1?Q?P=E9ter?= Ujfalusi <peter.ujfalusi@linux.intel.com>
-Cc: Takashi Iwai <tiwai@suse.de>, Mark Brown <broonie@kernel.org>,
-	lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
-	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
-	pierre-louis.bossart@linux.intel.com, kai.vehmanen@linux.intel.com,
-	ranjani.sridharan@linux.intel.com, linux-kernel@vger.kernel.org,
-	regressions@lists.linux.dev
-Subject: Re: Oops in hdac_hda_dev_probe (6.7-rc7)
-Message-ID: <ZZRJ6VNJlQ97bnjF@shine.dominikbrodowski.net>
-References: <ZYvUIxtrqBQZbNlC@shine.dominikbrodowski.net>
- <87sf3lxiet.wl-tiwai@suse.de>
- <ZY7kosArPqhlCfOA@shine.dominikbrodowski.net>
- <874jg1x7ao.wl-tiwai@suse.de>
- <ZY_Gb8-rncuOjRq-@shine.dominikbrodowski.net>
- <87plyovwg7.wl-tiwai@suse.de>
- <3260e806-a708-4462-9d4e-346e54143a65@linux.intel.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0B4FAF80022
+	for <alsa-devel@alsa-project.org>; Wed,  3 Jan 2024 01:17:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0B4FAF80022
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=merlins.org
+	; s=key; h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
+	Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=w/zX07yk+Jq1OGq/27+WNumLIhMXOzoQ92krOFylHrA=; b=aKm3suUKzIF2AsCeFtldwpeEfQ
+	EygPfJCAM4XGFqWklmD+GlN6XjOQb1hpZR1kBF632i44RxvJU0a5jWsLxFlYpro0xiErosY4/UFf0
+	ZOnghmwEyTlUn4FNBJrFApTz9Y3oXOqcaEBDTY8JQySlX4Qpp3UK7VnwWvUdukxlKATsKJ7WVQuoe
+	T0lvWNOjQWHNQpURsePWlgw2KLoZ81EynCJH4Gj8tlGXd41AKf7zvFawmddYBlGoPvNckSd7XvMv0
+	xx3vQ26VoXq23hcaHt2Nkko5G9GhVpWfzNmKgD/WpvrDh8r9+8CWhgoy1oI0W7j7zy6V5CGpaMPir
+	Q6+aqABA==;
+Received: from lfbn-idf3-1-20-89.w81-249.abo.wanadoo.fr ([81.249.147.89]:38406
+ helo=merlin.svh.merlins.org)
+	by mail1.merlins.org with esmtpsa
+	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim
+ 4.94.2 #2)
+	id 1rKj6w-0004Kj-PJ by authid <merlins.org> with srv_auth_plain;
+ Tue, 02 Jan 2024 10:03:30 -0800
+Received: from merlin by merlin.svh.merlins.org with local (Exim 4.96)
+	(envelope-from <marc@merlins.org>)
+	id 1rKj6v-0004Q9-2A;
+	Tue, 02 Jan 2024 10:03:29 -0800
+Date: Tue, 2 Jan 2024 10:03:29 -0800
+From: Marc MERLIN <marc@merlins.org>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Rander Wang <rander.wang@intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	linux-sound@vger.kernel.org, alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: sof-audio-pci-intel-tgl/soundwire 6.6.8 kernel outputs no sound
+ on speakers but works on headphones => missing alsa-ucm-conf
+Message-ID: <ZZRP8RqT83cE-S5m@merlins.org>
+References: <20231223234430.GA11359@merlins.org>
+ <alpine.DEB.2.22.394.2401021117370.14041@eliteleevi.tm.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <3260e806-a708-4462-9d4e-346e54143a65@linux.intel.com>
-Message-ID-Hash: 3JIVJ62NNM6QXJMFCN2XMEBOC2F3B6BH
-X-Message-ID-Hash: 3JIVJ62NNM6QXJMFCN2XMEBOC2F3B6BH
-X-MailFrom: linux@dominikbrodowski.net
+In-Reply-To: <alpine.DEB.2.22.394.2401021117370.14041@eliteleevi.tm.intel.com>
+X-Sysadmin: BOFH
+X-URL: http://marc.merlins.org/
+X-SA-Exim-Connect-IP: 81.249.147.89
+X-SA-Exim-Mail-From: marc@merlins.org
+Message-ID-Hash: EMEAWJIEFI46WNDG5X2EU5SUNGZUNQR5
+X-Message-ID-Hash: EMEAWJIEFI46WNDG5X2EU5SUNGZUNQR5
+X-MailFrom: marc@merlins.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -94,7 +98,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3JIVJ62NNM6QXJMFCN2XMEBOC2F3B6BH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EMEAWJIEFI46WNDG5X2EU5SUNGZUNQR5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -103,70 +107,61 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Am Tue, Jan 02, 2024 at 11:08:47AM +0200 schrieb Péter Ujfalusi:
-> 
-> 
-> On 30/12/2023 12:03, Takashi Iwai wrote:
-> > On Sat, 30 Dec 2023 08:27:43 +0100,
-> > Dominik Brodowski wrote:
-> >>
-> >> Am Fri, Dec 29, 2023 at 06:11:43PM +0100 schrieb Takashi Iwai:
-> >>> On Fri, 29 Dec 2023 16:24:18 +0100,
-> >>> Dominik Brodowski wrote:
-> >>>>
-> >>>> Hi Takashi,
-> >>>>
-> >>>> many thanks for your response. Your patch helps half-way: the oops goes
-> >>>> away, but so does the sound... With your patch, the decisive lines in dmesg
-> >>>> are:
-> >>>>
-> >>>> 	sof-audio-pci-intel-tgl 0000:00:1f.3: Firmware info: version 2:2:0-57864
-> >>>> 	sof-audio-pci-intel-tgl 0000:00:1f.3: Firmware: ABI 3:22:1 Kernel ABI 3:23:0
-> >>>> 	sof_sdw sof_sdw: ASoC: CODEC DAI intel-hdmi-hifi1 not registered
-> >>>> 	sof_sdw sof_sdw: snd_soc_register_card failed -517
-> >>>> 	sof_sdw sof_sdw: ASoC: CODEC DAI intel-hdmi-hifi1 not registered
-> >>>> 	sof_sdw sof_sdw: snd_soc_register_card failed -517
-> >>>> 	platform sof_sdw: deferred probe pending
-> >>>>
-> >>>> With a revert of the a0575b4add21, it is:
-> >>>>
-> >>>> 	sof-audio-pci-intel-tgl 0000:00:1f.3: Firmware info: version 2:2:0-57864
-> >>>> 	sof-audio-pci-intel-tgl 0000:00:1f.3: Firmware: ABI 3:22:1 Kernel ABI 3:23:0
-> >>>> 	sof-audio-pci-intel-tgl 0000:00:1f.3: Topology: ABI 3:22:1 Kernel ABI 3:23:0
-> >>>> 	sof_sdw sof_sdw: ASoC: Parent card not yet available, widget card binding deferred
-> >>>> 	sof_sdw sof_sdw: hda_dsp_hdmi_build_controls: no PCM in topology for HDMI converter 3
-> >>>> 	input: sof-soundwire HDMI/DP,pcm=5 as /devices/pci0000:00/0000:00:1f.3/sof_sdw/sound/card0/input14
-> >>>> 	input: sof-soundwire HDMI/DP,pcm=6 as /devices/pci0000:00/0000:00:1f.3/sof_sdw/sound/card0/input15
-> >>>> 	input: sof-soundwire HDMI/DP,pcm=7 as /devices/pci0000:00/0000:00:1f.3/sof_sdw/sound/card0/input16
-> >>>>
-> >>>> Maybe this helps a bit further?
-> >>>
-> >>> Thanks for quick testing.
-> >>> It shows at least that my guess wasn't wrong.
-> >>>
-> >>> The problem could be the initialization order in the caller side.
-> >>> Can the patch below work instead?
-> >>
-> >> Unfortunately, no:
-> >>
-> >> sof-audio-pci-intel-tgl 0000:00:1f.3: Firmware info: version 2:2:0-57864
-> >> sof-audio-pci-intel-tgl 0000:00:1f.3: Firmware: ABI 3:22:1 Kernel ABI 3:23:0
-> >> sof_sdw sof_sdw: ASoC: CODEC DAI intel-hdmi-hifi1 not registered
-> >> sof_sdw sof_sdw: snd_soc_register_card failed -517
-> >> sof_sdw sof_sdw: ASoC: CODEC DAI intel-hdmi-hifi1 not registered
-> >> sof_sdw sof_sdw: snd_soc_register_card failed -517
-> >> platform sof_sdw: deferred probe pending
-> > 
-> > Hm, then it might be the logical failure of that commit.
-> > Peter?
-> > 
-> > Without a fix in the next few days, we'll have to revert it before
-> > 6.7.
-> 
-> The fix for this was sent early December:
-> https://lore.kernel.org/linux-sound/20231207095425.19597-1-peter.ujfalusi@linux.intel.com/
+On Tue, Jan 02, 2024 at 02:23:49AM -0800, Marc MERLIN wrote:
+> > Please file a bug at 
+> > https://github.com/thesofproject/linux/issues
+>  
+> THanks, done: https://github.com/thesofproject/linux/issues/4758
 
-Yes, that patch fixes the issue (all built-in here).
+First, a big thanks for the quick reply and help.
+For the benefit of archives and the next potential person looking for
+this, my debian system was lacking 
+alsa-ucm-conf
+which for this soundcare is not optional at all. 
 
-Thanks,
-	Dominik
+Long gone are the days of simple soundcards that just worked (never mind
+self made DAC with resistors in the parrallel port :) ), nowadays sound
+cards need a lot of things for anything to work. I had read about some
+puzzling defaults of having an amp for speakers, controlled in software,
+and off by default :-/  but didn't know that mine was so new/complex
+that it would not show up in alsamixer where you would normally unmute
+an output and be in your way. Now I've read about alsaucm and maybe
+there was a magic combination that would have worked with alsamixer
+but too many variables to try, hence aslaucm. 
+
+I spent probably over 10 hours on this building kernels, and comparing
+debian to ubuntu, and doing a ridiculous amount of diffs between the
+setups, I was unable to see anything about the output being muted, but I
+Guess it wasn't being muted, the amp needing to be turned on is yet
+another thing and it didn't how up where I looked.
+
+So, a few thoughts:
+1) for sure, debian package alsa-ucm-conf should be required, not
+recommended. It's not big, people who can't keep track of everything
+that changes all the time, have no idea that they need it, and really
+need it installed by default if their hardware requires it.
+I've filed a couple of bugs with them, including on the package
+description that gives little clue that the package can be so essential
+
+Description-en: ALSA Use Case Manager configuration files
+ This package contains ALSA Use Case Manager configuration of audio
+ input/output names and routing for specific audio hardware. They can be
+ used with the alsaucm tool.
+
+2) I spent many hours reading the internet on all issues with sound and
+muting and why sound could work on headphones and not speakers, and
+nothing gave me a hint that worked, or even mentioned alsaucm.
+When I have some time, I'll write a page that I'll try to get
+indexed so that the next person dealing with this has a better chance
+to find the answer
+
+3) I failed to find the linux-sound list, that's on me, and my mail to
+alsa-devel was bouncing for unknown reasons.
+
+A huge huge thanks to you, Kai, for finding this Email and your help.
+
+Marc
+-- 
+"A mouse is a device used to point at the xterm you want to type in" - A.S.R.
+ 
+Home page: http://marc.merlins.org/                       | PGP 7F55D5F27AAF9D08

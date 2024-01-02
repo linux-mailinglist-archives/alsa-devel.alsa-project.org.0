@@ -2,113 +2,163 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF06082224B
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Jan 2024 20:53:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECA238221DE
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Jan 2024 20:15:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 270DEEA9;
-	Tue,  2 Jan 2024 20:53:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 270DEEA9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 19338EA4;
+	Tue,  2 Jan 2024 20:15:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 19338EA4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1704225218;
-	bh=z9DJyDtomZG7fy9ZprZvw/z8kTxEPOvKo8h28f6CxjI=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject:List-Id:
+	s=default; t=1704222934;
+	bh=bdtsu4lI7z+3xq4A4Tcm44t9S7D80zW4H0sFl3Ak+os=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=uGBeuUp/A8DgRs/TAaojW8vsBiO2oT3yzvSTmw8ACzj14UxzUmqxMoSzweei4tGXS
-	 HVLU5fvhG0Fk9KVnemgOFokJ9bptyagz3feSjbwuZEPy9/MaOYkUlPQCYGy5WyIaMj
-	 um6SkxIzVy6m8+oHazKa50g9Cj1Zx0X/yPpZSmlE=
+	b=bVHpDZtMWd8HqL1N7VaMnDqqzKjx7WZY0PiFYjOenSfSr/as+mL58rRApkfY6BI8w
+	 56rZ+HsBe88tQBe/eiDyqaeBwyALgJsFLbc3DZbOqxBaeSJlXBDqSz1WxnLuxYVFb2
+	 MuaZYoz+C7fhis7an7NFaW9d5rqhOWxWI+iiXdHs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id ADBF6F8057C; Tue,  2 Jan 2024 20:53:06 +0100 (CET)
+	id 998D1F8057C; Tue,  2 Jan 2024 20:15:02 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8EB86F80551;
-	Tue,  2 Jan 2024 20:53:05 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C19B4F80578;
+	Tue,  2 Jan 2024 20:15:01 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8B58CF80424; Tue,  2 Jan 2024 20:53:01 +0100 (CET)
+	id D403CF80424; Tue,  2 Jan 2024 20:14:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail.savoirfairelinux.com (mail.savoirfairelinux.com
- [208.88.110.44])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 910D8F80051
-	for <alsa-devel@alsa-project.org>; Tue,  2 Jan 2024 20:52:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 910D8F80051
+	by alsa1.perex.cz (Postfix) with ESMTPS id 42BF6F80051
+	for <alsa-devel@alsa-project.org>; Tue,  2 Jan 2024 20:14:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42BF6F80051
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=savoirfairelinux.com header.i=@savoirfairelinux.com
- header.a=rsa-sha256 header.s=DFC430D2-D198-11EC-948E-34200CB392D2
- header.b=HfBx0L9S
-Received: from localhost (localhost [127.0.0.1])
-	by mail.savoirfairelinux.com (Postfix) with ESMTP id DFB4E9C0888;
-	Tue,  2 Jan 2024 06:37:40 -0500 (EST)
-Received: from mail.savoirfairelinux.com ([127.0.0.1])
- by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10032)
- with ESMTP id oH47By21Q_s9; Tue,  2 Jan 2024 06:37:40 -0500 (EST)
-Received: from localhost (localhost [127.0.0.1])
-	by mail.savoirfairelinux.com (Postfix) with ESMTP id 50F959C0957;
-	Tue,  2 Jan 2024 06:37:40 -0500 (EST)
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.savoirfairelinux.com 50F959C0957
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=savoirfairelinux.com; s=DFC430D2-D198-11EC-948E-34200CB392D2;
-	t=1704195460; bh=bAsNfTDPGcy9UE/qR8q9C/MYhrYIBcUMKG2G3Oi4VLE=;
-	h=Date:From:To:Message-ID:MIME-Version;
-	b=HfBx0L9SYhFxNTXnatyaVVD/0MKoxKv1DkFPwS4FhP21ZdGhZFAP2Yw2hgXG5W1+t
-	 DG22L6dYlNdqI/yA4nolhiQbAYRMk3Yvd1vhj35YZTZ1keQ1XC+emTImMoQmjgdIjh
-	 alA58hoYPXIYl8/8523fTVCfrQVCNMBqb6qPyKUQ1uoRLrwWFtxWeVm73HyoV71weA
-	 Vcvll8Fbldw/DCB9WQCaUVbMMf9+FXj0uatTbgq9RGC183UtRM5ockSfi6AD3jQlfV
-	 NlAXW2vSrvxzA0K2KrHkaWWkgrrQsn+4DCiJZlStF1JhWW5TYl6ACLELjZgkVicaEV
-	 5OCMfpqr9RX7g==
-X-Virus-Scanned: amavis at mail.savoirfairelinux.com
-Received: from mail.savoirfairelinux.com ([127.0.0.1])
- by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10026)
- with ESMTP id 20Ly5X62OB9G; Tue,  2 Jan 2024 06:37:40 -0500 (EST)
-Received: from mail.savoirfairelinux.com (mail.savoirfairelinux.com
- [192.168.48.237])
-	by mail.savoirfairelinux.com (Postfix) with ESMTP id 1AD139C0888;
-	Tue,  2 Jan 2024 06:37:40 -0500 (EST)
-Date: Tue, 2 Jan 2024 06:37:39 -0500 (EST)
-From: Elinor Montmasson <elinor.montmasson@savoirfairelinux.com>
-To: Rob Herring <robh@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	shengjiu wang <shengjiu.wang@gmail.com>,
-	Xiubo Lee <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
-	Nicolin Chen <nicoleotsuka@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	linux-sound <linux-sound@vger.kernel.org>,
-	devicetree <devicetree@vger.kernel.org>,
-	linux-kernel <linux-kernel@vger.kernel.org>,
-	alsa-devel <alsa-devel@alsa-project.org>,
-	linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
-	Philip-Dylan Gleonec <philip-dylan.gleonec@savoirfairelinux.com>
-Message-ID: 
- <1300509761.24764.1704195459987.JavaMail.zimbra@savoirfairelinux.com>
-In-Reply-To: <20231220222550.GA1232936-robh@kernel.org>
-References: <20231218124058.2047167-1-elinor.montmasson@savoirfairelinux.com>
- <20231218124058.2047167-11-elinor.montmasson@savoirfairelinux.com>
- <20231220222550.GA1232936-robh@kernel.org>
-Subject: Re: [PATCHv3 RESEND 10/10] ASoC: dt-bindings: fsl-asoc-card: add
- compatible for generic codec
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-X-Mailer: Zimbra 8.8.15_GA_4581 (ZimbraWebClient - GC112
- (Linux)/8.8.15_GA_4581)
-Thread-Topic: ASoC: dt-bindings: fsl-asoc-card: add compatible for generic
- codec
-Thread-Index: r/qDupTL/n3XOuEH8yE+GIqg/zABBQ==
-Message-ID-Hash: CQQT3TDUCKM2NVG642Z3WTHUZZI2O457
-X-Message-ID-Hash: CQQT3TDUCKM2NVG642Z3WTHUZZI2O457
-X-MailFrom: elinor.montmasson@savoirfairelinux.com
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=VMVgLxOt;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=y1xwT7kW;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=VMVgLxOt;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=y1xwT7kW
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 7D6221FD01;
+	Tue,  2 Jan 2024 15:37:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1704209855;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=iFeSjnnhDL7UuXIIfB/Pi2bJdb0mIR0c/ug20ece57o=;
+	b=VMVgLxOt01P6HaMA7mmz1BGr+bjL1THr82uAhSoc/1Ti4hkcotJJ2bkjtaVjMPTsamniHt
+	IoxQqDI4nlVART/YOYi8hXgKKBXo3jLI1JXc9J5DxFiZ1suZuc8UvzD5Y6FjkeNpuNWL3B
+	SkxTDOo1kowN40N15/k5dz8EWccVe8Y=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1704209855;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=iFeSjnnhDL7UuXIIfB/Pi2bJdb0mIR0c/ug20ece57o=;
+	b=y1xwT7kW662Nawv0VmaTw9y2AV7W7WaUsEKoRUhpWq+ei2p434HwSn9DgF7udfzl5Esprz
+	tTdQPAKUCmEoHgCQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1704209855;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=iFeSjnnhDL7UuXIIfB/Pi2bJdb0mIR0c/ug20ece57o=;
+	b=VMVgLxOt01P6HaMA7mmz1BGr+bjL1THr82uAhSoc/1Ti4hkcotJJ2bkjtaVjMPTsamniHt
+	IoxQqDI4nlVART/YOYi8hXgKKBXo3jLI1JXc9J5DxFiZ1suZuc8UvzD5Y6FjkeNpuNWL3B
+	SkxTDOo1kowN40N15/k5dz8EWccVe8Y=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1704209855;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=iFeSjnnhDL7UuXIIfB/Pi2bJdb0mIR0c/ug20ece57o=;
+	b=y1xwT7kW662Nawv0VmaTw9y2AV7W7WaUsEKoRUhpWq+ei2p434HwSn9DgF7udfzl5Esprz
+	tTdQPAKUCmEoHgCQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2696713AC6;
+	Tue,  2 Jan 2024 15:37:35 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([10.150.64.162])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id QBLJB78tlGVdcgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Tue, 02 Jan 2024 15:37:35 +0000
+Date: Tue, 02 Jan 2024 16:37:34 +0100
+Message-ID: <87sf3f7nlt.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Gergo Koteles <soyer@irl.hu>
+Cc: Shenghao Ding <shenghao-ding@ti.com>,
+	Kevin Lu <kevin-lu@ti.com>,
+	Baojun Xu <baojun.xu@ti.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	alsa-devel@alsa-project.org
+Subject: Re: [PATCH v2 0/4] ALSA: hda/tas2781: Add tas2563 support
+In-Reply-To: <cover.1703891777.git.soyer@irl.hu>
+References: <cover.1701906455.git.soyer@irl.hu>
+	<cover.1703891777.git.soyer@irl.hu>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=VMVgLxOt;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=y1xwT7kW
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-2.47 / 50.00];
+	 ARC_NA(0.00)[];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	 FROM_HAS_DN(0.00)[];
+	 TO_DN_SOME(0.00)[];
+	 FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 MIME_GOOD(-0.10)[text/plain];
+	 NEURAL_HAM_LONG(-1.00)[-1.000];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	 DKIM_TRACE(0.00)[suse.de:+];
+	 MX_GOOD(-0.01)[];
+	 RCPT_COUNT_SEVEN(0.00)[11];
+	 MID_CONTAINS_FROM(1.00)[];
+	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+];
+	 NEURAL_HAM_SHORT(-0.20)[-1.000];
+	 FREEMAIL_CC(0.00)[ti.com,perex.cz,suse.com,gmail.com,kernel.org,vger.kernel.org,alsa-project.org];
+	 RCVD_TLS_ALL(0.00)[];
+	 BAYES_HAM(-1.96)[94.84%]
+X-Rspamd-Queue-Id: 7D6221FD01
+Message-ID-Hash: RXIX7TJ4UEUQ5AWFDEHTS6AE7PT7KQ4V
+X-Message-ID-Hash: RXIX7TJ4UEUQ5AWFDEHTS6AE7PT7KQ4V
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -120,7 +170,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CQQT3TDUCKM2NVG642Z3WTHUZZI2O457/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RXIX7TJ4UEUQ5AWFDEHTS6AE7PT7KQ4V/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -129,48 +179,50 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hello,
-
-On Wednesday, 20 December, 2023 23:25:50, Rob Herring wrote:
-> On Mon, Dec 18, 2023 at 01:40:58PM +0100, Elinor Montmasson wrote: 
-> > +Optional, relevant only with the "fsl,imx-audio-generic" compatible: 
-> > + 
-> > + - cpu-slot-width : Indicates a specific TDM slot width in bits. 
-> > + - cpu-slot-num : Indicates a specific number of TDM slots per frame. 
+On Sat, 30 Dec 2023 01:09:41 +0100,
+Gergo Koteles wrote:
 > 
-> Pretty sure I've seen other bindings with TDM slot properties. A sign we 
-> need something common if we don't already have something. 
-
-That's right, "tdm-slot.txt" already defines TDM bindings, I will
-use them with the utility function snd_soc_of_parse_tdm_slot().
-
-> > + - cpu-sysclk-freq-rx : Frequency of the CPU DAI sys clock for Rx. 
-> > + - cpu-sysclk-freq-tx : Frequency of the CPU DAI sys clock for Tx. 
-> > + 
-> > + - cpu-sysclk-dir-rx-out : Boolean property. Specifies sys clock direction 
-> > + as 'out' on initialization for Rx. 
-> > + If not set, default direction is 'in'. 
-> > + - cpu-sysclk-dir-tx-out : Boolean property. Specifies sys clock direction 
-> > + as 'out' on initialization for Tx. 
-> > + If not set, default direction is 'in'. 
+> The tas2781-hda driver can be modified to support tas2563 as well.
+> Before knowing this information, I created another series for a
+> new driver.
+> Link: https://lore.kernel.org/lkml/cover.1701733441.git.soyer@irl.hu/
 > 
-> Looks like clock stuff. Use the clock binding. 
+> This series now extends tas2781-hda.
+> 
+> The tas2563 is a smart amplifier. Similar to tas2562 but with DSP. Some
+> Lenovo laptops have it to drive the bass speakers. By default, it is in
+> software shutdown state.
+> 
+> To make the DSP work it needs a firmware and some calibration data.
+> The latter can be read from the EFI in Lenovo laptops.
+> 
+> For the correct configuration it needs additional register data.
+> It captured after running the Windows driver.
+> 
+> The firmware can be extracted as TAS2563Firmware.bin from the Windows
+> driver with innoextract.
+> https://download.lenovo.com/consumer/mobiles/h5yd037fbfyy7kd0.exe
+> 
+> The driver will search for it as TAS2XXX3870.bin with the Lenovo Yoga 7 
+> 14ARB7.
+> 
+> The captured registers extracted with TI's regtool: 
+> https://github.com/soyersoyer/tas2563rca/raw/main/INT8866RCA2.bin
+> 
+> Changes since v1:
+> - fixes were sent as individual patches
+> - rebased onto for-next
+> - adding the missed fixup
+> 
+> Gergo Koteles (4):
+>   ALSA: hda/tas2781: add ptrs to calibration functions
+>   ALSA: hda/tas2781: add configurable global i2c address
+>   ALSA: hda/tas2781: add TAS2563 support for 14ARB7
+>   ALSA: hda/tas2781: add fixup for Lenovo 14ARB7
 
-simple-card defines similar properties at the dai level:
-"system-clock-frequency" and "system-clock-direction-out".
-The first is used if no "clocks" binding is specified for the dai node.
+Applies all patches to for-next branch now.
 
-Maybe I could use a similar logic with fsl-asoc-card ?
-* adding a "clock-cpu" phandle property which should be the cpu clock.
-It will be used to retreive the frequency for both RX and TX.
-* keeping "cpu-sysclk-freq-rx"/"cpu-sysclk-freq-tx", which are used if
-no clock is provided, like "system-clock-frequency" in simple-card.
-* keep using "cpu-sysclk-dir-rx-out"/"cpu-sysclk-dir-tx-out", like
-"system-clock-direction-out" in simple card.
 
-Also, maybe I could rename my new properties:
-cpu-system-clock-frequency-tx, cpu-system-clock-direction-out-rx, ...
-It would better match those in simple-card as they do the same thing.
+thanks,
 
-Best regards,
-Elinor Montmasson
+Takashi

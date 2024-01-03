@@ -2,72 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53765823499
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 Jan 2024 19:36:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B918482349B
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 Jan 2024 19:37:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BCCC6EA1;
-	Wed,  3 Jan 2024 19:36:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BCCC6EA1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2E784E88;
+	Wed,  3 Jan 2024 19:37:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2E784E88
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1704307015;
-	bh=ht4f2L9VNRd0Mc59eoD5YHto4h+iXotwSN2zcCeCmUg=;
+	s=default; t=1704307055;
+	bh=dDDot4LPRcgoDYuhIQlX528kffOfH+AmewxKynD5EdI=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Twa6B5+8KhHO9bOM2ESBTrAbT3+QavxOg09xUw5uyNS5Hn8AGwcheZB3yVcYV2ZLY
-	 ydyahaD2g3gQxo1gapuTb2r3/4Qz/km2qVJ83E42IaP+dMjY/BoSqoC3A5ucxZULBE
-	 PXh5NkR8Zxh+bipG5G9JlqLHhAvyW3qcKTqVLg6c=
+	b=IKOFKV4XAN4t4yb8T5lY7bVNIZ1VPOqLQVU7Fz6YlG/OP5fOpns6xb5ctoQy1bmQ7
+	 96anyaf7A0Oh72R3DqYfX2yzToNWqDkpNOG03jti+chWxPfkn/bHPoM1WGnEZzdS4K
+	 +c8TRAZawSA7aDi6fpsEQjY/YoLFGhAqVciidG2s=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B07DFF805CA; Wed,  3 Jan 2024 19:36:02 +0100 (CET)
+	id 8949AF80631; Wed,  3 Jan 2024 19:36:08 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 887EAF805EF;
-	Wed,  3 Jan 2024 19:36:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AF7D8F8062F;
+	Wed,  3 Jan 2024 19:36:07 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C3CDEF80551; Wed,  3 Jan 2024 19:34:36 +0100 (CET)
+	id 6623CF80537; Wed,  3 Jan 2024 19:34:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-7.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 07728F80086
-	for <alsa-devel@alsa-project.org>; Wed,  3 Jan 2024 19:34:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07728F80086
+	by alsa1.perex.cz (Postfix) with ESMTPS id 41446F80533
+	for <alsa-devel@alsa-project.org>; Wed,  3 Jan 2024 19:34:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41446F80533
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=gbzXcl7B
+ header.s=k20201202 header.b=D3/Pk1um
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by ams.source.kernel.org (Postfix) with ESMTP id 7B5F0B8149C;
+	by sin.source.kernel.org (Postfix) with ESMTP id E1082CE17C7;
+	Wed,  3 Jan 2024 18:34:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B266BC433C9;
 	Wed,  3 Jan 2024 18:34:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B1D6C433C7;
-	Wed,  3 Jan 2024 18:34:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1704306866;
-	bh=ht4f2L9VNRd0Mc59eoD5YHto4h+iXotwSN2zcCeCmUg=;
+	s=k20201202; t=1704306869;
+	bh=dDDot4LPRcgoDYuhIQlX528kffOfH+AmewxKynD5EdI=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=gbzXcl7BbbxtSm8Gi1Qyxsl/niVlUDQwNiiEc5sY9rVMtZrwQt5V+HfUcHTM0wYTG
-	 k1x+KtfvTL73UBFGoc7AL2u3mwNEoOfZyLrjEL1QqlK93Rad0S9Rh2WfszzNejvDDl
-	 5ne7Eztu0D6MMIbo9CJnVEfXV37s0HjDsHd0tJUoMAcR4x4s/1qzP/1BlmFe9QeRry
-	 8xDSYJviEHcCfjvIzT+kWLc065GmGQmtQTRD+Z853G+MljPQdC57+2ihRrqy7O2Y27
-	 BLLdtcNI1tQ7/iyjvNm9Bjpi/xVZPPoN1OVXSHPu4MX47rPbyJQSH0Vc+lAHIhz9JC
-	 rEkCyZZhEb/jQ==
+	b=D3/Pk1umSny2A8IZwjZfAIKV5pHBczxBvTftsMewDZ+JzbCSb0VDHB/gvc/LTW8n4
+	 Ux0Fyoxb4Stqm3xpZeW1bdtWWWjflUUKpTe3FsQ3sO05BXat6QzYnOyWh83JOv3mrH
+	 uegVKZiyU0HBnJ31gbYPdjrQoc+F1trLh86eeoVGPyKUXcu+CHwPxqD9+Mt1PWBJX2
+	 sEsjivyiK8bTyNYSYc9XqeTcZ6+9Qv9Q7+FXqjB9dM3VpUhmvcIIMANPG/cALnCq33
+	 pt0b0pOWxVnYpdGRmch3ijPkF7xt8DnfScdRSOfN5ik2WtkyOL+2oSd5N8cfPISpR4
+	 /SQV8J3hWJKOg==
 From: Mark Brown <broonie@kernel.org>
-Date: Wed, 03 Jan 2024 18:34:02 +0000
-Subject: [PATCH 2/4] ASoC: meson: g12a-tohdmitx: Validate written enum
- values
+Date: Wed, 03 Jan 2024 18:34:03 +0000
+Subject: [PATCH 3/4] ASoC: meson: g12a-toacodec: Fix event generation
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240103-meson-enum-val-v1-2-424af7a8fb91@kernel.org>
+Message-Id: <20240103-meson-enum-val-v1-3-424af7a8fb91@kernel.org>
 References: <20240103-meson-enum-val-v1-0-424af7a8fb91@kernel.org>
 In-Reply-To: <20240103-meson-enum-val-v1-0-424af7a8fb91@kernel.org>
 To: Jerome Brunet <jbrunet@baylibre.com>,
@@ -79,19 +77,19 @@ Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
  linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>
 X-Mailer: b4 0.13-dev-0438c
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1548; i=broonie@kernel.org;
- h=from:subject:message-id; bh=ht4f2L9VNRd0Mc59eoD5YHto4h+iXotwSN2zcCeCmUg=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBllaimMWacGtC/oM+FCVutaQUzoegKMoiH8Pk8W
- Wbk4bW3T96JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCZZWopgAKCRAk1otyXVSH
- 0DSyB/9+01n+37YTh84CduFEZq2Oj/ZWKuKbVubO9Xv9hSbfjLZ6hv+BbHfmTJbr5Hna2XehzGw
- kfhV5m5JcRciYD7N8OTUgKgV36fi+AdE9buDprljnRf7DsyHosNHxmxVRXwZtwMToJmj/V2DV5z
- bmCkAUJD7HZ/r7KOYAWncYQk6YEjFBGAO37eagiVkwBEpcsD4QKdnkcfPUEU7rjXL7JcLJKRMsi
- VGDdgmOlqjnHOJzJkkzupjsFvYhWjZPWXjR3NOxFDwQ5MGLIWmnNy++naYdz687laZc20LzB7EL
- KRlifhoDqlOaXFnwTsGK5ULqE59CrKOJM8v4OQe3GaSuqost
+X-Developer-Signature: v=1; a=openpgp-sha256; l=996; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=dDDot4LPRcgoDYuhIQlX528kffOfH+AmewxKynD5EdI=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBllainucttS7OoBLV5md2JR3xlj2GVea5XjFl06
+ dLgG8hp3R+JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCZZWopwAKCRAk1otyXVSH
+ 0P6YB/4jzW3f4QaPPP68INJXXLHuXZAFWMvx6FTQuOqj8wqVrOLFFdLieqJQcNa01wBLV0QgR+p
+ 0giUSm4S4Y8D7/QASlWUBaKhSiOsGRSEHQnp8vqA9QeMCvN6gtvZWzfm/4IAhHOugTh7FOUYrbE
+ U+t8zCxvfXyvxARb6Jvh6mFM6XtxykTKKmaGD3gETbU1jvzTUV1igKFRZ7rg57RT4URS03zygeo
+ gRzawACQtEfB3AIUaQ198HNe0cF959n2z2OjoqPfKLzVXpVEaQyzh/ZGdPo9QkNU3IQahnnDpO7
+ aDdjoagBml0WpiHz044OI2k4kL49tXmDGx/Huftxb6cbG03f
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
-Message-ID-Hash: N6CVNG7NHQJCEYMVOOQXXFXQIHEFHNSO
-X-Message-ID-Hash: N6CVNG7NHQJCEYMVOOQXXFXQIHEFHNSO
+Message-ID-Hash: MFCHBRJ4U2QHD6RCNFJ4TBXBLGC3XC6Y
+X-Message-ID-Hash: MFCHBRJ4U2QHD6RCNFJ4TBXBLGC3XC6Y
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -104,7 +102,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/N6CVNG7NHQJCEYMVOOQXXFXQIHEFHNSO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MFCHBRJ4U2QHD6RCNFJ4TBXBLGC3XC6Y/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,41 +111,30 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-When writing to an enum we need to verify that the value written is valid
-for the enumeration, the helper function snd_soc_item_enum_to_val() doesn't
-do it since it needs to return an unsigned (and in any case we'd need to
-check the return value).
+When a control changes value the return value from _put() should be 1 so
+we get events generated to userspace notifying applications of the change.
+We are checking if there has been a change and exiting early if not but we
+are not providing the correct return value in the latter case, fix this.
 
-Fixes: c8609f3870f7 ("ASoC: meson: add g12a tohdmitx control")
+Fixes: af2618a2eee8 ("ASoC: meson: g12a: add internal DAC glue driver")
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/meson/g12a-tohdmitx.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ sound/soc/meson/g12a-toacodec.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/meson/g12a-tohdmitx.c b/sound/soc/meson/g12a-tohdmitx.c
-index f7ef9aa1eed8..51b7703e1834 100644
---- a/sound/soc/meson/g12a-tohdmitx.c
-+++ b/sound/soc/meson/g12a-tohdmitx.c
-@@ -45,6 +45,9 @@ static int g12a_tohdmitx_i2s_mux_put_enum(struct snd_kcontrol *kcontrol,
- 	struct soc_enum *e = (struct soc_enum *)kcontrol->private_value;
- 	unsigned int mux, changed;
+diff --git a/sound/soc/meson/g12a-toacodec.c b/sound/soc/meson/g12a-toacodec.c
+index dd7f07de2685..531bb8707a3e 100644
+--- a/sound/soc/meson/g12a-toacodec.c
++++ b/sound/soc/meson/g12a-toacodec.c
+@@ -104,7 +104,7 @@ static int g12a_toacodec_mux_put_enum(struct snd_kcontrol *kcontrol,
  
-+	if (ucontrol->value.enumerated.item[0] >= e->items)
-+		return -EINVAL;
-+
- 	mux = snd_soc_enum_item_to_val(e, ucontrol->value.enumerated.item[0]);
- 	changed = snd_soc_component_test_bits(component, e->reg,
- 					      CTRL0_I2S_DAT_SEL,
-@@ -93,6 +96,9 @@ static int g12a_tohdmitx_spdif_mux_put_enum(struct snd_kcontrol *kcontrol,
- 	struct soc_enum *e = (struct soc_enum *)kcontrol->private_value;
- 	unsigned int mux, changed;
+ 	snd_soc_dapm_mux_update_power(dapm, kcontrol, mux, e, NULL);
  
-+	if (ucontrol->value.enumerated.item[0] >= e->items)
-+		return -EINVAL;
-+
- 	mux = snd_soc_enum_item_to_val(e, ucontrol->value.enumerated.item[0]);
- 	changed = snd_soc_component_test_bits(component, TOHDMITX_CTRL0,
- 					      CTRL0_SPDIF_SEL,
+-	return 0;
++	return 1;
+ }
+ 
+ static SOC_ENUM_SINGLE_DECL(g12a_toacodec_mux_enum, TOACODEC_CTRL0,
 
 -- 
 2.39.2

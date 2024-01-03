@@ -2,180 +2,127 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9218C822FA2
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 Jan 2024 15:36:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF267823E89
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jan 2024 10:24:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AA769E8C;
-	Wed,  3 Jan 2024 15:36:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA769E8C
+	by alsa0.perex.cz (Postfix) with ESMTPS id BCEF414CC;
+	Thu,  4 Jan 2024 10:24:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BCEF414CC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1704292604;
-	bh=fOWeFf8oLoVOtf1W/56qLYJ1jIHCAsRPn4iiXPrWW9U=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1704360261;
+	bh=xx/G39lJcQtRge5dpRsHbXbDNtB8jbJH83YA8jBJNt8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=vq9ZyVeAVGCjekbkIMsFVqvT+akKtNZOLkIcqNUFa63V4Qm5piGdKcppPbagsDJ9c
-	 AynMMlD8mk3XpMIxF40JWY8+pSL35h/DB+rhpZZ1UWSoWonhNNbgWg2tHQIl9RmevK
-	 k9dKnFdBp96mSboixuTJhpCxWXYySH8/bUyi/9nk=
+	b=hJpqelWq9UMFyfOFORL+NcGd+F/8/oQ+y/Ja0Me+Mi310rnZTJgtT8w9ZasItul9f
+	 knKWDfx/mLw4u6AzQacyGgK8vKeTj6N+neV+moIcoB5plLjkIew6sS2xtMG9eWDuFu
+	 6KZXM4m+ofSEeCs44V5MOlF8iQ89mIrovBkNwQhA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 761D6F8055A; Wed,  3 Jan 2024 15:36:13 +0100 (CET)
+	id 1F546F8061C; Thu,  4 Jan 2024 10:22:50 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2FD65F8055B;
-	Wed,  3 Jan 2024 15:36:13 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3CCA5F80631;
+	Thu,  4 Jan 2024 10:22:50 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 68709F80537; Wed,  3 Jan 2024 15:36:09 +0100 (CET)
+	id B6450F80537; Wed,  3 Jan 2024 15:47:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+	HTML_MESSAGE,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail-pj1-x102d.google.com (mail-pj1-x102d.google.com
+ [IPv6:2607:f8b0:4864:20::102d])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 139E0F800B6
-	for <alsa-devel@alsa-project.org>; Wed,  3 Jan 2024 15:36:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 139E0F800B6
+	by alsa1.perex.cz (Postfix) with ESMTPS id DF06BF800B6
+	for <alsa-devel@alsa-project.org>; Wed,  3 Jan 2024 15:47:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF06BF800B6
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=EIhSiEnC;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=gdCEDPm6;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=EIhSiEnC;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=gdCEDPm6
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 65B1821E96;
-	Wed,  3 Jan 2024 14:36:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1704292561;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=neGn1jiNFuUjohraOc1BEPgti9cKQvU6vU5CdtXSqJY=;
-	b=EIhSiEnC18ukreeed9nWUKc1K4RndJxWpDmKlh0yRKi+KODhHt4ooZPIUKb14okCLlEqTE
-	5aftYoQHRumeZuey+BJDV+ncYaTr34dhJJcZrvhFWRZNSEwE/QsERDRud9zT3NDEUdCeZe
-	T6WYYBJ21OruHZ/kShSHr3CvJqjMkb0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1704292561;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=neGn1jiNFuUjohraOc1BEPgti9cKQvU6vU5CdtXSqJY=;
-	b=gdCEDPm6SlJFXMcYQdjbROY+eczQFFIE3uPWCzaqbzUl2/hajUJKZRDL+JlKTq1F4TsrZT
-	2U1jriLAoSdq6TBA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1704292561;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=neGn1jiNFuUjohraOc1BEPgti9cKQvU6vU5CdtXSqJY=;
-	b=EIhSiEnC18ukreeed9nWUKc1K4RndJxWpDmKlh0yRKi+KODhHt4ooZPIUKb14okCLlEqTE
-	5aftYoQHRumeZuey+BJDV+ncYaTr34dhJJcZrvhFWRZNSEwE/QsERDRud9zT3NDEUdCeZe
-	T6WYYBJ21OruHZ/kShSHr3CvJqjMkb0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1704292561;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=neGn1jiNFuUjohraOc1BEPgti9cKQvU6vU5CdtXSqJY=;
-	b=gdCEDPm6SlJFXMcYQdjbROY+eczQFFIE3uPWCzaqbzUl2/hajUJKZRDL+JlKTq1F4TsrZT
-	2U1jriLAoSdq6TBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E6E301340C;
-	Wed,  3 Jan 2024 14:36:00 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Pw7HNtBwlWXDSgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Wed, 03 Jan 2024 14:36:00 +0000
-Date: Wed, 03 Jan 2024 15:36:00 +0100
-Message-ID: <87o7e2a3hr.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: =?ISO-8859-1?Q?P=E9ter?= Ujfalusi <peter.ujfalusi@linux.intel.com>
-Cc: Dominik Brodowski <linux@dominikbrodowski.net>,
-	Mark Brown <broonie@kernel.org>,
-	lgirdwood@gmail.com,
-	perex@perex.cz,
-	tiwai@suse.com,
-	alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org,
-	pierre-louis.bossart@linux.intel.com,
-	kai.vehmanen@linux.intel.com,
-	ranjani.sridharan@linux.intel.com,
-	linux-kernel@vger.kernel.org,
-	regressions@lists.linux.dev
-Subject: Re: Oops in hdac_hda_dev_probe (6.7-rc7)
-In-Reply-To: <87y1d8ulxv.wl-tiwai@suse.de>
-References: <ZYvUIxtrqBQZbNlC@shine.dominikbrodowski.net>
-	<87sf3lxiet.wl-tiwai@suse.de>
-	<ZY7kosArPqhlCfOA@shine.dominikbrodowski.net>
-	<874jg1x7ao.wl-tiwai@suse.de>
-	<ZY_Gb8-rncuOjRq-@shine.dominikbrodowski.net>
-	<87plyovwg7.wl-tiwai@suse.de>
-	<3260e806-a708-4462-9d4e-346e54143a65@linux.intel.com>
-	<87y1d8ulxv.wl-tiwai@suse.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 8bit
-Authentication-Results: smtp-out1.suse.de;
-	none
-X-Spamd-Result: default: False [1.20 / 50.00];
-	 ARC_NA(0.00)[];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 FROM_HAS_DN(0.00)[];
-	 TO_DN_SOME(0.00)[];
-	 FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 MIME_GOOD(-0.10)[text/plain];
-	 RCVD_COUNT_THREE(0.00)[3];
-	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	 NEURAL_HAM_SHORT(-0.20)[-1.000];
-	 NEURAL_SPAM_LONG(3.50)[1.000];
-	 RCPT_COUNT_TWELVE(0.00)[13];
-	 MID_CONTAINS_FROM(1.00)[];
-	 FUZZY_BLOCKED(0.00)[rspamd.com];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+];
-	 FREEMAIL_CC(0.00)[dominikbrodowski.net,kernel.org,gmail.com,perex.cz,suse.com,alsa-project.org,vger.kernel.org,linux.intel.com,lists.linux.dev];
-	 RCVD_TLS_ALL(0.00)[];
-	 BAYES_HAM(-3.00)[100.00%]
-Message-ID-Hash: VHNG6EXS74NM7FZO6RIY4LPAO4UJLYK6
-X-Message-ID-Hash: VHNG6EXS74NM7FZO6RIY4LPAO4UJLYK6
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=FjRaCZFC
+Received: by mail-pj1-x102d.google.com with SMTP id
+ 98e67ed59e1d1-28c5af37d3aso1861467a91.0
+        for <alsa-devel@alsa-project.org>;
+ Wed, 03 Jan 2024 06:47:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1704293231; x=1704898031;
+ darn=alsa-project.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=F7lfnd58ssxqxF2Vg08IC/kjE+bqXlt/zNwH+Z4RsAg=;
+        b=FjRaCZFC/h9m3jjcKUhnEtb/a6xamKiOVlHwEu4b1Y1gM5GpATDRLdRU2pGr8s28/q
+         Mtr5PdWWED5os4KHCMYJ2oj7iOvscxOf84D4RDnBmfu6Iv85JR458In4omVNmAypCLEG
+         jBqxR9V4VK+8LlQrwtG7OyE9fT/N9FpyaiWXvFEsBbKlqc8/cOH/RacxWo23fRw2rylg
+         AfGQdJBuhPq/NdTT63vgNLIxsO3WiC5oFNG5/iazJgK6qnb3MlyABCs5aUGF9qgcn4v0
+         gmswpXvDleBz0LrGslic2aGYIQW3odaY8AM/E5B1tM080yJpB0QEvnYgTT1h/sAWbLZ2
+         9UAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1704293231; x=1704898031;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=F7lfnd58ssxqxF2Vg08IC/kjE+bqXlt/zNwH+Z4RsAg=;
+        b=YQey+wLcwimBb2MYneW/i+FIuqSkdJY2ZKAFF+x77qDqMS9JNzCMzGVNbS3n4zuaGN
+         6R+mCtuNWUpW547NnyPrvvdRM1+Un0hsTKe6/GhzaIh/lhn2FmnycEAbaxk7f59wyFYf
+         w0GcYbVChGuzXBKa83XWQ8pxgOpLplHIldiaFYUhCR3NnZeYsQdy5iIZi/JCJLXSKexD
+         oDBczS6jjJaege5WURIVWtIo2F9ahyJNCj5L2UvWh7gcNrXj/lzn4fGEIQmExzx6/7RJ
+         8+OYdIYA3iFMEgYoBpA7mqVs6vd1nuXZUz5bYiltL4AnqiviHymqGEhBTP9EtMAp6goc
+         MAYg==
+X-Gm-Message-State: AOJu0YzNLJVsh7/e05krPOFBq9Hd+rfX058uDEFfDQ/CFRcjkTWWImX7
+	GXq5vAb36gLmk1rutTAo9taCqetp8ldzby7PWUQ=
+X-Google-Smtp-Source: 
+ AGHT+IGNiULJjIIaAgN9r/bJJMLFv33w+YL5B7hJbYo63th4gizhO6im98kba+T6TrKwWcMn2PNxfae/g49gNC6HXIU=
+X-Received: by 2002:a17:90a:8a89:b0:28b:cfa3:8f0e with SMTP id
+ x9-20020a17090a8a8900b0028bcfa38f0emr28518664pjn.3.1704293231282; Wed, 03 Jan
+ 2024 06:47:11 -0800 (PST)
+MIME-Version: 1.0
+References: <NnE33wh--3-9@tutanota.com>
+ <CAJX_Q+0NL1_dkLD2oePhW+EjvGiPLQ7S-1jarz4dANm12iHNMg@mail.gmail.com>
+In-Reply-To: 
+ <CAJX_Q+0NL1_dkLD2oePhW+EjvGiPLQ7S-1jarz4dANm12iHNMg@mail.gmail.com>
+From: Matthew Anderson <ruinairas1992@gmail.com>
+Date: Wed, 3 Jan 2024 08:47:02 -0600
+Message-ID: 
+ <CAEnG5GAsD_Db7G3TGkfA+bjO64V6tJuGph1dLOnvGhYicvLW_Q@mail.gmail.com>
+Subject: Re: Fwd: No sound drivers on HP Envy x360 ey0xxx
+To: tanure@linux.com
+Cc: voreck-lukas@tutanota.com, Bagasdotme <bagasdotme@gmail.com>,
+	Alsa Devel <alsa-devel@alsa-project.org>, Andy Chi <andy.chi@canonical.com>,
+	David Rhodes <david.rhodes@cirrus.com>, Faenkhauser <faenkhauser@gmail.com>,
+	James Schulman <james.schulman@cirrus.com>, Kailang <kailang@realtek.com>,
+	L Guzenko <l.guzenko@web.de>, Linux Kernel <linux-kernel@vger.kernel.org>,
+	Linux Sound <linux-sound@vger.kernel.org>, Luke <luke@ljones.dev>,
+	Overloader <overloader@tutanota.com>,
+ Patches <patches@opensource.cirrus.com>,
+	Perex <perex@perex.cz>, Rf <rf@opensource.cirrus.com>,
+	Sbinding <sbinding@opensource.cirrus.com>,
+ Shenghao Ding <shenghao-ding@ti.com>,
+	Tiwai <tiwai@suse.com>, Tsengalb99 <tsengalb99@gmail.com>,
+	Vitalyr <vitalyr@opensource.cirrus.com>, Yangyuchi66 <yangyuchi66@gmail.com>
+X-MailFrom: ruinairas1992@gmail.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: 5F2GQK3G2RZQVZFEWJXVK3X3CEL66DDZ
+X-Message-ID-Hash: 5F2GQK3G2RZQVZFEWJXVK3X3CEL66DDZ
+X-Mailman-Approved-At: Thu, 04 Jan 2024 09:22:39 +0000
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 3.3.9
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VHNG6EXS74NM7FZO6RIY4LPAO4UJLYK6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5F2GQK3G2RZQVZFEWJXVK3X3CEL66DDZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -184,88 +131,17 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 02 Jan 2024 10:25:00 +0100,
-Takashi Iwai wrote:
-> 
-> On Tue, 02 Jan 2024 10:08:47 +0100,
-> Péter Ujfalusi wrote:
-> > 
-> > 
-> > 
-> > On 30/12/2023 12:03, Takashi Iwai wrote:
-> > > On Sat, 30 Dec 2023 08:27:43 +0100,
-> > > Dominik Brodowski wrote:
-> > >>
-> > >> Am Fri, Dec 29, 2023 at 06:11:43PM +0100 schrieb Takashi Iwai:
-> > >>> On Fri, 29 Dec 2023 16:24:18 +0100,
-> > >>> Dominik Brodowski wrote:
-> > >>>>
-> > >>>> Hi Takashi,
-> > >>>>
-> > >>>> many thanks for your response. Your patch helps half-way: the oops goes
-> > >>>> away, but so does the sound... With your patch, the decisive lines in dmesg
-> > >>>> are:
-> > >>>>
-> > >>>> 	sof-audio-pci-intel-tgl 0000:00:1f.3: Firmware info: version 2:2:0-57864
-> > >>>> 	sof-audio-pci-intel-tgl 0000:00:1f.3: Firmware: ABI 3:22:1 Kernel ABI 3:23:0
-> > >>>> 	sof_sdw sof_sdw: ASoC: CODEC DAI intel-hdmi-hifi1 not registered
-> > >>>> 	sof_sdw sof_sdw: snd_soc_register_card failed -517
-> > >>>> 	sof_sdw sof_sdw: ASoC: CODEC DAI intel-hdmi-hifi1 not registered
-> > >>>> 	sof_sdw sof_sdw: snd_soc_register_card failed -517
-> > >>>> 	platform sof_sdw: deferred probe pending
-> > >>>>
-> > >>>> With a revert of the a0575b4add21, it is:
-> > >>>>
-> > >>>> 	sof-audio-pci-intel-tgl 0000:00:1f.3: Firmware info: version 2:2:0-57864
-> > >>>> 	sof-audio-pci-intel-tgl 0000:00:1f.3: Firmware: ABI 3:22:1 Kernel ABI 3:23:0
-> > >>>> 	sof-audio-pci-intel-tgl 0000:00:1f.3: Topology: ABI 3:22:1 Kernel ABI 3:23:0
-> > >>>> 	sof_sdw sof_sdw: ASoC: Parent card not yet available, widget card binding deferred
-> > >>>> 	sof_sdw sof_sdw: hda_dsp_hdmi_build_controls: no PCM in topology for HDMI converter 3
-> > >>>> 	input: sof-soundwire HDMI/DP,pcm=5 as /devices/pci0000:00/0000:00:1f.3/sof_sdw/sound/card0/input14
-> > >>>> 	input: sof-soundwire HDMI/DP,pcm=6 as /devices/pci0000:00/0000:00:1f.3/sof_sdw/sound/card0/input15
-> > >>>> 	input: sof-soundwire HDMI/DP,pcm=7 as /devices/pci0000:00/0000:00:1f.3/sof_sdw/sound/card0/input16
-> > >>>>
-> > >>>> Maybe this helps a bit further?
-> > >>>
-> > >>> Thanks for quick testing.
-> > >>> It shows at least that my guess wasn't wrong.
-> > >>>
-> > >>> The problem could be the initialization order in the caller side.
-> > >>> Can the patch below work instead?
-> > >>
-> > >> Unfortunately, no:
-> > >>
-> > >> sof-audio-pci-intel-tgl 0000:00:1f.3: Firmware info: version 2:2:0-57864
-> > >> sof-audio-pci-intel-tgl 0000:00:1f.3: Firmware: ABI 3:22:1 Kernel ABI 3:23:0
-> > >> sof_sdw sof_sdw: ASoC: CODEC DAI intel-hdmi-hifi1 not registered
-> > >> sof_sdw sof_sdw: snd_soc_register_card failed -517
-> > >> sof_sdw sof_sdw: ASoC: CODEC DAI intel-hdmi-hifi1 not registered
-> > >> sof_sdw sof_sdw: snd_soc_register_card failed -517
-> > >> platform sof_sdw: deferred probe pending
-> > > 
-> > > Hm, then it might be the logical failure of that commit.
-> > > Peter?
-> > > 
-> > > Without a fix in the next few days, we'll have to revert it before
-> > > 6.7.
-> > 
-> > The fix for this was sent early December:
-> > https://lore.kernel.org/linux-sound/20231207095425.19597-1-peter.ujfalusi@linux.intel.com/
-> > 
-> > It had the correct Fixes tag but it did not made it to 6.7-rc while
-> > a0575b4add21 did made it.
-> > 
-> > Mark, Takashi, can you pick the fix for 6.7 (it is in -next)? I think we
-> > might have time for it to land?
-> 
-> Oh that landed to Mark's for-next branch, i.e. only for 6.8.
-> Mark, please cherry-pick and send a PR before 6.7 final.
-
-I ended up with cherry-picking by myself now.
-
-I'm going to send a PR to Linus for 6.7 final in tomorrow.
-
-
-thanks,
-
-Takashi
+VGhlIGlzc3VlIGlzIHRoYXQgSFAgZG9lcyBub3QgcHJvdmlkZSB0aGUgRFNEIGluZm9ybWF0aW9u
+IGluIHRoZSBCSU9TIGZvcg0KdGhlIENpcnJ1cyBBbXAuIEkndmUgYWxyZWFkeSBlbWFpbGVkIEhQ
+IGluZm9ybWluZyB0aGVtIG9mIHRoZSBpc3N1ZS4gSSB0b28NCmhhdmUgYSBuZXdlciBIUCBFbnZ5
+IFgzNjAgd2hpY2ggaGFzIHRoZSBzYW1lIHByb2JsZW0uDQoNCk9uIFdlZCwgSmFuIDMsIDIwMjQs
+IDg6MjjigK9BTSBMdWNhcyBUYW51cmUgPHRhbnVyZUBsaW51eC5jb20+IHdyb3RlOg0KDQo+DQo+
+DQo+IE9uIFdlZCwgMyBKYW4gMjAyNCwgMDg6MjMgLCA8dm9yZWNrLWx1a2FzQHR1dGFub3RhLmNv
+bT4gd3JvdGU6DQo+DQo+PiBJIGhvcGUgSSdtIHJlc3BvbmRpbmcgY29ycmVjdGx5DQo+Pg0KPj4g
+T24gYnVnemlsbGEgSSB3YXMgYXNrZWQgdG8gYXR0YWNoIGRtZXNnIGFuZCBsc3BjaSBvdXRwdXQu
+IEknbSBzZW5kaW5nDQo+PiBib3RoIGFzIGF0dGFjaG1lbnRzIChjYXVzZSBvZiB0aGVpciBsZW5n
+dGgpIGFuZCBob3BlIGl0IHdvcmtzLCBpdCdzIG15DQo+PiBmaXJzdCB0aW1lIHdvcmtpbmcgd2l0
+aCB0aGVzZSBtYWlsaW5nIGxpc3RzLg0KPj4NCj4NCj4gSGksDQo+DQo+IFRoZSBtb3N0IGltcG9y
+dGFudCB0aGluZyB0byBzdGFydCBpcyB0aGUgRFNEVCBkdW1wIGZyb20geW91ciBCaW9zLg0KPiBU
+aGF0IHNob3VsZCBkZXNjcmliZSB0aGUga2V5IHBvaW50cyBhYm91dCB0aGUgaGFyZHdhcmUgY29u
+ZmlndXJhdGlvbi4NCj4NCj4gVGhhbmtzDQo+IEx1Y2FzIFRhbnVyZQ0KPg0KPj4NCg==

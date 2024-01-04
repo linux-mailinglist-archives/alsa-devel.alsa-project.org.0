@@ -2,96 +2,156 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF3BE82637B
-	for <lists+alsa-devel@lfdr.de>; Sun,  7 Jan 2024 09:54:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCDD082637C
+	for <lists+alsa-devel@lfdr.de>; Sun,  7 Jan 2024 09:54:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B7B27EAF;
-	Sun,  7 Jan 2024 09:54:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7B27EAF
+	by alsa0.perex.cz (Postfix) with ESMTPS id A739DEC5;
+	Sun,  7 Jan 2024 09:54:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A739DEC5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1704617680;
-	bh=h6TY00DxFGxPDMy5/CpnzgNBdPsBqVaQkTfYQFBVgEU=;
-	h=Date:From:To:Subject:Reply-To:List-Id:List-Archive:List-Help:
-	 List-Owner:List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=ZIjzEs717bEBo44dpMVv9GwmvdxGCurDXsQv2z9lE9nnwBTG1+F7FhvVZVvqT2VPD
-	 /wmYWFMRJyk8bSmfXWY0G3a6ePAK3eBI5HXs41uXChqLyctFv3V9QzdeUYtDFpsGHv
-	 zOJ3el8M3jXYMc8WTLiyuGShjJOuTZl/dH/vNBLo=
+	s=default; t=1704617691;
+	bh=D4eDNsTVgB9j/xQ4nsJqMk7k2IoXtqfJ/twvt9ATKUA=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=T5yoUOCUTmxeqxXV8qLmoGQvQ0NVOItsaEx/k7ytlMQNeOI1p1c0tLkLk0aEKyMhH
+	 h9JohtY30Tat9ILTX+oWD5x4J0shY6IBs8rFhZO+H6AO+yVVVR8uBGuZPkP4lHZKMZ
+	 h2v/iOyk51AxLl+qguJpwW3QIiTOmEJqd5Y48xc0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5E87FF80570; Sun,  7 Jan 2024 09:54:09 +0100 (CET)
+	id 3F61EF805AC; Sun,  7 Jan 2024 09:54:11 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 30F6FF8057F;
-	Sun,  7 Jan 2024 09:54:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D47EAF805AF;
+	Sun,  7 Jan 2024 09:54:10 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 61256F804B0; Thu,  4 Jan 2024 22:43:00 +0100 (CET)
+	id 563E8F804B0; Thu,  4 Jan 2024 23:37:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from pb-smtp2.pobox.com (pb-smtp2.pobox.com [64.147.108.71])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EFB28F80086
-	for <alsa-devel@alsa-project.org>; Thu,  4 Jan 2024 22:42:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EFB28F80086
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256
- header.s=sasl header.b=nRfqwt74
-Received: from pb-smtp2.pobox.com (unknown [127.0.0.1])
-	by pb-smtp2.pobox.com (Postfix) with ESMTP id 5086E1E7FF9
-	for <alsa-devel@alsa-project.org>; Thu,  4 Jan 2024 16:42:48 -0500 (EST)
-	(envelope-from joelz@pobox.com)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed; d=pobox.com; h=date:from
-	:to:subject:message-id:reply-to:mime-version:content-type; s=
-	sasl; bh=h6TY00DxFGxPDMy5/CpnzgNBdPsBqVaQkTfYQFBVgEU=; b=nRfqwt7
-	47HOESnsiK2H4Sd0X72toUCW4ifTjkwbCoRvmGCy6N3iiRqCTijCFqHzbxksGKpR
-	066E5VZH8txv4cvzt2IP2JTiu9W/IRLn+5pvadeu7YvzqdAtcLViqQerx8wjcNXm
-	u29eR5ubpWFu0ShOAWRUPl7Kzhv82GtL9UcQ=
-Received: from pb-smtp2.nyi.icgroup.com (unknown [127.0.0.1])
-	by pb-smtp2.pobox.com (Postfix) with ESMTP id 478911E7FF8
-	for <alsa-devel@alsa-project.org>; Thu,  4 Jan 2024 16:42:48 -0500 (EST)
-	(envelope-from joelz@pobox.com)
-Received: from sprite (unknown [66.8.171.137])
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by pb-smtp2.pobox.com (Postfix) with ESMTPSA id A55731E7FF7
-	for <alsa-devel@alsa-project.org>; Thu,  4 Jan 2024 16:42:47 -0500 (EST)
-	(envelope-from joelz@pobox.com)
-Received: from jroth by sprite with local (Exim 4.96)
-	(envelope-from <joelz@pobox.com>)
-	id 1rLVUC-00008s-0G
-	for alsa-devel@alsa-project.org;
-	Thu, 04 Jan 2024 11:42:44 -1000
-Date: Thu, 4 Jan 2024 11:42:44 -1000
-From: Joel Roth <joelz@pobox.com>
-To: alsa-devel@alsa-project.org
-Subject: Intel audio controller: Loss of HDMI output between kernel versions
-Message-ID: <20240104214244.h2j4kkgnwmckgaip@sprite>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3C281F80238
+	for <alsa-devel@alsa-project.org>; Thu,  4 Jan 2024 23:37:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C281F80238
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=VJach6FS
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 404HdK1Z029968;
+	Thu, 4 Jan 2024 16:37:19 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
+	from:to:cc:subject:date:message-id:mime-version
+	:content-transfer-encoding:content-type; s=PODMain02222019; bh=M
+	Shzt3LVhFxMMuG6ippnJ3aKDGhRinbXBUUZ94iQi08=; b=VJach6FSwwbzt9KmI
+	GWjCTzJzGjLLeGGhyU96URR9nObLd4F+tECWcYZVXnh9so3tG/UyD3OMzAekeJPR
+	yO/CLF3Cyt7sS9sZJyxiSlsdFeIczLXTD5+PjX+5DTlD0ryn/29hyd5YeCCMTar+
+	M/udBGMya454ibWyxn9mZERg12Gx+HFsP6vi67cBDnTcXnfDUQ4e5IDq+FZh07xm
+	2g4iFzL2z5yxYKuAfCFpe3VFVdbw7LwUZy0BJ72/MAisZP7A6Z1U4RqpguIX4THo
+	aixE2vx4Yx9W5aqLCMOJ1qbD5sAcq5X8nf12uir/DFeip6K2PC+GakcXUOR9tHSS
+	LIY4Q==
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3ve18src5a-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 04 Jan 2024 16:37:18 -0600 (CST)
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Thu, 4 Jan
+ 2024 22:37:16 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.40 via Frontend Transport; Thu, 4 Jan 2024 22:37:01 +0000
+Received: from aus-sw-rshr002.ad.cirrus.com (aus-sw-rshr002.ad.cirrus.com
+ [141.131.145.53])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id E99CC474;
+	Thu,  4 Jan 2024 22:36:56 +0000 (UTC)
+From: James Ogletree <jogletre@opensource.cirrus.com>
+To: 
+CC: James Ogletree <jogletre@opensource.cirrus.com>,
+        James Ogletree
+	<james.ogletree@cirrus.com>,
+        Fred Treven <fred.treven@cirrus.com>,
+        Ben Bright
+	<ben.bright@cirrus.com>,
+        Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+        "Rob
+ Herring" <robh+dt@kernel.org>,
+        Krzysztof Kozlowski
+	<krzysztof.kozlowski+dt@linaro.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Simon Trimmer <simont@opensource.cirrus.com>,
+        Charles Keepax
+	<ckeepax@opensource.cirrus.com>,
+        Richard Fitzgerald
+	<rf@opensource.cirrus.com>,
+        Lee Jones <lee@kernel.org>, Liam Girdwood
+	<lgirdwood@gmail.com>,
+        Mark Brown <broonie@kernel.org>, Jaroslav Kysela
+	<perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>,
+        James Schulman
+	<james.schulman@cirrus.com>,
+        David Rhodes <david.rhodes@cirrus.com>,
+        Sebastian Reichel <sebastian.reichel@collabora.com>,
+        Alexandre Belloni
+	<alexandre.belloni@bootlin.com>,
+        Peng Fan <peng.fan@nxp.com>, Jacky Bai
+	<ping.bai@nxp.com>,
+        Jeff LaBundy <jeff@labundy.com>,
+        Weidong Wang
+	<wangweidong.a@awinic.com>,
+        Herve Codina <herve.codina@bootlin.com>,
+        "Arnd
+ Bergmann" <arnd@arndb.de>, Shuming Fan <shumingf@realtek.com>,
+        Shenghao Ding
+	<13916275206@139.com>, Ryan Lee <ryans.lee@analog.com>,
+        Linus Walleij
+	<linus.walleij@linaro.org>,
+        Maxim Kochetkov <fido_max@inbox.ru>,
+        "open
+ list:CIRRUS LOGIC HAPTIC DRIVERS" <patches@opensource.cirrus.com>,
+        "open
+ list:INPUT (KEYBOARD, MOUSE, JOYSTICK, TOUCHSCREEN)..."
+	<linux-input@vger.kernel.org>,
+        "open list:OPEN FIRMWARE AND FLATTENED DEVICE
+ TREE BINDINGS" <devicetree@vger.kernel.org>,
+        open list
+	<linux-kernel@vger.kernel.org>,
+        "open list:SOUND - SOC LAYER / DYNAMIC AUDIO
+ POWER MANAGEM..." <linux-sound@vger.kernel.org>,
+        "moderated list:CIRRUS LOGIC
+ AUDIO CODEC DRIVERS" <alsa-devel@alsa-project.org>
+Subject: [PATCH v5 0/5] Add support for CS40L50
+Date: Thu, 4 Jan 2024 22:36:33 +0000
+Message-ID: <20240104223643.876292-1-jogletre@opensource.cirrus.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Pobox-Relay-ID: 
- 339D745C-AB4A-11EE-9BBC-25B3960A682E-04347428!pb-smtp2.pobox.com
-X-MailFrom: joelz@pobox.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: rpOIz0vGtpWU2aw1DIz15-q1kEDNu-vQ
+X-Proofpoint-GUID: rpOIz0vGtpWU2aw1DIz15-q1kEDNu-vQ
+X-Proofpoint-Spam-Reason: safe
+X-MailFrom: prvs=8733dab0b6=jogletre@opensource.cirrus.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: BEJDYEMZ53HADAYJDMGRUHZAUMWNZY4X
-X-Message-ID-Hash: BEJDYEMZ53HADAYJDMGRUHZAUMWNZY4X
-X-Mailman-Approved-At: Sun, 07 Jan 2024 08:53:16 +0000
+Message-ID-Hash: JLAYSUOKHH74M73TFWNYBBS5F6WLOOAQ
+X-Message-ID-Hash: JLAYSUOKHH74M73TFWNYBBS5F6WLOOAQ
+X-Mailman-Approved-At: Sun, 07 Jan 2024 08:53:26 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
-Reply-To: Joel Roth <joelz@pobox.com>
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BEJDYEMZ53HADAYJDMGRUHZAUMWNZY4X/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JLAYSUOKHH74M73TFWNYBBS5F6WLOOAQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,91 +160,68 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Will be grateful for any suggestions.
+There is a massive delta from V4, so only the highlgihts are
+mentioned below. I intend for this version to address all
+feedback to-date, so if you find something left unaddressed
+then please let me know.
 
-My soundcard as reported by lspci:
+Changes in v5:
+- Added a codec sub-device to support I2S streaming
+- Moved write sequencer code from cirrus_haptics to cs_dsp
+- Reverted cirrus_haptics library; future Cirrus input
+  drivers will export and utilize cs40l50_vibra functions
+- Added more comments
+- Many small stylistic and logical improvements
 
-00:1f.3 Audio device: Intel Corporation Cannon Point-LP High Definition Audio Controller (rev 30)
+Changes in v4:
+- Moved from Input to MFD
+- Moved common Cirrus haptic functions to a library
+- Incorporated runtime PM framework
+- Many style improvements
 
-I use the asoundrc below to route audio to both
-the analog output and the HDMI connector. 
+Changes in v3:
+- YAML formatting corrections
+- Fixed typo in MAINTAINERS
+- Used generic node name "haptic-driver"
+- Fixed probe error code paths
+- Switched to "sizeof(*)"
+- Removed tree reference in MAINTAINERS
 
-With Debian kernel 6.0.0-6-amd64 I get sound at
-both outputs. With version 6.0.1-10-amd64 
-there is no HDMI output. 
+Changes in v2:
+- Fixed checkpatch warnings
 
-pcm.hdmi_out {
-	type hw
-	card 0
-	device 7
-}
-pcm.analog {
-	type hw
-	card 0
-	device 0
-}
+James Ogletree (5):
+  firmware: cs_dsp: Add write sequencer interface
+  dt-bindings: input: cirrus,cs40l50: Add initial DT binding
+  mfd: cs40l50: Add support for CS40L50 core driver
+  Input: cs40l50 - Add support for the CS40L50 haptic driver
+  ASoC: cs40l50: Support I2S streaming to CS40L50
 
-	
-pcm.hdmi_dmix {
-    type dmix
-    ipc_key 1024
-    ipc_perm 0666 # allow other users
-    slave.pcm "hdmi_out"
-    slave {
-        period_time 0
-        period_size 1024
-        buffer_size 4096
-        channels 2 # must match bindings
-    }
-    bindings {
-        0 0
-        1 1
-    }
-}
-
-pcm.analog_dmix {
-    type dmix
-    ipc_key 2048
-    ipc_perm 0666 # allow other users
-    slave.pcm "analog"
-    slave {
-        period_time 0
-        period_size 1024
-        buffer_size 4096
-        channels 2 # must match bindings
-    }
-    bindings {
-        0 0
-        1 1
-    }
-}
-
-pcm.!default {
-    type asym
-    playback.pcm "out"
-}
-
-# Multi
-pcm.out {
-    type plug
-    slave.pcm {
-        type multi
-        slaves {
-            a { channels 2 pcm hdmi_dmix }
-            b { channels 2 pcm analog_dmix }
-        }
-        bindings {
-            0 { slave a channel 0 }
-            1 { slave a channel 1 }
-            2 { slave b channel 0 }
-            3 { slave b channel 1 }
-        }
-    }
-    ttable [
-        [ 1 0 1 0 ]   # left  -> a.left,  b.left
-        [ 0 1 0 1 ]   # right -> a.right, b.right
-    ]
-}
+ .../bindings/input/cirrus,cs40l50.yaml        |  70 +++
+ MAINTAINERS                                   |  12 +
+ drivers/firmware/cirrus/cs_dsp.c              | 261 ++++++++
+ drivers/input/misc/Kconfig                    |  10 +
+ drivers/input/misc/Makefile                   |   1 +
+ drivers/input/misc/cs40l50-vibra.c            | 572 ++++++++++++++++++
+ drivers/mfd/Kconfig                           |  30 +
+ drivers/mfd/Makefile                          |   4 +
+ drivers/mfd/cs40l50-core.c                    | 536 ++++++++++++++++
+ drivers/mfd/cs40l50-i2c.c                     |  69 +++
+ drivers/mfd/cs40l50-spi.c                     |  69 +++
+ include/linux/firmware/cirrus/cs_dsp.h        |  28 +
+ include/linux/mfd/cs40l50.h                   | 128 ++++
+ sound/soc/codecs/Kconfig                      |  11 +
+ sound/soc/codecs/Makefile                     |   2 +
+ sound/soc/codecs/cs40l50-codec.c              | 304 ++++++++++
+ 16 files changed, 2107 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/input/cirrus,cs40l50.yaml
+ create mode 100644 drivers/input/misc/cs40l50-vibra.c
+ create mode 100644 drivers/mfd/cs40l50-core.c
+ create mode 100644 drivers/mfd/cs40l50-i2c.c
+ create mode 100644 drivers/mfd/cs40l50-spi.c
+ create mode 100644 include/linux/mfd/cs40l50.h
+ create mode 100644 sound/soc/codecs/cs40l50-codec.c
 
 -- 
-Joel Roth
+2.25.1
+

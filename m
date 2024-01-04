@@ -2,99 +2,189 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 573AD824756
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jan 2024 18:24:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F42128245C2
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jan 2024 17:05:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 68FCBE96;
-	Thu,  4 Jan 2024 18:23:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68FCBE96
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5EE68E9A;
+	Thu,  4 Jan 2024 17:05:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5EE68E9A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1704389040;
-	bh=AgNpe/rQhXH4s/zrVu4O6NOZqlKS54MKFZBPb9+vKyQ=;
-	h=Date:To:Cc:References:From:Subject:In-Reply-To:List-Id:
+	s=default; t=1704384331;
+	bh=ODUTqP08nj9B9j7eAHjJE01SjZXKbtqD9Ktf+UD2HS4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=L5RDMQwxC4Aeo50R5gBbDBSMNOd+boclqbhuj6q3Sgof5cmZfFmX+h371H6EKlZiE
-	 UVY/YfZ3+4EmUtsjnfLZZwAQVFsPuCM6qR5ng7zewPU9ZK4DwHfjOQn2pG0zK4459Y
-	 +YrsK98l+jbRxbsdsKlz8nI6QK9nhfbdU6F1Pff4=
+	b=HEyH7pfjvmnniZSchUkOJvL9UBSKsmP2fwbuy54UjspXiNafwWVDHdkLcGw+KlikH
+	 ui1JIWwXNU6Gp7rdF0TJpypDc8XMcdm5Bw8fzLE97Ap7IBGuRG6DfcK8lhRVxyZdpU
+	 2qNwcFiFtATlIHkGBqUqnHxSTYm1VtUFHJg9cYk4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A7891F80563; Thu,  4 Jan 2024 18:23:29 +0100 (CET)
+	id 08754F80588; Thu,  4 Jan 2024 17:04:59 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E989DF80563;
-	Thu,  4 Jan 2024 18:23:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 451D5F8057F;
+	Thu,  4 Jan 2024 17:04:59 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D77C9F80238; Thu,  4 Jan 2024 18:23:24 +0100 (CET)
+	id DD22CF804B0; Thu,  4 Jan 2024 17:04:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,
+	RCVD_IN_VALIDITY_RPBL,SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+	URIBL_BLOCKED shortcircuit=no autolearn=no autolearn_force=no
+	version=3.4.6
+Received: from EUR01-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur01hn2203.outbound.protection.outlook.com [52.100.5.203])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6D8B2F80086
-	for <alsa-devel@alsa-project.org>; Thu,  4 Jan 2024 18:23:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6D8B2F80086
+	by alsa1.perex.cz (Postfix) with ESMTPS id EBFCBF802DB
+	for <alsa-devel@alsa-project.org>; Thu,  4 Jan 2024 17:04:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EBFCBF802DB
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=T71KDnvS
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1704389000; x=1735925000;
-  h=message-id:date:mime-version:to:cc:references:from:
-   subject:in-reply-to:content-transfer-encoding;
-  bh=AgNpe/rQhXH4s/zrVu4O6NOZqlKS54MKFZBPb9+vKyQ=;
-  b=T71KDnvS6MESa0RTAPia2GifuiATEgmTOaic+Sehzws1jTpqcyEqof6s
-   f184LDQ0jyn+p2Pnb71hmk21HWhuisPLpUcuxYo1XsGHQNgYqHs7NywEK
-   LmHyuQOMWD06YOWSO3TpmedgqOdMcrfS+6v0n39/rwnGMC0UPF1Zjq8Ud
-   iscxJzFLk2EHgBFcjIK30Z63EHWShX5mi0MZeroq5nlOuJZltFdIXlvFs
-   YwtPlFoLTqRY81381bZx5VVl/nKWYwdX76OMWyHE9/kaj36eOSlr/TQds
-   ne/tILtrCTIsoqgWOkupIYuqErd0cbnS7TsLwBtLxs4T52D19LsCmx1FW
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10943"; a="15895925"
-X-IronPort-AV: E=Sophos;i="6.04,331,1695711600";
-   d="scan'208";a="15895925"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jan 2024 06:47:01 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10943"; a="773536659"
-X-IronPort-AV: E=Sophos;i="6.04,330,1695711600";
-   d="scan'208";a="773536659"
-Received: from mattu-haswell.fi.intel.com (HELO [10.237.72.199])
- ([10.237.72.199])
-  by orsmga007.jf.intel.com with ESMTP; 04 Jan 2024 06:46:52 -0800
-Message-ID: <734591a1-50b4-6dc7-0b93-077355ec12e4@linux.intel.com>
-Date: Thu, 4 Jan 2024 16:48:19 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.13.0
+ unprotected) header.d=seco.com header.i=@seco.com header.a=rsa-sha256
+ header.s=selector1 header.b=Yi0V66g/;
+	dkim=pass (2048-bit key) header.d=seco.com header.i=@seco.com
+ header.a=rsa-sha256 header.s=selector1 header.b=Yi0V66g/
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
+ b=Zddb+wdULXV7GZ0QElZl5woN7kR6s3sMzk+aq719l+vp/yO8SSVuOsRDakbQNxCZx3fHRgcQNDSg7JP3uJ78FOLTEmLk8knGCMQ/NXxXK1tpACw26ebbY9qqxXwU5lRjh4L2NbP2ZjlsKU6NsdkcqHOytJI/4O6Dnu6HrZ+On+sRAVu+uyu3/hH/XiVkoV0kgcmMZ766PcqFe8wUEfHy4uXYv8oCpxfPhiWeIS9zqWuD+1AkIHq98FYcN6r06hFonFOPo5x8J29osWhzMrfFkSnfQBMoIjwkAvcrckioZxKWAT1j3YezIecz7OZRdBdwdhys5MIZ782PyJg4jzrAbg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WJcbzO8ttu1DtDtSlrUGPAq10k6Q0Ytks+/DHnUeK7o=;
+ b=Rf1CRyChLLDtBWvvieuLdjRUcJrueiGFNrTesfLa6mvFceUtK7LTb63ehEnG5ogLtOw2lnMTp1Ak4dXKYiDqtX0W9N0PbLjRNYCgAqb3MU76p+xVrr8ribhsYTPa6Rqq9KIxpZ2uMiaewp3NJCcHV4YmDctekqLOHOf0qVam2+IFmXA0lJhKsO/l5P6tFd6f631oX+PrTY0l5IdhPj095FUoAWgqdyaZBgiNTZpQoRQMDYe7nNbomUk3MIPKdUEjOij5yGAGfipvfeeMphSooB5UScgInq57pd/h1ys+QyA9VMdND9ZvjVX9/6GsOFWR4nhLiKs60VF1NcCZIao/Gg==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 20.160.56.86) smtp.rcpttodomain=alsa-project.org smtp.mailfrom=seco.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=seco.com;
+ dkim=pass (signature was verified) header.d=seco.com; arc=pass (0 oda=1
+ ltdi=1 spf=[1,1,smtp.mailfrom=seco.com] dkim=[1,1,header.d=seco.com]
+ dmarc=[1,1,header.from=seco.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=seco.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WJcbzO8ttu1DtDtSlrUGPAq10k6Q0Ytks+/DHnUeK7o=;
+ b=Yi0V66g/OkZ7hqeFMhW8y59su50vYYemwlMpSb3wu0XCm+Q8JC529Ps/6+TpC86NN4jT1uU1x0K2eJaGgO8Bs7QRqcF96I3xKYyz9qmmjVS9+RU2lJV56MgryHwcnjlIGteleb2rkXpiXBRaPfRTpIDhGaQ6aenc4Al/F0+kjUh+DirY4/oMzXC531xCCeWSr1dpzs+bVBpguCQX15NHbD9irlCGt8G2IoUoKV9hZDUPIFP/w42896VIYQjXoV6mrDMgmFFfl/Mvu18Br80YeC0TuWads41AKAiVL1j10Hv3948t//p2oUpYY/9ivmupFUpua6Zu71VWfb/dz6u6mg==
+Received: from FR2P281CA0038.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:92::11)
+ by DB9PR03MB7794.eurprd03.prod.outlook.com (2603:10a6:10:2bf::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.14; Thu, 4 Jan
+ 2024 16:04:50 +0000
+Received: from VI1EUR05FT012.eop-eur05.prod.protection.outlook.com
+ (2603:10a6:d10:92:cafe::78) by FR2P281CA0038.outlook.office365.com
+ (2603:10a6:d10:92::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.15 via Frontend
+ Transport; Thu, 4 Jan 2024 16:04:50 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 20.160.56.86)
+ smtp.mailfrom=seco.com; dkim=pass (signature was verified)
+ header.d=seco.com;dmarc=pass action=none header.from=seco.com;
+Received-SPF: Pass (protection.outlook.com: domain of seco.com designates
+ 20.160.56.86 as permitted sender) receiver=protection.outlook.com;
+ client-ip=20.160.56.86; helo=repost-eu.tmcas.trendmicro.com; pr=C
+Received: from repost-eu.tmcas.trendmicro.com (20.160.56.86) by
+ VI1EUR05FT012.mail.protection.outlook.com (10.233.243.48) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7135.29 via Frontend Transport; Thu, 4 Jan 2024 16:04:49 +0000
+Received: from outmta (unknown [192.168.82.135])
+	by repost-eu.tmcas.trendmicro.com (Trend Micro CAS) with ESMTP id
+ 4574C20080095;
+	Thu,  4 Jan 2024 16:04:49 +0000 (UTC)
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com (unknown
+ [104.47.18.104])
+	by repre.tmcas.trendmicro.com (Trend Micro CAS) with ESMTPS id A8BE52008006F;
+	Thu,  4 Jan 2024 16:04:42 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VgZVJvM/0fTvu5u+/ux0i9px+fPxt5jXvI8ooOY64kEcE9GrA4d0iFlHbRZ7Yhu+3Vopr7UHsBAgeV00Do032EKHeNIBn5Gf0+OYWXvVlJQUFXDxc/Lc02OrEN00A+EvMr7d1TfcE12eFoII9yOKjrk8xOMhJb2LsmksZ5ksGUkLANSCtBdMhNjuzmA3ByUR9RymbIcmGiRwWdeBaRVy7dVdvaIACIO09NLLlcCisyGyruSh0YQwRKlFaVCtf1dRxaaKVlaqwETnqMy7nZxm3TXqGDR1i/D7WFTTuo2VUT/ZYJm2eDRJfG4V59VEvn18q+bDNg9j8Uq1Wqb63vDGBA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WJcbzO8ttu1DtDtSlrUGPAq10k6Q0Ytks+/DHnUeK7o=;
+ b=OB5NxJyOdYV+8nj3SHEFBTM6QfrgwLF1ZMYSt8D+h3wbztPZLgbXCnJmkaC3vni7O+rbgpNhdMn57hZdKDzOZOyTQDcIFJeqJpaV9kbNgwxp7kOddAO0Qgn/HS0xdxjDWjY4FHg1Qh5SEBJOPaojkm00z7WMETCRfBa3Q5KDPZCiUYDn3XfffJYi3uDy//Jm8XE7Eam6K9e9gK8lqXVxKXchRYv2ezocjkucrUHLARezQHNqwRJ7XzLlV12yThXwA6ppxszPTmQHRNcitoB+JKvgL+20zpccuF5DdRu6Xj03m2qzj6DXGPNR65aH+xzw+TIJ8WWN7QNCQeIVg/Pagw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=seco.com; dmarc=pass action=none header.from=seco.com;
+ dkim=pass header.d=seco.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=seco.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WJcbzO8ttu1DtDtSlrUGPAq10k6Q0Ytks+/DHnUeK7o=;
+ b=Yi0V66g/OkZ7hqeFMhW8y59su50vYYemwlMpSb3wu0XCm+Q8JC529Ps/6+TpC86NN4jT1uU1x0K2eJaGgO8Bs7QRqcF96I3xKYyz9qmmjVS9+RU2lJV56MgryHwcnjlIGteleb2rkXpiXBRaPfRTpIDhGaQ6aenc4Al/F0+kjUh+DirY4/oMzXC531xCCeWSr1dpzs+bVBpguCQX15NHbD9irlCGt8G2IoUoKV9hZDUPIFP/w42896VIYQjXoV6mrDMgmFFfl/Mvu18Br80YeC0TuWads41AKAiVL1j10Hv3948t//p2oUpYY/9ivmupFUpua6Zu71VWfb/dz6u6mg==
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=seco.com;
+Received: from DB9PR03MB8847.eurprd03.prod.outlook.com (2603:10a6:10:3dd::13)
+ by AS4PR03MB8553.eurprd03.prod.outlook.com (2603:10a6:20b:580::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7135.25; Thu, 4 Jan
+ 2024 16:04:41 +0000
+Received: from DB9PR03MB8847.eurprd03.prod.outlook.com
+ ([fe80::5cfa:9e05:d8dc:ba0f]) by DB9PR03MB8847.eurprd03.prod.outlook.com
+ ([fe80::5cfa:9e05:d8dc:ba0f%7]) with mapi id 15.20.7135.028; Thu, 4 Jan 2024
+ 16:04:40 +0000
+Message-ID: <075990bb-5fdb-4d30-9484-9df6b978e805@seco.com>
+Date: Thu, 4 Jan 2024 11:04:34 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/4] reset: add GPIO-based reset controller
 Content-Language: en-US
-To: Wesley Cheng <quic_wcheng@quicinc.com>, srinivas.kandagatla@linaro.org,
- mathias.nyman@intel.com, perex@perex.cz, conor+dt@kernel.org,
- corbet@lwn.net, gregkh@linuxfoundation.org, lgirdwood@gmail.com,
- andersson@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- konrad.dybcio@linaro.org, Thinh.Nguyen@synopsys.com, broonie@kernel.org,
- bgoswami@quicinc.com, tiwai@suse.com, robh+dt@kernel.org, agross@kernel.org
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-doc@vger.kernel.org,
- alsa-devel@alsa-project.org
-References: <20240102214549.22498-1-quic_wcheng@quicinc.com>
- <20240102214549.22498-5-quic_wcheng@quicinc.com>
-From: Mathias Nyman <mathias.nyman@linux.intel.com>
-Subject: Re: [PATCH v12 04/41] usb: host: xhci-mem: Cleanup pending secondary
- event ring events
-In-Reply-To: <20240102214549.22498-5-quic_wcheng@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: Bartosz Golaszewski <brgl@bgdev.pl>
+References: <20231222150133.732662-1-krzysztof.kozlowski@linaro.org>
+ <20231222150133.732662-3-krzysztof.kozlowski@linaro.org>
+ <530e3473-eb3b-477c-8599-e7aa12779640@seco.com>
+ <88bd6668-7e67-42c7-97b6-d7029f371349@linaro.org>
+From: Sean Anderson <sean.anderson@seco.com>
+In-Reply-To: <88bd6668-7e67-42c7-97b6-d7029f371349@linaro.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: VLHTE4IZ6TCNH43ZOT2XE2AAD6ZSTB2O
-X-Message-ID-Hash: VLHTE4IZ6TCNH43ZOT2XE2AAD6ZSTB2O
-X-MailFrom: mathias.nyman@linux.intel.com
+X-ClientProxiedBy: MN2PR04CA0035.namprd04.prod.outlook.com
+ (2603:10b6:208:d4::48) To DB9PR03MB8847.eurprd03.prod.outlook.com
+ (2603:10a6:10:3dd::13)
+MIME-Version: 1.0
+X-MS-TrafficTypeDiagnostic: 
+	DB9PR03MB8847:EE_|AS4PR03MB8553:EE_|VI1EUR05FT012:EE_|DB9PR03MB7794:EE_
+X-MS-Office365-Filtering-Correlation-Id: f79e3faa-4d93-442c-f2d2-08dc0d3ee14a
+X-TrendMicro-CAS-OUT-LOOP-IDENTIFIER: 656f966764b7fb185830381c646b41a1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original: 
+ AMdXBIr9GwwdFNg6WZKESsk19TWrtgWOvz7tC5/OR74TyQf0Hu8MVJWfie3ku1+lPsL42KfYpFZvUfB2KvRjCbbqbZAeT6XVU5uvPPUDWT/IM8YMfB4+cKpv3NvPFvS07dtj4RD2kwDtEMe8shM+3Tq1tX+yHqjCODzEdLCL1m5Xyg2jS1mEPIMB6nBgyBltXcxP6A+q8AOvgfdENx905XLUnDCS62VHMlY+/xUSsFewS4oMoIpfdMvafvhUfEV+3GQtr5HhomUR12sJPUaTnWU73R4nVp7awj9ALDxl40hU12ulxmVIwPVE3ztZC+A+cYAafFW5fwHLg3p3wLHNTn468Huak3NwqYXi8NtiJ/7X7FpKazoFJVpW+SlB+KuJrHIuvZkfm9Spzw23HrVkMeVCPjeZMZnMcz8atq3Rt4AGtuMfQeuDv6nZwjunJTuyHAIi1OFxfEQn9iuPzKDK22UHDN2uN7uKrzyQjVT6TN3Sy6wEP3fvRKe1tuyEyIGYj0xv7cRXAz8JkfLP4Z9FS+b78PdGXWvNguPQ24XTbdywfGh0PhHdwQBKONSOJXjKFfoq2/E+aEFtZg9Qkhg+/HrDyUlTrQPtlC7OWWjKG161wfl2SjYYSCTVXx7dCDJzd/AGoOIBvz8IbKKhJ8XKp1x+YADamiNWmAENY6ym7/a2CaeyGK5JUqrH03ATlk4+VccwvvsD1avw3FcJFAzNlQ==
+X-Forefront-Antispam-Report-Untrusted: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR03MB8847.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366004)(39850400004)(346002)(396003)(136003)(376002)(230922051799003)(64100799003)(186009)(451199024)(1800799012)(31686004)(36756003)(921011)(66556008)(52116002)(6512007)(6506007)(6486002)(66946007)(66476007)(86362001)(38350700005)(31696002)(53546011)(41300700001)(38100700002)(7416002)(26005)(2616005)(83380400001)(5660300002)(6666004)(478600001)(2906002)(110136005)(4326008)(316002)(44832011)(8676002)(8936002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR03MB8553
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped: 
+ VI1EUR05FT012.eop-eur05.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs: 
+	a10589a3-d731-4fed-d873-08dc0d3edbd0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	PgGPJ7MuR9rMbl0x2hW+90d053uKCJQxmz1z8Pew+267juh5jaSYGM8CLB4ELmjEBQIeY+dRP2dAvF6tdAPFZcsclv5cUsjG3y1AyFk1zy3f2Jw64mCb5vy2GP2t5JLI0t5j6L06QxQ9NYhpJEW0Y6jjQBaCTThzdQIvGzty3LN+fXd4CU9C8W8qWtiSQLrNMqquVJ/aifOgKCeW7+SoO7GwpSEoleQpik/fPGkoGKZlxCggiqKrBTebXrwIWpugAnnpegaN/r7VYl3OlMJVdhTQcUWtFessCBAFPQhw20P37HI6dZD/gh6o6ePZ8yqvbLwMmIChgIVkQabKIGIrgg7R65snC2C3e58Jk9oFHRMR6vgtOfrb7ZqTgRo5mrhkIFK8r8adj2+F1V875QkMc0+/oX27cBu7j5/YA6E0XrrkpccTdmW6vPOC0M9XT+pXaQ9ns/36EQIFzx6zYyf1B0gOILlObe5ziBt8/LbQjlL+71jHexP86ovamEQLNH5UZtj1Et1IwSItQHFaaQjxIpKKGzB7LsGGUPDkhcfo+p8GhAmVmuDXtX1S70kHvLxZ/fslzBRTz3+fycs8ZtLFnP2Jn4672JO4PaDG9is0y5t3Nk8mPG9iVVpmgAbYmIMsjuCDQdlJ84TJlDL1kWveVnNJR/T3jZBpz7RreOE+RH0Ar6WTCFJj1M561YyWh/5BmGo3ln9W4Uf+ilB4zPuy5L2uoESi1CCUZjLVkL27TvbNlLTHTBkfC9u6Pr20clMklxSpbXX71h3l36QmQjlb/tqujquip8PCwKpIA8TpUMLavwVMl0HOHp/Ucy5MRCYpZMxwTXly1Z8bnHs+jm+Xq8LQm4+0mMnUCn4sckO9e7c=
+X-Forefront-Antispam-Report: 
+	CIP:20.160.56.86;CTRY:NL;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:repost-eu.tmcas.trendmicro.com;PTR:repost-eu.tmcas.trendmicro.com;CAT:NONE;SFS:(13230031)(39850400004)(376002)(136003)(396003)(346002)(230922051799003)(5400799018)(451199024)(82310400011)(186009)(64100799003)(1800799012)(36840700001)(46966006)(40470700004)(7416002)(41300700001)(26005)(47076005)(2616005)(336012)(34020700004)(83380400001)(7596003)(8936002)(7636003)(356005)(36860700001)(82740400003)(8676002)(110136005)(316002)(4326008)(2906002)(5660300002)(44832011)(6666004)(6506007)(6512007)(70586007)(70206006)(478600001)(53546011)(921011)(6486002)(31696002)(86362001)(36756003)(40480700001)(40460700003)(31686004)(43740500002)(12100799051);DIR:OUT;SFP:1501;
+X-OriginatorOrg: seco.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jan 2024 16:04:49.7905
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ f79e3faa-4d93-442c-f2d2-08dc0d3ee14a
+X-MS-Exchange-CrossTenant-Id: bebe97c3-6438-442e-ade3-ff17aa50e733
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
+ TenantId=bebe97c3-6438-442e-ade3-ff17aa50e733;Ip=[20.160.56.86];Helo=[repost-eu.tmcas.trendmicro.com]
+X-MS-Exchange-CrossTenant-AuthSource: 
+	VI1EUR05FT012.eop-eur05.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR03MB7794
+Message-ID-Hash: K2D4GZ3VMXU4TTQ52YCXL575CCPRWMUO
+X-Message-ID-Hash: K2D4GZ3VMXU4TTQ52YCXL575CCPRWMUO
+X-MailFrom: sean.anderson@seco.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -106,74 +196,84 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VLHTE4IZ6TCNH43ZOT2XE2AAD6ZSTB2O/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/K2D4GZ3VMXU4TTQ52YCXL575CCPRWMUO/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 2.1.2024 23.45, Wesley Cheng wrote:
-> As part of xHCI bus suspend, the XHCI is halted.  However, if there are
-> pending events in the secondary event ring, it is observed that the xHCI
-> controller stops responding to further commands upon host or device
-> initiated bus resume.  Iterate through all pending events and update the
-> dequeue pointer to the beginning of the event ring.
+On 1/4/24 03:57, Krzysztof Kozlowski wrote:
+> On 28/12/2023 17:05, Sean Anderson wrote:
+>> On 12/22/23 10:01, Krzysztof Kozlowski wrote:
+>>> Add simple driver to control GPIO-based resets using the reset
+>>> controller API for the cases when the GPIOs are shared and reset should
+>>> be coordinated.  The driver is expected to be used by reset core
+>>> framework for ad-hoc reset controllers.
+>> 
+>> How do we handle power sequencing? Often GPIOs need some pre/post delay in
+>> order to ensure proper power sequencing. For regular reset drivers, this is
+>> internal to the driver.
 > 
-> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
-...
-> +/*
-> + * Move the event ring dequeue pointer to skip events kept in the secondary
-> + * event ring.  This is used to ensure that pending events in the ring are
-> + * acknowledged, so the XHCI HCD can properly enter suspend/resume.  The
-> + * secondary ring is typically maintained by an external component.
-> + */
-> +void xhci_skip_sec_intr_events(struct xhci_hcd *xhci,
-> +	struct xhci_ring *ring,	struct xhci_interrupter *ir)
-> +{
-> +	union xhci_trb *erdp_trb, *current_trb;
-> +	u64 erdp_reg;
-> +	u32 iman_reg;
-> +	dma_addr_t deq;
-> +
-> +	/* disable irq, ack pending interrupt and ack all pending events */
-> +	xhci_disable_interrupter(ir);
-> +	iman_reg = readl_relaxed(&ir->ir_set->irq_pending);
-> +	if (iman_reg & IMAN_IP)
-> +		writel_relaxed(iman_reg, &ir->ir_set->irq_pending);
-> +
-> +	/* last acked event trb is in erdp reg  */
-> +	erdp_reg = xhci_read_64(xhci, &ir->ir_set->erst_dequeue);
-> +	deq = (dma_addr_t)(erdp_reg & ERST_PTR_MASK);
-> +	if (!deq) {
-> +		xhci_err(xhci, "event ring handling not required\n");
-> +		return;
-> +	}
-> +
-> +	erdp_trb = current_trb = ir->event_ring->dequeue;
-> +	/* read cycle state of the last acked trb to find out CCS */
-> +	ring->cycle_state = le32_to_cpu(current_trb->event_cmd.flags) & TRB_CYCLE;
-> +
-> +	while (1) {
-> +		inc_deq(xhci, ir->event_ring);
-> +		erdp_trb = ir->event_ring->dequeue;
-> +		/* cycle state transition */
-> +		if ((le32_to_cpu(erdp_trb->event_cmd.flags) & TRB_CYCLE) !=
-> +		    ring->cycle_state)
-> +			break;
-> +	}
-> +
-> +	xhci_update_erst_dequeue(xhci, ir, current_trb, true);
-> +}
+> It's not part of this patchset. Power sequencing is an old topic and
+> generic solutions were failing, rejected, did not solve the problems,
+> etc (choose your reason).
+> 
+> Delays are device specific, so they go to drivers (depending on the
+> compatible). Complex power sequencing is way too much for simplified
+> reset-framework handling, so anyway it is expected you do it in your driver.
 
-Code above is very similar to the existing event ring processing parts of xhci_irq()
-and xhci_handle_event()
+Well, the reason to bring it up is twofold:
 
-I'll see if I can refactor the existing event ring processing, decouple it from
-event handling so that it could be used by primary and secondary interrupters with
-handlers, and this case where we just want to clear the event ring.
+- Traditionally, drivers expect the reset controller to handle all
+  necessary delays. For example, reset-k210 includes a 10us delay
+  between asserting and deasserting the reset. There's a similar thing
+  in reset-imx7, and several other reset drivers.
+- We would need to add custom assert/deassert delays to every driver
+  using this interface. These are not always added, since any given
+  device may require delays which can be inferred from its compatible.
+  However, an integrated system may require delays to be different from
+  what any individual device requires.
 
-Thanks
-Mathias
+>> 
+>> Maybe something like
+>> 
+>> my-device {
+>> 	reset-gpios = <&gpio 555 GPIO_ACTIVE_LOW>;
+>>         reset-gpios-post-deassert-us = <100>;
+> 
+> Feel free to add it later. This patchset, and actually all patches
+> should, solves one problem while allowing you to extend it later.
 
+Yes, but we should try to avoid creating problems for ourselves in the
+future.
+
+> If there is a architectural problem in my approach not allowing you to
+> extend it later, then we should discuss it.
+
+Well, I brought up just such an architectural issue below...
+
+>> };
+>> 
+>> Of course, this is a bit ambiguous if you have multiple devices using the same
+>> GPIO with different delays.
+
+This is the most concerning one to me.
+
+>> Maybe we take the max? But the driver below seems
+>> to only have access to one device. Which I suppose begs the question: how do
+>> we know when it's safe to deassert the reset (e.g. we've gotten to the point
+>> where all devices using this reset gpio have gotten far enough to detect that
+>> they use it)?
+> 
+> The driver (reset consumer) knows when it is safe or not. You must
+> implement proper reset handling in your driver.
+
+The driver has no idea whether it is safe or not. It just calls
+reset_assert/deassert at the appropriate time, and the reset
+framework/controller is supposed to coordinate things so e.g. the device
+doesn't get reset multiple times as multiple drivers all probe.
+
+--Sean

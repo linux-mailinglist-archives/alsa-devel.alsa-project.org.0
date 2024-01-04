@@ -2,179 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A9828248AD
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jan 2024 20:09:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF3BE82637B
+	for <lists+alsa-devel@lfdr.de>; Sun,  7 Jan 2024 09:54:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6D431E97;
-	Thu,  4 Jan 2024 20:09:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D431E97
+	by alsa0.perex.cz (Postfix) with ESMTPS id B7B27EAF;
+	Sun,  7 Jan 2024 09:54:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7B27EAF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1704395386;
-	bh=jo3039tK7vqVCGHlzoGFnQ27xnTPHvEgANlkoHsRmhQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=amu9tG8ttvN68n1Hsnie61og5YovO1oyHzybXsFvv3qTV4L2VySlHqAXOpoOoLLwT
-	 J+7GEHedLg8wxC0jgDal7HuWkzpdDdKxQARuguea1fzWaSgPFX3YsdQydTWPtWSCB9
-	 DIl06szY3qcALXlSsMoMmaUaac0ARGYqGA7yGSww=
+	s=default; t=1704617680;
+	bh=h6TY00DxFGxPDMy5/CpnzgNBdPsBqVaQkTfYQFBVgEU=;
+	h=Date:From:To:Subject:Reply-To:List-Id:List-Archive:List-Help:
+	 List-Owner:List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=ZIjzEs717bEBo44dpMVv9GwmvdxGCurDXsQv2z9lE9nnwBTG1+F7FhvVZVvqT2VPD
+	 /wmYWFMRJyk8bSmfXWY0G3a6ePAK3eBI5HXs41uXChqLyctFv3V9QzdeUYtDFpsGHv
+	 zOJ3el8M3jXYMc8WTLiyuGShjJOuTZl/dH/vNBLo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4FB2CF80587; Thu,  4 Jan 2024 20:09:14 +0100 (CET)
+	id 5E87FF80570; Sun,  7 Jan 2024 09:54:09 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 73435F80580;
-	Thu,  4 Jan 2024 20:09:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 30F6FF8057F;
+	Sun,  7 Jan 2024 09:54:08 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A96D0F804B0; Thu,  4 Jan 2024 20:09:08 +0100 (CET)
+	id 61256F804B0; Thu,  4 Jan 2024 22:43:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from pb-smtp2.pobox.com (pb-smtp2.pobox.com [64.147.108.71])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 81F75F80238
-	for <alsa-devel@alsa-project.org>; Thu,  4 Jan 2024 20:08:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81F75F80238
+	by alsa1.perex.cz (Postfix) with ESMTPS id EFB28F80086
+	for <alsa-devel@alsa-project.org>; Thu,  4 Jan 2024 22:42:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EFB28F80086
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=pt6rclKc
-Received: by mail-lf1-x12e.google.com with SMTP id
- 2adb3069b0e04-50e7c6f0487so874696e87.3
-        for <alsa-devel@alsa-project.org>;
- Thu, 04 Jan 2024 11:08:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1704395334; x=1705000134;
- darn=alsa-project.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=WrAc8y7ksD7LSd2oegA9ea7MEhlctFkip+JgP2VCZP0=;
-        b=pt6rclKc6PG9CPdSF/DZn990zS6azEsAcbrqHQzFjW3O4zZqYn29bYg8nLjo9vNCpJ
-         9kfIYzD7pVIf2PJ7HD9A/vL0OSx/1qYnppq8VNPsfdeep6Z5zqWtpWwtsbGY2XBFHTsy
-         7ZUifVhMYOIM5QBLuy2WNbZyl+z9LmYmA/1kwtjoqhdy7WkKaJOUnohdP07SdddCRLvT
-         /3DxzgHDDg8AF3sKqbCsLT3gLtHI8n2LfKjHJoedKel4harRQTeHnmvQfMD7Wk3hJP35
-         w8ejuNPXbKSM4EB2U3bK7SSYIg5MvASJQHuSKAOeujc54HMIB7be9II1KRaqEJQkh3cZ
-         goTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704395334; x=1705000134;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=WrAc8y7ksD7LSd2oegA9ea7MEhlctFkip+JgP2VCZP0=;
-        b=AwbJNPV/o6pvPhhTGCjMVgZdzEAte8iIYXAJrBEwtOOHp3yUUIGEg5eb6PeObNZLSN
-         ocqBxMX9I40UKducPsaLr/0usQwty74ZcHTk5oyOR4zgPvXrY8RiGEdTOYXmACHoVF2q
-         pzQANw6nzvSVgWBlWuBZmWc9S5hCCf8UbT3vv2eMfasLlqTTTIbQ2Tl74sO9iueUv/Xo
-         QR0nRVM8Ta2WnROJ8LPd0LFbpqrP8oW8xLSzRkkWD84wIUzPomRarUnZL40B0Ddc4lV5
-         qGjMh/ERlb0DE7FSjRIhGbnZxhlP8sBWyW1nE/Xc1+EjwDtisnOhJpTjx9bw4p9cLY+d
-         kbTg==
-X-Gm-Message-State: AOJu0Ywj356AI/xM2UphsOMhONmFMVOrPK7MqIXS7x6qlFSbDo/Ui0b4
-	CPO+g0P4uxpmedXu98/atMJZILO9tA60tg==
-X-Google-Smtp-Source: 
- AGHT+IElHsOKbL1fqCBl0CKJPvAcZft0+Oj3qVO7GyVQ09CYlZLBhjYBlruXCP558WmXPYbFC/nktA==
-X-Received: by 2002:a05:6512:281e:b0:50e:6a13:cd23 with SMTP id
- cf30-20020a056512281e00b0050e6a13cd23mr438168lfb.128.1704395334182;
-        Thu, 04 Jan 2024 11:08:54 -0800 (PST)
-Received: from [192.168.1.20] ([178.197.218.27])
-        by smtp.gmail.com with ESMTPSA id
- d8-20020a50fe88000000b005545dffa0bdsm39971edt.13.2024.01.04.11.08.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 04 Jan 2024 11:08:53 -0800 (PST)
-Message-ID: <d2d17b94-6f29-423d-a7e0-e24513a8e59f@linaro.org>
-Date: Thu, 4 Jan 2024 20:08:50 +0100
+	dkim=pass (1024-bit key,
+ unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256
+ header.s=sasl header.b=nRfqwt74
+Received: from pb-smtp2.pobox.com (unknown [127.0.0.1])
+	by pb-smtp2.pobox.com (Postfix) with ESMTP id 5086E1E7FF9
+	for <alsa-devel@alsa-project.org>; Thu,  4 Jan 2024 16:42:48 -0500 (EST)
+	(envelope-from joelz@pobox.com)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed; d=pobox.com; h=date:from
+	:to:subject:message-id:reply-to:mime-version:content-type; s=
+	sasl; bh=h6TY00DxFGxPDMy5/CpnzgNBdPsBqVaQkTfYQFBVgEU=; b=nRfqwt7
+	47HOESnsiK2H4Sd0X72toUCW4ifTjkwbCoRvmGCy6N3iiRqCTijCFqHzbxksGKpR
+	066E5VZH8txv4cvzt2IP2JTiu9W/IRLn+5pvadeu7YvzqdAtcLViqQerx8wjcNXm
+	u29eR5ubpWFu0ShOAWRUPl7Kzhv82GtL9UcQ=
+Received: from pb-smtp2.nyi.icgroup.com (unknown [127.0.0.1])
+	by pb-smtp2.pobox.com (Postfix) with ESMTP id 478911E7FF8
+	for <alsa-devel@alsa-project.org>; Thu,  4 Jan 2024 16:42:48 -0500 (EST)
+	(envelope-from joelz@pobox.com)
+Received: from sprite (unknown [66.8.171.137])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by pb-smtp2.pobox.com (Postfix) with ESMTPSA id A55731E7FF7
+	for <alsa-devel@alsa-project.org>; Thu,  4 Jan 2024 16:42:47 -0500 (EST)
+	(envelope-from joelz@pobox.com)
+Received: from jroth by sprite with local (Exim 4.96)
+	(envelope-from <joelz@pobox.com>)
+	id 1rLVUC-00008s-0G
+	for alsa-devel@alsa-project.org;
+	Thu, 04 Jan 2024 11:42:44 -1000
+Date: Thu, 4 Jan 2024 11:42:44 -1000
+From: Joel Roth <joelz@pobox.com>
+To: alsa-devel@alsa-project.org
+Subject: Intel audio controller: Loss of HDMI output between kernel versions
+Message-ID: <20240104214244.h2j4kkgnwmckgaip@sprite>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] reset: add GPIO-based reset controller
-Content-Language: en-US
-To: Sean Anderson <sean.anderson@seco.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: Bartosz Golaszewski <brgl@bgdev.pl>
-References: <20231222150133.732662-1-krzysztof.kozlowski@linaro.org>
- <20231222150133.732662-3-krzysztof.kozlowski@linaro.org>
- <530e3473-eb3b-477c-8599-e7aa12779640@seco.com>
- <88bd6668-7e67-42c7-97b6-d7029f371349@linaro.org>
- <075990bb-5fdb-4d30-9484-9df6b978e805@seco.com>
- <fcbae47b-3b28-42f0-b93f-f83932025dc1@linaro.org>
- <2be19fbf-4c73-4594-be42-31587dc7b747@seco.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
- 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
- D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <2be19fbf-4c73-4594-be42-31587dc7b747@seco.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: WPTIL2BUXOC2NPNSUZ5TLZBLOLP32QH7
-X-Message-ID-Hash: WPTIL2BUXOC2NPNSUZ5TLZBLOLP32QH7
-X-MailFrom: krzysztof.kozlowski@linaro.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Pobox-Relay-ID: 
+ 339D745C-AB4A-11EE-9BBC-25B3960A682E-04347428!pb-smtp2.pobox.com
+X-MailFrom: joelz@pobox.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: BEJDYEMZ53HADAYJDMGRUHZAUMWNZY4X
+X-Message-ID-Hash: BEJDYEMZ53HADAYJDMGRUHZAUMWNZY4X
+X-Mailman-Approved-At: Sun, 07 Jan 2024 08:53:16 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
+Reply-To: Joel Roth <joelz@pobox.com>
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WPTIL2BUXOC2NPNSUZ5TLZBLOLP32QH7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BEJDYEMZ53HADAYJDMGRUHZAUMWNZY4X/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -183,205 +100,91 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 04/01/2024 17:30, Sean Anderson wrote:
-> On 1/4/24 11:08, Krzysztof Kozlowski wrote:
->> On 04/01/2024 17:04, Sean Anderson wrote:
->>> On 1/4/24 03:57, Krzysztof Kozlowski wrote:
->>>> On 28/12/2023 17:05, Sean Anderson wrote:
->>>>> On 12/22/23 10:01, Krzysztof Kozlowski wrote:
->>>>>> Add simple driver to control GPIO-based resets using the reset
->>>>>> controller API for the cases when the GPIOs are shared and reset should
->>>>>> be coordinated.  The driver is expected to be used by reset core
->>>>>> framework for ad-hoc reset controllers.
->>>>>
->>>>> How do we handle power sequencing? Often GPIOs need some pre/post delay in
->>>>> order to ensure proper power sequencing. For regular reset drivers, this is
->>>>> internal to the driver.
->>>>
->>>> It's not part of this patchset. Power sequencing is an old topic and
->>>> generic solutions were failing, rejected, did not solve the problems,
->>>> etc (choose your reason).
->>>>
->>>> Delays are device specific, so they go to drivers (depending on the
->>>> compatible). Complex power sequencing is way too much for simplified
->>>> reset-framework handling, so anyway it is expected you do it in your driver.
->>>
->>> Well, the reason to bring it up is twofold:
->>>
->>> - Traditionally, drivers expect the reset controller to handle all
->>>   necessary delays. For example, reset-k210 includes a 10us delay
->>>   between asserting and deasserting the reset. There's a similar thing
->>>   in reset-imx7, and several other reset drivers.
->>> - We would need to add custom assert/deassert delays to every driver
->>>   using this interface. These are not always added, since any given
->>>   device may require delays which can be inferred from its compatible.
->>>   However, an integrated system may require delays to be different from
->>>   what any individual device requires.
->>>
->>>>>
->>>>> Maybe something like
->>>>>
->>>>> my-device {
->>>>> 	reset-gpios = <&gpio 555 GPIO_ACTIVE_LOW>;
->>>>>         reset-gpios-post-deassert-us = <100>;
->>>>
->>>> Feel free to add it later. This patchset, and actually all patches
->>>> should, solves one problem while allowing you to extend it later.
->>>
->>> Yes, but we should try to avoid creating problems for ourselves in the
->>> future.
->>>
->>>> If there is a architectural problem in my approach not allowing you to
->>>> extend it later, then we should discuss it.
->>>
->>> Well, I brought up just such an architectural issue below...
->>
->> Sorry, but where the issue? You did not present any arguments stating
->> that it is not possible to add your feature.
->>
->> What is the problem to parse that property?
->>
->>>
->>>>> };
->>>>>
->>>>> Of course, this is a bit ambiguous if you have multiple devices using the same
->>>>> GPIO with different delays.
->>>
->>> This is the most concerning one to me.
->>>
->>>>> Maybe we take the max? But the driver below seems
->>>>> to only have access to one device. Which I suppose begs the question: how do
->>>>> we know when it's safe to deassert the reset (e.g. we've gotten to the point
->>>>> where all devices using this reset gpio have gotten far enough to detect that
->>>>> they use it)?
->>>>
->>>> The driver (reset consumer) knows when it is safe or not. You must
->>>> implement proper reset handling in your driver.
->>>
->>> The driver has no idea whether it is safe or not. It just calls
->>> reset_assert/deassert at the appropriate time, and the reset
->>> framework/controller is supposed to coordinate things so e.g. the device
->>> doesn't get reset multiple times as multiple drivers all probe.
->>
->>
->> Sorry, then I don't get what you refer to. The driver calls deassert
->> when it is safe for it to do it, so the driver *knows*. Now, you claim
->> that driver does not know that... core also does not know, so no one knows.
-> 
-> Yes! That is the problem with this design. Someone has to coordinate the
-> reset, and it can't be the driver. But the core also doesn't have enough
-> information. So no one can do it.
+Will be grateful for any suggestions.
 
-The point is that the driver coordinates.
+My soundcard as reported by lspci:
 
-> 
-> For example, say we want to share a reset GPIO between two devices. Each
-> device has the following constraints:
-> 
-> device post-assert delay post-deassert delay
-> ====== ================= ===================
-> A                  500us                 1ms
-> B                    1ms               300us
+00:1f.3 Audio device: Intel Corporation Cannon Point-LP High Definition Audio Controller (rev 30)
 
-And now imagine that these values are incompatible between them, so
-using 1ms on device A is wrong - too long.
+I use the asoundrc below to route audio to both
+the analog output and the HDMI connector. 
 
-This is just not doable. You invented some imaginary case to prove that
-hardware is broken.
+With Debian kernel 6.0.0-6-amd64 I get sound at
+both outputs. With version 6.0.1-10-amd64 
+there is no HDMI output. 
 
-Now, if we are back to realistic cases - use just the longest reset time.
+pcm.hdmi_out {
+	type hw
+	card 0
+	device 7
+}
+pcm.analog {
+	type hw
+	card 0
+	device 0
+}
 
+	
+pcm.hdmi_dmix {
+    type dmix
+    ipc_key 1024
+    ipc_perm 0666 # allow other users
+    slave.pcm "hdmi_out"
+    slave {
+        period_time 0
+        period_size 1024
+        buffer_size 4096
+        channels 2 # must match bindings
+    }
+    bindings {
+        0 0
+        1 1
+    }
+}
 
+pcm.analog_dmix {
+    type dmix
+    ipc_key 2048
+    ipc_perm 0666 # allow other users
+    slave.pcm "analog"
+    slave {
+        period_time 0
+        period_size 1024
+        buffer_size 4096
+        channels 2 # must match bindings
+    }
+    bindings {
+        0 0
+        1 1
+    }
+}
 
-> 
-> If we leave things up to the drivers, then whoever probes first will get
-> to decide the reset sequence.
+pcm.!default {
+    type asym
+    playback.pcm "out"
+}
 
-In current design yes, but it's not a problem to change it. Where is the
-limitation? Just read other values and update the reset time.
+# Multi
+pcm.out {
+    type plug
+    slave.pcm {
+        type multi
+        slaves {
+            a { channels 2 pcm hdmi_dmix }
+            b { channels 2 pcm analog_dmix }
+        }
+        bindings {
+            0 { slave a channel 0 }
+            1 { slave a channel 1 }
+            2 { slave b channel 0 }
+            3 { slave b channel 1 }
+        }
+    }
+    ttable [
+        [ 1 0 1 0 ]   # left  -> a.left,  b.left
+        [ 0 1 0 1 ]   # right -> a.right, b.right
+    ]
+}
 
-> 
-> So if we choose the post-assert delay to be 1ms and the post-deassert
-> delay to be 1ms then everyone is happy. How can we make sure the reset
-
-No, not everyone is happy, if these values are incompatible. OTOH, if
-they are compatible, just put same values to your DTS, because that's
-the requirement of the reset line.
-
-> controller enforces this? Well, we can do the above thing and specify
-> something like
-> 
-> A {
->     reset-gpios = <&gpio 555 GPIO_ACTIVE_LOW>;
->     reset-gpios-post-assert-us = <1000>;
->     reset-gpios-post-deassert-us = <1000>;
-> };
-> 
-> B {
->     reset-gpios = <&gpio 555 GPIO_ACTIVE_LOW>;
-> };
-> 
-> But what if B gets probed first? Then we will have to also specify the
-> delays on B as well. I'm not a big fan of this because
-
-It's a shared reset line, thus the shared or global delays can be
-described in every place. That's for DT correctness. Now from the driver
-point of view, there is no problem to update the reset values after
-probing A.
-
-> 
-> - We have to specify (identical) delays in every consumer (instead of
->   having a central place to put the delays)
-> - Having the delays depend on the probe order (if one of the consumers'
->   delays don't match) will result in bugs for board maintainers. Maybe
->   we should just warn in that case and that is enough?
-
-No, it does not depend. Just update the values.
-
-> - Actually, the same problem exists for reset-gpios (e.g. if one driver
->   specifies ACTIVE_HIGH and another specifies ACTIVE_LOW).
-
-No, actually this is handled. This is not a shared reset line and it
-will not be handled. Second device probe should fail.
-
-> 
-> Maybe the delays should go instead on the gpio controller? So something
-> like (taking inspiration from gpio-hog):
-
-We talked about this for other patchsets and answer was no, that's not
-the property of GPIO.
-
-> 
-> gpio {
-> 	gpio-controller;
-> 	#gpio-cells = <2>;
-> 
-> 	my-reset {
-> 		gpio-reset;
-> 		gpio = <555 GPIO_ACTIVE_LOW>;
-> 		post-assert-us = <1000>;
-> 		post-deassert-us = <1000>;
-> 	};
-> };
-> 
->> Hm, wait, now maybe I understand your concern. Did you read the
->> patchset? This is for the coordinated, shared, non-exclusive reset by
->> design.  And as stated during previous discussions: that's the driver's
->> job to be sure it is called like that.
-> 
-> Well, one of the major advantages of moving GPIO resets to a reset
-> controller is that the reset framework can coordinate things if we want.
-> This is a rather natural extension of this patchset IMO. Even if you are
-> not adding this functionality now, it is good not to make it difficult
-> for future work.
-
-And nothing is made here difficult. You want same delays on each
-consumer? No problem in adding them, just few lines. You want
-contradictory or inconsistent delays? A bit more code, but still nothing
-here is blocked. You want totally random stuff because hardware is
-broken? You might need to write dedicated reset controller for your case
-because generic binding stops being generic for such cases.
-
-Best regards,
-Krzysztof
-
+-- 
+Joel Roth

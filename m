@@ -2,92 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0DFB8245D5
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jan 2024 17:09:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1B4E8245EA
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jan 2024 17:12:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 16BF5E91;
-	Thu,  4 Jan 2024 17:09:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 16BF5E91
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7C80BE98;
+	Thu,  4 Jan 2024 17:12:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C80BE98
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1704384552;
-	bh=vUPZrTE02edwa0EuohHPRi7tOmiQ0vX5dX7E/eqv6qM=;
+	s=default; t=1704384741;
+	bh=uP94WpdGRJubVtpYJwlDY1Q0tpDZYEbrSWA+/OmmF5U=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=iCXNWweZSZvu6+mXXf7O1ESOJvIXK2Rt1fjtG7jfXDFUw+QaF7JoR8R9xOY+EBx8M
-	 ziW7HLDJ98hFsF9LE1rBSd9j99z9dEVeDCZrdl+0KtI+c3FZD83bFr5vtGhrut+RmR
-	 riqtBqBQUc9JmkEhrtZx7OohS97C9ZuTNl3UCsJI=
+	b=qqKkc+UIvHkkW50XbJ4H1R8HUbD1fD8A9lvJQEbriMbYn8Az1GLfM5aBFr4bGoH3w
+	 cB+WogtWeMCWUJImSn3vXD7AW1eaShkZcI73dJfMy2s9hsPEfrM0nGvD7/dveMn9Fx
+	 HSU8KnL61TK0EH7cnHO+oaihrLXOMzDuRs6//Yp0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 669D2F804B2; Thu,  4 Jan 2024 17:08:40 +0100 (CET)
+	id 9525BF80589; Thu,  4 Jan 2024 17:11:50 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id AD9F8F8055B;
-	Thu,  4 Jan 2024 17:08:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B4AFDF8057D;
+	Thu,  4 Jan 2024 17:11:49 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AFA00F804B0; Thu,  4 Jan 2024 17:08:35 +0100 (CET)
+	id 6C6D7F804B0; Thu,  4 Jan 2024 17:11:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [IPv6:2a00:1450:4864:20::62f])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A892DF802DB
-	for <alsa-devel@alsa-project.org>; Thu,  4 Jan 2024 17:08:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A892DF802DB
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0CEA3F802DB
+	for <alsa-devel@alsa-project.org>; Thu,  4 Jan 2024 17:11:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0CEA3F802DB
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=yjLH6lFC
-Received: by mail-lf1-x12b.google.com with SMTP id
- 2adb3069b0e04-50e835800adso688147e87.0
+ header.s=google header.b=cSnfAT6D
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-a2888d65f1fso82464266b.1
         for <alsa-devel@alsa-project.org>;
- Thu, 04 Jan 2024 08:08:30 -0800 (PST)
+ Thu, 04 Jan 2024 08:11:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1704384510; x=1704989310;
+        d=linaro.org; s=google; t=1704384703; x=1704989503;
  darn=alsa-project.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=KY5xP96Le0ZniVFZKeXdx8efJcLyHwWo4sSLgDSws3A=;
-        b=yjLH6lFCsMZzhCinqbU+wTUnpX5U8qL3l7N3c4nqlxzsR+EtrYZ3OCZgJT91OFXChS
-         5TiaetPeU+++IK5/qR4+ft+EFhJEUv77W9WHJaNehmKor35cOxk/0S5VqXYvUCUIG0ku
-         JfHvE8k37SCVlcBVpXU1ahqj2rXyg8cy5IccXnTcB/snYh9x8MEp9UYmosaAQkH3uONp
-         rJWn1YHBEPxxBg9T7487ctEINa9Ux4Yjb2t1HXXulHNKWkwpA2rG7nMLh+PDI57y5Uw/
-         DBFLvSSElF+3er7B/pwocDuyApN7adDp9CthXIcdBJ2uvsLoO6CB6vBZqed9llFn9DxD
-         ySrA==
+        bh=mE6A3MF22wcuymbS0MlWpK9FBPSYnuu/R6nzxFOvHCw=;
+        b=cSnfAT6DQKhl5hwXuINTXZPa6WpsrpOA1ls4Ch+E9BOTOejtee9X/wxGeN+4Pfmm0r
+         tsK5T3U8L+k787LB6WjzxgKctGA7BpKIFJoOB7WpnTALFUEowaWsNFxQPg7HeYy3yTy0
+         DX8NA8GDQU1DttdSSx6f2IbY18IJLC1FBpaZeUy52hWWbjzawrnkx4Ut+dn0ZS1pU3zQ
+         CD5ifRwfTUKRQFp8gC33bStwBKXBHZUEwWMlajc4VpkZZWi5QlUjyACI6fyd3na7Xd/B
+         cLbIhruw9RsxvA0Cn8qrV7OPU5QgM5Di+QSAYwY0AWVkpn8oEyXlcIZ5iayTEUPW98dh
+         UjzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704384510; x=1704989310;
+        d=1e100.net; s=20230601; t=1704384703; x=1704989503;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=KY5xP96Le0ZniVFZKeXdx8efJcLyHwWo4sSLgDSws3A=;
-        b=Pn23Jd0xR6WAN9iYY9jKbGTEfOqLynAlMEdddpi6xAkw0lnRvjbtQKj3u4/8o7/GPB
-         D2sIGfxGSrkbs5lC0jsPhGqHccxnIqTg061rzcmtg5M74H4U0YGAvSu2onYxVS+Ix9BA
-         wuVYs7Wyfwl5+ccMcFVJ6Iu23njxBJ9z/Bro69JghCgDVoW5ztYMeMjV7r5k33GFjdVV
-         I07474o+ab3dxuWDBcxYEwNrSl6EYoI9M39raZt20DEY3cA7Yp//gs0Olcr00UThk1jU
-         lJYy6qy2D6Zfv4NFnwdaepd/iNY1HsVOdbdRZDGeFBnF9/N5pkYkhUYmTZIo8isqKECW
-         rgvw==
-X-Gm-Message-State: AOJu0YzJk10R4bKrvQ4qiIkU3KziUfmq4dRmtz+REgLN5I9ZXn9CMNbN
-	+AO+sQUCw6X4Nq2jDHCWc1JAjW7VGSrbLw==
+        bh=mE6A3MF22wcuymbS0MlWpK9FBPSYnuu/R6nzxFOvHCw=;
+        b=PydEsRrYX6P6GjwQjb9IlbEH28GSdepzPxzPTwnD2IVIN9wgjoTj6j280/uAEg4MrE
+         KCOXF9GFPHZPRGFXs1zpVJ29HZNgP3kLRmfXUUkH8D8JD/ZrduqW0WNRgU3QRlRz6jcK
+         kk3ADfurRHLViGiSbeo3gy3Oyi3geK95Yfge1Zgx4EsZPHmqAQQF9/ZcGNj/Op+1tX19
+         2o/c/uvLEoubM6ZfLtx1JAyA8KcEDrp06Vbq4MfJccbJ3gVRs6RN5UpFWXTSlL6fTmWM
+         IgW/+0dBehAM5nS223nhTADTLt+lT/kbnKETH4bYHiRnXnmbXz3/h6XleELberPBYz+a
+         Tq8Q==
+X-Gm-Message-State: AOJu0YwIIqYAGQA1VSgMG1Saz5tZxTkHHFmuh9YV/TK2WeaxPLUa/Euy
+	YFkG0l3lLVY8AkHAM//1jtL1iBEwT9pHYA==
 X-Google-Smtp-Source: 
- AGHT+IFdBGTKty8FQQCh4+yOFP87gFD5uvSSfcnO9iQ1ufQbalsz+gQU82XLyiqDp3JaZhe3SckTJQ==
-X-Received: by 2002:ac2:44aa:0:b0:50e:8504:24c3 with SMTP id
- c10-20020ac244aa000000b0050e850424c3mr282750lfm.114.1704384509845;
-        Thu, 04 Jan 2024 08:08:29 -0800 (PST)
+ AGHT+IE5CZ31I1LXnZ1vFBITPX99sgkerU5MhGC45J5mwEPr54H5BemGZG90cBHoO7H4jgkpWNjbug==
+X-Received: by 2002:a17:906:a3ca:b0:a26:a4bf:e8c4 with SMTP id
+ ca10-20020a170906a3ca00b00a26a4bfe8c4mr365833ejb.47.1704384703001;
+        Thu, 04 Jan 2024 08:11:43 -0800 (PST)
 Received: from [192.168.1.20] ([178.197.218.27])
         by smtp.gmail.com with ESMTPSA id
- o6-20020a056402444600b0055473af90a6sm16421942edb.0.2024.01.04.08.08.26
+ et10-20020a170907294a00b00a26a061eef8sm13813434ejc.69.2024.01.04.08.11.39
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 04 Jan 2024 08:08:29 -0800 (PST)
-Message-ID: <fcbae47b-3b28-42f0-b93f-f83932025dc1@linaro.org>
-Date: Thu, 4 Jan 2024 17:08:26 +0100
+        Thu, 04 Jan 2024 08:11:42 -0800 (PST)
+Message-ID: <2e17654d-e2f5-480f-aca1-5ece8bc028e7@linaro.org>
+Date: Thu, 4 Jan 2024 17:11:38 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 2/4] reset: add GPIO-based reset controller
@@ -158,8 +158,8 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
 In-Reply-To: <075990bb-5fdb-4d30-9484-9df6b978e805@seco.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: YQSDLLY4F4S5VFNTGCZSBJ77ZSFO4LIK
-X-Message-ID-Hash: YQSDLLY4F4S5VFNTGCZSBJ77ZSFO4LIK
+Message-ID-Hash: SBTCZOCUS2BQCRJT5HRV262EGGJRKDSP
+X-Message-ID-Hash: SBTCZOCUS2BQCRJT5HRV262EGGJRKDSP
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -172,7 +172,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YQSDLLY4F4S5VFNTGCZSBJ77ZSFO4LIK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SBTCZOCUS2BQCRJT5HRV262EGGJRKDSP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -182,68 +182,6 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 On 04/01/2024 17:04, Sean Anderson wrote:
-> On 1/4/24 03:57, Krzysztof Kozlowski wrote:
->> On 28/12/2023 17:05, Sean Anderson wrote:
->>> On 12/22/23 10:01, Krzysztof Kozlowski wrote:
->>>> Add simple driver to control GPIO-based resets using the reset
->>>> controller API for the cases when the GPIOs are shared and reset should
->>>> be coordinated.  The driver is expected to be used by reset core
->>>> framework for ad-hoc reset controllers.
->>>
->>> How do we handle power sequencing? Often GPIOs need some pre/post delay in
->>> order to ensure proper power sequencing. For regular reset drivers, this is
->>> internal to the driver.
->>
->> It's not part of this patchset. Power sequencing is an old topic and
->> generic solutions were failing, rejected, did not solve the problems,
->> etc (choose your reason).
->>
->> Delays are device specific, so they go to drivers (depending on the
->> compatible). Complex power sequencing is way too much for simplified
->> reset-framework handling, so anyway it is expected you do it in your driver.
-> 
-> Well, the reason to bring it up is twofold:
-> 
-> - Traditionally, drivers expect the reset controller to handle all
->   necessary delays. For example, reset-k210 includes a 10us delay
->   between asserting and deasserting the reset. There's a similar thing
->   in reset-imx7, and several other reset drivers.
-> - We would need to add custom assert/deassert delays to every driver
->   using this interface. These are not always added, since any given
->   device may require delays which can be inferred from its compatible.
->   However, an integrated system may require delays to be different from
->   what any individual device requires.
-> 
->>>
->>> Maybe something like
->>>
->>> my-device {
->>> 	reset-gpios = <&gpio 555 GPIO_ACTIVE_LOW>;
->>>         reset-gpios-post-deassert-us = <100>;
->>
->> Feel free to add it later. This patchset, and actually all patches
->> should, solves one problem while allowing you to extend it later.
-> 
-> Yes, but we should try to avoid creating problems for ourselves in the
-> future.
-> 
->> If there is a architectural problem in my approach not allowing you to
->> extend it later, then we should discuss it.
-> 
-> Well, I brought up just such an architectural issue below...
-
-Sorry, but where the issue? You did not present any arguments stating
-that it is not possible to add your feature.
-
-What is the problem to parse that property?
-
-> 
->>> };
->>>
->>> Of course, this is a bit ambiguous if you have multiple devices using the same
->>> GPIO with different delays.
-> 
-> This is the most concerning one to me.
 > 
 >>> Maybe we take the max? But the driver below seems
 >>> to only have access to one device. Which I suppose begs the question: how do
@@ -259,10 +197,10 @@ What is the problem to parse that property?
 > framework/controller is supposed to coordinate things so e.g. the device
 > doesn't get reset multiple times as multiple drivers all probe.
 
-
-Sorry, then I don't get what you refer to. The driver calls deassert
-when it is safe for it to do it, so the driver *knows*. Now, you claim
-that driver does not know that... core also does not know, so no one knows.
+Hm, wait, now maybe I understand your concern. Did you read the
+patchset? This is for the coordinated, shared, non-exclusive reset by
+design.  And as stated during previous discussions: that's the driver's
+job to be sure it is called like that.
 
 Best regards,
 Krzysztof

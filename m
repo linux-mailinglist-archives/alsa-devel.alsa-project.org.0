@@ -2,88 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B70A825763
-	for <lists+alsa-devel@lfdr.de>; Fri,  5 Jan 2024 17:00:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B04E825767
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 Jan 2024 17:00:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E2F49E9A;
-	Fri,  5 Jan 2024 17:00:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E2F49E9A
+	by alsa0.perex.cz (Postfix) with ESMTPS id CA27FE94;
+	Fri,  5 Jan 2024 17:00:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA27FE94
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1704470413;
-	bh=4DTqm92eIMpZxY2Ov5Fyz7puPbQQgRR1Zr7Bytv1RN0=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=IXkEvGmTunvfdHQjWhqjn292a9tp+pEWh0ZCrq/T70MGwTU9buCgOibSdL9qN+pls
-	 MH8uJs50At/QL8F4K5ChzGGx/6St/iPAs0Qmv1WAkOy+u6k+0upvJD9QhvuD64lNx2
-	 GV8uEIhqi7FGKUmY43UE0wUqsFa8EYZI4i1k0Sf0=
+	s=default; t=1704470434;
+	bh=vxDO7NWsyYOxdk8MH6oAWFQBB4uYXhaj5d9IsPnW244=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=RhwgrVrOV+FtK7lsentNh5LnF0YDRMJn0atqAoZYd2ypmcqMOiKPqSiZBtf60lrGt
+	 A+DO5T0JdEXbRg/ZPkSTfhign1tmCqOEXthb0JxH3zyCWBrVKBubgxzk6YGWmRkVEF
+	 SrR/6gQtjCqJotcTWOkAEbpxZ7zXgd/8XgiptLWg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C6880F805AB; Fri,  5 Jan 2024 16:59:40 +0100 (CET)
+	id 81116F805C9; Fri,  5 Jan 2024 16:59:45 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A7B2DF80567;
-	Fri,  5 Jan 2024 16:59:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9899BF805BF;
+	Fri,  5 Jan 2024 16:59:45 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2DF9EF804F1; Fri,  5 Jan 2024 16:59:34 +0100 (CET)
+	id F1961F805AC; Fri,  5 Jan 2024 16:59:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [IPv6:2a00:1450:4864:20::335])
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [IPv6:2a00:1450:4864:20::634])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 438B2F8011B
-	for <alsa-devel@alsa-project.org>; Fri,  5 Jan 2024 16:59:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 438B2F8011B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 060D0F80086
+	for <alsa-devel@alsa-project.org>; Fri,  5 Jan 2024 16:59:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 060D0F80086
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=yGA/c7oM
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-40d8909a6feso18149695e9.2
+ header.s=google header.b=T+m7E62h
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-a26f73732c5so184709066b.3
         for <alsa-devel@alsa-project.org>;
- Fri, 05 Jan 2024 07:59:23 -0800 (PST)
+ Fri, 05 Jan 2024 07:59:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1704470363; x=1705075163;
+        d=linaro.org; s=google; t=1704470365; x=1705075165;
  darn=alsa-project.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=ojBQKqXKo4lu+tyGs931tVbnWS1sxtV4aoVa4f902n4=;
-        b=yGA/c7oM5ZW8+zh9f0ukXLA+Gjriu3tg5NKE4EMqFYVz0AIHguXPGLBnLiIeXSIi76
-         BgtQ3yc3n6P0+9w1nhYh49BRxjqkgehe9yOWclZFPnUvR8Lj3Hvs8AacApn3+cr2HAPS
-         fsX/H6ByM+nbgZIYuErL5SB/AjMjCe5ihIZnYSJLIjbLoHVapXb61i3neF4rCM6MccS9
-         1YGzHBYxnwAdGudFGwc5AAqURcG/fUMFaaRBQuwDyOwJkZbg3Lh7FfOpVQeoDV3zsor6
-         hwDznax9VTOZk/6NEUZX7iBYXZ+BgUB84CwW7XSPrE+t5D43HffJCW3KguASruyfYVtj
-         Fxvg==
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=TDuMrijv2n4yWr4gr0fXQfwtgxk4DAsUrjH6HhYvL7U=;
+        b=T+m7E62ha0NS/bhWVhhb2NiIF3eExylGpEZo99WsByu1EQefESksDhhmRTDUHGBUBb
+         yb3sP3XuFtloszB12zc0wdB9jXAyp53xbuqcr8NZ39+JCWUP8YvvYRl8hY3zvQxJXDoB
+         OnYpW/j/uKSYzeVjlHh09kn0uVI940zXa78R6ES2jtJck66oYiOlpdKO9Y5dNRBcX3LQ
+         EO/cWXjulq6UegDeBEVKtIi8+9KEJsJ2gQ1Voriqhq+FZalcS+GlJeUt37NaB412kQgu
+         X80Fax1HifHLl0pJzJ/eXgFwhxL3p3GJif7AxhwUfgTbXr+jDvEMLZICL2GrObApYcnb
+         fFJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704470363; x=1705075163;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ojBQKqXKo4lu+tyGs931tVbnWS1sxtV4aoVa4f902n4=;
-        b=f7hy6QChFLWmoHHEEPlGjRlGbbLseQ/b8NGHCyfA/P8BmizhoLMyY+yEYTqKLJiQYf
-         5Rx/VK+xVdG5ZvmgtZzxO3l5ikQvNCvWNegn/tCOHH3YfZBdY/mwDMX48xh3DSmdF6z3
-         /YbomRT4JyaKN4k80ebkEsiOL2F70owiRoTbeWJqJ++3MllIPCcY8SJwjDaedpouePmp
-         NTyZPhLJs+E8r6GdSo1TSK09z50o/XzxIWrOI42XRwy8RYwYY4uZjnwhai9THzpepXZr
-         aaLs8a0Ilr43G8rXuJ1eAoVe4Noc64ahFwUumOV37tEqWCXPjw7uq0rUi72w2ST7mwsd
-         fHzg==
-X-Gm-Message-State: AOJu0Yx7ovKO94jNyTB0L49kmY9IKIJFeLLhbUBtsvhTc2+KwAwODhdc
-	MJrotAS8eV673AU9WK38kcWQBkqUDzL8NQ==
+        d=1e100.net; s=20230601; t=1704470365; x=1705075165;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=TDuMrijv2n4yWr4gr0fXQfwtgxk4DAsUrjH6HhYvL7U=;
+        b=IuGdLOtl22cZ5/IgpzJA76SAGfPlvVlj5p7RD/gGsEbSG/ipaxhZq2lmLGZnAip+4Y
+         uEmmJiAIMUMnHcEKANyq7u2B6cx7gJJi7KVa+mrYH160/RTzJtvJnzbsbxgHPHBVAePG
+         tCrCdoybOH+UB2MWu5uGalVIp6x5y/LYeG6b5Gy3Vn4yBrm329WAxD4IkJtBSKT9DgS6
+         rBLMfnw58f41HMt84YBOTJrMnZYV1oODhqAgT9vdRjC19XHjHXmHjY4/KD88aQXfTB2W
+         iT75Db0glIgI1H2LsYRnMr83kdlrQEXlEKK6FvzZ2RpXPdJivDJ2OFFJBfy44fjbTxhP
+         wBIg==
+X-Gm-Message-State: AOJu0YyH2L5cdHNw2L+3PeeJtLvVxdixAXK4IutddUjL0FmWra3O2l78
+	F5QLy7o5jegWaX3ZEr8h4IFHqzruUACoZQ==
 X-Google-Smtp-Source: 
- AGHT+IGwV4OwKKATavp8Q64GytM17HdFfAv5ZKYAelGrsoZCfrrWxmUv3Kzk+4KdvDrMFQQkbNmewA==
-X-Received: by 2002:a05:600c:45c7:b0:40d:5f86:cef4 with SMTP id
- s7-20020a05600c45c700b0040d5f86cef4mr875290wmo.235.1704470363063;
-        Fri, 05 Jan 2024 07:59:23 -0800 (PST)
+ AGHT+IGHO2j43GzLRzecHQARtf8C7nxj4MOciN8ZW/ZXj6BM8h9fz4oBqoa3deDOqDTdz6Ido16D6g==
+X-Received: by 2002:a17:906:4a09:b0:a28:ad3e:7071 with SMTP id
+ w9-20020a1709064a0900b00a28ad3e7071mr1327840eju.118.1704470365032;
+        Fri, 05 Jan 2024 07:59:25 -0800 (PST)
 Received: from krzk-bin.. ([178.197.223.112])
         by smtp.gmail.com with ESMTPSA id
- su8-20020a17090703c800b00a29910a9366sm326024ejb.8.2024.01.05.07.59.21
+ su8-20020a17090703c800b00a29910a9366sm326024ejb.8.2024.01.05.07.59.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 05 Jan 2024 07:59:22 -0800 (PST)
+        Fri, 05 Jan 2024 07:59:24 -0800 (PST)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
 	Banajit Goswami <bgoswami@quicinc.com>,
@@ -103,17 +105,18 @@ To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
-	Chris Packham <chris.packham@alliedtelesis.co.nz>,
 	Bartosz Golaszewski <brgl@bgdev.pl>,
 	Sean Anderson <sean.anderson@seco.com>
-Subject: [PATCH v2 0/4] reset: gpio: ASoC: shared GPIO resets
-Date: Fri,  5 Jan 2024 16:59:14 +0100
-Message-Id: <20240105155918.279657-1-krzysztof.kozlowski@linaro.org>
+Subject: [PATCH v2 1/4] reset: gpio: Add GPIO-based reset controller
+Date: Fri,  5 Jan 2024 16:59:15 +0100
+Message-Id: <20240105155918.279657-2-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240105155918.279657-1-krzysztof.kozlowski@linaro.org>
+References: <20240105155918.279657-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: H3ESPKTYJBPR72SMKMS2TIUHMIXVMUKI
-X-Message-ID-Hash: H3ESPKTYJBPR72SMKMS2TIUHMIXVMUKI
+Message-ID-Hash: CZXTYDCU32RW4I7ZPXM5SOW5ITXKMVTR
+X-Message-ID-Hash: CZXTYDCU32RW4I7ZPXM5SOW5ITXKMVTR
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -126,75 +129,206 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/H3ESPKTYJBPR72SMKMS2TIUHMIXVMUKI/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CZXTYDCU32RW4I7ZPXM5SOW5ITXKMVTR/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi,
+Add a simple driver to control GPIO-based resets using the reset
+controller API for the cases when the GPIOs are shared and reset should
+be coordinated.  The driver is expected to be used by reset core
+framework for ad-hoc reset controllers.
 
-Changes in v2
-=============
-1. wsa884x.c: add missing return in wsa884x_get_reset(), correct comment.
-2. qcom,wsa8840.yaml: fix oneOf syntax.
-3. reset/core.c:
-   - Revise approach based on Bartosz comments: parse the reset-gpios phandle
-     with arguments, do not use deprecated API and do not rely on gpio_desc
-     pointer.
-   - Create a list of instantiated platform devices to avoid any duplicates.
-   - After creating reset-gpio platform device, try to get new reset controller
-     or return EPROBE_DEFER.
-   - Drop the "cookie" member and add new "of_args" to "struct
-     reset_controller_dev".
-4. reset-gpio.c:
-   - Fix smatch warning on platdata evaluation.
-   - Parse GPIO args and store them in rc.of_args.
-
-Description
-===========
-
-We have at least few cases where hardware engineers decided to use one
-powerdown/shutdown/reset GPIO line for multiple devices:
-
-1. WSA884x (this and previous patch):
-https://lore.kernel.org/all/b7aeda24-d638-45b7-8e30-80d287f498f8@sirena.org.uk/
-2. https://lore.kernel.org/all/20231027033104.1348921-1-chris.packham@alliedtelesis.co.nz/
-3. https://lore.kernel.org/lkml/20191030120440.3699-1-peter.ujfalusi@ti.com/
-4. https://lore.kernel.org/all/20211018234923.1769028-1-sean.anderson@seco.com/
-5. https://social.treehouse.systems/@marcan/111268780311634160
-
-I try to solve my case, hopefuly Chris' (2), partially Sean's (4) and maybe
-Hectors (5), using Rob's suggestion:
-
-https://lore.kernel.org/all/YXi5CUCEi7YmNxXM@robh.at.kernel.org/
-
-Best regards,
-Krzysztof
-
-Cc: Chris Packham <chris.packham@alliedtelesis.co.nz>
 Cc: Bartosz Golaszewski <brgl@bgdev.pl>
 Cc: Sean Anderson <sean.anderson@seco.com>
-
-Krzysztof Kozlowski (4):
-  reset: gpio: Add GPIO-based reset controller
-  reset: Instantiate reset GPIO controller for shared reset-gpios
-  ASoC: dt-bindings: qcom,wsa8840: Add reset-gpios for shared line
-  ASoC: codecs: wsa884x: Allow sharing reset GPIO
-
- .../bindings/sound/qcom,wsa8840.yaml          |  11 +-
- MAINTAINERS                                   |   5 +
- drivers/reset/Kconfig                         |   9 +
- drivers/reset/Makefile                        |   1 +
- drivers/reset/core.c                          | 176 ++++++++++++++++--
- drivers/reset/reset-gpio.c                    | 121 ++++++++++++
- include/linux/reset-controller.h              |   4 +
- sound/soc/codecs/wsa884x.c                    |  53 +++++-
- 8 files changed, 356 insertions(+), 24 deletions(-)
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+---
+ MAINTAINERS                |   5 ++
+ drivers/reset/Kconfig      |   9 +++
+ drivers/reset/Makefile     |   1 +
+ drivers/reset/reset-gpio.c | 121 +++++++++++++++++++++++++++++++++++++
+ 4 files changed, 136 insertions(+)
  create mode 100644 drivers/reset/reset-gpio.c
 
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 7fe27cd60e1b..a0fbd4814bc7 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -8866,6 +8866,11 @@ F:	Documentation/i2c/muxes/i2c-mux-gpio.rst
+ F:	drivers/i2c/muxes/i2c-mux-gpio.c
+ F:	include/linux/platform_data/i2c-mux-gpio.h
+ 
++GENERIC GPIO RESET DRIVER
++M:	Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
++S:	Maintained
++F:	drivers/reset/reset-gpio.c
++
+ GENERIC HDLC (WAN) DRIVERS
+ M:	Krzysztof Halasa <khc@pm.waw.pl>
+ S:	Maintained
+diff --git a/drivers/reset/Kconfig b/drivers/reset/Kconfig
+index ccd59ddd7610..bb1b5a326eb7 100644
+--- a/drivers/reset/Kconfig
++++ b/drivers/reset/Kconfig
+@@ -66,6 +66,15 @@ config RESET_BRCMSTB_RESCAL
+ 	  This enables the RESCAL reset controller for SATA, PCIe0, or PCIe1 on
+ 	  BCM7216.
+ 
++config RESET_GPIO
++	tristate "GPIO reset controller"
++	help
++	  This enables a generic reset controller for resets attached via
++	  GPIOs.  Typically for OF platforms this driver expects "reset-gpios"
++	  property.
++
++	  If compiled as module, it will be called reset-gpio.
++
+ config RESET_HSDK
+ 	bool "Synopsys HSDK Reset Driver"
+ 	depends on HAS_IOMEM
+diff --git a/drivers/reset/Makefile b/drivers/reset/Makefile
+index 8270da8a4baa..fd8b49fa46fc 100644
+--- a/drivers/reset/Makefile
++++ b/drivers/reset/Makefile
+@@ -11,6 +11,7 @@ obj-$(CONFIG_RESET_BCM6345) += reset-bcm6345.o
+ obj-$(CONFIG_RESET_BERLIN) += reset-berlin.o
+ obj-$(CONFIG_RESET_BRCMSTB) += reset-brcmstb.o
+ obj-$(CONFIG_RESET_BRCMSTB_RESCAL) += reset-brcmstb-rescal.o
++obj-$(CONFIG_RESET_GPIO) += reset-gpio.o
+ obj-$(CONFIG_RESET_HSDK) += reset-hsdk.o
+ obj-$(CONFIG_RESET_IMX7) += reset-imx7.o
+ obj-$(CONFIG_RESET_INTEL_GW) += reset-intel-gw.o
+diff --git a/drivers/reset/reset-gpio.c b/drivers/reset/reset-gpio.c
+new file mode 100644
+index 000000000000..cf0a867cbc5f
+--- /dev/null
++++ b/drivers/reset/reset-gpio.c
+@@ -0,0 +1,121 @@
++// SPDX-License-Identifier: GPL-2.0
++
++#include <linux/gpio/consumer.h>
++#include <linux/mod_devicetable.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/platform_device.h>
++#include <linux/reset-controller.h>
++
++struct reset_gpio_priv {
++	struct reset_controller_dev rc;
++	struct gpio_desc *reset;
++};
++
++static inline struct reset_gpio_priv
++*rc_to_reset_gpio(struct reset_controller_dev *rc)
++{
++	return container_of(rc, struct reset_gpio_priv, rc);
++}
++
++static int reset_gpio_assert(struct reset_controller_dev *rc, unsigned long id)
++{
++	struct reset_gpio_priv *priv = rc_to_reset_gpio(rc);
++
++	gpiod_set_value_cansleep(priv->reset, 1);
++
++	return 0;
++}
++
++static int reset_gpio_deassert(struct reset_controller_dev *rc,
++			       unsigned long id)
++{
++	struct reset_gpio_priv *priv = rc_to_reset_gpio(rc);
++
++	gpiod_set_value_cansleep(priv->reset, 0);
++
++	return 0;
++}
++
++static int reset_gpio_status(struct reset_controller_dev *rc, unsigned long id)
++{
++	struct reset_gpio_priv *priv = rc_to_reset_gpio(rc);
++
++	return gpiod_get_value_cansleep(priv->reset);
++}
++
++static const struct reset_control_ops reset_gpio_ops = {
++	.assert = reset_gpio_assert,
++	.deassert = reset_gpio_deassert,
++	.status = reset_gpio_status,
++};
++
++static void reset_gpio_of_args_put(void *data)
++{
++	of_node_put(data);
++}
++
++static int reset_gpio_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct device_node **platdata = dev_get_platdata(dev);
++	struct of_phandle_args gpio_args;
++	struct reset_gpio_priv *priv;
++	int ret;
++
++	if (!platdata || !*platdata)
++		return -EINVAL;
++
++	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
++	if (!priv)
++		return -ENOMEM;
++
++	platform_set_drvdata(pdev, &priv->rc);
++	device_set_node(dev, of_fwnode_handle(*platdata));
++
++	priv->reset = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
++	if (IS_ERR(priv->reset))
++		return dev_err_probe(dev, PTR_ERR(priv->reset),
++				     "Could not get reset gpios\n");
++
++	ret = of_parse_phandle_with_args(*platdata, "reset-gpios",
++					 "#gpio-cells", 0, &gpio_args);
++	if (ret)
++		return ret;
++
++	priv->rc.ops = &reset_gpio_ops;
++	priv->rc.owner = THIS_MODULE;
++	priv->rc.dev = dev;
++	priv->rc.nr_resets = 1;
++	priv->rc.of_node = gpio_args.np;
++	ret = devm_add_action_or_reset(dev, reset_gpio_of_args_put,
++				       priv->rc.of_node);
++	if (ret)
++		return ret;
++
++	priv->rc.of_args = devm_kmemdup(dev, &gpio_args, sizeof(gpio_args),
++					GFP_KERNEL);
++	if (!priv->rc.of_args)
++		return -ENOMEM;
++
++	return devm_reset_controller_register(dev, &priv->rc);
++}
++
++static const struct platform_device_id reset_gpio_ids[] = {
++	{ .name = "reset-gpio", },
++	{}
++};
++MODULE_DEVICE_TABLE(platform, reset_gpio_ids);
++
++static struct platform_driver reset_gpio_driver = {
++	.probe		= reset_gpio_probe,
++	.id_table	= reset_gpio_ids,
++	.driver	= {
++		.name = "reset-gpio",
++	},
++};
++module_platform_driver(reset_gpio_driver);
++
++MODULE_AUTHOR("Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>");
++MODULE_DESCRIPTION("Generic GPIO reset driver");
++MODULE_LICENSE("GPL");
 -- 
 2.34.1
 

@@ -2,132 +2,156 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89D49825406
-	for <lists+alsa-devel@lfdr.de>; Fri,  5 Jan 2024 14:11:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72B7D826384
+	for <lists+alsa-devel@lfdr.de>; Sun,  7 Jan 2024 09:56:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 13E6DED6;
-	Fri,  5 Jan 2024 14:11:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 13E6DED6
+	by alsa0.perex.cz (Postfix) with ESMTPS id D77D81521;
+	Sun,  7 Jan 2024 09:56:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D77D81521
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1704460287;
-	bh=WAFyeLruE0pRD9vHK2XgEk6+TSoMKoYicnFKjTpQa0Y=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1704617815;
+	bh=YKQHga/6iO0pE/KChJXb5E90UcyAIMM6z/7ZHcYw7wU=;
+	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=KDtkqNqJnwKh+TXZxU7ugAKMDAo9fpoVrRfBjyF5aOSlb2kbb+HvpK9kJYpMiTgcH
-	 0EcgSLZYHTSbpKB14zZkL3XgQJ4BUAP1ZvD3k0VkI2Em4EcQ3fYV0cpAj5+m2WPb02
-	 aFJlX6b/nYHAGd+1Pe7Sc5n38cwa698fWdi4OeZU=
+	b=i8UUtT9C4RpaIT59TK7C+ICTskLirSQ2eIkOmMYv9QQjFaRP2gEdFFBgusi1P/N70
+	 igFeiohYizw3eLMpv4Toq6io/MJ9vqzmmrNXrI47mzWrezqrOrbmnTZq18XyoyDB8X
+	 3YrCuLSKutG8Q2GrkulouCPpeSwhBM4Q9LZCt3lM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6F7E1F805EC; Fri,  5 Jan 2024 14:10:35 +0100 (CET)
+	id 914EAF806A1; Sun,  7 Jan 2024 09:55:08 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 68E68F805CA;
-	Fri,  5 Jan 2024 14:10:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E6959F80684;
+	Sun,  7 Jan 2024 09:55:07 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C603DF8057D; Fri,  5 Jan 2024 14:09:31 +0100 (CET)
+	id 0B8E8F804B0; Fri,  5 Jan 2024 15:04:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 93B90F8056F
-	for <alsa-devel@alsa-project.org>; Fri,  5 Jan 2024 14:08:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93B90F8056F
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3644AF80238
+	for <alsa-devel@alsa-project.org>; Fri,  5 Jan 2024 15:04:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3644AF80238
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256
- header.s=selector1 header.b=1MykyLek
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
-	by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 405A5xIQ029634;
-	Fri, 5 Jan 2024 14:08:15 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
-	from:to:cc:subject:date:message-id:in-reply-to:references
-	:mime-version:content-transfer-encoding:content-type; s=
-	selector1; bh=pdoLzds6ybOz4DH26I8jBcXVv6K38hVXWpk0gC53suE=; b=1M
-	ykyLekQxVB8QeCibzGBFTU+wwbLAaFThGpcG3Uv7SVcH8MRj4Ho8gJ43sRxYxZPb
-	vPzYj/z5+v+6p7Ns9TMhn+bCIEAdHVMnHk7KLgRsD808/d2Z6dPnGhFJ9wjI/Dbx
-	XkC0qvX9W2hynl7CwPzDudaCEF0STykNcFY+7dHZjkl2d27a2JyCVrsF8yhzHtp1
-	pHOsRJBNCG4Q8mB2+SpGFAtZuvH8vTxCX1/Ha0eWpW8DZBNqWptIw47STH88jj7n
-	C3g3pqfRik7xFBA7gUNSGu7eJbwHrN5e7hsd6Ik5dvB75DEYq5mkVrIeN1WC/yx+
-	hKdTGOBgSBxB7Ck7wvzA==
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
-	by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ve9gfj62u-1
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=rF/0IQUd
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 405CRxc9029289;
+	Fri, 5 Jan 2024 08:04:25 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
+	date:from:to:cc:subject:message-id:references:mime-version
+	:content-type:in-reply-to; s=PODMain02222019; bh=NgK0ariODaAJM3u
+	rz57AUlxKnvsuFzT7i1lyaH/qe3g=; b=rF/0IQUdGm0Wd99Ij94Tkra47dqAYQz
+	UGL7T28kFbh9N5oq6IVFe4E6gU8n9KczZ7rnVg0BD/gWCalL+ihrEyh7A+ZumIHi
+	KKmgPlp7oFU3KQ05XhnvLZmWufI8fdzejd6SA6Hckobkld8GfsbPJJQYY9nyZMG1
+	nKMuZcsqdicAfddO5tyRM9C8hR0q4T9KTGRY1NItuS+OLq4MDibork6d+g9yWYqO
+	mppwJtpehHA5CtMtnzWZI0uqc6J0wNTq09hJtZTNLrNfj0DFksQN+7fMkrN0dgJh
+	ckfwTaMxidrgksrvgUc6Jq53quiiHuZC/qWBaMAoWe9JCp7k7evgU3Q==
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3ve9d00n13-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 05 Jan 2024 14:08:15 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
-	by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 8AE39100038;
-	Fri,  5 Jan 2024 14:08:14 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
-	by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7EE2322A6C9;
-	Fri,  5 Jan 2024 14:08:14 +0100 (CET)
-Received: from localhost (10.201.20.32) by SHFDAG1NODE1.st.com (10.75.129.69)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 5 Jan
- 2024 14:08:14 +0100
-From: Gatien Chevallier <gatien.chevallier@foss.st.com>
-To: <Oleksii_Moisieiev@epam.com>, <gregkh@linuxfoundation.org>,
-        <herbert@gondor.apana.org.au>, <davem@davemloft.net>,
-        <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
-        <conor+dt@kernel.org>, <alexandre.torgue@foss.st.com>,
-        <vkoul@kernel.org>, <jic23@kernel.org>, <olivier.moysan@foss.st.com>,
-        <arnaud.pouliquen@foss.st.com>, <mchehab@kernel.org>,
-        <fabrice.gasnier@foss.st.com>, <andi.shyti@kernel.org>,
-        <ulf.hansson@linaro.org>, <edumazet@google.com>, <kuba@kernel.org>,
-        <pabeni@redhat.com>, <hugues.fruchet@foss.st.com>, <lee@kernel.org>,
-        <will@kernel.org>, <catalin.marinas@arm.com>, <arnd@kernel.org>,
-        <richardcochran@gmail.com>, Frank Rowand <frowand.list@gmail.com>,
-        <peng.fan@oss.nxp.com>, <lars@metafoo.de>, <rcsekar@samsung.com>,
-        <wg@grandegger.com>, <mkl@pengutronix.de>
-CC: <linux-crypto@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-stm32@st-md-mailman.stormreply.com>,
-        <linux-arm-kernel@lists.infradead.org>,
- <linux-kernel@vger.kernel.org>,
-        <dmaengine@vger.kernel.org>, <linux-i2c@vger.kernel.org>,
-        <linux-iio@vger.kernel.org>, <alsa-devel@alsa-project.org>,
-        <linux-media@vger.kernel.org>, <linux-mmc@vger.kernel.org>,
-        <netdev@vger.kernel.org>, <linux-phy@lists.infradead.org>,
-        <linux-serial@vger.kernel.org>, <linux-spi@vger.kernel.org>,
-        <linux-usb@vger.kernel.org>,
-        Gatien Chevallier
-	<gatien.chevallier@foss.st.com>
-Subject: [PATCH v9 13/13] ARM: dts: stm32: put ETZPC as an access controller
- for STM32MP13x boards
-Date: Fri, 5 Jan 2024 14:04:04 +0100
-Message-ID: <20240105130404.301172-14-gatien.chevallier@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240105130404.301172-1-gatien.chevallier@foss.st.com>
-References: <20240105130404.301172-1-gatien.chevallier@foss.st.com>
+	Fri, 05 Jan 2024 08:04:24 -0600 (CST)
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Fri, 5 Jan
+ 2024 14:04:23 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.40 via Frontend
+ Transport; Fri, 5 Jan 2024 14:04:08 +0000
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com
+ [198.61.86.93])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 0008C468;
+	Fri,  5 Jan 2024 14:04:07 +0000 (UTC)
+Date: Fri, 5 Jan 2024 14:04:07 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: James Ogletree <jogletre@opensource.cirrus.com>
+CC: James Ogletree <james.ogletree@cirrus.com>,
+        Fred Treven
+	<fred.treven@cirrus.com>,
+        Ben Bright <ben.bright@cirrus.com>,
+        Dmitry Torokhov
+	<dmitry.torokhov@gmail.com>,
+        Rob Herring <robh+dt@kernel.org>,
+        "Krzysztof
+ Kozlowski" <krzysztof.kozlowski+dt@linaro.org>,
+        Conor Dooley
+	<conor+dt@kernel.org>,
+        Simon Trimmer <simont@opensource.cirrus.com>,
+        "Richard
+ Fitzgerald" <rf@opensource.cirrus.com>,
+        Lee Jones <lee@kernel.org>, "Liam
+ Girdwood" <lgirdwood@gmail.com>,
+        Mark Brown <broonie@kernel.org>, "Jaroslav
+ Kysela" <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>,
+        James Schulman
+	<james.schulman@cirrus.com>,
+        David Rhodes <david.rhodes@cirrus.com>,
+        Sebastian Reichel <sebastian.reichel@collabora.com>,
+        Jacky Bai
+	<ping.bai@nxp.com>, Jeff LaBundy <jeff@labundy.com>,
+        Peng Fan
+	<peng.fan@nxp.com>, Weidong Wang <wangweidong.a@awinic.com>,
+        Herve Codina
+	<herve.codina@bootlin.com>,
+        Arnd Bergmann <arnd@arndb.de>, Shenghao Ding
+	<13916275206@139.com>,
+        Ryan Lee <ryans.lee@analog.com>,
+        Linus Walleij
+	<linus.walleij@linaro.org>,
+        Maxim Kochetkov <fido_max@inbox.ru>,
+        Shuming Fan
+	<shumingf@realtek.com>,
+        "open list:CIRRUS LOGIC HAPTIC DRIVERS"
+	<patches@opensource.cirrus.com>,
+        "open list:INPUT (KEYBOARD, MOUSE, JOYSTICK,
+ TOUCHSCREEN)..." <linux-input@vger.kernel.org>,
+        "open list:OPEN FIRMWARE AND
+ FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
+        open list
+	<linux-kernel@vger.kernel.org>,
+        "open list:SOUND - SOC LAYER / DYNAMIC AUDIO
+ POWER MANAGEM..." <linux-sound@vger.kernel.org>,
+        "moderated list:CIRRUS LOGIC
+ AUDIO CODEC DRIVERS" <alsa-devel@alsa-project.org>
+Subject: Re: [PATCH v5 3/5] mfd: cs40l50: Add support for CS40L50 core driver
+Message-ID: <20240105140407.GG14858@ediswmail.ad.cirrus.com>
+References: <20240104223643.876292-1-jogletre@opensource.cirrus.com>
+ <20240104223643.876292-4-jogletre@opensource.cirrus.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.201.20.32]
-X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-01-05_06,2024-01-05_01,2023-05-22_02
-Message-ID-Hash: Q36NGSLJQ6DP74VWUCBTD5QAO37PIX4N
-X-Message-ID-Hash: Q36NGSLJQ6DP74VWUCBTD5QAO37PIX4N
-X-MailFrom: prvs=1734cf6afc=gatien.chevallier@foss.st.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20240104223643.876292-4-jogletre@opensource.cirrus.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-ORIG-GUID: pMkVg0owTryzh09Kt_vwlElCrMJXezxQ
+X-Proofpoint-GUID: pMkVg0owTryzh09Kt_vwlElCrMJXezxQ
+X-Proofpoint-Spam-Reason: safe
+X-MailFrom: prvs=873448ca47=ckeepax@opensource.cirrus.com
+X-Mailman-Rule-Hits: implicit-dest
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ administrivia; max-recipients; max-size; news-moderation; no-subject;
+ digests; suspicious-header
+Message-ID-Hash: LRK4F4XHLN7SOUKEKZNGUZ66XQ2RAEWP
+X-Message-ID-Hash: LRK4F4XHLN7SOUKEKZNGUZ66XQ2RAEWP
+X-Mailman-Approved-At: Sun, 07 Jan 2024 08:53:59 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Q36NGSLJQ6DP74VWUCBTD5QAO37PIX4N/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LRK4F4XHLN7SOUKEKZNGUZ66XQ2RAEWP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -136,270 +160,369 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Reference ETZPC as an access-control-provider.
+On Thu, Jan 04, 2024 at 10:36:36PM +0000, James Ogletree wrote:
+> Introduce support for Cirrus Logic Device CS40L50: a
+> haptic driver with waveform memory, integrated DSP,
+> and closed-loop algorithms.
+> 
+> The MFD component registers and initializes the device.
+> 
+> Signed-off-by: James Ogletree <jogletre@opensource.cirrus.com>
+> ---
+> +config MFD_CS40L50_CORE
+> +	tristate
+> +	select MFD_CORE
+> +	select FW_CS_DSP
+> +	select REGMAP_IRQ
+> +
+> +config MFD_CS40L50_I2C
+> +	tristate "Cirrus Logic CS40L50 (I2C)"
+> +	select REGMAP_I2C
+> +	select MFD_CS40L50_CORE
+> +	depends on I2C
+> +	help
+> +	  Select this to support the Cirrus Logic CS40L50 Haptic
+> +	  Driver over I2C.
+> +
+> +	  This driver can be built as a module. If built as a module it will be
+> +	  called "cs40l50-i2c".
+> +
+> +config MFD_CS40L50_SPI
+> +	tristate "Cirrus Logic CS40L50 (SPI)"
+> +	select REGMAP_SPI
+> +	select MFD_CS40L50_CORE
+> +	depends on SPI
+> +	help
+> +	  Select this to support the Cirrus Logic CS40L50 Haptic
+> +	  Driver over SPI.
+> +
+> +	  This driver can be built as a module. If built as a module it will be
+> +	  called "cs40l50-spi".
+> +
 
-For more information on which peripheral is securable or supports MCU
-isolation, please read the STM32MP13 reference manual
+Generally the order in Kconfigs should be alphabetical, probably
+up around Cirrus Madera stuff would make most sense.
 
-Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
----
+> +static int cs40l50_dsp_init(struct cs40l50 *cs40l50)
+> +{
+> +	int err;
+> +
+> +	cs40l50->dsp.num = 1;
+> +	cs40l50->dsp.type = WMFW_HALO;
+> +	cs40l50->dsp.dev = cs40l50->dev;
+> +	cs40l50->dsp.regmap = cs40l50->regmap;
+> +	cs40l50->dsp.base = CS40L50_CORE_BASE;
+> +	cs40l50->dsp.base_sysinfo = CS40L50_SYS_INFO_ID;
+> +	cs40l50->dsp.mem = cs40l50_dsp_regions;
+> +	cs40l50->dsp.num_mems = ARRAY_SIZE(cs40l50_dsp_regions);
+> +	cs40l50->dsp.no_core_startstop = true;
+> +
+> +	err = cs_dsp_halo_init(&cs40l50->dsp);
+> +	if (err)
+> +		return err;
+> +
+> +	return devm_add_action_or_reset(cs40l50->dev, cs40l50_dsp_remove,
+> +					&cs40l50->dsp);
 
-Patch not present in V6
+Hmm... I notice you use this for both dsp_remove and
+dsp_power_down. Are you sure devm will guarantee those are called
+in the right order? Its not immediately clear to me that would be
+have to be the case.
 
- arch/arm/boot/dts/st/stm32mp131.dtsi  | 26 ++++++++++++++++++++++++++
- arch/arm/boot/dts/st/stm32mp133.dtsi  |  1 +
- arch/arm/boot/dts/st/stm32mp13xc.dtsi |  1 +
- arch/arm/boot/dts/st/stm32mp13xf.dtsi |  1 +
- 4 files changed, 29 insertions(+)
+> +static irqreturn_t cs40l50_irq_handler(int irq, void *data)
+> +{
+> +	struct cs40l50 *cs40l50 = data;
+> +	int err;
+> +
+> +	mutex_lock(&cs40l50->lock);
+> +
+> +	if (irq == cs40l50_irqs[0].virq)
+> +		err = cs40l50_process_dsp_queue(cs40l50);
+> +	else
+> +		err = cs40l50_handle_hw_err(cs40l50, irq);
 
-diff --git a/arch/arm/boot/dts/st/stm32mp131.dtsi b/arch/arm/boot/dts/st/stm32mp131.dtsi
-index 6ba8e3fd43b0..74ceece168ce 100644
---- a/arch/arm/boot/dts/st/stm32mp131.dtsi
-+++ b/arch/arm/boot/dts/st/stm32mp131.dtsi
-@@ -883,6 +883,7 @@ etzpc: bus@5c007000 {
- 			reg = <0x5c007000 0x400>;
- 			#address-cells = <1>;
- 			#size-cells = <1>;
-+			#access-controller-cells = <1>;
- 			ranges;
- 
- 			adc_2: adc@48004000 {
-@@ -895,6 +896,7 @@ adc_2: adc@48004000 {
- 				#interrupt-cells = <1>;
- 				#address-cells = <1>;
- 				#size-cells = <0>;
-+				access-controllers = <&etzpc 33>;
- 				status = "disabled";
- 
- 				adc2: adc@0 {
-@@ -942,6 +944,7 @@ usbotg_hs: usb@49000000 {
- 				dr_mode = "otg";
- 				otg-rev = <0x200>;
- 				usb33d-supply = <&scmi_usb33>;
-+				access-controllers = <&etzpc 34>;
- 				status = "disabled";
- 			};
- 
-@@ -955,6 +958,7 @@ usart1: serial@4c000000 {
- 				dmas = <&dmamux1 41 0x400 0x5>,
- 				<&dmamux1 42 0x400 0x1>;
- 				dma-names = "rx", "tx";
-+				access-controllers = <&etzpc 16>;
- 				status = "disabled";
- 			};
- 
-@@ -968,6 +972,7 @@ usart2: serial@4c001000 {
- 				dmas = <&dmamux1 43 0x400 0x5>,
- 				<&dmamux1 44 0x400 0x1>;
- 				dma-names = "rx", "tx";
-+				access-controllers = <&etzpc 17>;
- 				status = "disabled";
- 			};
- 
-@@ -979,6 +984,7 @@ i2s4: audio-controller@4c002000 {
- 				dmas = <&dmamux1 83 0x400 0x01>,
- 				<&dmamux1 84 0x400 0x01>;
- 				dma-names = "rx", "tx";
-+				access-controllers = <&etzpc 13>;
- 				status = "disabled";
- 			};
- 
-@@ -993,6 +999,7 @@ spi4: spi@4c002000 {
- 				dmas = <&dmamux1 83 0x400 0x01>,
- 				       <&dmamux1 84 0x400 0x01>;
- 				dma-names = "rx", "tx";
-+				access-controllers = <&etzpc 18>;
- 				status = "disabled";
- 			};
- 
-@@ -1007,6 +1014,7 @@ spi5: spi@4c003000 {
- 				dmas = <&dmamux1 85 0x400 0x01>,
- 				       <&dmamux1 86 0x400 0x01>;
- 				dma-names = "rx", "tx";
-+				access-controllers = <&etzpc 19>;
- 				status = "disabled";
- 			};
- 
-@@ -1025,6 +1033,7 @@ i2c3: i2c@4c004000 {
- 				dma-names = "rx", "tx";
- 				st,syscfg-fmp = <&syscfg 0x4 0x4>;
- 				i2c-analog-filter;
-+				access-controllers = <&etzpc 20>;
- 				status = "disabled";
- 			};
- 
-@@ -1043,6 +1052,7 @@ i2c4: i2c@4c005000 {
- 				dma-names = "rx", "tx";
- 				st,syscfg-fmp = <&syscfg 0x4 0x8>;
- 				i2c-analog-filter;
-+				access-controllers = <&etzpc 21>;
- 				status = "disabled";
- 			};
- 
-@@ -1061,6 +1071,7 @@ i2c5: i2c@4c006000 {
- 				dma-names = "rx", "tx";
- 				st,syscfg-fmp = <&syscfg 0x4 0x10>;
- 				i2c-analog-filter;
-+				access-controllers = <&etzpc 22>;
- 				status = "disabled";
- 			};
- 
-@@ -1073,6 +1084,7 @@ timers12: timer@4c007000 {
- 				interrupt-names = "global";
- 				clocks = <&rcc TIM12_K>;
- 				clock-names = "int";
-+				access-controllers = <&etzpc 23>;
- 				status = "disabled";
- 
- 				pwm {
-@@ -1097,6 +1109,7 @@ timers13: timer@4c008000 {
- 				interrupt-names = "global";
- 				clocks = <&rcc TIM13_K>;
- 				clock-names = "int";
-+				access-controllers = <&etzpc 24>;
- 				status = "disabled";
- 
- 				pwm {
-@@ -1121,6 +1134,7 @@ timers14: timer@4c009000 {
- 				interrupt-names = "global";
- 				clocks = <&rcc TIM14_K>;
- 				clock-names = "int";
-+				access-controllers = <&etzpc 25>;
- 				status = "disabled";
- 
- 				pwm {
-@@ -1150,6 +1164,7 @@ timers15: timer@4c00a000 {
- 				<&dmamux1 107 0x400 0x1>,
- 				<&dmamux1 108 0x400 0x1>;
- 				dma-names = "ch1", "up", "trig", "com";
-+				access-controllers = <&etzpc 26>;
- 				status = "disabled";
- 
- 				pwm {
-@@ -1177,6 +1192,7 @@ timers16: timer@4c00b000 {
- 				dmas = <&dmamux1 109 0x400 0x1>,
- 				<&dmamux1 110 0x400 0x1>;
- 				dma-names = "ch1", "up";
-+				access-controllers = <&etzpc 27>;
- 				status = "disabled";
- 
- 				pwm {
-@@ -1204,6 +1220,7 @@ timers17: timer@4c00c000 {
- 				dmas = <&dmamux1 111 0x400 0x1>,
- 				       <&dmamux1 112 0x400 0x1>;
- 				dma-names = "ch1", "up";
-+				access-controllers = <&etzpc 28>;
- 				status = "disabled";
- 
- 				pwm {
-@@ -1228,6 +1245,7 @@ lptimer2: timer@50021000 {
- 				clocks = <&rcc LPTIM2_K>;
- 				clock-names = "mux";
- 				wakeup-source;
-+				access-controllers = <&etzpc 1>;
- 				status = "disabled";
- 
- 				pwm {
-@@ -1262,6 +1280,7 @@ lptimer3: timer@50022000 {
- 				clocks = <&rcc LPTIM3_K>;
- 				clock-names = "mux";
- 				wakeup-source;
-+				access-controllers = <&etzpc 2>;
- 				status = "disabled";
- 
- 				pwm {
-@@ -1290,6 +1309,7 @@ hash: hash@54003000 {
- 				resets = <&rcc HASH1_R>;
- 				dmas = <&mdma 30 0x2 0x1000a02 0x0 0x0>;
- 				dma-names = "in";
-+				access-controllers = <&etzpc 41>;
- 			};
- 
- 			rng: rng@54004000 {
-@@ -1297,6 +1317,7 @@ rng: rng@54004000 {
- 				reg = <0x54004000 0x400>;
- 				clocks = <&rcc RNG1_K>;
- 				resets = <&rcc RNG1_R>;
-+				access-controllers = <&etzpc 40>;
- 			};
- 
- 			fmc: memory-controller@58002000 {
-@@ -1311,6 +1332,7 @@ fmc: memory-controller@58002000 {
- 				#size-cells = <1>;
- 				clocks = <&rcc FMC_K>;
- 				resets = <&rcc FMC_R>;
-+				access-controllers = <&etzpc 54>;
- 				status = "disabled";
- 
- 				nand-controller@4,0 {
-@@ -1344,6 +1366,7 @@ qspi: spi@58003000 {
- 				dma-names = "tx", "rx";
- 				clocks = <&rcc QSPI_K>;
- 				resets = <&rcc QSPI_R>;
-+				access-controllers = <&etzpc 55>;
- 				status = "disabled";
- 			};
- 
-@@ -1358,6 +1381,7 @@ sdmmc1: mmc@58005000 {
- 				cap-sd-highspeed;
- 				cap-mmc-highspeed;
- 				max-frequency = <130000000>;
-+				access-controllers = <&etzpc 50>;
- 				status = "disabled";
- 			};
- 
-@@ -1372,6 +1396,7 @@ sdmmc2: mmc@58007000 {
- 				cap-sd-highspeed;
- 				cap-mmc-highspeed;
- 				max-frequency = <130000000>;
-+				access-controllers = <&etzpc 51>;
- 				status = "disabled";
- 			};
- 
-@@ -1385,6 +1410,7 @@ usbphyc: usbphyc@5a006000 {
- 				resets = <&rcc USBPHY_R>;
- 				vdda1v1-supply = <&scmi_reg11>;
- 				vdda1v8-supply = <&scmi_reg18>;
-+				access-controllers = <&etzpc 5>;
- 				status = "disabled";
- 
- 				usbphyc_port0: usb-phy@0 {
-diff --git a/arch/arm/boot/dts/st/stm32mp133.dtsi b/arch/arm/boot/dts/st/stm32mp133.dtsi
-index c4d3a520c14b..3e394c8e58b9 100644
---- a/arch/arm/boot/dts/st/stm32mp133.dtsi
-+++ b/arch/arm/boot/dts/st/stm32mp133.dtsi
-@@ -47,6 +47,7 @@ adc_1: adc@48003000 {
- 		#interrupt-cells = <1>;
- 		#address-cells = <1>;
- 		#size-cells = <0>;
-+		access-controllers = <&etzpc 32>;
- 		status = "disabled";
- 
- 		adc1: adc@0 {
-diff --git a/arch/arm/boot/dts/st/stm32mp13xc.dtsi b/arch/arm/boot/dts/st/stm32mp13xc.dtsi
-index b9fb071a1471..a8bd5fe6536c 100644
---- a/arch/arm/boot/dts/st/stm32mp13xc.dtsi
-+++ b/arch/arm/boot/dts/st/stm32mp13xc.dtsi
-@@ -11,6 +11,7 @@ cryp: crypto@54002000 {
- 		interrupts = <GIC_SPI 80 IRQ_TYPE_LEVEL_HIGH>;
- 		clocks = <&rcc CRYP1>;
- 		resets = <&rcc CRYP1_R>;
-+		access-controllers = <&etzpc 42>;
- 		status = "disabled";
- 	};
- };
-diff --git a/arch/arm/boot/dts/st/stm32mp13xf.dtsi b/arch/arm/boot/dts/st/stm32mp13xf.dtsi
-index b9fb071a1471..a8bd5fe6536c 100644
---- a/arch/arm/boot/dts/st/stm32mp13xf.dtsi
-+++ b/arch/arm/boot/dts/st/stm32mp13xf.dtsi
-@@ -11,6 +11,7 @@ cryp: crypto@54002000 {
- 		interrupts = <GIC_SPI 80 IRQ_TYPE_LEVEL_HIGH>;
- 		clocks = <&rcc CRYP1>;
- 		resets = <&rcc CRYP1_R>;
-+		access-controllers = <&etzpc 42>;
- 		status = "disabled";
- 	};
- };
--- 
-2.35.3
+Feels kinda weird to assign the same handler to every IRQ and
+then depending on which IRQ it was call a different function.
+Would it not be simpler just to assign a different handler?
 
+> +static int cs40l50_power_up_dsp(struct cs40l50 *cs40l50)
+> +{
+> +	int err;
+> +
+> +	mutex_lock(&cs40l50->lock);
+> +
+> +	if (cs40l50->patch) {
+> +		/* Stop core if loading patch file */
+> +		err = regmap_multi_reg_write(cs40l50->regmap, cs40l50_stop_core,
+> +					     ARRAY_SIZE(cs40l50_stop_core));
+> +		if (err)
+> +			goto err_mutex;
+> +	}
+> +
+> +	err = cs_dsp_power_up(&cs40l50->dsp, cs40l50->patch, "cs40l50.wmfw",
+> +			      cs40l50->bin, "cs40l50.bin", "cs40l50");
+> +	if (err)
+> +		goto err_mutex;
+> +
+> +	err = devm_add_action_or_reset(cs40l50->dev, cs40l50_dsp_power_down,
+> +				       &cs40l50->dsp);
+> +	if (err)
+> +		goto err_mutex;
+> +
+> +	if (cs40l50->patch) {
+> +		/* Resume core after loading patch file */
+> +		err = regmap_write(cs40l50->regmap, CS40L50_CCM_CORE_CONTROL,
+> +				   CS40L50_CLOCK_ENABLE);
+
+This feels like this needs a comment, why are we skipping the
+normal DSP init and doing it manually (this appears to be the
+same writes start_core would have done)? I assume its something to
+do with what you are really doing is you don't want lock_memory
+to run?
+
+> +static int cs40l50_configure_dsp(struct cs40l50 *cs40l50)
+> +{
+> +	u32 nwaves;
+> +	int err;
+> +
+> +	if (cs40l50->bin) {
+> +		/* Log number of effects if wavetable was loaded */
+> +		err = regmap_read(cs40l50->regmap, CS40L50_NUM_WAVES, &nwaves);
+> +		if (err)
+> +			return err;
+> +
+> +		dev_info(cs40l50->dev, "Loaded with %u RAM waveforms\n", nwaves);
+
+Kinda nervous about the fact we access all these DSP controls
+directly through address, rather than using the DSP control
+accessors, we have the accessors for a reason. They manage things
+like access permissions etc. and historically, the firmware
+guys have not been able to guarantee these remain in consistent
+locations between firmware versions.
+
+I guess this is so you can access them even in the case of the
+ROM firmware, but you could have a meta-data only firmware file
+that you load in that case to give you the controls.  I don't
+feel the need to NAK the driver based on this but please think
+about this very carefully it's a strange way to use the DSP
+controls, and feels likely to cause problems to me. It is also
+quite hostile to fixing it in the future since as you are not
+using the controls no one will be checking that things like the
+access flags in the firmware are set correctly, which is annoying
+if the decision has to be reversed later since there will likely
+be a bunch of broken firmwares already in the field.
+
+> +int cs40l50_probe(struct cs40l50 *cs40l50)
+> +{
+> +	struct device *dev = cs40l50->dev;
+> +	int err;
+> +
+> +	mutex_init(&cs40l50->lock);
+> +
+> +	cs40l50->reset_gpio = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_HIGH);
+> +	if (IS_ERR(cs40l50->reset_gpio))
+> +		return dev_err_probe(dev, PTR_ERR(cs40l50->reset_gpio),
+> +				     "Failed getting reset GPIO\n");
+> +
+> +	err = devm_regulator_bulk_get_enable(dev, ARRAY_SIZE(cs40l50_supplies),
+> +					     cs40l50_supplies);
+> +	if (err)
+> +		return dev_err_probe(dev, err, "Failed getting supplies\n");
+> +
+> +	/* Ensure minimum reset pulse width */
+> +	usleep_range(CS40L50_RESET_PULSE_US, CS40L50_RESET_PULSE_US + 100);
+> +
+> +	gpiod_set_value_cansleep(cs40l50->reset_gpio, 0);
+> +
+> +	/* Wait for control port to be ready */
+> +	usleep_range(CS40L50_CP_READY_US, CS40L50_CP_READY_US + 100);
+> +
+> +	err = cs40l50_dsp_init(cs40l50);
+> +	if (err)
+> +		return dev_err_probe(dev, err, "Failed to initialize DSP\n");
+> +
+> +	cs40l50_pm_runtime_setup(dev);
+> +
+> +	err = cs40l50_get_model(cs40l50);
+> +	if (err)
+> +		return dev_err_probe(dev, err, "Failed to get part number\n");
+> +
+> +	err = cs40l50_irq_init(cs40l50);
+> +	if (err)
+> +		return dev_err_probe(dev, err, "Failed to initialize IRQs\n");
+> +
+> +	err = request_firmware_nowait(THIS_MODULE, FW_ACTION_UEVENT, CS40L50_FW,
+> +				      dev, GFP_KERNEL, cs40l50, cs40l50_request_patch);
+> +	if (err)
+> +		return dev_err_probe(dev, err, "Failed to request %s\n", CS40L50_FW);
+> +
+> +	err = devm_mfd_add_devices(dev, PLATFORM_DEVID_NONE, cs40l50_devs,
+> +				   ARRAY_SIZE(cs40l50_devs), NULL, 0, NULL);
+> +	if (err)
+> +		return dev_err_probe(dev, err, "Failed to add sub devices\n");
+> +
+
+Do you want to add the child devices here? Or after the firmware
+init has been done? If you do it here then the child devices may
+well probe and become available before all the setup you have in
+the DSP loading stuff is done. What happens if one of those
+drivers tries to do something before init is complete?
+
+> +static int cs40l50_runtime_resume(struct device *dev)
+> +{
+> +	struct cs40l50 *cs40l50 = dev_get_drvdata(dev);
+> +	int err, i;
+> +	u32 val;
+> +
+> +	/* Device NAKs when exiting hibernation, so optionally retry here. */
+> +	for (i = 0; i < CS40L50_DSP_TIMEOUT_COUNT; i++) {
+> +		err = regmap_write(cs40l50->regmap, CS40L50_DSP_QUEUE,
+> +				     CS40L50_PREVENT_HIBER);
+> +		if (!err)
+> +			break;
+> +
+> +		usleep_range(CS40L50_DSP_POLL_US, CS40L50_DSP_POLL_US + 100);
+> +	}
+
+Are you comfortable with the behaviour here? If the chip fails to
+respond before the TIMEOUT, you will proceed on and do the read
+loop. Since the read loop is just looking for a zero in the
+queue, it looks like if for some reason the chip was too slow to
+respond this function would succeed despite the chip never
+receiving the PREVENT_HIBER. Would it not be safer to skip the
+read loop if you fail to send the PREVENT_HIBER?
+
+> +
+> +	for (i = 0; i < CS40L50_DSP_TIMEOUT_COUNT; i++) {
+> +		err = regmap_read(cs40l50->regmap, CS40L50_DSP_QUEUE, &val);
+> +		if (!err && val == 0)
+> +			return 0;
+> +
+> +		usleep_range(CS40L50_DSP_POLL_US, CS40L50_DSP_POLL_US + 100);
+> +	}
+
+I am not sure if the ignoring errors is important here (as it is
+for the first loop), but if it is a comment should be added to
+say why, and if it isn't, couldn't this be a
+regmap_read_poll_timeout instead of a manual loop?
+
+> +++ b/drivers/mfd/cs40l50-spi.c
+> @@ -0,0 +1,69 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * CS40L50 Advanced Haptic Driver with waveform memory,
+> + * integrated DSP, and closed-loop algorithms
+> + *
+> + * Copyright 2023 Cirrus Logic, Inc.
+> + *
+> + * Author: James Ogletree <james.ogletree@cirrus.com>
+> + */
+> +
+> +#include <linux/mfd/cs40l50.h>
+> +#include <linux/mfd/spi.h>
+
+Should be linux/spi/spi.h, make sure your build testing the whole
+patch.
+
+> +#ifndef __CS40L50_H__
+> +#define __CS40L50_H__
+> +
+> +#include <linux/firmware/cirrus/cs_dsp.h>
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/pm.h>
+> +#include <linux/regmap.h>
+> +
+> +/* Power Supply Configuration */
+> +#define CS40L50_BLOCK_ENABLES2			0x201C
+> +#define CS40L50_ERR_RLS				0x2034
+> +#define CS40L50_PWRMGT_CTL			0x2900
+> +#define CS40L50_BST_LPMODE_SEL			0x3810
+> +#define CS40L50_DCM_LOW_POWER		0x1
+> +#define CS40L50_OVERTEMP_WARN		0x4000010
+> +
+> +/* Interrupts */
+> +#define CS40L50_IRQ1_INT_1			0xE010
+> +#define CS40L50_IRQ1_MASK_1			0xE090
+> +#define CS40L50_IRQ1_MASK_2			0xE094
+> +#define CS40L50_IRQ1_MASK_20			0xE0DC
+> +#define CS40L50_IRQ_MASK_2_OVERRIDE	0xFFDF7FFF
+> +#define CS40L50_IRQ_MASK_20_OVERRIDE	0x15C01000
+> +#define CS40L50_IRQ1_INT_1_OFFSET	(4 * 0)
+> +#define CS40L50_IRQ1_INT_2_OFFSET	(4 * 1)
+> +#define CS40L50_IRQ1_INT_8_OFFSET	(4 * 7)
+> +#define CS40L50_IRQ1_INT_9_OFFSET	(4 * 8)
+> +#define CS40L50_IRQ1_INT_10_OFFSET	(4 * 9)
+> +#define CS40L50_IRQ1_INT_18_OFFSET	(4 * 17)
+> +#define CS40L50_GLOBAL_ERR_RLS_SET	BIT(11)
+> +#define CS40L50_GLOBAL_ERR_RLS_CLEAR	0
+> +#define CS40L50_AMP_SHORT_MASK		BIT(31)
+> +#define CS40L50_DSP_QUEUE_MASK		BIT(21)
+> +#define CS40L50_TEMP_ERR_MASK		BIT(31)
+> +#define CS40L50_BST_UVP_MASK		BIT(6)
+> +#define CS40L50_BST_SHORT_MASK		BIT(7)
+> +#define CS40L50_BST_ILIMIT_MASK		BIT(18)
+> +#define CS40L50_UVLO_VDDBATT_MASK	BIT(16)
+> +#define CS40L50_GLOBAL_ERROR_MASK	BIT(15)
+> +
+> +enum cs40l50_irq_list {
+> +	CS40L50_DSP_QUEUE_IRQ,
+> +	CS40L50_GLOBAL_ERROR_IRQ,
+> +	CS40L50_UVLO_VDDBATT_IRQ,
+> +	CS40L50_BST_ILIMIT_IRQ,
+> +	CS40L50_BST_SHORT_IRQ,
+> +	CS40L50_BST_UVP_IRQ,
+> +	CS40L50_TEMP_ERR_IRQ,
+> +	CS40L50_AMP_SHORT_IRQ,
+> +};
+> +
+> +/* DSP */
+> +#define CS40L50_XMEM_PACKED_0			0x2000000
+> +#define CS40L50_XMEM_UNPACKED24_0		0x2800000
+> +#define CS40L50_SYS_INFO_ID			0x25E0000
+> +#define CS40L50_RAM_INIT			0x28021DC
+> +#define CS40L50_DSP_QUEUE_WT			0x28042C8
+> +#define CS40L50_DSP_QUEUE_RD			0x28042CC
+> +#define CS40L50_POWER_ON_WSEQ			0x2804320
+> +#define CS40L50_NUM_WAVES			0x280CB4C
+> +#define CS40L50_CORE_BASE			0x2B80000
+> +#define CS40L50_CCM_CORE_CONTROL		0x2BC1000
+> +#define CS40L50_YMEM_PACKED_0			0x2C00000
+> +#define CS40L50_YMEM_UNPACKED24_0		0x3400000
+> +#define CS40L50_PMEM_0				0x3800000
+> +#define CS40L50_MEM_RDY_HW		0x2
+> +#define CS40L50_RAM_INIT_FLAG		0x1
+> +#define CS40L50_CLOCK_DISABLE		0x80
+> +#define CS40L50_CLOCK_ENABLE		0x281
+> +#define CS40L50_DSP_POLL_US		1000
+> +#define CS40L50_DSP_TIMEOUT_COUNT	100
+> +#define CS40L50_RESET_PULSE_US		2200
+> +#define CS40L50_CP_READY_US		3100
+> +#define CS40L50_AUTOSUSPEND_MS		2000
+> +#define CS40L50_PSEQ_SIZE		200
+> +
+> +/* DSP Commands */
+> +#define CS40L50_DSP_QUEUE_BASE		0x11004
+> +#define CS40L50_DSP_QUEUE_END		0x1101C
+> +#define CS40L50_DSP_QUEUE		0x11020
+> +#define CS40L50_PREVENT_HIBER	0x2000003
+> +#define CS40L50_ALLOW_HIBER	0x2000004
+> +#define CS40L50_START_I2S	0x3000002
+> +#define CS40L50_OWT_PUSH	0x3000008
+> +#define CS40L50_STOP_PLAYBACK	0x5000000
+> +#define CS40L50_OWT_DELETE	0xD000000
+> +
+> +/* Firmware files */
+> +#define CS40L50_FW	"cs40l50.wmfw"
+> +#define CS40L50_WT	"cs40l50.bin"
+> +
+> +/* Device */
+> +#define CS40L50_DEVID			0x0
+> +#define CS40L50_REVID			0x4
+> +#define CS40L50_DEVID_A		0x40A50
+> +#define CS40L50_REVID_B0	0xB0
+
+Admittedly a bit nitpicky but the tabbing here is all over the
+place, would be nicer to line up the values on these defines.
+
+Thanks,
+Charles

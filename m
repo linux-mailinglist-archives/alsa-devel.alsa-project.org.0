@@ -2,162 +2,174 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B92E826387
-	for <lists+alsa-devel@lfdr.de>; Sun,  7 Jan 2024 09:57:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4C03825870
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 Jan 2024 17:40:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8F226153D;
-	Sun,  7 Jan 2024 09:57:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8F226153D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1CEC4EA1;
+	Fri,  5 Jan 2024 17:40:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1CEC4EA1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1704617864;
-	bh=dbXOj1KruaxvAYJE9XWO9iUjhS4aqgAXAAeRCjpBN34=;
-	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1704472852;
+	bh=d6UFRkZCbtMJfPZNDFncArpHrFG00iV95vnNMqoxaT0=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=rY7NWAK4y5cIcJBikKmA9AUZU8z5y4qVTYJpCa1NgKml5KUiHws0NEW3bsnoiXSXm
-	 yBQgKrRbcyuG9Lt+UmNdTnp3vGkUH8JMuoQcuxkyk6gSOyK7HQVK7odn9L79B2v9c6
-	 ItrTpHrhjf59JnoaxEdg0DuVyuaWYcSmHl03IO+Q=
+	b=J7m7AkDEM70fMG8SuN5wWXwnGDAGwlHfHH5C2ZLCaeQzkdBIeAbHa1qTAE2RMlhpI
+	 PO54AWeXEUOy7cntuiHq3GjcQkq7GuOPLvxqbaqYJ24iF+gXQlg4049GnOtE9OG4hX
+	 ep2+/h+XXoT3xycvHno/ARBZYvzY9RTVqjy5BnYg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A9ED0F806F2; Sun,  7 Jan 2024 09:55:16 +0100 (CET)
+	id D908DF80563; Fri,  5 Jan 2024 17:40:20 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E0769F80707;
-	Sun,  7 Jan 2024 09:55:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F0682F80496;
+	Fri,  5 Jan 2024 17:40:19 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0B7BBF804B0; Fri,  5 Jan 2024 17:38:07 +0100 (CET)
+	id 1CC2AF804B0; Fri,  5 Jan 2024 17:40:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
+Received: from JPN01-TYC-obe.outbound.protection.outlook.com
+ (mail-tycjpn01on20701.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:2019::701])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 881CCF80086
-	for <alsa-devel@alsa-project.org>; Fri,  5 Jan 2024 17:37:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 881CCF80086
+	by alsa1.perex.cz (Postfix) with ESMTPS id 12F7BF80238
+	for <alsa-devel@alsa-project.org>; Fri,  5 Jan 2024 17:40:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12F7BF80238
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=WyuJUgYl
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 405FRups014943;
-	Fri, 5 Jan 2024 10:37:41 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	date:from:to:cc:subject:message-id:references:mime-version
-	:content-type:in-reply-to; s=PODMain02222019; bh=m6CyBG0g4q2tgeo
-	H0schx7YgB/8UjMsRCY4MsX0CAgM=; b=WyuJUgYlQWe4u9eZDqfnc8iBrVU9dac
-	hhasHM6dsYoNBEOdsqXsecsjzog7oV8BvGzRqDB6BO7OBrZ31K0bVsdwm6mm2uXl
-	DvyCl8NzkbcxkM5Yw+ehOcJLRq0yLpfDii/80gLhqCn9RjRKQegDeigU0oLd/zw9
-	ZhSnnGL1RELU5F48QjKQbIuQtM5snZVYahnzG9FPbZLBRaLwBtDbNZpEcI7/96c6
-	U42CSYfcwBLxcREa1o+hakEIEnF/D7zesIw83lOia0Pr0+auE/BE96JZo/CIT0kV
-	yn1zumFGFOjZ360ydqSZQfhbWgDHXQKjTpJWnOdChfmR+UvkJMq0EHQ==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3ve9e8gutc-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 05 Jan 2024 10:37:09 -0600 (CST)
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Fri, 5 Jan
- 2024 16:37:06 +0000
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.40 via Frontend
- Transport; Fri, 5 Jan 2024 16:36:51 +0000
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com
- [198.61.86.93])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 933D9468;
-	Fri,  5 Jan 2024 16:36:51 +0000 (UTC)
-Date: Fri, 5 Jan 2024 16:36:51 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: James Ogletree <jogletre@opensource.cirrus.com>
-CC: James Ogletree <james.ogletree@cirrus.com>,
-        Fred Treven
-	<fred.treven@cirrus.com>,
-        Ben Bright <ben.bright@cirrus.com>,
-        Dmitry Torokhov
-	<dmitry.torokhov@gmail.com>,
-        Rob Herring <robh+dt@kernel.org>,
-        "Krzysztof
- Kozlowski" <krzysztof.kozlowski+dt@linaro.org>,
-        Conor Dooley
-	<conor+dt@kernel.org>,
-        Simon Trimmer <simont@opensource.cirrus.com>,
-        "Richard
- Fitzgerald" <rf@opensource.cirrus.com>,
-        Lee Jones <lee@kernel.org>, "Liam
- Girdwood" <lgirdwood@gmail.com>,
-        Mark Brown <broonie@kernel.org>, "Jaroslav
- Kysela" <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>,
-        James Schulman
-	<james.schulman@cirrus.com>,
-        David Rhodes <david.rhodes@cirrus.com>,
-        "Jeff
- LaBundy" <jeff@labundy.com>,
-        Alexandre Belloni
-	<alexandre.belloni@bootlin.com>,
-        Peng Fan <peng.fan@nxp.com>, Jacky Bai
-	<ping.bai@nxp.com>,
-        Sebastian Reichel <sebastian.reichel@collabora.com>,
-        Weidong Wang <wangweidong.a@awinic.com>,
- Arnd Bergmann <arnd@arndb.de>,
-        "Herve Codina" <herve.codina@bootlin.com>,
-        Shenghao Ding
-	<13916275206@139.com>,
-        "Ryan Lee" <ryans.lee@analog.com>,
-        Linus Walleij
-	<linus.walleij@linaro.org>,
-        "Maxim Kochetkov" <fido_max@inbox.ru>,
-        Ajye Huang
-	<ajye_huang@compal.corp-partner.google.com>,
-        Pierre-Louis Bossart
-	<pierre-louis.bossart@linux.intel.com>,
-        Shuming Fan <shumingf@realtek.com>,
-        "open list:CIRRUS LOGIC HAPTIC DRIVERS"
- <patches@opensource.cirrus.com>,
-        "open list:INPUT (KEYBOARD, MOUSE, JOYSTICK, TOUCHSCREEN)..."
-	<linux-input@vger.kernel.org>,
-        "open list:OPEN FIRMWARE AND FLATTENED DEVICE
- TREE BINDINGS" <devicetree@vger.kernel.org>,
-        open list
-	<linux-kernel@vger.kernel.org>,
-        "open list:SOUND - SOC LAYER / DYNAMIC AUDIO
- POWER MANAGEM..." <linux-sound@vger.kernel.org>,
-        "moderated list:CIRRUS LOGIC
- AUDIO CODEC DRIVERS" <alsa-devel@alsa-project.org>
-Subject: Re: [PATCH v5 1/5] firmware: cs_dsp: Add write sequencer interface
-Message-ID: <20240105163651.GJ14858@ediswmail.ad.cirrus.com>
-References: <20240104223643.876292-1-jogletre@opensource.cirrus.com>
- <20240104223643.876292-2-jogletre@opensource.cirrus.com>
-MIME-Version: 1.0
+	dkim=pass (1024-bit key,
+ unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com
+ header.a=rsa-sha256 header.s=selector1 header.b=bVkA0W2q
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=G6PUzpQuJJAYpIYkED8iaWKoTIl0o8GE9FB/DGp1hu8F7BFop2G1kwy/W/e5AU3lM456bwxElyWakn/SEHVo3r9KU4VgW8d9r0gspVikEpZi7NJKKq/RVE6aWmkT3ZCwAmgh6E/9nw9ISuazRw9QB3VdtsUxWDLYTU7qjlT49DtY2lkstQ52w0tL1fKinhaFDVaSQhpGXQSOoWtkq0AMs8ckF+XQS7rwM1bplQjK8XQMLZ8V/7ouaTFpqpYJnIQey/3SlQiGcb2D7D24rLi/jPj+zv6s1WcTNN0EPW4KM2/PKVPzLDlu31PYVdfTL1req7eJBWz8B9dAF9FIoPx6jg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=w0k/V8C3LLLpC9xJrkIadpQyZcFBUEusZ1QCseXgXds=;
+ b=TG64j0M4p+L480BZ5PfHEEVub7jaJLXr43VQelGJDR7JYFNni2wUVfLVHA2iflujDtFQHBKp98ldkVzZN8onPUGg/B6N71A6ID+pEUAn1Y7nrLu3o0h7jlq1NuPnnikTl6ph0+4Y2yjo1RAnRC4go8tbI4pvMRsX2b84M+2cGMvQwLzkjtoT/VRfnw++fQQOjsd/9VHwKJIy0HL60M9t8aKT22kL5JUmOrGZ9eJeiYi1B7iqMJCa0sA+tKi65+lBF2twwriraEJ65Kw1rEtZT9Nl8mOjxgK5BJbcijtw0icc3xA5b5+ra8rBnK877yObs6kwPUi5vqbIEip5M6/qWw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=w0k/V8C3LLLpC9xJrkIadpQyZcFBUEusZ1QCseXgXds=;
+ b=bVkA0W2qyFjSSsX+xjS7L4y5g+ITUxhcp8kM1kyBWKb7CCMRfktIzzFhSTcU0gb9oAvSIv6bzYnYEkTI5i/RTf/j79GX8R/Wii5FL0LLccPXZxLdMyVDftFJN15OxIQDhFXDJ0IJKFkOhGDEsBotVcLdBtYsBb6OGhWxpJa4GaQ=
+Received: from TYCPR01MB11269.jpnprd01.prod.outlook.com
+ (2603:1096:400:3c0::10) by OS7PR01MB11583.jpnprd01.prod.outlook.com
+ (2603:1096:604:241::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.10; Fri, 5 Jan
+ 2024 16:39:53 +0000
+Received: from TYCPR01MB11269.jpnprd01.prod.outlook.com
+ ([fe80::8d12:a02a:9fdc:9c78]) by TYCPR01MB11269.jpnprd01.prod.outlook.com
+ ([fe80::8d12:a02a:9fdc:9c78%5]) with mapi id 15.20.7181.009; Fri, 5 Jan 2024
+ 16:39:51 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Srinivas Kandagatla
+	<srinivas.kandagatla@linaro.org>, Banajit Goswami <bgoswami@quicinc.com>,
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio
+	<konrad.dybcio@linaro.org>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
+	<broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
+	<krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>, "alsa-devel@alsa-project.org"
+	<alsa-devel@alsa-project.org>, "linux-arm-msm@vger.kernel.org"
+	<linux-arm-msm@vger.kernel.org>, "linux-sound@vger.kernel.org"
+	<linux-sound@vger.kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+CC: Bartosz Golaszewski <brgl@bgdev.pl>, Sean Anderson
+	<sean.anderson@seco.com>
+Subject: RE: [PATCH v2 1/4] reset: gpio: Add GPIO-based reset controller
+Thread-Topic: [PATCH v2 1/4] reset: gpio: Add GPIO-based reset controller
+Thread-Index: AQHaP/BMp3VkzdSHW0qQi1Uk8IEbbrDLaurw
+Date: Fri, 5 Jan 2024 16:39:51 +0000
+Message-ID: 
+ <TYCPR01MB11269ABEDCD115064D449267486662@TYCPR01MB11269.jpnprd01.prod.outlook.com>
+References: <20240105155918.279657-1-krzysztof.kozlowski@linaro.org>
+ <20240105155918.279657-2-krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20240105155918.279657-2-krzysztof.kozlowski@linaro.org>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TYCPR01MB11269:EE_|OS7PR01MB11583:EE_
+x-ms-office365-filtering-correlation-id: 31ca393c-e14c-429d-539a-08dc0e0cf064
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ UAyvrKT44mEBEyXr/DaPKeQGfklXEpAXTtcUntPnWjgIiSdCmJmQxt39iZT5cRRAUeVK1cH/RywEbeYum/PX+QvGKJ8BONn2uLgFACmiB1ZI/JWAZ+IGrDDGPlsBBd2Mml5Wk+rHuJ2bbYOu81SHC22QrXe7x1otXnO/5vcwbIDBA8X4/2BAfe9g1nHou9fUt5C8dxgkOntYy4t+paW0DztHOvJ3jYXrlIC69c3EcgR6vAYUdR7tojMQEVxj93I79JSf56wqKr79Ul0DdgEtDj76fSYqiSY5fQN3OxXS004py5g4pbIzT1+TUI5wZUjhj7Dfg9Z7Kdi02m3vKx3UtGPUiYFb4wxWDmLGKwPmPfYu1vTzf+8mvs5AlG8F4K4nlJqcrVpXiI1LaCKG5ZSNjHMOhkAwlifq55n66sBclLbH4QrymR1uBn4cj42PTsCdIcMN/7Vu0Te0kNj8vf3TI7RCdlL4PWqOsLVpMGkFw4XMHlM1xM85Fy/HqEjUmQQfhH8Bxq80OpB56YRwor2faHnkTzRAldBGVjtmlmBDzYRPJihO2g5kzFdZJEEhZ53q/SKDP4zBOBx3xXPbFCqzVQ9QJYyYNAo26P3pKAyTMi2aa16tYdmTTyp20M/TLrAyjmgptAJnoR79yGrZU4IuFA==
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB11269.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(396003)(136003)(346002)(39860400002)(366004)(230922051799003)(1800799012)(186009)(64100799003)(451199024)(26005)(71200400001)(53546011)(9686003)(7696005)(6506007)(478600001)(83380400001)(7416002)(2906002)(41300700001)(76116006)(66556008)(54906003)(66446008)(316002)(66476007)(64756008)(66946007)(110136005)(8936002)(8676002)(52536014)(4326008)(38070700009)(921011)(38100700002)(5660300002)(122000001)(86362001)(33656002)(55016003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?us-ascii?Q?tNZ834xSi/r+mn4wBzGL9vKnm0SKBlX5qchn4RF9/IE2o1vf/3E3WNt0JUzo?=
+ =?us-ascii?Q?B9usNobUhoDz2V35nBLULQr/G3dvNe9XClY4XfU+FZOXulWMSSJt4skqJBEk?=
+ =?us-ascii?Q?JZ/WuhVmtimXyasBLU9mLnLrrsKWZxo82UHJSEi2V/FGtSsqE7hLS7wge00Z?=
+ =?us-ascii?Q?m59hACrdgu2RSL40GzJjwwx6qtGCXR/WkO52VgJTb6b0RjBNpveQR8YW2v3/?=
+ =?us-ascii?Q?njPZ3RPZEAlgYE8c37FdNrh2AcLkz8CTRW/DA0Bghk9EiHT3U+F7M6VSdACe?=
+ =?us-ascii?Q?kLgYGy8iXTRs/iHc+Y02iWhWDJqHE8JKrtdYVh7Jy2AxZJBHF0TeIf5sVZpG?=
+ =?us-ascii?Q?Jd0UmDo1SCyQe/k6jcXsZGsqTiBoPY8rEdvmpSqDfO0vjg1nOS6ioqqx7m3l?=
+ =?us-ascii?Q?UsDE2gG54MyfX1d7L5tnqdppbpL8mgYVsIAJkA7Rs8F9+Oj+cbtkW87XRQDX?=
+ =?us-ascii?Q?ol8l06nz4kY83ozvZVcMyyuSXKJ4VYz97O2fHicVCUAB/jAi6djvIJeGaNbO?=
+ =?us-ascii?Q?i/6xXScOQ1aA/mJbXDiXMLHYKEAtPHlMiAqhe1SOu+muEpLR6bHj5FbKO0Yg?=
+ =?us-ascii?Q?YC4cOOQLOLTPjM0NMEnclVLQuAqNRJe6YRWmah8RcGNj3CkAuevJ5A2m2CjW?=
+ =?us-ascii?Q?dCLwptpmE2QFoDAP+H4YE+h2gN1IcFSpi3r7HXMUg6AbX+sG8gHq3zcj+Xvh?=
+ =?us-ascii?Q?gee7t4KhaNn+PLdz2A4SyqC1bniAuMQh2GWPBHLVXmvEkpoFkyGDjXY/h3D3?=
+ =?us-ascii?Q?1dwJmRnTGpb8fVdyosniPohRbpiAGqpjnE+FKoQJyj5kY17txpcvFFt41Ygo?=
+ =?us-ascii?Q?i9GJ9FCzpD+zIoXIYimRBn+kYNBMJZw5WJorVDJGC05uVjfh5iD8wC/VNvdQ?=
+ =?us-ascii?Q?1AV5vYqf3AbItn1pnRBOQcwB5EyzWliOKj3Ee/GY5qRWcv+Nte39fsObQRGC?=
+ =?us-ascii?Q?rQ1ZR3KSQB8ZNLnMQLsOEUmbivOqz9K339kCW88MmttK79oUVnzlhnnMqozN?=
+ =?us-ascii?Q?/tBJAcTIZkT9TrifHBdwTWp+JDGnds15Sx6f09iTpfWNddM1klLpoiidwbJj?=
+ =?us-ascii?Q?GaJplVKovhMZtu9EMK/WAgbKMgJwTWN9tLWHEHw+kE3lHT9lkYp2DOzBlBJ7?=
+ =?us-ascii?Q?aj1K+L4cUXGHz3JsGAYvQqt5BpA0Qn+t4eoEiDiPlnTVYeDIhLYbDWbCTM/i?=
+ =?us-ascii?Q?6eywG+JPrW90fOW+bGqudMJG0cOVS9bezU4im6FirByyeWcjF2APPyM0FNUr?=
+ =?us-ascii?Q?z9v6a207KWufvpl/6nV5cy8VZDs3CCzjH2VUpqfX97VKF6CG/kxituaaIPqg?=
+ =?us-ascii?Q?xjMD5BkIDUHZMrOicLcp/9+iC7tybgU3rszfue0ZF8zHNsE1Q7SlSd/iESYC?=
+ =?us-ascii?Q?DcxC3omB0rg6SJi/h+qPAt/SxSRR3qOnt9KcgdEVyCUU4t+adtA6MlRhcTAz?=
+ =?us-ascii?Q?Lcjy5pGQs4BESLgXNLvYNyjHTLk8d5p1g3aia3QjRkeEyNTU+vYTZdFd+73s?=
+ =?us-ascii?Q?tMHx9qIzuIii+DeQCjqdMbwgVohpUrZoS0pq/70ud+U/e6YLcvXHT6Ab8FpR?=
+ =?us-ascii?Q?OBnbmohbBKQdu66z/OyCtVdHCZpyLAHxiq+jR+b+FwPY8DJVq2LQ/xIDbmqn?=
+ =?us-ascii?Q?Vw=3D=3D?=
 Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20240104223643.876292-2-jogletre@opensource.cirrus.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-GUID: GypJ5xDTOBPHiD2g1V4h-yHC8YLYE81j
-X-Proofpoint-ORIG-GUID: GypJ5xDTOBPHiD2g1V4h-yHC8YLYE81j
-X-Proofpoint-Spam-Reason: safe
-X-MailFrom: prvs=873448ca47=ckeepax@opensource.cirrus.com
-X-Mailman-Rule-Hits: implicit-dest
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB11269.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 31ca393c-e14c-429d-539a-08dc0e0cf064
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Jan 2024 16:39:51.4745
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 
+ OWn45HBXGTa3cHv1UincSWRwRWrBz6gnU1gaJauGHqAuhxVa7XIi0yoh74n7Q+4qpQPNKigmd+KRKwj3LN5vQemQLZkTcNuAFgdJzFumbis=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS7PR01MB11583
+Message-ID-Hash: RI3YVJ2U7NJ66WKOIIUG7WMXV7R2YFFJ
+X-Message-ID-Hash: RI3YVJ2U7NJ66WKOIIUG7WMXV7R2YFFJ
+X-MailFrom: biju.das.jz@bp.renesas.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; max-recipients; max-size; news-moderation; no-subject;
- digests; suspicious-header
-Message-ID-Hash: 76QQLT7GVHYPVRVAIMFZH2R6EK7SVLHT
-X-Message-ID-Hash: 76QQLT7GVHYPVRVAIMFZH2R6EK7SVLHT
-X-Mailman-Approved-At: Sun, 07 Jan 2024 08:54:09 +0000
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/76QQLT7GVHYPVRVAIMFZH2R6EK7SVLHT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TSCLL32JE7FQDHW47KBXPIL7DRBQ3AFA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -166,438 +178,151 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, Jan 04, 2024 at 10:36:34PM +0000, James Ogletree wrote:
-> A write sequencer is a sequence of register addresses
-> and values executed by some Cirrus DSPs following
-> power-up or exit from hibernation, used for avoiding
-> the overhead of bus transactions.
-> 
-> Add support for Cirrus drivers to update or add to a
-> write sequencer present in firmware.
-> 
-> Signed-off-by: James Ogletree <jogletre@opensource.cirrus.com>
+Hi Krzysztof Kozlowski,
+
+Thanks for the patch.
+
+> -----Original Message-----
+> From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> Sent: Friday, January 5, 2024 3:59 PM
+> Subject: [PATCH v2 1/4] reset: gpio: Add GPIO-based reset controller
+>=20
+> Add a simple driver to control GPIO-based resets using the reset
+> controller API for the cases when the GPIOs are shared and reset should b=
+e
+> coordinated.  The driver is expected to be used by reset core framework
+> for ad-hoc reset controllers.
+>=20
+> Cc: Bartosz Golaszewski <brgl@bgdev.pl>
+> Cc: Sean Anderson <sean.anderson@seco.com>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 > ---
->  drivers/firmware/cirrus/cs_dsp.c       | 261 +++++++++++++++++++++++++
->  include/linux/firmware/cirrus/cs_dsp.h |  28 +++
->  2 files changed, 289 insertions(+)
-> 
-> diff --git a/drivers/firmware/cirrus/cs_dsp.c b/drivers/firmware/cirrus/cs_dsp.c
-> index 79d4254d1f9b..31a999f42e84 100644
-> --- a/drivers/firmware/cirrus/cs_dsp.c
-> +++ b/drivers/firmware/cirrus/cs_dsp.c
-> @@ -275,6 +275,15 @@
->  #define HALO_MPU_VIO_ERR_SRC_MASK           0x00007fff
->  #define HALO_MPU_VIO_ERR_SRC_SHIFT                   0
->  
-> +/*
-> + * Write Sequencer
-> + */
-> +#define WSEQ_OP_FULL_WORDS	3
-> +#define WSEQ_OP_X16_WORDS	2
-> +#define WSEQ_OP_END_WORDS	1
-> +#define WSEQ_OP_UNLOCK_WORDS	1
-> +#define WSEQ_END_OF_SCRIPT	0xFFFFFF
+>  MAINTAINERS                |   5 ++
+>  drivers/reset/Kconfig      |   9 +++
+>  drivers/reset/Makefile     |   1 +
+>  drivers/reset/reset-gpio.c | 121 +++++++++++++++++++++++++++++++++++++
+>  4 files changed, 136 insertions(+)
+>  create mode 100644 drivers/reset/reset-gpio.c
+>=20
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 7fe27cd60e1b..a0fbd4814bc7 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -8866,6 +8866,11 @@ F:	Documentation/i2c/muxes/i2c-mux-gpio.rst
+>  F:	drivers/i2c/muxes/i2c-mux-gpio.c
+>  F:	include/linux/platform_data/i2c-mux-gpio.h
+>=20
+> +GENERIC GPIO RESET DRIVER
+> +M:	Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> +S:	Maintained
+> +F:	drivers/reset/reset-gpio.c
 > +
->  struct cs_dsp_ops {
->  	bool (*validate_version)(struct cs_dsp *dsp, unsigned int version);
->  	unsigned int (*parse_sizes)(struct cs_dsp *dsp,
-> @@ -2233,6 +2242,111 @@ static int cs_dsp_create_name(struct cs_dsp *dsp)
->  	return 0;
->  }
->  
-> +struct cs_dsp_wseq_op {
-> +	struct list_head list;
-> +	u32 words[3];
-> +	u32 address;
-> +	u32 data;
-> +	u16 offset;
-> +	u8 operation;
+>  GENERIC HDLC (WAN) DRIVERS
+>  M:	Krzysztof Halasa <khc@pm.waw.pl>
+>  S:	Maintained
+> diff --git a/drivers/reset/Kconfig b/drivers/reset/Kconfig index
+> ccd59ddd7610..bb1b5a326eb7 100644
+> --- a/drivers/reset/Kconfig
+> +++ b/drivers/reset/Kconfig
+> @@ -66,6 +66,15 @@ config RESET_BRCMSTB_RESCAL
+>  	  This enables the RESCAL reset controller for SATA, PCIe0, or PCIe1
+> on
+>  	  BCM7216.
+>=20
+> +config RESET_GPIO
+> +	tristate "GPIO reset controller"
+> +	help
+> +	  This enables a generic reset controller for resets attached via
+> +	  GPIOs.  Typically for OF platforms this driver expects "reset-
+> gpios"
+> +	  property.
+> +
+> +	  If compiled as module, it will be called reset-gpio.
+> +
+>  config RESET_HSDK
+>  	bool "Synopsys HSDK Reset Driver"
+>  	depends on HAS_IOMEM
+> diff --git a/drivers/reset/Makefile b/drivers/reset/Makefile index
+> 8270da8a4baa..fd8b49fa46fc 100644
+> --- a/drivers/reset/Makefile
+> +++ b/drivers/reset/Makefile
+> @@ -11,6 +11,7 @@ obj-$(CONFIG_RESET_BCM6345) +=3D reset-bcm6345.o
+>  obj-$(CONFIG_RESET_BERLIN) +=3D reset-berlin.o
+>  obj-$(CONFIG_RESET_BRCMSTB) +=3D reset-brcmstb.o
+>  obj-$(CONFIG_RESET_BRCMSTB_RESCAL) +=3D reset-brcmstb-rescal.o
+> +obj-$(CONFIG_RESET_GPIO) +=3D reset-gpio.o
+>  obj-$(CONFIG_RESET_HSDK) +=3D reset-hsdk.o
+>  obj-$(CONFIG_RESET_IMX7) +=3D reset-imx7.o
+>  obj-$(CONFIG_RESET_INTEL_GW) +=3D reset-intel-gw.o diff --git
+> a/drivers/reset/reset-gpio.c b/drivers/reset/reset-gpio.c new file mode
+> 100644 index 000000000000..cf0a867cbc5f
+> --- /dev/null
+> +++ b/drivers/reset/reset-gpio.c
+> @@ -0,0 +1,121 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/reset-controller.h>
+> +
+> +struct reset_gpio_priv {
+> +	struct reset_controller_dev rc;
+> +	struct gpio_desc *reset;
 > +};
 > +
-> +static int cs_dsp_populate_wseq(struct cs_dsp *dsp, struct cs_dsp_wseq *wseq)
-> +{
-> +	struct cs_dsp_wseq_op *op = NULL;
-> +	struct cs_dsp_chunk ch;
-> +	int i, num_words, ret;
-> +	u32 *words;
+> +static inline struct reset_gpio_priv
+> +*rc_to_reset_gpio(struct reset_controller_dev *rc) {
+> +	return container_of(rc, struct reset_gpio_priv, rc); }
 > +
-> +	if (wseq->size <= 0 || !wseq->reg)
-> +		return -EINVAL;
-
-I would be tempted to give this an error message.
-
+> +static int reset_gpio_assert(struct reset_controller_dev *rc, unsigned
+> +long id) {
+> +	struct reset_gpio_priv *priv =3D rc_to_reset_gpio(rc);
 > +
-> +	words = kcalloc(wseq->size, sizeof(u32), GFP_KERNEL);
-> +	if (!words)
-> +		return -ENOMEM;
-> +
-> +	INIT_LIST_HEAD(&wseq->ops);
-> +
-> +	ret = regmap_raw_read(dsp->regmap, wseq->reg, words,
-> +			      wseq->size * sizeof(u32));
-> +	if (ret)
-> +		goto err_free;
-> +
-> +	ch = cs_dsp_chunk(words, wseq->size * sizeof(u32));
-> +
-> +	for (i = 0; i < wseq->size; i += num_words) {
-
-Can just drop num_words and i, and just do:
-
-	while(!cs_dsp_chunk_end(&ch)) {
-
-Also allows you to drop the length defines for each OP.
-
-> +		op = devm_kzalloc(dsp->dev, sizeof(*op), GFP_KERNEL);
-> +		if (!op) {
-> +			ret = -ENOMEM;
-> +			goto err_free;
-> +		}
-> +
-> +		op->offset = ch.bytes;
-
-Use cs_dsp_chunk_bytes, cleaner to not access the internals
-directly incase we need to refactor them at some point.
-
-> +		op->operation = cs_dsp_chunk_read(&ch, 8);
-> +
-> +		switch (op->operation) {
-> +		case CS_DSP_WSEQ_END:
-> +			num_words = WSEQ_OP_END_WORDS;
-> +			break;
-> +		case CS_DSP_WSEQ_UNLOCK:
-> +			num_words = WSEQ_OP_UNLOCK_WORDS;
-> +			op->address = 0;
-> +			op->data = cs_dsp_chunk_read(&ch, 16);
-> +			break;
-> +		case CS_DSP_WSEQ_ADDR8:
-> +		case CS_DSP_WSEQ_H16:
-> +		case CS_DSP_WSEQ_L16:
-> +			num_words = WSEQ_OP_X16_WORDS;
-> +			op->address = cs_dsp_chunk_read(&ch, 24);
-> +			op->data = cs_dsp_chunk_read(&ch, 16);
-> +			break;
-> +		case CS_DSP_WSEQ_FULL:
-> +			num_words = WSEQ_OP_FULL_WORDS;
-> +			op->address = cs_dsp_chunk_read(&ch, 32);
-> +			op->data = cs_dsp_chunk_read(&ch, 32);
-> +			break;
-> +		default:
-> +			ret = -EINVAL;
-> +			cs_dsp_err(dsp, "Unsupported op: %u\n", op->operation);
-> +			goto err_free;
-> +		}
-> +
-> +		list_add(&op->list, &wseq->ops);
-> +
-> +		if (op->operation == CS_DSP_WSEQ_END)
-> +			break;
-> +	}
-> +
-> +	if (op && op->operation != CS_DSP_WSEQ_END)
-> +		ret = -ENOENT;
-
-This definitely wants an error message, since this indicates the
-firmware is in a broken state, or the buffer passed in was not a
-write sequence.
-
-> +err_free:
-> +	kfree(words);
-> +
-> +	return ret;
-> +}
-> +
-> +/**
-> + * cs_dsp_wseq_init() - Initialize write sequences contained within the loaded DSP firmware
-> + * @dsp: pointer to DSP structure
-> + * @wseqs: list of write sequences to initialize
-> + * @num_wseqs: number of write sequences to initialize
-> + *
-> + * Return: Zero for success, a negative number on error.
-> + */
-> +int cs_dsp_wseq_init(struct cs_dsp *dsp, struct cs_dsp_wseq *wseqs, unsigned int num_wseqs)
-> +{
-> +	int i, ret;
-> +
-> +	for (i = 0; i < num_wseqs; i++) {
-> +		ret = cs_dsp_populate_wseq(dsp, &wseqs[i]);
-> +		if (ret)
-> +			return ret;
-> +	}
+> +	gpiod_set_value_cansleep(priv->reset, 1);
 > +
 > +	return 0;
 > +}
-> +EXPORT_SYMBOL_GPL(cs_dsp_wseq_init);
 > +
-
-This location in the middle of the file is a bit weird, would be
-nicer to keep all the wseq stuff together move this down to the
-bottom of the file with the other functions.
-
->  static int cs_dsp_common_init(struct cs_dsp *dsp)
->  {
->  	int ret;
-> @@ -3339,6 +3453,153 @@ int cs_dsp_chunk_read(struct cs_dsp_chunk *ch, int nbits)
->  }
->  EXPORT_SYMBOL_NS_GPL(cs_dsp_chunk_read, FW_CS_DSP);
->  
-> +static struct cs_dsp_wseq_op *cs_dsp_wseq_find_op(u8 op_code, u32 addr,
-> +						  struct list_head *wseq_ops)
+> +static int reset_gpio_deassert(struct reset_controller_dev *rc,
+> +			       unsigned long id)
 > +{
-> +	struct cs_dsp_wseq_op *op;
+> +	struct reset_gpio_priv *priv =3D rc_to_reset_gpio(rc);
 > +
-> +	list_for_each_entry(op, wseq_ops, list) {
-> +		if (op->operation == op_code && op->address == addr)
-> +			return op;
-> +	}
-> +
-> +	return NULL;
-> +}
-> +
-> +/**
-> + * cs_dsp_wseq_write() - Add or update an entry in a write sequence
-> + * @dsp: Pointer to a DSP structure
-> + * @wseq: Write sequence to write to
-> + * @addr: Address of the register to be written to
-> + * @data: Data to be written
-> + * @update: If true, searches for the first entry in the Write Sequencer with
-> + * the same address and op_code, and replaces it. If false, creates a new entry
-> + * at the tail.
-> + * @op_code: The type of operation of the new entry
-> + *
-> + * This function formats register address and value pairs into the format
-> + * required for write sequence entries, and either updates or adds the
-> + * new entry into the write sequence.
-> + *
-> + * Return: Zero for success, a negative number on error.
-> + */
-> +int cs_dsp_wseq_write(struct cs_dsp *dsp, struct cs_dsp_wseq *wseq,
-> +		      u32 addr, u32 data, bool update, u8 op_code)
-
-Feels weird to have the op_code after the update flag in the
-order of arguments. addr, data and op_code are all parts of
-the new entry they should go together. Also be nice for the API
-to be consistent in the order it uses them, wseq_find_op is
-op_code, addr.
-
-> +{
-> +	struct cs_dsp_wseq_op *op_end, *op_new;
-> +	struct cs_dsp_chunk ch;
-> +	u32 wseq_bytes;
-> +	int new_op_size, ret;
-> +
-> +	if (update) {
-> +		op_new = cs_dsp_wseq_find_op(op_code, addr, &wseq->ops);
-> +		if (!op_new)
-> +			return -EINVAL;
-
-This could also have an error message.
-
-> +	} else {
-
-I would be tempted to pull the init of op_end up here like:
-
-		op_end = cs_dsp_wseq_find_op(CS_DSP_WSEQ_END, 0, &wseq->ops);
-		if (!op_end) {
-			cs_dsp_err(dsp, "Missing write sequencer list terminator\n");
-			return -EINVAL;
-		}
-
-> +		op_new = devm_kzalloc(dsp->dev, sizeof(*op_new), GFP_KERNEL);
-> +		if (!op_new)
-> +			return -ENOMEM;
-> +
-> +		op_new->operation = op_code;
-> +		op_new->address = addr;
-
-And:
-
-		op_new->offset = op_end->offset;
-> +	}
-> +
-> +	op_new->data = data;
-> +
-> +	ch = cs_dsp_chunk((void *) op_new->words,
-> +			  WSEQ_OP_FULL_WORDS * sizeof(u32));
-
-Since this is the only place you use op->words make it a local
-variable, its only 3 ints on the stack and it saves having 3
-redundant ints in every op in the list.
-
-> +	cs_dsp_chunk_write(&ch, 8, op_new->operation);
-> +	switch (op_code) {
-> +	case CS_DSP_WSEQ_FULL:
-> +		cs_dsp_chunk_write(&ch, 32, op_new->address);
-> +		cs_dsp_chunk_write(&ch, 32, op_new->data);
-> +		break;
-> +	case CS_DSP_WSEQ_L16:
-> +	case CS_DSP_WSEQ_H16:
-> +		cs_dsp_chunk_write(&ch, 24, op_new->address);
-> +		cs_dsp_chunk_write(&ch, 16, op_new->data);
-> +		break;
-> +	default:
-> +		ret = -EINVAL;
-> +		goto op_new_free;
-
-This also could have an error message, in general I would
-recommend have error messages for places where handling
-arguments from the user of the API. It is much more friendly
-for other developers, since they get immediate feedback if
-when they do something wrong when using the API.
-
-> +	}
-> +
-
-With op_end pre-initialised this bit becomes:
-
-> +	new_op_size = cs_dsp_chunk_bytes(&ch);
-> +
-> +	wseq_bytes = wseq->size * sizeof(u32);
-> +
-> +	if (wseq_bytes - op_end->offset < new_op_size) {
-> +		cs_dsp_err(dsp, "Not enough memory in Write Sequencer for entry\n");
-> +		ret = -ENOMEM;
-> +		goto op_new_free;
-> +	}
-> +
-> +	ret = regmap_raw_write(dsp->regmap, wseq->reg + op_new->offset,
-> +			       op_new->words, new_op_size);
-> +	if (ret)
-> +		goto op_new_free;
-> +
-> +	if (!update) {
-
-Then pull the shift of op_end->offset into here:
-
-		op_end->offset += new_op_size;
-
-> +		ret = regmap_write(dsp->regmap, wseq->reg + op_end->offset,
-> +				   WSEQ_END_OF_SCRIPT);
-> +		if (ret)
-> +			goto op_new_free;
-> +
-> +		list_add(&op_new->list, &wseq->ops);
-> +	}
-> +
-> +	return 0;
-> +
-> +op_new_free:
-> +	devm_kfree(dsp->dev, op_new);
-> +
-> +	return ret;
-> +}
-> +EXPORT_SYMBOL_GPL(cs_dsp_wseq_write);
-> +
-> +/**
-> + * cs_dsp_wseq_multi_write() - Add or update multiple entries in the write sequence
-> + * @dsp: Pointer to a DSP structure
-> + * @wseq: Write sequence to write to
-> + * @reg_seq: List of address-data pairs
-> + * @num_regs: Number of address-data pairs
-> + * @update: If true, searches for the first entry in the write sequence with the same
-> + * address and op code, and replaces it. If false, creates a new entry at the tail.
-> + * @op_code: The types of operations of the new entries
-> + *
-> + * This function calls cs_dsp_wseq_write() for multiple address-data pairs.
-> + *
-> + * Return: Zero for success, a negative number on error.
-> + */
-> +int cs_dsp_wseq_multi_write(struct cs_dsp *dsp, struct cs_dsp_wseq *wseq,
-> +			    const struct reg_sequence *reg_seq,
-> +			    int num_regs, bool update, u8 op_code)
-> +{
-> +	int ret, i;
-> +
-> +	for (i = 0; i < num_regs; i++) {
-> +		ret = cs_dsp_wseq_write(dsp, wseq, reg_seq[i].reg,
-> +					reg_seq[i].def, update, op_code);
-> +		if (ret)
-> +			return ret;
-> +	}
+> +	gpiod_set_value_cansleep(priv->reset, 0);
 > +
 > +	return 0;
 > +}
-> +EXPORT_SYMBOL_GPL(cs_dsp_wseq_multi_write);
 > +
->  MODULE_DESCRIPTION("Cirrus Logic DSP Support");
->  MODULE_AUTHOR("Simon Trimmer <simont@opensource.cirrus.com>");
->  MODULE_LICENSE("GPL v2");
-> diff --git a/include/linux/firmware/cirrus/cs_dsp.h b/include/linux/firmware/cirrus/cs_dsp.h
-> index 29cd11d5a3cf..d674fc061e9d 100644
-> --- a/include/linux/firmware/cirrus/cs_dsp.h
-> +++ b/include/linux/firmware/cirrus/cs_dsp.h
-> @@ -42,6 +42,16 @@
->  #define CS_DSP_ACKED_CTL_MIN_VALUE           0
->  #define CS_DSP_ACKED_CTL_MAX_VALUE           0xFFFFFF
->  
-> +/*
-> + * Write sequencer operation codes
-> + */
-> +#define CS_DSP_WSEQ_FULL	0x00
-> +#define CS_DSP_WSEQ_ADDR8	0x02
-> +#define CS_DSP_WSEQ_L16		0x04
-> +#define CS_DSP_WSEQ_H16		0x05
-> +#define CS_DSP_WSEQ_UNLOCK	0xFD
-> +#define CS_DSP_WSEQ_END		0xFF
+> +static int reset_gpio_status(struct reset_controller_dev *rc, unsigned
+> +long id) {
+> +	struct reset_gpio_priv *priv =3D rc_to_reset_gpio(rc);
 > +
->  /**
->   * struct cs_dsp_region - Describes a logical memory region in DSP address space
->   * @type:	Memory region type
-> @@ -107,6 +117,18 @@ struct cs_dsp_coeff_ctl {
->  struct cs_dsp_ops;
->  struct cs_dsp_client_ops;
->  
-> +/**
-> + * struct cs_dsp_wseq - Describes a write sequence
-> + * @reg:	Address of the head of the write sequence register
-> + * @size:	Size of the write sequence in words
-
-The only user that wants the size in words is the loop counter
-that can be deleted. Is there any reason not to specify the
-size in bytes?
-
-> + * @ops:	Operations contained within the write sequence
-> + */
-> +struct cs_dsp_wseq {
-> +	unsigned int reg;
-> +	unsigned int size;
-> +	struct list_head ops;
+> +	return gpiod_get_value_cansleep(priv->reset);
+> +}
+> +
+> +static const struct reset_control_ops reset_gpio_ops =3D {
+> +	.assert =3D reset_gpio_assert,
+> +	.deassert =3D reset_gpio_deassert,
+> +	.status =3D reset_gpio_status,
 > +};
 > +
->  /**
->   * struct cs_dsp - Configuration and state of a Cirrus Logic DSP
->   * @name:		The name of the DSP instance
-> @@ -254,6 +276,12 @@ struct cs_dsp_alg_region *cs_dsp_find_alg_region(struct cs_dsp *dsp,
->  						 int type, unsigned int id);
->  
->  const char *cs_dsp_mem_region_name(unsigned int type);
-> +int cs_dsp_wseq_init(struct cs_dsp *dsp, struct cs_dsp_wseq *wseqs, unsigned int num_wseqs);
-> +int cs_dsp_wseq_write(struct cs_dsp *dsp, struct cs_dsp_wseq *wseq, u32 addr, u32 data,
-> +		      bool update, u8 op_code);
-> +int cs_dsp_wseq_multi_write(struct cs_dsp *dsp, struct cs_dsp_wseq *wseq,
-> +			    const struct reg_sequence *reg_seq,
-> +			    int num_regs, bool update, u8 op_code);
->  
+> +static void reset_gpio_of_args_put(void *data) {
+> +	of_node_put(data);
+> +}
+> +
+> +static int reset_gpio_probe(struct platform_device *pdev) {
+> +	struct device *dev =3D &pdev->dev;
+> +	struct device_node **platdata =3D dev_get_platdata(dev);
+> +	struct of_phandle_args gpio_args;
+> +	struct reset_gpio_priv *priv;
+> +	int ret;
+> +
+> +	if (!platdata || !*platdata)
 
-This is also pretty spaced through the file, leave the defines
-where they are, but gather the struct and the funcs and move
-them to the bottom of the file in a group. Keeps all the API
-together when someone is looking it up.
+Maybe, if (!(platdata && *platdata)) which reduces 1 inversion operation.
 
->  /**
->   * struct cs_dsp_chunk - Describes a buffer holding data formatted for the DSP
-> -- 
-> 2.25.1
-> 
-
-Overall my only other concern is still the register based API
-rather than control based. I guess there is some precident
-with the compressed stuff although that is at least taking
-addresses from the DSP and translating them into register
-addresses so the host can use them.
-
-Richard is off today, but back on Monday let me discuss with
-him then and we should have a chat too.
-
-Thanks,
-Charles
+Cheers,
+Biju

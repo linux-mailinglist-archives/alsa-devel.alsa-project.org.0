@@ -2,156 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F033E82748B
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 Jan 2024 16:56:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BC8A827956
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 Jan 2024 21:48:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 30CDE826;
-	Mon,  8 Jan 2024 16:56:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 30CDE826
+	by alsa0.perex.cz (Postfix) with ESMTPS id 94ADA3E7;
+	Mon,  8 Jan 2024 21:47:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 94ADA3E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1704729403;
-	bh=rQ2H0o8DKlz6IxN0XBgak7Ugha/X2lcaxPUNPOmoVWc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=L8g3pZHWyZdtMdUpyTkYSdwts8scyNyXielDWMSanm/+1OHKePPii1CTtwQW8RzCM
-	 txRDKTNeo9gtBKQBPIx/K2NMsoPguOcKCjNgKdgNDOCVXs5rMV8D8Zv38xHRrRmfON
-	 SksTWTRBxsTMXlFjGHFTklA52ICK5UFi4JzVr8Tc=
+	s=default; t=1704746885;
+	bh=UQ/Pqq9hCugSxC3Fzh31NRAczf6loqtAEVkRzY9ZrUY=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=ukSqDJovgb7J9U1CX5rnwqLuT0E/db6kJoclnPbp3SkOvVicLdB8bn9tkr661YurI
+	 4bDlNbHnM3IryyEegwI90fSiGndOgtygu20vAAwSzyQT6eZ/X9k8btMO7m2/z/7wT+
+	 yq4hVYRWGHHjmZRK+FsBfmcc9eqhU2kWJKVSv888=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 85218F8059F; Mon,  8 Jan 2024 16:56:05 +0100 (CET)
+	id 3B90DF80579; Mon,  8 Jan 2024 21:47:33 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 66B8AF80548;
-	Mon,  8 Jan 2024 16:56:05 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9BBEBF8057B;
+	Mon,  8 Jan 2024 21:47:33 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A638BF80254; Mon,  8 Jan 2024 16:56:00 +0100 (CET)
+	id ACEA4F80254; Mon,  8 Jan 2024 21:47:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
+ [IPv6:2a00:1098:ed:100::25])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3AA42F8003A
-	for <alsa-devel@alsa-project.org>; Mon,  8 Jan 2024 16:55:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3AA42F8003A
+	by alsa1.perex.cz (Postfix) with ESMTPS id DE6E4F8003A
+	for <alsa-devel@alsa-project.org>; Mon,  8 Jan 2024 21:47:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE6E4F8003A
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=ZJQVvH7W;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=eDZe2EO2;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=HjGvnfss;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=c24dex0e
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+	dkim=pass (2048-bit key,
+ unprotected) header.d=collabora.com header.i=@collabora.com
+ header.a=rsa-sha256 header.s=mail header.b=fu3FyYNg
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1704746837;
+	bh=UQ/Pqq9hCugSxC3Fzh31NRAczf6loqtAEVkRzY9ZrUY=;
+	h=From:To:Cc:Subject:Date:From;
+	b=fu3FyYNgD+idTI4piSZ17tN+M/ZavzrqZBkRgO1z+9KFmMqXzHO/8MaMHHeKbgKmT
+	 FCunKCxfVFTFdoQar8AN/9ZqZr73MNkTPjR4aPHsgoeJMS3NuE0UjmZFmJZh9B/wfm
+	 uBEtKjRtItys+DDipV5HuIPi+QxZbVslRP6BrQ25fHTV6u4sqn6rq+CbWBPIPNKJIu
+	 Z7TIDqO1NBgHE+VnrVF1jYrZ+UsjsfAxgLF+mpZLRIqqcC8Nrg5QeSBRea5wf5wLY2
+	 BeZvGKI5a1tuhoHWLF+B5uVf+5ch4VRy95pl7af70cunodjkUWc85q+yz1zoXVfAPQ
+	 RwNDbkGikAX2Q==
+Received: from localhost.localdomain (zone.collabora.co.uk [167.235.23.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 463E021D25;
-	Mon,  8 Jan 2024 15:55:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1704729353;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=otoEBLYRoxPbrNf5ndZA3E2Sne8+a1o3mng2AXb1V7w=;
-	b=ZJQVvH7W1X95OoXG34l0tc5Fhg14eC4KVJdQLFdIjJ9v33jVVQNZgzF0rQZpW1V8QAbzMs
-	YnsWbaZXng7ZYUBBafRRda6qrsHu9/sPczMyAJHgB8wU4O46Fzl4oE+mCeTK6/Dfgwav2D
-	F2JCQ/Kkdayqn3+bDWOY5GGFSIcboDY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1704729353;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=otoEBLYRoxPbrNf5ndZA3E2Sne8+a1o3mng2AXb1V7w=;
-	b=eDZe2EO2dcsWupH4p3VXx+OrYyL4ncrgZaihev/KxUJdpJxBjP3+WE16VGPbV7LVKul+Jy
-	ZJht15S3FlrdqeDA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1704729352;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=otoEBLYRoxPbrNf5ndZA3E2Sne8+a1o3mng2AXb1V7w=;
-	b=HjGvnfss//wX/DWEtqZmc2EEStma2Hd35QyN2Xn6t4smYxm3V8GQmAv5rRYKGo02F2ldU0
-	ke+qjD6x0Gs/kHzih2iAai5o+xxL+9IF0M1gsjpr7geFIltE8vzmDnGMCfNImdzKad4Ef4
-	jMJtbTm0WTdfWddt5gxEsA8xf6Lc4mc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1704729352;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=otoEBLYRoxPbrNf5ndZA3E2Sne8+a1o3mng2AXb1V7w=;
-	b=c24dex0eU03cKRrUE0Tim4SIoN0ebcpbs7E0pccvi9yxT9P6ZXKugMfEdpAwS7tHYSu6S+
-	d1zNGKDS2wezIeBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0E45513686;
-	Mon,  8 Jan 2024 15:55:52 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id fv+5AQgbnGVUawAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 08 Jan 2024 15:55:52 +0000
-Date: Mon, 08 Jan 2024 16:55:51 +0100
-Message-ID: <87sf37sttk.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Tom Jason Schwanke <tom@catboys.cloud>
-Cc: perex@perex.cz,
-	tiwai@suse.com,
-	alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ALSA: hda/realtek: Fix mute and mic-mute LEDs for HP Envy
- X360 13-ay0xxx
-In-Reply-To: <651b26e9-e86b-45dd-aa90-3e43d6b99823@catboys.cloud>
-References: <651b26e9-e86b-45dd-aa90-3e43d6b99823@catboys.cloud>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 463E021D25
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=HjGvnfss;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=c24dex0e
-X-Spamd-Result: default: False [-1.41 / 50.00];
-	 ARC_NA(0.00)[];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	 SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	 FROM_HAS_DN(0.00)[];
-	 TO_DN_SOME(0.00)[];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 NEURAL_HAM_LONG(-1.00)[-1.000];
-	 MIME_GOOD(-0.10)[text/plain];
-	 RCPT_COUNT_FIVE(0.00)[6];
-	 RCVD_COUNT_THREE(0.00)[3];
-	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	 DKIM_TRACE(0.00)[suse.de:+];
-	 MX_GOOD(-0.01)[];
-	 MID_CONTAINS_FROM(1.00)[];
-	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim];
-	 FUZZY_BLOCKED(0.00)[rspamd.com];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+];
-	 NEURAL_HAM_SHORT(-0.20)[-1.000];
-	 RCVD_TLS_ALL(0.00)[];
-	 BAYES_HAM(-0.90)[86.01%]
-Message-ID-Hash: BJE2FKJN72PWFTQ2I57YF2C245JUVFTT
-X-Message-ID-Hash: BJE2FKJN72PWFTQ2I57YF2C245JUVFTT
-X-MailFrom: tiwai@suse.de
+	(Authenticated sender: nfraprado)
+	by madrid.collaboradmins.com (Postfix) with ESMTPSA id 924B33781475;
+	Mon,  8 Jan 2024 20:47:12 +0000 (UTC)
+From: =?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado?=
+ <nfraprado@collabora.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	kernel@collabora.com,
+	=?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado?=
+ <nfraprado@collabora.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	=?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado=20via=20Alsa-devel?=
+ <alsa-devel@alsa-project.org>,
+	Rob Herring <robh@kernel.org>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	linux-sound@vger.kernel.org
+Subject: [PATCH] ASoC: mediatek: mt8192: Check existence of dai_name before
+ dereferencing
+Date: Mon,  8 Jan 2024 17:44:58 -0300
+Message-ID: <20240108204508.691739-1-nfraprado@collabora.com>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: 5YBWHRYDRBUM66OTYWJXYXDO6ZUU4SFE
+X-Message-ID-Hash: 5YBWHRYDRBUM66OTYWJXYXDO6ZUU4SFE
+X-MailFrom: nfraprado@collabora.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -163,7 +103,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BJE2FKJN72PWFTQ2I57YF2C245JUVFTT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5YBWHRYDRBUM66OTYWJXYXDO6ZUU4SFE/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -172,19 +112,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 08 Jan 2024 16:15:21 +0100,
-Tom Jason Schwanke wrote:
-> 
-> This enables the mute and mic-mute LEDs on the HP Envy X360 13-ay0xxx convertibles.
-> The quirk 'ALC245_FIXUP_HP_X360_MUTE_LEDS' already exists and is now enabled for this device.
-> Fixes https://bugzilla.kernel.org/show_bug.cgi?id=216197
-> 
-> Signed-off-by: Tom Jason Schwanke <tom@catboys.cloud>
+Following commit 13f58267cda3 ("ASoC: soc.h: don't create dummy
+Component via COMP_DUMMY()"), the dai_name field is only populated for
+dummy components after the card is registered. This causes a null
+pointer dereference in the mt8192-mt6359 sound card driver's probe
+function when searching for a dai_name among all the card's dai links.
 
-The patch was somewhat based on the old kernel (and had a typical mail
-tab/space problem), so I adjusted and applied manually.
+Verify that the dai_name is non-null before passing it to strcmp. While
+at it, also check that there's at least one codec.
 
+Reported-by: "kernelci.org bot" <bot@kernelci.org>
+Closes: https://linux.kernelci.org/test/case/id/6582cd6d992645c680e13478/
+Fixes: 13f58267cda3 ("ASoC: soc.h: don't create dummy Component via COMP_DUMMY()")
+Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
 
-thanks,
+---
 
-Takashi
+ sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c b/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
+index 5bd6addd1450..bfcb2c486c39 100644
+--- a/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
++++ b/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
+@@ -1208,7 +1208,8 @@ static int mt8192_mt6359_dev_probe(struct platform_device *pdev)
+ 			dai_link->ignore = 0;
+ 		}
+ 
+-		if (strcmp(dai_link->codecs[0].dai_name, RT1015_CODEC_DAI) == 0)
++		if (dai_link->num_codecs && dai_link->codecs[0].dai_name &&
++		    strcmp(dai_link->codecs[0].dai_name, RT1015_CODEC_DAI) == 0)
+ 			dai_link->ops = &mt8192_rt1015_i2s_ops;
+ 
+ 		if (!dai_link->platforms->name)
+-- 
+2.43.0
+

@@ -2,163 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8758282857A
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Jan 2024 12:50:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE3E88285A8
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Jan 2024 12:59:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E96A7E97;
-	Tue,  9 Jan 2024 12:50:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E96A7E97
+	by alsa0.perex.cz (Postfix) with ESMTPS id 73603DF8;
+	Tue,  9 Jan 2024 12:59:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 73603DF8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1704801028;
-	bh=1kGq2GWJyq3H02d+tiLb8cLxpJOfKBJAzqILXrp5VOw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1704801575;
+	bh=s350W6yoYv7bR2LjJtkvpjGsgm27BGtJDoZ1UbzfKGQ=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=o5b4oy3a9weE5mQQxROd8ES9I9YXkRFXM+HFy/FSA/YXamztOgJCBgyZMuyKNDgAw
-	 ZqBkmvSq77JNd77W1glPm7hSTyEKVhUXVqRKxe3lzjjaaUzzKA0nvM+IMqXH7X7nzC
-	 8DfdjjQjb9Nv4XwN54iqzM0wv8koLIx3sjexw+bY=
+	b=HPasOl5cuEBRCTDVfKG2Y/zZReXdkYb3G1nugkMG5ZcPjs9AJAZSl47++N/D6r/+p
+	 oPRyGlDNGAQ/6dnuJNQc3vIX+vTpQ3+Xd+FobRLxGLzfvM0uzc3gqa2rn8GL6BVoWN
+	 NI6oOuL3eiaqJzIczVe3rCruG0idQOB/EucQB3Pw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 85D2BF8057E; Tue,  9 Jan 2024 12:49:56 +0100 (CET)
+	id A7622F80564; Tue,  9 Jan 2024 12:59:03 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D0310F8057A;
-	Tue,  9 Jan 2024 12:49:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 36FA9F80580;
+	Tue,  9 Jan 2024 12:59:03 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 90657F80254; Tue,  9 Jan 2024 12:49:51 +0100 (CET)
+	id C5295F80254; Tue,  9 Jan 2024 12:58:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on20607.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe5b::607])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from metis.whiteo.stw.pengutronix.de
+ (metis.whiteo.stw.pengutronix.de [IPv6:2a0a:edc0:2:b01:1d::104])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 46E82F800F5
-	for <alsa-devel@alsa-project.org>; Tue,  9 Jan 2024 12:49:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46E82F800F5
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256
- header.s=selector2 header.b=LN+W09Jv
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZOdXnE6isYbvF+8MKcDi+8wi5CMdtPBofrzj94f7hayqNVa9uMf4pzqYeH6Qss6+Z53zZmHYQesrboAhKhI2qg/ifokcQzdFtJRHLAFrb4y4m0jXEBRTIZGUoTjA4yY3Mz/XUN3PcEpeUYVsiJ0b7Ix7friwdgIpAYPkvHdkbq0v8+dp0k+NRQA2ve9nekWjORPKgZcMVnuCNVOGVCJwS4vgF/Bw+mow1Kl4F3VR1Nj3jdQtiB3slp54KmiOdCONnJSCFZdciIvNmkZBT7EBSi8kNvo8oguIKotABB525GO34+rtxHHTTIfGQOiQvqEcJyIUxUSykzmeg+0DsUUPQA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UtfsRGNfU1dz8GF+gwJ3ZH1Msp2dXS8yK012uFb91tc=;
- b=MLFI7OSQVUgf07KtFlJLD4eKOEcftgQGzvg0f3z+eOHn9aFN1EMQBcrkezlbNbiyacFoQQXXr+vLM/tZITt6LP3rl7TMD5Oxpwi5a2exF3DT9RlZwHuO7WQmCPK2ID08OXySJ5qGb9A3Jq1MnXhQ2tC5EIidLCJmQ41/CttQtbkirMynW4y7NrsYmXr3KA2AZrl2gcK2vyeB8fkBbVp6zc1lrkGh0VAeaWfXqP6ZD5Vom4fzedt9E5KX2RNyz6GVwuQI9CtUhyXpUxToiOYEb2F537A0TS+vnhpG0ebCjeZ2AOkd47ymnOAEHt3z5QwueI67brCKKLGavVWBQHJ1pg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UtfsRGNfU1dz8GF+gwJ3ZH1Msp2dXS8yK012uFb91tc=;
- b=LN+W09JvVu0ETlgUDv51AURTVy2wz0Cs443PBVfeWgyM/Z3V2V+fooKqULWngX0691H9C/eazOlijuBYgX+rqQHunaVEb17SbwrMVnZDa/EhIS/CLiCKK/E64EQ822ckBgGsb+q3C5rWAQYX7OLQ/3rtm9WOTzcAtBOGJAeNxGlQVKSdXb5wDutCpCMauza88cXk+dQkKk3xuRGINR1hQyf5UmGkbM3ESmbMzZwUaLYEARD9QkY1WyPkdjmjErGN2jl95Vg3Aji+5l+ol3f4Afz1fobXpvRxCQNsvukZjmAmvRLQ8mOEdBx4he3RJROdTA/L2X6h5opxBImk03r61g==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CY8PR12MB7706.namprd12.prod.outlook.com (2603:10b6:930:85::18)
- by SA3PR12MB7782.namprd12.prod.outlook.com (2603:10b6:806:31c::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.21; Tue, 9 Jan
- 2024 11:49:44 +0000
-Received: from CY8PR12MB7706.namprd12.prod.outlook.com
- ([fe80::c6c5:6b6c:2422:b70c]) by CY8PR12MB7706.namprd12.prod.outlook.com
- ([fe80::c6c5:6b6c:2422:b70c%7]) with mapi id 15.20.7159.020; Tue, 9 Jan 2024
- 11:49:44 +0000
-Message-ID: <e7f9085d-9db1-4c5e-9940-e461835b20aa@nvidia.com>
-Date: Tue, 9 Jan 2024 17:19:36 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: Query on audio-graph-card DT binding
-Content-Language: en-US
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: Thierry Reding <thierry.reding@gmail.com>, Mark Brown
- <broonie@kernel.org>, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, robh+dt@kernel.org,
- Jon Hunter <jonathanh@nvidia.com>, linux-tegra@vger.kernel.org
-References: <dfe363ef-4638-4b5e-8308-73e286ac0b50@nvidia.com>
- <ZZblyhfzQjzyoUc_@orome.fritz.box>
- <42c0c4fa-585e-4194-bbe4-e0377c87e632@sirena.org.uk>
- <3faec2e9-8cd9-46f9-8807-801922de0edf@nvidia.com>
- <ZZe5sTNz005Tt4jk@orome.fritz.box>
- <8241c953-8ae5-4f26-b108-fccf826ed87a@nvidia.com>
- <875y03i739.wl-kuninori.morimoto.gx@renesas.com>
-From: Sameer Pujar <spujar@nvidia.com>
-In-Reply-To: <875y03i739.wl-kuninori.morimoto.gx@renesas.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA1PR01CA0173.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:d::14) To CY8PR12MB7706.namprd12.prod.outlook.com
- (2603:10b6:930:85::18)
+	by alsa1.perex.cz (Postfix) with ESMTPS id ACEE0F80086
+	for <alsa-devel@alsa-project.org>; Tue,  9 Jan 2024 12:58:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ACEE0F80086
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1rNAkd-0000oy-VG; Tue, 09 Jan 2024 12:58:35 +0100
+Received: from [2a0a:edc0:0:900:1d::4e] (helo=lupine)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.94.2)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1rNAkc-001Ssr-Oq; Tue, 09 Jan 2024 12:58:34 +0100
+Received: from pza by lupine with local (Exim 4.96)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1rNAkc-0007Bl-2E;
+	Tue, 09 Jan 2024 12:58:34 +0100
+Message-ID: <fda63ae95d050e46dcb2446f0d841e01354a8643.camel@pengutronix.de>
+Subject: Re: [PATCH v2 2/4] reset: Instantiate reset GPIO controller for
+ shared reset-gpios
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Srinivas
+ Kandagatla <srinivas.kandagatla@linaro.org>, Banajit Goswami
+ <bgoswami@quicinc.com>,  Bjorn Andersson <andersson@kernel.org>, Konrad
+ Dybcio <konrad.dybcio@linaro.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,  Conor Dooley
+ <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
+ <tiwai@suse.com>,  alsa-devel@alsa-project.org,
+ linux-arm-msm@vger.kernel.org,  linux-sound@vger.kernel.org,
+ devicetree@vger.kernel.org,  linux-kernel@vger.kernel.org
+Cc: Bartosz Golaszewski <brgl@bgdev.pl>, Sean Anderson
+ <sean.anderson@seco.com>
+Date: Tue, 09 Jan 2024 12:58:34 +0100
+In-Reply-To: <767645a7-835d-4ac8-ac70-a701cea6df30@linaro.org>
+References: <20240105155918.279657-1-krzysztof.kozlowski@linaro.org>
+	 <20240105155918.279657-3-krzysztof.kozlowski@linaro.org>
+	 <c2abc08d1b442fdcba7c41e2e1cc1617516441b2.camel@pengutronix.de>
+	 <767645a7-835d-4ac8-ac70-a701cea6df30@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.46.4-2 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY8PR12MB7706:EE_|SA3PR12MB7782:EE_
-X-MS-Office365-Filtering-Correlation-Id: ce23e258-8454-4d76-659e-08dc11091251
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	dQsrrIwlJmcA9nOyOyqOnys0NYnq+iWSBEoOfgnh2UUCGLFrTIuN9C7+HAjBxfhx3m1mkhEaqcNFkFAqhwTMEhvMahuUCAOXpUEIvjCnne1O07EnPEQjaF9t8lVeK8tGzDgoVESYzCOcygCtl2qfOGqQ60Fq2k2GqspBUEw+uQVkM1vyLN7OmtOE8lZFgm5xM8C5dQhVyjuOwd2ABOQpSgirCIUxEJg7tz2E6AIxFMMgTmh0c08Sru1LKx7AGro3r9uxMLTfzovQbGtMOEgVpoDmsMXhxG6LEPkoRH0sWUDZWnoRudiWKHKea+LLbBAVcXdKjWcfqzNY5Ntr2vo/vGUjotr49PLeNbMeY3oLV+edTsFW0N9jwyiPGS/EDHjqQvgHRFKrZoO0JBAC6aIAWkSFHq8o6D/+I8pypZkhT5BsXXehUHYF6ADYcvaqXYmm0DoL0ar1BHYHYAh7KAOuJ/vuDyQETDjlq+vzGh7RgeNcqwXnMSi7smPQsYm6G0unZffvpBZDea/oNCWYEEcaeaOs5ZDTns6mqYZBNLYUEHv0lK9RncBn78PM4B2kBY24DWA0jotXv+8JXNv+M8y/YDjVIZHuqfBM6i/uEkg5DmfXtU3MrKlD4/vR/pDfvuVB2vjGCl2Ez7fCGDqrSJeib1eqVlwUDziZm7upU4WNiaWaV9ucH33Uwmw944tMhxEb
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR12MB7706.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(346002)(136003)(396003)(39860400002)(366004)(230922051799003)(451199024)(64100799003)(1800799012)(186009)(478600001)(6486002)(8676002)(4326008)(66556008)(66476007)(66946007)(8936002)(2616005)(6916009)(54906003)(26005)(53546011)(6666004)(6506007)(316002)(6512007)(2906002)(5660300002)(41300700001)(36756003)(2013699003)(38100700002)(86362001)(31696002)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?OHB1WUFEMENPcWROZW10S1cvcXk5dE85V2dnc2VXR3BhMXdGaFdiM3A1N1pP?=
- =?utf-8?B?MVRpd2VWUWd1WStISWg5TTI2bzhpdTFNUkVRVW4zcUJ3OXgyVjN0SDI4NVZI?=
- =?utf-8?B?dDRpOEdNWCtnSXVhdithMUNTQXpBOUp4VkpTT3I1RUV2VWVQQWlYWmJrMFkz?=
- =?utf-8?B?bEIwQUFqVkFPTld4Tit1YXA1YVcyamxOMWh3WWdIVTBMb2kzREovcFdzZFRk?=
- =?utf-8?B?THBrN0JwdVFSTXoxRVR4SkZpVy81KzJ0dGgwZjM0K1pvNHJ2L1hMZUUzNkNs?=
- =?utf-8?B?d2UvbVVnR1FKZjJTYjRLai9wNWJHVlBORGhsb3kvU1NFVTkwWklXaUlmZTJK?=
- =?utf-8?B?bmFNaExxendnS0E3Nzk0eHRlOEpiZmZmenEySC9uUlFjMDhRT3dIcHZ5Sjg1?=
- =?utf-8?B?Ly9yWmJ4QlI5U09yZlR0VjFiQ3Q4dlhVM0RZbS9oaFU3UDl0eWU4eWJURUt5?=
- =?utf-8?B?dC9EYkQ0RVVNOWhldDRkMi9nYkROSGFWRm1KOW94K3V5QlcxNUtocTd3Zk1u?=
- =?utf-8?B?ZnpNYU1manFsQlU5VWx2NjAwb0ErMXVTWHV0NG81dTBJcjRLTWkrWm1QSmp2?=
- =?utf-8?B?Q29iRHEwZ2YrelZQd0tRZ0lmd1F3dlh1R2dlNjMvVGszSkJmS01DTEFJOUZC?=
- =?utf-8?B?UzlWQVQ3SjBOUUJWVHlHeUt2cnNXbGZVNk02R2o4U3VGN0x1Q2IyVm0ycmJy?=
- =?utf-8?B?WHNUb1dYLzc3RWt6SFAybjl0ZmxkUEhHbEt5SmIxK2R0YWJnc2VseEg5bm8w?=
- =?utf-8?B?Qmd5VWtSbWpocVRxSEFuRjE0SnFqanlsNFhMTDZjZXB4cDNQWWhNUUROQkhW?=
- =?utf-8?B?NkV6REdCMDNnSjZLSHJLYTE3TG1wWEwzZ20zaG9CUjhMYzc5cHZlWG03TEZv?=
- =?utf-8?B?cFh2RHFHdjRRdHJLUDh0TG85akJoTkR0UGFkYU1hRDIrdGkvMWNHcCswYy91?=
- =?utf-8?B?blFPbCtLQ2RsMWtkWCs5eU9OTzJzcnhLUFhiZk5URlVCbHozQzhwRHdxczdS?=
- =?utf-8?B?Q09NZjhZZzVGRjhmWjllSEw5S0c5VXcveUtNbWdxVjJPRCsyVDZiUEJoT3JW?=
- =?utf-8?B?UXlhN3hkOG52Q0h3L1lzSlMzd0IyZWh4MzJEKzBJU1Z6YkUrMGRFU2lBNjk3?=
- =?utf-8?B?ZWlYdVBHZ0kybCtTU0tIYXMrSTAzWE9aRVVPR1VQMFpvTnk0RGFIMndTRXRj?=
- =?utf-8?B?eXhuVi9MbXpDdmpkNnNmdER3TnM3WmROVFFScGduSmVQTXNINjYyK05FdWJP?=
- =?utf-8?B?ajQwbGt0Mmk2SkRoM3I4ZFlYK3NGUzJET1lqVlgrMVk1QXVaZXZ0MHhJaHZy?=
- =?utf-8?B?ZW1ad0dWNTNSVGNJN0hMRlFxMDBHdDJ2K2NTQzFOcFhCVDI4ME5EdjEvM3NL?=
- =?utf-8?B?NXh1WTRxQTZuMW9VdmtJb2JHcWgxOTBzbzNSVlFTYXUvNUpyUDZQdHdMaXAz?=
- =?utf-8?B?b2FMWU5FYnkvSndCOUtvRWNSc0d6THA1aEVPRFk3amNjYTJXS1Vld25yS2dN?=
- =?utf-8?B?eis5VFlJeGRzNVlXUlBjeWRXVGdjSS9uS1BMYzQ2QjZPSVBGdWU4UGYva1d1?=
- =?utf-8?B?ejVOYjVacVQxN0FZenU3Q011ZTFzbDVxT0pBc3N1NG1ldEFpOUxJK1JJSk5F?=
- =?utf-8?B?Z0ZRUnRSR1d6MXdDUTUzbnF4VE43YWxVQ1I5QkRkb1FQeHY4R0FUV3Z0K2lp?=
- =?utf-8?B?bzRsY1RNbTVyQm9KZ1crZ0ZrYUZFVHU1MVc4MTAveVZRNTZpa0Y5OEpnc204?=
- =?utf-8?B?TEVmenJxbGxmZDNqSTdJT1JaN09xOWozVTZSMCtJSnZwdnQxaE81bXBxQXJx?=
- =?utf-8?B?bk83Nm4ydllwUmt0NHZYZE0rVlVsbVN1S1pJcVpKSHRTd1JmMk5vZ3NqclMy?=
- =?utf-8?B?eWduUWllZW1TSVEzZ3o2U3N3MDdPQzJpdE8wNm1wbEdxTkRmd3B5WXM1b3V5?=
- =?utf-8?B?dkJKS0RuN3ZpQ3pPNzhhKzZ6Z29mRzJHQiszYVk2QnE1TmhPSTJFRUNEYVho?=
- =?utf-8?B?QUVaTWRPK2EvUCtFVjg5eW1HU21ma0hFTjgxRHd6dGVPN21CSmxlOXNLWm1K?=
- =?utf-8?B?WXNoZWI2MFZoM0RPbzY5RmY1amtnamRCOXl5UFNGUkpzMDM4N0piNEhibG1u?=
- =?utf-8?Q?5EYqRLVfdM1otPVP50W/djrvf?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- ce23e258-8454-4d76-659e-08dc11091251
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7706.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jan 2024 11:49:44.0657
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- H9iqRJ03RBjM3yYGQTxk3UMKbfZhdN/B2EX+PNACKbzkaF8m/ySW2JpxxgVnMtyLPY1DsTVLNumXpRA4Y4OwVg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7782
-Message-ID-Hash: QJ2SYSUCTQROFBXT6TBAT7GF4HO7VJ2F
-X-Message-ID-Hash: QJ2SYSUCTQROFBXT6TBAT7GF4HO7VJ2F
-X-MailFrom: spujar@nvidia.com
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: p.zabel@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: alsa-devel@alsa-project.org
+Message-ID-Hash: LY6HD4YGHE42UKD3QOIQUCA47DP5JGAJ
+X-Message-ID-Hash: LY6HD4YGHE42UKD3QOIQUCA47DP5JGAJ
+X-MailFrom: p.zabel@pengutronix.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -170,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QJ2SYSUCTQROFBXT6TBAT7GF4HO7VJ2F/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LY6HD4YGHE42UKD3QOIQUCA47DP5JGAJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -179,68 +110,221 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Di, 2024-01-09 at 11:59 +0100, Krzysztof Kozlowski wrote:
+> On 08/01/2024 13:17, Philipp Zabel wrote:
+> > On Fr, 2024-01-05 at 16:59 +0100, Krzysztof Kozlowski wrote:
+> > Is that true?=20
+>=20
+> It should be true and my tests confirmed it.
+>=20
+> The code below looks like overwrites of_phandle_args so
+> > that only one reset-gpio device is spawned for each gpio node.
+>=20
+> The code will iterate over list of of_node and of_phandle_args and
+> compare them with __reset_gpios_args_match(). If all match: do not
+> create new platform device.
+>=20
+> If they do not match, e.g. ACTIVE_LOW -> ACTIVE_HIGH, create new
+> platform device. This will be the second device for the same GPIO.
+> Probing of that device in reset-gpio driver will fail:
+>
+> [   19.198775] reset-gpio reset-gpio.2.auto: error -EBUSY: Could not get
+> reset gpios
+>=20
+> because GPIO is used by reset-gpio.1.auto already.
 
+Thank you for the clarification.
+I only understood later in the mail and didn't update this properly.
 
-On 09-01-2024 07:47, Kuninori Morimoto wrote:
->>                /-----> codec1 endpoint
->>               /
->> CPU endpoint \
->>                \-----> codec2 endpoint
-> It sounds "Single CPU - Mult Codec" connection, and if my understanding
-> was correct, current ASoC is not supporting it so far.
+> > > +	/* Not freed in normal path, persisent subsyst data */
+> > > +	rgpio_dev =3D kzalloc(sizeof(*rgpio_dev), GFP_KERNEL);
+> >=20
+> > Since this is persistent, instead of letting the reset-gpio driver call
+> > of_parse_phandle_with_args() again, this could be passed in via
+> > platform data. Is there a reason not to do that instead?
+>=20
+> We can pass it as read only platform data, but we cannot pass the
+> ownership. This is associated with registered platform device, not with
+> bound one device->driver.
+>=20
+> Imagine case:
+> 1. modprobe reset-gpio,
+> 2. Driver is bound to the device,
+> 3. unbind  (echo > unbind)
+> 4. rmmod
+> 5. goto 1
 
-Yes, this is a typical TDM use case.
-__soc_pcm_hw_params() call in soc-pcm.c loops over all CODECs for a 
-given rtd. So is there something else you are referring to which makes 
-ASoC core doesn't support it?
+Keeping ownership on the list is fine, the reset-gpio driver makes its
+own copy of of_phandle_args anyway. I was just wondering whether it
+could make this copy from platform data instead of from the
+of_parse_phandle_with_args() return value.
 
-> But dummy CPU with Multi-CPU/Codec connection helps you ?
-> I'm not 100% sure though...
-> See
->          ${LINUX}/sound/soc/generic/audio-graph-card2-custom-sample.dtsi
->
-> DT looks like
->
->          [Multi-CPU/Codec]
->                           +-+             +-+
->                  cpu   <--| |<-@--------->| |-> codec1
->                  dummy <--| |             | |-> codec2
->                           +-+             +-+
->
-> Use Multi-CPU/Codec connection with dummy.
->
->          audio-graph-card2 {
->                  compatible = "audio-graph-card2";
->                  links = <&mcpu>;
->
->                  multi {
->                          ports@0 {
->                          /* [Multi-CPU] */
->                          mcpu:   port@0 { mcpu0_ep: endpoint { remote-endpoint = <&mcodec0_ep>; }; };
->                                  port@1 { mcpu1_ep: endpoint { remote-endpoint = <&cpu_ep>;     }; };
->                                  port@2 { mcpu2_ep: endpoint { remote-endpoint = <&dummy_ep>;   }; };
->                          };
->
->                          /* [Multi-Codec] */
->                          ports@1 {
->                                  port@0 { mcodec0_ep: endpoint { remote-endpoint = <&mcpu0_ep>;  }; };
->                                  port@1 { mcodec1_ep: endpoint { remote-endpoint = <&codec1_ep>; }; };
->                                  port@2 { mcodec2_ep: endpoint { remote-endpoint = <&codec2_ep>; }; };
->                          };
->                  };
->          };
->
->          test_cpu {
->                  compatible = "test-cpu";
->                  port { dummy_ep: endpoint { remote-endpoint = <&mcpu2_ep>; }; };
->          };
+[...]
+> >=20
+> > > @@ -839,21 +960,50 @@ __of_reset_control_get(struct device_node *node=
+, const char *id, int index,
+> > >  					 index, &args);
+> > >  	if (ret =3D=3D -EINVAL)
+> > >  		return ERR_PTR(ret);
+> > > -	if (ret)
+> > > -		return optional ? NULL : ERR_PTR(ret);
+> > > +	if (ret) {
+> > > +		/*
+> > > +		 * There can be only one reset-gpio for regular devices, so
+> > > +		 * don't bother with GPIO index.
+> > > +		 */
+> >=20
+> > I don't understand this comment. The GPIO index should be checked as
+> > part of __reset_gpios_args_match(), or should it not?
+>=20
+> This and earlier comment are result of a bit hacky approach to the
+> problem: how to find reset controllers for that GPIO?
+>=20
+> The point is that our reset gpio controller has only 1 reset, thus
+> of_reset_n_cells=3D1. However args_count from of_parse_handle is >0, whic=
+h
+> later is compared in reset core:
+>=20
+> https://elixir.bootlin.com/linux/latest/source/drivers/reset/core.c#L859
+>=20
+> That part we need to match.
+>=20
+> I could make the reset-gpio driver to have of_reset_n_cells=3D2, but what
+> would be the point? The rest of the cells are not really relevant,
+> because you cannot refer to this reset gpio controller with any other
+> arguments.
+>=20
+> To remind: my solution spawns one reset-gpio controller for one GPIO.
 
-I looked at the 1:N (Semi-Multi) example in the references you shared. 
-Seems like this is broken into multiple 1:1 links. Is this correct 
-understanding?
+Thank you. I think we could also just make that check
 
-Also the binding properties of "audio-graph-card2" seem to be different 
-from "audio-graph-card". I am looking at a simpler extension of existing 
-bindings for Tegra audio without having to re-write the whole bindings. 
-If "remote-endpoint" can take phandle array it would be simpler from DT 
-point of view.
+	if (WARN_ON(!rcdev->of_args && ...))
+
+instead and skip the of_xlate call in that case (or implement of_xlate
+in the reset-gpio driver to make this more explicit).
+
+> >=20
+> > > +		ret =3D of_parse_phandle_with_args(node, "reset-gpios", "#gpio-cel=
+ls",
+> > > +						 0, &args);
+> > > +		if (ret)
+> > > +			return optional ? NULL : ERR_PTR(ret);
+> > > =20
+> > > -	mutex_lock(&reset_list_mutex);
+> > > -	rcdev =3D NULL;
+> > > -	list_for_each_entry(r, &reset_controller_list, list) {
+> > > -		if (args.np =3D=3D r->of_node) {
+> > > -			rcdev =3D r;
+> > > -			break;
+> > > -		}
+> > > +		gpio_fallback =3D true;
+> >=20
+> > Is there a reason not just call __reset_add_reset_gpio_device() here?
+> > With that, there should be no need to call __reset_find_rcdev() twice.
+>=20
+> Hm, could be, although not sure if code would be simpler.
+>=20
+> This entire function handles two cases:
+> 1. Get normal reset controller ("resets" OF property),
+> 2. If above fails, get reset-gpio controller ("reset-gpios" OF property)
+>=20
+> Therefore the entire solution is following approach:
+> 1. of_parse_phandle(resets)
+> 1b. error? Then of_parse_phandle(reset-gpios)
+> 2. Find reset-controller based on any of above phandles.
+> 3. error? Check if we created reset-gpios platform device. If not:
+> create new reset-gpios platform device/
+> 3b. Platform device could probe, so lookup again for reset controller or
+> defer probe.
+>=20
+> What type of flow do you propose?
+
+I propose to reorder after parsing the phandles: check/create the gpio
+platform device right after parsing the gpio handle. Only then lock
+reset_list_mutex look for the rcdev.
+
+1. of_parse_phandle(resets)
+1b. error? Then of_parse_phandle(reset-gpios)
+2b. gpio? Then check if we created reset-gpios platform device. If not:
+create new reset-gpios platform device/, defer if probe failed
+3. Lock reset_list_mutex, find reset-controller based on any of above
+phandles.
+
+>=20
+> >=20
+> > >  	}
+> > > =20
+> > > +	mutex_lock(&reset_list_mutex);
+> > > +	rcdev =3D __reset_find_rcdev(&args, gpio_fallback, NULL);
+> >=20
+> > This gets called with args as parsed. If there is a match, this will=
+=20
+> > overwrite args (in the gpio_fallback case) and return NULL.
+>=20
+> Overwrite not complete. It will only overwrite args_count and return a
+> valid rcdev.
+> I do not see overwriting in case of returning NULL.
+
+Sorry, I meant to write
+
+"This gets called with args as parsed. If there is a match, this will=20
+ overwrite args (in the gpio_fallback case) _or_ return NULL."
+
+at least at the end, when I understood the following.
+
+> >=20
+> > > +
+> > >  	if (!rcdev) {
+
+So in this non-NULL branch there was no overwriting.
+
+> > > -		rstc =3D ERR_PTR(-EPROBE_DEFER);
+> > > -		goto out;
+> > > +		if (gpio_fallback) {
+> > > +			/*
+> > > +			 * Registering reset-gpio device might cause immediate
+> > > +			 * bind, thus taking reset_list_mutex lock via
+> > > +			 * reset_controller_register().
+> > > +			 */
+> > > +			mutex_unlock(&reset_list_mutex);
+> > > +			ret =3D __reset_add_reset_gpio_device(node, &args);
+> >=20
+> > So this will also be called with args as parsed.
+> >=20
+> > > +			mutex_lock(&reset_list_mutex);
+> > > +			if (ret) {
+> > > +				rstc =3D ERR_PTR(ret);
+> > > +				goto out;
+> > > +			}
+> > > +			/*
+> > > +			 * Success: reset-gpio could probe immediately, so
+> > > +			 * re-check the lookup.
+> > > +			 */
+> > > +			rcdev =3D __reset_find_rcdev(&args, gpio_fallback, NULL);
+> >=20
+> > And this will again be called with args as parsed and overwrite args
+> > again.>
+> > > +			if (!rcdev) {
+> > > +				rstc =3D ERR_PTR(-EPROBE_DEFER);
+> > > +				goto out;
+> > > +			}
+> > > +			/* Success, rcdev is valid thus do not bail out */
+> > > +		} else {
+> > > +			rstc =3D ERR_PTR(-EPROBE_DEFER);
+> > > +			goto out;
+> > > +		}
+> > >  	}
+> >=20
+> > So at this point args is overwritten in the gpio_fallback case. I would
+> > find it much clearer to just overwrite args here and make the first
+> > parameter to __reset_find_rcdev() const.
+>=20
+> I think I get your point. Overwriting happens after we store the
+> original of_args, but the code is indeed not intuitive. I think I can
+> move it further, as you suggested.
+
+Now I think we can skip the overwriting altogether and just adapt the
+following of_reset_n_cells check ad of_xlate call as mentioned above.
+
+regards
+Philipp

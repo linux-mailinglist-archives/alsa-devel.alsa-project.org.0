@@ -2,143 +2,158 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A657E828FF7
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Jan 2024 23:32:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5066B8290B8
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 Jan 2024 00:16:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CD5F5E9D;
-	Tue,  9 Jan 2024 23:32:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD5F5E9D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 45167F52;
+	Wed, 10 Jan 2024 00:15:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 45167F52
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1704839559;
-	bh=ClWKgLrErwgnsqKg9s7InPIW7JP59g8PIMc1o7Fmh3g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1704842167;
+	bh=KczSsm9oWcCHyP317nXMRM4bWU3IfJ0wSJNCFPs2IO4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=NPKjaGDbCKReL3KL5IkHsaM0b9PIwnLlA/fO/dkfkdG1ZiLwLJ1XKxeqALAbl6zXZ
-	 CuTW6e7E2qiczXSwRZzP1S4cq/gQfvLzCSyFCWWnSFHMEMN5IWRMF4SKIr1Ye8S+BR
-	 92837Mlq/0vWa7KwDd4aeWMPwU9BsDTr3zwKnT1Q=
+	b=qBr2Yse16ttsO1cOztfdU1K0GqQX0MRbjwB2qM9M2oejwFkZb2FDDR19a0FIUb+ll
+	 giCu7A+kEF5OXj1z240hE6l9UHgzHel69bAyNmzvxsQeO7/14VOjaTvTbEiv0slV7S
+	 qORg8cT2Ozrhj4VPrNz4mve+N+wE6KVeyO/+sKJc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 013F2F805A1; Tue,  9 Jan 2024 23:31:55 +0100 (CET)
+	id 7E9C4F8059F; Wed, 10 Jan 2024 00:15:35 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0B98FF80548;
-	Tue,  9 Jan 2024 23:31:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 34333F80563;
+	Wed, 10 Jan 2024 00:15:35 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5656FF80254; Tue,  9 Jan 2024 23:31:38 +0100 (CET)
+	id 042C7F80254; Wed, 10 Jan 2024 00:15:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com
- [IPv6:2607:f8b0:4864:20::22f])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from JPN01-OS0-obe.outbound.protection.outlook.com
+ (mail-os0jpn01on20701.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:201a::701])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3CB16F800F5
-	for <alsa-devel@alsa-project.org>; Tue,  9 Jan 2024 23:31:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3CB16F800F5
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2E3B4F80086
+	for <alsa-devel@alsa-project.org>; Wed, 10 Jan 2024 00:15:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E3B4F80086
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=bhobSueq
-Received: by mail-oi1-x22f.google.com with SMTP id
- 5614622812f47-3bbce1202ebso3315271b6e.2
-        for <alsa-devel@alsa-project.org>;
- Tue, 09 Jan 2024 14:31:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1704839483; x=1705444283;
- darn=alsa-project.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=4LM2tcpDQbe/VXeTrQ3vh6Aow7A9aPJshodbKcPZnx4=;
-        b=bhobSueqkceNoQ81Zk17G5LuYUhSu+ow2MMKKkoNckEnVQka2Whp2ErWR3+VihV8ZZ
-         HU+LFmzraIL0FzHZd6rrBdUoCDemaZIn8IySXP8CLiwzS2YBR+mCOSL54qWSKA/9l1Ln
-         fui5WaH9XJLQRCSLhIPxtf9AICXOPOQn3wwVGSNDqP8dMTDCt2z2dRVZxvqJTrXhMFj2
-         alER9xM2NQ7tvNB+av71UiOSmwlxJ3B16t30mGzIDNiuxjcQge343ItYrT7ieRFHLXYX
-         EF13tr6cAQMH3m6Po6e1RR0yZrp+xh8FjOH9GSao2nQ/w3M3O/6z0kLFBshxLaJZ1fmz
-         06KA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704839483; x=1705444283;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=4LM2tcpDQbe/VXeTrQ3vh6Aow7A9aPJshodbKcPZnx4=;
-        b=XJOemAYmFxg5eAif5WEN6X9H8oHVKtlytYeZtlBqXIQNLDnB9fF7cDvS83CJC0GrOg
-         1DDKO4gcxl7Cc5672GmjhKh5oDl60wU4t+4PHHOFLay585v18R6JXMX0vYMZ/UuXmT1j
-         ZuEsGpxS9iUFjPOBLfCQSP3FnqHdPdQ4Zk+RDogutrCoa+wpR2GG8VVHdxKHkhn92rpz
-         7rz1u9pmqvLDdcs+ULOr4V/2Up2RoAu/xqlgY1dxf/f61hV3Ehpr8Q0MciFx+/xqoG81
-         5BBc9YuJ/qSQzfCHD03C7b9eFyRJlADuKzfcYk16r9V0guvAOQo5ZyvpihczIKV5wgU2
-         Kfng==
-X-Gm-Message-State: AOJu0Yx8Waefi2A2dwXYAqPxPBiXj83E/6JlTjuDPGa8toy4bbbPVIKI
-	/SgMrwt/OuVJneSIzBdKTeg=
-X-Google-Smtp-Source: 
- AGHT+IFeGOFa6xfy0pKzOnBFaLp6N/drKJ3QnkjdLOsdi4+3g8yIJf4CeMOPwWpjFyp77eA+1TnhMA==
-X-Received: by 2002:a05:6808:e83:b0:3bd:3a51:f6dd with SMTP id
- k3-20020a0568080e8300b003bd3a51f6ddmr110101oil.70.1704839483464;
-        Tue, 09 Jan 2024 14:31:23 -0800 (PST)
-Received: from google.com ([2620:15c:9d:2:1135:ca4a:123c:5e53])
-        by smtp.gmail.com with ESMTPSA id
- q24-20020aa79838000000b006daf6892afesm2211283pfl.144.2024.01.09.14.31.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 09 Jan 2024 14:31:22 -0800 (PST)
-Date: Tue, 9 Jan 2024 14:31:18 -0800
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: James Ogletree <James.Ogletree@cirrus.com>
-Cc: James Ogletree <jogletre@opensource.cirrus.com>,
-	Fred Treven <Fred.Treven@cirrus.com>,
-	Ben Bright <Ben.Bright@cirrus.com>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Simon Trimmer <simont@opensource.cirrus.com>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	Lee Jones <lee@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	James Schulman <James.Schulman@cirrus.com>,
-	David Rhodes <David.Rhodes@cirrus.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Peng Fan <peng.fan@nxp.com>, Jeff LaBundy <jeff@labundy.com>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	Jacky Bai <ping.bai@nxp.com>,
-	Weidong Wang <wangweidong.a@awinic.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Herve Codina <herve.codina@bootlin.com>,
-	Shuming Fan <shumingf@realtek.com>,
-	Shenghao Ding <13916275206@139.com>,
-	Ryan Lee <ryans.lee@analog.com>,
-	Linus Walleij <linus.walleij@linaro.org>,
-	"open list:CIRRUS LOGIC HAPTIC DRIVERS" <patches@opensource.cirrus.com>,
-	"open list:INPUT (KEYBOARD, MOUSE, JOYSTICK,
- TOUCHSCREEN)..." <linux-input@vger.kernel.org>,
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>,
-	"open list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <linux-sound@vger.kernel.org>,
-	"moderated list:CIRRUS LOGIC AUDIO CODEC DRIVERS"
- <alsa-devel@alsa-project.org>
-Subject: Re: [PATCH v5 4/5] Input: cs40l50 - Add support for the CS40L50
- haptic driver
-Message-ID: <ZZ3JNuLp-ZfGOQRF@google.com>
-References: <20240104223643.876292-1-jogletre@opensource.cirrus.com>
- <20240104223643.876292-5-jogletre@opensource.cirrus.com>
- <ZZoFUwOEF6NByIp2@google.com>
- <564A2601-4933-4BD7-B4E6-C973A585CA61@cirrus.com>
+	dkim=pass (1024-bit key,
+ unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
+ header.s=selector1 header.b=m1mzL5Lz
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=CidtcoI3rqscXL5n8w9e2gtcEtB125ZcWw36UV1sQ2J37aNOhx8iGwvDMSOMBUXnpNpqDs/hC8dDLurHkljR3eSHVi650EHDVO5NqAZLMYPryt9exwR5zoy/lSv2KBSLZwt5jtsVkqLOZDmekh8ZlWgbP5q/ahbtp5Wx3uuZXkP7PVqf72X36EB6OcDCXGhLGSlJwDTmQkalAPD25vWmLHLuSgkxqJjLygDdZCEsPQop/7XyQrEQ0lS7fxoCqgtajY1m1LSJmva5ApJ2XJVA8njlNPq3pFaHpqJ6oV6+RyiW7nziBof/dtq5XkRhHJNRYC00DFk6vcEBjC4Z34+n2w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PVraIwISxfZVO0A/F8AnOc9fm2ujDqrjCo5XG4GVBo0=;
+ b=HhWpQCg86uvHG0Pogd+WYpDnUAMrwheKes1oPuZLaOyr9+h55eqH88DM/ct6E4B9A2ZMvtZs4gpwZyt3dyV9KmuJuV2BUQea9X/lP3RU3ZHJ6RpkoNK2Qg5ZHJoiacsKGINymZoxJqg5RfAYOja58tX3plQbs5heu9lFAWphblm7801MaFOwNb6ptz2OXwJazB3B5oSeXZWSg3Ff02Oy6xAVCOtqZJIs41rdIHTONAXFwKpRiaV7kZWLG+g5dg2P7SlodgIW7uMKjrWaK78058du4k+WP5NQAbRcDFEtDwbEKe+xJLN3StMve4qAkxk7aLkoGtNKfvoiUaJ8SVbOxg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PVraIwISxfZVO0A/F8AnOc9fm2ujDqrjCo5XG4GVBo0=;
+ b=m1mzL5Lz7GmxraQFgKlWkXQ7cWLRDu+DzLGrMTe29bA4XfZ4YqGseXSAJMdc5fX6PKx3H5/O6PM/1HmGf4/83cA3DcOhU5ioWXorbLWwjvycpbk/q2WiXbC6YBc9VuHjzdS79yOKBmSwUKhCi62aL6bKw6A3kgG3WJlMSeEaBog=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
+ (2603:1096:400:3a9::11) by OS3PR01MB10326.jpnprd01.prod.outlook.com
+ (2603:1096:604:1fa::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.17; Tue, 9 Jan
+ 2024 23:15:17 +0000
+Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
+ ([fe80::91d:1bfa:edc4:1c5b]) by TYCPR01MB10914.jpnprd01.prod.outlook.com
+ ([fe80::91d:1bfa:edc4:1c5b%7]) with mapi id 15.20.7181.015; Tue, 9 Jan 2024
+ 23:15:14 +0000
+Message-ID: <87il42gkua.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Sameer Pujar <spujar@nvidia.com>
+Cc: Thierry Reding <thierry.reding@gmail.com>,
+	Mark Brown
+ <broonie@kernel.org>,
+	alsa-devel@alsa-project.org,
+	devicetree@vger.kernel.org,
+	robh+dt@kernel.org,
+	Jon Hunter <jonathanh@nvidia.com>,
+	linux-tegra@vger.kernel.org
+Subject: Re: Query on audio-graph-card DT binding
+In-Reply-To: <e7f9085d-9db1-4c5e-9940-e461835b20aa@nvidia.com>
+References: <dfe363ef-4638-4b5e-8308-73e286ac0b50@nvidia.com>
+	<ZZblyhfzQjzyoUc_@orome.fritz.box>
+	<42c0c4fa-585e-4194-bbe4-e0377c87e632@sirena.org.uk>
+	<3faec2e9-8cd9-46f9-8807-801922de0edf@nvidia.com>
+	<ZZe5sTNz005Tt4jk@orome.fritz.box>
+	<8241c953-8ae5-4f26-b108-fccf826ed87a@nvidia.com>
+	<875y03i739.wl-kuninori.morimoto.gx@renesas.com>
+	<e7f9085d-9db1-4c5e-9940-e461835b20aa@nvidia.com>
+User-Agent: Wanderlust/2.15.9 Emacs/27.1 Mule/6.0
+Content-Type: text/plain; charset=US-ASCII
+Date: Tue, 9 Jan 2024 23:15:13 +0000
+X-ClientProxiedBy: TYAPR01CA0031.jpnprd01.prod.outlook.com
+ (2603:1096:404:28::19) To TYCPR01MB10914.jpnprd01.prod.outlook.com
+ (2603:1096:400:3a9::11)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <564A2601-4933-4BD7-B4E6-C973A585CA61@cirrus.com>
-Message-ID-Hash: WISQ3JMBEUADEEVW6X7I72ZFQ7I7RRJJ
-X-Message-ID-Hash: WISQ3JMBEUADEEVW6X7I72ZFQ7I7RRJJ
-X-MailFrom: dmitry.torokhov@gmail.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYCPR01MB10914:EE_|OS3PR01MB10326:EE_
+X-MS-Office365-Filtering-Correlation-Id: 72c98628-8be1-47be-f557-08dc1168d5ae
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	9CdOzLXafvdkPcB8EqEZUbh3vjsS/oj6X4ufgkYg8MKOFpLR/Hxgy7fPfAROr1YZD+bs6vSxRxC069Pgz/RkqxiDmE2JuhLcDgHVpYfptJarSvsnQEDXWfur0OFqJFVMMeBLZeGwn4jNrSfWD5rpdh6DpDMMoWVHHa3So8TwrZKkkcQQaq2PZhqV0riPnkgJUxtr0mSsYyI2p9Jmy5Qm6WyudH+HtpA36q6+1cmEfs7twdg/zzlflVhXhcxkCRSAUQBKbBREGPlLbYhXRnxs7AIivdcim4b3RIWaWGrPohcNDpcnPZqNru7QsdHVsZ6VCII5Jse4rcThSkndxKMEhSPu8MhwpdTfSi38qxVtpObEWTBOPLQdonDKBo5L+4tMr21wRAeLFlmSJUhKj+BMi5yVdp5xV0OvTuLSLhK1ig2rsUATm2Kk1sxYJDaNq7kfqmxhWqGMkHL4Qs9Z4Y7XW7XR/BNQy4QbQotQTRfhNw57laqNgk62/tmYYqhiL0vLJkEu48Vf01V3x+WxZ62uRHmFUIuyykkyh5jX5/8p/fbjAOfzPpDD6wI7WBo/2pALE6xl6fZCkPtZFGdQcsFljrqXTSTM2ALEf6Yir8HonTh08lMXVpCxKwJTJEvEINtzdnDYAGkN6q0bAQPUkJ1cXQ==
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB10914.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(136003)(346002)(376002)(396003)(39860400002)(366004)(230922051799003)(1800799012)(186009)(64100799003)(451199024)(2906002)(478600001)(5660300002)(2013699003)(4326008)(38350700005)(8936002)(41300700001)(66946007)(316002)(66476007)(36756003)(66556008)(6916009)(54906003)(6486002)(6506007)(6512007)(8676002)(86362001)(2616005)(52116002)(26005)(38100700002);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?us-ascii?Q?JDKMqyUabaudXtxlkLCLEmfj8m4NUWPoWwqvPXONxPTCEcs2nBogCxBBHL7G?=
+ =?us-ascii?Q?KKYt6dnt4yrY0RvVaLB6UoN7H3BIJs+e+Wfb67COItFGnaM9JZykVKn61SUm?=
+ =?us-ascii?Q?EPSPtsXXhfDXlk4UdgJAtmgJZEei8DQSoJ4f6jlFn1vR5j7NcPjVDZd3B8Nv?=
+ =?us-ascii?Q?e7JVos1sGt1uCLpAfsbRtg04CVJdwlPzhgPKcvcUiz6JuAyBTFMh9QlEL/Ri?=
+ =?us-ascii?Q?ngDlGMS79JpjsDH6qxUr2AZnj79EoXb7DPYRi56c5vSzK9qvUFm3Z/r0LMnr?=
+ =?us-ascii?Q?nwxOB5ajeOdOAbKjSEC6oETFsWnDu6cmBUWWFCQ4soE1Kq76wl2Qfco1yO+J?=
+ =?us-ascii?Q?gjEwEq5yYKvB/XEy5olx/Ja9JKvIVVsA2/D1StAVNfQGnXqDPgPS7sq584g4?=
+ =?us-ascii?Q?zB/9WJ9p/4pJ6qvG1DQ2z7SDZoGoXm4wVkOAe/zPU7K944XvH0erD4nywecE?=
+ =?us-ascii?Q?j2ghU7WRfsA+DQs/Irw3NYIx+GNGaeSlK5UVHJxbQeJJ/5MxHJxy/7OLlphD?=
+ =?us-ascii?Q?GnfC2PrE/Ru5/8RaPE0gJPEr1SZA9zkKSq4PyKNzWjPTvGYPy29FGqbOgiyW?=
+ =?us-ascii?Q?U41DY6yUkVDVbo8gYnN/QvqOPD5AVBBFLr64198tC3BjS8NPdRcWligo5cfF?=
+ =?us-ascii?Q?QBvgXD0ZkygKVWayS9C6RDnDAk74Vnvmw41to4KWZ9w3epqyjEkt+Y3nDHS0?=
+ =?us-ascii?Q?nLJCJ+RoP6vhp9hOulaxHAC17NeNGgtkkaNH38azStNmncSIjV+7Tah8ogBa?=
+ =?us-ascii?Q?PkTLgmkxwmqfEOtq8MNqwNjNkv8eJqDhBpQlWmnpojKOIsD4RVFHDbhzaIso?=
+ =?us-ascii?Q?vnVUHjLXDQXtW2Z8AIfKMqDh9Ng/bLJXc9dxcqcaMowFVtxf/+xJKZJbys1o?=
+ =?us-ascii?Q?wF42ELnfBTJTuapS3UgtDQU4kZJr4HRWdJk8M3Rkoxa3fpXl133jYFgjwpP0?=
+ =?us-ascii?Q?KKOacYJ+HZmhsuWVB3QrEbBbUxI8FxAghQCsWBfogHvU7/NPCs0sN+b9soKB?=
+ =?us-ascii?Q?ZfAtqI0wRHJoqMTq/oZ7V75kkT5YG3cy0xWnctfrjFszSLRsg6gpcq82wJvB?=
+ =?us-ascii?Q?DFvPOgvIg01HLtkmDMKzOyRYhpZWXAUvywtx+aVCqFAzN26CE65MfaU4sM0S?=
+ =?us-ascii?Q?Yi+vqHTPtuNcXC4taj04n+oFq824xhoTBpMq+SQ6CfmyIRMbYL/y+ISHOzlV?=
+ =?us-ascii?Q?TrV6VGvcjnw+VS7HVmXyCtSWv7Hsm0xXfRVhUrbDh7x/ehrVdUneNoQ7nqcc?=
+ =?us-ascii?Q?BzhVHo85r1MS+FEaYS3L+0rSyMN6jp15HokI0MGEgPMNKlnHSpkXBVAvmqBs?=
+ =?us-ascii?Q?0Fk3TDzOp0aMNXCaeJdtcHZYdiuxX2xKjFeahaUEyyQ5JOeNlG4rSOymjPMn?=
+ =?us-ascii?Q?4cKq0w36V0HcuUG+FcinospLJg1tPikCIj6QCo9TxgXrhmDMfFSKRfco2E+I?=
+ =?us-ascii?Q?6Vzv+WdIE1W5O/KqavxWVH0/fz1BQWJO0kiupmmRdBrvuf0EhAOeiEtdZ2gR?=
+ =?us-ascii?Q?CkFLzH+AJFAPzw69CYpvqPbiB0XafAqmSldH9leWFXil3eTri1+4ASZ4CMAF?=
+ =?us-ascii?Q?8JDvMV406tqfqbRgEio/KQz4BzVGiU2mKIlPI5GI4LQliDJA1g0gkzcTmzVZ?=
+ =?us-ascii?Q?KOmsAR8hLi5Wwrsbh5XlGDg=3D?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 72c98628-8be1-47be-f557-08dc1168d5ae
+X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB10914.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jan 2024 23:15:14.0473
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ CTjd+OJ3OgCTbteTA1SlW+CT3V79bDVpsH8C5PQzRzC/4D2Pboc+s4EalxFWkOcjwpA2X2fg/5HzrwRPBndtCtnHbSbtHRItbL6kC6ilDNetV7+IbnftaqYT5CeOzMsu
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3PR01MB10326
+Message-ID-Hash: 5MITDEJI5BLEUURLEOJBX2YQTA4J37AD
+X-Message-ID-Hash: 5MITDEJI5BLEUURLEOJBX2YQTA4J37AD
+X-MailFrom: kuninori.morimoto.gx@renesas.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -150,7 +165,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WISQ3JMBEUADEEVW6X7I72ZFQ7I7RRJJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5MITDEJI5BLEUURLEOJBX2YQTA4J37AD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -159,95 +174,55 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, Jan 09, 2024 at 10:03:02PM +0000, James Ogletree wrote:
-> Hi Dmitry,
-> 
-> Thank you for your excellent review. Just a few questions.
-> 
-> > On Jan 6, 2024, at 7:58 PM, Dmitry Torokhov <dmitry.torokhov@gmail.com> wrote:
-> > 
-> > On Thu, Jan 04, 2024 at 10:36:37PM +0000, James Ogletree wrote:
-> 
-> >> +
-> >> + info->add_effect.u.periodic.custom_data = kcalloc(len, sizeof(s16), GFP_KERNEL);
-> >> + if (!info->add_effect.u.periodic.custom_data)
-> >> + return -ENOMEM;
-> >> +
-> >> + if (copy_from_user(info->add_effect.u.periodic.custom_data,
-> >> +   effect->u.periodic.custom_data, sizeof(s16) * len)) {
-> >> + info->add_error = -EFAULT;
-> >> + goto out_free;
-> >> + }
-> >> +
-> >> + queue_work(info->vibe_wq, &info->add_work);
-> >> + flush_work(&info->add_work);
-> > 
-> > I do not understand the need of scheduling a work here. You are
-> > obviously in a sleeping context (otherwise you would not be able to
-> > execute flush_work()) so you should be able to upload the effect right
-> > here.
-> 
-> Scheduling work here is to ensure its ordering with “playback" worker
-> items, which themselves are called in atomic context and so need
-> deferred work. I think this explains why we need a workqueue as well,
-> but please correct me.
-> 
-> > 
-> >> +
-> >> +static int vibra_playback(struct input_dev *dev, int effect_id, int val)
-> >> +{
-> >> + struct vibra_info *info = input_get_drvdata(dev);
-> >> +
-> >> + if (val > 0) {
-> > 
-> > value is supposed to signal how many times an effect should be repeated.
-> > It looks like you are not handling this at all.
-> 
-> For playbacks, we mandate that the input_event value field is set to either 1
 
-I am sorry, who is "we"?
+Hi Sameer
 
-> or 0 to command either a start playback or stop playback respectively.
-> Values other than that should be rejected, so in the next version I will fix this
-> to explicitly check for 1 or 0.
-
-No, please implement the API properly.
-
+> >>                /-----> codec1 endpoint
+> >>               /
+> >> CPU endpoint \
+> >>                \-----> codec2 endpoint
+> > It sounds "Single CPU - Mult Codec" connection, and if my understanding
+> > was correct, current ASoC is not supporting it so far.
 > 
-> > 
-> >> + info->start_effect = &dev->ff->effects[effect_id];
-> >> + queue_work(info->vibe_wq, &info->vibe_start_work);
-> > 
-> > The API allows playback of several effects at once, the way you have it
-> > done here if multiple requests come at same time only one will be
-> > handled.
-> 
-> I think I may need some clarification on this point. Why would concurrent
-> start/stop playback commands get dropped? It seems they would all be
-> added to the workqueue and executed eventually.
+> Yes, this is a typical TDM use case.
+> __soc_pcm_hw_params() call in soc-pcm.c loops over all CODECs for a 
+> given rtd. So is there something else you are referring to which makes 
+> ASoC core doesn't support it?
 
-You only have one instance of vibe_start_work, as well as only one
-"slot" to hold the effect you want to start. So if you issue 2 request
-back to back to play effect 1 and 2 you are likely to end with
-info->start_effect == 2 and that is what vibe_start_work handler will
-observe, effectively dropping request to play effect 1 on the floor.
+Oops sorry, I was confused. asymmetry Multi CPU/Codec is supported on
+ASoC / Card2 on for-6.8 branch.
 
-> 
-> > 
-> >> + } else {
-> >> + queue_work(info->vibe_wq, &info->vibe_stop_work);
-> > 
-> > Which effect are you stopping? All of them? You need to stop a
-> > particular one.
-> 
-> Our implementation of “stop” stops all effects in flight which is intended.
-> That is probably unusual so I will add a comment here in the next
-> version.
+> Also the binding properties of "audio-graph-card2" seem to be different 
+> from "audio-graph-card". I am looking at a simpler extension of existing 
+> bindings for Tegra audio without having to re-write the whole bindings. 
+> If "remote-endpoint" can take phandle array it would be simpler from DT 
+> point of view.
 
-Again, please implement the driver properly, not define your own
-carveouts for the expected behavior.
+Yes, "card2" and "card" are similar but different.
+I'm not DT-man, but I think remote-endpoint phandle array is not allowed ?
+If my understanding was correct, you need to use multi endpoint in such
+case instead of phandle array.
 
-Thanks.
+CPU
+	port {
+		cpu_endpoint0: endpoint@0 { remote-endpoint = <&codec1_endpoint>; };
+		cpu_endpoint1: endpoint@1 { remote-endpoint = <&codec2_endpoint>; };
+	};
 
--- 
-Dmitry
+Codec1
+	port {
+		codec1_endpoint: endpoint { remote-endpoint = <&cpu_endpoint0>; };
+	};
+
+Codec2
+	port {
+		codec2_endpoint: endpoint { remote-endpoint = <&cpu_endpoint1>; };
+	};
+
+
+Thank you for your help !!
+
+Best regards
+---
+Renesas Electronics
+Ph.D. Kuninori Morimoto

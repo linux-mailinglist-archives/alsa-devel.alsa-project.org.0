@@ -2,171 +2,145 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA81A82A7E4
-	for <lists+alsa-devel@lfdr.de>; Thu, 11 Jan 2024 07:52:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 699F182A851
+	for <lists+alsa-devel@lfdr.de>; Thu, 11 Jan 2024 08:29:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A851FE9F;
-	Thu, 11 Jan 2024 07:52:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A851FE9F
+	by alsa0.perex.cz (Postfix) with ESMTPS id C7D96E69;
+	Thu, 11 Jan 2024 08:29:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C7D96E69
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1704955960;
-	bh=zX556AOLsGj+qP0tN7HB8A4TiwEpXlRM2YAO5qFfmPY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1704958156;
+	bh=RdUCj1CNwLJ/uGrmIGaELXyjiQfNSahsy039QzHrr0M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=C6OJ6H6GDig7h1EKe/GS9lLJm9Xm6gFHAi/EbF2inY2/pI++l9n93SCpndbvEA072
-	 rbsF2JMe9R8aZYoFEmOfO6u3FeI7/cZpYCR7rhRufll2989sCtfSsa39DHvy/PCQxe
-	 APEgdNdJzS4Jpv56N6LFY6BtmqBgYAl8nIjZsG8M=
+	b=mr1+91CcROH47MK0pxZOHBnZ9auKNw9sq3IG25aMqQuBrYnnRJvMOC/IXvt5Qedzl
+	 SweJFatqHvzTGxmEoPC9zp9YuOmiTDweJPJ/RSP3nXXtNb7/+493Qa9HaWmtKQ/F9E
+	 nQ9XDhQNHzz/okYhcWCjReBEZHGh5O1A7SkgXLSA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 40164F8003A; Thu, 11 Jan 2024 07:52:05 +0100 (CET)
+	id C2A66F8055C; Thu, 11 Jan 2024 08:28:39 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 47BDBF8057F;
-	Thu, 11 Jan 2024 07:52:05 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1271DF8057E;
+	Thu, 11 Jan 2024 08:28:39 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8A5D2F80254; Thu, 11 Jan 2024 07:49:38 +0100 (CET)
+	id 75637F80254; Thu, 11 Jan 2024 08:28:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on20625.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e88::625])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-x62b.google.com (mail-pl1-x62b.google.com
+ [IPv6:2607:f8b0:4864:20::62b])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0B074F8003A
-	for <alsa-devel@alsa-project.org>; Thu, 11 Jan 2024 07:49:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0B074F8003A
+	by alsa1.perex.cz (Postfix) with ESMTPS id DF2AFF80086
+	for <alsa-devel@alsa-project.org>; Thu, 11 Jan 2024 08:28:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF2AFF80086
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256
- header.s=selector2 header.b=YgalyzK3
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VY78V+NpNGx5DauoLeE8ApqmaK9xpyxX0Qs6OioEKpOx5rimf2Pb7SIUEqpJL0iq12GYUs38+aDF1TF9UCLCEFrSRPsp4kzfS3Y70iLmomhnexBGA2tyvH5VyWYLeprfNgV+HRsSLCS+MBmBlIexug0n+EjOR3+/2jD1q4APpok+l65Mzr0/PlNFdjU7+RioLW9luIFy+2mhsPrgEEZRzGKn7lYgupUGw1fp8GE7wGEz7oGD+ckkqKVI25gNQIruTy48iGb77wI+w+uMvq9WKucq6B/fiW9sIt8YGTzYONiywRDPLirx76uKpeEReibHqZ6gVrJLYmni763p52QQeA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kDqwxY638hDR9E/ZSHwfhsL3Q27/l+Ankxkr0oOujOY=;
- b=mCkojwpcrS9L4xIuSlODaAIOhUsI/nTnfUzjp1u7JQ/dFXo/H1lcEIpqGII9d0lpKU24R4FKbYL+jVu9JzYt3Ix7T3wGUGgN4C+dghc68B7n311Syvfy0XOdqa+3T6Mj18RMkNoAORN3Y3rW6oVvwTbqjNqNL6ZYKP1+s5GpuEG2KPj8KpaxTctsQvaDEJrVZHalkWTBIWYy0tWynyzwiHhZzxcpNjKzY2qb3k2g9y7+WsbeHfLx+EPE1Ij9V2RAmrRb1otzrqSFFQtJSFFcsd6ZHXeVMwRMNHFOp0BJc47axwJzXFaHKLui0icQodNPNR1sKYyTZcZmdktSf4p8xg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kDqwxY638hDR9E/ZSHwfhsL3Q27/l+Ankxkr0oOujOY=;
- b=YgalyzK3AybdaSOe4sIznDfbyIJZwlv2mXIwIji/jrxecI2HVrYEOxpsqu3fKELIJXBMriiYKnQ7YaZYRrThBuBqAi5xOJREOMvPaPPOitbhnypChURVfQtLpWtB7F6BC3lV+Y7FkaQDrK2UPkSbqZTVhHl9AxOEElW7uKtLRFn92eEDJjpTRs0RyJBprq9z+olUdy4mMMMMp43yatBosEFAulrWrLUvjgJykhIO0oxDju8d0GhiXsFlpxX0x+PUM0WavpZ29/jdtM8lafZ7nJmcKWT2dVYVZcc0CIJqdX6khr8Z/bdmSJftzJeV8YFCuZ7OQHWO7lhu+2D94uQ8ng==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CY8PR12MB7706.namprd12.prod.outlook.com (2603:10b6:930:85::18)
- by CO6PR12MB5473.namprd12.prod.outlook.com (2603:10b6:303:13e::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.18; Thu, 11 Jan
- 2024 06:49:23 +0000
-Received: from CY8PR12MB7706.namprd12.prod.outlook.com
- ([fe80::c6c5:6b6c:2422:b70c]) by CY8PR12MB7706.namprd12.prod.outlook.com
- ([fe80::c6c5:6b6c:2422:b70c%7]) with mapi id 15.20.7159.020; Thu, 11 Jan 2024
- 06:49:23 +0000
-Message-ID: <d10f9857-4259-4dff-a7f3-764086ac5a8b@nvidia.com>
-Date: Thu, 11 Jan 2024 12:19:04 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: Query on audio-graph-card DT binding
-Content-Language: en-US
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: Thierry Reding <thierry.reding@gmail.com>, Mark Brown
- <broonie@kernel.org>, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, robh+dt@kernel.org,
- Jon Hunter <jonathanh@nvidia.com>, linux-tegra@vger.kernel.org
-References: <dfe363ef-4638-4b5e-8308-73e286ac0b50@nvidia.com>
- <ZZblyhfzQjzyoUc_@orome.fritz.box>
- <42c0c4fa-585e-4194-bbe4-e0377c87e632@sirena.org.uk>
- <3faec2e9-8cd9-46f9-8807-801922de0edf@nvidia.com>
- <ZZe5sTNz005Tt4jk@orome.fritz.box>
- <8241c953-8ae5-4f26-b108-fccf826ed87a@nvidia.com>
- <875y03i739.wl-kuninori.morimoto.gx@renesas.com>
- <e7f9085d-9db1-4c5e-9940-e461835b20aa@nvidia.com>
- <87il42gkua.wl-kuninori.morimoto.gx@renesas.com>
- <cde6d5d5-b6ab-4c64-93f8-78d721a492bb@nvidia.com>
- <8734v4y9yu.wl-kuninori.morimoto.gx@renesas.com>
- <eeb61f8a-697c-425a-9873-b7b60c0a5558@nvidia.com>
- <87o7dswjry.wl-kuninori.morimoto.gx@renesas.com>
- <c868bce1-9a99-49d9-97cd-ead8d0295504@nvidia.com>
- <87le8wwi2u.wl-kuninori.morimoto.gx@renesas.com>
-From: Sameer Pujar <spujar@nvidia.com>
-In-Reply-To: <87le8wwi2u.wl-kuninori.morimoto.gx@renesas.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA0P287CA0013.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:d9::13) To CY8PR12MB7706.namprd12.prod.outlook.com
- (2603:10b6:930:85::18)
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=eA5xikvv
+Received: by mail-pl1-x62b.google.com with SMTP id
+ d9443c01a7336-1d3e05abcaeso33556635ad.1
+        for <alsa-devel@alsa-project.org>;
+ Wed, 10 Jan 2024 23:28:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1704958091; x=1705562891;
+ darn=alsa-project.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=q7o2fp3va6PrIWcX8vUj5HYMxS4ZIp+2h3KD5TCjvz8=;
+        b=eA5xikvvvsRcQ4z1Li5EQqSt8nWdGk3mfOdgAv2E2AFFmQX8my/E4stcdSc6BYeJPf
+         OVq3hSy9WHV6zijAszlRs3r2kZRqqxddAbZd4mHLNRaDRepu03RTELpBEuB86aQQiP1s
+         nswm7UBBt6Cd51hHApsiMMQ0bGN57w/ArcKnBdwhSkTFPWouRMZ89QxCSmrPqw92Pw+7
+         jd0Y8CplB9NHI6x8MtI+SrV10iWjj3OV++32L1zlyyN0k1KtbSdZbKDbAo6bPxewfCKM
+         rZnzZNvLux9bpzXCRwF46TFrK5mYniXsFRZHIlzKk/KzhxuexOSTSQmmiLytjqh8c3KQ
+         DKJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1704958091; x=1705562891;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=q7o2fp3va6PrIWcX8vUj5HYMxS4ZIp+2h3KD5TCjvz8=;
+        b=n+CVBkHMPtgrxjNlQoGonf1wMeAk+u1Zs0Ac5tVNOwwOni7keFV9kCV0UgARQ8BIQy
+         yjidju1i/yZf/ypYJ0t7nS7IEyIl87jSxALDv1/+4xrR1vWJ+BxbFrGG0uNNP6mibO+c
+         f37Mh/MlcnKT7UdUrbpn3VQdELW/Uls+g0a9Ajfa6O+rCN1fO2EfP9ntxcX6QsR5ZfZx
+         NNEY9Y6++3k8C/HFGNzFWnZ11b36EMGIOBrc0hnqSx9D1+ihE52/sxxtzyrw1u5y3D2z
+         tJEIerS+EKKrj2ALoGQU4Y9/oflgsYlzClRlLqn0ITTREAMgSywJg0uyrZFrG1+MdfnV
+         GM7A==
+X-Gm-Message-State: AOJu0YxXeoNXFsOazAgawrjbtt3vhnm5k02DdgFuocNzHQGnUDQXnMxb
+	/Osbzgk0UaOSskxLZjHQceY=
+X-Google-Smtp-Source: 
+ AGHT+IGl35uLlQRJwX4rvJzLGZrtgZstO0G3rpfy7BBTIi9UZR4sWdYeEO5QUbzFqaZyYXxS2sm4Lw==
+X-Received: by 2002:a17:903:28f:b0:1d4:2066:6b7 with SMTP id
+ j15-20020a170903028f00b001d4206606b7mr986820plr.69.1704958090495;
+        Wed, 10 Jan 2024 23:28:10 -0800 (PST)
+Received: from google.com ([2620:15c:9d:2:70e2:a0a5:5166:fbbf])
+        by smtp.gmail.com with ESMTPSA id
+ mm3-20020a1709030a0300b001d4bb7cdc11sm491328plb.88.2024.01.10.23.28.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 10 Jan 2024 23:28:10 -0800 (PST)
+Date: Wed, 10 Jan 2024 23:28:06 -0800
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: James Ogletree <James.Ogletree@cirrus.com>
+Cc: James Ogletree <jogletre@opensource.cirrus.com>,
+	Fred Treven <Fred.Treven@cirrus.com>,
+	Ben Bright <Ben.Bright@cirrus.com>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Simon Trimmer <simont@opensource.cirrus.com>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	Lee Jones <lee@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	James Schulman <James.Schulman@cirrus.com>,
+	David Rhodes <David.Rhodes@cirrus.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Peng Fan <peng.fan@nxp.com>, Jeff LaBundy <jeff@labundy.com>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	Jacky Bai <ping.bai@nxp.com>,
+	Weidong Wang <wangweidong.a@awinic.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Shuming Fan <shumingf@realtek.com>,
+	Shenghao Ding <13916275206@139.com>,
+	Ryan Lee <ryans.lee@analog.com>,
+	Linus Walleij <linus.walleij@linaro.org>,
+	"open list:CIRRUS LOGIC HAPTIC DRIVERS" <patches@opensource.cirrus.com>,
+	"open list:INPUT (KEYBOARD, MOUSE, JOYSTICK,
+ TOUCHSCREEN)..." <linux-input@vger.kernel.org>,
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>,
+	"open list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <linux-sound@vger.kernel.org>,
+	"moderated list:CIRRUS LOGIC AUDIO CODEC DRIVERS"
+ <alsa-devel@alsa-project.org>
+Subject: Re: [PATCH v5 4/5] Input: cs40l50 - Add support for the CS40L50
+ haptic driver
+Message-ID: <ZZ-YhtIulqrSFc3R@google.com>
+References: <20240104223643.876292-1-jogletre@opensource.cirrus.com>
+ <20240104223643.876292-5-jogletre@opensource.cirrus.com>
+ <ZZoFUwOEF6NByIp2@google.com>
+ <564A2601-4933-4BD7-B4E6-C973A585CA61@cirrus.com>
+ <ZZ3JNuLp-ZfGOQRF@google.com>
+ <42A07166-6569-4872-B5E0-6D71C6F3656D@cirrus.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY8PR12MB7706:EE_|CO6PR12MB5473:EE_
-X-MS-Office365-Filtering-Correlation-Id: 993cb912-beec-4a03-b419-08dc127171bd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	6Ip1/Zpm9UTBMaqKMgRH33lClWjllXs0F7bF2+1cm7A8f4irQ4Pmz6e/9C92o72tyEYYxHuPVlEMmlbnddeGjk900Yr/Yds32Ori5cUFadxlhKm0iCq8lXiEUPtcefqX/2Mr2k2vT55HkCCkhtYGiGFWkbAHPcyW0QUSJA8v7pwFuUMj5P4uXdjDSve70ziDcTiPLwv/KpXfxL3o6LV9dl8pl++lvwOY2k5NxBsLncq7LLyExQneQKyowZ4PQEQr6KD9rkPATqxMcDQCDfVYeVcITUct3fljEHzaFjd5VxXBni3wXqeKoRCchkhuztZL8e2r1guVE7x59oO+CSSABSOla2YMqZf6X1wQd8t8y4rp3yaURG5+YZaIiTbHNy2Xd24G5MuGF/NvggYFB7SAs8i6CRvWJ7jTxJyqz/9m+nG6MAajkjRVBTPB+cJRwgDmVpcpatkJ+psTxMth0K0HafXg6ndLloEh0NmwiFp1eRyO+/9QgbjI8uy0qBV2HhH+n98u7zWow4Pa0Ep9TLyHw6dJTMr2A5VXb2CSduzBWasPl3HhY9On/x+E3pDXNZWGBDkvpSm413BiwKQqSIC98cIby8+FwxZNDzVV+RITuES9JgU7ZqvoV6QAFfTtT8p5MNg/8h8ftpekduAW6JBRjfiOHhFZeEeN3Bz/4X6PvMcAdTWftbfDFkGoqSC95rFo
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR12MB7706.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(136003)(366004)(376002)(39860400002)(396003)(230922051799003)(1800799012)(186009)(64100799003)(451199024)(31686004)(83380400001)(36756003)(31696002)(86362001)(41300700001)(2013699003)(38100700002)(6486002)(2616005)(26005)(4326008)(6512007)(66556008)(478600001)(6666004)(66476007)(2906002)(316002)(66946007)(8936002)(6506007)(54906003)(6916009)(53546011)(5660300002)(8676002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?QThhVmw2T3Z3OE1YMmxQNTdUajZEdHhtOUxncE5ETndVVjlmWjJFUHJmNURx?=
- =?utf-8?B?L2poWWJCdUJZNThoZGY3VGN0NElQa1g4K2Y3TUQ3eG5nWTV1dmxhbk40UGhB?=
- =?utf-8?B?ZlBYTVh2L2dJWXVSZkxlQVdCb3hUMTNCdkpHTGtOR0xVTWwvY2FCc2xRc1Jt?=
- =?utf-8?B?QzhZSnZjSHdxM0JaNVBIOGNsOEZWSzdwdjh4cHIyNVZCYUtWWFAxdkV4aTZ4?=
- =?utf-8?B?TWJWVTJNVmd4ZDNKSEVZaTJMZENrSVJGWFE3eG1pQy9oc0dwaTE1QnUxLzJr?=
- =?utf-8?B?ZkVwWUlZNlRmekVEbmZxdWJLenpRcjNRVFloL3A5cGhpSHhPQmNRSEFsYmJv?=
- =?utf-8?B?K2lsQy9zR1dhNERodnhZUEkrWitOZG54TGNoWitSV29xMGRYWncyU2RZYzJn?=
- =?utf-8?B?VFVHSGRKK05LekowUS9pVkxVaDlFMUNEMUR3T2UzV1ZnWDZrQWZoVVVlOGxC?=
- =?utf-8?B?TzJIU3NQTGUrSCtYOW9CQVFMUHJjSWFVZGJXYmpZOEtkRGZ5QjRuMUxzUDJX?=
- =?utf-8?B?QVZYdEQ1K1FRU3JhTzFhSFVyNDBTLzZZalJZMlJNTS93OUtvOHRtV0NzRlJQ?=
- =?utf-8?B?aGFRaFY1SlVXZzdzSXpHdkdEdGJkSnE3UGttZWdNVnBTWFIwdmtOaHhKTnp5?=
- =?utf-8?B?UEdFRkJmUTB6ck1mR0dZdFIySCtyN0R1UE9VSG1CZm9kRlZMWUZPQlhZdGNU?=
- =?utf-8?B?THl1eVM5VXozTEROWHZ6WnNlTUFHSXdqT2NhcXRrcmw3emRxd1dGZ2NwaUla?=
- =?utf-8?B?N0VPRGpmZmpUZXFwa3V5eTdwNmo1NlNlYzRqbi9wVWZtLy9nbStWTlF6bXNT?=
- =?utf-8?B?VndEVzMzak0yaVhuOEwyTnRsTmRaT3BWZEJQUVZ3eGtYUlp6MXhZWE5EUkRD?=
- =?utf-8?B?VlZrZ1UydFhKUWM4bmdxVlRHWllOdmJHV1RzbllibXlSM3ZudG9pMUpFcHFH?=
- =?utf-8?B?UzJnOVFXQUpTNWZmNkJKUlFXTkxJNEUwekhNcUlsYXQraGhUbTZZS2lqRktz?=
- =?utf-8?B?d0UvaGREamFIRXBwRGFNMlFVYzNibFZnUWNNT3FIKys3Wktqb3V4L0dkNnJM?=
- =?utf-8?B?U0YySFl2dXZ6ajQ1dXpSdXFJZjBEZW12OXIxaVJCK0p2WTZnRHJvM1NkbmRt?=
- =?utf-8?B?QmVsN2hqOVhwVmJQcFU2SXZ5aWRJUTlxOGpxWWVubEFWRkJCVzdBRUJLTDJO?=
- =?utf-8?B?VkxtZnJIbldYMnhUN3dqM2lvOGNUK0VzWEEyS2tXSDBlbVVkUzNJU0UzaXk2?=
- =?utf-8?B?dW5VN1lMMHZkdlVqcG9RRkhiOTFsYkJUV2dxZmpuamdWUmY5eTdXS3pyTGRn?=
- =?utf-8?B?MnMrZ3RTZ3RCdEdUbTM5NDRxQ1QwNkZuVmg1a3pHYkMrcXpua3JnTGdhZXhW?=
- =?utf-8?B?RnY4cnNWTndsMUxjVVdrc2ZFKy9xdlpLamV0OHRLclYyQWRBc3UxUzBmM25a?=
- =?utf-8?B?WVJvb3g0OE4xSXdLTFoxTHFvV2xoM1JFY1p2SG1XNkR3aXN5eDZnUmRlVGNC?=
- =?utf-8?B?Y0hFUWRZOURLMC9icE4zWStoL0phZUdiOHhvVFRsVkQra1dQbmFwUW5BOElm?=
- =?utf-8?B?K3AyQ3hYSFg2WC9ZMUhCMktsbjdYSXlRTDArMlNFTHN3Sk10MS9qbWZhTjdF?=
- =?utf-8?B?QkcySjdBVk96S2UxOTVZcWtwbDkxNkpFeW1YM3ZhaEZNcElKOStsN1V3amg2?=
- =?utf-8?B?cDhWSEdQajd3ZzVoVnZyekZ3cDV4anJXUzlJQUt2ZFFYYURRYVJpYWtBeFFk?=
- =?utf-8?B?dC9wOTRvVmw3SVRZKzJFdXZEZlpZUGE4OG50K2ZlbHJidGdHOEdBSVZjd0N1?=
- =?utf-8?B?NHVWSFV3VXQxUXRkNWMrbVRkNGFEdE1mRTJKRlBmSm5SOEdLdUhIclVFRWNj?=
- =?utf-8?B?OEo1UnpZNk44L0tFOUIvcUE3UWQvRjFHd1RPdVg1NW9vMmZZZktUcjhpWXBn?=
- =?utf-8?B?dHJzelgxNnBWMS92anAyTmxyanh1bW00eVEzSFRGM1VBejlkamtZK0RqN01D?=
- =?utf-8?B?UFFOZGpTZE56N1RmTzg4UHgwbjd1R0txZWtRcktBN3l5OVZwMUF2QTZ4aTBw?=
- =?utf-8?B?Zkw4cCtYTGZiUHZxRHNWZDdHY0luYlNJT0k1UjRFTlozMWNGZXlKODFnby9P?=
- =?utf-8?Q?LKPDUOlHWqen2Gpmokuk8kvpl?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 993cb912-beec-4a03-b419-08dc127171bd
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7706.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jan 2024 06:49:23.2082
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- HWTqkYNBf798X/o9CRmILctCSPEydGtWzakwzD/r4oApe5vQiSDHKPCWKQBBZdU7kGiSakQLdCoIa+tdb6eN4Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5473
-Message-ID-Hash: 4NOB6G4XXJMFQUDUQYWYTURBKHZ7QNFP
-X-Message-ID-Hash: 4NOB6G4XXJMFQUDUQYWYTURBKHZ7QNFP
-X-MailFrom: spujar@nvidia.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <42A07166-6569-4872-B5E0-6D71C6F3656D@cirrus.com>
+Message-ID-Hash: JHB2YREJMHOFLZ2PCW6XVX3ZZR6LFCNL
+X-Message-ID-Hash: JHB2YREJMHOFLZ2PCW6XVX3ZZR6LFCNL
+X-MailFrom: dmitry.torokhov@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -178,7 +152,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4NOB6G4XXJMFQUDUQYWYTURBKHZ7QNFP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JHB2YREJMHOFLZ2PCW6XVX3ZZR6LFCNL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -187,32 +161,116 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Wed, Jan 10, 2024 at 02:36:55PM +0000, James Ogletree wrote:
+> 
+> > On Jan 9, 2024, at 4:31 PM, Dmitry Torokhov <dmitry.torokhov@gmail.com> wrote:
+> > 
+> > On Tue, Jan 09, 2024 at 10:03:02PM +0000, James Ogletree wrote:
+> >> Hi Dmitry,
+> >> 
+> >> Thank you for your excellent review. Just a few questions.
+> >> 
+> >>> On Jan 6, 2024, at 7:58 PM, Dmitry Torokhov <dmitry.torokhov@gmail.com> wrote:
+> >>> 
+> >>> On Thu, Jan 04, 2024 at 10:36:37PM +0000, James Ogletree wrote:
+> >>>> +
+> >>>> + info->add_effect.u.periodic.custom_data = kcalloc(len, sizeof(s16), GFP_KERNEL);
+> >>>> + if (!info->add_effect.u.periodic.custom_data)
+> >>>> + return -ENOMEM;
+> >>>> +
+> >>>> + if (copy_from_user(info->add_effect.u.periodic.custom_data,
+> >>>> +   effect->u.periodic.custom_data, sizeof(s16) * len)) {
+> >>>> + info->add_error = -EFAULT;
+> >>>> + goto out_free;
+> >>>> + }
+> >>>> +
+> >>>> + queue_work(info->vibe_wq, &info->add_work);
+> >>>> + flush_work(&info->add_work);
+> >>> 
+> >>> I do not understand the need of scheduling a work here. You are
+> >>> obviously in a sleeping context (otherwise you would not be able to
+> >>> execute flush_work()) so you should be able to upload the effect right
+> >>> here.
+> >> 
+> >> Scheduling work here is to ensure its ordering with “playback" worker
+> >> items, which themselves are called in atomic context and so need
+> >> deferred work. I think this explains why we need a workqueue as well,
+> >> but please correct me.
+> >> 
+> >>> 
+> >>>> +
+> >>>> +static int vibra_playback(struct input_dev *dev, int effect_id, int val)
+> >>>> +{
+> >>>> + struct vibra_info *info = input_get_drvdata(dev);
+> >>>> +
+> >>>> + if (val > 0) {
+> >>> 
+> >>> value is supposed to signal how many times an effect should be repeated.
+> >>> It looks like you are not handling this at all.
+> >> 
+> >> For playbacks, we mandate that the input_event value field is set to either 1
+> > 
+> > I am sorry, who is "we"?
+> 
+> Just a royal “I”. Apologies, no claim to authority intended here. :)
+> 
+> > 
+> >> or 0 to command either a start playback or stop playback respectively.
+> >> Values other than that should be rejected, so in the next version I will fix this
+> >> to explicitly check for 1 or 0.
+> > 
+> > No, please implement the API properly.
+> 
+> Ack.
+> 
+> > 
+> >> 
+> >>> 
+> >>>> + info->start_effect = &dev->ff->effects[effect_id];
+> >>>> + queue_work(info->vibe_wq, &info->vibe_start_work);
+> >>> 
+> >>> The API allows playback of several effects at once, the way you have it
+> >>> done here if multiple requests come at same time only one will be
+> >>> handled.
+> >> 
+> >> I think I may need some clarification on this point. Why would concurrent
+> >> start/stop playback commands get dropped? It seems they would all be
+> >> added to the workqueue and executed eventually.
+> > 
+> > You only have one instance of vibe_start_work, as well as only one
+> > "slot" to hold the effect you want to start. So if you issue 2 request
+> > back to back to play effect 1 and 2 you are likely to end with
+> > info->start_effect == 2 and that is what vibe_start_work handler will
+> > observe, effectively dropping request to play effect 1 on the floor.
+> 
+> Understood, ack.
+> 
+> > 
+> >> 
+> >>> 
+> >>>> + } else {
+> >>>> + queue_work(info->vibe_wq, &info->vibe_stop_work);
+> >>> 
+> >>> Which effect are you stopping? All of them? You need to stop a
+> >>> particular one.
+> >> 
+> >> Our implementation of “stop” stops all effects in flight which is intended.
+> >> That is probably unusual so I will add a comment here in the next
+> >> version.
+> > 
+> > Again, please implement the driver properly, not define your own
+> > carveouts for the expected behavior.
+> 
+> Ack, and a clarification question: the device is not actually able to
+> play multiple effects at once. In that case, does stopping a specific
+> effect entail just cancelling an effect in the queue?
 
+In this case I believe the device should declare maximum number of
+effects as 1. Userspace is supposed to determine maximum number of
+simultaneously playable effects by issuing EVIOCGEFFECTS ioctl on the
+corresponding event device.
 
-On 11-01-2024 11:02, Kuninori Morimoto wrote:
->>>>>>>             port {
->>>>>>>                     cpu_endpoint0: endpoint@0 { remote-endpoint = <&codec1_endpoint>; };
->>>>>>>                     cpu_endpoint1: endpoint@1 { remote-endpoint = <&codec2_endpoint>; };
-> (snip)
->> Is it possible to have similar behavior with audio-graph-card?
-> Unfortunately, N:M connection is supported only Card2.
->
->>>> For 1:N connection, how many DAI links audio-graph-card2 driver creates?
-> (snip)
->> No, that is not what I am looking for. Let me please try to rephrase this.
->> Does audio-graph-card2 driver creates N+1 DAI links or a single DAI link?
-> Oh, I see. It can handle many DAI links. see [1].
-> One note here is some link is comment-outed here,
-> because it handles too many DAI links, it reached to the upper size limit.
+Thanks.
 
-What I am asking is, with audio-graph-card2, when you declare 1:N 
-connection in DT bindings, how many DAI links you create in the driver.
-Is it like the audio-graph-card2 driver parses the whole 1:N connection 
-and creates only one DAI link in ASoC core or it breaks them into 
-multiple links and create N+1 DAI links in ASoC core?
-
-In other words,
-
-1:N connection in DT == 1 DAI link in ASoC core?
-Or
-1:N connection in DT == N+1 DAI links in ASoC core?
+-- 
+Dmitry

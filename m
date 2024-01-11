@@ -2,162 +2,169 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2448F82A71E
-	for <lists+alsa-devel@lfdr.de>; Thu, 11 Jan 2024 05:56:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8ED2B82A72E
+	for <lists+alsa-devel@lfdr.de>; Thu, 11 Jan 2024 06:11:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9436AEC0;
-	Thu, 11 Jan 2024 05:56:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9436AEC0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 92C70EBE;
+	Thu, 11 Jan 2024 06:10:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 92C70EBE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1704949012;
-	bh=OuVsUCjXEWeXGoFMdb8AqYQQTIjdFvjULZA5Vu1eh4o=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:List-Id:
+	s=default; t=1704949862;
+	bh=q/c23KwRLYEazBZkGeKtrv49x4bbER4MfQptTvXtZoI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=VClvpbav/bLIAIY3guZouyOlniFABBauoV8JvlTWBfbyDBEwnCA6mhY3jOhZ5xQnv
-	 Km1X6gxHPuDFEe86OBZZwGVx14RMIJRRo1NS4sKfnYOAxODhp2FwkrDgPoUxp4nzlh
-	 obwH28ZPTX60rb8EipzFZeG5qH+Ct+1am6DjFCSs=
+	b=BVS4g//NuA3FedGI9gL8DVxSIA2sfqxLnf5dA8ZqnjUZmoNPjdcj3MekfRmIPtRgA
+	 l02Y8WiQiLzD+qzSd4AQXecSNgmlkluv0pM/H+wZKzPWrILHqf54TDIW84qH5zI5Sz
+	 bBelFj5BgzP2XWX6em2XKDKC1XcyJRtC2RJzMjLk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 11EBBF8057D; Thu, 11 Jan 2024 05:56:20 +0100 (CET)
+	id 842B0F8057D; Thu, 11 Jan 2024 06:10:25 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0D0ADF8055C;
-	Thu, 11 Jan 2024 05:56:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 12B00F80580;
+	Thu, 11 Jan 2024 06:10:25 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8A452F80254; Thu, 11 Jan 2024 05:56:14 +0100 (CET)
+	id 56C3AF80254; Thu, 11 Jan 2024 06:10:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from JPN01-TYC-obe.outbound.protection.outlook.com
- (mail-tycjpn01on20701.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2019::701])
+X-Spam-Status: No, score=-7.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on20604.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e88::604])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0CBF2F8003A
-	for <alsa-devel@alsa-project.org>; Thu, 11 Jan 2024 05:56:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0CBF2F8003A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7F4A8F80086
+	for <alsa-devel@alsa-project.org>; Thu, 11 Jan 2024 06:10:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F4A8F80086
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
- header.s=selector1 header.b=VqQTla4r
+	dkim=pass (2048-bit key,
+ unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256
+ header.s=selector2 header.b=GKC3I1MW
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gKuvzft5qKFBrlcWaQ4ZI9j+lDIX2SxhWEqgAg15Jxd9nfcDVF+oGnx9bU93toM4SWeHail3L8AmjfbTiOAxSAu+GIuBI97mmpdSEo3J25QTW/RYmi8xN2XaZFCYcsJO6FhEZHxtlIzkIYZuBB0qKc4HUYpBknm1uJV/zeCYEMNuIwQnCdclGrpNeDUmsqWoNIqzVBa54AWPF/hz37x/WHIagH6jtH+sinYrq+lB4++F5/iMGjQoHVj5azmIg0eBtP7iYOP2AyYlqur/9sVBZ6cHpixD6ZEiuterfsFgaUau7hB8OANYiwsFiubCfPYiUAzY5JRgVeIptOpYsiOVsQ==
+ b=nI3I5R8sNF2nZwu4wPvrU1FmHsrNTzbiwVmR0ykGswxoROFmS+Zvl06B8a6ywWHps3gO17bs6VJfBtsGZ4wBVPY9d/uWLaWpkCx7bK+rIZxFL4e72wFNgeRIQjhDErYic55Ul+kSpZelNzqEKKQSGpImXEkABnu2jax2Bz9joVQsFj9rxkN9Cl3G6snOZnuRGvw3izNChImpLmdWtlZelPCELdtDjr3kocpWkUw2mdQZRPeX2oi6TPrC4DHlFY0WhbsPyTBwRYelK3a03Rw1RhVYwuQmOHS2IiqW6Ek/GXfCvowqoMdShE6vJlte87E5zOd4q98fB1OIk9GVw6pWNQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uQO2xtqxGTEnmFNgtTllb24gDI0Z2NvjVDm/ZwuMyYA=;
- b=W7PrIxzBqvYb4XkhagOWeb3dHyEdaiJTMdQJYQPsa+iq0JsfmYOktZytsdNmPJS1N/URTUfRR9Obd+hDmIU1OV0N3vTpDF20pV0dkSNOAA+wnDTGgXBfRknTPBYHunRT025ixs3WBf/RBDSOLn4ioOkCflrSZ2DF6cJ8BmmCATbFYPlC3O0UcOz3oB2c/tJztIxpE7/DVwsp2tgtLvRQAnFQhy2aD4Qh+McP7umNq2WNAFNNo/M8fXJ2d04S9lisLMyck7Ur2hxpZLZHmG0K326wt4mPzEvbCvFYPbc4Co141lmkhZ6iu91m1z6hCt0sHxY4bqXvjajKRK0SQyQ1Ew==
+ bh=0N4XAJHecF9+OjWi1r/nPhXJtxy3CH4BGX9UCtAASm8=;
+ b=S00DqgmaT9LfPwzbJRjO1Igw0W4rNU6dhycDTxFewe0T6b96sJQsgXHBBq6XYBISyWWaI7lTo3MtOxp7s37af3Frp8iqu65JTnZeDt2NyoIRFCU7ihEpFpz/rS7t9pDZsPwBVGl+A5+3o90d2iSGiw9FEZRnZmVa53eujm9d3ssrwzkjSJyrxEJINMLVBQElf523/eWY5UXz6kFy7x5ySDvbXM2K9oYS3/lPFfgtmCo/9ruQ3V2P8DwTVxJ+mOe98pXeaWUfqTDYokuDYl2iBiM1KYjdcP5yDEaCbS7HXhnBdWNSO/LwhH07Lj3W8HWfwUQJVWTP+A8zL6/TbXgApA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uQO2xtqxGTEnmFNgtTllb24gDI0Z2NvjVDm/ZwuMyYA=;
- b=VqQTla4rQVQjlupiIN/KeJjC/6kaV/OMZ7w5eFTdAcTt4kJSEt+PkLXT6QCHbqyk6kfVib9Jqwgl5Cqa8d67mlB/fFy9wRTccQ7dqboeFkkNvJjZ0iUtGeYR4IQoiOtIAJmExEDlXxEOAUB9XsbCOC4ufE8APmoJLdIMUVh8uiY=
+ bh=0N4XAJHecF9+OjWi1r/nPhXJtxy3CH4BGX9UCtAASm8=;
+ b=GKC3I1MWajM/gf7w6z6ARaEQt3Nh47+9xS4RRoHdYWrWVfvbDyca3BLh77lSYXxPvNXEZKrE6ZR/wSjU4dT+AMCj4tSU/EHTDkF5kU1QC2IFSlu6C86Dspq8tDEzcu3VZp+yK2NWM+/SGku5iyUMr+D34RhNykTfp4Bcn2ZQ74NFJDkMDncztGs3MkqPSkFU1tnV2dWL8Dvs1fuR0ownoCAosAiBwU97kkaVbcP81BKIKl68Fgfu9/qAV5ZhdjgWrp5ynzH4JAvGkC48kAeZRS+xWCBBGYtoDmmiYl8kRHU9qE6ML9j/wUk8rGHUOQlcGHqRo3SV+2BI/mdWo9Hscw==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
- (2603:1096:400:3a9::11) by OS0PR01MB5587.jpnprd01.prod.outlook.com
- (2603:1096:604:b9::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.13; Thu, 11 Jan
- 2024 04:56:01 +0000
-Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
- ([fe80::91d:1bfa:edc4:1c5b]) by TYCPR01MB10914.jpnprd01.prod.outlook.com
- ([fe80::91d:1bfa:edc4:1c5b%7]) with mapi id 15.20.7181.015; Thu, 11 Jan 2024
- 04:56:01 +0000
-Message-ID: <87o7dswjry.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: Sameer Pujar <spujar@nvidia.com>
-Cc: Thierry Reding <thierry.reding@gmail.com>,
-	Mark Brown
- <broonie@kernel.org>,
-	alsa-devel@alsa-project.org,
-	devicetree@vger.kernel.org,
-	robh+dt@kernel.org,
-	Jon Hunter <jonathanh@nvidia.com>,
-	linux-tegra@vger.kernel.org
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CY8PR12MB7706.namprd12.prod.outlook.com (2603:10b6:930:85::18)
+ by PH0PR12MB8126.namprd12.prod.outlook.com (2603:10b6:510:299::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.17; Thu, 11 Jan
+ 2024 05:09:57 +0000
+Received: from CY8PR12MB7706.namprd12.prod.outlook.com
+ ([fe80::c6c5:6b6c:2422:b70c]) by CY8PR12MB7706.namprd12.prod.outlook.com
+ ([fe80::c6c5:6b6c:2422:b70c%7]) with mapi id 15.20.7159.020; Thu, 11 Jan 2024
+ 05:09:57 +0000
+Message-ID: <c868bce1-9a99-49d9-97cd-ead8d0295504@nvidia.com>
+Date: Thu, 11 Jan 2024 10:39:50 +0530
+User-Agent: Mozilla Thunderbird
 Subject: Re: Query on audio-graph-card DT binding
-In-Reply-To: <eeb61f8a-697c-425a-9873-b7b60c0a5558@nvidia.com>
+Content-Language: en-US
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: Thierry Reding <thierry.reding@gmail.com>, Mark Brown
+ <broonie@kernel.org>, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, robh+dt@kernel.org,
+ Jon Hunter <jonathanh@nvidia.com>, linux-tegra@vger.kernel.org
 References: <dfe363ef-4638-4b5e-8308-73e286ac0b50@nvidia.com>
-	<ZZblyhfzQjzyoUc_@orome.fritz.box>
-	<42c0c4fa-585e-4194-bbe4-e0377c87e632@sirena.org.uk>
-	<3faec2e9-8cd9-46f9-8807-801922de0edf@nvidia.com>
-	<ZZe5sTNz005Tt4jk@orome.fritz.box>
-	<8241c953-8ae5-4f26-b108-fccf826ed87a@nvidia.com>
-	<875y03i739.wl-kuninori.morimoto.gx@renesas.com>
-	<e7f9085d-9db1-4c5e-9940-e461835b20aa@nvidia.com>
-	<87il42gkua.wl-kuninori.morimoto.gx@renesas.com>
-	<cde6d5d5-b6ab-4c64-93f8-78d721a492bb@nvidia.com>
-	<8734v4y9yu.wl-kuninori.morimoto.gx@renesas.com>
-	<eeb61f8a-697c-425a-9873-b7b60c0a5558@nvidia.com>
-User-Agent: Wanderlust/2.15.9 Emacs/27.1 Mule/6.0
-Content-Type: text/plain; charset=US-ASCII
-Date: Thu, 11 Jan 2024 04:56:01 +0000
-X-ClientProxiedBy: TYCP301CA0033.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:400:380::17) To TYCPR01MB10914.jpnprd01.prod.outlook.com
- (2603:1096:400:3a9::11)
+ <ZZblyhfzQjzyoUc_@orome.fritz.box>
+ <42c0c4fa-585e-4194-bbe4-e0377c87e632@sirena.org.uk>
+ <3faec2e9-8cd9-46f9-8807-801922de0edf@nvidia.com>
+ <ZZe5sTNz005Tt4jk@orome.fritz.box>
+ <8241c953-8ae5-4f26-b108-fccf826ed87a@nvidia.com>
+ <875y03i739.wl-kuninori.morimoto.gx@renesas.com>
+ <e7f9085d-9db1-4c5e-9940-e461835b20aa@nvidia.com>
+ <87il42gkua.wl-kuninori.morimoto.gx@renesas.com>
+ <cde6d5d5-b6ab-4c64-93f8-78d721a492bb@nvidia.com>
+ <8734v4y9yu.wl-kuninori.morimoto.gx@renesas.com>
+ <eeb61f8a-697c-425a-9873-b7b60c0a5558@nvidia.com>
+ <87o7dswjry.wl-kuninori.morimoto.gx@renesas.com>
+From: Sameer Pujar <spujar@nvidia.com>
+In-Reply-To: <87o7dswjry.wl-kuninori.morimoto.gx@renesas.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA1PR01CA0172.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:d::16) To CY8PR12MB7706.namprd12.prod.outlook.com
+ (2603:10b6:930:85::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYCPR01MB10914:EE_|OS0PR01MB5587:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4a776c36-1574-4eed-1a71-08dc12619bb6
+X-MS-TrafficTypeDiagnostic: CY8PR12MB7706:EE_|PH0PR12MB8126:EE_
+X-MS-Office365-Filtering-Correlation-Id: 49fd2f67-f060-48a9-bfb8-08dc12638dcd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info: 
-	nSqmsAUvHSd8EA8oTmB7dY7i7nna2MWjX/kJHrAkTejvog9FYGi7vxAkswmIfQIm3VZM2OU8Hx7CiBce0UWOG8WEssHakX//qoIs4gBjYblWJjcpmXgwjc6/K2WhklHtW1ZnOKqRe6LW58+Y1gimP6j90jDj99qb3bxtrhMsHPC1Ba1wNkqDcJ8Cb1cy2qhh8AbusLaRpz44aIaCBGP+09WJMwA2qF5jYUzta6OiNMpsMOrRNKMfTCwN3ltiygGYx9gB0/LK9/NHxvZP0VckAbwpgh40yQ8RWEkkxdQG6+42KhJaS5PCCHUAu4xxnEHAUfUwR7IVRq3r3tKWQ6T3KwiYnr+4arHqLlFQp0xaQVSmrbjatJ6E7dGXkXQkYE+sGYjjA6aaigTjqxw6SqVT4QG3O3y3D+IxxZJA5lBpmqWzF9EtK0q5avkFK8O8mv4+Bgip4xtMCwrcSa/aSp3u18sFl5XuVeKipquKOZcmFml4ryWu/+pjW0ASt/91jkHyVj+7cp92DxkVa8INBM4TicRoBMsYTvaRplFCeUHgtgdcz6xIWhUaCa7T/oGJQovw4UWM+McoMJLUDbz3TOYOzG7zpNgsvx4MUrJU7qSa6CsIctiBf5ijf0KL0Hhann6IDbCw2iEC4RFoSprPNuP1YA==
+	78+oz7RXVBJeNzniai4RxnPPQeSbw/BYJFdBOk13gfYM1JJgsqAnQvbbqJxBwnS6xOILf7zez/ZmVfuG8hKLWk5PVHGhy1+jCSntNyzdwc8/tP9DutA/pMfhWQY9Q1gn6MgdDou/HNf+7K6W1erqfspenmgs5mF7u68WoEQ6ktgCpi+Fx81ViJ5/Dazkqotdw1I+mGz7lRvJoJdcjKTZYLAwsq2FGUu0KdKNDdjrwzboxgXgf5c+Y7BgRtiUohfEtUPdDEKyVtPh0U/16CQ02Iawm4cI+WhRrvU5eD8alWKljsovODytgGPzXGDoYWqcy8mbPWfKud59ZgIob1DA7kIQRJE1LEP054zjnzo82d6X9vK2RhqInFzzTeRQ5Q1AZM6xb0R7JAb8Sjm0vFOE/+s6qZcQ65RxwZv4UvEIBiDhqewXBkvApJQtSyynitoT9s2+P8ErqQ+LOOyf2lvUhTpKgn6+r+Wl8jC8ZhmDuf4HzfqIqWQguX2gbZAo6HJ17oBHX5BQskCr2uEoWYybIq/VsmlZJxfzAlsPaA5C+dJRkyFSCJrl5xKKimH6WCzizRb/eeqMw6E/f7f7hyVP52Edf/hGXsraub9Dvip+c75JujHzCo7Bs8j2XOT9x7bJPHGU4Ry9T0dof5qJoVxfu1WU62ZTn3vPM0D4IOh1FLWj9qTGHhaa5r5sHw6YYPA9I7Ex8nw0TSH+31jw69F41JPkJo0xNwRW6cJ1pHEL+Rg=
 X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB10914.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(136003)(39860400002)(346002)(396003)(366004)(230922051799003)(1800799012)(186009)(451199024)(64100799003)(2013699003)(6486002)(478600001)(54906003)(316002)(8936002)(8676002)(66946007)(66476007)(4326008)(6916009)(66556008)(2906002)(4744005)(86362001)(5660300002)(38350700005)(36756003)(41300700001)(2616005)(52116002)(26005)(83380400001)(6506007)(6512007)(38100700002);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR12MB7706.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366004)(346002)(376002)(39860400002)(396003)(136003)(230273577357003)(230173577357003)(230922051799003)(64100799003)(451199024)(186009)(1800799012)(31696002)(38100700002)(41300700001)(2906002)(36756003)(86362001)(54906003)(316002)(6506007)(6486002)(53546011)(6512007)(66946007)(66556008)(66476007)(6666004)(8936002)(83380400001)(478600001)(5660300002)(4326008)(26005)(6916009)(2616005)(8676002)(2013699003)(31686004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?ksZ+XUcfGuShS5xdM1g9FYLYq4iX1zcpSFnAz0/C1W0PFE3LjW3JgjVkCRZ9?=
- =?us-ascii?Q?CMpiEqm7vYB8wFFJ0TI+c2q4bUUiAHwZL4ysFjsLaN7xW7XqJu43nI8A7rMH?=
- =?us-ascii?Q?mDv68yu03j/fEz2ccERqLoRhX1oc0HdatyGVhj8WAit8joLtzVrh8Gp/wfFJ?=
- =?us-ascii?Q?oaid9+8lnPNHjV9NsS3nJf38RMmgajmypQ8TbAHgpaBPjCkgcuWctpGrbdvP?=
- =?us-ascii?Q?2D7EbM7ectoM0T1zF4uPxamP+AvYtsIrX3UXOIyhl7Fg6U9kTD9H0vZt4mSy?=
- =?us-ascii?Q?mZzSI9c4IZu1m7YPUgcwbjTJG6CNe9cm5gIIfcZ81GUh7jpz147lYCDWXVXb?=
- =?us-ascii?Q?GUa2hHNYtMbMAU9Ywl7H3lFMw8raKMLpHVye6+dtfNQoTjXhaFNdLDmGrqo+?=
- =?us-ascii?Q?J57+5NYAyDjFWfr34SSIPQMq9OTKS5XHUy5mddGxL8LF02qddqhjnLYMnam+?=
- =?us-ascii?Q?gk8wq7SeAoyQITJJCkedbFnHGGdyzhWPiOozK1XwrbAfOfcxYhI3De8KIrmM?=
- =?us-ascii?Q?wEDVebcTa+uENK9OwlDaBTZu4HXSVH/+2U6vH4yQrmTV/jwVVFO5N/45cthX?=
- =?us-ascii?Q?3WlmDUw1ob0zFIVZ1mLSh5ooxp7v4onTBLBy9Wa5b0FIECgsrmYaQKiqL9M4?=
- =?us-ascii?Q?638FpPmDeQGfcNsAMsfFvi/OONdTnBLKSNLvvtNLZ00JuFBcHkZO4SCAjLDn?=
- =?us-ascii?Q?9fOwb+X8mIE+VINxPoCOcwr4NQjbmVgSmYHNhwTIcvjYJdH5u1y63q+K6PMd?=
- =?us-ascii?Q?ApimbPnqunzqYA+WlAjp5tsqu9Cqnq80O9pVkRyD68FZVmfVHEbYeZLPWkwB?=
- =?us-ascii?Q?fcOJa59LQfqNPgC/B+ovrGJXTrQ3thbxIV83+legF0g1vgpk/VyU7q+9skyz?=
- =?us-ascii?Q?ip9ZD4iJcQll0l5HWRjJ3x16go1du8vwooOpbm8LV68wShg/A95N0Cil5TNz?=
- =?us-ascii?Q?NZJrObvfxTmavJzxUMKVKF/AeZ3qLpCYGvrRdv16ZiUNGsL8zMXiyvpOFpRo?=
- =?us-ascii?Q?zVxB6z5nVGnAeyszuzEtNfOeWmuFSXjJasnbVJKmvhq8hVUHqsyF4AXpWiRc?=
- =?us-ascii?Q?Qrmb/Wee5OeF2dAF0vy6+bd2efrZJQl8FnjnH4LRbB5AS7lo83iMGlpUj7Wt?=
- =?us-ascii?Q?ChUlvRmQ3NhnDMBCVmthV1BBlIUhOOKlrHoOcDglIht4AI3P8AzDFgZzuukd?=
- =?us-ascii?Q?3FmUPlKjbpBt5lIpnF3Dhd9JSrzX+KWW6yl/rreWipQO+kh/Bx1Af9YNPcrF?=
- =?us-ascii?Q?GDD8I4wJBB169erHafS9F/EMFUF4UsnYK71LvMJ9la33+pLinejQ8oL5l82Q?=
- =?us-ascii?Q?P26hXA87RXHKqD+wycFu8fqV7l+zn9m02Y1xrI+ub/xBTRsqKmMAu/toLssq?=
- =?us-ascii?Q?q3W5KdQs2Lqv+JAim1VwYpxzeEjCD+Opx8mjz9SQvPNQmyOF33mUX3W1B+yK?=
- =?us-ascii?Q?l9LKy0PKnm8APk8Y+GMlWtpLwi+A+CCto/uf4nL8ecNGDoQGXlJgxKwaeW3l?=
- =?us-ascii?Q?86BiSRF4vREdpyowALQI/klrHwkmMHJw2IAymO/VpRqkiJRKu33HIgHJgu6g?=
- =?us-ascii?Q?VQ5tKCaNtEsJQP87Z0Ue2airGSNDbIANZ5wK9gUEggUBwWZ5CRlbLF0jeGdw?=
- =?us-ascii?Q?3fhJOZefjhPGB0vZm62aA6Q=3D?=
-X-OriginatorOrg: renesas.com
+	=?utf-8?B?azBXdU5ESjNnQndhM2QrZnRRaDJtcmNoNWJ6cnJ6VzBtOXRGWDgwQXEvU2Rp?=
+ =?utf-8?B?NEVhUitpYVpScWY3UUFvRHdUNXVvL0M3ZjJhL2FJQXlHeWMyUHpPb3N2K2s4?=
+ =?utf-8?B?TkpCQ0hQVGxzZE9YUG1adk5tQVpZanZUczhTTDVWdGVyZ05HMy9TZFZOYWRj?=
+ =?utf-8?B?ZGNRVjZWQjB3YzlwYTJFc0xHWXJWaXE1SHYvOFRvWTltaytLQldvc3lCT0JZ?=
+ =?utf-8?B?Nk5XVG9mVXZFdTVrLzJmSHBoNWlIQkxESlFTa2dMR2l1SG5LRXp4eDFuWXBl?=
+ =?utf-8?B?Uk9vUG0vemtKeEdQU3ZaWGZkQklFNW1KTlFNVDY3V3A4ZStmMHhGclZpbnJz?=
+ =?utf-8?B?a0NrU0hGNm9weW5VQ0x4Q2NyOHovL21acnhWTjJzQUNpSkNaazJRVHE1K1J6?=
+ =?utf-8?B?Zks1emo3Q01pd2Y1VUhUZVMxQ1ZOSDRsRlJGK0Zab2RPNHlhQjFrUUJuOFVZ?=
+ =?utf-8?B?bXYvOTIwSWtaNXV2Y1dibFYzL3ozRStkZ05KZ3lycUlVYU8yZUNtOW9lTFNa?=
+ =?utf-8?B?eldoSmdrWURmOWJHWnlpbzBRZHJ2bktjMUVqcXpCZVlMcjczeVBVM2tjZFVQ?=
+ =?utf-8?B?MTZGbVJiTFRQaHdhc1ZIRyswOUYreHkzVmtNS3BaSnZqWnNZaERZaFo1aUM2?=
+ =?utf-8?B?R1dFckoycEdETElRN3BzeVlRYnJRQzhSOGJTVmplaFpCMFBTSGtMRENLQVJL?=
+ =?utf-8?B?L0F6d1Npb0JFd2hFN3kyM2gyNEMrVHltcTlCRko3RVNtSlBGbWJhWU40U3ZP?=
+ =?utf-8?B?NWJ0M095a2tOZmc3MGpvUklWRFhDcGVMaWdhQjIrMjJLTk03bHBsNkxtOXNS?=
+ =?utf-8?B?SzBOT3NUdUxwcXBTWHdaSVlnU3FyMmdQK3grb1ZkMjBQQWR1aTh6QkVlQlpF?=
+ =?utf-8?B?RjNlTTlGcUhsVTB4QkJ4Q1phY0szTDFUSXVrMWJZcTBCa3BNK2VLcG1pTkR5?=
+ =?utf-8?B?VFZRTkJnbmgwaWo2YmIyUW9QVHhqaFBPNnJ6ajNDNkZQaml4Ti9NZ1Y0YXVR?=
+ =?utf-8?B?QnFudDkzZXJ6UzRzMmdGVWVlQjE0TmtodkpNdy90Tnp4dDgzZG9WbTNwSzZq?=
+ =?utf-8?B?eFpLQ3FOUmNKVE5BMzNWYnRScERWSC91SFRHczM3eTRQTmorNWlFczVoaHAr?=
+ =?utf-8?B?OTQxNEZGUDJuVlE1c1hUUnJmQkgzTjI5ZVpFazh1ZkRIUlpjM2pLQlJscGt5?=
+ =?utf-8?B?Zlp5QWo3NmFTSXk0b3B5UjhQeVdQZFRmcVkyb2FRSFpPMHlPOWRDUFZMVjFs?=
+ =?utf-8?B?YU02dXlCUGpmUUU3VlJDTEtZZFdPblZYaURtZUNEMURPWFdwYzZEOHFCd0dV?=
+ =?utf-8?B?aXJEbnBoeENSYnBBcVluREdJd3F2aDVkN0NQL2FmUWVQcWVQa2RNYnlEcnFj?=
+ =?utf-8?B?TXUra05UYk9ObndqRHh2a0Frckh4VFp4OGVBK1JtQlhydlA1SGRZRWNvOWtm?=
+ =?utf-8?B?dzZTRTYrcGpXbGdZaVdWckRoTEplS005NzNrSmg5akhyaWUzQUNRQjN1aEJT?=
+ =?utf-8?B?Rjd5SHNGMmtNZkZFY3YvdGtxdGxFSU43ZHU4TWw2UnUrdU9NWTgrdjh0V1N6?=
+ =?utf-8?B?N1RPTG0vQ2FGWDZyR2IwdHVKV3liZTFmTTV2YlpVTWZVVittS1hNVldkV2F6?=
+ =?utf-8?B?VzhjdzkvZnhWNTB5ZHVQUXpZTEtoTkxUQXlpN21xaDRHQjh5U3VuSHdQUTF2?=
+ =?utf-8?B?SUJnWU96ZEFtTW5wY1lUdGJIbEtrRGlKeUFnazlHYUo4M055OS9yM3NjS0pp?=
+ =?utf-8?B?QXIyRjhWaFF1QWlZNDNBQmpESlgyWXpGQVpaLytrZjUrbFhHdHRpOTBvOXN0?=
+ =?utf-8?B?amsybHpUU01uRXNJYUp6SXpFM3BvY0xkSFdkeXlhWHlVK0NpckJnZGJHLzJp?=
+ =?utf-8?B?Y05FVUE2QW9sUno3bjFXNkZaMEl4L1krN3BkSnRPbFFQWjRKaXVmQXhUaUF1?=
+ =?utf-8?B?ZytQV3JHUEd2aDRicStuaXgrMzhGT1F5aUN0cmkwNUJUU1JKQmxkSW5uZlhQ?=
+ =?utf-8?B?bUkxVllMOEhmRWJDcHBqY052Z2orSzVWQ2hkZk43cnJvOW5pU0FUaU9MZVFi?=
+ =?utf-8?B?Lzg3Y0lES3lnZks1Z29mcUQvMGlRN2xYMUxLQ1htMXNnbGdva2tDZ0xSc3p2?=
+ =?utf-8?Q?DyLaQij41vu021Bq3aiup5TVs?=
+X-OriginatorOrg: Nvidia.com
 X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 4a776c36-1574-4eed-1a71-08dc12619bb6
-X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB10914.jpnprd01.prod.outlook.com
+ 49fd2f67-f060-48a9-bfb8-08dc12638dcd
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7706.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jan 2024 04:56:01.4851
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jan 2024 05:09:57.3459
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
 X-MS-Exchange-CrossTenant-UserPrincipalName: 
- twfZnCMnCOtCbMHWEct5GpcBeYJoBc4xxdnxrU+Gcggzn64LwJrDB05oOLG9WvGwj3tOQ7JDLsFoy9Armf5F8oir3Fs8HUOrQp+CvFi1nZGxRT2P9lP7sh2b6/YHYZKS
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS0PR01MB5587
-Message-ID-Hash: YYLEF4FPFDCVYAREXFZFNTYQRBCPA3P3
-X-Message-ID-Hash: YYLEF4FPFDCVYAREXFZFNTYQRBCPA3P3
-X-MailFrom: kuninori.morimoto.gx@renesas.com
+ divt0C8rZbba+2GKFzShbXHEQj1xtsSXboWJiP6sbnpFKU8+LQ8GjdnLQ5tMivHlNSZ+JdSDisUHd15qbHuEiw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8126
+Message-ID-Hash: YKXH75A7NVXIPIQWEHM3UNZRJNINKFRF
+X-Message-ID-Hash: YKXH75A7NVXIPIQWEHM3UNZRJNINKFRF
+X-MailFrom: spujar@nvidia.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -169,7 +176,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YYLEF4FPFDCVYAREXFZFNTYQRBCPA3P3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YKXH75A7NVXIPIQWEHM3UNZRJNINKFRF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -179,29 +186,29 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
-Hi Sameer
 
-> >>>           port {
-> >>>                   cpu_endpoint0: endpoint@0 { remote-endpoint = <&codec1_endpoint>; };
-> >>>                   cpu_endpoint1: endpoint@1 { remote-endpoint = <&codec2_endpoint>; };
-> 
-> You expect this endpoint to be exposed by driver right? Or are you 
-> suggesting nothing needs to be done in the driver for this endpoint?
+On 11-01-2024 10:26, Kuninori Morimoto wrote:
+> External email: Use caution opening links or attachments
+>
+>
+> Hi Sameer
+>
+>>>>>            port {
+>>>>>                    cpu_endpoint0: endpoint@0 { remote-endpoint = <&codec1_endpoint>; };
+>>>>>                    cpu_endpoint1: endpoint@1 { remote-endpoint = <&codec2_endpoint>; };
+>> You expect this endpoint to be exposed by driver right? Or are you
+>> suggesting nothing needs to be done in the driver for this endpoint?
+> If you use Card2, and if it is normal Codec (= not HDMI sound)
+> basically you need is only DT settings, no driver patch is needed.
 
-If you use Card2, and if it is normal Codec (= not HDMI sound)
-basically you need is only DT settings, no driver patch is needed.
+Is it possible to have similar behavior with audio-graph-card?
 
-> > Sample is for 2:3 connection, but it should be OK for 1:2.
-> 
-> For 1:N connection, how many DAI links audio-graph-card2 driver creates?
 
-DAI link max is based on ASoC.
-I think you want to know is connection N max. It is basically no limit
-on Card2
+>>> Sample is for 2:3 connection, but it should be OK for 1:2.
+>> For 1:N connection, how many DAI links audio-graph-card2 driver creates?
+> DAI link max is based on ASoC.
+> I think you want to know is connection N max. It is basically no limit
+> on Card2
 
-Thank you for your help !!
-
-Best regards
----
-Renesas Electronics
-Ph.D. Kuninori Morimoto
+No, that is not what I am looking for. Let me please try to rephrase this.
+Does audio-graph-card2 driver creates N+1 DAI links or a single DAI link?

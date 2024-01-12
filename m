@@ -2,157 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B2F882BB92
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 Jan 2024 08:18:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 823C582BC27
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 Jan 2024 09:06:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D8C0EEA3;
-	Fri, 12 Jan 2024 08:17:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D8C0EEA3
+	by alsa0.perex.cz (Postfix) with ESMTPS id DCF12B65;
+	Fri, 12 Jan 2024 09:06:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DCF12B65
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1705043885;
-	bh=PrUc8DxzvWA0vcT+3P+C9pLUrWgJa/4KB9iOM6fCOD8=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=QzjFptqWOKS0RYL2iWA2dln6eU4IMdSABZFwnuG9y45eucetWArdOQhn3QO3qQMkV
-	 /KSnQ0T256nNEmt6xpWd5Dzo5XK+S3DtqrHfqaPYePClrL/Ghyt8FTbTVXuck+kLFR
-	 dE/UiuQABlbuXAqqYSV1xicIgcr2Y0pk4OY/WgmE=
+	s=default; t=1705046772;
+	bh=Uv6Ype/eC4lHKRzgMxquVIgBBZeHuFiDJm+CmozdVpA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=FFvYWFm36e5cO34d487Kcck6u2ARvo1p8s48Q1w46mRkpGq24yl/wLjAqS1U7gK4g
+	 mkrSgKoVNZNEUKSbEY0YcIbp8vz3zc8LeHxUPwhjyj10Oy8JC165e4HUtc3IqxY+tx
+	 B1ZzfAztdfCdMDvo1PLQNLQTCyRD5pg9aPWUaquQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 97485F805C5; Fri, 12 Jan 2024 08:17:20 +0100 (CET)
+	id 84BA1F80564; Fri, 12 Jan 2024 09:05:41 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B7AEEF805BF;
-	Fri, 12 Jan 2024 08:17:19 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C0B4CF80564;
+	Fri, 12 Jan 2024 09:05:40 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8A449F80254; Fri, 12 Jan 2024 08:14:24 +0100 (CET)
+	id 1E0A9F80254; Fri, 12 Jan 2024 09:05:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [IPv6:2a00:1450:4864:20::433])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-7.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 53A76F80086
-	for <alsa-devel@alsa-project.org>; Fri, 12 Jan 2024 08:14:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53A76F80086
+	by alsa1.perex.cz (Postfix) with ESMTPS id 81634F80086
+	for <alsa-devel@alsa-project.org>; Fri, 12 Jan 2024 09:05:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81634F80086
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=DH+iXNIG
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-3373bc6d625so5087887f8f.3
-        for <alsa-devel@alsa-project.org>;
- Thu, 11 Jan 2024 23:14:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1705043660; x=1705648460;
- darn=alsa-project.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=pO8yskQ+wiZb8dWLml0fvQDWP9QnZ411FtZvYaQ7ez0=;
-        b=DH+iXNIGk4WgYpmYVbXQfAoRYdHcRwRYKzew53TX+z1U6GyTOwC0yP4GpkMHtWZge3
-         c3LU2aiiBcEBlJ+J12XmEkkzpKYaMHI4h8q1F0Tmrdw0pjlHMydnTISDXiuS7e1YPcQE
-         7gNVemUTYwteOB6mvHLD+lhGQdEK7AOMUBcFlMvJ0NiujUHD/NjPux3ll1peke97AtDl
-         dUjNc0VsQEhJ2Q3F3cqTizG6CvMMKI0u161ESHka8qJIt2tnT7aXVDMqxHuEyjdhwkIT
-         hhFtE7ToxBxRWGsG9E5t78diT9Z8LDbOZINuMUhFpWvrDokf13DA3dxVIRjaTjjDzXNU
-         x5aA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705043660; x=1705648460;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=pO8yskQ+wiZb8dWLml0fvQDWP9QnZ411FtZvYaQ7ez0=;
-        b=cADyo5L5O+xVnpURbccKDc81BvvI8qOc0JehcSXUgYLyTby9iP1i/s6wCD0CzBOSX1
-         52S0M/BnUSjPcitO+Da/7zX7tBn/swHkMSotiTWBHfH6aqwZGH/YROcJVmLyZFfZsuz1
-         HxJALJ50du9k02AeTvZpRPdoo8iZxAc8CDLbkTgPwoJGxJB9fljBHef/YvA1ykHDO+zI
-         J8x3J6WO4OR9U1iDUfwxnh+7Ws7VlaRBmd1wcRbNot6vtGXbjxaDzxdE9c07K6P6ZLrZ
-         z1yScxDVVj3dFN5mzdnE7QcVUhQzbnbKnALr0FGd2Kbph87AbVFsI/1kMdNGyErDkJwo
-         MWiA==
-X-Gm-Message-State: AOJu0YymA5siALW7lCPE20RneXoVQ0nwllA87BcMsarC/dopmke2ix+v
-	3gdATynSQZl9Rp+lazKu5cLbB3+p+JrFPw==
-X-Google-Smtp-Source: 
- AGHT+IG/gm0nC27MHjndVZqBTFlAqUKdyTn7WB4Vs6PRjFVCWcv2wdL6rjCIRGvrCjWD71IGZbBtEw==
-X-Received: by 2002:a05:6000:137b:b0:336:7885:fff7 with SMTP id
- q27-20020a056000137b00b003367885fff7mr472388wrz.52.1705043660497;
-        Thu, 11 Jan 2024 23:14:20 -0800 (PST)
-Received: from [192.168.1.20] ([178.197.223.112])
-        by smtp.gmail.com with ESMTPSA id
- f6-20020adfb606000000b00336aa190139sm3018880wre.5.2024.01.11.23.14.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 11 Jan 2024 23:14:20 -0800 (PST)
-Message-ID: <1fba162e-8f59-4e99-8197-94ccb9d7d914@linaro.org>
-Date: Fri, 12 Jan 2024 08:14:18 +0100
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=m23UwYJd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1705046717; x=1736582717;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Uv6Ype/eC4lHKRzgMxquVIgBBZeHuFiDJm+CmozdVpA=;
+  b=m23UwYJdI9bn0KF1KxSb8FocBQnjFDvO9qq5O8/kiIDFtXiXp+WzPZg5
+   aZjIHu+41om3RngOs5gRKvrwfKpkT+g8nzF6Pr568Jg7uZBUc57V7UVTB
+   OIK5R+oY5NEXoitgPeyF/FFhWfGAHkzmkGafEOhuOEsdeJx3ncoTQB1kR
+   imacsHIn3S7/uIwDrApeOp87oRevFo5UEKRSqBAkM1JQHmiRXvmIabfoT
+   74xWsnKQqRjmyhnNaRPEfPFMBm8s4tedOX1vWyJOSZmM4R+fzbODNn3r4
+   y2wpIvciAb1B8BJzOkjXy7NibEhbzyHmyrLN2DH6v2ulCzdGK0FK7P13J
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10950"; a="20577917"
+X-IronPort-AV: E=Sophos;i="6.04,188,1695711600";
+   d="scan'208";a="20577917"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jan 2024 00:04:55 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10950"; a="926312678"
+X-IronPort-AV: E=Sophos;i="6.04,188,1695711600";
+   d="scan'208";a="926312678"
+Received: from lkp-server02.sh.intel.com (HELO b07ab15da5fe) ([10.239.97.151])
+  by fmsmga001.fm.intel.com with ESMTP; 12 Jan 2024 00:02:34 -0800
+Received: from kbuild by b07ab15da5fe with local (Exim 4.96)
+	(envelope-from <lkp@intel.com>)
+	id 1rOCUR-0009DU-2u;
+	Fri, 12 Jan 2024 08:02:20 +0000
+Date: Fri, 12 Jan 2024 16:01:55 +0800
+From: kernel test robot <lkp@intel.com>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	lgirdwood@gmail.com
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev, broonie@kernel.org,
+	perex@perex.cz, tiwai@suse.com, matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com, ribalda@chromium.org,
+	nicolas.ferre@microchip.com, u.kleine-koenig@pengutronix.de,
+	kuninori.morimoto.gx@renesas.com, nfraprado@collabora.com,
+	alsa-devel@alsa-project.org, trevor.wu@mediatek.com,
+	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH 6/7] ASoC: mediatek: mt8192-afe-pcm: Simplify with
+ dev_err_probe()
+Message-ID: <202401121548.rwSkkCvR-lkp@intel.com>
+References: <20240111105247.117766-7-angelogioacchino.delregno@collabora.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] ASoC: dt-bindings: fsl,micfil: Add compatible
- string for i.MX95 platform
-Content-Language: en-US
-To: Chancel Liu <chancel.liu@nxp.com>, lgirdwood@gmail.com,
- broonie@kernel.org, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- conor+dt@kernel.org, shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com,
- festevam@gmail.com, nicoleotsuka@gmail.com, perex@perex.cz, tiwai@suse.com,
- linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- linuxppc-dev@lists.ozlabs.org
-References: <20240112054331.3244104-1-chancel.liu@nxp.com>
- <20240112054331.3244104-4-chancel.liu@nxp.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
- 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
- D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <20240112054331.3244104-4-chancel.liu@nxp.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: 5VODGFSGJEN23GIRXOSAW3ARTEQ3YHNU
-X-Message-ID-Hash: 5VODGFSGJEN23GIRXOSAW3ARTEQ3YHNU
-X-MailFrom: krzysztof.kozlowski@linaro.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240111105247.117766-7-angelogioacchino.delregno@collabora.com>
+Message-ID-Hash: CGQKYIPBQWJ42VY23UZFNVJJEKAMQIZT
+X-Message-ID-Hash: CGQKYIPBQWJ42VY23UZFNVJJEKAMQIZT
+X-MailFrom: lkp@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -164,7 +106,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5VODGFSGJEN23GIRXOSAW3ARTEQ3YHNU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CGQKYIPBQWJ42VY23UZFNVJJEKAMQIZT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -173,14 +115,187 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 12/01/2024 06:43, Chancel Liu wrote:
-> Add compatible string "fsl,imx95-micfil" for i.MX95 platform.
-> 
-> Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
+Hi AngeloGioacchino,
+
+kernel test robot noticed the following build warnings:
+
+[auto build test WARNING on broonie-sound/for-next]
+[also build test WARNING on broonie-spi/for-next tiwai-sound/for-next tiwai-sound/for-linus linus/master v6.7 next-20240112]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/AngeloGioacchino-Del-Regno/ASoC-mediatek-mt8173-afe-pcm-Convert-to-devm_pm_runtime_enable/20240111-185734
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+patch link:    https://lore.kernel.org/r/20240111105247.117766-7-angelogioacchino.delregno%40collabora.com
+patch subject: [PATCH 6/7] ASoC: mediatek: mt8192-afe-pcm: Simplify with dev_err_probe()
+config: arm64-allmodconfig (https://download.01.org/0day-ci/archive/20240112/202401121548.rwSkkCvR-lkp@intel.com/config)
+compiler: clang version 18.0.0git (https://github.com/llvm/llvm-project 9bde5becb44ea071f5e1fa1f5d4071dc8788b18c)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240112/202401121548.rwSkkCvR-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202401121548.rwSkkCvR-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> sound/soc/mediatek/mt8192/mt8192-afe-pcm.c:2284:46: warning: more '%' conversions than data arguments [-Wformat-insufficient-args]
+    2284 |                         return dev_err_probe(afe->dev, ret, "dai %d register fail");
+         |                                                                  ~^
+   1 warning generated.
 
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+vim +2284 sound/soc/mediatek/mt8192/mt8192-afe-pcm.c
 
-Best regards,
-Krzysztof
+  2172	
+  2173	static int mt8192_afe_pcm_dev_probe(struct platform_device *pdev)
+  2174	{
+  2175		struct mtk_base_afe *afe;
+  2176		struct mt8192_afe_private *afe_priv;
+  2177		struct device *dev;
+  2178		struct reset_control *rstc;
+  2179		int i, ret, irq_id;
+  2180	
+  2181		ret = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(34));
+  2182		if (ret)
+  2183			return ret;
+  2184	
+  2185		afe = devm_kzalloc(&pdev->dev, sizeof(*afe), GFP_KERNEL);
+  2186		if (!afe)
+  2187			return -ENOMEM;
+  2188		platform_set_drvdata(pdev, afe);
+  2189	
+  2190		afe->platform_priv = devm_kzalloc(&pdev->dev, sizeof(*afe_priv),
+  2191						  GFP_KERNEL);
+  2192		if (!afe->platform_priv)
+  2193			return -ENOMEM;
+  2194		afe_priv = afe->platform_priv;
+  2195	
+  2196		afe->dev = &pdev->dev;
+  2197		dev = afe->dev;
+  2198	
+  2199		/* init audio related clock */
+  2200		ret = mt8192_init_clock(afe);
+  2201		if (ret) {
+  2202			dev_err(dev, "init clock error\n");
+  2203			return ret;
+  2204		}
+  2205	
+  2206		/* reset controller to reset audio regs before regmap cache */
+  2207		rstc = devm_reset_control_get_exclusive(dev, "audiosys");
+  2208		if (IS_ERR(rstc))
+  2209			return dev_err_probe(dev, PTR_ERR(rstc), "could not get audiosys reset\n");
+  2210	
+  2211		ret = reset_control_reset(rstc);
+  2212		if (ret)
+  2213			return dev_err_probe(dev, ret, "failed to trigger audio reset\n");
+  2214	
+  2215		ret = devm_pm_runtime_enable(&pdev->dev);
+  2216		if (ret)
+  2217			return ret;
+  2218	
+  2219		/* regmap init */
+  2220		afe->regmap = syscon_node_to_regmap(dev->parent->of_node);
+  2221		if (IS_ERR(afe->regmap))
+  2222			return dev_err_probe(dev, PTR_ERR(afe->regmap),
+  2223					     "could not get regmap from parent");
+  2224	
+  2225		ret = regmap_attach_dev(dev, afe->regmap, &mt8192_afe_regmap_config);
+  2226		if (ret)
+  2227			return dev_err_probe(dev, ret, "regmap_attach_dev fail\n");
+  2228	
+  2229		/* enable clock for regcache get default value from hw */
+  2230		afe_priv->pm_runtime_bypass_reg_ctl = true;
+  2231		pm_runtime_get_sync(&pdev->dev);
+  2232	
+  2233		ret = regmap_reinit_cache(afe->regmap, &mt8192_afe_regmap_config);
+  2234		if (ret)
+  2235			return dev_err_probe(dev, ret, "regmap_reinit_cache fail\n");
+  2236	
+  2237		pm_runtime_put_sync(&pdev->dev);
+  2238		afe_priv->pm_runtime_bypass_reg_ctl = false;
+  2239	
+  2240		regcache_cache_only(afe->regmap, true);
+  2241		regcache_mark_dirty(afe->regmap);
+  2242	
+  2243		/* init memif */
+  2244		afe->memif_size = MT8192_MEMIF_NUM;
+  2245		afe->memif = devm_kcalloc(dev, afe->memif_size, sizeof(*afe->memif),
+  2246					  GFP_KERNEL);
+  2247		if (!afe->memif)
+  2248			return -ENOMEM;
+  2249	
+  2250		for (i = 0; i < afe->memif_size; i++) {
+  2251			afe->memif[i].data = &memif_data[i];
+  2252			afe->memif[i].irq_usage = memif_irq_usage[i];
+  2253			afe->memif[i].const_irq = 1;
+  2254		}
+  2255	
+  2256		mutex_init(&afe->irq_alloc_lock);	/* needed when dynamic irq */
+  2257	
+  2258		/* init irq */
+  2259		afe->irqs_size = MT8192_IRQ_NUM;
+  2260		afe->irqs = devm_kcalloc(dev, afe->irqs_size, sizeof(*afe->irqs),
+  2261					 GFP_KERNEL);
+  2262		if (!afe->irqs)
+  2263			return -ENOMEM;
+  2264	
+  2265		for (i = 0; i < afe->irqs_size; i++)
+  2266			afe->irqs[i].irq_data = &irq_data[i];
+  2267	
+  2268		/* request irq */
+  2269		irq_id = platform_get_irq(pdev, 0);
+  2270		if (irq_id < 0)
+  2271			return irq_id;
+  2272	
+  2273		ret = devm_request_irq(dev, irq_id, mt8192_afe_irq_handler,
+  2274				       IRQF_TRIGGER_NONE, "asys-isr", (void *)afe);
+  2275		if (ret)
+  2276			return dev_err_probe(dev, ret, "could not request_irq for Afe_ISR_Handle\n");
+  2277	
+  2278		/* init sub_dais */
+  2279		INIT_LIST_HEAD(&afe->sub_dais);
+  2280	
+  2281		for (i = 0; i < ARRAY_SIZE(dai_register_cbs); i++) {
+  2282			ret = dai_register_cbs[i](afe);
+  2283			if (ret)
+> 2284				return dev_err_probe(afe->dev, ret, "dai %d register fail");
+  2285		}
+  2286	
+  2287		/* init dai_driver and component_driver */
+  2288		ret = mtk_afe_combine_sub_dai(afe);
+  2289		if (ret)
+  2290			return dev_err_probe(afe->dev, ret, "mtk_afe_combine_sub_dai fail\n");
+  2291	
+  2292		/* others */
+  2293		afe->mtk_afe_hardware = &mt8192_afe_hardware;
+  2294		afe->memif_fs = mt8192_memif_fs;
+  2295		afe->irq_fs = mt8192_irq_fs;
+  2296		afe->get_dai_fs = mt8192_get_dai_fs;
+  2297		afe->get_memif_pbuf_size = mt8192_get_memif_pbuf_size;
+  2298		afe->memif_32bit_supported = 1;
+  2299	
+  2300		afe->runtime_resume = mt8192_afe_runtime_resume;
+  2301		afe->runtime_suspend = mt8192_afe_runtime_suspend;
+  2302	
+  2303		/* register platform */
+  2304		ret = devm_snd_soc_register_component(&pdev->dev,
+  2305						      &mt8192_afe_component, NULL, 0);
+  2306		if (ret)
+  2307			return dev_err_probe(dev, ret, "Couldn't register AFE component\n");
+  2308	
+  2309		ret = devm_snd_soc_register_component(&pdev->dev,
+  2310						      &mt8192_afe_pcm_component,
+  2311						      afe->dai_drivers,
+  2312						      afe->num_dai_drivers);
+  2313		if (ret)
+  2314			return dev_err_probe(dev, ret, "Couldn't register AFE-PCM component\n");
+  2315	
+  2316		return 0;
+  2317	}
+  2318	
 
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki

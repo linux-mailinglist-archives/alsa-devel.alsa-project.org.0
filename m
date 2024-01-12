@@ -2,166 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E50EC82B7C8
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 Jan 2024 00:00:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30B0482B9E4
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 Jan 2024 04:15:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 250CFEB1;
-	Fri, 12 Jan 2024 00:00:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 250CFEB1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 87ED4EB6;
+	Fri, 12 Jan 2024 04:15:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 87ED4EB6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1705014045;
-	bh=225E5jmSKgZIwNXziCT6j4CwgN/NDy/2RIWoFJpS1HA=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:List-Id:
+	s=default; t=1705029343;
+	bh=cwgXaGkg+9dlKT7vM6fOfd1vb77DgMTDItkjEAJYj2w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=FtsjZAmQqv6tMvqpR9u2+1HQPmAMLiOhn8Gcdg/dRoy+LB4lJtDv5ycgiRaJuB/KO
-	 HlMn9VG5/g2uWOdBh128V7zJ2TvMqv+NkKXOXr1/1rIrZi/vRVLS1SI8TCVcuKHLf9
-	 0Qu8r7QRfTVb640+UJfMT5M+DE82CVbwV5A8khxY=
+	b=ZW3oliu+TsVNHsAR/0GN1mlcF5abcnUKyEEPkM49zCXjkpa7I5B8B2P5Sbp1Wq721
+	 PczMzceqwsYs7ZZGdQsK9AXDId6Lz0qDFJJqlq6/cYyDwmBHV1Lhnh/LKqNdVxUcvF
+	 esrbtoxsmb5DWAaunVWFEuOaldR/MO61wi3ItNVU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5AC83F80564; Fri, 12 Jan 2024 00:00:14 +0100 (CET)
+	id DFDA0F805AE; Fri, 12 Jan 2024 04:15:12 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9E2F2F80567;
-	Fri, 12 Jan 2024 00:00:13 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3DFC0F8057E;
+	Fri, 12 Jan 2024 04:15:12 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2E121F80254; Fri, 12 Jan 2024 00:00:04 +0100 (CET)
+	id E2912F80254; Fri, 12 Jan 2024 04:15:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from JPN01-TYC-obe.outbound.protection.outlook.com
- (mail-tycjpn01on20700.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2019::700])
+X-Spam-Status: No, score=-7.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6115AF8003A
-	for <alsa-devel@alsa-project.org>; Thu, 11 Jan 2024 23:59:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6115AF8003A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 56BDEF8003A
+	for <alsa-devel@alsa-project.org>; Fri, 12 Jan 2024 04:14:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56BDEF8003A
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
- header.s=selector1 header.b=CIvzcf4I
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=S/lFY1r6xGbz28iUKeKis04/cz5qaxxMjFBem0+djKPLZ/7786A7zY4rUEwQQDk/yzcSJ9igaecB2IXdQZhGO3Lh71r6KsmyCxYSf1rUfCSHnjpluHyHjyanPYIEYAuh1IVvXbbL1yaT8EaXlateawmSihl6frfBICacigV8ysarir5VIq4uzPkbG2EKHFPLG8kkbHPOejlkHo5ehW3+ctjHwXbMYtREcS72RtW589eEEdoGnhgQX77az+cF76yByEEZYxafp7lEdHp7lmacBtc9YMJvDwYZEdWoEXJyV1HjP7jWL8XfMbwSjuoXYFCP0298ty3nG+hWPNIDqDqqCA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oahWKV+V5rUxGDZGLa8hS9aKVdn/veEPi8DrAmrUllo=;
- b=lxKNr4bUlmuErC5Oehl3TfKIphqwPucVEuw5HvddGmqrAYV6npah/m7KoPlmh1UAmqOyiOvTXcyOHc7yT/i3xoQ3ZMj086nJcWenLHGuVozQBrB8YndCfLgZAQtKdBgZbJSOkQJCMyB+R1/wNsz2eYeTxkqZA9nAYBi//77p92ITCtEq+ClKXplsj9ObjIV17MV5C377uWbv2u4u9x3Cwx59wTy+GhU+oVo/XK/StxCi6GyLnJ7m2VP+pFwaFNtGInHN5GdmIurHZkMRXZjRW7PhZc5BbV5zMqTnhu7scDgVoYJx/7bK0N1CI9OT41RESlfpxipunI6kllAv7adYzA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oahWKV+V5rUxGDZGLa8hS9aKVdn/veEPi8DrAmrUllo=;
- b=CIvzcf4I7H0V7VqMaSLCYPXzbxQ0mBfDxMoZz6iJe3kD0CqUNV65rzToQmzFfv5fvYz+pAU49jAz9Iix1kf7YDLqdh4un03OV0WIRHqjaWXd19FPhgDe25UgbYj8iapZSspuOBIdSgP0cPNisguo5906eZFguCtob8pwtbTFvyY=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
- (2603:1096:400:3a9::11) by TYCPR01MB6127.jpnprd01.prod.outlook.com
- (2603:1096:400:48::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.14; Thu, 11 Jan
- 2024 22:59:44 +0000
-Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
- ([fe80::91d:1bfa:edc4:1c5b]) by TYCPR01MB10914.jpnprd01.prod.outlook.com
- ([fe80::91d:1bfa:edc4:1c5b%7]) with mapi id 15.20.7202.014; Thu, 11 Jan 2024
- 22:59:42 +0000
-Message-ID: <87v87zeasq.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: Sameer Pujar <spujar@nvidia.com>
-Cc: Thierry Reding <thierry.reding@gmail.com>,
-	Mark Brown
- <broonie@kernel.org>,
-	alsa-devel@alsa-project.org,
-	devicetree@vger.kernel.org,
-	robh+dt@kernel.org,
-	Jon Hunter <jonathanh@nvidia.com>,
-	linux-tegra@vger.kernel.org
-Subject: Re: Query on audio-graph-card DT binding
-In-Reply-To: <d10f9857-4259-4dff-a7f3-764086ac5a8b@nvidia.com>
-References: <dfe363ef-4638-4b5e-8308-73e286ac0b50@nvidia.com>
-	<ZZblyhfzQjzyoUc_@orome.fritz.box>
-	<42c0c4fa-585e-4194-bbe4-e0377c87e632@sirena.org.uk>
-	<3faec2e9-8cd9-46f9-8807-801922de0edf@nvidia.com>
-	<ZZe5sTNz005Tt4jk@orome.fritz.box>
-	<8241c953-8ae5-4f26-b108-fccf826ed87a@nvidia.com>
-	<875y03i739.wl-kuninori.morimoto.gx@renesas.com>
-	<e7f9085d-9db1-4c5e-9940-e461835b20aa@nvidia.com>
-	<87il42gkua.wl-kuninori.morimoto.gx@renesas.com>
-	<cde6d5d5-b6ab-4c64-93f8-78d721a492bb@nvidia.com>
-	<8734v4y9yu.wl-kuninori.morimoto.gx@renesas.com>
-	<eeb61f8a-697c-425a-9873-b7b60c0a5558@nvidia.com>
-	<87o7dswjry.wl-kuninori.morimoto.gx@renesas.com>
-	<c868bce1-9a99-49d9-97cd-ead8d0295504@nvidia.com>
-	<87le8wwi2u.wl-kuninori.morimoto.gx@renesas.com>
-	<d10f9857-4259-4dff-a7f3-764086ac5a8b@nvidia.com>
-User-Agent: Wanderlust/2.15.9 Emacs/27.1 Mule/6.0
-Content-Type: text/plain; charset=US-ASCII
-Date: Thu, 11 Jan 2024 22:59:41 +0000
-X-ClientProxiedBy: TYWPR01CA0045.jpnprd01.prod.outlook.com
- (2603:1096:400:17f::15) To TYCPR01MB10914.jpnprd01.prod.outlook.com
- (2603:1096:400:3a9::11)
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=Dp9Y0YFs
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1705029287; x=1736565287;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=cwgXaGkg+9dlKT7vM6fOfd1vb77DgMTDItkjEAJYj2w=;
+  b=Dp9Y0YFsdEfUZ7OV4Q2fh/SneWRS/MDmD3UUg73/L4sZlg4IO3QGZRnb
+   eLu0ItPQNiAzs8Vf+nFzWIq8gfKAFoW7LJaZ6gXTM6Iq3cqrZ2NDrsTQS
+   pBdojoMDi6qExkID/1vf0mwXd78OrlV8IQ3yU2v/YQjxaFngXIzNfUMEQ
+   upipU8U98wOHGegppNCak7k2zDM5Twm6Uv2lr+W9dtPNKvJFju/AHRsW3
+   781XlWbAMnbCnrb3MrGBeR5LuHzyhIaIhjK6IVOTw4clLQtF5W29b4KMP
+   UFNXsxlgvWsaCNaNAFpENVMaR0xdYqnRcGsfmHIrHQa9nz4uKfq1REDrz
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10950"; a="397948525"
+X-IronPort-AV: E=Sophos;i="6.04,188,1695711600";
+   d="scan'208";a="397948525"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jan 2024 19:14:41 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10950"; a="732453627"
+X-IronPort-AV: E=Sophos;i="6.04,188,1695711600";
+   d="scan'208";a="732453627"
+Received: from lkp-server02.sh.intel.com (HELO b07ab15da5fe) ([10.239.97.151])
+  by orsmga003.jf.intel.com with ESMTP; 11 Jan 2024 19:14:36 -0800
+Received: from kbuild by b07ab15da5fe with local (Exim 4.96)
+	(envelope-from <lkp@intel.com>)
+	id 1rO80A-000906-0B;
+	Fri, 12 Jan 2024 03:14:34 +0000
+Date: Fri, 12 Jan 2024 11:13:54 +0800
+From: kernel test robot <lkp@intel.com>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	lgirdwood@gmail.com
+Cc: oe-kbuild-all@lists.linux.dev, broonie@kernel.org, perex@perex.cz,
+	tiwai@suse.com, matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com, ribalda@chromium.org,
+	nicolas.ferre@microchip.com, u.kleine-koenig@pengutronix.de,
+	kuninori.morimoto.gx@renesas.com, nfraprado@collabora.com,
+	alsa-devel@alsa-project.org, trevor.wu@mediatek.com,
+	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH 6/7] ASoC: mediatek: mt8192-afe-pcm: Simplify with
+ dev_err_probe()
+Message-ID: <202401121019.EC2g0hQM-lkp@intel.com>
+References: <20240111105247.117766-7-angelogioacchino.delregno@collabora.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYCPR01MB10914:EE_|TYCPR01MB6127:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0f9048c8-7c9a-40ad-1fed-08dc12f8fef5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	z/C+IlAC30ZMvrRy0oi2GYJDkvJE+cQNMluFhpo0eXNcvpJxBDNSYn/xdsC/RapETAYQAYKM5hIFc9lwSQ/JcMlGP9QlypuemYuyYXSMMV2vj3H7vCLc7lg7LoyqJ/dEtfrNX4sTuh3th7i5MgT/Y7rI+qrbXz6FRdSU4IkbVKV/AOLjpFwLbLk2mNmK3tGVSgeZ16gXU1es8RvnVMqVmUhdwsEk0YD9hgn6bdmUv01OelqnVBOxpgWjX+ZOL2jpDmLwcCCSxSLzYp+xmU9J541nTEsEx0+ZhIDdxSWL2uz4dsZIZGuGVKPx8YriSSHLrhOpgeM7Ls99berdOvvykA8v7X7esCHmBD5+wnxyRllGYKoTpPtl+Gjw9KQ7iCBi8ajuegqv0zGd8DKf7OhSkVvgn/R4MfI2edJ+h94ZiL77tCcExYku0tflpIdW8dP+lSMk6bICZN8phW/U5RMheqwzutHbfnquanxMfrBeDRSrpd13a+vus/YnuO5Qjw6x8Bdg0O+0CjfOQoTS0yRThXiPFfbddZIIHEiXPH+7/baaG5TjM6BhmA6GnhT7eUa4qICDluk2fdVGDo4eHsgKvHYvg3apcFLY4i3ak2x29uml6ZkdURUbIZsi0/eMyWsh
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB10914.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(39860400002)(366004)(396003)(136003)(376002)(230922051799003)(1800799012)(186009)(64100799003)(451199024)(38350700005)(36756003)(5660300002)(2906002)(2013699003)(66476007)(66556008)(6916009)(66946007)(41300700001)(4326008)(316002)(54906003)(8936002)(8676002)(6486002)(86362001)(966005)(478600001)(52116002)(6512007)(6506007)(2616005)(26005)(38100700002);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?zYYAb0cCVoLElIXFfiC39KSBJJx6MjkKaVmdBHRQ/OtTOzyRfV9UVzZPJf5k?=
- =?us-ascii?Q?jbO8Z5nYXzrL76meuLWS4mtHOf5XqEhmbdGJ9KEFCzBNvjQrI+I6Qvgq5QRN?=
- =?us-ascii?Q?MlN08O98FghzRFCQE5FxMbIirgTkbrU6QBODSKpEgu40+0gORk2MK75nFgOt?=
- =?us-ascii?Q?7nyvjOa1kmnHyZd+uAsFAjTt2eQgEai6ClgXATVt+n5dGqaWG4G2tTAL/xbz?=
- =?us-ascii?Q?pibV0rrxxT0VK5V0iUf/GQzk1WMyQ8QGduu9vYpfCSZdWOvZfGiUCF+m4Ksa?=
- =?us-ascii?Q?p6+yiDmkIcnAfqTW/EoFmK7QA5AMutjvQ59H+w075kbE0ZZhxXl/ZOxk8Pfa?=
- =?us-ascii?Q?5K0T5ChIHGRQC4OZJS/wCq3fhxhyZfTt4t0g7+O9PGlxorA0DVxFvBjX3WoP?=
- =?us-ascii?Q?kFEA0E6ADenK+k+1JXMRYkCuejuu2p3aFuolvQvBtSecpOSJuXuDDCkPIeHx?=
- =?us-ascii?Q?rtu/CgxFoVmK2xD8dCZBzx3AkkMuT6D9zqOJHyN5kOBTEYLOq0O4PMMyRr+A?=
- =?us-ascii?Q?LFVnubgVxD4c1MMcTOW/3Momns9+23djcbxcjAbLDHWfzCqgGCrl+z/yRbvx?=
- =?us-ascii?Q?bO+k3of6b/LdEaH0aEDNr/PBwvpU3KJFkfI453e6pCjgyaThEY5szgDxSM2P?=
- =?us-ascii?Q?Xo6gy6x1MxseByhupK9vZmsg3fa3oDHQ2OQdmOPcPMPFnC7nvtOAimPossUJ?=
- =?us-ascii?Q?zYoE0sPMtuSPMKzJ2WQs2rgVFwU/+Qmq9MofqU/AP0W0KCzmGgvFJnQBSYCr?=
- =?us-ascii?Q?UI5Ck0QZwRALabc1WDZxMTHeAK6D3juGetzNxKEuhDNL9A0FuCGhWDBgkkE4?=
- =?us-ascii?Q?o+49z6mthoxoWu95lT3MABmA4dHDWAILLdZnWPHqY7bNPMaeksQcguYHW1Hr?=
- =?us-ascii?Q?uZ76fkFGmB2X6GJgzdX87WGAczaL+5gqR8ckxvGNyFr6oLSuC4vqfQZiUkQ1?=
- =?us-ascii?Q?f6EmtImPKR5TqSykDX9j08Xi9vwYgQp+nxiSidYSdkJY5f3NT40jZHAH8GE2?=
- =?us-ascii?Q?/6GSmX0Wba1pM4tFDc2+WM8qFNuzDKgxOEpB7zKH/aS5X8Gw8TEGT0CwKzZp?=
- =?us-ascii?Q?c+6UxfXt3uGEVHypUvGtByLI2K66aqcYw6UQCRwc4/YH6Zf0HYWPfcV35if5?=
- =?us-ascii?Q?dS7TRR+LR/wG+vV1bmXPMO5xtF9vdb+GR/RvHEM/OgbXMKZPZ3ILcdkdCHzI?=
- =?us-ascii?Q?BZaLjcWJ9WY+dlbs24npI8ibRiudzfQ5Xg5tyGJKlg69NKaojnrLaKdbJjWv?=
- =?us-ascii?Q?3aL++KffFe7FbPh2uZMsk9wDLF4G9iL5Tk+oT29CqsPEIBa0HKNBGKQSRY8z?=
- =?us-ascii?Q?WCIyka2OO6m2Ys8F1wXKg895rF31/Ij5Zwc09gNhUfuEDiT897EiWmYg5A+C?=
- =?us-ascii?Q?gzip954BKBnEhVtDBNJCtUesCanOuv/aLU2ch+yaKOgMSjgDW893fiLZM6yU?=
- =?us-ascii?Q?XXxsYLqGKjzBswxe9JUOVrBEPCWedSoF7KFoxBvN2WV+xVvAGf6y4TVbFEiH?=
- =?us-ascii?Q?yxCiM3USKWAbL0nbxCjX0XiDHsF/Kkn+w5VF4Pv1f4FyEiToPNITlzbtWJze?=
- =?us-ascii?Q?utkTjkUNoKm5nJlO6m2wdVhr++Qouf8qCaSrUHf2TQMgM8Q9mkEjJRJ8iIH2?=
- =?us-ascii?Q?HQJqfP6Wr9hfYXcM2mWKLoQ=3D?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 0f9048c8-7c9a-40ad-1fed-08dc12f8fef5
-X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB10914.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jan 2024 22:59:41.9749
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- NWnV1JlSD1vzsn/hfLQBU9Ct+EUMYThdbXy5WG8xKPJvVe/B198PMCA5obSkojakJPVzLwkv+1NJLaeq8Cl547/tI7VKTX0M2Kd77Q+zt4btuvwNCvJBOgymakJIw0gR
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB6127
-Message-ID-Hash: WEQM2SUCZMGATAFBVU7IYT2KQGQMP7LJ
-X-Message-ID-Hash: WEQM2SUCZMGATAFBVU7IYT2KQGQMP7LJ
-X-MailFrom: kuninori.morimoto.gx@renesas.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240111105247.117766-7-angelogioacchino.delregno@collabora.com>
+Message-ID-Hash: V5NAYOKL35QK35HDUQTZHBMPBQAY3XSJ
+X-Message-ID-Hash: V5NAYOKL35QK35HDUQTZHBMPBQAY3XSJ
+X-MailFrom: lkp@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -173,7 +106,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WEQM2SUCZMGATAFBVU7IYT2KQGQMP7LJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/V5NAYOKL35QK35HDUQTZHBMPBQAY3XSJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -182,34 +115,189 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Hi AngeloGioacchino,
 
-Hi Sameer
+kernel test robot noticed the following build warnings:
 
-Sorry to my lack of understanding
+[auto build test WARNING on broonie-sound/for-next]
+[also build test WARNING on broonie-spi/for-next tiwai-sound/for-next tiwai-sound/for-linus linus/master v6.7 next-20240111]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-> What I am asking is, with audio-graph-card2, when you declare 1:N 
-> connection in DT bindings, how many DAI links you create in the driver.
-> Is it like the audio-graph-card2 driver parses the whole 1:N connection 
-> and creates only one DAI link in ASoC core or it breaks them into 
-> multiple links and create N+1 DAI links in ASoC core?
-> 
-> In other words,
-> 
-> 1:N connection in DT == 1 DAI link in ASoC core?
-> Or
-> 1:N connection in DT == N+1 DAI links in ASoC core?
+url:    https://github.com/intel-lab-lkp/linux/commits/AngeloGioacchino-Del-Regno/ASoC-mediatek-mt8173-afe-pcm-Convert-to-devm_pm_runtime_enable/20240111-185734
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+patch link:    https://lore.kernel.org/r/20240111105247.117766-7-angelogioacchino.delregno%40collabora.com
+patch subject: [PATCH 6/7] ASoC: mediatek: mt8192-afe-pcm: Simplify with dev_err_probe()
+config: arm64-defconfig (https://download.01.org/0day-ci/archive/20240112/202401121019.EC2g0hQM-lkp@intel.com/config)
+compiler: aarch64-linux-gcc (GCC) 13.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240112/202401121019.EC2g0hQM-lkp@intel.com/reproduce)
 
-If you create it as Multi-CPU/Codec connection,
-1:N connection will be 1 DAI link [1]. I think your case is this.
-But if you create it as DPCM connection, 1:N connection will be
-N+1 DAI links [2].
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202401121019.EC2g0hQM-lkp@intel.com/
 
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git/tree/sound/soc/generic/audio-graph-card2-custom-sample.dtsi?h=for-6.8#n179
-[2] https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git/tree/sound/soc/generic/audio-graph-card2-custom-sample.dtsi?h=for-6.8#n199
+All warnings (new ones prefixed by >>):
 
-Thank you for your help !!
+   sound/soc/mediatek/mt8192/mt8192-afe-pcm.c: In function 'mt8192_afe_pcm_dev_probe':
+>> sound/soc/mediatek/mt8192/mt8192-afe-pcm.c:2284:67: warning: format '%d' expects a matching 'int' argument [-Wformat=]
+    2284 |                         return dev_err_probe(afe->dev, ret, "dai %d register fail");
+         |                                                                  ~^
+         |                                                                   |
+         |                                                                   int
 
-Best regards
----
-Renesas Electronics
-Ph.D. Kuninori Morimoto
+
+vim +2284 sound/soc/mediatek/mt8192/mt8192-afe-pcm.c
+
+  2172	
+  2173	static int mt8192_afe_pcm_dev_probe(struct platform_device *pdev)
+  2174	{
+  2175		struct mtk_base_afe *afe;
+  2176		struct mt8192_afe_private *afe_priv;
+  2177		struct device *dev;
+  2178		struct reset_control *rstc;
+  2179		int i, ret, irq_id;
+  2180	
+  2181		ret = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(34));
+  2182		if (ret)
+  2183			return ret;
+  2184	
+  2185		afe = devm_kzalloc(&pdev->dev, sizeof(*afe), GFP_KERNEL);
+  2186		if (!afe)
+  2187			return -ENOMEM;
+  2188		platform_set_drvdata(pdev, afe);
+  2189	
+  2190		afe->platform_priv = devm_kzalloc(&pdev->dev, sizeof(*afe_priv),
+  2191						  GFP_KERNEL);
+  2192		if (!afe->platform_priv)
+  2193			return -ENOMEM;
+  2194		afe_priv = afe->platform_priv;
+  2195	
+  2196		afe->dev = &pdev->dev;
+  2197		dev = afe->dev;
+  2198	
+  2199		/* init audio related clock */
+  2200		ret = mt8192_init_clock(afe);
+  2201		if (ret) {
+  2202			dev_err(dev, "init clock error\n");
+  2203			return ret;
+  2204		}
+  2205	
+  2206		/* reset controller to reset audio regs before regmap cache */
+  2207		rstc = devm_reset_control_get_exclusive(dev, "audiosys");
+  2208		if (IS_ERR(rstc))
+  2209			return dev_err_probe(dev, PTR_ERR(rstc), "could not get audiosys reset\n");
+  2210	
+  2211		ret = reset_control_reset(rstc);
+  2212		if (ret)
+  2213			return dev_err_probe(dev, ret, "failed to trigger audio reset\n");
+  2214	
+  2215		ret = devm_pm_runtime_enable(&pdev->dev);
+  2216		if (ret)
+  2217			return ret;
+  2218	
+  2219		/* regmap init */
+  2220		afe->regmap = syscon_node_to_regmap(dev->parent->of_node);
+  2221		if (IS_ERR(afe->regmap))
+  2222			return dev_err_probe(dev, PTR_ERR(afe->regmap),
+  2223					     "could not get regmap from parent");
+  2224	
+  2225		ret = regmap_attach_dev(dev, afe->regmap, &mt8192_afe_regmap_config);
+  2226		if (ret)
+  2227			return dev_err_probe(dev, ret, "regmap_attach_dev fail\n");
+  2228	
+  2229		/* enable clock for regcache get default value from hw */
+  2230		afe_priv->pm_runtime_bypass_reg_ctl = true;
+  2231		pm_runtime_get_sync(&pdev->dev);
+  2232	
+  2233		ret = regmap_reinit_cache(afe->regmap, &mt8192_afe_regmap_config);
+  2234		if (ret)
+  2235			return dev_err_probe(dev, ret, "regmap_reinit_cache fail\n");
+  2236	
+  2237		pm_runtime_put_sync(&pdev->dev);
+  2238		afe_priv->pm_runtime_bypass_reg_ctl = false;
+  2239	
+  2240		regcache_cache_only(afe->regmap, true);
+  2241		regcache_mark_dirty(afe->regmap);
+  2242	
+  2243		/* init memif */
+  2244		afe->memif_size = MT8192_MEMIF_NUM;
+  2245		afe->memif = devm_kcalloc(dev, afe->memif_size, sizeof(*afe->memif),
+  2246					  GFP_KERNEL);
+  2247		if (!afe->memif)
+  2248			return -ENOMEM;
+  2249	
+  2250		for (i = 0; i < afe->memif_size; i++) {
+  2251			afe->memif[i].data = &memif_data[i];
+  2252			afe->memif[i].irq_usage = memif_irq_usage[i];
+  2253			afe->memif[i].const_irq = 1;
+  2254		}
+  2255	
+  2256		mutex_init(&afe->irq_alloc_lock);	/* needed when dynamic irq */
+  2257	
+  2258		/* init irq */
+  2259		afe->irqs_size = MT8192_IRQ_NUM;
+  2260		afe->irqs = devm_kcalloc(dev, afe->irqs_size, sizeof(*afe->irqs),
+  2261					 GFP_KERNEL);
+  2262		if (!afe->irqs)
+  2263			return -ENOMEM;
+  2264	
+  2265		for (i = 0; i < afe->irqs_size; i++)
+  2266			afe->irqs[i].irq_data = &irq_data[i];
+  2267	
+  2268		/* request irq */
+  2269		irq_id = platform_get_irq(pdev, 0);
+  2270		if (irq_id < 0)
+  2271			return irq_id;
+  2272	
+  2273		ret = devm_request_irq(dev, irq_id, mt8192_afe_irq_handler,
+  2274				       IRQF_TRIGGER_NONE, "asys-isr", (void *)afe);
+  2275		if (ret)
+  2276			return dev_err_probe(dev, ret, "could not request_irq for Afe_ISR_Handle\n");
+  2277	
+  2278		/* init sub_dais */
+  2279		INIT_LIST_HEAD(&afe->sub_dais);
+  2280	
+  2281		for (i = 0; i < ARRAY_SIZE(dai_register_cbs); i++) {
+  2282			ret = dai_register_cbs[i](afe);
+  2283			if (ret)
+> 2284				return dev_err_probe(afe->dev, ret, "dai %d register fail");
+  2285		}
+  2286	
+  2287		/* init dai_driver and component_driver */
+  2288		ret = mtk_afe_combine_sub_dai(afe);
+  2289		if (ret)
+  2290			return dev_err_probe(afe->dev, ret, "mtk_afe_combine_sub_dai fail\n");
+  2291	
+  2292		/* others */
+  2293		afe->mtk_afe_hardware = &mt8192_afe_hardware;
+  2294		afe->memif_fs = mt8192_memif_fs;
+  2295		afe->irq_fs = mt8192_irq_fs;
+  2296		afe->get_dai_fs = mt8192_get_dai_fs;
+  2297		afe->get_memif_pbuf_size = mt8192_get_memif_pbuf_size;
+  2298		afe->memif_32bit_supported = 1;
+  2299	
+  2300		afe->runtime_resume = mt8192_afe_runtime_resume;
+  2301		afe->runtime_suspend = mt8192_afe_runtime_suspend;
+  2302	
+  2303		/* register platform */
+  2304		ret = devm_snd_soc_register_component(&pdev->dev,
+  2305						      &mt8192_afe_component, NULL, 0);
+  2306		if (ret)
+  2307			return dev_err_probe(dev, ret, "Couldn't register AFE component\n");
+  2308	
+  2309		ret = devm_snd_soc_register_component(&pdev->dev,
+  2310						      &mt8192_afe_pcm_component,
+  2311						      afe->dai_drivers,
+  2312						      afe->num_dai_drivers);
+  2313		if (ret)
+  2314			return dev_err_probe(dev, ret, "Couldn't register AFE-PCM component\n");
+  2315	
+  2316		return 0;
+  2317	}
+  2318	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki

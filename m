@@ -2,96 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5861482BB91
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 Jan 2024 08:17:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B2F882BB92
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 Jan 2024 08:18:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 211B3EB6;
-	Fri, 12 Jan 2024 08:17:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 211B3EB6
+	by alsa0.perex.cz (Postfix) with ESMTPS id D8C0EEA3;
+	Fri, 12 Jan 2024 08:17:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D8C0EEA3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1705043869;
-	bh=tAndeL33LP/grexfRwjiBKii6142U8sTQjgq5Eh6dm4=;
+	s=default; t=1705043885;
+	bh=PrUc8DxzvWA0vcT+3P+C9pLUrWgJa/4KB9iOM6fCOD8=;
 	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=eukVBXxEIGwNF4/158b5xgBcQEw6ywr1yPKLnJHs2BRlIoylvPiIx9v009Gvk6ZVI
-	 sy0cVkA66sy69b4vo9D/nW7FQzWVzkIimal5h+h1dSHyeITQCiI1QuVgCm7rZyxLNG
-	 RmLjxUoRhBzDTj9IGp/OHw/gWJL7cdHPESohUe3k=
+	b=QzjFptqWOKS0RYL2iWA2dln6eU4IMdSABZFwnuG9y45eucetWArdOQhn3QO3qQMkV
+	 /KSnQ0T256nNEmt6xpWd5Dzo5XK+S3DtqrHfqaPYePClrL/Ghyt8FTbTVXuck+kLFR
+	 dE/UiuQABlbuXAqqYSV1xicIgcr2Y0pk4OY/WgmE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 91547F8047D; Fri, 12 Jan 2024 08:17:17 +0100 (CET)
+	id 97485F805C5; Fri, 12 Jan 2024 08:17:20 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D8D1FF8003A;
-	Fri, 12 Jan 2024 08:17:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B7AEEF805BF;
+	Fri, 12 Jan 2024 08:17:19 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B414EF80254; Fri, 12 Jan 2024 08:13:51 +0100 (CET)
+	id 8A449F80254; Fri, 12 Jan 2024 08:14:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [IPv6:2a00:1450:4864:20::42e])
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [IPv6:2a00:1450:4864:20::433])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EC716F80086
-	for <alsa-devel@alsa-project.org>; Fri, 12 Jan 2024 08:13:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC716F80086
+	by alsa1.perex.cz (Postfix) with ESMTPS id 53A76F80086
+	for <alsa-devel@alsa-project.org>; Fri, 12 Jan 2024 08:14:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53A76F80086
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=oraspKt+
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-336c5b5c163so3646770f8f.1
+ header.s=google header.b=DH+iXNIG
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-3373bc6d625so5087887f8f.3
         for <alsa-devel@alsa-project.org>;
- Thu, 11 Jan 2024 23:13:46 -0800 (PST)
+ Thu, 11 Jan 2024 23:14:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1705043626; x=1705648426;
+        d=linaro.org; s=google; t=1705043660; x=1705648460;
  darn=alsa-project.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=/BOdUm3gdbHMFqsawB5xFPercT0eYdgrEZogleugtcM=;
-        b=oraspKt++Z7gsedwDTJIKMk7xndhVk64cVySv1HMKnpvnbTZlMreAfQ+14udt23wI7
-         pdOWTsSmDdWLJxEOKcDZYATMdlK0IDF2X6qE70MTQKaz81WZFytRWrTLxllAwvEdHZu0
-         t/1cZDFuDOZ1sGraaueuWEvwdutO84V4gIvrtlpAkLJfuIx2d1Xjdl3y2Lx7nuVXba3V
-         uRh+9xgil0UOk8PBaxkVPVWIye2I8xOas+iSJRtgu7+RB65a/SDKE6hGaa/yPmW0NGz7
-         VdFN49Bav117dT1L/h6h07xYOAk5JJ14KyKB9AT1Em2z+mBd2slsREw5+jHXphXPtL9F
-         37ww==
+        bh=pO8yskQ+wiZb8dWLml0fvQDWP9QnZ411FtZvYaQ7ez0=;
+        b=DH+iXNIGk4WgYpmYVbXQfAoRYdHcRwRYKzew53TX+z1U6GyTOwC0yP4GpkMHtWZge3
+         c3LU2aiiBcEBlJ+J12XmEkkzpKYaMHI4h8q1F0Tmrdw0pjlHMydnTISDXiuS7e1YPcQE
+         7gNVemUTYwteOB6mvHLD+lhGQdEK7AOMUBcFlMvJ0NiujUHD/NjPux3ll1peke97AtDl
+         dUjNc0VsQEhJ2Q3F3cqTizG6CvMMKI0u161ESHka8qJIt2tnT7aXVDMqxHuEyjdhwkIT
+         hhFtE7ToxBxRWGsG9E5t78diT9Z8LDbOZINuMUhFpWvrDokf13DA3dxVIRjaTjjDzXNU
+         x5aA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705043626; x=1705648426;
+        d=1e100.net; s=20230601; t=1705043660; x=1705648460;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=/BOdUm3gdbHMFqsawB5xFPercT0eYdgrEZogleugtcM=;
-        b=h1egVGl4ZwDBHwr6//v0LFvQii626HfmS0ZD0McgjLJTaf6FC+VTZoiYOe02UxVUBO
-         AckMOboysg4V0fjhIfZ2mmFG1BiEr3LZ0DQPnEzk3i+hUJwzeU3BzjWsXP1nTyUCSsya
-         dRuwsJ//N5Br6pNSQvm+D5RBAEvrgBX2/QIgG+vU7Xxw1F8Jziv0FYXmivFPzQql+5Es
-         6GZqe/m3TCQWfTZ95bpn/ggaYVdOLOVV+IEu9q2P7Sj8AkrLezJiUV5Ag/ciFdR3OQbT
-         oqM/Wa6h5Z/wvViwJAU1XjQ3JoZTsZ7ir9yB2VlE7aDXUhF0LIeSew5lHRcdfefLp/u8
-         dj8w==
-X-Gm-Message-State: AOJu0Yw3S0rdiq++ReX7XhLwcoVxQNIgF4nvIurfBHqYdEy/sg8j4QtU
-	X5JhUybyPWTtrHcUByq8yvvWt1yWomN31Q==
+        bh=pO8yskQ+wiZb8dWLml0fvQDWP9QnZ411FtZvYaQ7ez0=;
+        b=cADyo5L5O+xVnpURbccKDc81BvvI8qOc0JehcSXUgYLyTby9iP1i/s6wCD0CzBOSX1
+         52S0M/BnUSjPcitO+Da/7zX7tBn/swHkMSotiTWBHfH6aqwZGH/YROcJVmLyZFfZsuz1
+         HxJALJ50du9k02AeTvZpRPdoo8iZxAc8CDLbkTgPwoJGxJB9fljBHef/YvA1ykHDO+zI
+         J8x3J6WO4OR9U1iDUfwxnh+7Ws7VlaRBmd1wcRbNot6vtGXbjxaDzxdE9c07K6P6ZLrZ
+         z1yScxDVVj3dFN5mzdnE7QcVUhQzbnbKnALr0FGd2Kbph87AbVFsI/1kMdNGyErDkJwo
+         MWiA==
+X-Gm-Message-State: AOJu0YymA5siALW7lCPE20RneXoVQ0nwllA87BcMsarC/dopmke2ix+v
+	3gdATynSQZl9Rp+lazKu5cLbB3+p+JrFPw==
 X-Google-Smtp-Source: 
- AGHT+IEgnYK98s+QMgNWcW2xSyxNyRzqXddcodmtWWfCogARjx9d4g4HzKG/aJEF4Vkl2hRoD7/VPw==
-X-Received: by 2002:adf:e98f:0:b0:336:86af:ede5 with SMTP id
- h15-20020adfe98f000000b0033686afede5mr494024wrm.46.1705043625766;
-        Thu, 11 Jan 2024 23:13:45 -0800 (PST)
+ AGHT+IG/gm0nC27MHjndVZqBTFlAqUKdyTn7WB4Vs6PRjFVCWcv2wdL6rjCIRGvrCjWD71IGZbBtEw==
+X-Received: by 2002:a05:6000:137b:b0:336:7885:fff7 with SMTP id
+ q27-20020a056000137b00b003367885fff7mr472388wrz.52.1705043660497;
+        Thu, 11 Jan 2024 23:14:20 -0800 (PST)
 Received: from [192.168.1.20] ([178.197.223.112])
         by smtp.gmail.com with ESMTPSA id
- f6-20020adfb606000000b00336aa190139sm3018880wre.5.2024.01.11.23.13.44
+ f6-20020adfb606000000b00336aa190139sm3018880wre.5.2024.01.11.23.14.18
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 11 Jan 2024 23:13:45 -0800 (PST)
-Message-ID: <73732b62-e362-401f-b257-0613593e8557@linaro.org>
-Date: Fri, 12 Jan 2024 08:13:44 +0100
+        Thu, 11 Jan 2024 23:14:20 -0800 (PST)
+Message-ID: <1fba162e-8f59-4e99-8197-94ccb9d7d914@linaro.org>
+Date: Fri, 12 Jan 2024 08:14:18 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] ASoC: dt-bindings: fsl,sai: Add compatible string
- for i.MX95 platform
+Subject: Re: [PATCH v2 3/3] ASoC: dt-bindings: fsl,micfil: Add compatible
+ string for i.MX95 platform
 Content-Language: en-US
 To: Chancel Liu <chancel.liu@nxp.com>, lgirdwood@gmail.com,
  broonie@kernel.org, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
@@ -101,7 +101,7 @@ To: Chancel Liu <chancel.liu@nxp.com>, lgirdwood@gmail.com,
  linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
  linuxppc-dev@lists.ozlabs.org
 References: <20240112054331.3244104-1-chancel.liu@nxp.com>
- <20240112054331.3244104-2-chancel.liu@nxp.com>
+ <20240112054331.3244104-4-chancel.liu@nxp.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -147,11 +147,11 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
  fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
  D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <20240112054331.3244104-2-chancel.liu@nxp.com>
+In-Reply-To: <20240112054331.3244104-4-chancel.liu@nxp.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: BTYECAMH6GWEX2XL5RBDLNOKMQSQYQGU
-X-Message-ID-Hash: BTYECAMH6GWEX2XL5RBDLNOKMQSQYQGU
+Message-ID-Hash: 5VODGFSGJEN23GIRXOSAW3ARTEQ3YHNU
+X-Message-ID-Hash: 5VODGFSGJEN23GIRXOSAW3ARTEQ3YHNU
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -164,7 +164,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BTYECAMH6GWEX2XL5RBDLNOKMQSQYQGU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5VODGFSGJEN23GIRXOSAW3ARTEQ3YHNU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -174,11 +174,12 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 On 12/01/2024 06:43, Chancel Liu wrote:
-> Add compatible string "fsl,imx95-sai" for i.MX95 platform.
+> Add compatible string "fsl,imx95-micfil" for i.MX95 platform.
 > 
 > Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
-> ---
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
 Best regards,
 Krzysztof

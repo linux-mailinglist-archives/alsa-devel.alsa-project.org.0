@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75F9182DA51
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 Jan 2024 14:40:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B27582DA83
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 Jan 2024 14:48:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EBD7E20C;
-	Mon, 15 Jan 2024 14:40:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EBD7E20C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6A7931F5;
+	Mon, 15 Jan 2024 14:48:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A7931F5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1705326034;
-	bh=Ka5B1+87inF7tJVAKd6W/3cDzPElSl1q/1CqDmaGmwc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1705326528;
+	bh=PX7hMiwAgN2yoxYyC4aL79C73pQGqe0LsokCocL4p64=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=OSgdvYuf+QcXYkQAtvL58h5JJXnKZIvMdaUKyV78mjH2xa8/pC2OeqGI0sbvlSD+g
-	 tqPnfvk8+nhQN1QF3jz+x0b32GqfZ6yUF8l7Cy+d3t0L+dGeouIyyVDKYHR9HR6CVn
-	 /gZtJ9Fa05fmvpWz1qwfa1doO71wdylba6sFry0E=
+	b=Voye3rf1Q+4zxuuhQCDFu1GY3BQtiduP70UusunKvpIVAwefZHk5hcEyddiLBk/9V
+	 JL/hY+Y6HOvtrJqMXvyWxJV0HBCukEsu9ADXX3nBa3Z5AsORENjdkCsJgnLGhIu/4e
+	 jIE5fMlgsV4YmQpbmCwy/D14qoK7v46yhfdSVUX4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 660E0F80571; Mon, 15 Jan 2024 14:40:02 +0100 (CET)
+	id B6553F8057B; Mon, 15 Jan 2024 14:48:17 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 98727F8057C;
-	Mon, 15 Jan 2024 14:40:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1DCC1F8057B;
+	Mon, 15 Jan 2024 14:48:17 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 28756F805A1; Mon, 15 Jan 2024 14:37:43 +0100 (CET)
+	id ADFF6F801F5; Mon, 15 Jan 2024 14:48:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,128 +34,165 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
 Received: from repost01.tmes.trendmicro.eu (repost01.tmes.trendmicro.eu
- [18.185.115.114])
+ [18.185.115.9])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CEB35F800C1
-	for <alsa-devel@alsa-project.org>; Mon, 15 Jan 2024 14:37:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CEB35F800C1
+	by alsa1.perex.cz (Postfix) with ESMTPS id 63F33F80074
+	for <alsa-devel@alsa-project.org>; Mon, 15 Jan 2024 14:47:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63F33F80074
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=opensynergy.com header.i=@opensynergy.com
- header.a=rsa-sha256 header.s=TM-DKIM-20210503141657 header.b=RjOaspHD
-Received: from 104.47.7.169_.trendmicro.com (unknown [172.21.190.17])
-	by repost01.tmes.trendmicro.eu (Postfix) with SMTP id 03BB910000C39;
-	Mon, 15 Jan 2024 13:37:26 +0000 (UTC)
-X-TM-MAIL-RECEIVED-TIME: 1705325842.087000
-X-TM-MAIL-UUID: 0439458f-0ece-496a-b474-05847176b0c4
+ header.a=rsa-sha256 header.s=TM-DKIM-20210503141657 header.b=cUPhXmrL
+Received: from 104.47.7.168_.trendmicro.com (unknown [172.21.203.211])
+	by repost01.tmes.trendmicro.eu (Postfix) with SMTP id 3CD8910001FA0;
+	Mon, 15 Jan 2024 13:47:59 +0000 (UTC)
+X-TM-MAIL-RECEIVED-TIME: 1705326478.493000
+X-TM-MAIL-UUID: 0ec476b0-0924-45b3-808f-7180926d3fb2
 Received: from DEU01-BE0-obe.outbound.protection.outlook.com (unknown
- [104.47.7.169])
+ [104.47.7.168])
 	by repre01.tmes.trendmicro.eu (Trend Micro Email Security) with ESMTPS id
- 1566F10005E05;
-	Mon, 15 Jan 2024 13:37:22 +0000 (UTC)
+ 7875D10000E42;
+	Mon, 15 Jan 2024 13:47:58 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ECUWrAQE7lBSP67+4WcB3DHkefEDbWl4F49K2yhRXeUwLBluX1IeJbUcU5nuky3cpihgOfmIs56G2kvm1A+KXwBMGOJfJNSZ/GfKn/L3GPU1rHPmtGNC8Sd6wQCGNVJTXcqmXG+pngkRKDWbDcqi4fKqfkznLQlYpgtiVykFrzySxomCYTW9ZzTBsF6YcmVYtNV4QRkN/kF9m7ECHIqQ7Q8kppARC04qfstYYIu7p/Cg0wuWdnU2+gVdeo5ym1bjbENqoEI+9hGSJ9U79sDOgIOaaaM6N8+e+zp6jja6teAiwl9KzeMYizzkDxB+IJpA9jYJg7gW2mRKGZzhcTLsGA==
+ b=Z0lZ2kDUdv7uNL4ESVF1haAJeKoct6yLUp1ji5ZRsJK1z1HidiJowcoll/GWjKFigIGuJIDniAK5ZfmaTpgee6fqJAZeBUxLVK6hgjRpqRCMdjqUP8WUv9WZ+8M6lGMz+Ezf2BQGN/M8ZCxY8+13JVxOrKGq8gbP1MA+LhGv4zlcnrV1BnkW8WJYfXYj7PfPXNqfEMOQzJisd6o9K06pCrNCptAcztW/x3Ss+eV+E7+3KhN5qfVpZQ+i4Su5+Rz0ug9VgOXql9nAsIxBQQl0IW2cfd84MfjTYGFMPXffjNf5LRUEhkJOI5l3Ve/xQdvn/E9hqQsxkHHNiEyN/cv7uw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Hu9gvAIXe6GfC4rIGKOTjKSv+jP9v93quAMVJjG2VMA=;
- b=JCrQDbLou+78lryIrEmH+2MmhlSt+meYd8Hr4zovGb6nUY1RTftN19HhjRbsK3OMha/AIR9WBTbefle/XdZkqOH0h9JyCKW5Ak50boO6flkoSQPBElMdujU/GCFRZJJeQA7g8mhEoHioZ9mVW1ojGXIfZe0bCdBX7foDqqdWw0lk9+Opguj7dZ3NAEBRlRYwafqumwBlABY3SR+bDfi1O47hz9561T+Wqgrj96j8AI9Q9PTvLEDSyZQtp6GoiLiXTBxPKV5ZrA8Imr2VvuzQq6ZTVZpQyibWaZWzSqIVbboY3SAA5DFJdusv569IxtUFu1r+MmlQP5eo/+kD+SrIaA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 217.66.60.4) smtp.rcpttodomain=alsa-project.org
- smtp.mailfrom=opensynergy.com; dmarc=pass (p=reject sp=reject pct=100)
- action=none header.from=opensynergy.com; dkim=none (message not signed);
- arc=none (0)
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 217.66.60.4)
- smtp.mailfrom=opensynergy.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=opensynergy.com;
-Received-SPF: Pass (protection.outlook.com: domain of opensynergy.com
- designates 217.66.60.4 as permitted sender) receiver=protection.outlook.com;
- client-ip=217.66.60.4; helo=SR-MAIL-03.open-synergy.com; pr=C
-From: Aiswarya Cyriac <aiswarya.cyriac@opensynergy.com>
-To: mst@redhat.com,
-	jasowang@redhat.com,
-	perex@perex.cz,
-	tiwai@suse.com,
-	linux-kernel@vger.kernel.org,
-	alsa-devel@alsa-project.org,
-	virtualization@lists.linux-foundation.org,
-	virtio-dev@lists.oasis-open.org
-Cc: Anton Yakovlev <anton.yakovlev@opensynergy.com>,
-	Aiswarya Cyriac <aiswarya.cyriac@opensynergy.com>
-Subject: [v2 PATCH 1/1] ALSA: virtio: add support for audio controls
-Date: Mon, 15 Jan 2024 14:36:54 +0100
-Message-Id: <20240115133654.576068-2-aiswarya.cyriac@opensynergy.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240115133654.576068-1-aiswarya.cyriac@opensynergy.com>
-References: <20240115133654.576068-1-aiswarya.cyriac@opensynergy.com>
+ bh=PX7hMiwAgN2yoxYyC4aL79C73pQGqe0LsokCocL4p64=;
+ b=Rgy2eIF/4elgEZrfesX2TZkoIsLUeFG4qfEatXb0ImwtPrZOajCuyS4jsmplwju9RxLJGtxHb9icGIt1z7dZaqy1XRAowqyhSrkE8/OGyJZLZ5l+2G6zpcdvND/TW8VL5buo/DgOrX29YZXIZ+vTY/zt+8x2t+S8XkemxnhucgrbJcjBFVVdRM5BU5m0N0ghfqU11R5QyCUiRYl34y991SsLWWgTkqK6W7VLXDlCGcU5GxUNgHPDEL9AGD9cHRCdBIWEEKMyawl8j0hErTFe8wnbQU6g5aryrg+seJWC5EpOMIug0umrUDsljSX0trtrBch+ofnTK2DXjG45UJ4qfA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=opensynergy.com; dmarc=pass action=none
+ header.from=opensynergy.com; dkim=pass header.d=opensynergy.com; arc=none
+From: Aiswarya Cyriac <Aiswarya.Cyriac@opensynergy.com>
+To: Marcin Radomski <dextero@google.com>
+CC: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>, Anton
+ Yakovlev <Anton.Yakovlev@opensynergy.com>, "jasowang@redhat.com"
+	<jasowang@redhat.com>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "mst@redhat.com" <mst@redhat.com>,
+	"perex@perex.cz" <perex@perex.cz>, "tiwai@suse.com" <tiwai@suse.com>,
+	"virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
+	"virtualization@lists.linux-foundation.org"
+	<virtualization@lists.linux-foundation.org>, "vill@google.com"
+	<vill@google.com>
+Subject: Re: [RESEND PATCH 0/1] ALSA: virtio: add support for audio controls
+Thread-Topic: [RESEND PATCH 0/1] ALSA: virtio: add support for audio controls
+Thread-Index: AQHaRJL4RLSqE9IkI0CpBMXWFPV0yLDa54Lv
+Date: Mon, 15 Jan 2024 13:47:57 +0000
+Message-ID: 
+ <FR3P281MB252791030510D4334B3EB702E66C2@FR3P281MB2527.DEUP281.PROD.OUTLOOK.COM>
+References: <20230209115916.917569-1-aiswarya.cyriac@opensynergy.com>
+ <20240111133320.2717702-1-dextero@google.com>
+In-Reply-To: <20240111133320.2717702-1-dextero@google.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=opensynergy.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: FR3P281MB2527:EE_|FR2P281MB2043:EE_
+x-ms-office365-filtering-correlation-id: c943a15b-0e2d-4ac5-0bf2-08dc15d094ab
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ 5zQnSK+jlXxe5aiItfSjO2oopAA6/syOgdq/3REKzfyc0GI6GS9EvmiplI3MooZ1npZ8Ikc7JqBcsUgPmrmUi8h/tuzU6BCWuDfPiBIOUtS1gzUv2BiH4O00HAD+S+j5weyKQRWlNdGKvfFskc3zBFayDVoQWzgrJAP6PmlDg7qGkR0oaJBoMwFR/9/+uVG2teZvNVYvuBtPV5P/GRw2jWVpDx8qRE2oZY/WbJ1fkRfUGj8KBqbclocL01r0VQBi67BlUrhUUM8GWxyn9B48G+OrL4THUsh7F+YPTYVg2oa/8JIG8P2QEDRos2WzbN+aGt62e3EE7TqFEm0MJgrDciiiyN3XPYZ16XCZvg77Zv5msBMi86YK+KtVGW4i78uPoJ8Psxo9WdkcWtUdJdPe5Z7n22eMQSDC0xNnxhF6FTufbW0AVku3oYXXGrRGmKYr/RMi3npvHVnPI+kVshET8pf997j44K5SUvazLxDVvt4cw0PmGfmUzYiy2/41TLj4d5aLfpUd4IuexLo6rQNPAQ7/20SGDxY0im4dYCgvQBkrfKN4vs2rnZwXel2TClhUIIDs1zezynDejyP3QVtG3Uv0Bn0vOMAREeSr0wP9Lgc2XqVAyt2qeoR2qybo5gRiBGgeNm+wV9WFi6iORol9ng==
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:FR3P281MB2527.DEUP281.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230031)(39830400003)(366004)(346002)(136003)(376002)(396003)(230922051799003)(451199024)(1800799012)(64100799003)(186009)(66899024)(38100700002)(122000001)(38070700009)(2013699003)(15974865002)(86362001)(26005)(83380400001)(42186006)(41300700001)(316002)(66946007)(71200400001)(54906003)(9686003)(53546011)(76116006)(6916009)(966005)(66446008)(64756008)(66476007)(66556008)(478600001)(33656002)(5660300002)(2906002)(4326008)(7416002)(8936002)(52536014)(8676002);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?utf-8?B?cVBIQmtQWTFKR041eG5GYXlHZkNQR0g0Q1E1dGRhZEpCaC9pbHM3d3duenNo?=
+ =?utf-8?B?Y21pVUhMbGZCU1p4ZTB2ZnNzZDgwa2FnSHNKRUxYM01YdDFNR1R0bHlUeGMz?=
+ =?utf-8?B?ZEMwN1FkZ3phL21vc295cUFqSk5hd1RwYjB5Y0ZydjNHcnM5cDhOdzQ1TjBJ?=
+ =?utf-8?B?UGNLb2w5UC9MVnBLdXRFU0htaGp6ZWFwZytNeFpwM0RFM09jeWYya0JiT0JY?=
+ =?utf-8?B?eTgzMnRiWHlISnNyNlZ6clhzVlZSWmdVUVpvMklzYUR0OUFBbzVOY2ZtWHg1?=
+ =?utf-8?B?U09pUC9VeE0xWWFjdDh2SVFQQXFIWTVHcW5LWDh4WEZsbE1JR3FJN2hxb294?=
+ =?utf-8?B?Y2hxekdSSjhDb1FqRVVXNXhYNzlXTTRlVlRBZlNKOFlqNUFSYzkrZ1pqQ0lm?=
+ =?utf-8?B?Z1VQZGZERXJMYmZ3R0J4N2h2cEhKWERsd3B5dDJsbU4zY013VWZySTZySHZ0?=
+ =?utf-8?B?dENkRUtHdkp4VFMySkQ3VFRkRk05SE5qZmtVeW52enk0cTdpTG56UGZCMFZs?=
+ =?utf-8?B?RVJzditXQjNxNVZyakVTM3FUalcwVDZhSlB1Znd2QlpUaGNsek54Y0RUaEN5?=
+ =?utf-8?B?MFZmMzVXTy9MVktyaTN5SmVUdW1HNkprUUFBZ29jOGF0Zmo0b3cxUGFTdVVU?=
+ =?utf-8?B?Qk5EdGlmM0NabkFTNUpQRndqUENxbUZxMk1GamplNzEwYzN4eklreGdPY2N6?=
+ =?utf-8?B?WUpaUElxRjg1WkFtQkpmRkl4MkZQa21PN1ozTDVUV0RLbzBWYnZmQ0h3cTMr?=
+ =?utf-8?B?SnkvcWFWSFJwdTlsMGF5MDhqSy9tZVluak4rZGE2VjhCUkZFaUtreUxEay93?=
+ =?utf-8?B?N3BHamNycndXZmMyYllmZXo1cE4zdk9pck93WnNxYXFZSWVBZy9XcDY2MVpO?=
+ =?utf-8?B?RkdROFY2dk9uaE9rOHlwNDNFRXFPK2hvT1FmcGVYS3p1N1VQaStWTDFXUlZo?=
+ =?utf-8?B?SzdOOG1uaUhhbXpiTW9tQVNBd3dSY1RHWUxZSEFBQW5yYmppK1BUNVVSdUlR?=
+ =?utf-8?B?NkRLSjBoY1hxME1vOEszUzkzbW9EWHNVQ0VHQ1BVM1BDYlllWEl4NEo5YkVr?=
+ =?utf-8?B?MnQzT3U1WjlEQnBxU3Zsd0JWMnlUdXRlUEpBL1pBRDVhODFpR29UMGNzZGdF?=
+ =?utf-8?B?UXlPT1BpRUVveGkvdG5KVGVmaGxxNWxVaWJIN3FtaEp1OEJPVUFGMm5hT3NM?=
+ =?utf-8?B?Z205QW9EYWkzMWNHWEN3NjVnSDJiSWxzNjV5Rkc3bjhubUhjQXlYa1dhcDR4?=
+ =?utf-8?B?QVNHNUNSL1lyQU9xcEJHY3d3L0ZqUzV1QWF2QVhiSE4wVG4xa2JmWG1sL2tZ?=
+ =?utf-8?B?OFloZHF1MGl5aUVidFpvb01GSTAvRnpnMG1KNlZOL0h5SjNUT0xKN01LYVhX?=
+ =?utf-8?B?bXBRNzdhQVJkamJBalNmUU9qcjNuUGs5ZVdJYlFyOVl5bGh6eE1kalcwR2lu?=
+ =?utf-8?B?MmZkTVgwajZqT2tOUGhobjIrdGVjOE9rQnRJVjF5YVUrRE5ONFpMTjFMcmNi?=
+ =?utf-8?B?NE0wTWx3WWZtSkF1WjZUeG41cFJsby9zR3Jta3Z4UEZCdXB0WWd0b05GcU1n?=
+ =?utf-8?B?S3Q5dHNTTEpmaWUvVEhBWlI0ZGU3ZG1EdFR4QkNJeVExT0lMSTJyTTAxQVJU?=
+ =?utf-8?B?RG9qMDRYLzJremdyRVRqMzhTb0VOM2NScG92dll5WGVXcnlyRXpTNHIvQmhU?=
+ =?utf-8?B?V3k2VFBjMmFjRnBGUkQ2MmdLVkRBYUVtSlpnNjZzUEx3KzBXKyt1VUFSampU?=
+ =?utf-8?B?cW9DeU1XdnpEalNjT01GWVZnbzMySjBhK2hOSHVQUlh1Z0xIcjg0ajQ2dHR0?=
+ =?utf-8?B?QWdQNFR1MHZrU3h1WDlvRzNrcE9heFJWUlNFMy9DdXlPZmlXV1djWFdwalpu?=
+ =?utf-8?B?bzQwemlDeGc5RGl6RDdJd0Z5QW85V1ZhTTVsNEhOSzRRMmhGL29DWnMrNFVp?=
+ =?utf-8?B?UXZyMWUxK1FCZC9oRE05ZGVmS1JjWUJTM25aMUVmVzJvMzF0TENSclZ6WjJt?=
+ =?utf-8?B?STJNRUxWTWFkTXMzNkl6VG0xNG1nSDI4d0VVOVZuUEpQMnRNaWJZVmdDaWRo?=
+ =?utf-8?B?a2s5NkQ5OEUrZURVbXlNaW9jVHhJZUxVbXR6clZCVElUODNGZzh1Q3pzV1pG?=
+ =?utf-8?Q?WjRM=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM6EUR05FT051:EE_|FR4P281MB3449:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: b144ab33-3957-4e16-2564-08dc15cf1868
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	R3HvK6JLR8TlguF7+rt/IVxeHE4GW5uXwTTDinMixzXgSI4ZOtRGuu0l6PboQp39geeZ05YJXz0FMKnX4FFSFP9Q4QdhekmjcM1uonwsH6WblDDUt4FW4I+BK1PCaVrwuai0UH3EB5xidkiyhIFLpu3ryEWiUtV/8Jb6RntkUPMiH4bhVSRyVYNgVrYT2NG7EulUjswQS/j29vRvnZ+e5mIJKXS9GgizYZ9EX5zxZxdmob+3n42Ww2owi6A3nmA1ko4Ap69If4FjyTzLQhHU5FG3YBpGY0g38mnRA/wShhDPbJSWmWFAnLRMkHOyGRVZCnDSg2Klu/ln/gT16C7892VnNpkDTEN+Vx7i156CWzRsi3mhmHsYpH5Pw6REyigp4heJAHWZ7NKEdmU9wn/j4tuUpGvuDblQB8kEp9bE83XpBv8QmlaBC/lhqifvEGBd3N5JdAWV497bgQQRqBlfhmP2MwVmfX+5hAkxZZsn34p6w0f8w6FOd0msWjsIhdjT+p+ECrIZWpNhuriU6fhhZIJ0NuvG9dewt4hfuPpZINc2e6zm9sSZBL8x/06RZSRzN5hFt63VaVRoOvX/D05prLKdjwVLXPiyO9u+gCfo6eqmlr5Chx54E6O7eJCfAGG+4dcqVqwxbkpeTckzUToQAC157HTMgp+QiMxU2JVt53feBs1FfwCtPkJ3/rx3m+zssJXF0mqoIAA6kSKWtgbJPPIUSSQGMLDScfZ8kDm3BIGaSu5UCM2XxBzPQ3xiBtj5RwhjduQuH/Ta1JG4fTcmIxtC3aTLy5ZcdzLpre7mu8U=
-X-Forefront-Antispam-Report: 
-	CIP:217.66.60.4;CTRY:DE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SR-MAIL-03.open-synergy.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(346002)(376002)(39840400004)(136003)(396003)(230922051799003)(451199024)(186009)(1800799012)(82310400011)(64100799003)(36840700001)(46966006)(2906002)(5660300002)(41300700001)(30864003)(107886003)(2616005)(36756003)(86362001)(1076003)(26005)(81166007)(36860700001)(336012)(83380400001)(47076005)(8936002)(478600001)(8676002)(4326008)(2013699003)(44832011)(70206006)(70586007)(966005)(316002)(54906003)(42186006)(40480700001)(21314003)(36900700001);DIR:OUT;SFP:1102;
 X-OriginatorOrg: opensynergy.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jan 2024 13:37:19.0878
- (UTC)
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: FR3P281MB2527.DEUP281.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-Network-Message-Id: 
- b144ab33-3957-4e16-2564-08dc15cf1868
-X-MS-Exchange-CrossTenant-Id: 800fae25-9b1b-4edc-993d-c939c4e84a64
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
- TenantId=800fae25-9b1b-4edc-993d-c939c4e84a64;Ip=[217.66.60.4];Helo=[SR-MAIL-03.open-synergy.com]
-X-MS-Exchange-CrossTenant-AuthSource: 
-	AM6EUR05FT051.eop-eur05.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: FR4P281MB3449
-X-TM-AS-ERS: 104.47.7.169-0.0.0.0
+ c943a15b-0e2d-4ac5-0bf2-08dc15d094ab
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Jan 2024 13:47:57.0744
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 800fae25-9b1b-4edc-993d-c939c4e84a64
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 
+ D1n+ZBvcBPa4lMT2ThC6Tg8thbbU0HkRlQfuLo9ngBvOGWqh3XHWuyy9XpDjfaOIpJwPQsLRhGAwaHIylA5o2Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: FR2P281MB2043
+X-TM-AS-ERS: 104.47.7.168-0.0.0.0
 X-TMASE-Version: StarCloud-1.3-9.1.1015-28120.006
-X-TMASE-Result: 10--27.885200-4.000000
-X-TMASE-MatchedRID: az/Z5iu9uIw1ES5mXStnyoi/ka5VrHsKa0/GZfVOHDoj+9t//CeCEdqK
-	Kei3fK/BELXgrbbFqNtlTstE4C1RYlVb7WSBJ2slCqJ0RbJ3bb3PaW4rD8GWjM6tJc684va3jUb
-	HKinL4HA2bvTw4kGmhROxOZUm/FwcqMfOugFNRj0v/mdfeJBuVwf8yw0JGfKVyEYRIXZC1hKyCR
-	+docAU/Ob1Nz8aB8UnQ8e9/KT1nPrROMN2W+zDHtTSGjubFor4oByh1U4IEaMu0hhTbF/LOPVyd
-	O3N+rx/+X2Dz6UW7QouzpkxP8+5uBFRqOzVJzTgb9B0a4XF/0+TElYuFMnAunpSUvnSiBqHMMdr
-	OY0C3Fefh+C5OxCORJZNDSOZsuZ1oDUf7boOKhZ+niUysM07RAeATH6uEs3ikVj8lcfFncZnDyA
-	FsBwKF4IwZJtWEdPrBPsCWqKv2JAU3c9OcKbtaFY9XYa1m8xAGfP6Q7XnYodheY1N9xOffhHjVK
-	3+pNKI38xnKIoqSpGv897CQ8vLRdITMXT2gZgPujYpdCy9VlJmwFrO7rfbIsLqQqWDHfa12WrhF
-	gFRukkP0WkLMOGBJeM14YVLH8wgwGs+EcopPjBCPQBD3xA/3aODSWu0oxbK6gfKtA7YhlrtmyEv
-	xwC5ZF4L45p2p0pV3+6k97GsyDiUTGVAhB5EbQ==
-X-TMASE-XGENCLOUD: 66a99d20-2623-4049-853e-e7d95e0311c2-0-0-200-0
-X-TM-Deliver-Signature: 10063A1D1629FDEE0D52F0C29EEFFCDB
-X-TM-Addin-Auth: JQg27yprowPuW61f2Ju0Me3qbGhY737j4JL4VY0OJ+DPLkLnU03RVAKqTLH
-	W5aoqPfT8Xwcq/xVdQmBf2pVFNE1dRiA3FT5e8ME4Q4TyPUg9YD47O5nLf6GXc1bhq3vEjp7IZl
-	FP+aj94GjhlbS//B/a+92guRCiqu6fueiGGs3WTM1eTvV3MnM3liyiqUGlrVwfufFMUfz1dAnM/
-	ZHYMOE2HlFcPKWih5GG/M7YVOdMWqNKsxrYVRE/GGIXVN3AQs36HVwLUXWMCpsZIJb6VT3tY/Me
-	KehpOxJfMZmt9n3UdQ6kRf04NZ6HkUQN8S/l.XNMAHSEdTZuYiznvsFPaCkcyGPX5cS5Ak23z8v
-	7IEY0xJpgv87kkg90Tig7BS9Glc7VVDj69ZhIyGd97FLpwBzHAnoZYt+nu3Rb4+t13WJosF3UEf
-	AM4oWQQh/NJ4U2kwrGDvGkcSg/Gfl3+dJ+tBG6zT2Reft8n3Ha4HEgVVm/+/ahm4kTUUX8rMsuY
-	+qrwrNy2Bn7x5efUxkGooOcQPaKd9A/ZplzYV34Gk53uI0+dmf+sPsj8WHtfb0fe3RrZTpHT78V
-	qEZyjpCibp6G4P6wnNxbV/+6nm5SqHOlWrvB8tboXS40Nb4Oq7rFxJ4BTxxRlMCFRT373GMeHUu
-	nBEQ==
+X-TMASE-Result: 10--9.439700-4.000000
+X-TMASE-MatchedRID: byfwvk+IcRn5ETspAEX/nlqQSvqaPnYDQahV9NsL7Q+6rP6I4JtCoaPG
+	P5RJ5YgIPXUSCAF3o32jpqzOtfSNKEBAqYs8dAC5ugsKg3hgnMwwoEy+KKX0sulSG3LMOWfSChN
+	NSoowYAcaBWDNP8bM82g9lCkO6GnTkBNX7ctPCHUCzN6q2KcSe16UsWSgw8xYPtCfWUwJAdj8qY
+	Xo9dS9IQFotqoxYumbJufhTdofzCzXYXKnv16li4/LriVzPuf5OTa4xErHZffFy+Kv6e1n37asX
+	TFkoEYA+RdGqwirhhKk2eYHfOQSdQAJWpjAfSOIJtab7uGKaWb4rwQRo9u0sq3/rEOakn8sP9OL
+	H1rDZcJMf5hXxVDJJXkIQKrRR+YxmXejpL0l0EOpTAyXiqoTW7ueT4Q7MJk103HPJtwvmXfQEYQ
+	l671XeiVNJxt7aXvghG2qikEpQGVMNQ905ddvBRivhRZCXQyQ3/k8QyYVYXjXOD3csUq+p0Cb3g
+	/ewbHB
+X-TMASE-XGENCLOUD: 1206b4b9-35eb-43ee-8504-c898865337b7-0-0-200-0
+X-TM-Deliver-Signature: 51743A03635F30AC53171FD2D8C2EF29
+X-TM-Addin-Auth: b556KGzdewcOIz/saonBDlrSi7Rf19pLy+KNKmPYayF9ILgFvIE2qYNjAaQ
+	vjyujrAND2ePo1xPyJ/XbSnkhKLtV5+axGsoAVpQ1oQcTRX8qlW6N0PvU6aKffm9RloQ7AfhVv0
+	31oQBKBU+nHmx7Ei8xWWMjBWyQZhT/vNlh9pDHRVlcMd7SgQft8i6JbnjRsedc4lJOH4+2OeLNZ
+	5VbGDnXSbaHRngCdPgxGh315ff9Qn4P5dfEYsqTJ2CeUS/vFFhHuzc0C2e4LXxXbNVF2JtDYVgr
+	DypAsgFjUSEq4fzw0yNLiYSlkdpgzkgZiLPR7tbfPHjAaknK9CcabXmm/g==.oi+tHB2pO17nYD
+	PZvXUtk9FeLfc20nZ32Oqpyr9cnU7Bw/CLxXHfWEtVLbmr4vcsem8pkCnCF+uCL4mPTHRo71lXn
+	muKhKiz2FZs+zEUJ81Jy+GP8dz7qLm71xVGQV9ELLDTvoa2lGVYIuRK3CPt5j/MhmkrZIwMiYzk
+	wCPxS/uZgzY/A9Gsx+4LNfXk+blpHL8IuefgwpfnGJywmMk3i5lYjwamsEJtgmAmlRzWam8cGgC
+	SRiThMQzcav3tXdWT78hzK9A2GXxJC3yDkYDFJHBrpMh9QOsAd8x7heDlWhUEPJA0IXX+KUNsuC
+	bw73wKp/K7mwh63sfGKUpbGkO+Dg==
 X-TM-Addin-ProductCode: EMS
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=opensynergy.com;
-	s=TM-DKIM-20210503141657; t=1705325845;
-	bh=Ka5B1+87inF7tJVAKd6W/3cDzPElSl1q/1CqDmaGmwc=; l=24544;
+	s=TM-DKIM-20210503141657; t=1705326479;
+	bh=PX7hMiwAgN2yoxYyC4aL79C73pQGqe0LsokCocL4p64=; l=2136;
 	h=From:To:Date;
-	b=RjOaspHDB7Qf8WsvbFHW8xZs6S2t9HVFlJvdO9r6IoboZ6vBkf8HQF1pL7ERFFO6K
-	 EqPE9qdhduZpAAYeBX/tl/jok4d93UPAJ8ESn7MmUNbTwV37f2U36AShIxeWhuTJF7
-	 F60amSU+n51f12HtALcTA8tqomeLOhY3Xf+JWsfLIPrgxPcIiLw5FYoFS3HXFUf2P5
-	 cAW3CBmciP7bSHAuImE9KZ+Zg4Q6+AliS5A1Xi7QqUN1UYeLXg9gfvxFSKk860s616
-	 A7EtI1yy4sL5ehtAmz6O3hbA0NXCjcmyC+m7CPfT6is8FzXj4RLSRORtI1ReALJ4ey
-	 x6w4wM1Vf8FWA==
-Message-ID-Hash: 4B2OVBN45S2RAJPDW72UJDROW2RD4TGK
-X-Message-ID-Hash: 4B2OVBN45S2RAJPDW72UJDROW2RD4TGK
+	b=cUPhXmrLAkfOAUgiX0DsbM6zC78trz58qqCPndvjewbJ1xDQF8RwvtEblsgKRuONT
+	 u3Z+U2eJcoHFkUmXUgAwRnlwpIRCA9+IiFmqdkbyEJMAoe5xCP/dpWzenGsva87CoE
+	 UZx1rIAY92S+SbScsSwnZWuNWlH8Lwf9nQiF4SddiW25Lt2kI9UnjTDDTfC672+JoO
+	 8o7wWgCPYPbimosAFcKIz61UfWJeAGRXuHr3yWs8tZNp3YlOlWHs8cRiBkJZYu4aih
+	 tEUGWVrbbVdmIwY/tRveUaZxITULRQZ+tJDdxuIojrJ2wnn13v+INb7KypU0rPJShh
+	 n38AHvzykOCWA==
+Message-ID-Hash: WHT6OEDLUGAD4UMYSGG3US25SLZZ4M3M
+X-Message-ID-Hash: WHT6OEDLUGAD4UMYSGG3US25SLZZ4M3M
 X-MailFrom: Aiswarya.Cyriac@opensynergy.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -168,7 +205,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4B2OVBN45S2RAJPDW72UJDROW2RD4TGK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BRN4ZO3PG5GOJ6WOH4TEH3LB2NDL4YQL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -177,844 +214,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Anton Yakovlev <anton.yakovlev@opensynergy.com>
-
-Implementation of support for audio controls in accordance with the
-extension of the virtio sound device specification [1] planned for
-virtio-v1.3-cs01.
-
-The device can announce the VIRTIO_SND_F_CTLS feature. If the feature is
-negotiated, then an additional field appears in the configuration space:
-
-  struct virtio_snd_config {
-    ...
-    /* number of available control elements */
-    __le32 controls;
-  };
-
-The driver can send the following requests to manage audio controls:
-
-  enum {
-    ...
-    /* control element request types */
-    VIRTIO_SND_R_CTL_INFO = 0x0300,
-    VIRTIO_SND_R_CTL_ENUM_ITEMS,
-    VIRTIO_SND_R_CTL_READ,
-    VIRTIO_SND_R_CTL_WRITE,
-    VIRTIO_SND_R_CTL_TLV_READ,
-    VIRTIO_SND_R_CTL_TLV_WRITE,
-    VIRTIO_SND_R_CTL_TLV_COMMAND,
-    ...
-  };
-
-And the device can send the following audio control event notification:
-
-  enum {
-    ...
-    /* control element event types */
-    VIRTIO_SND_EVT_CTL_NOTIFY = 0x1200,
-    ...
-  };
-
-See additional details in [1].
-
-[1] https://lists.oasis-open.org/archives/virtio-comment/202104/msg00013.html
-
-Signed-off-by: Anton Yakovlev <anton.yakovlev@opensynergy.com>
-Signed-off-by: Aiswarya Cyriac <aiswarya.cyriac@opensynergy.com>
----
- include/uapi/linux/virtio_snd.h | 154 +++++++++++
- sound/virtio/Makefile           |   1 +
- sound/virtio/virtio_card.c      |  21 ++
- sound/virtio/virtio_card.h      |  22 ++
- sound/virtio/virtio_kctl.c      | 466 ++++++++++++++++++++++++++++++++
- 5 files changed, 664 insertions(+)
- create mode 100644 sound/virtio/virtio_kctl.c
-
-diff --git a/include/uapi/linux/virtio_snd.h b/include/uapi/linux/virtio_snd.h
-index dfe49547a7b0..5f4100c2cf04 100644
---- a/include/uapi/linux/virtio_snd.h
-+++ b/include/uapi/linux/virtio_snd.h
-@@ -7,6 +7,14 @@
- 
- #include <linux/virtio_types.h>
- 
-+/*******************************************************************************
-+ * FEATURE BITS
-+ */
-+enum {
-+	/* device supports control elements */
-+	VIRTIO_SND_F_CTLS = 0
-+};
-+
- /*******************************************************************************
-  * CONFIGURATION SPACE
-  */
-@@ -17,6 +25,8 @@ struct virtio_snd_config {
- 	__le32 streams;
- 	/* # of available channel maps */
- 	__le32 chmaps;
-+	/* # of available control elements */
-+	__le32 controls;
- };
- 
- enum {
-@@ -55,6 +65,15 @@ enum {
- 	/* channel map control request types */
- 	VIRTIO_SND_R_CHMAP_INFO = 0x0200,
- 
-+	/* control element request types */
-+	VIRTIO_SND_R_CTL_INFO = 0x0300,
-+	VIRTIO_SND_R_CTL_ENUM_ITEMS,
-+	VIRTIO_SND_R_CTL_READ,
-+	VIRTIO_SND_R_CTL_WRITE,
-+	VIRTIO_SND_R_CTL_TLV_READ,
-+	VIRTIO_SND_R_CTL_TLV_WRITE,
-+	VIRTIO_SND_R_CTL_TLV_COMMAND,
-+
- 	/* jack event types */
- 	VIRTIO_SND_EVT_JACK_CONNECTED = 0x1000,
- 	VIRTIO_SND_EVT_JACK_DISCONNECTED,
-@@ -63,6 +82,9 @@ enum {
- 	VIRTIO_SND_EVT_PCM_PERIOD_ELAPSED = 0x1100,
- 	VIRTIO_SND_EVT_PCM_XRUN,
- 
-+	/* control element event types */
-+	VIRTIO_SND_EVT_CTL_NOTIFY = 0x1200,
-+
- 	/* common status codes */
- 	VIRTIO_SND_S_OK = 0x8000,
- 	VIRTIO_SND_S_BAD_MSG,
-@@ -331,4 +353,136 @@ struct virtio_snd_chmap_info {
- 	__u8 positions[VIRTIO_SND_CHMAP_MAX_SIZE];
- };
- 
-+/*******************************************************************************
-+ * CONTROL ELEMENTS MESSAGES
-+ */
-+struct virtio_snd_ctl_hdr {
-+	/* VIRTIO_SND_R_CTL_XXX */
-+	struct virtio_snd_hdr hdr;
-+	/* 0 ... virtio_snd_config::controls - 1 */
-+	__le32 control_id;
-+};
-+
-+/* supported roles for control elements */
-+enum {
-+	VIRTIO_SND_CTL_ROLE_UNDEFINED = 0,
-+	VIRTIO_SND_CTL_ROLE_VOLUME,
-+	VIRTIO_SND_CTL_ROLE_MUTE,
-+	VIRTIO_SND_CTL_ROLE_GAIN
-+};
-+
-+/* supported value types for control elements */
-+enum {
-+	VIRTIO_SND_CTL_TYPE_BOOLEAN = 0,
-+	VIRTIO_SND_CTL_TYPE_INTEGER,
-+	VIRTIO_SND_CTL_TYPE_INTEGER64,
-+	VIRTIO_SND_CTL_TYPE_ENUMERATED,
-+	VIRTIO_SND_CTL_TYPE_BYTES,
-+	VIRTIO_SND_CTL_TYPE_IEC958
-+};
-+
-+/* supported access rights for control elements */
-+enum {
-+	VIRTIO_SND_CTL_ACCESS_READ = 0,
-+	VIRTIO_SND_CTL_ACCESS_WRITE,
-+	VIRTIO_SND_CTL_ACCESS_VOLATILE,
-+	VIRTIO_SND_CTL_ACCESS_INACTIVE,
-+	VIRTIO_SND_CTL_ACCESS_TLV_READ,
-+	VIRTIO_SND_CTL_ACCESS_TLV_WRITE,
-+	VIRTIO_SND_CTL_ACCESS_TLV_COMMAND
-+};
-+
-+struct virtio_snd_ctl_info {
-+	/* common header */
-+	struct virtio_snd_info hdr;
-+	/* element role (VIRTIO_SND_CTL_ROLE_XXX) */
-+	__le32 role;
-+	/* element value type (VIRTIO_SND_CTL_TYPE_XXX) */
-+	__le32 type;
-+	/* element access right bit map (1 << VIRTIO_SND_CTL_ACCESS_XXX) */
-+	__le32 access;
-+	/* # of members in the element value */
-+	__le32 count;
-+	/* index for an element with a non-unique name */
-+	__le32 index;
-+	/* name identifier string for the element */
-+	__u8 name[44];
-+	/* additional information about the element's value */
-+	union {
-+		/* VIRTIO_SND_CTL_TYPE_INTEGER */
-+		struct {
-+			/* minimum supported value */
-+			__le32 min;
-+			/* maximum supported value */
-+			__le32 max;
-+			/* fixed step size for value (0 = variable size) */
-+			__le32 step;
-+		} integer;
-+		/* VIRTIO_SND_CTL_TYPE_INTEGER64 */
-+		struct {
-+			/* minimum supported value */
-+			__le64 min;
-+			/* maximum supported value */
-+			__le64 max;
-+			/* fixed step size for value (0 = variable size) */
-+			__le64 step;
-+		} integer64;
-+		/* VIRTIO_SND_CTL_TYPE_ENUMERATED */
-+		struct {
-+			/* # of options supported for value */
-+			__le32 items;
-+		} enumerated;
-+	} value;
-+};
-+
-+struct virtio_snd_ctl_enum_item {
-+	/* option name */
-+	__u8 item[64];
-+};
-+
-+struct virtio_snd_ctl_iec958 {
-+	/* AES/IEC958 channel status bits */
-+	__u8 status[24];
-+	/* AES/IEC958 subcode bits */
-+	__u8 subcode[147];
-+	/* nothing */
-+	__u8 pad;
-+	/* AES/IEC958 subframe bits */
-+	__u8 dig_subframe[4];
-+};
-+
-+struct virtio_snd_ctl_value {
-+	union {
-+		/* VIRTIO_SND_CTL_TYPE_BOOLEAN|INTEGER value */
-+		__le32 integer[128];
-+		/* VIRTIO_SND_CTL_TYPE_INTEGER64 value */
-+		__le64 integer64[64];
-+		/* VIRTIO_SND_CTL_TYPE_ENUMERATED value (option indexes) */
-+		__le32 enumerated[128];
-+		/* VIRTIO_SND_CTL_TYPE_BYTES value */
-+		__u8 bytes[512];
-+		/* VIRTIO_SND_CTL_TYPE_IEC958 value */
-+		struct virtio_snd_ctl_iec958 iec958;
-+	} value;
-+};
-+
-+/* supported event reason types */
-+enum {
-+	/* element's value has changed */
-+	VIRTIO_SND_CTL_EVT_MASK_VALUE = 0,
-+	/* element's information has changed */
-+	VIRTIO_SND_CTL_EVT_MASK_INFO,
-+	/* element's metadata has changed */
-+	VIRTIO_SND_CTL_EVT_MASK_TLV
-+};
-+
-+struct virtio_snd_ctl_event {
-+	/* VIRTIO_SND_EVT_CTL_NOTIFY */
-+	struct virtio_snd_hdr hdr;
-+	/* 0 ... virtio_snd_config::controls - 1 */
-+	__le16 control_id;
-+	/* event reason bit map (1 << VIRTIO_SND_CTL_EVT_MASK_XXX) */
-+	__le16 mask;
-+};
-+
- #endif /* VIRTIO_SND_IF_H */
-diff --git a/sound/virtio/Makefile b/sound/virtio/Makefile
-index 2742bddb8874..a839f8c8b5e6 100644
---- a/sound/virtio/Makefile
-+++ b/sound/virtio/Makefile
-@@ -7,6 +7,7 @@ virtio_snd-objs := \
- 	virtio_chmap.o \
- 	virtio_ctl_msg.o \
- 	virtio_jack.o \
-+	virtio_kctl.o \
- 	virtio_pcm.o \
- 	virtio_pcm_msg.o \
- 	virtio_pcm_ops.o
-diff --git a/sound/virtio/virtio_card.c b/sound/virtio/virtio_card.c
-index e2847c040f75..61df3476cf70 100644
---- a/sound/virtio/virtio_card.c
-+++ b/sound/virtio/virtio_card.c
-@@ -64,6 +64,9 @@ static void virtsnd_event_dispatch(struct virtio_snd *snd,
- 	case VIRTIO_SND_EVT_PCM_XRUN:
- 		virtsnd_pcm_event(snd, event);
- 		break;
-+	case VIRTIO_SND_EVT_CTL_NOTIFY:
-+		virtsnd_kctl_event(snd, event);
-+		break;
- 	}
- }
- 
-@@ -235,6 +238,12 @@ static int virtsnd_build_devs(struct virtio_snd *snd)
- 	if (rc)
- 		return rc;
- 
-+	if (virtio_has_feature(vdev, VIRTIO_SND_F_CTLS)) {
-+		rc = virtsnd_kctl_parse_cfg(snd);
-+		if (rc)
-+			return rc;
-+	}
-+
- 	if (snd->njacks) {
- 		rc = virtsnd_jack_build_devs(snd);
- 		if (rc)
-@@ -253,6 +262,12 @@ static int virtsnd_build_devs(struct virtio_snd *snd)
- 			return rc;
- 	}
- 
-+	if (snd->nkctls) {
-+		rc = virtsnd_kctl_build_devs(snd);
-+		if (rc)
-+			return rc;
-+	}
-+
- 	return snd_card_register(snd->card);
- }
- 
-@@ -419,10 +434,16 @@ static const struct virtio_device_id id_table[] = {
- 	{ 0 },
- };
- 
-+static unsigned int features[] = {
-+	VIRTIO_SND_F_CTLS
-+};
-+
- static struct virtio_driver virtsnd_driver = {
- 	.driver.name = KBUILD_MODNAME,
- 	.driver.owner = THIS_MODULE,
- 	.id_table = id_table,
-+	.feature_table = features,
-+	.feature_table_size = ARRAY_SIZE(features),
- 	.validate = virtsnd_validate,
- 	.probe = virtsnd_probe,
- 	.remove = virtsnd_remove,
-diff --git a/sound/virtio/virtio_card.h b/sound/virtio/virtio_card.h
-index 86ef3941895e..3ceee4e416fc 100644
---- a/sound/virtio/virtio_card.h
-+++ b/sound/virtio/virtio_card.h
-@@ -31,6 +31,16 @@ struct virtio_snd_queue {
- 	struct virtqueue *vqueue;
- };
- 
-+/**
-+ * struct virtio_kctl - VirtIO control element.
-+ * @kctl: ALSA control element.
-+ * @items: Items for the ENUMERATED element type.
-+ */
-+struct virtio_kctl {
-+	struct snd_kcontrol *kctl;
-+	struct virtio_snd_ctl_enum_item *items;
-+};
-+
- /**
-  * struct virtio_snd - VirtIO sound card device.
-  * @vdev: Underlying virtio device.
-@@ -45,6 +55,9 @@ struct virtio_snd_queue {
-  * @nsubstreams: Number of PCM substreams.
-  * @chmaps: VirtIO channel maps.
-  * @nchmaps: Number of channel maps.
-+ * @kctl_infos: VirtIO control element information.
-+ * @kctls: VirtIO control elements.
-+ * @nkctls: Number of control elements.
-  */
- struct virtio_snd {
- 	struct virtio_device *vdev;
-@@ -59,6 +72,9 @@ struct virtio_snd {
- 	u32 nsubstreams;
- 	struct virtio_snd_chmap_info *chmaps;
- 	u32 nchmaps;
-+	struct virtio_snd_ctl_info *kctl_infos;
-+	struct virtio_kctl *kctls;
-+	u32 nkctls;
- };
- 
- /* Message completion timeout in milliseconds (module parameter). */
-@@ -108,4 +124,10 @@ int virtsnd_chmap_parse_cfg(struct virtio_snd *snd);
- 
- int virtsnd_chmap_build_devs(struct virtio_snd *snd);
- 
-+int virtsnd_kctl_parse_cfg(struct virtio_snd *snd);
-+
-+int virtsnd_kctl_build_devs(struct virtio_snd *snd);
-+
-+void virtsnd_kctl_event(struct virtio_snd *snd, struct virtio_snd_event *event);
-+
- #endif /* VIRTIO_SND_CARD_H */
-diff --git a/sound/virtio/virtio_kctl.c b/sound/virtio/virtio_kctl.c
-new file mode 100644
-index 000000000000..0c6ac74aca1e
---- /dev/null
-+++ b/sound/virtio/virtio_kctl.c
-@@ -0,0 +1,466 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * virtio-snd: Virtio sound device
-+ * Copyright (C) 2022 OpenSynergy GmbH
-+ */
-+#include <sound/control.h>
-+#include <linux/virtio_config.h>
-+
-+#include "virtio_card.h"
-+
-+/* Map for converting VirtIO types to ALSA types. */
-+static const snd_ctl_elem_type_t g_v2a_type_map[] = {
-+	[VIRTIO_SND_CTL_TYPE_BOOLEAN] = SNDRV_CTL_ELEM_TYPE_BOOLEAN,
-+	[VIRTIO_SND_CTL_TYPE_INTEGER] = SNDRV_CTL_ELEM_TYPE_INTEGER,
-+	[VIRTIO_SND_CTL_TYPE_INTEGER64] = SNDRV_CTL_ELEM_TYPE_INTEGER64,
-+	[VIRTIO_SND_CTL_TYPE_ENUMERATED] = SNDRV_CTL_ELEM_TYPE_ENUMERATED,
-+	[VIRTIO_SND_CTL_TYPE_BYTES] = SNDRV_CTL_ELEM_TYPE_BYTES,
-+	[VIRTIO_SND_CTL_TYPE_IEC958] = SNDRV_CTL_ELEM_TYPE_IEC958
-+};
-+
-+/* Map for converting VirtIO access rights to ALSA access rights. */
-+static const unsigned int g_v2a_access_map[] = {
-+	[VIRTIO_SND_CTL_ACCESS_READ] = SNDRV_CTL_ELEM_ACCESS_READ,
-+	[VIRTIO_SND_CTL_ACCESS_WRITE] = SNDRV_CTL_ELEM_ACCESS_WRITE,
-+	[VIRTIO_SND_CTL_ACCESS_VOLATILE] = SNDRV_CTL_ELEM_ACCESS_VOLATILE,
-+	[VIRTIO_SND_CTL_ACCESS_INACTIVE] = SNDRV_CTL_ELEM_ACCESS_INACTIVE,
-+	[VIRTIO_SND_CTL_ACCESS_TLV_READ] = SNDRV_CTL_ELEM_ACCESS_TLV_READ,
-+	[VIRTIO_SND_CTL_ACCESS_TLV_WRITE] = SNDRV_CTL_ELEM_ACCESS_TLV_WRITE,
-+	[VIRTIO_SND_CTL_ACCESS_TLV_COMMAND] = SNDRV_CTL_ELEM_ACCESS_TLV_COMMAND
-+};
-+
-+/* Map for converting VirtIO event masks to ALSA event masks. */
-+static const unsigned int g_v2a_mask_map[] = {
-+	[VIRTIO_SND_CTL_EVT_MASK_VALUE] = SNDRV_CTL_EVENT_MASK_VALUE,
-+	[VIRTIO_SND_CTL_EVT_MASK_INFO] = SNDRV_CTL_EVENT_MASK_INFO,
-+	[VIRTIO_SND_CTL_EVT_MASK_TLV] = SNDRV_CTL_EVENT_MASK_TLV
-+};
-+
-+/**
-+ * virtsnd_kctl_info() - Returns information about the control.
-+ * @kcontrol: ALSA control element.
-+ * @uinfo: Element information.
-+ *
-+ * Context: Process context.
-+ * Return: 0 on success, -errno on failure.
-+ */
-+static int virtsnd_kctl_info(struct snd_kcontrol *kcontrol,
-+			     struct snd_ctl_elem_info *uinfo)
-+{
-+	struct virtio_snd *snd = kcontrol->private_data;
-+	struct virtio_kctl *kctl = &snd->kctls[kcontrol->private_value];
-+	struct virtio_snd_ctl_info *kinfo =
-+		&snd->kctl_infos[kcontrol->private_value];
-+	unsigned int i;
-+
-+	uinfo->type = g_v2a_type_map[le32_to_cpu(kinfo->type)];
-+	uinfo->count = le32_to_cpu(kinfo->count);
-+
-+	switch (uinfo->type) {
-+	case SNDRV_CTL_ELEM_TYPE_INTEGER:
-+		uinfo->value.integer.min =
-+			le32_to_cpu(kinfo->value.integer.min);
-+		uinfo->value.integer.max =
-+			le32_to_cpu(kinfo->value.integer.max);
-+		uinfo->value.integer.step =
-+			le32_to_cpu(kinfo->value.integer.step);
-+
-+		break;
-+	case SNDRV_CTL_ELEM_TYPE_INTEGER64:
-+		uinfo->value.integer64.min =
-+			le64_to_cpu(kinfo->value.integer64.min);
-+		uinfo->value.integer64.max =
-+			le64_to_cpu(kinfo->value.integer64.max);
-+		uinfo->value.integer64.step =
-+			le64_to_cpu(kinfo->value.integer64.step);
-+
-+		break;
-+	case SNDRV_CTL_ELEM_TYPE_ENUMERATED:
-+		uinfo->value.enumerated.items =
-+			le32_to_cpu(kinfo->value.enumerated.items);
-+		i = uinfo->value.enumerated.item;
-+		if (i >= uinfo->value.enumerated.items)
-+			return -EINVAL;
-+
-+		strscpy(uinfo->value.enumerated.name, kctl->items[i].item,
-+			sizeof(uinfo->value.enumerated.name));
-+
-+		break;
-+	}
-+
-+	return 0;
-+}
-+
-+/**
-+ * virtsnd_kctl_get() - Read the value from the control.
-+ * @kcontrol: ALSA control element.
-+ * @uvalue: Element value.
-+ *
-+ * Context: Process context.
-+ * Return: 0 on success, -errno on failure.
-+ */
-+static int virtsnd_kctl_get(struct snd_kcontrol *kcontrol,
-+			    struct snd_ctl_elem_value *uvalue)
-+{
-+	struct virtio_snd *snd = kcontrol->private_data;
-+	struct virtio_snd_ctl_info *kinfo =
-+		&snd->kctl_infos[kcontrol->private_value];
-+	unsigned int type = le32_to_cpu(kinfo->type);
-+	unsigned int count = le32_to_cpu(kinfo->count);
-+	struct virtio_snd_msg *msg;
-+	struct virtio_snd_ctl_hdr *hdr;
-+	struct virtio_snd_ctl_value *kvalue;
-+	size_t request_size = sizeof(*hdr);
-+	size_t response_size = sizeof(struct virtio_snd_hdr) + sizeof(*kvalue);
-+	unsigned int i;
-+	int rc;
-+
-+	msg = virtsnd_ctl_msg_alloc(request_size, response_size, GFP_KERNEL);
-+	if (!msg)
-+		return -ENOMEM;
-+
-+	virtsnd_ctl_msg_ref(msg);
-+
-+	hdr = virtsnd_ctl_msg_request(msg);
-+	hdr->hdr.code = cpu_to_le32(VIRTIO_SND_R_CTL_READ);
-+	hdr->control_id = cpu_to_le32(kcontrol->private_value);
-+
-+	rc = virtsnd_ctl_msg_send_sync(snd, msg);
-+	if (rc)
-+		goto on_failure;
-+
-+	kvalue = (void *)((u8 *)virtsnd_ctl_msg_response(msg) +
-+			  sizeof(struct virtio_snd_hdr));
-+
-+	switch (type) {
-+	case VIRTIO_SND_CTL_TYPE_BOOLEAN:
-+	case VIRTIO_SND_CTL_TYPE_INTEGER:
-+		for (i = 0; i < count; ++i)
-+			uvalue->value.integer.value[i] =
-+				le32_to_cpu(kvalue->value.integer[i]);
-+		break;
-+	case VIRTIO_SND_CTL_TYPE_INTEGER64:
-+		for (i = 0; i < count; ++i)
-+			uvalue->value.integer64.value[i] =
-+				le64_to_cpu(kvalue->value.integer64[i]);
-+		break;
-+	case VIRTIO_SND_CTL_TYPE_ENUMERATED:
-+		for (i = 0; i < count; ++i)
-+			uvalue->value.enumerated.item[i] =
-+				le32_to_cpu(kvalue->value.enumerated[i]);
-+		break;
-+	case VIRTIO_SND_CTL_TYPE_BYTES:
-+		memcpy(uvalue->value.bytes.data, kvalue->value.bytes, count);
-+		break;
-+	case VIRTIO_SND_CTL_TYPE_IEC958:
-+		memcpy(&uvalue->value.iec958, &kvalue->value.iec958,
-+		       sizeof(uvalue->value.iec958));
-+		break;
-+	}
-+
-+on_failure:
-+	virtsnd_ctl_msg_unref(msg);
-+
-+	return rc;
-+}
-+
-+/**
-+ * virtsnd_kctl_put() - Write the value to the control.
-+ * @kcontrol: ALSA control element.
-+ * @uvalue: Element value.
-+ *
-+ * Context: Process context.
-+ * Return: 0 on success, -errno on failure.
-+ */
-+static int virtsnd_kctl_put(struct snd_kcontrol *kcontrol,
-+			    struct snd_ctl_elem_value *uvalue)
-+{
-+	struct virtio_snd *snd = kcontrol->private_data;
-+	struct virtio_snd_ctl_info *kinfo =
-+		&snd->kctl_infos[kcontrol->private_value];
-+	unsigned int type = le32_to_cpu(kinfo->type);
-+	unsigned int count = le32_to_cpu(kinfo->count);
-+	struct virtio_snd_msg *msg;
-+	struct virtio_snd_ctl_hdr *hdr;
-+	struct virtio_snd_ctl_value *kvalue;
-+	size_t request_size = sizeof(*hdr) + sizeof(*kvalue);
-+	size_t response_size = sizeof(struct virtio_snd_hdr);
-+	unsigned int i;
-+
-+	msg = virtsnd_ctl_msg_alloc(request_size, response_size, GFP_KERNEL);
-+	if (!msg)
-+		return -ENOMEM;
-+
-+	hdr = virtsnd_ctl_msg_request(msg);
-+	hdr->hdr.code = cpu_to_le32(VIRTIO_SND_R_CTL_WRITE);
-+	hdr->control_id = cpu_to_le32(kcontrol->private_value);
-+
-+	kvalue = (void *)((u8 *)hdr + sizeof(*hdr));
-+
-+	switch (type) {
-+	case VIRTIO_SND_CTL_TYPE_BOOLEAN:
-+	case VIRTIO_SND_CTL_TYPE_INTEGER:
-+		for (i = 0; i < count; ++i)
-+			kvalue->value.integer[i] =
-+				cpu_to_le32(uvalue->value.integer.value[i]);
-+		break;
-+	case VIRTIO_SND_CTL_TYPE_INTEGER64:
-+		for (i = 0; i < count; ++i)
-+			kvalue->value.integer64[i] =
-+				cpu_to_le64(uvalue->value.integer64.value[i]);
-+		break;
-+	case VIRTIO_SND_CTL_TYPE_ENUMERATED:
-+		for (i = 0; i < count; ++i)
-+			kvalue->value.enumerated[i] =
-+				cpu_to_le32(uvalue->value.enumerated.item[i]);
-+		break;
-+	case VIRTIO_SND_CTL_TYPE_BYTES:
-+		memcpy(kvalue->value.bytes, uvalue->value.bytes.data, count);
-+		break;
-+	case VIRTIO_SND_CTL_TYPE_IEC958:
-+		memcpy(&kvalue->value.iec958, &uvalue->value.iec958,
-+		       sizeof(kvalue->value.iec958));
-+		break;
-+	}
-+
-+	return virtsnd_ctl_msg_send_sync(snd, msg);
-+}
-+
-+/**
-+ * virtsnd_kctl_tlv_op() - Perform an operation on the control's metadata.
-+ * @kcontrol: ALSA control element.
-+ * @op_flag: Operation code (SNDRV_CTL_TLV_OP_XXX).
-+ * @size: Size of the TLV data in bytes.
-+ * @utlv: TLV data.
-+ *
-+ * Context: Process context.
-+ * Return: 0 on success, -errno on failure.
-+ */
-+static int virtsnd_kctl_tlv_op(struct snd_kcontrol *kcontrol, int op_flag,
-+			       unsigned int size, unsigned int __user *utlv)
-+{
-+	struct virtio_snd *snd = kcontrol->private_data;
-+	struct virtio_snd_msg *msg;
-+	struct virtio_snd_ctl_hdr *hdr;
-+	unsigned int *tlv;
-+	struct scatterlist sg;
-+	int rc;
-+
-+	msg = virtsnd_ctl_msg_alloc(sizeof(*hdr), sizeof(struct virtio_snd_hdr),
-+				    GFP_KERNEL);
-+	if (!msg)
-+		return -ENOMEM;
-+
-+	tlv = kzalloc(size, GFP_KERNEL);
-+	if (!tlv) {
-+		virtsnd_ctl_msg_unref(msg);
-+		return -ENOMEM;
-+	}
-+
-+	sg_init_one(&sg, tlv, size);
-+
-+	hdr = virtsnd_ctl_msg_request(msg);
-+	hdr->control_id = cpu_to_le32(kcontrol->private_value);
-+
-+	switch (op_flag) {
-+	case SNDRV_CTL_TLV_OP_READ:
-+		hdr->hdr.code = cpu_to_le32(VIRTIO_SND_R_CTL_TLV_READ);
-+
-+		rc = virtsnd_ctl_msg_send(snd, msg, NULL, &sg, false);
-+		if (!rc) {
-+			if (copy_to_user(utlv, tlv, size))
-+				rc = -EFAULT;
-+		}
-+
-+		break;
-+	case SNDRV_CTL_TLV_OP_WRITE:
-+	case SNDRV_CTL_TLV_OP_CMD:
-+		if (op_flag == SNDRV_CTL_TLV_OP_WRITE)
-+			hdr->hdr.code = cpu_to_le32(VIRTIO_SND_R_CTL_TLV_WRITE);
-+		else
-+			hdr->hdr.code =
-+				cpu_to_le32(VIRTIO_SND_R_CTL_TLV_COMMAND);
-+
-+		if (copy_from_user(tlv, utlv, size))
-+			rc = -EFAULT;
-+		else
-+			rc = virtsnd_ctl_msg_send(snd, msg, &sg, NULL, false);
-+
-+		break;
-+	}
-+
-+	kfree(tlv);
-+
-+	return rc;
-+}
-+
-+/**
-+ * virtsnd_kctl_get_enum_items() - Query items for the ENUMERATED element type.
-+ * @snd: VirtIO sound device.
-+ * @cid: Control element ID.
-+ *
-+ * This function is called during initial device initialization.
-+ *
-+ * Context: Any context that permits to sleep.
-+ * Return: 0 on success, -errno on failure.
-+ */
-+static int virtsnd_kctl_get_enum_items(struct virtio_snd *snd, unsigned int cid)
-+{
-+	struct virtio_device *vdev = snd->vdev;
-+	struct virtio_snd_ctl_info *kinfo = &snd->kctl_infos[cid];
-+	struct virtio_kctl *kctl = &snd->kctls[cid];
-+	struct virtio_snd_msg *msg;
-+	struct virtio_snd_ctl_hdr *hdr;
-+	unsigned int n = le32_to_cpu(kinfo->value.enumerated.items);
-+	struct scatterlist sg;
-+
-+	msg = virtsnd_ctl_msg_alloc(sizeof(*hdr),
-+				    sizeof(struct virtio_snd_hdr), GFP_KERNEL);
-+	if (!msg)
-+		return -ENOMEM;
-+
-+	kctl->items = devm_kcalloc(&vdev->dev, n, sizeof(*kctl->items),
-+				   GFP_KERNEL);
-+	if (!kctl->items) {
-+		virtsnd_ctl_msg_unref(msg);
-+		return -ENOMEM;
-+	}
-+
-+	sg_init_one(&sg, kctl->items, n * sizeof(*kctl->items));
-+
-+	hdr = virtsnd_ctl_msg_request(msg);
-+	hdr->hdr.code = cpu_to_le32(VIRTIO_SND_R_CTL_ENUM_ITEMS);
-+	hdr->control_id = cpu_to_le32(cid);
-+
-+	return virtsnd_ctl_msg_send(snd, msg, NULL, &sg, false);
-+}
-+
-+/**
-+ * virtsnd_kctl_parse_cfg() - Parse the control element configuration.
-+ * @snd: VirtIO sound device.
-+ *
-+ * This function is called during initial device initialization.
-+ *
-+ * Context: Any context that permits to sleep.
-+ * Return: 0 on success, -errno on failure.
-+ */
-+int virtsnd_kctl_parse_cfg(struct virtio_snd *snd)
-+{
-+	struct virtio_device *vdev = snd->vdev;
-+	u32 i;
-+	int rc;
-+
-+	virtio_cread_le(vdev, struct virtio_snd_config, controls,
-+			&snd->nkctls);
-+	if (!snd->nkctls)
-+		return 0;
-+
-+	snd->kctl_infos = devm_kcalloc(&vdev->dev, snd->nkctls,
-+				       sizeof(*snd->kctl_infos), GFP_KERNEL);
-+	if (!snd->kctl_infos)
-+		return -ENOMEM;
-+
-+	snd->kctls = devm_kcalloc(&vdev->dev, snd->nkctls, sizeof(*snd->kctls),
-+				  GFP_KERNEL);
-+	if (!snd->kctls)
-+		return -ENOMEM;
-+
-+	rc = virtsnd_ctl_query_info(snd, VIRTIO_SND_R_CTL_INFO, 0, snd->nkctls,
-+				    sizeof(*snd->kctl_infos), snd->kctl_infos);
-+	if (rc)
-+		return rc;
-+
-+	for (i = 0; i < snd->nkctls; ++i) {
-+		struct virtio_snd_ctl_info *kinfo = &snd->kctl_infos[i];
-+		unsigned int type = le32_to_cpu(kinfo->type);
-+
-+		if (type == VIRTIO_SND_CTL_TYPE_ENUMERATED) {
-+			rc = virtsnd_kctl_get_enum_items(snd, i);
-+			if (rc)
-+				return rc;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+/**
-+ * virtsnd_kctl_build_devs() - Build ALSA control elements.
-+ * @snd: VirtIO sound device.
-+ *
-+ * Context: Any context that permits to sleep.
-+ * Return: 0 on success, -errno on failure.
-+ */
-+int virtsnd_kctl_build_devs(struct virtio_snd *snd)
-+{
-+	unsigned int cid;
-+
-+	for (cid = 0; cid < snd->nkctls; ++cid) {
-+		struct virtio_snd_ctl_info *kinfo = &snd->kctl_infos[cid];
-+		struct virtio_kctl *kctl = &snd->kctls[cid];
-+		struct snd_kcontrol_new kctl_new;
-+		unsigned int i;
-+		int rc;
-+
-+		memset(&kctl_new, 0, sizeof(kctl_new));
-+
-+		kctl_new.iface = SNDRV_CTL_ELEM_IFACE_MIXER;
-+		kctl_new.name = kinfo->name;
-+		kctl_new.index = le32_to_cpu(kinfo->index);
-+
-+		for (i = 0; i < ARRAY_SIZE(g_v2a_access_map); ++i)
-+			if (le32_to_cpu(kinfo->access) & (1 << i))
-+				kctl_new.access |= g_v2a_access_map[i];
-+
-+		if (kctl_new.access & (SNDRV_CTL_ELEM_ACCESS_TLV_READ |
-+				       SNDRV_CTL_ELEM_ACCESS_TLV_WRITE |
-+				       SNDRV_CTL_ELEM_ACCESS_TLV_COMMAND)) {
-+			kctl_new.access |= SNDRV_CTL_ELEM_ACCESS_TLV_CALLBACK;
-+			kctl_new.tlv.c = virtsnd_kctl_tlv_op;
-+		}
-+
-+		kctl_new.info = virtsnd_kctl_info;
-+		kctl_new.get = virtsnd_kctl_get;
-+		kctl_new.put = virtsnd_kctl_put;
-+		kctl_new.private_value = cid;
-+
-+		kctl->kctl = snd_ctl_new1(&kctl_new, snd);
-+		if (!kctl->kctl)
-+			return -ENOMEM;
-+
-+		rc = snd_ctl_add(snd->card, kctl->kctl);
-+		if (rc)
-+			return rc;
-+	}
-+
-+	return 0;
-+}
-+
-+/**
-+ * virtsnd_kctl_event() - Handle the control element event notification.
-+ * @snd: VirtIO sound device.
-+ * @event: VirtIO sound event.
-+ *
-+ * Context: Interrupt context.
-+ */
-+void virtsnd_kctl_event(struct virtio_snd *snd, struct virtio_snd_event *event)
-+{
-+	struct virtio_snd_ctl_event *kevent =
-+		(struct virtio_snd_ctl_event *)event;
-+	struct virtio_kctl *kctl;
-+	unsigned int cid = le16_to_cpu(kevent->control_id);
-+	unsigned int mask = 0;
-+	unsigned int i;
-+
-+	if (cid >= snd->nkctls)
-+		return;
-+
-+	for (i = 0; i < ARRAY_SIZE(g_v2a_mask_map); ++i)
-+		if (le16_to_cpu(kevent->mask) & (1 << i))
-+			mask |= g_v2a_mask_map[i];
-+
-+
-+	kctl = &snd->kctls[cid];
-+
-+	snd_ctl_notify(snd->card, mask, &kctl->kctl->id);
-+}
--- 
-2.25.1
-
+SGkgTWFyY2luLA0KDQpJIGhhdmUgcHVzaGVkIHYyIG9mIHRoZSBwYXRjaGVzIHdpdGggYSBmaXgg
+dG9kYXkuIFRoZSBmZWF0dXJlIGRldmVsb3BtZW50IGlzIGNvbXBsZXRlIGFuZCB0aGUgcGF0Y2gg
+YXdhaXRzIHJldmlldy4NClRoYW5rcyBmb3IgYW55IHN1cHBvcnQgaW4gdGVzdGluZyBvciByZXZp
+ZXcuDQoNCkJlc3QgUmVnYXJkcywNCkFpc3dhcnlhIEN5cmlhYw0KU29mdHdhcmUgRW5naW5lZXIN
+CuKAiw0KT3BlblN5bmVyZ3kgR21iSA0KUm90aGVyc3RyLiAyMCwgMTAyNDUgQmVybGluDQoNCkVN
+YWlsOiBhaXN3YXJ5YS5jeXJpYWNAb3BlbnN5bmVyZ3kuY29tDQoNCnd3dy5vcGVuc3luZXJneS5j
+b20NCkhhbmRlbHNyZWdpc3Rlci9Db21tZXJjaWFsIFJlZ2lzdHJ5OiBBbXRzZ2VyaWNodCBDaGFy
+bG90dGVuYnVyZywgSFJCIDEwODYxNkINCkdlc2Now6RmdHNmw7xocmVyL01hbmFnaW5nIERpcmVj
+dG9yOiBSw6lnaXMgQWRqYW1haA0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fDQpGcm9tOiBNYXJjaW4gUmFkb21za2kgPGRleHRlcm9AZ29vZ2xlLmNvbT4NClNlbnQ6
+IFRodXJzZGF5LCBKYW51YXJ5IDExLCAyMDI0IDI6MzMgUE0NClRvOiBBaXN3YXJ5YSBDeXJpYWMN
+CkNjOiBhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmc7IEFudG9uIFlha292bGV2OyBqYXNvd2Fu
+Z0ByZWRoYXQuY29tOyBsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnOyBtc3RAcmVkaGF0LmNv
+bTsgcGVyZXhAcGVyZXguY3o7IHRpd2FpQHN1c2UuY29tOyB2aXJ0aW8tZGV2QGxpc3RzLm9hc2lz
+LW9wZW4ub3JnOyB2aXJ0dWFsaXphdGlvbkBsaXN0cy5saW51eC1mb3VuZGF0aW9uLm9yZzsgdmls
+bEBnb29nbGUuY29tDQpTdWJqZWN0OiBSZTogW1JFU0VORCBQQVRDSCAwLzFdIEFMU0E6IHZpcnRp
+bzogYWRkIHN1cHBvcnQgZm9yIGF1ZGlvIGNvbnRyb2xzDQoNCkhpIEFpc3dhcnlhLA0KDQpJIHdh
+cyBsb29raW5nIGludG8gVmlydElPIGF1ZGlvIGNvbnRyb2xzIHN1cHBvcnQgaW4gTGludXggYW5k
+IGNhbWUgYWNyb3NzIHRoaXMgcGF0Y2ggc2VyaWVzLCB3aGljaCBzZWVtcyB0byBiZSBtYXJrZWQg
+ImFyY2hpdmVkIiBvbiBwYXRjaHdvcmsgWzBdLiBJIHdvdWxkIGxvdmUgdG8gYmUgYWJsZSB0byB1
+c2UgdGhpcyB3aXRoIG1haW5saW5lIExpbnV4LiBJJ20gd29uZGVyaW5nIGFib3V0IHRoZSBzdGF0
+dXMgb2YgdGhpcyBzZXJpZXMgLSBpcyB0aGUgZmVhdHVyZSBzdGlsbCB1bmRlciBkZXZlbG9wbWVu
+dCwgb3IgYXJlIHRoZXJlIHNvbWUgY29uY2VybnMgdGhhdCBuZWVkIHRvIGJlIGFkZHJlc3NlZD8N
+Cg0KSSdkIGJlIG1vcmUgdGhhbiBoYXBweSB0byBoZWxwIHdpdGggdGVzdGluZy4NCg0KVGhhbmtz
+IGZvciBhbnkgaW5zaWdodHMgb3IgdXBkYXRlcyB5b3UgY2FuIG9mZmVyLg0KDQpSZWdhcmRzLA0K
+TWFyY2luIFJhZG9tc2tpDQoNClswXSBodHRwczovL3BhdGNod29yay5rZXJuZWwub3JnL3Byb2pl
+Y3QvYWxzYS1kZXZlbC9wYXRjaC8yMDIzMDIwOTExNTkxNi45MTc1NjktMi1haXN3YXJ5YS5jeXJp
+YWNAb3BlbnN5bmVyZ3kuY29tLw0K

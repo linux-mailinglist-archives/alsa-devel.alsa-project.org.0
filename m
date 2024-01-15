@@ -2,96 +2,110 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A74ED82DE7E
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 Jan 2024 18:33:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A54FD82DF35
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 Jan 2024 19:21:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D2EDC207;
-	Mon, 15 Jan 2024 18:33:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D2EDC207
+	by alsa0.perex.cz (Postfix) with ESMTPS id 001F61FF;
+	Mon, 15 Jan 2024 19:21:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 001F61FF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1705339991;
-	bh=zc1flDE3PhZVU04RXYvbgwNP4obU8SayEtt/EdQ/h1c=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=ShQr7iFgB8LwWoE8CZ9H7tqk+wFgYdWQrD7QtoQw1D4kVHa70cWzk6QQou9pzSvV9
-	 9FjCQNyUFQFl7+Ct5LR1ysaD8NimUdRWu/u2lJ6MlzqNJwg9QxBwSVCyTZdftJhwOI
-	 hG26HvMPRqk5GTDrqIj8DziRcK3BxWX210OrMdEk=
+	s=default; t=1705342877;
+	bh=uTV3fMQBEmjsZDn7ukfrJz1LkbPuevUUZnv8o3pf2jQ=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=XKXQet/cMNJ2bYV0GoVjgJqzJ+Nok3ZewEmrRCuCXhv5xmfExYmhGHPohkZYLIL5w
+	 AmkCGle0ZVzzwoPiqlvleiiw6PXXNCngJWb8OPDfMqNTMegWoAVn5jeAXtT8RraF3p
+	 yVSid6rjjeWfdMBX+RR0qsnM2wXTWH45iBudUeM8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A8FDCF80548; Mon, 15 Jan 2024 18:32:39 +0100 (CET)
+	id 7B6CCF8057D; Mon, 15 Jan 2024 19:20:35 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0AC3BF80520;
-	Mon, 15 Jan 2024 18:32:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DC7BAF8057E;
+	Mon, 15 Jan 2024 19:20:34 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7D64EF801F5; Mon, 15 Jan 2024 18:32:34 +0100 (CET)
+	id F163AF801F5; Mon, 15 Jan 2024 19:20:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from metis.whiteo.stw.pengutronix.de
- (metis.whiteo.stw.pengutronix.de [IPv6:2a0a:edc0:2:b01:1d::104])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
- server-digest SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [IPv6:2a00:1450:4864:20::52f])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 97E7EF80074
-	for <alsa-devel@alsa-project.org>; Mon, 15 Jan 2024 18:32:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97E7EF80074
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
-	by metis.whiteo.stw.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-	(Exim 4.92)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1rPQom-0004EU-7Y; Mon, 15 Jan 2024 18:32:12 +0100
-Received: from [2a0a:edc0:0:900:1d::4e] (helo=lupine)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.94.2)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1rPQoh-00044H-MF; Mon, 15 Jan 2024 18:32:07 +0100
-Received: from pza by lupine with local (Exim 4.96)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1rPQoh-000A5v-1x;
-	Mon, 15 Jan 2024 18:32:07 +0100
-Message-ID: <289c4af00bcc46e83555dacbc76f56477126d645.camel@pengutronix.de>
-Subject: Re: [PATCH v3 2/5] reset: Instantiate reset GPIO controller for
- shared reset-gpios
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Bartosz
- Golaszewski <brgl@bgdev.pl>
-Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio
- <konrad.dybcio@linaro.org>, Srinivas Kandagatla
- <srinivas.kandagatla@linaro.org>,  Banajit Goswami <bgoswami@quicinc.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,  Rob
- Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
- Peter Rosin <peda@axentia.se>, Jaroslav Kysela <perex@perex.cz>, Takashi
- Iwai <tiwai@suse.com>, linux-arm-msm@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-i2c@vger.kernel.org, Chris Packham
- <chris.packham@alliedtelesis.co.nz>,  Sean Anderson <sean.anderson@seco.com>
-Date: Mon, 15 Jan 2024 18:32:07 +0100
-In-Reply-To: <7f311659-9f49-44dc-ad40-977d34066d98@linaro.org>
-References: <20240112163608.528453-1-krzysztof.kozlowski@linaro.org>
-	 <20240112163608.528453-3-krzysztof.kozlowski@linaro.org>
-	 <CAMRc=MdcCZP5kgv7JBdy2m_naNbTSeq4MDE_3mk+1-5UD4ntwQ@mail.gmail.com>
-	 <7f311659-9f49-44dc-ad40-977d34066d98@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.46.4-2 
+	by alsa1.perex.cz (Postfix) with ESMTPS id DCA0AF800C1
+	for <alsa-devel@alsa-project.org>; Mon, 15 Jan 2024 19:20:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DCA0AF800C1
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=eDgR/Qid
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-55817a12ad8so6782281a12.2
+        for <alsa-devel@alsa-project.org>;
+ Mon, 15 Jan 2024 10:20:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1705342822; x=1705947622;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=vfqDNdJii/JwczmpCcKHtey65uDHFKVGPKm3GAmlP5s=;
+        b=eDgR/QidEy98ZNRdehG7/0JApiqn9tNXhKWeG3/qX9EGo4kcYhUl6MwU9wJbfDICTR
+         HG7efVzCOEl+13bi0FfXvg6FnV8ZmHgKkHnEpG5/q/M6S3xqZa00cVViupvjkPMUVpGU
+         GV4md2zw5QfUrhHy7qQTC1W8DhoFncVzx/UVhpIxJnZuG/OpYjRUV2SxtBn1Thi3OtMM
+         wO4Dyvc3+Zw1AcdXM+4Dhq5zNIPLLxMK0eypxA4KQtq2NeFKmfueTBzZ5DC3vytM55ak
+         3JfpaxNSco9KUZFgGAwJwfP/SDuFOS12/WTutrFsdJXQVTH1YY/D4f+FpHEImLqb2/0u
+         WLvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1705342822; x=1705947622;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=vfqDNdJii/JwczmpCcKHtey65uDHFKVGPKm3GAmlP5s=;
+        b=SpwBxFcVrPEJRrZ6JxQqFN/e8F5QBPRA+EtmWVoVTnM1NcnrCWT7+YChrVdzHv3rpi
+         InyjsBW3R9J4J1w2xi27D0Cm3V3+xhwAYN5SFKwJjSOe39al18ek5yS6eeiKhKqNY6Hg
+         o7OFWJLOylLILN6NGY8/1IPW4zvRUWUfvnKdUskyiqLDeTg0x9ns+CTmpHCgEWYq3cR3
+         XfhMXLumcOWhkFO+hQVOjOgYtqYnHizAV/lggfMH0yrRVm909yJ812oTkzes51dn5xOH
+         x9Ve9G+CeHMLfPXq7xWGAtIuKeWwFR42gpc643AJBB7OJETi7snQiunQNcIzfEDJ31Rb
+         b6XQ==
+X-Gm-Message-State: AOJu0YxsnsHD3dKr0JMIh/nm3irjeA1kmuLY0ToBtDLifT7dbf/5sMal
+	J500e63Amd3hTNNO3z4JkNkN7Sr3HvCgsQ==
+X-Google-Smtp-Source: 
+ AGHT+IH4iiT1305wjSx0qw7+JZyagxUkxX2NGFDlrUVaieyWX/cQtizfU3/Ag65NHQO/QGBhgiuxeA==
+X-Received: by 2002:aa7:d80d:0:b0:559:565a:8fb0 with SMTP id
+ v13-20020aa7d80d000000b00559565a8fb0mr751869edq.84.1705342822468;
+        Mon, 15 Jan 2024 10:20:22 -0800 (PST)
+Received: from krzk-bin.. ([178.197.215.66])
+        by smtp.gmail.com with ESMTPSA id
+ l26-20020aa7c3da000000b005546ba152f4sm5761795edr.71.2024.01.15.10.20.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 15 Jan 2024 10:20:21 -0800 (PST)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Shengjiu Wang <shengjiu.wang@nxp.com>,
+	linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	alsa-devel@alsa-project.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: [PATCH] ASoC: dt-bindings: Do not override firmware-name $ref
+Date: Mon, 15 Jan 2024 19:20:17 +0100
+Message-Id: <20240115182017.1610055-1-krzysztof.kozlowski@linaro.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: p.zabel@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: alsa-devel@alsa-project.org
-Message-ID-Hash: TJBK7B3TUA6W5G3FIZ22QK2M7JCVSGKQ
-X-Message-ID-Hash: TJBK7B3TUA6W5G3FIZ22QK2M7JCVSGKQ
-X-MailFrom: p.zabel@pengutronix.de
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: 2PYFMBDZNMLM2UNKPOVX2NI4TDN56TIY
+X-Message-ID-Hash: 2PYFMBDZNMLM2UNKPOVX2NI4TDN56TIY
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -103,82 +117,53 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TJBK7B3TUA6W5G3FIZ22QK2M7JCVSGKQ/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2PYFMBDZNMLM2UNKPOVX2NI4TDN56TIY/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mo, 2024-01-15 at 17:13 +0100, Krzysztof Kozlowski wrote:
-> On 15/01/2024 17:06, Bartosz Golaszewski wrote:
-> > > +
-> > > +static int __reset_add_reset_gpio_lookup(int id, struct device_node =
-*np,
-> > > +                                        unsigned int gpio,
-> > > +                                        unsigned int of_flags)
-> > > +{
-> > > +       struct gpiod_lookup_table *lookup __free(kfree) =3D NULL;
-> > > +       struct gpio_device *gdev __free(gpio_device_put) =3D NULL;
-> > > +       char *label __free(kfree) =3D NULL;
-> >=20
-> > I got yelled at by Linus Torvalds personally for doing it like this. I
-> > know this is a common pattern in code using GLib but Linus wants auto
-> > variables to be initialized where they're declared...
->=20
-> Declaration is here. Initialization is here. Therefore this is
-> initialized where it is declared. What's more it is initialized to a
-> valid value, because __free() accepts NULLs.
-[...]
-> > ... so this should become:
-> >=20
-> >   struct gpio_device *gdev __free(gpio_device_put) =3D gpio_device_find=
-(...)
-> >=20
-> > and same for the rest.
-> >=20
-> > Don't get me wrong, I love cleanup.h but there's a (unofficial for
-> > now) coding style.
->=20
-> So you just want to declare it not in top-part of the function but just
-> before first use?
+dtschema package defines firmware-name as string-array, so individual
+bindings should not make it a string but instead just narrow the number
+of expected firmware file names.
 
-IIUC, Linus wants exactly this:
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+---
+ Documentation/devicetree/bindings/sound/fsl,easrc.yaml        | 4 ++--
+ Documentation/devicetree/bindings/sound/infineon,peb2466.yaml | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-https://lore.kernel.org/all/CAHk-=3DwgRHiV5VSxtfXA4S6aLUmcQYEuB67u3BJPJPtuE=
-Ss1JyA@mail.gmail.com/
+diff --git a/Documentation/devicetree/bindings/sound/fsl,easrc.yaml b/Documentation/devicetree/bindings/sound/fsl,easrc.yaml
+index a680d7aff237..0782f3f9947f 100644
+--- a/Documentation/devicetree/bindings/sound/fsl,easrc.yaml
++++ b/Documentation/devicetree/bindings/sound/fsl,easrc.yaml
+@@ -51,8 +51,8 @@ properties:
+       - const: ctx3_tx
+ 
+   firmware-name:
+-    $ref: /schemas/types.yaml#/definitions/string
+-    const: imx/easrc/easrc-imx8mn.bin
++    items:
++      - const: imx/easrc/easrc-imx8mn.bin
+     description: The coefficient table for the filters
+ 
+   fsl,asrc-rate:
+diff --git a/Documentation/devicetree/bindings/sound/infineon,peb2466.yaml b/Documentation/devicetree/bindings/sound/infineon,peb2466.yaml
+index 66993d378aaf..5e11ce2c13ac 100644
+--- a/Documentation/devicetree/bindings/sound/infineon,peb2466.yaml
++++ b/Documentation/devicetree/bindings/sound/infineon,peb2466.yaml
+@@ -51,7 +51,7 @@ properties:
+     maxItems: 1
+ 
+   firmware-name:
+-    $ref: /schemas/types.yaml#/definitions/string
++    maxItems: 1
+     description:
+       Filters coefficients file to load. If this property is omitted, internal
+       filters are disabled.
+-- 
+2.34.1
 
-[...]
-> >=20
-> > > +               goto out_unlock;
-> > >         }
-> > >=20
-> > >         rstc_id =3D rcdev->of_xlate(rcdev, &args);
-> > >         if (rstc_id < 0) {
-> > >                 rstc =3D ERR_PTR(rstc_id);
-> > > -               goto out;
-> > > +               goto out_unlock;
-> > >         }
-> > >=20
-> > >         /* reset_list_mutex also protects the rcdev's reset_control l=
-ist */
-> > >         rstc =3D __reset_control_get_internal(rcdev, rstc_id, shared,=
- acquired);
-> > >=20
-> > > -out:
-> > > +out_unlock:
-> > >         mutex_unlock(&reset_list_mutex);
-> > > +out_put:
-> > >         of_node_put(args.np);
-> >=20
-> > I suggest reworking this to use cleanup.h as well.
->=20
-> It's independent task. This is an existing code and any refactoring to
-> cleanup or not is independent thing.
-
-Seconded. Separate cleanup very welcome, but this series is about
-adding functionality.
-
-regards
-Philipp

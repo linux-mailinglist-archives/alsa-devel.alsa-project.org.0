@@ -2,111 +2,118 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C1DF82ED78
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Jan 2024 12:12:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40D6B82EE01
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Jan 2024 12:42:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 26E2720C;
-	Tue, 16 Jan 2024 12:12:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 26E2720C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4CE60202;
+	Tue, 16 Jan 2024 12:42:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4CE60202
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1705403563;
-	bh=hF9s8AYRGsnc1Sy+YgZt9X+50lemDfRZAIWx+Z9FKOA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1705405376;
+	bh=3ETa/IB76FnSUzUMCNIjO0OPtMyIpkffhHAQmKw0f14=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=jQMuaYnqcOWRz+aM+ErsUsJMCIidZZBb59Axg34M1lwxSp3lp/OkWO10KWD6anrhy
-	 JuQHnf7rcz48LGnLQObEKiUvN++A4TK/T9jlphaYQ4G38tYtM0ThzgDvL32OcLiXv1
-	 02if4yG+TDGYOfWqEhdzYVF17rTzjBXubDbO2rus=
+	b=g5oSDnB7peOX2n8w0emZLhuOAWZk1zCQv3NZw+dYX1g/xO/ZJO+iLIS2cUpDOhs2Y
+	 wFqG7PNcYqTgjGvotjn1BN3J32MuEMM8SpXewc+zpD1ail+Qh1orpFi/IMO/rVUO8F
+	 h0alen7fap3dlVIREH+ZbOXkJly+5PeeG+M4Lgb8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C9D2DF8057D; Tue, 16 Jan 2024 12:12:07 +0100 (CET)
+	id 62B7AF802E8; Tue, 16 Jan 2024 12:42:24 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C72AFF8057D;
-	Tue, 16 Jan 2024 12:12:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DD5B2F8057C;
+	Tue, 16 Jan 2024 12:42:23 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9F3C3F8028D; Tue, 16 Jan 2024 12:12:02 +0100 (CET)
+	id 73C0DF801F5; Tue, 16 Jan 2024 12:42:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.7 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_SBL_CSS,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=unavailable autolearn_force=no version=3.4.6
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [IPv6:2a00:1450:4864:20::32d])
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [IPv6:2a00:1450:4864:20::633])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 97347F8014B
-	for <alsa-devel@alsa-project.org>; Tue, 16 Jan 2024 12:11:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97347F8014B
+	by alsa1.perex.cz (Postfix) with ESMTPS id DDAECF80074
+	for <alsa-devel@alsa-project.org>; Tue, 16 Jan 2024 12:42:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DDAECF80074
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=n3LBr8Ap
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-40b5155e154so118352225e9.3
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=A6zsvrer
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-a28b2e1a13fso1013927066b.3
         for <alsa-devel@alsa-project.org>;
- Tue, 16 Jan 2024 03:11:49 -0800 (PST)
+ Tue, 16 Jan 2024 03:42:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1705403508; x=1706008308;
+        d=gmail.com; s=20230601; t=1705405328; x=1706010128;
  darn=alsa-project.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=D3/2mxTMu2HoI1Jv/k7hB7V1HLoXtW33tUIuUh5/szw=;
-        b=n3LBr8ApN1qll+69AJzPcKw2x9ORruarzYiNEqiWMpTzsFK5Bj0J6spa0bBhgLuc5v
-         G5xKGoss/MIs3f/gElcKEM33YbS1kuFQtroQoJ8MHlGbm0Fe3JsK/dcRd1KG7u5pJT+z
-         nSYNjq9oi1hi45HkDAieofzEhx3bzeZ4+p2BWz50dPvg5PSzqfRi5G53WzIw1im8AyBz
-         0q4MbWJhjCMsNAx+Qug/IdWf0/9TnqPtYHRi7zlJgZdkzHsxPtPHAT9sWUHPahEy/VEF
-         FGEs/3gozOyNII7SvJsgxI66CRAXsjAmQS13GtBXsYZZNnU1L3CN0jF036j7z4yi/WYi
-         G6lA==
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=3ETa/IB76FnSUzUMCNIjO0OPtMyIpkffhHAQmKw0f14=;
+        b=A6zsvrerh6+FxjX66UKwX/8BAb/+ro758fQd5zVxt8kmwp87cOQlLA/FY6z6aib+8w
+         NB1w80USfWpyVagOg1cSSQ4M8Ds0tztfw2znBarZOh0a1Dst/onxlG9Vh4DsKhuzOXE4
+         ra1QdQfcJYl74ZsIHWxr2h7uQX7T8cjkYuGnFSi57T9D/Ug4MAuvLb/YP4Wz+oI79/Mq
+         3Lk/sdOwnppoCO7wNGE2LT/9aDeI3lLtJZuESYPIglvmDJW3remD5on76wd3AhKK5ytl
+         GkquCmOHAZSo5s06d2n46uTMSD5w77fAR9E5D/tlupaR9OiVtA9q2CW3nuSxTOiFN0wt
+         7jZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705403508; x=1706008308;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=D3/2mxTMu2HoI1Jv/k7hB7V1HLoXtW33tUIuUh5/szw=;
-        b=Lrw00oStX6ODDjLCm5zr2sTC5kZ5i2Y5c5Nv6vrHkxwKqHUq2KKQf/JbwW/wUqFr2d
-         whz5hIlEnLwdLLDcXtNSbcsljtzst0uPiKSlJkPgOb6/WWwww3Fj/xVY54VsIWBhhH/8
-         M0Bzei4zfAD8/ZHskt0BvvKpicHulHiKC3yo0/riWd8sn1Tu/Luo/h2YCDPJNrr34U8j
-         /swOeLEXcbBnWYsBN7aO0zt3m8qnv3q6k2KiTvgb+osSKPITwr16jdG6CIj0E33rAYqP
-         xVVrQqwEiEKFq0++jTw5ymYBv4bKnxiA13HNoBy96lxqJdDrKGFsnoD935ALPgptWV/D
-         MsZg==
-X-Gm-Message-State: AOJu0YxrAuLQ9ypBbgj+6qa4NJpe5PqzDF6oZpWY0P4FJbrpMs9RNhgP
-	lJ0dT46erhlCoxiICvli3zhaSL9mNkjE7g==
+        d=1e100.net; s=20230601; t=1705405328; x=1706010128;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=3ETa/IB76FnSUzUMCNIjO0OPtMyIpkffhHAQmKw0f14=;
+        b=O5UirqI4d645XomIl94Ed61HmNtOzKDzXuNtZP0nQgGgK2L1ZqSIHw/Ludqrkr9Rnl
+         TsarZ4t8j/gNUPHK7c0lfCjA4RIHHRUZHbf5bNIgD8CGi5cp6i5KJbuLjz9SDFZB1f/V
+         IZwKPQRlfZ89EL5VyQrug3gVa18Y7MU4+JLvFJHHXp9a8imroyY1h0Ky6ODvo4IuSQQY
+         pJNFkd41sSL7ofvNCEkUtnorj95aYB+CZWFNEhqizajUUR0kr6aG/awO/k40bAmIxt/6
+         mRpo4aGJasYALcqnS0msTm+WxW2S+iWFrNACV2qdBWrrKg7rNOubROXmkgt3ak9Mgmwc
+         1QYw==
+X-Gm-Message-State: AOJu0Yyrj43fGsLvqIKd6LnParuS/3ZFBV5JSYwx2dGc3jvokY6MOig9
+	bcDCADVl9WzAGmyE1Olx41wgDiCQK2i7+LkYsXQ=
 X-Google-Smtp-Source: 
- AGHT+IEvcX7jOOP20mKvB6k51ceMA1wWTsYpVIS9UashjuFwSv4C1JzPa/zSeg1loQ2qcxWtv1b5Gg==
-X-Received: by 2002:a05:600c:4451:b0:40e:71e3:139d with SMTP id
- v17-20020a05600c445100b0040e71e3139dmr2071966wmn.154.1705403508583;
-        Tue, 16 Jan 2024 03:11:48 -0800 (PST)
-Received: from [192.168.1.195] ([5.133.47.210])
-        by smtp.googlemail.com with ESMTPSA id
- iw7-20020a05600c54c700b0040d604dea3bsm18593723wmb.4.2024.01.16.03.11.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 16 Jan 2024 03:11:48 -0800 (PST)
-Message-ID: <1cc50979-741b-4341-9e9e-2fdee1dd2e65@linaro.org>
-Date: Tue, 16 Jan 2024 11:11:47 +0000
+ AGHT+IFIdXVTOsU0yGpd1l5hqqYw5SvEntjk0/FMvYbowcSgHq4IbAXkUksATwXJ85XfgfUxAQrwrtF3G0v3Xv8URCg=
+X-Received: by 2002:a17:907:8b93:b0:a23:4e3f:a2fd with SMTP id
+ tb19-20020a1709078b9300b00a234e3fa2fdmr4050086ejc.5.1705405327664; Tue, 16
+ Jan 2024 03:42:07 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/7] ASoC: qcom: sc8280xp: limit speaker volumes
-Content-Language: en-US
-To: Johan Hovold <johan+linaro@kernel.org>, Mark Brown <broonie@kernel.org>
-Cc: Banajit Goswami <bgoswami@quicinc.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20240116093903.19403-1-johan+linaro@kernel.org>
- <20240116093903.19403-2-johan+linaro@kernel.org>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <20240116093903.19403-2-johan+linaro@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: RIYLDPKHGN6YBOWVZB4DVOAWVV7ATXZJ
-X-Message-ID-Hash: RIYLDPKHGN6YBOWVZB4DVOAWVV7ATXZJ
-X-MailFrom: srinivas.kandagatla@linaro.org
+References: <20231218124058.2047167-1-elinor.montmasson@savoirfairelinux.com>
+ <CAEnQRZAwk-USZqXwLOVuN3iTn7r-55BJH=Sqq5+2Od+DhrK0iw@mail.gmail.com>
+ <347346270.284192.1702989565367.JavaMail.zimbra@savoirfairelinux.com>
+ <361044647.7067.1703857544284.JavaMail.zimbra@savoirfairelinux.com>
+In-Reply-To: 
+ <361044647.7067.1703857544284.JavaMail.zimbra@savoirfairelinux.com>
+From: Daniel Baluta <daniel.baluta@gmail.com>
+Date: Tue, 16 Jan 2024 13:41:55 +0200
+Message-ID: 
+ <CAEnQRZDaGazi8j4LYEoWmSTORET89DVjEwD+2EdTizKGFp0CAg@mail.gmail.com>
+Subject: Re: [PATCHv3 RESEND 00/10] ASoC: fsl-asoc-card: compatibility
+ integration of a generic codec use case for use with S/PDIF controller
+To: Elinor Montmasson <elinor.montmasson@savoirfairelinux.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+	shengjiu wang <shengjiu.wang@gmail.com>, Xiubo Lee <Xiubo.Lee@gmail.com>,
+	Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	linux-sound <linux-sound@vger.kernel.org>,
+ devicetree <devicetree@vger.kernel.org>,
+	linux-kernel <linux-kernel@vger.kernel.org>,
+ alsa-devel <alsa-devel@alsa-project.org>,
+	linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
+	Philip-Dylan Gleonec <philip-dylan.gleonec@savoirfairelinux.com>,
+	"S.j. Wang" <shengjiu.wang@nxp.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: Z3JCEZKSPFTJVWYRJIUKJMXFBI4RVYSU
+X-Message-ID-Hash: Z3JCEZKSPFTJVWYRJIUKJMXFBI4RVYSU
+X-MailFrom: daniel.baluta@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -118,7 +125,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RIYLDPKHGN6YBOWVZB4DVOAWVV7ATXZJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Z3JCEZKSPFTJVWYRJIUKJMXFBI4RVYSU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -127,52 +134,17 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Fri, Dec 29, 2023 at 3:45=E2=80=AFPM Elinor Montmasson
+<elinor.montmasson@savoirfairelinux.com> wrote:
+>
+> Hello
+>
+> On Monday, 18 December, 2023 14:54:03, Daniel Baluta wrote
+> > I know this is extra-work but we would greatly appreciate if you first
+> > convert fsl-asoc-card.txt
+> > to yml format and then add your new properties.
+>
+> DT schema must have at least one maintainer in the "maintainers" field.
+> Who should I put for fsl-asoc-card.yaml ?
 
-
-On 16/01/2024 09:38, Johan Hovold wrote:
-> The current UCM configuration sets the speaker PA volume to 15 dB when
-> enabling the speakers but this does not prevent the user from increasing
-> the volume further.
-> 
-> Limit the PA volume to 15 dB in the machine driver to reduce the risk of
-> speaker damage until we have active speaker protection in place.
-> 
-> Note that this will probably need to be generalised using
-> machine-specific limits, but a common limit should do for now.
-> 
-> Cc: stable@vger.kernel.org	# 6.5
-> Signed-off-by: Johan Hovold <johan+linaro@kernel.org>
-
-LGTM, We can get rid of this limit once we have Speaker protection inplace.
-
-
-Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-
---srini
-
-> ---
->   sound/soc/qcom/sc8280xp.c | 8 +++++---
->   1 file changed, 5 insertions(+), 3 deletions(-)
-> 
-> diff --git a/sound/soc/qcom/sc8280xp.c b/sound/soc/qcom/sc8280xp.c
-> index ed4bb551bfbb..aa43903421f5 100644
-> --- a/sound/soc/qcom/sc8280xp.c
-> +++ b/sound/soc/qcom/sc8280xp.c
-> @@ -32,12 +32,14 @@ static int sc8280xp_snd_init(struct snd_soc_pcm_runtime *rtd)
->   	case WSA_CODEC_DMA_RX_0:
->   	case WSA_CODEC_DMA_RX_1:
->   		/*
-> -		 * set limit of 0dB on Digital Volume for Speakers,
-> -		 * this can prevent damage of speakers to some extent without
-> -		 * active speaker protection
-> +		 * Set limit of 0 dB on Digital Volume and 15 dB on PA Volume
-> +		 * to reduce the risk of speaker damage until we have active
-> +		 * speaker protection in place.
->   		 */
->   		snd_soc_limit_volume(card, "WSA_RX0 Digital Volume", 84);
->   		snd_soc_limit_volume(card, "WSA_RX1 Digital Volume", 84);
-> +		snd_soc_limit_volume(card, "SpkrLeft PA Volume", 12);
-> +		snd_soc_limit_volume(card, "SpkrRight PA Volume", 12);
->   		break;
->   	default:
->   		break;
+I think it should be Shengjiu Wang, if he is OK with that.

@@ -2,92 +2,145 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA2CC82F147
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Jan 2024 16:19:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8810D82F282
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Jan 2024 17:39:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AE62774C;
-	Tue, 16 Jan 2024 16:19:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE62774C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6D3003E7;
+	Tue, 16 Jan 2024 17:39:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D3003E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1705418377;
-	bh=yvaIcbADBkBm+VIT85jjaNg4CTpealOivhzVPVpxfr0=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:List-Id:
+	s=default; t=1705423194;
+	bh=CV/olyrm1VZ3QEqz2uxfJ+BixQFL/YIf8PhCCd23kBM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=rhrAAsICEe8/kshThHnBA83u6jHq3maFnYyNuD4sN3zoYFya9aK04hH0KgBi2x3D8
-	 6R6hAJW1QWQ+bQyd+Ooc26Jg3HWy8186MBSqlKgPtLcGynaiUV6FZZI2XaU/M7gSiQ
-	 bBCz3cUzUAd05BGrDQVM0rDeYNvusuGuue/giDO8=
+	b=fom4b0ZGXcM3ZKfY7ve4UTEm1RpNG/q+/mD7HyjkHoYue05BiDYxGqgVGn2y1NYRx
+	 xNauYo2nYB22JHt1M7sCBM1Pe5dXcXNAOfDAeSYmM89De38OV6lBuNDp1omDMxBYzi
+	 TmK0ZduZfFUyUPL61oGXLfyBVzVqkQPkWw6FcLu4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C9093F8057A; Tue, 16 Jan 2024 16:19:06 +0100 (CET)
+	id 3F585F80570; Tue, 16 Jan 2024 17:39:33 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1DA8CF8057E;
-	Tue, 16 Jan 2024 16:19:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D53C6F8055B;
+	Tue, 16 Jan 2024 17:39:32 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 68149F801F5; Tue, 16 Jan 2024 16:19:01 +0100 (CET)
+	id 8E976F801F5; Tue, 16 Jan 2024 17:39:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from metis.whiteo.stw.pengutronix.de
- (metis.whiteo.stw.pengutronix.de [IPv6:2a0a:edc0:2:b01:1d::104])
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
- server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E76D4F80074
-	for <alsa-devel@alsa-project.org>; Tue, 16 Jan 2024 16:18:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E76D4F80074
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
-	by metis.whiteo.stw.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-	(Exim 4.92)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1rPlD3-0000to-Uy; Tue, 16 Jan 2024 16:18:37 +0100
-Received: from [2a0a:edc0:0:900:1d::4e] (helo=lupine)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.94.2)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1rPlD0-000Gxq-M0; Tue, 16 Jan 2024 16:18:34 +0100
-Received: from pza by lupine with local (Exim 4.96)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1rPlD0-000D8R-1w;
-	Tue, 16 Jan 2024 16:18:34 +0100
-Message-ID: <800d202864c1730622a19998728c5a8b576d1931.camel@pengutronix.de>
-Subject: Re: [PATCH v3 5/5] i2c: muxes: pca954x: Allow sharing reset GPIO
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Bjorn Andersson
- <andersson@kernel.org>, Konrad Dybcio <konrad.dybcio@linaro.org>, Srinivas
- Kandagatla <srinivas.kandagatla@linaro.org>, Banajit Goswami
- <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
- <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>,  Conor Dooley <conor+dt@kernel.org>,
- Peter Rosin <peda@axentia.se>, Jaroslav Kysela <perex@perex.cz>,  Takashi
- Iwai <tiwai@suse.com>, linux-arm-msm@vger.kernel.org,
- alsa-devel@alsa-project.org,  linux-sound@vger.kernel.org,
- devicetree@vger.kernel.org,  linux-kernel@vger.kernel.org,
- linux-i2c@vger.kernel.org
-Cc: Chris Packham <chris.packham@alliedtelesis.co.nz>, Bartosz Golaszewski
-	 <brgl@bgdev.pl>, Sean Anderson <sean.anderson@seco.com>
-Date: Tue, 16 Jan 2024 16:18:34 +0100
-In-Reply-To: <20240112163608.528453-6-krzysztof.kozlowski@linaro.org>
-References: <20240112163608.528453-1-krzysztof.kozlowski@linaro.org>
-	 <20240112163608.528453-6-krzysztof.kozlowski@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.46.4-2 
-MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: p.zabel@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: alsa-devel@alsa-project.org
-Message-ID-Hash: 4AS2OPIUDRUII6QQXVHBNX7ZS3TOQO2F
-X-Message-ID-Hash: 4AS2OPIUDRUII6QQXVHBNX7ZS3TOQO2F
-X-MailFrom: p.zabel@pengutronix.de
+	by alsa1.perex.cz (Postfix) with ESMTPS id A00B0F800F5
+	for <alsa-devel@alsa-project.org>; Tue, 16 Jan 2024 17:39:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A00B0F800F5
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=XEfwEmvw;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=F+xatjPZ;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=XEfwEmvw;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=F+xatjPZ
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 4AB9A1FD62;
+	Tue, 16 Jan 2024 16:39:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1705423158;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jsj0vKhlvTgFQYxJuJit+EKAIqb/jVytwb64W8HRaTg=;
+	b=XEfwEmvwmzS6/9EkaRNy6OMy097MZ8QPAA3KEA7jQYzNaO7LeKVhM9e0UXrxOdMkGyuZk8
+	v9UB0xAnZYiAFe3T+oHRsCW3/3ghpjd0a96zMCMVcD4iyNKSyUaQVJwfnC8WGtp2xFfF0Q
+	CrGjaMnMfD28ed5qWQURWOoWsX/JDEw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1705423158;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jsj0vKhlvTgFQYxJuJit+EKAIqb/jVytwb64W8HRaTg=;
+	b=F+xatjPZ7ftC2Ab5mbom/EqLFb1F3YXqUQX3FToRr6IpxQ5lh17POzfzl4Pjagcyn0iVEa
+	x5OCUt26m36IPpDQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1705423158;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jsj0vKhlvTgFQYxJuJit+EKAIqb/jVytwb64W8HRaTg=;
+	b=XEfwEmvwmzS6/9EkaRNy6OMy097MZ8QPAA3KEA7jQYzNaO7LeKVhM9e0UXrxOdMkGyuZk8
+	v9UB0xAnZYiAFe3T+oHRsCW3/3ghpjd0a96zMCMVcD4iyNKSyUaQVJwfnC8WGtp2xFfF0Q
+	CrGjaMnMfD28ed5qWQURWOoWsX/JDEw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1705423158;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jsj0vKhlvTgFQYxJuJit+EKAIqb/jVytwb64W8HRaTg=;
+	b=F+xatjPZ7ftC2Ab5mbom/EqLFb1F3YXqUQX3FToRr6IpxQ5lh17POzfzl4Pjagcyn0iVEa
+	x5OCUt26m36IPpDQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 239BB132FA;
+	Tue, 16 Jan 2024 16:39:18 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([10.150.64.162])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id UWDyBjaxpmVxJAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Tue, 16 Jan 2024 16:39:18 +0000
+Date: Tue, 16 Jan 2024 17:39:17 +0100
+Message-ID: <87ply1utai.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	alsa-devel@alsa-project.org
+Subject: Re: [GIT PULL] ASoC fixes for v6.8-merge-window
+In-Reply-To: <20240116151032.B3BE4C433F1@smtp.kernel.org>
+References: <20240116151032.B3BE4C433F1@smtp.kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Authentication-Results: smtp-out2.suse.de;
+	none
+X-Spamd-Result: default: False [0.88 / 50.00];
+	 ARC_NA(0.00)[];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 FROM_HAS_DN(0.00)[];
+	 RCPT_COUNT_THREE(0.00)[3];
+	 FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 MIME_GOOD(-0.10)[text/plain];
+	 TO_DN_SOME(0.00)[];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	 MID_CONTAINS_FROM(1.00)[];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+];
+	 FREEMAIL_CC(0.00)[gmail.com,alsa-project.org];
+	 RCVD_TLS_ALL(0.00)[];
+	 BAYES_HAM(-0.02)[53.20%]
+Message-ID-Hash: S6JIMH7SCLRIQU22JQFMZY6CUFA6YGFC
+X-Message-ID-Hash: S6JIMH7SCLRIQU22JQFMZY6CUFA6YGFC
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -99,7 +152,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4AS2OPIUDRUII6QQXVHBNX7ZS3TOQO2F/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/S6JIMH7SCLRIQU22JQFMZY6CUFA6YGFC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,90 +161,33 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fr, 2024-01-12 at 17:36 +0100, Krzysztof Kozlowski wrote:
-> From: Chris Packham <chris.packham@alliedtelesis.co.nz>
->=20
-> Some hardware designs with multiple PCA954x devices use a reset GPIO
-> connected to all the muxes. Support this configuration by making use of
-> the reset controller framework which can deal with the shared reset
-> GPIOs. Fall back to the old GPIO descriptor method if the reset
-> controller framework is not enabled.
->=20
-> Signed-off-by: Chris Packham <chris.packham@alliedtelesis.co.nz>
-> Acked-by: Peter Rosin <peda@axentia.se>
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> Link: https://lore.kernel.org/r/20240108041913.7078-1-chris.packham@allie=
-dtelesis.co.nz
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
->=20
-> ---
->=20
-> If previous patches are fine, then this commit is independent and could
-> be taken via I2C.
->=20
-> Cc: Chris Packham <chris.packham@alliedtelesis.co.nz>
-> Cc: Bartosz Golaszewski <brgl@bgdev.pl>
-> Cc: Sean Anderson <sean.anderson@seco.com>
-> ---
->  drivers/i2c/muxes/i2c-mux-pca954x.c | 46 ++++++++++++++++++++++++-----
->  1 file changed, 38 insertions(+), 8 deletions(-)
->=20
-> diff --git a/drivers/i2c/muxes/i2c-mux-pca954x.c b/drivers/i2c/muxes/i2c-=
-mux-pca954x.c
-> index 2219062104fb..1702e8d49b91 100644
-> --- a/drivers/i2c/muxes/i2c-mux-pca954x.c
-> +++ b/drivers/i2c/muxes/i2c-mux-pca954x.c
-> @@ -49,6 +49,7 @@
->  #include <linux/pm.h>
->  #include <linux/property.h>
->  #include <linux/regulator/consumer.h>
-> +#include <linux/reset.h>
->  #include <linux/slab.h>
->  #include <linux/spinlock.h>
->  #include <dt-bindings/mux/mux.h>
-> @@ -102,6 +103,9 @@ struct pca954x {
->  	unsigned int irq_mask;
->  	raw_spinlock_t lock;
->  	struct regulator *supply;
-> +
-> +	struct gpio_desc *reset_gpio;
-> +	struct reset_control *reset_cont;
->  };
-> =20
->  /* Provide specs for the MAX735x, PCA954x and PCA984x types we know abou=
-t */
-> @@ -477,6 +481,35 @@ static int pca954x_init(struct i2c_client *client, s=
-truct pca954x *data)
->  	return ret;
->  }
-> =20
-> +static int pca954x_get_reset(struct device *dev, struct pca954x *data)
-> +{
-> +	data->reset_cont =3D devm_reset_control_get_optional_shared(dev, NULL);
-> +	if (IS_ERR(data->reset_cont))
-> +		return dev_err_probe(dev, PTR_ERR(data->reset_cont),
-> +				     "Failed to get reset\n");
-> +	else if (data->reset_cont)
-> +		return 0;
-> +
-> +	/*
-> +	 * fallback to legacy reset-gpios
-> +	 */
+On Tue, 16 Jan 2024 16:10:24 +0100,
+Mark Brown wrote:
+> 
+> The following changes since commit 67508b874844b80ac49f70b78d67036c28b9fe7e:
+> 
+>   ASoC: pxa: sspa: Don't select SND_ARM (2023-12-29 17:41:15 +0000)
+> 
+> are available in the Git repository at:
+> 
+>   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.8-merge-window
+> 
+> for you to fetch changes up to ab09fb9c629ed3aaea6a82467f08595dbc549726:
+> 
+>   ASoC: SOF: ipc4-loader: remove the CPC check warnings (2024-01-15 14:04:52 +0000)
+> 
+> ----------------------------------------------------------------
+> ASoC: Fixes for v6.8
+> 
+> A bunch of small fixes that come in during the merge window, mainly
+> fixing issues from some core refactoring around dummy components that
+> weren't detected until things reached mainline.
+> 
+> The TAS driver changes are a little larger than normal for a device ID
+> addition due to some shuffling around of where things are registered and
+> DT updates but aren't really any more substantial than normal.
 
-devm_reset_control_get_optional_shared() won't return NULL if the
-"reset-gpios" property is found in the device tree, so the GPIO
-fallback is dead code.
+Thanks, pulled now.
 
-> +	data->reset_gpio =3D devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_HI=
-GH);
-> +	if (IS_ERR(data->reset_gpio)) {
-> +		return dev_err_probe(dev, PTR_ERR(data->reset_gpio),
-> +				     "Failed to get reset gpio");
-> +	}
-> +
-> +	return 0;
-> +}
-> +
 
-regards
-Philipp
+Takashi

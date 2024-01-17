@@ -2,90 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5A708301E4
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 Jan 2024 10:08:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B9428301E8
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 Jan 2024 10:09:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4BD0B206;
-	Wed, 17 Jan 2024 10:08:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4BD0B206
+	by alsa0.perex.cz (Postfix) with ESMTPS id A916B857;
+	Wed, 17 Jan 2024 10:08:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A916B857
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1705482507;
-	bh=vEtn9XD7xyubHLGGICH9x1XRbBU8Muy2s+oZUo5w6Zc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1705482542;
+	bh=/dPCBxX9NtYra0koFE41eeYgs1qT5c5J5e0WBloEftE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Rh8xuOXIrEt9YPqE05E1bgbaBbgb21FBc3p2jbCoCJ94fT0cScrk+o1VsuZaR96f1
-	 s8d5TQ3b9Bag+mq/deEOX320LUrAP+Bmntk02D1WYi8ueLu1b7l+49bCo3/FaUg1Lh
-	 vz4g7RmQ8ujc3ERvFtJSQJ7E5Spihp1CKikDeNPw=
+	b=HxzLYpD1zYmMOHYcyI4VSSkFAr+e+D4ogi57IDdOUp7H7VxjoLQNGi5Tn0JPWVxXt
+	 NpE63LHzcnlYy9V50wDm2fSd5bCdeZ0HY5r4soxJ7HQCYTeu/6PN+DCLiSAxq05Jkk
+	 JjcdH77RImc1XFO3ETLiXLfqKoAaxV+Vq1lRmnl4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A5D44F805BF; Wed, 17 Jan 2024 10:07:39 +0100 (CET)
+	id 60086F8057C; Wed, 17 Jan 2024 10:08:42 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B4B6FF805C5;
-	Wed, 17 Jan 2024 10:07:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9B2DAF80548;
+	Wed, 17 Jan 2024 10:08:41 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 82479F801F5; Wed, 17 Jan 2024 10:04:09 +0100 (CET)
+	id 94D54F801F5; Wed, 17 Jan 2024 10:08:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-7.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=unavailable
 	autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3F7E1F80236
-	for <alsa-devel@alsa-project.org>; Wed, 17 Jan 2024 10:03:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F7E1F80236
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3721CF802BE
+	for <alsa-devel@alsa-project.org>; Wed, 17 Jan 2024 10:08:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3721CF802BE
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=AEHLmJHo
+ header.s=k20201202 header.b=EwfFyoFP
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 0008DCE1BD9;
-	Wed, 17 Jan 2024 09:03:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F50DC43394;
-	Wed, 17 Jan 2024 09:03:44 +0000 (UTC)
+	by ams.source.kernel.org (Postfix) with ESMTP id 413C2B8108C;
+	Wed, 17 Jan 2024 09:08:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92E08C433F1;
+	Wed, 17 Jan 2024 09:08:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1705482224;
-	bh=vEtn9XD7xyubHLGGICH9x1XRbBU8Muy2s+oZUo5w6Zc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=AEHLmJHoFnVJOtBCMyEqHJ7tYtCFYxtXYlp6KjBLXwAoLviq6KXa2J33VefHQsH5N
-	 RJHheVMGHfnUDlMf1IZhJQ3OTcPa5T5R5r+huyTsxRKJurmZWA6MNfc/Qxulfnr0fR
-	 S+JJH9NETF28J/AAsfq929kjrcK5p0HlY1yguZ2mrZjUd+K5C2GL9DIHYKPvmzgt3s
-	 NxpmdkBj+OLvgzGaPj68JFyRYne7FQeh7tP+Wp1jUMGZDrVmqVqGSs/8cN8rDrPUZ0
-	 VLeuOrCIv6whNLKISOaGRHA/ABShs/L0/X9Wke+QtxFxpsXC4aY0FiBKOKSiZOs1Wl
-	 7cAyQpSy2hITg==
+	s=k20201202; t=1705482498;
+	bh=/dPCBxX9NtYra0koFE41eeYgs1qT5c5J5e0WBloEftE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=EwfFyoFPPJKIQlb/mKFQXjLoA42JHsJe7581uZAyH5PiUdNVZg9NuN7VRq6I/2yja
+	 +cgOn8V40goecsaz8cSraOaKDWK5tRQO9FU1Drtxhnar24j84hA1xrNhk3OiXwN2iN
+	 /a3hbEXzo8FB631BxwHPNohViqSGmghGJGieF8HIsqLl5UYEecSN2SVXvuVqvG3hW+
+	 0krW5ShJR2yPOVZBoJRHKK9A/Tn2mrwrUYfoe9H+L1dRxH36ci2FyUdOOrQsBNdjkx
+	 dyRAq3gbqN9DFYHH3kUBqSimdqTiV+8eAhxTsWhBN4KxnxqUQ5RM28S2Hs6mpTIgV7
+	 ix+zZs5w4rX/A==
 Received: from johan by xi.lan with local (Exim 4.96.2)
-	(envelope-from <johan+linaro@kernel.org>)
-	id 1rQ1pt-00086Y-0d;
-	Wed, 17 Jan 2024 10:03:49 +0100
-From: Johan Hovold <johan+linaro@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	(envelope-from <johan@kernel.org>)
+	id 1rQ1uI-0008AG-3C;
+	Wed, 17 Jan 2024 10:08:23 +0100
+Date: Wed, 17 Jan 2024 10:08:22 +0100
+From: Johan Hovold <johan@kernel.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Cc: Johan Hovold <johan+linaro@kernel.org>, Mark Brown <broonie@kernel.org>,
 	Banajit Goswami <bgoswami@quicinc.com>,
 	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Johan Hovold <johan+linaro@kernel.org>
-Subject: [PATCH v2 3/3] ASoC: codecs: wcd9335: drop unused gain hack remnant
-Date: Wed, 17 Jan 2024 10:03:31 +0100
-Message-ID: <20240117090331.31111-4-johan+linaro@kernel.org>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <20240117090331.31111-1-johan+linaro@kernel.org>
-References: <20240117090331.31111-1-johan+linaro@kernel.org>
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 2/7] ASoC: codecs: lpass-wsa-macro: fix compander volume
+ hack
+Message-ID: <ZaeZBjKezfdslS2L@hovoldconsulting.com>
+References: <20240116093903.19403-1-johan+linaro@kernel.org>
+ <20240116093903.19403-3-johan+linaro@kernel.org>
+ <8bb1cad6-6a85-444a-b881-c03ab0051009@linaro.org>
+ <ZaaAO8SMczq7YUAE@hovoldconsulting.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: AHPNVKOPG2EOEGCI6Z4EOVGLMDC4PTKX
-X-Message-ID-Hash: AHPNVKOPG2EOEGCI6Z4EOVGLMDC4PTKX
-X-MailFrom: johan+linaro@kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ZaaAO8SMczq7YUAE@hovoldconsulting.com>
+Message-ID-Hash: DYJCEITFOUYTR7BDMQZRWTINBKAEHYGI
+X-Message-ID-Hash: DYJCEITFOUYTR7BDMQZRWTINBKAEHYGI
+X-MailFrom: johan@kernel.org
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -96,63 +95,31 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AHPNVKOPG2EOEGCI6Z4EOVGLMDC4PTKX/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DYJCEITFOUYTR7BDMQZRWTINBKAEHYGI/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The vendor driver appears to be modifying the gain settings behind the
-back of user space but these hacks never made it upstream except for
-some essentially dead code that adds a constant zero to the current
-settings on DAPM events.
+On Tue, Jan 16, 2024 at 02:10:19PM +0100, Johan Hovold wrote:
+> On Tue, Jan 16, 2024 at 11:10:21AM +0000, Srinivas Kandagatla wrote:
 
-Note that the volume registers still need to be written after enabling
-clocks in order for any prior updates to take effect.
+> > This is not a hack, wsa codec requires gain to be programmed after the 
+> > clk is enabled for that particular interpolator.
+> 
+> Ok, but then it's also broken as, as I mentioned off-list, these
+> registers are cached so unless companding is enabled, the write on
+> enable will have no effect.
 
-Signed-off-by: Johan Hovold <johan+linaro@kernel.org>
----
- sound/soc/codecs/wcd9335.c | 4 ----
- 1 file changed, 4 deletions(-)
+I was obviously confused here, and indeed tests reveal that those writes
+are needed for any prior updates to take effect (e.g. volume changes
+while the codec is runtime suspended).
 
-diff --git a/sound/soc/codecs/wcd9335.c b/sound/soc/codecs/wcd9335.c
-index 43c648efd0d9..deb15b95992d 100644
---- a/sound/soc/codecs/wcd9335.c
-+++ b/sound/soc/codecs/wcd9335.c
-@@ -3033,7 +3033,6 @@ static int wcd9335_codec_enable_mix_path(struct snd_soc_dapm_widget *w,
- {
- 	struct snd_soc_component *comp = snd_soc_dapm_to_component(w->dapm);
- 	u16 gain_reg;
--	int offset_val = 0;
- 	int val = 0;
- 
- 	switch (w->reg) {
-@@ -3073,7 +3072,6 @@ static int wcd9335_codec_enable_mix_path(struct snd_soc_dapm_widget *w,
- 	switch (event) {
- 	case SND_SOC_DAPM_POST_PMU:
- 		val = snd_soc_component_read(comp, gain_reg);
--		val += offset_val;
- 		snd_soc_component_write(comp, gain_reg, val);
- 		break;
- 	case SND_SOC_DAPM_POST_PMD:
-@@ -3294,7 +3292,6 @@ static int wcd9335_codec_enable_interpolator(struct snd_soc_dapm_widget *w,
- 	u16 gain_reg;
- 	u16 reg;
- 	int val;
--	int offset_val = 0;
- 
- 	if (!(snd_soc_dapm_widget_name_cmp(w, "RX INT0 INTERP"))) {
- 		reg = WCD9335_CDC_RX0_RX_PATH_CTL;
-@@ -3337,7 +3334,6 @@ static int wcd9335_codec_enable_interpolator(struct snd_soc_dapm_widget *w,
- 	case SND_SOC_DAPM_POST_PMU:
- 		wcd9335_config_compander(comp, w->shift, event);
- 		val = snd_soc_component_read(comp, gain_reg);
--		val += offset_val;
- 		snd_soc_component_write(comp, gain_reg, val);
- 		break;
- 	case SND_SOC_DAPM_POST_PMD:
--- 
-2.41.0
+I've just sent a v2 here:
 
+	https://lore.kernel.org/lkml/20240117090331.31111-1-johan+linaro@kernel.org/
+
+Johan

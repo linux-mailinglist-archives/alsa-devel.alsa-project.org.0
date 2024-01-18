@@ -2,157 +2,119 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B9698312E9
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jan 2024 08:01:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55CCA83139F
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jan 2024 08:59:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4B14F820;
-	Thu, 18 Jan 2024 08:01:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B14F820
+	by alsa0.perex.cz (Postfix) with ESMTPS id 60134822;
+	Thu, 18 Jan 2024 08:59:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 60134822
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1705561291;
-	bh=ZojMRLSgtg4lBfioyls77nYAm62J6g6590jRkJFxWrc=;
+	s=default; t=1705564761;
+	bh=Um7Oz2Mk4LEeCzhV8GGeUHncNz93t7dxT0VISCZ3FpQ=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=EyjxHcfS31Fq6f7xk2Htq0oIqFe5CQ5LKVcb46+qpLfo0iR+9PNppCvYkRVwwqim9
-	 4xAaW2oxUI9C9ZZz2t9blbI6QX1IO79VI28/1vgLb2kdLIL2SMRX/nAWq9NW7Tsnbk
-	 cxj87ioD40of7zNbJqlNM3QEoWHBht+2//QZxVxc=
+	b=BssUbr25/fXJZgmpD5L6DiR1M/KmaUXTkrG6Gj04ompuu2p3S3+yuGuTETW7H37ZI
+	 7uWkBdJK+DHfBdlPuwSforK47ij6vo93zjpmzx6WrWLxRT/vh2Ak4EBol76FWIdZHV
+	 6fhZaEFt9Y0Rt8FDKf3kt2qIJ7SKKH+7ZYZU/fzc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8E489F80579; Thu, 18 Jan 2024 08:00:59 +0100 (CET)
+	id B8747F801F5; Thu, 18 Jan 2024 08:58:48 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 52D8CF80236;
-	Thu, 18 Jan 2024 08:00:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 55AFDF80520;
+	Thu, 18 Jan 2024 08:58:48 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A9591F801F5; Thu, 18 Jan 2024 08:00:46 +0100 (CET)
+	id 6BC66F801F5; Thu, 18 Jan 2024 08:56:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on20624.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e88::624])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No,
+ score=-4.8 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4705BF800F5
-	for <alsa-devel@alsa-project.org>; Thu, 18 Jan 2024 08:00:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4705BF800F5
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=hWpnKvhr
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AcLE63NH1LGvNkiuEUWh4j1ysa5SXwmwt14/83geCRjtgx8ryXVOPgzpdwYUztUCtCF1lXSfaIQCUM47J6IapnvERBSztVAvK+A/DxE5jI2hFsuQeKmS4p/CzovaPawwmj1403eOoQBQ1oViOdFcYteaQXw6ile5lT/yLzxH7cHau/2ecrhP1remQIiEgsVYqbeYwiJ9tH5l9XmHCjTdM/F2hYxSPrdjuJ4+ORspxQk23xTdMSTUU/Izj/2vdN778MmxDykkWB39DvBIRP2YJcCG0CsKJjLpU2DjK2rdjP6+TMKZoNiD9Czb+GDTWo0KYyNx6IgXZnNJPJeOlDI5LQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mWvf6RTC/CUx+egSILkPzv4a5ktM+HqykOeqEnNStnU=;
- b=OzrHVRp0CymvX013nlVQJUAvAIpBoxllcuOfSo9Ug7toxSeL6hxSosMSFmC/eha47NfH9ahHcDgADJkEoJxU4NpbYWXEI5yeuDKAiTEPxMv0wOrCZ3EhdnSeSIH+rfo9QCccgHFOv5jOMmSm4fdQmh/EkV7WiErHYfodPwmCxvNSu7B/ypR3B9IyAbKI50ZclceqZ/lpxBPCEo0NcoX9GBSHkfETRfKV4FvO7rkQVXkvdYDY26HXCyf4fUByzo8WCwqReYDSt+kgXh3XwE79w6xLE3SEJAB0RkNgTDj0BK8TbPiI99nazMyHkfNSZLj2CSCkA9AoJnG/7VJWdFs65g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mWvf6RTC/CUx+egSILkPzv4a5ktM+HqykOeqEnNStnU=;
- b=hWpnKvhrIv5qDSkdpHWGJbTRn4Hn9yd13yybyznUM7CQvh4jqrluBQY505URUFtUBCVFjzWGfuAEyZgyR4+AXRtmWccmLtZBVRUu3aN2A7XFatpUHkmSo4x3Q+bYy6T7qKbp1Lbm+KBu5fZ4/YTSKZEAcjSEebqHWHPVAuUYLwU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB4123.namprd12.prod.outlook.com (2603:10b6:5:21f::23)
- by SJ2PR12MB8781.namprd12.prod.outlook.com (2603:10b6:a03:4d0::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.23; Thu, 18 Jan
- 2024 07:00:28 +0000
-Received: from DM6PR12MB4123.namprd12.prod.outlook.com
- ([fe80::6755:ec77:7e30:bcc6]) by DM6PR12MB4123.namprd12.prod.outlook.com
- ([fe80::6755:ec77:7e30:bcc6%3]) with mapi id 15.20.7202.020; Thu, 18 Jan 2024
- 07:00:28 +0000
-Message-ID: <2df75741-6dab-4365-81ff-7fc14f5d02c3@amd.com>
-Date: Thu, 18 Jan 2024 12:30:19 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V2 00/13] soundwire/SOF: add SoundWire Interface support
- for AMD SOF stack
-Content-Language: en-US
-To: broonie@kernel.org, vkoul@kernel.org
-Cc: alsa-devel@alsa-project.org, yung-chuan.liao@linux.intel.com,
- pierre-louis.bossart@linux.intel.com, Basavaraj.Hiregoudar@amd.com,
- Sunil-kumar.Dommati@amd.com, vinod.koul@intel.com,
- venkataprasad.potturu@amd.com
-References: <20240110094416.853610-1-Vijendar.Mukunda@amd.com>
-From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
-In-Reply-To: <20240110094416.853610-1-Vijendar.Mukunda@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN2PR01CA0188.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:e8::11) To DM6PR12MB4123.namprd12.prod.outlook.com
- (2603:10b6:5:21f::23)
+	by alsa1.perex.cz (Postfix) with ESMTPS id DA4A2F800F5
+	for <alsa-devel@alsa-project.org>; Thu, 18 Jan 2024 08:56:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA4A2F800F5
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id CAF5ECE1D6B;
+	Thu, 18 Jan 2024 07:56:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34CA6C433C7;
+	Thu, 18 Jan 2024 07:56:07 +0000 (UTC)
+Message-ID: <099df0d8-10c8-4a78-827b-7e000f02ca3f@xs4all.nl>
+Date: Thu, 18 Jan 2024 08:56:05 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4123:EE_|SJ2PR12MB8781:EE_
-X-MS-Office365-Filtering-Correlation-Id: b64456c9-4c86-4aed-02d1-08dc17f3273d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	/uMJFvSj9AlgxqBm+uqSXEokcQFCYaIpgtGxFIEqI+fBUFBRJB7G9HBCA3NYmHxIfTXhiQ6C84vX7MTYI43i9rftnJK2eS1yVrf7tc3tiWBwcxA2X9h0TQ3JwPePZQDI09ii8QWHEKOFB++QImIUyEK+15WggGdrshoF9xKLF6OOo8gspFdHoRbCUdowC8Dv6diUvZlYBaugenPbJou0n0PvLmwtPJnDBgtof0KQxF6kyOolBf3bngYSoufDehXhCa3ifrbJ8MCJJiii5mPodzFISJBDdXp8Tut3A7GyZLdSmJcxG8Mwbw56fYhRvizovQcHNSPMWGtbRe/JqIk7SIt+tlYqIIeN4Xx8LV9jZzhFTEOjSc//df3W3egBOK8pCjC6YUZoCnHnmmtHNboE6YaARxXKlZ4qkq/xW2pWsHZs9PcdKs0Dnm1xz2p9IQmhGP/KtEs8Zp0fF7R6loHGugPjd9Ynw9U2ltXpnPsDwsqCOwL9hiIJvn/qUrc1L05z30aevCfi52vs7djq8B6T4D4MaPFpy5+H8V9RUUXJCGY2WZUyurGRaDPLRX2P8PONH55AC75/+47Z9JKFacIWp2/Y8FZA4TIJHl2JTk3l6TxNEKk6Rb3alZSNI6ji9p35
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4123.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(366004)(39860400002)(136003)(346002)(396003)(230922051799003)(64100799003)(186009)(451199024)(1800799012)(31686004)(6666004)(53546011)(83380400001)(26005)(86362001)(31696002)(36756003)(6506007)(4326008)(8676002)(2616005)(6512007)(38100700002)(66556008)(66946007)(316002)(66476007)(5660300002)(8936002)(966005)(2906002)(478600001)(6486002)(41300700001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?cEowSWFGT3RIYk94ZWllemV5Yml0UDVHOWlMNVg0WlZ6aU56VGV0QmJOVkd5?=
- =?utf-8?B?Z2hUUkg4REFHRllVQkJSS2dLeHBBWGZMSmc1M1ZWOFl5cHFieXBxYVJDdHB3?=
- =?utf-8?B?elp6eElXaVl4dW1SdGEvYXJzQTlSdEVPM2c2NmdtK1hoYWdxL1BGTmJucERX?=
- =?utf-8?B?OWQxUzNJalFwajhjbElXK1pHeFo4YVpDSmtMdXEvSGpJeXFkMkN5SmlzMm9J?=
- =?utf-8?B?WG9mUG4xcmJNU1crSWF4L1pCbmdVUmRBK3RFUy9DeHRLeGhuOXNVcXNpK1pX?=
- =?utf-8?B?cWdacXBuaUhlU0d5VkpRRFppTmJGaGtZVHA5M2ZWbEpPZXZyQVJucjdTekhr?=
- =?utf-8?B?UjZrSi9zWllSQTZHT3JtcVdLZ21acHptZmVjd1VnZG9wVUk0QlRMVXJ1TmNj?=
- =?utf-8?B?WFFFNlU2cVVqZzFVc0cxbnBCU3dCU1FBK3pkQUJISVRFN0V0QnJnUUNZeWRo?=
- =?utf-8?B?ekZYWjE0Zm1ZNjlNSVZmaDM4ZVNYVzVpdFRIbWN5UU9wVHl3eDNoTUlXemh3?=
- =?utf-8?B?WDNCNm03Z2RqTEpRS1hQSjVCdnI5aW5jZ1dLT3BRTlZTSHE3VzlERVUwazFi?=
- =?utf-8?B?SjBmbC9JbFRMVGhvUjU0d2V5Uk9vLzRNOFdEa2l4K1lLbUY4N0I1cXJnamJI?=
- =?utf-8?B?U2IyZVJFeUtLSTdUaERWRkZLSDhMaHhtS0JyS2F3MktXUmRjOFpmTmJDK2Vh?=
- =?utf-8?B?QzJYc09xVmYvd0pkSEcyV2Q1RnFPZkZ5VjRWWlczQThWa1VGcDcvZ1FRVnEz?=
- =?utf-8?B?S0JpMnVxV0JaU3FsVU8rbXJ5SDZQc2NTbnlQUURWUWpSSWVaSHF1dWNsdHVs?=
- =?utf-8?B?KzgzakpFMWlVSFJOR0pCWXFtSkZudUQ2ejRCd2xUeU9Ic05rZ1N1UktCWDhL?=
- =?utf-8?B?QlNGR2FzZVZoTkNNV3J0cXI0V0hnRHFHd3lXWEVOWjBzTTUzS3l4cmxtYlY0?=
- =?utf-8?B?YXBQdDZGOHhQY2t6NlVWNGpzelpVay9rUDlmdyttU2Zhdm9JTFdYWHQ1YmtJ?=
- =?utf-8?B?THk4VkVXU2txOVJzeGJlRjkxMS9rSDF6YnJOOE5veXY0eEN3SktzVW5xNW10?=
- =?utf-8?B?Uy9PUEc1QlpHaHM3Q0gwZFphdmxNQTBkZk5LSlh5QVVwbW1BNWd3eUpUeXpE?=
- =?utf-8?B?TFA5eVJFOHB6KzJPZUhRVENKcy9wT1ZpQzBUUmZTREdqM2o2b3VqYm5YVUdE?=
- =?utf-8?B?aVpLREZMV3dFTjhtL0hPbkx3Zmw4QXhxdVlra0dWaHRycS90K0xzalViSVNF?=
- =?utf-8?B?SkF3eDdldEt1R1lNZzlSNGF2RjVnd3M1bmxKVkF0elphTmxGdXRDbFg5b3dq?=
- =?utf-8?B?SHJLZzhveDdzeE9sdm9VSkVKZW9abjg1Z2IzakhhNnZYc1QvTVIxZUQ2S21C?=
- =?utf-8?B?WGt6aXVTWGhqK0NldWpzMGpLOUZVK1dpZngwMmJRcG5sUWx0S0tFMmhiWDZD?=
- =?utf-8?B?THVSSjB1eHhOVmlUZlJSVFYvNTZSK3FlSlBFd0czTkhiT3dOQlpXQjk1aXZX?=
- =?utf-8?B?MEh0L2tFS0RvMU5zallvZi91TGd3UWlLMjJZSHRuK2drcnBXL0xaYmJNZmNF?=
- =?utf-8?B?NEhZOUI0Q05LOE1sWHNnb1Q3cHZpWVlBQVhhMFVPVUJMOWlJOEx2REw0NVVw?=
- =?utf-8?B?NmV1QVJKTGs1WlNMaG9RTi9aNzh4YzFhVnA1Ynl6MDZYenl2ZzJsOStxalY0?=
- =?utf-8?B?MWhjcUJOU2VtVlYyR0Y4TmgvdWNvcnhmOGhvc0k2dnVVaXJ3cU96c0NZVEJs?=
- =?utf-8?B?ajRZK0UxRmczbEJPUWdhb283OWs3b3U2cmpVakNxMFZSa3ZIUmxmVWV2YXFr?=
- =?utf-8?B?alppaVIrZWlwY0drbHhVcmY5QXFGUkhWQ2hJZlNsTWUzNldWQTQzTGlWZkZV?=
- =?utf-8?B?eldxNzYzNVZyc3FMUkx0RWtQdVNmcHYwWXBLNVc1NlM0QllEODI3R1NwRThE?=
- =?utf-8?B?NVZPV1BHWlk5NnZpaHpVWmxhekZYWUNlY2RSYmxaTzB0cUNmTks4NjlEQkNT?=
- =?utf-8?B?UTgydVVvTHlHVkdzNXdYK1g2c0x3aW1NRTNCclZnSWRaK0hvR0FhRUpielB4?=
- =?utf-8?B?a2MwREczSFdNNlo2cG1yQi9jZWh6WmFwc21kdFpUWktJM2FkbnBCVkUyNnBj?=
- =?utf-8?Q?yOOXuiCIUMd066IG/wbZIlaPH?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- b64456c9-4c86-4aed-02d1-08dc17f3273d
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4123.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jan 2024 07:00:28.7092
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- 5THWMpLEqU3IiB5P8v9NMqCD5yFHJEsUg8LcI5zyijxvrmNCZkLnck+9FECUudvyeQVP9Q8N3lQndQYnIHXw9Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8781
-Message-ID-Hash: MGZNTX5EYYTVRWGBESYFK3RC52UGUO3C
-X-Message-ID-Hash: MGZNTX5EYYTVRWGBESYFK3RC52UGUO3C
-X-MailFrom: Vijendar.Mukunda@amd.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v11 15/15] media: vim2m-audio: add virtual driver for
+ audio memory to memory
+Content-Language: en-US, nl
+To: Shengjiu Wang <shengjiu.wang@gmail.com>
+Cc: Shengjiu Wang <shengjiu.wang@nxp.com>, sakari.ailus@iki.fi,
+ tfiga@chromium.org, m.szyprowski@samsung.com, mchehab@kernel.org,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Xiubo.Lee@gmail.com, festevam@gmail.com, nicoleotsuka@gmail.com,
+ lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org
+References: <1700637838-6743-1-git-send-email-shengjiu.wang@nxp.com>
+ <1700637838-6743-16-git-send-email-shengjiu.wang@nxp.com>
+ <6d96cf56-c534-4abf-8819-03cd32fda3d5@xs4all.nl>
+ <CAA+D8ANfkQkuV9YgQQ1ggS2G0GhqvmhZrA6Yn-et0E5z6mPSxQ@mail.gmail.com>
+From: Hans Verkuil <hverkuil@xs4all.nl>
+Autocrypt: addr=hverkuil@xs4all.nl; keydata=
+ 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
+In-Reply-To: 
+ <CAA+D8ANfkQkuV9YgQQ1ggS2G0GhqvmhZrA6Yn-et0E5z6mPSxQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: K7CEIHGGXQFC2Q7FBDCCEHQ2XP5RFM2J
+X-Message-ID-Hash: K7CEIHGGXQFC2Q7FBDCCEHQ2XP5RFM2J
+X-MailFrom: SRS0=g1bW=I4=xs4all.nl=hverkuil@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -164,7 +126,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MGZNTX5EYYTVRWGBESYFK3RC52UGUO3C/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/K7CEIHGGXQFC2Q7FBDCCEHQ2XP5RFM2J/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -173,85 +135,397 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 10/01/24 15:14, Vijendar Mukunda wrote:
-> This patch series is to redesign existing platform device creation logic
-> for SoundWire managers and Implement generic functions for SoundWire
-> manager probe, start and exit sequence which are common for both Legacy
-> (NO DSP enabled) and SOF stack, and add SoundWire Interface support for AMD
-> SOF stack (ACP 6.3 based platform).
->
-> Below patch series is reviewed in
-> https://github.com/thesofproject/linux/pull/4699
->
-> Changes since V1:
-> 	- add new commit to update license for amd soundwire manager
-> 	  driver files.
-> 	- wrap the commit message with in 75 characters.
-> 	- add amd tag in commit title for soundwire patches
->
-> This patch series has dependencies.
->
-> "drivers: soundwire: amd: refactor amd soundwire manager device node
-> creation" patch has dependency on below patch.
->
-> "ASoC/soundwire: implement generic api for scanning amd soundwire
-> controller"
->
-> Similarly SOF patches has dependency on Soundwire tree patches.
-> This patch series has to be reviewed and merged in one go.
->
-Hi Vinod,
+On 18/01/2024 07:13, Shengjiu Wang wrote:
+> On Wed, Jan 17, 2024 at 6:32 PM Hans Verkuil <hverkuil@xs4all.nl> wrote:
+>>
+>> On 22/11/2023 08:23, Shengjiu Wang wrote:
+>>> Audio memory to memory virtual driver use video memory to memory
+>>> virtual driver vim2m.c as example. The main difference is
+>>> device type is VFL_TYPE_AUDIO and device cap type is V4L2_CAP_AUDIO_M2M.
+>>>
+>>> The device_run function is a dummy function, which is simply
+>>> copy the data from input buffer to output buffer.
+>>>
+>>> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+>>> ---
+>>>  drivers/media/test-drivers/Kconfig       |  11 +
+>>>  drivers/media/test-drivers/Makefile      |   1 +
+>>>  drivers/media/test-drivers/vim2m-audio.c | 799 +++++++++++++++++++++++
+>>>  3 files changed, 811 insertions(+)
+>>>  create mode 100644 drivers/media/test-drivers/vim2m-audio.c
+>>>
+>>> diff --git a/drivers/media/test-drivers/Kconfig b/drivers/media/test-drivers/Kconfig
+>>> index 459b433e9fae..55f8af6ee4e2 100644
+>>> --- a/drivers/media/test-drivers/Kconfig
+>>> +++ b/drivers/media/test-drivers/Kconfig
+>>> @@ -17,6 +17,17 @@ config VIDEO_VIM2M
+>>>         This is a virtual test device for the memory-to-memory driver
+>>>         framework.
+>>>
+>>> +config VIDEO_VIM2M_AUDIO
+>>> +     tristate "Virtual Memory-to-Memory Driver For Audio"
+>>> +     depends on VIDEO_DEV
+>>> +     select VIDEOBUF2_VMALLOC
+>>> +     select V4L2_MEM2MEM_DEV
+>>> +     select MEDIA_CONTROLLER
+>>> +     select MEDIA_CONTROLLER_REQUEST_API
+>>
+>> Drop this. This option has been removed.
+>>
+>>> +     help
+>>> +       This is a virtual audio test device for the memory-to-memory driver
+>>> +       framework.
+>>> +
+>>>  source "drivers/media/test-drivers/vicodec/Kconfig"
+>>>  source "drivers/media/test-drivers/vimc/Kconfig"
+>>>  source "drivers/media/test-drivers/vivid/Kconfig"
+>>> diff --git a/drivers/media/test-drivers/Makefile b/drivers/media/test-drivers/Makefile
+>>> index 740714a4584d..0c61c9ada3e1 100644
+>>> --- a/drivers/media/test-drivers/Makefile
+>>> +++ b/drivers/media/test-drivers/Makefile
+>>> @@ -10,6 +10,7 @@ obj-$(CONFIG_DVB_VIDTV) += vidtv/
+>>>
+>>>  obj-$(CONFIG_VIDEO_VICODEC) += vicodec/
+>>>  obj-$(CONFIG_VIDEO_VIM2M) += vim2m.o
+>>> +obj-$(CONFIG_VIDEO_VIM2M_AUDIO) += vim2m-audio.o
+>>>  obj-$(CONFIG_VIDEO_VIMC) += vimc/
+>>>  obj-$(CONFIG_VIDEO_VIVID) += vivid/
+>>>  obj-$(CONFIG_VIDEO_VISL) += visl/
+>>> diff --git a/drivers/media/test-drivers/vim2m-audio.c b/drivers/media/test-drivers/vim2m-audio.c
+>>> new file mode 100644
+>>> index 000000000000..72806ada8628
+>>> --- /dev/null
+>>> +++ b/drivers/media/test-drivers/vim2m-audio.c
+>>> @@ -0,0 +1,799 @@
+>>> +// SPDX-License-Identifier: GPL-2.0+
+>>> +/*
+>>> + * A virtual v4l2-mem2mem example for audio device.
+>>> + */
+>>> +
+>>> +#include <linux/module.h>
+>>> +#include <linux/delay.h>
+>>> +#include <linux/fs.h>
+>>> +#include <linux/sched.h>
+>>> +#include <linux/slab.h>
+>>> +
+>>> +#include <linux/platform_device.h>
+>>> +#include <media/v4l2-mem2mem.h>
+>>> +#include <media/v4l2-device.h>
+>>> +#include <media/v4l2-ioctl.h>
+>>> +#include <media/v4l2-ctrls.h>
+>>> +#include <media/v4l2-event.h>
+>>> +#include <media/videobuf2-vmalloc.h>
+>>> +#include <sound/dmaengine_pcm.h>
+>>> +
+>>> +MODULE_DESCRIPTION("Virtual device for audio mem2mem testing");
+>>> +MODULE_LICENSE("GPL");
+>>> +
+>>> +static unsigned int debug;
+>>> +module_param(debug, uint, 0644);
+>>> +MODULE_PARM_DESC(debug, "debug level");
+>>> +
+>>> +#define MEM2MEM_NAME "vim2m-audio"
+>>> +
+>>> +#define dprintk(dev, lvl, fmt, arg...) \
+>>> +     v4l2_dbg(lvl, debug, &(dev)->v4l2_dev, "%s: " fmt, __func__, ## arg)
+>>> +
+>>> +#define SAMPLE_NUM 4096
+>>> +
+>>> +static void audm2m_dev_release(struct device *dev)
+>>> +{}
+>>> +
+>>> +static struct platform_device audm2m_pdev = {
+>>> +     .name           = MEM2MEM_NAME,
+>>> +     .dev.release    = audm2m_dev_release,
+>>> +};
+>>> +
+>>> +static u32 formats[] = {
+>>> +     V4L2_AUDIO_FMT_S16_LE,
+>>> +};
+>>> +
+>>> +#define NUM_FORMATS ARRAY_SIZE(formats)
+>>> +
+>>> +/* Per-queue, driver-specific private data */
+>>> +struct audm2m_q_data {
+>>> +     unsigned int            rate;
+>>> +     unsigned int            channels;
+>>> +     unsigned int            buffersize;
+>>> +     unsigned int            sequence;
+>>> +     u32                     fourcc;
+>>> +};
+>>> +
+>>> +enum {
+>>> +     V4L2_M2M_SRC = 0,
+>>> +     V4L2_M2M_DST = 1,
+>>> +};
+>>> +
+>>> +static snd_pcm_format_t find_format(u32 fourcc)
+>>> +{
+>>> +     snd_pcm_format_t fmt;
+>>> +     unsigned int k;
+>>> +
+>>> +     for (k = 0; k < NUM_FORMATS; k++) {
+>>> +             if (formats[k] == fourcc)
+>>> +                     break;
+>>> +     }
+>>> +
+>>> +     if (k == NUM_FORMATS)
+>>> +             return 0;
+>>> +
+>>> +     fmt = v4l2_fourcc_to_audfmt(formats[k]);
+>>> +
+>>> +     return fmt;
+>>> +}
+>>> +
+>>> +struct audm2m_dev {
+>>> +     struct v4l2_device      v4l2_dev;
+>>> +     struct video_device     vfd;
+>>> +
+>>> +     struct mutex            dev_mutex;
+>>> +
+>>> +     struct v4l2_m2m_dev     *m2m_dev;
+>>> +#ifdef CONFIG_MEDIA_CONTROLLER
+>>> +     struct media_device     mdev;
+>>> +#endif
+>>> +};
+>>> +
+>>> +struct audm2m_ctx {
+>>> +     struct v4l2_fh          fh;
+>>> +     struct v4l2_ctrl_handler        ctrl_handler;
+>>> +     struct audm2m_dev       *dev;
+>>> +
+>>> +     struct mutex            vb_mutex;
+>>> +
+>>> +     /* Source and destination queue data */
+>>> +     struct audm2m_q_data   q_data[2];
+>>> +};
+>>> +
+>>> +static inline struct audm2m_ctx *file2ctx(struct file *file)
+>>> +{
+>>> +     return container_of(file->private_data, struct audm2m_ctx, fh);
+>>> +}
+>>> +
+>>> +static struct audm2m_q_data *get_q_data(struct audm2m_ctx *ctx,
+>>> +                                     enum v4l2_buf_type type)
+>>> +{
+>>> +     if (type == V4L2_BUF_TYPE_AUDIO_OUTPUT)
+>>> +             return &ctx->q_data[V4L2_M2M_SRC];
+>>> +     return &ctx->q_data[V4L2_M2M_DST];
+>>> +}
+>>> +
+>>> +static const char *type_name(enum v4l2_buf_type type)
+>>> +{
+>>> +     if (type == V4L2_BUF_TYPE_AUDIO_OUTPUT)
+>>> +             return "Output";
+>>> +     return "Capture";
+>>> +}
+>>> +
+>>> +/*
+>>> + * mem2mem callbacks
+>>> + */
+>>> +
+>>> +/*
+>>> + * device_run() - prepares and starts the device
+>>> + */
+>>> +static void device_run(void *priv)
+>>> +{
+>>> +     struct audm2m_ctx *ctx = priv;
+>>> +     struct audm2m_dev *audm2m_dev;
+>>> +     struct vb2_v4l2_buffer *src_buf, *dst_buf;
+>>> +     struct audm2m_q_data *q_data_src, *q_data_dst;
+>>> +     int src_size, dst_size = 0;
+>>> +     short *src_addr, *dst_addr;
+>>> +     int i;
+>>> +
+>>> +     audm2m_dev = ctx->dev;
+>>> +
+>>> +     q_data_src = get_q_data(ctx, V4L2_BUF_TYPE_AUDIO_OUTPUT);
+>>> +     if (!q_data_src)
+>>> +             return;
+>>> +
+>>> +     q_data_dst = get_q_data(ctx, V4L2_BUF_TYPE_AUDIO_CAPTURE);
+>>> +     if (!q_data_dst)
+>>> +             return;
+>>> +
+>>> +     src_buf = v4l2_m2m_next_src_buf(ctx->fh.m2m_ctx);
+>>> +     dst_buf = v4l2_m2m_next_dst_buf(ctx->fh.m2m_ctx);
+>>> +     src_buf->sequence = q_data_src->sequence++;
+>>> +     dst_buf->sequence = q_data_dst->sequence++;
+>>> +     v4l2_m2m_buf_copy_metadata(src_buf, dst_buf, false);
+>>> +
+>>> +     /* Process the conversion */
+>>> +     src_size = vb2_get_plane_payload(&src_buf->vb2_buf, 0);
+>>> +
+>>> +     src_addr = vb2_plane_vaddr(&src_buf->vb2_buf, 0);
+>>> +     dst_addr = vb2_plane_vaddr(&dst_buf->vb2_buf, 0);
+>>> +
+>>> +     if (q_data_src->rate == q_data_dst->rate) {
+>>> +             memcpy(dst_addr, src_addr, src_size);
+>>> +             dst_size = src_size;
+>>> +     } else if (q_data_src->rate == 2 * q_data_dst->rate) {
+>>> +             /* 8k to 16k */
+>>> +             for (i = 0; i < src_size / 2; i++) {
+>>> +                     *dst_addr++ = *src_addr++;
+>>> +                     src_addr++;
+>>> +             }
+>>> +
+>>> +             dst_size = src_size / 2;
+>>> +     } else if (q_data_src->rate * 2 == q_data_dst->rate) {
+>>> +             /* 16k to 8k */
+>>> +             for (i = 0; i < src_size / 2; i++) {
+>>> +                     *dst_addr++ = *src_addr;
+>>> +                     *dst_addr++ = *src_addr++;
+>>> +             }
+>>> +
+>>> +             dst_size = src_size * 2;
+>>> +     }
+>>> +
+>>> +     vb2_set_plane_payload(&dst_buf->vb2_buf, 0, dst_size);
+>>> +
+>>> +     src_buf = v4l2_m2m_src_buf_remove(ctx->fh.m2m_ctx);
+>>> +     dst_buf = v4l2_m2m_dst_buf_remove(ctx->fh.m2m_ctx);
+>>> +
+>>> +     v4l2_m2m_buf_done(src_buf, VB2_BUF_STATE_DONE);
+>>> +     v4l2_m2m_buf_done(dst_buf, VB2_BUF_STATE_DONE);
+>>> +     v4l2_m2m_job_finish(audm2m_dev->m2m_dev, ctx->fh.m2m_ctx);
+>>> +}
+>>> +
+>>> +static int audm2m_querycap(struct file *file, void *priv,
+>>> +                        struct v4l2_capability *cap)
+>>> +{
+>>> +     strscpy(cap->driver, MEM2MEM_NAME, sizeof(cap->driver));
+>>> +     strscpy(cap->card, MEM2MEM_NAME, sizeof(cap->card));
+>>> +     snprintf(cap->bus_info, sizeof(cap->bus_info),
+>>> +              "platform:%s", MEM2MEM_NAME);
+>>
+>> You can drop this bus_info line, it's filled in for you.
+> 
+> I see there is a warning from v4l2-compliance test if this line is removed.
+> 
+> warn: v4l2-compliance.cpp(676): media bus_info 'platform:vim2m-audio'
+> differs from V4L2 bus_info 'platform:vim2m-audio.0'
 
-Could you please review SoundWire patches?
+You should also drop the line filling in the bus_info in the media device:
 
--
-Vijendar
-> Vijendar Mukunda (13):
->   ASoC/soundwire: implement generic api for scanning amd soundwire
->     controller
->   drivers: soundwire: amd: update license
->   drivers: soundwire: amd: refactor amd soundwire manager device node
->     creation
->   drivers: soundwire: amd: implement function to extract slave
->     information
->   drivers: soundwire: amd: refactor soundwire pads enable
->   drivers: soundwire: amd: refactor register mask structure
->   ASoC: SOF: amd: add code for invoking soundwire manager helper
->     functions
->   ASoC: SOF: amd: add interrupt handling for SoundWire manager devices
->   ASoC: SOF: amd: Add Soundwire DAI configuration support for AMD
->     platforms
->   ASoC: SOF: amd: add machine select logic for soundwire based platforms
->   ASoC: SOF: amd: update descriptor fields for acp6.3 based platform
->   ASoC: SOF: amd: select soundwire dependency flag for acp6.3 based
->     platform
->   ASoC: SOF: amd: refactor acp driver pm ops
->
->  drivers/soundwire/Makefile         |   2 +-
->  drivers/soundwire/amd_init.c       | 235 +++++++++++++++++++++++++++++
->  drivers/soundwire/amd_init.h       |  13 ++
->  drivers/soundwire/amd_manager.c    |  45 ++----
->  drivers/soundwire/amd_manager.h    |  14 +-
->  include/linux/soundwire/sdw_amd.h  |  81 ++++++++--
->  include/sound/sof/dai-amd.h        |   7 +
->  include/sound/sof/dai.h            |   2 +
->  include/uapi/sound/sof/tokens.h    |   4 +
->  sound/soc/amd/acp/Kconfig          |   7 +
->  sound/soc/amd/acp/Makefile         |   2 +
->  sound/soc/amd/acp/amd-sdw-acpi.c   |  62 ++++++++
->  sound/soc/sof/amd/Kconfig          |  18 +++
->  sound/soc/sof/amd/acp-common.c     |  65 +++++++-
->  sound/soc/sof/amd/acp-dsp-offset.h |  10 ++
->  sound/soc/sof/amd/acp.c            | 202 ++++++++++++++++++++++++-
->  sound/soc/sof/amd/acp.h            |  26 +++-
->  sound/soc/sof/amd/pci-acp63.c      |   7 +
->  sound/soc/sof/ipc3-pcm.c           |  25 +++
->  sound/soc/sof/ipc3-topology.c      |  40 +++++
->  sound/soc/sof/sof-audio.h          |   1 +
->  sound/soc/sof/topology.c           |   5 +
->  22 files changed, 802 insertions(+), 71 deletions(-)
->  create mode 100644 drivers/soundwire/amd_init.c
->  create mode 100644 drivers/soundwire/amd_init.h
->  create mode 100644 sound/soc/amd/acp/amd-sdw-acpi.c
->
+<snip>
+
+
+>>> +static int audm2m_probe(struct platform_device *pdev)
+>>> +{
+
+<snip>
+
+>>> +#ifdef CONFIG_MEDIA_CONTROLLER
+>>> +     dev->mdev.dev = &pdev->dev;
+>>> +     strscpy(dev->mdev.model, MEM2MEM_NAME, sizeof(dev->mdev.model));
+>>> +     snprintf(dev->mdev.bus_info, sizeof(dev->mdev.bus_info),
+>>> +              "platform:%s", MEM2MEM_NAME);
+
+Drop this line.
+
+>>> +     media_device_init(&dev->mdev);
+
+This function will fill it in automatically as well, and with the same
+name as querycap.
+
+Regards,
+
+	Hans
+
+>>> +     dev->mdev.ops = &audm2m_media_ops;
+>>> +     dev->v4l2_dev.mdev = &dev->mdev;
+>>> +#endif
+>>> +
+>>> +     ret = video_register_device(vfd, VFL_TYPE_AUDIO, 0);
+>>> +     if (ret) {
+>>> +             v4l2_err(&dev->v4l2_dev, "Failed to register video device\n");
+>>> +             goto error_m2m;
+>>> +     }
+>>> +
+>>> +#ifdef CONFIG_MEDIA_CONTROLLER
+>>> +     ret = v4l2_m2m_register_media_controller(dev->m2m_dev, vfd,
+>>> +                                              MEDIA_ENT_F_PROC_AUDIO_RESAMPLER);
+>>> +     if (ret) {
+>>> +             v4l2_err(&dev->v4l2_dev, "Failed to init mem2mem media controller\n");
+>>> +             goto error_v4l2;
+>>> +     }
+>>> +
+>>> +     ret = media_device_register(&dev->mdev);
+>>> +     if (ret) {
+>>> +             v4l2_err(&dev->v4l2_dev, "Failed to register mem2mem media device\n");
+>>> +             goto error_m2m_mc;
+>>> +     }
+>>> +#endif
+>>> +
+>>> +     v4l2_info(&dev->v4l2_dev,
+>>> +               "Device registered as /dev/v4l-audio%d\n", vfd->num);
+>>> +
+>>> +     return 0;
+>>> +
+>>> +#ifdef CONFIG_MEDIA_CONTROLLER
+>>> +error_m2m_mc:
+>>> +     v4l2_m2m_unregister_media_controller(dev->m2m_dev);
+>>> +#endif
+>>> +error_v4l2:
+>>> +     video_unregister_device(&dev->vfd);
+>>> +     /* audm2m_device_release called by video_unregister_device to release various objects */
+>>> +     return ret;
+>>> +error_m2m:
+>>> +     v4l2_m2m_release(dev->m2m_dev);
+>>> +error_dev:
+>>> +     v4l2_device_unregister(&dev->v4l2_dev);
+>>> +error_free:
+>>> +     kfree(dev);
+>>> +
+>>> +     return ret;
+>>> +}
+>>> +
+>>> +static void audm2m_remove(struct platform_device *pdev)
+>>> +{
+>>> +     struct audm2m_dev *dev = platform_get_drvdata(pdev);
+>>> +
+>>> +     v4l2_info(&dev->v4l2_dev, "Removing " MEM2MEM_NAME);
+>>> +
+>>> +#ifdef CONFIG_MEDIA_CONTROLLER
+>>> +     media_device_unregister(&dev->mdev);
+>>> +     v4l2_m2m_unregister_media_controller(dev->m2m_dev);
+>>> +#endif
+>>> +     video_unregister_device(&dev->vfd);
+>>> +}
+>>> +
+>>> +static struct platform_driver audm2m_pdrv = {
+>>> +     .probe          = audm2m_probe,
+>>> +     .remove_new     = audm2m_remove,
+>>> +     .driver         = {
+>>> +             .name   = MEM2MEM_NAME,
+>>> +     },
+>>> +};
+>>> +
+>>> +static void __exit audm2m_exit(void)
+>>> +{
+>>> +     platform_driver_unregister(&audm2m_pdrv);
+>>> +     platform_device_unregister(&audm2m_pdev);
+>>> +}
+>>> +
+>>> +static int __init audm2m_init(void)
+>>> +{
+>>> +     int ret;
+>>> +
+>>> +     ret = platform_device_register(&audm2m_pdev);
+>>> +     if (ret)
+>>> +             return ret;
+>>> +
+>>> +     ret = platform_driver_register(&audm2m_pdrv);
+>>> +     if (ret)
+>>> +             platform_device_unregister(&audm2m_pdev);
+>>> +
+>>> +     return ret;
+>>> +}
+>>> +
+>>> +module_init(audm2m_init);
+>>> +module_exit(audm2m_exit);
+>>
+>> Regards,
+>>
+>>         Hans
 

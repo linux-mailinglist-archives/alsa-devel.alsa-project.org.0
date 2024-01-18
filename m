@@ -2,82 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEF93831DFF
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jan 2024 17:58:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 579A9831E0A
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jan 2024 17:59:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 187BF1FF;
-	Thu, 18 Jan 2024 17:58:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 187BF1FF
+	by alsa0.perex.cz (Postfix) with ESMTPS id B0405857;
+	Thu, 18 Jan 2024 17:59:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B0405857
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1705597130;
-	bh=QYRlUkW/XpdCNFGIHDOmI1vkPXM8L2eljOqXfzrzFsQ=;
-	h=From:Date:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1705597198;
+	bh=XqnUEmyZpWIygAVvpTrPmcqqd9rd5+DfFZrkq8MtP5c=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=JbWcv+stP6zVQeqoTN1uQ88qcpYj6IdXeaf+l80HDaw0s4SzTGXzNS8bGom7vU4hc
-	 Ce3xvagmhGk18vc2dAXda58jB8rExOPiFNlc0IrVDQR04HxX4v3HYETgLG8VHGWu5/
-	 01Dd97ZgOXihDw/hIWd74QIBadgJ2+bUz+O4aIo0=
+	b=roF3YZiGs0A0A4f27lh+4zwekdkvo2LUwVBEWd5UgVzDVCp5fdD0l1NLT+Lnl/Q0C
+	 OArOmHMYriLI9RN+YXMfMdapIkB/+yA6z/YYj1cYXPm46YskDFXLlLUYaP49UqcrJg
+	 BNokLUIyTzyvTkAqRBXANoiw4P7S+CNFbdbs0gpY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 63DE5F80520; Thu, 18 Jan 2024 17:58:18 +0100 (CET)
+	id E23C2F8062E; Thu, 18 Jan 2024 17:58:45 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EBC0CF8057D;
-	Thu, 18 Jan 2024 17:58:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1401CF805F7;
+	Thu, 18 Jan 2024 17:58:45 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B0150F801F5; Thu, 18 Jan 2024 17:58:14 +0100 (CET)
+	id 36999F805C6; Thu, 18 Jan 2024 17:58:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: ***
-X-Spam-Status: No, score=3.2 required=5.0 tests=DKIM_ADSP_CUSTOM_MED,
-	FORGED_GMAIL_RCVD,FREEMAIL_FROM,NML_ADSP_CUSTOM_MED,SPF_HELO_NONE,
-	SPF_SOFTFAIL,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=no
+X-Spam-Level: 
+X-Spam-Status: No, score=-7.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from fgw23-7.mail.saunalahti.fi (fgw23-7.mail.saunalahti.fi
- [62.142.5.84])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 18587F80074
-	for <alsa-devel@alsa-project.org>; Thu, 18 Jan 2024 17:58:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18587F80074
-Received: from localhost (88-113-24-108.elisa-laajakaista.fi [88.113.24.108])
-	by fgw23.mail.saunalahti.fi (Halon) with ESMTP
-	id c2b5c193-b622-11ee-b972-005056bdfda7;
-	Thu, 18 Jan 2024 18:58:11 +0200 (EET)
-From: andy.shevchenko@gmail.com
-Date: Thu, 18 Jan 2024 18:58:10 +0200
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-Cc: broonie@kernel.org, lee@kernel.org, robh+dt@kernel.org,
-	krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
-	linus.walleij@linaro.org, vkoul@kernel.org, lgirdwood@gmail.com,
-	yung-chuan.liao@linux.intel.com, sanyog.r.kale@intel.com,
-	pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
-	patches@opensource.cirrus.com, devicetree@vger.kernel.org,
-	linux-gpio@vger.kernel.org, linux-spi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 0/6] Add cs42l43 PC focused SoundWire CODEC
-Message-ID: <ZalYooJxj7Ba0sYU@surfacebook.localdomain>
-References: <20230804104602.395892-1-ckeepax@opensource.cirrus.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2A03CF802E8
+	for <alsa-devel@alsa-project.org>; Thu, 18 Jan 2024 17:58:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A03CF802E8
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=oVlNCGgM
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id EC48861756;
+	Thu, 18 Jan 2024 16:58:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8118C43399;
+	Thu, 18 Jan 2024 16:58:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1705597105;
+	bh=XqnUEmyZpWIygAVvpTrPmcqqd9rd5+DfFZrkq8MtP5c=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=oVlNCGgM9k5EJKY9p0X+kAZGLgyEu12I/iszIVU2VW44hAO8wyqGi82go/A3okkfy
+	 psZr+Yxd4ARitIFCosuNcoh6hHVYEDw1YTQR7+T+ymP/QHKRsrtbd+Pb0aVmyvZrV4
+	 7UFOAc6TEXVJxG2dHJg7nSt4oh985u9Q3HhvuUojPEUjRgYwwvg4MsBVnfOU52N+qu
+	 UzzC6wk3HTCerUm9x2qmiIGilUJ94ka91u9pFYcPpDJcWiakzMswp5gJcvHf052S0q
+	 r2qUXDLRjXCvWUgvOHmW14C4Amf66cULbLikqYiLElgtjd2fRB5qzzZZd9ncWCgPm2
+	 NeoTJMJJ5Ml1A==
+Received: from johan by xi.lan with local (Exim 4.96.2)
+	(envelope-from <johan+linaro@kernel.org>)
+	id 1rQVir-0003Z6-33;
+	Thu, 18 Jan 2024 17:58:33 +0100
+From: Johan Hovold <johan+linaro@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	Banajit Goswami <bgoswami@quicinc.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Johan Hovold <johan+linaro@kernel.org>
+Subject: [PATCH v3 5/5] ASoC: codecs: wcd9335: drop unused gain hack remnant
+Date: Thu, 18 Jan 2024 17:58:11 +0100
+Message-ID: <20240118165811.13672-6-johan+linaro@kernel.org>
+X-Mailer: git-send-email 2.41.0
+In-Reply-To: <20240118165811.13672-1-johan+linaro@kernel.org>
+References: <20240118165811.13672-1-johan+linaro@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230804104602.395892-1-ckeepax@opensource.cirrus.com>
-Message-ID-Hash: KMKUKV7D72MWJ4SLSQGGH5XQRDZFWCQ3
-X-Message-ID-Hash: KMKUKV7D72MWJ4SLSQGGH5XQRDZFWCQ3
-X-MailFrom: andy.shevchenko@gmail.com
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: REWICMTOXIQIX4JV3LNLZ2KAGPCYHZSH
+X-Message-ID-Hash: REWICMTOXIQIX4JV3LNLZ2KAGPCYHZSH
+X-MailFrom: johan+linaro@kernel.org
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KMKUKV7D72MWJ4SLSQGGH5XQRDZFWCQ3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/REWICMTOXIQIX4JV3LNLZ2KAGPCYHZSH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -86,24 +105,55 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Fri, Aug 04, 2023 at 11:45:56AM +0100, Charles Keepax kirjoitti:
-> This patch chain adds support for the Cirrus Logic cs42l43 PC focused
-> SoundWire CODEC. The chain is currently based of Lee's for-mfd-next
-> branch.
-> 
-> This series is mostly just a resend keeping pace with the kernel under
-> it, except for a minor fixup in the ASoC stuff.
+The vendor driver appears to be modifying the gain settings behind the
+back of user space but these hacks never made it upstream except for
+some essentially dead code that adds a constant zero to the current gain
+setting on DAPM events.
 
+Note that the volume registers still need to be written after enabling
+clocks in order for any prior updates to take effect.
 
-Sorry for the late review, nevertheless, I was alerted by the pin control code
-probe function that does something custom with devlinks. This is a red flag,
-please find time to fix that.
+Signed-off-by: Johan Hovold <johan+linaro@kernel.org>
+---
+ sound/soc/codecs/wcd9335.c | 4 ----
+ 1 file changed, 4 deletions(-)
 
-The rest of the review (since the code is in upstream) is probably good to have
-via follow up cleanups.
-
+diff --git a/sound/soc/codecs/wcd9335.c b/sound/soc/codecs/wcd9335.c
+index 43c648efd0d9..deb15b95992d 100644
+--- a/sound/soc/codecs/wcd9335.c
++++ b/sound/soc/codecs/wcd9335.c
+@@ -3033,7 +3033,6 @@ static int wcd9335_codec_enable_mix_path(struct snd_soc_dapm_widget *w,
+ {
+ 	struct snd_soc_component *comp = snd_soc_dapm_to_component(w->dapm);
+ 	u16 gain_reg;
+-	int offset_val = 0;
+ 	int val = 0;
+ 
+ 	switch (w->reg) {
+@@ -3073,7 +3072,6 @@ static int wcd9335_codec_enable_mix_path(struct snd_soc_dapm_widget *w,
+ 	switch (event) {
+ 	case SND_SOC_DAPM_POST_PMU:
+ 		val = snd_soc_component_read(comp, gain_reg);
+-		val += offset_val;
+ 		snd_soc_component_write(comp, gain_reg, val);
+ 		break;
+ 	case SND_SOC_DAPM_POST_PMD:
+@@ -3294,7 +3292,6 @@ static int wcd9335_codec_enable_interpolator(struct snd_soc_dapm_widget *w,
+ 	u16 gain_reg;
+ 	u16 reg;
+ 	int val;
+-	int offset_val = 0;
+ 
+ 	if (!(snd_soc_dapm_widget_name_cmp(w, "RX INT0 INTERP"))) {
+ 		reg = WCD9335_CDC_RX0_RX_PATH_CTL;
+@@ -3337,7 +3334,6 @@ static int wcd9335_codec_enable_interpolator(struct snd_soc_dapm_widget *w,
+ 	case SND_SOC_DAPM_POST_PMU:
+ 		wcd9335_config_compander(comp, w->shift, event);
+ 		val = snd_soc_component_read(comp, gain_reg);
+-		val += offset_val;
+ 		snd_soc_component_write(comp, gain_reg, val);
+ 		break;
+ 	case SND_SOC_DAPM_POST_PMD:
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.41.0
 

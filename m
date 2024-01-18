@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F8D0831E08
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jan 2024 17:59:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3E1C831E07
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jan 2024 17:59:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7235DB70;
-	Thu, 18 Jan 2024 17:59:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7235DB70
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8AD9B7F8;
+	Thu, 18 Jan 2024 17:59:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8AD9B7F8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1705597166;
-	bh=pMxi0aeP/TUeEOvaFIlff/maw++Dj2oPNVtTO/j244Y=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=EuvEuXSgGJrErMQ1XKnpZxiRoCvMZY3HnhptyI6THrod1ya6U2/QLlDxRTcs/72cL
-	 rdQKfziDI8jLJ8/LJOyqi7gaf3E9Yj+ZYpkCnVZFQr0MiBQijgcWQqoZw4kYYMtCBZ
-	 Cv+NeDsXTvIuewmEb3yK7uYZhEMHQUBOp8fpjAzo=
+	s=default; t=1705597151;
+	bh=j++VE3yyl/3Aq6hN2lI/I5Lv3fNUZ9f2+8EY9q5HghQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=jpEM9A6OmdL45RAI56MizQsv2FZlt+hGtmG9oGTm6v94Ul0CEUwc2+9d+S0PRsdvr
+	 Qj1bEeZcfDqgYT3KYHqYZ9dhVYJH6/PuKrryXqXrIC9l9TMKJy2kWEpe4zCZNPhdz/
+	 72g+YstxcONsGjRleYYbPZEyD51zwnOngx9HRO0g=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 73E2CF805E4; Thu, 18 Jan 2024 17:58:41 +0100 (CET)
+	id 011CFF805BA; Thu, 18 Jan 2024 17:58:36 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9F23FF801F5;
-	Thu, 18 Jan 2024 17:58:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CEC45F805C0;
+	Thu, 18 Jan 2024 17:58:35 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D9AEDF8059F; Thu, 18 Jan 2024 17:58:33 +0100 (CET)
+	id 814CEF8059F; Thu, 18 Jan 2024 17:58:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-7.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -36,31 +37,31 @@ Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 21121F805A0
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1E854F8057E
 	for <alsa-devel@alsa-project.org>; Thu, 18 Jan 2024 17:58:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21121F805A0
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E854F8057E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=vPgJBKI0
+ header.s=k20201202 header.b=JSLp7lP+
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by ams.source.kernel.org (Postfix) with ESMTP id 401AEB818AE;
+	by ams.source.kernel.org (Postfix) with ESMTP id 3F6C9B81890;
 	Thu, 18 Jan 2024 16:58:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0278C43394;
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DEFFC433C7;
 	Thu, 18 Jan 2024 16:58:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1705597105;
-	bh=pMxi0aeP/TUeEOvaFIlff/maw++Dj2oPNVtTO/j244Y=;
-	h=From:To:Cc:Subject:Date:From;
-	b=vPgJBKI0B1DZ+4T4gk8K+UprLod1TfKqRIQahsZL6hQAN3q7qOdUeD/4nvXroDbYI
-	 foqlTL6LGtQ6zIFmkpO8To+1pGZX5kRE5pa7Z56mVicVSTdz8tBztqSff4P10cWoo1
-	 zk2y9qIoqbsuMioby2HmqKkcbULewuj+gcHWz+sz7IWunZiHqeY02KZtKw7NYG1sF2
-	 5g/QM02Q3hVWssiEs8Kpk9s2cWEYCLtE2N0tJb7Uo3LuGKChXSTu/28HeNzOvJXFHS
-	 6AVUl27x6gbXfURGorrG+cc4LZNBmweWq5IeD6vXDTakDm7bPwK9mpgam0jZsEEIbg
-	 MnJmi4gp3hAUA==
+	bh=j++VE3yyl/3Aq6hN2lI/I5Lv3fNUZ9f2+8EY9q5HghQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=JSLp7lP+yt2+TNDtjYwQo3EhajRF3UyEJl8Qt1EyujY64k5U+PZVx5JcOKgBs+35j
+	 6n3xNowULaMqLpw5e66YN3REKKMbwnPoceprkwxWR18V4gXCc8z3+DYZClyIIHNX/9
+	 CejlplkAfn1oKeq2i3MofOS4s4MMM2K9dhViBL7eiziFiW+DbnxgIN/W4SnItWKGzU
+	 1D00ayoUHdNqDpTBxrzzT7o34mt6DRlKEvYW5kzNfpCuVdvss2jiLNZGZcNPlj7Hgj
+	 NcuDaBV7sw7h52cu8Zg+kq1ou4oStn41Bh8sbtJqOj1cMENM3ZQwzLAp4aEyaBiPvU
+	 9COmIaQoyDZfw==
 Received: from johan by xi.lan with local (Exim 4.96.2)
 	(envelope-from <johan+linaro@kernel.org>)
-	id 1rQViq-0003Yw-2Q;
+	id 1rQVir-0003Yy-1q;
 	Thu, 18 Jan 2024 17:58:33 +0100
 From: Johan Hovold <johan+linaro@kernel.org>
 To: Mark Brown <broonie@kernel.org>
@@ -72,15 +73,18 @@ Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
 	alsa-devel@alsa-project.org,
 	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Johan Hovold <johan+linaro@kernel.org>
-Subject: [PATCH v3 0/5] ASoC: qcom: volume fixes and codec cleanups
-Date: Thu, 18 Jan 2024 17:58:06 +0100
-Message-ID: <20240118165811.13672-1-johan+linaro@kernel.org>
+	Johan Hovold <johan+linaro@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH v3 1/5] ASoC: codecs: wsa883x: fix PA volume control
+Date: Thu, 18 Jan 2024 17:58:07 +0100
+Message-ID: <20240118165811.13672-2-johan+linaro@kernel.org>
 X-Mailer: git-send-email 2.41.0
+In-Reply-To: <20240118165811.13672-1-johan+linaro@kernel.org>
+References: <20240118165811.13672-1-johan+linaro@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: CIBP7L73MFSVW3M62DFHN2YCPMUXJBIH
-X-Message-ID-Hash: CIBP7L73MFSVW3M62DFHN2YCPMUXJBIH
+Message-ID-Hash: QAPAI4YRWLNY5RAA76BKP4DQOKEIFIJ6
+X-Message-ID-Hash: QAPAI4YRWLNY5RAA76BKP4DQOKEIFIJ6
 X-MailFrom: johan+linaro@kernel.org
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
@@ -92,7 +96,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CIBP7L73MFSVW3M62DFHN2YCPMUXJBIH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QAPAI4YRWLNY5RAA76BKP4DQOKEIFIJ6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -101,60 +105,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-To reduce the risk of speaker damage the PA gain needs to be limited on
-machines like the Lenovo Thinkpad X13s until we have active speaker
-protection in place.
+The PA gain can be set in steps of 1.5 dB from -3 dB to 18 dB, that is,
+in fifteen levels.
 
-Limit the gain to the current default setting provided by the UCM
-configuration which most user have so far been using (due to a bug in
-the configuration files which prevented hardware volume control [1]).
+Fix the range of the PA volume control to avoid having the first
+sixteen levels all map to -3 dB.
 
-The wsa883x PA volume control also turned out to be broken, which meant
-that the default setting used by UCM configuration is actually the
-lowest level (-3 dB). With the codec driver fixed, hardware volume
-control also works as expected once we lift the PA volume limit.
+Note that level 0 (-3 dB) does not mute the PA so the mute flag should
+also not be set.
 
-Note that the new wsa884x driver most likely suffers from a similar bug,
-I'll send a fix for that once I've got that confirmed.
+Fixes: cdb09e623143 ("ASoC: codecs: wsa883x: add control, dapm widgets and map")
+Cc: stable@vger.kernel.org      # 6.0
+Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Signed-off-by: Johan Hovold <johan+linaro@kernel.org>
+---
+ sound/soc/codecs/wsa883x.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Included is also a related fix for the LPASS WSA macro driver, which
-was changing the digital gain setting behind the back of user space and
-which can result in excessive (or too low) digital gain.
-
-There are further Qualcomm codec drivers that similarly appear to
-manipulate various gain settings, but on closer inspection it turns out
-that they only write back the current settings. Tests reveal that these
-writes are indeed needed for any prior updates to take effect (at least
-for the WSA and RX macros).
-
-Johan
-
-[1] https://github.com/alsa-project/alsa-ucm-conf/pull/382
-
-
-Changes in v3
- - fix the wsa883x PA volume control and update the machine limits
-   accordingly
-
-Changes in v2
- - keep the volume register write on power-on in lpass-wsa-macro
- - drop the other patches removing volume register writes on DAPM events
- - only drop the constant-zero gain offsets in wcd9335
-
-
-Johan Hovold (5):
-  ASoC: codecs: wsa883x: fix PA volume control
-  ASoC: codecs: wsa883x: lower default PA gain
-  ASoC: qcom: sc8280xp: limit speaker volumes
-  ASoC: codecs: lpass-wsa-macro: fix compander volume hack
-  ASoC: codecs: wcd9335: drop unused gain hack remnant
-
- sound/soc/codecs/lpass-wsa-macro.c | 7 -------
- sound/soc/codecs/wcd9335.c         | 4 ----
- sound/soc/codecs/wsa883x.c         | 6 +++---
- sound/soc/qcom/sc8280xp.c          | 8 +++++---
- 4 files changed, 8 insertions(+), 17 deletions(-)
-
+diff --git a/sound/soc/codecs/wsa883x.c b/sound/soc/codecs/wsa883x.c
+index cb83c569e18d..32983ca9afba 100644
+--- a/sound/soc/codecs/wsa883x.c
++++ b/sound/soc/codecs/wsa883x.c
+@@ -1098,7 +1098,7 @@ static int wsa_dev_mode_put(struct snd_kcontrol *kcontrol,
+ 	return 1;
+ }
+ 
+-static const DECLARE_TLV_DB_SCALE(pa_gain, -300, 150, -300);
++static const DECLARE_TLV_DB_SCALE(pa_gain, -300, 150, 0);
+ 
+ static int wsa883x_get_swr_port(struct snd_kcontrol *kcontrol,
+ 				struct snd_ctl_elem_value *ucontrol)
+@@ -1239,7 +1239,7 @@ static const struct snd_soc_dapm_widget wsa883x_dapm_widgets[] = {
+ 
+ static const struct snd_kcontrol_new wsa883x_snd_controls[] = {
+ 	SOC_SINGLE_RANGE_TLV("PA Volume", WSA883X_DRE_CTL_1, 1,
+-			     0x0, 0x1f, 1, pa_gain),
++			     0x1, 0xf, 1, pa_gain),
+ 	SOC_ENUM_EXT("WSA MODE", wsa_dev_mode_enum,
+ 		     wsa_dev_mode_get, wsa_dev_mode_put),
+ 	SOC_SINGLE_EXT("COMP Offset", SND_SOC_NOPM, 0, 4, 0,
 -- 
 2.41.0
 

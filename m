@@ -2,91 +2,111 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C84AA832164
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jan 2024 23:08:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08B1C8324FA
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 Jan 2024 08:18:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3FFDC209;
-	Thu, 18 Jan 2024 23:07:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3FFDC209
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5F08A205;
+	Fri, 19 Jan 2024 08:17:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F08A205
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1705615687;
-	bh=iseU8jQdo5TbasDTsLDq2FqVB/V3B0OwmtPqZ4AdvHM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1705648685;
+	bh=+0T0th1rKcmyeEaP/OzGGn0TFYJ3ZGJGGrbEuBW5aoA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=M+JNW5lxBDHUJB6QUHDGYJGikd4tUWuZmLumLaRLzdgljC8VrY4nJ0URjTK5pLei1
-	 T4yDSqlp1H4WfiocfssQ7n9ZkfxSLoVAHxBPTuB+rduCsYdPs6cFBWyN9VpST50tJj
-	 oKX6ipKKUk36RlZ0IWYrZ/twSqb9CLMJCKQLPrLM=
+	b=o+MJzhGEU7/lxQe7HjbaV/sX70Dld2jRFpcjIR0wgzLLQ4rLMvnOCuv0EMCiRSWPY
+	 F6Z9VwBASwXawOkLlYTdBoNgR7dj80n7XeG80bC2NVFZM3HUIoMnd+X8R9EZvHL7Rm
+	 xfbZaewkhYkHReNd2U788dss7zVmtTRKgNZMVq6E=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9930FF802E8; Thu, 18 Jan 2024 23:07:28 +0100 (CET)
+	id AE8EAF80588; Fri, 19 Jan 2024 08:17:28 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id F36A9F80568;
-	Thu, 18 Jan 2024 23:07:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 71E1FF8057D;
+	Fri, 19 Jan 2024 08:17:26 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 705FDF801F5; Thu, 18 Jan 2024 23:07:23 +0100 (CET)
+	id 33FA3F801F5; Fri, 19 Jan 2024 08:14:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-1.7 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_SBL_CSS,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [IPv6:2a00:1450:4864:20::334])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B65FFF800F5
-	for <alsa-devel@alsa-project.org>; Thu, 18 Jan 2024 23:07:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B65FFF800F5
+	by alsa1.perex.cz (Postfix) with ESMTPS id A7102F8003A
+	for <alsa-devel@alsa-project.org>; Fri, 19 Jan 2024 08:14:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7102F8003A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=f6NCM36u
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 1531ACE20FC;
-	Thu, 18 Jan 2024 22:07:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 596ECC433F1;
-	Thu, 18 Jan 2024 22:07:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1705615626;
-	bh=iseU8jQdo5TbasDTsLDq2FqVB/V3B0OwmtPqZ4AdvHM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=f6NCM36uAeF0IfTRbUH03Lri3cCsoKdvkLTwbchpoXLnitcPpd2hQvJji/o3GJod9
-	 FVsOKYovvKJDaYreDsXBWTluZtFP5GoI6bAR+GGtV7JHSdpUd303Qj0bmzYzNX0V1s
-	 +wSwD8JbKfT/moIH/rGvb2peKnPGeoeRhrPa57Qho/NdTgQpG/TyPa4+HuQ3k6BA4O
-	 9RK6KXgdBsb9Mtu0RrVHfyNQjAm8BEKErTj6Q9H38l9ubDqPgFndwYsRpcKVBMXorN
-	 j1gY6KZB3CaOyOabqW28lhoKZxU/V0KufzcJ9hlvOLMTIDS6WMWXJvCYEYYVDspYy3
-	 W8yfgeaCBxdhg==
-Date: Thu, 18 Jan 2024 22:07:00 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Andy Shevchenko <andy.shevchenko@gmail.com>
-Cc: Charles Keepax <ckeepax@opensource.cirrus.com>, lee@kernel.org,
-	robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
-	conor+dt@kernel.org, linus.walleij@linaro.org, vkoul@kernel.org,
-	lgirdwood@gmail.com, yung-chuan.liao@linux.intel.com,
-	sanyog.r.kale@intel.com, pierre-louis.bossart@linux.intel.com,
-	alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
-	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 6/6] ASoC: cs42l43: Add support for the cs42l43
-Message-ID: <b1889bb0-2b9f-477c-80d3-a636b9017ea4@sirena.org.uk>
-References: <20230804104602.395892-1-ckeepax@opensource.cirrus.com>
- <20230804104602.395892-7-ckeepax@opensource.cirrus.com>
- <Zali4qxdegY7H6eY@surfacebook.localdomain>
- <aec96f5a-b759-48c7-a5ec-bafe3bfa5357@sirena.org.uk>
- <CAHp75Vd6JtW4ddbSPXUp6WgEdBJizjwnS-XZzwLcXWWLxFWp-w@mail.gmail.com>
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=X3eFQtWF
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-40e7065b7bdso4890015e9.3
+        for <alsa-devel@alsa-project.org>;
+ Thu, 18 Jan 2024 23:14:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1705648446; x=1706253246;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=i72MfFyOZMrd+BSQwwi+n4pSqhokb64bOd5tJv0/2UM=;
+        b=X3eFQtWFUcQwQArxZxlbC5inYX3r2yxeANnXGwzRoQesBpnh6aQdjOh7PkYaUxVnQJ
+         LfqQ37aqqDthAqFwak4lIQN3QkOn0O7ZhiALRSP+sbupdwKbsE2sZKAHSc/baQ3ICkox
+         E+WHdK5qCxeXazd+8/QhkBRCkG0VqIBYxX/9du1lqCaBlFlj9V2l0yjOYtisduD4b7V5
+         MxREb1OKtUkCCGaoL7hvs6no+FBQk3WBiOU2VyS6PioTOIkzxLb8vsuaYFHZGb667CV2
+         hhrii4h4kpZ21aWAOX41J9XhptW5tYE/xrAyAFscEmLy2tJCiswd6tCFJy+ZhosPrrJX
+         H/DQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1705648446; x=1706253246;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=i72MfFyOZMrd+BSQwwi+n4pSqhokb64bOd5tJv0/2UM=;
+        b=uzS/XU1JMKub87Q5mGCC4Y3PXGw/DqxMxQam/zP8DS4a+CZt8zajD81RFLVdt+lE9l
+         6qyyIbE6faDn9koEOnkNGrmW4fQuE2L6ERycrnfE9td5G4aSMymtHIkc8ttNpvqRlosh
+         jvblD63Ck/5b3N6doo1cKJnRlY2XXDSWm8zsGHpObWMdkVqGyJ6Yk6UPmbuTo//640jj
+         ZOUJjFDpTy1WLlfyoA7BoYrQTgdkE+yD9xkZ3SOjpgc3dTw7xyiQ/mKATB3lEs2W68W0
+         9VwXRWySGOvQK4pwL/w6vIFH3ejjVr0ICQcdd34T3r1ayBugs4dIe5uyTcaVSsYkrGWN
+         k3NQ==
+X-Gm-Message-State: AOJu0Yyg6+Y14Qh0xobj97S4p2+W4VgEaQZtZr1YOfB+nB8WW0t2p3Qn
+	RFOa2pfhHR3Qa23S81TSWq3tdp5Dl3InnGMCX97vOWplKQHzIxFTzJGCnMehRH8=
+X-Google-Smtp-Source: 
+ AGHT+IHl2Kkada6JZ4n+CkhFjQG/uScWhBunryRyzHRlXDI9RMUkV5Irt0J4JgQHuxoC6mETq4UhQQ==
+X-Received: by 2002:a05:600c:3b0f:b0:40e:9f2f:3590 with SMTP id
+ m15-20020a05600c3b0f00b0040e9f2f3590mr102316wms.272.1705648446196;
+        Thu, 18 Jan 2024 23:14:06 -0800 (PST)
+Received: from [192.168.1.195] ([5.133.47.210])
+        by smtp.googlemail.com with ESMTPSA id
+ 2-20020a05600c020200b0040ea00a0b75sm14034wmi.0.2024.01.18.23.14.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 18 Jan 2024 23:14:05 -0800 (PST)
+Message-ID: <3494d23f-2a56-4f13-a619-e240d208d300@linaro.org>
+Date: Fri, 19 Jan 2024 07:14:03 +0000
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="71ujX23WTb2DYuTK"
-Content-Disposition: inline
-In-Reply-To: 
- <CAHp75Vd6JtW4ddbSPXUp6WgEdBJizjwnS-XZzwLcXWWLxFWp-w@mail.gmail.com>
-X-Cookie: FEELINGS are cascading over me!!!
-Message-ID-Hash: 247HAHAKBUF4SW2SAE4DZJC5N4TCU7VP
-X-Message-ID-Hash: 247HAHAKBUF4SW2SAE4DZJC5N4TCU7VP
-X-MailFrom: broonie@kernel.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/5] ASoC: codecs: wsa883x: fix PA volume control
+Content-Language: en-US
+To: Johan Hovold <johan+linaro@kernel.org>, Mark Brown <broonie@kernel.org>
+Cc: Banajit Goswami <bgoswami@quicinc.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20240118165811.13672-1-johan+linaro@kernel.org>
+ <20240118165811.13672-2-johan+linaro@kernel.org>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+In-Reply-To: <20240118165811.13672-2-johan+linaro@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: FCM32Z7MQ6HM7HGPNLUSSBME3TS2VGTV
+X-Message-ID-Hash: FCM32Z7MQ6HM7HGPNLUSSBME3TS2VGTV
+X-MailFrom: srinivas.kandagatla@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -98,7 +118,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/247HAHAKBUF4SW2SAE4DZJC5N4TCU7VP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FCM32Z7MQ6HM7HGPNLUSSBME3TS2VGTV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,54 +128,59 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---71ujX23WTb2DYuTK
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jan 18, 2024 at 10:46:28PM +0200, Andy Shevchenko wrote:
-> On Thu, Jan 18, 2024 at 8:11=E2=80=AFPM Mark Brown <broonie@kernel.org> w=
-rote:
-> > On Thu, Jan 18, 2024 at 07:41:54PM +0200, andy.shevchenko@gmail.com wro=
-te:
-> > > Fri, Aug 04, 2023 at 11:46:02AM +0100, Charles Keepax kirjoitti:
+On 18/01/2024 16:58, Johan Hovold wrote:
+> The PA gain can be set in steps of 1.5 dB from -3 dB to 18 dB, that is,
+> in fifteen levels.
+> 
+> Fix the range of the PA volume control to avoid having the first
+> sixteen levels all map to -3 dB.
+TBH, we really don't know what unsupported values map to w.r.t dB.
 
-> > > > +   unsigned int hs2 =3D 0x2 << CS42L43_HSDET_MODE_SHIFT;
+> 
+> Note that level 0 (-3 dB) does not mute the PA so the mute flag should
+> also not be set.
+> 
+> Fixes: cdb09e623143 ("ASoC: codecs: wsa883x: add control, dapm widgets and map")
+> Cc: stable@vger.kernel.org      # 6.0
+> Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> Signed-off-by: Johan Hovold <johan+linaro@kernel.org>
+> ---
+>   sound/soc/codecs/wsa883x.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/sound/soc/codecs/wsa883x.c b/sound/soc/codecs/wsa883x.c
+> index cb83c569e18d..32983ca9afba 100644
+> --- a/sound/soc/codecs/wsa883x.c
+> +++ b/sound/soc/codecs/wsa883x.c
+> @@ -1098,7 +1098,7 @@ static int wsa_dev_mode_put(struct snd_kcontrol *kcontrol,
+>   	return 1;
+>   }
+>   
+> -static const DECLARE_TLV_DB_SCALE(pa_gain, -300, 150, -300);
+> +static const DECLARE_TLV_DB_SCALE(pa_gain, -300, 150, 0);
+>   
+>   static int wsa883x_get_swr_port(struct snd_kcontrol *kcontrol,
+>   				struct snd_ctl_elem_value *ucontrol)
+> @@ -1239,7 +1239,7 @@ static const struct snd_soc_dapm_widget wsa883x_dapm_widgets[] = {
+>   
+>   static const struct snd_kcontrol_new wsa883x_snd_controls[] = {
+>   	SOC_SINGLE_RANGE_TLV("PA Volume", WSA883X_DRE_CTL_1, 1,
+> -			     0x0, 0x1f, 1, pa_gain),
+> +			     0x1, 0xf, 1, pa_gain),
 
-> > > BIT(1) ?
+gain field in register is Bit[5:1], so the max value of 0x1f is correct 
+here. However the range of gains that it can actually support is only 0-15.
 
-> > Given that this is writing a value into a register field called "MODE"
-> > it seems very likely that it's an enumeration value rather than a
-> > bitmask (and similarly for all the other places where you're making
-> > similar comments).  Please think a bit more about the code being
-> > commented on when making these minor stylistic comments.
+If we are artificially setting the max value of 0xf here, then somewhere 
+we should ensure that Bit[5] is set to zero while programming the gain.
 
-> I read a bit further and have given a comment about this as you put it
-> above that they are plain values.
-> Please, read my comments in full.
+Whatever the mixer control is exposing is clearly reflecting what 
+hardware is supporting.
 
-I did eventually find that while going through the other comments but
-given that the earlier ones hadn't been revised and it was all a bunch
-of different fields it still seemed useful to highlight, if nothing else
-it was a little unclear that your later comment applied to all the
-fields you were asking for updates to.
+--srini
 
-In general in a case like this where the code is already in tree it does
-seem like it'd be better to just write patche for the stylistic issues.
 
---71ujX23WTb2DYuTK
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmWpoQMACgkQJNaLcl1U
-h9CCeQf+I21xMOQThraPXK85uU2p913UhGWbaP7HY9FD+DAulq1voxw9sDv5OoFD
-ciLzUlxTW5AGYUk1xAKqSHaxLf7PYAztwmpSXO3NBY9khrbEbBTNpcylDRzKgrQx
-ZhQAbiD54n6wKFCn6efN+Rh+8xXxP+XvRd2Dh8CVeWydMoRQaKs8GB0SnXr32F3M
-irPxz+pFuUEi6uYVqn4FPY3nowFTSqTiL3AzjtfXsK1MTl2MDlwcJdld0jr6bCk3
-GzrjYt+MDyyjj2Gk7LzEvNrZfgggAOH3KCNttfwRL9yO/bV7981VyOmdbzA7wxPL
-yQVLQLMim55rdMKYjPcsaLFGmCTEfA==
-=A+RS
------END PGP SIGNATURE-----
-
---71ujX23WTb2DYuTK--
+>   	SOC_ENUM_EXT("WSA MODE", wsa_dev_mode_enum,
+>   		     wsa_dev_mode_get, wsa_dev_mode_put),
+>   	SOC_SINGLE_EXT("COMP Offset", SND_SOC_NOPM, 0, 4, 0,

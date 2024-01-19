@@ -2,100 +2,123 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EDF2832C5C
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 Jan 2024 16:27:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA774832CB7
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 Jan 2024 17:02:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 45372DE;
-	Fri, 19 Jan 2024 16:27:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 45372DE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4831674C;
+	Fri, 19 Jan 2024 17:02:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4831674C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1705678075;
-	bh=X/xd67Fr3PvF8lGpTMnDOMiobvUDHSVg02IBNzMqNGw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1705680171;
+	bh=pX77ipe+Gsy5sdRmPvMGCJoBu6eqr4SlhVjTSxXiRl8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Bfw4DE9N15CtEKKJxz8b9DHKLVFSHUPUbq/RJpyzz6UrQmL2o83+eMcnEoT7lOy/j
-	 sK/6XBxvP9A9twcdeH3h4tp01XP32FoDhl+tWeTjxJFrnlVD/nP97UGf9aizD8Q4Qe
-	 juNe9Ns9BDtboPS06WqreJiE3ZPODVFfLLPHXi/A=
+	b=MqPe5Afv2jMSjzqDzd7lNfCn8L88sTc4uSMslpi7lWtL5Wst+FAOaW975yLmJl9xg
+	 mT+ctIoIHvP0RNt1vBucNB1B0HUR+qWxojWYwVjXqckioSo03biQiDPwoiCo3g3u+M
+	 eZ9gLKkC4rzlf+dLNSjn9gd/VwoNt4FvzcAEtl0M=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6F993F8057E; Fri, 19 Jan 2024 16:27:18 +0100 (CET)
+	id 35CF9F802E8; Fri, 19 Jan 2024 17:02:30 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E3409F80236;
-	Fri, 19 Jan 2024 16:27:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9923BF80548;
+	Fri, 19 Jan 2024 17:02:29 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9775EF800C1; Fri, 19 Jan 2024 16:27:13 +0100 (CET)
+	id CC77EF8014B; Fri, 19 Jan 2024 17:02:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [IPv6:2a00:1450:4864:20::532])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 00495F800C1
-	for <alsa-devel@alsa-project.org>; Fri, 19 Jan 2024 16:26:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00495F800C1
+	by alsa1.perex.cz (Postfix) with ESMTPS id B9C01F80074
+	for <alsa-devel@alsa-project.org>; Fri, 19 Jan 2024 17:02:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9C01F80074
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Smz9BHF+
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 4F7E4CE21FC;
-	Fri, 19 Jan 2024 15:26:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CD31C43394;
-	Fri, 19 Jan 2024 15:26:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1705678011;
-	bh=X/xd67Fr3PvF8lGpTMnDOMiobvUDHSVg02IBNzMqNGw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Smz9BHF+haNafasg95JGgtPJYBBHgYlY+/gV8naiOscTv4jh4wJ879u65MnftYq6a
-	 HAUOFwKH1cDjAP5MHxOW36tw5KQInht3bZQ1BFVITR9Yzm9vXVmKVdow6S4SYtSqgK
-	 5P9fluDHo1/AH/VYLojyr6pEutOZvF53QmF8Xmc9bryktDxd8fom/RgoGR4lzDD5cG
-	 FPvOP3M7jePnZwQt9kQ2nPtv/mNf/zvOtRaTKCxC8PanmTYg2fMFrtE0YKiXhr1Y2l
-	 +80VKww/UwvBAfTpHO80c6pItmi8s1lvnZOvi9cprM9bVTGTVr9tUZgiS4FYb1QGtl
-	 TxW5g3tXcywrw==
-Received: from johan by xi.lan with local (Exim 4.96.2)
-	(envelope-from <johan@kernel.org>)
-	id 1rQqlo-0004QS-00;
-	Fri, 19 Jan 2024 16:27:00 +0100
-Date: Fri, 19 Jan 2024 16:26:59 +0100
-From: Johan Hovold <johan@kernel.org>
-To: Johan Hovold <johan+linaro@kernel.org>
-Cc: Mark Brown <broonie@kernel.org>,
-	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-	Banajit Goswami <bgoswami@quicinc.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v4 2/4] ASoC: qcom: sc8280xp: limit speaker volumes
-Message-ID: <ZaqUw-9XulJGKH7v@hovoldconsulting.com>
-References: <20240119112420.7446-1-johan+linaro@kernel.org>
- <20240119112420.7446-3-johan+linaro@kernel.org>
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=Ar/0W13/
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-55a356f8440so1150464a12.2
+        for <alsa-devel@alsa-project.org>;
+ Fri, 19 Jan 2024 08:02:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1705680136; x=1706284936;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=rhJgD3zP9zngaSpIBMlj3gbLccR2tuQ/HQYsBEgXc04=;
+        b=Ar/0W13/485L6dzh3CdVpv1xjBEP8QJESLBoRG7FlsbrQOpJ/4IYDdqOyU8lxpNP6r
+         jM4ptgMzhh1MDPvggRlEv0dFNvMV4J+1EN6mlQF78Qq7CK5cRvDEV8EzUFHFOEQPQQAn
+         U4UOWiOaSCGQfZffFpfcKiq6gylTXd3ukZ/PnAdNhN/Ov1jny8tLbNYVYrhFmC7GsZFG
+         decp9F/cAIj3dKBoQiRbJShgqMztxM8P6dV9EJpiZJFASVdNFMRQzTnYWBVXEWZsqthm
+         lpVWU2i34GykPQKrACxW+nof7ejc/enQa17ArdEnqZ7F5jOFsTIASNPGx+QswnpBCbUM
+         +MDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1705680136; x=1706284936;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=rhJgD3zP9zngaSpIBMlj3gbLccR2tuQ/HQYsBEgXc04=;
+        b=DzH9x04czf7BINyosijdKB1amIQjLKfInAhZD6ibym5IfNH/Uvam8WDzCpj2rHRW72
+         sLPhgJiDkhPULs2fs+urCtkOS+i1UbBzIVHXZ9tDDrLemoFYxDA9QWe33Nk3+Ov/LsuB
+         nVMfIo2DMLw6wXBZrAjXs2sI1falc89qT0hJpfo7hHwhqPC+QirZPmLnPhwPf6rlXolT
+         oX2lM5QOsBDzbmkZFhwERbwGjwQD9A5zwiT5Ns0ELgVYyQ2oEt6G37FGDifTLUjuMo9G
+         UWPrE274OAEnNMVSJSbzbNNZSUxniwmVyHiYNW4TKBh4QF4JoAO+n2mxzOb9VSVLcdfs
+         n+Bw==
+X-Gm-Message-State: AOJu0YxouA/QsjMeom2Lh/NzjjCVhNGEsDRGeBG6NhmHiKkgRatWn+/6
+	27pDCLmGlO0Ag2EyOBknq4Ek2dAo9QNC0lBkJo0/bnJrJyyeBdE/I+AWkddko21AJUHlglkpM5Y
+	xKMHWkbrbkLiup9kfiPcxQGItS/c=
+X-Google-Smtp-Source: 
+ AGHT+IF3+Nq/o91kf1Qzz3pAJkg83GJHPQk614/748N9uRatEUTFGG26s9DzXUBqtocFl8OSIsh8IeChhwKnrMDv1NY=
+X-Received: by 2002:a17:906:280c:b0:a2c:e148:e2d7 with SMTP id
+ r12-20020a170906280c00b00a2ce148e2d7mr6539ejc.2.1705680135691; Fri, 19 Jan
+ 2024 08:02:15 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240119112420.7446-3-johan+linaro@kernel.org>
-Message-ID-Hash: SDA5KEAW56ZP2AQOZDZBM2HAII5SMVHH
-X-Message-ID-Hash: SDA5KEAW56ZP2AQOZDZBM2HAII5SMVHH
-X-MailFrom: johan@kernel.org
-X-Mailman-Rule-Hits: nonmember-moderation
+References: <20230804104602.395892-1-ckeepax@opensource.cirrus.com>
+ <20230804104602.395892-4-ckeepax@opensource.cirrus.com>
+ <ZalU8r1OvqKOLHrf@surfacebook.localdomain>
+ <20240119113203.GA16899@ediswmail.ad.cirrus.com>
+In-Reply-To: <20240119113203.GA16899@ediswmail.ad.cirrus.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Fri, 19 Jan 2024 18:01:38 +0200
+Message-ID: 
+ <CAHp75Vco3+B_mcLRr7dcLx79601poLJtLt3Av6d-hAJQLYbe6Q@mail.gmail.com>
+Subject: Re: [PATCH v7 3/6] mfd: cs42l43: Add support for cs42l43 core driver
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Cc: broonie@kernel.org, lee@kernel.org, robh+dt@kernel.org,
+	krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
+	linus.walleij@linaro.org, vkoul@kernel.org, lgirdwood@gmail.com,
+	yung-chuan.liao@linux.intel.com, sanyog.r.kale@intel.com,
+	pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+	patches@opensource.cirrus.com, devicetree@vger.kernel.org,
+	linux-gpio@vger.kernel.org, linux-spi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: AFE45OY5KBRIIJQZ65YYVTHFPCVXW6IG
+X-Message-ID-Hash: AFE45OY5KBRIIJQZ65YYVTHFPCVXW6IG
+X-MailFrom: andy.shevchenko@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SDA5KEAW56ZP2AQOZDZBM2HAII5SMVHH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AFE45OY5KBRIIJQZ65YYVTHFPCVXW6IG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,27 +127,85 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, Jan 19, 2024 at 12:24:18PM +0100, Johan Hovold wrote:
-> The UCM configuration for the Lenovo ThinkPad X13s has up until now
-> been setting the speaker PA volume to the minimum -3 dB when enabling
-> the speakers, but this does not prevent the user from increasing the
-> volume further.
-> 
-> Limit the digital gain and PA volumes to a combined -3 dB in the machine
-> driver to reduce the risk of speaker damage until we have active speaker
-> protection in place (or higher safe levels have been established).
-> 
-> Note that the PA volume limit cannot be set lower than 0 dB or
-> PulseAudio gets confused when the first 16 levels all map to -3 dB.
+On Fri, Jan 19, 2024 at 1:32=E2=80=AFPM Charles Keepax
+<ckeepax@opensource.cirrus.com> wrote:
+> On Thu, Jan 18, 2024 at 06:42:26PM +0200, andy.shevchenko@gmail.com wrote=
+:
+> > Fri, Aug 04, 2023 at 11:45:59AM +0100, Charles Keepax kirjoitti:
 
-I tracked the down the root cause for this, which appears to be a bug
-(feature) in pulseaudio that causes it to reject the dB range if the
-maximum is negative:
+...
 
-	https://gitlab.freedesktop.org/pulseaudio/pulseaudio/-/merge_requests/447
+> > > +#if IS_ENABLED(CONFIG_OF)
+> >
+> > We are trying hard to get rid of this ugly ifdefferies (ACPI as well) a=
+long
+> > with respective macros that are often the PITA for CIs.
+>
+> Fair enough, but what is the expected alternative here? Is it now
+> preferred to just always include both in the driver? That does
+> come at a small cost in driver size, but it doesn't really bother
+> me.
 
-This happened to work with v3 which limited the PA volume to the single
-lowest setting, but would similarly break if anyone wants to set a -1.5
-dB limit.
+Yes. You may have noticed the pile of the "remove of_match_ptr()"
+patches in the past cycles...
 
-Johan
+> > > +#endif
+
+...
+
+> > > +#define CS42L43_RESET_DELAY                        20
+> > > +
+> > > +#define CS42L43_SDW_ATTACH_TIMEOUT         500
+> > > +#define CS42L43_SDW_DETACH_TIMEOUT         100
+> > > +
+> > > +#define CS42L43_MCU_POLL                   5000
+> > > +#define CS42L43_MCU_CMD_TIMEOUT                    20000
+> >
+> > > +#define CS42L43_MCU_UPDATE_TIMEOUT         500000
+> >
+> > > +#define CS42L43_VDDP_DELAY                 50
+> > > +#define CS42L43_VDDD_DELAY                 1000
+> > > +
+> > > +#define CS42L43_AUTOSUSPEND_TIME           250
+> >
+> > Usually we use units for the macro names as suffixes...
+> > E.g., _US (for microseconds).
+>
+> Can add those, does make it clearer.
+
+This is a nit-pick, but just to let you know the standard de facto in
+several subsystems (which hold drivers of different devices). Not sure
+if MFD or others related to this driver are really bothered with this
+nuance.
+
+...
+
+> > > +   irq_flags =3D irqd_get_trigger_type(irq_data);
+> > > +   switch (irq_flags) {
+> > > +   case IRQF_TRIGGER_LOW:
+> > > +   case IRQF_TRIGGER_HIGH:
+> > > +   case IRQF_TRIGGER_RISING:
+> > > +   case IRQF_TRIGGER_FALLING:
+> > > +           break;
+> > > +   case IRQ_TYPE_NONE:
+> >
+> > Are you sure it's a right place to interpret no type flags as a default=
+?
+>
+> I mean... no... but I might need more to go on. The chip
+> generates an active low IRQ by default so it seems reasonable if
+> nothing is specified to assume the chip is doing what it normally
+> would.
+
+The problem is that if NONE comes here it might point to a mistake in
+the initialisation / probe code somewhere else. Please, double check
+that it's a valid case to have NONE here.
+
+> > > +   default:
+> > > +           irq_flags =3D IRQF_TRIGGER_LOW;
+> > > +           break;
+> > > +   }
+
+--=20
+With Best Regards,
+Andy Shevchenko

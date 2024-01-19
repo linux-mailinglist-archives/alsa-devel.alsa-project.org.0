@@ -2,106 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA44E8328CE
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 Jan 2024 12:31:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06ADB8328D4
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 Jan 2024 12:32:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1B6DD206;
-	Fri, 19 Jan 2024 12:31:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1B6DD206
+	by alsa0.perex.cz (Postfix) with ESMTPS id 111E9201;
+	Fri, 19 Jan 2024 12:32:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 111E9201
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1705663890;
-	bh=PeSGgUlLO0QYQTNF6HEH4Awp8ydSuN7HXZkAQhBxbH4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1705663967;
+	bh=94cJkGpzXv6vX96hN3F/qDrT623BbZXlhB7kP/KCPU0=;
+	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=WLR2zoJ0JGTV4Q7ZtG0n4+4cdVq0maKyIC4bwzoq7n6Ln5FGNvdvsamtu9cBtBn4w
-	 ObfQRbINJeQl3EDwa+vyK0QfXenDoXHg3xCsdTPs5CR707VGxrpWGWpf3bJV2jQ45P
-	 ozuGzBUWooyZI5ubxU0uosXIY+XBP1cKK5kdsAuY=
+	b=OtWMZMYX2GsLpQdDEspxSfUd1ZiRrYWDnJdt6XKcZqx2b/bhd8mspcb6BX6N9ajJB
+	 JOhYz9yExWv+I3n6l9VUvHarhARAkZiTeyygX+nRTw9p+KnOmO0IK0/P/MkP7+Er8Q
+	 ZsaXGxzPve2zGDieFZD9rcftjVW2QwwKYlXtKtqs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C518BF80641; Fri, 19 Jan 2024 12:29:54 +0100 (CET)
+	id 9F297F8055B; Fri, 19 Jan 2024 12:32:26 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 39AB7F80676;
-	Fri, 19 Jan 2024 12:29:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0FE4EF8014B;
+	Fri, 19 Jan 2024 12:32:26 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7AED2F80637; Fri, 19 Jan 2024 12:29:49 +0100 (CET)
+	id C2C04F80236; Fri, 19 Jan 2024 12:32:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com
- [IPv6:2607:f8b0:4864:20::236])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=unavailable autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 121DCF80520
-	for <alsa-devel@alsa-project.org>; Fri, 19 Jan 2024 12:29:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 121DCF80520
+	by alsa1.perex.cz (Postfix) with ESMTPS id A6975F800C1
+	for <alsa-devel@alsa-project.org>; Fri, 19 Jan 2024 12:32:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6975F800C1
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=g8XzdJHq
-Received: by mail-oi1-x236.google.com with SMTP id
- 5614622812f47-3bd6581bc62so456877b6e.2
-        for <alsa-devel@alsa-project.org>;
- Fri, 19 Jan 2024 03:29:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1705663776; x=1706268576;
- darn=alsa-project.org;
-        h=references:in-reply-to:message-id:date:subject:cc:to:from:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=WzWU93PVglAiK6JeYvApr/hL3iYswtlmnngYtH+W0CM=;
-        b=g8XzdJHqTFhWqSZ8i8lF4LeJw6RPGSC61uQc4tmAIjzAevh57Mpq0WqcirOaM8Wg/l
-         atnYUXHaN54nsXNU5Xq12k/FrJxuHS78LS/6cIzjA8f+3RX9JO3OLYf6ZycIJc3lPRg9
-         IiFXzZKiD0eDINSE5RTNBhn5w8BJzrYTgVtMU5XlVa00a2+O+v7P43IxruHrZMLEKYEL
-         PY04Qj37xiTYj9cBq5L8QGHjsU6MLVe+TJompVy7LZ3hF+1KBqo3xEemzjmqUFzWlAsH
-         WTen+8+6OQMfejAMaV3eyExvmsDgxXqoQlCyQmpR5HOhIwxksf0rw8l1pOBssPy7gdNJ
-         6R8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705663776; x=1706268576;
-        h=references:in-reply-to:message-id:date:subject:cc:to:from
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=WzWU93PVglAiK6JeYvApr/hL3iYswtlmnngYtH+W0CM=;
-        b=XkDbhpW24GcVskvqGetmuyYjGajfpaoOhV1VAhY0fg3DzwLh2rv874QAsxR9TYEUPB
-         wT4CELeXFTpnIE8z+NYjB/mSoo5A2witYcbebW1ufhhc5EKin7Ns/j5DW4QfO10AS1hI
-         02MMqCBOlOD3+nBz3dAQCYaRMMvhYtkoEn2kBBgZ7zcD2cp1/i1z8maGQ7AjkJ1tTowr
-         o0N45qEN4OQyiXKdU3D+IYItaLcRvgNrOeTXJwXQ/kWlpOZISGcKUnsWzTl8SYQkbJqa
-         uKxNkDfgr3KwKJUSEbPtBwzdDRKziVsZUl0XqXzRl2dHnXl5u5eNlRvQ79kh5wx9T1cq
-         dNtQ==
-X-Gm-Message-State: AOJu0Yxt8G0FIL74GltSQPLDPRsYCg2LZ0r9vELqLs+6uL+WecHSSxwU
-	s6TlcQ/4ReoKPTJQV9cFORiA0+ZIW6cBBVeOu3VH0P0tsV4sfMbm8lMLRKM69a9RyODG
-X-Google-Smtp-Source: 
- AGHT+IGRvRiKLinz+GPG9h9DEF08HnviY4IR7tU6JNhQIlV8OAH1KDJdfxnmc8SZRrozmnGoaColVQ==
-X-Received: by 2002:a05:6808:2193:b0:3bd:5b4d:3e30 with SMTP id
- be19-20020a056808219300b003bd5b4d3e30mr2831823oib.81.1705663776564;
-        Fri, 19 Jan 2024 03:29:36 -0800 (PST)
-Received: from zy-virtual-machine.localdomain ([222.70.13.170])
-        by smtp.gmail.com with ESMTPSA id
- n9-20020a62e509000000b006d9b8e1971dsm4884541pff.191.2024.01.19.03.29.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 19 Jan 2024 03:29:36 -0800 (PST)
-From: Zhu Ning <zhuning0077@gmail.com>
-To: alsa-devel@alsa-project.org,
-	broonie@kernel.org
-Cc: tiwai@suse.com,
-	amadeuszx.slawinski@linux.intel.com,
-	yangxiaohua@everest-semi.com,
-	zhuning@everest-semi.com,
-	zhangyi@everest-semi.com,
-	Zhu Ning <zhuning0077@gmail.com>
-Subject: [PATCH 5/5] ASoC: codecs: ES8326: fix the capture noise issue
-Date: Fri, 19 Jan 2024 19:28:58 +0800
-Message-Id: <20240119112858.2982-6-zhuning0077@gmail.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20240119112858.2982-1-zhuning0077@gmail.com>
-References: <20240119112858.2982-1-zhuning0077@gmail.com>
-Message-ID-Hash: GSVVMUCQDEIWVZS7RKK5QZ6OJZ6ENFCG
-X-Message-ID-Hash: GSVVMUCQDEIWVZS7RKK5QZ6OJZ6ENFCG
-X-MailFrom: zhuning0077@gmail.com
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=o6tF/fIY
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 40J6NCSU030958;
+	Fri, 19 Jan 2024 05:32:05 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
+	date:from:to:cc:subject:message-id:references:mime-version
+	:content-type:in-reply-to; s=PODMain02222019; bh=25MQFMZS3s1zoH4
+	I19/D63xOUNBz77KwvoFalDdc0a0=; b=o6tF/fIYvb7vFMsjrKz3mp2tpRdMal4
+	oo8qWqjcKtso9AGdx+aXToJbbVKtp3hkAN/lo4rIkqU++7yhk6oZYeoW9A25wRXD
+	040XZ/Mw7KZTkUoyIdr/zO/vQo/E8IGTXgEIc5Kw3CQu52d29xA8+i72RZy7Ps5u
+	1EU3af4/QMa99F1kQ8xDHZgmjuVlrD0Y9U/U1Qbv4laMAXU4wNQmi1Si4vSG3384
+	JeJSAuyPhKi1FvUVQ73kTD7URZpXA/sI63ec8ICj9LGeBlxfQEUppsHmZOjgrjkX
+	KDH8EcqxrE2zHMhOjqdKSdJGIsUbV2jq4xGjS/vQ/83ZOxU+GYv1FeA==
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3vkrt1gkqd-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 19 Jan 2024 05:32:05 -0600 (CST)
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Fri, 19 Jan
+ 2024 11:32:03 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.40 via Frontend Transport; Fri, 19 Jan 2024 11:32:03 +0000
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com
+ [198.61.86.93])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 3734211CA;
+	Fri, 19 Jan 2024 11:32:03 +0000 (UTC)
+Date: Fri, 19 Jan 2024 11:32:03 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: <andy.shevchenko@gmail.com>
+CC: <broonie@kernel.org>, <lee@kernel.org>, <robh+dt@kernel.org>,
+        <krzysztof.kozlowski+dt@linaro.org>, <conor+dt@kernel.org>,
+        <linus.walleij@linaro.org>, <vkoul@kernel.org>, <lgirdwood@gmail.com>,
+        <yung-chuan.liao@linux.intel.com>, <sanyog.r.kale@intel.com>,
+        <pierre-louis.bossart@linux.intel.com>, <alsa-devel@alsa-project.org>,
+        <patches@opensource.cirrus.com>, <devicetree@vger.kernel.org>,
+        <linux-gpio@vger.kernel.org>, <linux-spi@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v7 3/6] mfd: cs42l43: Add support for cs42l43 core driver
+Message-ID: <20240119113203.GA16899@ediswmail.ad.cirrus.com>
+References: <20230804104602.395892-1-ckeepax@opensource.cirrus.com>
+ <20230804104602.395892-4-ckeepax@opensource.cirrus.com>
+ <ZalU8r1OvqKOLHrf@surfacebook.localdomain>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <ZalU8r1OvqKOLHrf@surfacebook.localdomain>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-GUID: flSMt1ucqoIAeIcEfECS-rqrffURSsu7
+X-Proofpoint-ORIG-GUID: flSMt1ucqoIAeIcEfECS-rqrffURSsu7
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: YQ4WTWDM3YVXTRMGWTGXIOTIJV6D6I3Q
+X-Message-ID-Hash: YQ4WTWDM3YVXTRMGWTGXIOTIJV6D6I3Q
+X-MailFrom: prvs=87486f32de=ckeepax@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -113,7 +109,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GSVVMUCQDEIWVZS7RKK5QZ6OJZ6ENFCG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YQ4WTWDM3YVXTRMGWTGXIOTIJV6D6I3Q/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -122,126 +118,154 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-    We get a noise issue during the startup of recording. We update the
-    register setting and dapm widgets to fix this issue.
-    we change callback type of es8326_mute function to mute_stream.
-    ES8326_ADC_MUTE is moved to es8326_mute function so it can
-    be turned on at last and turned off at first.
+On Thu, Jan 18, 2024 at 06:42:26PM +0200, andy.shevchenko@gmail.com wrote:
+> Fri, Aug 04, 2023 at 11:45:59AM +0100, Charles Keepax kirjoitti:
+> > The CS42L43 is an audio CODEC with integrated MIPI SoundWire interface
+> > (Version 1.2.1 compliant), I2C, SPI, and I2S/TDM interfaces designed
+> > for portable applications. It provides a high dynamic range, stereo
+> > DAC for headphone output, two integrated Class D amplifiers for
+> > loudspeakers, and two ADCs for wired headset microphone input or
+> > stereo line input. PDM inputs are provided for digital microphones.
+> > 
+> > The MFD component registers and initialises the device and provides
+> > PM/system power management.
+> 
 
-Signed-off-by: Zhu Ning <zhuning0077@gmail.com>
----
- sound/soc/codecs/es8326.c | 63 ++++++++++++++++++++-------------------
- 1 file changed, 32 insertions(+), 31 deletions(-)
+Full disclosure probably not going to fix everything here, few
+almost entirely stylistic things and the patch was like merged 4
+month ago. But happy to spin through and do a few fix ups.
 
-diff --git a/sound/soc/codecs/es8326.c b/sound/soc/codecs/es8326.c
-index fd3e73c4b7e9..4026d939e051 100755
---- a/sound/soc/codecs/es8326.c
-+++ b/sound/soc/codecs/es8326.c
-@@ -227,12 +227,6 @@ static const struct snd_soc_dapm_widget es8326_dapm_widgets[] = {
- 	SND_SOC_DAPM_AIF_OUT("I2S OUT", "I2S1 Capture", 0, SND_SOC_NOPM, 0, 0),
- 	SND_SOC_DAPM_AIF_IN("I2S IN", "I2S1 Playback", 0, SND_SOC_NOPM, 0, 0),
- 
--	/* ADC Digital Mute */
--	SND_SOC_DAPM_PGA("ADC L1", ES8326_ADC_MUTE, 0, 1, NULL, 0),
--	SND_SOC_DAPM_PGA("ADC R1", ES8326_ADC_MUTE, 1, 1, NULL, 0),
--	SND_SOC_DAPM_PGA("ADC L2", ES8326_ADC_MUTE, 2, 1, NULL, 0),
--	SND_SOC_DAPM_PGA("ADC R2", ES8326_ADC_MUTE, 3, 1, NULL, 0),
--
- 	/* Analog Power Supply*/
- 	SND_SOC_DAPM_DAC("Right DAC", NULL, ES8326_ANA_PDN, 0, 1),
- 	SND_SOC_DAPM_DAC("Left DAC", NULL, ES8326_ANA_PDN, 1, 1),
-@@ -252,15 +246,10 @@ static const struct snd_soc_dapm_widget es8326_dapm_widgets[] = {
- };
- 
- static const struct snd_soc_dapm_route es8326_dapm_routes[] = {
--	{"ADC L1", NULL, "MIC1"},
--	{"ADC R1", NULL, "MIC2"},
--	{"ADC L2", NULL, "MIC3"},
--	{"ADC R2", NULL, "MIC4"},
--
--	{"ADC L", NULL, "ADC L1"},
--	{"ADC R", NULL, "ADC R1"},
--	{"ADC L", NULL, "ADC L2"},
--	{"ADC R", NULL, "ADC R2"},
-+	{"ADC L", NULL, "MIC1"},
-+	{"ADC R", NULL, "MIC2"},
-+	{"ADC L", NULL, "MIC3"},
-+	{"ADC R", NULL, "MIC4"},
- 
- 	{"I2S OUT", NULL, "ADC L"},
- 	{"I2S OUT", NULL, "ADC R"},
-@@ -550,11 +539,16 @@ static int es8326_mute(struct snd_soc_dai *dai, int mute, int direction)
- 	unsigned int offset_l, offset_r;
- 
- 	if (mute) {
--		regmap_write(es8326->regmap, ES8326_HP_CAL, ES8326_HP_OFF);
--		regmap_update_bits(es8326->regmap, ES8326_DAC_MUTE,
--				ES8326_MUTE_MASK, ES8326_MUTE);
--		regmap_update_bits(es8326->regmap, ES8326_HP_DRIVER_REF,
--				0x30, 0x00);
-+		if (direction == SNDRV_PCM_STREAM_PLAYBACK) {
-+			regmap_write(es8326->regmap, ES8326_HP_CAL, ES8326_HP_OFF);
-+			regmap_update_bits(es8326->regmap, ES8326_DAC_MUTE,
-+					ES8326_MUTE_MASK, ES8326_MUTE);
-+			regmap_update_bits(es8326->regmap, ES8326_HP_DRIVER_REF,
-+					0x30, 0x00);
-+		} else {
-+			regmap_update_bits(es8326->regmap,  ES8326_ADC_MUTE,
-+					0x0F, 0x0F);
-+		}
- 	} else {
- 		if (!es8326->calibrated) {
- 			regmap_write(es8326->regmap, ES8326_HP_CAL, ES8326_HP_FORCE_CAL);
-@@ -567,16 +561,22 @@ static int es8326_mute(struct snd_soc_dai *dai, int mute, int direction)
- 			regmap_write(es8326->regmap, ES8326_HPR_OFFSET_INI, offset_r);
- 			es8326->calibrated = true;
- 		}
--		regmap_update_bits(es8326->regmap, ES8326_DAC_DSM, 0x01, 0x01);
--		usleep_range(1000, 5000);
--		regmap_update_bits(es8326->regmap, ES8326_DAC_DSM, 0x01, 0x00);
--		usleep_range(1000, 5000);
--		regmap_update_bits(es8326->regmap, ES8326_HP_DRIVER_REF, 0x30, 0x20);
--		regmap_update_bits(es8326->regmap, ES8326_HP_DRIVER_REF, 0x30, 0x30);
--		regmap_write(es8326->regmap, ES8326_HP_DRIVER, 0xa1);
--		regmap_write(es8326->regmap, ES8326_HP_CAL, ES8326_HP_ON);
--		regmap_update_bits(es8326->regmap, ES8326_DAC_MUTE,
--				ES8326_MUTE_MASK, ~(ES8326_MUTE));
-+		if (direction == SNDRV_PCM_STREAM_PLAYBACK) {
-+			regmap_update_bits(es8326->regmap, ES8326_DAC_DSM, 0x01, 0x01);
-+			usleep_range(1000, 5000);
-+			regmap_update_bits(es8326->regmap, ES8326_DAC_DSM, 0x01, 0x00);
-+			usleep_range(1000, 5000);
-+			regmap_update_bits(es8326->regmap, ES8326_HP_DRIVER_REF, 0x30, 0x20);
-+			regmap_update_bits(es8326->regmap, ES8326_HP_DRIVER_REF, 0x30, 0x30);
-+			regmap_write(es8326->regmap, ES8326_HP_DRIVER, 0xa1);
-+			regmap_write(es8326->regmap, ES8326_HP_CAL, ES8326_HP_ON);
-+			regmap_update_bits(es8326->regmap, ES8326_DAC_MUTE,
-+					ES8326_MUTE_MASK, ~(ES8326_MUTE));
-+		} else {
-+			msleep(300);
-+			regmap_update_bits(es8326->regmap,  ES8326_ADC_MUTE,
-+					0x0F, 0x00);
-+		}
- 	}
- 	return 0;
- }
-@@ -626,7 +626,7 @@ static const struct snd_soc_dai_ops es8326_ops = {
- 	.set_fmt = es8326_set_dai_fmt,
- 	.set_sysclk = es8326_set_dai_sysclk,
- 	.mute_stream = es8326_mute,
--	.no_capture_mute = 1,
-+	.no_capture_mute = 0,
- };
- 
- static struct snd_soc_dai_driver es8326_dai = {
-@@ -998,6 +998,7 @@ static int es8326_resume(struct snd_soc_component *component)
- 	regmap_update_bits(es8326->regmap, ES8326_DAC_MUTE, ES8326_MUTE_MASK,
- 			   ES8326_MUTE);
- 
-+	regmap_write(es8326->regmap, ES8326_ADC_MUTE, 0x0f);
- 
- 	es8326->jack_remove_retry = 0;
- 	es8326->hp = 0;
--- 
-2.17.1
+> ...
+> 
+> > +#include <linux/err.h>
+> > +#include <linux/errno.h>
+> 
+> It seems errno is not used (as Linux kernel error codes, otherwise err.h
+> already includes necessary header).
+> 
+> Also seems array_size.h, mod_devicetable.h are missing (at least).
+> 
+> ...
 
+Thanks for spotting these will spin through and tidy the headers
+up.
+
+> 
+> > +#if IS_ENABLED(CONFIG_OF)
+> 
+> We are trying hard to get rid of this ugly ifdefferies (ACPI as well) along
+> with respective macros that are often the PITA for CIs.
+> 
+
+Fair enough, but what is the expected alternative here? Is it now
+preferred to just always include both in the driver? That does
+come at a small cost in driver size, but it doesn't really bother
+me.
+
+> > +static const struct of_device_id cs42l43_of_match[] = {
+> > +	{ .compatible = "cirrus,cs42l43", },
+> > +	{}
+> > +};
+> > +MODULE_DEVICE_TABLE(of, cs42l43_of_match);
+> > +#endif
+> > +
+> > +#if IS_ENABLED(CONFIG_ACPI)
+> > +static const struct acpi_device_id cs42l43_acpi_match[] = {
+> > +	{ "CSC4243", 0 },
+> > +	{}
+> > +};
+> > +MODULE_DEVICE_TABLE(acpi, cs42l43_acpi_match);
+> > +#endif
+> > +
+
+...
+
+> > +	cs42l43->regmap = devm_regmap_init_sdw(sdw, &cs42l43_sdw_regmap);
+> > +	if (IS_ERR(cs42l43->regmap)) {
+> > +		ret = PTR_ERR(cs42l43->regmap);
+> > +		dev_err(cs42l43->dev, "Failed to allocate regmap: %d\n", ret);
+> > +		return ret;
+> > +	}
+> 
+> Can be simplified as
+> 
+> 	cs42l43->regmap = devm_regmap_init_sdw(sdw, &cs42l43_sdw_regmap);
+> 	if (IS_ERR(cs42l43->regmap))
+> 		dev_err_probe(cs42l43->dev, PTR_ERR(cs42l43->regmap),
+> 			      "Failed to allocate regmap: %d\n", ret);
+> 
+
+Oops, yeah looks like I missed the ones in sdw and i2c, will fix
+those up.
+
+> > +#define CS42L43_RESET_DELAY			20
+> > +
+> > +#define CS42L43_SDW_ATTACH_TIMEOUT		500
+> > +#define CS42L43_SDW_DETACH_TIMEOUT		100
+> > +
+> > +#define CS42L43_MCU_POLL			5000
+> > +#define CS42L43_MCU_CMD_TIMEOUT			20000
+> 
+> > +#define CS42L43_MCU_UPDATE_TIMEOUT		500000
+> 
+> > +#define CS42L43_VDDP_DELAY			50
+> > +#define CS42L43_VDDD_DELAY			1000
+> > +
+> > +#define CS42L43_AUTOSUSPEND_TIME		250
+> 
+> Usually we use units for the macro names as suffixes...
+> E.g., _US (for microseconds).
+> 
+
+Can add those, does make it clearer.
+> ...
+> 
+> > +struct cs42l43_patch_header {
+> > +	__le16 version;
+> > +	__le16 size;
+> > +	u8 reserved;
+> > +	u8 secure;
+> 
+> Seems to me that __u8 is appropriate as patch is external to the kernel and
+> it's kinda firmware interface.
+> 
+
+Sure.
+
+> > +	irq_flags = irqd_get_trigger_type(irq_data);
+> > +	switch (irq_flags) {
+> > +	case IRQF_TRIGGER_LOW:
+> > +	case IRQF_TRIGGER_HIGH:
+> > +	case IRQF_TRIGGER_RISING:
+> > +	case IRQF_TRIGGER_FALLING:
+> > +		break;
+> > +	case IRQ_TYPE_NONE:
+> 
+> Are you sure it's a right place to interpret no type flags as a default?
+> 
+
+I mean... no... but I might need more to go on. The chip
+generates an active low IRQ by default so it seems reasonable if
+nothing is specified to assume the chip is doing what it normally
+would.
+
+> > +	default:
+> > +		irq_flags = IRQF_TRIGGER_LOW;
+> > +		break;
+> > +	}
+
+...
+
+> > +EXPORT_NS_GPL_DEV_PM_OPS(cs42l43_pm_ops, MFD_CS42L43) = {
+> > +	SET_SYSTEM_SLEEP_PM_OPS(cs42l43_suspend, cs42l43_resume)
+> > +	SET_RUNTIME_PM_OPS(cs42l43_runtime_suspend, cs42l43_runtime_resume, NULL)
+> > +};
+> 
+> Why do you need SET_*() versions of those macros? They are not supposed to be
+> used with the new macros such as EXPORT_NS_GPL_DEV_PM_OPS().
+> 
+
+Yeah fixed that up already in an earlier fixup patch.
+
+Thanks,
+Charles

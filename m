@@ -2,114 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44D81832CFC
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 Jan 2024 17:15:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45242832D9B
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 Jan 2024 18:00:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A8228827;
-	Fri, 19 Jan 2024 17:15:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8228827
+	by alsa0.perex.cz (Postfix) with ESMTPS id 62F8F7F4;
+	Fri, 19 Jan 2024 18:00:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62F8F7F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1705680917;
-	bh=B7zL9FKEcp0/CRVmWRJ5gFi5msLCspc37+NygTzDgY0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1705683613;
+	bh=/RTX58XL94ocwmizyKYw7r77E3GtN+fp1k8zVgqC6ko=;
+	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=btmVUNmA0zmZhOYwmtLYpwGTXou2lhm22COLqUd6jbdjEoK30Z/4vurqwP7XS5A0W
-	 2UQeqFYaFOhfBE5s7GLQl8wQA8oI76MjRS4ZcAqfjLoO5CDm2PKGO2ej8MS9FL/Joy
-	 KJULobziYbzfa7XosZ3KAMRA19zpNmsPSbEvfmRg=
+	b=GymdZrsF+d/79243+1x9HldhkVXXF168AsMOKp+tZ2pCewghNR/V3cgu5+X+uYweR
+	 urK9dioEqzuHmU2UBMCuigaSKF8fwIsKPRp/zk9wsASQYULtLv0xwRcfPwkjiF+M68
+	 1ZM8VcLPcxSwtOrQaEZl3DFalNpmtgqtqyUjw6EU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8075AF8057F; Fri, 19 Jan 2024 17:14:45 +0100 (CET)
+	id B5C52F80571; Fri, 19 Jan 2024 17:59:41 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 08CB9F8057E;
-	Fri, 19 Jan 2024 17:14:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 20629F802E8;
+	Fri, 19 Jan 2024 17:59:41 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 12F28F8014B; Fri, 19 Jan 2024 17:14:41 +0100 (CET)
+	id 0A942F801F5; Fri, 19 Jan 2024 17:59:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [IPv6:2a00:1450:4864:20::231])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3F957F8003A
-	for <alsa-devel@alsa-project.org>; Fri, 19 Jan 2024 17:14:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F957F8003A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 34CB4F8003A
+	for <alsa-devel@alsa-project.org>; Fri, 19 Jan 2024 17:59:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34CB4F8003A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=NQuDFEId
-Received: by mail-lj1-x231.google.com with SMTP id
- 38308e7fff4ca-2cdfa8e69b5so11126581fa.0
-        for <alsa-devel@alsa-project.org>;
- Fri, 19 Jan 2024 08:14:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1705680876; x=1706285676;
- darn=alsa-project.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=MZS8+douymIyp/G1h1ov9Y1Rdr9Hj7ajOnwayf3/aT4=;
-        b=NQuDFEIdNTYDJkb3PUXpLBKCDqo5iNTE8fn4WcMgutCvZFs1l6JFzsJv/F0w29Rea9
-         LUGDm5TlwaPPIkd4oCKqgbK1EPtwM0zE9vJiP40xRLF4DhBCJ0eSae50xRIb6xZfT+bo
-         LRIDYdBT/LtLEaX0K1nO2vjF4UbT6KdyWgAyNmbWqQ60Q0elfRfGONGyizbfeeZFgRzF
-         q9P7tf3dAJ5qkmecYSD0iBZ7uDn/og2A1DlwO65awIYWW1gdKjF4kHnnHegxtnnPiNiP
-         /SP4vdJ0xYu4b015dslz4sIqjUSUK4P+vw6LnIN15paSYKH12oEnFME1asXuD0zlH6IF
-         QCgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705680876; x=1706285676;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=MZS8+douymIyp/G1h1ov9Y1Rdr9Hj7ajOnwayf3/aT4=;
-        b=VByIZd/5k2+aVTbRNDvWZKDbgvt7gLp0E8GuepMHslaKQFhD7YrSlpUPogucQpAw8S
-         FGDtH/BDMVao3gehnWCp0PLj0dy74Q6u0ZQ+IXkgJcMgh+O/B6Y9paSog/ga9Jv9rYAN
-         QVDn4aPeBIq5/SpeHXe5FHPRe+mnpN4HmCebgTxkn3w4wiq6wIvyHIaO5iIA2E89wMFu
-         4ZvMKD6IenhCW6ADY/AIK/OjdE5WMpSWG3k2dPUheaxjjqGTjcNGi7Q7lhu6HSbUQUl3
-         33HaG497deV6F3jJdR/6LYJvMXmtmErYKivV3ManITZziO/vLTtlD+XZW4FXpzF9Tcj/
-         rJkA==
-X-Gm-Message-State: AOJu0YxG8PHk0vjyNXRP0f9sV9Y3jIJ8pcs5deamdBOa/FCYcfFBkNyR
-	O+ThQZuOuyrS8Am0uXHXHZQiSL+5zfBnn7w9ms6xPVZXO3W56wu81Afr8XjArAYxQSwN47zKnn8
-	JL+ca8226YTdj//E220+eK5bGGy4=
-X-Google-Smtp-Source: 
- AGHT+IG4AWmyvk46hSLjREkIbqUt4PdjznNPm5PSf/hR21IX91v4MVnC382ND6Wc/ywvktNtzGzpa2ROJvpEuxdLURM=
-X-Received: by 2002:ac2:446e:0:b0:50e:7be8:46fd with SMTP id
- y14-20020ac2446e000000b0050e7be846fdmr519933lfl.208.1705680875590; Fri, 19
- Jan 2024 08:14:35 -0800 (PST)
-MIME-Version: 1.0
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=Fk4/K4wz
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 40J6jRvp022386;
+	Fri, 19 Jan 2024 10:59:22 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
+	date:from:to:cc:subject:message-id:references:mime-version
+	:content-type:in-reply-to; s=PODMain02222019; bh=qbiM0GYn8wffxO9
+	+row5DznyRflJJj1eUICpy3tT4Yg=; b=Fk4/K4wzwAjRsqOkOd/Ra4ITbwvHBWI
+	iK8aTjIrGh8FhyB0WC8fz/SeJv7UTo83o1i2cy/uDLejTFtTLem19Iu75lY0kaCc
+	HV3iuwCzkue4QoFSqwe+YCNU7jJkGCpqNGKrT8rrTmj9N4OGR8pC+3hzyh9Hfh91
+	KQyb2doSchlq5vLT83dtleKzknafMDF9Po7m5RyNxvo6ADlPVlrL10FUSEpZjer2
+	yXBcu2zJk9BdTAweJuWVcbadeKOat1DyFLZ+n1i6YrFuo6/VgOfgZRYIAJJPh7Gv
+	dwOBjY4cIpngPhC9kfqOx1th8+aIi1ZZBQOM1n9hpSHvGM/SDv18pmg==
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3vkrt1gyjw-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 19 Jan 2024 10:59:22 -0600 (CST)
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Fri, 19 Jan
+ 2024 16:59:17 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.40 via Frontend
+ Transport; Fri, 19 Jan 2024 16:59:17 +0000
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com
+ [198.61.86.93])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id D522A475;
+	Fri, 19 Jan 2024 16:59:17 +0000 (UTC)
+Date: Fri, 19 Jan 2024 16:59:17 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: <andy.shevchenko@gmail.com>
+CC: <broonie@kernel.org>, <lee@kernel.org>, <robh+dt@kernel.org>,
+        <krzysztof.kozlowski+dt@linaro.org>, <conor+dt@kernel.org>,
+        <linus.walleij@linaro.org>, <vkoul@kernel.org>, <lgirdwood@gmail.com>,
+        <yung-chuan.liao@linux.intel.com>, <sanyog.r.kale@intel.com>,
+        <pierre-louis.bossart@linux.intel.com>, <alsa-devel@alsa-project.org>,
+        <patches@opensource.cirrus.com>, <devicetree@vger.kernel.org>,
+        <linux-gpio@vger.kernel.org>, <linux-spi@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v7 6/6] ASoC: cs42l43: Add support for the cs42l43
+Message-ID: <20240119165917.GC16899@ediswmail.ad.cirrus.com>
 References: <20230804104602.395892-1-ckeepax@opensource.cirrus.com>
  <20230804104602.395892-7-ckeepax@opensource.cirrus.com>
  <Zali4qxdegY7H6eY@surfacebook.localdomain>
- <aec96f5a-b759-48c7-a5ec-bafe3bfa5357@sirena.org.uk>
- <CAHp75Vd6JtW4ddbSPXUp6WgEdBJizjwnS-XZzwLcXWWLxFWp-w@mail.gmail.com>
- <b1889bb0-2b9f-477c-80d3-a636b9017ea4@sirena.org.uk>
-In-Reply-To: <b1889bb0-2b9f-477c-80d3-a636b9017ea4@sirena.org.uk>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Fri, 19 Jan 2024 18:13:59 +0200
-Message-ID: 
- <CAHp75Ve=SR_M5NGtu50Eu1Gw_g8mGfk1RAub22QZn3rwGNw+ug@mail.gmail.com>
-Subject: Re: [PATCH v7 6/6] ASoC: cs42l43: Add support for the cs42l43
-To: Mark Brown <broonie@kernel.org>
-Cc: Charles Keepax <ckeepax@opensource.cirrus.com>, lee@kernel.org,
- robh+dt@kernel.org,
-	krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
-	linus.walleij@linaro.org, vkoul@kernel.org, lgirdwood@gmail.com,
-	yung-chuan.liao@linux.intel.com, sanyog.r.kale@intel.com,
-	pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
-	patches@opensource.cirrus.com, devicetree@vger.kernel.org,
-	linux-gpio@vger.kernel.org, linux-spi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: ZLVMXPYTVAK7BEOJ4R5UJY2UPHFEL3YI
-X-Message-ID-Hash: ZLVMXPYTVAK7BEOJ4R5UJY2UPHFEL3YI
-X-MailFrom: andy.shevchenko@gmail.com
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <Zali4qxdegY7H6eY@surfacebook.localdomain>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-GUID: b67HD8x2PDCOH9BQnW9KX6IsD3Or_uUa
+X-Proofpoint-ORIG-GUID: b67HD8x2PDCOH9BQnW9KX6IsD3Or_uUa
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: XVKLB5JMNT3O7JTSPD4COV4VFLE77HVP
+X-Message-ID-Hash: XVKLB5JMNT3O7JTSPD4COV4VFLE77HVP
+X-MailFrom: prvs=87486f32de=ckeepax@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -121,7 +109,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZLVMXPYTVAK7BEOJ4R5UJY2UPHFEL3YI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XVKLB5JMNT3O7JTSPD4COV4VFLE77HVP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -130,44 +118,204 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, Jan 19, 2024 at 12:07=E2=80=AFAM Mark Brown <broonie@kernel.org> wr=
-ote:
-> On Thu, Jan 18, 2024 at 10:46:28PM +0200, Andy Shevchenko wrote:
-> > On Thu, Jan 18, 2024 at 8:11=E2=80=AFPM Mark Brown <broonie@kernel.org>=
- wrote:
-> > > On Thu, Jan 18, 2024 at 07:41:54PM +0200, andy.shevchenko@gmail.com w=
-rote:
-> > > > Fri, Aug 04, 2023 at 11:46:02AM +0100, Charles Keepax kirjoitti:
->
-> > > > > +   unsigned int hs2 =3D 0x2 << CS42L43_HSDET_MODE_SHIFT;
->
-> > > > BIT(1) ?
->
-> > > Given that this is writing a value into a register field called "MODE=
-"
-> > > it seems very likely that it's an enumeration value rather than a
-> > > bitmask (and similarly for all the other places where you're making
-> > > similar comments).  Please think a bit more about the code being
-> > > commented on when making these minor stylistic comments.
->
-> > I read a bit further and have given a comment about this as you put it
-> > above that they are plain values.
-> > Please, read my comments in full.
->
-> I did eventually find that while going through the other comments but
-> given that the earlier ones hadn't been revised and it was all a bunch
-> of different fields it still seemed useful to highlight, if nothing else
-> it was a little unclear that your later comment applied to all the
-> fields you were asking for updates to.
+On Thu, Jan 18, 2024 at 07:41:54PM +0200, andy.shevchenko@gmail.com wrote:
+> Fri, Aug 04, 2023 at 11:46:02AM +0100, Charles Keepax kirjoitti:
+> > +static const unsigned int cs42l43_accdet_us[] = {
+> > +	20, 100, 1000, 10000, 50000, 75000, 100000, 200000
+> 
+> + comma.
+> 
+> > +};
+> > +
+> > +static const unsigned int cs42l43_accdet_db_ms[] = {
+> > +	0, 125, 250, 500, 750, 1000, 1250, 1500
+> 
+> Ditto.
+> 
 
-Yeah, I was thinking about that during the review, that's why I first
-commented and then concluded that those comments are kinda bogus.
+Can do.
 
-> In general in a case like this where the code is already in tree it does
-> seem like it'd be better to just write patche for the stylistic issues.
+> > +		device_property_read_u32_array(cs42l43->dev, "cirrus,buttons-ohms",
+> > +					       priv->buttons, ret);
+> 
+> Strictly speaking this might fail, better to check the error code again.
+> 
 
-Sure. I believe Charles will address some of them, if not all.
+Yeah should probably add an error check there.
 
---=20
-With Best Regards,
-Andy Shevchenko
+> > +	int timeout_ms = ((2 * priv->detect_us) / 1000) + 200;
+> 
+> USEC_PER_MSEC ?
+> 
+
+Can do.
+
+> > +	BUILD_BUG_ON(ARRAY_SIZE(cs42l43_jack_override_modes) !=
+> > +		     ARRAY_SIZE(cs42l43_jack_text) - 1);
+> 
+> Use static_assert() instead.
+> 
+
+I am happy either way, but for my own education what is the
+reason to prefer static_assert here, is it just to be able to use
+== rather than !=? Or is there in general a preference to use
+static_assert, there is no obvious since BUILD_BUG_ON is being
+deprecated?
+
+> > +static void cs42l43_mask_to_slots(struct cs42l43_codec *priv, unsigned int mask, int *slots)
+> > +{
+> > +	int i;
+> > +
+> > +	for (i = 0; i < CS42L43_ASP_MAX_CHANNELS; ++i) {
+> > +		int slot = ffs(mask) - 1;
+> > +
+> > +		if (slot < 0)
+> > +			return;
+> > +
+> > +		slots[i] = slot;
+> > +
+> > +		mask &= ~(1 << slot);
+> > +	}
+> 
+> for_each_set_bit() ?
+> 
+> > +	if (mask)
+> > +		dev_warn(priv->dev, "Too many channels in TDM mask\n");
+> > +}
+> 
+
+Can do.
+
+> > +static int cs42l43_decim_get(struct snd_kcontrol *kcontrol,
+> > +			     struct snd_ctl_elem_value *ucontrol)
+> > +{
+> > +	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
+> > +	struct cs42l43_codec *priv = snd_soc_component_get_drvdata(component);
+> > +	int ret;
+> > +
+> > +	ret = cs42l43_shutter_get(priv, CS42L43_STATUS_MIC_SHUTTER_MUTE_SHIFT);
+> > +	if (ret < 0)
+> > +		return ret;
+> > +	else if (!ret)
+> 
+> Reundant 'else'
+> 
+> > +		ucontrol->value.integer.value[0] = ret;
+> > +	else
+> > +		ret = cs42l43_dapm_get_volsw(kcontrol, ucontrol);
+> 
+> and why not positive check?
+> 
+> > +	return ret;
+> 
+> Or even simply as
+> 
+> 	if (ret > 0)
+> 		ret = cs42l43_dapm_get_volsw(kcontrol, ucontrol);
+> 	else if (ret == 0)
+> 		ucontrol->value.integer.value[0] = ret;
+> 
+> 	return ret;
+
+Yeah will update, that is definitely neater.
+
+> > +	while (freq > cs42l43_pll_configs[ARRAY_SIZE(cs42l43_pll_configs) - 1].freq) {
+> > +		div++;
+> > +		freq /= 2;
+> > +	}
+> 
+> fls() / fls_long()?
+
+Apologies but I might need a little bit more of a pointer here.
+We need to scale freq down to under 3.072MHz and I am struggling
+a little to see how to do that with fls.
+
+> > +	// Don't use devm as we need to get against the MFD device
+> 
+> This is weird...
+> 
+> > +	priv->mclk = clk_get_optional(cs42l43->dev, "mclk");
+> > +	if (IS_ERR(priv->mclk)) {
+> > +		dev_err_probe(priv->dev, PTR_ERR(priv->mclk), "Failed to get mclk\n");
+> > +		goto err_pm;
+> > +	}
+> > +
+> > +	ret = devm_snd_soc_register_component(priv->dev, &cs42l43_component_drv,
+> > +					      cs42l43_dais, ARRAY_SIZE(cs42l43_dais));
+> > +	if (ret) {
+> > +		dev_err_probe(priv->dev, ret, "Failed to register component\n");
+> > +		goto err_clk;
+> > +	}
+> > +
+> > +	pm_runtime_mark_last_busy(priv->dev);
+> > +	pm_runtime_put_autosuspend(priv->dev);
+> > +
+> > +	return 0;
+> > +
+> > +err_clk:
+> > +	clk_put(priv->mclk);
+> > +err_pm:
+> > +	pm_runtime_put_sync(priv->dev);
+> > +
+> > +	return ret;
+> > +}
+> > +
+> > +static int cs42l43_codec_remove(struct platform_device *pdev)
+> > +{
+> > +	struct cs42l43_codec *priv = platform_get_drvdata(pdev);
+> > +
+> > +	clk_put(priv->mclk);
+> 
+> You have clocks put before anything else, and your remove order is broken now.
+> 
+> To fix this (in case you may not used devm_clk_get() call), you should drop
+> devm calls all way after the clk_get(). Do we have
+> snd_soc_register_component()? If yes, use it to fix.
+> 
+> I believe you never tested rmmod/modprobe in a loop.
+> 
+
+Hmm... will need to think this through a little bit, so might take
+a little longer on this one. But I guess this only becomes a problem
+if you attempt to remove the driver whilst you are currently playing
+audio, and I would expect the card tear down would stop the clock
+running before we get here.
+
+> > +static const struct dev_pm_ops cs42l43_codec_pm_ops = {
+> > +	SET_RUNTIME_PM_OPS(NULL, cs42l43_codec_runtime_resume, NULL)
+> > +};
+> 
+> Why not new PM macros?
+> 
+
+Already been updated in another patch.
+
+> > +		.pm	= &cs42l43_codec_pm_ops,
+> 
+> pm_sleep_ptr()?
+> 
+
+Can do.
+
+> > +#include <linux/clk.h>
+> > +#include <linux/device.h>
+> > +#include <linux/regmap.h>
+> > +#include <linux/soundwire/sdw.h>
+> > +#include <linux/types.h>
+> > +#include <sound/cs42l43.h>
+> > +#include <sound/pcm.h>
+> > +#include <sound/soc-jack.h>
+> 
+> This block is messed up. Some headers can be replaced by forward declarations,
+> some are missing... Please, follow IWYU principle.
+> 
+> > +#ifndef CS42L43_ASOC_INT_H
+> > +#define CS42L43_ASOC_INT_H
+> 
+> Why not guarding other inclusions? It makes build slower!
+> 
+
+Will shuffle these headers around as well.
+
+Thanks,
+Charles

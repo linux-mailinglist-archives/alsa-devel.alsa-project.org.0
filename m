@@ -2,88 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9C9983338F
-	for <lists+alsa-devel@lfdr.de>; Sat, 20 Jan 2024 11:16:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03A6783338D
+	for <lists+alsa-devel@lfdr.de>; Sat, 20 Jan 2024 11:15:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 094F07F8;
-	Sat, 20 Jan 2024 11:16:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 094F07F8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8DF6784D;
+	Sat, 20 Jan 2024 11:14:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8DF6784D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1705745774;
-	bh=biAapYxHeeokdyQw9Z1WAP41WVsRCym8l3FljfSgHUI=;
+	s=default; t=1705745709;
+	bh=4XTMv/27kW3P5osWJ1kSddhcEjOZbvIuwRXxZPpGMlQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=nj3UwEbAnZAYbHgdLMmVjhdMrhWk20VeHAHzB3UNGQqru7SADwEpfcGIb38+/4SBm
-	 vsiaH1aqetsz7K32sc0FMaNg8X0itDH4eO1CljIMKMDJFtCMBQiXH5b2BRYyPmd5Jo
-	 ZCW4o9ijVg1WY/NENH+OHy4xzKQmbPUbZ7WXi38Q=
+	b=b1u93QqQJ77atI6/HYD2khtFtPHGS7ZX03uHAHjJLU+A9vVuuy+Bf1dYRiBXmpkhv
+	 fZlj6/4D7/4JiKdsBqcYjL93N6koyJ4vvm+RORthKKQ00iPmCFZs0prWluGIg/Qylw
+	 g9YUxUI+jzG4bKxX9jUEWMwM/YYQJlYieZHRFWRM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 183B5F805A8; Sat, 20 Jan 2024 11:15:39 +0100 (CET)
+	id 5986AF805EB; Sat, 20 Jan 2024 11:14:04 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 448B1F805C8;
-	Sat, 20 Jan 2024 11:15:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5ED67F805F0;
+	Sat, 20 Jan 2024 11:14:03 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 27B49F80236; Sat, 20 Jan 2024 11:13:41 +0100 (CET)
+	id 16764F802BE; Sat, 20 Jan 2024 11:13:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-	RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-il1-x12e.google.com (mail-il1-x12e.google.com
- [IPv6:2607:f8b0:4864:20::12e])
+Received: from mail-pg1-x535.google.com (mail-pg1-x535.google.com
+ [IPv6:2607:f8b0:4864:20::535])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D3813F8014B
-	for <alsa-devel@alsa-project.org>; Sat, 20 Jan 2024 11:12:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3813F8014B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0557FF80074
+	for <alsa-devel@alsa-project.org>; Sat, 20 Jan 2024 11:13:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0557FF80074
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=hreshklg
-Received: by mail-il1-x12e.google.com with SMTP id
- e9e14a558f8ab-361af86c7f7so3863985ab.3
+ header.s=20230601 header.b=PZv0iu+J
+Received: by mail-pg1-x535.google.com with SMTP id
+ 41be03b00d2f7-5ce74ea4bf2so1089567a12.0
         for <alsa-devel@alsa-project.org>;
- Sat, 20 Jan 2024 02:12:55 -0800 (PST)
+ Sat, 20 Jan 2024 02:13:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1705745573; x=1706350373;
+        d=gmail.com; s=20230601; t=1705745576; x=1706350376;
  darn=alsa-project.org;
         h=references:in-reply-to:message-id:date:subject:cc:to:from:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=tarW1IWFVdEd8Eg2tTqYDQxdL2RArk29+vqx+X5rhUU=;
-        b=hreshklgsehhTADbtCUMIdeEzbE2IrqNC/o2G3NM6xMaoYS8S3WRQeY1LaS9En+ejo
-         1K+ggfThw+fqvGfn/vVeZFp1b8UHoTNuha+tx3VXCfsewO6OdZ3IuCbJDGDZyHN5wfx5
-         3OvOq4055NMC2XaLtN4uTlm6vxkJveI/CJ4BQDtJhYGEvaEeVH4ayURx4hiqMvAo9ynF
-         Ut+p1kg+Tmjy2QHpiI7vEVmJAxlOaNT6jsRF6SJqQQRqj2x/FUc4ZC5Atut+DEVM5PUR
-         lHpIKEW0/W3yaIhwhoyYVAp1Uk1XJAQjnczPjR0sfrtTPVKbfFukBg9xls/z9wgWFzje
-         nPNQ==
+        bh=mL1Pe0qczNWUMTVPbR6DgJnFhcx08H1tylBUx7/ziTo=;
+        b=PZv0iu+JjpTgZEM9Z/fi5S+whtJW1baovv+kvI3pV/dDu4MTLREXLk8jpeXHOTmfyj
+         YcyugN0uMuBwMIiBcmOsZ6L5ADcsaerirBbGTd6utIF1IqF/+yAwChfnf5R221exmulm
+         lLJ4NNqQIiek28kfMKvWbZn0qKVlzlSUeTmIjsd9JD+mzBXKv4TU4ZjHqIbiJc4n7RZl
+         5vLsbbXI3Uxkxoc/74eMwltK57zsMJ0UHr4ngoa0ncqk7zkZApvvpHGdAv1nirwpIpzM
+         exopK6AYYS9DwdB+TdXpF9Lcp9DbedPWz47LHe8L48yBXBG55rQ22o3E6GQUFoR30LmB
+         xv6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705745573; x=1706350373;
+        d=1e100.net; s=20230601; t=1705745576; x=1706350376;
         h=references:in-reply-to:message-id:date:subject:cc:to:from
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=tarW1IWFVdEd8Eg2tTqYDQxdL2RArk29+vqx+X5rhUU=;
-        b=dApmMd2RchMP6siXI2QEgFon+IwD7HxckTyC7PNmf4emNVaRKtpW5yV+YzKIgoZK+s
-         EkEY8iwVFC3iqVUbk9EF4RkxQntNGMlDkxuTyON8bODJqrWxeBisBzUNsNqtaOM33IdX
-         Rfk7hhoMBpV9RoDUwEjlqXqk25BfVPI3rKWI6KO7O4+yVIM7cRS4SVRExehceMPNVWog
-         SW0ZerNtSNqKgfnJR2bT18OdxxarW7u4UpTr11Ii8FJs9m7P1x2vbnPG40HqbO/X+n1K
-         RtM3LcRwcGSU0jgWS5fr0ghCBmjIC/RUFMYgBxpiJwRbatou8C1aSjeF2eZ/+op/7yN5
-         EIPg==
-X-Gm-Message-State: AOJu0YyZUNSO+N4i+AanzJthr/G4kZTy0nIVyqQUGT5ISnkdgfkACYtk
-	G3jyBuRpbFCZElgSzp1Z+hASkai8JK3LUauQK2zhGXvXJgNTA4rkVnVxFsnu3jyv0g==
+        bh=mL1Pe0qczNWUMTVPbR6DgJnFhcx08H1tylBUx7/ziTo=;
+        b=THVxbgZeMZSXfop6C/xAzlD8DBmMgfkVaB1uFlgSXfqw40sSoAy/JYphyxLKWp96qZ
+         8kZPA8aBNfXlD2ueaJHF2hsi+LnRbI2KG3+PS/SJrVC84QflQBwH80wsX1qPb7Begaak
+         zzI0q3bkl7jkSNtLXfs46o5jAyvpLI8WOIKPdNUjsp7qRdLbVYd7Ocn/7iAImoEa3lUo
+         H8TqROcLfsJYXcvW7zzuqubm4ZoH4s8nNRTyRtFy7Th4uhV42zjsojmHfMcP3ZWkiB+r
+         QTumHHHzOmR0KAWM2b1gHBtfnAV4hj3BDrg/k/sKYrJobWPBNPApRwFnoczQb/GZhEEp
+         /Xew==
+X-Gm-Message-State: AOJu0YwdQlaaj0oo7tkvyGIppMX1ggREUn+1D8SJUs1EpQTmnbEeyIZq
+	ht2pKSPoO3dTAqovzo6ABuVNdsrZdagDhUA5Wg6MYBqA4PwJxYn4A96vAi9ODpLEtA==
 X-Google-Smtp-Source: 
- AGHT+IGgC6ECdtCWi1zIV7aUGnDdXVxTy/augsh5rQItYRUMtYA69PDQmosTPAcw4qu4iVF0PjkelA==
-X-Received: by 2002:a05:6e02:c73:b0:35f:d8fd:8ecc with SMTP id
- f19-20020a056e020c7300b0035fd8fd8eccmr1578082ilj.0.1705745573503;
-        Sat, 20 Jan 2024 02:12:53 -0800 (PST)
+ AGHT+IHeCmQ1DMOPuaYVZ7vXg/L9UHqgrChyCXK4VKCTUIImDtAFtV0oIDMe4GctpmoZw4VS5BdywQ==
+X-Received: by 2002:a17:90a:9306:b0:28d:d3bb:7359 with SMTP id
+ p6-20020a17090a930600b0028dd3bb7359mr1607351pjo.8.1705745576336;
+        Sat, 20 Jan 2024 02:12:56 -0800 (PST)
 Received: from zy-virtual-machine.localdomain ([222.70.13.170])
         by smtp.gmail.com with ESMTPSA id
- jc17-20020a17090325d100b001d72cf69508sm967365plb.23.2024.01.20.02.12.51
+ jc17-20020a17090325d100b001d72cf69508sm967365plb.23.2024.01.20.02.12.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 20 Jan 2024 02:12:53 -0800 (PST)
+        Sat, 20 Jan 2024 02:12:56 -0800 (PST)
 From: Zhu Ning <zhuning0077@gmail.com>
 To: alsa-devel@alsa-project.org,
 	broonie@kernel.org
@@ -93,14 +93,14 @@ Cc: tiwai@suse.com,
 	zhuning@everest-semi.com,
 	zhangyi@everest-semi.com,
 	Zhu Ning <zhuning0077@gmail.com>
-Subject: [PATCH v1 2/5] ASoC: codecs: ES8326: Improving the THD+N performance
-Date: Sat, 20 Jan 2024 18:12:37 +0800
-Message-Id: <20240120101240.12496-3-zhuning0077@gmail.com>
+Subject: [PATCH v1 3/5] ASoC: codecs: ES8326: Adding new volume kcontrols
+Date: Sat, 20 Jan 2024 18:12:38 +0800
+Message-Id: <20240120101240.12496-4-zhuning0077@gmail.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20240120101240.12496-1-zhuning0077@gmail.com>
 References: <20240120101240.12496-1-zhuning0077@gmail.com>
-Message-ID-Hash: FYPLCISXISSZFYDT5N2WM5MX47EKXBWI
-X-Message-ID-Hash: FYPLCISXISSZFYDT5N2WM5MX47EKXBWI
+Message-ID-Hash: PJ6KZ36YTJYD7R2JEBD4SEANK6ANG6X6
+X-Message-ID-Hash: PJ6KZ36YTJYD7R2JEBD4SEANK6ANG6X6
 X-MailFrom: zhuning0077@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -113,7 +113,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FYPLCISXISSZFYDT5N2WM5MX47EKXBWI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PJ6KZ36YTJYD7R2JEBD4SEANK6ANG6X6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -122,116 +122,162 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-We update the values of some registers in the initialization
-sequence in es8326_resume function to improve THD+N performance.
-THD+N performance decreases if the output level on headphone is
-close to full scale. So we change the register setting in
-es8326_jack_detect_handler function to improve THD+N performance
-if headphone pulgged. Also, the register setting should be restored
-when the headset is unplugged
+ES8326 features a headphone volume control register and four DAC
+volume control registers.
+We add new volume Kcontrols for these registers to enhance the
+configurability of the volume settings, providing users with
+greater flexibility.
 
 Signed-off-by: Zhu Ning <zhuning0077@gmail.com>
 ---
- sound/soc/codecs/es8326.c | 21 +++++++++++++--------
- sound/soc/codecs/es8326.h |  2 +-
- 2 files changed, 14 insertions(+), 9 deletions(-)
+ sound/soc/codecs/es8326.c | 88 ++++++++++++++++++++++++++++++++++++++-
+ sound/soc/codecs/es8326.h |  5 ++-
+ 2 files changed, 91 insertions(+), 2 deletions(-)
 
 diff --git a/sound/soc/codecs/es8326.c b/sound/soc/codecs/es8326.c
-index 82d1c4f8324c..10157a4bd500 100755
+index 10157a4bd500..51dc8081e475 100755
 --- a/sound/soc/codecs/es8326.c
 +++ b/sound/soc/codecs/es8326.c
-@@ -752,6 +752,8 @@ static void es8326_jack_detect_handler(struct work_struct *work)
- 			es8326->hp = 0;
- 		}
- 		regmap_update_bits(es8326->regmap, ES8326_HPDET_TYPE, 0x03, 0x01);
-+		regmap_write(es8326->regmap, ES8326_SYS_BIAS, 0x0a);
-+		regmap_update_bits(es8326->regmap, ES8326_HP_DRIVER_REF, 0x0f, 0x03);
- 		/*
- 		 * Inverted HPJACK_POL bit to trigger one IRQ to double check HP Removal event
- 		 */
-@@ -777,6 +779,8 @@ static void es8326_jack_detect_handler(struct work_struct *work)
- 			regmap_update_bits(es8326->regmap, ES8326_HPDET_TYPE, 0x03, 0x01);
- 			usleep_range(50000, 70000);
- 			regmap_update_bits(es8326->regmap, ES8326_HPDET_TYPE, 0x03, 0x00);
-+			regmap_write(es8326->regmap, ES8326_SYS_BIAS, 0x1f);
-+			regmap_update_bits(es8326->regmap, ES8326_HP_DRIVER_REF, 0x0f, 0x08);
- 			queue_delayed_work(system_wq, &es8326->jack_detect_work,
- 					msecs_to_jiffies(400));
- 			es8326->hp = 1;
-@@ -846,14 +850,14 @@ static int es8326_calibrate(struct snd_soc_component *component)
- 	if ((es8326->version == ES8326_VERSION_B) && (es8326->calibrated == false)) {
- 		dev_dbg(component->dev, "ES8326_VERSION_B, calibrating\n");
- 		regmap_write(es8326->regmap, ES8326_CLK_INV, 0xc0);
--		regmap_write(es8326->regmap, ES8326_CLK_DIV1, 0x01);
-+		regmap_write(es8326->regmap, ES8326_CLK_DIV1, 0x03);
- 		regmap_write(es8326->regmap, ES8326_CLK_DLL, 0x30);
- 		regmap_write(es8326->regmap, ES8326_CLK_MUX, 0xed);
- 		regmap_write(es8326->regmap, ES8326_CLK_DAC_SEL, 0x08);
- 		regmap_write(es8326->regmap, ES8326_CLK_TRI, 0xc1);
- 		regmap_write(es8326->regmap, ES8326_DAC_MUTE, 0x03);
- 		regmap_write(es8326->regmap, ES8326_ANA_VSEL, 0x7f);
--		regmap_write(es8326->regmap, ES8326_VMIDLOW, 0x03);
-+		regmap_write(es8326->regmap, ES8326_VMIDLOW, 0x23);
- 		regmap_write(es8326->regmap, ES8326_DAC2HPMIX, 0x88);
- 		usleep_range(15000, 20000);
- 		regmap_write(es8326->regmap, ES8326_HP_OFFSET_CAL, 0x8c);
-@@ -894,13 +898,13 @@ static int es8326_resume(struct snd_soc_component *component)
- 	/* reset internal clock state */
- 	regmap_write(es8326->regmap, ES8326_RESET, 0x1f);
- 	regmap_write(es8326->regmap, ES8326_VMIDSEL, 0x0E);
-+	regmap_write(es8326->regmap, ES8326_ANA_LP, 0xf0);
- 	usleep_range(10000, 15000);
- 	regmap_write(es8326->regmap, ES8326_HPJACK_TIMER, 0xe9);
--	regmap_write(es8326->regmap, ES8326_ANA_MICBIAS, 0x4b);
-+	regmap_write(es8326->regmap, ES8326_ANA_MICBIAS, 0xcb);
- 	/* set headphone default type and detect pin */
- 	regmap_write(es8326->regmap, ES8326_HPDET_TYPE, 0x83);
- 	regmap_write(es8326->regmap, ES8326_CLK_RESAMPLE, 0x05);
--	regmap_write(es8326->regmap, ES8326_HP_MISC, 0x30);
+@@ -121,6 +121,72 @@ static int es8326_crosstalk2_set(struct snd_kcontrol *kcontrol,
+ 	return 0;
+ }
  
- 	/* set internal oscillator as clock source of headpone cp */
- 	regmap_write(es8326->regmap, ES8326_CLK_DIV_CPC, 0x89);
-@@ -908,14 +912,15 @@ static int es8326_resume(struct snd_soc_component *component)
- 	/* clock manager reset release */
- 	regmap_write(es8326->regmap, ES8326_RESET, 0x17);
- 	/* set headphone detection as half scan mode */
--	regmap_write(es8326->regmap, ES8326_HP_MISC, 0x30);
-+	regmap_write(es8326->regmap, ES8326_HP_MISC, 0x3d);
- 	regmap_write(es8326->regmap, ES8326_PULLUP_CTL, 0x00);
++static int es8326_hplvol_get(struct snd_kcontrol *kcontrol,
++		struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
++	struct es8326_priv *es8326 = snd_soc_component_get_drvdata(component);
++	unsigned int hp_vol;
++
++	regmap_read(es8326->regmap, ES8326_HP_VOL, &hp_vol);
++	hp_vol &= 0x70;
++	ucontrol->value.integer.value[0] = hp_vol >> 4;
++
++	return 0;
++}
++
++static int es8326_hplvol_set(struct snd_kcontrol *kcontrol,
++		struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
++	struct es8326_priv *es8326 = snd_soc_component_get_drvdata(component);
++	unsigned int hp_vol;
++
++	if (ucontrol->value.integer.value[0] == 3) {
++		dev_dbg(component->dev, "HPL_VOL does not change");
++		return 0;
++	}
++	regmap_read(es8326->regmap, ES8326_HP_VOL, &hp_vol);
++	hp_vol &= 0x8F;
++	hp_vol |= ucontrol->value.integer.value[0] << 4;
++	regmap_write(es8326->regmap, ES8326_HP_VOL, hp_vol);
++
++	return 0;
++}
++
++static int es8326_hprvol_get(struct snd_kcontrol *kcontrol,
++		struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
++	struct es8326_priv *es8326 = snd_soc_component_get_drvdata(component);
++	unsigned int hp_vol;
++
++	regmap_read(es8326->regmap, ES8326_HP_VOL, &hp_vol);
++	hp_vol &= 0x07;
++	ucontrol->value.integer.value[0] = hp_vol;
++
++	return 0;
++}
++
++static int es8326_hprvol_set(struct snd_kcontrol *kcontrol,
++		struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
++	struct es8326_priv *es8326 = snd_soc_component_get_drvdata(component);
++	unsigned int hp_vol;
++
++	if (ucontrol->value.integer.value[0] == 3) {
++		dev_dbg(component->dev, "HPR_VOL does not change");
++		return 0;
++	}
++	regmap_read(es8326->regmap, ES8326_HP_VOL, &hp_vol);
++	hp_vol &= 0xF8;
++	hp_vol |= ucontrol->value.integer.value[0];
++	regmap_write(es8326->regmap, ES8326_HP_VOL, hp_vol);
++
++	return 0;
++}
++
+ static const SNDRV_CTL_TLVD_DECLARE_DB_SCALE(dac_vol_tlv, -9550, 50, 0);
+ static const SNDRV_CTL_TLVD_DECLARE_DB_SCALE(adc_vol_tlv, -9550, 50, 0);
+ static const SNDRV_CTL_TLVD_DECLARE_DB_SCALE(adc_analog_pga_tlv, 0, 300, 0);
+@@ -151,15 +217,24 @@ static const char *const winsize[] = {
+ static const char *const dacpol_txt[] =	{
+ 	"Normal", "R Invert", "L Invert", "L + R Invert" };
  
- 	/* enable headphone driver */
-+	regmap_write(es8326->regmap, ES8326_HP_VOL, 0xc4);
- 	regmap_write(es8326->regmap, ES8326_HP_DRIVER, 0xa7);
- 	usleep_range(2000, 5000);
--	regmap_write(es8326->regmap, ES8326_HP_DRIVER_REF, 0xa3);
--	regmap_write(es8326->regmap, ES8326_HP_DRIVER_REF, 0xb3);
-+	regmap_write(es8326->regmap, ES8326_HP_DRIVER_REF, 0x23);
-+	regmap_write(es8326->regmap, ES8326_HP_DRIVER_REF, 0x33);
- 	regmap_write(es8326->regmap, ES8326_HP_DRIVER, 0xa1);
++static const char *const hp_spkvol_switch[] = {
++	"HPVOL: HPL+HPL, SPKVOL: HPL+HPL",
++	"HPVOL: HPL+HPR, SPKVOL: HPL+HPR",
++	"HPVOL: HPL+HPL, SPKVOL: SPKL+SPKR",
++	"HPVOL: HPL+HPR, SPKVOL: SPKL+SPKR",
++};
++
+ static const struct soc_enum dacpol =
+ 	SOC_ENUM_SINGLE(ES8326_DAC_DSM, 4, 4, dacpol_txt);
+ static const struct soc_enum alc_winsize =
+ 	SOC_ENUM_SINGLE(ES8326_ADC_RAMPRATE, 4, 16, winsize);
+ static const struct soc_enum drc_winsize =
+ 	SOC_ENUM_SINGLE(ES8326_DRC_WINSIZE, 4, 16, winsize);
++static const struct soc_enum hpvol_spkvol_switch =
++	SOC_ENUM_SINGLE(ES8326_HP_MISC, 6, 4, hp_spkvol_switch);
  
- 	regmap_write(es8326->regmap, ES8326_CLK_INV, 0x00);
-@@ -946,7 +951,7 @@ static int es8326_resume(struct snd_soc_component *component)
- 		    (ES8326_IO_DMIC_CLK << ES8326_SDINOUT1_SHIFT));
- 	regmap_write(es8326->regmap, ES8326_SDINOUT23_IO, ES8326_IO_INPUT);
+ static const struct snd_kcontrol_new es8326_snd_controls[] = {
+-	SOC_SINGLE_TLV("DAC Playback Volume", ES8326_DAC_VOL, 0, 0xbf, 0, dac_vol_tlv),
++	SOC_SINGLE_TLV("DAC Playback Volume", ES8326_DACL_VOL, 0, 0xbf, 0, dac_vol_tlv),
+ 	SOC_ENUM("Playback Polarity", dacpol),
+ 	SOC_SINGLE_TLV("DAC Ramp Rate", ES8326_DAC_RAMPRATE, 0, 0x0f, 0, softramp_rate),
+ 	SOC_SINGLE_TLV("DRC Recovery Level", ES8326_DRC_RECOVERY, 0, 4, 0, drc_recovery_tlv),
+@@ -182,6 +257,17 @@ static const struct snd_kcontrol_new es8326_snd_controls[] = {
+ 			es8326_crosstalk1_get, es8326_crosstalk1_set),
+ 	SOC_SINGLE_EXT("CROSSTALK2", SND_SOC_NOPM, 0, 31, 0,
+ 			es8326_crosstalk2_get, es8326_crosstalk2_set),
++	SOC_SINGLE_EXT("HPL Volume", SND_SOC_NOPM, 0, 6, 0,
++			es8326_hplvol_get, es8326_hplvol_set),
++	SOC_SINGLE_EXT("HPR Volume", SND_SOC_NOPM, 0, 6, 0,
++			es8326_hprvol_get, es8326_hprvol_set),
++
++	SOC_SINGLE_TLV("HPL Playback Volume", ES8326_DACL_VOL, 0, 0xbf, 0, dac_vol_tlv),
++	SOC_SINGLE_TLV("HPR Playback Volume", ES8326_DACR_VOL, 0, 0xbf, 0, dac_vol_tlv),
++	SOC_SINGLE_TLV("SPKL Playback Volume", ES8326_SPKL_VOL, 0, 0xbf, 0, dac_vol_tlv),
++	SOC_SINGLE_TLV("SPKR Playback Volume", ES8326_SPKR_VOL, 0, 0xbf, 0, dac_vol_tlv),
++
++	SOC_ENUM("HPVol SPKVol switch", hpvol_spkvol_switch),
+ };
  
--	regmap_write(es8326->regmap, ES8326_ANA_PDN, 0x3b);
-+	regmap_write(es8326->regmap, ES8326_ANA_PDN, 0x00);
- 	regmap_write(es8326->regmap, ES8326_RESET, ES8326_CSM_ON);
- 	regmap_update_bits(es8326->regmap, ES8326_PGAGAIN, ES8326_MIC_SEL_MASK,
- 			   ES8326_MIC1_SEL);
+ static const struct snd_soc_dapm_widget es8326_dapm_widgets[] = {
 diff --git a/sound/soc/codecs/es8326.h b/sound/soc/codecs/es8326.h
-index dfef808673f4..4234bbb900c4 100644
+index 4234bbb900c4..ee12caef8105 100644
 --- a/sound/soc/codecs/es8326.h
 +++ b/sound/soc/codecs/es8326.h
-@@ -101,7 +101,7 @@
- #define ES8326_MUTE (3 << 0)
+@@ -69,7 +69,7 @@
+ #define ES8326_DAC_DSM		0x4D
+ #define ES8326_DAC_RAMPRATE	0x4E
+ #define ES8326_DAC_VPPSCALE	0x4F
+-#define ES8326_DAC_VOL		0x50
++#define ES8326_DACL_VOL	        0x50
+ #define ES8326_DRC_RECOVERY	0x53
+ #define ES8326_DRC_WINSIZE	0x54
+ #define ES8326_DAC_CROSSTALK	0x55
+@@ -81,6 +81,9 @@
+ #define ES8326_SDINOUT23_IO	0x5B
+ #define ES8326_JACK_PULSE	0x5C
  
- /* ES8326_CLK_CTL */
--#define ES8326_CLK_ON (0x7f << 0)
-+#define ES8326_CLK_ON (0x7e << 0)
- #define ES8326_CLK_OFF (0 << 0)
- 
- /* ES8326_CLK_INV */
++#define ES8326_DACR_VOL		0xF4
++#define ES8326_SPKL_VOL		0xF5
++#define ES8326_SPKR_VOL		0xF6
+ #define ES8326_HP_MISC		0xF7
+ #define ES8326_CTIA_OMTP_STA	0xF8
+ #define ES8326_PULLUP_CTL	0xF9
 -- 
 2.17.1
 

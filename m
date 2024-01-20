@@ -2,88 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C916883338E
-	for <lists+alsa-devel@lfdr.de>; Sat, 20 Jan 2024 11:16:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84722833390
+	for <lists+alsa-devel@lfdr.de>; Sat, 20 Jan 2024 11:16:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 79907822;
-	Sat, 20 Jan 2024 11:15:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79907822
+	by alsa0.perex.cz (Postfix) with ESMTPS id 122E286F;
+	Sat, 20 Jan 2024 11:16:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 122E286F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1705745768;
-	bh=ygvcz+NWIUIH6LHyik5hfLBedU4S6dABw75FZJaznoU=;
+	s=default; t=1705745803;
+	bh=HaxmkBU4NtqPbYo58I/nC/41mHNjaslWLh6YNP3krV4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=VIMNR99aMrVeareAIDJbs3TYWaa05xaPvN+novEJC/iJnMZpzJcVB9Kw0xfMZvlYW
-	 7Qxx4fyli+UycX7V73Ljj/2KVdxBdKDUpwaa3u8BWWCkJ8bIVUeLNN6SScKuud1V5T
-	 m4YM/iGGvizOSzc/S1jr0fxfoXDqZiLqYSiKXHRE=
+	b=A7AmTt9toMMejlOPLqijqTuLcpp/yG6MiWbMU+Jncres8b/WuWXHUfJhf2nEhVs3P
+	 VwLfhOUWWQbGGCBqMwxcPB58KurDz7MovpQXm72WVO48cCrXNoi1ayOk+99XTwa3ds
+	 uS+KfKuK/d2xTsphKIJuSUvgStXfTy4el338CJSg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 65CC4F805AF; Sat, 20 Jan 2024 11:15:38 +0100 (CET)
+	id C4968F805F8; Sat, 20 Jan 2024 11:15:42 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A8927F80567;
-	Sat, 20 Jan 2024 11:15:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 245E2F805ED;
+	Sat, 20 Jan 2024 11:15:42 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D114EF8028D; Sat, 20 Jan 2024 11:13:13 +0100 (CET)
+	id E31EEF80548; Sat, 20 Jan 2024 11:14:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com
- [IPv6:2607:f8b0:4864:20::631])
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=unavailable autolearn_force=no version=3.4.6
+Received: from mail-io1-xd2f.google.com (mail-io1-xd2f.google.com
+ [IPv6:2607:f8b0:4864:20::d2f])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DE43FF801F5
-	for <alsa-devel@alsa-project.org>; Sat, 20 Jan 2024 11:13:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE43FF801F5
+	by alsa1.perex.cz (Postfix) with ESMTPS id 53F66F800F5
+	for <alsa-devel@alsa-project.org>; Sat, 20 Jan 2024 11:13:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53F66F800F5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=msG4mcH7
-Received: by mail-pl1-x631.google.com with SMTP id
- d9443c01a7336-1d50d0c98c3so21804315ad.1
+ header.s=20230601 header.b=E5A1NjzO
+Received: by mail-io1-xd2f.google.com with SMTP id
+ ca18e2360f4ac-7bb5fda069bso86701939f.0
         for <alsa-devel@alsa-project.org>;
- Sat, 20 Jan 2024 02:13:01 -0800 (PST)
+ Sat, 20 Jan 2024 02:13:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1705745579; x=1706350379;
+        d=gmail.com; s=20230601; t=1705745582; x=1706350382;
  darn=alsa-project.org;
         h=references:in-reply-to:message-id:date:subject:cc:to:from:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=6Rxg5H5p4tbdSlrf4IdnunK3FrEk/iuoyb/MbENhqw8=;
-        b=msG4mcH7Nc4699UuYxCiAt3nrSLG15Pu03Reok9ZBQ41WtCmigvCkhEE55HnHsYjbW
-         2wqvrSTXfe9eOKVJ+FYb+3Qx7dYN1RMM/k6m2kGBd//0NKIS++qeDSg/qZvQwUlpvgfi
-         7z/0sdVaZLDrYQ//uXRY71xTPJasw4OWkcc5UjZZYOp2vXVkYn38kOFzT8S0tHBHjN4C
-         RPFd/L67iZG2E4LWkpzTsPU9/KETLe4fEMq03e1BlAOifPQdCZUcB2e2ET5A5Ms+KQ6C
-         S5Juk3/R+8Vowgf43liRzkTT6AVJtRGQiodKSwHjoqIrEPkixNuvcMM98xpjDosiv4m0
-         Bwiw==
+        bh=4JOKB58cvW2V6tKWmuZJJ+pX8d6gLjIVuLPMZDSDgJ4=;
+        b=E5A1NjzO+XOphBM0rqk9SFdI6sJJYALCzlxFZSgtiLPElRc9zircbxfAB1f26MipmO
+         5nHJKNCUbsKTL9zeGvuy2nS+99kggctoO9/yIXCIWuYREBQB3mwgKZEIIS+0y7kIu7CG
+         RVS1oWYNhy79a8VKR+NfJRdcdNc8qN2+BsHjjNkQzz2wuhTdWF3/N51pUQHBvbyFl/kj
+         PZOrrATGGrCwTqufZdtn0G7gUEwIgoJEKO+BGGXbCpkzbeALTZmAKeIIteIEUlQri12O
+         2hlLt6s+EjN6BK/8uEUSHWrrzbnmx3oj8KBXh5yK+NxBGjgMyk0qgDQANkdGuW6BOgLH
+         WXhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705745579; x=1706350379;
+        d=1e100.net; s=20230601; t=1705745582; x=1706350382;
         h=references:in-reply-to:message-id:date:subject:cc:to:from
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=6Rxg5H5p4tbdSlrf4IdnunK3FrEk/iuoyb/MbENhqw8=;
-        b=m5iL+scAk2no5qYYvVX+3h6fKgqbXwmrhwc5x4ZwXdxyqzrML6mErXuKBcVdp3BF+G
-         SBaz5Cky7TgeWKVMHiiUAdr7OIdE7H6AyScNTIEUOiL//GfGuHKt4KDM1e5FoRArhmAH
-         0V6V+ljRRf24YeX9C47iiXUmgsxYuZWHbMs5c9Hxs6ui2rqWQUQbKOo9gvKY5AERAzye
-         opJ04SNewkgAi5qOV3Gf2l/8kpESbhzAjcQGX+QaFOOmrCx0/kTR8zJ4Da9l0pSf7yvN
-         gNNQ6JDhuavuwZI8Mm7R8IrkT9QofsP0ISd4ICYusbBq7OO3nDKkcp37qRyAQOM9xO9R
-         cHpA==
-X-Gm-Message-State: AOJu0Yxg68e5CR2W7Afp4wcOScB7xQFe1SWORd7wngfpBur6SYma9oNM
-	WuwZ2C7pdIpguzXRWcWFYGQ/USQrWMDdUAGVYth15yYNGW7bxjhpgaGHYbNuNjGRKQ==
+        bh=4JOKB58cvW2V6tKWmuZJJ+pX8d6gLjIVuLPMZDSDgJ4=;
+        b=XIPwsSvXHAfMu8/H4o6WpatWLNAZ27Bfn5w/WaoPosflyK3VfpUqxN+FIMO2zYJXhX
+         GxkoFlHVLqblVbVpNLKmVB2dT02jLjiv1nE+yHyRkqqnF4Sf0hclfZX+CZe4t+FMLZj6
+         gn38PGN+Kz8cgn6PDFkplunK7u3Z04mLXLblOekg8uvdQTTOyoUMgDwR5qEYSxL9Z8cR
+         mVUTCOI2Z7hEy9AMqFzoDOCF2IFameyEt5XWaBKZGID0au8h4vnlMtid64TFpqGUVLcb
+         T3Hu04ijBa8MAmrxBXqHi+M+zIfUuXe/vJYqagK/CH/+ZDJDDVxmWedl5i5SjQiy101d
+         IdbQ==
+X-Gm-Message-State: AOJu0YxKQkbt5IB2zzi99Xch5edeqy4jHetzZwnc7MVQUxenQ/eIarcA
+	42P9LFAGDP5S+Un4el5BfAPak2Ghfh2Dtz7SFJxbgvcaue1G3FGs5/1Q3752euv8Lw==
 X-Google-Smtp-Source: 
- AGHT+IH0l2k8S9nVJIlspPFCcXsi7wS+0gjodae9/FnsCYiZASPE78/YdgGE7PEot97SaulXPWlw5g==
-X-Received: by 2002:a17:902:ecc9:b0:1d7:323a:ecdc with SMTP id
- a9-20020a170902ecc900b001d7323aecdcmr453050plh.53.1705745579184;
-        Sat, 20 Jan 2024 02:12:59 -0800 (PST)
+ AGHT+IEt4Ff+sHOXR/qTe9hEUB0lJ0JGjFWfEq0YTi3OKPlro3xPqfIYsJhZavAwYFVQcWTNQp++DQ==
+X-Received: by 2002:a5d:9ed0:0:b0:7bb:bca0:7670 with SMTP id
+ a16-20020a5d9ed0000000b007bbbca07670mr1537204ioe.23.1705745582076;
+        Sat, 20 Jan 2024 02:13:02 -0800 (PST)
 Received: from zy-virtual-machine.localdomain ([222.70.13.170])
         by smtp.gmail.com with ESMTPSA id
- jc17-20020a17090325d100b001d72cf69508sm967365plb.23.2024.01.20.02.12.57
+ jc17-20020a17090325d100b001d72cf69508sm967365plb.23.2024.01.20.02.13.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 20 Jan 2024 02:12:58 -0800 (PST)
+        Sat, 20 Jan 2024 02:13:01 -0800 (PST)
 From: Zhu Ning <zhuning0077@gmail.com>
 To: alsa-devel@alsa-project.org,
 	broonie@kernel.org
@@ -93,15 +93,14 @@ Cc: tiwai@suse.com,
 	zhuning@everest-semi.com,
 	zhangyi@everest-semi.com,
 	Zhu Ning <zhuning0077@gmail.com>
-Subject: [PATCH v1 4/5] ASoC: codecs: ES8326: Minimize the pop noise on
- headphone
-Date: Sat, 20 Jan 2024 18:12:39 +0800
-Message-Id: <20240120101240.12496-5-zhuning0077@gmail.com>
+Subject: [PATCH v1 5/5] ASoC: codecs: ES8326: fix the capture noise issue
+Date: Sat, 20 Jan 2024 18:12:40 +0800
+Message-Id: <20240120101240.12496-6-zhuning0077@gmail.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20240120101240.12496-1-zhuning0077@gmail.com>
 References: <20240120101240.12496-1-zhuning0077@gmail.com>
-Message-ID-Hash: QS7TTXR3AS3YO4A6DFJMVPC5QY2OYGOQ
-X-Message-ID-Hash: QS7TTXR3AS3YO4A6DFJMVPC5QY2OYGOQ
+Message-ID-Hash: GSFF7GVE3AYH5LWJS6EBCVNVAAN35FRQ
+X-Message-ID-Hash: GSFF7GVE3AYH5LWJS6EBCVNVAAN35FRQ
 X-MailFrom: zhuning0077@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -114,7 +113,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QS7TTXR3AS3YO4A6DFJMVPC5QY2OYGOQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GSFF7GVE3AYH5LWJS6EBCVNVAAN35FRQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -123,116 +122,123 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-We modify the register settings to minimize headphone pop noise
-during ES8326 power-up and music start/stop.
+We get a noise issue during the startup of recording. We update the
+register setting and dapm widgets to fix this issue.
+we change callback type of es8326_mute function to mute_stream.
+ES8326_ADC_MUTE is moved to es8326_mute function so it can
+be turned on at last and turned off at first.
 
 Signed-off-by: Zhu Ning <zhuning0077@gmail.com>
 ---
- sound/soc/codecs/es8326.c | 36 ++++++++++++++++++++----------------
- 1 file changed, 20 insertions(+), 16 deletions(-)
+ sound/soc/codecs/es8326.c | 63 ++++++++++++++++++++-------------------
+ 1 file changed, 32 insertions(+), 31 deletions(-)
 
 diff --git a/sound/soc/codecs/es8326.c b/sound/soc/codecs/es8326.c
-index 51dc8081e475..33c4ebddab40 100755
+index 33c4ebddab40..d51b3e13d1a1 100755
 --- a/sound/soc/codecs/es8326.c
 +++ b/sound/soc/codecs/es8326.c
-@@ -609,7 +609,8 @@ static int es8326_mute(struct snd_soc_dai *dai, int mute, int direction)
- 		regmap_write(es8326->regmap, ES8326_HP_CAL, ES8326_HP_OFF);
- 		regmap_update_bits(es8326->regmap, ES8326_DAC_MUTE,
- 				ES8326_MUTE_MASK, ES8326_MUTE);
--		regmap_write(es8326->regmap, ES8326_HP_DRIVER, 0xf0);
-+		regmap_update_bits(es8326->regmap, ES8326_HP_DRIVER_REF,
-+				0x30, 0x00);
+@@ -283,12 +283,6 @@ static const struct snd_soc_dapm_widget es8326_dapm_widgets[] = {
+ 	SND_SOC_DAPM_AIF_OUT("I2S OUT", "I2S1 Capture", 0, SND_SOC_NOPM, 0, 0),
+ 	SND_SOC_DAPM_AIF_IN("I2S IN", "I2S1 Playback", 0, SND_SOC_NOPM, 0, 0),
+ 
+-	/* ADC Digital Mute */
+-	SND_SOC_DAPM_PGA("ADC L1", ES8326_ADC_MUTE, 0, 1, NULL, 0),
+-	SND_SOC_DAPM_PGA("ADC R1", ES8326_ADC_MUTE, 1, 1, NULL, 0),
+-	SND_SOC_DAPM_PGA("ADC L2", ES8326_ADC_MUTE, 2, 1, NULL, 0),
+-	SND_SOC_DAPM_PGA("ADC R2", ES8326_ADC_MUTE, 3, 1, NULL, 0),
+-
+ 	/* Analog Power Supply*/
+ 	SND_SOC_DAPM_DAC("Right DAC", NULL, ES8326_ANA_PDN, 0, 1),
+ 	SND_SOC_DAPM_DAC("Left DAC", NULL, ES8326_ANA_PDN, 1, 1),
+@@ -308,15 +302,10 @@ static const struct snd_soc_dapm_widget es8326_dapm_widgets[] = {
+ };
+ 
+ static const struct snd_soc_dapm_route es8326_dapm_routes[] = {
+-	{"ADC L1", NULL, "MIC1"},
+-	{"ADC R1", NULL, "MIC2"},
+-	{"ADC L2", NULL, "MIC3"},
+-	{"ADC R2", NULL, "MIC4"},
+-
+-	{"ADC L", NULL, "ADC L1"},
+-	{"ADC R", NULL, "ADC R1"},
+-	{"ADC L", NULL, "ADC L2"},
+-	{"ADC R", NULL, "ADC R2"},
++	{"ADC L", NULL, "MIC1"},
++	{"ADC R", NULL, "MIC2"},
++	{"ADC L", NULL, "MIC3"},
++	{"ADC R", NULL, "MIC4"},
+ 
+ 	{"I2S OUT", NULL, "ADC L"},
+ 	{"I2S OUT", NULL, "ADC R"},
+@@ -606,11 +595,16 @@ static int es8326_mute(struct snd_soc_dai *dai, int mute, int direction)
+ 	unsigned int offset_l, offset_r;
+ 
+ 	if (mute) {
+-		regmap_write(es8326->regmap, ES8326_HP_CAL, ES8326_HP_OFF);
+-		regmap_update_bits(es8326->regmap, ES8326_DAC_MUTE,
+-				ES8326_MUTE_MASK, ES8326_MUTE);
+-		regmap_update_bits(es8326->regmap, ES8326_HP_DRIVER_REF,
+-				0x30, 0x00);
++		if (direction == SNDRV_PCM_STREAM_PLAYBACK) {
++			regmap_write(es8326->regmap, ES8326_HP_CAL, ES8326_HP_OFF);
++			regmap_update_bits(es8326->regmap, ES8326_DAC_MUTE,
++					ES8326_MUTE_MASK, ES8326_MUTE);
++			regmap_update_bits(es8326->regmap, ES8326_HP_DRIVER_REF,
++					0x30, 0x00);
++		} else {
++			regmap_update_bits(es8326->regmap,  ES8326_ADC_MUTE,
++					0x0F, 0x0F);
++		}
  	} else {
  		if (!es8326->calibrated) {
  			regmap_write(es8326->regmap, ES8326_HP_CAL, ES8326_HP_FORCE_CAL);
-@@ -622,8 +623,13 @@ static int es8326_mute(struct snd_soc_dai *dai, int mute, int direction)
+@@ -623,16 +617,22 @@ static int es8326_mute(struct snd_soc_dai *dai, int mute, int direction)
  			regmap_write(es8326->regmap, ES8326_HPR_OFFSET_INI, offset_r);
  			es8326->calibrated = true;
  		}
-+		regmap_update_bits(es8326->regmap, ES8326_DAC_DSM, 0x01, 0x01);
-+		usleep_range(1000, 5000);
-+		regmap_update_bits(es8326->regmap, ES8326_DAC_DSM, 0x01, 0x00);
-+		usleep_range(1000, 5000);
-+		regmap_update_bits(es8326->regmap, ES8326_HP_DRIVER_REF, 0x30, 0x20);
-+		regmap_update_bits(es8326->regmap, ES8326_HP_DRIVER_REF, 0x30, 0x30);
- 		regmap_write(es8326->regmap, ES8326_HP_DRIVER, 0xa1);
--		regmap_write(es8326->regmap, ES8326_HP_VOL, 0x91);
- 		regmap_write(es8326->regmap, ES8326_HP_CAL, ES8326_HP_ON);
- 		regmap_update_bits(es8326->regmap, ES8326_DAC_MUTE,
- 				ES8326_MUTE_MASK, ~(ES8326_MUTE));
-@@ -643,23 +649,20 @@ static int es8326_set_bias_level(struct snd_soc_component *codec,
- 		if (ret)
- 			return ret;
- 
+-		regmap_update_bits(es8326->regmap, ES8326_DAC_DSM, 0x01, 0x01);
+-		usleep_range(1000, 5000);
 -		regmap_update_bits(es8326->regmap, ES8326_DAC_DSM, 0x01, 0x00);
-+		regmap_update_bits(es8326->regmap, ES8326_RESET, 0x02, 0x02);
-+		usleep_range(5000, 10000);
- 		regmap_write(es8326->regmap, ES8326_INTOUT_IO, es8326->interrupt_clk);
- 		regmap_write(es8326->regmap, ES8326_SDINOUT1_IO,
- 			    (ES8326_IO_DMIC_CLK << ES8326_SDINOUT1_SHIFT));
--		regmap_write(es8326->regmap, ES8326_VMIDSEL, 0x0E);
- 		regmap_write(es8326->regmap, ES8326_PGA_PDN, 0x40);
- 		regmap_write(es8326->regmap, ES8326_ANA_PDN, 0x00);
- 		regmap_update_bits(es8326->regmap,  ES8326_CLK_CTL, 0x20, 0x20);
--
--		regmap_update_bits(es8326->regmap, ES8326_RESET,
--				ES8326_CSM_ON, ES8326_CSM_ON);
-+		regmap_update_bits(es8326->regmap, ES8326_RESET, 0x02, 0x00);
- 		break;
- 	case SND_SOC_BIAS_PREPARE:
- 		break;
- 	case SND_SOC_BIAS_STANDBY:
- 		regmap_write(es8326->regmap, ES8326_ANA_PDN, 0x3b);
--		regmap_write(es8326->regmap, ES8326_VMIDSEL, 0x00);
- 		regmap_update_bits(es8326->regmap, ES8326_CLK_CTL, 0x20, 0x00);
- 		regmap_write(es8326->regmap, ES8326_SDINOUT1_IO, ES8326_IO_INPUT);
- 		break;
-@@ -863,6 +866,7 @@ static void es8326_jack_detect_handler(struct work_struct *work)
- 			 * Don't report jack status.
- 			 */
- 			regmap_update_bits(es8326->regmap, ES8326_HPDET_TYPE, 0x03, 0x01);
-+			es8326_enable_micbias(es8326->component);
- 			usleep_range(50000, 70000);
- 			regmap_update_bits(es8326->regmap, ES8326_HPDET_TYPE, 0x03, 0x00);
- 			regmap_write(es8326->regmap, ES8326_SYS_BIAS, 0x1f);
-@@ -906,13 +910,10 @@ static void es8326_jack_detect_handler(struct work_struct *work)
- static irqreturn_t es8326_irq(int irq, void *dev_id)
- {
- 	struct es8326_priv *es8326 = dev_id;
--	struct snd_soc_component *comp = es8326->component;
+-		usleep_range(1000, 5000);
+-		regmap_update_bits(es8326->regmap, ES8326_HP_DRIVER_REF, 0x30, 0x20);
+-		regmap_update_bits(es8326->regmap, ES8326_HP_DRIVER_REF, 0x30, 0x30);
+-		regmap_write(es8326->regmap, ES8326_HP_DRIVER, 0xa1);
+-		regmap_write(es8326->regmap, ES8326_HP_CAL, ES8326_HP_ON);
+-		regmap_update_bits(es8326->regmap, ES8326_DAC_MUTE,
+-				ES8326_MUTE_MASK, ~(ES8326_MUTE));
++		if (direction == SNDRV_PCM_STREAM_PLAYBACK) {
++			regmap_update_bits(es8326->regmap, ES8326_DAC_DSM, 0x01, 0x01);
++			usleep_range(1000, 5000);
++			regmap_update_bits(es8326->regmap, ES8326_DAC_DSM, 0x01, 0x00);
++			usleep_range(1000, 5000);
++			regmap_update_bits(es8326->regmap, ES8326_HP_DRIVER_REF, 0x30, 0x20);
++			regmap_update_bits(es8326->regmap, ES8326_HP_DRIVER_REF, 0x30, 0x30);
++			regmap_write(es8326->regmap, ES8326_HP_DRIVER, 0xa1);
++			regmap_write(es8326->regmap, ES8326_HP_CAL, ES8326_HP_ON);
++			regmap_update_bits(es8326->regmap, ES8326_DAC_MUTE,
++					ES8326_MUTE_MASK, ~(ES8326_MUTE));
++		} else {
++			msleep(300);
++			regmap_update_bits(es8326->regmap,  ES8326_ADC_MUTE,
++					0x0F, 0x00);
++		}
+ 	}
+ 	return 0;
+ }
+@@ -682,7 +682,7 @@ static const struct snd_soc_dai_ops es8326_ops = {
+ 	.set_fmt = es8326_set_dai_fmt,
+ 	.set_sysclk = es8326_set_dai_sysclk,
+ 	.mute_stream = es8326_mute,
+-	.no_capture_mute = 1,
++	.no_capture_mute = 0,
+ };
  
- 	if (!es8326->jack)
- 		goto out;
- 
--	es8326_enable_micbias(comp);
--
- 	if (es8326->jack->status & SND_JACK_HEADSET)
- 		queue_delayed_work(system_wq, &es8326->jack_detect_work,
- 				   msecs_to_jiffies(10));
-@@ -1029,6 +1030,14 @@ static int es8326_resume(struct snd_soc_component *component)
- 	regmap_write(es8326->regmap, ES8326_DAC_DSM, 0x08);
- 	regmap_write(es8326->regmap, ES8326_DAC_VPPSCALE, 0x15);
- 
-+	regmap_write(es8326->regmap, ES8326_HPDET_TYPE, 0x80 |
-+			((es8326->version == ES8326_VERSION_B) ?
-+			(ES8326_HP_DET_SRC_PIN9 | es8326->jack_pol) :
-+			(ES8326_HP_DET_SRC_PIN9 | es8326->jack_pol | 0x04)));
-+	usleep_range(5000, 10000);
-+	es8326_enable_micbias(es8326->component);
-+	usleep_range(50000, 70000);
-+	regmap_update_bits(es8326->regmap, ES8326_HPDET_TYPE, 0x03, 0x00);
- 	regmap_write(es8326->regmap, ES8326_INT_SOURCE,
- 		    (ES8326_INT_SRC_PIN9 | ES8326_INT_SRC_BUTTON));
- 	regmap_write(es8326->regmap, ES8326_INTOUT_IO,
-@@ -1045,11 +1054,6 @@ static int es8326_resume(struct snd_soc_component *component)
+ static struct snd_soc_dai_driver es8326_dai = {
+@@ -1054,6 +1054,7 @@ static int es8326_resume(struct snd_soc_component *component)
  	regmap_update_bits(es8326->regmap, ES8326_DAC_MUTE, ES8326_MUTE_MASK,
  			   ES8326_MUTE);
  
--	regmap_write(es8326->regmap, ES8326_HPDET_TYPE, 0x80 |
--			((es8326->version == ES8326_VERSION_B) ?
--			(ES8326_HP_DET_SRC_PIN9 | es8326->jack_pol) :
--			(ES8326_HP_DET_SRC_PIN9 | es8326->jack_pol | 0x04)));
--	regmap_write(es8326->regmap, ES8326_HP_VOL, 0x11);
++	regmap_write(es8326->regmap, ES8326_ADC_MUTE, 0x0f);
  
  	es8326->jack_remove_retry = 0;
  	es8326->hp = 0;

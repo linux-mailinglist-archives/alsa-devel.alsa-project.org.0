@@ -2,94 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60254835410
-	for <lists+alsa-devel@lfdr.de>; Sun, 21 Jan 2024 02:05:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E645E83550B
+	for <lists+alsa-devel@lfdr.de>; Sun, 21 Jan 2024 10:47:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 19334844;
-	Sun, 21 Jan 2024 02:05:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 19334844
+	by alsa0.perex.cz (Postfix) with ESMTPS id 97740846;
+	Sun, 21 Jan 2024 10:47:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 97740846
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1705799123;
-	bh=d3XsdJmOrPceBBoewmuW2GJNC71GNXagT5eGFvKkFyc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1705830461;
+	bh=vXMxtbaRXwShp5WwQRmQyAEkRNo7Eo0/Wr29nZuBn8Y=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=lkDnRbdfk+sXItSdKPGcVo+24ABbyTMQEKbwgC7bJn3khcA8Tt0ieVz98GNAPantg
-	 bYPd2Fz63hH2g/JlvSJgtWN5kqOgmmiNawthgWj+ZVHSMrDr3IkCoboKBZoLDeZL3R
-	 9jBLstx7Vo9+hd6x9WQv6kM6f65SyeevuWa8foWk=
+	b=q0ANsRjWojrzKlAA9RaprqLm1RsD4gU1J+pAHJ91N2Qed+UaZOdJBC6fLFNa5GUjg
+	 u/WvgGHklHEV+mF2UkbafUxI4kAEbEU+dF5+1MBiG5OsXkRENIMO39p/jAWwsh+eXC
+	 kdeHi2YxI6YdFZq8CD4ozfMEHvobGq+vcphuaIQg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2DCEBF8057D; Sun, 21 Jan 2024 02:04:50 +0100 (CET)
+	id EF567F8025F; Sun, 21 Jan 2024 10:47:09 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 53E42F804F1;
-	Sun, 21 Jan 2024 02:04:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A140FF8057B;
+	Sun, 21 Jan 2024 10:47:08 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A729AF8025F; Sun, 21 Jan 2024 02:04:45 +0100 (CET)
+	id 649B6F8025F; Sun, 21 Jan 2024 10:42:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_DNSWL_NONE,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
+ [80.237.130.52])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 31C4AF8003A
-	for <alsa-devel@alsa-project.org>; Sun, 21 Jan 2024 02:04:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31C4AF8003A
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=WVURKBzj
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 2B3C860C69;
-	Sun, 21 Jan 2024 01:04:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A34BC433C7;
-	Sun, 21 Jan 2024 01:04:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1705799069;
-	bh=d3XsdJmOrPceBBoewmuW2GJNC71GNXagT5eGFvKkFyc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=WVURKBzj+xJyBsvL4Hp5ZEf4Y1BburBTkn3HSSonkiyqUYQw910DdugQjvjVjupRr
-	 QU2eExc7ZrjXtcVYPC3PyDhpVdfbub8Hat2hoZhtfeaSP8lALrVlVBs7BMR4uELmoC
-	 mqsIPPcuon3uEX5ePlDtmPAU+jPi7v1EOIXLfbb85B/VKF5pNE/fD8kaKI69IyNUZQ
-	 dkj5qxFhfvr5XbTT0MjEDVhtbqoptR73v7Bgz40vSEdtL1+PtzKzS1jIG0WdBXGMDK
-	 jR+BUcv3NfWbVSkxP6jUV8FdsO1Lj87T9cIRYcsU9ql1TfdZ9bpTs6F4/8/EIZYlgJ
-	 bekzpo8TMkTWA==
-Date: Sun, 21 Jan 2024 01:04:27 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>,
-	tudor.ambarus@linaro.org, pratyush@kernel.org,
-	miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com,
-	sbinding@opensource.cirrus.com, lee@kernel.org,
-	james.schulman@cirrus.com, david.rhodes@cirrus.com,
-	rf@opensource.cirrus.com, perex@perex.cz, tiwai@suse.com,
-	linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
-	michael@walle.cc, linux-mtd@lists.infradead.org,
-	nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com,
-	claudiu.beznea@tuxon.dev, michal.simek@amd.com,
-	linux-arm-kernel@lists.infradead.org, alsa-devel@alsa-project.org,
-	patches@opensource.cirrus.com, linux-sound@vger.kernel.org,
-	git@amd.com, amitrkcian2002@gmail.com
+	by alsa1.perex.cz (Postfix) with ESMTPS id 980FFF800C1
+	for <alsa-devel@alsa-project.org>; Sun, 21 Jan 2024 10:42:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 980FFF800C1
+Received: from [2a02:8108:8980:2478:8cde:aa2c:f324:937e]; authenticated
+	by wp530.webpack.hosteurope.de running ExIM with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+	id 1rRULZ-00050W-CV; Sun, 21 Jan 2024 10:42:33 +0100
+Message-ID: <4c69cb61-1a43-4bfe-b01a-8118967ddbaf@leemhuis.info>
+Date: Sun, 21 Jan 2024 10:42:32 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v11 03/10] spi: Add multi-cs memories support in SPI core
-Message-ID: <Zaxtm0JlQYU0/K/v@finisterre.sirena.org.uk>
+Content-Language: en-US, de-DE
+To: Guenter Roeck <linux@roeck-us.net>,
+ Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
+Cc: alexandre.belloni@bootlin.com, vigneshr@ti.com,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ linux-mtd@lists.infradead.org, miquel.raynal@bootlin.com, git@amd.com,
+ sbinding@opensource.cirrus.com, richard@nod.at, lee@kernel.org,
+ tudor.ambarus@linaro.org, amitrkcian2002@gmail.com,
+ linux-sound@vger.kernel.org, james.schulman@cirrus.com,
+ rf@opensource.cirrus.com, broonie@kernel.org, tiwai@suse.com,
+ perex@perex.cz, michal.simek@amd.com, linux-arm-kernel@lists.infradead.org,
+ patches@opensource.cirrus.com, claudiu.beznea@tuxon.dev,
+ linux-spi@vger.kernel.org, michael@walle.cc, david.rhodes@cirrus.com,
+ pratyush@kernel.org
 References: <20231125092137.2948-1-amit.kumar-mahapatra@amd.com>
  <20231125092137.2948-4-amit.kumar-mahapatra@amd.com>
  <3d3a11b1-8396-4d8e-9bb3-61ecb67e7efa@roeck-us.net>
- <d3c93c4c-3754-480c-84c2-9455ec8af702@roeck-us.net>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="gbj27IA6g3j5b4VB"
-Content-Disposition: inline
-In-Reply-To: <d3c93c4c-3754-480c-84c2-9455ec8af702@roeck-us.net>
-X-Cookie: You might have mail.
-Message-ID-Hash: ODFYYBE7Z766JFBJRG6UU5YNL6556AK5
-X-Message-ID-Hash: ODFYYBE7Z766JFBJRG6UU5YNL6556AK5
-X-MailFrom: broonie@kernel.org
+From: "Linux regression tracking #adding (Thorsten Leemhuis)"
+ <regressions@leemhuis.info>
+In-Reply-To: <3d3a11b1-8396-4d8e-9bb3-61ecb67e7efa@roeck-us.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-bounce-key: 
+ webpack.hosteurope.de;regressions@leemhuis.info;1705830163;b4223a5c;
+X-HE-SMSGID: 1rRULZ-00050W-CV
+Message-ID-Hash: SLKY4AFNSHDTXL24VO7IFO7LBMH5B4N6
+X-Message-ID-Hash: SLKY4AFNSHDTXL24VO7IFO7LBMH5B4N6
+X-MailFrom: regressions@leemhuis.info
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -98,10 +85,11 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.9
 Precedence: list
+Reply-To: Linux regressions mailing list <regressions@lists.linux.dev>
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ODFYYBE7Z766JFBJRG6UU5YNL6556AK5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SLKY4AFNSHDTXL24VO7IFO7LBMH5B4N6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,46 +98,50 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On 12.01.24 20:11, Guenter Roeck wrote:
+> 
+> On Sat, Nov 25, 2023 at 02:51:30PM +0530, Amit Kumar Mahapatra wrote:
+>> AMD-Xilinx GQSPI controller has two advanced mode that allows the
+>> controller to consider two flashes as one single device.
+>>
+>> One of these two mode is the parallel mode in which each byte of data is
+>> stored in both devices, the even bits in the lower flash & the odd bits in
+>> the upper flash. The byte split is automatically handled by the QSPI
+>> controller.
+> [...]
+> With this patch in the mainline kernel, two of my qemu emulations
+> (quanta-q71l-bmc and almetto-bmc) fail to instantiate the first SPI
+> controller and thus fail to boot from SPI. The error message is
+> 
+> [    3.006458] spi_master spi0: No. of CS is more than max. no. of supported CS
+> [    3.006775] spi_master spi0: Failed to create SPI device for /ahb/spi@1e620000/flash@0
+> 
+> The problem is no longer seen after reverting this patch.
+> [...]
+> # first bad commit: [4d8ff6b0991d5e86b17b235fc46ec62e9195cb9b] spi: Add multi-cs memories support in SPI core
 
---gbj27IA6g3j5b4VB
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thanks for the report. To be sure the issue doesn't fall through the
+cracks unnoticed, I'm adding it to regzbot, the Linux kernel regression
+tracking bot:
 
-On Sat, Jan 20, 2024 at 09:05:43AM -0800, Guenter Roeck wrote:
+#regzbot ^introduced 4d8ff6b0991d5e86b17b235fc46ec62e9195cb9
+#regzbot title spi: qemu emulations quanta-q71l-bmc and almetto-bmc fail
+to boot
+#regzbot ignore-activity
 
-> FWIW, the problem is due to
+This isn't a regression? This issue or a fix for it are already
+discussed somewhere else? It was fixed already? You want to clarify when
+the regression started to happen? Or point out I got the title or
+something else totally wrong? Then just reply and tell me -- ideally
+while also telling regzbot about it, as explained by the page listed in
+the footer of this mail.
 
-> +#define SPI_CS_CNT_MAX 4
+Developers: When fixing the issue, remember to add 'Link:' tags pointing
+to the report (the parent of this mail). See page linked in footer for
+details.
 
-> in the offending patch, but apeed2400 FMC supports up to 5 SPI chip selec=
-ts.
->=20
->  static const struct aspeed_spi_data ast2400_fmc_data =3D {
->         .max_cs        =3D 5,
-> 	^^^^^^^^^^^^^^^^^^^
->         .hastype       =3D true,
-
-> Limiting .max_cs to 4 or increasing SPI_CS_CNT_MAX to 5 fixes the problem,
-> though of course I don't know if increasing SPI_CS_CNT_MAX has other side
-> effects.
-
-Yeah, I was coming to a similar conclusion myself - the limit is just
-too low.  I can't see any problem with increasing it.
-
---gbj27IA6g3j5b4VB
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmWsbY8ACgkQJNaLcl1U
-h9Cd8Af/avJ6OwNEUdXRf7+Y/ez1nlW4KmF435+5Krs7iC0gW1bASAqTgK1wW/vH
-Qn1dkyXEXhJr6D0AXzIaOBKg3k6gmKJ9AL0kbeMeIMsxj5f/2BYI62z0B8nx7dZC
-Y3fMiOxEqHxwU0eWCD2HuzN/GxHD7mrLi5VEFCE572HROza7PRt0jFfRyy7GAfaM
-BIfHMtCRiq5SMmya80D0iKJ9aZgeI0bf/DmzRVDOQnjo6sG7uCSyzPp4Rg1Z6wk1
-kottzJ+R1VHbzCngl404KHzG8SBHAXxYOVxf1HqiBzSgJ2/aa/asAsV0mHnoccn9
-5wKmraNTPzlncfC6l1dz4k3QPdXH7g==
-=vqew
------END PGP SIGNATURE-----
-
---gbj27IA6g3j5b4VB--
+Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
+--
+Everything you wanna know about Linux kernel regression tracking:
+https://linux-regtracking.leemhuis.info/about/#tldr
+That page also explains what to do if mails like this annoy you.

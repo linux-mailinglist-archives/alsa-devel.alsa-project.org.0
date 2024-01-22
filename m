@@ -2,107 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2119836789
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jan 2024 16:16:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE9EA83699F
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jan 2024 17:06:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5672C74C;
-	Mon, 22 Jan 2024 16:16:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5672C74C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6962286F;
+	Mon, 22 Jan 2024 17:06:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6962286F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1705936588;
-	bh=6XmCCPpxHEphsaXntXsmPtrApERA3bz/DPbaZcP4MAg=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=RwZJEDbQy4VMI03UecgtVL/wO9wkwpKL7MiQoN7CZ6kxgDRfmAlSuZxPFGlNMs6TK
-	 TWoPWW7xE5QKYkG6kOs5yWy470JkibkjGAYTlMfoQMxK3f+t9SNh6KKI9IavfNQl+1
-	 4WZCO4TDDJeHDuz4PVNQ/v/6LxeB+HA44Ky4LDgA=
+	s=default; t=1705939607;
+	bh=1eEXVVdWTxV8z4waWaHTl3I6KXQypu95DXHvSvRdIHs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=szlOBrIyLOW5Y+/Yod1TLN9p8SyJM0KTmWV4Y5fzBjOBZZAGemXmz9RMCxZEvJEZP
+	 8hLFU4KSpJgQaPPj1uNc1hR1+uwi8iVgmGngsN08IBCw1gfrOqmxz7Bzc8JJytRJeP
+	 o0GzJGlxa71sjw9hY8gv98ySHLDP1+u+UOG6BUfo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 04E47F802E8; Mon, 22 Jan 2024 16:15:56 +0100 (CET)
+	id 64204F8056F; Mon, 22 Jan 2024 17:06:14 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 798D7F80494;
-	Mon, 22 Jan 2024 16:15:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6B9B5F8057E;
+	Mon, 22 Jan 2024 17:06:13 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9AD03F8025F; Mon, 22 Jan 2024 16:15:52 +0100 (CET)
+	id 5280DF8025F; Mon, 22 Jan 2024 17:06:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-6.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7E407F8020D
-	for <alsa-devel@alsa-project.org>; Mon, 22 Jan 2024 16:15:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E407F8020D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1D9C4F8020D
+	for <alsa-devel@alsa-project.org>; Mon, 22 Jan 2024 17:05:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D9C4F8020D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=UwJJfg8i
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 40M6xJUH012194;
-	Mon, 22 Jan 2024 09:15:48 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	from:to:cc:subject:date:message-id:mime-version
-	:content-transfer-encoding:content-type; s=PODMain02222019; bh=l
-	7xlyXeBpEure9gmT5jL9MhhiOtAVI/rNE+1KjKKJzo=; b=UwJJfg8iujCJVWxFI
-	V1fpjx1UJuRLPnNZeuPjde52SdTGy2TCDRW8WgxHXR3GwC/zkxRbE6eOHjhyE8cn
-	Zvppv5gVAcRxU0EJKI9T9LzcJMmnO3we6IGA+r2brOO+dlnjHjUJ1h8cJVkE2HP3
-	V/+iohx+578VywY7Z0rRJndEC2S6pl0hZzFJwUm0gJXA4Q6w2Eg7NSoinI1l8VhL
-	2kQuS+mFjKR1kot3zEqc2Vco5yVl3W5G1WdsTusn42HWPVgxFkqFNQkwO2Q+8qEJ
-	H1yj8JwGGyKurYolc/QQ+AWQeIrIP7iURIba0DesuPlPg4yV++7HNkY5NQ7DV8Mp
-	0GXuw==
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3vrbfptnar-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 22 Jan 2024 09:15:48 -0600 (CST)
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Mon, 22 Jan
- 2024 15:15:47 +0000
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.40 via Frontend
- Transport; Mon, 22 Jan 2024 15:15:47 +0000
-Received: from upx-tgl-008-ubuntu.ad.cirrus.com
- (upx-tgl-008-ubuntu.ad.cirrus.com [198.90.251.167])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id B485915B7;
-	Mon, 22 Jan 2024 15:15:46 +0000 (UTC)
-From: Maciej Strozek <mstrozek@opensource.cirrus.com>
-To: Mark Brown <broonie@kernel.org>
-CC: Cezary Rojewski <cezary.rojewski@intel.com>,
-        Liam Girdwood
-	<lgirdwood@gmail.com>,
-        Pierre-Louis Bossart
-	<pierre-louis.bossart@linux.intel.com>,
-        Peter Ujfalusi
-	<peter.ujfalusi@linux.intel.com>,
-        Bard Liao
-	<yung-chuan.liao@linux.intel.com>,
-        Ranjani Sridharan
-	<ranjani.sridharan@linux.intel.com>,
-        Kai Vehmanen
-	<kai.vehmanen@linux.intel.com>,
-        <alsa-devel@alsa-project.org>, <patches@opensource.cirrus.com>,
-        <linux-sound@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        Maciej Strozek
-	<mstrozek@opensource.cirrus.com>
-Subject: [PATCH v2] ASoC: Intel: mtl-match: Add cs42l43_l0 cs35l56_l23 for MTL
-Date: Mon, 22 Jan 2024 15:15:45 +0000
-Message-ID: <20240122151545.69437-1-mstrozek@opensource.cirrus.com>
-X-Mailer: git-send-email 2.34.1
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=HaE233g5
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by ams.source.kernel.org (Postfix) with ESMTP id 8B1EBB80EBC;
+	Mon, 22 Jan 2024 16:05:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9638CC433C7;
+	Mon, 22 Jan 2024 16:05:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1705939542;
+	bh=1eEXVVdWTxV8z4waWaHTl3I6KXQypu95DXHvSvRdIHs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=HaE233g598PTRgikgKOs0OlamkpWc2K8+qqvyMr5yECHnFkRXLHBVd8n1YLmmP9Tf
+	 ISU6bGw0CwPUbfzi3h0Jzvfb8UzIcTuVaJTnRYO47UCDLIIYyHC6xP/HGwpCc5b7DV
+	 dZ+t7u9n93sPwykg6VBtD+lepTKcek9ZrBHV0EylXMaS6maq/v3qezUSWWaGew031B
+	 4ZwX7ykVqUD5LIrz7ZNbEE4gARFKbKFlyekx5JHVdSdyRcJhYYXNUW8ao8UtCS52s3
+	 DcchBjDXtJ1iE0DBabpPfSSKqzxCIBQiAJVKZHvIYAzqnqGf+qkHeodKZTH1zjZp/Q
+	 N543OSbMlzpsQ==
+Date: Mon, 22 Jan 2024 16:05:37 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Johan Hovold <johan@kernel.org>
+Cc: Johan Hovold <johan+linaro@kernel.org>,
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	Banajit Goswami <bgoswami@quicinc.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v4 2/4] ASoC: qcom: sc8280xp: limit speaker volumes
+Message-ID: <aca2b125-acf8-4791-a3eb-ea19826d3ee4@sirena.org.uk>
+References: <20240119112420.7446-1-johan+linaro@kernel.org>
+ <20240119112420.7446-3-johan+linaro@kernel.org>
+ <d54d3640-49bf-4a2f-903b-4beeb0ebd56c@sirena.org.uk>
+ <Za4cR90XoAaATq8X@hovoldconsulting.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: 2Q_tcVVKwx5TDVlSwL2jEHdwImfvkYfQ
-X-Proofpoint-GUID: 2Q_tcVVKwx5TDVlSwL2jEHdwImfvkYfQ
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: WFEXUK5ZGILXS4ZDOARSTHLTQONS5F5F
-X-Message-ID-Hash: WFEXUK5ZGILXS4ZDOARSTHLTQONS5F5F
-X-MailFrom: prvs=87513caafe=mstrozek@opensource.cirrus.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="pJm5Y4ijPdHAqAYt"
+Content-Disposition: inline
+In-Reply-To: <Za4cR90XoAaATq8X@hovoldconsulting.com>
+X-Cookie: Nice guys don't finish nice.
+Message-ID-Hash: ZPB3GPRLP3RTMNEOT5SDXRPWB3TWLRU3
+X-Message-ID-Hash: ZPB3GPRLP3RTMNEOT5SDXRPWB3TWLRU3
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -114,7 +95,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WFEXUK5ZGILXS4ZDOARSTHLTQONS5F5F/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZPB3GPRLP3RTMNEOT5SDXRPWB3TWLRU3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -123,95 +104,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Signed-off-by: Maciej Strozek <mstrozek@opensource.cirrus.com>
----
-v1 -> v2: swapped AMP3 and AMP4 prefixes
 
- .../intel/common/soc-acpi-intel-mtl-match.c   | 57 +++++++++++++++++++
- 1 file changed, 57 insertions(+)
+--pJm5Y4ijPdHAqAYt
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-diff --git a/sound/soc/intel/common/soc-acpi-intel-mtl-match.c b/sound/soc/intel/common/soc-acpi-intel-mtl-match.c
-index feb12c6c85d1..23eaf47b3f24 100644
---- a/sound/soc/intel/common/soc-acpi-intel-mtl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-mtl-match.c
-@@ -377,6 +377,37 @@ static const struct snd_soc_acpi_adr_device cs35l56_2_adr[] = {
- 	}
- };
+On Mon, Jan 22, 2024 at 08:41:59AM +0100, Johan Hovold wrote:
+> On Mon, Jan 22, 2024 at 12:03:55AM +0000, Mark Brown wrote:
 
-+static const struct snd_soc_acpi_adr_device cs35l56_2_r_adr[] = {
-+	{
-+		.adr = 0x00023201FA355601ull,
-+		.num_endpoints = 1,
-+		.endpoints = &spk_r_endpoint,
-+		.name_prefix = "AMP3"
-+	},
-+	{
-+		.adr = 0x00023301FA355601ull,
-+		.num_endpoints = 1,
-+		.endpoints = &spk_3_endpoint,
-+		.name_prefix = "AMP4"
-+	}
-+
-+};
-+
-+static const struct snd_soc_acpi_adr_device cs35l56_3_l_adr[] = {
-+	{
-+		.adr = 0x00033001fa355601ull,
-+		.num_endpoints = 1,
-+		.endpoints = &spk_l_endpoint,
-+		.name_prefix = "AMP1"
-+	},
-+	{
-+		.adr = 0x00033101fa355601ull,
-+		.num_endpoints = 1,
-+		.endpoints = &spk_2_endpoint,
-+		.name_prefix = "AMP2"
-+	}
-+};
-+
- static const struct snd_soc_acpi_link_adr rt5682_link2_max98373_link0[] = {
- 	/* Expected order: jack -> amp */
- 	{
-@@ -554,6 +585,26 @@ static const struct snd_soc_acpi_link_adr mtl_cs42l43_cs35l56[] = {
- 	{}
- };
+> > This doesn't apply against current code, please check and resend.
 
-+static const struct snd_soc_acpi_link_adr cs42l43_link0_cs35l56_link2_link3[] = {
-+	/* Expected order: jack -> amp */
-+	{
-+		.mask = BIT(0),
-+		.num_adr = ARRAY_SIZE(cs42l43_0_adr),
-+		.adr_d = cs42l43_0_adr,
-+	},
-+	{
-+		.mask = BIT(2),
-+		.num_adr = ARRAY_SIZE(cs35l56_2_r_adr),
-+		.adr_d = cs35l56_2_r_adr,
-+	},
-+	{
-+		.mask = BIT(3),
-+		.num_adr = ARRAY_SIZE(cs35l56_3_l_adr),
-+		.adr_d = cs35l56_3_l_adr,
-+	},
-+	{}
-+};
-+
- /* this table is used when there is no I2S codec present */
- struct snd_soc_acpi_mach snd_soc_acpi_intel_mtl_sdw_machines[] = {
- 	/* mockup tests need to be first */
-@@ -599,6 +650,12 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_mtl_sdw_machines[] = {
- 		.drv_name = "sof_sdw",
- 		.sof_tplg_filename = "sof-mtl-rt1318-l12-rt714-l0.tplg"
- 	},
-+	{
-+		.link_mask = BIT(0) | BIT(2) | BIT(3),
-+		.links = cs42l43_link0_cs35l56_link2_link3,
-+		.drv_name = "sof_sdw",
-+		.sof_tplg_filename = "sof-mtl-cs42l43-l0-cs35l56-l23.tplg",
-+	},
- 	{
- 		.link_mask = GENMASK(2, 0),
- 		.links = mtl_cs42l43_cs35l56,
---
-2.34.1
+> These patches are based on Linus's tree after merging the sound updates
+> and I just verified that they apply cleanly to 6.8-rc1.
 
+> I couldn't find anything related in either linux-next or your ASoC tree
+> that should interfere.
+
+> Could you please try again or let me know which branch to rebase on?
+
+I was applying it against v6.8-rc1.
+
+--pJm5Y4ijPdHAqAYt
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmWuklAACgkQJNaLcl1U
+h9AfJwf/VeyDwDQeh8AWh4NRdjUo5Pk5BLZ6jqdmO7SqBALZpLh5xFy5FGfLXf8N
+UwJ6NHQih/rY3GI/hGT89cfC2I4UYOezJpjgdFxT9BG69bBIPHBoLcyMWFXXcMXz
+47xHUGVsLK6ouYeyZpupNV7RuMeR6AyuPwltxzzcKwC6/wx9dC+hDM5AMmG6XCb/
+yYOFjXRigXNlCVJVPMfwszrp0YhsRcIOR/mpEAazDmgNQGLnWuwAFMsDHt8HRT9b
+tJhHaJpT8qdb9uS77JM/1Z7Fah2bh0g95qKTBT0TC3sr37ciK84kmUGP9bDVShxi
+ba/11nuFNGeE381eTYk1OqblnnGwZw==
+=it3K
+-----END PGP SIGNATURE-----
+
+--pJm5Y4ijPdHAqAYt--

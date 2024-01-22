@@ -2,65 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C72DE836FA2
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jan 2024 19:19:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AFCA836F99
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jan 2024 19:19:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DB23E85D;
-	Mon, 22 Jan 2024 19:19:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB23E85D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7286686F;
+	Mon, 22 Jan 2024 19:19:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7286686F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1705947589;
-	bh=iEHE7zcoasy6D541jeKFupXFX5j6AhyLZMvQAbjE414=;
+	s=default; t=1705947552;
+	bh=Lh26btgQP3JMyEbw/WcBqZn6EmesDwfSrRfDbLyisSs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=up9XM7S8LNY0TmDk9yPxBIfQxS57dt7gbmXDbHuNfD8rQbXJay/8fAwqcgw7ANYEj
-	 cTFgKgAL9hDlwugzdTmfR9MrTTPXZ2YJ+j4tUXNO8YtV/7gh10fKd9taG6L5F7nuBJ
-	 soafzoLIEIt3vkEOt/rkPSH1po8Zx2xEOTjn+LOI=
+	b=iDpIW7qu8aui92R7ppt62a3WG+fwFO5heKyj4cyzX5llGzKya6ZX7HIge9yOwxUkk
+	 3cj8BnB8xkT7EKfS1szI/v8szu5CR8cFzHAWphFL9KpEgka9pyC+nTCTNkqS9v1ws3
+	 8zp+NFg1RPbx73dN1bXMDt56uC1K+m9DD7BYqUtA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D2613F805E7; Mon, 22 Jan 2024 19:18:45 +0100 (CET)
+	id E5C80F8057E; Mon, 22 Jan 2024 19:18:40 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EBFAEF805E4;
-	Mon, 22 Jan 2024 19:18:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 23AD2F8057B;
+	Mon, 22 Jan 2024 19:18:40 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0E5A9F8025F; Mon, 22 Jan 2024 19:18:36 +0100 (CET)
+	id 8F8E0F80494; Mon, 22 Jan 2024 19:18:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+X-Spam-Status: No, score=-3.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 71329F802BE
-	for <alsa-devel@alsa-project.org>; Mon, 22 Jan 2024 19:18:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71329F802BE
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8E799F800C1
+	for <alsa-devel@alsa-project.org>; Mon, 22 Jan 2024 19:18:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E799F800C1
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=O+dcfJF6
+ header.s=k20201202 header.b=lImPn0vA
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id E700FCE2C10;
+	by ams.source.kernel.org (Postfix) with ESMTP id A0FB1B81028;
+	Mon, 22 Jan 2024 18:18:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39B90C433B2;
 	Mon, 22 Jan 2024 18:18:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1602C433C7;
-	Mon, 22 Jan 2024 18:18:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1705947507;
-	bh=iEHE7zcoasy6D541jeKFupXFX5j6AhyLZMvQAbjE414=;
+	s=k20201202; t=1705947508;
+	bh=Lh26btgQP3JMyEbw/WcBqZn6EmesDwfSrRfDbLyisSs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=O+dcfJF6E044EyavOfv1l9nHnpKuMYutU0LqH7U8RTGknusM+yybwHryBMXCCV6E/
-	 6xdXL1sM1jWLDi8dwSM2TkJ/23cgWDee+65weSpeDef+3Lw3QGywZuckX7l5pMnBuM
-	 e4i8+BZsjataShXzmTwIslxZ30KLNZ2HdE0P5T7EvFYjNK90ueMjsI6Z2QChXLcLG6
-	 YpcRJY8b4iadTa0s43m5mQGMfPzIHXiyRJyd313Mzf6V+Kki3hl3wojw5E7ovJhXMI
-	 dBYHM6O7chalTSbVnwzzt/1QCH1Cbb4UUyf2pTu7MtM1X9nvIOot94yej8+sk/BUvp
-	 q7CAXSS9+tI6A==
+	b=lImPn0vAhkzpA6lJL6Q/O4/xwKx2Evk+EErvcYTyArIU9MFB5m0KoQBBnnbBulKnz
+	 dwWEaMKrfTqLpcOaUrkDHZ8La/1p0L78UGyR9kOwsmSi/qjI6+mATjrJfCn1vyfhQW
+	 EX1W3Lz+VFJtzJfypQNClv2tPkfDp1cLZ7kccwl0IsKAy0vLjV3Qu7UBZy05Nwt3vr
+	 7CMiXciPrqD4pyLunXeVc9VeDyFS8UcJQtC5d9PM+XpGEroAdjMsL+uj/uDR5+SF24
+	 dYS+bNVCU7MHMn4+IrkjC25WP3bY+vW0PkjDp7iA0i1hPIfSFsmWDrZ9hTd3qxFZT9
+	 SdNb4Fk9LbKhw==
 Received: from johan by xi.lan with local (Exim 4.97.1)
 	(envelope-from <johan+linaro@kernel.org>)
-	id 1rRysa-0000000013V-1wQ8;
+	id 1rRysa-0000000013X-2DzD;
 	Mon, 22 Jan 2024 19:18:40 +0100
 From: Johan Hovold <johan+linaro@kernel.org>
 To: Mark Brown <broonie@kernel.org>
@@ -74,16 +74,17 @@ Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
 	linux-kernel@vger.kernel.org,
 	Johan Hovold <johan+linaro@kernel.org>,
 	stable@vger.kernel.org
-Subject: [PATCH v5 2/4] ASoC: qcom: sc8280xp: limit speaker volumes
-Date: Mon, 22 Jan 2024 19:18:17 +0100
-Message-ID: <20240122181819.4038-3-johan+linaro@kernel.org>
+Subject: [PATCH v5 3/4] ASoC: codecs: lpass-wsa-macro: fix compander volume
+ hack
+Date: Mon, 22 Jan 2024 19:18:18 +0100
+Message-ID: <20240122181819.4038-4-johan+linaro@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240122181819.4038-1-johan+linaro@kernel.org>
 References: <20240122181819.4038-1-johan+linaro@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: XJ2BHC2NBVFP3U2NX2XHB7D73NLNOIH2
-X-Message-ID-Hash: XJ2BHC2NBVFP3U2NX2XHB7D73NLNOIH2
+Message-ID-Hash: U3OQ2FFRG7IFMJZFZKANHBJGZHMCOULF
+X-Message-ID-Hash: U3OQ2FFRG7IFMJZFZKANHBJGZHMCOULF
 X-MailFrom: johan+linaro@kernel.org
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
@@ -95,7 +96,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XJ2BHC2NBVFP3U2NX2XHB7D73NLNOIH2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/U3OQ2FFRG7IFMJZFZKANHBJGZHMCOULF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,51 +105,70 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The UCM configuration for the Lenovo ThinkPad X13s has up until now
-been setting the speaker PA volume to the minimum -3 dB when enabling
-the speakers, but this does not prevent the user from increasing the
-volume further.
+The LPASS WSA macro codec driver is updating the digital gain settings
+behind the back of user space on DAPM events if companding has been
+enabled.
 
-Limit the digital gain and PA volumes to a combined -3 dB in the machine
-driver to reduce the risk of speaker damage until we have active speaker
-protection in place (or higher safe levels have been established).
+As compander control is exported to user space, this can result in the
+digital gain setting being incremented (or decremented) every time the
+sound server is started and the codec suspended depending on what the
+UCM configuration looks like.
 
-Note that the PA volume limit cannot be set lower than 0 dB or
-PulseAudio gets confused when the first 16 levels all map to -3 dB.
+Soon enough playback will become distorted (or too quiet).
 
-Also note that this will probably need to be generalised using
-machine-specific limits, but a common limit should do for now.
+This is specifically a problem on the Lenovo ThinkPad X13s as this
+bypasses the limit for the digital gain setting that has been set by the
+machine driver.
 
-Cc: stable@vger.kernel.org	# 6.5
+Fix this by simply dropping the compander gain offset hack. If someone
+cares about modelling the impact of the compander setting this can
+possibly be done by exporting it as a volume control later.
+
+Note that the volume registers still need to be written after enabling
+clocks in order for any prior updates to take effect.
+
+Fixes: 2c4066e5d428 ("ASoC: codecs: lpass-wsa-macro: add dapm widgets and route")
+Cc: stable@vger.kernel.org      # 5.11
+Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 Signed-off-by: Johan Hovold <johan+linaro@kernel.org>
 ---
- sound/soc/qcom/sc8280xp.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+ sound/soc/codecs/lpass-wsa-macro.c | 7 -------
+ 1 file changed, 7 deletions(-)
 
-diff --git a/sound/soc/qcom/sc8280xp.c b/sound/soc/qcom/sc8280xp.c
-index ed4bb551bfbb..b7fd503a1666 100644
---- a/sound/soc/qcom/sc8280xp.c
-+++ b/sound/soc/qcom/sc8280xp.c
-@@ -32,12 +32,14 @@ static int sc8280xp_snd_init(struct snd_soc_pcm_runtime *rtd)
- 	case WSA_CODEC_DMA_RX_0:
- 	case WSA_CODEC_DMA_RX_1:
- 		/*
--		 * set limit of 0dB on Digital Volume for Speakers,
--		 * this can prevent damage of speakers to some extent without
--		 * active speaker protection
-+		 * Set limit of -3 dB on Digital Volume and 0 dB on PA Volume
-+		 * to reduce the risk of speaker damage until we have active
-+		 * speaker protection in place.
- 		 */
--		snd_soc_limit_volume(card, "WSA_RX0 Digital Volume", 84);
--		snd_soc_limit_volume(card, "WSA_RX1 Digital Volume", 84);
-+		snd_soc_limit_volume(card, "WSA_RX0 Digital Volume", 81);
-+		snd_soc_limit_volume(card, "WSA_RX1 Digital Volume", 81);
-+		snd_soc_limit_volume(card, "SpkrLeft PA Volume", 17);
-+		snd_soc_limit_volume(card, "SpkrRight PA Volume", 17);
- 		break;
- 	default:
- 		break;
+diff --git a/sound/soc/codecs/lpass-wsa-macro.c b/sound/soc/codecs/lpass-wsa-macro.c
+index 7e21cec3c2fb..6ce309980cd1 100644
+--- a/sound/soc/codecs/lpass-wsa-macro.c
++++ b/sound/soc/codecs/lpass-wsa-macro.c
+@@ -1584,7 +1584,6 @@ static int wsa_macro_enable_interpolator(struct snd_soc_dapm_widget *w,
+ 	u16 gain_reg;
+ 	u16 reg;
+ 	int val;
+-	int offset_val = 0;
+ 	struct wsa_macro *wsa = snd_soc_component_get_drvdata(component);
+ 
+ 	if (w->shift == WSA_MACRO_COMP1) {
+@@ -1623,10 +1622,8 @@ static int wsa_macro_enable_interpolator(struct snd_soc_dapm_widget *w,
+ 					CDC_WSA_RX1_RX_PATH_MIX_SEC0,
+ 					CDC_WSA_RX_PGA_HALF_DB_MASK,
+ 					CDC_WSA_RX_PGA_HALF_DB_ENABLE);
+-			offset_val = -2;
+ 		}
+ 		val = snd_soc_component_read(component, gain_reg);
+-		val += offset_val;
+ 		snd_soc_component_write(component, gain_reg, val);
+ 		wsa_macro_config_ear_spkr_gain(component, wsa,
+ 						event, gain_reg);
+@@ -1654,10 +1651,6 @@ static int wsa_macro_enable_interpolator(struct snd_soc_dapm_widget *w,
+ 					CDC_WSA_RX1_RX_PATH_MIX_SEC0,
+ 					CDC_WSA_RX_PGA_HALF_DB_MASK,
+ 					CDC_WSA_RX_PGA_HALF_DB_DISABLE);
+-			offset_val = 2;
+-			val = snd_soc_component_read(component, gain_reg);
+-			val += offset_val;
+-			snd_soc_component_write(component, gain_reg, val);
+ 		}
+ 		wsa_macro_config_ear_spkr_gain(component, wsa,
+ 						event, gain_reg);
 -- 
 2.43.0
 

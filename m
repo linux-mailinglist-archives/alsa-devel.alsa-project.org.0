@@ -2,93 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3223837098
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jan 2024 19:48:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E067F837325
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jan 2024 20:50:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1890320E;
-	Mon, 22 Jan 2024 19:48:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1890320E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5EB48822;
+	Mon, 22 Jan 2024 20:50:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5EB48822
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1705949290;
-	bh=yNWjQEhqiBhpcGomz7GYxV+WTENan9gghULSm32sqlE=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=aszORo8BvzcWCem8GjkYIIgOHUXTdaBZO+mWRfgiLq6JzfxWz8XXveOYtgfvpdkKX
-	 LWRJEIH4laaJf6bVxnF98lwNNk+84XVi5UlPtBhkEwdPl4z+sulLJOzqW6K+WIT9jh
-	 P1S9hugwBNO8aXwZ6WBEXZYmcpB7BJO5lBesU184=
+	s=default; t=1705953030;
+	bh=pVtGodeicWDJGJnRxQD9TYUUvY4ml1P1cyQImCYhXeE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=P5quVU6rkIFLxvjfTHwLOEBw/TIWeaRmdd4L8gT9z1AcDw1VXujxz9q6SH28Zb27b
+	 M8Q3tGdkV+3V4PqT+E0amnAHype1M0Xox34LlAh+myMCGM0U616Kr6amWHHda9n0ay
+	 6pFOkH4oHn0syyja8IgjHnqgTHTOOlsC70mZGzQM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2E110F8057E; Mon, 22 Jan 2024 19:47:37 +0100 (CET)
+	id 8F9DBF8057D; Mon, 22 Jan 2024 20:41:12 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C18F4F8057E;
-	Mon, 22 Jan 2024 19:47:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0A01BF80587;
+	Mon, 22 Jan 2024 20:41:12 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6D38BF8025F; Mon, 22 Jan 2024 19:47:33 +0100 (CET)
+	id A1C5FF804E7; Mon, 22 Jan 2024 20:41:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-6.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 00DA0F800C1
-	for <alsa-devel@alsa-project.org>; Mon, 22 Jan 2024 19:47:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00DA0F800C1
+	by alsa1.perex.cz (Postfix) with ESMTPS id A4AD8F8022B
+	for <alsa-devel@alsa-project.org>; Mon, 22 Jan 2024 20:41:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A4AD8F8022B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=Dj7LG9kF
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 40MFaTcN005855;
-	Mon, 22 Jan 2024 12:47:22 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	from:to:cc:subject:date:message-id:mime-version
-	:content-transfer-encoding:content-type; s=PODMain02222019; bh=V
-	kiWtsyAhD5poWwiOG59Zhs6f5A5ZaAm657wTjx1lyY=; b=Dj7LG9kFrgE9po+vw
-	9jiUUGn0N8RqeeGE+G5kEJgz6n1Qb+rntAtHIV8rx4d09VLEKhrZT3VtoDwlTZUD
-	4F4tWgU217WiR1KB4Zypy0napLxBrFIGWgYqojMautgj2CuPzuX5VxCx/zcAvPWZ
-	phe7LFMGwpHsgqzQrWE9vWe0HmEJWG/xVlVYSinBA2r+iv6I4UDk9ufG7aFy3utO
-	81yU9ObqBwpI8W8dexTIlBOFGNIKtvSX0CCC5ci/Y0ZZ6pdrxf4Xr6rITSE6oMRV
-	JsgVaiSWR2urae8GeClhB46L+/sVz0r/RgyHHVOi2WGs2N4UT+gCmTORy1FPhpIb
-	NZPZg==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3vrcf32xaf-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 22 Jan 2024 12:47:21 -0600 (CST)
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Mon, 22 Jan
- 2024 18:47:19 +0000
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.40 via Frontend Transport; Mon, 22 Jan 2024 18:47:19 +0000
-Received: from lon-bigdaddy.ad.cirrus.com (unknown [198.61.65.241])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 6BFA611D3;
-	Mon, 22 Jan 2024 18:47:19 +0000 (UTC)
-From: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
-To: Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>
-CC: <alsa-devel@alsa-project.org>, <patches@opensource.cirrus.com>,
-        <linux-kernel@vger.kernel.org>,
-        Vitaly Rodionov
-	<vitalyr@opensource.cirrus.com>
-Subject: [PATCH] ALSA: hda/cs8409: Suppress vmaster control for Dolphin models
-Date: Mon, 22 Jan 2024 18:47:10 +0000
-Message-ID: <20240122184710.5802-1-vitalyr@opensource.cirrus.com>
-X-Mailer: git-send-email 2.40.1
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=B32OpiG2
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id 16B8E6194C;
+	Mon, 22 Jan 2024 19:40:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6737C433C7;
+	Mon, 22 Jan 2024 19:40:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1705952457;
+	bh=pVtGodeicWDJGJnRxQD9TYUUvY4ml1P1cyQImCYhXeE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=B32OpiG26rQr9Hr+UduoekLolHO0MhEsx6aRThvVxDKX/JeW2uys7/etwEddPf18/
+	 u4SYBNkVTnimvXhcHCfsm/umRFJplfoU4qRh0Wki6ANXrnOjgWjh/ZiDQvLy896JcQ
+	 wngPjKpEXXgbeeS5DzNnK+l6PrCgNy4EA8xQPkfIKDxWcYbb79Wm9eJ0B3NQpD9DAX
+	 bTn9BiKFLiV8CU65SThM3+UUnR0aAcepvfTstsvTZASmeMSLR/jpRb6GOFbLQIasFy
+	 IUh2MGOGgfhJDldXMXMioYEA0wEQreKlHbUGuK2/RuHQcGN8dCBsiSqeMl02O/D7WS
+	 eCamcXgaaL1SA==
+Date: Mon, 22 Jan 2024 19:40:51 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Conor Dooley <conor@kernel.org>
+Cc: Seven Lee <wtli@nuvoton.com>, lgirdwood@gmail.com,
+	alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, robh+dt@kernel.org,
+	conor+dt@kernel.org, YHCHuang@nuvoton.com, KCHSU0@nuvoton.com,
+	CTLIN0@nuvoton.com, SJLIN0@nuvoton.com, scott6986@gmail.com,
+	supercraig0719@gmail.com, dardar923@gmail.com
+Subject: Re: [PATCH 1/2] ASoC: dt-bindings: Added schema for "nuvoton,nau8325"
+Message-ID: <04945799-eded-42f9-b8fa-8907be44c400@sirena.org.uk>
+References: <20240122095650.60523-1-wtli@nuvoton.com>
+ <20240122-daunting-woof-19fac5689bb2@spud>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: i3yZTsMWsKwhp3pCo0bEw_gT9KKii5ID
-X-Proofpoint-GUID: i3yZTsMWsKwhp3pCo0bEw_gT9KKii5ID
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: IZ6NGJ5XIWMP44A2ASGOJT27ZQGT6QOD
-X-Message-ID-Hash: IZ6NGJ5XIWMP44A2ASGOJT27ZQGT6QOD
-X-MailFrom: prvs=8751ec8795=vitalyr@opensource.cirrus.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="cJlmuN7wD9uJzDfe"
+Content-Disposition: inline
+In-Reply-To: <20240122-daunting-woof-19fac5689bb2@spud>
+X-Cookie: Nice guys don't finish nice.
+Message-ID-Hash: PNB5WAMYPGTQHTPNNLHURLKZG77CZXZQ
+X-Message-ID-Hash: PNB5WAMYPGTQHTPNNLHURLKZG77CZXZQ
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -100,7 +92,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IZ6NGJ5XIWMP44A2ASGOJT27ZQGT6QOD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PNB5WAMYPGTQHTPNNLHURLKZG77CZXZQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,29 +101,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Customer has reported an issue with specific desktop platform
-where two CS42L42 codecs are connected to CS8409 HDA bridge.
-If "Master Volume Control" is created then on Ubuntu OS UCM
-left/right balance slider in UI audio settings has no effect.
-This patch will fix this issue for a target paltform.
 
-Signed-off-by: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
----
- sound/pci/hda/patch_cs8409.c | 1 +
- 1 file changed, 1 insertion(+)
+--cJlmuN7wD9uJzDfe
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-diff --git a/sound/pci/hda/patch_cs8409.c b/sound/pci/hda/patch_cs8409.c
-index 627899959ffe..e41316e2e983 100644
---- a/sound/pci/hda/patch_cs8409.c
-+++ b/sound/pci/hda/patch_cs8409.c
-@@ -1371,6 +1371,7 @@ void dolphin_fixups(struct hda_codec *codec, const struct hda_fixup *fix, int ac
- 		spec->scodecs[CS8409_CODEC1] = &dolphin_cs42l42_1;
- 		spec->scodecs[CS8409_CODEC1]->codec = codec;
- 		spec->num_scodecs = 2;
-+		spec->gen.suppress_vmaster = 1;
- 
- 		codec->patch_ops = cs8409_dolphin_patch_ops;
- 
--- 
-2.40.1
+On Mon, Jan 22, 2024 at 06:00:14PM +0000, Conor Dooley wrote:
+> On Mon, Jan 22, 2024 at 05:56:49PM +0800, Seven Lee wrote:
 
+> > +    enum:
+> > +      - 0 # VDDA
+> > +      - 1 # VDDA*1.5/1.8V
+> > +      - 2 # VDDA*1.6/1.8V
+> > +      - 3 # VDDA*1.7/1.8V
+
+> I would also rather than this enum was used to have sensible values for
+> the enum itself (which I suppose means strings here), rather than the
+> register values. Seeing "nuvoton,dac-vref = <2>" in a devicetree is not
+> very meaningful IMO.
+
+Do you have a concrete suggestion for how to more clearly write these
+directly?
+
+--cJlmuN7wD9uJzDfe
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmWuxMIACgkQJNaLcl1U
+h9A9wgf9GwcA7Ig0ZhctUzcIuOgFXg+HVs2fAzHGak6ySbki+9ticBmi6pSE85Ss
+VawLZpUX9H/Gp2cV7U/PV81ax0MHTrvo1QWWmSoS+3BBHxgqCIHMNrM1houNIxle
+YrH2Sq3AKOSs8QHUPF7YQu4VuJV7bOCH5C7FaAIXhVNu3l6iwpz4cBXN7Ta49+9Y
+qVYxl0hq+Rk4FCA/7idB0c6I+Xahcz9oQ6YAk+vLkVASFAqgPiY+EDundI2abdW0
+P3DwApDBdBjH/fYSf8WAu4x/R1VLvSKMj9gZBbYZdBnsM+u0kyx/0o9C1Lgg/iav
+WYCEFzYB3Q/cJxIvQi6YFEwLBvty3w==
+=l5dE
+-----END PGP SIGNATURE-----
+
+--cJlmuN7wD9uJzDfe--

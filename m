@@ -2,90 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93947836EF8
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jan 2024 19:07:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1794C836F12
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jan 2024 19:09:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EA48283B;
-	Mon, 22 Jan 2024 19:07:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EA48283B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 599DA852;
+	Mon, 22 Jan 2024 19:08:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 599DA852
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1705946833;
-	bh=kyRl1N9Q/dQhytK5rUW6BG9+l/1vrFhgo42ePkJfkkI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1705946949;
+	bh=NBOC25sdOvGb/9mPNsZnEncAlQwVHEMnCLFxkavQ8DQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=TE4hrojSHu0zt9YVkX5S8gczlTsync3ne16PtFijuz4mhMe8hw5vP6/aglYSduWKt
-	 sXL1QUPmje5GHcn6bw6tLhHQLXmRONcIVtoom8yKE29o8xONQxi89j/FLDekfUfU8Z
-	 jhaeQJ7fwxAeJXMQJlm643Z4uULRKlfIvpoTm0LA=
+	b=OWnOH7O4gkaHEZAttlkZqZWOiTbwToYDy8gpwZ2h1c1UodDawT7FNq4u5tmqm/P2S
+	 tbFRKd14A7DOOMpWTbWmKFQtSj7s3ajhoJD6YA8Exf3iRbaRkWdfdn1mNhtcqwrdmN
+	 8du+67z0PVbCqJhSjv8Ae4HArnsDUBQ/VDlHoWFc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 11723F8057C; Mon, 22 Jan 2024 19:06:40 +0100 (CET)
+	id D938DF80548; Mon, 22 Jan 2024 19:08:37 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 734C0F80563;
-	Mon, 22 Jan 2024 19:06:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5AFF1F802BE;
+	Mon, 22 Jan 2024 19:08:37 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C9789F8022B; Mon, 22 Jan 2024 19:06:35 +0100 (CET)
+	id 5AD2BF8025F; Mon, 22 Jan 2024 19:08:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from metis.whiteo.stw.pengutronix.de
+ (metis.whiteo.stw.pengutronix.de [IPv6:2a0a:edc0:2:b01:1d::104])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 78C59F800C1
-	for <alsa-devel@alsa-project.org>; Mon, 22 Jan 2024 19:06:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78C59F800C1
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=kEW3ozoj
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 65AA661770;
-	Mon, 22 Jan 2024 18:06:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFE0EC433C7;
-	Mon, 22 Jan 2024 18:06:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1705946791;
-	bh=kyRl1N9Q/dQhytK5rUW6BG9+l/1vrFhgo42ePkJfkkI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=kEW3ozojryUaFqJeewEJEvDyi2f/KWTnppNBa4N7s4zyU7sdQkK3ar00wfaNpRlhJ
-	 K3DiEMvUkVOswNvJWjEJRM+OczTCmLApyovnaWgJ+t6ZOh7tJqLIeQW3qOB19Btxxq
-	 rjuPe92x5BoG/KKtblBxXjFeJPzFd4j064Rze6cN1oM1KDjyBXPQIqQwW4MKFpfCvP
-	 w6OireLjH0tjGeb7eyfwhsVyUnlosSCpj+Y1+8xfhFUI7F9P5oY0n0qKAVT4D1XXEl
-	 zIenD0lJ4oyZyd3wn3RSsdT+0wwQbJrKDASIGVVcwO844i3fGlpVDMJo4yO0rmjhjN
-	 waIKUjbhX1iEg==
-Date: Mon, 22 Jan 2024 18:06:25 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Johan Hovold <johan@kernel.org>
-Cc: Johan Hovold <johan+linaro@kernel.org>,
-	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-	Banajit Goswami <bgoswami@quicinc.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v4 2/4] ASoC: qcom: sc8280xp: limit speaker volumes
-Message-ID: <8c6fc7e6-7694-4718-be47-d9fc3f893947@sirena.org.uk>
-References: <20240119112420.7446-1-johan+linaro@kernel.org>
- <20240119112420.7446-3-johan+linaro@kernel.org>
- <d54d3640-49bf-4a2f-903b-4beeb0ebd56c@sirena.org.uk>
- <Za4cR90XoAaATq8X@hovoldconsulting.com>
- <aca2b125-acf8-4791-a3eb-ea19826d3ee4@sirena.org.uk>
- <Za6l6EP7OqXPU9mj@hovoldconsulting.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7A0A4F800C1
+	for <alsa-devel@alsa-project.org>; Mon, 22 Jan 2024 19:08:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A0A4F800C1
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1rRyiW-0001qd-F5; Mon, 22 Jan 2024 19:08:16 +0100
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.94.2)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1rRyiV-001ePv-6S; Mon, 22 Jan 2024 19:08:15 +0100
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.96)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1rRyiV-005ZxV-0L;
+	Mon, 22 Jan 2024 19:08:15 +0100
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Mark Brown <broonie@kernel.org>
+Cc: kernel@pengutronix.de,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Rob Herring <robh@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Michal Simek <michal.simek@amd.com>,
+	Amit Kumar Mahapatra via Alsa-devel <alsa-devel@alsa-project.org>,
+	linux-mtd@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-spi@vger.kernel.org
+Subject: [PATCH v2 12/33] mtd: dataflash: Follow renaming of SPI "master" to
+ "controller"
+Date: Mon, 22 Jan 2024 19:07:07 +0100
+Message-ID: 
+ <63d7d1f1e6fe564daf034c66eb3073aa265b7969.1705944943.git.u.kleine-koenig@pengutronix.de>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1705944943.git.u.kleine-koenig@pengutronix.de>
+References: <cover.1705944943.git.u.kleine-koenig@pengutronix.de>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="PKIws8OF8mXQ1io0"
-Content-Disposition: inline
-In-Reply-To: <Za6l6EP7OqXPU9mj@hovoldconsulting.com>
-X-Cookie: Nice guys don't finish nice.
-Message-ID-Hash: 4IM3YNV2XLWSLCYRNYBHKEOJRY5UVES5
-X-Message-ID-Hash: 4IM3YNV2XLWSLCYRNYBHKEOJRY5UVES5
-X-MailFrom: broonie@kernel.org
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1009;
+ i=u.kleine-koenig@pengutronix.de; h=from:subject:message-id;
+ bh=NBOC25sdOvGb/9mPNsZnEncAlQwVHEMnCLFxkavQ8DQ=;
+ b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBlrq7QEfATD5xG2hpQG6DlgMRzWaTKGPWZHTQ2z
+ pPbTlCX0dqJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZa6u0AAKCRCPgPtYfRL+
+ TilmCACJ2388gx/UewF/Ask4RyYTH4immf27buUsBhyAWpQD91hjhGO1pzM01We+2TVb2u8Jy6A
+ FoGHOBwlRZf2Tx2aB4t7W5q1xTEPbyWoQ9bnQwfwgfXolDRDIV5GwM3ZqCz+h+eimI5QSMe767M
+ kdX2SuNYwXeUFWMjjRVDqQ0aoRmsC6SNFSH3uxOrbKpwEwyJcGPbF517SxNU0OkcCAbrX9fzofM
+ HT+90MYf3Hl3BvpMsEbIEScn1PJyzXQuftXRqV2CNqd+LfG5G2bIR1ywtj+s85K3Ub620706Qm4
+ ApiO+eZUFjSc5n57Dns7TZNVuXXKmFjwxbfOI1fcTbszlBMJ
+X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
+ fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: alsa-devel@alsa-project.org
+Message-ID-Hash: 36CVN44V675SXWFRDBML5QVD2ASLO6YH
+X-Message-ID-Hash: 36CVN44V675SXWFRDBML5QVD2ASLO6YH
+X-MailFrom: ukl@pengutronix.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -97,7 +111,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4IM3YNV2XLWSLCYRNYBHKEOJRY5UVES5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/36CVN44V675SXWFRDBML5QVD2ASLO6YH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -106,32 +120,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+In commit 8caab75fd2c2 ("spi: Generalize SPI "master" to "controller"")
+some functions and struct members were renamed. To not break all drivers
+compatibility macros were provided.
 
---PKIws8OF8mXQ1io0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+To be able to remove these compatibility macros push the renaming into
+this driver.
 
-On Mon, Jan 22, 2024 at 06:29:12PM +0100, Johan Hovold wrote:
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+---
+ drivers/mtd/devices/mtd_dataflash.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> Could you please try again, and tell me which patch fails to apply and
-> how it fails?
+diff --git a/drivers/mtd/devices/mtd_dataflash.c b/drivers/mtd/devices/mtd_dataflash.c
+index 0c1b93303618..ec52277e3dd5 100644
+--- a/drivers/mtd/devices/mtd_dataflash.c
++++ b/drivers/mtd/devices/mtd_dataflash.c
+@@ -638,7 +638,7 @@ static int add_dataflash_otp(struct spi_device *spi, char *name, int nr_pages,
+ 
+ 	/* name must be usable with cmdlinepart */
+ 	sprintf(priv->name, "spi%d.%d-%s",
+-			spi->master->bus_num, spi_get_chipselect(spi, 0),
++			spi->controller->bus_num, spi_get_chipselect(spi, 0),
+ 			name);
+ 
+ 	device = &priv->mtd;
+-- 
+2.43.0
 
-It was the specific patch I replied to, just the standard "this patch
-doesn't apply" message.
-
---PKIws8OF8mXQ1io0
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmWurqEACgkQJNaLcl1U
-h9DSHAf/T3WNfXxLvAbJenp11DA/SEjMQj9/GAixxPGAr04YGXfFCHS+BU6RwG18
-nfNEGntA5qkyWDqYJl7XiMiRn6VcG5yklGOgJAM0BltZFbCGw13HsTnFaMOj2to2
-Oo9RdzNeY1iuE57nu5yvvTt3VkMAXaEtFskwAhcG6xXDBac0TWbTOb5WWCeijGua
-ZtVT0iG1DF7SEhqdee8Lwr9Q+46VBcu0pChiLmycGGkb/jN1lpT4D6YF2gKUIunH
-7f3yuN7asZHZ4VpP8YEsPkCyR2hsQfXYgzjufQWkIvH+YBetfle5X/3GecV3FIeS
-mH89vrcQ7v4mkN1BgRpac5XjX9oaqQ==
-=Vhot
------END PGP SIGNATURE-----
-
---PKIws8OF8mXQ1io0--

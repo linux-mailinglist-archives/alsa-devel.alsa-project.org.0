@@ -2,146 +2,136 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4437D835E2E
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jan 2024 10:29:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36D78835ECB
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jan 2024 10:57:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C77C3E67;
-	Mon, 22 Jan 2024 10:29:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C77C3E67
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2433A850;
+	Mon, 22 Jan 2024 10:57:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2433A850
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1705915783;
-	bh=uowzxZRevTt9WCAROFCeIie7vPjduaXYhxvsHTUycdg=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=CSGaY65n1mMcaLGA6yuKQEhdgB5W8WcZrfOWvDTwKqugKS6Oo0cbvd2REqwpm+MxS
-	 /cj7KrAIvsNrKTfdngoMjjgiUKAsbQIdxXfv6uY7BzW0BLBMJxQNuTpKDFhZhRAAsf
-	 zP3BF1ZIJUyBsSIBTCQchE9+oPhtdAqdvZLUUsB8=
+	s=default; t=1705917468;
+	bh=Cw9LUkWqLf+p1uKjSB6kqijldO/4Y5vSJRZpg7KwLXU=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=KHHGXa249Cewh17e0Ubf7vbV3ekABMlB0O0FeYCSoS4G+b0uo76OIVsEw2gGn8wMO
+	 Goht1NCJQirNard03P1hAqNW1EL9HVH370ePX/3tof9Qu+LmxdPazof5T0BhidmwR6
+	 ewCMKHK3PbTChNn5g+5RJYglpHGPgxYM8WFg4dJs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DE079F805EB; Mon, 22 Jan 2024 10:28:12 +0100 (CET)
+	id 4D295F8057F; Mon, 22 Jan 2024 10:57:17 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6293DF805F2;
-	Mon, 22 Jan 2024 10:28:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6A1DAF804F1;
+	Mon, 22 Jan 2024 10:57:16 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 49D9CF805AC; Mon, 22 Jan 2024 10:28:04 +0100 (CET)
+	id F1A74F8028D; Mon, 22 Jan 2024 10:57:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=unavailable autolearn_force=no version=3.4.6
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2062c.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e88::62c])
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from APC01-TYZ-obe.outbound.protection.outlook.com
+ (mail-tyzapc01on20600.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:2011::600])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6A53CF8069C;
-	Mon, 22 Jan 2024 10:26:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A53CF8069C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 57CE2F800C1
+	for <alsa-devel@alsa-project.org>; Mon, 22 Jan 2024 10:57:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57CE2F800C1
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=lgPh+jGo
+ unprotected) header.d=nuvoton.com header.i=@nuvoton.com header.a=rsa-sha256
+ header.s=selector1 header.b=CoG45rmC
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LEvjCtyQHlnX6X15f9Et6DmsVVMmVAllPpWBc4fOyFXvLXFjz0/ODRqWcMb8rQwftTGq+NFxoX9zz4Hk/H7BdEGY5Me+96xk9S6qoy9utAEv2JeX8oXFUojslNDRtUwshapnxCpHK5KwbKHg9j6Dmr92rRoXAgN3ooz6PgMbI2gd1Mam0HowOuNpKpCoIcmWDrlkLRZ8y0ioV1kIvEHWOcBYa7Xe2wLG5GnP2FMG8UlEJbB8s/ozoPQw90r+402KaMIidXd879g0CyAeH2s5VvTNcy0Q04uf7Q4t46Plo/A3Amb1tYzW0RiJV8nUUm3Z76intLRDkgFl57A4rbTXoA==
+ b=kyoArDNsQRO4a2W2AydXCQ3ddJHod+VyiFI1EObjJ/QTaTGQPDSeBGxn5TWEFh1zKRQypZgKj+7Q8KP99PrekZyN9VvMfZMzPEeGUvpGyRULgIFQBtsTtic3z+DB721O8RscBhxrCQu0mBUF6SM8/+dWWc0v3kzD6DJ7E0mOD7uRLVeikPsGsrxHqj3OtyVhW3tBuV41CXNT4v7X/mFeJPt1P8+HZczoJhXJkuphLi2k6pK1sGs3Yf657rlTswk7yiEw5F6AbgPvpeFuCOwt4srs4E0qfqbp3NXCixD84r7vQot7xESeptzKXyffdN70AhHrDaDp+VTw3t/pxA5yqg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UhoVkhy8GN1PdZmnmv/uRV5zVwbIdlO+MnLOz/NKjrs=;
- b=kaVyKDAkwJditzMfvUSymLDFbGXFyocajcZ1h4FuNOdvEK9innHZmOAMajTE7Pa3Jcn5wPcs6q6+zF+N+DJMbFTlyGdbW4oYKqpIR0veiMPvehbdjSnSwnQlB3N2VkblFugzwiyYSSlrniSzVIjFnRBcgSa8Epes8mAZW3IYlTlWgyvu40FiSf/KUSuC51FMH31v8vrrmomFMJNMDJ1tI+W6jr6PpTHG66e4zDyn1LEkdZFWWteedIq62oKzwH1Iu+/d6Qt15mkbUN9moAuBZhD1M6tBlrppkg6d0GK+qnMywDH208IBUba5CqZ3kJ+fwn0GRp8+dO/a+cQ1TOT3Xg==
+ bh=O7VRYe0I3IM6rlKllm7eKeJGfoggF+J4EvaHVLxshLg=;
+ b=lOcacH9nx6+0+7QFjv9aBcJPf6E7D9GTZTDrvgZHSnBpcBbrjCp85HZLehKYNhX96ud9cKpVmoFj0t3d8lMZijxTvuJk3cRsuFkRQWQTBaiOXU+/bvlFPOYAdINLhabpxosNIIyKD23TI8Jrt+cY4XYZNGmllUUzLEE7LExWyLwrDVqGAx2TgDRddOWShD6hb3Y8bBYyRSxSw7SKKHZxrsIyP4v/17XhUGvJLhB3djMVbb3xXIKoYRavJbK/0nidCKOnRYCRu00n82ywi5jX+ALP/8cBxrFFySOVkwIqRqiwD3b3/NpcaDfiNWtVtpb/uqBrmN5d1cZNkrr1XZwNxA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ 211.75.126.7) smtp.rcpttodomain=kernel.org smtp.mailfrom=nuvoton.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=nuvoton.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nuvoton.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UhoVkhy8GN1PdZmnmv/uRV5zVwbIdlO+MnLOz/NKjrs=;
- b=lgPh+jGofiGnAJ+mC6eUYSgCTEaUyMuOP2oAtqCtQ77sidTBXsBgiyI6T4uY2Vv6nxnjqtaqPQOr70z8rG/B+XfNNy/GSrktyuLZU+/nF/MAOCXm1DvLYwVPKMLrvRxX+zHSjOrKv50cJfQ3PU1xTbSUviRwPk9UmUa7HJ1Vq3w=
-Received: from CY5PR19CA0041.namprd19.prod.outlook.com (2603:10b6:930:1a::8)
- by SA1PR12MB7272.namprd12.prod.outlook.com (2603:10b6:806:2b6::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.32; Mon, 22 Jan
- 2024 09:26:50 +0000
-Received: from CY4PEPF0000E9DB.namprd05.prod.outlook.com
- (2603:10b6:930:1a:cafe::67) by CY5PR19CA0041.outlook.office365.com
- (2603:10b6:930:1a::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.32 via Frontend
- Transport; Mon, 22 Jan 2024 09:26:50 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000E9DB.mail.protection.outlook.com (10.167.241.81) with Microsoft
+ bh=O7VRYe0I3IM6rlKllm7eKeJGfoggF+J4EvaHVLxshLg=;
+ b=CoG45rmCSSoPRn3cprBdZ4eQYRatuNt6P8UwQjJThabBs4XSslemOMnbnFxIu5ODSVFz7pMWwKm/ftW7GeFmWrMxUH1iy8z1TUnrZfuoF11h1P/qBF3N1F9VkWaAmjacGgkp566qjdh0c7iWT8DHamD6ZVV412HhOK/paZRz5R0=
+Received: from SI1PR02CA0044.apcprd02.prod.outlook.com (2603:1096:4:1f6::6) by
+ SI2PR03MB7261.apcprd03.prod.outlook.com (2603:1096:4:1bd::7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7202.32; Mon, 22 Jan 2024 09:56:56 +0000
+Received: from SG2PEPF000B66CB.apcprd03.prod.outlook.com
+ (2603:1096:4:1f6:cafe::71) by SI1PR02CA0044.outlook.office365.com
+ (2603:1096:4:1f6::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.31 via Frontend
+ Transport; Mon, 22 Jan 2024 09:56:56 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 211.75.126.7)
+ smtp.mailfrom=nuvoton.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nuvoton.com;
+Received-SPF: Pass (protection.outlook.com: domain of nuvoton.com designates
+ 211.75.126.7 as permitted sender) receiver=protection.outlook.com;
+ client-ip=211.75.126.7; helo=NTHCCAS01.nuvoton.com; pr=C
+Received: from NTHCCAS01.nuvoton.com (211.75.126.7) by
+ SG2PEPF000B66CB.mail.protection.outlook.com (10.167.240.24) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7181.14 via Frontend Transport; Mon, 22 Jan 2024 09:26:50 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Mon, 22 Jan
- 2024 03:26:49 -0600
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Mon, 22 Jan
- 2024 01:26:49 -0800
-Received: from vijendar-X570-GAMING-X.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.34
- via Frontend Transport; Mon, 22 Jan 2024 03:26:43 -0600
-From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-To: <broonie@kernel.org>, <vkoul@kernel.org>
-CC: <alsa-devel@alsa-project.org>, <yung-chuan.liao@linux.intel.com>,
-	<pierre-louis.bossart@linux.intel.com>, <Basavaraj.Hiregoudar@amd.com>,
-	<Sunil-kumar.Dommati@amd.com>, <vinod.koul@intel.com>,
-	<venkataprasad.potturu@amd.com>, Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
-	Liam Girdwood <lgirdwood@gmail.com>, Peter Ujfalusi
-	<peter.ujfalusi@linux.intel.com>, Ranjani Sridharan
-	<ranjani.sridharan@linux.intel.com>, Daniel Baluta <daniel.baluta@nxp.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>, Jaroslav Kysela
-	<perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Mastan Katragadda
-	<Mastan.Katragadda@amd.com>, V sujith kumar Reddy
-	<Vsujithkumar.Reddy@amd.com>, "moderated list:SOUND - SOUND OPEN FIRMWARE
- (SOF) DRIVERS" <sound-open-firmware@alsa-project.org>, "open list:SOUND - SOC
- LAYER / DYNAMIC AUDIO POWER MANAGEM..." <linux-sound@vger.kernel.org>, "open
- list" <linux-kernel@vger.kernel.org>
-Subject: [PATCH V3 13/13] ASoC: SOF: amd: refactor acp driver pm ops
-Date: Mon, 22 Jan 2024 14:54:35 +0530
-Message-ID: <20240122092435.3791175-14-Vijendar.Mukunda@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240122092435.3791175-1-Vijendar.Mukunda@amd.com>
-References: <20240122092435.3791175-1-Vijendar.Mukunda@amd.com>
+ 15.20.7202.16 via Frontend Transport; Mon, 22 Jan 2024 09:56:55 +0000
+Received: from NTHCCAS02.nuvoton.com (10.1.9.121) by NTHCCAS01.nuvoton.com
+ (10.1.8.28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 22 Jan
+ 2024 17:56:53 +0800
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS02.nuvoton.com
+ (10.1.9.121) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Mon, 22 Jan
+ 2024 17:56:53 +0800
+Received: from localhost.localdomain (10.11.36.27) by NTHCCAS01.nuvoton.com
+ (10.1.8.28) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
+ Transport; Mon, 22 Jan 2024 17:56:53 +0800
+From: Seven Lee <wtli@nuvoton.com>
+To: <broonie@kernel.org>
+CC: <lgirdwood@gmail.com>, <alsa-devel@alsa-project.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<robh+dt@kernel.org>, <conor+dt@kernel.org>, <YHCHuang@nuvoton.com>,
+	<KCHSU0@nuvoton.com>, <CTLIN0@nuvoton.com>, <SJLIN0@nuvoton.com>,
+	<wtli@nuvoton.com>, <scott6986@gmail.com>, <supercraig0719@gmail.com>,
+	<dardar923@gmail.com>
+Subject: [PATCH 1/2] ASoC: dt-bindings: Added schema for "nuvoton,nau8325"
+Date: Mon, 22 Jan 2024 17:56:49 +0800
+Message-ID: <20240122095650.60523-1-wtli@nuvoton.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
+X-NotSetDelaration: True
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9DB:EE_|SA1PR12MB7272:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0274d9ef-2ccc-483f-5b6f-08dc1b2c435b
+X-MS-TrafficTypeDiagnostic: SG2PEPF000B66CB:EE_|SI2PR03MB7261:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0f51fdcc-5198-4e59-059d-08dc1b3077b6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info: 
-	ne7pNAKK763a1RynHtuPYRevU5x9XOF7p2om3eDphF4t+yvx8fBO/yrgg1cBRbihbHQ1Q+OaVO6jucOcC3tf+pqitj/c8YP4lRfZJMHC/EcdGdIWPBnAhInXLAocSZX5s3+W5CFMB8YdxuBpIprI2iVmCZCBYITNiCNRGDbUBwl1f/oE4O6bi67K3kwPqgePuoraCvaiMLM/zrT0uZ0No+tQ/LhseSJfdjQ5uM5TpWqVLBFfJJFqQhjON7xOYlpDZ4BvmzXw7XSxUR3RmGmJV883q5SipsSEqdW2clBYuwNAmMsP87xQ0iHAYpKBEPUjXpI9mXs0Z5qSZhZRUO/KUcwaKUpC8QH3rQZ/DBNNW9061kQzSsOOWH+95aTUWyEOGFphV2uQAKQa8a/8+lnOZP1fAH2UK052YK1Nlt/2EXg+sxlulkaOCJLyq4on+3j6wGFak4vpJdoJJ5OCZNIpPUCUqrXanu7cgy7usI9TiAGI3KPNGVYo7CgwhpmjbMjYoyZ8M21IU7n3P7unJ1LzcXpSUUoAqqeSyq298E5ZNIu56Ww/o+bPNopNXwpbB1GHFlszr/hvR9HZsliS3pOKSg3hEsENJpaH/Pl2BCvWNptKa72+F1o/sKBIqjqliH9hiYltKaksdJ3YHl/YoFZHlD8iElWaeGll20mnklLzUkk7ET7zBLCPT1bNtoIFv0588K4Pj92qVIARd8Sdi/Xnm/Yn7b5hNpTd71d+zOJnOssuuCPg5MYQjh1EBzOCSb+hSgjSbTZTam1vWCRCxXDYKA==
+	zAG2AztBZ4c6e56rfSAm0FQ1F4C2VE6UokutDdp1xqUYjp61I34JWU0hMVHV0KdijCqCS70p8LmFZJgXNKcuoHD6KIbIrqZXT3hTGBm5Bm/cJBZMhklFdACr2AEI/VEArpJoT9hQtmi0/14CyEi9FY2ix4OR0yunY0tcUVtnKzNCfRd1kqb7YX3wOW7d42yo8wwXyDNnPBbC5QwNdldKBA83wMOn7teJ4pB91kcuKijnFevEtpwF9mLQmj7iPWXIvnFoz97PvkmepjGUnKAOKlE5nD1gmFR4NpA6o1gEVIoPBhkvPEkrS+4sfcLBQvj/U9XRpXbGas0sl5FfOZ/ZKZdyZ0VhJcs6rTtbRyWd8Ab4117911qs/L2j5ChI9LWVWDfSeFBRHX+pp5shyCqPD879FY5QVTpACJATjprPOtos95Hk8VoO3qlwvaA9FX6LPxLIekSQBPVJXwebOLc8i14uk24OWDRb8U5uGjkWEQJcG/O6sP+Xf2derFJzJRvLp7Db33fc64CcF4M9DyYF3a7hkLIFpxULNpklY2ur8g8LDCgjhY1KD/ISGDYqC3kE7wcfn2eCns4M5NYxCY/wQrjKt7zk4+YqjlvEQVPtkqEqaLaAerWv73dPvvQyY+dfoEVxdcs7OxefU4oHko1IPgtS7Ct1gld9Vf/deIzYeOBhiUFXdesxkjX39t7YHQG7+ngT6WW5H7kfwUWRsfRF0as5z6WAE8Sw53zfc7DxZhU=
 X-Forefront-Antispam-Report: 
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(376002)(136003)(346002)(39860400002)(396003)(230922051799003)(64100799003)(186009)(1800799012)(451199024)(82310400011)(40470700004)(36840700001)(46966006)(36860700001)(47076005)(41300700001)(86362001)(36756003)(82740400003)(336012)(81166007)(356005)(83380400001)(478600001)(8936002)(8676002)(4326008)(6666004)(7696005)(316002)(110136005)(54906003)(70206006)(70586007)(7416002)(426003)(5660300002)(26005)(2906002)(2616005)(1076003)(40480700001)(40460700003)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jan 2024 09:26:50.1245
+	CIP:211.75.126.7;CTRY:TW;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:NTHCCAS01.nuvoton.com;PTR:211-75-126-7.hinet-ip.hinet.net;CAT:NONE;SFS:(13230031)(4636009)(346002)(396003)(376002)(39860400002)(136003)(230922051799003)(64100799003)(451199024)(1800799012)(186009)(82310400011)(40470700004)(36840700001)(46966006)(40480700001)(40460700003)(336012)(6666004)(426003)(2616005)(1076003)(26005)(356005)(82740400003)(86362001)(81166007)(36756003)(41300700001)(83380400001)(36860700001)(47076005)(5660300002)(7416002)(2906002)(478600001)(966005)(70206006)(4326008)(8936002)(8676002)(70586007)(316002)(54906003)(6916009);DIR:OUT;SFP:1101;
+X-OriginatorOrg: nuvoton.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jan 2024 09:56:55.9471
  (UTC)
 X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 0274d9ef-2ccc-483f-5b6f-08dc1b2c435b
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+ 0f51fdcc-5198-4e59-059d-08dc1b3077b6
+X-MS-Exchange-CrossTenant-Id: a3f24931-d403-4b4a-94f1-7d83ac638e07
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
- TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+ TenantId=a3f24931-d403-4b4a-94f1-7d83ac638e07;Ip=[211.75.126.7];Helo=[NTHCCAS01.nuvoton.com]
 X-MS-Exchange-CrossTenant-AuthSource: 
-	CY4PEPF0000E9DB.namprd05.prod.outlook.com
+	SG2PEPF000B66CB.apcprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7272
-Message-ID-Hash: K3HFDGAOVG5BYKB5TRBVDSYDWTOLXPFG
-X-Message-ID-Hash: K3HFDGAOVG5BYKB5TRBVDSYDWTOLXPFG
-X-MailFrom: Vijendar.Mukunda@amd.com
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SI2PR03MB7261
+Message-ID-Hash: 6KD77YRBSDXUWH7DYJO6JOJD24QOCVFE
+X-Message-ID-Hash: 6KD77YRBSDXUWH7DYJO6JOJD24QOCVFE
+X-MailFrom: WTLI@nuvoton.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -153,157 +143,111 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/K3HFDGAOVG5BYKB5TRBVDSYDWTOLXPFG/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6KD77YRBSDXUWH7DYJO6JOJD24QOCVFE/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Refactor acp driver pm ops to support SoundWire interface.
+Added a DT schema for describing nau8325 audio amplifiers.
 
-When SoundWire configuration is enabled, In case of ClockStopMode,
-DSP soft reset should be applied and for rest of the scenarios
-acp init/deinit sequence should be invoked.
-
-Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Signed-off-by: Seven Lee <wtli@nuvoton.com>
 ---
- sound/soc/sof/amd/acp-dsp-offset.h |  3 ++
- sound/soc/sof/amd/acp.c            | 65 +++++++++++++++++++++++++++---
- sound/soc/sof/amd/acp.h            |  4 ++
- 3 files changed, 67 insertions(+), 5 deletions(-)
+ .../bindings/sound/nuvoton,nau8325.yaml       | 82 +++++++++++++++++++
+ 1 file changed, 82 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/nuvoton,nau8325.yaml
 
-diff --git a/sound/soc/sof/amd/acp-dsp-offset.h b/sound/soc/sof/amd/acp-dsp-offset.h
-index c1bdc028a61a..59afbe2e0f42 100644
---- a/sound/soc/sof/amd/acp-dsp-offset.h
-+++ b/sound/soc/sof/amd/acp-dsp-offset.h
-@@ -103,4 +103,7 @@
- /* Cache window registers */
- #define ACP_DSP0_CACHE_OFFSET0			0x0420
- #define ACP_DSP0_CACHE_SIZE0			0x0424
+diff --git a/Documentation/devicetree/bindings/sound/nuvoton,nau8325.yaml b/Documentation/devicetree/bindings/sound/nuvoton,nau8325.yaml
+new file mode 100644
+index 000000000000..9105985357aa
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/nuvoton,nau8325.yaml
+@@ -0,0 +1,82 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/nuvoton,nau8325.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+#define ACP_SW0_EN				0x3000
-+#define ACP_SW1_EN				0x3C00
- #endif
-diff --git a/sound/soc/sof/amd/acp.c b/sound/soc/sof/amd/acp.c
-index 7a34faae9889..920fead2d93d 100644
---- a/sound/soc/sof/amd/acp.c
-+++ b/sound/soc/sof/amd/acp.c
-@@ -482,6 +482,31 @@ static int acp_reset(struct snd_sof_dev *sdev)
- 	return ret;
- }
- 
-+static int acp_dsp_reset(struct snd_sof_dev *sdev)
-+{
-+	unsigned int val;
-+	int ret;
++title: NAU8325 audio Amplifier
 +
-+	snd_sof_dsp_write(sdev, ACP_DSP_BAR, ACP_SOFT_RESET, ACP_DSP_ASSERT_RESET);
++maintainers:
++  - Seven Lee <WTLI@nuvoton.com>
 +
-+	ret = snd_sof_dsp_read_poll_timeout(sdev, ACP_DSP_BAR, ACP_SOFT_RESET, val,
-+					    val & ACP_DSP_SOFT_RESET_DONE_MASK,
-+					    ACP_REG_POLL_INTERVAL, ACP_REG_POLL_TIMEOUT_US);
-+	if (ret < 0) {
-+		dev_err(sdev->dev, "timeout asserting reset\n");
-+		return ret;
-+	}
++allOf:
++  - $ref: dai-common.yaml#
 +
-+	snd_sof_dsp_write(sdev, ACP_DSP_BAR, ACP_SOFT_RESET, ACP_DSP_RELEASE_RESET);
++properties:
++  compatible:
++    const: nuvoton,nau8325
 +
-+	ret = snd_sof_dsp_read_poll_timeout(sdev, ACP_DSP_BAR, ACP_SOFT_RESET, val, !val,
-+					    ACP_REG_POLL_INTERVAL, ACP_REG_POLL_TIMEOUT_US);
-+	if (ret < 0)
-+		dev_err(sdev->dev, "timeout in releasing reset\n");
++  reg:
++    maxItems: 1
 +
-+	return ret;
-+}
++  nuvoton,vref-impedance:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description:
++      VREF impedance selection.
++    enum:
++      - 0 # Open
++      - 1 # 25kOhm
++      - 2 # 125kOhm
++      - 3 # 2.5kOhm
++    default: 2
 +
- static int acp_init(struct snd_sof_dev *sdev)
- {
- 	int ret;
-@@ -498,10 +523,34 @@ static int acp_init(struct snd_sof_dev *sdev)
- 	return acp_reset(sdev);
- }
- 
-+static bool check_acp_sdw_enable_status(struct snd_sof_dev *sdev)
-+{
-+	struct acp_dev_data *acp_data;
-+	u32 sdw0_en, sdw1_en;
++  nuvoton,dac-vref:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description:
++      DAC Reference Voltage Setting.
++    enum:
++      - 0 # VDDA
++      - 1 # VDDA*1.5/1.8V
++      - 2 # VDDA*1.6/1.8V
++      - 3 # VDDA*1.7/1.8V
++    default: 2
 +
-+	acp_data = sdev->pdata->hw_pdata;
-+	if (!acp_data->sdw)
-+		return false;
++  nuvoton,alc-enable:
++    description:
++      Enable digital automatic level control (ALC) function.
++    type: boolean
 +
-+	sdw0_en = snd_sof_dsp_read(sdev, ACP_DSP_BAR, ACP_SW0_EN);
-+	sdw1_en = snd_sof_dsp_read(sdev, ACP_DSP_BAR, ACP_SW1_EN);
-+	acp_data->sdw_en_stat = sdw0_en || sdw1_en;
-+	return acp_data->sdw_en_stat;
-+}
++  nuvoton,clock-detection-disable:
++    description:
++      When clock detection is enabled, it will detect whether MCLK
++      and FS are within the range. MCLK range is from 2.048MHz to 24.576MHz.
++      FS range is from 8kHz to 96kHz.
++    type: boolean
 +
- int amd_sof_acp_suspend(struct snd_sof_dev *sdev, u32 target_state)
- {
- 	int ret;
- 
-+	/* When acp_reset() function is invoked, it will apply ACP SOFT reset and
-+	 * DSP reset. ACP Soft reset sequence will cause all ACP IP registers will
-+	 * be reset to default values which will break the ClockStop Mode functionality.
-+	 * Add a condition check to apply DSP reset when SoundWire ClockStop mode
-+	 * is selected. For the rest of the scenarios, apply acp reset sequence.
-+	 */
-+	if (check_acp_sdw_enable_status(sdev))
-+		return acp_dsp_reset(sdev);
++  nuvoton,clock-det-data:
++    description:
++      Request clock detection to require 2048 non-zero samples before enabling
++      the audio paths. If set then non-zero samples is required, otherwise it
++      doesn't matter.
++    type: boolean
 +
- 	ret = acp_reset(sdev);
- 	if (ret) {
- 		dev_err(sdev->dev, "ACP Reset failed\n");
-@@ -517,13 +566,19 @@ EXPORT_SYMBOL_NS(amd_sof_acp_suspend, SND_SOC_SOF_AMD_COMMON);
- int amd_sof_acp_resume(struct snd_sof_dev *sdev)
- {
- 	int ret;
-+	struct acp_dev_data *acp_data;
- 
--	ret = acp_init(sdev);
--	if (ret) {
--		dev_err(sdev->dev, "ACP Init failed\n");
--		return ret;
-+	acp_data = sdev->pdata->hw_pdata;
-+	if (!acp_data->sdw_en_stat) {
-+		ret = acp_init(sdev);
-+		if (ret) {
-+			dev_err(sdev->dev, "ACP Init failed\n");
-+			return ret;
-+		}
-+		return acp_memory_init(sdev);
-+	} else {
-+		return acp_dsp_reset(sdev);
- 	}
--	return acp_memory_init(sdev);
- }
- EXPORT_SYMBOL_NS(amd_sof_acp_resume, SND_SOC_SOF_AMD_COMMON);
- 
-diff --git a/sound/soc/sof/amd/acp.h b/sound/soc/sof/amd/acp.h
-index e94713d7ff1d..947068da39b5 100644
---- a/sound/soc/sof/amd/acp.h
-+++ b/sound/soc/sof/amd/acp.h
-@@ -31,6 +31,9 @@
- #define ACP_ASSERT_RESET			0x01
- #define ACP_RELEASE_RESET			0x00
- #define ACP_SOFT_RESET_DONE_MASK		0x00010001
-+#define ACP_DSP_ASSERT_RESET			0x04
-+#define ACP_DSP_RELEASE_RESET			0x00
-+#define ACP_DSP_SOFT_RESET_DONE_MASK		0x00050004
- 
- #define ACP_DSP_INTR_EN_MASK			0x00000001
- #define ACP3X_SRAM_PTE_OFFSET			0x02050000
-@@ -242,6 +245,7 @@ struct acp_dev_data {
- 	bool enable_fw_debug;
- 	bool is_dram_in_use;
- 	bool is_sram_in_use;
-+	bool sdw_en_stat;
- };
- 
- void memcpy_to_scratch(struct snd_sof_dev *sdev, u32 offset, unsigned int *src, size_t bytes);
++required:
++  - compatible
++  - reg
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++        codec@21 {
++            compatible = "nuvoton,nau8325";
++            reg = <0x21>;
++            nuvoton,vref-impedance = <2>;
++            nuvoton,dac-vref = <2>;
++            nuvoton,alc-enable;
++            nuvoton,clock-det-data;
++        };
++    };
 -- 
-2.34.1
+2.25.1
 

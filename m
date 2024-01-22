@@ -2,217 +2,313 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE6E083DE70
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Jan 2024 17:18:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A57783DE71
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Jan 2024 17:18:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0F11782C;
-	Fri, 26 Jan 2024 17:18:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F11782C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9765C823;
+	Fri, 26 Jan 2024 17:18:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9765C823
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1706285908;
-	bh=UnsoBdnewPOL7DDxcUet3o5sW68t4dgCvhX11poPbWQ=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=XFAwFVIK0p/9kk5Ca74+d+t95a5ktNQ5YCXKtwmooIaO1dSAgSUefcq1FYdjj+AGf
-	 fsun9cKs/i9bUaTUrR8vB5aGIMhIkKsk5HoCV3WlZf0hwjwnGCZTPTUx/IvgJKMmbu
-	 wRTlFAfQtme5vx5JKUEfBstwIkXkxYj6uz4hECYM=
+	s=default; t=1706285929;
+	bh=r4hNLx1axTK9D2SO1h2Nidy6wdhcdwS0oI6JMP4mupU=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=TNTnL7QMh0SOTV2kLDyqZHlKUA84QGRpXyNzCZhXkp5xNX2YnHSvtNmsJTYRqRkzE
+	 IeKqckRkulzvOfMw58MrhlWEoZe0ZYZCLbOh6jZPWZHFwjDevPAMhjUlzBrFKNMI83
+	 lwFMoql/NFiVqv1lvlUX0VvaLdKYgdqWCJnY+Qp8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 562C0F80494; Fri, 26 Jan 2024 17:17:58 +0100 (CET)
+	id 773C6F805D4; Fri, 26 Jan 2024 17:18:02 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4C297F805A8;
-	Fri, 26 Jan 2024 17:17:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 649C9F805AD;
+	Fri, 26 Jan 2024 17:18:01 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6BFCAF801F5; Wed, 17 Jan 2024 20:56:58 +0100 (CET)
+	id 598CEF8022B; Mon, 22 Jan 2024 19:08:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from gate2.alliedtelesis.co.nz (gate2.alliedtelesis.co.nz
- [202.36.163.20])
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from metis.whiteo.stw.pengutronix.de
+ (metis.whiteo.stw.pengutronix.de [IPv6:2a0a:edc0:2:b01:1d::104])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 58CB3F8003A
-	for <alsa-devel@alsa-project.org>; Wed, 17 Jan 2024 20:56:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 58CB3F8003A
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=alliedtelesis.co.nz header.i=@alliedtelesis.co.nz
- header.a=rsa-sha256 header.s=mail181024 header.b=ef9bnGvR
-Received: from svr-chch-seg1.atlnz.lc (mmarshal3.atlnz.lc [10.32.18.43])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(Client did not present a certificate)
-	by gate2.alliedtelesis.co.nz (Postfix) with ESMTPS id 8C72B2C0108;
-	Thu, 18 Jan 2024 08:56:36 +1300 (NZDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alliedtelesis.co.nz;
-	s=mail181024; t=1705521396;
-	bh=UnsoBdnewPOL7DDxcUet3o5sW68t4dgCvhX11poPbWQ=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To:From;
-	b=ef9bnGvRZCxcrYnEP1osWxaxpbjkxMrHjlaXz8raZD8qdt3NCMflKhk91SSN+2Hpf
-	 tBk0vO44r038CodJCMTETl+9GmfKdDsDNByxWamHn4yu80LsA7SwNVdkFnzYVNR3Pb
-	 qO/aoP32vmq9yHQ1OYh58L6jaELwrkLQYh2+ZUk9rSY4FrTtrS/rP3XfaNiXzvbsBh
-	 oxe6aAH01HYHMOMU58bJaCATR401QA0oon/FZWIYBbx46TMguZJcYlpZZEA/lPv9gL
-	 cI9uMZx+/uMsiAcJYYgiONmhsvTgOfmdT42xGVLGRGRwuiEPqb8ipLUEGAgDIUy0MN
-	 f0wFRio3G2D5Q==
-Received: from svr-chch-ex2.atlnz.lc (Not Verified[2001:df5:b000:bc8::76]) by
- svr-chch-seg1.atlnz.lc with Trustwave SEG (v8,2,6,11305)
-	id <B65a830f40000>; Thu, 18 Jan 2024 08:56:36 +1300
-Received: from svr-chch-ex1.atlnz.lc (2001:df5:b000:bc8::77) by
- svr-chch-ex2.atlnz.lc (2001:df5:b000:bc8::76) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.2.1118.40; Thu, 18 Jan 2024 08:56:36 +1300
-Received: from svr-chch-ex2.atlnz.lc (2001:df5:b000:bc8::76) by
- svr-chch-ex1.atlnz.lc (2001:df5:b000:bc8:409d:36f5:8899:92e8) with Microsoft
- SMTP Server (TLS) id 15.0.1497.48; Thu, 18 Jan 2024 08:56:36 +1300
-Received: from svr-chch-ex2.atlnz.lc ([fe80::a9eb:c9b7:8b52:9567]) by
- svr-chch-ex2.atlnz.lc ([fe80::a9eb:c9b7:8b52:9567%15]) with mapi id
- 15.02.1118.040; Thu, 18 Jan 2024 08:56:36 +1300
-From: Chris Packham <Chris.Packham@alliedtelesis.co.nz>
-To: Philipp Zabel <p.zabel@pengutronix.de>, Krzysztof Kozlowski
-	<krzysztof.kozlowski@linaro.org>, Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konrad.dybcio@linaro.org>, Srinivas Kandagatla
-	<srinivas.kandagatla@linaro.org>, Banajit Goswami <bgoswami@quicinc.com>,
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, "Rob
- Herring" <robh+dt@kernel.org>, Krzysztof Kozlowski
-	<krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
-	Peter Rosin <peda@axentia.se>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
-	<tiwai@suse.com>, "linux-arm-msm@vger.kernel.org"
-	<linux-arm-msm@vger.kernel.org>, "alsa-devel@alsa-project.org"
-	<alsa-devel@alsa-project.org>, "linux-sound@vger.kernel.org"
-	<linux-sound@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-i2c@vger.kernel.org"
-	<linux-i2c@vger.kernel.org>
-CC: Bartosz Golaszewski <brgl@bgdev.pl>, Sean Anderson
-	<sean.anderson@seco.com>
-Subject: Re: [PATCH v3 5/5] i2c: muxes: pca954x: Allow sharing reset GPIO
-Thread-Topic: [PATCH v3 5/5] i2c: muxes: pca954x: Allow sharing reset GPIO
-Thread-Index: AQHaRXWBLMixCZ8WK0+mNOuBScg1h7DbubEAgABOIQCAAQBzAIAAkW6A
-Date: Wed, 17 Jan 2024 19:56:36 +0000
-Message-ID: <273168dc-2cb8-4d00-b8d0-b68d4e766410@alliedtelesis.co.nz>
-References: <20240112163608.528453-1-krzysztof.kozlowski@linaro.org>
- <20240112163608.528453-6-krzysztof.kozlowski@linaro.org>
- <800d202864c1730622a19998728c5a8b576d1931.camel@pengutronix.de>
- <4c6c5d07-ac53-4da9-93e0-1286ca5eb44b@alliedtelesis.co.nz>
- <568f2bcb1bea01c36f59650d5cc5a84612197f8b.camel@pengutronix.de>
-In-Reply-To: <568f2bcb1bea01c36f59650d5cc5a84612197f8b.camel@pengutronix.de>
-Accept-Language: en-NZ, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.33.22.30]
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <95D05D6F344ED946A08E474726AD6AA3@atlnz.lc>
-Content-Transfer-Encoding: base64
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3B66BF8059F
+	for <alsa-devel@alsa-project.org>; Mon, 22 Jan 2024 19:08:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B66BF8059F
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1rRyiY-0001lP-N0; Mon, 22 Jan 2024 19:08:18 +0100
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.94.2)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1rRyiS-001ePE-PM; Mon, 22 Jan 2024 19:08:12 +0100
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.96)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1rRyiS-005Zwj-1m;
+	Mon, 22 Jan 2024 19:08:12 +0100
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Mark Brown <broonie@kernel.org>
+Cc: kernel@pengutronix.de,
+	Moritz Fischer <mdf@kernel.org>,
+	Wu Hao <hao.wu@intel.com>,
+	Xu Yilun <yilun.xu@intel.com>,
+	Tom Rix <trix@redhat.com>,
+	linux-fpga@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Alexander Aring <alex.aring@gmail.com>,
+	Stefan Schmidt <stefan@datenfreihafen.org>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-wpan@vger.kernel.org,
+	netdev@vger.kernel.org,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	linux-iio@vger.kernel.org,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	linux-input@vger.kernel.org,
+	Ulf Hansson <ulf.hansson@linaro.org>,
+	Rayyan Ansari <rayyan@ansari.sh>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+	Martin Tuma <martin.tuma@digiteqautomotive.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
+	Sergey Kozlov <serjk@netup.ru>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Yang Yingliang <yangyingliang@huawei.com>,
+	linux-mmc@vger.kernel.org,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Rob Herring <robh@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Michal Simek <michal.simek@amd.com>,
+	Amit Kumar Mahapatra via Alsa-devel <alsa-devel@alsa-project.org>,
+	linux-mtd@lists.infradead.org,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	=?utf-8?q?Pali_Roh=C3=A1r?= <pali@kernel.org>,
+	Simon Horman <horms@kernel.org>,
+	Ronald Wahl <ronald.wahl@raritan.com>,
+	Benson Leung <bleung@chromium.org>,
+	Tzung-Bi Shih <tzungbi@kernel.org>,
+	Guenter Roeck <groeck@chromium.org>,
+	chrome-platform@lists.linux.dev,
+	Max Filippov <jcmvbkbc@gmail.com>,
+	linux-spi@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konrad.dybcio@linaro.org>,
+	linux-arm-msm@vger.kernel.org,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-mediatek@lists.infradead.org,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Javier Martinez Canillas <javierm@redhat.com>,
+	Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-fbdev@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	Viresh Kumar <vireshk@kernel.org>,
+	Rui Miguel Silva <rmfrfs@gmail.com>,
+	Johan Hovold <johan@kernel.org>,
+	Alex Elder <elder@kernel.org>,
+	greybus-dev@lists.linaro.org,
+	Peter Huewe <peterhuewe@gmx.de>,
+	Jarkko Sakkinen <jarkko@kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	linux-integrity@vger.kernel.org,
+	Herve Codina <herve.codina@bootlin.com>,
+	Alan Stern <stern@rowland.harvard.edu>,
+	Aaro Koskinen <aaro.koskinen@iki.fi>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+	linux-usb@vger.kernel.org,
+	Helge Deller <deller@gmx.de>,
+	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+	Kalle Valo <kvalo@kernel.org>,
+	Dmitry Antipov <dmantipov@yandex.ru>,
+	libertas-dev@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	Jonathan Corbet <corbet@lwn.net>,
+	James Clark <james.clark@arm.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	linux-doc@vger.kernel.org
+Subject: [PATCH v2 00/33] spi: get rid of some legacy macros
+Date: Mon, 22 Jan 2024 19:06:55 +0100
+Message-ID: <cover.1705944943.git.u.kleine-koenig@pengutronix.de>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-X-SEG-SpamProfiler-Analysis: v=2.3 cv=LZFCFQXi c=1 sm=1 tr=0
- a=Xf/6aR1Nyvzi7BryhOrcLQ==:117 a=xqWC_Br6kY4A:10 a=75chYTbOgJ0A:10
- a=IkcTkHD0fZMA:10 a=dEuoMetlWLkA:10 a=KKAkSRfTAAAA:8 a=62ntRvTiAAAA:8
- a=VwQbUJbxAAAA:8 a=vE6nA0IPAAAA:8 a=8-3aiZTupm_KTbKaFEUA:9 a=QEXdDO2ut3YA:10
- a=cvBusfyB2V15izCimMoJ:22 a=pToNdpNmrtiFLRE6bQ9Z:22 a=AjGcO6oz07-iQ99wixmX:22
- a=_s8P6U4_B6QeRRtK5oEG:22
-X-SEG-SpamProfiler-Score: 0
-X-MailFrom: Chris.Packham@alliedtelesis.co.nz
-X-Mailman-Rule-Hits: nonmember-moderation
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5874;
+ i=u.kleine-koenig@pengutronix.de; h=from:subject:message-id;
+ bh=r4hNLx1axTK9D2SO1h2Nidy6wdhcdwS0oI6JMP4mupU=;
+ b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBlrq7CRGL5rco/IZ7baQyO1t3S9it11eXvRLZKR
+ GbQbTfz3/2JATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZa6uwgAKCRCPgPtYfRL+
+ TlSmB/4k7WiBaRL3saK9pl+Gkw8Hqk7HVFstVTQ/rkaYbIsJGY0xZw8/1EJjSObFeB+APA4aMQh
+ I79wzfj/BAi6u9wIsVNiQ9y/G7wHtwifXCuuRBAfRSQICGNo++YWb4VjoViqUrlwFz1on55YRHO
+ fF0At9RAUzuTpDwaPQlercYTSV2fRZOyE6oFjYu50ibPS5RDRAlt5RMXKu+KeNvZIt1a7rYblZd
+ 3X+5IV8boWAzqfA2x+ESE9bxy64tcf4U55YuI4LIo7T/6pTUUmJEXiJK3Hqi+KdRcDIt0RoY0Co
+ KLQSX3Yu+cnQoWcdVVqzWe5P2RjCFOxbxIHkvh+IxoWx5PzK
+X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
+ fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: alsa-devel@alsa-project.org
+X-MailFrom: ukl@pengutronix.de
+X-Mailman-Rule-Hits: max-recipients
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: 6ZBZMEJIBCPTCBUM7JZF5BM5ZPCA7XQP
-X-Message-ID-Hash: 6ZBZMEJIBCPTCBUM7JZF5BM5ZPCA7XQP
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
+ suspicious-header
+Message-ID-Hash: E66TKXHHORRWSYL5QPSROH23UKSLFLFJ
+X-Message-ID-Hash: E66TKXHHORRWSYL5QPSROH23UKSLFLFJ
 X-Mailman-Approved-At: Fri, 26 Jan 2024 16:17:52 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6ZBZMEJIBCPTCBUM7JZF5BM5ZPCA7XQP/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/E66TKXHHORRWSYL5QPSROH23UKSLFLFJ/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-DQpPbiAxOC8wMS8yNCAwMDoxNiwgUGhpbGlwcCBaYWJlbCB3cm90ZToNCj4gT24gRGksIDIwMjQt
-MDEtMTYgYXQgMTk6NTggKzAwMDAsIENocmlzIFBhY2toYW0gd3JvdGU6DQo+PiBPbiAxNy8wMS8y
-NCAwNDoxOCwgUGhpbGlwcCBaYWJlbCB3cm90ZToNCj4+PiBPbiBGciwgMjAyNC0wMS0xMiBhdCAx
-NzozNiArMDEwMCwgS3J6eXN6dG9mIEtvemxvd3NraSB3cm90ZToNCj4+Pj4gRnJvbTogQ2hyaXMg
-UGFja2hhbSA8Y2hyaXMucGFja2hhbUBhbGxpZWR0ZWxlc2lzLmNvLm56Pg0KPj4+Pg0KPj4+PiBT
-b21lIGhhcmR3YXJlIGRlc2lnbnMgd2l0aCBtdWx0aXBsZSBQQ0E5NTR4IGRldmljZXMgdXNlIGEg
-cmVzZXQgR1BJTw0KPj4+PiBjb25uZWN0ZWQgdG8gYWxsIHRoZSBtdXhlcy4gU3VwcG9ydCB0aGlz
-IGNvbmZpZ3VyYXRpb24gYnkgbWFraW5nIHVzZSBvZg0KPj4+PiB0aGUgcmVzZXQgY29udHJvbGxl
-ciBmcmFtZXdvcmsgd2hpY2ggY2FuIGRlYWwgd2l0aCB0aGUgc2hhcmVkIHJlc2V0DQo+Pj4+IEdQ
-SU9zLiBGYWxsIGJhY2sgdG8gdGhlIG9sZCBHUElPIGRlc2NyaXB0b3IgbWV0aG9kIGlmIHRoZSBy
-ZXNldA0KPj4+PiBjb250cm9sbGVyIGZyYW1ld29yayBpcyBub3QgZW5hYmxlZC4NCj4+Pj4NCj4+
-Pj4gU2lnbmVkLW9mZi1ieTogQ2hyaXMgUGFja2hhbSA8Y2hyaXMucGFja2hhbUBhbGxpZWR0ZWxl
-c2lzLmNvLm56Pg0KPj4+PiBBY2tlZC1ieTogUGV0ZXIgUm9zaW4gPHBlZGFAYXhlbnRpYS5zZT4N
-Cj4+Pj4gUmV2aWV3ZWQtYnk6IEtyenlzenRvZiBLb3psb3dza2kgPGtyenlzenRvZi5rb3psb3dz
-a2lAbGluYXJvLm9yZz4NCj4+Pj4gTGluazogaHR0cHM6Ly9zY2FubWFpbC50cnVzdHdhdmUuY29t
-Lz9jPTIwOTg4JmQ9X2JhbjVXM3hSektTaW1KOWlqVEo3NHAxMG90ZnE4Wk9OZmpWbkJyNkZ3JnU9
-aHR0cHMlM2ElMmYlMmZsb3JlJTJla2VybmVsJTJlb3JnJTJmciUyZjIwMjQwMTA4MDQxOTEzJTJl
-NzA3OC0xLWNocmlzJTJlcGFja2hhbSU0MGFsbGllZHRlbGVzaXMlMmVjbyUyZW56DQo+Pj4+IFNp
-Z25lZC1vZmYtYnk6IEtyenlzenRvZiBLb3psb3dza2kgPGtyenlzenRvZi5rb3psb3dza2lAbGlu
-YXJvLm9yZz4NCj4+Pj4NCj4+Pj4gLS0tDQo+Pj4+DQo+Pj4+IElmIHByZXZpb3VzIHBhdGNoZXMg
-YXJlIGZpbmUsIHRoZW4gdGhpcyBjb21taXQgaXMgaW5kZXBlbmRlbnQgYW5kIGNvdWxkDQo+Pj4+
-IGJlIHRha2VuIHZpYSBJMkMuDQo+Pj4+DQo+Pj4+IENjOiBDaHJpcyBQYWNraGFtIDxjaHJpcy5w
-YWNraGFtQGFsbGllZHRlbGVzaXMuY28ubno+DQo+Pj4+IENjOiBCYXJ0b3N6IEdvbGFzemV3c2tp
-IDxicmdsQGJnZGV2LnBsPg0KPj4+PiBDYzogU2VhbiBBbmRlcnNvbiA8c2Vhbi5hbmRlcnNvbkBz
-ZWNvLmNvbT4NCj4+Pj4gLS0tDQo+Pj4+ICAgIGRyaXZlcnMvaTJjL211eGVzL2kyYy1tdXgtcGNh
-OTU0eC5jIHwgNDYgKysrKysrKysrKysrKysrKysrKysrKysrLS0tLS0NCj4+Pj4gICAgMSBmaWxl
-IGNoYW5nZWQsIDM4IGluc2VydGlvbnMoKyksIDggZGVsZXRpb25zKC0pDQo+Pj4+DQo+Pj4+IGRp
-ZmYgLS1naXQgYS9kcml2ZXJzL2kyYy9tdXhlcy9pMmMtbXV4LXBjYTk1NHguYyBiL2RyaXZlcnMv
-aTJjL211eGVzL2kyYy1tdXgtcGNhOTU0eC5jDQo+Pj4+IGluZGV4IDIyMTkwNjIxMDRmYi4uMTcw
-MmU4ZDQ5YjkxIDEwMDY0NA0KPj4+PiAtLS0gYS9kcml2ZXJzL2kyYy9tdXhlcy9pMmMtbXV4LXBj
-YTk1NHguYw0KPj4+PiArKysgYi9kcml2ZXJzL2kyYy9tdXhlcy9pMmMtbXV4LXBjYTk1NHguYw0K
-Pj4+PiBAQCAtNDksNiArNDksNyBAQA0KPj4+PiAgICAjaW5jbHVkZSA8bGludXgvcG0uaD4NCj4+
-Pj4gICAgI2luY2x1ZGUgPGxpbnV4L3Byb3BlcnR5Lmg+DQo+Pj4+ICAgICNpbmNsdWRlIDxsaW51
-eC9yZWd1bGF0b3IvY29uc3VtZXIuaD4NCj4+Pj4gKyNpbmNsdWRlIDxsaW51eC9yZXNldC5oPg0K
-Pj4+PiAgICAjaW5jbHVkZSA8bGludXgvc2xhYi5oPg0KPj4+PiAgICAjaW5jbHVkZSA8bGludXgv
-c3BpbmxvY2suaD4NCj4+Pj4gICAgI2luY2x1ZGUgPGR0LWJpbmRpbmdzL211eC9tdXguaD4NCj4+
-Pj4gQEAgLTEwMiw2ICsxMDMsOSBAQCBzdHJ1Y3QgcGNhOTU0eCB7DQo+Pj4+ICAgIAl1bnNpZ25l
-ZCBpbnQgaXJxX21hc2s7DQo+Pj4+ICAgIAlyYXdfc3BpbmxvY2tfdCBsb2NrOw0KPj4+PiAgICAJ
-c3RydWN0IHJlZ3VsYXRvciAqc3VwcGx5Ow0KPj4+PiArDQo+Pj4+ICsJc3RydWN0IGdwaW9fZGVz
-YyAqcmVzZXRfZ3BpbzsNCj4+Pj4gKwlzdHJ1Y3QgcmVzZXRfY29udHJvbCAqcmVzZXRfY29udDsN
-Cj4+Pj4gICAgfTsNCj4+Pj4gICAgDQo+Pj4+ICAgIC8qIFByb3ZpZGUgc3BlY3MgZm9yIHRoZSBN
-QVg3MzV4LCBQQ0E5NTR4IGFuZCBQQ0E5ODR4IHR5cGVzIHdlIGtub3cgYWJvdXQgKi8NCj4+Pj4g
-QEAgLTQ3Nyw2ICs0ODEsMzUgQEAgc3RhdGljIGludCBwY2E5NTR4X2luaXQoc3RydWN0IGkyY19j
-bGllbnQgKmNsaWVudCwgc3RydWN0IHBjYTk1NHggKmRhdGEpDQo+Pj4+ICAgIAlyZXR1cm4gcmV0
-Ow0KPj4+PiAgICB9DQo+Pj4+ICAgIA0KPj4+PiArc3RhdGljIGludCBwY2E5NTR4X2dldF9yZXNl
-dChzdHJ1Y3QgZGV2aWNlICpkZXYsIHN0cnVjdCBwY2E5NTR4ICpkYXRhKQ0KPj4+PiArew0KPj4+
-PiArCWRhdGEtPnJlc2V0X2NvbnQgPSBkZXZtX3Jlc2V0X2NvbnRyb2xfZ2V0X29wdGlvbmFsX3No
-YXJlZChkZXYsIE5VTEwpOw0KPj4+PiArCWlmIChJU19FUlIoZGF0YS0+cmVzZXRfY29udCkpDQo+
-Pj4+ICsJCXJldHVybiBkZXZfZXJyX3Byb2JlKGRldiwgUFRSX0VSUihkYXRhLT5yZXNldF9jb250
-KSwNCj4+Pj4gKwkJCQkgICAgICJGYWlsZWQgdG8gZ2V0IHJlc2V0XG4iKTsNCj4+Pj4gKwllbHNl
-IGlmIChkYXRhLT5yZXNldF9jb250KQ0KPj4+PiArCQlyZXR1cm4gMDsNCj4+Pj4gKw0KPj4+PiAr
-CS8qDQo+Pj4+ICsJICogZmFsbGJhY2sgdG8gbGVnYWN5IHJlc2V0LWdwaW9zDQo+Pj4+ICsJICov
-DQo+Pj4gZGV2bV9yZXNldF9jb250cm9sX2dldF9vcHRpb25hbF9zaGFyZWQoKSB3b24ndCByZXR1
-cm4gTlVMTCBpZiB0aGUNCj4+PiAicmVzZXQtZ3Bpb3MiIHByb3BlcnR5IGlzIGZvdW5kIGluIHRo
-ZSBkZXZpY2UgdHJlZSwgc28gdGhlIEdQSU8NCj4+PiBmYWxsYmFjayBpcyBkZWFkIGNvZGUuDQo+
-PiBIbW0sIEkgd2FzIGF0dGVtcHRpbmcgdG8gaGFuZGxlIHRoZSBjYXNlIHdoZXJlIENPTkZJR19S
-RVNFVF9HUElPIHdhc24ndA0KPj4gc2V0IFsuLi5dDQo+PiBbLi4uXSBpdCBsb29rcyBsaWtlIHdl
-J2QgZ2V0IC1FUFJPQkVfREVGRVIuIEkgY291bGQgY2hhbmdlIHRvIGNoZWNrDQo+PiBmb3IgdGhh
-dCBvciBqdXN0IHJlbW92ZSB0aGUgR1BJTyBmYWxsYmFjayBlbnRpcmVseS4gQW55IHByZWZlcmVu
-Y2U/DQo+IEkgaGFkbid0IGNvbnNpZGVyZWQgdGhpcy4NCj4NCj4gSWYgQ09ORklHX1JFU0VUX0dQ
-SU89biwgZGV2bV9yZXNldF9jb250cm9sX2dldF9vcHRpb25hbF9zaGFyZWQoKQ0KPiBwcm9iYWJs
-eSBzaG91bGRuJ3QgcmV0dXJuIC1FUFJPQkVfREVGRVIuIElmIHdlIGNoYW5nZSB0aGF0LCB0aGUg
-R1BJTw0KPiBmYWxsYmFjayBoZXJlIGNhbiBzdGF5IGFzIGlzLg0KPg0KPiBUaGUgYWx0ZXJuYXRp
-dmUgd291bGQgYmUgdG8gZHJvcCB0aGUgZmFsbGJhY2sgYW5kIHNlbGVjdCBSRVNFVF9HUElPLg0K
-PiBVc2luZyAtRVBST0JFX0RFRkVSIGZvciBmYWxsYmFjayBkZXRlY3Rpb24gaXMgbm8gZ29vZCwg
-YXMgdGhlcmUgY291bGQNCj4gYmUgYSB2YWxpZCBwcm9iZSBkZWZlcnJhbCBpZiByZXNldC1ncGlv
-IGlzIGNvbXBpbGVkIGFzIGEgbW9kdWxlIHRoYXQNCj4gd2lsbCBiZSBsb2FkZWQgbGF0ZXIuDQpJ
-IGRpZCBjb25zaWRlciBhZGRpbmcgYHNlbGVjdCBSRVNFVF9HUElPYCAob3IgbWF5YmUganVzdCBg
-aW1wbHkgDQpSRVNFVF9HUElPYCkgaW5pdGlhbGx5IGJ1dCBkZWNpZGVkIG9uIHRoZSBmYWxsYmFj
-ayBhcyBhIHdheSBvZiBhdm9pZGluZyANCnN1cnByaXNlcyBmb3IgZXhpc3RpbmcgdXNlcnMuIEkn
-bGwgc2VlIGlmIGFueW9uZSBlbHNlIGhhcyBhIGRpZmZlcmVudCANCnN1Z2dlc3Rpb24gYnV0IGFz
-c3VtaW5nIG5vdGhpbmcgZWxzZSBjaGFuZ2VzIEknbGwgd29yayB3aXRoIEtyenlzdG9mIHRvIA0K
-Z2V0IGFuIHVwZGF0ZWQgcGF0Y2ggZm9yIHRoaXMgc2VyaWVzLg0K
+Hello,
+
+this is v2 of this patch set.
+
+Changes since (implicit) v1, sent with Message-Id:
+cover.1705348269.git.u.kleine-koenig@pengutronix.de:
+
+ - Rebase to v6.8-rc1
+ - Fix a build failure on sh
+ - Added the tags received in (implicit) v1.
+
+The slave-mt27xx driver needs some more work. The patch presented here
+is enough however to get rid of the defines handled in patch 32.
+Cleaning that up is out-of-scope for this series, so I'll delay that
+until later.
+
+Note that Jonathan Cameron has already applied patch 3 to his tree, it
+didn't appear in a public tree though yet. I still included it here to
+make the kernel build bots happy.
+
+Best regards
+Uwe
+
+Uwe Kleine-König (33):
+  fpga: ice40-spi: Follow renaming of SPI "master" to "controller"
+  ieee802154: ca8210: Follow renaming of SPI "master" to "controller"
+  iio: adc: ad_sigma_delta: Follow renaming of SPI "master" to
+    "controller"
+  Input: pxspad - follow renaming of SPI "master" to "controller"
+  Input: synaptics-rmi4 - follow renaming of SPI "master" to
+    "controller"
+  media: mgb4: Follow renaming of SPI "master" to "controller"
+  media: netup_unidvb: Follow renaming of SPI "master" to "controller"
+  media: usb/msi2500: Follow renaming of SPI "master" to "controller"
+  media: v4l2-subdev: Follow renaming of SPI "master" to "controller"
+  misc: gehc-achc: Follow renaming of SPI "master" to "controller"
+  mmc: mmc_spi: Follow renaming of SPI "master" to "controller"
+  mtd: dataflash: Follow renaming of SPI "master" to "controller"
+  mtd: rawnand: fsl_elbc: Let .probe retry if local bus is missing
+  net: ks8851: Follow renaming of SPI "master" to "controller"
+  net: vertexcom: mse102x: Follow renaming of SPI "master" to
+    "controller"
+  platform/chrome: cros_ec_spi: Follow renaming of SPI "master" to
+    "controller"
+  spi: bitbang: Follow renaming of SPI "master" to "controller"
+  spi: cadence-quadspi: Don't emit error message on allocation error
+  spi: cadence-quadspi: Follow renaming of SPI "master" to "controller"
+  spi: cavium: Follow renaming of SPI "master" to "controller"
+  spi: geni-qcom: Follow renaming of SPI "master" to "controller"
+  spi: loopback-test: Follow renaming of SPI "master" to "controller"
+  spi: slave-mt27xx: Follow renaming of SPI "master" to "controller"
+  spi: spidev: Follow renaming of SPI "master" to "controller"
+  staging: fbtft: Follow renaming of SPI "master" to "controller"
+  staging: greybus: spi: Follow renaming of SPI "master" to "controller"
+  tpm_tis_spi: Follow renaming of SPI "master" to "controller"
+  usb: gadget: max3420_udc: Follow renaming of SPI "master" to
+    "controller"
+  video: fbdev: mmp: Follow renaming of SPI "master" to "controller"
+  wifi: libertas: Follow renaming of SPI "master" to "controller"
+  spi: fsl-lib: Follow renaming of SPI "master" to "controller"
+  spi: Drop compat layer from renaming "master" to "controller"
+  Documentation: spi: Update documentation for renaming "master" to
+    "controller"
+
+ .../driver-api/driver-model/devres.rst        |  2 +-
+ Documentation/spi/spi-summary.rst             | 74 +++++++++----------
+ drivers/char/tpm/tpm_tis_spi_main.c           |  4 +-
+ drivers/fpga/ice40-spi.c                      |  4 +-
+ drivers/iio/adc/ad_sigma_delta.c              | 14 ++--
+ drivers/input/joystick/psxpad-spi.c           |  4 +-
+ drivers/input/rmi4/rmi_spi.c                  |  2 +-
+ drivers/media/pci/mgb4/mgb4_core.c            | 14 ++--
+ .../media/pci/netup_unidvb/netup_unidvb_spi.c | 48 ++++++------
+ drivers/media/usb/msi2500/msi2500.c           | 38 +++++-----
+ drivers/media/v4l2-core/v4l2-spi.c            |  4 +-
+ drivers/misc/gehc-achc.c                      |  8 +-
+ drivers/mmc/host/mmc_spi.c                    |  6 +-
+ drivers/mtd/devices/mtd_dataflash.c           |  2 +-
+ drivers/mtd/nand/raw/fsl_elbc_nand.c          |  3 +-
+ drivers/net/ethernet/micrel/ks8851_spi.c      |  4 +-
+ drivers/net/ethernet/vertexcom/mse102x.c      |  2 +-
+ drivers/net/ieee802154/ca8210.c               |  2 +-
+ .../net/wireless/marvell/libertas/if_spi.c    |  2 +-
+ drivers/platform/chrome/cros_ec_spi.c         |  8 +-
+ drivers/spi/spi-ath79.c                       |  4 +-
+ drivers/spi/spi-bitbang.c                     | 64 ++++++++--------
+ drivers/spi/spi-butterfly.c                   |  6 +-
+ drivers/spi/spi-cadence-quadspi.c             |  7 +-
+ drivers/spi/spi-cavium.c                      |  6 +-
+ drivers/spi/spi-cavium.h                      |  2 +-
+ drivers/spi/spi-davinci.c                     |  6 +-
+ drivers/spi/spi-fsl-lib.c                     | 14 ++--
+ drivers/spi/spi-geni-qcom.c                   |  2 +-
+ drivers/spi/spi-gpio.c                        |  2 +-
+ drivers/spi/spi-lm70llp.c                     |  6 +-
+ drivers/spi/spi-loopback-test.c               |  4 +-
+ drivers/spi/spi-oc-tiny.c                     |  6 +-
+ drivers/spi/spi-omap-uwire.c                  |  4 +-
+ drivers/spi/spi-sh-sci.c                      | 10 +--
+ drivers/spi/spi-slave-mt27xx.c                |  2 +-
+ drivers/spi/spi-xilinx.c                      |  4 +-
+ drivers/spi/spi-xtensa-xtfpga.c               |  2 +-
+ drivers/spi/spi.c                             |  2 +-
+ drivers/spi/spidev.c                          |  2 +-
+ drivers/staging/fbtft/fbtft-core.c            |  4 +-
+ drivers/staging/greybus/spilib.c              | 66 ++++++++---------
+ drivers/usb/gadget/udc/max3420_udc.c          |  2 +-
+ drivers/video/fbdev/mmp/hw/mmp_spi.c          | 26 +++----
+ include/linux/spi/spi.h                       | 20 +----
+ include/linux/spi/spi_bitbang.h               |  2 +-
+ include/media/v4l2-common.h                   |  6 +-
+ 47 files changed, 254 insertions(+), 272 deletions(-)
+
+
+base-commit: 6613476e225e090cc9aad49be7fa504e290dd33d
+-- 
+2.43.0
+

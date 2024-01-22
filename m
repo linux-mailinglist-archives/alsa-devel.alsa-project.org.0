@@ -2,163 +2,118 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 703DC836D60
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jan 2024 18:29:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21E97836E22
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jan 2024 18:46:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6F4BA850;
-	Mon, 22 Jan 2024 18:29:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F4BA850
+	by alsa0.perex.cz (Postfix) with ESMTPS id E2FC485D;
+	Mon, 22 Jan 2024 18:46:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E2FC485D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1705944592;
-	bh=6FeAIXLL4BMXxP3NQlpVvmV8ek7N+/33fe5B2RSSNM4=;
+	s=default; t=1705945590;
+	bh=edDM7lfGqltMa9Izn2Q7exVxd+SiKBQ341jD5qmdL2E=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=PsV50GUl4wEFo0g5uObNGOegxKUZkpc9yYhOKyf6Gn3XScXso49zKeXXwvOSW+7Iv
-	 uEQSDr7ndwzQWSS5CwUOiMLWrnwhByXRr8tlog66Xtgbe7JuGTB4WSEU23M+W2ToVA
-	 aE0XmSbBUlQsjfeMepVnQD9Vi7AENgFxzqgPgEt8=
+	b=g5zOX4mnvGQMuHo9h+NSMG7qD01X4wyWui4dG1jiXG5dLvsGQmLQcN4E2oQgHAAv2
+	 OZ9I8zkBuz5xesN2XMKUcQTg8FYTX5VQkC3UL7Ph7YVCInmUD+yCmNAHraTtBz+uYa
+	 kLL6C0xIutQd+BJ94rmx68KQPVJlfg9pC4u/U5pQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 51F3CF80587; Mon, 22 Jan 2024 18:29:21 +0100 (CET)
+	id 18A9CF8022B; Mon, 22 Jan 2024 18:45:59 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C2A0DF80578;
-	Mon, 22 Jan 2024 18:29:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7B0E9F802E8;
+	Mon, 22 Jan 2024 18:45:59 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 45804F8025F; Mon, 22 Jan 2024 18:29:14 +0100 (CET)
+	id 7047DF8025F; Mon, 22 Jan 2024 18:45:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-6.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 58D8FF800C1
-	for <alsa-devel@alsa-project.org>; Mon, 22 Jan 2024 18:29:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 58D8FF800C1
+	by alsa1.perex.cz (Postfix) with ESMTPS id 25007F8020D
+	for <alsa-devel@alsa-project.org>; Mon, 22 Jan 2024 18:45:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25007F8020D
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=vMJTWOsG
+	dkim=pass (1024-bit key,
+ unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org
+ header.a=rsa-sha256 header.s=korg header.b=ZvAomMzF
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id D2E6ACE2B6E;
-	Mon, 22 Jan 2024 17:29:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DADACC43390;
-	Mon, 22 Jan 2024 17:29:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1705944540;
-	bh=6FeAIXLL4BMXxP3NQlpVvmV8ek7N+/33fe5B2RSSNM4=;
+	by ams.source.kernel.org (Postfix) with ESMTP id CEDB4B80C63;
+	Mon, 22 Jan 2024 17:45:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 155C4C433C7;
+	Mon, 22 Jan 2024 17:45:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+	s=korg; t=1705945544;
+	bh=edDM7lfGqltMa9Izn2Q7exVxd+SiKBQ341jD5qmdL2E=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=vMJTWOsGivJR62sg5NtIpQ4+SkzwUTtajCJivqs3X5LFdwl1WJMKpC9/sPpycZ7RE
-	 EMVL/5OB5lQHH2qXPZWRHyt9Z2IgGJB+gWzhEEVTd/XAC83KWiS45P087CIHvjBXMx
-	 doyKBdZB9FWdUx53efJBAi/UpMov+/tW9Ysm4o9ZRzOsENuhC3PuDGm7MKF/9BeY4j
-	 PnaV01wZHf/fxQLG5NQIEpUKVoNRzb1jarK1IBUSJsljfjam5k7Xcda5G/vWeCPvE8
-	 sSwuyaHTRs/FpHfSkZte7dAYMmW7pAXzevefBWDpXkGwnu6igaTC0TyUN8yjFcVLB/
-	 cMAsPztStzxaA==
-Received: from johan by xi.lan with local (Exim 4.97.1)
-	(envelope-from <johan@kernel.org>)
-	id 1rRy6i-000000000rG-2U1d;
-	Mon, 22 Jan 2024 18:29:12 +0100
-Date: Mon, 22 Jan 2024 18:29:12 +0100
-From: Johan Hovold <johan@kernel.org>
+	b=ZvAomMzFpKuOuUs2LXelYpPMpmhUNaJprpgmh/DPwRn3eydJiDrfRrXbwvYv/n0FJ
+	 bG6Lnxl7gJ7qTlODFEIwNTKSwcmk+ihyPoqfEjPF1Sd4f2d3Hlw6FtG9EH+4cfiW9e
+	 HYVrTe1SW5Bj5i1UoxtAB8up5RrFNNvRy+gWLHNo=
+Date: Mon, 22 Jan 2024 09:45:43 -0800
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: Mark Brown <broonie@kernel.org>
-Cc: Johan Hovold <johan+linaro@kernel.org>,
-	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-	Banajit Goswami <bgoswami@quicinc.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v4 2/4] ASoC: qcom: sc8280xp: limit speaker volumes
-Message-ID: <Za6l6EP7OqXPU9mj@hovoldconsulting.com>
-References: <20240119112420.7446-1-johan+linaro@kernel.org>
- <20240119112420.7446-3-johan+linaro@kernel.org>
- <d54d3640-49bf-4a2f-903b-4beeb0ebd56c@sirena.org.uk>
- <Za4cR90XoAaATq8X@hovoldconsulting.com>
- <aca2b125-acf8-4791-a3eb-ea19826d3ee4@sirena.org.uk>
+Cc: Sasha Levin <sashal@kernel.org>, kernelci-results@groups.io,
+	bot@kernelci.org, stable@vger.kernel.org,
+	alsa-devel@alsa-project.org
+Subject: Re: kernelci/kernelci.org bisection:
+ baseline-nfs.bootrr.deferred-probe-empty on at91sam9g20ek
+Message-ID: <2024012226-probably-politely-0343@gregkh>
+References: <65a6ca18.170a0220.9f7f3.fa9a@mx.google.com>
+ <845b3053-d47b-4717-9665-79b120da133b@sirena.org.uk>
+ <2024011716-undocked-external-9eae@gregkh>
+ <82cda3d4-2e46-4690-8317-855ca80fd013@sirena.org.uk>
+ <2024011816-overstate-move-4df8@gregkh>
+ <3c7cf19d-cd94-4d94-b4f5-1e0946fd0963@sirena.org.uk>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="zuPb1ptY6OeW5Twe"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aca2b125-acf8-4791-a3eb-ea19826d3ee4@sirena.org.uk>
-Message-ID-Hash: EIYNOKXRLK7ZF75ZCAD5KBRIUG733UZ7
-X-Message-ID-Hash: EIYNOKXRLK7ZF75ZCAD5KBRIUG733UZ7
-X-MailFrom: johan@kernel.org
-X-Mailman-Rule-Hits: nonmember-moderation
+In-Reply-To: <3c7cf19d-cd94-4d94-b4f5-1e0946fd0963@sirena.org.uk>
+Message-ID-Hash: BOL74SWPTQJIGWPN2WBHWLRHE73SIREY
+X-Message-ID-Hash: BOL74SWPTQJIGWPN2WBHWLRHE73SIREY
+X-MailFrom: gregkh@linuxfoundation.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EIYNOKXRLK7ZF75ZCAD5KBRIUG733UZ7/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BOL74SWPTQJIGWPN2WBHWLRHE73SIREY/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Thu, Jan 18, 2024 at 02:33:17PM +0000, Mark Brown wrote:
+> On Thu, Jan 18, 2024 at 11:16:29AM +0100, Greg Kroah-Hartman wrote:
+> > On Wed, Jan 17, 2024 at 01:52:59PM +0000, Mark Brown wrote:
+> 
+> > > > I'll be glad to revert, but should I also revert for 4.19.y and 5.4.y
+> > > > and 5.10.y?
+> 
+> > > I'd be tempted to, though it's possible it's some other related issue so
+> > > it might be safest to hold off until there's an explicit report.  Up to
+> > > you.
+> 
+> > I'll just drop it from 5.15.y for now, thanks!
+> 
+> Thanks.  I've actually just seen that it's also failing on v4.19, and
+> went looking and found that v5.4 and v5.10 look like they never passed
+> which means it didn't trigger as a report there.
 
---zuPb1ptY6OeW5Twe
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Now queued up the revert for the other branches as well, thanks.
 
-On Mon, Jan 22, 2024 at 04:05:37PM +0000, Mark Brown wrote:
-> On Mon, Jan 22, 2024 at 08:41:59AM +0100, Johan Hovold wrote:
-> > On Mon, Jan 22, 2024 at 12:03:55AM +0000, Mark Brown wrote:
->=20
-> > > This doesn't apply against current code, please check and resend.
->=20
-> > These patches are based on Linus's tree after merging the sound updates
-> > and I just verified that they apply cleanly to 6.8-rc1.
->=20
-> > I couldn't find anything related in either linux-next or your ASoC tree
-> > that should interfere.
->=20
-> > Could you please try again or let me know which branch to rebase on?
->=20
-> I was applying it against v6.8-rc1.
-
-That's what I assumed, but I still don't understand why it doesn't apply
-on your end:
-
-	$ git checkout -b tmp v6.8-rc1
-	$ b4 am 20240119112420.7446-1-johan+linaro@kernel.org
-	...
- 	$ git am ./v4_20240119_johan_linaro_asoc_qcom_volume_fixes_and_codec_clea=
-nups.mbx
-	Applying: ASoC: codecs: wsa883x: fix PA volume control
-	Applying: ASoC: qcom: sc8280xp: limit speaker volumes
-	Applying: ASoC: codecs: lpass-wsa-macro: fix compander volume hack
-	Applying: ASoC: codecs: wcd9335: drop unused gain hack remnant
-
-And if I generate patches from this branch, the diffs are identical to
-the v4 patches I sent.
-
-Could you please try again, and tell me which patch fails to apply and
-how it fails?
-
-Johan
-
---zuPb1ptY6OeW5Twe
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQQHbPq+cpGvN/peuzMLxc3C7H1lCAUCZa6l5AAKCRALxc3C7H1l
-CDS1AP9v09QUe0W/JBDJqz8b7Z8aLnAKxR6EToN186tpJEhmQQD/ZITVhd2YTnO0
-WgezFd6GQaMqTSjOQhoI/Zrt8Qu8Vw8=
-=IyN/
------END PGP SIGNATURE-----
-
---zuPb1ptY6OeW5Twe--
+greg k-h

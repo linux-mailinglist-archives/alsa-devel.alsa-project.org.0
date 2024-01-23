@@ -2,109 +2,108 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 651CF838A24
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jan 2024 10:19:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B1C7838D7D
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jan 2024 12:33:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AFE1B85D;
-	Tue, 23 Jan 2024 10:19:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AFE1B85D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6BE5C846;
+	Tue, 23 Jan 2024 12:33:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6BE5C846
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1706001593;
-	bh=7VuZmFxUpB1lVSDCAJTO+tJjNkrL3UwBXwDgvhvIjBI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=MIp3GR9q+Ysb0lUMfxWSTLQrvEJgrOI7ArxdZ5cwCY2cBLhfVuhlP55Nuh8sQRW1A
-	 p2gRAxIoZvgCKfmKE4aL0V8ogTYM1otJI4E3YQ4lRQLOLHONp9VrAC2ZKuJZEb8x/W
-	 eWckHY/4faW49WneMQlqsGc+C0eb52sq9SQtHBQE=
+	s=default; t=1706009623;
+	bh=twtRZ2kll5KW9N9kkXciaYDPMJ1u2zhZUwcgEU9uU8o=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=MyqUO9vp1lu+CxVXK5tMNy4hfivaJ+CL/03cv+I7M/QBdmqm69gGrCXOddl7WNIaC
+	 5/sYuxoyJwfTILHnJXQwjmp8JK+pBX7Wlb+ryV+ZQnnXviKJxk3S1+OfePy7zTkrbO
+	 V72WZk2GpYf9RKiIn67t4LQ7oqcFDzcAcPytAUwA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 74594F8057C; Tue, 23 Jan 2024 10:19:22 +0100 (CET)
+	id 31A61F8056F; Tue, 23 Jan 2024 12:33:12 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9D7D7F80548;
-	Tue, 23 Jan 2024 10:19:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8AF81F8057D;
+	Tue, 23 Jan 2024 12:33:11 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9A3E5F8028D; Tue, 23 Jan 2024 10:19:16 +0100 (CET)
+	id 1F88AF8028D; Tue, 23 Jan 2024 12:33:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [IPv6:2a00:1450:4864:20::632])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 85EA4F8003A
-	for <alsa-devel@alsa-project.org>; Tue, 23 Jan 2024 10:19:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 85EA4F8003A
+	by alsa1.perex.cz (Postfix) with ESMTPS id D8F31F800C1
+	for <alsa-devel@alsa-project.org>; Tue, 23 Jan 2024 12:32:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8F31F800C1
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=dd4Nm8+h
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-a30e445602cso1459066b.0
-        for <alsa-devel@alsa-project.org>;
- Tue, 23 Jan 2024 01:19:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1706001545; x=1706606345;
- darn=alsa-project.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=WBk1RWkyZJiPgH1O/EL2UlH0Vp2cg0BsBTQsF+HbtdY=;
-        b=dd4Nm8+hwmuynZlxpwYDygR+gK00XaOV2dFS0B2ZUH7JiocN5u4yobIsCdsuodE4zd
-         T+fSagRPCO7i5sWpYldKiIb+i14XXAmQ2CjLIykIrM2usZ/bFv+aPzZI6pD8wW09n/xI
-         Rv+LnFe3Hsk6yToVv4fLplmu99c85nmSvedSTw4sH8cr34b3ax8zR6xknWxWYd749BBH
-         /U2CouM+ORyKgvXbic4GDJCzFyFldJ5tl1USzQSS1/8Tm3Cw+IOpeJoOfIucg5EHN8i+
-         TkJmTvGnnb54FQmKLtLNPLqh5sOFh7MYiR11pIuuvCQagowx1UNVU+eMYSg6wWGGSxmj
-         l88g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706001545; x=1706606345;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=WBk1RWkyZJiPgH1O/EL2UlH0Vp2cg0BsBTQsF+HbtdY=;
-        b=QtEPUkIuQccPiBOHNMr8aixqfedFhvVrAshP5aw9huwtWFwKw1OQFzdy65SbyEE3zG
-         8fWDJeqxfN5qkRJtKUzG5l917IW2dXujPsvQT97X67s15v4t3KY96S+29dmsNhL0yzlP
-         RGcgetZyoadFb3NVoufxUwRTITW63il9eCoNsMirOrEm4Dt4RyBdQ8D+fZX/XFMVCryz
-         HS27cy0Fo0BVe8JTODmd7y1Vzc9VsHVunRZhK6eyKw/en2cBcedlww+WHPHcwnwWMaBL
-         GLhMgnHt33piAuSJ6wpm03ULCE9sgccLy16ZTb/6S1p6kRaXiKRcunRLl91SQX/7kG5l
-         S8bA==
-X-Gm-Message-State: AOJu0YycI1YvTZ3DVYrFTS9o1ZkV2t8OQsSou7cXokr1wjBvqW5JP2/X
-	8vNJOduXuEGtUxSMLpVkOxGUfT4aPD0A+9uVX38Zc/NGj3jZ0a92jwMUKHlNqQAGMw==
-X-Google-Smtp-Source: 
- AGHT+IHRUTpVvFWRf1iwvev0Rm6Uh+KZ4ise7148syZG/xVFOrpQRNim4YJA769VELvuqY15kf+c3w==
-X-Received: by 2002:a17:906:8925:b0:a2a:c113:2677 with SMTP id
- fr37-20020a170906892500b00a2ac1132677mr4955188ejc.61.1706001545141;
-        Tue, 23 Jan 2024 01:19:05 -0800 (PST)
-Received: from ?IPV6:2a02:908:1980:b9c0::6a53? ([2a02:908:1980:b9c0::6a53])
-        by smtp.gmail.com with ESMTPSA id
- tl9-20020a170907c30900b00a30461c31efsm2068398ejc.177.2024.01.23.01.19.03
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 23 Jan 2024 01:19:04 -0800 (PST)
-Message-ID: <98e5bf78-a85f-44c1-8277-20d90d6093b7@gmail.com>
-Date: Tue, 23 Jan 2024 10:19:03 +0100
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=E35gdN8p
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 40N79viZ014543;
+	Tue, 23 Jan 2024 05:32:50 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
+	from:to:cc:subject:date:message-id:mime-version
+	:content-transfer-encoding:content-type; s=PODMain02222019; bh=4
+	T+B66DEuygAYHn9hCMdllptWsqq7spVdej7e0tRy2M=; b=E35gdN8pWEmx9gHs8
+	lvLUYhxMqWBzgplu1+9LdNkLAGPvfhMO0Ik7tF15yjBaDvhqmz5AKLwFSnqKeoPf
+	DLO6QYJKQjqcNRsI53M3qyfNleTyYCvgmj7vCCKRGU1KI0y8JzIFOvo8oLr8b8Lp
+	TaNujfzpKHa6Qy2uviedcgYStPgyHEaUGm/mRBStMLu2DCtHvA6H0qqX037Wh+23
+	8AgusId4rVzQpwjAIIiCrCeGVzBit+j4GohmIXBg86XNlr2KE6jNAdfAQKVbdzNB
+	wwufnkUCQN4avlVK0oYOFtC7lZ3Ns3yYqeDR2EH2j+w9ZFN6NUkqfhC2zoJ2mnhz
+	H4FFA==
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3vrbfpv08h-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 23 Jan 2024 05:32:50 -0600 (CST)
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Tue, 23 Jan
+ 2024 11:32:48 +0000
+Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
+ ediex01.ad.cirrus.com (198.61.84.80) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.40 via Frontend Transport; Tue, 23 Jan 2024 11:32:48 +0000
+Received: from upx-tgl-008-ubuntu.ad.cirrus.com
+ (upx-tgl-008-ubuntu.ad.cirrus.com [198.90.251.167])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id 5642D820246;
+	Tue, 23 Jan 2024 11:32:48 +0000 (UTC)
+From: Maciej Strozek <mstrozek@opensource.cirrus.com>
+To: Mark Brown <broonie@kernel.org>
+CC: Cezary Rojewski <cezary.rojewski@intel.com>,
+        Liam Girdwood
+	<lgirdwood@gmail.com>,
+        Pierre-Louis Bossart
+	<pierre-louis.bossart@linux.intel.com>,
+        Peter Ujfalusi
+	<peter.ujfalusi@linux.intel.com>,
+        Bard Liao
+	<yung-chuan.liao@linux.intel.com>,
+        Ranjani Sridharan
+	<ranjani.sridharan@linux.intel.com>,
+        Kai Vehmanen
+	<kai.vehmanen@linux.intel.com>,
+        <alsa-devel@alsa-project.org>, <patches@opensource.cirrus.com>,
+        <linux-sound@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        Maciej Strozek
+	<mstrozek@opensource.cirrus.com>
+Subject: [PATCH v3] ASoC: Intel: mtl-match: Add cs42l43_l0 cs35l56_l23 for MTL
+Date: Tue, 23 Jan 2024 11:32:46 +0000
+Message-ID: <20240123113246.75539-1-mstrozek@opensource.cirrus.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Add a quirk for Yamaha YIT-W12TX transmitter
-Content-Language: en-US
-To: Takashi Iwai <tiwai@suse.de>
-Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org, stable@vger.kernel.org,
- Julian Sikorski <belegdol+github@gmail.com>
-References: <20240123084935.2745-1-belegdol+github@gmail.com>
- <87msswmn3g.wl-tiwai@suse.de>
-From: Julian Sikorski <belegdol@gmail.com>
-In-Reply-To: <87msswmn3g.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: 2KK6TPS7K3GU2YNEYPWJ2LQXVET2OMQ3
-X-Message-ID-Hash: 2KK6TPS7K3GU2YNEYPWJ2LQXVET2OMQ3
-X-MailFrom: belegdol@gmail.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: mPrvXXtcJcK4-aJCKt1zKhfeVQHatr58
+X-Proofpoint-GUID: mPrvXXtcJcK4-aJCKt1zKhfeVQHatr58
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: KNUATJJG7UMD6CARVTMP7K4NVIUI5C7L
+X-Message-ID-Hash: KNUATJJG7UMD6CARVTMP7K4NVIUI5C7L
+X-MailFrom: prvs=8752699952=mstrozek@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -116,7 +115,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2KK6TPS7K3GU2YNEYPWJ2LQXVET2OMQ3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KNUATJJG7UMD6CARVTMP7K4NVIUI5C7L/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -125,31 +124,104 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+The layout is configured as:
+- Link0: CS42L43 Jack and mics (2ch)
+- Link2: 2x CS35L56 Speaker (amps 3 and 4, right)
+- Link3: 2x CS35L56 Speaker (amps 1 and 2, left)
 
-Am 23.01.24 um 10:10 schrieb Takashi Iwai:
-> On Tue, 23 Jan 2024 09:49:35 +0100,
-> Julian Sikorski wrote:
->>
->> The device fails to initialize otherwise, giving the following error:
->> [ 3676.671641] usb 2-1.1: 1:1: cannot get freq at ep 0x1
->>
->> Signed-off-by: Julian Sikorski <belegdol+github@gmail.com>
-> 
-> Thanks, I applied now.
-> 
-> But at the next time, try to check the following:
-> 
-> - Use a proper subject prefix; each subsystem has an own one, and this
->    case would be "ALSA: usb-audio: Add a quirk..."
-> 
-> - Use the same mail address for both author and sign-off
->    
-> - Put Cc-to-stable in the patch description instead of actually
->    sending to it now
-> 
-> 
-> Takashi
-Thank you and apologies for the mistakes. I will try to do better next time.
+Corresponding SOF topology:
+https://github.com/thesofproject/sof/pull/8773
 
-Best regards,
-Julian
+Signed-off-by: Maciej Strozek <mstrozek@opensource.cirrus.com>
+---
+v2 -> v3: added layout description and link to required SOF topology
+v1 -> v2: swapped AMP3 and AMP4 prefixes
+
+ .../intel/common/soc-acpi-intel-mtl-match.c   | 57 +++++++++++++++++++
+ 1 file changed, 57 insertions(+)
+
+diff --git a/sound/soc/intel/common/soc-acpi-intel-mtl-match.c b/sound/soc/intel/common/soc-acpi-intel-mtl-match.c
+index feb12c6c85d1..23eaf47b3f24 100644
+--- a/sound/soc/intel/common/soc-acpi-intel-mtl-match.c
++++ b/sound/soc/intel/common/soc-acpi-intel-mtl-match.c
+@@ -377,6 +377,37 @@ static const struct snd_soc_acpi_adr_device cs35l56_2_adr[] = {
+ 	}
+ };
+
++static const struct snd_soc_acpi_adr_device cs35l56_2_r_adr[] = {
++	{
++		.adr = 0x00023201FA355601ull,
++		.num_endpoints = 1,
++		.endpoints = &spk_r_endpoint,
++		.name_prefix = "AMP3"
++	},
++	{
++		.adr = 0x00023301FA355601ull,
++		.num_endpoints = 1,
++		.endpoints = &spk_3_endpoint,
++		.name_prefix = "AMP4"
++	}
++
++};
++
++static const struct snd_soc_acpi_adr_device cs35l56_3_l_adr[] = {
++	{
++		.adr = 0x00033001fa355601ull,
++		.num_endpoints = 1,
++		.endpoints = &spk_l_endpoint,
++		.name_prefix = "AMP1"
++	},
++	{
++		.adr = 0x00033101fa355601ull,
++		.num_endpoints = 1,
++		.endpoints = &spk_2_endpoint,
++		.name_prefix = "AMP2"
++	}
++};
++
+ static const struct snd_soc_acpi_link_adr rt5682_link2_max98373_link0[] = {
+ 	/* Expected order: jack -> amp */
+ 	{
+@@ -554,6 +585,26 @@ static const struct snd_soc_acpi_link_adr mtl_cs42l43_cs35l56[] = {
+ 	{}
+ };
+
++static const struct snd_soc_acpi_link_adr cs42l43_link0_cs35l56_link2_link3[] = {
++	/* Expected order: jack -> amp */
++	{
++		.mask = BIT(0),
++		.num_adr = ARRAY_SIZE(cs42l43_0_adr),
++		.adr_d = cs42l43_0_adr,
++	},
++	{
++		.mask = BIT(2),
++		.num_adr = ARRAY_SIZE(cs35l56_2_r_adr),
++		.adr_d = cs35l56_2_r_adr,
++	},
++	{
++		.mask = BIT(3),
++		.num_adr = ARRAY_SIZE(cs35l56_3_l_adr),
++		.adr_d = cs35l56_3_l_adr,
++	},
++	{}
++};
++
+ /* this table is used when there is no I2S codec present */
+ struct snd_soc_acpi_mach snd_soc_acpi_intel_mtl_sdw_machines[] = {
+ 	/* mockup tests need to be first */
+@@ -599,6 +650,12 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_mtl_sdw_machines[] = {
+ 		.drv_name = "sof_sdw",
+ 		.sof_tplg_filename = "sof-mtl-rt1318-l12-rt714-l0.tplg"
+ 	},
++	{
++		.link_mask = BIT(0) | BIT(2) | BIT(3),
++		.links = cs42l43_link0_cs35l56_link2_link3,
++		.drv_name = "sof_sdw",
++		.sof_tplg_filename = "sof-mtl-cs42l43-l0-cs35l56-l23.tplg",
++	},
+ 	{
+ 		.link_mask = GENMASK(2, 0),
+ 		.links = mtl_cs42l43_cs35l56,
+--
+2.34.1
+

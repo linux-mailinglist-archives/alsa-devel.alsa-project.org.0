@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BEE59839213
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jan 2024 16:07:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 885E283921B
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jan 2024 16:08:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3075884A;
-	Tue, 23 Jan 2024 16:07:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3075884A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 07890A4B;
+	Tue, 23 Jan 2024 16:08:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 07890A4B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1706022468;
-	bh=b0nsHC1LlsVf82gw0OcuACEz8HSMsfQcxZCNzRl/XfU=;
+	s=default; t=1706022490;
+	bh=08l0Ha6rh08av6IrPMxQjuFd50E7E9DewODPATbh6Uo=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=p1gCIi3ytcssudp1tlaaOLOnfWuAuI1ek9EaCmUCr3BxFH7dbOtCgEmT8yQnSKxQ4
-	 ++WB+60Vod3UYMyKhbJN1pg5fMBmrW7PBXJ37CTVsrcCNaBif1ykoSs+jjw0B3pgmX
-	 GVUr8kPk+K9r4LUwoxixTNpsjOXzt3tSiaBMg+Vs=
+	b=UeOotccrqXTzIdqC92BYOipWGEM3sfxqr9GB/6uCjEbkBTnASkZ9uidpzO2E8fu4+
+	 KhsQVJZJYEtXtnc6tzfsS56+f1qMSPh0DLhXgLnc6obSWHuqP7zd2n6C8dHlkyiElk
+	 MHgzznUFx+o7XLnUw3U9tU7xm6TV5eLMXcU2cRVI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E4F10F8057C; Tue, 23 Jan 2024 16:07:16 +0100 (CET)
+	id 3A4C7F805CB; Tue, 23 Jan 2024 16:07:31 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8D855F8057E;
-	Tue, 23 Jan 2024 16:07:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AEC11F80579;
+	Tue, 23 Jan 2024 16:07:31 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 95F81F8028D; Tue, 23 Jan 2024 16:07:10 +0100 (CET)
+	id AD541F804F1; Tue, 23 Jan 2024 16:07:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.3 required=5.0 tests=RCVD_IN_DNSWL_MED,
@@ -37,28 +37,27 @@ Received: from metis.whiteo.stw.pengutronix.de
 	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
  server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3E431F800C1
-	for <alsa-devel@alsa-project.org>; Tue, 23 Jan 2024 16:07:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E431F800C1
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2120EF800C1
+	for <alsa-devel@alsa-project.org>; Tue, 23 Jan 2024 16:07:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2120EF800C1
 Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
 	by metis.whiteo.stw.pengutronix.de with esmtps
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
 	(Exim 4.92)
 	(envelope-from <p.zabel@pengutronix.de>)
-	id 1rSIMU-0001Fo-Gh; Tue, 23 Jan 2024 16:06:50 +0100
+	id 1rSIMs-0001IB-Cp; Tue, 23 Jan 2024 16:07:14 +0100
 Received: from [2a0a:edc0:0:900:1d::4e] (helo=lupine)
 	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.94.2)
 	(envelope-from <p.zabel@pengutronix.de>)
-	id 1rSIMR-001rL1-Fx; Tue, 23 Jan 2024 16:06:47 +0100
+	id 1rSIMr-001rL7-Tj; Tue, 23 Jan 2024 16:07:13 +0100
 Received: from pza by lupine with local (Exim 4.96)
 	(envelope-from <p.zabel@pengutronix.de>)
-	id 1rSIMR-000Ab1-1K;
-	Tue, 23 Jan 2024 16:06:47 +0100
-Message-ID: <b9d2e1e5fd8b5022890e05fcc33410360e0d11d7.camel@pengutronix.de>
-Subject: Re: [PATCH v4 4/6] reset: Instantiate reset GPIO controller for
- shared reset-gpios
+	id 1rSIMr-000AdV-2i;
+	Tue, 23 Jan 2024 16:07:13 +0100
+Message-ID: <35f686e742fab537cf755322cecc97ce5be0a041.camel@pengutronix.de>
+Subject: Re: [PATCH v4 6/6] ASoC: codecs: wsa884x: Allow sharing reset GPIO
 From: Philipp Zabel <p.zabel@pengutronix.de>
 To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Bjorn Andersson
  <andersson@kernel.org>, Konrad Dybcio <konrad.dybcio@linaro.org>, Srinivas
@@ -72,12 +71,12 @@ To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Bjorn Andersson
  linux-arm-msm@vger.kernel.org,  alsa-devel@alsa-project.org,
  linux-sound@vger.kernel.org,  devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org,  linux-pm@vger.kernel.org
-Cc: Bartosz Golaszewski <brgl@bgdev.pl>, Chris Packham
- <chris.packham@alliedtelesis.co.nz>, Sean Anderson <sean.anderson@seco.com>
-Date: Tue, 23 Jan 2024 16:06:47 +0100
-In-Reply-To: <20240123141311.220505-5-krzysztof.kozlowski@linaro.org>
+Cc: Bartosz Golaszewski <brgl@bgdev.pl>, Sean Anderson
+ <sean.anderson@seco.com>
+Date: Tue, 23 Jan 2024 16:07:13 +0100
+In-Reply-To: <20240123141311.220505-7-krzysztof.kozlowski@linaro.org>
 References: <20240123141311.220505-1-krzysztof.kozlowski@linaro.org>
-	 <20240123141311.220505-5-krzysztof.kozlowski@linaro.org>
+	 <20240123141311.220505-7-krzysztof.kozlowski@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.46.4-2 
@@ -87,8 +86,8 @@ X-SA-Exim-Mail-From: p.zabel@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
  SAEximRunCond expanded to false
 X-PTX-Original-Recipient: alsa-devel@alsa-project.org
-Message-ID-Hash: ONBYSOB3FCL7N7E4XNWJKGJ4IS2CDYQ4
-X-Message-ID-Hash: ONBYSOB3FCL7N7E4XNWJKGJ4IS2CDYQ4
+Message-ID-Hash: WVT7UNC6CP3XSZHYUSPIUQVO3YQS2453
+X-Message-ID-Hash: WVT7UNC6CP3XSZHYUSPIUQVO3YQS2453
 X-MailFrom: p.zabel@pengutronix.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -101,7 +100,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ONBYSOB3FCL7N7E4XNWJKGJ4IS2CDYQ4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WVT7UNC6CP3XSZHYUSPIUQVO3YQS2453/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -111,73 +110,17 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 On Di, 2024-01-23 at 15:13 +0100, Krzysztof Kozlowski wrote:
-> Devices sharing a reset GPIO could use the reset framework for
-> coordinated handling of that shared GPIO line.  We have several cases of
-> such needs, at least for Devicetree-based platforms.
+> On some boards with multiple WSA8840/WSA8845 speakers, the reset
+> (shutdown) GPIO is shared between two speakers.  Use the reset
+> controller framework and its "reset-gpio" driver to handle this case.
+> This allows bring-up and proper handling of all WSA884x speakers on
+> X1E80100-CRD board.
 >=20
-> If Devicetree-based device requests a reset line, while "resets"
-> Devicetree property is missing but there is a "reset-gpios" one,
-> instantiate a new "reset-gpio" platform device which will handle such
-> reset line.  This allows seamless handling of such shared reset-gpios
-> without need of changing Devicetree binding [1].
->=20
-> To avoid creating multiple "reset-gpio" platform devices, store the
-> Devicetree "reset-gpios" GPIO specifiers used for new devices on a
-> linked list.  Later such Devicetree GPIO specifier (phandle to GPIO
-> controller, GPIO number and GPIO flags) is used to check if reset
-> controller for given GPIO was already registered.
->=20
-> If two devices have conflicting "reset-gpios" property, e.g. with
-> different ACTIVE_xxx flags, this would allow to spawn two separate
-> "reset-gpio" devices, where the second would fail probing on busy GPIO
-> request.
->=20
-> Link: https://lore.kernel.org/all/YXi5CUCEi7YmNxXM@robh.at.kernel.org/ [1=
-]
 > Cc: Bartosz Golaszewski <brgl@bgdev.pl>
-> Cc: Chris Packham <chris.packham@alliedtelesis.co.nz>
 > Cc: Sean Anderson <sean.anderson@seco.com>
 > Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-I'm nearly out of complaints, two tiny cosmetic issues remaining:
-
-[...]
-> diff --git a/drivers/reset/core.c b/drivers/reset/core.c
-> index 4d5a78d3c085..6e81b8d35055 100644
-> --- a/drivers/reset/core.c
-> +++ b/drivers/reset/core.c
-[...]
-> @@ -813,12 +838,161 @@ static void __reset_control_put_internal(struct re=
-set_control *rstc)
->  	kref_put(&rstc->refcnt, __reset_control_release);
->  }
-> =20
-> +static int __reset_add_reset_gpio_lookup(int id, struct device_node *np,
-> +					 unsigned int gpio,
-> +					 unsigned int of_flags)
-> +{
-> +	unsigned int lookup_flags;
-> +	const char *label_tmp;
-> +
-> +	/*
-> +	 * Later we map GPIO flags between OF and Linux, however not all
-> +	 * constants from include/dt-bindings/gpio/gpio.h and
-> +	 * include/linux/gpio/machine.h match each other.
-> +	 */
-> +	if (of_flags > GPIO_ACTIVE_LOW) {
-> +		pr_err("reset-gpio code does not support GPIO flags %u for GPIO %u\n",
-> +			of_flags, gpio);
-
-Alignment to parenthesis is slightly off.
-
-> +		return -EINVAL;
-> +	}
-> +
-> +	struct gpio_device *gdev __free(gpio_device_put) =3D gpio_device_find_b=
-y_fwnode(of_fwnode_handle(np));
-
-Adding a local fwnode variable would make this fit in the 100 character
-limit again.
+Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
 
 regards
 Philipp

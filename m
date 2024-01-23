@@ -2,90 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58A3D8390FF
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jan 2024 15:14:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 413118390F8
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jan 2024 15:14:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C75749F6;
-	Tue, 23 Jan 2024 15:14:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C75749F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id D1C447F4;
+	Tue, 23 Jan 2024 15:14:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D1C447F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1706019295;
-	bh=DeKmmRTD5CNQ6B+HeX8UYe9vDMCdXGtr2srSjXnVNns=;
+	s=default; t=1706019272;
+	bh=GaifTXwjrtPwYGxIjA7saixKCJ2NePne3qXb4RkB2PA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=mWXFVPl49syFxGm/IawAHRig2azjO4unIAocazupsEu0piymmz0DMSrUahoLaV9df
-	 /IIakNstYAbGBOP0qM5WkzVy2VPRS1JEevD7g9Awmj418cYKRYNuf/pA0BRsZOYwDN
-	 oZ7hLmIJ7a+BWPSbToSiZRebgl886z8pRwvc6/BI=
+	b=tmxKdTWnKUNtfNd4e+Qs4KsD/5/WE3JgYGzrym8k2iF2yzvKQ952Uu6TkR3eBC7wo
+	 XMAKejKFi/Cj7kPPTF/IqLYyZ01/zureI6c/YDl66tOXnx/b+KkRgi+e1dj86agfai
+	 r36jMRN1pi58RWS/xAKEfD01PIipLj/0d+3rfXUw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D69B3F805D2; Tue, 23 Jan 2024 15:13:57 +0100 (CET)
+	id 51FDEF805D4; Tue, 23 Jan 2024 15:13:54 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B0958F805C7;
-	Tue, 23 Jan 2024 15:13:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9D3B8F805BE;
+	Tue, 23 Jan 2024 15:13:54 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 36929F80494; Tue, 23 Jan 2024 15:13:50 +0100 (CET)
+	id E66D7F80494; Tue, 23 Jan 2024 15:13:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [IPv6:2a00:1450:4864:20::436])
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [IPv6:2a00:1450:4864:20::42a])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 40F07F8003A
-	for <alsa-devel@alsa-project.org>; Tue, 23 Jan 2024 15:13:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 40F07F8003A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5BA1CF8025F
+	for <alsa-devel@alsa-project.org>; Tue, 23 Jan 2024 15:13:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5BA1CF8025F
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=WP/RDrJ6
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-336c8ab0b20so4431262f8f.1
+ header.s=google header.b=uydqCbAt
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-33921b95dddso2126862f8f.1
         for <alsa-devel@alsa-project.org>;
- Tue, 23 Jan 2024 06:13:37 -0800 (PST)
+ Tue, 23 Jan 2024 06:13:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1706019215; x=1706624015;
+        d=linaro.org; s=google; t=1706019218; x=1706624018;
  darn=alsa-project.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=BMoHux/To4Z52U5G1RVrMYaeJYsNbnrs52rE7GNgAZI=;
-        b=WP/RDrJ6RBCRTpeWyWYFye0JHH5QXuOhy+4wOMdBYzFYhFX6giapvpn2XsDZMUgogN
-         69bWIaGFgiZvNXgwVIrUdZIsfGfbyh9o/eQbq8CZTj4s5yK+1OXXM0d+Dd1hbS0gJNCB
-         hvPELnUTDzlO/oXGPM1hCTzCbUOxI7AuylvRtyxsRWExpMsiweU9lBbOn1pSxjdDY94j
-         6Smz8Q/2mhOXSSbC7brwFpJqqGi1KeGJt/krqow1w8cqPymVRFnlZ3KI/FlwsG1gxPWB
-         l3NLAtQ7Rp9IsvQ6KvfvcyASICHdwsifsjja0/5WdScZasXKgaoKZPQf2Se6ty97RmMZ
-         JgRw==
+        bh=bb9ozaaEJGm3+iYRaS/Eou91hz/HW8vlq47gXO46/QQ=;
+        b=uydqCbAt4npHkXIhAZ6vS8UbYfqRumvsY2uqLGl5GZ/R9H9d83si9GSISmSmrHStqh
+         jnbJ4qvrVb3HVzym/gE9Qsg4PDz5+6utt9nJnVTN7bFdd22o8GGEPLgiCmWMW9K6emDn
+         sT7ecnK6d/w/QWtyJcpZUxd89XuKrOTO86KVh6Avl0nFIoBHD1fybbBqBLl98Qp3aqL3
+         J1vxG2TzVkvpqmQJn+FNoIrtDJGC1m9taic+bvVY/v3Yl27e/0jNdJ+ischY4t2x205P
+         voxb/1vPP6IKyAwSUEafygIF1BduKF2FOzuEePXRBzA0RbZpT3qaPwARN/PNFjlCg7Zk
+         77Zg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706019215; x=1706624015;
+        d=1e100.net; s=20230601; t=1706019218; x=1706624018;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=BMoHux/To4Z52U5G1RVrMYaeJYsNbnrs52rE7GNgAZI=;
-        b=KKbhLcL9Zt4aN51eJjXf4MItiKqzE1jRwZ4wSRqgrCEdtrRYpLVma2Q4wMLqOQK0YM
-         9QQuWehRp4wj9gnb10RpE+znEROA+lQkMGFMyayt2VFuwAN/IqU3TMOwemifFlG1gQPU
-         BlN7pttUpNR2MS7iBhJtrYYTpFEejDfA5X3NSu7bL/M8OF4zz+NX5qTNcvlR+xSSgs0g
-         ivMoGpjDDhOK1grH82Az4AkwdTP3EovDgLBaedphvaUohEds1F51rPcXspFKS8iSM+m7
-         +Erbgqq25vjRwY2WBH1P3vY0Gq3uV/6enz/sTMpneazBazqOEB2AKKVXb/3WouwpsyH0
-         U8Yw==
-X-Gm-Message-State: AOJu0YwAhT8bdRxAOEbnnADQE/t0m1EAIWLtNvUbPBiFEbcceiKKo9W5
-	cH5/ZGCjLeVZJakQeMKz9/2wHzFiqNUN+iFfjcEayRzOkGWGRv0otiCr1sgU8MA=
+        bh=bb9ozaaEJGm3+iYRaS/Eou91hz/HW8vlq47gXO46/QQ=;
+        b=VpbiE/DWvyFsYYjXSVdSkXE1DA4zZDUOa5vN0h02onGdvtRPLIGWC0cXrL+wZUE9FF
+         lfB3YCLfYwQzVIIhMPy5ikziYF4y8fap1aepqfcMF76iatF+S7mXC1NLNRY6zefOFBDc
+         18SJUztPNCWOZupKUhdBds8yDgVRYYaCKCAhamHZkfz6TWHOxvyp0RvBrUQNurc+et1A
+         XZoGP2DYYe/ee+dg5kwa+HQ5WEL4cIClY0waYV4Gnrt1AqIACjuW7bUBF1ecKBLpkk1H
+         IPJKCEKXRdU1EZxnh2XEMbsIlWv5ijjrI8o+SLXkBxC2DkkYGY5WmqCuqE6sDdH9Wcz/
+         RAyw==
+X-Gm-Message-State: AOJu0YzsX/sVsxWM2FI6bamVjysjs2cmxxKnbY3iFBDz0Y1WLRdCcxWq
+	nisXXQ924ZDH3pFoGsH0dm/CD7S+hQ/ot3ggBWd2Mqv2haWYsYSVosnYk1ESb0U=
 X-Google-Smtp-Source: 
- AGHT+IHo9L/aNhs2YMpki7iiHaEqAW0G6bDJZdhRv+OHQG2adVInlM0yES+a35JGzEx8ngUBwfPJ4g==
-X-Received: by 2002:adf:e546:0:b0:337:c702:98f7 with SMTP id
- z6-20020adfe546000000b00337c70298f7mr3509879wrm.95.1706019215345;
-        Tue, 23 Jan 2024 06:13:35 -0800 (PST)
+ AGHT+IGTxU9A6hZE3T/GfJ3iQs+U7hHMUT7YMZ5antPynbwk/2dJ9MwRblLpOb1YR4bjPYZyBsdj2g==
+X-Received: by 2002:a5d:5602:0:b0:337:c097:db99 with SMTP id
+ l2-20020a5d5602000000b00337c097db99mr3351685wrv.21.1706019218190;
+        Tue, 23 Jan 2024 06:13:38 -0800 (PST)
 Received: from krzk-bin.. ([178.197.215.66])
         by smtp.gmail.com with ESMTPSA id
- r8-20020adfe688000000b00337d97338b0sm12132298wrm.76.2024.01.23.06.13.33
+ r8-20020adfe688000000b00337d97338b0sm12132298wrm.76.2024.01.23.06.13.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 23 Jan 2024 06:13:34 -0800 (PST)
+        Tue, 23 Jan 2024 06:13:37 -0800 (PST)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Bjorn Andersson <andersson@kernel.org>,
 	Konrad Dybcio <konrad.dybcio@linaro.org>,
@@ -109,16 +109,16 @@ To: Bjorn Andersson <andersson@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	linux-pm@vger.kernel.org
 Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [PATCH v4 1/6] of: Add of_phandle_args_equal() helper
-Date: Tue, 23 Jan 2024 15:13:06 +0100
-Message-Id: <20240123141311.220505-2-krzysztof.kozlowski@linaro.org>
+Subject: [PATCH v4 2/6] cpufreq: do not open-code of_phandle_args_equal()
+Date: Tue, 23 Jan 2024 15:13:07 +0100
+Message-Id: <20240123141311.220505-3-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240123141311.220505-1-krzysztof.kozlowski@linaro.org>
 References: <20240123141311.220505-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 3FLVWJCTRZUMGWIO5LZRPAXD7REA4QZE
-X-Message-ID-Hash: 3FLVWJCTRZUMGWIO5LZRPAXD7REA4QZE
+Message-ID-Hash: FSS3GTTHFAAAPHUSC7EJOYQI4WKJS27C
+X-Message-ID-Hash: FSS3GTTHFAAAPHUSC7EJOYQI4WKJS27C
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -130,7 +130,8 @@ X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: <>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FSS3GTTHFAAAPHUSC7EJOYQI4WKJS27C/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -139,45 +140,32 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add a helper comparing two "struct of_phandle_args" to avoid
-reinventing the wheel.
+Use newly added of_phandle_args_equal() helper to compare two
+of_phandle_args.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
 ---
 
-Dependency of cpufreq and reset change.
+Depends on previous of change.
 ---
- include/linux/of.h | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+ include/linux/cpufreq.h | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/include/linux/of.h b/include/linux/of.h
-index 6a9ddf20e79a..85bcc05b278d 100644
---- a/include/linux/of.h
-+++ b/include/linux/of.h
-@@ -1065,6 +1065,22 @@ static inline int of_parse_phandle_with_optional_args(const struct device_node *
- 					    0, index, out_args);
- }
+diff --git a/include/linux/cpufreq.h b/include/linux/cpufreq.h
+index afda5f24d3dd..3cd06dafb04b 100644
+--- a/include/linux/cpufreq.h
++++ b/include/linux/cpufreq.h
+@@ -1149,8 +1149,7 @@ static inline int of_perf_domain_get_sharing_cpumask(int pcpu, const char *list_
+ 		if (ret < 0)
+ 			continue;
  
-+/**
-+ * of_phandle_args_equal() - Compare two of_phandle_args
-+ * @a1:		First of_phandle_args to compare
-+ * @a2:		Second of_phandle_args to compare
-+ *
-+ * Return: True if a1 and a2 are the same (same node pointer, same phandle
-+ * args), false otherwise.
-+ */
-+static inline bool of_phandle_args_equal(const struct of_phandle_args *a1,
-+					 const struct of_phandle_args *a2)
-+{
-+	return a1->np == a2->np &&
-+	       a1->args_count == a2->args_count &&
-+	       !memcmp(a1->args, a2->args, sizeof(a1->args[0]) * a1->args_count);
-+}
-+
- /**
-  * of_property_count_u8_elems - Count the number of u8 elements in a property
-  *
+-		if (pargs->np == args.np && pargs->args_count == args.args_count &&
+-		    !memcmp(pargs->args, args.args, sizeof(args.args[0]) * args.args_count))
++		if (of_phandle_args_equal(pargs, &args))
+ 			cpumask_set_cpu(cpu, cpumask);
+ 
+ 		of_node_put(args.np);
 -- 
 2.34.1
 

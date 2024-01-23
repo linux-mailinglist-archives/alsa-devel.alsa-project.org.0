@@ -2,84 +2,154 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F0AC8375A6
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jan 2024 22:55:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C124837800
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jan 2024 01:04:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8AA55DF8;
-	Mon, 22 Jan 2024 22:55:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8AA55DF8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 78C3383B;
+	Tue, 23 Jan 2024 01:04:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 78C3383B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1705960534;
-	bh=4Bz1DD90hbSr+QDM9o6ei83T0CBo8SWVx1b2kI4unKA=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=lqF567jbE2DB6+G+9713EuDIubJbPvtpTT69d5/+JlAU0w7W8+4Bz0Ws1ME4gWncL
-	 slfSKyXEaSt1K2u/Y8asQcq/ja4Nwgq8u5G/P/0mT7y1W96EL3LvUXNEMp5YTOnCjR
-	 6ZW5SsEIF6zEV8AhC8+omT5Ot5rRThTKHObPbEZs=
+	s=default; t=1705968271;
+	bh=AWlPsis86sut0v8jaAJ8OMCmJRsYem1f7SUYftT1XSE=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=lZHA6vXWIDz85eEQwBzQ2IeVDq2VDaX9UQvfnOlBRf4OhQzMbnOo6OMU6ybi4CEq7
+	 bNck9pYDf/Wg7LZTlgDjluhSpZgl6S4//aovOM42uKtjpq7kQeiDzGybPd5qcbFcSP
+	 CEPpEHUtfWEVG1NoKqM+UDb5bXcVmo1sShcroWIU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A4692F805F4; Mon, 22 Jan 2024 22:54:33 +0100 (CET)
+	id 5AE3BF8055B; Tue, 23 Jan 2024 01:04:00 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C33B3F805D7;
-	Mon, 22 Jan 2024 22:54:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A3EA6F8057F;
+	Tue, 23 Jan 2024 01:03:59 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0CD55F8025F; Mon, 22 Jan 2024 22:54:27 +0100 (CET)
+	id 2BFD7F8028D; Tue, 23 Jan 2024 01:03:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No,
+ score=-4.2 required=5.0 tests=AC_FROM_MANY_DOTS,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from JPN01-OS0-obe.outbound.protection.outlook.com
+ (mail-os0jpn01on20701.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:201a::701])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id AD7A7F8028D
-	for <alsa-devel@alsa-project.org>; Mon, 22 Jan 2024 22:54:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AD7A7F8028D
+	by alsa1.perex.cz (Postfix) with ESMTPS id B9D84F800C1
+	for <alsa-devel@alsa-project.org>; Tue, 23 Jan 2024 01:03:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9D84F800C1
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=SOEkwOQI
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 9F5B961B0B;
-	Mon, 22 Jan 2024 21:54:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D6B7C433C7;
-	Mon, 22 Jan 2024 21:54:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1705960458;
-	bh=4Bz1DD90hbSr+QDM9o6ei83T0CBo8SWVx1b2kI4unKA=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=SOEkwOQIN1dYHbkNB3myXMNJEhBKc3YUqOCR9vip3DqnSpcgpcH1rAt4RCMqAWG9X
-	 y5x/2qKyui1xbBzG1xCsy6igPtTiitq/jW5atXchbWcoPg9f6BOd93HlD+bka5ipcU
-	 x7sA15g5iIpdLj8+tr5hFRdMX1JCEQ55tptqTzYIW41AcE4Zsk9Km4hbGoNEKTT+8L
-	 9APIss2jLIx9QVetrAv1jWoDR8G6l/Sgkk6jVdHHSPsRlIkz7vsxIfwNzmWDxSMmdX
-	 vhpb4/qokfGY0Pn0o/54HdJI329fVknYf8/LP8RR8T+m/EE2ea4JSY6x6NMt9kbrJX
-	 mLc0gN1p1N6iw==
-From: Mark Brown <broonie@kernel.org>
-To: Johan Hovold <johan+linaro@kernel.org>
-Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20240122181819.4038-1-johan+linaro@kernel.org>
-References: <20240122181819.4038-1-johan+linaro@kernel.org>
-Subject: Re: (subset) [PATCH v5 0/4] ASoC: qcom: volume fixes and codec
- cleanups
-Message-Id: <170596045583.161959.6600754837297158632.b4-ty@kernel.org>
-Date: Mon, 22 Jan 2024 21:54:15 +0000
+	dkim=pass (1024-bit key,
+ unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
+ header.s=selector1 header.b=aVWtJ99k
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=P14iL2nks+WJxqU7+C8jOzjC1GfhWyMa4AYP316bcQlPCrsWVq6b4b2jiyTJVpfFfL0r0rQQ+xugrtVuTlMf6DtIsmRpcrc/33w38lKatZbZN3WYY4C6PV4DDPKA91EHnricnZRe4ZzNYPqDkOSu3w+FLd76Ogwx2wkfdfLq4Xq/KONVS9t8DwCH17ZRiEBdUt+u2a3njk1/PTz8/IkcHrrgNPZ5G/TD9cHtkdj52clt7vDkKfgjXDPSSH/OipJ/FRqx3T/vkgJiqgrzvMvqTajVmbGzisrjiOScHNJH7dUm6B1F4fefyUAYUF5bjtsnw0jY8B/euQXZ7r2XG9XAlg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8Vy4mrzmgrIKlrR4afwyTIpk1jDGLbWBYYAp4vUWyFM=;
+ b=KSrguvSSblxLCK+nNk3vlHVz+xmQ44irtn5nDuO4LM/G2TEm0z/qXBVIrrxc9p7MHAQCk9wr5kFybZqOHXQ7UYDMQO9sz1AYgmTQsvB8JAXxXVt/Md3dGykM/ad/WKU1yNu2rw8eSFndVt6KYrwgOIRDu5QhINwNZHxi6Q1WGL5ZHpJvRV0zXr258LzZrwMOnTSEumoNEyGNe+IQU3D5LGDOyRve3z/XeRz0iVPyQygjlMNdoqaezhJWT4vNZuXp/QE6wKgm5/39Q9YdvTmIkc+zGtFblMQ52zcXd82Lt+pyPm1pW/srY6EDM1qjPjgg5k9UTszVk83Lbp3SFSHxEQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8Vy4mrzmgrIKlrR4afwyTIpk1jDGLbWBYYAp4vUWyFM=;
+ b=aVWtJ99kwaoMds5ChxYQ7RMZ8sQv8AZ3W2uwP5604OdJxqBayKMWx+kIcOwXZGrG4WGwX4jV42zuipaaRqjUXpWqi4lMWNTGfaqi7Kd7ARFYoTfPwn2Q9+UZgdCYpYonHLon+DviRG0NbzBelCvu3uippgkAZbgE+rAI4z7xTJA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
+ (2603:1096:400:3a9::11) by TY1PR01MB10899.jpnprd01.prod.outlook.com
+ (2603:1096:400:320::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.15; Tue, 23 Jan
+ 2024 00:03:17 +0000
+Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
+ ([fe80::ce8:8f5e:99a0:aba4]) by TYCPR01MB10914.jpnprd01.prod.outlook.com
+ ([fe80::ce8:8f5e:99a0:aba4%2]) with mapi id 15.20.7228.020; Tue, 23 Jan 2024
+ 00:03:17 +0000
+Message-ID: <87jzo0uda2.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: =?ISO-8859-1?Q?=22Uwe_Kleine-K=C3=B6nig=22?=
+ <u.kleine-koenig@pengutronix.de>, Daniel Vetter <daniel@ffwll.ch>, David
+ Airlie <airlied@gmail.com>, Frank Rowand <frowand.list@gmail.com>, Helge
+ Deller <deller@gmx.de>, Jaroslav Kysela <perex@perex.cz>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Mark Brown
+ <broonie@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, Maxime
+ Ripard <mripard@kernel.org>, Michal Simek <michal.simek@amd.com>, Rob
+ Herring <robh+dt@kernel.org>, Saravana Kannan <saravanak@google.com>,
+ Takashi Iwai <tiwai@suse.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-sound@vger.kernel.org
+Subject: [PATCH 00/13] of: property: add port base loop
+User-Agent: Wanderlust/2.15.9 Emacs/27.1 Mule/6.0
+Content-Type: text/plain; charset=US-ASCII
+Date: Tue, 23 Jan 2024 00:03:17 +0000
+X-ClientProxiedBy: TYCP301CA0009.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:400:386::7) To TYCPR01MB10914.jpnprd01.prod.outlook.com
+ (2603:1096:400:3a9::11)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-5c066
-Message-ID-Hash: LYXTR4OJCG6JW27HL2MEWV2H6MK3BXAD
-X-Message-ID-Hash: LYXTR4OJCG6JW27HL2MEWV2H6MK3BXAD
-X-MailFrom: broonie@kernel.org
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYCPR01MB10914:EE_|TY1PR01MB10899:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4a91ef51-fac0-4cf0-4ecb-08dc1ba6b3e6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	dUUc0LjTjXrowKZuAQIynfucNvy/IpYGDrlS5+ZkdLDYX4jhcgRYyq0HGg5ax+Fs+Qnr7iC7EmKLl83FNWeKaZ4N7/2sdaGfICqkG5sfyVinR5Yl3zZCIT+dp9u+eEbIReNRxEwhsqRjXy0nfhBxgGmPO7Hwyr2Q0v811ZvRUmX1JfIx6E5KlWi5Rj0r9qdWlPSe91WYzs97Ja/kz3GocSlDMIddhtFXTwKRHlr0A13Sd1rwUT9WZTVHZNLOMTOMeDUZK5LKX8LLPxqvkQ8VW5dkATCYVkF9d3HWwdnJjcXyeA3ZD3MCVl3sX5AuSkKD5DdbijO8PSDpf9rZqRYuHzbF9orODUF+rL5fyyepUzwVZYBtpt1nUJgWVgNIFeVedOjQyH0dMD0iSNfBZoSmZz3CE357Lig2vonhoKUbB4VWHdBC478r6LLbfEK/+l5i+dhKl1TftUZ6Nl8Vu5PH9M1UfHnMYrfJnfc5/G7IGL7Ki+z2IsHDl/5LCXrKVKlfn24Uh5A5//MpdYqF+bE/JRd5m7HRsGHYCIGK1WWKdjKWohNOOSforav5dfSlpD9rMilz0tNZj0GbeNIlLb50mvr37qoRf9ZopAeHe6cmlNPVF2qDdXUs7bbaabLcwoX7
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB10914.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(366004)(346002)(136003)(39860400002)(396003)(230922051799003)(1800799012)(186009)(64100799003)(451199024)(83380400001)(8936002)(52116002)(316002)(66946007)(8676002)(2616005)(6512007)(4326008)(110136005)(478600001)(6486002)(2906002)(6506007)(66476007)(41300700001)(7416002)(5660300002)(38100700002)(921011)(36756003)(66556008)(86362001)(38350700005)(26005);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?us-ascii?Q?zC6LkZZkcFsvBJus+D+hpKE/YVKXXTY150LFPUdWhdupi/O6memVKdjsXMW/?=
+ =?us-ascii?Q?Xu/h2zPIcnvGOaQtQVTls32GT3N+QnNgbxJrQwBe6HrQKtknaEkLtHG4UJRY?=
+ =?us-ascii?Q?80+I/XEpsbmHC0V6DzmxucEcrIRzuSe9tpb1RXR4SgxsOp3bL5hxbov0zuyx?=
+ =?us-ascii?Q?4UDpnaAzo6PtZ/WtaW429VH6qbztwBUkuZuDodLI3MVMtNUy/rvq7RdP2tzJ?=
+ =?us-ascii?Q?6eFLRxxy9YKuiRhBYjk1qNDvyOUw5f04hx+/wtMmYJPzBkGZXjx+lMshKNCV?=
+ =?us-ascii?Q?/BbY6fg49SUED53h/qZ/+6riFwFr7zWCIdw90tulgujw2tPmJMt9FEHVBDly?=
+ =?us-ascii?Q?JZ5vQMuZSiwHgqot95qWYGi1rOI2yeJqh8BErsGEW/Y3DwecVkCJFbm/mPkE?=
+ =?us-ascii?Q?mu7eRhrlMr0FHfFfVsrxysKd4CveqHnw9m0N9XcQkc+K72cPAlYJSjgQ29OR?=
+ =?us-ascii?Q?I94Jkfh9/MicwjwvAfMEOtL3Idklz6W+Ck+Yr8V7J5AqnFpUgATF0xkvjIRY?=
+ =?us-ascii?Q?5moop5gvsDh6JKxNaTl7DZiZFyqi+aPMaZZ7GgydpjDJd2bpIaI2iH3iKKGS?=
+ =?us-ascii?Q?vDIlp6bqus66fmwTuK90agkBcOPxExL/TnNvFgDIDmfzP3whnr8J9/CSCjgv?=
+ =?us-ascii?Q?W3RTGoLLfp67Ftp+rcDVx4EuZYaG4TLheF+bzQygTKmPNgdzZK6UIiHA32Y9?=
+ =?us-ascii?Q?gZtz3OPJ9iKOuufqpCvHOJmfgRj3YCm99R5BP54wey3wHg0tKelAG9kLSV+n?=
+ =?us-ascii?Q?qDq+H4v94vLyeyjO3oRyB/cDa0W4cE4xgEhNtJuRFHKrgnmCHXiPZmJOlNmE?=
+ =?us-ascii?Q?VRCq5vipxSKjA9NcV1RhTrJWGAAhIXOJV192g7odi88JnGN1DeKVFhJx6tqW?=
+ =?us-ascii?Q?z9fdXpOrzWMybTNubean6sB1UoOGJhtYhpoO6IkpU8Nh4PTy198ZCDnkd9bt?=
+ =?us-ascii?Q?n1lh2XfqkhprVgjUuBopJziDDPGj28QO4j04SutDgX/ylTtUqeG53/go+sTC?=
+ =?us-ascii?Q?Mh2i39AUI86izUV8vtrFDNHFsBqEsywsvqPBH/H18/7uabAn7rjFfflAlSXY?=
+ =?us-ascii?Q?fpTo+XwS3MgYNDmabVnlpzL4X8jnLWDip8epBqm9p2EyM83m7ujzvbG/jV5T?=
+ =?us-ascii?Q?ban7La80NlxTJbjYqM9jiqbbs7/Y+d/QkG2Z8jqufqRmhvChJBAFp5JM578b?=
+ =?us-ascii?Q?2KV3AgmQmgSG6kmeXVLxJUclUVPkMvRYVzgxQb4DumbY0MV6eCAyBxZnQOqk?=
+ =?us-ascii?Q?H/7GioVjUaP9B0OUGV6CSLANaNjOZECvIxfEJbi3hH0oEdBFtnWEgweLCLQl?=
+ =?us-ascii?Q?v0xFL7LE+bbbB3iYEa1t3nY2XA10jrwhrwUS14JksKUy7FN5m/bPcIV7cBPq?=
+ =?us-ascii?Q?RdDdwAJ5o5AKhoTnvUXiox8nL90exqEbdHw+XVu73Y9vXZNAIyKHG6TtIcAY?=
+ =?us-ascii?Q?Cqqh9PCyZGk4zqYnpM3WgQmChQ9ZUXGiRUWA/LmSjhlbkFH7Opd+h5UwpQTX?=
+ =?us-ascii?Q?8P3wMOUonfuCcsqqSahqiYgHIKJRp+yQli+3+4puYg97Nk+MnpRepBsYWzFF?=
+ =?us-ascii?Q?IeZrHVwODC5A1AYq3FeybRA6HN4PkwTn7paAaZMsiqKJAzR65RbZikjdiTJF?=
+ =?us-ascii?Q?NLu7gOR69sDj6hz7sMArjpQ=3D?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 4a91ef51-fac0-4cf0-4ecb-08dc1ba6b3e6
+X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB10914.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jan 2024 00:03:17.7885
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ O4eaAdkTXd4Mdh6w+sjs5xumt4bLw0chvnrgB2jklacNHC047aRGWrsUQCCBfd79Cxuz95F7Np4c+Gsyw/c72CGywB7tDM6/sLj15Pq3P2Z99Bufb6KULyKxOFeu+jP1
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY1PR01MB10899
+Message-ID-Hash: 57WWDRVKT6OFCTHSZNZTPUBEVDMYUDF3
+X-Message-ID-Hash: 57WWDRVKT6OFCTHSZNZTPUBEVDMYUDF3
+X-MailFrom: kuninori.morimoto.gx@renesas.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -91,7 +161,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LYXTR4OJCG6JW27HL2MEWV2H6MK3BXAD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/57WWDRVKT6OFCTHSZNZTPUBEVDMYUDF3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,42 +170,59 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 22 Jan 2024 19:18:15 +0100, Johan Hovold wrote:
-> To reduce the risk of speaker damage the PA gain needs to be limited on
-> machines like the Lenovo Thinkpad X13s until we have active speaker
-> protection in place.
-> 
-> Limit the gain to the current default setting provided by the UCM
-> configuration which most user have so far been using (due to a bug in
-> the configuration files which prevented hardware volume control [1]).
-> 
-> [...]
 
-Applied to
+Hi Rob
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+We have endpoint base functions
+	- of_graph_get_next_endpoint()
+	- of_graph_get_endpoint_count()
+	- for_each_endpoint_of_node()
 
-Thanks!
+But to handling "port" base things, it is not useful. We want to have
+"port" base functions, too. This patch-set adds it.
 
-[2/4] ASoC: qcom: sc8280xp: limit speaker volumes
-      commit: c481016bb4f8a9c059c39ac06e7b65e233a61f6a
+Because current existing drivers couldn't use "port" base functions,
+it were implemented in a different way. This patch-set doesn't try
+to full-replace to avoid unknown bug, try easy / quick replace only
+for now, but easy to know how "port" base functions are needed.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Because I can't test the driver which I can't use, non-ASoC drivers
+needs Tested-by, Acked-by.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+Kuninori Morimoto (13):
+  of: property: add port base loop
+  of: property: use of_graph_get_next_port() on of_graph_get_next_endpoint()
+  of: property: add of_graph_get_next_endpoint_raw()
+  drm: omapdrm: use of_graph_get_next_endpoint_raw()
+  media: xilinx-tpg: use of_graph_get_next_endpoint_raw()
+  ASoC: audio-graph-card.c: use of_graph_get_next_endpoint_raw()
+  ASoC: audio-graph-card2: use of_graph_get_next_port()
+  ASoC: audio-graph-card2.c: use of_graph_get_next_endpoint_raw()
+  ASoC: test-component: use for_each_port_of_node()
+  fbdev: omapfb: use of_graph_get_remote_port()
+  fbdev: omapfb: use of_graph_get_next_port()
+  fbdev: omapfb: use of_graph_get_next_endpoint_raw()
+  fbdev: omapfb: use of_graph_get_next_endpoint()
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+ drivers/gpu/drm/omapdrm/dss/dpi.c             |   2 +-
+ drivers/gpu/drm/omapdrm/dss/sdi.c             |   2 +-
+ drivers/media/platform/xilinx/xilinx-tpg.c    |   2 +-
+ drivers/of/property.c                         |  92 +++++++++++++---
+ drivers/video/fbdev/omap2/omapfb/dss/dpi.c    |   2 +-
+ drivers/video/fbdev/omap2/omapfb/dss/dsi.c    |   2 +-
+ drivers/video/fbdev/omap2/omapfb/dss/dss-of.c | 101 +-----------------
+ drivers/video/fbdev/omap2/omapfb/dss/dss.c    |   8 +-
+ drivers/video/fbdev/omap2/omapfb/dss/hdmi4.c  |   2 +-
+ drivers/video/fbdev/omap2/omapfb/dss/hdmi5.c  |   2 +-
+ drivers/video/fbdev/omap2/omapfb/dss/sdi.c    |   2 +-
+ drivers/video/fbdev/omap2/omapfb/dss/venc.c   |   2 +-
+ include/linux/of_graph.h                      |  23 ++++
+ include/video/omapfb_dss.h                    |  11 --
+ sound/soc/generic/audio-graph-card.c          |   2 +-
+ sound/soc/generic/audio-graph-card2.c         |  31 ++----
+ sound/soc/generic/test-component.c            |   2 +-
+ 17 files changed, 126 insertions(+), 162 deletions(-)
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+-- 
+2.25.1
 

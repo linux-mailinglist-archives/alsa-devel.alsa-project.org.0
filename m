@@ -2,108 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B1C7838D7D
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jan 2024 12:33:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF9F0838E97
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jan 2024 13:32:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6BE5C846;
-	Tue, 23 Jan 2024 12:33:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6BE5C846
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2EABD74C;
+	Tue, 23 Jan 2024 13:32:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2EABD74C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1706009623;
-	bh=twtRZ2kll5KW9N9kkXciaYDPMJ1u2zhZUwcgEU9uU8o=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=MyqUO9vp1lu+CxVXK5tMNy4hfivaJ+CL/03cv+I7M/QBdmqm69gGrCXOddl7WNIaC
-	 5/sYuxoyJwfTILHnJXQwjmp8JK+pBX7Wlb+ryV+ZQnnXviKJxk3S1+OfePy7zTkrbO
-	 V72WZk2GpYf9RKiIn67t4LQ7oqcFDzcAcPytAUwA=
+	s=default; t=1706013165;
+	bh=OwMt/QxJ0zuys89yLUHp3fh3qkYycWCrjOmnED7SkE8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=KUFkD3IOx+KSUNELrTjL4jNtRlTf4KNEocwoiHN8yx2SQZ2oVl9yDAtYqN3thpdK6
+	 vgqqvYvwgoYsX8PVy4g/aCC5eqlXGM2Z/UEZkZx/bjbVxpC01TdBofEas7GyjOwRgT
+	 vSjPUkJzfH8zlV6ZoCspnPAjw3GhVtpl0v9L4GxE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 31A61F8056F; Tue, 23 Jan 2024 12:33:12 +0100 (CET)
+	id 8B455F80588; Tue, 23 Jan 2024 13:32:13 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8AF81F8057D;
-	Tue, 23 Jan 2024 12:33:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DE851F80568;
+	Tue, 23 Jan 2024 13:32:12 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1F88AF8028D; Tue, 23 Jan 2024 12:33:06 +0100 (CET)
+	id 0F1D8F8025F; Tue, 23 Jan 2024 13:32:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-3.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D8F31F800C1
-	for <alsa-devel@alsa-project.org>; Tue, 23 Jan 2024 12:32:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8F31F800C1
+	by alsa1.perex.cz (Postfix) with ESMTPS id 267CDF800C1
+	for <alsa-devel@alsa-project.org>; Tue, 23 Jan 2024 13:32:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 267CDF800C1
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=E35gdN8p
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 40N79viZ014543;
-	Tue, 23 Jan 2024 05:32:50 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	from:to:cc:subject:date:message-id:mime-version
-	:content-transfer-encoding:content-type; s=PODMain02222019; bh=4
-	T+B66DEuygAYHn9hCMdllptWsqq7spVdej7e0tRy2M=; b=E35gdN8pWEmx9gHs8
-	lvLUYhxMqWBzgplu1+9LdNkLAGPvfhMO0Ik7tF15yjBaDvhqmz5AKLwFSnqKeoPf
-	DLO6QYJKQjqcNRsI53M3qyfNleTyYCvgmj7vCCKRGU1KI0y8JzIFOvo8oLr8b8Lp
-	TaNujfzpKHa6Qy2uviedcgYStPgyHEaUGm/mRBStMLu2DCtHvA6H0qqX037Wh+23
-	8AgusId4rVzQpwjAIIiCrCeGVzBit+j4GohmIXBg86XNlr2KE6jNAdfAQKVbdzNB
-	wwufnkUCQN4avlVK0oYOFtC7lZ3Ns3yYqeDR2EH2j+w9ZFN6NUkqfhC2zoJ2mnhz
-	H4FFA==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3vrbfpv08h-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 23 Jan 2024 05:32:50 -0600 (CST)
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Tue, 23 Jan
- 2024 11:32:48 +0000
-Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
- ediex01.ad.cirrus.com (198.61.84.80) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.40 via Frontend Transport; Tue, 23 Jan 2024 11:32:48 +0000
-Received: from upx-tgl-008-ubuntu.ad.cirrus.com
- (upx-tgl-008-ubuntu.ad.cirrus.com [198.90.251.167])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id 5642D820246;
-	Tue, 23 Jan 2024 11:32:48 +0000 (UTC)
-From: Maciej Strozek <mstrozek@opensource.cirrus.com>
-To: Mark Brown <broonie@kernel.org>
-CC: Cezary Rojewski <cezary.rojewski@intel.com>,
-        Liam Girdwood
-	<lgirdwood@gmail.com>,
-        Pierre-Louis Bossart
-	<pierre-louis.bossart@linux.intel.com>,
-        Peter Ujfalusi
-	<peter.ujfalusi@linux.intel.com>,
-        Bard Liao
-	<yung-chuan.liao@linux.intel.com>,
-        Ranjani Sridharan
-	<ranjani.sridharan@linux.intel.com>,
-        Kai Vehmanen
-	<kai.vehmanen@linux.intel.com>,
-        <alsa-devel@alsa-project.org>, <patches@opensource.cirrus.com>,
-        <linux-sound@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        Maciej Strozek
-	<mstrozek@opensource.cirrus.com>
-Subject: [PATCH v3] ASoC: Intel: mtl-match: Add cs42l43_l0 cs35l56_l23 for MTL
-Date: Tue, 23 Jan 2024 11:32:46 +0000
-Message-ID: <20240123113246.75539-1-mstrozek@opensource.cirrus.com>
-X-Mailer: git-send-email 2.34.1
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=toHXbA02
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id 0F27961C63;
+	Tue, 23 Jan 2024 12:31:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D883C433F1;
+	Tue, 23 Jan 2024 12:31:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1706013117;
+	bh=OwMt/QxJ0zuys89yLUHp3fh3qkYycWCrjOmnED7SkE8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=toHXbA02hB91TiQVcfwxFq2jfXlX3iWcaPi9kyLbZGC+ZvaGAcu9fB099uaK7HCEB
+	 uHhC/qgmMYz0lVN/0xrFyfir6p2xL2/51CS8rnOPoJRrwv57T0IaE7IHx4Vnfba0Fo
+	 emIMK/4eRE1Nb/kfXeMDzetlDM0L7S5T/fOuwhVtKkS8hQ8HSs2MizNQXB0TGGsCPK
+	 81V/raAGTMRHMAi8veStzRt+NmpfYoZ48quHYjJlxMDjelzzKeXA4+m0q+RqTVbEB+
+	 su+0BpfOVZj4144Y+AIy7jrDLli8LzCED6PB13r1JrbOOk1dv4Gv+06UAH++3hZPAS
+	 tU9O/E3I3bGrw==
+From: Mark Brown <broonie@kernel.org>
+To: alsa-devel@alsa-project.org, Zhu Ning <zhuning0077@gmail.com>
+Cc: tiwai@suse.com, amadeuszx.slawinski@linux.intel.com,
+ yangxiaohua@everest-semi.com, zhuning@everest-semi.com,
+ zhangyi@everest-semi.com
+In-Reply-To: <20240120101240.12496-1-zhuning0077@gmail.com>
+References: <20240120101240.12496-1-zhuning0077@gmail.com>
+Subject: Re: (subset) [PATCH v1 0/5] ASoC: codecs: fix ES8326 performance
+ and pop noise
+Message-Id: <170601311603.19497.11836184914578593014.b4-ty@kernel.org>
+Date: Tue, 23 Jan 2024 12:31:56 +0000
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: mPrvXXtcJcK4-aJCKt1zKhfeVQHatr58
-X-Proofpoint-GUID: mPrvXXtcJcK4-aJCKt1zKhfeVQHatr58
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: KNUATJJG7UMD6CARVTMP7K4NVIUI5C7L
-X-Message-ID-Hash: KNUATJJG7UMD6CARVTMP7K4NVIUI5C7L
-X-MailFrom: prvs=8752699952=mstrozek@opensource.cirrus.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-5c066
+Message-ID-Hash: BTNLOQIFSNMEHFYM6N3S7KOQL7OMC2SB
+X-Message-ID-Hash: BTNLOQIFSNMEHFYM6N3S7KOQL7OMC2SB
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -115,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KNUATJJG7UMD6CARVTMP7K4NVIUI5C7L/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BTNLOQIFSNMEHFYM6N3S7KOQL7OMC2SB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -124,104 +98,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The layout is configured as:
-- Link0: CS42L43 Jack and mics (2ch)
-- Link2: 2x CS35L56 Speaker (amps 3 and 4, right)
-- Link3: 2x CS35L56 Speaker (amps 1 and 2, left)
+On Sat, 20 Jan 2024 18:12:35 +0800, Zhu Ning wrote:
+>     5 patches here for the es8326 driver...
+> 
+>     We get some issues regarding crosstalk, THD+N performance and pop
+>     noise from customer's project.
+>     Five patches are used to fix these issues. We did tests with the new
+>     driver. The test results form test department met our expectations.
+>     We fixed the AUTO BUILD TEST ERROR and modified the kcontrol for HP_VOL
+>     in the new version of the same patch.
+> 
+> [...]
 
-Corresponding SOF topology:
-https://github.com/thesofproject/sof/pull/8773
+Applied to
 
-Signed-off-by: Maciej Strozek <mstrozek@opensource.cirrus.com>
----
-v2 -> v3: added layout description and link to required SOF topology
-v1 -> v2: swapped AMP3 and AMP4 prefixes
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
- .../intel/common/soc-acpi-intel-mtl-match.c   | 57 +++++++++++++++++++
- 1 file changed, 57 insertions(+)
+Thanks!
 
-diff --git a/sound/soc/intel/common/soc-acpi-intel-mtl-match.c b/sound/soc/intel/common/soc-acpi-intel-mtl-match.c
-index feb12c6c85d1..23eaf47b3f24 100644
---- a/sound/soc/intel/common/soc-acpi-intel-mtl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-mtl-match.c
-@@ -377,6 +377,37 @@ static const struct snd_soc_acpi_adr_device cs35l56_2_adr[] = {
- 	}
- };
+[1/5] ASoC: codecs: ES8326: improving crosstalk performance
+      commit: 523d242d4309797e6b27c708fbd1463f301c199a
+[2/5] ASoC: codecs: ES8326: Improving the THD+N performance
+      commit: 14a0a1ec3335ac3945a96437c35465e4a9616b88
+[4/5] ASoC: codecs: ES8326: Minimize the pop noise on headphone
+      commit: a3aa9255d6ccb1bff13c7c98e5d3bf10ba67f92e
+[5/5] ASoC: codecs: ES8326: fix the capture noise issue
+      commit: 8c99a0a607b5e0cf6b79b283d7bb2c2b84e01da5
 
-+static const struct snd_soc_acpi_adr_device cs35l56_2_r_adr[] = {
-+	{
-+		.adr = 0x00023201FA355601ull,
-+		.num_endpoints = 1,
-+		.endpoints = &spk_r_endpoint,
-+		.name_prefix = "AMP3"
-+	},
-+	{
-+		.adr = 0x00023301FA355601ull,
-+		.num_endpoints = 1,
-+		.endpoints = &spk_3_endpoint,
-+		.name_prefix = "AMP4"
-+	}
-+
-+};
-+
-+static const struct snd_soc_acpi_adr_device cs35l56_3_l_adr[] = {
-+	{
-+		.adr = 0x00033001fa355601ull,
-+		.num_endpoints = 1,
-+		.endpoints = &spk_l_endpoint,
-+		.name_prefix = "AMP1"
-+	},
-+	{
-+		.adr = 0x00033101fa355601ull,
-+		.num_endpoints = 1,
-+		.endpoints = &spk_2_endpoint,
-+		.name_prefix = "AMP2"
-+	}
-+};
-+
- static const struct snd_soc_acpi_link_adr rt5682_link2_max98373_link0[] = {
- 	/* Expected order: jack -> amp */
- 	{
-@@ -554,6 +585,26 @@ static const struct snd_soc_acpi_link_adr mtl_cs42l43_cs35l56[] = {
- 	{}
- };
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-+static const struct snd_soc_acpi_link_adr cs42l43_link0_cs35l56_link2_link3[] = {
-+	/* Expected order: jack -> amp */
-+	{
-+		.mask = BIT(0),
-+		.num_adr = ARRAY_SIZE(cs42l43_0_adr),
-+		.adr_d = cs42l43_0_adr,
-+	},
-+	{
-+		.mask = BIT(2),
-+		.num_adr = ARRAY_SIZE(cs35l56_2_r_adr),
-+		.adr_d = cs35l56_2_r_adr,
-+	},
-+	{
-+		.mask = BIT(3),
-+		.num_adr = ARRAY_SIZE(cs35l56_3_l_adr),
-+		.adr_d = cs35l56_3_l_adr,
-+	},
-+	{}
-+};
-+
- /* this table is used when there is no I2S codec present */
- struct snd_soc_acpi_mach snd_soc_acpi_intel_mtl_sdw_machines[] = {
- 	/* mockup tests need to be first */
-@@ -599,6 +650,12 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_mtl_sdw_machines[] = {
- 		.drv_name = "sof_sdw",
- 		.sof_tplg_filename = "sof-mtl-rt1318-l12-rt714-l0.tplg"
- 	},
-+	{
-+		.link_mask = BIT(0) | BIT(2) | BIT(3),
-+		.links = cs42l43_link0_cs35l56_link2_link3,
-+		.drv_name = "sof_sdw",
-+		.sof_tplg_filename = "sof-mtl-cs42l43-l0-cs35l56-l23.tplg",
-+	},
- 	{
- 		.link_mask = GENMASK(2, 0),
- 		.links = mtl_cs42l43_cs35l56,
---
-2.34.1
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 

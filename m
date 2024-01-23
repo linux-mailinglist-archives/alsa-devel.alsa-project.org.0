@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF9F0838E97
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jan 2024 13:32:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 362BA838F4D
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jan 2024 14:06:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2EABD74C;
-	Tue, 23 Jan 2024 13:32:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2EABD74C
+	by alsa0.perex.cz (Postfix) with ESMTPS id A4EB5844;
+	Tue, 23 Jan 2024 14:06:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A4EB5844
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1706013165;
-	bh=OwMt/QxJ0zuys89yLUHp3fh3qkYycWCrjOmnED7SkE8=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1706015180;
+	bh=NC2SBjf4G4LZDr8Uy1pZIztgxM81v01wdVZC8CaieWY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=KUFkD3IOx+KSUNELrTjL4jNtRlTf4KNEocwoiHN8yx2SQZ2oVl9yDAtYqN3thpdK6
-	 vgqqvYvwgoYsX8PVy4g/aCC5eqlXGM2Z/UEZkZx/bjbVxpC01TdBofEas7GyjOwRgT
-	 vSjPUkJzfH8zlV6ZoCspnPAjw3GhVtpl0v9L4GxE=
+	b=Kz99c6q4NX3cI5cwChuLIAIuhFZjPTBX7ndGQy0YRsqIM7GvWyDUoS6haKQZ4ctsg
+	 lvwZFJ2XB0nTIvfNvgD4mJbdAPp9fJIS+q5BYAG3OavPJGRCP8ta0PkdstIz+ca5cQ
+	 e9wBK3HZ1wke46V430c/+CNiosG94ijsCzf2eYfw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8B455F80588; Tue, 23 Jan 2024 13:32:13 +0100 (CET)
+	id ABE5CF8055B; Tue, 23 Jan 2024 14:05:49 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DE851F80568;
-	Tue, 23 Jan 2024 13:32:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A9071F8057E;
+	Tue, 23 Jan 2024 14:05:48 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0F1D8F8025F; Tue, 23 Jan 2024 13:32:09 +0100 (CET)
+	id BBF9BF8028D; Tue, 23 Jan 2024 14:05:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-3.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -38,45 +38,51 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 267CDF800C1
-	for <alsa-devel@alsa-project.org>; Tue, 23 Jan 2024 13:32:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 267CDF800C1
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3CA4BF80149
+	for <alsa-devel@alsa-project.org>; Tue, 23 Jan 2024 14:05:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3CA4BF80149
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=toHXbA02
+ header.s=k20201202 header.b=ctr0fBBH
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 0F27961C63;
-	Tue, 23 Jan 2024 12:31:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D883C433F1;
-	Tue, 23 Jan 2024 12:31:56 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id CDAF861DD2;
+	Tue, 23 Jan 2024 13:05:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E1CBC32782;
+	Tue, 23 Jan 2024 13:05:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1706013117;
-	bh=OwMt/QxJ0zuys89yLUHp3fh3qkYycWCrjOmnED7SkE8=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=toHXbA02hB91TiQVcfwxFq2jfXlX3iWcaPi9kyLbZGC+ZvaGAcu9fB099uaK7HCEB
-	 uHhC/qgmMYz0lVN/0xrFyfir6p2xL2/51CS8rnOPoJRrwv57T0IaE7IHx4Vnfba0Fo
-	 emIMK/4eRE1Nb/kfXeMDzetlDM0L7S5T/fOuwhVtKkS8hQ8HSs2MizNQXB0TGGsCPK
-	 81V/raAGTMRHMAi8veStzRt+NmpfYoZ48quHYjJlxMDjelzzKeXA4+m0q+RqTVbEB+
-	 su+0BpfOVZj4144Y+AIy7jrDLli8LzCED6PB13r1JrbOOk1dv4Gv+06UAH++3hZPAS
-	 tU9O/E3I3bGrw==
+	s=k20201202; t=1706015126;
+	bh=NC2SBjf4G4LZDr8Uy1pZIztgxM81v01wdVZC8CaieWY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ctr0fBBH7qw/d81eOGdjaoGoJLrOTMoko1RFXnVe1w4UD8O38W2UFMNfPoIGFN2Hw
+	 9qEY7yeNv9BIMnnjCV7h9Kxomlcfg/FSDUYbICnxB5IabrU7qTyeum9WdRbz3zyilU
+	 KiuQ2Fo1CnXHf7GlyqnXtVBbRhP6vMXTvmToh2+CVnlxLqwtTVqfpE5n3w9sjYRi67
+	 uPljZxLusAMZKADs/9xUd59GiosAT1HIBThb3bZD8HyKEYXFmwXHNFs5d4MbArkYdX
+	 5X+U4r6UGz3lWHtLbTYS9TT0IT0rj/EEn3KP7I6JS3qJCHUSDmRMnLT+qUTdKf0EWI
+	 +BCCQoce5ORnw==
+Date: Tue, 23 Jan 2024 13:05:21 +0000
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, Zhu Ning <zhuning0077@gmail.com>
-Cc: tiwai@suse.com, amadeuszx.slawinski@linux.intel.com,
- yangxiaohua@everest-semi.com, zhuning@everest-semi.com,
- zhangyi@everest-semi.com
-In-Reply-To: <20240120101240.12496-1-zhuning0077@gmail.com>
-References: <20240120101240.12496-1-zhuning0077@gmail.com>
-Subject: Re: (subset) [PATCH v1 0/5] ASoC: codecs: fix ES8326 performance
- and pop noise
-Message-Id: <170601311603.19497.11836184914578593014.b4-ty@kernel.org>
-Date: Tue, 23 Jan 2024 12:31:56 +0000
+To: Johan Hovold <johan@kernel.org>
+Cc: Johan Hovold <johan+linaro@kernel.org>,
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	Banajit Goswami <bgoswami@quicinc.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 0/4] ASoC: qcom: volume fixes and codec cleanups
+Message-ID: <93fee0e1-ce92-4aba-8e4b-0861f78c32c9@sirena.org.uk>
+References: <20240119112420.7446-1-johan+linaro@kernel.org>
+ <170596045016.161959.16318695944363636291.b4-ty@kernel.org>
+ <Za9xnEXYczA5rsw3@hovoldconsulting.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-5c066
-Message-ID-Hash: BTNLOQIFSNMEHFYM6N3S7KOQL7OMC2SB
-X-Message-ID-Hash: BTNLOQIFSNMEHFYM6N3S7KOQL7OMC2SB
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="f373qjpYXgEyzeWN"
+Content-Disposition: inline
+In-Reply-To: <Za9xnEXYczA5rsw3@hovoldconsulting.com>
+X-Cookie: Stay together, drag each other down.
+Message-ID-Hash: 6A6ZRFTZX3MPBCGBMH3BH3TAM4JWL3JW
+X-Message-ID-Hash: 6A6ZRFTZX3MPBCGBMH3BH3TAM4JWL3JW
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -89,7 +95,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BTNLOQIFSNMEHFYM6N3S7KOQL7OMC2SB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6A6ZRFTZX3MPBCGBMH3BH3TAM4JWL3JW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,49 +104,33 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sat, 20 Jan 2024 18:12:35 +0800, Zhu Ning wrote:
->     5 patches here for the es8326 driver...
-> 
->     We get some issues regarding crosstalk, THD+N performance and pop
->     noise from customer's project.
->     Five patches are used to fix these issues. We did tests with the new
->     driver. The test results form test department met our expectations.
->     We fixed the AUTO BUILD TEST ERROR and modified the kcontrol for HP_VOL
->     in the new version of the same patch.
-> 
-> [...]
 
-Applied to
+--f373qjpYXgEyzeWN
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+On Tue, Jan 23, 2024 at 08:58:20AM +0100, Johan Hovold wrote:
 
-Thanks!
+> Could you consider applying at least patches 1/4 and 3/4 for 6.8 as
+> well?
 
-[1/5] ASoC: codecs: ES8326: improving crosstalk performance
-      commit: 523d242d4309797e6b27c708fbd1463f301c199a
-[2/5] ASoC: codecs: ES8326: Improving the THD+N performance
-      commit: 14a0a1ec3335ac3945a96437c35465e4a9616b88
-[4/5] ASoC: codecs: ES8326: Minimize the pop noise on headphone
-      commit: a3aa9255d6ccb1bff13c7c98e5d3bf10ba67f92e
-[5/5] ASoC: codecs: ES8326: fix the capture noise issue
-      commit: 8c99a0a607b5e0cf6b79b283d7bb2c2b84e01da5
+Please check git and resend anything you think has been missed.  When
+you resent the whole series rather than just the problematic patch that
+most likely confused b4.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+--f373qjpYXgEyzeWN
+Content-Type: application/pgp-signature; name="signature.asc"
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+-----BEGIN PGP SIGNATURE-----
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmWvuZAACgkQJNaLcl1U
+h9ArUQf/fqtc9mZcxQYwBT78ghoI6k7z1q3af7Iqh0gpSRanrp2nFO0pSY0zQBDy
+9+/cFUdlbrSqX2ldPE0vNIgM79WOp7nAUyVQfY6qntqSgYEaLbl+W50m8n8pknyt
+tnF1tCz9LWsEr4qw/9p3G/aNM2znSQamjXyiNVAXHSjDR3oe713e+OtpTMsJq8D9
+6x5c7K0I2FGmNEfvcjp3zn51GWp2jfnkbO/x3ikbKJsKFYbfzoic3RXFXlRHmAz4
+/ptS3k4pB0iInw/a2E2ma59NxxvzkUjzJVzRHLlAC51FqhBHags2j5jFWfD9lAV2
+7dnlGWlAbdS0kExjFwxAwc33hzkjVA==
+=Be7j
+-----END PGP SIGNATURE-----
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+--f373qjpYXgEyzeWN--

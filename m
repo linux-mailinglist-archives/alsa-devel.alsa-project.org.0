@@ -2,101 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A7DF83AA10
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jan 2024 13:41:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABA1C83AA93
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jan 2024 14:03:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A2B9A741;
-	Wed, 24 Jan 2024 13:41:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A2B9A741
+	by alsa0.perex.cz (Postfix) with ESMTPS id 18F33857;
+	Wed, 24 Jan 2024 14:03:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 18F33857
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1706100090;
-	bh=FZFP8leP7RAq5kGQxJmipIwDZPPhQviPXOnLVnpMR5k=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=tFPelXnjAmSeo5dLW33HeWgtwRpisRgPSpq6xAHwlEVIJ7oEiwXPSvpiayVBR6Uv1
-	 OzXgGCysbytiTX4hKvfmruyKb6X5zVNiTrp7DtOkBG1A2K1fgYtGF3gIlQK+4HXz6x
-	 9VMGlXCSlFgIcdgtxkRm7pOdfGWNdSPfmiVsKfN4=
+	s=default; t=1706101423;
+	bh=iNOydroWJwvKWVbIyX0PfZbdIo5x+suxMvxhKm6Ez2E=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=CTzAIQoZ+prEv7zeM4IEVQXJUmfnOnidnE8GmWAkCwhBb9cK4pDGP833qX5mkp8VA
+	 BFjzGf2P7p8KeIq5WntFScmN121q/l3sQ3WbU+YRk4f+ohAp1mZg/GB/bhnViU/DaJ
+	 QAgE1j3NWRW8qS7F3vh2Vr2oryvMA+ivShe2/R/s=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A9D82F80564; Wed, 24 Jan 2024 13:40:58 +0100 (CET)
+	id 0B555F8057B; Wed, 24 Jan 2024 14:03:08 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2DC50F80564;
-	Wed, 24 Jan 2024 13:40:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E2E59F8057E;
+	Wed, 24 Jan 2024 14:03:07 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EB5A5F8028D; Wed, 24 Jan 2024 13:40:51 +0100 (CET)
+	id 6A305F8028D; Wed, 24 Jan 2024 14:03:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-oo1-xc35.google.com (mail-oo1-xc35.google.com
- [IPv6:2607:f8b0:4864:20::c35])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-4.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
+	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from puleglot.ru (puleglot.ru [IPv6:2a01:4f8:1c0c:58e8::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0A2EBF80149
-	for <alsa-devel@alsa-project.org>; Wed, 24 Jan 2024 13:40:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A2EBF80149
+	by alsa1.perex.cz (Postfix) with ESMTPS id 599C6F8022B
+	for <alsa-devel@alsa-project.org>; Wed, 24 Jan 2024 14:02:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 599C6F8022B
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=Qc6GPRuo
-Received: by mail-oo1-xc35.google.com with SMTP id
- 006d021491bc7-5997492d71cso2104469eaf.2
-        for <alsa-devel@alsa-project.org>;
- Wed, 24 Jan 2024 04:40:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1706100039; x=1706704839;
- darn=alsa-project.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=kWogWcbiiyuJh+FUerTxPBMWB5fr1e6cnL665YmIF/A=;
-        b=Qc6GPRuonOoLBitUhbabYEPsXQs66u40SF+3B2xhNrVRrc2BgcZYvfn2W1K5yWSSky
-         peXQ1+t7GzmiEoUzvO9nBO+luSxXZUmEuJzifHmsi6k7bFWvjMDTJ+51KlBL81nOks1+
-         vRSfaur3lYAu5duW5ouZ0hLEOexoa8OlxWBBCgP1hp5eJRB5256TENAv6KE2alnHILTY
-         WLVtLogetjKqXbgQFjFaBPUDW3OnlREyob4ZgSG5sif8naFpwjFZ2pisLCXzYjEWibun
-         HxjTPaWwZb/M8wygBM3LeImHwxEN1pJcOib0MTYDreFynz7n7h5vS51Y1ClPIEbAeu4j
-         bFzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706100039; x=1706704839;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=kWogWcbiiyuJh+FUerTxPBMWB5fr1e6cnL665YmIF/A=;
-        b=icoi0KmWVlcRLxbvGkmoVSKxxwQYz4DNiMfBIkck9XrO5+knoeT0q2KE+FeBDfcXbg
-         wyAaaiWdsFhsWjFMuO6DkkcPxemZ5KmAQLZEUSzC3WHMomUR2u9MRpZ4CnplXtx6r3F+
-         4uGhMyzaTOszwYAuZXm/TexiEuIf1YKoHJYuiWdvBoU3FYnQKIh7yuhz8eAXCaGnkdqk
-         rVzhKDKgVcXBCHTU71xWhjTdEwtiueceq9H1LH7Zuw0L23uVCsJc6m+EC9tWFTF4PQFj
-         LS/3PipSm1dqZchQBgbNuyFGqlP9tZTW+C3IzwQCylHDHvihoEASfF7sB37ldXd1zJNX
-         uDQw==
-X-Gm-Message-State: AOJu0YwIT9y6AL0rwgJyThWxiqPQIXe5xyx63PQt+q5AlVoUO8QzHmPD
-	1RU90kU31xwsoG3/TJxpUyb4MO2OWgc5IYyTJUviIZggNX3dnuvqcCZqJsDcT3+Nz5da1Ki+cCB
-	ki77/KPGElYC7kecmFwINMX0iRvQ=
-X-Google-Smtp-Source: 
- AGHT+IHyUNMoe1WPRltarBaK5ChqVz54utp+rmgY1rxh0GGzt82eqUUiuTyYaabcgKvybe1H2CF3w37Gbg8KjnLvC1Y=
-X-Received: by 2002:a4a:d00e:0:b0:599:79ce:67e5 with SMTP id
- h14-20020a4ad00e000000b0059979ce67e5mr1167571oor.8.1706100039049; Wed, 24 Jan
- 2024 04:40:39 -0800 (PST)
+	dkim=pass (1024-bit key,
+ unprotected) header.d=tsoy.me header.i=@tsoy.me header.a=rsa-sha256
+ header.s=mymail header.b=ZmzuBEYE
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tsoy.me;
+	s=mymail; h=Sender:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:
+	Subject:Cc:To:From:Reply-To:Content-Type:Content-ID:Content-Description:
+	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=V0FzpxJpG5E2fiFweq5sexv5Hj+VJZOEmekZjgsaJa0=; b=ZmzuBEYEJC/LRwzWasoHWahdCA
+	mltZ4HHrqiBXDzcpC7k8RgTOOJcQtbjjmWjCsD1mHBSNzdm6ev0reOrRV4e3cY7QpV5eyB310pGXm
+	IZQkAeP1Wv8wZf3GqigJQjfs9trhmJ07T5GOh8AOvAbkc2QjcMpgRg3qmqw4Gksmet/M=;
+Received: from [2a00:1370:819a:c53:3baa:da0a:1172:ed3d] (helo=home..)
+	by puleglot.ru with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.97.1)
+	(envelope-from <puleglot@puleglot.ru>)
+	id 1rScu2-00000001tBY-3bpy;
+	Wed, 24 Jan 2024 16:02:50 +0300
+From: Alexander Tsoy <alexander@tsoy.me>
+To: alsa-devel@alsa-project.org
+Cc: Takashi Iwai <tiwai@suse.de>,
+	Jaroslav Kysela <perex@perex.cz>
+Subject: [PATCH] ALSA: usb-audio: Add delay quirk for MOTU M Series 2nd
+ revision
+Date: Wed, 24 Jan 2024 16:02:39 +0300
+Message-ID: <20240124130239.358298-1-alexander@tsoy.me>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <20240124120834.49410-1-lirongqing@baidu.com>
-In-Reply-To: <20240124120834.49410-1-lirongqing@baidu.com>
-From: Stefan Hajnoczi <stefanha@gmail.com>
-Date: Wed, 24 Jan 2024 07:40:26 -0500
-Message-ID: 
- <CAJSP0QXP9KFSCO9mFkNmms=GKmMi+h4EjrVKf3Ng_BQV-LFiSQ@mail.gmail.com>
-Subject: Re: [PATCH] ALSA: virtio: remove duplicate check if queue is broken
-To: Li RongQing <lirongqing@baidu.com>
-Cc: anton.yakovlev@opensynergy.com, mst@redhat.com, perex@perex.cz,
-	tiwai@suse.com, virtualization@lists.linux.dev, alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Message-ID-Hash: UJA3TIIVTS4NUF7JJIFXUPFXYO4TLPU7
-X-Message-ID-Hash: UJA3TIIVTS4NUF7JJIFXUPFXYO4TLPU7
-X-MailFrom: stefanha@gmail.com
+Content-Transfer-Encoding: 8bit
+Sender: puleglot@puleglot.ru
+Message-ID-Hash: KJW27ARFR7DZUOV5E6BLTLJ5JTCKFC2C
+X-Message-ID-Hash: KJW27ARFR7DZUOV5E6BLTLJ5JTCKFC2C
+X-MailFrom: puleglot@puleglot.ru
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -108,7 +84,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UJA3TIIVTS4NUF7JJIFXUPFXYO4TLPU7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KJW27ARFR7DZUOV5E6BLTLJ5JTCKFC2C/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,61 +93,28 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 24 Jan 2024 at 07:17, Li RongQing <lirongqing@baidu.com> wrote:
->
-> virtqueue_enable_cb() will call virtqueue_poll() which will check if
-> queue is broken at beginning, so remove the virtqueue_is_broken() call
->
-> Signed-off-by: Li RongQing <lirongqing@baidu.com>
-> ---
->  sound/virtio/virtio_card.c    | 2 --
->  sound/virtio/virtio_ctl_msg.c | 2 --
->  sound/virtio/virtio_pcm_msg.c | 2 --
->  3 files changed, 6 deletions(-)
+Audio control requests that sets sampling frequency sometimes fail on
+this card. Adding delay between control messages eliminates that problem.
 
-Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=217601
+Signed-off-by: Alexander Tsoy <alexander@tsoy.me>
+---
+ sound/usb/quirks.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
->
-> diff --git a/sound/virtio/virtio_card.c b/sound/virtio/virtio_card.c
-> index e2847c0..b158c3c 100644
-> --- a/sound/virtio/virtio_card.c
-> +++ b/sound/virtio/virtio_card.c
-> @@ -91,8 +91,6 @@ static void virtsnd_event_notify_cb(struct virtqueue *vqueue)
->                         virtsnd_event_dispatch(snd, event);
->                         virtsnd_event_send(vqueue, event, true, GFP_ATOMIC);
->                 }
-> -               if (unlikely(virtqueue_is_broken(vqueue)))
-> -                       break;
->         } while (!virtqueue_enable_cb(vqueue));
->         spin_unlock_irqrestore(&queue->lock, flags);
->  }
-> diff --git a/sound/virtio/virtio_ctl_msg.c b/sound/virtio/virtio_ctl_msg.c
-> index 18dc5ac..9dabea0 100644
-> --- a/sound/virtio/virtio_ctl_msg.c
-> +++ b/sound/virtio/virtio_ctl_msg.c
-> @@ -303,8 +303,6 @@ void virtsnd_ctl_notify_cb(struct virtqueue *vqueue)
->                 virtqueue_disable_cb(vqueue);
->                 while ((msg = virtqueue_get_buf(vqueue, &length)))
->                         virtsnd_ctl_msg_complete(msg);
-> -               if (unlikely(virtqueue_is_broken(vqueue)))
-> -                       break;
->         } while (!virtqueue_enable_cb(vqueue));
->         spin_unlock_irqrestore(&queue->lock, flags);
->  }
-> diff --git a/sound/virtio/virtio_pcm_msg.c b/sound/virtio/virtio_pcm_msg.c
-> index 542446c..8c32efa 100644
-> --- a/sound/virtio/virtio_pcm_msg.c
-> +++ b/sound/virtio/virtio_pcm_msg.c
-> @@ -358,8 +358,6 @@ static inline void virtsnd_pcm_notify_cb(struct virtio_snd_queue *queue)
->                 virtqueue_disable_cb(queue->vqueue);
->                 while ((msg = virtqueue_get_buf(queue->vqueue, &written_bytes)))
->                         virtsnd_pcm_msg_complete(msg, written_bytes);
-> -               if (unlikely(virtqueue_is_broken(queue->vqueue)))
-> -                       break;
->         } while (!virtqueue_enable_cb(queue->vqueue));
->         spin_unlock_irqrestore(&queue->lock, flags);
->  }
-> --
-> 2.9.4
->
->
+diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
+index 43c14a81a1e2..be0ce1fc4f26 100644
+--- a/sound/usb/quirks.c
++++ b/sound/usb/quirks.c
+@@ -2075,6 +2075,8 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
+ 		   QUIRK_FLAG_GENERIC_IMPLICIT_FB),
+ 	DEVICE_FLG(0x0763, 0x2031, /* M-Audio Fast Track C600 */
+ 		   QUIRK_FLAG_GENERIC_IMPLICIT_FB),
++	DEVICE_FLG(0x07fd, 0x000b, /* MOTU M Series 2nd hardware revision */
++		   QUIRK_FLAG_CTL_MSG_DELAY_1M),
+ 	DEVICE_FLG(0x08bb, 0x2702, /* LineX FM Transmitter */
+ 		   QUIRK_FLAG_IGNORE_CTL_ERROR),
+ 	DEVICE_FLG(0x0951, 0x16ad, /* Kingston HyperX */
+-- 
+2.43.0
+

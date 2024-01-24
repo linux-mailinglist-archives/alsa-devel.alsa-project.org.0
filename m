@@ -2,67 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2462483DE7B
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Jan 2024 17:19:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F3A983DE7D
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Jan 2024 17:20:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BB2097F4;
-	Fri, 26 Jan 2024 17:19:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BB2097F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id DB2CAE9A;
+	Fri, 26 Jan 2024 17:20:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB2CAE9A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1706285997;
-	bh=jvo5IXYlQYdIU6VCmACeGNP4xo23ZIbLfeE2jvqqluI=;
+	s=default; t=1706286020;
+	bh=J9cWHBzQAtoEqppKJznkEOwXANl/OtQJlMreI+w5+pM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=gdhJhkLpliXGkwPdJu+vMCpoNGBiHabkW5BJrDcKiltyEzR6sxwdKZSxljjFmrtiM
-	 5oQoAipWX9+L7DuE9h+/2SRMNKSmnDlFbWMsqJ7cTD5V8/l+C6TJHUEkzSfECMeFOC
-	 oiY66QTuuWHtj4zZH4NrnJRPkxj6Kr5dxHafwDzI=
+	b=InWd/21OlMnb3KD84VBv67fgH7mZqzPUktm8fWShINi36N+Ukxs3dUA1b0hHH7nn8
+	 fE1Pk8afuUOzjAcf8qv6abhOXnzyAqXWWQu9ftPG2MHqlBTCcXDfDpX40GNjKGWrIu
+	 wGOmG+KZZCS8fSY2CQoFSdr13wqzM+dYuO4xu4Mc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 271D8F8067F; Fri, 26 Jan 2024 17:18:26 +0100 (CET)
+	id 69E2EF8057C; Fri, 26 Jan 2024 17:18:29 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3145CF8065E;
-	Fri, 26 Jan 2024 17:18:26 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 43FF2F80684;
+	Fri, 26 Jan 2024 17:18:29 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C61B0F8028D; Wed, 24 Jan 2024 18:14:13 +0100 (CET)
+	id DCDD2F8028D; Wed, 24 Jan 2024 18:22:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+X-Spam-Status: No, score=-6.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4B426F80149
-	for <alsa-devel@alsa-project.org>; Wed, 24 Jan 2024 18:13:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B426F80149
+	by alsa1.perex.cz (Postfix) with ESMTPS id 87D2AF8003A
+	for <alsa-devel@alsa-project.org>; Wed, 24 Jan 2024 18:22:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87D2AF8003A
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org
- header.a=rsa-sha256 header.s=korg header.b=v2pVfufL
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=LzpFWfp6
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 28784CE314A;
-	Wed, 24 Jan 2024 17:13:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B096C43390;
-	Wed, 24 Jan 2024 17:13:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1706116430;
-	bh=jvo5IXYlQYdIU6VCmACeGNP4xo23ZIbLfeE2jvqqluI=;
+	by dfw.source.kernel.org (Postfix) with ESMTP id B592E61DC3;
+	Wed, 24 Jan 2024 17:22:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAF93C433C7;
+	Wed, 24 Jan 2024 17:22:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1706116940;
+	bh=J9cWHBzQAtoEqppKJznkEOwXANl/OtQJlMreI+w5+pM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=v2pVfufLGd3lCfp0CeG2fpxzUUsvpwbElgNFofM1ZPehhJ3gSyI8DyqjujjS7qB28
-	 HIx8X5ThDTkPR0Ay0PzOQVdIcq5n2pTAL/fkyg4/FCf2V3zKeABMVcc+DS8MIJ/Ztv
-	 A8j4KVPuFkJX9pHjYFH5A/rDYDM6TICeR0rlV7yw=
-Date: Wed, 24 Jan 2024 09:13:49 -0800
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
-Cc: Mark Brown <broonie@kernel.org>, kernel@pengutronix.de,
-	Moritz Fischer <mdf@kernel.org>, Wu Hao <hao.wu@intel.com>,
-	Xu Yilun <yilun.xu@intel.com>, Tom Rix <trix@redhat.com>,
-	linux-fpga@vger.kernel.org, linux-kernel@vger.kernel.org,
+	b=LzpFWfp68rpr4dWHpdN+3IBhvKe1BMer+To6gMN52sFIqJGOHOg2ldSKjRXCcMb5m
+	 TFWNLUoV1HFSfX27ssqcTmUNGmLjfsu/z7ab3gxQuXnjvSNFUQXmjhZEIyIhUWWEIT
+	 CgAYNmzcDLnvRg+viWfwfm6By4Ffbj0ymjEy26C89CVOqr6JLR32V+zT7k2ef93fpP
+	 1Ka1oOBMomGGEuXbLQOuhLohRSeVfalTXlkn0w18Bo0vP0gpL8EpG8vIchAhQdEue3
+	 Cd0Kc25AAqNkrZ3Jhe5TUtRkxqZmjaKSQ074XXZPz2CPZUgeNzrq5mcjx4JO7BaCUH
+	 nqaKOF7sEH13g==
+Date: Wed, 24 Jan 2024 17:22:00 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
+	kernel@pengutronix.de, Moritz Fischer <mdf@kernel.org>,
+	Wu Hao <hao.wu@intel.com>, Xu Yilun <yilun.xu@intel.com>,
+	Tom Rix <trix@redhat.com>, linux-fpga@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
 	Alexander Aring <alex.aring@gmail.com>,
 	Stefan Schmidt <stefan@datenfreihafen.org>,
 	Miquel Raynal <miquel.raynal@bootlin.com>,
@@ -126,14 +130,16 @@ Cc: Mark Brown <broonie@kernel.org>, kernel@pengutronix.de,
 	Jonathan Corbet <corbet@lwn.net>, James Clark <james.clark@arm.com>,
 	Bjorn Helgaas <bhelgaas@google.com>, linux-doc@vger.kernel.org
 Subject: Re: [PATCH v2 00/33] spi: get rid of some legacy macros
-Message-ID: <2024012417-prissy-sworn-bc55@gregkh>
+Message-ID: <c1e38a30-5075-4d01-af24-ac684e77cf29@sirena.org.uk>
 References: <cover.1705944943.git.u.kleine-koenig@pengutronix.de>
+ <2024012417-prissy-sworn-bc55@gregkh>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="FdGjmVpGJ74QDTu1"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <cover.1705944943.git.u.kleine-koenig@pengutronix.de>
-X-MailFrom: gregkh@linuxfoundation.org
+In-Reply-To: <2024012417-prissy-sworn-bc55@gregkh>
+X-Cookie: To err is human, to moo bovine.
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Hits: max-recipients
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -141,15 +147,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
  suspicious-header
-Message-ID-Hash: E4YKUK36UZQXWBXKZLZA74RVN2UABUT7
-X-Message-ID-Hash: E4YKUK36UZQXWBXKZLZA74RVN2UABUT7
+Message-ID-Hash: SOJGNHF5QGGJAI5CBJL5PKMBHPQMXNL4
+X-Message-ID-Hash: SOJGNHF5QGGJAI5CBJL5PKMBHPQMXNL4
 X-Mailman-Approved-At: Fri, 26 Jan 2024 16:18:21 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/E4YKUK36UZQXWBXKZLZA74RVN2UABUT7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SOJGNHF5QGGJAI5CBJL5PKMBHPQMXNL4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -158,32 +164,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, Jan 22, 2024 at 07:06:55PM +0100, Uwe Kleine-König wrote:
-> Hello,
-> 
-> this is v2 of this patch set.
-> 
-> Changes since (implicit) v1, sent with Message-Id:
-> cover.1705348269.git.u.kleine-koenig@pengutronix.de:
-> 
->  - Rebase to v6.8-rc1
->  - Fix a build failure on sh
->  - Added the tags received in (implicit) v1.
-> 
-> The slave-mt27xx driver needs some more work. The patch presented here
-> is enough however to get rid of the defines handled in patch 32.
-> Cleaning that up is out-of-scope for this series, so I'll delay that
-> until later.
-> 
-> Note that Jonathan Cameron has already applied patch 3 to his tree, it
-> didn't appear in a public tree though yet. I still included it here to
-> make the kernel build bots happy.
 
-Are we supposed to take the individual changes in our different
-subsystem trees, or do you want them all to go through the spi tree?
+--FdGjmVpGJ74QDTu1
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Either is fine with me, just need to know.
+On Wed, Jan 24, 2024 at 09:13:49AM -0800, Greg Kroah-Hartman wrote:
+> On Mon, Jan 22, 2024 at 07:06:55PM +0100, Uwe Kleine-K=F6nig wrote:
 
-thanks,
+> > Note that Jonathan Cameron has already applied patch 3 to his tree, it
+> > didn't appear in a public tree though yet. I still included it here to
+> > make the kernel build bots happy.
 
-greg k-h
+> Are we supposed to take the individual changes in our different
+> subsystem trees, or do you want them all to go through the spi tree?
+
+Given that the final patch removes the legacy interfaces I'm expecting
+to take them via SPI.
+
+--FdGjmVpGJ74QDTu1
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmWxRzcACgkQJNaLcl1U
+h9CS5Af+OPZh7Z4aM5AF1TAMNJebJxrwbV+lfEa8zsdVnpHBXYpXokCrVwsSRBtM
+yR/bt2+OoZjrVep6c0lufmewH58kEtQF4UazYao7MD2alCnwzn49m697Ubpnc/k9
+iSCRd+E5ICMZuRdRrDAmd/To7o3jsg85SeN4qLdeer17NkjU6VS9vR6NlzImV/nS
+MXj52eAHL5+EZIpIlwZSBkCxyEEsz/UFaGcFsKMonZ+24Oz5SXXWFhUWfiFCD+fA
+DNZKxXJ9Vk2i5pCUsduff5giUUypwRqVP4C01wYMs7o3jkMZ2cQhtuH8iyDtKKMU
+FSwO3bpbAgZzLbY2G2cqYZyEpqJ8Ow==
+=E3cl
+-----END PGP SIGNATURE-----
+
+--FdGjmVpGJ74QDTu1--

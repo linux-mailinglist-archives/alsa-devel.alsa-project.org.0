@@ -2,102 +2,118 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C49283A1A5
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jan 2024 06:58:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA3D083A1A7
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jan 2024 06:58:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 054B0852;
-	Wed, 24 Jan 2024 06:58:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 054B0852
+	by alsa0.perex.cz (Postfix) with ESMTPS id 624253E8;
+	Wed, 24 Jan 2024 06:58:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 624253E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1706075904;
-	bh=fJ/ChSAOHQOyd2iOF8Uwehz9ZwYKjCnQ0KO5SVBhUTY=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=FDBYxwlmhykx7BM81FJbSxO21+mcB9YvXIOD9MaQVssDuQvmgi5Q2ZZOQHASi/UMG
-	 5WBDvmgUYPpvBRqi6ITkXgeVSTPfbQvt3HPTT8AZLHl3lmpB4fZw6P3lJmCg/Yj3ko
-	 9l8CDcBLazQ6m8rgYPWiUsfB7jBrTLf98EQc9Xt8=
+	s=default; t=1706075920;
+	bh=3n6qbepBC/quy189WMpUt5s0sJ7FlfcHVamtdO7egM8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=AUE2HktwB2WZvAMEkqXFm1Cnp3De8AHqoiKQV0JSRaUi5++VF8gkONCA92DAlIjJe
+	 yxyVGtyAWRiQHg1WujDtyxUJS9LAzDYSSPkeGZjoCOEEaNTAH8Z0tEv1J5jCL5kFz+
+	 +s+oJXek85z6E1Usrqr7KvHKJkBmltyWJw8GpDI8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B42D3F80587; Wed, 24 Jan 2024 06:57:52 +0100 (CET)
+	id B7AAFF805BE; Wed, 24 Jan 2024 06:57:56 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 21E90F8057D;
-	Wed, 24 Jan 2024 06:57:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CF85CF805BE;
+	Wed, 24 Jan 2024 06:57:55 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BEC38F8028D; Wed, 24 Jan 2024 06:51:23 +0100 (CET)
+	id EED6BF8028D; Wed, 24 Jan 2024 06:56:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+X-Spam-Status: No, score=-1.7 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_SBL_CSS,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-pf1-x433.google.com (mail-pf1-x433.google.com
- [IPv6:2607:f8b0:4864:20::433])
+Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com
+ [IPv6:2607:f8b0:4864:20::236])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8D5C7F80149
-	for <alsa-devel@alsa-project.org>; Wed, 24 Jan 2024 06:48:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D5C7F80149
+	by alsa1.perex.cz (Postfix) with ESMTPS id A57F0F8003A
+	for <alsa-devel@alsa-project.org>; Wed, 24 Jan 2024 06:56:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A57F0F8003A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=BcqmeDZC
-Received: by mail-pf1-x433.google.com with SMTP id
- d2e1a72fcca58-6daa89a6452so3484787b3a.2
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=bQC5JGMJ
+Received: by mail-oi1-x236.google.com with SMTP id
+ 5614622812f47-3bb9d54575cso3551882b6e.2
         for <alsa-devel@alsa-project.org>;
- Tue, 23 Jan 2024 21:48:57 -0800 (PST)
+ Tue, 23 Jan 2024 21:56:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1706075335; x=1706680135;
+        d=linaro.org; s=google; t=1706075782; x=1706680582;
  darn=alsa-project.org;
-        h=message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=fJ/ChSAOHQOyd2iOF8Uwehz9ZwYKjCnQ0KO5SVBhUTY=;
-        b=BcqmeDZCqqqXv3NJDobbcknDkYDjlILDXXKbKjyUltFerCbfz5iYnEhIgiVnWNlOjZ
-         eCeYgzbxR1uUShVLtCWrfbc8v6AG1YkD+KgQJwLh6gOlWyGduUiSgUgzNONB0pUsdrwm
-         dpuuYXBh4trrjinaG6IR69AQRoOhQWWu6vXUNyBk0vilbhCqc1dtZD6gNOk6kjtaLRif
-         ofokBeJQ/oGcTy2Gl756ptGVMQl8lRh/KliEYO2vMkVNX0jGR+Z4p2kYyLy68EK39xUo
-         k3hrUg4eCLK15mU6Hb4+MjebKRcytiP2CanF+l/yyQx6+YoujObJky9ddwvvQnQklbPs
-         KpqQ==
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=F7SahGLtspE/3Wi9Cd+JOw7KlfpX4OF2RIxiyIP7SV0=;
+        b=bQC5JGMJ9gGsXxgzN+kPbvCvqME1EFjj5wVpConbU104wQQQQY5twa7QM5KuEscdGJ
+         rQOA3wayio8ZMUxL36rsIS4ws31RRNsVD3vK2LnGAMTMP1kMhgx8LJhglcIfenex3K42
+         SiaTInkDvz8G3PX7PUh5hnxwXO2fRRIh/c3rIsFtiuac3ocfiB1biJ4v1UTNaQbGKcTX
+         SEdQmF7p+yK8QX/L1l4oCS+8O6WuyT9/bb35qt51cSmva2i3ZW8mldu/CievgggvPB/6
+         lVoEtB/Yg1+rvlxhdZU6o2MRAataNMX51IREEcoCu+wCPDtcyHR6jPO2b2C+CjLX3u7P
+         VG5w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706075335; x=1706680135;
-        h=message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=fJ/ChSAOHQOyd2iOF8Uwehz9ZwYKjCnQ0KO5SVBhUTY=;
-        b=Ph1vxSD3F5vl7rEzFCCp40vQSA7tmjgkNOG4pcNQ4HjFcYmG8UIn0sdW7A64tFjBIB
-         MuGQ8N3i/7gBqIbW9VG1+gDc/ovfl5AH5JPSrCNImDX3uf437Lpk9xH7cTpPPMl5Pdux
-         ngZtM/VNIU6AAqnGmD5GV+Duy7szNfn0ylaSqP8hruxHxElxZpTS6hH7A2CfeCIx+ZBw
-         /QEasNCCdsEyubHarzpgMfvx7toB+pzTQJCG4qdssBjG/7HaChXwL189oWB5MmMANxO+
-         MZ96LI/hivXsCQdIKUds3JGf1GIZv0TNc2lri7plffKg+siPnWnTbFHnH9tyBdRpW8h3
-         JAVg==
-X-Gm-Message-State: AOJu0YwX7tnHgm9Xcr9e4d15NMRIcxVtk7UTWT8dLfoDhb256MIjevSs
-	qx2aSl6/aVM/VaBuQVJMLZzj4CmOjfrfr1W482ljLeKZO5Xh2Jd8UI4jxX+c+Sq8hg==
+        d=1e100.net; s=20230601; t=1706075782; x=1706680582;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=F7SahGLtspE/3Wi9Cd+JOw7KlfpX4OF2RIxiyIP7SV0=;
+        b=HHIYUb2PAlCQsAblmCJYFxUnMvO1FfWLM7XIEm4lOd+cdvxYXxQYgqAnd/Rc/aJgxA
+         +DyBtaJTHj0/5xaVhbq/CfWwnEzoVvaqfRXCX6XjetliTMBn0kahjrCY9OOWogDNyrEx
+         uboD0CRZySA+H6taEjnQVHMJBuU8ThN3m2cKJT6OODsYPmJ5AsD5h5Vvg8VNI3Qj4qT5
+         c3Ua/mi9iDt7eHV5zYjPiX95dzQnhWMGFp1MCehA15SFGuZDL0IGQPXmL6uToWllMY9r
+         KMJ0vKSbZ/VU4ffqZ3eeIj7Gi+KOGnFz0B1bWdYfJHuWRaLeV8WnKzKAXNkyW1ShaAgB
+         7uoQ==
+X-Gm-Message-State: AOJu0YxHo/hmVAed7SSL70jFKxGbv9dpwBTJDzV3UaCb/LvjHM3KrFcA
+	vZC+8aofOG9UYK7OtOoYYIkZxIuncYoVb4DRDJSD4dwna8cLmwTsfCqo29nhFJE=
 X-Google-Smtp-Source: 
- AGHT+IH2UWPOZSNgIvdFb5se1+rGMntPcLN6Ttupp13kR1uNAihCVHMiboilGzNUlB03S9xkBuFXRQ==
-X-Received: by 2002:a05:6a00:460c:b0:6db:d4a2:f613 with SMTP id
- ko12-20020a056a00460c00b006dbd4a2f613mr4242961pfb.13.1706075334687;
-        Tue, 23 Jan 2024 21:48:54 -0800 (PST)
-Received: from zy-virtual-machine.localdomain ([222.70.13.170])
+ AGHT+IGiCI/sj/mAtB23fTMLULvqgI87+dSZUJXZCXN7hV/stz02CWQa7d9iE2R5I1NHRIlUItj1Gw==
+X-Received: by 2002:a05:6808:10c2:b0:3bd:a6ea:1c6c with SMTP id
+ s2-20020a05680810c200b003bda6ea1c6cmr1180274ois.116.1706075782222;
+        Tue, 23 Jan 2024 21:56:22 -0800 (PST)
+Received: from localhost ([122.172.81.83])
         by smtp.gmail.com with ESMTPSA id
- o7-20020a056a001b4700b006dd89359c66sm667921pfv.157.2024.01.23.21.48.50
+ ko18-20020a056a00461200b006dab0d72cd0sm12721062pfb.214.2024.01.23.21.56.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 23 Jan 2024 21:48:54 -0800 (PST)
-From: Zhu Ning <zhuning0077@gmail.com>
-To: alsa-devel@alsa-project.org,
-	broonie@kernel.org
-Cc: tiwai@suse.com,
-	amadeuszx.slawinski@linux.intel.com,
-	yangxiaohua@everest-semi.com,
-	zhuning@everest-semi.com,
-	zhangyi@everest-semi.com
-Subject: RE: [PATCH 3/5] ASoC: codecs: ES8326: Adding new volume kcontrols
-Date: Wed, 24 Jan 2024 13:48:45 +0800
-Message-Id: <20240124054845.30207-1-zhuning0077@gmail.com>
-X-Mailer: git-send-email 2.17.1
-Message-ID-Hash: 55AR2JZR3M3S6BXIZCWLV6E2VVVITDY2
-X-Message-ID-Hash: 55AR2JZR3M3S6BXIZCWLV6E2VVVITDY2
-X-MailFrom: zhuning0077@gmail.com
+        Tue, 23 Jan 2024 21:56:20 -0800 (PST)
+Date: Wed, 24 Jan 2024 11:26:18 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konrad.dybcio@linaro.org>,
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	Banajit Goswami <bgoswami@quicinc.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Frank Rowand <frowand.list@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org
+Subject: Re: [PATCH v4 2/6] cpufreq: do not open-code of_phandle_args_equal()
+Message-ID: <20240124055618.5xppexdpvwnv6zng@vireshk-i7>
+References: <20240123141311.220505-1-krzysztof.kozlowski@linaro.org>
+ <20240123141311.220505-3-krzysztof.kozlowski@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240123141311.220505-3-krzysztof.kozlowski@linaro.org>
+Message-ID-Hash: VKGBLE2MAPNS4CDKIISGK63SVRKVO3JV
+X-Message-ID-Hash: VKGBLE2MAPNS4CDKIISGK63SVRKVO3JV
+X-MailFrom: viresh.kumar@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -109,7 +125,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/55AR2JZR3M3S6BXIZCWLV6E2VVVITDY2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VKGBLE2MAPNS4CDKIISGK63SVRKVO3JV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,56 +134,35 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-> ES8326 features a headphone volume control register and four DAC
-> volume control registers.
-> We add new volume Kcontrols for these registers to enhance the
-> configurability of the volume settings, providing users with
-> greater flexibility.
-This is much better integrated than the earlier version, but there's
-still a few issues.
-> +static int es8326_hplvol_set(struct snd_kcontrol *kcontrol,
-> + struct snd_ctl_elem_value *ucontrol)
-> +{
-> + struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
-> + struct es8326_priv *es8326 = snd_soc_component_get_drvdata(component);
-> + unsigned int hp_vol;
-> +
-> + if (ucontrol->value.integer.value[0] == 3) {
-> > + dev_dbg(component->dev, "HPL_VOL does not change");
-> > + return 0;
-> > + }
-> This will silently ignore attempts to write the invalid value which
-> isn't great any might confuse some userspace code, it would be better to
-> do something like
-> val = ucontrol->value.integer.value[0];
-> if (val >= 3)
-> val++;
-> (with corresponding changes to the other functions) so that we just skip
-> over the invalid value without userspace being aware of it. We should
-> also be validating that out of range values are rejected or at least
-> constained to the relevant bitfield, other than 3 any invalid value will
-> just be written straight into the register (rejecting should be more
-> robust).
-> > + regmap_read(es8326->regmap, ES8326_HP_VOL, &hp_vol);
-> > + hp_vol &= 0x8F;
-> > + hp_vol |= ucontrol->value.integer.value[0] << 4;
-> > + regmap_write(es8326->regmap, ES8326_HP_VOL, hp_vol);
-> regmap_update_bits().
-> > +
-> > + return 0;
-> > +}
-> Also please run mixer-test on your driver - for this control it'll tell
-> you that this function isn't returning 1 when the value changes, meaning
-> that events won't be generated when the value changes.
-> > + SOC_SINGLE_TLV("HPL Playback Volume", ES8326_DACL_VOL, 0, 0xbf, 0, dac_vol_tlv),
-> > + SOC_SINGLE_TLV("HPR Playback Volume", ES8326_DACR_VOL, 0, 0xbf, 0, dac_vol_tlv),
-> > + SOC_SINGLE_TLV("SPKL Playback Volume", ES8326_SPKL_VOL, 0, 0xbf, 0, dac_vol_tlv),
-> > + SOC_SINGLE_TLV("SPKR Playback Volume", ES8326_SPKR_VOL, 0, 0xbf, 0, dac_vol_tlv),
-> It would be *better* if these were stereo controls, but it's not
-> essential.
-> > +
-> > + SOC_ENUM("HPVol SPKVol switch", hpvol_spkvol_switch),
-> Switch should have a capital letter (mixer-test should catch this as
-> well).
+On 23-01-24, 15:13, Krzysztof Kozlowski wrote:
+> Use newly added of_phandle_args_equal() helper to compare two
+> of_phandle_args.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> 
+> ---
+> 
+> Depends on previous of change.
+> ---
+>  include/linux/cpufreq.h | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+> 
+> diff --git a/include/linux/cpufreq.h b/include/linux/cpufreq.h
+> index afda5f24d3dd..3cd06dafb04b 100644
+> --- a/include/linux/cpufreq.h
+> +++ b/include/linux/cpufreq.h
+> @@ -1149,8 +1149,7 @@ static inline int of_perf_domain_get_sharing_cpumask(int pcpu, const char *list_
+>  		if (ret < 0)
+>  			continue;
+>  
+> -		if (pargs->np == args.np && pargs->args_count == args.args_count &&
+> -		    !memcmp(pargs->args, args.args, sizeof(args.args[0]) * args.args_count))
+> +		if (of_phandle_args_equal(pargs, &args))
+>  			cpumask_set_cpu(cpu, cpumask);
+>  
+>  		of_node_put(args.np);
 
-I'll take your advice and submit a separate new patch
+Acked-by: Viresh Kumar <viresh.kumar@linaro.org>
+
+-- 
+viresh

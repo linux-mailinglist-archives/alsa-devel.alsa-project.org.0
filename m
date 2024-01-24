@@ -2,106 +2,169 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABBCC83A24E
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jan 2024 07:51:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40BA483A2DF
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jan 2024 08:26:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 12016B60;
-	Wed, 24 Jan 2024 07:50:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 12016B60
+	by alsa0.perex.cz (Postfix) with ESMTPS id C693884C;
+	Wed, 24 Jan 2024 08:26:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C693884C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1706079069;
-	bh=tWRA/7uaaCe1jCn8HwB0osuwl+kZUF1Be1t1konx7Q4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1706081173;
+	bh=AIukQQBJ/4XCF8WoHZk5ydLR6nAbk7M0ObWxjTdjOes=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=q3J44QzpYd5COe8qSFO2SCIDbDM1wnn05phVIM/naPKbwYRvKNuXoOW9BTLF+Elmj
-	 nfjFCxylNeiQogOTWXHe1RFMDzFAjKPfdIMw1PT5esC7mh7yjm+qVMz6KYt/62c08s
-	 4s52zUEkhLwrmlX+rm0oNo6uID3QR2lQwGCsFv2Q=
+	b=U1grc00yWssLK89kkZMI8fyGhkeiJWwfY7dFQ9TJd+kFJEBHbo9ObNELF4cRDfhV4
+	 nKBpk1Hrd/3FfJ759B4+Kv4n8boLALY7nM637ld1NLmSmSjlsH1Mog9XINla336ZRO
+	 wz12OzJ81/FFOVDnwF5bYOxzGezcgsjMFPyp3Z+w=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2988EF805B4; Wed, 24 Jan 2024 07:50:18 +0100 (CET)
+	id EE49FF8057D; Wed, 24 Jan 2024 08:25:41 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7DE53F805C3;
-	Wed, 24 Jan 2024 07:50:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5260DF802E8;
+	Wed, 24 Jan 2024 08:25:41 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A826FF8028D; Wed, 24 Jan 2024 07:48:30 +0100 (CET)
+	id BF402F8028D; Wed, 24 Jan 2024 08:25:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-oo1-xc35.google.com (mail-oo1-xc35.google.com
- [IPv6:2607:f8b0:4864:20::c35])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [IPv6:2a00:1450:4864:20::52c])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D2674F8022B
-	for <alsa-devel@alsa-project.org>; Wed, 24 Jan 2024 07:48:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2674F8022B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 273CBF80149
+	for <alsa-devel@alsa-project.org>; Wed, 24 Jan 2024 08:25:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 273CBF80149
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=CqyBporl
-Received: by mail-oo1-xc35.google.com with SMTP id
- 006d021491bc7-5999ec531dcso920380eaf.3
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=YF3R8zA+
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-559cef15db5so10858593a12.0
         for <alsa-devel@alsa-project.org>;
- Tue, 23 Jan 2024 22:48:23 -0800 (PST)
+ Tue, 23 Jan 2024 23:25:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1706078901; x=1706683701;
+        d=linaro.org; s=google; t=1706081120; x=1706685920;
  darn=alsa-project.org;
-        h=references:in-reply-to:message-id:date:subject:cc:to:from:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=MzHMRWnd7DkGoGkoWn5iFA+muMG72M40AIsULK1grS8=;
-        b=CqyBporlIQ2p4cfrWHqxjlW7l9+sYqmZSUvO/jCDoMcBHBHURONV3HIZ+J0sUEYubr
-         cS4Ti4h9u/flMwtj9Y8mQgv5jCMrDOlqIVVXWvxg75X+jYLiLP58Pyj4iRZr+56jPIqp
-         IlHCnagY9WQchdmSauzh2N3BJVXgfZVAgqQeKo2tLAGrJAfLgE5CMPy6N3S4/tdYyiKb
-         YPojtmwBL8f7uv/uL9HXswEkRWanW5IMYFUDEE39LcVR092VNRMYswXiC6V789Au9f1j
-         gwfgbJsSysO5p/OSzrQ4/fPopLRqrg2gchcoN+nvEXJxZktmOOoS47q9+nDtKs+yvjdV
-         8Q1Q==
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=a8jrcqPgI/3vhSKgHemTJgRZzsqVydzJRui6v8D9poY=;
+        b=YF3R8zA+FMRr8v/NmCS0nN9Ronhw5hgJHaCRByYY3NQLkGVIUOjowmh3Pcv0HB9tqs
+         ceoQbmLQ0KchyGAAjJx6OoVOG7aiUBtrMFR4TzQGSieipukHnelciawvHrRDJ5FlhL3s
+         zzDdG8fXmDSEHJW4PYHZegZxCuKaPqEt8U3FxL/P9TJ3mwrwYsj/8TijY6mZ2Ebg7pki
+         1zbBA8Up3wW/tRCTlTO+ylSYEli+1UWo5WNb/Ca8I0Vw+hOBtLt7Q1jstmhetrtG0Pxz
+         msk9oTIdS0/Plb03RhiBitfXrYcCkpdf0Oeiw+6mofmQAIn5k7Lyy/eDQNv27/JI8hs4
+         3Dhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706078901; x=1706683701;
-        h=references:in-reply-to:message-id:date:subject:cc:to:from
+        d=1e100.net; s=20230601; t=1706081120; x=1706685920;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=MzHMRWnd7DkGoGkoWn5iFA+muMG72M40AIsULK1grS8=;
-        b=nUzb4T/N32pubRWUW4T0XiPjJNQYsLVw/xdMqfXa8m0f0mxgNvb3VmirviljgIE+v3
-         WJ6gUolVX2dHwubVLKh6IEWgWA7icWDRzG3IXLcmRD9XsC8u/wNzftjjyVvV4dtKj8eJ
-         Y0kbSzPh7/9n+pxMkO0F4TQDivx+w09GPihwA6R/BfeWLzJ7Am5g88BzhPiibSTz3hKj
-         /PP58jg6A2/ZRzZma3dMxg9G9IMcLYY+kt77WNUcIhcu4d5qkCqsTEPSkA5M8IkKgX9l
-         G+3TWQ/fSRr6ouOVL4Yqwt81EF/fP63PUIDkg/Ld+bb6Sv323FJOf6vf+6m99ugqRWfX
-         6byQ==
-X-Gm-Message-State: AOJu0YzQYZqIVaHsGFMyABO0MgCnqKAC76Z26EBf6bEpKQGb2yeiWaAB
-	1AfPARIhJEvhvIYokLoUwQD4/3vEfe49QU98897rSM8OTp6ODPcF/5y2P4ysLmQQhA==
+        bh=a8jrcqPgI/3vhSKgHemTJgRZzsqVydzJRui6v8D9poY=;
+        b=IAohKX/0czf68E45tXBs96kV+i8zGPt/cyFAfUS4zGv/Isotm5dFexV70m5xDyb1nq
+         XAgq3uim5RAQ15cDGsARm9ossTfzFPqXxroD9+L2iB9AUq8oeEA5wab336N43Xwvwb9d
+         oEK6AKq3z+Lwt9+zFpCxIGzHY/rbUznZCDmgoLggSQqI1tG5Up1CZr3w7iE4z6BjQHX2
+         FDOPZLJhcZhEAimsNXk/VursqbMIAqNbPJbSt7BcQGiytkvj5Nqy+AXK3gMUjh7gDORK
+         fHEtEFISaT+SZ6r8cPyUiRE1sQFNWrNfQfkKqOYwlVojcXqE8R53Lw6oxNDcTVSPu82F
+         sgHQ==
+X-Gm-Message-State: AOJu0YwoXImiUd8qjUJMrbnoKqJSC/JxvJa9o1WSXlAM4g2x4xupVLIp
+	k3nJhtSpUA+gDtkbLzZXOW2s9nYEt2M/0Mevmtbwx0CM9zEHtwYWCnQ8UKyt2AM=
 X-Google-Smtp-Source: 
- AGHT+IF8BFMdeVmDbCn5hCQlNchEtbNOr+qKPzNXx+RKb/fEDeU3mB3/wZInaqmWNGY6fvP9gXN5SQ==
-X-Received: by 2002:a05:6358:3386:b0:172:ab3b:cc1e with SMTP id
- i6-20020a056358338600b00172ab3bcc1emr6820506rwd.4.1706078901023;
-        Tue, 23 Jan 2024 22:48:21 -0800 (PST)
-Received: from zy-virtual-machine.localdomain ([222.70.13.170])
+ AGHT+IF2w0IOR+JXC8jt+izTDTWD09ku7STu4bgoty/Dh+g0U34bBf+smbNWdjyx6BtSeavBr7MNzw==
+X-Received: by 2002:a17:906:251b:b0:a30:dd59:858e with SMTP id
+ i27-20020a170906251b00b00a30dd59858emr680795ejb.60.1706081119968;
+        Tue, 23 Jan 2024 23:25:19 -0800 (PST)
+Received: from [192.168.1.20] ([178.197.215.66])
         by smtp.gmail.com with ESMTPSA id
- x24-20020a056a000bd800b006dda00f224asm534926pfu.166.2024.01.23.22.48.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 23 Jan 2024 22:48:20 -0800 (PST)
-From: Zhu Ning <zhuning0077@gmail.com>
-To: alsa-devel@alsa-project.org,
-	broonie@kernel.org
-Cc: tiwai@suse.com,
-	amadeuszx.slawinski@linux.intel.com,
-	yangxiaohua@everest-semi.com,
-	zhuning@everest-semi.com,
-	zhangyi@everest-semi.com,
-	Zhu Ning <zhuning0077@gmail.com>
-Subject: [PATCH 1/1] ASoC: codecs: ES8326: Adding new volume kcontrols
-Date: Wed, 24 Jan 2024 14:48:06 +0800
-Message-Id: <20240124064806.30511-2-zhuning0077@gmail.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20240124064806.30511-1-zhuning0077@gmail.com>
-References: <20240124064806.30511-1-zhuning0077@gmail.com>
-Message-ID-Hash: B74H6TLX2C2IF3JTZ6FGLIVCDOEZJXUA
-X-Message-ID-Hash: B74H6TLX2C2IF3JTZ6FGLIVCDOEZJXUA
-X-MailFrom: zhuning0077@gmail.com
+ e4-20020a170906c00400b00a298adde5a1sm15092803ejz.189.2024.01.23.23.25.16
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 23 Jan 2024 23:25:18 -0800 (PST)
+Message-ID: <71290f34-f3e6-4190-af8a-5fea61faedda@linaro.org>
+Date: Wed, 24 Jan 2024 08:25:16 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 0/6] reset: gpio: ASoC: shared GPIO resets
+Content-Language: en-US
+To: Chris Packham <Chris.Packham@alliedtelesis.co.nz>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>, Frank Rowand
+ <frowand.list@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>,
+ "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>
+Cc: Bartosz Golaszewski <brgl@bgdev.pl>,
+ Sean Anderson <sean.anderson@seco.com>
+References: <20240123141311.220505-1-krzysztof.kozlowski@linaro.org>
+ <6c3e4b71-c92f-4f1e-8435-b5cfb7f47117@alliedtelesis.co.nz>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
+ 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
+ D2GYIS41Kv4Isx2dEFh+/Q==
+In-Reply-To: <6c3e4b71-c92f-4f1e-8435-b5cfb7f47117@alliedtelesis.co.nz>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: FJKLQNRGSLUVM7O3IYHGSTR3ROHIT4KS
+X-Message-ID-Hash: FJKLQNRGSLUVM7O3IYHGSTR3ROHIT4KS
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -113,7 +176,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/B74H6TLX2C2IF3JTZ6FGLIVCDOEZJXUA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FJKLQNRGSLUVM7O3IYHGSTR3ROHIT4KS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -122,180 +185,50 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-ES8326 features a headphone volume control register and four DAC
-volume control registers.
-We add new volume Kcontrols for these registers to enhance the
-configurability of the volume settings, providing users with
-greater flexibility.
+On 23/01/2024 20:28, Chris Packham wrote:
+> 
+> On 24/01/24 03:13, Krzysztof Kozlowski wrote:
+>> Hi,
+>>
+>> Patch #2 (cpufreq: do not open-code of_phandle_args_equal()) and patch #4
+>> (reset: Instantiate reset GPIO controller for shared reset-gpios) depend on OF
+>> change (patch #1).
+>>
+>> Changes in v4
+>> =============
+>> 1. New patches:
+>>     of: add of_phandle_args_equal() helper
+>>     cpufreq: do not open-code of_phandle_args_equal()
+>>
+>> 2. reset-gpio.c:
+>>     - Drop unneeded comment (Bartosz), add Rb tag.
+>>     - Do not assign of_node.
+>>
+>> 3. reset/core.c:
+>>     - Implement most of Bartosz feedback (I responded to one which I did not
+>>       implement) and comments from Philipp.
+>>     - Expect either rcdev->of_args or rcdev->of_node.
+>>     - Drop __reset_gpios_args_match() and use common helper (Philipp).
+>>     - Move declarations of automatic-cleanup variables in
+>>       __reset_add_reset_gpio_lookup() to place of use (Bartosz).
+>>     - Separate gpio_device_get_label() and kstrdup() (Philipp).
+>>     - Correct doc for __reset_add_reset_gpio_device(), rewrite few comments.
+>>     - Drop unneeded "r" variable in __reset_find_rcdev() (Philipp).
+>>     - Drop of_phandle_args initialization in __of_reset_control_get (Philipp).
+>>     - Check if CONFIG_RESET_GPIO is enabled before trying to look up reset-gpios.
+>>
+>> 4. Drop Chris' patch: "i2c: muxes: pca954x: Allow sharing reset GPIO", because
+>>     discussion is on going.
+> 
+> I actually think it would have been OK as-is with your latest change to 
+> return NULL when CONFIG_RESET_GPIO is not enabled. But I'm happy to 
+> submit it independently after this series lands. It'll give me a chance 
+> to do a bit more testing.
 
-Signed-off-by: Zhu Ning <zhuning0077@gmail.com>
----
- sound/soc/codecs/es8326.c | 92 ++++++++++++++++++++++++++++++++++++++-
- sound/soc/codecs/es8326.h |  5 ++-
- 2 files changed, 95 insertions(+), 2 deletions(-)
+Yeah, I wasn't sure if the concerns are really resolved. I think you can
+send your patch separately because there is no clear dependency, so also
+no clear benefits of me taking your patch into this patchset.
 
-diff --git a/sound/soc/codecs/es8326.c b/sound/soc/codecs/es8326.c
-index cbcd02ec6ba4..608862aebd71 100755
---- a/sound/soc/codecs/es8326.c
-+++ b/sound/soc/codecs/es8326.c
-@@ -36,6 +36,8 @@ struct es8326_priv {
- 	u8 jack_pol;
- 	u8 interrupt_src;
- 	u8 interrupt_clk;
-+	u8 hpl_vol;
-+	u8 hpr_vol;
- 	bool jd_inverted;
- 	unsigned int sysclk;
- 
-@@ -121,6 +123,72 @@ static int es8326_crosstalk2_set(struct snd_kcontrol *kcontrol,
- 	return 0;
- }
- 
-+static int es8326_hplvol_get(struct snd_kcontrol *kcontrol,
-+		struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
-+	struct es8326_priv *es8326 = snd_soc_component_get_drvdata(component);
-+
-+	ucontrol->value.integer.value[0] = es8326->hpl_vol;
-+
-+	return 0;
-+}
-+
-+static int es8326_hplvol_set(struct snd_kcontrol *kcontrol,
-+		struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
-+	struct es8326_priv *es8326 = snd_soc_component_get_drvdata(component);
-+	unsigned int hp_vol;
-+
-+	hp_vol = ucontrol->value.integer.value[0];
-+	if (hp_vol > 5)
-+		return -EINVAL;
-+	if (es8326->hpl_vol != hp_vol) {
-+		es8326->hpl_vol = hp_vol;
-+		if (hp_vol >= 3)
-+			hp_vol++;
-+		regmap_update_bits(es8326->regmap, ES8326_HP_VOL,
-+				0x70, (hp_vol << 4));
-+		return 1;
-+	}
-+
-+	return 0;
-+}
-+
-+static int es8326_hprvol_get(struct snd_kcontrol *kcontrol,
-+		struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
-+	struct es8326_priv *es8326 = snd_soc_component_get_drvdata(component);
-+
-+	ucontrol->value.integer.value[0] = es8326->hpr_vol;
-+
-+	return 0;
-+}
-+
-+static int es8326_hprvol_set(struct snd_kcontrol *kcontrol,
-+		struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
-+	struct es8326_priv *es8326 = snd_soc_component_get_drvdata(component);
-+	unsigned int hp_vol;
-+
-+	hp_vol = ucontrol->value.integer.value[0];
-+	if (hp_vol > 5)
-+		return -EINVAL;
-+	if (es8326->hpr_vol != hp_vol) {
-+		es8326->hpr_vol = hp_vol;
-+		if (hp_vol >= 3)
-+			hp_vol++;
-+		regmap_update_bits(es8326->regmap, ES8326_HP_VOL,
-+				0x07, hp_vol);
-+		return 1;
-+	}
-+
-+	return 0;
-+}
-+
- static const SNDRV_CTL_TLVD_DECLARE_DB_SCALE(dac_vol_tlv, -9550, 50, 0);
- static const SNDRV_CTL_TLVD_DECLARE_DB_SCALE(adc_vol_tlv, -9550, 50, 0);
- static const SNDRV_CTL_TLVD_DECLARE_DB_SCALE(adc_analog_pga_tlv, 0, 300, 0);
-@@ -151,15 +219,24 @@ static const char *const winsize[] = {
- static const char *const dacpol_txt[] =	{
- 	"Normal", "R Invert", "L Invert", "L + R Invert" };
- 
-+static const char *const hp_spkvol_switch[] = {
-+	"HPVOL: HPL+HPL, SPKVOL: HPL+HPL",
-+	"HPVOL: HPL+HPR, SPKVOL: HPL+HPR",
-+	"HPVOL: HPL+HPL, SPKVOL: SPKL+SPKR",
-+	"HPVOL: HPL+HPR, SPKVOL: SPKL+SPKR",
-+};
-+
- static const struct soc_enum dacpol =
- 	SOC_ENUM_SINGLE(ES8326_DAC_DSM, 4, 4, dacpol_txt);
- static const struct soc_enum alc_winsize =
- 	SOC_ENUM_SINGLE(ES8326_ADC_RAMPRATE, 4, 16, winsize);
- static const struct soc_enum drc_winsize =
- 	SOC_ENUM_SINGLE(ES8326_DRC_WINSIZE, 4, 16, winsize);
-+static const struct soc_enum hpvol_spkvol_switch =
-+	SOC_ENUM_SINGLE(ES8326_HP_MISC, 6, 4, hp_spkvol_switch);
- 
- static const struct snd_kcontrol_new es8326_snd_controls[] = {
--	SOC_SINGLE_TLV("DAC Playback Volume", ES8326_DAC_VOL, 0, 0xbf, 0, dac_vol_tlv),
-+	SOC_SINGLE_TLV("DAC Playback Volume", ES8326_DACL_VOL, 0, 0xbf, 0, dac_vol_tlv),
- 	SOC_ENUM("Playback Polarity", dacpol),
- 	SOC_SINGLE_TLV("DAC Ramp Rate", ES8326_DAC_RAMPRATE, 0, 0x0f, 0, softramp_rate),
- 	SOC_SINGLE_TLV("DRC Recovery Level", ES8326_DRC_RECOVERY, 0, 4, 0, drc_recovery_tlv),
-@@ -182,6 +259,17 @@ static const struct snd_kcontrol_new es8326_snd_controls[] = {
- 			es8326_crosstalk1_get, es8326_crosstalk1_set),
- 	SOC_SINGLE_EXT("CROSSTALK2", SND_SOC_NOPM, 0, 31, 0,
- 			es8326_crosstalk2_get, es8326_crosstalk2_set),
-+	SOC_SINGLE_EXT("HPL Volume", SND_SOC_NOPM, 0, 5, 0,
-+			es8326_hplvol_get, es8326_hplvol_set),
-+	SOC_SINGLE_EXT("HPR Volume", SND_SOC_NOPM, 0, 5, 0,
-+			es8326_hprvol_get, es8326_hprvol_set),
-+
-+	SOC_SINGLE_TLV("HPL Playback Volume", ES8326_DACL_VOL, 0, 0xbf, 0, dac_vol_tlv),
-+	SOC_SINGLE_TLV("HPR Playback Volume", ES8326_DACR_VOL, 0, 0xbf, 0, dac_vol_tlv),
-+	SOC_SINGLE_TLV("SPKL Playback Volume", ES8326_SPKL_VOL, 0, 0xbf, 0, dac_vol_tlv),
-+	SOC_SINGLE_TLV("SPKR Playback Volume", ES8326_SPKR_VOL, 0, 0xbf, 0, dac_vol_tlv),
-+
-+	SOC_ENUM("HPVol SPKVol Switch", hpvol_spkvol_switch),
- };
- 
- static const struct snd_soc_dapm_widget es8326_dapm_widgets[] = {
-@@ -972,6 +1060,8 @@ static int es8326_resume(struct snd_soc_component *component)
- 
- 	es8326->jack_remove_retry = 0;
- 	es8326->hp = 0;
-+	es8326->hpl_vol = 0x03;
-+	es8326->hpr_vol = 0x03;
- 	return 0;
- }
- 
-diff --git a/sound/soc/codecs/es8326.h b/sound/soc/codecs/es8326.h
-index 4234bbb900c4..ee12caef8105 100644
---- a/sound/soc/codecs/es8326.h
-+++ b/sound/soc/codecs/es8326.h
-@@ -69,7 +69,7 @@
- #define ES8326_DAC_DSM		0x4D
- #define ES8326_DAC_RAMPRATE	0x4E
- #define ES8326_DAC_VPPSCALE	0x4F
--#define ES8326_DAC_VOL		0x50
-+#define ES8326_DACL_VOL	        0x50
- #define ES8326_DRC_RECOVERY	0x53
- #define ES8326_DRC_WINSIZE	0x54
- #define ES8326_DAC_CROSSTALK	0x55
-@@ -81,6 +81,9 @@
- #define ES8326_SDINOUT23_IO	0x5B
- #define ES8326_JACK_PULSE	0x5C
- 
-+#define ES8326_DACR_VOL		0xF4
-+#define ES8326_SPKL_VOL		0xF5
-+#define ES8326_SPKR_VOL		0xF6
- #define ES8326_HP_MISC		0xF7
- #define ES8326_CTIA_OMTP_STA	0xF8
- #define ES8326_PULLUP_CTL	0xF9
--- 
-2.17.1
+Best regards,
+Krzysztof
 

@@ -2,82 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16E0883B0BE
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jan 2024 19:12:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E13783B1B4
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jan 2024 20:02:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8BB5E823;
-	Wed, 24 Jan 2024 19:12:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8BB5E823
+	by alsa0.perex.cz (Postfix) with ESMTPS id 73A2B82C;
+	Wed, 24 Jan 2024 20:02:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 73A2B82C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1706119936;
-	bh=M/SvjKa3NWFAUdAx0o5eriPvq1jr5K+9kQRZKrjksHs=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=C6KdtZd2nNhyEe9lq1N0ZXw5wde0vAxTMGHWR8bRJJfH+JuSEj0S2ZN0E49eHz1o+
-	 mS28tez5OhT/TBMtxp29Epgd6nxy+XcsFekqapgYyL3Lb+tLSJDecqd7nNXuOAGJr5
-	 HH1Rvdz74uE7j5uANr16lHgFdnbL33rIorOsOI94=
+	s=default; t=1706122931;
+	bh=tOgsZRXU9rRQFmddKn9J6mSGDO3A5r9Xtx6Ag8uTw0U=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=e3F5MV7DLok7aqkPsEmuatdMWW93yoh4VtRhCnqXtDG8aRwYtFM8f4ewi+1eFiyBa
+	 oMwTa7m7DWYy84YCeaW3W+uul10xxwrk5RoUWsjjmk/jsUpRfK9dMetFjhXjUdUWD0
+	 pySMk5YY2JbobzI4GvWzRUEulQhTAfKkvyRVwzOI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 53974F80571; Wed, 24 Jan 2024 19:11:44 +0100 (CET)
+	id DD3C6F8025F; Wed, 24 Jan 2024 20:01:38 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6300EF8057E;
-	Wed, 24 Jan 2024 19:11:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A2658F804F1;
+	Wed, 24 Jan 2024 20:01:38 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2824AF8028D; Wed, 24 Jan 2024 19:11:39 +0100 (CET)
+	id D4379F802BE; Wed, 24 Jan 2024 20:01:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-6.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 39CABF80149
-	for <alsa-devel@alsa-project.org>; Wed, 24 Jan 2024 19:11:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 39CABF80149
+	by alsa1.perex.cz (Postfix) with ESMTPS id 81E91F8022B
+	for <alsa-devel@alsa-project.org>; Wed, 24 Jan 2024 20:01:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81E91F8022B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Pc0M2Dlv
+ header.s=k20201202 header.b=GvuTAwEw
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 7A13CCE31C7;
-	Wed, 24 Jan 2024 18:11:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 253C3C433F1;
-	Wed, 24 Jan 2024 18:11:26 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 568CD61D15;
+	Wed, 24 Jan 2024 19:01:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA974C433F1;
+	Wed, 24 Jan 2024 19:01:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1706119888;
-	bh=M/SvjKa3NWFAUdAx0o5eriPvq1jr5K+9kQRZKrjksHs=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=Pc0M2Dlv2lD85jKGbGID5MchSuDGqVsVeFXHikzdysQqUyKrD9yOmjoQCE/we84ZZ
-	 GNj4J4LEJ4sCHzguw+3+KX/tHqGDWAoEofNTSb86C+zrY66nnOq4CRgpG0dF2ZBsNd
-	 HOEQ0GHkZSXKZXaFAOWGSoivsbdR5gomp4PD7nNPpvcZklOk4s7zOI1Cs3/eHNoQKp
-	 LbLE60FJFijW9UmTDvHClLAr3EQzaH3GxksNu18v06zjH8kgtsGLNYoD9eJ+xJa8Fp
-	 vrP9WX1moHeiMTrmCrLUfreVh1+fjSGb3XXqkDxioIeeBr5CXQKpPJYc60vMan9L6d
-	 rBJ3VMy8sJBAQ==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Herve Codina <herve.codina@bootlin.com>
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-In-Reply-To: <20240123165615.250303-1-herve.codina@bootlin.com>
-References: <20240123165615.250303-1-herve.codina@bootlin.com>
-Subject: Re: [PATCH 0/1] Add support for the framer codec
-Message-Id: <170611988686.57208.13181794312584439477.b4-ty@kernel.org>
-Date: Wed, 24 Jan 2024 18:11:26 +0000
+	s=k20201202; t=1706122880;
+	bh=tOgsZRXU9rRQFmddKn9J6mSGDO3A5r9Xtx6Ag8uTw0U=;
+	h=From:To:Cc:Subject:Date:From;
+	b=GvuTAwEwBlmIaZvxxby4E//caeJa+m9jb6A6jf1IR/4Qrdij11PglW5ZLz94g9aqM
+	 rwtcZYQSCvb78UR2KaycjDifkQwqeQBQlCAf1VKvbVCUp0a42xmub369OdjfdAdXkO
+	 trn43tCZBE/BYImrD58p+LtIthpbyovHXb5oVF4pzGYPIua+tHZvszUfNnnwAslW2j
+	 Ykh26hHQG0hYValJobzSo1U+biPNI6GR9ygDNKf2rlyMpWXQARLd5WhwDf/lIOyAbC
+	 tmCIvhQgvQ05qDaypf5VWeZ+rq+b3dy7V2tuHl+haIAje9RW4+6TAtzXJW+bQ7RQH3
+	 Ir6J0QvybvE/Q==
+From: Rob Herring <robh@kernel.org>
+To: Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	Linus Walleij <linus.walleij@linaro.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Avi Fishman <avifishman70@gmail.com>,
+	Tomer Maimon <tmaimon77@gmail.com>,
+	Tali Perry <tali.perry1@gmail.com>,
+	Patrick Venture <venture@google.com>,
+	Nancy Yuen <yuenn@google.com>,
+	Benjamin Fair <benjaminfair@google.com>,
+	=?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
+	patches@opensource.cirrus.com
+Cc: alsa-devel@alsa-project.org,
+	linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	openbmc@lists.ozlabs.org
+Subject: [PATCH 1/2] dt-bindings: pinctrl: Unify "input-debounce" schema
+Date: Wed, 24 Jan 2024 13:01:04 -0600
+Message-ID: <20240124190106.1540585-1-robh@kernel.org>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-a684c
-Message-ID-Hash: 2JR2VW66T5OMS4JKJ52E6ODJAJ2ZZGGB
-X-Message-ID-Hash: 2JR2VW66T5OMS4JKJ52E6ODJAJ2ZZGGB
-X-MailFrom: broonie@kernel.org
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: RFBNDKTFE6VI25MAVY6JTJXWQHRCR3QC
+X-Message-ID-Hash: RFBNDKTFE6VI25MAVY6JTJXWQHRCR3QC
+X-MailFrom: robh@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -89,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2JR2VW66T5OMS4JKJ52E6ODJAJ2ZZGGB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RFBNDKTFE6VI25MAVY6JTJXWQHRCR3QC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,45 +106,72 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 23 Jan 2024 17:56:12 +0100, Herve Codina wrote:
-> This patch introduces the framer codec support.
-> 
-> The patch was previously sent as part of a full feature series and
-> was previously reviewed in that context:
-> "Add support for QMC HDLC, framer infrastructure and PEF2256 framer" [1]
-> 
-> In order to ease the merge, the full feature series has been split and
-> needed parts were merged in v6.8-rc1:
->  - "Prepare the PowerQUICC QMC and TSA for the HDLC QMC driver" [2]
->  - "Add support for framer infrastructure and PEF2256 framer" [3]
-> 
-> [...]
+nuvoton,npcm845-pinctrl defines the common "input-debounce" property as
+an array rather than an scalar. Update the common definition to expand
+it to an uint32-array, and update all the users of the property with
+array constraints.
 
-Applied to
+Signed-off-by: Rob Herring <robh@kernel.org>
+---
+ Documentation/devicetree/bindings/pinctrl/cirrus,madera.yaml   | 3 ++-
+ .../devicetree/bindings/pinctrl/nuvoton,npcm845-pinctrl.yaml   | 1 -
+ .../devicetree/bindings/pinctrl/nuvoton,wpcm450-pinctrl.yaml   | 3 ++-
+ Documentation/devicetree/bindings/pinctrl/pincfg-node.yaml     | 2 +-
+ 4 files changed, 5 insertions(+), 4 deletions(-)
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-
-Thanks!
-
-[1/1] ASoC: codecs: Add support for the framer codec
-      commit: a9a0303dfe3fe2bc04512c4ce6a589131845d386
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+diff --git a/Documentation/devicetree/bindings/pinctrl/cirrus,madera.yaml b/Documentation/devicetree/bindings/pinctrl/cirrus,madera.yaml
+index bb61a30321a1..482acda88e73 100644
+--- a/Documentation/devicetree/bindings/pinctrl/cirrus,madera.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/cirrus,madera.yaml
+@@ -93,7 +93,8 @@ properties:
+ 
+           input-schmitt-disable: true
+ 
+-          input-debounce: true
++          input-debounce:
++            maxItems: 1
+ 
+           output-low: true
+ 
+diff --git a/Documentation/devicetree/bindings/pinctrl/nuvoton,npcm845-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/nuvoton,npcm845-pinctrl.yaml
+index 3e8472898800..20cf0102aa63 100644
+--- a/Documentation/devicetree/bindings/pinctrl/nuvoton,npcm845-pinctrl.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/nuvoton,npcm845-pinctrl.yaml
+@@ -152,7 +152,6 @@ patternProperties:
+         description:
+           Debouncing periods in microseconds, one period per interrupt
+           bank found in the controller
+-        $ref: /schemas/types.yaml#/definitions/uint32-array
+         minItems: 1
+         maxItems: 4
+ 
+diff --git a/Documentation/devicetree/bindings/pinctrl/nuvoton,wpcm450-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/nuvoton,wpcm450-pinctrl.yaml
+index 7b7f840ffc4c..08442c880f07 100644
+--- a/Documentation/devicetree/bindings/pinctrl/nuvoton,wpcm450-pinctrl.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/nuvoton,wpcm450-pinctrl.yaml
+@@ -103,7 +103,8 @@ patternProperties:
+         items:
+           pattern: "^gpio1?[0-9]{1,2}$"
+ 
+-      input-debounce: true
++      input-debounce:
++        maxItems: 1
+ 
+     additionalProperties: false
+ 
+diff --git a/Documentation/devicetree/bindings/pinctrl/pincfg-node.yaml b/Documentation/devicetree/bindings/pinctrl/pincfg-node.yaml
+index be81ed22a036..d0af21a564b4 100644
+--- a/Documentation/devicetree/bindings/pinctrl/pincfg-node.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/pincfg-node.yaml
+@@ -97,7 +97,7 @@ properties:
+     description: disable schmitt-trigger mode
+ 
+   input-debounce:
+-    $ref: /schemas/types.yaml#/definitions/uint32
++    $ref: /schemas/types.yaml#/definitions/uint32-array
+     description: Takes the debounce time in usec as argument or 0 to disable
+       debouncing
+ 
+-- 
+2.43.0
 

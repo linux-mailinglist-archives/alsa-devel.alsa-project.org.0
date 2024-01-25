@@ -2,159 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB6AB83BCBD
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Jan 2024 10:06:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8078083BDAF
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Jan 2024 10:45:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E957E203;
-	Thu, 25 Jan 2024 10:06:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E957E203
+	by alsa0.perex.cz (Postfix) with ESMTPS id D91CB3E8;
+	Thu, 25 Jan 2024 10:45:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D91CB3E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1706173603;
-	bh=/Awd5Rpw/LP0WK2bkwYJVJu10+RpEs5ehXlnYOdjEfU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1706175920;
+	bh=NO+cYd0QNeHPKrWW+ljDppiytbZEHXhjbmaRFrtMguc=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=jClQ7nU8s5n7XDWUJQFuwmOHy80QUmdQOT6dQHnQjEYiW2eo7rT/WV5IaUopEuY2D
-	 21rGDb+sFm1rU8BintkqmN6ehoHFcsgalLrL+zgMUMTqHfM+GlMwKKR89hpFe5NBtK
-	 MF10J6t8OXICpQUBcQwtqodQyU1qbhiSpTm85LXo=
+	b=tZDPfSveeQVnuktWFNKtZ6AsFzBG3blyLYY8YrRJfb/D50iUTb/hG1kMVnE5tTTi1
+	 rxhsUJ3O39Sd/d5U1pxsmHOPFEBL01L686+WhIAwPpKvUHO4igQD7h11CA3Eq090Jl
+	 clTjcO1lc9fQNYcUxYSj/ajUxpryZPtdYnb3SGsg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1FC21F80567; Thu, 25 Jan 2024 10:06:10 +0100 (CET)
+	id 0A7E0F805AD; Thu, 25 Jan 2024 10:44:37 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CC9E9F8057E;
-	Thu, 25 Jan 2024 10:06:09 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 23C3CF80564;
+	Thu, 25 Jan 2024 10:44:37 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 30C77F8028D; Thu, 25 Jan 2024 10:05:58 +0100 (CET)
+	id 36179F8028D; Thu, 25 Jan 2024 10:43:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
+X-Spam-Status: No, score=-2.3 required=5.0 tests=RCVD_IN_DNSWL_MED,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from metis.whiteo.stw.pengutronix.de
+ (metis.whiteo.stw.pengutronix.de [IPv6:2a0a:edc0:2:b01:1d::104])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5C9C6F80149
-	for <alsa-devel@alsa-project.org>; Thu, 25 Jan 2024 10:05:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C9C6F80149
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=QTabPfsN;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=uhZpULmk;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=QTabPfsN;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=uhZpULmk
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id BFF051F84C;
-	Thu, 25 Jan 2024 09:05:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1706173540;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LqO3/k5my85BZMbKqkCA9egmBjk9aaibA3LxQHowLFY=;
-	b=QTabPfsNk0guURroVYzz+FmbtUAVMvVU+U/QVhvxpghjL64cTAe/0I1kGdF0ojvHfePUmw
-	s4oFAktLUZBiHr2rd9e1PZBxZ0LQ1bKVXxHPhpuT452T7xqLhHyeLx/fwWygoPXKWU0nzX
-	c7IA9xoYQdLvCLMHICIJnbAprtUNTKQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1706173540;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LqO3/k5my85BZMbKqkCA9egmBjk9aaibA3LxQHowLFY=;
-	b=uhZpULmkXrNFMbMhGHbbHVJvzLH5vasozTg6RYgYPoAkQm2k2iXlytkmDzl2tz++C8ujhK
-	z7qGV0VQdTzKWYAg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1706173540;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LqO3/k5my85BZMbKqkCA9egmBjk9aaibA3LxQHowLFY=;
-	b=QTabPfsNk0guURroVYzz+FmbtUAVMvVU+U/QVhvxpghjL64cTAe/0I1kGdF0ojvHfePUmw
-	s4oFAktLUZBiHr2rd9e1PZBxZ0LQ1bKVXxHPhpuT452T7xqLhHyeLx/fwWygoPXKWU0nzX
-	c7IA9xoYQdLvCLMHICIJnbAprtUNTKQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1706173540;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LqO3/k5my85BZMbKqkCA9egmBjk9aaibA3LxQHowLFY=;
-	b=uhZpULmkXrNFMbMhGHbbHVJvzLH5vasozTg6RYgYPoAkQm2k2iXlytkmDzl2tz++C8ujhK
-	z7qGV0VQdTzKWYAg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 76A90134C3;
-	Thu, 25 Jan 2024 09:05:40 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id PI+MG2QksmUcPwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Thu, 25 Jan 2024 09:05:40 +0000
-Date: Thu, 25 Jan 2024 10:05:40 +0100
-Message-ID: <87o7d9kckb.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Cc: <tiwai@suse.com>,
-	<soyer@irl.hu>,
-	<shenghao-ding@ti.com>,
-	<perex@perex.cz>,
-	<linux-kernel@vger.kernel.org>,
-	<linux-sound@vger.kernel.org>,
-	<alsa-devel@alsa-project.org>,
-	<patches@opensource.cirrus.com>
-Subject: Re: [PATCH 0/2] ALSA: hda: Move component binding support into
- separate library
-In-Reply-To: <87plxqlucs.wl-tiwai@suse.de>
-References: <20240124112607.77614-1-rf@opensource.cirrus.com>
-	<87plxqlucs.wl-tiwai@suse.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=QTabPfsN;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=uhZpULmk
-X-Spamd-Result: default: False [-1.18 / 50.00];
-	 ARC_NA(0.00)[];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	 SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	 FROM_HAS_DN(0.00)[];
-	 TO_DN_SOME(0.00)[];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 MIME_GOOD(-0.10)[text/plain];
-	 RCVD_COUNT_THREE(0.00)[3];
-	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	 DKIM_TRACE(0.00)[suse.de:+];
-	 MX_GOOD(-0.01)[];
-	 RCPT_COUNT_SEVEN(0.00)[9];
-	 MID_CONTAINS_FROM(1.00)[];
-	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim];
-	 FUZZY_BLOCKED(0.00)[rspamd.com];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+];
-	 RCVD_TLS_ALL(0.00)[];
-	 BAYES_HAM(-1.87)[94.27%]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: BFF051F84C
-Message-ID-Hash: IUCVXBJ7XGRAQ4ZZY3EJSXOVALXKOA4W
-X-Message-ID-Hash: IUCVXBJ7XGRAQ4ZZY3EJSXOVALXKOA4W
-X-MailFrom: tiwai@suse.de
+	by alsa1.perex.cz (Postfix) with ESMTPS id BF7EDF80149
+	for <alsa-devel@alsa-project.org>; Thu, 25 Jan 2024 10:43:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BF7EDF80149
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1rSwGI-0002Fp-20; Thu, 25 Jan 2024 10:43:06 +0100
+Received: from [2a0a:edc0:0:900:1d::4e] (helo=lupine)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.94.2)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1rSwGF-002Fm4-V4; Thu, 25 Jan 2024 10:43:03 +0100
+Received: from pza by lupine with local (Exim 4.96)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1rSwGF-0003hB-2q;
+	Thu, 25 Jan 2024 10:43:03 +0100
+Message-ID: <88b75ffea33078d092ffa15e3be235358f576c8d.camel@pengutronix.de>
+Subject: Re: [PATCH v5 1/6] of: Add of_phandle_args_equal() helper
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	 <krzysztof.kozlowski@linaro.org>
+Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, Banajit Goswami
+ <bgoswami@quicinc.com>, Bjorn Andersson <andersson@kernel.org>, Konrad
+ Dybcio <konrad.dybcio@linaro.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>,  Conor Dooley <conor+dt@kernel.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Viresh Kumar
+ <viresh.kumar@linaro.org>, Frank Rowand <frowand.list@gmail.com>, Jaroslav
+ Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ alsa-devel@alsa-project.org,  linux-arm-msm@vger.kernel.org,
+ linux-sound@vger.kernel.org,  devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,  linux-pm@vger.kernel.org
+Date: Thu, 25 Jan 2024 10:43:03 +0100
+In-Reply-To: <20240124220716.GA2454626-robh@kernel.org>
+References: <20240124074527.48869-1-krzysztof.kozlowski@linaro.org>
+	 <20240124074527.48869-2-krzysztof.kozlowski@linaro.org>
+	 <20240124220716.GA2454626-robh@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.46.4-2 
+MIME-Version: 1.0
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: p.zabel@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: alsa-devel@alsa-project.org
+Message-ID-Hash: ZKUMOJ3G4UEP75KDGU3UAGYYZIYRTVYJ
+X-Message-ID-Hash: ZKUMOJ3G4UEP75KDGU3UAGYYZIYRTVYJ
+X-MailFrom: p.zabel@pengutronix.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -166,7 +100,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IUCVXBJ7XGRAQ4ZZY3EJSXOVALXKOA4W/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZKUMOJ3G4UEP75KDGU3UAGYYZIYRTVYJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -175,35 +109,26 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 24 Jan 2024 14:43:47 +0100,
-Takashi Iwai wrote:
-> 
-> On Wed, 24 Jan 2024 12:26:05 +0100,
-> Richard Fitzgerald wrote:
-> > 
-> > The Cirrus Logic amplifiers are currently paired with Realtek HDA codecs.
-> > But they could be used with other codecs. To prepare for this, these two
-> > patches move the manager side of the component binding out of the Realtek
-> > driver into a library module.
-> > 
-> > The first patch tweaks the CS35L41 code so that it is not hardcoded to
-> > CS35L41, and changes the TAS2781 handling so that it re-uses that code
-> > instead of having a near-identical copy of it.
-> > 
-> > Can someone please test that these two patches don't break TAS2781?
-> > I have checked that they should work in theory but I don't have hardware
-> > to test on.
-> > 
-> > Richard Fitzgerald (2):
-> >   ALSA: hda: realtek: Re-work CS35L41 fixups to re-use for other amps
-> >   ALSA: hda: realtek: Move hda_component implementation to module
-> 
-> Through a quick glance, it looks good.
-> I'll wait for the verification for TAS codec for a while.
+On Mi, 2024-01-24 at 16:07 -0600, Rob Herring wrote:
+> On Wed, Jan 24, 2024 at 08:45:22AM +0100, Krzysztof Kozlowski wrote:
+> > Add a helper comparing two "struct of_phandle_args" to avoid
+> > reinventing the wheel.
+> >=20
+> > Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
+> > Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> > ---
+> >=20
+> > Dependency of cpufreq and reset change.
+> > ---
+> >  include/linux/of.h | 16 ++++++++++++++++
+> >  1 file changed, 16 insertions(+)
+>=20
+> Acked-by: Rob Herring <robh@kernel.org>
+>=20
+> I've wanted to write this series for some time. Great work.
 
-Now applied to for-next branch.
+How would you prefer this to be merged? Stable tag from the devicetree
+tree? Go through the reset tree as part of this series?
 
-
-thanks,
-
-Takashi
+regards
+Philipp

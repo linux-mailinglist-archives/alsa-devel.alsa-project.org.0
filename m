@@ -2,102 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65E7A83CC01
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Jan 2024 20:16:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4EB2683CDE1
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Jan 2024 21:55:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F404984A;
-	Thu, 25 Jan 2024 20:16:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F404984A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7024D828;
+	Thu, 25 Jan 2024 21:55:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7024D828
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1706210172;
-	bh=YP+ZACbPdPDNPp0wqbLMwoK7ybKxr6Ai3T/jgg7xKN4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=qTIG2LzYiiDl7IjHMtDgMIYRLpd1hVCp9idQCKzi4NP3NppCMxH0hYbMOHBQ0TNQn
-	 QUFk2KQrwdbUUlt08oyU3M43DNzvTvWdnoTC/NygiTWK8xr/WbvpcfmYuD1ziEeOAJ
-	 OuoxabS63dFZM1KlmOd1jHz6ZXc2Ix3W7obZBE+o=
+	s=default; t=1706216150;
+	bh=xYJVIJL2ocLD3M3GJdlapKVvrCU/7qNN3oE7Yr2gQS4=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=lzwJkEEl0kNniKcVDOvPT39ZYH0KB9JjbOrljbReL5b9kCNl7dZklaY17lzv4gM0U
+	 ZGKtOjjoi3uCgQMqGwPy6vUKY3iSNjtpOr9hWpyLfOhOnAb1zNq7rg/fH0sPcVne+t
+	 /dL86K540T5JGKhbaLEpRRxwJHT6wbBmiafP4GEo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1C8E6F8057B; Thu, 25 Jan 2024 20:15:39 +0100 (CET)
+	id 29876F8057B; Thu, 25 Jan 2024 21:55:19 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 10241F8057E;
-	Thu, 25 Jan 2024 20:15:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 17C11F80149;
+	Thu, 25 Jan 2024 21:55:18 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D99A8F8028D; Thu, 25 Jan 2024 20:13:54 +0100 (CET)
+	id 6DB23F8028D; Thu, 25 Jan 2024 21:55:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [IPv6:2a00:1450:4864:20::632])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_PASS,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=no
+	autolearn_force=no version=3.4.6
+Received: from puleglot.ru (puleglot.ru [IPv6:2a01:4f8:1c0c:58e8::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A80C7F80149
-	for <alsa-devel@alsa-project.org>; Thu, 25 Jan 2024 20:13:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A80C7F80149
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4982EF800C1
+	for <alsa-devel@alsa-project.org>; Thu, 25 Jan 2024 21:55:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4982EF800C1
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=dQkzUwKc
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-a26ed1e05c7so803736866b.2
-        for <alsa-devel@alsa-project.org>;
- Thu, 25 Jan 2024 11:13:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1706210023; x=1706814823;
- darn=alsa-project.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=YP+ZACbPdPDNPp0wqbLMwoK7ybKxr6Ai3T/jgg7xKN4=;
-        b=dQkzUwKctq0xXIP3GFhSfB98NNlcRTMKCoJASZyXss6Z7gMhdLM9zd/lD8mDWAxWjO
-         CV5HWE2iocUHT84FQ48H4ebqT47iaHTXzhudVBxDYCrX0SGrwJhy/tZBYF8uDfgeArDT
-         PxNmyZjXvHclpuhVScjNgt32+5hvYphJNKZi+Ggz92uAfH/iVOGZX5sbWlK/QS/Is0FM
-         ozrXGGjKsOJNXWVH5OySlx/M5IOLFeLgslXRI58jSPUgVDIeuJIjnrrYMGj+Dz3MuPk2
-         Cl4dix7dAIo2XAPtDOj5kH89mKhs67AR1iZL10Y6AmQAoIc0a20rTzg/Sp9z4anghohO
-         V2RA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706210023; x=1706814823;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=YP+ZACbPdPDNPp0wqbLMwoK7ybKxr6Ai3T/jgg7xKN4=;
-        b=paI3JuzFn2LtMg5S/2hEmi6yzZmToZitqjB/hoB5sZotm+anEDsmpDUEmgQEpbHIFQ
-         Yvuxhx6X1Ay1Sk3mSOOz6hOwJYmr/QGQGgj4FEIT4tUAMDKXX4KBre3sWI22I+rM63l1
-         rU2j96E5c0lwNmKp2bWmFcg0/pJIWvbv/xOJGfq45hYN+oPwllpB5nC4Bm04UC79sc0N
-         rLSj8yTHbnPnBojATTKm3TUcs4yGn+DSG3d+Sl8rnEzubsjSFwqNjXo20KjiYSLhh7U5
-         xW94+R8Xc4Ie+u2PpJ67A73DjDBQLpT/AufphR6bbQyvFH+Se7JR4nX7xPxHZ0oY2eXO
-         6cJw==
-X-Gm-Message-State: AOJu0Yzu4OOTAgMFa8pj0+5IdEl//QEJ0xFnDJACF81dFSwAaC6TlymP
-	yry9H4NMxzyyQ3+1YZOfqSnpQOPCr1lfUFGAkQDwH53fZm3e/qXvGsg4eYLNgsdg9LN9VPTZWM0
-	Jvdeu5Fl5MzeBLxn0/oAg7Tefux9zh5kTIEQ=
-X-Google-Smtp-Source: 
- AGHT+IGfkSRCBrrvKqqMEq4ctCl5dmSmQpuhXdTB9wouHDjmCH/Ept/X7A8N+L60v5X4vx0N7tei2nyHpa4fgsdLG1M=
-X-Received: by 2002:a17:906:3e46:b0:a28:e6d8:dd15 with SMTP id
- t6-20020a1709063e4600b00a28e6d8dd15mr24850eji.33.1706210023157; Thu, 25 Jan
- 2024 11:13:43 -0800 (PST)
+	dkim=pass (1024-bit key,
+ unprotected) header.d=tsoy.me header.i=@tsoy.me header.a=rsa-sha256
+ header.s=mymail header.b=qXVCG/AR
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tsoy.me;
+	s=mymail; h=Sender:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:
+	Subject:Cc:To:From:Reply-To:Content-Type:Content-ID:Content-Description:
+	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=IiSfffQQUFr9J5T+WnBjM0E4k0dpvmpjFIYfPhZ/few=; b=qXVCG/ARQgXh3t7se7BAQrWyC1
+	9JCwAh1UBWhrB+U2plM5p2MeWCyxKGif7nvmQ3Sk7eeFjsmtgEulQckpIJGd8yyi1HfA2t13Ddlfe
+	UgqOkasobRRKorBBStGW9WwfMSC+lK8iVCDPX6iiCI9om2JfRSFyHvqtGqU+RC2kDwP0=;
+Received: from [2a00:1370:819a:c53:3baa:da0a:1172:ed3d] (helo=home..)
+	by puleglot.ru with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.97.1)
+	(envelope-from <puleglot@puleglot.ru>)
+	id 1rT6ke-00000002ELf-08WP;
+	Thu, 25 Jan 2024 23:55:08 +0300
+From: Alexander Tsoy <alexander@tsoy.me>
+To: linux-sound@vger.kernel.org
+Cc: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: usb-audio: Support read-only clock selector control
+Date: Thu, 25 Jan 2024 23:54:57 +0300
+Message-ID: <20240125205457.28258-1-alexander@tsoy.me>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <20240125103117.2622095-1-ckeepax@opensource.cirrus.com>
-In-Reply-To: <20240125103117.2622095-1-ckeepax@opensource.cirrus.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Thu, 25 Jan 2024 21:13:07 +0200
-Message-ID: 
- <CAHp75VfASF6RB0eyAEs342=i32YMG1=nzdmOYE7tKKUkRpUZKA@mail.gmail.com>
-Subject: Re: [PATCH v2 1/7] ASoC: cs42l43: Tidy up header includes
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-Cc: broonie@kernel.org, lgirdwood@gmail.com, alsa-devel@alsa-project.org,
-	patches@opensource.cirrus.com, linux-sound@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: PAJCHPEVFP5KH2IQR7A632QS5LDMDIF7
-X-Message-ID-Hash: PAJCHPEVFP5KH2IQR7A632QS5LDMDIF7
-X-MailFrom: andy.shevchenko@gmail.com
+Content-Transfer-Encoding: 8bit
+Sender: puleglot@puleglot.ru
+Message-ID-Hash: KBCBRBZ25CTD6CCCJHFKYHVISS4CCM4J
+X-Message-ID-Hash: KBCBRBZ25CTD6CCCJHFKYHVISS4CCM4J
+X-MailFrom: puleglot@puleglot.ru
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -109,7 +82,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PAJCHPEVFP5KH2IQR7A632QS5LDMDIF7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KBCBRBZ25CTD6CCCJHFKYHVISS4CCM4J/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,16 +91,74 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, Jan 25, 2024 at 12:31=E2=80=AFPM Charles Keepax
-<ckeepax@opensource.cirrus.com> wrote:
->
-> Use more forward declarations, move header guards to cover other
-> includes, and rely less on including headers through other headers.
+Clock selector control might be read-only. Add corresponding checks
+to prevent sending control requests that would fail.
 
-For patches 1-5,7
+Signed-off-by: Alexander Tsoy <alexander@tsoy.me>
+---
+ sound/usb/clock.c | 23 ++++++++++++++++++++++-
+ 1 file changed, 22 insertions(+), 1 deletion(-)
 
-Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
+diff --git a/sound/usb/clock.c b/sound/usb/clock.c
+index 94e4aaeafe58..7b259641adb5 100644
+--- a/sound/usb/clock.c
++++ b/sound/usb/clock.c
+@@ -261,6 +261,8 @@ static int __uac_clock_find_source(struct snd_usb_audio *chip,
+ 	int ret, i, cur, err, pins, clock_id;
+ 	const u8 *sources;
+ 	int proto = fmt->protocol;
++	bool readable, writeable;
++	u32 bmControls;
+ 
+ 	entity_id &= 0xff;
+ 
+@@ -292,11 +294,27 @@ static int __uac_clock_find_source(struct snd_usb_audio *chip,
+ 		sources = GET_VAL(selector, proto, baCSourceID);
+ 		cur = 0;
+ 
++		if (proto == UAC_VERSION_3)
++			bmControls = le32_to_cpu(*(__le32 *)(&selector->v3.baCSourceID[0] + pins));
++		else
++			bmControls = *(__u8 *)(&selector->v2.baCSourceID[0] + pins);
++
++		readable = uac_v2v3_control_is_readable(bmControls,
++							UAC2_CX_CLOCK_SELECTOR);
++		writeable = uac_v2v3_control_is_writeable(bmControls,
++							  UAC2_CX_CLOCK_SELECTOR);
++
+ 		if (pins == 1) {
+ 			ret = 1;
+ 			goto find_source;
+ 		}
+ 
++		/* for now just warn about buggy device */
++		if (!readable)
++			usb_audio_warn(chip,
++				"%s(): clock selector control is not readable, id %d\n",
++				__func__, clock_id);
++
+ 		/* the entity ID we are looking at is a selector.
+ 		 * find out what it currently selects */
+ 		ret = uac_clock_selector_get_val(chip, clock_id);
+@@ -326,7 +344,7 @@ static int __uac_clock_find_source(struct snd_usb_audio *chip,
+ 		if (ret > 0) {
+ 			/* Skip setting clock selector again for some devices */
+ 			if (chip->quirk_flags & QUIRK_FLAG_SKIP_CLOCK_SELECTOR ||
+-			    pins == 1)
++			    pins == 1 || !writeable)
+ 				return ret;
+ 			err = uac_clock_selector_set_val(chip, entity_id, cur);
+ 			if (err < 0)
+@@ -337,6 +355,9 @@ static int __uac_clock_find_source(struct snd_usb_audio *chip,
+ 			return ret;
+ 
+ 	find_others:
++		if (!writeable)
++			return -ENXIO;
++
+ 		/* The current clock source is invalid, try others. */
+ 		for (i = 1; i <= pins; i++) {
+ 			if (i == cur)
+-- 
+2.43.0
 
---=20
-With Best Regards,
-Andy Shevchenko

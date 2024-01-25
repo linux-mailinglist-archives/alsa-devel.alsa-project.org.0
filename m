@@ -2,98 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9837E83BB59
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Jan 2024 09:11:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5140983BBFF
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Jan 2024 09:29:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0A01482C;
-	Thu, 25 Jan 2024 09:11:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A01482C
+	by alsa0.perex.cz (Postfix) with ESMTPS id C5D7B84C;
+	Thu, 25 Jan 2024 09:28:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C5D7B84C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1706170309;
-	bh=rfTBHaMuDKxUbJ/3jkhJhQr4xkKdGdi9wi7gVnt5tu0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1706171346;
+	bh=2XiYbkPw3i5edkHdoGLqeOFp6GYs53ELzsqZ7MhTKYc=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To:Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=re+ZvML2lKmpl6GiFzWT5FPw30DAY9quZ5oamNAQNOUKBL8EklXkRCv9TipnlqxPn
-	 8nJNwKiZc+7BliNyk//E01A5704j1G8Bhw93DIK7qNY368qsLesZRmThPZw9VzMLDX
-	 sjLWX/HA9OvZeUweHbGAHuZ5YN2+ylHQEOZ5fW/0=
+	b=LXA85RZmZVASLg7bMejyYBs0QMI3hcF8TPxefQ2gD8eD2M7m/ABsv5wA6V7gZXOYn
+	 K8AsPrKFGAhKupFbNDe2XVEVCoAX/r2WkK7OGmJPTSxKhbw/qhwbslfr5+d94TcDK4
+	 59mlw+2anstytcCiJHi6LfBTkjPT0Lph7WxDY5rU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C2946F80571; Thu, 25 Jan 2024 09:11:17 +0100 (CET)
+	id 4FD65F80567; Thu, 25 Jan 2024 09:28:33 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D6E65F8057F;
-	Thu, 25 Jan 2024 09:11:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DCD2BF8057E;
+	Thu, 25 Jan 2024 09:28:31 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 53A9EF8028D; Thu, 25 Jan 2024 09:03:26 +0100 (CET)
+	id DE6DAF8028D; Thu, 25 Jan 2024 09:28:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [IPv6:2a00:1450:4864:20::32a])
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [IPv6:2a00:1450:4864:20::32f])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7FE6AF80149
-	for <alsa-devel@alsa-project.org>; Thu, 25 Jan 2024 09:02:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7FE6AF80149
+	by alsa1.perex.cz (Postfix) with ESMTPS id 24810F800C1
+	for <alsa-devel@alsa-project.org>; Thu, 25 Jan 2024 09:27:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24810F800C1
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=v9IDSKwD
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-40ed232ea06so1910585e9.1
+ header.s=google header.b=i/+FlJJ1
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-40e86a9fc4bso82258345e9.2
         for <alsa-devel@alsa-project.org>;
- Thu, 25 Jan 2024 00:02:56 -0800 (PST)
+ Thu, 25 Jan 2024 00:27:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1706169770; x=1706774570;
+        d=linaro.org; s=google; t=1706171273; x=1706776073;
  darn=alsa-project.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=I/fwZ/1bgOfeqNeU+SPsYQCKFE1WDJ7q56mUox/vczU=;
-        b=v9IDSKwDSvvk0qx2NPu6RmG2M1abKPzLZpETSanISNyAJDBakDw4gZ/ho9ZsJtmo8Z
-         SDSIVlIrWak+Ymr3IkZYXZ3LEkccktmreeElefPS1j9S+rFYBXjfA3yQ4Jhe3zpATd9q
-         pL/osJeZZENDctUkWScXvyxD0LIcx2vbJswekzy+G7JWDaKuD1YXzQcT+CopxI08UMEe
-         93sGKMSaMrU3ISYHAOSaaadSCoL5STbb0fJMD8Rnr6DbdkLwLIad9QW9059DHnlpif/g
-         BbRQe+hSdykQU/32q5LIKCV0PqzPD8mumtf8zlQST4KoGQhHrXQMEb1jVMMGk55bVjRk
-         N0bw==
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :references:cc:to:content-language:subject:reply-to:from:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=hdaT3eh+IWzZ9wRxEt609lH8JpOZmnfT+gedHYcaONU=;
+        b=i/+FlJJ1JnhLptD/kXMc5z9a25GbGcKVsRMH6ATf2l6YaAzilZnpCCrrSZqiuSojGm
+         BBF0jhYkwMaiZEu76a5AB3ZZjX+Kck2S0MUAJVieGBq+jOvfJh4OX3ZvFvbc21zaRoQX
+         TdMR6UA0i+zbqf9S8orlV943yaX4b72hQUImIvESmdzKoaCnSX1x1Pu2Db5qe9T9n+pA
+         W10b1F0+fP9Xo5Xdi99W+IhIcnQnyAyyZE1n+xHoHQVy408YPUmP3lqtH/VsZnsMW0ku
+         Jbn+19i57nutwgdlXavNZFTHsgoKQGYkgvBpZkmRS8P9Ufx/UlbtitCAT8qneBGnCd/O
+         TmDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706169770; x=1706774570;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=I/fwZ/1bgOfeqNeU+SPsYQCKFE1WDJ7q56mUox/vczU=;
-        b=BihvFUFjYPK14UdoxC5bLjjnS2IRqtZIPsfpyWW5aPfTLEwCRPH3P84nPWM+JEmNkB
-         xzzBPtGxCRzjh44a4uh0jyuLZFnuGvPBod6Ju6KxGpDIWDQ+vowhfl5aeGkoPz9Ly+Jd
-         P1nMWGNRMaJvL9ZReAfyGikALPiMnu6oeWxbhpBGgIFXEOyE4FSqvnW4HklVP7RWPa+9
-         U1JH26QpYBSaLS4YcDB0u42xcvpWSBcjVINA3STFFvIvQ89eWsR5nrFQqMQbEo72QFZn
-         HrKQ238XPxfI2m7ANq9DSJzNf6W41I3pydawl6QYgQrLUQTOyHMEftAP0BdTc9ihD75I
-         rECQ==
-X-Gm-Message-State: AOJu0Yy4PomB7umNVQawm5r6xBGyI6VUD8UUx4zMYWbHReqDufb9oIbk
-	2par3blwtFvFDrfXq/ByJCToLzFp3NMdU8x7QsEwLjA+uvTix2PKWvRH3ej8/iQ=
+        d=1e100.net; s=20230601; t=1706171273; x=1706776073;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :references:cc:to:content-language:subject:reply-to:from:user-agent
+         :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=hdaT3eh+IWzZ9wRxEt609lH8JpOZmnfT+gedHYcaONU=;
+        b=mWW2Eyo5Dlgkn7mAhrw2hdrUPl/xUDc/ZO3PmvGij3I3we1GTELRJ0P2zF8YdGk1K4
+         eHezA03dcGt6zLjZ+hABFzaT3m2Myb5fqWDQU8qZfUL0GX6wD6jNuwevKhVzRes9RQ3k
+         7K+YCUfLoa0JaQ8nZuphLCL42x06HmHlYfuaKHrU1APRvIxzfvidFoH5GJLq7ZZPGB83
+         HKuOXhacLjZ5WzjBTKQ6iNDL/+r0qoqyVLkmDpdCtzh6EAh63DhphBxxyI0799Hp6fs0
+         38g3/jASbDoXVP6Pylsh3FT3DSwC8Jxq+nPb/QeQxmttifurBp6kLPlXXHKYdalOSrlN
+         2nUA==
+X-Gm-Message-State: AOJu0YyLRCB7qfSsY1phPAUyLRAUQfbe5b6erkYJdIP0nIru4h6+BBgI
+	Y6Y7F7WeHFP/Fe99qfdkmUUER4pt4ptratlGtS1DCkUyRR+u5c+H7qq52AXRdAI=
 X-Google-Smtp-Source: 
- AGHT+IHi0dZl7XsoYv+uT/EJDLZ98az7ajkXvHepJChugJLvg+ucFifjFieMMiQiuuTjNfQqoGskgQ==
-X-Received: by 2002:adf:ea0a:0:b0:339:37a2:7328 with SMTP id
- q10-20020adfea0a000000b0033937a27328mr348023wrm.15.1706169769682;
-        Thu, 25 Jan 2024 00:02:49 -0800 (PST)
-Received: from [192.168.1.20] ([178.197.215.66])
+ AGHT+IFWw8xacpEPCFZ/YlUi4IIfiSG8qoo4jjTTTF9CDHtGBE7DgBDccglFMNdlYiGkPtAq5kIhhg==
+X-Received: by 2002:a7b:cbcd:0:b0:40e:3854:db2d with SMTP id
+ n13-20020a7bcbcd000000b0040e3854db2dmr277842wmi.65.1706171273241;
+        Thu, 25 Jan 2024 00:27:53 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:982:cbb0:1a7d:7b36:3842:9bc3?
+ ([2a01:e0a:982:cbb0:1a7d:7b36:3842:9bc3])
         by smtp.gmail.com with ESMTPSA id
- u15-20020a05600c19cf00b0040e39cbf2a4sm1601240wmq.42.2024.01.25.00.02.47
+ h21-20020a05600c351500b0040e47dc2e8fsm1716683wmq.6.2024.01.25.00.27.51
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 25 Jan 2024 00:02:49 -0800 (PST)
-Message-ID: <cc9683c9-356c-4cd1-a838-4ca92ded612b@linaro.org>
-Date: Thu, 25 Jan 2024 09:02:46 +0100
+        Thu, 25 Jan 2024 00:27:52 -0800 (PST)
+Message-ID: <91158620-775e-4db1-9b8e-7154c6d66cd6@linaro.org>
+Date: Thu, 25 Jan 2024 09:27:51 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+From: neil.armstrong@linaro.org
 Subject: Re: [PATCH v5 4/6] reset: Instantiate reset GPIO controller for
  shared reset-gpios
-Content-Language: en-US
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+Content-Language: en-US, fr
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
  Banajit Goswami <bgoswami@quicinc.com>,
  Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konrad.dybcio@linaro.org>, Liam Girdwood
@@ -113,57 +118,37 @@ Cc: Bartosz Golaszewski <brgl@bgdev.pl>,
  Sean Anderson <sean.anderson@seco.com>
 References: <20240124074527.48869-1-krzysztof.kozlowski@linaro.org>
  <20240124074527.48869-5-krzysztof.kozlowski@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
- 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
- D2GYIS41Kv4Isx2dEFh+/Q==
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro Developer Services
 In-Reply-To: <20240124074527.48869-5-krzysztof.kozlowski@linaro.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: 7ZNBBE5IJH7MHRMESOAZ4WQXJG2HMP2P
-X-Message-ID-Hash: 7ZNBBE5IJH7MHRMESOAZ4WQXJG2HMP2P
-X-MailFrom: krzysztof.kozlowski@linaro.org
+Message-ID-Hash: 64ZNWF2PCFRWKTIHYJWZBPP5LO53YN7W
+X-Message-ID-Hash: 64ZNWF2PCFRWKTIHYJWZBPP5LO53YN7W
+X-MailFrom: neil.armstrong@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -172,10 +157,11 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.9
 Precedence: list
+Reply-To: neil.armstrong@linaro.org
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7ZNBBE5IJH7MHRMESOAZ4WQXJG2HMP2P/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/64ZNWF2PCFRWKTIHYJWZBPP5LO53YN7W/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -216,17 +202,45 @@ On 24/01/2024 08:45, Krzysztof Kozlowski wrote:
 > 
 > Depends on previous of change.
 > ---
->  drivers/reset/core.c             | 215 +++++++++++++++++++++++++++++--
->  include/linux/reset-controller.h |   4 +
->  2 files changed, 206 insertions(+), 13 deletions(-)
+>   drivers/reset/core.c             | 215 +++++++++++++++++++++++++++++--
+>   include/linux/reset-controller.h |   4 +
+>   2 files changed, 206 insertions(+), 13 deletions(-)
 > 
+> diff --git a/drivers/reset/core.c b/drivers/reset/core.c
+> index 4d5a78d3c085..60a8a33c4419 100644
+> --- a/drivers/reset/core.c
+> +++ b/drivers/reset/core.c
 
-LKP reported issue when building !GPIOLIB:
-https://lore.kernel.org/oe-kbuild-all/202401250958.YksQmnWj-lkp@intel.com/
+<snip>
 
-but I intend to solve it providing the stubs. Therefore this patch will
-not change.
+> +	}
+> +
+> +	ret = __reset_add_reset_gpio_lookup(id, args->np, args->args[0],
+> +					    args->args[1]);
 
-Best regards,
-Krzysztof
+What would happen with gpio controllers using #gpio-cells = <3> (or more) like allwinner,sun4i-a10-pinctrl.yaml ?
+
+On this example the flags are args->args[2] so this would probably fail.
+
+This would also fails badly with #gpio-cells = <1>, args->args[1] value would be undefined.
+
+You should probably limit to args->args_count == 2 for now.
+
+Neil
+
+> +	if (ret < 0)
+> +		goto err_kfree;
+> +
+> +	rgpio_dev->of_args = *args;
+> +	/*
+> +	 * We keep the device_node reference, but of_args.np is put at the end
+> +	 * of __of_reset_control_get(), so get it one more time.
+> +	 * Hold reference as long as rgpio_dev memory is valid.
+> +	 */
+> +	of_node_get(rgpio_dev->of_args.np);
+> +	pdev = platform_device_register_data(NULL, "reset-gpio", id,
+> +					     &rgpio_dev->of_args,
+> +					     sizeof(rgpio_dev->of_args));
+
+<snip>
 

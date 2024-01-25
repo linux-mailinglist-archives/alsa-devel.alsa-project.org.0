@@ -2,99 +2,157 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81CCE83BDF7
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Jan 2024 10:53:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4D2183BEAE
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Jan 2024 11:27:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 12372210;
-	Thu, 25 Jan 2024 10:53:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 12372210
+	by alsa0.perex.cz (Postfix) with ESMTPS id E463784A;
+	Thu, 25 Jan 2024 11:27:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E463784A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1706176390;
-	bh=hUTV/d6M9IsBFUd4/YbDs7cO7WzwxA3VmL/4irIndYM=;
-	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1706178469;
+	bh=ilmTokB1LWWWxVbA7PtwOLj5XcOJPhdI5/h6+rHojrY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=W050fRGXyDtvrg26Po4UvDc5KHY0mV3BvQJUK1XP+MdmFI+vROWl4pnMcJvl6qh+e
-	 4g9ye77jk4NggOJdglKgfsbnWYoTizYWww5ZW3t62b3jJd7GzgRzNIF2o++FdTuw2D
-	 9aWyRG4PnXd+gFeGT19AphzC7D53urYGwLonvVEo=
+	b=OjG3AKjT5iEU9NfDiYT6+UWdIpsJYShA6ta0hwZltCW1l6QNCmA3E1TvU7RxcIsIO
+	 wtEwgDaYnMQAGxG20nDMsrfqz3frJyPDG02MIiB4tFdavn13uEsS5Mc5NDJ6QSio03
+	 wzhQU053guCyMMZEJYdpF6x26vsWJSU+6GL9gXpk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id ECB96F80053; Thu, 25 Jan 2024 10:52:38 +0100 (CET)
+	id 3B38EF804F1; Thu, 25 Jan 2024 11:27:18 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 696C1F8055C;
-	Thu, 25 Jan 2024 10:52:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CC141F8025F;
+	Thu, 25 Jan 2024 11:27:17 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 65B19F8028D; Thu, 25 Jan 2024 10:52:31 +0100 (CET)
+	id 04117F8028D; Thu, 25 Jan 2024 11:27:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [IPv6:2a00:1450:4864:20::629])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id ECB97F80149
-	for <alsa-devel@alsa-project.org>; Thu, 25 Jan 2024 10:52:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ECB97F80149
+	by alsa1.perex.cz (Postfix) with ESMTPS id 08433F80149
+	for <alsa-devel@alsa-project.org>; Thu, 25 Jan 2024 11:27:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08433F80149
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=bjZhuXgP
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 40P5Phw6014771;
-	Thu, 25 Jan 2024 03:52:23 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	date:from:to:cc:subject:message-id:references:mime-version
-	:content-type:content-transfer-encoding:in-reply-to; s=
-	PODMain02222019; bh=vGrNSh62BaIht8+twse3zms0TY0FwQUJRwvQcagQHms=; b=
-	bjZhuXgPZTSUUec+kRV7ga1yWlD4neFBTLeUVdef9NVO0lYjmf9qHhaA9+p4ZXnU
-	Ho+B4tYyoV13aVJ9cY5edNXTEVU25bqRIAJHLS6ZvkddSesqTeJq4ES0ZIXgoiVE
-	o0pSxbuaT68KSHeW3I28wTwPF0YtmFmXnkwmojRICP8lTXM/6f+zeweWosa1ov4o
-	PLcQ6jpkc3cFKGdrtS3umV8E8tcMiQphGsHIG2Qu7aOxuUm2pz51HomLW6JOrql7
-	Up9D2Hmda//xhdfxqemn1AtKvHsTeepImLLc7ratenC5kECtHA1HGpWUUNWJ3qFg
-	JKxQMrb8h7WXudezyQnhPQ==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3vtmfhj24c-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 25 Jan 2024 03:52:22 -0600 (CST)
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Thu, 25 Jan
- 2024 09:52:20 +0000
-Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.40 via Frontend Transport; Thu, 25 Jan 2024 09:52:20 +0000
-Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com
- [198.61.86.93])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPS id 6E52A820241;
-	Thu, 25 Jan 2024 09:52:20 +0000 (UTC)
-Date: Thu, 25 Jan 2024 09:52:19 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Andy Shevchenko <andy.shevchenko@gmail.com>
-CC: <broonie@kernel.org>, <lgirdwood@gmail.com>,
- <alsa-devel@alsa-project.org>,
-        <patches@opensource.cirrus.com>, <linux-sound@vger.kernel.org>
-Subject: Re: [PATCH 6/7] ASoC: cs42l43: Refactor to use for_each_set_bit
-Message-ID: <ZbIvU+UJTB2NbvxZ@ediswmail9.ad.cirrus.com>
-References: <20240124165558.1876407-1-ckeepax@opensource.cirrus.com>
- <20240124165558.1876407-6-ckeepax@opensource.cirrus.com>
- <CAHp75VdmpPXmQTDSJLotiYSxVO=4Fn27tWwQsByzYQuZwmHJ9A@mail.gmail.com>
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=ML9QJGwv
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-a310f4b3597so173319866b.3
+        for <alsa-devel@alsa-project.org>;
+ Thu, 25 Jan 2024 02:27:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1706178421; x=1706783221;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=DdPYVs7bVu+QbH/ro/DzVVOcppC61kKhdHn4oYEGLCg=;
+        b=ML9QJGwvLMhcPzV2tC9NC5d67rldYw4/kUB0BCBEilk1T9KKr1i7lY2Ettv+w/ioPw
+         c8Opwd4rS6kiT8vEKIb8BvAlzWbRRbWsHTqdtSO/EBp/WBztAImuSfj9RxDgtYJKJUxI
+         c6Y+3bncBhUVPw6SrWsoEgX/9BKKl1GMSU1gyT89fwUuxE5VWfnAF7J2qqV/CoNH9nh9
+         l9j9Ufmt9jicE9Vde1O9KHMAveBfMEcjClqON1ZY+IXRADpkyPzBiNIrBkEorvTa5o+N
+         esj9pFEXDs+t/Z6sVFvaP09eO8+py+q9sbla/0gvtUOWl/w+yAvrnrFckvWerWVCX5do
+         LrPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1706178421; x=1706783221;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=DdPYVs7bVu+QbH/ro/DzVVOcppC61kKhdHn4oYEGLCg=;
+        b=l+igfiT83gmzWqYch5ILJ0YB0CoOtRboJmGCimVsJqDRbBaozxtdK/uw8aPkeGs0wD
+         ct+SY+ablKQkz9EcCcgrecDewFkHRAMzGhafRMq84wkXqrhkY2VZOov9DiJEhFT6p4lB
+         vmsnC8GVSn4i3yatKKUJq5nxYB1hw9lt2jBux1zs8dSwir+QEqZhmtXjkjHcWVCV/yMT
+         9z2RuiKTzj/ohKcV4L5IUJ2t8hgtkqziSQVWS79BF1iuudGkF9OIi8TKlFI7Faw83YhZ
+         IOTcz3Srf4b82MxiNKpFFylfvFlpTXpIz+HDQ9Yq4lcLmGibzZdaK4aMsGeIwF0TX8Ie
+         2WFQ==
+X-Gm-Message-State: AOJu0YzKIocQ068Xs21tfZng9XP+hrCWBWgDcx6hhSdTufpcqfKoD09M
+	AbauwCHWzdIQYVkQ8DkWXDbhltQGe5ZsRzrcfrGRul9dAGdtHPi4u7S5oYPmHQk=
+X-Google-Smtp-Source: 
+ AGHT+IG4UOoSz6F19Cw8XbyiXZ1AHJ1p2OZb6yZxP9RwbfKLZ3Yc1sjZ1bM2+ZGZEotHOyH135Ph3Q==
+X-Received: by 2002:a17:907:bb8f:b0:a31:5ef5:792f with SMTP id
+ xo15-20020a170907bb8f00b00a315ef5792fmr503015ejc.14.1706178420938;
+        Thu, 25 Jan 2024 02:27:00 -0800 (PST)
+Received: from [192.168.1.20] ([178.197.215.66])
+        by smtp.gmail.com with ESMTPSA id
+ fj5-20020a1709069c8500b00a318504ecadsm386588ejc.10.2024.01.25.02.26.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 25 Jan 2024 02:27:00 -0800 (PST)
+Message-ID: <a9d73aae-53ba-4134-84b8-b3da1b10f25b@linaro.org>
+Date: Thu, 25 Jan 2024 11:26:58 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: 
- <CAHp75VdmpPXmQTDSJLotiYSxVO=4Fn27tWwQsByzYQuZwmHJ9A@mail.gmail.com>
-X-Proofpoint-ORIG-GUID: auRHtjoCfyH6Qy4EOMaajMZsgJWhwXEH
-X-Proofpoint-GUID: auRHtjoCfyH6Qy4EOMaajMZsgJWhwXEH
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: RN5O5ZPHYJQ4ZUMVCCC76XOZXDEZGXCR
-X-Message-ID-Hash: RN5O5ZPHYJQ4ZUMVCCC76XOZXDEZGXCR
-X-MailFrom: prvs=8754d201d6=ckeepax@opensource.cirrus.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ASoC: dt-bindings: samsung,tm2: Correct "audio-codec"
+ constraints
+Content-Language: en-US
+To: Rob Herring <robh@kernel.org>, Sylwester Nawrocki
+ <s.nawrocki@samsung.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, alsa-devel@alsa-project.org,
+ linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20240124190754.1554899-1-robh@kernel.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
+ 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
+ D2GYIS41Kv4Isx2dEFh+/Q==
+In-Reply-To: <20240124190754.1554899-1-robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: EX63CI5NFRMSWWZTSCD32KWPGFFPE6VV
+X-Message-ID-Hash: EX63CI5NFRMSWWZTSCD32KWPGFFPE6VV
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -106,7 +164,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RN5O5ZPHYJQ4ZUMVCCC76XOZXDEZGXCR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EX63CI5NFRMSWWZTSCD32KWPGFFPE6VV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,51 +173,15 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, Jan 25, 2024 at 12:42:13AM +0200, Andy Shevchenko wrote:
-> On Wed, Jan 24, 2024 at 6:56 PM Charles Keepax
-> <ckeepax@opensource.cirrus.com> wrote:
-> >
-> > Refactor the code in cs42l43_mask_to_slots to use for_each_set_bit.
+On 24/01/2024 20:07, Rob Herring wrote:
+> The "audio-codec" constraints define how many entries(2), but not the
+> size of each entry. Each entry is a single phandle. Define the size with
+> an inner 'items' list.
 > 
-> ..._bit()
-> 
-> ...
-> 
-> >  #include <linux/bitops.h>
-> 
-> > +#include <linux/bits.h>
-> > +#include <linux/find.h>
-> 
-> No need, it's included by bitops.h (and there is kinda guarantee for these).
-> 
+> Signed-off-by: Rob Herring <robh@kernel.org>
 
-We just moved a bunch of includes out of the cs42l43 header files
-to be directly included in the C files. It makes sense to be
-consistent if each file is going to directly include each header
-it uses it should do so. The header guards will weed out what is
-already included.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-> > +               if (i == CS42L43_ASP_MAX_CHANNELS) {
-> > +                       dev_warn(priv->dev, "Too many channels in TDM mask: %lx\n",
-> > +                                mask);
-> 
-> This is invariant to the loop, you may check even before it (I'm
-> writing by memory, might have made mistake(s) in the snippet):
-> 
->   nslots = hweight_long(mask);
->   if (nslots >= ..._MAX_CHANNELS)
->     dev_warn(...);
-> 
-> >                         return;
-> > +               }
-> 
+Best regards,
+Krzysztof
 
-This would result in a change of behaviour, as one would need to
-return before the loop to ensure we didn't overflow the slots
-array. We could possible do something with masking the slots to
-ensure it only has the right number of bits set, but it is really
-starting to get a little micro-optimisation for something that is
-likely only going to run once whilst the kernel boots.
-
-Thanks,
-Charles

@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4767783BED6
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Jan 2024 11:32:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6070383BED8
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Jan 2024 11:32:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EE630203;
-	Thu, 25 Jan 2024 11:31:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EE630203
+	by alsa0.perex.cz (Postfix) with ESMTPS id A71C4210;
+	Thu, 25 Jan 2024 11:32:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A71C4210
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1706178726;
-	bh=dP1nGXxsMCY2F5/u1k++YVby2qiBM6bGmD+FcrbasGY=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=StDaW0uqgV6gzEkT4SBVLZfOT5vnjuL0w4tV61qSXObWar3+U4/c8HwXhfmkRvpET
-	 VkdV8etsqZ+pjxed2ZCYujAR+4m6ndwJ9ojDJj9QDWig1pJMXr2NXZeGRuMmSwzs/n
-	 uxjlfjPpssiBttTPqUddh7rqcWYmYKhW0qlGVS1Y=
+	s=default; t=1706178751;
+	bh=mcO1kO6Eusffstk0a+UN48hUNihoWe2RVTyOdQQQLSc=;
+	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=HFDDO4b+PI5T4v24HzQU19/TA1skpKfzoj0x2iS3v2yYKEjO5eqnw4m3Ml563ST5r
+	 uCDo3jOm/SfGBQU5aE39W8RG1vovGnL4aCKmuKgFDzH1BstbvryYNwCQoj+W+PkARy
+	 CLipPyT4iNUW6Yt3f8cNXf+EbbvzAYc7vhWId238=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B6AC5F8055C; Thu, 25 Jan 2024 11:31:43 +0100 (CET)
+	id C4BE2F805AA; Thu, 25 Jan 2024 11:31:47 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D6764F8055C;
-	Thu, 25 Jan 2024 11:31:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 418ADF805BB;
+	Thu, 25 Jan 2024 11:31:47 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 92EEEF80520; Thu, 25 Jan 2024 11:31:34 +0100 (CET)
+	id 8B52AF804F1; Thu, 25 Jan 2024 11:31:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,60 +36,61 @@ Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
  [67.231.149.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 38876F800C1
+	by alsa1.perex.cz (Postfix) with ESMTPS id E018AF8028D
 	for <alsa-devel@alsa-project.org>; Thu, 25 Jan 2024 11:31:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38876F800C1
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E018AF8028D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=kIWbEIlk
+ header.s=PODMain02222019 header.b=Qu4YdkA0
 Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
 	by mx0a-001ae601.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 40P6oFQ2010841;
+ 40P6oFQ3010841;
 	Thu, 25 Jan 2024 04:31:20 -0600
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	from:to:cc:subject:date:message-id:mime-version
-	:content-transfer-encoding:content-type; s=PODMain02222019; bh=q
-	YrlmXtQv18SjBS8+hZTJonIOBNbD4DOAkMk4mxdJ5w=; b=kIWbEIlk33UMbYwOy
-	/ceY/PFruGM5paYRW3cD6WJtwE/pCfh8kT3vFlF/2vLz0CCUmM2ldzbuaNUpUeDF
-	oc9r7Hm2HrTwJ1ZvJJ+75qeDfLcbH9eCaoDk6VEGQI1wCyhP9MNYmIWQbGtED5jH
-	XsRqftmADFzXyaS/3zt+YgIUQ+QJ4qbkY8kdULkwiPxY4rigZm0buMuW5rvUyUJ/
-	pUChDNpfgewacq2zxZX0gneQkNToER4J3HfWU09e/v0Nfiw4LpuyoNO7GoabEwV2
-	ic0yYNQfwvM0DgY54nQ+wOzhlBNYUEi6ke1yPuzDz13baSuUyf3HTjRnwBzym05y
-	6W6Yw==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3vtmfhj3jn-1
+	from:to:cc:subject:date:message-id:in-reply-to:references
+	:mime-version:content-transfer-encoding:content-type; s=
+	PODMain02222019; bh=6rjHj7YqFV202SVDxF4wuFl4W48j8/J0dMPI7OQKbSM=; b=
+	Qu4YdkA0IJS3AdWIFjIkddN49LUy7HOCJknUW3P9F6ZjExqtrFvIh1sJwgEbiDko
+	qTzNVpfvfKfI46aJWFg1UxsQF9JoAK+THNuHFG7Pu1Auekqg8h31g3z0z6sD+Oe/
+	uJ19jE9R/PNNe8n7K4LUB/CNsabGNsoRTxDrnqNdNQybBpaViQWogLx4vLGr9UdQ
+	mHm0jcWw+itUPPYO/CQ9IKKke2xmAK14pZNXKaSyEBYujqaKrRAXwWtadECn3540
+	HbItKRPq7pAK4rbHOJNvHDY5aefZrXvNToKecg1BrJlZcXGXESkpZNGYG1AnjP9f
+	Tw8kpmNJ0Xsf3eAjbY8N1g==
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3vtmfhj3jp-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
 	Thu, 25 Jan 2024 04:31:19 -0600 (CST)
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Thu, 25 Jan
  2024 10:31:17 +0000
 Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
- ediex01.ad.cirrus.com (198.61.84.80) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
  15.2.1118.40 via Frontend Transport; Thu, 25 Jan 2024 10:31:17 +0000
 Received: from ediswws07.ad.cirrus.com (ediswws07.ad.cirrus.com
  [198.90.208.14])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id 70A4A820246;
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id 75972820247;
 	Thu, 25 Jan 2024 10:31:17 +0000 (UTC)
 From: Charles Keepax <ckeepax@opensource.cirrus.com>
 To: <broonie@kernel.org>
 CC: <andy.shevchenko@gmail.com>, <lgirdwood@gmail.com>,
         <alsa-devel@alsa-project.org>, <patches@opensource.cirrus.com>,
         <linux-sound@vger.kernel.org>
-Subject: [PATCH v2 1/7] ASoC: cs42l43: Tidy up header includes
-Date: Thu, 25 Jan 2024 10:31:11 +0000
-Message-ID: <20240125103117.2622095-1-ckeepax@opensource.cirrus.com>
+Subject: [PATCH v2 2/7] ASoC: cs42l43: Minor code tidy ups
+Date: Thu, 25 Jan 2024 10:31:12 +0000
+Message-ID: <20240125103117.2622095-2-ckeepax@opensource.cirrus.com>
 X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20240125103117.2622095-1-ckeepax@opensource.cirrus.com>
+References: <20240125103117.2622095-1-ckeepax@opensource.cirrus.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: fcZMI8xpfq7jlJIQx7NtCYEk9o8_2uur
-X-Proofpoint-GUID: fcZMI8xpfq7jlJIQx7NtCYEk9o8_2uur
+X-Proofpoint-ORIG-GUID: Y8ct22JkvgvxYLPfMkDowfVIWHa1qeeh
+X-Proofpoint-GUID: Y8ct22JkvgvxYLPfMkDowfVIWHa1qeeh
 X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: 4NWJPPMUTWKZ7LSKEW2BYIVOKWWXM4E6
-X-Message-ID-Hash: 4NWJPPMUTWKZ7LSKEW2BYIVOKWWXM4E6
+Message-ID-Hash: CELMHSUOOTZ3BCJLNSTP4R7KYZKP7CST
+X-Message-ID-Hash: CELMHSUOOTZ3BCJLNSTP4R7KYZKP7CST
 X-MailFrom: prvs=8754d201d6=ckeepax@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -101,7 +103,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4NWJPPMUTWKZ7LSKEW2BYIVOKWWXM4E6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CELMHSUOOTZ3BCJLNSTP4R7KYZKP7CST/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,139 +112,94 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Use more forward declarations, move header guards to cover other
-includes, and rely less on including headers through other headers.
+Add some missing commas, refactor a couple small bits of code.
 
 Suggested-by: Andy Shevchenko <andy.shevchenko@gmail.com>
 Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 ---
 
 Changes since v1:
- - Shuffle forward declarations around
+ - Move static assert
 
 Thanks,
 Charles
 
- sound/soc/codecs/cs42l43-jack.c |  5 +++++
- sound/soc/codecs/cs42l43-sdw.c  |  1 +
- sound/soc/codecs/cs42l43.c      |  8 ++++++++
- sound/soc/codecs/cs42l43.h      | 21 ++++++++++++---------
- 4 files changed, 26 insertions(+), 9 deletions(-)
+ sound/soc/codecs/cs42l43-jack.c | 10 +++++-----
+ sound/soc/codecs/cs42l43.c      | 12 ++++--------
+ 2 files changed, 9 insertions(+), 13 deletions(-)
 
 diff --git a/sound/soc/codecs/cs42l43-jack.c b/sound/soc/codecs/cs42l43-jack.c
-index 24a598f2ed9a3..1d8d7bf0a6b0d 100644
+index 1d8d7bf0a6b0d..4f7a405b7e06a 100644
 --- a/sound/soc/codecs/cs42l43-jack.c
 +++ b/sound/soc/codecs/cs42l43-jack.c
-@@ -6,19 +6,24 @@
- //                         Cirrus Logic International Semiconductor Ltd.
- 
- #include <linux/build_bug.h>
-+#include <linux/completion.h>
- #include <linux/delay.h>
- #include <linux/errno.h>
- #include <linux/irq.h>
- #include <linux/jiffies.h>
- #include <linux/mfd/cs42l43.h>
- #include <linux/mfd/cs42l43-regs.h>
-+#include <linux/mutex.h>
- #include <linux/pm_runtime.h>
- #include <linux/property.h>
-+#include <linux/regmap.h>
-+#include <linux/workqueue.h>
- #include <sound/control.h>
- #include <sound/jack.h>
- #include <sound/pcm.h>
- #include <sound/pcm_params.h>
- #include <sound/soc-component.h>
-+#include <sound/soc-jack.h>
- #include <sound/soc.h>
- 
+@@ -29,11 +29,11 @@
  #include "cs42l43.h"
-diff --git a/sound/soc/codecs/cs42l43-sdw.c b/sound/soc/codecs/cs42l43-sdw.c
-index 388f95853b699..60c00c05da055 100644
---- a/sound/soc/codecs/cs42l43-sdw.c
-+++ b/sound/soc/codecs/cs42l43-sdw.c
-@@ -9,6 +9,7 @@
- #include <linux/mfd/cs42l43.h>
- #include <linux/mfd/cs42l43-regs.h>
- #include <linux/module.h>
-+#include <linux/soundwire/sdw.h>
- #include <sound/pcm.h>
- #include <sound/sdw.h>
- #include <sound/soc-component.h>
+ 
+ static const unsigned int cs42l43_accdet_us[] = {
+-	20, 100, 1000, 10000, 50000, 75000, 100000, 200000
++	20, 100, 1000, 10000, 50000, 75000, 100000, 200000,
+ };
+ 
+ static const unsigned int cs42l43_accdet_db_ms[] = {
+-	0, 125, 250, 500, 750, 1000, 1250, 1500
++	0, 125, 250, 500, 750, 1000, 1250, 1500,
+ };
+ 
+ static const unsigned int cs42l43_accdet_ramp_ms[] = { 10, 40, 90, 170 };
+@@ -851,6 +851,9 @@ static const char * const cs42l43_jack_text[] = {
+ 	"Line-In", "Microphone", "Optical",
+ };
+ 
++static_assert(ARRAY_SIZE(cs42l43_jack_override_modes) ==
++	      ARRAY_SIZE(cs42l43_jack_text) - 1);
++
+ SOC_ENUM_SINGLE_VIRT_DECL(cs42l43_jack_enum, cs42l43_jack_text);
+ 
+ int cs42l43_jack_get(struct snd_kcontrol *kcontrol, struct snd_ctl_elem_value *ucontrol)
+@@ -873,9 +876,6 @@ int cs42l43_jack_put(struct snd_kcontrol *kcontrol, struct snd_ctl_elem_value *u
+ 	struct soc_enum *e = (struct soc_enum *)kcontrol->private_value;
+ 	unsigned int override = ucontrol->value.integer.value[0];
+ 
+-	BUILD_BUG_ON(ARRAY_SIZE(cs42l43_jack_override_modes) !=
+-		     ARRAY_SIZE(cs42l43_jack_text) - 1);
+-
+ 	if (override >= e->items)
+ 		return -EINVAL;
+ 
 diff --git a/sound/soc/codecs/cs42l43.c b/sound/soc/codecs/cs42l43.c
-index 6a64681767de8..f2332f90f8337 100644
+index f2332f90f8337..d418c0b0ce9aa 100644
 --- a/sound/soc/codecs/cs42l43.c
 +++ b/sound/soc/codecs/cs42l43.c
-@@ -6,17 +6,25 @@
- //                         Cirrus Logic International Semiconductor Ltd.
+@@ -1059,12 +1059,10 @@ static int cs42l43_decim_get(struct snd_kcontrol *kcontrol,
+ 	int ret;
  
- #include <linux/bitops.h>
-+#include <linux/clk.h>
-+#include <linux/device.h>
- #include <linux/err.h>
- #include <linux/errno.h>
- #include <linux/gcd.h>
- #include <linux/irq.h>
-+#include <linux/irqdomain.h>
- #include <linux/jiffies.h>
- #include <linux/mfd/cs42l43.h>
- #include <linux/mfd/cs42l43-regs.h>
-+#include <linux/mod_devicetable.h>
- #include <linux/module.h>
-+#include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
-+#include <linux/regmap.h>
- #include <linux/string.h>
-+#include <linux/workqueue.h>
- #include <sound/control.h>
-+#include <sound/cs42l43.h>
- #include <sound/pcm.h>
- #include <sound/pcm_params.h>
- #include <sound/soc-component.h>
-diff --git a/sound/soc/codecs/cs42l43.h b/sound/soc/codecs/cs42l43.h
-index 125e36861d5d5..9924c13e1eb53 100644
---- a/sound/soc/codecs/cs42l43.h
-+++ b/sound/soc/codecs/cs42l43.h
-@@ -6,19 +6,14 @@
-  *                         Cirrus Logic International Semiconductor Ltd.
-  */
+ 	ret = cs42l43_shutter_get(priv, CS42L43_STATUS_MIC_SHUTTER_MUTE_SHIFT);
+-	if (ret < 0)
+-		return ret;
++	if (ret > 0)
++		ret = cs42l43_dapm_get_volsw(kcontrol, ucontrol);
+ 	else if (!ret)
+ 		ucontrol->value.integer.value[0] = ret;
+-	else
+-		ret = cs42l43_dapm_get_volsw(kcontrol, ucontrol);
  
--#include <linux/clk.h>
-+#ifndef CS42L43_ASOC_INT_H
-+#define CS42L43_ASOC_INT_H
-+
- #include <linux/completion.h>
--#include <linux/device.h>
- #include <linux/mutex.h>
--#include <linux/regmap.h>
--#include <linux/soundwire/sdw.h>
- #include <linux/types.h>
--#include <sound/cs42l43.h>
-+#include <linux/workqueue.h>
- #include <sound/pcm.h>
--#include <sound/soc-jack.h>
--
--#ifndef CS42L43_ASOC_INT_H
--#define CS42L43_ASOC_INT_H
+ 	return ret;
+ }
+@@ -1077,12 +1075,10 @@ static int cs42l43_spk_get(struct snd_kcontrol *kcontrol,
+ 	int ret;
  
- #define CS42L43_INTERNAL_SYSCLK		24576000
- #define CS42L43_DEFAULT_SLOTS		0x3F
-@@ -37,6 +32,14 @@
+ 	ret = cs42l43_shutter_get(priv, CS42L43_STATUS_SPK_SHUTTER_MUTE_SHIFT);
+-	if (ret < 0)
+-		return ret;
++	if (ret > 0)
++		ret = snd_soc_get_volsw(kcontrol, ucontrol);
+ 	else if (!ret)
+ 		ucontrol->value.integer.value[0] = ret;
+-	else
+-		ret = snd_soc_get_volsw(kcontrol, ucontrol);
  
- #define CS42L43_N_BUTTONS	6
- 
-+struct clk;
-+struct device;
-+
-+struct snd_soc_component;
-+struct snd_soc_jack;
-+
-+struct cs42l43;
-+
- struct cs42l43_codec {
- 	struct device *dev;
- 	struct cs42l43 *core;
+ 	return ret;
+ }
 -- 
 2.30.2
 

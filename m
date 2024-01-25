@@ -2,106 +2,111 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4D2183BEAE
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Jan 2024 11:27:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2211783BEB0
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Jan 2024 11:28:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E463784A;
-	Thu, 25 Jan 2024 11:27:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E463784A
+	by alsa0.perex.cz (Postfix) with ESMTPS id C8035210;
+	Thu, 25 Jan 2024 11:27:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8035210
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1706178469;
-	bh=ilmTokB1LWWWxVbA7PtwOLj5XcOJPhdI5/h6+rHojrY=;
+	s=default; t=1706178484;
+	bh=YtFNpGDYsCivUz1wf8vRxMwoBoVkCYcCceTNNZS180w=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=OjG3AKjT5iEU9NfDiYT6+UWdIpsJYShA6ta0hwZltCW1l6QNCmA3E1TvU7RxcIsIO
-	 wtEwgDaYnMQAGxG20nDMsrfqz3frJyPDG02MIiB4tFdavn13uEsS5Mc5NDJ6QSio03
-	 wzhQU053guCyMMZEJYdpF6x26vsWJSU+6GL9gXpk=
+	b=j228cwduRgPSYc/iOpaZwnwxo85GaJ2vTXbeVWIPw5mUcrmAVwEN20LsGIm4/jK/E
+	 lJlEzWN8LI4FkC3S/OjaSvZGQBAcW21+T8hb4vd7fZPUmjXexi5TYaZEF+LZ4DSWs+
+	 c6MYtErDZsQNWujxkKt0LCB0L2pWkIo5NJ+IBYX4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3B38EF804F1; Thu, 25 Jan 2024 11:27:18 +0100 (CET)
+	id 7E2D0F8057B; Thu, 25 Jan 2024 11:27:53 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CC141F8025F;
-	Thu, 25 Jan 2024 11:27:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0CEC9F8057E;
+	Thu, 25 Jan 2024 11:27:53 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 04117F8028D; Thu, 25 Jan 2024 11:27:10 +0100 (CET)
+	id 7B021F802BE; Thu, 25 Jan 2024 11:27:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [IPv6:2a00:1450:4864:20::629])
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [IPv6:2a00:1450:4864:20::630])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 08433F80149
-	for <alsa-devel@alsa-project.org>; Thu, 25 Jan 2024 11:27:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08433F80149
+	by alsa1.perex.cz (Postfix) with ESMTPS id CA5CAF80149
+	for <alsa-devel@alsa-project.org>; Thu, 25 Jan 2024 11:27:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CA5CAF80149
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=ML9QJGwv
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-a310f4b3597so173319866b.3
+ header.s=google header.b=sxSLTnBK
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-a315f43ecc3so78059866b.0
         for <alsa-devel@alsa-project.org>;
- Thu, 25 Jan 2024 02:27:02 -0800 (PST)
+ Thu, 25 Jan 2024 02:27:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1706178421; x=1706783221;
+        d=linaro.org; s=google; t=1706178460; x=1706783260;
  darn=alsa-project.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=DdPYVs7bVu+QbH/ro/DzVVOcppC61kKhdHn4oYEGLCg=;
-        b=ML9QJGwvLMhcPzV2tC9NC5d67rldYw4/kUB0BCBEilk1T9KKr1i7lY2Ettv+w/ioPw
-         c8Opwd4rS6kiT8vEKIb8BvAlzWbRRbWsHTqdtSO/EBp/WBztAImuSfj9RxDgtYJKJUxI
-         c6Y+3bncBhUVPw6SrWsoEgX/9BKKl1GMSU1gyT89fwUuxE5VWfnAF7J2qqV/CoNH9nh9
-         l9j9Ufmt9jicE9Vde1O9KHMAveBfMEcjClqON1ZY+IXRADpkyPzBiNIrBkEorvTa5o+N
-         esj9pFEXDs+t/Z6sVFvaP09eO8+py+q9sbla/0gvtUOWl/w+yAvrnrFckvWerWVCX5do
-         LrPA==
+        bh=V9gvMSv3+q7H3h79v5kkDnU5d5N9R7IDK8L4QtD2T7Q=;
+        b=sxSLTnBKN9cSy81N3bg6qYDZZHp+GSXbQcn35A0Q9hnt+SeSQ3/BEX7/mAA8XyMVoh
+         hhLyfcrWeSBp/2MWd+PaiHlHKuXAsFCw1+Y6awAbe6GG/obdAjFVCOjU83Lj6AWevGJZ
+         pJERSrGGRdq//NfJcfr2KLUEZ8yU46SaNQLMN6S+xaokL65+DDj2nPoV0Jtxi1aShP6s
+         qWiAtFhUs1/SVOw36MvG04R8yLQfPExZ27InppRmQChVjrJh2UC6JJEaMbcb4XwL3cXY
+         pImv/oombvj2RtIt/hLCMgfZ9S24Z9GkclKCvaCRCle/QCyJgJ87gWOL/eiaVbzhM3MU
+         qCQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706178421; x=1706783221;
+        d=1e100.net; s=20230601; t=1706178460; x=1706783260;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=DdPYVs7bVu+QbH/ro/DzVVOcppC61kKhdHn4oYEGLCg=;
-        b=l+igfiT83gmzWqYch5ILJ0YB0CoOtRboJmGCimVsJqDRbBaozxtdK/uw8aPkeGs0wD
-         ct+SY+ablKQkz9EcCcgrecDewFkHRAMzGhafRMq84wkXqrhkY2VZOov9DiJEhFT6p4lB
-         vmsnC8GVSn4i3yatKKUJq5nxYB1hw9lt2jBux1zs8dSwir+QEqZhmtXjkjHcWVCV/yMT
-         9z2RuiKTzj/ohKcV4L5IUJ2t8hgtkqziSQVWS79BF1iuudGkF9OIi8TKlFI7Faw83YhZ
-         IOTcz3Srf4b82MxiNKpFFylfvFlpTXpIz+HDQ9Yq4lcLmGibzZdaK4aMsGeIwF0TX8Ie
-         2WFQ==
-X-Gm-Message-State: AOJu0YzKIocQ068Xs21tfZng9XP+hrCWBWgDcx6hhSdTufpcqfKoD09M
-	AbauwCHWzdIQYVkQ8DkWXDbhltQGe5ZsRzrcfrGRul9dAGdtHPi4u7S5oYPmHQk=
+        bh=V9gvMSv3+q7H3h79v5kkDnU5d5N9R7IDK8L4QtD2T7Q=;
+        b=XPpPeNWv/qew0Io1/+tXuAlREUbSnhM2VfMj52KEjpR1rRjumL9cUFv/SbhYXKSx41
+         x2qZ+7WXDS96TbsPEuDA602LAfaGojuIWwSerm06iFghXwkmjdOZ9E4jrirxIpJm6GIi
+         my2AZ9fZEoxr0gbZ9l+Yg86kMeUBIE/QSoKede3oyJp3LXLho5EYrdP22raYr5+frLaf
+         Gd6/G+tEokRF8Yv0OD+gxUs2zIuql47P+01mHTRIv2yQQaU6oh3hKE+n1eidqWjRypML
+         aQPM6IWLZVyybbJjiK/AITLcbOWkTX8KLkhf1U7CAbPNgrfE6FFGj5awMaVJwaW6JW70
+         0sKw==
+X-Gm-Message-State: AOJu0YznwPhRAuXNLAK0bVSGnB0aK40V5X+IZpSz2nbS6lF1PtdlCIL9
+	FT07/uOZmw5m1v9qv84vv3jfViPFcP7k/15OS2DG+DTPF7LBzHLqmY0SikwsiHA=
 X-Google-Smtp-Source: 
- AGHT+IG4UOoSz6F19Cw8XbyiXZ1AHJ1p2OZb6yZxP9RwbfKLZ3Yc1sjZ1bM2+ZGZEotHOyH135Ph3Q==
-X-Received: by 2002:a17:907:bb8f:b0:a31:5ef5:792f with SMTP id
- xo15-20020a170907bb8f00b00a315ef5792fmr503015ejc.14.1706178420938;
-        Thu, 25 Jan 2024 02:27:00 -0800 (PST)
+ AGHT+IEnFE+kVE6wnGzV+nC41HNIgBzA646SU5hXBNWKIIB6uNlwYtHbNxIbJ9RTF+GbVyiur/pEMw==
+X-Received: by 2002:a17:906:b746:b0:a31:6f39:9517 with SMTP id
+ fx6-20020a170906b74600b00a316f399517mr207210ejb.299.1706178459780;
+        Thu, 25 Jan 2024 02:27:39 -0800 (PST)
 Received: from [192.168.1.20] ([178.197.215.66])
         by smtp.gmail.com with ESMTPSA id
- fj5-20020a1709069c8500b00a318504ecadsm386588ejc.10.2024.01.25.02.26.59
+ fj5-20020a1709069c8500b00a318504ecadsm386588ejc.10.2024.01.25.02.27.38
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 25 Jan 2024 02:27:00 -0800 (PST)
-Message-ID: <a9d73aae-53ba-4134-84b8-b3da1b10f25b@linaro.org>
-Date: Thu, 25 Jan 2024 11:26:58 +0100
+        Thu, 25 Jan 2024 02:27:39 -0800 (PST)
+Message-ID: <38852c07-ee51-44de-a616-7c3e86e88a8b@linaro.org>
+Date: Thu, 25 Jan 2024 11:27:37 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ASoC: dt-bindings: samsung,tm2: Correct "audio-codec"
- constraints
+Subject: Re: [PATCH 1/2] dt-bindings: pinctrl: Unify "input-debounce" schema
 Content-Language: en-US
-To: Rob Herring <robh@kernel.org>, Sylwester Nawrocki
- <s.nawrocki@samsung.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>,
+To: Rob Herring <robh@kernel.org>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Linus Walleij <linus.walleij@linaro.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, alsa-devel@alsa-project.org,
- linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20240124190754.1554899-1-robh@kernel.org>
+ Conor Dooley <conor+dt@kernel.org>, Avi Fishman <avifishman70@gmail.com>,
+ Tomer Maimon <tmaimon77@gmail.com>, Tali Perry <tali.perry1@gmail.com>,
+ Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
+ Benjamin Fair <benjaminfair@google.com>,
+ =?UTF-8?Q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
+ patches@opensource.cirrus.com
+Cc: alsa-devel@alsa-project.org, linux-gpio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ openbmc@lists.ozlabs.org
+References: <20240124190106.1540585-1-robh@kernel.org>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -147,11 +152,11 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
  fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
  D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <20240124190754.1554899-1-robh@kernel.org>
+In-Reply-To: <20240124190106.1540585-1-robh@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: EX63CI5NFRMSWWZTSCD32KWPGFFPE6VV
-X-Message-ID-Hash: EX63CI5NFRMSWWZTSCD32KWPGFFPE6VV
+Message-ID-Hash: DIGPR4OWD277AYAQKVV2XSZH34M5ZRX7
+X-Message-ID-Hash: DIGPR4OWD277AYAQKVV2XSZH34M5ZRX7
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -164,19 +169,19 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EX63CI5NFRMSWWZTSCD32KWPGFFPE6VV/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DIGPR4OWD277AYAQKVV2XSZH34M5ZRX7/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 24/01/2024 20:07, Rob Herring wrote:
-> The "audio-codec" constraints define how many entries(2), but not the
-> size of each entry. Each entry is a single phandle. Define the size with
-> an inner 'items' list.
+On 24/01/2024 20:01, Rob Herring wrote:
+> nuvoton,npcm845-pinctrl defines the common "input-debounce" property as
+> an array rather than an scalar. Update the common definition to expand
+> it to an uint32-array, and update all the users of the property with
+> array constraints.
 > 
 > Signed-off-by: Rob Herring <robh@kernel.org>
 

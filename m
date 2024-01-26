@@ -2,144 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 140F383DE84
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Jan 2024 17:20:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AACB883DE86
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Jan 2024 17:21:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7DFDCE94;
-	Fri, 26 Jan 2024 17:20:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7DFDCE94
+	by alsa0.perex.cz (Postfix) with ESMTPS id 32499950;
+	Fri, 26 Jan 2024 17:20:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 32499950
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1706286041;
-	bh=jfXWrPM5ALhDnKgFnFkdz4CMio32hmCt3xWSsf12HKU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=uSns1+cvJcU2A3i9r6hlMiwo9Ei7/h98jJB+vYYksn5WDKfuYVt3jBrRhtN3VhXvE
-	 +AZQ9Q64ul1kxpR9pREn8C+DRrf/dHDZf0GmVpN2/FMW23BvOw5fQzx3Hq3DtAq/8R
-	 26vQOS4KtoNwY9vvXIcddBYZk3wDj0sM1qnoEFpw=
+	s=default; t=1706286067;
+	bh=5PS7c/dCCqcGCKbQTbtxxziKGZzqWDqE28S0ctit9oc=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=kiqL5La3eN/vxwJ1x3zjdvykW3gO4kyHXdVXaZ7ZGz90NYivwoU9HrcoSVBGyhG1E
+	 /ZiKc5pq5XqvgOY0xc3GQB7hCsb96zP0kAwjGnfD+8JbDWmt3RDGn61Hc++cXuTqYX
+	 8z9qQ4Eo/K/n5aCRMfqzMOySbPMLsJ5ko4DrjZoo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C63E0F805CB; Fri, 26 Jan 2024 17:18:38 +0100 (CET)
+	id 4241FF805E8; Fri, 26 Jan 2024 17:18:58 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4B382F806D3;
-	Fri, 26 Jan 2024 17:18:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E51F2F806BD;
+	Fri, 26 Jan 2024 17:18:57 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B6A14F8028D; Wed, 24 Jan 2024 21:03:04 +0100 (CET)
+	id 790F0F8028D; Fri, 26 Jan 2024 08:45:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail78-66.sinamail.sina.com.cn (mail78-66.sinamail.sina.com.cn
+ [219.142.78.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1A1CEF8003A
-	for <alsa-devel@alsa-project.org>; Wed, 24 Jan 2024 21:02:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A1CEF8003A
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=TIXWtyFH
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 66341CE321D;
-	Wed, 24 Jan 2024 20:02:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D9C4C433F1;
-	Wed, 24 Jan 2024 20:02:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1706126562;
-	bh=jfXWrPM5ALhDnKgFnFkdz4CMio32hmCt3xWSsf12HKU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=TIXWtyFH5yxUa2sKS25qW3wOvsP8Ed2klnxIK0jQEvMXqnYVHZWCU0zqLjO7+ilCR
-	 JWdnVZmbglYShezSvqIcZWDN/Vh46HywERZIGBwdalc9QELX9rTL+upLtWfATkdWgT
-	 WOJSdLKuC7J9/6NYjh+DNGAalqkPr+gBHAK+jK1uAFFeeu8RJwLSBlu58kMYFUoEl1
-	 Yp7MPDfACwXPwjaV1u4/U968HoLm30T94Tl/mdr2QRYc4fOG1E9E30BuK8sKFpJ4U8
-	 n+9CHV5JSYN6y7zhCegxJ1IM+OVstyfug/6ZJ17Jvqz0l9lgm0LjUJl94LQR9K86D2
-	 ni5ld1wGOGq1w==
-Date: Wed, 24 Jan 2024 20:02:07 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Mark Brown <broonie@kernel.org>, linux-spi@vger.kernel.org
-Cc: Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <u.kleine-koenig@pengutronix.de>,
- kernel@pengutronix.de, Moritz Fischer <mdf@kernel.org>, Wu Hao
- <hao.wu@intel.com>, Xu Yilun <yilun.xu@intel.com>, Tom Rix
- <trix@redhat.com>, linux-fpga@vger.kernel.org,
- linux-kernel@vger.kernel.org, Alexander Aring <alex.aring@gmail.com>,
- Stefan Schmidt <stefan@datenfreihafen.org>, Miquel Raynal
- <miquel.raynal@bootlin.com>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo
- Abeni <pabeni@redhat.com>, linux-wpan@vger.kernel.org,
- netdev@vger.kernel.org, Lars-Peter Clausen <lars@metafoo.de>, Michael
- Hennerich <Michael.Hennerich@analog.com>, linux-iio@vger.kernel.org, Dmitry
- Torokhov <dmitry.torokhov@gmail.com>, linux-input@vger.kernel.org, Ulf
- Hansson <ulf.hansson@linaro.org>, Rayyan Ansari <rayyan@ansari.sh>, Andy
- Shevchenko <andriy.shevchenko@linux.intel.com>, Jonathan Cameron
- <Jonathan.Cameron@huawei.com>, Martin Tuma
- <martin.tuma@digiteqautomotive.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, linux-media@vger.kernel.org, Sergey Kozlov
- <serjk@netup.ru>, Arnd Bergmann <arnd@arndb.de>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Yang Yingliang <yangyingliang@huawei.com>,
- linux-mmc@vger.kernel.org, Richard Weinberger <richard@nod.at>, Vignesh
- Raghavendra <vigneshr@ti.com>, Rob Herring <robh@kernel.org>, Heiko
- Stuebner <heiko@sntech.de>, Michal Simek <michal.simek@amd.com>, Amit Kumar
- Mahapatra via Alsa-devel <alsa-devel@alsa-project.org>,
- linux-mtd@lists.infradead.org, Martin Blumenstingl
- <martin.blumenstingl@googlemail.com>, Geert Uytterhoeven
- <geert+renesas@glider.be>, Pali =?UTF-8?B?Um9ow6Fy?= <pali@kernel.org>,
- Simon Horman <horms@kernel.org>, Ronald Wahl <ronald.wahl@raritan.com>,
- Benson Leung <bleung@chromium.org>, Tzung-Bi Shih <tzungbi@kernel.org>,
- Guenter Roeck <groeck@chromium.org>, chrome-platform@lists.linux.dev, Max
- Filippov <jcmvbkbc@gmail.com>, linux-arm-kernel@lists.infradead.org, Bjorn
- Andersson <andersson@kernel.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
- linux-arm-msm@vger.kernel.org, Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- linux-mediatek@lists.infradead.org, Thomas Zimmermann
- <tzimmermann@suse.de>, Javier Martinez Canillas <javierm@redhat.com>, Amit
- Kumar Mahapatra <amit.kumar-mahapatra@amd.com>,
- dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- linux-staging@lists.linux.dev, Viresh Kumar <vireshk@kernel.org>, Rui
- Miguel Silva <rmfrfs@gmail.com>, Johan Hovold <johan@kernel.org>, Alex
- Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, Peter Huewe
- <peterhuewe@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>, Jason Gunthorpe
- <jgg@ziepe.ca>, linux-integrity@vger.kernel.org, Herve Codina
- <herve.codina@bootlin.com>, Alan Stern <stern@rowland.harvard.edu>, Aaro
- Koskinen <aaro.koskinen@iki.fi>, Krzysztof Kozlowski
- <krzysztof.kozlowski@linaro.org>, linux-usb@vger.kernel.org, Helge Deller
- <deller@gmx.de>, Dario Binacchi <dario.binacchi@amarulasolutions.com>,
- Kalle Valo <kvalo@kernel.org>, Dmitry Antipov <dmantipov@yandex.ru>,
- libertas-dev@lists.infradead.org, linux-wireless@vger.kernel.org, Jonathan
- Corbet <corbet@lwn.net>, James Clark <james.clark@arm.com>, Bjorn Helgaas
- <bhelgaas@google.com>, linux-doc@vger.kernel.org
-Subject: Re: [PATCH v2 00/33] spi: get rid of some legacy macros
-Message-ID: <20240124200207.7e02b501@jic23-huawei>
-In-Reply-To: <20240122192343.148a0b6d@jic23-huawei>
-References: <cover.1705944943.git.u.kleine-koenig@pengutronix.de>
-	<e62cdf7f-ce58-4f46-a0a0-25ce9fb271b1@sirena.org.uk>
-	<20240122192343.148a0b6d@jic23-huawei>
-X-Mailer: Claws Mail 4.2.0 (GTK 3.24.40; x86_64-pc-linux-gnu)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-MailFrom: jic23@kernel.org
-X-Mailman-Rule-Hits: max-recipients
+	by alsa1.perex.cz (Postfix) with ESMTPS id 07FC6F8022B
+	for <alsa-devel@alsa-project.org>; Fri, 26 Jan 2024 08:45:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07FC6F8022B
+Received: from unknown (HELO zy-virtual-machine.localdomain)([222.70.13.170])
+	by sina.net (10.75.30.239) with ESMTP
+	id 65B3630A0001F3AA; Fri, 26 Jan 2024 15:45:15 +0800 (CST)
+X-Sender: zhangyi@everest-semi.com
+X-Auth-ID: zhangyi@everest-semi.com
+Authentication-Results: sina.net;
+	 spf=none smtp.mailfrom=zhangyi@everest-semi.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=zhangyi@everest-semi.com
+X-SMAIL-MID: 844E2918951444D3B8BF1970F4D9E86D
+X-SMAIL-UIID: 844E2918951444D3B8BF1970F4D9E86D-20240126-154515
+From: Zhang Yi <zhangyi@everest-semi.com>
+To: alsa-devel@alsa-project.org,
+	broonie@kernel.org
+Cc: tiwai@suse.com,
+	amadeuszx.slawinski@linux.intel.com,
+	yangxiaohua@everest-semi.com,
+	zhuning@everest-semi.com,
+	Zhang Yi <zhangyi@everest-semi.com>
+Subject: [PATCH] ASoC: codecs: ES8326: Adding new kcontrols about Headphone
+ resistance
+Date: Fri, 26 Jan 2024 15:45:12 +0800
+Message-Id: <20240126074512.62013-1-zhangyi@everest-semi.com>
+X-Mailer: git-send-email 2.17.1
+X-MailFrom: zhangyi@everest-semi.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
- suspicious-header
-Message-ID-Hash: ZTYAQZ6B53Q5L3FXMPMW4RUAGZT5WREA
-X-Message-ID-Hash: ZTYAQZ6B53Q5L3FXMPMW4RUAGZT5WREA
-X-Mailman-Approved-At: Fri, 26 Jan 2024 16:18:21 +0000
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: IRFHQ6LRGU4LN74RUQDSWGR2K3HEGANR
+X-Message-ID-Hash: IRFHQ6LRGU4LN74RUQDSWGR2K3HEGANR
+X-Mailman-Approved-At: Fri, 26 Jan 2024 16:18:53 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZTYAQZ6B53Q5L3FXMPMW4RUAGZT5WREA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IRFHQ6LRGU4LN74RUQDSWGR2K3HEGANR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -148,32 +84,70 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 22 Jan 2024 19:23:43 +0000
-Jonathan Cameron <jic23@kernel.org> wrote:
+We get headphone detect issue.And we fix it with the new kcontrols
 
-> On Mon, 22 Jan 2024 18:18:22 +0000
-> Mark Brown <broonie@kernel.org> wrote:
->=20
-> > On Mon, Jan 22, 2024 at 07:06:55PM +0100, Uwe Kleine-K=C3=B6nig wrote:
-> >  =20
-> > > Note that Jonathan Cameron has already applied patch 3 to his tree, it
-> > > didn't appear in a public tree though yet. I still included it here to
-> > > make the kernel build bots happy.   =20
-> >=20
-> > It's also going to be needed for buildability of the end of the series.=
- =20
->=20
-> Ah.  I thought intent was to split this across all the different trees
-> then do the final patch only after they were all gone?
->=20
-> I'm fine with it going all in one go if people prefer that.
->=20
-> My tree will be out in a few mins. Was just waiting to rebase on rc1
-> which I've just done.
->=20
-> Jonathan
->=20
+Signed-off-by: Zhang Yi <zhangyi@everest-semi.com>
+---
+ sound/soc/codecs/es8326.c | 32 ++++++++++++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
 
-Dropped from my tree.
+diff --git a/sound/soc/codecs/es8326.c b/sound/soc/codecs/es8326.c
+index 608862aebd71..aa5044eef0ca 100755
+--- a/sound/soc/codecs/es8326.c
++++ b/sound/soc/codecs/es8326.c
+@@ -226,6 +226,29 @@ static const char *const hp_spkvol_switch[] = {
+ 	"HPVOL: HPL+HPR, SPKVOL: SPKL+SPKR",
+ };
+ 
++static const char *const hp_det_resistance[] = {
++	"10K",
++	"5K",
++};
++
++static const char *const micbias_resistance[] = {
++	"5.5K",
++	"4.5K",
++	"3.6K",
++	"2.8K",
++	"2.1K",
++	"1.5K",
++	"1.0K",
++	"0.6K",
++};
++
++static const char *const button_resistance[] = {
++	"100 percent",
++	"90 percent",
++	"80 percent",
++	"70 percent",
++};
++
+ static const struct soc_enum dacpol =
+ 	SOC_ENUM_SINGLE(ES8326_DAC_DSM, 4, 4, dacpol_txt);
+ static const struct soc_enum alc_winsize =
+@@ -234,6 +257,12 @@ static const struct soc_enum drc_winsize =
+ 	SOC_ENUM_SINGLE(ES8326_DRC_WINSIZE, 4, 16, winsize);
+ static const struct soc_enum hpvol_spkvol_switch =
+ 	SOC_ENUM_SINGLE(ES8326_HP_MISC, 6, 4, hp_spkvol_switch);
++static const struct soc_enum hp_det =
++	SOC_ENUM_SINGLE(ES8326_ANA_MICBIAS, 7, 2, hp_det_resistance);
++static const struct soc_enum micbias_res =
++	SOC_ENUM_SINGLE(ES8326_ANA_MICBIAS, 4, 8, micbias_resistance);
++static const struct soc_enum button_res =
++	SOC_ENUM_SINGLE(ES8326_ANA_MICBIAS, 0, 4, button_resistance);
+ 
+ static const struct snd_kcontrol_new es8326_snd_controls[] = {
+ 	SOC_SINGLE_TLV("DAC Playback Volume", ES8326_DACL_VOL, 0, 0xbf, 0, dac_vol_tlv),
+@@ -270,6 +299,9 @@ static const struct snd_kcontrol_new es8326_snd_controls[] = {
+ 	SOC_SINGLE_TLV("SPKR Playback Volume", ES8326_SPKR_VOL, 0, 0xbf, 0, dac_vol_tlv),
+ 
+ 	SOC_ENUM("HPVol SPKVol Switch", hpvol_spkvol_switch),
++	SOC_ENUM("Hpdet Resistance", hp_det),
++	SOC_ENUM("Micbias Resistance", micbias_res),
++	SOC_ENUM("Button Resistance", button_res),
+ };
+ 
+ static const struct snd_soc_dapm_widget es8326_dapm_widgets[] = {
+-- 
+2.17.1
 
-Acked-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>

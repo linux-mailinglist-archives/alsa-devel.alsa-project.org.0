@@ -2,82 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7833B83F505
-	for <lists+alsa-devel@lfdr.de>; Sun, 28 Jan 2024 11:38:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EBF9683F56C
+	for <lists+alsa-devel@lfdr.de>; Sun, 28 Jan 2024 13:09:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6E0DF83B;
-	Sun, 28 Jan 2024 11:38:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E0DF83B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 78E25852;
+	Sun, 28 Jan 2024 13:09:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 78E25852
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1706438331;
-	bh=PysUJPrwPRAXP68I0Rtgzr/rQ87OE0GEwEypUvcROZY=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Q3pDovF9SMMR5oK3eeoF3sg77MOMxnJvdDNsh6MhozFrFLmQ4zD6KBcayOfoKKSJn
-	 p44Uq0VITHgJLIuIJXutYZqvI+LQqO0CDtNsTOek+fYRGMdcRGS/MpYuu1S40f18UF
-	 aCr4O/hnuJCMQsw4VQWOrZHf9J5UhK3AbrLiIUZg=
+	s=default; t=1706443770;
+	bh=ea2/hbIhTYA11KZqLwPn676DDnTOZ3ro4Bj0W8jlfRg=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=l19wjyv0ELuwwV5SbeCn5Ulze0DyUJ7HXAZKSxQy0W/LPm14jSQd8ftS4AfzyO0mk
+	 iq6QnZpdQOO0G+GtC5LKtw/RiwekrvYR/cp2/ziR3RMc2l6OQHo87zCZS1JpuftPRp
+	 hgEivM17ctLyjuA/NcmBIn+NzX689ZuNyS0QQ9EA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9E1D5F80580; Sun, 28 Jan 2024 11:38:19 +0100 (CET)
+	id B55E6F8055B; Sun, 28 Jan 2024 13:08:58 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DB96EF80310;
-	Sun, 28 Jan 2024 11:38:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E1054F80568;
+	Sun, 28 Jan 2024 13:08:57 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3271DF80310; Sun, 28 Jan 2024 11:36:16 +0100 (CET)
+	id 0B75AF80310; Sun, 28 Jan 2024 13:08:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-4.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
-	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from puleglot.ru (puleglot.ru [IPv6:2a01:4f8:1c0c:58e8::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9E17FF80149
-	for <alsa-devel@alsa-project.org>; Sun, 28 Jan 2024 11:36:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9E17FF80149
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=tsoy.me header.i=@tsoy.me header.a=rsa-sha256
- header.s=mymail header.b=cBr2EUHG
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tsoy.me;
-	s=mymail; h=Sender:MIME-Version:Content-Transfer-Encoding:Content-Type:
-	References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Reply-To:Content-ID
-	:Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
-	Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe
-	:List-Post:List-Owner:List-Archive;
-	bh=PysUJPrwPRAXP68I0Rtgzr/rQ87OE0GEwEypUvcROZY=; b=cBr2EUHGCNw5UEGiI5CyMWbIT2
-	YH18//bEtOQbWnCzx4gp3HTkLRInpeWFots+4bQ077lmFWuou51Ir2belmEXAehRjZceGO5qpD3Tu
-	fjnu+NnTrOalfRO14btCQQoytAK5phuK7QK0jtPZb+jaRYW0GmjIl9kbO1mzW9N5y1lM=;
-Received: from [2a00:1370:819a:ceb:89dc:eced:962a:5b2f]
-	by puleglot.ru with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.97.1)
-	(envelope-from <puleglot@puleglot.ru>)
-	id 1rU2WC-00000000AQ5-0S2l;
-	Sun, 28 Jan 2024 13:36:04 +0300
-Message-ID: <3d4b6eca78d222598f8313c1fca34f3b9ee0bdba.camel@tsoy.me>
-Subject: Re: [PATCH] ALSA: usb-audio: Skip setting clock selector for single
- connections
-From: Alexander Tsoy <alexander@tsoy.me>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: linux-sound@vger.kernel.org, alsa-devel@alsa-project.org, Jaroslav
- Kysela <perex@perex.cz>
-Date: Sun, 28 Jan 2024 13:35:51 +0300
-In-Reply-To: <87mssw6sry.wl-tiwai@suse.de>
-References: <20240123134635.54026-1-alexander@tsoy.me>
-	 <87mssw6sry.wl-tiwai@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.50.2 
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
+Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
+ [207.180.221.201])
+	by alsa1.perex.cz (Postfix) with ESMTP id DA5FCF80149
+	for <alsa-devel@alsa-project.org>; Sun, 28 Jan 2024 13:08:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA5FCF80149
 MIME-Version: 1.0
-Sender: puleglot@puleglot.ru
-Message-ID-Hash: P4JEU77CFMDTJ5YTPJ4GOIUVJGXRDQYZ
-X-Message-ID-Hash: P4JEU77CFMDTJ5YTPJ4GOIUVJGXRDQYZ
-X-MailFrom: puleglot@puleglot.ru
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1706443728000905991-webhooks-bot@alsa-project.org>
+References: <1706443728000905991-webhooks-bot@alsa-project.org>
+Subject: Tascam US-428 crash
+Message-Id: <20240128120853.0B75AF80310@alsa1.perex.cz>
+Date: Sun, 28 Jan 2024 13:08:53 +0100 (CET)
+Message-ID-Hash: 2XCHTIRNUMADGM6N2ZRNMC7WEIH5O455
+X-Message-ID-Hash: 2XCHTIRNUMADGM6N2ZRNMC7WEIH5O455
+X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -89,7 +60,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/P4JEU77CFMDTJ5YTPJ4GOIUVJGXRDQYZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2XCHTIRNUMADGM6N2ZRNMC7WEIH5O455/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,63 +69,57 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-=D0=92 =D0=92=D1=82, 23/01/2024 =D0=B2 15:14 +0100, Takashi Iwai =D0=BF=D0=
-=B8=D1=88=D0=B5=D1=82:
-> > On Tue, 23 Jan 2024 14:46:35 +0100,
-> > Alexander Tsoy wrote:
-> > > >=20
-> > > > Since commit 086b957cc17f5 ("ALSA: usb-audio: Skip the clock
-> > > > selector
-> > > > inquiry for single connections") we are already skipping clock
-> > > > selector
-> > > > inquiry if only one clock source is connected, but we are still
-> > > > sending
-> > > > a set request. Lets skip that too.
-> > > >=20
-> > > > This should fix errors when setting a sample rate on devices
-> > > > that
-> > > > don't
-> > > > have any controls present within the clock selector. An example
-> > > > of
-> > > > such
-> > > > device is the new revision of MOTU M Series (07fd:000b):
-> > > >=20
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 AudioControl Interface Descriptor:
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bLength=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 8
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bDescriptorType=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 36
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bDescriptorSubtype=C2=A0=
-=C2=A0=C2=A0=C2=A0 11 (CLOCK_SELECTOR)
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bClockID=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- 1
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bNrInPins=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 1
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 baCSourceID(0)=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 2
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bmControls=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0x00
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 iClockSelector=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0
-> > > >=20
-> > > > Perhaps we also should check if clock selectors are readable
-> > > > and
-> > > > writeable
-> > > > like we already do for clock sources, but this is out of scope
-> > > > of
-> > > > this
-> > > > patch.
-> > > >=20
-> > > > Link: https://bugzilla.kernel.org/show_bug.cgi?id=3D217601
-> > > > Signed-off-by: Alexander Tsoy <alexander@tsoy.me>
-> >=20
-> > Thanks, applied.
+alsa-project/alsa-tools issue #23 was opened from mgsx-dev:
 
-It looks like this patch will bring back problems with Behringer mixers
-[1]. So we probably should revert. The mentioned case with MOTU M
-Series should be also covered by "Support read-only clock selector
-control" commit.
+Hi, i'm not sure that's the right place to post the issue. (sorry in advance)
 
-[1] https://bugzilla.kernel.org/show_bug.cgi?id=3D199327
+I have a Tascam US-428 Hardware and tried to make it works on Ubuntu 22.04. I followed setup instruction for US-224 and adapted it for the US 428 : https://alsa.opensrc.org/Tascam_US-224
+
+First i had to install firmware manually since hotplug package seems to be no longer available : 
+* `lsusb` shows my hardware correctly : `Bus 001 Device 004: ID 1604:8000 Tascam US-428 Audio/Midi Controller (without fw)`
+* I downloaded firmwares from https://github.com/alsa-project/alsa-firmware
+* Loaded it to the Tascam : `sudo fxload -s alsa-firmware/usx2yloader/tascam_loader.ihx -I alsa-firmware/usx2yloader/us428fw.ihx -D /dev/bus/usb/001/004`
+* I manually copied `alsa-firmware/usx2yloader/` files (us428.conf, us428.prepad, and us428.rbt) to  `/usr/lib/firmware/usx2yloader/` folder to make `usx2yloader` working.
+* Running `lsusb` confirmed it works. It shows now : `Bus 001 Device 005: ID 1604:8001 Tascam US-428 Audio/Midi Controller`
+* Also, the USB led on my Tascam turned up green.
+
+Then I tried to launch us428control to test midi : 
+* `us428control -v 2` properly logs midi event when i move some controls on the Tascam.
+
+So far so good.
+
+Then i tried to test audio playback. ALSA properly list my device : 
+```
+aplay -l
+...
+card 1: USX2Y [TASCAM US-X2Y], device 0: US-X2Y Audio [US-X2Y Audio #0]
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+
+aplay -L
+...
+hw:CARD=USX2Y,DEV=0
+    TASCAM US-X2Y, US-X2Y Audio #0
+    Direct hardware device without any conversions
+plughw:CARD=USX2Y,DEV=0
+    TASCAM US-X2Y, US-X2Y Audio #0
+    Hardware device with all software conversions
+sysdefault:CARD=USX2Y
+    TASCAM US-X2Y, US-X2Y Audio #0
+    Default Audio Device
+dmix:CARD=USX2Y,DEV=0
+    TASCAM US-X2Y, US-X2Y Audio #0
+    Direct sample mixing device
+usbstream:CARD=USX2Y
+    TASCAM US-X2Y
+    USB Stream Output
+```
+
+Then i tried to playback a wav file : `aplay -D dmix:CARD=USX2Y,DEV=0 test.wav` but when the song finish, or when i interrupt it, my whole system freeze (desktop GUI and mouse) and i had to shutdown my laptop manually.
+
+Note that i tried with other device name but it freeze as well, i also launched Audacity which freeze at startup as well.
+
+I'm a bit lost and i can't find useful information on the internet about it. Any help appreciated. Thanks for reading.
+
+Issue URL     : https://github.com/alsa-project/alsa-tools/issues/23
+Repository URL: https://github.com/alsa-project/alsa-tools

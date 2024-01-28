@@ -2,84 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BAEB83F595
-	for <lists+alsa-devel@lfdr.de>; Sun, 28 Jan 2024 14:27:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2C6983F633
+	for <lists+alsa-devel@lfdr.de>; Sun, 28 Jan 2024 16:58:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0580A828;
-	Sun, 28 Jan 2024 14:27:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0580A828
+	by alsa0.perex.cz (Postfix) with ESMTPS id B24DD82C;
+	Sun, 28 Jan 2024 16:57:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B24DD82C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1706448479;
-	bh=wjtMckO8PW7oVoKjaFJ2U9jTcutNCSldHHN5+gEojZ0=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=C6T++Tr5dDU08LjPzmEKVDKJylL47RkkP3XyXfssbOqoVeuuzXk0p/AZmOBi9tYV1
-	 VZj6azwmJGMfmx3AYnYfXmfTu5GunqrxNRS1YYiWjoX1Qu2KNWWErs/oK7+PRPmEd/
-	 ip9KhJg/lgLij4+fJSjGXoQsABX+n6NPakII6mzw=
+	s=default; t=1706457487;
+	bh=GFS4F0OefxoOXjJnNopMDwR/bp9rgwp1BO9HRQFGLes=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=DVeSWJ6ZgYcijEcL/H+d56xT/hpTbzFwns1WydjwfgplHk0c5ryZfccOaz4n9jr5c
+	 HVX/NW7qGIVQnbtTMFvsPog09Xq86J12Wr047xnloi1SWG6sFX4feFdOjb0VZO3BS3
+	 XMR6I9fBHamaCl7xzUGhLkYpk9kT2HyPBWvPZBLE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3D5BDF80587; Sun, 28 Jan 2024 14:27:27 +0100 (CET)
+	id 86053F80564; Sun, 28 Jan 2024 16:57:32 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id AC80EF8057F;
-	Sun, 28 Jan 2024 14:27:26 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A399BF8055C;
+	Sun, 28 Jan 2024 16:57:31 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 63693F80310; Sun, 28 Jan 2024 14:27:22 +0100 (CET)
+	id 5ED85F80310; Sun, 28 Jan 2024 16:57:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
-	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_MSPIKE_H3,
+	RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from puleglot.ru (puleglot.ru [IPv6:2a01:4f8:1c0c:58e8::2])
+Received: from mout.web.de (mout.web.de [212.227.17.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4E8D1F80053
-	for <alsa-devel@alsa-project.org>; Sun, 28 Jan 2024 14:27:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4E8D1F80053
+	by alsa1.perex.cz (Postfix) with ESMTPS id 33ABDF80149
+	for <alsa-devel@alsa-project.org>; Sun, 28 Jan 2024 16:57:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33ABDF80149
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=tsoy.me header.i=@tsoy.me header.a=rsa-sha256
- header.s=mymail header.b=Ao/oJIHg
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tsoy.me;
-	s=mymail; h=Sender:MIME-Version:Content-Transfer-Encoding:Content-Type:
-	References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Reply-To:Content-ID
-	:Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
-	Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe
-	:List-Post:List-Owner:List-Archive;
-	bh=wjtMckO8PW7oVoKjaFJ2U9jTcutNCSldHHN5+gEojZ0=; b=Ao/oJIHgR66n62eC4k/097uYo9
-	mk0Ytddd2Ni4rU8S7wcGPNyH0NMhp0AaYxNgpns1gnZV0gyMPBDcjUOuwQl8DfQwyZ835gC04q9Zc
-	Cl4sEHDSH6RrLbjjGQbNiffcMJLuPmGDzEkN8qR+s/F/b7BDiRtbbzw6B0l800z0F3CE=;
-Received: from [2a00:1370:819a:ceb:89dc:eced:962a:5b2f]
-	by puleglot.ru with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.97.1)
-	(envelope-from <puleglot@puleglot.ru>)
-	id 1rU5Bt-00000000B6x-0PxE;
-	Sun, 28 Jan 2024 16:27:17 +0300
-Message-ID: <d2273d0ac541c82025a01b137bc956ef6fed9261.camel@tsoy.me>
-Subject: Re: [PATCH] ALSA: usb-audio: Skip setting clock selector for single
- connections
-From: Alexander Tsoy <alexander@tsoy.me>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: linux-sound@vger.kernel.org, alsa-devel@alsa-project.org, Jaroslav
- Kysela <perex@perex.cz>
-Date: Sun, 28 Jan 2024 16:27:04 +0300
-In-Reply-To: <8734uhoe0a.wl-tiwai@suse.de>
-References: <20240123134635.54026-1-alexander@tsoy.me>
-	 <87mssw6sry.wl-tiwai@suse.de>
-	 <3d4b6eca78d222598f8313c1fca34f3b9ee0bdba.camel@tsoy.me>
-	 <8734uhoe0a.wl-tiwai@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.50.2 
+	dkim=pass (2048-bit key,
+ unprotected) header.d=web.de header.i=l.guzenko@web.de header.a=rsa-sha256
+ header.s=s29768273 header.b=oGFND3vc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de; s=s29768273;
+	t=1706457436; x=1707062236; i=l.guzenko@web.de;
+	bh=GFS4F0OefxoOXjJnNopMDwR/bp9rgwp1BO9HRQFGLes=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date;
+	b=oGFND3vc5jt5BFEIX0PsPmoVix1E06UYyOfec8U87k+8eq1djVxi2EoNryq3tBhr
+	 1AYRLV4lk4wksHZ/4tgnm9OdhKmzUvDiw8n+3likow42+/8yzqVcRlMZM/eXxXFAr
+	 QYvULxIQC0sjhGyJMUdGvkMNgzBSCSCpCWToyBL+wSx8lnnk3Z5ETZvBhPzeeWjWW
+	 AqPKk/+zLnOzxO1Fo97hDr4k/yENcE+JzuUCNh301hnsavAOrhp6eykEzX2P4sS8r
+	 zhUopN7OmPxoSFY/3huG3qzbVg/PqeDOib/QJNFin7NcpLdHcMEmFAjhyy8mnwJQN
+	 mQA0Lvo7McyaCKhFuQ==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from luka-spectre.fritz.box ([78.51.251.250]) by smtp.web.de
+ (mrweb106 [213.165.67.124]) with ESMTPSA (Nemesis) id
+ 1MRk4e-1reSaU0aaY-00TNem; Sun, 28 Jan 2024 16:57:16 +0100
+From: Luka Guzenko <l.guzenko@web.de>
+To: tiwai@suse.com
+Cc: alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	Luka Guzenko <l.guzenko@web.de>
+Subject: [PATCH] ALSA: hda/realtek: Enable Mute LED on HP Laptop 14-fq0xxx
+Date: Sun, 28 Jan 2024 16:57:04 +0100
+Message-ID: <20240128155704.2333812-1-l.guzenko@web.de>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Sender: puleglot@puleglot.ru
-Message-ID-Hash: TCBQAFQRX7RLEMJBYTC2FK2SKSTOFGVG
-X-Message-ID-Hash: TCBQAFQRX7RLEMJBYTC2FK2SKSTOFGVG
-X-MailFrom: puleglot@puleglot.ru
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:I8Fom4DyIjORlkYYIjOgd3x3ac0zGP5cFmWQ1/kwnbPjVWpPew5
+ hg+Gy7hpKpHkjoFw8zCAbvXVQjy9+RZIhZWqIxWdmu/LxBdTWrOGPtckt7mEwVoubaOR3oW
+ 4usUuEgZGPYu+7zPwFCb4udKsmHQHPf0UcLvNiFOkho6DkmzT820blsrNXjuGomYBdoXIme
+ T6vqazPYITvaI2byUjwKQ==
+UI-OutboundReport: notjunk:1;M01:P0:HTLPyXCyhFs=;cPQ3PlqVxSG6pIMGL/NTeirKysV
+ EWvM4gq+Ac5F6a5AAas5JG4jMbZZMkpcg9yvL+oKnBaNM9huN8cdSsChr/jYK7rkyVYpOQkfH
+ QFXaHKjVgR2I+K30UP3XJFLPuo55OFVhOiNkd0mJ/Q3FuVz7Ol6y6Ec7vnD6YbQVvf3jsxqP3
+ m+TVrPpWBMCAoC19oLBaLeu/yoen1vrcLphEmRuCJ378nRgsi2yP+HncAn4OHP+1xI0VCylQp
+ pXBMvyn/BsnaAid1g5eApBw9T5g/Ol1TwpsndnzZ5t0U/UJIQohiffwDoJVy1qcq/Cu7xFnJn
+ 0rWD+KfyTyln+82rjbOAnhxB/mvEEL/wB/Dk6EyJjfpJE37yQksbFDzg4rBImL7TUX33SIa8G
+ MMZGh73HrJ+UDo3Oggeb53bgaL78+fuQEjY/Z3UTX0gcjlrsVOnTGXIOGUYvyGIoQOgAT5mD/
+ gKCfi9Bou2QjU70YlBMU3HMv2ih515BldnkQEXmZwxtWx8xJ6EqU2x6uG1e0XZxX+ZRkMop02
+ s/zW7TcOFmAVgZqDqidE2w6XZ9mkuntMn13CYHS/Ml4ECo19AARSOLIJLph0WVXFAbdfUsmRK
+ 4S11B5ROS4EeUzSD14nULp+TToafR5NymijBF+0Vxcf+LCKgCvqdGNNx2NYZbhZLoAWGHu8/G
+ g1SdLmhp2Ni73KI+KlBbizQkicso+5BtEyU6ktHt4p5i/D5v93Dc860z3rjaOpXQJlzobx5bc
+ 5Ea14zGbMPtXNkCtSBhCPfzb3ZrDeLFZ/FOTsmbLgwdNLwclYuSNp4ZxDWzN6BJgRBEuZYequ
+ oSTd4x8BKfsVx9xa9A/sjr+JS8MOoqXRn+T5+8Gb+Bs2Z+X8lZoD9y/sLGFgesld5hk4vJilq
+ +S+i3CsD3SNIg76C26VqHDc4fd7MLDyuaj01q7l1wjfABQNMNh1bZEt3atqQaS5+5gRMQEL9A
+ TCSnLXHmktQlzfO1/akmBcg6VTw=
+Message-ID-Hash: 3WDSFDYGHBV7YALM3OAO3F2ASIJ5H652
+X-Message-ID-Hash: 3WDSFDYGHBV7YALM3OAO3F2ASIJ5H652
+X-MailFrom: l.guzenko@web.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -91,91 +101,38 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TCBQAFQRX7RLEMJBYTC2FK2SKSTOFGVG/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3WDSFDYGHBV7YALM3OAO3F2ASIJ5H652/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-=D0=92 =D0=92=D1=81, 28/01/2024 =D0=B2 13:09 +0100, Takashi Iwai =D0=BF=D0=
-=B8=D1=88=D0=B5=D1=82:
-> On Sun, 28 Jan 2024 11:35:51 +0100,
-> Alexander Tsoy wrote:
-> >=20
-> > =D0=92 =D0=92=D1=82, 23/01/2024 =D0=B2 15:14 +0100, Takashi Iwai =D0=BF=
-=D0=B8=D1=88=D0=B5=D1=82:
-> > > > On Tue, 23 Jan 2024 14:46:35 +0100,
-> > > > Alexander Tsoy wrote:
-> > > > > >=20
-> > > > > > Since commit 086b957cc17f5 ("ALSA: usb-audio: Skip the
-> > > > > > clock
-> > > > > > selector
-> > > > > > inquiry for single connections") we are already skipping
-> > > > > > clock
-> > > > > > selector
-> > > > > > inquiry if only one clock source is connected, but we are
-> > > > > > still
-> > > > > > sending
-> > > > > > a set request. Lets skip that too.
-> > > > > >=20
-> > > > > > This should fix errors when setting a sample rate on
-> > > > > > devices
-> > > > > > that
-> > > > > > don't
-> > > > > > have any controls present within the clock selector. An
-> > > > > > example
-> > > > > > of
-> > > > > > such
-> > > > > > device is the new revision of MOTU M Series (07fd:000b):
-> > > > > >=20
-> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 AudioControl Interface Descripto=
-r:
-> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bLength=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 8
-> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bDescriptorType=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 36
-> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bDescriptorSubtype=
-=C2=A0=C2=A0=C2=A0=C2=A0 11 (CLOCK_SELECTOR)
-> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bClockID=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 1
-> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bNrInPins=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- 1
-> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 baCSourceID(0)=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 2
-> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bmControls=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0x00
-> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 iClockSelector=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0
-> > > > > >=20
-> > > > > > Perhaps we also should check if clock selectors are
-> > > > > > readable
-> > > > > > and
-> > > > > > writeable
-> > > > > > like we already do for clock sources, but this is out of
-> > > > > > scope
-> > > > > > of
-> > > > > > this
-> > > > > > patch.
-> > > > > >=20
-> > > > > > Link: https://bugzilla.kernel.org/show_bug.cgi?id=3D217601
-> > > > > > Signed-off-by: Alexander Tsoy <alexander@tsoy.me>
-> > > >=20
-> > > > Thanks, applied.
-> >=20
-> > It looks like this patch will bring back problems with Behringer
-> > mixers
-> > [1]. So we probably should revert. The mentioned case with MOTU M
-> > Series should be also covered by "Support read-only clock selector
-> > control" commit.
-> >=20
-> > [1] https://bugzilla.kernel.org/show_bug.cgi?id=3D199327
->=20
-> OK, care to submit a patch to revert it?
+This HP Laptop uses ALC236 codec with COEF 0x07 controlling the
+mute LED. Enable existing quirk for this device.
 
-Sure, done!
+Signed-off-by: Luka Guzenko <l.guzenko@web.de>
+=2D--
+ sound/pci/hda/patch_realtek.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index f6f16622f9cc..0d2fbb8b24b3 100644
+=2D-- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -9852,6 +9852,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[]=
+ =3D {
+ 	SND_PCI_QUIRK(0x103c, 0x8786, "HP OMEN 15", ALC285_FIXUP_HP_MUTE_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x8787, "HP OMEN 15", ALC285_FIXUP_HP_MUTE_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x8788, "HP OMEN 15", ALC285_FIXUP_HP_MUTE_LED),
++	SND_PCI_QUIRK(0x103c, 0x87b7, "HP Laptop 14-fq0xxx", ALC236_FIXUP_HP_MUT=
+E_LED_COEFBIT2),
+ 	SND_PCI_QUIRK(0x103c, 0x87c8, "HP", ALC287_FIXUP_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x87e5, "HP ProBook 440 G8 Notebook PC", ALC236_FI=
+XUP_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x87e7, "HP ProBook 450 G8 Notebook PC", ALC236_FI=
+XUP_HP_GPIO_LED),
+=2D-
+2.43.0
+

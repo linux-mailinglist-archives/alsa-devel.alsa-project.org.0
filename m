@@ -2,97 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57BBD840B8E
-	for <lists+alsa-devel@lfdr.de>; Mon, 29 Jan 2024 17:33:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F6D0840D0A
+	for <lists+alsa-devel@lfdr.de>; Mon, 29 Jan 2024 18:07:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 78C53A4D;
-	Mon, 29 Jan 2024 17:33:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 78C53A4D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 993EF846;
+	Mon, 29 Jan 2024 18:07:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 993EF846
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1706546011;
-	bh=BkYUj9J0S9uZC6cARe/4MnNL8VlDnXU3fcAQ1S2UeUk=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=IbzSSK7pB8L58mziirZDevswEUIYuiN1qFl3rRUFmgc5HmqnsVwhB6mduqqKlHCsn
-	 AVSCHnvdG0019efoP1Cwiv+BOwXaaFR7ITPJ7KNjw7Hz2t4FPgoJkVfrx0Mfhd9DVA
-	 xHjXCdGkEocubnMEvyv7k2rm3sxohG2+C+KJIVjg=
+	s=default; t=1706548056;
+	bh=65+Pd1Qy5NwHHzFEmwr0qkDQekfSg+Vi6ZxPVom3jqA=;
+	h=Date:Subject:From:To:References:In-Reply-To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=B1DrYN7lAImOyFBdk23gLb8E22PXOsAQF1W0ZtqXpAMquK12APti28I2yWrNeg5q2
+	 eon1BvtZLjlb/wOfwt+6yQ6qelFrF7s/VXbvvmJdf+9LlHYouKSiI0+hj01Lcql1Ou
+	 htlp8OcZ5+KCjkyg7garwFJx0qfWzntsrmp89UiM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C1771F80C8D; Mon, 29 Jan 2024 17:29:22 +0100 (CET)
+	id 68762F805AC; Mon, 29 Jan 2024 18:07:05 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C4B86F80C96;
-	Mon, 29 Jan 2024 17:29:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1DEABF80589;
+	Mon, 29 Jan 2024 18:07:05 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CEEC2F80578; Mon, 29 Jan 2024 17:28:51 +0100 (CET)
+	id 3F401F80563; Mon, 29 Jan 2024 18:06:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=unavailable autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-7.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from smtp.ivitera.com (smtp.ivitera.com [88.101.85.59])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B07A0F80578
-	for <alsa-devel@alsa-project.org>; Mon, 29 Jan 2024 17:28:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B07A0F80578
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8E436F8055B
+	for <alsa-devel@alsa-project.org>; Mon, 29 Jan 2024 18:06:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E436F8055B
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=VAq83DXf
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 40T5fM0R006968;
-	Mon, 29 Jan 2024 10:28:00 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	from:to:cc:subject:date:message-id:in-reply-to:references
-	:mime-version:content-transfer-encoding:content-type; s=
-	PODMain02222019; bh=wpM0IEXUU+L0htJrBM+q7AUNIjabpxsqMat65cQAX8Q=; b=
-	VAq83DXfWvQdH58ZCz7hzM0HWUjNbSF+rGcNY8Awbk4CkgMhjCvuUKQktnzyU8/o
-	ZAqs9avwZfJDsSNfs0Kyd6F2Mu8hW8SF+QO1pskAxcWmkSOxQggFa0U9xVUBbXO+
-	bVdi20W9YxOMfTdw+e4PqIQECeNv9yN/GyO3O1q2ZSSVnlKxMV2bEolGfBNzjyg+
-	f+yHIReq3BETUBvNhUHjXH2olYf6+abx4NTNDhe+8D2Lyk4eTNz+4k6R/J9PFDhG
-	Z+pZhbb/Nxijyx9MLXbjmO/EJ0ZWaumZ41QwgK1q6SOORF+fDcToyxeWTRR733iv
-	G6HLZGHY9q+d/RI0/+jpRA==
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3vvy4nta8p-11
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 29 Jan 2024 10:28:00 -0600 (CST)
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Mon, 29 Jan
- 2024 16:27:47 +0000
-Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.40 via Frontend Transport; Mon, 29 Jan 2024 16:27:47 +0000
-Received: from EDIN4L06LR3.ad.cirrus.com (EDIN4L06LR3.ad.cirrus.com
- [198.61.64.204])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id 9B198820247;
-	Mon, 29 Jan 2024 16:27:47 +0000 (UTC)
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-To: <broonie@kernel.org>, <tiwai@suse.com>
-CC: <alsa-devel@alsa-project.org>, <linux-sound@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <patches@opensource.cirrus.com>,
-        "Richard
- Fitzgerald" <rf@opensource.cirrus.com>
-Subject: [PATCH 18/18] ALSA: hda: cs35l56: Remove unused test stub function
-Date: Mon, 29 Jan 2024 16:27:37 +0000
-Message-ID: <20240129162737.497-19-rf@opensource.cirrus.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20240129162737.497-1-rf@opensource.cirrus.com>
-References: <20240129162737.497-1-rf@opensource.cirrus.com>
+	dkim=pass (1024-bit key,
+ unprotected) header.d=ivitera.com header.i=@ivitera.com header.a=rsa-sha256
+ header.s=mail header.b=LMtMSNWb;
+	dkim=pass (1024-bit key) header.d=ivitera.com header.i=@ivitera.com
+ header.a=rsa-sha256 header.s=mail header.b=LMtMSNWb
+Received: from localhost (localhost [127.0.0.1])
+	by smtp.ivitera.com (Postfix) with ESMTP id A2726B963
+	for <alsa-devel@alsa-project.org>; Mon, 29 Jan 2024 18:06:38 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ivitera.com; s=mail;
+	t=1706547998; bh=65+Pd1Qy5NwHHzFEmwr0qkDQekfSg+Vi6ZxPVom3jqA=;
+	h=Date:Subject:From:To:References:In-Reply-To:From;
+	b=LMtMSNWbVJT/sWtuWJJYQm2EyfRH6MYv7Zhm4hDYGJUaIUqgk+fVW3DEETbQCWSN0
+	 z16zcFMnVlUELum8Fnts+LJ4N8HFWBBoXuNp1PexsCAdr1G9870DG/zdsqJgD77zSp
+	 dIPQZM0MUHnYt6kJ4OE6TGtrRuXBNeMuvnenPuHc=
+Received: from smtp.ivitera.com ([127.0.0.1])
+	by localhost (localhost [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id mg2ygAZnEHcB for <alsa-devel@alsa-project.org>;
+	Mon, 29 Jan 2024 18:06:38 +0100 (CET)
+Received: from [192.168.105.22] (dustin.pilsfree.net [81.201.58.138])
+	(Authenticated sender: pavel)
+	by smtp.ivitera.com (Postfix) with ESMTPSA id 2BA7EB962
+	for <alsa-devel@alsa-project.org>; Mon, 29 Jan 2024 18:06:38 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ivitera.com; s=mail;
+	t=1706547998; bh=65+Pd1Qy5NwHHzFEmwr0qkDQekfSg+Vi6ZxPVom3jqA=;
+	h=Date:Subject:From:To:References:In-Reply-To:From;
+	b=LMtMSNWbVJT/sWtuWJJYQm2EyfRH6MYv7Zhm4hDYGJUaIUqgk+fVW3DEETbQCWSN0
+	 z16zcFMnVlUELum8Fnts+LJ4N8HFWBBoXuNp1PexsCAdr1G9870DG/zdsqJgD77zSp
+	 dIPQZM0MUHnYt6kJ4OE6TGtrRuXBNeMuvnenPuHc=
+Message-ID: <14018498-75e9-28c4-cfe3-a958ede64d0e@ivitera.com>
+Date: Mon, 29 Jan 2024 18:06:37 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: ThVYG6jeUEf0DAB4fk-r0FgbZvgPRDcg
-X-Proofpoint-GUID: ThVYG6jeUEf0DAB4fk-r0FgbZvgPRDcg
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: MANH45R2I3GZOU7FUCGY6DJJ7L76J7TD
-X-Message-ID-Hash: MANH45R2I3GZOU7FUCGY6DJJ7L76J7TD
-X-MailFrom: prvs=97580788b4=rf@opensource.cirrus.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: ALSA-LIB: Support for format IEC958_SUBFRAME_LE in the plug
+ plugin?
+Content-Language: en-US
+From: Pavel Hofman <pavel.hofman@ivitera.com>
+To: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+References: <81b0be0a-5ab7-db91-21cb-0c59a55291e9@ivitera.com>
+In-Reply-To: <81b0be0a-5ab7-db91-21cb-0c59a55291e9@ivitera.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: QTZS4H3E45NJEJRTQWIMEZVJYTUEXA2G
+X-Message-ID-Hash: QTZS4H3E45NJEJRTQWIMEZVJYTUEXA2G
+X-MailFrom: pavel.hofman@ivitera.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -104,49 +97,91 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MANH45R2I3GZOU7FUCGY6DJJ7L76J7TD/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QTZS4H3E45NJEJRTQWIMEZVJYTUEXA2G/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Remove an unused stub function that calls a non-existant function.
+Dne 26. 01. 24 v 9:00 Pavel Hofman napsal(a):
 
-This function was accidentally added as part of commit
-2144833e7b41 ("ALSA: hda: cirrus_scodec: Add KUnit test"). It was
-a relic of an earlier version of the test that should have been
-removed.
+> RPi has recently moved to the VC4 driver which accepts only 
+> IEC958_SUBFRAME_LE format 
+> https://github.com/torvalds/linux/blob/ecb1b8288dc7ccbdcb3b9df005fa1c0e0c0388a7/drivers/gpu/drm/vc4/vc4_hdmi.c#L2643 . Since then people started to have issues with their previous configs which use only the plug plugin (plughw:X).
+> 
+> Wrapping the device with the hdmi plugin solves the problem, as it 
+> should. But e.g. mainline java support for alsa offers only hw cards 
+> wrapped with the plug plugin (hardcoded, not possible to specify the 
+> device name directly). Stock Java apps then do not work with RPi HDMI.
+> 
+> I was wondering if it made sense to add support for the IEC958 formats 
+> (using the iec958 plugin methods) to the plug plugin.
+> 
+> It may be complicated with the hdmi_mode hint though, I do not know if 
+> there is any API to recognize HDMI vs. SPDIF. Maybe a different format 
+> specifically for HDMI could have been perhaps useful but it may be too 
+> late for that.
+> 
+> Thank you very much for consideration.
+> 
 
-Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
-Fixes: 2144833e7b41 ("ALSA: hda: cirrus_scodec: Add KUnit test")
----
- sound/pci/hda/cs35l56_hda.c | 10 ----------
- 1 file changed, 10 deletions(-)
 
-diff --git a/sound/pci/hda/cs35l56_hda.c b/sound/pci/hda/cs35l56_hda.c
-index 32736d3e45ba..75a14ba54fcd 100644
---- a/sound/pci/hda/cs35l56_hda.c
-+++ b/sound/pci/hda/cs35l56_hda.c
-@@ -1063,16 +1063,6 @@ const struct dev_pm_ops cs35l56_hda_pm_ops = {
- };
- EXPORT_SYMBOL_NS_GPL(cs35l56_hda_pm_ops, SND_HDA_SCODEC_CS35L56);
- 
--#if IS_ENABLED(CONFIG_SND_HDA_SCODEC_CS35L56_KUNIT_TEST)
--/* Hooks to export static function to KUnit test */
--
--int cs35l56_hda_test_hook_get_speaker_id(struct device *dev, int amp_index, int num_amps)
--{
--	return cs35l56_hda_get_speaker_id(dev, amp_index, num_amps);
--}
--EXPORT_SYMBOL_NS_GPL(cs35l56_hda_test_hook_get_speaker_id, SND_HDA_SCODEC_CS35L56);
--#endif
--
- MODULE_DESCRIPTION("CS35L56 HDA Driver");
- MODULE_IMPORT_NS(SND_HDA_CIRRUS_SCODEC);
- MODULE_IMPORT_NS(SND_HDA_CS_DSP_CONTROLS);
--- 
-2.39.2
+Perhaps something trivial like this could do (header file changes not 
+included):
 
+===================================================================
+diff --git a/src/pcm/pcm_plug.c b/src/pcm/pcm_plug.c
+--- a/src/pcm/pcm_plug.c	(revision ffed4f342678c31bf0b9edfe184be5f3de41603a)
++++ b/src/pcm/pcm_plug.c	(date 1706546414549)
+@@ -490,6 +490,14 @@
+  }
+  #endif
+
++int snd_pcm_plug_generic_iec958_open(snd_pcm_t **pcmp, const char 
+*name, snd_pcm_format_t sformat, snd_pcm_t *slave, int close_slave) {
++	unsigned char preamble_vals[3] = {
++			0x08, 0x02, 0x04 /* Z, X, Y */
++		};
++	int hdmi_mode; // ????
++	return snd_pcm_iec958_open(pcmp, name, sformat, slave, close_slave, 
+NULL, preamble_vals, hdmi_mode);
++}
++
+  static int snd_pcm_plug_change_format(snd_pcm_t *pcm, snd_pcm_t **new, 
+snd_pcm_plug_params_t *clt, snd_pcm_plug_params_t *slv)
+  {
+  	snd_pcm_plug_t *plug = pcm->private_data;
+@@ -567,6 +575,10 @@
+  			f = snd_pcm_adpcm_open;
+  			break;
+  #endif
++		case SND_PCM_FORMAT_IEC958_SUBFRAME_LE:
++		case SND_PCM_FORMAT_IEC958_SUBFRAME_BE:
++			f = pcm_snd_general_iec958_open;
++			break;
+  		default:
+  			return -EINVAL;
+  		}
+
+===================================================================
+
+
+IMO preamble_vals could be left at the same default as defined in 
+pcm_iec958.c:_snd_pcm_iec958_open().
+
+But the correct hdmi_mode parameter is necessary. Alsa configs specify 
+it explicitly (like vc4-hdmi.conf). But the plug plugin has no such 
+information. Adding a parameter like that to the plug plugin would 
+cancel the effect of this change (to support hardcoded plughw devices 
+e.g. in java, with no support for custom PCM devices).
+
+Maybe an environment variable could be defined for the whole application 
+which could be used for the hdmi_mode, an ugly hack though...
+
+Thanks a lot for any hints and suggestions.
+
+With regards,
+
+Pavel.

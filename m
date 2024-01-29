@@ -2,90 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9384E84044C
-	for <lists+alsa-devel@lfdr.de>; Mon, 29 Jan 2024 12:54:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68D8D840453
+	for <lists+alsa-devel@lfdr.de>; Mon, 29 Jan 2024 12:54:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ED7C2B60;
-	Mon, 29 Jan 2024 12:54:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED7C2B60
+	by alsa0.perex.cz (Postfix) with ESMTPS id D3F35E67;
+	Mon, 29 Jan 2024 12:54:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D3F35E67
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1706529261;
-	bh=oMxlIYU8lOKLFt0TEL5h53mUDoaj/hO9QDpO+Y17nsg=;
+	s=default; t=1706529292;
+	bh=oh0sTMif6CnOQLiL5a5MmyT0hcKnwI/jjGqAII0YSDc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=WL/GRf8A6d6xShfSrmemtwIV2kSJXSmB96stNajK+QIKgMMvOeYgUL9E6k0uDk/Lq
-	 nmsIE84uhRJEYabjDH3vZk1JErT+24zhazoL+ZacVwLByWzDO9+HTMAYO3Tc5X+wxj
-	 YLSUalERa56LaYOsGJCkhdLZHEqfHThlzcLN9jxk=
+	b=h6OiaiOmkITZg9w0rtKQIdTmPLAtMuafXNIxFU2J/v3WutXQVxltwiRIWaFQsSmYQ
+	 F/YamwLqlTLw+aR+/d/ylZbkR4tG69InoyM5Iw4UJcYvuxpvVs8F3KR5QfmDZofFfY
+	 RpBRCFZdYkkm2+QekR39WYZdMinBq64o70lklA80=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 26EF6F80637; Mon, 29 Jan 2024 12:52:58 +0100 (CET)
+	id 81108F80578; Mon, 29 Jan 2024 12:53:06 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E30ABF80620;
-	Mon, 29 Jan 2024 12:52:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9E177F80698;
+	Mon, 29 Jan 2024 12:53:05 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C2981F805EB; Mon, 29 Jan 2024 12:52:49 +0100 (CET)
+	id D4AD4F805F1; Mon, 29 Jan 2024 12:52:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [IPv6:2a00:1450:4864:20::52d])
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [IPv6:2a00:1450:4864:20::530])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 85D9AF80425
-	for <alsa-devel@alsa-project.org>; Mon, 29 Jan 2024 12:52:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 85D9AF80425
+	by alsa1.perex.cz (Postfix) with ESMTPS id 84C15F8057D
+	for <alsa-devel@alsa-project.org>; Mon, 29 Jan 2024 12:52:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84C15F8057D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=S/HxEfTu
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-557dcb0f870so2501382a12.2
+ header.s=google header.b=zHb6TweM
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-55ee686b5d5so1449771a12.0
         for <alsa-devel@alsa-project.org>;
- Mon, 29 Jan 2024 03:52:33 -0800 (PST)
+ Mon, 29 Jan 2024 03:52:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1706529152; x=1707133952;
+        d=linaro.org; s=google; t=1706529155; x=1707133955;
  darn=alsa-project.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=qG0lQDgeayG/ZAaWGjl028iUARha7B2YZJgs2y6qJ/U=;
-        b=S/HxEfTuu0P9UaRZIy+BhpuNnXqPZNsIixWSYUn0qrHkaA36kW3Zpj14yYwQ+pqYfn
-         Ci0lykoADfTCUL3ZTE206HXOhdmGybZkT4IH4PHKq8oSuhim4pf1Lz1xGzQhzrwLXPle
-         lE8BcuQY2CxR/fNgEl2SuIxv3YvAUzkAl+NYIGUdy4+vBW8RfnKRcLVYe0gFbxg27X2Z
-         uKmDwP2Z1QdX9YMPo/o1e+idDecBdYDp6so42WWCycAgIjwlpu96LD/Q6QDMG7K+xAB1
-         2G+UbeB6uPvmYfJnIBi/W4buaH2ykT9wGdEt3teSgTYFCxl/g4mmCVGo/dWtA6V6ypa+
-         lboA==
+        bh=lRX88GpgU1fgsZxup3Gn93xc8N0Fj24AFUmctHwLfn4=;
+        b=zHb6TweMekYu8DPXa4wZWqCGwRKcGwKzLdL6rleuR12tKYcf4Y09U2+UmdjFKOjaS7
+         XA1jxFfltWU+0/U1k77VanqsA3fhHyjOpvTefMBEfW9l91P5cpVsRcEZmD3KiYiahzTW
+         6Ajxy6HPDbfFWEJk3JyT7SaAUmNvlnbpPn/5eD9LWdkdN5uRd0qbPl6u084gW39G7pNP
+         QzfwZ7ryxbI2EO2WNI4DwX6UH+v0XRdRk9eFFxFRBSH5o4vtxV2LeYOxikDGuy8S48A0
+         Hr/R4Jrrod6ygUPBsf7D0elG5GdnSv416ItqkB+hQl2MlJUA+Eco4YYeHeQDTKJsGsFW
+         24Sw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706529152; x=1707133952;
+        d=1e100.net; s=20230601; t=1706529155; x=1707133955;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=qG0lQDgeayG/ZAaWGjl028iUARha7B2YZJgs2y6qJ/U=;
-        b=flTgcwwwzCssufA6pUzZrx/tKyQx8UArt+WzNGSEKxCjW0AYoCF2e6Y1BKjofo2GMr
-         IQHwfIakmji/nltVG0c4cq1T5fwWZO3YuVEuxRj5WfgaLfPF9vg38gipoGkNtMBy4ljW
-         ZKIxHy0K7InWDowIVdgQiEI5ST90JcxApHlaxXN0FLAW9vhuYbVhy9ucYTrI3RvAOnPD
-         odDhMOO5qgUs4a30CkHb0WqXU9JgRWkMbm2AkxOC9aBLlH+kCVjT2ZSNHV0l4xSUDLpi
-         nQc66VrMpKrPVs/WyhX7kHn6X0quoxM6LowptGIBENwYXCDhbEafM6c8YAfqn7DqVGSw
-         EDgw==
-X-Gm-Message-State: AOJu0YxQOrM6QKlgSD8vugICrmUIHUKPCTqk9Ctl0dc+7D2jKwsz5rgs
-	e1zgh/xgWbFAoeGHp4/H+SextBbIUZUijbd8VwO3w+Cfzm7hIFV1xwVvUpOxq0Y=
+        bh=lRX88GpgU1fgsZxup3Gn93xc8N0Fj24AFUmctHwLfn4=;
+        b=TqaoKh5V1397xmeb2XaJUcaVJz3KIMjXIpaT7RtluqHzAkE8Nzey7TnAxhoKlkdHz1
+         4Y4oWsP4XjmXrpyR636XMgFSg7SimG2UjNL6NKiiVuPq13EvirHDKTsFCOJtLRLhJcK1
+         NKYLx39xv1i72AzZOnYcGQQLF844BWB96EPXa5Pixm9q5P8Q8g0kto162E5r9RwGqO4g
+         f1mXX5FER6beSsroMP+TiGN/2QtiNJ2JNzSCYdQ4RtvHJF96Os/4FxjszCLJK/GuTZRI
+         i4oTTlgY5nopvs7Lhy2uYuMzVGhvNgwZ2U/7cZqNyXWMreuiNciECKEqqjX6StJVqKAy
+         95qA==
+X-Gm-Message-State: AOJu0Yw/pjjmlx9F1/5rwr9ZWXxyYabxxc2cmjvFUlwb72OO/TghkUiw
+	W6IvDuE7R0Vxg3VO0yz3sB4OPddAgc44ZCMNkRmcay0xAgfhNMz9DWdJsFHFLeQ=
 X-Google-Smtp-Source: 
- AGHT+IFDB1cwKRTLnQ9gFJhaKmMAvmpkWXV6hf7V+Jjgh/DxIPtnqqWmUvLckWsARwnj54wstPEtRA==
-X-Received: by 2002:a05:6402:2709:b0:55d:3787:fa06 with SMTP id
- y9-20020a056402270900b0055d3787fa06mr4268042edd.26.1706529152297;
-        Mon, 29 Jan 2024 03:52:32 -0800 (PST)
+ AGHT+IEdaNoU/u2ZWAjjwYyfTwmF1ZYX/t6iKURfjubU1MuWVDghYTbMVUM9h4+w4ZCmDBHTCFQd+A==
+X-Received: by 2002:aa7:d695:0:b0:55f:72f:5caf with SMTP id
+ d21-20020aa7d695000000b0055f072f5cafmr1120034edr.11.1706529154944;
+        Mon, 29 Jan 2024 03:52:34 -0800 (PST)
 Received: from krzk-bin.. ([178.197.222.62])
         by smtp.gmail.com with ESMTPSA id
- ec19-20020a0564020d5300b0055f29ececeasm19907edb.57.2024.01.29.03.52.29
+ ec19-20020a0564020d5300b0055f29ececeasm19907edb.57.2024.01.29.03.52.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 29 Jan 2024 03:52:31 -0800 (PST)
+        Mon, 29 Jan 2024 03:52:34 -0800 (PST)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
 	Banajit Goswami <bgoswami@quicinc.com>,
@@ -110,19 +110,17 @@ To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
 	linux-pm@vger.kernel.org
 Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
 	Bartosz Golaszewski <brgl@bgdev.pl>,
-	Sean Anderson <sean.anderson@seco.com>,
-	Rob Herring <robh@kernel.org>
-Subject: [PATCH v6 5/6] ASoC: dt-bindings: qcom,wsa8840: Add reset-gpios for
- shared line
-Date: Mon, 29 Jan 2024 12:52:15 +0100
-Message-Id: <20240129115216.96479-6-krzysztof.kozlowski@linaro.org>
+	Sean Anderson <sean.anderson@seco.com>
+Subject: [PATCH v6 6/6] ASoC: codecs: wsa884x: Allow sharing reset GPIO
+Date: Mon, 29 Jan 2024 12:52:16 +0100
+Message-Id: <20240129115216.96479-7-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240129115216.96479-1-krzysztof.kozlowski@linaro.org>
 References: <20240129115216.96479-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 5C5B7MH5Q7OYUZN4FEOAOCSH46U34XQB
-X-Message-ID-Hash: 5C5B7MH5Q7OYUZN4FEOAOCSH46U34XQB
+Message-ID-Hash: QN63QCU2HORKBQWM7FO5TWZD6ZCAHULO
+X-Message-ID-Hash: QN63QCU2HORKBQWM7FO5TWZD6ZCAHULO
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -135,7 +133,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5C5B7MH5Q7OYUZN4FEOAOCSH46U34XQB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QN63QCU2HORKBQWM7FO5TWZD6ZCAHULO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -144,57 +142,124 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On newer Qualcomm platforms, like X1E80100-CRD, the WSA884x speakers
-share SD_N GPIOs between two speakers, thus a coordinated assertion is
-needed.  Linux supports handling shared GPIO lines through "reset-gpios"
-property, thus allow specifying either powerdown or reset GPIOs (these
-are the same).
+On some boards with multiple WSA8840/WSA8845 speakers, the reset
+(shutdown) GPIO is shared between two speakers.  Use the reset
+controller framework and its "reset-gpio" driver to handle this case.
+This allows bring-up and proper handling of all WSA884x speakers on
+X1E80100-CRD board.
 
 Cc: Bartosz Golaszewski <brgl@bgdev.pl>
 Cc: Sean Anderson <sean.anderson@seco.com>
-Acked-by: Rob Herring <robh@kernel.org>
+Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
 
 If previous patches are fine, then this commit is independent and could
 be taken via ASoC.
 ---
- .../devicetree/bindings/sound/qcom,wsa8840.yaml       | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+ sound/soc/codecs/wsa884x.c | 53 +++++++++++++++++++++++++++++++-------
+ 1 file changed, 43 insertions(+), 10 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/qcom,wsa8840.yaml b/Documentation/devicetree/bindings/sound/qcom,wsa8840.yaml
-index d717017b0fdb..22798d22d981 100644
---- a/Documentation/devicetree/bindings/sound/qcom,wsa8840.yaml
-+++ b/Documentation/devicetree/bindings/sound/qcom,wsa8840.yaml
-@@ -28,6 +28,10 @@ properties:
-     description: Powerdown/Shutdown line to use (pin SD_N)
-     maxItems: 1
+diff --git a/sound/soc/codecs/wsa884x.c b/sound/soc/codecs/wsa884x.c
+index f2653df84e4a..a9767ef0e39d 100644
+--- a/sound/soc/codecs/wsa884x.c
++++ b/sound/soc/codecs/wsa884x.c
+@@ -13,6 +13,7 @@
+ #include <linux/pm_runtime.h>
+ #include <linux/regmap.h>
+ #include <linux/regulator/consumer.h>
++#include <linux/reset.h>
+ #include <linux/slab.h>
+ #include <linux/soundwire/sdw.h>
+ #include <linux/soundwire/sdw_registers.h>
+@@ -699,6 +700,7 @@ struct wsa884x_priv {
+ 	struct sdw_stream_runtime *sruntime;
+ 	struct sdw_port_config port_config[WSA884X_MAX_SWR_PORTS];
+ 	struct gpio_desc *sd_n;
++	struct reset_control *sd_reset;
+ 	bool port_prepared[WSA884X_MAX_SWR_PORTS];
+ 	bool port_enable[WSA884X_MAX_SWR_PORTS];
+ 	unsigned int variant;
+@@ -1799,9 +1801,22 @@ static struct snd_soc_dai_driver wsa884x_dais[] = {
+ 	},
+ };
  
-+  reset-gpios:
-+    description: Powerdown/Shutdown line to use (pin SD_N)
-+    maxItems: 1
+-static void wsa884x_gpio_powerdown(void *data)
++static void wsa884x_reset_powerdown(void *data)
+ {
+-	gpiod_direction_output(data, 1);
++	struct wsa884x_priv *wsa884x = data;
 +
-   '#sound-dai-cells':
-     const: 0
- 
-@@ -37,11 +41,16 @@ properties:
- required:
-   - compatible
-   - reg
--  - powerdown-gpios
-   - '#sound-dai-cells'
-   - vdd-1p8-supply
-   - vdd-io-supply
- 
-+oneOf:
-+  - required:
-+      - powerdown-gpios
-+  - required:
-+      - reset-gpios
++	if (wsa884x->sd_reset)
++		reset_control_assert(wsa884x->sd_reset);
++	else
++		gpiod_direction_output(wsa884x->sd_n, 1);
++}
 +
- unevaluatedProperties: false
++static void wsa884x_reset_deassert(struct wsa884x_priv *wsa884x)
++{
++	if (wsa884x->sd_reset)
++		reset_control_deassert(wsa884x->sd_reset);
++	else
++		gpiod_direction_output(wsa884x->sd_n, 0);
+ }
  
- examples:
+ static void wsa884x_regulator_disable(void *data)
+@@ -1809,6 +1824,27 @@ static void wsa884x_regulator_disable(void *data)
+ 	regulator_bulk_disable(WSA884X_SUPPLIES_NUM, data);
+ }
+ 
++static int wsa884x_get_reset(struct device *dev, struct wsa884x_priv *wsa884x)
++{
++	wsa884x->sd_reset = devm_reset_control_get_optional_shared(dev, NULL);
++	if (IS_ERR(wsa884x->sd_reset))
++		return dev_err_probe(dev, PTR_ERR(wsa884x->sd_reset),
++				     "Failed to get reset\n");
++	else if (wsa884x->sd_reset)
++		return 0;
++	/*
++	 * else: NULL, so use the backwards compatible way for powerdown-gpios,
++	 * which does not handle sharing GPIO properly.
++	 */
++	wsa884x->sd_n = devm_gpiod_get_optional(dev, "powerdown",
++						GPIOD_OUT_HIGH);
++	if (IS_ERR(wsa884x->sd_n))
++		return dev_err_probe(dev, PTR_ERR(wsa884x->sd_n),
++				     "Shutdown Control GPIO not found\n");
++
++	return 0;
++}
++
+ static int wsa884x_probe(struct sdw_slave *pdev,
+ 			 const struct sdw_device_id *id)
+ {
+@@ -1838,11 +1874,9 @@ static int wsa884x_probe(struct sdw_slave *pdev,
+ 	if (ret)
+ 		return ret;
+ 
+-	wsa884x->sd_n = devm_gpiod_get_optional(dev, "powerdown",
+-						GPIOD_OUT_HIGH);
+-	if (IS_ERR(wsa884x->sd_n))
+-		return dev_err_probe(dev, PTR_ERR(wsa884x->sd_n),
+-				     "Shutdown Control GPIO not found\n");
++	ret = wsa884x_get_reset(dev, wsa884x);
++	if (ret)
++		return ret;
+ 
+ 	dev_set_drvdata(dev, wsa884x);
+ 	wsa884x->slave = pdev;
+@@ -1858,9 +1892,8 @@ static int wsa884x_probe(struct sdw_slave *pdev,
+ 	pdev->prop.sink_dpn_prop = wsa884x_sink_dpn_prop;
+ 	pdev->prop.scp_int1_mask = SDW_SCP_INT1_BUS_CLASH | SDW_SCP_INT1_PARITY;
+ 
+-	/* Bring out of reset */
+-	gpiod_direction_output(wsa884x->sd_n, 0);
+-	ret = devm_add_action_or_reset(dev, wsa884x_gpio_powerdown, wsa884x->sd_n);
++	wsa884x_reset_deassert(wsa884x);
++	ret = devm_add_action_or_reset(dev, wsa884x_reset_powerdown, wsa884x);
+ 	if (ret)
+ 		return ret;
+ 
 -- 
 2.34.1
 

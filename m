@@ -2,108 +2,109 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15D1B840831
-	for <lists+alsa-devel@lfdr.de>; Mon, 29 Jan 2024 15:23:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1116584088E
+	for <lists+alsa-devel@lfdr.de>; Mon, 29 Jan 2024 15:36:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5BEF984A;
-	Mon, 29 Jan 2024 15:23:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5BEF984A
+	by alsa0.perex.cz (Postfix) with ESMTPS id C99D79F6;
+	Mon, 29 Jan 2024 15:36:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C99D79F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1706538235;
-	bh=vW6TNIkeck9BpwYQUg+4uWlPjC9obh2Y2AixNJRS0k4=;
-	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Vb/DICv62znCQXmqPdPS+m3WqPyGtN7YVSnF+apzJGUHSIgbgFLeLOLdkJoU3J/Gr
-	 IpLGElkIBvZnzjE7A6A0IoTffJGLeAK63DcPdM2mfrjCQqv6NJgp9W1M13/tN3NEP2
-	 l/xh7nA/216Xh43eAqmSicmjMrrGOrgdst/q/7Q0=
+	s=default; t=1706538986;
+	bh=qKIghWBg+M0Dh/XZ6bWHGX2p/hwwGIxP2PIhUEg/+OE=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=QbXyrUh4jVSibZMQuyU85bII7XmC0BzNTHM0OyEyNsh5dPdKjktP051JfjyOjUjPu
+	 mJdyj4wFCuthfd3U5N9gVJFx2ADh7fd/K/WXeX7N1O9m68rlfZulbPD+JrX3LKjTZb
+	 caOtdiozifC0AsUu0dQsP5aq8Ceo3T6AWsRfcmFw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 98334F805AE; Mon, 29 Jan 2024 15:23:23 +0100 (CET)
+	id B8BEDF805A8; Mon, 29 Jan 2024 15:35:54 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 19BF4F805A9;
-	Mon, 29 Jan 2024 15:23:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E80F3F805AA;
+	Mon, 29 Jan 2024 15:35:53 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 63DB3F80563; Mon, 29 Jan 2024 15:23:18 +0100 (CET)
+	id D7C0CF80567; Mon, 29 Jan 2024 15:35:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [IPv6:2a00:1450:4864:20::62b])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B93BEF800FB
-	for <alsa-devel@alsa-project.org>; Mon, 29 Jan 2024 15:23:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B93BEF800FB
+	by alsa1.perex.cz (Postfix) with ESMTPS id D0727F8055B
+	for <alsa-devel@alsa-project.org>; Mon, 29 Jan 2024 15:35:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0727F8055B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=pIvpz/tM
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 40T4qVf0031043;
-	Mon, 29 Jan 2024 08:23:10 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	date:from:to:cc:subject:message-id:references:mime-version
-	:content-type:in-reply-to; s=PODMain02222019; bh=EYYIOSJVY3d6bCG
-	KoPIC2EeJcrPTQrMYy67pwh4YFx4=; b=pIvpz/tMT4GpaHkLwy4YIHa2toYpVoo
-	rv8Tr0BfBpi3Ff64G4bcySN8S2tFwzz0FpTkACTLl17QUWzL2aA8bi0ZcjDsU9rA
-	Oqo8LpeSMaPsRcpKd0vJ0eygQe+5bNmMQDZlJmjsl2lDrOD1lpGYoeeiTWV+F8Zv
-	xzUotVP3SQRTCZqAvaJEMXIpxM1Ogezak18fjtBqDQV5iYu6PEhTIt6XN2I93VSl
-	3NGWDmvbF7oDKrX8AVldDow80CNmT80uRqocOXb537+2afAR4efD+w1sohry5fBG
-	7bV9CnDHvxt4/u92NPdzGeuSUvZruFhE8FQ2bhHVDQoXEyzA8avQ0Ng==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3vw043t3sk-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 29 Jan 2024 08:23:09 -0600 (CST)
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Mon, 29 Jan
- 2024 14:23:07 +0000
-Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
- ediex01.ad.cirrus.com (198.61.84.80) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.40 via Frontend Transport; Mon, 29 Jan 2024 14:23:07 +0000
-Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com
- [198.61.86.93])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPS id 42AB4820242;
-	Mon, 29 Jan 2024 14:23:07 +0000 (UTC)
-Date: Mon, 29 Jan 2024 14:23:06 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Maciej Strozek <mstrozek@opensource.cirrus.com>
-CC: Mark Brown <broonie@kernel.org>,
-        Cezary Rojewski
-	<cezary.rojewski@intel.com>,
-        Liam Girdwood <lgirdwood@gmail.com>,
-        Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-        Peter Ujfalusi
-	<peter.ujfalusi@linux.intel.com>,
-        Bard Liao
-	<yung-chuan.liao@linux.intel.com>,
-        Ranjani Sridharan
-	<ranjani.sridharan@linux.intel.com>,
-        Kai Vehmanen
-	<kai.vehmanen@linux.intel.com>,
-        <alsa-devel@alsa-project.org>, <patches@opensource.cirrus.com>,
-        <linux-sound@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3] ASoC: Intel: mtl-match: Add cs42l43_l0 cs35l56_l23
- for MTL
-Message-ID: <Zbe0yi5Qo1eG5yCk@ediswmail9.ad.cirrus.com>
-References: <20240123113246.75539-1-mstrozek@opensource.cirrus.com>
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=cCkIwZB2
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-a3566c0309fso183966666b.1
+        for <alsa-devel@alsa-project.org>;
+ Mon, 29 Jan 2024 06:35:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1706538938; x=1707143738;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=fPhPmso2Tukg7NLAn/+WM+BVJTCFnMIZlThVcM5mWHE=;
+        b=cCkIwZB23D3uQyy5Ycl2fPTDOXnpIIECzb8ILeOb5IiRJRsal7uco2cejarVTNssQg
+         0cTH98ih50qkS+c71EFuGx/Accfu2rlucbwlrn5/Mvk1RJhp8fVnT1mqCl5xUmKtThPM
+         tnjn4kcePl3w8dg7lZL8SPxhe+CghnfuBmwLLq/0pOdgcvFVYIvu0gG3+KLz6w9jW5po
+         QSd8RPuEfeVIb53eUVFhJu6OMFPoAYjW3siV5cmxnLRalwTo2r5xdEm2KxAY6LbtcOjV
+         7u4hGnLPMWs7F+RXoODDENdvJOznqKskcnmwdHLScKMuGxPXyxXufPQWu+QWfovP91Fo
+         +kmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1706538938; x=1707143738;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=fPhPmso2Tukg7NLAn/+WM+BVJTCFnMIZlThVcM5mWHE=;
+        b=Vtmmsso7ofFBApDFSBE0zXoma27cKI2T1gF1Dwi8YPXFGWFQVZtvWzdttYgeKtumpV
+         YhVF+hMeqh0OJUUaFDe5NJqJT+dCpe+qJ7cRI3uLQEZxHqQJoFeiD8Hi/R76CZwfPawU
+         a7eztuusiM6gN0BlA4CFHcqELkXKe3+RPqMhec6CLLay+0TjR/txbrs+iKWGzBQYtGOn
+         rmxjncj7AghyUhUFfQi8F6yVsJikAaiyarNt1+pRrcxfqQA3kabFpBbSWEtoZMnYMwqH
+         MESEh3c2yfibsvYsJTA4Lc+SirvDNFcYlXF0M2WqiLA2MLoXt+DQY6fLrJ2erQcwcdSE
+         xdIQ==
+X-Gm-Message-State: AOJu0Yy3oAPDlnJ3rcqjWJDnrhGGxTDyLLsigTlyQYi/oaFgFpJGEfSb
+	LQ6qC3tso3OKEqiHS02vHKeuieYPzoQFDcY1ii5m0T7qafQ9v/h1NQMsTARU4eY=
+X-Google-Smtp-Source: 
+ AGHT+IE/jmjtAp5FGOJs5Sf3U/EU/Onj0B5A6BEfEU+D04XcNvdeq48Brg0CKZMpP1rEhlTanM0D7A==
+X-Received: by 2002:a17:906:3c59:b0:a34:9a5e:e15e with SMTP id
+ i25-20020a1709063c5900b00a349a5ee15emr5105302ejg.28.1706538937910;
+        Mon, 29 Jan 2024 06:35:37 -0800 (PST)
+Received: from krzk-bin.. ([178.197.222.62])
+        by smtp.gmail.com with ESMTPSA id
+ sf5-20020a1709078a8500b00a3543718f5bsm2829269ejc.221.2024.01.29.06.35.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 29 Jan 2024 06:35:37 -0800 (PST)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	Banajit Goswami <bgoswami@quicinc.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	alsa-devel@alsa-project.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: [PATCH v3 0/2] ASoC: codecs: tx-macro: correct TX SMIC MUXn widgets
+ on SM8350+
+Date: Mon, 29 Jan 2024 15:35:32 +0100
+Message-Id: <20240129143534.109196-1-krzysztof.kozlowski@linaro.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20240123113246.75539-1-mstrozek@opensource.cirrus.com>
-X-Proofpoint-ORIG-GUID: -_gIoV694mP0SnotpE1zKJindY_rtzTY
-X-Proofpoint-GUID: -_gIoV694mP0SnotpE1zKJindY_rtzTY
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: UHDOCHXJKX5D6GTPXPK2YRLF56KHXF7C
-X-Message-ID-Hash: UHDOCHXJKX5D6GTPXPK2YRLF56KHXF7C
-X-MailFrom: prvs=9758a52b9a=ckeepax@opensource.cirrus.com
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: JZ5RY5KBOT2DUG3AISXMGVDCCQJPZ6RR
+X-Message-ID-Hash: JZ5RY5KBOT2DUG3AISXMGVDCCQJPZ6RR
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -114,8 +115,7 @@ X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UHDOCHXJKX5D6GTPXPK2YRLF56KHXF7C/>
+Archived-At: <>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -124,19 +124,27 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, Jan 23, 2024 at 11:32:46AM +0000, Maciej Strozek wrote:
-> The layout is configured as:
-> - Link0: CS42L43 Jack and mics (2ch)
-> - Link2: 2x CS35L56 Speaker (amps 3 and 4, right)
-> - Link3: 2x CS35L56 Speaker (amps 1 and 2, left)
-> 
-> Corresponding SOF topology:
-> https://github.com/thesofproject/sof/pull/8773
-> 
-> Signed-off-by: Maciej Strozek <mstrozek@opensource.cirrus.com>
-> ---
+Hi,
 
-Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Changelog in individual patches.
 
-Thanks,
-Charles
+v2:
+https://lore.kernel.org/alsa-devel/20240125153110.410295-1-krzysztof.kozlowski@linaro.org/
+
+v1:
+https://lore.kernel.org/all/20230717140138.201745-1-krzysztof.kozlowski@linaro.org/
+
+Best regards,
+Krzysztof
+
+Krzysztof Kozlowski (2):
+  ASoC: codecs: tx-macro: split widgets per different LPASS versions
+  ASoC: codecs: tx-macro: correct TX SMIC MUXn widgets on SM8350+
+
+ sound/soc/codecs/lpass-macro-common.h |   7 +
+ sound/soc/codecs/lpass-tx-macro.c     | 671 +++++++++++++++++++-------
+ 2 files changed, 506 insertions(+), 172 deletions(-)
+
+-- 
+2.34.1
+

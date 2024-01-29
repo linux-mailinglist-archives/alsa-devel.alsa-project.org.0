@@ -2,144 +2,153 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6C5383FFA6
-	for <lists+alsa-devel@lfdr.de>; Mon, 29 Jan 2024 09:08:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3920183FFB8
+	for <lists+alsa-devel@lfdr.de>; Mon, 29 Jan 2024 09:10:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6B97A86F;
-	Mon, 29 Jan 2024 09:08:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B97A86F
+	by alsa0.perex.cz (Postfix) with ESMTPS id A4889850;
+	Mon, 29 Jan 2024 09:10:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A4889850
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1706515699;
-	bh=PqCqsBOfry4+69UAUYsb3HfIjbltpAZAydgLr11l3ss=;
+	s=default; t=1706515822;
+	bh=H35fdW4gVungKlRweV6QGxtbuZchIY35GN2KZum2j/Q=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=KSU4+81Oh18R3KJ9KVQ1doSEROMFhRELSQlxp57KCslzBqKYpjypr7ZJ5SpKWuPrA
-	 KOPtZaolwT3tDRGfhmrYHI8TPTzOAeV4IN7nxHZs7GpmBHIaw7M+Fnv6VRiFzhJfYt
-	 PcXCW/KE/o/XHVAFkLmMoCEbRU3oH2AcJE++R9oY=
+	b=LoQiJ2i+X4UfR4QW6YNBZd8cZhmbPrrImRWsnfGhzayaGXh6AV3/e97/LcR4cAE9s
+	 f455bKZ0c3iyAaT5j86Ex0Xp9EDMg5aU3tt2mVjZCxqmhkCG0U7XbjG5dkfFCdyY+a
+	 dgMSMESE3/FGHl2D9Q8W7auCqKsF2OSMjuWNsxC8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5708AF80520; Mon, 29 Jan 2024 09:07:47 +0100 (CET)
+	id 591DFF8022B; Mon, 29 Jan 2024 09:09:51 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 029D6F80548;
-	Mon, 29 Jan 2024 09:07:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AA849F8057F;
+	Mon, 29 Jan 2024 09:09:50 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C50C6F80310; Mon, 29 Jan 2024 09:05:21 +0100 (CET)
+	id 639FAF80310; Mon, 29 Jan 2024 09:07:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DE4F3F80053
-	for <alsa-devel@alsa-project.org>; Mon, 29 Jan 2024 09:05:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE4F3F80053
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4896DF8017A
+	for <alsa-devel@alsa-project.org>; Mon, 29 Jan 2024 09:07:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4896DF8017A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=nt38B+yM;
+ header.s=susede2_rsa header.b=ELocXG1f;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=khuWJffl;
+ header.s=susede2_ed25519 header.b=JQDQA61D;
 	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=pYPT6Igg;
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=ELocXG1f;
 	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=eqMQ/fTd
+ header.s=susede2_ed25519 header.b=JQDQA61D
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [10.150.64.97])
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id F30CB22275;
-	Mon, 29 Jan 2024 08:05:03 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 15E5E22278;
+	Mon, 29 Jan 2024 08:07:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1706515504;
+	t=1706515622;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=VB4lpsv1mbtcY8UjXor5RZAb1mM1rlIbvlmyqYpPPNo=;
-	b=nt38B+yMp9gNqX0tByGAJzbKEeBgKKkaaMqXKOUpP9dUOUQBcLun8Bz+TjUhBs6yONEXzi
-	+L4IrPh6nm4Av3wzSPqE1Dg0tYxlj+KGzgAha6NiOfyX+0jOLOe+XpykcntDLk+F5Hab48
-	MB0F49HVRkkE9octQvDTRZdsahfebdo=
+	bh=gR9Q6QtUFPxQ5lRGmQh7es6crm7lqvpf2h3nR4Z5S/k=;
+	b=ELocXG1fbHxWtJwt1sW55ENrf/EoEygqFD9tdE1ixiMCl8h5KkmBXtRK1BM1P+oMsrUQLB
+	dLia7g836dvmRMlvQzuNcIm7G0Qx7S9WwMMJMFhhHWNR3S6dQgffQPc7/ooTz7/UEtkREH
+	HhqSg81xKPDk0MIcCW1swMwuFaN5fjo=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1706515504;
+	s=susede2_ed25519; t=1706515622;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=VB4lpsv1mbtcY8UjXor5RZAb1mM1rlIbvlmyqYpPPNo=;
-	b=khuWJfflBHMQq0AP/lYE51YvmAyptPYqZQWkrlYmqeMtqLp9qpthBQDVKIjioE6OKOjyPQ
-	NLRHipuPG0OxdVAw==
+	bh=gR9Q6QtUFPxQ5lRGmQh7es6crm7lqvpf2h3nR4Z5S/k=;
+	b=JQDQA61DKFDzTwtSQN1Ry6u6uwB2/HnCYn+RR8Ng9zg/zI6q33t5UavZwuAEQRoUw+7JNo
+	zPVbE/wtjN/s7HBQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1706515503;
+	t=1706515622;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=VB4lpsv1mbtcY8UjXor5RZAb1mM1rlIbvlmyqYpPPNo=;
-	b=pYPT6Iggy4n9Il8dRAXu7tgDFURA2X4oQt9WOhQV5GXSNzGMu9YKczClXjMd0LKJ5yMzr1
-	LgKcvgKm6F6wgdz7tbL3F3s+IQhGdEYNVCD4GDyCqamR33yJi14U5o5GdU10TLzZREgUOa
-	VE7JQccjlvXyyuZqGeZ1tLM3aYMCBVg=
+	bh=gR9Q6QtUFPxQ5lRGmQh7es6crm7lqvpf2h3nR4Z5S/k=;
+	b=ELocXG1fbHxWtJwt1sW55ENrf/EoEygqFD9tdE1ixiMCl8h5KkmBXtRK1BM1P+oMsrUQLB
+	dLia7g836dvmRMlvQzuNcIm7G0Qx7S9WwMMJMFhhHWNR3S6dQgffQPc7/ooTz7/UEtkREH
+	HhqSg81xKPDk0MIcCW1swMwuFaN5fjo=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1706515503;
+	s=susede2_ed25519; t=1706515622;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=VB4lpsv1mbtcY8UjXor5RZAb1mM1rlIbvlmyqYpPPNo=;
-	b=eqMQ/fTd4SajKqz2zyXN8djika09GUEgR2j8s92KevHg73QUu8Jt78qmR11k8POws+iZzQ
-	6cWogacZXFp7lIAg==
+	bh=gR9Q6QtUFPxQ5lRGmQh7es6crm7lqvpf2h3nR4Z5S/k=;
+	b=JQDQA61DKFDzTwtSQN1Ry6u6uwB2/HnCYn+RR8Ng9zg/zI6q33t5UavZwuAEQRoUw+7JNo
+	zPVbE/wtjN/s7HBQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CA81413647;
-	Mon, 29 Jan 2024 08:05:03 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DA1C712FF7;
+	Mon, 29 Jan 2024 08:07:01 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([10.150.64.162])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id flRILy9ct2V/WwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 29 Jan 2024 08:05:03 +0000
-Date: Mon, 29 Jan 2024 09:05:03 +0100
-Message-ID: <87r0i0muog.wl-tiwai@suse.de>
+	id 6mPuM6Vct2XeWwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 29 Jan 2024 08:07:01 +0000
+Date: Mon, 29 Jan 2024 09:07:01 +0100
+Message-ID: <87o7d4mul6.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Cc: alsa-devel@alsa-project.org,
-	m.armsby@gmx.de
-Subject: Re: [PATCH v2] ALSA: firewire-motu: add support for MOTU 896 mk3
- FireWire and Hybrid
-In-Reply-To: <20240129022711.254383-1-o-takashi@sakamocchi.jp>
-References: <20240129022711.254383-1-o-takashi@sakamocchi.jp>
+To: Luka Guzenko <l.guzenko@web.de>
+Cc: tiwai@suse.com,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ALSA: hda/realtek: Enable Mute LED on HP Laptop 14-fq0xxx
+In-Reply-To: <20240128155704.2333812-1-l.guzenko@web.de>
+References: <20240128155704.2333812-1-l.guzenko@web.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
 Authentication-Results: smtp-out1.suse.de;
-	none
-X-Spamd-Result: default: False [0.90 / 50.00];
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=ELocXG1f;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=JQDQA61D
+X-Spamd-Result: default: False [-1.92 / 50.00];
 	 ARC_NA(0.00)[];
 	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	 SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
 	 FROM_HAS_DN(0.00)[];
-	 RCPT_COUNT_THREE(0.00)[3];
-	 FREEMAIL_ENVRCPT(0.00)[gmx.de];
+	 RCPT_COUNT_THREE(0.00)[4];
+	 FREEMAIL_ENVRCPT(0.00)[web.de];
 	 TO_MATCH_ENVRCPT_ALL(0.00)[];
 	 MIME_GOOD(-0.10)[text/plain];
 	 TO_DN_SOME(0.00)[];
 	 RCVD_COUNT_THREE(0.00)[3];
 	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	 DKIM_TRACE(0.00)[suse.de:+];
+	 MX_GOOD(-0.01)[];
 	 MID_CONTAINS_FROM(1.00)[];
+	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim];
+	 FREEMAIL_TO(0.00)[web.de];
 	 FUZZY_BLOCKED(0.00)[rspamd.com];
 	 FROM_EQ_ENVFROM(0.00)[];
 	 MIME_TRACE(0.00)[0:+];
-	 FREEMAIL_CC(0.00)[alsa-project.org,gmx.de];
 	 RCVD_TLS_ALL(0.00)[];
-	 BAYES_HAM(-0.00)[19.67%]
-Message-ID-Hash: KGJ537XRYY7ZUTKULIWVAUJOF4ZWSLQQ
-X-Message-ID-Hash: KGJ537XRYY7ZUTKULIWVAUJOF4ZWSLQQ
+	 BAYES_HAM(-2.61)[98.26%]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 15E5E22278
+Message-ID-Hash: 6PWUVSZI4VVNCY3BP5KL5GKNBOHM5TM7
+X-Message-ID-Hash: 6PWUVSZI4VVNCY3BP5KL5GKNBOHM5TM7
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -152,7 +161,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KGJ537XRYY7ZUTKULIWVAUJOF4ZWSLQQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6PWUVSZI4VVNCY3BP5KL5GKNBOHM5TM7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -161,98 +170,13 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 29 Jan 2024 03:27:11 +0100,
-Takashi Sakamoto wrote:
+On Sun, 28 Jan 2024 16:57:04 +0100,
+Luka Guzenko wrote:
 > 
-> Mark of the Unicorn released 896 mk3 FireWire in 2008 as part of the third
-> generation of its FireWire series. In 2011, 896 mk3 hybrid was released to
-> support USB protocol.
+> This HP Laptop uses ALC236 codec with COEF 0x07 controlling the
+> mute LED. Enable existing quirk for this device.
 > 
-> It supports sampling transfer frequency up to 192.0 kHz. The packet
-> format differs depending on both of current sampling transfer frequency
-> and the type of signal in optical interfaces. The model supports
-> transmission of PCM frames as well as MIDI messages.
-> 
-> The 896 mk3 FireWire consists of below ICs:
-> 
->  * Texas Instruments TSB41AB2
->  * Xilinx Spartan-3A FPGA, XC3S500E
->  * Texas Instruments TMS320C6722
->  * Microchip (Atmel) AT91SAM SAM7S256
-> 
-> It supports sampling transfer frequency up to 192.0 kHz. The packet
-> format differs depending on both of current sampling transfer frequency
-> and the type of signal in two pairs of optical interfaces. The model
-> supports transmission of PCM frames, while has no port for MIDi messages.
-> 
-> The model supports command mechanism to configure internal DSP. Hardware
-> meter information is available in the first 2 chunks of each data block
-> of tx packet.
-> 
-> This commit adds support for it. The 896 mk3 FireWire is just tested, but
-> the 896 mk3 Hybrid is not yet.
-> 
-> $ config-rom-pretty-printer < motu-896mk3fw.img
->                ROM header and bus information block
->                -----------------------------------------------------------------
-> 1024  04100ce1  bus_info_length 4, crc_length 16, crc 3297
-> 1028  31333934  bus_name "1394"
-> 1032  20ff7000  irmc 0, cmc 0, isc 1, bmc 0, cyc_clk_acc 255, max_rec 7 (256)
-> 1036  0001f200  company_id 0001f2     |
-> 1040  00093add  device_id 0000604893  | EUI-64 0547556791237341
-> 
->                root directory
->                -----------------------------------------------------------------
-> 1044  0004ef04  directory_length 4, crc 61188
-> 1048  030001f2  vendor
-> 1052  0c0083c0  node capabilities: per IEEE 1394
-> 1056  d1000002  --> unit directory at 1064
-> 1060  8d000005  --> eui-64 leaf at 1080
-> 
->                unit directory at 1064
->                -----------------------------------------------------------------
-> 1064  0003998d  directory_length 3, crc 39309
-> 1068  120001f2  specifier id
-> 1072  13000017  version
-> 1076  17101800  model
-> 
->                eui-64 leaf at 1080
->                -----------------------------------------------------------------
-> 1080  0002cc82  leaf_length 2, crc 52354
-> 1084  0001f200  company_id 0001f2     |
-> 1088  00093add  device_id 0000604893  | EUI-64 0547556791237341
-> 
-> $ config-rom-pretty-printer < motu-896mk3hybrid.img
->                ROM header and bus information block
->                -----------------------------------------------------------------
-> 1024  04103cbe  bus_info_length 4, crc_length 16, crc 15550
-> 1028  31333934  bus_name "1394"
-> 1032  20ff7000  irmc 0, cmc 0, isc 1, bmc 0, cyc_clk_acc 255, max_rec 7 (256)
-> 1036  0001f200  company_id 0001f2     |
-> 1040  000ae601  device_id 0000714241  | EUI-64 0547556791346689
-> 
->                root directory
->                -----------------------------------------------------------------
-> 1044  0004ef04  directory_length 4, crc 61188
-> 1048  030001f2  vendor
-> 1052  0c0083c0  node capabilities: per IEEE 1394
-> 1056  d1000002  --> unit directory at 1064
-> 1060  8d000005  --> eui-64 leaf at 1080
-> 
->                unit directory at 1064
->                -----------------------------------------------------------------
-> 1064  000394ac  directory_length 3, crc 38060
-> 1068  120001f2  specifier id
-> 1072  13000037  version
-> 1076  17102800  model
-> 
->                eui-64 leaf at 1080
->                -----------------------------------------------------------------
-> 1080  0002cf69  leaf_length 2, crc 53097
-> 1084  0001f200  company_id 0001f2     |
-> 1088  000ae601  device_id 0000714241  | EUI-64 0547556791346689
-> 
-> Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+> Signed-off-by: Luka Guzenko <l.guzenko@web.de>
 
 Thanks, applied now.
 

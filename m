@@ -2,92 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68626841165
-	for <lists+alsa-devel@lfdr.de>; Mon, 29 Jan 2024 18:56:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1645D841690
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jan 2024 00:09:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5BCD283E;
-	Mon, 29 Jan 2024 18:56:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5BCD283E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8993AB60;
+	Tue, 30 Jan 2024 00:09:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8993AB60
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1706550999;
-	bh=zT0sMLCinIG7kNTYMCeXY8rs5pE1sZxyYFhmohGRxY8=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=I02rsV3AzzKVhUspDtUGUYjzeOyG/ZIXaCvtHNv0vRflpcWy7z9SGFeE60TvXTUwd
-	 0qQkHBamnEslxpxz25QL7ZMDIfQRvY32DaFJFqqO+iW28xiUiB27oQ9/5Jo6bDMa4a
-	 /boT46eo89vWMVUh9UfbA938/C4AKPXlHxVKfCA4=
+	s=default; t=1706569783;
+	bh=WpjL8udaT7mXrtLXoK5bhYoyhAJ9SBcm4G6f1hxbSHg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=M8OMuj3zcbLmBSJpcmOK8b0T/qZDPm/bm1Tecga+2Bmlv8ogx3XwNvWqW/Lu4RZQ5
+	 +OKnYiMZY5GXJsLBUQr+wWMkPLXOts7rfQs5wfxSKx+p3tPQuzUmmzrrEH74ih37jc
+	 X3YzA8JrZSa6gJJ1jBFNMS0MFoHN3C05KfxaIP9E=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AD6EEF805B0; Mon, 29 Jan 2024 18:56:07 +0100 (CET)
+	id 96F31F805A9; Tue, 30 Jan 2024 00:09:12 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4D309F805A8;
-	Mon, 29 Jan 2024 18:56:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D7D1AF80568;
+	Tue, 30 Jan 2024 00:09:11 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C47B4F8055C; Mon, 29 Jan 2024 18:56:02 +0100 (CET)
+	id 968F1F80563; Tue, 30 Jan 2024 00:09:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from smtp.ivitera.com (smtp.ivitera.com [88.101.85.59])
+X-Spam-Status: No, score=-7.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 33939F804E7
-	for <alsa-devel@alsa-project.org>; Mon, 29 Jan 2024 18:55:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33939F804E7
+	by alsa1.perex.cz (Postfix) with ESMTPS id E1D8FF80548
+	for <alsa-devel@alsa-project.org>; Tue, 30 Jan 2024 00:08:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1D8FF80548
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=ivitera.com header.i=@ivitera.com header.a=rsa-sha256
- header.s=mail header.b=M9CU8Fy6;
-	dkim=pass (1024-bit key) header.d=ivitera.com header.i=@ivitera.com
- header.a=rsa-sha256 header.s=mail header.b=M9CU8Fy6
-Received: from localhost (localhost [127.0.0.1])
-	by smtp.ivitera.com (Postfix) with ESMTP id ED849C6E2;
-	Mon, 29 Jan 2024 18:55:52 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ivitera.com; s=mail;
-	t=1706550952; bh=zT0sMLCinIG7kNTYMCeXY8rs5pE1sZxyYFhmohGRxY8=;
-	h=Date:Subject:To:References:From:In-Reply-To:From;
-	b=M9CU8Fy69yzaBZo7v1Jpi/G6Xlnl+4p/fqR8KNy4P2Wr11foNTyipjZJt1HVjphCz
-	 xnfL+1fl2701hob2EJQRiKnsQ47SI16/YBOdhxyqwcKCcGOdzs62muAiSBXQUfrF92
-	 79SH2OZ5urruWH51MQPchwdFCWNePLSw3Ev2E9BU=
-Received: from smtp.ivitera.com ([127.0.0.1])
-	by localhost (localhost [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id 4Ush7f8WW777; Mon, 29 Jan 2024 18:55:52 +0100 (CET)
-Received: from [192.168.105.22] (dustin.pilsfree.net [81.201.58.138])
-	(Authenticated sender: pavel)
-	by smtp.ivitera.com (Postfix) with ESMTPSA id 77289C6E1;
-	Mon, 29 Jan 2024 18:55:52 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ivitera.com; s=mail;
-	t=1706550952; bh=zT0sMLCinIG7kNTYMCeXY8rs5pE1sZxyYFhmohGRxY8=;
-	h=Date:Subject:To:References:From:In-Reply-To:From;
-	b=M9CU8Fy69yzaBZo7v1Jpi/G6Xlnl+4p/fqR8KNy4P2Wr11foNTyipjZJt1HVjphCz
-	 xnfL+1fl2701hob2EJQRiKnsQ47SI16/YBOdhxyqwcKCcGOdzs62muAiSBXQUfrF92
-	 79SH2OZ5urruWH51MQPchwdFCWNePLSw3Ev2E9BU=
-Message-ID: <3a16fc87-6b65-048a-b9cd-1fb0f308e4fb@ivitera.com>
-Date: Mon, 29 Jan 2024 18:55:52 +0100
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=anLwcBlC
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id 98397CE16D5;
+	Mon, 29 Jan 2024 23:08:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17D3FC433F1;
+	Mon, 29 Jan 2024 23:08:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1706569727;
+	bh=WpjL8udaT7mXrtLXoK5bhYoyhAJ9SBcm4G6f1hxbSHg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=anLwcBlCjDMudDdNwqvbnuDC2vP3itrRiNfhTotMkEkk60RnXXHAt2WQe7pCakLR6
+	 dbyaIOq5G2SedbBJVC7z2OJ/UK6qD1hlQtQSoKURysinidt2IQo4Bu43CbWKfofgf1
+	 BrBnk3T2qhkccJL4gjgR5Vrvz3sHM9IBkoz1iS9Hm6J4cgq57dnpVL6jdQ4/IhCtrE
+	 i3FVc37/efg4+coVrpI4q8zus6+s1eQGdW2Z3zvwRnYmsWo9K10GrHD0JeSeZP/OrL
+	 5U54Amqkb+eIaDdckXN3HWbVQ8t3PW7kbcJVvA1cZ7awnjRkVkVynX/sMMEVvNuPOe
+	 1Xp98gfVtDGpQ==
+From: Mark Brown <broonie@kernel.org>
+To: alsa-devel@alsa-project.org, Marian Postevca <posteuca@mutex.one>
+Cc: linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org,
+ Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Jaroslav Kysela <perex@perex.cz>
+In-Reply-To: <20240128172229.657142-1-posteuca@mutex.one>
+References: <20240128172229.657142-1-posteuca@mutex.one>
+Subject: Re: [PATCH] ASoC: amd: acp: Fix support for a Huawei Matebook
+ laptop
+Message-Id: <170656972577.167619.10975309830352021265.b4-ty@kernel.org>
+Date: Mon, 29 Jan 2024 23:08:45 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: ALSA-LIB: Support for format IEC958_SUBFRAME_LE in the plug
- plugin?
-Content-Language: en-US
-To: Jaroslav Kysela <perex@perex.cz>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
-References: <81b0be0a-5ab7-db91-21cb-0c59a55291e9@ivitera.com>
- <14018498-75e9-28c4-cfe3-a958ede64d0e@ivitera.com>
- <79934c5e-25b2-4d71-a426-c05f9a4e6b40@perex.cz>
-From: Pavel Hofman <pavel.hofman@ivitera.com>
-In-Reply-To: <79934c5e-25b2-4d71-a426-c05f9a4e6b40@perex.cz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 6X4CW4UERIDLNI5X6RJLLBOT6PEIW465
-X-Message-ID-Hash: 6X4CW4UERIDLNI5X6RJLLBOT6PEIW465
-X-MailFrom: pavel.hofman@ivitera.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-a684c
+Message-ID-Hash: GWBF5LYB6HPGERF3OJ7E4RPEO7V66SYA
+X-Message-ID-Hash: GWBF5LYB6HPGERF3OJ7E4RPEO7V66SYA
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -99,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6X4CW4UERIDLNI5X6RJLLBOT6PEIW465/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GWBF5LYB6HPGERF3OJ7E4RPEO7V66SYA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,92 +98,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-
-Dne 29. 01. 24 v 18:27 Jaroslav Kysela napsal(a):
-> On 29. 01. 24 18:06, Pavel Hofman wrote:
-
->>>
->>> I was wondering if it made sense to add support for the IEC958 formats
->>> (using the iec958 plugin methods) to the plug plugin.
->>>
->>> It may be complicated with the hdmi_mode hint though, I do not know if
->>> there is any API to recognize HDMI vs. SPDIF. Maybe a different format
->>> specifically for HDMI could have been perhaps useful but it may be too
->>> late for that.
->>>
->>> Thank you very much for consideration.
->>>
->>
->>
->> Perhaps something trivial like this could do (header file changes not
->> included):
->>
->> ===================================================================
->> diff --git a/src/pcm/pcm_plug.c b/src/pcm/pcm_plug.c
->> --- a/src/pcm/pcm_plug.c    (revision 
->> ffed4f342678c31bf0b9edfe184be5f3de41603a)
->> +++ b/src/pcm/pcm_plug.c    (date 1706546414549)
->> @@ -490,6 +490,14 @@
->>    }
->>    #endif
->>
->> +int snd_pcm_plug_generic_iec958_open(snd_pcm_t **pcmp, const char
->> *name, snd_pcm_format_t sformat, snd_pcm_t *slave, int close_slave) {
->> +    unsigned char preamble_vals[3] = {
->> +            0x08, 0x02, 0x04 /* Z, X, Y */
->> +        };
->> +    int hdmi_mode; // ????
->> +    return snd_pcm_iec958_open(pcmp, name, sformat, slave, close_slave,
->> NULL, preamble_vals, hdmi_mode);
->> +}
->> +
->>    static int snd_pcm_plug_change_format(snd_pcm_t *pcm, snd_pcm_t **new,
->> snd_pcm_plug_params_t *clt, snd_pcm_plug_params_t *slv)
->>    {
->>        snd_pcm_plug_t *plug = pcm->private_data;
->> @@ -567,6 +575,10 @@
->>                f = snd_pcm_adpcm_open;
->>                break;
->>    #endif
->> +        case SND_PCM_FORMAT_IEC958_SUBFRAME_LE:
->> +        case SND_PCM_FORMAT_IEC958_SUBFRAME_BE:
->> +            f = pcm_snd_general_iec958_open;
->> +            break;
->>            default:
->>                return -EINVAL;
->>            }
->>
->> ===================================================================
->>
->>
->> IMO preamble_vals could be left at the same default as defined in
->> pcm_iec958.c:_snd_pcm_iec958_open().
->>
->> But the correct hdmi_mode parameter is necessary. Alsa configs specify
->> it explicitly (like vc4-hdmi.conf). But the plug plugin has no such
->> information. Adding a parameter like that to the plug plugin would
->> cancel the effect of this change (to support hardcoded plughw devices
->> e.g. in java, with no support for custom PCM devices).
->>
->> Maybe an environment variable could be defined for the whole application
->> which could be used for the hdmi_mode, an ugly hack though...
->>
->> Thanks a lot for any hints and suggestions.
+On Sun, 28 Jan 2024 19:22:29 +0200, Marian Postevca wrote:
+> Previous commit that added support for Huawei MateBook D16 2021
+> with Ryzen 4600H (HVY-WXX9 M1010) was incomplete.
 > 
-> It looks like a way to go. The hdmi_mode can be set using ALSA 
-> configuration use snd_config_search (with global config - snd_config 
-> pointer) and snd_config_get_bool functions for that. The variable may be 
-> named like 'defaults.pcm.plug.iec958.hdmi_mode' or so (see alsa.conf).
+> To activate support for this laptop, the DMI table in
+> acp3x-es83xx machine driver must also be updated.
+> 
+> 
+> [...]
 
-That's interesting. IIUC such parameter would globally switch all plugs 
-instances to the hdmi_mode. Would a user-based ~/.asoundrc with such 
-variable be applied for the hard-coded plughw:XX device? Maybe it would 
-be enough for most use cases, eliminating the need for an app-specific 
-environment variable.
+Applied to
 
-Or maybe a prioritized sequence getenv('ALSA_PCM_PLUG_IEC958_HDMI_MODE') 
--> snd_config_search('defaults.pcm.plug.iec958.hdmi_mode') could be used.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Thanks a lot,
+Thanks!
 
-Pavel.
+[1/1] ASoC: amd: acp: Fix support for a Huawei Matebook laptop
+      commit: 5513c5d0fb3d509cdd0a11afc18441c57eb7c94c
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+

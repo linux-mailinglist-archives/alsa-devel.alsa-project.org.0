@@ -2,158 +2,118 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 686CD83FB79
-	for <lists+alsa-devel@lfdr.de>; Mon, 29 Jan 2024 01:58:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69E1B83FC1C
+	for <lists+alsa-devel@lfdr.de>; Mon, 29 Jan 2024 03:20:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A7C0EE76;
-	Mon, 29 Jan 2024 01:58:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A7C0EE76
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0084484D;
+	Mon, 29 Jan 2024 03:20:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0084484D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1706489932;
-	bh=L97gldjhPAaN74NzEXmSjFMqwLTTfTDhmO8pJ+flifo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Date:List-Id:
+	s=default; t=1706494852;
+	bh=o0uHE/dN5dLT6S5X2OU4aLlfwBb0I9ajZf+DR0Tx99I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=kPQlqOTkoQNumel8eHQ7fyGoIoE9S3KI0kzJXK/r8C/YnXvun/0JDop7cGE+0smtp
-	 tEUIykE1xWWs2UEsLVHobU3Rqg5gquKtO8+M0PR8y7v2ELXaGM49tsj1X/91opD86N
-	 ZhSsccglLgls2Y7SllCyEBQLBwp1ycAucol1zk7s=
+	b=FU2C+Y2y1nIvzEhrIvK9PBlz1J4aeO/pOxc4swiiDrfnXch/U72RGhPMT4H26cV4d
+	 gf2cckFXMZcAa83toFaMS8cr/EAHLRqhYYKLZUXLusZ93HV8Z0+G8K3EaJg3p2fJhB
+	 RMnd2KRTlJ5lery9vKyu14G+fFIT1jopixHnObso=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D066CF806DA; Mon, 29 Jan 2024 01:56:54 +0100 (CET)
+	id 92202F8058C; Mon, 29 Jan 2024 03:20:20 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 312AFF80674;
-	Mon, 29 Jan 2024 01:56:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1D5C3F8057E;
+	Mon, 29 Jan 2024 03:20:20 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 61553F805A9; Mon, 29 Jan 2024 01:56:48 +0100 (CET)
+	id 829B0F80310; Mon, 29 Jan 2024 03:20:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=unavailable autolearn_force=no version=3.4.6
-Received: from JPN01-TYC-obe.outbound.protection.outlook.com
- (mail-tycjpn01on20701.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2019::701])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
+ [64.147.123.24])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 41E27F805EB
-	for <alsa-devel@alsa-project.org>; Mon, 29 Jan 2024 01:55:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41E27F805EB
+	by alsa1.perex.cz (Postfix) with ESMTPS id B7C52F800FB
+	for <alsa-devel@alsa-project.org>; Mon, 29 Jan 2024 03:19:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7C52F800FB
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
- header.s=selector1 header.b=I5VUEv4l
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JXKEdCM7UOA5BQfdWdcgrAXDsk/s1VZOrVj4/nGMPnI8YsZ1VsuLDWtXBOjCPXy326QcPOieNhbsASH8QkaguU/7yEIjS9WgCj4bPEcT8S+OL927tZ/LkdIFkauvIbyzpSRrToWCACawSxizQdNDcAfxrVLTc8Lt+IovvJctp7NPYogIPZL1MvXJqR0WVKpm0ArLB5afLwkXAcacTJlr5fyw400f2tknYyEbDW+uOLS8VsnGV3vW95YG8BI6LmXSygP7KPA9ly315hJBew6tqeG0JjoF9caLCSIZ4wSkx4OClbTKdd+FXOQq+ojU8/x7KHk9uO2e2eZ7T5thXBvIlA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6IHKBzeEcUZQfmcDU6NiPxc3v8a75Rb9dHE1d6hECT0=;
- b=HdM4PjSXuCRfP9O8Yx9i8c410XHrUDnIDOhotzIr/km8M1xl6Tk3vlMdSmEulXgoBBkMms1vftUMyH1aXI3jP9LszOOGJVuvC+xXt+iySjlkN2KfkyD3xWmQJ0DUlq+1tVnhXhH1Md2F+q1OXMenxFN0iDHcV6Sar1oIDZlsW7XDV/YsDys77C/UpuiSz8sNE7LUip6OTb/MZvXOko6pf7N2X8eZ2OKjHbUSS/LDvxx/VW7U/5HFLgDW92mK1gUXAnIKYusebg/6Y5wXxPFYzshuB/P8qIDCN/fE926U3lIlyShkell+5n4ePxXxc9jpOLAMBn9VnLgoYYhPpEGTQw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6IHKBzeEcUZQfmcDU6NiPxc3v8a75Rb9dHE1d6hECT0=;
- b=I5VUEv4lObV4bltx1OIzwDMo/bF2wl9VbMXUs3tS6NqN4pp9SoZUTiJNPvgiWYxteELEwHVX95GA4907Uk22TURXcTcV/d9SWedom5lca3hiiVqPjGnj6ndsfho/HxgnBOcKVTItM/s4qRhPWe000gX4FBezXe34Re1SOj7Way8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
- (2603:1096:400:3a9::11) by OS3PR01MB9881.jpnprd01.prod.outlook.com
- (2603:1096:604:1e8::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7249.20; Mon, 29 Jan
- 2024 00:55:54 +0000
-Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
- ([fe80::ce8:8f5e:99a0:aba4]) by TYCPR01MB10914.jpnprd01.prod.outlook.com
- ([fe80::ce8:8f5e:99a0:aba4%2]) with mapi id 15.20.7249.017; Mon, 29 Jan 2024
- 00:55:54 +0000
-Message-ID: <87wmrtj6ue.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH v2 13/13] fbdev: omapfb: use of_graph_get_next_endpoint()
-User-Agent: Wanderlust/2.15.9 Emacs/27.1 Mule/6.0
-To: =?ISO-8859-1?Q?=22Uwe_Kleine-K=C3=B6nig=22?=
- <u.kleine-koenig@pengutronix.de>,	Daniel Vetter <daniel@ffwll.ch>,	David
- Airlie <airlied@gmail.com>,	Frank Rowand <frowand.list@gmail.com>,	Helge
- Deller <deller@gmx.de>,	Jaroslav Kysela <perex@perex.cz>,	Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>,	Liam Girdwood <lgirdwood@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,	Mark Brown
- <broonie@kernel.org>,	Mauro Carvalho Chehab <mchehab@kernel.org>,	Maxime
- Ripard <mripard@kernel.org>,	Michal Simek <michal.simek@amd.com>,	Rob
- Herring <robh+dt@kernel.org>,	Saravana Kannan <saravanak@google.com>,
-	Takashi Iwai <tiwai@suse.com>,	Thomas Zimmermann <tzimmermann@suse.de>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: alsa-devel@alsa-project.org,
-	devicetree@vger.kernel.org,
-	linux-fbdev@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	linux-sound@vger.kernel.org
-In-Reply-To: <87fryhklhb.wl-kuninori.morimoto.gx@renesas.com>
-References: <87fryhklhb.wl-kuninori.morimoto.gx@renesas.com>
-Content-Type: text/plain; charset=US-ASCII
-Date: Mon, 29 Jan 2024 00:55:53 +0000
-X-ClientProxiedBy: TYCP286CA0325.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:3b7::8) To TYCPR01MB10914.jpnprd01.prod.outlook.com
- (2603:1096:400:3a9::11)
+	dkim=pass (2048-bit key,
+ unprotected) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.a=rsa-sha256 header.s=fm3 header.b=WUcWYhwc;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm3 header.b=ZyAdX9Nj
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+	by mailout.west.internal (Postfix) with ESMTP id 8F6EA3200AAA;
+	Sun, 28 Jan 2024 21:19:55 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+  by compute3.internal (MEProxy); Sun, 28 Jan 2024 21:19:55 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm3; t=1706494795; x=
+	1706581195; bh=20HiBMGgCx8Qsc1jNjudkg90zDKBfis/iuCrv8L1O2w=; b=W
+	UcWYhwc11hrIPbd+zy6FaHZQ4rJuPwy6MY7UIDytFwOl8LGxYzNGC3I8QrBNz4Py
+	Ds7xvvi/lyQBHeLOvA+iZpe1hy1u3VI5KepS2LHSx7DR9f38uGaJMULGlLMIJNOD
+	t59iuWaEaZTFWiqjTVGpazIuDDu0RaIaWNh9PkC1OAQHrFilVJK8eTbJnNi3CSEp
+	mQYhrykiRhYNMvx5X2MHPZRzqN6I6U/F/nrQJ0hNROZldC7BsmlVBV8brnsG91O5
+	cL0jx0Bfa5XtzUwDTPUh1ZNR1WAb43nb/vg8X84itCNpB/531U1Z7Ps+Sc3ZGs4q
+	pW8LO4B+8PS4fFHQphc2g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm3; t=1706494795; x=1706581195; bh=20HiBMGgCx8Qsc1jNjudkg90zDKB
+	fis/iuCrv8L1O2w=; b=ZyAdX9Nj8TCt/443UPsyf+mKfpY3UQWw8RdKiLcfLoXn
+	243KCOJJZFJLNMYGIrg7NTOB/SUL+TIMMXKUn9hhi5IOq+/0lF8hOqzPh+mhMjq3
+	KJ8WW+SwtAqM4v9CalWgY5wKvavOl9YXyfPpAKh4hCXXhMs1JbLLMrPvsCZ16ij5
+	TSkG+7+hpQ7bPisWJSYiHeS+PiC/A8YVD9lQ7aEtMeot/8OhhcmrCEN6lzniAh/s
+	dvoZpBGBY6xnq6L69jQwks0qPGaw1DhZhSN1nveGEbB5x5n9bZ2fjS6vg+cb3hm4
+	hz1Rw7myPpO2PCyWSUXVfYOWWJTmHuKQDOeE+kawwQ==
+X-ME-Sender: <xms:Sgu3ZTA1QrUs4xk2I2QtaqY8-oqMZz6sNxsKPv7IHYBG7PB_P_j3aw>
+    <xme:Sgu3ZZjhL5nG-ildSZgzaHLWo9YNh9NfCVgatWiKAPe0yZsqI-BHMUb-7bXfgLqmf
+    XrCv56nQ-YwdsvakTU>
+X-ME-Received: 
+ <xmr:Sgu3Zen1kf1F_YzirAohjw69DWxEE7XApHPxsAwzhM6MeL_Rc3t_jCrywZzRIQ6X5mLBO6LpCR0CI-xMoAlG-ZfbVdROSVW23w>
+X-ME-Proxy-Cause: 
+ gggruggvucftvghtrhhoucdtuddrgedvkedrfedtfedggeehucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucenucfjughrpeffhffvvefukfhfgggtuggjsehttd
+    ertddttddvnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghk
+    rghshhhisehsrghkrghmohgttghhihdrjhhpqeenucggtffrrghtthgvrhhnpeehhffhte
+    etgfekvdeiueffveevueeftdelhfejieeitedvleeftdfgfeeuudekueenucevlhhushht
+    vghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhise
+    hsrghkrghmohgttghhihdrjhhp
+X-ME-Proxy: <xmx:Sgu3ZVx2xB-HF-4zL5SPgCdsh4Gbl1_8tbwoHsjCLcluEjYWeCUW2w>
+    <xmx:Sgu3ZYTRECoGXnI2Zx6bh1GvvcrI7w2sdgRDTWoEK-bW3i9t7Z-iwA>
+    <xmx:Sgu3ZYZp_CMiri61Mvic-8zVJpPDoaXtO4pF9JNjXxm5KLieWHeirA>
+    <xmx:Swu3ZTJxeXjJEA_CwGqeMg_Y8Am-BL6j3VA2I0fHKsWwGYCqnc9M1w>
+Feedback-ID: ie8e14432:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 28 Jan 2024 21:19:53 -0500 (EST)
+Date: Mon, 29 Jan 2024 11:19:50 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: tiwai@suse.de
+Cc: alsa-devel@alsa-project.org, m.armsby@gmx.de
+Subject: Re: [PATCH] ALSA: firewire-motu: add support for MOTU 896 mk3
+ FireWire and Hybrid
+Message-ID: <20240129021950.GA253990@workstation.local>
+Mail-Followup-To: tiwai@suse.de, alsa-devel@alsa-project.org,
+	m.armsby@gmx.de
+References: <20240128122523.247084-1-o-takashi@sakamocchi.jp>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYCPR01MB10914:EE_|OS3PR01MB9881:EE_
-X-MS-Office365-Filtering-Correlation-Id: 148a8932-cced-4b6c-08a9-08dc20650baa
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	n6pRXDYEYib9VjoEnibu12yFAVc5LtclP2re0z7Mcm8oLYk7KkB5vYss+JxK48YAGjRfe/qsR9aiT16P74BDOdFMyRJ4mtzpDtfhEqFkBF3J6utKA38XwIMogXsPYV7MQVWxGYbDu/aC+Z1KPKq2EfrhKFTMSFEFk8ylrJDfVlgxHwSOMtFicPXrwI6crcWVTh/QA4qVIvsrI+fJ3RLlupFed3KuUMUbAY9LdeMnDAvp5qSbh3PtAIj5AgoJpIhoMtoA/r1IaS4gPvmywVePT0qVRTeQ9+4RYwJdB6G74wzRqpM2jDnrhMqL5NUP5LUqRA6vit7lFgHzlMhTpOHEJFt62U14y5zPG6MrgTGGz+VS0ppjYkgUAmvI3QuUfoXL2M8umKqVS1zDGfeeillcOTUEpHxsMgCQ/RTg8gfJSKx0IJwhjjHRBjgiZMoVrv2fTiOnIRyIkFVamwlgJ3DTJrKX/qtGsHt9QfT36B9RzNMhe8cLZdiOaDlhp6kPK4P1Gozz3l+s3r6K0UQkQbgEPaP1x71VWkEqqFUMizRFlPyYVdBMTqsZh0D2L3K86A8TfXcyFUtMS9Xx6ybFnBa/oGgFXMwgCPWs+E6efzXramssgin9r+fXw+eGjxXXG9xn2CZuY7G7CSxNJcwFtOLi7XYbU8zdu4fh49YxJQb+jeA=
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB10914.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(136003)(366004)(396003)(376002)(39860400002)(346002)(230922051799003)(64100799003)(1800799012)(186009)(451199024)(66556008)(8936002)(8676002)(4326008)(2906002)(7416002)(5660300002)(86362001)(110136005)(66946007)(66476007)(316002)(38350700005)(36756003)(38100700002)(52116002)(6506007)(6512007)(478600001)(6486002)(83380400001)(26005)(2616005)(41300700001)(921011)(21314003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?kr+zOy+bLQ43kStVDcqp2oXs1OHP8kblVcDPfhRRI1zrUQgFIJBA4nX8S2xw?=
- =?us-ascii?Q?TS1rqbcN51QP/tO8qsMRenUJvFpYFvBrPW6wtCft1kDjAaf66iW/kguX2YOV?=
- =?us-ascii?Q?TfIspPGxnSO1xV27DXKp6BLR7Au3UdBcpHjG3mRv4ryTjoaPNR/vVSwcstoH?=
- =?us-ascii?Q?aQ4pI3X2R6EIEVdHJNOTakj0DG5EazbR6W2MukAZ4TMp35AipGPUKWB26ip7?=
- =?us-ascii?Q?7WnG3cne5WK7clxekP/hMsTNp95UCEvrVPtL0SK8ll96rpwNhsOdC6HGxqmL?=
- =?us-ascii?Q?piNHN4wjBayCmOQpvrpHjXjMT/zSR4GUuxKxqThVClchFeHzXzVFF74VkUba?=
- =?us-ascii?Q?TwgKGje/3SSQWLhxqz49Ji6UksMGDXQteaewuVIiPez+QqMwtgK0z5iw1VSd?=
- =?us-ascii?Q?m0iOceATwXSFV5cAa2K7SnPxMlRp1USiOyIwb6zz5ypaj7znA4khcPXbS2FK?=
- =?us-ascii?Q?EqGfjKatAU2sE/6b74YfmwYGjVH+F09LRddEmmDiv70QUOGd+Z00uahkC4CK?=
- =?us-ascii?Q?K98sV7Y57PMyE2s3cuaKaChn1LHx0fEUykFB6YrPyDh4S8OS5JA0eZvZk0YR?=
- =?us-ascii?Q?dQ7p51+idOk9nDAdN5ppxKyTVmtbguPLhHnpbzX5gpiH9Y+bH108TzKdUDY7?=
- =?us-ascii?Q?2B9EE9lVBtP5VJ/gV2QmYGlulgHVEe3lJbbZsS7p8pspMz3PxSupVCtFsJJA?=
- =?us-ascii?Q?srqitwd9pGmSJ2cLhbyvtY5xbMnikIFvEARMMxm6h3jsymB02CgQcCHwdsCU?=
- =?us-ascii?Q?iKDtQ3aYLZA+pKCWdeB0jUK0FHpf4w1uHNmhURmXAho9pI01SBXkcWJ63zkX?=
- =?us-ascii?Q?LYRTelxM8S48/NFDhq8LElrMjdkDi9wEb4YCa0RMid1Yi7VnEkINSqB3SuIN?=
- =?us-ascii?Q?dymxmbIxOYtKX0uQCbCdevHg4J4buQAQG3PEhBYdTKoRHsLM1GDNI4IMaJDd?=
- =?us-ascii?Q?sHIg2+YXCT0Jo8RL+HJAvmRSH0UDHjyJHl8PWvpEp+7IICWHsbCKJBOk5f86?=
- =?us-ascii?Q?5qDVzRYUaOIw0lDR/vDriEpKKUXdRfqHPn9eK+UOM7m8Gfe3/HmdIipp1dQ/?=
- =?us-ascii?Q?uCerebhG1iImrKkW6qMNs2HYBL0bTfuvReVQaLyqGTRNRBYTZM8SzSpN2Jqn?=
- =?us-ascii?Q?iWfyYXZ3ovXerdy5MNvrBXqO3bOv/8D8V86ZqV+RNIPIiuDpPx48X+M9WYlJ?=
- =?us-ascii?Q?+6+EVh7zGlf8m8bk9pBa+3BPPjEpZyJZm1Hr73k3OvuLzKEYlMp8utcaXXbv?=
- =?us-ascii?Q?vvaOe2iqOxu9hWRceomNa76ZVNoQ95UrdGdVPfV3QeNG5JNAo8VLkF1PS87F?=
- =?us-ascii?Q?ZIntX2gW0XOtJGwbP7LVuanzKL0J/ystInytHA27DQqtQDd39vI7uBz+QMWH?=
- =?us-ascii?Q?di6Imd6KL7zSTXg6AKIe6dX3tNafnVKqm0gN53Iz0mQgdh4lfFkKNm+Mb5hz?=
- =?us-ascii?Q?YIWPYwvfziR6G4JgMX5bOPf4cYRHq2VD6dHox7rkkUGwcMt1LNQUFieEE8Fc?=
- =?us-ascii?Q?N8pAb3Wsya0NwLhA0btfLhQmJowXYI+QWpAVbQ2TULNj5Dl1pWlEkXrS92h/?=
- =?us-ascii?Q?mH/s/f/MxLIV7JS0FUf9OtIT4oLv8HZaTv6gdRHHcICYSg4/fJX7I3Bbp4GN?=
- =?us-ascii?Q?kZ6IQFPBJuQWinP4Ip8rGiA=3D?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 148a8932-cced-4b6c-08a9-08dc20650baa
-X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB10914.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jan 2024 00:55:54.0436
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- r2mIQIUXOZa4VjVjOCekXhrNdIv7lCvvBCD3fB4hIs0Rn6DpHJtZNwJH1CHbKdm4TxYLLSaqvxkVuAAQdGMeQi3B9YNsUAD19392rOJX08xGjeCVTZRdH/IoFXAMWPqx
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3PR01MB9881
-Message-ID-Hash: MMYZ7XUELLXENY6O6AVNV7B7CNH2V7SR
-X-Message-ID-Hash: MMYZ7XUELLXENY6O6AVNV7B7CNH2V7SR
-X-MailFrom: kuninori.morimoto.gx@renesas.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240128122523.247084-1-o-takashi@sakamocchi.jp>
+Message-ID-Hash: URIPCJX46PYYFHGRE63OMZBME6KVLIKK
+X-Message-ID-Hash: URIPCJX46PYYFHGRE63OMZBME6KVLIKK
+X-MailFrom: o-takashi@sakamocchi.jp
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -165,7 +125,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MMYZ7XUELLXENY6O6AVNV7B7CNH2V7SR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/URIPCJX46PYYFHGRE63OMZBME6KVLIKK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -174,155 +134,169 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-omapdss_of_get_first_endpoint() is same as
-of_graph_get_next_endpoint(xxx, NULL). Replcase it.
+Hi,
 
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
----
- drivers/video/fbdev/omap2/omapfb/dss/dsi.c    |  3 ++-
- drivers/video/fbdev/omap2/omapfb/dss/dss-of.c | 20 +------------------
- drivers/video/fbdev/omap2/omapfb/dss/hdmi4.c  |  3 ++-
- drivers/video/fbdev/omap2/omapfb/dss/hdmi5.c  |  3 ++-
- drivers/video/fbdev/omap2/omapfb/dss/venc.c   |  3 ++-
- include/video/omapfb_dss.h                    |  3 ---
- 6 files changed, 9 insertions(+), 26 deletions(-)
+I found some mistakes in the statements of the patch comment, and forgot
+to modify Kconfig. let me post take 2 so please abandon this patch,
+sorry...
 
-diff --git a/drivers/video/fbdev/omap2/omapfb/dss/dsi.c b/drivers/video/fbdev/omap2/omapfb/dss/dsi.c
-index b7eb17a16ec4..50fdfb9e9411 100644
---- a/drivers/video/fbdev/omap2/omapfb/dss/dsi.c
-+++ b/drivers/video/fbdev/omap2/omapfb/dss/dsi.c
-@@ -28,6 +28,7 @@
- #include <linux/debugfs.h>
- #include <linux/pm_runtime.h>
- #include <linux/of.h>
-+#include <linux/of_graph.h>
- #include <linux/of_platform.h>
- #include <linux/component.h>
- 
-@@ -5079,7 +5080,7 @@ static int dsi_probe_of(struct platform_device *pdev)
- 	struct device_node *ep;
- 	struct omap_dsi_pin_config pin_cfg;
- 
--	ep = omapdss_of_get_first_endpoint(node);
-+	ep = of_graph_get_next_endpoint(node, NULL);
- 	if (!ep)
- 		return 0;
- 
-diff --git a/drivers/video/fbdev/omap2/omapfb/dss/dss-of.c b/drivers/video/fbdev/omap2/omapfb/dss/dss-of.c
-index 8aa2bfc2825f..1cd3e7251964 100644
---- a/drivers/video/fbdev/omap2/omapfb/dss/dss-of.c
-+++ b/drivers/video/fbdev/omap2/omapfb/dss/dss-of.c
-@@ -51,24 +51,6 @@ u32 dss_of_port_get_port_number(struct device_node *port)
- 	return reg;
- }
- 
--struct device_node *
--omapdss_of_get_first_endpoint(const struct device_node *parent)
--{
--	struct device_node *port, *ep;
--
--	port = of_graph_get_next_port(parent, NULL);
--
--	if (!port)
--		return NULL;
--
--	ep = of_graph_get_next_endpoint_raw(port, NULL);
--
--	of_node_put(port);
--
--	return ep;
--}
--EXPORT_SYMBOL_GPL(omapdss_of_get_first_endpoint);
--
- struct omap_dss_device *
- omapdss_of_find_source_for_first_ep(struct device_node *node)
- {
-@@ -76,7 +58,7 @@ omapdss_of_find_source_for_first_ep(struct device_node *node)
- 	struct device_node *src_port;
- 	struct omap_dss_device *src;
- 
--	ep = omapdss_of_get_first_endpoint(node);
-+	ep = of_graph_get_next_endpoint(node, NULL);
- 	if (!ep)
- 		return ERR_PTR(-EINVAL);
- 
-diff --git a/drivers/video/fbdev/omap2/omapfb/dss/hdmi4.c b/drivers/video/fbdev/omap2/omapfb/dss/hdmi4.c
-index f05b4e35a842..83f53858e5b5 100644
---- a/drivers/video/fbdev/omap2/omapfb/dss/hdmi4.c
-+++ b/drivers/video/fbdev/omap2/omapfb/dss/hdmi4.c
-@@ -20,6 +20,7 @@
- #include <linux/pm_runtime.h>
- #include <linux/clk.h>
- #include <linux/of.h>
-+#include <linux/of_graph.h>
- #include <linux/regulator/consumer.h>
- #include <linux/component.h>
- #include <video/omapfb_dss.h>
-@@ -529,7 +530,7 @@ static int hdmi_probe_of(struct platform_device *pdev)
- 	struct device_node *ep;
- 	int r;
- 
--	ep = omapdss_of_get_first_endpoint(node);
-+	ep = of_graph_get_next_endpoint(node, NULL);
- 	if (!ep)
- 		return 0;
- 
-diff --git a/drivers/video/fbdev/omap2/omapfb/dss/hdmi5.c b/drivers/video/fbdev/omap2/omapfb/dss/hdmi5.c
-index 03292945b1d4..427258d04e18 100644
---- a/drivers/video/fbdev/omap2/omapfb/dss/hdmi5.c
-+++ b/drivers/video/fbdev/omap2/omapfb/dss/hdmi5.c
-@@ -25,6 +25,7 @@
- #include <linux/pm_runtime.h>
- #include <linux/clk.h>
- #include <linux/of.h>
-+#include <linux/of_graph.h>
- #include <linux/regulator/consumer.h>
- #include <linux/component.h>
- #include <video/omapfb_dss.h>
-@@ -561,7 +562,7 @@ static int hdmi_probe_of(struct platform_device *pdev)
- 	struct device_node *ep;
- 	int r;
- 
--	ep = omapdss_of_get_first_endpoint(node);
-+	ep = of_graph_get_next_endpoint(node, NULL);
- 	if (!ep)
- 		return 0;
- 
-diff --git a/drivers/video/fbdev/omap2/omapfb/dss/venc.c b/drivers/video/fbdev/omap2/omapfb/dss/venc.c
-index c9d40e28a06f..30d90476f90b 100644
---- a/drivers/video/fbdev/omap2/omapfb/dss/venc.c
-+++ b/drivers/video/fbdev/omap2/omapfb/dss/venc.c
-@@ -24,6 +24,7 @@
- #include <linux/regulator/consumer.h>
- #include <linux/pm_runtime.h>
- #include <linux/of.h>
-+#include <linux/of_graph.h>
- #include <linux/component.h>
- 
- #include <video/omapfb_dss.h>
-@@ -764,7 +765,7 @@ static int venc_probe_of(struct platform_device *pdev)
- 	u32 channels;
- 	int r;
- 
--	ep = omapdss_of_get_first_endpoint(node);
-+	ep = of_graph_get_next_endpoint(node, NULL);
- 	if (!ep)
- 		return 0;
- 
-diff --git a/include/video/omapfb_dss.h b/include/video/omapfb_dss.h
-index fc106aaa75bf..d133190e3143 100644
---- a/include/video/omapfb_dss.h
-+++ b/include/video/omapfb_dss.h
-@@ -811,9 +811,6 @@ static inline bool omapdss_device_is_enabled(struct omap_dss_device *dssdev)
- 	return dssdev->state == OMAP_DSS_DISPLAY_ACTIVE;
- }
- 
--struct device_node *
--omapdss_of_get_first_endpoint(const struct device_node *parent);
--
- struct omap_dss_device *
- omapdss_of_find_source_for_first_ep(struct device_node *node);
- #else
--- 
-2.25.1
+On Sun, Jan 28, 2024 at 09:25:23PM +0900, Takashi Sakamoto wrote:
+> Mark of the Unicorn released 896 mk3 FireWire in 2008 as part of the third
+> generation of its FireWire series. In 2011, 896 mk3 hybrid was released to
+> support USB protocol.
+> 
+> It supports sampling transfer frequency up to 192.0 kHz. The packet
+> format differs depending on both of current sampling transfer frequency
+> and the type of signal in optical interfaces. The model supports
+> transmission of PCM frames as well as MIDI messages.
+> 
+> The 896 mk3 FireWire consists of below ICs:
+> 
+>  * Texas Instruments TSB41AB2
+>  * Microchip (SMSC) USB3300
+>  * Xilinx Spartan-3A FPGA, XC3S500E
+>  * Texas Instruments TMS320C6722
+>  * Microchip (Atmel) AT91SAM SAM7S256
+> 
+> It supports sampling transfer frequency up to 192.0 kHz. The packet
+> format differs depending on both of current sampling transfer frequency
+> and the type of signal in two pairs of optical interfaces. The model
+> supports transmission of PCM frames, while has no port for MIDi messages.
+> 
+> The model supports command mechanism to configure internal DSP. Hardware
+> meter information is available in the first 2 chunks of each data block
+> of tx packet.
+> 
+> This commit adds support for it. The 896 mk3 FireWire is just tested, but
+> the 896 mk3 Hybrid is not yet.
+> 
+> $ config-rom-pretty-printer < motu-896mk3fw.img
+>                ROM header and bus information block
+>                -----------------------------------------------------------------
+> 1024  04100ce1  bus_info_length 4, crc_length 16, crc 3297
+> 1028  31333934  bus_name "1394"
+> 1032  20ff7000  irmc 0, cmc 0, isc 1, bmc 0, cyc_clk_acc 255, max_rec 7 (256)
+> 1036  0001f200  company_id 0001f2     |
+> 1040  00093add  device_id 0000604893  | EUI-64 0547556791237341
+> 
+>                root directory
+>                -----------------------------------------------------------------
+> 1044  0004ef04  directory_length 4, crc 61188
+> 1048  030001f2  vendor
+> 1052  0c0083c0  node capabilities: per IEEE 1394
+> 1056  d1000002  --> unit directory at 1064
+> 1060  8d000005  --> eui-64 leaf at 1080
+> 
+>                unit directory at 1064
+>                -----------------------------------------------------------------
+> 1064  0003998d  directory_length 3, crc 39309
+> 1068  120001f2  specifier id
+> 1072  13000017  version
+> 1076  17101800  model
+> 
+>                eui-64 leaf at 1080
+>                -----------------------------------------------------------------
+> 1080  0002cc82  leaf_length 2, crc 52354
+> 1084  0001f200  company_id 0001f2     |
+> 1088  00093add  device_id 0000604893  | EUI-64 0547556791237341
+> 
+> $ config-rom-pretty-printer < motu-896mk3hybrid.img
+>                ROM header and bus information block
+>                -----------------------------------------------------------------
+> 1024  04103cbe  bus_info_length 4, crc_length 16, crc 15550
+> 1028  31333934  bus_name "1394"
+> 1032  20ff7000  irmc 0, cmc 0, isc 1, bmc 0, cyc_clk_acc 255, max_rec 7 (256)
+> 1036  0001f200  company_id 0001f2     |
+> 1040  000ae601  device_id 0000714241  | EUI-64 0547556791346689
+> 
+>                root directory
+>                -----------------------------------------------------------------
+> 1044  0004ef04  directory_length 4, crc 61188
+> 1048  030001f2  vendor
+> 1052  0c0083c0  node capabilities: per IEEE 1394
+> 1056  d1000002  --> unit directory at 1064
+> 1060  8d000005  --> eui-64 leaf at 1080
+> 
+>                unit directory at 1064
+>                -----------------------------------------------------------------
+> 1064  000394ac  directory_length 3, crc 38060
+> 1068  120001f2  specifier id
+> 1072  13000037  version
+> 1076  17102800  model
+> 
+>                eui-64 leaf at 1080
+>                -----------------------------------------------------------------
+> 1080  0002cf69  leaf_length 2, crc 53097
+> 1084  0001f200  company_id 0001f2     |
+> 1088  000ae601  device_id 0000714241  | EUI-64 0547556791346689
+> 
+> Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+> ---
+>  sound/firewire/motu/motu-protocol-v3.c | 9 +++++++++
+>  sound/firewire/motu/motu.c             | 2 ++
+>  sound/firewire/motu/motu.h             | 1 +
+>  3 files changed, 12 insertions(+)
+> 
+> diff --git a/sound/firewire/motu/motu-protocol-v3.c b/sound/firewire/motu/motu-protocol-v3.c
+> index 8a0426920a76..7254fdfe046a 100644
+> --- a/sound/firewire/motu/motu-protocol-v3.c
+> +++ b/sound/firewire/motu/motu-protocol-v3.c
+> @@ -261,6 +261,7 @@ int snd_motu_protocol_v3_cache_packet_formats(struct snd_motu *motu)
+>  
+>  	if (motu->spec == &snd_motu_spec_828mk3_fw ||
+>  	    motu->spec == &snd_motu_spec_828mk3_hybrid ||
+> +	    motu->spec == &snd_motu_spec_896mk3 ||
+>  	    motu->spec == &snd_motu_spec_traveler_mk3 ||
+>  	    motu->spec == &snd_motu_spec_track16)
+>  		return detect_packet_formats_with_opt_ifaces(motu, data);
+> @@ -288,6 +289,14 @@ const struct snd_motu_spec snd_motu_spec_828mk3_hybrid = {
+>  	.rx_fixed_pcm_chunks = {14, 14, 14},	// Additional 4 dummy chunks at higher rate.
+>  };
+>  
+> +const struct snd_motu_spec snd_motu_spec_896mk3 = {
+> +	.name = "896mk3",
+> +	.protocol_version = SND_MOTU_PROTOCOL_V3,
+> +	.flags = SND_MOTU_SPEC_COMMAND_DSP,
+> +	.tx_fixed_pcm_chunks = {18, 14, 10},
+> +	.rx_fixed_pcm_chunks = {18, 14, 10},
+> +};
+> +
+>  const struct snd_motu_spec snd_motu_spec_traveler_mk3 = {
+>  	.name = "TravelerMk3",
+>  	.protocol_version = SND_MOTU_PROTOCOL_V3,
+> diff --git a/sound/firewire/motu/motu.c b/sound/firewire/motu/motu.c
+> index d73599eb7d5a..d14ab5dd5bea 100644
+> --- a/sound/firewire/motu/motu.c
+> +++ b/sound/firewire/motu/motu.c
+> @@ -168,10 +168,12 @@ static const struct ieee1394_device_id motu_id_table[] = {
+>  	SND_MOTU_DEV_ENTRY(0x00000d, &snd_motu_spec_ultralite),
+>  	SND_MOTU_DEV_ENTRY(0x00000f, &snd_motu_spec_8pre),
+>  	SND_MOTU_DEV_ENTRY(0x000015, &snd_motu_spec_828mk3_fw), // FireWire only.
+> +	SND_MOTU_DEV_ENTRY(0x000017, &snd_motu_spec_896mk3), // FireWire only.
+>  	SND_MOTU_DEV_ENTRY(0x000019, &snd_motu_spec_ultralite_mk3), // FireWire only.
+>  	SND_MOTU_DEV_ENTRY(0x00001b, &snd_motu_spec_traveler_mk3),
+>  	SND_MOTU_DEV_ENTRY(0x000030, &snd_motu_spec_ultralite_mk3), // Hybrid.
+>  	SND_MOTU_DEV_ENTRY(0x000035, &snd_motu_spec_828mk3_hybrid), // Hybrid.
+> +	SND_MOTU_DEV_ENTRY(0x000037, &snd_motu_spec_896mk3), // Hybrid.
+>  	SND_MOTU_DEV_ENTRY(0x000033, &snd_motu_spec_audio_express),
+>  	SND_MOTU_DEV_ENTRY(0x000039, &snd_motu_spec_track16),
+>  	SND_MOTU_DEV_ENTRY(0x000045, &snd_motu_spec_4pre),
+> diff --git a/sound/firewire/motu/motu.h b/sound/firewire/motu/motu.h
+> index 3b1dc98a7be0..c66be0a89ccf 100644
+> --- a/sound/firewire/motu/motu.h
+> +++ b/sound/firewire/motu/motu.h
+> @@ -138,6 +138,7 @@ extern const struct snd_motu_spec snd_motu_spec_8pre;
+>  
+>  extern const struct snd_motu_spec snd_motu_spec_828mk3_fw;
+>  extern const struct snd_motu_spec snd_motu_spec_828mk3_hybrid;
+> +extern const struct snd_motu_spec snd_motu_spec_896mk3;
+>  extern const struct snd_motu_spec snd_motu_spec_traveler_mk3;
+>  extern const struct snd_motu_spec snd_motu_spec_ultralite_mk3;
+>  extern const struct snd_motu_spec snd_motu_spec_audio_express;
+> -- 
+> 2.40.1
 
+
+Thanks
+
+Takashi Sakamoto

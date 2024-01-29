@@ -2,88 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1116584088E
-	for <lists+alsa-devel@lfdr.de>; Mon, 29 Jan 2024 15:36:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E208840896
+	for <lists+alsa-devel@lfdr.de>; Mon, 29 Jan 2024 15:36:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C99D79F6;
-	Mon, 29 Jan 2024 15:36:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C99D79F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 97A43822;
+	Mon, 29 Jan 2024 15:36:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 97A43822
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1706538986;
-	bh=qKIghWBg+M0Dh/XZ6bWHGX2p/hwwGIxP2PIhUEg/+OE=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=QbXyrUh4jVSibZMQuyU85bII7XmC0BzNTHM0OyEyNsh5dPdKjktP051JfjyOjUjPu
-	 mJdyj4wFCuthfd3U5N9gVJFx2ADh7fd/K/WXeX7N1O9m68rlfZulbPD+JrX3LKjTZb
-	 caOtdiozifC0AsUu0dQsP5aq8Ceo3T6AWsRfcmFw=
+	s=default; t=1706539008;
+	bh=ELVuZNcwPeJoEZGSkg3TP64A0TuAYvFqa47rVQhQUqU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=Sn2Db0fnyOkW1KWv13QyGy0graBO2Tcpro38X5cg6kdOUoe+v9DTlxu4bZDcnVh4y
+	 zmiLAFplxukqcxnZttYDF7jdWMPT1wkl8nLDt9eyGSln0ThHqyLU/vmxxDm/p4jlUz
+	 tKbFDul/XehMfnqqsgYj4kuXJyzNEeq0Dt/40W3Y=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B8BEDF805A8; Mon, 29 Jan 2024 15:35:54 +0100 (CET)
+	id 31B38F805E0; Mon, 29 Jan 2024 15:36:02 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E80F3F805AA;
-	Mon, 29 Jan 2024 15:35:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3666AF805D5;
+	Mon, 29 Jan 2024 15:36:01 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D7C0CF80567; Mon, 29 Jan 2024 15:35:47 +0100 (CET)
+	id CE87FF805BE; Mon, 29 Jan 2024 15:35:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [IPv6:2a00:1450:4864:20::62b])
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [IPv6:2a00:1450:4864:20::629])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D0727F8055B
-	for <alsa-devel@alsa-project.org>; Mon, 29 Jan 2024 15:35:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0727F8055B
+	by alsa1.perex.cz (Postfix) with ESMTPS id EAB39F8055C
+	for <alsa-devel@alsa-project.org>; Mon, 29 Jan 2024 15:35:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EAB39F8055C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=cCkIwZB2
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-a3566c0309fso183966666b.1
+ header.s=google header.b=i14a6Lw6
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-a34c5ca2537so301488566b.0
         for <alsa-devel@alsa-project.org>;
- Mon, 29 Jan 2024 06:35:39 -0800 (PST)
+ Mon, 29 Jan 2024 06:35:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1706538938; x=1707143738;
+        d=linaro.org; s=google; t=1706538940; x=1707143740;
  darn=alsa-project.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=fPhPmso2Tukg7NLAn/+WM+BVJTCFnMIZlThVcM5mWHE=;
-        b=cCkIwZB23D3uQyy5Ycl2fPTDOXnpIIECzb8ILeOb5IiRJRsal7uco2cejarVTNssQg
-         0cTH98ih50qkS+c71EFuGx/Accfu2rlucbwlrn5/Mvk1RJhp8fVnT1mqCl5xUmKtThPM
-         tnjn4kcePl3w8dg7lZL8SPxhe+CghnfuBmwLLq/0pOdgcvFVYIvu0gG3+KLz6w9jW5po
-         QSd8RPuEfeVIb53eUVFhJu6OMFPoAYjW3siV5cmxnLRalwTo2r5xdEm2KxAY6LbtcOjV
-         7u4hGnLPMWs7F+RXoODDENdvJOznqKskcnmwdHLScKMuGxPXyxXufPQWu+QWfovP91Fo
-         +kmw==
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=wUDgM3XMv3lbhXf77puYZZvqon8S6jkXssWHjC2zotc=;
+        b=i14a6Lw6CWaq8JgNIGTFNRb4arolPXs2GkXawYqvQpplId+5DfEs9euUw9Sj6xZ50u
+         8l/9sZD0f9DN+92jXFLCadzC4S8bUXcwOhwT/OuqY6urp7Oqw/+kmA9D9xQw1NeNgiu0
+         zbQ8KE1dld/A1qahcaA8t8oOq6rd0N+T3G235Dh8nFIjEgnI6rTxoy9da6Cx+auRfmKd
+         1dX5z5O0IYjCwTMG7zK0ns7pgP/OATyps6EuxDBgKSgBZ20i9TyIGJhZNVi7OTwXN0Nh
+         2vWsokRliYX1kDgWUg+NFYa5Y/MdU/nhLB2Ja5iBTJfZNoxQ7Vn56Eu9ezO3m6wQxAMh
+         V8Xg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706538938; x=1707143738;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=fPhPmso2Tukg7NLAn/+WM+BVJTCFnMIZlThVcM5mWHE=;
-        b=Vtmmsso7ofFBApDFSBE0zXoma27cKI2T1gF1Dwi8YPXFGWFQVZtvWzdttYgeKtumpV
-         YhVF+hMeqh0OJUUaFDe5NJqJT+dCpe+qJ7cRI3uLQEZxHqQJoFeiD8Hi/R76CZwfPawU
-         a7eztuusiM6gN0BlA4CFHcqELkXKe3+RPqMhec6CLLay+0TjR/txbrs+iKWGzBQYtGOn
-         rmxjncj7AghyUhUFfQi8F6yVsJikAaiyarNt1+pRrcxfqQA3kabFpBbSWEtoZMnYMwqH
-         MESEh3c2yfibsvYsJTA4Lc+SirvDNFcYlXF0M2WqiLA2MLoXt+DQY6fLrJ2erQcwcdSE
-         xdIQ==
-X-Gm-Message-State: AOJu0Yy3oAPDlnJ3rcqjWJDnrhGGxTDyLLsigTlyQYi/oaFgFpJGEfSb
-	LQ6qC3tso3OKEqiHS02vHKeuieYPzoQFDcY1ii5m0T7qafQ9v/h1NQMsTARU4eY=
+        d=1e100.net; s=20230601; t=1706538940; x=1707143740;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=wUDgM3XMv3lbhXf77puYZZvqon8S6jkXssWHjC2zotc=;
+        b=ZG4LWeEeJPYAsqLtFuWW5mX18FYMmanY8V/11H18N06YHoSRWSTRp56L0EBpL4W/uS
+         hPLy/PYHaFOrZddjbU+P9/h4UpC4/EV4zptUGJzjpuPxbeWb9qQcC/K79Zf6Fg7smwH4
+         D1PQ6q+94CS60VJ3WpWsE0nkq6thv4H3qD4GxtVuGCvOaEJAFv7PRUnGBHn2xMjkke8W
+         RIRupKXeqOlDK1W3ZVFp3Hc5afKsx+9QGU6M8rd66puojtjZjUn9H7Q+x5jj40+UDc/U
+         rXq58gpoJQfFLuSp/F6nNwwFMtZZQuHaIwAIFaj23R44DDYcG9iQzBDHi3Dbc2Sm/Hch
+         9N7g==
+X-Gm-Message-State: AOJu0YyNPDcEpJVEbW8coZZJpcUaAgEjItSpbd27BtdFIpX/ENeWlD6s
+	iUq1aCLsBl9KeLgaUYsr9D1uTof3KwG+VOuEy6OxbsZkj3HUYgVMOkHJDCGRw56ZFFAd/L5q0Qv
+	W
 X-Google-Smtp-Source: 
- AGHT+IE/jmjtAp5FGOJs5Sf3U/EU/Onj0B5A6BEfEU+D04XcNvdeq48Brg0CKZMpP1rEhlTanM0D7A==
-X-Received: by 2002:a17:906:3c59:b0:a34:9a5e:e15e with SMTP id
- i25-20020a1709063c5900b00a349a5ee15emr5105302ejg.28.1706538937910;
-        Mon, 29 Jan 2024 06:35:37 -0800 (PST)
+ AGHT+IElqtZkcu19U12mctRS/SwhK27AzO7x12KUZHlRH5y/giQsOT6kzps8n5XkEmhqsjjXJ3oatg==
+X-Received: by 2002:a17:907:1009:b0:a35:dd68:659b with SMTP id
+ ox9-20020a170907100900b00a35dd68659bmr1211533ejb.49.1706538940101;
+        Mon, 29 Jan 2024 06:35:40 -0800 (PST)
 Received: from krzk-bin.. ([178.197.222.62])
         by smtp.gmail.com with ESMTPSA id
- sf5-20020a1709078a8500b00a3543718f5bsm2829269ejc.221.2024.01.29.06.35.36
+ sf5-20020a1709078a8500b00a3543718f5bsm2829269ejc.221.2024.01.29.06.35.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 29 Jan 2024 06:35:37 -0800 (PST)
+        Mon, 29 Jan 2024 06:35:39 -0800 (PST)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>,
@@ -95,15 +98,17 @@ To: Liam Girdwood <lgirdwood@gmail.com>,
 	linux-kernel@vger.kernel.org,
 	alsa-devel@alsa-project.org
 Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [PATCH v3 0/2] ASoC: codecs: tx-macro: correct TX SMIC MUXn widgets
- on SM8350+
-Date: Mon, 29 Jan 2024 15:35:32 +0100
-Message-Id: <20240129143534.109196-1-krzysztof.kozlowski@linaro.org>
+Subject: [PATCH v3 1/2] ASoC: codecs: tx-macro: split widgets per different
+ LPASS versions
+Date: Mon, 29 Jan 2024 15:35:33 +0100
+Message-Id: <20240129143534.109196-2-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240129143534.109196-1-krzysztof.kozlowski@linaro.org>
+References: <20240129143534.109196-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: JZ5RY5KBOT2DUG3AISXMGVDCCQJPZ6RR
-X-Message-ID-Hash: JZ5RY5KBOT2DUG3AISXMGVDCCQJPZ6RR
+Message-ID-Hash: ON7L52Z4JS733UGDORSLZJF3NUNFF3SZ
+X-Message-ID-Hash: ON7L52Z4JS733UGDORSLZJF3NUNFF3SZ
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -115,7 +120,8 @@ X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: <>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ON7L52Z4JS733UGDORSLZJF3NUNFF3SZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -124,27 +130,595 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi,
+TX macro codec differs slightly between different Qualcomm Low Power
+Audio SubSystem (LPASS) block versions.  In LPASS version 9.2 the
+register responsible for TX SMIC MUXn muxes is different, thus to
+properly support it, the driver needs to register different widgets per
+different LPASS version.
 
-Changelog in individual patches.
+Prepare for supporting this register difference by refactoring existing
+code:
+1. Move few widgets (TX SMIC MUXn, TX SWR_ADCn, TX SWR_DMICn) out of
+   common 'tx_macro_dapm_widgets[]' array to a new per-variant specific
+   array 'tx_macro_dapm_widgets_v9[]'.
+2. Move also related audio routes into new array.
+3. Store pointers to these variant-specific arrays in new variant-data
+   structure 'tx_macro_data'.
+4. Add variant-specific widgets and routes in component probe, instead
+   of driver probe.
 
-v2:
-https://lore.kernel.org/alsa-devel/20240125153110.410295-1-krzysztof.kozlowski@linaro.org/
+The change should have no real impact, except re-shuffling code and
+registering some widgets and audio routes in component probe, instead of
+driver probe.
 
-v1:
-https://lore.kernel.org/all/20230717140138.201745-1-krzysztof.kozlowski@linaro.org/
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-Best regards,
-Krzysztof
+---
 
-Krzysztof Kozlowski (2):
-  ASoC: codecs: tx-macro: split widgets per different LPASS versions
-  ASoC: codecs: tx-macro: correct TX SMIC MUXn widgets on SM8350+
+Changes in v3:
+1. None
 
- sound/soc/codecs/lpass-macro-common.h |   7 +
- sound/soc/codecs/lpass-tx-macro.c     | 671 +++++++++++++++++++-------
- 2 files changed, 506 insertions(+), 172 deletions(-)
+Changes in v2:
+1. Keep all the MSM_DMIC/TX DMIC MUX audio routes in the shared
+   tx_audio_map, because it does not differ between v9 and v9.2.
 
+2. Rebase. qcom,sm6115-lpass-tx-macro appeared so add new
+   lpass_ver_10_sm6115 entry.
+---
+ sound/soc/codecs/lpass-macro-common.h |   6 +
+ sound/soc/codecs/lpass-tx-macro.c     | 377 +++++++++++++++-----------
+ 2 files changed, 232 insertions(+), 151 deletions(-)
+
+diff --git a/sound/soc/codecs/lpass-macro-common.h b/sound/soc/codecs/lpass-macro-common.h
+index d3684c7ab930..18f5b8c8e822 100644
+--- a/sound/soc/codecs/lpass-macro-common.h
++++ b/sound/soc/codecs/lpass-macro-common.h
+@@ -11,6 +11,12 @@
+ /* The soundwire block should be internally reset at probe */
+ #define LPASS_MACRO_FLAG_RESET_SWR		BIT(1)
+ 
++enum lpass_version {
++	LPASS_VER_9_0_0,
++	LPASS_VER_10_0_0,
++	LPASS_VER_11_0_0,
++};
++
+ struct lpass_macro {
+ 	struct device *macro_pd;
+ 	struct device *dcodec_pd;
+diff --git a/sound/soc/codecs/lpass-tx-macro.c b/sound/soc/codecs/lpass-tx-macro.c
+index 124c2e144f33..ecc8565ff4bb 100644
+--- a/sound/soc/codecs/lpass-tx-macro.c
++++ b/sound/soc/codecs/lpass-tx-macro.c
+@@ -253,8 +253,18 @@ struct hpf_work {
+ 	struct delayed_work dwork;
+ };
+ 
++struct tx_macro_data {
++	unsigned int flags;
++	unsigned int ver;
++	const struct snd_soc_dapm_widget *extra_widgets;
++	size_t extra_widgets_num;
++	const struct snd_soc_dapm_route *extra_routes;
++	size_t extra_routes_num;
++};
++
+ struct tx_macro {
+ 	struct device *dev;
++	const struct tx_macro_data *data;
+ 	struct snd_soc_component *component;
+ 	struct hpf_work tx_hpf_work[NUM_DECIMATORS];
+ 	struct tx_mute_work tx_mute_dwork[NUM_DECIMATORS];
+@@ -1235,53 +1245,6 @@ static const struct snd_kcontrol_new tx_dec5_mux = SOC_DAPM_ENUM("tx_dec5", tx_d
+ static const struct snd_kcontrol_new tx_dec6_mux = SOC_DAPM_ENUM("tx_dec6", tx_dec6_enum);
+ static const struct snd_kcontrol_new tx_dec7_mux = SOC_DAPM_ENUM("tx_dec7", tx_dec7_enum);
+ 
+-static const char * const smic_mux_text[] = {
+-	"ZERO", "ADC0", "ADC1", "ADC2", "ADC3", "SWR_DMIC0",
+-	"SWR_DMIC1", "SWR_DMIC2", "SWR_DMIC3", "SWR_DMIC4",
+-	"SWR_DMIC5", "SWR_DMIC6", "SWR_DMIC7"
+-};
+-
+-static SOC_ENUM_SINGLE_DECL(tx_smic0_enum, CDC_TX_INP_MUX_ADC_MUX0_CFG0,
+-			0, smic_mux_text);
+-
+-static SOC_ENUM_SINGLE_DECL(tx_smic1_enum, CDC_TX_INP_MUX_ADC_MUX1_CFG0,
+-			0, smic_mux_text);
+-
+-static SOC_ENUM_SINGLE_DECL(tx_smic2_enum, CDC_TX_INP_MUX_ADC_MUX2_CFG0,
+-			0, smic_mux_text);
+-
+-static SOC_ENUM_SINGLE_DECL(tx_smic3_enum, CDC_TX_INP_MUX_ADC_MUX3_CFG0,
+-			0, smic_mux_text);
+-
+-static SOC_ENUM_SINGLE_DECL(tx_smic4_enum, CDC_TX_INP_MUX_ADC_MUX4_CFG0,
+-			0, smic_mux_text);
+-
+-static SOC_ENUM_SINGLE_DECL(tx_smic5_enum, CDC_TX_INP_MUX_ADC_MUX5_CFG0,
+-			0, smic_mux_text);
+-
+-static SOC_ENUM_SINGLE_DECL(tx_smic6_enum, CDC_TX_INP_MUX_ADC_MUX6_CFG0,
+-			0, smic_mux_text);
+-
+-static SOC_ENUM_SINGLE_DECL(tx_smic7_enum, CDC_TX_INP_MUX_ADC_MUX7_CFG0,
+-			0, smic_mux_text);
+-
+-static const struct snd_kcontrol_new tx_smic0_mux = SOC_DAPM_ENUM_EXT("tx_smic0", tx_smic0_enum,
+-			snd_soc_dapm_get_enum_double, tx_macro_put_dec_enum);
+-static const struct snd_kcontrol_new tx_smic1_mux = SOC_DAPM_ENUM_EXT("tx_smic1", tx_smic1_enum,
+-			snd_soc_dapm_get_enum_double, tx_macro_put_dec_enum);
+-static const struct snd_kcontrol_new tx_smic2_mux = SOC_DAPM_ENUM_EXT("tx_smic2", tx_smic2_enum,
+-			snd_soc_dapm_get_enum_double, tx_macro_put_dec_enum);
+-static const struct snd_kcontrol_new tx_smic3_mux = SOC_DAPM_ENUM_EXT("tx_smic3", tx_smic3_enum,
+-			snd_soc_dapm_get_enum_double, tx_macro_put_dec_enum);
+-static const struct snd_kcontrol_new tx_smic4_mux = SOC_DAPM_ENUM_EXT("tx_smic4", tx_smic4_enum,
+-			snd_soc_dapm_get_enum_double, tx_macro_put_dec_enum);
+-static const struct snd_kcontrol_new tx_smic5_mux = SOC_DAPM_ENUM_EXT("tx_smic5", tx_smic5_enum,
+-			snd_soc_dapm_get_enum_double, tx_macro_put_dec_enum);
+-static const struct snd_kcontrol_new tx_smic6_mux = SOC_DAPM_ENUM_EXT("tx_smic6", tx_smic6_enum,
+-			snd_soc_dapm_get_enum_double, tx_macro_put_dec_enum);
+-static const struct snd_kcontrol_new tx_smic7_mux = SOC_DAPM_ENUM_EXT("tx_smic7", tx_smic7_enum,
+-			snd_soc_dapm_get_enum_double, tx_macro_put_dec_enum);
+-
+ static const char * const dmic_mux_text[] = {
+ 	"ZERO", "DMIC0", "DMIC1", "DMIC2", "DMIC3",
+ 	"DMIC4", "DMIC5", "DMIC6", "DMIC7"
+@@ -1427,15 +1390,6 @@ static const struct snd_soc_dapm_widget tx_macro_dapm_widgets[] = {
+ 	SND_SOC_DAPM_MIXER("TX_AIF3_CAP Mixer", SND_SOC_NOPM, TX_MACRO_AIF3_CAP, 0,
+ 		tx_aif3_cap_mixer, ARRAY_SIZE(tx_aif3_cap_mixer)),
+ 
+-	SND_SOC_DAPM_MUX("TX SMIC MUX0", SND_SOC_NOPM, 0, 0, &tx_smic0_mux),
+-	SND_SOC_DAPM_MUX("TX SMIC MUX1", SND_SOC_NOPM, 0, 0, &tx_smic1_mux),
+-	SND_SOC_DAPM_MUX("TX SMIC MUX2", SND_SOC_NOPM, 0, 0, &tx_smic2_mux),
+-	SND_SOC_DAPM_MUX("TX SMIC MUX3", SND_SOC_NOPM, 0, 0, &tx_smic3_mux),
+-	SND_SOC_DAPM_MUX("TX SMIC MUX4", SND_SOC_NOPM, 0, 0, &tx_smic4_mux),
+-	SND_SOC_DAPM_MUX("TX SMIC MUX5", SND_SOC_NOPM, 0, 0, &tx_smic5_mux),
+-	SND_SOC_DAPM_MUX("TX SMIC MUX6", SND_SOC_NOPM, 0, 0, &tx_smic6_mux),
+-	SND_SOC_DAPM_MUX("TX SMIC MUX7", SND_SOC_NOPM, 0, 0, &tx_smic7_mux),
+-
+ 	SND_SOC_DAPM_MUX("TX DMIC MUX0", SND_SOC_NOPM, 4, 0, &tx_dmic0_mux),
+ 	SND_SOC_DAPM_MUX("TX DMIC MUX1", SND_SOC_NOPM, 4, 0, &tx_dmic1_mux),
+ 	SND_SOC_DAPM_MUX("TX DMIC MUX2", SND_SOC_NOPM, 4, 0, &tx_dmic2_mux),
+@@ -1445,18 +1399,6 @@ static const struct snd_soc_dapm_widget tx_macro_dapm_widgets[] = {
+ 	SND_SOC_DAPM_MUX("TX DMIC MUX6", SND_SOC_NOPM, 4, 0, &tx_dmic6_mux),
+ 	SND_SOC_DAPM_MUX("TX DMIC MUX7", SND_SOC_NOPM, 4, 0, &tx_dmic7_mux),
+ 
+-	SND_SOC_DAPM_INPUT("TX SWR_ADC0"),
+-	SND_SOC_DAPM_INPUT("TX SWR_ADC1"),
+-	SND_SOC_DAPM_INPUT("TX SWR_ADC2"),
+-	SND_SOC_DAPM_INPUT("TX SWR_ADC3"),
+-	SND_SOC_DAPM_INPUT("TX SWR_DMIC0"),
+-	SND_SOC_DAPM_INPUT("TX SWR_DMIC1"),
+-	SND_SOC_DAPM_INPUT("TX SWR_DMIC2"),
+-	SND_SOC_DAPM_INPUT("TX SWR_DMIC3"),
+-	SND_SOC_DAPM_INPUT("TX SWR_DMIC4"),
+-	SND_SOC_DAPM_INPUT("TX SWR_DMIC5"),
+-	SND_SOC_DAPM_INPUT("TX SWR_DMIC6"),
+-	SND_SOC_DAPM_INPUT("TX SWR_DMIC7"),
+ 	SND_SOC_DAPM_INPUT("TX DMIC0"),
+ 	SND_SOC_DAPM_INPUT("TX DMIC1"),
+ 	SND_SOC_DAPM_INPUT("TX DMIC2"),
+@@ -1578,6 +1520,150 @@ static const struct snd_soc_dapm_route tx_audio_map[] = {
+ 	{"TX DMIC MUX0", "DMIC6", "TX DMIC6"},
+ 	{"TX DMIC MUX0", "DMIC7", "TX DMIC7"},
+ 
++	{"TX DEC1 MUX", "MSM_DMIC", "TX DMIC MUX1"},
++	{"TX DMIC MUX1", "DMIC0", "TX DMIC0"},
++	{"TX DMIC MUX1", "DMIC1", "TX DMIC1"},
++	{"TX DMIC MUX1", "DMIC2", "TX DMIC2"},
++	{"TX DMIC MUX1", "DMIC3", "TX DMIC3"},
++	{"TX DMIC MUX1", "DMIC4", "TX DMIC4"},
++	{"TX DMIC MUX1", "DMIC5", "TX DMIC5"},
++	{"TX DMIC MUX1", "DMIC6", "TX DMIC6"},
++	{"TX DMIC MUX1", "DMIC7", "TX DMIC7"},
++
++	{"TX DEC2 MUX", "MSM_DMIC", "TX DMIC MUX2"},
++	{"TX DMIC MUX2", "DMIC0", "TX DMIC0"},
++	{"TX DMIC MUX2", "DMIC1", "TX DMIC1"},
++	{"TX DMIC MUX2", "DMIC2", "TX DMIC2"},
++	{"TX DMIC MUX2", "DMIC3", "TX DMIC3"},
++	{"TX DMIC MUX2", "DMIC4", "TX DMIC4"},
++	{"TX DMIC MUX2", "DMIC5", "TX DMIC5"},
++	{"TX DMIC MUX2", "DMIC6", "TX DMIC6"},
++	{"TX DMIC MUX2", "DMIC7", "TX DMIC7"},
++
++	{"TX DEC3 MUX", "MSM_DMIC", "TX DMIC MUX3"},
++	{"TX DMIC MUX3", "DMIC0", "TX DMIC0"},
++	{"TX DMIC MUX3", "DMIC1", "TX DMIC1"},
++	{"TX DMIC MUX3", "DMIC2", "TX DMIC2"},
++	{"TX DMIC MUX3", "DMIC3", "TX DMIC3"},
++	{"TX DMIC MUX3", "DMIC4", "TX DMIC4"},
++	{"TX DMIC MUX3", "DMIC5", "TX DMIC5"},
++	{"TX DMIC MUX3", "DMIC6", "TX DMIC6"},
++	{"TX DMIC MUX3", "DMIC7", "TX DMIC7"},
++
++	{"TX DEC4 MUX", "MSM_DMIC", "TX DMIC MUX4"},
++	{"TX DMIC MUX4", "DMIC0", "TX DMIC0"},
++	{"TX DMIC MUX4", "DMIC1", "TX DMIC1"},
++	{"TX DMIC MUX4", "DMIC2", "TX DMIC2"},
++	{"TX DMIC MUX4", "DMIC3", "TX DMIC3"},
++	{"TX DMIC MUX4", "DMIC4", "TX DMIC4"},
++	{"TX DMIC MUX4", "DMIC5", "TX DMIC5"},
++	{"TX DMIC MUX4", "DMIC6", "TX DMIC6"},
++	{"TX DMIC MUX4", "DMIC7", "TX DMIC7"},
++
++	{"TX DEC5 MUX", "MSM_DMIC", "TX DMIC MUX5"},
++	{"TX DMIC MUX5", "DMIC0", "TX DMIC0"},
++	{"TX DMIC MUX5", "DMIC1", "TX DMIC1"},
++	{"TX DMIC MUX5", "DMIC2", "TX DMIC2"},
++	{"TX DMIC MUX5", "DMIC3", "TX DMIC3"},
++	{"TX DMIC MUX5", "DMIC4", "TX DMIC4"},
++	{"TX DMIC MUX5", "DMIC5", "TX DMIC5"},
++	{"TX DMIC MUX5", "DMIC6", "TX DMIC6"},
++	{"TX DMIC MUX5", "DMIC7", "TX DMIC7"},
++
++	{"TX DEC6 MUX", "MSM_DMIC", "TX DMIC MUX6"},
++	{"TX DMIC MUX6", "DMIC0", "TX DMIC0"},
++	{"TX DMIC MUX6", "DMIC1", "TX DMIC1"},
++	{"TX DMIC MUX6", "DMIC2", "TX DMIC2"},
++	{"TX DMIC MUX6", "DMIC3", "TX DMIC3"},
++	{"TX DMIC MUX6", "DMIC4", "TX DMIC4"},
++	{"TX DMIC MUX6", "DMIC5", "TX DMIC5"},
++	{"TX DMIC MUX6", "DMIC6", "TX DMIC6"},
++	{"TX DMIC MUX6", "DMIC7", "TX DMIC7"},
++
++	{"TX DEC7 MUX", "MSM_DMIC", "TX DMIC MUX7"},
++	{"TX DMIC MUX7", "DMIC0", "TX DMIC0"},
++	{"TX DMIC MUX7", "DMIC1", "TX DMIC1"},
++	{"TX DMIC MUX7", "DMIC2", "TX DMIC2"},
++	{"TX DMIC MUX7", "DMIC3", "TX DMIC3"},
++	{"TX DMIC MUX7", "DMIC4", "TX DMIC4"},
++	{"TX DMIC MUX7", "DMIC5", "TX DMIC5"},
++	{"TX DMIC MUX7", "DMIC6", "TX DMIC6"},
++	{"TX DMIC MUX7", "DMIC7", "TX DMIC7"},
++};
++
++/* Controls and routes specific to LPASS <= v9.0.0 */
++static const char * const smic_mux_text_v9[] = {
++	"ZERO", "ADC0", "ADC1", "ADC2", "ADC3", "SWR_DMIC0",
++	"SWR_DMIC1", "SWR_DMIC2", "SWR_DMIC3", "SWR_DMIC4",
++	"SWR_DMIC5", "SWR_DMIC6", "SWR_DMIC7"
++};
++
++static SOC_ENUM_SINGLE_DECL(tx_smic0_enum_v9, CDC_TX_INP_MUX_ADC_MUX0_CFG0,
++			0, smic_mux_text_v9);
++
++static SOC_ENUM_SINGLE_DECL(tx_smic1_enum_v9, CDC_TX_INP_MUX_ADC_MUX1_CFG0,
++			0, smic_mux_text_v9);
++
++static SOC_ENUM_SINGLE_DECL(tx_smic2_enum_v9, CDC_TX_INP_MUX_ADC_MUX2_CFG0,
++			0, smic_mux_text_v9);
++
++static SOC_ENUM_SINGLE_DECL(tx_smic3_enum_v9, CDC_TX_INP_MUX_ADC_MUX3_CFG0,
++			0, smic_mux_text_v9);
++
++static SOC_ENUM_SINGLE_DECL(tx_smic4_enum_v9, CDC_TX_INP_MUX_ADC_MUX4_CFG0,
++			0, smic_mux_text_v9);
++
++static SOC_ENUM_SINGLE_DECL(tx_smic5_enum_v9, CDC_TX_INP_MUX_ADC_MUX5_CFG0,
++			0, smic_mux_text_v9);
++
++static SOC_ENUM_SINGLE_DECL(tx_smic6_enum_v9, CDC_TX_INP_MUX_ADC_MUX6_CFG0,
++			0, smic_mux_text_v9);
++
++static SOC_ENUM_SINGLE_DECL(tx_smic7_enum_v9, CDC_TX_INP_MUX_ADC_MUX7_CFG0,
++			0, smic_mux_text_v9);
++
++static const struct snd_kcontrol_new tx_smic0_mux_v9 = SOC_DAPM_ENUM_EXT("tx_smic0", tx_smic0_enum_v9,
++			snd_soc_dapm_get_enum_double, tx_macro_put_dec_enum);
++static const struct snd_kcontrol_new tx_smic1_mux_v9 = SOC_DAPM_ENUM_EXT("tx_smic1", tx_smic1_enum_v9,
++			snd_soc_dapm_get_enum_double, tx_macro_put_dec_enum);
++static const struct snd_kcontrol_new tx_smic2_mux_v9 = SOC_DAPM_ENUM_EXT("tx_smic2", tx_smic2_enum_v9,
++			snd_soc_dapm_get_enum_double, tx_macro_put_dec_enum);
++static const struct snd_kcontrol_new tx_smic3_mux_v9 = SOC_DAPM_ENUM_EXT("tx_smic3", tx_smic3_enum_v9,
++			snd_soc_dapm_get_enum_double, tx_macro_put_dec_enum);
++static const struct snd_kcontrol_new tx_smic4_mux_v9 = SOC_DAPM_ENUM_EXT("tx_smic4", tx_smic4_enum_v9,
++			snd_soc_dapm_get_enum_double, tx_macro_put_dec_enum);
++static const struct snd_kcontrol_new tx_smic5_mux_v9 = SOC_DAPM_ENUM_EXT("tx_smic5", tx_smic5_enum_v9,
++			snd_soc_dapm_get_enum_double, tx_macro_put_dec_enum);
++static const struct snd_kcontrol_new tx_smic6_mux_v9 = SOC_DAPM_ENUM_EXT("tx_smic6", tx_smic6_enum_v9,
++			snd_soc_dapm_get_enum_double, tx_macro_put_dec_enum);
++static const struct snd_kcontrol_new tx_smic7_mux_v9 = SOC_DAPM_ENUM_EXT("tx_smic7", tx_smic7_enum_v9,
++			snd_soc_dapm_get_enum_double, tx_macro_put_dec_enum);
++
++static const struct snd_soc_dapm_widget tx_macro_dapm_widgets_v9[] = {
++	SND_SOC_DAPM_MUX("TX SMIC MUX0", SND_SOC_NOPM, 0, 0, &tx_smic0_mux_v9),
++	SND_SOC_DAPM_MUX("TX SMIC MUX1", SND_SOC_NOPM, 0, 0, &tx_smic1_mux_v9),
++	SND_SOC_DAPM_MUX("TX SMIC MUX2", SND_SOC_NOPM, 0, 0, &tx_smic2_mux_v9),
++	SND_SOC_DAPM_MUX("TX SMIC MUX3", SND_SOC_NOPM, 0, 0, &tx_smic3_mux_v9),
++	SND_SOC_DAPM_MUX("TX SMIC MUX4", SND_SOC_NOPM, 0, 0, &tx_smic4_mux_v9),
++	SND_SOC_DAPM_MUX("TX SMIC MUX5", SND_SOC_NOPM, 0, 0, &tx_smic5_mux_v9),
++	SND_SOC_DAPM_MUX("TX SMIC MUX6", SND_SOC_NOPM, 0, 0, &tx_smic6_mux_v9),
++	SND_SOC_DAPM_MUX("TX SMIC MUX7", SND_SOC_NOPM, 0, 0, &tx_smic7_mux_v9),
++
++	SND_SOC_DAPM_INPUT("TX SWR_ADC0"),
++	SND_SOC_DAPM_INPUT("TX SWR_ADC1"),
++	SND_SOC_DAPM_INPUT("TX SWR_ADC2"),
++	SND_SOC_DAPM_INPUT("TX SWR_ADC3"),
++	SND_SOC_DAPM_INPUT("TX SWR_DMIC0"),
++	SND_SOC_DAPM_INPUT("TX SWR_DMIC1"),
++	SND_SOC_DAPM_INPUT("TX SWR_DMIC2"),
++	SND_SOC_DAPM_INPUT("TX SWR_DMIC3"),
++	SND_SOC_DAPM_INPUT("TX SWR_DMIC4"),
++	SND_SOC_DAPM_INPUT("TX SWR_DMIC5"),
++	SND_SOC_DAPM_INPUT("TX SWR_DMIC6"),
++	SND_SOC_DAPM_INPUT("TX SWR_DMIC7"),
++};
++
++static const struct snd_soc_dapm_route tx_audio_map_v9[] = {
+ 	{"TX DEC0 MUX", "SWR_MIC", "TX SMIC MUX0"},
+ 	{"TX SMIC MUX0", NULL, "TX_SWR_CLK"},
+ 	{"TX SMIC MUX0", "ADC0", "TX SWR_ADC0"},
+@@ -1593,16 +1679,6 @@ static const struct snd_soc_dapm_route tx_audio_map[] = {
+ 	{"TX SMIC MUX0", "SWR_DMIC6", "TX SWR_DMIC6"},
+ 	{"TX SMIC MUX0", "SWR_DMIC7", "TX SWR_DMIC7"},
+ 
+-	{"TX DEC1 MUX", "MSM_DMIC", "TX DMIC MUX1"},
+-	{"TX DMIC MUX1", "DMIC0", "TX DMIC0"},
+-	{"TX DMIC MUX1", "DMIC1", "TX DMIC1"},
+-	{"TX DMIC MUX1", "DMIC2", "TX DMIC2"},
+-	{"TX DMIC MUX1", "DMIC3", "TX DMIC3"},
+-	{"TX DMIC MUX1", "DMIC4", "TX DMIC4"},
+-	{"TX DMIC MUX1", "DMIC5", "TX DMIC5"},
+-	{"TX DMIC MUX1", "DMIC6", "TX DMIC6"},
+-	{"TX DMIC MUX1", "DMIC7", "TX DMIC7"},
+-
+ 	{"TX DEC1 MUX", "SWR_MIC", "TX SMIC MUX1"},
+ 	{"TX SMIC MUX1", NULL, "TX_SWR_CLK"},
+ 	{"TX SMIC MUX1", "ADC0", "TX SWR_ADC0"},
+@@ -1618,16 +1694,6 @@ static const struct snd_soc_dapm_route tx_audio_map[] = {
+ 	{"TX SMIC MUX1", "SWR_DMIC6", "TX SWR_DMIC6"},
+ 	{"TX SMIC MUX1", "SWR_DMIC7", "TX SWR_DMIC7"},
+ 
+-	{"TX DEC2 MUX", "MSM_DMIC", "TX DMIC MUX2"},
+-	{"TX DMIC MUX2", "DMIC0", "TX DMIC0"},
+-	{"TX DMIC MUX2", "DMIC1", "TX DMIC1"},
+-	{"TX DMIC MUX2", "DMIC2", "TX DMIC2"},
+-	{"TX DMIC MUX2", "DMIC3", "TX DMIC3"},
+-	{"TX DMIC MUX2", "DMIC4", "TX DMIC4"},
+-	{"TX DMIC MUX2", "DMIC5", "TX DMIC5"},
+-	{"TX DMIC MUX2", "DMIC6", "TX DMIC6"},
+-	{"TX DMIC MUX2", "DMIC7", "TX DMIC7"},
+-
+ 	{"TX DEC2 MUX", "SWR_MIC", "TX SMIC MUX2"},
+ 	{"TX SMIC MUX2", NULL, "TX_SWR_CLK"},
+ 	{"TX SMIC MUX2", "ADC0", "TX SWR_ADC0"},
+@@ -1643,16 +1709,6 @@ static const struct snd_soc_dapm_route tx_audio_map[] = {
+ 	{"TX SMIC MUX2", "SWR_DMIC6", "TX SWR_DMIC6"},
+ 	{"TX SMIC MUX2", "SWR_DMIC7", "TX SWR_DMIC7"},
+ 
+-	{"TX DEC3 MUX", "MSM_DMIC", "TX DMIC MUX3"},
+-	{"TX DMIC MUX3", "DMIC0", "TX DMIC0"},
+-	{"TX DMIC MUX3", "DMIC1", "TX DMIC1"},
+-	{"TX DMIC MUX3", "DMIC2", "TX DMIC2"},
+-	{"TX DMIC MUX3", "DMIC3", "TX DMIC3"},
+-	{"TX DMIC MUX3", "DMIC4", "TX DMIC4"},
+-	{"TX DMIC MUX3", "DMIC5", "TX DMIC5"},
+-	{"TX DMIC MUX3", "DMIC6", "TX DMIC6"},
+-	{"TX DMIC MUX3", "DMIC7", "TX DMIC7"},
+-
+ 	{"TX DEC3 MUX", "SWR_MIC", "TX SMIC MUX3"},
+ 	{"TX SMIC MUX3", NULL, "TX_SWR_CLK"},
+ 	{"TX SMIC MUX3", "ADC0", "TX SWR_ADC0"},
+@@ -1668,16 +1724,6 @@ static const struct snd_soc_dapm_route tx_audio_map[] = {
+ 	{"TX SMIC MUX3", "SWR_DMIC6", "TX SWR_DMIC6"},
+ 	{"TX SMIC MUX3", "SWR_DMIC7", "TX SWR_DMIC7"},
+ 
+-	{"TX DEC4 MUX", "MSM_DMIC", "TX DMIC MUX4"},
+-	{"TX DMIC MUX4", "DMIC0", "TX DMIC0"},
+-	{"TX DMIC MUX4", "DMIC1", "TX DMIC1"},
+-	{"TX DMIC MUX4", "DMIC2", "TX DMIC2"},
+-	{"TX DMIC MUX4", "DMIC3", "TX DMIC3"},
+-	{"TX DMIC MUX4", "DMIC4", "TX DMIC4"},
+-	{"TX DMIC MUX4", "DMIC5", "TX DMIC5"},
+-	{"TX DMIC MUX4", "DMIC6", "TX DMIC6"},
+-	{"TX DMIC MUX4", "DMIC7", "TX DMIC7"},
+-
+ 	{"TX DEC4 MUX", "SWR_MIC", "TX SMIC MUX4"},
+ 	{"TX SMIC MUX4", NULL, "TX_SWR_CLK"},
+ 	{"TX SMIC MUX4", "ADC0", "TX SWR_ADC0"},
+@@ -1693,16 +1739,6 @@ static const struct snd_soc_dapm_route tx_audio_map[] = {
+ 	{"TX SMIC MUX4", "SWR_DMIC6", "TX SWR_DMIC6"},
+ 	{"TX SMIC MUX4", "SWR_DMIC7", "TX SWR_DMIC7"},
+ 
+-	{"TX DEC5 MUX", "MSM_DMIC", "TX DMIC MUX5"},
+-	{"TX DMIC MUX5", "DMIC0", "TX DMIC0"},
+-	{"TX DMIC MUX5", "DMIC1", "TX DMIC1"},
+-	{"TX DMIC MUX5", "DMIC2", "TX DMIC2"},
+-	{"TX DMIC MUX5", "DMIC3", "TX DMIC3"},
+-	{"TX DMIC MUX5", "DMIC4", "TX DMIC4"},
+-	{"TX DMIC MUX5", "DMIC5", "TX DMIC5"},
+-	{"TX DMIC MUX5", "DMIC6", "TX DMIC6"},
+-	{"TX DMIC MUX5", "DMIC7", "TX DMIC7"},
+-
+ 	{"TX DEC5 MUX", "SWR_MIC", "TX SMIC MUX5"},
+ 	{"TX SMIC MUX5", NULL, "TX_SWR_CLK"},
+ 	{"TX SMIC MUX5", "ADC0", "TX SWR_ADC0"},
+@@ -1718,16 +1754,6 @@ static const struct snd_soc_dapm_route tx_audio_map[] = {
+ 	{"TX SMIC MUX5", "SWR_DMIC6", "TX SWR_DMIC6"},
+ 	{"TX SMIC MUX5", "SWR_DMIC7", "TX SWR_DMIC7"},
+ 
+-	{"TX DEC6 MUX", "MSM_DMIC", "TX DMIC MUX6"},
+-	{"TX DMIC MUX6", "DMIC0", "TX DMIC0"},
+-	{"TX DMIC MUX6", "DMIC1", "TX DMIC1"},
+-	{"TX DMIC MUX6", "DMIC2", "TX DMIC2"},
+-	{"TX DMIC MUX6", "DMIC3", "TX DMIC3"},
+-	{"TX DMIC MUX6", "DMIC4", "TX DMIC4"},
+-	{"TX DMIC MUX6", "DMIC5", "TX DMIC5"},
+-	{"TX DMIC MUX6", "DMIC6", "TX DMIC6"},
+-	{"TX DMIC MUX6", "DMIC7", "TX DMIC7"},
+-
+ 	{"TX DEC6 MUX", "SWR_MIC", "TX SMIC MUX6"},
+ 	{"TX SMIC MUX6", NULL, "TX_SWR_CLK"},
+ 	{"TX SMIC MUX6", "ADC0", "TX SWR_ADC0"},
+@@ -1743,16 +1769,6 @@ static const struct snd_soc_dapm_route tx_audio_map[] = {
+ 	{"TX SMIC MUX6", "SWR_DMIC6", "TX SWR_DMIC6"},
+ 	{"TX SMIC MUX6", "SWR_DMIC7", "TX SWR_DMIC7"},
+ 
+-	{"TX DEC7 MUX", "MSM_DMIC", "TX DMIC MUX7"},
+-	{"TX DMIC MUX7", "DMIC0", "TX DMIC0"},
+-	{"TX DMIC MUX7", "DMIC1", "TX DMIC1"},
+-	{"TX DMIC MUX7", "DMIC2", "TX DMIC2"},
+-	{"TX DMIC MUX7", "DMIC3", "TX DMIC3"},
+-	{"TX DMIC MUX7", "DMIC4", "TX DMIC4"},
+-	{"TX DMIC MUX7", "DMIC5", "TX DMIC5"},
+-	{"TX DMIC MUX7", "DMIC6", "TX DMIC6"},
+-	{"TX DMIC MUX7", "DMIC7", "TX DMIC7"},
+-
+ 	{"TX DEC7 MUX", "SWR_MIC", "TX SMIC MUX7"},
+ 	{"TX SMIC MUX7", NULL, "TX_SWR_CLK"},
+ 	{"TX SMIC MUX7", "ADC0", "TX SWR_ADC0"},
+@@ -1823,10 +1839,41 @@ static const struct snd_kcontrol_new tx_macro_snd_controls[] = {
+ 		       tx_macro_get_bcs, tx_macro_set_bcs),
+ };
+ 
++static int tx_macro_component_extend(struct snd_soc_component *comp)
++{
++	struct snd_soc_dapm_context *dapm = snd_soc_component_get_dapm(comp);
++	struct tx_macro *tx = snd_soc_component_get_drvdata(comp);
++	int ret;
++
++	if (tx->data->extra_widgets_num) {
++		ret = snd_soc_dapm_new_controls(dapm, tx->data->extra_widgets,
++						tx->data->extra_widgets_num);
++		if (ret) {
++			dev_err(tx->dev, "failed to add extra widgets: %d\n", ret);
++			return ret;
++		}
++	}
++
++	if (tx->data->extra_routes_num) {
++		ret = snd_soc_dapm_add_routes(dapm, tx->data->extra_routes,
++					      tx->data->extra_routes_num);
++		if (ret) {
++			dev_err(tx->dev, "failed to add extra routes: %d\n", ret);
++			return ret;
++		}
++	}
++
++	return 0;
++}
++
+ static int tx_macro_component_probe(struct snd_soc_component *comp)
+ {
+ 	struct tx_macro *tx = snd_soc_component_get_drvdata(comp);
+-	int i;
++	int i, ret;
++
++	ret = tx_macro_component_extend(comp);
++	if (ret)
++		return ret;
+ 
+ 	snd_soc_component_init_regmap(comp, tx->regmap);
+ 
+@@ -1954,17 +2001,16 @@ static int tx_macro_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
+ 	struct device_node *np = dev->of_node;
+-	kernel_ulong_t flags;
+ 	struct tx_macro *tx;
+ 	void __iomem *base;
+ 	int ret, reg;
+ 
+-	flags = (kernel_ulong_t)device_get_match_data(dev);
+-
+ 	tx = devm_kzalloc(dev, sizeof(*tx), GFP_KERNEL);
+ 	if (!tx)
+ 		return -ENOMEM;
+ 
++	tx->data = device_get_match_data(dev);
++
+ 	tx->macro = devm_clk_get_optional(dev, "macro");
+ 	if (IS_ERR(tx->macro))
+ 		return dev_err_probe(dev, PTR_ERR(tx->macro), "unable to get macro clock\n");
+@@ -1977,7 +2023,7 @@ static int tx_macro_probe(struct platform_device *pdev)
+ 	if (IS_ERR(tx->mclk))
+ 		return dev_err_probe(dev, PTR_ERR(tx->mclk), "unable to get mclk clock\n");
+ 
+-	if (flags & LPASS_MACRO_FLAG_HAS_NPL_CLOCK) {
++	if (tx->data->flags & LPASS_MACRO_FLAG_HAS_NPL_CLOCK) {
+ 		tx->npl = devm_clk_get(dev, "npl");
+ 		if (IS_ERR(tx->npl))
+ 			return dev_err_probe(dev, PTR_ERR(tx->npl), "unable to get npl clock\n");
+@@ -2052,7 +2098,7 @@ static int tx_macro_probe(struct platform_device *pdev)
+ 
+ 
+ 	/* reset soundwire block */
+-	if (flags & LPASS_MACRO_FLAG_RESET_SWR)
++	if (tx->data->flags & LPASS_MACRO_FLAG_RESET_SWR)
+ 		regmap_update_bits(tx->regmap, CDC_TX_CLK_RST_CTRL_SWR_CONTROL,
+ 				   CDC_TX_SWR_RESET_MASK, CDC_TX_SWR_RESET_ENABLE);
+ 
+@@ -2060,7 +2106,7 @@ static int tx_macro_probe(struct platform_device *pdev)
+ 			   CDC_TX_SWR_CLK_EN_MASK,
+ 			   CDC_TX_SWR_CLK_ENABLE);
+ 
+-	if (flags & LPASS_MACRO_FLAG_RESET_SWR)
++	if (tx->data->flags & LPASS_MACRO_FLAG_RESET_SWR)
+ 		regmap_update_bits(tx->regmap, CDC_TX_CLK_RST_CTRL_SWR_CONTROL,
+ 				   CDC_TX_SWR_RESET_MASK, 0x0);
+ 
+@@ -2164,25 +2210,54 @@ static const struct dev_pm_ops tx_macro_pm_ops = {
+ 	SET_RUNTIME_PM_OPS(tx_macro_runtime_suspend, tx_macro_runtime_resume, NULL)
+ };
+ 
++static const struct tx_macro_data lpass_ver_9 = {
++	.flags			= LPASS_MACRO_FLAG_HAS_NPL_CLOCK |
++				  LPASS_MACRO_FLAG_RESET_SWR,
++	.ver			= LPASS_VER_9_0_0,
++	.extra_widgets		= tx_macro_dapm_widgets_v9,
++	.extra_widgets_num	= ARRAY_SIZE(tx_macro_dapm_widgets_v9),
++	.extra_routes		= tx_audio_map_v9,
++	.extra_routes_num	= ARRAY_SIZE(tx_audio_map_v9),
++};
++
++static const struct tx_macro_data lpass_ver_10_sm6115 = {
++	.flags			= LPASS_MACRO_FLAG_HAS_NPL_CLOCK,
++	.ver			= LPASS_VER_10_0_0,
++	.extra_widgets		= tx_macro_dapm_widgets_v9,
++	.extra_widgets_num	= ARRAY_SIZE(tx_macro_dapm_widgets_v9),
++	.extra_routes		= tx_audio_map_v9,
++	.extra_routes_num	= ARRAY_SIZE(tx_audio_map_v9),
++};
++
++
++static const struct tx_macro_data lpass_ver_11 = {
++	.flags			= LPASS_MACRO_FLAG_RESET_SWR,
++	.ver			= LPASS_VER_11_0_0,
++	.extra_widgets		= tx_macro_dapm_widgets_v9,
++	.extra_widgets_num	= ARRAY_SIZE(tx_macro_dapm_widgets_v9),
++	.extra_routes		= tx_audio_map_v9,
++	.extra_routes_num	= ARRAY_SIZE(tx_audio_map_v9),
++};
++
+ static const struct of_device_id tx_macro_dt_match[] = {
+ 	{
+ 		.compatible = "qcom,sc7280-lpass-tx-macro",
+-		.data = (void *)(LPASS_MACRO_FLAG_HAS_NPL_CLOCK | LPASS_MACRO_FLAG_RESET_SWR),
++		.data = &lpass_ver_9,
+ 	}, {
+ 		.compatible = "qcom,sm6115-lpass-tx-macro",
+-		.data = (void *)LPASS_MACRO_FLAG_HAS_NPL_CLOCK,
++		.data = &lpass_ver_10_sm6115,
+ 	}, {
+ 		.compatible = "qcom,sm8250-lpass-tx-macro",
+-		.data = (void *)(LPASS_MACRO_FLAG_HAS_NPL_CLOCK | LPASS_MACRO_FLAG_RESET_SWR),
++		.data = &lpass_ver_9,
+ 	}, {
+ 		.compatible = "qcom,sm8450-lpass-tx-macro",
+-		.data = (void *)(LPASS_MACRO_FLAG_HAS_NPL_CLOCK | LPASS_MACRO_FLAG_RESET_SWR),
++		.data = &lpass_ver_9,
+ 	}, {
+ 		.compatible = "qcom,sm8550-lpass-tx-macro",
+-		.data = (void *)LPASS_MACRO_FLAG_RESET_SWR,
++		.data = &lpass_ver_11,
+ 	}, {
+ 		.compatible = "qcom,sc8280xp-lpass-tx-macro",
+-		.data = (void *)(LPASS_MACRO_FLAG_HAS_NPL_CLOCK | LPASS_MACRO_FLAG_RESET_SWR),
++		.data = &lpass_ver_9,
+ 	},
+ 	{ }
+ };
 -- 
 2.34.1
 

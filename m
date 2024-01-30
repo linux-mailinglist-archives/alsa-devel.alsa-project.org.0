@@ -2,85 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BF55842281
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jan 2024 12:14:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D7658422C0
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jan 2024 12:20:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ED9CDEB6;
-	Tue, 30 Jan 2024 12:14:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED9CDEB6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 44C2FF50;
+	Tue, 30 Jan 2024 12:19:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 44C2FF50
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1706613292;
-	bh=/9NzOhfNsiFt9TBV15bxnbKB8v1glIQ/hLc+NQj7LX8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1706613607;
+	bh=s70PcDfdKXIabz66bTOUuUFV2uNNbNxl1c/riZr0MiQ=;
+	h=From:To:CC:References:In-Reply-To:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ghHVPd/eU0Tqv2XY/lsw3cZ6oXLU4+SG6A/h7p+uenyAzn3G0vtZ0yCU8BY391uxF
-	 hBBBRqg4OgUYZBpqOEXNY44RoUpe1cSjJxZcodamUZL1Wj7pSnZotrOzi+hnBCa+5s
-	 wH3dFKyLeGplDYAOq7zQthksOgKRKuCACOsLWypw=
+	b=pQrtxWGcG9V7cHztC7/ZCQpDTC4vWIxVvBbDaUFQcsW+Fengh4gkij6befj0/akrN
+	 WYSLSIZy8VraJsc4NHyALQffDUtRFwdAyhbbFDkGJR2I1PdPK+SD73+TemW+lULTVh
+	 drifmxaBMrulhhmXsnXnKCnZT8BSKrsxPVnaeau0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 85E49F80579; Tue, 30 Jan 2024 12:14:20 +0100 (CET)
+	id 41506F80589; Tue, 30 Jan 2024 12:19:32 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E7828F80579;
-	Tue, 30 Jan 2024 12:14:19 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BB33EF80567;
+	Tue, 30 Jan 2024 12:19:32 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AD928F80563; Tue, 30 Jan 2024 12:14:13 +0100 (CET)
+	id 67E10F8055C; Tue, 30 Jan 2024 12:19:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 76A32F80548
-	for <alsa-devel@alsa-project.org>; Tue, 30 Jan 2024 12:14:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76A32F80548
+	by alsa1.perex.cz (Postfix) with ESMTPS id 468DCF80548
+	for <alsa-devel@alsa-project.org>; Tue, 30 Jan 2024 12:19:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 468DCF80548
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Yumtipkg
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 0CDB161200;
-	Tue, 30 Jan 2024 11:14:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BED6C433F1;
-	Tue, 30 Jan 2024 11:13:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1706613242;
-	bh=/9NzOhfNsiFt9TBV15bxnbKB8v1glIQ/hLc+NQj7LX8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Yumtipkggd8S+HmelxCX+RgmP58dbbSqaP1bl0m9Jk8KAfbq57cRp7DF/g9AQO/bZ
-	 SIJSkZTXsWBFcxJJwFps8y+WP7wrW9azpG6uOaqHkoiB9UYw1+yJlRRvSeBUVgArhx
-	 Od7wfg+QwsYx9Yf2m2wUE3M3cFWp4KtBlOXhs9BoyWcSXrh7JhKND5VWv43cBGWANy
-	 uts3cwul209VPKtFwcCGFai9xYiOlSYUNlTbAkrj45qKvdA7US2r7WSwn30ESSdc3V
-	 hsJp1CDqsKtmTKZwz9m50KJIJvoktjc6uZ75SzKX+AVLIq/Nali7SDxE9wbZoZ4w0h
-	 uklMom/GuJGVw==
-Date: Tue, 30 Jan 2024 11:13:55 +0000
-From: Mark Brown <broonie@kernel.org>
-To: kovalev@altlinux.org
-Cc: stable@vger.kernel.org, linux-kernel@vger.kernel.org,
-	alsa-devel@alsa-project.org, u.kleine-koenig@pengutronix.de,
-	a.firago@yadro.com, sashal@kernel.org, zhuning0077@gmail.com,
-	tiwai@suse.com, perex@perex.cz, lgirdwood@gmail.com
-Subject: Re: [PATCH 6.1.y 1/7] ASoC: codecs: es8326: Convert to i2c's
- .probe_new()
-Message-ID: <25386374-44e8-4b74-8803-2dcb0806f80d@sirena.org.uk>
-References: <20240130094708.290485-1-kovalev@altlinux.org>
- <20240130094708.290485-2-kovalev@altlinux.org>
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=UES6Peze
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 40U6iRsK012474;
+	Tue, 30 Jan 2024 05:19:19 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
+	from:to:cc:references:in-reply-to:subject:date:message-id
+	:mime-version:content-type:content-transfer-encoding; s=
+	PODMain02222019; bh=Ukr1kR4PFuuto5kMeCHeJHaq5ynfZ1UT2dmL/7dyb4k=; b=
+	UES6PezeE76ROxOmmxDiwBhE2hq3PdiS2dOR1RgbbD7snLVIEjpAEnIe038MG4CS
+	EEMB7feNI4IaZTgMVTyd468BE5CU19w9FPFc2k13QuKlFLPSHbh2wHQIikU6uIQ/
+	BlNGCE91LjNvSww2/NhX5dVcN31H+dGTzF7jBabFe3l4fgxejWe+bGHVYUvX6/c/
+	hG2fJKVIwl22PRVONIMYWNBneYzUAQscTz9XDQCcJEqbkdykFuUa0VT4kQmEcE75
+	kiOxpAHQ/TibXwPOdcemDVTlliQHmYLh9ZxJ3eguZ41CS/axqCy5J7JCGJG8ZGh6
+	0hO1Dv3UKR4JSBo4bLhIdA==
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3vvy4nu8bs-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 30 Jan 2024 05:19:18 -0600 (CST)
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Tue, 30 Jan
+ 2024 11:19:17 +0000
+Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
+ ediex01.ad.cirrus.com (198.61.84.80) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.40 via Frontend Transport; Tue, 30 Jan 2024 11:19:17 +0000
+Received: from LONN2DGDQ73 (LONN2DGDQ73.ad.cirrus.com [198.61.65.148])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id 0CD31820241;
+	Tue, 30 Jan 2024 11:19:17 +0000 (UTC)
+From: Stefan Binding <sbinding@opensource.cirrus.com>
+To: 'Takashi Iwai' <tiwai@suse.de>, 'Kenzo Gomez' <kenzo.sgomez@gmail.com>
+CC: <alsa-devel@alsa-project.org>, <david.rhodes@cirrus.com>,
+        <james.schulman@cirrus.com>, <linux-kernel@vger.kernel.org>,
+        <linux-sound@vger.kernel.org>, <patches@opensource.cirrus.com>,
+        <perex@perex.cz>, <rf@opensource.cirrus.com>, <tiwai@suse.com>
+References: <874jfdwsfg.wl-tiwai@suse.de>
+	<20240127164621.26431-1-kenzo.sgomez@gmail.com> <87jznr3wvs.wl-tiwai@suse.de>
+In-Reply-To: <87jznr3wvs.wl-tiwai@suse.de>
+Subject: RE: [PATCH v3] ALSA: hda: cs35l41: Support additional ASUS Zenbook
+ UX3402VA
+Date: Tue, 30 Jan 2024 11:19:16 +0000
+Message-ID: <001401da536e$29b9a070$7d2ce150$@opensource.cirrus.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="JlNGArQx6R6RiAba"
-Content-Disposition: inline
-In-Reply-To: <20240130094708.290485-2-kovalev@altlinux.org>
-X-Cookie: 1 bulls, 3 cows.
-Message-ID-Hash: WDFEX5XHC65UCUKBGFPN4OHDFEHQWFZX
-X-Message-ID-Hash: WDFEX5XHC65UCUKBGFPN4OHDFEHQWFZX
-X-MailFrom: broonie@kernel.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQMwSTp61jXDtCjZqGhsSN60gQXN/ADh2+gYAkptiTOuLOdmIA==
+X-Proofpoint-ORIG-GUID: FiXCtoKUHx4eaglYTZ9jVRv6zeFZnGXQ
+X-Proofpoint-GUID: FiXCtoKUHx4eaglYTZ9jVRv6zeFZnGXQ
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: 4KJOVZ5SLAVIDECKHIUHSMEPBPUFH4UW
+X-Message-ID-Hash: 4KJOVZ5SLAVIDECKHIUHSMEPBPUFH4UW
+X-MailFrom: prvs=9759f81bb2=sbinding@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -91,7 +107,8 @@ X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: <>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4KJOVZ5SLAVIDECKHIUHSMEPBPUFH4UW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,35 +117,77 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Hi,
 
---JlNGArQx6R6RiAba
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+> -----Original Message-----
+> From: Takashi Iwai <tiwai@suse.de>
+> Sent: Tuesday, January 30, 2024 11:05 AM
+> To: Kenzo Gomez <kenzo.sgomez@gmail.com>
+> Cc: alsa-devel@alsa-project.org; david.rhodes@cirrus.com;
+> james.schulman@cirrus.com; linux-kernel@vger.kernel.org; linux-
+> sound@vger.kernel.org; patches@opensource.cirrus.com;
+> perex@perex.cz; rf@opensource.cirrus.com;
+> sbinding@opensource.cirrus.com; tiwai@suse.com
+> Subject: Re: [PATCH v3] ALSA: hda: cs35l41: Support additional ASUS
+> Zenbook UX3402VA
+> 
+> On Sat, 27 Jan 2024 17:46:21 +0100,
+> Kenzo Gomez wrote:
+> >
+> > Add new model entry into configuration table.
+> >
+> > Signed-off-by: Kenzo Gomez <kenzo.sgomez@gmail.com>
+> 
+> Cirrus people, could you take a look?
+> I'm inclined to take as is, unless you have any objections.
 
-On Tue, Jan 30, 2024 at 12:47:02PM +0300, kovalev@altlinux.org wrote:
-> From: Uwe Kleine-K=F6nig <u.kleine-koenig@pengutronix.de>
->=20
-> Commit 784252bac835c831e10c48be633cd1ff0d697326 upstream.
->=20
-> The probe function doesn't make use of the i2c_device_id * parameter so it
-> can be trivially converted.
+Looks good to me.
 
-This is obviously not a bug fix.
+Thanks,
+Stefan
 
---JlNGArQx6R6RiAba
-Content-Type: application/pgp-signature; name="signature.asc"
+> 
+> 
+> thanks,
+> 
+> Takashi
+> 
+> > ---
+> >  sound/pci/hda/cs35l41_hda_property.c | 2 ++
+> >  1 file changed, 2 insertions(+)
+> >
+> > diff --git a/sound/pci/hda/cs35l41_hda_property.c
+> b/sound/pci/hda/cs35l41_hda_property.c
+> > index 35277ce890a4..59504852adc6 100644
+> > --- a/sound/pci/hda/cs35l41_hda_property.c
+> > +++ b/sound/pci/hda/cs35l41_hda_property.c
+> > @@ -76,6 +76,7 @@ static const struct cs35l41_config
+> cs35l41_config_table[] = {
+> >  	{ "10431533", 2, INTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0,
+> 0 }, 0, 1, -1, 1000, 4500, 24 },
+> >  	{ "10431573", 2, INTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0,
+> 0 }, 1, 2, 0, 1000, 4500, 24 },
+> >  	{ "10431663", 2, INTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0,
+> 0 }, 1, -1, 0, 1000, 4500, 24 },
+> > +	{ "104316A3", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0,
+> 0 }, 1, 2, 0, 0, 0, 0 },
+> >  	{ "104316D3", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0,
+> 0 }, 1, 2, 0, 0, 0, 0 },
+> >  	{ "104316F3", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0,
+> 0 }, 1, 2, 0, 0, 0, 0 },
+> >  	{ "104317F3", 2, INTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0,
+> 0 }, 0, 1, -1, 1000, 4500, 24 },
+> > @@ -410,6 +411,7 @@ static const struct cs35l41_prop_model
+> cs35l41_prop_model_table[] = {
+> >  	{ "CSC3551", "10431533", generic_dsd_config },
+> >  	{ "CSC3551", "10431573", generic_dsd_config },
+> >  	{ "CSC3551", "10431663", generic_dsd_config },
+> > +	{ "CSC3551", "104316A3", generic_dsd_config },
+> >  	{ "CSC3551", "104316D3", generic_dsd_config },
+> >  	{ "CSC3551", "104316F3", generic_dsd_config },
+> >  	{ "CSC3551", "104317F3", generic_dsd_config },
+> > --
+> > 2.43.0
+> >
 
------BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmW42fIACgkQJNaLcl1U
-h9AF4wf+KMjI0jWwgikQQPyjfg4Md2U3jxs0VUI32Yjrul2MIOQvX5y1E4+/SL76
-nXtvq0QhXhQYgk8mdv4zlUD5+9ozi6NqWGNeU0ggquRieWOu1Wl4K5H/OeGDhuIB
-uefbKQ+TFBvjzyQRub/KiQkI/RGvjdIj42ttScUuVID6BG3FlXiZQJATy+gWZIs9
-2r7Up22dgKsmIw6U4GoV9fvQwP9xIM5gp3/OR8i3wpD+4edGekIUbYcs+NbpSo+e
-xUjSz1YlrFfVnTdqZ/6lmdz84P8+0oTesan7TClPSG5qvWDoVvb3ruNeNdwNiMhF
-qNRLj14lGgNu/7SJ+RXonBvcPHPpgQ==
-=4Ne0
------END PGP SIGNATURE-----
-
---JlNGArQx6R6RiAba--

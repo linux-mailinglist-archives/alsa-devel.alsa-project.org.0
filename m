@@ -2,120 +2,156 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCF30841F37
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jan 2024 10:20:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA761842235
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jan 2024 12:05:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E1A7EE97;
-	Tue, 30 Jan 2024 10:19:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E1A7EE97
+	by alsa0.perex.cz (Postfix) with ESMTPS id 98186E69;
+	Tue, 30 Jan 2024 12:05:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 98186E69
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1706606402;
-	bh=G/n/tDnJDPhtevwJFODLbpWHuhrOWbO7ltR2WpHRsGM=;
-	h=Date:Subject:References:From:To:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=Or6ccIU6OWwwv7qrjrgFGn9lCgzceYs8tywD2ZCjs3Bl9F2T2y/OQDnmm6hawIGuE
-	 PO25qWFbjyEodWUnICRBaar4X3+Qj9LmA2mp6xmHeRKfjz/N1PebIDwXiaBqf/o0wt
-	 upBtGO68IdL3HwdVPPn3YRv/h8rvb3X/PQe7eCfg=
+	s=default; t=1706612736;
+	bh=wrZt8z8zTmzW8IvQQjwBzRY7jmPtbq4xDEZvOvmBoRQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=ukbGO6QdtHkXs3SclTGQWC+INnKjpK9KTVQnpHyKgkpT/pPfDgC8FHRNLSOfaPy68
+	 f7Q++aQUwtdwzjp6LdTm1VuGhmorZ5hDJOzLdcI5m438Ng8eXMpfJfbU2hedkJ6RHv
+	 rwc/thp/74eNFAF7j5SDpjDzyejg0LCmmTpePNMY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F06CFF805A8; Tue, 30 Jan 2024 10:19:32 +0100 (CET)
+	id ECAD9F805AD; Tue, 30 Jan 2024 12:05:04 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C9EDBF8055C;
-	Tue, 30 Jan 2024 10:19:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 48F20F80587;
+	Tue, 30 Jan 2024 12:05:04 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 04E6BF8055C; Tue, 30 Jan 2024 10:19:27 +0100 (CET)
+	id 87400F8055C; Tue, 30 Jan 2024 12:04:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 118A8F80548
-	for <alsa-devel@alsa-project.org>; Tue, 30 Jan 2024 10:19:21 +0100 (CET)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
-	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 260C13348
-	for <alsa-devel@alsa-project.org>; Tue, 30 Jan 2024 10:19:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 260C13348
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
-	t=1706606360; bh=xNjm6x4EeHkvDCG4QDd63WQfm6KRBWHP/7r98Y0adjQ=;
-	h=Date:Subject:References:From:To:In-Reply-To:From;
-	b=gGmkjqBGAChkrYEU7uqPWGiN3dqtj6vw1R1HzKh7AiNA5FWlcCnIZ8XbHCwnjzCPU
-	 Rw74RvzEVlfABV9YJnodnHofWXqfDC0wxOjRGR+mMK6C6fdbz7V8R+Kg9ny2tOFlkn
-	 5Y5+ySYL75pjVtsh4xjDfAraB1iUkCNLbELqkkUc=
-Received: from [192.168.100.98] (unknown [192.168.100.98])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 49C07F80548
+	for <alsa-devel@alsa-project.org>; Tue, 30 Jan 2024 12:04:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 49C07F80548
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=j3VR5Dby;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=yvHBdjZQ;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=j3VR5Dby;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=yvHBdjZQ
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	(Authenticated sender: perex)
-	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA
-	for <alsa-devel@alsa-project.org>; Tue, 30 Jan 2024 10:19:19 +0100 (CET)
-Message-ID: <592c0293-66de-47ae-8961-08094c84dc55@perex.cz>
-Date: Tue, 30 Jan 2024 10:19:18 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: ALSA 1.2.11 release
-Content-Language: en-US
-References: <d6c5c5c2-ddbc-2646-280f-ed88e45af4c0@perex.cz>
-From: Jaroslav Kysela <perex@perex.cz>
-To: ALSA development <alsa-devel@alsa-project.org>
-Autocrypt: addr=perex@perex.cz; keydata=
- xsFNBFvNeCsBEACUu2ZgwoGXmVFGukNPWjA68/7eMWI7AvNHpekSGv3z42Iy4DGZabs2Jtvk
- ZeWulJmMOh9ktP9rVWYKL9H54gH5LSdxjYYTQpSCPzM37nisJaksC8XCwD4yTDR+VFCtB5z/
- E7U0qujGhU5jDTne3dZpVv1QnYHlVHk4noKxLjvEQIdJWzsF6e2EMp4SLG/OXhdC9ZeNt5IU
- HQpcKgyIOUdq+44B4VCzAMniaNLKNAZkTQ6Hc0sz0jXdq+8ZpaoPEgLlt7IlztT/MUcH3ABD
- LwcFvCsuPLLmiczk6/38iIjqMtrN7/gP8nvZuvCValLyzlArtbHFH8v7qO8o/5KXX62acCZ4
- aHXaUHk7ahr15VbOsaqUIFfNxpthxYFuWDu9u0lhvEef5tDWb/FX+TOa8iSLjNoe69vMCj1F
- srZ9x2gjbqS2NgGfpQPwwoBxG0YRf6ierZK3I6A15N0RY5/KSFCQvJOX0aW8TztisbmJvX54
- GNGzWurrztj690XLp/clewmfIUS3CYFqKLErT4761BpiK5XWUB4oxYVwc+L8btk1GOCOBVsp
- 4xAVD2m7M+9YKitNiYM4RtFiXwqfLk1uUTEvsaFkC1vu3C9aVDn3KQrZ9M8MBh/f2c8VcKbN
- njxs6x6tOdF5IhUc2E+janDLPZIfWDjYJ6syHadicPiATruKvwARAQABzSBKYXJvc2xhdiBL
- eXNlbGEgPHBlcmV4QHBlcmV4LmN6PsLBjgQTAQgAOBYhBF7f7LZepM3UTvmsRTCsxHw/elMJ
- BQJbzXgrAhsDBQsJCAcCBhUKCQgLAgQWAgMBAh4BAheAAAoJEDCsxHw/elMJDGAP/ReIRiRw
- lSzijpsGF/AslLEljncG5tvb/xHwCxK5JawIpViwwyJss06/IAvdY5vn5AdfUfCl2J+OakaR
- VM/hdHjCYNu4bdBYZQBmEiKsPccZG2YFDRudEmiaoaJ1e8ZsiA3rSf4SiWWsbcBOYHr/unTf
- 4KQsdUHzPUt8Ffi9HrAFzI2wjjiyV5yUGp3x58ZypAIMcKFtA1aDwhA6YmQ6lb8/bC0LTC6l
- cAAS1tj7YF5nFfXsodCOKK5rKf5/QOF0OCD2Gy+mGLNQnq6S+kD+ujQfOLaUHeyfcNBEBxda
- nZID7gzd65bHUMAeWttZr3m5ESrlt2SaNBddbN7NVpVa/292cuwDCLw2j+fAZbiVOYyqMSY4
- LaNqmfa0wJAv30BMKeRAovozJy62j0AnntqrvtDqqvuXgYirj2BEDxx0OhZVqlI8o5qB6rA5
- Pfp2xKRE8Fw3mASYRDNad08JDhJgsR/N5JDGbh4+6sznOA5J63TJ+vCFGM37M5WXInrZJBM3
- ABicmpClXn42zX3Gdf/GMM3SQBrIriBtB9iEHQcRG/F+kkGOY4QDi4BZxo45KraANGmCkDk0
- +xLZVfWh8YOBep+x2Sf83up5IMmIZAtYnxr77VlMYHDWjnpFnfuja+fcnkuzvvy7AHJZUO1A
- aKexwcBjfTxtlX4BiNoK+MgrjYywzsFNBFvNeCsBEACb8FXFMOw1g+IGVicWVB+9AvOLOhqI
- FMhUuDWmlsnT8B/aLxcRVUTXoNgJpt0y0SpWD3eEJOkqjHuvHfk+VhKWDsg6vlNUmF1Ttvob
- 18rce0UH1s+wlE8YX8zFgODbtRx8h/BpykwnuWNTiotu9itlE83yOUbv/kHOPUz4Ul1+LoCf
- V2xXssYSEnNr+uUG6/xPnaTvKj+pC7YCl38Jd5PgxsP3omW2Pi9T3rDO6cztu6VvR9/vlQ8Z
- t0p+eeiGqQV3I+7k+S0J6TxMEHI8xmfYFcaVDlKeA5asxkqu5PDZm3Dzgb0XmFbVeakI0be8
- +mS6s0Y4ATtn/D84PQo4bvYqTsqAAJkApEbHEIHPwRyaXjI7fq5BTXfUO+++UXlBCkiH8Sle
- 2a8IGI1aBzuL7G9suORQUlBCxy+0H7ugr2uku1e0S/3LhdfAQRUAQm+K7NfSljtGuL8RjXWQ
- f3B6Vs7vo+17jOU7tzviahgeRTcYBss3e264RkL62zdZyyArbVbK7uIU6utvv0eYqG9cni+o
- z7CAe7vMbb5KfNOAJ16+znlOFTieKGyFQBtByHkhh86BQNQn77aESJRQdXvo5YCGX3BuRUaQ
- zydmrgwauQTSnIhgLZPv5pphuKOmkzvlCDX+tmaCrNdNc+0geSAXNe4CqYQlSnJv6odbrQlD
- Qotm9QARAQABwsF2BBgBCAAgFiEEXt/stl6kzdRO+axFMKzEfD96UwkFAlvNeCsCGwwACgkQ
- MKzEfD96Uwlkjg/+MZVS4M/vBbIkH3byGId/MWPy13QdDzBvV0WBqfnr6n99lf7tKKp85bpB
- y7KRAPtXu+9WBzbbIe42sxmWJtDFIeT0HJxPn64l9a1btPnaILblE1mrfZYAxIOMk3UZA3PH
- uFdyhQDJbDGi3LklDhsJFTAhBZI5xMSnqhaMmWCL99OWwfyJn2omp8R+lBfAJZR31vW6wzsj
- ssOvKIbgBpV/o3oGyAofIXPYzhY+jhWgOYtiPw9bknu748K+kK3fk0OeEG6doO4leB7LuWig
- dmLZkcLlJzSE6UhEwHZ8WREOMIGJnMF51WcF0A3JUeKpYYEvSJNDEm7dRtpb0x/Y5HIfrg5/
- qAKutAYPY7ClQLu5RHv5uqshiwyfGPaiE8Coyphvd5YbOlMm3mC/DbEstHG7zA89fN9gAzsJ
- 0TFL5lNz1s/fo+//ktlG9H28EHD8WOwkpibsngpvY+FKUGfJgIxpmdXVOkiORWQpndWyRIqw
- k8vz1gDNeG7HOIh46GnKIrQiUXVzAuUvM5vI9YaW3YRNTcn3pguQRt+Tl9Y6G+j+yvuLL173
- m4zRUU6DOygmpQAVYSOJvKAJ07AhQGaWAAi5msM6BcTU4YGcpW7FHr6+xaFDlRHzf1lkvavX
- WoxP1IA1DFuBMeYMzfyi4qDWjXc+C51ZaQd39EulYMh+JVaWRoY=
-In-Reply-To: <d6c5c5c2-ddbc-2646-280f-ed88e45af4c0@perex.cz>
-X-Forwarded-Message-Id: <d6c5c5c2-ddbc-2646-280f-ed88e45af4c0@perex.cz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: Z5DE224MOVYP55YQ2PYFPMB7SJ6VSUZR
-X-Message-ID-Hash: Z5DE224MOVYP55YQ2PYFPMB7SJ6VSUZR
-X-MailFrom: perex@perex.cz
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 500DB222DD;
+	Tue, 30 Jan 2024 11:04:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1706612680;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YEVz5JmWBEANKaFyMPvbOuOMOWYWEZA86IFpZQWLBn4=;
+	b=j3VR5DbyoEcoY2hfmObv/PKnjl7aUb2689QjE+gcKoIQEbCOPQdbuJP5yGMNUmR5XfLK1B
+	HgdLFWF2jr2qJv7NMfsVT06uni39tXwpA9/WjNbNqq/lPugVCcBp48xC82A09XL3b/O2BW
+	BmLEf/7i69238PTN9UmjxjDAqddWgzc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1706612680;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YEVz5JmWBEANKaFyMPvbOuOMOWYWEZA86IFpZQWLBn4=;
+	b=yvHBdjZQthgfG6zpBOFsG6QnIvlJswOuf8brj2d/ZdRm0ChkyAl0i0Bf49QgoPuibHRMz2
+	fpJ1DUp68i+/WKCg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1706612680;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YEVz5JmWBEANKaFyMPvbOuOMOWYWEZA86IFpZQWLBn4=;
+	b=j3VR5DbyoEcoY2hfmObv/PKnjl7aUb2689QjE+gcKoIQEbCOPQdbuJP5yGMNUmR5XfLK1B
+	HgdLFWF2jr2qJv7NMfsVT06uni39tXwpA9/WjNbNqq/lPugVCcBp48xC82A09XL3b/O2BW
+	BmLEf/7i69238PTN9UmjxjDAqddWgzc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1706612680;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YEVz5JmWBEANKaFyMPvbOuOMOWYWEZA86IFpZQWLBn4=;
+	b=yvHBdjZQthgfG6zpBOFsG6QnIvlJswOuf8brj2d/ZdRm0ChkyAl0i0Bf49QgoPuibHRMz2
+	fpJ1DUp68i+/WKCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EFF5D12FF7;
+	Tue, 30 Jan 2024 11:04:39 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([10.150.64.162])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id jUMhOcfXuGU4PQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Tue, 30 Jan 2024 11:04:39 +0000
+Date: Tue, 30 Jan 2024 12:04:39 +0100
+Message-ID: <87jznr3wvs.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Kenzo Gomez <kenzo.sgomez@gmail.com>
+Cc: alsa-devel@alsa-project.org,
+	david.rhodes@cirrus.com,
+	james.schulman@cirrus.com,
+	linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	patches@opensource.cirrus.com,
+	perex@perex.cz,
+	rf@opensource.cirrus.com,
+	sbinding@opensource.cirrus.com,
+	tiwai@suse.com
+Subject: Re: [PATCH v3] ALSA: hda: cs35l41: Support additional ASUS Zenbook
+ UX3402VA
+In-Reply-To: <20240127164621.26431-1-kenzo.sgomez@gmail.com>
+References: <874jfdwsfg.wl-tiwai@suse.de>
+	<20240127164621.26431-1-kenzo.sgomez@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Authentication-Results: smtp-out1.suse.de;
+	none
+X-Spamd-Result: default: False [-0.60 / 50.00];
+	 ARC_NA(0.00)[];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 BAYES_HAM(-3.00)[100.00%];
+	 FROM_HAS_DN(0.00)[];
+	 TO_DN_SOME(0.00)[];
+	 FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 TAGGED_RCPT(0.00)[];
+	 MIME_GOOD(-0.10)[text/plain];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	 RCPT_COUNT_SEVEN(0.00)[11];
+	 MID_CONTAINS_FROM(1.00)[];
+	 FREEMAIL_TO(0.00)[gmail.com];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+];
+	 RCVD_TLS_ALL(0.00)[];
+	 SUSPICIOUS_RECIPS(1.50)[]
+Message-ID-Hash: QPDAR2LOKYTVB3CKSZBERZODVBYRTGS6
+X-Message-ID-Hash: QPDAR2LOKYTVB3CKSZBERZODVBYRTGS6
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -127,7 +163,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Z5DE224MOVYP55YQ2PYFPMB7SJ6VSUZR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QPDAR2LOKYTVB3CKSZBERZODVBYRTGS6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -136,33 +172,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hello all,
+On Sat, 27 Jan 2024 17:46:21 +0100,
+Kenzo Gomez wrote:
+> 
+> Add new model entry into configuration table.
+> 
+> Signed-off-by: Kenzo Gomez <kenzo.sgomez@gmail.com>
 
-	new ALSA userspace packages were released. You may download them from
-the ALSA website http://www.alsa-project.org or directly:
+Cirrus people, could you take a look?
+I'm inclined to take as is, unless you have any objections.
 
-	HTTP: https://www.alsa-project.org/files/pub
-	FTP:  ftp://ftp.alsa-project.org/pub
 
-Released packages:
+thanks,
 
-	alsa-lib
-	alsa-utils
-	alsa-ucm-conf
-         alsa-tools
-         tinycompress
+Takashi
 
-Full list of changes:
-
-	https://www.alsa-project.org/wiki/Changes_v1.2.10_v1.2.11
-
-The fingerprint of the public signing key is:
-
-	F04D F507 37AC 1A88 4C4B 3D71 8380 596D A6E5 9C91
-
-				Have fun,
-					Jaroslav
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
-
+> ---
+>  sound/pci/hda/cs35l41_hda_property.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/sound/pci/hda/cs35l41_hda_property.c b/sound/pci/hda/cs35l41_hda_property.c
+> index 35277ce890a4..59504852adc6 100644
+> --- a/sound/pci/hda/cs35l41_hda_property.c
+> +++ b/sound/pci/hda/cs35l41_hda_property.c
+> @@ -76,6 +76,7 @@ static const struct cs35l41_config cs35l41_config_table[] = {
+>  	{ "10431533", 2, INTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, 1, -1, 1000, 4500, 24 },
+>  	{ "10431573", 2, INTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 1, 2, 0, 1000, 4500, 24 },
+>  	{ "10431663", 2, INTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 1, -1, 0, 1000, 4500, 24 },
+> +	{ "104316A3", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 1, 2, 0, 0, 0, 0 },
+>  	{ "104316D3", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 1, 2, 0, 0, 0, 0 },
+>  	{ "104316F3", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 1, 2, 0, 0, 0, 0 },
+>  	{ "104317F3", 2, INTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, 1, -1, 1000, 4500, 24 },
+> @@ -410,6 +411,7 @@ static const struct cs35l41_prop_model cs35l41_prop_model_table[] = {
+>  	{ "CSC3551", "10431533", generic_dsd_config },
+>  	{ "CSC3551", "10431573", generic_dsd_config },
+>  	{ "CSC3551", "10431663", generic_dsd_config },
+> +	{ "CSC3551", "104316A3", generic_dsd_config },
+>  	{ "CSC3551", "104316D3", generic_dsd_config },
+>  	{ "CSC3551", "104316F3", generic_dsd_config },
+>  	{ "CSC3551", "104317F3", generic_dsd_config },
+> -- 
+> 2.43.0
+> 

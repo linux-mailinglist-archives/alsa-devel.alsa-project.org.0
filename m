@@ -2,83 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FF2F84B1A0
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Feb 2024 10:52:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B8E584B1BB
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Feb 2024 10:59:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 248F2826;
-	Tue,  6 Feb 2024 10:52:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 248F2826
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6A389826;
+	Tue,  6 Feb 2024 10:58:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A389826
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1707213173;
-	bh=seT4cFxJGu1vUJfRNDUUD9uV9saeS5T7Q5DryHH1KRg=;
+	s=default; t=1707213547;
+	bh=GY040vc6O8HypAFZwWSWDE5d7gzzI+0E3rSef42fiT0=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=tVQUs80eljcWltIzpfIEspcHBf7Dp2KEUuFaJ358zVVjhHoeLvwcntQT7B30q+HK0
-	 vcAs6f6/JunCwpR6KBeis6Y1YQV771tZATJ8Xh4xNoAdFVhfwyLeIAyN/jpy8EyibT
-	 AB7U2H3YwO68XA3c++IIdOGe36XKr7Zma0K+TTWk=
+	b=vkbKv5DXef7KRHWLOxWW+eFpfVd9Sv8u9A8sBcr5JbsBPH2AsArNgAI22Bh4b+bhk
+	 BgBqbiFkLOVUrBPoyE/zEFGNsQpKB9mSHfV7YY8e4U75FOeD88vxxOnrDs3k5zQTl3
+	 wjU+0FUTkf+itovKhUJqGOzFP9Z1N/UECD+Qh+vE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8E586F805D9; Tue,  6 Feb 2024 10:51:41 +0100 (CET)
+	id A7A45F80588; Tue,  6 Feb 2024 10:58:36 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A3908F8060A;
-	Tue,  6 Feb 2024 10:51:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1F672F805A1;
+	Tue,  6 Feb 2024 10:58:36 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D5CBFF80310; Mon, 29 Jan 2024 13:29:34 +0100 (CET)
+	id 19C2CF80567; Tue, 30 Jan 2024 08:37:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
+ [IPv6:2001:4b98:dc2:55:216:3eff:fef7:d647])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1260FF8017A
-	for <alsa-devel@alsa-project.org>; Mon, 29 Jan 2024 13:29:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1260FF8017A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 266EBF80548
+	for <alsa-devel@alsa-project.org>; Tue, 30 Jan 2024 08:37:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 266EBF80548
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com
- header.a=rsa-sha256 header.s=mail header.b=Ew9fCP6t
+ header.a=rsa-sha256 header.s=mail header.b=dW9g7MGk
 Received: from [192.168.88.20] (91-154-35-128.elisa-laajakaista.fi
  [91.154.35.128])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id AA3D91803;
-	Mon, 29 Jan 2024 13:28:07 +0100 (CET)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id DA16413AC;
+	Tue, 30 Jan 2024 08:36:27 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1706531289;
-	bh=seT4cFxJGu1vUJfRNDUUD9uV9saeS5T7Q5DryHH1KRg=;
+	s=mail; t=1706600189;
+	bh=GY040vc6O8HypAFZwWSWDE5d7gzzI+0E3rSef42fiT0=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Ew9fCP6txddjNsh8EXXz+kSS9vmA1GMuCVrrLPHUXer3lbfWC3JX/Z2I8jfG6AuQC
-	 sXgqei/XxHWhOP705fWcHasNUvrkAVLekNQJXQsY2p6Hwb3Z5CzOFidNtQdJrUrMgt
-	 q+5fn1ch5FJl+4K/+y2ia3oYzrFLqLHAy3llzYGE=
-Message-ID: <afea123c-12b0-4bcb-8f9e-6a15b4e8c915@ideasonboard.com>
-Date: Mon, 29 Jan 2024 14:29:22 +0200
+	b=dW9g7MGkTCHLxCwG9IYV4d9IDqmyC4XP5P7YfWPZhPHocJ5+O3/JHdRP9WlEB3Low
+	 5EbqRKtHpLdOxXSSCeMq4XpBPV+0V7GC9g2HoeluXFNEjslrkPy4qhTz/vKc1Mu3Fd
+	 xDC8YXC10RXOZnZmptrLSNErtttbauvvfqRoFjyQ=
+Message-ID: <582ede29-2df7-4f01-a03b-da59d9f56d74@ideasonboard.com>
+Date: Tue, 30 Jan 2024 09:37:42 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 03/13] of: property: add
- of_graph_get_next_endpoint_raw()
+Subject: Re: [PATCH v2 00/13] of: property: add port base loop
 Content-Language: en-US
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-fbdev@vger.kernel.org, linux-media@vger.kernel.org,
- linux-sound@vger.kernel.org,
+To: Sakari Ailus <sakari.ailus@iki.fi>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
  =?UTF-8?Q?Uwe_Kleine-K=C3=83=C2=B6nig?= <u.kleine-koenig@pengutronix.de>,
  Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
  Frank Rowand <frowand.list@gmail.com>, Helge Deller <deller@gmx.de>,
- Jaroslav Kysela <perex@perex.cz>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Mark Brown <broonie@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>,
  Maxime Ripard <mripard@kernel.org>, Michal Simek <michal.simek@amd.com>,
  Rob Herring <robh+dt@kernel.org>, Saravana Kannan <saravanak@google.com>,
- Takashi Iwai <tiwai@suse.com>, Thomas Zimmermann <tzimmermann@suse.de>
+ Takashi Iwai <tiwai@suse.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-sound@vger.kernel.org
 References: <87fryhklhb.wl-kuninori.morimoto.gx@renesas.com>
- <87bk95klgc.wl-kuninori.morimoto.gx@renesas.com>
+ <20240129122736.GC8131@pendragon.ideasonboard.com>
+ <ZbeoPBvGJlaJco_J@valkosipuli.retiisi.eu>
+ <87zfwnirps.wl-kuninori.morimoto.gx@renesas.com>
+ <Zbil22dm9x2ZudJC@valkosipuli.retiisi.eu>
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 Autocrypt: addr=tomi.valkeinen@ideasonboard.com; keydata=
  xsFNBE6ms0cBEACyizowecZqXfMZtnBniOieTuFdErHAUyxVgtmr0f5ZfIi9Z4l+uUN4Zdw2
@@ -123,7 +126,7 @@ Autocrypt: addr=tomi.valkeinen@ideasonboard.com; keydata=
  ueeIlwJl5CpT5l8RpoZXEOVtXYn8zzOJ7oGZYINRV9Pf8qKGLf3Dft7zKBP832I3PQjeok7F
  yjt+9S+KgSFSHP3Pa4E7lsSdWhSlHYNdG/czhoUkSCN09C0rEK93wxACx3vtxPLjXu6RptBw
  3dRq7n+mQChEB1am0BueV1JZaBboIL0AGlSJkm23kw==
-In-Reply-To: <87bk95klgc.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <Zbil22dm9x2ZudJC@valkosipuli.retiisi.eu>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-MailFrom: tomi.valkeinen@ideasonboard.com
@@ -132,15 +135,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: YD3KX7HCY3FIBKLDOMPOQXJXSUMOVBSU
-X-Message-ID-Hash: YD3KX7HCY3FIBKLDOMPOQXJXSUMOVBSU
-X-Mailman-Approved-At: Tue, 06 Feb 2024 09:51:29 +0000
+Message-ID-Hash: ZQOL6LRUGESKSWHYXFHZY7M55SWLSRSV
+X-Message-ID-Hash: ZQOL6LRUGESKSWHYXFHZY7M55SWLSRSV
+X-Mailman-Approved-At: Tue, 06 Feb 2024 09:58:32 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YD3KX7HCY3FIBKLDOMPOQXJXSUMOVBSU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZQOL6LRUGESKSWHYXFHZY7M55SWLSRSV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -149,133 +152,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 29/01/2024 02:54, Kuninori Morimoto wrote:
-> We already have of_graph_get_next_endpoint(), but it is not intuitive
-> to use.
+On 30/01/2024 09:31, Sakari Ailus wrote:
+> Hi Morimoto-san,
 > 
-> (X)	node {
-> (Y)		ports {
-> 			port@0 { endpoint { remote-endpoint = ...; };};
-> (A1)			port@1 { endpoint { remote-endpoint = ...; };
-> (A2)				 endpoint { remote-endpoint = ...; };};
-> (B)			port@2 { endpoint { remote-endpoint = ...; };};
-> 		};
-> 	};
+> On Tue, Jan 30, 2024 at 12:34:55AM +0000, Kuninori Morimoto wrote:
+>>
+>> Hi Laurent, Sakari
+>>
+>> Thank you for your review
+>>
+>>>> The strategy sounds good to me. However, I'm wondering if you shouldn't
+>>>> take one more step in the core, and implement these as fwnode
+>>>> operations. Or is there a reason why OF is special, and iterating over
+>>>> ports would be useful for drivers on OF systems but not on other types
+>>>> of systems ?
+>>>
+>>> I'd prefer that, too.
+>>
+>> It is very easy reason, because I'm not fwnode user ;P
+>> I'm not familiar with fwnode, but in my quick check, it seems it is easy
+>> to expand fwnode side functions if of_graph side function exist ?
 > 
-> For example, if I want to handle port@1's 2 endpoints (= A1, A2),
-> I want to use like below
+> That would be one way to do that, yes, but I suggested using the existing
+> endpoint iterators as that would keep the firmware specific implementation
+> more simple. The (slight) drawback is that for each node returned, you'd
+> need to check its parent (i.e. port node) is the same as the port you're
+> interested in. The alternative may involve reworking the struct
+> fwnode_operations interface somewhat, including swnode, DT and ACPI
+> implementations.
 > 
-> 	A1 = of_graph_get_next_endpoint(port1, NULL);
-> 	A2 = of_graph_get_next_endpoint(port1, A1);
-> 
-> But 1st one will be error, because of_graph_get_next_endpoint() requested
-> "parent" means "node" (X) or "ports" (Y), not "port".
-> Below are OK
-> 
-> 	of_graph_get_next_endpoint(node,  NULL); // node/ports/port@0/endpoint
-> 	of_graph_get_next_endpoint(ports, NULL); // node/ports/port@0/endpoint
-> 
-> In other words, we can't handle A1/A2 directly via
-> of_graph_get_next_endpoint() so far.
-> 
-> There is another non intuitive behavior on of_graph_get_next_endpoint().
-> In case of if I could get A1 pointer for some way, and if I want to
-> handle port@1 things, I would like use it like below
-> 
-> 	/*
-> 	 * "endpoint" is now A1, and handle port1 things here,
-> 	 * but we don't know how many endpoints port1 has.
-> 	 *
-> 	 * Because "endpoint" is non NULL, we can use port1
-> 	 * as of_graph_get_next_endpoint(port1, xxx)
-> 	 */
-> 	do {
-> 		/* do something for port1 specific things here */
-> 	} while (endpoint = of_graph_get_next_endpoint(port1, endpoint))
-> 
-> But it also not worked as I expected.
-> I expect it will be A1 -> A2 -> NULL,
-> but      it will be A1 -> A2 -> B,    because of_graph_get_next_endpoint()
-> will fetch endpoint beyond the port.
-> 
-> It is not useful on generic driver like Generic Sound Card.
-> It uses of_get_next_child() instead for now, but it is not intuitive,
-> and not check node name (= "endpoint").
-> 
-> To handle endpoint more intuitive, create of_graph_get_next_endpoint_raw()
-> 
-> 	of_graph_get_next_endpoint_raw(port1, NULL); // A1
-> 	of_graph_get_next_endpoint_raw(port1, A1);   // A2
-> 	of_graph_get_next_endpoint_raw(port1, A2);   // NULL
-> 
-> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> ---
->   drivers/of/property.c    | 26 +++++++++++++++++++++++++-
->   include/linux/of_graph.h |  2 ++
->   2 files changed, 27 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/of/property.c b/drivers/of/property.c
-> index 14ffd199c9b1..37dbb1b0e742 100644
-> --- a/drivers/of/property.c
-> +++ b/drivers/of/property.c
-> @@ -667,6 +667,30 @@ struct device_node *of_graph_get_next_port(const struct device_node *parent,
->   }
->   EXPORT_SYMBOL(of_graph_get_next_port);
->   
-> +/**
-> + * of_graph_get_next_endpoint_raw() - get next endpoint node
 
-How about "of_graph_get_next_port_endpoint()"?
+But we still need the of_* versions, don't we, for patches 4 to 13?
 
-> + * @port: pointer to the target port node
-> + * @endpoint: current endpoint node, or NULL to get first
-> + *
-> + * Return: An 'endpoint' node pointer with refcount incremented. Refcount
-> + * of the passed @prev node is decremented.
-> + */
-
-It might be good to highlight here the difference to the 
-of_graph_get_next_endpoint().
-
-> +struct device_node *of_graph_get_next_endpoint_raw(const struct device_node *port,
-> +						   struct device_node *endpoint)
-> +{
-> +	if (!port)
-> +		return NULL;
-> +
-> +	do {
-> +		endpoint = of_get_next_child(port, endpoint);
-> +		if (!endpoint)
-> +			break;
-> +	} while (!of_node_name_eq(endpoint, "endpoint"));
-> +
-> +	return endpoint;
-> +}
-> +EXPORT_SYMBOL(of_graph_get_next_endpoint_raw);
-> +
->   /**
->    * of_graph_get_next_endpoint() - get next endpoint node
->    * @parent: pointer to the parent device node
-> @@ -708,7 +732,7 @@ struct device_node *of_graph_get_next_endpoint(const struct device_node *parent,
->   		 * getting the next child. If the previous endpoint is NULL this
->   		 * will return the first child.
->   		 */
-> -		endpoint = of_get_next_child(port, prev);
-> +		endpoint = of_graph_get_next_endpoint_raw(port, prev);
->   		if (endpoint) {
->   			of_node_put(port);
->   			return endpoint;
-> diff --git a/include/linux/of_graph.h b/include/linux/of_graph.h
-> index fff598640e93..427905a6e8c3 100644
-> --- a/include/linux/of_graph.h
-> +++ b/include/linux/of_graph.h
-> @@ -57,6 +57,8 @@ int of_graph_get_port_count(const struct device_node *np);
->   struct device_node *of_graph_get_port_by_id(struct device_node *node, u32 id);
->   struct device_node *of_graph_get_next_endpoint(const struct device_node *parent,
->   					struct device_node *previous);
-> +struct device_node *of_graph_get_next_endpoint_raw(const struct device_node *port,
-> +						   struct device_node *prev);
->   struct device_node *of_graph_get_next_port(const struct device_node *parent,
->   					   struct device_node *previous);
->   struct device_node *of_graph_get_endpoint_by_regs(
+  Tomi
 

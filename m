@@ -2,86 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B66F3842C0E
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jan 2024 19:47:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 366B7842C10
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jan 2024 19:47:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D5A12EC0;
-	Tue, 30 Jan 2024 19:47:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D5A12EC0
+	by alsa0.perex.cz (Postfix) with ESMTPS id D645C14DC;
+	Tue, 30 Jan 2024 19:47:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D645C14DC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1706640454;
-	bh=TYryKQ6Sza7hEPkyS5IKoJzK2LP8DjvU7jvBfEjpBxk=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=o99c87Mj4vnXGPoDroak2PrFB4J+bjYTm8x/6ETftmlcGhOJFU1rwq1TjGO6hom/9
-	 VAGbakX6q9JMD+ggsOjQx0cmx0LxjB7y4hqqjuF/mqLTKwjyn2kSHyfzGaaVv1053n
-	 Ljmr6UsMgHMWBL29injoT6T55+Qumk8iTRLc/m/Q=
+	s=default; t=1706640466;
+	bh=BgX7RiCZm4cCtNAsSKviPBoSyj5UZj3CE7hHLX99arI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=JiHJ2OyCppMI+kdiP9XjGELaF53BROwK1SGkfG40CwYuwoFdVbR/GAMVEgOIJ+1xQ
+	 Ss8EQ3/L1wwDPfCsv3JkV7FAxwU4LtJ9y7zeuj8xHghcm687u17xA1BnQM1XIhaFn5
+	 lxV9yLOQutOIeyO6YjEJ0b7RSOZ4o5FGPdrUJrY8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5CA4BF805B2; Tue, 30 Jan 2024 19:46:58 +0100 (CET)
+	id DA9B7F805D5; Tue, 30 Jan 2024 19:47:01 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id F172DF80578;
-	Tue, 30 Jan 2024 19:46:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 21322F805BA;
+	Tue, 30 Jan 2024 19:47:01 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 02D93F80570; Tue, 30 Jan 2024 19:46:51 +0100 (CET)
+	id A77D3F8056F; Tue, 30 Jan 2024 19:46:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+X-Spam-Status: No, score=-6.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=unavailable autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F12D5F8020D
-	for <alsa-devel@alsa-project.org>; Tue, 30 Jan 2024 19:46:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F12D5F8020D
+	by alsa1.perex.cz (Postfix) with ESMTPS id A0754F80149
+	for <alsa-devel@alsa-project.org>; Tue, 30 Jan 2024 19:46:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0754F80149
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org
- header.a=rsa-sha256 header.s=korg header.b=S3nVabP8
+ header.a=rsa-sha256 header.s=korg header.b=LBunFWEq
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 6BDF9CE1C39;
-	Tue, 30 Jan 2024 18:46:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96E49C433F1;
+	by dfw.source.kernel.org (Postfix) with ESMTP id 3633160F95;
 	Tue, 30 Jan 2024 18:46:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5076C433C7;
+	Tue, 30 Jan 2024 18:46:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1706640394;
-	bh=TYryKQ6Sza7hEPkyS5IKoJzK2LP8DjvU7jvBfEjpBxk=;
-	h=From:To:Cc:Subject:Date:From;
-	b=S3nVabP8zfzQDZjSPHzhoj0sixm19miQTVDcAbtX+lLYusw9AhcgejzQD2PBapHGi
-	 DCzL8LhxVgvIuREgOyArY2CPnwx5AME4LHpR9AcHMdP2HY+GZkV5D8G2wx07870ASy
-	 R43HhU9CK0zCDSq5MoEdHIva7df69z6ZbdCLp3zs=
+	s=korg; t=1706640393;
+	bh=BgX7RiCZm4cCtNAsSKviPBoSyj5UZj3CE7hHLX99arI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=LBunFWEqvViQi4mxRet0UjF3zVoCFqXCE7PoMJ9cUjfAKTF21EBsVpzTWv4tQLJs7
+	 UGpW1mtNGFZKlNsUjMrsDbzkSoh3xLapa1QTLux7s/FYMhmpn4CLlJC+lAPGQkTbfK
+	 Hn5iLgqlC8n9t6Qm4biUliNLWxTvQEOndVcoriCg=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: alsa-devel@alsa-project.org
 Cc: linux-kernel@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Dan Williams <dan.j.williams@intel.com>,
 	Vinod Koul <vkoul@kernel.org>,
 	Bard Liao <yung-chuan.liao@linux.intel.com>,
 	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Sanyog Kale <sanyog.r.kale@intel.com>
-Subject: [PATCH 0/7] Soundwire: clean up sysfs group creation
-Date: Tue, 30 Jan 2024 10:46:26 -0800
-Message-ID: <2024013025-spoiling-exact-ad20@gregkh>
+	Sanyog Kale <sanyog.r.kale@intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: [PATCH 1/6] sysfs: Introduce a mechanism to hide static
+ attribute_groups
+Date: Tue, 30 Jan 2024 10:46:27 -0800
+Message-ID: <2024013028-deflator-flaring-ec62@gregkh>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <2024013025-spoiling-exact-ad20@gregkh>
+References: <2024013025-spoiling-exact-ad20@gregkh>
 MIME-Version: 1.0
-Lines: 48
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1960;
+Lines: 247
+X-Developer-Signature: v=1; a=openpgp-sha256; l=10288;
  i=gregkh@linuxfoundation.org; h=from:subject:message-id;
- bh=TYryKQ6Sza7hEPkyS5IKoJzK2LP8DjvU7jvBfEjpBxk=;
- b=owGbwMvMwCRo6H6F97bub03G02pJDKk7XZgUpkw/8i1mjpf5vskd1XsEu3VXlSzQ2nfY7cxM1
- Zn/N7x50xHLwiDIxCArpsjyZRvP0f0VhxS9DG1Pw8xhZQIZwsDFKQATEdBgmKdh8S49pX36Ec0z
- t1h3TZwk5Hhl2wOGuXLrk/Z/mxsiY7F+odgGlu8n/maoTgQA
+ bh=ldWPRKHJqP6LClfj3aiNEK2q3/7xLx9Q8bLbfNPTanA=;
+ b=owGbwMvMwCRo6H6F97bub03G02pJDKk7XVj6BB4wsv1Nf3j+WGnOr363X5Fbv73/4Sefs3xG+
+ nolXt7YjlgWBkEmBlkxRZYv23iO7q84pOhlaHsaZg4rE8gQBi5OAZiIVSTD/ErnGX9DyredPu/W
+ zfV5kQTn7G0cOxgWLFzBtctiV6fvzugYx6y7gWL1O6btBwA=
 X-Developer-Key: i=gregkh@linuxfoundation.org; a=openpgp;
  fpr=F4B60CC5BF78C2214A313DCB3147D40DDB2DFB29
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 7ATQRLJKKMTHL4MI5WSJ63O7XC7BGI3O
-X-Message-ID-Hash: 7ATQRLJKKMTHL4MI5WSJ63O7XC7BGI3O
+Message-ID-Hash: YW4OYR6LAWUO2A7BDKE4H5R6GSZREAAX
+X-Message-ID-Hash: YW4OYR6LAWUO2A7BDKE4H5R6GSZREAAX
 X-MailFrom: gregkh@linuxfoundation.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -94,7 +98,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7ATQRLJKKMTHL4MI5WSJ63O7XC7BGI3O/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YW4OYR6LAWUO2A7BDKE4H5R6GSZREAAX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -103,52 +107,253 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Note, this is a redone version of a very old series I wrote back in
-2022:
-	https://lore.kernel.org/r/20220824135951.3604059-1-gregkh@linuxfoundation.org
-but everyone has forgotten about it now, and I've reworked it, so I'm
-considering it a "new" version, and not v2.
+From: Dan Williams <dan.j.williams@intel.com>
 
-Here's a series that adds the functionality to the driver core to hide
-entire attribute groups, in a much saner way than we have attempted in
-the past (i.e. dynamically figuring it out.)  Many thanks to Dan for
-this patch.  I'll also be taking this into my driver-core branch and
-creating a stable tag for anyone else to pull from to get it into their
-trees, as I think it will want to be in many for this development cycle.
+Add a mechanism for named attribute_groups to hide their directory at
+sysfs_update_group() time, or otherwise skip emitting the group
+directory when the group is first registered. It piggybacks on
+is_visible() in a similar manner as SYSFS_PREALLOC, i.e. special flags
+in the upper bits of the returned mode. To use it, specify a symbol
+prefix to DEFINE_SYSFS_GROUP_VISIBLE(), and then pass that same prefix
+to SYSFS_GROUP_VISIBLE() when assigning the @is_visible() callback:
 
-After the driver core change, there's cleanups to the soundwire core for
-how the attribute groups are created, to remove the "manual" creation of
-them, and allow the driver core to create them correctly, as needed,
-when needed, which makes things much smaller for the soundwire code to
-manage.
+	DEFINE_SYSFS_GROUP_VISIBLE($prefix)
 
-Comments appreciated!
+	struct attribute_group $prefix_group = {
+		.name = $name,
+		.is_visible = SYSFS_GROUP_VISIBLE($prefix),
+	};
 
-thanks,
+SYSFS_GROUP_VISIBLE() expects a definition of $prefix_group_visible()
+and $prefix_attr_visible(), where $prefix_group_visible() just returns
+true / false and $prefix_attr_visible() behaves as normal.
 
-greg k-h
+The motivation for this capability is to centralize PCI device
+authentication in the PCI core with a named sysfs group while keeping
+that group hidden for devices and platforms that do not meet the
+requirements. In a PCI topology, most devices will not support
+authentication, a small subset will support just PCI CMA (Component
+Measurement and Authentication), a smaller subset will support PCI CMA +
+PCIe IDE (Link Integrity and Encryption), and only next generation
+server hosts will start to include a platform TSM (TEE Security
+Manager).
 
-Dan Williams (1):
-  sysfs: Introduce a mechanism to hide static attribute_groups
+Without this capability the alternatives are:
 
-Greg Kroah-Hartman (5):
-  soundwire: sysfs: move sdw_slave_dev_attr_group into the existing list
-    of groups
-  soundwire: sysfs: cleanup the logic for creating the dp0 sysfs
-    attributes
-  soundwire: sysfs: have the driver core handle the creation of the
-    device groups
-  soundwire: sysfs: remove sdw_slave_sysfs_init()
-  soundwire: sysfs: remove unneeded ATTRIBUTE_GROUPS() comments
+* Check if all attributes are invisible and if so, hide the directory.
+  Beyond trouble getting this to work [1], this is an ABI change for
+  scenarios if userspace happens to depend on group visibility absent any
+  attributes. I.e. this new capability avoids regression since it does
+  not retroactively apply to existing cases.
 
- drivers/soundwire/bus_type.c        |  5 ++-
- drivers/soundwire/sysfs_local.h     |  4 +-
- drivers/soundwire/sysfs_slave.c     | 64 ++++++++++++++---------------
- drivers/soundwire/sysfs_slave_dpn.c |  3 ++
- fs/sysfs/group.c                    | 45 ++++++++++++++++----
- include/linux/sysfs.h               | 63 ++++++++++++++++++++++------
- 6 files changed, 126 insertions(+), 58 deletions(-)
+* Publish an empty /sys/bus/pci/devices/$pdev/tsm/ directory for all PCI
+  devices (i.e. for the case when TSM platform support is present, but
+  device support is absent). Unfortunate that this will be a vestigial
+  empty directory in the vast majority of cases.
 
+* Reintroduce usage of runtime calls to sysfs_{create,remove}_group()
+  in the PCI core. Bjorn has already indicated that he does not want to
+  see any growth of pci_sysfs_init() [2].
+
+* Drop the named group and simulate a directory by prefixing all
+  TSM-related attributes with "tsm_". Unfortunate to not use the naming
+  capability of a sysfs group as intended.
+
+In comparison, there is a small potential for regression if for some
+reason an @is_visible() callback had dependencies on how many times it
+was called. Additionally, it is no longer an error to update a group
+that does not have its directory already present, and it is no longer a
+WARN() to remove a group that was never visible.
+
+Link: https://lore.kernel.org/all/2024012321-envious-procedure-4a58@gregkh/ [1]
+Link: https://lore.kernel.org/linux-pci/20231019200110.GA1410324@bhelgaas/ [2]
+Signed-off-by: Dan Williams <dan.j.williams@intel.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ fs/sysfs/group.c      | 45 ++++++++++++++++++++++++-------
+ include/linux/sysfs.h | 63 ++++++++++++++++++++++++++++++++++---------
+ 2 files changed, 87 insertions(+), 21 deletions(-)
+
+diff --git a/fs/sysfs/group.c b/fs/sysfs/group.c
+index 138676463336..ccb275cdabcb 100644
+--- a/fs/sysfs/group.c
++++ b/fs/sysfs/group.c
+@@ -31,6 +31,17 @@ static void remove_files(struct kernfs_node *parent,
+ 			kernfs_remove_by_name(parent, (*bin_attr)->attr.name);
+ }
+ 
++static umode_t __first_visible(const struct attribute_group *grp, struct kobject *kobj)
++{
++	if (grp->attrs && grp->is_visible)
++		return grp->is_visible(kobj, grp->attrs[0], 0);
++
++	if (grp->bin_attrs && grp->is_bin_visible)
++		return grp->is_bin_visible(kobj, grp->bin_attrs[0], 0);
++
++	return 0;
++}
++
+ static int create_files(struct kernfs_node *parent, struct kobject *kobj,
+ 			kuid_t uid, kgid_t gid,
+ 			const struct attribute_group *grp, int update)
+@@ -52,6 +63,7 @@ static int create_files(struct kernfs_node *parent, struct kobject *kobj,
+ 				kernfs_remove_by_name(parent, (*attr)->name);
+ 			if (grp->is_visible) {
+ 				mode = grp->is_visible(kobj, *attr, i);
++				mode &= ~SYSFS_GROUP_INVISIBLE;
+ 				if (!mode)
+ 					continue;
+ 			}
+@@ -81,6 +93,7 @@ static int create_files(struct kernfs_node *parent, struct kobject *kobj,
+ 						(*bin_attr)->attr.name);
+ 			if (grp->is_bin_visible) {
+ 				mode = grp->is_bin_visible(kobj, *bin_attr, i);
++				mode &= ~SYSFS_GROUP_INVISIBLE;
+ 				if (!mode)
+ 					continue;
+ 			}
+@@ -127,16 +140,31 @@ static int internal_create_group(struct kobject *kobj, int update,
+ 
+ 	kobject_get_ownership(kobj, &uid, &gid);
+ 	if (grp->name) {
++		umode_t mode = __first_visible(grp, kobj);
++
++		if (mode & SYSFS_GROUP_INVISIBLE)
++			mode = 0;
++		else
++			mode = S_IRWXU | S_IRUGO | S_IXUGO;
++
+ 		if (update) {
+ 			kn = kernfs_find_and_get(kobj->sd, grp->name);
+ 			if (!kn) {
+-				pr_warn("Can't update unknown attr grp name: %s/%s\n",
+-					kobj->name, grp->name);
+-				return -EINVAL;
++				pr_debug("attr grp %s/%s not created yet\n",
++					 kobj->name, grp->name);
++				/* may have been invisible prior to this update */
++				update = 0;
++			} else if (!mode) {
++				sysfs_remove_group(kobj, grp);
++				kernfs_put(kn);
++				return 0;
+ 			}
+-		} else {
+-			kn = kernfs_create_dir_ns(kobj->sd, grp->name,
+-						  S_IRWXU | S_IRUGO | S_IXUGO,
++		}
++
++		if (!update) {
++			if (!mode)
++				return 0;
++			kn = kernfs_create_dir_ns(kobj->sd, grp->name, mode,
+ 						  uid, gid, kobj, NULL);
+ 			if (IS_ERR(kn)) {
+ 				if (PTR_ERR(kn) == -EEXIST)
+@@ -279,9 +307,8 @@ void sysfs_remove_group(struct kobject *kobj,
+ 	if (grp->name) {
+ 		kn = kernfs_find_and_get(parent, grp->name);
+ 		if (!kn) {
+-			WARN(!kn, KERN_WARNING
+-			     "sysfs group '%s' not found for kobject '%s'\n",
+-			     grp->name, kobject_name(kobj));
++			pr_debug("sysfs group '%s' not found for kobject '%s'\n",
++				 grp->name, kobject_name(kobj));
+ 			return;
+ 		}
+ 	} else {
+diff --git a/include/linux/sysfs.h b/include/linux/sysfs.h
+index b717a70219f6..a42642b277dd 100644
+--- a/include/linux/sysfs.h
++++ b/include/linux/sysfs.h
+@@ -61,22 +61,32 @@ do {							\
+ /**
+  * struct attribute_group - data structure used to declare an attribute group.
+  * @name:	Optional: Attribute group name
+- *		If specified, the attribute group will be created in
+- *		a new subdirectory with this name.
++ *		If specified, the attribute group will be created in a
++ *		new subdirectory with this name. Additionally when a
++ *		group is named, @is_visible and @is_bin_visible may
++ *		return SYSFS_GROUP_INVISIBLE to control visibility of
++ *		the directory itself.
+  * @is_visible:	Optional: Function to return permissions associated with an
+- *		attribute of the group. Will be called repeatedly for each
+- *		non-binary attribute in the group. Only read/write
++ *		attribute of the group. Will be called repeatedly for
++ *		each non-binary attribute in the group. Only read/write
+  *		permissions as well as SYSFS_PREALLOC are accepted. Must
+- *		return 0 if an attribute is not visible. The returned value
+- *		will replace static permissions defined in struct attribute.
++ *		return 0 if an attribute is not visible. The returned
++ *		value will replace static permissions defined in struct
++ *		attribute. Use SYSFS_GROUP_VISIBLE() when assigning this
++ *		callback to specify separate _group_visible() and
++ *		_attr_visible() handlers.
+  * @is_bin_visible:
+  *		Optional: Function to return permissions associated with a
+  *		binary attribute of the group. Will be called repeatedly
+  *		for each binary attribute in the group. Only read/write
+- *		permissions as well as SYSFS_PREALLOC are accepted. Must
+- *		return 0 if a binary attribute is not visible. The returned
+- *		value will replace static permissions defined in
+- *		struct bin_attribute.
++ *		permissions as well as SYSFS_PREALLOC (and the
++ *		visibility flags for named groups) are accepted. Must
++ *		return 0 if a binary attribute is not visible. The
++ *		returned value will replace static permissions defined
++ *		in struct bin_attribute. If @is_visible is not set, Use
++ *		SYSFS_GROUP_VISIBLE() when assigning this callback to
++ *		specify separate _group_visible() and _attr_visible()
++ *		handlers.
+  * @attrs:	Pointer to NULL terminated list of attributes.
+  * @bin_attrs:	Pointer to NULL terminated list of binary attributes.
+  *		Either attrs or bin_attrs or both must be provided.
+@@ -91,13 +101,42 @@ struct attribute_group {
+ 	struct bin_attribute	**bin_attrs;
+ };
+ 
++#define SYSFS_PREALLOC		010000
++#define SYSFS_GROUP_INVISIBLE	020000
++
++/*
++ * The first call to is_visible() in the create / update path may
++ * indicate visibility for the entire group
++ */
++#define DEFINE_SYSFS_GROUP_VISIBLE(name)                             \
++	static inline umode_t sysfs_group_visible_##name(            \
++		struct kobject *kobj, struct attribute *attr, int n) \
++	{                                                            \
++		if (n == 0 && !name##_group_visible(kobj))           \
++			return SYSFS_GROUP_INVISIBLE;                \
++		return name##_attr_visible(kobj, attr, n);           \
++	}
++
++/*
++ * Same as DEFINE_SYSFS_GROUP_VISIBLE, but for groups with only binary
++ * attributes
++ */
++#define DEFINE_SYSFS_BIN_GROUP_VISIBLE(name)                             \
++	static inline umode_t sysfs_group_visible_##name(                \
++		struct kobject *kobj, struct bin_attribute *attr, int n) \
++	{                                                                \
++		if (n == 0 && !name##_group_visible(kobj))               \
++			return SYSFS_GROUP_INVISIBLE;                    \
++		return name##_attr_visible(kobj, attr, n);               \
++	}
++
++#define SYSFS_GROUP_VISIBLE(fn) sysfs_group_visible_##fn
++
+ /*
+  * Use these macros to make defining attributes easier.
+  * See include/linux/device.h for examples..
+  */
+ 
+-#define SYSFS_PREALLOC 010000
+-
+ #define __ATTR(_name, _mode, _show, _store) {				\
+ 	.attr = {.name = __stringify(_name),				\
+ 		 .mode = VERIFY_OCTAL_PERMISSIONS(_mode) },		\
 -- 
 2.43.0
 

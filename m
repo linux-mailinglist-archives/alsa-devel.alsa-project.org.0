@@ -2,45 +2,45 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5748084B1C5
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Feb 2024 11:00:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E6D384B1CD
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Feb 2024 11:01:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 55C52B65;
-	Tue,  6 Feb 2024 11:00:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 55C52B65
+	by alsa0.perex.cz (Postfix) with ESMTPS id 242B882C;
+	Tue,  6 Feb 2024 11:01:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 242B882C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1707213613;
-	bh=oS3AHplQmCRdXXSejB5i1KR+12GyFSBJYf63Yd7y340=;
+	s=default; t=1707213671;
+	bh=Vfso/C8CN8vhPgHwFVBu3LMdly1p1IeCNCLYdujPsJk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=WAXoTZ4rHRJcTDGr5aUcZENT2YIDUTIfuP+kCpJFY9ZG4+WuQlvTp0Afcc8OlYP3X
-	 hcX393NUea3nliE1wjvZS7dWFF45fOiTWqIjjRDWKM+zkkr+2u0+U1TLtAsBCgTI7P
-	 q4J0mQ3PtT3XU42szfa3T65rhs80TP8xClF7oyas=
+	b=VsrX02dmijExTxRlkxvyVx13BofrvnPKB2oOaYtrsrEvUo56bTwFTKTCa9ezbJBor
+	 nwZ5dDZrwkrAop/Ijn5FTr/QhGRDnxOi3cqdvZkkuKmDswLXTt6Ycc3Vb5izqt7Bf1
+	 G2v78KRhNB3q1jMDRCw2F3absXR6GHx4QkavZHdI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 278B6F80642; Tue,  6 Feb 2024 10:58:45 +0100 (CET)
+	id A8C35F806BB; Tue,  6 Feb 2024 10:58:59 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D118BF80639;
-	Tue,  6 Feb 2024 10:58:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BAF8AF806AD;
+	Tue,  6 Feb 2024 10:58:58 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BC619F80568; Tue, 30 Jan 2024 10:47:35 +0100 (CET)
+	id 9E923F80570; Tue, 30 Jan 2024 10:47:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
 	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=unavailable autolearn_force=no version=3.4.6
+	autolearn=ham autolearn_force=no version=3.4.6
 Received: from air.basealt.ru (air.basealt.ru [194.107.17.39])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BA8A9F8020D
-	for <alsa-devel@alsa-project.org>; Tue, 30 Jan 2024 10:47:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BA8A9F8020D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 65A3AF80567
+	for <alsa-devel@alsa-project.org>; Tue, 30 Jan 2024 10:47:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 65A3AF80567
 Received: by air.basealt.ru (Postfix, from userid 490)
-	id 4E4D42F2022A; Tue, 30 Jan 2024 09:47:24 +0000 (UTC)
+	id D4B7B2F20243; Tue, 30 Jan 2024 09:47:26 +0000 (UTC)
 Received: from altlinux.malta.altlinux.ru (obninsk.basealt.ru [217.15.195.17])
-	by air.basealt.ru (Postfix) with ESMTPSA id D77732F20245;
+	by air.basealt.ru (Postfix) with ESMTPSA id F27152F20246;
 	Tue, 30 Jan 2024 09:47:14 +0000 (UTC)
 From: kovalev@altlinux.org
 To: stable@vger.kernel.org
@@ -55,9 +55,10 @@ Cc: linux-kernel@vger.kernel.org,
 	broonie@kernel.org,
 	lgirdwood@gmail.com,
 	kovalev@altlinux.org
-Subject: [PATCH 6.1.y 2/7] ASoC: codecs: ES8326: Add es8326_mute function
-Date: Tue, 30 Jan 2024 12:47:03 +0300
-Message-Id: <20240130094708.290485-3-kovalev@altlinux.org>
+Subject: [PATCH 6.1.y 3/7] ASoC: codecs: ES8326: Change Hp_detect register
+ names
+Date: Tue, 30 Jan 2024 12:47:04 +0300
+Message-Id: <20240130094708.290485-4-kovalev@altlinux.org>
 X-Mailer: git-send-email 2.33.8
 In-Reply-To: <20240130094708.290485-1-kovalev@altlinux.org>
 References: <20240130094708.290485-1-kovalev@altlinux.org>
@@ -69,15 +70,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: N66VMUQMIHXD3EGD77RWZ44TIAP6LXBQ
-X-Message-ID-Hash: N66VMUQMIHXD3EGD77RWZ44TIAP6LXBQ
+Message-ID-Hash: CTVRDNOFD4SCLPLJMIMSD2JM7JUAZGRY
+X-Message-ID-Hash: CTVRDNOFD4SCLPLJMIMSD2JM7JUAZGRY
 X-Mailman-Approved-At: Tue, 06 Feb 2024 09:58:33 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/N66VMUQMIHXD3EGD77RWZ44TIAP6LXBQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CTVRDNOFD4SCLPLJMIMSD2JM7JUAZGRY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -88,190 +89,115 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Zhu Ning <zhuning0077@gmail.com>
 
-Commit 083912c240de0c5f797da0443f5a99e87b75fcb3 upstream.
+Commit 4ddad00c609bdcd6635537d3acb9bd57a5fc79e6 upstream.
 
-The internal analog power and hp Vref of es8326 should always be on to
-reduce pop noise. The HP_VOL and HP_CAL are moved to es8326_mute function
-so they are turned on at last and turned off at first.
-
-Also, the calibration should be done manually once during start-up
-to reduce DC offset on headphone.
+The old register naming method is confusing. The reg 0x57 decides
+the default headset hardware connection type, and the reg 0xfb is
+the headset detection status register, which changes during headset
+insertion. Change the name to ES8326_HPDET_TYPE and ES8326_HPDET_STA.
 
 Signed-off-by: Zhu Ning <zhuning0077@gmail.com>
-Link: https://lore.kernel.org/r/20230714032453.3334-1-zhuning0077@gmail.com
+Link: https://lore.kernel.org/r/20230717033223.42506-1-zhuning0077@gmail.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Vasiliy Kovalev <kovalev@altlinux.org>
 ---
- sound/soc/codecs/es8326.c | 75 ++++++++++++++++-----------------------
- sound/soc/codecs/es8326.h |  8 +++--
- 2 files changed, 36 insertions(+), 47 deletions(-)
+ sound/soc/codecs/es8326.c | 10 +++++-----
+ sound/soc/codecs/es8326.h | 12 ++++++++----
+ 2 files changed, 13 insertions(+), 9 deletions(-)
 
 diff --git a/sound/soc/codecs/es8326.c b/sound/soc/codecs/es8326.c
-index 28a0565c2a955b..4399ba36aee25d 100644
+index 4399ba36aee25d..e953c0157ba03f 100644
 --- a/sound/soc/codecs/es8326.c
 +++ b/sound/soc/codecs/es8326.c
-@@ -38,6 +38,9 @@ struct es8326_priv {
- 	u8 interrupt_clk;
- 	bool jd_inverted;
- 	unsigned int sysclk;
-+
-+	bool calibrated;
-+	int version;
+@@ -159,7 +159,7 @@ static const struct snd_soc_dapm_route es8326_dapm_routes[] = {
  };
  
- static const SNDRV_CTL_TLVD_DECLARE_DB_SCALE(dac_vol_tlv, -9550, 50, 0);
-@@ -121,33 +124,12 @@ static const struct snd_soc_dapm_widget es8326_dapm_widgets[] = {
- 	/* Analog Power Supply*/
- 	SND_SOC_DAPM_DAC("Right DAC", NULL, ES8326_ANA_PDN, 0, 1),
- 	SND_SOC_DAPM_DAC("Left DAC", NULL, ES8326_ANA_PDN, 1, 1),
--	SND_SOC_DAPM_SUPPLY("Analog Power", ES8326_ANA_PDN, 7, 1, NULL, 0),
--	SND_SOC_DAPM_SUPPLY("IBias Power", ES8326_ANA_PDN, 6, 1, NULL, 0),
--	SND_SOC_DAPM_SUPPLY("ADC Vref", ES8326_ANA_PDN, 5, 1, NULL, 0),
--	SND_SOC_DAPM_SUPPLY("DAC Vref", ES8326_ANA_PDN, 4, 1, NULL, 0),
--	SND_SOC_DAPM_SUPPLY("Vref Power", ES8326_ANA_PDN, 3, 1, NULL, 0),
- 	SND_SOC_DAPM_SUPPLY("MICBIAS1", ES8326_ANA_MICBIAS, 2, 0, NULL, 0),
- 	SND_SOC_DAPM_SUPPLY("MICBIAS2", ES8326_ANA_MICBIAS, 3, 0, NULL, 0),
- 
- 	SND_SOC_DAPM_PGA("LHPMIX", ES8326_DAC2HPMIX, 7, 0, NULL, 0),
- 	SND_SOC_DAPM_PGA("RHPMIX", ES8326_DAC2HPMIX, 3, 0, NULL, 0),
- 
--	/* Headphone Charge Pump and Output */
--	SND_SOC_DAPM_SUPPLY("HPOR Cal", ES8326_HP_CAL, 7, 1, NULL, 0),
--	SND_SOC_DAPM_SUPPLY("HPOL Cal", ES8326_HP_CAL, 3, 1, NULL, 0),
--	SND_SOC_DAPM_SUPPLY("Headphone Charge Pump", ES8326_HP_DRIVER,
--			    3, 1, NULL, 0),
--	SND_SOC_DAPM_SUPPLY("Headphone Driver Bias", ES8326_HP_DRIVER,
--			    2, 1, NULL, 0),
--	SND_SOC_DAPM_SUPPLY("Headphone LDO", ES8326_HP_DRIVER,
--			    1, 1, NULL, 0),
--	SND_SOC_DAPM_SUPPLY("Headphone Reference", ES8326_HP_DRIVER,
--			    0, 1, NULL, 0),
--	SND_SOC_DAPM_REG(snd_soc_dapm_supply, "HPOR Supply", ES8326_HP_CAL,
--			 ES8326_HPOR_SHIFT, 7, 7, 0),
--	SND_SOC_DAPM_REG(snd_soc_dapm_supply, "HPOL Supply", ES8326_HP_CAL,
--			 0, 7, 7, 0),
--
- 	SND_SOC_DAPM_OUTPUT("HPOL"),
- 	SND_SOC_DAPM_OUTPUT("HPOR"),
- };
-@@ -166,34 +148,12 @@ static const struct snd_soc_dapm_route es8326_dapm_routes[] = {
- 	{"I2S OUT", NULL, "ADC L"},
- 	{"I2S OUT", NULL, "ADC R"},
- 
--	{"I2S OUT", NULL, "Analog Power"},
--	{"I2S OUT", NULL, "ADC Vref"},
--	{"I2S OUT", NULL, "Vref Power"},
--	{"I2S OUT", NULL, "IBias Power"},
--	{"I2S IN", NULL, "Analog Power"},
--	{"I2S IN", NULL, "DAC Vref"},
--	{"I2S IN", NULL, "Vref Power"},
--	{"I2S IN", NULL, "IBias Power"},
--
- 	{"Right DAC", NULL, "I2S IN"},
- 	{"Left DAC", NULL, "I2S IN"},
- 
- 	{"LHPMIX", NULL, "Left DAC"},
- 	{"RHPMIX", NULL, "Right DAC"},
- 
--	{"HPOR", NULL, "HPOR Cal"},
--	{"HPOL", NULL, "HPOL Cal"},
--	{"HPOR", NULL, "HPOR Supply"},
--	{"HPOL", NULL, "HPOL Supply"},
--	{"HPOL", NULL, "Headphone Charge Pump"},
--	{"HPOR", NULL, "Headphone Charge Pump"},
--	{"HPOL", NULL, "Headphone Driver Bias"},
--	{"HPOR", NULL, "Headphone Driver Bias"},
--	{"HPOL", NULL, "Headphone LDO"},
--	{"HPOR", NULL, "Headphone LDO"},
--	{"HPOL", NULL, "Headphone Reference"},
--	{"HPOR", NULL, "Headphone Reference"},
--
- 	{"HPOL", NULL, "LHPMIX"},
- 	{"HPOR", NULL, "RHPMIX"},
- };
-@@ -419,6 +379,31 @@ static int es8326_pcm_hw_params(struct snd_pcm_substream *substream,
- 	return 0;
- }
- 
-+static int es8326_mute(struct snd_soc_dai *dai, int mute, int direction)
-+{
-+	struct snd_soc_component *component = dai->component;
-+	struct es8326_priv *es8326 = snd_soc_component_get_drvdata(component);
-+
-+	if (mute) {
-+		regmap_write(es8326->regmap, ES8326_HP_CAL, ES8326_HP_OFF);
-+		regmap_update_bits(es8326->regmap, ES8326_DAC_MUTE,
-+				ES8326_MUTE_MASK, ES8326_MUTE);
-+		regmap_write(es8326->regmap, ES8326_HP_DRIVER, 0xf0);
-+	} else {
-+		if (!es8326->calibrated) {
-+			regmap_write(es8326->regmap, ES8326_HP_CAL, ES8326_HP_FORCE_CAL);
-+			msleep(30);
-+			es8326->calibrated = true;
-+		}
-+		regmap_write(es8326->regmap, ES8326_HP_DRIVER, 0xa0);
-+		regmap_write(es8326->regmap, ES8326_HP_VOL, 0x00);
-+		regmap_write(es8326->regmap, ES8326_HP_CAL, ES8326_HP_ON);
-+		regmap_update_bits(es8326->regmap, ES8326_DAC_MUTE,
-+				ES8326_MUTE_MASK, ~(ES8326_MUTE));
-+	}
-+	return 0;
-+}
-+
- static int es8326_set_bias_level(struct snd_soc_component *codec,
- 				 enum snd_soc_bias_level level)
- {
-@@ -469,6 +454,8 @@ static const struct snd_soc_dai_ops es8326_ops = {
- 	.hw_params = es8326_pcm_hw_params,
- 	.set_fmt = es8326_set_dai_fmt,
- 	.set_sysclk = es8326_set_dai_sysclk,
-+	.mute_stream = es8326_mute,
-+	.no_capture_mute = 1,
+ static const struct regmap_range es8326_volatile_ranges[] = {
+-	regmap_reg_range(ES8326_HP_DETECT, ES8326_HP_DETECT),
++	regmap_reg_range(ES8326_HPDET_STA, ES8326_HPDET_STA),
  };
  
- static struct snd_soc_dai_driver es8326_dai = {
-@@ -691,7 +678,7 @@ static int es8326_suspend(struct snd_soc_component *component)
+ static const struct regmap_access_table es8326_volatile_table = {
+@@ -519,7 +519,7 @@ static void es8326_jack_button_handler(struct work_struct *work)
+ 		return;
  
- 	cancel_delayed_work_sync(&es8326->jack_detect_work);
- 	es8326_disable_micbias(component);
--
-+	es8326->calibrated = false;
- 	regmap_write(es8326->regmap, ES8326_CLK_CTL, ES8326_CLK_OFF);
- 	regcache_cache_only(es8326->regmap, true);
- 	regcache_mark_dirty(es8326->regmap);
+ 	mutex_lock(&es8326->lock);
+-	iface = snd_soc_component_read(comp, ES8326_HP_DETECT);
++	iface = snd_soc_component_read(comp, ES8326_HPDET_STA);
+ 	switch (iface) {
+ 	case 0x93:
+ 		/* pause button detected */
+@@ -578,7 +578,7 @@ static void es8326_jack_detect_handler(struct work_struct *work)
+ 	unsigned int iface;
+ 
+ 	mutex_lock(&es8326->lock);
+-	iface = snd_soc_component_read(comp, ES8326_HP_DETECT);
++	iface = snd_soc_component_read(comp, ES8326_HPDET_STA);
+ 	dev_dbg(comp->dev, "gpio flag %#04x", iface);
+ 	if ((iface & ES8326_HPINSERT_FLAG) == 0) {
+ 		/* Jack unplugged or spurious IRQ */
+@@ -651,7 +651,7 @@ static int es8326_resume(struct snd_soc_component *component)
+ 	regmap_write(es8326->regmap, ES8326_ADC1_SRC, es8326->mic1_src);
+ 	regmap_write(es8326->regmap, ES8326_ADC2_SRC, es8326->mic2_src);
+ 	regmap_write(es8326->regmap, ES8326_HPJACK_TIMER, 0x88);
+-	regmap_write(es8326->regmap, ES8326_HP_DET,
++	regmap_write(es8326->regmap, ES8326_HPDET_TYPE,
+ 		     ES8326_HP_DET_SRC_PIN9 | es8326->jack_pol);
+ 	regmap_write(es8326->regmap, ES8326_INT_SOURCE, es8326->interrupt_src);
+ 	regmap_write(es8326->regmap, ES8326_INTOUT_IO, es8326->interrupt_clk);
+@@ -743,7 +743,7 @@ static void es8326_enable_jack_detect(struct snd_soc_component *component,
+ 
+ 	mutex_lock(&es8326->lock);
+ 	if (es8326->jd_inverted)
+-		snd_soc_component_update_bits(component, ES8326_HP_DET,
++		snd_soc_component_update_bits(component, ES8326_HPDET_TYPE,
+ 					      ES8326_HP_DET_JACK_POL, ~es8326->jack_pol);
+ 	es8326->jack = jack;
+ 
 diff --git a/sound/soc/codecs/es8326.h b/sound/soc/codecs/es8326.h
-index 8e5ffe5ee10da3..65ed4d1dc7da09 100644
+index 65ed4d1dc7da09..cd04d11a88d96a 100644
 --- a/sound/soc/codecs/es8326.h
 +++ b/sound/soc/codecs/es8326.h
-@@ -9,8 +9,6 @@
- #ifndef _ES8326_H
- #define _ES8326_H
+@@ -73,15 +73,19 @@
+ #define ES8326_DRC_RECOVERY	0x53
+ #define ES8326_DRC_WINSIZE	0x54
+ #define ES8326_HPJACK_TIMER	0x56
+-#define ES8326_HP_DET		0x57
++#define ES8326_HPDET_TYPE	0x57
+ #define ES8326_INT_SOURCE	0x58
+ #define ES8326_INTOUT_IO	0x59
+ #define ES8326_SDINOUT1_IO	0x5A
+ #define ES8326_SDINOUT23_IO	0x5B
+ #define ES8326_JACK_PULSE	0x5C
  
--#define CONFIG_HHTECH_MINIPMP	1
--
- /* ES8326 register space */
- #define ES8326_RESET		0x00
- #define ES8326_CLK_CTL		0x01
-@@ -94,6 +92,8 @@
- #define	ES8326_PWRUP_SEQ_EN	(1 << 5)
- #define ES8326_CODEC_RESET (0x0f << 0)
- #define ES8326_CSM_OFF (0 << 7)
-+#define ES8326_MUTE_MASK (3 << 0)
-+#define ES8326_MUTE (3 << 0)
++#define ES8326_HP_MISC		0xF7
++#define ES8326_CTIA_OMTP_STA	0xF8
+ #define ES8326_PULLUP_CTL	0xF9
+-#define ES8326_HP_DETECT	0xFB
++#define ES8326_CSM_I2C_STA	0xFA
++#define ES8326_HPDET_STA	0xFB
++#define ES8326_CSM_MUTE_STA	0xFC
+ #define ES8326_CHIP_ID1		0xFD
+ #define ES8326_CHIP_ID2		0xFE
+ #define ES8326_CHIP_VERSION	0xFF
+@@ -146,7 +150,7 @@
+ #define ES8326_ADC3_SHIFT 0
+ #define ES8326_ADC4_SHIFT 3
  
- /* ES8326_CLK_CTL */
- #define ES8326_CLK_ON (0x7f << 0)
-@@ -122,7 +122,9 @@
- #define ES8326_MIC2_SEL (1 << 5)
+-/* ES8326_HP_DET */
++/* ES8326_HPDET_TYPE */
+ #define ES8326_HP_DET_SRC_PIN27 (1 << 5)
+ #define ES8326_HP_DET_SRC_PIN9 (1 << 4)
+ #define ES8326_HP_DET_JACK_POL (1 << 3)
+@@ -174,7 +178,7 @@
+ #define ES8326_SDINOUT2_SHIFT 4
+ #define ES8326_SDINOUT3_SHIFT 0
  
- /* ES8326_HP_CAL */
--#define ES8326_HPOR_SHIFT 4
-+#define ES8326_HP_OFF 0
-+#define ES8326_HP_FORCE_CAL ((1 << 7) | (1 << 3))
-+#define ES8326_HP_ON ((7 << 4) | (7 << 0))
+-/* ES8326_HP_DETECT */
++/* ES8326_HPDET_STA */
+ #define ES8326_HPINSERT_FLAG (1 << 1)
+ #define ES8326_HPBUTTON_FLAG (1 << 0)
  
- /* ES8326_ADC1_SRC */
- #define ES8326_ADC1_SHIFT 0
 -- 
 2.33.8
 

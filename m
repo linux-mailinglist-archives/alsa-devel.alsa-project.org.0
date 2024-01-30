@@ -2,148 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B8E584B1BB
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Feb 2024 10:59:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9EF584B1BF
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Feb 2024 10:59:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6A389826;
-	Tue,  6 Feb 2024 10:58:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A389826
+	by alsa0.perex.cz (Postfix) with ESMTPS id 60A1EB71;
+	Tue,  6 Feb 2024 10:59:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 60A1EB71
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1707213547;
-	bh=GY040vc6O8HypAFZwWSWDE5d7gzzI+0E3rSef42fiT0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=vkbKv5DXef7KRHWLOxWW+eFpfVd9Sv8u9A8sBcr5JbsBPH2AsArNgAI22Bh4b+bhk
-	 BgBqbiFkLOVUrBPoyE/zEFGNsQpKB9mSHfV7YY8e4U75FOeD88vxxOnrDs3k5zQTl3
-	 wjU+0FUTkf+itovKhUJqGOzFP9Z1N/UECD+Qh+vE=
+	s=default; t=1707213571;
+	bh=7V3O32k5q5iF15oXFkEescXZTWUBuU5h8LLfuVaOQ+M=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=rX66EH411tnEIjGL9YrqX9JAfDoCmn4yAYRjG+xE8juHEUZSR3X3HDjjGET/evo85
+	 JUHZbldSEgE8Kfb1ZcbZB68j08qCvc6J7J/eGxrkvBZfCG+iT4R0L9iw7Kb1ciXBt8
+	 QwakiK+yZ5VqKSK+F9G8c6nbr46SVKOJFKazxx9A=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A7A45F80588; Tue,  6 Feb 2024 10:58:36 +0100 (CET)
+	id 36811F805DF; Tue,  6 Feb 2024 10:58:38 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1F672F805A1;
-	Tue,  6 Feb 2024 10:58:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 52BABF805C8;
+	Tue,  6 Feb 2024 10:58:38 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 19C2CF80567; Tue, 30 Jan 2024 08:37:54 +0100 (CET)
+	id ABA43F80568; Tue, 30 Jan 2024 10:47:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [IPv6:2001:4b98:dc2:55:216:3eff:fef7:d647])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from air.basealt.ru (air.basealt.ru [194.107.17.39])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 266EBF80548
-	for <alsa-devel@alsa-project.org>; Tue, 30 Jan 2024 08:37:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 266EBF80548
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com
- header.a=rsa-sha256 header.s=mail header.b=dW9g7MGk
-Received: from [192.168.88.20] (91-154-35-128.elisa-laajakaista.fi
- [91.154.35.128])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id DA16413AC;
-	Tue, 30 Jan 2024 08:36:27 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1706600189;
-	bh=GY040vc6O8HypAFZwWSWDE5d7gzzI+0E3rSef42fiT0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=dW9g7MGkTCHLxCwG9IYV4d9IDqmyC4XP5P7YfWPZhPHocJ5+O3/JHdRP9WlEB3Low
-	 5EbqRKtHpLdOxXSSCeMq4XpBPV+0V7GC9g2HoeluXFNEjslrkPy4qhTz/vKc1Mu3Fd
-	 xDC8YXC10RXOZnZmptrLSNErtttbauvvfqRoFjyQ=
-Message-ID: <582ede29-2df7-4f01-a03b-da59d9f56d74@ideasonboard.com>
-Date: Tue, 30 Jan 2024 09:37:42 +0200
+	by alsa1.perex.cz (Postfix) with ESMTPS id DD749F8020D
+	for <alsa-devel@alsa-project.org>; Tue, 30 Jan 2024 10:47:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD749F8020D
+Received: by air.basealt.ru (Postfix, from userid 490)
+	id C47FE2F2024A; Tue, 30 Jan 2024 09:47:16 +0000 (UTC)
+Received: from altlinux.malta.altlinux.ru (obninsk.basealt.ru [217.15.195.17])
+	by air.basealt.ru (Postfix) with ESMTPSA id 9B5882F20241;
+	Tue, 30 Jan 2024 09:47:14 +0000 (UTC)
+From: kovalev@altlinux.org
+To: stable@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	alsa-devel@alsa-project.org,
+	u.kleine-koenig@pengutronix.de,
+	a.firago@yadro.com,
+	sashal@kernel.org,
+	zhuning0077@gmail.com,
+	tiwai@suse.com,
+	perex@perex.cz,
+	broonie@kernel.org,
+	lgirdwood@gmail.com,
+	kovalev@altlinux.org
+Subject: [PATCH 6.1.y 0/7] ASoC: codecs: es8326: fix support
+Date: Tue, 30 Jan 2024 12:47:01 +0300
+Message-Id: <20240130094708.290485-1-kovalev@altlinux.org>
+X-Mailer: git-send-email 2.33.8
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 00/13] of: property: add port base loop
-Content-Language: en-US
-To: Sakari Ailus <sakari.ailus@iki.fi>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- =?UTF-8?Q?Uwe_Kleine-K=C3=83=C2=B6nig?= <u.kleine-koenig@pengutronix.de>,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
- Frank Rowand <frowand.list@gmail.com>, Helge Deller <deller@gmx.de>,
- Jaroslav Kysela <perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>,
- Maxime Ripard <mripard@kernel.org>, Michal Simek <michal.simek@amd.com>,
- Rob Herring <robh+dt@kernel.org>, Saravana Kannan <saravanak@google.com>,
- Takashi Iwai <tiwai@suse.com>, Thomas Zimmermann <tzimmermann@suse.de>,
- alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-fbdev@vger.kernel.org, linux-media@vger.kernel.org,
- linux-sound@vger.kernel.org
-References: <87fryhklhb.wl-kuninori.morimoto.gx@renesas.com>
- <20240129122736.GC8131@pendragon.ideasonboard.com>
- <ZbeoPBvGJlaJco_J@valkosipuli.retiisi.eu>
- <87zfwnirps.wl-kuninori.morimoto.gx@renesas.com>
- <Zbil22dm9x2ZudJC@valkosipuli.retiisi.eu>
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Autocrypt: addr=tomi.valkeinen@ideasonboard.com; keydata=
- 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
-In-Reply-To: <Zbil22dm9x2ZudJC@valkosipuli.retiisi.eu>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MailFrom: tomi.valkeinen@ideasonboard.com
+Content-Transfer-Encoding: 8bit
+X-MailFrom: kovalev@altlinux.org
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: ZQOL6LRUGESKSWHYXFHZY7M55SWLSRSV
-X-Message-ID-Hash: ZQOL6LRUGESKSWHYXFHZY7M55SWLSRSV
+Message-ID-Hash: 5DEFZTB34JHINJY5QEQKFU434V6THPL3
+X-Message-ID-Hash: 5DEFZTB34JHINJY5QEQKFU434V6THPL3
 X-Mailman-Approved-At: Tue, 06 Feb 2024 09:58:32 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZQOL6LRUGESKSWHYXFHZY7M55SWLSRSV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5DEFZTB34JHINJY5QEQKFU434V6THPL3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -152,37 +83,16 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 30/01/2024 09:31, Sakari Ailus wrote:
-> Hi Morimoto-san,
-> 
-> On Tue, Jan 30, 2024 at 12:34:55AM +0000, Kuninori Morimoto wrote:
->>
->> Hi Laurent, Sakari
->>
->> Thank you for your review
->>
->>>> The strategy sounds good to me. However, I'm wondering if you shouldn't
->>>> take one more step in the core, and implement these as fwnode
->>>> operations. Or is there a reason why OF is special, and iterating over
->>>> ports would be useful for drivers on OF systems but not on other types
->>>> of systems ?
->>>
->>> I'd prefer that, too.
->>
->> It is very easy reason, because I'm not fwnode user ;P
->> I'm not familiar with fwnode, but in my quick check, it seems it is easy
->> to expand fwnode side functions if of_graph side function exist ?
-> 
-> That would be one way to do that, yes, but I suggested using the existing
-> endpoint iterators as that would keep the firmware specific implementation
-> more simple. The (slight) drawback is that for each node returned, you'd
-> need to check its parent (i.e. port node) is the same as the port you're
-> interested in. The alternative may involve reworking the struct
-> fwnode_operations interface somewhat, including swnode, DT and ACPI
-> implementations.
-> 
+These patches were backported from v6.6 upstream and
+are intended for 6.1.y stable kernel.
 
-But we still need the of_* versions, don't we, for patches 4 to 13?
+Patches have been successfully tested on the latest 6.1.75 kernel.
 
-  Tomi
+[PATCH 6.1.y 1/7] ASoC: codecs: es8326: Convert to i2c's .probe_new()
+[PATCH 6.1.y 2/7] ASoC: codecs: ES8326: Add es8326_mute function
+[PATCH 6.1.y 3/7] ASoC: codecs: ES8326: Change Hp_detect register names
+[PATCH 6.1.y 4/7] ASoC: codecs: ES8326: Change Volatile Reg function
+[PATCH 6.1.y 5/7] ASoC: codecs: ES8326: Fix power-up sequence
+[PATCH 6.1.y 6/7] ASOC: codecs: ES8326: Add calibration support for
+[PATCH 6.1.y 7/7] ASoC: codecs: ES8326: Update jact detection function
 

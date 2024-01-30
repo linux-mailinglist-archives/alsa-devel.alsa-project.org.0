@@ -2,94 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3FF0842271
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jan 2024 12:13:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BF55842281
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jan 2024 12:14:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 58150E9A;
-	Tue, 30 Jan 2024 12:13:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 58150E9A
+	by alsa0.perex.cz (Postfix) with ESMTPS id ED9CDEB6;
+	Tue, 30 Jan 2024 12:14:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED9CDEB6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1706613222;
-	bh=M0lpIKLgHsHcpNnO2aKdjqw9uhZZRpl1IB/C3sBX9co=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1706613292;
+	bh=/9NzOhfNsiFt9TBV15bxnbKB8v1glIQ/hLc+NQj7LX8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=P7OjXaeLbp3yAgMGd0kxy3/VYVXB0YcTNmok4uo3FiHOJnxndq/a9xpM+0wbaxMKR
-	 xoI0gIK/8sCWGTqesDvDmWkO9zqKv6fCP3Um8/QqLb1b0It7dzJH6wLBaeQFERB6df
-	 F1rF5QTDwb0gz0ZYPWnf0Zjm48wUZTtFYFeTCqeI=
+	b=ghHVPd/eU0Tqv2XY/lsw3cZ6oXLU4+SG6A/h7p+uenyAzn3G0vtZ0yCU8BY391uxF
+	 hBBBRqg4OgUYZBpqOEXNY44RoUpe1cSjJxZcodamUZL1Wj7pSnZotrOzi+hnBCa+5s
+	 wH3dFKyLeGplDYAOq7zQthksOgKRKuCACOsLWypw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 43808F805A9; Tue, 30 Jan 2024 12:13:10 +0100 (CET)
+	id 85E49F80579; Tue, 30 Jan 2024 12:14:20 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 96B6BF8056F;
-	Tue, 30 Jan 2024 12:13:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E7828F80579;
+	Tue, 30 Jan 2024 12:14:19 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 58D50F8055C; Tue, 30 Jan 2024 12:13:06 +0100 (CET)
+	id AD928F80563; Tue, 30 Jan 2024 12:14:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-6.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 59930F8020D
-	for <alsa-devel@alsa-project.org>; Tue, 30 Jan 2024 12:12:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59930F8020D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 76A32F80548
+	for <alsa-devel@alsa-project.org>; Tue, 30 Jan 2024 12:14:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76A32F80548
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=DiSVfj9A
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1706613182; x=1738149182;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=M0lpIKLgHsHcpNnO2aKdjqw9uhZZRpl1IB/C3sBX9co=;
-  b=DiSVfj9AhaZOl9wq9DLkIpC0Etb9d2TUZgInhmf7now3w7E3oP21Hcak
-   5RdBiEGgKsDmGbx/ELKjJNDt8eU4v0CQheX7piUyK4rcQXh7pmGJFl4ZE
-   56+/4gT0n2MKmA3tamCAssd28qLXTZEDZNWkjdNwQisOraECE2UZb2wWV
-   IznB9ABWxZ2vottDyqgT+ziuuYuy/s54bzWlzwdUPKachA15nGxuxowCC
-   ztmYH4DEn6jTJ8qp7k+3rQvevAxgm0uazZ7md6nNGEHd2J3xZQHrK1SoW
-   cnjlwQo6pe1Rgxu7/8AWtCOg+WEFCj2jEKvglzgxl8EZbcVKTJkYA49MV
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10968"; a="467503952"
-X-IronPort-AV: E=Sophos;i="6.05,707,1701158400";
-   d="scan'208";a="467503952"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jan 2024 03:12:54 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.05,707,1701158400";
-   d="scan'208";a="29873042"
-Received: from aravikum-mobl1.amr.corp.intel.com (HELO [10.209.88.191])
- ([10.209.88.191])
-  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jan 2024 03:12:53 -0800
-Message-ID: <11280dec-cf3d-1694-d837-2bf263ad148a@linux.intel.com>
-Date: Tue, 30 Jan 2024 12:12:36 +0100
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=Yumtipkg
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id 0CDB161200;
+	Tue, 30 Jan 2024 11:14:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BED6C433F1;
+	Tue, 30 Jan 2024 11:13:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1706613242;
+	bh=/9NzOhfNsiFt9TBV15bxnbKB8v1glIQ/hLc+NQj7LX8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Yumtipkggd8S+HmelxCX+RgmP58dbbSqaP1bl0m9Jk8KAfbq57cRp7DF/g9AQO/bZ
+	 SIJSkZTXsWBFcxJJwFps8y+WP7wrW9azpG6uOaqHkoiB9UYw1+yJlRRvSeBUVgArhx
+	 Od7wfg+QwsYx9Yf2m2wUE3M3cFWp4KtBlOXhs9BoyWcSXrh7JhKND5VWv43cBGWANy
+	 uts3cwul209VPKtFwcCGFai9xYiOlSYUNlTbAkrj45qKvdA7US2r7WSwn30ESSdc3V
+	 hsJp1CDqsKtmTKZwz9m50KJIJvoktjc6uZ75SzKX+AVLIq/Nali7SDxE9wbZoZ4w0h
+	 uklMom/GuJGVw==
+Date: Tue, 30 Jan 2024 11:13:55 +0000
+From: Mark Brown <broonie@kernel.org>
+To: kovalev@altlinux.org
+Cc: stable@vger.kernel.org, linux-kernel@vger.kernel.org,
+	alsa-devel@alsa-project.org, u.kleine-koenig@pengutronix.de,
+	a.firago@yadro.com, sashal@kernel.org, zhuning0077@gmail.com,
+	tiwai@suse.com, perex@perex.cz, lgirdwood@gmail.com
+Subject: Re: [PATCH 6.1.y 1/7] ASoC: codecs: es8326: Convert to i2c's
+ .probe_new()
+Message-ID: <25386374-44e8-4b74-8803-2dcb0806f80d@sirena.org.uk>
+References: <20240130094708.290485-1-kovalev@altlinux.org>
+ <20240130094708.290485-2-kovalev@altlinux.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.15.1
-Subject: Re: [PATCH 08/18] ASoC: cs35l56: Fix default SDW TX mixer registers
-To: Richard Fitzgerald <rf@opensource.cirrus.com>, broonie@kernel.org,
- tiwai@suse.com
-Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- linux-kernel@vger.kernel.org, patches@opensource.cirrus.com
-References: <20240129162737.497-1-rf@opensource.cirrus.com>
- <20240129162737.497-9-rf@opensource.cirrus.com>
- <4f54a12c-c8a3-414c-b4df-3f7b25e6d524@linux.intel.com>
- <a8432725-6dc6-4765-831f-178dcee8b829@opensource.cirrus.com>
-Content-Language: en-US
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <a8432725-6dc6-4765-831f-178dcee8b829@opensource.cirrus.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: TZA7RHWMNVFGBX4TQ5W22W3UCPHIDR6Z
-X-Message-ID-Hash: TZA7RHWMNVFGBX4TQ5W22W3UCPHIDR6Z
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="JlNGArQx6R6RiAba"
+Content-Disposition: inline
+In-Reply-To: <20240130094708.290485-2-kovalev@altlinux.org>
+X-Cookie: 1 bulls, 3 cows.
+Message-ID-Hash: WDFEX5XHC65UCUKBGFPN4OHDFEHQWFZX
+X-Message-ID-Hash: WDFEX5XHC65UCUKBGFPN4OHDFEHQWFZX
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -100,8 +91,7 @@ X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TZA7RHWMNVFGBX4TQ5W22W3UCPHIDR6Z/>
+Archived-At: <>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -111,42 +101,34 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
->>> CS35L56 is designed for SDCA and a generic SDCA driver would
->>> know nothing about these chip-specific registers. So the
->>> firmware sets up the SDW TX mixer registers to whatever audio
->>> is relevant on a specific system.
->>>
->>> This means that the driver cannot assume the initial values
->>> of these registers. But Linux has ALSA controls to configure
->>> routing, so the registers can be patched to silicon default and
->>> the ALSA controls used to select what audio to feed back to the
->>> host capture path.
->>
->> humm, which has the precedence then?
->> a) the values set by firmware
->> b) the default values set by the driver?
->>
->> Also if the firmware touches those registers shouldn't they be marked as
->> 'volatile'?
->>
-> 
-> The firmware was designed to work with Windows, so it looks a bit
-> strange if you are coming at it from ALSA. There's not really any
-> defined 'precedence'. The firmware will setup the feedback monitor paths
-> to something that satisfies SDCA and Windows expectations.
-> 
-> We don't care about that in Linux, the firmware on the Intel DSP
-> probably isn't running the same algorithms for Linux, and we have ALSA
-> controls to configure those paths. So we patch the mixers back to their
-> silicon defaults and take over complete control of them.
-> 
-> The firmware only writes them during its power-up sequence so they
-> will only change when we are rebooting the firmware or coming out of
-> low-power standby, which is under the control of the driver. When that
-> happens regmap will re-apply the patch and then sync up the registers
-> again. The firmware won't touch them after boot, so we can avoid having
-> to mark them volatile (which would mean implementing our own manual
-> caching of the settings).
+--JlNGArQx6R6RiAba
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-ok, thanks for the explanations.
+On Tue, Jan 30, 2024 at 12:47:02PM +0300, kovalev@altlinux.org wrote:
+> From: Uwe Kleine-K=F6nig <u.kleine-koenig@pengutronix.de>
+>=20
+> Commit 784252bac835c831e10c48be633cd1ff0d697326 upstream.
+>=20
+> The probe function doesn't make use of the i2c_device_id * parameter so it
+> can be trivially converted.
 
+This is obviously not a bug fix.
+
+--JlNGArQx6R6RiAba
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmW42fIACgkQJNaLcl1U
+h9AF4wf+KMjI0jWwgikQQPyjfg4Md2U3jxs0VUI32Yjrul2MIOQvX5y1E4+/SL76
+nXtvq0QhXhQYgk8mdv4zlUD5+9ozi6NqWGNeU0ggquRieWOu1Wl4K5H/OeGDhuIB
+uefbKQ+TFBvjzyQRub/KiQkI/RGvjdIj42ttScUuVID6BG3FlXiZQJATy+gWZIs9
+2r7Up22dgKsmIw6U4GoV9fvQwP9xIM5gp3/OR8i3wpD+4edGekIUbYcs+NbpSo+e
+xUjSz1YlrFfVnTdqZ/6lmdz84P8+0oTesan7TClPSG5qvWDoVvb3ruNeNdwNiMhF
+qNRLj14lGgNu/7SJ+RXonBvcPHPpgQ==
+=4Ne0
+-----END PGP SIGNATURE-----
+
+--JlNGArQx6R6RiAba--

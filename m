@@ -2,94 +2,125 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F53084400E
-	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jan 2024 14:07:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68943844057
+	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jan 2024 14:18:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 990F6B76;
-	Wed, 31 Jan 2024 14:07:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 990F6B76
+	by alsa0.perex.cz (Postfix) with ESMTPS id D81AFB76;
+	Wed, 31 Jan 2024 14:18:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D81AFB76
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1706706433;
-	bh=GEGBOsy/KDcNncxgnTgbSSkW226Obrv2mcjzoIzZO1s=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1706707131;
+	bh=dr6D8tcSVVpexu92k5w3N7i9nF+7FRKOS7uUR00A6YM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=OxFj89vbDm3TcgccdrMpR7Jdmzv2tkVVPb6zc8T4GDPHxEPIULRHuF95n2Q8yM63N
-	 ZtPzDIQlaqDfRoG7uMM5hpaSgiO5+wZBuTW7bgyhbfCpolP6W6nfByVT2ndg5+IoSw
-	 2x80WVzamQeS1fJw2meixiLnWsv2pWX0UIKGyohs=
+	b=cOOsaXgCxlljpVoDjzK38UBCE0zRxFTEvhWAIMJbJfURIIaiAL74fWkfHuuD1725B
+	 e98sAk1tWYaab50hTyey7XEdZGFAjlDE8kXe4dYPLPlXdZAo9OqfZcktrRSjPaVntn
+	 6gzqUBdBUuKiXEHNow3QHMsZiXyIbKpnfLseOAYc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B477DF80563; Wed, 31 Jan 2024 14:06:43 +0100 (CET)
+	id 44D19F805A1; Wed, 31 Jan 2024 14:18:20 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E2394F805A0;
-	Wed, 31 Jan 2024 14:06:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 96D8FF805A1;
+	Wed, 31 Jan 2024 14:18:20 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D5182F8055C; Wed, 31 Jan 2024 14:06:35 +0100 (CET)
+	id 52B90F8055C; Wed, 31 Jan 2024 14:18:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-x1131.google.com (mail-yw1-x1131.google.com
+ [IPv6:2607:f8b0:4864:20::1131])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 15F54F8020D
-	for <alsa-devel@alsa-project.org>; Wed, 31 Jan 2024 14:06:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 15F54F8020D
+	by alsa1.perex.cz (Postfix) with ESMTPS id EF479F80149
+	for <alsa-devel@alsa-project.org>; Wed, 31 Jan 2024 14:18:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF479F80149
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=Q3+mtwm4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1706706387; x=1738242387;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=GEGBOsy/KDcNncxgnTgbSSkW226Obrv2mcjzoIzZO1s=;
-  b=Q3+mtwm4np3iR79Py4Ti/r01Riw6qFXnoXnj37Epa5vUmksYk6mdKgq3
-   YqxqqZX9bVK26HiVP4RE1kb6JVO28WmgRW+dWZ7ool2ZumR1jfkKv7vpz
-   ySUWfCLsmx6B4QqrJD060cgzUPY+oQW903em/ukCpL+uHdZGu/giM9NCT
-   MibXZfV98RT95x0M5CCWN2RmqTw4cL1Qr73mwJd8dMa/kLeq3A6B0TrwC
-   YV8aawynaUfRBWqyYlcxgcPqTMCx1gVX7CBI5yysQA6por0wq9TojSFdj
-   9OMi/qTpW+oHvphe2hKIZmLdWOBQoM7cbclRvNgXTCx5txTprPrOs6ql5
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10969"; a="403216494"
-X-IronPort-AV: E=Sophos;i="6.05,231,1701158400";
-   d="scan'208";a="403216494"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Jan 2024 05:05:38 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10969"; a="931835998"
-X-IronPort-AV: E=Sophos;i="6.05,231,1701158400";
-   d="scan'208";a="931835998"
-Received: from hmer-mobl.ger.corp.intel.com (HELO [10.251.217.183])
- ([10.251.217.183])
-  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Jan 2024 05:05:28 -0800
-Message-ID: <b93ec9c2-23f5-486b-a3dc-ed9b960df359@linux.intel.com>
-Date: Wed, 31 Jan 2024 14:05:04 +0100
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=MlhhTsFB
+Received: by mail-yw1-x1131.google.com with SMTP id
+ 00721157ae682-603e086c05bso30869797b3.3
+        for <alsa-devel@alsa-project.org>;
+ Wed, 31 Jan 2024 05:18:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1706707086; x=1707311886;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=dr6D8tcSVVpexu92k5w3N7i9nF+7FRKOS7uUR00A6YM=;
+        b=MlhhTsFBDoeeUPn9b2behcHl7iBKH8vANwhQjjlsxq094FFO+VCHQVGCRsFH/4n84Z
+         jhWfWuZV1FbEZNnZAO4ou8v77U/7IYwfBm4NP+zd5kDdirNDxSjoxm8wALRkWosD2j8S
+         MDi8MWA5Xp8MWOWAguIbLNT98To9D1ICcctw9uyTf1YWTWuuXGU6+UVOodJEiiCdfc2w
+         rUSBSWKipnXNnBq3PmbvGegjzPDjJTKLCd8ItQjcWyBt3o26RJQP3+XcdS8T7rIXBev2
+         2iIEgIiyyQVs1LtPGttMLUDTS4RpGbqTwUf9djRCXB7vtQkRogVQ1c1YwnxFSUwhdhdx
+         vxbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1706707086; x=1707311886;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=dr6D8tcSVVpexu92k5w3N7i9nF+7FRKOS7uUR00A6YM=;
+        b=SmQzSS1WTaTONICpnXdE7cojzxmxXZC4Wq5hZMsQz1cQzr69/c1VMA+53+r6lW552A
+         g5s5W7rB7k4NlJZML99qWQJkPmxPwrMsc4avu69OFXonp6utqwlAI+tgVE2RiJvrPqnE
+         wBTMr7mcez/u+5Iph4Y2QcQ2Lx2Mtbrr3wnG4V3ZgSC8x5uHjiFaKRldSdwHcdTgHPmn
+         UekhBRVYRSdNgOVgGq9tU/3BWegLOvd+LJgN0WFlFSL1FLkYKfpCd1EJXrSGcUGZ9umD
+         uB+F0B9BVGQ4Zl0hCGqkUXQ4LCMHI6yP3xeZOVeiP27bjs3+hfjYV/SoV59inNyOu8fO
+         q8XQ==
+X-Gm-Message-State: AOJu0YxC0fR72CxXHNu8jT30T/OX90WtNvQYsS1vCFHsQDbY3jVpo0Aw
+	jxtM6p+4/1WF0rsjSuIS5v1wR5Zzy7tSzWQgOxsHkRMmFEs9dpeqlM312dtp887rgPfia4jWJ34
+	B9lShb0FAOLSKKmySVFGlFQLHpU8zjJ45m3kbJA==
+X-Google-Smtp-Source: 
+ AGHT+IFVACpGX4CJfjjGDw2bakc2klq/FcD8fSXKF03+Z3ok8uxur5h6A7nnyOGYfn7248iMkpgzntKDjCWeB+kOfoE=
+X-Received: by 2002:a81:79d5:0:b0:5ff:f756:8804 with SMTP id
+ u204-20020a8179d5000000b005fff7568804mr1275150ywc.45.1706707085871; Wed, 31
+ Jan 2024 05:18:05 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/6] sysfs: Introduce a mechanism to hide static
- attribute_groups
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- alsa-devel@alsa-project.org
-Cc: linux-kernel@vger.kernel.org, Dan Williams <dan.j.williams@intel.com>,
- Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>,
- Sanyog Kale <sanyog.r.kale@intel.com>
-References: <2024013025-spoiling-exact-ad20@gregkh>
- <2024013028-deflator-flaring-ec62@gregkh>
-Content-Language: en-US
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <2024013028-deflator-flaring-ec62@gregkh>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: ITICYVEQUPPW2EMJ6LAZ5DURRNRTDAQL
-X-Message-ID-Hash: ITICYVEQUPPW2EMJ6LAZ5DURRNRTDAQL
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+References: <20240129115216.96479-1-krzysztof.kozlowski@linaro.org>
+ <20240129115216.96479-5-krzysztof.kozlowski@linaro.org>
+ <CACRpkdYf4HUaV-Pjr81WjLbzy9zdAnyFWs9gPayPC6-3OjHQwA@mail.gmail.com>
+ <CAMRc=Mc1SGLeUOWmKg=fvCdM+RR6FSu2QkFuR17s7L99eRMGug@mail.gmail.com>
+In-Reply-To: 
+ <CAMRc=Mc1SGLeUOWmKg=fvCdM+RR6FSu2QkFuR17s7L99eRMGug@mail.gmail.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Wed, 31 Jan 2024 14:17:54 +0100
+Message-ID: 
+ <CACRpkdbaxqTzwL9L02vCpMMdBYsubNP1VkNuJ8mXB_=4E3Kjaw@mail.gmail.com>
+Subject: Re: [PATCH v6 4/6] reset: Instantiate reset GPIO controller for
+ shared reset-gpios
+To: Bartosz Golaszewski <brgl@bgdev.pl>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
+ Frank Rowand <frowand.list@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ alsa-devel@alsa-project.org,
+	linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org, Chris Packham <chris.packham@alliedtelesis.co.nz>,
+	Sean Anderson <sean.anderson@seco.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: J343SJJD5ZUJEO4BV5HZOM77KCHSCH4I
+X-Message-ID-Hash: J343SJJD5ZUJEO4BV5HZOM77KCHSCH4I
+X-MailFrom: linus.walleij@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -101,7 +132,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ITICYVEQUPPW2EMJ6LAZ5DURRNRTDAQL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/J343SJJD5ZUJEO4BV5HZOM77KCHSCH4I/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,81 +141,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Wed, Jan 31, 2024 at 10:37=E2=80=AFAM Bartosz Golaszewski <brgl@bgdev.pl=
+> wrote:
 
+> [Me]
+> > reset -> virtual "gpio" -> many physical gpios[0..n]
+>
+> This is a different problem: it supports many users enabling the same
+> GPIO (in Krzysztof's patch it's one but could be more if needed) but -
+> unlike the broken NONEXCLUSIVE GPIOs in GPIOLIB - it counts the number
+> of users and doesn't disable the GPIO for as long as there's at least
+> one.
 
-On 1/30/24 19:46, Greg Kroah-Hartman wrote:
-> From: Dan Williams <dan.j.williams@intel.com>
-> 
-> Add a mechanism for named attribute_groups to hide their directory at
-> sysfs_update_group() time, or otherwise skip emitting the group
-> directory when the group is first registered. It piggybacks on
-> is_visible() in a similar manner as SYSFS_PREALLOC, i.e. special flags
-> in the upper bits of the returned mode. To use it, specify a symbol
-> prefix to DEFINE_SYSFS_GROUP_VISIBLE(), and then pass that same prefix
-> to SYSFS_GROUP_VISIBLE() when assigning the @is_visible() callback:
-> 
-> 	DEFINE_SYSFS_GROUP_VISIBLE($prefix)
-> 
-> 	struct attribute_group $prefix_group = {
-> 		.name = $name,
-> 		.is_visible = SYSFS_GROUP_VISIBLE($prefix),
-> 	};
-> 
-> SYSFS_GROUP_VISIBLE() expects a definition of $prefix_group_visible()
-> and $prefix_attr_visible(), where $prefix_group_visible() just returns
-> true / false and $prefix_attr_visible() behaves as normal.
-> 
-> The motivation for this capability is to centralize PCI device
-> authentication in the PCI core with a named sysfs group while keeping
-> that group hidden for devices and platforms that do not meet the
-> requirements. In a PCI topology, most devices will not support
-> authentication, a small subset will support just PCI CMA (Component
-> Measurement and Authentication), a smaller subset will support PCI CMA +
-> PCIe IDE (Link Integrity and Encryption), and only next generation
-> server hosts will start to include a platform TSM (TEE Security
-> Manager).
-> 
-> Without this capability the alternatives are:
-> 
-> * Check if all attributes are invisible and if so, hide the directory.
->   Beyond trouble getting this to work [1], this is an ABI change for
->   scenarios if userspace happens to depend on group visibility absent any
->   attributes. I.e. this new capability avoids regression since it does
->   not retroactively apply to existing cases.
-> 
-> * Publish an empty /sys/bus/pci/devices/$pdev/tsm/ directory for all PCI
->   devices (i.e. for the case when TSM platform support is present, but
->   device support is absent). Unfortunate that this will be a vestigial
->   empty directory in the vast majority of cases.
-> 
-> * Reintroduce usage of runtime calls to sysfs_{create,remove}_group()
->   in the PCI core. Bjorn has already indicated that he does not want to
->   see any growth of pci_sysfs_init() [2].
-> 
-> * Drop the named group and simulate a directory by prefixing all
->   TSM-related attributes with "tsm_". Unfortunate to not use the naming
->   capability of a sysfs group as intended.
-> 
-> In comparison, there is a small potential for regression if for some
-> reason an @is_visible() callback had dependencies on how many times it
-> was called. Additionally, it is no longer an error to update a group
-> that does not have its directory already present, and it is no longer a
-> WARN() to remove a group that was never visible.
-> 
-> Link: https://lore.kernel.org/all/2024012321-envious-procedure-4a58@gregkh/ [1]
-> Link: https://lore.kernel.org/linux-pci/20231019200110.GA1410324@bhelgaas/ [2]
-> Signed-off-by: Dan Williams <dan.j.williams@intel.com>
-> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+I don't know if the NONEXCLUSIVE stuff is broken, if you mean reference
+counting isn't working on them, then that is by design because they were
+invented for regulators and such use cases that do their own reference
+counting. It's also used for hacks where people need to look up a desc in
+a second spot, (perhaps we can fix those better).
 
-This patch seems to introduce a regression on our Lunar Lake test
-devices, where we can't boot to an ssh shell. No issues on older devices
-[1]. Bard Liao and I reproduced the same results on different boards.
+As I say in commit b0ce7b29bfcd090ddba476f45a75ec0a797b048a
+"This solution with a special flag is not entirely elegant and should ideal=
+ly
+be replaced by something more careful as this makes it possible for
+several consumers to enable/disable the same GPIO line to the left
+and right without any consistency."
 
-We'll need to find someone with direct device access to provide more
-information on the problem, remote testing without ssh is a
-self-negating proposition.
+I think for regulators (which is the vast majority using it) it isn't broke=
+n
+because the regulator reference counting is working.
 
-Is there a dependency on other patches? Our tests are still based on
-6.7.0-rc3 due to other upstream issues we're currently working through.
+So if we solve that problem for reset, we probably should put it in
+drivers/gpio/* somewhere so we can reuse the same solution for
+regulators and get rid of NONEXCLUSIVE altogether I think?
 
-[1] https://github.com/thesofproject/linux/pull/4799
+The NONEXCLUSIVE stuff was prompted by converting regulators to
+gpio descriptors, so it was for the greater good one can say. Or the
+lesser evil :( my judgement can be questioned here.
+
+Yours,
+Linus Walleij

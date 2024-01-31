@@ -2,81 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D92B4844003
-	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jan 2024 14:05:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F53084400E
+	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jan 2024 14:07:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 687A285D;
-	Wed, 31 Jan 2024 14:05:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 687A285D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 990F6B76;
+	Wed, 31 Jan 2024 14:07:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 990F6B76
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1706706315;
-	bh=Bhwmz/F21q1kBgFydqSZjzH43cF3Nb4bvQpSB4Ggiro=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1706706433;
+	bh=GEGBOsy/KDcNncxgnTgbSSkW226Obrv2mcjzoIzZO1s=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=DdK95j4IgcSsl/T37QglNDOiJHwbVK5tPomuqTVAdbAlsDVqkKjK/ZcQ+ev+ekVPc
-	 viNVkUSidjrmSDEWh1isFWaUWL3T/qWZnEN8IOpSOwJs4j+d2bt5mbk9+3o3jCCMuq
-	 1fSLbDszNne2PSzRc5u71XGGVE3Je8cM8IjOn2Fg=
+	b=OxFj89vbDm3TcgccdrMpR7Jdmzv2tkVVPb6zc8T4GDPHxEPIULRHuF95n2Q8yM63N
+	 ZtPzDIQlaqDfRoG7uMM5hpaSgiO5+wZBuTW7bgyhbfCpolP6W6nfByVT2ndg5+IoSw
+	 2x80WVzamQeS1fJw2meixiLnWsv2pWX0UIKGyohs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3DDF4F805AB; Wed, 31 Jan 2024 14:04:54 +0100 (CET)
+	id B477DF80563; Wed, 31 Jan 2024 14:06:43 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B1FECF80570;
-	Wed, 31 Jan 2024 14:04:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E2394F805A0;
+	Wed, 31 Jan 2024 14:06:41 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3E888F8055C; Wed, 31 Jan 2024 14:04:50 +0100 (CET)
+	id D5182F8055C; Wed, 31 Jan 2024 14:06:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-6.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3674EF8020D
-	for <alsa-devel@alsa-project.org>; Wed, 31 Jan 2024 14:04:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3674EF8020D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 15F54F8020D
+	for <alsa-devel@alsa-project.org>; Wed, 31 Jan 2024 14:06:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 15F54F8020D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=STuuWiXg
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 10C02CE2084;
-	Wed, 31 Jan 2024 13:04:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D858AC433C7;
-	Wed, 31 Jan 2024 13:04:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1706706260;
-	bh=Bhwmz/F21q1kBgFydqSZjzH43cF3Nb4bvQpSB4Ggiro=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=STuuWiXgFm0uKtFdbRCBs+QU3MEpoDCLVg2onooJaU5lUhwSQybtFHgqe0UZL3/Ru
-	 qJ5lvtKnK84snuTKY+NqdwmJVQahSkVjeqnKeuNudX0Y5RfPbuZg1AhAMddXEUSi+J
-	 khxQlZmkDEQQIULsANidjoL9MBOK0+rDXqdW2+zqh7vwib4NVWmjKEZUjDPLAS+U9e
-	 +H6oZb5omK9mRe+gp/llSquQ3+h90Z1N7p+CA2hDmE5qJbb7N69S+zZDwQo/bLbwAx
-	 8x5xaRC1b9l71P8ohg4jP3V78uOVtzAvQHxED5/0fRVu2QZVbQgVIt4bvJRiYQk/KZ
-	 KX2XBZ+3fcU3Q==
-Date: Wed, 31 Jan 2024 18:34:15 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
-	Dan Williams <dan.j.williams@intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Sanyog Kale <sanyog.r.kale@intel.com>
-Subject: Re: [PATCH 0/7] Soundwire: clean up sysfs group creation
-Message-ID: <ZbpFTyW9UCZdCs_v@matsya>
-References: <2024013025-spoiling-exact-ad20@gregkh>
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=Q3+mtwm4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1706706387; x=1738242387;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=GEGBOsy/KDcNncxgnTgbSSkW226Obrv2mcjzoIzZO1s=;
+  b=Q3+mtwm4np3iR79Py4Ti/r01Riw6qFXnoXnj37Epa5vUmksYk6mdKgq3
+   YqxqqZX9bVK26HiVP4RE1kb6JVO28WmgRW+dWZ7ool2ZumR1jfkKv7vpz
+   ySUWfCLsmx6B4QqrJD060cgzUPY+oQW903em/ukCpL+uHdZGu/giM9NCT
+   MibXZfV98RT95x0M5CCWN2RmqTw4cL1Qr73mwJd8dMa/kLeq3A6B0TrwC
+   YV8aawynaUfRBWqyYlcxgcPqTMCx1gVX7CBI5yysQA6por0wq9TojSFdj
+   9OMi/qTpW+oHvphe2hKIZmLdWOBQoM7cbclRvNgXTCx5txTprPrOs6ql5
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10969"; a="403216494"
+X-IronPort-AV: E=Sophos;i="6.05,231,1701158400";
+   d="scan'208";a="403216494"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Jan 2024 05:05:38 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10969"; a="931835998"
+X-IronPort-AV: E=Sophos;i="6.05,231,1701158400";
+   d="scan'208";a="931835998"
+Received: from hmer-mobl.ger.corp.intel.com (HELO [10.251.217.183])
+ ([10.251.217.183])
+  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Jan 2024 05:05:28 -0800
+Message-ID: <b93ec9c2-23f5-486b-a3dc-ed9b960df359@linux.intel.com>
+Date: Wed, 31 Jan 2024 14:05:04 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2024013025-spoiling-exact-ad20@gregkh>
-Message-ID-Hash: RGAFL77WWI3DUY7VNYRSW5FOXLWGGP3E
-X-Message-ID-Hash: RGAFL77WWI3DUY7VNYRSW5FOXLWGGP3E
-X-MailFrom: vkoul@kernel.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/6] sysfs: Introduce a mechanism to hide static
+ attribute_groups
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ alsa-devel@alsa-project.org
+Cc: linux-kernel@vger.kernel.org, Dan Williams <dan.j.williams@intel.com>,
+ Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Sanyog Kale <sanyog.r.kale@intel.com>
+References: <2024013025-spoiling-exact-ad20@gregkh>
+ <2024013028-deflator-flaring-ec62@gregkh>
+Content-Language: en-US
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <2024013028-deflator-flaring-ec62@gregkh>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: ITICYVEQUPPW2EMJ6LAZ5DURRNRTDAQL
+X-Message-ID-Hash: ITICYVEQUPPW2EMJ6LAZ5DURRNRTDAQL
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -88,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RGAFL77WWI3DUY7VNYRSW5FOXLWGGP3E/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ITICYVEQUPPW2EMJ6LAZ5DURRNRTDAQL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -97,30 +110,81 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 30-01-24, 10:46, Greg Kroah-Hartman wrote:
-> Note, this is a redone version of a very old series I wrote back in
-> 2022:
-> 	https://lore.kernel.org/r/20220824135951.3604059-1-gregkh@linuxfoundation.org
-> but everyone has forgotten about it now, and I've reworked it, so I'm
-> considering it a "new" version, and not v2.
-> 
-> Here's a series that adds the functionality to the driver core to hide
-> entire attribute groups, in a much saner way than we have attempted in
-> the past (i.e. dynamically figuring it out.)  Many thanks to Dan for
-> this patch.  I'll also be taking this into my driver-core branch and
-> creating a stable tag for anyone else to pull from to get it into their
-> trees, as I think it will want to be in many for this development cycle.
-> 
-> After the driver core change, there's cleanups to the soundwire core for
-> how the attribute groups are created, to remove the "manual" creation of
-> them, and allow the driver core to create them correctly, as needed,
-> when needed, which makes things much smaller for the soundwire code to
-> manage.
 
-The series lgtm, having the core handle these would be good. I will wait
-couple of days for people to test this and give a t-b and apply.
-I hope it is okay if patch1 goes thru sdw tree?
 
-BR
--- 
-~Vinod
+On 1/30/24 19:46, Greg Kroah-Hartman wrote:
+> From: Dan Williams <dan.j.williams@intel.com>
+> 
+> Add a mechanism for named attribute_groups to hide their directory at
+> sysfs_update_group() time, or otherwise skip emitting the group
+> directory when the group is first registered. It piggybacks on
+> is_visible() in a similar manner as SYSFS_PREALLOC, i.e. special flags
+> in the upper bits of the returned mode. To use it, specify a symbol
+> prefix to DEFINE_SYSFS_GROUP_VISIBLE(), and then pass that same prefix
+> to SYSFS_GROUP_VISIBLE() when assigning the @is_visible() callback:
+> 
+> 	DEFINE_SYSFS_GROUP_VISIBLE($prefix)
+> 
+> 	struct attribute_group $prefix_group = {
+> 		.name = $name,
+> 		.is_visible = SYSFS_GROUP_VISIBLE($prefix),
+> 	};
+> 
+> SYSFS_GROUP_VISIBLE() expects a definition of $prefix_group_visible()
+> and $prefix_attr_visible(), where $prefix_group_visible() just returns
+> true / false and $prefix_attr_visible() behaves as normal.
+> 
+> The motivation for this capability is to centralize PCI device
+> authentication in the PCI core with a named sysfs group while keeping
+> that group hidden for devices and platforms that do not meet the
+> requirements. In a PCI topology, most devices will not support
+> authentication, a small subset will support just PCI CMA (Component
+> Measurement and Authentication), a smaller subset will support PCI CMA +
+> PCIe IDE (Link Integrity and Encryption), and only next generation
+> server hosts will start to include a platform TSM (TEE Security
+> Manager).
+> 
+> Without this capability the alternatives are:
+> 
+> * Check if all attributes are invisible and if so, hide the directory.
+>   Beyond trouble getting this to work [1], this is an ABI change for
+>   scenarios if userspace happens to depend on group visibility absent any
+>   attributes. I.e. this new capability avoids regression since it does
+>   not retroactively apply to existing cases.
+> 
+> * Publish an empty /sys/bus/pci/devices/$pdev/tsm/ directory for all PCI
+>   devices (i.e. for the case when TSM platform support is present, but
+>   device support is absent). Unfortunate that this will be a vestigial
+>   empty directory in the vast majority of cases.
+> 
+> * Reintroduce usage of runtime calls to sysfs_{create,remove}_group()
+>   in the PCI core. Bjorn has already indicated that he does not want to
+>   see any growth of pci_sysfs_init() [2].
+> 
+> * Drop the named group and simulate a directory by prefixing all
+>   TSM-related attributes with "tsm_". Unfortunate to not use the naming
+>   capability of a sysfs group as intended.
+> 
+> In comparison, there is a small potential for regression if for some
+> reason an @is_visible() callback had dependencies on how many times it
+> was called. Additionally, it is no longer an error to update a group
+> that does not have its directory already present, and it is no longer a
+> WARN() to remove a group that was never visible.
+> 
+> Link: https://lore.kernel.org/all/2024012321-envious-procedure-4a58@gregkh/ [1]
+> Link: https://lore.kernel.org/linux-pci/20231019200110.GA1410324@bhelgaas/ [2]
+> Signed-off-by: Dan Williams <dan.j.williams@intel.com>
+> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+
+This patch seems to introduce a regression on our Lunar Lake test
+devices, where we can't boot to an ssh shell. No issues on older devices
+[1]. Bard Liao and I reproduced the same results on different boards.
+
+We'll need to find someone with direct device access to provide more
+information on the problem, remote testing without ssh is a
+self-negating proposition.
+
+Is there a dependency on other patches? Our tests are still based on
+6.7.0-rc3 due to other upstream issues we're currently working through.
+
+[1] https://github.com/thesofproject/linux/pull/4799

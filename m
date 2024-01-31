@@ -2,184 +2,112 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCA49844838
-	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jan 2024 20:44:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 657638448AA
+	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jan 2024 21:20:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 35F7D7F4;
-	Wed, 31 Jan 2024 20:43:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 35F7D7F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5BD7B210;
+	Wed, 31 Jan 2024 21:20:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5BD7B210
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1706730249;
-	bh=mDMdtnd6HrGFMQGnJgvQECAflqaEhVqVbLViysxuCSQ=;
-	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1706732423;
+	bh=o4aiy10+fDl63wpHTMTWUdeIXhOIrgTQNnErR//DCa8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Hq1dF6x0tILOP2q0VBv1tR4ImyqH43s7wY/pk8Nngf8V1lYGaaYVEJ3NNXM5xSXso
-	 Y5BRkW7ZCozqRFoTMWu3vMYPcSUc4WDaVeGItSg1mZq6FU1ylQvJn74+VfCqUXpX/R
-	 QDkXUeEeUHAxDcNVj57/cDufIc/cFayiP6y8zuH4=
+	b=Apl/EWlcQzQvaTJHayiXfY4fvV5SPOuUXUwSfwYbXMwzr6oeS/zwvdI4gH9bSXwjE
+	 FJma+JMAxle2aLchG6TQz60ZPysXdicdswXJXcV/VdTp8J+wMLAZubF93DDNwOZA/o
+	 IrotwpWNKxw9S2DSqjT++rQxlZuqF28gNWbSdpmA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 53335F80149; Wed, 31 Jan 2024 20:43:37 +0100 (CET)
+	id 8850DF805AB; Wed, 31 Jan 2024 21:19:51 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CD02DF805A1;
-	Wed, 31 Jan 2024 20:43:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 51F0CF8058C;
+	Wed, 31 Jan 2024 21:19:51 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 46611F8055C; Wed, 31 Jan 2024 20:43:31 +0100 (CET)
+	id 22AF3F8055C; Wed, 31 Jan 2024 21:18:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [IPv6:2a00:1450:4864:20::635])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id AD44BF804E7
-	for <alsa-devel@alsa-project.org>; Wed, 31 Jan 2024 20:43:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AD44BF804E7
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8C2ACF80149
+	for <alsa-devel@alsa-project.org>; Wed, 31 Jan 2024 21:17:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C2ACF80149
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=fWakWLQY
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1706730195; x=1738266195;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=mDMdtnd6HrGFMQGnJgvQECAflqaEhVqVbLViysxuCSQ=;
-  b=fWakWLQYR+UmA6k893qbOx8KXxeItYmOxp62OJG7wSMXzmuDERHEBtKL
-   XN6hXmTgFhWYY8AnAYAZMqS2AEnRBvCMqKte3joiQKOkLZoko7Mt9yuWQ
-   mlGENAlEdz05/OQt/R3ijE0JnTtyidYtumt7tWzzxJ57EfiBqAV08FAII
-   3io760BcdWOAQEbU0CODbWT5udgDyK/8tezgzyDABDLr8wu6AoXcMwX8I
-   bxBnAEuXMt1AMBWtFdJzYQQ1n2SjXP/cxDOmoTkMUMXz27DnjNH/cl8W2
-   fE7UYD9PRJJcfglGF+1qy6eEEVVleGbHyK+WQTHq7rXnTB/Qs5nZqQRG1
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10969"; a="394148481"
-X-IronPort-AV: E=Sophos;i="6.05,233,1701158400";
-   d="scan'208";a="394148481"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
-  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Jan 2024 11:43:09 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10969"; a="858913860"
-X-IronPort-AV: E=Sophos;i="6.05,233,1701158400";
-   d="scan'208";a="858913860"
-Received: from orsmsx602.amr.corp.intel.com ([10.22.229.15])
-  by fmsmga004.fm.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
- 31 Jan 2024 11:43:08 -0800
-Received: from orsmsx602.amr.corp.intel.com (10.22.229.15) by
- ORSMSX602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.35; Wed, 31 Jan 2024 11:43:08 -0800
-Received: from orsedg603.ED.cps.intel.com (10.7.248.4) by
- orsmsx602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.35 via Frontend Transport; Wed, 31 Jan 2024 11:43:08 -0800
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com (104.47.56.40) by
- edgegateway.intel.com (134.134.137.100) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.35; Wed, 31 Jan 2024 11:43:08 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WZmA2WlZp/njmzKVUNOI88iiBJApbCaA0AqkAxV11eTRyDX6NpqVrJR/E2LNSfjs6VG5nYO2IWi0d/cBLjuNLZfugHA066/Iyhzdt430ecYSLAYOWRe1aBcIvHdX6eTccc3jtEtHIbeCNtM+59gNzgPTNHErcir7K0TKxDDQ6Or8BtquOB76CI8DC/C0hMR9t9Zw8SAK5P9IWKjwrj7oNxOLh9D2eM8yul9iQ94f5cWf4DyIDgQOPyMG+VauSShov68jDGqXesoLAlEyoBBAEeQFWWCnSb9uJdcgO7b4vYwdgf+ehTD2/4xzBSqA6cxn9SfZUewKm+HjmLDFbwG3Fg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yovYUAz3/l3tVC9+h5RRvb6g8L2uy1wCSjkyOX7E+LQ=;
- b=EjFYTxlZtc4UZPGpearKpQ98PoRk2fB5v0sfk93/eGQlFjd2/pZOGkgRzJa1mG4gJPJbQaEw0NpkYDVF2qZM/Z6yCZuJb9hBlZ3sSNJzm3RdynZHjDYMXDIdCs5dwEbwToCz8BRG5KW/Xj75j1qo4BWI5R+fS/bsa+/5pHv+ZUPOKF5tPF3bfnxmdR0vaF8OA5vtlwS1EP0KjnW4Oa5yk5js4tjVEkXN1sZ9MliEhtJYGTkawmauB+EDavFPfQB6yuUktCQj/ivSQJUA0QkDvUf02w6fxLt2kikompSUsLFXD5elJdqh+ik40OzikAsWjMaKOGBr4LWlcw4H1y+PDA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH8PR11MB8107.namprd11.prod.outlook.com (2603:10b6:510:256::6)
- by MW4PR11MB5934.namprd11.prod.outlook.com (2603:10b6:303:189::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7228.36; Wed, 31 Jan
- 2024 19:43:05 +0000
-Received: from PH8PR11MB8107.namprd11.prod.outlook.com
- ([fe80::6257:f90:c7dd:f0b2]) by PH8PR11MB8107.namprd11.prod.outlook.com
- ([fe80::6257:f90:c7dd:f0b2%4]) with mapi id 15.20.7228.029; Wed, 31 Jan 2024
- 19:43:05 +0000
-Date: Wed, 31 Jan 2024 11:43:03 -0800
-From: Dan Williams <dan.j.williams@intel.com>
-To: Dan Williams <dan.j.williams@intel.com>, Pierre-Louis Bossart
-	<pierre-louis.bossart@linux.intel.com>, Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>, <alsa-devel@alsa-project.org>
-CC: <linux-kernel@vger.kernel.org>, Dan Williams <dan.j.williams@intel.com>,
-	Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Sanyog Kale <sanyog.r.kale@intel.com>
-Subject: Re: [PATCH 1/6] sysfs: Introduce a mechanism to hide static
- attribute_groups
-Message-ID: <65baa2c754e8d_37ad2941f@dwillia2-xfh.jf.intel.com.notmuch>
-References: <2024013025-spoiling-exact-ad20@gregkh>
- <2024013028-deflator-flaring-ec62@gregkh>
- <b93ec9c2-23f5-486b-a3dc-ed9b960df359@linux.intel.com>
- <65ba8ca5709fe_4e7f5294ce@dwillia2-xfh.jf.intel.com.notmuch>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <65ba8ca5709fe_4e7f5294ce@dwillia2-xfh.jf.intel.com.notmuch>
-X-ClientProxiedBy: MW4PR03CA0147.namprd03.prod.outlook.com
- (2603:10b6:303:8c::32) To PH8PR11MB8107.namprd11.prod.outlook.com
- (2603:10b6:510:256::6)
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=CDXRcMTn
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-a349ed467d9so15860466b.1
+        for <alsa-devel@alsa-project.org>;
+ Wed, 31 Jan 2024 12:17:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1706732272; x=1707337072;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=i3x+XA1EAM69Gx/EupL1JFa+ff5P92JTzUQLfIHSyz4=;
+        b=CDXRcMTntRc/ktX7o+7JTLeG/Y1HJOjzgPxEuKLf2YlFJnYAIDPhgNmRAqtHN0nY3E
+         z1Xnc6Qs0IsIcAQO92sDGgIC6Kw7U/w7Vhxb7i3NNfZ9eX2TDpcIkAsvAgK2LpAhX28G
+         0fXXYu/G7p+XrsuJJSuPItqpEueKJJKiQtClCc9/ShqS+T0A9HqjdI7TC/4fVDM+VWzW
+         drPyMAPXNDUvbLCaQhGO5davrb1HZ6S1CkOti030eBF5qzxj+1OXgTG1uDbMOKSSx6i4
+         wgL9rMsXU9tx99y5u1ovUdNVX2DFB3+o4G9j58CCAfs75plQRstTta2VaPJCoQkAR41o
+         twGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1706732272; x=1707337072;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=i3x+XA1EAM69Gx/EupL1JFa+ff5P92JTzUQLfIHSyz4=;
+        b=fqCgPymdYdJwADd3ha9ZSu3IPzKakJ3qlMdcmFo3X7L5iVgA2kjRcUkuE7IisBYTW4
+         4yKrRH14MFt9NQDs01QJfxcUR9GWovOXvHBJpwQjksY1aCVCzO6oBRAk4guMNBvgEkvv
+         UYNn3za/XsqZ7xjV9F8E5q95FmZvlQQgvudtXIh4IjtLy+SGKClbR5Wslff5R7vRF89U
+         i0mjmPLWNKV8opslH6CUM09itsf2vAzoeYT4rKL7q5/TZsZW1aJJGXdZlC00on0QUBQi
+         G2n17iQ/4xOUTPiBLHmViseNxDcZn61KbJjHqgGpWK1i2i9bjExqeFX9vviEG49NFepf
+         LlTA==
+X-Gm-Message-State: AOJu0YxfbnrBQLKYRo8L+5VLPV8bB2pihpW0bQmKOx0CYzCS05sBAWxa
+	hoDovsDeTTYfku3ND2WEsIU5ycfpXVz8m3no0z0HAIOA7bLxU7HOZHirBeDlauuU4zr7TncBjHv
+	OfdPGuujMNQK9ijwvqGYyxRVUKO8=
+X-Google-Smtp-Source: 
+ AGHT+IHXBrFCx5kQCeErdbREsugyHAfbuEbibVXq02hfcq1oPmsfcZZLGhX7hXPtFYvQEPMmWMEUtGyEiepFoY1c7mg=
+X-Received: by 2002:a17:906:f2c6:b0:a35:85b7:560a with SMTP id
+ gz6-20020a170906f2c600b00a3585b7560amr1946530ejb.46.1706732271649; Wed, 31
+ Jan 2024 12:17:51 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR11MB8107:EE_|MW4PR11MB5934:EE_
-X-MS-Office365-Filtering-Correlation-Id: c16f26a6-de3c-46ca-66dd-08dc2294d820
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
- Bm+apFxiSLvv6mY4XYIttzBeF+rhm786I9ZWglkHAiInSdPX6b13HJlrJ5aNvn3DSPMydUEdJZG40myAt5SQ1hL2W5YRc8JE274Yykeb07je41pKEnjYu2EiD5ReTMAav5xMThqK8eoVAe3wWGEPFGDOYKZKALHpj5eGbsBBCsKrgwcwfVo4M47f3wjtQB518KpkxowuySUXnsPdwPe7sR6haYh2or2BwQDq6k2RiExAmXYxxCRvUZ7S28/NkpcpkzBb2q2HsbGLPj2i7u3NGN1orb30cMcUVocnieH0wTStLqtkywXPlV43G0Uwpk4VN2z/1Hl4ObAn8Eh9iE/7EGRCc0sycpka/GXw1bsfROBc5EykD2iHd20S1uGOdV3KC8cxJVluywHU6qtyaQNTaMD2K72Awp0CAeda88eZoc1RkuhfW0TAl5iLAptcY4jSayU6dCyBuKVwGCQfHyrYZIPrIFvJjP9fdGUPHjggSbcJ8EKOyky4qfIYp2N9zzw8DKnSEKcgGOw3SsLMQwERHJIrBhczzqqzQTDA6fna5ZIR6nOC2VlYVCYyXwSq2I34NY/qL9VuQCVM/5yBjPM/5w==
-X-Forefront-Antispam-Report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR11MB8107.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(366004)(39860400002)(136003)(396003)(346002)(230922051799003)(64100799003)(451199024)(186009)(1800799012)(26005)(83380400001)(41300700001)(478600001)(53546011)(966005)(6486002)(6506007)(8676002)(6512007)(9686003)(8936002)(4326008)(82960400001)(316002)(66556008)(66946007)(66476007)(54906003)(2906002)(5660300002)(38100700002)(110136005)(86362001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
- =?us-ascii?Q?E9y5caEjxDY4Io3FVZ1qrPlIof3bvbXIcbEMa7/XBUXCUA0tXjBiBLGHcHnv?=
- =?us-ascii?Q?CmYZMP+1LDDuprQnFt+DXL9pt8Z9ufm1M62cX3QeDWunKjyd6HUWckFocJBv?=
- =?us-ascii?Q?rTou1CDWcsWYYJNdSZ6PrKxdBMbbrm0K8iCqkswdla5oIaYr/zbhRXruJI/X?=
- =?us-ascii?Q?DP62lsTkI82OVV0PEdiUkEPvy8l1zO14SFlsaxdKAq1vL6lTt9eHjjOa6i+n?=
- =?us-ascii?Q?tliZnXQsoqE46eYkGuWyoK4WxaK7n72HmH0Oi6yDRLsI/RIFulXsLG/wjwG+?=
- =?us-ascii?Q?JCNibvNF3QOxnur0Zq1xWJ+UYHgUlwlIXRD7UDBcdqJhhCOCQBqTZyjlUslp?=
- =?us-ascii?Q?8ugk6af3MdZ7PM0AwFjHwuXa93Xb1sednUM/4kxKerXsqT6GBb7sUxAtLk1y?=
- =?us-ascii?Q?0wB99esJSNurkzF8cfSBGTVjaVCSCNfG3Upbq9z3nyh1KsnxleZHbHC6+iiT?=
- =?us-ascii?Q?byqNmFmzp9FJ3+WB934KkrMGPURJCNcXDsIyJLUCOx4IEFlRaY0HUvUBix6c?=
- =?us-ascii?Q?9v3JOO7t30IgnarQA5TCX1rcbiemW7bBwvsii19A+0vK2Vipcm35m6b8Z/UY?=
- =?us-ascii?Q?sc2Ev1vEoAidU/NU+H3vLajx9ttN7nIvJP7hqNAP/MhZ8K6/Fd2n3Irh1iVo?=
- =?us-ascii?Q?Sk0iwR7+vpB1YtwiAxAbrpH6y8j8YCCEk/ZMzTDvctCLVMF8l6igSYMl7zNf?=
- =?us-ascii?Q?UC/e5y7kiT32TBd7ZrjYHrIAZ81f4bZlskaoJaRD5QC4Zb/r6UMtpSzWgc4R?=
- =?us-ascii?Q?VpAJn2yZQnDPb8BL3N0JGmySL4aXvNWDSxwMoZCsrgcDMrHr8fRbTugz2A0a?=
- =?us-ascii?Q?EFS0rHgG+ZyvKoluHLaIme6R9JybLekvRg+S/kYEZLIXYYVLVq82FMWT8pi/?=
- =?us-ascii?Q?WAOndOb/fvy/bydzo6TtTibmleNUo0V840SdjKaFgtBcFZAIQaWCivyZpcle?=
- =?us-ascii?Q?4L3q7E2a9X8/pAaeuNPVv5zKeD7MsCLYYF6SfKdnKSK8CE10B1PuccXAddJ4?=
- =?us-ascii?Q?NsktHcjyrH+Amaes71W3Dn8m8R1xPX07eqQDMKPHV1xO0EBLkA6/XyA/szQZ?=
- =?us-ascii?Q?pwEprc89eN32aSgGWs8zsHu2LSHsw+t9Js0ckR0EaJ1YrwSC6YvkaSfgXNTi?=
- =?us-ascii?Q?ykeRQiPBAu95p/JK4hsa7dRa39FwzZ5paq8OcPESAAhNLhqgnKRJz9eKVF43?=
- =?us-ascii?Q?HO9mEfFC06Dxl4p13DWQhKL9hFzy3ZTpyHGD3YF9CQip3CVnV9QsBfGexAqG?=
- =?us-ascii?Q?qM539Z66BNktTioZ/FKnu8LvFQYFP0hhG1HrZSOpS+JDhKy1DOhEVVp9Cofh?=
- =?us-ascii?Q?VtZskoVz/mxAAu+bdls+G2lRpeFyPRsscGGSPsJ7oWl8DyA8OZLsWcmZBcuH?=
- =?us-ascii?Q?A7rhqKaqib59R9spKJ2hYmKt32ALGMxkIYRoqcENl4P4P1eybI0QWUSaJp7h?=
- =?us-ascii?Q?x/8hBIHEuHqY5hhunBnLgVCIYASThoMiNUD29lRLdKzD/08O+uaSjDgmxYCL?=
- =?us-ascii?Q?t9U/UuhFZhifEPgTr3gY3jGClVEHSiInJ1jiVeH2WwtS0UgIqZPhrTzrIYES?=
- =?us-ascii?Q?4YHQ34qC7a3yBWT8mHMM+A7HThRCqL8btWk+0x98ITu6YMWQW9Dw9JZjGd60?=
- =?us-ascii?Q?jQ=3D=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- c16f26a6-de3c-46ca-66dd-08dc2294d820
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR11MB8107.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jan 2024 19:43:05.7515
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- WI6EzjQIvAoL6bgLf5tQ20/v7TtOC+b2vZEdhJaQnUmv3u1JsnqZ4yam5orLU4IZ4QTjaj/WM+nQQFk48cnpJYNBQVE0cuV1ytAbYkDeTM8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR11MB5934
-X-OriginatorOrg: intel.com
-Message-ID-Hash: IXAJGM3UXUKDEETCGEE6PI6A77T2CGNW
-X-Message-ID-Hash: IXAJGM3UXUKDEETCGEE6PI6A77T2CGNW
-X-MailFrom: dan.j.williams@intel.com
+References: <20230804104602.395892-1-ckeepax@opensource.cirrus.com>
+ <20230804104602.395892-6-ckeepax@opensource.cirrus.com>
+ <ZalahZkCrBm-BXwz@surfacebook.localdomain>
+ <20240119114917.GB16899@ediswmail.ad.cirrus.com>
+ <ZbpqPuDj/v07yZ5y@ediswmail9.ad.cirrus.com>
+In-Reply-To: <ZbpqPuDj/v07yZ5y@ediswmail9.ad.cirrus.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Wed, 31 Jan 2024 22:17:15 +0200
+Message-ID: 
+ <CAHp75Vda3nZn8KwqSRvKQL9oeH_PjTnDDPuQytJvTgb2_HDvBQ@mail.gmail.com>
+Subject: Re: [PATCH v7 5/6] spi: cs42l43: Add SPI controller support
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Cc: broonie@kernel.org, lee@kernel.org, robh+dt@kernel.org,
+	krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
+	linus.walleij@linaro.org, vkoul@kernel.org, lgirdwood@gmail.com,
+	yung-chuan.liao@linux.intel.com, sanyog.r.kale@intel.com,
+	pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+	patches@opensource.cirrus.com, devicetree@vger.kernel.org,
+	linux-gpio@vger.kernel.org, linux-spi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: 7JH5UCIJMZ6RAXS2QUQ6L3QHN7RL5UT3
+X-Message-ID-Hash: 7JH5UCIJMZ6RAXS2QUQ6L3QHN7RL5UT3
+X-MailFrom: andy.shevchenko@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -191,7 +119,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IXAJGM3UXUKDEETCGEE6PI6A77T2CGNW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7JH5UCIJMZ6RAXS2QUQ6L3QHN7RL5UT3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -200,136 +128,86 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Dan Williams wrote:
-> Pierre-Louis Bossart wrote:
-> > 
-> > 
-> > On 1/30/24 19:46, Greg Kroah-Hartman wrote:
-> > > From: Dan Williams <dan.j.williams@intel.com>
-> > > 
-> > > Add a mechanism for named attribute_groups to hide their directory at
-> > > sysfs_update_group() time, or otherwise skip emitting the group
-> > > directory when the group is first registered. It piggybacks on
-> > > is_visible() in a similar manner as SYSFS_PREALLOC, i.e. special flags
-> > > in the upper bits of the returned mode. To use it, specify a symbol
-> > > prefix to DEFINE_SYSFS_GROUP_VISIBLE(), and then pass that same prefix
-> > > to SYSFS_GROUP_VISIBLE() when assigning the @is_visible() callback:
-> > > 
-> > > 	DEFINE_SYSFS_GROUP_VISIBLE($prefix)
-> > > 
-> > > 	struct attribute_group $prefix_group = {
-> > > 		.name = $name,
-> > > 		.is_visible = SYSFS_GROUP_VISIBLE($prefix),
-> > > 	};
-> > > 
-> > > SYSFS_GROUP_VISIBLE() expects a definition of $prefix_group_visible()
-> > > and $prefix_attr_visible(), where $prefix_group_visible() just returns
-> > > true / false and $prefix_attr_visible() behaves as normal.
-> > > 
-> > > The motivation for this capability is to centralize PCI device
-> > > authentication in the PCI core with a named sysfs group while keeping
-> > > that group hidden for devices and platforms that do not meet the
-> > > requirements. In a PCI topology, most devices will not support
-> > > authentication, a small subset will support just PCI CMA (Component
-> > > Measurement and Authentication), a smaller subset will support PCI CMA +
-> > > PCIe IDE (Link Integrity and Encryption), and only next generation
-> > > server hosts will start to include a platform TSM (TEE Security
-> > > Manager).
-> > > 
-> > > Without this capability the alternatives are:
-> > > 
-> > > * Check if all attributes are invisible and if so, hide the directory.
-> > >   Beyond trouble getting this to work [1], this is an ABI change for
-> > >   scenarios if userspace happens to depend on group visibility absent any
-> > >   attributes. I.e. this new capability avoids regression since it does
-> > >   not retroactively apply to existing cases.
-> > > 
-> > > * Publish an empty /sys/bus/pci/devices/$pdev/tsm/ directory for all PCI
-> > >   devices (i.e. for the case when TSM platform support is present, but
-> > >   device support is absent). Unfortunate that this will be a vestigial
-> > >   empty directory in the vast majority of cases.
-> > > 
-> > > * Reintroduce usage of runtime calls to sysfs_{create,remove}_group()
-> > >   in the PCI core. Bjorn has already indicated that he does not want to
-> > >   see any growth of pci_sysfs_init() [2].
-> > > 
-> > > * Drop the named group and simulate a directory by prefixing all
-> > >   TSM-related attributes with "tsm_". Unfortunate to not use the naming
-> > >   capability of a sysfs group as intended.
-> > > 
-> > > In comparison, there is a small potential for regression if for some
-> > > reason an @is_visible() callback had dependencies on how many times it
-> > > was called. Additionally, it is no longer an error to update a group
-> > > that does not have its directory already present, and it is no longer a
-> > > WARN() to remove a group that was never visible.
-> > > 
-> > > Link: https://lore.kernel.org/all/2024012321-envious-procedure-4a58@gregkh/ [1]
-> > > Link: https://lore.kernel.org/linux-pci/20231019200110.GA1410324@bhelgaas/ [2]
-> > > Signed-off-by: Dan Williams <dan.j.williams@intel.com>
-> > > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> > 
-> > This patch seems to introduce a regression on our Lunar Lake test
-> > devices, where we can't boot to an ssh shell. No issues on older devices
-> > [1]. Bard Liao and I reproduced the same results on different boards.
-> > 
-> > We'll need to find someone with direct device access to provide more
-> > information on the problem, remote testing without ssh is a
-> > self-negating proposition.
-> > 
-> > Is there a dependency on other patches? Our tests are still based on
-> > 6.7.0-rc3 due to other upstream issues we're currently working through.
-> 
-> The only behavior change I can imagine with this patch is that
-> ->is_visble() callbacks get called extra times for named attribute
-> groups.
-> 
-> ...or if an is_visible() callback was inadvertantly already using the
-> SYSFS_GROUP_INVISIBLE flag in umode_t result.
+On Wed, Jan 31, 2024 at 5:41=E2=80=AFPM Charles Keepax
+<ckeepax@opensource.cirrus.com> wrote:
+> On Fri, Jan 19, 2024 at 11:49:17AM +0000, Charles Keepax wrote:
+> > On Thu, Jan 18, 2024 at 07:06:13PM +0200, andy.shevchenko@gmail.com wro=
+te:
+> > > Fri, Aug 04, 2023 at 11:46:01AM +0100, Charles Keepax kirjoitti:
+> > > > +         while (buf < block) {
+> > > > +                 const u8 *word =3D min(buf + sizeof(u32), block);
+> > > > +                 int pad =3D (buf + sizeof(u32)) - word;
+> > > > +
+> > > > +                 while (buf < word) {
+> > > > +                         val >>=3D BITS_PER_BYTE;
+> > > > +                         val |=3D FIELD_PREP(GENMASK(31, 24), *buf=
+);
+> > > > +
+> > > > +                         buf++;
+> > > > +                 }
+> > >
+> > > Is this a reinvented way of get_unaligned_*() APIs?
+> > >
+> > > > +                 val >>=3D pad * BITS_PER_BYTE;
+> > > > +
+> > > > +                 regmap_write(regmap, CS42L43_TX_DATA, val);
+> > > > +         }
+> > >
+> > > ...
+> > >
+> > > > +                 while (buf < word) {
+> > > > +                         *buf =3D FIELD_GET(GENMASK(7, 0), val);
+> > > > +
+> > > > +                         val >>=3D BITS_PER_BYTE;
+> > > > +                         buf++;
+> > > > +                 }
+> > >
+> > > put_unaligned_*() ?
+> > >
+> >
+> > Alas as it has been a while I have forgetten the exact context
+> > here and this one will take a little more time. I will try to
+> > find some spare time to work out if that would actual do the same
+> > thing, I have a vague feeling there was something here.
+> >
+>
+> Ok found some time to refresh my memory on this.
+>
+> The main issue here was as this is processing raw data for the
+> SPI we shouldn't assume the data is a multiple of 4-bytes. You
+> could write the code such that you used put_unaligned_le32 for
+> most of the data and then special case the remainder, which would
+> probably be slightly faster. But for the remainder you either end
+> with the code here anyway or a special case for each of the cases
+> 8,16,24 bits. So the code ends up looking much messier.
+> Personally I am inclined to leave this unless performance on the
+> SPI becomes a major issue.
 
-Are you able to get kernel logs? A before and after with this patch
-applied might highlight which attribute does not appreciate the extra
-callback...
+Yes, the problem with the code is that it is a NIH existing API or patterns=
+.
+We have already in the IIO subsystem a pattern where there is a switch case
+and put/get unaligned APIs per case. Perhaps this is what needs to be
+factored out
+for everybody.
 
-diff --git a/fs/sysfs/group.c b/fs/sysfs/group.c
-index ccb275cdabcb..683c0b10990b 100644
---- a/fs/sysfs/group.c
-+++ b/fs/sysfs/group.c
-@@ -33,11 +33,17 @@ static void remove_files(struct kernfs_node *parent,
- 
- static umode_t __first_visible(const struct attribute_group *grp, struct kobject *kobj)
- {
--       if (grp->attrs && grp->is_visible)
-+       if (grp->attrs && grp->is_visible) {
-+               pr_info("kobj: %s is_visible: %pS\n", kobj->name,
-+                       grp->is_visible);
-                return grp->is_visible(kobj, grp->attrs[0], 0);
-+       }
- 
--       if (grp->bin_attrs && grp->is_bin_visible)
-+       if (grp->bin_attrs && grp->is_bin_visible) {
-+               pr_info("kobj: %s is_bin_visible: %pS\n", kobj->name,
-+                       grp->is_bin_visible);
-                return grp->is_bin_visible(kobj, grp->bin_attrs[0], 0);
-+       }
- 
-        return 0;
- }
-@@ -62,6 +68,8 @@ static int create_files(struct kernfs_node *parent, struct kobject *kobj,
-                        if (update)
-                                kernfs_remove_by_name(parent, (*attr)->name);
-                        if (grp->is_visible) {
-+                               pr_info("kobj: %s is_visible: %pS\n",
-+                                       kobj->name, grp->is_visible);
-                                mode = grp->is_visible(kobj, *attr, i);
-                                mode &= ~SYSFS_GROUP_INVISIBLE;
-                                if (!mode)
-@@ -92,6 +100,8 @@ static int create_files(struct kernfs_node *parent, struct kobject *kobj,
-                                kernfs_remove_by_name(parent,
-                                                (*bin_attr)->attr.name);
-                        if (grp->is_bin_visible) {
-+                               pr_info("kobj: %s is_bin_visible: %pS\n",
-+                                       kobj->name, grp->is_bin_visible);
-                                mode = grp->is_bin_visible(kobj, *bin_attr, i);
-                                mode &= ~SYSFS_GROUP_INVISIBLE;
-                                if (!mode)
+https://elixir.bootlin.com/linux/latest/source/drivers/iio/adc/ad4130.c#L47=
+2
 
+(some shorter variants)
+https://elixir.bootlin.com/linux/latest/source/drivers/iio/adc/ltc2497.c#L6=
+6
+https://elixir.bootlin.com/linux/latest/source/drivers/iio/adc/ad4130.c#L47=
+2
+
+Here is the abstraction for cameras, perhaps that's what ASoC might need.
+drivers/media/v4l2-core/v4l2-cci.c.
+
+> There is perhaps an argument for a comment in the code to explain
+> this given it took me time to remember what was going on.
+
+That's for sure.
+
+
+--=20
+With Best Regards,
+Andy Shevchenko

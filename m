@@ -2,126 +2,107 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8807C8440E5
-	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jan 2024 14:43:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26D7A844139
+	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jan 2024 15:00:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 18A71B71;
-	Wed, 31 Jan 2024 14:43:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 18A71B71
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2E57A825;
+	Wed, 31 Jan 2024 15:00:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2E57A825
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1706708592;
-	bh=rNDiQg/0u3pLXkbL7csdAnsOg1ou8bFEsbWHOOg35m8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1706709643;
+	bh=kx7++Nl+g8gUP4P8BUkEMWIMMN6PTKxchtxN+CPVmLk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=cOpdUUlp59t/2IkCeNL+ekUHIP7HvEoZzt/BRURDnBjhbpsx5B2OmT+uAm0mCUtMm
-	 XpnhCsauHIltBsy6uOvab7v5XLHn2UQ04hE4BzAJ86O0hjJgkclH+h2EmC3Bbd4Yg4
-	 pPAC7JDkluy8peVGCmVz40eYTkZixsL4WBgO5YqA=
+	b=iiMetrBK/sYLWOWjfBos1OJhqIYLlDVPo2OeMqHfQml47klQqDf4LIbaQjpmT7LUV
+	 G/NIC0/VXZNRq0Vd4XncuL5rloNccrkemkW2vg2wdfZgsZl6Eis5botmel604Ydclc
+	 HLfldUvvmoL/LatQ+rlINqGETRqeyyUIDRUqIn00=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 519FAF8055B; Wed, 31 Jan 2024 14:42:40 +0100 (CET)
+	id 02B72F80578; Wed, 31 Jan 2024 15:00:10 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6179EF80568;
-	Wed, 31 Jan 2024 14:42:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 805B2F8057E;
+	Wed, 31 Jan 2024 15:00:09 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 446C1F8055C; Wed, 31 Jan 2024 14:42:34 +0100 (CET)
+	id 163FDF8055C; Wed, 31 Jan 2024 14:59:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-6.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-yb1-xb2b.google.com (mail-yb1-xb2b.google.com
- [IPv6:2607:f8b0:4864:20::b2b])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 64B07F80149
-	for <alsa-devel@alsa-project.org>; Wed, 31 Jan 2024 14:42:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64B07F80149
+	by alsa1.perex.cz (Postfix) with ESMTPS id 86417F80149
+	for <alsa-devel@alsa-project.org>; Wed, 31 Jan 2024 14:59:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 86417F80149
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=B3Ycaz/2
-Received: by mail-yb1-xb2b.google.com with SMTP id
- 3f1490d57ef6-dc6a631a90dso1447206276.2
-        for <alsa-devel@alsa-project.org>;
- Wed, 31 Jan 2024 05:42:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1706708549; x=1707313349;
- darn=alsa-project.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=rNDiQg/0u3pLXkbL7csdAnsOg1ou8bFEsbWHOOg35m8=;
-        b=B3Ycaz/2oMfQAhnZwhi+hOy94iiV7OdVWjCJ0y14NPLoazcpOYM5uJQ7iCWBLbulGn
-         7wC5ST9CdzKi6E6XuTs3h89xla/YnumXPiMYV20y4XsZcovahiF7JBWg/sVZJWwjRo+j
-         DkYOF098rBiCH2hkKOJ2uFQ+SaCQeiVpBDdZ/AClcrmmSVpqPjTfQWcaKSOGns8ywoZ7
-         MN3CbLcx1OMFJtpuXPYnkI3OVPprZY0EnCl1rdCeAkbIYA11auvxTE0RGpexRMT/iJ7Y
-         Ep9tYKYEfkmV4q2sfMzGcMvlH81mGnpBQu961Nu8yCETLtUXXI+8zh9YcQS3iY7lw5ug
-         5Mnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706708549; x=1707313349;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=rNDiQg/0u3pLXkbL7csdAnsOg1ou8bFEsbWHOOg35m8=;
-        b=W9VCEQmj8fimyodNRvhSSdNLK+UcRP8MdUbYivC+PrPpTFWRfi+2DDlYbom4nmvnau
-         NRKgeqCcj/WxybA5TOUeVW2mlC+h1+LYVe5nfYjBWsc1DjCKsYP++v6cyIA31/PJSjXz
-         LEFxuR6JINwhrnny7SiJ3DjC/4/tYPWRKPnfCq1LK4ZcgkfM+w1S8zN3nwAGcFL7IZ60
-         pIdoQM97ZQBa6zdRY4Pcm6ClSJQZS1EElENGz0E9it/d2R79Mfv4yGQMiz+l0nXAuZKd
-         kbD+1OrRPq1+32t3SIOey4ckuqDD8GrFNat8feIEaNjrdCPYmGQFU76AJQc6gMzrQZac
-         EsXQ==
-X-Gm-Message-State: AOJu0Ywr+bFsvHKBKlLysDpreLFV9M5bt+I+jdB3SV0F+As/Bb8CG+sc
-	VXM5FoeY1RljPF7gigC22Lps7NtDjWxfRH6cMeNZ+c2fcNmc21EJuWnGvdkhao+0XfiC0YTAcCS
-	sBo5lv2WtnUP5SHDNr8Cml83oZlxyZL6Gkvi3ig==
-X-Google-Smtp-Source: 
- AGHT+IHskTXYXxhxPI1CgyG/kvHZeTnVrHblP91LDRSUCVYbyamup48H0wM9rtBK+kf6LdjtM5XNyL3x8PSddYdkrYk=
-X-Received: by 2002:a25:6f83:0:b0:dc6:4b7e:d7e with SMTP id
- k125-20020a256f83000000b00dc64b7e0d7emr1623063ybc.24.1706708548654; Wed, 31
- Jan 2024 05:42:28 -0800 (PST)
-MIME-Version: 1.0
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=q6039tBd
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id 0B27C6179C;
+	Wed, 31 Jan 2024 13:59:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7AE4C433F1;
+	Wed, 31 Jan 2024 13:59:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1706709593;
+	bh=kx7++Nl+g8gUP4P8BUkEMWIMMN6PTKxchtxN+CPVmLk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=q6039tBd6g6aaJ08HMT328HRmGQ9/vDdtmfqgRCXxQae1xNri1Php+xPYYolOYXO2
+	 jQ4rYZ626C0Eie0xX/22fJCSp75S7+YumvXSITEt2RXClBqXjVqGbPTas2PiIg4cr6
+	 dhYqZP3xXnKjvnC+oSdKuzDFhvBEXZxQejtNbN36vChso2CXRwSqEBa9d8xn22ngjo
+	 jbgR6foNn4IeIdsd0qqCXgf1X3AwGl3Otrpk2/3ofgUQKye7lym1S66RUqkGx4ZxtM
+	 BAndsyZ1MsY12LGTmckU1x67wBdBjxp9YSwuQStPGxEXudQG5P+1UgvkyMU9VP6wR3
+	 zEs1DYzSNuIag==
+Date: Wed, 31 Jan 2024 13:59:45 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Linus Walleij <linus.walleij@linaro.org>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+	Bartosz Golaszewski <brgl@bgdev.pl>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	Banajit Goswami <bgoswami@quicinc.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konrad.dybcio@linaro.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
+	Frank Rowand <frowand.list@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+	Chris Packham <chris.packham@alliedtelesis.co.nz>,
+	Sean Anderson <sean.anderson@seco.com>
+Subject: Re: [PATCH v6 4/6] reset: Instantiate reset GPIO controller for
+ shared reset-gpios
+Message-ID: <e693398e-fb18-43c3-83dd-4b517c29fafd@sirena.org.uk>
 References: <20240129115216.96479-1-krzysztof.kozlowski@linaro.org>
  <20240129115216.96479-5-krzysztof.kozlowski@linaro.org>
  <CACRpkdYf4HUaV-Pjr81WjLbzy9zdAnyFWs9gPayPC6-3OjHQwA@mail.gmail.com>
  <CAMRc=Mc1SGLeUOWmKg=fvCdM+RR6FSu2QkFuR17s7L99eRMGug@mail.gmail.com>
  <CACRpkdbaxqTzwL9L02vCpMMdBYsubNP1VkNuJ8mXB_=4E3Kjaw@mail.gmail.com>
  <5ef64082-0b44-4bb2-bd4c-654c96f4a9bb@linaro.org>
-In-Reply-To: <5ef64082-0b44-4bb2-bd4c-654c96f4a9bb@linaro.org>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Wed, 31 Jan 2024 14:42:17 +0100
-Message-ID: 
  <CACRpkdYa0nj6PK1FecBpQfOfkXhetwRmAyDgWNjJxcf4xgExMA@mail.gmail.com>
-Subject: Re: [PATCH v6 4/6] reset: Instantiate reset GPIO controller for
- shared reset-gpios
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: Bartosz Golaszewski <brgl@bgdev.pl>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
-	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@quicinc.com>,
-	Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>,
- Frank Rowand <frowand.list@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org,
-	linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org, Chris Packham <chris.packham@alliedtelesis.co.nz>,
-	Sean Anderson <sean.anderson@seco.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: BICMTRENPNRONID4QGHQR6Y7WVFRR3XQ
-X-Message-ID-Hash: BICMTRENPNRONID4QGHQR6Y7WVFRR3XQ
-X-MailFrom: linus.walleij@linaro.org
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="aUBo2xsR6S0y35Fl"
+Content-Disposition: inline
+In-Reply-To: 
+ <CACRpkdYa0nj6PK1FecBpQfOfkXhetwRmAyDgWNjJxcf4xgExMA@mail.gmail.com>
+X-Cookie: I will never lie to you.
+Message-ID-Hash: IUXYS6SYXJGK35FACHQTSY6UHSKESUVC
+X-Message-ID-Hash: IUXYS6SYXJGK35FACHQTSY6UHSKESUVC
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -132,42 +113,48 @@ X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BICMTRENPNRONID4QGHQR6Y7WVFRR3XQ/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+Archived-At: <>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, Jan 31, 2024 at 2:32=E2=80=AFPM Krzysztof Kozlowski
-<krzysztof.kozlowski@linaro.org> wrote:
 
-> The non-exclusive GPIO was made explicitly for regulators, so it is
-> working fine there, but it is broken everywhere else, where the drivers
-> do not handle it in sane way as regulator core does.
+--aUBo2xsR6S0y35Fl
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-I looked at it, it's 8 users in the entire kernel that aren't regulators,
-so let's put it on the TODO to get rid of those.
+On Wed, Jan 31, 2024 at 02:42:17PM +0100, Linus Walleij wrote:
 
-> To make it working, either GPIO should be enable-count-aware, to which
-> Bartosz was opposing with talks with me, or the subsystem should mimic
-> regulators approach. In some way, my patchset is the second way here -
-> reset framework subsystem being aware of shared GPIO and handles the
-> enable-count, even though it is not using non-exclusive flag.
+> I guess it may be an issue that regulators are not using Device Tree
+> exclusively, but also has to deal with a slew of platform_devices:s :/
+> IIRC that was one of the reasons why it looks as it does.
 
-That's nice, I was thinking if it could be abstracted so the regulator
-core can move away from this too?
+Also ACPI, and this is a long standing binding so we can't change the
+ABI for DT.  We could potentially use a refcounting mechanism provided
+by the GPIO core but we'd need to know when the refcount changes from 0
+to 1 and back, we need to take other actions (inserting delays and
+generating notifications) when it does so I'm not sure how exciting it
+is to factor out the refcount.  I think part of the decision making with
+the current design was that there was likely going to need to be some
+higher level stuff like that in the users so it wasn't clear that trying
+to abstract the reference count away in gpiolib was buying us much.
 
-I guess it may be an issue that regulators are not using Device Tree
-exclusively, but also has to deal with a slew of platform_devices:s :/
-IIRC that was one of the reasons why it looks as it does.
+--aUBo2xsR6S0y35Fl
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Maybe reset can only solve this in an elegant way if the solution is
-tightly coupled with DT and you have the advantage that you can require
-it from day one? (It looks a bit like that to me.)
+-----BEGIN PGP SIGNATURE-----
 
-Yours,
-Linus Walleij
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmW6UlEACgkQJNaLcl1U
+h9A+fwf/Uk2jUjqxQFPM7xcqmHsrA9v2ugLGTMHO8Maq0EYtg3qC8iqG/GpGJUfs
+fFgiBMZMuFYRWuVZrFqaDVfH2SjrzVuTwRnzdcc248yp4VxcIw+/6zv7MN5I7+Mz
+drrk+SOW8LQ1/zFdYFCZJ6nTpNpz3gbw6dfYHSsOsXwKXw1uXrjVpsr883NKtWhR
+T7booZIhNa/o4N0KWRG6F3uJtDXp6adazB05Ub4s1FU3bNdajYiU/bXbG2hp01Me
+YNMz64ezvnOBwrVEtGF/CzVUjFy3AesEUbq/RASerWiFsB0OatwnMeNG3/Fn/mLU
+Qna+Cm3/fdqDG1oWpox48rOY47Hy0A==
+=3gvm
+-----END PGP SIGNATURE-----
+
+--aUBo2xsR6S0y35Fl--

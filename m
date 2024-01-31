@@ -2,81 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40839844487
-	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jan 2024 17:31:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5F488445BA
+	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jan 2024 18:12:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E14B6850;
-	Wed, 31 Jan 2024 17:31:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E14B6850
+	by alsa0.perex.cz (Postfix) with ESMTPS id 09FA3950;
+	Wed, 31 Jan 2024 18:12:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 09FA3950
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1706718709;
-	bh=EK6mQSU0rXidzQqllRwP/i4twW+fkBaD850m2dD4R6Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1706721171;
+	bh=Uycvovr5UzCYBERc9LtfXtIEMJqSspY0/niHJLHXjPc=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=po1N+f0QYEnZdJEt0Zwa3d/gAEcDeCuZZ9xZzvtAyHn7ix4Z1TpqTP2kzRJ9XkQ16
-	 D40qmyWCwDDI8T3Ur6vp8IFZaEslHOH6Ky+Jt4AjWRSDa62dBSOItK5JLXc/Ar7pI3
-	 767FV5eY0aR1kOXbC8fQ3qITnb7mI2LbKuAYZ2wc=
+	b=azXb8R5GyYKAXdihk5eR0Dml5Im85iNG45ucEsvGZenANCTjUbUP67qhw1pgRnLgv
+	 Xa6s/5RDpllWI/QBD5gAagX11AKaU+V/Z/dOJQ28Tfuvu49ODvOrhQJ8Xiim6S8lHJ
+	 lJdb374rk0tLxpZ3XbGDWphyFnhV9e5BbL7gRc/I=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7FA86F80580; Wed, 31 Jan 2024 17:31:17 +0100 (CET)
+	id 423CBF80580; Wed, 31 Jan 2024 18:12:14 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CB8A5F80568;
-	Wed, 31 Jan 2024 17:31:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A9299F805A0;
+	Wed, 31 Jan 2024 18:12:12 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8E8DAF8055C; Wed, 31 Jan 2024 17:31:11 +0100 (CET)
+	id C2EC6F8055C; Wed, 31 Jan 2024 18:12:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+X-Spam-Status: No, score=-3.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CF4A6F80149
-	for <alsa-devel@alsa-project.org>; Wed, 31 Jan 2024 17:30:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CF4A6F80149
+	by alsa1.perex.cz (Postfix) with ESMTPS id CF705F804E7
+	for <alsa-devel@alsa-project.org>; Wed, 31 Jan 2024 18:11:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CF705F804E7
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org
- header.a=rsa-sha256 header.s=korg header.b=GL+2WMA3
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=r0GRUKXf
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id A50A5618A0;
-	Wed, 31 Jan 2024 16:30:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64931C43399;
-	Wed, 31 Jan 2024 16:30:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1706718654;
-	bh=EK6mQSU0rXidzQqllRwP/i4twW+fkBaD850m2dD4R6Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=GL+2WMA36zNaEzVS4UtwxtwU87UtEAZBZuoua1+MclmG0EvDU5inUx5xPgWlQhCx+
-	 tKugeGg8DdA7+H8g4Mepz8bunlb4c0wF/Pr0qr4f3jJkorpgNAn6azaNsOIaOJ6UPE
-	 LIF4d4pVZs/ptNasV6jTOPtZAMkLI0nblUby8KQA=
-Date: Wed, 31 Jan 2024 08:30:53 -0800
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
-	Dan Williams <dan.j.williams@intel.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Sanyog Kale <sanyog.r.kale@intel.com>
-Subject: Re: [PATCH 1/6] sysfs: Introduce a mechanism to hide static
- attribute_groups
-Message-ID: <2024013139-thermal-eaten-f179@gregkh>
-References: <2024013025-spoiling-exact-ad20@gregkh>
- <2024013028-deflator-flaring-ec62@gregkh>
- <b93ec9c2-23f5-486b-a3dc-ed9b960df359@linux.intel.com>
+	by sin.source.kernel.org (Postfix) with ESMTP id EE909CE1E4D;
+	Wed, 31 Jan 2024 17:11:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AC7AC433F1;
+	Wed, 31 Jan 2024 17:11:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1706721109;
+	bh=Uycvovr5UzCYBERc9LtfXtIEMJqSspY0/niHJLHXjPc=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=r0GRUKXfsBXw25oTwVQ0ClgjQeE1JTo3LzIWdgpTPQhWfmvPvbQWGiLvrjxFXBVOr
+	 H8TxEIVI6wYqaTt2Wce7uc7IOrRdzTS7VZA4vHNzIo0PrQxem91t73FaNzIKRO6kDU
+	 JZr1MpWhNlucBgo5XT/xKqq6arOec6PKCtxXmC9MaYgR3tuwwGbBrvyb1soug92BJX
+	 DPG1ys5GhNT3lDHLrdW8J6LERxFwIVBVtY/B59QamV8Z3tdHreM2kqHEh+1n4h0ML0
+	 Ev8jh+iu+7sbBzLQgZcsoooDGHQW49ZYpKg+W1Fn4Oiuu2py6Cv1QMDiKuEjfPdrab
+	 x93Un2IFQUkrA==
+From: Mark Brown <broonie@kernel.org>
+To: vkoul@kernel.org, Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Cc: alsa-devel@alsa-project.org, yung-chuan.liao@linux.intel.com,
+ pierre-louis.bossart@linux.intel.com, Basavaraj.Hiregoudar@amd.com,
+ Sunil-kumar.Dommati@amd.com, venkataprasad.potturu@amd.com,
+ Vinod Koul <vkoul@kernel.org>
+In-Reply-To: <20240129055147.1493853-1-Vijendar.Mukunda@amd.com>
+References: <20240129055147.1493853-1-Vijendar.Mukunda@amd.com>
+Subject: Re: [PATCH V4 00/13] soundwire/SOF: add SoundWire Interface
+ support for AMD SOF stack
+Message-Id: <170672110716.41940.5719661789164483084.b4-ty@kernel.org>
+Date: Wed, 31 Jan 2024 17:11:47 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b93ec9c2-23f5-486b-a3dc-ed9b960df359@linux.intel.com>
-Message-ID-Hash: OYFIW6LBDVFQ35ILGX5FCITM243RXI2J
-X-Message-ID-Hash: OYFIW6LBDVFQ35ILGX5FCITM243RXI2J
-X-MailFrom: gregkh@linuxfoundation.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-a684c
+Message-ID-Hash: TWF2VMP6CLEAHMQJG64CKHUIJNY5V3IW
+X-Message-ID-Hash: TWF2VMP6CLEAHMQJG64CKHUIJNY5V3IW
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -88,97 +89,76 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OYFIW6LBDVFQ35ILGX5FCITM243RXI2J/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TWF2VMP6CLEAHMQJG64CKHUIJNY5V3IW/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, Jan 31, 2024 at 02:05:04PM +0100, Pierre-Louis Bossart wrote:
+On Mon, 29 Jan 2024 11:21:34 +0530, Vijendar Mukunda wrote:
+> This patch series is to redesign existing platform device creation logic
+> for SoundWire managers and Implement generic functions for SoundWire
+> manager probe, start and exit sequence which are common for both Legacy
+> (NO DSP enabled) and SOF stack, and add SoundWire Interface support for
+> AMD SOF stack (ACP 6.3 based platform).
 > 
+> Below patch series is reviewed in
+> https://github.com/thesofproject/linux/pull/4699
 > 
-> On 1/30/24 19:46, Greg Kroah-Hartman wrote:
-> > From: Dan Williams <dan.j.williams@intel.com>
-> > 
-> > Add a mechanism for named attribute_groups to hide their directory at
-> > sysfs_update_group() time, or otherwise skip emitting the group
-> > directory when the group is first registered. It piggybacks on
-> > is_visible() in a similar manner as SYSFS_PREALLOC, i.e. special flags
-> > in the upper bits of the returned mode. To use it, specify a symbol
-> > prefix to DEFINE_SYSFS_GROUP_VISIBLE(), and then pass that same prefix
-> > to SYSFS_GROUP_VISIBLE() when assigning the @is_visible() callback:
-> > 
-> > 	DEFINE_SYSFS_GROUP_VISIBLE($prefix)
-> > 
-> > 	struct attribute_group $prefix_group = {
-> > 		.name = $name,
-> > 		.is_visible = SYSFS_GROUP_VISIBLE($prefix),
-> > 	};
-> > 
-> > SYSFS_GROUP_VISIBLE() expects a definition of $prefix_group_visible()
-> > and $prefix_attr_visible(), where $prefix_group_visible() just returns
-> > true / false and $prefix_attr_visible() behaves as normal.
-> > 
-> > The motivation for this capability is to centralize PCI device
-> > authentication in the PCI core with a named sysfs group while keeping
-> > that group hidden for devices and platforms that do not meet the
-> > requirements. In a PCI topology, most devices will not support
-> > authentication, a small subset will support just PCI CMA (Component
-> > Measurement and Authentication), a smaller subset will support PCI CMA +
-> > PCIe IDE (Link Integrity and Encryption), and only next generation
-> > server hosts will start to include a platform TSM (TEE Security
-> > Manager).
-> > 
-> > Without this capability the alternatives are:
-> > 
-> > * Check if all attributes are invisible and if so, hide the directory.
-> >   Beyond trouble getting this to work [1], this is an ABI change for
-> >   scenarios if userspace happens to depend on group visibility absent any
-> >   attributes. I.e. this new capability avoids regression since it does
-> >   not retroactively apply to existing cases.
-> > 
-> > * Publish an empty /sys/bus/pci/devices/$pdev/tsm/ directory for all PCI
-> >   devices (i.e. for the case when TSM platform support is present, but
-> >   device support is absent). Unfortunate that this will be a vestigial
-> >   empty directory in the vast majority of cases.
-> > 
-> > * Reintroduce usage of runtime calls to sysfs_{create,remove}_group()
-> >   in the PCI core. Bjorn has already indicated that he does not want to
-> >   see any growth of pci_sysfs_init() [2].
-> > 
-> > * Drop the named group and simulate a directory by prefixing all
-> >   TSM-related attributes with "tsm_". Unfortunate to not use the naming
-> >   capability of a sysfs group as intended.
-> > 
-> > In comparison, there is a small potential for regression if for some
-> > reason an @is_visible() callback had dependencies on how many times it
-> > was called. Additionally, it is no longer an error to update a group
-> > that does not have its directory already present, and it is no longer a
-> > WARN() to remove a group that was never visible.
-> > 
-> > Link: https://lore.kernel.org/all/2024012321-envious-procedure-4a58@gregkh/ [1]
-> > Link: https://lore.kernel.org/linux-pci/20231019200110.GA1410324@bhelgaas/ [2]
-> > Signed-off-by: Dan Williams <dan.j.williams@intel.com>
-> > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> 
-> This patch seems to introduce a regression on our Lunar Lake test
-> devices, where we can't boot to an ssh shell. No issues on older devices
-> [1]. Bard Liao and I reproduced the same results on different boards.
-> 
-> We'll need to find someone with direct device access to provide more
-> information on the problem, remote testing without ssh is a
-> self-negating proposition.
-> 
-> Is there a dependency on other patches? Our tests are still based on
-> 6.7.0-rc3 due to other upstream issues we're currently working through.
+> [...]
 
-This should be totally stand-alone and not cause any problems,
-especially if you don't have any other patches applied.
+Applied to
 
-I did make this against 6.8-rc2, perhaps that's the issue?
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-thanks,
+Thanks!
 
-greg k-h
+[01/13] ASoC/soundwire: implement generic api for scanning amd soundwire controller
+        commit: ed0ef85795b58134172e8c82ab2f1b869cd501a6
+[02/13] soundwire: amd: update license
+        commit: a47746428cf5762290d0c55f6ef82067af04d165
+[03/13] soundwire: amd: refactor amd soundwire manager device node creation
+        commit: ed5e8741b8db908d51a26e368c18573ee1b9e208
+[04/13] soundwire: amd: implement function to extract slave information
+        commit: aff9d088a306541117e420d96ed6b6f1215a7e2d
+[05/13] soundwire: amd: refactor soundwire pads enable
+        commit: cf0ddbc29dfaacb26d58a594619e42ced286ff29
+[06/13] soundwire: amd: refactor register mask structure
+        commit: c1263c75294cc8178ca964e0220b35518d6fb38d
+[07/13] ASoC: SOF: amd: add code for invoking soundwire manager helper functions
+        commit: d948218424bf9194860fcc10259ff42487cf4bd9
+[08/13] ASoC: SOF: amd: add interrupt handling for SoundWire manager devices
+        commit: 96eb818510120a869711876026ca7c0aa2b4171e
+[09/13] ASoC: SOF: amd: Add Soundwire DAI configuration support for AMD platforms
+        commit: 14d89e55dec9c4e49d196b9d5d659d02dcc8252b
+[10/13] ASoC: SOF: amd: add machine select logic for soundwire based platforms
+        commit: 5f97c59a77421a5e8aa3b5c4cbdda66a3c956e44
+[11/13] ASoC: SOF: amd: update descriptor fields for acp6.3 based platform
+        commit: 8af5c7e9cc89ebc6427ef8fde1de77e88ddd3e05
+[12/13] ASoC: SOF: amd: select soundwire dependency flag for acp6.3 based platform
+        commit: 2188c2cfaa4f431c1d537bb029a6e9b0810b7e7f
+[13/13] ASoC: SOF: amd: refactor acp driver pm ops
+        commit: 260b08aed4a770335ece16781d8023e9ff488ae0
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+

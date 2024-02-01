@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B7828457F0
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Feb 2024 13:39:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB5F384580C
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Feb 2024 13:48:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8038B844;
-	Thu,  1 Feb 2024 13:39:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8038B844
+	by alsa0.perex.cz (Postfix) with ESMTPS id 65403857;
+	Thu,  1 Feb 2024 13:48:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 65403857
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1706791196;
-	bh=hrair1RmHBgldlMnoWXHWrsnzz2X+h/LuQ58ywvvRnw=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=CNOnAlISzj9P0hcxHiSzsSWuiUaMEg+1zmiY0axmgWzxMpseGsTWsZ79N5Jn47yXI
-	 f1dmJC+glez1TzI1gJh0uPD1cUiUHUNXURXJLVocr5VEA5bMXl7Y33ynsTETLfNazB
-	 tEAr0zwBGkNVndXwul1Qkml1Gtxl07uBWEugj1cs=
+	s=default; t=1706791705;
+	bh=pfyIXZDpe+PzOEhUCcex34QzQ9m9/xSM8przvGPqCHY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=FT/vm5F9Uhvh/Vcjt4cSTiQCuubP3wsEZbDx9oxwLcjHQwGh2B8947aNtmMAle3sx
+	 MlqZtyxErcHHxA88GPiYYkDNQIrexxBoeVGI1ULuJDlU6b3xv3iH+iJvnzhOZTID0n
+	 LUYigTMPgBoOfARJmHlIWI6WffYk+susaooxtSjo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CE832F8057D; Thu,  1 Feb 2024 13:39:35 +0100 (CET)
+	id 63FBBF8057B; Thu,  1 Feb 2024 13:47:53 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 69720F8056F;
-	Thu,  1 Feb 2024 13:39:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B07FDF805A8;
+	Thu,  1 Feb 2024 13:47:53 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3C62CF8055C; Thu,  1 Feb 2024 13:39:30 +0100 (CET)
+	id 45A8FF8055C; Thu,  1 Feb 2024 13:47:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-6.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,40 +35,48 @@ X-Spam-Status: No, score=-6.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from sin.source.kernel.org (sin.source.kernel.org
  [IPv6:2604:1380:40e1:4800::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6C06BF804E7
-	for <alsa-devel@alsa-project.org>; Thu,  1 Feb 2024 13:39:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C06BF804E7
+	by alsa1.perex.cz (Postfix) with ESMTPS id 61CA5F804E7
+	for <alsa-devel@alsa-project.org>; Thu,  1 Feb 2024 13:47:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61CA5F804E7
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Rld94aYw
+ header.s=k20201202 header.b=HvgWe6TE
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id AA9F0CE25DF;
-	Thu,  1 Feb 2024 12:39:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85589C433F1;
-	Thu,  1 Feb 2024 12:39:20 +0000 (UTC)
+	by sin.source.kernel.org (Postfix) with ESMTP id 6EF13CE0E74;
+	Thu,  1 Feb 2024 12:47:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 412DEC433C7;
+	Thu,  1 Feb 2024 12:47:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1706791160;
-	bh=hrair1RmHBgldlMnoWXHWrsnzz2X+h/LuQ58ywvvRnw=;
-	h=From:To:Cc:Subject:Date:From;
-	b=Rld94aYwTP9bW5Fnx48tbTOj3Zy99X3lvbf7PWpJWSVYvrczq9S/7q68FL4wcu0Uf
-	 oBlJUDt/aT2P6YfA5LdpziNilp0CZS+oZmvAEz+pqmQQStbrID92jzScXVr/O4G7P+
-	 ThxPIQjXpNSfAUIY4MwnZrGoLq1AP2LAhR40s/HYBP2xIv4DBvZr9Z5kAnBlW3FqUr
-	 D3CjBo4YrP7tHq31W/ATn8Tf282PPrAF6v6pVVqZUMTgtG2UP7iBwFMmQETc4YS2AA
-	 ry5PMNyx0e8qjh/lUGCTxH/TWGyyldsp+xM7jWrJS+NisnSU+jR73lV2VRkCwtyvhB
-	 X079NuB2GGWOA==
+	s=k20201202; t=1706791662;
+	bh=pfyIXZDpe+PzOEhUCcex34QzQ9m9/xSM8przvGPqCHY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=HvgWe6TExi/6E6ARbS60l912CKcDcS5/FM0uAqpU5v5dJJ1YcgsVuqpbYqPUbj14T
+	 WNFhoJ4Q0+7T2UOfhbjO7Q0vBEa5I8GYjVbGRNJTzSykdBJrypLfT7B6k1Pc356JaM
+	 MhpYujp+yAp+4CFMYL90ckHHgL4LX31XCLEgnuM0m/90xqlj+yPs/M66zCjPqruzCi
+	 L/DjeAIK8G+F5cI4+WYB6nS/+TvZw/16C/DbaAQjGaWSs2AObwHy1kWrOwaUz/Oo6A
+	 j5magtUyaKUzXkdEqc2Kzgw7Z2in7FKJZTn7kWhgV+7ZAGoM6VGAE5+W0cdtWC9OCV
+	 CDGTjgRsOjuPA==
+Date: Thu, 1 Feb 2024 12:47:38 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>
-Subject: [GIT PULL] ASoC fixes for v6.8-rc2
-Date: Thu, 01 Feb 2024 12:39:17 +0000
-Message-Id: <20240201123920.85589C433F1@smtp.kernel.org>
-Message-ID-Hash: B7SISAH5RB4LINPA44QLLDMPUI3YAIO4
-X-Message-ID-Hash: B7SISAH5RB4LINPA44QLLDMPUI3YAIO4
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Cc: tiwai@suse.com, alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+	patches@opensource.cirrus.com
+Subject: Re: [PATCH 00/18] ALSA: Various fixes for Cirrus Logic CS35L56
+ support
+Message-ID: <1cc8d9c7-2af5-43f1-a022-75624deae51f@sirena.org.uk>
+References: <20240129162737.497-1-rf@opensource.cirrus.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="CDtLnkViadJro5Nz"
+Content-Disposition: inline
+In-Reply-To: <20240129162737.497-1-rf@opensource.cirrus.com>
+X-Cookie: You can't cheat the phone company.
+Message-ID-Hash: EIQV4VUAZX64TTOQ75UZ4XYAND6WZX6R
+X-Message-ID-Hash: EIQV4VUAZX64TTOQ75UZ4XYAND6WZX6R
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -80,95 +89,44 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/B7SISAH5RB4LINPA44QLLDMPUI3YAIO4/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EIQV4VUAZX64TTOQ75UZ4XYAND6WZX6R/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The following changes since commit 6613476e225e090cc9aad49be7fa504e290dd33d:
 
-  Linux 6.8-rc1 (2024-01-21 14:11:32 -0800)
+--CDtLnkViadJro5Nz
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-are available in the Git repository at:
+On Mon, Jan 29, 2024 at 04:27:19PM +0000, Richard Fitzgerald wrote:
+> This chain of patches fixes various things that were undocumented, unknown
+> or uncertain when the original driver code was written. And also a few
+> things that were just bugs.
+>=20
+> The HDA patches have dependencies on the ASoC patches, except for the fin=
+al
+> patch that removes a bogus test stub function.
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.8-rc2
+Takashi, should I apply the ALSA bits of this via ASoC?
 
-for you to fetch changes up to 5513c5d0fb3d509cdd0a11afc18441c57eb7c94c:
+--CDtLnkViadJro5Nz
+Content-Type: application/pgp-signature; name="signature.asc"
 
-  ASoC: amd: acp: Fix support for a Huawei Matebook laptop (2024-01-29 20:16:36 +0000)
+-----BEGIN PGP SIGNATURE-----
 
-----------------------------------------------------------------
-ASoC: Fixes for v6.8
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmW7kukACgkQJNaLcl1U
+h9AAwgf8CybxhlcP0vma6wF2MMGIG14ggLVyQOf/7GCmv2SetczhzQxcsJg2O1Oh
+X//clpmlLPFK9WZzjZwoJ7vsdsbROiILlNblqzMQO4llCCi4CwaXx2xUyhiIcrTA
+UWakVULs7ip7fUiLtTP0ztYDbQji8ly5BIacROzLGoWo7KQrVulLhlf34IU+VI0H
+Q3YDZH2KN39ls/UHIDbsh1vRCnNvg3OCziGN063D2CTBFc3fpTCyUAhG/ODyg1Y1
+aPSyAy/jTMsGmrRpRTtI8zoM1srKATSA8oNcyhelfZXvA0zZ2zja8GM0ZBiGdye1
+EISkvnFnf9gB/+WJPejgAncCL07xcA==
+=jCSO
+-----END PGP SIGNATURE-----
 
-Quite a lot of fixes that came in since the merge window, a large
-portion for for Qualcomm and ES8326.
-
-The 8 DAI support for Qualcomm is just raising a constant to allow for
-devies that otherwise only need DTs, and there's a few other device ID
-updates for sunxi (Allwinner) and AMD platforms.
-
-----------------------------------------------------------------
-Chen-Yu Tsai (3):
-      ASoC: sunxi: sun4i-spdif: Add support for Allwinner H616
-      ASoC: sun4i-spdif: Fix requirements for H6
-      ASoC: sun4i-spdif: Add Allwinner H616 compatible
-
-Fei Shao (1):
-      ASoC: codecs: ES8326: Remove executable bit
-
-Johan Hovold (5):
-      ASoC: codecs: wsa883x: fix PA volume control
-      ASoC: codecs: lpass-wsa-macro: fix compander volume hack
-      ASoC: codecs: wcd9335: drop unused gain hack remnant
-      ASoC: codecs: wcd938x: fix headphones volume controls
-      ASoC: qcom: sc8280xp: limit speaker volumes
-
-Krzysztof Kozlowski (4):
-      ASoC: codecs: wcd938x: handle deferred probe
-      ASoC: codecs: wcd938x: skip printing deferred probe failuers
-      ASoC: codecs: wcd934x: drop unneeded regulator include
-      ASoC: allow up to eight CPU/codec DAIs
-
-Marian Postevca (1):
-      ASoC: amd: acp: Fix support for a Huawei Matebook laptop
-
-Mark Brown (3):
-      ASoC: codecs: fix ES8326 performance and pop noise
-      ASoC: qcom: volume fixes and codec cleanups
-      arm64: sun50i-h616: Add DMA and SPDIF controllers
-
-Techno Mooney (1):
-      ASoC: amd: yc: Add DMI quirk for MSI Bravo 15 C7VF
-
-Venkata Prasad Potturu (3):
-      ASoC: amd: acp: Enable rt5682s clocks in acp slave mode
-      ASoC: amd: acp: Update platform name for different boards
-      ASoC: amd: acp: Add check for cpu dai link initialization
-
-Zhu Ning (4):
-      ASoC: codecs: ES8326: improving crosstalk performance
-      ASoC: codecs: ES8326: Improving the THD+N performance
-      ASoC: codecs: ES8326: Minimize the pop noise on headphone
-      ASoC: codecs: ES8326: fix the capture noise issue
-
- .../bindings/sound/allwinner,sun4i-a10-spdif.yaml  |   5 +-
- sound/soc/amd/acp/acp-mach-common.c                |  16 +-
- sound/soc/amd/acp/acp-sof-mach.c                   |   4 +
- sound/soc/amd/acp/acp3x-es83xx/acp3x-es83xx.c      |   8 +
- sound/soc/amd/yc/acp6x-mach.c                      |   7 +
- sound/soc/codecs/es8326.c                          | 186 +++++++++++++++------
- sound/soc/codecs/es8326.h                          |   3 +-
- sound/soc/codecs/lpass-wsa-macro.c                 |   7 -
- sound/soc/codecs/wcd9335.c                         |   4 -
- sound/soc/codecs/wcd934x.c                         |   1 -
- sound/soc/codecs/wcd938x.c                         |   8 +-
- sound/soc/codecs/wsa883x.c                         |   6 +-
- sound/soc/qcom/sc8280xp.c                          |  12 +-
- sound/soc/soc-core.c                               |   5 +-
- sound/soc/sunxi/sun4i-spdif.c                      |   5 +
- 15 files changed, 202 insertions(+), 75 deletions(-)
- mode change 100755 => 100644 sound/soc/codecs/es8326.c
+--CDtLnkViadJro5Nz--

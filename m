@@ -2,73 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62C14845666
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Feb 2024 12:41:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7321E845694
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Feb 2024 12:54:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D6D79857;
-	Thu,  1 Feb 2024 12:41:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6D79857
+	by alsa0.perex.cz (Postfix) with ESMTPS id 618C6857;
+	Thu,  1 Feb 2024 12:53:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 618C6857
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1706787697;
-	bh=ZF0ET3HZ1ctvp7+6d8Yiuo6tdtGx8ggHihLhHSCEcLw=;
+	s=default; t=1706788443;
+	bh=5oOP4bht1T8GSC5S5pLB/bIDrJgVU/QccsXrdiC1fh8=;
 	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=ScAVC+m9KvU2BcPZEYxuUT6DVh+583f2EaCpPZNSqTPBTPOHSKyIbdCmmzerarTyF
-	 F6u+iBbbDCKoAggHAQ3O/ODSPYzExbhv5VufRx/NoSlWHneXAWHP5iXOtAVxFGblh0
-	 Nrz4CX4qlKd8RImQgwzjudgiZXb52G7xONwL298s=
+	b=dcpZlLTi15vHj4cP6pktQ9pFpU/OaZEsrNb0zWbPmrPoBx4FsjQT3m1uD1SFxzODi
+	 xTJoC0KqFmWNWN4oq2q58TVYoeQmFNvYj2eXyBn6PN4XEQmc0Vx6CZqNVPhQ/jRIIX
+	 TV7E5jaGfPQZL2sbQe1iVLDO5KIDYgTZLiQSd45E=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5AC51F80570; Thu,  1 Feb 2024 12:41:06 +0100 (CET)
+	id 98179F80568; Thu,  1 Feb 2024 12:53:31 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CF1D2F80571;
-	Thu,  1 Feb 2024 12:41:05 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 25F00F805A1;
+	Thu,  1 Feb 2024 12:53:31 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 66B91F8055C; Thu,  1 Feb 2024 12:41:01 +0100 (CET)
+	id 7A559F8055C; Thu,  1 Feb 2024 12:53:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+X-Spam-Status: No, score=-2.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
+	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URI_TRY_3LD
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from puleglot.ru (puleglot.ru [IPv6:2a01:4f8:1c0c:58e8::2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4B5CCF804E7
-	for <alsa-devel@alsa-project.org>; Thu,  1 Feb 2024 12:40:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B5CCF804E7
+	by alsa1.perex.cz (Postfix) with ESMTPS id 982E4F804E7
+	for <alsa-devel@alsa-project.org>; Thu,  1 Feb 2024 12:53:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 982E4F804E7
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=skLYnbmj
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 013AC61DFC;
-	Thu,  1 Feb 2024 11:40:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62055C433C7;
-	Thu,  1 Feb 2024 11:40:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1706787649;
-	bh=ZF0ET3HZ1ctvp7+6d8Yiuo6tdtGx8ggHihLhHSCEcLw=;
-	h=From:To:Cc:Subject:Date:From;
-	b=skLYnbmjTSDgOCby7/ZFDFYSvl3Rs/iAS5Mc3jCnCRgmHFOxwQUBBSkxuC9oMt3ef
-	 6uInvQigOnU9ShqTTHBKA22vArE4FeLHlbmvRyPJQmECNFzUuuVO2WpuXobhDO0U61
-	 o19Z3HsbUTmQ2wyCep5/xQRgU7UuKQwnlGjwr/0r1WjL+xC6MaNocV+U6T55DMRBNB
-	 4DihjMP0hk17ChTodp8FIzkdIcE/rF22TYQ6kwupupUgu6zCwkITJwRtOXoCTPS8a1
-	 /2vUQyBlg6xhLdp2jeKCuWrhhUdalLt1iMXaIrHyK/EzGwoZaJW83gtLFZ+Lm3Dsvk
-	 LFJaCtY87Ihrw==
-From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>
-Subject: [GIT PULL] ASoC fixes for v6.8-rc2
-Date: Thu, 01 Feb 2024 11:40:40 +0000
-Message-Id: <20240201114049.62055C433C7@smtp.kernel.org>
-Message-ID-Hash: GTBWQ7HPIADN6MYZODXG7NR7X4G2OG3A
-X-Message-ID-Hash: GTBWQ7HPIADN6MYZODXG7NR7X4G2OG3A
-X-MailFrom: broonie@kernel.org
+	dkim=pass (1024-bit key,
+ unprotected) header.d=tsoy.me header.i=@tsoy.me header.a=rsa-sha256
+ header.s=mymail header.b=p1s4HjkT
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tsoy.me;
+	s=mymail; h=Sender:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:
+	Subject:Cc:To:From:Reply-To:Content-Type:Content-ID:Content-Description:
+	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=HfyPbCpGNXGGHMMxOtkxYsa+qUDoLnWX4zlJhqQCbsE=; b=p1s4HjkTw9CV8ewj8cDFnyQEnS
+	oOThLLWh5iStoLMXz1ZLRB9e3A87c9EfP35cnozsHTQ8EjgM/FjWvthTeY7FVLb5y8yPzM+VoLjHA
+	sZn06q8V/wZsuHPKP6CMo4mOfZFej51WDTPWluEnd+pfujoHGOVHuIgUeBCNmIa9npNk=;
+Received: from [2a00:1370:819a:ceb:89dc:eced:962a:5b2f] (helo=home..)
+	by puleglot.ru with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.97.1)
+	(envelope-from <puleglot@puleglot.ru>)
+	id 1rVVd9-00000000yzA-3Twx;
+	Thu, 01 Feb 2024 14:53:19 +0300
+From: Alexander Tsoy <alexander@tsoy.me>
+To: linux-sound@vger.kernel.org
+Cc: alsa-devel@alsa-project.org,
+	Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>
+Subject: [PATCH] ALSA: usb-audio: Ignore clock selector errors for single
+ connection
+Date: Thu,  1 Feb 2024 14:53:08 +0300
+Message-ID: <20240201115308.17838-1-alexander@tsoy.me>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Sender: puleglot@puleglot.ru
+Message-ID-Hash: XWMRFRCW3VUZUD2ZXJLK6LSFWJLYDOYZ
+X-Message-ID-Hash: XWMRFRCW3VUZUD2ZXJLK6LSFWJLYDOYZ
+X-MailFrom: puleglot@puleglot.ru
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -80,7 +85,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GTBWQ7HPIADN6MYZODXG7NR7X4G2OG3A/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XWMRFRCW3VUZUD2ZXJLK6LSFWJLYDOYZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -89,89 +94,59 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The following changes since commit 6613476e225e090cc9aad49be7fa504e290dd33d:
+For devices with multiple clock sources connected to a selector, we need
+to check what a clock selector control request has returned. This is
+needed to ensure that a requested clock source is indeed selected and for
+autoclock feature to work.
 
-  Linux 6.8-rc1 (2024-01-21 14:11:32 -0800)
+For devices with single clock source connected, if we get an error there
+is nothing else we can do about it. We can't skip clock selector setup as
+it is required by some devices. So lets just ignore error in this case.
 
-are available in the Git repository at:
+This should fix various buggy Mackie devices:
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.8-rc2
+[  649.109785] usb 1-1.3: parse_audio_format_rates_v2v3(): unable to find clock source (clock -32)
+[  649.111946] usb 1-1.3: parse_audio_format_rates_v2v3(): unable to find clock source (clock -32)
+[  649.113822] usb 1-1.3: parse_audio_format_rates_v2v3(): unable to find clock source (clock -32)
 
-for you to fetch changes up to eeab239d6a2418fc5d2cd7ea76187085a97acde0:
+There is also interesting info from the Windows documentation [1] (this
+is probably why manufacturers dont't even test this feature):
 
-  ASoC: wcd934x: fix an incorrect use of kstrndup() (2024-01-29 23:08:56 +0000)
+"The USB Audio 2.0 driver doesn't support clock selection. The driver
+uses the Clock Source Entity, which is selected by default and never
+issues a Clock Selector Control SET CUR request."
 
-----------------------------------------------------------------
-ASoC: Fixes for v6.8
+Link: https://learn.microsoft.com/en-us/windows-hardware/drivers/audio/usb-2-0-audio-drivers [1]
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=217314
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=218175
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=218342
+Signed-off-by: Alexander Tsoy <alexander@tsoy.me>
+---
+ sound/usb/clock.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-Quite a lot of fixes that came in since the merge window, a large
-portion for for Qualcomm and ES8326.
+diff --git a/sound/usb/clock.c b/sound/usb/clock.c
+index a8204c6d6fac..60fcb872a80b 100644
+--- a/sound/usb/clock.c
++++ b/sound/usb/clock.c
+@@ -347,8 +347,16 @@ static int __uac_clock_find_source(struct snd_usb_audio *chip,
+ 			    !writeable)
+ 				return ret;
+ 			err = uac_clock_selector_set_val(chip, entity_id, cur);
+-			if (err < 0)
++			if (err < 0) {
++				if (pins == 1) {
++					usb_audio_dbg(chip,
++						      "%s(): selector returned an error, "
++						      "assuming a firmware bug, id %d, ret %d\n",
++						      __func__, clock_id, err);
++					return ret;
++				}
+ 				return err;
++			}
+ 		}
+ 
+ 		if (!validate || ret > 0 || !chip->autoclock)
+-- 
+2.43.0
 
-The 8 DAI support for Qualcomm is just raising a constant to allow for
-devies that otherwise only need DTs, and there's a few other device ID
-updates for sunxi (Allwinner) and AMD platforms.
-
-----------------------------------------------------------------
-Chen-Yu Tsai (3):
-      ASoC: sunxi: sun4i-spdif: Add support for Allwinner H616
-      ASoC: sun4i-spdif: Fix requirements for H6
-      ASoC: sun4i-spdif: Add Allwinner H616 compatible
-
-Fei Shao (1):
-      ASoC: codecs: ES8326: Remove executable bit
-
-Fullway Wang (1):
-      ASoC: wcd934x: fix an incorrect use of kstrndup()
-
-Johan Hovold (5):
-      ASoC: codecs: wsa883x: fix PA volume control
-      ASoC: codecs: lpass-wsa-macro: fix compander volume hack
-      ASoC: codecs: wcd9335: drop unused gain hack remnant
-      ASoC: codecs: wcd938x: fix headphones volume controls
-      ASoC: qcom: sc8280xp: limit speaker volumes
-
-Krzysztof Kozlowski (4):
-      ASoC: codecs: wcd938x: handle deferred probe
-      ASoC: codecs: wcd938x: skip printing deferred probe failuers
-      ASoC: codecs: wcd934x: drop unneeded regulator include
-      ASoC: allow up to eight CPU/codec DAIs
-
-Marian Postevca (1):
-      ASoC: amd: acp: Fix support for a Huawei Matebook laptop
-
-Mark Brown (3):
-      ASoC: codecs: fix ES8326 performance and pop noise
-      ASoC: qcom: volume fixes and codec cleanups
-      arm64: sun50i-h616: Add DMA and SPDIF controllers
-
-Techno Mooney (1):
-      ASoC: amd: yc: Add DMI quirk for MSI Bravo 15 C7VF
-
-Venkata Prasad Potturu (3):
-      ASoC: amd: acp: Enable rt5682s clocks in acp slave mode
-      ASoC: amd: acp: Update platform name for different boards
-      ASoC: amd: acp: Add check for cpu dai link initialization
-
-Zhu Ning (4):
-      ASoC: codecs: ES8326: improving crosstalk performance
-      ASoC: codecs: ES8326: Improving the THD+N performance
-      ASoC: codecs: ES8326: Minimize the pop noise on headphone
-      ASoC: codecs: ES8326: fix the capture noise issue
-
- .../bindings/sound/allwinner,sun4i-a10-spdif.yaml  |   5 +-
- sound/soc/amd/acp/acp-mach-common.c                |  16 +-
- sound/soc/amd/acp/acp-sof-mach.c                   |   4 +
- sound/soc/amd/acp/acp3x-es83xx/acp3x-es83xx.c      |   8 +
- sound/soc/amd/yc/acp6x-mach.c                      |   7 +
- sound/soc/codecs/es8326.c                          | 186 +++++++++++++++------
- sound/soc/codecs/es8326.h                          |   3 +-
- sound/soc/codecs/lpass-wsa-macro.c                 |   7 -
- sound/soc/codecs/wcd9335.c                         |   4 -
- sound/soc/codecs/wcd934x.c                         |   3 +-
- sound/soc/codecs/wcd938x.c                         |   8 +-
- sound/soc/codecs/wsa883x.c                         |   6 +-
- sound/soc/qcom/sc8280xp.c                          |  12 +-
- sound/soc/soc-core.c                               |   5 +-
- sound/soc/sunxi/sun4i-spdif.c                      |   5 +
- 15 files changed, 203 insertions(+), 76 deletions(-)
- mode change 100755 => 100644 sound/soc/codecs/es8326.c

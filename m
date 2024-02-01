@@ -2,141 +2,151 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8E3A84585A
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Feb 2024 14:00:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95E44845861
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Feb 2024 14:03:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5A90D857;
-	Thu,  1 Feb 2024 13:59:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A90D857
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1628DA4A;
+	Thu,  1 Feb 2024 14:02:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1628DA4A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1706792404;
-	bh=A1CD3TizeGw0gRAijqITFwb/9CtDxOQbCofvlJYs5ao=;
+	s=default; t=1706792583;
+	bh=LKjJBBd8SBZq1TlSMNPebvfGKgt0GBCGwuyqPIntk68=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=V+uXibL/8zxqjie6K2so4gcxrG2LGW9B5PUsbhh8lydVsdAkAP2WH/yBFvanY9hNF
-	 SyLPjpUq/eeyCATgqZf+zTa2SzzPc1Ui+iI43XwFusPMPBvzlSTRC7DDh7lqasQIuI
-	 pgisljiGyChsN8S2YI0Zw0wkeudlZ7r8p0cRfeCY=
+	b=AZ34cKSCa3ZwgQxKU/QxVXHTbcD7LathJe6BychHMddaDg2r5eP6VvKXSAw6P+axx
+	 6gRwPB3uS3MYCeWI3za2I2dnXLeSpMHdMljfHMNIQ+Rw5yy5SpXZK7aaGZ6cvTnd38
+	 Cbp2ypjjHpL0uNdu0wuN4/u4eIyWCVZNZUiDRKS8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C34E5F8059F; Thu,  1 Feb 2024 13:59:32 +0100 (CET)
+	id 1694CF80567; Thu,  1 Feb 2024 14:02:29 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 61C97F8056F;
-	Thu,  1 Feb 2024 13:59:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 462D2F8057C;
+	Thu,  1 Feb 2024 14:02:29 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 395A0F8055C; Thu,  1 Feb 2024 13:59:28 +0100 (CET)
+	id 1852DF8055C; Thu,  1 Feb 2024 14:02:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 85075F80548
-	for <alsa-devel@alsa-project.org>; Thu,  1 Feb 2024 13:59:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 85075F80548
+	by alsa1.perex.cz (Postfix) with ESMTPS id 95DBEF80548
+	for <alsa-devel@alsa-project.org>; Thu,  1 Feb 2024 14:02:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 95DBEF80548
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=YA0M6cJ7;
+ header.s=susede2_rsa header.b=Ek3OiIZq;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=jIUCe02b;
+ header.s=susede2_ed25519 header.b=JSK7qn6W;
 	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=MsrqlhHN;
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=Ek3OiIZq;
 	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=P0FAgXbY
+ header.s=susede2_ed25519 header.b=JSK7qn6W
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 5D4541FB83;
-	Thu,  1 Feb 2024 12:59:22 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 0660E21EC7;
+	Thu,  1 Feb 2024 13:02:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1706792363;
+	t=1706792537;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=5xEfsZdcZNKLoLgOZMCSO1egAPw9Osdd2UHzN8nHQNA=;
-	b=YA0M6cJ7Cp5IzY3PAaLgt8DdgeiR9MWRX5YhWA9A6nZSFX6UQ9giAaYhGkOWrHhw7Rab5r
-	lCzh01R865f6zLAwSvJzx3anFVjpRa6lVYbVeBwvyyWdJP/hv2scuxm9yRzsAuN3SnOhTi
-	Vq18QjxuN63PUfUnJql+YOyLg06d8iE=
+	bh=ENmQXtGmZZRRih/heSUqRc9W6vtYC89xYf/keE9bwxc=;
+	b=Ek3OiIZqYC4iLIYCWk/wLi1Cq2lFLS2CQ8GzvVIgUaHtyeiYAWo7/PbOhB8poGagpz8Ku4
+	Hzrya7WB3qIDcgoWPA6v3dP4VAi7BJQmUdoK5vkomeRusu08mBoCXHLqKEAcScLZmq8PpB
+	FTrMSlw3nIqJRZGL0Gqr8QedKPi5aAI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1706792363;
+	s=susede2_ed25519; t=1706792537;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=5xEfsZdcZNKLoLgOZMCSO1egAPw9Osdd2UHzN8nHQNA=;
-	b=jIUCe02b4Pc9lcfb2O+j5Ru63dvQVu/lzk9mZWdhaMoiqNEMlt8yUAOTfqWab68mDNqotW
-	qppsTrHnaQ8CE4CA==
+	bh=ENmQXtGmZZRRih/heSUqRc9W6vtYC89xYf/keE9bwxc=;
+	b=JSK7qn6Wydw/r4maaUjwF06TVZP55+X8TgcOPrcNFfJgvYLQto2OWMEsIOXMrzQNpsfrUf
+	TteNYxGoiACqwuBQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1706792362;
+	t=1706792537;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=5xEfsZdcZNKLoLgOZMCSO1egAPw9Osdd2UHzN8nHQNA=;
-	b=MsrqlhHNsOyc+e178DG1NqnTpOSut9i746Vobhdz3HfJ732sirbKtYHfRwepznz53FDVoH
-	rqIfs3V4Yk+WCYTzNksIsIk3sLkj17+XJ1jQ0iQkIA10OiX2oX1tuxSnxgCAiyZrNaFng8
-	eCXOHq+MwQkieaVBAtSTNjfemgUBQDU=
+	bh=ENmQXtGmZZRRih/heSUqRc9W6vtYC89xYf/keE9bwxc=;
+	b=Ek3OiIZqYC4iLIYCWk/wLi1Cq2lFLS2CQ8GzvVIgUaHtyeiYAWo7/PbOhB8poGagpz8Ku4
+	Hzrya7WB3qIDcgoWPA6v3dP4VAi7BJQmUdoK5vkomeRusu08mBoCXHLqKEAcScLZmq8PpB
+	FTrMSlw3nIqJRZGL0Gqr8QedKPi5aAI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1706792362;
+	s=susede2_ed25519; t=1706792537;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=5xEfsZdcZNKLoLgOZMCSO1egAPw9Osdd2UHzN8nHQNA=;
-	b=P0FAgXbY+g/YiiORM/RUPmyNqRH4uM+bCpV4qoLk+DSBZi7I6QTZYmFjPE9E0yHoyhWSuk
-	nI/6NPwr1uuliNAw==
+	bh=ENmQXtGmZZRRih/heSUqRc9W6vtYC89xYf/keE9bwxc=;
+	b=JSK7qn6Wydw/r4maaUjwF06TVZP55+X8TgcOPrcNFfJgvYLQto2OWMEsIOXMrzQNpsfrUf
+	TteNYxGoiACqwuBQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3EF15139B1;
-	Thu,  1 Feb 2024 12:59:22 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BE992139B1;
+	Thu,  1 Feb 2024 13:02:16 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([10.150.64.162])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id OTMyDaqVu2X5PQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Thu, 01 Feb 2024 12:59:22 +0000
-Date: Thu, 01 Feb 2024 13:59:21 +0100
-Message-ID: <87h6isz6fq.wl-tiwai@suse.de>
+	id pPirLFiWu2XPPgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Thu, 01 Feb 2024 13:02:16 +0000
+Date: Thu, 01 Feb 2024 14:02:16 +0100
+Message-ID: <87frycz6av.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: rp@nrp.de
-Cc: alsa-devel@alsa-project.org
-Subject: Re: [PATCH] ALSA: usb-audio: Add quirk for PioneerDJ DDJ-1000
-In-Reply-To: <2322911.ElGaqSPkdT@pc>
-References: <2322911.ElGaqSPkdT@pc>
+To: Alexander Tsoy <alexander@tsoy.me>
+Cc: vincenttew <vincenttew@google.com>,
+	perex@perex.cz,
+	tiwai@suse.com,
+	linux-kernel@vger.kernel.org,
+	alsa-devel@alsa-project.org
+Subject: Re: [PATCH] ALSA: usb-audio: retry clock validate when it takes some
+ times
+In-Reply-To: <6872e9ea993633dff4e248f01cafd1ac32651355.camel@tsoy.me>
+References: <20240201070641.401684-1-vincenttew@google.com>
+	<6872e9ea993633dff4e248f01cafd1ac32651355.camel@tsoy.me>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Authentication-Results: smtp-out2.suse.de;
+Content-Type: text/plain; charset=KOI8-R
+Content-Transfer-Encoding: 8bit
+Authentication-Results: smtp-out1.suse.de;
 	none
-X-Spamd-Result: default: False [0.86 / 50.00];
+X-Spamd-Result: default: False [0.90 / 50.00];
 	 ARC_NA(0.00)[];
 	 RCVD_VIA_SMTP_AUTH(0.00)[];
 	 FROM_HAS_DN(0.00)[];
+	 TO_DN_SOME(0.00)[];
 	 TO_MATCH_ENVRCPT_ALL(0.00)[];
 	 MIME_GOOD(-0.10)[text/plain];
-	 TO_DN_NONE(0.00)[];
+	 RCPT_COUNT_FIVE(0.00)[6];
 	 RCVD_COUNT_THREE(0.00)[3];
 	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	 RCPT_COUNT_TWO(0.00)[2];
 	 MID_CONTAINS_FROM(1.00)[];
-	 DBL_BLOCKED_OPENRESOLVER(0.00)[nrp.de:email];
 	 FUZZY_BLOCKED(0.00)[rspamd.com];
 	 FROM_EQ_ENVFROM(0.00)[];
 	 MIME_TRACE(0.00)[0:+];
 	 RCVD_TLS_ALL(0.00)[];
-	 BAYES_HAM(-0.04)[58.72%]
-Message-ID-Hash: 2MRDRDEWFELPYKKSH3R7XNLBRLKDZSDE
-X-Message-ID-Hash: 2MRDRDEWFELPYKKSH3R7XNLBRLKDZSDE
+	 BAYES_HAM(-0.00)[22.88%]
+Message-ID-Hash: PPJ2ONI64CTBSISGSWMOBSTBJNDU4AYM
+X-Message-ID-Hash: PPJ2ONI64CTBSISGSWMOBSTBJNDU4AYM
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -148,45 +158,39 @@ X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2MRDRDEWFELPYKKSH3R7XNLBRLKDZSDE/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+Archived-At: <>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 31 Jan 2024 21:28:48 +0100,
-rp@nrp.de wrote:
+On Thu, 01 Feb 2024 11:36:11 +0100,
+Alexander Tsoy wrote:
 > 
-> Problems:
-> 	- PioneerDJ DDJ-1000 audio channels are not recognized.
-> 	- Jog dial displays are showing permanently "NO AUDIO DRIVER" 
+> В Чт, 01/02/2024 в 15:06 +0800, vincenttew пишет:
+> > Behringer UMC202HD and UMC404HD take some times to validate the clock
+> > source. To prevent more DAC have the same delay which return the
+> > false
+> > in the first time, remove the USB id check to have a chance to retry
+> > the
+> > clock validate.
+> > 
+> > Signed-off-by: vincenttew <vincenttew@google.com>
 > 
-> The attached patch fixes this.
-> The jog displays and all output and input channels are working now.
-> 
-> Signed-off-by: Ralf Pachali <rp@nrp.de>
+> Thank you for the patch! My thought about this change:
+> - Retrying clock source validation probably make sense only in the case
+> of Internal clock. But I'm not sure.
 
-The code changes look OK, but the submission has a minor problem.
+It's an interesting point.
 
-> --- sound/usb/quirks-table.h
-> +++ sound/usb/quirks-table.h
+> - If we want to make this a standard driver behaviour, then the code
+> needs to be moved out of the quirk function IMO.
 
-Please create a patch that is applied with -p1, just like what git
-format-patch provides.
-
-Also, when applied to git tree, there is "attached patch".  It'll be
-the commit log text, hence better to rephrase the texts to fit as a
-git commit log.
-
-Last but not least, please use the "From:" line aligned with your
-Signed-off-by line.  If you don't want to change the mailer setup, put
-the From: line in the patch itself, so that it's taken at applying.
-
-Could you address those and resubmit?
+I'm a bit afraid of applying this unconditionally to all cases.  At
+first, we can start with the vendor matching (e.g. MOTU and Behringer)
+to apply it...
 
 
 thanks,

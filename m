@@ -2,78 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7321E845694
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Feb 2024 12:54:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 962D18457EC
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Feb 2024 13:38:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 618C6857;
-	Thu,  1 Feb 2024 12:53:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 618C6857
+	by alsa0.perex.cz (Postfix) with ESMTPS id E1B789F6;
+	Thu,  1 Feb 2024 13:38:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E1B789F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1706788443;
-	bh=5oOP4bht1T8GSC5S5pLB/bIDrJgVU/QccsXrdiC1fh8=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=dcpZlLTi15vHj4cP6pktQ9pFpU/OaZEsrNb0zWbPmrPoBx4FsjQT3m1uD1SFxzODi
-	 xTJoC0KqFmWNWN4oq2q58TVYoeQmFNvYj2eXyBn6PN4XEQmc0Vx6CZqNVPhQ/jRIIX
-	 TV7E5jaGfPQZL2sbQe1iVLDO5KIDYgTZLiQSd45E=
+	s=default; t=1706791096;
+	bh=f/LR2sRTdTvAYAnUCLiNKlfuJYV2a45QcY7PPTVVxYc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=gigL7maOmbkOIxmcX0cd3FlUOOZ/j52agldvKPBGMagsuq7HSIOpMGQ/EqtQvgUa8
+	 Z+bo9Aat8t1eEqsf4XwfaB4/aSFgazwkTNsnkDvodUC04pMz3jAv6RjksELPCz+G+I
+	 aEekwE42KuAKdGcR6HkqC6jLJLG2Nw9V3lQsvcuc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 98179F80568; Thu,  1 Feb 2024 12:53:31 +0100 (CET)
+	id 8AA55F805A0; Thu,  1 Feb 2024 13:37:44 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 25F00F805A1;
-	Thu,  1 Feb 2024 12:53:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D91B5F805A1;
+	Thu,  1 Feb 2024 13:37:43 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7A559F8055C; Thu,  1 Feb 2024 12:53:27 +0100 (CET)
+	id 96B0AF8055C; Thu,  1 Feb 2024 13:37:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
-	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,URI_TRY_3LD
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from puleglot.ru (puleglot.ru [IPv6:2a01:4f8:1c0c:58e8::2])
+X-Spam-Status: No, score=-6.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 982E4F804E7
-	for <alsa-devel@alsa-project.org>; Thu,  1 Feb 2024 12:53:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 982E4F804E7
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7A7B4F804E7
+	for <alsa-devel@alsa-project.org>; Thu,  1 Feb 2024 13:37:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A7B4F804E7
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=tsoy.me header.i=@tsoy.me header.a=rsa-sha256
- header.s=mymail header.b=p1s4HjkT
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tsoy.me;
-	s=mymail; h=Sender:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:
-	Subject:Cc:To:From:Reply-To:Content-Type:Content-ID:Content-Description:
-	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
-	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=HfyPbCpGNXGGHMMxOtkxYsa+qUDoLnWX4zlJhqQCbsE=; b=p1s4HjkTw9CV8ewj8cDFnyQEnS
-	oOThLLWh5iStoLMXz1ZLRB9e3A87c9EfP35cnozsHTQ8EjgM/FjWvthTeY7FVLb5y8yPzM+VoLjHA
-	sZn06q8V/wZsuHPKP6CMo4mOfZFej51WDTPWluEnd+pfujoHGOVHuIgUeBCNmIa9npNk=;
-Received: from [2a00:1370:819a:ceb:89dc:eced:962a:5b2f] (helo=home..)
-	by puleglot.ru with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.97.1)
-	(envelope-from <puleglot@puleglot.ru>)
-	id 1rVVd9-00000000yzA-3Twx;
-	Thu, 01 Feb 2024 14:53:19 +0300
-From: Alexander Tsoy <alexander@tsoy.me>
-To: linux-sound@vger.kernel.org
-Cc: alsa-devel@alsa-project.org,
-	Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>
-Subject: [PATCH] ALSA: usb-audio: Ignore clock selector errors for single
- connection
-Date: Thu,  1 Feb 2024 14:53:08 +0300
-Message-ID: <20240201115308.17838-1-alexander@tsoy.me>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=hZAcSt80
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id AC087CE1230;
+	Thu,  1 Feb 2024 12:37:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13015C433F1;
+	Thu,  1 Feb 2024 12:37:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1706791046;
+	bh=f/LR2sRTdTvAYAnUCLiNKlfuJYV2a45QcY7PPTVVxYc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=hZAcSt80DYAlWUcbiCD1niFkiJumS4nctO8S2t9SF08b1fe+WgrVqYIF4QBKvcleJ
+	 ckgL18JzZQfSuYPz65tboBb4XTc1W7u1Oaq2Cbt8jrv4Rp99dXc0JudInbvt1J+kDk
+	 8D8E9XHgGgegB4/bYP3kYcKTiBbCbuqs7D08gHc5TeOzMS4wlKspC4/1tcajL2W57I
+	 EV70qtF24mWzhUiTVjEPcOudLEk1mf/efI2w9QaMlACxQkM0GoKlhnVJy29V0bWhsc
+	 nRtbiZq3ZttihQkRF/8xzNX4Edve9Qi4hsJ4etEMeL0rEXKH3O94qXSarjFneTkdnu
+	 UqFyJvSOAegVw==
+Date: Thu, 1 Feb 2024 12:37:23 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org
+Subject: Re: [GIT PULL] ASoC fixes for v6.8-rc2
+Message-ID: <226e89df-489c-409c-a9e1-9b245ac4a23c@sirena.org.uk>
+References: <20240201114049.62055C433C7@smtp.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Sender: puleglot@puleglot.ru
-Message-ID-Hash: XWMRFRCW3VUZUD2ZXJLK6LSFWJLYDOYZ
-X-Message-ID-Hash: XWMRFRCW3VUZUD2ZXJLK6LSFWJLYDOYZ
-X-MailFrom: puleglot@puleglot.ru
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="e9fqvl6SH/eeGuiL"
+Content-Disposition: inline
+In-Reply-To: <20240201114049.62055C433C7@smtp.kernel.org>
+X-Cookie: You can't cheat the phone company.
+Message-ID-Hash: 64SWVPP5HYWBWF6BLQWZT5SKHYVJJJAX
+X-Message-ID-Hash: 64SWVPP5HYWBWF6BLQWZT5SKHYVJJJAX
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -85,7 +86,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XWMRFRCW3VUZUD2ZXJLK6LSFWJLYDOYZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/64SWVPP5HYWBWF6BLQWZT5SKHYVJJJAX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -94,59 +95,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-For devices with multiple clock sources connected to a selector, we need
-to check what a clock selector control request has returned. This is
-needed to ensure that a requested clock source is indeed selected and for
-autoclock feature to work.
 
-For devices with single clock source connected, if we get an error there
-is nothing else we can do about it. We can't skip clock selector setup as
-it is required by some devices. So lets just ignore error in this case.
+--e9fqvl6SH/eeGuiL
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-This should fix various buggy Mackie devices:
+On Thu, Feb 01, 2024 at 11:40:40AM +0000, Mark Brown wrote:
+> The following changes since commit 6613476e225e090cc9aad49be7fa504e290dd3=
+3d:
+>=20
+>   Linux 6.8-rc1 (2024-01-21 14:11:32 -0800)
+>=20
+> are available in the Git repository at:
+>=20
+>   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/=
+asoc-fix-v6.8-rc2
+>=20
+> for you to fetch changes up to eeab239d6a2418fc5d2cd7ea76187085a97acde0:
+>=20
+>   ASoC: wcd934x: fix an incorrect use of kstrndup() (2024-01-29 23:08:56 =
++0000)
 
-[  649.109785] usb 1-1.3: parse_audio_format_rates_v2v3(): unable to find clock source (clock -32)
-[  649.111946] usb 1-1.3: parse_audio_format_rates_v2v3(): unable to find clock source (clock -32)
-[  649.113822] usb 1-1.3: parse_audio_format_rates_v2v3(): unable to find clock source (clock -32)
+Sorry, I'll have an update for this in a minute or two.
 
-There is also interesting info from the Windows documentation [1] (this
-is probably why manufacturers dont't even test this feature):
+--e9fqvl6SH/eeGuiL
+Content-Type: application/pgp-signature; name="signature.asc"
 
-"The USB Audio 2.0 driver doesn't support clock selection. The driver
-uses the Clock Source Entity, which is selected by default and never
-issues a Clock Selector Control SET CUR request."
+-----BEGIN PGP SIGNATURE-----
 
-Link: https://learn.microsoft.com/en-us/windows-hardware/drivers/audio/usb-2-0-audio-drivers [1]
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=217314
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=218175
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=218342
-Signed-off-by: Alexander Tsoy <alexander@tsoy.me>
----
- sound/usb/clock.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmW7kIIACgkQJNaLcl1U
+h9C6ugf9G2DAabTh0NxhrxuD+ig/QfnXGRqoYp04tKpp6yLbxOFXSGfCLmCt7G+R
+8hbbPiPonB4+rfr/P838040A3Zv/FBSjSdMvkrZYwjGRpNohINkhZphym6PIJLPk
+czoOWESgfsZ2u3YP7mpiX8so/2wixj6EERMvXpPUhS2jlYoCLIGsLHTlM3bJp1yQ
+i7n1Pjiitn3GkzZ9hVtJ1lTrkzHXp+tZ36LuNZmn865Po68NaivR/ErfYIIeGaYB
+EkMqo/1o9ybjR1w7eDEr6vlhPhCnfi3qzMxE/DXw7hC4T2v+BZyAhoI2q7JaHUtd
+AkEs5i1bkenKR//ZU91wqI6EA716Cg==
+=9Cet
+-----END PGP SIGNATURE-----
 
-diff --git a/sound/usb/clock.c b/sound/usb/clock.c
-index a8204c6d6fac..60fcb872a80b 100644
---- a/sound/usb/clock.c
-+++ b/sound/usb/clock.c
-@@ -347,8 +347,16 @@ static int __uac_clock_find_source(struct snd_usb_audio *chip,
- 			    !writeable)
- 				return ret;
- 			err = uac_clock_selector_set_val(chip, entity_id, cur);
--			if (err < 0)
-+			if (err < 0) {
-+				if (pins == 1) {
-+					usb_audio_dbg(chip,
-+						      "%s(): selector returned an error, "
-+						      "assuming a firmware bug, id %d, ret %d\n",
-+						      __func__, clock_id, err);
-+					return ret;
-+				}
- 				return err;
-+			}
- 		}
- 
- 		if (!validate || ret > 0 || !chip->autoclock)
--- 
-2.43.0
-
+--e9fqvl6SH/eeGuiL--

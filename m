@@ -2,94 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA22A8475C7
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Feb 2024 18:09:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CBDC8477D2
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Feb 2024 19:40:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 41AFDA4A;
-	Fri,  2 Feb 2024 18:09:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 41AFDA4A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1F1A584D;
+	Fri,  2 Feb 2024 19:40:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F1A584D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1706893774;
-	bh=n7dJMVI068abkx41i1owQt7AFxVmgCir8E9N+Q7lsug=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=rglabZuBxAXz4flXAoRKFItxQ08gWtS7ebAUsgd0hRvg57QAlrfYxV1+3anU+9SjH
-	 T8Vep72BdsK5VmeJTI7kT1bONUzGcJrINT5OW29hFc6nzyMUw4ORnfpa+hmz9c1ovn
-	 wnEFUjbENq0IjdRp1eIeTXoU5qoK8j8D1+iIqp/0=
+	s=default; t=1706899247;
+	bh=MAtB2ChwFF1exhEfUKrF79D5jxW1fp8BGXZSzKt5ZVE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=S+kh+EYzW4fCfwcq2OJ/32Q5Hb7nh8ixOcccWyCHAxDIxNQEUVWw5qk/FlSLEZr6T
+	 QsKKbDtkMRjpkYuZ0TljpaUrMg8s2q7IsndQbCkDFcyo4EvMDeFxByLGV0/upT/HQB
+	 RjcaVT5H/9MqoQ2cziErRthvTYtlmjvuPopqP5Hc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D2A9BF80588; Fri,  2 Feb 2024 18:09:00 +0100 (CET)
+	id 50E93F8059F; Fri,  2 Feb 2024 19:40:14 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B9320F8055B;
-	Fri,  2 Feb 2024 18:08:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8AE29F805A1;
+	Fri,  2 Feb 2024 19:40:13 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7DE2FF8055C; Fri,  2 Feb 2024 18:08:53 +0100 (CET)
+	id 703B0F8055C; Fri,  2 Feb 2024 19:40:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-6.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D8F30F800E3
-	for <alsa-devel@alsa-project.org>; Fri,  2 Feb 2024 18:08:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8F30F800E3
+	by alsa1.perex.cz (Postfix) with ESMTPS id 80E14F800E3
+	for <alsa-devel@alsa-project.org>; Fri,  2 Feb 2024 19:39:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 80E14F800E3
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=YNpPnRm0
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 412G7M2j013161;
-	Fri, 2 Feb 2024 11:08:46 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	from:to:cc:subject:date:message-id:mime-version
-	:content-transfer-encoding:content-type; s=PODMain02222019; bh=o
-	Y+0TBrmVbqVRe9GsKH89Cjn0lEAjYQJNhHXZcdhOnQ=; b=YNpPnRm0NwDchvvwK
-	moKgLtwKB0r9shYJ+IUhVgMaKFQN3swErYgqrviPoa/MPnG3tx8e2t7cLqw8bJNs
-	Ro9CG/O/T0p4OKt+DEIaf7xz6XPRHF6cx7XagMqNnEbIFBGrXbSTRqnQQmiZV2F6
-	ChYl6EsdBWv7ijqCoiwJz2JRDjkFw2VxvYt5UOQ4kGI4DCjN7+lGOLSo99o0NhWP
-	SP8IOXOB0IB9xoQy4uyK3WiAA6C0CoZpkzsZlC91Ze1UH1cg26k5DdZjeVgjQe91
-	WIl64wikmAWL8wuutkZT3BSXshKglu5Ce4UwHkvBlAAlag57m/HQqrNQMTnnmXZH
-	QPNOA==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3w0pwx0sd0-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 02 Feb 2024 11:08:46 -0600 (CST)
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Fri, 2 Feb
- 2024 17:08:44 +0000
-Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
- ediex01.ad.cirrus.com (198.61.84.80) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.40 via Frontend Transport; Fri, 2 Feb 2024 17:08:44 +0000
-Received: from sbinding-cirrus-dsktp2.ad.cirrus.com (unknown [198.61.64.191])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id 64B59820246;
-	Fri,  2 Feb 2024 17:08:44 +0000 (UTC)
-From: Stefan Binding <sbinding@opensource.cirrus.com>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-CC: <alsa-devel@alsa-project.org>, <linux-sound@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <patches@opensource.cirrus.com>,
-        "Stefan
- Binding" <sbinding@opensource.cirrus.com>
-Subject: [PATCH v2] ALSA: hda/realtek: Remove two HP Laptops using CS35L41
-Date: Fri, 2 Feb 2024 17:08:42 +0000
-Message-ID: <20240202170842.321818-1-sbinding@opensource.cirrus.com>
-X-Mailer: git-send-email 2.34.1
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=dmwWr8lS
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id 24EF0611C6;
+	Fri,  2 Feb 2024 18:39:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A9A4C433C7;
+	Fri,  2 Feb 2024 18:39:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1706899192;
+	bh=MAtB2ChwFF1exhEfUKrF79D5jxW1fp8BGXZSzKt5ZVE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=dmwWr8lS5qXnv/HIncGxsoRRi0lNkX5NvSRT07ylB1KllAe6T3wiyR7QQWSuzxpxH
+	 kCT1tWEb449EpNr9KGBavyvS3A2/jWLevMGbtcmEjc+RYNhTNC/K0NyNL2Y5I4pCD1
+	 hNAnJ2LzVzo5YIAHl0W+Sghw+lbZFHBAU+tgt1ojekQJ8bIflVzR0kJPcIJpuazGnj
+	 MtNYJz6+wuzitC6KEfFeq9Tho0n2TGqN8d2/euYLr5Ryom0L56hPWIGvyBNJnmPJA0
+	 98V9RJnkDqwmYWGXQfLI6YqHbuJWWbTCI1XwTvS5UCVU6/r0kMd2B6fRKfDTV9a1Ps
+	 WbLexpMJxMlAg==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Cc: Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Andy Shevchenko <andy.shevchenko@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Sasha Levin <sashal@kernel.org>,
+	james.schulman@cirrus.com,
+	david.rhodes@cirrus.com,
+	rf@opensource.cirrus.com,
+	alsa-devel@alsa-project.org,
+	patches@opensource.cirrus.com,
+	linux-spi@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.7 17/23] spi: cs42l43: Handle error from
+ devm_pm_runtime_enable
+Date: Fri,  2 Feb 2024 13:39:13 -0500
+Message-ID: <20240202183926.540467-17-sashal@kernel.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20240202183926.540467-1-sashal@kernel.org>
+References: <20240202183926.540467-1-sashal@kernel.org>
 MIME-Version: 1.0
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.7.3
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: nh77Ipbv6KCK5tgXpCvkIzzUfG8HapK2
-X-Proofpoint-ORIG-GUID: nh77Ipbv6KCK5tgXpCvkIzzUfG8HapK2
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: QYGKD3F7YHIXFS3M4I76PDQZNIQJNPTO
-X-Message-ID-Hash: QYGKD3F7YHIXFS3M4I76PDQZNIQJNPTO
-X-MailFrom: prvs=97625aa8a4=sbinding@opensource.cirrus.com
+Message-ID-Hash: GLEIQGBGB6OSIUSP2QVNMKO4PDK3I44K
+X-Message-ID-Hash: GLEIQGBGB6OSIUSP2QVNMKO4PDK3I44K
+X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -101,7 +98,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QYGKD3F7YHIXFS3M4I76PDQZNIQJNPTO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GLEIQGBGB6OSIUSP2QVNMKO4PDK3I44K/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,27 +107,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The SKUs, and associated SSIDs, are no longer going to include the
-CS35L41. They may come back, but will need a different quirk.
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
+[ Upstream commit f9f4b0c6425eb9ffd9bf62b8b8143e786b6ba695 ]
+
+As it devm_pm_runtime_enable can fail due to memory allocations, it is
+best to handle the error.
+
+Suggested-by: Andy Shevchenko <andy.shevchenko@gmail.com>
+Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Link: https://msgid.link/r/20240124174101.2270249-1-ckeepax@opensource.cirrus.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/pci/hda/patch_realtek.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/spi/spi-cs42l43.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 348505edf063..3d7e7b32fcf4 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -9855,8 +9855,6 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x103c, 0x8cdd, "HP Spectre", ALC287_FIXUP_CS35L41_I2C_2),
- 	SND_PCI_QUIRK(0x103c, 0x8cde, "HP Spectre", ALC287_FIXUP_CS35L41_I2C_2),
- 	SND_PCI_QUIRK(0x103c, 0x8cf5, "HP ZBook Studio 16", ALC245_FIXUP_CS35L41_SPI_4_HP_GPIO_LED),
--	SND_PCI_QUIRK(0x103c, 0x8d01, "HP EliteBook G12", ALC287_FIXUP_CS35L41_I2C_4),
--	SND_PCI_QUIRK(0x103c, 0x8d08, "HP EliteBook 1045 G12", ALC287_FIXUP_CS35L41_I2C_4),
- 	SND_PCI_QUIRK(0x1043, 0x103e, "ASUS X540SA", ALC256_FIXUP_ASUS_MIC),
- 	SND_PCI_QUIRK(0x1043, 0x103f, "ASUS TX300", ALC282_FIXUP_ASUS_TX300),
- 	SND_PCI_QUIRK(0x1043, 0x106d, "Asus K53BE", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
+diff --git a/drivers/spi/spi-cs42l43.c b/drivers/spi/spi-cs42l43.c
+index d239fc5a49cc..c1556b652909 100644
+--- a/drivers/spi/spi-cs42l43.c
++++ b/drivers/spi/spi-cs42l43.c
+@@ -244,7 +244,10 @@ static int cs42l43_spi_probe(struct platform_device *pdev)
+ 	priv->ctlr->use_gpio_descriptors = true;
+ 	priv->ctlr->auto_runtime_pm = true;
+ 
+-	devm_pm_runtime_enable(priv->dev);
++	ret = devm_pm_runtime_enable(priv->dev);
++	if (ret)
++		return ret;
++
+ 	pm_runtime_idle(priv->dev);
+ 
+ 	regmap_write(priv->regmap, CS42L43_TRAN_CONFIG6, CS42L43_FIFO_SIZE - 1);
 -- 
-2.34.1
+2.43.0
 

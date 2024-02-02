@@ -2,92 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B2D1847389
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Feb 2024 16:42:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA27C847393
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Feb 2024 16:43:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D61DEA4D;
-	Fri,  2 Feb 2024 16:42:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D61DEA4D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 16D5EA4D;
+	Fri,  2 Feb 2024 16:43:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 16D5EA4D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1706888548;
-	bh=zlLIb0qKsjq730g/1cSkyRa9Pks3D7J4TqPjUvmN+gU=;
+	s=default; t=1706888600;
+	bh=scWCCSNr1Q3lv9FkWzECrNcLle7Ox7YalRe8vTccd4A=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=CGPeIwuY5PCD0gce7gObhXpFkNFvTDGbgML6h9ePMUiirAusEMphy0faULfs+eUwL
-	 QsNzQkXFP6AzlP35erfQfgaLWgM3R35MQe677buW/0OuXTvdn7K5bx+01/fi1hvt7k
-	 VTObpoCsqUy30pGewOt8BklEQ8HOxvICQ5H1eoGA=
+	b=LdzOxyLswBsmC9ekK0ReB1UynJHmAR0Twmcac/a2Cj79eOWXiz832+Mcb1LnQhDMB
+	 /EgKv1kJRE6kJvkejCICJc90aGfaX9WWMszs7RL5gsOB3JVQyJ67/fKBW14rhBivpb
+	 vq+mzcCuDtDEPt95nUCTCj8DknN0Rg2wWMWl4Xpo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 87C6AF805A1; Fri,  2 Feb 2024 16:41:55 +0100 (CET)
+	id 6A79DF80601; Fri,  2 Feb 2024 16:42:02 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7CA55F8055C;
-	Fri,  2 Feb 2024 16:41:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D179DF80606;
+	Fri,  2 Feb 2024 16:42:01 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 84B10F80567; Fri,  2 Feb 2024 16:41:48 +0100 (CET)
+	id C2D8DF80588; Fri,  2 Feb 2024 16:41:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [IPv6:2a00:1450:4864:20::129])
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [IPv6:2a00:1450:4864:20::12c])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BC30AF8055B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 30F49F80149
 	for <alsa-devel@alsa-project.org>; Fri,  2 Feb 2024 16:41:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC30AF8055B
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30F49F80149
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=O6SrXSt9
-Received: by mail-lf1-x129.google.com with SMTP id
- 2adb3069b0e04-5113303e664so1691714e87.0
+ header.s=google header.b=oSQdEed8
+Received: by mail-lf1-x12c.google.com with SMTP id
+ 2adb3069b0e04-5112d5ab492so2935101e87.0
         for <alsa-devel@alsa-project.org>;
  Fri, 02 Feb 2024 07:41:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1706888499; x=1707493299;
+        d=linaro.org; s=google; t=1706888501; x=1707493301;
  darn=alsa-project.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Z4wtSxCTFL8J3xb+0hRT7NhxX/uKEWkZYK0/+CsMczk=;
-        b=O6SrXSt95MOgqppRHZXRpjhE3JsbZXPJ8/vTnyEP/FSDssFZRB7nmel2fy/E+fk/tu
-         MkgngNjbfwyjAApJ5m72XeuHJ9JJjXPjIs/xlOcF1iUEaPPepK5b5NZQvsZQnD0YdvkL
-         Vl2zba54zELo/nXjifPdUZ7Mc1xa11L8YbUmApAuKKA30BSk1u0JwngLYph6pU2NDCj9
-         l/flAQwS4Uvi7DaiKcsY4Dt5fYcn/PZuUsmcOBBhshszuI0u5OwGIDIc6WjN7Pn/xKQF
-         WtwxsBFnIlZT+x8xTT9M/hghj6/fh8Y4orfSjgEffSdsUtD5yV1cn3fIvVqM3s2lAG/k
-         4hkA==
+        bh=JTaE595ceD/5+24qRv22P7o3MSmNjYJJN4DZfYKGFdg=;
+        b=oSQdEed8fdIFQG2Ken6KVwJ2YtFc526GQfmL0oFRAcNqEoE0OX6uPSAgou4AYDDRwA
+         vsZiK5uINY77AvWh6uZlmCc5VLmMcAYkuGEeQr7H5ZVrkmOlBitmiCEB7KJk51ywZQTc
+         ERnk4GJppQzpNcLiwxjftEegiyZkgOkW8OZjYSRtBH5wHirrTrJ3z3sK5o7OZkXMJiP5
+         oaqd7sLBn5SdcKESDIO4UVAsC4dM6xL5fbkOevefO0j75x9PE0eq2J0Ag4tSIyCSMR2b
+         a7aaESvTed67p3ouATuoK4uhnKzcZV27jrxjgMRWEpHWdQ7uTCIrI5Nj3GehNTJbVO0i
+         L2UA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706888499; x=1707493299;
+        d=1e100.net; s=20230601; t=1706888501; x=1707493301;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=Z4wtSxCTFL8J3xb+0hRT7NhxX/uKEWkZYK0/+CsMczk=;
-        b=RLAEP4/jdCMOuFoVpt6XIKYg0ll4B0iOK8IzMo8zRN01Lg+pIC3qJBg1R70pQfR9Qe
-         /+6iyQk5eSnx1x8bf0q9tYtMUwX82pQ8IdY9BGxA5PjQYR5qFZe0D2Pd1vQjTEOZMxtZ
-         sRRivudEREplD7W+VtiYOhc9BHm63RtNWbcjpimNaAKvDTFYygM6q+i4/iswLH7JNai7
-         iS1FzghMpszx4Lb0F/saUY+M+0d4LN7xFDlS8j70WP626WLniZRB2OpNDNaDPv0lTfp0
-         DYVjle3oOe7ceJ/8WwfSFte8aXnsArHCQHNNllXT93BYZCgQqB/+bxa4+zVUtgEO9DAY
-         V9Jw==
-X-Gm-Message-State: AOJu0Yx65gzYnsmOtriuE0W8qdByPvMBR7/SfNJewEyNanEbBuOu/aLm
-	JP9s9kT3830AqOp5xKwP/nv5Utf2BS1CrcAoidYz9Ul8M2T94nydbXaGOakkyfg=
+        bh=JTaE595ceD/5+24qRv22P7o3MSmNjYJJN4DZfYKGFdg=;
+        b=FflcrPGvnXLRkEkUa0b16+6UJm6WeITadzSKqGVhTY8BgyIrgV4/uO3giKpOvNRm4X
+         JggljWmnBKIPwpKvq7ny8EU07NLzCHgeIfHhleGA2zRBlMKzyG7Fq9f6I3HVeIv7NtZL
+         aSa5A8uJRMt7VXLzmizW7dLUYBRUMmFVfwchncO6ejsk4mlsE/rjKQINCCEblZxdrjDY
+         xv5Sb6W9EobjyIolljisN1RrpkQvSgDVBcxCmFXnZeeCwUXv+5/RVB823XgU6rkw20Xc
+         9GsB3rj2zjWDM/OyEp47CraVaikgBSpWh9JkD2Yav+zkfltTMVFTYPFim49+G4ndatL3
+         iu8g==
+X-Gm-Message-State: AOJu0YzkJjECj2fEByMgy6FZCpf8ToKD+Gp2nJKAstlS1cO13bCJrzlw
+	StJyx3ec4UbslS/5j6f0f2Ij5y8AwWs2RLj60yC9SEa/Vd8CGpq6WIW2kGDNEoo=
 X-Google-Smtp-Source: 
- AGHT+IGvZgNljdQJeXEnx1Bcsyc/p36FoHZO0vYXUyxE28XL740l3VgIeyf1ign+KzPUYPjVCMqyKg==
-X-Received: by 2002:ac2:5969:0:b0:50e:9f5f:a78e with SMTP id
- h9-20020ac25969000000b0050e9f5fa78emr4073298lfp.5.1706888499418;
-        Fri, 02 Feb 2024 07:41:39 -0800 (PST)
+ AGHT+IHGdGRJSDguuQBM/q+45C0xJUE3HWzzBXrNL1nVnq4WR1VewqBP5WknN4Upn68unEhG+XLvNQ==
+X-Received: by 2002:a05:6512:707:b0:511:3622:508e with SMTP id
+ b7-20020a056512070700b005113622508emr1363443lfs.62.1706888500980;
+        Fri, 02 Feb 2024 07:41:40 -0800 (PST)
 X-Forwarded-Encrypted: i=0;
- AJvYcCVdCsvT7bvaPBStGioEEtBDj7FwEfmLDYxyWNjLHFW21Nw1QSXeO9h8VrqoxGPwvciCqCBqmjK6SMXjJBFfE4g9884EinjfNx8XYvNK5o9Pf8z9ZQDWvMtK6s1gwdWJE5Ic8BFpG+DO/QhK7JLRHQQ2M89fiOQuvAPrjHpsoFzRrQiqrTYNzCsTlONBkUT6DXmPqKh2DKqWh+b0AfiRyXbXlj690POw9IRh/iz2ybEDyYJqFUujU3j6DC/ETDPdjfqYFtsDvxIXt700oIq7MbrnDBCa+aaUwl1dQ/aqDvj2bVjAcVNd
+ AJvYcCVkuv4Il9EedgVLpQq/ZhdclgzdmtTwnPPSDBsrgSnZo+gjyW9AHgkjtA+/h21aEJrXSM0g1Sj80CLaSu1E5KvA4lvxLsn460edSq0v+V53kBD0D+qR7Aup78/Hhj+2CZqq04PyCdookc7Mqu53p6Ef0iliIChxx/NYodMp70e3QHW5z1l8YYdk4MXG24+VwQYHaTIXy4N4QFMbI0A70BnG2aDH07mIL9KD0FGVXoKP4oyTC690lDHVbZXfeGriepHqBiaYDn43d1ynKeutgJROqaBopUTFKb6d+jurU5MSKqJvhnAF
 Received: from krzk-bin.. ([178.197.222.62])
         by smtp.gmail.com with ESMTPSA id
- cu9-20020a170906ba8900b00a37116e2885sm624819ejd.84.2024.02.02.07.41.37
+ cu9-20020a170906ba8900b00a37116e2885sm624819ejd.84.2024.02.02.07.41.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Feb 2024 07:41:39 -0800 (PST)
+        Fri, 02 Feb 2024 07:41:40 -0800 (PST)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
 	Banajit Goswami <bgoswami@quicinc.com>,
@@ -99,17 +99,17 @@ To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
 	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [PATCH 1/3] ASoC: codecs: tx-macro: Drop unimplemented DMIC clock
- divider
-Date: Fri,  2 Feb 2024 16:41:32 +0100
-Message-Id: <20240202154134.66967-2-krzysztof.kozlowski@linaro.org>
+Subject: [PATCH 2/3] ASoC: codecs: tx-macro: Mark AMIC control registers as
+ volatile
+Date: Fri,  2 Feb 2024 16:41:33 +0100
+Message-Id: <20240202154134.66967-3-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240202154134.66967-1-krzysztof.kozlowski@linaro.org>
 References: <20240202154134.66967-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 6XW7ZEH6MO7PVG5H2OKSCO6KMYL5HHLB
-X-Message-ID-Hash: 6XW7ZEH6MO7PVG5H2OKSCO6KMYL5HHLB
+Message-ID-Hash: HMTGL3LPV6GONHBXM4ESJQRXBXOAAPUA
+X-Message-ID-Hash: HMTGL3LPV6GONHBXM4ESJQRXBXOAAPUA
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -122,73 +122,35 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6XW7ZEH6MO7PVG5H2OKSCO6KMYL5HHLB/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HMTGL3LPV6GONHBXM4ESJQRXBXOAAPUA/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Downstream driver configures DMIC clock rate through the divider
-register but only parts of this code ended up in the upstream driver: we
-always write the same value 0, so DIV2.  Same default value is used also
-for the AMIC rate control.
-
-Let's make it obvious and drop unneeded parts of the code.
+Just like DMIC, the AMIC control registers are volatile.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- sound/soc/codecs/lpass-tx-macro.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ sound/soc/codecs/lpass-tx-macro.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/sound/soc/codecs/lpass-tx-macro.c b/sound/soc/codecs/lpass-tx-macro.c
-index 124c2e144f33..cdceccf64ac8 100644
+index cdceccf64ac8..2d4f6c04332b 100644
 --- a/sound/soc/codecs/lpass-tx-macro.c
 +++ b/sound/soc/codecs/lpass-tx-macro.c
-@@ -38,6 +38,8 @@
- #define CDC_TX_TOP_CSR_I2S_RESET	(0x00AC)
- #define CDC_TX_TOP_CSR_SWR_DMICn_CTL(n)	(0x00C0 + n * 0x4)
- #define CDC_TX_TOP_CSR_SWR_DMIC0_CTL	(0x00C0)
-+/* Default divider for AMIC and DMIC clock: DIV2 */
-+#define CDC_TX_SWR_MIC_CLK_DEFAULT	0
- #define CDC_TX_SWR_DMIC_CLK_SEL_MASK	GENMASK(3, 1)
- #define CDC_TX_TOP_CSR_SWR_DMIC1_CTL	(0x00C4)
- #define CDC_TX_TOP_CSR_SWR_DMIC2_CTL	(0x00C8)
-@@ -270,7 +272,6 @@ struct tx_macro {
- 	struct clk_hw hw;
- 	bool dec_active[NUM_DECIMATORS];
- 	int tx_mclk_users;
--	u16 dmic_clk_div;
- 	bool bcs_enable;
- 	int dec_mode[NUM_DECIMATORS];
- 	struct lpass_macro *pds;
-@@ -743,7 +744,6 @@ static int tx_macro_put_dec_enum(struct snd_kcontrol *kcontrol,
- 	unsigned int val, dmic;
- 	u16 mic_sel_reg;
- 	u16 dmic_clk_reg;
--	struct tx_macro *tx = snd_soc_component_get_drvdata(component);
- 
- 	val = ucontrol->value.enumerated.item[0];
- 	if (val >= e->items)
-@@ -793,7 +793,7 @@ static int tx_macro_put_dec_enum(struct snd_kcontrol *kcontrol,
- 			dmic_clk_reg = CDC_TX_TOP_CSR_SWR_DMICn_CTL(dmic);
- 			snd_soc_component_write_field(component, dmic_clk_reg,
- 						CDC_TX_SWR_DMIC_CLK_SEL_MASK,
--						tx->dmic_clk_div);
-+						CDC_TX_SWR_MIC_CLK_DEFAULT);
- 		}
+@@ -432,6 +432,8 @@ static bool tx_is_volatile_register(struct device *dev, unsigned int reg)
+ 	case CDC_TX_TOP_CSR_SWR_DMIC1_CTL:
+ 	case CDC_TX_TOP_CSR_SWR_DMIC2_CTL:
+ 	case CDC_TX_TOP_CSR_SWR_DMIC3_CTL:
++	case CDC_TX_TOP_CSR_SWR_AMIC0_CTL:
++	case CDC_TX_TOP_CSR_SWR_AMIC1_CTL:
+ 		return true;
  	}
- 
-@@ -882,7 +882,7 @@ static int tx_macro_enable_dec(struct snd_soc_dapm_widget *w,
- 
- 				snd_soc_component_write_field(component, dmic_clk_reg,
- 							CDC_TX_SWR_DMIC_CLK_SEL_MASK,
--							tx->dmic_clk_div);
-+							CDC_TX_SWR_MIC_CLK_DEFAULT);
- 			}
- 		}
- 		snd_soc_component_write_field(component, dec_cfg_reg,
+ 	return false;
 -- 
 2.34.1
 

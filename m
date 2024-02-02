@@ -2,107 +2,175 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C293E846A64
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Feb 2024 09:17:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DA8E846D04
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Feb 2024 10:54:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D513A9F6;
-	Fri,  2 Feb 2024 09:17:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D513A9F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id ACF2285D;
+	Fri,  2 Feb 2024 10:54:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ACF2285D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1706861856;
-	bh=W8cyvVovtJUV8DiKI9bIBZxf9eCbF+ozllx2Q1r1fPc=;
-	h=Date:Subject:From:To:References:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=hEH8ofPR+t7w0tSS0SqoPZZpJLKDnv8jYqQnZsVRyI2kbL7j1h4zYR73cLdS6GZGM
-	 ES0xqMa6dmwfhRW2f9INaya8mv+swMWCcv4EqPN6GLepwZrWNN34IhPQMidVYa7cSa
-	 IUuYOoKtGlsdLeFh6r9ly/SbNm5SjSpKJ/vRuR3U=
+	s=default; t=1706867657;
+	bh=HLc3hEYTr2bWgL/m7HlioAfC3aKNshhQloeErHTOGqc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=rmwo+eBQW2dsNUAW48jio93iDdGflASDjgt8XHU2rUziiMVFm+3PRJLz6dNEdGkmm
+	 +MBTvI+axzvruNeglh1xzSLbXYUUvJL617zjkM05pGi1AjvU+bTBrBtF2m1J4wuuiY
+	 2uRQ1rZA7SYRSLmutkWeFfSKSO8EUlkNQbApBkjs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C28DDF80564; Fri,  2 Feb 2024 09:17:02 +0100 (CET)
+	id 07D08F80563; Fri,  2 Feb 2024 10:53:40 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B0234F805A0;
-	Fri,  2 Feb 2024 09:17:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 69A40F80563;
+	Fri,  2 Feb 2024 10:53:40 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A8CAEF8055C; Fri,  2 Feb 2024 09:06:26 +0100 (CET)
+	id 626E7F8055C; Fri,  2 Feb 2024 10:50:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-7.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from smtp.ivitera.com (smtp.ivitera.com [88.101.85.59])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from HK3PR03CU002.outbound.protection.outlook.com
+ (mail-eastasiaazlp170110003.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:c400::3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9A8E6F80548
-	for <alsa-devel@alsa-project.org>; Fri,  2 Feb 2024 09:00:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A8E6F80548
+	by alsa1.perex.cz (Postfix) with ESMTPS id 78ABDF800E3
+	for <alsa-devel@alsa-project.org>; Fri,  2 Feb 2024 10:50:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78ABDF800E3
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=ivitera.com header.i=@ivitera.com header.a=rsa-sha256
- header.s=mail header.b=JZ47cFSx;
-	dkim=pass (1024-bit key) header.d=ivitera.com header.i=@ivitera.com
- header.a=rsa-sha256 header.s=mail header.b=VKOt9aNH
-Received: from localhost (localhost [127.0.0.1])
-	by smtp.ivitera.com (Postfix) with ESMTP id 6323615385F;
-	Fri,  2 Feb 2024 09:00:52 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ivitera.com; s=mail;
-	t=1706860852; bh=W8cyvVovtJUV8DiKI9bIBZxf9eCbF+ozllx2Q1r1fPc=;
-	h=Date:Subject:From:To:References:In-Reply-To:From;
-	b=JZ47cFSxVuoPihFDIYbX6KIKM0VoqRO2t77qiqde45PUZfCVj1rz/gHnSAEg1Bq6Z
-	 Ph+9XxDdUr5GE3uIP+cxU5MR270PncFp6oL9cB6rkTmIdR3gu+1zBat0SGw8BaFGu6
-	 IB8SQml8f3tm2TKS/xEeCCfPIqszqCR+W/z9Om30=
-Received: from smtp.ivitera.com ([127.0.0.1])
-	by localhost (localhost [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id hWWzTQpCUKrs; Fri,  2 Feb 2024 09:00:52 +0100 (CET)
-Received: from [192.168.105.22] (dustin.pilsfree.net [81.201.58.138])
-	(Authenticated sender: pavel)
-	by smtp.ivitera.com (Postfix) with ESMTPSA id CCBDD153352;
-	Fri,  2 Feb 2024 09:00:51 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ivitera.com; s=mail;
-	t=1706860851; bh=W8cyvVovtJUV8DiKI9bIBZxf9eCbF+ozllx2Q1r1fPc=;
-	h=Date:Subject:From:To:References:In-Reply-To:From;
-	b=VKOt9aNHsYd/2cbFYKp5DwGOFfzbIg47hitoWyAtdH9BR21ZG4e1fgCHir8yLUYj1
-	 5B3rMtzi1CF4TI5ck85htkxg1tve7XCVAohurIFaEeaAyuCisXhbrVoh53FO8b0kIS
-	 145dfovsx34h1rDBt99Zu6/y6A+FtJuWvhav6wF4=
-Message-ID: <5b4afa93-5ab9-2ff1-c440-d05c66a4cef5@ivitera.com>
-Date: Fri, 2 Feb 2024 09:00:48 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ unprotected) header.d=nuvoton.com header.i=@nuvoton.com header.a=rsa-sha256
+ header.s=selector1 header.b=aWeuhzn9
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=dlhpENYc8I+m1Pv5I53/SvuXoeqgakpYvNlSbfhIURZBQut1EMa43oaqlKR3htM78GhrMZO1YmhPspLacEymOF8hBBdKN2GNE5QJ2gIHhG81+02E4iCcGpvZBOxB0CNXbhwOWyRDAPmdxHg4KkI5STRxjAGN2RNYIo3XGtMctCuD9ph4EvWTZR+de2ULcJKS/P3aGKisvH/Bnpm3NTfWLkC17xwgenv0TF+0WQzmHPi6yvcfVHZEkylTD85byfPYsCVHdZzv929F5e/r6GNKtEC90GhgS4vqBqp1hRe6DBnXSkBPDllPp7RA0VOeZgyKlUk+0lPLb4WJuiMSq+gwcw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GAkdKHiayc4+9M6SK1NAAAqTa9Ex274nc1o4WfK0K6I=;
+ b=oen80XP4aEM6hcqRx1S0hjwCuNgNRox6WOLLmzw/UhFeMwP6eg+RPKQe8h2OOQ9Qp8W2t2PP4LRBL4nbNg212MAlUeNtSqwEXb3+ixMUjbmQsm48ZPwgbX4MEt3SFe5DXtbBGpZmGHkK+iccmCV8+Hh2XF+Xhy4cwPH92PS2jjytvctl1fO0HvXQh4X6moJks+cDneZTcOpKH61anBidMTpikoV7msAV/fbisZSTctQsXUs/wPcicjVqyitedxFuu0NcDKhHVOb28tT4z3exXSl0mgzWrUkIlWsGnq6g1xxwOr9a+D1zOjwbZUztwwpKyjEP5tZ9xPDjo2f+E7LzcQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nuvoton.com; dmarc=pass action=none header.from=nuvoton.com;
+ dkim=pass header.d=nuvoton.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nuvoton.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GAkdKHiayc4+9M6SK1NAAAqTa9Ex274nc1o4WfK0K6I=;
+ b=aWeuhzn9ej1ID+LXji9W81+Cwg7L1EDQmroEpgHWk9IIoWSrtWTXIG+iNOcZ6zHrbpS9gxWxZgBTwqMEsarSWB0QMB4PjqE5OTaikTeXEXF1MOTgeU52yS21Tio5AWSP+ZLMi/ZbTWp3j8VlgHikfV+74yexzPzIx9szgAm2kmU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nuvoton.com;
+Received: from SL2PR03MB4348.apcprd03.prod.outlook.com (2603:1096:100:5c::17)
+ by TYSPR03MB7910.apcprd03.prod.outlook.com (2603:1096:400:481::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7249.30; Fri, 2 Feb
+ 2024 09:50:36 +0000
+Received: from SL2PR03MB4348.apcprd03.prod.outlook.com
+ ([fe80::b6dd:f297:1b48:e1ea]) by SL2PR03MB4348.apcprd03.prod.outlook.com
+ ([fe80::b6dd:f297:1b48:e1ea%7]) with mapi id 15.20.7249.027; Fri, 2 Feb 2024
+ 09:50:36 +0000
+Message-ID: <12ec0515-ac50-1d4a-131d-56383130989d@nuvoton.com>
+Date: Fri, 2 Feb 2024 17:50:30 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.0
-Subject: Re: ALSA-LIB: Support for format IEC958_SUBFRAME_LE in the plug
- plugin?
-From: Pavel Hofman <pavel.hofman@ivitera.com>
-To: Jaroslav Kysela <perex@perex.cz>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
-References: <81b0be0a-5ab7-db91-21cb-0c59a55291e9@ivitera.com>
- <14018498-75e9-28c4-cfe3-a958ede64d0e@ivitera.com>
- <79934c5e-25b2-4d71-a426-c05f9a4e6b40@perex.cz>
- <3a16fc87-6b65-048a-b9cd-1fb0f308e4fb@ivitera.com>
- <8567ca1f-9985-4370-b821-9fa70cd812e6@perex.cz>
- <1a852449-cd3e-acc0-57ec-f6163e82c620@ivitera.com>
+Subject: Re: [PATCH 2/2] ASoC: nau8325: new driver
 Content-Language: en-US
-In-Reply-To: <1a852449-cd3e-acc0-57ec-f6163e82c620@ivitera.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: CQXJVEREZLGHDFOT3T3N2ILBOMQGKEE3
-X-Message-ID-Hash: CQXJVEREZLGHDFOT3T3N2ILBOMQGKEE3
-X-MailFrom: pavel.hofman@ivitera.com
+To: Mark Brown <broonie@kernel.org>
+Cc: lgirdwood@gmail.com, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ robh+dt@kernel.org, conor+dt@kernel.org, YHCHuang@nuvoton.com,
+ KCHSU0@nuvoton.com, CTLIN0@nuvoton.com, SJLIN0@nuvoton.com,
+ scott6986@gmail.com, supercraig0719@gmail.com, dardar923@gmail.com,
+ AS50 WTLi <WTLI@nuvoton.com>
+References: <20240122095650.60523-1-wtli@nuvoton.com>
+ <20240122095650.60523-2-wtli@nuvoton.com>
+ <820c5ff7-4329-46b0-9981-607b1593deb5@sirena.org.uk>
+From: AS50 WTLi <WTLI@nuvoton.com>
+In-Reply-To: <820c5ff7-4329-46b0-9981-607b1593deb5@sirena.org.uk>
+X-ClientProxiedBy: SI2PR01CA0031.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:192::11) To SL2PR03MB4348.apcprd03.prod.outlook.com
+ (2603:1096:100:5c::17)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SL2PR03MB4348:EE_|TYSPR03MB7910:EE_
+X-MS-Office365-Filtering-Correlation-Id: 99000c94-96ae-4e4d-b76b-08dc23d467b1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	jAWIq+VbBMhA47a05JwjRuF11qAL5F73rEI31ZJMjzuT6F2DBloNoGg7hHZDGFyPL8TmfEocVPfgL7ysSpo5TdQSGI/v9WsN3UDbvxQ/J9KgPpuqGNGvUAci+djQJv9mjclAlb9QriYlXGH43PHCc/wZMGpC6FVr6tabZI/E6xGTBMYE39E9B0xpHgNrUyl/lHNjApY3PiWoBGlY2lAGmf+z2PPFEKQpPmltLJabRL6O8HpXDz8HLo6SZYLL7bchFNBaNYcWTBP3sOy2fgueaLRsq+EFDdtIXym8yyxxQ3yMwcIusxb7CEK9dKAuXpntfFO0/wS2RPoR5+vQwBrAdEJlJB8j5ZAgLKcfecaoyuceBggt4FAhGfeZM7qXl/5W64hlcUNteOPyEUIBkXuSil51TQvcZnsft5I/r5AckCs0RmmUWwrG04LQ2sQagjj9meiaOcbBWgzAhes+LwjcjsxuRC2lZ+bHoIzH2ZkAQrzMM+SHFIZk6j0BSz29hIw/PwCJnfUHbu5Kg4z9xNb5azBcJvs+glROCA2QDUchD8i1SJOPWr2J5yagrFfuVLgi0OUoY6OntznQgoQhKvPoqy1UVEP9xawoRpOQCQjMcu4MH5k2FgvfzJk+ofEZIkhi5oLLlif4QBLru/URAKNMbw==
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SL2PR03MB4348.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(136003)(396003)(346002)(39860400002)(366004)(230922051799003)(451199024)(1800799012)(186009)(64100799003)(41300700001)(83380400001)(26005)(6506007)(107886003)(6916009)(2616005)(66946007)(8676002)(8936002)(66476007)(7416002)(2906002)(4326008)(5660300002)(66556008)(316002)(38100700002)(6666004)(33964004)(478600001)(31696002)(6512007)(86362001)(6486002)(36756003)(53546011)(31686004)(43740500002)(45980500001);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?utf-8?B?aDFQWHA4VUVFLzNUTzNxL2VjWEJFaDVpU2NHK1g2Znk0d3VvZW9acE5jUFZT?=
+ =?utf-8?B?WTlPNmFFQ0dnWWJGQWxmZDhMY2plb05vK2thSExvb1d4MnFQZ0NrT28xY1FK?=
+ =?utf-8?B?eFpsRldyWVFzVGYvRkhTTkhQT0htSVUzaDVaUTVlTEpITEptNDJ4NDNNSzcv?=
+ =?utf-8?B?ZG54aHFPeFBKNzIrWFdhQW4zK3lORFhiNFM2N0FBMGo2L1NzbExwM1pIWkd0?=
+ =?utf-8?B?NG5Rci9haTU0OFJjZm4zY1NkWVI4NGZXcHZPa2N6cTZpZDhCMC9rblNYTDZL?=
+ =?utf-8?B?NXZXbGhQbVZ2c1ByWEFlM2dHV0tkcnpZaTkzcGV1dHpYZExGQmMzRTROOWF2?=
+ =?utf-8?B?Qk5LNndDYmtEKzVGYXF5cDI2R2NBYWpaU2QvS3JwTWZ5VE5iU0VDZUtDeHVl?=
+ =?utf-8?B?bGUvL1hLSTNTWEFTRGtJZTduQmhjdUUvZ2V0eFIyc2ZkdTFac2JtRC80ZW5U?=
+ =?utf-8?B?Yyt2Q1dnK2NSUStQUHdleXNpWlFPdnIxL3k0clhwS2g4MVNZM3QxTzk5ZGRD?=
+ =?utf-8?B?eTM2c1VoT3dUN2tMTjNoZzNuWTRCNXNrdXJGK25GdlR2OXA2RWJZMlJEMFVq?=
+ =?utf-8?B?Tmk0Q3JvQzBLODg1UkoxTklKZjJyWlJvTjlDNHRZZ2RmZStvY205dU9odXo0?=
+ =?utf-8?B?RFlHZ3NQUXI3dUJIN0JZUWl0dFNkeDRZcm5XVnhaNTVZNlpLak1CdkpiTER0?=
+ =?utf-8?B?eU81L3RQbUFBbWljUFJOSXBXT3JlMHJmeHlaNHVhbndNa05LTkNIcThHL1J6?=
+ =?utf-8?B?bFVtODNmZkxPbkRCekR1ZmZtKzVScVVhN1NtOEtHNTRvc1Rnbk50SFpWSjNK?=
+ =?utf-8?B?dXU3ZHpjYTlFQy9WVWZMT25nR2ZueUh6SG1JM25yZk9LeWlwUkxTNlVkYjB1?=
+ =?utf-8?B?NEhHcVVtZERpNzlXWkwvR21teTVUSVV1aDg0d1pvQ2pJNjl4ZSs4bGxzU0pW?=
+ =?utf-8?B?OTU3STNNUC9xNFkwVGt6cS9PbzNLc3c4UkphejF1Wmh3YjI2d1VsejA5KzhR?=
+ =?utf-8?B?eDNVcERGMUZ5ZWVaMEpYNkhud3gwbDV3VTU1Nm1PZGxXQlEwaExEaEhYanVX?=
+ =?utf-8?B?R3lOR0dBdElQZ24wVytPUEJRUHpINGlNRCthdmNSZC9NZlZLWlFHVGhrU3dj?=
+ =?utf-8?B?cURvajE5WkhEaUNhamtZejYzL1lOK2pnakhELzAxNjNXSHpwRGY4VklZNjBC?=
+ =?utf-8?B?MXpLMUs4RFF3c28vbXBONzY2U29YUVJVZE1RMDNFRE9IdTk2Tkp3VVlMT2FC?=
+ =?utf-8?B?Mnd0T2lXQVpNK2hUZGFJUEtGVjEzWVVOWncwb0pvdStzMTVCaXdRR051MWxU?=
+ =?utf-8?B?cEc0cHQrYytDb0RCand6RjNTdk1PaW1HR1dIOVJzOG5jemhFWjlCdXQ4MU03?=
+ =?utf-8?B?WEhOakdBYm9FWE1VbVRUTHJqVFRLbHFPdzJoUk5VaW1sdk1VUERRajJ5NWYz?=
+ =?utf-8?B?K3N6dUVXQ1lWbWF0TGxQb1c3Zkh4QmxBUlZuQWRGcnJnaGpyYmE4c2NQNHVQ?=
+ =?utf-8?B?c09QcEJXQ2ZnOER5MHFMeU15c1ZSTW52enZoL3F4NGR3ZmFPUitVdVNsT3I3?=
+ =?utf-8?B?S0ZqR0NUN1BLZk5xc0JkdGI2YktYeGNsSy9zVFBrYmpqS1dlN24ycG50dDcw?=
+ =?utf-8?B?V29yc2F1ODZnRlczM0V0VmYwSkRuQjZsTS9QUlpIdnBkdHJ2Y2hKeFRzTE14?=
+ =?utf-8?B?MWxyVlVBVFNDcm80U3V0K0RSOU80M0VkUXZ4R2dzMUt5OW5VVEN2bTVPTWds?=
+ =?utf-8?B?Wm5BYnZXU3ZDNHdzK3ZrZ1lWQU5DRGtmck5iZXMvQ0prZjBab1FOcDhYbWtM?=
+ =?utf-8?B?V216SUcrU3VKbWNsN2VGNHFaMWxGVXBtWVZ2d01vU2hpT3BpY0pobnpsTGt0?=
+ =?utf-8?B?clZxWU90ZUw2bk81WnJnZzBhU1JsSHFHdmZEZEpxK21VSXFINURTOEpnRWRv?=
+ =?utf-8?B?eW1VQ1p2U2FrbVBld3Y5TUxNWE5JRHV4cmkxYVhSWTdQd2pUU052L29FQmEz?=
+ =?utf-8?B?LzIyM3J4S3RxK0lmczJ5anRoRmZjdGtWUGEvM0Fpdm04QjlhcXBwa1NmTXc1?=
+ =?utf-8?B?U2VPMHJQQ0NWaFQzTmlEaVRoVnliWXd6SlY3MkViZlNybFpMQ0twN0R1L0lU?=
+ =?utf-8?Q?ItFE3o5qx4kucM5PAAb2PiGYZ?=
+X-OriginatorOrg: nuvoton.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 99000c94-96ae-4e4d-b76b-08dc23d467b1
+X-MS-Exchange-CrossTenant-AuthSource: SL2PR03MB4348.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Feb 2024 09:50:36.2426
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: a3f24931-d403-4b4a-94f1-7d83ac638e07
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ quyobS6q6hyf9YxIU9hGHRfuB/SYMkdtgkHaPhG2y8Dr7NGBM6C6opB/XRv+xkxg5vCBFixXq8jAp32W4SDYrg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYSPR03MB7910
+Message-ID-Hash: VML6CWPCTQKAK4JHB7O5AQNNITS6YA5K
+X-Message-ID-Hash: VML6CWPCTQKAK4JHB7O5AQNNITS6YA5K
+X-MailFrom: WTLI@nuvoton.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; format=flowed
+X-Content-Filtered-By: Mailman/MimeDel 3.3.9
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CQXJVEREZLGHDFOT3T3N2ILBOMQGKEE3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VML6CWPCTQKAK4JHB7O5AQNNITS6YA5K/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -111,115 +179,71 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-
-Dne 30. 01. 24 v 20:22 Pavel Hofman napsal(a):
-> 
-> Dne 30. 01. 24 v 13:30 Jaroslav Kysela napsal(a):
->>>>
->>>> It looks like a way to go. The hdmi_mode can be set using ALSA
->>>> configuration use snd_config_search (with global config - snd_config
->>>> pointer) and snd_config_get_bool functions for that. The variable 
->>>> may be
->>>> named like 'defaults.pcm.plug.iec958.hdmi_mode' or so (see alsa.conf).
->>>
->>> That's interesting. IIUC such parameter would globally switch all plugs
->>> instances to the hdmi_mode. Would a user-based ~/.asoundrc with such
->>> variable be applied for the hard-coded plughw:XX device? Maybe it would
->>> be enough for most use cases, eliminating the need for an app-specific
->>> environment variable.
->>>
->>> Or maybe a prioritized sequence getenv('ALSA_PCM_PLUG_IEC958_HDMI_MODE')
->>> -> snd_config_search('defaults.pcm.plug.iec958.hdmi_mode') could be 
->>> used.
->> We usually don't use getenv hacks for alsa-lib features. The global 
->> configuration path can be redirected using ALSA_CONFIG_DIR and per 
->> user (~/.asoundrc or $XDG_CONFIG_HOME/alsa/asoundrc) and per card 
->> configurations (/var/lib/alsa/card#.conf.d) are also loaded from the 
->> global alsa.conf file.
->>
->> Perphaps, the iec958 plug code may include card number / card driver 
->> name to the configuration tree lookup - like 
->> 'defaults.pcm.plug.iec958.0.hdmi_mode' or 
->> 'defaults.pcm.plug.iec958.vc4-hdmi.hdmi_mode' . With this extension, 
->> this value can be set in global src/conf/cards/vc4-hdmi.conf for this hw.
->>
-> Actually, looking at pcm_iec958.c and the commit which introduced the 
-> hdmi_mode param I am not sure the the hdmi_mode is of any value for the 
-> plug plugin.
-> 
-> IIUC the hdmi_mode value gets used only if the status is 
-> IEC958_AES0_NONAUDIO:
-> 
-> int single_stream = iec->hdmi_mode &&
->                  (iec->status[0] & IEC958_AES0_NONAUDIO) &&
->                  (channels == 8);
-> 
-> But the plug plugin would pass NULL as status_bits which in 
-> snd_pcm_iec958_open will be replaced with default_status_bits:
-> 
-> static const unsigned char default_status_bits[] = {
->          IEC958_AES0_CON_EMPHASIS_NONE,
->          IEC958_AES1_CON_ORIGINAL | IEC958_AES1_CON_PCM_CODER,
->          0,
->          IEC958_AES3_CON_FS_NOTID, /* will be set in hwparams */
->          IEC958_AES4_CON_WORDLEN_NOTID /* will be set in hwparams */
->      };
-> 
-> Logically no IEC958_AES0_NONAUDIO bit is set in the default status bits.
-> 
-> IMO we can safely pass hdmi_mode=false to snd_pcm_iec958_open because 
-> using plug for non-audio stream would not make sense anyway.
-
-
-A patch related to the conversion could look like this, IMO.
-
-===================================================================
-diff --git a/src/pcm/pcm_plug.c b/src/pcm/pcm_plug.c
---- a/src/pcm/pcm_plug.c	(revision ffed4f342678c31bf0b9edfe184be5f3de41603a)
-+++ b/src/pcm/pcm_plug.c	(date 1706857992580)
-@@ -490,6 +490,20 @@
-  }
-  #endif
-
-+#ifdef BUILD_PCM_PLUGIN_IEC958
-+static int snd_pcm_plug_iec958_open(snd_pcm_t **pcmp, const char *name, 
-snd_pcm_format_t sformat, snd_pcm_t *slave, int close_slave)
-+{
-+	return snd_pcm_iec958_open(pcmp, name, sformat, slave, close_slave,
-+	    /* using default status bits defined in the iec958 plugin*/
-+		NULL,
-+		/* default preamble values as used in the iec958 plugin */
-+		{0x08, 0x02, 0x04 /* Z, X, Y */},
-+		/* hdmi_mode=0 because it is applied only for IEC958_AES0_NONAUDIO 
-which is not in the default status bits */
-+		0
-+	);
-+}
-+#endif
-+
-  static int snd_pcm_plug_change_format(snd_pcm_t *pcm, snd_pcm_t **new, 
-snd_pcm_plug_params_t *clt, snd_pcm_plug_params_t *slv)
-  {
-  	snd_pcm_plug_t *plug = pcm->private_data;
-@@ -565,6 +579,12 @@
-  #ifdef BUILD_PCM_PLUGIN_ADPCM
-  		case SND_PCM_FORMAT_IMA_ADPCM:
-  			f = snd_pcm_adpcm_open;
-+			break;
-+#endif
-+#ifdef BUILD_PCM_PLUGIN_IEC958
-+		case SND_PCM_FORMAT_IEC958_SUBFRAME_LE:
-+		case SND_PCM_FORMAT_IEC958_SUBFRAME_BE:
-+			f = snd_pcm_plug_iec958_open;
-  			break;
-  #endif
-  		default:
-
-===================================================================
-
-
-Unfortunately I am afraid I do not understand fully the code in 
-snd_pcm_plug_hw_refine_schange which calls method 
-snd_pcm_plug_slave_format where the IEC958 formats should also be checked.
-
-Thanks a lot for any help!
+DQoNCg0KT24gMS8yMy8yMDI0IDQ6MjggQU0sIE1hcmsgQnJvd24gd3JvdGU6DQoNCk9uIE1vbiwg
+SmFuIDIyLCAyMDI0IGF0IDA1OjU2OjUwUE0gKzA4MDAsIFNldmVuIExlZSB3cm90ZToNCg0KDQoN
+CisrKyBiL3NvdW5kL3NvYy9jb2RlY3MvbmF1ODMyNS5jDQpAQCAtMCwwICsxLDg5NiBAQA0KKy8v
+IFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiBHUEwtMi4wLW9ubHkNCisvKg0KKyAqIG5hdTgzMjUu
+YyAtLSBOdXZvdG9uIE5BVTgzMjUgYXVkaW8gY29kZWMgZHJpdmVyDQorICoNCg0KDQoNClBsZWFz
+ZSB1c2UgYSBDKysgY29tbWVudCBmb3IgdGhlIHdob2xlIGJsb2NrIHRvIG1ha2UgdGhpbmdzIGxv
+b2sgbW9yZQ0KY29uc2lzdGVudC4NCg0KDQoNCg0Kb2theSwgSSB3aWxsIGZvbGxvdyBDKysgY29t
+bWVudC4NCg0KDQoNCg0KDQoNCg0KDQorc3RhdGljIGludCBuYXU4MzI1X2Nsa2RldF9wdXQoc3Ry
+dWN0IHNuZF9rY29udHJvbCAqa2NvbnRyb2wsDQorICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBzdHJ1Y3Qgc25kX2N0bF9lbGVtX3ZhbHVlICp1Y29udHJvbCkNCit7DQorICAgICAgIHN0cnVj
+dCBzb2NfbWl4ZXJfY29udHJvbCAqbWMgPQ0KKyAgICAgICAgICAgICAgIChzdHJ1Y3Qgc29jX21p
+eGVyX2NvbnRyb2wgKilrY29udHJvbC0+cHJpdmF0ZV92YWx1ZTsNCisgICAgICAgc3RydWN0IHNu
+ZF9zb2NfY29tcG9uZW50ICpjb21wb25lbnQgPQ0KKyAgICAgICAgICAgICAgIHNuZF9zb2Nfa2Nv
+bnRyb2xfY29tcG9uZW50KGtjb250cm9sKTsNCisgICAgICAgc3RydWN0IG5hdTgzMjUgKm5hdTgz
+MjUgPSBzbmRfc29jX2NvbXBvbmVudF9nZXRfZHJ2ZGF0YShjb21wb25lbnQpOw0KKyAgICAgICB1
+bnNpZ25lZCBpbnQgbWF4ID0gbWMtPm1heCwgbWluID0gbWMtPm1pbiwgdmFsOw0KKyAgICAgICB1
+bnNpZ25lZCBpbnQgbWFzayA9ICgxIDw8IGZscyhtYXgpKSAtIDE7DQoNCg0KDQpBRkFJQ1QgdGhp
+cyB3aWxsIG9ubHkgd29yayB3ZWxsIGlmIG1heCBpcyAxLCBqdXN0IGhhcmQgY29kZSB0aGF0Lg0K
+DQoNCllvdSBhcmUgcmlnaHQsIEkgd2lsbCBtb2RpZnkgdG8gaGFyZCBjb2RlIGZvciB0aGUgbWF4
+IGlzIDEuDQoNCg0KDQoNCg0KDQoNCisNCisgICAgICAgdmFsID0gKHVjb250cm9sLT52YWx1ZS5p
+bnRlZ2VyLnZhbHVlWzBdICsgbWluKSAmIG1hc2s7DQorICAgICAgIG5hdTgzMjUtPmNsb2NrX2Rl
+dGVjdGlvbiA9IHZhbDsNCisNCisgICAgICAgaWYgKG5hdTgzMjUtPmNsb2NrX2RldGVjdGlvbikN
+CisgICAgICAgICAgICAgICByZWdtYXBfdXBkYXRlX2JpdHMobmF1ODMyNS0+cmVnbWFwLCBOQVU4
+MzI1X1I0MF9DTEtfREVUX0NUUkwsDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IE5BVTgzMjVfQ0xLUFdSVVBfRElTLCAwKTsNCisgICAgICAgZWxzZQ0KKyAgICAgICAgICAgICAg
+IHJlZ21hcF91cGRhdGVfYml0cyhuYXU4MzI1LT5yZWdtYXAsIE5BVTgzMjVfUjQwX0NMS19ERVRf
+Q1RSTCwNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgTkFVODMyNV9DTEtQV1JV
+UF9ESVMsIE5BVTgzMjVfQ0xLUFdSVVBfRElTKTsNCisNCisgICAgICAgcmV0dXJuIG5hdTgzMjUt
+PmNsb2NrX2RldGVjdGlvbjsNCit9DQoNCg0KDQpQbGVhc2UgdXNlIG1peGVyLXRlc3QgdG8gdmVy
+aWZ5IHRoYXQgeW91ciBjb250cm9scyBjb25mb3JtIHRvIHRoZQ0KZXhwZWN0ZWQgQVBJLCB0aGUg
+cmV0dXJuIHZhbHVlIGhlcmUgaXMgbm90IHdoYXQncyBleHBlY3RlZCAtIGl0IHNob3VsZA0KYmUg
+YSBuZWdhdGl2ZSB2YWx1ZSBmb3IgYW4gZXJyb3IsIDAgZm9yIG5vIGNoYW5nZSBhbmQgMSBmb3Ig
+Y2hhbmdlLg0KDQoNCkkgdGhpbmsgdGhlIHJldHVybiB2YWx1ZSBpcyBhbHdheXMgMCBhbmQgMSwg
+YW5kIEkgd2lsbCBtb2RpZnkgdGhlIHJldHVybiB2YWx1ZSBmb3IgemVyby4NCg0KDQoNCg0KDQoN
+Cg0KKyAgICAgICBTT0NfU0lOR0xFX0VYVCgiQ2xvY2sgRGV0ZWN0aW9uIiwgU05EX1NPQ19OT1BN
+LCAwLCAxLCAwLA0KKyAgICAgICAgICAgICAgICAgICAgICBuYXU4MzI1X2Nsa2RldF9nZXQsIG5h
+dTgzMjVfY2xrZGV0X3B1dCksDQoNCg0KDQpTaG91bGRuJ3QgdGhpcyBiZSBhIFN3aXRjaD8NCg0K
+DQpZZXMsIHlvdSBhcmUgcmlnaHQuIEkgd2lsbCBjaGFuZ2UgaXQuDQoNCg0KDQoNCg0KDQoNCisg
+ICAgICAgU09DX1NJTkdMRSgiQUxDIEVuYWJsZSIsIE5BVTgzMjVfUjJFX0FMQ19DVFJMMywNCisg
+ICAgICAgICAgICAgICAgICBOQVU4MzI1X0FMQ19FTl9TRlQsIDEsIDApLA0KDQoNCg0KQUxDIFN3
+aXRjaC4NCg0KDQpva2F5LCBJIHdpbGwgY29ycmVjdCB0aGUgbmFtZSB0byAiQUxDIEVuYWJsZSBT
+d2l0Y2giLg0KDQoNCg0KDQoNCg0KDQorc3RhdGljIGludCBuYXU4MzI1X3Bvd2VydXBfZXZlbnQo
+c3RydWN0IHNuZF9zb2NfZGFwbV93aWRnZXQgKncsDQorICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICBzdHJ1Y3Qgc25kX2tjb250cm9sICprY29udHJvbCwgaW50IGV2ZW50KQ0KK3sNCisg
+ICAgICAgc3RydWN0IHNuZF9zb2NfY29tcG9uZW50ICpjb21wb25lbnQgPQ0KKyAgICAgICAgICAg
+ICAgIHNuZF9zb2NfZGFwbV90b19jb21wb25lbnQody0+ZGFwbSk7DQorICAgICAgIHN0cnVjdCBu
+YXU4MzI1ICpuYXU4MzI1ID0gc25kX3NvY19jb21wb25lbnRfZ2V0X2RydmRhdGEoY29tcG9uZW50
+KTsNCisNCisgICAgICAgaWYgKG5hdTgzMjUtPmNsb2NrX2RldGVjdGlvbikNCisgICAgICAgICAg
+ICAgICByZXR1cm4gMDsNCisNCg0KDQoNCldoYXQgaGFwcGVucyBpZiBzb21lb25lIGVuYWJsZXMg
+Y2xvY2sgZGV0ZWN0aW9uIHdoaWxlIHRoaW5ncyBhcmUgcG93ZXJlZA0KdXA/DQoNCg0KVGhpcyBj
+bG9jayBkZXRlY3Rpb24gc3dpdGNoIHVzdWFsbHkgZG9lcyBub3QgdHVybiBvbi9vZmYgZHVyaW5n
+IGV4ZWN1dGlvbi4gSWYgdGhpcyBpcyB0aGUgY2FzZSwNCg0KdGhlcmUgaXMgYSBjaGFuY2UgdGhh
+dCB1bmV4cGVjdGVkIGV4Y2VwdGlvbnMgbWF5IG9jY3VyLiBTbyB3ZSdsbCByZW1vdmUgdGhlICJD
+bG9jayBEZXRlY3Rpb24iIHN3aXRjaC4gVGhlDQoNCm1vZGUgaXMgZGV0ZXJtaW5lZCBkdXJpbmcg
+dGhlIGluaXRpYWxpemF0aW9uIHBoYXNlLg0KDQoNCg0KDQoNCg0KX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18NClRoZSBwcml2aWxlZ2VkIGNvbmZpZGVudGlhbCBpbmZvcm1hdGlvbiBj
+b250YWluZWQgaW4gdGhpcyBlbWFpbCBpcyBpbnRlbmRlZCBmb3IgdXNlIG9ubHkgYnkgdGhlIGFk
+ZHJlc3NlZXMgYXMgaW5kaWNhdGVkIGJ5IHRoZSBvcmlnaW5hbCBzZW5kZXIgb2YgdGhpcyBlbWFp
+bC4gSWYgeW91IGFyZSBub3QgdGhlIGFkZHJlc3NlZSBpbmRpY2F0ZWQgaW4gdGhpcyBlbWFpbCBv
+ciBhcmUgbm90IHJlc3BvbnNpYmxlIGZvciBkZWxpdmVyeSBvZiB0aGUgZW1haWwgdG8gc3VjaCBh
+IHBlcnNvbiwgcGxlYXNlIGtpbmRseSByZXBseSB0byB0aGUgc2VuZGVyIGluZGljYXRpbmcgdGhp
+cyBmYWN0IGFuZCBkZWxldGUgYWxsIGNvcGllcyBvZiBpdCBmcm9tIHlvdXIgY29tcHV0ZXIgYW5k
+IG5ldHdvcmsgc2VydmVyIGltbWVkaWF0ZWx5LiBZb3VyIGNvb3BlcmF0aW9uIGlzIGhpZ2hseSBh
+cHByZWNpYXRlZC4gSXQgaXMgYWR2aXNlZCB0aGF0IGFueSB1bmF1dGhvcml6ZWQgdXNlIG9mIGNv
+bmZpZGVudGlhbCBpbmZvcm1hdGlvbiBvZiBOdXZvdG9uIGlzIHN0cmljdGx5IHByb2hpYml0ZWQ7
+IGFuZCBhbnkgaW5mb3JtYXRpb24gaW4gdGhpcyBlbWFpbCBpcnJlbGV2YW50IHRvIHRoZSBvZmZp
+Y2lhbCBidXNpbmVzcyBvZiBOdXZvdG9uIHNoYWxsIGJlIGRlZW1lZCBhcyBuZWl0aGVyIGdpdmVu
+IG5vciBlbmRvcnNlZCBieSBOdXZvdG9uLg0K

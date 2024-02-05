@@ -2,100 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10432849C87
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Feb 2024 15:02:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B780184A01C
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Feb 2024 17:59:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5D4CC82B;
-	Mon,  5 Feb 2024 15:01:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D4CC82B
+	by alsa0.perex.cz (Postfix) with ESMTPS id BD147201;
+	Mon,  5 Feb 2024 17:59:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD147201
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1707141725;
-	bh=AQ9rJJsSMiX+vo7iSm3VkhpLNuASv5tw8v6zztJtpa8=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
+	s=default; t=1707152366;
+	bh=d3MHcE60+aEolo8yoxGkE+jYHNZc2enKn6A6LrbJtfg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ZK0budTfdRUmbNYnuIirsFlJQr8gEFYG2WR4kQvdexcbWcjBE0CcQYS4hxY3prIXy
-	 tB7Twkt7B1Mo8SjeFcYItX6hMoiL+0Ei3U/JMg/pGOtmYCLpIj8frfFNzHwC/O/4dL
-	 EBNbvR0eeGcexf9wVkzTXlIFM/7SoDFsh4KmSL1Q=
+	b=O/otJK/AQ9v+BeSkSnjm0Xd98OcRK9Q+jD1Ulu01ePR32/rSE47ZzyI2I2DjSwt2V
+	 IMzvREaUFP3x5XrOm+jKDtBQtB0lKdxZtujRRcpqGviZzzCSUDtx5J3YIqVUPJEvj9
+	 RyTGvg4B/dzSbIFB3GH088YhisT5QyUL4qJGjlkI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4F142F805AE; Mon,  5 Feb 2024 15:01:28 +0100 (CET)
+	id B5BA4F805A9; Mon,  5 Feb 2024 17:58:54 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9FAF6F8058C;
-	Mon,  5 Feb 2024 15:01:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6C1BCF8056F;
+	Mon,  5 Feb 2024 17:58:54 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A3539F801EB; Mon,  5 Feb 2024 15:01:20 +0100 (CET)
+	id 8E2B1F804E7; Mon,  5 Feb 2024 17:58:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2F2A4F800EE
-	for <alsa-devel@alsa-project.org>; Mon,  5 Feb 2024 15:01:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F2A4F800EE
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1F4BBF800EE
+	for <alsa-devel@alsa-project.org>; Mon,  5 Feb 2024 17:58:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F4BBF800EE
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=nhvuxBxD
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 4155VpcZ002122;
-	Mon, 5 Feb 2024 08:01:08 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	message-id:date:mime-version:subject:to:cc:references:from
-	:in-reply-to:content-type:content-transfer-encoding; s=
-	PODMain02222019; bh=KkdSVvZBpNy6UICQTjzXbhDmnHH8Se+KrDnsL2G3J/E=; b=
-	nhvuxBxD495qcJk3Dwfn+Er1TmmkZ7aJl4efkUIbbRZgzbGmi15fN6u6L0pQsS8m
-	oizA2n3YqQi918+XB4wYEvGZbCAZERLf6z7PoPWBL6CgeUn6VnT6NmDupNW9GTvT
-	1OutoakT1s0SKSbllebVm5FLZy+RPSpylL3B8goAarXiDQeLi9Yu5opBm006u0vh
-	Rin8D06cqaadWvMwBHLeKHYsAlC1Ai1/JzEvNBGygzmXFKBcMTCXDg34tPFL74JS
-	da4YSkg3HXId+hWhheJZBLCFkmgPuukxddu7ePknDbuGLoiTJSsKW9cZyuuPBjEM
-	GZ4YM+x5ksEclSEt6EyFIg==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3w1ks29ybc-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 05 Feb 2024 08:01:05 -0600 (CST)
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Mon, 5 Feb
- 2024 14:01:03 +0000
-Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
- ediex01.ad.cirrus.com (198.61.84.80) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.40 via Frontend Transport; Mon, 5 Feb 2024 14:01:03 +0000
-Received: from [198.90.208.18] (ediswws06.ad.cirrus.com [198.90.208.18])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id 8A88B820241;
-	Mon,  5 Feb 2024 14:01:03 +0000 (UTC)
-Message-ID: <5a2872d4-7eb3-465a-aace-c848919b1f2a@opensource.cirrus.com>
-Date: Mon, 5 Feb 2024 14:01:03 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=BxLNYSsg
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id 68038CE09E9;
+	Mon,  5 Feb 2024 16:58:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E628C433F1;
+	Mon,  5 Feb 2024 16:58:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1707152315;
+	bh=d3MHcE60+aEolo8yoxGkE+jYHNZc2enKn6A6LrbJtfg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=BxLNYSsgyWXjOQlBq/UM1PQu9D8GiKu7jgV85Pbc7gZldree/qIejh3lw0cGvR3rG
+	 mjHGNXTRMV7oftGNdv+wz8bcIhV57ysafTzHPN5+uAUO/G0DsgqW0+mDH5D7ITHeri
+	 5Jq5ddr6NJ0P2KUdljd8c+Cfjw4rgTCL/JWAISw50RsQLVSb3xaZdNHdXkCxktD9dE
+	 y5Gk+QYbq06q/JWMe+h3p8z3fg5mw4uVihCMXI1tzis15RJqqCK6vDRGLBXkOhVGLa
+	 3FQyi0Wj++Neairf9Y1DSQjlqgqHqBOqsmK5V0gIotRxkJ11WBc8zoHYMa4heTyCr1
+	 xSpriaNwY7XkA==
+From: Mark Brown <broonie@kernel.org>
+To: Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Dan Carpenter <dan.carpenter@linaro.org>
+Cc: James Schulman <james.schulman@cirrus.com>,
+ David Rhodes <david.rhodes@cirrus.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+ kernel-janitors@vger.kernel.org
+In-Reply-To: <0c254c07-d1c0-4a5c-a22b-7e135cab032c@moroto.mountain>
+References: <0c254c07-d1c0-4a5c-a22b-7e135cab032c@moroto.mountain>
 Subject: Re: [PATCH] ASoC: cs35l56: fix reversed if statement in
  cs35l56_dspwait_asp1tx_put()
-To: Dan Carpenter <dan.carpenter@linaro.org>
-CC: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-        <alsa-devel@alsa-project.org>, <patches@opensource.cirrus.com>,
-        <linux-sound@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <kernel-janitors@vger.kernel.org>
-References: <0c254c07-d1c0-4a5c-a22b-7e135cab032c@moroto.mountain>
-Content-Language: en-GB
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-In-Reply-To: <0c254c07-d1c0-4a5c-a22b-7e135cab032c@moroto.mountain>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Message-Id: <170715231128.801804.92834537524909316.b4-ty@kernel.org>
+Date: Mon, 05 Feb 2024 16:58:31 +0000
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: 5xdR__uDpewbfPRVIWR6S2KgtvLy6a5n
-X-Proofpoint-ORIG-GUID: 5xdR__uDpewbfPRVIWR6S2KgtvLy6a5n
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: WLIAIX4K7YJJP7EZFTPAHH64NXNV7FRU
-X-Message-ID-Hash: WLIAIX4K7YJJP7EZFTPAHH64NXNV7FRU
-X-MailFrom: prvs=9765900aaf=rf@opensource.cirrus.com
+X-Mailer: b4 0.13-dev-0438c
+Message-ID-Hash: QK2S6VKIYM4UKMH5A6YT4YL6IMV6YT62
+X-Message-ID-Hash: QK2S6VKIYM4UKMH5A6YT4YL6IMV6YT62
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -107,7 +92,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WLIAIX4K7YJJP7EZFTPAHH64NXNV7FRU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QK2S6VKIYM4UKMH5A6YT4YL6IMV6YT62/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -116,33 +101,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 05/02/2024 12:44, Dan Carpenter wrote:
+On Mon, 05 Feb 2024 15:44:30 +0300, Dan Carpenter wrote:
 > It looks like the "!" character was added accidentally.  The
 > regmap_update_bits_check() function is normally going to succeed.  This
 > means the rest of the function is unreachable and we don't handle the
 > situation where "changed" is true correctly.
 > 
-> Fixes: 07f7d6e7a124 ("ASoC: cs35l56: Fix for initializing ASP1 mixer registers")
-> Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
-> ---
->>From static analysis and review, not tested.
-> ---
->   sound/soc/codecs/cs35l56.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/sound/soc/codecs/cs35l56.c b/sound/soc/codecs/cs35l56.c
-> index c23e29da4cfb..ebed5ab1245b 100644
-> --- a/sound/soc/codecs/cs35l56.c
-> +++ b/sound/soc/codecs/cs35l56.c
-> @@ -115,7 +115,7 @@ static int cs35l56_dspwait_asp1tx_put(struct snd_kcontrol *kcontrol,
->   
->   	ret = regmap_update_bits_check(cs35l56->base.regmap, addr,
->   				       CS35L56_ASP_TXn_SRC_MASK, val, &changed);
-> -	if (!ret)
-> +	if (ret)
->   		return ret;
->   
->   	if (changed)
 
-Reviewed-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+
+Thanks!
+
+[1/1] ASoC: cs35l56: fix reversed if statement in cs35l56_dspwait_asp1tx_put()
+      commit: 4703b014f28bf7a2e56d1da238ee95ef6c5ce76b
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 

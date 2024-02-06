@@ -2,106 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E738884B1E2
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Feb 2024 11:03:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6426A84B184
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Feb 2024 10:41:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 503F9ED1;
-	Tue,  6 Feb 2024 11:02:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 503F9ED1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9EFA282C;
+	Tue,  6 Feb 2024 10:41:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9EFA282C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1707213784;
-	bh=6NTsi8MTHhKSU1zdGgcR2NazjNxpJ4OkB7k2y0vpsVc=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=vHnY+ovKSB4M60YoEyM0Rq/WRal5cYAmZHj40P1BGDrDn0euinMoE7FhFfp1Ma1cc
-	 WeBTXBrlPhrfoT0SUBiFxw0gp5CQYPz9JHiB19SpA0Xwh2dVHL7peWPIjeas5xytMW
-	 QSRVIhgucsGnIETX41edPjHz2l31NmFsZmuJE4A0=
+	s=default; t=1707212515;
+	bh=8Q3rZBp0QdSoT8AB/VNdTixvhfVDTbs7lsqe5RokcrU=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=LEMHDUDSJp0uok4eRiyUZYsF/uPOtrMBHRCPLhS2a31XAECONvXFiFh31iLYHMbIn
+	 BI3kFJ61wKiN6Egp7dCg0RXQYV5uKquAsCAlch6NvFcbcYOlY7Wdl3vqvRtXfEzUQm
+	 9fzQdAM2OpxPyE8Fq1p6e5d84wIanxxTmpbFEV6Y=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4AA2DF80652; Tue,  6 Feb 2024 11:01:07 +0100 (CET)
+	id B9E33F80571; Tue,  6 Feb 2024 10:41:23 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7534AF80676;
-	Tue,  6 Feb 2024 11:01:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EF4AAF805A0;
+	Tue,  6 Feb 2024 10:41:22 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F0A55F801EB; Tue,  6 Feb 2024 07:45:04 +0100 (CET)
+	id 997F9F801EB; Tue,  6 Feb 2024 10:39:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_PASS,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
- [68.232.153.233])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 97A4DF8016E
-	for <alsa-devel@alsa-project.org>; Tue,  6 Feb 2024 07:44:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97A4DF8016E
+	by alsa1.perex.cz (Postfix) with ESMTPS id AC9D4F800E3
+	for <alsa-devel@alsa-project.org>; Tue,  6 Feb 2024 10:37:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC9D4F800E3
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=microchip.com header.i=@microchip.com
- header.a=rsa-sha256 header.s=mchp header.b=eamd+o1n
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1707201891; x=1738737891;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=6NTsi8MTHhKSU1zdGgcR2NazjNxpJ4OkB7k2y0vpsVc=;
-  b=eamd+o1nY+MURCbMhvEWkl/GvrbCmYcy+ikc8m1+iSDvhWVBS2p3L/nU
-   iR/gRC6sYaDLAinpaw8yP+uwM9mm6YcReJtMb+LXmRAHoQpRN/kd1krj1
-   VJUh55RDnSy5SxKO7W16rZTG4ou+0pZ3dRkmPcwPi5cRLg3n4PZgH5HTi
-   xYqLtb6jfT+vW2iF5d8u8GOycbYKYz4u/H4EYhI2gS7fvYjghbYwiIAaR
-   tgNLLJPk5DU4Nq6SJZsjWvajO2Nx3dYsUPahvPfcLZYl9PH9cMEqFo1be
-   8VWbW2B8fQ2EbdQ/W3CepTmN2IVxYbhAJcf0zPgudw/g7a9hR2StF5sDN
-   Q==;
-X-CSE-ConnectionGUID: 5cKW/z4QQq6KFQyHa1Y4Bg==
-X-CSE-MsgGUID: xRRXybZ8QuS7vPMPAREMRA==
-X-IronPort-AV: E=Sophos;i="6.05,246,1701154800";
-   d="scan'208";a="15812734"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 05 Feb 2024 23:44:45 -0700
-Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.35; Mon, 5 Feb 2024 23:44:29 -0700
-Received: from che-lt-i70843lx.microchip.com (10.10.85.11) by
- chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
- 15.1.2507.35 via Frontend Transport; Mon, 5 Feb 2024 23:44:23 -0700
-From: Dharma Balasubiramani <dharma.b@microchip.com>
-To: <claudiu.beznea@tuxon.dev>, <lgirdwood@gmail.com>, <broonie@kernel.org>,
-	<robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
-	<conor+dt@kernel.org>, <nicolas.ferre@microchip.com>,
-	<alexandre.belloni@bootlin.com>, <dharma.b@microchip.com>,
-	<alsa-devel@alsa-project.org>, <linux-sound@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>
-CC: <hari.prasathge@microchip.com>
-Subject: [linux][PATCH] ASoC: dt-bindings: atmel,sam9x5-wm8731: Convert to
- json-schema
-Date: Tue, 6 Feb 2024 12:14:18 +0530
-Message-ID: <20240206064418.237377-1-dharma.b@microchip.com>
-X-Mailer: git-send-email 2.25.1
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=sxV0+WND
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id 4AD16CE12AB;
+	Tue,  6 Feb 2024 09:37:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0769AC43390;
+	Tue,  6 Feb 2024 09:37:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1707212267;
+	bh=8Q3rZBp0QdSoT8AB/VNdTixvhfVDTbs7lsqe5RokcrU=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=sxV0+WNDpEM1ppiMfgjskCS8Z3AtBmMOAoPmv5YG7hzhdYs/SsOECVrtAsjnP2zO+
+	 O7GT2T04flURqgDe5TdxQl+aSvdShG36sPyGREp4QjlhTvbYeM5l0shhS8a27icXWu
+	 37JGpWXbdSpSdF95Yr2gCEpLUQqXv4AJtqUu1DHSf7l4kmQmnPWi52SgEGAjX7PvNw
+	 4RHhHaBKE3UtS3dnSRIDuqX9Rz/ORg13P+EjPLCOJfn5rliMsoIKh/g03OmlJaOT8z
+	 yfOrtULrGXTr/30IsLeL1bh/7G8dprtT7gTuxK+MEqWGd2CeJqFn4fY8EupH7BKrrN
+	 DoxZ2osUTpHDg==
+From: Mark Brown <broonie@kernel.org>
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Cc: lgirdwood@gmail.com, alsa-devel@alsa-project.org,
+ patches@opensource.cirrus.com, linux-sound@vger.kernel.org
+In-Reply-To: <20240202140619.1068560-1-ckeepax@opensource.cirrus.com>
+References: <20240202140619.1068560-1-ckeepax@opensource.cirrus.com>
+Subject: Re: [PATCH 1/3] ASoC: cs42l43: Add clear of stashed pointer on
+ component remove
+Message-Id: <170721226503.850647.13196584350173036688.b4-ty@kernel.org>
+Date: Tue, 06 Feb 2024 09:37:45 +0000
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-MailFrom: Dharma.B@microchip.com
-X-Mailman-Rule-Hits: nonmember-moderation
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-0438c
+Message-ID-Hash: UA3CPP2ZM2GHSUGXIAHNCWHGPSHHC5XF
+X-Message-ID-Hash: UA3CPP2ZM2GHSUGXIAHNCWHGPSHHC5XF
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: DVMHRTJGFPWUK2AWR2GOQ66I6WXBCEHQ
-X-Message-ID-Hash: DVMHRTJGFPWUK2AWR2GOQ66I6WXBCEHQ
-X-Mailman-Approved-At: Tue, 06 Feb 2024 10:01:00 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DVMHRTJGFPWUK2AWR2GOQ66I6WXBCEHQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UA3CPP2ZM2GHSUGXIAHNCWHGPSHHC5XF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,139 +96,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Convert atmel sam9x5-wm8731-audio devicetree binding to json-schema.
+On Fri, 02 Feb 2024 14:06:17 +0000, Charles Keepax wrote:
+> If the component is removed the stashed component pointer in the
+> CODECs private struct should also be cleared to prevent use of a stale
+> pointer.
+> 
+> 
 
-Signed-off-by: Dharma Balasubiramani <dharma.b@microchip.com>
----
- .../sound/atmel,sam9x5-wm8731-audio.yaml      | 76 +++++++++++++++++++
- .../sound/atmel-sam9x5-wm8731-audio.txt       | 35 ---------
- 2 files changed, 76 insertions(+), 35 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/sound/atmel,sam9x5-wm8731-audio.yaml
- delete mode 100644 Documentation/devicetree/bindings/sound/atmel-sam9x5-wm8731-audio.txt
+Applied to
 
-diff --git a/Documentation/devicetree/bindings/sound/atmel,sam9x5-wm8731-audio.yaml b/Documentation/devicetree/bindings/sound/atmel,sam9x5-wm8731-audio.yaml
-new file mode 100644
-index 000000000000..33717b728f63
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/atmel,sam9x5-wm8731-audio.yaml
-@@ -0,0 +1,76 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/atmel,sam9x5-wm8731-audio.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Atmel at91sam9x5ek wm8731 audio complex
-+
-+maintainers:
-+  - Dharma Balasubiramani <dharma.b@microchip.com>
-+
-+description:
-+  The audio complex configuration for Atmel at91sam9x5ek with WM8731 audio codec.
-+
-+properties:
-+  compatible:
-+    const: atmel,sam9x5-wm8731-audio
-+
-+  atmel,model:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    description: The user-visible name of this sound complex.
-+
-+  atmel,ssc-controller:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description: The phandle of the SSC controller.
-+
-+  atmel,audio-codec:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description: The phandle of the WM8731 audio codec.
-+
-+  atmel,audio-routing:
-+    description:
-+      A list of the connections between audio components. Each entry is a pair
-+      of strings, the first being the connection's sink, the second being the
-+      connection's source.
-+    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
-+    items:
-+      enum:
-+        # Board Connectors
-+        - Headphone Jack
-+        - Line In Jack
-+
-+        # CODEC Pins
-+        - LOUT
-+        - ROUT
-+        - LHPOUT
-+        - RHPOUT
-+        - LLINEIN
-+        - RLINEIN
-+        - MICIN
-+
-+required:
-+  - compatible
-+  - atmel,model
-+  - atmel,ssc-controller
-+  - atmel,audio-codec
-+  - atmel,audio-routing
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    sound {
-+        compatible = "atmel,sam9x5-wm8731-audio";
-+
-+        atmel,model = "wm8731 @ AT91SAM9X5EK";
-+
-+        atmel,audio-routing =
-+                "Headphone Jack", "RHPOUT",
-+                "Headphone Jack", "LHPOUT",
-+                "LLINEIN", "Line In Jack",
-+                "RLINEIN", "Line In Jack";
-+
-+        atmel,ssc-controller = <&ssc0>;
-+        atmel,audio-codec = <&wm8731>;
-+    };
-diff --git a/Documentation/devicetree/bindings/sound/atmel-sam9x5-wm8731-audio.txt b/Documentation/devicetree/bindings/sound/atmel-sam9x5-wm8731-audio.txt
-deleted file mode 100644
-index 8facbce53db8..000000000000
---- a/Documentation/devicetree/bindings/sound/atmel-sam9x5-wm8731-audio.txt
-+++ /dev/null
-@@ -1,35 +0,0 @@
--* Atmel at91sam9x5ek wm8731 audio complex
--
--Required properties:
--  - compatible: "atmel,sam9x5-wm8731-audio"
--  - atmel,model: The user-visible name of this sound complex.
--  - atmel,ssc-controller: The phandle of the SSC controller
--  - atmel,audio-codec: The phandle of the WM8731 audio codec
--  - atmel,audio-routing: A list of the connections between audio components.
--    Each entry is a pair of strings, the first being the connection's sink,
--    the second being the connection's source.
--
--Available audio endpoints for the audio-routing table:
--
--Board connectors:
-- * Headphone Jack
-- * Line In Jack
--
--wm8731 pins:
--cf Documentation/devicetree/bindings/sound/wlf,wm8731.yaml
--
--Example:
--sound {
--	compatible = "atmel,sam9x5-wm8731-audio";
--
--	atmel,model = "wm8731 @ AT91SAM9X5EK";
--
--	atmel,audio-routing =
--		"Headphone Jack", "RHPOUT",
--		"Headphone Jack", "LHPOUT",
--		"LLINEIN", "Line In Jack",
--		"RLINEIN", "Line In Jack";
--
--	atmel,ssc-controller = <&ssc0>;
--	atmel,audio-codec = <&wm8731>;
--};
--- 
-2.25.1
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+
+Thanks!
+
+[1/3] ASoC: cs42l43: Add clear of stashed pointer on component remove
+      commit: cd2a2388614fcf2b9b626332c0da53a2c6cbf2ee
+[2/3] ASoC: cs42l43: Sync the hp ilimit works when removing the component
+      commit: 7fa1a01ba6cb64bc24e7ba0dbee589f3f09f3cf7
+[3/3] ASoC: cs42l43: Shut down jack detection on component remove
+      commit: 3ef9f445ddb1e061ce497f54ca75bbaec52a3a46
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 

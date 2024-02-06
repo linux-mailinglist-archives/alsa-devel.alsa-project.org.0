@@ -2,179 +2,180 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A843A84B5C2
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Feb 2024 13:58:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD8F284B5D4
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Feb 2024 14:01:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9B99B82A;
-	Tue,  6 Feb 2024 13:58:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B99B82A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1865E83B;
+	Tue,  6 Feb 2024 14:00:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1865E83B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1707224315;
-	bh=iL0HRojAzYDaeWoChYZcGEd6ts/epCRxUVQaIOugMFE=;
+	s=default; t=1707224468;
+	bh=+aT0rKIS3UKpo4tm29e7syaTdpncuM29O5o+70E1SWo=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=MXUca7lEV3cszx3Fv+iudMNCcMb4RS9UTJzWi5AR8KHvlJpDQw0X29O8KxZ+a6mXU
-	 aJqCxsXhhKKvUfiNX/wl0TB3wKdx2OF+1tXT39x74ZIIU9SwNBmFWAl38QGBbdbmYD
-	 9PD+Xr7f2xFSkLkwk6oz+pfZ0PfGPD3UiD0SESo4=
+	b=QZ9SGoWt/M8KfdjzsEgO+5y77/KWowzyVCXk1CDGyXpZxo3T/VusGZC19FjaOArf9
+	 Fjz84AvL7ReCDOXEB6NsdvxWuOj+V+hQWB+yol3IPB2rMlMSh02wzKFdOBzqR+CdxP
+	 Rslf/xmLGFEZO+OxIE0P0VhzQg6zddGDKTt9pmw8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BD2E7F8057F; Tue,  6 Feb 2024 13:58:03 +0100 (CET)
+	id 19AB9F80570; Tue,  6 Feb 2024 14:00:35 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0CDC3F80571;
-	Tue,  6 Feb 2024 13:58:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 62424F801D5;
+	Tue,  6 Feb 2024 14:00:35 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DD03AF801EB; Tue,  6 Feb 2024 13:57:58 +0100 (CET)
+	id 00AA2F801EB; Tue,  6 Feb 2024 14:00:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0D738F80153
-	for <alsa-devel@alsa-project.org>; Tue,  6 Feb 2024 13:57:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D738F80153
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6F6CBF8016E
+	for <alsa-devel@alsa-project.org>; Tue,  6 Feb 2024 14:00:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F6CBF8016E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=Vu0o+OOJ;
+ header.s=susede2_rsa header.b=W0j0SuN+;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=so+rAKsH;
+ header.s=susede2_ed25519 header.b=ANiJc1Kz;
 	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=Vu0o+OOJ;
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=W0j0SuN+;
 	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=so+rAKsH
+ header.s=susede2_ed25519 header.b=ANiJc1Kz
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 63FFE21F97;
-	Tue,  6 Feb 2024 12:57:47 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 26B5121F97;
+	Tue,  6 Feb 2024 13:00:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1707224267;
+	t=1707224420;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=hrPdcscD82ZUY6PH9OM5wcI+tI4zDbEnOTR3kzNVpoY=;
-	b=Vu0o+OOJCFymyujwpECX00A2LCtfKTRvohJSFlRp2HCQDi2ASSyoXDk1TRT9PKwu321lSM
-	DQQMpThrEAdi3gZ19WRBx0XyssIohW0LukqZnIfCIJJNNC5o5z/QvL6R32M7/sAqM4cQR1
-	EAoGKcKPoWnRCVoChWgr7HnZqBqnH7E=
+	bh=rPhPVGYDJ3fdMIeQrhxnapM7DO5sG2kieq0UlwBxO6I=;
+	b=W0j0SuN+f3pdCTZ/eqYSrkeUibin5cCK5VUQZRbbQeVgIA+GrcC0q0bxzYOH85qV+pF3h8
+	IyzuJDVmuYmw/NQQa8oeMAeSJq4nQ/eO7h2xUs2pbRczfdbWXnC1S1tCBa+/o0ZCXA7p1k
+	pWtJ66CIO5nhWvmAEuF3xYlfB06bPdI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1707224267;
+	s=susede2_ed25519; t=1707224420;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=hrPdcscD82ZUY6PH9OM5wcI+tI4zDbEnOTR3kzNVpoY=;
-	b=so+rAKsHbAGYwYUwwIrZetLGZ3KJ5tk2kB6NITrgOAmtmPCU6vhDIr769baVDdI9a+KnWu
-	RA/S6XqmGkLW6GDA==
+	bh=rPhPVGYDJ3fdMIeQrhxnapM7DO5sG2kieq0UlwBxO6I=;
+	b=ANiJc1Kzkh0E1o6XsSz0NVKALAxAysv6xSiEsoyTnl62fV/+eOoyuwoQx0WVkjwFFwsrc2
+	emMI+XJorrW4yzCA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1707224267;
+	t=1707224420;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=hrPdcscD82ZUY6PH9OM5wcI+tI4zDbEnOTR3kzNVpoY=;
-	b=Vu0o+OOJCFymyujwpECX00A2LCtfKTRvohJSFlRp2HCQDi2ASSyoXDk1TRT9PKwu321lSM
-	DQQMpThrEAdi3gZ19WRBx0XyssIohW0LukqZnIfCIJJNNC5o5z/QvL6R32M7/sAqM4cQR1
-	EAoGKcKPoWnRCVoChWgr7HnZqBqnH7E=
+	bh=rPhPVGYDJ3fdMIeQrhxnapM7DO5sG2kieq0UlwBxO6I=;
+	b=W0j0SuN+f3pdCTZ/eqYSrkeUibin5cCK5VUQZRbbQeVgIA+GrcC0q0bxzYOH85qV+pF3h8
+	IyzuJDVmuYmw/NQQa8oeMAeSJq4nQ/eO7h2xUs2pbRczfdbWXnC1S1tCBa+/o0ZCXA7p1k
+	pWtJ66CIO5nhWvmAEuF3xYlfB06bPdI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1707224267;
+	s=susede2_ed25519; t=1707224420;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=hrPdcscD82ZUY6PH9OM5wcI+tI4zDbEnOTR3kzNVpoY=;
-	b=so+rAKsHbAGYwYUwwIrZetLGZ3KJ5tk2kB6NITrgOAmtmPCU6vhDIr769baVDdI9a+KnWu
-	RA/S6XqmGkLW6GDA==
+	bh=rPhPVGYDJ3fdMIeQrhxnapM7DO5sG2kieq0UlwBxO6I=;
+	b=ANiJc1Kzkh0E1o6XsSz0NVKALAxAysv6xSiEsoyTnl62fV/+eOoyuwoQx0WVkjwFFwsrc2
+	emMI+XJorrW4yzCA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1A5CB139D8;
-	Tue,  6 Feb 2024 12:57:47 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D30FD132DD;
+	Tue,  6 Feb 2024 13:00:19 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([10.150.64.162])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id jP2zBcsswmXfMwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Tue, 06 Feb 2024 12:57:47 +0000
-Date: Tue, 06 Feb 2024 13:57:46 +0100
-Message-ID: <871q9pwy0l.wl-tiwai@suse.de>
+	id OHcAM2MtwmXaNAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Tue, 06 Feb 2024 13:00:19 +0000
+Date: Tue, 06 Feb 2024 14:00:19 +0100
+Message-ID: <87zfwdvjbw.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Wesley Cheng <quic_wcheng@quicinc.com>
-Cc: <srinivas.kandagatla@linaro.org>,
-	<mathias.nyman@intel.com>,
-	<perex@perex.cz>,
-	<conor+dt@kernel.org>,
-	<corbet@lwn.net>,
-	<lgirdwood@gmail.com>,
-	<andersson@kernel.org>,
-	<krzysztof.kozlowski+dt@linaro.org>,
-	<gregkh@linuxfoundation.org>,
-	<Thinh.Nguyen@synopsys.com>,
-	<broonie@kernel.org>,
-	<bgoswami@quicinc.com>,
-	<tiwai@suse.com>,
-	<robh+dt@kernel.org>,
-	<konrad.dybcio@linaro.org>,
-	<linux-kernel@vger.kernel.org>,
-	<devicetree@vger.kernel.org>,
-	<linux-sound@vger.kernel.org>,
-	<linux-usb@vger.kernel.org>,
-	<linux-arm-msm@vger.kernel.org>,
-	<linux-doc@vger.kernel.org>,
-	<alsa-devel@alsa-project.org>
-Subject: Re: [PATCH v13 48/53] ALSA: usb-audio: mixer: Add USB offloading
- mixer control
-In-Reply-To: <20240203023645.31105-49-quic_wcheng@quicinc.com>
+To: Amadeusz =?ISO-8859-2?Q?S=B3awi=F1ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+Cc: Wesley Cheng <quic_wcheng@quicinc.com>,
+	srinivas.kandagatla@linaro.org,
+	mathias.nyman@intel.com,
+	perex@perex.cz,
+	conor+dt@kernel.org,
+	corbet@lwn.net,
+	lgirdwood@gmail.com,
+	andersson@kernel.org,
+	krzysztof.kozlowski+dt@linaro.org,
+	gregkh@linuxfoundation.org,
+	Thinh.Nguyen@synopsys.com,
+	broonie@kernel.org,
+	bgoswami@quicinc.com,
+	tiwai@suse.com,
+	robh+dt@kernel.org,
+	konrad.dybcio@linaro.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	alsa-devel@alsa-project.org
+Subject: Re: [PATCH v13 50/53] ALSA: usb-audio: Allow for rediscovery of
+ connected USB SND devices
+In-Reply-To: <aaa76d7a-4299-4e1c-83f1-cbbea763927f@linux.intel.com>
 References: <20240203023645.31105-1-quic_wcheng@quicinc.com>
-	<20240203023645.31105-49-quic_wcheng@quicinc.com>
+	<20240203023645.31105-51-quic_wcheng@quicinc.com>
+	<aaa76d7a-4299-4e1c-83f1-cbbea763927f@linux.intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=ISO-8859-2
+Content-Transfer-Encoding: 8bit
 Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=Vu0o+OOJ;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=so+rAKsH
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-2.60 / 50.00];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	 TO_DN_SOME(0.00)[];
-	 R_RATELIMIT(0.00)[to_ip_from(RLe67txhfobum3fqdb5xx8e3au)];
-	 RCVD_COUNT_THREE(0.00)[3];
-	 DKIM_TRACE(0.00)[suse.de:+];
-	 MX_GOOD(-0.01)[];
-	 NEURAL_HAM_SHORT(-0.20)[-1.000];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+];
-	 BAYES_HAM(-0.09)[64.59%];
+	none
+X-Spamd-Result: default: False [1.20 / 50.00];
 	 ARC_NA(0.00)[];
-	 R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 BAYES_HAM(-0.00)[32.59%];
 	 FROM_HAS_DN(0.00)[];
+	 TO_DN_SOME(0.00)[];
 	 FREEMAIL_ENVRCPT(0.00)[gmail.com];
 	 TO_MATCH_ENVRCPT_ALL(0.00)[];
 	 TAGGED_RCPT(0.00)[dt];
 	 MIME_GOOD(-0.10)[text/plain];
 	 NEURAL_HAM_LONG(-1.00)[-1.000];
-	 DWL_DNSWL_HI(-3.50)[suse.de:dkim];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 R_RATELIMIT(0.00)[to_ip_from(RLjs3ec4aura4kmsd6wxjjm4hg)];
 	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	 RCPT_COUNT_TWELVE(0.00)[23];
+	 NEURAL_HAM_SHORT(-0.20)[-1.000];
+	 RCPT_COUNT_TWELVE(0.00)[24];
 	 MID_CONTAINS_FROM(1.00)[];
-	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,quicinc.com:email];
+	 DBL_BLOCKED_OPENRESOLVER(0.00)[quicinc.com:email];
 	 FUZZY_BLOCKED(0.00)[rspamd.com];
-	 FREEMAIL_CC(0.00)[linaro.org,intel.com,perex.cz,kernel.org,lwn.net,gmail.com,linuxfoundation.org,synopsys.com,quicinc.com,suse.com,vger.kernel.org,alsa-project.org];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+];
+	 FREEMAIL_CC(0.00)[quicinc.com,linaro.org,intel.com,perex.cz,kernel.org,lwn.net,gmail.com,linuxfoundation.org,synopsys.com,suse.com,vger.kernel.org,alsa-project.org];
 	 RCVD_TLS_ALL(0.00)[];
 	 SUSPICIOUS_RECIPS(1.50)[]
-X-Rspamd-Queue-Id: 63FFE21F97
-Message-ID-Hash: BALETLY3TPUK7IGTEVITFKXQ5T4FK6N6
-X-Message-ID-Hash: BALETLY3TPUK7IGTEVITFKXQ5T4FK6N6
+Message-ID-Hash: DQJFDF2OPGU3GSRJ3KGTDCTPKDNY7K4B
+X-Message-ID-Hash: DQJFDF2OPGU3GSRJ3KGTDCTPKDNY7K4B
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -187,7 +188,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BALETLY3TPUK7IGTEVITFKXQ5T4FK6N6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DQJFDF2OPGU3GSRJ3KGTDCTPKDNY7K4B/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -196,60 +197,54 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sat, 03 Feb 2024 03:36:40 +0100,
-Wesley Cheng wrote:
+On Mon, 05 Feb 2024 10:01:03 +0100,
+Amadeusz S³awiñski wrote:
 > 
-> In order to allow userspace/applications know about USB offloading status,
-> expose a sound kcontrol that fetches information about which sound card
-> index is associated with the ASoC platform card supporting offloading.  In
-> the USB audio offloading framework, the ASoC BE DAI link is the entity
-> responsible for registering to the SOC USB layer.  SOC USB will expose more
-> details about the current offloading status, which includes the USB sound
-> card and USB PCM device indexes currently being used.
+> On 2/3/2024 3:36 AM, Wesley Cheng wrote:
+> > In case of notifying SND platform drivers of connection events, some of
+> > these use cases, such as offloading, require an ASoC USB backend device to
+> > be initialized before the events can be handled.  If the USB backend device
+> > has not yet been probed, this leads to missing initial USB audio device
+> > connection events.
+> > 
+> > Expose an API that traverses the usb_chip array for connected devices, and
+> > to call the respective connection callback registered to the SND platform
+> > driver.
+> > 
+> > Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
+> > ---
+> >   sound/usb/card.c                  | 19 +++++++++++++++++++
+> >   sound/usb/card.h                  |  2 ++
+> >   sound/usb/qcom/qc_audio_offload.c |  2 ++
+> >   3 files changed, 23 insertions(+)
+> > 
+> > diff --git a/sound/usb/card.c b/sound/usb/card.c
+> > index 11b827b7a2a5..995b2df676ab 100644
+> > --- a/sound/usb/card.c
+> > +++ b/sound/usb/card.c
+> > @@ -202,6 +202,25 @@ struct snd_usb_stream *snd_usb_find_suppported_substream(int card_idx,
+> >   }
+> >   EXPORT_SYMBOL_GPL(snd_usb_find_suppported_substream);
+> >   +/*
+> > + * in case the platform driver was not ready at the time of USB SND
+> > + * device connect, expose an API to discover all connected USB devices
+> > + * so it can populate any dependent resources/structures.
+> > + */
+> > +void snd_usb_rediscover_devices(void)
+> > +{
+> > +	int i;
+> > +
+> > +	mutex_lock(&register_mutex);
+> > +	for (i = 0; i < SNDRV_CARDS; i++) {
+> > +		if (usb_chip[i])
+> > +			if (platform_ops && platform_ops->connect_cb)
+> > +				platform_ops->connect_cb(usb_chip[i]);
 > 
-> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
+> if inside if, it can just be && or maybe move callback check before
+> mutex lock and just return early if it is not present?
 
-The concept is understandable, but the control element name ("SNDUSB
-OFFLD playback available") looks non-intrusive and non-conformant.
-Use a bit more understandable name instead.
-
-This provides a card number where the offload driver is bound, and the
-name should indicate something about that.
-
-Also, about the implementation:
-
-> +static int
-> +snd_usb_offload_create_mixer(struct usb_mixer_interface *mixer,
-> +		       const struct snd_kcontrol_new *new_kctl)
-> +{
-> +	struct snd_kcontrol *kctl;
-> +	struct usb_mixer_elem_info *elem;
-> +
-> +	elem = kzalloc(sizeof(struct usb_mixer_elem_info), GFP_KERNEL);
-> +	if (!elem)
-> +		return -ENOMEM;
-> +
-> +	elem->head.mixer = mixer;
-> +	elem->val_type = USB_MIXER_S32;
-> +	elem->control = 0;
-> +	elem->head.id = 0;
-> +	elem->channels = 1;
-> +
-> +	kctl = snd_ctl_new1(new_kctl, elem);
-> +	if (!kctl) {
-> +		kfree(elem);
-> +		return -ENOMEM;
-> +	}
-> +	kctl->private_free = snd_usb_mixer_elem_free;
-> +
-> +	return snd_usb_mixer_add_control(&elem->head, kctl);
-
-This control has almost little to do with the standard USB interface,
-and it'll be much simpler if you create a raw control element.
-Pass the bus or the sysdev to private_data, and that's all you need in
-the get callback.
-
-Also, don't forget to set the proper access bits (it's read-only).
+The callback check must be inside mutex; otherwise you'll get a race
+about the platform_ops registration.
 
 
 thanks,

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B484984BF43
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Feb 2024 22:35:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABD4184BF84
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Feb 2024 22:50:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D8F03202;
-	Tue,  6 Feb 2024 22:34:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D8F03202
+	by alsa0.perex.cz (Postfix) with ESMTPS id D3727832;
+	Tue,  6 Feb 2024 22:50:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D3727832
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1707255308;
-	bh=lN/DzMj73K1wgPn7GGx2AO9rEBiIvV4udCd5v0dcclE=;
+	s=default; t=1707256214;
+	bh=LiKVYTVwfhGFPEJc6YnATjTVvQnxnW94uIPI7ylSso4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=QD5tB9BCFOt/MhgU1p903XTYoI3WGQnvme+iOdkG++zca++IsWKySuiS4ReWzG/Vk
-	 qYUm3k9N4F7kareECfTa2mqQk25B7ulmhxPipB632UmAxR1EPIubfg4K7tCvuzR/Tb
-	 UYvyiVIK8bpmnHQEAS2BvRtvN1AFxIpFqoIIqshI=
+	b=c6Qgc9iNzMG/weFkLDaODelvDDZ6EaViiCWd8IN/+d7xg2P2CgSuuwYcNXCPGc/Gi
+	 pqtkU22/guKrZwKzJEDaGEqFX6KCbFxX4aSICQAcdglKD0CB5MTpU8PuXAUPvdICN0
+	 VhpmCJt1rrnrqXErRVjsvsMb0QVGdZoHx0mwotWU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0C069F805A9; Tue,  6 Feb 2024 22:34:36 +0100 (CET)
+	id 589E5F8057B; Tue,  6 Feb 2024 22:49:41 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 678BAF80568;
-	Tue,  6 Feb 2024 22:34:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5E674F8056F;
+	Tue,  6 Feb 2024 22:49:40 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 78157F801EB; Tue,  6 Feb 2024 22:34:31 +0100 (CET)
+	id 58BD8F801EB; Tue,  6 Feb 2024 22:49:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
@@ -36,15 +36,15 @@ Received: from irl.hu (irl.hu [95.85.9.111])
 	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
  server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with UTF8SMTPS id 0183AF800E3
-	for <alsa-devel@alsa-project.org>; Tue,  6 Feb 2024 22:34:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0183AF800E3
+	by alsa1.perex.cz (Postfix) with UTF8SMTPS id 70C39F80153
+	for <alsa-devel@alsa-project.org>; Tue,  6 Feb 2024 22:49:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 70C39F80153
 Received: from fedori.lan (51b69e54.dsl.pool.telekom.hu
  [::ffff:81.182.158.84])
   (AUTH: CRAM-MD5 soyer@irl.hu, )
   by irl.hu with ESMTPSA
-  id 0000000000073787.0000000065C2A5DD.001AD62E;
- Tue, 06 Feb 2024 22:34:21 +0100
+  id 00000000000737A5.0000000065C2A96A.001AD717;
+ Tue, 06 Feb 2024 22:49:30 +0100
 From: Gergo Koteles <soyer@irl.hu>
 To: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
   Baojun Xu <baojun.xu@ti.com>, Jaroslav Kysela <perex@perex.cz>,
@@ -53,10 +53,10 @@ To: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
 Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
   alsa-devel@alsa-project.org, Gergo Koteles <soyer@irl.hu>,
   stable@vger.kernel.org
-Subject: [PATCH v2] ASoC: tas2781: remove unused acpi_subysystem_id
-Date: Tue,  6 Feb 2024 22:34:15 +0100
+Subject: [PATCH v3] ASoC: tas2781: remove unused acpi_subysystem_id
+Date: Tue,  6 Feb 2024 22:49:29 +0100
 Message-ID: 
- <631722b9ec0a4a2667d68f4747f01f3f7eb8ceb8.1707255177.git.soyer@irl.hu>
+ <7f056a4148fec176812ff6cc490860bf565b161c.1707255917.git.soyer@irl.hu>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: 
  <df5c94396256e9573b772962182def52d20c50d4.1707250969.git.soyer@irl.hu>
@@ -66,8 +66,8 @@ Mime-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
 X-Mime-Autoconverted: from 8bit to 7bit by courier 1.0
-Message-ID-Hash: 3PI6XYW2L6DENVFIJTWSCMHV4RF57SEG
-X-Message-ID-Hash: 3PI6XYW2L6DENVFIJTWSCMHV4RF57SEG
+Message-ID-Hash: JUT6AP7WVV3W3ZDBHRD5S7MLQUXWKYTY
+X-Message-ID-Hash: JUT6AP7WVV3W3ZDBHRD5S7MLQUXWKYTY
 X-MailFrom: soyer@irl.hu
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -80,8 +80,9 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3PI6XYW2L6DENVFIJTWSCMHV4RF57SEG/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JUT6AP7WVV3W3ZDBHRD5S7MLQUXWKYTY/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
@@ -95,10 +96,13 @@ Fixes: ef3bcde75d06 ("ASoC: tas2781: Add tas2781 driver")
 CC: stable@vger.kernel.org
 Signed-off-by: Gergo Koteles <soyer@irl.hu>
 ---
+Changes since v2: remove sub from tas2781_read_acpi
+Changes since v1: remove physdev from tas2781_read_acpi
+---
  include/sound/tas2781.h           |  1 -
- sound/pci/hda/tas2781_hda_i2c.c   | 11 -----------
+ sound/pci/hda/tas2781_hda_i2c.c   | 12 ------------
  sound/soc/codecs/tas2781-comlib.c |  1 -
- 3 files changed, 13 deletions(-)
+ 3 files changed, 14 deletions(-)
 
 diff --git a/include/sound/tas2781.h b/include/sound/tas2781.h
 index 9aff384941de..99ca3e401fd1 100644
@@ -113,18 +117,20 @@ index 9aff384941de..99ca3e401fd1 100644
  	unsigned char crc8_lkp_tbl[CRC8_TABLE_SIZE];
  	unsigned char coef_binaryname[64];
 diff --git a/sound/pci/hda/tas2781_hda_i2c.c b/sound/pci/hda/tas2781_hda_i2c.c
-index 1bfb00102a77..2fd391bc693a 100644
+index 1bfb00102a77..4c9a788c3501 100644
 --- a/sound/pci/hda/tas2781_hda_i2c.c
 +++ b/sound/pci/hda/tas2781_hda_i2c.c
-@@ -111,7 +111,6 @@ static int tas2781_get_i2c_res(struct acpi_resource *ares, void *data)
+@@ -111,9 +111,7 @@ static int tas2781_get_i2c_res(struct acpi_resource *ares, void *data)
  static int tas2781_read_acpi(struct tasdevice_priv *p, const char *hid)
  {
  	struct acpi_device *adev;
 -	struct device *physdev;
  	LIST_HEAD(resources);
- 	const char *sub;
+-	const char *sub;
  	int ret;
-@@ -129,18 +128,8 @@ static int tas2781_read_acpi(struct tasdevice_priv *p, const char *hid)
+ 
+ 	adev = acpi_dev_get_first_match_dev(hid, NULL, -1);
+@@ -129,18 +127,8 @@ static int tas2781_read_acpi(struct tasdevice_priv *p, const char *hid)
  
  	acpi_dev_free_resource_list(&resources);
  	strscpy(p->dev_name, hid, sizeof(p->dev_name));

@@ -2,95 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A3DE84CEBB
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Feb 2024 17:16:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9B0184CEDC
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Feb 2024 17:27:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EA02D84A;
-	Wed,  7 Feb 2024 17:16:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EA02D84A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3D74184D;
+	Wed,  7 Feb 2024 17:27:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D74184D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1707322617;
-	bh=PJCJszoHkPx+MM0gXV85GY1MSlFrUCIHxrmvh3k9mU8=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=Wf2ZNjofx5coB4RXETt+zwX6DaICZ3QJkpQ0IvhIo6qM3lhz9cBNmi+LgEny731Ua
-	 w3rPxwtE7vQ+CpbNsnnFVMsdqjB6cLX2BhT8zBbyT1vTTTeq7J2A7iM8AB9nJ3+mdK
-	 VYpYjNjTyNmAiKttfeQN2TPF18AIfxRS1EuVdB64=
+	s=default; t=1707323257;
+	bh=PowRBFjz75WWYEtFZnydwXqExpiqvShTdLKPfWCIPg4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=mStg0BNEOSqGyXHkREwEN4MWdgPNNDVoS2P+i551zF5GRNHBqR4BNZ5K2p5p6P+Wj
+	 Lm/kOHeZ/XMEWffXGykDgt+TAAz5VPimW6eEFjk1LRhWxlQRwSWL0uFNDZFA8L9mxz
+	 Zdal1A1gxtoIVLRQFGGGjn/hbM8Yf6kPPg0D2aDc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AE632F805AD; Wed,  7 Feb 2024 17:16:25 +0100 (CET)
+	id B2EC8F805AD; Wed,  7 Feb 2024 17:27:05 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2096DF805A1;
-	Wed,  7 Feb 2024 17:16:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D0F8DF8056F;
+	Wed,  7 Feb 2024 17:27:04 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1063DF801EB; Wed,  7 Feb 2024 17:16:20 +0100 (CET)
+	id 37A0CF801EB; Wed,  7 Feb 2024 17:27:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0E115F800E3
-	for <alsa-devel@alsa-project.org>; Wed,  7 Feb 2024 17:16:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E115F800E3
+	by alsa1.perex.cz (Postfix) with ESMTPS id C81FAF800EE
+	for <alsa-devel@alsa-project.org>; Wed,  7 Feb 2024 17:26:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C81FAF800EE
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=VpyJ7cl9
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 4174mCf2025919;
-	Wed, 7 Feb 2024 10:16:04 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	from:to:cc:subject:date:message-id:mime-version
-	:content-transfer-encoding:content-type; s=PODMain02222019; bh=i
-	e+4x0SLC0UR9IW7uCywMYiI36qbk7ULgHg12u7XRR8=; b=VpyJ7cl93h+ZrVz/N
-	7BWG/z3QYQyc+MyPVgJQHEBO6GbnPBRCjEefQr+Hnp8+Ll8s0UnNtvV/57oeRJii
-	aoqr+v7GMD4NZuXc2rMW6gaqqiwbiRzSs243b0Uuggy6Brp3Nd93Qq2svIid4x37
-	qE76VC+9uU/54k+ptWQf79qEALuAG1PWt7+KWoGxWjzSHEKnc/A73LEuwDHP/bsg
-	OGsPybXj63VJMeauvQ0eK5RHfmzuZF3vnQNxPpdxdCoYOzA5gJi7UAkjj9AI8/nN
-	29uST0zHrn1l104/8w8+TsNIAbJBF/qWqE9s1eFP+Bd3ZL5auFyKsIyVOMd6NBLE
-	L8zwQ==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3w1ks2dbsm-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 07 Feb 2024 10:16:04 -0600 (CST)
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Wed, 7 Feb
- 2024 16:16:02 +0000
-Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.40 via Frontend Transport; Wed, 7 Feb 2024 16:16:02 +0000
-Received: from ediswws06.ad.cirrus.com (ediswws06.ad.cirrus.com
- [198.90.208.18])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id 4F595820243;
-	Wed,  7 Feb 2024 16:16:02 +0000 (UTC)
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-To: <broonie@kernel.org>
-CC: <alsa-devel@alsa-project.org>, <linux-sound@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <patches@opensource.cirrus.com>,
-        "Richard
- Fitzgerald" <rf@opensource.cirrus.com>
-Subject: [PATCH] ASoC: cs35l56: Fix deadlock in ASP1 mixer register
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=tV/1//8g
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id 21083CE1A08;
+	Wed,  7 Feb 2024 16:26:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DECBFC433F1;
+	Wed,  7 Feb 2024 16:26:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1707323212;
+	bh=PowRBFjz75WWYEtFZnydwXqExpiqvShTdLKPfWCIPg4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=tV/1//8gmuYg8UQWVRYRPGpWBRe7tk8hpqX4Fa+hCjQTh5jOhH9qCqY2+w/SbpPnD
+	 OtwhsPh/2f/eXCURP++4uL52+aLyCtoZGc9nrGdtLDpx0gIiUlxYVdD8FzIZeyIdEF
+	 8JXAK0CS38f4Bsv+SUWIIcdKeNTNp+EniAbRPvVN6qdrGEpJYZdSy1VH3lU+5PkhNa
+	 U3C7vH3eqFU7cSmLVWPS70PQnUZGdO1PXTiUwW1qOqrCMhwWG35BQ8/w65/aWTGuUV
+	 opE5xg02jBDPibX3mNGIEQPctLXuER6gxILCfsVoTBA+4UKpX7S1OkOg/e4xLtCEMG
+	 PMksVQD0be53Q==
+Date: Wed, 7 Feb 2024 16:26:44 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org, patches@opensource.cirrus.com
+Subject: Re: [PATCH] ASoC: cs35l56: Fix deadlock in ASP1 mixer register
  initialization
-Date: Wed, 7 Feb 2024 16:16:02 +0000
-Message-ID: <20240207161602.1030342-1-rf@opensource.cirrus.com>
-X-Mailer: git-send-email 2.30.2
+Message-ID: <ZcOvREgHBiQVuB9n@finisterre.sirena.org.uk>
+References: <20240207161602.1030342-1-rf@opensource.cirrus.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: WKpogosu4mgaOTkmz8sPzvPcDIqXPxba
-X-Proofpoint-ORIG-GUID: WKpogosu4mgaOTkmz8sPzvPcDIqXPxba
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: ZHM2A5RT2LS73U6ZWWM6GLGUOMZ27FHE
-X-Message-ID-Hash: ZHM2A5RT2LS73U6ZWWM6GLGUOMZ27FHE
-X-MailFrom: prvs=9767d9f356=rf@opensource.cirrus.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="EMCHHW87nQ+T4IA8"
+Content-Disposition: inline
+In-Reply-To: <20240207161602.1030342-1-rf@opensource.cirrus.com>
+X-Cookie: You might have mail.
+Message-ID-Hash: B4V6REKT3N6FGC22OEFZ5F7433UD737J
+X-Message-ID-Hash: B4V6REKT3N6FGC22OEFZ5F7433UD737J
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -102,293 +88,44 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZHM2A5RT2LS73U6ZWWM6GLGUOMZ27FHE/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/B4V6REKT3N6FGC22OEFZ5F7433UD737J/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Rewrite the handling of ASP1 TX mixer mux initialization to prevent a
-deadlock during component_remove().
 
-The firmware can overwrite the ASP1 TX mixer registers with
-system-specific settings. This is mainly for hardware that uses the
-ASP as a chip-to-chip link controlled by the firmware. Because of this
-the driver cannot know the starting state of the ASP1 mixer muxes until
-the firmware has been downloaded and rebooted.
+--EMCHHW87nQ+T4IA8
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-The original workaround for this was to queue a work function from the
-dsp_work() job. This work then read the register values (populating the
-regmap cache the first time around) and then called
-snd_soc_dapm_mux_update_power(). The problem with this is that it was
-ultimately triggered by cs35l56_component_probe() queueing dsp_work,
-which meant that it would be running in parallel with the rest of the
-ASoC component and card initialization. To prevent accessing DAPM before
-it was fully initialized the work function took the card mutex. But this
-would deadlock if cs35l56_component_remove() was called before the work job
-had completed, because ASoC calls component_remove() with the card mutex
-held.
+On Wed, Feb 07, 2024 at 04:16:02PM +0000, Richard Fitzgerald wrote:
 
-This new version removes the work function. Instead the regmap cache and
-DAPM mux widgets are initialized the first time any of the associated ALSA
-controls is read or written.
+> +	if (!cs35l56->asp1_mixer_widgets_initialized) {
+> +		ret = cs35l56_sync_asp1_mixer_widgets_with_firmware(cs35l56);
+> +		if (ret)
+> +			return ret;
+> +	}
 
-Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
-Fixes: 07f7d6e7a124 ("ASoC: cs35l56: Fix for initializing ASP1 mixer registers")
----
- sound/soc/codecs/cs35l56.c | 158 ++++++++++++++++++-------------------
- sound/soc/codecs/cs35l56.h |   2 +-
- 2 files changed, 76 insertions(+), 84 deletions(-)
+Might it make sense to factor the check for init into the function since
+it looks like all the callers do it and I'd expect that'd be the case
+for any new ones?
 
-diff --git a/sound/soc/codecs/cs35l56.c b/sound/soc/codecs/cs35l56.c
-index ebed5ab1245b..7ec70cca1ac4 100644
---- a/sound/soc/codecs/cs35l56.c
-+++ b/sound/soc/codecs/cs35l56.c
-@@ -68,6 +68,63 @@ static const char * const cs35l56_asp1_mux_control_names[] = {
- 	"ASP1 TX1 Source", "ASP1 TX2 Source", "ASP1 TX3 Source", "ASP1 TX4 Source"
- };
- 
-+static int cs35l56_sync_asp1_mixer_widgets_with_firmware(struct cs35l56_private *cs35l56)
-+{
-+	struct snd_soc_dapm_context *dapm = snd_soc_component_get_dapm(cs35l56->component);
-+	const char *prefix = cs35l56->component->name_prefix;
-+	char full_name[SNDRV_CTL_ELEM_ID_NAME_MAXLEN];
-+	const char *name;
-+	struct snd_kcontrol *kcontrol;
-+	struct soc_enum *e;
-+	unsigned int val[4];
-+	int i, item, ret;
-+
-+	/*
-+	 * Resume so we can read the registers from silicon if the regmap
-+	 * cache has not yet been populated.
-+	 */
-+	ret = pm_runtime_resume_and_get(cs35l56->base.dev);
-+	if (ret < 0)
-+		return ret;
-+
-+	/* Wait for firmware download and reboot */
-+	cs35l56_wait_dsp_ready(cs35l56);
-+
-+	ret = regmap_bulk_read(cs35l56->base.regmap, CS35L56_ASP1TX1_INPUT,
-+			       val, ARRAY_SIZE(val));
-+
-+	pm_runtime_mark_last_busy(cs35l56->base.dev);
-+	pm_runtime_put_autosuspend(cs35l56->base.dev);
-+
-+	if (ret) {
-+		dev_err(cs35l56->base.dev, "Failed to read ASP1 mixer regs: %d\n", ret);
-+		return ret;
-+	}
-+
-+	for (i = 0; i < ARRAY_SIZE(cs35l56_asp1_mux_control_names); ++i) {
-+		name = cs35l56_asp1_mux_control_names[i];
-+
-+		if (prefix) {
-+			snprintf(full_name, sizeof(full_name), "%s %s", prefix, name);
-+			name = full_name;
-+		}
-+
-+		kcontrol = snd_soc_card_get_kcontrol(dapm->card, name);
-+		if (!kcontrol) {
-+			dev_warn(cs35l56->base.dev, "Could not find control %s\n", name);
-+			continue;
-+		}
-+
-+		e = (struct soc_enum *)kcontrol->private_value;
-+		item = snd_soc_enum_val_to_item(e, val[i] & CS35L56_ASP_TXn_SRC_MASK);
-+		snd_soc_dapm_mux_update_power(dapm, kcontrol, item, e, NULL);
-+	}
-+
-+	cs35l56->asp1_mixer_widgets_initialized = true;
-+
-+	return 0;
-+}
-+
- static int cs35l56_dspwait_asp1tx_get(struct snd_kcontrol *kcontrol,
- 				      struct snd_ctl_elem_value *ucontrol)
- {
-@@ -78,9 +135,11 @@ static int cs35l56_dspwait_asp1tx_get(struct snd_kcontrol *kcontrol,
- 	unsigned int addr, val;
- 	int ret;
- 
--	/* Wait for mux to be initialized */
--	cs35l56_wait_dsp_ready(cs35l56);
--	flush_work(&cs35l56->mux_init_work);
-+	if (!cs35l56->asp1_mixer_widgets_initialized) {
-+		ret = cs35l56_sync_asp1_mixer_widgets_with_firmware(cs35l56);
-+		if (ret)
-+			return ret;
-+	}
- 
- 	addr = cs35l56_asp1_mixer_regs[index];
- 	ret = regmap_read(cs35l56->base.regmap, addr, &val);
-@@ -106,9 +165,11 @@ static int cs35l56_dspwait_asp1tx_put(struct snd_kcontrol *kcontrol,
- 	bool changed;
- 	int ret;
- 
--	/* Wait for mux to be initialized */
--	cs35l56_wait_dsp_ready(cs35l56);
--	flush_work(&cs35l56->mux_init_work);
-+	if (!cs35l56->asp1_mixer_widgets_initialized) {
-+		ret = cs35l56_sync_asp1_mixer_widgets_with_firmware(cs35l56);
-+		if (ret)
-+			return ret;
-+	}
- 
- 	addr = cs35l56_asp1_mixer_regs[index];
- 	val = snd_soc_enum_item_to_val(e, item);
-@@ -124,70 +185,6 @@ static int cs35l56_dspwait_asp1tx_put(struct snd_kcontrol *kcontrol,
- 	return changed;
- }
- 
--static void cs35l56_mark_asp1_mixer_widgets_dirty(struct cs35l56_private *cs35l56)
--{
--	struct snd_soc_dapm_context *dapm = snd_soc_component_get_dapm(cs35l56->component);
--	const char *prefix = cs35l56->component->name_prefix;
--	char full_name[SNDRV_CTL_ELEM_ID_NAME_MAXLEN];
--	const char *name;
--	struct snd_kcontrol *kcontrol;
--	struct soc_enum *e;
--	unsigned int val[4];
--	int i, item, ret;
--
--	/*
--	 * Resume so we can read the registers from silicon if the regmap
--	 * cache has not yet been populated.
--	 */
--	ret = pm_runtime_resume_and_get(cs35l56->base.dev);
--	if (ret < 0)
--		return;
--
--	ret = regmap_bulk_read(cs35l56->base.regmap, CS35L56_ASP1TX1_INPUT,
--			       val, ARRAY_SIZE(val));
--
--	pm_runtime_mark_last_busy(cs35l56->base.dev);
--	pm_runtime_put_autosuspend(cs35l56->base.dev);
--
--	if (ret) {
--		dev_err(cs35l56->base.dev, "Failed to read ASP1 mixer regs: %d\n", ret);
--		return;
--	}
--
--	snd_soc_card_mutex_lock(dapm->card);
--	WARN_ON(!dapm->card->instantiated);
--
--	for (i = 0; i < ARRAY_SIZE(cs35l56_asp1_mux_control_names); ++i) {
--		name = cs35l56_asp1_mux_control_names[i];
--
--		if (prefix) {
--			snprintf(full_name, sizeof(full_name), "%s %s", prefix, name);
--			name = full_name;
--		}
--
--		kcontrol = snd_soc_card_get_kcontrol(dapm->card, name);
--		if (!kcontrol) {
--			dev_warn(cs35l56->base.dev, "Could not find control %s\n", name);
--			continue;
--		}
--
--		e = (struct soc_enum *)kcontrol->private_value;
--		item = snd_soc_enum_val_to_item(e, val[i] & CS35L56_ASP_TXn_SRC_MASK);
--		snd_soc_dapm_mux_update_power(dapm, kcontrol, item, e, NULL);
--	}
--
--	snd_soc_card_mutex_unlock(dapm->card);
--}
--
--static void cs35l56_mux_init_work(struct work_struct *work)
--{
--	struct cs35l56_private *cs35l56 = container_of(work,
--						       struct cs35l56_private,
--						       mux_init_work);
--
--	cs35l56_mark_asp1_mixer_widgets_dirty(cs35l56);
--}
--
- static DECLARE_TLV_DB_SCALE(vol_tlv, -10000, 25, 0);
- 
- static const struct snd_kcontrol_new cs35l56_controls[] = {
-@@ -936,14 +933,6 @@ static void cs35l56_dsp_work(struct work_struct *work)
- 	else
- 		cs35l56_patch(cs35l56, firmware_missing);
- 
--
--	/*
--	 * Set starting value of ASP1 mux widgets. Updating a mux takes
--	 * the DAPM mutex. Post this to a separate job so that DAPM
--	 * power-up can wait for dsp_work to complete without deadlocking
--	 * on the DAPM mutex.
--	 */
--	queue_work(cs35l56->dsp_wq, &cs35l56->mux_init_work);
- err:
- 	pm_runtime_mark_last_busy(cs35l56->base.dev);
- 	pm_runtime_put_autosuspend(cs35l56->base.dev);
-@@ -989,6 +978,13 @@ static int cs35l56_component_probe(struct snd_soc_component *component)
- 	debugfs_create_bool("can_hibernate", 0444, debugfs_root, &cs35l56->base.can_hibernate);
- 	debugfs_create_bool("fw_patched", 0444, debugfs_root, &cs35l56->base.fw_patched);
- 
-+	/*
-+	 * The widgets for the ASP1TX mixer can't be initialized
-+	 * until the firmware has been downloaded and rebooted.
-+	 */
-+	regcache_drop_region(cs35l56->base.regmap, CS35L56_ASP1TX1_INPUT, CS35L56_ASP1TX4_INPUT);
-+	cs35l56->asp1_mixer_widgets_initialized = false;
-+
- 	queue_work(cs35l56->dsp_wq, &cs35l56->dsp_work);
- 
- 	return 0;
-@@ -999,7 +995,6 @@ static void cs35l56_component_remove(struct snd_soc_component *component)
- 	struct cs35l56_private *cs35l56 = snd_soc_component_get_drvdata(component);
- 
- 	cancel_work_sync(&cs35l56->dsp_work);
--	cancel_work_sync(&cs35l56->mux_init_work);
- 
- 	if (cs35l56->dsp.cs_dsp.booted)
- 		wm_adsp_power_down(&cs35l56->dsp);
-@@ -1070,10 +1065,8 @@ int cs35l56_system_suspend(struct device *dev)
- 
- 	dev_dbg(dev, "system_suspend\n");
- 
--	if (cs35l56->component) {
-+	if (cs35l56->component)
- 		flush_work(&cs35l56->dsp_work);
--		cancel_work_sync(&cs35l56->mux_init_work);
--	}
- 
- 	/*
- 	 * The interrupt line is normally shared, but after we start suspending
-@@ -1224,7 +1217,6 @@ static int cs35l56_dsp_init(struct cs35l56_private *cs35l56)
- 		return -ENOMEM;
- 
- 	INIT_WORK(&cs35l56->dsp_work, cs35l56_dsp_work);
--	INIT_WORK(&cs35l56->mux_init_work, cs35l56_mux_init_work);
- 
- 	dsp = &cs35l56->dsp;
- 	cs35l56_init_cs_dsp(&cs35l56->base, &dsp->cs_dsp);
-diff --git a/sound/soc/codecs/cs35l56.h b/sound/soc/codecs/cs35l56.h
-index 596b141e3f96..b000e7365e40 100644
---- a/sound/soc/codecs/cs35l56.h
-+++ b/sound/soc/codecs/cs35l56.h
-@@ -34,7 +34,6 @@ struct cs35l56_private {
- 	struct wm_adsp dsp; /* must be first member */
- 	struct cs35l56_base base;
- 	struct work_struct dsp_work;
--	struct work_struct mux_init_work;
- 	struct workqueue_struct *dsp_wq;
- 	struct snd_soc_component *component;
- 	struct regulator_bulk_data supplies[CS35L56_NUM_BULK_SUPPLIES];
-@@ -52,6 +51,7 @@ struct cs35l56_private {
- 	u8 asp_slot_count;
- 	bool tdm_mode;
- 	bool sysclk_set;
-+	bool asp1_mixer_widgets_initialized;
- 	u8 old_sdw_clock_scale;
- };
- 
--- 
-2.30.2
+--EMCHHW87nQ+T4IA8
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmXDr0MACgkQJNaLcl1U
+h9DaLAgAhU2r1USCPLg8AOzumIzQ20m/PAOaACMu81xCBh4JH5D7EHv+uNOBql0p
+/wxF88FtoX/xe5ZsN9JzyjApP9Y1dSSsBUgRbTqge/5ixuZHKgzuDDbqwt+fDSky
+dODR1k+1Yw85DtKlAmk2aA0bbMV0QpjQ+iuRt4nauR3IHF/p9kSTPzqaf33eiBJL
+kO3rT10QH8IQWtzKwnltiTnKMlBrnsgzlzyJ/oLfMyN26g5yWCdaTWoY/LCxMmmL
+dfWnPVXJ7+Cpq+xAi2mhDX78Fb/X+uGK9KeE9bIKwZITWGuc5z9ITkkr20fruvCQ
+e8meSxc2yddRLmf5q8DFlPjU46T0DQ==
+=j0DP
+-----END PGP SIGNATURE-----
+
+--EMCHHW87nQ+T4IA8--

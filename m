@@ -2,83 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E72A84D110
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Feb 2024 19:21:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF7E284D16B
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Feb 2024 19:44:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C14209F6;
-	Wed,  7 Feb 2024 19:21:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C14209F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0B2B4823;
+	Wed,  7 Feb 2024 19:43:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B2B4823
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1707330098;
-	bh=LjIOymK/Vy7FWS4jPhrrgivRkilFwO4SrSSN6Yk03O0=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1707331449;
+	bh=Nj1hfFsyjq6xs8JqMS+euEQwaY/7srUsVpEx0j3EMYE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=WgN/1MK0fK1fCdKl3IocmvhMzY2cdkiWZ1E+GbyUhJ2lIUF5KHrzzitmz6UA6LeIz
-	 rZZXToTu/iYrshWxrLEaTmdT5WjmLIPhoWiLpuhqVmUKC9UWC8DJpU+CLh+0bzFI+n
-	 R/ikjl9ANfniqI+g82Boe1J5BxNJEiQijs8OzMEY=
+	b=ef/ZeGV16CvjF2eShIu78ThYuQf20gyGCLfpjqb3ArbfNp7sV84B80mh7xNTGJ3AB
+	 opcDqY8tcBjKTMjWVyjVUAy+hv0jBRZKD0XB7VXqW5b7Wsl/5a0q7nbFAtdVoB2Faw
+	 AxYBiAx6lSbonIHwoI0kx1D+JUZk3hE6M5oSGEZI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 85A60F8057A; Wed,  7 Feb 2024 19:21:07 +0100 (CET)
+	id D7A7AF801EB; Wed,  7 Feb 2024 19:43:36 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8CBA2F80570;
-	Wed,  7 Feb 2024 19:21:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5125CF80570;
+	Wed,  7 Feb 2024 19:43:36 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 93EC9F801EB; Wed,  7 Feb 2024 19:21:01 +0100 (CET)
+	id 3E95DF801EB; Wed,  7 Feb 2024 19:43:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from metis.whiteo.stw.pengutronix.de
+ (metis.whiteo.stw.pengutronix.de [IPv6:2a0a:edc0:2:b01:1d::104])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3499EF8016E
-	for <alsa-devel@alsa-project.org>; Wed,  7 Feb 2024 19:20:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3499EF8016E
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=R4B2I9D2
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id B14C5CE1ACA;
-	Wed,  7 Feb 2024 18:20:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18FE1C433F1;
-	Wed,  7 Feb 2024 18:20:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1707330056;
-	bh=LjIOymK/Vy7FWS4jPhrrgivRkilFwO4SrSSN6Yk03O0=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=R4B2I9D2oMeFxgpEY8JHVhpzgKwGXmaytr3RXBAbpdg2bPNlM+xKKtviP0UL4A5aX
-	 gnSdirr8I40o4fhtDJzPXSJBugu7Ry4dYBLZCj9z8D2dYjQOmNdcpqvZZYix+GL60v
-	 KsOMAi8XtqlpTpeYOyTZjRqtRl1Mz2/gXWsDmU/xCFqf4+8RVfyflRD5nBmo8F47P6
-	 OfNp3YEM+aNayezAsQwhmxC7aF+Wzlc6V3behshMS9eNX5rw8K4C4hEgUUhMJMyBNS
-	 jnVKllF6S4QqS/2BK7Vlcit5s39ye2RbShBUsDEJyWvyBf4y4VuXhMAZhVD6UO6l7w
-	 6wdoLNAYdCLDA==
-From: Mark Brown <broonie@kernel.org>
-To: =?utf-8?q?Amadeusz_S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
- alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- =?utf-8?q?=C5=81ukasz_Majczak?= <lma@chromium.org>
-In-Reply-To: <20240207112624.2132821-1-amadeuszx.slawinski@linux.intel.com>
-References: <20240207112624.2132821-1-amadeuszx.slawinski@linux.intel.com>
-Subject: Re: [PATCH] ASoC: Intel: avs: Fix dynamic port assignment when TDM
- is set
-Message-Id: <170733005311.1096695.171681514834542195.b4-ty@kernel.org>
-Date: Wed, 07 Feb 2024 18:20:53 +0000
+	by alsa1.perex.cz (Postfix) with ESMTPS id 42388F8016E
+	for <alsa-devel@alsa-project.org>; Wed,  7 Feb 2024 19:43:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42388F8016E
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1rXmt8-0007UO-6s; Wed, 07 Feb 2024 19:43:14 +0100
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.94.2)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1rXmt5-0054XY-3P; Wed, 07 Feb 2024 19:43:11 +0100
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.96)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1rXmt5-00HRsY-02;
+	Wed, 07 Feb 2024 19:43:11 +0100
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Mark Brown <broonie@kernel.org>
+Cc: kernel@pengutronix.de,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Rob Herring <robh@kernel.org>,
+	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+	Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>,
+	Amit Kumar Mahapatra via Alsa-devel <alsa-devel@alsa-project.org>,
+	linux-mtd@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 12/32] mtd: dataflash: Follow renaming of SPI "master" to
+ "controller"
+Date: Wed,  7 Feb 2024 19:40:26 +0100
+Message-ID: 
+ <38bf50b391c117621e406fa8cd00c4daef78615c.1707324794.git.u.kleine-koenig@pengutronix.de>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1707324793.git.u.kleine-koenig@pengutronix.de>
+References: <cover.1707324793.git.u.kleine-koenig@pengutronix.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1120;
+ i=u.kleine-koenig@pengutronix.de; h=from:subject:message-id;
+ bh=Nj1hfFsyjq6xs8JqMS+euEQwaY/7srUsVpEx0j3EMYE=;
+ b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBlw86jMqw4ltSTXwLQoh9w6paW5SuiO+i/OQP4/
+ aOSlb/Cxo6JATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZcPOowAKCRCPgPtYfRL+
+ TjrnCACykE5iNjuwUOalnLCibPbZzFNctipOmpqjUPC8qgwgD5BYLPLFNHhOX5G0Isz2+UbaG89
+ 0AU2cfpxvSwpkFvt8Y0OkUYwClhioF+9d6lQ/qBoGXQ3VXQBlAB/L99vvk764QKk0dknR3ctVZn
+ kNJi7XbxtiY8SWFYhs7xh/XQnKlb8spVTPs2P5XBok7m7S0FWuSVpQY8CWAvyucGjpEtSPYcxBc
+ JE8tsv9mFFU3DGEPsy7l/9ZHo6yEjrinlOIpsESpd20SgfTKJ/8CuY28zfK58vmSCYy14oHgDGW
+ jyuow/xCdY+iCtvbqNdMja+reRkwAfXFAxP8uaONYkVN5Ymt
+X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
+ fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
 Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.13-dev-0438c
-Message-ID-Hash: XHGS6ZTR2GXBF3LYYBDTAKZUMCZKVL3L
-X-Message-ID-Hash: XHGS6ZTR2GXBF3LYYBDTAKZUMCZKVL3L
-X-MailFrom: broonie@kernel.org
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: alsa-devel@alsa-project.org
+Message-ID-Hash: ERLLNN7FO7LL3BPQMDJC76AEXHGOIGNW
+X-Message-ID-Hash: ERLLNN7FO7LL3BPQMDJC76AEXHGOIGNW
+X-MailFrom: ukl@pengutronix.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -90,7 +110,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XHGS6ZTR2GXBF3LYYBDTAKZUMCZKVL3L/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ERLLNN7FO7LL3BPQMDJC76AEXHGOIGNW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,38 +119,33 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 07 Feb 2024 12:26:24 +0100, Amadeusz Sławiński wrote:
-> In case TDM is set in topology on SSP0, parser will overwrite vindex
-> value, because it only checks if port is set. Fix this by checking whole
-> field value.
-> 
-> 
+In commit 8caab75fd2c2 ("spi: Generalize SPI "master" to "controller"")
+some functions and struct members were renamed. To not break all drivers
+compatibility macros were provided.
 
-Applied to
+To be able to remove these compatibility macros push the renaming into
+this driver.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Acked-by: Miquel Raynal <miquel.raynal@bootlin.com>
+Acked-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+---
+ drivers/mtd/devices/mtd_dataflash.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks!
-
-[1/1] ASoC: Intel: avs: Fix dynamic port assignment when TDM is set
-      commit: 44d3b8a19b91cd2af11f918b2fd05628383172de
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+diff --git a/drivers/mtd/devices/mtd_dataflash.c b/drivers/mtd/devices/mtd_dataflash.c
+index 0c1b93303618..ec52277e3dd5 100644
+--- a/drivers/mtd/devices/mtd_dataflash.c
++++ b/drivers/mtd/devices/mtd_dataflash.c
+@@ -638,7 +638,7 @@ static int add_dataflash_otp(struct spi_device *spi, char *name, int nr_pages,
+ 
+ 	/* name must be usable with cmdlinepart */
+ 	sprintf(priv->name, "spi%d.%d-%s",
+-			spi->master->bus_num, spi_get_chipselect(spi, 0),
++			spi->controller->bus_num, spi_get_chipselect(spi, 0),
+ 			name);
+ 
+ 	device = &priv->mtd;
+-- 
+2.43.0
 

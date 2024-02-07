@@ -2,82 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0C3184C6CF
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Feb 2024 10:03:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12D6884C839
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Feb 2024 11:03:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2092484D;
-	Wed,  7 Feb 2024 10:03:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2092484D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1AC4C846;
+	Wed,  7 Feb 2024 11:03:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1AC4C846
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1707296594;
-	bh=n16H6C7qD7/PvLAlbp7IuAkQRMQk1BEPXl8o0SoT2aY=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1707300229;
+	bh=xm7xuHD7FhQxqr7dC2MoC3iL32A8DBYzQX6XTWNEL9o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=jMfQbT0TFwkLFMtfb2Oq8k05msMHOp4iSC+nflzZqHPz22LudLdHHEc7ZSuGzEl5t
-	 Q62qgiPsFZcYNoGcvudFJSK3DSaRRaHbK86ZoJY7K+HsEGhaY5rk63VX9Z019RiM+R
-	 JGoI5cLpgrmxVmz+54pyFIYGZWpX9jUbl2Alj2Xo=
+	b=DT77SMTxorCiqcHqa8SbMKYC37FAE+skfFPFvf8fOMf6AQTDpuaMUNnynmYtx44vj
+	 e+4Hjjszceo06bQYU/suzBr2552lNxEOkCR0ZjVwee9ZSpVzqp9GSSl0YyZ3hs2sB/
+	 HgbFmL16fhsk15nI935Krke/lL5nXT4szuZLsWF0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6CFD9F805A9; Wed,  7 Feb 2024 10:02:40 +0100 (CET)
+	id 921ACF8058C; Wed,  7 Feb 2024 11:03:17 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 36B5AF8057C;
-	Wed,  7 Feb 2024 10:02:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 276D6F80568;
+	Wed,  7 Feb 2024 11:03:17 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BB282F801EB; Wed,  7 Feb 2024 09:56:32 +0100 (CET)
+	id 07514F801EB; Wed,  7 Feb 2024 11:03:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-2.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
 Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 44B5AF800E3
-	for <alsa-devel@alsa-project.org>; Wed,  7 Feb 2024 09:52:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 44B5AF800E3
+	by alsa1.perex.cz (Postfix) with ESMTPS id ACD26F8016E
+	for <alsa-devel@alsa-project.org>; Wed,  7 Feb 2024 11:03:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ACD26F8016E
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=PN2f31id
+	dkim=pass (1024-bit key,
+ unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org
+ header.a=rsa-sha256 header.s=korg header.b=f8jUNJwC
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 2E3DECE1853;
-	Wed,  7 Feb 2024 08:52:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC9E1C433C7;
-	Wed,  7 Feb 2024 08:52:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1707295970;
-	bh=n16H6C7qD7/PvLAlbp7IuAkQRMQk1BEPXl8o0SoT2aY=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=PN2f31id9dC3HHooKnb5zlqeGbDCI0DBE4S4hu7tV02unUDSqAg0Ohg0zslx5qvR0
-	 l8HSalsVwsUxb2B1kgKmdpGpDxvsPaQK05gkFQNCnl/j0DeXMVhQePES0H1Z89MaoC
-	 IwDzDxUa52ebr8mvjj5tHBmpw5EHUEiavCEbuk6SlXytznQ1NwwkhBhn6h26wY81WE
-	 TjnCSocstnvYsNdbLctmwfXhRCwlg3qWuQjvJhTC+eu20hnVxiiTWJAFExe940ODis
-	 GufMk0ZBR8mMzFDsUE77hvYqn+yT6Ahn2mZjq5CFszZ72EpQ2V26zhLn+QY42hqxEH
-	 1pjJCv7ZeFKZw==
-From: Vinod Koul <vkoul@kernel.org>
-To: Bard Liao <yung-chuan.liao@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Sanyog Kale <sanyog.r.kale@intel.com>, alsa-devel@alsa-project.org,
- Colin Ian King <colin.i.king@gmail.com>
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20240205182436.1843447-1-colin.i.king@gmail.com>
-References: <20240205182436.1843447-1-colin.i.king@gmail.com>
-Subject: Re: [PATCH][next] soundwire: intel_auxdevice: remove redundant
- assignment to variable link_flags
-Message-Id: <170729596857.94552.8333430107320887182.b4-ty@kernel.org>
-Date: Wed, 07 Feb 2024 09:52:48 +0100
+	by sin.source.kernel.org (Postfix) with ESMTP id B3023CE1881;
+	Wed,  7 Feb 2024 10:02:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F51CC433C7;
+	Wed,  7 Feb 2024 10:02:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+	s=korg; t=1707300177;
+	bh=xm7xuHD7FhQxqr7dC2MoC3iL32A8DBYzQX6XTWNEL9o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=f8jUNJwC1R+El/P1zoYEmOeoEiJ2b9Eqf/BEaT4yq3EVbwEue0Q9kDh77V77kFcDt
+	 g4V5NW1/h1PlYEviLtlfd3uNSJGvs5IEPU5rmXx2dIiRr58pb7DJR/kkFcW1UlC566
+	 DZBMOHOEzj9ivmOyuG3ZVSX9An3fETIYiVrgGoho=
+Date: Wed, 7 Feb 2024 10:02:54 +0000
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Gergo Koteles <soyer@irl.hu>
+Cc: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+	Baojun Xu <baojun.xu@ti.com>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ASoC: tas2781: remove unused acpi_subysystem_id
+Message-ID: <2024020745-freight-slush-9ae7@gregkh>
+References: 
+ <df5c94396256e9573b772962182def52d20c50d4.1707250969.git.soyer@irl.hu>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.12.3
-Message-ID-Hash: QHPW4RLXBBVT3LALDPIEULOIIKTDSND5
-X-Message-ID-Hash: QHPW4RLXBBVT3LALDPIEULOIIKTDSND5
-X-MailFrom: vkoul@kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: 
+ <df5c94396256e9573b772962182def52d20c50d4.1707250969.git.soyer@irl.hu>
+Message-ID-Hash: P5M5ESNNRLDJCLUFG6M46INN4NKSKOX7
+X-Message-ID-Hash: P5M5ESNNRLDJCLUFG6M46INN4NKSKOX7
+X-MailFrom: gregkh@linuxfoundation.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -89,7 +88,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QHPW4RLXBBVT3LALDPIEULOIIKTDSND5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/P5M5ESNNRLDJCLUFG6M46INN4NKSKOX7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,25 +97,23 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-
-On Mon, 05 Feb 2024 18:24:36 +0000, Colin Ian King wrote:
-> The variable link_flags is being initialized with a value that is never
-> read, it is being re-assigned later on. The initialization is
-> redundant and can be removed.
+On Tue, Feb 06, 2024 at 09:25:50PM +0100, Gergo Koteles wrote:
+> The acpi_subysystem_id is only written and freed, not read, so
+> unnecessary.
 > 
-> Cleans up clang scan build warning:
-> drivers/soundwire/intel_auxdevice.c:624:2: warning: Value stored
-> to 'link_flags' is never read [deadcode.DeadStores]
-> 
-> [...]
+> Fixes: ef3bcde75d06 ("ASoC: tas2781: Add tas2781 driver")
 
-Applied, thanks!
+What does this really "fix"?  It's just a cleanup.
 
-[1/1] soundwire: intel_auxdevice: remove redundant assignment to variable link_flags
-      commit: 9282cfa2eb080e3bbb95f488af35618b614cdf76
+> CC: stable@vger.kernel.org
 
-Best regards,
--- 
-~Vinod
+Again, what bug is this fixing?
 
+Please read:
+    https://www.kernel.org/doc/html/latest/process/stable-kernel-rules.html
+about what should be tagged for stable kernels, which this patch series
+does not seem to fix.
 
+thanks,
+
+greg k-h

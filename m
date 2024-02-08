@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78CEC84EC67
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Feb 2024 00:15:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95C8884EC5E
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Feb 2024 00:15:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F309C84D;
-	Fri,  9 Feb 2024 00:15:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F309C84D
+	by alsa0.perex.cz (Postfix) with ESMTPS id CAF50846;
+	Fri,  9 Feb 2024 00:14:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CAF50846
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1707434130;
-	bh=AUzYa+W3vXThhkfZrkvq18z95m/MUhJSaK13Esrt9IU=;
+	s=default; t=1707434107;
+	bh=+Lw1+4MAX2LtZpd2jn62R4vA+ALFex1PxyuYDKU/fN0=;
 	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=uJTtp5IKVLtaeF5uIAlHKm515ltL+cLylfpTkzNUcTbL51ZbMBeiJNa/W6SbGwUC/
-	 kOqHATCmeKQ7Lnu0s+pH5K+hhlCVIY5sqos5Lw5XAg3WX5XdZDocf/QoK4hKpdG02K
-	 cV2+FIZVHeA0/I5q/sqBEEoOUHqdwvu0ngBBtQOQ=
+	b=koSExILteY38m6uheFb+zMjEpPCzZ9KKUKuGzUj5ixNWDfvF1WYLk/T9wcwrydrRe
+	 oHQbV0X5g6k/IP1Qnkb055Y6CrzFIvp+UTq38dd2ani9iqZxmfKLD0vQU1qKCI8MUo
+	 MS4O7wKDxWneq5IZZ2OdanCG8TlSWR/bQXjas/Eg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 05EFCF805F5; Fri,  9 Feb 2024 00:14:37 +0100 (CET)
+	id 9EF56F805DA; Fri,  9 Feb 2024 00:14:35 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3E1F7F80607;
-	Fri,  9 Feb 2024 00:14:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D0A6CF805E4;
+	Fri,  9 Feb 2024 00:14:34 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0A52EF805BA; Fri,  9 Feb 2024 00:14:32 +0100 (CET)
+	id 53674F805B1; Fri,  9 Feb 2024 00:14:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -36,35 +36,35 @@ Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A064AF800EE
+	by alsa1.perex.cz (Postfix) with ESMTPS id A6B98F801D5
 	for <alsa-devel@alsa-project.org>; Fri,  9 Feb 2024 00:14:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A064AF800EE
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6B98F801D5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=F8n6wV8j
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ header.s=qcppdkim1 header.b=mqP9cIx0
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
 	by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 418Mqt56008173;
+ 418MmN3S002112;
 	Thu, 8 Feb 2024 23:14:18 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
 	from:to:cc:subject:date:message-id:in-reply-to:references
-	:mime-version:content-type; s=qcppdkim1; bh=jumcsyHAMPRdK6BBRrtX
-	rViYw1o9e9jHI3H7NDZD9Tc=; b=F8n6wV8jo+3D4QCffSq7/J+CRknaj8BZan6H
-	2vdUiWpqscI0/NfaYSGm+ykyvuspkiZ0VT3wwpqeCRrEihJJGdo5du54zYJ9pDmd
-	0VkDAklAesRtj3IxJDOSfUQXyPz6MiqIZjlFqW7H7OFxACOkf2igx0A8EAUhJD2B
-	YwfsfK3s9vwIchro7lznOQKxAF4nGVJCSy1CCChHzq+D/1z/Ot4KmTGI4BDHGKCf
-	rtpjLiWM6drs9M0wv1W3+dyO2sUQlveN6i3ADBHCQl5Qg2B/ESk0jK2clEImVWwd
-	ObuWTOGN5xZho6cSIsFdHfUzWx5L9m/MgosNPZEGL9It62hnYQ==
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+	:mime-version:content-type; s=qcppdkim1; bh=CAxjiLONN0FsfVJGEMs1
+	T7t8zj114/9U4ixQ4PoMPaY=; b=mqP9cIx0InFl7OdHAQAPRVMprKdpURH8hyxv
+	UkPKn/HWmUHuuA4F+zYlg1O5JcoK+ZFTzUjtOSf8gaL3aXDNUH2JT0tky+Rf4nqr
+	IABYPGzZ8jiD1Kn5mskLYL+gwVfF+Gdyny3J35ZTx1AQsVYwv9DUaWY7dG1Ifen0
+	mCMe8b1bG1h1y5CxnrIT8KoRQU03gemSmR3OFof3tyNWnq6RoqZmsvk51ngGXCmu
+	ffuWPcmDxPpwrCoesUIRfPJ7m12Hnnz/o2MMra5UcXurAI4/kYD+FedAedqwAQSZ
+	i8bfMIfweDzyvqrG9c7Ed+IU4VGhjcJZsgXGALQuWiI5rPPjew==
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3w4sns2aan-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3w4frwujtu-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
 	Thu, 08 Feb 2024 23:14:17 +0000 (GMT)
 Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
  [10.47.209.197])
-	by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
- 418NEGtP022030
+	by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
+ 418NEGLm013078
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
 	Thu, 8 Feb 2024 23:14:16 GMT
 Received: from hu-wcheng-lv.qualcomm.com (10.49.16.6) by
@@ -85,10 +85,10 @@ CC: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
         <alsa-devel@alsa-project.org>,
         Mathias Nyman <mathias.nyman@linux.intel.com>,
         Wesley Cheng <quic_wcheng@quicinc.com>
-Subject: [PATCH v14 02/53] xhci: fix off by one check when adding a secondary
- interrupter.
-Date: Thu, 8 Feb 2024 15:13:15 -0800
-Message-ID: <20240208231406.27397-3-quic_wcheng@quicinc.com>
+Subject: [PATCH v14 03/53] xhci: Add interrupt pending autoclear flag to each
+ interrupter
+Date: Thu, 8 Feb 2024 15:13:16 -0800
+Message-ID: <20240208231406.27397-4-quic_wcheng@quicinc.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20240208231406.27397-1-quic_wcheng@quicinc.com>
 References: <20240208231406.27397-1-quic_wcheng@quicinc.com>
@@ -100,19 +100,19 @@ X-ClientProxiedBy: nalasex01c.na.qualcomm.com (10.47.97.35) To
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: VLcCHzYUv4yxZ_dA3mNz8QIsNh7SR_HZ
-X-Proofpoint-GUID: VLcCHzYUv4yxZ_dA3mNz8QIsNh7SR_HZ
+X-Proofpoint-ORIG-GUID: jV9Z2PR1PTwfQH0bOBidFR4StK83vaMM
+X-Proofpoint-GUID: jV9Z2PR1PTwfQH0bOBidFR4StK83vaMM
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
  definitions=2024-02-08_11,2024-02-08_01,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 mlxscore=0
- adultscore=0 spamscore=0 lowpriorityscore=0 malwarescore=0 bulkscore=0
- phishscore=0 clxscore=1015 suspectscore=0 impostorscore=0 mlxlogscore=999
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2401310000
- definitions=main-2402080131
-Message-ID-Hash: VV3NML7GHADRXJZLQV2ND65DV4YDCESJ
-X-Message-ID-Hash: VV3NML7GHADRXJZLQV2ND65DV4YDCESJ
+ impostorscore=0
+ malwarescore=0 spamscore=0 suspectscore=0 bulkscore=0 phishscore=0
+ clxscore=1015 lowpriorityscore=0 mlxlogscore=742 adultscore=0
+ priorityscore=1501 mlxscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.19.0-2401310000 definitions=main-2402080131
+Message-ID-Hash: AHL4QPGVL3USIV6RG4QU3FMQFNXOTDDR
+X-Message-ID-Hash: AHL4QPGVL3USIV6RG4QU3FMQFNXOTDDR
 X-MailFrom: quic_wcheng@quicinc.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -125,7 +125,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VV3NML7GHADRXJZLQV2ND65DV4YDCESJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AHL4QPGVL3USIV6RG4QU3FMQFNXOTDDR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -136,38 +136,92 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Mathias Nyman <mathias.nyman@linux.intel.com>
 
-The sanity check of interrupter index when adding a new interrupter is
-off by one. intr_num needs to be smaller than xhci->max_interrupter to
-fit the array of interrupters.
+Each interrupter has an interrupt pending (IP) bit that should be cleared
+in the interrupt handler. This is done automatically for systems using
+MSI/MSI-X interrupts.
 
-Luckily this doesn't cause any real word harm as xhci_add_interrupter()
-is always called with a intr_num value smaller than xhci->max_interrupters
-in any current kernel.
+Secondary interrupters used by audio offload may not actually trigger
+MSI/MSI-X messages, so driver may need to clear the IP bit manually for
+these, even if the primary interrupter IP is cleared automatically.
 
-Should not be needed for stable as 6.7 kernel and older only supports
-one interrupter, with intr_num always being zero.
+Add an ip_autoclear flag to each interrupter that driver can configure
+when requesting an interrupt for that xHC interrupter, and move
+the interrupt pending clearing code to its own helper function.
+Use this ip_autoclear flag instead of the current hcd->msi_enabled
+to check if IP flag is cleared by software.
 
-Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
-Closes: https://lore.kernel.org/linux-usb/e9771296-586d-456a-ac24-a82de79bb2e6@moroto.mountain/
-Fixes: 4bf398e15aa4 ("xhci: split allocate interrupter into separate alloacte and add parts")
+[Moved ip_autoclear into xhci and set based on msi_enabled -wcheng]
+
 Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
-Link: https://lore.kernel.org/r/20240125152737.2983959-3-mathias.nyman@linux.intel.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
 ---
- drivers/usb/host/xhci-mem.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/usb/host/xhci-ring.c | 21 +++++++++++++++------
+ drivers/usb/host/xhci.c      |  3 +++
+ drivers/usb/host/xhci.h      |  1 +
+ 3 files changed, 19 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/usb/host/xhci-mem.c b/drivers/usb/host/xhci-mem.c
-index d00d4d937236..a7716202a8dd 100644
---- a/drivers/usb/host/xhci-mem.c
-+++ b/drivers/usb/host/xhci-mem.c
-@@ -2322,7 +2322,7 @@ xhci_add_interrupter(struct xhci_hcd *xhci, struct xhci_interrupter *ir,
- 	u64 erst_base;
- 	u32 erst_size;
+diff --git a/drivers/usb/host/xhci-ring.c b/drivers/usb/host/xhci-ring.c
+index 33806ae966f9..f8e78068c36f 100644
+--- a/drivers/usb/host/xhci-ring.c
++++ b/drivers/usb/host/xhci-ring.c
+@@ -3013,6 +3013,19 @@ static void xhci_update_erst_dequeue(struct xhci_hcd *xhci,
+ 	xhci_write_64(xhci, temp_64, &ir->ir_set->erst_dequeue);
+ }
  
--	if (intr_num > xhci->max_interrupters) {
-+	if (intr_num >= xhci->max_interrupters) {
- 		xhci_warn(xhci, "Can't add interrupter %d, max interrupters %d\n",
- 			  intr_num, xhci->max_interrupters);
- 		return -EINVAL;
++/* Clear the interrupt pending bit for a specific interrupter. */
++static void xhci_clear_interrupt_pending(struct xhci_hcd *xhci,
++					 struct xhci_interrupter *ir)
++{
++	if (!ir->ip_autoclear) {
++		u32 irq_pending;
++
++		irq_pending = readl(&ir->ir_set->irq_pending);
++		irq_pending |= IMAN_IP;
++		writel(irq_pending, &ir->ir_set->irq_pending);
++	}
++}
++
+ /*
+  * xHCI spec says we can get an interrupt, and if the HC has an error condition,
+  * we might get bad data out of the event ring.  Section 4.10.2.7 has a list of
+@@ -3062,12 +3075,8 @@ irqreturn_t xhci_irq(struct usb_hcd *hcd)
+ 
+ 	/* This is the handler of the primary interrupter */
+ 	ir = xhci->interrupters[0];
+-	if (!hcd->msi_enabled) {
+-		u32 irq_pending;
+-		irq_pending = readl(&ir->ir_set->irq_pending);
+-		irq_pending |= IMAN_IP;
+-		writel(irq_pending, &ir->ir_set->irq_pending);
+-	}
++
++	xhci_clear_interrupt_pending(xhci, ir);
+ 
+ 	if (xhci->xhc_state & XHCI_STATE_DYING ||
+ 	    xhci->xhc_state & XHCI_STATE_HALTED) {
+diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
+index c057c42c36f4..0886829d53e5 100644
+--- a/drivers/usb/host/xhci.c
++++ b/drivers/usb/host/xhci.c
+@@ -538,6 +538,9 @@ int xhci_run(struct usb_hcd *hcd)
+ 	 */
+ 
+ 	hcd->uses_new_polling = 1;
++	if (hcd->msi_enabled)
++		ir->ip_autoclear = true;
++
+ 	if (!usb_hcd_is_primary_hcd(hcd))
+ 		return xhci_run_finished(xhci);
+ 
+diff --git a/drivers/usb/host/xhci.h b/drivers/usb/host/xhci.h
+index c6349e7e1e95..daee202cd369 100644
+--- a/drivers/usb/host/xhci.h
++++ b/drivers/usb/host/xhci.h
+@@ -1431,6 +1431,7 @@ struct xhci_interrupter {
+ 	struct xhci_erst	erst;
+ 	struct xhci_intr_reg __iomem *ir_set;
+ 	unsigned int		intr_num;
++	bool			ip_autoclear;
+ 	/* For interrupter registers save and restore over suspend/resume */
+ 	u32	s3_irq_pending;
+ 	u32	s3_irq_control;

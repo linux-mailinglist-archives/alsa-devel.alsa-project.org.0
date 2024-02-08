@@ -2,96 +2,129 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9149884E0CE
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Feb 2024 13:38:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3660284E357
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Feb 2024 15:41:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AC9AF85D;
-	Thu,  8 Feb 2024 13:38:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC9AF85D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 496D1823;
+	Thu,  8 Feb 2024 15:41:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 496D1823
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1707395932;
-	bh=HZzncMa1loKAptgv6gflUpOFjRo79b9uJM1kXN47xGc=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=i5dRciLgca/8rvImQ3V2Ttjx2d6xGz0BTHJjN6Z1aJkux9UMko2BILsRQDLUXJdgd
-	 IgLPaeRTeKSC5tV+On/BHVFKXT4/bTPOaqZMWP9qvwTs0RzrgQrT1aPj2q0L/X41oy
-	 bpE4HKkCpjr7a+zFqPzRzFYSZAnuWOgP3WWKB0hs=
+	s=default; t=1707403304;
+	bh=MQwK1VllVrtr2tQbDWcrDLGcVxQAn1vf4Tn++B9EBKk=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=H051vuap7GFyxsHuVbqvNKtSgnDR65DKHDHMHQZgRzdRYSyg6C6a/sFwGusWNA4qR
+	 M0976nxBdju7zAiF488znYPxYIo5JZg9HhYkh/Uf9iMKdwtE4pYup5r+5wLmcyh/jQ
+	 5oLOIR0vm+An977rMA1Dd/sAMDtLBqAWFWZ88U48=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D9476F80587; Thu,  8 Feb 2024 13:38:10 +0100 (CET)
+	id D6247F80548; Thu,  8 Feb 2024 15:41:12 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1908CF805A0;
-	Thu,  8 Feb 2024 13:38:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7328EF804E7;
+	Thu,  8 Feb 2024 15:41:12 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 47792F801EB; Thu,  8 Feb 2024 13:38:03 +0100 (CET)
+	id 66009F801EB; Thu,  8 Feb 2024 15:41:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 88335F800EE
-	for <alsa-devel@alsa-project.org>; Thu,  8 Feb 2024 13:37:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 88335F800EE
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=bDjnh/MN
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 4186JW3N008734;
-	Thu, 8 Feb 2024 06:37:45 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	from:to:cc:subject:date:message-id:mime-version
-	:content-transfer-encoding:content-type; s=PODMain02222019; bh=7
-	4XCr7k1XvhAmhVcog1O5kNHi22exXfgDeHijOgc4xY=; b=bDjnh/MN29+klW2+e
-	Ew+M9lPoQZTWpD7dAijxTDK3j51ix1yw542icHT4JnmCmjnTy/DAnEBs7Zgnnos8
-	1W8nErV5Bj2IrQL/yAMFSuTgBNGMuXbAVzd5bvBtOds0TchdSWad2um66V5fKmPJ
-	L9IgQX/aufrhe4KiYatryn1ODFyE9YL22/y5eq6gKDwB1mRqlt2IAQheGOsVzRR3
-	FrlODMi9qZwzfTabB8akyp4vE7B20teBQKs3NiyRmGEvLksmaCu3uqc/HzJS06Sw
-	8rFFNaQhXWir/MugUVEXU8I6ycD+Db++iRP2SQLFhUCxYhTTeNnUmYnLmclvEvPC
-	G0saA==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3w1ks2efqd-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 08 Feb 2024 06:37:45 -0600 (CST)
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Thu, 8 Feb
- 2024 12:37:43 +0000
-Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
- ediex01.ad.cirrus.com (198.61.84.80) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.40 via Frontend Transport; Thu, 8 Feb 2024 12:37:43 +0000
-Received: from ediswws06.ad.cirrus.com (ediswws06.ad.cirrus.com
- [198.90.208.18])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id 03891820243;
-	Thu,  8 Feb 2024 12:37:43 +0000 (UTC)
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-To: <broonie@kernel.org>
-CC: <alsa-devel@alsa-project.org>, <linux-sound@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <patches@opensource.cirrus.com>,
-        "Richard
- Fitzgerald" <rf@opensource.cirrus.com>
-Subject: [PATCH v2] ASoC: cs35l56: Fix deadlock in ASP1 mixer register
- initialization
-Date: Thu, 8 Feb 2024 12:37:42 +0000
-Message-ID: <20240208123742.1278104-1-rf@opensource.cirrus.com>
-X-Mailer: git-send-email 2.30.2
+	by alsa1.perex.cz (Postfix) with ESMTPS id 97FBCF80153
+	for <alsa-devel@alsa-project.org>; Thu,  8 Feb 2024 15:40:57 +0100 (CET)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 59BEB5BA4;
+	Thu,  8 Feb 2024 15:40:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 59BEB5BA4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+	t=1707403256; bh=FkCD3lKLk5OqMVMl36QpNQhEKG29m180bi19U4Y/6FM=;
+	h=Date:Subject:To:References:From:In-Reply-To:From;
+	b=yPXdpJg6XBLM7Q4+5c6AQK+0zj/dfCgQ3TCaP/kc7ymVzsnKyJeA/O0QD4SNi+DQ6
+	 5KqIso8ZvXTle3WocC8Ym6zw88j9/ORNhg9M0lxdYQS+Z9DeHB1kUl2hhfXWAA4IIL
+	 VF8RD5A5+3JT6K/mV1Z5mJU29iniiTu4z7JArFqg=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	(Authenticated sender: perex)
+	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+	Thu,  8 Feb 2024 15:40:54 +0100 (CET)
+Message-ID: <a250b821-1876-4936-8082-d40475e60155@perex.cz>
+Date: Thu, 8 Feb 2024 15:40:53 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: OhepnhnjI61Oe4jBOFSHOemIu85yXJzc
-X-Proofpoint-ORIG-GUID: OhepnhnjI61Oe4jBOFSHOemIu85yXJzc
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: XRKN4AFZIHTT7GQJKJSSG2VOVCEBFMTU
-X-Message-ID-Hash: XRKN4AFZIHTT7GQJKJSSG2VOVCEBFMTU
-X-MailFrom: prvs=9768041b6e=rf@opensource.cirrus.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: ALSA-LIB: Support for format IEC958_SUBFRAME_LE in the plug
+ plugin?
+Content-Language: en-US
+To: Pavel Hofman <pavel.hofman@ivitera.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+References: <81b0be0a-5ab7-db91-21cb-0c59a55291e9@ivitera.com>
+ <14018498-75e9-28c4-cfe3-a958ede64d0e@ivitera.com>
+ <79934c5e-25b2-4d71-a426-c05f9a4e6b40@perex.cz>
+ <3a16fc87-6b65-048a-b9cd-1fb0f308e4fb@ivitera.com>
+ <8567ca1f-9985-4370-b821-9fa70cd812e6@perex.cz>
+ <1a852449-cd3e-acc0-57ec-f6163e82c620@ivitera.com>
+ <5b4afa93-5ab9-2ff1-c440-d05c66a4cef5@ivitera.com>
+ <25d7fac4-a7c6-4bbd-ef8a-7eefbcf03784@ivitera.com>
+ <e63029c7-caed-c6ce-2395-e34eb9f5082c@ivitera.com>
+From: Jaroslav Kysela <perex@perex.cz>
+Autocrypt: addr=perex@perex.cz; keydata=
+ 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
+In-Reply-To: <e63029c7-caed-c6ce-2395-e34eb9f5082c@ivitera.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: WKHKIPVP3XWNJBHW3L5O3D6W2UMTOG2P
+X-Message-ID-Hash: WKHKIPVP3XWNJBHW3L5O3D6W2UMTOG2P
+X-MailFrom: perex@perex.cz
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -103,7 +136,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XRKN4AFZIHTT7GQJKJSSG2VOVCEBFMTU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WKHKIPVP3XWNJBHW3L5O3D6W2UMTOG2P/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,287 +145,191 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Rewrite the handling of ASP1 TX mixer mux initialization to prevent a
-deadlock during component_remove().
+On 07. 02. 24 16:34, Pavel Hofman wrote:
 
-The firmware can overwrite the ASP1 TX mixer registers with
-system-specific settings. This is mainly for hardware that uses the
-ASP as a chip-to-chip link controlled by the firmware. Because of this
-the driver cannot know the starting state of the ASP1 mixer muxes until
-the firmware has been downloaded and rebooted.
+> But honestly I still do not understand what it actually does and what is
+> the goal of snd_pcm_plug_slave_format().
+> 
+> Without that I cannot modify snd_pcm_plug_slave_format() correctly to
+> incorporate support for IEC958.
 
-The original workaround for this was to queue a work function from the
-dsp_work() job. This work then read the register values (populating the
-regmap cache the first time around) and then called
-snd_soc_dapm_mux_update_power(). The problem with this is that it was
-ultimately triggered by cs35l56_component_probe() queueing dsp_work,
-which meant that it would be running in parallel with the rest of the
-ASoC component and card initialization. To prevent accessing DAPM before
-it was fully initialized the work function took the card mutex. But this
-would deadlock if cs35l56_component_remove() was called before the work job
-had completed, because ASoC calls component_remove() with the card mutex
-held.
+I believe you're looking to a wrong place. Here's incomplete code:
 
-This new version removes the work function. Instead the regmap cache and
-DAPM mux widgets are initialized the first time any of the associated ALSA
-controls is read or written.
-
-Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
-Fixes: 07f7d6e7a124 ("ASoC: cs35l56: Fix for initializing ASP1 mixer registers")
----
-Change from V1:
-Move the check of asp1_mixer_widgets_initialized into
-cs35l56_sync_asp1_mixer_widgets_with_firmware().
----
- sound/soc/codecs/cs35l56.c | 157 +++++++++++++++++--------------------
- sound/soc/codecs/cs35l56.h |   2 +-
- 2 files changed, 75 insertions(+), 84 deletions(-)
-
-diff --git a/sound/soc/codecs/cs35l56.c b/sound/soc/codecs/cs35l56.c
-index ebed5ab1245b..98d3957c66e7 100644
---- a/sound/soc/codecs/cs35l56.c
-+++ b/sound/soc/codecs/cs35l56.c
-@@ -68,6 +68,66 @@ static const char * const cs35l56_asp1_mux_control_names[] = {
- 	"ASP1 TX1 Source", "ASP1 TX2 Source", "ASP1 TX3 Source", "ASP1 TX4 Source"
- };
- 
-+static int cs35l56_sync_asp1_mixer_widgets_with_firmware(struct cs35l56_private *cs35l56)
+==========
+diff --git a/configure.ac b/configure.ac
+index 7a152a4a..3f238302 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -642,6 +642,9 @@ fi
+  if test "$build_pcm_alaw" = "yes"; then
+    AC_DEFINE([BUILD_PCM_PLUGIN_ALAW], "1", [Build PCM alaw plugin])
+  fi
++if test "$build_pcm_iec958" = "yes"; then
++  AC_DEFINE([BUILD_PCM_PLUGIN_IEC958], "1", [Build PCM iec958 plugin])
++fi
+  if test "$build_pcm_mmap_emul" = "yes"; then
+    AC_DEFINE([BUILD_PCM_PLUGIN_MMAP_EMUL], "1", [Build PCM mmap-emul plugin])
+  fi
+diff --git a/include/pcm_plugin.h b/include/pcm_plugin.h
+index 2d014394..f3e8f3b5 100644
+--- a/include/pcm_plugin.h
++++ b/include/pcm_plugin.h
+@@ -133,6 +133,19 @@ int _snd_pcm_adpcm_open(snd_pcm_t **pcmp, const char *name,
+  			snd_config_t *root, snd_config_t *conf,
+  			snd_pcm_stream_t stream, int mode);
+  
++/*
++ *  IEC958 subframe conversion plugin
++ */
++int snd_pcm_iec958_open(snd_pcm_t **pcmp, const char *name,
++			snd_pcm_format_t sformat, snd_pcm_t *slave,
++			int close_slave,
++			const unsigned char *status_bits,
++			const unsigned char *preamble_vals,
++			int hdmi_mode);
++int _snd_pcm_iec958_open(snd_pcm_t **pcmp, const char *name,
++			 snd_config_t *root, snd_config_t *conf,
++			 snd_pcm_stream_t stream, int mode);
++
+  /*
+   *  Route plugin for linear formats
+   */
+diff --git a/src/pcm/pcm_plug.c b/src/pcm/pcm_plug.c
+index e5a3a189..287fb9f9 100644
+--- a/src/pcm/pcm_plug.c
++++ b/src/pcm/pcm_plug.c
+@@ -186,7 +186,8 @@ static const snd_pcm_format_t linear_preferred_formats[] = {
+  
+  #if defined(BUILD_PCM_PLUGIN_MULAW) || \
+  	defined(BUILD_PCM_PLUGIN_ALAW) || \
+-	defined(BUILD_PCM_PLUGIN_ADPCM)
++	defined(BUILD_PCM_PLUGIN_ADPCM) || \
++	defined(BUILD_PCM_PLUGIN_IEC958)
+  #define BUILD_PCM_NONLINEAR
+  #endif
+  
+@@ -201,6 +202,10 @@ static const snd_pcm_format_t nonlinear_preferred_formats[] = {
+  #ifdef BUILD_PCM_PLUGIN_ADPCM
+  	SND_PCM_FORMAT_IMA_ADPCM,
+  #endif
++#ifdef BUILD_PCM_PLUGIN_IEC958
++	SND_PCM_FORMAT_IEC958_SUBFRAME_LE,
++	SND_PCM_FORMAT_IEC958_SUBFRAME_BE,
++#endif
+  };
+  #endif
+  
+@@ -490,6 +495,18 @@ static int snd_pcm_plug_change_channels(snd_pcm_t *pcm, snd_pcm_t **new, snd_pcm
+  }
+  #endif
+  
++#ifdef BUILD_PCM_PLUGIN_IEC958
++static int iec958_open(snd_pcm_t **pcmp, const char *name,
++		       snd_pcm_format_t sformat, snd_pcm_t *slave,
++		       int close_slave)
 +{
-+	struct snd_soc_dapm_context *dapm = snd_soc_component_get_dapm(cs35l56->component);
-+	const char *prefix = cs35l56->component->name_prefix;
-+	char full_name[SNDRV_CTL_ELEM_ID_NAME_MAXLEN];
-+	const char *name;
-+	struct snd_kcontrol *kcontrol;
-+	struct soc_enum *e;
-+	unsigned int val[4];
-+	int i, item, ret;
-+
-+	if (cs35l56->asp1_mixer_widgets_initialized)
-+		return 0;
-+
-+	/*
-+	 * Resume so we can read the registers from silicon if the regmap
-+	 * cache has not yet been populated.
-+	 */
-+	ret = pm_runtime_resume_and_get(cs35l56->base.dev);
-+	if (ret < 0)
-+		return ret;
-+
-+	/* Wait for firmware download and reboot */
-+	cs35l56_wait_dsp_ready(cs35l56);
-+
-+	ret = regmap_bulk_read(cs35l56->base.regmap, CS35L56_ASP1TX1_INPUT,
-+			       val, ARRAY_SIZE(val));
-+
-+	pm_runtime_mark_last_busy(cs35l56->base.dev);
-+	pm_runtime_put_autosuspend(cs35l56->base.dev);
-+
-+	if (ret) {
-+		dev_err(cs35l56->base.dev, "Failed to read ASP1 mixer regs: %d\n", ret);
-+		return ret;
-+	}
-+
-+	for (i = 0; i < ARRAY_SIZE(cs35l56_asp1_mux_control_names); ++i) {
-+		name = cs35l56_asp1_mux_control_names[i];
-+
-+		if (prefix) {
-+			snprintf(full_name, sizeof(full_name), "%s %s", prefix, name);
-+			name = full_name;
-+		}
-+
-+		kcontrol = snd_soc_card_get_kcontrol(dapm->card, name);
-+		if (!kcontrol) {
-+			dev_warn(cs35l56->base.dev, "Could not find control %s\n", name);
-+			continue;
-+		}
-+
-+		e = (struct soc_enum *)kcontrol->private_value;
-+		item = snd_soc_enum_val_to_item(e, val[i] & CS35L56_ASP_TXn_SRC_MASK);
-+		snd_soc_dapm_mux_update_power(dapm, kcontrol, item, e, NULL);
-+	}
-+
-+	cs35l56->asp1_mixer_widgets_initialized = true;
-+
-+	return 0;
++	unsigned char preamble_vals[3] = {
++	      0x08, 0x02, 0x04 /* Z, X, Y */
++        };
++	return snd_pcm_iec958_open(pcmp, name, sformat, slave, close_slave, NULL, preamble_vals, 0);
 +}
++#endif
 +
- static int cs35l56_dspwait_asp1tx_get(struct snd_kcontrol *kcontrol,
- 				      struct snd_ctl_elem_value *ucontrol)
- {
-@@ -78,9 +138,9 @@ static int cs35l56_dspwait_asp1tx_get(struct snd_kcontrol *kcontrol,
- 	unsigned int addr, val;
- 	int ret;
- 
--	/* Wait for mux to be initialized */
--	cs35l56_wait_dsp_ready(cs35l56);
--	flush_work(&cs35l56->mux_init_work);
-+	ret = cs35l56_sync_asp1_mixer_widgets_with_firmware(cs35l56);
-+	if (ret)
-+		return ret;
- 
- 	addr = cs35l56_asp1_mixer_regs[index];
- 	ret = regmap_read(cs35l56->base.regmap, addr, &val);
-@@ -106,9 +166,9 @@ static int cs35l56_dspwait_asp1tx_put(struct snd_kcontrol *kcontrol,
- 	bool changed;
- 	int ret;
- 
--	/* Wait for mux to be initialized */
--	cs35l56_wait_dsp_ready(cs35l56);
--	flush_work(&cs35l56->mux_init_work);
-+	ret = cs35l56_sync_asp1_mixer_widgets_with_firmware(cs35l56);
-+	if (ret)
-+		return ret;
- 
- 	addr = cs35l56_asp1_mixer_regs[index];
- 	val = snd_soc_enum_item_to_val(e, item);
-@@ -124,70 +184,6 @@ static int cs35l56_dspwait_asp1tx_put(struct snd_kcontrol *kcontrol,
- 	return changed;
- }
- 
--static void cs35l56_mark_asp1_mixer_widgets_dirty(struct cs35l56_private *cs35l56)
--{
--	struct snd_soc_dapm_context *dapm = snd_soc_component_get_dapm(cs35l56->component);
--	const char *prefix = cs35l56->component->name_prefix;
--	char full_name[SNDRV_CTL_ELEM_ID_NAME_MAXLEN];
--	const char *name;
--	struct snd_kcontrol *kcontrol;
--	struct soc_enum *e;
--	unsigned int val[4];
--	int i, item, ret;
--
--	/*
--	 * Resume so we can read the registers from silicon if the regmap
--	 * cache has not yet been populated.
--	 */
--	ret = pm_runtime_resume_and_get(cs35l56->base.dev);
--	if (ret < 0)
--		return;
--
--	ret = regmap_bulk_read(cs35l56->base.regmap, CS35L56_ASP1TX1_INPUT,
--			       val, ARRAY_SIZE(val));
--
--	pm_runtime_mark_last_busy(cs35l56->base.dev);
--	pm_runtime_put_autosuspend(cs35l56->base.dev);
--
--	if (ret) {
--		dev_err(cs35l56->base.dev, "Failed to read ASP1 mixer regs: %d\n", ret);
--		return;
--	}
--
--	snd_soc_card_mutex_lock(dapm->card);
--	WARN_ON(!dapm->card->instantiated);
--
--	for (i = 0; i < ARRAY_SIZE(cs35l56_asp1_mux_control_names); ++i) {
--		name = cs35l56_asp1_mux_control_names[i];
--
--		if (prefix) {
--			snprintf(full_name, sizeof(full_name), "%s %s", prefix, name);
--			name = full_name;
--		}
--
--		kcontrol = snd_soc_card_get_kcontrol(dapm->card, name);
--		if (!kcontrol) {
--			dev_warn(cs35l56->base.dev, "Could not find control %s\n", name);
--			continue;
--		}
--
--		e = (struct soc_enum *)kcontrol->private_value;
--		item = snd_soc_enum_val_to_item(e, val[i] & CS35L56_ASP_TXn_SRC_MASK);
--		snd_soc_dapm_mux_update_power(dapm, kcontrol, item, e, NULL);
--	}
--
--	snd_soc_card_mutex_unlock(dapm->card);
--}
--
--static void cs35l56_mux_init_work(struct work_struct *work)
--{
--	struct cs35l56_private *cs35l56 = container_of(work,
--						       struct cs35l56_private,
--						       mux_init_work);
--
--	cs35l56_mark_asp1_mixer_widgets_dirty(cs35l56);
--}
--
- static DECLARE_TLV_DB_SCALE(vol_tlv, -10000, 25, 0);
- 
- static const struct snd_kcontrol_new cs35l56_controls[] = {
-@@ -936,14 +932,6 @@ static void cs35l56_dsp_work(struct work_struct *work)
- 	else
- 		cs35l56_patch(cs35l56, firmware_missing);
- 
--
--	/*
--	 * Set starting value of ASP1 mux widgets. Updating a mux takes
--	 * the DAPM mutex. Post this to a separate job so that DAPM
--	 * power-up can wait for dsp_work to complete without deadlocking
--	 * on the DAPM mutex.
--	 */
--	queue_work(cs35l56->dsp_wq, &cs35l56->mux_init_work);
- err:
- 	pm_runtime_mark_last_busy(cs35l56->base.dev);
- 	pm_runtime_put_autosuspend(cs35l56->base.dev);
-@@ -989,6 +977,13 @@ static int cs35l56_component_probe(struct snd_soc_component *component)
- 	debugfs_create_bool("can_hibernate", 0444, debugfs_root, &cs35l56->base.can_hibernate);
- 	debugfs_create_bool("fw_patched", 0444, debugfs_root, &cs35l56->base.fw_patched);
- 
-+	/*
-+	 * The widgets for the ASP1TX mixer can't be initialized
-+	 * until the firmware has been downloaded and rebooted.
-+	 */
-+	regcache_drop_region(cs35l56->base.regmap, CS35L56_ASP1TX1_INPUT, CS35L56_ASP1TX4_INPUT);
-+	cs35l56->asp1_mixer_widgets_initialized = false;
-+
- 	queue_work(cs35l56->dsp_wq, &cs35l56->dsp_work);
- 
- 	return 0;
-@@ -999,7 +994,6 @@ static void cs35l56_component_remove(struct snd_soc_component *component)
- 	struct cs35l56_private *cs35l56 = snd_soc_component_get_drvdata(component);
- 
- 	cancel_work_sync(&cs35l56->dsp_work);
--	cancel_work_sync(&cs35l56->mux_init_work);
- 
- 	if (cs35l56->dsp.cs_dsp.booted)
- 		wm_adsp_power_down(&cs35l56->dsp);
-@@ -1070,10 +1064,8 @@ int cs35l56_system_suspend(struct device *dev)
- 
- 	dev_dbg(dev, "system_suspend\n");
- 
--	if (cs35l56->component) {
-+	if (cs35l56->component)
- 		flush_work(&cs35l56->dsp_work);
--		cancel_work_sync(&cs35l56->mux_init_work);
--	}
- 
- 	/*
- 	 * The interrupt line is normally shared, but after we start suspending
-@@ -1224,7 +1216,6 @@ static int cs35l56_dsp_init(struct cs35l56_private *cs35l56)
- 		return -ENOMEM;
- 
- 	INIT_WORK(&cs35l56->dsp_work, cs35l56_dsp_work);
--	INIT_WORK(&cs35l56->mux_init_work, cs35l56_mux_init_work);
- 
- 	dsp = &cs35l56->dsp;
- 	cs35l56_init_cs_dsp(&cs35l56->base, &dsp->cs_dsp);
-diff --git a/sound/soc/codecs/cs35l56.h b/sound/soc/codecs/cs35l56.h
-index 596b141e3f96..b000e7365e40 100644
---- a/sound/soc/codecs/cs35l56.h
-+++ b/sound/soc/codecs/cs35l56.h
-@@ -34,7 +34,6 @@ struct cs35l56_private {
- 	struct wm_adsp dsp; /* must be first member */
- 	struct cs35l56_base base;
- 	struct work_struct dsp_work;
--	struct work_struct mux_init_work;
- 	struct workqueue_struct *dsp_wq;
- 	struct snd_soc_component *component;
- 	struct regulator_bulk_data supplies[CS35L56_NUM_BULK_SUPPLIES];
-@@ -52,6 +51,7 @@ struct cs35l56_private {
- 	u8 asp_slot_count;
- 	bool tdm_mode;
- 	bool sysclk_set;
-+	bool asp1_mixer_widgets_initialized;
- 	u8 old_sdw_clock_scale;
- };
- 
+  static int snd_pcm_plug_change_format(snd_pcm_t *pcm, snd_pcm_t **new, snd_pcm_plug_params_t *clt, snd_pcm_plug_params_t *slv)
+  {
+  	snd_pcm_plug_t *plug = pcm->private_data;
+@@ -526,6 +543,12 @@ static int snd_pcm_plug_change_format(snd_pcm_t *pcm, snd_pcm_t **new, snd_pcm_p
+  		case SND_PCM_FORMAT_IMA_ADPCM:
+  			f = snd_pcm_adpcm_open;
+  			break;
++#endif
++#ifdef BUILD_PCM_PLUGIN_IEC958
++		case SND_PCM_FORMAT_IEC958_SUBFRAME_LE:
++		case SND_PCM_FORMAT_IEC958_SUBFRAME_BE:
++			f = iec958_open;
++			break;
+  #endif
+  		default:
+  #ifdef BUILD_PCM_PLUGIN_LFLOAT
+@@ -566,6 +589,12 @@ static int snd_pcm_plug_change_format(snd_pcm_t *pcm, snd_pcm_t **new, snd_pcm_p
+  		case SND_PCM_FORMAT_IMA_ADPCM:
+  			f = snd_pcm_adpcm_open;
+  			break;
++#endif
++#ifdef BUILD_PCM_PLUGIN_IEC958
++		case SND_PCM_FORMAT_IEC958_SUBFRAME_LE:
++		case SND_PCM_FORMAT_IEC958_SUBFRAME_BE:
++			f = iec958_open;
++			break;
+  #endif
+  		default:
+  			return -EINVAL;
+=========
+
+Test:
+
+========= ~/.asoundrc
+pcm.test123 {
+   type plug
+   slave {
+     pcm null
+     format IEC958_SUBFRAME_LE
+   }
+}
+=========
+
+$ LD_PRELOAD=~/alsa/alsa-lib/src/.libs/libasound.so aplay -v -D test123 /dev/zero
+Playing raw data '/dev/zero' : Unsigned 8 bit, Rate 8000 Hz, Mono
+Plug PCM: IEC958 subframe conversion PCM (IEC958_SUBFRAME_LE)
+Its setup is:
+   stream       : PLAYBACK
+   access       : RW_INTERLEAVED
+   format       : U8
+   subformat    : STD
+   channels     : 1
+   rate         : 8000
+   exact rate   : 8000 (8000/1)
+   msbits       : 8
+   buffer_size  : 4000
+   period_size  : 1000
+   period_time  : 125000
+   tstamp_mode  : ENABLE
+   tstamp_type  : GETTIMEOFDAY
+   period_step  : 1
+   avail_min    : 1000
+   period_event : 0
+   start_threshold  : 4000
+   stop_threshold   : 4000
+   silence_threshold: 0
+   silence_size : 0
+   boundary     : 9007199254740992000
+Slave: Null PCM
+Its setup is:
+   stream       : PLAYBACK
+   access       : MMAP_INTERLEAVED
+   format       : IEC958_SUBFRAME_LE
+   subformat    : STD
+   channels     : 1
+   rate         : 8000
+   exact rate   : 8000 (8000/1)
+   msbits       : 32
+   buffer_size  : 4000
+   period_size  : 1000
+   period_time  : 125000
+   tstamp_mode  : ENABLE
+   tstamp_type  : GETTIMEOFDAY
+   period_step  : 1
+   avail_min    : 1000
+   period_event : 0
+   start_threshold  : 4000
+   stop_threshold   : 4000
+   silence_threshold: 0
+   silence_size : 0
+   boundary     : 9007199254740992000
+
+							Jaroslav
+
 -- 
-2.30.2
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
 

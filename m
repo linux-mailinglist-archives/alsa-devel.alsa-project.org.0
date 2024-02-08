@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F79384E5D5
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Feb 2024 18:00:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C19184E5CA
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Feb 2024 17:59:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A7E92EA3;
-	Thu,  8 Feb 2024 18:00:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A7E92EA3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 697E085D;
+	Thu,  8 Feb 2024 17:59:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 697E085D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1707411650;
-	bh=WbMrcOtxEPTqPuAD9SZO9DSAuLMiWP+miOcXhisgqok=;
+	s=default; t=1707411593;
+	bh=CB0MQPT1ZuhAYcjooRIGfBXF6KNofDELkTeUfNmtW+c=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=IHOb13+3t5+q8OxIOEBwIjpk0llfQHbvO8S/uXTngUjsnOUbWtpoPvGefPG/WEdiY
-	 Oc5cUvOXiiYV9wrCAU2oZ+LG4LsehgbbXUPTV4Fk8OVS4OknbDStPPS519fdj9pi7C
-	 QPdxMBLE+Ddx4pxkdwunHUwNk2G7UYzeGsH2HobQ=
+	b=HVWQ+gVK+6sI7s5/h1t1NjsVXqJuNsPIQNF51SUtCVh/l3Np9IBVzAKSnWu2VX/2m
+	 T4lKAqIZipwNvHBb7Q3iypGkPfuUD275KdKCbRI125S7RF3l/8w8AeZho4n7GVxgWZ
+	 Cy5gbq04BL31+NTFTacF6B+ocIUPwtRQHDIDiCWM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 32449F805EC; Thu,  8 Feb 2024 17:57:07 +0100 (CET)
+	id 31AC8F805BB; Thu,  8 Feb 2024 17:56:58 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6E10FF80878;
-	Thu,  8 Feb 2024 17:57:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 75C2AF80771;
+	Thu,  8 Feb 2024 17:56:57 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E6C87F80637; Thu,  8 Feb 2024 17:56:25 +0100 (CET)
+	id AECA7F80637; Thu,  8 Feb 2024 17:56:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -36,35 +36,35 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B2B16F80579
+	by alsa1.perex.cz (Postfix) with ESMTPS id E37BDF805AB
 	for <alsa-devel@alsa-project.org>; Thu,  8 Feb 2024 17:56:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2B16F80579
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E37BDF805AB
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=MiQVfxdg
+ header.s=Intel header.b=n4Coupfy
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1707411371; x=1738947371;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=WbMrcOtxEPTqPuAD9SZO9DSAuLMiWP+miOcXhisgqok=;
-  b=MiQVfxdg2ZINiePtX8rmHeosGi6vSPAQgyv7D5v6OoiTTncuae5OdER3
-   zGwSkvbb5e/mRWwLH5FsYhbONPvv+/RhXl5XqUwMwXtWGMcCkEZgG+SiL
-   7UFbPoELHnw0iAEfPANAXf0rXLGZU87jvdecA2/SCKGSOF4blUWn4XBw5
-   TbHCAeuqm9IuKA7H7G8mUBozP3UJYOr5yAVh/xYrK+CCe75lAjTjyEUgb
-   jbbzxuM99ItZ0/h+735gdPvsKIoVJ0ZDl4HkiFso96iynRRK7HmvqgZQC
-   dUgnihWibGP13V0iFjoAqHYvKYGrhiCPHD20FI1Ghk01clyrUOg0Vg2iK
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10978"; a="395675372"
+  bh=CB0MQPT1ZuhAYcjooRIGfBXF6KNofDELkTeUfNmtW+c=;
+  b=n4CoupfyT6kpPbwYoggUoGlr4Glj0+KI64mQwhRDpqzYsz1d1FURIw59
+   3ZFMCr3/Tj1YDjad0+bizCiyKnQQAhCdPBW9ocpEqs5gTVRAM1Q9OE85u
+   GPFw+X5s6sbAd2UO4rACVsvJUtV1AXM+cTR5KSPLCo8tcE5o52jIoEJ+Z
+   h4byIu2mzVC5xEhrSKGt+DscZZSJFbNBYv/9GKCAOKoQ02qVeua9mMTe+
+   HyxRc/pbDlbtGXKZNLJ6qwkf0P/D+9iUohppLZEGjRzsY2cSFqEHj2Pox
+   IWErewjYEsJIHCyG1LMMbyfSrc6BXLBt9lMH9VRdtuXT6mynvrqyD8+0m
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10978"; a="395675381"
 X-IronPort-AV: E=Sophos;i="6.05,254,1701158400";
-   d="scan'208";a="395675372"
+   d="scan'208";a="395675381"
 Received: from fmviesa010.fm.intel.com ([10.60.135.150])
   by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  08 Feb 2024 08:56:01 -0800
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.05,254,1701158400";
-   d="scan'208";a="1690207"
+   d="scan'208";a="1690220"
 Received: from stang1-mobl1.amr.corp.intel.com (HELO localhost.localdomain)
  ([10.212.92.130])
   by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
@@ -77,17 +77,17 @@ Cc: alsa-devel@alsa-project.org,
 	Bard Liao <yung-chuan.liao@linux.intel.com>,
 	Rander Wang <rander.wang@intel.com>,
 	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [PATCH 12/24] ASoC: Intel: sof_sdw_rt711: use helper to get codec dai
- by name
-Date: Thu,  8 Feb 2024 10:55:33 -0600
-Message-Id: <20240208165545.93811-13-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 13/24] ASoC: Intel: sof_sdw_rt712_sdca: use helper to get
+ codec dai by name
+Date: Thu,  8 Feb 2024 10:55:34 -0600
+Message-Id: <20240208165545.93811-14-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20240208165545.93811-1-pierre-louis.bossart@linux.intel.com>
 References: <20240208165545.93811-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: PRON5ESPFMAYAWVS4WMNEMQFVN6SGVEO
-X-Message-ID-Hash: PRON5ESPFMAYAWVS4WMNEMQFVN6SGVEO
+Message-ID-Hash: LT3TA5RZKNCZFZNZU7YIUMUZMVGFQ255
+X-Message-ID-Hash: LT3TA5RZKNCZFZNZU7YIUMUZMVGFQ255
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -100,7 +100,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PRON5ESPFMAYAWVS4WMNEMQFVN6SGVEO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LT3TA5RZKNCZFZNZU7YIUMUZMVGFQ255/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,49 +117,46 @@ Reviewed-by: Rander Wang <rander.wang@intel.com>
 Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/intel/boards/sof_sdw_rt711.c | 15 +++++++++++++--
+ sound/soc/intel/boards/sof_sdw_rt712_sdca.c | 15 +++++++++++++--
  1 file changed, 13 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/intel/boards/sof_sdw_rt711.c b/sound/soc/intel/boards/sof_sdw_rt711.c
-index 38782fdfcf15..5d8f90f2bf55 100644
---- a/sound/soc/intel/boards/sof_sdw_rt711.c
-+++ b/sound/soc/intel/boards/sof_sdw_rt711.c
-@@ -15,6 +15,7 @@
+diff --git a/sound/soc/intel/boards/sof_sdw_rt712_sdca.c b/sound/soc/intel/boards/sof_sdw_rt712_sdca.c
+index 3092029419df..27c924885ffc 100644
+--- a/sound/soc/intel/boards/sof_sdw_rt712_sdca.c
++++ b/sound/soc/intel/boards/sof_sdw_rt712_sdca.c
+@@ -13,6 +13,7 @@
+ #include <sound/soc.h>
  #include <sound/soc-acpi.h>
  #include <sound/soc-dapm.h>
- #include <sound/jack.h>
 +#include "sof_board_helpers.h"
  #include "sof_sdw_common.h"
  
- /*
-@@ -69,15 +70,24 @@ static struct snd_soc_jack_pin rt711_jack_pins[] = {
- 	},
- };
+ static const struct snd_soc_dapm_widget rt712_spk_widgets[] = {
+@@ -77,12 +78,21 @@ int sof_sdw_rt712_spk_init(struct snd_soc_card *card,
+ 	return 0;
+ }
  
-+static const char * const jack_codecs[] = {
-+	"rt711"
++static const char * const dmics[] = {
++	"rt712-sdca-dmic"
 +};
 +
- static int rt711_rtd_init(struct snd_soc_pcm_runtime *rtd)
+ static int rt712_sdca_dmic_rtd_init(struct snd_soc_pcm_runtime *rtd)
  {
  	struct snd_soc_card *card = rtd->card;
- 	struct mc_private *ctx = snd_soc_card_get_drvdata(card);
 -	struct snd_soc_dai *codec_dai = snd_soc_rtd_to_codec(rtd, 0);
 -	struct snd_soc_component *component = codec_dai->component;
 +	struct snd_soc_dai *codec_dai;
 +	struct snd_soc_component *component;
- 	struct snd_soc_jack *jack;
- 	int ret;
  
-+	codec_dai = get_codec_dai_by_name(rtd, jack_codecs, ARRAY_SIZE(jack_codecs));
++	codec_dai = get_codec_dai_by_name(rtd, dmics, ARRAY_SIZE(dmics));
 +	if (!codec_dai)
 +		return -EINVAL;
 +
 +	component = codec_dai->component;
  	card->components = devm_kasprintf(card->dev, GFP_KERNEL,
- 					  "%s hs:rt711",
- 					  card->components);
-@@ -180,3 +190,4 @@ int sof_sdw_rt711_init(struct snd_soc_card *card,
+ 					  "%s mic:%s",
+ 					  card->components, component->name_prefix);
+@@ -102,3 +112,4 @@ int sof_sdw_rt712_sdca_dmic_init(struct snd_soc_card *card,
  
  	return 0;
  }

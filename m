@@ -2,67 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E64C784F00E
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Feb 2024 07:01:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6760484F1C7
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Feb 2024 09:55:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DD633844;
-	Fri,  9 Feb 2024 07:01:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD633844
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6EDE4857;
+	Fri,  9 Feb 2024 09:55:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6EDE4857
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1707458481;
-	bh=fI6cNqUhngSVtPXix0fMo3wRWmm06WucGdKiFh3SYuw=;
+	s=default; t=1707468943;
+	bh=nBOwufcJKX3rOqeiUYDP5rWcbiNGvqPqiRENy/6jTDM=;
 	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=Hl7nUNEeHw6VF8Ujkp0wZ7ZBbbKbHqeG5yC+UcPP16k36AasY1oXJspWMad+IIqRn
-	 LvWUtoNKFwSu7lMR3eMnKPq4l0Id1Ddco8Nzw5YXPsC1ujg/iKo/FTuP72WfB94Iov
-	 lpS9N22ugdXvYurdJJ/yqnARQXP2iFZIO5lBP+to=
+	b=ucEwg5SPY6WdwXI+IeDb2ju2YTwdQ4J59Q8YbzZoU/NkoygGqvLAP1gC5bQZrlJYZ
+	 dhAULB1q0+eMazMjEMCbg95/7EhA5X72E2lujazO7NuAZ+inYiZPs+mdasu3iM0OY/
+	 /NXGlFyqULSp4qsyHjdC1pDEjTeqk1N+RaBIiH6M=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EECCFF805AA; Fri,  9 Feb 2024 07:00:49 +0100 (CET)
+	id C8536F8057B; Fri,  9 Feb 2024 09:55:10 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 03668F801EB;
-	Fri,  9 Feb 2024 07:00:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5368CF80579;
+	Fri,  9 Feb 2024 09:55:10 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6B31FF801EB; Fri,  9 Feb 2024 06:59:46 +0100 (CET)
+	id C6308F801EB; Fri,  9 Feb 2024 09:52:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from irl.hu (irl.hu [95.85.9.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
- server-digest SHA256)
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with UTF8SMTPS id 0EBFFF8016E
-	for <alsa-devel@alsa-project.org>; Fri,  9 Feb 2024 06:59:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0EBFFF8016E
-Received: from fedori.lan (51b69e54.dsl.pool.telekom.hu
- [::ffff:81.182.158.84])
-  (AUTH: CRAM-MD5 soyer@irl.hu, )
-  by irl.hu with ESMTPSA
-  id 0000000000071F9D.0000000065C5BF49.001B3A7F;
- Fri, 09 Feb 2024 06:59:37 +0100
-From: Gergo Koteles <soyer@irl.hu>
-To: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
-  Baojun Xu <baojun.xu@ti.com>, Jaroslav Kysela <perex@perex.cz>,
-  Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
-  Mark Brown <broonie@kernel.org>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
-  alsa-devel@alsa-project.org, Gergo Koteles <soyer@irl.hu>
-Subject: [PATCH v4] ASoC: tas2781: remove unused acpi_subysystem_id
-Date: Fri,  9 Feb 2024 06:59:34 +0100
-Message-ID: 
- <454639336be28d2b50343e9c8366a56b0975e31d.1707456753.git.soyer@irl.hu>
-X-Mailer: git-send-email 2.43.0
-Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-X-Mime-Autoconverted: from 8bit to 7bit by courier 1.0
-Message-ID-Hash: LQK2UL3M5WKCNBCVTEAL6PEQGU6TXKZ5
-X-Message-ID-Hash: LQK2UL3M5WKCNBCVTEAL6PEQGU6TXKZ5
-X-MailFrom: soyer@irl.hu
+	by alsa1.perex.cz (Postfix) with ESMTPS id 91F1DF8016E
+	for <alsa-devel@alsa-project.org>; Fri,  9 Feb 2024 09:52:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91F1DF8016E
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=bQGbmpMG
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1707468760; x=1739004760;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=nBOwufcJKX3rOqeiUYDP5rWcbiNGvqPqiRENy/6jTDM=;
+  b=bQGbmpMG9/F6+NohnlS+GpatwbYqc1E4kiYrAUvN2ju+TLT8aeKvdVYr
+   l2shB5xXNYw5K6GuQV48WLisn9y9/orAaCleZmuLW1v9M2FlLzxE3gmvO
+   PHocA3xOtNN22beaMmNjXaWrjAJtkKnfYLW3HD2smgCoo6BB5nKYs7/gv
+   uQK9Z6SoT4JZ9VoTLn2sE0jOmSXBChQyT5oagu6c5m6l72XvhzYxFNcXD
+   15ZbH7nOc0TUB2oEsPngFmuocCo6KQXlrAMuCoK2lebAUSl9+aOqUnb7j
+   ZzcURHaD25VKDVLHRdEN760mTtPg1EIkf8GqSXsO6BNknoo0QS/oO2//X
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10978"; a="18808770"
+X-IronPort-AV: E=Sophos;i="6.05,256,1701158400";
+   d="scan'208";a="18808770"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Feb 2024 00:52:35 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.05,256,1701158400";
+   d="scan'208";a="2196047"
+Received: from dev2 (HELO DEV2.igk.intel.com) ([10.237.148.94])
+  by fmviesa006.fm.intel.com with ESMTP; 09 Feb 2024 00:52:32 -0800
+From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+	Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org,
+	=?UTF-8?q?=C5=81ukasz=20Majczak?= <lma@chromium.org>,
+	Stephen Rothwell <sfr@canb.auug.org.au>,
+	=?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+Subject: [PATCH v2] ASoC: Intel: avs: Expose FW version with sysfs
+Date: Fri,  9 Feb 2024 09:52:56 +0100
+Message-Id: <20240209085256.121261-1-amadeuszx.slawinski@linux.intel.com>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: HI4GXOH73KOU7CVSBEEQ33W66XJVDCZS
+X-Message-ID-Hash: HI4GXOH73KOU7CVSBEEQ33W66XJVDCZS
+X-MailFrom: amadeuszx.slawinski@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -74,7 +98,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LQK2UL3M5WKCNBCVTEAL6PEQGU6TXKZ5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HI4GXOH73KOU7CVSBEEQ33W66XJVDCZS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -83,83 +107,121 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The acpi_subysystem_id is only written and freed, not read, so
-unnecessary.
+From: Cezary Rojewski <cezary.rojewski@intel.com>
 
-Signed-off-by: Gergo Koteles <soyer@irl.hu>
+Add functionality to read version of loaded FW from sysfs.
+
+Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 ---
-Changes since v3:
-- remove Fixes and CC tags from commit message
-- remove In-Reply-To from header
-- rebase onto for-next
-- link to v3: https://lore.kernel.org/lkml/7f056a4148fec176812ff6cc490860bf565b161c.1707255917.git.soyer@irl.hu/
-Changes since v2: remove sub from tas2781_read_acpi
-Changes since v1: remove physdev from tas2781_read_acpi
+
+Changes in v2:
+ - Adjust path in Documentation to correct one
+
 ---
- include/sound/tas2781.h           |  1 -
- sound/pci/hda/tas2781_hda_i2c.c   | 12 ------------
- sound/soc/codecs/tas2781-comlib.c |  1 -
- 3 files changed, 14 deletions(-)
+ .../ABI/testing/sysfs-bus-pci-devices-avs     |  8 +++++
+ sound/soc/intel/avs/Makefile                  |  3 +-
+ sound/soc/intel/avs/avs.h                     |  4 +++
+ sound/soc/intel/avs/core.c                    |  1 +
+ sound/soc/intel/avs/sysfs.c                   | 35 +++++++++++++++++++
+ 5 files changed, 50 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/ABI/testing/sysfs-bus-pci-devices-avs
+ create mode 100644 sound/soc/intel/avs/sysfs.c
 
-diff --git a/include/sound/tas2781.h b/include/sound/tas2781.h
-index 9aff384941de..99ca3e401fd1 100644
---- a/include/sound/tas2781.h
-+++ b/include/sound/tas2781.h
-@@ -103,7 +103,6 @@ struct tasdevice_priv {
- 	struct tm tm;
+diff --git a/Documentation/ABI/testing/sysfs-bus-pci-devices-avs b/Documentation/ABI/testing/sysfs-bus-pci-devices-avs
+new file mode 100644
+index 0000000000000..ebff3fa12055d
+--- /dev/null
++++ b/Documentation/ABI/testing/sysfs-bus-pci-devices-avs
+@@ -0,0 +1,8 @@
++What:		/sys/devices/pci0000:00/<dev>/avs/fw_version
++Date:		February 2024
++Contact:	Cezary Rojewski <cezary.rojewski@intel.com>
++Description:
++		Version of AudioDSP firmware ASoC avs driver is communicating
++		with.
++
++		Format: %d.%d.%d.%d, type:major:minor:build.
+diff --git a/sound/soc/intel/avs/Makefile b/sound/soc/intel/avs/Makefile
+index 460ee6599daf0..a3fad926d0fb0 100644
+--- a/sound/soc/intel/avs/Makefile
++++ b/sound/soc/intel/avs/Makefile
+@@ -1,7 +1,8 @@
+ # SPDX-License-Identifier: GPL-2.0-only
  
- 	enum device_catlog_id catlog_id;
--	const char *acpi_subsystem_id;
- 	unsigned char cal_binaryname[TASDEVICE_MAX_CHANNELS][64];
- 	unsigned char crc8_lkp_tbl[CRC8_TABLE_SIZE];
- 	unsigned char coef_binaryname[64];
-diff --git a/sound/pci/hda/tas2781_hda_i2c.c b/sound/pci/hda/tas2781_hda_i2c.c
-index 1bfb00102a77..4c9a788c3501 100644
---- a/sound/pci/hda/tas2781_hda_i2c.c
-+++ b/sound/pci/hda/tas2781_hda_i2c.c
-@@ -111,9 +111,7 @@ static int tas2781_get_i2c_res(struct acpi_resource *ares, void *data)
- static int tas2781_read_acpi(struct tasdevice_priv *p, const char *hid)
- {
- 	struct acpi_device *adev;
--	struct device *physdev;
- 	LIST_HEAD(resources);
--	const char *sub;
- 	int ret;
+ snd-soc-avs-objs := dsp.o ipc.o messages.o utils.o core.o loader.o \
+-		    topology.o path.o pcm.o board_selection.o control.o
++		    topology.o path.o pcm.o board_selection.o control.o \
++		    sysfs.o
+ snd-soc-avs-objs += cldma.o
+ snd-soc-avs-objs += skl.o apl.o
  
- 	adev = acpi_dev_get_first_match_dev(hid, NULL, -1);
-@@ -129,18 +127,8 @@ static int tas2781_read_acpi(struct tasdevice_priv *p, const char *hid)
+diff --git a/sound/soc/intel/avs/avs.h b/sound/soc/intel/avs/avs.h
+index d694e08e44e18..69c912feb8a7e 100644
+--- a/sound/soc/intel/avs/avs.h
++++ b/sound/soc/intel/avs/avs.h
+@@ -392,4 +392,8 @@ static inline void avs_debugfs_init(struct avs_dev *adev) { }
+ static inline void avs_debugfs_exit(struct avs_dev *adev) { }
+ #endif
  
- 	acpi_dev_free_resource_list(&resources);
- 	strscpy(p->dev_name, hid, sizeof(p->dev_name));
--	physdev = get_device(acpi_get_first_physical_node(adev));
- 	acpi_dev_put(adev);
- 
--	/* No side-effect to the playback even if subsystem_id is NULL*/
--	sub = acpi_get_subsystem_id(ACPI_HANDLE(physdev));
--	if (IS_ERR(sub))
--		sub = NULL;
--
--	p->acpi_subsystem_id = sub;
--
--	put_device(physdev);
--
- 	return 0;
- 
- err:
-diff --git a/sound/soc/codecs/tas2781-comlib.c b/sound/soc/codecs/tas2781-comlib.c
-index 5d0e5348b361..3aa81514dad7 100644
---- a/sound/soc/codecs/tas2781-comlib.c
-+++ b/sound/soc/codecs/tas2781-comlib.c
-@@ -408,7 +408,6 @@ void tasdevice_remove(struct tasdevice_priv *tas_priv)
- {
- 	if (gpio_is_valid(tas_priv->irq_info.irq_gpio))
- 		gpio_free(tas_priv->irq_info.irq_gpio);
--	kfree(tas_priv->acpi_subsystem_id);
- 	mutex_destroy(&tas_priv->codec_lock);
- }
- EXPORT_SYMBOL_GPL(tasdevice_remove);
-
-base-commit: aa0dc84513e94a6ee2df360cf5e3b207abf734e0
++/* Filesystems integration */
++
++extern const struct attribute_group *avs_attr_groups[];
++
+ #endif /* __SOUND_SOC_INTEL_AVS_H */
+diff --git a/sound/soc/intel/avs/core.c b/sound/soc/intel/avs/core.c
+index db78eb2f01080..273a902168562 100644
+--- a/sound/soc/intel/avs/core.c
++++ b/sound/soc/intel/avs/core.c
+@@ -776,6 +776,7 @@ static struct pci_driver avs_pci_driver = {
+ 	.probe = avs_pci_probe,
+ 	.remove = avs_pci_remove,
+ 	.shutdown = avs_pci_shutdown,
++	.dev_groups = avs_attr_groups,
+ 	.driver = {
+ 		.pm = &avs_dev_pm,
+ 	},
+diff --git a/sound/soc/intel/avs/sysfs.c b/sound/soc/intel/avs/sysfs.c
+new file mode 100644
+index 0000000000000..cce21636fbc02
+--- /dev/null
++++ b/sound/soc/intel/avs/sysfs.c
+@@ -0,0 +1,35 @@
++// SPDX-License-Identifier: GPL-2.0-only
++//
++// Copyright(c) 2021-2024 Intel Corporation. All rights reserved.
++//
++// Authors: Cezary Rojewski <cezary.rojewski@intel.com>
++//          Amadeusz Slawinski <amadeuszx.slawinski@linux.intel.com>
++//
++
++#include <linux/sysfs.h>
++#include "avs.h"
++
++static ssize_t fw_version_show(struct device *dev, struct device_attribute *attr, char *buf)
++{
++	struct avs_dev *adev = to_avs_dev(dev);
++	struct avs_fw_version *fw_version = &adev->fw_cfg.fw_version;
++
++	return sysfs_emit(buf, "%d.%d.%d.%d\n", fw_version->major, fw_version->minor,
++			  fw_version->hotfix, fw_version->build);
++}
++static DEVICE_ATTR_RO(fw_version);
++
++static struct attribute *avs_fw_attrs[] = {
++	&dev_attr_fw_version.attr,
++	NULL
++};
++
++static const struct attribute_group avs_attr_group = {
++	.name = "avs",
++	.attrs = avs_fw_attrs,
++};
++
++const struct attribute_group *avs_attr_groups[] = {
++	&avs_attr_group,
++	NULL
++};
 -- 
-2.43.0
+2.34.1
 

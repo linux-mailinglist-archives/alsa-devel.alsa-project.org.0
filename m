@@ -2,149 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 630EB84F429
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Feb 2024 12:07:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 263E384F470
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Feb 2024 12:19:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A97AB83E;
-	Fri,  9 Feb 2024 12:07:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A97AB83E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7668584D;
+	Fri,  9 Feb 2024 12:19:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7668584D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1707476830;
-	bh=0zJEqkTAGocV9Q4tDm4JAX76xe+S9BxvwQRBRuTetPs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=TR+x94qMWSgZOM2btGPgCwC3V10MVj2odpGgCgi+UyQ9BOxuU+t98NouyQoIBY2qh
-	 3ePpeUOUae3G9j4ZzCQu3/amMPTxfiYfvqR0BN8Kj/Ql6VgO4vTrXqKn1MRlMJopAi
-	 5sbVXJXJkBHo+iE0FibKf0OGVdKOW1sacB19IS0E=
+	s=default; t=1707477579;
+	bh=2QCTzPWA/DkT9N/CK7WxD3DS5kay/KOm54BbjT+1Owg=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=ua+YLLfBzflJwfp89flTut4sfs0Hi0t01pBpyBJ9VojmqNbjQYj42aJ0x57I4FSCN
+	 7b4u+bjTsRdTeDpf7ZlH0CWxc+6XAUEub8dw9DyIuuGyi3x7MLIBtXazyC6kzlqHvu
+	 NBR5ycHbiW354CRZwvC//qZ8BNbtPBG6Z2kzVwSg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5BA9BF80568; Fri,  9 Feb 2024 12:06:39 +0100 (CET)
+	id 05C1DF80578; Fri,  9 Feb 2024 12:19:06 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BC72CF805A0;
-	Fri,  9 Feb 2024 12:06:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 410A9F801EB;
+	Fri,  9 Feb 2024 12:19:06 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 89E69F801EB; Fri,  9 Feb 2024 12:06:34 +0100 (CET)
+	id D4567F801EB; Fri,  9 Feb 2024 12:19:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [IPv6:2a00:1450:4864:20::134])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4966FF8016E
-	for <alsa-devel@alsa-project.org>; Fri,  9 Feb 2024 12:06:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4966FF8016E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 49B56F8016E
+	for <alsa-devel@alsa-project.org>; Fri,  9 Feb 2024 12:18:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 49B56F8016E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=RBkv2wvc
-Received: by mail-lf1-x134.google.com with SMTP id
- 2adb3069b0e04-5116063585aso987952e87.1
-        for <alsa-devel@alsa-project.org>;
- Fri, 09 Feb 2024 03:06:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1707476783; x=1708081583;
- darn=alsa-project.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=dNIMeDELEsgEmpHqgGVZK/F6ni2JqtV13kYmgPwfag4=;
-        b=RBkv2wvcdYAjtCWEJjSx0jSDWPQfXrwi5CPu3Um5aJbE/ms/ikhrdqbYG6D8moXWp+
-         VL7sfZ5/FiD+MRqwOFnhRwRB3CUmXj9Gz5G7i0CnDNW0hWIN4DJr5I91/RxYIX0KrFNg
-         7betVj6H8QxEhisI9LWQvZyR23EzJ5Owrl//I1B6JGRWTBcgtyeI6Nn5qBQcjJJE8SYP
-         8ybd++nZm+7yX5tTNinWSK50yiJbMFrpNci56dYJzvOyMYMMVjLbooWKl64StS8gh+rF
-         7MrlFmu8KhIt3lUJL0Vm5LBHT/CtBeuQ+RszDaSuZ7HhYLvIoSbOtuB4uzrR/lmAH+u8
-         3dsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707476783; x=1708081583;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=dNIMeDELEsgEmpHqgGVZK/F6ni2JqtV13kYmgPwfag4=;
-        b=qEXS59OcbCCudXVBNV9PtcZPjzLm4gyCqOYRyPOIn54XOKV5EJKBbmo1HQ6qMvJH+S
-         c8T+d2QLNAAr3vMrvlp8YWxYrvUTWZ7v1os75tLdfH9r0M4PjMZzW1QKkBLEn1vv7+AK
-         bKJoDiHZLk3Wb32BSyfR6OjozgYpl2MtuRLhRD1A0tsf73Xcu5O65OkQxVxUIoA7uYj0
-         jWyuuCx16QGze37BFe2IhQnEpqAk/bRwIAb0qNmJKhdIX3BdJl8aViV3O3piAy07Sz1h
-         Ju0Zs1W921tHNPD13Rn4rO7yG2NDTQ2vk2JGCwyBmLGCyEefUa8wz1sfruWTxYGPYLT0
-         2rlQ==
-X-Gm-Message-State: AOJu0YxXsv+SAUIM4sH1IHD+mL0n0kzIvmZKXsTsJOvQ87obSL2YjWOM
-	UMN8z0SCqScOqBFlKGhgmXzwu/mBnidgEXdgrDUvEcOMLJtmqi+g6SlCqZplN94=
-X-Google-Smtp-Source: 
- AGHT+IGZ4YeLwzzx9v2KEXYku9ce24n0sGchhrnQap39oaCPrLkoUAU1Sl/NMvrZ3PlAMCjfJ+TRmA==
-X-Received: by 2002:a05:6512:1381:b0:511:5afc:f186 with SMTP id
- fc1-20020a056512138100b005115afcf186mr1088963lfb.26.1707476783128;
-        Fri, 09 Feb 2024 03:06:23 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AJvYcCWNKk5u18t/ut/bsH1vOixwQcHhTy21s9IglMiX84N0gidC2hfcol35fdyB7F9vbD9O/XHeL8U9dHFzqTVbF74/jtEF0J67IVcVVzN6A/xBrNHbHyseqF5qrHIM+nk4P17gMax9XNcKsn7oQX5ECeEEx09GIHmTiplTmEQ8O9v2OR6xHA1Gt2cRqxJ0D4g4UaAbLt8MBB6tNA5/zLpg+9lqjO7VhJBROSXOdecuwgn7IV7M9YNXmc7z5OXM0S8os4PtV/3v5VO8sNUKC6Sm6vUw/TUN/rZrJITgzvplSJpoTCUwRSOv3PRT1ecLmHOfEUGWNRIIGEyLmGjm+M9wvwwOO676IrPctx/o1f9XOFd0VBCLvQNKIuReFh5XAFBqV6ukRXHMpdOca11H5oodx+Sa7CDi8ZaZAjA2ShcbLuVwMtf8wBr8XGuJQiguif4aoG3KEJ7ET+i6cFJXmqbJh7aPWnz0zFDy/epMJkve68hf+UB10h6NVSOYrOmLup25V1nOFBCyFiHQ/xp5oayvNuhB0UgDB8kovb2scqg9Q9ibijpgEvpA5veRYNib5JEvl7dWPW4R0WtaMHIYD6w/MJb2ikEL4/k4pDHPuJ4dVd6X8EW6q3UN3BLrYITa4fKDJfJ+RU1p0GxWsFlc8QGMS6GrKlQ36mVYy13e9Bd8EIAXMKWGQrTNDBpfX9sJM6Ax4nurkJot2JSc8f/rThLpO1iIQenMbiHg3V9ILKX4KtJy4+ADbNWVL/2nvd5WXDuuPR7/Nacb/IM3HuDPDZC15nx2/WZZqmEud4CbV2kDl0K0lgnT6zs5fWloKAwmBf5wlhfHppCJZtLN+0iZaRJEUiFxkFH9SgunzlMFTTZj26GPnnqAcuwIbcShmSx3Orzxn9QMUWe/lK0j23HuP/cacgY2OHKW8RVucqw0hNOHUDKWowf5
-Received: from [192.168.2.107] ([79.115.63.202])
-        by smtp.gmail.com with ESMTPSA id
- l9-20020a1c7909000000b0040e527602c8sm285252wme.9.2024.02.09.03.06.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 09 Feb 2024 03:06:22 -0800 (PST)
-Message-ID: <c6f209c8-47da-4881-921d-683464b9ddd5@linaro.org>
-Date: Fri, 9 Feb 2024 11:06:20 +0000
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=fBymMNbP
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 4198U6AO001304;
+	Fri, 9 Feb 2024 05:18:53 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
+	from:to:cc:subject:date:message-id:mime-version
+	:content-transfer-encoding:content-type; s=PODMain02222019; bh=B
+	y/TgVzKI6B9xuMXwgwHXxQ8DBbq/f8zckfTpi+B+/M=; b=fBymMNbPRHed0uZv2
+	iT1vbBFsdfi64rJHFJ/kPt3VV8pqVEWzHFGFThwWgtteVLX5JrUcXIfwW30XO0g0
+	wkN7ilG2sV7mt8BXK7qTKr552qVTF8irV66KZ+rDBVa0al9h41GCEAzDWFMaHeJ/
+	3NfXiJ3c+S07CigfD7RC/c+SRH86uVwCLAZNunpgKvpvG+DIRCwK4aBLe8qlyBW9
+	OP6Pd0Q24FX7WKU453KySynVljxoKcHBJvsVr3iZglG9Wglva2OghjHFVu2yX8IO
+	CB5m4zwISPRWy/PeamnEep9+dBhHF3haF02eXrZ2G4x5OjpYjrQvBHFEcjnkcUyd
+	HcdRg==
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3w46p7b0he-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 09 Feb 2024 05:18:53 -0600 (CST)
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Fri, 9 Feb
+ 2024 11:18:40 +0000
+Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.40 via Frontend Transport; Fri, 9 Feb 2024 11:18:40 +0000
+Received: from ediswws06.ad.cirrus.com (ediswws06.ad.cirrus.com
+ [198.90.208.18])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id 72610820243;
+	Fri,  9 Feb 2024 11:18:40 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: <broonie@kernel.org>
+CC: <alsa-devel@alsa-project.org>, <linux-sound@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <patches@opensource.cirrus.com>,
+        "Richard
+ Fitzgerald" <rf@opensource.cirrus.com>
+Subject: [PATCH] ASoC: cs35l56: Workaround for ACPI with broken spk-id-gpios
+ property
+Date: Fri, 9 Feb 2024 11:18:40 +0000
+Message-ID: <20240209111840.1543630-1-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 07/10] mtd: spi-nor: Add stacked memories support in
- spi-nor
-Content-Language: en-US
-To: "Mahapatra, Amit Kumar" <amit.kumar-mahapatra@amd.com>,
- "broonie@kernel.org" <broonie@kernel.org>,
- "pratyush@kernel.org" <pratyush@kernel.org>,
- "miquel.raynal@bootlin.com" <miquel.raynal@bootlin.com>,
- "richard@nod.at" <richard@nod.at>, "vigneshr@ti.com" <vigneshr@ti.com>,
- "sbinding@opensource.cirrus.com" <sbinding@opensource.cirrus.com>,
- "lee@kernel.org" <lee@kernel.org>,
- "james.schulman@cirrus.com" <james.schulman@cirrus.com>,
- "david.rhodes@cirrus.com" <david.rhodes@cirrus.com>,
- "rf@opensource.cirrus.com" <rf@opensource.cirrus.com>,
- "perex@perex.cz" <perex@perex.cz>, "tiwai@suse.com" <tiwai@suse.com>
-Cc: "linux-spi@vger.kernel.org" <linux-spi@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "michael@walle.cc" <michael@walle.cc>,
- "linux-mtd@lists.infradead.org" <linux-mtd@lists.infradead.org>,
- "nicolas.ferre@microchip.com" <nicolas.ferre@microchip.com>,
- "alexandre.belloni@bootlin.com" <alexandre.belloni@bootlin.com>,
- "claudiu.beznea@tuxon.dev" <claudiu.beznea@tuxon.dev>,
- "Simek, Michal" <michal.simek@amd.com>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "patches@opensource.cirrus.com" <patches@opensource.cirrus.com>,
- "linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>,
- "git (AMD-Xilinx)" <git@amd.com>,
- "amitrkcian2002@gmail.com" <amitrkcian2002@gmail.com>,
- Conor Dooley <conor.dooley@microchip.com>, beanhuo@micron.com
-References: <20231125092137.2948-1-amit.kumar-mahapatra@amd.com>
- <e2305642-55f1-4893-bea3-b170ac0a5348@linaro.org>
- <BN7PR12MB2802BEDFB821A1748185794CDC8AA@BN7PR12MB2802.namprd12.prod.outlook.com>
- <f5a47024-514a-4846-bc16-08cf0f9af912@linaro.org>
- <BN7PR12MB2802BB3DA682D9C13EF7DE08DC8FA@BN7PR12MB2802.namprd12.prod.outlook.com>
- <5a6f6764-6779-42b0-b6c6-3f638b85ef78@linaro.org>
- <BN7PR12MB28029EB1A7D09882878499A2DC8FA@BN7PR12MB2802.namprd12.prod.outlook.com>
- <c3fa1e04-92ed-48ab-a509-98e43abd5cd6@linaro.org>
- <BN7PR12MB2802E87F1A6CD22D904CAEACDC93A@BN7PR12MB2802.namprd12.prod.outlook.com>
- <b3d3c457-a43b-478a-85b3-52558227d139@linaro.org>
- <BN7PR12MB28027E62D66460A374E3CFEADC93A@BN7PR12MB2802.namprd12.prod.outlook.com>
- <e212f9fa-83c5-4b9e-8636-c8c6183096ab@linaro.org>
- <BN7PR12MB280237CDD7BB148479932874DC93A@BN7PR12MB2802.namprd12.prod.outlook.com>
- <576d56ed-d24b-40f9-9ae4-a02c50eea2ab@linaro.org>
- <BN7PR12MB2802F288C6A6B1580CF07959DC95A@BN7PR12MB2802.namprd12.prod.outlook.com>
-From: Tudor Ambarus <tudor.ambarus@linaro.org>
-In-Reply-To: 
- <BN7PR12MB2802F288C6A6B1580CF07959DC95A@BN7PR12MB2802.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: X2MZ3XQ5FE3RDA5KKMEJ55XQBB6WSAVH
-X-Message-ID-Hash: X2MZ3XQ5FE3RDA5KKMEJ55XQBB6WSAVH
-X-MailFrom: tudor.ambarus@linaro.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: 8t-zjLHLUIdE2Aoj5UtkS0trOnV8Bbcd
+X-Proofpoint-GUID: 8t-zjLHLUIdE2Aoj5UtkS0trOnV8Bbcd
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: CYAYBHIB2PBHAH5ELYCOACNURUXUXRRD
+X-Message-ID-Hash: CYAYBHIB2PBHAH5ELYCOACNURUXUXRRD
+X-MailFrom: prvs=97692a8f23=rf@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -156,7 +102,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/X2MZ3XQ5FE3RDA5KKMEJ55XQBB6WSAVH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CYAYBHIB2PBHAH5ELYCOACNURUXUXRRD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -165,75 +111,145 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+The ACPI in some SoundWire laptops has a spk-id-gpios property but
+it points to the wrong Device node. This patch adds a workaround to
+try to get the GPIO directly from the correct Device node.
 
+If the attempt to get the GPIOs from the property fails, the workaround
+looks for the SDCA node "AF01", which is where the GpioIo resource is
+defined. If this exists, a spk-id-gpios mapping is added to that node
+and then the GPIO is got from that node using the property.
 
-On 12/21/23 06:54, Mahapatra, Amit Kumar wrote:
->> Something else to consider: I see that Micron has a twin quad mode:
->> https://media-www.micron.com/-
->> /media/client/global/documents/products/data-sheet/nor-flash/serial-
->> nor/mt25t/generation-
->> b/mt25t_qljs_l_512_xba_0.pdf?rev=de70b770c5dc4da8b8ead06b57c03500
->>
->> The micron's "Separate Chip-Select and Clock Signals" resembles the AMD's
->> dual parallel 8-bit.
-> Yes, I agree.
-> 
->> Micron's "Shared Chip-Select and Clock Signals" differs from the AMD's
->> stacked mode, as Micron uses DQ[3:0] and DQ[7:4], whereas AMD considers
->> both as DQ[3:0].
-> Yes, correct.
+Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+---
+ sound/soc/codecs/cs35l56.c | 93 ++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 93 insertions(+)
 
-Amit, please help me to assess this. I assume Micron and Microchip is
-using the same concepts as AMD uses for the "Dual Parallel 8-bit IO
-mode", but they call it "Twin Quad Mode".
+diff --git a/sound/soc/codecs/cs35l56.c b/sound/soc/codecs/cs35l56.c
+index 98d3957c66e7..2c1313e34cce 100644
+--- a/sound/soc/codecs/cs35l56.c
++++ b/sound/soc/codecs/cs35l56.c
+@@ -5,6 +5,7 @@
+ // Copyright (C) 2023 Cirrus Logic, Inc. and
+ //                    Cirrus Logic International Semiconductor Ltd.
+ 
++#include <linux/acpi.h>
+ #include <linux/completion.h>
+ #include <linux/debugfs.h>
+ #include <linux/delay.h>
+@@ -15,6 +16,7 @@
+ #include <linux/module.h>
+ #include <linux/pm.h>
+ #include <linux/pm_runtime.h>
++#include <linux/property.h>
+ #include <linux/regmap.h>
+ #include <linux/regulator/consumer.h>
+ #include <linux/slab.h>
+@@ -1260,6 +1262,94 @@ static int cs35l56_get_firmware_uid(struct cs35l56_private *cs35l56)
+ 	return 0;
+ }
+ 
++/*
++ * Some SoundWire laptops have a spk-id-gpios property but it points to
++ * the wrong ACPI Device node so can't be used to get the GPIO. Try to
++ * find the SDCA node containing the GpioIo resource and add a GPIO
++ * mapping to it.
++ */
++static const struct acpi_gpio_params cs35l56_af01_first_gpio = { 0, 0, false };
++static const struct acpi_gpio_mapping cs35l56_af01_spkid_gpios_mapping[] = {
++	{ "spk-id-gpios", &cs35l56_af01_first_gpio, 1 },
++	{ }
++};
++
++static void cs35l56_acpi_dev_release_driver_gpios(void *adev)
++{
++	acpi_dev_remove_driver_gpios(adev);
++}
++
++static int cs35l56_try_get_broken_sdca_spkid_gpio(struct cs35l56_private *cs35l56)
++{
++	struct fwnode_handle *af01_fwnode;
++	const union acpi_object *obj;
++	struct gpio_desc *desc;
++	int ret;
++
++	/* Find the SDCA node containing the GpioIo */
++	af01_fwnode = device_get_named_child_node(cs35l56->base.dev, "AF01");
++	if (!af01_fwnode) {
++		dev_dbg(cs35l56->base.dev, "No AF01 node\n");
++		return -ENOENT;
++	}
++
++	ret = acpi_dev_get_property(ACPI_COMPANION(cs35l56->base.dev),
++				    "spk-id-gpios", ACPI_TYPE_PACKAGE, &obj);
++	if (ret) {
++		dev_dbg(cs35l56->base.dev, "Could not get spk-id-gpios package: %d\n", ret);
++		return -ENOENT;
++	}
++
++	/* The broken properties we can handle are a 4-element package (one GPIO) */
++	if (obj->package.count != 4) {
++		dev_warn(cs35l56->base.dev, "Unexpected spk-id element count %d\n",
++			 obj->package.count);
++		return -ENOENT;
++	}
++
++	/* Add a GPIO mapping if it doesn't already have one */
++	if (!fwnode_property_present(af01_fwnode, "spk-id-gpios")) {
++		struct acpi_device *adev = to_acpi_device_node(af01_fwnode);
++
++		/*
++		 * Can't use devm_acpi_dev_add_driver_gpios() because the
++		 * mapping isn't being added to the node pointed to by
++		 * ACPI_COMPANION().
++		 */
++		ret = acpi_dev_add_driver_gpios(adev, cs35l56_af01_spkid_gpios_mapping);
++		if (ret) {
++			return dev_err_probe(cs35l56->base.dev, ret,
++					     "Failed to add gpio mapping to AF01\n");
++		}
++
++		ret = devm_add_action_or_reset(cs35l56->base.dev,
++					       cs35l56_acpi_dev_release_driver_gpios,
++					       adev);
++		if (ret)
++			return ret;
++
++		dev_dbg(cs35l56->base.dev, "Added spk-id-gpios mapping to AF01\n");
++	}
++
++	desc = fwnode_gpiod_get_index(af01_fwnode, "spk-id", 0, GPIOD_IN, NULL);
++	if (IS_ERR(desc)) {
++		ret = PTR_ERR(desc);
++		return dev_err_probe(cs35l56->base.dev, ret, "Get GPIO from AF01 failed\n");
++	}
++
++	ret = gpiod_get_value_cansleep(desc);
++	gpiod_put(desc);
++
++	if (ret < 0) {
++		dev_err_probe(cs35l56->base.dev, ret, "Error reading spk-id GPIO\n");
++		return ret;
++		}
++
++	dev_info(cs35l56->base.dev, "Got spk-id from AF01\n");
++
++	return ret;
++}
++
+ int cs35l56_common_probe(struct cs35l56_private *cs35l56)
+ {
+ 	int ret;
+@@ -1304,6 +1394,9 @@ int cs35l56_common_probe(struct cs35l56_private *cs35l56)
+ 	}
+ 
+ 	ret = cs35l56_get_speaker_id(&cs35l56->base);
++	if (ACPI_COMPANION(cs35l56->base.dev) && cs35l56->sdw_peripheral && (ret == -ENOENT))
++		ret = cs35l56_try_get_broken_sdca_spkid_gpio(cs35l56);
++
+ 	if ((ret < 0) && (ret != -ENOENT))
+ 		goto err;
+ 
+-- 
+2.30.2
 
-I was wrong, the AMD datasheet [1] was misleading [2], it described the
-IOs for both flashes as IO[3:0], but later on in the "Table QSPI
-Interface Signals" the second flash is described with IO[7:4].
-
-The AMD's 8-bit Dual Flash Parallel Interface is using dedicated CS# and
-CLK# lines for each flash. As Micron does, isn't it?
-
-Micron says [3] that:
-"The device contains two quad I/O die, each able to operate
-independently for a total of eight I/Os. The memory map applies to each
-die. Each die has internal registers for status, configuration, and
-device protection that can be set and read independently from one other.
-Micron recommends that internal configuration settings for the two die
-be set identically."
-
-it also says that:
-"When using quad commands in XIO-SPI or when using QIO-SPI,
-DQ[3:0]/DQ[7:4] are I/O."
-
-So I guess the upper layers just ask for a chunk of memory to be written
-and the controller handles the cs# lines automatically. How is the AMD
-controller working, do you have to drive the cs# lines manually, or you
-just set the parallel mode and the controller takes care of everything?
-
-I assume this is how mchp is handling things, they seem to just set a
-bit the protocol into the QSPI_IFR.PROTTYP register field and that's all
-[4]. They even seem to write the registers of both flashes at the same time.
-
-In what regards the AMD's "dual stack interface", AMD is sharing the
-clock and IO lines and uses dedicated CS# lines for the flashes, whereas
-Micron shares the CS# and CLK# lines with different IO lines.
-
-Amit, please study the architectures used by mchp, micron and amd and
-let us know if they are the same or they differ, and if they differ what
-are the differences.
-
-I added Conor from mchp in cc, I see Nicolas is already there, and Bean
-from micron.
-
-Thanks,
-ta
-
-[1]
-https://docs.xilinx.com/r/en-US/am011-versal-acap-trm/QSPI-Flash-Interface-Signals
-[2]
-https://docs.xilinx.com/viewer/attachment/dwmjhDJGICdJqD4swyVzcQ/fD8nv4ry78xM0_EF5kv4mA
-[3]
-https://media-www.micron.com/-/media/client/global/documents/products/data-sheet/nor-flash/serial-nor/mt25t/generation-b/mt25t_qljs_l_512_xba_0.pdf?rev=de70b770c5dc4da8b8ead06b57c03500
-[4]
-https://ww1.microchip.com/downloads/aemDocuments/documents/MPU32/ProductDocuments/DataSheets/SAMA7G5-Series-Data-Sheet-DS60001765.pdf

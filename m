@@ -2,80 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EA1384F714
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Feb 2024 15:19:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 056BA84F7FA
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Feb 2024 15:57:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 12B26826;
-	Fri,  9 Feb 2024 15:18:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 12B26826
+	by alsa0.perex.cz (Postfix) with ESMTPS id 70887827;
+	Fri,  9 Feb 2024 15:57:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 70887827
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1707488341;
-	bh=UCxlyAg/a2MYNuONkchPOYtImrK3EBH+0TjW3zSWeAc=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=nutVb57v6LVPEgHjYZ4LJx/FEOvnoIksImntd5FUU8zfCZsaW7HdAEwM5T+CmwnVR
-	 f26+0H08e/0YhZnZZHz9wraHcPZEFzyOjL2JFlYyB2HMdTT9p9gdqC3JFCOBclpTRM
-	 8ywc5IHnnE29HavrFIfVUVcYzV42orUtA/pRx3Ts=
+	s=default; t=1707490670;
+	bh=wO38Yt4tXTY92INv32gdo8g+xlsn6zHVAdq7e+Xxp0k=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=KyNZYGEPq0WPK5JuBuJtWYJFYBu4Qw+uMrdHGasy6zfNeMooKQCyqJbvQdZyFwO/l
+	 /Ei6z/sbk9PrryIf/JpItBBqByPVVQkh91mF+CAYbjyQRCWF7UqWPX9Qryw5Pl3rku
+	 HO350qvGG1nTeGAOXdYl6qZXx78DcT0YN3S5dKRs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EB511F80588; Fri,  9 Feb 2024 15:18:29 +0100 (CET)
+	id CA3D1F80568; Fri,  9 Feb 2024 15:57:18 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 44DBDF80589;
-	Fri,  9 Feb 2024 15:18:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 49A75F805A0;
+	Fri,  9 Feb 2024 15:57:18 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 29FFAF801EB; Fri,  9 Feb 2024 15:18:25 +0100 (CET)
+	id 66B5CF801EB; Fri,  9 Feb 2024 15:57:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8B5A6F8016E
-	for <alsa-devel@alsa-project.org>; Fri,  9 Feb 2024 15:18:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B5A6F8016E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 51A80F800EE
+	for <alsa-devel@alsa-project.org>; Fri,  9 Feb 2024 15:57:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51A80F800EE
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=GhHkXYEH
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id C743A61C50;
-	Fri,  9 Feb 2024 14:18:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64FEDC433C7;
-	Fri,  9 Feb 2024 14:18:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1707488283;
-	bh=UCxlyAg/a2MYNuONkchPOYtImrK3EBH+0TjW3zSWeAc=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=GhHkXYEHxSBVkn/p3VFI8Uu1yR75GhVQdPMBn9TRkO1b83zArvrTjA2/0Wk1aqduj
-	 PUN5kmWZtE+8kPiHbrAhcOFD21kS+4lWqqOCG9G2vy6CgjjHuj4VfR21BxYPHc11XR
-	 Jj31lI0d+eI7uXq8AiVhAjEieIBZdk/bDMxxq7oTEINeIyXyE8hX/O38X3YCbo5gzG
-	 +tTSmwz87TcAZMOakl35TTFp4q/GEbmmH485Cs4OUM0f4a4Uq1qCSbfJC6N+Sza1pj
-	 gfqa5svOa9tYolp6YFpKwb8BDi3pSR9Ga+ld1G2cu5+1wQeizy4owZ+EKF69q1Sr67
-	 pdjP/g28qr9/Q==
-From: Mark Brown <broonie@kernel.org>
-To: linux-sound@vger.kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de
-In-Reply-To: <20240208165545.93811-1-pierre-louis.bossart@linux.intel.com>
-References: <20240208165545.93811-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 00/24] ASoC: Intel: Machine driver updates for 6.9
-Message-Id: <170748828205.2342323.15381374372489233860.b4-ty@kernel.org>
-Date: Fri, 09 Feb 2024 14:18:02 +0000
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=fNTJr+CM
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 4199AB9n000674;
+	Fri, 9 Feb 2024 08:57:02 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
+	from:to:cc:subject:date:message-id:mime-version
+	:content-transfer-encoding:content-type; s=PODMain02222019; bh=/
+	8ZkQK18xlzwxeIuyhUWjvqXdyTGQv17yphhR0arZB8=; b=fNTJr+CM+26yf+JQe
+	+aWvSfE1KDRgDGk2eCawIV32aAFw8m4+BLqVKaLSl2tr1f/N7NCKC0mSzyU4tjiD
+	MHaWTM+dvnpUquN4BFLny+ZHUPeDoF7wnH9eBBP+FY/GdGesix7JshmRGYyq+jO6
+	F6YB4Gu1rDxJkKrT3xHxu1Bpg4gegEk42DYkUCwJTI03KQR+e+VmFHco/R1PdhqP
+	QjkC6Tbd0t1Q7OpDoi5VAoIJlt6QpLZ9An5Qaq9mE+lLMpVfdya13wjK22UIVZLv
+	w7C9hdzJqu+uuVtNzEYdVSGdjoWquhh9ovgk5VzlRz+C6KIRpE948x5ZrxzMxDLS
+	kjiqg==
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3w1ks2g1sc-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 09 Feb 2024 08:57:02 -0600 (CST)
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Fri, 9 Feb
+ 2024 14:57:00 +0000
+Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.40 via Frontend Transport; Fri, 9 Feb 2024 14:57:00 +0000
+Received: from ediswws06.ad.cirrus.com (ediswws06.ad.cirrus.com
+ [198.90.208.18])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id 3AB74820243;
+	Fri,  9 Feb 2024 14:57:00 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: <broonie@kernel.org>
+CC: <alsa-devel@alsa-project.org>, <linux-sound@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <patches@opensource.cirrus.com>,
+        "Richard
+ Fitzgerald" <rf@opensource.cirrus.com>
+Subject: [PATCH] ASoC: cs35l56: Remove default from IRQ1_CFG register
+Date: Fri, 9 Feb 2024 14:57:00 +0000
+Message-ID: <20240209145700.1555950-1-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-0438c
-Message-ID-Hash: YXIZOAPI37IB3DC5M2TUYYBB24QUPMLA
-X-Message-ID-Hash: YXIZOAPI37IB3DC5M2TUYYBB24QUPMLA
-X-MailFrom: broonie@kernel.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-GUID: Ra__ikqGi0ZyXfYsS1F3WyRJeJ8lXdt2
+X-Proofpoint-ORIG-GUID: Ra__ikqGi0ZyXfYsS1F3WyRJeJ8lXdt2
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: IITW4D3CDUP7TJNDJRKNOI33UPB7WN7G
+X-Message-ID-Hash: IITW4D3CDUP7TJNDJRKNOI33UPB7WN7G
+X-MailFrom: prvs=97692a8f23=rf@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -87,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YXIZOAPI37IB3DC5M2TUYYBB24QUPMLA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IITW4D3CDUP7TJNDJRKNOI33UPB7WN7G/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,97 +110,32 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 08 Feb 2024 10:55:21 -0600, Pierre-Louis Bossart wrote:
-> A fairly large update this time, with Brent Lu's continued cleanup of
-> Chromebook cards, and updates for new SoundWire configurations.
-> 
-> Bard Liao (11):
->   ASoC: Intel: sof_sdw: use single rtd_init for rt_amps
->   ASoC: Intel: add get_codec_dai_by_name helper function
->   ASoC: Intel: sof_sdw_rt_sdca_jack_common: use helper to get codec dai
->     by name
->   ASoC: Intel: sof_sdw_rt711: use helper to get codec dai by name
->   ASoC: Intel: sof_sdw_rt712_sdca: use helper to get codec dai by name
->   ASoC: Intel: sof_sdw_rt700: use helper to get codec dai by name
->   ASoC: Intel: sof_sdw_cs42l42: use helper to get codec dai by name
->   ASoC: Intel: sof_sdw_rt5682: use helper to get codec dai by name
->   ASoC: Intel: sof_sdw: add common sdw dai link init
->   ASoC: Intel: sof_sdw: remove .init callbacks
->   ASoC: Intel: sof_sdw: starts non sdw BE id with the highest sdw BE id
-> 
-> [...]
+The driver never uses the IRQ1_CFG register so there's no need to provide
+a default value. It's set as a readable register only for debugging
+through the regmap registers file.
 
-Applied to
+A system-specific firmware could overwrite this register with a non-default
+value. Therefore the driver can't hardcode what the initial value actually
+is. As the register is only for debugging the value can be left unknown
+until someone wants to read it through debugfs.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+---
+ sound/soc/codecs/cs35l56-shared.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-Thanks!
-
-[01/24] ASoC: Intel: sof_rt5682: board id cleanup for jsl boards
-        commit: 9be229ffc7a46c645a39d5993a2709d9936e046a
-[02/24] ASoC: Intel: sof_rt5682: board id cleanup for tgl boards
-        commit: dbda8647fb9ff39a957018673249d6bc0b1ccbf1
-[03/24] ASoC: Intel: sof_rt5682: board id cleanup for adl boards
-        commit: 41333c351da82a2277bb232aa74cda4181041328
-[04/24] ASoC: Intel: sof_rt5682: board id cleanup for rpl boards
-        commit: 19ec6b2ef8b6d1320866d2a2508cd16f95738640
-[05/24] ASoC: Intel: sof_rt5682: board id cleanup for mtl boards
-        commit: 922edacfadf8ca0c9a13788badaf18d41db29cd1
-[06/24] ASoC: Intel: sof_rt5682: dmi quirk cleanup for mtl boards
-        commit: 7a2a8730d51f95b263a1e8b888598dc6395220dc
-[07/24] ASoC: Intel: board_helpers: support DAI link order customization
-        commit: fff04329ac4bd21951d65f29934c15ff7e4b03a1
-[08/24] ASoC: Intel: sof_cs42l42: use common module for DAI link generation
-        commit: 1ad55ee7b5cd6bf6b7d06dd7262a4ddcc057c8ca
-[09/24] ASoC: Intel: sof_sdw: use single rtd_init for rt_amps
-        commit: 9f3763b3628def09440f1f0405cc127104c31634
-[10/24] ASoC: Intel: add get_codec_dai_by_name helper function
-        commit: 4ca5ba58f15ae5a9ad1fa7a5f0d0e50b03b36614
-[11/24] ASoC: Intel: sof_sdw_rt_sdca_jack_common: use helper to get codec dai by name
-        commit: 49f679a175b4fbdea88ba8787c22bce90c60565b
-[12/24] ASoC: Intel: sof_sdw_rt711: use helper to get codec dai by name
-        commit: 91a959d8913e3f2d3c3baed0a8469f878c838ff2
-[13/24] ASoC: Intel: sof_sdw_rt712_sdca: use helper to get codec dai by name
-        commit: c44f69bbcc7f0f4fd17ecc9ba13f9a91a6b5ccec
-[14/24] ASoC: Intel: sof_sdw_rt700: use helper to get codec dai by name
-        commit: 3e522c9852bc22ee4c257062fa6d57b4dd6b0f61
-[15/24] ASoC: Intel: sof_sdw_cs42l42: use helper to get codec dai by name
-        commit: 5e052fba621c2c57172fc6a1a9d73692fcc6d06d
-[16/24] ASoC: Intel: sof_sdw_rt5682: use helper to get codec dai by name
-        commit: 7bc6ceba7d354564d6b49d23830fa9d366e8ed31
-[17/24] ASoC: Intel: sof_sdw: add common sdw dai link init
-        commit: 8266c73126b75eabbebefe7ce489a798e9ef2662
-[18/24] ASoC: Intel: sof_sdw: remove .init callbacks
-        commit: 579d6596ebea488ad661bfa484c771c2b47eecc5
-[19/24] ASoC: Intel: common: DMI remap for rebranded Intel NUC M15 (LAPRC710) laptops
-        commit: c13e03126a5be90781084437689724254c8226e1
-[20/24] ASoC: Intel: ssp-common: Add stub for sof_ssp_get_codec_name
-        commit: c1469c3a8a306e5f1eab1ae9585640d08e183f87
-[21/24] ASoC: Intel: sof_sdw: Remove unused function prototypes
-        commit: 36fe7a495e32465b3d989459c497f0acf614be47
-[22/24] ASoC: Intel: soc-acpi: add RT712 support for LNL
-        commit: 0bbb0136b4e7729f533b1b3eb805c4217086e4ce
-[23/24] ASoC: Intel: soc-acpi-intel-lnl-match: Add rt722 support
-        commit: 7fa43af5b4cc78c4616d8345740203807593ed43
-[24/24] ASoC: Intel: sof_sdw: starts non sdw BE id with the highest sdw BE id
-        commit: 6b4c7d4d8297a9f395ff4addba8e5fde7f730c37
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+diff --git a/sound/soc/codecs/cs35l56-shared.c b/sound/soc/codecs/cs35l56-shared.c
+index 02fba4bc0a14..995d979b6d87 100644
+--- a/sound/soc/codecs/cs35l56-shared.c
++++ b/sound/soc/codecs/cs35l56-shared.c
+@@ -51,7 +51,6 @@ static const struct reg_default cs35l56_reg_defaults[] = {
+ 	{ CS35L56_SWIRE_DP3_CH2_INPUT,		0x00000019 },
+ 	{ CS35L56_SWIRE_DP3_CH3_INPUT,		0x00000029 },
+ 	{ CS35L56_SWIRE_DP3_CH4_INPUT,		0x00000028 },
+-	{ CS35L56_IRQ1_CFG,			0x00000000 },
+ 	{ CS35L56_IRQ1_MASK_1,			0x83ffffff },
+ 	{ CS35L56_IRQ1_MASK_2,			0xffff7fff },
+ 	{ CS35L56_IRQ1_MASK_4,			0xe0ffffff },
+-- 
+2.30.2
 

@@ -2,155 +2,165 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 368B7851591
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Feb 2024 14:43:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B97538516BA
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Feb 2024 15:13:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8D7F1A4D;
-	Mon, 12 Feb 2024 14:42:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D7F1A4D
+	by alsa0.perex.cz (Postfix) with ESMTPS id EB53F826;
+	Mon, 12 Feb 2024 15:13:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB53F826
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1707745387;
-	bh=rqH8V6xbdfF0F13rCGzXMzpp7vuMjDdnewyWWsEO/78=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To:Reply-To:List-Id:
+	s=default; t=1707747228;
+	bh=GYhlagCBg897+OGv4+/f3ExmqbsdQnuk2znU7U8INuw=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=COyp5pWJUJXBkMtgEnh5xoURbA1e/JVy5aE2aZj+ih8f7ds3+v0zrdQM9aWFOa05M
-	 PqlRsvxcIYhhLRTJvF2OiOp5sZ9sUHVCm5zuISZxxsAz5ezLLNyTQC+gbALAFZhgs5
-	 sVkUFw6CzB+PbpNU+qXjm3IbTUnML9EY3/sGHaqg=
+	b=Vm/Newlfbg+Vjya/pzNNhUMObVYO5TpETQcv4rax6q34i0dnRJ1f5ab/UaEMm+92j
+	 hhPj0KRIEGpgXeK4/7+Gg5dqabaNky4FDakn3llBSwXXwmCN3tx4QFjJaMGlcT2Dmc
+	 GF+yv9L+0WsGGuIoxhi636ctdPc2ZzfLIbhq+KLM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 03C07F805C8; Mon, 12 Feb 2024 14:42:22 +0100 (CET)
+	id 55201F8057B; Mon, 12 Feb 2024 15:13:16 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 57B1CF805D2;
-	Mon, 12 Feb 2024 14:42:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E2638F80579;
+	Mon, 12 Feb 2024 15:13:15 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 36293F805B0; Mon, 12 Feb 2024 14:42:18 +0100 (CET)
+	id 06EDCF80238; Mon, 12 Feb 2024 15:13:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [IPv6:2a00:1450:4864:20::136])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BB749F80589
-	for <alsa-devel@alsa-project.org>; Mon, 12 Feb 2024 14:42:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB749F80589
+	by alsa1.perex.cz (Postfix) with ESMTPS id DBF01F800BF
+	for <alsa-devel@alsa-project.org>; Mon, 12 Feb 2024 15:12:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DBF01F800BF
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=qTH3HybB
-Received: by mail-lf1-x136.google.com with SMTP id
- 2adb3069b0e04-511821e60c2so2068446e87.2
-        for <alsa-devel@alsa-project.org>;
- Mon, 12 Feb 2024 05:42:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1707745333; x=1708350133;
- darn=alsa-project.org;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :references:cc:to:content-language:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=i1egguljA3sQnHDnPRPPbcueWjcXgdGipGLJzM0d48g=;
-        b=qTH3HybBGRHF1idtB+uTDnopndoUndF7KOIePmxwUz4bpoTs+PP5sg21PotkNWyA5t
-         NKC/McnmDa/zHpLR0SD8xFxDqGOBt3Vp6WYaejNWHoluOUCpG4kT5Dy1PLKr1/gCSl//
-         aVh+0bDr2TLNvlzsAvwuZOV0Kva48g11hm746Sigkt53kAq2t3YgJAefSoRg6ZPQtTn7
-         ORykAY0wiSrPe8W+/BguFT2hKZ7UmcHJv7CiKB/CIW2wwkC3QjAB4o/Cv6+2d4BgfMpI
-         sdvGlpAk9vpkN6oCsw8IH6nWUrdvBhKZQPe0IBIqjW3INO2eA9yl7VzriTSu5XM2DME+
-         Ae3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707745333; x=1708350133;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :references:cc:to:content-language:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=i1egguljA3sQnHDnPRPPbcueWjcXgdGipGLJzM0d48g=;
-        b=QsL/ESH+QZ53QU0jPeMmmbl7oOpFcpwH86Fj6ED9iHOZdxmUi/sVn9OBr+Pn5/115c
-         8a3IxaSG7WGAur8+B9sizmees37zkjPpIv8mGKh8ikBQyVGMJcUYLtLcGiWr1cTphxi9
-         6Ky2nbYaIzOh16jyJVN5GDSDslq55o3Wl4DdOA2Yf8N4RuXiK+BajVas75EBHx4oTdWh
-         WaV/4UkspJO3+iKIrsfdo9KPUletqcCFx/ho1eF6GfyhIuAegcK/BSm4BKsBQIiuynLk
-         g/qpa1nRsRDO9L56VsGDhDQhx9XMtII2GCOdDZzzGWGHe1sywb2mxYU/kABOAY6FcCs1
-         qocw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXmLmA4ZNY/e03Y0eymvdqWL7UXzShA0je+hhlltH9SKcTRLOtOQNiVeKTMKWJYDDTeVpljKOXHjBAl1mZBXC1Tb4mFaVbqUL90IVg=
-X-Gm-Message-State: AOJu0YyKr2c+mMr+0MUD7pSQylcH4/RZKbAdgStPkusE+EIuK5iaZK/O
-	jSdNFJ8TfWYnv1+GhymPXwB50gOeDTNCX7wUsHgZukt0k4mTRf8z9+MQ778HXRg=
-X-Google-Smtp-Source: 
- AGHT+IE7YwnAR/t5AkP6YIn0uMqvFArgd0ofli+tExgAVx4Cgyw/iRwBsY/FeDi710tbkExSXCIOYg==
-X-Received: by 2002:ac2:518d:0:b0:511:694b:245a with SMTP id
- u13-20020ac2518d000000b00511694b245amr3909298lfi.58.1707745333527;
-        Mon, 12 Feb 2024 05:42:13 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AJvYcCWSGZEBeKuVwG5VasUk/o18BoRvc4R9Q7F5J+Lo/pwWIDyLBSFsdfdBW+Ug5S6sQEiESgazczGJNgzEtXSH7KCgyll9dF+BWTwx+GtoKN60WaP1mxhCL4fl78Ibxa6BuZedFAfxdWRl2QOtzLs0YMxAs0Qy8TDWgDGiw9R1AqO+qTDUa0mwR4/2z3eG/guHgkoYL6e0nyD08WAnBw8PwCSv0Sl++XmwvsvGrrH/VM5BB7mwS1DXZ0iQ11/yQ961yzkSNNY9qK4D/RWvzpoY5X2nHz7Vsmr7SiAi0TC2exwwFDgLeSk3xfUUQ4KFZpcY4ThLjhiprCW28zdR71SZdwDlRutKrgd+4g9zoCTFNP3CvfYn9ClQMO5rOiBN3qFFzBXa4Q82On/G6BD6B8AODSS5zfJNW2epYPclYs/rLndb6hRhzcCIDm3pQSywA5BNb3I+oppsOAKPZn8O3WF+qwQ5vL7coeQHKSzbuUO/3Y84WACJl9TaEmvEQQmdS0ssukbSHkkXAZ6Db5IpdejXVN4mPWGFz1wp6vxEY4LY/0XAGDvChusbP8yxm5I8zHD4CfIaQczmcu4jqrdx5d3qj4Ol77vshh2JZvZv8wS4nZ7mE99gvyqJXpISln4wJwVMSE/nyqlTziVSBurxnlZqQfqY9R3y2jJetsmfBlJynt1IHJystVq3bbo/JtqB6syONugrNRLdDT7wSMx008w61EgjwECmQpV43svrG2LnFwQI3osPkWrp6uWIuQ5jcvdoob/B3d6WGfNbfSgKptcxPPDHh8+ZXdZWV8c/ZHD1+zRZU5XHhPoG+s3Bjw==
-Received: from ?IPV6:2a01:e0a:982:cbb0:fcee:f026:296d:135f?
- ([2a01:e0a:982:cbb0:fcee:f026:296d:135f])
-        by smtp.gmail.com with ESMTPSA id
- a4-20020a05600c224400b00410ebcf8180sm1605785wmm.43.2024.02.12.05.42.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 12 Feb 2024 05:42:13 -0800 (PST)
-Message-ID: <3b31a7da-1ac4-471c-827b-1d9782c9d9d8@linaro.org>
-Date: Mon, 12 Feb 2024 14:42:12 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 6/7] arm64: dts: qcom: sm8550: Mark DWC3 as dma-coherent
-Content-Language: en-US, fr
-To: Konrad Dybcio <konrad.dybcio@linaro.org>,
- James Schulman <james.schulman@cirrus.com>,
- David Rhodes <david.rhodes@cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>,
- Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abel.vesa@linaro.org>,
- Sai Prakash Ranjan <quic_saipraka@quicinc.com>,
- Kees Cook <keescook@chromium.org>, Tony Luck <tony.luck@intel.com>,
- "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-Cc: Marijn Suijten <marijn.suijten@somainline.org>,
- alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-hardening@vger.kernel.org
-References: <20240210-topic-1v-v1-0-fda0db38e29b@linaro.org>
- <20240210-topic-1v-v1-6-fda0db38e29b@linaro.org>
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro Developer Services
-In-Reply-To: <20240210-topic-1v-v1-6-fda0db38e29b@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: DPHUVBKHNX53PQGTPOK4WQOS6PCH4PQQ
-X-Message-ID-Hash: DPHUVBKHNX53PQGTPOK4WQOS6PCH4PQQ
-X-MailFrom: neil.armstrong@linaro.org
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=xSawaPic;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=QZhkOOp+;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=J6GLEGtQ;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=G0qU2Bag
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id E372E1FBBE;
+	Mon, 12 Feb 2024 14:12:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1707747176;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7IEu9WkINfW6CP+gZKc/GcleDEcGsj+rgjeQGnih5CQ=;
+	b=xSawaPicajxkB2VlHQB+2Ewg0rrn9rZZNdgcBLVU9S3t4kr5ccY4RY0lhoCI++k7Aa0+Ba
+	4m0yHt7ITsshYLlrEnkOY4bS4aEJ2WSnXHocfL6YXSOKwvsg5irZm0FJ1fbXJChnXbaKmZ
+	2pCBoLKMj6YScez/ShOWqjJmiPfNLG4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1707747176;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7IEu9WkINfW6CP+gZKc/GcleDEcGsj+rgjeQGnih5CQ=;
+	b=QZhkOOp+wZWvoEr4wz3izNJIa+cQRhZ6wykvR6ae/vILLk/OtVbPCrDGCX3Mmi/6jiRFUe
+	UkmJIBU/oS+Yu2DA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1707747175;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7IEu9WkINfW6CP+gZKc/GcleDEcGsj+rgjeQGnih5CQ=;
+	b=J6GLEGtQsG5czWr+rJBgtHxI0H7A+6SHQdpWTVK9K88IgVS7MR2Z0UrRp7c1X+RG6DBeX+
+	y267JAeSmYzoLZua5B6d7eQc9sLKboEU6PvZJn7zvrIN8TLsXe/5j1miBsQ+b2cUg5mEpY
+	3/8AUdkbUNnjqYdqJ3k+cTDPkLQVnek=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1707747175;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7IEu9WkINfW6CP+gZKc/GcleDEcGsj+rgjeQGnih5CQ=;
+	b=G0qU2BagTLoJcuTHl/p/hKUhYJE14BLUJmfqbKPoOFWhhSjOOYq5EUw5/lvGqwbU06krec
+	KEOVjnCE5rd/LRCQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9E78612FF7;
+	Mon, 12 Feb 2024 14:12:55 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([10.150.64.162])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 0VsUJWcnymVCUAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 12 Feb 2024 14:12:55 +0000
+Date: Mon, 12 Feb 2024 15:12:55 +0100
+Message-ID: <871q9hwz2w.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
+Subject: Re: [REGRESSION] Acp5x probing regression introduced between kernel
+ 6.7.2 -> 6.7.4
+Cc: stable@vger.kernel.org,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	broonie@kernel.org,
+	linux-sound@vger.kernel.org,
+	alsa-devel@alsa-project.org,
+	LKML <linux-kernel@vger.kernel.org>
+In-Reply-To: <878r3qxcyr.wl-tiwai@suse.de>
+References: 
+ <CAD_nV8BG0t7US=+C28kQOR==712MPfZ9m-fuKksgoZCgrEByCw@mail.gmail.com>
+	<7a0cd63f-8a83-4dc5-8763-63dcdae8d68a@leemhuis.info>
+	<878r3qxcyr.wl-tiwai@suse.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=J6GLEGtQ;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=G0qU2Bag
+X-Spamd-Result: default: False [-4.31 / 50.00];
+	 ARC_NA(0.00)[];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	 SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	 FROM_HAS_DN(0.00)[];
+	 TO_DN_SOME(0.00)[];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 MIME_GOOD(-0.10)[text/plain];
+	 DWL_DNSWL_MED(-2.00)[suse.de:dkim];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	 DKIM_TRACE(0.00)[suse.de:+];
+	 MX_GOOD(-0.01)[];
+	 RCPT_COUNT_SEVEN(0.00)[8];
+	 MID_CONTAINS_FROM(1.00)[];
+	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,leemhuis.info:url];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+];
+	 RCVD_TLS_ALL(0.00)[];
+	 BAYES_HAM(-3.00)[100.00%]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: E372E1FBBE
+Message-ID-Hash: UBHJUUZJROTUUAFO4HWEEOXMKZRUY54M
+X-Message-ID-Hash: UBHJUUZJROTUUAFO4HWEEOXMKZRUY54M
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -159,41 +169,147 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.9
 Precedence: list
-Reply-To: neil.armstrong@linaro.org
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DPHUVBKHNX53PQGTPOK4WQOS6PCH4PQQ/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UBHJUUZJROTUUAFO4HWEEOXMKZRUY54M/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 12/02/2024 14:10, Konrad Dybcio wrote:
-> In a fairly new development, Qualcomm somehow made the DWC3 block
-> cache-coherent. Annotate that.
+On Mon, 12 Feb 2024 10:13:00 +0100,
+Takashi Iwai wrote:
 > 
-> Fixes: 7f7e5c1b037f ("arm64: dts: qcom: sm8550: Add USB PHYs and controller nodes")
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> ---
->   arch/arm64/boot/dts/qcom/sm8550.dtsi | 1 +
->   1 file changed, 1 insertion(+)
+> On Sun, 11 Feb 2024 18:19:25 +0100,
+> Linux regression tracking (Thorsten Leemhuis) wrote:
+> > 
+> > [CCing a few people]
+> > 
+> > On 11.02.24 15:34, Ted Chang wrote:
+> > > 
+> > > I noticed 6.7.4  has introduced a regression for the steam deck. The LCD
+> > > steam deck can no longer probe the acp5x audio chipset anymore. This
+> > > regression does not affect the 6.8.x series.  I did not test kernel
+> > > 6.7.3 because Opensuse tumbleweed skipped the update on my machine.
+> > 
+> > Thx for your report. FWIW, problems like this can be caused by all
+> > sorts of changes, but obviously those in the area of audio support
+> > are most likely to cause this. There are just a few in the 
+> > v6.7.2..v6.7.4 range[1]. Among them a commit that is related to
+> > acp5x, that's why I CCed its author as well (Venkata Prasad Potturu). 
+> > 
+> > Maybe one of the new recipients will have an idea. If not, you most
+> > likely will have to bisect this and check if mainline is affected
+> > as well.[2]
+> > 
+> > Ciao, Thorsten
+> > 
+> > [1]
+> > $ git log --oneline  v6.7.2..v6.7.4 sound/ 
+> > f3570675bf09af ASoC: codecs: wsa883x: fix PA volume control
+> > 2f8e9b77ca2fea ASoC: codecs: lpass-wsa-macro: fix compander volume hack
+> > 5b465d6384e4eb ASoC: codecs: wcd938x: fix headphones volume controls
+> > 1673211a38012e ASoC: qcom: sc8280xp: limit speaker volumes
+> > 242b5bffa23a9c ASoC: codecs: rtq9128: Fix TDM enable and DAI format control flow
+> > 2c272ff9859601 ASoC: codecs: rtq9128: Fix PM_RUNTIME usage
+> > 4a28302b2c681e ALSA: hda/conexant: Fix headset auto detect fail in cx8070 and SN6140
+> > e37a96941fdd53 ALSA: hda: intel-dspcfg: add filters for ARL-S and ARL
+> > ffa3eea886c6fe ALSA: hda: Intel: add HDA_ARL PCI ID support
+> > 4b6986b170f2f2 ASoC: amd: Add new dmi entries for acp5x platform
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/qcom/sm8550.dtsi
-> index 925e56317fb0..e845c8814fb9 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
-> @@ -3207,6 +3207,7 @@ usb_1_dwc3: usb@a600000 {
->   				snps,usb2-lpm-disable;
->   				snps,has-lpm-erratum;
->   				tx-fifo-resize;
-> +				dma-coherent;
->   
->   				ports {
->   					#address-cells = <1>;
+> This one is the only relevant change, I suppose.
+> The machine matches with 'Valve Jupiter'.
 > 
+> Interestingly, the system seems working with 6.8-rc3, so some piece
+> might be missing.  Or simply reverting this patch should fix.
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+In the bugzilla entry, the reporter confirmed that the revert of the
+commit 4b6986b170f2f2 fixed the problem.
+
+#regzbot introduced: 4b6986b170f2f2
+
+
+Takashi
+
+> 
+> 
+> Takashi
+> 
+> > e38ad4ace20b4d ALSA: hda: Refer to correct stream index at loops
+> > a434c75e0671f9 soundwire: fix initializing sysfs for same devices on different buses
+> >  
+> > [2] I'm working on a guide that describes what's needed:
+> > https://www.leemhuis.info/files/misc/How%20to%20bisect%20a%20Linux%20kernel%20regression%20%e2%80%94%20The%20Linux%20Kernel%20documentation.html
+> > 
+> > > Steps to reproduce the problem
+> > > 1. Obtain a steam deck
+> > > 2. Install kernel 6.7.4
+> > > 3. Boot the device and you will see dummy output in gnome shell
+> > > 
+> > > Observed kernel logs.
+> > > 
+> > > [    8.755614] cs35l41 spi-VLV1776:00: supply VA not found, using dummy regulator
+> > > [    8.760506] cs35l41 spi-VLV1776:00: supply VP not found, using dummy regulator
+> > > [    8.777148] cs35l41 spi-VLV1776:00: Cirrus Logic CS35L41 (35a40), Revision: B2
+> > > [    8.777471] cs35l41 spi-VLV1776:01: supply VA not found, using dummy regulator
+> > > [    8.777532] cs35l41 spi-VLV1776:01: supply VP not found, using dummy regulator
+> > > [    8.777709] cs35l41 spi-VLV1776:01: Reset line busy, assuming shared reset
+> > > [    8.788465] cs35l41 spi-VLV1776:01: Cirrus Logic CS35L41 (35a40), Revision: B2
+> > > [    8.877280] snd_hda_intel 0000:04:00.1: enabling device (0000 -> 0002)
+> > > [    8.877595] snd_hda_intel 0000:04:00.1: Handle vga_switcheroo audio client
+> > > [    8.889913] snd_acp_pci 0000:04:00.5: enabling device (0000 -> 0002)
+> > > [    8.890063] snd_acp_pci 0000:04:00.5: Unsupported device revision:0x50
+> > > [    8.890129] snd_acp_pci: probe of 0000:04:00.5 failed with error -22
+> > > [    8.906136] snd_hda_intel 0000:04:00.1: bound 0000:04:00.0 (ops amdgpu_dm_audio_component_bind_ops [amdgpu]
+> > > 
+> > > 
+> > > No kernel module in use shown.
+> > > 
+> > > 04:00.5 Multimedia controller [0480]: Advanced Micro Devices, Inc. [AMD]
+> > > ACP/ACP3X/ACP6x Audio Coprocessor [1022:15e2] (rev 50)
+> > > Subsystem: Valve Software Device [1e44:1776]
+> > > Flags: fast devsel, IRQ 70, IOMMU group 4
+> > > Memory at 80380000 (32-bit, non-prefetchable) [size=256K]
+> > > Capabilities: <access denied>
+> > > Kernel modules: snd_pci_acp3x, snd_rn_pci_acp3x, snd_pci_acp5x,
+> > > snd_pci_acp6x, snd_acp_pci, snd_rpl_pci_acp6x, snd_pci_ps,
+> > > snd_sof_amd_renoir, snd_sof_amd_rembrandt, snd_sof_amd_vangogh,
+> > > snd_sof_amd_acp63
+> > > 
+> > > 
+> > > Information for package kernel-default:
+> > > ---------------------------------------
+> > > Repository     : openSUSE-Tumbleweed-Oss
+> > > Name           : kernel-default
+> > > Version        : 6.7.4-1.1
+> > > Arch           : x86_64
+> > > Vendor         : openSUSE
+> > > Installed Size : 240.3 MiB
+> > > Installed      : Yes
+> > > Status         : up-to-date
+> > > Source package : kernel-default-6.7.4-1.1.nosrc
+> > > Upstream URL   : https://www.kernel.org/ <https://www.kernel.org/>
+> > > Summary        : The Standard Kernel
+> > > Description    : 
+> > >     The standard kernel for both uniprocessor and multiprocessor systems.
+> > > 
+> > > 
+> > >     Source Timestamp: 2024-02-06 05:32:37 +0000
+> > >     GIT Revision: 01735a3e65287585dd830a6a3d33d909a4f9ae7f
+> > >     GIT Branch: stable
+> > > 
+> > > Handle 0x0000, DMI type 0, 26 bytes
+> > > BIOS Information
+> > > 	Vendor: Valve
+> > > 	Version: F7A0120
+> > > 	Release Date: 12/01/2023
+> > > 	Address: 0xE0000
+> > > 	Runtime Size: 128 kB
+> > > 	BIOS Revision: 1.20
+> > > 	Firmware Revision: 1.16
+> > > 
+> > > #regzbot introduced: v6.7.2..v6.7.4
+> > > 

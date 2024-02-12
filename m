@@ -2,149 +2,129 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA48285340E
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Feb 2024 16:03:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59E60853412
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Feb 2024 16:03:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6EB2CE69;
-	Tue, 13 Feb 2024 16:03:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6EB2CE69
+	by alsa0.perex.cz (Postfix) with ESMTPS id 86899DE5;
+	Tue, 13 Feb 2024 16:03:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 86899DE5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1707836604;
-	bh=GFsfkdOmJKsuZtWQAq7OhjxHg4IKHiDCDNVd+Gd58aw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=jLll1NyuZFo1Jq6FaUjoPmWVdoZkneymoPtVHs9TlCyvzBxVIcJSzkbOqd4qqs+La
-	 pifJTIeQHp3CkaJsgawrt9nbMFZE31EfNlEp9zN44SNez5JyRnA40lmcOF7zg54vHm
-	 bS69o36H66DTraNKC1KV+gvRgCHDYoVqDyFhumM8=
+	s=default; t=1707836630;
+	bh=VHD7V7W4qwRQhqwPSDefa6gX+ovxXlDZA21Vs4ZGEfg=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=H1u98tkFN63+Ps4/CTFD2mN7JXgvgSIdY5i+feDr2iOGrt0RMXrGh4V1BRVj4rsg+
+	 3FG3fSQbzsJ4iZbwF7H/BSL/pBDUy6JDQL6MiiwBZ/lrdHe80A3a4kakmfk4aB9zXi
+	 EjLsiRWjWKkrhXXS+XVRsN1MY6dabnK3iztr63ns=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B2F4AF805C7; Tue, 13 Feb 2024 16:02:07 +0100 (CET)
+	id A92B8F806A6; Tue, 13 Feb 2024 16:02:11 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EDE97F80631;
-	Tue, 13 Feb 2024 16:02:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 960ECF805F2;
+	Tue, 13 Feb 2024 16:02:09 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D5D83F8056F; Mon, 12 Feb 2024 16:33:32 +0100 (CET)
+	id A5D13F80238; Mon, 12 Feb 2024 20:33:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [IPv6:2a00:1450:4864:20::230])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0AAB5F800EE
-	for <alsa-devel@alsa-project.org>; Mon, 12 Feb 2024 16:33:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0AAB5F800EE
+	by alsa1.perex.cz (Postfix) with ESMTPS id 20700F800EE
+	for <alsa-devel@alsa-project.org>; Mon, 12 Feb 2024 20:33:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20700F800EE
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Co2aU8UO
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id E07B860BAD;
-	Mon, 12 Feb 2024 15:33:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CD66C433F1;
-	Mon, 12 Feb 2024 15:33:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1707752000;
-	bh=GFsfkdOmJKsuZtWQAq7OhjxHg4IKHiDCDNVd+Gd58aw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=Co2aU8UOdKL4W8SUaaEqV0BTVAuiZ9niMqI5QuXmkWRQqRD+bsuUp32djuJPfJQ7M
-	 J0AdS/WqPhUm+WDhNwj0PIl1NFZPSx4kaz74w8AVaBO2niEWSvmitVVz0AuwMwTUcd
-	 8MtOvRT2s7ojnBMUpDpCQjuzEzxH0//zOgasqtDHJDU6fjIDBJFEa6lJkzge7aVnIn
-	 65sRlXZGfvNWKRj6hhoF+/MvmClp/yoVXWTT6Lqc/PTFBqTwhuA4fpNCA+K8uTOths
-	 DH2aamg+A5g3aeMmWit1ZUc4X0oSEYy8EtlcvJyPFhdziLYkgWINAXOkx2oWF2pGNL
-	 vlKQQFPbdC2Dw==
-From: Mark Brown <broonie@kernel.org>
-To: =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-Cc: kernel@pengutronix.de, Moritz Fischer <mdf@kernel.org>,
- Wu Hao <hao.wu@intel.com>, Xu Yilun <yilun.xu@intel.com>,
- Tom Rix <trix@redhat.com>, linux-fpga@vger.kernel.org,
- linux-kernel@vger.kernel.org, Alexander Aring <alex.aring@gmail.com>,
- Stefan Schmidt <stefan@datenfreihafen.org>,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- linux-wpan@vger.kernel.org, netdev@vger.kernel.org,
- Lars-Peter Clausen <lars@metafoo.de>,
- Michael Hennerich <Michael.Hennerich@analog.com>,
- Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-input@vger.kernel.org,
- Ulf Hansson <ulf.hansson@linaro.org>, Rayyan Ansari <rayyan@ansari.sh>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Jonathan Cameron <Jonathan.Cameron@huawei.com>,
- Martin Tuma <martin.tuma@digiteqautomotive.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org,
- Sergey Kozlov <serjk@netup.ru>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Yang Yingliang <yangyingliang@huawei.com>, linux-mmc@vger.kernel.org,
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
- Rob Herring <robh@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Michal Simek <michal.simek@amd.com>,
- Amit Kumar Mahapatra via Alsa-devel <alsa-devel@alsa-project.org>,
- linux-mtd@lists.infradead.org,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- =?utf-8?q?Pali_Roh=C3=A1r?= <pali@kernel.org>,
- Simon Horman <horms@kernel.org>, Ronald Wahl <ronald.wahl@raritan.com>,
- Benson Leung <bleung@chromium.org>, Tzung-Bi Shih <tzungbi@kernel.org>,
- Guenter Roeck <groeck@chromium.org>, chrome-platform@lists.linux.dev,
- Max Filippov <jcmvbkbc@gmail.com>, linux-spi@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, linux-arm-msm@vger.kernel.org,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- linux-mediatek@lists.infradead.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>,
- dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- linux-staging@lists.linux.dev, Viresh Kumar <vireshk@kernel.org>,
- Rui Miguel Silva <rmfrfs@gmail.com>, Johan Hovold <johan@kernel.org>,
- Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org,
- Peter Huewe <peterhuewe@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>,
- Jason Gunthorpe <jgg@ziepe.ca>, linux-integrity@vger.kernel.org,
- Herve Codina <herve.codina@bootlin.com>,
- Alan Stern <stern@rowland.harvard.edu>,
- Aaro Koskinen <aaro.koskinen@iki.fi>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- linux-usb@vger.kernel.org, Helge Deller <deller@gmx.de>,
- Dario Binacchi <dario.binacchi@amarulasolutions.com>,
- Kalle Valo <kvalo@kernel.org>, Dmitry Antipov <dmantipov@yandex.ru>,
- libertas-dev@lists.infradead.org, linux-wireless@vger.kernel.org,
- Jonathan Corbet <corbet@lwn.net>, James Clark <james.clark@arm.com>,
- Bjorn Helgaas <bhelgaas@google.com>, linux-doc@vger.kernel.org
-In-Reply-To: <cover.1705944943.git.u.kleine-koenig@pengutronix.de>
-References: <cover.1705944943.git.u.kleine-koenig@pengutronix.de>
-Subject: Re: (subset) [PATCH v2 00/33] spi: get rid of some legacy macros
-Message-Id: <170775198078.46149.4700126128576800564.b4-ty@kernel.org>
-Date: Mon, 12 Feb 2024 15:33:00 +0000
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=LUOxEfUc
+Received: by mail-lj1-x230.google.com with SMTP id
+ 38308e7fff4ca-2d0f7585d89so17141051fa.3
+        for <alsa-devel@alsa-project.org>;
+ Mon, 12 Feb 2024 11:33:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1707766422; x=1708371222;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=oum1jt+Q8dDAhYrJmUGRUjhcfu3Z0CZYzh6RXzXRq4o=;
+        b=LUOxEfUcI0Ds/s5WeSTmnkfTLIKIUAZjZl1MGoexBjeUbbce6Zs5F+spEPMiA9sOlt
+         Rs6QkKj9KEkCVdDHk2OaBThay/E06V7cD84+hFSCF8vmsE3KspN2WPp8S8/DVFTuYXb1
+         1s9miZo9hIT3zupTKfz/AMjd21USk1e72tFVD0iPjOr6X2SLMqvmJSZ2/DEa2gxwjSef
+         g8BDR0lI+lrjkjZxc8bsC9N2M1mW/t73QFH8b+R/56StOHBrpso7kGiuAuszQi1rop5c
+         rgTA8yeQU649RSDe7PKTS9JMYdgoHfiZsWVVBqswDIts/eg9Qta/vwnt1erkr/FYgjim
+         bNUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1707766422; x=1708371222;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=oum1jt+Q8dDAhYrJmUGRUjhcfu3Z0CZYzh6RXzXRq4o=;
+        b=c2oQk5rMsTgLSIWT4VRpCyX58ny4EmFvDKLYewtUHrdEmR17TRuiwJBXqUFXbOlS7p
+         dHCuI39+lKE6l8TT1L05u44JLhSVt9dWChiXLJw6C6vVris7O+IMAsWiTlIzmXFuBYbq
+         VJKMJNzTkDGNj+OCBJl8Bw+GIHQTVpnrhcHh2H36xKUAk10266Nsv/MY0q2wLcsRapl8
+         8K1a0E0HM1EFGKw3Dl2z3gG8rEf5FczycxsTYswNNEl/nynFCKJrKp5y49PbVVK6VJQm
+         xsPfOexIJlRUZRudRWJdzJYw100BwwYtgIsC9z/mrsCL9Ai6f839sDwjcbiSBE2WlvUd
+         Z9CA==
+X-Gm-Message-State: AOJu0YwR7lF19YnC54+6kdq9TNV6XILmtGaMAXxJpgWzTO1W/sq7V280
+	pWv3V0NI9yNjojWD0rrAK9m/7yMvAk6rdAGAxHZPaJzkf10P4c41
+X-Google-Smtp-Source: 
+ AGHT+IF4novuZ4Y+eA7hevM2fEuPwi4qeOPqKqpoEiAhRwgn1+MjD52hUUFLrsPXmYD3imwC5WJV+g==
+X-Received: by 2002:a2e:9786:0:b0:2d0:7a98:a493 with SMTP id
+ y6-20020a2e9786000000b002d07a98a493mr4846826lji.39.1707766422053;
+        Mon, 12 Feb 2024 11:33:42 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWoXX0vLop0ktvQhx4o6Q8IadytmX76FfJx/4Dz2GhnX8qNSE9lpa0Fp3T0rMcCPyfLqcRdfwMpebyEsY9Am8HG4orbqp+J1fS0slepcN47i42j07t58Wk3QyXZgqS09uapXkwrjpNsu3dSvATOEuv+fLHfhQZvE8XanUVnzdZucA9lTdOfr5tfQceK53hNGSjcoIeZ06I/JTDEoxEl249x0k51sSPLE6fhgVY6ocLYIRyMjwRTga2q2u7xMWVdJy+ZvGrVWOlzbal/YSqRo+W0wC6UKOTOeHP7j56isxWx9PTPrjtRO5s7i6OUJQFynIN8noEJ0tW6X+o2f1sfLuYZwHsG2JVrlhw73Usfa/mf//bhJAP0uQjNctesk6pI9b4QE2uGBUVFQcYQsoiImh+tpGLLIedkjm+yp3Ze0qoKhlIvpX3nfV1WT7BNjaHyCnA6BVt75Pl8Uk6joTGwYNy+M1mnUO0gaUIRwTOkJ4TDIRUswW2n+9Hv9iZaOSJFQCf6aCr1vhUXwjVuzUH/Dm8LuAbIfmDsHxSAuhES19435g6m5rA=
+Received: from tkudela.. (c156-103.icpnet.pl. [85.221.156.103])
+        by smtp.gmail.com with ESMTPSA id
+ d13-20020a170906370d00b00a3c66ac5146sm501104ejc.120.2024.02.12.11.33.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Feb 2024 11:33:41 -0800 (PST)
+From: "T. Kudela" <ramzes005@gmail.com>
+To: james.schulman@cirrus.com,
+	david.rhodes@cirrus.com,
+	rf@opensource.cirrus.com,
+	perex@perex.cz,
+	tiwai@suse.com,
+	sbinding@opensource.cirrus.com,
+	kailang@realtek.com,
+	luke@ljones.dev,
+	andy.chi@canonical.com,
+	shenghao-ding@ti.com,
+	ruinairas1992@gmail.com,
+	vitalyr@opensource.cirrus.com,
+	alsa-devel@alsa-project.org,
+	patches@opensource.cirrus.com,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: "T. Kudela" <ramzes005@gmail.com>
+Subject: [PATCH] Add Lenovo Legion 7i gen7 sound quirk
+Date: Mon, 12 Feb 2024 20:33:27 +0100
+Message-Id: <20240212193327.59507-1-ramzes005@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.13-dev-a684c
-X-MailFrom: broonie@kernel.org
-X-Mailman-Rule-Hits: max-recipients
+X-MailFrom: ramzes005@gmail.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
- suspicious-header
-Message-ID-Hash: GC5ZHABCHG4U2NKELFSMFK5V3WCYR2ZJ
-X-Message-ID-Hash: GC5ZHABCHG4U2NKELFSMFK5V3WCYR2ZJ
-X-Mailman-Approved-At: Tue, 13 Feb 2024 15:01:54 +0000
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: BDK2SBT26T7PEDQPTJNJRFOMLVE73W4Y
+X-Message-ID-Hash: BDK2SBT26T7PEDQPTJNJRFOMLVE73W4Y
+X-Mailman-Approved-At: Tue, 13 Feb 2024 15:01:55 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GC5ZHABCHG4U2NKELFSMFK5V3WCYR2ZJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BDK2SBT26T7PEDQPTJNJRFOMLVE73W4Y/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -153,105 +133,46 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 22 Jan 2024 19:06:55 +0100, Uwe Kleine-König wrote:
-> this is v2 of this patch set.
-> 
-> Changes since (implicit) v1, sent with Message-Id:
-> cover.1705348269.git.u.kleine-koenig@pengutronix.de:
-> 
->  - Rebase to v6.8-rc1
->  - Fix a build failure on sh
->  - Added the tags received in (implicit) v1.
-> 
-> [...]
+Add sound support for the Legion 7i gen7 laptop (16IAX7).
 
-Applied to
+Signed-off-by: T. Kudela <ramzes005@gmail.com>
+---
+ sound/pci/hda/cs35l41_hda_property.c | 2 ++
+ sound/pci/hda/patch_realtek.c        | 1 +
+ 2 files changed, 3 insertions(+)
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
-
-Thanks!
-
-[01/33] fpga: ice40-spi: Follow renaming of SPI "master" to "controller"
-        commit: 227ab73b89d66e3064b3c2bcb5fe382b1815763d
-[02/33] ieee802154: ca8210: Follow renaming of SPI "master" to "controller"
-        commit: 167b78446706bb4d19f7dd93ca320aed25ae1bbd
-[03/33] iio: adc: ad_sigma_delta: Follow renaming of SPI "master" to "controller"
-        commit: 2780e7b716a605781dbee753ef4983d775a65427
-[04/33] Input: pxspad - follow renaming of SPI "master" to "controller"
-        commit: a78acec53b8524593afeed7258a442adc3450818
-[05/33] Input: synaptics-rmi4 - follow renaming of SPI "master" to "controller"
-        commit: 1245633c61baf159fcc1303d7f0855f49831b9c1
-[06/33] media: mgb4: Follow renaming of SPI "master" to "controller"
-        commit: 2c2f93fbfba7186cc081e23120f169eac3b5b62a
-[07/33] media: netup_unidvb: Follow renaming of SPI "master" to "controller"
-        commit: cfa13a64bd631d8f04a1c385923706fcef9a63ed
-[08/33] media: usb/msi2500: Follow renaming of SPI "master" to "controller"
-        commit: dd868ae646d5770f80f90dc056d06eb2e6d39c62
-[09/33] media: v4l2-subdev: Follow renaming of SPI "master" to "controller"
-        commit: d920b3a672b7f79cd13b341234aebd49233f836c
-[10/33] misc: gehc-achc: Follow renaming of SPI "master" to "controller"
-        commit: 26dcf09ee5d9ceba2c627ae3ba174a229f25638f
-[11/33] mmc: mmc_spi: Follow renaming of SPI "master" to "controller"
-        commit: b0a6776e53403aa380411f2a43cdefb9f00ff50a
-[12/33] mtd: dataflash: Follow renaming of SPI "master" to "controller"
-        commit: 44ee998db9eef84bf005c39486566a67cb018354
-[14/33] net: ks8851: Follow renaming of SPI "master" to "controller"
-        commit: 1cc711a72ae7fd44e90839f0c8d3226664de55a2
-[15/33] net: vertexcom: mse102x: Follow renaming of SPI "master" to "controller"
-        commit: 7969b98b80c0332f940c547f84650a20aab33841
-[16/33] platform/chrome: cros_ec_spi: Follow renaming of SPI "master" to "controller"
-        commit: 85ad0ec049a771c4910c8aebb2d0bd9ce9311fd9
-[17/33] spi: bitbang: Follow renaming of SPI "master" to "controller"
-        commit: 2259233110d90059187c5ba75537eb93eba8417b
-[18/33] spi: cadence-quadspi: Don't emit error message on allocation error
-        commit: e71011dacc3413bed4118d2c42f10736ffcd762c
-[19/33] spi: cadence-quadspi: Follow renaming of SPI "master" to "controller"
-        commit: 28e59d8bf1ace0ddf05f989a48d6824d75731267
-[20/33] spi: cavium: Follow renaming of SPI "master" to "controller"
-        commit: 1747fbdedba8b6b3fd459895ed5d57e534549884
-[21/33] spi: geni-qcom: Follow renaming of SPI "master" to "controller"
-        commit: 14cea92338a0776c1615994150e738ac0f5fbb2c
-[22/33] spi: loopback-test: Follow renaming of SPI "master" to "controller"
-        commit: 2c2310c17fac13aa7e78756d7f3780c7891f9397
-[23/33] spi: slave-mt27xx: Follow renaming of SPI "master" to "controller"
-        commit: 8197b136bbbe64a7cab1020a4b067020e5977d98
-[24/33] spi: spidev: Follow renaming of SPI "master" to "controller"
-        commit: d934cd6f0e5d0052772612db4b07df60cb9da387
-[25/33] staging: fbtft: Follow renaming of SPI "master" to "controller"
-        commit: bbd25d7260eeeaef89f7371cbadcd33dd7f7bff9
-[26/33] staging: greybus: spi: Follow renaming of SPI "master" to "controller"
-        commit: ee3c668dda3d2783b0fff4091461356fe000e4d8
-[27/33] tpm_tis_spi: Follow renaming of SPI "master" to "controller"
-        commit: b6af14eacc8814b0986e20507df423cebe9fd859
-[28/33] usb: gadget: max3420_udc: Follow renaming of SPI "master" to "controller"
-        commit: 8c716f4a3d4fcbec976247e3443d36cbc24c0512
-[29/33] video: fbdev: mmp: Follow renaming of SPI "master" to "controller"
-        commit: b23031e730e72ec9067b7c38c25e776c5e27e116
-[30/33] wifi: libertas: Follow renaming of SPI "master" to "controller"
-        commit: 30060d57cee194d6b70283f2faf787e2fdc61b6e
-[31/33] spi: fsl-lib: Follow renaming of SPI "master" to "controller"
-        commit: 801185efa2402dce57828930e9684884fc8d62da
-[32/33] spi: Drop compat layer from renaming "master" to "controller"
-        commit: 620d269f29a569ba37419cc03cf1da2d55f6252a
-[33/33] Documentation: spi: Update documentation for renaming "master" to "controller"
-        commit: 76b31eb4c2da3ddb3195cc14f6aad24908adf524
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+diff --git a/sound/pci/hda/cs35l41_hda_property.c b/sound/pci/hda/cs35l41_hda_property.c
+index d74cf11eef1e..8a6b484b2184 100644
+--- a/sound/pci/hda/cs35l41_hda_property.c
++++ b/sound/pci/hda/cs35l41_hda_property.c
+@@ -95,6 +95,7 @@ static const struct cs35l41_config cs35l41_config_table[] = {
+ 	{ "10431F12", 2, INTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, 1, -1, 1000, 4500, 24 },
+ 	{ "10431F1F", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 1, -1, 0, 0, 0, 0 },
+ 	{ "10431F62", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 1, 2, 0, 0, 0, 0 },
++	{ "17AA386F", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, 1, -1, 0, 0, 0 },
+ 	{ "17AA38B4", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, 1, -1, 0, 0, 0 },
+ 	{ "17AA38B5", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, 1, -1, 0, 0, 0 },
+ 	{ "17AA38B6", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, 1, -1, 0, 0, 0 },
+@@ -431,6 +432,7 @@ static const struct cs35l41_prop_model cs35l41_prop_model_table[] = {
+ 	{ "CSC3551", "10431F12", generic_dsd_config },
+ 	{ "CSC3551", "10431F1F", generic_dsd_config },
+ 	{ "CSC3551", "10431F62", generic_dsd_config },
++	{ "CSC3551", "17AA386F", generic_dsd_config },
+ 	{ "CSC3551", "17AA38B4", generic_dsd_config },
+ 	{ "CSC3551", "17AA38B5", generic_dsd_config },
+ 	{ "CSC3551", "17AA38B6", generic_dsd_config },
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 6994c4c5073c..0029f61d4693 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -10260,6 +10260,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x17aa, 0x3853, "Lenovo Yoga 7 15ITL5", ALC287_FIXUP_YOGA7_14ITL_SPEAKERS),
+ 	SND_PCI_QUIRK(0x17aa, 0x3855, "Legion 7 16ITHG6", ALC287_FIXUP_LEGION_16ITHG6),
+ 	SND_PCI_QUIRK(0x17aa, 0x3869, "Lenovo Yoga7 14IAL7", ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN),
++	SND_PCI_QUIRK(0x17aa, 0x386f, "Legion 7i 16IAX7", ALC287_FIXUP_CS35L41_I2C_2),
+ 	SND_PCI_QUIRK(0x17aa, 0x3870, "Lenovo Yoga 7 14ARB7", ALC287_FIXUP_YOGA7_14ARB7_I2C),
+ 	SND_PCI_QUIRK(0x17aa, 0x387d, "Yoga S780-16 pro Quad AAC", ALC287_FIXUP_TAS2781_I2C),
+ 	SND_PCI_QUIRK(0x17aa, 0x387e, "Yoga S780-16 pro Quad YC", ALC287_FIXUP_TAS2781_I2C),
+-- 
+2.34.1
 

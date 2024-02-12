@@ -2,110 +2,123 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03FA9851D5A
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Feb 2024 19:52:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1E09851EE3
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Feb 2024 21:48:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A13CB1E2;
-	Mon, 12 Feb 2024 19:52:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A13CB1E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5FE231CF;
+	Mon, 12 Feb 2024 21:48:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5FE231CF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1707763955;
-	bh=GTS3knEn3U37SHf/wqemlrktyAqbrDzvlYNJt5L8bzg=;
-	h=From:Date:To:Cc:Subject:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=MOwUXebjoLFDeBHVAZAb8sg/6NSX5lnpkmFFfK0RlxdM74pa4t1EYzoyNJXb/IUTN
-	 r21XDXVPaE/8Oxpa1QMqD1OuHojHRWLr5AEaRSRuZ2xjJYfigSqghy0jgRFFbfqGYG
-	 NUnhHFdeC8TP/bYWCTGOgSikcZUxCSYJCUdPVO28=
+	s=default; t=1707770931;
+	bh=sMYBJYjLm8YsiiGaWfwhHa/Xio+UaZ439FcuhwQ9JVg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=vqIY7rUUyhplOD0CEl+da4zm1IVF3Y4Rpkz3qQrXl+tB2k6fF6pZxtDFF4SGBmevN
+	 kwnNG8/EM2uyk25i4E6y7Vnucct7HpUzh93QYpVMf6dBKMveA4fXMq/YXoLVNtQQ4j
+	 MEvdFvTuJsXBrRU2rkymOTFuJU6leUOyGary+lhY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9845AF805A9; Mon, 12 Feb 2024 19:52:04 +0100 (CET)
+	id F05C2F805A8; Mon, 12 Feb 2024 21:48:19 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 077B4F805A0;
-	Mon, 12 Feb 2024 19:52:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 35B88F805A1;
+	Mon, 12 Feb 2024 21:48:19 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EFAD4F80238; Mon, 12 Feb 2024 19:51:59 +0100 (CET)
+	id A1C4DF80238; Mon, 12 Feb 2024 21:48:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com
- [IPv6:2607:f8b0:4864:20::636])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-yb1-xb2d.google.com (mail-yb1-xb2d.google.com
+ [IPv6:2607:f8b0:4864:20::b2d])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1CB63F800BF
-	for <alsa-devel@alsa-project.org>; Mon, 12 Feb 2024 19:51:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1CB63F800BF
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7E216F8015B
+	for <alsa-devel@alsa-project.org>; Mon, 12 Feb 2024 21:48:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E216F8015B
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256
- header.s=google header.b=KHVw/Azz
-Received: by mail-pl1-x636.google.com with SMTP id
- d9443c01a7336-1d94323d547so30757325ad.3
+	dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=Y8KQzbcq
+Received: by mail-yb1-xb2d.google.com with SMTP id
+ 3f1490d57ef6-dc6d8bd618eso3702148276.3
         for <alsa-devel@alsa-project.org>;
- Mon, 12 Feb 2024 10:51:53 -0800 (PST)
+ Mon, 12 Feb 2024 12:48:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1707763911; x=1708368711;
+        d=linaro.org; s=google; t=1707770881; x=1708375681;
  darn=alsa-project.org;
-        h=content-disposition:mime-version:message-id:subject:cc:to:date:from
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=mPGSiRqCPFqmFEWSJFO1d43GTTlaRz0f+e2eVAoQklI=;
-        b=KHVw/Azzu5REHXcTdjc9fzmC4f3SWF3QGibq2VB6k0QRJehTkoOBi/jlxyrUrOLnNw
-         M+i4jPPAaOvCf8vtjmrG1wKbrwZkTrwakwl+brpDLykul3Xi8wErydfNlQDx+CFgMXE0
-         Zx4WRpe8kxN933ha3+m9dSep+hCrOOziMKMoc=
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=PY3cqSsBwNpTxKZXjc6hWsn0tIs/KUkTAVHRiL48yE4=;
+        b=Y8KQzbcqsRQoMW+0o7pyb5SLnxN3rlurEnToMhk4WSxYI6dg+VDoEskbDp8FsQppqv
+         MLuTlXe/PVoqay5tSVu0ZcSj/79FoMLwsDoA/BaEV0poApNnKHW8cZJoZq7PfYupQuX7
+         mOWeiS1OkjH4cpvP45KorUKLJ8/GpbJDvTq7RThVTJGfiDHsSVdn7qignMu9Kmz2L231
+         dZhltMuwO1eaj4qYxCLyDdgNxtgk6x4rU2d9skm9saXs0uWU8uP3dg/lNWoSLlaSkN1Q
+         ImuF3y8rSMmJrSSMMrGGucCAlNGeuX6qwcusE72qyqGCcKNQUBvFqfq1SHvSc57vtIhb
+         kqaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707763911; x=1708368711;
-        h=content-disposition:mime-version:message-id:subject:cc:to:date:from
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=mPGSiRqCPFqmFEWSJFO1d43GTTlaRz0f+e2eVAoQklI=;
-        b=TFheY4fLCPhhsbIQBBZFgFgVWZ+VQ8Z5F98DF+5uNoZU1Ghz1/V0/HySYA9C5+UDJ+
-         dn5a+0gYATbg1rgxBc3TMZpP2LgsQRH7vi8ENq0T1dWHPjp63Gb8dycWXSM0nTBPxtFj
-         nfJCpFj5SM4rck9JOb5VyIC5QLc58q9lguiHX8iubJxmxf8WcmDQ2pom5unfkCOcZc1S
-         c3FbAGGGfPBG0kuN1E2P98p99x4wuB/P2eET+kUFYCqAkdl38fWlodwf3qv/qOk4mLGK
-         pIrWVmjqBRjF4dfz+SZbTodW0sJx5tW1bQzRkVEdIUqHhm0WtQktODy+LS7+aw2B2pVV
-         TBkQ==
+        d=1e100.net; s=20230601; t=1707770881; x=1708375681;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=PY3cqSsBwNpTxKZXjc6hWsn0tIs/KUkTAVHRiL48yE4=;
+        b=GWX8uycn/wxpJFoXzzsmQ5VzQEGOXYuiqLguOCgRy1sBsJ83WkqKJ6U4S03KGLC8HA
+         +oW2K7oLRapqWFWie9HK1psbugug+iMU9GMYpw+HklIfFJ8H3ZnNiA8NOaB2P3eP3Bpl
+         kYrqA5trA6dcMbHGpHYXIYXx7a1dLKPrrz1aFvuj5o4kbMOIOYCgX5ayjcpa4s3VwZyN
+         aV9kfH+VvbBu1jAU8Aiu8HrES9wLTKNrEZR7a8+wUmVLGM0qItud4AnM8Lqzys1sNg1v
+         FwpdM12usrTYR2S80iY2KXQL1+oJLvtqC9lCe5G59/9EdZAQvpwhTbrdRDu4aStM9V7k
+         sh+A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWFw2uW8bHCBLHYL5L18MArtVtQhIadDgtWwxFTDffC4DIkL5c2MEsAjVCPoRxf2nSZq86tqVu4miuCH2M6PjA/pc9gr1mg7cKwAYo=
-X-Gm-Message-State: AOJu0YzArMLX9pbYRkRwJztlHNAQ9xxkqGPxAAEspu/Jlxf1X47pd2Wa
-	zgkXMijLSPN1Nk1WcCOCKpkqMfmqn9/Hn6XChsyv4AtmtUNHpAfEJ6tiqrgbKa0c7HdV2/ZifV0
-	=
+ AJvYcCW+2lmkIr6TvQKffhR0r2zAbCDz/FJefEoRIJydN6SUHaRSqpMkzqSyisaayrC8xPRlCSMHjdJQ2raOyes7+m4M0K1k0Wp9jBcIpgs=
+X-Gm-Message-State: AOJu0YzW3htbEGNrJVaXzs0QFPeDgyOhwKkUXdF7j/HqwDxjlatRJWoo
+	GqfXqkk70dexNU+CjjovHiLAVP48khkxW+ehs1MgaDoMFFGlvkFAVRUP5xdG4qrR3uvrv/ANv2O
+	dDh+t4pxNoh1VDH7FzZmmM5QZaoKFh2qpxsOuEg==
 X-Google-Smtp-Source: 
- AGHT+IFiP4XqEVFPUe0AQ5sfHfutAVORBuy6ctbchagD56aaWb7k8kuXps4xMsVwiJ9ZHG46ydaEYA==
-X-Received: by 2002:a17:902:e5c7:b0:1d9:a647:5579 with SMTP id
- u7-20020a170902e5c700b001d9a6475579mr5817557plf.1.1707763911196;
-        Mon, 12 Feb 2024 10:51:51 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AJvYcCWVMXpMNIhotAYcYiqvNVCkUE02lF5spebU9llp4fc83Uutkz2jejMC03XmEIikgbWSldV5H3FNfAtE/6Jgii8cDrbgJCUgH3FC06zl/KgIj9f0r9uzQf62jhBRN7BKOi1tZOnRyWmjtO7PY6+GSekpCARKo/B9UBpkn+azS/Cmmzi9TXICwENuOXYbDsVLW+aNl5BNyMY3j4f4tfwfGghjhJcNsUZ6UbcCDRZwnBmZD5vN27Xpt2chVq15/1Tj6eg7VCkbJz8orDtPaf0/GidfJtGvk+NZZPo9yUI35lJxR138j6xF646MPyb2DcV92qgf2IShUDlLrbaOWviiuXiOzIENe3ZZ1bXgGWRrVUEl1L12s9CLURo4SeY620eR/lcDl2m//IprO4DY6HkY9R14CW6xhIJkrV47ecHxKR84yndQsDXM3NJqMcpiu4M6Y+P8kbk2+ZWg8t1RBE4uXWXtDWTxFaVA9585IKWuec4srYj5WnES1gkpMYxVgbudrRnPzxYH+H7a4hODicJw9+ImmaeqZYgOPYsAmQk=
-Received: from www.outflux.net ([198.0.35.241])
-        by smtp.gmail.com with ESMTPSA id
- u11-20020a170903308b00b001d9fa58f5a4sm675012plc.48.2024.02.12.10.51.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Feb 2024 10:51:50 -0800 (PST)
-From: coverity-bot <keescook@chromium.org>
-X-Google-Original-From: coverity-bot <keescook+coverity-bot@chromium.org>
-Date: Mon, 12 Feb 2024 10:51:50 -0800
-To: Anton Yakovlev <anton.yakovlev@opensynergy.com>
-Cc: Jason Wang <jasowang@redhat.com>, Takashi Iwai <tiwai@suse.de>,
-	Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
-	virtualization@lists.linux.dev, Jaroslav Kysela <perex@perex.cz>,
-	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
-	Aiswarya Cyriac <aiswarya.cyriac@opensynergy.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	"Gustavo A. R. Silva" <gustavo@embeddedor.com>,
-	linux-next@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: Coverity: virtsnd_kctl_tlv_op(): Uninitialized variables
-Message-ID: <202402121051.B091CCC4B@keescook>
+ AGHT+IHpuGZC6SrLdNnZki7WawOfEUwxb557/rUhxkGHMzuDzurgn+uKQ9WrdUdXaiN7gnBNgrqdYeHN6a/77FI22dc=
+X-Received: by 2002:a25:ad82:0:b0:dc2:2f4f:757 with SMTP id
+ z2-20020a25ad82000000b00dc22f4f0757mr6478822ybi.7.1707770880839; Mon, 12 Feb
+ 2024 12:48:00 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Message-ID-Hash: B4T5NJKI4J3JNIZQM5PE7IVDF653MQD2
-X-Message-ID-Hash: B4T5NJKI4J3JNIZQM5PE7IVDF653MQD2
-X-MailFrom: keescook@chromium.org
+References: <20240129115216.96479-1-krzysztof.kozlowski@linaro.org>
+ <20240129115216.96479-5-krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20240129115216.96479-5-krzysztof.kozlowski@linaro.org>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Mon, 12 Feb 2024 21:47:49 +0100
+Message-ID: 
+ <CACRpkdbMFHPK0SBSxiZ3FOqChQFCBdOny0yYG--6V+1S=CKgiw@mail.gmail.com>
+Subject: Re: [PATCH v6 4/6] reset: Instantiate reset GPIO controller for
+ shared reset-gpios
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
+ Frank Rowand <frowand.list@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ alsa-devel@alsa-project.org,
+	linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org, Bartosz Golaszewski <brgl@bgdev.pl>,
+	Chris Packham <chris.packham@alliedtelesis.co.nz>,
+ Sean Anderson <sean.anderson@seco.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: YZWWYV3IBHWDXWU4YCGDTTCFQBBCVG7F
+X-Message-ID-Hash: YZWWYV3IBHWDXWU4YCGDTTCFQBBCVG7F
+X-MailFrom: linus.walleij@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -117,7 +130,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/B4T5NJKI4J3JNIZQM5PE7IVDF653MQD2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YZWWYV3IBHWDXWU4YCGDTTCFQBBCVG7F/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -126,50 +139,55 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hello!
+On Mon, Jan 29, 2024 at 12:53=E2=80=AFPM Krzysztof Kozlowski
+<krzysztof.kozlowski@linaro.org> wrote:
 
-This is an experimental semi-automated report about issues detected by
-Coverity from a scan of next-20240212 as part of the linux-next scan project:
-https://scan.coverity.com/projects/linux-next-weekly-scan
+> Devices sharing a reset GPIO could use the reset framework for
+> coordinated handling of that shared GPIO line.  We have several cases of
+> such needs, at least for Devicetree-based platforms.
+>
+> If Devicetree-based device requests a reset line, while "resets"
+> Devicetree property is missing but there is a "reset-gpios" one,
+> instantiate a new "reset-gpio" platform device which will handle such
+> reset line.  This allows seamless handling of such shared reset-gpios
+> without need of changing Devicetree binding [1].
+>
+> To avoid creating multiple "reset-gpio" platform devices, store the
+> Devicetree "reset-gpios" GPIO specifiers used for new devices on a
+> linked list.  Later such Devicetree GPIO specifier (phandle to GPIO
+> controller, GPIO number and GPIO flags) is used to check if reset
+> controller for given GPIO was already registered.
+>
+> If two devices have conflicting "reset-gpios" property, e.g. with
+> different ACTIVE_xxx flags, this would allow to spawn two separate
+> "reset-gpio" devices, where the second would fail probing on busy GPIO
+> request.
+>
+> Link: https://lore.kernel.org/all/YXi5CUCEi7YmNxXM@robh.at.kernel.org/ [1=
+]
+> Cc: Bartosz Golaszewski <brgl@bgdev.pl>
+> Cc: Chris Packham <chris.packham@alliedtelesis.co.nz>
+> Cc: Sean Anderson <sean.anderson@seco.com>
+> Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-You're getting this email because you were associated with the identified
-lines of code (noted below) that were touched by commits:
+Acked-by: Linus Walleij <linus.walleij@linaro.org>
 
-  Fri Feb 9 14:01:15 2024 +0100
-    d6568e3de42d ("ALSA: virtio: add support for audio controls")
+I can't think of anything better, that is reasonable to ask for.
 
-Coverity reported the following:
+I feel slightly icky about the way the code reaches into gpiolib, and I thi=
+nk
+regulators should be able to reuse the code, but unfortunately only the day
+they have no board files left :/
 
-*** CID 1583619:  Uninitialized variables  (UNINIT)
-sound/virtio/virtio_kctl.c:294 in virtsnd_kctl_tlv_op()
-288
-289     		break;
-290     	}
-291
-292     	kfree(tlv);
-293
-vvv     CID 1583619:  Uninitialized variables  (UNINIT)
-vvv     Using uninitialized value "rc".
-294     	return rc;
-295     }
-296
-297     /**
-298      * virtsnd_kctl_get_enum_items() - Query items for the ENUMERATED element type.
-299      * @snd: VirtIO sound device.
+I do feel the core code handling "reset-gpios" could as well have been
+used to handle "enable-gpios" in regulators, just that the regulator code
+has more requirements, and would be really hard to rewrite, and deals
+with descriptors passed in from drivers instead of centralizing it.
 
-If this is a false positive, please let us know so we can mark it as
-such, or teach the Coverity rules to be smarter. If not, please make
-sure fixes get into linux-next. :) For patches fixing this, please
-include these lines (but double-check the "Fixes" first):
+Like regulators, reset grows core support for handling GPIO for resets
+which is *long due*, given how common it must be. We really need
+something like this, and this is certainly elegant enough to do the job.
 
-Reported-by: coverity-bot <keescook+coverity-bot@chromium.org>
-Addresses-Coverity-ID: 1583619 ("Uninitialized variables")
-Fixes: d6568e3de42d ("ALSA: virtio: add support for audio controls")
-
-Thanks for your attention!
-
-(Human comment: looks like there's no "default" case in the switch
-statement.)
-
--- 
-Coverity-bot
+Yours,
+Linus Walleij

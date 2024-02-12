@@ -2,83 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 835CA850CCB
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Feb 2024 02:56:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68278850CE3
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Feb 2024 03:19:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BC7D9B71;
-	Mon, 12 Feb 2024 02:56:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC7D9B71
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5153AB76;
+	Mon, 12 Feb 2024 03:19:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5153AB76
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1707702974;
-	bh=MUKP/22XKAzX/zrzdHCQz7FFA53f79JTWOcoRM6eTTk=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=rRVQNKa7nt/Bx7iSWuwXMzV9OeOa4j4vcSwll+7Y++OhU+nFMttPMomNbiRhpfeWy
-	 tlB6NCB7bm0uX21H8tuR1UWf2C5yADPFDstvYMOIjx3iIL5nDwkKIL0BLNoktkwIxm
-	 lK7qc5lDFw3sAW2DzO/bsEKUC00K0w8wIwMF5hEc=
+	s=default; t=1707704362;
+	bh=Qf9hpbbXmCdPqCVyNK/W8p9ruZSqKZxRr83BUD1S2T4=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=GbzzZ70oMWx43XqnbZrMDaBIOPpeSwf+UcsS5T0gbpKdUOqtNWVnbU9kApWI1oKYC
+	 cg5aYoWzRBvrVZ2XxEH+7UsNnKxuLvW79KAtEIFuv5b5OhUmYlCFcMFhNBq7hQS6u7
+	 PU1zm7E3KNtVzLY0sCyxh5FcET0GEtbZgNUQwArI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 07FACF8058C; Mon, 12 Feb 2024 02:55:42 +0100 (CET)
+	id E9A60F805A1; Mon, 12 Feb 2024 03:18:50 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 71466F80570;
-	Mon, 12 Feb 2024 02:55:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8C8D3F8059F;
+	Mon, 12 Feb 2024 03:18:49 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4A451F80238; Mon, 12 Feb 2024 02:55:33 +0100 (CET)
+	id BEEA9F80238; Mon, 12 Feb 2024 03:18:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C790AF800EE
-	for <alsa-devel@alsa-project.org>; Mon, 12 Feb 2024 02:55:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C790AF800EE
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=QNLX7Mhs
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 698C9CE09E8;
-	Mon, 12 Feb 2024 01:55:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF580C433C7;
-	Mon, 12 Feb 2024 01:55:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1707702920;
-	bh=MUKP/22XKAzX/zrzdHCQz7FFA53f79JTWOcoRM6eTTk=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=QNLX7MhsNJO+lk066YgnoDlj9aVQZTJP5+jE64EWbHNBSUnbyyHIlyJMPwjy6nDkz
-	 WnujwYQUakbl1u+1xnW03OIIFlHYW9eJu08dnoElB4s7YCNNGpEHXSjY5hZgevHcYM
-	 Se2Qcqe1IP03h8fyUpicxsn8V+uSc2f1T9yoOO522sP6lKlNURwS19iJ3z9sFaWxJp
-	 RsX93aP812zaip9+6j/tiQyopiOhD/nyP2CLGm+GouqIWqXdlDNAbBP7xW0BiVmRoS
-	 ygYcHknIg2WGBIdlVhr18kGV3iVg570Q6F3OPWELf4bY4dlYex1pNciNJaSfltLzhw
-	 tstN7FUiseVdg==
-From: Mark Brown <broonie@kernel.org>
-To: Cezary Rojewski <cezary.rojewski@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Hans de Goede <hdegoede@redhat.com>
-Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org
-In-Reply-To: <20240210134400.24913-1-hdegoede@redhat.com>
-References: <20240210134400.24913-1-hdegoede@redhat.com>
-Subject: Re: [PATCH 6.8 regression fix 0/2] ASoC: Intel: Boards: Fix NULL
- pointer deref in BYT/CHT boards
-Message-Id: <170770291834.2485045.3173940349261833255.b4-ty@kernel.org>
-Date: Mon, 12 Feb 2024 01:55:18 +0000
+X-Spam-Status: No, score=-3.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
+ [207.180.221.201])
+	by alsa1.perex.cz (Postfix) with ESMTP id 4D8FCF800BF
+	for <alsa-devel@alsa-project.org>; Mon, 12 Feb 2024 03:18:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D8FCF800BF
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-0438c
-Message-ID-Hash: GM7EI7LTNBZX6I7YF637D4B77TD5KSK5
-X-Message-ID-Hash: GM7EI7LTNBZX6I7YF637D4B77TD5KSK5
-X-MailFrom: broonie@kernel.org
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1707704317305438280-webhooks-bot@alsa-project.org>
+References: <1707704317305438280-webhooks-bot@alsa-project.org>
+Subject: Asus ROG Strix Z790-A Gaming WIFI II audio codec detected as generic
+ USB audio, headphones and SPDIF not working
+Message-Id: <20240212021844.BEEA9F80238@alsa1.perex.cz>
+Date: Mon, 12 Feb 2024 03:18:44 +0100 (CET)
+Message-ID-Hash: AF4A6YIS56WSVVXKV3NTJLGQCKTM4QNX
+X-Message-ID-Hash: AF4A6YIS56WSVVXKV3NTJLGQCKTM4QNX
+X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -90,52 +62,24 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GM7EI7LTNBZX6I7YF637D4B77TD5KSK5/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AF4A6YIS56WSVVXKV3NTJLGQCKTM4QNX/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sat, 10 Feb 2024 14:43:58 +0100, Hans de Goede wrote:
-> While testing 6.8 on a Bay Trail device with a ALC5640 codec
-> I noticed a regression in 6.8 which causes a NULL pointer deref
-> in probe().
-> 
-> All BYT/CHT Intel machine drivers are affected. Patch 1/2 of
-> this series fixes all of them.
-> 
-> [...]
+alsa-project/alsa-ucm-conf issue #394 was opened from danielton1:
 
-Applied to
+Hi, I have an Asus ROG STRIX Z790-A GAMING WIFI II motherboard with a Realtek ALC4080 audio codec. Sound is working through the speakers via the line out jack, and it does detect when I plug headphones in, but everything I'm finding is that the ALSA UCM is failing to detect the device as a Realtek ALC4080 and instead is just using a generic USB profile, probably due to the USB ID being unknown. Audio always comes out the line out jack no matter what is plugged in to the front panel or SPDIF or how pipewire/ALSA are configured.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+This is what lsusb gives as the ID:
+Bus 001 Device 002: ID 0b05:1af1 ASUSTek Computer, Inc. USB Audio
 
-Thanks!
+This is the output of alsa-info.sh: http://alsa-project.org/db/?f=3dc5eb049583da76a18466a6cf16d144dae95f53
 
-[1/2] ASoC: Intel: Boards: Fix NULL pointer deref in BYT/CHT boards
-      commit: 7d99a70b65951108d82e1618c67abe69c3ed7720
-[2/2] ASoC: Intel: cht_bsw_rt5645: Cleanup codec_name handling
-      commit: 930375d34de67e129566caca008de0bbc54a4646
+I've tried modifying the files in /usr/share/alsa/ucm2/USB-Audio several different ways per several forum threads I came across online and ended up with no sound at all, so I'm not sure what's going on or how to fix this. Any help would be greatly appreciated!
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/394
+Repository URL: https://github.com/alsa-project/alsa-ucm-conf

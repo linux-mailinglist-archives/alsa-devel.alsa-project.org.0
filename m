@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 051D7851760
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Feb 2024 15:54:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2BA9851761
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Feb 2024 15:55:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5C6BAB65;
-	Mon, 12 Feb 2024 15:54:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C6BAB65
+	by alsa0.perex.cz (Postfix) with ESMTPS id 01091B60;
+	Mon, 12 Feb 2024 15:54:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 01091B60
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1707749685;
-	bh=NkwRjZxa0/AtcMo1/jowb91fxYW5bjzaFfRIJf9CD1c=;
+	s=default; t=1707749705;
+	bh=Eo2dIe2IA2KhPD2VRZXtgftgPPIjqL80jVWQFfnEBSQ=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=NyTTBzNjkIK3Ro9kOUUoDHjbKD7a7zy/CSVDTjmwiRYMd4w53ndJTEgbLI92qfGdE
-	 w3kiGxVY2SH4TbVvu1vs1CE9zLUEX268YkTufYs3F944fQcv8GMujaB0zxIhA1CQDg
-	 ZrRnuKRwfsfkzutk5JB8oF3dh3sMI3IaEfPOEZuk=
+	b=W09AC4nHy+6crvX9A8FmkNznTlNKvPoxtdmnTF6Ehcf/v98ghw8ECWMCu7JlGZ6lM
+	 W/gXqKhwcFJ23CdxCmXi329SWcGqt/0T+w9lG6VIoS3cgqyKoUEpeW8iujNBKrgKGB
+	 Mem3apnARb0UFGBBNK/ZIdbFBocfaGZX9D+wotPU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id ACF9BF8057B; Mon, 12 Feb 2024 15:54:13 +0100 (CET)
+	id E364BF805D5; Mon, 12 Feb 2024 15:54:16 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1F796F8059F;
-	Mon, 12 Feb 2024 15:54:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CC913F805C9;
+	Mon, 12 Feb 2024 15:54:15 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2C6DFF8025A; Mon, 12 Feb 2024 15:54:08 +0100 (CET)
+	id DD833F80238; Mon, 12 Feb 2024 15:54:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,56 +35,59 @@ X-Spam-Status: No, score=-5.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6B733F8015B
-	for <alsa-devel@alsa-project.org>; Mon, 12 Feb 2024 15:54:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B733F8015B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 614BEF800EE
+	for <alsa-devel@alsa-project.org>; Mon, 12 Feb 2024 15:54:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 614BEF800EE
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=ElhfJie2
+ header.s=Intel header.b=bG+Sfvaq
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1707749644; x=1739285644;
+  t=1707749646; x=1739285646;
   h=message-id:date:mime-version:subject:to:cc:references:
    from:in-reply-to:content-transfer-encoding;
-  bh=NkwRjZxa0/AtcMo1/jowb91fxYW5bjzaFfRIJf9CD1c=;
-  b=ElhfJie2/p0H/P0+4S/jWKPbj7IPje80MbfVHaLtoJRH9zvtJXKQvZfe
-   dBhQgmeGATkXwLMAfuKIBumm56z9dBejvd21rLnImHC3o5h8DFxJzTNKZ
-   jJ62qu99URXrBc1lCH4pl4PTX8/VPlUaYRdYquJEwnBs9A4kCNTA1Jv6e
-   8D69BVTalLFjnqtVSLWhQmeLdvLHGrJuARhjZp3muFqBxw79Tel4SC0WJ
-   IW7Y5g7jmtNPYPBj7Y5ODU8piDy5QW7phtWx0W8M5WJrXyOXcglHA44Hy
-   faeNzPfyCW5SH16wwNfAX/SFOQXLFPT/HRV/fTNmhkkmcAFv+8ZX5MEJH
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10982"; a="1850453"
+  bh=Eo2dIe2IA2KhPD2VRZXtgftgPPIjqL80jVWQFfnEBSQ=;
+  b=bG+Sfvaq/qL7Vp4U9Tefyh1gNRTuSGcjmoAWl3ekup3GtJ2/Y+cMOdUn
+   i/icNgnxwq2bbCvRs4B+Hd1ymv8JGOp3gH1yR+FBrCPgsIeBjUD3UWsil
+   B03KIF6JA4clkUs9xmUnGNWf5m+8WumFkZ/WiV4r+ivIaHi0j7G5Jateu
+   mH+FfUQr9WVt8IaXLeoUrrl8lucPEVsezk9ZUsN7nwKHGq3H3JRrlC5VS
+   XgHvx67fzvsiFiKiZDA2PHvZb3SPYCubokKLaU98N9XGDQ2uQOd9CgH26
+   ynP2ck8BxDv+Dv1tI2VnRwoNZBg1Hw2psgkuv+xIUH1uOxTq2yWDTu8T1
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10982"; a="1850456"
 X-IronPort-AV: E=Sophos;i="6.06,264,1705392000";
-   d="scan'208";a="1850453"
+   d="scan'208";a="1850456"
 Received: from fmviesa009.fm.intel.com ([10.60.135.149])
   by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  12 Feb 2024 06:54:01 -0800
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.06,264,1705392000";
-   d="scan'208";a="2582267"
+   d="scan'208";a="2582274"
 Received: from rvarada-mobl.amr.corp.intel.com (HELO [10.212.76.202])
  ([10.212.76.202])
   by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Feb 2024 06:54:00 -0800
-Message-ID: <83c8bfa3-4377-4198-b48e-351f9a9f63ed@linux.intel.com>
-Date: Mon, 12 Feb 2024 08:49:11 -0600
+ 12 Feb 2024 06:54:01 -0800
+Message-ID: <2f2d814f-61fe-490c-83ae-e397eddfdc17@linux.intel.com>
+Date: Mon, 12 Feb 2024 08:51:28 -0600
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] soundwire: fix double free of pointer
+Subject: Re: [PATCH 1/2] ASoC: rt5645: Make LattePanda board DMI match more
+ precise
 Content-Language: en-US
-To: Daniil Dulov <d.dulov@aladdin.ru>, Vinod Koul <vkoul@kernel.org>
-Cc: Bard Liao <yung-chuan.liao@linux.intel.com>,
- Sanyog Kale <sanyog.r.kale@intel.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org
-References: <20240211150937.4058-1-d.dulov@aladdin.ru>
+To: Hans de Goede <hdegoede@redhat.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>
+Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org
+References: <20240211212736.179605-1-hdegoede@redhat.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20240211150937.4058-1-d.dulov@aladdin.ru>
+In-Reply-To: <20240211212736.179605-1-hdegoede@redhat.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: AU2MYCTOC7RLHBVNLOPI2KLNJEYBVXTF
-X-Message-ID-Hash: AU2MYCTOC7RLHBVNLOPI2KLNJEYBVXTF
+Message-ID-Hash: MXZF7GNVDKQP3SHFIIPRBNLGT5MYCA5X
+X-Message-ID-Hash: MXZF7GNVDKQP3SHFIIPRBNLGT5MYCA5X
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -97,7 +100,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AU2MYCTOC7RLHBVNLOPI2KLNJEYBVXTF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MXZF7GNVDKQP3SHFIIPRBNLGT5MYCA5X/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,59 +111,32 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
 
-On 2/11/24 09:09, Daniil Dulov wrote:
-> If sdw_ml_sync_bank_switch() returns error not on the first iteration,
-> it leads to freeing prevously freed memory. So, set the pointer to NULL
-> after each successful bank switch.
+On 2/11/24 15:27, Hans de Goede wrote:
+> The DMI strings used for the LattePanda board DMI quirks are very generic.
 > 
-> Signed-off-by: Daniil Dulov <d.dulov@aladdin.ru>
-> ---
->  drivers/soundwire/stream.c | 1 +
->  1 file changed, 1 insertion(+)
+> Using the dmidecode database from https://linux-hardware.org/ shows
+> that the chosen DMI strings also match the following 2 laptops
+> which also have a rt5645 codec:
 > 
-> diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
-> index 304ff2ee7d75..d650e6f0f8e7 100644
-> --- a/drivers/soundwire/stream.c
-> +++ b/drivers/soundwire/stream.c
-> @@ -833,6 +833,7 @@ static int do_bank_switch(struct sdw_stream_runtime *stream)
->  				"multi link bank switch failed: %d\n", ret);
->  			goto error;
->  		}
-> +		bus->defer_msg.msg = NULL;
->  
->  		if (multi_link)
->  			mutex_unlock(&bus->msg_lock);
+> Insignia NS-P11W7100 https://linux-hardware.org/?computer=E092FFF8BA04
+> Insignia NS-P10W8100 https://linux-hardware.org/?computer=AFB6C0BF7934
+> 
+> All 4 hw revisions of the LattePanda board have "S70CR" in their BIOS
+> version DMI strings:
+> 
+> DF-BI-7-S70CR100-*
+> DF-BI-7-S70CR110-*
+> DF-BI-7-S70CR200-*
+> LP-BS-7-S70CR700-*
+> 
+> See e.g. https://linux-hardware.org/?computer=D98250A817C0
+> 
+> Add a partial (non exact) DMI match on this string to make the LattePanda
+> board DMI match more precise to avoid false-positive matches.
+> 
+> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 
-Not following what the issue is...
+For patch1 and 2
 
-On success, sdw_ml_sync_bank_switch() frees the buffers with
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-	if (bus->defer_msg.msg) {
-		kfree(bus->defer_msg.msg->buf);
-		kfree(bus->defer_msg.msg);
-		bus->defer_msg.msg = NULL;
-	}
-
-So if there is an issue on the second iteration, then the loop will
-detect already freed memory in the previous iteration and skip it:
-
-                /* Check if bank switch was successful */
-		ret = sdw_ml_sync_bank_switch(bus);
-		if (ret < 0) {
-			dev_err(bus->dev,
-				"multi link bank switch failed: %d\n", ret);
-			goto error;
-		}
-
-error:
-	list_for_each_entry(m_rt, &stream->master_list, stream_node) {
-		bus = m_rt->bus;
-		if (bus->defer_msg.msg) { <<<< TEST FOR FREED MEMORY
-			kfree(bus->defer_msg.msg->buf);
-			kfree(bus->defer_msg.msg);
-			bus->defer_msg.msg = NULL;
-		}
-	}
-
-It could very well be that I need more coffee on this post-SuperBowl
-Monday morning, but I just don't see the problem.

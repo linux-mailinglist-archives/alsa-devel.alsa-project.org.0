@@ -2,80 +2,119 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8443852EC2
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Feb 2024 12:06:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B355852FC6
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Feb 2024 12:44:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 71D2BB70;
-	Tue, 13 Feb 2024 12:06:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 71D2BB70
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3939682B;
+	Tue, 13 Feb 2024 12:44:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3939682B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1707822397;
-	bh=saEEW2K86dM6FLv55BUHxbVrfwkcPU+hjYCqovDchuw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1707824662;
+	bh=j0EcmW86LVwxDZD8jjvR3IIBsMo9Vd5fN53o5Q4wNco=;
+	h=References:From:To:Cc:Subject:Date:In-reply-to:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=QIBdDo76FQNuLY2d7UIwS9mpi14RDv+MYmqM9cleNME/d0jTqPeXgJwNNRCostCuJ
-	 1O2K/FN5BckkusRb6o2GoWmeALnrAN9kDt5ePUGreTu+ciY+K7nPaXUeglKgk9lCf7
-	 GWEpz78P8dJx3VAheJbVNI1gGWgr2+r1e2sCbNZM=
+	b=BzXPvWyfMn96CRRmPF+NG2aILzee22sRUCAts252MO9Z94WLjxLU6jINNXqfkHDnZ
+	 jk9JjbfXKrQgvSExc3kMQ+yzzRcr3a0xOi2+4GXLk1eWup5JkuuY/lexN9fNYRO3nR
+	 VAuarfCDavhRlFiead1DBcQcDCbeqcR8XMUbzUfk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D2067F80567; Tue, 13 Feb 2024 12:06:05 +0100 (CET)
+	id 1A55EF80589; Tue, 13 Feb 2024 12:43:49 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3AFDFF80104;
-	Tue, 13 Feb 2024 12:06:05 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 43B2AF8057C;
+	Tue, 13 Feb 2024 12:43:49 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 447D0F80238; Tue, 13 Feb 2024 12:06:00 +0100 (CET)
+	id F3477F80238; Tue, 13 Feb 2024 12:43:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [IPv6:2a00:1450:4864:20::42b])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F0866F800BF
-	for <alsa-devel@alsa-project.org>; Tue, 13 Feb 2024 12:05:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0866F800BF
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4DD56F8015B
+	for <alsa-devel@alsa-project.org>; Tue, 13 Feb 2024 12:43:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4DD56F8015B
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org
- header.a=rsa-sha256 header.s=korg header.b=WWslb2Hf
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id C8BF9CE1A90;
-	Tue, 13 Feb 2024 11:05:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99541C433F1;
-	Tue, 13 Feb 2024 11:05:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1707822350;
-	bh=saEEW2K86dM6FLv55BUHxbVrfwkcPU+hjYCqovDchuw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=WWslb2HfAr2jGZgmRghTVvSL5AEn56kpCKX3evrc60iEsvE4AjaW4BFwJjmNatY9Q
-	 YOWGnFGCoYtz6OD7dQ9qU7wL/z6Xb2My0+oMtxmX3vhKil5rDh9UIPC2PlszYW3sH0
-	 FhV2jViRZJUoRYZM6aHBIhveIufTmt87SNWxLIas=
-Date: Tue, 13 Feb 2024 12:05:47 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Alexander Tsoy <alexander@tsoy.me>
-Cc: linux-usb@vger.kernel.org, linux-sound@vger.kernel.org,
-	alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Nikolay Yakimov <root@livid.pp.ru>,
-	Saranya Gopal <saranya.gopal@intel.com>
-Subject: Re: [PATCH] USB: Always select config with the highest supported UAC
- version
-Message-ID: <2024021353-reversing-waltz-7402@gregkh>
-References: <20240212152848.44782-1-alexander@tsoy.me>
+	dkim=pass (2048-bit key,
+ unprotected) header.d=baylibre-com.20230601.gappssmtp.com
+ header.i=@baylibre-com.20230601.gappssmtp.com header.a=rsa-sha256
+ header.s=20230601 header.b=O4esTIaQ
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-33b2960ff60so3002896f8f.1
+        for <alsa-devel@alsa-project.org>;
+ Tue, 13 Feb 2024 03:43:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1707824610;
+ x=1708429410; darn=alsa-project.org;
+        h=mime-version:message-id:in-reply-to:date:subject:cc:to:from
+         :user-agent:references:from:to:cc:subject:date:message-id:reply-to;
+        bh=E9Sow8wf4cLhsoNjPkxy+Vy7mK54b8EsDuIPycqqMjY=;
+        b=O4esTIaQ5kpQpG9b0n0E6zCl/XRLDiXE+Lenq5YL5hE5G8J4utUSX5/oOG15dWDBJJ
+         AsxtSHXSeOgIcmnWlpgBkZvSr9PqVaLTSIPEXYVCXA7RDS0onQx/GKJjhjYD8W2lqPlB
+         W/rqygB/y7HDsB5CbRBDV0ThLeXTFU10Z6pRYxFzl5pDGbqQk4hMCaXNe8Rx8NJMEsNC
+         i75jdLrLlTsc/VYGK6y0iUWUi/0COmubCNgr/XpDEqr9GR/ugup7m+2ygOUSfkLPUt58
+         t5sturjOQBMErBfzx3RlsiqlmOsTpQfBPL3ymY8vUqfwpKdrF8dvIupd+m6f4IJQEu14
+         fkdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1707824610; x=1708429410;
+        h=mime-version:message-id:in-reply-to:date:subject:cc:to:from
+         :user-agent:references:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=E9Sow8wf4cLhsoNjPkxy+Vy7mK54b8EsDuIPycqqMjY=;
+        b=NsTEUi4ybhcsr75vywGL3VuqtGbyvYI04Wct/jH/e9amNeJpf8XQ7uON3Sap5biNfs
+         Vg0nDSUR43ZcWbRXW6GezaASDGpvVpn88tEAJcKn2LZ4rlu8npGAJfW1rfyoybfeeOtx
+         gqc7B7G4FRAV5fBrA4IKW6ipVhohFcfZg+CenoG8z1a2DIEap5saCDVPv7M0VkjUuO9K
+         Cu4X+l+zucr5yMMGXxJz7enA25gKVOIImVYCHNk+D6A0yVOBDM0LkBiqoMdKouhIvwcw
+         LT0ErM34kxt/DLXnYmHEORnlT4RuTdEjovG1eJUucRE88/y4MQosVcEbvplYvjz2hbjj
+         ogzw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVXeHau84rADRTLYPjlg4nuJMgELygncFGmwTvMyRFGcZZSGR7kyDHtQq8JncSFM11S/8/NhFJLjT24wEKCQ+WzzdpGXvQEKEch0sc=
+X-Gm-Message-State: AOJu0YwXwBJwEjVyptrIwdqNy59En9YyHP0lTdq9a2N2/MaB6lQfTgKR
+	cAAtRbmR9Jiuks7CTJu7rcr4If/Iqwc8OAYQwbyrkgcuA4veK7L5w+Ip2RpoTd0=
+X-Google-Smtp-Source: 
+ AGHT+IG5/46zhd1eOGmh0ra4YTAm6cqkOsrOZ3nHpxyZmRoQkb4L9iG9KRCKL7XD6RvIzjKFdLIpsQ==
+X-Received: by 2002:adf:e501:0:b0:33c:ddf1:4e70 with SMTP id
+ j1-20020adfe501000000b0033cddf14e70mr954874wrm.32.1707824610355;
+        Tue, 13 Feb 2024 03:43:30 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV7XrcP98bixIaJaWBm55q3RGYgSAE7tBhAYxKCoTsFS3k+4Ze4N9ov5S7jgh/2kJS+irBO7hxgVQEv5sDqQLLxPDbHWC/Gs9TNJlYjDEdufmt8KqWgoLUap5P3RpuWSetm000MWsh8TG+RUnCiXYaeMS5P0KNR3vebzw4AK/Q7JSo2GChThL92QnUXlhhiqm3T+6Rm3bvBKFEBzRlNWsZ+oOtKvz4oZ5nrlk648f3KJ2YpB/AX8hYJ587hDFDHo7r1dZijD51CXUPKlm5Vvhyal5Vcu8pdKF6uRZUApCiCyWoYNna6+r1jeyiDnM+GrXyNfiI2jbQ39aZMPjTPS8Zd3pV6gPE6Q7iU5e+r5dq5ve8rVNhCu75nGRzfJSoMnFhhSRik6L03/9iH7StxCOiMjhlgvJXp0QLxcfnI7mQfyKBVWxmvK2n71BqvpzozyhkCuO8AO5J3tR81TAvxXYjA7ctciW/JxNy+0RD/Pu/DIgB3TrohH6Ieb4EtEjvFx//s0BbxRWmV5YdUNG0mEtgvFkabj7dgVuJmSkIyba37uRJ9Nj4vceMwV61cZXHq4Bloh/1m9MdaDSFr4L6+ysW0lgb2UhEH255fGSjDzoKUuGFhCI24w+H3rJL0zLOVpS/KYYbMSbqL1GxJsA+mmbtlzt0e6TZAQ/d1Iwa3
+Received: from localhost ([2a01:e0a:3c5:5fb1:509b:4241:48a3:e3e0])
+        by smtp.gmail.com with ESMTPSA id
+ m18-20020a5d56d2000000b0033b60bad2fcsm9261852wrw.113.2024.02.13.03.43.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Feb 2024 03:43:29 -0800 (PST)
+References: <20240213101220.459641-1-arnd@kernel.org>
+ <1jbk8kk5pk.fsf@starbuckisacylon.baylibre.com>
+ <c61d7daf-1b13-4ff8-aeae-7dcd8dd02131@app.fastmail.com>
+User-agent: mu4e 1.10.8; emacs 29.1
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: Jerome Brunet <jbrunet@baylibre.com>, Arnd Bergmann <arnd@kernel.org>,
+ Stephen Boyd <sboyd@kernel.org>, Mark Brown <broonie@kernel.org>, Liam
+ Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi
+ Iwai <tiwai@suse.com>, Neil Armstrong <neil.armstrong@linaro.org>, Kevin
+ Hilman <khilman@baylibre.com>, Martin Blumenstingl
+ <martin.blumenstingl@googlemail.com>, Nathan Chancellor
+ <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, Bill
+ Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org, llvm@lists.linux.dev
+Subject: Re: [PATCH] ASoC: meson: add helpers for clk_disable_unprepare
+Date: Tue, 13 Feb 2024 12:09:52 +0100
+In-reply-to: <c61d7daf-1b13-4ff8-aeae-7dcd8dd02131@app.fastmail.com>
+Message-ID: <1j7cj8k2se.fsf@starbuckisacylon.baylibre.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240212152848.44782-1-alexander@tsoy.me>
-Message-ID-Hash: LPDGK4CUUDRIVHYXRGFHS7KNNNZFUFPH
-X-Message-ID-Hash: LPDGK4CUUDRIVHYXRGFHS7KNNNZFUFPH
-X-MailFrom: gregkh@linuxfoundation.org
+Content-Type: text/plain
+Message-ID-Hash: 6AWBDDAHMOUS24YJF5IRP2YYKTOHRST6
+X-Message-ID-Hash: 6AWBDDAHMOUS24YJF5IRP2YYKTOHRST6
+X-MailFrom: jbrunet@baylibre.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -87,7 +126,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LPDGK4CUUDRIVHYXRGFHS7KNNNZFUFPH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6AWBDDAHMOUS24YJF5IRP2YYKTOHRST6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,92 +135,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, Feb 12, 2024 at 06:28:48PM +0300, Alexander Tsoy wrote:
-> Config with the highest supported UAC version is always preferable because
-> it usually provides more features.
-> 
-> Main motivation for this change is to improve support for several UAC2
-> devices which have UAC1 config as the first one for compatibility reasons.
-> UAC2 mode provides a wider range of supported sampling rates on these
-> devices. Also when UAC4 support is implemented, it will need just one
-> additional case line without changing the logic.
-> 
-> Signed-off-by: Alexander Tsoy <alexander@tsoy.me>
-> ---
->  drivers/usb/core/generic.c | 39 +++++++++++++++++++++++++-------------
->  1 file changed, 26 insertions(+), 13 deletions(-)
-> 
-> diff --git a/drivers/usb/core/generic.c b/drivers/usb/core/generic.c
-> index b134bff5c3fe..8aeb180e1cf9 100644
-> --- a/drivers/usb/core/generic.c
-> +++ b/drivers/usb/core/generic.c
-> @@ -48,9 +48,16 @@ static bool is_audio(struct usb_interface_descriptor *desc)
->  	return desc->bInterfaceClass == USB_CLASS_AUDIO;
->  }
->  
-> -static bool is_uac3_config(struct usb_interface_descriptor *desc)
-> +static bool is_supported_uac(struct usb_interface_descriptor *desc)
->  {
-> -	return desc->bInterfaceProtocol == UAC_VERSION_3;
-> +	switch(desc->bInterfaceProtocol) {
-> +	case UAC_VERSION_1:
-> +	case UAC_VERSION_2:
-> +	case UAC_VERSION_3:
-> +		return true;
-> +	default:
-> +		return false;
-> +	}
->  }
->  
->  int usb_choose_configuration(struct usb_device *udev)
-> @@ -135,22 +142,28 @@ int usb_choose_configuration(struct usb_device *udev)
->  		}
->  
->  		/*
-> -		 * Select first configuration as default for audio so that
-> -		 * devices that don't comply with UAC3 protocol are supported.
-> -		 * But, still iterate through other configurations and
-> -		 * select UAC3 compliant config if present.
-> +		 * Iterate through audio configurations and select the first of
-> +		 * the highest supported UAC versions. Select the first config
-> +		 * if no supported UAC configs are found.
->  		 */
->  		if (desc && is_audio(desc)) {
-> -			/* Always prefer the first found UAC3 config */
-> -			if (is_uac3_config(desc)) {
-> -				best = c;
-> -				break;
-> -			}
-> +			struct usb_interface_descriptor	*best_desc = NULL;
-> +
-> +			if (best)
-> +				best_desc = &best->intf_cache[0]->altsetting->desc;
 
-Are you sure you always have a intf_cache[0] pointer?  What about
-altsetting?  Remember, invalid descriptors happen all the time, and are
-a known "attack vector" against the USB stack.
+On Tue 13 Feb 2024 at 11:52, "Arnd Bergmann" <arnd@arndb.de> wrote:
 
->  
-> -			/* If there is no UAC3 config, prefer the first config */
-> -			else if (i == 0)
-> +			if (i == 0)
->  				best = c;
->  
-> +			/* Assume that bInterfaceProtocol value is always
-> +			 * growing when UAC versions are incremented, so that
-> +			 * the direct comparison is possible. */
+> On Tue, Feb 13, 2024, at 11:36, Jerome Brunet wrote:
+>> On Tue 13 Feb 2024 at 11:11, Arnd Bergmann <arnd@kernel.org> wrote:
+>
+>> This probably pre-dates the introduction of devm_clk_get_enabled()
+>> It would probably be better to use that instead of duplicating helper
+>> functions which do the same thing.
+>
+> Ah, I had not thought of that interface either, so you are probably
+> right that this is the best way to do it.
+> Can you send a replacement patch then and add my Reported-by?
 
-How do we know this assumption is always true?  What happens when it is not?
+Sure.
 
-> +			else if (is_supported_uac(desc) && best_desc &&
-> +				 (!is_supported_uac(best_desc) ||
-> +				  (desc->bInterfaceProtocol >
-> +				   best_desc->bInterfaceProtocol)))
-> +					best = c;
+How may I reproduce the problem ?
+Just tried with 'Debian clang version 16.0.6 (19)', no warning.
 
-I really can't understand this if logic, sorry, can you describe it
-better so that we can maintain it over time?
+I suppose I need to add something ?
 
-thanks,
+>
+> I also sent the same patch for drivers/nvmem/meson-efuse.c, which
+> I guess will also need the same treatment. I also checked and saw
+> that all three files already had this code in linux-6.0 when
+> devm_clk_get_enabled() got added.
+>
+>> If for any reason it is not possible, a common helper in clk.h would
+>> preferable I think.
+>
+> I can't think of anything that prevents us from using
+> devm_clk_get_enabled() here.
+>
+>     Arnd
 
-greg k-h
+
+-- 
+Jerome

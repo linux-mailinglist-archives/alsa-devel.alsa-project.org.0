@@ -2,112 +2,116 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59E60853412
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Feb 2024 16:03:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE74A853418
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Feb 2024 16:04:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 86899DE5;
-	Tue, 13 Feb 2024 16:03:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 86899DE5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 40AB5E94;
+	Tue, 13 Feb 2024 16:04:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 40AB5E94
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1707836630;
-	bh=VHD7V7W4qwRQhqwPSDefa6gX+ovxXlDZA21Vs4ZGEfg=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=H1u98tkFN63+Ps4/CTFD2mN7JXgvgSIdY5i+feDr2iOGrt0RMXrGh4V1BRVj4rsg+
-	 3FG3fSQbzsJ4iZbwF7H/BSL/pBDUy6JDQL6MiiwBZ/lrdHe80A3a4kakmfk4aB9zXi
-	 EjLsiRWjWKkrhXXS+XVRsN1MY6dabnK3iztr63ns=
+	s=default; t=1707836652;
+	bh=EvesecZhCS+F8B4ydJvfk8KC+jJVk5kwfen9WAPTcVE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=gqHZEC7Rsn9ftmXC7phUVFqPz1yDNgFiwZOYIwHY8ey6jgY8TX5p7GDRxoum+CX8C
+	 A3hcfiqjMJLnNQ4OOFe3WZBV8N1it6tMPCLJ0HwIcrDuSy/HBPmTuafT81emOIyVcr
+	 EnhZ7Ad7qjmxPnsoswcTG3EZ5tBVttHiI66KlG38=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A92B8F806A6; Tue, 13 Feb 2024 16:02:11 +0100 (CET)
+	id 00052F805FF; Tue, 13 Feb 2024 16:02:12 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 960ECF805F2;
-	Tue, 13 Feb 2024 16:02:09 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C1F14F805FF;
+	Tue, 13 Feb 2024 16:02:11 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A5D13F80238; Mon, 12 Feb 2024 20:33:52 +0100 (CET)
+	id 712E2F80238; Tue, 13 Feb 2024 09:21:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
 	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
- [IPv6:2a00:1450:4864:20::230])
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [IPv6:2a00:1450:4864:20::631])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 20700F800EE
-	for <alsa-devel@alsa-project.org>; Mon, 12 Feb 2024 20:33:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20700F800EE
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0597AF8015B
+	for <alsa-devel@alsa-project.org>; Tue, 13 Feb 2024 09:21:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0597AF8015B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=LUOxEfUc
-Received: by mail-lj1-x230.google.com with SMTP id
- 38308e7fff4ca-2d0f7585d89so17141051fa.3
+ header.s=20230601 header.b=B3nn/jKZ
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-a3c1a6c10bbso318286866b.3
         for <alsa-devel@alsa-project.org>;
- Mon, 12 Feb 2024 11:33:44 -0800 (PST)
+ Tue, 13 Feb 2024 00:21:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1707766422; x=1708371222;
+        d=gmail.com; s=20230601; t=1707812511; x=1708417311;
  darn=alsa-project.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=oum1jt+Q8dDAhYrJmUGRUjhcfu3Z0CZYzh6RXzXRq4o=;
-        b=LUOxEfUcI0Ds/s5WeSTmnkfTLIKIUAZjZl1MGoexBjeUbbce6Zs5F+spEPMiA9sOlt
-         Rs6QkKj9KEkCVdDHk2OaBThay/E06V7cD84+hFSCF8vmsE3KspN2WPp8S8/DVFTuYXb1
-         1s9miZo9hIT3zupTKfz/AMjd21USk1e72tFVD0iPjOr6X2SLMqvmJSZ2/DEa2gxwjSef
-         g8BDR0lI+lrjkjZxc8bsC9N2M1mW/t73QFH8b+R/56StOHBrpso7kGiuAuszQi1rop5c
-         rgTA8yeQU649RSDe7PKTS9JMYdgoHfiZsWVVBqswDIts/eg9Qta/vwnt1erkr/FYgjim
-         bNUg==
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Hww4KX6AuerRDewZUOzhuppFnbJN24s7IBnlzI92hEg=;
+        b=B3nn/jKZ6IQy1F8maVZmdXkK9sv14VwwYtoBpGBm3OaNKmFokDhkWWfZWrZVqX2fnU
+         uZNlTAa3LrhE39Ctqp3WxTaKbdEvQnTVDYe9fy5bVNVwk0sRZhy0VeKN12JHrQOrF1Wf
+         VpWJiheuSZDpsdhcyWHA5RG26pfB9s5gUoVBHgN7+rdnLC4Dblo/Xds+eV00rCHVKzcL
+         1ldepT+QkzOf1Kumu5SNkOJXsu02iqCajZrlgHtCIJvXoAj6oLADxhkevEPKJH7LniH9
+         r7uE7hYyENikXq95cJKEsXtBMlyXWUT/Hzguk/EDz4PyCPaub1WiVMHT3B73g+JLyVL8
+         K+iQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707766422; x=1708371222;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=oum1jt+Q8dDAhYrJmUGRUjhcfu3Z0CZYzh6RXzXRq4o=;
-        b=c2oQk5rMsTgLSIWT4VRpCyX58ny4EmFvDKLYewtUHrdEmR17TRuiwJBXqUFXbOlS7p
-         dHCuI39+lKE6l8TT1L05u44JLhSVt9dWChiXLJw6C6vVris7O+IMAsWiTlIzmXFuBYbq
-         VJKMJNzTkDGNj+OCBJl8Bw+GIHQTVpnrhcHh2H36xKUAk10266Nsv/MY0q2wLcsRapl8
-         8K1a0E0HM1EFGKw3Dl2z3gG8rEf5FczycxsTYswNNEl/nynFCKJrKp5y49PbVVK6VJQm
-         xsPfOexIJlRUZRudRWJdzJYw100BwwYtgIsC9z/mrsCL9Ai6f839sDwjcbiSBE2WlvUd
-         Z9CA==
-X-Gm-Message-State: AOJu0YwR7lF19YnC54+6kdq9TNV6XILmtGaMAXxJpgWzTO1W/sq7V280
-	pWv3V0NI9yNjojWD0rrAK9m/7yMvAk6rdAGAxHZPaJzkf10P4c41
+        d=1e100.net; s=20230601; t=1707812511; x=1708417311;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=Hww4KX6AuerRDewZUOzhuppFnbJN24s7IBnlzI92hEg=;
+        b=Bzvd1wFViym+ZX+deoMGLrH/POYW1gL06RxcQ38SmFUwbAapbXdOUEU00l6WQPSoan
+         g3Fz0pPgsLQmLC4hqj8DWxYuI7aQnwpYPu+mfJdzPGbSUaa6HEr+e/9b6FBXRB8979kd
+         8J1LprETg7THwwp4NtH8R24Dtx1IL/AUzOOHebeBeNIWuDcnuXQ2DR4wvRQ4OJUEAEEm
+         ebx+yLSX85+YPV72lP0p0FNepeRvzC1v1mNdb7VmBvqY6gG3O762rAuFSo/CaN2jT7le
+         mW3M9rTTLOy3DhncBLzmygAaMuxLSYthAU+nNHinRlkIArHWnba/6K5ddgRUwZFBbHxP
+         0aJw==
+X-Gm-Message-State: AOJu0Yy9N0xmCDrIlxL7KvOzINvK1qmI8K/aqEMigF6BZle4I3wEs53g
+	IuJDdkxhPyZu+obCwQM+mvaFnuVL5yJFf8EC+ipvpPbOaekhk76u
 X-Google-Smtp-Source: 
- AGHT+IF4novuZ4Y+eA7hevM2fEuPwi4qeOPqKqpoEiAhRwgn1+MjD52hUUFLrsPXmYD3imwC5WJV+g==
-X-Received: by 2002:a2e:9786:0:b0:2d0:7a98:a493 with SMTP id
- y6-20020a2e9786000000b002d07a98a493mr4846826lji.39.1707766422053;
-        Mon, 12 Feb 2024 11:33:42 -0800 (PST)
+ AGHT+IEtbOgAQCr2q9wNkojH1FVB5yqlZL4vx2tEJYwJ0iwk5cxr4EarSrt3PNOwz/J1gIq7ItlMMQ==
+X-Received: by 2002:a17:906:3755:b0:a3c:9ad4:b8ff with SMTP id
+ e21-20020a170906375500b00a3c9ad4b8ffmr4179109ejc.49.1707812510698;
+        Tue, 13 Feb 2024 00:21:50 -0800 (PST)
 X-Forwarded-Encrypted: i=1;
- AJvYcCWoXX0vLop0ktvQhx4o6Q8IadytmX76FfJx/4Dz2GhnX8qNSE9lpa0Fp3T0rMcCPyfLqcRdfwMpebyEsY9Am8HG4orbqp+J1fS0slepcN47i42j07t58Wk3QyXZgqS09uapXkwrjpNsu3dSvATOEuv+fLHfhQZvE8XanUVnzdZucA9lTdOfr5tfQceK53hNGSjcoIeZ06I/JTDEoxEl249x0k51sSPLE6fhgVY6ocLYIRyMjwRTga2q2u7xMWVdJy+ZvGrVWOlzbal/YSqRo+W0wC6UKOTOeHP7j56isxWx9PTPrjtRO5s7i6OUJQFynIN8noEJ0tW6X+o2f1sfLuYZwHsG2JVrlhw73Usfa/mf//bhJAP0uQjNctesk6pI9b4QE2uGBUVFQcYQsoiImh+tpGLLIedkjm+yp3Ze0qoKhlIvpX3nfV1WT7BNjaHyCnA6BVt75Pl8Uk6joTGwYNy+M1mnUO0gaUIRwTOkJ4TDIRUswW2n+9Hv9iZaOSJFQCf6aCr1vhUXwjVuzUH/Dm8LuAbIfmDsHxSAuhES19435g6m5rA=
+ AJvYcCUsW2MBxSOX85UTqI3VynXX3cao1HNaEQjG8oN1kRIdQqMfckBiAidkpBjgOk3hEe0AWVG5To5wB0IaewSmr+n+mSe6soBntPCGASJngzEHoTxp7u+Fq61wWHw3lx4H8uOKzHbKsAISoXq30d5iL90WBf/IujhptnRvkWpj2bY3tuYCWXeCAPnVbjOV0BSDSUdhaqRpWpb0WEcRZ0Qx0r/KcE030I6+qwErlOMDDF4KmJB25NQZZ4Ph4PyQUmnB8vaJCfD2HS6aHbMHzrxwV1Q6nd7Ml+Oh10LMLC7U1+gSufr7vnCnc+K2vPFWRV9xxLsaPcgzjH0YW+PlhPpoEw7lJN4wUI2BSA2SbpijbjHIQHEnaT3wAU9OUw19CbaIKk/B1usYDzhIFMy9y8C7F6C2eKjiyj5mWG8+6PQj9qHlNVp5LoCjLjWc+JKO5jEH2ErRMiU6Gk4rK8uR510MPoJHaiSHbA0O25ihOeG/ep/qnl8fqCWJGEqU4jIwq5Gv6llMsq1dX2t25wseG/gHiPQ8XhCLhHVye5Rg0P8vhMdCNpzY
 Received: from tkudela.. (c156-103.icpnet.pl. [85.221.156.103])
         by smtp.gmail.com with ESMTPSA id
- d13-20020a170906370d00b00a3c66ac5146sm501104ejc.120.2024.02.12.11.33.41
+ hw13-20020a170907a0cd00b00a3cf2f71408sm594983ejc.152.2024.02.13.00.21.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Feb 2024 11:33:41 -0800 (PST)
-From: "T. Kudela" <ramzes005@gmail.com>
-To: james.schulman@cirrus.com,
-	david.rhodes@cirrus.com,
-	rf@opensource.cirrus.com,
-	perex@perex.cz,
-	tiwai@suse.com,
-	sbinding@opensource.cirrus.com,
-	kailang@realtek.com,
-	luke@ljones.dev,
+        Tue, 13 Feb 2024 00:21:50 -0800 (PST)
+From: Tomasz Kudela <ramzes005@gmail.com>
+To: ramzes005@gmail.com
+Cc: alsa-devel@alsa-project.org,
 	andy.chi@canonical.com,
-	shenghao-ding@ti.com,
-	ruinairas1992@gmail.com,
-	vitalyr@opensource.cirrus.com,
-	alsa-devel@alsa-project.org,
-	patches@opensource.cirrus.com,
+	david.rhodes@cirrus.com,
+	james.schulman@cirrus.com,
+	kailang@realtek.com,
+	linux-kernel@vger.kernel.org,
 	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: "T. Kudela" <ramzes005@gmail.com>
-Subject: [PATCH] Add Lenovo Legion 7i gen7 sound quirk
-Date: Mon, 12 Feb 2024 20:33:27 +0100
-Message-Id: <20240212193327.59507-1-ramzes005@gmail.com>
+	luke@ljones.dev,
+	patches@opensource.cirrus.com,
+	perex@perex.cz,
+	rf@opensource.cirrus.com,
+	ruinairas1992@gmail.com,
+	sbinding@opensource.cirrus.com,
+	shenghao-ding@ti.com,
+	tiwai@suse.com,
+	vitalyr@opensource.cirrus.com
+Subject: [PATCH v2] Add Lenovo Legion 7i gen7 sound quirk
+Date: Tue, 13 Feb 2024 09:21:16 +0100
+Message-Id: <20240213082116.15049-1-ramzes005@gmail.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240212193327.59507-1-ramzes005@gmail.com>
+References: <20240212193327.59507-1-ramzes005@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-MailFrom: ramzes005@gmail.com
@@ -116,15 +120,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: BDK2SBT26T7PEDQPTJNJRFOMLVE73W4Y
-X-Message-ID-Hash: BDK2SBT26T7PEDQPTJNJRFOMLVE73W4Y
+Message-ID-Hash: CEM3XXZAU7RIYQQ3LL3NQKLSOKENKW6U
+X-Message-ID-Hash: CEM3XXZAU7RIYQQ3LL3NQKLSOKENKW6U
 X-Mailman-Approved-At: Tue, 13 Feb 2024 15:01:55 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BDK2SBT26T7PEDQPTJNJRFOMLVE73W4Y/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CEM3XXZAU7RIYQQ3LL3NQKLSOKENKW6U/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -133,9 +137,11 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+From: "T. Kudela" <ramzes005@gmail.com>
+
 Add sound support for the Legion 7i gen7 laptop (16IAX7).
 
-Signed-off-by: T. Kudela <ramzes005@gmail.com>
+Signed-off-by: Tomasz Kudela <ramzes005@gmail.com>
 ---
  sound/pci/hda/cs35l41_hda_property.c | 2 ++
  sound/pci/hda/patch_realtek.c        | 1 +

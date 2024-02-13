@@ -2,104 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3755D852D4E
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Feb 2024 11:01:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8971F852D8B
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Feb 2024 11:12:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A351A86F;
-	Tue, 13 Feb 2024 11:00:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A351A86F
+	by alsa0.perex.cz (Postfix) with ESMTPS id ACD5EA4A;
+	Tue, 13 Feb 2024 11:11:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ACD5EA4A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1707818469;
-	bh=cVV/IHvHgosEFZwF8TVZgUPovyuJO6ZLbQNTlYmYIms=;
-	h=From:To:CC:References:In-Reply-To:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=sVRmQN+v9eGN5oIsMmxZ0JqAw0drEYA2OTaL6cIImkbZ5XoqiCC+VwXzJOZLKxozY
-	 RQ3AVJcEzLfCnX6sI2Vn4g+L9+HIFfjBjg37q2il4Q00RPMLc+3LxXfSXlg44aR2CS
-	 +nxCdS7iT3nsk3AJqj+WiLyBIe109+ievGqvibYM=
+	s=default; t=1707819120;
+	bh=mL4XO56Z6BWv4tMNoHpJYHvphFG+5pdC53wWnQvEb5Y=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=YWDSBciw2LgO39HKOOGXpUjJm4dnOrKSgM3y/68HT7KUx7BMbdWIcKwUAq1KNSmBA
+	 ggdDoQRpHoBmahjLiZ5I4rFM3Ro0MEh3oaRM5yZoBxnM511peml7CQID7K7B50EVGF
+	 sWkog1gRdj9TuKNwVt+bliCFAHv9/BuzT+sFAa94=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C7141F80588; Tue, 13 Feb 2024 11:00:36 +0100 (CET)
+	id 641B7F805AB; Tue, 13 Feb 2024 11:11:27 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E1D80F805A1;
-	Tue, 13 Feb 2024 11:00:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9C5AAF8059F;
+	Tue, 13 Feb 2024 11:11:26 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1CF13F80238; Tue, 13 Feb 2024 11:00:26 +0100 (CET)
+	id A81CEF80238; Tue, 13 Feb 2024 11:11:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-6.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6475DF8015B
-	for <alsa-devel@alsa-project.org>; Tue, 13 Feb 2024 11:00:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6475DF8015B
+	by alsa1.perex.cz (Postfix) with ESMTPS id BCA07F800BF
+	for <alsa-devel@alsa-project.org>; Tue, 13 Feb 2024 11:11:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BCA07F800BF
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=DJ6FBow3
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 41D6usn6030912;
-	Tue, 13 Feb 2024 04:00:07 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	from:to:cc:references:in-reply-to:subject:date:message-id
-	:mime-version:content-type:content-transfer-encoding; s=
-	PODMain02222019; bh=RLSQFPTXCZBB55mewGC3/S3cyEfZxcsMBJJpNhdcNt4=; b=
-	DJ6FBow3hk9Y64sQGT+Sibpc0GPRWb1aMIf1T6YR2E1g1b2Q0xZPjwBGyWdVhJ8P
-	v0lXstwqh/pcFmenTwfnvKWhHH5c19bCHOc4MN5Lm7esb3bp7yPWCNN6OhgbJXll
-	tt+uxHBrwD+WiVv/wwoJmtS/2b58IP7VT1i/IVByczEwSdKw07Wsv58RkGwZ1SvR
-	qbHLZdctdqnMBL8Am/Xstlc7D8e1V3Vn9T/8qZuKb7iXdbMAshc8KEBU2vSGPPlY
-	pjNwr/0dhVm6ZmpXs7qnbMA/jqYG6B0iYd9nK/G3KGOPKk757e9oOXJ8rgtJ90rd
-	EpEjVGU451Np8bWgVBijpw==
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3w67e22y13-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 13 Feb 2024 04:00:07 -0600 (CST)
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Tue, 13 Feb
- 2024 10:00:03 +0000
-Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
- ediex01.ad.cirrus.com (198.61.84.80) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.40 via Frontend Transport; Tue, 13 Feb 2024 10:00:03 +0000
-Received: from LONN2DGDQ73 (LONN2DGDQ73.ad.cirrus.com [198.61.64.235])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id 53A2F820243;
-	Tue, 13 Feb 2024 10:00:03 +0000 (UTC)
-From: Stefan Binding <sbinding@opensource.cirrus.com>
-To: 'Tomasz Kudela' <ramzes005@gmail.com>
-CC: <alsa-devel@alsa-project.org>, <andy.chi@canonical.com>,
-        <david.rhodes@cirrus.com>, <james.schulman@cirrus.com>,
-        <kailang@realtek.com>, <linux-kernel@vger.kernel.org>,
-        <linux-sound@vger.kernel.org>, <luke@ljones.dev>,
-        <patches@opensource.cirrus.com>, <perex@perex.cz>,
-        <rf@opensource.cirrus.com>, <ruinairas1992@gmail.com>,
-        <shenghao-ding@ti.com>, <tiwai@suse.com>,
-        <vitalyr@opensource.cirrus.com>
-References: <20240212193327.59507-1-ramzes005@gmail.com>
- <20240213082116.15049-1-ramzes005@gmail.com>
-In-Reply-To: <20240213082116.15049-1-ramzes005@gmail.com>
-Subject: RE: [PATCH v2] Add Lenovo Legion 7i gen7 sound quirk
-Date: Tue, 13 Feb 2024 10:00:03 +0000
-Message-ID: <000101da5e63$6a2565e0$3e7031a0$@opensource.cirrus.com>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=D0STckFO
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id 77E2A61346;
+	Tue, 13 Feb 2024 10:11:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6125C433F1;
+	Tue, 13 Feb 2024 10:11:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1707819073;
+	bh=mL4XO56Z6BWv4tMNoHpJYHvphFG+5pdC53wWnQvEb5Y=;
+	h=From:To:Cc:Subject:Date:From;
+	b=D0STckFOFxSAdd91J4HTYXokBfOyGak+23LmZrrtGV8AmqeeGqFOg7G9KY4zrdkQo
+	 9fJbaRR9gKmH9eJ/i9WDck6tH3Lh0kNVuNI8I4TYDJZkvjsNAoifcmIfGk/P8DhvaQ
+	 F65xBXJ3N/cRhr40DhCUME0JWoxEXNRazJ1M8xnu3euc7YWesbTpIjVJ+WGkZOzu4R
+	 g67zJBv1Vz8uDDPz8oZhzsBl6dluwFkNVth8k+9Pz624uJAAvdN/dcHPLX/5aW565v
+	 GofS96pPXezVY6x1A5pS55CqTLqMEzRJoRCnAvkg218pRjmFS6UYizMDpd6kn1wbiA
+	 DaAlElGw6nIUg==
+From: Arnd Bergmann <arnd@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	Banajit Goswami <bgoswami@quicinc.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Mohammad Rafi Shaik <quic_mohs@quicinc.com>,
+	alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev
+Subject: [PATCH] ASoC: q6dsp: fix event handler prototype
+Date: Tue, 13 Feb 2024 11:10:46 +0100
+Message-Id: <20240213101105.459402-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: en-gb
-Thread-Index: AQL5cxh77Ymk4rKL11VQD0BqvrFTygGP9Uvorr1f3IA=
-X-Proofpoint-ORIG-GUID: 4w35IuzkN3UfhFYAz8bRE5jDqIfh_Shl
-X-Proofpoint-GUID: 4w35IuzkN3UfhFYAz8bRE5jDqIfh_Shl
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: DDMTUE46FU7EGDD3PAH2KS437XVBADDU
-X-Message-ID-Hash: DDMTUE46FU7EGDD3PAH2KS437XVBADDU
-X-MailFrom: prvs=97731e7e6d=sbinding@opensource.cirrus.com
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: RN3YCCYJR5IRVOTUY5NPZXERTAEZTTXN
+X-Message-ID-Hash: RN3YCCYJR5IRVOTUY5NPZXERTAEZTTXN
+X-MailFrom: arnd@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -111,7 +95,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DDMTUE46FU7EGDD3PAH2KS437XVBADDU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RN3YCCYJR5IRVOTUY5NPZXERTAEZTTXN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,95 +104,65 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi,
+From: Arnd Bergmann <arnd@arndb.de>
 
-> -----Original Message-----
-> From: Tomasz Kudela <ramzes005@gmail.com>
-> Sent: Tuesday, February 13, 2024 8:21 AM
-> To: ramzes005@gmail.com
-> Cc: alsa-devel@alsa-project.org; andy.chi@canonical.com;
-> david.rhodes@cirrus.com; james.schulman@cirrus.com;
-> kailang@realtek.com; linux-kernel@vger.kernel.org; linux-
-> sound@vger.kernel.org; luke@ljones.dev;
-> patches@opensource.cirrus.com; perex@perex.cz;
-> rf@opensource.cirrus.com; ruinairas1992@gmail.com;
-> sbinding@opensource.cirrus.com; shenghao-ding@ti.com;
-> tiwai@suse.com; vitalyr@opensource.cirrus.com
-> Subject: [PATCH v2] Add Lenovo Legion 7i gen7 sound quirk
-> 
-> From: "T. Kudela" <ramzes005@gmail.com>
-> 
-> Add sound support for the Legion 7i gen7 laptop (16IAX7).
-> 
-> Signed-off-by: Tomasz Kudela <ramzes005@gmail.com>
-> ---
->  sound/pci/hda/cs35l41_hda_property.c | 2 ++
->  sound/pci/hda/patch_realtek.c        | 1 +
->  2 files changed, 3 insertions(+)
-> 
-> diff --git a/sound/pci/hda/cs35l41_hda_property.c
-> b/sound/pci/hda/cs35l41_hda_property.c
-> index d74cf11eef1e..8a6b484b2184 100644
-> --- a/sound/pci/hda/cs35l41_hda_property.c
-> +++ b/sound/pci/hda/cs35l41_hda_property.c
-> @@ -95,6 +95,7 @@ static const struct cs35l41_config
-> cs35l41_config_table[] = {
->  	{ "10431F12", 2, INTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0
-> }, 0, 1, -1, 1000, 4500, 24 },
->  	{ "10431F1F", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0
-> }, 1, -1, 0, 0, 0, 0 },
->  	{ "10431F62", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0
-> }, 1, 2, 0, 0, 0, 0 },
-> +	{ "17AA386F", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0
-> }, 0, 1, -1, 0, 0, 0 },
+clang-16 points out a mismatch in function types that was hidden
+by a typecast:
 
-I don't believe this laptop has a Speaker ID, so this configuration
-should be:
+sound/soc/qcom/qdsp6/q6apm-dai.c:355:38: error: cast from 'void (*)(uint32_t, uint32_t, uint32_t *, void *)' (aka 'void (*)(unsigned int, unsigned int, unsigned int *, void *)') to 'q6apm_cb' (aka 'void (*)(unsigned int, unsigned int, void *, void *)') converts to incompatible function type [-Werror,-Wcast-function-type-strict]
+  355 |         prtd->graph = q6apm_graph_open(dev, (q6apm_cb)event_handler, prtd, graph_id);
+sound/soc/qcom/qdsp6/q6apm-dai.c:499:38: error: cast from 'void (*)(uint32_t, uint32_t, uint32_t *, void *)' (aka 'void (*)(unsigned int, unsigned int, unsigned int *, void *)') to 'q6apm_cb' (aka 'void (*)(unsigned int, unsigned int, void *, void *)') converts to incompatible function type [-Werror,-Wcast-function-type-strict]
+  499 |         prtd->graph = q6apm_graph_open(dev, (q6apm_cb)event_handler_compr, prtd, graph_id);
 
-{ "17AA386F", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0,
--1, -1, 0, 0, 0 },
+The only difference here is the 'payload' argument, which is not even
+used in this function, so just fix its type and remove the cast.
 
-Thanks,
-Stefan
+Fixes: 88b60bf047fd ("ASoC: q6dsp: q6apm-dai: Add open/free compress DAI callbacks")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ sound/soc/qcom/qdsp6/q6apm-dai.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
->  	{ "17AA38B4", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0
-> }, 0, 1, -1, 0, 0, 0 },
->  	{ "17AA38B5", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0
-> }, 0, 1, -1, 0, 0, 0 },
->  	{ "17AA38B6", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0
-> }, 0, 1, -1, 0, 0, 0 },
-> @@ -431,6 +432,7 @@ static const struct cs35l41_prop_model
-> cs35l41_prop_model_table[] = {
->  	{ "CSC3551", "10431F12", generic_dsd_config },
->  	{ "CSC3551", "10431F1F", generic_dsd_config },
->  	{ "CSC3551", "10431F62", generic_dsd_config },
-> +	{ "CSC3551", "17AA386F", generic_dsd_config },
->  	{ "CSC3551", "17AA38B4", generic_dsd_config },
->  	{ "CSC3551", "17AA38B5", generic_dsd_config },
->  	{ "CSC3551", "17AA38B6", generic_dsd_config },
-> diff --git a/sound/pci/hda/patch_realtek.c
-> b/sound/pci/hda/patch_realtek.c
-> index 6994c4c5073c..0029f61d4693 100644
-> --- a/sound/pci/hda/patch_realtek.c
-> +++ b/sound/pci/hda/patch_realtek.c
-> @@ -10260,6 +10260,7 @@ static const struct snd_pci_quirk
-> alc269_fixup_tbl[] = {
->  	SND_PCI_QUIRK(0x17aa, 0x3853, "Lenovo Yoga 7 15ITL5",
-> ALC287_FIXUP_YOGA7_14ITL_SPEAKERS),
->  	SND_PCI_QUIRK(0x17aa, 0x3855, "Legion 7 16ITHG6",
-> ALC287_FIXUP_LEGION_16ITHG6),
->  	SND_PCI_QUIRK(0x17aa, 0x3869, "Lenovo Yoga7 14IAL7",
-> ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN),
-> +	SND_PCI_QUIRK(0x17aa, 0x386f, "Legion 7i 16IAX7",
-> ALC287_FIXUP_CS35L41_I2C_2),
->  	SND_PCI_QUIRK(0x17aa, 0x3870, "Lenovo Yoga 7 14ARB7",
-> ALC287_FIXUP_YOGA7_14ARB7_I2C),
->  	SND_PCI_QUIRK(0x17aa, 0x387d, "Yoga S780-16 pro Quad AAC",
-> ALC287_FIXUP_TAS2781_I2C),
->  	SND_PCI_QUIRK(0x17aa, 0x387e, "Yoga S780-16 pro Quad YC",
-> ALC287_FIXUP_TAS2781_I2C),
-> --
-> 2.34.1
-> 
-
+diff --git a/sound/soc/qcom/qdsp6/q6apm-dai.c b/sound/soc/qcom/qdsp6/q6apm-dai.c
+index 052e40cb38fe..00bbd291be5c 100644
+--- a/sound/soc/qcom/qdsp6/q6apm-dai.c
++++ b/sound/soc/qcom/qdsp6/q6apm-dai.c
+@@ -123,7 +123,7 @@ static struct snd_pcm_hardware q6apm_dai_hardware_playback = {
+ 	.fifo_size =            0,
+ };
+ 
+-static void event_handler(uint32_t opcode, uint32_t token, uint32_t *payload, void *priv)
++static void event_handler(uint32_t opcode, uint32_t token, void *payload, void *priv)
+ {
+ 	struct q6apm_dai_rtd *prtd = priv;
+ 	struct snd_pcm_substream *substream = prtd->substream;
+@@ -157,7 +157,7 @@ static void event_handler(uint32_t opcode, uint32_t token, uint32_t *payload, vo
+ }
+ 
+ static void event_handler_compr(uint32_t opcode, uint32_t token,
+-				uint32_t *payload, void *priv)
++				void *payload, void *priv)
+ {
+ 	struct q6apm_dai_rtd *prtd = priv;
+ 	struct snd_compr_stream *substream = prtd->cstream;
+@@ -352,7 +352,7 @@ static int q6apm_dai_open(struct snd_soc_component *component,
+ 
+ 	spin_lock_init(&prtd->lock);
+ 	prtd->substream = substream;
+-	prtd->graph = q6apm_graph_open(dev, (q6apm_cb)event_handler, prtd, graph_id);
++	prtd->graph = q6apm_graph_open(dev, event_handler, prtd, graph_id);
+ 	if (IS_ERR(prtd->graph)) {
+ 		dev_err(dev, "%s: Could not allocate memory\n", __func__);
+ 		ret = PTR_ERR(prtd->graph);
+@@ -496,7 +496,7 @@ static int q6apm_dai_compr_open(struct snd_soc_component *component,
+ 		return -ENOMEM;
+ 
+ 	prtd->cstream = stream;
+-	prtd->graph = q6apm_graph_open(dev, (q6apm_cb)event_handler_compr, prtd, graph_id);
++	prtd->graph = q6apm_graph_open(dev, event_handler_compr, prtd, graph_id);
+ 	if (IS_ERR(prtd->graph)) {
+ 		ret = PTR_ERR(prtd->graph);
+ 		kfree(prtd);
+-- 
+2.39.2
 

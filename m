@@ -2,170 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A726853355
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Feb 2024 15:39:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E688853385
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Feb 2024 15:47:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E16E3E0;
-	Tue, 13 Feb 2024 15:38:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E16E3E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id A9D0D83E;
+	Tue, 13 Feb 2024 15:47:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A9D0D83E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1707835148;
-	bh=6fpnG25L709YQc6CBpdSPx52p5geiuVd+undxGv3F8k=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1707835673;
+	bh=y41JaSKfeWVzFEq+5e6C1oXttwhw87cx5j4UR/t5CEQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=quGBBW6BjBu91MpGJ93TLS3G/zo/hkwMbzN/btuunCMDHf3Rxhcp2caw16izR2zKj
-	 f5m/BD4XR2CS6XMocUYufPFKo2J3TZUP0rTkbnmh/D7CXUpVWV7L/avncB3xR/+YgV
-	 9I9jbs5t/+7Rr7drusSOWRLIPNVYqFlWk++fjS0A=
+	b=PaXcRnX9U9FyopBcJiB42fvG8BdchQmKxdL20XNArK4Laxob6vLCQY4zVzISRvE6i
+	 azuHcmU876EOhnjI62wZGYgsxS+0gY7qbnU0upV5p9ePGFJiwzEqBrgutjO5tYChnH
+	 zy7x8lAxarqXIKp9n4keTGNwBLCNa4eTBI6j48Go=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 69274F80587; Tue, 13 Feb 2024 15:38:36 +0100 (CET)
+	id 5C407F80589; Tue, 13 Feb 2024 15:47:22 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8FBDCF805A0;
-	Tue, 13 Feb 2024 15:38:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0814CF8059F;
+	Tue, 13 Feb 2024 15:47:21 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C2744F80238; Tue, 13 Feb 2024 15:36:44 +0100 (CET)
+	id D097EF80238; Tue, 13 Feb 2024 15:47:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
+X-Spam-Status: No, score=-6.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6F424F80104
-	for <alsa-devel@alsa-project.org>; Tue, 13 Feb 2024 15:36:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F424F80104
+	by alsa1.perex.cz (Postfix) with ESMTPS id D28D2F80104
+	for <alsa-devel@alsa-project.org>; Tue, 13 Feb 2024 15:47:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D28D2F80104
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=a2wTltk7;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=EYBBwyP0;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=a2wTltk7;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=EYBBwyP0
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id C2D831FCDC;
-	Tue, 13 Feb 2024 14:36:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1707834992;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=f83NHGJ9TQS4FzV/QQJ2HUXh870K+Fj6gcduNb1X2b0=;
-	b=a2wTltk77dc1GNkco0+iHEqL2R24CaueF7MYCXelTBfT45WAKP9l4WQp5K7h8sS0IJP6+9
-	Vsy8l6nn3HufVmoueQk1AjJVOfabMjwY2PCVdkQBjOgwQSDTPYwhKbF+P+6In4hsusLL94
-	oFk/YF0540ZNTQk7fUzKRALj50ZfGvU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1707834992;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=f83NHGJ9TQS4FzV/QQJ2HUXh870K+Fj6gcduNb1X2b0=;
-	b=EYBBwyP0PstETSJO4BTDkLn2L9WpUfVzkz9GLAh5adxKlzIuI+Jk/Y+/dvTXz0br/hNOWr
-	E4ViVlZo1T/j/MDA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1707834992;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=f83NHGJ9TQS4FzV/QQJ2HUXh870K+Fj6gcduNb1X2b0=;
-	b=a2wTltk77dc1GNkco0+iHEqL2R24CaueF7MYCXelTBfT45WAKP9l4WQp5K7h8sS0IJP6+9
-	Vsy8l6nn3HufVmoueQk1AjJVOfabMjwY2PCVdkQBjOgwQSDTPYwhKbF+P+6In4hsusLL94
-	oFk/YF0540ZNTQk7fUzKRALj50ZfGvU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1707834992;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=f83NHGJ9TQS4FzV/QQJ2HUXh870K+Fj6gcduNb1X2b0=;
-	b=EYBBwyP0PstETSJO4BTDkLn2L9WpUfVzkz9GLAh5adxKlzIuI+Jk/Y+/dvTXz0br/hNOWr
-	E4ViVlZo1T/j/MDA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8EB4913404;
-	Tue, 13 Feb 2024 14:36:32 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 2hz3IXB+y2VULAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Tue, 13 Feb 2024 14:36:32 +0000
-Date: Tue, 13 Feb 2024 15:36:32 +0100
-Message-ID: <87y1bowhvz.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: ramzes <ramzes005@gmail.com>
-Cc: sbinding@opensource.cirrus.com,
-	alsa-devel@alsa-project.org,
-	andy.chi@canonical.com,
-	david.rhodes@cirrus.com,
-	james.schulman@cirrus.com,
-	kailang@realtek.com,
-	linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	luke@ljones.dev,
-	patches@opensource.cirrus.com,
-	perex@perex.cz,
-	rf@opensource.cirrus.com,
-	ruinairas1992@gmail.com,
-	shenghao-ding@ti.com,
-	tiwai@suse.com,
-	vitalyr@opensource.cirrus.com
-Subject: Re: [PATCH v3] Add Lenovo Legion 7i gen7 sound quirk
-In-Reply-To: 
- <CAPtLpdGH6aptJq_Co5=1NL+Sb55vtax8KrUbyMQj2ThvS2YtHg@mail.gmail.com>
-References: <000101da5e63$6a2565e0$3e7031a0$@opensource.cirrus.com>
-	<20240213115614.10420-1-ramzes005@gmail.com>
-	<87jzn8y1u7.wl-tiwai@suse.de>
-	<CAPtLpdGH6aptJq_Co5=1NL+Sb55vtax8KrUbyMQj2ThvS2YtHg@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-8859-2
-Content-Transfer-Encoding: 8bit
-Authentication-Results: smtp-out2.suse.de;
-	none
-X-Spamd-Result: default: False [-0.08 / 50.00];
-	 ARC_NA(0.00)[];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 FROM_HAS_DN(0.00)[];
-	 TO_DN_SOME(0.00)[];
-	 FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 MIME_GOOD(-0.10)[text/plain];
-	 RCVD_COUNT_THREE(0.00)[3];
-	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	 RCPT_COUNT_TWELVE(0.00)[17];
-	 MID_CONTAINS_FROM(1.00)[];
-	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email];
-	 FREEMAIL_TO(0.00)[gmail.com];
-	 FUZZY_BLOCKED(0.00)[rspamd.com];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+];
-	 FREEMAIL_CC(0.00)[opensource.cirrus.com,alsa-project.org,canonical.com,cirrus.com,realtek.com,vger.kernel.org,ljones.dev,perex.cz,gmail.com,ti.com,suse.com];
-	 RCVD_TLS_ALL(0.00)[];
-	 BAYES_HAM(-0.98)[86.94%]
-Message-ID-Hash: KBX2D2AKQOL56QCRO3AKOY27KM7QX3U6
-X-Message-ID-Hash: KBX2D2AKQOL56QCRO3AKOY27KM7QX3U6
-X-MailFrom: tiwai@suse.de
+ unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org
+ header.a=rsa-sha256 header.s=korg header.b=xolAhlOy
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id 0AC10614C9;
+	Tue, 13 Feb 2024 14:47:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17313C433C7;
+	Tue, 13 Feb 2024 14:47:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+	s=korg; t=1707835622;
+	bh=y41JaSKfeWVzFEq+5e6C1oXttwhw87cx5j4UR/t5CEQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=xolAhlOyVyuVZiyTDvGcKEtXr91VbRn3NP78HOEfVuOkMh+wvKqU4weNl61OENra5
+	 IxxbbSXJx9PMEBajc4PuoKVJVt1atEh3kJBNEfy9J/TeOa30svjeMS1kzQIXlXn1d9
+	 WLiZIyv76SL0gDQgCB4g09P7JnF2bsKhydBDnXvU=
+Date: Tue, 13 Feb 2024 15:46:59 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Ted Chang <tedchang2010@gmail.com>, stable@vger.kernel.org,
+	regressions@lists.linux.dev, venkataprasad.potturu@amd.com,
+	"perex@perex.cz" <perex@perex.cz>, alsa-devel@alsa-project.org,
+	broonie@kernel.org, linux@leemhuis.info,
+	linux-sound@vger.kernel.org
+Subject: Re: [REGRESSION] Acp5x probing regression introduced between kernel
+ 6.7.2 -> 6.7.4
+Message-ID: <2024021342-overshoot-percent-a329@gregkh>
+References: 
+ <CAD_nV8BG0t7US=+C28kQOR==712MPfZ9m-fuKksgoZCgrEByCw@mail.gmail.com>
+ <CAD_nV8B=KSyOrASsbth=RmDV9ZUCipxhdJY3jY02C2jQ6Y34iA@mail.gmail.com>
+ <87bk8kkcbg.wl-tiwai@suse.de>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87bk8kkcbg.wl-tiwai@suse.de>
+Message-ID-Hash: BFNANBKZ7XXHCEZNWT4MQXB6GLFHESJB
+X-Message-ID-Hash: BFNANBKZ7XXHCEZNWT4MQXB6GLFHESJB
+X-MailFrom: gregkh@linuxfoundation.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -177,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KBX2D2AKQOL56QCRO3AKOY27KM7QX3U6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BFNANBKZ7XXHCEZNWT4MQXB6GLFHESJB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -186,34 +98,52 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 13 Feb 2024 14:16:43 +0100,
-ramzes wrote:
+On Tue, Feb 13, 2024 at 09:17:39AM +0100, Takashi Iwai wrote:
+> On Mon, 12 Feb 2024 15:32:45 +0100,
+> Ted Chang wrote:
+> > 
+> > 
+> > Hi everyone,
+> > Takashi Iwai suggested that I test OBS home:tiwai:bsc1219789 repo. His comment
+> > suggest he reverted commit
+> > c3ab23a10771bbe06300e5374efa809789c65455 ASoC: amd: Add new dmi entries for
+> > acp5x platform. My audio seems to work again
+> > 
+> > [    7.420289] acpi_cpufreq: overriding BIOS provided _PSD data
+> > [    7.439331] snd_pci_acp5x 0000:04:00.5: enabling device (0000 -> 0002)
+> > [    7.574796] snd_hda_intel 0000:04:00.1: enabling device (0000 -> 0002)
+> > [    7.574980] snd_hda_intel 0000:04:00.1: Handle vga_switcheroo audio client
+> > [    7.577788] kvm_amd: TSC scaling supported
+> > [    7.577794] kvm_amd: Nested Virtualization enabled
+> > [    7.577796] kvm_amd: Nested Paging enabled
+> > [    7.577799] kvm_amd: SEV enabled (ASIDs 1 - 14)
+> > [    7.577802] kvm_amd: SEV-ES disabled (ASIDs 0 - 0)
+> > [    7.577824] kvm_amd: Virtual VMLOAD VMSAVE supported
+> > [    7.577825] kvm_amd: Virtual GIF supported
+> > [    7.577827] kvm_amd: LBR virtualization supported
+> > [    7.589223] MCE: In-kernel MCE decoding enabled.
+> > [    7.590386] snd_hda_intel 0000:04:00.1: bound 0000:04:00.0 (ops amdgpu_dm_audio_component_bind_ops [amdgpu])
+> > [    7.591577] cs35l41 spi-VLV1776:00: supply VA not found, using dummy regulator
+> > [    7.591644] cs35l41 spi-VLV1776:00: supply VP not found, using dummy regulator
+> > [    7.595880] input: HD-Audio Generic HDMI/DP,pcm=3 as /devices/pci0000:00/0000:00:08.1/0000:04:00.1/sound/card0/input17
+> > [    7.596790] input: HD-Audio Generic HDMI/DP,pcm=7 as /devices/pci0000:00/0000:00:08.1/0000:04:00.1/sound/card0/input18
+> > 
+> > https://build.opensuse.org/project/show/home:tiwai:bsc1219789
+> > 
+> > Now I'm building a test kernel with the revert of the suspected backport patch.
+> > It's being built in OBS home:tiwai:bsc1219789 repo.  Please give it a try later once after the build finishes (takes an hour or so).
+> > 
+> > So the culprit was the stable commit 4b6986b170f2f23e390bbd2d50784caa9cb67093, which is the upstream commit c3ab23a10771bbe06300e5374efa809789c65455
+> >     ASoC: amd: Add new dmi entries for acp5x platform
 > 
+> Greg, could you revert the commit
+> 4b6986b170f2f23e390bbd2d50784caa9cb67093 on 6.7.y?
 > 
-> Yes, I've compiled kernel with latest patch version, 
-> with Stephan's configuration, and sound works well on my laptop.
+> Apparently it caused the regression on Steam Deck, the driver probe
+> failed with that backport alone.
 
-OK, now I applied the patch.  Thanks.
+Now reverted, as well as on 6.6.y and 6.1.y.
 
+thanks,
 
-Takashi
-
-> 
-> Tomasz
-> 
-> wt., 13 lut 2024 o 13:40 Takashi Iwai <tiwai@suse.de> napisa³(a):
-> 
->     On Tue, 13 Feb 2024 12:56:14 +0100,
->     Tomasz Kudela wrote:
->     >
->     > From: "Tomasz Kudela" <ramzes005@gmail.com>
->     >
->     > Add sound support for the Legion 7i gen7 laptop (16IAX7).
->     >
->     > Signed-off-by: Tomasz Kudela <ramzes005@gmail.com>
->    
->     You tested with this new patch and confirmed it's still working,
->     right?  Just to be sure.
-> 
->     Takashi
-> 
+greg k-h

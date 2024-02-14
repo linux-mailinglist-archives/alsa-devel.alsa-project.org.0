@@ -2,137 +2,132 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B0FA85476D
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Feb 2024 11:43:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8EFC5854864
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Feb 2024 12:31:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 713F4DF8;
-	Wed, 14 Feb 2024 11:43:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 713F4DF8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9E97CB6A;
+	Wed, 14 Feb 2024 12:31:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E97CB6A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1707907430;
-	bh=80XaQIdJt5Hn2ceeiCmLP8bhIedeJGu/EXa0a2Z38eA=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1707910286;
+	bh=wA+l9FLOXe7DpldMydeqojyZQuQ0PE/xvA/Dhu62gk0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=FgfNe5hcXa2CB7CnMhWKGdTHlYS4rHdTUyGwWE6HeH3hpNLKnll1NMN6HuKGXZvwZ
-	 cL3zNYEO9C0P84YtVCbXQ1/EgaaSbONGZ2izJlDoOwKhS3fOiG8HWmVhFIF8FT2S7b
-	 VT/3yX8RQ5NoSMzundpF7VyAmW0wkjq+akTIwKis=
+	b=KJ8CBAoES9t4Pd8oOR3EJKEXYshphQqrLtm4jrhd+p5lum1esMZjYoQxmOT7Z/bKr
+	 o8m+2ZiTlyd6c3wp64HgVK4XfQ0BxBxEj9SHGu5DVbZkKIvA86ZODmj2ERoAqyYY8p
+	 a4VjR9nRMXk7x4oC5sNsmon1TP2jFeAWRHyuxPMg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2ABA9F80652; Wed, 14 Feb 2024 11:42:23 +0100 (CET)
+	id B1AD7F80570; Wed, 14 Feb 2024 12:30:55 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0BBACF8061F;
-	Wed, 14 Feb 2024 11:42:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B6BE8F805A0;
+	Wed, 14 Feb 2024 12:30:54 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0FC85F80238; Wed, 14 Feb 2024 11:41:40 +0100 (CET)
+	id 004D4F80238; Wed, 14 Feb 2024 12:30:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on20601.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2418::601])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 313CBF80104
-	for <alsa-devel@alsa-project.org>; Wed, 14 Feb 2024 11:41:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 313CBF80104
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5D842F800EE
+	for <alsa-devel@alsa-project.org>; Wed, 14 Feb 2024 12:30:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D842F800EE
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=Cc+kckfn
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cwllMQjk1MXRYt+CD+jDxFQGs+Sj+pTIgaXV225NvReJCgzsgHHdrmuB0WecIhg5b4kGIQAvplcNzyo5mKIOxHp/Cv/kRg2pS4DdnlnE5Ubpu/U6EZ2u5PuhaVD3YQo8YQxwlY9bdpYMQ8zRmfW2xFGy78WYlEBeQ72BeJ5WEMee+LeOtCVa16Dls+RvvoaOQBLc1V34PfB78ERpY41/N1p0zITzBLBN3OTInvD8BhA9vqjpn1qK5DhkgvTu5SpPUrueoGBCU/IFTNGu0HdAacyZ4AqqTOHMtJFXEB1D2nOzTNz5Is8xW7RT0NSwNt3Yy1dq156jlhear7+9MiuGUg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xgimMXS9vuppJuC7eO5AdWn9o5Lmar7dDoeXfFI30KM=;
- b=L8cgDdqjJ7BzSzomwcaAQAHbAwBw2sEv3atPORWvKzuJXYRS1vKdlEpbOryhA/YwOL8iIuCZmetJOOLErd2/1yFOOYXL+GUqGq76iJOypJ80dtwTtsB8SqLG6CQFAa4xFd27+V/wEG4AS1ThaGDUStZiwi9LT83l79qYOnPLkdsNaoXlY4MfQsLhP6umr6cp5OwetTnvUvArk+TqUiorecYWQIaETMbW8b4gDqI4KroWvfSB9FoBeCqyPSGj4l3dkcFDAQC0c1bbFQ3kAMptx/EHHQhly6DZz+OUw1YGVlov2XBOyt2A2YYVDmXQYGGa5+sG89NRvUbbLalGrw6o4g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xgimMXS9vuppJuC7eO5AdWn9o5Lmar7dDoeXfFI30KM=;
- b=Cc+kckfnf2iBc+d2viQ8QUC3T1Di+b5DlpYn02Zq0bj/w+HYDllcf5SgwB51Ff4DigdhNaZ8kgxIYiQltdiYtmyubXIzlzppsK4bMmT6oJXMb1w+wP3+oBTdLN2JWLnz5bBvYnjVEWpTznZmEteTazhko1ac+Wk+8KN61Dl2H9I=
-Received: from CYZPR20CA0004.namprd20.prod.outlook.com (2603:10b6:930:a2::29)
- by CH2PR12MB4940.namprd12.prod.outlook.com (2603:10b6:610:65::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.29; Wed, 14 Feb
- 2024 10:41:28 +0000
-Received: from CY4PEPF0000EE3F.namprd03.prod.outlook.com
- (2603:10b6:930:a2:cafe::f1) by CYZPR20CA0004.outlook.office365.com
- (2603:10b6:930:a2::29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7270.40 via Frontend
- Transport; Wed, 14 Feb 2024 10:41:28 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000EE3F.mail.protection.outlook.com (10.167.242.19) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7249.19 via Frontend Transport; Wed, 14 Feb 2024 10:41:27 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 14 Feb
- 2024 04:41:26 -0600
-Received: from vijendar-X570-GAMING-X.amd.com (10.180.168.240) by
- SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35
- via Frontend Transport; Wed, 14 Feb 2024 04:41:17 -0600
-From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-To: <broonie@kernel.org>
-CC: <alsa-devel@alsa-project.org>, <Basavaraj.Hiregoudar@amd.com>,
-	<Sunil-kumar.Dommati@amd.com>, <Mario.Limonciello@amd.com>,
-	<venkataprasad.potturu@amd.com>, Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
-	Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>, Syed Saba Kareem <Syed.SabaKareem@amd.com>,
-	Carlos Bilbao <carlos.bilbao@amd.com>, Mario Limonciello
-	<mario.limonciello@amd.com>, "open list:SOUND - SOC LAYER / DYNAMIC AUDIO
- POWER MANAGEM..." <linux-sound@vger.kernel.org>, open list
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH 5/5] ASoC: amd: ps: add machine select and register code
-Date: Wed, 14 Feb 2024 16:10:05 +0530
-Message-ID: <20240214104014.1144668-5-Vijendar.Mukunda@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240214104014.1144668-1-Vijendar.Mukunda@amd.com>
-References: <20240214104014.1144668-1-Vijendar.Mukunda@amd.com>
+ unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256
+ header.s=mimecast20190719 header.b=dkhhI+bE
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1707910227;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4+JlxetLqGfgXIuO+M860n27Ubw/CGDuUo/QeS89UmM=;
+	b=dkhhI+bEJZbYujIBZuTOLYt9UaFpz0zvF7Ip9S1nA1VCzGUQeT2Kqc5U39qmDqJQ4SLk5G
+	onBzff2clLH6jaaTmLmroOGQ+IdFBJTCHLoAMlTeBZw4/Bhr+ng/crsFwxucu8lpQd4K80
+	fqfAxu8/hnsnZMkDppOXy78A1Jmfh8I=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-581-gIcZeB7yN2Ctk4i9E_Jj_A-1; Wed, 14 Feb 2024 06:30:25 -0500
+X-MC-Unique: gIcZeB7yN2Ctk4i9E_Jj_A-1
+Received: by mail-wr1-f70.google.com with SMTP id
+ ffacd0b85a97d-33b2238ce45so2548782f8f.1
+        for <alsa-devel@alsa-project.org>;
+ Wed, 14 Feb 2024 03:30:25 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1707910224; x=1708515024;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=4+JlxetLqGfgXIuO+M860n27Ubw/CGDuUo/QeS89UmM=;
+        b=ClOu+lM+muQEe1vLoZSOnVRslrYZRhtZm1yKm9ayRloWb6a0RNAaT621LhbiNHC3Oj
+         qfaoIRjwrvTwhrTbHvG6GYLlhWoiWTww/stvveO8WUCzHn6xSLD9foIoBJQ350nyb0sW
+         fM5wfYNghOSukP4tAWujoek0uGFp0rBrZvk4dwXjd21nHpp8eto0+HANGd2F6MJQQaJE
+         Ezpla8ISBd9XtPTsiI+rrCioDKqxyQw4ywk4DVz3xpg5EzpdnaoabvXjTdelLMwW3XWx
+         aiJ0iJwhPGXxmg9Pg4ALrvntZF883NMU86J3xX10cGXgWDF2lln1T/KFiIA+xca/8lcU
+         jLTQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUlkEwVIcuyUFgA8vCTd/H0IQLU4Zc/IHFW40RX/2M42Is/mDDB9CaxQg2Ij0xQipDkRQEr4JSFc481SWAimv82dOfgQaYJKzysTVo=
+X-Gm-Message-State: AOJu0YwzXBDxntRo1BpJxiT4KTl8DmUX/Q+xk/AYZW1QoOeK+i8X5SBW
+	gR+2duw7QKUw5ItMWxu1skGAZ+cFdTUVpJprdgAJa31MRNOwDMKy8LYC0UtmYvAS6LgWmX+HFP8
+	iBrj5M/KJ0XgTNharpAs19wjysypttw0dpcmuBuvVsQVWBmW1NPnHAv96uQ7s
+X-Received: by 2002:a5d:6ac3:0:b0:33c:e323:ce39 with SMTP id
+ u3-20020a5d6ac3000000b0033ce323ce39mr1560154wrw.43.1707910224281;
+        Wed, 14 Feb 2024 03:30:24 -0800 (PST)
+X-Google-Smtp-Source: 
+ AGHT+IFn/7CRCNOkTTcJ4FiqDJfiAfmidzS77K5Cp7PsBHxs2ygLXQq31lQk0BgMb5mWCWD9xGG0qA==
+X-Received: by 2002:a5d:6ac3:0:b0:33c:e323:ce39 with SMTP id
+ u3-20020a5d6ac3000000b0033ce323ce39mr1560128wrw.43.1707910223905;
+        Wed, 14 Feb 2024 03:30:23 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWDnOrhIMIku8GYfeG5v1QLOIsqpsWLfcFAOxVRTDhWd4QHsJdvn9P/TrtDxxxBc5KEnbVU6j3LWFAgjhA1jUcxp0j32JICPff8+5mX7ke+dqKNjuPGzOi0r3t9rXz9ZrkKP3IOSMM73xsEmNcdk3Br2n7mU2CLbwbFwadQowLPHTmDYFMei2PBySartjQ7qVVffGVKBNNspJnDCQA33QhmhyfShe2Ov1Vfv94C3JkXVHYkJUoo5o6VbuKYmi1st5dmbWrMiZI7VJFotHgrnDIO7eG96f7NfrGTNgDZUjUaq49+bDKxHftvXzUS8hK+BGdysLHtSQcnr2WW9PKk4jyacZVONaQ1unbKeGlva3vCkh+/41CY9jyXysZ4BnkrMDIrW3pCazO+tOomCvo47s2hM6OVxxBFtFHMccATLCMXWLYN
+Received: from redhat.com ([2.52.26.67])
+        by smtp.gmail.com with ESMTPSA id
+ g7-20020a5d5407000000b003392206c808sm12083778wrv.105.2024.02.14.03.30.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Feb 2024 03:30:23 -0800 (PST)
+Date: Wed, 14 Feb 2024 06:30:19 -0500
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Aiswarya Cyriac <Aiswarya.Cyriac@opensynergy.com>
+Cc: "jasowang@redhat.com" <jasowang@redhat.com>,
+	"perex@perex.cz" <perex@perex.cz>,
+	"tiwai@suse.com" <tiwai@suse.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+	"virtualization@lists.linux-foundation.org"
+ <virtualization@lists.linux-foundation.org>,
+	"virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
+	Anton Yakovlev <Anton.Yakovlev@opensynergy.com>,
+	coverity-bot <keescook+coverity-bot@chromium.org>,
+	Mikhail Golubev-Ciuchea <Mikhail.Golubev-Ciuchea@opensynergy.com>
+Subject: Re: [PATCH] ALSA: virtio: Fix "Coverity: virtsnd_kctl_tlv_op():
+ Uninitialized variables" warning.
+Message-ID: <20240214062348-mutt-send-email-mst@kernel.org>
+References: <20240213085131.503569-1-aiswarya.cyriac@opensynergy.com>
+ <20240213035806-mutt-send-email-mst@kernel.org>
+ <FR3P281MB25272BA9CC886E270EEAE380E64E2@FR3P281MB2527.DEUP281.PROD.OUTLOOK.COM>
 MIME-Version: 1.0
+In-Reply-To: 
+ <FR3P281MB25272BA9CC886E270EEAE380E64E2@FR3P281MB2527.DEUP281.PROD.OUTLOOK.COM>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3F:EE_|CH2PR12MB4940:EE_
-X-MS-Office365-Filtering-Correlation-Id: 10e69bf7-93c4-48d7-5e32-08dc2d497fe1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	xXKOLrDN5lBx8cB7Var5zoYFPKDeRCCVMFi77Bi2ZA1ViJ6QGe3vAi0ut15iqOr8EaoCpg/a6cTZk2imbw82e7UEBI+9kUD5SQZdbub8DCcxTijFCVT+QesxXEPiXRLzJEoM3KirVxRkGYBMbXI+BUSyZwVkIqXThie5UpJFw6DRemLYRws/jni6RXMbgx1cfwdkM03Xi7Ex3nV8sXmKGQO+Z0o3CJINpi1T3+pKcHkv9QHI8YJrpaGKpchvV+tV9cy2pKjLJHdgKF+Jtxt6zPWepjUy7p1zjCHrqegc90mR3m9T/ebLWlLPvm4v6z3IAi1pEi50wa9tOMWLaPPsKmHp75GnWt+0l0eTuNRuGvQ3uhQBgMysYchi2aeNHhV+GIYQfsmobCDl5AlxP3tPzOFw5v7HI7pfPuWycPmXWrgzkascnObFxUaFAP5GU5kR431DQYu3eBmskEwasbRy5UG50V5JrYyDy5+42+ImKdAN0pKjFOlf9TF7w/NaRyLd26K/uMYVxenqL60DgMkiMfdFdflmHAKeYlxNLxTxXjdTxliKe9bl0Rgr2chRFFH1uewIAeur50QZPY7wteNsKI8N+sUQpBxu7U88uvLZJuQ=
-X-Forefront-Antispam-Report: 
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(346002)(376002)(39860400002)(396003)(136003)(230922051799003)(1800799012)(451199024)(64100799003)(186009)(82310400011)(36840700001)(46966006)(40470700004)(5660300002)(8936002)(8676002)(4326008)(6916009)(70206006)(70586007)(2906002)(83380400001)(26005)(1076003)(336012)(426003)(82740400003)(81166007)(356005)(36756003)(86362001)(54906003)(6666004)(316002)(2616005)(41300700001)(7696005)(478600001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Feb 2024 10:41:27.8137
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 10e69bf7-93c4-48d7-5e32-08dc2d497fe1
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
- TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: 
-	CY4PEPF0000EE3F.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4940
-Message-ID-Hash: JXQQGRXMQP5DO7NUGVK5KZZWGIP22BQ3
-X-Message-ID-Hash: JXQQGRXMQP5DO7NUGVK5KZZWGIP22BQ3
-X-MailFrom: Vijendar.Mukunda@amd.com
+Message-ID-Hash: RK2VBYOSNFL2HO5SQ2AHBNA4XYX5M4OX
+X-Message-ID-Hash: RK2VBYOSNFL2HO5SQ2AHBNA4XYX5M4OX
+X-MailFrom: mst@redhat.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -144,7 +139,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JXQQGRXMQP5DO7NUGVK5KZZWGIP22BQ3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RK2VBYOSNFL2HO5SQ2AHBNA4XYX5M4OX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -153,166 +148,170 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add machine select logic for SoundWire interface and create a machine
-device node based on ACP PDM/SoundWire configuration.
+On Wed, Feb 14, 2024 at 09:08:26AM +0000, Aiswarya Cyriac wrote:
+> Hi Michael,
+> 
+> Thank you for reviewing. I have updated my response inline
+> 
+> On Tue, Feb 13, 2024 at 09:51:30AM +0100, Aiswarya Cyriac wrote:
+> >> Fix the following warning when building virtio_snd driver.
+> >>
+> >> "
+> >> *** CID 1583619:  Uninitialized variables  (UNINIT)
+> >> sound/virtio/virtio_kctl.c:294 in virtsnd_kctl_tlv_op()
+> >> 288
+> >> 289         break;
+> >> 290       }
+> >> 291
+> >> 292       kfree(tlv);
+> >> 293
+> >> vvv     CID 1583619:  Uninitialized variables  (UNINIT)
+> >> vvv     Using uninitialized value "rc".
+> >> 294       return rc;
+> >> 295     }
+> >> 296
+> >> 297     /**
+> >> 298      * virtsnd_kctl_get_enum_items() - Query items for the ENUMERATED element type.
+> >> 299      * @snd: VirtIO sound device.
+> >> "
+> >>
+> >> Signed-off-by: Anton Yakovlev <anton.yakovlev@opensynergy.com>
+> >> Signed-off-by: Aiswarya Cyriac <aiswarya.cyriac@opensynergy.com>
+> >> Reported-by: coverity-bot <keescook+coverity-bot@chromium.org>
+> >> Addresses-Coverity-ID: 1583619 ("Uninitialized variables")
+> >> Fixes: d6568e3de42d ("ALSA: virtio: add support for audio controls")
+> 
+> >I don't know enough about ALSA to say whether the patch is correct.  But
+> >the commit log needs work: please, do not "fix warnings" - analyse the
+> >code and explain whether there is a real issue and if yes what is it
+> >and how it can trigger. Is an invalid op_flag ever passed?
+> >If it's just a coverity false positive it might be ok to
+> >work around that but document this.
+> 
+> This warning is caused by the absence of the "default" branch in the
+> switch-block, and is a false positive because the kernel calls
+> virtsnd_kctl_tlv_op() only with values for op_flag processed in
+> this block.
 
-Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
----
- sound/soc/amd/ps/acp63.h  |  4 ++
- sound/soc/amd/ps/pci-ps.c | 81 ++++++++++++++++++++++++++++++++++++++-
- 2 files changed, 84 insertions(+), 1 deletion(-)
+Well we don't normally have functions validate inputs.
+In this case I am not really sure we should bother
+with adding dead code. If you really want to, add BUG_ON.
 
-diff --git a/sound/soc/amd/ps/acp63.h b/sound/soc/amd/ps/acp63.h
-index fb4261f7fa4b..65433184d03e 100644
---- a/sound/soc/amd/ps/acp63.h
-+++ b/sound/soc/amd/ps/acp63.h
-@@ -219,9 +219,11 @@ struct sdw_dma_ring_buf_reg {
-  * @pdm_dev: ACP PDM controller platform device
-  * @dmic_codec: platform device for DMIC Codec
-  * sdw_dma_dev: platform device for SoundWire DMA controller
-+ * @mach_dev: platform device for machine driver to support ACP PDM/SoundWire configuration
-  * @acp_lock: used to protect acp common registers
-  * @info: SoundWire AMD information found in ACPI tables
-  * @sdw: SoundWire context for all SoundWire manager instances
-+ * @machine: ACPI machines for SoundWire interface
-  * @is_sdw_dev: flag set to true when any SoundWire manager instances are available
-  * @is_pdm_dev: flag set to true when ACP PDM controller exists
-  * @is_pdm_config: flat set to true when PDM configuration is selected from BIOS
-@@ -239,10 +241,12 @@ struct acp63_dev_data {
- 	struct platform_device *pdm_dev;
- 	struct platform_device *dmic_codec_dev;
- 	struct platform_device *sdw_dma_dev;
-+	struct platform_device *mach_dev;
- 	struct mutex acp_lock; /* protect shared registers */
- 	struct sdw_amd_acpi_info info;
- 	/* sdw context allocated by SoundWire driver */
- 	struct sdw_amd_ctx *sdw;
-+	struct snd_soc_acpi_mach *machines;
- 	bool is_sdw_dev;
- 	bool is_pdm_dev;
- 	bool is_pdm_config;
-diff --git a/sound/soc/amd/ps/pci-ps.c b/sound/soc/amd/ps/pci-ps.c
-index c42660245019..205bca95aa06 100644
---- a/sound/soc/amd/ps/pci-ps.c
-+++ b/sound/soc/amd/ps/pci-ps.c
-@@ -17,6 +17,7 @@
- #include <linux/pm_runtime.h>
- #include <linux/iopoll.h>
- #include <linux/soundwire/sdw_amd.h>
-+#include "../mach-config.h"
- 
- #include "acp63.h"
- 
-@@ -281,6 +282,42 @@ static int amd_sdw_exit(struct acp63_dev_data *acp_data)
- 
- 	return 0;
- }
-+
-+static struct snd_soc_acpi_mach *acp63_sdw_machine_select(struct device *dev)
-+{
-+	struct snd_soc_acpi_mach *mach;
-+	const struct snd_soc_acpi_link_adr *link;
-+	struct acp63_dev_data *acp_data = dev_get_drvdata(dev);
-+	int ret, i;
-+
-+	if (acp_data->info.count) {
-+		ret = sdw_amd_get_slave_info(acp_data->sdw);
-+		if (ret) {
-+			dev_dbg(dev, "failed to read slave information\n");
-+			return NULL;
-+		}
-+		for (mach = acp_data->machines; mach; mach++) {
-+			if (!mach->links)
-+				break;
-+			link = mach->links;
-+			for (i = 0; i < acp_data->info.count && link->num_adr; link++, i++) {
-+				if (!snd_soc_acpi_sdw_link_slaves_found(dev, link,
-+									acp_data->sdw->ids,
-+									acp_data->sdw->num_slaves))
-+					break;
-+			}
-+			if (i == acp_data->info.count || !link->num_adr)
-+				break;
-+		}
-+		if (mach && mach->link_mask) {
-+			mach->mach_params.links = mach->links;
-+			mach->mach_params.link_mask = mach->link_mask;
-+			return mach;
-+		}
-+	}
-+	dev_dbg(dev, "No SoundWire machine driver found\n");
-+	return NULL;
-+}
- #else
- static int acp_scan_sdw_devices(struct device *dev, u64 addr)
- {
-@@ -296,8 +333,44 @@ static int amd_sdw_exit(struct acp63_dev_data *acp_data)
- {
- 	return 0;
- }
-+
-+static struct snd_soc_acpi_mach *acp63_sdw_machine_select(struct device *dev)
-+{
-+	return NULL;
-+}
- #endif
- 
-+static int acp63_machine_register(struct device *dev)
-+{
-+	struct snd_soc_acpi_mach *mach;
-+	struct acp63_dev_data *adata = dev_get_drvdata(dev);
-+	int size;
-+
-+	if (adata->is_sdw_dev && adata->is_sdw_config) {
-+		size = sizeof(*adata->machines);
-+		mach = acp63_sdw_machine_select(dev);
-+		if (mach) {
-+			adata->mach_dev = platform_device_register_data(dev, mach->drv_name,
-+									PLATFORM_DEVID_NONE, mach,
-+									size);
-+			if (IS_ERR(adata->mach_dev)) {
-+				dev_err(dev,
-+					"cannot register Machine device for SoundWire Interface\n");
-+				return PTR_ERR(adata->mach_dev);
-+			}
-+		}
-+
-+	} else if (adata->is_pdm_dev && !adata->is_sdw_dev && adata->is_pdm_config) {
-+		adata->mach_dev = platform_device_register_data(dev, "acp_ps_mach",
-+								PLATFORM_DEVID_NONE, NULL, 0);
-+		if (IS_ERR(adata->mach_dev)) {
-+			dev_err(dev, "cannot register amd_ps_mach device\n");
-+			return PTR_ERR(adata->mach_dev);
-+		}
-+	}
-+	return 0;
-+}
-+
- static int get_acp63_device_config(struct pci_dev *pci, struct acp63_dev_data *acp_data)
- {
- 	struct acpi_device *pdm_dev;
-@@ -526,7 +599,11 @@ static int snd_acp63_probe(struct pci_dev *pci,
- 		dev_err(&pci->dev, "ACP platform devices creation failed\n");
- 		goto de_init;
- 	}
--
-+	ret = acp63_machine_register(&pci->dev);
-+	if (ret) {
-+		dev_err(&pci->dev, "ACP machine register failed\n");
-+		goto de_init;
-+	}
- skip_pdev_creation:
- 	device_set_wakeup_enable(&pci->dev, true);
- 	pm_runtime_set_autosuspend_delay(&pci->dev, ACP_SUSPEND_DELAY_MS);
-@@ -640,6 +717,8 @@ static void snd_acp63_remove(struct pci_dev *pci)
- 		platform_device_unregister(adata->pdm_dev);
- 		platform_device_unregister(adata->dmic_codec_dev);
- 	}
-+	if (adata->mach_dev)
-+		platform_device_unregister(adata->mach_dev);
- 	ret = acp63_deinit(adata->acp63_base, &pci->dev);
- 	if (ret)
- 		dev_err(&pci->dev, "ACP de-init failed\n");
--- 
-2.34.1
+
+
+> I will update the fix and send a v2 patch
+> 
+> >> ---
+> >>  sound/virtio/virtio_kctl.c | 5 +++++
+> >>  1 file changed, 5 insertions(+)
+> >>
+> >> diff --git a/sound/virtio/virtio_kctl.c b/sound/virtio/virtio_kctl.c
+> >> index 0c6ac74aca1e..d7a160c5db03 100644
+> >> --- a/sound/virtio/virtio_kctl.c
+> >> +++ b/sound/virtio/virtio_kctl.c
+> >> @@ -286,6 +286,11 @@ static int virtsnd_kctl_tlv_op(struct snd_kcontrol *kcontrol, int op_flag,
+> >>                else
+> >>                        rc = virtsnd_ctl_msg_send(snd, msg, &sg, NULL, false);
+> >>
+> >> +             break;
+> >> +     default:
+> >> +             virtsnd_ctl_msg_unref(msg);
+> >> +             rc = -EINVAL;
+> >> +
+> 
+> >There's already virtsnd_ctl_msg_unref call above.
+> >Also don't we need virtsnd_ctl_msg_unref on other error paths
+> >such as EFAULT?
+> >Unify error handling to fix it all then?
+> 
+> This also need to be handled and virtsnd_ctl_msg_unref needed in case of EFAULT as well.
+> I will update the patch.
+> 
+> 
+> Thanks,
+> Aiswarya Cyriac
+> Software Engineer
+> ​
+> OpenSynergy GmbH
+> Rotherstr. 20, 10245 Berlin
+> 
+> EMail: aiswarya.cyriac@opensynergy.com
+> 
+> www.opensynergy.com
+> Handelsregister/Commercial Registry: Amtsgericht Charlottenburg, HRB 108616B
+> Geschäftsführer/Managing Director: Régis Adjamah
+> 
+> ________________________________________
+> From: Michael S. Tsirkin <mst@redhat.com>
+> Sent: Tuesday, February 13, 2024 10:06 AM
+> To: Aiswarya Cyriac
+> Cc: jasowang@redhat.com; perex@perex.cz; tiwai@suse.com; linux-kernel@vger.kernel.org; alsa-devel@alsa-project.org; virtualization@lists.linux-foundation.org; virtio-dev@lists.oasis-open.org; Anton Yakovlev; coverity-bot
+> Subject: Re: [PATCH] ALSA: virtio: Fix "Coverity: virtsnd_kctl_tlv_op(): Uninitialized variables" warning.
+> 
+> On Tue, Feb 13, 2024 at 09:51:30AM +0100, Aiswarya Cyriac wrote:
+> > Fix the following warning when building virtio_snd driver.
+> >
+> > "
+> > *** CID 1583619:  Uninitialized variables  (UNINIT)
+> > sound/virtio/virtio_kctl.c:294 in virtsnd_kctl_tlv_op()
+> > 288
+> > 289         break;
+> > 290       }
+> > 291
+> > 292       kfree(tlv);
+> > 293
+> > vvv     CID 1583619:  Uninitialized variables  (UNINIT)
+> > vvv     Using uninitialized value "rc".
+> > 294       return rc;
+> > 295     }
+> > 296
+> > 297     /**
+> > 298      * virtsnd_kctl_get_enum_items() - Query items for the ENUMERATED element type.
+> > 299      * @snd: VirtIO sound device.
+> > "
+> >
+> > Signed-off-by: Anton Yakovlev <anton.yakovlev@opensynergy.com>
+> > Signed-off-by: Aiswarya Cyriac <aiswarya.cyriac@opensynergy.com>
+> > Reported-by: coverity-bot <keescook+coverity-bot@chromium.org>
+> > Addresses-Coverity-ID: 1583619 ("Uninitialized variables")
+> > Fixes: d6568e3de42d ("ALSA: virtio: add support for audio controls")
+> 
+> I don't know enough about ALSA to say whether the patch is correct.  But
+> the commit log needs work: please, do not "fix warnings" - analyse the
+> code and explain whether there is a real issue and if yes what is it
+> and how it can trigger. Is an invalid op_flag ever passed?
+> If it's just a coverity false positive it might be ok to
+> work around that but document this.
+> 
+> 
+> > ---
+> >  sound/virtio/virtio_kctl.c | 5 +++++
+> >  1 file changed, 5 insertions(+)
+> >
+> > diff --git a/sound/virtio/virtio_kctl.c b/sound/virtio/virtio_kctl.c
+> > index 0c6ac74aca1e..d7a160c5db03 100644
+> > --- a/sound/virtio/virtio_kctl.c
+> > +++ b/sound/virtio/virtio_kctl.c
+> > @@ -286,6 +286,11 @@ static int virtsnd_kctl_tlv_op(struct snd_kcontrol *kcontrol, int op_flag,
+> >               else
+> >                       rc = virtsnd_ctl_msg_send(snd, msg, &sg, NULL, false);
+> >
+> > +             break;
+> > +     default:
+> > +             virtsnd_ctl_msg_unref(msg);
+> > +             rc = -EINVAL;
+> > +
+> 
+> There's already virtsnd_ctl_msg_unref call above.
+> Also don't we need virtsnd_ctl_msg_unref on other error paths
+> such as EFAULT?
+> Unify error handling to fix it all then?
+> 
+> >               break;
+> >       }
+> >
+> > --
+> > 2.43.0
+> 
+> 
 

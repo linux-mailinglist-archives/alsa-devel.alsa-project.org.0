@@ -2,172 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86ECD85488E
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Feb 2024 12:38:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7319D85492C
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Feb 2024 13:25:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 145A7DEC;
-	Wed, 14 Feb 2024 12:38:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 145A7DEC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5FF35B6A;
+	Wed, 14 Feb 2024 13:25:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5FF35B6A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1707910711;
-	bh=tUKnbRsubt1txfD8Snvz460QTKeRpLCyiZ24LRq4HE4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1707913549;
+	bh=om12AIRXbhoBkX5ErV9iC57tbcp9qmnO+XHs8NR0XaA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=vE0zIPBPKt2fgRJT4pgQKuzOrAGLyFOR3j6QLk6/UlXojlHP7Z88OHHhMy5l9Np5U
-	 TApZOU5J32JVU1sMPb9yW/UB8SYhUFUbQ8UHdd82F2VA8muLvyq8196S+2cp2MI8qq
-	 PtBmd6uXSdvFmTRNu9wFbb+WKOn1qXc0WNFfpryY=
+	b=pn+Vh2J/p0d1v8ny1qaqLk1za/kej2jELFglvL2rpfTYdDGnS3/F2ASmg4TgFCdYJ
+	 65+RBz7EwR9tGNmxtfCfukbvkzloJjRuZQ4Yst5IOANydxjCYpbcN7inqZZL8Zgv4H
+	 /Ek97Vsc51Ap7vWPP7kF65oVcmYXGXsERLvyE9/w=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C1D3CF805AA; Wed, 14 Feb 2024 12:37:59 +0100 (CET)
+	id D6B04F80589; Wed, 14 Feb 2024 13:25:17 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 313D5F805A0;
-	Wed, 14 Feb 2024 12:37:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 57F66F805A8;
+	Wed, 14 Feb 2024 13:25:17 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 61090F80238; Wed, 14 Feb 2024 12:37:54 +0100 (CET)
+	id 49131F80238; Wed, 14 Feb 2024 13:25:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 98359F800EE
-	for <alsa-devel@alsa-project.org>; Wed, 14 Feb 2024 12:37:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 98359F800EE
+	by alsa1.perex.cz (Postfix) with ESMTPS id 08A17F80104
+	for <alsa-devel@alsa-project.org>; Wed, 14 Feb 2024 13:25:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08A17F80104
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=RJWwqUfN;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=Td7Ix7OG;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=RJWwqUfN;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=Td7Ix7OG
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 1C88E1F7F5;
-	Wed, 14 Feb 2024 11:37:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1707910668;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kxIyYzxOV3nh9HraFjdth4tMMfmT9KWuLu4edl2ED40=;
-	b=RJWwqUfNnC50kOEcV7C9lBZZW6IXlF/M+zzoSJGGPVyuC/N3DSFUJiSndqZAyPWEbi/SfJ
-	SuetIyMZSWj/glnmYbASd6mYSnOXWTseTcPlYDSmH6NcWMOXR77HKe5JfEJ39ToSEMoJW0
-	2HLSJO1z8ye3irRbCOjyIc+KYpMlm+E=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1707910668;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kxIyYzxOV3nh9HraFjdth4tMMfmT9KWuLu4edl2ED40=;
-	b=Td7Ix7OGyXKKX8V/QjHkw3TVNKRaQkjIY821twbMc+JKTREmDRSUlv0oMBcXc8aIMLlzY4
-	kFyHx1Sbeu/xX0Dg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1707910668;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kxIyYzxOV3nh9HraFjdth4tMMfmT9KWuLu4edl2ED40=;
-	b=RJWwqUfNnC50kOEcV7C9lBZZW6IXlF/M+zzoSJGGPVyuC/N3DSFUJiSndqZAyPWEbi/SfJ
-	SuetIyMZSWj/glnmYbASd6mYSnOXWTseTcPlYDSmH6NcWMOXR77HKe5JfEJ39ToSEMoJW0
-	2HLSJO1z8ye3irRbCOjyIc+KYpMlm+E=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1707910668;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kxIyYzxOV3nh9HraFjdth4tMMfmT9KWuLu4edl2ED40=;
-	b=Td7Ix7OGyXKKX8V/QjHkw3TVNKRaQkjIY821twbMc+JKTREmDRSUlv0oMBcXc8aIMLlzY4
-	kFyHx1Sbeu/xX0Dg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B705613A6D;
-	Wed, 14 Feb 2024 11:37:47 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id BBhGKwumzGUiXAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Wed, 14 Feb 2024 11:37:47 +0000
-Date: Wed, 14 Feb 2024 12:37:47 +0100
-Message-ID: <871q9fi8dw.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Aiswarya Cyriac <Aiswarya.Cyriac@opensynergy.com>,
-	"jasowang@redhat.com" <jasowang@redhat.com>,
-	"perex@perex.cz" <perex@perex.cz>,
-	"tiwai@suse.com" <tiwai@suse.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
-	"virtualization@lists.linux-foundation.org"
- <virtualization@lists.linux-foundation.org>,
-	"virtio-dev@lists.oasis-open.org" <virtio-dev@lists.oasis-open.org>,
-	Anton Yakovlev <Anton.Yakovlev@opensynergy.com>,
-	coverity-bot <keescook+coverity-bot@chromium.org>,
-	Mikhail Golubev-Ciuchea <Mikhail.Golubev-Ciuchea@opensynergy.com>
-Subject: Re: [PATCH] ALSA: virtio: Fix "Coverity: virtsnd_kctl_tlv_op():
- Uninitialized variables" warning.
-In-Reply-To: <20240214062348-mutt-send-email-mst@kernel.org>
-References: <20240213085131.503569-1-aiswarya.cyriac@opensynergy.com>
-	<20240213035806-mutt-send-email-mst@kernel.org>
-	<FR3P281MB25272BA9CC886E270EEAE380E64E2@FR3P281MB2527.DEUP281.PROD.OUTLOOK.COM>
-	<20240214062348-mutt-send-email-mst@kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=RJWwqUfN;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Td7Ix7OG
-X-Spamd-Result: default: False [-1.81 / 50.00];
-	 ARC_NA(0.00)[];
-	 TO_DN_EQ_ADDR_SOME(0.00)[];
-	 R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 FROM_HAS_DN(0.00)[];
-	 TO_DN_SOME(0.00)[];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 BAYES_HAM(-3.00)[100.00%];
-	 TAGGED_RCPT(0.00)[coverity-bot];
-	 MIME_GOOD(-0.10)[text/plain];
-	 DWL_DNSWL_LOW(-1.00)[suse.de:dkim];
-	 RCVD_COUNT_THREE(0.00)[3];
-	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	 DKIM_TRACE(0.00)[suse.de:+];
-	 MX_GOOD(-0.01)[];
-	 RCPT_COUNT_TWELVE(0.00)[12];
-	 MID_CONTAINS_FROM(1.00)[];
-	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,opensynergy.com:email];
-	 FUZZY_BLOCKED(0.00)[rspamd.com];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+];
-	 RCVD_TLS_ALL(0.00)[];
-	 SUSPICIOUS_RECIPS(1.50)[]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 1C88E1F7F5
-Message-ID-Hash: MYGV4XK4QRER7KZZUJIK5S5YGWR6NKGS
-X-Message-ID-Hash: MYGV4XK4QRER7KZZUJIK5S5YGWR6NKGS
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=sY+W//+o
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id 4C4E1CE20F0;
+	Wed, 14 Feb 2024 12:25:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E18DDC433F1;
+	Wed, 14 Feb 2024 12:24:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1707913501;
+	bh=om12AIRXbhoBkX5ErV9iC57tbcp9qmnO+XHs8NR0XaA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=sY+W//+oR5pT+WqLTp1mUjOaDEV57w6AM2zyTU5R+puNv38dmMoH3d477WwuHMWCc
+	 Byzg4+kFesYaTSSssDgxb+3kjerABcZ2lY6PXSEIQE8Ag7sRhypfakz6Q8fTRn6Yok
+	 fzK4Cw9GnU+bUQrxxMnq9eJ9B2URNGFJbpEOC8xCHLyzw/1SsYyVAXsnK24PMJUsae
+	 rN9i3eNBbqJ1OePuJ7qeOah1liQQE6RbNN0+0uYBxP1iF8ow0YivnQZ9ZT5+kHFZnc
+	 juE1ksU1dgDn4v9IXyAHJ8M/sicz3YNjb+9nW1koJPEhZMeEmeYcy4VOdmLNsUvCno
+	 ZwlOG9l8DAwjA==
+Date: Wed, 14 Feb 2024 12:24:56 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Balakrishnan Sambath <balakrishnan.s@microchip.com>
+Cc: Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: sound:atmel-at91sam9g20ek: convert bindings
+ to json-schema
+Message-ID: <aa707af2-b0ef-46de-83ae-584756d5569d@sirena.org.uk>
+References: 
+ <20240214-at91sam9g20ek-wm8731-yaml-v1-1-33333e17383b@microchip.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="s7rTl/oWJRMeE7uX"
+Content-Disposition: inline
+In-Reply-To: 
+ <20240214-at91sam9g20ek-wm8731-yaml-v1-1-33333e17383b@microchip.com>
+X-Cookie: Available while quantities last.
+Message-ID-Hash: EUKKKO5IQ3IPOCI4BZB5QZMRYR4CDPEX
+X-Message-ID-Hash: EUKKKO5IQ3IPOCI4BZB5QZMRYR4CDPEX
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -179,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MYGV4XK4QRER7KZZUJIK5S5YGWR6NKGS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EUKKKO5IQ3IPOCI4BZB5QZMRYR4CDPEX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -188,62 +108,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 14 Feb 2024 12:30:19 +0100,
-Michael S. Tsirkin wrote:
-> 
-> On Wed, Feb 14, 2024 at 09:08:26AM +0000, Aiswarya Cyriac wrote:
-> > Hi Michael,
-> > 
-> > Thank you for reviewing. I have updated my response inline
-> > 
-> > On Tue, Feb 13, 2024 at 09:51:30AM +0100, Aiswarya Cyriac wrote:
-> > >> Fix the following warning when building virtio_snd driver.
-> > >>
-> > >> "
-> > >> *** CID 1583619:  Uninitialized variables  (UNINIT)
-> > >> sound/virtio/virtio_kctl.c:294 in virtsnd_kctl_tlv_op()
-> > >> 288
-> > >> 289         break;
-> > >> 290       }
-> > >> 291
-> > >> 292       kfree(tlv);
-> > >> 293
-> > >> vvv     CID 1583619:  Uninitialized variables  (UNINIT)
-> > >> vvv     Using uninitialized value "rc".
-> > >> 294       return rc;
-> > >> 295     }
-> > >> 296
-> > >> 297     /**
-> > >> 298      * virtsnd_kctl_get_enum_items() - Query items for the ENUMERATED element type.
-> > >> 299      * @snd: VirtIO sound device.
-> > >> "
-> > >>
-> > >> Signed-off-by: Anton Yakovlev <anton.yakovlev@opensynergy.com>
-> > >> Signed-off-by: Aiswarya Cyriac <aiswarya.cyriac@opensynergy.com>
-> > >> Reported-by: coverity-bot <keescook+coverity-bot@chromium.org>
-> > >> Addresses-Coverity-ID: 1583619 ("Uninitialized variables")
-> > >> Fixes: d6568e3de42d ("ALSA: virtio: add support for audio controls")
-> > 
-> > >I don't know enough about ALSA to say whether the patch is correct.  But
-> > >the commit log needs work: please, do not "fix warnings" - analyse the
-> > >code and explain whether there is a real issue and if yes what is it
-> > >and how it can trigger. Is an invalid op_flag ever passed?
-> > >If it's just a coverity false positive it might be ok to
-> > >work around that but document this.
-> > 
-> > This warning is caused by the absence of the "default" branch in the
-> > switch-block, and is a false positive because the kernel calls
-> > virtsnd_kctl_tlv_op() only with values for op_flag processed in
-> > this block.
-> 
-> Well we don't normally have functions validate inputs.
-> In this case I am not really sure we should bother
-> with adding dead code. If you really want to, add BUG_ON.
 
-Please don't use BUG_ON() in such a case...
-There is no reason to break the whole operation.
+--s7rTl/oWJRMeE7uX
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
+On Wed, Feb 14, 2024 at 12:10:06PM +0530, Balakrishnan Sambath wrote:
+> Convert atmel-at91sam9g20ek-wm8731-audio DT binding to yaml
+> based json-schema.Change file name to match json-scheme naming.
 
-thanks,
+Please submit patches using subject lines reflecting the style for the
+subsystem, this makes it easier for people to identify relevant patches.
+Look at what existing commits in the area you're changing are doing and
+make sure your subject lines visually resemble what they're doing.
+There's no need to resubmit to fix this alone.
 
-Takashi
+--s7rTl/oWJRMeE7uX
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmXMsRcACgkQJNaLcl1U
+h9AUYQf+IoYLzVMnh8iw5Nit64An1Vh3KQ/uSzayMzfztETr+85K7EGJw6RuAuEF
+X9XXAgq5jPkq4VvN57Urd4ieIR4gajNsEoOk09cM3w7hYF0UNk8BcnX1LF/c4/JZ
++ItbXiyPZUNXGjHwi4IEoMK1g0Og6Y0B7lSwTb+bYV0NYTu1LIZytwpYQEBeXRGY
+g5dm+0Hh0dzJ5yAT8zT7PyoxMaHmNB7lHU9v0RYtSVbj7lg836C3uI1TM8TllMMZ
+afjmEjNPP7I8eCI+X8NzorvWLi+e0CwHvI3SZnZoflcGhuxQGlGNPPtdeT2hmFq5
+hrT3azEJn0Olq8RI61G+QCJK9J8ziw==
+=dEZg
+-----END PGP SIGNATURE-----
+
+--s7rTl/oWJRMeE7uX--

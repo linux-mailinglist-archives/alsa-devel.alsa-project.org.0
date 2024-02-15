@@ -2,153 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BD7A8567C0
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Feb 2024 16:32:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EA8C856F0B
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Feb 2024 22:04:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A591F84D;
-	Thu, 15 Feb 2024 16:32:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A591F84D
+	by alsa0.perex.cz (Postfix) with ESMTPS id E7556DF8;
+	Thu, 15 Feb 2024 22:04:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E7556DF8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1708011164;
-	bh=1ySeRU52Fjc5T1RYSYKT3tNkryKHBSjSVzQ984bX1cs=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=tqO0irpgiPKwQv9UNZ3cEh63FqJHCZ/cQXEIgm4AsmrFtZEpwkM+JcqLayxylOuNV
-	 ZdUDKfa0cavhUuT7ccobLvj4dVPDrDz+v1HTJ8uzWSEyDxU4RimAF3UqGHPN97OrrN
-	 VLz3xDVaIxjUjU1tNwedbk+kOpDI/hKL/3P6r/hU=
+	s=default; t=1708031060;
+	bh=VhdfpZDcEIsddO/EyQfKPvU+8LMInwZEs57nuX4AZrs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=rpwQpLz39cz4h0MV8O9pAkMnykhPtBrOdW4h+CtM0cumuX9ORkZyJrylknkMnMmEl
+	 cGJv0XpEDuGrERwt+w0rzxjD8F5GxB8y6YUs8jhD+MK0buK7GhkdybuiOX5TDGbzPq
+	 NiqMiIzE/B7FNBLIhOC0hX0bo2S2YeEDTwZeYeqw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 805A8F805AE; Thu, 15 Feb 2024 16:32:13 +0100 (CET)
+	id 278D7F805AB; Thu, 15 Feb 2024 22:03:49 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A140FF80578;
-	Thu, 15 Feb 2024 16:32:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7E1E2F80588;
+	Thu, 15 Feb 2024 22:03:49 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0A359F80238; Thu, 15 Feb 2024 16:32:06 +0100 (CET)
+	id 78209F80238; Thu, 15 Feb 2024 22:03:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from metis.whiteo.stw.pengutronix.de
+ (metis.whiteo.stw.pengutronix.de [IPv6:2a0a:edc0:2:b01:1d::104])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D8175F800BF
-	for <alsa-devel@alsa-project.org>; Thu, 15 Feb 2024 16:31:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8175F800BF
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=pp8CSGXG;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=awWss7zB;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=pp8CSGXG;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=awWss7zB
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id D6A8F21F67;
-	Thu, 15 Feb 2024 15:31:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1708011109;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-  content-transfer-encoding:content-transfer-encoding;
-	bh=yYCh2KtG5vupXa7aKBQTHEBXrbf/7kx/IpWbesSdXjw=;
-	b=pp8CSGXGbQUGWpI8o2dW+5QEtsG2xwqy8JJnOqUU8zmDfZqv/CcOIz7Saj+a1B7D5088tp
-	l0qNLh3LLayVzK9foZBSB+cyPHBrcuuoEaW8G33UJFe6SwPY/VdF3AgHNZbgSIC0HfuAnl
-	IGfC8pMIfWL57RJxrN5cnJKhfADfMEQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1708011109;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-  content-transfer-encoding:content-transfer-encoding;
-	bh=yYCh2KtG5vupXa7aKBQTHEBXrbf/7kx/IpWbesSdXjw=;
-	b=awWss7zB9ASEUDxpp6Nr3eiSTjQKMaNpji9+/ZMLV7MIYWc/18JLaZebYoQZJA0ozQWDrs
-	/XscDbImmUx67pDg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1708011109;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-  content-transfer-encoding:content-transfer-encoding;
-	bh=yYCh2KtG5vupXa7aKBQTHEBXrbf/7kx/IpWbesSdXjw=;
-	b=pp8CSGXGbQUGWpI8o2dW+5QEtsG2xwqy8JJnOqUU8zmDfZqv/CcOIz7Saj+a1B7D5088tp
-	l0qNLh3LLayVzK9foZBSB+cyPHBrcuuoEaW8G33UJFe6SwPY/VdF3AgHNZbgSIC0HfuAnl
-	IGfC8pMIfWL57RJxrN5cnJKhfADfMEQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1708011109;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-  content-transfer-encoding:content-transfer-encoding;
-	bh=yYCh2KtG5vupXa7aKBQTHEBXrbf/7kx/IpWbesSdXjw=;
-	b=awWss7zB9ASEUDxpp6Nr3eiSTjQKMaNpji9+/ZMLV7MIYWc/18JLaZebYoQZJA0ozQWDrs
-	/XscDbImmUx67pDg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B11F513A53;
-	Thu, 15 Feb 2024 15:31:49 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 1GiaKWUuzmXGdgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Thu, 15 Feb 2024 15:31:49 +0000
-From: Takashi Iwai <tiwai@suse.de>
-To: linux-sound@vger.kernel.org
-Cc: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: usb-audio: More relaxed check of MIDI jack names
-Date: Thu, 15 Feb 2024 16:31:44 +0100
-Message-Id: <20240215153144.26047-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.35.3
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7B3ECF800EE
+	for <alsa-devel@alsa-project.org>; Thu, 15 Feb 2024 22:03:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7B3ECF800EE
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1raitC-0000gM-7x; Thu, 15 Feb 2024 22:03:26 +0100
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.94.2)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1rait9-000xGR-RU; Thu, 15 Feb 2024 22:03:23 +0100
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.96)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1rait9-005eCw-2Q;
+	Thu, 15 Feb 2024 22:03:23 +0100
+Date: Thu, 15 Feb 2024 22:03:23 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Thomas Gleixner <tglx@linutronix.de>
+Cc: Andrew Lunn <andrew@lunn.ch>, alsa-devel@alsa-project.org,
+	Charles Keepax <ckeepax@opensource.cirrus.com>, kernel@pengutronix.de,
+ Shawn Guo <shawnguo@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+ linux-stm32@st-md-mailman.stormreply.com,
+	linux-kernel@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+ NXP Linux Team <linux-imx@nxp.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, patches@opensource.cirrus.com,
+	Fabio Estevam <festevam@gmail.com>,
+ Gregory Clement <gregory.clement@bootlin.com>,
+	linux-arm-kernel@lists.infradead.org,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>
+Subject: Re: [PATCH 00/13] irqchip: Convert to platform remove callback
+ returning void
+Message-ID: <knhwqxhouaiehmnnz5oxaxibhq7usokefztae4pplqypwuzgye@mke2irokres4>
+References: <cover.1703284359.git.u.kleine-koenig@pengutronix.de>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spamd-Bar: +
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=pp8CSGXG;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=awWss7zB
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [1.49 / 50.00];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	 R_MISSING_CHARSET(2.50)[];
-	 TO_DN_NONE(0.00)[];
-	 BROKEN_CONTENT_TYPE(1.50)[];
-	 RCVD_COUNT_THREE(0.00)[3];
-	 DKIM_TRACE(0.00)[suse.de:+];
-	 RCPT_COUNT_TWO(0.00)[2];
-	 MX_GOOD(-0.01)[];
-	 NEURAL_HAM_SHORT(-0.20)[-1.000];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+];
-	 BAYES_HAM(-0.00)[23.61%];
-	 ARC_NA(0.00)[];
-	 R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	 FROM_HAS_DN(0.00)[];
-	 DWL_DNSWL_MED(-2.00)[suse.de:dkim];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 NEURAL_HAM_LONG(-1.00)[-1.000];
-	 MIME_GOOD(-0.10)[text/plain];
-	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	 MID_CONTAINS_FROM(1.00)[];
-	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:email];
-	 FUZZY_BLOCKED(0.00)[rspamd.com];
-	 RCVD_TLS_ALL(0.00)[]
-X-Rspamd-Queue-Id: D6A8F21F67
-Message-ID-Hash: KYPHQTFHSV4BJVZS7TLCBK22NKQJOG5M
-X-Message-ID-Hash: KYPHQTFHSV4BJVZS7TLCBK22NKQJOG5M
-X-MailFrom: tiwai@suse.de
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="543tsvzhxgimotst"
+Content-Disposition: inline
+In-Reply-To: <cover.1703284359.git.u.kleine-koenig@pengutronix.de>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: alsa-devel@alsa-project.org
+Message-ID-Hash: 7OV4LXPUQ3SZL563PBSFPB6CAZC46EVB
+X-Message-ID-Hash: 7OV4LXPUQ3SZL563PBSFPB6CAZC46EVB
+X-MailFrom: ukl@pengutronix.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -160,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KYPHQTFHSV4BJVZS7TLCBK22NKQJOG5M/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7OV4LXPUQ3SZL563PBSFPB6CAZC46EVB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -169,143 +110,50 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The USB audio driver tries to retrieve MIDI jack name strings that can
-be used for rawmidi substream names and sequencer port names, but its
-checking is too strict: often the firmware provides the jack info for
-unexpected directions, and then we miss the info although it's
-present.
 
-In this patch, the code to extract the jack info is changed to allow
-both in and out directions in a single loop.  That is, the former two
-functions to obtain the descriptor pointers for jack in and out are
-changed to a single function that returns iJack of the corresponding
-jack ID, no matter which direction is used.  It's a code
-simplification at the same time as well as the fix.
+--543tsvzhxgimotst
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Fixes: eb596e0fd13c ("ALSA: usb-audio: generate midi streaming substream names from jack names")
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/usb/midi.c | 77 +++++++++++++++++-------------------------------
- 1 file changed, 27 insertions(+), 50 deletions(-)
+Hello Thomas,
 
-diff --git a/sound/usb/midi.c b/sound/usb/midi.c
-index 6b0993258e03..c1f2e5a03de9 100644
---- a/sound/usb/midi.c
-+++ b/sound/usb/midi.c
-@@ -1742,50 +1742,44 @@ static void snd_usbmidi_get_port_info(struct snd_rawmidi *rmidi, int number,
- 	}
- }
- 
--static struct usb_midi_in_jack_descriptor *find_usb_in_jack_descriptor(
--					struct usb_host_interface *hostif, uint8_t jack_id)
-+/* return iJack for the corresponding jackID */
-+static int find_usb_ijack(struct usb_host_interface *hostif, uint8_t jack_id)
- {
- 	unsigned char *extra = hostif->extra;
- 	int extralen = hostif->extralen;
-+	struct usb_descriptor_header *h;
-+	struct usb_midi_out_jack_descriptor *outjd;
-+	struct usb_midi_in_jack_descriptor *injd;
-+	size_t sz;
- 
- 	while (extralen > 4) {
--		struct usb_midi_in_jack_descriptor *injd =
--				(struct usb_midi_in_jack_descriptor *)extra;
-+		h = (struct usb_descriptor_header *)extra;
-+		if (h->bDescriptorType != USB_DT_CS_INTERFACE)
-+			goto next;
- 
--		if (injd->bLength >= sizeof(*injd) &&
--		    injd->bDescriptorType == USB_DT_CS_INTERFACE &&
--		    injd->bDescriptorSubtype == UAC_MIDI_IN_JACK &&
--				injd->bJackID == jack_id)
--			return injd;
--		if (!extra[0])
--			break;
--		extralen -= extra[0];
--		extra += extra[0];
--	}
--	return NULL;
--}
--
--static struct usb_midi_out_jack_descriptor *find_usb_out_jack_descriptor(
--					struct usb_host_interface *hostif, uint8_t jack_id)
--{
--	unsigned char *extra = hostif->extra;
--	int extralen = hostif->extralen;
--
--	while (extralen > 4) {
--		struct usb_midi_out_jack_descriptor *outjd =
--				(struct usb_midi_out_jack_descriptor *)extra;
--
--		if (outjd->bLength >= sizeof(*outjd) &&
--		    outjd->bDescriptorType == USB_DT_CS_INTERFACE &&
-+		outjd = (struct usb_midi_out_jack_descriptor *)h;
-+		if (h->bLength >= sizeof(*outjd) &&
- 		    outjd->bDescriptorSubtype == UAC_MIDI_OUT_JACK &&
--				outjd->bJackID == jack_id)
--			return outjd;
-+		    outjd->bJackID == jack_id) {
-+			sz = USB_DT_MIDI_OUT_SIZE(outjd->bNrInputPins);
-+			if (outjd->bLength < sz)
-+				goto next;
-+			return *(extra + sz - 1);
-+		}
-+
-+		injd = (struct usb_midi_in_jack_descriptor *)h;
-+		if (injd->bLength >= sizeof(*injd) &&
-+		    injd->bDescriptorSubtype == UAC_MIDI_IN_JACK &&
-+		    injd->bJackID == jack_id)
-+			return injd->iJack;
-+
-+next:
- 		if (!extra[0])
- 			break;
- 		extralen -= extra[0];
- 		extra += extra[0];
- 	}
--	return NULL;
-+	return 0;
- }
- 
- static void snd_usbmidi_init_substream(struct snd_usb_midi *umidi,
-@@ -1796,13 +1790,10 @@ static void snd_usbmidi_init_substream(struct snd_usb_midi *umidi,
- 	const char *name_format;
- 	struct usb_interface *intf;
- 	struct usb_host_interface *hostif;
--	struct usb_midi_in_jack_descriptor *injd;
--	struct usb_midi_out_jack_descriptor *outjd;
- 	uint8_t jack_name_buf[32];
- 	uint8_t *default_jack_name = "MIDI";
- 	uint8_t *jack_name = default_jack_name;
- 	uint8_t iJack;
--	size_t sz;
- 	int res;
- 
- 	struct snd_rawmidi_substream *substream =
-@@ -1816,21 +1807,7 @@ static void snd_usbmidi_init_substream(struct snd_usb_midi *umidi,
- 	intf = umidi->iface;
- 	if (intf && jack_id >= 0) {
- 		hostif = intf->cur_altsetting;
--		iJack = 0;
--		if (stream != SNDRV_RAWMIDI_STREAM_OUTPUT) {
--			/* in jacks connect to outs */
--			outjd = find_usb_out_jack_descriptor(hostif, jack_id);
--			if (outjd) {
--				sz = USB_DT_MIDI_OUT_SIZE(outjd->bNrInputPins);
--				if (outjd->bLength >= sz)
--					iJack = *(((uint8_t *) outjd) + sz - sizeof(uint8_t));
--			}
--		} else {
--			/* and out jacks connect to ins */
--			injd = find_usb_in_jack_descriptor(hostif, jack_id);
--			if (injd)
--				iJack = injd->iJack;
--		}
-+		iJack = find_usb_ijack(hostif, jack_id);
- 		if (iJack != 0) {
- 			res = usb_string(umidi->dev, iJack, jack_name_buf,
- 			  ARRAY_SIZE(jack_name_buf));
--- 
-2.35.3
+On Fri, Dec 22, 2023 at 11:50:31PM +0100, Uwe Kleine-K=F6nig wrote:
+> this series converts all drivers below drivers/irqchip to use
+> .remove_new(). See commit 5c5a7680e67b ("platform: Provide a remove
+> callback that returns no value") for an extended explanation and the
+> eventual goal. The TL;DR; is to make it harder for driver authors to
+> leak resources.
+>=20
+> The drivers touched here are all fine though and don't return early in
+> .remove(). So all conversions in this series are trivial.
 
+I'm still waiting for this series to go in (or get review feedback). Is
+this still on your radar? You're the right maintainer to take this
+series, aren't you?
+
+The series still applies to today's next.
+
+Best regards
+Uwe
+
+--=20
+Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
+Industrial Linux Solutions                 | https://www.pengutronix.de/ |
+
+--543tsvzhxgimotst
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmXOfBoACgkQj4D7WH0S
+/k52nAgArzzUUBfYS1wZr/tKGMqABl7rtsR1xpM2V3NdiROGvaYALX1/ROABy83V
+lo8pk8XNMuVzDEYFoMOjFhWeoT9jJ8qGk+emLXFs2gr1HwIDzptSP5nW3jSLgv1m
+Y/CnadQn2wbIyxPPxPxPglktJ6kPrVcg4pllVjhi6VrwuhIi8dItD9WDuf+qVaVe
+J0rHGiTF2iZvhcuIgIulliMcR9+5npsA14ZxonEQdHJ7f4Ew0LTijz14X8+rNZ4b
+3Fe8/jB2MGtwxlwK6eFGEfH5SWnWqltMR4yPzGVHNIqUHrSB3BVFWzDyNnW2EAfx
+d+1GXz634dPtW4JEgQNJRXcgS//+JQ==
+=O3pv
+-----END PGP SIGNATURE-----
+
+--543tsvzhxgimotst--

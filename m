@@ -2,128 +2,120 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6FA4857B94
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Feb 2024 12:26:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6AAE1857B9E
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Feb 2024 12:29:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 33990E69;
-	Fri, 16 Feb 2024 12:25:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 33990E69
+	by alsa0.perex.cz (Postfix) with ESMTPS id 709A5E7D;
+	Fri, 16 Feb 2024 12:28:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 709A5E7D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1708082766;
-	bh=JJcfIBGCp3ZKPHLIPV/hxkDPf5TaHhr8o0zt0AcWnRY=;
-	h=Date:Subject:From:To:References:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=TlPX2qNwM53vmg2nn8uwYPZ5z/KA0M2kTL9vnF2OnaRh7ISmec6N4ZZZXiZ9nnnJf
-	 a381e0+RrrdaMD6Xa4/N4DHSHQ5UrI7MLibQlrqyJvabGC5hYVu27EiTANHMvNBQeX
-	 bunha6QNMXUX1v5znl29kYjthg228cD3vjBP0ZIE=
+	s=default; t=1708082949;
+	bh=6gMcMyPwgLgEbY6ZF1f8Be8kn6MRW7NRH/o8brCnnoE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=UqA98ZSKfVZFxwXmA0JsKydiC59sBS9l/dL4+4TCb8w6F7u1lASuTPsIKTpX6ftI6
+	 wylk/EWP0Pm+CKYaT9FyWpud1tvyQJiKIrMFf8BPt7rHXETczi1XCJNihuinqXJ0jW
+	 THxPPtVYiGK/5+cxk4F27nlBwXFH+waSY5yecE28=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 45D66F80589; Fri, 16 Feb 2024 12:25:35 +0100 (CET)
+	id 97E90F805A8; Fri, 16 Feb 2024 12:28:38 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 28AA5F800BF;
-	Fri, 16 Feb 2024 12:25:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E8318F80579;
+	Fri, 16 Feb 2024 12:28:37 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 46CE0F80238; Fri, 16 Feb 2024 12:24:48 +0100 (CET)
+	id 485F4F8025A; Fri, 16 Feb 2024 12:28:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-6.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D7CFEF800BF
-	for <alsa-devel@alsa-project.org>; Fri, 16 Feb 2024 12:23:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D7CFEF800BF
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1067BF8016E
+	for <alsa-devel@alsa-project.org>; Fri, 16 Feb 2024 12:27:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1067BF8016E
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=GAWypOyj
-Received: by mail-lf1-x12b.google.com with SMTP id
- 2adb3069b0e04-511a04c837bso2257567e87.0
+	dkim=pass (1024-bit key,
+ unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256
+ header.s=mimecast20190719 header.b=drFiaenj
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1708082875;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ldTgol2RjHwGuL7/gP1WBAM77N/i279/pdvnyHeoM1E=;
+	b=drFiaenjO2VCSOMpqaomR7tDjMyvcCCoe6fkR1ECYkgZuU0dD9GZHpjhEyfWm4nVEyTRuC
+	l8MfPgkVZSIbsTEcjoKugGs9qU1yF3io5YYsmuyBsWwegsRapAzRLKtjCFN9Vq//I0r1Lm
+	gFxJmzWX5zFCC7IK1J8iUKomBvPCLK0=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-184-eSWXNDrNNEiARMF5hEDKGg-1; Fri, 16 Feb 2024 06:27:54 -0500
+X-MC-Unique: eSWXNDrNNEiARMF5hEDKGg-1
+Received: by mail-wr1-f69.google.com with SMTP id
+ ffacd0b85a97d-33d10bd57d7so537346f8f.3
         for <alsa-devel@alsa-project.org>;
- Fri, 16 Feb 2024 03:23:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1708082618; x=1708687418;
- darn=alsa-project.org;
-        h=in-reply-to:references:to:from:subject:message-id:date:mime-version
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=qCkIBF2HUHDgPA/fkE23qtD6c+3DYAPMy1MuIjYZckA=;
-        b=GAWypOyj1QOqydCz8IeNZ2FWXa5EB2QzFWPXxQXCBADA23gHgI/vYSpazUZDNC8WyL
-         EZMCQ1eeCL478LmcJVwQWYNpSaEmSyyeBSaC7abIvGqLO0vKnP0+qMHOPZHHKNZ9U1Jd
-         l8ERJv4/7GoUJUVBGFLFJ/Oi+gFvwS/wTONeQqfFfGIwa0+MVjNUuKH7B8Fdj/PA1OFb
-         sJZdH0FqopDYtepwDy9SyM+Jez72k+6GIeDlYbqZCjvWyJyLOKimKAbQLuBAjCB9bmN3
-         7wocBkv/0Xagugqa30SmEer6kuVLdywIWz1hfjZhijeMJCQJg++rs4X6WhcBA1lu3HSm
-         0PTA==
+ Fri, 16 Feb 2024 03:27:53 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708082618; x=1708687418;
-        h=in-reply-to:references:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=qCkIBF2HUHDgPA/fkE23qtD6c+3DYAPMy1MuIjYZckA=;
-        b=CgH8H0X8wWg550tEZmEO202jGFgJ5uWI8zis93DPpCV48iazJYA0BGnL85lkBQgZ1J
-         BkeBbN7HlsthHfUL2HGztdvpRG501v7vB12/XJ5m5sSs71l2hZOWSDDWkPq/E25zC5/+
-         YqijAEWJ62bjFCwOjK61WayHJUEoe2VGF+K+sFeKY58ewjjCco8HOlcwxZvl72rOzVj6
-         ukmyOcIO++9DSh/h7CrPAlrj5HZRJrDuJ0YgJB0w/h65l6xANd4U3w02gLlu0/wYG4Qn
-         B668dGf1VzkED4DcvyGwOZiKXEI/JbXbg1l4VEmXmZuX24LU/oz8Bgv1DMgXk5+7wQb4
-         wasg==
+        d=1e100.net; s=20230601; t=1708082873; x=1708687673;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ldTgol2RjHwGuL7/gP1WBAM77N/i279/pdvnyHeoM1E=;
+        b=Cu2pJCNsquBTNbn5IwRgJFEWQWC8HrR+OTlDviRR8/naaeUgXb497oJrQy4Jky/t07
+         wpKvwQJ66C8XKvYJ/HGFwH1MRsEuu843suhnLzeDQ7IJu8aKBFT61d5YcMieVhf6YZWV
+         xf9igvLHLx1cTDKGZBx4bMbHhLVwU7BDd0zUTkmR+yjc4ZHXqy/Q9fPKLlMonXUoH++A
+         254C0zEvtqXU+vcvu7JBliwSUvrvLBtOtY83Ri4NyK0QAmO4OdyvBRGY+t59SV4bcWb0
+         iZ5r9agV9ff/sQ10Qzqn3zp3mxjt2xA7rI7qsDCSi3nicVedJSchEsP82u2oL9mSxRxf
+         ALXQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV0KT7Ow9Ti37CqeJPdPI0oyhgf5tkpTc8Fu0AOlROvlblPcOGaxzgJGLuBF7V+95WBbtbUP4cowZHtUjI2XiG4jrpgRb5x8eDFHEk=
-X-Gm-Message-State: AOJu0YxdvB3nf/G6NjC0Cu9u2Lztt/9tz7thvV6hqVxi4lRY8E/HCR/E
-	xqXYry2kVXFZcmd72oY0o86dgEvJ3S9+81T5A56JIpj8oKSbtvou
+ AJvYcCUz/ufgysfLIYjtYa8Ww3k/sX8BKCYfdwYd4jUVyep2ss2w+X4s8jVfL+ENXTqUqpZXjbHOSuQ/8Ty9bZ4vBbfp7DJEskcrQDZ/kPM=
+X-Gm-Message-State: AOJu0Yw/oHqIrwC83300M8o5p38SU+GfkBq0No3F6BcUI5uxvZhdniVK
+	jdVNnsIWNlDGYObfB5QuaSPZI5S9fpxwDygBo/jX2UgbkteVPoao9D5MGjdJPmsTuONcvUB2My9
+	bJ86HULrIMCOORj9QWDjTJRkrR9DwGjVPbxc/pfzferVcmMYRtx9o6PffdNeJ
+X-Received: by 2002:adf:db4a:0:b0:33b:179d:d9aa with SMTP id
+ f10-20020adfdb4a000000b0033b179dd9aamr3738289wrj.26.1708082872837;
+        Fri, 16 Feb 2024 03:27:52 -0800 (PST)
 X-Google-Smtp-Source: 
- AGHT+IFk4ZkCa0R/m44omA2Xi3MhoAzI8tKPY8V0cTU/2axm4inHWuZNW2UcVx0PzaNks2ZutoR+ew==
-X-Received: by 2002:a05:6512:716:b0:511:8b40:ab6b with SMTP id
- b22-20020a056512071600b005118b40ab6bmr2834631lfs.50.1708082618024;
-        Fri, 16 Feb 2024 03:23:38 -0800 (PST)
-Received: from localhost
- (p200300e41f147f00f22f74fffe1f3a53.dip0.t-ipconnect.de.
- [2003:e4:1f14:7f00:f22f:74ff:fe1f:3a53])
+ AGHT+IHgaY3PtAN8z8RgLWyK9s4sch0JhbTy5FoXAS+RRg2r8qkUw3EqgzlI0lsRkHqGluoJTNtjKA==
+X-Received: by 2002:adf:db4a:0:b0:33b:179d:d9aa with SMTP id
+ f10-20020adfdb4a000000b0033b179dd9aamr3738275wrj.26.1708082872447;
+        Fri, 16 Feb 2024 03:27:52 -0800 (PST)
+Received: from redhat.com ([2a02:14f:178:2d32:e5b8:d152:6384:cef9])
         by smtp.gmail.com with ESMTPSA id
- f23-20020a170906561700b00a3d828c54f1sm1459386ejq.135.2024.02.16.03.23.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 16 Feb 2024 03:23:37 -0800 (PST)
-Content-Type: multipart/signed;
- boundary=87caa6e717479adfa0f5d015ffee82cc14ceb938e5f7a71c46d45b7997b5;
- micalg=pgp-sha256; protocol="application/pgp-signature"
-Mime-Version: 1.0
-Date: Fri, 16 Feb 2024 12:23:36 +0100
-Message-Id: <CZ6GR5BWC80N.36XRBM33WF8MW@gmail.com>
-Subject: Re: [PATCH] clk: constify the of_phandle_args argument of
- of_clk_provider
-From: "Thierry Reding" <thierry.reding@gmail.com>
-To: "Krzysztof Kozlowski" <krzysztof.kozlowski@linaro.org>, "Michael
- Turquette" <mturquette@baylibre.com>, "Stephen Boyd" <sboyd@kernel.org>,
- "Sudeep Holla" <sudeep.holla@arm.com>, "Peng Fan" <peng.fan@nxp.com>,
- "Shawn Guo" <shawnguo@kernel.org>, "Nishanth Menon" <nm@ti.com>, "Bjorn
- Andersson" <andersson@kernel.org>, "Konrad Dybcio"
- <konrad.dybcio@linaro.org>, "Geert Uytterhoeven" <geert+renesas@glider.be>,
- "Jonathan Hunter" <jonathanh@nvidia.com>, "Linus Walleij"
- <linus.walleij@linaro.org>, "Laurent Pinchart"
- <laurent.pinchart@ideasonboard.com>, "Mauro Carvalho Chehab"
- <mchehab@kernel.org>, "Vinod Koul" <vkoul@kernel.org>, "Russell King"
- <linux@armlinux.org.uk>, "Srinivas Kandagatla"
- <srinivas.kandagatla@linaro.org>, "Mark Brown" <broonie@kernel.org>,
- "Jaroslav Kysela" <perex@perex.cz>, "Takashi Iwai" <tiwai@suse.com>,
- <linux-clk@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-kernel@vger.kernel.org>, <patches@opensource.cirrus.com>,
- <linux-stm32@st-md-mailman.stormreply.com>, "NXP Linux Team"
- <linux-imx@nxp.com>, <linux-amlogic@lists.infradead.org>,
- <linux-arm-msm@vger.kernel.org>, <linux-renesas-soc@vger.kernel.org>,
- <linux-tegra@vger.kernel.org>, <linux-omap@vger.kernel.org>,
- <linux-media@vger.kernel.org>, <linux-phy@lists.infradead.org>,
- <alsa-devel@alsa-project.org>, <linux-sound@vger.kernel.org>
-X-Mailer: aerc 0.16.0-1-0-g560d6168f0ed-dirty
-References: <20240208163710.512733-1-krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20240208163710.512733-1-krzysztof.kozlowski@linaro.org>
-Message-ID-Hash: L5GFZ33GZ6TCO4UVLR5FMUTYDNMT7YBZ
-X-Message-ID-Hash: L5GFZ33GZ6TCO4UVLR5FMUTYDNMT7YBZ
-X-MailFrom: thierry.reding@gmail.com
+ u4-20020adfcb04000000b0033d24eab9c3sm189079wrh.76.2024.02.16.03.27.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Feb 2024 03:27:51 -0800 (PST)
+Date: Fri, 16 Feb 2024 06:27:48 -0500
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Aiswarya Cyriac <aiswarya.cyriac@opensynergy.com>
+Cc: jasowang@redhat.com, perex@perex.cz, tiwai@suse.com,
+	linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+	virtualization@lists.linux-foundation.org,
+	virtio-dev@lists.oasis-open.org,
+	Anton Yakovlev <anton.yakovlev@opensynergy.com>,
+	coverity-bot <keescook+coverity-bot@chromium.org>
+Subject: Re: [v4 PATCH] ALSA: virtio: Fix "Coverity: virtsnd_kctl_tlv_op():
+ Uninitialized variables" warning.
+Message-ID: <20240216062630-mutt-send-email-mst@kernel.org>
+References: <20240216100643.688590-1-aiswarya.cyriac@opensynergy.com>
+MIME-Version: 1.0
+In-Reply-To: <20240216100643.688590-1-aiswarya.cyriac@opensynergy.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Message-ID-Hash: E773QFUWZMGODRO3JLTK2LWCNKMB4LO7
+X-Message-ID-Hash: E773QFUWZMGODRO3JLTK2LWCNKMB4LO7
+X-MailFrom: mst@redhat.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -135,48 +127,107 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/L5GFZ33GZ6TCO4UVLR5FMUTYDNMT7YBZ/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/E773QFUWZMGODRO3JLTK2LWCNKMB4LO7/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
---87caa6e717479adfa0f5d015ffee82cc14ceb938e5f7a71c46d45b7997b5
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+On Fri, Feb 16, 2024 at 11:06:43AM +0100, Aiswarya Cyriac wrote:
+> This commit fixes the following warning when building virtio_snd driver.
+> 
+> "
+> *** CID 1583619:  Uninitialized variables  (UNINIT)
+> sound/virtio/virtio_kctl.c:294 in virtsnd_kctl_tlv_op()
+> 288
+> 289     		break;
+> 290     	}
+> 291
+> 292     	kfree(tlv);
+> 293
+> vvv     CID 1583619:  Uninitialized variables  (UNINIT)
+> vvv     Using uninitialized value "rc".
+> 294     	return rc;
+> 295     }
+> 296
+> 297     /**
+> 298      * virtsnd_kctl_get_enum_items() - Query items for the ENUMERATED element type.
+> 299      * @snd: VirtIO sound device.
+> "
+> 
+> This warning is caused by the absence of the "default" branch in the
+> switch-block, and is a false positive because the kernel calls
+> virtsnd_kctl_tlv_op() only with values for op_flag processed in
+> this block.
+> 
+> Also, this commit unifies the cleanup path for all possible control
+> paths in the callback function.
+> 
+> Signed-off-by: Anton Yakovlev <anton.yakovlev@opensynergy.com>
+> Signed-off-by: Aiswarya Cyriac <aiswarya.cyriac@opensynergy.com>
+> Reported-by: coverity-bot <keescook+coverity-bot@chromium.org>
+> Addresses-Coverity-ID: 1583619 ("Uninitialized variables")
+> Fixes: d6568e3de42d ("ALSA: virtio: add support for audio controls")
 
-On Thu Feb 8, 2024 at 5:37 PM CET, Krzysztof Kozlowski wrote:
-[...]
->  drivers/clk/tegra/clk-bpmp.c                  |  2 +-
->  drivers/clk/tegra/clk-tegra124.c              |  2 +-
->  drivers/clk/tegra/clk-tegra20.c               |  2 +-
->  drivers/clk/tegra/clk-tegra30.c               |  2 +-
-[...]
 
-Acked-by: Thierry Reding <treding@nvidia.com>
 
---87caa6e717479adfa0f5d015ffee82cc14ceb938e5f7a71c46d45b7997b5
-Content-Type: application/pgp-signature; name="signature.asc"
+> ---
+>  sound/virtio/virtio_kctl.c | 19 +++++++++++++++----
+>  1 file changed, 15 insertions(+), 4 deletions(-)
+> 
+> diff --git a/sound/virtio/virtio_kctl.c b/sound/virtio/virtio_kctl.c
+> index 0c6ac74aca1e..7aa79c05b464 100644
+> --- a/sound/virtio/virtio_kctl.c
+> +++ b/sound/virtio/virtio_kctl.c
+> @@ -253,8 +253,8 @@ static int virtsnd_kctl_tlv_op(struct snd_kcontrol *kcontrol, int op_flag,
+>  
+>  	tlv = kzalloc(size, GFP_KERNEL);
+>  	if (!tlv) {
+> -		virtsnd_ctl_msg_unref(msg);
+> -		return -ENOMEM;
+> +		rc = -ENOMEM;
+> +		goto on_msg_unref;
+>  	}
+>  
+>  	sg_init_one(&sg, tlv, size);
+> @@ -281,14 +281,25 @@ static int virtsnd_kctl_tlv_op(struct snd_kcontrol *kcontrol, int op_flag,
+>  			hdr->hdr.code =
+>  				cpu_to_le32(VIRTIO_SND_R_CTL_TLV_COMMAND);
+>  
+> -		if (copy_from_user(tlv, utlv, size))
+> +		if (copy_from_user(tlv, utlv, size)) {
+>  			rc = -EFAULT;
+> -		else
+> +			goto on_msg_unref;
+> +		} else {
+>  			rc = virtsnd_ctl_msg_send(snd, msg, &sg, NULL, false);
+> +		}
+>  
+>  		break;
+> +	default:
+> +		rc = -EINVAL;
+> +		/* We never get here - we listed all values for op_flag */
+> +		WARN_ON(1);
+> +		goto on_msg_unref;
+>  	}
+> +	kfree(tlv);
+> +	return rc;
+>  
+> +on_msg_unref:
+> +	virtsnd_ctl_msg_unref(msg);
+>  	kfree(tlv);
+>  
+>  	return rc;
 
------BEGIN PGP SIGNATURE-----
+I don't really like adding code for a false-positive but ALSA
+maintainers seem to like this. If yes, this seems like as good
+a way as any to do it.
 
-iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmXPRbkACgkQ3SOs138+
-s6FzcQ/9F5fJyakwkqSmFCFsFTUwQ0Vv6AmJP7kf0C2oOGiJISmgaFwRE7ikl73f
-tfJ/jetoF3grVZE950B1ZtY1sAK6WLfAlRnkD52YE25Y+NcehSPfcE2403gBL/JZ
-6Rtlw4U/jJhHC7k1NNSCV6W3YM9tFJZzPdOwWL1efc33DWZQkTgvIPKSfqGIHd0i
-iclZTsusANQThdL9ASOlvq81RrglhXgo2PIt/oeGjEBtf+IoDVhHSWqJ65e/lmYV
-cBw1uhHa5zHLiWoT4xTqJY8dPkSLfBSRM3uflLUkA5BRNllvVsHAPvIgR6aBpqi5
-KeLdZEDFeIuIi8nqtYxhhnGa8nKz9t03MNj9GbFf9HYocIVDIV4SvKuKongDjcYZ
-zr5jC3lMZnmuQIM5XOIFu8hQWG0zQ6H+Kuf6ifolHj13E5gplCo4BoZWNnE84OZ8
-fMjNHraK6RNUUqJXW43OBEjejW+FvvZIpMvyyt8TcE/I7hieXCjib0Spu2n5SwvK
-mQgKxPJpsOpCxIOID89cK2VwOX3uOZslT3M5sU9ZkoUcwRpQ/Ntfr7ZWW8Jy/L4Y
-DWnk7IvOvI4fFlmRQONIeWpr8euHFmCL8L8dJ29AI9oB2lvs7ZovvWw9QTE8E6iU
-EjVBwtdG6KqWJxP803h8DAvvD0Vsu0KzQFr+Pwre3NP2FHYDCR0=
-=E0uq
------END PGP SIGNATURE-----
+Acked-by: Michael S. Tsirkin <mst@redhat.com>
 
---87caa6e717479adfa0f5d015ffee82cc14ceb938e5f7a71c46d45b7997b5--
+
+> -- 
+> 2.43.2
+

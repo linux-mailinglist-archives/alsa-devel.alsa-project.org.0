@@ -2,96 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 456F1857EA8
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Feb 2024 15:06:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBEFC858A28
+	for <lists+alsa-devel@lfdr.de>; Sat, 17 Feb 2024 00:31:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C29F686F;
-	Fri, 16 Feb 2024 15:06:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C29F686F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0C8AEDF6;
+	Sat, 17 Feb 2024 00:31:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C8AEDF6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1708092395;
-	bh=E6q5xrMcVV+0iqJ33ckm74DzEhM3R6Lm5oDsVEfUaZs=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1708126285;
+	bh=FMVWaPEG1nX3jE+CDbdrHVeNP4wVjb/A2lK/tKqysmw=;
+	h=From:Date:Subject:To:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=qR0C9sl+uGkUXd4043P+9HK0klQNk6xOAj3FLqK2UFimas6qlUmVv4cb15lKR1qvh
-	 W9bHbeDmbn1FhkaeTY1zn01ymMfhHjPXzaur2Ej9qFmGMXduLyaGqwkvxjB3qrLfbr
-	 /o2rF9EhqRg0x8gGJrytWr1DrM+Y9INRcmLa2N98=
+	b=k1OEVlEN0NlH0tBHOumGqrB0skDwvIJIo0leyncBSZ/OW9ezHgPyt5DNulr3QEMdn
+	 2Gvg+9xkQkkrUjmUHCVLEmsqx9UhCpTd9tmzH4LfeusQ0AYybMtI2ORPr5thl8MJEs
+	 l+yA0QkfJ3HaN6XZ7Iczi6wGrSfUzj/arjsQh6GQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C65DCF805B6; Fri, 16 Feb 2024 15:06:03 +0100 (CET)
+	id 201C2F80580; Sat, 17 Feb 2024 00:31:00 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4E814F80588;
-	Fri, 16 Feb 2024 15:06:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B9E11F8057D;
+	Sat, 17 Feb 2024 00:30:59 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5207EF80238; Fri, 16 Feb 2024 15:05:57 +0100 (CET)
+	id 37C50F80238; Sat, 17 Feb 2024 00:30:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-pl1-x62d.google.com (mail-pl1-x62d.google.com
+ [IPv6:2607:f8b0:4864:20::62d])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 68E10F80104
-	for <alsa-devel@alsa-project.org>; Fri, 16 Feb 2024 15:05:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68E10F80104
+	by alsa1.perex.cz (Postfix) with ESMTPS id E231DF800EE
+	for <alsa-devel@alsa-project.org>; Sat, 17 Feb 2024 00:30:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E231DF800EE
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=F4OzVQbF
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 41G5u5hg027308;
-	Fri, 16 Feb 2024 08:05:37 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	from:to:cc:subject:date:message-id:mime-version
-	:content-transfer-encoding:content-type; s=PODMain02222019; bh=D
-	w280V9Ji8JnDWHiX49rYuBF9Ede07pNOdQW29T5Qag=; b=F4OzVQbFi4ewdFUlT
-	uU1W+e+bVKsiFUa31R6u5z4IXVO27zdEmSOltdY5Iw+YBDHCYfKgI+BNTVv2m0sQ
-	+BPskYVslty0imzHDz/rFu9mxnUjPiGcohi/EOzqpU6W/6N+6ytpwttGbUVh+TOE
-	w5NB1ogPposbebzRFBJ67zw/kbA6gFnqe5ZjAUAlrKeSgF5NmltUlzWa+Ka8g3vb
-	HQYQXno0cP2/mOeIhQl1Wy7kZhmL0ewC7ZiFnQVVAgrt5wakA61yHCOaq1F0La0Y
-	A/Pw89vj0ZboxE9wI/TR9/GtCkXucbD7Ctp8zxw4RJ+1VMcR/djaVzqCbdekpcLC
-	ojMag==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3w67e2738b-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 16 Feb 2024 08:05:37 -0600 (CST)
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Fri, 16 Feb
- 2024 14:05:35 +0000
-Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
- ediex01.ad.cirrus.com (198.61.84.80) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.40 via Frontend Transport; Fri, 16 Feb 2024 14:05:35 +0000
-Received: from ediswws06.ad.cirrus.com (ediswws06.ad.cirrus.com
- [198.90.208.18])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id 5FA17820242;
-	Fri, 16 Feb 2024 14:05:35 +0000 (UTC)
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-To: <broonie@kernel.org>
-CC: <alsa-devel@alsa-project.org>, <linux-sound@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <patches@opensource.cirrus.com>,
-        "Richard
- Fitzgerald" <rf@opensource.cirrus.com>
-Subject: [PATCH] ASoC: cs35l56: Must clear HALO_STATE before issuing
- SYSTEM_RESET
-Date: Fri, 16 Feb 2024 14:05:35 +0000
-Message-ID: <20240216140535.1434933-1-rf@opensource.cirrus.com>
-X-Mailer: git-send-email 2.30.2
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=lsI6gsEH
+Received: by mail-pl1-x62d.google.com with SMTP id
+ d9443c01a7336-1d746856d85so11940225ad.0
+        for <alsa-devel@alsa-project.org>;
+ Fri, 16 Feb 2024 15:30:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1708126208; x=1708731008;
+ darn=alsa-project.org;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=E0rm8oJW/XJYG6K14YhQ3ephozjzMlAvikt0W/eKgk8=;
+        b=lsI6gsEHC8xLUr4y2o9pOPMHOW4rwz/B43qPozz4Zeq/wVL1f7FUTqBXknibPo2BBn
+         TLbP2rJS3dCilBYBUVuBt+dHbYDbFIT6gxX2y7YFv4T3BywFZPUL21GJ6kAx81EFeH6V
+         v93ieFxB6ZIdPAsV9oNtmA6kIA5qUPB3X3DrWVIEp2YLQVW53Gqzq2s2e/D8gCK80taE
+         55wR83a7u6OswH7nlj2be4fuSXvoGw/F4dbHX2yTdSXSFA2n1ExcBNkMPXgtujxVUbHb
+         JVOg6GTJA8a3aoZB21XRxF2mIh8QeQNjSbmtf8TrVrlgqOUUsMAvMkyVrHmGafbg5cOx
+         TMXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1708126208; x=1708731008;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=E0rm8oJW/XJYG6K14YhQ3ephozjzMlAvikt0W/eKgk8=;
+        b=tHkT+47jUK4DAnpDetUHvPCMqUmmSokYYaqxXwNYAuy7tQwALNmm2aUZ4rFDhwbHZk
+         YcxecU/id0RFha8w8VDwND40OcRWvki0GZCwOIR+OcrggrJ5MWkvxm2+cpT3BV8odQk8
+         voBHMMU92zNv2A4paBzoXJqOPpB/pwf/0RI0E2UkScFww5cbtXRXhQ54q9nMc88EhjRO
+         HKRxIWl8YnQLdgh10ghcObBt+pGSMEXyUHA58O/ilq2d26f6bDdF6CmBouuA57BNH8mr
+         EBIMnNyboifq/npepKfjRdXXnVoHCj4qMz5CYFK6AeO6INXsaGX7gwcwJoMpFvhBABuS
+         ITtg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWIzguaEGezjmLVdtmz5xLPtJx4mHAE8KNIcKUG/4inEYniOSocKKlhlRg/QxFRJcx7MySs6ETFTMxhKMSOnJ2lvOWv8/yj9H2OJ3A=
+X-Gm-Message-State: AOJu0Yw9H3tIHXpzHHeo41y9ogTn8XgHyFlH/ZBBsRv0KuBPMs1pOQu6
+	V0zKWEMS/QFfd+O59Q/V3dJPFombx8F1OZNlay2pLJXHuLV7h3/s6qQA3/9fNX0OOJgAnGSDxlq
+	kjBoX+x8s0x3j65g24Yf1dw98lNQ=
+X-Google-Smtp-Source: 
+ AGHT+IG8NGWNkQaKqUI/eMg10+AC0G35IgZ/oydeFaacpUBCAryssRpS62z0cOhEkKKKzCRnv4hh3ESYt2AbMmLkZIc=
+X-Received: by 2002:a17:90a:ce8c:b0:299:56ee:6946 with SMTP id
+ g12-20020a17090ace8c00b0029956ee6946mr165826pju.32.1708126208110; Fri, 16 Feb
+ 2024 15:30:08 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: _z1cWPfNfG1gpNOCgIy6EkY_CyfG-Cwr
-X-Proofpoint-GUID: _z1cWPfNfG1gpNOCgIy6EkY_CyfG-Cwr
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: UB3AQZOPS64YG45O3ADQOHG3RQVTI6O6
-X-Message-ID-Hash: UB3AQZOPS64YG45O3ADQOHG3RQVTI6O6
-X-MailFrom: prvs=9776aa2d70=rf@opensource.cirrus.com
+From: noman pouigt <variksla@gmail.com>
+Date: Fri, 16 Feb 2024 15:29:56 -0800
+Message-ID: 
+ <CAES_P+_0tWVtn+tyUi1TvkWi4rA-ZBj8e7_pnJd1h_J3S3Cn8Q@mail.gmail.com>
+Subject: Audio dsp recovery using remoteproc
+To: linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	alsa-devel@alsa-project.org
+Content-Type: text/plain; charset="UTF-8"
+Message-ID-Hash: N7N2EVSBXVLF5SMHPKEEVRZL5SLXHC7B
+X-Message-ID-Hash: N7N2EVSBXVLF5SMHPKEEVRZL5SLXHC7B
+X-MailFrom: variksla@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -103,7 +104,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UB3AQZOPS64YG45O3ADQOHG3RQVTI6O6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/N7N2EVSBXVLF5SMHPKEEVRZL5SLXHC7B/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,35 +113,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The driver must write 0 to HALO_STATE before sending the SYSTEM_RESET
-command to the firmware.
+mailbox to dsp_1 is currently modeling platform pcm driver.
+mailbox to dsp_2 is also doing the same.
 
-HALO_STATE is in DSP memory, which is preserved across a soft reset.
-The SYSTEM_RESET command does not change the value of HALO_STATE.
-There is period of time while the CS35L56 is resetting, before the
-firmware has started to boot, where a read of HALO_STATE will return
-the value it had before the SYSTEM_RESET. If the driver does not
-clear HALO_STATE, this would return BOOT_DONE status even though the
-firmware has not booted.
+Platform driver callbacks cause IPC to be sent to dsp's.
+Lifecycle of two dsp's are managed by separate remoteproc
+drivers. Single sound card is exposed.
 
-Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
-Fixes: 8a731fd37f8b ("ASoC: cs35l56: Move utility functions to shared file")
----
- sound/soc/codecs/cs35l56-shared.c | 1 +
- 1 file changed, 1 insertion(+)
+Separate watchdog interrupts from the corresponding dsp's
+are connected to remoteproc to manage crashing of the
+individual dsp's. How can I restart both the dsp when either
+of them crashes using the kernel device model? Remoteproc
+driver currently only restarts the crashed dsp instead of restarting
+both the dsp. It is needed to bring up the hardware in a consistent
+state as both the dsp's are connected to a common hardware.
 
-diff --git a/sound/soc/codecs/cs35l56-shared.c b/sound/soc/codecs/cs35l56-shared.c
-index 995d979b6d87..cb4e83126b08 100644
---- a/sound/soc/codecs/cs35l56-shared.c
-+++ b/sound/soc/codecs/cs35l56-shared.c
-@@ -335,6 +335,7 @@ void cs35l56_wait_min_reset_pulse(void)
- EXPORT_SYMBOL_NS_GPL(cs35l56_wait_min_reset_pulse, SND_SOC_CS35L56_SHARED);
- 
- static const struct reg_sequence cs35l56_system_reset_seq[] = {
-+	REG_SEQ0(CS35L56_DSP1_HALO_STATE, 0),
- 	REG_SEQ0(CS35L56_DSP_VIRTUAL1_MBOX_1, CS35L56_MBOX_CMD_SYSTEM_RESET),
- };
- 
--- 
-2.30.2
+I thought of making a virtual parent remoteproc device
+and then managing individual dsp as a subdevice of that parent device
+but remoteproc device node is associated with the individual elf file i.e.
+it can manage only a single dsp.
 
+How can I model remoteproc drivers using linux device model so that when either
+of them crashes both the dsp's get reloaded by the remoteproc framework.
+
+           MailBox ---- DSP_1 ---
+         |                                    |
+Linux                                      ------ common_hw -> speaker/mic
+          |                                    |
+            MailBox ---- DSP_2 ---

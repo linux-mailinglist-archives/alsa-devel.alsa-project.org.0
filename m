@@ -2,126 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A2C4857C09
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Feb 2024 12:47:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E7A6857C48
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Feb 2024 13:04:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8793BE72;
-	Fri, 16 Feb 2024 12:47:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8793BE72
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7638EE80;
+	Fri, 16 Feb 2024 13:04:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7638EE80
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1708084070;
-	bh=brDqgu+veoHirwdkbKDf0308k8BngHj6rCKvWtbcL88=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1708085059;
+	bh=5Q+kd71G8dshq5qDySGQ0Qz6DT8zy+MvtrCDJcuOJ8Y=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=D3OMm9bkIiHiblkZiPdhJdLl6yvpGtHMvYFmjsC9GxbSfbGyacqJ5tB1abLl0fcwK
-	 Ey5gI5fmf2ySHy6qLRefXrrVW/JkQqEmS+vFL6mu6jC2pAA3473HN5z88dm02d7Vwr
-	 JiRnh1zYbe4MZofoVqf5vXCVqY8DUY+rZJEVTa5E=
+	b=M6Xj+CfVebrIA73BaOHJjMYSDZQt9SHskH2BHfn3uP4xzU5d4RHOal9WC5D4FOKJM
+	 uTLkysLqAxJz3pJrIwmzyoKiqvvp2HBuZKL5nP6Ry65d/7DIXcAuLFLV6kp/IoiIQY
+	 oUsFzWYgFEaYZ5cb8EDZlsQ3QYqpIaqKQvC5iWV4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 59290F8057B; Fri, 16 Feb 2024 12:47:19 +0100 (CET)
+	id 3C725F80588; Fri, 16 Feb 2024 13:03:49 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9A533F8056F;
-	Fri, 16 Feb 2024 12:47:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 91A63F8059F;
+	Fri, 16 Feb 2024 13:03:47 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 62CD0F80238; Fri, 16 Feb 2024 12:47:13 +0100 (CET)
+	id 55F51F80238; Fri, 16 Feb 2024 13:02:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
-	RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-yb1-f171.google.com (mail-yb1-f171.google.com
- [209.85.219.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-6.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D060BF80104
-	for <alsa-devel@alsa-project.org>; Fri, 16 Feb 2024 12:47:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D060BF80104
-Received: by mail-yb1-f171.google.com with SMTP id
- 3f1490d57ef6-dcc80d6006aso689277276.0
-        for <alsa-devel@alsa-project.org>;
- Fri, 16 Feb 2024 03:47:05 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708084023; x=1708688823;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=lQ7tnAKFUkQOj4UEtgJN4h/6u4fraBJnTp0nHjLT6cQ=;
-        b=O+I6vFVFTCIPolpeZISJ0AyBXaKbqHHwGCPjDzUHswtgFm3hakzCCTZZDcQYl/E/pL
-         RTimV5S/jQNauMP6E7uhieV2iZVPuoEroJMipJWsdO458umUn3z27JFV+GOau83bJ1+Y
-         LVmJiBTI3p0cBdzaKLVHc9TWwrBuAyrHsA5iXhz8F1AePeplaTsfwPboljR0RZlG6Uot
-         RkK/ogYYT5Q3bJyMS8Fox9oegv3bUD+9/iLm+EfIQGNTLvIb1u4sGKZ9TuV2Kd9t6Atp
-         XAiygZxD/mpNdv/TMSKGhmngQByp32dUA4A6ILYq1NesaJbqOIFqbiWZNnbjfg5HglT4
-         9pCg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUJ4/mVGoFhwP3P97WscVcvsP5sEHYHW6H8/o4RXqrtleTIRZBT0yJQijp1vrDwc552Y11MNl718BSOo38z/6vB/5Nz5LEx+eAsJ8U=
-X-Gm-Message-State: AOJu0YxFqdxBlSuKPzBrZEZ3avyRsqgpOT5lB3DQ657/VEu20qWcWmtZ
-	/G1WhR0pUAcQnyQBfNrvvUgi+gQrMdnGVNpgwciCKlWRIhP32PgoHk1v5V8moac=
-X-Google-Smtp-Source: 
- AGHT+IGf2qpMJkzVV4nblNTMUvqK2DPNGnSquT1fkK8u2fmsqd08WkiiGpc3eeSUxQukBM4mnYYGLA==
-X-Received: by 2002:a25:ae1a:0:b0:dcc:8aaa:3ed3 with SMTP id
- a26-20020a25ae1a000000b00dcc8aaa3ed3mr4302341ybj.16.1708084022651;
-        Fri, 16 Feb 2024 03:47:02 -0800 (PST)
-Received: from mail-yb1-f174.google.com (mail-yb1-f174.google.com.
- [209.85.219.174])
-        by smtp.gmail.com with ESMTPSA id
- e2-20020a256902000000b00dc6e5ea9152sm283254ybc.29.2024.02.16.03.47.01
-        for <alsa-devel@alsa-project.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 16 Feb 2024 03:47:01 -0800 (PST)
-Received: by mail-yb1-f174.google.com with SMTP id
- 3f1490d57ef6-dbed0710c74so571288276.1
-        for <alsa-devel@alsa-project.org>;
- Fri, 16 Feb 2024 03:47:01 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AJvYcCX+Jp5v4Vegh2uHxy7JBskyOmywrTZuwgBDdYvrYLI39F/9YtbuCDn9sfMP9q5hs8MrXYv16LugQbhgPYEINGQqlNwr5btQVVVoL7Q=
-X-Received: by 2002:a5b:708:0:b0:dc6:cc35:35e9 with SMTP id
- g8-20020a5b0708000000b00dc6cc3535e9mr4412013ybq.35.1708084021189; Fri, 16 Feb
- 2024 03:47:01 -0800 (PST)
+	by alsa1.perex.cz (Postfix) with ESMTPS id DB2ECF8015B
+	for <alsa-devel@alsa-project.org>; Fri, 16 Feb 2024 13:02:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DB2ECF8015B
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=DsZBIPWg
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id 4183ACE0BAD;
+	Fri, 16 Feb 2024 12:02:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29113C433C7;
+	Fri, 16 Feb 2024 12:02:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1708084953;
+	bh=5Q+kd71G8dshq5qDySGQ0Qz6DT8zy+MvtrCDJcuOJ8Y=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=DsZBIPWgxa3vItensb1wYxtotyg7XoIFnRPrb+p1LEepBCK1rJvY/HkdbQiNOAQ1k
+	 fzWZCS+OFtBvLJztcG8Ff8mqyaluQs0J0un8JNfijpoLbyPNCmTwZw61TlZvF8dsUW
+	 25Ft1Yxo9A/5dx+uUaJIkea+4dYJWBkmWZ6cU390DUvfqrhybyxd7SA7xypeta+8pH
+	 0UfuzlbMNepNIj4+lxIKZEZk5/0BaY5EBQ27lsbEcW9LswIVVZWRwoYwM/sD4KiKvp
+	 sl2PoZ46i7gtCJd6z0gCYqoFXeUgsIQQcsE5kpVFQJsis2Gknuwu47uW9GaQCGsRFN
+	 mRQjt950K7c+A==
+From: Vinod Koul <vkoul@kernel.org>
+To: Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ "Ricardo B. Marliere" <ricardo@marliere.net>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+In-Reply-To: <20240213-bus_cleanup-soundwire-v1-1-3878b00f6f57@marliere.net>
+References: <20240213-bus_cleanup-soundwire-v1-1-3878b00f6f57@marliere.net>
+Subject: Re: [PATCH] soundwire: bus_type: make sdw_bus_type const
+Message-Id: <170808495076.353215.12668005796440668308.b4-ty@kernel.org>
+Date: Fri, 16 Feb 2024 17:32:30 +0530
 MIME-Version: 1.0
-References: <20240208163710.512733-1-krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20240208163710.512733-1-krzysztof.kozlowski@linaro.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 16 Feb 2024 12:46:48 +0100
-X-Gmail-Original-Message-ID: 
- <CAMuHMdXzObEqExtJZpUpXLfCWB5fW9ZhekbbotcxcMrN+uj0Ag@mail.gmail.com>
-Message-ID: 
- <CAMuHMdXzObEqExtJZpUpXLfCWB5fW9ZhekbbotcxcMrN+uj0Ag@mail.gmail.com>
-Subject: Re: [PATCH] clk: constify the of_phandle_args argument of
- of_clk_provider
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>,
-	Sudeep Holla <sudeep.holla@arm.com>, Peng Fan <peng.fan@nxp.com>,
- Shawn Guo <shawnguo@kernel.org>,
-	Nishanth Menon <nm@ti.com>, Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konrad.dybcio@linaro.org>,
- Thierry Reding <thierry.reding@gmail.com>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
- Linus Walleij <linus.walleij@linaro.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- linux-clk@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	patches@opensource.cirrus.com, linux-stm32@st-md-mailman.stormreply.com,
-	NXP Linux Team <linux-imx@nxp.com>, linux-amlogic@lists.infradead.org,
-	linux-arm-msm@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-	linux-tegra@vger.kernel.org, linux-omap@vger.kernel.org,
-	linux-media@vger.kernel.org, linux-phy@lists.infradead.org,
-	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: TTKKPN5T2GKGWURHUOYB6YU46SP6OPNR
-X-Message-ID-Hash: TTKKPN5T2GKGWURHUOYB6YU46SP6OPNR
-X-MailFrom: geert.uytterhoeven@gmail.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.12.3
+Message-ID-Hash: ETQ7KZLUFPOWWBCWIC2W7EPBBAY7XOQF
+X-Message-ID-Hash: ETQ7KZLUFPOWWBCWIC2W7EPBBAY7XOQF
+X-MailFrom: vkoul@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -133,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TTKKPN5T2GKGWURHUOYB6YU46SP6OPNR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ETQ7KZLUFPOWWBCWIC2W7EPBBAY7XOQF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -142,33 +98,24 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, Feb 8, 2024 at 5:37=E2=80=AFPM Krzysztof Kozlowski
-<krzysztof.kozlowski@linaro.org> wrote:
-> None of the implementations of the get() and get_hw() callbacks of
-> "struct of_clk_provider" modify the contents of received of_phandle_args
-> pointer.  They treat it as read-only variable used to find the clock to
-> return.  Make obvious that implementations are not supposed to modify
-> the of_phandle_args, by making it a pointer to const.
->
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
->  drivers/clk/renesas/r9a06g032-clocks.c        |  2 +-
->  drivers/clk/renesas/renesas-cpg-mssr.c        |  2 +-
->  drivers/clk/renesas/rzg2l-cpg.c               |  2 +-
+On Tue, 13 Feb 2024 11:36:56 -0300, Ricardo B. Marliere wrote:
+> Since commit d492cc2573a0 ("driver core: device.h: make struct
+> bus_type a const *"), the driver core can properly handle constant
+> struct bus_type, move the sdw_bus_type variable to be a constant
+> structure as well, placing it into read-only memory which can not be
+> modified at runtime.
+> 
+> 
+> [...]
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Acked-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Applied, thanks!
 
-Gr{oetje,eeting}s,
+[1/1] soundwire: bus_type: make sdw_bus_type const
+      commit: 81a7d0c4d059cb5c122110acbeec7bedfb91a741
 
-                        Geert
+Best regards,
+-- 
+~Vinod
 
---=20
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
 
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds

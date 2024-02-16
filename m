@@ -2,71 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC16F8574E8
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Feb 2024 05:07:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83857857527
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Feb 2024 05:11:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1BF91B70;
-	Fri, 16 Feb 2024 05:07:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1BF91B70
+	by alsa0.perex.cz (Postfix) with ESMTPS id 16F7014EA;
+	Fri, 16 Feb 2024 05:11:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 16F7014EA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1708056443;
-	bh=Po95v96LPTxeXftJOozHy6UXnmUaflYjsvhQ9ZsBisI=;
+	s=default; t=1708056707;
+	bh=D9iCBf4uVlGbolQEK0TZrES/30NrOiurE7BaYTyF02s=;
 	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=mPYzQxWGEYYpq7LNa2PncemfbyvD0D19wImdgzVLUcbeYmJvaQQCDac0SxtnB4+el
-	 KBkOK9IIGH7U2twFcRtTN/N1kIkNjM9gu3LJ22iZU0vP0cEHfmaORU5ihWXwfws49N
-	 v3nzhtW70l/lHTo1qBXYMgQir0+puA9PnH4wImt4=
+	b=NFWRRIoeXxk0H3QaPNEQ95vmDFZVihx2CbVH3Xb5xGhlEXpyXJ0u+S3H8LBy77yYH
+	 VA0/1aw/OF5bvmg0KwwGHd0lS+iZ+YWMc9DO4SqNmQ2RJ1elDY0cd3bCRszbjISTn1
+	 6a7X7z7iATOa2cwBuje/C4CvqaxX5B3pVU/JdFNY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E711DF89674; Fri, 16 Feb 2024 05:02:05 +0100 (CET)
+	id A2E6EF8989B; Fri, 16 Feb 2024 05:02:30 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E512AF8962D;
-	Fri, 16 Feb 2024 05:02:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 36BBEF897B4;
+	Fri, 16 Feb 2024 05:02:30 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 978BDF808CC; Fri, 16 Feb 2024 05:01:18 +0100 (CET)
+	id 93979F89674; Fri, 16 Feb 2024 05:01:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=unavailable autolearn_force=no version=3.4.6
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7F44CF805B1
+	by alsa1.perex.cz (Postfix) with ESMTPS id E0FC4F805AE
 	for <alsa-devel@alsa-project.org>; Fri, 16 Feb 2024 04:59:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F44CF805B1
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E0FC4F805AE
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=g9FsV+7p
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ header.s=qcppdkim1 header.b=fsMcTJXV
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
 	by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 41FNahSm005903;
+ 41G3dvKc005273;
 	Fri, 16 Feb 2024 03:59:44 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
 	from:to:cc:subject:date:message-id:in-reply-to:references
-	:mime-version:content-type; s=qcppdkim1; bh=mxEhZPCCqeHZOikY5tCu
-	hwL2rJDkHsAhV5eC0nd/D14=; b=g9FsV+7pRIn0lyEBVUYox4A4/eeceGqqaXJ9
-	3M/0XsjUjJmYvMQ+1mtYMfK5DPWl/osgoupIxwNICzQx6yHLewxUK1hgi5CIa1Rp
-	GImvmATLjiOlASZHqxs86jBMYHBBSGN2rwicf1SER2TJ9CllaUB4lqFSI0QyN8gU
-	gZsNJoG6zech53HSrKQp/zZhQBvH2aa8jya3r9ZoroBO35vLuWbLw0x2BPXDxmT8
-	GuSnPdM8h5yqqpfBa+5eKM1pC1+srR2ymxDVajv8SVl3NhaakXmkhoci12Fk84mJ
-	UgKqGpwbwRNAmuZUwwwKBSZfHN8HZ3yxBVlqfYlEhc9TKIjeMQ==
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+	:mime-version:content-type; s=qcppdkim1; bh=RAZe4P21Vgy0TC60BB4t
+	orvOPX1Bh2tZGi72hcSJDBo=; b=fsMcTJXVZhz2sMMoAkJFNG4RGlpnjRqgllkX
+	5DAENv3FKdHK2V+TWE/lJ011DPXXUaYWFlBy2ifs5f3EdjPAjeXCyO0OJIBLdush
+	Nc/t4s1wVJgQvWWmnrMEhUPeUaF1byaufrBuZH7yb4Bl+n/sKanq4UxosVeQPVgl
+	QayklDS9f5FNFdGhBE4lQYdT3Rc9nIZhn0EQ7jNwAgqf8A/va3XK4nMLd4Vpn5QQ
+	3jdsiNln5g18UoPHFdEOxtJbZKGNwDPmoIY4zkCeGAg3mMW+LelGXzdBMc2pqGrh
+	HseBkmBFzF2yr3N0f5sOprNP3jAQBufM5xDKClJJrTqY3db8ng==
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3w9bfs34na-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3w9xv9g3w2-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
 	Fri, 16 Feb 2024 03:59:43 +0000 (GMT)
 Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
  [10.47.209.197])
-	by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
- 41G3xgjS014706
+	by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
+ 41G3xhbN032329
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 16 Feb 2024 03:59:42 GMT
+	Fri, 16 Feb 2024 03:59:43 GMT
 Received: from hu-wcheng-lv.qualcomm.com (10.49.16.6) by
  nalasex01b.na.qualcomm.com (10.47.209.197) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
@@ -83,9 +83,10 @@ CC: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
         <linux-sound@vger.kernel.org>, <linux-usb@vger.kernel.org>,
         <linux-arm-msm@vger.kernel.org>, <linux-doc@vger.kernel.org>,
         <alsa-devel@alsa-project.org>, Wesley Cheng <quic_wcheng@quicinc.com>
-Subject: [PATCH v16 35/50] ASoC: dt-bindings: Add Q6USB backend
-Date: Thu, 15 Feb 2024 19:59:08 -0800
-Message-ID: <20240216035923.23392-36-quic_wcheng@quicinc.com>
+Subject: [PATCH v16 36/50] ASoC: dt-bindings: Update example for enabling USB
+ offload on SM8250
+Date: Thu, 15 Feb 2024 19:59:09 -0800
+Message-ID: <20240216035923.23392-37-quic_wcheng@quicinc.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20240216035923.23392-1-quic_wcheng@quicinc.com>
 References: <20240216035923.23392-1-quic_wcheng@quicinc.com>
@@ -97,19 +98,19 @@ X-ClientProxiedBy: nalasex01a.na.qualcomm.com (10.47.209.196) To
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: vVEI4hVgjAEwhC5LbpJNuTqxM4gMIBos
-X-Proofpoint-GUID: vVEI4hVgjAEwhC5LbpJNuTqxM4gMIBos
+X-Proofpoint-ORIG-GUID: 2j1F-DM39TlxzpEMBPk1fZT-YMnLf_K0
+X-Proofpoint-GUID: 2j1F-DM39TlxzpEMBPk1fZT-YMnLf_K0
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-02-16_02,2024-02-14_01,2023-05-22_02
+ definitions=2024-02-16_03,2024-02-14_01,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- bulkscore=0 phishscore=0 suspectscore=0 priorityscore=1501 spamscore=0
- clxscore=1015 adultscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2401310000 definitions=main-2402160030
-Message-ID-Hash: SSTQR4CW6NMLEX34ZHMVMXMHTSIZ7OOH
-X-Message-ID-Hash: SSTQR4CW6NMLEX34ZHMVMXMHTSIZ7OOH
+ malwarescore=0 clxscore=1015
+ bulkscore=0 adultscore=0 mlxscore=0 priorityscore=1501 suspectscore=0
+ spamscore=0 phishscore=0 lowpriorityscore=0 mlxlogscore=999
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2401310000 definitions=main-2402160031
+Message-ID-Hash: LXXZIQAP5UBB3AJXFK2JFMBL5X7YQIKG
+X-Message-ID-Hash: LXXZIQAP5UBB3AJXFK2JFMBL5X7YQIKG
 X-MailFrom: quic_wcheng@quicinc.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -122,7 +123,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SSTQR4CW6NMLEX34ZHMVMXMHTSIZ7OOH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LXXZIQAP5UBB3AJXFK2JFMBL5X7YQIKG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -131,77 +132,40 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add a dt-binding to describe the definition of enabling the Q6 USB backend
-device for audio offloading.  The node carries information, which is passed
-along to the QC USB SND class driver counterpart.  These parameters will be
-utilized during QMI stream enable requests.
+Add an example on enabling of USB offload for the Q6DSP.  The routing can
+be done by the mixer, which can pass the multimedia stream to the USB
+backend.
 
-Change-Id: I006743dee5dafa4200ab37260388dc6c4e3f0219
-Reviewed-by: Rob Herring <robh@kernel.org>
+Change-Id: I346cb0c027608a5a69a2e102b22e1d2b28690286
+Acked-by: Rob Herring <robh@kernel.org>
 Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
 ---
- .../devicetree/bindings/sound/qcom,q6usb.yaml | 55 +++++++++++++++++++
- 1 file changed, 55 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/qcom,q6usb.yaml
+ .../devicetree/bindings/sound/qcom,sm8250.yaml    | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/sound/qcom,q6usb.yaml b/Documentation/devicetree/bindings/sound/qcom,q6usb.yaml
-new file mode 100644
-index 000000000000..37161d2aa96e
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/qcom,q6usb.yaml
-@@ -0,0 +1,55 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/qcom,q6usb.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
+index 6f419747273e..e78b8b660fce 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
++++ b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
+@@ -227,6 +227,21 @@ examples:
+                 sound-dai = <&vamacro 0>;
+             };
+         };
 +
-+title: Qualcomm ASoC DPCM USB backend DAI
++        usb-dai-link {
++            link-name = "USB Playback";
++            cpu {
++                sound-dai = <&q6afedai USB_RX>;
++            };
 +
-+maintainers:
-+  - Wesley Cheng <quic_wcheng@quicinc.com>
++            codec {
++                sound-dai = <&usbdai USB_RX>;
++            };
 +
-+description:
-+  The USB port is a supported AFE path on the Q6 DSP.  This ASoC DPCM
-+  backend DAI will communicate the required settings to initialize the
-+  XHCI host controller properly for enabling the offloaded audio stream.
-+  Parameters defined under this node will carry settings, which will be
-+  passed along during the QMI stream enable request and configuration of
-+  the XHCI host controller.
-+
-+allOf:
-+  - $ref: dai-common.yaml#
-+
-+properties:
-+  compatible:
-+    enum:
-+      - qcom,q6usb
-+
-+  iommus:
-+    maxItems: 1
-+
-+  "#sound-dai-cells":
-+    const: 1
-+
-+  qcom,usb-audio-intr-idx:
-+    description:
-+      Desired XHCI interrupter number to use.  Depending on the audio DSP
-+      on the platform, it will operate on a specific XHCI interrupter.
-+    $ref: /schemas/types.yaml#/definitions/uint16
-+    maximum: 8
-+
-+required:
-+  - compatible
-+  - "#sound-dai-cells"
-+  - qcom,usb-audio-intr-idx
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    dais {
-+      compatible = "qcom,q6usb";
-+      #sound-dai-cells = <1>;
-+      iommus = <&apps_smmu 0x180f 0x0>;
-+      qcom,usb-audio-intr-idx = /bits/ 16 <2>;
-+    };
++            platform {
++                sound-dai = <&q6routing>;
++            };
++        };
+     };
+ 
+   - |

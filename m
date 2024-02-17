@@ -2,65 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FFCC858BA9
-	for <lists+alsa-devel@lfdr.de>; Sat, 17 Feb 2024 01:24:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBD5F858B15
+	for <lists+alsa-devel@lfdr.de>; Sat, 17 Feb 2024 01:16:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1B0B0F51;
-	Sat, 17 Feb 2024 01:24:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1B0B0F51
+	by alsa0.perex.cz (Postfix) with ESMTPS id 490B69F6;
+	Sat, 17 Feb 2024 01:16:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 490B69F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1708129492;
-	bh=T0Bz4tOu/rdAXCR6ELsKlQZZcwkBguPM55G+9SlfyZY=;
+	s=default; t=1708128985;
+	bh=JK11qZ2KlbmEzZpE7Z7XLQGFiT4fwAOQs4H6trtGyQg=;
 	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=HM7CIE0+qcDiLsiioFVPsZFlKRefv2PFqUQnjhwjHjulI8em6Wbvcd6shWOziZZpe
-	 4I7P8zpJiUY56zXU4NOkhannix3A3F6vxWZLyWDSW/cv+H755RL+MQ6O9Lx2xCevTQ
-	 JVIpiDQ2eQzQSdVCcY6pvvsJoVWquq8FzDp1yqeA=
+	b=Dv+znqY/wZx4gCBIpAt7vpfz4SyC2j2p4s/w5UjRB1k3f1vKLSZ8SxI7xNFRTvr5Z
+	 PwTSkTGAG5zNMYmLxwT2jM+jqE1CfQf7U/Rxjck6PacyvNzih6NgE2w7uC0oFCf6ta
+	 dAbhmi1J/D3PmepPxMj0Khtodsb2Z+y6v5r97FNk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C208FF80621; Sat, 17 Feb 2024 01:22:32 +0100 (CET)
+	id 0749CF800BF; Sat, 17 Feb 2024 01:15:53 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4F17FF805B5;
-	Sat, 17 Feb 2024 01:22:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A183DF80588;
+	Sat, 17 Feb 2024 01:15:53 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AE505F8015B; Sat, 17 Feb 2024 01:13:00 +0100 (CET)
+	id C861EF805C1; Sat, 17 Feb 2024 01:11:01 +0100 (CET)
+X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
+X-Spam-Level: 
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=unavailable autolearn_force=no version=3.4.6
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 43BF0F80567
-	for <alsa-devel@alsa-project.org>; Sat, 17 Feb 2024 01:10:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 43BF0F80567
+	by alsa1.perex.cz (Postfix) with ESMTPS id C8CBCF80570
+	for <alsa-devel@alsa-project.org>; Sat, 17 Feb 2024 01:10:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8CBCF80570
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=cbc32zVv
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ header.s=qcppdkim1 header.b=Nt5zHhiL
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
 	by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 41GNdvHg003939;
+ 41GNMwSB008993;
 	Sat, 17 Feb 2024 00:10:33 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
 	from:to:cc:subject:date:message-id:in-reply-to:references
-	:mime-version:content-type; s=qcppdkim1; bh=N/sdaIjFxyUNa9Ia2otk
-	7BCcqD1+y5SdVh+JS6yQIKc=; b=cbc32zVvnmMWG14Jn2pcKmmWx4y63KuneoOK
-	e2+csISbZXtWs9PQZPt4/dM0rxlod4yM92diMvnWJ1rMymQg94ii14VMQPOhx7Oa
-	pwKmXq5zrPFoI7D1UtzA4mRWy9jplIHmqhSLzo68dCbhdF0D5//2yb69oSMyL5eb
-	9myYg9UWz/8m4N4FVAzsdiMtizxg8t2Ry9dGf/vnAeB2BCx64Du57Iikb2QOlYb0
-	zTQT/yvZ87vko3nnnezaFgf1fXSRmDHK6tqM5bqhPTK0R1QhkH6e4DOFxcPU3XxA
-	oHmK25zS797vc3XC6ZngkyLMMdyj1BHn7wazchlfG7WGjIDXog==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+	:mime-version:content-type; s=qcppdkim1; bh=DU0HpYwDA8B4AUvQtRmG
+	JGZdzZc3lnr+JG7/kIyiTiM=; b=Nt5zHhiL/BSLadIO1oo4qLRNBI5EQTHWGSNk
+	3W3qlTUjDBvHqaeKhxIO6NTLfX29sz2PVceTtBP9KvG8f6wuuZdURDG9C2GeGsV2
+	13j5Q5UGflvjIlhC0CxwfGqUfJDNVaPRF16WLx3kaWWDa5EWG5PXADh6INjAWsor
+	zAQgvJ4H76uSh/ENtMjWA6n5VZfXtVTrfNHNDoragrHfmL2fqTNaK7Z/R0c9LJ1H
+	u3LNKs/m5HAsajozkRaW/Y8lY+y3X0YAAO3kRAm93n6ZxrBNjO9uJNr9hWUSyaFr
+	RorUiJG8yApcl2uIbKlKiMT/3o6tJXNCjm06M0NeR1ImNvBstg==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3w9xdxa96a-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3wa3bh1ub2-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
 	Sat, 17 Feb 2024 00:10:33 +0000 (GMT)
 Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
  [10.47.209.197])
-	by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
- 41H0AVpR028868
+	by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
+ 41H0AWBf017199
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sat, 17 Feb 2024 00:10:31 GMT
+	Sat, 17 Feb 2024 00:10:32 GMT
 Received: from hu-wcheng-lv.qualcomm.com (10.49.16.6) by
  nalasex01b.na.qualcomm.com (10.47.209.197) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
@@ -79,10 +85,10 @@ CC: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
         <alsa-devel@alsa-project.org>,
         Mathias Nyman <mathias.nyman@linux.intel.com>,
         Wesley Cheng <quic_wcheng@quicinc.com>
-Subject: [PATCH v17 07/51] xhci: add helper that checks for unhandled events
- on a event ring
-Date: Fri, 16 Feb 2024 16:09:33 -0800
-Message-ID: <20240217001017.29969-8-quic_wcheng@quicinc.com>
+Subject: [PATCH v17 08/51] xhci: Don't check if the event ring is valid before
+ every event TRB
+Date: Fri, 16 Feb 2024 16:09:34 -0800
+Message-ID: <20240217001017.29969-9-quic_wcheng@quicinc.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20240217001017.29969-1-quic_wcheng@quicinc.com>
 References: <20240217001017.29969-1-quic_wcheng@quicinc.com>
@@ -94,19 +100,19 @@ X-ClientProxiedBy: nalasex01a.na.qualcomm.com (10.47.209.196) To
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: OqtcXmgp5hk9BQ4aiYJBSZLcWBvz_Vry
-X-Proofpoint-GUID: OqtcXmgp5hk9BQ4aiYJBSZLcWBvz_Vry
+X-Proofpoint-GUID: rVyc_CWhwtgEEpXhx9qXDNOnf3nfGNky
+X-Proofpoint-ORIG-GUID: rVyc_CWhwtgEEpXhx9qXDNOnf3nfGNky
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
  definitions=2024-02-16_23,2024-02-16_01,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 malwarescore=0
- suspectscore=0 mlxlogscore=999 adultscore=0 phishscore=0 mlxscore=0
- clxscore=1015 impostorscore=0 bulkscore=0 priorityscore=1501
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ spamscore=0 impostorscore=0
+ mlxscore=0 bulkscore=0 clxscore=1015 adultscore=0 priorityscore=1501
+ malwarescore=0 mlxlogscore=593 phishscore=0 lowpriorityscore=0
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
  engine=8.19.0-2401310000 definitions=main-2402160189
-Message-ID-Hash: KGCYS4RR2G4NE3KTYG25GZVYUGNFXCID
-X-Message-ID-Hash: KGCYS4RR2G4NE3KTYG25GZVYUGNFXCID
+Message-ID-Hash: AP56G36EXWDZVBHPFTET4NCZAFUF64F6
+X-Message-ID-Hash: AP56G36EXWDZVBHPFTET4NCZAFUF64F6
 X-MailFrom: quic_wcheng@quicinc.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -119,7 +125,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KGCYS4RR2G4NE3KTYG25GZVYUGNFXCID/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AP56G36EXWDZVBHPFTET4NCZAFUF64F6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -130,41 +136,44 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Mathias Nyman <mathias.nyman@linux.intel.com>
 
-Add unhandled_event_trb() that returns true in case xHC hardware has
-written new event trbs to the event ring that driver has not yet handled.
+Check if the event ring exists and is valid once when the event handler
+is called, not before every individual event TRB.
+
+At this point the interrupter is valid, so no need to check that.
 
 Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
 Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
 ---
- drivers/usb/host/xhci-ring.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+ drivers/usb/host/xhci-ring.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/usb/host/xhci-ring.c b/drivers/usb/host/xhci-ring.c
-index ad008a5abc81..275164dc449d 100644
+index 275164dc449d..d31599d46b92 100644
 --- a/drivers/usb/host/xhci-ring.c
 +++ b/drivers/usb/host/xhci-ring.c
-@@ -113,6 +113,12 @@ static bool last_td_in_urb(struct xhci_td *td)
- 	return urb_priv->num_tds_done == urb_priv->num_tds;
- }
+@@ -2972,12 +2972,6 @@ static int xhci_handle_event(struct xhci_hcd *xhci, struct xhci_interrupter *ir)
+ 	union xhci_trb *event;
+ 	u32 trb_type;
  
-+static bool unhandled_event_trb(struct xhci_ring *ring)
-+{
-+	return ((le32_to_cpu(ring->dequeue->event_cmd.flags) & TRB_CYCLE) ==
-+		ring->cycle_state);
-+}
-+
- static void inc_td_cnt(struct urb *urb)
- {
- 	struct urb_priv *urb_priv = urb->hcpriv;
-@@ -2973,9 +2979,8 @@ static int xhci_handle_event(struct xhci_hcd *xhci, struct xhci_interrupter *ir)
- 	}
- 
+-	/* Event ring hasn't been allocated yet. */
+-	if (!ir || !ir->event_ring || !ir->event_ring->dequeue) {
+-		xhci_err(xhci, "ERROR interrupter not ready\n");
+-		return -ENOMEM;
+-	}
+-
  	event = ir->event_ring->dequeue;
--	/* Does the HC or OS own the TRB? */
--	if ((le32_to_cpu(event->event_cmd.flags) & TRB_CYCLE) !=
--	    ir->event_ring->cycle_state)
-+
-+	if (!unhandled_event_trb(ir->event_ring))
- 		return 0;
  
- 	trace_xhci_handle_event(ir->event_ring, &event->generic);
+ 	if (!unhandled_event_trb(ir->event_ring))
+@@ -3081,6 +3075,12 @@ static int xhci_handle_events(struct xhci_hcd *xhci, struct xhci_interrupter *ir
+ 
+ 	xhci_clear_interrupt_pending(xhci, ir);
+ 
++	/* Event ring hasn't been allocated yet. */
++	if (!ir->event_ring || !ir->event_ring->dequeue) {
++		xhci_err(xhci, "ERROR interrupter event ring not ready\n");
++		return -ENOMEM;
++	}
++
+ 	if (xhci->xhc_state & XHCI_STATE_DYING ||
+ 	    xhci->xhc_state & XHCI_STATE_HALTED) {
+ 		xhci_dbg(xhci, "xHCI dying, ignoring interrupt. Shouldn't IRQs be disabled?\n");

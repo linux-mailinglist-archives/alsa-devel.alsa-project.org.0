@@ -2,34 +2,34 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C453E859553
-	for <lists+alsa-devel@lfdr.de>; Sun, 18 Feb 2024 08:51:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52A1A859552
+	for <lists+alsa-devel@lfdr.de>; Sun, 18 Feb 2024 08:51:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 13961847;
-	Sun, 18 Feb 2024 08:51:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 13961847
+	by alsa0.perex.cz (Postfix) with ESMTPS id DB72DB70;
+	Sun, 18 Feb 2024 08:51:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB72DB70
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1708242712;
-	bh=Fu3fdtS7oQgOWe/O3MBGdeO+WH/z2+AmZDVcBf+jPJw=;
+	s=default; t=1708242708;
+	bh=AOVaQ5YGKkgnrRNpZ0b6UYjZgF5LpdiTlNskz7iNyX4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=AX64MPWuKs8sFp+plbxuKQJM4KDi4ANzoOrL1ifE/v3vnHhx6rvjlmEtolgldNAgZ
-	 YkcOGCBIFWnTFY/DsdMNaNP4TAbbYYWiNiyX5+jBBIjTNc2HTuWwoa4E0T+cGCwWu3
-	 LraGUFh5TVwE3TIfAvxg6BbgkPeW2Tf7CYVFJ4Hs=
+	b=D6qn4q2mHyxWxfYwukVOLukLdwybrVi5fWjaQQaE3EEBleL2jp58ali9pb59yvLij
+	 1yI8gkLWpFj23nrt6+c/kQSCD0DjMHDc50TPku2NgGpfzCa4V8JqpLabIRe0byEFhn
+	 6TdQsmCExwlM54DLqxDWrD/eva9l+Matan4QLfw4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 91F25F805F1; Sun, 18 Feb 2024 08:50:30 +0100 (CET)
+	id 33180F80622; Sun, 18 Feb 2024 08:50:29 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 89566F805F1;
-	Sun, 18 Feb 2024 08:50:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 94138F80603;
+	Sun, 18 Feb 2024 08:50:27 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8C86DF804B0; Sun, 18 Feb 2024 08:44:58 +0100 (CET)
+	id A2681F804CC; Sun, 18 Feb 2024 08:44:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,RCVD_IN_MSPIKE_H3,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,
 	RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
@@ -38,50 +38,50 @@ Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A34D0F8047D
-	for <alsa-devel@alsa-project.org>; Sun, 18 Feb 2024 08:41:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A34D0F8047D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9A0DEF8019B
+	for <alsa-devel@alsa-project.org>; Sun, 18 Feb 2024 08:41:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A0DEF8019B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.a=rsa-sha256 header.s=fm1 header.b=g0Uewg3H;
+ header.a=rsa-sha256 header.s=fm1 header.b=pkc4whEL;
 	dkim=pass (2048-bit key,
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm1 header.b=KUXus+Sb
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
-	by mailout.nyi.internal (Postfix) with ESMTP id 5A0C15C006E;
-	Sun, 18 Feb 2024 02:41:36 -0500 (EST)
+ header.a=rsa-sha256 header.s=fm1 header.b=T6JBqpvu
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+	by mailout.nyi.internal (Postfix) with ESMTP id C739C5C006D;
+	Sun, 18 Feb 2024 02:41:37 -0500 (EST)
 Received: from mailfrontend1 ([10.202.2.162])
-  by compute2.internal (MEProxy); Sun, 18 Feb 2024 02:41:36 -0500
+  by compute3.internal (MEProxy); Sun, 18 Feb 2024 02:41:37 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
 	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
 	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1708242096; x=
-	1708328496; bh=xfklvt63Cya7crTHMbBmSR2hu8vK8DoS/tjKNZFEIvM=; b=g
-	0Uewg3HXcfZlH9ZwKSAAT1pzO8VOOFtaUZhWAs2LTgQ/y1arIqRMlWihK9uk12Fm
-	0yoPw79Cr3juDccVaibeo8gf/AI9MRBcwDFIrqIjVYJTWxvtHWEHM9fHh64XY+VW
-	WyV1xZ9bZHpqk4Z9DoOarGf6LjPPx5uoWPdueUvonco5feE0Z1NLn5lF6ESAIPCa
-	jpdvG1tNKh97kC1WEhCaJ9W0thxYGYzDwNaawrPxJQoCuh8kr+gdYaDrDz8JhvuV
-	hI7YdutvY1z3AaCpt8c6Fsv9DuPQLzaBH7HM0hCY2HW/SNLo5FVuQWOfQbTgkir3
-	+7bkXkQfddXC0eLDe/MhA==
+	:reply-to:subject:subject:to:to; s=fm1; t=1708242097; x=
+	1708328497; bh=0bqKb4iHHHHhoPr3Sb4CXuMDS1hoDWcvBFIABEkLLBA=; b=p
+	kc4whELJ5lXbrdW7OlrtPWDZDqSqRoYH7XJq6kIBFouFnMlwJtO4gucqd8ddMimj
+	4UDxB7MlvWKDoPpGCb22rUoTjuX4amAv3P5EIogBVzYfRFfRChj4/nBh99Z0DX7R
+	pOnwhwzL/p2s9STlYZuemJ8cXQvDgrMgQDFyueqrQKJyB2p18RQH46TfWj+vzlkH
+	Ei5M0HE51Leymw7h59ml9uAXSzsxliZ7gIurPk1qCISClhjziqjqO4LixrpzpN3G
+	u84R4PL7w4D0Tz7HHBhczcV7QF92GpOv6wI8xuoWsRLNfMQ+nnTi9r85Uv6wHxRA
+	NBiOiJgLw8cjBYuPMBlTw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:feedback-id:feedback-id:from:from
 	:in-reply-to:in-reply-to:message-id:mime-version:references
 	:reply-to:subject:subject:to:to:x-me-proxy:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1708242096; x=
-	1708328496; bh=xfklvt63Cya7crTHMbBmSR2hu8vK8DoS/tjKNZFEIvM=; b=K
-	UXus+SbLoj6qQzj5ePwzijntzNCUvJX+bgI591lhsyQWy9jqyamk0Q7UVTXEoEX1
-	RHSRFT41n3u5Ot3Py9TfaEXTS2zI8YxM+iNDNw8K5pV0xaR0rHaj+U+6Ka9bAKc1
-	WgqWJasjHuzEHVvTg08HXJ1ShCaRI+IXyM9Vw1/rKOTrp80TFTnnckTx2bD+Ea3R
-	KVapqJ/EEfut9mp3DgdROacY1axeNQVsPCbKhSLHlMAfE9GK1OlPMMgyqfaIuC0X
-	32uFWUU3xypxw3vxyA167VOIBZL5BQcje8beLz0KgqnIP0YB43TX0dPHo8JpkRZg
-	xHbTPS5kSI/x+ewmj6LxA==
-X-ME-Sender: <xms:sLTRZbas-q8dmdJbTFOhNZLsIVAPW-ZdhUXmQ4-EYnTTx_iJKtZyNQ>
-    <xme:sLTRZaYppXgCUyCUbWcc-gL31mBEAm2oTCw0LuLhcfA-hxXsqsppjBdH7Z2_NAOEH
-    Qd42BDmfN6XWhoD9oI>
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1708242097; x=
+	1708328497; bh=0bqKb4iHHHHhoPr3Sb4CXuMDS1hoDWcvBFIABEkLLBA=; b=T
+	6JBqpvuEcCaCaIEaw74nzfmr2SdaS3ekHR2k8I5WmNljiCUxQPTvFX2mCuWZF90z
+	tpdEtDvPY+Lg4zVzqNZZrKKhs9KLyfThpzVd+oHceJp48H36Fv9UEtDWB3T3GSSM
+	8nNV+DoUlqSnFAUTWLhy4GxwJBvjUkbgh+znBETH7MwkjUY7h6qbTj7Xq4HeD4E0
+	oyIfmBqtJ9uAetCQ/Uweb9VWAfG69IBhmOTvk+keoX8/RhBkBBZ073qfC+3RxyY4
+	E7ItWkuSDs9MgOXU7UJpolV6yONgiiXx13xJ17G9nfVi2M+qsL/j4oeQj3iPa20B
+	DFtWM50j65w5G0X2vOV6w==
+X-ME-Sender: <xms:sbTRZRz2XUwpzkd7POHC5waUD2MorPVc4ozyRx8iEu7Ou4rs70ftZg>
+    <xme:sbTRZRQO5WC92ETIbz_MDEphkJ4c2xcbFQBEi6_zWc40RFIVvgvWfNPuAmccqoQSL
+    3qzsKbZ5l0z3OiBZPw>
 X-ME-Received: 
- <xmr:sLTRZd83JhJTw4N-7Le1A4tA2GCxYXUsZ625oorVFxLF2Mt5iILSNUrLfvKmZKdxULX-TXLTbk8eGrR7bwsQEFErQecm_1Z7JhJMDTrNpQ5G>
+ <xmr:sbTRZbVO_VXFJB3GSZ0jY06yBqkvrRg1ozklV68fWbda17S_yu0KjEqBGRparxIHGPnmE0ZzYBS6a8rxro5izrSInzol7-vVL693Nz2O9lYb>
 X-ME-Proxy-Cause: 
  gggruggvucftvghtrhhoucdtuddrgedvledrvdehgdduudefucetufdoteggodetrfdotf
     fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
@@ -91,26 +91,27 @@ X-ME-Proxy-Cause:
     euvdfguddukeelveetgfdtvefhtdfffeeigfevueetffeivdffkedvtdenucevlhhushht
     vghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhise
     hsrghkrghmohgttghhihdrjhhp
-X-ME-Proxy: <xmx:sLTRZRqQ7zjbp2fzpla1Xg8tHLmRu1ahkRaONizv9RIixKvyAX_nVA>
-    <xmx:sLTRZWp7sxkxgUkvI-YYnFmMHQ0AcWRTZyGO3AmAb1IPhVYbKNS_eA>
-    <xmx:sLTRZXRk62QK9z64aiMejUhSfkAcZgQqb1aTjPejmNNI3doRxjPiSQ>
-    <xmx:sLTRZdTRKNAgXklU_ECR1bohhDtthHGiax9D6DsC5DGuYr0NFSy8qQ>
+X-ME-Proxy: <xmx:sbTRZTiNUPu3dcfMk9s2To1KKG0-Bx0zqe6YnOlEhrtge5v5hf8Z7w>
+    <xmx:sbTRZTA1EFxeWR8zUYcfhVadGu8-Lgvsr5upirO3LMNa4KQBdg6hbQ>
+    <xmx:sbTRZcJh1uvAaLNizbTsKkEc1TKa1BxHU41HZz7UkLEprj4ReFr-CQ>
+    <xmx:sbTRZWqt_1x6H-mvkTBv39_r8Ayq92y3YWCyG7fL-4bNkztGMvTePA>
 Feedback-ID: ie8e14432:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 18 Feb 2024 02:41:35 -0500 (EST)
+ 18 Feb 2024 02:41:36 -0500 (EST)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: tiwai@suse.de
 Cc: alsa-devel@alsa-project.org
-Subject: [PATCH 1/4] ALSA: oxfw: use const qualifier for immutable argument
-Date: Sun, 18 Feb 2024 16:41:25 +0900
-Message-Id: <20240218074128.95210-2-o-takashi@sakamocchi.jp>
+Subject: [PATCH 2/4] ALSA: oxfw: support the case that AV/C Stream Format
+ Information command is not available
+Date: Sun, 18 Feb 2024 16:41:26 +0900
+Message-Id: <20240218074128.95210-3-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20240218074128.95210-1-o-takashi@sakamocchi.jp>
 References: <20240218074128.95210-1-o-takashi@sakamocchi.jp>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: YGSFURXDZACTR7522TIOA5P2YSGEL4SM
-X-Message-ID-Hash: YGSFURXDZACTR7522TIOA5P2YSGEL4SM
+Message-ID-Hash: TU2UXDLLMB3KS75RBFLAEAJXZVL2GWLV
+X-Message-ID-Hash: TU2UXDLLMB3KS75RBFLAEAJXZVL2GWLV
 X-MailFrom: o-takashi@sakamocchi.jp
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -123,7 +124,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YGSFURXDZACTR7522TIOA5P2YSGEL4SM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TU2UXDLLMB3KS75RBFLAEAJXZVL2GWLV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -132,41 +133,149 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-In the helper function, the first argument is immutable, thus it is
-preferable to use const qualifier.
+Miglia Harmony Audio does neither support AV/C Stream Format Information
+command nor AV/C Extended Stream Format Information command.
+
+This commit adds a workaround for the case and uses the hard-coded formats.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/firewire/oxfw/oxfw-stream.c | 2 +-
- sound/firewire/oxfw/oxfw.h        | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ sound/firewire/oxfw/oxfw-stream.c | 96 +++++++++++++++++++++++--------
+ sound/firewire/oxfw/oxfw.h        |  2 +
+ 2 files changed, 75 insertions(+), 23 deletions(-)
 
 diff --git a/sound/firewire/oxfw/oxfw-stream.c b/sound/firewire/oxfw/oxfw-stream.c
-index f4a702def397..6d8722f9d3a5 100644
+index 6d8722f9d3a5..40716bb989c7 100644
 --- a/sound/firewire/oxfw/oxfw-stream.c
 +++ b/sound/firewire/oxfw/oxfw-stream.c
-@@ -515,7 +515,7 @@ int snd_oxfw_stream_get_current_formation(struct snd_oxfw *oxfw,
-  * in AV/C Stream Format Information Specification 1.1 (Apr 2005, 1394TA)
-  * Also 'Clause 12 AM824 sequence adaption layers' in IEC 61883-6:2005
-  */
--int snd_oxfw_stream_parse_format(u8 *format,
-+int snd_oxfw_stream_parse_format(const u8 *format,
- 				 struct snd_oxfw_stream_formation *formation)
+@@ -486,26 +486,57 @@ int snd_oxfw_stream_get_current_formation(struct snd_oxfw *oxfw,
+ 				enum avc_general_plug_dir dir,
+ 				struct snd_oxfw_stream_formation *formation)
  {
- 	unsigned int i, e, channels, type;
+-	u8 *format;
+-	unsigned int len;
+ 	int err;
+ 
+-	len = AVC_GENERIC_FRAME_MAXIMUM_BYTES;
+-	format = kmalloc(len, GFP_KERNEL);
+-	if (format == NULL)
+-		return -ENOMEM;
++	if (!(oxfw->quirks & SND_OXFW_QUIRK_STREAM_FORMAT_INFO_UNSUPPORTED)) {
++		u8 *format;
++		unsigned int len;
+ 
+-	err = avc_stream_get_format_single(oxfw->unit, dir, 0, format, &len);
+-	if (err < 0)
+-		goto end;
+-	if (len < 3) {
+-		err = -EIO;
+-		goto end;
++		len = AVC_GENERIC_FRAME_MAXIMUM_BYTES;
++		format = kmalloc(len, GFP_KERNEL);
++		if (format == NULL)
++			return -ENOMEM;
++
++		err = avc_stream_get_format_single(oxfw->unit, dir, 0, format, &len);
++		if (err >= 0) {
++			if (len < 3)
++				err = -EIO;
++			else
++				err = snd_oxfw_stream_parse_format(format, formation);
++		}
++
++		kfree(format);
++	} else {
++		// Miglia Harmony Audio does not support Extended Stream Format Information
++		// command. Use the duplicated hard-coded format, instead.
++		unsigned int rate;
++		u8 *const *formats;
++		int i;
++
++		err = avc_general_get_sig_fmt(oxfw->unit, &rate, dir, 0);
++		if (err < 0)
++			return err;
++
++		if (dir == AVC_GENERAL_PLUG_DIR_IN)
++			formats = oxfw->rx_stream_formats;
++		else
++			formats = oxfw->tx_stream_formats;
++
++		for (i = 0; (i < SND_OXFW_STREAM_FORMAT_ENTRIES); ++i) {
++			if (!formats[i])
++				continue;
++
++			err = snd_oxfw_stream_parse_format(formats[i], formation);
++			if (err < 0)
++				continue;
++
++			if (formation->rate == rate)
++				break;
++		}
++		if (i == SND_OXFW_STREAM_FORMAT_ENTRIES)
++			return -EIO;
+ 	}
+ 
+-	err = snd_oxfw_stream_parse_format(format, formation);
+-end:
+-	kfree(format);
+ 	return err;
+ }
+ 
+@@ -600,14 +631,33 @@ assume_stream_formats(struct snd_oxfw *oxfw, enum avc_general_plug_dir dir,
+ 	unsigned int i, eid;
+ 	int err;
+ 
+-	/* get format at current sampling rate */
+-	err = avc_stream_get_format_single(oxfw->unit, dir, pid, buf, len);
+-	if (err < 0) {
+-		dev_err(&oxfw->unit->device,
+-		"fail to get current stream format for isoc %s plug %d:%d\n",
+-			(dir == AVC_GENERAL_PLUG_DIR_IN) ? "in" : "out",
+-			pid, err);
+-		goto end;
++	// get format at current sampling rate.
++	if (!(oxfw->quirks & SND_OXFW_QUIRK_STREAM_FORMAT_INFO_UNSUPPORTED)) {
++		err = avc_stream_get_format_single(oxfw->unit, dir, pid, buf, len);
++		if (err < 0) {
++			dev_err(&oxfw->unit->device,
++				"fail to get current stream format for isoc %s plug %d:%d\n",
++				(dir == AVC_GENERAL_PLUG_DIR_IN) ? "in" : "out",
++				pid, err);
++			goto end;
++		}
++	} else {
++		// Miglia Harmony Audio does not support Extended Stream Format Information
++		// command. Use the hard-coded format, instead.
++		buf[0] = 0x90;
++		buf[1] = 0x40;
++		buf[2] = avc_stream_rate_table[0];
++		buf[3] = 0x00;
++		buf[4] = 0x01;
++
++		if (dir == AVC_GENERAL_PLUG_DIR_IN)
++			buf[5] = 0x08;
++		else
++			buf[5] = 0x02;
++
++		buf[6] = 0x06;
++
++		*len = 7;
+ 	}
+ 
+ 	/* parse and set stream format */
 diff --git a/sound/firewire/oxfw/oxfw.h b/sound/firewire/oxfw/oxfw.h
-index d728e451a25c..39316aeafeaa 100644
+index 39316aeafeaa..3bf8d7bec636 100644
 --- a/sound/firewire/oxfw/oxfw.h
 +++ b/sound/firewire/oxfw/oxfw.h
-@@ -136,7 +136,7 @@ struct snd_oxfw_stream_formation {
- 	unsigned int pcm;
- 	unsigned int midi;
+@@ -52,6 +52,8 @@ enum snd_oxfw_quirk {
+ 	// performs media clock recovery voluntarily. In the recovery, the packets with NO_INFO
+ 	// are ignored, thus driver should transfer packets with timestamp.
+ 	SND_OXFW_QUIRK_VOLUNTARY_RECOVERY = 0x20,
++	// Miglia Harmony Audio does not support AV/C Stream Format Information command.
++	SND_OXFW_QUIRK_STREAM_FORMAT_INFO_UNSUPPORTED = 0x40,
  };
--int snd_oxfw_stream_parse_format(u8 *format,
-+int snd_oxfw_stream_parse_format(const u8 *format,
- 				 struct snd_oxfw_stream_formation *formation);
- int snd_oxfw_stream_get_current_formation(struct snd_oxfw *oxfw,
- 				enum avc_general_plug_dir dir,
+ 
+ /* This is an arbitrary number for convinience. */
 -- 
 2.40.1
 

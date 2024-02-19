@@ -2,94 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6930B85B45F
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Feb 2024 09:03:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2A9B85B466
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Feb 2024 09:04:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A9FAEE85;
-	Tue, 20 Feb 2024 09:03:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A9FAEE85
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6AF421909;
+	Tue, 20 Feb 2024 09:04:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6AF421909
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1708416232;
-	bh=TQodChaPOHWcum/RNtaWMKL6Ir23w3h16d8jHIJEYQ8=;
+	s=default; t=1708416262;
+	bh=pSGqYWEkgA5r9fvAZaRNq9VpI+rNE64hzozwKd0Iv60=;
 	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=cAJzZazHPRYJUi1/x71jFswIoy9T3f1ZFHjJn6E/h+KWkLIgdQiI4VwYOq5Ie/0nn
-	 ykX1zacaIEh3xbrGFHKFSf3UOcODYhFfXa5j9Xrr/b5XaW2qQtUMN2arLqLe6gSPgg
-	 xDbm0Tef7vUPAKZ+H+o67+cno3khpJHi8Q2lfEDs=
+	b=EGQ/gO/mO5DmjhEta5KW6yJ8QaDXljR9PioxzH7Sl6qieQanGI7I8a/FG15zo+8Vr
+	 6cKrFX5rsAdKTlqKfZH4RYDAPUw1L8sKBiZLsitqA8gtV1WVdKpIC1aJbqYWiptv80
+	 A2B/3gFEz2uiZehcnl/ykJGfdrMkGQE3Z/hFsmcE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 60C48F80640; Tue, 20 Feb 2024 09:02:21 +0100 (CET)
+	id 82788F806A7; Tue, 20 Feb 2024 09:02:25 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 783D9F8068A;
-	Tue, 20 Feb 2024 09:02:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B525DF806A2;
+	Tue, 20 Feb 2024 09:02:24 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 35C99F80496; Mon, 19 Feb 2024 07:25:26 +0100 (CET)
+	id E6784F80496; Mon, 19 Feb 2024 08:34:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [IPv6:2a00:1450:4864:20::22e])
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [IPv6:2a00:1450:4864:20::131])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 71A5EF8019B
-	for <alsa-devel@alsa-project.org>; Mon, 19 Feb 2024 07:25:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71A5EF8019B
+	by alsa1.perex.cz (Postfix) with ESMTPS id B635AF800EE
+	for <alsa-devel@alsa-project.org>; Mon, 19 Feb 2024 08:33:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B635AF800EE
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=tuxon.dev header.i=@tuxon.dev header.a=rsa-sha256
- header.s=google header.b=Iwp8Xvpm
-Received: by mail-lj1-x22e.google.com with SMTP id
- 38308e7fff4ca-2d22d0f8ad1so14302081fa.2
+ header.s=google header.b=XkzbfhiS
+Received: by mail-lf1-x131.google.com with SMTP id
+ 2adb3069b0e04-511ac32fe38so5938808e87.1
         for <alsa-devel@alsa-project.org>;
- Sun, 18 Feb 2024 22:25:14 -0800 (PST)
+ Sun, 18 Feb 2024 23:33:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tuxon.dev; s=google; t=1708323912; x=1708928712;
+        d=tuxon.dev; s=google; t=1708328037; x=1708932837;
  darn=alsa-project.org;
         h=content-transfer-encoding:in-reply-to:from:references:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=Zy/lENoBOBZbXj8shKgVOAS0kIgCPAbaRSp31XzJm0E=;
-        b=Iwp8XvpmYTmHKUGRcPcdaRoWh5NH1mu6wQdrFE1QwfhdiucHT4Ess1gLd/d9bcni7k
-         7nTXwqRMndy09FVLeQAhBb66KMI2Mz719zR+cL57BUDw05lXdBx6beQpobngaL+HVEIV
-         hUII27Nd9Os86kybd43dZh2hxtv/Asgt41UlUWrxD14ADqF0+lxa17q2PrCN63+3xgQ4
-         z8nzI1Gv8bFg/r8edJEhodLsZtlRR4kg1wY+5SxLR7/JK97Jro1hj7ZPwYKceUEsX0Kn
-         QPyXXjEXoQyVWg1FMO21/jDUin55p3ilj+WzqJuSc2HSeimShJcuGp71Bl+CANOf+7jm
-         lHjQ==
+        bh=+ng3gW4V3o0lgSkXW6LbE2EKjcIRK6fb4LZxE38g6CE=;
+        b=XkzbfhiSd8/9VtTpLCJy5Mp8YAW0RW7fpkUpRw2/OLmBHIKSCV+oSzLaYJpZxHH0xO
+         oP9o0p/DTfiQh4pj5TwQiP7I5IU2VcMMT8i9aIuu/68mt5RIkUDhz4c34SDJ0hbTfjde
+         EIFWplFZt8r2p8PLfHQ6iLyEqJNi3hz2wasLFgEv7TvVBSU++V8A1h/321GTd1qdCBGh
+         +KUyn/sZTwkrBH1WiIrHeW2ibYNdn91LTW0iwhmp6eD3lMTpwXPgY4bm7mIuWzB/rsih
+         eojPfArocYcqw1h158jYqhyh3JJ5HGBjEudxLxK/PXN/TLSDgEOFjcOv+7GV6WT9Ngk0
+         ogyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708323912; x=1708928712;
+        d=1e100.net; s=20230601; t=1708328037; x=1708932837;
         h=content-transfer-encoding:in-reply-to:from:references:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Zy/lENoBOBZbXj8shKgVOAS0kIgCPAbaRSp31XzJm0E=;
-        b=i2sg5a1p7uuvOldn/6amqXMvwOfE1SGwlUtMDkIxd50TiAFfOKwRbXER9DQ2GwMqeZ
-         CgMUzVgrVzAk514AAWdHQML74o/ldTJiUDjc0a3R77RZYDt5PmBzahtIqnNfEup1g7+i
-         Zzyfi0r61vf6UbsFQWzRvkk617h10iWxDzsrVfrhxTPpSpYvMxC9heuYhkjwjiriHlC/
-         13GOd0RHI8dVD4/iXd6x4FuMLQt10AyHIjm77pltPM4v85++4GCLdWd0YITbnZkHkWzS
-         UcVQNs3KwSI5uWcBWT34ETuHwE1DNz6zkAnLRGSatk2+aMxvgyk+Ee6nmueOyDL2rh2t
-         zQUA==
+        bh=+ng3gW4V3o0lgSkXW6LbE2EKjcIRK6fb4LZxE38g6CE=;
+        b=cNv3TcmdriJy+LjvNOVLtseepqFsIcbf0QHHAQTcqJzkKR+BMIDjFJL0Hd8Kcss4XS
+         oy8EXAW9AThA0tvAU2oEBduMk7N1iPs+Hjt/24QwgCwyS8ftXqasEuOBqcmbcU3p4KHN
+         CjJNs4inxBZucodDCQvNVUK5oLEbmNsQY5aFHxMg5zqEzbvKp8hOlOUWtks5hoVKG5nR
+         NGCg4ZiJ6RR8mjA6zmYm8pxOKyZjuoo3YAcXX8jNqVnHJy7dcHAyiG+vwt/OOTWt2XgQ
+         /V7sw0qWyGp7P5JVqSnq7/ITX8ugpTjF/iedxnZLBoht+G4mXS35951yjyqhkHtlO/1S
+         92oQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWgBAIAkkTXm0H00GuIMIpHxVJ6AUehARg2LU1SiJ2LsvZOGzZo+Fg6z673kECilcFJZXddUz7gXzO0Fn+qq+Bsey8MI7i3aQin4G4=
-X-Gm-Message-State: AOJu0YyCnSUia42sTftHR+Q1YOLBWLHMeDssZ3bDkYghSFOqHncVaaUk
-	1/Yq7PwoKFmaxX6UdiKMeX8RZ+/FYgnNAFvLd+WSuaPXyHPP+9OunnmNwBCn3Qg=
+ AJvYcCVbqBTRhjZS1RzOkOll3Ujq2LDmJlYyr9qpYBpheO0ukgci29I5KuPaym+dRPbYmJ+3DNX68ETJVjIb/lyw94e7vWmiR3i8x5k9WyI=
+X-Gm-Message-State: AOJu0YxeDL+chVpOByWVfV97vfSsh5Gtj7i0Mdi31aEZVvQzC2R3WcEL
+	FBVkAqgVDrr+csbQiai7aEse6m08ZiNO6cvj6w44rIJ1aEDzJk3Z4aginwrU88Q=
 X-Google-Smtp-Source: 
- AGHT+IGP6skyrpQ+LHssyeFVL9x4R2C5PmtB+z/bDgXXtY+zd/lWWTMfb39ns1BsA6xd3vrJYLpPRQ==
-X-Received: by 2002:a2e:99c3:0:b0:2d2:3b20:72ba with SMTP id
- l3-20020a2e99c3000000b002d23b2072bamr755168ljj.50.1708323911958;
-        Sun, 18 Feb 2024 22:25:11 -0800 (PST)
+ AGHT+IH7t2S3UJLlE+g5RosWguA6ACJo1jYaUo0HRFcgzCtXQeK6rSIGLys7KhAWV1PTPsrhu0txhw==
+X-Received: by 2002:a05:6512:3144:b0:511:84fe:8dcd with SMTP id
+ s4-20020a056512314400b0051184fe8dcdmr7786108lfi.1.1708328036943;
+        Sun, 18 Feb 2024 23:33:56 -0800 (PST)
 Received: from [192.168.50.4] ([82.78.167.20])
         by smtp.gmail.com with ESMTPSA id
- s10-20020a05600c044a00b004122fbf9253sm10177702wmb.39.2024.02.18.22.25.09
+ l20-20020a05600c1d1400b0041256ab5becsm7611582wms.26.2024.02.18.23.33.54
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 18 Feb 2024 22:25:11 -0800 (PST)
-Message-ID: <e43727bd-d83d-4271-9871-ff995c8e7d03@tuxon.dev>
-Date: Mon, 19 Feb 2024 08:25:08 +0200
+        Sun, 18 Feb 2024 23:33:56 -0800 (PST)
+Message-ID: <e6c6e825-42dd-4f2d-8329-f7b3e09bb8a9@tuxon.dev>
+Date: Mon, 19 Feb 2024 09:33:53 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] clk: constify the of_phandle_args argument of
@@ -119,8 +119,10 @@ To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
  linux-media@vger.kernel.org, linux-phy@lists.infradead.org,
  alsa-devel@alsa-project.org, linux-sound@vger.kernel.org
 References: <20240208163710.512733-1-krzysztof.kozlowski@linaro.org>
+ <e43727bd-d83d-4271-9871-ff995c8e7d03@tuxon.dev>
+ <88de75cd-4069-4be6-9c4e-f32befa46d58@linaro.org>
 From: claudiu beznea <claudiu.beznea@tuxon.dev>
-In-Reply-To: <20240208163710.512733-1-krzysztof.kozlowski@linaro.org>
+In-Reply-To: <88de75cd-4069-4be6-9c4e-f32befa46d58@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-MailFrom: claudiu.beznea@tuxon.dev
@@ -129,15 +131,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: FVZQUV5IFMDND73AMRC45MRRBCESVLJH
-X-Message-ID-Hash: FVZQUV5IFMDND73AMRC45MRRBCESVLJH
-X-Mailman-Approved-At: Tue, 20 Feb 2024 08:00:42 +0000
+Message-ID-Hash: UGSQIOPGPN2FBVNTSPQSQM4S6TOYJITQ
+X-Message-ID-Hash: UGSQIOPGPN2FBVNTSPQSQM4S6TOYJITQ
+X-Mailman-Approved-At: Tue, 20 Feb 2024 08:00:43 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FVZQUV5IFMDND73AMRC45MRRBCESVLJH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UGSQIOPGPN2FBVNTSPQSQM4S6TOYJITQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -148,16 +150,33 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
 
-On 08.02.2024 18:37, Krzysztof Kozlowski wrote:
-> None of the implementations of the get() and get_hw() callbacks of
-> "struct of_clk_provider" modify the contents of received of_phandle_args
-> pointer.  They treat it as read-only variable used to find the clock to
-> return.  Make obvious that implementations are not supposed to modify
-> the of_phandle_args, by making it a pointer to const.
+On 19.02.2024 08:59, Krzysztof Kozlowski wrote:
+> On 19/02/2024 07:25, claudiu beznea wrote:
+>>
+>>
+>> On 08.02.2024 18:37, Krzysztof Kozlowski wrote:
+>>> None of the implementations of the get() and get_hw() callbacks of
+>>> "struct of_clk_provider" modify the contents of received of_phandle_args
+>>> pointer.  They treat it as read-only variable used to find the clock to
+>>> return.  Make obvious that implementations are not supposed to modify
+>>> the of_phandle_args, by making it a pointer to const.
+>>>
+>>> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+>>> ---
+>>>  drivers/clk/at91/pmc.c                        |  3 +-
+>>>  drivers/clk/at91/pmc.h                        |  3 +-
+>>
+>> Reviewed-by: Claudiu Beznea <claudiu.beznea@tuxon.dev>
 > 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> ---
->  drivers/clk/at91/pmc.c                        |  3 +-
->  drivers/clk/at91/pmc.h                        |  3 +-
+> You understand there is no review for "part of patch"? You probably
+> meant Acked-by.
 
-Reviewed-by: Claudiu Beznea <claudiu.beznea@tuxon.dev>
+Sure... Here it is:
+Acked-by: Claudiu Beznea <claudiu.beznea@tuxon.dev>
+
+> 
+> https://elixir.bootlin.com/linux/v6.8-rc5/source/Documentation/process/submitting-patches.rst#L544
+> 
+> Best regards,
+> Krzysztof
+> 

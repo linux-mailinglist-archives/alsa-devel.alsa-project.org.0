@@ -2,103 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92DC685ABCA
-	for <lists+alsa-devel@lfdr.de>; Mon, 19 Feb 2024 20:11:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B4FF85AC92
+	for <lists+alsa-devel@lfdr.de>; Mon, 19 Feb 2024 20:57:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D8754A4B;
-	Mon, 19 Feb 2024 20:11:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D8754A4B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 76437A4B;
+	Mon, 19 Feb 2024 20:57:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 76437A4B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1708369888;
-	bh=Qgm4yRczBnXgjpxAD+i1bsbP2xXCEc56/SoGjrcpzPo=;
-	h=In-Reply-To:References:Subject:From:To:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=NI45d0UZUolEfgOVu8J66ZK/3vM/U7lPDR1j2dqnDwIhumZL1AY+RpHlwlG4l3X2n
-	 L6GkV8wy3PYKG0amhY21tJ44vaHkVGxcMoc4ilGa6EH83JtPS5gh6fxvqazqq5zW2T
-	 Gf9JlAju3xWtTlsPFKTzlZgrMwqL8yumiSlp9WYM=
+	s=default; t=1708372652;
+	bh=OaAEMFvFDN1qhJ4t5nXfrOCymw4TroM52J1E3WnfAP0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=MKsRCLN3KR4Ftr09xgg8UWl143t/IMSfVjf6z/cHVEboXXRrEJPEYo3oYjZetWyKj
+	 A+bqLQNZ0m64GJWQKzv1ltNSTgKFB2dqclsACnByipm6/9MLuF0lJHky73ujJ8UOGe
+	 2L39sMQW4LSQildzPQaKh9/qdv3VRLhlvV07XrZ4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B35F9F80568; Mon, 19 Feb 2024 20:10:57 +0100 (CET)
+	id F1DD4F805AB; Mon, 19 Feb 2024 20:56:55 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 463A9F805A0;
-	Mon, 19 Feb 2024 20:10:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 28EDDF80588;
+	Mon, 19 Feb 2024 20:56:55 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E664CF80496; Mon, 19 Feb 2024 20:09:42 +0100 (CET)
+	id 275D3F80496; Mon, 19 Feb 2024 20:56:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C8083F8019B
-	for <alsa-devel@alsa-project.org>; Mon, 19 Feb 2024 20:08:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8083F8019B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 92D89F800EE
+	for <alsa-devel@alsa-project.org>; Mon, 19 Feb 2024 20:56:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92D89F800EE
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=atM/CvQ3
+	dkim=pass (1024-bit key,
+ unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org
+ header.a=rsa-sha256 header.s=korg header.b=j/Tf0rg/
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 314B460F36;
-	Mon, 19 Feb 2024 19:08:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE033C433C7;
-	Mon, 19 Feb 2024 19:08:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1708369709;
-	bh=Qgm4yRczBnXgjpxAD+i1bsbP2xXCEc56/SoGjrcpzPo=;
-	h=In-Reply-To:References:Subject:From:To:Date:From;
-	b=atM/CvQ3iM2Anizb1lzybkxvKx4jL0MqzynEc9xfeXYO4jST8XRzcHkXWB1rVSoXm
-	 QzyUkIxjMCH9R5YY/PaB5tsF3NM1FDm8ykl4d3vXKA5asaVD7k3T/dyEoh1VZZzkjV
-	 kIr74/S+E61h0sUkZdHfsYrdNzab1k3HMtQZRRFEGMUr+2ET8tOcs0ZuNnfT1ZRisK
-	 aGWGhy6Ua4SklPFh8q/0UhO+nzJXgQ6wsbcSkaoqa5RFwR1fvwJmxCB+5UNPA+m8me
-	 VnACdEWHC3NqCsBvhJZUamXJbuuKbNyTaBxaPGys8l0JPiznLYdaSAmdLDp4bqSWW0
-	 hCsk3eP26kWrw==
-Message-ID: <e760847bd911671f1e364271888481fd.sboyd@kernel.org>
-Content-Type: text/plain; charset="utf-8"
+	by dfw.source.kernel.org (Postfix) with ESMTP id 3051B60EDC;
+	Mon, 19 Feb 2024 19:56:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BB28C433F1;
+	Mon, 19 Feb 2024 19:56:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+	s=korg; t=1708372601;
+	bh=OaAEMFvFDN1qhJ4t5nXfrOCymw4TroM52J1E3WnfAP0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=j/Tf0rg/52VRU0RdqcIIbgIp34hsAGhLLM6UEzs4f8XeRAe8Pe0ZnvuYgjEaedKPh
+	 XzolqPbpGuyslO57mb26R3nPLHjlPXFweVZOqmQ+StxE+IHfCDJsSFchYOb0ECw4Ej
+	 9bic7JeKdiqsqqJlLXwCDhAwxYe5B/OGUhUOFkGU=
+Date: Mon, 19 Feb 2024 20:56:39 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Mathias Nyman <mathias.nyman@linux.intel.com>
+Cc: Wesley Cheng <quic_wcheng@quicinc.com>, srinivas.kandagatla@linaro.org,
+	mathias.nyman@intel.com, perex@perex.cz, conor+dt@kernel.org,
+	corbet@lwn.net, lgirdwood@gmail.com, andersson@kernel.org,
+	krzysztof.kozlowski+dt@linaro.org, Thinh.Nguyen@synopsys.com,
+	broonie@kernel.org, bgoswami@quicinc.com, tiwai@suse.com,
+	robh+dt@kernel.org, konrad.dybcio@linaro.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-sound@vger.kernel.org, linux-usb@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, linux-doc@vger.kernel.org,
+	alsa-devel@alsa-project.org
+Subject: Re: [PATCH v17 00/51] Introduce QC USB SND audio offloading support
+Message-ID: <2024021929-catching-subheader-d51b@gregkh>
+References: <20240217001017.29969-1-quic_wcheng@quicinc.com>
+ <2024021754-unengaged-saggy-6ab1@gregkh>
+ <96ab6033-2cb9-daa7-ddad-090138896739@linux.intel.com>
+ <2024021922-privatize-runt-495e@gregkh>
+ <d82c8955-6793-7544-0013-1033abd9f1e9@linux.intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <02461595-16b3-4fea-a029-54190e10e6f5@linaro.org>
-References: <20240208163710.512733-1-krzysztof.kozlowski@linaro.org>
- <38e7e80f61f7c67c984735cf55c3dfb3.sboyd@kernel.org>
- <02461595-16b3-4fea-a029-54190e10e6f5@linaro.org>
-Subject: Re: [PATCH] clk: constify the of_phandle_args argument of
- of_clk_provider
-From: Stephen Boyd <sboyd@kernel.org>
-To: Bjorn Andersson <andersson@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Jaroslav Kysela <perex@perex.cz>, Jonathan Hunter <jonathanh@nvidia.com>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Linus Walleij <linus.walleij@linaro.org>, Mark Brown <broonie@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>,
- NXP Linux Team <linux-imx@nxp.com>, Nishanth Menon <nm@ti.com>,
- Peng Fan <peng.fan@nxp.com>, Russell King <linux@armlinux.org.uk>,
- Shawn Guo <shawnguo@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Sudeep Holla <sudeep.holla@arm.com>, Takashi Iwai <tiwai@suse.com>,
- Thierry Reding <thierry.reding@gmail.com>, Vinod Koul <vkoul@kernel.org>,
- alsa-devel@alsa-project.org, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- linux-omap@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-renesas-soc@vger.kernel.org, linux-sound@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-tegra@vger.kernel.org,
- patches@opensource.cirrus.com
-Date: Mon, 19 Feb 2024 11:08:27 -0800
-User-Agent: alot/0.10
-Message-ID-Hash: KSVZM54WXTPLTE5F2BVEJWZVCRUZZ22Q
-X-Message-ID-Hash: KSVZM54WXTPLTE5F2BVEJWZVCRUZZ22Q
-X-MailFrom: sboyd@kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d82c8955-6793-7544-0013-1033abd9f1e9@linux.intel.com>
+Message-ID-Hash: 6RFLAVH7JS7YH3AE5Z5WAWWJLRNQKSNH
+X-Message-ID-Hash: 6RFLAVH7JS7YH3AE5Z5WAWWJLRNQKSNH
+X-MailFrom: gregkh@linuxfoundation.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -110,7 +94,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KSVZM54WXTPLTE5F2BVEJWZVCRUZZ22Q/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6RFLAVH7JS7YH3AE5Z5WAWWJLRNQKSNH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,124 +103,20 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Quoting Krzysztof Kozlowski (2024-02-15 23:12:29)
-> On 16/02/2024 00:12, Stephen Boyd wrote:
-> > Quoting Krzysztof Kozlowski (2024-02-08 08:37:10)
-> >> None of the implementations of the get() and get_hw() callbacks of
-> >> "struct of_clk_provider" modify the contents of received of_phandle_ar=
-gs
-> >> pointer.  They treat it as read-only variable used to find the clock to
-> >> return.  Make obvious that implementations are not supposed to modify
-> >> the of_phandle_args, by making it a pointer to const.
-> >>
-> >> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> >> ---
-> >=20
-> > This will almost certainly break the build once it is merged to
-> > linux-next. What's your plan to merge this?
->=20
-> First problem is that it might not apply... I prepared it on next to be
-> sure all subsystems are updated.
->=20
-> The idea is to get reviews and acks and then:
-> 1. Maybe it applies cleanly to your tree meaning there will be no
-> conflicts with other trees,
-> 2. If not, then I can keep rebasing it and it should be applied after rc1.
->=20
+On Mon, Feb 19, 2024 at 01:03:31PM +0200, Mathias Nyman wrote:
+> > > 
+> > > Patch 10/10 is based on an old POC patch by me, but it's heavily modified.
+> > > 
+> > > It looks like it does a few minor things that are not optimal, like extra
+> > > spinlock/unlock, and wait_for_completion_timeout() with magical timeout value.
+> > > I haven't tested this version, but I guess any fixes or cleanups can be done
+> > > later on top of it.
+> > 
+> > I can revert it now if you want, just let me know.
+> > 
+> 
+> Maybe reverting it would be better yes.
 
-The struct clk based version is probably not going to be used in any new
-code. If you split the patch up and converted the struct clk based ones
-first then that would probably apply without breaking anything, because
-new code should only be using the struct clk_hw version.
+Ok, will do, thanks for letting me know.
 
-The struct clk_hw version could be done in two steps. Introduce another
-get_hw callback with the const signature, and then update the world to
-use that callback, finally remove the old callback. We could call this
-callback 'get_clk_hw'. This is probably more work than it's worth
-though, but at least this way we don't have to worry about applying
-after rc1.
-
-Or perhaps we need to cast everything and use macros? It would be bad if
-the callback actually did something with the clkspec and we cast it to
-const, but your patch shows that nobody is doing that. We would get rid
-of this macro garbage once everything is converted.
-
----8<---
-diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
-index 2253c154a824..8e5ed16a97a0 100644
---- a/drivers/clk/clk.c
-+++ b/drivers/clk/clk.c
-@@ -4818,7 +4818,7 @@ struct of_clk_provider {
- 	struct list_head link;
-=20
- 	struct device_node *node;
--	struct clk *(*get)(struct of_phandle_args *clkspec, void *data);
-+	struct clk *(*get)(const struct of_phandle_args *clkspec, void *data);
- 	struct clk_hw *(*get_hw)(struct of_phandle_args *clkspec, void *data);
- 	void *data;
- };
-@@ -4880,8 +4880,8 @@ EXPORT_SYMBOL_GPL(of_clk_hw_onecell_get);
-  *
-  * This function is *deprecated*. Use of_clk_add_hw_provider() instead.
-  */
--int of_clk_add_provider(struct device_node *np,
--			struct clk *(*clk_src_get)(struct of_phandle_args *clkspec,
-+int _of_clk_add_provider(struct device_node *np,
-+			struct clk *(*clk_src_get)(const struct of_phandle_args *clkspec,
- 						   void *data),
- 			void *data)
- {
-@@ -4914,7 +4914,7 @@ int of_clk_add_provider(struct device_node *np,
-=20
- 	return ret;
- }
--EXPORT_SYMBOL_GPL(of_clk_add_provider);
-+EXPORT_SYMBOL_GPL(_of_clk_add_provider);
-=20
- /**
-  * of_clk_add_hw_provider() - Register a clock provider for a node
-diff --git a/include/linux/clk-provider.h b/include/linux/clk-provider.h
-index 1293c38ddb7f..bfc660fa7c8f 100644
---- a/include/linux/clk-provider.h
-+++ b/include/linux/clk-provider.h
-@@ -1531,10 +1531,11 @@ struct clk_hw_onecell_data {
- 	}
-=20
- #ifdef CONFIG_OF
--int of_clk_add_provider(struct device_node *np,
--			struct clk *(*clk_src_get)(struct of_phandle_args *args,
-+int _of_clk_add_provider(struct device_node *np,
-+			struct clk *(*clk_src_get)(const struct of_phandle_args *args,
- 						   void *data),
- 			void *data);
-+
- int of_clk_add_hw_provider(struct device_node *np,
- 			   struct clk_hw *(*get)(struct of_phandle_args *clkspec,
- 						 void *data),
-@@ -1559,8 +1560,8 @@ int of_clk_detect_critical(struct device_node *np, in=
-t index,
-=20
- #else /* !CONFIG_OF */
-=20
--static inline int of_clk_add_provider(struct device_node *np,
--			struct clk *(*clk_src_get)(struct of_phandle_args *args,
-+static inline int _of_clk_add_provider(struct device_node *np,
-+			struct clk *(*clk_src_get)(const struct of_phandle_args *args,
- 						   void *data),
- 			void *data)
- {
-@@ -1614,6 +1615,12 @@ static inline int of_clk_detect_critical(struct devi=
-ce_node *np, int index,
- }
- #endif /* CONFIG_OF */
-=20
-+typedef struct clk *(*clk_src_get_fn)(const struct of_phandle_args *args, =
-void *data);
-+
-+#define of_clk_add_provider(np, get, data) ({				\
-+		_of_clk_add_provider(np, (clk_src_get_fn)(get), data);		\
-+})
-+
- void clk_gate_restore_context(struct clk_hw *hw);
-=20
- #endif /* CLK_PROVIDER_H */
+greg k-h

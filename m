@@ -2,100 +2,171 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7550485A19B
-	for <lists+alsa-devel@lfdr.de>; Mon, 19 Feb 2024 12:04:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E700985A19E
+	for <lists+alsa-devel@lfdr.de>; Mon, 19 Feb 2024 12:08:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E6EB1EB6;
-	Mon, 19 Feb 2024 12:04:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E6EB1EB6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4CB60EBE;
+	Mon, 19 Feb 2024 12:07:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4CB60EBE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1708340690;
-	bh=FYHwUjv0CBOVE/UvV6qkWI5k+uNh+6/RQIoNRoiJaqg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1708340885;
+	bh=mH/z9hy5y1/jEvD4un/BSTP6zQ3aR1t42CU+6SFkCKk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=jfwTi+/zBX66ZyUNfJusjzcQO25BwJsgE5k+lX19cHt9BNFFilCBt0eUdrz65wRaF
-	 2yQQ7goe3fDVxpfurDqJvUw+BAPmK9BDCyMnBNk/TVRQEvF+HKW71XPNQso2SuZagg
-	 OoMdL56F4kFdjKaQelq4vEwQhs4c58ryCbDhVQwM=
+	b=Cfxb3E7WheU4O0xj0z9kFcsWaFqkGMRqjKbyD5ZiTbQ5k5d4zb8llf4DdlkzI8Cxt
+	 2t2h7bwVHxBGERC1zTCdU33ChjT953r8BX2oN6uDjz+fAYVu/H4vcbuo0T6LB/7hJ8
+	 BvevzIXZtmKyX/VCJM/smTEUNORqDyt4lSHaK3XI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 36160F805A1; Mon, 19 Feb 2024 12:04:19 +0100 (CET)
+	id 9FCFAF8059F; Mon, 19 Feb 2024 12:07:24 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 01472F8059F;
-	Mon, 19 Feb 2024 12:04:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EBF05F80568;
+	Mon, 19 Feb 2024 12:07:23 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4193FF80496; Mon, 19 Feb 2024 12:02:12 +0100 (CET)
+	id 7A4C1F80496; Mon, 19 Feb 2024 12:07:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C22B3F800EE
-	for <alsa-devel@alsa-project.org>; Mon, 19 Feb 2024 12:02:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C22B3F800EE
+	by alsa1.perex.cz (Postfix) with ESMTPS id B64D7F800EE
+	for <alsa-devel@alsa-project.org>; Mon, 19 Feb 2024 12:06:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B64D7F800EE
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=E1N8fHm9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1708340522; x=1739876522;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=FYHwUjv0CBOVE/UvV6qkWI5k+uNh+6/RQIoNRoiJaqg=;
-  b=E1N8fHm9Z2s5lnHOsWBV2Su16BGiqc4LJ4h7uJIpYCs/rWJtphHxl3jn
-   OZyIxBbyseUW2TdbiaVmq7QLw54tKk1/3u2GjFU8iO5CKQVHmqVzqWbJf
-   bzvcCbaNJFVKKF0GZ+rR0SH5zpYKwwBYHgO88esod2tGmzkccv5N7GbvG
-   y11jm9nTG5LyowYchH0Ypf4K/ZtsZxA0P7JrvtJCSqujkrkodKfbrzI29
-   4+/lwt76IlJuRDWHs+X+TXSMKxlN2Gv0jCBfZCBMgo3aWWn4CBj3ooPvv
-   2WcRcMc3m9FE5H081I4dwH/vLPpHcJRqNGUJJYFa3p4ZfX/+q4aN2P3lZ
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10988"; a="2276111"
-X-IronPort-AV: E=Sophos;i="6.06,170,1705392000";
-   d="scan'208";a="2276111"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Feb 2024 03:01:58 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10988"; a="936276332"
-X-IronPort-AV: E=Sophos;i="6.06,170,1705392000";
-   d="scan'208";a="936276332"
-Received: from mattu-haswell.fi.intel.com (HELO [10.237.72.199])
- ([10.237.72.199])
-  by fmsmga001.fm.intel.com with ESMTP; 19 Feb 2024 03:01:53 -0800
-Message-ID: <d82c8955-6793-7544-0013-1033abd9f1e9@linux.intel.com>
-Date: Mon, 19 Feb 2024 13:03:31 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.13.0
-Subject: Re: [PATCH v17 00/51] Introduce QC USB SND audio offloading support
-Content-Language: en-US
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: Wesley Cheng <quic_wcheng@quicinc.com>, srinivas.kandagatla@linaro.org,
- mathias.nyman@intel.com, perex@perex.cz, conor+dt@kernel.org,
- corbet@lwn.net, lgirdwood@gmail.com, andersson@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, Thinh.Nguyen@synopsys.com,
- broonie@kernel.org, bgoswami@quicinc.com, tiwai@suse.com,
- robh+dt@kernel.org, konrad.dybcio@linaro.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, linux-sound@vger.kernel.org,
- linux-usb@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-doc@vger.kernel.org, alsa-devel@alsa-project.org
-References: <20240217001017.29969-1-quic_wcheng@quicinc.com>
- <2024021754-unengaged-saggy-6ab1@gregkh>
- <96ab6033-2cb9-daa7-ddad-090138896739@linux.intel.com>
- <2024021922-privatize-runt-495e@gregkh>
-From: Mathias Nyman <mathias.nyman@linux.intel.com>
-In-Reply-To: <2024021922-privatize-runt-495e@gregkh>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: O6XQTMHUROMTUYDDWUZN4THHZTZZSGVJ
-X-Message-ID-Hash: O6XQTMHUROMTUYDDWUZN4THHZTZZSGVJ
-X-MailFrom: mathias.nyman@linux.intel.com
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=s86i5twg;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=UBGlvilk;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=s86i5twg;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=UBGlvilk
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 2A8D1222F9;
+	Mon, 19 Feb 2024 11:06:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1708340818;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2VkQEWzEnd6uPTyGy38QQbhsmDl2BuN3OJaCFvojlto=;
+	b=s86i5twgn2MtfLizWr3v+vuGVLzcvSg2Peyh1FBKe0C46J9WSpVN57M0vvk7PW1Xoq/QEl
+	z9bbhf99Z0nt85d3UbQULxdp7NbnGWm52kd4LnJWMWcajaxRuVvn4Q/qmFtoMRk8uEdmPp
+	uvljSRR5m862OU6OV9k0hmj+TTxigaY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1708340818;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2VkQEWzEnd6uPTyGy38QQbhsmDl2BuN3OJaCFvojlto=;
+	b=UBGlvilkdOxexvJtL8JZ/pQLZ4r0X/oeFfep7ABRM5KKeSHlczaUTfG3OyLuq5COBK6Nne
+	EmDpEGzvDifdsfBw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1708340818;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2VkQEWzEnd6uPTyGy38QQbhsmDl2BuN3OJaCFvojlto=;
+	b=s86i5twgn2MtfLizWr3v+vuGVLzcvSg2Peyh1FBKe0C46J9WSpVN57M0vvk7PW1Xoq/QEl
+	z9bbhf99Z0nt85d3UbQULxdp7NbnGWm52kd4LnJWMWcajaxRuVvn4Q/qmFtoMRk8uEdmPp
+	uvljSRR5m862OU6OV9k0hmj+TTxigaY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1708340818;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2VkQEWzEnd6uPTyGy38QQbhsmDl2BuN3OJaCFvojlto=;
+	b=UBGlvilkdOxexvJtL8JZ/pQLZ4r0X/oeFfep7ABRM5KKeSHlczaUTfG3OyLuq5COBK6Nne
+	EmDpEGzvDifdsfBw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B50FF13647;
+	Mon, 19 Feb 2024 11:06:57 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([10.150.64.162])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id viCtKlE202XtLgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 19 Feb 2024 11:06:57 +0000
+Date: Mon, 19 Feb 2024 12:06:57 +0100
+Message-ID: <87o7ccogq6.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
+Cc: Mark Brown <broonie@kernel.org>,
+	stable@vger.kernel.org,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org,
+	alsa-devel@alsa-project.org,
+	LKML <linux-kernel@vger.kernel.org>,
+	"Mukunda, Vijendar" <Vijendar.Mukunda@amd.com>,
+	"Dommati, Sunil-kumar" <Sunil-kumar.Dommati@amd.com>,
+	"Hiregoudar, Basavaraj" <Basavaraj.Hiregoudar@amd.com>,
+	Ethan Geller <ethang@valvesoftware.com>,
+	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Subject: Re: [REGRESSION] Acp5x probing regression introduced between kernel
+ 6.7.2 -> 6.7.4
+In-Reply-To: <3e364929-807e-477c-8530-f23db4ae7caf@amd.com>
+References: 
+ <CAD_nV8BG0t7US=+C28kQOR==712MPfZ9m-fuKksgoZCgrEByCw@mail.gmail.com>
+	<7a0cd63f-8a83-4dc5-8763-63dcdae8d68a@leemhuis.info>
+	<878r3qxcyr.wl-tiwai@suse.de>
+	<871q9hwz2w.wl-tiwai@suse.de>
+	<ZdDXJyXiZ++KiNqW@finisterre.sirena.org.uk>
+	<87msrzos6m.wl-tiwai@suse.de>
+	<3e364929-807e-477c-8530-f23db4ae7caf@amd.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=s86i5twg;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=UBGlvilk
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-3.51 / 50.00];
+	 ARC_NA(0.00)[];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	 SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	 FROM_HAS_DN(0.00)[];
+	 TO_DN_SOME(0.00)[];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 NEURAL_HAM_LONG(-1.00)[-1.000];
+	 MIME_GOOD(-0.10)[text/plain];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	 DKIM_TRACE(0.00)[suse.de:+];
+	 MX_GOOD(-0.01)[];
+	 RCPT_COUNT_TWELVE(0.00)[13];
+	 MID_CONTAINS_FROM(1.00)[];
+	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+];
+	 NEURAL_HAM_SHORT(-0.20)[-1.000];
+	 RCVD_TLS_ALL(0.00)[];
+	 BAYES_HAM(-3.00)[100.00%]
+X-Rspamd-Queue-Id: 2A8D1222F9
+Message-ID-Hash: EH5BQMMCPD56GTFVYWDM252EXIW4VX45
+X-Message-ID-Hash: EH5BQMMCPD56GTFVYWDM252EXIW4VX45
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -107,7 +178,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/O6XQTMHUROMTUYDDWUZN4THHZTZZSGVJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EH5BQMMCPD56GTFVYWDM252EXIW4VX45/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -116,18 +187,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
->>
->> Patch 10/10 is based on an old POC patch by me, but it's heavily modified.
->>
->> It looks like it does a few minor things that are not optimal, like extra
->> spinlock/unlock, and wait_for_completion_timeout() with magical timeout value.
->> I haven't tested this version, but I guess any fixes or cleanups can be done
->> later on top of it.
+On Mon, 19 Feb 2024 11:50:46 +0100,
+Venkata Prasad Potturu wrote:
 > 
-> I can revert it now if you want, just let me know.
 > 
+> On 2/18/24 00:04, Takashi Iwai wrote:
+> > On Sat, 17 Feb 2024 16:56:23 +0100,
+> > Mark Brown wrote:
+> >> On Mon, Feb 12, 2024 at 03:12:55PM +0100, Takashi Iwai wrote:
+> >>> Takashi Iwai wrote:
+> >>>> Interestingly, the system seems working with 6.8-rc3, so some piece
+> >>>> might be missing.  Or simply reverting this patch should fix.
+> >>> In the bugzilla entry, the reporter confirmed that the revert of the
+> >>> commit 4b6986b170f2f2 fixed the problem.
+> >> Any news on a patch for this?  Venkata?
+> Hi Mark & Takashi,
+> Sorry for the late reply.
+> 
+> 4b6986b170f2f2 ASoC: amd: Add new dmi entries for acp5x platform
+> 
+> There is no relation with the below error and this reverted patch, this patch is to
+> define is to load Legacy driver for Jupiter Steam deck variant.
+> 
+> We will check on this.
+> 
+> Error logs.
+> [    8.755614] cs35l41 spi-VLV1776:00: supply VA not found, using dummy regulator
+> [    8.760506] cs35l41 spi-VLV1776:00: supply VP not found, using dummy regulator
+> [    8.777148] cs35l41 spi-VLV1776:00: Cirrus Logic CS35L41 (35a40), Revision: B2
+> [    8.777471] cs35l41 spi-VLV1776:01: supply VA not found, using dummy regulator
+> [    8.777532] cs35l41 spi-VLV1776:01: supply VP not found, using dummy regulator
+> [    8.777709] cs35l41 spi-VLV1776:01: Reset line busy, assuming shared reset
+> [    8.788465] cs35l41 spi-VLV1776:01: Cirrus Logic CS35L41 (35a40), Revision: B2
+> [    8.877280] snd_hda_intel 0000:04:00.1: enabling device (0000 -> 0002)
+> [    8.877595] snd_hda_intel 0000:04:00.1: Handle vga_switcheroo audio client
+> [    8.889913] snd_acp_pci 0000:04:00.5: enabling device (0000 -> 0002)
+> [    8.890063] snd_acp_pci 0000:04:00.5: Unsupported device revision:0x50
+> [    8.890129] snd_acp_pci: probe of 0000:04:00.5 failed with error -22
 
-Maybe reverting it would be better yes.
+My understanding is that the fact that snd_acp_pci matches caused the
+problem (without backports of other relevant changes).
+In the working case, it's probed with snd_pci_acp5x driver.
 
-Thanks
-Mathias
+
+thanks,
+
+Takashi

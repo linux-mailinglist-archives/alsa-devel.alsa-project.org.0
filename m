@@ -2,186 +2,142 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79EE785B45E
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Feb 2024 09:03:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6930B85B45F
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Feb 2024 09:03:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1537914E8;
-	Tue, 20 Feb 2024 09:03:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1537914E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id A9FAEE85;
+	Tue, 20 Feb 2024 09:03:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A9FAEE85
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1708416230;
-	bh=Lo4IcBEQx8Jk0fZNMVGWJYR98mNGc+sAn/KCRFi27qc=;
-	h=From:To:Subject:Date:References:In-Reply-To:List-Id:List-Archive:
+	s=default; t=1708416232;
+	bh=TQodChaPOHWcum/RNtaWMKL6Ir23w3h16d8jHIJEYQ8=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=UMpLD+VTNzkToHz22fJjiNoULVq2JUHMNJzIsDEYphacz5lOuxop7bhZxm/ek8DIO
-	 hxYaOveZM9tPZ5XEc1nyD+bngJoKnJyRWUkNNCgLIXoP41ZtQ9B2BhHzIAGjoiylqv
-	 6vXXGX5xblqtn6QRujfzIisBiWshheYmua4rqC7M=
+	b=cAJzZazHPRYJUi1/x71jFswIoy9T3f1ZFHjJn6E/h+KWkLIgdQiI4VwYOq5Ie/0nn
+	 ykX1zacaIEh3xbrGFHKFSf3UOcODYhFfXa5j9Xrr/b5XaW2qQtUMN2arLqLe6gSPgg
+	 xDbm0Tef7vUPAKZ+H+o67+cno3khpJHi8Q2lfEDs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 89D88F8067A; Tue, 20 Feb 2024 09:02:18 +0100 (CET)
+	id 60C48F80640; Tue, 20 Feb 2024 09:02:21 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2F7ECF80651;
-	Tue, 20 Feb 2024 09:02:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 783D9F8068A;
+	Tue, 20 Feb 2024 09:02:21 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B4E1FF80496; Mon, 19 Feb 2024 02:03:43 +0100 (CET)
+	id 35C99F80496; Mon, 19 Feb 2024 07:25:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FORGED_SPF_HELO,RCVD_IN_DNSWL_HI,
-	SPF_HELO_PASS,T_SCC_BODY_TEXT_LINE,T_SPF_PERMERROR,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur04on20601.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2611::601])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [IPv6:2a00:1450:4864:20::22e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 46D37F800EE
-	for <alsa-devel@alsa-project.org>; Mon, 19 Feb 2024 02:03:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46D37F800EE
+	by alsa1.perex.cz (Postfix) with ESMTPS id 71A5EF8019B
+	for <alsa-devel@alsa-project.org>; Mon, 19 Feb 2024 07:25:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71A5EF8019B
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256
- header.s=selector2 header.b=B/2WkZBN
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=a+L1lQPboomxqtos+qRgZMW+u2SWPagBLY1UhwTNLq95Wwm7YPaxStGMzTq6P/Phy+A+3a7IKBasg2h4fSDMVmExVlfpzqHWrh8hJqhWfGxBvbPlKNV0W0/ZillOu0C3Sky/83hfbkeF84kPjINx7222Uttb/+aLUtX8L6UwHfichloG3rPG8H7t8zF+y+++dzhPcCXt/hZ8XB1rQj3twWSDPUgTvwOelf7eaoUOep7m8MTFJgz6Ltek9n31bff0qNkSd6X+T0f9x5fbpDsl6iAMfMaxTEBmQ0Y5Rg7iR6QHM2IdDABI0xEmPpAGTuYEdzSzmHE12GMsXaBk0hzRUg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sPgE3ob3aUIeF1aoxeVd81WxBqxETHatx9vjUdTrf9A=;
- b=Ak3KjwrSc7UeDFYGGwaETHXZJICeav0x29lumAwsgxt4MXJ5jfBs+goQXIvSoNFqf2kOZptXc1nQ0MN+qJ2osD6wAoL/pjZ4LJlwVHW3EnSKfc2a5QkYMu5sVlC1qnqsAfGChfxsy5SWQkWeB5oS0Uk/Ax/uoxpW9M6MRsxBS4zIMECHHgZ5nCyvNB1jgrNO1sNmiMbIcpY+G7s1aMTpygisGxmGHwPp13yie4JfLyT5bLUl74ePkVhZ7J4+z0lhjVxrsNr43mB4c7jB6y0NSVKXiH9h1hWGFyyMd0zcQaE8Iq1zC1KIWWjb4aoamJrwnhVLfTph0l/dvCXEjDCRfg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sPgE3ob3aUIeF1aoxeVd81WxBqxETHatx9vjUdTrf9A=;
- b=B/2WkZBNRf2zavyng2fe95kyClSZr87Pu9YtRpSW9Axxum3h9SjHGYtAN0uOaaMraXdj42v6BFCik9i9o4dQWRMsjAi5UVWl29bGbwW8GcZUnEt4gb1XIh+vQ3rZ9IsrHx1zRhOWqtjlGdmVYlkZg4AnyZ2omAf/QIAwDktQ23Y=
-Received: from DU0PR04MB9417.eurprd04.prod.outlook.com (2603:10a6:10:358::11)
- by DU0PR04MB9633.eurprd04.prod.outlook.com (2603:10a6:10:311::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.34; Mon, 19 Feb
- 2024 01:03:30 +0000
-Received: from DU0PR04MB9417.eurprd04.prod.outlook.com
- ([fe80::4ac3:3559:4200:38e1]) by DU0PR04MB9417.eurprd04.prod.outlook.com
- ([fe80::4ac3:3559:4200:38e1%4]) with mapi id 15.20.7292.033; Mon, 19 Feb 2024
- 01:03:29 +0000
-From: Peng Fan <peng.fan@nxp.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Michael Turquette
-	<mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Sudeep Holla
-	<sudeep.holla@arm.com>, Shawn Guo <shawnguo@kernel.org>, Nishanth Menon
-	<nm@ti.com>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio
-	<konrad.dybcio@linaro.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
-	Thierry Reding <thierry.reding@gmail.com>, Jonathan Hunter
-	<jonathanh@nvidia.com>, Linus Walleij <linus.walleij@linaro.org>, Laurent
- Pinchart <laurent.pinchart@ideasonboard.com>, Mauro Carvalho Chehab
-	<mchehab@kernel.org>, Vinod Koul <vkoul@kernel.org>, Russell King
-	<linux@armlinux.org.uk>, Srinivas Kandagatla
-	<srinivas.kandagatla@linaro.org>, Mark Brown <broonie@kernel.org>, Jaroslav
- Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	"linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "patches@opensource.cirrus.com"
-	<patches@opensource.cirrus.com>, "linux-stm32@st-md-mailman.stormreply.com"
-	<linux-stm32@st-md-mailman.stormreply.com>, dl-linux-imx <linux-imx@nxp.com>,
-	"linux-amlogic@lists.infradead.org" <linux-amlogic@lists.infradead.org>,
-	"linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
-	"linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
-	"linux-omap@vger.kernel.org" <linux-omap@vger.kernel.org>,
-	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
-	"linux-phy@lists.infradead.org" <linux-phy@lists.infradead.org>,
-	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
-	"linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>
-Subject: RE: [PATCH] clk: constify the of_phandle_args argument of
- of_clk_provider
-Thread-Topic: [PATCH] clk: constify the of_phandle_args argument of
- of_clk_provider
-Thread-Index: AQHaWq0ZPI/aYtegqkWDKKNVao0UqrEQ6UOQ
-Date: Mon, 19 Feb 2024 01:03:29 +0000
-Message-ID: 
- <DU0PR04MB9417F8D996A661CAA9E542FE88512@DU0PR04MB9417.eurprd04.prod.outlook.com>
-References: <20240208163710.512733-1-krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20240208163710.512733-1-krzysztof.kozlowski@linaro.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DU0PR04MB9417:EE_|DU0PR04MB9633:EE_
-x-ms-office365-filtering-correlation-id: 565eb74d-c0e6-4eab-2e9a-08dc30e69607
-x-ld-processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- YGHe7wtIOI5wGk2i4JEkm5WM2hr4XcziS1MG9DOD6/0S/iJpB+C8ki334R+NsmFErNIf/ZLWgRU18Nm7mls7jHESTWDd5VVnoFHzYTEmu6V1UgIysYFhjmo5gwXzZ/CgaSGhTd8wK07ivjxjY1M8ovw03pDVjYJ+GhGkW0OQ5BI5ZhzkSkZETdKVY9xRULREz12NvKYoVHdVuBVsGaUeqA4nJ6JgSe3aJaFwueMKeCH/AoKfUSoq7PZb5NVxD3wT8jDsGkJ1rXLfZoNaSqFxEwteM6hzHKuz7wsx5QEzJD3glmVsWWP4kGGXq2UoTZWgaKUS5X0Fp4X6yGBJvumB2s5p30oAunfi3G/+fFzp7l3A3eja0RehNEJcnJkTu5XFZmOy0VhhpFzCp94x3SqorLPRCNJ8dgTpSnfuu+SPu/h1DM7d7trGchR8evQGZO0G17MHAd+/B3EtdRvJpjxzMSGNqjkURB0ZysrwaYHSHmPbWgHIMas2wk7MFpZaSligAyR3w6Jja7tWTi7aV+oxGy8DHJA/EzIU9DrfW1Yjt2UfEzulYF/L7hBJdq9KAIfSVumHrRRhVUy8ViQluzQFwbfWXNswBxBwVJ6fSDSzBC8C4IdUBna9eNNsqy1FSOMsCVRrQBDl3lnvXuTRFdlF6Q==
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU0PR04MB9417.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(136003)(366004)(39860400002)(396003)(376002)(230922051799003)(186009)(1800799012)(451199024)(64100799003)(38070700009)(921011)(26005)(41300700001)(83380400001)(8936002)(52536014)(8676002)(64756008)(66446008)(66476007)(66946007)(76116006)(66556008)(316002)(478600001)(9686003)(7696005)(71200400001)(110136005)(6506007)(33656002)(122000001)(86362001)(38100700002)(44832011)(5660300002)(2906002)(7416002)(7406005)(55016003)(4744005);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?us-ascii?Q?i4+e8mXJqncfZOk6Huf1v5+sflTwSEEfQl94kYxCcN0Sl7VL7CrzqoZCrTRD?=
- =?us-ascii?Q?XuYQ6F0aRa9sKYpV7Pit1fadsZ0IOI7CY1WVDP3OSSERRcxmsSqJkjojBi3c?=
- =?us-ascii?Q?Dukxc7+CT5T/T82D0cEumvJymXeSCSCrszSiYWewqkAWMsPAappllUTyi8V/?=
- =?us-ascii?Q?fRvz2ytDOjkIgkHnF2QyvTxYqia4EdP4Tujd387Cq1my4V75snY0bggxPumG?=
- =?us-ascii?Q?Pg8yE4uQPs7vmosmqdtZ7FnwFAvLD8c81+KqKaleXXmgqbJaEwJ/jFOnb9hR?=
- =?us-ascii?Q?N4zjMLyqdzeiofP/U8Mfw2DNSC8/smu25P+1jx+VMf0U7wZy4p3rFf/eFoyP?=
- =?us-ascii?Q?lbBmUzW6t2WmRVRdkgAOErYibWeovbgYB2xLJSzpAzVQwSOjyt4sscoIp2q8?=
- =?us-ascii?Q?R0yp54plqxy4u6R6/0vubRX2V4QslKo/ChIO4iZ9wvQJT67Pg/ZBViCKHNxc?=
- =?us-ascii?Q?4fKF25/FAnX3hbNTKvo5NdvNBvpc+bSJTZOJEMdvB2PLDKvOx7u2QOanSrxE?=
- =?us-ascii?Q?kEPMu8xUfULWZyg354Qn0dRFsHSJMQrFSquuP7R//csyDj9Hz3VDTWleUSH8?=
- =?us-ascii?Q?JgEI3sMtOiYS3mptn2lbnpKqRPmgcaccbdLPcF6jeWGz5Vvyqz1/s32sqvWz?=
- =?us-ascii?Q?/XuiNZzjJCQCN7uFHz7RQQCEy6gS91kDrCd97wMLdtLosKlOu7iQqiKMgIpe?=
- =?us-ascii?Q?1qUHpY4A+gLCwQN3mWzZQtNmwhmR2rmxi4FlbLkZZy8CKzq02TB5Ihhb1n1v?=
- =?us-ascii?Q?gjQEe3Vs69xPDMsoZ/Bd/VYMSbOziaSfWe0SQGVxAVd27yhzO4sntfK1L0G7?=
- =?us-ascii?Q?VqiZjBbzVzYVhDDze7mvVjRGJN2NJbM6Y932iQ32pxmZ9+DMaBphNKd5zHvL?=
- =?us-ascii?Q?CRoX1MMarGTzwsH2cG7tJvcV63JeasgrNYe8m34Rb7O5ndlwlC2AZtXw8bP2?=
- =?us-ascii?Q?V7V+B09/SA3cBAzpP477mkJ7Jv852VUaLiQoeZXysqCKzk57ckmn8UOUDPVT?=
- =?us-ascii?Q?MhC+W2Djq3tXOcrk5t+bqK/DDVeBIOHth6MOt7Mkji1bQVkYwMY1lHgjim7q?=
- =?us-ascii?Q?5W+0cnnvBXxtW4Fg5qIKrSuzBnJleIure51xNWCudO7VIWUh23Ag32quYpxJ?=
- =?us-ascii?Q?jPooVPIgKy3YeH7OBvHtkxWopNPUtApwlmRLl6vf8v6CAoklOZfvw87TqVgQ?=
- =?us-ascii?Q?FzEwN93dbqq9dwwGxUnR2EloREEVlLVlZx2vpmKF+WxMeQHA/4wmPHu/NyGd?=
- =?us-ascii?Q?Ewhj5AOeC53I4EFFLNtXtkt3lmh6dEZ9dcdSZojDAgq2nWJROz6jx2oFuyJv?=
- =?us-ascii?Q?PZW/YKWq2aSclkFoC9T/uE22pRpo8tb4hP30JyzlUHSIcvGA/CtS4zsIKFDK?=
- =?us-ascii?Q?EqDo4iSymHRPUJYsL6iUctvq6Nt8+ouF7xvhSdFpDdFakfeAqHjBt23WQIm4?=
- =?us-ascii?Q?RVqP0OeGMQJ4Bvc/xBlCJb36i1navEuRaopUM6v9EMJptm5CIDqin7VE8nUW?=
- =?us-ascii?Q?N1+3mRyLSVUJrm9jhGBUJvAHOTVLO9LwSJ6A18JafVMS8ZTTuZkqKuy+PaHz?=
- =?us-ascii?Q?YslMAGRZ7W6hbM5eMm0=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key,
+ unprotected) header.d=tuxon.dev header.i=@tuxon.dev header.a=rsa-sha256
+ header.s=google header.b=Iwp8Xvpm
+Received: by mail-lj1-x22e.google.com with SMTP id
+ 38308e7fff4ca-2d22d0f8ad1so14302081fa.2
+        for <alsa-devel@alsa-project.org>;
+ Sun, 18 Feb 2024 22:25:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=tuxon.dev; s=google; t=1708323912; x=1708928712;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:in-reply-to:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Zy/lENoBOBZbXj8shKgVOAS0kIgCPAbaRSp31XzJm0E=;
+        b=Iwp8XvpmYTmHKUGRcPcdaRoWh5NH1mu6wQdrFE1QwfhdiucHT4Ess1gLd/d9bcni7k
+         7nTXwqRMndy09FVLeQAhBb66KMI2Mz719zR+cL57BUDw05lXdBx6beQpobngaL+HVEIV
+         hUII27Nd9Os86kybd43dZh2hxtv/Asgt41UlUWrxD14ADqF0+lxa17q2PrCN63+3xgQ4
+         z8nzI1Gv8bFg/r8edJEhodLsZtlRR4kg1wY+5SxLR7/JK97Jro1hj7ZPwYKceUEsX0Kn
+         QPyXXjEXoQyVWg1FMO21/jDUin55p3ilj+WzqJuSc2HSeimShJcuGp71Bl+CANOf+7jm
+         lHjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1708323912; x=1708928712;
+        h=content-transfer-encoding:in-reply-to:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Zy/lENoBOBZbXj8shKgVOAS0kIgCPAbaRSp31XzJm0E=;
+        b=i2sg5a1p7uuvOldn/6amqXMvwOfE1SGwlUtMDkIxd50TiAFfOKwRbXER9DQ2GwMqeZ
+         CgMUzVgrVzAk514AAWdHQML74o/ldTJiUDjc0a3R77RZYDt5PmBzahtIqnNfEup1g7+i
+         Zzyfi0r61vf6UbsFQWzRvkk617h10iWxDzsrVfrhxTPpSpYvMxC9heuYhkjwjiriHlC/
+         13GOd0RHI8dVD4/iXd6x4FuMLQt10AyHIjm77pltPM4v85++4GCLdWd0YITbnZkHkWzS
+         UcVQNs3KwSI5uWcBWT34ETuHwE1DNz6zkAnLRGSatk2+aMxvgyk+Ee6nmueOyDL2rh2t
+         zQUA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWgBAIAkkTXm0H00GuIMIpHxVJ6AUehARg2LU1SiJ2LsvZOGzZo+Fg6z673kECilcFJZXddUz7gXzO0Fn+qq+Bsey8MI7i3aQin4G4=
+X-Gm-Message-State: AOJu0YyCnSUia42sTftHR+Q1YOLBWLHMeDssZ3bDkYghSFOqHncVaaUk
+	1/Yq7PwoKFmaxX6UdiKMeX8RZ+/FYgnNAFvLd+WSuaPXyHPP+9OunnmNwBCn3Qg=
+X-Google-Smtp-Source: 
+ AGHT+IGP6skyrpQ+LHssyeFVL9x4R2C5PmtB+z/bDgXXtY+zd/lWWTMfb39ns1BsA6xd3vrJYLpPRQ==
+X-Received: by 2002:a2e:99c3:0:b0:2d2:3b20:72ba with SMTP id
+ l3-20020a2e99c3000000b002d23b2072bamr755168ljj.50.1708323911958;
+        Sun, 18 Feb 2024 22:25:11 -0800 (PST)
+Received: from [192.168.50.4] ([82.78.167.20])
+        by smtp.gmail.com with ESMTPSA id
+ s10-20020a05600c044a00b004122fbf9253sm10177702wmb.39.2024.02.18.22.25.09
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 18 Feb 2024 22:25:11 -0800 (PST)
+Message-ID: <e43727bd-d83d-4271-9871-ff995c8e7d03@tuxon.dev>
+Date: Mon, 19 Feb 2024 08:25:08 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DU0PR04MB9417.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 565eb74d-c0e6-4eab-2e9a-08dc30e69607
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Feb 2024 01:03:29.7182
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 
- GYrdvf3S4gMi2esedVC0myE7nCcmuM5HFRGSaYtPOPDOW78ggG4W/4qFfFv+a2m5TagT2bkmI+VKnRFjp1nx4A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR04MB9633
-X-MailFrom: peng.fan@nxp.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] clk: constify the of_phandle_args argument of
+ of_clk_provider
+Content-Language: en-US
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Sudeep Holla <sudeep.holla@arm.com>,
+ Peng Fan <peng.fan@nxp.com>, Shawn Guo <shawnguo@kernel.org>,
+ Nishanth Menon <nm@ti.com>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Russell King <linux@armlinux.org.uk>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, linux-clk@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ patches@opensource.cirrus.com, linux-stm32@st-md-mailman.stormreply.com,
+ NXP Linux Team <linux-imx@nxp.com>, linux-amlogic@lists.infradead.org,
+ linux-arm-msm@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ linux-tegra@vger.kernel.org, linux-omap@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-phy@lists.infradead.org,
+ alsa-devel@alsa-project.org, linux-sound@vger.kernel.org
+References: <20240208163710.512733-1-krzysztof.kozlowski@linaro.org>
+From: claudiu beznea <claudiu.beznea@tuxon.dev>
+In-Reply-To: <20240208163710.512733-1-krzysztof.kozlowski@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-MailFrom: claudiu.beznea@tuxon.dev
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: DPSKSNVES6N5Y2UDIR4SV3KIFRTXJLVP
-X-Message-ID-Hash: DPSKSNVES6N5Y2UDIR4SV3KIFRTXJLVP
+Message-ID-Hash: FVZQUV5IFMDND73AMRC45MRRBCESVLJH
+X-Message-ID-Hash: FVZQUV5IFMDND73AMRC45MRRBCESVLJH
 X-Mailman-Approved-At: Tue, 20 Feb 2024 08:00:42 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PKDEPI2VAYSIVHVMRGQY7QTKCAVABDML/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FVZQUV5IFMDND73AMRC45MRRBCESVLJH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -190,21 +146,18 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-> Subject: [PATCH] clk: constify the of_phandle_args argument of
-> of_clk_provider
->=20
-> None of the implementations of the get() and get_hw() callbacks of "struc=
-t
-> of_clk_provider" modify the contents of received of_phandle_args pointer.
-> They treat it as read-only variable used to find the clock to return.  Ma=
-ke
-> obvious that implementations are not supposed to modify the
-> of_phandle_args, by making it a pointer to const.
->=20
+
+
+On 08.02.2024 18:37, Krzysztof Kozlowski wrote:
+> None of the implementations of the get() and get_hw() callbacks of
+> "struct of_clk_provider" modify the contents of received of_phandle_args
+> pointer.  They treat it as read-only variable used to find the clock to
+> return.  Make obvious that implementations are not supposed to modify
+> the of_phandle_args, by making it a pointer to const.
+> 
 > Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> ---
+>  drivers/clk/at91/pmc.c                        |  3 +-
+>  drivers/clk/at91/pmc.h                        |  3 +-
 
-For i.MX:
-Acked-by: Peng Fan <peng.fan@nxp.com>
-
-Regards,
-Peng.
+Reviewed-by: Claudiu Beznea <claudiu.beznea@tuxon.dev>

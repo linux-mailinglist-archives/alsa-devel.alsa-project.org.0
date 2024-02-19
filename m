@@ -2,171 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E700985A19E
-	for <lists+alsa-devel@lfdr.de>; Mon, 19 Feb 2024 12:08:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D957285A313
+	for <lists+alsa-devel@lfdr.de>; Mon, 19 Feb 2024 13:21:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4CB60EBE;
-	Mon, 19 Feb 2024 12:07:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4CB60EBE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 49FAFE9F;
+	Mon, 19 Feb 2024 13:21:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 49FAFE9F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1708340885;
-	bh=mH/z9hy5y1/jEvD4un/BSTP6zQ3aR1t42CU+6SFkCKk=;
+	s=default; t=1708345285;
+	bh=Fo7gWX+fN3KK0l+fgHET85/r8KC+eGTLo1tNhMAG3fM=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Cfxb3E7WheU4O0xj0z9kFcsWaFqkGMRqjKbyD5ZiTbQ5k5d4zb8llf4DdlkzI8Cxt
-	 2t2h7bwVHxBGERC1zTCdU33ChjT953r8BX2oN6uDjz+fAYVu/H4vcbuo0T6LB/7hJ8
-	 BvevzIXZtmKyX/VCJM/smTEUNORqDyt4lSHaK3XI=
+	b=azN15OH5QjFNOjli9Krl+IqlEbJ+kr7tJwqHI18w5XEch/nD+mPgXJrzsAZv3e+Wk
+	 OhdNfWGtXqRwcZU6DofRLOu3J3iIwGoCHYbKbQ8SVVYPhO0GBUPM+WayvqaU8MyYh/
+	 wF486bIzLBK/rIO45uaXr5pVtNnGDvqxk+3USF30=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9FCFAF8059F; Mon, 19 Feb 2024 12:07:24 +0100 (CET)
+	id 32DBEF80588; Mon, 19 Feb 2024 13:20:53 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EBF05F80568;
-	Mon, 19 Feb 2024 12:07:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id ABDC2F8059F;
+	Mon, 19 Feb 2024 13:20:51 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7A4C1F80496; Mon, 19 Feb 2024 12:07:20 +0100 (CET)
+	id DF6EEF80496; Mon, 19 Feb 2024 13:17:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B64D7F800EE
-	for <alsa-devel@alsa-project.org>; Mon, 19 Feb 2024 12:06:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B64D7F800EE
+	by alsa1.perex.cz (Postfix) with ESMTPS id 12F4FF8019B
+	for <alsa-devel@alsa-project.org>; Mon, 19 Feb 2024 13:16:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12F4FF8019B
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=s86i5twg;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=UBGlvilk;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=s86i5twg;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=UBGlvilk
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 2A8D1222F9;
-	Mon, 19 Feb 2024 11:06:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1708340818;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2VkQEWzEnd6uPTyGy38QQbhsmDl2BuN3OJaCFvojlto=;
-	b=s86i5twgn2MtfLizWr3v+vuGVLzcvSg2Peyh1FBKe0C46J9WSpVN57M0vvk7PW1Xoq/QEl
-	z9bbhf99Z0nt85d3UbQULxdp7NbnGWm52kd4LnJWMWcajaxRuVvn4Q/qmFtoMRk8uEdmPp
-	uvljSRR5m862OU6OV9k0hmj+TTxigaY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1708340818;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2VkQEWzEnd6uPTyGy38QQbhsmDl2BuN3OJaCFvojlto=;
-	b=UBGlvilkdOxexvJtL8JZ/pQLZ4r0X/oeFfep7ABRM5KKeSHlczaUTfG3OyLuq5COBK6Nne
-	EmDpEGzvDifdsfBw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1708340818;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2VkQEWzEnd6uPTyGy38QQbhsmDl2BuN3OJaCFvojlto=;
-	b=s86i5twgn2MtfLizWr3v+vuGVLzcvSg2Peyh1FBKe0C46J9WSpVN57M0vvk7PW1Xoq/QEl
-	z9bbhf99Z0nt85d3UbQULxdp7NbnGWm52kd4LnJWMWcajaxRuVvn4Q/qmFtoMRk8uEdmPp
-	uvljSRR5m862OU6OV9k0hmj+TTxigaY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1708340818;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2VkQEWzEnd6uPTyGy38QQbhsmDl2BuN3OJaCFvojlto=;
-	b=UBGlvilkdOxexvJtL8JZ/pQLZ4r0X/oeFfep7ABRM5KKeSHlczaUTfG3OyLuq5COBK6Nne
-	EmDpEGzvDifdsfBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B50FF13647;
-	Mon, 19 Feb 2024 11:06:57 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id viCtKlE202XtLgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 19 Feb 2024 11:06:57 +0000
-Date: Mon, 19 Feb 2024 12:06:57 +0100
-Message-ID: <87o7ccogq6.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
-Cc: Mark Brown <broonie@kernel.org>,
-	stable@vger.kernel.org,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
-	alsa-devel@alsa-project.org,
-	LKML <linux-kernel@vger.kernel.org>,
-	"Mukunda, Vijendar" <Vijendar.Mukunda@amd.com>,
-	"Dommati, Sunil-kumar" <Sunil-kumar.Dommati@amd.com>,
-	"Hiregoudar, Basavaraj" <Basavaraj.Hiregoudar@amd.com>,
-	Ethan Geller <ethang@valvesoftware.com>,
-	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Subject: Re: [REGRESSION] Acp5x probing regression introduced between kernel
- 6.7.2 -> 6.7.4
-In-Reply-To: <3e364929-807e-477c-8530-f23db4ae7caf@amd.com>
-References: 
- <CAD_nV8BG0t7US=+C28kQOR==712MPfZ9m-fuKksgoZCgrEByCw@mail.gmail.com>
-	<7a0cd63f-8a83-4dc5-8763-63dcdae8d68a@leemhuis.info>
-	<878r3qxcyr.wl-tiwai@suse.de>
-	<871q9hwz2w.wl-tiwai@suse.de>
-	<ZdDXJyXiZ++KiNqW@finisterre.sirena.org.uk>
-	<87msrzos6m.wl-tiwai@suse.de>
-	<3e364929-807e-477c-8530-f23db4ae7caf@amd.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=s86i5twg;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=UBGlvilk
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-3.51 / 50.00];
-	 ARC_NA(0.00)[];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	 SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	 FROM_HAS_DN(0.00)[];
-	 TO_DN_SOME(0.00)[];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 NEURAL_HAM_LONG(-1.00)[-1.000];
-	 MIME_GOOD(-0.10)[text/plain];
-	 RCVD_COUNT_THREE(0.00)[3];
-	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	 DKIM_TRACE(0.00)[suse.de:+];
-	 MX_GOOD(-0.01)[];
-	 RCPT_COUNT_TWELVE(0.00)[13];
-	 MID_CONTAINS_FROM(1.00)[];
-	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim];
-	 FUZZY_BLOCKED(0.00)[rspamd.com];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+];
-	 NEURAL_HAM_SHORT(-0.20)[-1.000];
-	 RCVD_TLS_ALL(0.00)[];
-	 BAYES_HAM(-3.00)[100.00%]
-X-Rspamd-Queue-Id: 2A8D1222F9
-Message-ID-Hash: EH5BQMMCPD56GTFVYWDM252EXIW4VX45
-X-Message-ID-Hash: EH5BQMMCPD56GTFVYWDM252EXIW4VX45
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=gl5Ire7i
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id 791D260C84;
+	Mon, 19 Feb 2024 12:16:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF6EDC433C7;
+	Mon, 19 Feb 2024 12:16:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1708345016;
+	bh=Fo7gWX+fN3KK0l+fgHET85/r8KC+eGTLo1tNhMAG3fM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=gl5Ire7ih1If26CRdbDqceoxp+UT1T+0n8EEUKShBqS3jL61ggxtzzWxM91FaQR89
+	 NluyzJL22D8zdCSvqSChzLd2o+g7HJyJXmsad55aYpwDVOF1i/k/4EqYS4376T4VLl
+	 SyD1vb/7dqKpWKoBHoYfjeXaZkN4PnfPIOvQpXVp2PLNcFI+9u5PopnikQbcn8Zmr0
+	 yG/8Vfz25UbYxWKp3uB28K7m9l9/X58Q7H8pUZW6wXxXhtOQs9GJzWvAFUZ6UBETqg
+	 Jy4Z5XlUcui/Lk7k8+bsNgaqr0py7jCh+uuXOYk7ez2obX1Kzy89dmqUuz9c8F3fj1
+	 vrWQ+Sx7tzI8A==
+Date: Mon, 19 Feb 2024 13:16:49 +0100
+From: Mauro Carvalho Chehab <mchehab@kernel.org>
+To: Shengjiu Wang <shengjiu.wang@gmail.com>
+Cc: Shengjiu Wang <shengjiu.wang@nxp.com>, hverkuil@xs4all.nl,
+ sakari.ailus@iki.fi, tfiga@chromium.org, m.szyprowski@samsung.com,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Xiubo.Lee@gmail.com, festevam@gmail.com, nicoleotsuka@gmail.com,
+ lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org
+Subject: Re: [PATCH v12 10/15] media: uapi: Add audio rate controls support
+Message-ID: <20240219131649.1a26769d@coco.lan>
+In-Reply-To: 
+ <CAA+D8APQy0NaZH44zgoHfMJ1pFS3TporVZZt7zV=Yy-edWacdg@mail.gmail.com>
+References: <1705581128-4604-1-git-send-email-shengjiu.wang@nxp.com>
+	<1705581128-4604-11-git-send-email-shengjiu.wang@nxp.com>
+	<20240217105708.53c81b04@coco.lan>
+	<CAA+D8APQy0NaZH44zgoHfMJ1pFS3TporVZZt7zV=Yy-edWacdg@mail.gmail.com>
+X-Mailer: Claws Mail 4.2.0 (GTK 3.24.41; x86_64-redhat-linux-gnu)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: DQH3EELMBQAEAONZRQNF4P3AMRRLY5UL
+X-Message-ID-Hash: DQH3EELMBQAEAONZRQNF4P3AMRRLY5UL
+X-MailFrom: mchehab@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -178,7 +95,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EH5BQMMCPD56GTFVYWDM252EXIW4VX45/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DQH3EELMBQAEAONZRQNF4P3AMRRLY5UL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -187,49 +104,163 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 19 Feb 2024 11:50:46 +0100,
-Venkata Prasad Potturu wrote:
-> 
-> 
-> On 2/18/24 00:04, Takashi Iwai wrote:
-> > On Sat, 17 Feb 2024 16:56:23 +0100,
-> > Mark Brown wrote:
-> >> On Mon, Feb 12, 2024 at 03:12:55PM +0100, Takashi Iwai wrote:
-> >>> Takashi Iwai wrote:
-> >>>> Interestingly, the system seems working with 6.8-rc3, so some piece
-> >>>> might be missing.  Or simply reverting this patch should fix.
-> >>> In the bugzilla entry, the reporter confirmed that the revert of the
-> >>> commit 4b6986b170f2f2 fixed the problem.
-> >> Any news on a patch for this?  Venkata?
-> Hi Mark & Takashi,
-> Sorry for the late reply.
-> 
-> 4b6986b170f2f2 ASoC: amd: Add new dmi entries for acp5x platform
-> 
-> There is no relation with the below error and this reverted patch, this patch is to
-> define is to load Legacy driver for Jupiter Steam deck variant.
-> 
-> We will check on this.
-> 
-> Error logs.
-> [    8.755614] cs35l41 spi-VLV1776:00: supply VA not found, using dummy regulator
-> [    8.760506] cs35l41 spi-VLV1776:00: supply VP not found, using dummy regulator
-> [    8.777148] cs35l41 spi-VLV1776:00: Cirrus Logic CS35L41 (35a40), Revision: B2
-> [    8.777471] cs35l41 spi-VLV1776:01: supply VA not found, using dummy regulator
-> [    8.777532] cs35l41 spi-VLV1776:01: supply VP not found, using dummy regulator
-> [    8.777709] cs35l41 spi-VLV1776:01: Reset line busy, assuming shared reset
-> [    8.788465] cs35l41 spi-VLV1776:01: Cirrus Logic CS35L41 (35a40), Revision: B2
-> [    8.877280] snd_hda_intel 0000:04:00.1: enabling device (0000 -> 0002)
-> [    8.877595] snd_hda_intel 0000:04:00.1: Handle vga_switcheroo audio client
-> [    8.889913] snd_acp_pci 0000:04:00.5: enabling device (0000 -> 0002)
-> [    8.890063] snd_acp_pci 0000:04:00.5: Unsupported device revision:0x50
-> [    8.890129] snd_acp_pci: probe of 0000:04:00.5 failed with error -22
+Em Mon, 19 Feb 2024 14:03:37 +0800
+Shengjiu Wang <shengjiu.wang@gmail.com> escreveu:
 
-My understanding is that the fact that snd_acp_pci matches caused the
-problem (without backports of other relevant changes).
-In the working case, it's probed with snd_pci_acp5x driver.
+> On Sat, Feb 17, 2024 at 5:57=E2=80=AFPM Mauro Carvalho Chehab
+> <mchehab@kernel.org> wrote:
+> >
+> > Em Thu, 18 Jan 2024 20:32:03 +0800
+> > Shengjiu Wang <shengjiu.wang@nxp.com> escreveu:
+> > =20
+> > > Add V4L2_CID_M2M_AUDIO_SOURCE_RATE and V4L2_CID_M2M_AUDIO_DEST_RATE
+> > > new IDs for rate control.
+> > >
+> > > Add V4L2_CID_M2M_AUDIO_SOURCE_RATE_OFFSET and
+> > > V4L2_CID_M2M_AUDIO_DEST_RATE_OFFSET for clock drift.
+> > >
+> > > Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+> > > ---
+> > >  .../media/v4l/ext-ctrls-audio-m2m.rst         | 20 +++++++++++++++++=
+++
+> > >  drivers/media/v4l2-core/v4l2-ctrls-defs.c     |  6 ++++++
+> > >  include/uapi/linux/v4l2-controls.h            |  5 +++++
+> > >  3 files changed, 31 insertions(+)
+> > >
+> > > diff --git a/Documentation/userspace-api/media/v4l/ext-ctrls-audio-m2=
+m.rst b/Documentation/userspace-api/media/v4l/ext-ctrls-audio-m2m.rst
+> > > index 82d2ecedbfee..de579ab8fb94 100644
+> > > --- a/Documentation/userspace-api/media/v4l/ext-ctrls-audio-m2m.rst
+> > > +++ b/Documentation/userspace-api/media/v4l/ext-ctrls-audio-m2m.rst
+> > > @@ -19,3 +19,23 @@ Audio M2M Control IDs
+> > >      The Audio M2M class descriptor. Calling
+> > >      :ref:`VIDIOC_QUERYCTRL` for this control will
+> > >      return a description of this control class.
+> > > +
+> > > +.. _v4l2-audio-asrc:
+> > > +
+> > > +``V4L2_CID_M2M_AUDIO_SOURCE_RATE (integer menu)``
+> > > +    Sets the audio source sample rate, unit is Hz
+> > > +
+> > > +``V4L2_CID_M2M_AUDIO_DEST_RATE (integer menu)``
+> > > +    Sets the audio destination sample rate, unit is Hz
+> > > +
+> > > +``V4L2_CID_M2M_AUDIO_SOURCE_RATE_OFFSET (fixed point)``
+> > > +    Sets the offset from the audio source sample rate, unit is Hz.
+> > > +    The offset compensates for any clock drift. The actual source au=
+dio
+> > > +    sample rate is the ideal source audio sample rate from
+> > > +    ``V4L2_CID_M2M_AUDIO_SOURCE_RATE`` plus this fixed point offset.
+> > > +
+> > > +``V4L2_CID_M2M_AUDIO_DEST_RATE_OFFSET (fixed point)``
+> > > +    Sets the offset from the audio destination sample rate, unit is =
+Hz.
+> > > +    The offset compensates for any clock drift. The actual destinati=
+on audio
+> > > +    sample rate is the ideal source audio sample rate from
+> > > +    ``V4L2_CID_M2M_AUDIO_DEST_RATE`` plus this fixed point offset. =
+=20
+> >
+> > Hmm... first of all, controls on V4L2 API can either be get or set.
+> > So, starting the sentence with "Set" sounds an assumption that may
+> > be wrong. =20
+>=20
+> Ok, will update the description.
+> >
+> > Also, I would explain a little bit more about the frequency offset valu=
+es,
+> > as clock drift adjustment on PCM streams is something that can be done
+> > using different approaches.
+> >
+> > I'm assuming that what you wanted here is to use it to check if the
+> > video and audio clocks have some drift, and reducing or increasing
+> > the audio sample rate dynamically to ensure that such drift will
+> > stay constraint to a maximum allowed drift measured in mili or nano
+> > seconds. So, userspace would be expected to be monitoring such drift
+> > and increasing/decreasing the sample frequency as needed to maintain
+> > such constraint.
+> >
+> > Is that the way such uAPI is expected to work? =20
+>=20
+> Yes. Userspace should monitor the drift, get the offset based on the
+> common sample rate (8k, 44.1k, 48k...) then send it to the driver.
+> The offset is a fixed point. it is base on the patch:
+> https://patchwork.kernel.org/project/linux-media/patch/cec82507-ced9-4e7d=
+-802c-04a40f84a4b4@xs4all.nl/
+
+Ok, so write a description about how this should be used (like the
+test I written),to help userspace developers to better understand
+how this uAPI should be used.
+
+See, one of the main goals of the uAPI documentation is to ensure that
+userspace programs will implement the uAPI bits the right way, behaving
+the right way when using it. That's why we even have some userspace code=20
+examples for some ioctls. IMO frequence drift is one of such cases
+where more explanation is needed.
 
 
-thanks,
+>=20
+> Best regards
+> Shengjiu Wang
+> > =20
+> > > diff --git a/drivers/media/v4l2-core/v4l2-ctrls-defs.c b/drivers/medi=
+a/v4l2-core/v4l2-ctrls-defs.c
+> > > index 2a85ea3dc92f..91e1f5348c23 100644
+> > > --- a/drivers/media/v4l2-core/v4l2-ctrls-defs.c
+> > > +++ b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
+> > > @@ -1245,6 +1245,8 @@ const char *v4l2_ctrl_get_name(u32 id)
+> > >
+> > >       /* Audio M2M controls */
+> > >       case V4L2_CID_M2M_AUDIO_CLASS:  return "Audio M2M Controls";
+> > > +     case V4L2_CID_M2M_AUDIO_SOURCE_RATE:    return "Audio Source Sa=
+mple Rate";
+> > > +     case V4L2_CID_M2M_AUDIO_DEST_RATE:      return "Audio Destinati=
+on Sample Rate";
+> > >       default:
+> > >               return NULL;
+> > >       }
+> > > @@ -1606,6 +1608,10 @@ void v4l2_ctrl_fill(u32 id, const char **name,=
+ enum v4l2_ctrl_type *type,
+> > >       case V4L2_CID_COLORIMETRY_HDR10_MASTERING_DISPLAY:
+> > >               *type =3D V4L2_CTRL_TYPE_HDR10_MASTERING_DISPLAY;
+> > >               break;
+> > > +     case V4L2_CID_M2M_AUDIO_SOURCE_RATE:
+> > > +     case V4L2_CID_M2M_AUDIO_DEST_RATE:
+> > > +             *type =3D V4L2_CTRL_TYPE_INTEGER_MENU;
+> > > +             break;
+> > >       default:
+> > >               *type =3D V4L2_CTRL_TYPE_INTEGER;
+> > >               break;
+> > > diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/=
+v4l2-controls.h
+> > > index a8b4b830c757..30129ccdc282 100644
+> > > --- a/include/uapi/linux/v4l2-controls.h
+> > > +++ b/include/uapi/linux/v4l2-controls.h
+> > > @@ -3495,6 +3495,11 @@ struct v4l2_ctrl_av1_film_grain {
+> > >  #define V4L2_CID_M2M_AUDIO_CLASS_BASE  (V4L2_CTRL_CLASS_M2M_AUDIO | =
+0x900)
+> > >  #define V4L2_CID_M2M_AUDIO_CLASS       (V4L2_CTRL_CLASS_M2M_AUDIO | =
+1)
+> > >
+> > > +#define V4L2_CID_M2M_AUDIO_SOURCE_RATE       (V4L2_CID_M2M_AUDIO_CLA=
+SS_BASE + 0)
+> > > +#define V4L2_CID_M2M_AUDIO_DEST_RATE (V4L2_CID_M2M_AUDIO_CLASS_BASE =
++ 1)
+> > > +#define V4L2_CID_M2M_AUDIO_SOURCE_RATE_OFFSET        (V4L2_CID_M2M_A=
+UDIO_CLASS_BASE + 2)
+> > > +#define V4L2_CID_M2M_AUDIO_DEST_RATE_OFFSET  (V4L2_CID_M2M_AUDIO_CLA=
+SS_BASE + 3)
+> > > +
+> > >  /* MPEG-compression definitions kept for backwards compatibility */
+> > >  #ifndef __KERNEL__
+> > >  #define V4L2_CTRL_CLASS_MPEG            V4L2_CTRL_CLASS_CODEC =20
+> >
+> >
+> >
+> > Thanks,
+> > Mauro =20
 
-Takashi
+
+
+Thanks,
+Mauro

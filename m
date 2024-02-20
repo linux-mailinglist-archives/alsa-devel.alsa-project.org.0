@@ -2,119 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C10A385B468
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Feb 2024 09:04:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97DC685BC97
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Feb 2024 13:52:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6B5961933;
-	Tue, 20 Feb 2024 09:04:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B5961933
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3DEE0E72;
+	Tue, 20 Feb 2024 13:52:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3DEE0E72
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1708416278;
-	bh=IqXAlLKeekccseiZoETdUwjQ0rAhOYE1/rlcGiLxS4M=;
-	h=Date:In-Reply-To:References:Subject:From:To:Cc:List-Id:
+	s=default; t=1708433537;
+	bh=cFxAPeixrrkBcvkFKM9uK9ciH82I1tyfkh8gtrX7CMc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=l2+/onKuVrSLMS1mxtmm0pbmHnBwIDwfLIzxQbTYYgzC7rdgvDDD9ImaEkVCw8BZo
-	 Yd09XvaiMxC3qI1K5P47aoNARwIIqIp1ooVVGAUbdGWYZ5P4y7fTAWEUXIf6vtuY9d
-	 R+qf5vFpr/yaFULvGr7LqnBwZiUyj/LrYIkmmBhU=
+	b=EZLMPgsdG7gsmPqb5HAgBAhhMk4WyU0WS8y+1Afn66AoFAGbpTGBLPzm14xNt0Fh9
+	 3BtsswYKRiZjSqdWmweGqTy7U3aHTnZS6DkRJhCmKE57gA87CrQJZ6OhIL9ZjHcgoc
+	 QN4tRUv0twT1QeBVljM62TcIF3YhzJdSGjs0wtXA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 42943F806B6; Tue, 20 Feb 2024 09:02:34 +0100 (CET)
+	id DDDB7F8057F; Tue, 20 Feb 2024 13:51:46 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 89E4AF805C5;
-	Tue, 20 Feb 2024 09:02:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 07FFCF804B0;
+	Tue, 20 Feb 2024 13:51:43 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3F126F80496; Mon, 19 Feb 2024 18:24:38 +0100 (CET)
+	id F257DF804B0; Tue, 20 Feb 2024 13:36:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.7 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,USER_IN_DEF_DKIM_WL shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-yb1-xb4a.google.com (mail-yb1-xb4a.google.com
- [IPv6:2607:f8b0:4864:20::b4a])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DDBE1F800EE
-	for <alsa-devel@alsa-project.org>; Mon, 19 Feb 2024 18:24:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DDBE1F800EE
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9FC1FF8047D
+	for <alsa-devel@alsa-project.org>; Tue, 20 Feb 2024 13:35:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9FC1FF8047D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
- header.s=20230601 header.b=UUBW/H8M
-Received: by mail-yb1-xb4a.google.com with SMTP id
- 3f1490d57ef6-dcc15b03287so6375136276.3
-        for <alsa-devel@alsa-project.org>;
- Mon, 19 Feb 2024 09:24:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1708363471; x=1708968271;
- darn=alsa-project.org;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:from:to:cc:subject:date:message-id:reply-to;
-        bh=IqXAlLKeekccseiZoETdUwjQ0rAhOYE1/rlcGiLxS4M=;
-        b=UUBW/H8My13joYKbws/eSfCfHuntSgdXG4mnW0LzFKARUpanOTsT0Vq1+33/jPng3m
-         WtVdFXo+lGdyyO9TXXkDSno8bEQfyY+RCcOVcHvm7upBTC8wr8loY/s1mnk5e/6CXRC4
-         bBW+7dnzBxv9vMBPFl3g1WZFkzNcX7iw7xbeTFfG8ulAJWCQvyhZNu7rp/WNzlh4B/dT
-         dpP0QuXUUHtPqncDXAXyLTDc4Ial4yHH0uGVfMASKWV/GSFL/q0ZXOhdrQEt0lun3VEG
-         /I9Cv2P9VhTDH6zTLxaaRbCzImsp0a74kRBga8UWRukDTM/q/IS/5p0t72WkQpyDv/E5
-         nH5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708363471; x=1708968271;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=IqXAlLKeekccseiZoETdUwjQ0rAhOYE1/rlcGiLxS4M=;
-        b=PbBYRy52w8B891XrUAzjoZrDM1mlR6mAm+GBAVzPq6HvY78LEg1Y8UX3M9O9x937xO
-         9DypVTMRh7008AqvxY0d+O1PyKMETLb5SSjHfvYSw1tYy5dE+PS7YoA5k5St2StAi1mE
-         CsvPceexExPlb39YojajEWdNR4F1xBrPo37zfmQlQNA6yQuzuZcc1tMVAcUgsTKQsu4M
-         lFpG0P0V/4xt+8SiiXwFsZH5/TWoyVCJKYHAzabcv3QBwSH3tkBRMjucIlDGKs0fIqmJ
-         2jFg1rpdHFyi/22ANdo9kovcigMAnwmgI+5PoaKxMSBiWYo9L968IbD4cD8HEwG4Svs9
-         4KYQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVWxbHbnRAB8XFbXzd+BVkiMYthaJidgnv0dI3M+Et3zmRjAza5MhElWtuNbONe7WxFFqAOyB4TEdj4eHZyJNw6Rb/Srcqgbjag1WA=
-X-Gm-Message-State: AOJu0YzO8CniB/1LyrLMvLHZid0agGMbYBBzvXpkSfUfyaF8d7UCjhGq
-	vWDU6l+pL54H/wm/eJ/ciq2pSKnDT+mBllDy/TOp++ln8LiANtY/j2rZO7oDe/PiuNrb/MaoAKO
-	XOqu2Mw==
-X-Google-Smtp-Source: 
- AGHT+IHb/LI2umaPKzrGXSM6YYmMbRda0hH22YF1Jjo5mhqYj23QHtTxbCVUfsVZSjB+mHPk+SsGS1fXXoBd
-X-Received: from dextero.c.googlers.com
- ([fda3:e722:ac3:cc00:28:9cb1:c0a8:364e])
- (user=dextero job=sendgmr) by 2002:a05:6902:1001:b0:dcc:79ab:e522 with SMTP
- id w1-20020a056902100100b00dcc79abe522mr524910ybt.11.1708363470612; Mon, 19
- Feb 2024 09:24:30 -0800 (PST)
-Date: Mon, 19 Feb 2024 17:24:17 +0000
-In-Reply-To: <20240115133654.576068-2-aiswarya.cyriac@opensynergy.com>
-Mime-Version: 1.0
-References: <20240115133654.576068-2-aiswarya.cyriac@opensynergy.com>
-X-Mailer: git-send-email 2.44.0.rc0.258.g7320e95886-goog
-Message-ID: <20240219172417.1383044-1-dextero@google.com>
-Subject: Re: [v2 PATCH 0/1] ALSA: virtio: add support for audio controls
-From: Marcin Radomski <dextero@google.com>
-To: aiswarya.cyriac@opensynergy.com
-Cc: vill@google.com, alsa-devel@alsa-project.org,
-	anton.yakovlev@opensynergy.com, jasowang@redhat.com,
-	linux-kernel@vger.kernel.org, mst@redhat.com, perex@perex.cz, tiwai@suse.com,
-	virtio-dev@lists.oasis-open.org, virtualization@lists.linux-foundation.org,
-	Marcin Radomski <dextero@google.com>
-Content-Type: text/plain; charset="UTF-8"
-X-MailFrom: 
- 3zo7TZQcKCm8QRkgRebTbbTYR.PbZNYfN-QRiRYNYfN-cebWRPg.beT@flex--dextero.bounces.google.com
-X-Mailman-Rule-Hits: nonmember-moderation
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=GrsKDNVD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1708432563; x=1739968563;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=cFxAPeixrrkBcvkFKM9uK9ciH82I1tyfkh8gtrX7CMc=;
+  b=GrsKDNVDdelJSYW7X/bJWcC+TJFoS9X7yCJfoJBt+3bK1gIKLIE/9GQy
+   mtTg49CS2t0j0Hz1HoS8iJ/tSGxBKUkz3Cu0G632jsPvypwguXlpMBKVL
+   bKqLuEd8P9ahPT75hB9ojVUIUrYDeyq1+NA1LUThOuxcrY8I3Aa7ooZzA
+   usDQuDlgEawFdugVM0irMdy0gkiV47ECu/ztedzxQ/bSVoRpiwiMZsBy+
+   n85obpHQas961Z4X0zW21W1xeVO8KsNYPNX52Ss656WjSVyG3hd7y5SsD
+   5r/RFsTYhrJiWCEACi3pxnRHTcH2K1PB6+6D/AJ5pFBTncREOsoIP3/mv
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10989"; a="13942907"
+X-IronPort-AV: E=Sophos;i="6.06,172,1705392000";
+   d="scan'208";a="13942907"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Feb 2024 04:32:47 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.06,172,1705392000";
+   d="scan'208";a="35528286"
+Received: from pjayasek-mobl.amr.corp.intel.com (HELO [10.246.112.112])
+ ([10.246.112.112])
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Feb 2024 04:32:45 -0800
+Message-ID: <ae5b3c49-308e-465c-8bc6-c0e1ac79f19f@linux.intel.com>
+Date: Tue, 20 Feb 2024 07:32:43 -0500
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8] ASoc: tas2783: Add tas2783 codec driver
+To: Shenghao Ding <shenghao-ding@ti.com>, broonie@kernel.org
+Cc: andriy.shevchenko@linux.intel.com, lgirdwood@gmail.com, perex@perex.cz,
+ 13916275206@139.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, liam.r.girdwood@intel.com,
+ bard.liao@intel.com, mengdong.lin@intel.com,
+ yung-chuan.liao@linux.intel.com, baojun.xu@ti.com, kevin-lu@ti.com,
+ tiwai@suse.de, soyer@irl.hu
+References: <20240219022153.553-1-shenghao-ding@ti.com>
+Content-Language: en-US
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20240219022153.553-1-shenghao-ding@ti.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: AEZJWKXEHKILI6OXHRJ4TOCMXEYXCVO6
+X-Message-ID-Hash: AEZJWKXEHKILI6OXHRJ4TOCMXEYXCVO6
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: 3RDTW6GNCAKFJWG66FPNWMVC523NWXV7
-X-Message-ID-Hash: 3RDTW6GNCAKFJWG66FPNWMVC523NWXV7
-X-Mailman-Approved-At: Tue, 20 Feb 2024 08:01:09 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3RDTW6GNCAKFJWG66FPNWMVC523NWXV7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AEZJWKXEHKILI6OXHRJ4TOCMXEYXCVO6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -123,11 +109,205 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Thanks Anton for the reupload.
+It's starting to look good, but the use of the dev_num is conceptually 
+broken. The only way to reliably identify a device is the combination of 
+link_id and unique_id. The information is present for both ACPI and DT 
+systems. See comments below.
+-Pierre
 
-I tested this series with a 6.1 kernel guest on a proprietary hypervisor. The
-controls exposed by the host (BOOLEAN/INTEGER ones, as that was all I could
-get) worked as expected when adjusted via ALSA APIs.
+> +static void tas2783_apply_calib(struct tasdevice_priv *tas_dev,
+> +	unsigned int *cali_data)
+> +{
+> +	struct regmap *map = tas_dev->regmap;
+> +	u8 *cali_start;
+> +	u16 dev_num;
+> +	int ret;
+> +
+> +	if (!tas_dev->sdw_peripheral) {
+> +		dev_err(tas_dev->dev, "%s: peripheral doesn't exist.\n",
+> +			__func__);
+> +		return;
+> +	}
+> +
+> +	dev_num = clamp(tas_dev->sdw_peripheral->dev_num, 1, 4) - 1;
 
-Reviewed-by: Marcin Radomski <dextero@google.com>
-Tested-By: Marcin Radomski <dextero@google.com>
+Not following what restrictions you are trying to enforce on the device 
+number. That's a value selected by the manager. You absolutely cannot 
+assume the value is between 1 and 4, the max value is 11.
+
+> +	/*
+> +	 * The area saving tas2783 calibrated data is specified by its
+> +	 * dev_num. cali_start is the first address of current tas2783's
+> +	 * calibrated data.
+> +	 */
+> +	cali_start = (u8 *)(cali_data + dev_num * sizeof(tas2783_cali_reg));
+> +	for (int i = 0; i < ARRAY_SIZE(tas2783_cali_reg); i++) {
+> +		ret = regmap_bulk_write(map, tas2783_cali_reg[i],
+> +			&cali_start[4 * i], 4);
+> +		if (ret) {
+> +			dev_err(tas_dev->dev, "Cali failed %x:%d\n",
+> +				tas2783_cali_reg[i], ret);
+> +			break;
+> +		}
+> +	}
+> +}
+> +
+> +/*
+> + * Load the calibration data, including speaker impedance, f0, etc.
+> + * Calibration is done by the manufacturer in the factory. The calibration
+> + * data are used by the algorithm for calculating the speaker temperature,
+> + * speaker membrane excursion and f0 in real time during playback.
+> + * The DSP will work with default data values if calibrated data are
+> + * missing or are invalid.
+> + * Layout of calibrated Data in UEFI:
+> + *	Calibrated Data of Dev 0 (20 bytes)
+> + *	Calibrated Data of Dev 1 (20 bytes)
+> + *	Calibrated Data of Dev 2 (20 bytes)
+> + *	Calibrated Data of Dev 3 (20 bytes)
+
+You will have a hard-time matching those device indices with the 
+dev_num, which depends on the enumeration order and the bus allocation.
+
+The only stable board-specific value is to use a combination of link_id 
+and unique_id (possibly controller id as well).
+
+
+> + *	CRC (4 bytes)
+> + */
+
+> +static int tasdevice_comp_probe(struct snd_soc_component *comp)
+> +{
+> +	struct tasdevice_priv *tas_dev = snd_soc_component_get_drvdata(comp);
+> +	acpi_handle handle = ACPI_HANDLE(tas_dev->dev);
+> +	const struct firmware *fw_entry = NULL;
+> +	const char *sub = NULL;
+> +	int ret, value_sdw;
+> +
+> +	if (handle) {
+> +		sub = acpi_get_subsystem_id(handle);
+> +		if (IS_ERR(sub))
+> +			sub = NULL;
+> +	}
+> +
+> +	tas_dev->component = comp;
+> +
+> +	/*
+> +	 * Each tas2783 in the system has its own dspfw.
+> +	 */
+> +	if (comp->name_prefix) {
+> +		/*
+> +		 * name_prefix.bin stores the dsp firmware including speaker
+> +		 * protection algorithm, audio acoustic algorithm, speaker
+> +		 * characters and algorithm params, it must be copied into
+> +		 * firmware folder.
+> +		 */
+> +		scnprintf(tas_dev->dspfw_binaryname,
+> +			TAS2783_DSPFW_FILENAME_LEN, "%s-tas2783.bin",
+> +			comp->name_prefix);
+> +	} else {
+> +		/* Compatible with the previous naming rule */
+> +		if (sub) {
+> +		/*
+> +		 * subsystem_id-link_id[0,1,...,N]-dev_num[1,...,4].bin stores
+> +		 * the dsp firmware including speaker protection algorithm,
+> +		 * audio acoustic algorithm, speaker characters and algorithm
+> +		 * params, it must be copied into firmware folder.
+
+no the dev_num cannot be used. It's only used for host-device 
+communication and cannot be used to identify a device position.
+
+The link_id+unique_unique is the only way to go.
+
+But in addition you want want to consider a platform-specific prefix 
+which contains the OEM name or device SKU.
+
+> +		 */
+> +			scnprintf(tas_dev->dspfw_binaryname,
+> +				TAS2783_DSPFW_FILENAME_LEN,
+> +				"%s-%d-%d.bin", sub,
+> +				tas_dev->sdw_peripheral->bus->link_id,
+> +				tas_dev->sdw_peripheral->dev_num);
+> +		} else {
+> +		/*
+> +		 * tas2783-link_id[0,1,...,N]-dev_num[1,...,4].bin stores
+> +		 * the dsp firmware including speaker protection algorithm,
+> +		 * audio acoustic algorithm, speaker characters and algorithm
+> +		 * params, it must be copied into firmware folder.
+> +		 */
+> +			scnprintf(tas_dev->dspfw_binaryname,
+> +				TAS2783_DSPFW_FILENAME_LEN,
+> +				"tas2783-%d-%d.bin",
+> +				tas_dev->sdw_peripheral->bus->link_id,
+> +				tas_dev->sdw_peripheral->dev_num);
+> +		}
+> +	}
+> +
+> +	ret = request_firmware(&fw_entry, tas_dev->dspfw_binaryname,
+> +		tas_dev->dev);
+> +	if (ret) {
+> +		dev_err(tas_dev->dev,
+> +			"%s: request_firmware %x open status: %d.\n", __func__,
+> +			tas_dev->sdw_peripheral->id.unique_id, ret);
+> +		goto out;
+> +	}
+> +
+> +	tasdevice_dspfw_ready(fw_entry, tas_dev);
+> +
+> +	/* Select left/right channel based on device number. */
+> +	value_sdw = 0x1a;
+> +	value_sdw |= (tas_dev->sdw_peripheral->dev_num & BIT(0)) << 4;
+> +	dev_dbg(tas_dev->dev, "%s: dev_num = %u", __func__,
+> +		tas_dev->sdw_peripheral->dev_num);
+> +	regmap_write(tas_dev->regmap, TAS2783_REG_TDM_RX_CFG, value_sdw);
+> +	if (ret != 0)
+> +		dev_warn(tas_dev->dev, "%s: L/R setting failed: %d.\n",
+> +			__func__, ret);
+> +
+> +out:
+> +	if (fw_entry)
+> +		release_firmware(fw_entry);
+> +	return 0;
+> +}
+
+> +static int tasdevice_io_init(struct device *dev,
+> +	struct sdw_slave *slave)
+> +{
+> +	struct tasdevice_priv *tas_priv = dev_get_drvdata(dev);
+> +	int ret;
+> +
+> +	regcache_cache_only(tas_priv->regmap, false);
+> +
+> +	if (tas_priv->first_hw_init) {
+> +		regcache_cache_bypass(tas_priv->regmap, true);
+> +	} else {
+> +	/*
+> +	 * PM runtime is only enabled when a Slave reports as Attached
+> +	 * Update count of parent 'active' children
+> +	 */
+
+weird indentation for comments in multiple places.
+
+> +		pm_runtime_set_active(&slave->dev);
+> +	}
+> +
+> +	/* sw reset */
+> +	ret = regmap_write(tas_priv->regmap, TAS2873_REG_SWRESET,
+> +		TAS2873_REG_SWRESET_RESET);
+> +	if (ret) {
+> +		dev_err(tas_priv->dev, "Reset failed.\n");
+> +		goto out;
+> +	}
+> +
+> +	if (tas_priv->first_hw_init) {
+> +		regcache_cache_bypass(tas_priv->regmap, false);
+> +		regcache_mark_dirty(tas_priv->regmap);
+> +	}
+> +
+> +	tas_priv->first_hw_init = true;
+> +	tas_priv->hw_init = true;
+> +
+> +out:
+> +	return ret;
+> +}
+
+

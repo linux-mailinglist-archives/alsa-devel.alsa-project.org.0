@@ -2,166 +2,114 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6920685D434
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Feb 2024 10:45:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EE3F85D544
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Feb 2024 11:13:00 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9E6F283B;
-	Wed, 21 Feb 2024 10:45:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E6F283B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 50DF7846;
+	Wed, 21 Feb 2024 11:12:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 50DF7846
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1708508744;
-	bh=/opIB55MMYKYaC78niYQAuyhzp2B1CswjFKDPDdn5Xk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1708510379;
+	bh=VdwD3m6NWXC/1HXAPru75QbF/kFD+gQGSknB2LVxzwo=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=VJjezJrgC3tBgSlj0iMnE6+SJF6Kq17xcjg+i7zYUiWkc87YyDeP1mtY1nzn/luvX
-	 5oVN6J/wsvXK6+Jb3zxx0enWzHS3UH2KcG9i9HiEdRp5hVozj1T2Eo3dje/c06ORTp
-	 0f9S+OfJWrv4C3l68K0Oh++/YN1/6smQrHFdI8c4=
+	b=Iadg/ewtiW26M4QMbWj3UzbS/ZeLanZL8eUCsSBEBJeYjWvnoZsW/pNcPu2Rkvtqv
+	 Ry5iiIe8xpDpO72OrSab1sonUOBq78TFj1w8Ok4z/Rba2aLL9l/jhJ+z1JAQX8GcMG
+	 BhzioHATBFdWMEA7QQAyUdY6CbNBJFWbNLTBMdW0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C7095F805AA; Wed, 21 Feb 2024 10:45:12 +0100 (CET)
+	id 879CCF805AD; Wed, 21 Feb 2024 11:12:25 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1AC4FF805A8;
-	Wed, 21 Feb 2024 10:45:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CC99CF804CC;
+	Wed, 21 Feb 2024 11:12:24 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C1D6DF80496; Wed, 21 Feb 2024 10:45:03 +0100 (CET)
+	id F2A8BF80496; Wed, 21 Feb 2024 11:12:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [IPv6:2a00:1450:4864:20::62e])
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-il1-x12d.google.com (mail-il1-x12d.google.com
+ [IPv6:2607:f8b0:4864:20::12d])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B0A45F80104
-	for <alsa-devel@alsa-project.org>; Wed, 21 Feb 2024 10:44:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0A45F80104
+	by alsa1.perex.cz (Postfix) with ESMTPS id 74220F80104
+	for <alsa-devel@alsa-project.org>; Wed, 21 Feb 2024 11:11:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74220F80104
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=lbr2ckdB
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-a3d484a58f6so51628966b.3
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=M21GbEFm
+Received: by mail-il1-x12d.google.com with SMTP id
+ e9e14a558f8ab-364f794f237so27560065ab.1
         for <alsa-devel@alsa-project.org>;
- Wed, 21 Feb 2024 01:44:57 -0800 (PST)
+ Wed, 21 Feb 2024 02:11:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1708508696; x=1709113496;
+        d=gmail.com; s=20230601; t=1708510314; x=1709115114;
  darn=alsa-project.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=NyBaoVH2N/0Qpdr6Z5VWnZpm4sf6QgnERUX3ACGj03I=;
-        b=lbr2ckdBogEWf7Pi+N6J4PHX0/PqFIwxMMb9exER4zepcmY9HPnPGY6aihJfrUz5UB
-         a7VBBSYavMSbuy3Q8y7Wep9yAscAhrwrEDh944VYfCrRWt/QGXKdWZGN/giuexKm3PE/
-         4znvvfUIQt5129xhEuJH9VQSRfMax/mNmNTnEIgKkt2Il3+QOy9YPhbIy2S0N5Ca/ctm
-         erCo5f4HDQaOoUWP/+BjRwDadOai4MuJehz2J3n54o+VicqapOpCDpXt4eLqHcOs6nqO
-         2iC9N2wECtfBOO793rne5BKtGXm7kqcxxucz9gC9xGeUyAvTgw4kf5HvueGzCiHvPIw/
-         8rGw==
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=9ZKbp4usF7ZooMwkbNPV/awlOsKnx7RNduGOVFzVFPI=;
+        b=M21GbEFmZ8D+RwEWtgXsp6If6TMiJA8Cn1Zqi9QQ6iAiwetR0HasHzcDHvhywP/n2K
+         nmFcPpi+YBZ8QGwUR9uZEH4NgZJUeSO15zwCIpE0Ga1DhgRwDxpNQBOyviOeXBtvypbG
+         A0vY93fDWwf9zd6M4sPEiAsJZ39CMvsFqwqrj2gl4diNoTDvuOkpF5nJtnjdmSkMib/j
+         eLplG98yzc5m3Mp9+8xJCvb8YTMaDngO4x/OBb5s9ds40a42g8CmJdayES+FQJIg6Iws
+         y6WD7kHGsGwrsuR+gX9MqgrXhooVMmPX8GD0Q9uD3AyxD1DHEfOypyfKNOTGd/gSjoCm
+         brTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708508696; x=1709113496;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=NyBaoVH2N/0Qpdr6Z5VWnZpm4sf6QgnERUX3ACGj03I=;
-        b=alMbY4BOyBp+DcP3HheFvDKXheIIRoDee7BbsGdPScT17+HrvmxS8KYsKBPPi2TwOY
-         l0ZDceo7uogxzYOgGmOHpB9C90dMQ2IM+EIf+Uo+m7ZagnM6XqAKkM1nhZEAXw27FvRq
-         +StEBbkwsh/boO7wmIr35UJDqAh1Xdke5jzHQIDvf695OltFF9fucScgU81Ze+ogGfhc
-         QHhR4Z/AWA8a/k2Z3WtjVJz9zw2eIbAv58V63MI98Xjvh0Wm9Iio6uVSrmKN8dQFAiY7
-         a9y7C1FGtqigXmmgzxtbHcCSfNHmhh7YLVYursPLGvRVJ/bp2DORfCBtKmCS4HYmA+Cw
-         eEew==
+        d=1e100.net; s=20230601; t=1708510314; x=1709115114;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=9ZKbp4usF7ZooMwkbNPV/awlOsKnx7RNduGOVFzVFPI=;
+        b=Uybi52lzUpaFwjc06FsBRtL9Jg/5tuoZM/cQCCU86Q2p91AiF8gA0khynyvuXUahmO
+         404q/Qt8YJFKVK82qy6bC/ovM/pCrRQqar0w6PhTSpjaZnFi/etnHvK1qMBa8zeVFZx8
+         XFZ0Xz1Y0+xH9Zbvq3tC9tj6bus4b5p8KEk/ClgpfNt62WJOhyBMwPCCDkNvGYbW+UYe
+         XegpQGaG/NffWPCzQXJgGF24ENct/F1Xgs/A4t/7hG5Lv7bmPPtlq8g1ToDbIBbFkJe5
+         wifZzfDNVvtd8tx9EP/1f8mpDWL5GEBvMLACA3ldZctfux09MqsYmcIRA2B75CfGSV2D
+         sXXQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUOdDX9wPgKeQ/IO8kAuZMOFihrlLaDwnS6HzVyWT9RO+jXiW56T2KKTMie9uJVD9hIYV03jGnvxJQ4g6jZJxc84v/P4xtra4J8LC4=
-X-Gm-Message-State: AOJu0Yy3dkj/0D9nqQ15HRR4fG1XWVa2mnPWoiQIxLq/pvMgJdmED1gY
-	u6nIIg+ekKw16wfSrREwDqG2CYPAtiivV8ErqcfzWGGYkSKeL/jFf0oRertwcv8=
+ AJvYcCXV/stLWfjBjgSPWGHfb3hacQGds4aeiHD+HubOT66umK8h+I22hU5jN/oc2TPg9PZ2FritPhJpE6dpcCHgurtrpU9mkLEoUnGsPpk=
+X-Gm-Message-State: AOJu0YzXFC4hcdpkU9WfGG+QnjYLpsFNlNs+5yb/wZsOLtPvMEUFlyyJ
+	zktUeoPZpMWHR6J2zd0d085PWDDelJNwecCjVsOjzxn9r2BahF7LmR1i2Rhqwbvc8Oj+Q7DZ9Kq
+	4RQKkDVDNZ5+WlyvAq2JjwA09+Ps=
 X-Google-Smtp-Source: 
- AGHT+IHKAvnXAoTx45vIQ/qJlrbVDVZ7kPxLCVw3sTsnFfwKS3/tPeqcsbS4/Vw6sYV6b+JfjsNYeA==
-X-Received: by 2002:a17:906:2b97:b0:a3f:50ae:52d with SMTP id
- m23-20020a1709062b9700b00a3f50ae052dmr418708ejg.10.1708508696477;
-        Wed, 21 Feb 2024 01:44:56 -0800 (PST)
-Received: from [192.168.1.20] ([178.197.222.116])
-        by smtp.gmail.com with ESMTPSA id
- sn24-20020a170906629800b00a3e1939b23bsm4464478ejc.127.2024.02.21.01.44.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 21 Feb 2024 01:44:55 -0800 (PST)
-Message-ID: <7ae0567d-e5d3-4e00-98f7-5139d5879f75@linaro.org>
-Date: Wed, 21 Feb 2024 10:44:52 +0100
+ AGHT+IHwP0YGlKphHtm67xpwTbsPvnykS5moEGEGjG8wLiOUfX/6e8WVQL0nA7L2tX6O8Xl8WZ/vKMFsIJfBgPoCVzU=
+X-Received: by 2002:a05:6e02:1143:b0:364:fffe:44c4 with SMTP id
+ o3-20020a056e02114300b00364fffe44c4mr15812470ill.7.1708510313179; Wed, 21 Feb
+ 2024 02:11:53 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 0/6] reset: gpio: ASoC: shared GPIO resets
-Content-Language: en-US
-To: Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@quicinc.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Liam Girdwood
- <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>, Frank Rowand
- <frowand.list@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
- linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-pm@vger.kernel.org, Chris Packham <chris.packham@alliedtelesis.co.nz>,
- Bartosz Golaszewski <brgl@bgdev.pl>, Sean Anderson <sean.anderson@seco.com>
-References: <20240129115216.96479-1-krzysztof.kozlowski@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
- 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
- D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <20240129115216.96479-1-krzysztof.kozlowski@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: JODWLLOSST2HWMO4CETXMC7HL4H4ZT5P
-X-Message-ID-Hash: JODWLLOSST2HWMO4CETXMC7HL4H4ZT5P
-X-MailFrom: krzysztof.kozlowski@linaro.org
+References: <1705581128-4604-1-git-send-email-shengjiu.wang@nxp.com>
+ <1705581128-4604-8-git-send-email-shengjiu.wang@nxp.com>
+ <20240217104212.32f07e3a@coco.lan>
+ <CAAFQd5CY731HRhFHpmwzGxAZ-BFV_pT7NNGwNGy4ZOA=qz8ntg@mail.gmail.com>
+In-Reply-To: 
+ <CAAFQd5CY731HRhFHpmwzGxAZ-BFV_pT7NNGwNGy4ZOA=qz8ntg@mail.gmail.com>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Wed, 21 Feb 2024 18:11:42 +0800
+Message-ID: 
+ <CAA+D8AOKNK37urZfVsuzaTv8PYP-ggTORQEVSpNO0pbaereyLg@mail.gmail.com>
+Subject: Re: [PATCH v12 07/15] media: v4l2: Add audio capture and output
+ support
+To: Tomasz Figa <tfiga@chromium.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Shengjiu Wang <shengjiu.wang@nxp.com>, hverkuil@xs4all.nl,
+	sakari.ailus@iki.fi, m.szyprowski@samsung.com, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Xiubo.Lee@gmail.com, festevam@gmail.com,
+	nicoleotsuka@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
+	perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
+	linuxppc-dev@lists.ozlabs.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: ZPXK2QC5YYOVRGKEUPXGIK3EZGMJI4LL
+X-Message-ID-Hash: ZPXK2QC5YYOVRGKEUPXGIK3EZGMJI4LL
+X-MailFrom: shengjiu.wang@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -173,7 +121,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JODWLLOSST2HWMO4CETXMC7HL4H4ZT5P/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZPXK2QC5YYOVRGKEUPXGIK3EZGMJI4LL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -182,28 +130,214 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 29/01/2024 12:52, Krzysztof Kozlowski wrote:
-> Hi,
-> 
-> Dependencies / Merging
-> ======================
-> 1. Depends on !GPIOLIB stub:
->    https://lore.kernel.org/all/20240125081601.118051-3-krzysztof.kozlowski@linaro.org/
-> 
-> 2. Patch #2 (cpufreq: do not open-code of_phandle_args_equal()) and patch #4
->    (reset: Instantiate reset GPIO controller for shared reset-gpios) depend on OF
->    change (patch #1).
+On Wed, Feb 21, 2024 at 12:30=E2=80=AFPM Tomasz Figa <tfiga@chromium.org> w=
+rote:
+>
+> On Sat, Feb 17, 2024 at 6:42=E2=80=AFPM Mauro Carvalho Chehab
+> <mchehab@kernel.org> wrote:
+> >
+> > Em Thu, 18 Jan 2024 20:32:00 +0800
+> > Shengjiu Wang <shengjiu.wang@nxp.com> escreveu:
+> >
+> > > Audio signal processing has the requirement for memory to
+> > > memory similar as Video.
+> > >
+> > > This patch is to add this support in v4l2 framework, defined
+> > > new buffer type V4L2_BUF_TYPE_AUDIO_CAPTURE and
+> > > V4L2_BUF_TYPE_AUDIO_OUTPUT, defined new format v4l2_audio_format
+> > > for audio case usage.
+> > >
+> > > The created audio device is named "/dev/v4l-audioX".
+> > >
+> > > Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+> > > ---
+> > >  .../userspace-api/media/v4l/buffer.rst        |  6 ++
+> > >  .../media/v4l/dev-audio-mem2mem.rst           | 71 +++++++++++++++++=
+++
+> > >  .../userspace-api/media/v4l/devices.rst       |  1 +
+> > >  .../media/v4l/vidioc-enum-fmt.rst             |  2 +
+> > >  .../userspace-api/media/v4l/vidioc-g-fmt.rst  |  4 ++
+> > >  .../media/videodev2.h.rst.exceptions          |  2 +
+> > >  .../media/common/videobuf2/videobuf2-v4l2.c   |  4 ++
+> > >  drivers/media/v4l2-core/v4l2-compat-ioctl32.c |  9 +++
+> > >  drivers/media/v4l2-core/v4l2-dev.c            | 17 +++++
+> > >  drivers/media/v4l2-core/v4l2-ioctl.c          | 53 ++++++++++++++
+> > >  include/media/v4l2-dev.h                      |  2 +
+> > >  include/media/v4l2-ioctl.h                    | 34 +++++++++
+> > >  include/uapi/linux/videodev2.h                | 17 +++++
+> > >  13 files changed, 222 insertions(+)
+> > >  create mode 100644 Documentation/userspace-api/media/v4l/dev-audio-m=
+em2mem.rst
+> > >
+> > > diff --git a/Documentation/userspace-api/media/v4l/buffer.rst b/Docum=
+entation/userspace-api/media/v4l/buffer.rst
+> > > index 52bbee81c080..a3754ca6f0d6 100644
+> > > --- a/Documentation/userspace-api/media/v4l/buffer.rst
+> > > +++ b/Documentation/userspace-api/media/v4l/buffer.rst
+> > > @@ -438,6 +438,12 @@ enum v4l2_buf_type
+> > >      * - ``V4L2_BUF_TYPE_META_OUTPUT``
+> > >        - 14
+> >
+> > >        - Buffer for metadata output, see :ref:`metadata`.
+> > > +    * - ``V4L2_BUF_TYPE_AUDIO_CAPTURE``
+> > > +      - 15
+> > > +      - Buffer for audio capture, see :ref:`audio`.
+> > > +    * - ``V4L2_BUF_TYPE_AUDIO_OUTPUT``
+> > > +      - 16
+> >
+> > Hmm... alsa APi define input/output as:
+> >         enum {
+> >                 SNDRV_PCM_STREAM_PLAYBACK =3D 0,
+> >                 SNDRV_PCM_STREAM_CAPTURE,
+> >                 SNDRV_PCM_STREAM_LAST =3D SNDRV_PCM_STREAM_CAPTURE,
+> >         };
+> >
+> >
+> > I would use a namespace as close as possible to the
+> > ALSA API. Also, we're not talking about V4L2, but, instead
+> > audio. so, not sure if I like the prefix to start with
+> > V4L2_. Maybe ALSA_?
+> >
+> > So, a better namespace would be:
+> >
+> >         ${prefix}_BUF_TYPE_PCM_STREAM_PLAYBACK
+> > and
+> >         ${prefix}_BUF_TYPE_PCM_STREAM_CAPTURE
+> >
+>
+> The API is still V4L2, and all the other non-video buf types also use
+> the V4L2_ prefix, so perhaps that's good here as well?
+>
+> Whether AUDIO or PCM_STREAM makes more sense goes outside of my
+> expertise. Subjectively, a PCM stream sounds more specific than an
+> audio stream. Do those buf types also support non-PCM audio streams?
 
+Currently I use it for PCM,  but I think it can also be used for non-PCM.
+So use the below name?
+V4L2_BUF_TYPE_AUDIO_CAPTURE
+V4L2_BUF_TYPE_AUDIO_PLAYBACK
 
-Hi Philipp,
+>
+> > > +      - Buffer for audio output, see :ref:`audio`.
+> > >
+> > >
+> > >  .. _buffer-flags:
+> > > diff --git a/Documentation/userspace-api/media/v4l/dev-audio-mem2mem.=
+rst b/Documentation/userspace-api/media/v4l/dev-audio-mem2mem.rst
+> > > new file mode 100644
+> > > index 000000000000..68faecfe3a02
+> > > --- /dev/null
+> > > +++ b/Documentation/userspace-api/media/v4l/dev-audio-mem2mem.rst
+> > > @@ -0,0 +1,71 @@
+> > > +.. SPDX-License-Identifier: GFDL-1.1-no-invariants-or-later
+> > > +
+> > > +.. _audiomem2mem:
+> > > +
+> > > +********************************
+> > > +Audio Memory-To-Memory Interface
+> > > +********************************
+> > > +
+> > > +An audio memory-to-memory device can compress, decompress, transform=
+, or
+> > > +otherwise convert audio data from one format into another format, in=
+ memory.
+> > > +Such memory-to-memory devices set the ``V4L2_CAP_AUDIO_M2M`` capabil=
+ity.
+> > > +Examples of memory-to-memory devices are audio codecs, audio preproc=
+essing,
+> > > +audio postprocessing.
+> > > +
+> > > +A memory-to-memory audio node supports both output (sending audio fr=
+ames from
+> > > +memory to the hardware) and capture (receiving the processed audio f=
+rames
+> > > +from the hardware into memory) stream I/O. An application will have =
+to
+> > > +setup the stream I/O for both sides and finally call
+> > > +:ref:`VIDIOC_STREAMON <VIDIOC_STREAMON>` for both capture and output=
+ to
+> > > +start the hardware.
+> > > +
+> > > +Memory-to-memory devices function as a shared resource: you can
+> > > +open the audio node multiple times, each application setting up thei=
+r
+> > > +own properties that are local to the file handle, and each can use
+> > > +it independently from the others. The driver will arbitrate access t=
+o
+> > > +the hardware and reprogram it whenever another file handler gets acc=
+ess.
+> > > +
+> > > +Audio memory-to-memory devices are accessed through character device
+> > > +special files named ``/dev/v4l-audio``
+> > > +
+> > > +Querying Capabilities
+> > > +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > > +
+> > > +Device nodes supporting the audio memory-to-memory interface set the
+> > > +``V4L2_CAP_AUDIO_M2M`` flag in the ``device_caps`` field of the
+> > > +:c:type:`v4l2_capability` structure returned by the :c:func:`VIDIOC_=
+QUERYCAP`
+> > > +ioctl.
+> > > +
+> > > +Data Format Negotiation
+> > > +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D
+> > > +
+> > > +The audio device uses the :ref:`format` ioctls to select the capture=
+ format.
+> > > +The audio buffer content format is bound to that selected format. In=
+ addition
+> > > +to the basic :ref:`format` ioctls, the :c:func:`VIDIOC_ENUM_FMT` ioc=
+tl must be
+> > > +supported as well.
+> > > +
+> > > +To use the :ref:`format` ioctls applications set the ``type`` field =
+of the
+> > > +:c:type:`v4l2_format` structure to ``V4L2_BUF_TYPE_AUDIO_CAPTURE`` o=
+r to
+> > > +``V4L2_BUF_TYPE_AUDIO_OUTPUT``. Both drivers and applications must s=
+et the
+> > > +remainder of the :c:type:`v4l2_format` structure to 0.
+> > > +
+> > > +.. c:type:: v4l2_audio_format
+> > > +
+> > > +.. tabularcolumns:: |p{1.4cm}|p{2.4cm}|p{13.5cm}|
+> > > +
+> > > +.. flat-table:: struct v4l2_audio_format
+> > > +    :header-rows:  0
+> > > +    :stub-columns: 0
+> > > +    :widths:       1 1 2
+> > > +
+> > > +    * - __u32
+> > > +      - ``pixelformat``
+> > > +      - The sample format, set by the application. see :ref:`pixfmt-=
+audio`
+> >
+> > pixelformat doesn't make any sense for audio: there are no pixels on a
+> > PCM stream. Please use call it, instead: `snd_pcm_format`, making it ma=
+tch
+> > the values for snd_pcm_format_t.
+> >
+>
+> +1
+>
+> FWIW v4l2_meta_format uses the name "dataformat".
+>
+> Actually, I just realized that the C code actually uses the name
+> "audioformat". Tbh., after reading the kerneldoc comment, my
+> subjective preference would be on "sample_format", since that's
+> exactly what it is.
+>
+Ok, I will change it to sampleformat.
 
-I got acks from GPIO folks. The also provided stable tag with dependency:
-https://lore.kernel.org/all/20240213101000.16700-1-brgl@bgdev.pl/
-(which BTW already is in mainline, so you could just merge Linus' tree
-into your next branch)
+Best Regards
+Shengjiu Wang
 
-Can you take entire patchset?
-
-Best regards,
-Krzysztof
-
+> > Yet, I would keep defining it as u32 (or u64?) instead of using a
+> > typedef int field there (snd_pcm_format_t), as the size of integer
+> > is different on 32 and 64 bit kernels.
+>
+> +1
+>
+> Best regards,
+> Tomasz

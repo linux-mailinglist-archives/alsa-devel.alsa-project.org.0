@@ -2,92 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED57985E108
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Feb 2024 16:26:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBF5C85E27B
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Feb 2024 17:04:00 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7E00074C;
-	Wed, 21 Feb 2024 16:26:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E00074C
+	by alsa0.perex.cz (Postfix) with ESMTPS id AD8C874C;
+	Wed, 21 Feb 2024 17:03:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD8C874C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1708529174;
-	bh=gzcWGNL38cfVL/MuMfhSxMmLpqdQ1ceJameavm9K4g8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1708531439;
+	bh=9fJX9oO0DGcUweTUdjv0zxo4kkH5IB9QrIr5JPgthHM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=GnQe1TqyQl2tN10SwhvUbw/psqEq+DJo0Nb9TuOl4nLk9KQAphUiEFz3Jla2Z92Iw
-	 kg4aC8Pkk8td1JPULfmiL6N3fimFBWXs1EdZP2O7xmQY5/aMZY+CWppxaZ0E5WaEC/
-	 fziFlNRwWN7zxMRnfqyynjQf7anP6c1ixIiUWR1k=
+	b=UiUCxWPtSovTKrXWBjTrypfX+mWVdWuNsTClnW5fcHaN6z7I5KRaE/lhNI95izHWT
+	 JBkyWaSVMq/UTsbh7TdLqCv9SekbX9PXdl2d86QQwkWWzhY5tfCyDdNNG5W2EGKXX+
+	 iNfXh05nKc7vSgT+dTLD29iPRHDF7dCIKGF9Y4Lk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CDFCBF806A1; Wed, 21 Feb 2024 16:24:28 +0100 (CET)
+	id 61AFFF804CC; Wed, 21 Feb 2024 17:03:28 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4A0C1F80587;
-	Wed, 21 Feb 2024 16:24:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6E432F80578;
+	Wed, 21 Feb 2024 17:03:27 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9D087F8057D; Wed, 21 Feb 2024 16:24:24 +0100 (CET)
+	id 19F26F80496; Wed, 21 Feb 2024 17:03:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3A104F805C5
-	for <alsa-devel@alsa-project.org>; Wed, 21 Feb 2024 16:23:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3A104F805C5
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0AF83F800ED
+	for <alsa-devel@alsa-project.org>; Wed, 21 Feb 2024 17:03:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0AF83F800ED
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=A32p+zMR
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1708529040; x=1740065040;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=gzcWGNL38cfVL/MuMfhSxMmLpqdQ1ceJameavm9K4g8=;
-  b=A32p+zMRl4AML/hFsoHdXFgwyTFnj+JdyB7te1astnfovk3a8OkllBmi
-   cIY4JZf7SKOD4NLuWiLNNiDIalO2Tm04lNfQxDUAZG67CASt93r86mG6X
-   1NJPXgAgCOzJclntOAocOlSIDfsCYKVQYTB5mlcdnBKLbKWAzW32zdHVo
-   wUXDEHeZZYo2nv0mI+rQGqy76bO7wiQ//a7PGOmiyanD8PF8bzYQqrXDs
-   5iShfr7kg88bi706E+zaPSkvM17jaP7ZndPNYmqt3Bq6/mt9sB29LPaZH
-   p0jRjZKx7PSX4HM8q8lpxgxQzAdxVVfdHzK7jKImGaLVG6Y3ZrFUYmaJ+
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10991"; a="14104833"
-X-IronPort-AV: E=Sophos;i="6.06,175,1705392000";
-   d="scan'208";a="14104833"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Feb 2024 07:23:57 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.06,175,1705392000";
-   d="scan'208";a="5374293"
-Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
-  by fmviesa006.fm.intel.com with ESMTP; 21 Feb 2024 07:23:55 -0800
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-To: broonie@kernel.org
-Cc: alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org,
-	tiwai@suse.com,
-	perex@perex.cz,
-	amadeuszx.slawinski@linux.intel.com,
-	pierre-louis.bossart@linux.intel.com,
-	hdegoede@redhat.com,
-	Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: [PATCH 6/6] ASoC: codecs: rt5660: Simplify mclk initialization
-Date: Wed, 21 Feb 2024 16:25:16 +0100
-Message-Id: <20240221152516.852353-7-cezary.rojewski@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240221152516.852353-1-cezary.rojewski@intel.com>
-References: <20240221152516.852353-1-cezary.rojewski@intel.com>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=pXKV4C4/
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id 729A2CE1E75;
+	Wed, 21 Feb 2024 16:02:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E2C8C43394;
+	Wed, 21 Feb 2024 16:02:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1708531377;
+	bh=9fJX9oO0DGcUweTUdjv0zxo4kkH5IB9QrIr5JPgthHM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=pXKV4C4/Z6bGtoSgNen3zLm43KFCgUokA3jbBRFCTHGJyzEyqu9KsXR6uIPPJS5s4
+	 7WPR+dOTn1cC57QOy9m1vVwn8jTo/NAnlIWbUdMfMZQo4LuiQ5vpOL+QzjOJf7YHHw
+	 hZKHAdgOcZzszBRFQ0utz5PybEg+dQ8PRliweOsQwV/lmJlGkiaj2dRcwDbPAY3TeO
+	 GjjhfvblX9gkBcZXa2mJCrMbojgsCnnzsKrPdH0rOu3FDlFKyzK0/fk/Ff3fj1SnKo
+	 iI+uSV44VCnWMaGhSxzl87b/yS7yZYhamNpMGLQixB9gJJzM9cbWCBhpa9n3uxYVDW
+	 6bHIOctxbhvIQ==
+From: Mark Brown <broonie@kernel.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>,
+ Venkata Prasad Potturu <quic_potturu@quicinc.com>,
+ alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+ Colin Ian King <colin.i.king@gmail.com>
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20240221134804.3475989-1-colin.i.king@gmail.com>
+References: <20240221134804.3475989-1-colin.i.king@gmail.com>
+Subject: Re: [PATCH] ASoC: qcom: Fix uninitialized pointer dmactl
+Message-Id: <170853137427.40410.4918124750403655559.b4-ty@kernel.org>
+Date: Wed, 21 Feb 2024 16:02:54 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: DQLXL4TSKJ7XAJRP5FMLGM7TAA5IH2YQ
-X-Message-ID-Hash: DQLXL4TSKJ7XAJRP5FMLGM7TAA5IH2YQ
-X-MailFrom: cezary.rojewski@intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-a684c
+Message-ID-Hash: 3NJO2STIW6LWHXKATQZJUXKYGT37QAEF
+X-Message-ID-Hash: 3NJO2STIW6LWHXKATQZJUXKYGT37QAEF
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -99,7 +92,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DQLXL4TSKJ7XAJRP5FMLGM7TAA5IH2YQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3NJO2STIW6LWHXKATQZJUXKYGT37QAEF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,47 +101,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Most of clk_xxx() functions do check if provided clk-pointer is
-non-NULL. These do not check if the pointer is an error-pointer.
-Providing such to a clk_xxx() results in a panic.
+On Wed, 21 Feb 2024 13:48:04 +0000, Colin Ian King wrote:
+> In the case where __lpass_get_dmactl_handle is called and the driver
+> id dai_id is invalid the pointer dmactl is not being assigned a value,
+> and dmactl contains a garbage value since it has not been initialized
+> and so the null check may not work. Fix this to initialize dmactl to
+> NULL. One could argue that modern compilers will set this to zero, but
+> it is useful to keep this initialized as per the same way in functions
+> __lpass_platform_codec_intf_init and lpass_cdc_dma_daiops_hw_params.
+> 
+> [...]
 
-By utilizing _optional() variant of devm_clk_get() the driver code is
-both simplified and more robust. There is no need to remember about
-IS_ERR(clk) checks each time mclk is accessed.
+Applied to
 
-Reviewed-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
-Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
----
- sound/soc/codecs/rt5660.c | 9 +++------
- 1 file changed, 3 insertions(+), 6 deletions(-)
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-diff --git a/sound/soc/codecs/rt5660.c b/sound/soc/codecs/rt5660.c
-index 0cecfd602415..d5c2f0f2df98 100644
---- a/sound/soc/codecs/rt5660.c
-+++ b/sound/soc/codecs/rt5660.c
-@@ -1079,9 +1079,6 @@ static int rt5660_set_bias_level(struct snd_soc_component *component,
- 		snd_soc_component_update_bits(component, RT5660_GEN_CTRL1,
- 			RT5660_DIG_GATE_CTRL, RT5660_DIG_GATE_CTRL);
- 
--		if (IS_ERR(rt5660->mclk))
--			break;
--
- 		if (snd_soc_component_get_bias_level(component) == SND_SOC_BIAS_ON) {
- 			clk_disable_unprepare(rt5660->mclk);
- 		} else {
-@@ -1277,9 +1274,9 @@ static int rt5660_i2c_probe(struct i2c_client *i2c)
- 		return -ENOMEM;
- 
- 	/* Check if MCLK provided */
--	rt5660->mclk = devm_clk_get(&i2c->dev, "mclk");
--	if (PTR_ERR(rt5660->mclk) == -EPROBE_DEFER)
--		return -EPROBE_DEFER;
-+	rt5660->mclk = devm_clk_get_optional(&i2c->dev, "mclk");
-+	if (IS_ERR(rt5660->mclk))
-+		return PTR_ERR(rt5660->mclk);
- 
- 	i2c_set_clientdata(i2c, rt5660);
- 
--- 
-2.25.1
+Thanks!
+
+[1/1] ASoC: qcom: Fix uninitialized pointer dmactl
+      commit: 1382d8b55129875b2e07c4d2a7ebc790183769ee
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 

@@ -2,125 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23DA385D6F7
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Feb 2024 12:31:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 386E285D7FA
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Feb 2024 13:38:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A8811846;
-	Wed, 21 Feb 2024 12:31:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8811846
+	by alsa0.perex.cz (Postfix) with ESMTPS id 323674E;
+	Wed, 21 Feb 2024 13:37:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 323674E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1708515098;
-	bh=UvCheUVIoFjk4cSiZxMiMgUAjFsOzD0QEdp/BP6hA54=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=fawU8f8usQpRCGaozPO+rMAc90AjC9wegXeBVWRrrkGRT/pL/w7n1xKYy33WV5GVx
-	 E9gXvmvvPSFpzVnxkvsL45Tz7nVHugDH/ctqviGv1UtOqMKHcZ+kyAa+vaZfxvXyC0
-	 5eJouZih9kMsrkMrj0jo19n7EE8m7BWoy727N5zI=
+	s=default; t=1708519086;
+	bh=UDRJNcMfS4oSPBnggypHTrgPtHb2+3yc/hHC3eHVNRA=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=hq0KlGkT4kUAuGaeqCTfAN4MLF7UzT9ggcTuEy6GRwarZ63ZinHo7jypvPvpp7RUT
+	 O7Wsykba/iGjVrjZqiJPx7ikflE/qezGMyjwhBLLlJqwEteYvxRwx/I7a+uaWg9xxt
+	 qJvpxXxtN20ONK7v3ETErXUiC+HXVlQpeEPQvpko=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C8E12F805C3; Wed, 21 Feb 2024 12:30:58 +0100 (CET)
+	id E350BF804B0; Wed, 21 Feb 2024 13:37:34 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 516AAF805BB;
-	Wed, 21 Feb 2024 12:30:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 40457F804B0;
+	Wed, 21 Feb 2024 13:37:34 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AA859F805AF; Wed, 21 Feb 2024 12:30:53 +0100 (CET)
+	id 2669FF80496; Wed, 21 Feb 2024 13:37:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [IPv6:2a00:1450:4864:20::62a])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 98103F800ED
-	for <alsa-devel@alsa-project.org>; Wed, 21 Feb 2024 12:30:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 98103F800ED
+	by alsa1.perex.cz (Postfix) with ESMTPS id D139BF80104
+	for <alsa-devel@alsa-project.org>; Wed, 21 Feb 2024 13:37:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D139BF80104
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=gR8sUjmp
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-a3e75e30d36so598150266b.1
-        for <alsa-devel@alsa-project.org>;
- Wed, 21 Feb 2024 03:30:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1708515042; x=1709119842;
- darn=alsa-project.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=dMJuotCi10MIEivhgp+/HFVWVuz2YA+wsQ3N0tBEkCQ=;
-        b=gR8sUjmpAO5ZoJ7MCQxVvDgIXYZddpASlCRvnSiaiC4B0to/auWi4JSDN20+JKpsKx
-         GJgJzWwyxjNpzGeMSFjOHbKEYncXkR9+WgdjLkUxCPY/JUlTkIE/KVrBZ4o5qHESZ5lH
-         +II/x4BqmRtmZYgExdIL9L9OFMy5+xR/DUY3Bks9hs60hHNUQj3v1xkRxDluGCitPQ8X
-         8QRmm6OriUxBj1sRtFX+bER7Ga1PdX4j2QmK1DL8oBOHM+QANl51f7rnWUza3xH5I61n
-         tkbT+wRnJ1iXT9yomjOBH4cNy7p0AG9y5gieInlGN9wVtcVEUsbrkHcnNR/wwVyHXOMz
-         TIKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708515042; x=1709119842;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=dMJuotCi10MIEivhgp+/HFVWVuz2YA+wsQ3N0tBEkCQ=;
-        b=Ah18t630blM1qUbS8orxq4Z4hdMJ2LZ6+qLx8+6AECebs/DjG6xixrcjo4+V4MfzZ3
-         xiHep/pv9kZJNFp68klzphXdwv96EMXYRVQZTKkN5g2Cn/VP1NRtwfRQO15s9FE3GtMu
-         Ai8CUbtXtNCQqrGTmlNydtl1HI+BI+FxZL8dlZOGz45KP9V/lR/y/UY1UD+rGf6x8418
-         ZQRN/dNcgv94boN6I25Hc/bvVtRTlbZ9moNVCe0HZ+21Pe8tq3C4NBCn2ZP1w3GbM8x5
-         x0RoztT+okL9bq8chuUHTerbsuk0xadKq0H/QaF7f2EAi943feKWOTziyW950nG0g/oz
-         aulA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX9h1OJ342Q3w9rTWMx/cMgpLV1iOYE1+sl5zA6fLWG0gdZaF5YavT/2KMqb1R59SSFlFDXQFUXQQKcGpwlcC3qQIGkyD2KPvM1c3g=
-X-Gm-Message-State: AOJu0YwVAVIPs8qK8xVN42Bs6L6Pvr9fpIZ4SRPoBdyBJZUbE2kZEqb1
-	L3JVO7aXKIkP0g7UEWxJcRNJQeVgxZ1ghs/wZNYYvrIYzPJbTGIkj8rhoa3fLIU=
-X-Google-Smtp-Source: 
- AGHT+IGa30Y9sZCSRDuOG9iML0YaKidoEu1++hvS9trF/xcUXTGjRT1+VbSba/xh5BEu6evlsLJz4w==
-X-Received: by 2002:a17:906:e085:b0:a3f:421:26a5 with SMTP id
- gh5-20020a170906e08500b00a3f042126a5mr4151010ejb.12.1708515041688;
-        Wed, 21 Feb 2024 03:30:41 -0800 (PST)
-Received: from krzk-bin.. ([178.197.222.116])
-        by smtp.gmail.com with ESMTPSA id
- g1-20020a170906c18100b00a3e278c4a3fsm4393712ejz.53.2024.02.21.03.30.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Feb 2024 03:30:41 -0800 (PST)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-	Banajit Goswami <bgoswami@quicinc.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konrad.dybcio@linaro.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	alsa-devel@alsa-project.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
-	Bartosz Golaszewski <brgl@bgdev.pl>,
-	Sean Anderson <sean.anderson@seco.com>
-Subject: [RESEND PATCH v6 v6 2/2] ASoC: codecs: wsa884x: Allow sharing reset
- GPIO
-Date: Wed, 21 Feb 2024 12:30:36 +0100
-Message-Id: <20240221113036.23905-2-krzysztof.kozlowski@linaro.org>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240221113036.23905-1-krzysztof.kozlowski@linaro.org>
-References: <20240221113036.23905-1-krzysztof.kozlowski@linaro.org>
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=mzF8kEVj
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 41LCULT3002539;
+	Wed, 21 Feb 2024 06:37:12 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
+	from:to:cc:subject:date:message-id:mime-version
+	:content-transfer-encoding:content-type; s=PODMain02222019; bh=p
+	8gAJKbo8NE3otTnGNSU2ViudpzVeoRdpYMa/IBxcXg=; b=mzF8kEVjFlYchlsvH
+	CWdHSP3rY9tb2NBYpXekcYSQzzzT1wjqvT92iQnjDby8TCsZ/T2Jd5294DZdcr6S
+	NM32Xi9OLYRHeGQY+L2Xx8JCS/g5+JhqUxuFtfrE0UqTXYriDMhDS7+kMVvmHq44
+	FDantb/WLmTqrjRgofwM6oK+Jokztr7008E7OxKxHm3lLhp4txhBa+rlYuDGES4l
+	1ozSA/FFUlrFKOMS9wqMoiw4XtFnwC4REBNbK3uoDQd/wPZX3PaB5oHb7dN+dJxi
+	UhlOuOk1nDEbYbbMsmC41iNoUQr1QZvHGcrWGHQ8yJdkZV8S8Eqsem5HDlUc3AiK
+	Ke+Bg==
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3wd207gxtx-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 21 Feb 2024 06:37:12 -0600 (CST)
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Wed, 21 Feb
+ 2024 12:37:10 +0000
+Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
+ ediex01.ad.cirrus.com (198.61.84.80) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.40 via Frontend Transport; Wed, 21 Feb 2024 12:37:10 +0000
+Received: from ediswws06.ad.cirrus.com (ediswws06.ad.cirrus.com
+ [198.90.208.18])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id 24720820241;
+	Wed, 21 Feb 2024 12:37:10 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: <broonie@kernel.org>, <shengjiu.wang@gmail.com>, <Xiubo.Lee@gmail.com>
+CC: <linux-sound@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+        <linux-kernel@vger.kernel.org>, <linuxppc-dev@lists.ozlabs.org>,
+        <patches@opensource.cirrus.com>,
+        Richard Fitzgerald
+	<rf@opensource.cirrus.com>
+Subject: [PATCH] ASoC: soc-card: Fix missing locking in
+ snd_soc_card_get_kcontrol()
+Date: Wed, 21 Feb 2024 12:37:10 +0000
+Message-ID: <20240221123710.690224-1-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: T3DYZJP3IDBQHOJDYVW6VZTFTXKHXCI5
-X-Message-ID-Hash: T3DYZJP3IDBQHOJDYVW6VZTFTXKHXCI5
-X-MailFrom: krzysztof.kozlowski@linaro.org
+Content-Type: text/plain
+X-Proofpoint-GUID: i7brLjb8Ucmc36s854s1B2eW7kb5tHjW
+X-Proofpoint-ORIG-GUID: i7brLjb8Ucmc36s854s1B2eW7kb5tHjW
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: DUH4ICYHRSFCZHTLQOIIULOKQMJWRG3Z
+X-Message-ID-Hash: DUH4ICYHRSFCZHTLQOIIULOKQMJWRG3Z
+X-MailFrom: prvs=97814b2c7f=rf@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -132,7 +104,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/T3DYZJP3IDBQHOJDYVW6VZTFTXKHXCI5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DUH4ICYHRSFCZHTLQOIIULOKQMJWRG3Z/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -141,120 +113,221 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On some boards with multiple WSA8840/WSA8845 speakers, the reset
-(shutdown) GPIO is shared between two speakers.  Use the reset
-controller framework and its "reset-gpio" driver to handle this case.
-This allows bring-up and proper handling of all WSA884x speakers on
-X1E80100-CRD board.
+snd_soc_card_get_kcontrol() must be holding a read lock on
+card->controls_rwsem while walking the controls list.
 
-Cc: Bartosz Golaszewski <brgl@bgdev.pl>
-Cc: Sean Anderson <sean.anderson@seco.com>
-Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Compare with snd_ctl_find_numid().
+
+The existing function is renamed snd_soc_card_get_kcontrol_locked()
+so that it can be called from contexts that are already holding
+card->controls_rwsem (for example, control get/put functions).
+
+There are few direct or indirect callers of
+snd_soc_card_get_kcontrol(), and most are safe. Three require
+changes, which have been included in this patch:
+
+codecs/cs35l45.c:
+  cs35l45_activate_ctl() is called from a control put() function so
+  is changed to call snd_soc_card_get_kcontrol_locked().
+
+codecs/cs35l56.c:
+  cs35l56_sync_asp1_mixer_widgets_with_firmware() is called from
+  control get()/put() functions so is changed to call
+  snd_soc_card_get_kcontrol_locked().
+
+fsl/fsl_xcvr.c:
+  fsl_xcvr_activate_ctl() is called from three places, one of which
+  already holds card->controls_rwsem:
+  1. fsl_xcvr_mode_put(), a control put function, which will
+     already be holding card->controls_rwsem.
+  2. fsl_xcvr_startup(), a DAI startup function.
+  3. fsl_xcvr_shutdown(), a DAI shutdown function.
+
+  To fix this, fsl_xcvr_activate_ctl() has been changed to call
+  snd_soc_card_get_kcontrol_locked() so that it is safe to call
+  directly from fsl_xcvr_mode_put().
+  The fsl_xcvr_startup() and fsl_xcvr_shutdown() functions have been
+  changed to take a read lock on card->controls_rsem() around calls
+  to fsl_xcvr_activate_ctl(). While this is not very elegant, it
+  keeps the change small, to avoid this patch creating a large
+  collateral churn in fsl/fsl_xcvr.c.
+
+Analysis of other callers of snd_soc_card_get_kcontrol() is that
+they do not need any changes, they are not holding card->controls_rwsem
+when they call snd_soc_card_get_kcontrol().
+
+Direct callers of snd_soc_card_get_kcontrol():
+  fsl/fsl_spdif.c: fsl_spdif_dai_probe() - DAI probe function
+  fsl/fsl_micfil.c: voice_detected_fn() - IRQ handler
+
+Indirect callers via soc_component_notify_control():
+  codecs/cs42l43: cs42l43_mic_shutter() - IRQ handler
+  codecs/cs42l43: cs42l43_spk_shutter() - IRQ handler
+  codecs/ak4118.c: ak4118_irq_handler() - IRQ handler
+  codecs/wm_adsp.c: wm_adsp_write_ctl() - not currently used
+
+Indirect callers via snd_soc_limit_volume():
+  qcom/sc8280xp.c: sc8280xp_snd_init() - DAIlink init function
+  ti/rx51.c: rx51_aic34_init() - DAI init function
+
+I don't have hardware to test the fsl/*, qcom/sc828xp.c, ti/rx51.c
+and ak4118.c changes.
+
+Backport note:
+The fsl/, qcom/, cs35l45, cs35l56 and cs42l43 callers were added
+since the Fixes commit so won't all be present on older kernels.
+
+Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+Fixes: 209c6cdfd283 ("ASoC: soc-card: move snd_soc_card_get_kcontrol() to soc-card")
 ---
- sound/soc/codecs/wsa884x.c | 53 +++++++++++++++++++++++++++++++-------
- 1 file changed, 43 insertions(+), 10 deletions(-)
+It would be great if people could test the fsl/, qcom/, ti/rx51 and ak4418
+drivers.
+---
+ include/sound/soc-card.h   |  2 ++
+ sound/soc/codecs/cs35l45.c |  2 +-
+ sound/soc/codecs/cs35l56.c |  2 +-
+ sound/soc/fsl/fsl_xcvr.c   | 12 +++++++++++-
+ sound/soc/soc-card.c       | 24 ++++++++++++++++++++++--
+ 5 files changed, 37 insertions(+), 5 deletions(-)
 
-diff --git a/sound/soc/codecs/wsa884x.c b/sound/soc/codecs/wsa884x.c
-index f2653df84e4a..a9767ef0e39d 100644
---- a/sound/soc/codecs/wsa884x.c
-+++ b/sound/soc/codecs/wsa884x.c
-@@ -13,6 +13,7 @@
- #include <linux/pm_runtime.h>
- #include <linux/regmap.h>
- #include <linux/regulator/consumer.h>
-+#include <linux/reset.h>
- #include <linux/slab.h>
- #include <linux/soundwire/sdw.h>
- #include <linux/soundwire/sdw_registers.h>
-@@ -699,6 +700,7 @@ struct wsa884x_priv {
- 	struct sdw_stream_runtime *sruntime;
- 	struct sdw_port_config port_config[WSA884X_MAX_SWR_PORTS];
- 	struct gpio_desc *sd_n;
-+	struct reset_control *sd_reset;
- 	bool port_prepared[WSA884X_MAX_SWR_PORTS];
- 	bool port_enable[WSA884X_MAX_SWR_PORTS];
- 	unsigned int variant;
-@@ -1799,9 +1801,22 @@ static struct snd_soc_dai_driver wsa884x_dais[] = {
- 	},
- };
+diff --git a/include/sound/soc-card.h b/include/sound/soc-card.h
+index ecc02e955279..1f4c39922d82 100644
+--- a/include/sound/soc-card.h
++++ b/include/sound/soc-card.h
+@@ -30,6 +30,8 @@ static inline void snd_soc_card_mutex_unlock(struct snd_soc_card *card)
  
--static void wsa884x_gpio_powerdown(void *data)
-+static void wsa884x_reset_powerdown(void *data)
- {
--	gpiod_direction_output(data, 1);
-+	struct wsa884x_priv *wsa884x = data;
+ struct snd_kcontrol *snd_soc_card_get_kcontrol(struct snd_soc_card *soc_card,
+ 					       const char *name);
++struct snd_kcontrol *snd_soc_card_get_kcontrol_locked(struct snd_soc_card *soc_card,
++						      const char *name);
+ int snd_soc_card_jack_new(struct snd_soc_card *card, const char *id, int type,
+ 			  struct snd_soc_jack *jack);
+ int snd_soc_card_jack_new_pins(struct snd_soc_card *card, const char *id,
+diff --git a/sound/soc/codecs/cs35l45.c b/sound/soc/codecs/cs35l45.c
+index 44c221745c3b..2392c6effed8 100644
+--- a/sound/soc/codecs/cs35l45.c
++++ b/sound/soc/codecs/cs35l45.c
+@@ -184,7 +184,7 @@ static int cs35l45_activate_ctl(struct snd_soc_component *component,
+ 	else
+ 		snprintf(name, SNDRV_CTL_ELEM_ID_NAME_MAXLEN, "%s", ctl_name);
+ 
+-	kcontrol = snd_soc_card_get_kcontrol(component->card, name);
++	kcontrol = snd_soc_card_get_kcontrol_locked(component->card, name);
+ 	if (!kcontrol) {
+ 		dev_err(component->dev, "Can't find kcontrol %s\n", name);
+ 		return -EINVAL;
+diff --git a/sound/soc/codecs/cs35l56.c b/sound/soc/codecs/cs35l56.c
+index 2c1313e34cce..6dd0319bc843 100644
+--- a/sound/soc/codecs/cs35l56.c
++++ b/sound/soc/codecs/cs35l56.c
+@@ -114,7 +114,7 @@ static int cs35l56_sync_asp1_mixer_widgets_with_firmware(struct cs35l56_private
+ 			name = full_name;
+ 		}
+ 
+-		kcontrol = snd_soc_card_get_kcontrol(dapm->card, name);
++		kcontrol = snd_soc_card_get_kcontrol_locked(dapm->card, name);
+ 		if (!kcontrol) {
+ 			dev_warn(cs35l56->base.dev, "Could not find control %s\n", name);
+ 			continue;
+diff --git a/sound/soc/fsl/fsl_xcvr.c b/sound/soc/fsl/fsl_xcvr.c
+index f0fb33d719c2..c46f64557a7f 100644
+--- a/sound/soc/fsl/fsl_xcvr.c
++++ b/sound/soc/fsl/fsl_xcvr.c
+@@ -174,7 +174,9 @@ static int fsl_xcvr_activate_ctl(struct snd_soc_dai *dai, const char *name,
+ 	struct snd_kcontrol *kctl;
+ 	bool enabled;
+ 
+-	kctl = snd_soc_card_get_kcontrol(card, name);
++	lockdep_assert_held(&card->snd_card->controls_rwsem);
 +
-+	if (wsa884x->sd_reset)
-+		reset_control_assert(wsa884x->sd_reset);
-+	else
-+		gpiod_direction_output(wsa884x->sd_n, 1);
-+}
++	kctl = snd_soc_card_get_kcontrol_locked(card, name);
+ 	if (kctl == NULL)
+ 		return -ENOENT;
+ 
+@@ -576,10 +578,14 @@ static int fsl_xcvr_startup(struct snd_pcm_substream *substream,
+ 	xcvr->streams |= BIT(substream->stream);
+ 
+ 	if (!xcvr->soc_data->spdif_only) {
++		struct snd_soc_card *card = dai->component->card;
 +
-+static void wsa884x_reset_deassert(struct wsa884x_priv *wsa884x)
-+{
-+	if (wsa884x->sd_reset)
-+		reset_control_deassert(wsa884x->sd_reset);
-+	else
-+		gpiod_direction_output(wsa884x->sd_n, 0);
+ 		/* Disable XCVR controls if there is stream started */
++		down_read(&card->snd_card->controls_rwsem);
+ 		fsl_xcvr_activate_ctl(dai, fsl_xcvr_mode_kctl.name, false);
+ 		fsl_xcvr_activate_ctl(dai, fsl_xcvr_arc_mode_kctl.name, false);
+ 		fsl_xcvr_activate_ctl(dai, fsl_xcvr_earc_capds_kctl.name, false);
++		up_read(&card->snd_card->controls_rwsem);
+ 	}
+ 
+ 	return 0;
+@@ -598,11 +604,15 @@ static void fsl_xcvr_shutdown(struct snd_pcm_substream *substream,
+ 	/* Enable XCVR controls if there is no stream started */
+ 	if (!xcvr->streams) {
+ 		if (!xcvr->soc_data->spdif_only) {
++			struct snd_soc_card *card = dai->component->card;
++
++			down_read(&card->snd_card->controls_rwsem);
+ 			fsl_xcvr_activate_ctl(dai, fsl_xcvr_mode_kctl.name, true);
+ 			fsl_xcvr_activate_ctl(dai, fsl_xcvr_arc_mode_kctl.name,
+ 						(xcvr->mode == FSL_XCVR_MODE_ARC));
+ 			fsl_xcvr_activate_ctl(dai, fsl_xcvr_earc_capds_kctl.name,
+ 						(xcvr->mode == FSL_XCVR_MODE_EARC));
++			up_read(&card->snd_card->controls_rwsem);
+ 		}
+ 		ret = regmap_update_bits(xcvr->regmap, FSL_XCVR_EXT_IER0,
+ 					 FSL_XCVR_IRQ_EARC_ALL, 0);
+diff --git a/sound/soc/soc-card.c b/sound/soc/soc-card.c
+index 285ab4c9c716..8a2f163da6bc 100644
+--- a/sound/soc/soc-card.c
++++ b/sound/soc/soc-card.c
+@@ -5,6 +5,9 @@
+ // Copyright (C) 2019 Renesas Electronics Corp.
+ // Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+ //
++
++#include <linux/lockdep.h>
++#include <linux/rwsem.h>
+ #include <sound/soc.h>
+ #include <sound/jack.h>
+ 
+@@ -26,12 +29,15 @@ static inline int _soc_card_ret(struct snd_soc_card *card,
+ 	return ret;
  }
  
- static void wsa884x_regulator_disable(void *data)
-@@ -1809,6 +1824,27 @@ static void wsa884x_regulator_disable(void *data)
- 	regulator_bulk_disable(WSA884X_SUPPLIES_NUM, data);
- }
- 
-+static int wsa884x_get_reset(struct device *dev, struct wsa884x_priv *wsa884x)
-+{
-+	wsa884x->sd_reset = devm_reset_control_get_optional_shared(dev, NULL);
-+	if (IS_ERR(wsa884x->sd_reset))
-+		return dev_err_probe(dev, PTR_ERR(wsa884x->sd_reset),
-+				     "Failed to get reset\n");
-+	else if (wsa884x->sd_reset)
-+		return 0;
-+	/*
-+	 * else: NULL, so use the backwards compatible way for powerdown-gpios,
-+	 * which does not handle sharing GPIO properly.
-+	 */
-+	wsa884x->sd_n = devm_gpiod_get_optional(dev, "powerdown",
-+						GPIOD_OUT_HIGH);
-+	if (IS_ERR(wsa884x->sd_n))
-+		return dev_err_probe(dev, PTR_ERR(wsa884x->sd_n),
-+				     "Shutdown Control GPIO not found\n");
-+
-+	return 0;
-+}
-+
- static int wsa884x_probe(struct sdw_slave *pdev,
- 			 const struct sdw_device_id *id)
+-struct snd_kcontrol *snd_soc_card_get_kcontrol(struct snd_soc_card *soc_card,
+-					       const char *name)
++struct snd_kcontrol *snd_soc_card_get_kcontrol_locked(struct snd_soc_card *soc_card,
++						      const char *name)
  {
-@@ -1838,11 +1874,9 @@ static int wsa884x_probe(struct sdw_slave *pdev,
- 	if (ret)
- 		return ret;
+ 	struct snd_card *card = soc_card->snd_card;
+ 	struct snd_kcontrol *kctl;
  
--	wsa884x->sd_n = devm_gpiod_get_optional(dev, "powerdown",
--						GPIOD_OUT_HIGH);
--	if (IS_ERR(wsa884x->sd_n))
--		return dev_err_probe(dev, PTR_ERR(wsa884x->sd_n),
--				     "Shutdown Control GPIO not found\n");
-+	ret = wsa884x_get_reset(dev, wsa884x);
-+	if (ret)
-+		return ret;
++	/* must be held read or write */
++	lockdep_assert_held(&card->controls_rwsem);
++
+ 	if (unlikely(!name))
+ 		return NULL;
  
- 	dev_set_drvdata(dev, wsa884x);
- 	wsa884x->slave = pdev;
-@@ -1858,9 +1892,8 @@ static int wsa884x_probe(struct sdw_slave *pdev,
- 	pdev->prop.sink_dpn_prop = wsa884x_sink_dpn_prop;
- 	pdev->prop.scp_int1_mask = SDW_SCP_INT1_BUS_CLASH | SDW_SCP_INT1_PARITY;
+@@ -40,6 +46,20 @@ struct snd_kcontrol *snd_soc_card_get_kcontrol(struct snd_soc_card *soc_card,
+ 			return kctl;
+ 	return NULL;
+ }
++EXPORT_SYMBOL_GPL(snd_soc_card_get_kcontrol_locked);
++
++struct snd_kcontrol *snd_soc_card_get_kcontrol(struct snd_soc_card *soc_card,
++					       const char *name)
++{
++	struct snd_card *card = soc_card->snd_card;
++	struct snd_kcontrol *kctl;
++
++	down_read(&card->controls_rwsem);
++	kctl = snd_soc_card_get_kcontrol_locked(soc_card, name);
++	up_read(&card->controls_rwsem);
++
++	return kctl;
++}
+ EXPORT_SYMBOL_GPL(snd_soc_card_get_kcontrol);
  
--	/* Bring out of reset */
--	gpiod_direction_output(wsa884x->sd_n, 0);
--	ret = devm_add_action_or_reset(dev, wsa884x_gpio_powerdown, wsa884x->sd_n);
-+	wsa884x_reset_deassert(wsa884x);
-+	ret = devm_add_action_or_reset(dev, wsa884x_reset_powerdown, wsa884x);
- 	if (ret)
- 		return ret;
- 
+ static int jack_new(struct snd_soc_card *card, const char *id, int type,
 -- 
-2.34.1
+2.30.2
 

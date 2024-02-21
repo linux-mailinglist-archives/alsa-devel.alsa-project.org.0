@@ -2,93 +2,168 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9EF585D6D1
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Feb 2024 12:27:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 607CC85D6D9
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Feb 2024 12:29:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7FD7811C;
-	Wed, 21 Feb 2024 12:27:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7FD7811C
+	by alsa0.perex.cz (Postfix) with ESMTPS id D29AB839;
+	Wed, 21 Feb 2024 12:29:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D29AB839
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1708514841;
-	bh=0b8SeCdjbW0gI8qK6TzdaaI5mEtgC9wamMalUHNEG2o=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:List-Id:
+	s=default; t=1708514989;
+	bh=BjGIujGy9uSMg0+odNuhrXa2WVNxB9nXwF3n59nK/8U=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ucDKfminaqMok+6fFQhEhKfC1tP6Yt+Nf2HqPRvHSZxogoRs7b2rxqpAdLy8R3Osb
-	 k2iWd9BFsIm0B9l0khUGNVpS7uo5cIEwEtSbv7hc2aRUPfCVYN7GKl0ruy1xihTByz
-	 7cc4d81JBSXf9knVvIo1PhiHfZ5+GO5SJCBhUaeg=
+	b=byWFyMIEDr0nozxXo/qAT50DPD49TRPv2fzSc6ZT4ccU/qor5u9/N45Mnp1mdTMKN
+	 8uhgcI+pViBUCWtTUGYGEpYqAcZSGZLK+iTVJgdxxgas1aLKmD5G21+j8Jcr7vWn2w
+	 o40RP4wAFmEfLTzUPwAZFLFd1Wn6FkV0wWNVdTP8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 10886F80104; Wed, 21 Feb 2024 12:26:49 +0100 (CET)
+	id 4360DF80579; Wed, 21 Feb 2024 12:29:18 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 37E09F80578;
-	Wed, 21 Feb 2024 12:26:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8AC07F8059F;
+	Wed, 21 Feb 2024 12:29:16 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5EB5EF80496; Wed, 21 Feb 2024 12:26:43 +0100 (CET)
+	id B5CB0F80496; Wed, 21 Feb 2024 12:29:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.3 required=5.0 tests=RCVD_IN_DNSWL_MED,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from metis.whiteo.stw.pengutronix.de
- (metis.whiteo.stw.pengutronix.de [IPv6:2a0a:edc0:2:b01:1d::104])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
- server-digest SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [IPv6:2a00:1450:4864:20::535])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 84E23F80104
-	for <alsa-devel@alsa-project.org>; Wed, 21 Feb 2024 12:26:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84E23F80104
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
-	by metis.whiteo.stw.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-	(Exim 4.92)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1rckk2-0008Rw-D4; Wed, 21 Feb 2024 12:26:22 +0100
-Received: from [2a0a:edc0:0:900:1d::4e] (helo=lupine)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.94.2)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1rckjz-0021oc-6E; Wed, 21 Feb 2024 12:26:19 +0100
-Received: from pza by lupine with local (Exim 4.96)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1rckjz-0005aF-0M;
-	Wed, 21 Feb 2024 12:26:19 +0100
-Message-ID: <38fda6619769da7240517982adfe734cb653ff5e.camel@pengutronix.de>
-Subject: Re: [PATCH v6 0/6] reset: gpio: ASoC: shared GPIO resets
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, Banajit Goswami
- <bgoswami@quicinc.com>, Bjorn Andersson <andersson@kernel.org>, Konrad
- Dybcio <konrad.dybcio@linaro.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
- <conor+dt@kernel.org>,  "Rafael J. Wysocki" <rafael@kernel.org>, Viresh
- Kumar <viresh.kumar@linaro.org>, Frank Rowand <frowand.list@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
- linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, Chris Packham
- <chris.packham@alliedtelesis.co.nz>, Bartosz Golaszewski <brgl@bgdev.pl>,
- Sean Anderson <sean.anderson@seco.com>
-Date: Wed, 21 Feb 2024 12:26:19 +0100
-In-Reply-To: <7ae0567d-e5d3-4e00-98f7-5139d5879f75@linaro.org>
-References: <20240129115216.96479-1-krzysztof.kozlowski@linaro.org>
-	 <7ae0567d-e5d3-4e00-98f7-5139d5879f75@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.46.4-2 
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2B609F800ED
+	for <alsa-devel@alsa-project.org>; Wed, 21 Feb 2024 12:28:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B609F800ED
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=PhE1j2Od
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-563c0f13cabso8220097a12.3
+        for <alsa-devel@alsa-project.org>;
+ Wed, 21 Feb 2024 03:28:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1708514937; x=1709119737;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=2uGxM6/2SBSUObOeQvfq+UUzJjduE352bGJGnjX6fsE=;
+        b=PhE1j2OdaoOunbMtZeWHkLMj6vlMQbvXO214amJ1booA4eqo8ozq+Rhkyi5jgSXDBy
+         4UT/nf1VqSb75Pqbg2dXb13g3YpxTDWhuFaq1pnBILTNKiT88d7negK+wru3XQyqwsHd
+         cLHe1SXMdnVf6HPJ0lDb5PcKySCsQDZ8Sx7Pzr2h8b3utdPwm+RXzk4qlj23SeOG/L6X
+         m7LBUffS7tw8jZ3ocwYHgbthKby3I7ait/3OcM72GSPl/EeZ9TOwrz5/qT3Z5E+vqvB9
+         DGNI+8YHl8dBBlIkbqHELqtH2D86UmSxdzIwFnwtuhlBTd3ukcMOMsRym22cPPJDIe8B
+         XrHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1708514937; x=1709119737;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=2uGxM6/2SBSUObOeQvfq+UUzJjduE352bGJGnjX6fsE=;
+        b=iyHFefO7gx57LV75K98lgvt7mLvvXFwy4dKWltDn2zUlXY99vCrF6JPK2xGtw1aWZ4
+         VkODKjan+ubSJ+/lmqnK5F4M7jUn10mspMm3sdkplPOohO7ECqbzkrfzAwzmqBhUcODP
+         8cLGbtDVecGz5jCzyJFEhMohEuRBGtQc9f2jyvywp+K3yjqI0E9hxtibhlSlMxb1/FbJ
+         g7dhgGvOLJOucYWkdvMUrHxjhaeXmjagw41zltEPyemB2Z9BeU9ztbnxk7Mo2/PpXVGI
+         LdT6kcG+d2lL+AIQYC/Yzp/h6MRdwAkTwHrZW8ZkYTK3mhZTH8eyecF0o0CBPLMtKESp
+         4DNA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV3bOn8WIe/lixsE63Zn9g9bzGwmZIGB9kDaZVP4jXLmB8siQXmEXNHdFKX9MQO2LHvXHB9nMgcJbUC/z37dyY25MYI+ipwpBHLjQk=
+X-Gm-Message-State: AOJu0YwtWAyjht/cqCi+VW6jqktJv0AKjvjQz9MlM6KwM3P2sxAxsQ27
+	/92sw25++y2pBmp/gYU3HJ2hK9ctKj1hPDxuD8vuk0X7eQRETkerwp088zh5lo4=
+X-Google-Smtp-Source: 
+ AGHT+IE8f05kjIs1GFUfpAE7y5v4uZt32V2qW4SkS1HxgQGj/Qg7yQT+m4IIlCUguY/jruvL7rEulw==
+X-Received: by 2002:a05:6402:7c9:b0:564:e278:60d2 with SMTP id
+ u9-20020a05640207c900b00564e27860d2mr2016147edy.2.1708514937117;
+        Wed, 21 Feb 2024 03:28:57 -0800 (PST)
+Received: from [192.168.1.20] ([178.197.222.116])
+        by smtp.gmail.com with ESMTPSA id
+ f23-20020a50a6d7000000b0056392b7d85fsm4812255edc.9.2024.02.21.03.28.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 21 Feb 2024 03:28:56 -0800 (PST)
+Message-ID: <474d45ca-6d1a-49e1-a408-6e7c2244ff37@linaro.org>
+Date: Wed, 21 Feb 2024 12:28:54 +0100
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: p.zabel@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: alsa-devel@alsa-project.org
-Message-ID-Hash: Y4NQXIFSLNHZAHL2NGDMTSRWLG2FJGJS
-X-Message-ID-Hash: Y4NQXIFSLNHZAHL2NGDMTSRWLG2FJGJS
-X-MailFrom: p.zabel@pengutronix.de
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 0/6] reset: gpio: ASoC: shared GPIO resets
+Content-Language: en-US
+To: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Liam Girdwood
+ <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>, Frank Rowand
+ <frowand.list@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
+ linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-pm@vger.kernel.org, Chris Packham <chris.packham@alliedtelesis.co.nz>,
+ Bartosz Golaszewski <brgl@bgdev.pl>, Sean Anderson <sean.anderson@seco.com>
+References: <20240129115216.96479-1-krzysztof.kozlowski@linaro.org>
+ <7ae0567d-e5d3-4e00-98f7-5139d5879f75@linaro.org>
+ <38fda6619769da7240517982adfe734cb653ff5e.camel@pengutronix.de>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
+ 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
+ D2GYIS41Kv4Isx2dEFh+/Q==
+In-Reply-To: <38fda6619769da7240517982adfe734cb653ff5e.camel@pengutronix.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: 74HTYH4V5RETQK7ZQKRER2MKEPFHFWAU
+X-Message-ID-Hash: 74HTYH4V5RETQK7ZQKRER2MKEPFHFWAU
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -100,7 +175,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Y4NQXIFSLNHZAHL2NGDMTSRWLG2FJGJS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/74HTYH4V5RETQK7ZQKRER2MKEPFHFWAU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,37 +184,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Krzysztof,
+On 21/02/2024 12:26, Philipp Zabel wrote:
+> Hi Krzysztof,
+> 
+> On Mi, 2024-02-21 at 10:44 +0100, Krzysztof Kozlowski wrote:
+>> On 29/01/2024 12:52, Krzysztof Kozlowski wrote:
+>>> Hi,
+>>>
+>>> Dependencies / Merging
+>>> ======================
+>>> 1. Depends on !GPIOLIB stub:
+>>>    https://lore.kernel.org/all/20240125081601.118051-3-krzysztof.kozlowski@linaro.org/
+>>>
+>>> 2. Patch #2 (cpufreq: do not open-code of_phandle_args_equal()) and patch #4
+>>>    (reset: Instantiate reset GPIO controller for shared reset-gpios) depend on OF
+>>>    change (patch #1).
+>>
+>>
+>> Hi Philipp,
+>>
+>> I got acks from GPIO folks. The also provided stable tag with dependency:
+>> https://lore.kernel.org/all/20240213101000.16700-1-brgl@bgdev.pl/
+>> (which BTW already is in mainline, so you could just merge Linus' tree
+>> into your next branch)
+> 
+> Thanks.
+> 
+>> Can you take entire patchset?
+> 
+> I've picked up 1-4. Patches 5-6 can go independently via ASoC, right?
 
-On Mi, 2024-02-21 at 10:44 +0100, Krzysztof Kozlowski wrote:
-> On 29/01/2024 12:52, Krzysztof Kozlowski wrote:
-> > Hi,
-> >=20
-> > Dependencies / Merging
-> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > 1. Depends on !GPIOLIB stub:
-> >    https://lore.kernel.org/all/20240125081601.118051-3-krzysztof.kozlow=
-ski@linaro.org/
-> >=20
-> > 2. Patch #2 (cpufreq: do not open-code of_phandle_args_equal()) and pat=
-ch #4
-> >    (reset: Instantiate reset GPIO controller for shared reset-gpios) de=
-pend on OF
-> >    change (patch #1).
->=20
->=20
-> Hi Philipp,
->=20
-> I got acks from GPIO folks. The also provided stable tag with dependency:
-> https://lore.kernel.org/all/20240213101000.16700-1-brgl@bgdev.pl/
-> (which BTW already is in mainline, so you could just merge Linus' tree
-> into your next branch)
+Yes, thanks.
 
-Thanks.
+Best regards,
+Krzysztof
 
-> Can you take entire patchset?
-
-I've picked up 1-4. Patches 5-6 can go independently via ASoC, right?
-
-regards
-Philipp

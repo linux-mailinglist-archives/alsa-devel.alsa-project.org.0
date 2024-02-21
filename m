@@ -2,78 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFC6285CCF8
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Feb 2024 01:50:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5D3885CD1C
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Feb 2024 01:52:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 787E1A4D;
-	Wed, 21 Feb 2024 01:50:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 787E1A4D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0890E847;
+	Wed, 21 Feb 2024 01:52:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0890E847
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1708476614;
-	bh=oM+KCx3nQTgWbrIql5fYXL5IEUhqztgZwF6GnB3LzlQ=;
+	s=default; t=1708476747;
+	bh=cus2iwaXW84ognaMM49j+z1rlDGkGcW+6/WiXWamahE=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=IzJHvFSURDEwq2z8orwDvSEoxWUoGDzyC+PeNEbo4qXhGCWLrpCCYAe/PYhToRbKq
-	 aEOifIDbmMWgNrrHD4fvCdmSfgcadgl3LLhGwBk8fECImSmAwaTG7b391WPqN0PouK
-	 a1W+4uWCvaFDKwtng+gzdB8LXa38G/7ZHNGk78Gs=
+	b=EouiQ9jUEibR8ybm+IyJsfXrZWRFVglwOqCgCXJyne65TVoRmOY1G/CUYFG40IwWT
+	 BNWS6T67qqN43F0w9qRiECLvCoQHuNemw163z2TB7sIR2aVIuFTvrUiSgRKS9hnYoN
+	 CFpJtCXfjq2a77rf9F+KMc1rylbxor8b4mgK/bX0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 84A61F805AB; Wed, 21 Feb 2024 01:49:41 +0100 (CET)
+	id 6EB7FF805A0; Wed, 21 Feb 2024 01:51:56 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 86ECCF805AF;
-	Wed, 21 Feb 2024 01:49:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 45381F8059F;
+	Wed, 21 Feb 2024 01:51:55 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E5F51F804B0; Wed, 21 Feb 2024 01:48:53 +0100 (CET)
+	id DC553F80496; Wed, 21 Feb 2024 01:51:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id ABD42F80496
-	for <alsa-devel@alsa-project.org>; Wed, 21 Feb 2024 01:48:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ABD42F80496
+	by alsa1.perex.cz (Postfix) with ESMTPS id 57A6EF800ED
+	for <alsa-devel@alsa-project.org>; Wed, 21 Feb 2024 01:51:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57A6EF800ED
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=VpzPSUsp
+ header.s=k20201202 header.b=dzIIh7bf
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id EB62561365;
-	Wed, 21 Feb 2024 00:48:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7CA6C43390;
-	Wed, 21 Feb 2024 00:48:44 +0000 (UTC)
+	by sin.source.kernel.org (Postfix) with ESMTP id 3A361CE1BC7;
+	Wed, 21 Feb 2024 00:51:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 782D1C433C7;
+	Wed, 21 Feb 2024 00:51:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1708476525;
-	bh=oM+KCx3nQTgWbrIql5fYXL5IEUhqztgZwF6GnB3LzlQ=;
+	s=k20201202; t=1708476700;
+	bh=cus2iwaXW84ognaMM49j+z1rlDGkGcW+6/WiXWamahE=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=VpzPSUspBXQF+y/drt5tsedNFHJHbiuam7DRPZ5IpGByGPxU0CTkDqAIX1q/gg9rp
-	 41c/yOm0OSGXMOOTqe9pPkItKnnp8aeY9pvbndXJqjZq6N4SPfE2J1wPPxnHx9aeQD
-	 SBMWkKQ69Z3llsBMle/6YDh3lDKUbpL/KuX1lwy6W5QCW/LBOt4FlrgeWZCwiwZZon
-	 60+Yq58DnmrV5qtcu2d2QTmwpyuc1I+Mtt4zoar8gvjGL5dUHpFkXkl8lfK6oCgE7L
-	 FsNBCR4oMlblSdU9rxtWcTxGPpBBYot1EfceI786XcwRljsdejVeeaa20vIRNat8Dd
-	 UG8JiaI1jlkIA==
+	b=dzIIh7bfuiptnNznsNXeH5o9LEzfqNAuZ1GtMgqCzwm+qCK0ujePcwDTcEPseDAzc
+	 hRFu8ZfTOIi3gMWB+RBMLu4b/c/TQOT16GUBjE3N7FyqypPQD7xvubFsfji6fbAy73
+	 sR6OgHJriElGDgOsW6akpmfO34tSdgLQnK9A8Dy4u0EPtjJyj94ruKsLq3JQx3nXIG
+	 m1vI8DvDr7wIc4c/F+POFL4cv4t/xM2pVh3k1OWhpKMi3y6YUfCmMoJbGJ+srpmwaF
+	 bUT/q9rwF7kVyNM6Du2wxAqzrEky/8W4LvteznpAeTEYHbB2mgRSxtYys8eI4VYTWk
+	 FXPN6ekcM3xKg==
 From: Mark Brown <broonie@kernel.org>
-To: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
-Cc: Jaroslav Kysela <perex@perex.cz>, alsa-devel@alsa-project.org,
- patches@opensource.cirrus.com, linux-kernel@vger.kernel.org
-In-Reply-To: <20240216101157.23176-1-vitalyr@opensource.cirrus.com>
-References: <20240216101157.23176-1-vitalyr@opensource.cirrus.com>
-Subject: Re: [PATCH] ASoC: cs42l42: Remove redundant delays in suspend().
-Message-Id: <170847652448.70487.17999741329629264318.b4-ty@kernel.org>
-Date: Wed, 21 Feb 2024 00:48:44 +0000
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+ linux-kernel@vger.kernel.org, patches@opensource.cirrus.com
+In-Reply-To: <20240216140535.1434933-1-rf@opensource.cirrus.com>
+References: <20240216140535.1434933-1-rf@opensource.cirrus.com>
+Subject: Re: [PATCH] ASoC: cs35l56: Must clear HALO_STATE before issuing
+ SYSTEM_RESET
+Message-Id: <170847669920.72316.9216524053259588241.b4-ty@kernel.org>
+Date: Wed, 21 Feb 2024 00:51:39 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-a684c
-Message-ID-Hash: DWJ2U3JIWNNB5E3WELKTMRFBY6276K4V
-X-Message-ID-Hash: DWJ2U3JIWNNB5E3WELKTMRFBY6276K4V
+Message-ID-Hash: ZZKMFZ4VQSVGWZJ3CJW224YVOOYZQGOS
+X-Message-ID-Hash: ZZKMFZ4VQSVGWZJ3CJW224YVOOYZQGOS
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -86,7 +87,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DWJ2U3JIWNNB5E3WELKTMRFBY6276K4V/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZZKMFZ4VQSVGWZJ3CJW224YVOOYZQGOS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -95,11 +96,19 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 16 Feb 2024 10:11:57 +0000, Vitaly Rodionov wrote:
-> This patch will remove redundant delay and minimise
-> total suspend() function call time.
+On Fri, 16 Feb 2024 14:05:35 +0000, Richard Fitzgerald wrote:
+> The driver must write 0 to HALO_STATE before sending the SYSTEM_RESET
+> command to the firmware.
 > 
+> HALO_STATE is in DSP memory, which is preserved across a soft reset.
+> The SYSTEM_RESET command does not change the value of HALO_STATE.
+> There is period of time while the CS35L56 is resetting, before the
+> firmware has started to boot, where a read of HALO_STATE will return
+> the value it had before the SYSTEM_RESET. If the driver does not
+> clear HALO_STATE, this would return BOOT_DONE status even though the
+> firmware has not booted.
 > 
+> [...]
 
 Applied to
 
@@ -107,8 +116,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: cs42l42: Remove redundant delays in suspend().
-      commit: 3b4ec34602c562fa8fa59dd8545ac7f3cdfc235e
+[1/1] ASoC: cs35l56: Must clear HALO_STATE before issuing SYSTEM_RESET
+      commit: e33625c84b75e4f078d7f9bf58f01fe71ab99642
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

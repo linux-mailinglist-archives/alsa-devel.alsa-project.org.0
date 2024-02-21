@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB3B985E0F8
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Feb 2024 16:25:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A47285E0FD
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Feb 2024 16:25:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 579A41E2;
-	Wed, 21 Feb 2024 16:24:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 579A41E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id A217683E;
+	Wed, 21 Feb 2024 16:25:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A217683E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1708529103;
-	bh=C4eam5B1/ua7yw+Vatsep/Lrr+vtYohYNHxWd27npZw=;
+	s=default; t=1708529118;
+	bh=8gAZLk1t2SE3VLe9M+fDd8kW9V6hhS05RvORX1PQ8q8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=T+h07fhwkcrccRZIml44mGDWeuO37gvaNotnM7n6YxDSZ5DWMcJup9E8mNf8mXkCJ
-	 TPCtBCoR1NHNIANsmn5ugl5xrqR3lhHrN42jhWgRoDw+oBop2NA+fjeTqo++ej1i++
-	 1tM8IzUkCxmUlEosLmi9QnCdBGoMQQ9TMj9d2xlM=
+	b=ZNxqxUm/fOsY4qugKRr37h1EilAUnFqd5C6Z+DkIg9w6eqMgLGgiGGB94VDQqVDIg
+	 MqNLlX/weecFcjC1dLLTSPSniaRW4Akxn5Ju27JuqJNaLpimXEhDbs0fmUR2JxplYK
+	 G9LAepaC9Acf7hvn0va9tYRbw4lGKmlPpJSrmbo4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5E1B2F805E4; Wed, 21 Feb 2024 16:24:02 +0100 (CET)
+	id 52EB6F80613; Wed, 21 Feb 2024 16:24:06 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D36D3F805F7;
-	Wed, 21 Feb 2024 16:24:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B3D9EF80608;
+	Wed, 21 Feb 2024 16:24:05 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5CA22F8057A; Wed, 21 Feb 2024 16:23:56 +0100 (CET)
+	id 135A8F805D7; Wed, 21 Feb 2024 16:23:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -36,37 +36,37 @@ X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B4151F8047D
-	for <alsa-devel@alsa-project.org>; Wed, 21 Feb 2024 16:23:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4151F8047D
+	by alsa1.perex.cz (Postfix) with ESMTPS id A0108F800ED
+	for <alsa-devel@alsa-project.org>; Wed, 21 Feb 2024 16:23:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0108F800ED
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=AfhXTYVU
+ header.s=Intel header.b=VPmpn+u0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1708529031; x=1740065031;
+  t=1708529036; x=1740065036;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=C4eam5B1/ua7yw+Vatsep/Lrr+vtYohYNHxWd27npZw=;
-  b=AfhXTYVUQMRwIfdiyjjPBPfuuvocb+ws0A4SsS8/d+eYkOzKAA0NCfeX
-   wVEN4S2csEKdym9fEElXMy6/C6yDP6+j/RYbOMErvkBq7oBCiXa4VOByp
-   oaTJuxHHO0zgK9VE9E7mfDuqUaG1MEc9/AajUOkZUOpvxTmZg5EwsF/LV
-   fBsO7PHE5aZ/xSTVacZgH7fNHsPOKtE5hXGJhZLAN2Sck5pJc0zeBs70L
-   9F08RwRQs97zcdKkSTPqH+ylaX2XfagE8bJ3dkcxfGtUWYqz7o3sxE9Wl
-   vbcA67oR+0+bvDX0UDkgTNEna8s9Dh1Do6EPbqAtQxze676lsFmydjbVb
+  bh=8gAZLk1t2SE3VLe9M+fDd8kW9V6hhS05RvORX1PQ8q8=;
+  b=VPmpn+u0ySt09n7ZnCpybz9CYBZ0wJi3/uL491kzeWkyxRAnjucumccm
+   Cy3koTu4xuE4hvxkPElMMTglVwT9j/1iQ7qZFRFnHs4hTCleriPsxQzEW
+   79VrZo+27dOtmT/arqa5qNojFEHH5xwBPK2PcJcwvkaU9ac5gbI3+gj0d
+   SPIWujqBWElBfbn/BBtcRv1z6AIZz/dDpUqpK6NhsAoENTvZzDnVs54kr
+   Kbn9Y6tHpbevW+cyoLZ5G+2NBS7tCPITLudlTylG+M5dRcscNaKc+49HB
+   05IKKg+38cncniSc+NYJ6a06Wm286X2rM7ASH5q14QO5DtY2NX9RfuLlv
    g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10991"; a="14104790"
+X-IronPort-AV: E=McAfee;i="6600,9927,10991"; a="14104802"
 X-IronPort-AV: E=Sophos;i="6.06,175,1705392000";
-   d="scan'208";a="14104790"
+   d="scan'208";a="14104802"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
   by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Feb 2024 07:23:48 -0800
+ 21 Feb 2024 07:23:50 -0800
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.06,175,1705392000";
-   d="scan'208";a="5374253"
+   d="scan'208";a="5374265"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
-  by fmviesa006.fm.intel.com with ESMTP; 21 Feb 2024 07:23:46 -0800
+  by fmviesa006.fm.intel.com with ESMTP; 21 Feb 2024 07:23:48 -0800
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: broonie@kernel.org
 Cc: alsa-devel@alsa-project.org,
@@ -77,17 +77,17 @@ Cc: alsa-devel@alsa-project.org,
 	pierre-louis.bossart@linux.intel.com,
 	hdegoede@redhat.com,
 	Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: [PATCH 2/6] ASoC: codecs: nau8825: Simplify mclk initialization
-Date: Wed, 21 Feb 2024 16:25:12 +0100
-Message-Id: <20240221152516.852353-3-cezary.rojewski@intel.com>
+Subject: [PATCH 3/6] ASoC: codecs: rt5514: Simplify mclk initialization
+Date: Wed, 21 Feb 2024 16:25:13 +0100
+Message-Id: <20240221152516.852353-4-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240221152516.852353-1-cezary.rojewski@intel.com>
 References: <20240221152516.852353-1-cezary.rojewski@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 3NELF7P37MG47SYS6HMEV3XQ2FIU6BZC
-X-Message-ID-Hash: 3NELF7P37MG47SYS6HMEV3XQ2FIU6BZC
+Message-ID-Hash: O2KUM2W3G3YAMPEQOISEGM7Q6D22QPSP
+X-Message-ID-Hash: O2KUM2W3G3YAMPEQOISEGM7Q6D22QPSP
 X-MailFrom: cezary.rojewski@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -100,7 +100,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3NELF7P37MG47SYS6HMEV3XQ2FIU6BZC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/O2KUM2W3G3YAMPEQOISEGM7Q6D22QPSP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,34 +120,36 @@ IS_ERR(clk) checks each time mclk is accessed.
 Reviewed-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- sound/soc/codecs/nau8825.c | 12 ++++--------
- 1 file changed, 4 insertions(+), 8 deletions(-)
+ sound/soc/codecs/rt5514.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
-diff --git a/sound/soc/codecs/nau8825.c b/sound/soc/codecs/nau8825.c
-index 5cb0de648bd3..cd30ad649bae 100644
---- a/sound/soc/codecs/nau8825.c
-+++ b/sound/soc/codecs/nau8825.c
-@@ -2836,16 +2836,12 @@ static int nau8825_read_device_properties(struct device *dev,
- 	if (nau8825->adc_delay < 125 || nau8825->adc_delay > 500)
- 		dev_warn(dev, "Please set the suitable delay time!\n");
+diff --git a/sound/soc/codecs/rt5514.c b/sound/soc/codecs/rt5514.c
+index 43fc7814fdde..a8cdc3d6994d 100644
+--- a/sound/soc/codecs/rt5514.c
++++ b/sound/soc/codecs/rt5514.c
+@@ -1054,9 +1054,6 @@ static int rt5514_set_bias_level(struct snd_soc_component *component,
  
--	nau8825->mclk = devm_clk_get(dev, "mclk");
--	if (PTR_ERR(nau8825->mclk) == -EPROBE_DEFER) {
+ 	switch (level) {
+ 	case SND_SOC_BIAS_PREPARE:
+-		if (IS_ERR(rt5514->mclk))
+-			break;
+-
+ 		if (snd_soc_component_get_bias_level(component) == SND_SOC_BIAS_ON) {
+ 			clk_disable_unprepare(rt5514->mclk);
+ 		} else {
+@@ -1097,9 +1094,9 @@ static int rt5514_probe(struct snd_soc_component *component)
+ 	struct platform_device *pdev = container_of(component->dev,
+ 						   struct platform_device, dev);
+ 
+-	rt5514->mclk = devm_clk_get(component->dev, "mclk");
+-	if (PTR_ERR(rt5514->mclk) == -EPROBE_DEFER)
 -		return -EPROBE_DEFER;
--	} else if (PTR_ERR(nau8825->mclk) == -ENOENT) {
-+	nau8825->mclk = devm_clk_get_optional(dev, "mclk");
-+	if (IS_ERR(nau8825->mclk))
-+		return PTR_ERR(nau8825->mclk);
-+	if (!nau8825->mclk)
- 		/* The MCLK is managed externally or not used at all */
--		nau8825->mclk = NULL;
- 		dev_info(dev, "No 'mclk' clock found, assume MCLK is managed externally");
--	} else if (IS_ERR(nau8825->mclk)) {
--		return -EINVAL;
--	}
++	rt5514->mclk = devm_clk_get_optional(component->dev, "mclk");
++	if (IS_ERR(rt5514->mclk))
++		return PTR_ERR(rt5514->mclk);
  
- 	return 0;
- }
+ 	if (rt5514->pdata.dsp_calib_clk_name) {
+ 		rt5514->dsp_calib_clk = devm_clk_get(&pdev->dev,
 -- 
 2.25.1
 

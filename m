@@ -2,86 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28249860333
-	for <lists+alsa-devel@lfdr.de>; Thu, 22 Feb 2024 20:50:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B95FA8603C4
+	for <lists+alsa-devel@lfdr.de>; Thu, 22 Feb 2024 21:41:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 76C3A820;
-	Thu, 22 Feb 2024 20:50:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 76C3A820
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4A0A082A;
+	Thu, 22 Feb 2024 21:41:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A0A082A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1708631416;
-	bh=/biIcgNJEP7ZYJvfwCxGBQX0PKEdb1APj1B3+4z4jGQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=R9xm0Hxt7Ftlmjq+DME+W5CNdgFvXWnQ/m5Anre7bycO8rjf4HhV8iVLGuF1byCRG
-	 UCaaGR7V1SMTGbR6NpImr+4YbzGuBh0Hkif11gTYh5XFFcz4vpSaNDrLE2Hq0KVxx4
-	 NKJLSuQo2Wi4un7DTnzQ+/FbqaD6btUIqtkg9xSs=
+	s=default; t=1708634499;
+	bh=jeAQTPQrhXpg49xvZysNAxqhbPsEr5aAB0AbuUICJgI=;
+	h=Subject:From:To:Cc:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=P2pujmKRMSC2MDDd1AKFy8tepIJa7KMlEbRmvQzCKzoIUovrTZhdqPEzs3Hdhm1En
+	 DxB1FyRMwZhuno+6QG24YchC2qU0YgbCR6AqausvpniFnEojqLYII+hNPaI3F/xLA5
+	 3/B5zSrnL8Udq/PE6WaT4DAHfF9frtQqmaLoNyMs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 96A95F8057B; Thu, 22 Feb 2024 20:49:43 +0100 (CET)
+	id 9EE4DF80587; Thu, 22 Feb 2024 21:41:08 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2E910F805A0;
-	Thu, 22 Feb 2024 20:49:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A4B7CF800EE;
+	Thu, 22 Feb 2024 21:41:07 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9AFD8F80496; Thu, 22 Feb 2024 20:49:38 +0100 (CET)
+	id CA4F8F804B0; Thu, 22 Feb 2024 21:41:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D970AF800EE
-	for <alsa-devel@alsa-project.org>; Thu, 22 Feb 2024 20:49:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D970AF800EE
+	by alsa1.perex.cz (Postfix) with ESMTPS id 199FAF800EE
+	for <alsa-devel@alsa-project.org>; Thu, 22 Feb 2024 21:40:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 199FAF800EE
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=RL1TsQWi
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 92CA1632DD;
-	Thu, 22 Feb 2024 19:49:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21C85C433C7;
-	Thu, 22 Feb 2024 19:49:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1708631368;
-	bh=/biIcgNJEP7ZYJvfwCxGBQX0PKEdb1APj1B3+4z4jGQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=RL1TsQWi5zLiVHME7COnSIm7aEWD8sYvD5440/Bytbd6H+G6yqDboC3Yu/A027Mt4
-	 sN3YRz4h0cwJeRZd6bVXL4+dZAdDS9DKmbkxDQ20617oHXC+s8OiYBbLNrM7iuyr41
-	 PzmAb5fryB41hQSPt1aJz66rD8PaOV3RsbfT8rew5QEDckmMcgz3pKT8HPu78gzBU0
-	 r9PGXvK+RLbvhBeVb0zwUaSlTZMpusogfU9plTUoZgRb9f9S9rsL1/YEm0egsViat9
-	 +65YURcbcbbnUf/+ZVnPxK4qD/PGaFKzRwCcUS0+15vPxG3li214z9NY3oF78n7L3N
-	 Do01hRalwESFw==
-Date: Thu, 22 Feb 2024 19:49:23 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-	Banajit Goswami <bgoswami@quicinc.com>, linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
-Subject: Re: [PATCH v3 2/2] ASoC: codecs: tx-macro: correct TX SMIC MUXn
- widgets on SM8350+
-Message-ID: <cd300d58-bb6b-4fc5-9170-66b5df89b9b5@sirena.org.uk>
-References: <20240129143534.109196-1-krzysztof.kozlowski@linaro.org>
- <20240129143534.109196-3-krzysztof.kozlowski@linaro.org>
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=lf/ObxyX
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1708634455; x=1740170455;
+  h=subject:from:to:cc:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=jeAQTPQrhXpg49xvZysNAxqhbPsEr5aAB0AbuUICJgI=;
+  b=lf/ObxyXSuSvA4tRSZ0XrNjHK9jbQwfqfqhsGnU3q9hWtdrk6/CcbIyW
+   BQWyYeX78nE1u5j6UD4JaKRDwxX45tFv9A2SKuNjrsi6PQG5jz7SSzUas
+   sWGuqh6+5XG/6wiCmXVMqyDi4A6JwJy/02XzBC6NXwxpgc00486CRoljk
+   gTeB5X4A4ZnXrZoJse9UKc/fCr9XMewi1z9aW+jnRmpyxq5JTKJUqP4uN
+   lbWby5lRQZh3nCPUgEs5LNH8Vs+iwZYBPH6OQj1bokwNIDTYKVZTUpgpN
+   t7aAoidwB2Y6P/EmX+IFJz0RfM8jOcXGHcOb0hpnD6+BGZopMBa8P/bWs
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10992"; a="25358628"
+X-IronPort-AV: E=Sophos;i="6.06,179,1705392000";
+   d="scan'208";a="25358628"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Feb 2024 12:40:50 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10992"; a="913585365"
+X-IronPort-AV: E=Sophos;i="6.06,179,1705392000";
+   d="scan'208";a="913585365"
+Received: from wyeh-mobl.amr.corp.intel.com (HELO dwillia2-xfh.jf.intel.com)
+ ([10.209.77.87])
+  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Feb 2024 12:40:49 -0800
+Subject: [PATCH 0/3] sysfs: Group visibility fixups
+From: Dan Williams <dan.j.williams@intel.com>
+To: gregkh@linuxfoundation.org
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Marc Herbert <marc.herbert@intel.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-coco@lists.linux.dev, alsa-devel@alsa-project.org
+Date: Thu, 22 Feb 2024 12:40:48 -0800
+Message-ID: 
+ <170863444851.1479840.10249410842428140526.stgit@dwillia2-xfh.jf.intel.com>
+User-Agent: StGit/0.18-3-g996c
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="EWbHII0jzV3QWW/B"
-Content-Disposition: inline
-In-Reply-To: <20240129143534.109196-3-krzysztof.kozlowski@linaro.org>
-X-Cookie: Don't vote -- it only encourages them!
-Message-ID-Hash: L6WHSZJNNZHKDFFHUOVC6R6R2ROVJ7Y4
-X-Message-ID-Hash: L6WHSZJNNZHKDFFHUOVC6R6R2ROVJ7Y4
-X-MailFrom: broonie@kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: HYR7WPJ7FIDKM3G4FSUQMQIYKMFH6GRO
+X-Message-ID-Hash: HYR7WPJ7FIDKM3G4FSUQMQIYKMFH6GRO
+X-MailFrom: dan.j.williams@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -93,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/L6WHSZJNNZHKDFFHUOVC6R6R2ROVJ7Y4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HYR7WPJ7FIDKM3G4FSUQMQIYKMFH6GRO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,33 +106,30 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Hey Greg,
 
---EWbHII0jzV3QWW/B
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Marc was able to get me a backtrace for that bootup hang scenario that
+Pierre noted here [1]. A Tested-by is still pending, but I am certain
+this is the issue, and it may impact more than just the one platform if
+that "empty_attrs" pattern has been repeated anywhere else in the
+kernel.
 
-On Mon, Jan 29, 2024 at 03:35:34PM +0100, Krzysztof Kozlowski wrote:
-> Starting with Qualcomm SM8350 SoC, so Low Power Audio SubSystem (LPASS)
-> block version v9.2, the register responsible for TX SMIC MUXn muxes is
-> different.  In earlier LPASS versions this mux had bit fields for
-> analogue (ADCn) and digital (SWR_DMICn) MICs.  Choice of ADCn was
-> selecting the analogue path in CDC_TX_TOP_CSR_SWR_DMICn_CTL register.
+I also took some time to document how to use the helpers a bit better,
+and introduce DEFINE_SIMPLE_SYSFS_GROUP_VISIBLE() for cases where all
+that matters is group visibility and not per attribute visibility.
 
-This doesn't apply against current code, please check and resend.
+[1]: http://lore.kernel.org/r/b93ec9c2-23f5-486b-a3dc-ed9b960df359@linux.intel.com
 
---EWbHII0jzV3QWW/B
-Content-Type: application/pgp-signature; name="signature.asc"
+---
 
------BEGIN PGP SIGNATURE-----
+Dan Williams (3):
+      sysfs: Fix crash on empty group attributes array
+      sysfs: Document new "group visible" helpers
+      sysfs: Introduce DEFINE_SIMPLE_SYSFS_GROUP_VISIBLE()
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmXXpUIACgkQJNaLcl1U
-h9D1Zgf/RcMhNetO2ATzqWBDmwci8+KCJqNljcildSvTVmLjLeJDddwfFFNIeC2e
-4wcYVVXcf4+Or3oref1uYZZl2azhRSeZ59ZM8DBEq6r5w9jxLcSVf/dNQXgg8E5r
-DLh+STU0FrGHTcJAw1wtf1UpV4XQMUHBwT4nmc3mCfZt5AyJ4gDI42xYR9u32Cfs
-dEbYWH06O/7uplxQxEPYCRt/g9BB9nl6xrO8F35bTUF+6iC6o/MIbPEXVJw3pFJU
-+xM/TUDbYb2mEwHmYFffBqDfVRMbm+XPe/vvlfsQRpQTMH3vpNpDQdDJ8HGpoaKD
-jwf849zak/JTRbxfypp61rHNd3QgHw==
-=lyOj
------END PGP SIGNATURE-----
 
---EWbHII0jzV3QWW/B--
+ fs/sysfs/group.c      |    4 +-
+ include/linux/sysfs.h |   85 +++++++++++++++++++++++++++++++++++++++++++++++--
+ 2 files changed, 84 insertions(+), 5 deletions(-)
+
+base-commit: 70317fd24b419091aa0a6dc3ea3ec7bb50c37c32

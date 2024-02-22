@@ -2,156 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5562A85F3FD
-	for <lists+alsa-devel@lfdr.de>; Thu, 22 Feb 2024 10:08:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA28B85F4D6
+	for <lists+alsa-devel@lfdr.de>; Thu, 22 Feb 2024 10:45:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 92D849F6;
-	Thu, 22 Feb 2024 10:08:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 92D849F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 785EA847;
+	Thu, 22 Feb 2024 10:45:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 785EA847
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1708592910;
-	bh=caYL7S46dYbJ6MqUJ5Tc6qr0ttAat8UQ2n9Kka7dr9I=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1708595135;
+	bh=AZb0GKWTjyQuJy4d01ujzb9cgMUxShN7fSsHS7F4YvU=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=nfFyCrZH6DSyWs7I6XmSTHwVMxrhcBlhYxJOIEEvDPeqzwtg+sqzzXuKDbwxNBHYu
-	 HjdbH8Y7rD8lWq6hyK4t8PI3BGhyNoNHsiOyWQCiIDy9X+cW6ums6Z1svcAud7IDUo
-	 HWrzdCN3iypd3rHmOY6/99Iv5gcusSKONaqLxooM=
+	b=pxGKBPjNmCWhu+9C0hM6wie7ic5bdhGnnEUHRWNWAO4FHQth42ix+SWXRbYcBBEwk
+	 7Q6XG+irfrupO+tbG+XXaSfVU6d3bwDs/TltGHnsXTqfU2Rh1doMShILuBt2W2oUSD
+	 ZkypX49tnL5YS/HAlXL4bn02yYTOsJbMablSUV9Q=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 38467F805A9; Thu, 22 Feb 2024 10:07:57 +0100 (CET)
+	id D5CCEF805AB; Thu, 22 Feb 2024 10:45:03 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6E36DF800EE;
-	Thu, 22 Feb 2024 10:07:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 382CAF80579;
+	Thu, 22 Feb 2024 10:45:03 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E17B9F80496; Thu, 22 Feb 2024 10:06:43 +0100 (CET)
+	id A71C0F80496; Thu, 22 Feb 2024 10:44:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 31B6CF800ED
-	for <alsa-devel@alsa-project.org>; Thu, 22 Feb 2024 10:03:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31B6CF800ED
+	by alsa1.perex.cz (Postfix) with ESMTPS id 134EFF8019B
+	for <alsa-devel@alsa-project.org>; Thu, 22 Feb 2024 10:44:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 134EFF8019B
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=Eca0GC5V;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=bFnCNCQ7;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=tCUqd8XN;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=fv9U37kA
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 3695E21EFD;
-	Thu, 22 Feb 2024 09:03:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1708592628;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8L9bOwG2ZDrSZaGMetmK5ju/fKbbJC2wUSyS9V4gboA=;
-	b=Eca0GC5VPb1qUv9WB1IB6EAJXLGHBpZUeOhJjB5MbOGR2U65vjSeF+lPH3YiqBeDWrGoEe
-	nDohVyqrxb2tkgIZR4fu3gEkFSy8RP1exkP/pAsQO+DjFoRbqkDD4zepUEBQBPlRAoUr+F
-	tiEAVyY/SBtqfBir2CiaydD2IzjkNgo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1708592628;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8L9bOwG2ZDrSZaGMetmK5ju/fKbbJC2wUSyS9V4gboA=;
-	b=bFnCNCQ7qm3NvERNTMarl6a3DV2wrapjsMBDv03C0HJkwTbOcpDL6yvTBjgnXr3CD7TnAl
-	vm6sAcAQMr0FLwDg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1708592627;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8L9bOwG2ZDrSZaGMetmK5ju/fKbbJC2wUSyS9V4gboA=;
-	b=tCUqd8XNncgdI1e1LV+SRSI14KQE/Hcx4SCkK6Qzo1Aqj824jRmAbfWbatOk7PPjKKuj/X
-	xfJGx59oUgay355aYdmRIE6KZg4WEZHQ1jM4di8s/+gFEFY5FS4SN8cOCfvufLRtUyiidB
-	2Wdy/6GalkjC1trNqmq1Ls8E3V1w3tc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1708592627;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8L9bOwG2ZDrSZaGMetmK5ju/fKbbJC2wUSyS9V4gboA=;
-	b=fv9U37kAC8DYAkRpS2il8MNAl84KV7tsf+VFrnPgB/Ol4DwO79H31iRjPKhHJ5h+tb10XI
-	EJCSu9CJbVSU5dCg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E9D4313A8C;
-	Thu, 22 Feb 2024 09:03:46 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id r2ghN/IN12XNeAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Thu, 22 Feb 2024 09:03:46 +0000
-Date: Thu, 22 Feb 2024 10:03:46 +0100
-Message-ID: <87ttm06fbh.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Cc: <broonie@kernel.org>,
-	<tiwai@suse.com>,
-	<linux-sound@vger.kernel.org>,
-	<alsa-devel@alsa-project.org>,
-	<linux-kernel@vger.kernel.org>,
-	<patches@opensource.cirrus.com>
-Subject: Re: [PATCH 0/9] ALSA: cs35l56: Apply calibration from EFI
-In-Reply-To: <20240221150507.1039979-1-rf@opensource.cirrus.com>
-References: <20240221150507.1039979-1-rf@opensource.cirrus.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=tCUqd8XN;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=fv9U37kA
-X-Spamd-Result: default: False [-0.60 / 50.00];
-	 ARC_NA(0.00)[];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	 SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	 FROM_HAS_DN(0.00)[];
-	 TO_DN_SOME(0.00)[];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 MIME_GOOD(-0.10)[text/plain];
-	 DWL_DNSWL_LOW(-1.00)[suse.de:dkim];
-	 RCVD_COUNT_THREE(0.00)[3];
-	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	 DKIM_TRACE(0.00)[suse.de:+];
-	 MX_GOOD(-0.01)[];
-	 RCPT_COUNT_SEVEN(0.00)[7];
-	 MID_CONTAINS_FROM(1.00)[];
-	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:email];
-	 FUZZY_BLOCKED(0.00)[rspamd.com];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+];
-	 RCVD_TLS_ALL(0.00)[];
-	 BAYES_HAM(-0.29)[74.58%]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 3695E21EFD
-X-Spamd-Bar: /
-Message-ID-Hash: VVBCS6SZS52PBO7GFCURRWMCW2ITMO6M
-X-Message-ID-Hash: VVBCS6SZS52PBO7GFCURRWMCW2ITMO6M
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=mq6ogYCl
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id 6D751616E0;
+	Thu, 22 Feb 2024 09:44:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E78F5C433F1;
+	Thu, 22 Feb 2024 09:44:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1708595084;
+	bh=AZb0GKWTjyQuJy4d01ujzb9cgMUxShN7fSsHS7F4YvU=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+	b=mq6ogYClJpPyCBivw+KiXP03j3AHNQyc/WKFJWpx0X+9+Nc7Wy9VFgTHToteLVyW0
+	 9stLolKoOtDMbXFjfk6b9yz4DYhIwxtKdyBA5pIF5m8+XQzl4FvDMp9sNFq9D1hgfP
+	 h4W0ZK/g0bys6rwMFCHoExcbTC2GagotPpR6paBLOUi9lf86G/lirnFmsGh4XzB6rF
+	 4H1tEYPtXKSqc19nrmNVXo3jSQixt1DJrLe9AJk89w96C2BjZGL0dZTGPHXvfY8Ytw
+	 FQbeIWjF4QEVQxcrTQ/poZ29/znbqlQrmy500yfAiCiK1ZR/flaqllVLjpdV5DPr93
+	 dyFNZJMojeVjw==
+Date: Thu, 22 Feb 2024 02:44:42 -0700
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+From: Rob Herring <robh@kernel.org>
+To: Seven Lee <wtli@nuvoton.com>
+Cc: KCHSU0@nuvoton.com, devicetree@vger.kernel.org, SJLIN0@nuvoton.com,
+ YHCHuang@nuvoton.com, broonie@kernel.org, lgirdwood@gmail.com,
+ robh+dt@kernel.org, CTLIN0@nuvoton.com, supercraig0719@gmail.com,
+ conor+dt@kernel.org, linux-kernel@vger.kernel.org, scott6986@gmail.com,
+ dardar923@gmail.com, alsa-devel@alsa-project.org
+In-Reply-To: <20240222083825.190854-2-wtli@nuvoton.com>
+References: <20240222083825.190854-1-wtli@nuvoton.com>
+ <20240222083825.190854-2-wtli@nuvoton.com>
+Message-Id: <170859508176.1881441.18147139867694471359.robh@kernel.org>
+Subject: Re: [PATCH v2 1/2] ASoC: dt-bindings: Added schema for
+ "nuvoton,nau8325"
+Message-ID-Hash: OOIH2HZPFKUCYLDTG4TIHL3MV7FYD6ON
+X-Message-ID-Hash: OOIH2HZPFKUCYLDTG4TIHL3MV7FYD6ON
+X-MailFrom: robh@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -163,7 +91,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VVBCS6SZS52PBO7GFCURRWMCW2ITMO6M/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OOIH2HZPFKUCYLDTG4TIHL3MV7FYD6ON/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -172,41 +100,54 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 21 Feb 2024 16:04:58 +0100,
-Richard Fitzgerald wrote:
-> 
-> Factory calibration of the speakers stores the calibration information
-> into an EFI variable.
-> 
-> This set of patches adds support for applying speaker calibration
-> data from that EFI variable.
-> 
-> Patch #1 and #2 are bugfixes that are prerequisites.
-> 
-> The HDA patches #7 and #8 depend on the ASoC patches.
-> 
-> Patch #9 is a KUnit test for the new cs-amp-lib library.
-> 
-> Richard Fitzgerald (8):
->   ASoC: wm_adsp: Fix missing mutex_lock in wm_adsp_write_ctl()
->   ASoC: wm_adsp: Add wm_adsp_start() and wm_adsp_stop()
->   ASoC: cs-amp-lib: Add helpers for factory calibration data
->   ASoC: cs35l56: Add helper functions for amp calibration
->   ASoC: cs35l56: Apply amp calibration from EFI data
->   ALSA: hda: hda_cs_dsp_ctl: Add helper function to write calibration
->   ALSA: hda: cs35l56: Apply amp calibration from EFI data
->   ASoC: cs-amp-lib: Add KUnit test for calibration helpers
-> 
-> Simon Trimmer (1):
->   ALSA: hda: hda_cs_dsp_ctl: Only call notify when a control has been
->     added to a card
 
-I guess it's better to be merged through ASoC tree.
-Feel free to my review tag
+On Thu, 22 Feb 2024 16:38:24 +0800, Seven Lee wrote:
+> Added a DT schema for describing nau8325 audio amplifiers.
+> 
+> Signed-off-by: Seven Lee <wtli@nuvoton.com>
+> ---
+>  .../bindings/sound/nuvoton,nau8325.yaml       | 82 +++++++++++++++++++
+>  1 file changed, 82 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/nuvoton,nau8325.yaml
+> 
 
-Reviewed-by: Takashi Iwai <tiwai@suse.de>
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
 
+yamllint warnings/errors:
 
-thanks,
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/nuvoton,nau8325.yaml: properties:nuvoton,dac-vref:enum:0: 'VDDA' is not of type 'integer'
+	hint: An integer type must have integer constraints
+	from schema $id: http://devicetree.org/meta-schemas/types.yaml#
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/nuvoton,nau8325.yaml: properties:nuvoton,dac-vref:enum:1: 'VDDA*1.5/1.8V' is not of type 'integer'
+	hint: An integer type must have integer constraints
+	from schema $id: http://devicetree.org/meta-schemas/types.yaml#
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/nuvoton,nau8325.yaml: properties:nuvoton,dac-vref:enum:2: 'VDDA*1.6/1.8V' is not of type 'integer'
+	hint: An integer type must have integer constraints
+	from schema $id: http://devicetree.org/meta-schemas/types.yaml#
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/nuvoton,nau8325.yaml: properties:nuvoton,dac-vref:enum:3: 'VDDA*1.7/1.8V' is not of type 'integer'
+	hint: An integer type must have integer constraints
+	from schema $id: http://devicetree.org/meta-schemas/types.yaml#
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/nuvoton,nau8325.example.dtb: codec@21: nuvoton,dac-vref:0: [2] is not one of ['VDDA', 'VDDA*1.5/1.8V', 'VDDA*1.6/1.8V', 'VDDA*1.7/1.8V']
+	from schema $id: http://devicetree.org/schemas/sound/nuvoton,nau8325.yaml#
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/nuvoton,nau8325.example.dtb: codec@21: Unevaluated properties are not allowed ('nuvoton,dac-vref' was unexpected)
+	from schema $id: http://devicetree.org/schemas/sound/nuvoton,nau8325.yaml#
 
-Takashi
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20240222083825.190854-2-wtli@nuvoton.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+

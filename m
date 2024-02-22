@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF4308603C7
-	for <lists+alsa-devel@lfdr.de>; Thu, 22 Feb 2024 21:41:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE2218603C9
+	for <lists+alsa-devel@lfdr.de>; Thu, 22 Feb 2024 21:42:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 46A6311C;
-	Thu, 22 Feb 2024 21:41:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 46A6311C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 62386846;
+	Thu, 22 Feb 2024 21:42:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62386846
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1708634519;
-	bh=VU7eFjyMMwj2wha596144IVFoZku7WK0IDQNMvyYawg=;
+	s=default; t=1708634535;
+	bh=r1Jpoa9EFW+a4dM8IBgDTBKhMjLnmgNWSsg+i9Enaak=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=WRVnPmafJkTB2G9PENCs5tq3wkMfdLBePCFnOpus0b5esOkanPh8h1kWdgYOpHj+r
-	 jvyTl+RDF4dEJNJdwRYQx04Zjp5gFp4broaOivgr4oMC9/KIQualjSL7ylDiwIAG/f
-	 mh6Lr+v3p1H2FQff6o2a72ubVisMt3gP22NpHqN4=
+	b=YsKU6IGiwOx24K4t/M48GvYiwjZmVvLZlxKx6vK9hKxNDj/mJzmsd/o549YB3YDNf
+	 2sjy0tEOb88/7QB2QA2xpawR6n25ncRSUyGdwvedQceQv2bsF9M5aTTbCGGjszWUaH
+	 NRyMe0HF+DXTLBoVevml0/4vp+8MqupPauOmDX8Q=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6EEE7F805D7; Thu, 22 Feb 2024 21:41:12 +0100 (CET)
+	id 169F2F805F6; Thu, 22 Feb 2024 21:41:14 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9E023F805C4;
-	Thu, 22 Feb 2024 21:41:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 362B1F805F4;
+	Thu, 22 Feb 2024 21:41:14 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2F7F4F804B0; Thu, 22 Feb 2024 21:41:06 +0100 (CET)
+	id 23309F805B1; Thu, 22 Feb 2024 21:41:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,51 +35,48 @@ X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5DDC8F8047D
-	for <alsa-devel@alsa-project.org>; Thu, 22 Feb 2024 21:40:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5DDC8F8047D
+	by alsa1.perex.cz (Postfix) with ESMTPS id EC86AF8019B
+	for <alsa-devel@alsa-project.org>; Thu, 22 Feb 2024 21:41:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC86AF8019B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=PqBj5cdl
+ header.s=Intel header.b=LFCE67qi
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1708634458; x=1740170458;
+  t=1708634463; x=1740170463;
   h=subject:from:to:cc:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=VU7eFjyMMwj2wha596144IVFoZku7WK0IDQNMvyYawg=;
-  b=PqBj5cdlp4lBm/3rp4dyDNdEV24xrC6pK4m2vp5pMsqkmHBzUOASMip0
-   mtK1k/4yYlUCGQ3nTCdN1qQyqhrIRekqBD4saPCroiciTDpQaQ8KN04Pe
-   79u3dSaYmUX0n55osg3Bmq8FrrT/3XUZ7KRo3tEA3jdiMV9uEp8NZKPfv
-   UaA5c5tJDFlndpP+ztzfbOndG92gMYrsaOP4RnElaC33i3/OGH8RkSP52
-   YDPgmF96ZFat/GQTFbyurjr0D4ONGaJddtLVBlYSNEeFHCiXcrdAPPzxp
-   dOgZn2QZMD+A/hx7oOQhgNsoRu5JVKC8iLkmR0dSUycPhavUjtTHMqSfN
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10992"; a="25358650"
+  bh=r1Jpoa9EFW+a4dM8IBgDTBKhMjLnmgNWSsg+i9Enaak=;
+  b=LFCE67qi9tnj6HIQYYv4TtwjkUhLcfzYw1z002YhYaRlFX7/6RdQoAiJ
+   pytaADGIQJmJHVVxSWRHmajyRDrFezWZRESpucWSxPPzAKrfSBCTAHbhB
+   BrlaKc0OcDyWAy7WPzfF1onk2IthAlrL6wPFUqaN9vT9jcT97ccxEnpQN
+   ZmmQINU18dRw/YVG64+tnHnfYnlulLgh1jsomcYOR7TjYe5ZRjeSZ4Uij
+   DDBmJUBFOfs5IEsocrfutY/5ulkQruaLTC9giZDizuNuoWXibZs26TiV9
+   QTLGWE1eP4tIsV6TJX3QcGw8xrkZ0UV2SvVYePpap5dzTWaokZOIR3Jef
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10992"; a="25358672"
 X-IronPort-AV: E=Sophos;i="6.06,179,1705392000";
-   d="scan'208";a="25358650"
+   d="scan'208";a="25358672"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
   by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Feb 2024 12:40:56 -0800
+ 22 Feb 2024 12:41:01 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10992"; a="913585389"
+X-IronPort-AV: E=McAfee;i="6600,9927,10992"; a="913585401"
 X-IronPort-AV: E=Sophos;i="6.06,179,1705392000";
-   d="scan'208";a="913585389"
+   d="scan'208";a="913585401"
 Received: from wyeh-mobl.amr.corp.intel.com (HELO dwillia2-xfh.jf.intel.com)
  ([10.209.77.87])
   by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Feb 2024 12:40:55 -0800
-Subject: [PATCH 1/3] sysfs: Fix crash on empty group attributes array
+ 22 Feb 2024 12:41:00 -0800
+Subject: [PATCH 2/3] sysfs: Document new "group visible" helpers
 From: Dan Williams <dan.j.williams@intel.com>
 To: gregkh@linuxfoundation.org
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Marc Herbert <marc.herbert@intel.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
+Cc: linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
  linux-coco@lists.linux.dev, alsa-devel@alsa-project.org
-Date: Thu, 22 Feb 2024 12:40:54 -0800
+Date: Thu, 22 Feb 2024 12:41:00 -0800
 Message-ID: 
- <170863445442.1479840.1818801787239831650.stgit@dwillia2-xfh.jf.intel.com>
+ <170863446065.1479840.10697164014098377292.stgit@dwillia2-xfh.jf.intel.com>
 In-Reply-To: 
  <170863444851.1479840.10249410842428140526.stgit@dwillia2-xfh.jf.intel.com>
 References: 
@@ -88,8 +85,8 @@ User-Agent: StGit/0.18-3-g996c
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: RVRBVNKKO2XANNJLF3XFOIN3J6VZFEUL
-X-Message-ID-Hash: RVRBVNKKO2XANNJLF3XFOIN3J6VZFEUL
+Message-ID-Hash: AEVJ6IYOBZYDJNKNN3G7QC62LGIDFC56
+X-Message-ID-Hash: AEVJ6IYOBZYDJNKNN3G7QC62LGIDFC56
 X-MailFrom: dan.j.williams@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -102,69 +99,86 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RVRBVNKKO2XANNJLF3XFOIN3J6VZFEUL/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AEVJ6IYOBZYDJNKNN3G7QC62LGIDFC56/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-It turns out that arch/x86/events/intel/core.c makes use of "empty"
-attributes.
+Add documentation and examples for how to use
+DEFINE_SYSFS_GROUP_VISIBLE() and SYSFS_GROUP_VISIBLE(). Recall that the
+motivation for this work is that it is easier to reason about the
+lifetime of statically defined sysfs attributes that become visible at
+device_add() time rather than dynamically adding them later.
+DEFINE_SYSFS_GROUP_VISIBLE() tackles one of the reasons to opt for
+dynamically created attributes which did not have a facility for hiding
+empty directories.
 
-	static struct attribute *empty_attrs;
-
-	__init int intel_pmu_init(void)
-	{
-	        struct attribute **extra_skl_attr = &empty_attrs;
-	        struct attribute **extra_attr = &empty_attrs;
-	        struct attribute **td_attr    = &empty_attrs;
-	        struct attribute **mem_attr   = &empty_attrs;
-	        struct attribute **tsx_attr   = &empty_attrs;
-		...
-
-That breaks the assumption __first_visible() that expects that if
-grp->attrs is set then grp->attrs[0] must also be set and results in
-backtraces like:
-
-    BUG: kernel NULL pointer dereference, address: 00rnel mode
-    #PF: error_code(0x0000) - not-present ] PREEMPT SMP NOPTI
-    CPU: 1 PID: 1 Comm: swapper/IP: 0010:exra_is_visible+0x14/0x20
-     ? exc_page_fault+0x68/0x190
-     internal_create_groups+0x42/0xa0
-     pmu_dev_alloc+0xc0/0xe0
-     perf_event_sysfs_init+0x580000000000 ]---
-    RIP: 0010:exra_is_visible+0x14/0
-
-Check for non-empty attributes array before calling is_visible().
-
-Reported-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Closes: https://github.com/thesofproject/linux/pull/4799#issuecomment-1958537212
-Fixes: 70317fd24b41 ("sysfs: Introduce a mechanism to hide static attribute_groups")
-Cc: Marc Herbert <marc.herbert@intel.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>
 Signed-off-by: Dan Williams <dan.j.williams@intel.com>
 ---
- fs/sysfs/group.c |    4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ include/linux/sysfs.h |   42 +++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 39 insertions(+), 3 deletions(-)
 
-diff --git a/fs/sysfs/group.c b/fs/sysfs/group.c
-index ccb275cdabcb..8c63ba3cfc47 100644
---- a/fs/sysfs/group.c
-+++ b/fs/sysfs/group.c
-@@ -33,10 +33,10 @@ static void remove_files(struct kernfs_node *parent,
+diff --git a/include/linux/sysfs.h b/include/linux/sysfs.h
+index a42642b277dd..dabf7f4f3581 100644
+--- a/include/linux/sysfs.h
++++ b/include/linux/sysfs.h
+@@ -105,8 +105,42 @@ struct attribute_group {
+ #define SYSFS_GROUP_INVISIBLE	020000
  
- static umode_t __first_visible(const struct attribute_group *grp, struct kobject *kobj)
- {
--	if (grp->attrs && grp->is_visible)
-+	if (grp->attrs && grp->attrs[0] && grp->is_visible)
- 		return grp->is_visible(kobj, grp->attrs[0], 0);
+ /*
+- * The first call to is_visible() in the create / update path may
+- * indicate visibility for the entire group
++ * DEFINE_SYSFS_GROUP_VISIBLE(name):
++ *	A helper macro to pair with the assignment of ".is_visible =
++ *	SYSFS_GROUP_VISIBLE(name)", that arranges for the directory
++ *	associated with a named attribute_group to optionally be hidden.
++ *	This allows for static declaration of attribute_groups, and the
++ *	simplification of attribute visibility lifetime that implies,
++ *	without polluting sysfs with empty attribute directories.
++ * Ex.
++ *
++ * static umode_t example_attr_visible(struct kobject *kobj,
++ *                                   struct attribute *attr, int n)
++ * {
++ *       if (example_attr_condition)
++ *               return 0;
++ *       else if (ro_attr_condition)
++ *               return 0444;
++ *       return a->mode;
++ * }
++ *
++ * static bool example_group_visible(struct kobject *kobj)
++ * {
++ *       if (example_group_condition)
++ *               return false;
++ *       return true;
++ * }
++ *
++ * DEFINE_SYSFS_GROUP_VISIBLE(example);
++ *
++ * static struct attribute_group example_group = {
++ *       .name = "example",
++ *       .is_visible = SYSFS_GROUP_VISIBLE(example),
++ *       .attrs = &example_attrs,
++ * };
++ *
++ * Note that it expects <name>_attr_visible and <name>_group_visible to
++ * be defined.
+  */
+ #define DEFINE_SYSFS_GROUP_VISIBLE(name)                             \
+ 	static inline umode_t sysfs_group_visible_##name(            \
+@@ -119,7 +153,9 @@ struct attribute_group {
  
--	if (grp->bin_attrs && grp->is_bin_visible)
-+	if (grp->bin_attrs && grp->bin_attrs[0] && grp->is_bin_visible)
- 		return grp->is_bin_visible(kobj, grp->bin_attrs[0], 0);
- 
- 	return 0;
+ /*
+  * Same as DEFINE_SYSFS_GROUP_VISIBLE, but for groups with only binary
+- * attributes
++ * attributes. If an attribute_group defines both text and binary
++ * attributes, the group visibility is determined by the function
++ * specified to is_visible() not is_bin_visible()
+  */
+ #define DEFINE_SYSFS_BIN_GROUP_VISIBLE(name)                             \
+ 	static inline umode_t sysfs_group_visible_##name(                \
 

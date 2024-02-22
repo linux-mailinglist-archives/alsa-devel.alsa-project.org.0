@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EF5785FEAF
-	for <lists+alsa-devel@lfdr.de>; Thu, 22 Feb 2024 18:06:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 813E085FEB2
+	for <lists+alsa-devel@lfdr.de>; Thu, 22 Feb 2024 18:07:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B254884D;
-	Thu, 22 Feb 2024 18:06:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B254884D
+	by alsa0.perex.cz (Postfix) with ESMTPS id B200C9F6;
+	Thu, 22 Feb 2024 18:07:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B200C9F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1708621612;
-	bh=FgvZABVdcDQjiW6UTsk7+nZcUDYDiqk6G+wQrxlYAhY=;
+	s=default; t=1708621640;
+	bh=ZmPygFGWtyXY/k7V0UYpP1keYvjjSFA7st8mQ7lnUbE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=MWmtHe3o9eXu5vvpa0QfizavZ7tLdJBzOGDrFTdg5llmatuD8Ls/4w3ctIAPpfgQQ
-	 DnmV2MeSOL30EyEwiFpR6ifmnLBrMZVzLLLYeiBI1UXtMpO8WP0oviXVyFW2KGLAO2
-	 h9neOQXu8kdvW1O5xaKaqjiTN5T1FSgebwNc6crw=
+	b=GteEg7MpMD3x/uQg1Te0eidVK2GRkPHXpHxgtmQypM0hI/Y73lMXwSunmOgu4N1UQ
+	 iKCYjGb2qOE5eRTtzOCzalJCpQldVKXsukM99cVlAA/xjQwlbMkLnaoS2LMVhcS8zl
+	 kV79lLkeVK7F3YdtMmOKDPRJm10gw2NKZfA2zYSQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B5F48F805BA; Thu, 22 Feb 2024 18:06:08 +0100 (CET)
+	id 30A7DF8061A; Thu, 22 Feb 2024 18:06:15 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 44C6DF805BB;
-	Thu, 22 Feb 2024 18:06:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A3162F80606;
+	Thu, 22 Feb 2024 18:06:14 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E8419F805B3; Thu, 22 Feb 2024 18:06:03 +0100 (CET)
+	id 9D55FF805B1; Thu, 22 Feb 2024 18:06:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,38 +35,38 @@ X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2B4C3F800EE
-	for <alsa-devel@alsa-project.org>; Thu, 22 Feb 2024 18:05:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B4C3F800EE
+	by alsa1.perex.cz (Postfix) with ESMTPS id 501E8F805AF
+	for <alsa-devel@alsa-project.org>; Thu, 22 Feb 2024 18:05:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 501E8F805AF
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=BIQ+3V5B
+ header.s=Intel header.b=HNQnM+t7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1708621558; x=1740157558;
+  t=1708621561; x=1740157561;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=FgvZABVdcDQjiW6UTsk7+nZcUDYDiqk6G+wQrxlYAhY=;
-  b=BIQ+3V5BkXYpqVSMRucEKBs7khNxBNvSlydFKglTEVeB80szaVXcJXgL
-   bK7LCzO6kmQIDIU9yMS1u2svzjTTSjX93OqcgzZyXj9aluiiaBoAIdApI
-   U2pICQP4JFpfWU2ZpTl1YsGWpinIy4lHY1kKQ8ufCHoG4N2XtbxawLPGm
-   TV+jM0vK87xR7okf+7ZqSa4cE0l0Jf4ytdC4YgcS4OvOuSPfhCozka3sp
-   u5qxDBWizUhcMNt5GFgXLTtvgMST9xRCVtwl2z2uuw9L33mSV3VZwPleI
-   5FiRG0MG0vjE3l0UOfdzsOlhB/W7SBirjreWQowIvezVAtLbLMGRP00Ig
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10992"; a="20299204"
+  bh=ZmPygFGWtyXY/k7V0UYpP1keYvjjSFA7st8mQ7lnUbE=;
+  b=HNQnM+t7Zy1WGmigt88R1SS2d4dRo61SHz8Cs7X9bs7XduaIOl5+cc5W
+   T4uJHEJ3d6Y1XoTlOpWR4Jo/vi8AiCgvrAIj1tR6VRWqVRMEgSIRiBEHt
+   cVDGhL1bSzUqkcPKOtlXpg9p7I9uBN5e/Wb5L1nB14JbbXHtrmET+V1ab
+   u7zmT5Tsr6/UpRIULtY/Gumn0Jtx2mDAk6hH2QSGnKWIAGHpqWS8yJ1O6
+   PtnyImEg4mFk55Sv0a1b0AC8YJK/Zw6yxdKWKH295Ciq6y05DcORlwCx0
+   qBhkfqYZwbnKI3AQfid8hIny2nAQONlpw06BhQeuEnEDWE8im6+o5NRb+
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10992"; a="20299228"
 X-IronPort-AV: E=Sophos;i="6.06,179,1705392000";
-   d="scan'208";a="20299204"
+   d="scan'208";a="20299228"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
   by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Feb 2024 09:04:58 -0800
+ 22 Feb 2024 09:05:01 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10992"; a="827575236"
+X-IronPort-AV: E=McAfee;i="6600,9927,10992"; a="827575240"
 X-IronPort-AV: E=Sophos;i="6.06,179,1705392000";
-   d="scan'208";a="827575236"
+   d="scan'208";a="827575240"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
-  by orsmga001.jf.intel.com with ESMTP; 22 Feb 2024 09:04:53 -0800
+  by orsmga001.jf.intel.com with ESMTP; 22 Feb 2024 09:04:57 -0800
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: broonie@kernel.org
 Cc: alsa-devel@alsa-project.org,
@@ -82,17 +82,17 @@ Cc: alsa-devel@alsa-project.org,
 	pierre-louis.bossart@linux.intel.com,
 	hdegoede@redhat.com,
 	Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: [PATCH 1/4] ALSA: hda: Skip i915 initialization on CNL/LKF-based
- platforms
-Date: Thu, 22 Feb 2024 18:06:11 +0100
-Message-Id: <20240222170614.884413-2-cezary.rojewski@intel.com>
+Subject: [PATCH 2/4] ASoC: codecs: hda: Skip HDMI/DP registration if i915 is
+ missing
+Date: Thu, 22 Feb 2024 18:06:12 +0100
+Message-Id: <20240222170614.884413-3-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240222170614.884413-1-cezary.rojewski@intel.com>
 References: <20240222170614.884413-1-cezary.rojewski@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: UHSFDIJCPZK7DM3ZSCPVM4VKELXDN6S3
-X-Message-ID-Hash: UHSFDIJCPZK7DM3ZSCPVM4VKELXDN6S3
+Message-ID-Hash: 3L6HG5JPTXSCL43Q37CASVDACEUL7CGJ
+X-Message-ID-Hash: 3L6HG5JPTXSCL43Q37CASVDACEUL7CGJ
 X-MailFrom: cezary.rojewski@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -105,87 +105,43 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UHSFDIJCPZK7DM3ZSCPVM4VKELXDN6S3/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3L6HG5JPTXSCL43Q37CASVDACEUL7CGJ/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Commit 78f613ba1efb ("drm/i915: finish removal of CNL") and its friends
-removed support for i915 for all CNL-based platforms. HDAudio library,
-however, still treats such platforms as valid candidates for i915
-binding. Update query mechanism to reflect changes made in drm tree.
+If i915 does not support given platform but the hardware i.e.: HDAudio
+codec is still there, the codec-probing procedure will succeed for such
+device but the follow up initialization will always end up with -ENODEV.
 
-At the same time, i915 support for LKF-based platforms has not been
-provided so remove them from valid binding candidates.
+While bus could filter out address '2' which Intel's HDMI/DP codecs
+always enumerate on, more robust approach is to check for i915 presence
+before registering display codecs.
 
-Link: https://lore.kernel.org/all/20210728215946.1573015-1-lucas.demarchi@intel.com/
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- include/drm/i915_pciids.h |  4 ++++
- sound/hda/hdac_i915.c     | 18 +++++++++++++++---
- 2 files changed, 19 insertions(+), 3 deletions(-)
+ sound/soc/codecs/hda.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/include/drm/i915_pciids.h b/include/drm/i915_pciids.h
-index fcf1849aa47c..04172b541ee7 100644
---- a/include/drm/i915_pciids.h
-+++ b/include/drm/i915_pciids.h
-@@ -582,6 +582,10 @@
- 	INTEL_VGA_DEVICE(0x8A51, info), \
- 	INTEL_VGA_DEVICE(0x8A5D, info)
+diff --git a/sound/soc/codecs/hda.c b/sound/soc/codecs/hda.c
+index d2117e36ddd1..d9e7cd8aada2 100644
+--- a/sound/soc/codecs/hda.c
++++ b/sound/soc/codecs/hda.c
+@@ -350,6 +350,11 @@ static int hda_hdev_attach(struct hdac_device *hdev)
+ 	struct hda_codec *codec = dev_to_hda_codec(&hdev->dev);
+ 	struct snd_soc_component_driver *comp_drv;
  
-+/* LKF */
-+#define INTEL_LKF_IDS(info) \
-+	INTEL_VGA_DEVICE(0x9840, info)
++	if (hda_codec_is_display(codec) && !hdev->bus->audio_component) {
++		dev_dbg(&hdev->dev, "no i915, skip registration for 0x%08x\n", hdev->vendor_id);
++		return 0;
++	}
 +
- /* EHL */
- #define INTEL_EHL_IDS(info) \
- 	INTEL_VGA_DEVICE(0x4541, info), \
-diff --git a/sound/hda/hdac_i915.c b/sound/hda/hdac_i915.c
-index 365c36fdf205..07861f9fc491 100644
---- a/sound/hda/hdac_i915.c
-+++ b/sound/hda/hdac_i915.c
-@@ -6,6 +6,7 @@
- #include <linux/init.h>
- #include <linux/module.h>
- #include <linux/pci.h>
-+#include <drm/i915_pciids.h>
- #include <sound/core.h>
- #include <sound/hdaudio.h>
- #include <sound/hda_i915.h>
-@@ -127,15 +128,26 @@ static int i915_component_master_match(struct device *dev, int subcomponent,
- /* check whether Intel graphics is present and reachable */
- static int i915_gfx_present(struct pci_dev *hdac_pci)
- {
-+	/* List of known platforms with no i915 support. */
-+	static struct pci_device_id denylist[] = {
-+		INTEL_CNL_IDS(NULL),
-+		INTEL_LKF_IDS(NULL),
-+		{ 0 }
-+	};
- 	struct pci_dev *display_dev = NULL;
- 
- 	if (!gpu_bind || (gpu_bind < 0 && video_firmware_drivers_only()))
- 		return false;
- 
- 	for_each_pci_dev(display_dev) {
--		if (display_dev->vendor == PCI_VENDOR_ID_INTEL &&
--		    (display_dev->class >> 16) == PCI_BASE_CLASS_DISPLAY &&
--		    connectivity_check(display_dev, hdac_pci)) {
-+		if (display_dev->vendor != PCI_VENDOR_ID_INTEL ||
-+		    (display_dev->class >> 16) != PCI_BASE_CLASS_DISPLAY)
-+			continue;
-+
-+		if (pci_match_id(denylist, display_dev))
-+			continue;
-+
-+		if (connectivity_check(display_dev, hdac_pci)) {
- 			pci_dev_put(display_dev);
- 			return true;
- 		}
+ 	comp_drv = devm_kzalloc(&hdev->dev, sizeof(*comp_drv), GFP_KERNEL);
+ 	if (!comp_drv)
+ 		return -ENOMEM;
 -- 
 2.25.1
 

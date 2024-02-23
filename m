@@ -2,155 +2,124 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16D518614A0
-	for <lists+alsa-devel@lfdr.de>; Fri, 23 Feb 2024 15:50:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70C048614AC
+	for <lists+alsa-devel@lfdr.de>; Fri, 23 Feb 2024 15:51:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9C4F7825;
-	Fri, 23 Feb 2024 15:50:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9C4F7825
+	by alsa0.perex.cz (Postfix) with ESMTPS id EE0D8826;
+	Fri, 23 Feb 2024 15:51:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EE0D8826
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1708699846;
-	bh=ZHMRCL/USoNuXmlcg1B2bxpVq7YuRIiljBBwqbSTQHk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1708699892;
+	bh=y/xMkowkVU92Au7jJv7FnwhVo3frwEfU+BIxoVpgQNQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=nuqdCyX35/Nek8iJF39qrWIrAT1Mk/DrRaG3ATjArYPtWrfrPSlGohcuNbBzcb7/L
-	 IrLlDca01D5W4Gl84s8h7Mbfxc5V9rxENHjJvzB5i6zuvTezwuLcA3e1LGJkEM8Lbt
-	 iZdM0pWVaR7FPoo1XSNws2Zqvs1dWhRuGLKUbLJ8=
+	b=sd84i+8QwVWlNyuO81MiIwDY9HU5AAFffIXa49FECpWFg8U27DveKU5aTI8mN5ZDj
+	 tKHhfL7a2SBCBSsYAXT8ijwlSQa7hzAkrZFOIlzd/g3QI7U44KQxAj8F+Z30z2/qos
+	 49KW0aqklyIRvLvUVX0evE2D5Egi66z4NXLaSQxk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 87DDDF805AC; Fri, 23 Feb 2024 15:50:15 +0100 (CET)
+	id 3A005F805AB; Fri, 23 Feb 2024 15:51:01 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A0599F805A0;
-	Fri, 23 Feb 2024 15:50:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9C1FFF80579;
+	Fri, 23 Feb 2024 15:51:00 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6CC68F80496; Fri, 23 Feb 2024 15:50:09 +0100 (CET)
+	id 03136F8047D; Fri, 23 Feb 2024 15:50:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+X-Spam-Status: No,
+ score=-4.8 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 16EDBF80104
-	for <alsa-devel@alsa-project.org>; Fri, 23 Feb 2024 15:50:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 16EDBF80104
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=ePxqFOng;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=WIcC01iy;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=ePxqFOng;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=WIcC01iy
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 41EDB221BA;
-	Fri, 23 Feb 2024 14:50:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1708699805;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5oOZbTrkv5gvQuvGpYNYpDMlKNRGmwL5Ip4+yibFw+Q=;
-	b=ePxqFOngBvr8XRJJ8iI73u4U2zdvnPJBgItLRrF0VBNAjHP9P2h2ZdMy3BUfcy56BmefGs
-	+X8GZ4vRHE9L8wHjPlfZHu2aymVZgBWMV2E9C7aRanlH8ilZsxOQ3lK7K83OT5+QvkiLLd
-	kdGinvMUYDZ+6AK6M7Ez3/qaJLLlkA0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1708699805;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5oOZbTrkv5gvQuvGpYNYpDMlKNRGmwL5Ip4+yibFw+Q=;
-	b=WIcC01iyCn2a9glzrhC7x4wjfgZ6cWTjgunVGqHgq0lleo6dQvVRrVw2Cj0334PEsMQsDJ
-	c9mbLA9ZdaHd2ODQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1708699805;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5oOZbTrkv5gvQuvGpYNYpDMlKNRGmwL5Ip4+yibFw+Q=;
-	b=ePxqFOngBvr8XRJJ8iI73u4U2zdvnPJBgItLRrF0VBNAjHP9P2h2ZdMy3BUfcy56BmefGs
-	+X8GZ4vRHE9L8wHjPlfZHu2aymVZgBWMV2E9C7aRanlH8ilZsxOQ3lK7K83OT5+QvkiLLd
-	kdGinvMUYDZ+6AK6M7Ez3/qaJLLlkA0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1708699805;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5oOZbTrkv5gvQuvGpYNYpDMlKNRGmwL5Ip4+yibFw+Q=;
-	b=WIcC01iyCn2a9glzrhC7x4wjfgZ6cWTjgunVGqHgq0lleo6dQvVRrVw2Cj0334PEsMQsDJ
-	c9mbLA9ZdaHd2ODQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C95A5133DC;
-	Fri, 23 Feb 2024 14:50:04 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id v4OuL5yw2GUpGQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Fri, 23 Feb 2024 14:50:04 +0000
-Date: Fri, 23 Feb 2024 15:50:04 +0100
-Message-ID: <87msrr2q1v.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Cc: broonie@kernel.org,
-	alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org,
-	tiwai@suse.com,
-	perex@perex.cz,
-	jani.nikula@linux.intel.com,
-	joonas.lahtinen@linux.intel.com,
-	rodrigo.vivi@intel.com,
-	tvrtko.ursulin@linux.intel.com,
-	intel-gfx@lists.freedesktop.org,
-	amadeuszx.slawinski@linux.intel.com,
-	pierre-louis.bossart@linux.intel.com,
-	hdegoede@redhat.com
-Subject: Re: [PATCH v2 0/4] ALSA/ASoC: Conditionally skip i915 init and
- cleanups
-In-Reply-To: <20240223114626.1052784-1-cezary.rojewski@intel.com>
-References: <20240223114626.1052784-1-cezary.rojewski@intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Authentication-Results: smtp-out1.suse.de;
-	none
-X-Spamd-Result: default: False [0.90 / 50.00];
-	 ARC_NA(0.00)[];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 FROM_HAS_DN(0.00)[];
-	 TO_DN_SOME(0.00)[];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 MIME_GOOD(-0.10)[text/plain];
-	 RCVD_COUNT_THREE(0.00)[3];
-	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	 RCPT_COUNT_TWELVE(0.00)[14];
-	 MID_CONTAINS_FROM(1.00)[];
-	 FUZZY_BLOCKED(0.00)[rspamd.com];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+];
-	 RCVD_TLS_ALL(0.00)[];
-	 BAYES_HAM(-0.00)[29.61%]
-Message-ID-Hash: MJDMDYGHAFKQVPYACZIBUNAKUNHK77DU
-X-Message-ID-Hash: MJDMDYGHAFKQVPYACZIBUNAKUNHK77DU
-X-MailFrom: tiwai@suse.de
+	by alsa1.perex.cz (Postfix) with ESMTPS id 18DF4F80567
+	for <alsa-devel@alsa-project.org>; Fri, 23 Feb 2024 15:50:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18DF4F80567
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id 096C9CE2C65;
+	Fri, 23 Feb 2024 14:50:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7432FC433C7;
+	Fri, 23 Feb 2024 14:50:26 +0000 (UTC)
+Message-ID: <fdd67bc5-53aa-425b-8b8e-a34c3aa9c96e@xs4all.nl>
+Date: Fri, 23 Feb 2024 15:50:24 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v12 08/15] media: uapi: Define audio sample format fourcc
+ type
+Content-Language: en-US, nl
+To: Shengjiu Wang <shengjiu.wang@gmail.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Shengjiu Wang <shengjiu.wang@nxp.com>, sakari.ailus@iki.fi,
+ tfiga@chromium.org, m.szyprowski@samsung.com, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Xiubo.Lee@gmail.com, festevam@gmail.com,
+ nicoleotsuka@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
+ perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
+ linuxppc-dev@lists.ozlabs.org
+References: <1705581128-4604-1-git-send-email-shengjiu.wang@nxp.com>
+ <1705581128-4604-9-git-send-email-shengjiu.wang@nxp.com>
+ <20240217101926.3f1d2452@coco.lan>
+ <CAA+D8APD+zL0xYkf6FxPNfM3Y3O8+PhT7WEXO7XCLAmBjoMmUA@mail.gmail.com>
+ <20240219135618.5c557e66@coco.lan>
+ <e98a23c6-a35d-422b-be8a-1179392215c1@xs4all.nl>
+ <CAA+D8AN1KEjmb7f5dzMn1EV=UB5QqA4q__y2mTOW8-CH_7gchQ@mail.gmail.com>
+From: Hans Verkuil <hverkuil@xs4all.nl>
+Autocrypt: addr=hverkuil@xs4all.nl; keydata=
+ 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
+In-Reply-To: 
+ <CAA+D8AN1KEjmb7f5dzMn1EV=UB5QqA4q__y2mTOW8-CH_7gchQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: HJW4OTOT2BAAVZ7WCONKYP4PJ2OJAKTH
+X-Message-ID-Hash: HJW4OTOT2BAAVZ7WCONKYP4PJ2OJAKTH
+X-MailFrom: SRS0=gjT8=KA=xs4all.nl=hverkuil@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -162,7 +131,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MJDMDYGHAFKQVPYACZIBUNAKUNHK77DU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HJW4OTOT2BAAVZ7WCONKYP4PJ2OJAKTH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -171,41 +140,185 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 23 Feb 2024 12:46:22 +0100,
-Cezary Rojewski wrote:
+On 22/02/2024 04:50, Shengjiu Wang wrote:
+> On Wed, Feb 21, 2024 at 7:10 PM Hans Verkuil <hverkuil@xs4all.nl> wrote:
+>>
+>> On 19/02/2024 13:56, Mauro Carvalho Chehab wrote:
+>>> Em Mon, 19 Feb 2024 12:05:02 +0800
+>>> Shengjiu Wang <shengjiu.wang@gmail.com> escreveu:
+>>>
+>>>> Hi Mauro
+>>>>
+>>>> On Sat, Feb 17, 2024 at 5:19 PM Mauro Carvalho Chehab
+>>>> <mchehab@kernel.org> wrote:
+>>>>>
+>>>>> Em Thu, 18 Jan 2024 20:32:01 +0800
+>>>>> Shengjiu Wang <shengjiu.wang@nxp.com> escreveu:
+>>>>>
+>>>>>> The audio sample format definition is from alsa,
+>>>>>> the header file is include/uapi/sound/asound.h, but
+>>>>>> don't include this header file directly, because in
+>>>>>> user space, there is another copy in alsa-lib.
+>>>>>> There will be conflict in userspace for include
+>>>>>> videodev2.h & asound.h and asoundlib.h
+>>>>>>
+>>>>>> Here still use the fourcc format.
+>>>>>>
+>>>>>> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+>>>>>> ---
+>>>>>>  .../userspace-api/media/v4l/pixfmt-audio.rst  | 87 +++++++++++++++++++
+>>>>>>  .../userspace-api/media/v4l/pixfmt.rst        |  1 +
+>>>>>>  drivers/media/v4l2-core/v4l2-ioctl.c          | 13 +++
+>>>>>>  include/uapi/linux/videodev2.h                | 23 +++++
+>>>>>>  4 files changed, 124 insertions(+)
+>>>>>>  create mode 100644 Documentation/userspace-api/media/v4l/pixfmt-audio.rst
+>>>>>>
+>>>>>> diff --git a/Documentation/userspace-api/media/v4l/pixfmt-audio.rst b/Documentation/userspace-api/media/v4l/pixfmt-audio.rst
+>>>>>> new file mode 100644
+>>>>>> index 000000000000..04b4a7fbd8f4
+>>>>>> --- /dev/null
+>>>>>> +++ b/Documentation/userspace-api/media/v4l/pixfmt-audio.rst
+>>>>>> @@ -0,0 +1,87 @@
+>>>>>> +.. SPDX-License-Identifier: GFDL-1.1-no-invariants-or-later
+>>>>>> +
+>>>>>> +.. _pixfmt-audio:
+>>>>>> +
+>>>>>> +*************
+>>>>>> +Audio Formats
+>>>>>> +*************
+>>>>>> +
+>>>>>> +These formats are used for :ref:`audiomem2mem` interface only.
+>>>>>> +
+>>>>>> +.. tabularcolumns:: |p{5.8cm}|p{1.2cm}|p{10.3cm}|
+>>>>>> +
+>>>>>> +.. cssclass:: longtable
+>>>>>> +
+>>>>>> +.. flat-table:: Audio Format
+>>>>>> +    :header-rows:  1
+>>>>>> +    :stub-columns: 0
+>>>>>> +    :widths:       3 1 4
+>>>>>> +
+>>>>>> +    * - Identifier
+>>>>>> +      - Code
+>>>>>> +      - Details
+>>>>>> +    * .. _V4L2-AUDIO-FMT-S8:
+>>>>>> +
+>>>>>> +      - ``V4L2_AUDIO_FMT_S8``
+>>>>>> +      - 'S8'
+>>>>>> +      - Corresponds to SNDRV_PCM_FORMAT_S8 in ALSA
+>>>>>> +    * .. _V4L2-AUDIO-FMT-S16-LE:
+>>>>>
+>>>>> Hmm... why can't we just use SNDRV_*_FORMAT_*? Those are already part of
+>>>>> an uAPI header. No need to add any abstraction here and/or redefine
+>>>>> what is there already at include/uapi/sound/asound.h.
+>>>>>
+>>>> Actually I try to avoid including the include/uapi/sound/asound.h.
+>>>> Because in user space, there is another copy in alsa-lib (asoundlib.h).
+>>>> There will be conflict in userspace when including videodev2.h and
+>>>> asoundlib.h.
+>>>
+>>> Well, alsasoundlib.h seems to be using the same definitions:
+>>>       https://github.com/michaelwu/alsa-lib/blob/master/include/pcm.h
+>>>
+>>> So, I can't see what would be the actual issue, as both userspace library
+>>> and ALSA internal headers use the same magic numbers.
+>>>
+>>> You can still do things like:
+>>>
+>>>       #ifdef __KERNEL__
+>>>       #  include <sound/asound.h>
+>>>       #else
+>>>       #  include <asoundlib.h>
+>>>       #endif
+>>>
+>>> To avoid such kind of conflicts, if you need to have it included on
+>>> some header file. Yet, I can't see why you would need that.
+>>>
+>>> IMO, at uAPI headers, you just need to declare the uAPI audiofmt field
+>>> to be either __u32 or __u64, pointing it to where this value comes from
+>>> (on both userspace and Kernelspace. E. g.:
+>>>
+>>> /**
+>>>  * struct v4l2_audio_format - audio data format definition
+>>>  * @audioformat:
+>>>  *    an integer number matching the fields inside
+>>>  *    enum snd_pcm_format_t (e. g. `SNDRV_PCM_FORMAT_*`), as defined
+>>>  *    in include/uapi/sound/asound.h and
+>>>  *      https://www.alsa-project.org/alsa-doc/alsa-lib/group___p_c_m.html#gaa14b7f26877a812acbb39811364177f8.
+>>>  * @channels:         channel numbers
+>>>  * @buffersize:               maximum size in bytes required for data
+>>>  */
+>>> struct v4l2_audio_format {
+>>>       __u32                           audioformat;
+>>>       __u32                           channels;
+>>>       __u32                           buffersize;
+>>> } __attribute__ ((packed));
+>>>
+>>> Then, at documentation you just need to point to where the
+>>> possible values for SNDRV_PCM_FORMAT_ are defined. No need to
+>>> document them one by one.
+>>>
+>>> With such definition, you'll only need to include sound/asound.h
+>>> within the kAPI scope.
+>>>
+>>>>
+>>>> And in the V4l framework, the fourcc type is commonly used in other
+>>>> cases (video, radio, touch, meta....), to avoid changing common code
+>>>> a lot, so I think using fourcc definition for audio may be simpler.
+>>>
+>>> Those are real video streams (or a video-related streams, in the case
+>>> of metadata) where fourcc is widely used. There, it makes sense.
+>>> However, ALSA format definitions are already being used for a long time.
+>>> There's no sense on trying to reinvent it - or having an abstract layer
+>>> to convert from/to fourcc <==> enum snd_pcm_format_t. Just use what is
+>>> there already.
+>>
+>> The problem is that within V4L2 we use fourcc consistently to describe a
+>> format, including in VIDIOC_ENUM_FMT. And the expectation is that the fourcc
+>> can be printed to a human readable string (there is even a printk format for
+>> that these days).
+>>
+>> But the pcm values are all small integers (and can even be 0!), and
+>> printing the fourcc will give garbage. It doesn't work well at all
+>> with the V4L2 API. But by having a straightforward conversion between the
+>> pcm identifier and a fourcc it was really easy to deal with this.
+>>
+>> There might even be applications today that call VIDIOC_ENUM_FMT to see
+>> what is supported and fail if it is not a proper fourcc is returned.
+>>
+>> It will certainly report nonsense in v4l_print_fmtdesc() (v4l2-ioctl.c).
+>>
+>> One of the early versions of this patch series did precisely what you request,
+>> but it just doesn't work well within the V4L2 uAPI.
+>>
 > 
-> A small set of changes to improve initialization of the audio stack on
-> HDAudio devices and pair of cleanups.
+> Thanks all.
 > 
-> As the first change is the most important one here, following is the
-> technical background for it:
-> 
-> Commit 78f613ba1efb ("drm/i915: finish removal of CNL") and its friends
-> removed support for i915 for all CNL-based platforms. HDAudio library,
-> however, still treats such platforms as valid candidates for i915
-> binding. Update query mechanism to reflect changes made in drm tree.
-> 
-> At the same time, i915 support for LKF-based platforms has not been
-> provided so remove them from valid binding candidates.
-> 
-> The snd_soc_hda change is a follow up for the above and the cleanup
-> patches do not bring any functional changes.
-> 
-> Changes in v2:
-> - list of problematic VGA devices is now declared locally, no more
->   touching drm stuff
-> 
-> Cezary Rojewski (4):
->   ALSA: hda: Skip i915 initialization on CNL/LKF-based platforms
->   ASoC: codecs: hda: Skip HDMI/DP registration if i915 is missing
->   ASoC: codecs: hda: Cleanup error messages
->   ALSA: hda: Reuse for_each_pcm_streams()
+> So can I reach the conclusion below?
+> 1. Keep using the fourcc definition for v4l2_audio_format.audioformat.
+> 2. Keep the name V4L2_BUF_TYPE_AUDIO_CAPTURE and
+>     V4L2_BUF_TYPE_AUDIO_OUTPUT.
+> 3. Fix Documentation/userspace-api/media/v4l/dev-audio-mem2mem.rst
+>     to change 'pixelformat' to 'audioformat'.
+> 4. Update Documentation/userspace-api/media/v4l/ext-ctrls-audio-m2m.rst
+>     to add more description for clock drift.
 
-As far as I see, all those 4 patches are rather individually
-applicable, right?
-The essential change is the first patch, and the patch 2 is rather an
-improvement (the driver gives -ENODEV as of now).
-And the rest two are merely cleanups.
+Yes, let's go with that.
 
+Regards,
 
-Takashi
+	Hans
+
+> 
+> Best Regards
+> Shengjiu Wang
+> 
+>> Regards,
+>>
+>>         Hans
+>>
+>>>
+>>> Thanks,
+>>> Mauro
+>>
+

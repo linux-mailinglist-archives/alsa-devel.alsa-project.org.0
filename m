@@ -2,92 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 161A0861AA2
-	for <lists+alsa-devel@lfdr.de>; Fri, 23 Feb 2024 18:52:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 740FE861AA8
+	for <lists+alsa-devel@lfdr.de>; Fri, 23 Feb 2024 18:53:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 644AD839;
-	Fri, 23 Feb 2024 18:52:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 644AD839
+	by alsa0.perex.cz (Postfix) with ESMTPS id ED7CF82A;
+	Fri, 23 Feb 2024 18:53:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED7CF82A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1708710750;
-	bh=j16zsMD+HTWYyVy/k1AZwAJ7XoBtLsYNzq4+rvXeU68=;
+	s=default; t=1708710794;
+	bh=9ZZxPk/a7pO8ytzdAHohcBFzs6TPeMkP0Go5hItHYIg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Y3nJq2SjbhImphIHwC8PlHPtEFShvVVfO/a1D2xFxVaUQt33018PGOAlz9AOyPacU
-	 e8RXW3F10GVn9p18WKNxGMHdA2fKFr2hXYP/AxkS011PIwuYpN0LhbMvKv0nu/hCIe
-	 TfQ2bRAIPDNhAz/5n7YSWEAM6+Wokq+bCIIq/8Oc=
+	b=h9Hdn2mqqJR5WDEtil7/GXirvx8VzHOD3lPB2k8DDfSU0v9qUfHsTm7qzvwpncg4B
+	 iCmho5NPKMdNYZiayCqmfqd4z0ElVHBpV8KSjuOOAwyyA3bgc2P5VubuQckbojGxgM
+	 Si0Vg9pPYPWTm8GtMLiU12PjCbDob9KrJ0tBHMFQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5E728F805C0; Fri, 23 Feb 2024 18:51:42 +0100 (CET)
+	id 1D5F0F80633; Fri, 23 Feb 2024 18:51:53 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C4012F805C9;
-	Fri, 23 Feb 2024 18:51:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DFEABF8061C;
+	Fri, 23 Feb 2024 18:51:52 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7841AF8056F; Fri, 23 Feb 2024 18:51:34 +0100 (CET)
+	id 8F604F805B0; Fri, 23 Feb 2024 18:51:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [IPv6:2a00:1450:4864:20::329])
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [IPv6:2a00:1450:4864:20::330])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E8917F8047D
-	for <alsa-devel@alsa-project.org>; Fri, 23 Feb 2024 18:51:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8917F8047D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 02013F804CC
+	for <alsa-devel@alsa-project.org>; Fri, 23 Feb 2024 18:51:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02013F804CC
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=baylibre-com.20230601.gappssmtp.com
  header.i=@baylibre-com.20230601.gappssmtp.com header.a=rsa-sha256
- header.s=20230601 header.b=ZNbbe4sG
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-41294021cd8so4588185e9.2
+ header.s=20230601 header.b=taDJnTid
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-41241f64c6bso8675225e9.0
         for <alsa-devel@alsa-project.org>;
- Fri, 23 Feb 2024 09:51:24 -0800 (PST)
+ Fri, 23 Feb 2024 09:51:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1708710683;
- x=1709315483; darn=alsa-project.org;
+        d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1708710684;
+ x=1709315484; darn=alsa-project.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=n2ahiTP/lW6MiTpxUmavX+y9bbyFd7JEgWLGkKtHM5s=;
-        b=ZNbbe4sGHE+newfhDnDEt4+lrYgV5CuR17Ux54r56LNqBdATPvRs1pSLtEAgXU4kGg
-         Ba9nlWN7VzLCfWDJ7wuNB/yh3i2t5Z3qV134HTcmDEGxZPrFL4nrRaZFEeY2qDr+VAWp
-         v8K0xIzRBD5mpw/wZDdL6KZ52rZL6Yz1oGKjndUl7x5MdTHZP2K/zbNsb8Mcc7XbRrsb
-         EoS5Etf3bxOfXAer1HNSKUJsFk5M6kQTtRoZZP/jr5Z9s8QU3uMCrQ/Lnqysi0fUOs9f
-         caDoLUZTfe/2TKkgrT/bcDaxVStrBo1Kz893RA1zDHsmQ9w1DWC7+l6Zts1PFvKXctfR
-         XQ/A==
+        bh=VeCmmTR4nL1DWlLTvSXW5V8GjozKprjftrRX3BjbH5I=;
+        b=taDJnTidGsOPCqnBIOGVvxlugw7oqoDJwrmGgiXfoxSge57GGPtNA+91BfYe2hDpFz
+         pqhp0pz6qOA2EAUmB00r0fIylPiyIYXahML2igLA9+85f0fkmdj0cPNejDnIPWS6tTs1
+         pKdGq5GWHLjiJbpiF1+bz8SyzTqjt9M8ojRipZlXOys3+SeTJz/TM96RcmEUnxIjujCp
+         jBh4ry9IEPiIIdqrWKxAOgotVe9Uditi8Yxgc8ku18xy52E5gdt+cOvUbQcOaLRI1OBJ
+         smDyV66xEZAG6t7PJRsg/WYAyE2jXFE12LLbCAoPVU/FBL8XoCJmP9Bv5Fsvi9CU7XH4
+         shbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708710683; x=1709315483;
+        d=1e100.net; s=20230601; t=1708710684; x=1709315484;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=n2ahiTP/lW6MiTpxUmavX+y9bbyFd7JEgWLGkKtHM5s=;
-        b=Br3RAdd77CsuJv0Rx+p+wSKC5Iha4+uRczfME/MI1DSHLJEaI02DfpmxN6GsJGIrt1
-         auxnm4v0vNUffY1sdm4ftwZxnkExIWkBNEnwZYqqZMYgdUReQ5xCXkOLHqvaMxJxnylh
-         Tifu4I29TzTzXvfWhOCi8UvCaZY4ulxCssIfarhDZIBmU/tIONsIgrlOmTM0+VYqOGaP
-         cE7rOzHs9pw7uwTngUhV3KERpKpnof5H4/mws9U0CUVHLv5wDZTgbdsXx/xTPC4SrjhU
-         uu1YJuvvETo8LV/7ZrZxvnWUJDKt9qzwOYc/IbbBnweO+h9QrNuS4zkGR1uegxvkctez
-         BwMA==
+        bh=VeCmmTR4nL1DWlLTvSXW5V8GjozKprjftrRX3BjbH5I=;
+        b=L98GaNtyZMkb5hjdozw0dkFy4Eqd1xeczH/5+J9G1qkfLqD+L8LOeWU/B5r6pdPs9y
+         eYFvPWtYG10ToZcCdMkGhWJSxH97XE7q3j9NNAievYJjiFJn+mHjrSvsv/u5UvJI8N5Z
+         kNRpHVe5dPmYeKv9GKwR9zD0mTse2hRhwi/SwiD0sKOO338X6O30vAI0+hyIBWdlrB/G
+         oOHaB3sbvSp+brIWn6Lkihs2L9xSjVoWPAANTy95oYFKUDFxAs9Q4tXWRuKK03vjI2RG
+         bKayz4p636h8wtCIcQcGp2uSYx7ysilRWMw4VP+rTl7kAScuo56T5IgmrkBzzAW/4acL
+         MZGQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUQw0SwPtxqM8goBMfOBdC23LPZTUI3ePEdvvuQStOQJEf1i87Gbivwfp08FWuvTIlFxCnoJuvdHYwDx0ztJmkCfPfx/pu3L2AI+50=
-X-Gm-Message-State: AOJu0Yz4lwYawbb9QVwr1tXbWwo79hyXLRV0rVLpsVUyZPKAdM5y0Vxw
-	22/03P8qwjUOxf0xO8zw340qxqc6FMy//HxtPdXRTj1zobfsz7jEoXtV8QmcCgQ=
+ AJvYcCU4x8h13BbUwh0cZWS7BKblL5iFgeP07gKzIpJ9K4APLA796P77dVWEtIPyhSieoNFvwfqCZQNxYolFHZlBtKfKrblDHBCneKh+EzE=
+X-Gm-Message-State: AOJu0YyOhLRF6xz+0xUyoDy4obpa8AlJQNJpCCKVFnD4IpRFq/eb5HrN
+	auWyXjhCbfdES8FmRorpgL2pk1SadJfGkzV2Wb4DyAGl32W7iNY4QQgSkcdhmhM=
 X-Google-Smtp-Source: 
- AGHT+IGqnoqMSxnWyvarUuiuXtt8jg0EPFcrolAZQBwRrHQk3pPFoxvi/xtJ821ZsNJVMnK4y5tzhw==
-X-Received: by 2002:a05:600c:5114:b0:412:9830:a259 with SMTP id
- o20-20020a05600c511400b004129830a259mr383837wms.25.1708710683406;
-        Fri, 23 Feb 2024 09:51:23 -0800 (PST)
+ AGHT+IFFxDXAmiB4835JX0wNsSNqu2+o3xJ9l2em0tk9z8iXrduKI7NKlIlcZPE8y6hU/3jd20iOCA==
+X-Received: by 2002:a05:600c:4f53:b0:412:96f2:2df9 with SMTP id
+ m19-20020a05600c4f5300b0041296f22df9mr323815wmq.26.1708710684136;
+        Fri, 23 Feb 2024 09:51:24 -0800 (PST)
 Received: from toaster.lan ([2a01:e0a:3c5:5fb1:e8a0:25a6:d4ec:a7ff])
         by smtp.googlemail.com with ESMTPSA id
- bo10-20020a056000068a00b0033cddadde6esm3711524wrb.80.2024.02.23.09.51.22
+ bo10-20020a056000068a00b0033cddadde6esm3711524wrb.80.2024.02.23.09.51.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Feb 2024 09:51:22 -0800 (PST)
+        Fri, 23 Feb 2024 09:51:23 -0800 (PST)
 From: Jerome Brunet <jbrunet@baylibre.com>
 To: Mark Brown <broonie@kernel.org>,
 	Liam Girdwood <lgirdwood@gmail.com>
@@ -95,17 +95,18 @@ Cc: Jerome Brunet <jbrunet@baylibre.com>,
 	alsa-devel@alsa-project.org,
 	linux-kernel@vger.kernel.org,
 	linux-amlogic@lists.infradead.org
-Subject: [PATCH 2/6] ASoC: meson: axg-tdm-interface: add frame rate constraint
-Date: Fri, 23 Feb 2024 18:51:08 +0100
-Message-ID: <20240223175116.2005407-3-jbrunet@baylibre.com>
+Subject: [PATCH 3/6] ASoC: meson: axg-tdm-interface: update error format error
+ traces
+Date: Fri, 23 Feb 2024 18:51:09 +0100
+Message-ID: <20240223175116.2005407-4-jbrunet@baylibre.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240223175116.2005407-1-jbrunet@baylibre.com>
 References: <20240223175116.2005407-1-jbrunet@baylibre.com>
 MIME-Version: 1.0
 X-Patchwork-Bot: notify
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: CHV6V6RSO3HQ5H4HKTN4FJ66HZZYGTAL
-X-Message-ID-Hash: CHV6V6RSO3HQ5H4HKTN4FJ66HZZYGTAL
+Message-ID-Hash: 7BGAYJUXMDEPEQPANMJLM4ITAOKWQYJU
+X-Message-ID-Hash: 7BGAYJUXMDEPEQPANMJLM4ITAOKWQYJU
 X-MailFrom: jbrunet@baylibre.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -117,85 +118,39 @@ X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: <>
-List-Archive: <>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7BGAYJUXMDEPEQPANMJLM4ITAOKWQYJU/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-According to Amlogic datasheets for the SoCs supported by this driver, the
-maximum bit clock rate is 100MHz.
+ASoC stopped using CBS_CFS and CBM_CFM a few years ago but the traces in
+the amlogic tdm interface driver did not follow.
 
-The tdm interface allows the rates listed by the DAI driver, regardless of
-the number slots or their width. However, these will impact the bit clock
-rate.
+Update this to match the new format names
 
-Hitting the 100MHz limit is very unlikely for most use cases but it is
-possible.
-
-For example with 32 slots / 32 bits wide, the maximum rate is no longer
-384kHz but ~96kHz.
-
-Add the constraint accordingly if the component is not already active.
-If it is active, the rate is already constrained by the first stream rate.
-
-Fixes: d60e4f1e4be5 ("ASoC: meson: add tdm interface driver")
 Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
 ---
- sound/soc/meson/axg-tdm-interface.c | 25 ++++++++++++++++++-------
- 1 file changed, 18 insertions(+), 7 deletions(-)
+ sound/soc/meson/axg-tdm-interface.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/sound/soc/meson/axg-tdm-interface.c b/sound/soc/meson/axg-tdm-interface.c
-index cd5168e826df..2cedbce73837 100644
+index 2cedbce73837..bf708717635b 100644
 --- a/sound/soc/meson/axg-tdm-interface.c
 +++ b/sound/soc/meson/axg-tdm-interface.c
-@@ -12,6 +12,9 @@
+@@ -133,7 +133,7 @@ static int axg_tdm_iface_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
  
- #include "axg-tdm.h"
- 
-+/* Maximum bit clock frequency according the datasheets */
-+#define MAX_SCLK 100000000 /* Hz */
-+
- enum {
- 	TDM_IFACE_PAD,
- 	TDM_IFACE_LOOPBACK,
-@@ -153,19 +156,27 @@ static int axg_tdm_iface_startup(struct snd_pcm_substream *substream,
+ 	case SND_SOC_DAIFMT_BP_FC:
+ 	case SND_SOC_DAIFMT_BC_FP:
+-		dev_err(dai->dev, "only CBS_CFS and CBM_CFM are supported\n");
++		dev_err(dai->dev, "only BP_FP and BC_FC are supported\n");
+ 		fallthrough;
+ 	default:
  		return -EINVAL;
- 	}
- 
--	/* Apply component wide rate symmetry */
- 	if (snd_soc_component_active(dai->component)) {
-+		/* Apply component wide rate symmetry */
- 		ret = snd_pcm_hw_constraint_single(substream->runtime,
- 						   SNDRV_PCM_HW_PARAM_RATE,
- 						   iface->rate);
--		if (ret < 0) {
--			dev_err(dai->dev,
--				"can't set iface rate constraint\n");
--			return ret;
--		}
-+
-+	} else {
-+		/* Limit rate according to the slot number and width */
-+		unsigned int max_rate =
-+			MAX_SCLK / (iface->slots * iface->slot_width);
-+		ret = snd_pcm_hw_constraint_minmax(substream->runtime,
-+						   SNDRV_PCM_HW_PARAM_RATE,
-+						   0, max_rate);
- 	}
- 
--	return 0;
-+	if (ret < 0)
-+		dev_err(dai->dev, "can't set iface rate constraint\n");
-+	else
-+		ret = 0;
-+
-+	return ret;
- }
- 
- static int axg_tdm_iface_set_stream(struct snd_pcm_substream *substream,
 -- 
 2.43.0
 

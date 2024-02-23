@@ -2,66 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B240086107C
-	for <lists+alsa-devel@lfdr.de>; Fri, 23 Feb 2024 12:35:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0165E8610B0
+	for <lists+alsa-devel@lfdr.de>; Fri, 23 Feb 2024 12:45:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AA069822;
-	Fri, 23 Feb 2024 12:35:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA069822
+	by alsa0.perex.cz (Postfix) with ESMTPS id 536DAA4D;
+	Fri, 23 Feb 2024 12:45:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 536DAA4D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1708688155;
-	bh=IYOdq5sD1YmRKu7QJkXS/lwxV/Q8L01LSzl/baU/5A8=;
+	s=default; t=1708688737;
+	bh=5M53J19YnQsDTZHCO/RGLH/1wCJSKBF2s0sCAjtorsM=;
 	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=Wb+GHEihDYCqvf0GIhgpADOBwL3uIi8uL6oOaLkYZQTWSb7tgswWjztwZ1APKPgAn
-	 uSbIM+V0PURnLZMjNGDf16JOGpWmsfbitDyIQ8g9jCzGWpNVU6ostKCPDyg3NmQ8Qs
-	 2Fph+AOCG1P82/vAz2ojnLmtDpDosuntPlKMBaEQ=
+	b=A+bEZ8QUWS8htwW02Cml+og4DDaYmI1oT/k9dj3UHV/0191fVelABlAyKRwN2lDGG
+	 jbBAUJahNZQABC3qlErMSzvWrQrqlEjl8eryNc4mya7Zb0EJ/GcdXvcYUna+WMbgrS
+	 FYcNmEdebMxuQdDz1YaMpTmiRXuOPeCGDaTbOk5U=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DA2D1F805AC; Fri, 23 Feb 2024 12:35:23 +0100 (CET)
+	id 79B2EF80578; Fri, 23 Feb 2024 12:45:04 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 77C7FF805A0;
-	Fri, 23 Feb 2024 12:35:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CF552F8059F;
+	Fri, 23 Feb 2024 12:45:03 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D9834F80496; Fri, 23 Feb 2024 12:35:17 +0100 (CET)
+	id 9F186F804B0; Fri, 23 Feb 2024 12:44:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from irl.hu (irl.hu [95.85.9.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
- server-digest SHA256)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with UTF8SMTPS id 51C12F80104
-	for <alsa-devel@alsa-project.org>; Fri, 23 Feb 2024 12:34:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51C12F80104
-Received: from fedori.lan (51b68dc5.dsl.pool.telekom.hu
- [::ffff:81.182.141.197])
-  (AUTH: CRAM-MD5 soyer@irl.hu, )
-  by irl.hu with ESMTPSA
-  id 0000000000075253.0000000065D882DC.001DC1EC;
- Fri, 23 Feb 2024 12:34:52 +0100
-From: Gergo Koteles <soyer@irl.hu>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-  Shenghao Ding <shenghao-ding@ti.com>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
-  alsa-devel@alsa-project.org, Gergo Koteles <soyer@irl.hu>,
-  stable@vger.kernel.org
-Subject: [PATCH] ALSA: hda/realtek: tas2781: enable subwoofer volume control
-Date: Fri, 23 Feb 2024 12:34:30 +0100
-Message-ID: 
- <7ffae10ebba58601d25fe2ff8381a6ae3a926e62.1708687813.git.soyer@irl.hu>
-X-Mailer: git-send-email 2.43.2
-Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-X-Mime-Autoconverted: from 8bit to 7bit by courier 1.0
-Message-ID-Hash: FQ7NCVEJVPLKCDZDLZ22G5NAXWJ2YKOP
-X-Message-ID-Hash: FQ7NCVEJVPLKCDZDLZ22G5NAXWJ2YKOP
-X-MailFrom: soyer@irl.hu
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1D1C9F800EE
+	for <alsa-devel@alsa-project.org>; Fri, 23 Feb 2024 12:44:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D1C9F800EE
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=liqaB4XE
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1708688694; x=1740224694;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=5M53J19YnQsDTZHCO/RGLH/1wCJSKBF2s0sCAjtorsM=;
+  b=liqaB4XECckyFAOjEUWd0R3fV3pf5feyH71jGLyanN9xlXh0Sfz12kjJ
+   1UQ6s0W9Z3yDftvw++v1S/rmaqO/jUJINevF29XOMCM0xU0uSwNHHVnLl
+   D/aoQvk6Z8aIDvGr0BnwamszFJv+55yeEJKKJ4GLDTqNO0B+2UO/MtTtd
+   +cKZU0Ea7DnDyC9a67kIw2bdtfKzGGnkhPylPrabOJAXETKqGLm4j7/dz
+   gairfq7Fxx41UnLXXQ/vcsH0lqkRr2S/QOeWqP+xRpHePdgdwh7+Ox6Ri
+   oRmwhHsWWB7q9segpjM39YoqQUqI/Wios2yN5hlgkj6eevCT45pEjsADE
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10992"; a="3504592"
+X-IronPort-AV: E=Sophos;i="6.06,179,1705392000";
+   d="scan'208";a="3504592"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Feb 2024 03:44:51 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.06,179,1705392000";
+   d="scan'208";a="6092883"
+Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
+  by fmviesa006.fm.intel.com with ESMTP; 23 Feb 2024 03:44:48 -0800
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+To: broonie@kernel.org
+Cc: alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org,
+	tiwai@suse.com,
+	perex@perex.cz,
+	jani.nikula@linux.intel.com,
+	joonas.lahtinen@linux.intel.com,
+	rodrigo.vivi@intel.com,
+	tvrtko.ursulin@linux.intel.com,
+	intel-gfx@lists.freedesktop.org,
+	amadeuszx.slawinski@linux.intel.com,
+	pierre-louis.bossart@linux.intel.com,
+	hdegoede@redhat.com,
+	Cezary Rojewski <cezary.rojewski@intel.com>
+Subject: [PATCH v2 0/4] ALSA/ASoC: Conditionally skip i915 init and cleanups
+Date: Fri, 23 Feb 2024 12:46:22 +0100
+Message-Id: <20240223114626.1052784-1-cezary.rojewski@intel.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: AILFCTEPOK65ATIGCZCS7VXD6E5BZUDM
+X-Message-ID-Hash: AILFCTEPOK65ATIGCZCS7VXD6E5BZUDM
+X-MailFrom: cezary.rojewski@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -73,7 +100,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FQ7NCVEJVPLKCDZDLZ22G5NAXWJ2YKOP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AILFCTEPOK65ATIGCZCS7VXD6E5BZUDM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -82,35 +109,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The volume of subwoofer channels is always at maximum with the
-ALC269_FIXUP_THINKPAD_ACPI chain.
+A small set of changes to improve initialization of the audio stack on
+HDAudio devices and pair of cleanups.
 
-Use ALC285_FIXUP_THINKPAD_HEADSET_JACK to align it to the master volume.
+As the first change is the most important one here, following is the
+technical background for it:
 
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=208555#c827
+Commit 78f613ba1efb ("drm/i915: finish removal of CNL") and its friends
+removed support for i915 for all CNL-based platforms. HDAudio library,
+however, still treats such platforms as valid candidates for i915
+binding. Update query mechanism to reflect changes made in drm tree.
 
-Fixes: 3babae915f4c ("ALSA: hda/tas2781: Add tas2781 HDA driver")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Gergo Koteles <soyer@irl.hu>
----
- sound/pci/hda/patch_realtek.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+At the same time, i915 support for LKF-based platforms has not been
+provided so remove them from valid binding candidates.
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 0ec1312bffd5..24a26959070f 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -9585,7 +9585,7 @@ static const struct hda_fixup alc269_fixups[] = {
- 		.type = HDA_FIXUP_FUNC,
- 		.v.func = tas2781_fixup_i2c,
- 		.chained = true,
--		.chain_id = ALC269_FIXUP_THINKPAD_ACPI,
-+		.chain_id = ALC285_FIXUP_THINKPAD_HEADSET_JACK,
- 	},
- 	[ALC287_FIXUP_YOGA7_14ARB7_I2C] = {
- 		.type = HDA_FIXUP_FUNC,
+The snd_soc_hda change is a follow up for the above and the cleanup
+patches do not bring any functional changes.
 
-base-commit: b401b621758e46812da61fa58a67c3fd8d91de0d
+Changes in v2:
+- list of problematic VGA devices is now declared locally, no more
+  touching drm stuff
+
+Cezary Rojewski (4):
+  ALSA: hda: Skip i915 initialization on CNL/LKF-based platforms
+  ASoC: codecs: hda: Skip HDMI/DP registration if i915 is missing
+  ASoC: codecs: hda: Cleanup error messages
+  ALSA: hda: Reuse for_each_pcm_streams()
+
+ sound/hda/hdac_i915.c     | 32 +++++++++++++++++++++++++++++---
+ sound/pci/hda/hda_codec.c |  2 +-
+ sound/soc/codecs/hda.c    | 15 ++++++++++-----
+ 3 files changed, 40 insertions(+), 9 deletions(-)
+
 -- 
-2.43.2
+2.25.1
 

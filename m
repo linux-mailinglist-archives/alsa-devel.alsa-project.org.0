@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C22F8610B3
-	for <lists+alsa-devel@lfdr.de>; Fri, 23 Feb 2024 12:46:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EABD58610B4
+	for <lists+alsa-devel@lfdr.de>; Fri, 23 Feb 2024 12:46:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2B7A1E72;
-	Fri, 23 Feb 2024 12:45:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B7A1E72
+	by alsa0.perex.cz (Postfix) with ESMTPS id 70941B65;
+	Fri, 23 Feb 2024 12:46:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 70941B65
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1708688769;
-	bh=ZmPygFGWtyXY/k7V0UYpP1keYvjjSFA7st8mQ7lnUbE=;
+	s=default; t=1708688784;
+	bh=qOmiPs34pCUiDLhuSNi0Chuyh6/urNG1iNBP3mIBQVU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=oHcRqeAqTFzCOMHpigv7OQml9JC2j3l3PJWmHFsdiN8FN8dEr4vsStg13LbpjtwGu
-	 Ck1AiCuskogW2gvarXYP55yO5vkSug4If8ZmLW42VrPVJw3zhwAUft7XiClytccahs
-	 +Xzj4aFj+O54tiO9+k2p7N5yyv/ePDM4mZPB4oKc=
+	b=cgS4f/+nlOv2JpHq5tmeKiLVS+VSiLpmHZ9NAw6I61SQGRmnWJ3O/vnY7IUcrZVYp
+	 sugvoanT0RiMV3Mt6pzyhiu7YhgRVB+WBz9uQYkAH2sOQWRoGh9CNS4jJS9Zc/cJa1
+	 xLhZB3aFLorLa9xG1D05CkJIVTxx8YoUkUv5L058=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D2495F805F3; Fri, 23 Feb 2024 12:45:10 +0100 (CET)
+	id CF039F80623; Fri, 23 Feb 2024 12:45:13 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E8B05F805F8;
-	Fri, 23 Feb 2024 12:45:09 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B4164F80602;
+	Fri, 23 Feb 2024 12:45:12 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 581A7F805A8; Fri, 23 Feb 2024 12:45:04 +0100 (CET)
+	id 10632F805B0; Fri, 23 Feb 2024 12:45:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,37 +35,37 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 33004F8047D
-	for <alsa-devel@alsa-project.org>; Fri, 23 Feb 2024 12:44:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33004F8047D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3144AF800EE
+	for <alsa-devel@alsa-project.org>; Fri, 23 Feb 2024 12:45:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3144AF800EE
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=YZTsX3ua
+ header.s=Intel header.b=SWmqW3Xl
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1708688700; x=1740224700;
+  t=1708688702; x=1740224702;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=ZmPygFGWtyXY/k7V0UYpP1keYvjjSFA7st8mQ7lnUbE=;
-  b=YZTsX3ualXnYV860BcUc6L+uq2U6wW9A6j+sJl2L1EIrNby5k1T4e/t2
-   FYUO0dDxsEW2l7Q57tQVRt21F1UDwVzCjbl3Jy+kvfJN1Ya8ZnHjihoEM
-   HA+DbrOW9kqwlhb5HN3IzqLXNx01j94ouYFdOzQ74MXi5r33gh1ESIeFr
-   0Qp1yxZ+TNWjT+mL2+soNFZyZrigeZG2FsgURRf6Uz2uRlKbz93eEd2sZ
-   a6Vdi2HIMSptzbTycaNTV+OtaRXIv/7vPhuZNF1TXxgRrvZEc8jXOMJDZ
-   jJI4GhSqZ1ao4EvRt5KFpBz7nNNKy2K/CLBbk/+UZ/dtcGuC3Ps/7V2+I
+  bh=qOmiPs34pCUiDLhuSNi0Chuyh6/urNG1iNBP3mIBQVU=;
+  b=SWmqW3XlePzbdXrgdLAlcOKChs4jUYovfEVqasMCzg13CRcb6mfERP7z
+   dEYo3Rx5mOVBhJfK/6UB9J44d16WByReO/RMFmqiMqESJjPCKC0ZTCKpP
+   y0jnAafF/6MmXcRTvC4j31QccJvbD2e5qqTsBYX19bXdI8SJrXbihgveP
+   7U948RPGGNBXxzjDPTNXDhVpkRglQXy9HTLJofUoL1jdbaUkgkxhLeOdW
+   2twdoY8h+Jd4xKN0XfYpF+FPj7WJoq2nZt+z8kR0cUeS+zWvdTdo51rOX
+   O6fGpyk4+E+MFYo2cIEJlSOlcBcemLTq1fP/TlBUlLlpZBpLEx2f8weIo
    w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10992"; a="3504606"
+X-IronPort-AV: E=McAfee;i="6600,9927,10992"; a="3504615"
 X-IronPort-AV: E=Sophos;i="6.06,179,1705392000";
-   d="scan'208";a="3504606"
+   d="scan'208";a="3504615"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
   by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Feb 2024 03:44:57 -0800
+ 23 Feb 2024 03:45:00 -0800
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.06,179,1705392000";
-   d="scan'208";a="6092905"
+   d="scan'208";a="6092915"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
-  by fmviesa006.fm.intel.com with ESMTP; 23 Feb 2024 03:44:54 -0800
+  by fmviesa006.fm.intel.com with ESMTP; 23 Feb 2024 03:44:57 -0800
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: broonie@kernel.org
 Cc: alsa-devel@alsa-project.org,
@@ -81,17 +81,16 @@ Cc: alsa-devel@alsa-project.org,
 	pierre-louis.bossart@linux.intel.com,
 	hdegoede@redhat.com,
 	Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: [PATCH v2 2/4] ASoC: codecs: hda: Skip HDMI/DP registration if i915
- is missing
-Date: Fri, 23 Feb 2024 12:46:24 +0100
-Message-Id: <20240223114626.1052784-3-cezary.rojewski@intel.com>
+Subject: [PATCH v2 3/4] ASoC: codecs: hda: Cleanup error messages
+Date: Fri, 23 Feb 2024 12:46:25 +0100
+Message-Id: <20240223114626.1052784-4-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240223114626.1052784-1-cezary.rojewski@intel.com>
 References: <20240223114626.1052784-1-cezary.rojewski@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: IANY3AEXI6ZXZO2KPWRHPAB5KUWQDN3V
-X-Message-ID-Hash: IANY3AEXI6ZXZO2KPWRHPAB5KUWQDN3V
+Message-ID-Hash: YPBA7YFYCY3QWNTOE2BH4AXUMIMG6AQF
+X-Message-ID-Hash: YPBA7YFYCY3QWNTOE2BH4AXUMIMG6AQF
 X-MailFrom: cezary.rojewski@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -104,7 +103,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IANY3AEXI6ZXZO2KPWRHPAB5KUWQDN3V/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YPBA7YFYCY3QWNTOE2BH4AXUMIMG6AQF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,35 +112,56 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-If i915 does not support given platform but the hardware i.e.: HDAudio
-codec is still there, the codec-probing procedure will succeed for such
-device but the follow up initialization will always end up with -ENODEV.
-
-While bus could filter out address '2' which Intel's HDMI/DP codecs
-always enumerate on, more robust approach is to check for i915 presence
-before registering display codecs.
+Be cohesive and use same pattern in each error message.
 
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- sound/soc/codecs/hda.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ sound/soc/codecs/hda.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/sound/soc/codecs/hda.c b/sound/soc/codecs/hda.c
-index d2117e36ddd1..d9e7cd8aada2 100644
+index d9e7cd8aada2..8a9d0674555e 100644
 --- a/sound/soc/codecs/hda.c
 +++ b/sound/soc/codecs/hda.c
-@@ -350,6 +350,11 @@ static int hda_hdev_attach(struct hdac_device *hdev)
- 	struct hda_codec *codec = dev_to_hda_codec(&hdev->dev);
- 	struct snd_soc_component_driver *comp_drv;
+@@ -198,19 +198,19 @@ static int hda_codec_probe(struct snd_soc_component *component)
+ 	ret = snd_hda_codec_device_new(codec->bus, component->card->snd_card, hdev->addr, codec,
+ 				       false);
+ 	if (ret < 0) {
+-		dev_err(&hdev->dev, "create hda codec failed: %d\n", ret);
++		dev_err(&hdev->dev, "codec create failed: %d\n", ret);
+ 		goto device_new_err;
+ 	}
  
-+	if (hda_codec_is_display(codec) && !hdev->bus->audio_component) {
-+		dev_dbg(&hdev->dev, "no i915, skip registration for 0x%08x\n", hdev->vendor_id);
-+		return 0;
-+	}
-+
- 	comp_drv = devm_kzalloc(&hdev->dev, sizeof(*comp_drv), GFP_KERNEL);
- 	if (!comp_drv)
- 		return -ENOMEM;
+ 	ret = snd_hda_codec_set_name(codec, codec->preset->name);
+ 	if (ret < 0) {
+-		dev_err(&hdev->dev, "name failed %s\n", codec->preset->name);
++		dev_err(&hdev->dev, "set name: %s failed: %d\n", codec->preset->name, ret);
+ 		goto err;
+ 	}
+ 
+ 	ret = snd_hdac_regmap_init(&codec->core);
+ 	if (ret < 0) {
+-		dev_err(&hdev->dev, "regmap init failed\n");
++		dev_err(&hdev->dev, "regmap init failed: %d\n", ret);
+ 		goto err;
+ 	}
+ 
+@@ -223,13 +223,13 @@ static int hda_codec_probe(struct snd_soc_component *component)
+ 
+ 	ret = patch(codec);
+ 	if (ret < 0) {
+-		dev_err(&hdev->dev, "patch failed %d\n", ret);
++		dev_err(&hdev->dev, "codec init failed: %d\n", ret);
+ 		goto err;
+ 	}
+ 
+ 	ret = snd_hda_codec_parse_pcms(codec);
+ 	if (ret < 0) {
+-		dev_err(&hdev->dev, "unable to map pcms to dai %d\n", ret);
++		dev_err(&hdev->dev, "unable to map pcms to dai: %d\n", ret);
+ 		goto parse_pcms_err;
+ 	}
+ 
 -- 
 2.25.1
 

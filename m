@@ -2,168 +2,109 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1DEC860D2A
-	for <lists+alsa-devel@lfdr.de>; Fri, 23 Feb 2024 09:48:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11B1E860EFD
+	for <lists+alsa-devel@lfdr.de>; Fri, 23 Feb 2024 11:15:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 323AC847;
-	Fri, 23 Feb 2024 09:48:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 323AC847
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2E06A822;
+	Fri, 23 Feb 2024 11:15:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2E06A822
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1708678125;
-	bh=MbzFblemUzYkADWph8f3TZcmyBcAvKEcQ5C0lPM1+IE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1708683320;
+	bh=37HKWk+1l9rQI4X1WHzhC3iAJrv2QzIQ6fDYvLtvSVc=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=OiTY0bdFNylcy7lME173kcBdvKYOGueW/TUApZ1s9oKEDfmhUK7bj5F4rICzHfpP2
-	 sQClYAc98rLSziFnXqSks/EEtK4ZrfJ6zH4tQ7YnKcUNJ8t6VKGZjUOXGsivrqTqBp
-	 1U9yHMxLe6JVl9fys5OC5dEbk8FfAiDZHXRSsJv0=
+	b=opFeMG29uKN++h9NnxHEmbyxqZ48G3CHO/RpTDsxGeSCp/OnAo2zxiqyp+9fXYF+j
+	 GxDaxczSwrYdrspN9wzIyYO9VhqhkMhAJaf0jDsnn2Fq5oQIrMXbgYWD01veMwXZz1
+	 H9+bl6Yg7Fv8CY/yKHMvSBvoN3x6B+jx3E0CtTl8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CEE58F80568; Fri, 23 Feb 2024 09:48:14 +0100 (CET)
+	id 80775F8057E; Fri, 23 Feb 2024 11:14:46 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A7446F804CC;
-	Fri, 23 Feb 2024 09:48:13 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F2C23F805A0;
+	Fri, 23 Feb 2024 11:14:45 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 69109F80496; Fri, 23 Feb 2024 09:47:58 +0100 (CET)
+	id A34DFF80496; Fri, 23 Feb 2024 11:13:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id ADE34F800ED
-	for <alsa-devel@alsa-project.org>; Fri, 23 Feb 2024 09:47:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ADE34F800ED
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1DA23F800EE
+	for <alsa-devel@alsa-project.org>; Fri, 23 Feb 2024 11:12:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1DA23F800EE
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=jx27WXk8;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=ynzfX375;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=jx27WXk8;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=ynzfX375
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 9F000223A0;
-	Fri, 23 Feb 2024 08:47:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1708678064;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TFEg+FvVq3KaypUT0cn7mMsIX35PhU9wQxVed0FSNeU=;
-	b=jx27WXk8C32nzOYEZ3fIgL/LS+S0KSALrRUIl5vxkIosb1XCfKPV6VMNEqxTmjNwdd1nMG
-	MQDkX4wQE1cuDhTsd7hKZsjMDjyCKRsp3DFKGVHhwuwjf8MH04sS4qrWfNdgW3PW2aqTzs
-	IUnzR4nV0ks7+YtPL6VyA7wTlMtwars=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1708678064;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TFEg+FvVq3KaypUT0cn7mMsIX35PhU9wQxVed0FSNeU=;
-	b=ynzfX375s9eHhR6nXjeAF1lxfygFY2gU/0bAHK4FRoCVif/ERJF0P/vaYQmE4VzYhNww5A
-	M4X5tb6CHq3VdnBg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1708678064;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TFEg+FvVq3KaypUT0cn7mMsIX35PhU9wQxVed0FSNeU=;
-	b=jx27WXk8C32nzOYEZ3fIgL/LS+S0KSALrRUIl5vxkIosb1XCfKPV6VMNEqxTmjNwdd1nMG
-	MQDkX4wQE1cuDhTsd7hKZsjMDjyCKRsp3DFKGVHhwuwjf8MH04sS4qrWfNdgW3PW2aqTzs
-	IUnzR4nV0ks7+YtPL6VyA7wTlMtwars=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1708678064;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TFEg+FvVq3KaypUT0cn7mMsIX35PhU9wQxVed0FSNeU=;
-	b=ynzfX375s9eHhR6nXjeAF1lxfygFY2gU/0bAHK4FRoCVif/ERJF0P/vaYQmE4VzYhNww5A
-	M4X5tb6CHq3VdnBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3282D133DC;
-	Fri, 23 Feb 2024 08:47:44 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 75cWC7Bb2GV6PAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Fri, 23 Feb 2024 08:47:44 +0000
-Date: Fri, 23 Feb 2024 09:47:43 +0100
-Message-ID: <878r3b4le8.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,	Ville =?ISO-8859-1?Q?Syrj?=
- =?ISO-8859-1?Q?=E4l=E4?=
- <ville.syrjala@linux.intel.com>,<broonie@kernel.org>,
- <alsa-devel@alsa-project.org>,<linux-sound@vger.kernel.org>,
- <tiwai@suse.com>,<perex@perex.cz>,<jani.nikula@linux.intel.com>,
- <joonas.lahtinen@linux.intel.com>,<tvrtko.ursulin@linux.intel.com>,
- <intel-gfx@lists.freedesktop.org>,<amadeuszx.slawinski@linux.intel.com>,
- <pierre-louis.bossart@linux.intel.com>,<hdegoede@redhat.com>
-Subject: Re: [PATCH 1/4] ALSA: hda: Skip i915 initialization on CNL/LKF-based
- platforms
-In-Reply-To: <Zde0kkWX5TrZu-U7@intel.com>
-References: <20240222170614.884413-1-cezary.rojewski@intel.com>
-	<20240222170614.884413-2-cezary.rojewski@intel.com>
-	<ZdeDNT5jCgXAP16Z@intel.com>
-	<13fdb738-1a37-47e2-8d06-959bbb85c2b4@intel.com>
-	<Zde0kkWX5TrZu-U7@intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 8bit
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=jx27WXk8;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=ynzfX375
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-3.51 / 50.00];
-	 ARC_NA(0.00)[];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	 FROM_HAS_DN(0.00)[];
-	 TO_DN_SOME(0.00)[];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 NEURAL_HAM_LONG(-1.00)[-1.000];
-	 MIME_GOOD(-0.10)[text/plain];
-	 RCVD_COUNT_THREE(0.00)[3];
-	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	 DKIM_TRACE(0.00)[suse.de:+];
-	 MX_GOOD(-0.01)[];
-	 RCPT_COUNT_TWELVE(0.00)[15];
-	 MID_CONTAINS_FROM(1.00)[];
-	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim];
-	 FUZZY_BLOCKED(0.00)[rspamd.com];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+];
-	 NEURAL_HAM_SHORT(-0.20)[-1.000];
-	 RCVD_TLS_ALL(0.00)[];
-	 BAYES_HAM(-3.00)[100.00%]
-X-Rspamd-Queue-Id: 9F000223A0
-Message-ID-Hash: FEEN2WEKTZU4Y6KOBQT6IPG4ASKIV62H
-X-Message-ID-Hash: FEEN2WEKTZU4Y6KOBQT6IPG4ASKIV62H
-X-MailFrom: tiwai@suse.de
+ unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
+ header.s=ti-com-17Q1 header.b=cEn1wXOx
+Received: from fllv0035.itg.ti.com ([10.64.41.0])
+	by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id 41NACnXs106918;
+	Fri, 23 Feb 2024 04:12:49 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+	s=ti-com-17Q1; t=1708683169;
+	bh=37HKWk+1l9rQI4X1WHzhC3iAJrv2QzIQ6fDYvLtvSVc=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To;
+	b=cEn1wXOx3SoP06w+5eemHx1WZVf/fXDdIe8uw4MsdbfYG7aD32No1tb7N65OHsxcS
+	 TNrn5RD4IyN+JLq7AgZ/fpM0JF9YsDbl/sI4Do11LhWZhG1gfzHRMBoApepvpArkRX
+	 B62dxt8Jux54tgrzfAAVOKGWPBGhQgFEfIHPC7cU=
+Received: from DLEE100.ent.ti.com (dlee100.ent.ti.com [157.170.170.30])
+	by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 41NACn2i026319
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Fri, 23 Feb 2024 04:12:49 -0600
+Received: from DLEE101.ent.ti.com (157.170.170.31) by DLEE100.ent.ti.com
+ (157.170.170.30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Fri, 23
+ Feb 2024 04:12:49 -0600
+Received: from DLEE101.ent.ti.com ([fe80::91ee:60bc:bfb7:851c]) by
+ DLEE101.ent.ti.com ([fe80::91ee:60bc:bfb7:851c%18]) with mapi id
+ 15.01.2507.023; Fri, 23 Feb 2024 04:12:49 -0600
+From: "Ding, Shenghao" <shenghao-ding@ti.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+        "broonie@kernel.org" <broonie@kernel.org>
+CC: "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
+        "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+        "perex@perex.cz"
+	<perex@perex.cz>,
+        "13916275206@139.com" <13916275206@139.com>,
+        "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+        "liam.r.girdwood@intel.com" <liam.r.girdwood@intel.com>,
+        "bard.liao@intel.com" <bard.liao@intel.com>,
+        "mengdong.lin@intel.com"
+	<mengdong.lin@intel.com>,
+        "yung-chuan.liao@linux.intel.com"
+	<yung-chuan.liao@linux.intel.com>,
+        "Xu, Baojun" <baojun.xu@ti.com>, "Lu,
+ Kevin" <kevin-lu@ti.com>,
+        "tiwai@suse.de" <tiwai@suse.de>, "soyer@irl.hu"
+	<soyer@irl.hu>
+Subject: RE: [EXTERNAL] Re: [PATCH v9] ASoc: tas2783: Add tas2783 codec driver
+Thread-Topic: [EXTERNAL] Re: [PATCH v9] ASoc: tas2783: Add tas2783 codec
+ driver
+Thread-Index: AQHaZWJdzl/3F/uZLk2mYU9psTSIi7EXdCuAgABAqsA=
+Date: Fri, 23 Feb 2024 10:12:49 +0000
+Message-ID: <5c7127256bf54fcd921fc1ec83f3e527@ti.com>
+References: <20240222074000.659-1-shenghao-ding@ti.com>
+ <10f53a13-a0ff-40f9-b089-f5baacdb76b6@linux.intel.com>
+In-Reply-To: <10f53a13-a0ff-40f9-b089-f5baacdb76b6@linux.intel.com>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.85.14.246]
+x-exclaimer-md-config: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+Message-ID-Hash: 2WAVQ5VYJPTTYT2G2BXE5GQ6T63O6RNJ
+X-Message-ID-Hash: 2WAVQ5VYJPTTYT2G2BXE5GQ6T63O6RNJ
+X-MailFrom: shenghao-ding@ti.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -175,7 +116,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FEEN2WEKTZU4Y6KOBQT6IPG4ASKIV62H/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2WAVQ5VYJPTTYT2G2BXE5GQ6T63O6RNJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -184,63 +125,58 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 22 Feb 2024 21:54:42 +0100,
-Rodrigo Vivi wrote:
-> 
-> On Thu, Feb 22, 2024 at 06:53:12PM +0100, Cezary Rojewski wrote:
-> > On 2024-02-22 6:24 PM, Ville Syrjälä wrote:
-> > > On Thu, Feb 22, 2024 at 06:06:11PM +0100, Cezary Rojewski wrote:
-> > > > Commit 78f613ba1efb ("drm/i915: finish removal of CNL") and its friends
-> > > > removed support for i915 for all CNL-based platforms. HDAudio library,
-> > > > however, still treats such platforms as valid candidates for i915
-> > > > binding. Update query mechanism to reflect changes made in drm tree.
-> > > > 
-> > > > At the same time, i915 support for LKF-based platforms has not been
-> > > > provided so remove them from valid binding candidates.
-> > 
-> > ...
-> > 
-> > > > @@ -127,15 +128,26 @@ static int i915_component_master_match(struct device *dev, int subcomponent,
-> > > >   /* check whether Intel graphics is present and reachable */
-> > > >   static int i915_gfx_present(struct pci_dev *hdac_pci)
-> > > >   {
-> > > > +	/* List of known platforms with no i915 support. */
-> > > > +	static struct pci_device_id denylist[] = {
-> > > > +		INTEL_CNL_IDS(NULL),
-> > > > +		INTEL_LKF_IDS(NULL),
-> > > > +		{ 0 }
-> > > > +	};
-> > > 
-> > > I thought these don't actually exist in the wild?
-> > 
-> > To my knowledge the opposite is true - while LKFs were shipped in limited
-> > number, they still were. I did ask few weeks ago my friends from Windows
-> > side about the support and they're still running full-scopes on HDMI
-> > endpoints on LKF platforms in their CIs. It seems the drm support is there
-> > though. Once you re-boot to linux we get -19 during probe().
-> > 
-> > In regard to CNL, the commit removing CNL-support left the IDs intact what's
-> 
-> I would prefer to go the other way around and remove the unused/unsupported
-> IDs entirely and for good.
-> 
-> > very handy to us - we have a lot of spare CNL boards for our validation
-> > purposes - CNL-based AudioDSP spans multiple platforms, e.g.:
-> > CNL/CFL/WHL/CML. The number of newer boards is lower, unfortunately.
-> 
-> Well, I do see your point here and you are not asking for us to add gfx
-> support back, but only help to have this protection here.
-> 
-> However I'm afraid that these entries in the list would only cause
-> further confusion. Couldn't they get defined inside your .c directly as
-> a const deny_list? so when we go there and remove the missing bits
-> of CNL we don't conflict or cause undersired issues to you.
-
-That makes sense.  Maybe drm people would get rid of the dead CNL*()
-definitions from the header as a cleanup in near future, and we'll hit
-a trouble.
-
-
-thanks,
-
-Takashi
+SGkgUGllcnJlLUxvdWlzDQpUaGFua3MgZm9yIHlvdXIgY2FyZWZ1bCByZXZpZXcuDQoNCj4gLS0t
+LS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogUGllcnJlLUxvdWlzIEJvc3NhcnQgPHBp
+ZXJyZS1sb3Vpcy5ib3NzYXJ0QGxpbnV4LmludGVsLmNvbT4NCj4gU2VudDogRnJpZGF5LCBGZWJy
+dWFyeSAyMywgMjAyNCA4OjE0IEFNDQo+IFRvOiBEaW5nLCBTaGVuZ2hhbyA8c2hlbmdoYW8tZGlu
+Z0B0aS5jb20+OyBicm9vbmllQGtlcm5lbC5vcmcNCj4gQ2M6IGFuZHJpeS5zaGV2Y2hlbmtvQGxp
+bnV4LmludGVsLmNvbTsgbGdpcmR3b29kQGdtYWlsLmNvbTsNCj4gcGVyZXhAcGVyZXguY3o7IDEz
+OTE2Mjc1MjA2QDEzOS5jb207IGFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZzsNCj4gbGludXgt
+a2VybmVsQHZnZXIua2VybmVsLm9yZzsgbGlhbS5yLmdpcmR3b29kQGludGVsLmNvbTsNCj4gYmFy
+ZC5saWFvQGludGVsLmNvbTsgbWVuZ2RvbmcubGluQGludGVsLmNvbTsgeXVuZy0NCj4gY2h1YW4u
+bGlhb0BsaW51eC5pbnRlbC5jb207IFh1LCBCYW9qdW4gPGJhb2p1bi54dUB0aS5jb20+OyBMdSwg
+S2V2aW4NCj4gPGtldmluLWx1QHRpLmNvbT47IHRpd2FpQHN1c2UuZGU7IHNveWVyQGlybC5odQ0K
+PiBTdWJqZWN0OiBbRVhURVJOQUxdIFJlOiBbUEFUQ0ggdjldIEFTb2M6IHRhczI3ODM6IEFkZCB0
+YXMyNzgzIGNvZGVjIGRyaXZlcg0KPiANCj4gT24gMi8yMi8yNCAyOuKAijQwIEFNLCBTaGVuZ2hh
+byBEaW5nIHdyb3RlOiA+IFRoZSB0YXMyNzgzIGlzIGEgc21hcnQgYXVkaW8NCj4gYW1wbGlmaWVy
+IHdpdGggaW50ZWdyYXRlZCBNSVBJIFNvdW5kV2lyZSA+IGludGVyZmFjZSAoVmVyc2lvbiAxLuKA
+ijIu4oCKMQ0KPiBjb21wbGlhbnQpLCBJMkMsIGFuZCBJMlMvVERNIGludGVyZmFjZXMgZGVzaWdu
+ZWQgPiBmb3IgcG9ydGFibGUNCj4gYXBwbGljYXRpb25zLiBBbiBvbi1jaGlwIERTUCBaalFjbVFS
+WUZwZnB0QmFubmVyU3RhcnQgVGhpcyBtZXNzYWdlIHdhcw0KPiBzZW50IGZyb20gb3V0c2lkZSBv
+ZiBUZXhhcyBJbnN0cnVtZW50cy4NCj4gRG8gbm90IGNsaWNrIGxpbmtzIG9yIG9wZW4gYXR0YWNo
+bWVudHMgdW5sZXNzIHlvdSByZWNvZ25pemUgdGhlIHNvdXJjZSBvZg0KPiB0aGlzIGVtYWlsIGFu
+ZCBrbm93IHRoZSBjb250ZW50IGlzIHNhZmUuDQo+IA0KPiBaalFjbVFSWUZwZnB0QmFubmVyRW5k
+DQo+IE9uIDIvMjIvMjQgMjo0MCBBTSwgU2hlbmdoYW8gRGluZyB3cm90ZToNCj4gPiBUaGUgdGFz
+Mjc4MyBpcyBhIHNtYXJ0IGF1ZGlvIGFtcGxpZmllciB3aXRoIGludGVncmF0ZWQgTUlQSSBTb3Vu
+ZFdpcmUNCj4gPiBpbnRlcmZhY2UgKFZlcnNpb24gMS4yLjEgY29tcGxpYW50KSwgSTJDLCBhbmQg
+STJTL1RETSBpbnRlcmZhY2VzDQo+ID4gZGVzaWduZWQgZm9yIHBvcnRhYmxlIGFwcGxpY2F0aW9u
+cy4gQW4gb24tY2hpcCBEU1Agc3VwcG9ydHMgVGV4YXMNCj4gPiBJbnN0cnVtZW50cyBTbWFydEFt
+cCBzcGVha2VyIHByb3RlY3Rpb24gYWxnb3JpdGhtLiBUaGUgaW50ZWdyYXRlZA0KPiA+IHNwZWFr
+ZXIgdm9sdGFnZSBhbmQgY3VycmVudCBzZW5zZSBwcm92aWRlcyBmb3IgcmVhbC10aW1lIG1vbml0
+b3Jpbmcgb2YNCj4gbG9kc3BlYWtlcnMuDQo+IA0KPiBsb3Vkc3BlYWtlcnMuDQo+IA0KPiANCj4g
+PiArc3RhdGljIHZvaWQgdGFzMjc4M19hcHBseV9jYWxpYihzdHJ1Y3QgdGFzZGV2aWNlX3ByaXYg
+KnRhc19kZXYsDQo+ID4gKwl1bnNpZ25lZCBpbnQgKmNhbGlfZGF0YSkNCj4gPiArew0KPiA+ICsJ
+c3RydWN0IHJlZ21hcCAqbWFwID0gdGFzX2Rldi0+cmVnbWFwOw0KPiA+ICsJdTggKmNhbGlfc3Rh
+cnQ7DQo+ID4gKwl1MTYgb2Zmc2V0Ow0KPiA+ICsJaW50IHJldDsNCj4gPiArDQo+ID4gKwlpZiAo
+IXRhc19kZXYtPnNkd19wZXJpcGhlcmFsKSB7DQo+ID4gKwkJZGV2X2Vycih0YXNfZGV2LT5kZXYs
+ICIlczogcGVyaXBoZXJhbCBkb2Vzbid0IGV4aXN0LlxuIiwNCj4gPiArCQkJX19mdW5jX18pOw0K
+PiA+ICsJCXJldHVybjsNCj4gPiArCX0NCj4gPiArDQo+ID4gKwlvZmZzZXQgPSB0YXNfZGV2LT5z
+ZHdfcGVyaXBoZXJhbC0+aWQudW5pcXVlX2lkIC0NCj4gPiArCQlUQVMyNzgzX1VOSVFVRV9JRF9C
+QVNFOw0KPiA+ICsJaWYgKG9mZnNldCA+PSBUQVMyNzgzX01BWF9ERVZfTlVNKSB7DQo+ID4gKwkJ
+ZGV2X2Vycih0YXNfZGV2LT5kZXYsICIlczogb2Zmc2V0KCV1KSBpcyBvdXQgb2YgcmFuZ2UuXG4i
+LA0KPiA+ICsJCQkgX19mdW5jX18sIG9mZnNldCk7DQo+ID4gKwkJcmV0dXJuOw0KPiA+ICsJfQ0K
+PiANCj4gSSB0aGluayB3ZSBhcmUgYXQgdGhlIDR0aCBpdGVyYXRpb24gd2hlcmUgSSBoYXZlIHRv
+IHJlcGVhdCBteXNlbGYuLi4NCj4gDQo+IEluIHRoZSBTb3VuZFdpcmUgc3BlYywgdGhlIHVuaXF1
+ZV9pZCBpcyAqTElOSyBTUEVDSUZJQyosIGFuZCBvbmx5IHVzZWQgYXQNCj4gdGhlIGJ1cyBsZXZl
+bCB3aXRoaW4gdGhlIGNvbnRleHQgb2YgYSBsaW5rIHRvIGhlbHAgYXZvaWQgZW51bWVyYXRpb24N
+Cj4gY29uZmxpY3RzDQo+IA0KPiBJZiB5b3UgYXJlIHVzaW5nIHRoZSB1bmlxdWVfaWQgYXMgYSBT
+WVNURU0tVU5JUVVFIHZhbHVlIHRvIGxvb2t1cCBFRkkNCj4gZGF0YSwgdGhpcyBpcyBhIFRJLXNw
+ZWNpZmljIHJlcXVpcmVtZW50IHRoYXQgbmVlZHMgdG8gYmUgZG9jdW1lbnRlZC4NCj4gVGhhdCBh
+bHNvIG1lYW5zIHlvdSBuZWVkIHRvIGRvdWJsZS1jaGVjayBmb3IgZXJyb3JzIHNvIG1ha2Ugc3Vy
+ZSB0aGVyZQ0KPiBhcmUgbm8gYm9hcmQgY29uZmlndXJhdGlvbnMgd2hlcmUgdGhlIHNhbWUgdW5p
+cXVlX2lkIGlzIHVzZWQgaW4gbXVsdGlwbGUNCj4gbGlua3MsIG9yIGJ5IGRldmljZXMgb3RoZXIg
+dGhhbiB0YXMyNzgzLg0KPiANCj4gDQpUaGlzIGNvZGUgb25seSBjb3ZlcnMgdGhlIHRhczI3ODNz
+IHNpdHRpbmcgaW4gdGhlIHNhbWUgYnVzIGxpbmsuIEFzIHRvIGNhc2VzIG9mIHRoZQ0KZGlmZmVy
+ZW50IFNXRCBsaW5rcywgY3VzdG9tZXIgd2lsbCBiZSByZXF1aXJlZCB0byBoYXZlIHRoZSBzZWNv
+bmRhcnkgZGV2ZWxvcG1lbnQNCm9uIGN1cnJlbnQgY29kZS4gSSdtIHN1cmUgbXkgY3VzdG9tZXJz
+IGhhdmUgbXVjaCBrbm93bGVkZ2UgdG8gaGFuZGxlIHRoaXMuDQo=

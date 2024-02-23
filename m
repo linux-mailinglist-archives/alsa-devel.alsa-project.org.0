@@ -2,93 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7740861AAB
-	for <lists+alsa-devel@lfdr.de>; Fri, 23 Feb 2024 18:53:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAA9C861AA5
+	for <lists+alsa-devel@lfdr.de>; Fri, 23 Feb 2024 18:52:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 722E5A4A;
-	Fri, 23 Feb 2024 18:53:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 722E5A4A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 600EADEC;
+	Fri, 23 Feb 2024 18:52:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 600EADEC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1708710816;
-	bh=YbwFPjo6ccRVq4UzuSvS6LZFtetWcxbtqaMWTpTxTyE=;
+	s=default; t=1708710776;
+	bh=D6ZViuQxxu5LLhWeN+tNr7Qy788hI6Q6B6sgjHGd1ws=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=eyIb5U4FPdWHNAfyvBipXzpRdj/OZKrJ4+pjmkd7LthcA8tP0ciB5TSK+vynPxVD8
-	 bwX7sPfgQhXJB6UNbFuSdfvY25lNIlR7cEI7TTGFOvWbfmgs8LmKcNmAzTxxWN+Kt5
-	 U05EpaKiDQGOm1G/FVgJ4xdCcaHOd/wJbSSFFJJM=
+	b=rE4QjyQBIWbB6nmJ9oXOEpNag3dGY8E84mpTedGT9grkB7V9CHCLVVnUzJcVM/Khh
+	 nZiFHQSGU+3xr4TLGp9JK/Kmsk8FB6caHxGYkCewogycdfHrtZjN1YWP+5+fEjAjKs
+	 B03IOG0ML2zj9OlO48Wq6OjLJ2bJdUZxCv0hdVTo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 37B74F80689; Fri, 23 Feb 2024 18:51:56 +0100 (CET)
+	id 2BA0CF80613; Fri, 23 Feb 2024 18:51:50 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 55E9AF8067A;
-	Fri, 23 Feb 2024 18:51:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D12E7F80603;
+	Fri, 23 Feb 2024 18:51:49 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8D755F805D2; Fri, 23 Feb 2024 18:51:43 +0100 (CET)
+	id D9FA6F80567; Fri, 23 Feb 2024 18:51:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-	shortcircuit=no autolearn=unavailable autolearn_force=no version=3.4.6
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [IPv6:2a00:1450:4864:20::431])
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [IPv6:2a00:1450:4864:20::42e])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id ED044F80496
-	for <alsa-devel@alsa-project.org>; Fri, 23 Feb 2024 18:51:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED044F80496
+	by alsa1.perex.cz (Postfix) with ESMTPS id A8384F80567
+	for <alsa-devel@alsa-project.org>; Fri, 23 Feb 2024 18:51:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8384F80567
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=baylibre-com.20230601.gappssmtp.com
  header.i=@baylibre-com.20230601.gappssmtp.com header.a=rsa-sha256
- header.s=20230601 header.b=ai4KZX/+
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-33da51fd636so603688f8f.3
+ header.s=20230601 header.b=P/e1CXu3
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-33d6f26ff33so410217f8f.0
         for <alsa-devel@alsa-project.org>;
- Fri, 23 Feb 2024 09:51:25 -0800 (PST)
+ Fri, 23 Feb 2024 09:51:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1708710685;
- x=1709315485; darn=alsa-project.org;
+        d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1708710686;
+ x=1709315486; darn=alsa-project.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=E5onlIQPMa8EU8sK1NqJS82W4yBogcW0MtBFux+iSL0=;
-        b=ai4KZX/+PO0ouOx0uYeCRZb4IDQ8+jOVnHCkqwdn7JSx8ihoqmkMTmd2VZHOx8TOqP
-         uR6k+y0nPS7XhhkCWBQE/tYzPxicSk9xvZnSeNO6kJmUew0DHaatgiVhGd30LpaiKRj0
-         dtoL4DxmP19818pgHrdljGf6rx4EVfkpfOieGNQiA3A8Wyw/xlLIvP5Inpb9lcrgVgyk
-         5radEyRyoJMbiqNDzeXJkVk31WOdgcdo07IwMeUdiN2hGceWQL5gcF/fhppNMHN+iP1A
-         x599Qg/CCpDS5UeWk0KRBvHT0nLn7kRQDe0VSvuTXxdfbPxGXF79QGgiLk/mhsVUnD6J
-         zxSA==
+        bh=CvElMeb2g6xpqhFWcI8ix09RRMkAlSO99O6608hvkMQ=;
+        b=P/e1CXu3ZTRRRT8GETwyGhL83DLyS/pw1NrAhI58co/WCalNbEB+hY0wgnjG0Ya6zH
+         oeQbqRX3e3I6LXW1zxzeIw77ZgkEHHQBX0QcACiUc+wnFkQNzIj+KnN3x1c5oe8iQbJb
+         NbIgNoi5vLraaFrVjOGQAIwk5Kmi5+o+rSokCjBR4SxRQDuAVQujxnF7pLzwgwKIEEJb
+         B0oJhRKpv6MxFsUZD6eIuW0YI7teslRyQ0fYwX88kVwX7myHii5vANJTcCFB2q/6IVU4
+         oQSAEZs00nLXX+9hbRvI9gIIQtruzUMLp7ltpvrpcngn9gWaFHuN7Q+qM5Z3lbw51vzw
+         Hv5w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708710685; x=1709315485;
+        d=1e100.net; s=20230601; t=1708710686; x=1709315486;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=E5onlIQPMa8EU8sK1NqJS82W4yBogcW0MtBFux+iSL0=;
-        b=lZy2Xq8em4yH4OFaDEFVhRjvy8lsNJrb3SK/wyF2sbm57n8Sfzr8CE5d+jv3doyw3H
-         3tj1XxX6/eWAzxwj5kcIwxetytDnw98mINnmpHeNfXVIyOe9JHToALNwPhgyUb8PPqhx
-         FKX28diapUKV+QlNjKIYLgj0BDWQeUZbN7+steNqZlkFi0rTvJ9/AUduarVbhx9Lyqll
-         2y5lsPCTLVWlTwZl4v6b03bRVuZf3qfBf//Lh8JoDqI9TYd1SgXX1ddd31lOGMwXxYxc
-         EQR66CsrLDE8LjqicvsN21D95ly0Q/dU/FCEMsRZ8PsrtF0K4YvuHr7tZqP23EjQCtz7
-         NbZA==
+        bh=CvElMeb2g6xpqhFWcI8ix09RRMkAlSO99O6608hvkMQ=;
+        b=n4FpVn7gKzNEaMXp+RxkR3EX1Y8TbgmM78CbgTcmV+8gT5AiDmrj3rlqMhNHbXDwE5
+         Msc9lswEV+VvzsdCVqgMQABZHYh7NdN+1T/CYfZkLAE2Qpq6XB0cyBxGQwmJRtAbVKpa
+         6YH3ZeEkTDE6jsfpwCfnvF4xJ10mDljicDmkdgUpeQ8J01P/IkEbjGtXgXwcH5q6RUVE
+         Y4uYCGoGdHb/HYf1FhzdRFOcinTnb7il8D1YlwV3K5/2JDedPsdccpJhMbTyw4ChqOUb
+         4HrUjYkPUHu4H8BdcbAaxbSQ+j75Wc/BdzGZWFRvaqCLnRU8YQkHVv4f0hkS0SW0a8IT
+         xuxw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUD3rDI+fAKa4Otw/t8I6vFqLIJ4pNN/gQmFNSOmZ75AB6cjJDlRsOeDLpM2CudT2qB1uai+lAfADVgf3vFF5IdMPFEvGL/2HCGrKg=
-X-Gm-Message-State: AOJu0YwXW2n7Xkrb8boFxXfYhdl1R1GE130Qm3AhCbaXCIOk0wEkWbUJ
-	vioj2SiABIKLgrWs13fXOrwcTghRDzulc3ggVbGon6vLfSBVGYNvdFeh0HThTPjF/WczNIylM9V
-	f
+ AJvYcCVureelRHHi2atzvsZw9sRfcEx8UNMbTniV8KYkSeg8VH5vYATZwD1/0wu2mV5OKwpqYDaRkbfyjpVps3buujw3U+trHlTKZqybztI=
+X-Gm-Message-State: AOJu0YwW/U4xYB/lTrwKYmSX9ZEyi3LsDD3JOTE/dqb236VNNIfHqHsk
+	BG07vpcK6UsQuJXcvFmTmu00zF4N7vtMtd0zhlsrYDvk9UmHpNyyCo3FGsB/55Y=
 X-Google-Smtp-Source: 
- AGHT+IGbVheYYWSnBsZMt7MWcRfxMQjAjkyXcfMrBJ55mpI+QDGAkuDrALH5oqVlvASElX3LNqQCRA==
-X-Received: by 2002:adf:fcc6:0:b0:33d:9283:93b with SMTP id
- f6-20020adffcc6000000b0033d9283093bmr329883wrs.47.1708710684884;
-        Fri, 23 Feb 2024 09:51:24 -0800 (PST)
+ AGHT+IGsZP6H+91NdmJ6i8soaEWmdRDIYCoyh52OhJZC6bOgqY/X/r4JhNQ6kUaz+Xc1LH/5RJoMXA==
+X-Received: by 2002:a5d:4a4a:0:b0:33d:3cf6:a2ca with SMTP id
+ v10-20020a5d4a4a000000b0033d3cf6a2camr361594wrs.30.1708710685868;
+        Fri, 23 Feb 2024 09:51:25 -0800 (PST)
 Received: from toaster.lan ([2a01:e0a:3c5:5fb1:e8a0:25a6:d4ec:a7ff])
         by smtp.googlemail.com with ESMTPSA id
- bo10-20020a056000068a00b0033cddadde6esm3711524wrb.80.2024.02.23.09.51.24
+ bo10-20020a056000068a00b0033cddadde6esm3711524wrb.80.2024.02.23.09.51.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Feb 2024 09:51:24 -0800 (PST)
+        Fri, 23 Feb 2024 09:51:25 -0800 (PST)
 From: Jerome Brunet <jbrunet@baylibre.com>
 To: Mark Brown <broonie@kernel.org>,
 	Liam Girdwood <lgirdwood@gmail.com>
@@ -96,18 +95,17 @@ Cc: Jerome Brunet <jbrunet@baylibre.com>,
 	alsa-devel@alsa-project.org,
 	linux-kernel@vger.kernel.org,
 	linux-amlogic@lists.infradead.org
-Subject: [PATCH 4/6] ASoC: meson: axg-spdifin: use max width for rate
- detection
-Date: Fri, 23 Feb 2024 18:51:10 +0100
-Message-ID: <20240223175116.2005407-5-jbrunet@baylibre.com>
+Subject: [PATCH 5/6] ASoC: meson: axg-fifo: take continuous rates
+Date: Fri, 23 Feb 2024 18:51:11 +0100
+Message-ID: <20240223175116.2005407-6-jbrunet@baylibre.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240223175116.2005407-1-jbrunet@baylibre.com>
 References: <20240223175116.2005407-1-jbrunet@baylibre.com>
 MIME-Version: 1.0
 X-Patchwork-Bot: notify
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: YNPSPGE3RSZTX5LOBEBNYQTISWUO4BI5
-X-Message-ID-Hash: YNPSPGE3RSZTX5LOBEBNYQTISWUO4BI5
+Message-ID-Hash: N2BPBUFVPV4KCOBTICJTE7BNJZ6EC6OI
+X-Message-ID-Hash: N2BPBUFVPV4KCOBTICJTE7BNJZ6EC6OI
 X-MailFrom: jbrunet@baylibre.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -119,8 +117,7 @@ X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YNPSPGE3RSZTX5LOBEBNYQTISWUO4BI5/>
+Archived-At: <>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -129,44 +126,87 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Use maximum width between 2 edges to setup spdifin thresholds
-and detect the input sample rate. This comes from Amlogic SDK and
-seems to be marginally more reliable than minimum width.
+The rate of the stream does not matter for the fifos of the axg family.
+Fifos will just push or pull data to/from the DDR according to consumption
+or production of the downstream element, which is the DPCM backend.
 
-This is done to align with a future eARC support.
-No issue was reported with minimum width so far, this is considered
-to be an update so no Fixes tag is set.
+Drop the rate list and allow continuous rates. The lower and upper rate are
+set according what is known to work with the different backends
+
+This allows the PDM input backend to also use continuous rates.
 
 Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
 ---
- sound/soc/meson/axg-spdifin.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ sound/soc/meson/axg-fifo.h  | 2 --
+ sound/soc/meson/axg-frddr.c | 8 ++++++--
+ sound/soc/meson/axg-toddr.c | 8 ++++++--
+ 3 files changed, 12 insertions(+), 6 deletions(-)
 
-diff --git a/sound/soc/meson/axg-spdifin.c b/sound/soc/meson/axg-spdifin.c
-index bc2f2849ecfb..e721f579321e 100644
---- a/sound/soc/meson/axg-spdifin.c
-+++ b/sound/soc/meson/axg-spdifin.c
-@@ -179,9 +179,9 @@ static int axg_spdifin_sample_mode_config(struct snd_soc_dai *dai,
- 			   SPDIFIN_CTRL1_BASE_TIMER,
- 			   FIELD_PREP(SPDIFIN_CTRL1_BASE_TIMER, rate / 1000));
+diff --git a/sound/soc/meson/axg-fifo.h b/sound/soc/meson/axg-fifo.h
+index df528e8cb7c9..a14c31eb06d8 100644
+--- a/sound/soc/meson/axg-fifo.h
++++ b/sound/soc/meson/axg-fifo.h
+@@ -21,8 +21,6 @@ struct snd_soc_dai_driver;
+ struct snd_soc_pcm_runtime;
  
--	/* Threshold based on the minimum width between two edges */
-+	/* Threshold based on the maximum width between two edges */
- 	regmap_update_bits(priv->map, SPDIFIN_CTRL0,
--			   SPDIFIN_CTRL0_WIDTH_SEL, SPDIFIN_CTRL0_WIDTH_SEL);
-+			   SPDIFIN_CTRL0_WIDTH_SEL, 0);
- 
- 	/* Calculate the last timer which has no threshold */
- 	t_next = axg_spdifin_mode_timer(priv, i, rate);
-@@ -199,7 +199,7 @@ static int axg_spdifin_sample_mode_config(struct snd_soc_dai *dai,
- 		axg_spdifin_write_timer(priv->map, i, t);
- 
- 		/* Set the threshold value */
--		axg_spdifin_write_threshold(priv->map, i, t + t_next);
-+		axg_spdifin_write_threshold(priv->map, i, 3 * (t + t_next));
- 
- 		/* Save the current timer for the next threshold calculation */
- 		t_next = t;
+ #define AXG_FIFO_CH_MAX			128
+-#define AXG_FIFO_RATES			(SNDRV_PCM_RATE_5512 |		\
+-					 SNDRV_PCM_RATE_8000_384000)
+ #define AXG_FIFO_FORMATS		(SNDRV_PCM_FMTBIT_S8 |		\
+ 					 SNDRV_PCM_FMTBIT_S16_LE |	\
+ 					 SNDRV_PCM_FMTBIT_S20_LE |	\
+diff --git a/sound/soc/meson/axg-frddr.c b/sound/soc/meson/axg-frddr.c
+index 8c166a5f338c..98140f449eb3 100644
+--- a/sound/soc/meson/axg-frddr.c
++++ b/sound/soc/meson/axg-frddr.c
+@@ -109,7 +109,9 @@ static struct snd_soc_dai_driver axg_frddr_dai_drv = {
+ 		.stream_name	= "Playback",
+ 		.channels_min	= 1,
+ 		.channels_max	= AXG_FIFO_CH_MAX,
+-		.rates		= AXG_FIFO_RATES,
++		.rates		= SNDRV_PCM_RATE_CONTINUOUS,
++		.rate_min	= 5515,
++		.rate_max	= 384000,
+ 		.formats	= AXG_FIFO_FORMATS,
+ 	},
+ 	.ops		= &axg_frddr_ops,
+@@ -184,7 +186,9 @@ static struct snd_soc_dai_driver g12a_frddr_dai_drv = {
+ 		.stream_name	= "Playback",
+ 		.channels_min	= 1,
+ 		.channels_max	= AXG_FIFO_CH_MAX,
+-		.rates		= AXG_FIFO_RATES,
++		.rates		= SNDRV_PCM_RATE_CONTINUOUS,
++		.rate_min	= 5515,
++		.rate_max	= 384000,
+ 		.formats	= AXG_FIFO_FORMATS,
+ 	},
+ 	.ops		= &g12a_frddr_ops,
+diff --git a/sound/soc/meson/axg-toddr.c b/sound/soc/meson/axg-toddr.c
+index 1a0be177b8fe..32ee45cce7f8 100644
+--- a/sound/soc/meson/axg-toddr.c
++++ b/sound/soc/meson/axg-toddr.c
+@@ -131,7 +131,9 @@ static struct snd_soc_dai_driver axg_toddr_dai_drv = {
+ 		.stream_name	= "Capture",
+ 		.channels_min	= 1,
+ 		.channels_max	= AXG_FIFO_CH_MAX,
+-		.rates		= AXG_FIFO_RATES,
++		.rates		= SNDRV_PCM_RATE_CONTINUOUS,
++		.rate_min	= 5515,
++		.rate_max	= 384000,
+ 		.formats	= AXG_FIFO_FORMATS,
+ 	},
+ 	.ops		= &axg_toddr_ops,
+@@ -226,7 +228,9 @@ static struct snd_soc_dai_driver g12a_toddr_dai_drv = {
+ 		.stream_name	= "Capture",
+ 		.channels_min	= 1,
+ 		.channels_max	= AXG_FIFO_CH_MAX,
+-		.rates		= AXG_FIFO_RATES,
++		.rates		= SNDRV_PCM_RATE_CONTINUOUS,
++		.rate_min	= 5515,
++		.rate_max	= 384000,
+ 		.formats	= AXG_FIFO_FORMATS,
+ 	},
+ 	.ops		= &g12a_toddr_ops,
 -- 
 2.43.0
 

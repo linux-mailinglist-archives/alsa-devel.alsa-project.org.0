@@ -2,158 +2,111 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E96A8672AC
-	for <lists+alsa-devel@lfdr.de>; Mon, 26 Feb 2024 12:09:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50FBE86741B
+	for <lists+alsa-devel@lfdr.de>; Mon, 26 Feb 2024 13:00:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 543C4839;
-	Mon, 26 Feb 2024 12:09:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 543C4839
+	by alsa0.perex.cz (Postfix) with ESMTPS id 949DC85D;
+	Mon, 26 Feb 2024 13:00:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 949DC85D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1708945790;
-	bh=JFrZhl2s3V6bOgunbNihfw2Wulvq2LTqnSZ68Jgu+qI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=s1jfdoLwEYKo7f4TzeLjSk9H1b3EzTNSNypLrvZYx3QyT1Tel8KfQELdnjc9VzijD
-	 HuK+i9b0jrrq1TjAv3k2D7PH/8JyjW6EBmm91O6hcfclRu6WhiWXjyq+ydjufxhybQ
-	 73HtwC41jpHY1VmQ0A3tP6jdZO1VWrkSSkBKhfrE=
+	s=default; t=1708948820;
+	bh=1boF7Vn0lILkXSfRRTQEenr6/RP11nxQXsy3laGqUPs=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=tr1mcKxU+3/BA9vBXFomNbLcPEQ1GxX6+8ao+zmmhj6q/k5T0ZvSG7clwBdww+6rH
+	 dW91Ykbv64YLgWLy3j1b/02p5l9S5Xj+Yn5WY8ZAY5WDyMcka7azM7xxrSmZEEhkQ2
+	 cx3sEQuzMsmkgb9VZBUDEtTwElGTS8b7Sjv9s6h0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B453BF8057E; Mon, 26 Feb 2024 12:09:29 +0100 (CET)
+	id 1EA97F805A8; Mon, 26 Feb 2024 12:59:44 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1A39FF8058C;
-	Mon, 26 Feb 2024 12:09:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8D6BEF805A8;
+	Mon, 26 Feb 2024 12:59:43 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 55F56F80246; Mon, 26 Feb 2024 12:09:24 +0100 (CET)
+	id 55B53F80254; Mon, 26 Feb 2024 12:59:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [IPv6:2a00:1450:4864:20::636])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0E5ACF8012B
-	for <alsa-devel@alsa-project.org>; Mon, 26 Feb 2024 12:09:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E5ACF8012B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 826C0F800EE
+	for <alsa-devel@alsa-project.org>; Mon, 26 Feb 2024 12:59:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 826C0F800EE
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=HGsddNa7;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=jJPg1PXR;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=HGsddNa7;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=jJPg1PXR
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 2CB611FB44;
-	Mon, 26 Feb 2024 11:09:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1708945753;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=te11WaeX7OAf02qoJP3VKHEWOzFi52BKV+snlTsoDhA=;
-	b=HGsddNa7xLzNxUZOW7rRXy7XngEoi0MgpG/zXSjVI1CYPZeeg3lPQGAyzHFIv4lB8ye4p4
-	cOA9twm2j7ooWbb0d5DuAuWc6y9Wv2R0p/T+/0uxPmrLfyaBud+XI5WI8w2LaBVGihoy66
-	Lbx1NCgkOqW++DXkdTsjSx06zOhETsU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1708945753;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=te11WaeX7OAf02qoJP3VKHEWOzFi52BKV+snlTsoDhA=;
-	b=jJPg1PXRU9rVvPYtxO9HROlq1Rso1Pka0pQQ4BZpApvcc31wa8/QlhQjZjJtegBRVQEuIK
-	HKrSd1sfZeBGhPDw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1708945753;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=te11WaeX7OAf02qoJP3VKHEWOzFi52BKV+snlTsoDhA=;
-	b=HGsddNa7xLzNxUZOW7rRXy7XngEoi0MgpG/zXSjVI1CYPZeeg3lPQGAyzHFIv4lB8ye4p4
-	cOA9twm2j7ooWbb0d5DuAuWc6y9Wv2R0p/T+/0uxPmrLfyaBud+XI5WI8w2LaBVGihoy66
-	Lbx1NCgkOqW++DXkdTsjSx06zOhETsU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1708945753;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=te11WaeX7OAf02qoJP3VKHEWOzFi52BKV+snlTsoDhA=;
-	b=jJPg1PXRU9rVvPYtxO9HROlq1Rso1Pka0pQQ4BZpApvcc31wa8/QlhQjZjJtegBRVQEuIK
-	HKrSd1sfZeBGhPDw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C1D3213A58;
-	Mon, 26 Feb 2024 11:09:12 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id ebAALlhx3GVYOwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 26 Feb 2024 11:09:12 +0000
-Date: Mon, 26 Feb 2024 12:09:12 +0100
-Message-ID: <87o7c3zdlz.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Cc: <broonie@kernel.org>,
-	<alsa-devel@alsa-project.org>,
-	<linux-sound@vger.kernel.org>,
-	<tiwai@suse.com>,
-	<perex@perex.cz>,
-	<jani.nikula@linux.intel.com>,
-	<joonas.lahtinen@linux.intel.com>,
-	<rodrigo.vivi@intel.com>,
-	<tvrtko.ursulin@linux.intel.com>,
-	<intel-gfx@lists.freedesktop.org>,
-	<amadeuszx.slawinski@linux.intel.com>,
-	<pierre-louis.bossart@linux.intel.com>,
-	<hdegoede@redhat.com>
-Subject: Re: [PATCH v2 2/4] ASoC: codecs: hda: Skip HDMI/DP registration if
- i915 is missing
-In-Reply-To: <19f57fc4-ae64-4054-a85c-38ff37c1bded@intel.com>
-References: <20240223114626.1052784-1-cezary.rojewski@intel.com>
-	<20240223114626.1052784-3-cezary.rojewski@intel.com>
-	<87plwn2qbs.wl-tiwai@suse.de>
-	<19f57fc4-ae64-4054-a85c-38ff37c1bded@intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Authentication-Results: smtp-out2.suse.de;
-	none
-X-Spamd-Result: default: False [-2.10 / 50.00];
-	 ARC_NA(0.00)[];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 FROM_HAS_DN(0.00)[];
-	 TO_DN_SOME(0.00)[];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 MIME_GOOD(-0.10)[text/plain];
-	 RCVD_COUNT_THREE(0.00)[3];
-	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	 RCPT_COUNT_TWELVE(0.00)[14];
-	 MID_CONTAINS_FROM(1.00)[];
-	 DBL_BLOCKED_OPENRESOLVER(0.00)[intel.com:email];
-	 FUZZY_BLOCKED(0.00)[rspamd.com];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+];
-	 RCVD_TLS_ALL(0.00)[];
-	 BAYES_HAM(-3.00)[100.00%]
-Message-ID-Hash: 3BNMWRRWAZS63GSSAS52XM6DE47YW7OF
-X-Message-ID-Hash: 3BNMWRRWAZS63GSSAS52XM6DE47YW7OF
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=y//t1g3H
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-a43037e40dcso200133466b.3
+        for <alsa-devel@alsa-project.org>;
+ Mon, 26 Feb 2024 03:59:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1708948769; x=1709553569;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=6KSPDZCe1P34jJFcbH5CL7iIOfc7j2jHBH+bIt8aphM=;
+        b=y//t1g3HxNqqG6RpL2PXAs3a+WUgpAsW1pmxe3piiWCljwi+p7cQAfUVpU0BeWJJIP
+         hN03wqcOIdEOZRIdJMRetNPLGmVcZ7rrHXs3lFRks9BvHbpeWQ3WwlGThnrDyJ7/kWfa
+         NZ5BnjKwUQIzFven9M2jtsLHwhp9hv98ZDTOs40vHJE1u9ENNy9Iq2bzkK48G8Cin/uM
+         WR9MWprl/pHmxKm02uO01AnlJ2vooUph1Em8KrmXYmCfvBSlP00RaK4w69kXNKr0z38d
+         zbJ0a4/GdHxYl7ozZ+hQf/lZSvhLv/pgCyanHV/LqIBDiGAIFDtg/O/kbpXITE0wk+KD
+         WGQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1708948769; x=1709553569;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=6KSPDZCe1P34jJFcbH5CL7iIOfc7j2jHBH+bIt8aphM=;
+        b=Utmzg4zK5m9NTwmEThJE7H7TUGB8vAtPeYeO3h9UcvKlJ3oO38E/DOuBvY+c1dup5U
+         EBoPlJzMNCAramQC2h/ajkxG3WztRwPIpHEqfxKxwpKjZi/71JaXnY+rz7DZE0/sqWM2
+         UYysxbMOz/4/JFdD5tdfJ6yROS4expmxy/xZMiezh/lN+HahZpCATdi77yAAeNQ+BMr3
+         N7eF32wfkJkzhCFJG5aUOYF5uBk+lqXiR2ra9ViA93/BeALP16kNUtzgNySvaaRf7+T2
+         W98GWKclTFYBcIqfnR3/c8plouDT1ENf5m14Gx/EOx5Nvk24Mi9l5UBuKqTkEAQWZYHA
+         XtBw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVvf1Q7/SRyX7VKOVgwZzY5socXyc0BFxfcGaRy39/aRv9AWNBfvt9MZ4p+U0uGXyvPvoGLNU1Ws7uWjjU9mBhj2x19FBken4+Nz9o=
+X-Gm-Message-State: AOJu0YxB9FsHtH6lI88zQpbtr6sYKigl3jDpMCzrAECpKzF90fL0Lyo+
+	w70IjtnUf2gqo7Y3nxAAG6p2HGo/AMTlMcudxlivVXGeLW8cjNS4zQmiGYrYcDE=
+X-Google-Smtp-Source: 
+ AGHT+IFelND3oLFeUPIHV8ueOBEgfQjbSnO9XqLBf3TC4C9FNh0p6bg9Pg6LmuPeWh2Pp5yHNlg1lg==
+X-Received: by 2002:a17:906:b189:b0:a3f:268:a8f8 with SMTP id
+ w9-20020a170906b18900b00a3f0268a8f8mr4417682ejy.71.1708948769463;
+        Mon, 26 Feb 2024 03:59:29 -0800 (PST)
+Received: from krzk-bin.. ([178.197.222.116])
+        by smtp.gmail.com with ESMTPSA id
+ tb16-20020a1709078b9000b00a42ea030a6esm2311877ejc.82.2024.02.26.03.59.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Feb 2024 03:59:28 -0800 (PST)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	Banajit Goswami <bgoswami@quicinc.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	alsa-devel@alsa-project.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: [PATCH v4 0/2] ASoC: codecs: tx-macro: correct TX SMIC MUXn widgets
+ on SM8350+
+Date: Mon, 26 Feb 2024 12:59:23 +0100
+Message-Id: <20240226115925.53953-1-krzysztof.kozlowski@linaro.org>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: V7F6PLFIEUGQIPMFCRSGB3QJUYIZOGMY
+X-Message-ID-Hash: V7F6PLFIEUGQIPMFCRSGB3QJUYIZOGMY
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -165,7 +118,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3BNMWRRWAZS63GSSAS52XM6DE47YW7OF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/V7F6PLFIEUGQIPMFCRSGB3QJUYIZOGMY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -174,76 +127,27 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 23 Feb 2024 18:09:59 +0100,
-Cezary Rojewski wrote:
-> 
-> On 2024-02-23 3:44 PM, Takashi Iwai wrote:
-> > On Fri, 23 Feb 2024 12:46:24 +0100,
-> > Cezary Rojewski wrote:
-> >> 
-> >> If i915 does not support given platform but the hardware i.e.: HDAudio
-> >> codec is still there, the codec-probing procedure will succeed for such
-> >> device but the follow up initialization will always end up with -ENODEV.
-> >> 
-> >> While bus could filter out address '2' which Intel's HDMI/DP codecs
-> >> always enumerate on, more robust approach is to check for i915 presence
-> >> before registering display codecs.
-> >> 
-> >> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
-> >> ---
-> >>   sound/soc/codecs/hda.c | 5 +++++
-> >>   1 file changed, 5 insertions(+)
-> >> 
-> >> diff --git a/sound/soc/codecs/hda.c b/sound/soc/codecs/hda.c
-> >> index d2117e36ddd1..d9e7cd8aada2 100644
-> >> --- a/sound/soc/codecs/hda.c
-> >> +++ b/sound/soc/codecs/hda.c
-> >> @@ -350,6 +350,11 @@ static int hda_hdev_attach(struct hdac_device *hdev)
-> >>   	struct hda_codec *codec = dev_to_hda_codec(&hdev->dev);
-> >>   	struct snd_soc_component_driver *comp_drv;
-> >>   +	if (hda_codec_is_display(codec) &&
-> >> !hdev->bus->audio_component) {
-> >> +		dev_dbg(&hdev->dev, "no i915, skip registration for 0x%08x\n", hdev->vendor_id);
-> >> +		return 0;
-> > 
-> > Should we return success here, or would it better with -ENODEV?
-> > IIUC, the code path is from the early hda_codec_driver_probe() hook,
-> > so returning an error can work.
-> 
-> Good suggestion. Indeed attach() is called by probe() which treats
-> -ENODEV just fine.
-> 
-> There is a consequence to that though. Logs from LKF show:
-> 
-> snd_soc_hda_codec:hda_hdev_attach: snd_hda_codec_hdmi hdaudioB0D2: no
-> i915, skip registration for 0x80862811
-> snd_soc_hda_codec:hda_hdev_attach: snd_hda_codec_generic hdaudioB0D2:
-> no i915, skip registration for 0x80862811
-> snd_soc_hda_codec:hda_hdev_attach: snd_hda_codec_generic hdaudioB0D2:
-> no i915, skip registration for 0x80862811
-> snd_hda_codec:snd_hda_codec_configure: hdaudio hdaudioB0D2: Unable to
-> bind the codec
-> snd_soc_avs 0000:00:1f.3: failed to config codec -19
-> snd_soc_avs 0000:00:1f.3: Codec #2 probe error; disabling it...
+Hi,
 
-Yeah the latter two are basically fallbacks, and I guess we can
-disable them for ASoC case?  An additional patch like below.
+Changelog in individual patches.
 
+v2:
+https://lore.kernel.org/alsa-devel/20240125153110.410295-1-krzysztof.kozlowski@linaro.org/
 
-thanks,
+v1:
+https://lore.kernel.org/all/20230717140138.201745-1-krzysztof.kozlowski@linaro.org/
 
-Takashi
+Best regards,
+Krzysztof
 
---- a/sound/pci/hda/hda_bind.c
-+++ b/sound/pci/hda/hda_bind.c
-@@ -279,6 +279,10 @@ static int codec_bind_generic(struct hda_codec *codec)
- 	if (codec->probe_id)
- 		return -ENODEV;
- 
-+	/* no generic fallback for ASoC binding */
-+	if (codec->bus->core.ext_ops)
-+		return -ENODEV;
-+
- 	if (is_likely_hdmi_codec(codec)) {
- 		codec->probe_id = HDA_CODEC_ID_GENERIC_HDMI;
- 		request_codec_module(codec);
+Krzysztof Kozlowski (2):
+  ASoC: codecs: tx-macro: split widgets per different LPASS versions
+  ASoC: codecs: tx-macro: correct TX SMIC MUXn widgets on SM8350+
+
+ sound/soc/codecs/lpass-macro-common.h |   7 +
+ sound/soc/codecs/lpass-tx-macro.c     | 679 +++++++++++++++++++-------
+ 2 files changed, 514 insertions(+), 172 deletions(-)
+
+-- 
+2.34.1
+

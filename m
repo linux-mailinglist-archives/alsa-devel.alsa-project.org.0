@@ -2,81 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD7E8867A8B
-	for <lists+alsa-devel@lfdr.de>; Mon, 26 Feb 2024 16:43:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 703EA867B22
+	for <lists+alsa-devel@lfdr.de>; Mon, 26 Feb 2024 17:06:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 27978A4A;
-	Mon, 26 Feb 2024 16:43:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 27978A4A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0B74285D;
+	Mon, 26 Feb 2024 17:06:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B74285D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1708962208;
-	bh=eL3Sq0didjuZIcQ0uUGAVgBF4oFDIInfGkYzwsFtZ5g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1708963616;
+	bh=b3xl9FmNk6hu+KL8YOmLHkCKnjghMPXBxrgh3d+k4SM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Lo1MQW2LcSEwkxH6eRDdiVwSbzJyjZF/lXStmMvhMYXqBId4cFcxkmOiqwIvVWvLT
-	 MFXqQGuhM63h+RdVyl4fLUCtIKNWWocg5eSDAkf6TYDp09JIi/TvB4VMKQMF/Dhx6l
-	 WlNcatt9bix/BUjlSd/n4+6RpVyLjWp+IuneAeHE=
+	b=oHAKgohYYQYUvOhqA0FY7VSyZX2Q3/HVK6Z6iTHle/pHlBL5MU4LYossWi6aWFwZR
+	 9UG61tyTtwSOVdfnnP7hzEv9iufjro5/4FrGiOrDVkOg2JgVMszShvQm2aj1Fz49v4
+	 OwlAhW3c9pxjwiOBD/KmhWc6qyvHFP6hdbXPxuFQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E67A7F8057F; Mon, 26 Feb 2024 16:42:56 +0100 (CET)
+	id 3EBF8F8057B; Mon, 26 Feb 2024 17:06:24 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2B0BAF8047D;
-	Mon, 26 Feb 2024 16:42:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9FC26F80567;
+	Mon, 26 Feb 2024 17:06:24 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0895EF80246; Mon, 26 Feb 2024 16:42:50 +0100 (CET)
+	id F382CF8024E; Mon, 26 Feb 2024 17:06:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C7DC6F8012B
-	for <alsa-devel@alsa-project.org>; Mon, 26 Feb 2024 16:42:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7DC6F8012B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0E08CF8012B
+	for <alsa-devel@alsa-project.org>; Mon, 26 Feb 2024 17:06:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E08CF8012B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=UPxjAqrN
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 65788CE17B2;
-	Mon, 26 Feb 2024 15:42:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EBAEC433F1;
-	Mon, 26 Feb 2024 15:42:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1708962157;
-	bh=eL3Sq0didjuZIcQ0uUGAVgBF4oFDIInfGkYzwsFtZ5g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=UPxjAqrNQZU6c56kJP7tvRbFozDBHAeT/Ki1LV0YiumSxdtDrvz13EA0H4KhswR51
-	 Y42pqnYvuSEXWhAKu4zJrAmA8dw+IOspFIpDgy6jeF2aEgXXVp9/fvvcOsIv/jBcUy
-	 YhIhoVAOY6nJfSFI+2lm3thxc5OE85qOK+MQehEgLbvRGa+Svu8CDqcfTDADH9x6rR
-	 pg/tC6RN35XNFt+HtOLHmfFbl2MXWFx9MpCZtMhxfskVDrRf9UbmgltQResfhSEAAo
-	 CKKCen9AItd4FaRcKTIgeh2LYngENnSn7DBcZla/oSg1zzI7SZd/MaNh1n4LdxQMAr
-	 w/AWH3h/w19WQ==
-Date: Mon, 26 Feb 2024 15:42:33 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Jerome Brunet <jbrunet@baylibre.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org, linux-amlogic@lists.infradead.org
-Subject: Re: [PATCH 6/6] ASoC: meson: axg-fifo: use FIELD helpers
-Message-ID: <a828b4f7-282b-4b83-9a64-04557edf9b6a@sirena.org.uk>
-References: <20240223175116.2005407-1-jbrunet@baylibre.com>
- <20240223175116.2005407-7-jbrunet@baylibre.com>
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=n49i9oNL
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1708963574; x=1740499574;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=b3xl9FmNk6hu+KL8YOmLHkCKnjghMPXBxrgh3d+k4SM=;
+  b=n49i9oNL3ikAnBGxqtb6PgdKkSyKQmL9VNOat9MZ0dC1vhpfB8C9RWIe
+   oudnUU3txepimvxHIqCccrBUM+5rHHfK0qHKq5UCbVl9rMzuMLT+uMhB0
+   VfeHEx4gpMPhqaDQCbzrNPGWzULcvQ4zgBvdgq6w3Z+BxQmY5r5YioyIc
+   PNR2TDmcVo9jd2gHRnTo3YOvA2hnpb8M6GXYF+KDoAmkoIqb2jBKRGEAf
+   yS2Ur0NF05wL+vbrZZiw9f8luZ0T88/WQ8wrPdS5YvtOyJv8bP0ehzdxk
+   lcLd+OBbSfb2q+Nh5jbRGaGRJCtBOZkRElSiHSmooGPw/LELIfdNQML5f
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10996"; a="3129133"
+X-IronPort-AV: E=Sophos;i="6.06,185,1705392000";
+   d="scan'208";a="3129133"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Feb 2024 08:06:09 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.06,185,1705392000";
+   d="scan'208";a="11343492"
+Received: from tankuang-mobl.gar.corp.intel.com (HELO [10.246.128.202])
+ ([10.246.128.202])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Feb 2024 08:06:06 -0800
+Message-ID: <2c7e33e5-6904-467d-9912-417bab95e517@linux.intel.com>
+Date: Mon, 26 Feb 2024 10:56:41 -0500
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="US/dKDUluQQUZ0hF"
-Content-Disposition: inline
-In-Reply-To: <20240223175116.2005407-7-jbrunet@baylibre.com>
-X-Cookie: Your mileage may vary.
-Message-ID-Hash: MMUQUMZOGBSTJ43CO2F2UJYDWE4ZVHUX
-X-Message-ID-Hash: MMUQUMZOGBSTJ43CO2F2UJYDWE4ZVHUX
-X-MailFrom: broonie@kernel.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [EXTERNAL] Re: [PATCH v9] ASoc: tas2783: Add tas2783 codec driver
+To: Mark Brown <broonie@kernel.org>, "Ding, Shenghao" <shenghao-ding@ti.com>
+Cc: "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
+ "lgirdwood@gmail.com" <lgirdwood@gmail.com>, "perex@perex.cz"
+ <perex@perex.cz>, "13916275206@139.com" <13916275206@139.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "liam.r.girdwood@intel.com" <liam.r.girdwood@intel.com>,
+ "bard.liao@intel.com" <bard.liao@intel.com>,
+ "mengdong.lin@intel.com" <mengdong.lin@intel.com>,
+ "yung-chuan.liao@linux.intel.com" <yung-chuan.liao@linux.intel.com>,
+ "Xu, Baojun" <baojun.xu@ti.com>, "Lu, Kevin" <kevin-lu@ti.com>,
+ "tiwai@suse.de" <tiwai@suse.de>, "soyer@irl.hu" <soyer@irl.hu>
+References: <20240222074000.659-1-shenghao-ding@ti.com>
+ <10f53a13-a0ff-40f9-b089-f5baacdb76b6@linux.intel.com>
+ <5c7127256bf54fcd921fc1ec83f3e527@ti.com>
+ <ZdjTyccCDoD9QYpi@finisterre.sirena.org.uk>
+Content-Language: en-US
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <ZdjTyccCDoD9QYpi@finisterre.sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: XE4XYY73A6DRJGH2QBAQPPJMG5MEUQY6
+X-Message-ID-Hash: XE4XYY73A6DRJGH2QBAQPPJMG5MEUQY6
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -88,59 +108,48 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MMUQUMZOGBSTJ43CO2F2UJYDWE4ZVHUX/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XE4XYY73A6DRJGH2QBAQPPJMG5MEUQY6/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On 2/23/24 12:20 PM, Mark Brown wrote:
+> On Fri, Feb 23, 2024 at 10:12:49AM +0000, Ding, Shenghao wrote:
+>> Hi Pierre-Louis
+>>
+>>> In the SoundWire spec, the unique_id is *LINK SPECIFIC*, and only used at
+>>> the bus level within the context of a link to help avoid enumeration
+>>> conflicts
+> 
+>>> If you are using the unique_id as a SYSTEM-UNIQUE value to lookup EFI
+>>> data, this is a TI-specific requirement that needs to be documented.
+>>> That also means you need to double-check for errors so make sure there
+>>> are no board configurations where the same unique_id is used in multiple
+>>> links, or by devices other than tas2783.
+> 
+>> This code only covers the tas2783s sitting in the same bus link. As to cases of the
+>> different SWD links, customer will be required to have the secondary development
+>> on current code. I'm sure my customers have much knowledge to handle this.
 
---US/dKDUluQQUZ0hF
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+PC OEMs don't usually have a Linux team capable of handling this sort of 
+low-level plumbing, so the burden of this "secondary development" will 
+come back at you...
 
-On Fri, Feb 23, 2024 at 06:51:12PM +0100, Jerome Brunet wrote:
+> As Pierre says I think we really should have some sort of defensive
+> programming here, even if you're going to leave multi-link systems to
+> future work people will still have older versions in distributions or
+> whtaever.  While I'm not sure the consequences of getting things wrong
+> are likely to be that bad (I'm expecting bad quality audio) it's also
+> going to be kind of hard to figure out if we just silently pick the
+> wrong calibration, especially if it's actually a valid calibration for
+> another device in the system.  Other vendors (eg, Cirrus) seem to have
+> figured out a scheme here?
 
-> Use FIELD_GET() and FIELD_PREP() helpers instead of doing it manually.
-
-This breaks the build for me:
-
-/build/stage/linux/sound/soc/meson/axg-fifo.c: In function =E2=80=98axg_fif=
-o_pcm_hw_para
-ms=E2=80=99:
-/build/stage/linux/sound/soc/meson/axg-fifo.c:149:28: error: implicit decla=
-ratio
-n of function =E2=80=98FIELD_PREP=E2=80=99 [-Werror=3Dimplicit-function-dec=
-laration]
-  149 |                            FIELD_PREP(CTRL0_INT_EN, irq_en));
-      |                            ^~~~~~~~~~
-/build/stage/linux/sound/soc/meson/axg-fifo.c: In function =E2=80=98axg_fif=
-o_pcm_irq_blo
-ck=E2=80=99:
-/build/stage/linux/sound/soc/meson/axg-fifo.c:207:18: error: implicit decla=
-ratio
-n of function =E2=80=98FIELD_GET=E2=80=99 [-Werror=3Dimplicit-function-decl=
-aration]
-  207 |         status =3D FIELD_GET(STATUS1_INT_STS, status);
-      |                  ^~~~~~~~~
-cc1: all warnings being treated as errors
-
---US/dKDUluQQUZ0hF
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmXcsWgACgkQJNaLcl1U
-h9DIlgf/fnA/FeDBqMLROkPy3MIwMuQ3ZxxLtkBhK7VmoZBxa9cH7MWNDQ84B1pt
-Ed/CFYuM8JzavBhDYl1s+qGi7RRsz36Zk/FAPftRdm/zCTl7L0oXH5a26CgU2WHJ
-DiB6tY1QkkAFWj6nHAlNlNUeIkAXBa8py0pOOv7JKNGiGMVZnEcsRZKtgyhbUdK7
-jvUE3YvTXnjxDtBVKat0fe2/rOVqtefqpnKL94l7BkjlIeRgJ8DmWfGH6gibUm1t
-GFY9mTOE5niV34ypQlId8dCtJEP6tbplAssdgnw0GbMceZ/xlztKtKNy3wMv+W3m
-27/rAv8zQA4CUE078XdfAcxYGntAug==
-=GD+7
------END PGP SIGNATURE-----
-
---US/dKDUluQQUZ0hF--
+Leaving multi-link aside has to be seen as as temporary step, there are 
+a number of electrical issues that will prevent more than 4 amps to be 
+placed on the same link. And indeed this "secondary development" has to 
+be backwards compatible with initial calibration schemes.

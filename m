@@ -2,95 +2,115 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10F69868CDB
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Feb 2024 11:04:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7C5F868FC9
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Feb 2024 13:11:00 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4CD36A4D;
-	Tue, 27 Feb 2024 11:03:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4CD36A4D
+	by alsa0.perex.cz (Postfix) with ESMTPS id E6EAEB60;
+	Tue, 27 Feb 2024 13:10:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E6EAEB60
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1709028246;
-	bh=icVQbNc6Pzd3/XoMFybZxZR4XgSeB5FGoOCVNAL9xWE=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1709035859;
+	bh=lC8iX2KU7tRIxTdsRwIKJVpK8yVv7zPRfikH6dLURbE=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=hJDATSbXGwP9OFrYLzjYHA1twrKpe4FpTHBPXQpwx5VslzJQ4gqc7HBtpGCAyzKJu
-	 fD5B7ZXSEjT8tlMldjKFMfbS4BzSWqowLaWTOprHvzJQ75pFqtfDMVWvrM0DUElPw+
-	 TvIBcldEiKxBYys5kbTate4+s00inu5kMme1aRtY=
+	b=o9u39KS62K/UZeAsh3k/j0ORQduoVLrwRLLPGHunPMBGEz3ICxXw2nGGzZTtXhvzt
+	 ywrhVF9hD2gx6mGe5m6sXHmvVTcSczpC3CYiA84IhEi2RqcHBxa+rvCKMLPyi1xcUV
+	 ASgx+urhzHhm0ieuNeL0RuPqR2CCnbt+M36K3rRs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 23B11F805B5; Tue, 27 Feb 2024 11:03:35 +0100 (CET)
+	id 05261F805A1; Tue, 27 Feb 2024 13:10:25 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 71FE6F805A0;
-	Tue, 27 Feb 2024 11:03:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 53993F8013D;
+	Tue, 27 Feb 2024 13:10:25 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F41C1F801C0; Tue, 27 Feb 2024 11:00:59 +0100 (CET)
+	id F1B4AF8026D; Tue, 27 Feb 2024 13:10:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
+ [46.235.227.194])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id AFFADF80087
-	for <alsa-devel@alsa-project.org>; Tue, 27 Feb 2024 11:00:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AFFADF80087
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4DCA2F800F0
+	for <alsa-devel@alsa-project.org>; Tue, 27 Feb 2024 13:10:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4DCA2F800F0
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=jjIKGiEF
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 41R59Fpo012520;
-	Tue, 27 Feb 2024 04:00:47 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	from:to:cc:subject:date:message-id:mime-version
-	:content-transfer-encoding:content-type; s=PODMain02222019; bh=e
-	KIvLq8xXb6oflbot81eGZAizbrGvdd+1Q79YDlPBfg=; b=jjIKGiEF9iJDojLcV
-	PmzfDAPYEFMmbld2KLy4GldiaePq3k9Xvew+Toj1H5E0xCM5mDEQq8XX988QuOPd
-	r8owsQyxVMc8gi+bSpQxQrLYg7cWiwwrHnXWyVzzcuinM+SctHuQhSI2YIOuLPWn
-	nRFbPeP2+e1sOszAyKKXJCrbjkiYbeFNtzverDy0eYae2xQQ+jfS91pjV89ilaHF
-	Exp4fet7/0TeIG5w5xqh/Ltb6jzia7cZwnDYzXPocyWu/6ltE/8oeR5xtU556UU7
-	aKLgEwj6nZvuwzxFzQNbvPewmQklIx39aUaZVMWBcEqYmnRofMopye2Ydzx9l9rU
-	+UOZw==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3wfer2u9e5-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 27 Feb 2024 04:00:47 -0600 (CST)
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Tue, 27 Feb
- 2024 10:00:44 +0000
-Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.40 via Frontend Transport; Tue, 27 Feb 2024 10:00:44 +0000
-Received: from EDIN4L06LR3.ad.cirrus.com (EDIN4L06LR3.ad.cirrus.com
- [198.61.65.56])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id 5A600820246;
-	Tue, 27 Feb 2024 10:00:44 +0000 (UTC)
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-To: <broonie@kernel.org>, <tiwai@suse.com>
-CC: <alsa-devel@alsa-project.org>, <linux-sound@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <patches@opensource.cirrus.com>,
-        "Richard
- Fitzgerald" <rf@opensource.cirrus.com>
-Subject: [PATCH] ASoC: cs35l56: Prevent bad sign extension in
- cs35l56_read_silicon_uid()
-Date: Tue, 27 Feb 2024 10:00:42 +0000
-Message-ID: <20240227100042.99-1-rf@opensource.cirrus.com>
-X-Mailer: git-send-email 2.39.2
+ unprotected) header.d=collabora.com header.i=@collabora.com
+ header.a=rsa-sha256 header.s=mail header.b=ljMaw76L
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1709035809;
+	bh=lC8iX2KU7tRIxTdsRwIKJVpK8yVv7zPRfikH6dLURbE=;
+	h=From:To:Cc:Subject:Date:From;
+	b=ljMaw76LQ2rUG/CVAwHU3rcYo7/G6YqsiB4NCcjtxG7iZGosTH0mnBTK3jbHNVryc
+	 KqIQJ0+DTZvT1ehtJy2kaMH2ujoMuLpxKOpEsHFADO3YOImf4arICn7DJ+FOThak/8
+	 KQSoQT/GxAE81k4VMh8giMMtqjZtX5Nb2Ai6HQBlvJv8fe0I0JLHZ6KgBCiznLaVdv
+	 u6HBaMIN0UvOTBA9JMFS1p9izblk7bODgSvbRBuN0QTHDrOEiK+81zYhXz0CvVhatR
+	 7FZfxb71Q08/3Mf2x0JguUyzimgAYCzoTTLWbdAfZSwdTuk0lqShwoTFtq4XqD4pIm
+	 GiF8NiUPzpmTw==
+Received: from IcarusMOD.eternityproject.eu (cola.collaboradmins.com
+ [195.201.22.229])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by madrid.collaboradmins.com (Postfix) with ESMTPSA id E4B4537820CC;
+	Tue, 27 Feb 2024 12:10:06 +0000 (UTC)
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+To: broonie@kernel.org
+Cc: wenst@chromium.org,
+	lgirdwood@gmail.com,
+	robh@kernel.org,
+	krzysztof.kozlowski+dt@linaro.org,
+	conor+dt@kernel.org,
+	matthias.bgg@gmail.com,
+	perex@perex.cz,
+	tiwai@suse.com,
+	trevor.wu@mediatek.com,
+	maso.huang@mediatek.com,
+	xiazhengqiao@huaqin.corp-partner.google.com,
+	arnd@arndb.de,
+	kuninori.morimoto.gx@renesas.com,
+	shraash@google.com,
+	amergnat@baylibre.com,
+	nicolas.ferre@microchip.com,
+	u.kleine-koenig@pengutronix.de,
+	dianders@chromium.org,
+	frank.li@vivo.com,
+	allen-kh.cheng@mediatek.com,
+	eugen.hristev@collabora.com,
+	claudiu.beznea@tuxon.dev,
+	jarkko.nikula@bitmer.com,
+	jiaxin.yu@mediatek.com,
+	alpernebiyasak@gmail.com,
+	ckeepax@opensource.cirrus.com,
+	zhourui@huaqin.corp-partner.google.com,
+	nfraprado@collabora.com,
+	alsa-devel@alsa-project.org,
+	shane.chien@mediatek.com,
+	linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	kernel@collabora.com,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Subject: [PATCH 00/22] ASoC: Cleanup MediaTek soundcard machine drivers
+Date: Tue, 27 Feb 2024 13:09:17 +0100
+Message-ID: <20240227120939.290143-1-angelogioacchino.delregno@collabora.com>
+X-Mailer: git-send-email 2.44.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: sVtyfHros6atG7YF84seuCbHvi2LKv4u
-X-Proofpoint-ORIG-GUID: sVtyfHros6atG7YF84seuCbHvi2LKv4u
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: JV4W2332ZMMCXGK67ZMBSKECJRZTXKPE
-X-Message-ID-Hash: JV4W2332ZMMCXGK67ZMBSKECJRZTXKPE
-X-MailFrom: prvs=9787057d79=rf@opensource.cirrus.com
+Message-ID-Hash: W2GJJTXYIISS2H5YJFZRHAKOUXXRRDM5
+X-Message-ID-Hash: W2GJJTXYIISS2H5YJFZRHAKOUXXRRDM5
+X-MailFrom: angelogioacchino.delregno@collabora.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -102,7 +122,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JV4W2332ZMMCXGK67ZMBSKECJRZTXKPE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/W2GJJTXYIISS2H5YJFZRHAKOUXXRRDM5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -111,37 +131,100 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Cast u8 values to u32 when using them to build a 32-bit unsigned value
-that is then stored in a u64. This avoids the possibility of a bad sign
-extension where the u8 is implicitly extended to an int, thus changing it
-from an unsigned to a signed value.
+This series performs a cleanup of most of the MediaTek AFE drivers and
+soundcard machine drivers, reducing code duplication and setting a base
+to be consistent with their devicetree bindings, as many of those are
+using different properties and nodes for no good reason.
 
-Whether this is a real problem is debatable, but it does no harm to
-ensure that the u8 are cast to a suitable type for shifting.
+Summarizing:
+ - Commonizes functions and ops where possible
+ - Adds a common probe mechanism, increasing maintainability of
+   soundcard drivers for older MediaTek SoCs
+ - Migrates all drivers to support the new bindings
+   - Obviously retains compatibility with old device trees
+ - Reduces machine-specific parameters hardcoding in drivers
+   - Can now set machine-specific params in device tree
+   - Uses the `audio-routing` and `dai-link` nodes like some
+     other non-MediaTek SoC sound drivers
+ - Imposes consistency between MediaTek ASoC machine soundcard
+   drivers bindings
+ - Reduces code size and greatly reduces the amount of code that
+   will be required for newer drivers (retaining compatibility with
+   the old bindings was costly in terms of code size, otherwise
+   this series would've removed ~1000 more lines, or something
+   along that line).
 
-Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
-Fixes: e1830f66f6c6 ("ASoC: cs35l56: Add helper functions for amp calibration")
----
- sound/soc/codecs/cs35l56-shared.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+This series was (manually) tested on MT8173, MT8192, MT8195 and MT8186
+Chromebooks.
 
-diff --git a/sound/soc/codecs/cs35l56-shared.c b/sound/soc/codecs/cs35l56-shared.c
-index 20b6dbd3fbab..f3670bf85a95 100644
---- a/sound/soc/codecs/cs35l56-shared.c
-+++ b/sound/soc/codecs/cs35l56-shared.c
-@@ -659,9 +659,10 @@ static int cs35l56_read_silicon_uid(struct cs35l56_base *cs35l56_base, u64 *uid)
- 		return ret;
- 	}
- 
--	unique_id = pte.lot[2] | (pte.lot[1] << 8) | (pte.lot[0] << 16);
-+	unique_id = (u32)pte.lot[2] | ((u32)pte.lot[1] << 8) | ((u32)pte.lot[0] << 16);
- 	unique_id <<= 32;
--	unique_id |= pte.x | (pte.y << 8) | (pte.wafer_id << 16) | (pte.dvs << 24);
-+	unique_id |= (u32)pte.x | ((u32)pte.y << 8) | ((u32)pte.wafer_id << 16) |
-+		     ((u32)pte.dvs << 24);
- 
- 	dev_dbg(cs35l56_base->dev, "UniqueID = %#llx\n", unique_id);
- 
+AngeloGioacchino Del Regno (22):
+  ASoC: mediatek: mt8192-afe-pcm: Convert to devm_pm_runtime_enable()
+  ASoC: mediatek: mt8192-afe-pcm: Simplify with dev_err_probe()
+  ASoC: mediatek: Commonize ADDA rate transform functions and enums
+  ASoC: mediatek: Assign dummy when codec not specified for a DAI link
+  ASoC: mediatek: Add common machine soundcard driver probe mechanism
+  ASoC: mediatek: common: Constify struct mtk_sof_priv
+  ASoC: mediatek: mt8188: Migrate to mtk_soundcard_common_probe
+  ASoC: mediatek: mt8195: Migrate to mtk_soundcard_common_probe
+  ASoC: mediatek: mt8192: Migrate to mtk_soundcard_common_probe
+  ASoC: mediatek: mt8186: Migrate to mtk_soundcard_common_probe
+  ASoC: mediatek: Add common snd_soc_ops .startup() callback
+  ASoC: mediatek: mt8195: Migrate to the common mtk_soundcard_startup
+  ASoC: mediatek: mt8192: Migrate to the common mtk_soundcard_startup
+  ASoC: mediatek: mt8186-rt1019: Migrate to the common
+    mtk_soundcard_startup
+  ASoC: mediatek: Add common mtk_afe_component_probe callback
+  ASoC: mediatek: Use common mtk_afe_pcm_platform with common probe cb
+  ASoC: mediatek: mt8186: Unify mt8186-mt6366 machine drivers
+  ASoC: dt-bindings: mt8195: Document audio-routing and dai-link subnode
+  ASoC: dt-bindings: mt8192: Document audio-routing and dai-link subnode
+  ASoC: dt-bindings: mt8186: Document audio-routing and dai-link subnode
+  arm64: dts: mediatek: mt8195-cherry: Specify sound DAI links and
+    routing
+  arm64: dts: mediatek: mt8186-corsola: Specify sound DAI links and
+    routing
+
+ .../sound/mt8186-mt6366-da7219-max98357.yaml  |  112 +-
+ .../sound/mt8186-mt6366-rt1019-rt5682s.yaml   |  112 +-
+ .../sound/mt8192-mt6359-rt1015-rt5682.yaml    |  129 +-
+ .../bindings/sound/mt8195-mt6359.yaml         |  123 ++
+ .../boot/dts/mediatek/mt8186-corsola.dtsi     |   42 +-
+ .../boot/dts/mediatek/mt8195-cherry.dtsi      |   45 +
+ sound/soc/mediatek/Kconfig                    |   24 +-
+ sound/soc/mediatek/common/Makefile            |    2 +
+ .../mediatek/common/mtk-afe-platform-driver.c |   18 +
+ .../soc/mediatek/common/mtk-dai-adda-common.c |   70 +
+ .../soc/mediatek/common/mtk-dai-adda-common.h |   45 +
+ .../soc/mediatek/common/mtk-dsp-sof-common.c  |   15 +-
+ .../soc/mediatek/common/mtk-dsp-sof-common.h  |    1 -
+ sound/soc/mediatek/common/mtk-soc-card.h      |    7 +-
+ .../mediatek/common/mtk-soundcard-driver.c    |  205 ++-
+ .../mediatek/common/mtk-soundcard-driver.h    |   42 +
+ sound/soc/mediatek/mt6797/mt6797-afe-pcm.c    |   14 +-
+ sound/soc/mediatek/mt6797/mt6797-dai-adda.c   |   85 +-
+ sound/soc/mediatek/mt7986/mt7986-afe-pcm.c    |   14 +-
+ sound/soc/mediatek/mt8183/mt8183-afe-pcm.c    |   14 +-
+ sound/soc/mediatek/mt8183/mt8183-dai-adda.c   |   90 +-
+ sound/soc/mediatek/mt8186/Makefile            |    3 +-
+ sound/soc/mediatek/mt8186/mt8186-afe-pcm.c    |   19 +-
+ sound/soc/mediatek/mt8186/mt8186-dai-adda.c   |   94 +-
+ .../mt8186/mt8186-mt6366-da7219-max98357.c    | 1189 -----------------
+ ...t6366-rt1019-rt5682s.c => mt8186-mt6366.c} |  578 ++++----
+ sound/soc/mediatek/mt8188/mt8188-afe-pcm.c    |   21 +-
+ sound/soc/mediatek/mt8188/mt8188-dai-adda.c   |   89 +-
+ sound/soc/mediatek/mt8188/mt8188-mt6359.c     |  203 +--
+ sound/soc/mediatek/mt8192/mt8192-afe-pcm.c    |  114 +-
+ sound/soc/mediatek/mt8192/mt8192-dai-adda.c   |   90 +-
+ .../mt8192/mt8192-mt6359-rt1015-rt5682.c      |  301 ++---
+ sound/soc/mediatek/mt8195/mt8195-afe-pcm.c    |   21 +-
+ sound/soc/mediatek/mt8195/mt8195-dai-adda.c   |   90 +-
+ sound/soc/mediatek/mt8195/mt8195-mt6359.c     |  487 +++----
+ 35 files changed, 1739 insertions(+), 2769 deletions(-)
+ create mode 100644 sound/soc/mediatek/common/mtk-dai-adda-common.c
+ create mode 100644 sound/soc/mediatek/common/mtk-dai-adda-common.h
+ delete mode 100644 sound/soc/mediatek/mt8186/mt8186-mt6366-da7219-max98357.c
+ rename sound/soc/mediatek/mt8186/{mt8186-mt6366-rt1019-rt5682s.c => mt8186-mt6366.c} (72%)
+
 -- 
-2.39.2
+2.44.0
 

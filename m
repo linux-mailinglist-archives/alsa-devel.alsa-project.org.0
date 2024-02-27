@@ -2,107 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B089C8699E0
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Feb 2024 16:09:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5120C869A4D
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Feb 2024 16:25:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1F188868;
-	Tue, 27 Feb 2024 16:09:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F188868
+	by alsa0.perex.cz (Postfix) with ESMTPS id B582786F;
+	Tue, 27 Feb 2024 16:25:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B582786F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1709046566;
-	bh=CF9ksCBOv+MUtNkjns/I2Bo5e82H43x94XzTqTwRRCY=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=r1FcPFOBuJ6u863/JY8Xwg+te27KuCNW6AyMpoksUSfuR+PBKpUiaIHsCFnar0uNh
-	 4de2Oj56iBI/G6dKA65a+vW1Q0J9MjtDFArb3YrbApM7MhEAuw2i+vOyyXXiDz4Hpr
-	 BNt5GTBuolJ/dnBdIQnDm78CumzA0FLCxeaJbTJk=
+	s=default; t=1709047554;
+	bh=AohK2DmgGnFCSYoKFAdy8M3dzobQXsdPlazsUIDm4dI=;
+	h=References:In-Reply-To:From:Date:Subject:To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=IWx4UcpoZ6WE6XeYrj1cXs12SVmudeKN6REntGkyHrJY0NDfC8usxIaEaADuEEwcH
+	 mLnGJ6qUj5FDQ9SCtHpt8p332hzc90l/KuKkMvTbt/t7+KKtJDFosybPSWez6jJAz+
+	 K0swPJlhNeCYZxVe5qOBAr6NY1GHEJBnB+JX76rc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D2A38F80588; Tue, 27 Feb 2024 16:08:54 +0100 (CET)
+	id 3C329F805AA; Tue, 27 Feb 2024 16:25:23 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B41A7F8059F;
-	Tue, 27 Feb 2024 16:08:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E10ECF80423;
+	Tue, 27 Feb 2024 16:25:22 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1040DF801C0; Tue, 27 Feb 2024 16:08:48 +0100 (CET)
+	id 77F45F801C0; Tue, 27 Feb 2024 16:25:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [IPv6:2a00:1450:4864:20::436])
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [IPv6:2a00:1450:4864:20::629])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B8597F800F0
-	for <alsa-devel@alsa-project.org>; Tue, 27 Feb 2024 16:08:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8597F800F0
+	by alsa1.perex.cz (Postfix) with ESMTPS id 53D26F8013D
+	for <alsa-devel@alsa-project.org>; Tue, 27 Feb 2024 16:25:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53D26F8013D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=baylibre-com.20230601.gappssmtp.com
- header.i=@baylibre-com.20230601.gappssmtp.com header.a=rsa-sha256
- header.s=20230601 header.b=gf2pUAQE
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-33d90dfe73cso2994286f8f.0
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=bk9L8pka
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-a3566c0309fso495387966b.1
         for <alsa-devel@alsa-project.org>;
- Tue, 27 Feb 2024 07:08:32 -0800 (PST)
+ Tue, 27 Feb 2024 07:25:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1709046511;
- x=1709651311; darn=alsa-project.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=+v6m3GvEp/53IVFZlfJK0md8YDFfRhBDS5EvRlYK31M=;
-        b=gf2pUAQEPSe3ppgS9kEw2hHuxJvn4FkFvk11FPDQc3ppIdrkwUFz8CNnz7YVn1wpSS
-         fMXesvu/tv8sBFGyjnfQy2NJ+I1d3RYs1szfEcJvY02Rx3ksHeI5PaPDtYl8/SBsbo1P
-         G9bXX4suofzKUkEWCDhNc8Ugp6xFtjY7kuSU9wLO4it8sp4skXEefMpl0G3YKLwtX2Kn
-         wI6skIftulG5LcXagKuRX52miTY7CEgoH1J8cReyVTRLQYE3THSvS1NqTCn6TkzH4TPU
-         tlSseCDfukSh1glKwXDTXqa8Uacl7TE3urkW2AJJu0bN7G9grRbAUfdZenwGR8CkPo/b
-         19Jg==
+        d=gmail.com; s=20230601; t=1709047508; x=1709652308;
+ darn=alsa-project.org;
+        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=gmhlHWfIXqKHxF7CMboBzxGVho/Q/dhfh02qAGrAN9Q=;
+        b=bk9L8pkaXCPdXPMn0SdVQEofglLFg4H7PxJ0AIelfl/wqewYV6LfTu61csR21xQix7
+         SIdAlRyEZZMEUirvXZkHp4YCpURYWWQCiPIRQeR008s17FCHAb/FwvxsxeSCrnDV/5To
+         zJPyLHOZEgTM+hVeh8yO7RA6ztUE1uNnw9dLaG1QzqG4p2CYAjMHaWH2KEH31iKsRWFI
+         m2a/XGVD+XHXJAtgZFpTzHnrFu9cvtbD/iB4hYnr61mTlp0KL2SyssdGv/BC6UgeOBYj
+         KEQEvqwuNmKEp4rWDp6zab04NW/CTw20s2uIDktkkHeZ7lzPfKwJO1pmkt5EvWIpEIbu
+         Bs5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709046511; x=1709651311;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=+v6m3GvEp/53IVFZlfJK0md8YDFfRhBDS5EvRlYK31M=;
-        b=gJoRp4b7Q4mumk3t0yE6bWZZQs6H505IGNhWsvv+0gszbhvCQyocEpO0vgn7y6wdyZ
-         5ublaU8awRIuAHQbLJ2GSamsHyMhOo7TEf0+pRSTDdTqnpt3sA7xILdiAd5jdPon8qHS
-         Oqqc9niVijbhKwlPB/dsLV+eaachz5QuXIGdpj2LihHctL6YJ7L8GxIVlfeUlWQQLceh
-         ylf7u9YZQnUoUQk/lHzMWZOZzrawmS7F2x6hX4aRAuQBA75Joo+1OUnr7omU4TSCiJZe
-         E7W7WHEMd67fxx/XHI/Kl4nlZpZMmorr+IyGZz/vmv8XT5BjnvPNAO/IQbDC9lMk/lN1
-         +/WA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUpE1KBuDC3pNajGBeC5QnTNWSmJ90gTl/OVcssJjb6MiM9ONBzOlELKAynScXn/TFBE2iV+TyN532l3s2KCNjrq89YI8MmdSBgdQ0=
-X-Gm-Message-State: AOJu0YzDgk5QTMH2DroPlU7rd5boaCdJ4/G725qR9xhj04tIC8LSCgJD
-	J/ZHrbV+Nq5AzaSLhZVXVGsnyFtlakYayfAJqRLHVbpLHxLCaQngBxy4jy2aws8=
+        d=1e100.net; s=20230601; t=1709047508; x=1709652308;
+        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=gmhlHWfIXqKHxF7CMboBzxGVho/Q/dhfh02qAGrAN9Q=;
+        b=u70lDVBLJJ++4Y5wZJ8Ge3TLSKxzjae28fcofmkFkseay3QlbxvBV8aV7KirqGp/fG
+         DXM0QdqsB6rPSBe5ZJIBfEf5BxWNIUt6VH6558wFcazSYw1ISqekzbZiEwo0UtjcyARJ
+         Wj02A6SWjV+xMkh//uHX9p76UFvvHQFN1ys53YiNNPuMv+K+DP8ej2muNJj/N6gTAA5j
+         kU0Jbbvb0M6Safg9TYg5/gD9UdVeYDnTvLhq5wRfzCOnJ8gwmz9zLv3lYrV0L/wFTCxB
+         CPXf8ICJQVPiy6Pqu5rAbUPtDS08tbO9l/OgCNd5AnvkFgRzsgHndCR5mLorAnyaWkuD
+         xJ0w==
+X-Gm-Message-State: AOJu0YyZ37ttFBFk1WzO0aeoTV5WipgmaAZmbPzurvfY0T9gbg4Bmtsg
+	qFk+UvyAWurnlxEO1eOSeP5L4SJUT2qq1nSGcXZQgwpzfJ/cJ1Xz+u0y3CBpbkASar19onwf9kK
+	NfVyRReJXetg1mRk964XvcMylNMM31ijfsQ==
 X-Google-Smtp-Source: 
- AGHT+IFm/XZg09NTqX5TssJ/3GJF0wzYhM9ccuLpqG2Z2vxwRZ4k+Ku7JKCZxOttih/m+MCrjG4sTw==
-X-Received: by 2002:adf:ec01:0:b0:33d:e02a:c552 with SMTP id
- x1-20020adfec01000000b0033de02ac552mr5113789wrn.34.1709046511097;
-        Tue, 27 Feb 2024 07:08:31 -0800 (PST)
-Received: from toaster.lan ([2a01:e0a:3c5:5fb1:730:ce44:dedb:c94b])
-        by smtp.googlemail.com with ESMTPSA id
- by15-20020a056000098f00b0033da933b250sm11847249wrb.5.2024.02.27.07.08.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Feb 2024 07:08:30 -0800 (PST)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>
-Cc: Jerome Brunet <jbrunet@baylibre.com>,
-	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org,
-	linux-amlogic@lists.infradead.org
-Subject: [PATCH v2] ASoC: meson: axg-fifo: use FIELD helpers
-Date: Tue, 27 Feb 2024 16:08:25 +0100
-Message-ID: <20240227150826.573581-1-jbrunet@baylibre.com>
-X-Mailer: git-send-email 2.43.0
+ AGHT+IFE91zSO1gPhWQzTInCsK0VTTQm4XTAYfx6EGAty2+B7igGMeCVrxe+IsQ7DmTImgUUAmPWrV9dHHtQeFuL/yU=
+X-Received: by 2002:a17:906:3a89:b0:a3e:b188:fcf3 with SMTP id
+ y9-20020a1709063a8900b00a3eb188fcf3mr6110225ejd.48.1709047507829; Tue, 27 Feb
+ 2024 07:25:07 -0800 (PST)
 MIME-Version: 1.0
-X-Patchwork-Bot: notify
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: IJJVN6KQIBD63RBEKEJHOBS2LWUTXFMP
-X-Message-ID-Hash: IJJVN6KQIBD63RBEKEJHOBS2LWUTXFMP
-X-MailFrom: jbrunet@baylibre.com
+References: 
+ <CAL3-7Mo_o5R8UEz7h0qWKdumEAG5wGVmKck=hufA1df0XYEB=w@mail.gmail.com>
+In-Reply-To: 
+ <CAL3-7Mo_o5R8UEz7h0qWKdumEAG5wGVmKck=hufA1df0XYEB=w@mail.gmail.com>
+From: Ian Malone <ibmalone@gmail.com>
+Date: Tue, 27 Feb 2024 15:24:55 +0000
+Message-ID: 
+ <CAL3-7Mpj5+9WwNd30aW3cFih5S5H5hMTYfAQ5gwuLFkP2Qe1gQ@mail.gmail.com>
+Subject: Re: synaptics hi-res audio usb device duplex, usb bandwidth issues
+To: alsa-devel@alsa-project.org
+Content-Type: text/plain; charset="UTF-8"
+Message-ID-Hash: HTN42NGZMQNILNKHTCVN37MHXAI746NI
+X-Message-ID-Hash: HTN42NGZMQNILNKHTCVN37MHXAI746NI
+X-MailFrom: ibmalone@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -114,7 +106,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IJJVN6KQIBD63RBEKEJHOBS2LWUTXFMP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HTN42NGZMQNILNKHTCVN37MHXAI746NI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -123,205 +115,144 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Use FIELD_GET() and FIELD_PREP() helpers instead of doing it manually.
+As an additional datapoint on this issue, I fired up an ancient copy
+of Windows 7 on the T420 and in that OS, testing with Zoom (with
+webcam running) shows duplex sound working with the Conexant Systems
+(Rockwell) device, so it's definitely possible with the hardware.
 
-Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
----
+On Mon, 26 Feb 2024 at 13:05, Ian Malone <ibmalone@gmail.com> wrote:
+>
+> Hi,
+>
+> In short I have a USB to 3.5mm adapter which seems not to work in
+> duplex mode on USB2.0 systems, possibly due to a bandwidth calculation
+> bug.
+>
+> This is an evolution of an issue I previously posted on the users list
+> with no luck. I have an Anker USB-C to 3.5mm audio dongle (lsusb:
+> Conexant Systems (Rockwell), Inc. Hi-Res Audio) which I've used for
+> some time on my phone (Android with USB-3.2). On trying to use it with
+> an older T420 laptop recently with only USB-2.0 ports I discovered it
+> will not work in duplex mode. Input-only and output-only profiles work
+> (tested recording and playback with audacity), but with duplex no
+> sound is recorded (Fedora 39, pipewire). This is easily reproduced by
+> looking at the pavucontrol volume monitor for Output Devices, if I
+> switch the device to Analog or Digital Input in configuration then the
+> Input Devices level monitor for it shows activity if I speak into or
+> tap the microphone. With duplex selected there is no activity, the
+> level monitor bar may or may not display. I can switch between the two
+> behaviours by changing the profile. Various applications such as
+> Audacity and Zoom appear to hang when accessing this microphone with
+> the duplex profile set. I've used pipewire configuration to force the
+> format to 16LE only (playback and recording), but this has not helped.
+>
+> In dmesg this error appears when this happens (microphone opened, for
+> example by pavucontrol):
+> [  294.825544] usb 1-1.1: cannot submit urb 0, error -28: not enough bandwidth
+> (T420, Fedora 39, kernel 6.7.5)
+>
+> The T420 has USB 2 Type A ports, so a Type C to Type A adapter is
+> needed, but the problem is not limited to the T420 laptop. On an older
+> Samsung Tablet (Tab-A 2019, USB-2.0 Type C, kernel 4.4.177) I've been
+> able to test using Google Meet. Although there are no errors or
+> freezing observed, in headphone mode over USB the headphone microphone
+> is not being used and the tablet uses its onboard microphone instead
+> (although headphones are selected and playback is over the
+> headphones). Again, I can record (via voice recorder) from the headset
+> microphone, just no duplex. Trying google meet on my phone (USB3.2) I
+> do get duplex over the USB-3.5 adapter.
+>
+> On a newer laptop with USB-3.2 and a mix of type A and C ports I also
+> get duplex (F37, kernel 6.5.12), however dmesg shows even here not all
+> is well, using the type A and C ports on the side:
+>
+> [ 9172.326602] usb 3-1: new full-speed USB device number 6 using xhci_hcd
+> [ 9172.490169] usb 3-1: New USB device found, idVendor=0572,
+> idProduct=1b08, bcdDevice= 0.10
+> [ 9172.490174] usb 3-1: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+> [ 9172.490177] usb 3-1: Product: Hi-Res Audio
+> [ 9172.490178] usb 3-1: Manufacturer: Synaptics
+> [ 9172.490180] usb 3-1: SerialNumber: 000000000000000000000000
+> [ 9172.683435] input: Synaptics Hi-Res Audio as
+> /devices/pci0000:00/0000:00:08.1/0000:05:00.4/usb3/3-1/3-1:1.3/0003:0572:1B08.000A/input/input36
+> [ 9172.736025] hid-generic 0003:0572:1B08.000A: input,hidraw5: USB HID
+> v1.11 Device [Synaptics Hi-Res Audio] on usb-0000:05:00.4-1/input3
+> [ 9173.386988] usb 3-1: Not enough bandwidth for new device state.
+> [ 9173.386994] usb 3-1: Not enough bandwidth for altsetting 1
+> [ 9173.386996] endpoint_set_interface: 70 callbacks suppressed
+> [ 9173.386998] usb 3-1: 1:1: usb_set_interface failed (-28)
+> [ 9173.387110] usb 3-1: Not enough bandwidth for new device state.
+> [ 9173.387113] usb 3-1: Not enough bandwidth for altsetting 1
+> (...these 3 lines repeat 9 more times, followed by...)
+> [ 9173.388785] usb 3-1: Not enough bandwidth for new device state.
+> [ 9173.388789] usb 3-1: Not enough bandwidth for altsetting 1
+> (...these 2 lines repeat 5 more times, then stop)
+>
+> This is a USB3.2 system, the onboard camera has a hardware switch, so
+> I can disable it, and the only other peripheral that appears is the
+> AX210 bluetooth (I'd thought that would have its own bus as it's part
+> of a separate wifi chip, but apparently not, lsusb -t below),
+> bandwidth for even a 96kHz 24bit duplex audio device shouldn't really
+> be an issue.
+> $ lsusb
+> Bus 004 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+> Bus 003 Device 003: ID 8087:0032 Intel Corp. AX210 Bluetooth
+> Bus 003 Device 002: ID 048d:c965 Integrated Technology Express, Inc.
+> ITE Device(8295)
+> Bus 003 Device 007: ID 0572:1b08 Conexant Systems (Rockwell), Inc. Hi-Res Audio
+> Bus 003 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+> Bus 002 Device 002: ID 0bda:0411 Realtek Semiconductor Corp. Hub
+> Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+> Bus 001 Device 004: ID 048d:c101 Integrated Technology Express, Inc.
+> ITE Device(8910)
+> Bus 001 Device 002: ID 0bda:5411 Realtek Semiconductor Corp. RTS5411 Hub
+> Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+> $ lsusb -t
+> /:  Bus 04.Port 1: Dev 1, Class=root_hub, Driver=xhci_hcd/2p, 10000M
+> /:  Bus 03.Port 1: Dev 1, Class=root_hub, Driver=xhci_hcd/4p, 480M
+>     |__ Port 1: Dev 7, If 0, Class=Audio, Driver=snd-usb-audio, 12M
+>     |__ Port 1: Dev 7, If 1, Class=Audio, Driver=snd-usb-audio, 12M
+>     |__ Port 1: Dev 7, If 2, Class=Audio, Driver=snd-usb-audio, 12M
+>     |__ Port 1: Dev 7, If 3, Class=Human Interface Device, Driver=usbhid, 12M
+>     |__ Port 3: Dev 2, If 0, Class=Human Interface Device, Driver=usbhid, 12M
+>     |__ Port 3: Dev 2, If 1, Class=Human Interface Device, Driver=usbhid, 12M
+>     |__ Port 4: Dev 3, If 0, Class=Wireless, Driver=btusb, 12M
+>     |__ Port 4: Dev 3, If 1, Class=Wireless, Driver=btusb, 12M
+> /:  Bus 02.Port 1: Dev 1, Class=root_hub, Driver=xhci_hcd/2p, 10000M
+>     |__ Port 2: Dev 2, If 0, Class=Hub, Driver=hub/4p, 5000M
+> /:  Bus 01.Port 1: Dev 1, Class=root_hub, Driver=xhci_hcd/4p, 480M
+>     |__ Port 2: Dev 2, If 0, Class=Hub, Driver=hub/4p, 480M
+>     |__ Port 4: Dev 4, If 0, Class=Human Interface Device, Driver=usbhid, 12M
+>
+>
+> The only situation in which I *don't* get these dmesg errors is if I
+> use one of the rear USB 3.2 ports that seem to lead to it being on its
+> own bus:
+> $ lsusb -t
+> /:  Bus 04.Port 1: Dev 1, Class=root_hub, Driver=xhci_hcd/2p, 10000M
+> /:  Bus 03.Port 1: Dev 1, Class=root_hub, Driver=xhci_hcd/4p, 480M
+>     |__ Port 3: Dev 2, If 0, Class=Human Interface Device, Driver=usbhid, 12M
+>     |__ Port 3: Dev 2, If 1, Class=Human Interface Device, Driver=usbhid, 12M
+>     |__ Port 4: Dev 3, If 0, Class=Wireless, Driver=btusb, 12M
+>     |__ Port 4: Dev 3, If 1, Class=Wireless, Driver=btusb, 12M
+> /:  Bus 02.Port 1: Dev 1, Class=root_hub, Driver=xhci_hcd/2p, 10000M
+>     |__ Port 2: Dev 2, If 0, Class=Hub, Driver=hub/4p, 5000M
+> /:  Bus 01.Port 1: Dev 1, Class=root_hub, Driver=xhci_hcd/4p, 480M
+>     |__ Port 2: Dev 2, If 0, Class=Hub, Driver=hub/4p, 480M
+>         |__ Port 2: Dev 7, If 0, Class=Audio, Driver=snd-usb-audio, 12M
+>         |__ Port 2: Dev 7, If 1, Class=Audio, Driver=snd-usb-audio, 12M
+>         |__ Port 2: Dev 7, If 2, Class=Audio, Driver=snd-usb-audio, 12M
+>         |__ Port 2: Dev 7, If 3, Class=Human Interface Device,
+> Driver=usbhid, 12M
+>     |__ Port 4: Dev 4, If 0, Class=Human Interface Device, Driver=usbhid, 12M
+>
+> In this case the dmesg output is clear after device connection. This
+> seems like some kind of bandwidth calculation problem in
+> snd_usb_audio. I've tried building a kernel and modifying various of
+> the defines in sound/usb/card.h (currently MAX_PACKS 4 and
+> MAX_PACKS_HS (MAX_PACKS * 4), compared to 6 and *8) but not hit on a
+> winning formula yet. Is there any information I could collect to try
+> to fix this?
 
-Changes since v1: [1]
- * Add missing include <linux/bitfield.h> causing build error
-   with x86 compile test.
-
-[1]: http://lore.kernel.org/alsa-devel/20240223175116.2005407-7-jbrunet@baylibre.com
-
- sound/soc/meson/axg-fifo.c  | 25 +++++++++++++------------
- sound/soc/meson/axg-fifo.h  | 12 +++++-------
- sound/soc/meson/axg-frddr.c |  5 +++--
- sound/soc/meson/axg-toddr.c | 22 ++++++++++------------
- 4 files changed, 31 insertions(+), 33 deletions(-)
-
-diff --git a/sound/soc/meson/axg-fifo.c b/sound/soc/meson/axg-fifo.c
-index 65541fdb0038..bebee0ca8e38 100644
---- a/sound/soc/meson/axg-fifo.c
-+++ b/sound/soc/meson/axg-fifo.c
-@@ -3,6 +3,7 @@
- // Copyright (c) 2018 BayLibre, SAS.
- // Author: Jerome Brunet <jbrunet@baylibre.com>
- 
-+#include <linux/bitfield.h>
- #include <linux/clk.h>
- #include <linux/of_irq.h>
- #include <linux/of_platform.h>
-@@ -145,8 +146,8 @@ int axg_fifo_pcm_hw_params(struct snd_soc_component *component,
- 	/* Enable irq if necessary  */
- 	irq_en = runtime->no_period_wakeup ? 0 : FIFO_INT_COUNT_REPEAT;
- 	regmap_update_bits(fifo->map, FIFO_CTRL0,
--			   CTRL0_INT_EN(FIFO_INT_COUNT_REPEAT),
--			   CTRL0_INT_EN(irq_en));
-+			   CTRL0_INT_EN,
-+			   FIELD_PREP(CTRL0_INT_EN, irq_en));
- 
- 	return 0;
- }
-@@ -176,9 +177,9 @@ int axg_fifo_pcm_hw_free(struct snd_soc_component *component,
- {
- 	struct axg_fifo *fifo = axg_fifo_data(ss);
- 
--	/* Disable the block count irq */
-+	/* Disable irqs */
- 	regmap_update_bits(fifo->map, FIFO_CTRL0,
--			   CTRL0_INT_EN(FIFO_INT_COUNT_REPEAT), 0);
-+			   CTRL0_INT_EN, 0);
- 
- 	return 0;
- }
-@@ -187,13 +188,13 @@ EXPORT_SYMBOL_GPL(axg_fifo_pcm_hw_free);
- static void axg_fifo_ack_irq(struct axg_fifo *fifo, u8 mask)
- {
- 	regmap_update_bits(fifo->map, FIFO_CTRL1,
--			   CTRL1_INT_CLR(FIFO_INT_MASK),
--			   CTRL1_INT_CLR(mask));
-+			   CTRL1_INT_CLR,
-+			   FIELD_PREP(CTRL1_INT_CLR, mask));
- 
- 	/* Clear must also be cleared */
- 	regmap_update_bits(fifo->map, FIFO_CTRL1,
--			   CTRL1_INT_CLR(FIFO_INT_MASK),
--			   0);
-+			   CTRL1_INT_CLR,
-+			   FIELD_PREP(CTRL1_INT_CLR, 0));
- }
- 
- static irqreturn_t axg_fifo_pcm_irq_block(int irq, void *dev_id)
-@@ -204,7 +205,7 @@ static irqreturn_t axg_fifo_pcm_irq_block(int irq, void *dev_id)
- 
- 	regmap_read(fifo->map, FIFO_STATUS1, &status);
- 
--	status = STATUS1_INT_STS(status) & FIFO_INT_MASK;
-+	status = FIELD_GET(STATUS1_INT_STS, status);
- 	if (status & FIFO_INT_COUNT_REPEAT)
- 		snd_pcm_period_elapsed(ss);
- 	else
-@@ -254,15 +255,15 @@ int axg_fifo_pcm_open(struct snd_soc_component *component,
- 
- 	/* Setup status2 so it reports the memory pointer */
- 	regmap_update_bits(fifo->map, FIFO_CTRL1,
--			   CTRL1_STATUS2_SEL_MASK,
--			   CTRL1_STATUS2_SEL(STATUS2_SEL_DDR_READ));
-+			   CTRL1_STATUS2_SEL,
-+			   FIELD_PREP(CTRL1_STATUS2_SEL, STATUS2_SEL_DDR_READ));
- 
- 	/* Make sure the dma is initially disabled */
- 	__dma_enable(fifo, false);
- 
- 	/* Disable irqs until params are ready */
- 	regmap_update_bits(fifo->map, FIFO_CTRL0,
--			   CTRL0_INT_EN(FIFO_INT_MASK), 0);
-+			   CTRL0_INT_EN, 0);
- 
- 	/* Clear any pending interrupt */
- 	axg_fifo_ack_irq(fifo, FIFO_INT_MASK);
-diff --git a/sound/soc/meson/axg-fifo.h b/sound/soc/meson/axg-fifo.h
-index a14c31eb06d8..4c48c0a08481 100644
---- a/sound/soc/meson/axg-fifo.h
-+++ b/sound/soc/meson/axg-fifo.h
-@@ -40,21 +40,19 @@ struct snd_soc_pcm_runtime;
- 
- #define FIFO_CTRL0			0x00
- #define  CTRL0_DMA_EN			BIT(31)
--#define  CTRL0_INT_EN(x)		((x) << 16)
-+#define  CTRL0_INT_EN			GENMASK(23, 16)
- #define  CTRL0_SEL_MASK			GENMASK(2, 0)
- #define  CTRL0_SEL_SHIFT		0
- #define FIFO_CTRL1			0x04
--#define  CTRL1_INT_CLR(x)		((x) << 0)
--#define  CTRL1_STATUS2_SEL_MASK		GENMASK(11, 8)
--#define  CTRL1_STATUS2_SEL(x)		((x) << 8)
-+#define  CTRL1_INT_CLR			GENMASK(7, 0)
-+#define  CTRL1_STATUS2_SEL		GENMASK(11, 8)
- #define   STATUS2_SEL_DDR_READ		0
--#define  CTRL1_FRDDR_DEPTH_MASK		GENMASK(31, 24)
--#define  CTRL1_FRDDR_DEPTH(x)		((x) << 24)
-+#define  CTRL1_FRDDR_DEPTH		GENMASK(31, 24)
- #define FIFO_START_ADDR			0x08
- #define FIFO_FINISH_ADDR		0x0c
- #define FIFO_INT_ADDR			0x10
- #define FIFO_STATUS1			0x14
--#define  STATUS1_INT_STS(x)		((x) << 0)
-+#define  STATUS1_INT_STS		GENMASK(7, 0)
- #define FIFO_STATUS2			0x18
- #define FIFO_INIT_ADDR			0x24
- #define FIFO_CTRL2			0x28
-diff --git a/sound/soc/meson/axg-frddr.c b/sound/soc/meson/axg-frddr.c
-index 98140f449eb3..e97d43ae7fd2 100644
---- a/sound/soc/meson/axg-frddr.c
-+++ b/sound/soc/meson/axg-frddr.c
-@@ -7,6 +7,7 @@
-  * This driver implements the frontend playback DAI of AXG and G12A based SoCs
-  */
- 
-+#include <linux/bitfield.h>
- #include <linux/clk.h>
- #include <linux/regmap.h>
- #include <linux/module.h>
-@@ -59,8 +60,8 @@ static int axg_frddr_dai_hw_params(struct snd_pcm_substream *substream,
- 	/* Trim the FIFO depth if the period is small to improve latency */
- 	depth = min(period, fifo->depth);
- 	val = (depth / AXG_FIFO_BURST) - 1;
--	regmap_update_bits(fifo->map, FIFO_CTRL1, CTRL1_FRDDR_DEPTH_MASK,
--			   CTRL1_FRDDR_DEPTH(val));
-+	regmap_update_bits(fifo->map, FIFO_CTRL1, CTRL1_FRDDR_DEPTH,
-+			   FIELD_PREP(CTRL1_FRDDR_DEPTH, val));
- 
- 	return 0;
- }
-diff --git a/sound/soc/meson/axg-toddr.c b/sound/soc/meson/axg-toddr.c
-index 32ee45cce7f8..e03a6e21c1c6 100644
---- a/sound/soc/meson/axg-toddr.c
-+++ b/sound/soc/meson/axg-toddr.c
-@@ -5,6 +5,7 @@
- 
- /* This driver implements the frontend capture DAI of AXG based SoCs */
- 
-+#include <linux/bitfield.h>
- #include <linux/clk.h>
- #include <linux/regmap.h>
- #include <linux/module.h>
-@@ -19,12 +20,9 @@
- #define CTRL0_TODDR_EXT_SIGNED		BIT(29)
- #define CTRL0_TODDR_PP_MODE		BIT(28)
- #define CTRL0_TODDR_SYNC_CH		BIT(27)
--#define CTRL0_TODDR_TYPE_MASK		GENMASK(15, 13)
--#define CTRL0_TODDR_TYPE(x)		((x) << 13)
--#define CTRL0_TODDR_MSB_POS_MASK	GENMASK(12, 8)
--#define CTRL0_TODDR_MSB_POS(x)		((x) << 8)
--#define CTRL0_TODDR_LSB_POS_MASK	GENMASK(7, 3)
--#define CTRL0_TODDR_LSB_POS(x)		((x) << 3)
-+#define CTRL0_TODDR_TYPE		GENMASK(15, 13)
-+#define CTRL0_TODDR_MSB_POS		GENMASK(12, 8)
-+#define CTRL0_TODDR_LSB_POS		GENMASK(7, 3)
- #define CTRL1_TODDR_FORCE_FINISH	BIT(25)
- #define CTRL1_SEL_SHIFT			28
- 
-@@ -76,12 +74,12 @@ static int axg_toddr_dai_hw_params(struct snd_pcm_substream *substream,
- 	width = params_width(params);
- 
- 	regmap_update_bits(fifo->map, FIFO_CTRL0,
--			   CTRL0_TODDR_TYPE_MASK |
--			   CTRL0_TODDR_MSB_POS_MASK |
--			   CTRL0_TODDR_LSB_POS_MASK,
--			   CTRL0_TODDR_TYPE(type) |
--			   CTRL0_TODDR_MSB_POS(TODDR_MSB_POS) |
--			   CTRL0_TODDR_LSB_POS(TODDR_MSB_POS - (width - 1)));
-+			   CTRL0_TODDR_TYPE |
-+			   CTRL0_TODDR_MSB_POS |
-+			   CTRL0_TODDR_LSB_POS,
-+			   FIELD_PREP(CTRL0_TODDR_TYPE, type) |
-+			   FIELD_PREP(CTRL0_TODDR_MSB_POS, TODDR_MSB_POS) |
-+			   FIELD_PREP(CTRL0_TODDR_LSB_POS, TODDR_MSB_POS - (width - 1)));
- 
- 	return 0;
- }
 -- 
-2.43.0
-
+imalone

@@ -2,96 +2,108 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1E98869D11
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Feb 2024 18:03:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 963BB869D31
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Feb 2024 18:09:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A41BB86F;
-	Tue, 27 Feb 2024 18:03:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A41BB86F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0524D84A;
+	Tue, 27 Feb 2024 18:09:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0524D84A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1709053428;
-	bh=l5e8ml4REQQUTX3sdXHOM7YXsSKlUkKAscSC883nVrg=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:List-Id:
+	s=default; t=1709053760;
+	bh=PGntO9HZ7nB0drpm+YsqMGgrsQ12kaan0DEUm5AB9oE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=HiZKSRgLR+dcn5XDqFccw6mKT6kfSQfX/D751+Hx4/ViVXAhJwzSPkKxapoDfOiyz
-	 6GKTv4XDniD8rQ00piejgwTYSSf2m58FUGa/1FjV8ibRQ0zLiYn/4AeE5P4Ivu30TR
-	 tdEQ3iv1OL7++Dvw82d9gsclHy7gOK+A93mniFeI=
+	b=I2xmfr/chG1MzhXBW5AGPfK2qkQW28esJHZNL89HiosTn91N618RqOwdLE8zCpkxQ
+	 Q6SGSX4YPhPYLlUOK5EUT4meU5+7wtEzpgr7/ZZBlRNBfIiBiT8JkyTLydy3X/ejMG
+	 TkCsoQH2oyqgqU6qud/bI2SfVfhAsw5eL297wtuw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E91F7F8058C; Tue, 27 Feb 2024 18:03:16 +0100 (CET)
+	id 67AC8F805A8; Tue, 27 Feb 2024 18:08:47 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6E16AF80579;
-	Tue, 27 Feb 2024 18:03:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E6B77F805A0;
+	Tue, 27 Feb 2024 18:08:46 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 58BB5F801C0; Tue, 27 Feb 2024 18:03:12 +0100 (CET)
+	id C4697F801C0; Tue, 27 Feb 2024 18:08:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Received: from mail-pg1-x533.google.com (mail-pg1-x533.google.com
+ [IPv6:2607:f8b0:4864:20::533])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0CE5CF800F0
-	for <alsa-devel@alsa-project.org>; Tue, 27 Feb 2024 18:03:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0CE5CF800F0
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3CA41F800F0
+	for <alsa-devel@alsa-project.org>; Tue, 27 Feb 2024 18:08:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3CA41F800F0
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linutronix.de header.i=@linutronix.de
- header.a=rsa-sha256 header.s=2020 header.b=08SNpyQv;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de
- header.a=ed25519-sha256 header.s=2020e header.b=schyaOoT
-From: Thomas Gleixner <tglx@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1709053387;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5l/z5niNWmPcrTzUn5sccV50+EwR7ocb+Kg+fSadhTg=;
-	b=08SNpyQvlIQU2jDRMfIsTN3MWypAwK0VUGYT42tEBQgFLalrgvtfjw6UYXQVej2Ynh4ktb
-	5Fk4PQ1exCmD8hEkfA4vrrKFpZNWQ1AO3HA3SOinAlt+rWo2xwFY3/wZ4SgDpWCFL1WpVQ
-	3Ui4gjSwZIE6e4msvl5V/U6twYA1bl7qqqwSy4rvbFeY2tm46uoYWMhDEYq394TrR6uYZl
-	vyY759M+v3TaLN6BSUKcNv5ijbkpmhowBrO7U9XpbEd6b6qCRHNIBjq4sBKqSlm/CRti8t
-	+xDkOUF+Kz4koFfCmAS4TKjW+HgSAGy+/eSlmUdGDeyzosfVbk/gwAEqza17pA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1709053387;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5l/z5niNWmPcrTzUn5sccV50+EwR7ocb+Kg+fSadhTg=;
-	b=schyaOoT6pP96CHkQtz1KlTYOnuJapoTYgyTGeAbfVUt5j0qYE5viIyMTjwapWp7ij9Uiz
-	Tq5mM+uFan0hgUAA==
-To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-Cc: Andrew Lunn <andrew@lunn.ch>, alsa-devel@alsa-project.org, Charles
- Keepax <ckeepax@opensource.cirrus.com>, kernel@pengutronix.de, Shawn Guo
- <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Richard Fitzgerald
- <rf@opensource.cirrus.com>, NXP Linux Team <linux-imx@nxp.com>, Maxime
- Coquelin <mcoquelin.stm32@gmail.com>, patches@opensource.cirrus.com, Fabio
- Estevam <festevam@gmail.com>, Gregory Clement
- <gregory.clement@bootlin.com>, linux-arm-kernel@lists.infradead.org,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>
-Subject: Re: [PATCH 00/13] irqchip: Convert to platform remove callback
- returning void
-In-Reply-To: <knhwqxhouaiehmnnz5oxaxibhq7usokefztae4pplqypwuzgye@mke2irokres4>
-References: <cover.1703284359.git.u.kleine-koenig@pengutronix.de>
- <knhwqxhouaiehmnnz5oxaxibhq7usokefztae4pplqypwuzgye@mke2irokres4>
-Date: Tue, 27 Feb 2024 18:03:07 +0100
-Message-ID: <874jdtalh0.ffs@tglx>
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=zHJTdgWC
+Received: by mail-pg1-x533.google.com with SMTP id
+ 41be03b00d2f7-5d8b70b39efso4507181a12.0
+        for <alsa-devel@alsa-project.org>;
+ Tue, 27 Feb 2024 09:08:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1709053711; x=1709658511;
+ darn=alsa-project.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=o4T8k/GzPwrI1R62VQXBd8xMeTbbVe30Wb070cxDcDU=;
+        b=zHJTdgWC60iO6QFHzeBtiSbAJ+r5Wl0CiBY0wA+FOuBCkmK/UMtimKfkelnebfhwMD
+         sCElLvKNJvSPShAi/FX7iO5w6UDa2t9uOzouxNsN/bTygOtln6VDXy73lPOrlGZPngRd
+         M8PAGhGcxUoMMv4NZS3tv0X2EHApViCoPwFNxlq9YF7/8gIRZudp83X92CBnYAbRvvW1
+         W4JXLWlTGvrFRalC//NlJXJ+2nrUzTlXOKfKTzslVZn3z2LIut3czFY2NCNhoKGDXqcK
+         7K45Kl0sDx8kT5HvlmPo/AtfiRtjjz/ruH3d/euNENGnRWJBYR6dLSDRya0lI4zzQ/HU
+         8XXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1709053711; x=1709658511;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=o4T8k/GzPwrI1R62VQXBd8xMeTbbVe30Wb070cxDcDU=;
+        b=vRFRfcplOVdU5dRPA50WGp7BTq16pLmMUIlx2uDrk6rY4HgEh3+SBeTHTe7S+6Yf5L
+         SfBjAOZUVGS2KshL7QmpnA8MzeOWskEIfRf4RiXd9DDnRfpZBK3ufWA1M+6qokkVhB94
+         rq8shl7bmNrozD6Fxex3ntPHLA6jFCSnpTbJMcXSUpbmeUe8M061VjxENMZmxHEBV0Ko
+         iaJh4d07/yu4a/1qbuKyXF/7umSAp1ec8PPoNo7oiVEbwK13JV3F29sUHIlDUfoKBzH9
+         0Xgk/fAu9E5sbLHrX61EMWTBiI3jlZWugGMltehGfPnbLmqNKnAv7il1NZZN7hP+9hv6
+         vEeg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX0Bj6LwaPMA6Yhz5rclgBLVAShdtqssSZh5wNo42eIVrNrn7/ogFBmdAPwvo2JdHOSj3P4MkhcoQWLJONxeoczJljAkx1LqTg/Q+A=
+X-Gm-Message-State: AOJu0Yz6MwyTKeeDUDFuzAO6P2TeIWvMf5I+xBICIWmN/h60Kt+iZWoe
+	NFgiwfFk+lN6jb9z1BgGCO57uFpv8Blbi/j0MsYuNLDB+BrBrTeJ8cZDtfJ3F1Q=
+X-Google-Smtp-Source: 
+ AGHT+IHGOOOwOx6ckcP28mlDFlcimec/bT0+8kqrte9hVw72AiMZ3sj24eHALgOXdlaTtDeDW9juig==
+X-Received: by 2002:a17:90a:b014:b0:299:5d2c:9aa1 with SMTP id
+ x20-20020a17090ab01400b002995d2c9aa1mr7690525pjq.5.1709053710806;
+        Tue, 27 Feb 2024 09:08:30 -0800 (PST)
+Received: from p14s ([2604:3d09:148c:c800:77b:bbfe:c3af:16dc])
+        by smtp.gmail.com with ESMTPSA id
+ nb12-20020a17090b35cc00b00296fd5e0de1sm8797823pjb.34.2024.02.27.09.08.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Feb 2024 09:08:30 -0800 (PST)
+Date: Tue, 27 Feb 2024 10:08:27 -0700
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: noman pouigt <variksla@gmail.com>
+Cc: linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	alsa-devel@alsa-project.org
+Subject: Re: Audio dsp recovery using remoteproc
+Message-ID: <Zd4XCwOeJ+exUjN0@p14s>
+References: 
+ <CAES_P+_0tWVtn+tyUi1TvkWi4rA-ZBj8e7_pnJd1h_J3S3Cn8Q@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: HKX2ST2Q3O3WWE54XCSMAIZER7TDTR4T
-X-Message-ID-Hash: HKX2ST2Q3O3WWE54XCSMAIZER7TDTR4T
-X-MailFrom: tglx@linutronix.de
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: 
+ <CAES_P+_0tWVtn+tyUi1TvkWi4rA-ZBj8e7_pnJd1h_J3S3Cn8Q@mail.gmail.com>
+Message-ID-Hash: ZZVLM3M6XRU7BLSKWT4MGORSS3GAOI5G
+X-Message-ID-Hash: ZZVLM3M6XRU7BLSKWT4MGORSS3GAOI5G
+X-MailFrom: mathieu.poirier@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -103,7 +115,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HKX2ST2Q3O3WWE54XCSMAIZER7TDTR4T/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZZVLM3M6XRU7BLSKWT4MGORSS3GAOI5G/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,26 +124,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, Feb 15 2024 at 22:03, Uwe Kleine-K=C3=B6nig wrote:
-> On Fri, Dec 22, 2023 at 11:50:31PM +0100, Uwe Kleine-K=C3=B6nig wrote:
->> this series converts all drivers below drivers/irqchip to use
->> .remove_new(). See commit 5c5a7680e67b ("platform: Provide a remove
->> callback that returns no value") for an extended explanation and the
->> eventual goal. The TL;DR; is to make it harder for driver authors to
->> leak resources.
->>=20
->> The drivers touched here are all fine though and don't return early in
->> .remove(). So all conversions in this series are trivial.
->
-> I'm still waiting for this series to go in (or get review feedback). Is
-> this still on your radar? You're the right maintainer to take this
-> series, aren't you?
+Good day,
 
-I am and it fell through my christmas crack. I don't even try to catch
-up with email after being almost 3 weeks AFK. For two decades I rely on
-submitters to ping me after a couple of weeks or month in this case :)
+On Fri, Feb 16, 2024 at 03:29:56PM -0800, noman pouigt wrote:
+> mailbox to dsp_1 is currently modeling platform pcm driver.
+> mailbox to dsp_2 is also doing the same.
+> 
+> Platform driver callbacks cause IPC to be sent to dsp's.
+> Lifecycle of two dsp's are managed by separate remoteproc
+> drivers. Single sound card is exposed.
+> 
+> Separate watchdog interrupts from the corresponding dsp's
+> are connected to remoteproc to manage crashing of the
+> individual dsp's. How can I restart both the dsp when either
+> of them crashes using the kernel device model? Remoteproc
+> driver currently only restarts the crashed dsp instead of restarting
+> both the dsp. It is needed to bring up the hardware in a consistent
+> state as both the dsp's are connected to a common hardware.
+>
+
+Ok
+
+> I thought of making a virtual parent remoteproc device
+> and then managing individual dsp as a subdevice of that parent device
+> but remoteproc device node is associated with the individual elf file i.e.
+> it can manage only a single dsp.
+
+You are on the right track but perhaps not fully aware of what is already done
+for multi core remote processors.  I suggest you have a thorough look at TI's
+K3R5 driver[1] and one of it's DTB[2].  In the DTB each remote processor loads a
+different firmware file, which seems to be what you are looking for.
 
 Thanks,
+Mathieu
 
-        tglx
+[1]. https://elixir.bootlin.com/linux/v6.8-rc6/source/drivers/remoteproc/ti_k3_r5_remoteproc.c
+[2]. https://elixir.bootlin.com/linux/v6.8-rc6/source/arch/arm64/boot/dts/ti/k3-am65-mcu.dtsi#L397 
 
+
+> 
+> How can I model remoteproc drivers using linux device model so that when either
+> of them crashes both the dsp's get reloaded by the remoteproc framework.
+> 
+>            MailBox ---- DSP_1 ---
+>          |                                    |
+> Linux                                      ------ common_hw -> speaker/mic
+>           |                                    |
+>             MailBox ---- DSP_2 ---
+> 

@@ -2,65 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF81186B5DD
-	for <lists+alsa-devel@lfdr.de>; Wed, 28 Feb 2024 18:23:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7234186B5E0
+	for <lists+alsa-devel@lfdr.de>; Wed, 28 Feb 2024 18:24:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5E1DD93A;
-	Wed, 28 Feb 2024 18:23:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E1DD93A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1E663847;
+	Wed, 28 Feb 2024 18:23:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E663847
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1709141025;
-	bh=evNttuUon9tazsxXMKIkVG5dhOyYfZ8Y77/5OFQehaQ=;
+	s=default; t=1709141036;
+	bh=tMjIhEv+h3b2Ps+WQU7FV8OtoGXlbPLUgVjp/OLsuF4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=J68vsbjeMCh3aX3pPjIZPjekX2SzN+JuuG4y3jIlVVzaDnqd2pB8CsM9v5AYaoJl1
-	 Ry99o7dvUWPKtPm9Vmr+59sWqkvZ8UIHIIOJTlxLMSEIe5pGvKcdD7OSsZODgoeiPI
-	 jst4fx+QKszUCTNkaqBcluJVCY0WZw7SDIxXWzLQ=
+	b=JU9I3e8QoS8OPcOUAeveHwILwkYzrLqbrhO8nKWpo4CMTEv35OS4ra2YeOwcjRN7A
+	 PNW23qwuCZqJ0wi+4cGOtybonfWqYFYr/ovCYQ15PaM1ybnts7aKQB+2f+N/BOfr7V
+	 zspPubNVFiijbeWKkDoGwqLjJ/l53CFTuiaIcRcc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 587FEF8057E; Wed, 28 Feb 2024 18:23:03 +0100 (CET)
+	id 84DE5F805D5; Wed, 28 Feb 2024 18:23:12 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BAC4AF8057E;
-	Wed, 28 Feb 2024 18:23:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EE163F805CA;
+	Wed, 28 Feb 2024 18:23:11 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8DD0BF801C0; Wed, 28 Feb 2024 18:22:58 +0100 (CET)
+	id 560D7F805B0; Wed, 28 Feb 2024 18:23:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
+	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D31EFF8013D
-	for <alsa-devel@alsa-project.org>; Wed, 28 Feb 2024 18:22:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D31EFF8013D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 47968F80571
+	for <alsa-devel@alsa-project.org>; Wed, 28 Feb 2024 18:23:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47968F80571
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=s08hT55s
+ header.s=k20201202 header.b=kBGKA6FY
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id DFB9C618FB;
-	Wed, 28 Feb 2024 17:22:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED270C433F1;
-	Wed, 28 Feb 2024 17:22:35 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id D51C9618E6;
+	Wed, 28 Feb 2024 17:23:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1E67C433C7;
+	Wed, 28 Feb 2024 17:23:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1709140958;
-	bh=evNttuUon9tazsxXMKIkVG5dhOyYfZ8Y77/5OFQehaQ=;
+	s=k20201202; t=1709140984;
+	bh=tMjIhEv+h3b2Ps+WQU7FV8OtoGXlbPLUgVjp/OLsuF4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=s08hT55saQcImzVbA/nOrLPJ81PDdmdEqxrRsCDnGEUqVZjp9wC+CjyzvQUEzAssl
-	 MVIGIWukJrhTryxVC8yZZZFVWC3gLdtE/d0qD3z/QftuBbKPSDgua8LDsTK/rfRtsl
-	 dUt/7M/K7/JQjpRysU6kmIcGWn3On3u5p+NFGOnineflpS8HL4Mi9iUB2+djrsbU8/
-	 APcPiVMZPbcQJU4PRFP6dJHMp0958yP3u12xOcMaZrmKnH39ivNwGXo9wWDNTttsiH
-	 emjT3VgOXN6qZkOozt/1/kKGx98I7clto+Kw+BPW7N80Hrz/98EqNgK+cvrrpJuK4K
-	 2WXrxjOGTQkMw==
-Date: Wed, 28 Feb 2024 17:22:33 +0000
+	b=kBGKA6FYaVSm3RnV9qMC9BLabmJ4All978c9MTGrsnDB+XCxY5qF3KHEiakEJIbWQ
+	 Lwoz+w2xF82MxKbZf+upqEXxoVEm892h6YOTZUZqhLbzP/5mjw6QVVXGvPcqY1koIr
+	 cZQuR7b+Nlhg9Mcf+nYf/Jt8mIZFopetxxtNTfYMbcjYBQwBu6V7tAHF7mOIUMEhch
+	 A/S9XccJQOQsI9dBoqvMo49QQAOiTgDNTl/+qnOjDYqvPywp7W0TKQW+8JcvlUyDF8
+	 zTYBHeDOMigUmry4U7c+lhnHDRVyZtOfF5R9Ec+vR2zqWcsPYNACufStwjFfRmTnhF
+	 xFry5VCluJIRg==
+Date: Wed, 28 Feb 2024 17:22:59 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Cezary Rojewski <cezary.rojewski@intel.com>
 Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
@@ -69,19 +68,18 @@ Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
 	tvrtko.ursulin@linux.intel.com, intel-gfx@lists.freedesktop.org,
 	amadeuszx.slawinski@linux.intel.com,
 	pierre-louis.bossart@linux.intel.com, hdegoede@redhat.com
-Subject: Re: [PATCH v3 3/5] ASoC: Intel: avs: Ignore codecs with no suppoting
- driver
-Message-ID: <d7a5c567-b085-4eca-b12b-ff0626116b5f@sirena.org.uk>
+Subject: Re: [PATCH v3 4/5] ASoC: codecs: hda: Cleanup error messages
+Message-ID: <af0c782d-8625-46f7-a347-2d21df3f6ac0@sirena.org.uk>
 References: <20240226124432.1203798-1-cezary.rojewski@intel.com>
- <20240226124432.1203798-4-cezary.rojewski@intel.com>
+ <20240226124432.1203798-5-cezary.rojewski@intel.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="pfFywTWBH8wMNQLq"
+	protocol="application/pgp-signature"; boundary="5d8EE8aWTInID7GB"
 Content-Disposition: inline
-In-Reply-To: <20240226124432.1203798-4-cezary.rojewski@intel.com>
+In-Reply-To: <20240226124432.1203798-5-cezary.rojewski@intel.com>
 X-Cookie: Function reject.
-Message-ID-Hash: V46P6OXJLKHVZDHG2TCWFGIO2CEEJBVM
-X-Message-ID-Hash: V46P6OXJLKHVZDHG2TCWFGIO2CEEJBVM
+Message-ID-Hash: G3QJXZ7TR4IKL3MPPZ5YRH5G3KVRZD7M
+X-Message-ID-Hash: G3QJXZ7TR4IKL3MPPZ5YRH5G3KVRZD7M
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -94,7 +92,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/V46P6OXJLKHVZDHG2TCWFGIO2CEEJBVM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/G3QJXZ7TR4IKL3MPPZ5YRH5G3KVRZD7M/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,31 +102,28 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---pfFywTWBH8wMNQLq
+--5d8EE8aWTInID7GB
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Mon, Feb 26, 2024 at 01:44:30PM +0100, Cezary Rojewski wrote:
-> HDMI codecs which are present and functional from audio perspective lack
-> i915 support on drm side what results in -ENODEV during the probing
-> sequence. There is no reason to perform recovery procedure e.g.: reset
-> the HDAudio controller if this is the case.
+On Mon, Feb 26, 2024 at 01:44:31PM +0100, Cezary Rojewski wrote:
+> Be cohesive and use same pattern in each error message.
 
 Acked-by: Mark Brown <broonie@kernel.org>
 
---pfFywTWBH8wMNQLq
+--5d8EE8aWTInID7GB
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmXfa9gACgkQJNaLcl1U
-h9AU/gf+I3nstWc8uH7TGRyZ4L+HznVtBLiaeJINkFfzFFNX6FdxdDY3JEMvitjj
-IR/v0m9u2n94Z8SmE+T2dqKhdOD1ARfxIwHPZ5JoxCn0RBj/Lo+7M4qLTo2xzSzy
-czj9qzLOAgIP4WNv+XVcZ8CVRfv/nSvx/ZIfM0K8+dz0aqjTLMMSTbZ+vxlkM42D
-wLkMI3M2pp7J43ltS5ha7qvehHyQ/7P1/BC2TxQp6p4z+M4hGyTu6Glru1KE/nDz
-QCJJ+z6FnX+Q13Fq17aD1lg2xbjixOcrDWgDgb16dhO4tpzXoP36zRIuorrl56og
-9SxnRsI8090hDwXKMVXe5KIsO8bOGQ==
-=KbLi
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmXfa/IACgkQJNaLcl1U
+h9B3RQf/UdU0M9FMYbw47kPs/ZdpM9qN/4dwPDRM5n4ZnxN33cVWytfI7w60ysye
+ziXIITDE6a7V/A587Q/TV5NO8Ie1z09zImkQ74gdR4DdbuFmMT39wQyXPRJJsUab
+qrvH10h7bJ1hBz52wBw/mNeLV5/hydr5Qh5cmlR5BLc7VxXPHC2ebBPJQsqBENce
+/Jr1A8+pRLg2ObR0px7sX7g5oAMorzTn/GCLYsKx3rUFxiXBHXAZjO0MPM7coK1x
+HzteTCuC3mfZ8IwYgbyS5MyjCHn/oVGgruDzffetPVK2+JLdb5l4tTwcarowYx1U
+xLPD46/pS22hTsY3n2jlct4koCrlIQ==
+=WiEM
 -----END PGP SIGNATURE-----
 
---pfFywTWBH8wMNQLq--
+--5d8EE8aWTInID7GB--

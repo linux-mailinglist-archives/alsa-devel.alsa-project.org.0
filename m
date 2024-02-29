@@ -2,117 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F17286BF74
-	for <lists+alsa-devel@lfdr.de>; Thu, 29 Feb 2024 04:26:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34DF086C0A6
+	for <lists+alsa-devel@lfdr.de>; Thu, 29 Feb 2024 07:26:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3700182C;
-	Thu, 29 Feb 2024 04:26:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3700182C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 22A3B9F6;
+	Thu, 29 Feb 2024 07:26:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 22A3B9F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1709177185;
-	bh=URSVAvnamrUIMZvqYHj/KzfXDvU7CZtyXmsItvlHW/g=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Kkbg4nWvOELXL6MGs8f/7BnytNUACjS0M+zzuQDRrzKH5qeWKJTbmJF8jssaKeDhk
-	 G9QckVvrW1XHXnKgg2ZKHs7Kog2B2Hrc6fNg/EszojjSh6vTgre1FPHuxWF6bq4AbA
-	 ar5PicU1T77ryxm4rt7P9Fy43ZGutIVLBEr3BJEw=
+	s=default; t=1709188005;
+	bh=+4kvN9h2RfOejwcb+pLVDu3z+Gb9Tp0Zs//i5jXrbxs=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=n1m/cWXDJD9EOHcapRof4zDqyoaU+CUJ0SD/0cQV77JrZ/foHXILuEk+hm3uNXPdH
+	 /7pBSOVLW/yhFqiZKaM6hWt3XxdwHvwsXDqIPdyNUZsS0r5pDQvLlhQf8YSdBVCErd
+	 nMlxBCxc24pz1+X7bngOaM7jYHiYNEf+UOH/UQ1Y=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2E10FF805AD; Thu, 29 Feb 2024 04:25:50 +0100 (CET)
+	id C3233F805A1; Thu, 29 Feb 2024 07:26:07 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7A64DF80588;
-	Thu, 29 Feb 2024 04:25:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B6F57F801C0;
+	Thu, 29 Feb 2024 07:26:06 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 54D4CF801C0; Thu, 29 Feb 2024 04:25:46 +0100 (CET)
+	id DABACF8024C; Thu, 29 Feb 2024 07:24:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [IPv6:2a00:1450:4864:20::232])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0E145F80088
-	for <alsa-devel@alsa-project.org>; Thu, 29 Feb 2024 04:25:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E145F80088
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256
- header.s=google header.b=GBIWRlag
-Received: by mail-lj1-x232.google.com with SMTP id
- 38308e7fff4ca-2d240d8baf6so5129181fa.3
-        for <alsa-devel@alsa-project.org>;
- Wed, 28 Feb 2024 19:25:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1709177142; x=1709781942;
- darn=alsa-project.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=URSVAvnamrUIMZvqYHj/KzfXDvU7CZtyXmsItvlHW/g=;
-        b=GBIWRlagUSid5xSZoMcTyeu1hA10LLgapBOHEP3UK1tHg89f7JKMQLJApldvBOWW+M
-         JrFCT068iL1YbrgGrO1GK9mGjLpmQ3Bfow8s047lfbSmzR4kKzMjEKDPkRKIbeWK5Tu8
-         A26NppppvR4nQXwnVgJf9VFtqRsPTgwD3oKHM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709177142; x=1709781942;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=URSVAvnamrUIMZvqYHj/KzfXDvU7CZtyXmsItvlHW/g=;
-        b=GxROavQzzG2cKg2sluCYYhCfIzUlyxxx6PQuQTkJic82xEgdgRp2TJWL95qUwm3fkE
-         aGqCQrqsOnDJhj1MQ084ABPvFnjiQgVwPIsKWi6hDgCaLyvAOimF8p6DJNjLXfinR1tK
-         N+XevDwhHik0Oy7kexk0zvThlpX/oSAUWDsDTR1J6D66e6tgPXzRRu9bEVeKxRWQsG+e
-         biQByX0zNM06RoD65Qgb7IVqP0teewaaxYmlf1PaJGc8hU7kn7DcFiJSuV/z05DfFSLJ
-         U4wlRiHTULYVfwaRZjqeDtq8/1bWRfF4LRMQq8wkTpPfrCBAoasKQMEquQsJa7ltl484
-         ZLiQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVaT+o/+fGlkvP4f6rPjvp8rmj9iKqzIz0UhLjDStyGb2nDBRUL6Kd/Z5U9Xs1jmvbz4KA/aSJTGUhB2sI0/ZPRqodYZ74fEAfXmsI=
-X-Gm-Message-State: AOJu0YwGaQKf6vEvl9jOrLOLsrX/TIL/e3ciVudDX4VJZLfeK+oPA6G4
-	UM7YprRdLdF3W78NG4p+Laagh6sOxVkp+wY7a1vIEsV4hzqKEnRCnLSmtXybjSwU+xUvFATTDcy
-	gaJE1xjZC0GShpxgsMfmm1SgGDSyj7mSZF9tN
-X-Google-Smtp-Source: 
- AGHT+IF6HtrFqiF4ILXIhOeoglLnKyYMIt97o4GxwpCNIyH7ScABce8rbUiq2DMajV+r4BPBHpxVsoL7H4u3odSmJ9Q=
-X-Received: by 2002:ac2:597b:0:b0:512:ba41:51f with SMTP id
- h27-20020ac2597b000000b00512ba41051fmr425568lfp.50.1709177142115; Wed, 28 Feb
- 2024 19:25:42 -0800 (PST)
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=no autolearn_force=no version=3.4.6
+Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
+ [207.180.221.201])
+	by alsa1.perex.cz (Postfix) with ESMTP id 82F4CF8013D
+	for <alsa-devel@alsa-project.org>; Thu, 29 Feb 2024 07:24:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82F4CF8013D
 MIME-Version: 1.0
-References: <20240227120939.290143-1-angelogioacchino.delregno@collabora.com>
- <20240227120939.290143-3-angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20240227120939.290143-3-angelogioacchino.delregno@collabora.com>
-From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Thu, 29 Feb 2024 11:25:31 +0800
-Message-ID: 
- <CAGXv+5Hpv323oGAr_t6C=akNybypPUYO31ez2rFD2oCRs3O8GQ@mail.gmail.com>
-Subject: Re: [PATCH 02/22] ASoC: mediatek: mt8192-afe-pcm: Simplify with
- dev_err_probe()
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: broonie@kernel.org, lgirdwood@gmail.com, robh@kernel.org,
-	krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
-	matthias.bgg@gmail.com, perex@perex.cz, tiwai@suse.com,
-	trevor.wu@mediatek.com, maso.huang@mediatek.com,
-	xiazhengqiao@huaqin.corp-partner.google.com, arnd@arndb.de,
-	kuninori.morimoto.gx@renesas.com, shraash@google.com, amergnat@baylibre.com,
-	nicolas.ferre@microchip.com, u.kleine-koenig@pengutronix.de,
-	dianders@chromium.org, frank.li@vivo.com, allen-kh.cheng@mediatek.com,
-	eugen.hristev@collabora.com, claudiu.beznea@tuxon.dev,
-	jarkko.nikula@bitmer.com, jiaxin.yu@mediatek.com, alpernebiyasak@gmail.com,
-	ckeepax@opensource.cirrus.com, zhourui@huaqin.corp-partner.google.com,
-	nfraprado@collabora.com, alsa-devel@alsa-project.org,
-	shane.chien@mediatek.com, linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
-	kernel@collabora.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: 24G5XZROV6K6TZWHEL4376FMYCJ6QOHJ
-X-Message-ID-Hash: 24G5XZROV6K6TZWHEL4376FMYCJ6QOHJ
-X-MailFrom: wenst@chromium.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1709187869858871222-webhooks-bot@alsa-project.org>
+References: <1709187869858871222-webhooks-bot@alsa-project.org>
+Subject: alsa cant initialize on raspberry pi 5
+Message-Id: <20240229062435.DABACF8024C@alsa1.perex.cz>
+Date: Thu, 29 Feb 2024 07:24:35 +0100 (CET)
+Message-ID-Hash: 3KOAAJHPDSVUVIYL7JS2IF7TCJIS7EAH
+X-Message-ID-Hash: 3KOAAJHPDSVUVIYL7JS2IF7TCJIS7EAH
+X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -124,7 +60,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/24G5XZROV6K6TZWHEL4376FMYCJ6QOHJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3KOAAJHPDSVUVIYL7JS2IF7TCJIS7EAH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -133,15 +69,173 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, Feb 27, 2024 at 8:10=E2=80=AFPM AngeloGioacchino Del Regno
-<angelogioacchino.delregno@collabora.com> wrote:
->
-> Simplify the probe function by switching error prints to return
-> dev_err_probe(), lowering the lines count; while at it, also
-> beautify some messages and change some others' level from warn
-> to error.
->
-> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@coll=
-abora.com>
+alsa-project/alsa-lib issue #386 was opened from sy-project:
 
-Reviewed-by: Chen-Yu Tsai <wenst@chromium.org>
+I can use alsa command
+```
+# aplay -l
+**** List of PLAYBACK Hardware Devices ****
+card 0: sndrpihifiberry [snd_rpi_hifiberry_dacplusadcpro], device 0: HiFiBerry DAC+ADC Pro HiFi multicodec-0 [HiFiBerry DAC+ADC Pro HiFi multicodec-0]
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+# arecord -l
+**** List of CAPTURE Hardware Devices ****
+card 0: sndrpihifiberry [snd_rpi_hifiberry_dacplusadcpro], device 0: HiFiBerry DAC+ADC Pro HiFi multicodec-0 [HiFiBerry DAC+ADC Pro HiFi multicodec-0]
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+```
+
+and I can aplay to use wav file.
+```
+# aplay -D hw:0,0 /root/C_Code/audiotest/test1.wav
+Playing WAVE '/root/C_Code/audiotest/test1.wav' : Signed 32 bit Little Endian, Rate 48000 Hz, Stereo
+```
+
+but I cant initialize on c code.
+my code is here.
+```c
+    printf("alsa start\n");
+    int err;
+    snd_pcm_t *capture_handle, *playback_handle;
+    snd_pcm_hw_params_t *hw_params;
+    unsigned char *buffer;
+    int sample_rate = SAMPLE_RATE;
+    int dir;
+    snd_pcm_uframes_t frames = 32;
+    snd_pcm_uframes_t bufferSize, periodSize;
+    double x_prev = 0.0;
+    double y_prev = 0.0;
+    double b0 = 1.0;
+    double b1 = -0.8;
+    double a1 = 0.0;
+
+    printf("alsa open capture handle\n");
+    err = snd_pcm_open(&capture_handle, "default", SND_PCM_STREAM_CAPTURE, 0);
+    if(err < 0)
+    {
+        fprintf(stderr, "Capture open error: %s\n", snd_strerror(err));
+        exit(1);
+    }
+
+    printf("alsa open playback handle\n");
+    err = snd_pcm_open(&playback_handle, "default", SND_PCM_STREAM_PLAYBACK, 0);
+    if(err < 0)
+    {
+        fprintf(stderr, "Playback open error: %s\n", snd_strerror(err));
+        exit(1);
+    }
+
+    printf("alsa pcm hw param alloc\n");
+    snd_pcm_hw_params_alloca(&hw_params);
+
+    printf("alsa capture_handle set start\n");
+    err = snd_pcm_hw_params_any(capture_handle, hw_params);
+    if (err < 0) {
+        fprintf(stderr, "snd_pcm_hw_params_any cant set hw params. [%s]\n", snd_strerror(err));
+        exit(1);
+    }
+    err = snd_pcm_hw_params_set_access(capture_handle, hw_params, SND_PCM_ACCESS_RW_INTERLEAVED);
+    if (err < 0) {
+        fprintf(stderr, "snd_pcm_hw_params_set_access cant set hw params. [%s]\n", snd_strerror(err));
+        exit(1);
+    }
+    err = snd_pcm_hw_params_set_format(capture_handle, hw_params, SND_PCM_FORMAT_S16_LE);
+    if (err < 0) {
+        fprintf(stderr, "snd_pcm_hw_params_set_format cant set hw params. [%s]\n", snd_strerror(err));
+        exit(1);
+    }
+    err = snd_pcm_hw_params_set_channels(capture_handle, hw_params, NUM_CHANNELS);
+    if (err < 0) {
+        fprintf(stderr, "snd_pcm_hw_params_set_channels cant set hw params. [%s]\n", snd_strerror(err));
+        exit(1);
+    }
+    err = snd_pcm_hw_params_set_rate_near(capture_handle, hw_params, &sample_rate, &dir);
+    if (err < 0) {
+        fprintf(stderr, "snd_pcm_hw_params_set_rate_near cant set hw params. [%s]\n", snd_strerror(err));
+        exit(1);
+    }
+    err = snd_pcm_hw_params_set_buffer_size_near(capture_handle, hw_params, &bufferSize);
+    if (err < 0) {
+        fprintf(stderr, "snd_pcm_hw_params_set_buffer_size_near cant set hw params. [%s]\n", snd_strerror(err));
+        exit(1);
+    }
+    err = snd_pcm_hw_params_set_period_size_near(capture_handle, hw_params, &periodSize, &dir);
+    if (err < 0) {
+        fprintf(stderr, "snd_pcm_hw_params_set_period_size_near cant set hw params. [%s]\n", snd_strerror(err));
+        exit(1);
+    }
+    err = snd_pcm_hw_params(capture_handle, hw_params);
+    if (err < 0) {
+        fprintf(stderr, "alsa cant set hw params. [%s]\n", snd_strerror(err));
+        exit(1);
+    }
+    snd_pcm_hw_params_get_buffer_size(hw_params, &bufferSize);
+    snd_pcm_hw_params_get_period_size(hw_params, &periodSize, &dir);
+
+    printf("Buffer size: %lu frames\n", bufferSize);
+    printf("Period size: %lu frames\n", periodSize);
+
+    printf("alsa playback_handle set start\n");
+    snd_pcm_hw_params_any(playback_handle, hw_params);
+    snd_pcm_hw_params_set_access(playback_handle, hw_params, SND_PCM_ACCESS_RW_INTERLEAVED);
+    snd_pcm_hw_params_set_format(playback_handle, hw_params, SND_PCM_FORMAT_S16_LE);
+    snd_pcm_hw_params_set_channels(playback_handle, hw_params, NUM_CHANNELS);
+    snd_pcm_hw_params_set_rate_near(playback_handle, hw_params, &sample_rate, 0);
+    snd_pcm_hw_params(playback_handle, hw_params);
+    printf("alsa playback_handle set success\n");
+
+    printf("alsa buf malloc\n");
+    buffer = (unsigned char*)malloc(BUFFER_SIZE*NUM_CHANNELS*2);
+
+    while(1)
+    {
+        printf("main loop start\n");
+        err = snd_pcm_readi(capture_handle, buffer, BUFFER_SIZE);
+        if(err<0)
+        {
+            fprintf(stderr, "Capture read error[%d]: %s\n", err, snd_strerror(err));
+            break;
+        }
+
+        for(int i = 0; i < BUFFER_SIZE * NUM_CHANNELS * 2; i += 2)
+        {
+            short sample = ((short)buffer[i + 1] << 8) | buffer[i];
+            double x = (double)sample / 32768.0;
+
+            double y = b0 * x + b1 * x_prev + a1 * y_prev;
+
+            x_prev = x;
+            y_prev = y;
+
+            short filter_sample = (short)(y * 32768.0);
+            buffer[i] = (unsigned char)(filter_sample & 0xFF);
+            buffer[i+1] = (unsigned char)((filter_sample >> 8) & 0xFF);
+        }
+
+        err = snd_pcm_writei(playback_handle, buffer, BUFFER_SIZE);
+        if(err < 0)
+        {
+            fprintf(stderr, "Playback write error: %s\n", snd_strerror(err));
+            break;
+        }
+    }
+    free(buffer);
+    snd_pcm_close(capture_handle);
+    snd_pcm_close(playback_handle);
+    exit(0);
+```
+
+This code said
+```
+alsa start
+alsa open capture handle
+alsa open playback handle
+alsa pcm hw param alloc
+alsa capture_handle set start
+snd_pcm_hw_params_set_buffer_size_near cant set hw params. [Invalid argument]
+```
+
+what should I do?
+
+Issue URL     : https://github.com/alsa-project/alsa-lib/issues/386
+Repository URL: https://github.com/alsa-project/alsa-lib

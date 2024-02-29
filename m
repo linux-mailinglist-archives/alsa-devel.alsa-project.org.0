@@ -2,164 +2,171 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 179B486C2F8
-	for <lists+alsa-devel@lfdr.de>; Thu, 29 Feb 2024 09:01:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47DFC86C376
+	for <lists+alsa-devel@lfdr.de>; Thu, 29 Feb 2024 09:28:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 56F3493A;
-	Thu, 29 Feb 2024 09:01:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 56F3493A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 607C8829;
+	Thu, 29 Feb 2024 09:28:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 607C8829
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1709193715;
-	bh=7gVZBffV5ET91xGCn9g9Lc58TUCCN5Lyadr+5Z7Eu8M=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1709195315;
+	bh=+k6SMQqyldQYNx3b9w5bYaQJ0OzTpSI5/8PRew5oMq0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=C1I4sgn5ulqEt2T0vz/Z9HcOJBcMNGKYt2bnKsoPgm8HBkgNDV2Vga7dDbz5UuN0h
-	 rpFBAOSmBhOTy2tJBR+mXDhkNRp+JEEIGYNSbV7cJHcQCg+AVZwkoaLCepofyAuu8+
-	 Xm3niocrM3dBCqJlYNX+n0fKVQC12xEBdjI2kFgE=
+	b=s3e/gt+t+Ca+B0g0dOd4FcD3knFPq9BYzEMATp1+gm/yu3Fw17JVIln/N0tSYeJsa
+	 IhjjMiKfmh3hsf+sM4M2TKWOEFCOU9kse08nlE9Nn5U+qBWimnfxtFkz4ewub0zqBm
+	 CI6058zxxbzndBvZPCtuBsvMcDxsjN6JQDV8E1ko=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 30977F8057A; Thu, 29 Feb 2024 09:01:24 +0100 (CET)
+	id E31E9F805AB; Thu, 29 Feb 2024 09:27:56 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A849AF805A0;
-	Thu, 29 Feb 2024 09:01:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 08434F8024C;
+	Thu, 29 Feb 2024 09:27:56 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A2516F801C0; Thu, 29 Feb 2024 09:01:16 +0100 (CET)
+	id 9EF19F801C0; Thu, 29 Feb 2024 09:25:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [IPv6:2a00:1450:4864:20::636])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 80FC9F80088
-	for <alsa-devel@alsa-project.org>; Thu, 29 Feb 2024 09:00:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 80FC9F80088
+	by alsa1.perex.cz (Postfix) with ESMTPS id AE7F2F800F0
+	for <alsa-devel@alsa-project.org>; Thu, 29 Feb 2024 09:25:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE7F2F800F0
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=PyHjHZgL;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=bPoeXd6N;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=PyHjHZgL;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=bPoeXd6N
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 00C1822295;
-	Thu, 29 Feb 2024 08:00:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1709193647;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+OghcDKcsB6v5yBV6QewQrZL6yYW2i8yj15Dnj8J8i8=;
-	b=PyHjHZgL+tgf09H0nnK1AN4mKtccJiyTV/JU22ncJVMLqjCdY+YHiQeYOj2ukLrkf53GCN
-	M+6T9jS/BTEbyKkonxcWBKZqhjWfjHkNYSck9fz84jbcm5vDRBrF4CSlbDtokhA8ukGeLd
-	IKRcG751MC/jNsIJMaJTEv8UjhJnQn0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1709193647;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+OghcDKcsB6v5yBV6QewQrZL6yYW2i8yj15Dnj8J8i8=;
-	b=bPoeXd6N+VvO6bOCMCFvXBhTI6VhwosuV5XTtBzWIqacQneYspkvGjLwrRWfmnzTUbT+hq
-	oMRb2Y8Oldp38KDQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1709193647;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+OghcDKcsB6v5yBV6QewQrZL6yYW2i8yj15Dnj8J8i8=;
-	b=PyHjHZgL+tgf09H0nnK1AN4mKtccJiyTV/JU22ncJVMLqjCdY+YHiQeYOj2ukLrkf53GCN
-	M+6T9jS/BTEbyKkonxcWBKZqhjWfjHkNYSck9fz84jbcm5vDRBrF4CSlbDtokhA8ukGeLd
-	IKRcG751MC/jNsIJMaJTEv8UjhJnQn0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1709193647;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+OghcDKcsB6v5yBV6QewQrZL6yYW2i8yj15Dnj8J8i8=;
-	b=bPoeXd6N+VvO6bOCMCFvXBhTI6VhwosuV5XTtBzWIqacQneYspkvGjLwrRWfmnzTUbT+hq
-	oMRb2Y8Oldp38KDQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BCB6E13503;
-	Thu, 29 Feb 2024 08:00:46 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id o7jyLK454GVWRQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Thu, 29 Feb 2024 08:00:46 +0000
-Date: Thu, 29 Feb 2024 09:00:46 +0100
-Message-ID: <878r33hf81.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Cc: <broonie@kernel.org>,
-	<shengjiu.wang@gmail.com>,
-	<Xiubo.Lee@gmail.com>,
-	<linux-sound@vger.kernel.org>,
-	<alsa-devel@alsa-project.org>,
-	<linux-kernel@vger.kernel.org>,
-	<linuxppc-dev@lists.ozlabs.org>,
-	<patches@opensource.cirrus.com>
-Subject: Re: [PATCH] ASoC: soc-card: Fix missing locking in
- snd_soc_card_get_kcontrol()
-In-Reply-To: <20240221123710.690224-1-rf@opensource.cirrus.com>
-References: <20240221123710.690224-1-rf@opensource.cirrus.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=PyHjHZgL;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=bPoeXd6N
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-2.01 / 50.00];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	 TO_DN_SOME(0.00)[];
-	 RCVD_COUNT_THREE(0.00)[3];
-	 DKIM_TRACE(0.00)[suse.de:+];
-	 MX_GOOD(-0.01)[];
-	 RCPT_COUNT_SEVEN(0.00)[9];
-	 NEURAL_HAM_SHORT(-0.20)[-1.000];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+];
-	 BAYES_HAM(-3.00)[100.00%];
-	 ARC_NA(0.00)[];
-	 R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	 FROM_HAS_DN(0.00)[];
-	 FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 TAGGED_RCPT(0.00)[];
-	 MIME_GOOD(-0.10)[text/plain];
-	 NEURAL_HAM_LONG(-1.00)[-1.000];
-	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	 MID_CONTAINS_FROM(1.00)[];
-	 FUZZY_BLOCKED(0.00)[rspamd.com];
-	 FREEMAIL_CC(0.00)[kernel.org,gmail.com,vger.kernel.org,alsa-project.org,lists.ozlabs.org,opensource.cirrus.com];
-	 RCVD_TLS_ALL(0.00)[];
-	 SUSPICIOUS_RECIPS(1.50)[];
-	 RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]
-X-Rspamd-Queue-Id: 00C1822295
-Message-ID-Hash: A4BNENRK6SOPSUAOFY4EBGVZF4LENON7
-X-Message-ID-Hash: A4BNENRK6SOPSUAOFY4EBGVZF4LENON7
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=bixAG/br
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-a441d7c6125so76175566b.2
+        for <alsa-devel@alsa-project.org>;
+ Thu, 29 Feb 2024 00:25:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1709195143; x=1709799943;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=PNXNtXezdPiz6WQwvH9xjCDeUeGJKj/mjFzziiI0LNM=;
+        b=bixAG/brLxY5C7mgL3bCsYEIfE6TUDjAkgutnBnd2PtHu+EyulG3tIHSSJjvWw+04X
+         AaVAUTa2ynYukrsXdFjfqMPiz4nWCnHcfqctKunFWazphuYr9cMZGUxo0m+YNIVs9nV7
+         zvlk2wtr1refrEMzkGZa0vWr3+U18+bEObkZPME9qSYOhyH7/+sqYDmbxkCq+x1IDYpT
+         1vS1Z4zM1HQIFI92e2jpvQvQJTB6TEZ1JN1MqDgyyR19IXX/ENQuH1fC/0EnDvo+fxkP
+         iTBPMyYg9efniSczAhon9wdhK/80Crpe1gkCyHh2SfY5Lnz0X+OpUHQHCeqfJavrvv5G
+         KdNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1709195143; x=1709799943;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=PNXNtXezdPiz6WQwvH9xjCDeUeGJKj/mjFzziiI0LNM=;
+        b=S1LhFDuPm+Sw5Zyp85+0/KZjl1vr/nIMMZtSTa3ZdWvqKvzo6cY7N9JgMhgXPTEt5Z
+         M2mEBL8f5ZRvOnTemUusHHbhTprXOVqfjxZ5FLWjp+EoiLknUTbWA2CY+UXvBb15U2vh
+         bYUYAtYlgRx/UD6GSZsdlSgkB1BTR0fkTFG5TarwLFnSsUEahNni9zfBS3etHU0gCwjW
+         XdNBqiSlC35dyouUjhUBykU6B/+ZpRe/8f5lsl68jhY9YYL7vQa13pFUNiUbD6pVdx9v
+         QRz2/WUGT9Z6z5sLDBr6VWjc7wrS8MuS/SV9BV4IyyP3qmgXHV9p44RWzmQhL9q9HMVo
+         By7g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCW5SFeD/Rbu/nkLV8bDDOdbs8CxoPUYBEORiYkxqsXtWESUe7YRfh1QPuUsm+u5EObkMVYTyCEm4AnT6E7mqxPZ/VP6tIlckRR5WQM=
+X-Gm-Message-State: AOJu0YwpJ2eMplk/btQetxXWMRTIoCG2Ed2M+C8/W5QlZhu6nXghhDvc
+	IaFbNm95rzTx323sMFsBC4W65deCnQ5yoiPc19KEsILlqvVC+IEdFJ3rRmNFrR8=
+X-Google-Smtp-Source: 
+ AGHT+IEdRFYEnX4kAM1kYEF58dkyCyyKP45xIa7ZLp2VZd7u2TobvUB+aubfigdaalNJ9d2eEa2QgA==
+X-Received: by 2002:a17:906:56d0:b0:a43:f22e:57a6 with SMTP id
+ an16-20020a17090656d000b00a43f22e57a6mr715486ejc.67.1709195143177;
+        Thu, 29 Feb 2024 00:25:43 -0800 (PST)
+Received: from [192.168.1.20] ([178.197.222.116])
+        by smtp.gmail.com with ESMTPSA id
+ vg9-20020a170907d30900b00a4439b7756bsm434508ejc.6.2024.02.29.00.25.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 29 Feb 2024 00:25:41 -0800 (PST)
+Message-ID: <32ff2f66-7a94-41ed-b77b-f78da2e57446@linaro.org>
+Date: Thu, 29 Feb 2024 09:25:37 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 18/22] ASoC: dt-bindings: mt8195: Document audio-routing
+ and dai-link subnode
+Content-Language: en-US
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ broonie@kernel.org
+Cc: wenst@chromium.org, lgirdwood@gmail.com, robh@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
+ matthias.bgg@gmail.com, perex@perex.cz, tiwai@suse.com,
+ trevor.wu@mediatek.com, maso.huang@mediatek.com,
+ xiazhengqiao@huaqin.corp-partner.google.com, arnd@arndb.de,
+ kuninori.morimoto.gx@renesas.com, shraash@google.com, amergnat@baylibre.com,
+ nicolas.ferre@microchip.com, u.kleine-koenig@pengutronix.de,
+ dianders@chromium.org, frank.li@vivo.com, allen-kh.cheng@mediatek.com,
+ eugen.hristev@collabora.com, claudiu.beznea@tuxon.dev,
+ jarkko.nikula@bitmer.com, jiaxin.yu@mediatek.com, alpernebiyasak@gmail.com,
+ ckeepax@opensource.cirrus.com, zhourui@huaqin.corp-partner.google.com,
+ nfraprado@collabora.com, alsa-devel@alsa-project.org,
+ shane.chien@mediatek.com, linux-sound@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ kernel@collabora.com
+References: <20240227120939.290143-1-angelogioacchino.delregno@collabora.com>
+ <20240227120939.290143-19-angelogioacchino.delregno@collabora.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
+ 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
+ D2GYIS41Kv4Isx2dEFh+/Q==
+In-Reply-To: 
+ <20240227120939.290143-19-angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: MN6BLET47AB7XNEW32Y3UGMIYXLLFLDE
+X-Message-ID-Hash: MN6BLET47AB7XNEW32Y3UGMIYXLLFLDE
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -171,7 +178,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/A4BNENRK6SOPSUAOFY4EBGVZF4LENON7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MN6BLET47AB7XNEW32Y3UGMIYXLLFLDE/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -180,91 +187,120 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 21 Feb 2024 13:37:10 +0100,
-Richard Fitzgerald wrote:
+On 27/02/2024 13:09, AngeloGioacchino Del Regno wrote:
+> Document the dai-link subnodes and the audio-routing property, allowing
+> to describe machine specific audio hardware and links in device tree.
 > 
-> snd_soc_card_get_kcontrol() must be holding a read lock on
-> card->controls_rwsem while walking the controls list.
+> While at it, also deprecate the old properties which were previously
+> used with driver hardcoded configuration.
 > 
-> Compare with snd_ctl_find_numid().
-> 
-> The existing function is renamed snd_soc_card_get_kcontrol_locked()
-> so that it can be called from contexts that are already holding
-> card->controls_rwsem (for example, control get/put functions).
-> 
-> There are few direct or indirect callers of
-> snd_soc_card_get_kcontrol(), and most are safe. Three require
-> changes, which have been included in this patch:
-> 
-> codecs/cs35l45.c:
->   cs35l45_activate_ctl() is called from a control put() function so
->   is changed to call snd_soc_card_get_kcontrol_locked().
-> 
-> codecs/cs35l56.c:
->   cs35l56_sync_asp1_mixer_widgets_with_firmware() is called from
->   control get()/put() functions so is changed to call
->   snd_soc_card_get_kcontrol_locked().
-> 
-> fsl/fsl_xcvr.c:
->   fsl_xcvr_activate_ctl() is called from three places, one of which
->   already holds card->controls_rwsem:
->   1. fsl_xcvr_mode_put(), a control put function, which will
->      already be holding card->controls_rwsem.
->   2. fsl_xcvr_startup(), a DAI startup function.
->   3. fsl_xcvr_shutdown(), a DAI shutdown function.
-> 
->   To fix this, fsl_xcvr_activate_ctl() has been changed to call
->   snd_soc_card_get_kcontrol_locked() so that it is safe to call
->   directly from fsl_xcvr_mode_put().
->   The fsl_xcvr_startup() and fsl_xcvr_shutdown() functions have been
->   changed to take a read lock on card->controls_rsem() around calls
->   to fsl_xcvr_activate_ctl(). While this is not very elegant, it
->   keeps the change small, to avoid this patch creating a large
->   collateral churn in fsl/fsl_xcvr.c.
-> 
-> Analysis of other callers of snd_soc_card_get_kcontrol() is that
-> they do not need any changes, they are not holding card->controls_rwsem
-> when they call snd_soc_card_get_kcontrol().
-> 
-> Direct callers of snd_soc_card_get_kcontrol():
->   fsl/fsl_spdif.c: fsl_spdif_dai_probe() - DAI probe function
->   fsl/fsl_micfil.c: voice_detected_fn() - IRQ handler
-> 
-> Indirect callers via soc_component_notify_control():
->   codecs/cs42l43: cs42l43_mic_shutter() - IRQ handler
->   codecs/cs42l43: cs42l43_spk_shutter() - IRQ handler
->   codecs/ak4118.c: ak4118_irq_handler() - IRQ handler
->   codecs/wm_adsp.c: wm_adsp_write_ctl() - not currently used
-> 
-> Indirect callers via snd_soc_limit_volume():
->   qcom/sc8280xp.c: sc8280xp_snd_init() - DAIlink init function
->   ti/rx51.c: rx51_aic34_init() - DAI init function
-> 
-> I don't have hardware to test the fsl/*, qcom/sc828xp.c, ti/rx51.c
-> and ak4118.c changes.
-> 
-> Backport note:
-> The fsl/, qcom/, cs35l45, cs35l56 and cs42l43 callers were added
-> since the Fixes commit so won't all be present on older kernels.
-> 
-> Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
-> Fixes: 209c6cdfd283 ("ASoC: soc-card: move snd_soc_card_get_kcontrol() to soc-card")
+> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 > ---
-> It would be great if people could test the fsl/, qcom/, ti/rx51 and ak4418
-> drivers.
-
-This fix itself looks correct, and I merged Mark's PR now.
-
-But in general, it'd be better to use snd_ctl_find_id() and
-snd_ctl_find_id_unlocked() if possible.  Those standard APIs can use
-the fast Xarray lookup, and especially for the case like many ASoC
-drivers that expose hundreds of kcontrols, the performance gain
-becomes significant.
-
-I see that there is no snd_ctl_find_mixer_id_unlocked() variant, but
-it should be trivial to add.
 
 
-thanks,
+>  
+>    mediatek,adsp:
+>      $ref: /schemas/types.yaml#/definitions/phandle
+> @@ -45,12 +56,75 @@ properties:
+>        A list of the desired dai-links in the sound card. Each entry is a
+>        name defined in the machine driver.
+>  
+> +patternProperties:
+> +  ".*-dai-link$":
+> +    type: object
+> +    description:
+> +      Container for dai-link level properties and CODEC sub-nodes.
+> +
+> +    properties:
+> +      link-name:
+> +        description: Indicates dai-link name and PCM stream name
+> +        items:
 
-Takashi
+That's not a list, but just enum.
+
+> +          enum:
+> +            - DPTX_BE
+> +            - ETDM1_IN_BE
+> +            - ETDM2_IN_BE
+> +            - ETDM1_OUT_BE
+> +            - ETDM2_OUT_BE
+> +            - ETDM3_OUT_BE
+> +            - PCM1_BE
+> +
+> +      codec:
+> +        description: Holds subnode which indicates codec dai.
+> +        type: object
+> +        additionalProperties: false
+> +        properties:
+> +          sound-dai:
+> +            minItems: 1
+> +            maxItems: 2
+> +        required:
+> +          - sound-dai
+> +
+> +      dai-format:
+> +        description: audio format
+> +        items:
+
+Ditto
+
+> +          enum:
+> +            - i2s
+> +            - right_j
+> +            - left_j
+> +            - dsp_a
+> +            - dsp_b
+> +
+> +      mediatek,clk-provider:
+> +        $ref: /schemas/types.yaml#/definitions/string
+> +        description: Indicates dai-link clock master.
+> +        items:
+
+Ditto
+
+> +          enum:
+> +            - cpu
+> +            - codec
+> +
+> +    additionalProperties: false
+
+This goes either to the top of the section (after type:object) for
+readability or after required: block below.
+
+> +
+> +    required:
+> +      - link-name
+> +
+>  additionalProperties: false
+
+>  
+>  required:
+>    - compatible
+>    - mediatek,platform
+>  
+> +# Disallow legacy properties if dai-link-xxx nodes are specified
+> +if:
+> +  not:
+
+I don't think this works. To test if node is present or node, you would
+need to use required.
+https://elixir.bootlin.com/linux/v6.4-rc7/source/Documentation/devicetree/bindings/net/qcom,ipa.yaml#L174
+
+Are you sure this if:then: works as expected?
+
+
+> +    patternProperties:
+> +      ".*-dai-link$": false
+> +then:
+> +  properties:
+> +    mediatek,dptx-codec: false
+> +    mediatek,hdmi-codec: false
+> +
+>  examples:
+>    - |
+>  
+
+
+Best regards,
+Krzysztof
+

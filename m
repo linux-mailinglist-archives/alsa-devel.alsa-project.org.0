@@ -2,95 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C96B86E4F1
-	for <lists+alsa-devel@lfdr.de>; Fri,  1 Mar 2024 17:05:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FD2286E867
+	for <lists+alsa-devel@lfdr.de>; Fri,  1 Mar 2024 19:29:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B2BA3868;
-	Fri,  1 Mar 2024 17:05:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B2BA3868
+	by alsa0.perex.cz (Postfix) with ESMTPS id 014F3A4A;
+	Fri,  1 Mar 2024 19:29:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 014F3A4A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1709309121;
-	bh=i9d0LaW7EoAnPFmI2AbKKlcUQ50fbZsyhqoiAmp4vZk=;
-	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1709317793;
+	bh=n3tZuP5NLQzsTe7i5sxGgzG9+AQvP+lFzjYwtGfGGBk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=eTDWaaikzqxWU6H+JS+fl9pY4lD7OalYWE3bFD3UxLeKHUeUzycFSTYKSi/GtlDI2
-	 KOH+G67nYmlZZs7LcYtgiYuD7lILBzdQjQOQayZEi/M7KCZYNtoZ0j7iFlryXg5M9p
-	 sFBa9GM59Ge03qa6lsg7KzN7+9AYY1Rc2w5xqvZo=
+	b=nnG4SJXx9uJpzT26jXNYKDvP3CggmqWsd7QUqZ8wHJJ4YYwouNp83NNdGyNyZXaj+
+	 pFKKuceUGFhIVtqtWjGeneKdONnC8gg6HqVA1ykaQsdjcPaqL7wYl5fSVf/7xAL9yx
+	 KXB7u3LLL8ZyNyWdQu9dFMXufNolYNjraAcZ1k84=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1BE3EF80587; Fri,  1 Mar 2024 17:04:34 +0100 (CET)
+	id 0E0C9F8024E; Fri,  1 Mar 2024 19:29:20 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 52358F8026D;
-	Fri,  1 Mar 2024 17:04:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 80BBEF80570;
+	Fri,  1 Mar 2024 19:29:19 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 58FD2F801C0; Fri,  1 Mar 2024 17:04:30 +0100 (CET)
+	id EDEA4F801C0; Fri,  1 Mar 2024 19:29:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=unavailable autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6799DF8024E
-	for <alsa-devel@alsa-project.org>; Fri,  1 Mar 2024 17:03:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6799DF8024E
+	by alsa1.perex.cz (Postfix) with ESMTPS id D8978F80088
+	for <alsa-devel@alsa-project.org>; Fri,  1 Mar 2024 19:29:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8978F80088
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=YuZsyiyx
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 421Ewl9U003471;
-	Fri, 1 Mar 2024 10:03:08 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	date:from:to:cc:subject:message-id:references:mime-version
-	:content-type:in-reply-to; s=PODMain02222019; bh=uEcBiDAd0hStY3/
-	Xc8YS/I7Yuem8HRIl7L9QOtD3Px0=; b=YuZsyiyx7a6dedT2hVO228gfatJ5WAP
-	rzUyThGVKHj0uTARvlw+4Djzu/tVm/0IYfcCQ33nBMcIZ/gSi6DSrpT04uX7Iqce
-	iuA9O2Ac7YHeL3Eb6+jKIqOjDA8lKL+/y2uf11ZDC64+6FtTLMHz8KsCtjWheiOF
-	LTgkhaVeRFk3an46ZYdWcZwvRYJlhk0MPT2NxWRB0EdMFUJTM/1FnImKI0Qgf4V3
-	ncCM4Jk3VCp8XuoFwJ8Fx0vdxBbY3wolB1AxEa/rV1GLBPNgCwec/6CD2MOMEDBv
-	v5xsqto/K4jRvNtyzooHfgt7/exyUu+qQb83uJ6MUVep965JxhaOPwQ==
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3wkh8r02ph-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 01 Mar 2024 10:03:07 -0600 (CST)
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Fri, 1 Mar
- 2024 16:03:05 +0000
-Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.40 via Frontend Transport; Fri, 1 Mar 2024 16:03:05 +0000
-Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com
- [198.61.86.93])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPS id CD73382024B;
-	Fri,  1 Mar 2024 16:03:05 +0000 (UTC)
-Date: Fri, 1 Mar 2024 16:03:04 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Maciej Strozek <mstrozek@opensource.cirrus.com>
-CC: Lee Jones <lee@kernel.org>, <alsa-devel@alsa-project.org>,
-        <patches@opensource.cirrus.com>, <linux-kernel@vger.kernel.org>,
-        <linux-sound@vger.kernel.org>
-Subject: Re: [PATCH] mfd: cs42l43: Fix wrong GPIO_FN_SEL and SPI_CLK_CONFIG1
- defaults
-Message-ID: <ZeH8OJnhuu2yWP6x@ediswmail9.ad.cirrus.com>
-References: <20240301101547.2136948-1-mstrozek@opensource.cirrus.com>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=lHxQl4vt
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id DE481CE139C;
+	Fri,  1 Mar 2024 18:29:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37739C433C7;
+	Fri,  1 Mar 2024 18:28:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1709317740;
+	bh=n3tZuP5NLQzsTe7i5sxGgzG9+AQvP+lFzjYwtGfGGBk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=lHxQl4vtF8ecR8vVLIEPCflpN7neIeMaRVG8HUHk3+j7dgPKzIu74iswGJeS3OIgD
+	 G6HjgNzu8bS/PeJdIZOcKhQQzwVFG6gXEYM4uG3OSRv7+yv58muX/8T6OvHcCzxsHX
+	 +RRgcaPV3xm9gTGORVZ2rR1b5XWnkgRY6P21BBVzaj1lTTn+j+cGEuyMeFzISsPKw2
+	 a2nRGa8i2sNB+Ay7ap6ci11enhKy96foHf5G+ebeoN6R89MHxwQlEyvF4OaQ5peCHC
+	 ZF5ZUGPJVbC0uLLmNYpdsSpFDcNVySCd3DqeYpLMyypSReoDs7oBHTJzr+DscTvd2L
+	 5ghxNNXhonz9A==
+Date: Fri, 1 Mar 2024 18:28:55 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Cc: vkoul@kernel.org, alsa-devel@alsa-project.org,
+	yung-chuan.liao@linux.intel.com,
+	pierre-louis.bossart@linux.intel.com, Basavaraj.Hiregoudar@amd.com,
+	Sunil-kumar.Dommati@amd.com, vinod.koul@intel.com,
+	venkataprasad.potturu@amd.com
+Subject: Re: [PATCH V3 00/13] soundwire/SOF: add SoundWire Interface support
+ for AMD SOF stack
+Message-ID: <188f7d68-0f13-42b4-99a5-897584fa46f2@sirena.org.uk>
+References: <20240122092435.3791175-1-Vijendar.Mukunda@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="uszNmvFvI93s6IMy"
 Content-Disposition: inline
-In-Reply-To: <20240301101547.2136948-1-mstrozek@opensource.cirrus.com>
-X-Proofpoint-ORIG-GUID: Czjj9oyb3DfnqPmAnsuaCm3dTfRzzCTg
-X-Proofpoint-GUID: Czjj9oyb3DfnqPmAnsuaCm3dTfRzzCTg
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: 3XXNWMD2QQ76SFFZKKJGZYX6GSYONROA
-X-Message-ID-Hash: 3XXNWMD2QQ76SFFZKKJGZYX6GSYONROA
-X-MailFrom: prvs=0790fff71a=ckeepax@opensource.cirrus.com
+In-Reply-To: <20240122092435.3791175-1-Vijendar.Mukunda@amd.com>
+X-Cookie: Schizophrenia beats being alone.
+Message-ID-Hash: 7PZ2RZKREH3FKHCM527VCLTS55JXBIJP
+X-Message-ID-Hash: 7PZ2RZKREH3FKHCM527VCLTS55JXBIJP
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -102,7 +92,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3XXNWMD2QQ76SFFZKKJGZYX6GSYONROA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7PZ2RZKREH3FKHCM527VCLTS55JXBIJP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -111,16 +101,33 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, Mar 01, 2024 at 10:15:47AM +0000, Maciej Strozek wrote:
-> Two regs have wrong values in existing fields, change them to match
-> the datasheet.
-> 
-> Fixes: ace6d1448138 ("mfd: cs42l43: Add support for cs42l43 core driver")
-> 
-> Signed-off-by: Maciej Strozek <mstrozek@opensource.cirrus.com>
-> ---
 
-Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+--uszNmvFvI93s6IMy
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Thanks,
-Charles
+On Mon, Jan 22, 2024 at 02:54:22PM +0530, Vijendar Mukunda wrote:
+> This patch series is to redesign existing platform device creation logic
+> for SoundWire managers and Implement generic functions for SoundWire
+> manager probe, start and exit sequence which are common for both Legacy
+> (NO DSP enabled) and SOF stack, and add SoundWire Interface support for
+> AMD SOF stack (ACP 6.3 based platform).
+
+Any news on what's going on with the Soundwire part of this?
+
+--uszNmvFvI93s6IMy
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmXiHmYACgkQJNaLcl1U
+h9A9xgf/ZnKVuBfU3IdiCCDF0efaXRk9noEn9iF6Z+P+lSh6IRf0rYi+FQpdeKEo
+T+h3hK5g+KbWeF1HeNpZnG1Y8vMRRA0UBjsEul4eRJ7clH0y4zsAsdwsrAnJ//zO
+kaFNTJBQRueUR2npRdE9UJ2k+WwWGbVzCNOwxXOwFtHJwfYF4QYaQFEdZG8o5QTU
+DSZXCU+B44B9nKmhcHYcpz+DDvd/GqPtp2Q5FPfOpLIaCQjuF69uYzxsDueyAfZq
+sQKLYjizF5UwTJmFpDR40tHbXTmCoou1TY1pMUlNB4m3f8Rl4FPhfElR7e0qkums
+mYYX3tqegrNPku7aS/OqcGINBM0Rng==
+=WmML
+-----END PGP SIGNATURE-----
+
+--uszNmvFvI93s6IMy--

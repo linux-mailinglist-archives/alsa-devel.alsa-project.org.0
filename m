@@ -2,82 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 622CD86F56C
-	for <lists+alsa-devel@lfdr.de>; Sun,  3 Mar 2024 15:04:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3712586F715
+	for <lists+alsa-devel@lfdr.de>; Sun,  3 Mar 2024 21:47:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0BE78847;
-	Sun,  3 Mar 2024 15:04:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0BE78847
+	by alsa0.perex.cz (Postfix) with ESMTPS id A9507741;
+	Sun,  3 Mar 2024 21:47:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A9507741
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1709474651;
-	bh=D4QlXce0c91s/ffFvETgwwOIaFxWa6yMBjLyBctvMOo=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=aH1KN2F0UVidr2gVq6JSc1TX5dfcGfsmv/OEwHB3xUWM+Jxg4/PJpnOUI9HsPTpxl
-	 Mq8Zn0mRtESMiFBNIhcUBsElF9YNUhSRrWoaCshUCZIPcumNuM9ULqk92hUP9Xigwy
-	 9AM8gieBhjKbhMDybLVobz7eBnrop53ri1yfUPqU=
+	s=default; t=1709498848;
+	bh=yblKaV7X6JAgSlLjZzlXSTKQEzZ6TADFXhXSAJkaLIE=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=Nnie62gwgoUnHmdah9UncpFOuzq24CpO9ZtVQd5KWI1/T7TJJfIpJRXXBRbZ3htTR
+	 KeFNy1/0WdCsgMMKmJp6r8LhmV+kQfYojWc3jtHynNd0zFx+qJrlP8XuTf91XhwlXz
+	 f55mu6bv+jlIS6Bv8KFt5e3Ns80QPAWTST1lMq8c=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 10CE0F80570; Sun,  3 Mar 2024 15:03:39 +0100 (CET)
+	id 85E94F805A9; Sun,  3 Mar 2024 21:46:51 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 56A96F80571;
-	Sun,  3 Mar 2024 15:03:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B0331F8057B;
+	Sun,  3 Mar 2024 21:46:50 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2EF8EF801F5; Sun,  3 Mar 2024 15:01:33 +0100 (CET)
+	id D3C67F8024E; Sun,  3 Mar 2024 21:46:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0F4BCF8024E
-	for <alsa-devel@alsa-project.org>; Sun,  3 Mar 2024 15:01:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0F4BCF8024E
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=ScUlgv/8
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 445D560BB8;
-	Sun,  3 Mar 2024 14:01:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C821C43394;
-	Sun,  3 Mar 2024 14:01:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1709474483;
-	bh=D4QlXce0c91s/ffFvETgwwOIaFxWa6yMBjLyBctvMOo=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=ScUlgv/8P7vVsi/iIa0rTXlTkk7w2dsZL1Erbny1qdbbCnbX/YAn2Xrnf7oEdqU+b
-	 5exRWZJfDUukjgcah+Z5d4fkPLlGOrCS7DvDnnGHs7cZ+fvdCXz6C+OTfcVwkyXRxL
-	 ArCRacqborrmxvMVq6EpnHR6RrU9C/SsX68LM3HprxfT68HVGCCisnYcvVqLS1FN0P
-	 CZ2K4EL/60oa5QTITKsZP+b2yahPa3JmlHK6iGE/a7ZlMHCHacK2f9EhbWyX+WVwGm
-	 Od6iwNLOVmpWN/+2YKSzY2Viv0rmdpXmlWJOADvkB5xPUdhetwPgUwKnuk9TO/xZFQ
-	 OBQH9isk6eNWw==
-From: Vinod Koul <vkoul@kernel.org>
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- linux-kernel@vger.kernel.org, broonie@kernel.org,
- pierre-louis.bossart@linux.intel.com, yung-chuan.liao@linux.intel.com,
- amadeuszx.slawinski@linux.intel.com
-In-Reply-To: <20240219105206.335738-1-cezary.rojewski@intel.com>
-References: <20240219105206.335738-1-cezary.rojewski@intel.com>
-Subject: Re: [PATCH] soundwire: Use snd_soc_substream_to_rtd() to obtain
- rtd
-Message-Id: <170947448017.763853.3989657204347502636.b4-ty@kernel.org>
-Date: Sun, 03 Mar 2024 19:31:20 +0530
+X-Spam-Status: No, score=-3.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
+ [207.180.221.201])
+	by alsa1.perex.cz (Postfix) with ESMTP id DBEC6F8014B
+	for <alsa-devel@alsa-project.org>; Sun,  3 Mar 2024 21:46:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DBEC6F8014B
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.12.3
-Message-ID-Hash: TCLLYV6YNCICTBGNLUSTUS572B7SOCUL
-X-Message-ID-Hash: TCLLYV6YNCICTBGNLUSTUS572B7SOCUL
-X-MailFrom: vkoul@kernel.org
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1709498798332520485-webhooks-bot@alsa-project.org>
+References: <1709498798332520485-webhooks-bot@alsa-project.org>
+Subject: Scarlett Solo USB profiles missing or broken in 1.2.11
+Message-Id: <20240303204644.D3C67F8024E@alsa1.perex.cz>
+Date: Sun,  3 Mar 2024 21:46:44 +0100 (CET)
+Message-ID-Hash: CPUKO5XSFIEYQD3CMGB2T7GSM2BDNZ52
+X-Message-ID-Hash: CPUKO5XSFIEYQD3CMGB2T7GSM2BDNZ52
+X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -89,7 +60,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TCLLYV6YNCICTBGNLUSTUS572B7SOCUL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CPUKO5XSFIEYQD3CMGB2T7GSM2BDNZ52/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,20 +69,19 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+alsa-project/alsa-ucm-conf issue #398 was opened from Slabity:
 
-On Mon, 19 Feb 2024 11:52:06 +0100, Cezary Rojewski wrote:
-> Utilize the helper function instead of casting from ->private_data
-> directly.
-> 
-> 
+Prior to version 1.2.10, my Scarlett Solo USB profiles looked like the following, where I could select profiles that explicitly enabled or disabled either the Inputs or Outputs:
 
-Applied, thanks!
+![goodaudiooutput](https://github.com/alsa-project/alsa-ucm-conf/assets/3788421/b1bbc857-82b6-4fa5-b478-0c00c26b281c)
 
-[1/1] soundwire: Use snd_soc_substream_to_rtd() to obtain rtd
-      commit: e17aae16acf53938deb4b7702aa4f6cee2c4a073
+As of 1.2.11, these profiles have disappeared and have left only a couple of profiles that do not provide the same functionality:
 
-Best regards,
--- 
-~Vinod
+![badaudiooutputs](https://github.com/alsa-project/alsa-ucm-conf/assets/3788421/6c321638-3eb1-45ef-94a5-734c16477886)
 
+Other devices like my GPU's HDMI/DP Audio and motherboard's "Starship/Matisse HD Audio Controller" continue to expose the wider variety of profiles. It is only this device that seems to have the issue.
 
+I originally reported this on #346 as I thought it was related, but was told it might be a different issue. What makes me worried is the mention that this is "expected" now despite it breaking my audio setup. I can no longer select the "Digital Stereo (IEC958) Input" to exclusively enable the Input Device *without* enabling the Output Device.
+
+Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/398
+Repository URL: https://github.com/alsa-project/alsa-ucm-conf

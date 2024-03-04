@@ -2,121 +2,137 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1FCD86FC21
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Mar 2024 09:45:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0174E86FEA6
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Mar 2024 11:16:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2702584D;
-	Mon,  4 Mar 2024 09:44:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2702584D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1CF1185D;
+	Mon,  4 Mar 2024 11:16:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1CF1185D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1709541900;
-	bh=aq3piChNaFVUZRLflgh3OwyCrCx9FsrV4KZ41F3f0DM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=FEpQwY5Id4GGfixio4ns6f96kQSLOgMlVD7joUNbq/f2mDoAiQ+sOriPilua1p1SV
-	 0Guik2iv2GbZXt/oEpFAqhfi55Al44GKNQ8HMZ0yi6Ljmiv+aOkXCUnO+CiVmE9eAL
-	 QEZBXTSx6U4SPXh6hlJzAA2ru6GMjR6iIKQJIqKs=
+	s=default; t=1709547384;
+	bh=0khqBNUQxb9CtIDoPY6PVAOXP03RqEdHWBbtYLlkd/g=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=LSlo/WKpZ/uGmSltR6TTzxuMZBkoJs/zsA4jwOyg90MyIE6Aok/hjAfl/auuDIPL0
+	 Wnv8s38S5EF+Q9CYk3D2zc/gmEk780scpgMNtyboFRTnTQE+ZjjW5jKgZ2cQgXXIdk
+	 AY1oZW0H2YKdTJAOpnmT6KbClxs6auMdT1roy6do=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8D3DDF8059F; Mon,  4 Mar 2024 09:44:28 +0100 (CET)
+	id 68FBBF805AB; Mon,  4 Mar 2024 11:15:52 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 48BD7F80589;
-	Mon,  4 Mar 2024 09:44:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DC21FF80579;
+	Mon,  4 Mar 2024 11:15:51 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4756AF8024E; Mon,  4 Mar 2024 09:44:22 +0100 (CET)
+	id 07DE2F8014B; Mon,  4 Mar 2024 11:15:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from APC01-TYZ-obe.outbound.protection.outlook.com
+ (mail-tyzapc01on20601.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:2011::601])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B1D76F80093
-	for <alsa-devel@alsa-project.org>; Mon,  4 Mar 2024 09:44:19 +0100 (CET)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
-	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id C3F7D3629A;
-	Mon,  4 Mar 2024 09:44:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz C3F7D3629A
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
-	t=1709541858; bh=4hD4+P4XH/Rx1amXf8YR6TVc6+rzEKz38EVYhJ4UfB0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=I/XEvupb73gwK2AxF/gKXmLYIiqrd74951Ucw2R0i9hsng9Ud38uVS5EdA134jjlK
-	 mTMjHC1zpf8JRs7SszrwOw8nBNszRXYNHPMH41LOnv9mTzXlTMstkEDU5kwXVB7Hj/
-	 Y9wM2ngMREHRPytOrWJa/aNLCE3gb8Lq81/W6Ytw=
-Received: from [192.168.100.98] (unknown [192.168.100.98])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	(Authenticated sender: perex)
-	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
-	Mon,  4 Mar 2024 09:44:15 +0100 (CET)
-Message-ID: <be219d0a-a215-4b2f-80cb-40e382a67764@perex.cz>
-Date: Mon, 4 Mar 2024 09:44:14 +0100
+	by alsa1.perex.cz (Postfix) with ESMTPS id CA3AAF8014B
+	for <alsa-devel@alsa-project.org>; Mon,  4 Mar 2024 11:15:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CA3AAF8014B
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=nuvoton.com header.i=@nuvoton.com header.a=rsa-sha256
+ header.s=selector1 header.b=gWy9mdyV
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=PoQ4MWNvvOujda9N3uvq+KfFenEPOHenUiKNmSn85IFBckkQpu9vvsTaA6OXPOrt6vyjVmU7eoQqFJ55cyANDthN/PNGuIDr9PU1uewlu0yaNFY+41IBD0Qovggn1wFNDDxTjz44D5aw3JNyeH6m1QgLM/51w5A+hjkT2cAaW76bkxt7T856KJ/EBDP4u/dBBddiI96OhMqyNcgVqEKMl8huM5yMz11bnEeWjFVhRpMIURcp42pUrTa43VfEnxFUqpiWa1fSqu5xOwP7uad4ha3YLB+1C5nLx6g0iULqyPMEu7tq1nDLQ1w1GyAmX73H5vQimkWbFlDM+U9CQSAWBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BbZlyRIuopFFJKT/MYPMSBytwonfG8AnNSxOYtJz73o=;
+ b=IPnbSKo/MpkJxigvu2WF1XSyNS28IuWT5TOWiFOqKv5WLDJQWMbYoawezh4m7CEg4Xn6DZT9jqNFaikmvkEm01acPcjWCg3awmjd5vEW6XIFsT4YjbgcJUxLEToK+vpb8OcLbQsULlzAOTkE7jrynpzwoyCKp9kg2UUCi6p1z4PMhQAdQd9kSct33OavhbYXS3cDyr3izOZiwbUPK/M/AkTsaGh7Md2P2XTcGCVaaWbGYp+9uilIKMMb70ySnwi/lwiTaEulq5D4uQYahi8z3n8DNnQqxUaYt4fdm5T0VzWR6xlywuIqmxxI+BZJKdTC4EKFfVvu97F568EiEIexfA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 211.75.126.7) smtp.rcpttodomain=kernel.org smtp.mailfrom=nuvoton.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=nuvoton.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nuvoton.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BbZlyRIuopFFJKT/MYPMSBytwonfG8AnNSxOYtJz73o=;
+ b=gWy9mdyVHWKDQZPiDmKGoVfN4lm64mhOe0vvjmaJOF2iKZywpLP9PJkjltkyxnHsbYkFdAjXV876wOY6rI5l3OY47sBpqYT0LRQo0wbFP6LfI3+yk9KQt6MINbO7iX5IETc1rD94VhSld99aVfvqy/vULamVYJeKr4ALJcKojgA=
+Received: from PS2PR01CA0040.apcprd01.prod.exchangelabs.com
+ (2603:1096:300:58::28) by PUZPR03MB7188.apcprd03.prod.outlook.com
+ (2603:1096:301:119::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7339.37; Mon, 4 Mar
+ 2024 10:15:32 +0000
+Received: from HK3PEPF0000021D.apcprd03.prod.outlook.com
+ (2603:1096:300:58:cafe::ad) by PS2PR01CA0040.outlook.office365.com
+ (2603:1096:300:58::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7339.38 via Frontend
+ Transport; Mon, 4 Mar 2024 10:15:32 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 211.75.126.7)
+ smtp.mailfrom=nuvoton.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nuvoton.com;
+Received-SPF: Pass (protection.outlook.com: domain of nuvoton.com designates
+ 211.75.126.7 as permitted sender) receiver=protection.outlook.com;
+ client-ip=211.75.126.7; helo=NTHCCAS01.nuvoton.com; pr=C
+Received: from NTHCCAS01.nuvoton.com (211.75.126.7) by
+ HK3PEPF0000021D.mail.protection.outlook.com (10.167.8.39) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7362.11 via Frontend Transport; Mon, 4 Mar 2024 10:15:32 +0000
+Received: from NTHCML01B.nuvoton.com (10.1.8.178) by NTHCCAS01.nuvoton.com
+ (10.1.8.28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 4 Mar
+ 2024 18:15:29 +0800
+Received: from NTHCCAS04.nuvoton.com (10.1.8.29) by NTHCML01B.nuvoton.com
+ (10.1.8.178) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2176.14; Mon, 4 Mar
+ 2024 18:15:29 +0800
+Received: from localhost.localdomain (10.11.36.27) by NTHCCAS04.nuvoton.com
+ (10.1.8.29) with Microsoft SMTP Server id 15.1.2176.14 via Frontend
+ Transport; Mon, 4 Mar 2024 18:15:29 +0800
+From: Seven Lee <wtli@nuvoton.com>
+To: <broonie@kernel.org>
+CC: <lgirdwood@gmail.com>, <alsa-devel@alsa-project.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<robh+dt@kernel.org>, <conor+dt@kernel.org>, <YHCHuang@nuvoton.com>,
+	<KCHSU0@nuvoton.com>, <CTLIN0@nuvoton.com>, <SJLIN0@nuvoton.com>,
+	<wtli@nuvoton.com>, <scott6986@gmail.com>, <supercraig0719@gmail.com>,
+	<dardar923@gmail.com>
+Subject: [PATCH v3 0/2] ASoC: nau8325: Modify driver code and dtschema.
+Date: Mon, 4 Mar 2024 18:15:21 +0800
+Message-ID: <20240304101523.538989-1-wtli@nuvoton.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] [alsa-lib][PATCH] conf: USB-Audio: Add Corsair HS60 Pro
- to the IEC958 blacklist
-Content-Language: en-US
-To: David Senoner <seda18@rolmail.net>, alsa-devel@alsa-project.org
-Cc: tiwai@suse.de
-References: <20240226141403.13948-1-seda18@rolmail.net>
-From: Jaroslav Kysela <perex@perex.cz>
-Autocrypt: addr=perex@perex.cz; keydata=
- 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
-In-Reply-To: <20240226141403.13948-1-seda18@rolmail.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: 3WK56AVHOZK4XLLSSKLBACYNGUTJRJX3
-X-Message-ID-Hash: 3WK56AVHOZK4XLLSSKLBACYNGUTJRJX3
-X-MailFrom: perex@perex.cz
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NotSetDelaration: True
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: HK3PEPF0000021D:EE_|PUZPR03MB7188:EE_
+X-MS-Office365-Filtering-Correlation-Id: f189045e-be69-4877-941b-08dc3c34065d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	G1TkMTnQVNE3BG9y87Pjuf4mlRmTHSFR5SX4lXqJaoHBTh/AQW8uswHpbk0VKhDZCDXZgLQgSWo4nEBxT+0TXczKOb7Q5nxTC726s1lvC2vSK3tcuOXGa0gzFh0WOW9Vnj8hMhT5tMnE+hCGe4vhlD4dmfcs+t8yRHZakY+ui+mCRtiiAUimkpHpY2yg2D6DF2680oICLz3L5oCB+0/yII+6XWFXUpV4YXGqroCqgZBXnmUp1JJYLH+xuD2qn4pahWDFW4w6wWi2epYQNe01GDvcXC64pK+H3mh4aXDHwJ5M7OKGNDJTqUIc4DLDYEzDIMG051N6btLLFZVuLrp7V3xSoHyz2PsSrxGPe/I1SevRKVPiJp85DZkkIQXcf1kQ9MJGdYQFFDJ3NK4NTL3csTcHPaTtTLAgw9dvNpotrgBCtMaUr29ICwJM317h6DkBKHyOawF9JREj8+YUBxbD3n0VC3lzXIWLVhoID271S6ZzNHZ/w8Vh6rR06hMjjHS4PYCOK0WGhrzE4MFu/5x6EcsRgzZP1uVvWoqAxVW4kWchclzidbseJi9TRUNq8xK41Oxt25tKJCTh5Ch1NR5FomFovcoPK+lEWZZREITUvlPyzvaAIaNqvh7NzU2HWw6iCuRhn0XE/bCCFn8Pg8LaCVRr8siKEXaIw3x5fr7xxdDdvgrKtuqGaAraK0xlfPuNAwfOZLIdillLgSo2iBEb/702X5fmzu9n5dfnxCkX3gy2FeMV6bHCSOlY2PAbDxPa
+X-Forefront-Antispam-Report: 
+	CIP:211.75.126.7;CTRY:TW;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:NTHCCAS01.nuvoton.com;PTR:211-75-126-7.hinet-ip.hinet.net;CAT:NONE;SFS:(13230031)(36860700004)(376005)(82310400014);DIR:OUT;SFP:1101;
+X-OriginatorOrg: nuvoton.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Mar 2024 10:15:32.2061
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ f189045e-be69-4877-941b-08dc3c34065d
+X-MS-Exchange-CrossTenant-Id: a3f24931-d403-4b4a-94f1-7d83ac638e07
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
+ TenantId=a3f24931-d403-4b4a-94f1-7d83ac638e07;Ip=[211.75.126.7];Helo=[NTHCCAS01.nuvoton.com]
+X-MS-Exchange-CrossTenant-AuthSource: 
+	HK3PEPF0000021D.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PUZPR03MB7188
+Message-ID-Hash: X6I4DCHRWUZWWIZQ6GGJXFECSPPHKCJA
+X-Message-ID-Hash: X6I4DCHRWUZWWIZQ6GGJXFECSPPHKCJA
+X-MailFrom: WTLI@nuvoton.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -128,7 +144,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3WK56AVHOZK4XLLSSKLBACYNGUTJRJX3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/X6I4DCHRWUZWWIZQ6GGJXFECSPPHKCJA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -137,18 +153,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 26. 02. 24 15:14, David Senoner wrote:
-> This device is just an external USB soundcard with a female 3.5mm jack
-> for a headset, no S/PDIF | IEC958 connector. Add it to the blacklist to
-> prevent it being opened.
-> 
-> Signed-off-by: David Senoner <seda18@rolmail.net>
+Modify properties of "nuvoton,dac-vref" in dtschema.
+For driver code, changed dev_err() to dev_dbg().
 
-Applied. Thanks.
+Change:
+V1 -> V2:
+- Revise the driver description part for the C++ comment.
+- In the nau8325_clkdet_put function, modify the max variable to hard code.
+- Removed "Clock Detection" switch control.
+- modify the "ALC Enable" switch name.
+- Revise the dtschema for "nuvoton,dac-vref".
 
-					Jaroslav
+V2 -> V3:
+- Properties use standard unit suffixes.
+- Modify the enum definition.
+- Driver code should be used dev_dbg().
+
+Seven Lee (2):
+  ASoC: dt-bindings: Added schema for "nuvoton,nau8325"
+  ASoC: nau8325: new driver
+
+ .../bindings/sound/nuvoton,nau8325.yaml       |  74 ++
+ sound/soc/codecs/nau8325.c                    | 856 ++++++++++++++++++
+ sound/soc/codecs/nau8325.h                    | 391 ++++++++
+ 3 files changed, 1321 insertions(+)
+ create mode 100755 Documentation/devicetree/bindings/sound/nuvoton,nau8325.yaml
+ create mode 100755 sound/soc/codecs/nau8325.c
+ create mode 100644 sound/soc/codecs/nau8325.h
 
 -- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+2.25.1
 

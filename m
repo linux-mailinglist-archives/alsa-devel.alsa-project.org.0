@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38522870AC9
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Mar 2024 20:34:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C966C870ACA
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Mar 2024 20:35:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6D79293A;
-	Mon,  4 Mar 2024 20:34:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D79293A
+	by alsa0.perex.cz (Postfix) with ESMTPS id BFA9D112;
+	Mon,  4 Mar 2024 20:35:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BFA9D112
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1709580895;
-	bh=7WE0+iAlu1u9SUqlD/cOnSeRnpt1WFGDjFhFu5ds4mo=;
+	s=default; t=1709580912;
+	bh=TADBIj/jiKk87U5tou9hMcyNKNqVzZSGuG8xZJPtMNQ=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=kq6QXYqjkiO9dEWsKIjcQvaP4+LKw9cVceS/B38Phlyipp8oDzkCwlfiBxCJxPNol
-	 ygWYhm8eiE6ThoVodd0T1pbfKLSHu0QnOyNu/z/lNUm2ow4AtObjLGgODBQSzU0axz
-	 2KbOMhqtAAl+DHkqBpZz4xqhyrMDjb6kW0eZqbaw=
+	b=BkVnLoSrzA4V898QWT4jo0Gu0Bvb55xgNnmfTypizYMhhKJwuAMkkcQZmgb+NTxkB
+	 ebb9iFOhaNvRcdgLQEDE9lLJlCo5osFVRVQKh+Fb9iPab0+2Thckg7C+LBBbS8wyd4
+	 XagwFm/wAalaBEe4siwERAX2bGum/7UdLKfpRnQ0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2A220F805A0; Mon,  4 Mar 2024 20:34:22 +0100 (CET)
+	id C0163F805D7; Mon,  4 Mar 2024 20:34:24 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 91295F80496;
-	Mon,  4 Mar 2024 20:34:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B3914F805CA;
+	Mon,  4 Mar 2024 20:34:23 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9C293F802E8; Mon,  4 Mar 2024 20:34:17 +0100 (CET)
+	id 200BCF8024E; Mon,  4 Mar 2024 20:34:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,56 +35,57 @@ X-Spam-Status: No, score=-5.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B5C8FF8014B
-	for <alsa-devel@alsa-project.org>; Mon,  4 Mar 2024 20:33:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5C8FF8014B
+	by alsa1.perex.cz (Postfix) with ESMTPS id CBAF4F80093
+	for <alsa-devel@alsa-project.org>; Mon,  4 Mar 2024 20:34:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CBAF4F80093
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=k23IsZI2
+ header.s=Intel header.b=niQ8+GPd
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1709580851; x=1741116851;
+  t=1709580853; x=1741116853;
   h=message-id:date:mime-version:subject:to:cc:references:
    from:in-reply-to:content-transfer-encoding;
-  bh=7WE0+iAlu1u9SUqlD/cOnSeRnpt1WFGDjFhFu5ds4mo=;
-  b=k23IsZI2KL3cjnZP/5fLwddfE+lyJ1av5zKLOwfl1DqJDaS6bVtuioMW
-   +GEaAIM54iygohydLOdWoVJeAwAiBTtY6FhrkmdfjDtIkQEu5g5DNKbgJ
-   66/jl4lceSPXOps2KfDgUt86PFi+GORbdPrlekI5pBTqLZ3n12kDBwE+7
-   lUcRWygFB26kaZGyNufxMy+DzB0hy1XcFgiBELdKSmiTBbDPyhkUYdp+g
-   4z8tuaMhmxBEI2FC8ANmBPmBGN+Vflgar13PLk5mFuzMhV3a64vCbvNp6
-   XardqMOMyJS4dtL6kMzTTlvNO1anVazd5Nl0LRNkWtMkCq/x075DxBiZo
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,11003"; a="15500692"
+  bh=TADBIj/jiKk87U5tou9hMcyNKNqVzZSGuG8xZJPtMNQ=;
+  b=niQ8+GPd+lcDyY/ZKbic5eO4ZlZZ/CQENd70t3xnG3b+d1g6ZMXXNp8h
+   7JMmBeScZcydBcZ/mTJ7nPYJG2CAEaCa8H94KuCpQU4kaCdbhAiJTn6YK
+   POEUiuSBdD1/hCLvq3NwYjHtOAQSSOpuDTctMdig5TMOF+Wn2luxGqJLd
+   sZDhn1iiwnSlONBQaqrbPIXeaPz1s75QYc0N/F+cvYZA810ODZjsIHtMV
+   aNjCyKtkrlj9eVtDZJwZj3XfVsymunrtoeNB4T/zguHqkeHGu5Zg93TAX
+   gZsnVHStYItD9gd8TXVY91SGCusOIG4U65H/kos9kJ0yOZotE36mrkZUl
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,11003"; a="15500700"
 X-IronPort-AV: E=Sophos;i="6.06,204,1705392000";
-   d="scan'208";a="15500692"
+   d="scan'208";a="15500700"
 Received: from fmviesa005.fm.intel.com ([10.60.135.145])
   by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Mar 2024 11:33:57 -0800
+ 04 Mar 2024 11:33:58 -0800
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.06,204,1705392000";
-   d="scan'208";a="13599728"
+   d="scan'208";a="13599735"
 Received: from cryoung-mobl2.amr.corp.intel.com (HELO [10.212.71.160])
  ([10.212.71.160])
   by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  04 Mar 2024 11:33:57 -0800
-Message-ID: <ff674cfa-19d4-4de4-80ec-9be88f8cb4a4@linux.intel.com>
-Date: Mon, 4 Mar 2024 13:28:41 -0600
+Message-ID: <14a2f9b8-7711-47c4-9f57-bd839c700d4e@linux.intel.com>
+Date: Mon, 4 Mar 2024 13:32:36 -0600
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/5] ASoC: Intel: Disable route checks for Skylake boards
+Subject: Re: [PATCH 2/5] ASoC: topology: Do not ignore route checks when
+ parsing graphs
 Content-Language: en-US
 To: Cezary Rojewski <cezary.rojewski@intel.com>, broonie@kernel.org
 Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org, tiwai@suse.com,
  perex@perex.cz, amadeuszx.slawinski@linux.intel.com, hdegoede@redhat.com
 References: <20240304190536.1783332-1-cezary.rojewski@intel.com>
- <20240304190536.1783332-2-cezary.rojewski@intel.com>
+ <20240304190536.1783332-3-cezary.rojewski@intel.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20240304190536.1783332-2-cezary.rojewski@intel.com>
+In-Reply-To: <20240304190536.1783332-3-cezary.rojewski@intel.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: E3MDFON5CK33DVCZSHCCSSSSATQS4XYO
-X-Message-ID-Hash: E3MDFON5CK33DVCZSHCCSSSSATQS4XYO
+Message-ID-Hash: KTAN54KX3G5YJW4BKETTKCTY4PWEGYV6
+X-Message-ID-Hash: KTAN54KX3G5YJW4BKETTKCTY4PWEGYV6
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -97,7 +98,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/E3MDFON5CK33DVCZSHCCSSSSATQS4XYO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KTAN54KX3G5YJW4BKETTKCTY4PWEGYV6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,39 +110,38 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
 On 3/4/24 13:05, Cezary Rojewski wrote:
-> Topology files that are propagated to the world and utilized by the
-> skylake-driver carry shortcomings in their SectionGraphs.
+> One of the framework responsibilities is to ensure that the enumerated
+> DPCMs are valid i.e.: a valid BE is connected to a valid FE DAI. While
+> the are checks in soc-core.c and soc-pcm.c that verify this, a component
+> driver may attempt to workaround this by loading an invalid graph
+> through the topology file.
 > 
-> Since commit daa480bde6b3 ("ASoC: soc-core: tidyup for
-> snd_soc_dapm_add_routes()") route checks are no longer permissive. Probe
-> failures for Intel boards have been partially addressed by commit
-> a22ae72b86a4 ("ASoC: soc-core: disable route checks for legacy devices")
-> and its follow up but only skl_nau88l25_ssm4567.c is patched. Fix the
-> problem for the rest of the boards.
-> 
-> Link: https://lore.kernel.org/all/20200309192744.18380-1-pierre-louis.bossart@linux.intel.com/
-> Fixes: daa480bde6b3 ("ASoC: soc-core: tidyup for snd_soc_dapm_add_routes()")
+> Be strict and fail topology loading when invalid graph is encountered.
+
+This is very invasive, it's perfectly possible that we have a number of
+'broken' topologies where one path is 'invalid' but it doesn't impact
+functionality.
+
+This should be an opt-in behavior IMHO, not a blanket change.
+
 > Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 > ---
->  sound/soc/intel/boards/bxt_da7219_max98357a.c       | 1 +
->  sound/soc/intel/boards/bxt_rt298.c                  | 1 +
->  sound/soc/intel/boards/glk_rt5682_max98357a.c       | 1 +
->  sound/soc/intel/boards/kbl_da7219_max98357a.c       | 1 +
->  sound/soc/intel/boards/kbl_da7219_max98927.c        | 4 ++++
->  sound/soc/intel/boards/kbl_rt5660.c                 | 1 +
->  sound/soc/intel/boards/kbl_rt5663_max98927.c        | 2 ++
->  sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c | 1 +
->  sound/soc/intel/boards/skl_hda_dsp_generic.c        | 1 +
-
-This HDAudio machine driver is shared with the SOF-based solutions and I
-see no reason to change the route checking...
-
-I don't agree with this change. Why can't you fix the broken topologies
-instead, if indeed they 'carry shortcomings'?
-
-Same for glk, this an SOF-based solution.
-
->  sound/soc/intel/boards/skl_nau88l25_max98357a.c     | 1 +
->  sound/soc/intel/boards/skl_rt286.c                  | 1 +
->  11 files changed, 15 insertions(+)
-
+>  sound/soc/soc-topology.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/sound/soc/soc-topology.c b/sound/soc/soc-topology.c
+> index d6d368837235..778f539d9ff5 100644
+> --- a/sound/soc/soc-topology.c
+> +++ b/sound/soc/soc-topology.c
+> @@ -1083,8 +1083,9 @@ static int soc_tplg_dapm_graph_elems_load(struct soc_tplg *tplg,
+>  			break;
+>  		}
+>  
+> -		/* add route, but keep going if some fail */
+> -		snd_soc_dapm_add_routes(dapm, route, 1);
+> +		ret = snd_soc_dapm_add_routes(dapm, route, 1);
+> +		if (ret && !dapm->card->disable_route_checks)
+> +			break;
+>  	}
+>  
+>  	return ret;

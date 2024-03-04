@@ -2,125 +2,108 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39A3F87703E
-	for <lists+alsa-devel@lfdr.de>; Sat,  9 Mar 2024 11:14:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E0108703F6
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Mar 2024 15:24:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 93E78B6A;
-	Sat,  9 Mar 2024 11:14:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 93E78B6A
+	by alsa0.perex.cz (Postfix) with ESMTPS id CA32886F;
+	Mon,  4 Mar 2024 15:24:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA32886F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1709979275;
-	bh=/Af1OqvaKj+Y/we0Ts7Sbh6sS0efeCNow+1SafjuFO4=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=MUoB0VJNl6mUy2TV64EgzwczxhAg4MtUim0OP3v7FUmSzwDmhiu/GE3sk326KZZDW
-	 5aqyLF8qKAhYOmAgCsBDorcOsyvs9P0yi/wMtHt5FnHyPzzRcayi3i5Cc/s8bJiMzf
-	 GdOrtHhckfj4W6vMMVs2hPBT48vO87AMNQIkjCxs=
+	s=default; t=1709562279;
+	bh=XXxnvR6/7pWjgGR4OrSNwADlQ09xHuL0Usz9cO3xdU4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=kyfTrSrabBlmxQAgTJ7soTJaOLUMaxtp0nfcPKGtzk+ZWHFTW8hQNXfpBRXAs6DLI
+	 13dLIOhir3xeYbjfLn/c6dwESrNGvNPVMohwrG/OX/qL8eVesiL0FmG8Hv1xLqNZBl
+	 F1gQ4h1CyHgTdfARQnZUnjgQMQFyR8Dna3R4FA+g=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6D88CF80639; Sat,  9 Mar 2024 11:12:55 +0100 (CET)
+	id 35910F805A9; Mon,  4 Mar 2024 15:24:07 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7F4F0F8060C;
-	Sat,  9 Mar 2024 11:12:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D9E66F80571;
+	Mon,  4 Mar 2024 15:24:06 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0D690F8024E; Mon,  4 Mar 2024 15:24:05 +0100 (CET)
+	id 74327F802E8; Mon,  4 Mar 2024 15:24:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [IPv6:2a00:1450:4864:20::430])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-5.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A192EF80093
-	for <alsa-devel@alsa-project.org>; Mon,  4 Mar 2024 15:23:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A192EF80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id CBABEF8014B
+	for <alsa-devel@alsa-project.org>; Mon,  4 Mar 2024 15:23:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CBABEF8014B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=gPoJlvd3
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-33d146737e6so3402381f8f.0
-        for <alsa-devel@alsa-project.org>;
- Mon, 04 Mar 2024 06:23:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1709562236; x=1710167036;
- darn=alsa-project.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=apaBpVQtA1STXfsjN2l+EhbnfJdRR6DZH9EsOTj0lX4=;
-        b=gPoJlvd3rifr6e+tCL2n+Vs4ue3fX/irX1RKwVgf0p/9SMHaaIjoLB9wlpuCJIg3+T
-         Hqi/nx0PyYpSzd/zgk7fA6f86l7LTfJfEQpVuo2bovjXqtxgDRF91+mhqJyNqeYGu8mC
-         fWdOpnk++pzPuMYOVfCFe5UYsaILMZ9iXhUNZUv56XFPso6UV5y+JCj9ublGGtbksnKT
-         4IXDCurMvode8erLsijvIK4ikmGDa1jZJE9HmDFwmWCmMyyLc83gDiH+Q6AybxwZIiXn
-         lqFUsnlVchlB8eIw2qSvHUyKYk++eQyecl/bcy97+J8PJEMS4E1ujRDCnsrVuDbAcZEK
-         K7ug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709562236; x=1710167036;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=apaBpVQtA1STXfsjN2l+EhbnfJdRR6DZH9EsOTj0lX4=;
-        b=WCsEo+nY7Cgy8PsbssZ1QwTdzxjKJMOAl+V57uUDT4xqDAiGXNpSNVGAcKOSYWzT9F
-         uGx2WCIXrEGcq6yS5CI/KJTkgDGLVkmXBLsJqlLVUMTVh77xqiUzZ4iTMIht4VDV6Z+8
-         n9XGBqKJl3IsgoyZWk+nuVTHArQ4Jc96DwImg/qFgrwQr/oM+X25o/VO+PCKhBYNcd6r
-         BF3VS0zL7lvQJGg5RO/EupWHeiL+7WOUDWKWnlCVJNjBZnL2+YOLcTmqqv7rKsOGq8xA
-         j54eYC1MgTbZg+jQiv9pH7RGq6pugkjQ5h/aJb3PzSH02Zy+2sKQL4+R4XBZDljWctPC
-         oIDA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXK1yzFyFGqkW9PEQF/u5z72N4Cha2GCn0M3NsFpPdMlfblTHLzyNzpI7EY9jx7Ez3SjrSJMfsYMomOkSFETMo6U98/QFN0wFP2aeU=
-X-Gm-Message-State: AOJu0YxB5GrL7Wzk0PqpZELrZ3n22mY73gXYWgupyoEBlce1mcI2J9cT
-	w/6BohrCsixvYlygp7hTELXqnDtGQq7i9HOekhIlGXS3T8eDLKbJ
-X-Google-Smtp-Source: 
- AGHT+IGg2MH7GT1C+UoWFBUBjsuKghbrFQ0VkykOdak4bcjOJxYr/eYANQGF+LIh5pxi2hOHce8Bmw==
-X-Received: by 2002:a05:6000:1249:b0:33d:2226:a28b with SMTP id
- j9-20020a056000124900b0033d2226a28bmr6152789wrx.37.1709562236222;
-        Mon, 04 Mar 2024 06:23:56 -0800 (PST)
-Received: from tuxserver.lan ([79.116.0.170])
-        by smtp.googlemail.com with ESMTPSA id
- bs19-20020a056000071300b0033daaef7afcsm12636594wrb.83.2024.03.04.06.23.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 04 Mar 2024 06:23:55 -0800 (PST)
-From: =?UTF-8?q?Javier=20Garc=C3=ADa?= <javier.gar.tab@gmail.com>
-To: 
-Cc: javier.gar.tab@gmail.com,
-	daniel.baluta@nxp.com,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jack Yu <jack.yu@realtek.com>,
-	alsa-devel@alsa-project.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ASoC: dt-bindings: rt1015: Convert to dtschema
-Date: Mon,  4 Mar 2024 15:23:07 +0100
-Message-ID: <20240304142315.14522-1-javier.gar.tab@gmail.com>
-X-Mailer: git-send-email 2.41.0
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=AsPt8hoD
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id A84D6CE1386;
+	Mon,  4 Mar 2024 14:23:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90565C43390;
+	Mon,  4 Mar 2024 14:23:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1709562223;
+	bh=XXxnvR6/7pWjgGR4OrSNwADlQ09xHuL0Usz9cO3xdU4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=AsPt8hoDUStklKvbr9l5y2fCjUGifbeJjU76gbjhnARANwQXeq28a2bR771tR8nGT
+	 noq991Wu1u/PCmt4GmXY7fDKquRwzL5iof/dZkzUfh9seVFkRx739pgn8PWheEu6SG
+	 UWs0JrRh19UszyusQy3QxyfcQm8/sMHN5c88pWXSH+PdSW3/3avE5HPVXoLb9tKBdF
+	 TTIhXfxcJX8lBh50VfYt0ukdtiFqg/8esZM4/Etf2qaOf17eYQFv2EsnRZg7uqsvSu
+	 YR364dIhms7VAjpVoZ2rKs1VYiEaI6QPd6KwtY0QFiCXusYMaYeO3bErFJyEXF+YuE
+	 Zek//seAJQ1FA==
+Date: Mon, 4 Mar 2024 08:23:41 -0600
+From: Rob Herring <robh@kernel.org>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: broonie@kernel.org, wenst@chromium.org, lgirdwood@gmail.com,
+	krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
+	matthias.bgg@gmail.com, perex@perex.cz, tiwai@suse.com,
+	trevor.wu@mediatek.com, maso.huang@mediatek.com,
+	xiazhengqiao@huaqin.corp-partner.google.com, arnd@arndb.de,
+	kuninori.morimoto.gx@renesas.com, shraash@google.com,
+	amergnat@baylibre.com, nicolas.ferre@microchip.com,
+	u.kleine-koenig@pengutronix.de, dianders@chromium.org,
+	frank.li@vivo.com, allen-kh.cheng@mediatek.com,
+	eugen.hristev@collabora.com, claudiu.beznea@tuxon.dev,
+	jarkko.nikula@bitmer.com, jiaxin.yu@mediatek.com,
+	alpernebiyasak@gmail.com, ckeepax@opensource.cirrus.com,
+	zhourui@huaqin.corp-partner.google.com, nfraprado@collabora.com,
+	alsa-devel@alsa-project.org, shane.chien@mediatek.com,
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, kernel@collabora.com
+Subject: Re: [PATCH 19/22] ASoC: dt-bindings: mt8192: Document audio-routing
+ and dai-link subnode
+Message-ID: <20240304142341.GA156846-robh@kernel.org>
+References: <20240227120939.290143-1-angelogioacchino.delregno@collabora.com>
+ <20240227120939.290143-20-angelogioacchino.delregno@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-MailFrom: javier.gar.tab@gmail.com
-X-Mailman-Rule-Hits: nonmember-moderation
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: 
+ <20240227120939.290143-20-angelogioacchino.delregno@collabora.com>
+Message-ID-Hash: ZP4N3VK5XNWPRKVIG2L4DPRX2TZDYYBD
+X-Message-ID-Hash: ZP4N3VK5XNWPRKVIG2L4DPRX2TZDYYBD
+X-MailFrom: robh@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: 55V4SYJVSLY6Z3LTH67FTNDSMAZW6FNM
-X-Message-ID-Hash: 55V4SYJVSLY6Z3LTH67FTNDSMAZW6FNM
-X-Mailman-Approved-At: Sat, 09 Mar 2024 10:10:29 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/55V4SYJVSLY6Z3LTH67FTNDSMAZW6FNM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZP4N3VK5XNWPRKVIG2L4DPRX2TZDYYBD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -129,92 +112,218 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Convert the RT1015 Mono Class D Audio Amplifier to DT schema.
+On Tue, Feb 27, 2024 at 01:09:36PM +0100, AngeloGioacchino Del Regno wrote:
+> Document the dai-link subnodes and the audio-routing property, allowing
+> to describe machine specific audio hardware and links in device tree.
+> 
+> While at it, also deprecate the old properties which were previously
+> used with the driver's partially hardcoded configuration.
+> 
+> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> ---
+>  .../sound/mt8192-mt6359-rt1015-rt5682.yaml    | 129 ++++++++++++++++--
+>  1 file changed, 121 insertions(+), 8 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/mt8192-mt6359-rt1015-rt5682.yaml b/Documentation/devicetree/bindings/sound/mt8192-mt6359-rt1015-rt5682.yaml
+> index 7e50f5d65c8f..78e221003750 100644
+> --- a/Documentation/devicetree/bindings/sound/mt8192-mt6359-rt1015-rt5682.yaml
+> +++ b/Documentation/devicetree/bindings/sound/mt8192-mt6359-rt1015-rt5682.yaml
+> @@ -20,6 +20,15 @@ properties:
+>        - mediatek,mt8192_mt6359_rt1015p_rt5682
+>        - mediatek,mt8192_mt6359_rt1015p_rt5682s
+>  
+> +  audio-routing:
+> +    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
 
-Signed-off-by: Javier García <javier.gar.tab@gmail.com>
----
- .../bindings/sound/realtek,rt1015.yaml        | 41 +++++++++++++++++++
- .../devicetree/bindings/sound/rt1015.txt      | 23 -----------
- 2 files changed, 41 insertions(+), 23 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/sound/realtek,rt1015.yaml
- delete mode 100644 Documentation/devicetree/bindings/sound/rt1015.txt
+Already defined in sound-card-common.yaml. Add a $ref.
 
-diff --git a/Documentation/devicetree/bindings/sound/realtek,rt1015.yaml b/Documentation/devicetree/bindings/sound/realtek,rt1015.yaml
-new file mode 100644
-index 000000000000..880196081a60
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/realtek,rt1015.yaml
-@@ -0,0 +1,41 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/realtek,rt1015.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: RT1015 Mono Class D Audio Amplifier
-+
-+maintainers:
-+  - Jack Yu <jack.yu@realtek.com>
-+
-+properties:
-+  compatible:
-+    enum:
-+      - realtek,rt1015
-+
-+  reg:
-+    maxItems: 1
-+
-+  realtek,power-up-delay-ms:
-+    description: Set a delay time for flush work to be completed,
-+      this vlaue is adjustable depending on platform.
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+        codec@28 {
-+            compatible = "realtek,rt1015";
-+            reg = <0x28>;
-+            realtek,power-up-delay-ms = <50>;
-+        };
-+    };
-diff --git a/Documentation/devicetree/bindings/sound/rt1015.txt b/Documentation/devicetree/bindings/sound/rt1015.txt
-deleted file mode 100644
-index e498966d436f..000000000000
---- a/Documentation/devicetree/bindings/sound/rt1015.txt
-+++ /dev/null
-@@ -1,23 +0,0 @@
--RT1015 Mono Class D Audio Amplifier
--
--This device supports I2C only.
--
--Required properties:
--
--- compatible : "realtek,rt1015".
--
--- reg : The I2C address of the device.
--
--Optional properties:
--
--- realtek,power-up-delay-ms
--  Set a delay time for flush work to be completed,
--  this value is adjustable depending on platform.
--
--Example:
--
--rt1015: codec@28 {
--	compatible = "realtek,rt1015";
--	reg = <0x28>;
--	realtek,power-up-delay-ms = <50>;
--};
--- 
-2.41.0
+> +    description:
+> +      A list of the connections between audio components. Each entry is a
+> +      pair of strings, the first being the connection's sink, the second
+> +      being the connection's source.
+> +      Valid names could be the input or output widgets of audio components,
+> +      power supplies, MicBias of codec and the software switch.
 
+Generally the names are defined here.
+
+> +
+>    mediatek,platform:
+>      $ref: /schemas/types.yaml#/definitions/phandle
+>      description: The phandle of MT8192 ASoC platform.
+> @@ -27,10 +36,12 @@ properties:
+>    mediatek,hdmi-codec:
+>      $ref: /schemas/types.yaml#/definitions/phandle
+>      description: The phandle of HDMI codec.
+> +    deprecated: true
+>  
+>    headset-codec:
+>      type: object
+>      additionalProperties: false
+> +    deprecated: true
+>  
+>      properties:
+>        sound-dai:
+> @@ -41,6 +52,7 @@ properties:
+>    speaker-codecs:
+>      type: object
+>      additionalProperties: false
+> +    deprecated: true
+>  
+>      properties:
+>        sound-dai:
+> @@ -51,13 +63,83 @@ properties:
+>      required:
+>        - sound-dai
+>  
+> +patternProperties:
+> +  ".*-dai-link$":
+> +    type: object
+> +    description:
+> +      Container for dai-link level properties and CODEC sub-nodes.
+> +
+> +    properties:
+> +      link-name:
+> +        description: Indicates dai-link name and PCM stream name
+> +        items:
+> +          enum:
+> +            - I2S0
+> +            - I2S1
+> +            - I2S2
+> +            - I2S3
+> +            - I2S4
+> +            - I2S5
+> +            - I2S6
+> +            - I2S7
+> +            - I2S8
+> +            - I2S9
+> +            - TDM
+> +
+> +      codec:
+> +        description: Holds subnode which indicates codec dai.
+> +        type: object
+> +        additionalProperties: false
+> +        properties:
+> +          sound-dai:
+> +            minItems: 1
+> +            maxItems: 2
+> +        required:
+> +          - sound-dai
+> +
+> +      dai-format:
+> +        description: audio format
+> +        items:
+> +          enum:
+> +            - i2s
+> +            - right_j
+> +            - left_j
+> +            - dsp_a
+> +            - dsp_b
+> +
+> +      mediatek,clk-provider:
+> +        $ref: /schemas/types.yaml#/definitions/string
+> +        description: Indicates dai-link clock master.
+> +        items:
+> +          enum:
+> +            - cpu
+> +            - codec
+> +
+> +    additionalProperties: false
+
+Move this before properties.
+
+> +
+> +    required:
+> +      - link-name
+> +
+>  additionalProperties: false
+>  
+>  required:
+>    - compatible
+>    - mediatek,platform
+> -  - headset-codec
+> -  - speaker-codecs
+> +
+> +allOf:
+> +  # Disallow dai-link-xxx nodes if the legacy properties are specified
+
+xxx-dai-link?
+
+> +  - if:
+> +      patternProperties:
+> +        ".*-dai-link$": false
+> +    then:
+> +      required:
+> +        - headset-codec
+> +        - speaker-codecs
+> +    else:
+> +      properties:
+> +        headset-codec: false
+> +        speaker-codecs: false
+> +        mediatek,hdmi-codec: false
+
+Allowing both would preserve compatibility. That's not needed? If so, 
+say why in the commit msg.
+
+>  
+>  examples:
+>    - |
+> @@ -65,19 +147,50 @@ examples:
+>      sound: mt8192-sound {
+>          compatible = "mediatek,mt8192_mt6359_rt1015_rt5682";
+>          mediatek,platform = <&afe>;
+> -        mediatek,hdmi-codec = <&anx_bridge_dp>;
+>          pinctrl-names = "aud_clk_mosi_off",
+>                          "aud_clk_mosi_on";
+>          pinctrl-0 = <&aud_clk_mosi_off>;
+>          pinctrl-1 = <&aud_clk_mosi_on>;
+>  
+> -        headset-codec {
+> -            sound-dai = <&rt5682>;
+> +        audio-routing =
+> +                "Headphone Jack", "HPOL",
+> +                "Headphone Jack", "HPOR",
+> +                "IN1P", "Headset Mic",
+> +                "Speakers", "Speaker";
+> +
+> +        spk-playback-dai-link {
+> +                link-name = "I2S3";
+> +                dai-format = "i2s";
+> +                mediatek,clk-provider = "cpu";
+> +                codec {
+> +                        sound-dai = <&rt1015p>;
+> +                };
+> +        };
+> +
+> +        hs-playback-dai-link {
+> +                link-name = "I2S8";
+> +                dai-format = "i2s";
+> +                mediatek,clk-provider = "cpu";
+> +                codec {
+> +                        sound-dai = <&rt5682 0>;
+> +                };
+> +        };
+> +
+> +        hs-capture-dai-link {
+> +                link-name = "I2S9";
+> +                dai-format = "i2s";
+> +                mediatek,clk-provider = "cpu";
+> +                codec {
+> +                        sound-dai = <&rt5682 0>;
+> +                };
+>          };
+>  
+> -        speaker-codecs {
+> -            sound-dai = <&rt1015_l>,
+> -                        <&rt1015_r>;
+> +        displayport-dai-link {
+> +                link-name = "TDM";
+> +                dai-format = "dsp_a";
+> +                codec {
+> +                        sound-dai = <&anx_bridge_dp>;
+> +                };
+>          };
+>      };
+>  
+> -- 
+> 2.44.0
+> 

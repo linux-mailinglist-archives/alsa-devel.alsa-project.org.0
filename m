@@ -2,54 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD94586F725
-	for <lists+alsa-devel@lfdr.de>; Sun,  3 Mar 2024 22:10:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DA8F86F869
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Mar 2024 03:12:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 502FDDEE;
-	Sun,  3 Mar 2024 22:10:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 502FDDEE
+	by alsa0.perex.cz (Postfix) with ESMTPS id B55F4847;
+	Mon,  4 Mar 2024 03:12:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B55F4847
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1709500250;
-	bh=mjIAXzTaIs4lgNC3PrxQf1VGVpJM/7Yw/BGuUFaa2eQ=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=Ryhc962MFXshtdJIOB+kU41Ry9xcMnkqmAkG5QYYmiXrXzIvjpRup0SoeQpZFc18h
-	 xJTLz4eNIOHt/OocHO/a3R7XwTUUGznpV/ku2YnCnyhdiS+31TO5tLiHnog/hVCumr
-	 jR6scg6tgeqwxBfKrhTysvsCIcLI90S63xP5ghAI=
+	s=default; t=1709518369;
+	bh=R5naQThWsPiQKPxR7Vhe8MiIiruw5sL8S/9+dpHJmnw=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=rPE4t4t6jF+Jbz74bSiG3CiGUclumnLIHDkArZklyM6nKyAf9Up1Qb7B1j2MpQLqb
+	 lCywJsVstMVg9hGVu289eSkBjMqC8V10PoKnWhVHksLN2PQGfed1Je0rU1n62B4WHr
+	 a7WXlHbmhOB/IFauBig+BD0q2IK8xaWUeHT2WK4Q=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B1BCCF802E8; Sun,  3 Mar 2024 22:10:29 +0100 (CET)
+	id F1229F8057F; Mon,  4 Mar 2024 03:12:17 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0BD1EF80494;
-	Sun,  3 Mar 2024 22:10:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 74B03F805A0;
+	Mon,  4 Mar 2024 03:12:17 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7552DF80571; Sun,  3 Mar 2024 22:10:22 +0100 (CET)
+	id 048DAF8024E; Mon,  4 Mar 2024 03:12:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-	URIBL_BLOCKED shortcircuit=no autolearn=unavailable autolearn_force=no
-	version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
- [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id EEACEF8024E
-	for <alsa-devel@alsa-project.org>; Sun,  3 Mar 2024 22:10:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EEACEF8024E
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 81822F80093
+	for <alsa-devel@alsa-project.org>; Mon,  4 Mar 2024 03:11:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81822F80093
+X-SpamFilter-By: ArmorX SpamTrap 5.78 with qID 4242BlE723317572,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (mapi.realtek.com[172.21.6.27])
+	by rtits2.realtek.com.tw (8.15.2/2.95/5.92) with ESMTPS id 4242BlE723317572
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 4 Mar 2024 10:11:48 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXH36506.realtek.com.tw (172.21.6.27) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.35; Mon, 4 Mar 2024 10:11:47 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXMBS01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.35; Mon, 4 Mar 2024 10:11:47 +0800
+Received: from RTEXMBS01.realtek.com.tw ([fe80::48bb:4f38:369c:d153]) by
+ RTEXMBS01.realtek.com.tw ([fe80::48bb:4f38:369c:d153%9]) with mapi id
+ 15.01.2507.035; Mon, 4 Mar 2024 10:11:47 +0800
+From: Kailang <kailang@realtek.com>
+To: Takashi Iwai <tiwai@suse.de>
+CC: " (alsa-devel@alsa-project.org)" <alsa-devel@alsa-project.org>
+Subject: RE: Enable Headset Mic for Acer NB platform
+Thread-Topic: Enable Headset Mic for Acer NB platform
+Thread-Index: AdprsUeS3EovqCnhSRm+LniFgnhYIP//orCA//tS8wA=
+Date: Mon, 4 Mar 2024 02:11:47 +0000
+Message-ID: <fe0eb6661ca240f3b7762b5b3257710d@realtek.com>
+References: <521cc46507f54cd0ae460fb2e0cf90f8@realtek.com>
+ <87bk7y5ix6.wl-tiwai@suse.de>
+In-Reply-To: <87bk7y5ix6.wl-tiwai@suse.de>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: yes
+x-originating-ip: [172.22.102.106]
+x-kse-serverinfo: RTEXMBS01.realtek.com.tw, 9
+x-kse-antispam-interceptor-info: fallback
+x-kse-antivirus-interceptor-info: fallback
+Content-Type: multipart/mixed;
+	boundary="_002_fe0eb6661ca240f3b7762b5b3257710drealtekcom_"
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - edited <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1709500220840954304-webhooks-bot@alsa-project.org>
-References: <1709500220840954304-webhooks-bot@alsa-project.org>
-Subject: Scarlett Solo USB profiles missing or broken in 1.2.11
-Message-Id: <20240303211022.7552DF80571@alsa1.perex.cz>
-Date: Sun,  3 Mar 2024 22:10:22 +0100 (CET)
-Message-ID-Hash: MP4WPQPCXP4DXC3M6KZVPSCFXXJAYT5X
-X-Message-ID-Hash: MP4WPQPCXP4DXC3M6KZVPSCFXXJAYT5X
-X-MailFrom: github@alsa-project.org
+X-KSE-AntiSpam-Interceptor-Info: fallback
+Message-ID-Hash: APKSMAJMJH2SKFSAWNYNGCUUOFJUDVPC
+X-Message-ID-Hash: APKSMAJMJH2SKFSAWNYNGCUUOFJUDVPC
+X-MailFrom: kailang@realtek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -61,7 +92,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MP4WPQPCXP4DXC3M6KZVPSCFXXJAYT5X/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/APKSMAJMJH2SKFSAWNYNGCUUOFJUDVPC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -70,88 +101,64 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-ucm-conf issue #398 was edited from Slabity:
+--_002_fe0eb6661ca240f3b7762b5b3257710drealtekcom_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Prior to version 1.2.10, my Scarlett Solo USB profiles looked like the following, where I could select profiles that explicitly enabled or disabled either the Inputs or Outputs:
 
-![goodaudiooutput](https://github.com/alsa-project/alsa-ucm-conf/assets/3788421/b1bbc857-82b6-4fa5-b478-0c00c26b281c)
+Oh! Sorry! I forgot.
 
-As of 1.2.11, these profiles have disappeared and have left only a couple of profiles that do not provide the same functionality:
+> -----Original Message-----
+> From: Takashi Iwai <tiwai@suse.de>
+> Sent: Friday, March 1, 2024 6:46 PM
+> To: Kailang <kailang@realtek.com>
+> Cc: (alsa-devel@alsa-project.org) <alsa-devel@alsa-project.org>
+> Subject: Re: Enable Headset Mic for Acer NB platform
+>=20
+>=20
+> External mail.
+>=20
+>=20
+>=20
+> On Fri, 01 Mar 2024 09:21:26 +0100,
+> Kailang wrote:
+> >
+> > Hi Takashi,
+> >
+> > This patch will enable headset Mic for Acer NB platform.
+>=20
+> Is the patch missing?
+>=20
+>=20
+> thanks,
+>=20
+> Takashi
 
-![badaudiooutputs](https://github.com/alsa-project/alsa-ucm-conf/assets/3788421/6c321638-3eb1-45ef-94a5-734c16477886)
+--_002_fe0eb6661ca240f3b7762b5b3257710drealtekcom_
+Content-Type: application/octet-stream; name="0000-alc256-acer-hsmic.patch"
+Content-Description: 0000-alc256-acer-hsmic.patch
+Content-Disposition: attachment; filename="0000-alc256-acer-hsmic.patch";
+	size=996; creation-date="Fri, 01 Mar 2024 07:16:27 GMT";
+	modification-date="Fri, 01 Mar 2024 08:15:15 GMT"
+Content-Transfer-Encoding: base64
 
-Other devices like my GPU's HDMI/DP Audio and motherboard's "Starship/Matisse HD Audio Controller" continue to expose the wider variety of profiles. It is only this device that seems to have the issue.
+RnJvbSBlYjRiN2NlYTRmNWJiZDZiMDBhOTYyMjVhNTkxOWJkYzNlMWIyOWRiIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBLYWlsYW5nIFlhbmcgPGthaWxhbmdAcmVhbHRlay5jb20+CkRh
+dGU6IEZyaSwgMSBNYXIgMjAyNCAxNTowNDowMiArMDgwMApTdWJqZWN0OiBbUEFUQ0hdIEFMU0E6
+IGhkYS9yZWFsdGVrIC0gQWRkIEhlYWRzZXQgTWljIHN1cHBvcnRlZCBBY2VyIE5CIHBsYXRmb3Jt
+CgpJdCB3aWxsIGJlIGVuYWJsZSBoZWFkc2V0IE1pYyBmb3IgQWNlciBOQiBwbGF0Zm9ybS4KClNp
+Z25lZC1vZmYtYnk6IEthaWxhbmcgWWFuZyA8a2FpbGFuZ0ByZWFsdGVrLmNvbT4KZGlmZiAtLWdp
+dCBhL3NvdW5kL3BjaS9oZGEvcGF0Y2hfcmVhbHRlay5jIGIvc291bmQvcGNpL2hkYS9wYXRjaF9y
+ZWFsdGVrLmMKaW5kZXggZjExMmViMWE4NjhmLi4wZDMwYzY2MzI2NzEgMTAwNjQ0Ci0tLSBhL3Nv
+dW5kL3BjaS9oZGEvcGF0Y2hfcmVhbHRlay5jCisrKyBiL3NvdW5kL3BjaS9oZGEvcGF0Y2hfcmVh
+bHRlay5jCkBAIC0xMDg4Miw2ICsxMDg4Miw4IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3Qgc25kX2hk
+YV9waW5fcXVpcmsgYWxjMjY5X3Bpbl9maXh1cF90YmxbXSA9IHsKICAqICAgYXQgbW9zdCBvbmUg
+dGJsIGlzIGFsbG93ZWQgdG8gZGVmaW5lIGZvciB0aGUgc2FtZSB2ZW5kb3IgYW5kIHNhbWUgY29k
+ZWMKICAqLwogc3RhdGljIGNvbnN0IHN0cnVjdCBzbmRfaGRhX3Bpbl9xdWlyayBhbGMyNjlfZmFs
+bGJhY2tfcGluX2ZpeHVwX3RibFtdID0geworCVNORF9IREFfUElOX1FVSVJLKDB4MTBlYzAyNTYs
+IDB4MTAyNSwgIkFjZXIiLCBBTEMyWFhfRklYVVBfSEVBRFNFVF9NSUMsCisJCXsweDE5LCAweDQw
+MDAwMDAwfSksCiAJU05EX0hEQV9QSU5fUVVJUksoMHgxMGVjMDI4OSwgMHgxMDI4LCAiRGVsbCIs
+IEFMQzI2OV9GSVhVUF9ERUxMNF9NSUNfTk9fUFJFU0VOQ0UsCiAJCXsweDE5LCAweDQwMDAwMDAw
+fSwKIAkJezB4MWIsIDB4NDAwMDAwMDB9KSwK
 
-I originally reported this on #346 as I thought it was related, but was told it might be a different issue. What makes me worried is the mention that this is "expected" now despite it breaking my audio setup. I can no longer select the "Digital Stereo (IEC958) Input" to exclusively enable the Input Device *without* enabling the Output Device.
-
-Here's some more information about the device:
-
-```
-$ lsusb | grep Focusrite
-Bus 007 Device 003: ID 1235:801c Focusrite-Novation Scarlett Solo USB
-
-$ alsaucm listcards
-  0: hw:2
-    Focusrite Scarlett Solo USB at usb-0000:10:00.3-3, high speed
-
-$ alsaucm -c hw:2 dump text
-Verb.HiFi {
-	Comment Default
-	Device.Line1 {
-		Comment "Headphones / Line 1-2"
-		Values {
-			CaptureCTL "_ucm0001.hw:USB"
-			PlaybackCTL "_ucm0001.hw:USB"
-			PlaybackPCM "_ucm0001.hw:USB"
-			PlaybackPriority 200
-		}
-	}
-	Device.Mic1 {
-		Comment "Input 1 Mic"
-		Values {
-			CaptureCTL "_ucm0001.hw:USB"
-			CaptureChannels 1
-			CapturePCM "_ucm0001.scarlett2i_mono_in:USB,0,0"
-			CapturePriority 200
-			PlaybackCTL "_ucm0001.hw:USB"
-		}
-	}
-	Device.Mic2 {
-		Comment "Input 2 Inst/Line"
-		Values {
-			CaptureCTL "_ucm0001.hw:USB"
-			CaptureChannels 1
-			CapturePCM "_ucm0001.scarlett2i_mono_in:USB,0,1"
-			CapturePriority 100
-			PlaybackCTL "_ucm0001.hw:USB"
-		}
-	}
-}
-Verb.Direct {
-	Comment "Direct Scarlett Solo USB"
-	Device.Direct {
-		Comment "Direct Scarlett Solo USB"
-		Values {
-			CaptureCTL "_ucm0001.hw:USB"
-			CaptureChannels 2
-			CapturePCM "_ucm0001.hw:USB"
-			CapturePriority 1000
-			PlaybackCTL "_ucm0001.hw:USB"
-			PlaybackChannels 2
-			PlaybackPCM "_ucm0001.hw:USB"
-			PlaybackPriority 1000
-		}
-	}
-}
-```
-
-Some OS info it it helps:
-
-Linux distribution: NixOS on nixpkgs-unstable
-Kernel: 6.7.7
-ALSA version: Advanced Linux Sound Architecture Driver Version k6.7.7
-Pulseaudio version: 15.0.0
-Pipewire version: 1.0.3
-
-Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/398
-Repository URL: https://github.com/alsa-project/alsa-ucm-conf
+--_002_fe0eb6661ca240f3b7762b5b3257710drealtekcom_--

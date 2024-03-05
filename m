@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB85D8723C0
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Mar 2024 17:10:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3891F8723A7
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Mar 2024 17:07:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 70A6383E;
-	Tue,  5 Mar 2024 17:09:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 70A6383E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 74A707F4;
+	Tue,  5 Mar 2024 17:07:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 74A707F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1709655006;
-	bh=x/RwPfGG3M4kAN4+nuFyXwS1UjmW9zc1MOTJXtv8PN4=;
+	s=default; t=1709654840;
+	bh=yVAMvk1AjN2Q8IOg8WhIMYAju/KTCFz1RxW4IWB0f7Y=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=FuehJPVOt/6MdPJ+9CZAiEaRMdrKjHMw+sPUEanoLa5IqaGN+UAXQK6TNwp2As7ok
-	 kvDDlqWRcJlCVwL8Wmy2OkA81meGl04voc7ULdqOAmtdxO0Ff+DXb+rp5G3cH3GGrY
-	 coyqZURyVxkLPqjRVDhvrwTFTYgLqp+rsgHJJawU=
+	b=LTfgzENr8LM8HSWykf8Pyd+UBvgphvTcNUl4FAWwLjl1p+XFzijMJaNMPabwg7xHn
+	 6ao3bBfpCTqtWRo5Iy5b9SUOBES1NlrI1moZwHEvlhPXL7qRYuOJ3V185gzWc/t05D
+	 KzCTUCl9BNo1O6t3oAHlmRKE9vrpqEJ47q4CumVY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 41CE5F80587; Tue,  5 Mar 2024 17:09:36 +0100 (CET)
+	id B0AE5F805AE; Tue,  5 Mar 2024 17:06:43 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 717BCF80578;
-	Tue,  5 Mar 2024 17:09:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D741CF805A0;
+	Tue,  5 Mar 2024 17:06:42 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 76768F80087; Tue,  5 Mar 2024 17:09:31 +0100 (CET)
+	id 1194CF8024E; Tue,  5 Mar 2024 17:06:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,60 +35,61 @@ X-Spam-Status: No, score=-5.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 59EB0F80087
-	for <alsa-devel@alsa-project.org>; Tue,  5 Mar 2024 17:09:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59EB0F80087
+	by alsa1.perex.cz (Postfix) with ESMTPS id 156B9F8014B
+	for <alsa-devel@alsa-project.org>; Tue,  5 Mar 2024 17:06:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 156B9F8014B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=CAgBCQ2M
+ header.s=Intel header.b=l50HeM+S
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1709654967; x=1741190967;
+  t=1709654788; x=1741190788;
   h=message-id:date:mime-version:subject:to:cc:references:
    from:in-reply-to:content-transfer-encoding;
-  bh=x/RwPfGG3M4kAN4+nuFyXwS1UjmW9zc1MOTJXtv8PN4=;
-  b=CAgBCQ2MeTNxVABgWubBKSOtoAGWb+G7MrCSyLlUk5PJBFgG9tnk+QyC
-   t439sNfzpmD0LivizpIAdq3IQiEArc4w1D7AgMBaq0lNKby8fuxi4/aJB
-   PmYistMTrC+u3x2y73p7NY4i0yEY+BzAMVqKFwhQ2VgbV4NMG/8kVUNLl
-   Z88x5XOssIRhjVWBW8/fiXfnhk6Ut4MwT/PfOjxsTS+v6ranZ20ThoBRM
-   NDKiJrGV2/kxy6pibc8GtmbKPcGm96TAvK6fVY0kQyZ1jfbDeEyCjT1uK
-   twLJxLIpyrSidhaDKsiW4AG108c7lXLg2RZMat5SjKJufyUb1ATexCHcy
+  bh=yVAMvk1AjN2Q8IOg8WhIMYAju/KTCFz1RxW4IWB0f7Y=;
+  b=l50HeM+SiwMkEcPSd6WayeoUxZctOp/WTPpyxYzmc6btrEpsyaZhrLqf
+   grnHbrEusHmq/r2lqvSaZNnwKG0rwJ4lEaF7WSVxkZ2Z7f+0HfJphhPsn
+   IRd+rd8oZG3VwHlLMkgRbIIDEXfOfFFAGL0Doa2cjjaeAqZdplmqreygw
+   50bDHNx74kdGTsUMeeewgzMIOntapq9yGezA76cM5kuHCiBjQeof2Uz1l
+   7T65k0ZgPIikgSaK+GYxpxXMVsf2wVaIvj/0BMZffG+pi085Ti3QPmSGx
+   GXEioCAwhkWCIX9RlOYsj5Jg7XReZbs9IFqUUt+MeGAQ8YDs+3WYrpoAH
    A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,11003"; a="4385012"
+X-IronPort-AV: E=McAfee;i="6600,9927,11003"; a="4384290"
 X-IronPort-AV: E=Sophos;i="6.06,205,1705392000";
-   d="scan'208";a="4385012"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+   d="scan'208";a="4384290"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
   by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Mar 2024 08:08:10 -0800
+ 05 Mar 2024 08:05:05 -0800
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.06,205,1705392000";
-   d="scan'208";a="13986647"
-Received: from mvmorris-mobl1.amr.corp.intel.com (HELO [10.212.86.111])
- ([10.212.86.111])
-  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Mar 2024 08:08:06 -0800
-Message-ID: <52752743-b4fc-44b3-96d8-21c8cfd2bc3c@linux.intel.com>
-Date: Tue, 5 Mar 2024 10:03:03 -0600
+   d="scan'208";a="32599823"
+Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.94.8.107])
+ ([10.94.8.107])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Mar 2024 08:05:00 -0800
+Message-ID: <2efb5250-25f3-465e-81fc-cb885027b481@linux.intel.com>
+Date: Tue, 5 Mar 2024 17:04:57 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v11] ASoc: tas2783: Add tas2783 codec driver
 Content-Language: en-US
 To: Shenghao Ding <shenghao-ding@ti.com>, broonie@kernel.org
 Cc: andriy.shevchenko@linux.intel.com, lgirdwood@gmail.com, perex@perex.cz,
- 13916275206@139.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, liam.r.girdwood@intel.com,
- bard.liao@intel.com, mengdong.lin@intel.com,
+ pierre-louis.bossart@linux.intel.com, 13916275206@139.com,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ liam.r.girdwood@intel.com, bard.liao@intel.com, mengdong.lin@intel.com,
  yung-chuan.liao@linux.intel.com, kevin-lu@ti.com, tiwai@suse.de,
  soyer@irl.hu, Baojun.Xu@fpt.com, navada@ti.com
 References: <20240305132646.638-1-shenghao-ding@ti.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+From: =?UTF-8?Q?Amadeusz_S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
 In-Reply-To: <20240305132646.638-1-shenghao-ding@ti.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: DLR7N2XFZLM2KKYSRVG6WOSOOLIRWHDK
-X-Message-ID-Hash: DLR7N2XFZLM2KKYSRVG6WOSOOLIRWHDK
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+Message-ID-Hash: EP4DDQKYSVWZKCHC5H2ZFPBP3MREJ6YK
+X-Message-ID-Hash: EP4DDQKYSVWZKCHC5H2ZFPBP3MREJ6YK
+X-MailFrom: amadeuszx.slawinski@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -100,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DLR7N2XFZLM2KKYSRVG6WOSOOLIRWHDK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EP4DDQKYSVWZKCHC5H2ZFPBP3MREJ6YK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,45 +110,22 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On 3/5/2024 2:26 PM, Shenghao Ding wrote:
+> The tas2783 is a smart audio amplifier with integrated MIPI SoundWire
+> interface (Version 1.2.1 compliant), I2C, and I2S/TDM interfaces designed
+> for portable applications. An on-chip DSP supports Texas Instruments
+> SmartAmp speaker protection algorithm. The integrated speaker voltage and
+> current sense provides for real-time monitoring of loudspeakers.
+> 
+> The ASoC component provides the majority of the functionality of the
+> device, all the audio functions.
+> 
+> Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
+> 
+> ---
 
-> +static void tas2783_apply_calibv1(struct tasdevice_priv *tas_dev,
-> +	unsigned int *cali_data)
-> +{
-> +	struct regmap *map = tas_dev->regmap;
-> +	u8 *cali_start;
-> +	u16 offset;
-> +	int ret;
-> +
-> +	if (!tas_dev->sdw_peripheral) {
-> +		dev_err(tas_dev->dev, "%s: peripheral doesn't exist.\n",
-> +			__func__);
-> +		return;
-> +	}
-> +
-> +	offset = tas_dev->sdw_peripheral->id.unique_id -
-> +		TAS2783_UNIQUE_ID_BASE;
-> +	if (offset >= TAS2783_MAX_DEV_NUM) {
-> +		dev_err(tas_dev->dev, "%s: offset(%u) is out of range.\n",
-> +			 __func__, offset);
-> +		return;
-> +	}
-> +
-> +	/*
-> +	 * The area saving tas2783 calibrated data is specified by its
-> +	 * unique_id offset. cali_start is the first address of current
-> +	 * tas2783's calibrated data.
-> +	 */
-> +	cali_start = (u8 *)(cali_data + offset * sizeof(tas2783_cali_reg));
-> +	for (int i = 0; i < ARRAY_SIZE(tas2783_cali_reg); i++) {
-> +		ret = regmap_bulk_write(map, tas2783_cali_reg[i],
-> +			&cali_start[4 * i], 4);
-> +		if (ret) {
-> +			dev_err(tas_dev->dev, "Cali failed %x:%d\n",
-> +				tas2783_cali_reg[i], ret);
-> +			break;
-> +		}
-> +	}
-> +}
+...
+
 > +
 > +static void tas2783_apply_calibv2(struct tasdevice_priv *tas_dev,
 > +	unsigned int *cali_data)
@@ -155,10 +133,6 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 > +	const unsigned int arr_size = ARRAY_SIZE(tas2783_cali_reg);
 > +	struct regmap *map = tas_dev->regmap;
 > +	unsigned int dev_sum = cali_data[1], i, j, k;
-
-this is horrible to read, at the very least move initializations to a
-different line. I personally stick to one variable per line.
-
 > +	u8 *cali_start;
 > +	u16 dev_info;
 > +	int ret;
@@ -196,197 +170,16 @@ different line. I personally stick to one variable per line.
 > +			break;
 > +		}
 > +	}
-> +}
 
-You may want to explain what v1 and v2 versions of the calibration do,
-and why you need two versions in the first place.
-The code has this weird indentation that makes it hard to read.
-Also please use __func__ in the dev_err message, nothing is more
-annoying that having two identical logs in different functions.
+This seems a bit hard to read, any chance to do some reordering to make 
+it more readable?
 
-> +
-> +/*
-> + * Load the calibration data, including speaker impedance, f0, etc.
-> + * Calibration is done by the manufacturer in the factory. The calibration
-> + * data are used by the algorithm for calculating the speaker temperature,
-> + * speaker membrane excursion and f0 in real time during playback.
-> + * The DSP will work with default data values if calibrated data are
-> + * missing or are invalid.
-> + * Layout of calibrated Data in UEFI(total 256 bytes):
-> + * V2:
-> + *	ChipID (2783, 4 bytes)
-> + *	Device-Sum (4 bytes)
-> + *	TimeStamp of Calibration (4 bytes)
-> + *	for (i = 0; i < Device-Sum; i++) {
-> + *		Device #i info () {
-> + *			SDW link id (2bytes)
-> + *			SDW unique_id (2bytes)
-> + *		}
-> + *		Calibrated Data of Device #i (20 bytes)
-> + *	}
-> + *	CRC (4 bytes)
-> + *	Reserved (the rest)
-> + * Or
-> + * V1:
-> + *	Calibrated Data of Dev 0(unique_id offset 0) (20 bytes)
-> + *	Calibrated Data of Dev 1(unique_id offset 1) (20 bytes)
-> + *	Calibrated Data of Dev 2(unique_id offset 2) (20 bytes)
-> + *	Calibrated Data of Dev 3(unique_id offset 3) (20 bytes)
-> + *	Calibrated Data of Dev 4(unique_id offset 4) (20 bytes)
-> + *	Calibrated Data of Dev 5(unique_id offset 5) (20 bytes)
-> + *	Calibrated Data of Dev 6(unique_id offset 6) (20 bytes)
-> + *	Calibrated Data of Dev 7(unique_id offset 7) (20 bytes)
-> + *	TimeStamp of Calibration (4 bytes)
-> + *	CRC (4 bytes)
-> + *	Reserved (88 bytes)
-
-This information should be moved earlier to help reviewers who read a
-patch sequentially.
-
-If you took the time to define two separate UEFI layouts, it's probably
-because some initial devices only support the first version? In that
-case, you should still detect and make sure multi-link solutions do not
-rely on the v1?
-
-> + */
-> +static void tas2783_calibration(struct tasdevice_priv *tas_dev)
-> +{
-> +	efi_guid_t efi_guid = EFI_GUID(0x1f52d2a1, 0xbb3a, 0x457d, 0xbc,
-> +			0x09, 0x43, 0xa3, 0xf4, 0x31, 0x0a, 0x92);
-> +	static efi_char16_t efi_name[] = L"CALI_DATA";
-> +	struct calibration_data cali_data;
-> +	unsigned int *tmp_val;
-> +	unsigned int crc;
-> +	efi_status_t status;
-> +
-> +	cali_data.total_sz = 0;
-> +
-> +	status = efi.get_variable(efi_name, &efi_guid, NULL,
-> +		&cali_data.total_sz, NULL);
-> +	if (status == EFI_BUFFER_TOO_SMALL
-> +		&& cali_data.total_sz < TAS2783_MAX_CALIDATA_SIZE) {
-> +		status = efi.get_variable(efi_name, &efi_guid, NULL,
-> +			&cali_data.total_sz,
-> +			cali_data.data);
-> +		dev_dbg(tas_dev->dev, "%s: cali get %lx bytes result:%ld\n",
-> +			__func__, cali_data.total_sz, status);
-> +	}
-> +	if (status != 0) {
-> +		/* Failed got calibration data from EFI. */
-> +		dev_dbg(tas_dev->dev, "No calibration data in UEFI.");
-> +		return;
-> +	}
-> +
-> +	tmp_val = (unsigned int *)cali_data.data;
-> +
-> +	if (tmp_val[0] == 2783) {
-
-Goodness, what guaranteers that the '2783' value is NOT a calibrated value?
-
-V2:
-*	ChipID (2783, 4 bytes)
-
-V1:
-*	Calibrated Data of Dev 0(unique_id offset 0) (20 bytes)
-
-Comparing binary values is very risky. Usually you need some sort of CRC
-to avoid conflicts...
-
-> +		/* Calibrated Data V2 */
-> +		unsigned int dev_sum = tmp_val[1];
-> +
-> +		if (dev_sum > TAS2783_MAX_DEV_NUM ||
-
-I thought dev_sum meant some sort of 'sum' in the CRC sense, but it's
-really number_of_devices, isn't it?
-
-> +			dev_sum == 0) {
-> +			dev_dbg(tas_dev->dev, "No dev in calibrated data V2.");
-> +			return;
-> +		}
-> +		crc = crc32(~0, cali_data.data, 12 + dev_sum * 24) ^ ~0;
-> +		if (crc == tmp_val[3 + dev_sum * 6]) {
-> +			tas2783_apply_calibv2(tas_dev, tmp_val);
-> +			dev_dbg(tas_dev->dev, "V2: %ptTs", &tmp_val[40]);
-> +		} else {
-> +			dev_dbg(tas_dev->dev,
-> +				"V2: CRC 0x%08x not match 0x%08x\n",
-> +				crc, tmp_val[41]);
-> +		}
-> +	} else {
-> +		/* Calibrated Data V1 */
-> +		/* 8 devs * 20 bytes calibrated data/dev + 4 bytes Timestamp */
-> +		crc = crc32(~0, cali_data.data, 164) ^ ~0;
-> +		if (crc == tmp_val[41]) {
-> +			/* Date and time of when calibration was done. */
-> +			tas2783_apply_calibv1(tas_dev, tmp_val);
-> +			dev_dbg(tas_dev->dev, "V1: %ptTs", &tmp_val[40]);
-> +		} else {
-> +			dev_dbg(tas_dev->dev,
-> +				"V1: CRC 0x%08x not match 0x%08x\n",
-> +				crc, tmp_val[41]);
-> +		}
-
-The CRC check should be used to determine if the v1 or v2 should be
-used. This is really broken IMHO, you could detect the wrong layout then
-flag that the CRC is bad without even trying the other layout...
-
-> +	}
-> +}
-> +
-> +static void tasdevice_dspfw_ready(const struct firmware *fmw,
-> +	void *context)
-> +{
-> +	struct tasdevice_priv *tas_dev =
-> +		(struct tasdevice_priv *) context;
-> +	struct tas2783_firmware_node *p;
-> +	struct regmap *map = tas_dev->regmap;
-> +	unsigned char *buf = NULL;
-> +	int offset = 0, img_sz;
-> +	int ret;
-> +
-> +	if (!fmw || !fmw->data) {
-> +		dev_warn(tas_dev->dev,
-> +			"%s: failed to read %s: work in bypass-dsp mode.\n",
-> +			__func__, tas_dev->dspfw_binaryname);
-> +		return;
-> +	}
-> +	buf = (unsigned char *)fmw->data;
-> +
-> +	img_sz = get_unaligned_le32(&buf[offset]);
-> +	offset  += sizeof(img_sz);
-> +	if (img_sz != fmw->size) {
-> +		dev_warn(tas_dev->dev, "%s: size not matching, %d %u.",
-> +			__func__, (int)fmw->size, img_sz);
-> +		return;
-> +	}
-> +
-> +	while (offset < img_sz) {
-> +		p = (struct tas2783_firmware_node *)(buf + offset);
-> +		if (p->length > 1) {
-> +			ret = regmap_bulk_write(map, p->download_addr,
-> +			buf + offset + sizeof(unsigned int) * 5, p->length);
-> +		} else {
-> +			ret = regmap_write(map, p->download_addr,
-> +				*(buf + offset + sizeof(unsigned int) * 5));
-> +		}
-> +
-> +		if (ret != 0) {
-> +			dev_dbg(tas_dev->dev,
-> +				"%s: load FW fail: %d, work in bypass.\n",
-> +				__func__, ret);
-> +			return;
-> +		}
-> +		offset += sizeof(unsigned int) * 5 + p->length;
-
-what is '5'? Using a define is best to avoid such magic numbers.
-
-> +	}
-> +
-> +	tas2783_calibration(tas_dev);
 > +}
 > +
 
+...
+
+> +
 > +static int tasdevice_mute(struct snd_soc_dai *dai, int mute,
 > +	int direction)
 > +{
@@ -420,10 +213,6 @@ what is '5'? Using a define is best to avoid such magic numbers.
 > +			/*
 > +			 * Both playback and echo data will be shutdown in
 > +			 * playback stream.
-
-[1] echo reference data is usually not part of the playback stream but
-provided over a capture stream. Please clarify this comment.
-
 > +			 */
 > +			ret = regmap_update_bits(map, TAS2873_REG_PWR_CTRL,
 > +				TAS2783_REG_PWR_MODE_MASK |
@@ -462,16 +251,6 @@ provided over a capture stream. Please clarify this comment.
 > +		} else {
 > +			/* Capture stream is the echo ref data for voice.
 > +			 * Without playback, it can't be active.
-
-That makes case for [1] above.
-
-I also don't get the concept of 'active'. Even when the playback is
-muted, you do want to provide a reference stream, don't you?
-
-Also don't we have a potential race condition, you set the 'pstream'
-status for the playback but use it for capture. What tells you that this
-cannot be executed concurrently?
-
 > +			 */
 > +			if (tas_dev->pstream == true) {
 > +				ret = regmap_update_bits(map,
@@ -498,4 +277,113 @@ cannot be executed concurrently?
 > +
 > +	return ret;
 > +}
+
+Above function seem to be bit long, which also causes a lot of 
+indentation, perhaps split it into mute and unmute helpers?
+
+...
+
+> +
+> +static int tasdevice_read_prop(struct sdw_slave *slave)
+> +{
+> +	struct sdw_slave_prop *prop = &slave->prop;
+> +	struct sdw_dpn_prop *dpn;
+> +	unsigned long addr;
+> +	int nval, i, j;
+> +	u32 bit;
+> +
+> +	prop->scp_int1_mask = SDW_SCP_INT1_BUS_CLASH | SDW_SCP_INT1_PARITY;
+> +	prop->quirks = SDW_SLAVE_QUIRKS_INVALID_INITIAL_PARITY;
+> +
+> +	prop->paging_support = true;
+> +
+> +	/* first we need to allocate memory for set bits in port lists */
+> +	prop->source_ports = BIT(2); /* BITMAP: 00000100 */
+> +	prop->sink_ports = BIT(1); /* BITMAP:  00000010 */
+> +
+> +	nval = hweight32(prop->source_ports);
+> +	prop->src_dpn_prop = devm_kcalloc(&slave->dev, nval,
+> +		sizeof(*prop->src_dpn_prop), GFP_KERNEL);
+> +	if (!prop->src_dpn_prop)
+> +		return -ENOMEM;
+> +
+> +	i = 0;
+> +	dpn = prop->src_dpn_prop;
+> +	addr = prop->source_ports;
+> +	for_each_set_bit(bit, &addr, 32) {
+> +		dpn[i].num = bit;
+> +		dpn[i].type = SDW_DPN_FULL;
+> +		dpn[i].simple_ch_prep_sm = true;
+> +		dpn[i].ch_prep_timeout = 10;
+> +		i++;
+> +	}
+> +
+> +	/* do this again for sink now */
+> +	nval = hweight32(prop->sink_ports);
+> +	prop->sink_dpn_prop = devm_kcalloc(&slave->dev, nval,
+> +		sizeof(*prop->sink_dpn_prop), GFP_KERNEL);
+> +	if (!prop->sink_dpn_prop)
+> +		return -ENOMEM;
+> +
+> +	j = 0;
+
+No need for separate j variable, you can reuse i here.
+
+> +	dpn = prop->sink_dpn_prop;
+> +	addr = prop->sink_ports;
+> +	for_each_set_bit(bit, &addr, 32) {
+> +		dpn[j].num = bit;
+> +		dpn[j].type = SDW_DPN_FULL;
+> +		dpn[j].simple_ch_prep_sm = true;
+> +		dpn[j].ch_prep_timeout = 10;
+> +		j++;
+> +	}
+> +
+> +	/* set the timeout values */
+> +	prop->clk_stop_timeout = 20;
+> +
+> +	return 0;
+> +}
+> +
+
+...
+
+> +
+> +struct tasdevice_priv {
+> +	struct snd_soc_component *component;
+
+Apart from being assigned this field seems to be unused.
+
+> +	struct sdw_slave *sdw_peripheral;
+> +	enum sdw_slave_status status;
+
+This one seems to be only used in tasdevice_update_status()? Does it 
+really need to be kept in struct?
+
+> +	struct sdw_bus_params params;
+
+Unused?
+
+> +	struct regmap *regmap;
+> +	struct device *dev;
+> +	unsigned char dspfw_binaryname[TAS2783_DSPFW_FILENAME_LEN];
+
+This one also seems weird, it is mainly needed when loading FW and could 
+be local to tasdevice_comp_probe(), although there is one dev_warn which 
+uses it outside of it, but pretty sure it could be dropped.
+
+> +	unsigned char dev_name[32];
+
+Another unused field.
+
+> +	unsigned int chip_id;
+
+Another one that only seems to be assigned.
+
+> +	bool pstream;
+> +	bool hw_init;
+> +	bool first_hw_init;
+> +};
+> +
+> +#endif /*__TAS2783_H__ */
 

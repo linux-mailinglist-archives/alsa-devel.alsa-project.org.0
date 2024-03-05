@@ -2,69 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C47487219F
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Mar 2024 15:38:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1526C8721B0
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Mar 2024 15:39:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A8649832;
-	Tue,  5 Mar 2024 15:38:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8649832
+	by alsa0.perex.cz (Postfix) with ESMTPS id 75C5082C;
+	Tue,  5 Mar 2024 15:39:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 75C5082C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1709649500;
-	bh=J20fXOTpszLtviNzeEJ9oEnzRf/ob4n4tAtstEQ4FJY=;
+	s=default; t=1709649559;
+	bh=VqibmGC3Jl/dxCE8AV7JqAdCOckz+GBMN1nkxkHyhc8=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=O/mgLvlqmTCcGs881yeLZ+j4v5GtEO6/R1IIW/xrEvF3DpVjDSh+ZA6FSzcYtD2Hf
-	 NYn6PVMMb7Gt1Sv04AAR2r9oLE/PAlrc9sRNcZTkHDGk4G/oq6O7vty1rsKuCIx3ZP
-	 jwwj5eIXMiv5eSDK0c/1KNfVjcIWYv4waFd8VvO8=
+	b=FWNIOp3ur4yOdXm+r49tixyahTaeaCk3x/uHWIefvNeJGDKI5HlYhHywjS4WqZ9m0
+	 UoRzhmDIUc3yct7DE/OxxKghSkjfoYcwtYn1rBfFTHIw2sUfpsM6mik3cUpgU9D4I6
+	 YjsMychvgaSWho+oxninBOpUcUUqdnmbdrGC7BKM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 442EDF805F2; Tue,  5 Mar 2024 15:37:18 +0100 (CET)
+	id 6A960F801F5; Tue,  5 Mar 2024 15:37:39 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 19FE4F805F3;
-	Tue,  5 Mar 2024 15:37:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7F9B0F8057A;
+	Tue,  5 Mar 2024 15:37:39 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D73FCF80563; Tue,  5 Mar 2024 15:37:10 +0100 (CET)
+	id 4BB39F80579; Tue,  5 Mar 2024 15:37:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=unavailable autolearn_force=no version=3.4.6
 Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net
  [IPv6:2001:4b98:dc4:8::226])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 56D53F801F5
-	for <alsa-devel@alsa-project.org>; Tue,  5 Mar 2024 15:36:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56D53F801F5
+	by alsa1.perex.cz (Postfix) with ESMTPS id BBF6FF8024E
+	for <alsa-devel@alsa-project.org>; Tue,  5 Mar 2024 15:37:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BBF6FF8024E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=oWOAIPcO
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 0E303C0002;
-	Tue,  5 Mar 2024 14:36:56 +0000 (UTC)
+ header.s=gm1 header.b=JSYcxPM0
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 8196EC0007;
+	Tue,  5 Mar 2024 14:36:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1709649418;
+	t=1709649419;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=EFhKF2Oicstp405eHgJkca8Gx/B/aHaMRaQs7xsjBzE=;
-	b=oWOAIPcOPlZK6jujVv8L/xsMG9f4RfiFp2d3vsTgbkyk8Amw1Wo0FDH8ErW3BIKDfUEDKH
-	2Kn2pt3e3oW7mnP5npJrGkRVXT7aF1Pcktcv9XsU6pPXqbQiTE1xX1UBtFhih6yipnFnin
-	ckMNZxAhHDx7RUoOGWH5amEeMrEXiOaFU7ke7lFVGu8So87PueLerLigLrfrE/ZKD55no3
-	MvyPAhTlRspEIt8xihlBdTUz/aiX6PvBr9Dk24nZCoL8QJqFvpfXYMjMjs1SvpTyRYj4T4
-	jMw3X3Zm54wO8Xjl+IJjaWLa4CCL1/Kz4kkqOw24tTAhDTbbs0VBb3jCt2nkew==
+	bh=7nOGJSWM5DMTY+8OJI5pb0eawfVnNHkYI1yq5zzD180=;
+	b=JSYcxPM0+0rhLj26E5SZB3FUzzRurNnAaU1CH+3UgpdNQ6wPRIE4OKy7o/X9iaLQS3j6Ik
+	tBAcgFXvpizqQJAg+YN4CVZIQOOqM5lCOe/HFuyRx/Zvy1YV5hzi8HtYccvvlfWeiLx+Iy
+	IZZMkJfUurV8XVmYr+xZ/TujhXifNHOu9nfWPfUf7i/rIHGCbPAs8hhm+l6neQoES2mVT0
+	uO0myHxI/y0sLaBkTHNPD7OYbMPtpej+6lKHLfE9gDDt8ETFyZoy8mUyZtTFlcGaZRDv6Y
+	Zi4XdHThllDRIJ+ZZTGQTmwTserdcjXUUGC6N0ImwtGSnHVMycw38I4HHFZkzw==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Tue, 05 Mar 2024 15:36:29 +0100
-Subject: [PATCH v4 2/7] ASoC: dt-bindings: Add Rockchip RK3308 internal
- audio codec
+Date: Tue, 05 Mar 2024 15:36:30 +0100
+Subject: [PATCH v4 3/7] ASoC: core: add SOC_DOUBLE_RANGE_TLV() helper macro
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240305-rk3308-audio-codec-v4-2-312acdbe628f@bootlin.com>
+Message-Id: <20240305-rk3308-audio-codec-v4-3-312acdbe628f@bootlin.com>
 References: <20240305-rk3308-audio-codec-v4-0-312acdbe628f@bootlin.com>
 In-Reply-To: <20240305-rk3308-audio-codec-v4-0-312acdbe628f@bootlin.com>
 To: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
@@ -77,11 +76,11 @@ Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
  linux-rockchip@lists.infradead.org, linux-sound@vger.kernel.org,
  alsa-devel@alsa-project.org, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Rob Herring <robh@kernel.org>
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
 X-Mailer: b4 0.13.0
 X-GND-Sasl: luca.ceresoli@bootlin.com
-Message-ID-Hash: 2HXAEBTZSZRCUYRGU5NKLVR2JQ4W6O7G
-X-Message-ID-Hash: 2HXAEBTZSZRCUYRGU5NKLVR2JQ4W6O7G
+Message-ID-Hash: WJD4ZDQKDNZGQMGSGDED72NDLS5KYKCL
+X-Message-ID-Hash: WJD4ZDQKDNZGQMGSGDED72NDLS5KYKCL
 X-MailFrom: luca.ceresoli@bootlin.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -94,7 +93,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2HXAEBTZSZRCUYRGU5NKLVR2JQ4W6O7G/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WJD4ZDQKDNZGQMGSGDED72NDLS5KYKCL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -103,149 +102,50 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add device tree bindings document for the internal audio codec of the
-Rockchip RK3308 SoC.
+No macro currently allows handling a stereo control that has left and right
+in the same register and whose minimum register value is not zero. Add one
+that does that.
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+Note that even though the snd_soc_*_volsw_range() look more appropriate
+given the _range suffix, they are not suitable because they don't honor the
+two shift values. The snd_soc_*_volsw() look more generic and are suitable
+for the task.
+
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+
 ---
 
-Changes in v4: nothing
+Changed in v4: nothing
+Changed in v3: nothing
 
-Changed in v3:
- - fix underscore in DT label
-
-Changed in v2:
- - reword commit title
- - add maxItems to resets
- - remove quotes from reset-names
- - use percent values for rockchip,micbias-avdd-multiplier
- - use name compliant to the docs in the example
+This patch is new in v2.
 ---
- .../bindings/sound/rockchip,rk3308-codec.yaml      | 98 ++++++++++++++++++++++
- MAINTAINERS                                        |  5 ++
- 2 files changed, 103 insertions(+)
+ include/sound/soc.h | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/sound/rockchip,rk3308-codec.yaml b/Documentation/devicetree/bindings/sound/rockchip,rk3308-codec.yaml
-new file mode 100644
-index 000000000000..ecf3d7d968c8
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/rockchip,rk3308-codec.yaml
-@@ -0,0 +1,98 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/rockchip,rk3308-codec.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Rockchip RK3308 Internal Codec
-+
-+description: |
-+  This is the audio codec embedded in the Rockchip RK3308
-+  SoC. It has 8 24-bit ADCs and 2 24-bit DACs. The maximum supported
-+  sampling rate is 192 kHz.
-+
-+  It is connected internally to one out of a selection of the internal I2S
-+  controllers.
-+
-+  The RK3308 audio codec has 8 independent capture channels, but some
-+  features work on stereo pairs called groups:
-+    * grp 0 -- MIC1 / MIC2
-+    * grp 1 -- MIC3 / MIC4
-+    * grp 2 -- MIC5 / MIC6
-+    * grp 3 -- MIC7 / MIC8
-+
-+maintainers:
-+  - Luca Ceresoli <luca.ceresoli@bootlin.com>
-+
-+properties:
-+  compatible:
-+    const: rockchip,rk3308-codec
-+
-+  reg:
-+    maxItems: 1
-+
-+  rockchip,grf:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description:
-+      Phandle to the General Register Files (GRF)
-+
-+  clocks:
-+    items:
-+      - description: clock for TX
-+      - description: clock for RX
-+      - description: AHB clock driving the interface
-+
-+  clock-names:
-+    items:
-+      - const: mclk_tx
-+      - const: mclk_rx
-+      - const: hclk
-+
-+  resets:
-+    maxItems: 1
-+
-+  reset-names:
-+    items:
-+      - const: codec
-+
-+  "#sound-dai-cells":
-+    const: 0
-+
-+  rockchip,micbias-avdd-percent:
-+    description: |
-+      Voltage setting for the MICBIAS pins expressed as a percentage of
-+      AVDD.
-+
-+      E.g. if rockchip,micbias-avdd-percent = 85 and AVDD = 3v3, then the
-+      MIC BIAS voltage will be 3.3 V * 85% = 2.805 V.
-+
-+    enum: [ 50, 55, 60, 65, 70, 75, 80, 85 ]
-+
-+required:
-+  - compatible
-+  - reg
-+  - rockchip,grf
-+  - clocks
-+  - resets
-+  - "#sound-dai-cells"
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/rk3308-cru.h>
-+
-+    audio_codec: audio-codec@ff560000 {
-+        compatible = "rockchip,rk3308-codec";
-+        reg = <0xff560000 0x10000>;
-+        rockchip,grf = <&grf>;
-+        clock-names = "mclk_tx", "mclk_rx", "hclk";
-+        clocks = <&cru SCLK_I2S2_8CH_TX_OUT>,
-+                 <&cru SCLK_I2S2_8CH_RX_OUT>,
-+                 <&cru PCLK_ACODEC>;
-+        reset-names = "codec";
-+        resets = <&cru SRST_ACODEC_P>;
-+        #sound-dai-cells = <0>;
-+    };
-+
-+...
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 4f298c4187fb..9c5ef9219086 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -18940,6 +18940,11 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/media/rockchip-rga.yaml
- F:	drivers/media/platform/rockchip/rga/
- 
-+ROCKCHIP RK3308 INTERNAL AUDIO CODEC
-+M:	Luca Ceresoli <luca.ceresoli@bootlin.com>
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/sound/rockchip,rk3308-codec.yaml
-+
- ROCKCHIP VIDEO DECODER DRIVER
- M:	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>
- L:	linux-media@vger.kernel.org
+diff --git a/include/sound/soc.h b/include/sound/soc.h
+index 6defc5547ff9..7492315ce0b8 100644
+--- a/include/sound/soc.h
++++ b/include/sound/soc.h
+@@ -149,6 +149,18 @@
+ 		{.reg = xreg, .rreg = xreg, \
+ 		.shift = shift_left, .rshift = shift_right, \
+ 		.max = xmax, .min = xmin} }
++#define SOC_DOUBLE_RANGE_TLV(xname, xreg, xshift_left, xshift_right, xmin, xmax, \
++			     xinvert, tlv_array) \
++{	.iface = SNDRV_CTL_ELEM_IFACE_MIXER, .name = (xname),\
++	.access = SNDRV_CTL_ELEM_ACCESS_TLV_READ |\
++		  SNDRV_CTL_ELEM_ACCESS_READWRITE,\
++	.tlv.p = (tlv_array), \
++	.info = snd_soc_info_volsw, \
++	.get = snd_soc_get_volsw, .put = snd_soc_put_volsw, \
++	.private_value = (unsigned long)&(struct soc_mixer_control) \
++		{.reg = xreg, .rreg = xreg, \
++		 .shift = xshift_left, .rshift = xshift_right, \
++		 .min = xmin, .max = xmax, .invert = xinvert} }
+ #define SOC_DOUBLE_R_TLV(xname, reg_left, reg_right, xshift, xmax, xinvert, tlv_array) \
+ {	.iface = SNDRV_CTL_ELEM_IFACE_MIXER, .name = (xname),\
+ 	.access = SNDRV_CTL_ELEM_ACCESS_TLV_READ |\
 
 -- 
 2.34.1

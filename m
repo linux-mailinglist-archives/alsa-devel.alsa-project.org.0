@@ -2,68 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5952A8721A9
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Mar 2024 15:38:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25A6F8721AA
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Mar 2024 15:38:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0E298A4D;
-	Tue,  5 Mar 2024 15:38:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E298A4D
+	by alsa0.perex.cz (Postfix) with ESMTPS id A1FEF9F6;
+	Tue,  5 Mar 2024 15:38:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A1FEF9F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1709649516;
-	bh=sHNrhVnVo+J5CJCZHm6ezBFQjHEVTGLXAnhHf+jAMhE=;
+	s=default; t=1709649532;
+	bh=dmp5KFcigV9N/0wkF+seHjqncGB1BmNzUlnwbTpFD8w=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=c0nawoz8Rkf3M0d2h+elpKm87IW+kFZCEoaDbVtQ2k1rNZ5TYTS1RLIHIgsz1wAcU
-	 UpiZm+4qvtRvpjATiNpzxcX2+FsnCUE2Qq6x9kpdGY/cWUAG9fd+x5oiQASwQGXZco
-	 e6yuJ9cPVK2iBrppIty9YkK3pwWDG7fmUaV7nPR0=
+	b=VmwIq/+3qVpo0NJajOSDHtY6TY1X6bamv0DGdNO1S/iXYHPmt9iz4maDJqI30lUgf
+	 5kPponzBiLWLZuYWFYdmjWl2yLt0BWb5utzByNUdZnCORGdnx30OuEmqOXnSD9ej5Q
+	 W9EguEcYLTjbwDPtZWbuAi639p+86rM2RMruKKOk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C9621F80612; Tue,  5 Mar 2024 15:37:21 +0100 (CET)
+	id 663A8F80632; Tue,  5 Mar 2024 15:37:23 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0FF07F80617;
-	Tue,  5 Mar 2024 15:37:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D805FF8063E;
+	Tue,  5 Mar 2024 15:37:22 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 488D0F805A9; Tue,  5 Mar 2024 15:37:12 +0100 (CET)
+	id 0FD3EF805D5; Tue,  5 Mar 2024 15:37:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H4,
+	RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
 Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net
- [IPv6:2001:4b98:dc4:8::226])
+ [217.70.183.198])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 76F1DF80494
-	for <alsa-devel@alsa-project.org>; Tue,  5 Mar 2024 15:37:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76F1DF80494
+	by alsa1.perex.cz (Postfix) with ESMTPS id CD7C3F80496
+	for <alsa-devel@alsa-project.org>; Tue,  5 Mar 2024 15:37:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CD7C3F80496
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=eodDd8yv
-Received: by mail.gandi.net (Postfix) with ESMTPSA id E4A82C0004;
-	Tue,  5 Mar 2024 14:37:02 +0000 (UTC)
+ header.s=gm1 header.b=df4Hrjwu
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 5299EC0008;
+	Tue,  5 Mar 2024 14:37:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1709649424;
+	t=1709649425;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=p95wvDK9w0tJ9c5khPTqW4lIM1Qh7HWUU4fVk+JnuSQ=;
-	b=eodDd8yvaxNuiRMp7Tv0NwWtjikPDhLFjP8eCHJNS4nB3tqq1reg44GFcHAEQtTJL+ofia
-	Ox7/K6jikOHgr4UOllP/BbPnBMxcLp64T8eIiNRK5nWZG247VJtBeGZqASTmvutQ8kQHDA
-	xYW8pzH1dDIH06ZPP4kK6ERAeSn3wPzCPgIcBhdFaYQK4czS4yKN6qfXOf9yN8BSO5g6h3
-	E6Kaerzfl+C7EvmuNtlrwOBFEc3Ryf/EaCJO/8iNB6DDB22925QedgyzJLmevtg6pzfJJH
-	JwKAakhA/lo7+4XKOVYznKKmWDVV7W0mNLBBonPGUqy1rxUzAzhp0ttJ8xxBBQ==
+	bh=u6o1HAKXtBl5rVLvoNigCvVZ6wM33rLm44ZB/B7ufNg=;
+	b=df4HrjwuvptUVVpTjuESCaN83CMpEgi6TZgqQyQebF+TtMYicP6CvNanjzZhb+NMevKMaA
+	I/voGdKrmqBZa9J/ifD3qF8CkCDbjPBK+KpEEBReS/mGxPt6GCp5HTz3p6/fjKxx1lw9qs
+	uhOG++siVgIx/L/dSVXOAbusfzRwGzJn5QJj+9plfFdK49x7Dq4bJX+yeycd0YkOxmWtAZ
+	wlg1K66c5OxEbOHkqBxUe9V79yH4aYlzOzu1hIhTMtUY5JPTNReCkIVZMhL92fQd/caxhg
+	fJRu2JLjcDMDtyWG5e19/F8p31h8x2AUW+pQxYG/nlFo4Qxnk8skiOKK8821yA==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Tue, 05 Mar 2024 15:36:33 +0100
-Subject: [PATCH v4 6/7] arm64: dts: rockchip: add i2s_8ch_2 and i2s_8ch_3
+Date: Tue, 05 Mar 2024 15:36:34 +0100
+Subject: [PATCH v4 7/7] arm64: dts: rockchip: add the internal audio codec
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240305-rk3308-audio-codec-v4-6-312acdbe628f@bootlin.com>
+Message-Id: <20240305-rk3308-audio-codec-v4-7-312acdbe628f@bootlin.com>
 References: <20240305-rk3308-audio-codec-v4-0-312acdbe628f@bootlin.com>
 In-Reply-To: <20240305-rk3308-audio-codec-v4-0-312acdbe628f@bootlin.com>
 To: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
@@ -79,8 +80,8 @@ Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
  Luca Ceresoli <luca.ceresoli@bootlin.com>
 X-Mailer: b4 0.13.0
 X-GND-Sasl: luca.ceresoli@bootlin.com
-Message-ID-Hash: YTE7VHCI7BSC37WYDRPOWYIS7MO7PRSU
-X-Message-ID-Hash: YTE7VHCI7BSC37WYDRPOWYIS7MO7PRSU
+Message-ID-Hash: BVSCSH6HYFVTLQKODSRJUYEQGPRPGWFE
+X-Message-ID-Hash: BVSCSH6HYFVTLQKODSRJUYEQGPRPGWFE
 X-MailFrom: luca.ceresoli@bootlin.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -93,7 +94,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YTE7VHCI7BSC37WYDRPOWYIS7MO7PRSU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BVSCSH6HYFVTLQKODSRJUYEQGPRPGWFE/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,75 +103,47 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-These are I2S engines internally connected to the built-in audio codec.
+The RK3308 has a built-in audio codec that connects internally to i2s_8ch_2
+or i2s_8ch_3.
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
 ---
 
 Changed in v4: nothing
+Changed in v3: nothing
 
-Changed in v3:
- - removed the 4 optional clocks
-
-Changed in v2: nothing
+Changed in v2:
+ - use generic node name
 ---
- arch/arm64/boot/dts/rockchip/rk3308.dtsi | 42 ++++++++++++++++++++++++++++++++
- 1 file changed, 42 insertions(+)
+ arch/arm64/boot/dts/rockchip/rk3308.dtsi | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/rockchip/rk3308.dtsi b/arch/arm64/boot/dts/rockchip/rk3308.dtsi
-index cfc0a87b5195..662c55fe9b77 100644
+index 662c55fe9b77..962ea893999b 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3308.dtsi
 +++ b/arch/arm64/boot/dts/rockchip/rk3308.dtsi
-@@ -578,6 +578,48 @@ dmac1: dma-controller@ff2d0000 {
- 		#dma-cells = <1>;
+@@ -803,6 +803,20 @@ cru: clock-controller@ff500000 {
+ 		assigned-clock-rates = <32768>;
  	};
  
-+	/*
-+	 * - can be clock producer or consumer
-+	 * - up to 8 capture channels and 2 playback channels
-+	 * - connected internally to audio codec
-+	 */
-+	i2s_8ch_2: i2s@ff320000 {
-+		compatible = "rockchip,rk3308-i2s-tdm";
-+		reg = <0x0 0xff320000 0x0 0x1000>;
-+		interrupts = <GIC_SPI 50 IRQ_TYPE_LEVEL_HIGH>;
-+		clock-names = "mclk_tx", "mclk_rx", "hclk";
-+		clocks = <&cru SCLK_I2S2_8CH_TX>,
-+			 <&cru SCLK_I2S2_8CH_RX>,
-+			 <&cru HCLK_I2S2_8CH>;
-+		dmas = <&dmac1 5>, <&dmac1 4>;
-+		dma-names = "rx", "tx";
-+		resets = <&cru SRST_I2S2_8CH_TX_M>, <&cru SRST_I2S2_8CH_RX_M>;
-+		reset-names = "tx-m", "rx-m";
++	codec: codec@ff560000 {
++		compatible = "rockchip,rk3308-codec";
++		reg = <0x0 0xff560000 0x0 0x10000>;
 +		rockchip,grf = <&grf>;
++		clock-names = "mclk_tx", "mclk_rx", "hclk";
++		clocks = <&cru SCLK_I2S2_8CH_TX_OUT>,
++			 <&cru SCLK_I2S2_8CH_RX_OUT>,
++			 <&cru PCLK_ACODEC>;
++		reset-names = "codec-reset";
++		resets = <&cru SRST_ACODEC_P>;
++		#sound-dai-cells = <0>;
 +		status = "disabled";
 +	};
 +
-+	/*
-+	 * - can be clock consumer only
-+	 * - up to 4 capture channels, no playback
-+	 * - connected internally to audio codec
-+	 */
-+	i2s_8ch_3: i2s@ff330000 {
-+		compatible = "rockchip,rk3308-i2s-tdm";
-+		reg = <0x0 0xff330000 0x0 0x1000>;
-+		interrupts = <GIC_SPI 51 IRQ_TYPE_LEVEL_HIGH>;
-+		clock-names = "mclk_tx", "mclk_rx", "hclk";
-+		clocks = <&cru SCLK_I2S3_8CH_TX>,
-+			 <&cru SCLK_I2S3_8CH_RX>,
-+			 <&cru HCLK_I2S3_8CH>;
-+		dmas = <&dmac1 7>;
-+		dma-names = "rx";
-+		resets = <&cru SRST_I2S3_8CH_TX_M>, <&cru SRST_I2S3_8CH_RX_M>;
-+		reset-names = "tx-m", "rx-m";
-+		rockchip,grf = <&grf>;
-+		status = "disabled";
-+	};
-+
- 	i2s_2ch_0: i2s@ff350000 {
- 		compatible = "rockchip,rk3308-i2s", "rockchip,rk3066-i2s";
- 		reg = <0x0 0xff350000 0x0 0x1000>;
+ 	gic: interrupt-controller@ff580000 {
+ 		compatible = "arm,gic-400";
+ 		reg = <0x0 0xff581000 0x0 0x1000>,
 
 -- 
 2.34.1

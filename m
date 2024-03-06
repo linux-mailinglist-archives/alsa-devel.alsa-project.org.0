@@ -2,81 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A1BB873C2A
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Mar 2024 17:24:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF9AC873C8C
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Mar 2024 17:47:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D0E67847;
-	Wed,  6 Mar 2024 17:24:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D0E67847
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7857482C;
+	Wed,  6 Mar 2024 17:47:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7857482C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1709742293;
-	bh=k3dnnDtaz/QdFgY9kxCvPf0pAwoj2MB21+fDJtJi8ME=;
+	s=default; t=1709743634;
+	bh=oqownLCVQSkUoTKT5XoUEGTUrAy5b210q5G72rB5tWc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=i8iItza8jVM4CY5faV3gy8OeTwT4mPcMBvyvRXtl/8jY4YDqT1dBLaS6E1O5MvrYx
-	 z0SgSwQNAkHT8lwZHQn6Kw6RezFAtth34xjzqR2Mge7D7iB1qDxNCA/CXGTGPglptq
-	 LC+qGL/wo7ypD5NtNToJV0CJ7CYsjdPmPgG+b/C8=
+	b=JkPRGGxXeMoOYxBR3JgjwXbjymyzy2iRKn8sfqdNXG56m22V5jPssyeQAl1SrW4U+
+	 YXPjKjP9gniS+P7TqeCvpOF/sWsK/RGJfu9V6XArm9jx7nDtY/EJrl0GcdDq/dYP8T
+	 s3OtTFapNnDvi6UTv/ny7TcVVAxqIeFOBzfhjwrY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0B419F805AB; Wed,  6 Mar 2024 17:24:21 +0100 (CET)
+	id A3709F805A9; Wed,  6 Mar 2024 17:46:40 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 79B69F80563;
-	Wed,  6 Mar 2024 17:24:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8E09FF805A1;
+	Wed,  6 Mar 2024 17:46:39 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 99D29F8024E; Wed,  6 Mar 2024 17:24:16 +0100 (CET)
+	id C942EF8024E; Wed,  6 Mar 2024 17:46:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+X-Spam-Status: No, score=-5.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 41C96F80087
-	for <alsa-devel@alsa-project.org>; Wed,  6 Mar 2024 17:24:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41C96F80087
+	by alsa1.perex.cz (Postfix) with ESMTPS id 65245F80093
+	for <alsa-devel@alsa-project.org>; Wed,  6 Mar 2024 17:46:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 65245F80093
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=PQKKc6fr
+ header.s=k20201202 header.b=VT1otnHn
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 336E0CE2243;
-	Wed,  6 Mar 2024 16:24:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2F9AC433C7;
-	Wed,  6 Mar 2024 16:24:08 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 9612061043;
+	Wed,  6 Mar 2024 16:46:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8329FC433F1;
+	Wed,  6 Mar 2024 16:46:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1709742250;
-	bh=k3dnnDtaz/QdFgY9kxCvPf0pAwoj2MB21+fDJtJi8ME=;
+	s=k20201202; t=1709743581;
+	bh=oqownLCVQSkUoTKT5XoUEGTUrAy5b210q5G72rB5tWc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=PQKKc6frdioHcSh/PgWUDkD/tbmbWbSCycj0XPJkNGgJd+pO/5bG9NpLlOJ6cmedU
-	 BnHYEoTHj2dH9rO7cVoTn3x7XOc/dhFtBPGl4avy7lTmvGm1RK8bZ5njKXegy0bVaF
-	 ULW6wiYdmj+MwQsE9lWqNXCoS4d6EZhYHK1DclrL8E1twKATZZ8ihweCLPIpG81gRE
-	 RlHpK4rV0eekY6Rl078Jsg24ZRHVP6LFUaoxOiBTpDzQhaKd6lldXRLeoLm1ImnacF
-	 gPbRqLefCjcIc9Q2jbyTS3moZeKjDlG4pMJIhyDJRp/gKYi5OpFSQrUtFfQWv0dtKQ
-	 ISgyLzHcs6AEA==
-Date: Wed, 6 Mar 2024 16:24:05 +0000
+	b=VT1otnHnPHMfU1px85lS1GHKSvltK8wF1Gr1NN84kawjKasmSPxziz2MLNTf6vZrY
+	 0bv+o2N85zcdczPMarK1iDAyWtSvzODi1G69k/t2pqGzeDhfg2LMk3OdWat/quiAyV
+	 BHRxjMpe3IbM4DepV2TfWoFgHGdC5pLtu5/sinaoZgu3Z5CPqlAT/KAfK+IWe2DYBM
+	 HDmJsZetCujNcqw/HMv4tnq9tNZjqEoHBSRcewfMr5USVVWGjEjMrOmpeX4c6Y2bF3
+	 WAYRW5xfp7A0GX1Z0EyW2W5LaOma2FMdEIuTscfXrf4kj2pW52s4FqMn2URHbwha6h
+	 Fvg2d8i8gvcrA==
+Date: Wed, 6 Mar 2024 16:46:16 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Stuart Henderson <stuarth@opensource.cirrus.com>
 Cc: shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com,
 	patches@opensource.cirrus.com, linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
-Subject: Re: [PATCH 1/5] ASoC: wm8962: Enable oscillator if selecting
- WM8962_FLL_OSC
-Message-ID: <2030336d-76e2-4966-b513-0d1dd6a69f54@sirena.org.uk>
+Subject: Re: [PATCH 4/5] ASoC: wm8962: Fix wm8962_set_fll to use source
+ instead of fll_id
+Message-ID: <90fc91ae-0009-4cf1-8dd4-0f711e9c0c74@sirena.org.uk>
 References: <20240306161439.1385643-1-stuarth@opensource.cirrus.com>
+ <20240306161439.1385643-4-stuarth@opensource.cirrus.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Hfrzizu6LrF7Dinl"
+	protocol="application/pgp-signature"; boundary="4tZc99IaNMjFZtgq"
 Content-Disposition: inline
-In-Reply-To: <20240306161439.1385643-1-stuarth@opensource.cirrus.com>
+In-Reply-To: <20240306161439.1385643-4-stuarth@opensource.cirrus.com>
 X-Cookie: Have at you!
-Message-ID-Hash: SOPGMHBJRAPKWTTGWA4Q7ONIMQ4YHYAN
-X-Message-ID-Hash: SOPGMHBJRAPKWTTGWA4Q7ONIMQ4YHYAN
+Message-ID-Hash: GOBWVTU2RXJMD7LGZELTJGDFL2PFYSBK
+X-Message-ID-Hash: GOBWVTU2RXJMD7LGZELTJGDFL2PFYSBK
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -89,7 +91,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SOPGMHBJRAPKWTTGWA4Q7ONIMQ4YHYAN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GOBWVTU2RXJMD7LGZELTJGDFL2PFYSBK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,33 +101,36 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---Hfrzizu6LrF7Dinl
+--4tZc99IaNMjFZtgq
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Wed, Mar 06, 2024 at 04:14:35PM +0000, Stuart Henderson wrote:
+On Wed, Mar 06, 2024 at 04:14:38PM +0000, Stuart Henderson wrote:
 
-Why?
+> Previously wm8962_set_fll was using fll_id to configure the source.
 
-> Signed-off-by: Stuart Henderson <stuarth@opensource.cirrus.com>
+Which was a problem because...?
 
-Please don't send patch serieses without cover letters, having a cover
-letter makes it easier to tell why the series is a series and makes it
-easier for tooling to work with the series.
+> This change is problematic, but it looks like there's limited
+> users of this driver, and luckily they all seem to be intending to
+> use WM8962_FLL_MCLK as the source which happens to have the same
+> value as WM8962_FLL.
 
---Hfrzizu6LrF7Dinl
+If the change is problematic why make it at all?
+
+--4tZc99IaNMjFZtgq
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmXomKQACgkQJNaLcl1U
-h9AcVAf8CRujpFgMZEhaTuLhZm6fTeSR/Ns/t7vaRWxay1wCf49pk5MnkxBnQ8Zs
-PQA1GzCY+tv4oR2Nchbhr9O+WiE79aWl00qPg5jGrdw9tzrhFHx6IouVyH+bvRJf
-uxHSm0u6w0jIrkk0xLHYZedTmvXGp1gOmde9rpdPxWS4WsJ05bMky5l1LpchYG/e
-KMH7OQPmlB1cx38gwnCgyrw5oNSZqEfJ3II4dqju+L1GuaufsYOka23zqkJQMG7S
-9lGQ3YGvr04tqOdMC08MlFoMHIIfqEEi47C3LFfTOzZ3VbgKPZ+KbMDojVSMUDoq
-o6M3eOl2gGZ4H/hIqX97Fp7o3zWnsw==
-=epkj
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmXondcACgkQJNaLcl1U
+h9CyCgf+PfnqyAIO4He9YKYcqZdFqmX1Y6LWOmcZizuzPlrBkbtVDMjLbJ2RrObb
+gAOrMKGWOgJaZ7BwNS/L2pZ45G77p2OvmRhoT7BRQFt38QgkMhlfDNr1d+jpDzBO
+Xz+t2FL8GVEkYVb7q6C2k1BDfDtguZaB/Ld2zX8PCamgBhnSYU81R91vkc+GHIRh
+bZn6WrnAQ/bmq6Z42NLd9LSNNca4KvQhmOTh9QyGuC21lMpgnC8zdU3P25oMJU/Z
+3sWh08Ws129OzmVpD9kPpazamzH2uBRkOx8LVMgoCUhCtShYgQ5DpsR+wAqPNjoB
+seNWRk1Oev7kctFSAfwUNCrBBZIogg==
+=HNjP
 -----END PGP SIGNATURE-----
 
---Hfrzizu6LrF7Dinl--
+--4tZc99IaNMjFZtgq--

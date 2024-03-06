@@ -2,191 +2,192 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34A15873BB9
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Mar 2024 17:09:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C80D873BC8
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Mar 2024 17:12:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 312F985D;
-	Wed,  6 Mar 2024 17:09:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 312F985D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0B0DD83E;
+	Wed,  6 Mar 2024 17:12:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B0DD83E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1709741351;
-	bh=YPgAnF9QeIILrMakOT8QONTAUCieOzfffpR37E8cn3c=;
+	s=default; t=1709741576;
+	bh=UT30R4QzdKH8k4mCkIJSCn1wZzVL88t7bcUSxPXRHws=;
 	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=juYSSPGYBlOfN1BM0yqFrV1YJ9UI+KijqTtKpY4Tc4t8sel8mQ8QbeVi9RTbQ6Qg5
-	 XiJzFfwckBBFS7125HyQVUvvj8ZQjcpF6jIdlTDSNe8vqKZ+G+9xaAReDzBdg0zYkM
-	 JLhxEESqRkcnBdKFBOc9Bi8dXEGBg3Uks5hBJXfU=
+	b=lSWZxE/EUv2QIp2uxh7fWgjIefb0k/mmGIlziV9XB/4p01qNMAgAksPqdPGwvE82/
+	 Yu29VxW7lmBKViQ62VuthVevh3LbFsb66iaBbK3+S/4NBPfB7UsyoZkmupynb4PU7W
+	 Nm+zH4V41WsBC1gTj1ZRP0GfrbBdAeGQyOrnPe60=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 15918F80587; Wed,  6 Mar 2024 17:08:39 +0100 (CET)
+	id 486B5F805AC; Wed,  6 Mar 2024 17:12:24 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2BBFFF80579;
-	Wed,  6 Mar 2024 17:08:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C567DF805A1;
+	Wed,  6 Mar 2024 17:12:23 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CA457F8024E; Wed,  6 Mar 2024 17:08:31 +0100 (CET)
+	id 1944AF8024E; Wed,  6 Mar 2024 17:12:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 409B5F80087
-	for <alsa-devel@alsa-project.org>; Wed,  6 Mar 2024 17:08:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 409B5F80087
+	by alsa1.perex.cz (Postfix) with ESMTPS id 88F52F80093
+	for <alsa-devel@alsa-project.org>; Wed,  6 Mar 2024 17:12:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 88F52F80093
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=K4BLsQNA
+ header.s=Intel header.b=gLLukawm
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1709741304; x=1741277304;
+  t=1709741536; x=1741277536;
   h=message-id:date:subject:to:cc:references:from:
    in-reply-to:content-transfer-encoding:mime-version;
-  bh=YPgAnF9QeIILrMakOT8QONTAUCieOzfffpR37E8cn3c=;
-  b=K4BLsQNA7Gr5kKOEzE7XMYbVABwcmUOYjzajbqTVr1Olw1NDPMUOV0oQ
-   DjDZtMt3sdYn1WbeKQ5kLYbOLnJTjAL28xApkbr91Gdzrx0N6ySeeQFsG
-   9UY3ed2VrsHtS+vE0d2hXceIE7T6nxW0DxAa03sI7NGbAABkqlshBJWYg
-   PV+ExWEzUU7/BwKEhcxQ1nMP8jZv5UbwqmfpnYHiXZFeSpziylpL3Qi2q
-   26EEBx3KdCOgbNF9Nr7Oko7fHm6frFkDLIh5Bv93m6Ot9H507CxVatXlX
-   6TAGHcVpUbAsjPWq1PkY4pgofd3iC8H5oobLqxxx9KcTvebHVwzIoxUoS
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,11005"; a="4514349"
+  bh=UT30R4QzdKH8k4mCkIJSCn1wZzVL88t7bcUSxPXRHws=;
+  b=gLLukawmyelSaGv3848ZYF8nxPp1fg+I/ZzmUe5eoYpcDq0HY/ENoy7O
+   RII3Yv79VBg+jmiJbadCq7qABuQOrWc/DpXLIfbhOjQPyyVHyUqhBFUZi
+   AfD/wJ8sx+mrHAMTqQFuBeh+0dg4OjAmAYfux7HgYBEFBxGBilv3JIhFR
+   IqOXrE6Pkf1CK/Z0RtKVfUztek1UWqgkWqf/uXr2m+LpkD8cXBvNlwgAd
+   8n5H3cy3b7+iiw8KdorGRN4gkPTeQPEthrexldG6LniIKLSmcCWNQ1gpd
+   Ho1C7dp5B+cj9pULM1gEYpjxIYc+Rot7spcpVf5YutIrdquKuhv2cjWg8
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,11005"; a="8167575"
 X-IronPort-AV: E=Sophos;i="6.06,208,1705392000";
-   d="scan'208";a="4514349"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Mar 2024 08:08:13 -0800
+   d="scan'208";a="8167575"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Mar 2024 08:12:12 -0800
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.06,208,1705392000";
-   d="scan'208";a="14365906"
-Received: from orsmsx603.amr.corp.intel.com ([10.22.229.16])
-  by fmviesa004.fm.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
- 06 Mar 2024 08:08:13 -0800
-Received: from orsmsx601.amr.corp.intel.com (10.22.229.14) by
- ORSMSX603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
+   d="scan'208";a="9666569"
+Received: from fmsmsx602.amr.corp.intel.com ([10.18.126.82])
+  by fmviesa009.fm.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
+ 06 Mar 2024 08:12:11 -0800
+Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.35; Wed, 6 Mar 2024 08:08:12 -0800
-Received: from orsedg603.ED.cps.intel.com (10.7.248.4) by
- orsmsx601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
+ 15.1.2507.35; Wed, 6 Mar 2024 08:12:11 -0800
+Received: from FMSEDG603.ED.cps.intel.com (10.1.192.133) by
+ fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.35 via Frontend Transport; Wed, 6 Mar 2024 08:08:12 -0800
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com (104.47.74.41) by
- edgegateway.intel.com (134.134.137.100) with Microsoft SMTP Server
+ 15.1.2507.35 via Frontend Transport; Wed, 6 Mar 2024 08:12:11 -0800
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com (104.47.58.169)
+ by edgegateway.intel.com (192.55.55.68) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.35; Wed, 6 Mar 2024 08:08:12 -0800
+ 15.1.2507.35; Wed, 6 Mar 2024 08:12:09 -0800
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OYY1jUjyZpRWfgIp/jQ8Y5S9VKfkwpKaL3bW4L9YREhtqDvok/kWCyfBQ9qSGvQYHiaJNmzHDJIDWwYq0beefy0SMXivL/sWmjHhfJOz25bzDVHd2qubaP2dKr2OhyZ8nJkRLwQKI2nctMQI74AUPDz8OMOxYJ6WtVsmruuc1iqS3FVUSSmwUBkmS8kOhxduqgCfIkR/f9j33C/nF75wGvN4Wid4qbBuK9dqb/AhBI+/NOO+asSRUSvmgcuECTrvFKlGaELdNdMNYHgpifLM3uW24qT0ClZDF775VIpzCJdZ6Z8cH+iD4OaxafJhbLGZzqStob9/y1SNzBysQ24+6Q==
+ b=Rh2m6gE+2xyTpGnT9uYiLTVMZAsoPwIKcqKb0/DR94cXTHbxAp3NhaO6e0Yf0Gm3a2Xu5RUiAh8BUnUw69xMmqz6yjzo9zfvut7PjGhlvsPsMc2XtLTENVItfHONR9hXz3p4ggmT71jhOleJB/Ko8YuOnAA/XZolCjlq6V9vSYKv9toykWkrYonayxFQNqDq66XoMZU2DCYPaV6T0Gjl/HkjBMfU15K0jQpH9IoP3q/mBUYZWlgMEOHIhLu6V7eaLOESkbhOHBl6SepwVNlT4Wnt1iXWUm/QGAajyhgcxCKyYMpGT8kMLN6+NXEEjSJdpTBpCQZ55yKVGNdJuJMmbQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8jeQ9paNMHjZlHKN0gsj0KYMj8ftje1fH25F2jDauX0=;
- b=B9u0fYjUq+AYBClbnFQ/XqEH6IIP1p4UKL1lUKLQ8wcSSg7TKVSiUPaAl7MD1WNGS+3jxEwEe59xNEIjxDNnIecUCjBGtqLo723rhSC9hQptUz/y9o4/IzMdINnaephd9vh4ivPgpuPqmAwNxLq1kHGo/0md4wUzqYJcQorH/YQbImnEIqrmHVL0hv5NVv5DSpKw6K+9ukaP3fAVOB7z9o3/7UZnaNRGT+qI3pSB+85Bsdja9au2Ezmue0q1cvvXB9Rx1RHsYaHf/nLcGSjRQevuA5fKjNEuZWwYLktsmBa1U+0BlfYJWWVMTt/ugqsPbGx2PZsr4kiqpoCz9ibdkA==
+ bh=+4L171/UsTC39jESLONj9Rl6Yklx35FcJe+Y2JCPlmU=;
+ b=GA03uO3DDivJInYL5iY2xvy+cpfhsRO3NrQ4Cs3waWCl87uLwgQL7tZYgcdbyXMPcEaz03LP/C+nTpYBBkgZCuN98nkAkYikUb7QIguN1LmX8gyJ8hN2RZXpjoOpx3CQkbo0Avtnbbc2iVrZJ5i6rHplJBdEoCQcSpZbQB2vFCOMF8fuX383w7jgwzEuQEGnUrvMk/kBBI0i9i9mN78+BnNc5mk+yBKEZdDUSj6Enm1gJe/Rf91maCB3srqdcaHpnexLSk4g5MSEsKVP8qSmNW0GsF/XXBJJCjolyKTbl2TxJp8zejciz+DYSPq+SUIL2p7zn+lmksTH+Fm6rY+bAg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
  dkim=pass header.d=intel.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=intel.com;
 Received: from DS0PR11MB6375.namprd11.prod.outlook.com (2603:10b6:8:c9::21) by
- CH3PR11MB8750.namprd11.prod.outlook.com (2603:10b6:610:1c7::21) with
+ MW4PR11MB6571.namprd11.prod.outlook.com (2603:10b6:303:1e2::20) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.26; Wed, 6 Mar
- 2024 16:08:10 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.23; Wed, 6 Mar
+ 2024 16:11:21 +0000
 Received: from DS0PR11MB6375.namprd11.prod.outlook.com
  ([fe80::cb11:e68c:53db:aba5]) by DS0PR11MB6375.namprd11.prod.outlook.com
  ([fe80::cb11:e68c:53db:aba5%7]) with mapi id 15.20.7362.019; Wed, 6 Mar 2024
- 16:08:09 +0000
-Message-ID: <a89f8c9e-2e11-4db5-9ab6-f2d600989fed@intel.com>
-Date: Wed, 6 Mar 2024 17:08:03 +0100
+ 16:11:21 +0000
+Message-ID: <9a21701e-2729-4ed8-813f-065f1785f394@intel.com>
+Date: Wed, 6 Mar 2024 17:11:15 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/5] ASoC: Intel: Disable route checks for Skylake boards
+Subject: Re: [PATCH 2/5] ASoC: topology: Do not ignore route checks when
+ parsing graphs
+Content-Language: en-US
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
 	<broonie@kernel.org>
 CC: <alsa-devel@alsa-project.org>, <linux-sound@vger.kernel.org>,
 	<tiwai@suse.com>, <perex@perex.cz>, <amadeuszx.slawinski@linux.intel.com>,
 	<hdegoede@redhat.com>
 References: <20240304190536.1783332-1-cezary.rojewski@intel.com>
- <20240304190536.1783332-2-cezary.rojewski@intel.com>
- <ff674cfa-19d4-4de4-80ec-9be88f8cb4a4@linux.intel.com>
- <87c39d2f-fac0-4414-9c9f-53e45de70e79@intel.com>
- <eca552eb-9d5b-4990-a98f-85dc1da3a96c@linux.intel.com>
-Content-Language: en-US
+ <20240304190536.1783332-3-cezary.rojewski@intel.com>
+ <14a2f9b8-7711-47c4-9f57-bd839c700d4e@linux.intel.com>
+ <ea72dd2e-587d-4660-9a8b-da3048819e6b@intel.com>
+ <50fbb243-ab41-411d-9e3f-b8d9f5574768@linux.intel.com>
 From: Cezary Rojewski <cezary.rojewski@intel.com>
-In-Reply-To: <eca552eb-9d5b-4990-a98f-85dc1da3a96c@linux.intel.com>
+In-Reply-To: <50fbb243-ab41-411d-9e3f-b8d9f5574768@linux.intel.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: DUZPR01CA0056.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:469::7) To DS0PR11MB6375.namprd11.prod.outlook.com
+X-ClientProxiedBy: FR3P281CA0206.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a5::10) To DS0PR11MB6375.namprd11.prod.outlook.com
  (2603:10b6:8:c9::21)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR11MB6375:EE_|CH3PR11MB8750:EE_
-X-MS-Office365-Filtering-Correlation-Id: b405cd9a-d586-431b-c02d-08dc3df79e03
+X-MS-TrafficTypeDiagnostic: DS0PR11MB6375:EE_|MW4PR11MB6571:EE_
+X-MS-Office365-Filtering-Correlation-Id: cf9581c4-c3db-47ed-183b-08dc3df80ff9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info: 
- /C3Fx6vGSbLZwnWijUeJ0ofVETpfOKzONxh151BdVtOP5Qy2HItaL3btyO9yk9Wojj0QnG5hXYcey2MLMrm1sEEisgovCRsJnBF//A+VuQ6W447Z/XZm6TIebOTonf0OjFOqpwt7vl21U+XMstCzkPtPhCldrTwIACfvLjg+ijZrltvyoI7gDzeZt5KK6R08ZgGpx4ZWF5b4NfWNN7yFeqZC9WtVKT4vAm5u7x/UoBV5kIU+WUetIFPNUzN0zazi5h1+VUh5IcTOhFl5+wOh+X/8hCf4QjeZb4AsQHfGJBUvI8u7A32vB+dVBtcMQ0gck55y4Tp2Pq+n6CasYn+GYrqRr6kBt55pfeHC0U25WVKJezMBiXd9V+QVfFW4BuHvWRdoQGBpOHyIElG3LIAl7g0bz25OrKSIzhj5VAQysWRzc0y6EhgNHcg19nd6/9BauA5hqkQQ2SRJhXXhhgrgIlcH2QCFAFNKexpdBaOsgtbc8eYwMz8Edmy3dVIqbO804Y0iKn1ygv++LvOgBDW/1hx9mIl27BIc5P50nKFKfcfrNiJoD9YjYOZkIi3ho0DZWy28xsB3oj0b+mIc5NP1Klr+Ua5qUc0aRb9i31jYmC8=
+ 04eXwUuXu0iibeGVaCUa4FKPhRhP8JC4kKkOLcx4pTFRnLeeq78SzTVrUEt1MIwlgmERWkArYX5z5QcswbC0XQRFWflBfYOuPuurn5iBRLP0PaT6G3cE1SYiLZWQVVVZCM7BW5Offqy08l1Cd5P0J9+sHKWV9+bxJSfLKxpQtmZtUluL5pw36E9IDIXnB9eEFjGWCp76pjPcKTtOjIBEBZJcWhNOZ22wIAEHtsjQxuHNl55VYiq3pOopMnJ0oMPPnsjnWaf8Kez0xb8eLt50Yf+xber6LNkVBKd3e0GTrsSHK6OniwDdB9qwaD8Rs1De8EwO3C2BYK1eWi8Na5KFSjIdpGWkEU6Q1ebkLBv6lWJbpKlItMCfv/8WooIy7NOiIDU6pnaNgTCZqY/Jqup8sxVj3sjT/1tSYkh67c3BKm4SFyUy+z0OPn4GnskdZAWj0HfjiQqanDzBN5KYZPnjchE7IcUAA1CHKqC37a9Oqs9GcvrHwMO7OvQYQofH0ewYUrZYUeHVb/JRI6l3hVyla669tY08LH1s5/o/JLaDdfI6LG06lQrU5Ve7VGlBO3RWn0Y/H7/UrW4YSez3BLPV/8a8YbHmrJvl3QzBxM3SNfsHTU2MC4aV5rJETcKdrtY+k+wcF947nVWrDT2Wow43d7UWG5Dcl+QnTi8P0yGo7Z0=
 X-Forefront-Antispam-Report: 
  CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB6375.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376005);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0: 
- =?utf-8?B?TlFwZjhkeHRCWDZqNkF6YVE2YjlSNFhrQ3NQVVFRdlMwcU03NEp1OC9XK2Js?=
- =?utf-8?B?SEdmdWk4WmtlanI4aXNNeXpJT2NnUm4zUHl5QTlkSTl1MGtvVmtsR1NCZE9i?=
- =?utf-8?B?V2lXTzNNNlBwQWJXaXRpeHlrTHNhdXJva09qRjkzSmZKdTFtcFdYZFcwUHQ1?=
- =?utf-8?B?cGJKdUx4S0FFZUV6aExMbmZOaGl3MnhMVmV1T1NsTkJIdlllQncxQkFCcTlN?=
- =?utf-8?B?SDRyTUxidHZvb3JLQnh2d0tVdnhKVWt4d0ducWh4VklVdzkvR3p2bEJSU2ZV?=
- =?utf-8?B?OTBxZEFraUNlUlF3Rzh1YjczRFJhSnBKSXdqWkg4ZklMQlkwTU1uNGk1K0hu?=
- =?utf-8?B?YWpGOEJ4bDR4NVQwbjVtYTRkUDFGMWZpUU83RkN3UGFXQTdPOUcwUWV2N2lS?=
- =?utf-8?B?bGFiUW9Ha3R0cmQ3WnA5TmNsNHJlaC9SS0p6MkE0L29sOXprQlFGcTNibXRz?=
- =?utf-8?B?Yk1kN2plSGloaFJ4YW9YVFIyRWJMNU41MXNjeXBXU0U2c2lHcVhZV3pDQTlE?=
- =?utf-8?B?ZHlKOFVYSlRMVk5pYVV6YngvdkdyNFJLUk1EcXZYMENnRm5NRTdaVjdCVHlI?=
- =?utf-8?B?OVJkWDhPY0kwUjJSWFRJMVpkTDZEazk0dlYxa3pVM0RJVjRyZE1EOFMxek1J?=
- =?utf-8?B?VkFJd0NUcTh1VlVDd1BlS2NRQWlUTnNjY2RETkU3MnNNQ0w1QWI0dEN5ck9s?=
- =?utf-8?B?Zkd3YllhWkd3YXlMNmM2cmRkUWluUWo2SkJIVjZjc0FFRW5yeHZNQktWMVQ4?=
- =?utf-8?B?M0xhRHFmYnlIMmxqQkNmcmJJTVBEVWNlQ21DNUNkbmQ0TkNYUmZ6VTludU9P?=
- =?utf-8?B?RllmcktLaDdKYzlQMkgyTjJleldKaUd4MzZHUEZaVXRUMmpjb0syL0ovckR4?=
- =?utf-8?B?OXdiVjV5Z2p4MGwxL1VzZnUrekdhYy9YRmlSUVpjaGFGcU5tTzluL2RudGUw?=
- =?utf-8?B?MHBOaG5pQUk2d0ZQZzNmMytHR0JISWRrM3pjZE9KTm5ncGk4SlR4VXJWOVp3?=
- =?utf-8?B?UzR2aU9pQmFraWl1MnRHNFYvVXBvOEZLQWl5blVQeEZheStrYlZ1eitiT0tR?=
- =?utf-8?B?MHRVN1dQWkxrU3Z5dzRPR3BzZXE1SHU3M28zTFBhbUlKeWptUzNxOEI1dEFL?=
- =?utf-8?B?cTgySEh6aUhIZlJESi9HSk9lelJJTzRMY1NGS1dEU2NEWXorNUhGM3pSYm0x?=
- =?utf-8?B?b2JnWE1pdlhlcUcreFVXT2ozMisvTjZtZGE3UXBZY0NHNXAxZm1leTFQWHhx?=
- =?utf-8?B?SVUweE1qQ1NJbDB5a3JCSk5kZlVOQUNCQmJ2YkJlQkhPU3dWRzBCNUhBV093?=
- =?utf-8?B?UFhLODdvdzkzaWg4NlZLQzVCblB1MU92dmh0WEpmTUJyTnVyeTc4UU44NDUv?=
- =?utf-8?B?bmFlYVNGOVdyZ1hhNFVRWlp0RWN3Snh4ZTJ1SkYyOE1jd0x1UCtybFlTTWhZ?=
- =?utf-8?B?S3d5QW1YNXg1Rlg3VW9mR2NsOGJDeUxDaE0xK1VHVEorK0hMNWNqcVFoNTNm?=
- =?utf-8?B?ZUFvc3UwZ01BanJFTjFIeERZVS9jZ2R4L3JHTTJ2RzJmK0xOT3BaTFIrNDcy?=
- =?utf-8?B?SEErQjBjejY2Uk5wcVJDeVA5K1ZSdWZjbXdoN0Qzb1R0eE52aWlGa0J6U1ht?=
- =?utf-8?B?b2dUTHdvbmhRTFlIS2dObDc5eTczUnVVQ2ZQU2ZsckVCUFpIUWdXNUhCVjJx?=
- =?utf-8?B?Uyt5MlRYVWN0T2FoUm1sWEF2c2kyNUFBMnhaRzRsQm4yelRJMWZWdXdRTnFx?=
- =?utf-8?B?azFuQndiZWxCdENLcC9NOVF5LytHQUZ1Sno2ZllNOHc5R3c2bW91OW1rU0lH?=
- =?utf-8?B?RmM0V1RPbCttNlcxTnZnRzdBeUIzbWFwOFpMSlJXcXJBSEh5M29zOS9LWlJp?=
- =?utf-8?B?RUhtaStWc3FSQllxRXpBQzJxS0hYYWpEU2JVeitia204K2JUdW9uV0JIaFRX?=
- =?utf-8?B?Q3EvczlWdmE0NEFJc2RBNGVacWJmb3cxdVFzaVNjdko1U2h3SU9mVklKV2Nn?=
- =?utf-8?B?YmROZXdjaENnOUpSZ2FVaWlzaDRrWFk1RWtqTFN1ZzYxbGVJRS9rTVhWSXFk?=
- =?utf-8?B?QmJ4VWVIOTBxK21YRUFOSk9IM29OT1B6TVRPSzBrbXlaUG1ycFllVDNRS3pC?=
- =?utf-8?B?WFBVZU1jQ1NkTk45eEcyNEU0Qk5Ec3hlelpkSnZadUNMdnF2Wi93djVGcGtR?=
- =?utf-8?B?Vmc9PQ==?=
+ =?utf-8?B?azY3SlVjaUxER2I1a2JGRk1MNHkxem45Sm1OaWxLN1FQdUMxRmlxd3pDRjh2?=
+ =?utf-8?B?TWY5RkEyMjVnZWFROWF2WmtlZkxHSUdsRllMaFlaUFVOaTVOcFF0d1p5TkY0?=
+ =?utf-8?B?U3paUnMydENyZkVBVWo1UzhYcEtYSlM2cHI4Und5RGZ6VmJrdjZRcWpjWS9X?=
+ =?utf-8?B?ckZGeDR0YWYzaWovanJHZkVhWml2SXIxTzVSV3E1dEQzWU9zdW5UaWV5MFhI?=
+ =?utf-8?B?M0VNdUl1LzEwamEyV3R4MUcxQW44aDViS2NPZTd3Z0RTVE5hVy9uYi8ycnBB?=
+ =?utf-8?B?VWlkUVBUc0VWaGtKMi8wTXRyeGxTMnRVdmY1aDBhMWNDbHNKWWEwOWpHYzF3?=
+ =?utf-8?B?SEJHejBwck5LR0FPTnBIc3c0emRoOUJoWEhPMnUwQVI0TFdOWHRxMDJTMlRi?=
+ =?utf-8?B?cC9Qcm5iakErYndQL2VqRUQ1dWl5dVpvSUIvczU3ZlRseTljK0JSczFramlj?=
+ =?utf-8?B?N25NbVRzK0krMUtZdEp2b1ZnUm4zdVVReEJROHl6bHpFNWR3ZGdobC82OFJk?=
+ =?utf-8?B?QiszdHZDYkdSd2k1R2gvQVJmRHBvSjNpb3JUblRDMWxvWVFsTnlJeW56K3ht?=
+ =?utf-8?B?UlM1NnZrWlFlQVg0QTRQNE9wQzF1Wjd1dmNLbmxUYnJzUkNoUkthREZqKzhT?=
+ =?utf-8?B?NTZHUnBFbzQwMGdNU1hFSTFZUUMwdTRZUzFscU9zQ0ZRUTZuV3hWcklwRm0y?=
+ =?utf-8?B?cmRzTFYzMVNJOFBCM1VkcFBWN1JYb2gxZ1hHMzNkTm8zb0ZDWTZjZVppMHpO?=
+ =?utf-8?B?NWdicE9JTFdoU1l6c1kwZUNha1RYSjNZTlRnSlVWeFFVdlhaVEpESmh3K1ZM?=
+ =?utf-8?B?OXJFZ3RWcDBLSlA5SS9Ba0FqNlBRV0FBK25RWTNjOWc1bmtCT0R5UWNwaDVC?=
+ =?utf-8?B?M3NmUTdjZFQ1c2FIam1MK29WL2hHL0Y2blU1eUsvMFpEcHR6VTdWVGU5N3pU?=
+ =?utf-8?B?TzVwZExZd3BDeEpVQjI5djEzeUNYcmRiSE9RMUMxS0hZSWZuNWN0cmluYUYr?=
+ =?utf-8?B?alk3dW16VnJuekJFZi9yakZudnUyMWhnUHc0WjlwaVhBdDhlSnNnZGlGc3Ir?=
+ =?utf-8?B?dnB4WnpPNDkyRkZpVXFtR3I4bTNlN216TGpzTXNnSUVQaXJvQXZkVURoWHFk?=
+ =?utf-8?B?NUhhVE1yWVZ0c1VMWEhseHVpNlJrTUwrYVh3OUFuQkk3Z3o3WVhPV2t6REwy?=
+ =?utf-8?B?VGU2UURkcTQ2SkJzZUFkbTBmL0xrcGN0R2pKTWt0aXpLMXVtL0FEcERuSURx?=
+ =?utf-8?B?UEpVRHV4VS9JSnhsdXVPQkZYMmxjd1lCNVJsM3Y5alljTzZhTHZUVlA1UWQz?=
+ =?utf-8?B?a3UyNC9uelZ5TzZPa3R1Qy8xZjJCRlQ0S21yV2JMWDJtWFJZK2tPQjVkUnRt?=
+ =?utf-8?B?VWlBbkplbVhYUW02cURrc042Zm5qN1AyYWJIc1JoWHJUQnBzNE1mcTBLZ0Vj?=
+ =?utf-8?B?KzVadENkY3pWWWZXVWxzRmdvRjhWTjBkOEF3RzY4dU1KY0IvY3dhaE5CUllx?=
+ =?utf-8?B?aTdSZWpyRnlFRWpvK3JsU2FqRVBBVUdrckVXWUtKVGpLSm5nS2VRanB4OVlw?=
+ =?utf-8?B?QWhEUGQwU3JFNE9VREFxZGNkWmRRbHJqVytYWUlFNkJ6Q0dkY1FWVXBMODZB?=
+ =?utf-8?B?VGozV1owb3o2U1Y5UWhaVGFUR09oRUQ3RlFHSmZ2R09jUVdDaFJwb01ySXNo?=
+ =?utf-8?B?M3Y4OEczK0NpNnV3NW5uNTlPWVBjamF2M2xQNHBKYjRUYnlnSEJTMVM0bTU3?=
+ =?utf-8?B?b3Nya3ZsTHBLeFNkclIwTHpadHpjSVI4WEJzYWdURUZzT2NOVjNEd042OWFz?=
+ =?utf-8?B?SG9WQUZXb3ZZYWx4N1UyS3FocEdmRTR6SENyeU1QMktJYUsyeXNza2ZlOEtH?=
+ =?utf-8?B?TEltdDdrNWNycWNBUmNJamNuMWxCcGRCazNjeVdybDM1VmxUUkFTRHYwY0FJ?=
+ =?utf-8?B?NlROamlLUjU0L2NyVlFIcXh2NTBnaGZkelRTOVR3UG95ZHJBcTVCenFlVW4x?=
+ =?utf-8?B?T0xnQi8xbXQrKzdIaEptU2pmZlpmd1NQUTNLMkkyZC8yMFgyT0hzOTJEZ2R1?=
+ =?utf-8?B?bFFreXVYY25Ib1g4bXJmamQ1dERxZkpSOTZXR2sxN2V4ZzJySlRMVmwzb213?=
+ =?utf-8?B?NzFPeHhpQ0xrWWFNT3Z0aTdRMVZzUTVZb0pzWkUvRTZmc0puZkpnMmVFNGFN?=
+ =?utf-8?B?OXc9PQ==?=
 X-MS-Exchange-CrossTenant-Network-Message-Id: 
- b405cd9a-d586-431b-c02d-08dc3df79e03
+ cf9581c4-c3db-47ed-183b-08dc3df80ff9
 X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB6375.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2024 16:08:09.9067
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2024 16:11:21.0926
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
 X-MS-Exchange-CrossTenant-UserPrincipalName: 
- mvslDwFOBuUBMVGuXmrg4FewUNm3C4bLtNDxgBihNzSNZ24yvm1i7uUe68hFpb+zV9mmYnYWSwKg32mlLhmvKd44dHJpzcX8vVUo8kEx5vY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR11MB8750
+ C17De61zpGI3Pn8krOL/xIdOXlEoIjLKNXOH2SrOoIU936ubNYTlLab5vhGulAHrFIYN2HS5b+kw/CDhnsv5/sII2SyXgIY/8hTTgRghT+A=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR11MB6571
 X-OriginatorOrg: intel.com
-Message-ID-Hash: HBAVCHTZRGKNTD2RNNXB2YU6JTN2J4FK
-X-Message-ID-Hash: HBAVCHTZRGKNTD2RNNXB2YU6JTN2J4FK
+Message-ID-Hash: 2OUXZMFXMPXD3ZTR5U3RP4BBSCVR7IHR
+X-Message-ID-Hash: 2OUXZMFXMPXD3ZTR5U3RP4BBSCVR7IHR
 X-MailFrom: cezary.rojewski@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -199,7 +200,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HBAVCHTZRGKNTD2RNNXB2YU6JTN2J4FK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2OUXZMFXMPXD3ZTR5U3RP4BBSCVR7IHR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -208,66 +209,67 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-
-
-On 2024-03-04 10:02 PM, Pierre-Louis Bossart wrote:
-> 
-> 
-> On 3/4/24 14:40, Cezary Rojewski wrote:
->> On 2024-03-04 8:28 PM, Pierre-Louis Bossart wrote:
+On 2024-03-04 10:25 PM, Pierre-Louis Bossart wrote:
+> On 3/4/24 14:50, Cezary Rojewski wrote:
+>> On 2024-03-04 8:32 PM, Pierre-Louis Bossart wrote:
 >>> On 3/4/24 13:05, Cezary Rojewski wrote:
->>>> Topology files that are propagated to the world and utilized by the
->>>> skylake-driver carry shortcomings in their SectionGraphs.
+>>>> One of the framework responsibilities is to ensure that the enumerated
+>>>> DPCMs are valid i.e.: a valid BE is connected to a valid FE DAI. While
+>>>> the are checks in soc-core.c and soc-pcm.c that verify this, a component
+>>>> driver may attempt to workaround this by loading an invalid graph
+>>>> through the topology file.
 >>>>
->>>> Since commit daa480bde6b3 ("ASoC: soc-core: tidyup for
->>>> snd_soc_dapm_add_routes()") route checks are no longer permissive. Probe
->>>> failures for Intel boards have been partially addressed by commit
->>>> a22ae72b86a4 ("ASoC: soc-core: disable route checks for legacy devices")
->>>> and its follow up but only skl_nau88l25_ssm4567.c is patched. Fix the
->>>> problem for the rest of the boards.
->>>>
->>>> Link:
->>>> https://lore.kernel.org/all/20200309192744.18380-1-pierre-louis.bossart@linux.intel.com/
->>>> Fixes: daa480bde6b3 ("ASoC: soc-core: tidyup for
->>>> snd_soc_dapm_add_routes()")
+>>>> Be strict and fail topology loading when invalid graph is encountered.
+>>>
+>>> This is very invasive, it's perfectly possible that we have a number of
+>>> 'broken' topologies where one path is 'invalid' but it doesn't impact
+>>> functionality.
+>>>
+>>> This should be an opt-in behavior IMHO, not a blanket change.
+>>
+>> To my best knowledge, soc-topology.c' first "customer" was the
+>> skylake-driver and the final details were cloudy at best back then.
+>>
+>> Right now sound-drivers utilizing the topology feature do so in more
+>> refined fashion. Next, in ASoC we have three locations where
+>> snd_soc_dapm_add_routes() is called but error-checks are done only in
+>> 2/3 of them. This is bogus.
+> 
+> I don't disagree that it was a mistake to omit the check on the returned
+> value, but now that we have topologies in the wild we can't change the
+> error handling without a risk of breaking "working" solutions. Exhibit A
+> is what happened in the other places where this error check was added...
+> 
+>> If the intended way of using snd_soc_dapm_add_routes() is to ignore the
+>> return, it should be converted to void and flag ->disable_route_checks
+>> removed.
+> 
+> Now that would go back to an "anything goes" mode, not necessarily a
+> great step.
+> 
 >>>> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 >>>> ---
->>>>    sound/soc/intel/boards/bxt_da7219_max98357a.c       | 1 +
->>>>    sound/soc/intel/boards/bxt_rt298.c                  | 1 +
->>>>    sound/soc/intel/boards/glk_rt5682_max98357a.c       | 1 +
->>>>    sound/soc/intel/boards/kbl_da7219_max98357a.c       | 1 +
->>>>    sound/soc/intel/boards/kbl_da7219_max98927.c        | 4 ++++
->>>>    sound/soc/intel/boards/kbl_rt5660.c                 | 1 +
->>>>    sound/soc/intel/boards/kbl_rt5663_max98927.c        | 2 ++
->>>>    sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c | 1 +
->>>>    sound/soc/intel/boards/skl_hda_dsp_generic.c        | 1 +
->>>
->>> This HDAudio machine driver is shared with the SOF-based solutions and I
->>> see no reason to change the route checking...
->>>
->>> I don't agree with this change. Why can't you fix the broken topologies
->>> instead, if indeed they 'carry shortcomings'?
->>>
->>> Same for glk, this an SOF-based solution.
->>
->> Perhaps the flag could be set conditionally for those two?
->>
->> Even when you address the problem in the topology file, you do not get
->> any confirmation user replaced the invalid file. skylake-driver topology
->> were not part of any firmware-alike package. Please note that I actually
->> did all that I believe could be done to repair those topologies and
->> provided valid references at avs-topology/for-skylake-driver [1].
+>>>>    sound/soc/soc-topology.c | 5 +++--
+>>>>    1 file changed, 3 insertions(+), 2 deletions(-)
+>>>>
+>>>> diff --git a/sound/soc/soc-topology.c b/sound/soc/soc-topology.c
+>>>> index d6d368837235..778f539d9ff5 100644
+>>>> --- a/sound/soc/soc-topology.c
+>>>> +++ b/sound/soc/soc-topology.c
+>>>> @@ -1083,8 +1083,9 @@ static int
+>>>> soc_tplg_dapm_graph_elems_load(struct soc_tplg *tplg,
+>>>>                break;
+>>>>            }
+>>>>    -        /* add route, but keep going if some fail */
+>>>> -        snd_soc_dapm_add_routes(dapm, route, 1);
+>>>> +        ret = snd_soc_dapm_add_routes(dapm, route, 1);
+>>>> +        if (ret && !dapm->card->disable_route_checks)
+>>>> +            break;
 > 
-> Humm, the commit daa480bde6b3 ("ASoC: soc-core: tidyup for
-> snd_soc_dapm_add_routes()") dates from August 2019 and was included in
-> kernel 5.4.
-> 
-> Why are we seeing issues on route checks with the Skylake driver in
-> 2024? Are we saying that the card creation failed for the last 5 years?
-> 
-> I must be missing something here.
+> you could alternatively follow the example in soc-core.c, with a
+> dev_info() thrown if the route_checks is disabled and a dev_err() thrown
+> otherwise. At least this would expose the reason for the failure after a
+> change in error handling, and a means to 'restore' functionality for
+> specific cards if the topology cannot be updated.
 
-Nah, no customer would allow that kind of delay :D
-
-Unfortunately, nothing out of ordinary. In 2018/19/20 we had to fix 
-everything "immediately" and not everything got pushed to upstream-users.
+Sure, in the next revision I'll mimic the behaviour found in soc-core.c.

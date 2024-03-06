@@ -2,53 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9760877042
-	for <lists+alsa-devel@lfdr.de>; Sat,  9 Mar 2024 11:15:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4C2F877041
+	for <lists+alsa-devel@lfdr.de>; Sat,  9 Mar 2024 11:15:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0993EDEE;
-	Sat,  9 Mar 2024 11:15:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0993EDEE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7C123DF9;
+	Sat,  9 Mar 2024 11:15:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C123DF9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1709979347;
-	bh=o7h8D68XuKpUbWhzQ5giwG7GjdYbrQMBGY5wZ3X+bbk=;
+	s=default; t=1709979323;
+	bh=fCf8VgKAZPcTn7Hbdj2zRMYVft3c4RyIgKvpUyrpq9I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=uA+Kkpjh+6T2D0g8ViPZIAnzPnAr+LysRuyrSVjjKMmVdVv4k0qyIZ476ISB3zMRK
-	 Ie6ebI/5entxZqmoAXAENWqvMvJfvsJ+4JevufLYtCxWhbnprezRayg7sM9SLM4rT2
-	 tMlt0WvoXwZV91I5GQS98SPbZBnGZBh0IhVSgNe4=
+	b=sI2N8nAZrE9paVtBSTsiKXWw14ccWhDlo8VBgq1X27EEXridZeqpc7dupjrk7+JEJ
+	 Vt5YszBG35ctGChmQJ7CVDtR8r2r5Q509wurrEnWRPJueSdyxP11SE2CVctTQd18T7
+	 jBYLaZYUR7DcoYM8b7+zcE67gHkARkcYldErKzfs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AFDEEF806D0; Sat,  9 Mar 2024 11:13:05 +0100 (CET)
+	id 6950BF806AD; Sat,  9 Mar 2024 11:13:02 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 080F4F806D5;
-	Sat,  9 Mar 2024 11:13:05 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9B074F806B9;
+	Sat,  9 Mar 2024 11:13:01 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2A4DDF8024E; Wed,  6 Mar 2024 02:35:06 +0100 (CET)
+	id 38B46F8024E; Wed,  6 Mar 2024 02:34:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
 	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail78-37.sinamail.sina.com.cn (mail78-37.sinamail.sina.com.cn
- [219.142.78.37])
+Received: from mail78-39.sinamail.sina.com.cn (mail78-39.sinamail.sina.com.cn
+ [219.142.78.39])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5635DF8014B
-	for <alsa-devel@alsa-project.org>; Wed,  6 Mar 2024 02:34:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5635DF8014B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3924BF801F5
+	for <alsa-devel@alsa-project.org>; Wed,  6 Mar 2024 02:34:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3924BF801F5
 Received: from unknown (HELO zy-virtual-machine.localdomain)([116.232.53.71])
 	by sina.net (10.75.30.235) with ESMTP
-	id 65E7C81800003DE4; Wed, 6 Mar 2024 09:34:19 +0800 (CST)
+	id 65E7C81800003DE4; Wed, 6 Mar 2024 09:34:21 +0800 (CST)
 X-Sender: zhangyi@everest-semi.com
 X-Auth-ID: zhangyi@everest-semi.com
 Authentication-Results: sina.net;
 	 spf=none smtp.mailfrom=zhangyi@everest-semi.com;
 	 dkim=none header.i=none;
 	 dmarc=none action=none header.from=zhangyi@everest-semi.com
-X-SMAIL-MID: 304AC0D7CD594CE48FF1DD5CB581F46B
-X-SMAIL-UIID: 304AC0D7CD594CE48FF1DD5CB581F46B-20240306-093419
+X-SMAIL-MID: 4B4DBEA8F7494573A9940413471E1AE4
+X-SMAIL-UIID: 4B4DBEA8F7494573A9940413471E1AE4-20240306-093421
 From: Zhang Yi <zhangyi@everest-semi.com>
 To: alsa-devel@alsa-project.org,
 	broonie@kernel.org,
@@ -58,10 +58,9 @@ Cc: tiwai@suse.com,
 	yangxiaohua@everest-semi.com,
 	zhuning@everest-semi.com,
 	zhangyi@everest-semi.com
-Subject: [PATCH v1 1/2] ASoC: codecs: ES8326: Changing members of private
- structure
-Date: Wed,  6 Mar 2024 09:34:13 +0800
-Message-Id: <20240306013414.18708-2-zhangyi@everest-semi.com>
+Subject: [PATCH v1 2/2] ASoC: codecs: ES8326: change support for ES8326
+Date: Wed,  6 Mar 2024 09:34:14 +0800
+Message-Id: <20240306013414.18708-3-zhangyi@everest-semi.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20240306013414.18708-1-zhangyi@everest-semi.com>
 References: <20240306013414.18708-1-zhangyi@everest-semi.com>
@@ -71,15 +70,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: PEPWUO5VH5K3ABWVBR5WHBD7WQ4AOGKY
-X-Message-ID-Hash: PEPWUO5VH5K3ABWVBR5WHBD7WQ4AOGKY
+Message-ID-Hash: OLH3AIRWPKESH7EGZHT2WZGOXVFV5XJP
+X-Message-ID-Hash: OLH3AIRWPKESH7EGZHT2WZGOXVFV5XJP
 X-Mailman-Approved-At: Sat, 09 Mar 2024 10:10:52 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PEPWUO5VH5K3ABWVBR5WHBD7WQ4AOGKY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OLH3AIRWPKESH7EGZHT2WZGOXVFV5XJP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -88,57 +87,62 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-We don't use mic1_src and mic2_src.so we delete these two members.
-We changed the default value of interrupt-clk for headphone detection
+Removed mic1-src and mic2-src. and changed default value
+of interrupt-clk
 
 Signed-off-by: Zhang Yi <zhangyi@everest-semi.com>
 ---
- sound/soc/codecs/es8326.c | 18 +-----------------
- 1 file changed, 1 insertion(+), 17 deletions(-)
+ .../bindings/sound/everest,es8326.yaml        | 22 ++-----------------
+ 1 file changed, 2 insertions(+), 20 deletions(-)
 
-diff --git a/sound/soc/codecs/es8326.c b/sound/soc/codecs/es8326.c
-index 608862aebd71..15289dadafea 100755
---- a/sound/soc/codecs/es8326.c
-+++ b/sound/soc/codecs/es8326.c
-@@ -31,8 +31,6 @@ struct es8326_priv {
- 	 * while enabling or disabling or during an irq.
- 	 */
- 	struct mutex lock;
--	u8 mic1_src;
--	u8 mic2_src;
- 	u8 jack_pol;
- 	u8 interrupt_src;
- 	u8 interrupt_clk;
-@@ -1092,20 +1090,6 @@ static int es8326_probe(struct snd_soc_component *component)
- 	es8326->jd_inverted = device_property_read_bool(component->dev,
- 							"everest,jack-detect-inverted");
+diff --git a/Documentation/devicetree/bindings/sound/everest,es8326.yaml b/Documentation/devicetree/bindings/sound/everest,es8326.yaml
+index 07781408e788..5c9ee6ba7980 100644
+--- a/Documentation/devicetree/bindings/sound/everest,es8326.yaml
++++ b/Documentation/devicetree/bindings/sound/everest,es8326.yaml
+@@ -37,22 +37,6 @@ properties:
+     maximum: 0x0f
+     default: 0x0f
  
--	ret = device_property_read_u8(component->dev, "everest,mic1-src", &es8326->mic1_src);
--	if (ret != 0) {
--		dev_dbg(component->dev, "mic1-src return %d", ret);
--		es8326->mic1_src = ES8326_ADC_AMIC;
--	}
--	dev_dbg(component->dev, "mic1-src %x", es8326->mic1_src);
+-  everest,mic1-src:
+-    $ref: /schemas/types.yaml#/definitions/uint8
+-    description:
+-      the value of reg 2A when headset plugged.
+-    minimum: 0x00
+-    maximum: 0x77
+-    default: 0x22
 -
--	ret = device_property_read_u8(component->dev, "everest,mic2-src", &es8326->mic2_src);
--	if (ret != 0) {
--		dev_dbg(component->dev, "mic2-src return %d", ret);
--		es8326->mic2_src = ES8326_ADC_DMIC;
--	}
--	dev_dbg(component->dev, "mic2-src %x", es8326->mic2_src);
+-  everest,mic2-src:
+-    $ref: /schemas/types.yaml#/definitions/uint8
+-    description:
+-      the value of reg 2A when headset unplugged.
+-    minimum: 0x00
+-    maximum: 0x77
+-    default: 0x44
 -
- 	ret = device_property_read_u8(component->dev, "everest,jack-pol", &es8326->jack_pol);
- 	if (ret != 0) {
- 		dev_dbg(component->dev, "jack-pol return %d", ret);
-@@ -1125,7 +1109,7 @@ static int es8326_probe(struct snd_soc_component *component)
- 				      &es8326->interrupt_clk);
- 	if (ret != 0) {
- 		dev_dbg(component->dev, "interrupt-clk return %d", ret);
--		es8326->interrupt_clk = 0x45;
-+		es8326->interrupt_clk = 0x00;
- 	}
- 	dev_dbg(component->dev, "interrupt-clk %x", es8326->interrupt_clk);
+   everest,jack-detect-inverted:
+     $ref: /schemas/types.yaml#/definitions/flag
+     description:
+@@ -87,7 +71,7 @@ properties:
+        0 means the chip detect jack type again after button released.
+     minimum: 0
+     maximum: 0x7f
+-    default: 0x45
++    default: 0x00
  
+ required:
+   - compatible
+@@ -107,10 +91,8 @@ examples:
+         clocks = <&clks 10>;
+         clock-names = "mclk";
+         #sound-dai-cells = <0>;
+-        everest,mic1-src = [22];
+-        everest,mic2-src = [44];
+         everest,jack-pol = [0e];
+         everest,interrupt-src = [08];
+-        everest,interrupt-clk = [45];
++        everest,interrupt-clk = [00];
+       };
+     };
 -- 
 2.17.1
 

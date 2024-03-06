@@ -2,99 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AF6287370E
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Mar 2024 13:55:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5045E87374B
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Mar 2024 14:04:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 96E10868;
-	Wed,  6 Mar 2024 13:55:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 96E10868
+	by alsa0.perex.cz (Postfix) with ESMTPS id 82A443E8;
+	Wed,  6 Mar 2024 14:04:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 82A443E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1709729734;
-	bh=czwmuKZynxP030wgUGa8GWEjB9o8Lc2TErJL0actoqk=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
+	s=default; t=1709730294;
+	bh=tPKM3fbs+N1jnkgIdgrhQAzhyAXdLqv6da+7MERgVTE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=R0ZAY5dkYF1wLrfg6IxfE66Hc4PvaGRQKy+hQYxghKwvSy5f1gOvzau+TaXcElvDj
-	 pkYjJ4FZRaHfIytOiVH0eQZLBsWrfO+K4dcyuMDWz6PHG3uHkPrDkZSxaFAtDYvIZS
-	 br2GIs3E9f6MlsiOfyLNBTGwycLxK3Tq1ZqecmAY=
+	b=HD9K5UfZonkztZFYqKqrIOEbBlnjmbZFLZHHJSIWhUcvfSehzaQsgn44bF1u8izYq
+	 Gbql5abv3LnqGWMi3vG1/9mW9mLgDRTWXH3Cfvw4EH7NlQkcd7S8PvuqdJBuadB+3E
+	 S5GE7+EtYEFZGio1ZKBYgSLc5ZSBscpJdKe+4zQE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2D2D4F805A1; Wed,  6 Mar 2024 13:55:01 +0100 (CET)
+	id 67165F80579; Wed,  6 Mar 2024 14:04:20 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 90D54F801F5;
-	Wed,  6 Mar 2024 13:55:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EFE51F805A0;
+	Wed,  6 Mar 2024 14:04:19 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8FF33F8024E; Wed,  6 Mar 2024 13:54:53 +0100 (CET)
+	id 37424F8024E; Wed,  6 Mar 2024 14:04:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4D293F80093
-	for <alsa-devel@alsa-project.org>; Wed,  6 Mar 2024 13:54:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D293F80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id 97877F8014B
+	for <alsa-devel@alsa-project.org>; Wed,  6 Mar 2024 14:04:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97877F8014B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=KxfLIW5Z
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 4268keDm013652;
-	Wed, 6 Mar 2024 06:54:46 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	message-id:date:mime-version:subject:to:cc:references:from
-	:in-reply-to:content-type:content-transfer-encoding; s=
-	PODMain02222019; bh=dUnOWEoxp3SnJf2CLLou3NRw4azRYH8sTPSVS7jTw3c=; b=
-	KxfLIW5ZslqURg+L4ZEH6tjKmxwt06qhWECFicj/THLPKjRvstRQgfQ6ki4e5PTf
-	+35OntL91YPaaGaigZAWUN5i5TbjwCHRl25guPLLG2z81RcZ3yiuQUjaCbzCochX
-	bQU8nHv+XY//hCf7NAkmc6MFc3OUw40//e0FS/nIMZsbMJOmTG+pHRq0/wiCS3bw
-	4tN+R8jXnrpzETHN2UA5sVhuBV6POgzb47aptlax+m2xIIjJa8Jew17F/LkL/5BO
-	q2+pJZvF7DHXCvdFa3y1+9K3jj6BoLvyYVEu88oCntCt11sFfKCy90/D/iJtTSJM
-	oVoJuKZTokzobNHXdtxK6w==
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3wpn930795-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 06 Mar 2024 06:54:45 -0600 (CST)
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.4; Wed, 6 Mar 2024
- 12:54:43 +0000
-Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1544.4 via Frontend Transport; Wed, 6 Mar 2024 12:54:43 +0000
-Received: from [198.61.64.14] (EDIN4L06LR3.ad.cirrus.com [198.61.64.14])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id 7BA69820241;
-	Wed,  6 Mar 2024 12:54:43 +0000 (UTC)
-Message-ID: <fedf6e86-ca14-4236-85c0-64205c63d7f9@opensource.cirrus.com>
-Date: Wed, 6 Mar 2024 12:54:43 +0000
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=GKjXhq/t
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id 4A942CE1F0E;
+	Wed,  6 Mar 2024 13:04:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66E6AC433F1;
+	Wed,  6 Mar 2024 13:03:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1709730241;
+	bh=tPKM3fbs+N1jnkgIdgrhQAzhyAXdLqv6da+7MERgVTE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=GKjXhq/tE2qihb2Xd55900MGCJsOgaStfVo1TBt6kSoLZyEMtASEzK/j+IRRnIcA/
+	 pd5e0nVj7F6/qFxTKgzw97tJ241G/DJ/GKPJnyc6SCqF2Ee9hKFonrqXjZj45ZIOQR
+	 Y/8gTQ+AVn1AV+YYber7m5sKyD8zMfuyg3BNhvexYyLHJN7x+fRvjmIQ/9umBsghM6
+	 CdkkxebIsOk7/b2HdUt2dGBphKHaHGnhQmkHqzTHDriqvcgejzbKC43NBGJ7rAv1AS
+	 S6ZBEOxqTJgkEIRCIJnM3usfP8H14XBzv6FFVnDcBIcGmW9U0cAQR53uudWfx9Hyza
+	 ihhRsjtCprb3g==
+Date: Wed, 6 Mar 2024 13:03:56 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Shalini Manjunatha <quic_c_shalma@quicinc.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Raghu Bankapur <quic_rbankapu@quicinc.com>,
+	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Krishna Jha <quic_kkishorj@quicinc.com>
+Subject: Re: [PATCH V0 0/1] ASoC: soc-compress: Fix and add missing DPCM
+ locking
+Message-ID: <fae7335b-bb58-400a-9b72-936b0dcc2fc2@sirena.org.uk>
+References: <cover.1709720380.git.quic_c_shalma@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ASoC: soc-card: Fix missing locking in
- snd_soc_card_get_kcontrol()
-To: Takashi Iwai <tiwai@suse.de>
-CC: <broonie@kernel.org>, <shengjiu.wang@gmail.com>, <Xiubo.Lee@gmail.com>,
-        <linux-sound@vger.kernel.org>, <alsa-devel@alsa-project.org>,
-        <linux-kernel@vger.kernel.org>, <linuxppc-dev@lists.ozlabs.org>,
-        <patches@opensource.cirrus.com>
-References: <20240221123710.690224-1-rf@opensource.cirrus.com>
- <878r33hf81.wl-tiwai@suse.de>
-Content-Language: en-US
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-In-Reply-To: <878r33hf81.wl-tiwai@suse.de>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: YEs5JGMEo5VD8m1KlprrWBCx10iE2ihb
-X-Proofpoint-ORIG-GUID: YEs5JGMEo5VD8m1KlprrWBCx10iE2ihb
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: EVFQAQ3KQ4MKQQN3ALEBYH23NM6W376Y
-X-Message-ID-Hash: EVFQAQ3KQ4MKQQN3ALEBYH23NM6W376Y
-X-MailFrom: prvs=07954e2aa0=rf@opensource.cirrus.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="1AkDkuUU23ZBtHTV"
+Content-Disposition: inline
+In-Reply-To: <cover.1709720380.git.quic_c_shalma@quicinc.com>
+X-Cookie: Have at you!
+Message-ID-Hash: SAPJMHH752DKVUTRTW6JTZDZTNTBDSPJ
+X-Message-ID-Hash: SAPJMHH752DKVUTRTW6JTZDZTNTBDSPJ
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -106,7 +92,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EVFQAQ3KQ4MKQQN3ALEBYH23NM6W376Y/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SAPJMHH752DKVUTRTW6JTZDZTNTBDSPJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,98 +101,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 29/2/24 08:00, Takashi Iwai wrote:
-> On Wed, 21 Feb 2024 13:37:10 +0100,
-> Richard Fitzgerald wrote:
->>
->> snd_soc_card_get_kcontrol() must be holding a read lock on
->> card->controls_rwsem while walking the controls list.
->>
->> Compare with snd_ctl_find_numid().
->>
->> The existing function is renamed snd_soc_card_get_kcontrol_locked()
->> so that it can be called from contexts that are already holding
->> card->controls_rwsem (for example, control get/put functions).
->>
->> There are few direct or indirect callers of
->> snd_soc_card_get_kcontrol(), and most are safe. Three require
->> changes, which have been included in this patch:
->>
->> codecs/cs35l45.c:
->>    cs35l45_activate_ctl() is called from a control put() function so
->>    is changed to call snd_soc_card_get_kcontrol_locked().
->>
->> codecs/cs35l56.c:
->>    cs35l56_sync_asp1_mixer_widgets_with_firmware() is called from
->>    control get()/put() functions so is changed to call
->>    snd_soc_card_get_kcontrol_locked().
->>
->> fsl/fsl_xcvr.c:
->>    fsl_xcvr_activate_ctl() is called from three places, one of which
->>    already holds card->controls_rwsem:
->>    1. fsl_xcvr_mode_put(), a control put function, which will
->>       already be holding card->controls_rwsem.
->>    2. fsl_xcvr_startup(), a DAI startup function.
->>    3. fsl_xcvr_shutdown(), a DAI shutdown function.
->>
->>    To fix this, fsl_xcvr_activate_ctl() has been changed to call
->>    snd_soc_card_get_kcontrol_locked() so that it is safe to call
->>    directly from fsl_xcvr_mode_put().
->>    The fsl_xcvr_startup() and fsl_xcvr_shutdown() functions have been
->>    changed to take a read lock on card->controls_rsem() around calls
->>    to fsl_xcvr_activate_ctl(). While this is not very elegant, it
->>    keeps the change small, to avoid this patch creating a large
->>    collateral churn in fsl/fsl_xcvr.c.
->>
->> Analysis of other callers of snd_soc_card_get_kcontrol() is that
->> they do not need any changes, they are not holding card->controls_rwsem
->> when they call snd_soc_card_get_kcontrol().
->>
->> Direct callers of snd_soc_card_get_kcontrol():
->>    fsl/fsl_spdif.c: fsl_spdif_dai_probe() - DAI probe function
->>    fsl/fsl_micfil.c: voice_detected_fn() - IRQ handler
->>
->> Indirect callers via soc_component_notify_control():
->>    codecs/cs42l43: cs42l43_mic_shutter() - IRQ handler
->>    codecs/cs42l43: cs42l43_spk_shutter() - IRQ handler
->>    codecs/ak4118.c: ak4118_irq_handler() - IRQ handler
->>    codecs/wm_adsp.c: wm_adsp_write_ctl() - not currently used
->>
->> Indirect callers via snd_soc_limit_volume():
->>    qcom/sc8280xp.c: sc8280xp_snd_init() - DAIlink init function
->>    ti/rx51.c: rx51_aic34_init() - DAI init function
->>
->> I don't have hardware to test the fsl/*, qcom/sc828xp.c, ti/rx51.c
->> and ak4118.c changes.
->>
->> Backport note:
->> The fsl/, qcom/, cs35l45, cs35l56 and cs42l43 callers were added
->> since the Fixes commit so won't all be present on older kernels.
->>
->> Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
->> Fixes: 209c6cdfd283 ("ASoC: soc-card: move snd_soc_card_get_kcontrol() to soc-card")
->> ---
->> It would be great if people could test the fsl/, qcom/, ti/rx51 and ak4418
->> drivers.
-> 
-> This fix itself looks correct, and I merged Mark's PR now.
-> 
-> But in general, it'd be better to use snd_ctl_find_id() and
-> snd_ctl_find_id_unlocked() if possible.  Those standard APIs can use
-> the fast Xarray lookup, and especially for the case like many ASoC
-> drivers that expose hundreds of kcontrols, the performance gain
-> becomes significant.
-> 
-> I see that there is no snd_ctl_find_mixer_id_unlocked() variant, but
-> it should be trivial to add.
-> 
-> 
 
-Yes, I'll have a look at that. I was thinking that it would be good
-to have all the code to find controls in one place, instead of a special
-case for ASoC. But I decided to make the bugfix with minimum changes.
+--1AkDkuUU23ZBtHTV
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> thanks,
-> 
-> Takashi
+On Wed, Mar 06, 2024 at 04:23:19PM +0530, Shalini Manjunatha wrote:
+> We find mising DPCM locking inside soc_compr_set_params_fe()
+> before calling dpcm_be_dai_hw_params() and dpcm_be_dai_prepare()
+> which cause lockdep assert for DPCM lock not held in
+> __soc_pcm_hw_params() and __soc_pcm_prepare() in above flow
+> when ever we play compress offload audio playback use case.
+>=20
+> To fix this issue added DPCM lock and unlock in both places of
+> above code flow mentioned.
 
+Please don't send cover letters for single patches, if there is anything
+that needs saying put it in the changelog of the patch or after the ---
+if it's administrative stuff.  This reduces mail volume and ensures that=20
+any important information is recorded in the changelog rather than being
+lost.=20
+
+--1AkDkuUU23ZBtHTV
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmXoabsACgkQJNaLcl1U
+h9DCbQf+J6u1XRg5N8iHTV4CowIy+CabymZa6H2WDtsc0EK4gge5qVbNtxPiTmkP
+5qDrXNXWtYDGDHZlBGGWn/YZJYjZkILCPdqsGGCi5PXsRns8EDarm0P1/fMh/qgt
+dLe+eSA760Fhewm3n5ugW7aK2Y7/Jk1dVV2x8tJahVvMMslDNYqk7+xQJ6kLmE3e
+VB9Eigc2AIw2gu46jg+iOKHh0eMylSjuKi61TDgWP5LN5fFY/y5TirX32tZR4w1N
+NRnWQca7G2bB0zTP9JVLNSIYbELd7oKkui+nQtTFqovCPFUNv8wd5SjF/te9hCEo
+KsnfC/NSgySY7g9XIKyAfwnB7mdkaA==
+=6SHa
+-----END PGP SIGNATURE-----
+
+--1AkDkuUU23ZBtHTV--

@@ -2,98 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29CFC874D2A
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Mar 2024 12:14:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0839C874DAF
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Mar 2024 12:40:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BBF36DE5;
-	Thu,  7 Mar 2024 12:14:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BBF36DE5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3B990847;
+	Thu,  7 Mar 2024 12:40:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B990847
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1709810067;
-	bh=3rWMw8R+NsnkFdzxFdqowjz8po9SnkV8ho17BYS6idY=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1709811652;
+	bh=Iuq7wW8jUMuLEGXJxlWdQh1apTqKm177uyslO/azaA8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Brib+iqk1eD07DmzuirOzpXS/cNN+JYeeEp69Dr3ZarEGNV6mHMEzl6Ct74+9FBDH
-	 Q1EJ2YBkTcn2oEfw91Mw3AB0uokE9Mm6YVhVY+Uo91Srcvyfs9gJaaIRHx4gCNd7ky
-	 lx4uMsv/UAbZ6kQ+2uLBqPUPWrCYKj/A57D0tnNk=
+	b=W7CNG0mscinDAX/ido1zwfgX+B/ThOwTWru99eVJWXzB2OmpGXnpCXt6gpoPR+NTe
+	 7YWItiqwng4THjaTjkOAEm6DcRTDnDNd6ImXt7jiFQPkkKdjXEmLwARh6QHNz5xUMx
+	 O+47M7k0o6GivKDOATGa9zkX4NIdWMtRob72/5lQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 889FEF805D8; Thu,  7 Mar 2024 12:13:18 +0100 (CET)
+	id 772EEF8059F; Thu,  7 Mar 2024 12:40:21 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B297DF805AE;
-	Thu,  7 Mar 2024 12:13:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 15C6CF805A1;
+	Thu,  7 Mar 2024 12:40:21 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BD1C7F8024E; Thu,  7 Mar 2024 12:12:26 +0100 (CET)
+	id 6112EF8024E; Thu,  7 Mar 2024 12:40:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id ABBCDF8014B
-	for <alsa-devel@alsa-project.org>; Thu,  7 Mar 2024 12:12:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ABBCDF8014B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 90617F80088
+	for <alsa-devel@alsa-project.org>; Thu,  7 Mar 2024 12:40:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90617F80088
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=lo2RdtTu
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 4278beip008605;
-	Thu, 7 Mar 2024 05:12:18 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	from:to:cc:subject:date:message-id:in-reply-to:references
-	:mime-version:content-transfer-encoding:content-type; s=
-	PODMain02222019; bh=FiXXVGoZ6B/v7js0WzJUH1DmMPvwXnS9aA/7lbdCnac=; b=
-	lo2RdtTuwP162GMPOVP0PSg+54uZL6Pvkos432aC/zc7120PMo/errG2vt0U87QS
-	5EDKIzGT6nhKxFrlEIXYjEFjYpKU6KZQ89VrIsMSSBU4hJIveAzwu2EFmhQqP49c
-	hNqaP5iCs7sHjcFG8kEq5mgZD3ghgrG7hOLr6p+IzIGa5+Nm4+KHGA4ILS6xil+C
-	sVWTL+XdpeEPfbTNiRX70nV0Qv50OcV4zaGanRNFkMIEhtOUBN3m7oPsSLBhImsA
-	bOw0AZgfGJD75/gRZO7WQ7jhuR5kWo+eiddBQRF6R3k3dybzlZyl03HHxLb5T7N8
-	vT50rBgXBk8LeZ0Sk1/bZw==
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3wpn931ha8-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 07 Mar 2024 05:12:18 -0600 (CST)
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.4; Thu, 7 Mar 2024
- 11:12:17 +0000
-Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
- ediex01.ad.cirrus.com (198.61.84.80) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.4
- via Frontend Transport; Thu, 7 Mar 2024 11:12:17 +0000
-Received: from ediswws06.ad.cirrus.com (ediswws06.ad.cirrus.com
- [198.90.208.18])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id D746982024D;
-	Thu,  7 Mar 2024 11:12:16 +0000 (UTC)
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-To: <tiwai@suse.com>
-CC: <linux-sound@vger.kernel.org>, <alsa-devel@alsa-project.org>,
-        <linux-kernel@vger.kernel.org>, <patches@opensource.cirrus.com>,
-        "Richard
- Fitzgerald" <rf@opensource.cirrus.com>
-Subject: [PATCH 2/2] ALSA: hda: hda_component: Include sound/hda_codec.h
-Date: Thu, 7 Mar 2024 11:12:16 +0000
-Message-ID: <20240307111216.45053-2-rf@opensource.cirrus.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20240307111216.45053-1-rf@opensource.cirrus.com>
-References: <20240307111216.45053-1-rf@opensource.cirrus.com>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=YrIOcIyt
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id 3E49FCE1B9E;
+	Thu,  7 Mar 2024 11:40:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C50EC43390;
+	Thu,  7 Mar 2024 11:39:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1709811602;
+	bh=Iuq7wW8jUMuLEGXJxlWdQh1apTqKm177uyslO/azaA8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=YrIOcIyteGH0Psn3UTwqnj74q29j0zZzlNwDb+jOzAT0YfFLtqtJatnHtTqOCLqMg
+	 EpEo7/c34kZYqaRx0WgFP6Wy1qLqPnPfzuyxVuJeu2oDalU+ZoAwmn2RNAWE8fr/km
+	 7N1Sf0IeqPSgo5CLh/6oJQt5gDUCyKHAEN0Uk6SMqP0RvbL9XkjTbFjwHbZB+uZ5C8
+	 lOp9gdYXFT+FeF+MtKeUGj7vcGKLbpbVY64LTDl8/npzoCVS8LoMYVGAvlt38cplnF
+	 Y4Yad3S+o3UBFonsHBxFK0adxptiwr7vXxClhuk4ikwaGedXzhuWRtPxrmMkOTbwoL
+	 AoJmTjdBDeFOw==
+Date: Thu, 7 Mar 2024 11:39:55 +0000
+From: Mark Brown <broonie@kernel.org>
+To: "Ding, Shenghao" <shenghao-ding@ti.com>
+Cc: "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
+	"lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+	"perex@perex.cz" <perex@perex.cz>,
+	"pierre-louis.bossart@linux.intel.com"
+ <pierre-louis.bossart@linux.intel.com>,
+	"13916275206@139.com" <13916275206@139.com>,
+	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"liam.r.girdwood@intel.com" <liam.r.girdwood@intel.com>,
+	"bard.liao@intel.com" <bard.liao@intel.com>,
+	"mengdong.lin@intel.com" <mengdong.lin@intel.com>,
+	"yung-chuan.liao@linux.intel.com" <yung-chuan.liao@linux.intel.com>,
+	"Xu, Baojun" <baojun.xu@ti.com>, "Lu, Kevin" <kevin-lu@ti.com>,
+	"tiwai@suse.de" <tiwai@suse.de>, "soyer@irl.hu" <soyer@irl.hu>,
+	"Baojun.Xu@fpt.com" <Baojun.Xu@fpt.com>,
+	"Navada Kanyana, Mukund" <navada@ti.com>
+Subject: Re: [EXTERNAL] Re: [PATCH v10] The tas2783 is a smart audio
+ amplifier with integrated MIPI SoundWire interface (Version 1.2.1
+ compliant), I2C, and I2S/TDM interfaces designed for portable applications.
+ An on-chip DSP supports Texas Instruments SmartAmp sp
+Message-ID: <73a4416f-4738-485d-aa5a-431c306e7023@sirena.org.uk>
+References: <dff90323b41a4e3a8e0e8540fbb32154@ti.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: MYpp-lhqeIV3bEWwZXEjznVqAX-5uGuo
-X-Proofpoint-ORIG-GUID: MYpp-lhqeIV3bEWwZXEjznVqAX-5uGuo
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: 4WGZO3TEYQQ2G725UB2DFFQ4WARY7MK7
-X-Message-ID-Hash: 4WGZO3TEYQQ2G725UB2DFFQ4WARY7MK7
-X-MailFrom: prvs=07964fdf23=rf@opensource.cirrus.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="13xliTJPAqH3UJDZ"
+Content-Disposition: inline
+In-Reply-To: <dff90323b41a4e3a8e0e8540fbb32154@ti.com>
+X-Cookie: Been Transferred Lately?
+Message-ID-Hash: FLBN4QOWO3ZAE5NNQKKOUXXMC2NTFW5M
+X-Message-ID-Hash: FLBN4QOWO3ZAE5NNQKKOUXXMC2NTFW5M
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -105,7 +105,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4WGZO3TEYQQ2G725UB2DFFQ4WARY7MK7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FLBN4QOWO3ZAE5NNQKKOUXXMC2NTFW5M/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -114,30 +114,44 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-hda_component.h uses hda_codec_dev from sound/hda_codec.h.
-Include sound/hda_codec.h instead of assuming that it has already
-been included by the parent .c file.
 
-This isn't causing any problems with current code, so no need to
-backport to older kernels.
+--13xliTJPAqH3UJDZ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
----
- sound/pci/hda/hda_component.h | 1 +
- 1 file changed, 1 insertion(+)
+On Thu, Mar 07, 2024 at 03:56:40AM +0000, Ding, Shenghao wrote:
 
-diff --git a/sound/pci/hda/hda_component.h b/sound/pci/hda/hda_component.h
-index a0fcc723483d..c80a66691b5d 100644
---- a/sound/pci/hda/hda_component.h
-+++ b/sound/pci/hda/hda_component.h
-@@ -11,6 +11,7 @@
- 
- #include <linux/acpi.h>
- #include <linux/component.h>
-+#include <sound/hda_codec.h>
- 
- #define HDA_MAX_COMPONENTS	4
- #define HDA_MAX_NAME_SIZE	50
--- 
-2.30.2
+> > We also try to keep default settings from the silicon except in the most
+> > obvious cases, it avoids issues with trying to work out what to set and
+> > accomodate different use cases for different systems.
 
+> > If you do need to set non-default values then either just regular write=
+s during
+> > probe or a regmap patch would do it.
+
+> So, can I remove=20
+> ".reg_defaults =3D tas2783_reg_defaults," and tas2783_reg_defaults from t=
+he code?
+
+Yes, supplying register defaults is completely optional.  It means we
+can't omit default values from cache sync and have to read values back
+=66rom the device the first time we read but those tend to be fairly minor
+performance impacts.
+
+--13xliTJPAqH3UJDZ
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmXpp4sACgkQJNaLcl1U
+h9ARWwf9HcdUwT7bKSmEfdLwH0kU4RDbbNZ1UNhRUruO7+2kcrukoh9IbkAmJHHg
+7lUfJI6hks3ir1uTyONS3PVarAim8mvzQfQZmuyu4mrWqHDXcIc/eAuX0mlrV3mv
+2h5EPcE050Hi1esdMYb2+ax80Y3VlzPgTgqxkZCFzVNH7Yj4tr2Z3MidZQMlLR2W
+vzJ7S+cs2kiq8TFkxMKECTDDEN02cqrC5+KxXPr6vXbQIPP8RP1ouO7wFoLQyvYM
+OYSH/d/VB0O47dSfAscE/2aX+kOlBJkViIYHCJUqcUAp0xS5aWXM6il9ihS7tTw1
+Awg6yj0cCP6wSRcPknF56znWUqLBCA==
+=F7oz
+-----END PGP SIGNATURE-----
+
+--13xliTJPAqH3UJDZ--

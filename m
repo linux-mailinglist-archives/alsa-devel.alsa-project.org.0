@@ -2,158 +2,108 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA8F987704D
-	for <lists+alsa-devel@lfdr.de>; Sat,  9 Mar 2024 11:18:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 642878746FA
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Mar 2024 04:52:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 59994192E;
-	Sat,  9 Mar 2024 11:18:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 59994192E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6169A84A;
+	Thu,  7 Mar 2024 04:52:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6169A84A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1709979505;
-	bh=7sJQdk8d2KQj2wV/LzlSlii2qOddHRy1hy9knecb+zg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1709783564;
+	bh=qHETVGmABCOv5h0hlnwqLErCUvhtOVNNegiNhI6aBxI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=muCuMQld+SAhOhJ+jAvzUXsme26K0Yg1jwbH0p7Op+fK9KFhM+/ctFzwTOJFftJ8F
-	 8+JF179OanmcSQDq2tUOVK1kURmUrlo+CZlLZ1iwX26zLOVp98b7PRp1gh9RlWqwnZ
-	 AuG2pZ96oAb+U4iHoBkZBLj5TUHltaOrtxFHQ8qk=
+	b=KpXHEJjfY8311bSBNZ8byu3x0pZtTTmXS+1OFZlF45fGgHEVDPTvGOXE/mgaVSlB7
+	 q9e3AfdLrhta2CjRQ/wyRr3Trufyp07zsG3pNj20AQ7AmAo5vJqD+rlEfxLYXChGSA
+	 mC3vm8GC50tcvJ3UBsfaecIp0KU5fY8bxD5L5CEY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 74483F805D6; Sat,  9 Mar 2024 11:13:36 +0100 (CET)
+	id 9E0ABF80494; Thu,  7 Mar 2024 04:52:12 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 588DCF80CAA;
-	Sat,  9 Mar 2024 11:13:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 13ECEF802E8;
+	Thu,  7 Mar 2024 04:52:12 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C4758F802E8; Thu,  7 Mar 2024 04:37:45 +0100 (CET)
+	id DA1E4F8024E; Thu,  7 Mar 2024 04:52:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+X-Spam-Status: No, score=-5.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn
- (mail-bjschn02on20724.outbound.protection.partner.outlook.cn
- [IPv6:2406:e500:4440:2::724])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A0E9FF801F5
-	for <alsa-devel@alsa-project.org>; Thu,  7 Mar 2024 04:37:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0E9FF801F5
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TR6IALJf4ovDzJj4CnOENv8UWSbL4NHcszCG6il2LUEkTSw6EZr9vkmhEEq6L7Z0tIc3PwNat5aYs/3dVXPxLYNR5ewIBx/ut4WZ47DREQ64LQo4fazkf+4UiO1kVJubyhynMgg84LypE2GFkcrONz3Dg0X8Ik0f/KKCU71qVjiGp+5M4C/6KjZxEhO0Vx/QNHourPwwEUrge2IJ0QMqABYRRxfrjKWVkmLrU38xpw74KTYRsKJ4F1vVqdt3hYWM/6ymI+JyW7jfgrRrDww5VuQcVxjb10pNSSx9R/df6qZfRYYAUJSYjWqXt253+F/JiBXKTAOGBsx3Eg6c5oqO8g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dKo4Kvq1AJ3f61iAOqjZIXhSQCjGJf1RIyEnRJVaMnk=;
- b=azxsUJgC5B6X+MgZYs9ovoRV5PK0ShV4oE//CO0zgrOJsnvrXc8v4gXCgZhleuU/ieHy/eHoUfCZMmtBGrHgDIllQ/ZBIMM23yt5HTDrNuB9Jy20DmLF4uZNpOEODDzJFeABcxiHMOanDfHkVU/nzFS3uibluu79oT3HlY88bwEdPwzzsEUW+Mk10qTboDxzYY8tUzemC7kuGWZITKVnVWfLQB0KKyBV+lm1ft/9FbxbdGv//KXnNpVqIpXtpH/M1vTpxUUGHHkxvERJSfPbd55g8RFE9XBKtFAtjvqrPm2xld4Jb+XGJWCPXY66obGxQzgoWcwcNUuPIeGteGSf5g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510:8::10) by NTZPR01MB0969.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510:a::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.41; Thu, 7 Mar
- 2024 03:37:18 +0000
-Received: from NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn
- ([fe80::20e3:6cc0:b982:ae95]) by
- NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn ([fe80::20e3:6cc0:b982:ae95%3])
- with mapi id 15.20.7316.039; Thu, 7 Mar 2024 03:37:18 +0000
-From: Xingyu Wu <xingyu.wu@starfivetech.com>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Conor Dooley <conor.dooley@microchip.com>
-Cc: Walker Chen <walker.chen@starfivetech.com>,
-	Xingyu Wu <xingyu.wu@starfivetech.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org
-Subject: [PATCH v1 2/2] ASoC: starfive: Add PDM controller support
-Date: Thu,  7 Mar 2024 11:37:08 +0800
-Message-Id: <20240307033708.139535-3-xingyu.wu@starfivetech.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240307033708.139535-1-xingyu.wu@starfivetech.com>
-References: <20240307033708.139535-1-xingyu.wu@starfivetech.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: NT0PR01CA0019.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510:c::22) To NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510:8::10)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 936ACF8014B
+	for <alsa-devel@alsa-project.org>; Thu,  7 Mar 2024 04:51:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 936ACF8014B
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=DDby58PG
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1709783514; x=1741319514;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=qHETVGmABCOv5h0hlnwqLErCUvhtOVNNegiNhI6aBxI=;
+  b=DDby58PGGY+3UiN5jOKt8vGEBwAkU9jGj/sexVwfB8VEGDwpr6RLj33G
+   qefDBUda/9h0D7r8vQYEPOsV97eO1ymM6Evqi+1POY58b7djyJJUIPU8j
+   6MksBqDhg1wRCgp1npZccm3TjyjAejAfioNyFWkyPTSqXGCOyEgHqludI
+   7NdjoT2tIlgnlmE9+vhag0tA3ZOu6RcJlWhJ5skfu5UB565VFSamssOmI
+   HWitHzX7ay3HOcabw4ubZ19EVBcP6VIvvnNl1C0RJT/lwcknqPGrqzEW3
+   3v+y9veyHDIw2hnMYHrq0+PWpLtpF1o5LKNw3g48hpyzKzSAxtzsArEbf
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,11005"; a="26907510"
+X-IronPort-AV: E=Sophos;i="6.06,209,1705392000";
+   d="scan'208";a="26907510"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Mar 2024 19:51:48 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.06,209,1705392000";
+   d="scan'208";a="10399324"
+Received: from lkp-server01.sh.intel.com (HELO b21307750695) ([10.239.97.150])
+  by orviesa006.jf.intel.com with ESMTP; 06 Mar 2024 19:51:43 -0800
+Received: from kbuild by b21307750695 with local (Exim 4.96)
+	(envelope-from <lkp@intel.com>)
+	id 1ri4nE-0004ll-0U;
+	Thu, 07 Mar 2024 03:51:40 +0000
+Date: Thu, 7 Mar 2024 11:51:16 +0800
+From: kernel test robot <lkp@intel.com>
+To: Chancel Liu <chancel.liu@nxp.com>, shengjiu.wang@gmail.com,
+	Xiubo.Lee@gmail.com, festevam@gmail.com, nicoleotsuka@gmail.com,
+	lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz,
+	tiwai@suse.com, shawnguo@kernel.org, s.hauer@pengutronix.de,
+	kernel@pengutronix.de, linux-imx@nxp.com,
+	alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
+	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	Chancel Liu <chancel.liu@nxp.com>
+Subject: Re: [PATCH 3/4] ASoC: fsl: Let imx-audio-rpmsg register platform
+ device for card
+Message-ID: <202403071138.bdVPDO4p-lkp@intel.com>
+References: <20240306075510.535963-4-chancel.liu@nxp.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: NTZPR01MB0956:EE_|NTZPR01MB0969:EE_
-X-MS-Office365-Filtering-Correlation-Id: 32876c54-9dae-4795-d27d-08dc3e57e36e
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	Az5xyCxehlCDk++IzGzqmg95ctV4ssumEYxoy3Y++7YQpbjbNEDp6XyWmHG2c1FVo4fFPD80oNO84vXQ5tISi2sUf/7PAdLHmZgHdqUK2APBSObeZzSqFDGbGabFlQ7a3mWwtJkYkIO0hgPV5CnA87CR7wgRPtoH+GdyG6J0oG7EvuPMpmGtmZjPELZ7r0w8OUyfhLcsmZ+0x2GvcROTbCSo8XXhncuDboD25h4jTifTO04PNwiU+MB2SuTtenpB6oC3bf73XR1VVwuR/sJyBnp3GURt3ZZ4hr16QKhbKk9/V8gQMn9X3bs+2NU12KGVKotQ5BsoPd9laXJAjuLDJzbIGp31DWJ+40HjtTLdZ8mhMWMn1f+Mv01/U/DAGf3qbTXmOfZtD+TgDip5RkBuRavoHx5sN+eQJYwNvT3sZoFoFXb0lwzMeO+/LpEq2IgE6YoKuSNIQGQZhoBak88sFCL3Q+qk18gdX/fgZb4gVQVDoB3676wGSUyKzzdBcwymOgymDVdyE8BH5hhcp4QBDqo3ALIepAD5OO4u9Au5tyfIjwhnemiWrvosKQHkN8aewn4mymleFurk0jr/zJD2+nCVdD1rQLR2DdqDsTjrtmgYwGfUtXy/H9vtoA03QVKi
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230031)(41320700004)(38350700005);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?IcxGLqMR+5t1RDRGuxKLb+r7JS0xW2E3V77rfpKWuRUKEVPFVupIrCtPrEMX?=
- =?us-ascii?Q?riRbFvitKrNN487wm5EzfnGeKTwMrxt8BrjMbsSAW9Ipp8rC4Q8tOVpwKGIc?=
- =?us-ascii?Q?ciqLLzNg6/ZYvMoRPZVaB5GvjmUdBfu7Jo25y59xzqQLUiWWKREWnXVmMf2+?=
- =?us-ascii?Q?75IVW3GDaInXDcB/tj+h9uJu+ThHgI8YImpc/ghMUauyU3BCTMAfRP8MdyVi?=
- =?us-ascii?Q?pSS1fxCClkCD/SFOHTJILF/kWA6UHGwqds3Cdq+C3LJMVovK6hmXs+GwOyZw?=
- =?us-ascii?Q?0p93L8ilqw9wR5cCDAUYELjgg9L8XV4RaGEUN2o31Rodm6Lyp8MP3QH+dghd?=
- =?us-ascii?Q?q4Yqyql95ZZvxCyFbdzwzTgW+ep02QZ3J8hErWpyFw4m2t82XSKsQ5SBSiqc?=
- =?us-ascii?Q?58L3Z+YdsBR04nuQQnMNSx6xMN/Cy34MXFTuXCOZUgqctd22Epm9FNETH/l3?=
- =?us-ascii?Q?Vj7FL5/2iSvVvrZ9vj2UGpGHlFCTgsilrGh9VfOR6qvHxaJHjNe3p0CJfAuT?=
- =?us-ascii?Q?8qyqKL3I1/LLYtwxPp9Bs+REfGf741jve/Vf6QrLmo8B2k9H4eOZVCQGK9Rx?=
- =?us-ascii?Q?RAiHw2KtARZL02tuKz8ujj6aGqVZyoFPRU1ZmnfA7JPt6LgM5XoCL+Mmk1J7?=
- =?us-ascii?Q?mypZ6dJ88Ni1tunxzp+aAQLBCItaWiJe2+Ep1nlvTsdgvsM2627mPsk9Ke07?=
- =?us-ascii?Q?vWQAM+6/q1o1eZaKuql/hvYneZsKhi0oFeVARZri1ypQXDE+qzQM5U8uF7hK?=
- =?us-ascii?Q?b+HF+L4j6APWg5faOojguSmvf96NKVaNf9zBjHZiwCAV/SLKujhKxN4+N5O2?=
- =?us-ascii?Q?lcWTZ4uy+pFkve6QV65j5GkwFJoVlaI1Yj1Up7XnLRZFmsM46/n0TtbrObI8?=
- =?us-ascii?Q?L9+ZrqHSBKYXUtm3rnn1ZtyJ8Uswx5LJGpidC0w95WIklZ08gOEhbIYljVRf?=
- =?us-ascii?Q?K+s4BRdpVSg1fwFpcLWxCw7a5FxWGLs7JYXmfvHCa46iZ418t1T09yqvnT1w?=
- =?us-ascii?Q?6Kl3Mpm9E+9wka5llf0HNbu4FU4CG7z0JucE9uypFBHag1j8BU8XlnF8SKfS?=
- =?us-ascii?Q?3ax0HH6FkRDtwUzk+gMO4Kc8+FqIUWNrziOcOCe+CYMOGI3bH51sGm0PQxAB?=
- =?us-ascii?Q?s8cBFpqa2tYkpYxoNKK2Lpohz92SurVgIGX5UAE+Zwq4si/Io1KVG1SmnFid?=
- =?us-ascii?Q?2whyuaQkOY9eq4CfTVl9KRKLkid12hAw+nLF9BRwLPjupxcjOpLyxUYi3s6Y?=
- =?us-ascii?Q?Qt3Co1ROLs6VJVIYmNBbr5TABM6rx/oooanzi5u4JvNdNlEtfn3Hj5NGmHQi?=
- =?us-ascii?Q?8D89exJ4OroyBHaLslIqlD9MQ0kb1MhExihlI1d1eQKXP7YfDADlF0w4khHI?=
- =?us-ascii?Q?qnVcx+5z0VstJbipW8aXsyNPeRXqInQaXY6zDO8eZ0xq9nONxb/PVoXzaGOu?=
- =?us-ascii?Q?A+LJ6bSwxnl80AYN7Q5qyzQlZavaYeApgfrIGkJsQwwv13aZPqUMfof8mWul?=
- =?us-ascii?Q?vVKiZ0L5wcT/u8lT/gwmxpvMqcKzaXgh4JTfr2F0FBrv6CtEF3b0lQAax4AD?=
- =?us-ascii?Q?+bF1Qqxk0SYep5n1hj2zmSPatrRa0HkzkLiZxce9+BKeRArIqDsiVykp9Abt?=
- =?us-ascii?Q?nQ=3D=3D?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 32876c54-9dae-4795-d27d-08dc3e57e36e
-X-MS-Exchange-CrossTenant-AuthSource: 
- NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Mar 2024 03:37:17.9947
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- 2ibMASXDNpT/1QvUcWRtMH7e8kNEnGDHPiDtS8T2j5b6ecov1a1JJ1t3e0xKKwLikG4on5slSGaQiE0iY57ldbFAZyPwtem89dsEvyLV14E=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: NTZPR01MB0969
-X-MailFrom: xingyu.wu@starfivetech.com
-X-Mailman-Rule-Hits: nonmember-moderation
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240306075510.535963-4-chancel.liu@nxp.com>
+Message-ID-Hash: O62T6NTMG3OIITOI4WHX4CSGNAFEGTH4
+X-Message-ID-Hash: O62T6NTMG3OIITOI4WHX4CSGNAFEGTH4
+X-MailFrom: lkp@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: 37OMCOLHW4UMVZ7HGJDW3DVAUIQMQXN4
-X-Message-ID-Hash: 37OMCOLHW4UMVZ7HGJDW3DVAUIQMQXN4
-X-Mailman-Approved-At: Sat, 09 Mar 2024 10:11:37 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/37OMCOLHW4UMVZ7HGJDW3DVAUIQMQXN4/>
+Archived-At: <>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -162,469 +112,179 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add the driver of PDM controller for the StarFive JH8100 SoC.
+Hi Chancel,
 
-The Pulse Density Modulation (PDM) controller is a digital PDM
-microphone interface controller and decoder that supports both
-mono/stereo PDM format, and a Inter-IC Sound (I2S) transmitter
-that outputs standard stereo audio data to another device.
+kernel test robot noticed the following build errors:
 
-On the JH8100 SoC, PDM and I2S are fixedly connected as follow:
-PDM module 0 --> I2S channel 0
-PDM module 1 --> I2S channel 1
+[auto build test ERROR on shawnguo/for-next]
+[also build test ERROR on broonie-sound/for-next linus/master v6.8-rc7 next-20240306]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Signed-off-by: Xingyu Wu <xingyu.wu@starfivetech.com>
----
- MAINTAINERS                     |   7 +
- sound/soc/starfive/Kconfig      |   7 +
- sound/soc/starfive/Makefile     |   1 +
- sound/soc/starfive/jh8100_pdm.c | 395 ++++++++++++++++++++++++++++++++
- 4 files changed, 410 insertions(+)
- create mode 100644 sound/soc/starfive/jh8100_pdm.c
+url:    https://github.com/intel-lab-lkp/linux/commits/Chancel-Liu/ASoC-fsl-imx_pcm_rpmsg-Register-component-with-rpmsg-channel-name/20240306-155945
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/shawnguo/linux.git for-next
+patch link:    https://lore.kernel.org/r/20240306075510.535963-4-chancel.liu%40nxp.com
+patch subject: [PATCH 3/4] ASoC: fsl: Let imx-audio-rpmsg register platform device for card
+config: s390-allmodconfig (https://download.01.org/0day-ci/archive/20240307/202403071138.bdVPDO4p-lkp@intel.com/config)
+compiler: clang version 19.0.0git (https://github.com/llvm/llvm-project 325f51237252e6dab8e4e1ea1fa7acbb4faee1cd)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240307/202403071138.bdVPDO4p-lkp@intel.com/reproduce)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 2ecaaec6a6bf..7923f70d1192 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -20941,6 +20941,13 @@ F:	Documentation/devicetree/bindings/power/starfive*
- F:	drivers/pmdomain/starfive/
- F:	include/dt-bindings/power/starfive,jh7110-pmu.h
- 
-+STARFIVE JH8100 PDM DRIVER
-+M:	Xingyu Wu <xingyu.wu@starfivetech.com>
-+M:	Walker Chen <walker.chen@starfivetech.com>
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/sound/starfive,jh8100-pdm.yaml
-+F:	sound/soc/starfive/jh8100_pdm.c
-+
- STARFIVE SOC DRIVERS
- M:	Conor Dooley <conor@kernel.org>
- S:	Maintained
-diff --git a/sound/soc/starfive/Kconfig b/sound/soc/starfive/Kconfig
-index 279ac5c1d309..9beb734d2028 100644
---- a/sound/soc/starfive/Kconfig
-+++ b/sound/soc/starfive/Kconfig
-@@ -22,3 +22,10 @@ config SND_SOC_JH7110_TDM
- 	select SND_SOC_GENERIC_DMAENGINE_PCM
- 	help
- 	  Say Y or M if you want to add support for StarFive TDM driver.
-+
-+config SND_SOC_JH8100_PDM
-+	tristate "JH8100 PDM controller device driver"
-+	select SND_CADENCE_I2S_MC
-+	select REGMAP_MMIO
-+	help
-+	  Say Y or M if you want to add support for StarFive PDM driver.
-diff --git a/sound/soc/starfive/Makefile b/sound/soc/starfive/Makefile
-index 9e958f70ef51..b672425830d9 100644
---- a/sound/soc/starfive/Makefile
-+++ b/sound/soc/starfive/Makefile
-@@ -1,3 +1,4 @@
- # StarFive Platform Support
- obj-$(CONFIG_SND_SOC_JH7110_PWMDAC) += jh7110_pwmdac.o
- obj-$(CONFIG_SND_SOC_JH7110_TDM) += jh7110_tdm.o
-+obj-$(CONFIG_SND_SOC_JH8100_PDM) += jh8100_pdm.o
-diff --git a/sound/soc/starfive/jh8100_pdm.c b/sound/soc/starfive/jh8100_pdm.c
-new file mode 100644
-index 000000000000..8a05a544e5ef
---- /dev/null
-+++ b/sound/soc/starfive/jh8100_pdm.c
-@@ -0,0 +1,395 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * PDM driver for the StarFive JH8100 SoC
-+ *
-+ * Copyright (C) 2023 StarFive Technology Co., Ltd.
-+ */
-+#include <linux/bitfield.h>
-+#include <linux/clk.h>
-+#include <linux/mfd/syscon.h>
-+#include <linux/module.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/regmap.h>
-+#include <linux/reset.h>
-+#include <sound/dmaengine_pcm.h>
-+#include <sound/tlv.h>
-+
-+/* PDM RES */
-+/* MODULE 0 */
-+#define JH8100_PDM_DMIC_CTRL0			0x00
-+#define JH8100_PDM_DC_SCALE0			0x04
-+/* MODULE 1 */
-+#define JH8100_PDM_DMIC_CTRL1			0x10
-+#define JH8100_PDM_DC_SCALE1			0x14
-+#define JH8100_PDM_MODULEX_SHIFT		0x10
-+
-+/* PDM CTRL0/1 OFFSET */
-+#define JH8100_PDM_DMIC_MSB_SHIFT		1
-+#define JH8100_PDM_DMIC_MSB_MASK		GENMASK(3, 1)
-+#define JH8100_PDM_DMIC_VOL_MASK		GENMASK(21, 16)
-+#define JH8100_PDM_VOL_DB_MUTE			GENMASK(21, 16)
-+#define JH8100_PDM_VOL_DB_MAX			0
-+
-+#define JH8100_PDM_DMIC_RVOL_MASK		BIT(22)
-+#define JH8100_PDM_DMIC_LVOL_MASK		BIT(23)
-+#define JH8100_PDM_DMIC_I2S_SLAVE		BIT(24)
-+#define JH8100_PDM_DMIC_HPF_EN			BIT(28)
-+#define JH8100_PDM_DMIC_FASTMODE_MASK		BIT(29)
-+#define JH8100_PDM_DMIC_DC_BYPASS_MASK		BIT(30)
-+#define JH8100_PDM_SW_RST_MASK			BIT(31)
-+#define JH8100_PDM_SW_RST_RELEASE		BIT(31)
-+
-+/* PDM SCALE0/1 OFFSET */
-+#define JH8100_DMIC_DCOFF3_MASK			GENMASK(27, 24)
-+#define JH8100_DMIC_DCOFF3_DEF_VAL		GENMASK(27, 26)
-+#define JH8100_DMIC_DCOFF1_MASK			GENMASK(15, 8)
-+#define JH8100_DMIC_DCOFF1_SHIFT		8
-+#define JH8100_DMIC_DCOFF1_DEF_VAL		FIELD_PREP(JH8100_DMIC_DCOFF1_MASK, 5)
-+#define JH8100_DMIC_SCALE_MASK			GENMASK(5, 0)
-+#define JH8100_DMIC_SCALE_DEF_VAL		0x8
-+
-+struct jh8100_pdm_priv {
-+	struct regmap *regmap;
-+	struct regmap *syscon_regmap;
-+	struct device *dev;
-+	struct clk *dmic_clk;
-+	struct clk *icg_clk;
-+	struct reset_control *rst;
-+	unsigned int syscon_args[2]; /* [0]: offset, [1]: mask */
-+};
-+
-+static const DECLARE_TLV_DB_SCALE(volume_tlv, -9450, 150, 0);
-+
-+static const struct snd_kcontrol_new jh8100_pdm_snd_controls[] = {
-+	SOC_SINGLE("DC compensation Control", JH8100_PDM_DMIC_CTRL0, 30, 1, 0),
-+	SOC_SINGLE("High Pass Filter Control", JH8100_PDM_DMIC_CTRL0, 28, 1, 0),
-+	SOC_SINGLE("Left Channel Volume Control", JH8100_PDM_DMIC_CTRL0, 23, 1, 0),
-+	SOC_SINGLE("Right Channel Volume Control", JH8100_PDM_DMIC_CTRL0, 22, 1, 0),
-+	SOC_SINGLE_TLV("Volume", JH8100_PDM_DMIC_CTRL0, 16, 0x3F, 1, volume_tlv),
-+	SOC_SINGLE("Data MSB Shift", JH8100_PDM_DMIC_CTRL0, 1, 7, 0),
-+	SOC_SINGLE("SCALE", JH8100_PDM_DC_SCALE0, 0, 0x3F, 0),
-+	SOC_SINGLE("DC offset", JH8100_PDM_DC_SCALE0, 8, 0xFFFFF, 0),
-+};
-+
-+static void jh8100_pdm_enable(struct regmap *map)
-+{
-+	/* Left and Right Channel Volume Control Enable */
-+	regmap_update_bits(map, JH8100_PDM_DMIC_CTRL0, JH8100_PDM_DMIC_RVOL_MASK, 0);
-+	regmap_update_bits(map, JH8100_PDM_DMIC_CTRL0, JH8100_PDM_DMIC_LVOL_MASK, 0);
-+}
-+
-+static void jh8100_pdm_disable(struct regmap *map)
-+{
-+	/* Left and Right Channel Volume Control Disable */
-+	regmap_update_bits(map, JH8100_PDM_DMIC_CTRL0,
-+			   JH8100_PDM_DMIC_RVOL_MASK, JH8100_PDM_DMIC_RVOL_MASK);
-+	regmap_update_bits(map, JH8100_PDM_DMIC_CTRL0,
-+			   JH8100_PDM_DMIC_LVOL_MASK, JH8100_PDM_DMIC_LVOL_MASK);
-+}
-+
-+static int jh8100_pdm_dai_probe(struct snd_soc_dai *dai)
-+{
-+	struct jh8100_pdm_priv *priv = snd_soc_dai_get_drvdata(dai);
-+
-+	/* Change I2SDIN source to PDM */
-+	regmap_update_bits(priv->syscon_regmap, priv->syscon_args[0],
-+			   priv->syscon_args[1], priv->syscon_args[1]);
-+
-+	return 0;
-+}
-+
-+static int jh8100_pdm_trigger(struct snd_pcm_substream *substream, int cmd,
-+			      struct snd_soc_dai *dai)
-+{
-+	struct jh8100_pdm_priv *priv = snd_soc_dai_get_drvdata(dai);
-+
-+	switch (cmd) {
-+	case SNDRV_PCM_TRIGGER_START:
-+	case SNDRV_PCM_TRIGGER_RESUME:
-+	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
-+		jh8100_pdm_enable(priv->regmap);
-+		return 0;
-+
-+	case SNDRV_PCM_TRIGGER_STOP:
-+	case SNDRV_PCM_TRIGGER_SUSPEND:
-+	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-+		jh8100_pdm_disable(priv->regmap);
-+		return 0;
-+
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int jh8100_pdm_hw_params(struct snd_pcm_substream *substream,
-+				struct snd_pcm_hw_params *params,
-+				struct snd_soc_dai *dai)
-+{
-+	struct jh8100_pdm_priv *priv = snd_soc_dai_get_drvdata(dai);
-+
-+	/* set pdm_mclk,  PDM MCLK = 128 * LRCLK */
-+	return clk_set_rate(priv->dmic_clk, 128 * params_rate(params));
-+}
-+
-+static const struct snd_soc_dai_ops jh8100_pdm_dai_ops = {
-+	.probe		= jh8100_pdm_dai_probe,
-+	.trigger	= jh8100_pdm_trigger,
-+	.hw_params	= jh8100_pdm_hw_params,
-+};
-+
-+/* Use DMIC1 in PDM */
-+static void jh8100_pdm_module_init(struct jh8100_pdm_priv *priv)
-+{
-+	/* Reset */
-+	regmap_update_bits(priv->regmap, JH8100_PDM_DMIC_CTRL0,
-+			   JH8100_PDM_SW_RST_MASK, 0x00);
-+	regmap_update_bits(priv->regmap, JH8100_PDM_DMIC_CTRL0,
-+			   JH8100_PDM_SW_RST_MASK, JH8100_PDM_SW_RST_RELEASE);
-+
-+	/* Make sure the device is initially disabled */
-+	jh8100_pdm_disable(priv->regmap);
-+
-+	/* MUTE */
-+	regmap_update_bits(priv->regmap, JH8100_PDM_DMIC_CTRL0,
-+			   JH8100_PDM_DMIC_VOL_MASK, JH8100_PDM_VOL_DB_MUTE);
-+
-+	/* UNMUTE */
-+	regmap_update_bits(priv->regmap, JH8100_PDM_DMIC_CTRL0,
-+			   JH8100_PDM_DMIC_VOL_MASK, JH8100_PDM_VOL_DB_MAX);
-+
-+	/* enable high pass filter */
-+	regmap_update_bits(priv->regmap, JH8100_PDM_DMIC_CTRL0,
-+			   JH8100_PDM_DMIC_HPF_EN, JH8100_PDM_DMIC_HPF_EN);
-+
-+	/* PDM work as slave mode */
-+	regmap_update_bits(priv->regmap, JH8100_PDM_DMIC_CTRL0,
-+			   JH8100_PDM_DMIC_I2S_SLAVE, JH8100_PDM_DMIC_I2S_SLAVE);
-+
-+	/* enable fast mode */
-+	regmap_update_bits(priv->regmap, JH8100_PDM_DMIC_CTRL0,
-+			   JH8100_PDM_DMIC_FASTMODE_MASK, JH8100_PDM_DMIC_FASTMODE_MASK);
-+
-+	/* default dmic msb shift 0 */
-+	regmap_update_bits(priv->regmap, JH8100_PDM_DMIC_CTRL0,
-+			   JH8100_PDM_DMIC_MSB_MASK, 0);
-+
-+	/* default scale: 0x8 */
-+	regmap_update_bits(priv->regmap, JH8100_PDM_DC_SCALE0,
-+			   JH8100_DMIC_SCALE_MASK, JH8100_DMIC_SCALE_DEF_VAL);
-+
-+	regmap_update_bits(priv->regmap, JH8100_PDM_DC_SCALE0,
-+			   JH8100_DMIC_DCOFF1_MASK, JH8100_DMIC_DCOFF1_DEF_VAL);
-+
-+	regmap_update_bits(priv->regmap, JH8100_PDM_DC_SCALE0,
-+			   JH8100_DMIC_DCOFF3_MASK, JH8100_DMIC_DCOFF3_DEF_VAL);
-+}
-+
-+#define JH8100_PDM_RATES	(SNDRV_PCM_RATE_8000 | \
-+				SNDRV_PCM_RATE_11025 | \
-+				SNDRV_PCM_RATE_16000)
-+
-+#define JH8100_PDM_FORMATS	(SNDRV_PCM_FMTBIT_S16_LE | \
-+				SNDRV_PCM_FMTBIT_S32_LE)
-+
-+static struct snd_soc_dai_driver jh8100_pdm_dai_drv = {
-+	.name = "PDM",
-+	.id = 0,
-+	.capture = {
-+		.stream_name	= "Capture",
-+		.channels_min	= 1,
-+		.channels_max	= 2,
-+		.rates		= JH8100_PDM_RATES,
-+		.formats	= JH8100_PDM_FORMATS,
-+	},
-+	.ops = &jh8100_pdm_dai_ops,
-+	.symmetric_rate = 1,
-+};
-+
-+static int jh8100_pdm_component_probe(struct snd_soc_component *component)
-+{
-+	struct jh8100_pdm_priv *priv = snd_soc_component_get_drvdata(component);
-+
-+	snd_soc_component_init_regmap(component, priv->regmap);
-+	snd_soc_add_component_controls(component, jh8100_pdm_snd_controls,
-+				       ARRAY_SIZE(jh8100_pdm_snd_controls));
-+
-+	return 0;
-+}
-+
-+static int jh8100_pdm_crg_enable(struct jh8100_pdm_priv *priv)
-+{
-+	int ret;
-+
-+	ret = clk_prepare_enable(priv->icg_clk);
-+	if (ret)
-+		return dev_err_probe(priv->dev, ret, "failed to enable icg clock\n");
-+
-+	ret = reset_control_deassert(priv->rst);
-+	if (ret) {
-+		dev_err(priv->dev, "failed to deassert pdm_apb\n");
-+		goto disable_icg;
-+	}
-+
-+	return 0;
-+
-+disable_icg:
-+	clk_disable_unprepare(priv->icg_clk);
-+	return ret;
-+}
-+
-+#ifdef CONFIG_PM
-+static int jh8100_pdm_runtime_suspend(struct device *dev)
-+{
-+	struct jh8100_pdm_priv *priv = dev_get_drvdata(dev);
-+
-+	clk_disable_unprepare(priv->icg_clk);
-+	return 0;
-+}
-+
-+static int jh8100_pdm_runtime_resume(struct device *dev)
-+{
-+	struct jh8100_pdm_priv *priv = dev_get_drvdata(dev);
-+
-+	return jh8100_pdm_crg_enable(priv);
-+}
-+#endif
-+
-+#ifdef CONFIG_PM_SLEEP
-+static int jh8100_pdm_suspend(struct snd_soc_component *component)
-+{
-+	return pm_runtime_force_suspend(component->dev);
-+}
-+
-+static int jh8100_pdm_resume(struct snd_soc_component *component)
-+{
-+	return pm_runtime_force_resume(component->dev);
-+}
-+
-+#else
-+#define jh8100_pdm_suspend	NULL
-+#define jh8100_pdm_resume	NULL
-+#endif
-+
-+static const struct snd_soc_component_driver jh8100_pdm_component_drv = {
-+	.name = "jh8100-pdm",
-+	.probe = jh8100_pdm_component_probe,
-+	.suspend = jh8100_pdm_suspend,
-+	.resume = jh8100_pdm_resume,
-+};
-+
-+static const struct regmap_config jh8100_pdm_regmap_cfg = {
-+	.reg_bits	= 32,
-+	.val_bits	= 32,
-+	.reg_stride	= 4,
-+	.max_register	= 0x20,
-+};
-+
-+static int jh8100_pdm_crg_init(struct jh8100_pdm_priv *priv)
-+{
-+	priv->dmic_clk = devm_clk_get(priv->dev, "dmic");
-+	if (IS_ERR(priv->dmic_clk))
-+		return dev_err_probe(priv->dev, PTR_ERR(priv->dmic_clk),
-+				     "failed to get dmic clock.\n");
-+
-+	priv->icg_clk = devm_clk_get(priv->dev, "icg");
-+	if (IS_ERR(priv->icg_clk))
-+		return dev_err_probe(priv->dev, PTR_ERR(priv->icg_clk),
-+				     "failed to get icg clock.\n");
-+
-+	priv->rst = devm_reset_control_get_exclusive(priv->dev, NULL);
-+	if (IS_ERR(priv->rst))
-+		return dev_err_probe(priv->dev, PTR_ERR(priv->rst), "failed to get pdm reset\n");
-+
-+	return jh8100_pdm_crg_enable(priv);
-+}
-+
-+static int jh8100_pdm_probe(struct platform_device *pdev)
-+{
-+	struct jh8100_pdm_priv *priv;
-+	void __iomem *base;
-+	int ret;
-+	u8 using_modulex;
-+
-+	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+
-+	base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(base))
-+		return PTR_ERR(base);
-+
-+	platform_set_drvdata(pdev, priv);
-+
-+	if (!device_property_read_u8(&pdev->dev, "starfive,pdm-modulex", &using_modulex))
-+		if (using_modulex == 1)
-+			base += JH8100_PDM_MODULEX_SHIFT; /* Use module 1 */
-+
-+	priv->regmap = devm_regmap_init_mmio(&pdev->dev, base, &jh8100_pdm_regmap_cfg);
-+	if (IS_ERR(priv->regmap))
-+		return dev_err_probe(&pdev->dev, PTR_ERR(priv->regmap),
-+				     "failed to init regmap\n");
-+
-+	priv->dev = &pdev->dev;
-+	ret = jh8100_pdm_crg_init(priv);
-+	if (ret)
-+		return ret;
-+
-+	priv->syscon_regmap = syscon_regmap_lookup_by_phandle_args(pdev->dev.of_node,
-+								   "starfive,syscon",
-+								   2, priv->syscon_args);
-+	if (IS_ERR(priv->syscon_regmap))
-+		return dev_err_probe(&pdev->dev, PTR_ERR(priv->syscon_regmap),
-+				     "get the syscon regmap failed\n");
-+
-+	ret = devm_snd_soc_register_component(&pdev->dev, &jh8100_pdm_component_drv,
-+					      &jh8100_pdm_dai_drv, 1);
-+	if (ret)
-+		return dev_err_probe(&pdev->dev, ret, "failed to register pdm dai\n");
-+
-+	jh8100_pdm_module_init(priv);
-+
-+	pm_runtime_enable(&pdev->dev);
-+	if (pm_runtime_enabled(&pdev->dev))
-+		clk_disable_unprepare(priv->icg_clk);
-+
-+	return 0;
-+}
-+
-+static int jh8100_pdm_remove(struct platform_device *pdev)
-+{
-+	struct jh8100_pdm_priv *priv = platform_get_drvdata(pdev);
-+
-+	/* Change I2SDIN source to default(PAD) */
-+	regmap_update_bits(priv->syscon_regmap, priv->syscon_args[0],
-+			   priv->syscon_args[1], 0);
-+	pm_runtime_disable(&pdev->dev);
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id jh8100_pdm_of_match[] = {
-+	{.compatible = "starfive,jh8100-pdm",},
-+	{}
-+};
-+MODULE_DEVICE_TABLE(of, jh8100_pdm_of_match);
-+
-+static const struct dev_pm_ops jh8100_pdm_pm_ops = {
-+	SET_RUNTIME_PM_OPS(jh8100_pdm_runtime_suspend,
-+			   jh8100_pdm_runtime_resume, NULL)
-+};
-+
-+static struct platform_driver jh8100_pdm_driver = {
-+	.driver = {
-+		.name = "jh8100-pdm",
-+		.of_match_table = jh8100_pdm_of_match,
-+		.pm = &jh8100_pdm_pm_ops,
-+	},
-+	.probe = jh8100_pdm_probe,
-+	.remove = jh8100_pdm_remove,
-+};
-+module_platform_driver(jh8100_pdm_driver);
-+
-+MODULE_AUTHOR("Xingyu Wu <xingyu.wu@starfivetech.com>");
-+MODULE_AUTHOR("Walker Chen <walker.chen@starfivetech.com>");
-+MODULE_DESCRIPTION("StarFive JH8100 PDM Controller Driver");
-+MODULE_LICENSE("GPL");
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202403071138.bdVPDO4p-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   In file included from include/linux/elf.h:6:
+   In file included from arch/s390/include/asm/elf.h:173:
+   In file included from arch/s390/include/asm/mmu_context.h:11:
+   In file included from arch/s390/include/asm/pgalloc.h:18:
+   In file included from include/linux/mm.h:2188:
+   include/linux/vmstat.h:508:43: warning: arithmetic between different enumeration types ('enum zone_stat_item' and 'enum numa_stat_item') [-Wenum-enum-conversion]
+     508 |         return vmstat_text[NR_VM_ZONE_STAT_ITEMS +
+         |                            ~~~~~~~~~~~~~~~~~~~~~ ^
+     509 |                            item];
+         |                            ~~~~
+   include/linux/vmstat.h:515:43: warning: arithmetic between different enumeration types ('enum zone_stat_item' and 'enum numa_stat_item') [-Wenum-enum-conversion]
+     515 |         return vmstat_text[NR_VM_ZONE_STAT_ITEMS +
+         |                            ~~~~~~~~~~~~~~~~~~~~~ ^
+     516 |                            NR_VM_NUMA_EVENT_ITEMS +
+         |                            ~~~~~~~~~~~~~~~~~~~~~~
+   include/linux/vmstat.h:522:36: warning: arithmetic between different enumeration types ('enum node_stat_item' and 'enum lru_list') [-Wenum-enum-conversion]
+     522 |         return node_stat_name(NR_LRU_BASE + lru) + 3; // skip "nr_"
+         |                               ~~~~~~~~~~~ ^ ~~~
+   include/linux/vmstat.h:527:43: warning: arithmetic between different enumeration types ('enum zone_stat_item' and 'enum numa_stat_item') [-Wenum-enum-conversion]
+     527 |         return vmstat_text[NR_VM_ZONE_STAT_ITEMS +
+         |                            ~~~~~~~~~~~~~~~~~~~~~ ^
+     528 |                            NR_VM_NUMA_EVENT_ITEMS +
+         |                            ~~~~~~~~~~~~~~~~~~~~~~
+   include/linux/vmstat.h:536:43: warning: arithmetic between different enumeration types ('enum zone_stat_item' and 'enum numa_stat_item') [-Wenum-enum-conversion]
+     536 |         return vmstat_text[NR_VM_ZONE_STAT_ITEMS +
+         |                            ~~~~~~~~~~~~~~~~~~~~~ ^
+     537 |                            NR_VM_NUMA_EVENT_ITEMS +
+         |                            ~~~~~~~~~~~~~~~~~~~~~~
+   In file included from sound/soc/fsl/imx-audio-rpmsg.c:6:
+   In file included from sound/soc/fsl/imx-pcm-rpmsg.h:278:
+   In file included from include/sound/dmaengine_pcm.h:11:
+   In file included from include/sound/soc.h:21:
+   In file included from include/linux/regmap.h:20:
+   In file included from include/linux/iopoll.h:14:
+   In file included from include/linux/io.h:13:
+   In file included from arch/s390/include/asm/io.h:78:
+   include/asm-generic/io.h:547:31: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+     547 |         val = __raw_readb(PCI_IOBASE + addr);
+         |                           ~~~~~~~~~~ ^
+   include/asm-generic/io.h:560:61: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+     560 |         val = __le16_to_cpu((__le16 __force)__raw_readw(PCI_IOBASE + addr));
+         |                                                         ~~~~~~~~~~ ^
+   include/uapi/linux/byteorder/big_endian.h:37:59: note: expanded from macro '__le16_to_cpu'
+      37 | #define __le16_to_cpu(x) __swab16((__force __u16)(__le16)(x))
+         |                                                           ^
+   include/uapi/linux/swab.h:102:54: note: expanded from macro '__swab16'
+     102 | #define __swab16(x) (__u16)__builtin_bswap16((__u16)(x))
+         |                                                      ^
+   In file included from sound/soc/fsl/imx-audio-rpmsg.c:6:
+   In file included from sound/soc/fsl/imx-pcm-rpmsg.h:278:
+   In file included from include/sound/dmaengine_pcm.h:11:
+   In file included from include/sound/soc.h:21:
+   In file included from include/linux/regmap.h:20:
+   In file included from include/linux/iopoll.h:14:
+   In file included from include/linux/io.h:13:
+   In file included from arch/s390/include/asm/io.h:78:
+   include/asm-generic/io.h:573:61: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+     573 |         val = __le32_to_cpu((__le32 __force)__raw_readl(PCI_IOBASE + addr));
+         |                                                         ~~~~~~~~~~ ^
+   include/uapi/linux/byteorder/big_endian.h:35:59: note: expanded from macro '__le32_to_cpu'
+      35 | #define __le32_to_cpu(x) __swab32((__force __u32)(__le32)(x))
+         |                                                           ^
+   include/uapi/linux/swab.h:115:54: note: expanded from macro '__swab32'
+     115 | #define __swab32(x) (__u32)__builtin_bswap32((__u32)(x))
+         |                                                      ^
+   In file included from sound/soc/fsl/imx-audio-rpmsg.c:6:
+   In file included from sound/soc/fsl/imx-pcm-rpmsg.h:278:
+   In file included from include/sound/dmaengine_pcm.h:11:
+   In file included from include/sound/soc.h:21:
+   In file included from include/linux/regmap.h:20:
+   In file included from include/linux/iopoll.h:14:
+   In file included from include/linux/io.h:13:
+   In file included from arch/s390/include/asm/io.h:78:
+   include/asm-generic/io.h:584:33: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+     584 |         __raw_writeb(value, PCI_IOBASE + addr);
+         |                             ~~~~~~~~~~ ^
+   include/asm-generic/io.h:594:59: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+     594 |         __raw_writew((u16 __force)cpu_to_le16(value), PCI_IOBASE + addr);
+         |                                                       ~~~~~~~~~~ ^
+   include/asm-generic/io.h:604:59: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+     604 |         __raw_writel((u32 __force)cpu_to_le32(value), PCI_IOBASE + addr);
+         |                                                       ~~~~~~~~~~ ^
+   include/asm-generic/io.h:692:20: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+     692 |         readsb(PCI_IOBASE + addr, buffer, count);
+         |                ~~~~~~~~~~ ^
+   include/asm-generic/io.h:700:20: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+     700 |         readsw(PCI_IOBASE + addr, buffer, count);
+         |                ~~~~~~~~~~ ^
+   include/asm-generic/io.h:708:20: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+     708 |         readsl(PCI_IOBASE + addr, buffer, count);
+         |                ~~~~~~~~~~ ^
+   include/asm-generic/io.h:717:21: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+     717 |         writesb(PCI_IOBASE + addr, buffer, count);
+         |                 ~~~~~~~~~~ ^
+   include/asm-generic/io.h:726:21: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+     726 |         writesw(PCI_IOBASE + addr, buffer, count);
+         |                 ~~~~~~~~~~ ^
+   include/asm-generic/io.h:735:21: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+     735 |         writesl(PCI_IOBASE + addr, buffer, count);
+         |                 ~~~~~~~~~~ ^
+>> sound/soc/fsl/imx-audio-rpmsg.c:107:8: error: use of undeclared label 'fail'
+     107 |                 goto fail;
+         |                      ^
+   17 warnings and 1 error generated.
+
+
+vim +/fail +107 sound/soc/fsl/imx-audio-rpmsg.c
+
+    74	
+    75	static int imx_audio_rpmsg_probe(struct rpmsg_device *rpdev)
+    76	{
+    77		struct imx_audio_rpmsg *data;
+    78		int ret = 0;
+    79	
+    80		dev_info(&rpdev->dev, "new channel: 0x%x -> 0x%x!\n",
+    81			 rpdev->src, rpdev->dst);
+    82	
+    83		data = devm_kzalloc(&rpdev->dev, sizeof(*data), GFP_KERNEL);
+    84		if (!data)
+    85			return -ENOMEM;
+    86	
+    87		dev_set_drvdata(&rpdev->dev, data);
+    88	
+    89		/* Register platform driver for rpmsg routine */
+    90		data->rpmsg_pdev = platform_device_register_data(&rpdev->dev,
+    91								 rpdev->id.name,
+    92								 PLATFORM_DEVID_NONE,
+    93								 NULL, 0);
+    94		if (IS_ERR(data->rpmsg_pdev)) {
+    95			dev_err(&rpdev->dev, "failed to register rpmsg platform.\n");
+    96			ret = PTR_ERR(data->rpmsg_pdev);
+    97		}
+    98	
+    99		data->card_pdev = platform_device_register_data(&rpdev->dev,
+   100								"imx-audio-rpmsg",
+   101								PLATFORM_DEVID_AUTO,
+   102								rpdev->id.name,
+   103								strlen(rpdev->id.name));
+   104		if (IS_ERR(data->card_pdev)) {
+   105			dev_err(&rpdev->dev, "failed to register rpmsg card.\n");
+   106			ret = PTR_ERR(data->card_pdev);
+ > 107			goto fail;
+   108		}
+   109	
+   110		return ret;
+   111	}
+   112	
+
 -- 
-2.25.1
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki

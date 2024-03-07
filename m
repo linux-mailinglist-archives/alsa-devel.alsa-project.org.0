@@ -2,54 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3D8A874FE8
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Mar 2024 14:24:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3404687505A
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Mar 2024 14:39:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 00AF884D;
-	Thu,  7 Mar 2024 14:24:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 00AF884D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 99563820;
+	Thu,  7 Mar 2024 14:39:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 99563820
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1709817884;
-	bh=Bw4HU4Tl1OP6J55CeRLQChe2rUzmalbRo+zdkxj5SSA=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=CffKSV7BUqPhjw5gk+VQL3qjQAdMeSc+QTHP3/wUUalOrmnh1RHUtf2yRTNtCNsbj
-	 iw+EWeRo+B6tqyfOmKRlmh6xKuQTwlIsDAW3C1eLtjZtKfgyzWL/QgByhqcNb4Vss1
-	 +unHqu2hxkUJwtkWG5euxmbw72jzxSvWBuBKQ/hk=
+	s=default; t=1709818796;
+	bh=jdziFFhymjkKWVH2L66KHJLIKy2BknU2Y6GQbKeQUN0=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=ExVx9SxPrXZMUeRo4dQlxzA9u6w+etUTT3psafgh62BnLm8aY1q5qULs3AUS46JIi
+	 FZVhm7WaxN+r4yZL7IFX1NTaJ39iPRzt0H4pJihyRMBdAFIVRtA7IoLDxlp+jUAvKV
+	 CeVa2+dBsU5JTOrNijL2e+RptjA/UTL+7gi7BuzQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 41671F80578; Thu,  7 Mar 2024 14:24:12 +0100 (CET)
+	id 0291FF805B0; Thu,  7 Mar 2024 14:39:14 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CD27DF80570;
-	Thu,  7 Mar 2024 14:24:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2C1AEF805B2;
+	Thu,  7 Mar 2024 14:39:14 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 354B2F8024E; Thu,  7 Mar 2024 14:24:06 +0100 (CET)
+	id 2A5EBF8024E; Thu,  7 Mar 2024 14:39:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
- [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8188FF80087
-	for <alsa-devel@alsa-project.org>; Thu,  7 Mar 2024 14:24:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8188FF80087
+X-Spam-Status: No, score=-5.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3523DF80088
+	for <alsa-devel@alsa-project.org>; Thu,  7 Mar 2024 14:38:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3523DF80088
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=EZURRjwF
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id C5D6ECE2222;
+	Thu,  7 Mar 2024 13:38:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9A13C433C7;
+	Thu,  7 Mar 2024 13:38:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1709818733;
+	bh=jdziFFhymjkKWVH2L66KHJLIKy2BknU2Y6GQbKeQUN0=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+	b=EZURRjwFB6Gt7MazyGetYAEDZL/lr9tOV8UGUjY3V/0VSV11g+uGlqg+v7EiLtZV/
+	 BtjbRK0Iwoqh58ZgA3CdcQX84x2D6BX+RnLJ05UX63NrG/KOZzSbhfSzhPDd6Mi4Be
+	 FakJCatHxob98B+VZRFUls/7L1xD69bs07V+zYQR5bRlVwbsuCI3iVzd1+2ZtpPDG2
+	 eib4cAZTIz9b2oGNI1tpvWBW/mH/5gsTchrX16H2JhihpXGPU0i55WbQF8sdPb+Ig2
+	 XwBfFY+d1IWdJiUy4exyAQpwoHlBRI8wziWhbPzN43d11PHd/bCyou8/D+g/s0bAjD
+	 yTECBlR97r0Bw==
+Date: Thu, 07 Mar 2024 07:38:51 -0600
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1709817839083246231-webhooks-bot@alsa-project.org>
-References: <1709817839083246231-webhooks-bot@alsa-project.org>
-Subject: Strange trigger_htstamp after snd_pcm_drop
-Message-Id: <20240307132406.354B2F8024E@alsa1.perex.cz>
-Date: Thu,  7 Mar 2024 14:24:06 +0100 (CET)
-Message-ID-Hash: OELUWQEAY6J4DS6I3YNPABYE7326IXMM
-X-Message-ID-Hash: OELUWQEAY6J4DS6I3YNPABYE7326IXMM
-X-MailFrom: github@alsa-project.org
+From: Rob Herring <robh@kernel.org>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: linux-arm-kernel@lists.infradead.org, shane.chien@mediatek.com,
+ nicolas.ferre@microchip.com, perex@perex.cz, allen-kh.cheng@mediatek.com,
+ linux-sound@vger.kernel.org, dianders@chromium.org,
+ krzysztof.kozlowski+dt@linaro.org, kernel@collabora.com,
+ matthias.bgg@gmail.com, alpernebiyasak@gmail.com, conor+dt@kernel.org,
+ linux-kernel@vger.kernel.org, tiwai@suse.com, eugen.hristev@collabora.com,
+ nfraprado@collabora.com, arnd@arndb.de, linux-mediatek@lists.infradead.org,
+ amergnat@baylibre.com, claudiu.beznea@tuxon.dev, frank.li@vivo.com,
+ zhourui@huaqin.corp-partner.google.com, wenst@chromium.org,
+ kuninori.morimoto.gx@renesas.com,
+ xiazhengqiao@huaqin.corp-partner.google.com, trevor.wu@mediatek.com,
+ devicetree@vger.kernel.org, jarkko.nikula@bitmer.com,
+ ckeepax@opensource.cirrus.com, lgirdwood@gmail.com, shraash@google.com,
+ alsa-devel@alsa-project.org, u.kleine-koenig@pengutronix.de,
+ jiaxin.yu@mediatek.com, broonie@kernel.org, maso.huang@mediatek.com
+In-Reply-To: 
+ <20240307114445.196981-20-angelogioacchino.delregno@collabora.com>
+References: <20240307114445.196981-1-angelogioacchino.delregno@collabora.com>
+ <20240307114445.196981-20-angelogioacchino.delregno@collabora.com>
+Message-Id: <170981873007.2495472.10889414408252370603.robh@kernel.org>
+Subject: Re: [PATCH v2 19/22] ASoC: dt-bindings: mt8192: Document
+ audio-routing and dai-link subnode
+Message-ID-Hash: PATZ4IIFZGX2J7VNUCO4Q7H5E6442JPA
+X-Message-ID-Hash: PATZ4IIFZGX2J7VNUCO4Q7H5E6442JPA
+X-MailFrom: robh@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -60,28 +101,51 @@ X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OELUWQEAY6J4DS6I3YNPABYE7326IXMM/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+Archived-At: <>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-lib issue #387 was opened from z-s-e:
 
-I have conceptually the following situation (actual code can be found [here](https://gitlab.com/z-s-e/alpe/-/blob/main/src/alpe_alsa.cpp?ref_type=heads#L590)):
-```
-// sound is currently playing
-snd_pcm_status(pcm, pcm_status);
-snd_pcm_status_get_htstamp(pcm_status, &ts1);
-snd_pcm_drop(pcm);
-snd_pcm_status(pcm, pcm_status);
-snd_pcm_status_get_trigger_htstamp(status, &ts2);
-```
-On my hardware I get a `ts2` timestamp that is earlier than `ts1`.  From my understanding that should be impossible, as `ts2` should contain the timestamp of when the drop happened, which should obviously be after `ts1`. Is that a bug or do I misunderstand the meaning of those timestamps?
+On Thu, 07 Mar 2024 12:44:42 +0100, AngeloGioacchino Del Regno wrote:
+> Document the dai-link subnodes and the audio-routing property, allowing
+> to describe machine specific audio hardware and links in device tree.
+> 
+> While at it, also deprecate the old properties which were previously
+> used with the driver's partially hardcoded configuration.
+> 
+> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> ---
+>  .../sound/mt8192-mt6359-rt1015-rt5682.yaml    | 124 ++++++++++++++++--
+>  1 file changed, 115 insertions(+), 9 deletions(-)
+> 
 
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/387
-Repository URL: https://github.com/alsa-project/alsa-lib
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
+
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/mt8192-mt6359-rt1015-rt5682.example.dtb: mt8192-sound: 'model' does not match any of the regexes: '.*-dai-link$', 'pinctrl-[0-9]+'
+	from schema $id: http://devicetree.org/schemas/sound/mt8192-mt6359-rt1015-rt5682.yaml#
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20240307114445.196981-20-angelogioacchino.delregno@collabora.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+

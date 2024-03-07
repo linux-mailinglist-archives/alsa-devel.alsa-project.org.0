@@ -2,97 +2,115 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 642878746FA
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Mar 2024 04:52:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D192874700
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Mar 2024 04:57:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6169A84A;
-	Thu,  7 Mar 2024 04:52:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6169A84A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8E474868;
+	Thu,  7 Mar 2024 04:57:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E474868
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1709783564;
-	bh=qHETVGmABCOv5h0hlnwqLErCUvhtOVNNegiNhI6aBxI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=KpXHEJjfY8311bSBNZ8byu3x0pZtTTmXS+1OFZlF45fGgHEVDPTvGOXE/mgaVSlB7
-	 q9e3AfdLrhta2CjRQ/wyRr3Trufyp07zsG3pNj20AQ7AmAo5vJqD+rlEfxLYXChGSA
-	 mC3vm8GC50tcvJ3UBsfaecIp0KU5fY8bxD5L5CEY=
+	s=default; t=1709783855;
+	bh=60LNj6IGYfVZoj/gyXjOZf0QfdP/hyNETqINZbDOM9c=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=DZ6rAN3hU/PALkXlhDVpZbDFkNUQoBH3uXdm6g3keTVU5knBbc94HXbbnwUTdWQ26
+	 7laIAZMMENNAXMWFmbJ4UKMftrnVfcz2RJdiJtN9OdgDNdz5RUYOyvAu1v+l5fqGIR
+	 U0MOQ4kYvUrXsSVxaD/tayK/FhUPnBF8NM9IzwWg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9E0ABF80494; Thu,  7 Mar 2024 04:52:12 +0100 (CET)
+	id A7CB7F8058C; Thu,  7 Mar 2024 04:57:04 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 13ECEF802E8;
-	Thu,  7 Mar 2024 04:52:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 362FFF805A0;
+	Thu,  7 Mar 2024 04:57:03 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DA1E4F8024E; Thu,  7 Mar 2024 04:52:04 +0100 (CET)
+	id D7640F8024E; Thu,  7 Mar 2024 04:56:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 936ACF8014B
-	for <alsa-devel@alsa-project.org>; Thu,  7 Mar 2024 04:51:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 936ACF8014B
+	by alsa1.perex.cz (Postfix) with ESMTPS id E592CF80087
+	for <alsa-devel@alsa-project.org>; Thu,  7 Mar 2024 04:56:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E592CF80087
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=DDby58PG
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1709783514; x=1741319514;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=qHETVGmABCOv5h0hlnwqLErCUvhtOVNNegiNhI6aBxI=;
-  b=DDby58PGGY+3UiN5jOKt8vGEBwAkU9jGj/sexVwfB8VEGDwpr6RLj33G
-   qefDBUda/9h0D7r8vQYEPOsV97eO1ymM6Evqi+1POY58b7djyJJUIPU8j
-   6MksBqDhg1wRCgp1npZccm3TjyjAejAfioNyFWkyPTSqXGCOyEgHqludI
-   7NdjoT2tIlgnlmE9+vhag0tA3ZOu6RcJlWhJ5skfu5UB565VFSamssOmI
-   HWitHzX7ay3HOcabw4ubZ19EVBcP6VIvvnNl1C0RJT/lwcknqPGrqzEW3
-   3v+y9veyHDIw2hnMYHrq0+PWpLtpF1o5LKNw3g48hpyzKzSAxtzsArEbf
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,11005"; a="26907510"
-X-IronPort-AV: E=Sophos;i="6.06,209,1705392000";
-   d="scan'208";a="26907510"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Mar 2024 19:51:48 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.06,209,1705392000";
-   d="scan'208";a="10399324"
-Received: from lkp-server01.sh.intel.com (HELO b21307750695) ([10.239.97.150])
-  by orviesa006.jf.intel.com with ESMTP; 06 Mar 2024 19:51:43 -0800
-Received: from kbuild by b21307750695 with local (Exim 4.96)
-	(envelope-from <lkp@intel.com>)
-	id 1ri4nE-0004ll-0U;
-	Thu, 07 Mar 2024 03:51:40 +0000
-Date: Thu, 7 Mar 2024 11:51:16 +0800
-From: kernel test robot <lkp@intel.com>
-To: Chancel Liu <chancel.liu@nxp.com>, shengjiu.wang@gmail.com,
-	Xiubo.Lee@gmail.com, festevam@gmail.com, nicoleotsuka@gmail.com,
-	lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz,
-	tiwai@suse.com, shawnguo@kernel.org, s.hauer@pengutronix.de,
-	kernel@pengutronix.de, linux-imx@nxp.com,
-	alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
-	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	Chancel Liu <chancel.liu@nxp.com>
-Subject: Re: [PATCH 3/4] ASoC: fsl: Let imx-audio-rpmsg register platform
- device for card
-Message-ID: <202403071138.bdVPDO4p-lkp@intel.com>
-References: <20240306075510.535963-4-chancel.liu@nxp.com>
+	dkim=pass (1024-bit key,
+ unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
+ header.s=ti-com-17Q1 header.b=RZcwJTdm
+Received: from lelv0266.itg.ti.com ([10.180.67.225])
+	by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id 4273ufAm048912;
+	Wed, 6 Mar 2024 21:56:41 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+	s=ti-com-17Q1; t=1709783801;
+	bh=ehmInrd2KsR/7lA/FjYVpc2p7JwpKwG8Gj2BdP6Ou14=;
+	h=From:To:CC:Subject:Date;
+	b=RZcwJTdmuWFbWgS33QGjugd4CfHqcHBBYu5wWUoFcmqXBIHl8VK/bq3aOhAODYsfQ
+	 dvYSeMswMwyncV9yusf3IM/nQleVlKbvU/iAwV9ETPkZn7Lfuk3k6NO5hnpuq/W9J4
+	 WYRehLwnlhYxdTh7dfR1rY0841y9UUskNybWnFfs=
+Received: from DLEE106.ent.ti.com (dlee106.ent.ti.com [157.170.170.36])
+	by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 4273ufki092782
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Wed, 6 Mar 2024 21:56:41 -0600
+Received: from DLEE101.ent.ti.com (157.170.170.31) by DLEE106.ent.ti.com
+ (157.170.170.36) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Wed, 6
+ Mar 2024 21:56:41 -0600
+Received: from DLEE101.ent.ti.com ([fe80::91ee:60bc:bfb7:851c]) by
+ DLEE101.ent.ti.com ([fe80::91ee:60bc:bfb7:851c%18]) with mapi id
+ 15.01.2507.023; Wed, 6 Mar 2024 21:56:40 -0600
+From: "Ding, Shenghao" <shenghao-ding@ti.com>
+To: Mark Brown <broonie@kernel.org>
+CC: "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
+        "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+        "perex@perex.cz"
+	<perex@perex.cz>,
+        "pierre-louis.bossart@linux.intel.com"
+	<pierre-louis.bossart@linux.intel.com>,
+        "13916275206@139.com"
+	<13916275206@139.com>,
+        "alsa-devel@alsa-project.org"
+	<alsa-devel@alsa-project.org>,
+        "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>,
+        "liam.r.girdwood@intel.com"
+	<liam.r.girdwood@intel.com>,
+        "bard.liao@intel.com" <bard.liao@intel.com>,
+        "mengdong.lin@intel.com" <mengdong.lin@intel.com>,
+        "yung-chuan.liao@linux.intel.com" <yung-chuan.liao@linux.intel.com>,
+        "Xu,
+ Baojun" <baojun.xu@ti.com>, "Lu, Kevin" <kevin-lu@ti.com>,
+        "tiwai@suse.de"
+	<tiwai@suse.de>, "soyer@irl.hu" <soyer@irl.hu>,
+        "Baojun.Xu@fpt.com"
+	<Baojun.Xu@fpt.com>,
+        "Navada Kanyana, Mukund" <navada@ti.com>
+Subject: RE: [EXTERNAL] Re: [PATCH v10] The tas2783 is a smart audio amplifier
+ with integrated MIPI SoundWire interface (Version 1.2.1 compliant), I2C, and
+ I2S/TDM interfaces designed for portable applications. An on-chip DSP
+ supports Texas Instruments SmartAmp sp
+Thread-Topic: [EXTERNAL] Re: [PATCH v10] The tas2783 is a smart audio
+ amplifier with integrated MIPI SoundWire interface (Version 1.2.1 compliant),
+ I2C, and I2S/TDM interfaces designed for portable applications. An on-chip
+ DSP supports Texas Instruments SmartAmp sp
+Thread-Index: AQHabzH/b3I/bWWVFUK0e05J8vV+lrErpzBQ
+Date: Thu, 7 Mar 2024 03:56:40 +0000
+Message-ID: <dff90323b41a4e3a8e0e8540fbb32154@ti.com>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.250.160.249]
+x-exclaimer-md-config: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240306075510.535963-4-chancel.liu@nxp.com>
-Message-ID-Hash: O62T6NTMG3OIITOI4WHX4CSGNAFEGTH4
-X-Message-ID-Hash: O62T6NTMG3OIITOI4WHX4CSGNAFEGTH4
-X-MailFrom: lkp@intel.com
+Message-ID-Hash: JWPRWX6ROGTHR2VHC65JIYVJYPRS3T4X
+X-Message-ID-Hash: JWPRWX6ROGTHR2VHC65JIYVJYPRS3T4X
+X-MailFrom: shenghao-ding@ti.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -103,7 +121,8 @@ X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: <>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JWPRWX6ROGTHR2VHC65JIYVJYPRS3T4X/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,179 +131,116 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Chancel,
-
-kernel test robot noticed the following build errors:
-
-[auto build test ERROR on shawnguo/for-next]
-[also build test ERROR on broonie-sound/for-next linus/master v6.8-rc7 next-20240306]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Chancel-Liu/ASoC-fsl-imx_pcm_rpmsg-Register-component-with-rpmsg-channel-name/20240306-155945
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/shawnguo/linux.git for-next
-patch link:    https://lore.kernel.org/r/20240306075510.535963-4-chancel.liu%40nxp.com
-patch subject: [PATCH 3/4] ASoC: fsl: Let imx-audio-rpmsg register platform device for card
-config: s390-allmodconfig (https://download.01.org/0day-ci/archive/20240307/202403071138.bdVPDO4p-lkp@intel.com/config)
-compiler: clang version 19.0.0git (https://github.com/llvm/llvm-project 325f51237252e6dab8e4e1ea1fa7acbb4faee1cd)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240307/202403071138.bdVPDO4p-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202403071138.bdVPDO4p-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   In file included from include/linux/elf.h:6:
-   In file included from arch/s390/include/asm/elf.h:173:
-   In file included from arch/s390/include/asm/mmu_context.h:11:
-   In file included from arch/s390/include/asm/pgalloc.h:18:
-   In file included from include/linux/mm.h:2188:
-   include/linux/vmstat.h:508:43: warning: arithmetic between different enumeration types ('enum zone_stat_item' and 'enum numa_stat_item') [-Wenum-enum-conversion]
-     508 |         return vmstat_text[NR_VM_ZONE_STAT_ITEMS +
-         |                            ~~~~~~~~~~~~~~~~~~~~~ ^
-     509 |                            item];
-         |                            ~~~~
-   include/linux/vmstat.h:515:43: warning: arithmetic between different enumeration types ('enum zone_stat_item' and 'enum numa_stat_item') [-Wenum-enum-conversion]
-     515 |         return vmstat_text[NR_VM_ZONE_STAT_ITEMS +
-         |                            ~~~~~~~~~~~~~~~~~~~~~ ^
-     516 |                            NR_VM_NUMA_EVENT_ITEMS +
-         |                            ~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/vmstat.h:522:36: warning: arithmetic between different enumeration types ('enum node_stat_item' and 'enum lru_list') [-Wenum-enum-conversion]
-     522 |         return node_stat_name(NR_LRU_BASE + lru) + 3; // skip "nr_"
-         |                               ~~~~~~~~~~~ ^ ~~~
-   include/linux/vmstat.h:527:43: warning: arithmetic between different enumeration types ('enum zone_stat_item' and 'enum numa_stat_item') [-Wenum-enum-conversion]
-     527 |         return vmstat_text[NR_VM_ZONE_STAT_ITEMS +
-         |                            ~~~~~~~~~~~~~~~~~~~~~ ^
-     528 |                            NR_VM_NUMA_EVENT_ITEMS +
-         |                            ~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/vmstat.h:536:43: warning: arithmetic between different enumeration types ('enum zone_stat_item' and 'enum numa_stat_item') [-Wenum-enum-conversion]
-     536 |         return vmstat_text[NR_VM_ZONE_STAT_ITEMS +
-         |                            ~~~~~~~~~~~~~~~~~~~~~ ^
-     537 |                            NR_VM_NUMA_EVENT_ITEMS +
-         |                            ~~~~~~~~~~~~~~~~~~~~~~
-   In file included from sound/soc/fsl/imx-audio-rpmsg.c:6:
-   In file included from sound/soc/fsl/imx-pcm-rpmsg.h:278:
-   In file included from include/sound/dmaengine_pcm.h:11:
-   In file included from include/sound/soc.h:21:
-   In file included from include/linux/regmap.h:20:
-   In file included from include/linux/iopoll.h:14:
-   In file included from include/linux/io.h:13:
-   In file included from arch/s390/include/asm/io.h:78:
-   include/asm-generic/io.h:547:31: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-     547 |         val = __raw_readb(PCI_IOBASE + addr);
-         |                           ~~~~~~~~~~ ^
-   include/asm-generic/io.h:560:61: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-     560 |         val = __le16_to_cpu((__le16 __force)__raw_readw(PCI_IOBASE + addr));
-         |                                                         ~~~~~~~~~~ ^
-   include/uapi/linux/byteorder/big_endian.h:37:59: note: expanded from macro '__le16_to_cpu'
-      37 | #define __le16_to_cpu(x) __swab16((__force __u16)(__le16)(x))
-         |                                                           ^
-   include/uapi/linux/swab.h:102:54: note: expanded from macro '__swab16'
-     102 | #define __swab16(x) (__u16)__builtin_bswap16((__u16)(x))
-         |                                                      ^
-   In file included from sound/soc/fsl/imx-audio-rpmsg.c:6:
-   In file included from sound/soc/fsl/imx-pcm-rpmsg.h:278:
-   In file included from include/sound/dmaengine_pcm.h:11:
-   In file included from include/sound/soc.h:21:
-   In file included from include/linux/regmap.h:20:
-   In file included from include/linux/iopoll.h:14:
-   In file included from include/linux/io.h:13:
-   In file included from arch/s390/include/asm/io.h:78:
-   include/asm-generic/io.h:573:61: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-     573 |         val = __le32_to_cpu((__le32 __force)__raw_readl(PCI_IOBASE + addr));
-         |                                                         ~~~~~~~~~~ ^
-   include/uapi/linux/byteorder/big_endian.h:35:59: note: expanded from macro '__le32_to_cpu'
-      35 | #define __le32_to_cpu(x) __swab32((__force __u32)(__le32)(x))
-         |                                                           ^
-   include/uapi/linux/swab.h:115:54: note: expanded from macro '__swab32'
-     115 | #define __swab32(x) (__u32)__builtin_bswap32((__u32)(x))
-         |                                                      ^
-   In file included from sound/soc/fsl/imx-audio-rpmsg.c:6:
-   In file included from sound/soc/fsl/imx-pcm-rpmsg.h:278:
-   In file included from include/sound/dmaengine_pcm.h:11:
-   In file included from include/sound/soc.h:21:
-   In file included from include/linux/regmap.h:20:
-   In file included from include/linux/iopoll.h:14:
-   In file included from include/linux/io.h:13:
-   In file included from arch/s390/include/asm/io.h:78:
-   include/asm-generic/io.h:584:33: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-     584 |         __raw_writeb(value, PCI_IOBASE + addr);
-         |                             ~~~~~~~~~~ ^
-   include/asm-generic/io.h:594:59: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-     594 |         __raw_writew((u16 __force)cpu_to_le16(value), PCI_IOBASE + addr);
-         |                                                       ~~~~~~~~~~ ^
-   include/asm-generic/io.h:604:59: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-     604 |         __raw_writel((u32 __force)cpu_to_le32(value), PCI_IOBASE + addr);
-         |                                                       ~~~~~~~~~~ ^
-   include/asm-generic/io.h:692:20: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-     692 |         readsb(PCI_IOBASE + addr, buffer, count);
-         |                ~~~~~~~~~~ ^
-   include/asm-generic/io.h:700:20: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-     700 |         readsw(PCI_IOBASE + addr, buffer, count);
-         |                ~~~~~~~~~~ ^
-   include/asm-generic/io.h:708:20: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-     708 |         readsl(PCI_IOBASE + addr, buffer, count);
-         |                ~~~~~~~~~~ ^
-   include/asm-generic/io.h:717:21: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-     717 |         writesb(PCI_IOBASE + addr, buffer, count);
-         |                 ~~~~~~~~~~ ^
-   include/asm-generic/io.h:726:21: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-     726 |         writesw(PCI_IOBASE + addr, buffer, count);
-         |                 ~~~~~~~~~~ ^
-   include/asm-generic/io.h:735:21: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-     735 |         writesl(PCI_IOBASE + addr, buffer, count);
-         |                 ~~~~~~~~~~ ^
->> sound/soc/fsl/imx-audio-rpmsg.c:107:8: error: use of undeclared label 'fail'
-     107 |                 goto fail;
-         |                      ^
-   17 warnings and 1 error generated.
 
 
-vim +/fail +107 sound/soc/fsl/imx-audio-rpmsg.c
+> -----Original Message-----
+> From: Mark Brown <broonie@kernel.org>
+> Sent: Wednesday, March 6, 2024 3:19 AM
+> To: Ding, Shenghao <shenghao-ding@ti.com>
+> Cc: andriy.shevchenko@linux.intel.com; lgirdwood@gmail.com;
+> perex@perex.cz; pierre-louis.bossart@linux.intel.com;
+> 13916275206@139.com; alsa-devel@alsa-project.org; linux-
+> kernel@vger.kernel.org; liam.r.girdwood@intel.com; bard.liao@intel.com;
+> mengdong.lin@intel.com; yung-chuan.liao@linux.intel.com; Xu, Baojun
+> <baojun.xu@ti.com>; Lu, Kevin <kevin-lu@ti.com>; tiwai@suse.de;
+> soyer@irl.hu; Baojun.Xu@fpt.com; Navada Kanyana, Mukund
+> <navada@ti.com>
+> Subject: [EXTERNAL] Re: [PATCH v10] The tas2783 is a smart audio amplifie=
+r
+> with integrated MIPI SoundWire interface (Version 1.2.1 compliant), I2C, =
+and
+> I2S/TDM interfaces designed for portable applications. An on-chip DSP
+> supports Texas Instruments SmartAmp spe...
+>=20
+> On Tue, Mar 05, 2024 at 04:43:35PM +0800, Shenghao Ding wrote:
+> > The ASoC component provides the majority of the functionality of the
+> > device, all the audio functions.
+>=20
+> > +static const struct reg_default tas2783_reg_defaults[] =3D {
+> > +	/* Default values for ROM mode. Activated. */
+> > +	{ 0x8002, 0x1a },	/* AMP inactive. */
+> > +	{ 0x8097, 0xc8 },
+> > +	{ 0x80b5, 0x74 },
+> > +	{ 0x8099, 0x20 },
+> > +	{ 0xfe8d, 0x0d },
+> > +	{ 0xfebe, 0x4a },
+> > +	{ 0x8230, 0x00 },
+> > +	{ 0x8231, 0x00 },
+> > +	{ 0x8232, 0x00 },
+> > +	{ 0x8233, 0x01 },
+> > +	{ 0x8418, 0x00 },	/* Set volume to 0 dB. */
+> > +	{ 0x8419, 0x00 },
+> > +	{ 0x841a, 0x00 },
+> > +	{ 0x841b, 0x00 },
+> > +	{ 0x8428, 0x40 },	/* Unmute channel */
+> > +	{ 0x8429, 0x00 },
+> > +	{ 0x842a, 0x00 },
+> > +	{ 0x842b, 0x00 },
+> > +	{ 0x8548, 0x00 },	/* Set volume to 0 dB. */
+> > +	{ 0x8549, 0x00 },
+> > +	{ 0x854a, 0x00 },
+> > +	{ 0x854b, 0x00 },
+> > +	{ 0x8558, 0x40 },	/* Unmute channel */
+> > +	{ 0x8559, 0x00 },
+> > +	{ 0x855a, 0x00 },
+> > +	{ 0x855b, 0x00 },
+> > +	{ 0x800a, 0x3a },	/* Enable both channel */
+>=20
+> These comments sound like this register default table is not actually the
+> physical default register values that the chip has...
+>=20
+> > +static const struct regmap_config tasdevice_regmap =3D {
+> > +	.reg_bits =3D 32,
+> > +	.val_bits =3D 8,
+> > +	.readable_reg =3D tas2783_readable_register,
+> > +	.volatile_reg =3D tas2783_volatile_register,
+> > +	.max_register =3D 0x44ffffff,
+> > +	.reg_defaults =3D tas2783_reg_defaults,
+> > +	.num_reg_defaults =3D ARRAY_SIZE(tas2783_reg_defaults),
+>=20
+> ...but this is set as the register defaults.  This will cause problems wi=
+th things
+> like cache sync where we don't write values out if they're not the defaul=
+ts.
+> We also try to keep default settings from the silicon except in the most
+> obvious cases, it avoids issues with trying to work out what to set and
+> accomodate different use cases for different systems.
+>=20
+> If you do need to set non-default values then either just regular writes =
+during
+> probe or a regmap patch would do it.
 
-    74	
-    75	static int imx_audio_rpmsg_probe(struct rpmsg_device *rpdev)
-    76	{
-    77		struct imx_audio_rpmsg *data;
-    78		int ret = 0;
-    79	
-    80		dev_info(&rpdev->dev, "new channel: 0x%x -> 0x%x!\n",
-    81			 rpdev->src, rpdev->dst);
-    82	
-    83		data = devm_kzalloc(&rpdev->dev, sizeof(*data), GFP_KERNEL);
-    84		if (!data)
-    85			return -ENOMEM;
-    86	
-    87		dev_set_drvdata(&rpdev->dev, data);
-    88	
-    89		/* Register platform driver for rpmsg routine */
-    90		data->rpmsg_pdev = platform_device_register_data(&rpdev->dev,
-    91								 rpdev->id.name,
-    92								 PLATFORM_DEVID_NONE,
-    93								 NULL, 0);
-    94		if (IS_ERR(data->rpmsg_pdev)) {
-    95			dev_err(&rpdev->dev, "failed to register rpmsg platform.\n");
-    96			ret = PTR_ERR(data->rpmsg_pdev);
-    97		}
-    98	
-    99		data->card_pdev = platform_device_register_data(&rpdev->dev,
-   100								"imx-audio-rpmsg",
-   101								PLATFORM_DEVID_AUTO,
-   102								rpdev->id.name,
-   103								strlen(rpdev->id.name));
-   104		if (IS_ERR(data->card_pdev)) {
-   105			dev_err(&rpdev->dev, "failed to register rpmsg card.\n");
-   106			ret = PTR_ERR(data->card_pdev);
- > 107			goto fail;
-   108		}
-   109	
-   110		return ret;
-   111	}
-   112	
+So, can I remove=20
+".reg_defaults =3D tas2783_reg_defaults," and tas2783_reg_defaults from the=
+ code?
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+>=20
+> > +	.cache_type =3D REGCACHE_RBTREE,
+> > +	.use_single_read =3D true,
+> > +	.use_single_write =3D true,
+>=20
+> REGCACHE_MAPLE is generally the most sensible choice for modern devices
+> - it's a newer and fancier data structure underlying it and there's only =
+a few
+> cases with low end devices, mostly doing block I/O which this doesn't
+> support, where the RBTREE cache is still better.
+
+Accept
+
+>=20
+> > +	u16 dev_info;
+> > +	int ret;
+> > +
+> > +	if (!tas_dev->sdw_peripheral) {
+> > +		dev_err(tas_dev->dev, "%s: peripheral doesn't exist.\n",
+> > +			__func__);
+> > +		return;
+> > +	}
+> > +
+> > +	dev_info =3D tas_dev->sdw_peripheral->bus->link_id |
+> > +		tas_dev->sdw_peripheral->id.unique_id << 16;
+>=20
+> I'm kind of surprised dev_info works as a variable name without something
+> getting upset that it aliases the function of the same name.
+
+Accept

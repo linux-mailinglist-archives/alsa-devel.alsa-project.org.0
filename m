@@ -2,118 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 674E4874E2B
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Mar 2024 12:51:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 352E8874F26
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Mar 2024 13:33:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B40A814DF;
-	Thu,  7 Mar 2024 12:51:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B40A814DF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5B4DC846;
+	Thu,  7 Mar 2024 13:32:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B4DC846
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1709812281;
-	bh=8bxWkdHWjuivwKz8TBybuK02NLszyCe4cZF3c/Vh6Zg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1709814787;
+	bh=CnKV7YkmwKVN45OVgq9HMp191oP0lkB4cDHb6peK+T4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=pz9KNY+isViZlMuDG4rvamsugYTe3rxBYR6qVyRuxB9sQKUkMgbY7ai2UvRqRtsJU
-	 qie02SoQ9DlKWmotLWGmGiUBsVtJsIyK2JY4+fqsFgGXbGr5x9KxWG72jh5noEToOT
-	 5adzN9f+6kjFG5VjChBNvz5JAQoVFV2lX35Qzyb8=
+	b=HEtJsU2s0iA3xLVIThubZUEKdVgSppDtC+xqPSBMLELk+pi4ZWVhNwy3uTA9Bxb42
+	 HjbNJsdnTSiDp+aRKfJMlFz9roAepZcrTWmMR/KQTCOrUpw6h0wQWgxVIhUD2kHH9j
+	 jYIr+5TLk6FLMYcFwjqShNq/KXFHMIZnOiz0tll8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F2E06F80CBC; Thu,  7 Mar 2024 12:46:28 +0100 (CET)
+	id A59CEF805A9; Thu,  7 Mar 2024 13:32:35 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D9E5DF80601;
-	Thu,  7 Mar 2024 12:46:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 34E21F802E8;
+	Thu,  7 Mar 2024 13:32:35 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0BD84F80605; Thu,  7 Mar 2024 12:46:12 +0100 (CET)
+	id A3D86F8024E; Thu,  7 Mar 2024 13:32:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=unavailable autolearn_force=no version=3.4.6
-Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
- [IPv6:2a00:1098:ed:100::25])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5FCC3F806F7
-	for <alsa-devel@alsa-project.org>; Thu,  7 Mar 2024 12:45:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5FCC3F806F7
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=collabora.com header.i=@collabora.com
- header.a=rsa-sha256 header.s=mail header.b=KeT64IIE
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1709811945;
-	bh=8bxWkdHWjuivwKz8TBybuK02NLszyCe4cZF3c/Vh6Zg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=KeT64IIEUmDtx6ONnrK70cAlu1NnYKqwBoVDZemg5fugfpHTO5lxbn3aaOd/IHMI/
-	 QIBd2Mp3tUQWpPsZ47yKYRRbd8tU2r1FaOiEDUNI1c/OIFZzZvRIsV4x/B0k01w8QS
-	 3WZu0WQdNHM5flp8LFloIgZMfJt0zcBqawOXVzIJ/2YqrlyIqWgN5JPRyeGUrhhQz8
-	 LNWx4t2ybOXZud75GNZaWxyhv2U4WIFf5LJmu2oDm8E7ESmio2Y6Bj9C2E5CUQDx/W
-	 zrfYNqBS9r5uVhawrolCsZjcLfQz9xPTJ9WPDNvRk9ji2Gu0A9G/CV9/F1RYC2Lgj7
-	 d2tKTVLMbzOqg==
-Received: from IcarusMOD.eternityproject.eu (cola.collaboradmins.com
- [195.201.22.229])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from gandalf.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by madrid.collaboradmins.com (Postfix) with ESMTPSA id 2E3E237820F9;
-	Thu,  7 Mar 2024 11:45:43 +0000 (UTC)
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-To: broonie@kernel.org
-Cc: wenst@chromium.org,
-	lgirdwood@gmail.com,
-	robh@kernel.org,
-	krzysztof.kozlowski+dt@linaro.org,
-	conor+dt@kernel.org,
-	matthias.bgg@gmail.com,
-	perex@perex.cz,
-	tiwai@suse.com,
-	trevor.wu@mediatek.com,
-	maso.huang@mediatek.com,
-	xiazhengqiao@huaqin.corp-partner.google.com,
-	arnd@arndb.de,
-	kuninori.morimoto.gx@renesas.com,
-	shraash@google.com,
-	amergnat@baylibre.com,
-	nicolas.ferre@microchip.com,
-	u.kleine-koenig@pengutronix.de,
-	dianders@chromium.org,
-	frank.li@vivo.com,
-	allen-kh.cheng@mediatek.com,
-	eugen.hristev@collabora.com,
-	claudiu.beznea@tuxon.dev,
-	jarkko.nikula@bitmer.com,
-	jiaxin.yu@mediatek.com,
-	alpernebiyasak@gmail.com,
-	ckeepax@opensource.cirrus.com,
-	zhourui@huaqin.corp-partner.google.com,
-	nfraprado@collabora.com,
-	alsa-devel@alsa-project.org,
-	shane.chien@mediatek.com,
-	linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	kernel@collabora.com,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Subject: [PATCH v2 22/22] arm64: dts: mediatek: mt8186-corsola: Specify sound
- DAI links and routing
-Date: Thu,  7 Mar 2024 12:44:45 +0100
-Message-ID: <20240307114445.196981-23-angelogioacchino.delregno@collabora.com>
-X-Mailer: git-send-email 2.44.0
-In-Reply-To: <20240307114445.196981-1-angelogioacchino.delregno@collabora.com>
-References: <20240307114445.196981-1-angelogioacchino.delregno@collabora.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 99E6CF80087
+	for <alsa-devel@alsa-project.org>; Thu,  7 Mar 2024 13:32:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99E6CF80087
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=ellerman.id.au header.i=@ellerman.id.au
+ header.a=rsa-sha256 header.s=201909 header.b=lBx1+QuJ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ellerman.id.au;
+	s=201909; t=1709814736;
+	bh=CnKV7YkmwKVN45OVgq9HMp191oP0lkB4cDHb6peK+T4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+	b=lBx1+QuJTEVHApTpCCDU+EV1Aykxe0USdn1M5qeFxUu86nOmkjduBDq8dT3o7qXpm
+	 oS8/qBbiILsQJC5KQx/qJRP/+1Rtwj+Mvna+PmMaQHKiOOUzj3K4BfsAnCXpYBeO5i
+	 sIHi1sZKR2G1jRkcILr1PE7EJZw85kHZ0/HyQZD5Je+4MUjufb3f6fIkyubjPbz8re
+	 /xYRYrDhHsNlHZi8hwJ5D8xkg2qXwM8ii3IePd37e1Jh7QAPge7a0+jwCSZNdI+ZOe
+	 Y4f3knEgXbFr14hWz3pvmzLU64Pzxk2jZ5fbpD4Fd7BcqwRmHFTOSol/RnqeVlE3F0
+	 mpc6I8Pch7Hkg==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by mail.ozlabs.org (Postfix) with ESMTPSA id 4Tr7wZ6z4Xz4wc8;
+	Thu,  7 Mar 2024 23:32:14 +1100 (AEDT)
+From: Michael Ellerman <mpe@ellerman.id.au>
+To: Dawei Li <set_pte_at@outlook.com>, Christophe Leroy
+ <christophe.leroy@csgroup.eu>
+Cc: "npiggin@gmail.com" <npiggin@gmail.com>, "linuxppc-dev@lists.ozlabs.org"
+ <linuxppc-dev@lists.ozlabs.org>, "linux-ide@vger.kernel.org"
+ <linux-ide@vger.kernel.org>, "netdev@vger.kernel.org"
+ <netdev@vger.kernel.org>, "linux-wireless@vger.kernel.org"
+ <linux-wireless@vger.kernel.org>, "linux-scsi@vger.kernel.org"
+ <linux-scsi@vger.kernel.org>, "linux-serial@vger.kernel.org"
+ <linux-serial@vger.kernel.org>, "alsa-devel@alsa-project.org"
+ <alsa-devel@alsa-project.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3] powerpc: macio: Make remove callback of macio driver
+ void returned
+In-Reply-To: 
+ <TYTP286MB356472357994D5EA49E2F5E3CA212@TYTP286MB3564.JPNP286.PROD.OUTLOOK.COM>
+References: 
+ <TYCP286MB232391520CB471E7C8D6EA84CAD19@TYCP286MB2323.JPNP286.PROD.OUTLOOK.COM>
+ <3dc29701-239f-4a3b-b571-b9732975bd73@csgroup.eu>
+ <TYTP286MB356472357994D5EA49E2F5E3CA212@TYTP286MB3564.JPNP286.PROD.OUTLOOK.COM>
+Date: Thu, 07 Mar 2024 23:32:14 +1100
+Message-ID: <87bk7qnrxt.fsf@mail.lhotse>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: CCXGP6GCJBKYO5TUMAENIRWAPHAA3LU4
-X-Message-ID-Hash: CCXGP6GCJBKYO5TUMAENIRWAPHAA3LU4
-X-MailFrom: angelogioacchino.delregno@collabora.com
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: IM3OD323R2T5LOVS6CUXNYH4VCDJQGF5
+X-Message-ID-Hash: IM3OD323R2T5LOVS6CUXNYH4VCDJQGF5
+X-MailFrom: mpe@ellerman.id.au
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -125,7 +100,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CCXGP6GCJBKYO5TUMAENIRWAPHAA3LU4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IM3OD323R2T5LOVS6CUXNYH4VCDJQGF5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -134,77 +109,36 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The drivers and bindings acquired support for specifying audio hardware
-and links in device tree: describe and link the sound related HW of this
-machine.
+Dawei Li <set_pte_at@outlook.com> writes:
+> Hi Christophe,
+>
+> On Tue, Feb 20, 2024 at 04:12:17PM +0000, Christophe Leroy wrote:
+>> Hi Michael,
+>>=20
+>> ping ?
+>>=20
+>> Le 01/02/2023 =C3=A0 15:36, Dawei Li a =C3=A9crit=C2=A0:
+>> > Commit fc7a6209d571 ("bus: Make remove callback return void") forces
+>> > bus_type::remove be void-returned, it doesn't make much sense for any
+>> > bus based driver implementing remove callbalk to return non-void to
+>> > its caller.
+>> >=20
+>> > This change is for macio bus based drivers.
+>> >=20
+>> > Signed-off-by: Dawei Li <set_pte_at@outlook.com>
+>>=20
+>> This patch is Acked , any special reason for not applying it ?
+>>=20
+>> Note that it now conflicts with commit 1535d5962d79 ("wifi: remove=20
+>> orphaned orinoco driver") but resolution is trivial, just drop the=20
+>> changes to that file.
+>
+> Thanks for picking it up, hardly believe that it's been one year.
+>
+> Michael,
+>
+> I will respin V4 if it's needed.
 
-Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
----
- .../boot/dts/mediatek/mt8186-corsola.dtsi     | 42 ++++++++++++++++---
- 1 file changed, 37 insertions(+), 5 deletions(-)
+No that's fine, I'll sort it out.
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt8186-corsola.dtsi b/arch/arm64/boot/dts/mediatek/mt8186-corsola.dtsi
-index 3dea28f1d806..0bdb83c3e560 100644
---- a/arch/arm64/boot/dts/mediatek/mt8186-corsola.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8186-corsola.dtsi
-@@ -42,7 +42,7 @@ backlight_lcd0: backlight-lcd0 {
- 		default-brightness-level = <576>;
- 	};
- 
--	bt-sco-codec {
-+	bt-sco {
- 		compatible = "linux,bt-sco";
- 		#sound-dai-cells = <0>;
- 	};
-@@ -223,12 +223,44 @@ sound: sound {
- 		mediatek,adsp = <&adsp>;
- 		mediatek,platform = <&afe>;
- 
--		playback-codecs {
--			sound-dai = <&it6505dptx>, <&rt1019p>;
-+		audio-routing =
-+			"Headphone", "HPOL",
-+			"Headphone", "HPOR",
-+			"IN1P", "Headset Mic",
-+			"Speakers", "Speaker",
-+			"HDMI1", "TX";
-+
-+		hs-playback-dai-link {
-+			link-name = "I2S0";
-+			dai-format = "i2s";
-+			mediatek,clk-provider = "cpu";
-+			codec {
-+				sound-dai = <&rt5682s 0>;
-+			};
-+		};
-+
-+		hs-capture-dai-link {
-+			link-name = "I2S1";
-+			dai-format = "i2s";
-+			mediatek,clk-provider = "cpu";
-+			codec {
-+				sound-dai = <&rt5682s 0>;
-+			};
- 		};
- 
--		headset-codec {
--			sound-dai = <&rt5682s 0>;
-+		spk-share-dai-link {
-+			link-name = "I2S2";
-+			mediatek,clk-provider = "cpu";
-+		};
-+
-+		spk-hdmi-playback-dai-link {
-+			link-name = "I2S3";
-+			dai-format = "i2s";
-+			mediatek,clk-provider = "cpu";
-+			/* RT1019P and IT6505 connected to the same I2S line */
-+			codec {
-+				sound-dai = <&it6505dptx>, <&rt1019p>;
-+			};
- 		};
- 	};
- 
--- 
-2.44.0
-
+cheers

@@ -2,58 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5F61874DFA
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Mar 2024 12:47:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FF09874E03
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Mar 2024 12:48:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2F3CBB65;
-	Thu,  7 Mar 2024 12:47:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F3CBB65
+	by alsa0.perex.cz (Postfix) with ESMTPS id B16DBE76;
+	Thu,  7 Mar 2024 12:47:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B16DBE76
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1709812046;
-	bh=Q5qeA/4VKo3m34OedvzdenwOitJzicH0e47gxUWBDYI=;
+	s=default; t=1709812084;
+	bh=B+vp4Uw62xZRdn2O7lnJ5cXiKQOHqoydOc/koaWZkvc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=HY2g1YG6n4e2zIYAg64WX7gUZnoyFbB6haxnd3fgQCkV0DQU8h0fmUvzhWRDfe+Hg
-	 clb9FvFk8BjV7Js0iovPYp7VZ6VKA6a1Enprw+vxh01Vzg2WPnhsGyRNAbr16KEeb5
-	 9YNPm6oZ08oXm39600nP8MjYYwyaR6zIsGGsSBcA=
+	b=sgve/jLo2Pbfp8MhGWvzBcjWhZxeKaKObJiIIcjQgA2Pz7oejIX8Rn8Di86TJehGG
+	 1kCr4NoBOr/ePORTL7vQjQuJ9j6Y4CtRJzs3AowqNNu46XCDfRBg4gyGfKYLLZIoEO
+	 rwyzn6JCV4plDwRfQyYlOeoq+tFnCRIDKSm6+vcY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1B115F806A1; Thu,  7 Mar 2024 12:45:33 +0100 (CET)
+	id 7044BF806EC; Thu,  7 Mar 2024 12:45:44 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 71737F8069A;
-	Thu,  7 Mar 2024 12:45:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D6D0EF806D2;
+	Thu,  7 Mar 2024 12:45:43 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6F0A5F80608; Thu,  7 Mar 2024 12:45:20 +0100 (CET)
+	id 74337F80676; Thu,  7 Mar 2024 12:45:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=unavailable autolearn_force=no version=3.4.6
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
 Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
- [IPv6:2a00:1098:ed:100::25])
+ [46.235.227.194])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5494BF8057B
-	for <alsa-devel@alsa-project.org>; Thu,  7 Mar 2024 12:45:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5494BF8057B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 68E92F805BE
+	for <alsa-devel@alsa-project.org>; Thu,  7 Mar 2024 12:45:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68E92F805BE
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=collabora.com header.i=@collabora.com
- header.a=rsa-sha256 header.s=mail header.b=JqwirFZw
+ header.a=rsa-sha256 header.s=mail header.b=dl+ywjEb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1709811907;
-	bh=Q5qeA/4VKo3m34OedvzdenwOitJzicH0e47gxUWBDYI=;
+	s=mail; t=1709811909;
+	bh=B+vp4Uw62xZRdn2O7lnJ5cXiKQOHqoydOc/koaWZkvc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=JqwirFZwh0BgvmYTxqaANA3HITTv0VzUAY8+kbMu4sdtBiIrXz1qCqusQXHQflEcK
-	 jlCstICf9mbP8r0Yn73RUYbqcOQYFPvm5YRRmXOM/nJQRCMZq7ERaxJff3WhTDWgYo
-	 OvI7QKdIFOol0mSOW9a9e3Uhd/M0TmOShD++GZabqMPvEPZyc3JMj7AGyChG+EujUJ
-	 F2EEMTRXTCab2mOSz8bqnN4Q7fJUFDBLhcZymORhUvCxJt5y/jXlhXtt1CCQECblNL
-	 AX4Iq/q/UA+prbHS5rplGxe5mx4lt/K4I8mpxkaPcf1PnnYySgnEMUgZarwKQ0l4DM
-	 TpNnAEjeUSzfQ==
+	b=dl+ywjEbjHUHuyMbMLcHVm0DFQvWMWyMSURrxOE7n0VRlWKSWGmzWPhnli2fI5Ckc
+	 Er4NU0si8QFXpg5tv7PIb7ssQ5q7sjOJj8tSK07vIX/bCY6ycerdQSrmEew8+c7C1/
+	 53Jd3vfYhjXL8hzYqsQz/THfQk3DC/1nqvnN8Bc3ht/cG/Du9LkbfI0bUGD9KTMVJt
+	 u0fHFTa1g5rrVzHGzA0ffmEmZc8Dk6HO+2jlv2IKR2X0v3fBopSWGY1IuhIo1QgTB1
+	 NYEz5UE2gs8DYJM+dprXVa7ppP+/qBf2egV26rJj+VNTLbTlmwEOJ16LnaH8iwR06S
+	 y5A3pf2fkgZcg==
 Received: from IcarusMOD.eternityproject.eu (cola.collaboradmins.com
  [195.201.22.229])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
@@ -61,8 +61,8 @@ Received: from IcarusMOD.eternityproject.eu (cola.collaboradmins.com
  SHA256)
 	(No client certificate requested)
 	(Authenticated sender: kholk11)
-	by madrid.collaboradmins.com (Postfix) with ESMTPSA id 3326537820EC;
-	Thu,  7 Mar 2024 11:45:05 +0000 (UTC)
+	by madrid.collaboradmins.com (Postfix) with ESMTPSA id 9510437820EF;
+	Thu,  7 Mar 2024 11:45:07 +0000 (UTC)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: broonie@kernel.org
 Cc: wenst@chromium.org,
@@ -102,16 +102,17 @@ Cc: wenst@chromium.org,
 	linux-mediatek@lists.infradead.org,
 	kernel@collabora.com,
 	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Subject: [PATCH v2 06/22] ASoC: mediatek: common: Constify struct mtk_sof_priv
-Date: Thu,  7 Mar 2024 12:44:29 +0100
-Message-ID: <20240307114445.196981-7-angelogioacchino.delregno@collabora.com>
+Subject: [PATCH v2 07/22] ASoC: mediatek: mt8188: Migrate to
+ mtk_soundcard_common_probe
+Date: Thu,  7 Mar 2024 12:44:30 +0100
+Message-ID: <20240307114445.196981-8-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.44.0
 In-Reply-To: <20240307114445.196981-1-angelogioacchino.delregno@collabora.com>
 References: <20240307114445.196981-1-angelogioacchino.delregno@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 4YJJYUFVNBNO4HRLOOFWLDZ5NX746ZBL
-X-Message-ID-Hash: 4YJJYUFVNBNO4HRLOOFWLDZ5NX746ZBL
+Message-ID-Hash: RZEYLAHBLIH2XGG2MKC22JCZUI3LSQ4Y
+X-Message-ID-Hash: RZEYLAHBLIH2XGG2MKC22JCZUI3LSQ4Y
 X-MailFrom: angelogioacchino.delregno@collabora.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -124,7 +125,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4YJJYUFVNBNO4HRLOOFWLDZ5NX746ZBL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RZEYLAHBLIH2XGG2MKC22JCZUI3LSQ4Y/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -133,123 +134,336 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Apart from a dai_link_list variable, the mtk_sof_priv currently holds
-data that never gets modified during runtime.
-
-Constify the mtk_sof_priv structure and move the SOF dai_link_list as
-sof_dai_link_list in struct mtk_soc_card_data, which is a structure
-that already holds the card's machine specific, runtime modified data.
-
-This allows to safely pass the mtk_sof_priv structure as platform data
-for the commonized card probe mechanism.
+Add mtk_soundcard_pdata platform data for the MediaTek common sound card
+probe mechanism, including a driver/soc-specific probe extension (used
+for bits that cannot be commonized  hence specific to this driver), and
+change the probe function to mtk_soundcard_common_probe.
 
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- sound/soc/mediatek/common/mtk-dsp-sof-common.c   | 15 +++++++--------
- sound/soc/mediatek/common/mtk-dsp-sof-common.h   |  1 -
- sound/soc/mediatek/common/mtk-soundcard-driver.h |  2 +-
- 3 files changed, 8 insertions(+), 10 deletions(-)
+ sound/soc/mediatek/mt8188/mt8188-mt6359.c | 203 +++++++---------------
+ 1 file changed, 64 insertions(+), 139 deletions(-)
 
-diff --git a/sound/soc/mediatek/common/mtk-dsp-sof-common.c b/sound/soc/mediatek/common/mtk-dsp-sof-common.c
-index 7ec8965a70c0..bca758dca2c9 100644
---- a/sound/soc/mediatek/common/mtk-dsp-sof-common.c
-+++ b/sound/soc/mediatek/common/mtk-dsp-sof-common.c
-@@ -15,7 +15,7 @@ int mtk_sof_dai_link_fixup(struct snd_soc_pcm_runtime *rtd,
+diff --git a/sound/soc/mediatek/mt8188/mt8188-mt6359.c b/sound/soc/mediatek/mt8188/mt8188-mt6359.c
+index a391066ab204..f629fc6bbb53 100644
+--- a/sound/soc/mediatek/mt8188/mt8188-mt6359.c
++++ b/sound/soc/mediatek/mt8188/mt8188-mt6359.c
+@@ -236,11 +236,11 @@ static const struct sof_conn_stream g_sof_conn_streams[] = {
+ 	},
+ };
+ 
+-struct mt8188_mt6359_priv {
+-	struct snd_soc_jack dp_jack;
+-	struct snd_soc_jack hdmi_jack;
+-	struct snd_soc_jack headset_jack;
+-	void *private_data;
++enum mt8188_jacks {
++	MT8188_JACK_HEADSET,
++	MT8188_JACK_DP,
++	MT8188_JACK_HDMI,
++	MT8188_JACK_MAX,
+ };
+ 
+ static struct snd_soc_jack_pin mt8188_hdmi_jack_pins[] = {
+@@ -268,11 +268,6 @@ static struct snd_soc_jack_pin nau8825_jack_pins[] = {
+ 	},
+ };
+ 
+-struct mt8188_card_data {
+-	const char *name;
+-	unsigned long quirk;
+-};
+-
+ static const struct snd_kcontrol_new mt8188_dumb_spk_controls[] = {
+ 	SOC_DAPM_PIN_SWITCH("Ext Spk"),
+ };
+@@ -590,12 +585,12 @@ static int mt8188_dptx_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
+ static int mt8188_hdmi_codec_init(struct snd_soc_pcm_runtime *rtd)
  {
- 	struct snd_soc_card *card = rtd->card;
- 	struct mtk_soc_card_data *soc_card_data = snd_soc_card_get_drvdata(card);
--	struct mtk_sof_priv *sof_priv = soc_card_data->sof_priv;
-+	const struct mtk_sof_priv *sof_priv = soc_card_data->sof_priv;
- 	int i, j, ret = 0;
+ 	struct mtk_soc_card_data *soc_card_data = snd_soc_card_get_drvdata(rtd->card);
+-	struct mt8188_mt6359_priv *priv = soc_card_data->mach_priv;
++	struct snd_soc_jack *jack = &soc_card_data->card_data->jacks[MT8188_JACK_HDMI];
+ 	struct snd_soc_component *component = snd_soc_rtd_to_codec(rtd, 0)->component;
+ 	int ret = 0;
  
- 	for (i = 0; i < sof_priv->num_streams; i++) {
-@@ -55,7 +55,6 @@ int mtk_sof_card_probe(struct snd_soc_card *card)
- 	int i;
- 	struct snd_soc_dai_link *dai_link;
- 	struct mtk_soc_card_data *soc_card_data = snd_soc_card_get_drvdata(card);
--	struct mtk_sof_priv *sof_priv = soc_card_data->sof_priv;
- 
- 	/* Set stream_name to help sof bind widgets */
- 	for_each_card_prelinks(card, i, dai_link) {
-@@ -63,7 +62,7 @@ int mtk_sof_card_probe(struct snd_soc_card *card)
- 			dai_link->stream_name = dai_link->name;
+ 	ret = snd_soc_card_jack_new_pins(rtd->card, "HDMI Jack",
+-					 SND_JACK_LINEOUT, &priv->hdmi_jack,
++					 SND_JACK_LINEOUT, jack,
+ 					 mt8188_hdmi_jack_pins,
+ 					 ARRAY_SIZE(mt8188_hdmi_jack_pins));
+ 	if (ret) {
+@@ -603,7 +598,7 @@ static int mt8188_hdmi_codec_init(struct snd_soc_pcm_runtime *rtd)
+ 		return ret;
  	}
  
--	INIT_LIST_HEAD(&sof_priv->dai_link_list);
-+	INIT_LIST_HEAD(&soc_card_data->sof_dai_link_list);
- 
- 	return 0;
- }
-@@ -73,7 +72,7 @@ static struct snd_soc_pcm_runtime *mtk_sof_find_tplg_be(struct snd_soc_pcm_runti
+-	ret = snd_soc_component_set_jack(component, &priv->hdmi_jack, NULL);
++	ret = snd_soc_component_set_jack(component, jack, NULL);
+ 	if (ret) {
+ 		dev_err(rtd->dev, "%s, set jack failed on %s (ret=%d)\n",
+ 			__func__, component->name, ret);
+@@ -616,19 +611,19 @@ static int mt8188_hdmi_codec_init(struct snd_soc_pcm_runtime *rtd)
+ static int mt8188_dptx_codec_init(struct snd_soc_pcm_runtime *rtd)
  {
- 	struct snd_soc_card *card = rtd->card;
- 	struct mtk_soc_card_data *soc_card_data = snd_soc_card_get_drvdata(card);
--	struct mtk_sof_priv *sof_priv = soc_card_data->sof_priv;
-+	const struct mtk_sof_priv *sof_priv = soc_card_data->sof_priv;
- 	struct snd_soc_pcm_runtime *fe;
- 	struct snd_soc_pcm_runtime *be;
- 	struct snd_soc_dpcm *dpcm;
-@@ -113,7 +112,7 @@ static int mtk_sof_check_tplg_be_dai_link_fixup(struct snd_soc_pcm_runtime *rtd,
- {
- 	struct snd_soc_card *card = rtd->card;
- 	struct mtk_soc_card_data *soc_card_data = snd_soc_card_get_drvdata(card);
--	struct mtk_sof_priv *sof_priv = soc_card_data->sof_priv;
-+	const struct mtk_sof_priv *sof_priv = soc_card_data->sof_priv;
- 	struct snd_soc_pcm_runtime *sof_be;
- 	struct mtk_dai_link *dai_link;
+ 	struct mtk_soc_card_data *soc_card_data = snd_soc_card_get_drvdata(rtd->card);
+-	struct mt8188_mt6359_priv *priv = soc_card_data->mach_priv;
++	struct snd_soc_jack *jack = &soc_card_data->card_data->jacks[MT8188_JACK_DP];
+ 	struct snd_soc_component *component = snd_soc_rtd_to_codec(rtd, 0)->component;
  	int ret = 0;
-@@ -125,7 +124,7 @@ static int mtk_sof_check_tplg_be_dai_link_fixup(struct snd_soc_pcm_runtime *rtd,
- 		else if (sof_be->dai_link->be_hw_params_fixup)
- 			ret = sof_be->dai_link->be_hw_params_fixup(sof_be, params);
- 	} else {
--		list_for_each_entry(dai_link, &sof_priv->dai_link_list, list) {
-+		list_for_each_entry(dai_link, &soc_card_data->sof_dai_link_list, list) {
- 			if (strcmp(dai_link->name, rtd->dai_link->name) == 0) {
- 				if (dai_link->be_hw_params_fixup)
- 					ret = dai_link->be_hw_params_fixup(rtd, params);
-@@ -144,7 +143,7 @@ int mtk_sof_card_late_probe(struct snd_soc_card *card)
- 	struct snd_soc_component *sof_comp = NULL;
- 	struct mtk_soc_card_data *soc_card_data =
- 		snd_soc_card_get_drvdata(card);
--	struct mtk_sof_priv *sof_priv = soc_card_data->sof_priv;
-+	const struct mtk_sof_priv *sof_priv = soc_card_data->sof_priv;
+ 
+ 	ret = snd_soc_card_jack_new_pins(rtd->card, "DP Jack", SND_JACK_LINEOUT,
+-					 &priv->dp_jack, mt8188_dp_jack_pins,
++					 jack, mt8188_dp_jack_pins,
+ 					 ARRAY_SIZE(mt8188_dp_jack_pins));
+ 	if (ret) {
+ 		dev_err(rtd->dev, "%s, new jack failed: %d\n", __func__, ret);
+ 		return ret;
+ 	}
+ 
+-	ret = snd_soc_component_set_jack(component, &priv->dp_jack, NULL);
++	ret = snd_soc_component_set_jack(component, jack, NULL);
+ 	if (ret) {
+ 		dev_err(rtd->dev, "%s, set jack failed on %s (ret=%d)\n",
+ 			__func__, component->name, ret);
+@@ -736,10 +731,9 @@ static int mt8188_max98390_codec_init(struct snd_soc_pcm_runtime *rtd)
+ static int mt8188_headset_codec_init(struct snd_soc_pcm_runtime *rtd)
+ {
+ 	struct snd_soc_card *card = rtd->card;
+-	struct mtk_soc_card_data *soc_card_data = snd_soc_card_get_drvdata(card);
+-	struct mt8188_mt6359_priv *priv = soc_card_data->mach_priv;
++	struct mtk_soc_card_data *soc_card_data = snd_soc_card_get_drvdata(rtd->card);
++	struct snd_soc_jack *jack = &soc_card_data->card_data->jacks[MT8188_JACK_HEADSET];
+ 	struct snd_soc_component *component = snd_soc_rtd_to_codec(rtd, 0)->component;
+-	struct snd_soc_jack *jack = &priv->headset_jack;
+ 	int ret;
+ 
+ 	ret = snd_soc_dapm_new_controls(&card->dapm, mt8188_nau8825_widgets,
+@@ -1224,11 +1218,10 @@ static struct snd_soc_dai_link mt8188_mt6359_dai_links[] = {
+ static void mt8188_fixup_controls(struct snd_soc_card *card)
+ {
+ 	struct mtk_soc_card_data *soc_card_data = snd_soc_card_get_drvdata(card);
+-	struct mt8188_mt6359_priv *priv = soc_card_data->mach_priv;
+-	struct mt8188_card_data *card_data = (struct mt8188_card_data *)priv->private_data;
++	struct mtk_platform_card_data *card_data = soc_card_data->card_data;
+ 	struct snd_kcontrol *kctl;
+ 
+-	if (card_data->quirk & (NAU8825_HS_PRESENT | RT5682S_HS_PRESENT | ES8326_HS_PRESENT)) {
++	if (card_data->flags & (NAU8825_HS_PRESENT | RT5682S_HS_PRESENT | ES8326_HS_PRESENT)) {
+ 		struct snd_soc_dapm_widget *w, *next_w;
+ 
+ 		for_each_card_widgets_safe(card, w, next_w) {
+@@ -1259,14 +1252,10 @@ static struct snd_soc_card mt8188_mt6359_soc_card = {
+ 	.fixup_controls = mt8188_fixup_controls,
+ };
+ 
+-static int mt8188_mt6359_dev_probe(struct platform_device *pdev)
++static int mt8188_mt6359_soc_card_probe(struct mtk_soc_card_data *soc_card_data, bool legacy)
+ {
+-	struct snd_soc_card *card = &mt8188_mt6359_soc_card;
+-	struct device_node *platform_node;
+-	struct device_node *adsp_node;
+-	struct mtk_soc_card_data *soc_card_data;
+-	struct mt8188_mt6359_priv *priv;
+-	struct mt8188_card_data *card_data;
++	struct mtk_platform_card_data *card_data = soc_card_data->card_data;
++	struct snd_soc_card *card = soc_card_data->card_data->card;
  	struct snd_soc_dai_link *dai_link;
- 	struct mtk_dai_link *mtk_dai_link;
- 	int i;
-@@ -173,7 +172,7 @@ int mtk_sof_card_late_probe(struct snd_soc_card *card)
- 			mtk_dai_link->be_hw_params_fixup = dai_link->be_hw_params_fixup;
- 			mtk_dai_link->name = dai_link->name;
+ 	bool init_mt6359 = false;
+ 	bool init_es8326 = false;
+@@ -1274,91 +1263,12 @@ static int mt8188_mt6359_dev_probe(struct platform_device *pdev)
+ 	bool init_rt5682s = false;
+ 	bool init_max98390 = false;
+ 	bool init_dumb = false;
+-	int ret, i;
+-
+-	card_data = (struct mt8188_card_data *)of_device_get_match_data(&pdev->dev);
+-	card->dev = &pdev->dev;
+-
+-	ret = snd_soc_of_parse_card_name(card, "model");
+-	if (ret)
+-		return dev_err_probe(&pdev->dev, ret, "%s new card name parsing error\n",
+-				     __func__);
+-
+-	if (!card->name)
+-		card->name = card_data->name;
+-
+-	if (of_property_read_bool(pdev->dev.of_node, "audio-routing")) {
+-		ret = snd_soc_of_parse_audio_routing(card, "audio-routing");
+-		if (ret)
+-			return ret;
+-	}
+-
+-	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
+-	if (!priv)
+-		return -ENOMEM;
+-
+-	soc_card_data = devm_kzalloc(&pdev->dev, sizeof(*card_data), GFP_KERNEL);
+-	if (!soc_card_data)
+-		return -ENOMEM;
+-
+-	soc_card_data->mach_priv = priv;
+-
+-	adsp_node = of_parse_phandle(pdev->dev.of_node, "mediatek,adsp", 0);
+-	if (adsp_node) {
+-		struct mtk_sof_priv *sof_priv;
+-
+-		sof_priv = devm_kzalloc(&pdev->dev, sizeof(*sof_priv), GFP_KERNEL);
+-		if (!sof_priv) {
+-			ret = -ENOMEM;
+-			goto err_adsp_node;
+-		}
+-		sof_priv->conn_streams = g_sof_conn_streams;
+-		sof_priv->num_streams = ARRAY_SIZE(g_sof_conn_streams);
+-		soc_card_data->sof_priv = sof_priv;
+-		card->probe = mtk_sof_card_probe;
+-		card->late_probe = mtk_sof_card_late_probe;
+-		if (!card->topology_shortname_created) {
+-			snprintf(card->topology_shortname, 32, "sof-%s", card->name);
+-			card->topology_shortname_created = true;
+-		}
+-		card->name = card->topology_shortname;
+-	}
+-
+-	if (of_property_read_bool(pdev->dev.of_node, "mediatek,dai-link")) {
+-		ret = mtk_sof_dailink_parse_of(card, pdev->dev.of_node,
+-					       "mediatek,dai-link",
+-					       mt8188_mt6359_dai_links,
+-					       ARRAY_SIZE(mt8188_mt6359_dai_links));
+-		if (ret) {
+-			dev_err_probe(&pdev->dev, ret, "Parse dai-link fail\n");
+-			goto err_adsp_node;
+-		}
+-	} else {
+-		if (!adsp_node)
+-			card->num_links = DAI_LINK_REGULAR_NUM;
+-	}
+-
+-	platform_node = of_parse_phandle(pdev->dev.of_node,
+-					 "mediatek,platform", 0);
+-	if (!platform_node) {
+-		ret = dev_err_probe(&pdev->dev, -EINVAL,
+-				    "Property 'platform' missing or invalid\n");
+-		goto err_adsp_node;
+-
+-	}
++	int i;
  
--			list_add(&mtk_dai_link->list, &sof_priv->dai_link_list);
-+			list_add(&mtk_dai_link->list, &soc_card_data->sof_dai_link_list);
+-	ret = parse_dai_link_info(card);
+-	if (ret)
+-		goto err;
++	if (legacy)
++		return -EINVAL;
+ 
+ 	for_each_card_prelinks(card, i, dai_link) {
+-		if (!dai_link->platforms->name) {
+-			if (!strncmp(dai_link->name, "AFE_SOF", strlen("AFE_SOF")) && adsp_node)
+-				dai_link->platforms->of_node = adsp_node;
+-			else
+-				dai_link->platforms->of_node = platform_node;
+-		}
+-
+ 		if (strcmp(dai_link->name, "DPTX_BE") == 0) {
+ 			if (strcmp(dai_link->codecs->dai_name, "snd-soc-dummy-dai"))
+ 				dai_link->init = mt8188_dptx_codec_init;
+@@ -1381,7 +1291,7 @@ static int mt8188_mt6359_dev_probe(struct platform_device *pdev)
+ 				 * mt8188_max98390_ops. Two amps is I2S mode,
+ 				 * SOC and codec don't require TDM settings.
+ 				 */
+-				if (!(card_data->quirk & MAX98390_TWO_AMP)) {
++				if (!(card_data->flags & MAX98390_TWO_AMP)) {
+ 					dai_link->ops = &mt8188_max98390_ops;
+ 				}
+ 				if (!init_max98390) {
+@@ -1420,40 +1330,55 @@ static int mt8188_mt6359_dev_probe(struct platform_device *pdev)
  		}
+ 	}
  
- 		if (dai_link->no_pcm)
-diff --git a/sound/soc/mediatek/common/mtk-dsp-sof-common.h b/sound/soc/mediatek/common/mtk-dsp-sof-common.h
-index 4bc5e1c0c8ed..8784ee471132 100644
---- a/sound/soc/mediatek/common/mtk-dsp-sof-common.h
-+++ b/sound/soc/mediatek/common/mtk-dsp-sof-common.h
-@@ -30,7 +30,6 @@ struct mtk_sof_priv {
- 	int num_streams;
- 	int (*sof_dai_link_fixup)(struct snd_soc_pcm_runtime *rtd,
- 				  struct snd_pcm_hw_params *params);
--	struct list_head dai_link_list;
+-	priv->private_data = card_data;
+-	snd_soc_card_set_drvdata(card, soc_card_data);
+-
+-	ret = devm_snd_soc_register_card(&pdev->dev, card);
+-	if (ret)
+-		dev_err_probe(&pdev->dev, ret, "%s snd_soc_register_card fail\n",
+-			      __func__);
+-err:
+-	of_node_put(platform_node);
+-	clean_card_reference(card);
+-
+-err_adsp_node:
+-	of_node_put(adsp_node);
+-
+-	return ret;
++	return 0;
+ }
+ 
+-static struct mt8188_card_data mt8188_evb_card = {
+-	.name = "mt8188_mt6359",
++static const struct mtk_sof_priv mt8188_sof_priv = {
++	.conn_streams = g_sof_conn_streams,
++	.num_streams = ARRAY_SIZE(g_sof_conn_streams),
++};
++
++static const struct mtk_soundcard_pdata mt8188_evb_card = {
++	.card_name = "mt8188_mt6359",
++	.card_data = &(struct mtk_platform_card_data) {
++		.card = &mt8188_mt6359_soc_card,
++		.num_jacks = MT8188_JACK_MAX,
++	},
++	.sof_priv = &mt8188_sof_priv,
++	.soc_probe = mt8188_mt6359_soc_card_probe,
  };
  
- int mtk_sof_dai_link_fixup(struct snd_soc_pcm_runtime *rtd,
-diff --git a/sound/soc/mediatek/common/mtk-soundcard-driver.h b/sound/soc/mediatek/common/mtk-soundcard-driver.h
-index 44320efff5f8..4fd2ffb7e486 100644
---- a/sound/soc/mediatek/common/mtk-soundcard-driver.h
-+++ b/sound/soc/mediatek/common/mtk-soundcard-driver.h
-@@ -22,7 +22,7 @@ struct mtk_platform_card_data {
- struct mtk_soundcard_pdata {
- 	const char *card_name;
- 	struct mtk_platform_card_data *card_data;
--	struct mtk_sof_priv *sof_priv;
-+	const struct mtk_sof_priv *sof_priv;
- 	int (*soc_probe)(struct mtk_soc_card_data *card_data, bool legacy);
+-static struct mt8188_card_data mt8188_nau8825_card = {
+-	.name = "mt8188_nau8825",
+-	.quirk = NAU8825_HS_PRESENT,
++static const struct mtk_soundcard_pdata mt8188_nau8825_card = {
++	.card_name = "mt8188_nau8825",
++	.card_data = &(struct mtk_platform_card_data) {
++		.card = &mt8188_mt6359_soc_card,
++		.num_jacks = MT8188_JACK_MAX,
++		.flags = NAU8825_HS_PRESENT
++	},
++	.sof_priv = &mt8188_sof_priv,
++	.soc_probe = mt8188_mt6359_soc_card_probe,
  };
  
+-static struct mt8188_card_data mt8188_rt5682s_card = {
+-	.name = "mt8188_rt5682s",
+-	.quirk = RT5682S_HS_PRESENT | MAX98390_TWO_AMP,
++static const struct mtk_soundcard_pdata mt8188_rt5682s_card = {
++	.card_name = "mt8188_rt5682s",
++	.card_data = &(struct mtk_platform_card_data) {
++		.card = &mt8188_mt6359_soc_card,
++		.num_jacks = MT8188_JACK_MAX,
++		.flags = RT5682S_HS_PRESENT | MAX98390_TWO_AMP
++	},
++	.sof_priv = &mt8188_sof_priv,
++	.soc_probe = mt8188_mt6359_soc_card_probe,
+ };
+ 
+-static struct mt8188_card_data mt8188_es8326_card = {
+-	.name = "mt8188_es8326",
+-	.quirk = ES8326_HS_PRESENT | MAX98390_TWO_AMP,
++static const struct mtk_soundcard_pdata mt8188_es8326_card = {
++	.card_name = "mt8188_es8326",
++	.card_data = &(struct mtk_platform_card_data) {
++		.card = &mt8188_mt6359_soc_card,
++		.num_jacks = MT8188_JACK_MAX,
++		.flags = ES8326_HS_PRESENT | MAX98390_TWO_AMP
++	},
++	.sof_priv = &mt8188_sof_priv,
++	.soc_probe = mt8188_mt6359_soc_card_probe,
+ };
+ 
+ static const struct of_device_id mt8188_mt6359_dt_match[] = {
+@@ -1471,7 +1396,7 @@ static struct platform_driver mt8188_mt6359_driver = {
+ 		.of_match_table = mt8188_mt6359_dt_match,
+ 		.pm = &snd_soc_pm_ops,
+ 	},
+-	.probe = mt8188_mt6359_dev_probe,
++	.probe = mtk_soundcard_common_probe,
+ };
+ 
+ module_platform_driver(mt8188_mt6359_driver);
 -- 
 2.44.0
 

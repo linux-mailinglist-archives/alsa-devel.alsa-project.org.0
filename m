@@ -2,121 +2,166 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4CA1875EA8
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Mar 2024 08:38:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3ADA5877051
+	for <lists+alsa-devel@lfdr.de>; Sat,  9 Mar 2024 11:19:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3EAF383E;
-	Fri,  8 Mar 2024 08:38:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3EAF383E
+	by alsa0.perex.cz (Postfix) with ESMTPS id C0ADA211E;
+	Sat,  9 Mar 2024 11:19:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C0ADA211E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1709883505;
-	bh=vd5gMQBUeDRDOvQP1as1pstmJzpr8WwIvQ3zpngO2PY=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=cdliUBFqZYEZsBPV9wEwTsqEGlAr5C9dcdthIq+olIQs+kLR7aaWAunMuQLwhkiBW
-	 kvK9n9wEGO46ijwWocy/MHulWip/oXyzvhlW7BniJ2lwbcahVJyNC3QWAIsyhsKtsI
-	 rUMTrVGS+9WKqUQrm4Yxchbzv3/H8oXdZ3VzSQbA=
+	s=default; t=1709979561;
+	bh=N8TgvrfBkIFsl5FQLWt1cMce6ac/UMaWKJZgZQg9R9E=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=qvenpwZAoFTW1MfhdB7kfxu++ZNo63dsfNZFLFls/S6ODBCIKde+obP4HF3IMx9KS
+	 zQvlia2k6+lJB7QzH403V3muk7vsTryYdptGkQcQ4kIjD87pfR855DAOVst6C6737Y
+	 V9iqB9ZLu12I4GTuFb+rn1GSCd6oJokUqErm9Uew=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EA098F80093; Fri,  8 Mar 2024 08:38:03 +0100 (CET)
+	id 6D720F89700; Sat,  9 Mar 2024 11:13:50 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8508DF805AA;
-	Fri,  8 Mar 2024 08:38:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 85991F896FB;
+	Sat,  9 Mar 2024 11:13:50 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 52F03F8024E; Fri,  8 Mar 2024 08:34:58 +0100 (CET)
+	id BA678F8024E; Fri,  8 Mar 2024 08:49:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No,
- score=-4.8 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn
+ (mail-bjschn02on20711.outbound.protection.partner.outlook.cn
+ [IPv6:2406:e500:4440:2::711])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 70BDEF80087
-	for <alsa-devel@alsa-project.org>; Fri,  8 Mar 2024 08:34:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 70BDEF80087
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id D9A9FCE274E;
-	Fri,  8 Mar 2024 07:34:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 453CAC433F1;
-	Fri,  8 Mar 2024 07:34:30 +0000 (UTC)
-Message-ID: <df05261f-2f0e-490f-883b-72ad8a02d11b@xs4all.nl>
-Date: Fri, 8 Mar 2024 08:34:28 +0100
+	by alsa1.perex.cz (Postfix) with ESMTPS id 46044F80087
+	for <alsa-devel@alsa-project.org>; Fri,  8 Mar 2024 08:49:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46044F80087
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=O/pluIahImGERTcBvfHD51Ck4Io0lH0xNrizrS9jGkr0EaQT5RFj5Q8tQPuoLOgSaWTWna/A4KT0RXDNbzvCNWUUhBHyepibgNQuqdV5hvZHYxE8Q7K05Oj3UON1DmQ55WAXEVCxJoiSYkhA2Aii2knhy6uRvrZ/g3lOG8qq7yC9JIwaOJRjb2h+otOUUBjv4xWg2dq+eXGi/KS04VfxMn3s3UFnZuBGjwMS2u/jWBs2ssx89jWlOXP6FUVrzpvUdxxqu7xvnoKMGuSPdygXHDPG+WCNQvfrMDAIDE6YkJgo34JvSrGig4m2njxVmrAV37FDapND53kpK2eLQep9kw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=N8TgvrfBkIFsl5FQLWt1cMce6ac/UMaWKJZgZQg9R9E=;
+ b=RvS+DQNdvHdG06DlxRlu8sR6p7+JAS7Vq8cuie/VV7nFAHmXM9ApDmwXk2fMQm/IGrAWVSnxz6Tl5cATktHUBktIKowps4w7TdepnCpBsmjJ3FIKI5Byiywmi6ja+Px+FR6qnDNufxWFYobBGgFR9qFE/R503/hUC00K8rkil0zRNTdjV1HzG57UEcXvLhbAgaJpcUfctSRbDiQlAWrQPyrDQ+Fq1NNF06oAp7fuV/37vNkmNvawL7QGSnWJxOmDV1Lk82OjYwqpQ0+lsxIbWZobkHVgjhmD3LcXhRcrLiCMkoevDcIoly5CUEpgXarydEbGG4/BXgMnq2PvNXbwGA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Received: from NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:8::10) by NTZPR01MB1084.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:9::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.41; Fri, 8 Mar
+ 2024 07:49:05 +0000
+Received: from NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn
+ ([fe80::20e3:6cc0:b982:ae95]) by
+ NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn ([fe80::20e3:6cc0:b982:ae95%3])
+ with mapi id 15.20.7316.039; Fri, 8 Mar 2024 07:49:05 +0000
+From: Xingyu Wu <xingyu.wu@starfivetech.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Liam Girdwood
+	<lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Takashi Iwai
+	<tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>, Rob Herring
+	<robh+dt@kernel.org>, Krzysztof Kozlowski
+	<krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
+	<conor.dooley@microchip.com>
+CC: Walker Chen <walker.chen@starfivetech.com>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "alsa-devel@alsa-project.org"
+	<alsa-devel@alsa-project.org>, "linux-sound@vger.kernel.org"
+	<linux-sound@vger.kernel.org>
+Subject: 
+ =?utf-8?B?5Zue5aSNOiBbUEFUQ0ggdjEgMS8yXSBkdC1iaW5kaW5nczogQVNvQzogQWRk?=
+ =?utf-8?Q?_PDM_controller_for_the_StarFive_JH8100_SoC?=
+Thread-Topic: [PATCH v1 1/2] dt-bindings: ASoC: Add PDM controller for the
+ StarFive JH8100 SoC
+Thread-Index: AQHacEDAGfG0pG/sOEqzgeaavlmQAbEr6kOAgAGEjIA=
+Date: Fri, 8 Mar 2024 07:49:05 +0000
+Message-ID: 
+ <NTZPR01MB095618FAFF22BDC301F69A0C9F27A@NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn>
+References: <20240307033708.139535-1-xingyu.wu@starfivetech.com>
+ <20240307033708.139535-2-xingyu.wu@starfivetech.com>
+ <0b92700a-cf79-4f1c-986a-d18fe0151bb8@linaro.org>
+In-Reply-To: <0b92700a-cf79-4f1c-986a-d18fe0151bb8@linaro.org>
+Accept-Language: en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: NTZPR01MB0956:EE_|NTZPR01MB1084:EE_
+x-ms-office365-filtering-correlation-id: 5a91fb30-1577-4e03-11cb-08dc3f443a93
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ FyXUJSeEJ8nvN6R1SfRi6rH7qfVHHvzXrhMONuUp1uom+qjHuPXi5a0A0ouXzsrfgxUSNP41ucq88S0w1T5Bh9hSmEpPHgIEobWh6YNhCai4bLktph1D3CWPCSfVeLGGJShCmzJciyA95T8Dir9nnMwK/UZWnfwtMaOLQsjEEZzCFKPBumit7PJ6FPft0/VgSQcs56jeKZpfNvx887NvlwmRZ8/fPIif+ZomYG738Zlx6Dqn8cfcPvPtmHzMQ39MRaQM+HqxdwiL5h8w2lCrY3Y4MeUC9OS47vJ/qc5ADJBmfCGA3p80CsQgHRpEr1wrID1vX1oR7xeduio/RRvyLBW47jvnBWeYaziImXBAdgakvC5IQeskw88NjiuTfh10PkcTCzbGnL41QH1CiceTYKbEOTrhbJ9pZkjIrl3QWRJ1yaFoBb1KZSyxQpvgcT/Dz8oOok9Nz2AVCu5XEYRxcMY565NU3S1W83bSMC8znS6d+ZU/MA57Rwr3LdrZ3LxTPq7oqrqQSo7ubHj8uisC7IX0UWl62dcw9VnvxN/JOPa0fHwRbTHUny4F2i7qmmrIVYLK4er0DvkCDFu+bbWcsd/2R9IRyvJMV365k/leMdlaDLbdwO8Uh0j4D/jgNXdn
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:zh-cn;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230031)(41320700004)(1800799015)(7416005)(38070700009);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?utf-8?B?ck4rOHh6SEdyZmkzcXdOZ05nSlRpTlhscHV4ZUFDakR2WlV0L1JERVhCRWVv?=
+ =?utf-8?B?RmVUM2szRHI3SjU5UHFVa3NXRkVoODAveGZuV2ZxYWVNamhVVVRmRi95djE4?=
+ =?utf-8?B?eDh5Q0EvYlRmS09odkM4S0xTaldNajJpZkhzZWwzR2RQUzJEOEE3YUxDSWlF?=
+ =?utf-8?B?QTdSMVNmYnAvWFdCcDNKMCtPbkdIZ2ppWUczRFBxOXZVa1FMaHJGYkkrZktI?=
+ =?utf-8?B?UkhKL3lDUDJCdU9sTHU0VU5kcTdrSTNDUmNQUW15NjU4VHE2OXl6aHRUcTcx?=
+ =?utf-8?B?dEVrQS9LVEhqQkUyVDZ5YmxKNjNQRVdMTkg4ZytiaDAwT2tsNVZCTTkxa0da?=
+ =?utf-8?B?OWpNWmUvQWIvSzRTb0YweW1FS3hpRnBtUElmZEhJeW9kZjdLNDZWOTdZYnpy?=
+ =?utf-8?B?SG56V05SUzZlSktZNnpCL1BPbkIzbGxTbGhYVkJJNUNZSzAzdVg4OWwvZ3cz?=
+ =?utf-8?B?WGFqeW9pZ3FoMTMyRWpPTVJHekZiY1QyYkd3TGY2V242cG5wUUNML1YrbEpo?=
+ =?utf-8?B?dFFPSFNCalYwbWt1QjQ1ME0vV3dhNVNUTkhXcEhjelZhdCs4NUVweENzWU95?=
+ =?utf-8?B?UWgvWFdWQ2tWVGVGRzRQNTdPdDNzZ1UzOEJIallpUHlGSS9UYWlHMzF5L1p2?=
+ =?utf-8?B?Q29aT2c5ejRmZ1hNVkVOaGVhSCtHUnMwcENkV1A1ekhTYkladXRDUlRVSTl5?=
+ =?utf-8?B?eWZtZnRYOWgrd1pIa05GUkZIT1hySGQvM2cyVmFHVzlBVTIvdjdTaWNmUXhH?=
+ =?utf-8?B?VEJsRmRyeGE5dnFpR2RrQ0hzR3kxSGhKMUJPalM3cWM1UFEzOVp6VG1ZbTdV?=
+ =?utf-8?B?WHNpbVdsOUVEWTBNa1h6amhjUzhkMVoxLzVGVUhZMDE4VE9Bc0d0emRpUzhx?=
+ =?utf-8?B?ZER2akRDKzNqbkFsd25TNFFxbVhzM3I2UkR0RnpSTk9QelZhaUtkc1dteEdx?=
+ =?utf-8?B?eXZvQ0NwUnVVMERkU1BqbWhnckgxMG9uKytTdEpHWUE2YUVacDUyLytQeGEv?=
+ =?utf-8?B?YWhSaE9HR0tlZTVZZVRFWlFJMExob0MwQjJReEVCUnFoM3g0cnVxTVp6U3lp?=
+ =?utf-8?B?ZllScXFXRkhLaktCL3dySXpaMkJzWjJRblZuSXlWbitDU0wxeFhxN2o4UjNK?=
+ =?utf-8?B?RzRVci9uSzJXSGtZZllOOURSamhGNGJWS2xPRzkwcEU1dHEza3ZXSHAvWXpL?=
+ =?utf-8?B?bWcyQ0Q3RUdCS1d2WTlVV28yMWZpOE5Wb1hCR1E4aGt4bi9xT1lEbE9BWFB1?=
+ =?utf-8?B?SXd2QWYxK3RYaS9PdTQxRXpxQlVybXpia1RPc0J3VG1UM25BMmVJNHFkTDkw?=
+ =?utf-8?B?akhCTjkwT2JEejFnbWhwWUdxeks4MFVKUzk2MGcxZFB4Z1BDelBiOWdqRVEw?=
+ =?utf-8?B?akt0NjVxMUhONzBNK2VzYXAzU3BkemQwT1JjQzlHWGJ6OTZoUUp5YTBoQlhE?=
+ =?utf-8?B?VEZ3SGdiMHdRVmEwNlJXd1d3bnQzRHRadHZmWkpjWVVLczM4ekJEK2k4NXkx?=
+ =?utf-8?B?cndHV2h1UHZWbmluZm1taWhvUXVLVi9mUDFrZzliek1RaUg0M21kbmxjbUg4?=
+ =?utf-8?B?TTU3WWsxVWsyTkEyMVlxZEpnRFFNVG54RUt6SlNnUVFxQmdsaDZRR2pWR2VK?=
+ =?utf-8?B?My9SM1FWcVVMakVFcFNoVmFvQlMzUEgrMk9Dd1ZuRWVUYkZMRE9mYllsTUxq?=
+ =?utf-8?B?WFRIbzJYbzRzcFBvYXdXTEpsTWxFTHZ5UnFPVTF1Z2Q3eUJleTA0TlBjbGtZ?=
+ =?utf-8?B?dmN0Tkw3S00rQjB4MFlQd2VneCtlbWpZUXdaY2RTeWYyNURXSzFhRUlkN0E2?=
+ =?utf-8?B?c2crellram41ZzJrMm9VQ1lVcUZaNjBCTmlydFNieGNCdXpQVWxZZzNwT3Zy?=
+ =?utf-8?B?aG42L1RKeXV5RzgxNGhZLzN6Z2xERWRSS2JibllPc3NWbVkyOWVDckZta0Fr?=
+ =?utf-8?B?blFpTENmNTFrZFZwRDllQVByY044R3djd08zMGNicXgvMVhLdC9vWGlqKzhM?=
+ =?utf-8?B?azJMTm9Jc281T2tSejN1NU9ETk0zK0RLOUx3MVZXV2NwNDYwNUo4bHlPa1Ri?=
+ =?utf-8?B?bHhCVzN2UndrVjZadFpWeGNnUmVvNjRpeStmU1hkNWhiNmFiUnJZUGZYbVlC?=
+ =?utf-8?Q?9F8HRSm3XDkSMhK3C3CyD9noP?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 09/16] media: uapi: Define audio sample format fourcc
- type
-Content-Language: en-US, nl
-To: Shengjiu Wang <shengjiu.wang@nxp.com>, sakari.ailus@iki.fi,
- tfiga@chromium.org, m.szyprowski@samsung.com, mchehab@kernel.org,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com, festevam@gmail.com,
- nicoleotsuka@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
- perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
- linuxppc-dev@lists.ozlabs.org
-References: <1708936109-11587-1-git-send-email-shengjiu.wang@nxp.com>
- <1708936109-11587-10-git-send-email-shengjiu.wang@nxp.com>
-From: Hans Verkuil <hverkuil@xs4all.nl>
-Autocrypt: addr=hverkuil@xs4all.nl; keydata=
- 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
-In-Reply-To: <1708936109-11587-10-git-send-email-shengjiu.wang@nxp.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: T5COA4Z67IJ5V2EI6BMRVTWJ6DYC6SQC
-X-Message-ID-Hash: T5COA4Z67IJ5V2EI6BMRVTWJ6DYC6SQC
-X-MailFrom: SRS0=OGpY=KO=xs4all.nl=hverkuil@kernel.org
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: 
+ NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 5a91fb30-1577-4e03-11cb-08dc3f443a93
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Mar 2024 07:49:05.2618
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 
+ RSGliUOnzrOe73JZ6JVDhGEe2Dr9xy1BAPQqGltEM6cIelSwdYs+D4jNsarNJsIMtIL2cixOpPhGGFLaVJcvlPYj9WS+YUoFAN5nh7m4sb0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: NTZPR01MB1084
+X-MailFrom: xingyu.wu@starfivetech.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: 37GUBAPPDSUF6Y4H7MZQGVNVGKHLGVSA
+X-Message-ID-Hash: 37GUBAPPDSUF6Y4H7MZQGVNVGKHLGVSA
+X-Mailman-Approved-At: Sat, 09 Mar 2024 10:11:38 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
@@ -130,215 +175,84 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Shengjiu,
-
-After thinking it over I think this patch can be improved:
-
-On 26/02/2024 9:28 am, Shengjiu Wang wrote:
-> The audio sample format definition is from alsa,
-> the header file is include/uapi/sound/asound.h, but
-> don't include this header file directly, because in
-> user space, there is another copy in alsa-lib.
-> There will be conflict in userspace for include
-> videodev2.h & asound.h and asoundlib.h
-> 
-> Here still use the fourcc format.
-> 
-> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-> ---
->  .../userspace-api/media/v4l/pixfmt-audio.rst  | 87 +++++++++++++++++++
->  .../userspace-api/media/v4l/pixfmt.rst        |  1 +
->  drivers/media/v4l2-core/v4l2-ioctl.c          | 13 +++
->  include/uapi/linux/videodev2.h                | 23 +++++
->  4 files changed, 124 insertions(+)
->  create mode 100644 Documentation/userspace-api/media/v4l/pixfmt-audio.rst
-> 
-> diff --git a/Documentation/userspace-api/media/v4l/pixfmt-audio.rst b/Documentation/userspace-api/media/v4l/pixfmt-audio.rst
-> new file mode 100644
-> index 000000000000..04b4a7fbd8f4
-> --- /dev/null
-> +++ b/Documentation/userspace-api/media/v4l/pixfmt-audio.rst
-> @@ -0,0 +1,87 @@
-> +.. SPDX-License-Identifier: GFDL-1.1-no-invariants-or-later
-> +
-> +.. _pixfmt-audio:
-> +
-> +*************
-> +Audio Formats
-> +*************
-> +
-> +These formats are used for :ref:`audiomem2mem` interface only.
-
-Here you should also document that all these fourccs start with 'AU' and are
-reserved for mappings of the snd_pcm_format_t type.
-
-Also document the v4l2_fourcc_to_audfmt define and the v4l2_audfmt_to_fourcc
-define (see also below).
-
-> +
-> +.. tabularcolumns:: |p{5.8cm}|p{1.2cm}|p{10.3cm}|
-> +
-> +.. cssclass:: longtable
-> +
-> +.. flat-table:: Audio Format
-> +    :header-rows:  1
-> +    :stub-columns: 0
-> +    :widths:       3 1 4
-> +
-> +    * - Identifier
-> +      - Code
-> +      - Details
-> +    * .. _V4L2-AUDIO-FMT-S8:
-> +
-> +      - ``V4L2_AUDIO_FMT_S8``
-> +      - 'S8'
-> +      - Corresponds to SNDRV_PCM_FORMAT_S8 in ALSA
-> +    * .. _V4L2-AUDIO-FMT-S16-LE:
-> +
-> +      - ``V4L2_AUDIO_FMT_S16_LE``
-> +      - 'S16_LE'
-> +      - Corresponds to SNDRV_PCM_FORMAT_S16_LE in ALSA
-> +    * .. _V4L2-AUDIO-FMT-U16-LE:
-> +
-> +      - ``V4L2_AUDIO_FMT_U16_LE``
-> +      - 'U16_LE'
-> +      - Corresponds to SNDRV_PCM_FORMAT_U16_LE in ALSA
-> +    * .. _V4L2-AUDIO-FMT-S24-LE:
-> +
-> +      - ``V4L2_AUDIO_FMT_S24_LE``
-> +      - 'S24_LE'
-> +      - Corresponds to SNDRV_PCM_FORMAT_S24_LE in ALSA
-> +    * .. _V4L2-AUDIO-FMT-U24-LE:
-> +
-> +      - ``V4L2_AUDIO_FMT_U24_LE``
-> +      - 'U24_LE'
-> +      - Corresponds to SNDRV_PCM_FORMAT_U24_LE in ALSA
-> +    * .. _V4L2-AUDIO-FMT-S32-LE:
-> +
-> +      - ``V4L2_AUDIO_FMT_S32_LE``
-> +      - 'S32_LE'
-> +      - Corresponds to SNDRV_PCM_FORMAT_S32_LE in ALSA
-> +    * .. _V4L2-AUDIO-FMT-U32-LE:
-> +
-> +      - ``V4L2_AUDIO_FMT_U32_LE``
-> +      - 'U32_LE'
-> +      - Corresponds to SNDRV_PCM_FORMAT_U32_LE in ALSA
-> +    * .. _V4L2-AUDIO-FMT-FLOAT-LE:
-> +
-> +      - ``V4L2_AUDIO_FMT_FLOAT_LE``
-> +      - 'FLOAT_LE'
-> +      - Corresponds to SNDRV_PCM_FORMAT_FLOAT_LE in ALSA
-> +    * .. _V4L2-AUDIO-FMT-IEC958-SUBFRAME-LE:
-> +
-> +      - ``V4L2_AUDIO_FMT_IEC958_SUBFRAME_LE``
-> +      - 'IEC958_SUBFRAME_LE'
-> +      - Corresponds to SNDRV_PCM_FORMAT_IEC958_SUBFRAME_LE in ALSA
-> +    * .. _V4L2-AUDIO-FMT-S24-3LE:
-> +
-> +      - ``V4L2_AUDIO_FMT_S24_3LE``
-> +      - 'S24_3LE'
-> +      - Corresponds to SNDRV_PCM_FORMAT_S24_3LE in ALSA
-> +    * .. _V4L2-AUDIO-FMT-U24-3LE:
-> +
-> +      - ``V4L2_AUDIO_FMT_U24_3LE``
-> +      - 'U24_3LE'
-> +      - Corresponds to SNDRV_PCM_FORMAT_U24_3LE in ALSA
-> +    * .. _V4L2-AUDIO-FMT-S20-3LE:
-> +
-> +      - ``V4L2_AUDIO_FMT_S20_3LE``
-> +      - 'S20_3LE'
-> +      - Corresponds to SNDRV_PCM_FORMAT_S24_3LE in ALSA
-> +    * .. _V4L2-AUDIO-FMT-U20-3LE:
-> +
-> +      - ``V4L2_AUDIO_FMT_U20_3LE``
-> +      - 'U20_3LE'
-> +      - Corresponds to SNDRV_PCM_FORMAT_U20_3LE in ALSA
-> diff --git a/Documentation/userspace-api/media/v4l/pixfmt.rst b/Documentation/userspace-api/media/v4l/pixfmt.rst
-> index 11dab4a90630..2eb6fdd3b43d 100644
-> --- a/Documentation/userspace-api/media/v4l/pixfmt.rst
-> +++ b/Documentation/userspace-api/media/v4l/pixfmt.rst
-> @@ -36,3 +36,4 @@ see also :ref:`VIDIOC_G_FBUF <VIDIOC_G_FBUF>`.)
->      colorspaces
->      colorspaces-defs
->      colorspaces-details
-> +    pixfmt-audio
-> diff --git a/drivers/media/v4l2-core/v4l2-ioctl.c b/drivers/media/v4l2-core/v4l2-ioctl.c
-> index 961abcdf7290..be229c69e991 100644
-> --- a/drivers/media/v4l2-core/v4l2-ioctl.c
-> +++ b/drivers/media/v4l2-core/v4l2-ioctl.c
-> @@ -1471,6 +1471,19 @@ static void v4l_fill_fmtdesc(struct v4l2_fmtdesc *fmt)
->  	case V4L2_PIX_FMT_Y210:		descr = "10-bit YUYV Packed"; break;
->  	case V4L2_PIX_FMT_Y212:		descr = "12-bit YUYV Packed"; break;
->  	case V4L2_PIX_FMT_Y216:		descr = "16-bit YUYV Packed"; break;
-> +	case V4L2_AUDIO_FMT_S8:		descr = "8-bit Signed"; break;
-> +	case V4L2_AUDIO_FMT_S16_LE:	descr = "16-bit Signed LE"; break;
-> +	case V4L2_AUDIO_FMT_U16_LE:		descr = "16-bit Unsigned LE"; break;
-> +	case V4L2_AUDIO_FMT_S24_LE:		descr = "24(32)-bit Signed LE"; break;
-> +	case V4L2_AUDIO_FMT_U24_LE:		descr = "24(32)-bit Unsigned LE"; break;
-> +	case V4L2_AUDIO_FMT_S32_LE:		descr = "32-bit Signed LE"; break;
-> +	case V4L2_AUDIO_FMT_U32_LE:		descr = "32-bit Unsigned LE"; break;
-> +	case V4L2_AUDIO_FMT_FLOAT_LE:		descr = "32-bit Float LE"; break;
-> +	case V4L2_AUDIO_FMT_IEC958_SUBFRAME_LE:	descr = "32-bit IEC958 LE"; break;
-> +	case V4L2_AUDIO_FMT_S24_3LE:		descr = "24(24)-bit Signed LE"; break;
-> +	case V4L2_AUDIO_FMT_U24_3LE:		descr = "24(24)-bit Unsigned LE"; break;
-> +	case V4L2_AUDIO_FMT_S20_3LE:		descr = "20(24)-bit Signed LE"; break;
-> +	case V4L2_AUDIO_FMT_U20_3LE:		descr = "20(24)-bit Unsigned LE"; break;
->  
->  	default:
->  		/* Compressed formats */
-> diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videodev2.h
-> index 2c03d2dfadbe..673a6235a029 100644
-> --- a/include/uapi/linux/videodev2.h
-> +++ b/include/uapi/linux/videodev2.h
-> @@ -843,6 +843,29 @@ struct v4l2_pix_format {
->  #define V4L2_META_FMT_RK_ISP1_PARAMS	v4l2_fourcc('R', 'K', '1', 'P') /* Rockchip ISP1 3A Parameters */
->  #define V4L2_META_FMT_RK_ISP1_STAT_3A	v4l2_fourcc('R', 'K', '1', 'S') /* Rockchip ISP1 3A Statistics */
->  
-> +/*
-> + * Audio-data formats
-> + * All these audio formats use a fourcc starting with 'AU'
-> + * followed by the SNDRV_PCM_FORMAT_ value from asound.h.
-
-Also document here that fourccs starting with 'AU' are reserved for
-the snd_pcm_format_t to fourcc mappings.
-
-That to avoid that someone adds a 'AUXX' fourcc later.
-
-> + */
-> +#define V4L2_AUDIO_FMT_S8			v4l2_fourcc('A', 'U', '0', '0')
-> +#define V4L2_AUDIO_FMT_S16_LE			v4l2_fourcc('A', 'U', '0', '2')
-> +#define V4L2_AUDIO_FMT_U16_LE			v4l2_fourcc('A', 'U', '0', '4')
-> +#define V4L2_AUDIO_FMT_S24_LE			v4l2_fourcc('A', 'U', '0', '6')
-> +#define V4L2_AUDIO_FMT_U24_LE			v4l2_fourcc('A', 'U', '0', '8')
-> +#define V4L2_AUDIO_FMT_S32_LE			v4l2_fourcc('A', 'U', '1', '0')
-> +#define V4L2_AUDIO_FMT_U32_LE			v4l2_fourcc('A', 'U', '1', '2')
-> +#define V4L2_AUDIO_FMT_FLOAT_LE			v4l2_fourcc('A', 'U', '1', '4')
-> +#define V4L2_AUDIO_FMT_IEC958_SUBFRAME_LE	v4l2_fourcc('A', 'U', '1', '8')
-> +#define V4L2_AUDIO_FMT_S24_3LE			v4l2_fourcc('A', 'U', '3', '2')
-> +#define V4L2_AUDIO_FMT_U24_3LE			v4l2_fourcc('A', 'U', '3', '4')
-> +#define V4L2_AUDIO_FMT_S20_3LE			v4l2_fourcc('A', 'U', '3', '6')
-> +#define V4L2_AUDIO_FMT_U20_3LE			v4l2_fourcc('A', 'U', '3', '8')
-> +
-> +#define v4l2_fourcc_to_audfmt(fourcc)	\
-> +	(__force snd_pcm_format_t)(((((fourcc) >> 16) & 0xff) - '0') * 10  \
-> +				   + ((((fourcc) >> 24) & 0xff) - '0'))
-> +
-
-As I suggested in an earlier reply, add this:
-
-#define v4l2_audfmt_to_fourcc(audfmt) \
- 	v4l2_fourcc('A', 'U', '0' + (audfmt) / 10, '0' + (audfmt) % 10)
-
-Even though it is not used in the drivers, since this is a public header used
-by drivers and applications, it makes sense to provide the reverse mapping as well.
-
-Please test it in actual code to make sure there are no compilation warnings.
-
-Regards,
-
-	Hans
-
->  /* priv field value to indicates that subsequent fields are valid. */
->  #define V4L2_PIX_FMT_PRIV_MAGIC		0xfeedcafe
->  
-
+PiBPbiAwNy8wMy8yMDI0IDA0OjM3LCBYaW5neXUgV3Ugd3JvdGU6DQo+ID4gQWRkIGJpbmRpbmdz
+IGZvciB0aGUgUERNIGNvbnRyb2xsZXIgZm9yIHRoZSBTdGFyRml2ZSBKSDgxMDAgU29DLg0KPiAN
+Cj4gUGxlYXNlIHVzZSBzdWJqZWN0IHByZWZpeGVzIG1hdGNoaW5nIHRoZSBzdWJzeXN0ZW0uIFlv
+dSBjYW4gZ2V0IHRoZW0gZm9yDQo+IGV4YW1wbGUgd2l0aCBgZ2l0IGxvZyAtLW9uZWxpbmUgLS0g
+RElSRUNUT1JZX09SX0ZJTEVgIG9uIHRoZSBkaXJlY3RvcnkgeW91cg0KPiBwYXRjaCBpcyB0b3Vj
+aGluZy4NCj4gDQoNCk9rYXksIHdpbGwgZml4Lg0KDQo+ID4NCj4gPiBTaWduZWQtb2ZmLWJ5OiBY
+aW5neXUgV3UgPHhpbmd5dS53dUBzdGFyZml2ZXRlY2guY29tPg0KPiA+IC0tLQ0KPiA+ICAuLi4v
+YmluZGluZ3Mvc291bmQvc3RhcmZpdmUsamg4MTAwLXBkbS55YW1sICAgfCA4NCArKysrKysrKysr
+KysrKysrKysrDQo+ID4gIDEgZmlsZSBjaGFuZ2VkLCA4NCBpbnNlcnRpb25zKCspDQo+ID4gIGNy
+ZWF0ZSBtb2RlIDEwMDY0NA0KPiA+IERvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9z
+b3VuZC9zdGFyZml2ZSxqaDgxMDAtcGRtLnlhbWwNCj4gPg0KPiA+IGRpZmYgLS1naXQNCj4gPiBh
+L0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9zb3VuZC9zdGFyZml2ZSxqaDgxMDAt
+cGRtLnlhbWwNCj4gPiBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9zb3VuZC9z
+dGFyZml2ZSxqaDgxMDAtcGRtLnlhbWwNCj4gPiBuZXcgZmlsZSBtb2RlIDEwMDY0NA0KPiA+IGlu
+ZGV4IDAwMDAwMDAwMDAwMC4uYTkxYjQ3ZDM5YWQzDQo+ID4gLS0tIC9kZXYvbnVsbA0KPiA+ICsr
+KyBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9zb3VuZC9zdGFyZml2ZSxqaDgx
+MDAtcGRtLnlhbWwNCj4gPiBAQCAtMCwwICsxLDg0IEBADQo+ID4gKyMgU1BEWC1MaWNlbnNlLUlk
+ZW50aWZpZXI6IChHUEwtMi4wIE9SIEJTRC0yLUNsYXVzZSkgJVlBTUwgMS4yDQo+ID4gKy0tLQ0K
+PiA+ICskaWQ6IGh0dHA6Ly9kZXZpY2V0cmVlLm9yZy9zY2hlbWFzL3NvdW5kL3N0YXJmaXZlLGpo
+ODEwMC1wZG0ueWFtbCMNCj4gPiArJHNjaGVtYTogaHR0cDovL2RldmljZXRyZWUub3JnL21ldGEt
+c2NoZW1hcy9jb3JlLnlhbWwjDQo+ID4gKw0KPiA+ICt0aXRsZTogU3RhckZpdmUgSkg4MTAwIFBE
+TSBjb250cm9sbGVyDQo+ID4gKw0KPiA+ICtkZXNjcmlwdGlvbjogfA0KPiA+ICsgIFRoZSBQdWxz
+ZSBEZW5zaXR5IE1vZHVsYXRpb24gKFBETSkgY29udHJvbGxlciBpcyBhIGRpZ2l0YWwgUERNIG91
+dA0KPiA+ICsgIG1pY3JvcGhvbmUgaW50ZXJmYWNlIGNvbnRyb2xsZXIgYW5kIGRlY29kZXIgdGhh
+dCBzdXBwb3J0cyBib3RoDQo+ID4gKyAgbW9uby9zdGVyZW8gUERNIGZvcm1hdCwgYW5kIGFuIElu
+dGVyLUlDIFNvdW5kIChJMlMpIHRyYW5zbWl0dGVyDQo+ID4gK3RoYXQNCj4gPiArICBvdXRwdXRz
+IHN0YW5kYXJkIHN0ZXJlbyBhdWRpbyBkYXRhIHRvIGFub3RoZXIgZGV2aWNlLiBUaGUgSTJTDQo+
+ID4gK3RyYW5zbWl0dGVyDQo+ID4gKyAgY2FuIGJlIGNvbmZpZ3VyZWQgdG8gb3BlcmF0ZSBlaXRo
+ZXIgYSBtYXN0ZXIgb3IgYSBzbGF2ZSAoZGVmYXVsdCBtb2RlKS4NCj4gPiArICBUaGUgUERNIGNv
+bnRyb2xsZXIgaW5jbHVkZXMgdHdvIFBETSBtb2R1bGVzLCBlYWNoIFBETSBtb2R1bGUgY2FuDQo+
+ID4gK2RyaXZlDQo+ID4gKyAgb25lIGJpdHN0cmVhbSBzYW1wbGluZyBjbG9jayBhbmQgdHdvIGJp
+dHN0cmVhbSBjb21pbmcgZGF0YSB3aXRoDQo+ID4gK3NhbXBsaW5nDQo+ID4gKyAgY2xvY2sgcmlz
+aW5nIGFuZCBmYWxsaW5nIGVkZ2UuDQo+ID4gKw0KPiA+ICttYWludGFpbmVyczoNCj4gPiArICAt
+IFhpbmd5dSBXdSA8eGluZ3l1Lnd1QHN0YXJmaXZldGVjaC5jb20+DQo+ID4gKyAgLSBXYWxrZXIg
+Q2hlbiA8d2Fsa2VyLmNoZW5Ac3RhcmZpdmV0ZWNoLmNvbT4NCj4gPiArDQo+ID4gK3Byb3BlcnRp
+ZXM6DQo+ID4gKyAgY29tcGF0aWJsZToNCj4gPiArICAgIGNvbnN0OiBzdGFyZml2ZSxqaDgxMDAt
+cGRtDQo+ID4gKw0KPiA+ICsgIHJlZzoNCj4gPiArICAgIG1heEl0ZW1zOiAxDQo+ID4gKw0KPiA+
+ICsgIGNsb2NrczoNCj4gPiArICAgIGl0ZW1zOg0KPiA+ICsgICAgICAtIGRlc2NyaXB0aW9uOiBE
+TUlDIG91dHB1dCBjbG9jaw0KPiA+ICsgICAgICAtIGRlc2NyaXB0aW9uOiBNYWluIElDRyBjbG9j
+aw0KPiA+ICsNCj4gPiArICBjbG9jay1uYW1lczoNCj4gPiArICAgIGl0ZW1zOg0KPiA+ICsgICAg
+ICAtIGNvbnN0OiBkbWljDQo+ID4gKyAgICAgIC0gY29uc3Q6IGljZw0KPiA+ICsNCj4gPiArICBy
+ZXNldHM6DQo+ID4gKyAgICBtYXhJdGVtczogMQ0KPiA+ICsNCj4gPiArICBzdGFyZml2ZSxzeXNj
+b246DQo+ID4gKyAgICAkcmVmOiAvc2NoZW1hcy90eXBlcy55YW1sIy9kZWZpbml0aW9ucy9waGFu
+ZGxlLWFycmF5DQo+ID4gKyAgICBpdGVtczoNCj4gPiArICAgICAgLSBpdGVtczoNCj4gPiArICAg
+ICAgICAgIC0gZGVzY3JpcHRpb246IHBoYW5kbGUgdG8gU3lzdGVtIFJlZ2lzdGVyIENvbnRyb2xs
+ZXINCj4gc3lzX3N5c2Nvbl9uZSBub2RlLg0KPiA+ICsgICAgICAgICAgLSBkZXNjcmlwdGlvbjog
+UERNIHNvdXJjZSBlbmFibGVkIGNvbnRyb2wgb2Zmc2V0IG9mDQo+IFNZU19TWVNDT05fTkUgcmVn
+aXN0ZXIuDQo+ID4gKyAgICAgICAgICAtIGRlc2NyaXB0aW9uOiBQRE0gc291cmNlIGVuYWJsZWQg
+Y29udHJvbCBtYXNrDQo+ID4gKyAgICBkZXNjcmlwdGlvbjoNCj4gPiArICAgICAgVGhlIHBoYW5k
+bGUgdG8gU3lzdGVtIFJlZ2lzdGVyIENvbnRyb2xsZXIgc3lzY29uIG5vZGUgYW5kIHRoZSBQRE0N
+Cj4gc291cmNlDQo+ID4gKyAgICAgIGZyb20gSTJTIGVuYWJsZWQgY29udHJvbCBvZmZzZXQgYW5k
+IG1hc2sgb2YgU1lTX1NZU0NPTl9ORSByZWdpc3Rlci4NCj4gPiArDQo+ID4gKyAgc3RhcmZpdmUs
+cGRtLW1vZHVsZXg6DQo+ID4gKyAgICAkcmVmOiAvc2NoZW1hcy90eXBlcy55YW1sIy9kZWZpbml0
+aW9ucy91aW50MzINCj4gPiArICAgIGVudW06IFswLCAxXQ0KPiA+ICsgICAgZGVzY3JpcHRpb246
+DQo+ID4gKyAgICAgIFRoZSBtb2R1bGUgeCB3aWxsIGJlIHVzaW5nIGluIFBETSBjb250cm9sbGVy
+LiBEZWZhdWx0IHVzZSBtb2R1bGUgMC4NCj4gDQo+IFRoaXMgaXMgYW4gaW5kZXggb2YgdGhlIGJs
+b2NrIGluc3RhbmNlPyBJZiBzbywgdGhlbiBpdCdzIG5vdCBhbGxvd2VkLg0KPiBPdGhlcndpc2Ug
+SSBkb24ndCB1bmRlcnN0YW5kIHRoZSBkZXNjcmlwdGlvbi4NCj4gDQoNCk5vLCB0aGlzIGlzIGp1
+c3Qgb25lIGluc3RhbmNlLiBUaGUgUERNIGhhdmUgdHdvIGludGVybmFsIGFuZCBpbmRlcGVuZGVu
+dCBtb2R1bGVzIG9yIGNhbGxlZCBjaGFubmVscy4NClRoZXkgY2FuIGJlIGNvbmZpZ3VyZWQgYW5k
+IHVzZWQgc2VwYXJhdGVseSwgYW5kIHRoZSB1c2VyIGNhbiBjaG9vc2Ugd2hpY2ggY2hhbm5lbCB0
+byB1c2UuDQoNCj4gQW55d2F5LCBkb24ndCByZXBlYXQgY29uc3RyYWludHMgaW4gZnJlZSBmb3Jt
+IHRleHQuIGRlZmF1bHQ6IDAsIGlmIHRoaXMgaXMgZ29pbmcgdG8NCj4gc3RheS4NCj4gDQoNCk9o
+LCBJIGp1c3Qgd2FudCB0byBkZXNjcmliZSB0aGF0IGlmIG5vIHRoaXMgcHJvcGVydHksIHRoZSBk
+cml2ZXIgZGVmYXVsdCB1c2UgbW9kdWxlIDAuDQpJIHdpbGwgbWFrZSB0aGlzIGNsZWFyIGluIG5l
+eHQgdmVyc2lvbi4NCg0KPiA+ICsNCj4gPiArICAiI3NvdW5kLWRhaS1jZWxscyI6DQo+ID4gKyAg
+ICBjb25zdDogMA0KPiA+ICsNCj4gPiArcmVxdWlyZWQ6DQo+ID4gKyAgLSBjb21wYXRpYmxlDQo+
+ID4gKyAgLSByZWcNCj4gPiArICAtIGNsb2Nrcw0KPiA+ICsgIC0gY2xvY2stbmFtZXMNCj4gPiAr
+ICAtIHJlc2V0cw0KPiA+ICsgIC0gc3RhcmZpdmUsc3lzY29uDQo+ID4gKw0KPiA+ICt1bmV2YWx1
+YXRlZFByb3BlcnRpZXM6IGZhbHNlDQo+IA0KPiBUaGlzIGlzIHdyb25nIHdpdGhvdXQgJHJlZiwg
+d2hpY2ggcG9pbnRzIHlvdSB0byBtaXNzaW5nICRyZWYgdG8gZGFpLWNvbW1vbi4NCg0KV2lsbCBh
+ZGQgaXQuIFRoYW5rcy4NCg0KPiANCj4gPiArDQo+ID4gK2V4YW1wbGVzOg0KPiA+ICsgIC0gfA0K
+PiA+ICsgICAgcGRtQDEyMjUwMDAwIHsNCj4gPiArICAgICAgY29tcGF0aWJsZSA9ICJzdGFyZml2
+ZSxqaDgxMDAtcGRtIjsNCj4gPiArICAgICAgcmVnID0gPDB4MTIyNTAwMDAgMHgxMDAwPjsNCj4g
+PiArICAgICAgY2xvY2tzID0gPCZzeXNjcmdfbmUgMTQyPiwNCj4gPiArICAgICAgICAgICAgICAg
+PCZzeXNjcmdfbmUgMTcxPjsNCj4gPiArICAgICAgY2xvY2stbmFtZXMgPSAiZG1pYyIsICJpY2ci
+Ow0KPiA+ICsgICAgICByZXNldHMgPSA8JnN5c2NyZ19uZSA0ND47DQo+ID4gKyAgICAgIHN0YXJm
+aXZlLHN5c2NvbiA9IDwmc3lzX3N5c2Nvbl9uZSAweEMgMHhGRj47DQo+IA0KPiBMb3dlcmNhc2Ug
+aGV4IG9ubHkuDQoNCldpbGwgZml4Lg0KDQo+IA0KPiA+ICsgICAgICAjc291bmQtZGFpLWNlbGxz
+ID0gPDA+Ow0KPiA+ICsgICAgfTsNCj4gDQo+IEJlc3QgcmVnYXJkcywNCj4gS3J6eXN6dG9mDQoN
+ClRoYW5rcywNClhpbmd5dSBXdQ0K

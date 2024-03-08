@@ -2,104 +2,123 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C13B876463
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Mar 2024 13:36:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8F87877056
+	for <lists+alsa-devel@lfdr.de>; Sat,  9 Mar 2024 11:20:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0D1BB93A;
-	Fri,  8 Mar 2024 13:36:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D1BB93A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 54AC822AD;
+	Sat,  9 Mar 2024 11:20:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 54AC822AD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1709901380;
-	bh=FO/2tbdfopZ0jgXfxeznKBXF2Z6rQryzkEHxQzSdob4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=OqYUv1SKuqygeveu29WK6t/FMP8lEziuvQjwmHfO1hbV90Nw31Tmglgknv3l24hf5
-	 Xy90ingAL3DfNnTxV7mj6B4Na8xjsblOYoxw1g6YofApdn9+/7JFq8ORuf0jALPFwR
-	 EgiUFs4XEM9eqdsOvZJSJ3Ff9pHklJ4eraV/1mJ4=
+	s=default; t=1709979616;
+	bh=pICe2GlJL7NcXxK2+pFuQf8AqphEs57jHM44QIo2Vcc=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=ME2SRF3vVmaIytXpwoPX5Z0bCaeoClsM4ssvZ4pJ1cexY2IX4jQjquK/zsqreAxHM
+	 m7N+EhNBLaAqaf5wZlKq9QylWvPHJyA0eGtVts8NAaLvP8VtTQ9ctxGXZXbLv38JTO
+	 nwekjTifM/7B2tmfbOb1e4mGkBbGHXWJkZH0C+JY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0B08BF805AB; Fri,  8 Mar 2024 13:35:46 +0100 (CET)
+	id C368EF805E4; Sat,  9 Mar 2024 11:14:01 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id F1373F8057E;
-	Fri,  8 Mar 2024 13:35:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E6859F89743;
+	Sat,  9 Mar 2024 11:14:00 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9DA34F8024E; Fri,  8 Mar 2024 13:35:40 +0100 (CET)
+	id 0AAFFF8024E; Fri,  8 Mar 2024 13:41:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-4.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6788DF80093
-	for <alsa-devel@alsa-project.org>; Fri,  8 Mar 2024 13:35:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6788DF80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id 63F1AF80093
+	for <alsa-devel@alsa-project.org>; Fri,  8 Mar 2024 13:41:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63F1AF80093
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=TYOhrchC
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 51BBD61785;
-	Fri,  8 Mar 2024 12:35:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A38FC43394;
-	Fri,  8 Mar 2024 12:35:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1709901328;
-	bh=FO/2tbdfopZ0jgXfxeznKBXF2Z6rQryzkEHxQzSdob4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=TYOhrchCM5AcfxPJr1oIyABZAaxg9gskQp8WoHXfOeui02f9YDOiUEccLFAfpD2MU
-	 EiUsJt/4PuPnbdyx9XpqQeesIstI/T4Dps8oISJ/y5AUG8qglej8saE4q/j8uFmuQD
-	 MtyJSyWiCJfn8zC3DSxgZZhC3aFuUlWjbwyNJa2caxdbIUR3V6GYfzhBTdUg0iUfYL
-	 7DDTDQ/azQpLSE//PcmZ7EJMqDDLBKsliYdSOxj5Y2ZCkCx0GHh5Gy+4sf/Gaq7XKx
-	 3nO8obKNqOFLq8Y8riZvs/8P5jhDuqveb687JPfbxHzKcjxYU2SzHwk8DBGqK0Cm2J
-	 b7zKSu+WHLzaA==
-Date: Fri, 8 Mar 2024 12:35:23 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Xingyu Wu <xingyu.wu@starfivetech.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>, Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Walker Chen <walker.chen@starfivetech.com>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
-	"linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>
-Subject: Re: =?utf-8?B?5Zue5aSN?= =?utf-8?Q?=3A?= [PATCH v1 2/2] ASoC:
- starfive: Add PDM controller support
-Message-ID: <330cf044-75e2-4938-b886-ce13003d30e8@sirena.org.uk>
-References: <20240307033708.139535-1-xingyu.wu@starfivetech.com>
- <20240307033708.139535-3-xingyu.wu@starfivetech.com>
- <fddca901-273c-4b06-ad59-d156941920d6@sirena.org.uk>
- <NTZPR01MB0956E2033EDDA3FFE1211ACD9F27A@NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="PmTquCiKJJKa3CmU"
-Content-Disposition: inline
-In-Reply-To: 
- <NTZPR01MB0956E2033EDDA3FFE1211ACD9F27A@NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn>
-X-Cookie: Isn't this my STOP?!
-Message-ID-Hash: FAMZ3W63PHCBD5QCJXUMW3HL3SGJXVLF
-X-Message-ID-Hash: FAMZ3W63PHCBD5QCJXUMW3HL3SGJXVLF
-X-MailFrom: broonie@kernel.org
+ unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
+ header.s=qcppdkim1 header.b=MmeNv1j2
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 4283tO98012824;
+	Fri, 8 Mar 2024 12:41:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+	from:to:cc:subject:date:message-id; s=qcppdkim1; bh=xWK+KGxSm6EY
+	uf9aKqHSC0xJscIex/nm/iyXNhqPd/o=; b=MmeNv1j2bvvUXSnA9lMPzNInCs/K
+	wv0HfF1gBYsEFdUHq4RDY0KHmb9TxXNNyNxjsSfyVBeONBn+x+GzjNk7ZTsBivFJ
+	/Bx9SoOYNAg2JDCbMnccKGxtKiqiPrGYVFFwVg1d0VkBj18vE0dLB7g+W9XcNj+Y
+	IBPHY2tHq2COVv6H6q+EbCTgq2xeHvienHbbf6nCvUC1vOW0ELP2CmP3eQObiXjP
+	o92iJsDXWiJjrmbchqs34MCbRipMSgX08kxWldwSoUl/1DMDCBnsRDUTZOFeAW4T
+	bV7wUZCP/tucJTtLvmz1exd9MMO7skNjR809bhFJfXBYU6QTNs1OAl/vRw==
+Received: from apblrppmta02.qualcomm.com
+ (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3wqn8m1rsg-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 08 Mar 2024 12:41:36 +0000 (GMT)
+Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTP id
+ 428CfW9u024479;
+	Fri, 8 Mar 2024 12:41:32 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTP id 3wkw6m415d-1;
+	Fri, 08 Mar 2024 12:41:32 +0000
+Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com
+ [127.0.0.1])
+	by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 428CfWWW024474;
+	Fri, 8 Mar 2024 12:41:32 GMT
+Received: from hu-maiyas-hyd.qualcomm.com (hu-vdadhani-hyd.qualcomm.com
+ [10.213.106.28])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTP id 428CfW5o024472;
+	Fri, 08 Mar 2024 12:41:32 +0000
+Received: by hu-maiyas-hyd.qualcomm.com (Postfix, from userid 4047106)
+	id 68FA95001D9; Fri,  8 Mar 2024 18:11:31 +0530 (+0530)
+From: Viken Dadhaniya <quic_vdadhani@quicinc.com>
+To: andersson@kernel.org, konrad.dybcio@linaro.org,
+        srinivas.kandagatla@linaro.org, linux-arm-msm@vger.kernel.org,
+        alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Cc: quic_msavaliy@quicinc.com, quic_vtanuku@quicinc.com,
+        quic_anupkulk@quicinc.com, quic_cchiluve@quicinc.com,
+        Viken Dadhaniya <quic_vdadhani@quicinc.com>
+Subject: [PATCH v2] slimbus: qcom-ngd-ctrl: Reduce auto suspend delay
+Date: Fri,  8 Mar 2024 18:11:29 +0530
+Message-Id: <20240308124129.7833-1-quic_vdadhani@quicinc.com>
+X-Mailer: git-send-email 2.17.1
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: N7kfrcuy2M1ezXttnyc7DxW46hEm_5JO
+X-Proofpoint-ORIG-GUID: N7kfrcuy2M1ezXttnyc7DxW46hEm_5JO
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-03-08_08,2024-03-06_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0
+ mlxlogscore=658 clxscore=1015 adultscore=0 phishscore=0 impostorscore=0
+ mlxscore=0 malwarescore=0 priorityscore=1501 suspectscore=0 spamscore=0
+ bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2402120000 definitions=main-2403080101
+X-MailFrom: vdadhani@qualcomm.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: JTPR6LYEMKJDPCYYL2LQDGRP7QVGEXBF
+X-Message-ID-Hash: JTPR6LYEMKJDPCYYL2LQDGRP7QVGEXBF
+X-Mailman-Approved-At: Sat, 09 Mar 2024 10:12:12 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FAMZ3W63PHCBD5QCJXUMW3HL3SGJXVLF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JTPR6LYEMKJDPCYYL2LQDGRP7QVGEXBF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,56 +127,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Currently we have auto suspend delay of 1s which is
+very high and it takes long time to driver for runtime
+suspend after use case is done.
 
---PmTquCiKJJKa3CmU
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Hence to optimize runtime PM ops, reduce auto suspend
+delay to 100ms.
 
-On Fri, Mar 08, 2024 at 08:45:45AM +0000, Xingyu Wu wrote:
-> > On Thu, Mar 07, 2024 at 11:37:08AM +0800, Xingyu Wu wrote:
+Signed-off-by: Viken Dadhaniya <quic_vdadhani@quicinc.com>
+---
+v1 -> v2:
+- Remove macro and add value inline.
+- Link to v1: https://lore.kernel.org/linux-arm-msm/d784e46d-974d-4bf3-a2d3-491e7ad19701@linaro.org/T/
+---
+---
+ drivers/slimbus/qcom-ngd-ctrl.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-> > > +	if (!device_property_read_u8(&pdev->dev, "starfive,pdm-modulex",
-> > &using_modulex))
-> > > +		if (using_modulex == 1)
-> > > +			base += JH8100_PDM_MODULEX_SHIFT; /* Use module 1 */
+diff --git a/drivers/slimbus/qcom-ngd-ctrl.c b/drivers/slimbus/qcom-ngd-ctrl.c
+index efeba8275a66..5e132273c6c4 100644
+--- a/drivers/slimbus/qcom-ngd-ctrl.c
++++ b/drivers/slimbus/qcom-ngd-ctrl.c
+@@ -81,7 +81,6 @@
+ #define SLIM_USR_MC_DISCONNECT_PORT	0x2E
+ #define SLIM_USR_MC_REPEAT_CHANGE_VALUE	0x0
+ 
+-#define QCOM_SLIM_NGD_AUTOSUSPEND	MSEC_PER_SEC
+ #define SLIM_RX_MSGQ_TIMEOUT_VAL	0x10000
+ 
+ #define SLIM_LA_MGR	0xFF
+@@ -1571,7 +1570,7 @@ static int qcom_slim_ngd_probe(struct platform_device *pdev)
+ 
+ 	platform_set_drvdata(pdev, ctrl);
+ 	pm_runtime_use_autosuspend(dev);
+-	pm_runtime_set_autosuspend_delay(dev, QCOM_SLIM_NGD_AUTOSUSPEND);
++	pm_runtime_set_autosuspend_delay(dev, 100);
+ 	pm_runtime_set_suspended(dev);
+ 	pm_runtime_enable(dev);
+ 	pm_runtime_get_noresume(dev);
+-- 
+QUALCOMM INDIA, on behalf of Qualcomm Innovation Center, Inc. is a member 
+of Code Aurora Forum, hosted by The Linux Foundation
 
-> > This really looks like you've got one hardware block with two devices in it, either
-> > the address ranges registered for the devices in DT should be separate and you
-> > shouldn't need this property or you should have one component registering both
-> > PDM interfaces.
-
-> Yeah, They like two independent device and have different register to
-> configure, but just use the same clocks and resets.  Due to the sample
-> rate depend on the share clocks, they should be registered together as
-> a 4-channel capture device (rarely used), or just one of them can be
-> registered separately as a 2-channel device.  BTW, can I use the
-> 0x12250000 about the property of reg for device 0 or 0x12250010 for
-> device 1 to choose which device to be used in DT?
-
-Ah, so it's actually a small MFD but given that it's two audio blocks
-possibly not worth registering as such.  I'd register two stereo DAIs to
-one component and then use the DAI ID to figure out which registers to
-write to.  Four channel mode might need a property to put everything as
-one DAI and not register the second one, or it might just be OK to let
-the first DAI be 4 channel with runtime error checking.
-
-Please fix your mail client to word wrap within paragraphs at something
-substantially less than 80 columns.  Doing this makes your messages much
-easier to read and reply to.
-
---PmTquCiKJJKa3CmU
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmXrBgoACgkQJNaLcl1U
-h9DEhwf+KgApJjUr4IiU+vvCVeMKJxlSEoO7nfmdqt1/A6QTnqv6jBiCGSwpMIHx
-h+m+KI68xKrBA8J2ufPN/KnCh0prXfy8vOPOccavWBg4UdDm6LHnheeZHXt+xgla
-VRAaPw9XpGmW7mo2lqY4QR6lutgLIQDxIoLjzRepCFoFrTQIH2yaSqUxcakRwaFA
-KfqgAyDhr+NrZSThLLoHuJjGQOVEyA8TOwrjKPnG3GVjhLupXbr6UgR3BZ7I7saf
-k7zYnzW4/HSb3ACbYaHCkwL88RVCFdih43ZpIwNKgxeFpB9/FYa0ow4xk3nGjoPn
-cEbVA3HKOGq0/mGsOzLEYgAc2u4Vdg==
-=kMbj
------END PGP SIGNATURE-----
-
---PmTquCiKJJKa3CmU--

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA716876096
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Mar 2024 10:05:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B6438760A1
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Mar 2024 10:05:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E69ED846;
-	Fri,  8 Mar 2024 10:04:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E69ED846
+	by alsa0.perex.cz (Postfix) with ESMTPS id B102A839;
+	Fri,  8 Mar 2024 10:05:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B102A839
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1709888707;
-	bh=j+q5dWt1plxctsU8WpiPca8LVYrRcW5b2lgmqcYGMdc=;
+	s=default; t=1709888743;
+	bh=JwZ+hTwodZVOZjjcv5y82g/XjxBtI97P5qvbPi/nw5s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=UymzhcYxUpSxJpcp98qhzb9QqLvB1hkeXmV8XA/BxI5QUHOIbdJwEmv/gydwVVig4
-	 zvnWhdG0h1ngutZozZ5b3QU13eB6LVlGubr6vn2RPquYOLG5xMPbUGHr4MqkKUTm9J
-	 u2sgQdTlm9H6n01mHR0b411cve7PsRyunNif6LnQ=
+	b=uPNkIRxHdck4YVFiMHYVTgJet9DjGfWpihJ5Q2Rd7Qu7/tEv4i50cnvwn2oUhiWw+
+	 HL94PMJtctUF1Am/4XQubxbC4KXCe7sVC2igIILu6Mwzv5U34h+q3Rzr+oNWz+DkvU
+	 wSjdpaT6PTZEQrwontDwlIaFHxg0H3CZWRCitSP8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 72032F805FC; Fri,  8 Mar 2024 10:04:00 +0100 (CET)
+	id 4D183F805DF; Fri,  8 Mar 2024 10:04:56 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 13410F8061B;
-	Fri,  8 Mar 2024 10:04:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DAE05F80588;
+	Fri,  8 Mar 2024 10:04:55 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1FD89F805B2; Fri,  8 Mar 2024 10:03:46 +0100 (CET)
+	id 0D5CAF801F5; Fri,  8 Mar 2024 10:04:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,37 +35,37 @@ X-Spam-Status: No, score=-5.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D26DCF8024E
-	for <alsa-devel@alsa-project.org>; Fri,  8 Mar 2024 10:03:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D26DCF8024E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 639C5F802E8
+	for <alsa-devel@alsa-project.org>; Fri,  8 Mar 2024 10:03:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 639C5F802E8
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=VuNw1QdL
+ header.s=Intel header.b=DmalCM2x
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1709888613; x=1741424613;
+  t=1709888615; x=1741424615;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=j+q5dWt1plxctsU8WpiPca8LVYrRcW5b2lgmqcYGMdc=;
-  b=VuNw1QdLK+iohojbK7ewSnmQhk/VN7djRZN/JgwVxo4dQkQcMZD56cm4
-   7QInoUkEmXAcFQkNOI3Yp4OGyY4DkbqE+Yq0xdxEXW5KkwtJ/768E8B5L
-   w5kjyAc8UuXhRiTkWGdR2MJZ2s1Acmw0sVFxU6Am6b/OHmiW+dL+x9MJr
-   4TWyfniOzZgbcvfFGcyXRvcIUrLcMUeIGLBxWi55M+g19cTQAz54iOPPY
-   NApvRndkz7vtIuoeUQy6pVqffIMvvqb09mhyDs1KgXWHuH2VqXTJ/t+QB
-   SssgHP21+2sRPjX4ZZCTDBpW5VZ5RW8+TIincGjhK5LVtnUy1tNGvYvQ7
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,11006"; a="15247007"
+  bh=JwZ+hTwodZVOZjjcv5y82g/XjxBtI97P5qvbPi/nw5s=;
+  b=DmalCM2xAjU7wwDtUFNbetqamrKYZFuxcbo1ij+tw0xGbgmxGqiOdrqG
+   F+1ZWlD/ynK2NBhNYVNV8ilmx9ke+QMc3YrBsNojwASIt3zyv7BqOvdSn
+   DGqQ1cJj7/CJi1aOsoZPG11GmepDjLXjuJ6TJdWHbJneZN9B+FH85v5bX
+   ICIen0KXK8z/Wl89S46JLpe1B7BOkZ2bgi3Y0HFXFmdPmyltLPPv2BcLf
+   CZNm+m15ZfufFw8rZTCF6nAk04L2Ez3YpWTLR+2TnnvmT7mPhFwYoMATa
+   ZgOus7G0KG0HnSnYF1HGKuDVD9xDjBtobToputBnyY0g0TjyfhK8FOGaC
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,11006"; a="15247013"
 X-IronPort-AV: E=Sophos;i="6.07,109,1708416000";
-   d="scan'208";a="15247007"
+   d="scan'208";a="15247013"
 Received: from orviesa010.jf.intel.com ([10.64.159.150])
   by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Mar 2024 01:03:31 -0800
+ 08 Mar 2024 01:03:33 -0800
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.07,109,1708416000";
-   d="scan'208";a="10419278"
+   d="scan'208";a="10419287"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
-  by orviesa010.jf.intel.com with ESMTP; 08 Mar 2024 01:03:29 -0800
+  by orviesa010.jf.intel.com with ESMTP; 08 Mar 2024 01:03:31 -0800
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: broonie@kernel.org
 Cc: alsa-devel@alsa-project.org,
@@ -76,16 +76,16 @@ Cc: alsa-devel@alsa-project.org,
 	pierre-louis.bossart@linux.intel.com,
 	hdegoede@redhat.com,
 	Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: [PATCH v2 3/5] ASoC: Intel: avs: ssm4567: Do not ignore route checks
-Date: Fri,  8 Mar 2024 10:05:00 +0100
-Message-Id: <20240308090502.2136760-4-cezary.rojewski@intel.com>
+Subject: [PATCH v2 4/5] ASoC: Intel: avs: ssm4567: Board cleanup
+Date: Fri,  8 Mar 2024 10:05:01 +0100
+Message-Id: <20240308090502.2136760-5-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240308090502.2136760-1-cezary.rojewski@intel.com>
 References: <20240308090502.2136760-1-cezary.rojewski@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: L62JKLLSK75P2OXAYWVA5VORMGBJWNB3
-X-Message-ID-Hash: L62JKLLSK75P2OXAYWVA5VORMGBJWNB3
+Message-ID-Hash: PKMIGQLKSMLATQM4YDETWQOLJ3QDHXI4
+X-Message-ID-Hash: PKMIGQLKSMLATQM4YDETWQOLJ3QDHXI4
 X-MailFrom: cezary.rojewski@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -98,7 +98,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/L62JKLLSK75P2OXAYWVA5VORMGBJWNB3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PKMIGQLKSMLATQM4YDETWQOLJ3QDHXI4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,27 +107,36 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-A copy-paste from intel/boards/skl_nau88l25_ssm4567.c made the avs's
-equivalent disable route checks as well. Such behavior is not desired.
+The card-name suffix and the DP-widgets are an unintended copy-paste
+from skl_nau88215_ssm4567.c. Both are redundant.
 
-Fixes: 69ea14efe99b ("ASoC: Intel: avs: Add ssm4567 machine board")
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- sound/soc/intel/avs/boards/ssm4567.c | 1 -
- 1 file changed, 1 deletion(-)
+ sound/soc/intel/avs/boards/ssm4567.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
 diff --git a/sound/soc/intel/avs/boards/ssm4567.c b/sound/soc/intel/avs/boards/ssm4567.c
-index 4a0e136835ff..b64be685dc23 100644
+index b64be685dc23..abb87bb88fff 100644
 --- a/sound/soc/intel/avs/boards/ssm4567.c
 +++ b/sound/soc/intel/avs/boards/ssm4567.c
-@@ -172,7 +172,6 @@ static int avs_ssm4567_probe(struct platform_device *pdev)
- 	card->dapm_routes = card_base_routes;
- 	card->num_dapm_routes = ARRAY_SIZE(card_base_routes);
- 	card->fully_routed = true;
--	card->disable_route_checks = true;
+@@ -37,8 +37,6 @@ static const struct snd_kcontrol_new card_controls[] = {
+ static const struct snd_soc_dapm_widget card_widgets[] = {
+ 	SND_SOC_DAPM_SPK("Left Speaker", NULL),
+ 	SND_SOC_DAPM_SPK("Right Speaker", NULL),
+-	SND_SOC_DAPM_SPK("DP1", NULL),
+-	SND_SOC_DAPM_SPK("DP2", NULL),
+ };
  
- 	ret = snd_soc_fixup_dai_links_platform_name(card, pname);
- 	if (ret)
+ static const struct snd_soc_dapm_route card_base_routes[] = {
+@@ -158,7 +156,7 @@ static int avs_ssm4567_probe(struct platform_device *pdev)
+ 	if (!card)
+ 		return -ENOMEM;
+ 
+-	card->name = "avs_ssm4567-adi";
++	card->name = "avs_ssm4567";
+ 	card->dev = dev;
+ 	card->owner = THIS_MODULE;
+ 	card->dai_link = dai_link;
 -- 
 2.25.1
 

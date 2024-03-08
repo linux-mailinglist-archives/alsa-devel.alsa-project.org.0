@@ -2,121 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03EF38765F4
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Mar 2024 15:05:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 812FD876616
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Mar 2024 15:13:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 13E81847;
-	Fri,  8 Mar 2024 15:05:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 13E81847
+	by alsa0.perex.cz (Postfix) with ESMTPS id E85633E8;
+	Fri,  8 Mar 2024 15:13:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E85633E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1709906719;
-	bh=X/qOhJGEXalirpDNKgd2DyuOgUy8yBNgZHo89ncIZVA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1709907196;
+	bh=E2jQGhctqhdTeyf9K9GCx+OjkomQmjygegGT1CBBREQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=apUzUGiiLS/+A3rEGLbctwBpJhnDLCX/MjQ1fG02rlNjZ5CjnAuJ/DeXa9LAQiYln
-	 zp3zBdJXATknnVu5QIC7TqK+xUgSgOz5eykTzcUPwfiUbwz8Gyl/YfaP7pnu46CuoP
-	 DQ/A2itxBkNCqBc3zsJm1JTZfZHvyPOTjslmBwQs=
+	b=liQq/oXWRYleQveiEbTUm2ADZ2j9Nhw/U/9eg3U7Te6jRQoLjv9iCYc74xI2n35Dv
+	 GV0aave08StVT9FrqhHsAQUH1cOhH7ZnCLmDi5Z4Wr+JoFaRPkjisIHd3vi7T99gNO
+	 VAH3jtN8+Vby3Ar/GGFpwYF4sxaSbxJ34WQ8y/J4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4E0E2F8057F; Fri,  8 Mar 2024 15:04:46 +0100 (CET)
+	id ADC9AF80579; Fri,  8 Mar 2024 15:12:45 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7229BF80571;
-	Fri,  8 Mar 2024 15:04:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EDAADF804B0;
+	Fri,  8 Mar 2024 15:12:44 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B00EAF8024E; Fri,  8 Mar 2024 15:04:39 +0100 (CET)
+	id 70A8EF8024E; Fri,  8 Mar 2024 15:12:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No,
- score=-2.1 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-3.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
 Received: from sin.source.kernel.org (sin.source.kernel.org
  [IPv6:2604:1380:40e1:4800::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EA6EBF80087
-	for <alsa-devel@alsa-project.org>; Fri,  8 Mar 2024 15:04:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA6EBF80087
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6A58FF80088
+	for <alsa-devel@alsa-project.org>; Fri,  8 Mar 2024 15:12:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A58FF80088
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=GI24qi44
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 69651CE1DBE;
-	Fri,  8 Mar 2024 14:04:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C76FC433F1;
-	Fri,  8 Mar 2024 14:04:24 +0000 (UTC)
-Message-ID: <c3dbbc57-2df4-4c88-98e3-0500910404c4@xs4all.nl>
-Date: Fri, 8 Mar 2024 15:04:23 +0100
+	by sin.source.kernel.org (Postfix) with ESMTP id 37639CE25A6;
+	Fri,  8 Mar 2024 14:12:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70B52C43390;
+	Fri,  8 Mar 2024 14:12:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1709907153;
+	bh=E2jQGhctqhdTeyf9K9GCx+OjkomQmjygegGT1CBBREQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=GI24qi44A/VKrjHaZyry5snyO4/S802K7VYlZx5PFgC7N79guUAXhow08Urp7MUAK
+	 ByE8lXVWDynmqBRDBgcg/wTmFHls89Nsbatq/i9pifile8ZwwfDSBJdF4Bf55YE9fh
+	 EuHcsPsvO5TzB/cmJW04FgYGCJ85bffDyTvDmR5H6HxfDE2lO5aD2uwg1AvenRILIy
+	 wnUEEKlLysKL06eTY27BGRD2qLD2eTxah7JGI80+QvEnlQ3AlxMAcjRJhnUVgmJwHg
+	 GR05l60AYWnmAW1L0gztoN+bUZtf1y9dniOxOk1/GPl33MMBTUXX3bqEGBNI5SdXRt
+	 01DmTSJSzzDGA==
+Date: Fri, 8 Mar 2024 14:12:27 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Cc: tiwai@suse.com, hdegoede@redhat.com, lenb@kernel.org, rafael@kernel.org,
+	linux-sound@vger.kernel.org, alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org, patches@opensource.cirrus.com,
+	platform-driver-x86@vger.kernel.org, linux-acpi@vger.kernel.org,
+	Simon Trimmer <simont@opensource.cirrus.com>
+Subject: Re: [PATCH 1/3] ASoC: cs35l56: Add support for CS35L54 and CS35L57
+Message-ID: <275d4e66-dc76-47cc-9681-e60b218a8cc7@sirena.org.uk>
+References: <20240308135900.603192-1-rf@opensource.cirrus.com>
+ <20240308135900.603192-2-rf@opensource.cirrus.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 09/16] media: uapi: Define audio sample format fourcc
- type
-Content-Language: en-US, nl
-To: Shengjiu Wang <shengjiu.wang@gmail.com>
-Cc: Shengjiu Wang <shengjiu.wang@nxp.com>, sakari.ailus@iki.fi,
- tfiga@chromium.org, m.szyprowski@samsung.com, mchehab@kernel.org,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- Xiubo.Lee@gmail.com, festevam@gmail.com, nicoleotsuka@gmail.com,
- lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org
-References: <1708936109-11587-1-git-send-email-shengjiu.wang@nxp.com>
- <1708936109-11587-10-git-send-email-shengjiu.wang@nxp.com>
- <df05261f-2f0e-490f-883b-72ad8a02d11b@xs4all.nl>
- <CAA+D8AMJOCfp6WdqYqy7KSj=mX9o_D5U-aF6Wn=3cOnhWg7VDg@mail.gmail.com>
- <56368a0d-6ada-4ab6-8389-b4bd20d6efc4@xs4all.nl>
- <CAA+D8AOXKJP1r-+j0QiH82x3MQ+Y1y2c1h04n=jmJncPogn7Vg@mail.gmail.com>
-From: Hans Verkuil <hverkuil@xs4all.nl>
-Autocrypt: addr=hverkuil@xs4all.nl; keydata=
- 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
-In-Reply-To: 
- <CAA+D8AOXKJP1r-+j0QiH82x3MQ+Y1y2c1h04n=jmJncPogn7Vg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: PR4DKHJFL5TCRJVGUOFREF6AWQI6PPQD
-X-Message-ID-Hash: PR4DKHJFL5TCRJVGUOFREF6AWQI6PPQD
-X-MailFrom: SRS0=OGpY=KO=xs4all.nl=hverkuil@kernel.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="UB2zcriJOOZ1VYZ+"
+Content-Disposition: inline
+In-Reply-To: <20240308135900.603192-2-rf@opensource.cirrus.com>
+X-Cookie: Isn't this my STOP?!
+Message-ID-Hash: QHTRS5Y5GW62FLMLRWPX5O62WDSC5X72
+X-Message-ID-Hash: QHTRS5Y5GW62FLMLRWPX5O62WDSC5X72
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -128,7 +91,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PR4DKHJFL5TCRJVGUOFREF6AWQI6PPQD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QHTRS5Y5GW62FLMLRWPX5O62WDSC5X72/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -137,282 +100,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 08/03/2024 2:52 pm, Shengjiu Wang wrote:
-> On Fri, Mar 8, 2024 at 8:06 PM Hans Verkuil <hverkuil@xs4all.nl> wrote:
->>
->> On 08/03/2024 12:52 pm, Shengjiu Wang wrote:
->>> On Fri, Mar 8, 2024 at 3:34 PM Hans Verkuil <hverkuil@xs4all.nl> wrote:
->>>>
->>>> Hi Shengjiu,
->>>>
->>>> After thinking it over I think this patch can be improved:
->>>>
->>>> On 26/02/2024 9:28 am, Shengjiu Wang wrote:
->>>>> The audio sample format definition is from alsa,
->>>>> the header file is include/uapi/sound/asound.h, but
->>>>> don't include this header file directly, because in
->>>>> user space, there is another copy in alsa-lib.
->>>>> There will be conflict in userspace for include
->>>>> videodev2.h & asound.h and asoundlib.h
->>>>>
->>>>> Here still use the fourcc format.
->>>>>
->>>>> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
->>>>> ---
->>>>>  .../userspace-api/media/v4l/pixfmt-audio.rst  | 87 +++++++++++++++++++
->>>>>  .../userspace-api/media/v4l/pixfmt.rst        |  1 +
->>>>>  drivers/media/v4l2-core/v4l2-ioctl.c          | 13 +++
->>>>>  include/uapi/linux/videodev2.h                | 23 +++++
->>>>>  4 files changed, 124 insertions(+)
->>>>>  create mode 100644 Documentation/userspace-api/media/v4l/pixfmt-audio.rst
->>>>>
->>>>> diff --git a/Documentation/userspace-api/media/v4l/pixfmt-audio.rst b/Documentation/userspace-api/media/v4l/pixfmt-audio.rst
->>>>> new file mode 100644
->>>>> index 000000000000..04b4a7fbd8f4
->>>>> --- /dev/null
->>>>> +++ b/Documentation/userspace-api/media/v4l/pixfmt-audio.rst
->>>>> @@ -0,0 +1,87 @@
->>>>> +.. SPDX-License-Identifier: GFDL-1.1-no-invariants-or-later
->>>>> +
->>>>> +.. _pixfmt-audio:
->>>>> +
->>>>> +*************
->>>>> +Audio Formats
->>>>> +*************
->>>>> +
->>>>> +These formats are used for :ref:`audiomem2mem` interface only.
->>>>
->>>> Here you should also document that all these fourccs start with 'AU' and are
->>>> reserved for mappings of the snd_pcm_format_t type.
->>>>
->>>> Also document the v4l2_fourcc_to_audfmt define and the v4l2_audfmt_to_fourcc
->>>> define (see also below).
->>>
->>> How about below description?
->>> '
->>> All these fourccs starting with 'AU' are reserved for mappings
->>
->> All these fourccs -> All FourCCs
->>
->>> of the snd_pcm_format_t type.
->>>
->>> The v4l2_audfmt_to_fourcc() is defined to convert snd_pcm_format_t
->>
->> convert -> convert the
->>
->>> type to fourcc. The first character is 'A', the second character
->>
->> fourcc -> a FourCC
->>
->>> is 'U', the third character is ten's digit of snd_pcm_format_t,
->>> the fourth character is unit's digit of snd_pcm_format_t.
->>
->> "is 'U', and the remaining two characters is the snd_pcm_format_t
->> value in ASCII. Example: SNDRV_PCM_FORMAT_S16_LE (with value 2)
->> maps to 'AU02' and SNDRV_PCM_FORMAT_S24_3LE (with value 32) maps
->> to 'AU32'."
->>
->>>
->>> The v4l2_fourcc_to_audfmt() is defined to convert these fourccs to
->>
->> fourccs -> FourCCs
->>
->>> snd_pcm_format_t type.
->>
->> BTW, given the way snd_pcm_format_t is defined I am fairly certain
->> some casts are needed for the v4l2_audfmt_to_fourcc define.
->>
->> Regards,
->>
->>         Hans
->>
->>> '
->>> Best regards
->>> Shengjiu Wang
->>>>
->>>>> +
->>>>> +.. tabularcolumns:: |p{5.8cm}|p{1.2cm}|p{10.3cm}|
->>>>> +
->>>>> +.. cssclass:: longtable
->>>>> +
->>>>> +.. flat-table:: Audio Format
->>>>> +    :header-rows:  1
->>>>> +    :stub-columns: 0
->>>>> +    :widths:       3 1 4
->>>>> +
->>>>> +    * - Identifier
->>>>> +      - Code
->>>>> +      - Details
->>>>> +    * .. _V4L2-AUDIO-FMT-S8:
->>>>> +
->>>>> +      - ``V4L2_AUDIO_FMT_S8``
->>>>> +      - 'S8'
->>>>> +      - Corresponds to SNDRV_PCM_FORMAT_S8 in ALSA
->>>>> +    * .. _V4L2-AUDIO-FMT-S16-LE:
->>>>> +
->>>>> +      - ``V4L2_AUDIO_FMT_S16_LE``
->>>>> +      - 'S16_LE'
->>>>> +      - Corresponds to SNDRV_PCM_FORMAT_S16_LE in ALSA
->>>>> +    * .. _V4L2-AUDIO-FMT-U16-LE:
->>>>> +
->>>>> +      - ``V4L2_AUDIO_FMT_U16_LE``
->>>>> +      - 'U16_LE'
->>>>> +      - Corresponds to SNDRV_PCM_FORMAT_U16_LE in ALSA
->>>>> +    * .. _V4L2-AUDIO-FMT-S24-LE:
->>>>> +
->>>>> +      - ``V4L2_AUDIO_FMT_S24_LE``
->>>>> +      - 'S24_LE'
->>>>> +      - Corresponds to SNDRV_PCM_FORMAT_S24_LE in ALSA
->>>>> +    * .. _V4L2-AUDIO-FMT-U24-LE:
->>>>> +
->>>>> +      - ``V4L2_AUDIO_FMT_U24_LE``
->>>>> +      - 'U24_LE'
->>>>> +      - Corresponds to SNDRV_PCM_FORMAT_U24_LE in ALSA
->>>>> +    * .. _V4L2-AUDIO-FMT-S32-LE:
->>>>> +
->>>>> +      - ``V4L2_AUDIO_FMT_S32_LE``
->>>>> +      - 'S32_LE'
->>>>> +      - Corresponds to SNDRV_PCM_FORMAT_S32_LE in ALSA
->>>>> +    * .. _V4L2-AUDIO-FMT-U32-LE:
->>>>> +
->>>>> +      - ``V4L2_AUDIO_FMT_U32_LE``
->>>>> +      - 'U32_LE'
->>>>> +      - Corresponds to SNDRV_PCM_FORMAT_U32_LE in ALSA
->>>>> +    * .. _V4L2-AUDIO-FMT-FLOAT-LE:
->>>>> +
->>>>> +      - ``V4L2_AUDIO_FMT_FLOAT_LE``
->>>>> +      - 'FLOAT_LE'
->>>>> +      - Corresponds to SNDRV_PCM_FORMAT_FLOAT_LE in ALSA
->>>>> +    * .. _V4L2-AUDIO-FMT-IEC958-SUBFRAME-LE:
->>>>> +
->>>>> +      - ``V4L2_AUDIO_FMT_IEC958_SUBFRAME_LE``
->>>>> +      - 'IEC958_SUBFRAME_LE'
->>>>> +      - Corresponds to SNDRV_PCM_FORMAT_IEC958_SUBFRAME_LE in ALSA
->>>>> +    * .. _V4L2-AUDIO-FMT-S24-3LE:
->>>>> +
->>>>> +      - ``V4L2_AUDIO_FMT_S24_3LE``
->>>>> +      - 'S24_3LE'
->>>>> +      - Corresponds to SNDRV_PCM_FORMAT_S24_3LE in ALSA
->>>>> +    * .. _V4L2-AUDIO-FMT-U24-3LE:
->>>>> +
->>>>> +      - ``V4L2_AUDIO_FMT_U24_3LE``
->>>>> +      - 'U24_3LE'
->>>>> +      - Corresponds to SNDRV_PCM_FORMAT_U24_3LE in ALSA
->>>>> +    * .. _V4L2-AUDIO-FMT-S20-3LE:
->>>>> +
->>>>> +      - ``V4L2_AUDIO_FMT_S20_3LE``
->>>>> +      - 'S20_3LE'
->>>>> +      - Corresponds to SNDRV_PCM_FORMAT_S24_3LE in ALSA
->>>>> +    * .. _V4L2-AUDIO-FMT-U20-3LE:
->>>>> +
->>>>> +      - ``V4L2_AUDIO_FMT_U20_3LE``
->>>>> +      - 'U20_3LE'
->>>>> +      - Corresponds to SNDRV_PCM_FORMAT_U20_3LE in ALSA
->>>>> diff --git a/Documentation/userspace-api/media/v4l/pixfmt.rst b/Documentation/userspace-api/media/v4l/pixfmt.rst
->>>>> index 11dab4a90630..2eb6fdd3b43d 100644
->>>>> --- a/Documentation/userspace-api/media/v4l/pixfmt.rst
->>>>> +++ b/Documentation/userspace-api/media/v4l/pixfmt.rst
->>>>> @@ -36,3 +36,4 @@ see also :ref:`VIDIOC_G_FBUF <VIDIOC_G_FBUF>`.)
->>>>>      colorspaces
->>>>>      colorspaces-defs
->>>>>      colorspaces-details
->>>>> +    pixfmt-audio
->>>>> diff --git a/drivers/media/v4l2-core/v4l2-ioctl.c b/drivers/media/v4l2-core/v4l2-ioctl.c
->>>>> index 961abcdf7290..be229c69e991 100644
->>>>> --- a/drivers/media/v4l2-core/v4l2-ioctl.c
->>>>> +++ b/drivers/media/v4l2-core/v4l2-ioctl.c
->>>>> @@ -1471,6 +1471,19 @@ static void v4l_fill_fmtdesc(struct v4l2_fmtdesc *fmt)
->>>>>       case V4L2_PIX_FMT_Y210:         descr = "10-bit YUYV Packed"; break;
->>>>>       case V4L2_PIX_FMT_Y212:         descr = "12-bit YUYV Packed"; break;
->>>>>       case V4L2_PIX_FMT_Y216:         descr = "16-bit YUYV Packed"; break;
->>>>> +     case V4L2_AUDIO_FMT_S8:         descr = "8-bit Signed"; break;
->>>>> +     case V4L2_AUDIO_FMT_S16_LE:     descr = "16-bit Signed LE"; break;
->>>>> +     case V4L2_AUDIO_FMT_U16_LE:             descr = "16-bit Unsigned LE"; break;
->>>>> +     case V4L2_AUDIO_FMT_S24_LE:             descr = "24(32)-bit Signed LE"; break;
->>>>> +     case V4L2_AUDIO_FMT_U24_LE:             descr = "24(32)-bit Unsigned LE"; break;
->>>>> +     case V4L2_AUDIO_FMT_S32_LE:             descr = "32-bit Signed LE"; break;
->>>>> +     case V4L2_AUDIO_FMT_U32_LE:             descr = "32-bit Unsigned LE"; break;
->>>>> +     case V4L2_AUDIO_FMT_FLOAT_LE:           descr = "32-bit Float LE"; break;
->>>>> +     case V4L2_AUDIO_FMT_IEC958_SUBFRAME_LE: descr = "32-bit IEC958 LE"; break;
->>>>> +     case V4L2_AUDIO_FMT_S24_3LE:            descr = "24(24)-bit Signed LE"; break;
->>>>> +     case V4L2_AUDIO_FMT_U24_3LE:            descr = "24(24)-bit Unsigned LE"; break;
->>>>> +     case V4L2_AUDIO_FMT_S20_3LE:            descr = "20(24)-bit Signed LE"; break;
->>>>> +     case V4L2_AUDIO_FMT_U20_3LE:            descr = "20(24)-bit Unsigned LE"; break;
->>>>>
->>>>>       default:
->>>>>               /* Compressed formats */
->>>>> diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videodev2.h
->>>>> index 2c03d2dfadbe..673a6235a029 100644
->>>>> --- a/include/uapi/linux/videodev2.h
->>>>> +++ b/include/uapi/linux/videodev2.h
->>>>> @@ -843,6 +843,29 @@ struct v4l2_pix_format {
->>>>>  #define V4L2_META_FMT_RK_ISP1_PARAMS v4l2_fourcc('R', 'K', '1', 'P') /* Rockchip ISP1 3A Parameters */
->>>>>  #define V4L2_META_FMT_RK_ISP1_STAT_3A        v4l2_fourcc('R', 'K', '1', 'S') /* Rockchip ISP1 3A Statistics */
->>>>>
->>>>> +/*
->>>>> + * Audio-data formats
->>>>> + * All these audio formats use a fourcc starting with 'AU'
->>>>> + * followed by the SNDRV_PCM_FORMAT_ value from asound.h.
->>>>
->>>> Also document here that fourccs starting with 'AU' are reserved for
->>>> the snd_pcm_format_t to fourcc mappings.
->>>>
->>>> That to avoid that someone adds a 'AUXX' fourcc later.
->>>>
->>>>> + */
->>>>> +#define V4L2_AUDIO_FMT_S8                    v4l2_fourcc('A', 'U', '0', '0')
->>>>> +#define V4L2_AUDIO_FMT_S16_LE                        v4l2_fourcc('A', 'U', '0', '2')
->>>>> +#define V4L2_AUDIO_FMT_U16_LE                        v4l2_fourcc('A', 'U', '0', '4')
->>>>> +#define V4L2_AUDIO_FMT_S24_LE                        v4l2_fourcc('A', 'U', '0', '6')
->>>>> +#define V4L2_AUDIO_FMT_U24_LE                        v4l2_fourcc('A', 'U', '0', '8')
->>>>> +#define V4L2_AUDIO_FMT_S32_LE                        v4l2_fourcc('A', 'U', '1', '0')
->>>>> +#define V4L2_AUDIO_FMT_U32_LE                        v4l2_fourcc('A', 'U', '1', '2')
->>>>> +#define V4L2_AUDIO_FMT_FLOAT_LE                      v4l2_fourcc('A', 'U', '1', '4')
->>>>> +#define V4L2_AUDIO_FMT_IEC958_SUBFRAME_LE    v4l2_fourcc('A', 'U', '1', '8')
->>>>> +#define V4L2_AUDIO_FMT_S24_3LE                       v4l2_fourcc('A', 'U', '3', '2')
->>>>> +#define V4L2_AUDIO_FMT_U24_3LE                       v4l2_fourcc('A', 'U', '3', '4')
->>>>> +#define V4L2_AUDIO_FMT_S20_3LE                       v4l2_fourcc('A', 'U', '3', '6')
->>>>> +#define V4L2_AUDIO_FMT_U20_3LE                       v4l2_fourcc('A', 'U', '3', '8')
->>>>> +
->>>>> +#define v4l2_fourcc_to_audfmt(fourcc)        \
->>>>> +     (__force snd_pcm_format_t)(((((fourcc) >> 16) & 0xff) - '0') * 10  \
->>>>> +                                + ((((fourcc) >> 24) & 0xff) - '0'))
->>>>> +
->>>>
->>>> As I suggested in an earlier reply, add this:
->>>>
->>>> #define v4l2_audfmt_to_fourcc(audfmt) \
->>>>         v4l2_fourcc('A', 'U', '0' + (audfmt) / 10, '0' + (audfmt) % 10)
->>>>
->>>> Even though it is not used in the drivers, since this is a public header used
->>>> by drivers and applications, it makes sense to provide the reverse mapping as well.
->>>>
->>>> Please test it in actual code to make sure there are no compilation warnings.
-> 
-> I test this definition, the compiler doesn't report warning.
 
-typedef int __bitwise snd_pcm_format_t;
+--UB2zcriJOOZ1VYZ+
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-And __bitwise is apparently a sparse static analyzer attribute, so I suspect that the
-v4l2_audfmt_to_fourcc definition will cause a sparse warning. So you need to check
-with sparse.
+On Fri, Mar 08, 2024 at 01:58:58PM +0000, Richard Fitzgerald wrote:
+> From: Simon Trimmer <simont@opensource.cirrus.com>
+>=20
+> The CS35L54 and CS35L57 are Boosted Smart Amplifiers. The CS35L54 has
+> I2C/SPI control and I2S/TDM audio. The CS35L57 also has SoundWire
+> control and audio.
 
-Regards,
+Acked-by: Mark Brown <broonie@kernel.org>
 
-	Hans
+--UB2zcriJOOZ1VYZ+
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> 
-> best regards
-> Shengjiu Wang
-> 
->>>>
->>>> Regards,
->>>>
->>>>         Hans
->>>>
->>>>>  /* priv field value to indicates that subsequent fields are valid. */
->>>>>  #define V4L2_PIX_FMT_PRIV_MAGIC              0xfeedcafe
->>>>>
->>>>
->>
+-----BEGIN PGP SIGNATURE-----
 
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmXrHMoACgkQJNaLcl1U
+h9BJNgf/col+eBURywhfhU3h5mWvgk9QsAP/3Q91Vw+e7Gs1iqslPA8VMZ8hEEpl
+ju6worO4W2byKRApwSBWq9otMb6RHqliZPejYB+CYMjEmd4dGMYN9a23NXDGE/Kh
+0naRleJyq2sT3icE9dkxYav2I3wGKlekSgnyKeO214cm91kdfA3YrOn1ahna6Wrq
+dZQagOFwx7/Vg33BBzOvMpbaVMtAQTcTcnk4QhaLQbOJG4tezTQHXKis2hnHDOsI
+ah1fvI3VC6nUIZDGEIZPb/Hmi3+gyiWrPyH2jmj3wUg2bacHPHJHYCxjIt6AOFKx
+H44hhHYLhLuzmJXgiVshJBxdsAwHbQ==
+=kY3n
+-----END PGP SIGNATURE-----
+
+--UB2zcriJOOZ1VYZ+--

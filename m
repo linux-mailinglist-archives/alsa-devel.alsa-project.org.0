@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 295958787AC
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Mar 2024 19:40:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B187C8787AF
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Mar 2024 19:41:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D34AAE9A;
-	Mon, 11 Mar 2024 19:40:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D34AAE9A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3CBB9E0D;
+	Mon, 11 Mar 2024 19:40:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3CBB9E0D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1710182454;
-	bh=g0bIDGsnLq4XPpGnk9HQAmPP+fiIyU1Ypk3bcF0ztd4=;
+	s=default; t=1710182466;
+	bh=ArqBZbZhefIxwbraxACefImVik8nTnkU/EWw5Mm15V8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=V3/DL7tEhlbm17uIrD4WLBEPyKWzyokaWfdn0BHuE7jD7SZqSOp3EZnmZDLNWKinO
-	 eprWfQkSaVaNFD7hcw0/fWewOo41mv9rg0I/KaJjSU/E4o/tRDHoCJ5KZeAVHbSLqM
-	 yBurbo52KB4mHcGgywtiQ7ZH+oGLmRswJWFuvMtE=
+	b=DaStk7VP05riQERw85yE96ssR/Qr4AuEZMBJqLfft8Wx5BUlTcqqzs68OADXAGTE3
+	 +juXOqqidUSQHG/ozKlLkGefrS3Cldjp8cQDc4k4UunJJWf7HtLy2on8sEIZ+fwCXd
+	 jLtfz41H+WhUG1WyAYXKpYVzGk1lLOTo4WGx1A5Q=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 745ABF806F5; Mon, 11 Mar 2024 19:38:24 +0100 (CET)
+	id 706F2F805C1; Mon, 11 Mar 2024 19:38:29 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D4179F805BA;
-	Mon, 11 Mar 2024 19:38:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E61EDF805F9;
+	Mon, 11 Mar 2024 19:38:28 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3FF9EF80570; Mon, 11 Mar 2024 19:38:21 +0100 (CET)
+	id 0BCA3F80707; Mon, 11 Mar 2024 19:38:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-6.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -37,28 +37,28 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6AC94F800E4
-	for <alsa-devel@alsa-project.org>; Mon, 11 Mar 2024 19:38:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6AC94F800E4
+	by alsa1.perex.cz (Postfix) with ESMTPS id 64D19F80578
+	for <alsa-devel@alsa-project.org>; Mon, 11 Mar 2024 19:38:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64D19F80578
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=f79Jhrj/
+ header.s=k20201202 header.b=Rk74MU/U
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 3E62760F76;
+	by dfw.source.kernel.org (Postfix) with ESMTP id 4042F60F10;
+	Mon, 11 Mar 2024 18:38:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 557E5C433F1;
 	Mon, 11 Mar 2024 18:38:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB321C43394;
-	Mon, 11 Mar 2024 18:38:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1710182297;
-	bh=g0bIDGsnLq4XPpGnk9HQAmPP+fiIyU1Ypk3bcF0ztd4=;
+	s=k20201202; t=1710182300;
+	bh=ArqBZbZhefIxwbraxACefImVik8nTnkU/EWw5Mm15V8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=f79Jhrj/dZIrpozoNfS/A417w5U7ulf3ng/EC7/npYjDSeM9V8QUDOdIrf5oJGQba
-	 AfZyn0+E8GexKHIZkom6JvDXyQd7/SezYbfnscYxcRkEMB3hGw50Nu+WCNC86csR/X
-	 FQUuDvjbqEr3ASiVVUCZaN6BEY0CNxzTavhdwLEkIQXwIoVKeMB1MWczqHgXw7Qtej
-	 Jqp8U0sluxZvNNTcDYHL9B6lgWe9BtrEWi+cMx1vHc9CrQ8TdVPh3RzZOzL7E5jnYF
-	 LJ/Gb+dvAdQbCngh1raUdySax3HiUMJinyX6FDBXuxWxjansbs/J4KZjeE24lMRcNj
-	 kihcHpBT8M6bA==
+	b=Rk74MU/UQl42sLGIu+AlDgYU+SxRYTGZuFidoh4vKHug+gnqyLEkn18mfg+coX0l1
+	 SMKLmP642T6urS0gBQufx85nI+sI0RaV+luA2u/MthmxY1F9nxg0eZ0XSobw1L0gkO
+	 OxXjYnBoC854uWDWHFtE4R8J1TZFBSR71TC6p5tX+5wPC1Y8oHxFsByrmis9B29yMl
+	 jepDbj/j4gDUwsS+JbVP397i6iFijcnIkG5s+1E2bNqudW+XaRkV+6v3NeZ6TvXQ1k
+	 Py3IWeWwgLJ1EZXI3K9DAXHaq2H3drr3okMy2tHnPIvg3xaczRaRkrXspJ4XRg06gW
+	 8NCYJf/VV5W4g==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
@@ -70,10 +70,10 @@ Cc: Stuart Henderson <stuarth@opensource.cirrus.com>,
 	tiwai@suse.com,
 	patches@opensource.cirrus.com,
 	alsa-devel@alsa-project.org
-Subject: [PATCH AUTOSEL 6.6 10/12] ASoC: wm8962: Enable oscillator if
- selecting WM8962_FLL_OSC
-Date: Mon, 11 Mar 2024 14:37:24 -0400
-Message-ID: <20240311183727.328187-10-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.6 11/12] ASoC: wm8962: Enable both SPKOUTR_ENA and
+ SPKOUTL_ENA in mono mode
+Date: Mon, 11 Mar 2024 14:37:25 -0400
+Message-ID: <20240311183727.328187-11-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240311183727.328187-1-sashal@kernel.org>
 References: <20240311183727.328187-1-sashal@kernel.org>
@@ -82,8 +82,8 @@ X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.6.21
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: XNZSESJ5WQ4ZABV6ZYQOCOR7STZEQUDK
-X-Message-ID-Hash: XNZSESJ5WQ4ZABV6ZYQOCOR7STZEQUDK
+Message-ID-Hash: JX3CERVHVMOVUVHCQUECVHSBYUYFQVTO
+X-Message-ID-Hash: JX3CERVHVMOVUVHCQUECVHSBYUYFQVTO
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -96,7 +96,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XNZSESJ5WQ4ZABV6ZYQOCOR7STZEQUDK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JX3CERVHVMOVUVHCQUECVHSBYUYFQVTO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,33 +107,72 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Stuart Henderson <stuarth@opensource.cirrus.com>
 
-[ Upstream commit 03c7874106ca5032a312626b927b1c35f07b1f35 ]
+[ Upstream commit 6fa849e4d78b880e878138bf238e4fd2bac3c4fa ]
 
 Signed-off-by: Stuart Henderson <stuarth@opensource.cirrus.com>
-Link: https://msgid.link/r/20240306161439.1385643-1-stuarth@opensource.cirrus.com
+Link: https://msgid.link/r/20240306161439.1385643-2-stuarth@opensource.cirrus.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/wm8962.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ sound/soc/codecs/wm8962.c | 23 ++++++++++++++---------
+ 1 file changed, 14 insertions(+), 9 deletions(-)
 
 diff --git a/sound/soc/codecs/wm8962.c b/sound/soc/codecs/wm8962.c
-index 83ce5dbecc45d..d444b7776ece1 100644
+index d444b7776ece1..914f8eb418357 100644
 --- a/sound/soc/codecs/wm8962.c
 +++ b/sound/soc/codecs/wm8962.c
-@@ -2914,8 +2914,12 @@ static int wm8962_set_fll(struct snd_soc_component *component, int fll_id, int s
- 	switch (fll_id) {
- 	case WM8962_FLL_MCLK:
- 	case WM8962_FLL_BCLK:
-+		fll1 |= (fll_id - 1) << WM8962_FLL_REFCLK_SRC_SHIFT;
-+		break;
- 	case WM8962_FLL_OSC:
- 		fll1 |= (fll_id - 1) << WM8962_FLL_REFCLK_SRC_SHIFT;
-+		snd_soc_component_update_bits(component, WM8962_PLL2,
-+					      WM8962_OSC_ENA, WM8962_OSC_ENA);
- 		break;
- 	case WM8962_FLL_INT:
- 		snd_soc_component_update_bits(component, WM8962_FLL_CONTROL_1,
+@@ -2229,6 +2229,9 @@ SND_SOC_DAPM_PGA_E("HPOUT", SND_SOC_NOPM, 0, 0, NULL, 0, hp_event,
+ 
+ SND_SOC_DAPM_OUTPUT("HPOUTL"),
+ SND_SOC_DAPM_OUTPUT("HPOUTR"),
++
++SND_SOC_DAPM_PGA("SPKOUTL Output", WM8962_CLASS_D_CONTROL_1, 6, 0, NULL, 0),
++SND_SOC_DAPM_PGA("SPKOUTR Output", WM8962_CLASS_D_CONTROL_1, 7, 0, NULL, 0),
+ };
+ 
+ static const struct snd_soc_dapm_widget wm8962_dapm_spk_mono_widgets[] = {
+@@ -2236,7 +2239,6 @@ SND_SOC_DAPM_MIXER("Speaker Mixer", WM8962_MIXER_ENABLES, 1, 0,
+ 		   spkmixl, ARRAY_SIZE(spkmixl)),
+ SND_SOC_DAPM_MUX_E("Speaker PGA", WM8962_PWR_MGMT_2, 4, 0, &spkoutl_mux,
+ 		   out_pga_event, SND_SOC_DAPM_POST_PMU),
+-SND_SOC_DAPM_PGA("Speaker Output", WM8962_CLASS_D_CONTROL_1, 7, 0, NULL, 0),
+ SND_SOC_DAPM_OUTPUT("SPKOUT"),
+ };
+ 
+@@ -2251,9 +2253,6 @@ SND_SOC_DAPM_MUX_E("SPKOUTL PGA", WM8962_PWR_MGMT_2, 4, 0, &spkoutl_mux,
+ SND_SOC_DAPM_MUX_E("SPKOUTR PGA", WM8962_PWR_MGMT_2, 3, 0, &spkoutr_mux,
+ 		   out_pga_event, SND_SOC_DAPM_POST_PMU),
+ 
+-SND_SOC_DAPM_PGA("SPKOUTR Output", WM8962_CLASS_D_CONTROL_1, 7, 0, NULL, 0),
+-SND_SOC_DAPM_PGA("SPKOUTL Output", WM8962_CLASS_D_CONTROL_1, 6, 0, NULL, 0),
+-
+ SND_SOC_DAPM_OUTPUT("SPKOUTL"),
+ SND_SOC_DAPM_OUTPUT("SPKOUTR"),
+ };
+@@ -2366,12 +2365,18 @@ static const struct snd_soc_dapm_route wm8962_spk_mono_intercon[] = {
+ 	{ "Speaker PGA", "Mixer", "Speaker Mixer" },
+ 	{ "Speaker PGA", "DAC", "DACL" },
+ 
+-	{ "Speaker Output", NULL, "Speaker PGA" },
+-	{ "Speaker Output", NULL, "SYSCLK" },
+-	{ "Speaker Output", NULL, "TOCLK" },
+-	{ "Speaker Output", NULL, "TEMP_SPK" },
++	{ "SPKOUTL Output", NULL, "Speaker PGA" },
++	{ "SPKOUTL Output", NULL, "SYSCLK" },
++	{ "SPKOUTL Output", NULL, "TOCLK" },
++	{ "SPKOUTL Output", NULL, "TEMP_SPK" },
++
++	{ "SPKOUTR Output", NULL, "Speaker PGA" },
++	{ "SPKOUTR Output", NULL, "SYSCLK" },
++	{ "SPKOUTR Output", NULL, "TOCLK" },
++	{ "SPKOUTR Output", NULL, "TEMP_SPK" },
+ 
+-	{ "SPKOUT", NULL, "Speaker Output" },
++	{ "SPKOUT", NULL, "SPKOUTL Output" },
++	{ "SPKOUT", NULL, "SPKOUTR Output" },
+ };
+ 
+ static const struct snd_soc_dapm_route wm8962_spk_stereo_intercon[] = {
 -- 
 2.43.0
 

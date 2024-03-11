@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 417B28787A4
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Mar 2024 19:40:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CEF18787A9
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Mar 2024 19:40:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 43D2786F;
-	Mon, 11 Mar 2024 19:40:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 43D2786F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6C711A4A;
+	Mon, 11 Mar 2024 19:40:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C711A4A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1710182418;
-	bh=1ouJInfzn8Wkga2sZUbe8fHxCeLq7Rz28xEegVMpTCM=;
+	s=default; t=1710182435;
+	bh=y5PTPZ8gniX4MbpvGANx/OZzRS4utU/V31kCwdYd9ac=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ej+553IfJ+QXlhUPK/tUZfG9mWV46iqq8Te38hNtAMSb9ztI9YzTHWh674aOznhOr
-	 lL+AJCVRN+3ZOOZNMStUJt3aDGlJ1Lv8IoBWqM+dASvm6RHch6lWYy4Czwrbh7cwcY
-	 HzVSMFjoZIA7ddR54jCSgzt+95ROQFrBhjrnNEcU=
+	b=mJdUdvSZCqLq4tbcKeS7oUm7hy7Au2wGxf8YmPB0KU+xqUYN6yvTf12PXIw07lbx3
+	 KydBQ8gIpqbAoBMSHC4YGcdflUkxkT6ftg9ACRgs9HyODDYYmDXovj4jpXNO831mPp
+	 in6Q58OSCQcFWXT+egNVRI8VpB8ThS6Bf35oZ4EQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B31D4F806C5; Mon, 11 Mar 2024 19:37:57 +0100 (CET)
+	id 5343AF806E3; Mon, 11 Mar 2024 19:38:10 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2820EF806C2;
-	Mon, 11 Mar 2024 19:37:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B4B93F806D2;
+	Mon, 11 Mar 2024 19:38:10 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 23329F8061B; Mon, 11 Mar 2024 19:37:48 +0100 (CET)
+	id 89DF1F8057B; Mon, 11 Mar 2024 19:38:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-6.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -36,57 +36,53 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D266CF805BB
-	for <alsa-devel@alsa-project.org>; Mon, 11 Mar 2024 19:37:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D266CF805BB
+	by alsa1.perex.cz (Postfix) with ESMTPS id BAB95F806D2
+	for <alsa-devel@alsa-project.org>; Mon, 11 Mar 2024 19:38:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BAB95F806D2
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=aAWonocG
+ header.s=k20201202 header.b=TRNoJKao
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 8EDF360F10;
-	Mon, 11 Mar 2024 18:37:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3D5DC433C7;
-	Mon, 11 Mar 2024 18:37:38 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 6FCD460F10;
+	Mon, 11 Mar 2024 18:38:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E122CC433B1;
+	Mon, 11 Mar 2024 18:37:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1710182262;
-	bh=1ouJInfzn8Wkga2sZUbe8fHxCeLq7Rz28xEegVMpTCM=;
+	s=k20201202; t=1710182282;
+	bh=y5PTPZ8gniX4MbpvGANx/OZzRS4utU/V31kCwdYd9ac=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=aAWonocG5t+zOcr3My49LtUTXZu2FLB5rf8y8YnL24OLB915xU80BXfuwfpyNm7mZ
-	 dcr0xWTgJ3cHKFoNS82lZN6n6cv2u6aEMoRQ/EbKTd2V4D3czqW4POCY0UYmdw0fvH
-	 N1Bm207Tt7P7HkheOoOimKhKpy1gbmRkFvzQN0w1ak4GA/E2Vs3f1YG6fiHtJaiidA
-	 LWsEEfZOKSJRhh5XO1wWnfZkhuqhohg0kYe5aaLYQn9O7oZuVrjUxdZmcdIKf5UeGs
-	 w2GK5rz27eHaFGk7hXh99j4GkpCCjhiXkrDt/gK6c/YiCly10xNi06xb22rHmbPyrA
-	 i7PhHxVRl+F5A==
+	b=TRNoJKaou9yD8Au+Zd2EcPGlfMcwPy1WFB5iXAYl78lBe/nuRBJQSm0kGTGqQ4tfX
+	 tUK/ye7HfUA2Rd1QK6gcXODfvWznqkWu1Y+NZFkRNUr7g9ULNlI8TET4P6lkVtlMqk
+	 W8e309ww2dsU1ZaV1y8Vuwvdy4b5CCLMb1MjQg2e9Ec7cIFT8Z4hqVUqGVPJt8EPgm
+	 H6kcr7eXWLaGw90nMJzvRfHAghBMUBkl9F49tgDNS9bxWUxS/RK9sLvYEG4KzCpFI/
+	 76VJlt+wEqUDfnc4u3/xgL8p9n/3pMFe0aDoVjAeEzWiIB9E7hjXOEUfsXGTXPrS/x
+	 14bba18dxG5eg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: =?UTF-8?q?Alban=20Boy=C3=A9?= <alban.boye@protonmail.com>,
-	Cezary Rojewski <cezary.rojewski@intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+Cc: Al Raj Hassain <alrajhassain@gmail.com>,
+	Mario Limonciello <mario.limonciello@amd.com>,
 	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	liam.r.girdwood@linux.intel.com,
-	yang.jie@linux.intel.com,
+	lgirdwood@gmail.com,
 	perex@perex.cz,
 	tiwai@suse.com,
-	hdegoede@redhat.com,
 	alsa-devel@alsa-project.org
-Subject: [PATCH AUTOSEL 6.6 02/12] ASoC: Intel: bytcr_rt5640: Add an extra
- entry for the Chuwi Vi8 tablet
-Date: Mon, 11 Mar 2024 14:37:16 -0400
-Message-ID: <20240311183727.328187-2-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.6 06/12] ASoC: amd: yc: Add HP Pavilion Aero Laptop
+ 13-be2xxx(8BD6) into DMI quirk table
+Date: Mon, 11 Mar 2024 14:37:20 -0400
+Message-ID: <20240311183727.328187-6-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240311183727.328187-1-sashal@kernel.org>
 References: <20240311183727.328187-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.6.21
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: RKYYA75TJP4YQS5YSMGMDWX4QWL4ZWR2
-X-Message-ID-Hash: RKYYA75TJP4YQS5YSMGMDWX4QWL4ZWR2
+Message-ID-Hash: LYFNU6T754G53QO75GR6DKOBB36CB4VL
+X-Message-ID-Hash: LYFNU6T754G53QO75GR6DKOBB36CB4VL
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -98,7 +94,8 @@ X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: <>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LYFNU6T754G53QO75GR6DKOBB36CB4VL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,45 +104,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Alban Boyé <alban.boye@protonmail.com>
+From: Al Raj Hassain <alrajhassain@gmail.com>
 
-[ Upstream commit f8b0127aca8c60826e7354e504a12d4a46b1c3bb ]
+[ Upstream commit b3a51137607cee7c814cd3a75d96f78b9ee1dc1f ]
 
-The bios version can differ depending if it is a dual-boot variant of the tablet.
-Therefore another DMI match is required.
+The HP Pavilion Aero Laptop 13-be2xxx(8BD6) requires a quirk entry for its internal microphone to function.
 
-Signed-off-by: Alban Boyé <alban.boye@protonmail.com>
-Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://msgid.link/r/20240228192807.15130-1-alban.boye@protonmail.com
+Signed-off-by: Al Raj Hassain <alrajhassain@gmail.com>
+Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
+Link: https://msgid.link/r/20240304103924.13673-1-alrajhassain@gmail.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/intel/boards/bytcr_rt5640.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
-index 6b631a608ae8f..e609249cc38d5 100644
---- a/sound/soc/intel/boards/bytcr_rt5640.c
-+++ b/sound/soc/intel/boards/bytcr_rt5640.c
-@@ -685,6 +685,18 @@ static const struct dmi_system_id byt_rt5640_quirk_table[] = {
- 					BYT_RT5640_SSP0_AIF1 |
- 					BYT_RT5640_MCLK_EN),
+diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
+index 80ad60d485ea0..ea9512efa6fa5 100644
+--- a/sound/soc/amd/yc/acp6x-mach.c
++++ b/sound/soc/amd/yc/acp6x-mach.c
+@@ -395,6 +395,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
+ 			DMI_MATCH(DMI_BOARD_NAME, "8B2F"),
+ 		}
  	},
-+	{	/* Chuwi Vi8 dual-boot (CWI506) */
++	{
++		.driver_data = &acp6x_card,
 +		.matches = {
-+			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Insyde"),
-+			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "i86"),
-+			/* The above are too generic, also match BIOS info */
-+			DMI_MATCH(DMI_BIOS_VERSION, "CHUWI2.D86JHBNR02"),
-+		},
-+		.driver_data = (void *)(BYTCR_INPUT_DEFAULTS |
-+					BYT_RT5640_MONO_SPEAKER |
-+					BYT_RT5640_SSP0_AIF1 |
-+					BYT_RT5640_MCLK_EN),
++			DMI_MATCH(DMI_BOARD_VENDOR, "HP"),
++			DMI_MATCH(DMI_BOARD_NAME, "8BD6"),
++		}
 +	},
  	{
- 		/* Chuwi Vi10 (CWI505) */
+ 		.driver_data = &acp6x_card,
  		.matches = {
 -- 
 2.43.0

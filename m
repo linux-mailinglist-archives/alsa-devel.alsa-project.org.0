@@ -2,100 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE61E87775D
-	for <lists+alsa-devel@lfdr.de>; Sun, 10 Mar 2024 15:40:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DA4987794D
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Mar 2024 01:27:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1442EDE5;
-	Sun, 10 Mar 2024 15:39:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1442EDE5
+	by alsa0.perex.cz (Postfix) with ESMTPS id CC2DFB70;
+	Mon, 11 Mar 2024 01:26:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC2DFB70
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1710081602;
-	bh=tcCJcDqDYZaFzocjDP4wiXd1T+ypqrL+pY4JYmx+XM0=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=QiBQe1pgvf2kUoV7Jb63Vm6nzuTAJbOC0JpDx9TgWBA7OWQ6xOyAzjGFe/biJEEVo
-	 +O9GYVK4xv6NTot+Af26Hto+FB8JQD4ZWnqNJHlALuvjFR+Qhi9OgWWjVBi0QUhvDl
-	 aK+kBwA4pon70mf43UfYToieQqVv4YHp6ut3wj7M=
+	s=default; t=1710116822;
+	bh=EDB0msgCEStsTXtknVcjZrvZt+k0nBM5GBRIl8Q4G90=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=NW5naByNEwDp0fKQG9A754UhIeLVWM8xAJGx7p7YCoNE0zoha7+Qbng5qOXsqDfrv
+	 dqrh1+oo/QtrAksr9OC8vzDnQT/iJYHoO3s7nwzCkk0167oDPbt1gL7Sq0znlgd8Be
+	 04ICVy44bZwgVlvgWhDM1kbe01qMEMsqixFGV9s8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4D69AF805A1; Sun, 10 Mar 2024 15:39:29 +0100 (CET)
+	id 643FCF8057C; Mon, 11 Mar 2024 01:26:30 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 91E4CF8028D;
-	Sun, 10 Mar 2024 15:39:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F1A78F805A0;
+	Mon, 11 Mar 2024 01:26:29 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6B4CAF8028D; Sun, 10 Mar 2024 15:39:21 +0100 (CET)
+	id 28624F8028D; Mon, 11 Mar 2024 01:26:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from metis.whiteo.stw.pengutronix.de
- (metis.whiteo.stw.pengutronix.de [IPv6:2a0a:edc0:2:b01:1d::104])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
- server-digest SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6F969F80088
-	for <alsa-devel@alsa-project.org>; Sun, 10 Mar 2024 15:39:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F969F80088
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
-	by metis.whiteo.stw.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-	(Exim 4.92)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1rjKKN-0001Cv-0y; Sun, 10 Mar 2024 15:39:03 +0100
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.94.2)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1rjKKK-005XJm-VP; Sun, 10 Mar 2024 15:39:00 +0100
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.96)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1rjKKK-003TZj-2p;
-	Sun, 10 Mar 2024 15:39:00 +0100
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Shenghao Ding <shenghao-ding@ti.com>,
-	Kevin Lu <kevin-lu@ti.com>,
-	Baojun Xu <baojun.xu@ti.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Cc: alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org,
-	linux-kbuild@vger.kernel.org,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	kernel@pengutronix.de
-Subject: [PATCH] ASoC: tlv320adc3xxx: Don't strip remove function when driver
- is builtin
-Date: Sun, 10 Mar 2024 15:38:51 +0100
-Message-ID: <20240310143852.397212-2-u.kleine-koenig@pengutronix.de>
-X-Mailer: git-send-email 2.43.0
+X-Spam-Status: No, score=-3.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
+ [207.180.221.201])
+	by alsa1.perex.cz (Postfix) with ESMTP id CE2D9F800E4
+	for <alsa-devel@alsa-project.org>; Mon, 11 Mar 2024 01:26:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE2D9F800E4
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1917;
- i=u.kleine-koenig@pengutronix.de; h=from:subject;
- bh=tcCJcDqDYZaFzocjDP4wiXd1T+ypqrL+pY4JYmx+XM0=;
- b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBl7cX8VWtYhL0KtuOOqhLGjI6fvbv4I6W1Z4U92
- ZFLuAirQBiJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZe3F/AAKCRCPgPtYfRL+
- TvreCACBY53KQpaQ1S6h0Znmi9qhSZ9KGdIbyorjr/T8fAbh7lRp4Yt5ksFJlyqorX1/CRtMZ/+
- f/IwumkOihqjbZZvEkm2RiaRJWh7zsaP1F3og52SGJw6r1LGdBGRvB5llSETqFB5Xv96GJlqCpc
- lu4yP20GOhukwEnAGWKh7zbRH0i8L/0UTI9sPvtgkJ5OeULSH0gYxF5Ji9jrGHRsUJ079s2frcY
- SoiZYns8FibUBnlCfNRj3aj+9BKf/K0Ku6C9BSjaz3T+FGQXOcJqVNWtXKzyrxJN/u+JdDthkPu
- gHEmE7wfmdR68YKkD+3eSiXm2VkUNQPK4IWzLbZ8gwKH9rq2
-X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
- fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
-Content-Transfer-Encoding: 8bit
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: alsa-devel@alsa-project.org
-Message-ID-Hash: T3QAY3HB3VM3LSQM4WR7CBLSQ6UYIY4M
-X-Message-ID-Hash: T3QAY3HB3VM3LSQM4WR7CBLSQ6UYIY4M
-X-MailFrom: ukl@pengutronix.de
+Content-Transfer-Encoding: base64
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1710116774344735861-webhooks-bot@alsa-project.org>
+References: <1710116774344735861-webhooks-bot@alsa-project.org>
+Subject: Incompatible syntax 6 in Valve-Jupiter-1.conf
+Message-Id: <20240311002623.28624F8028D@alsa1.perex.cz>
+Date: Mon, 11 Mar 2024 01:26:23 +0100 (CET)
+Message-ID-Hash: W3NOCEJAKA7ELX5F64U23X2BU2MASIRK
+X-Message-ID-Hash: W3NOCEJAKA7ELX5F64U23X2BU2MASIRK
+X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -107,7 +60,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/T3QAY3HB3VM3LSQM4WR7CBLSQ6UYIY4M/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/W3NOCEJAKA7ELX5F64U23X2BU2MASIRK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -116,57 +69,57 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Using __exit for the remove function results in the remove callback
-being discarded with SND_SOC_TLV320ADC3XXX=y. When such a device gets
-unbound (e.g. using sysfs or hotplug), the driver is just removed
-without the cleanup being performed. This results in resource leaks. Fix
-it by compiling in the remove callback unconditionally.
-
-This also fixes a W=1 modpost warning:
-
-	WARNING: modpost: sound/soc/codecs/snd-soc-tlv320adc3xxx: section mismatch in reference: adc3xxx_i2c_driver+0x10 (section: .data) -> adc3xxx_i2c_remove (section: .exit.text)
-
-(which only happens with SND_SOC_TLV320ADC3XXX=m).
-
-Fixes: e9a3b57efd28 ("ASoC: codec: tlv320adc3xxx: New codec driver")
-Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
----
-Hello,
-
-note that this patch only applies as is after commit 4e8ff3587868 ("ASoC:
-codecs: tlv320adc3xxx: Wrap adc3xxx_i2c_remove() in __exit_p()") which was the
-wrong approach to fix the build error.
-
-Best regards
-Uwe
-
- sound/soc/codecs/tlv320adc3xxx.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/sound/soc/codecs/tlv320adc3xxx.c b/sound/soc/codecs/tlv320adc3xxx.c
-index 420bbf588efe..e100cc9f5c19 100644
---- a/sound/soc/codecs/tlv320adc3xxx.c
-+++ b/sound/soc/codecs/tlv320adc3xxx.c
-@@ -1429,7 +1429,7 @@ static int adc3xxx_i2c_probe(struct i2c_client *i2c)
- 	return ret;
- }
- 
--static void __exit adc3xxx_i2c_remove(struct i2c_client *client)
-+static void adc3xxx_i2c_remove(struct i2c_client *client)
- {
- 	struct adc3xxx *adc3xxx = i2c_get_clientdata(client);
- 
-@@ -1452,7 +1452,7 @@ static struct i2c_driver adc3xxx_i2c_driver = {
- 		   .of_match_table = tlv320adc3xxx_of_match,
- 		  },
- 	.probe = adc3xxx_i2c_probe,
--	.remove = __exit_p(adc3xxx_i2c_remove),
-+	.remove = adc3xxx_i2c_remove,
- 	.id_table = adc3xxx_i2c_id,
- };
- 
-
-base-commit: 8ffc8b1bbd505e27e2c8439d326b6059c906c9dd
--- 
-2.43.0
-
+YWxzYS1wcm9qZWN0L2Fsc2EtdWNtLWNvbmYgaXNzdWUgIzQwMSB3YXMgb3BlbmVkIGZyb20gUmlj
+aGFyZC1IYWVzLUVsbGlzOgoKV2hlbiBpbnN0YWxsaW5nIHRoZSBtaXNzaW5nIHVjbTIgZmlsZXMg
+Zm9yIHRoZSBTdGVhbSBEZWNrIEkgZ2V0IHRoaXMgZXJyb3Igb24gc3lzdGVtY3RsIHN0YXR1cyBh
+bHNhLXJlc3RvcmU6DQoNCiBgYGANCnN5c3RlbWN0bCBzdGF0dXMgYWxzYS1yZXN0b3JlICAgICAg
+ICAgICAgICAgICAgICAgICAgDQril48gYWxzYS1yZXN0b3JlLnNlcnZpY2UgLSBTYXZlL1Jlc3Rv
+cmUgU291bmQgQ2FyZCBTdGF0ZQ0KICAgICBMb2FkZWQ6IGxvYWRlZCAoL2xpYi9zeXN0ZW1kL3N5
+c3RlbS9hbHNhLXJlc3RvcmUuc2VydmljZTsgc3RhdGljKQ0KICAgICBBY3RpdmU6IGFjdGl2ZSAo
+ZXhpdGVkKSBzaW5jZSBNb24gMjAyNC0wMy0xMSAwMTowNjoxOCBDRVQ7IDE1bWluIGFnbw0KICAg
+ICAgIERvY3M6IG1hbjphbHNhY3RsKDEpDQogICBNYWluIFBJRDogNjA4IChjb2RlPWV4aXRlZCwg
+c3RhdHVzPTk5KQ0KICAgICAgICBDUFU6IDEzbXMNCg0KbWFyIDExIDAxOjA2OjE4IHN0ZWFtLWRl
+Y2FkbyBhbHNhY3RsWzYwOF06IC91c3Ivc2Jpbi9hbHNhY3RsOiBsb2FkX3N0YXRlOjE2ODk6IENh
+bm5vdCBvcGVuIC92YXIvbGliL2Fsc2EvYXNvdW5kLnN0YXRlIGZvciByZWFkaW5nOiA+DQptYXIg
+MTEgMDE6MDY6MTggc3RlYW0tZGVjYWRvIGFsc2FjdGxbNjA4XTogYWxzYS1saWIgcGFyc2VyLmM6
+MjAyMToocGFyc2VfbWFzdGVyX2ZpbGUpIEluY29tcGF0aWJsZSBzeW50YXggNiBpbiBIREEtSW50
+ZWwuY29uZg0KbWFyIDExIDAxOjA2OjE4IHN0ZWFtLWRlY2FkbyBhbHNhY3RsWzYwOF06IGFsc2Et
+bGliIG1haW4uYzoxNDEyOihzbmRfdXNlX2Nhc2VfbWdyX29wZW4pIGVycm9yOiBmYWlsZWQgdG8g
+aW1wb3J0IGh3OjAgdXNlIGNhc2UgY29uZmk+DQptYXIgMTEgMDE6MDY6MTggc3RlYW0tZGVjYWRv
+IGFsc2FjdGxbNjA4XTogRm91bmQgaGFyZHdhcmU6ICJIREEtSW50ZWwiICJBVEkgUjZ4eCBIRE1J
+IiAiSERBOjEwMDJhYTAxLDAwYWEwMTAwLDAwMTAwODAwIiAiMHgxZTQ0IiAiMD4NCm1hciAxMSAw
+MTowNjoxOCBzdGVhbS1kZWNhZG8gYWxzYWN0bFs2MDhdOiBIYXJkd2FyZSBpcyBpbml0aWFsaXpl
+ZCB1c2luZyBhIGdlbmVyaWMgbWV0aG9kDQptYXIgMTEgMDE6MDY6MTggc3RlYW0tZGVjYWRvIGFs
+c2FjdGxbNjA4XTogYWxzYS1saWIgcGFyc2VyLmM6MjAyMToocGFyc2VfbWFzdGVyX2ZpbGUpIElu
+Y29tcGF0aWJsZSBzeW50YXggNiBpbiBWYWx2ZS1KdXBpdGVyLTEuY29uZg0KbWFyIDExIDAxOjA2
+OjE4IHN0ZWFtLWRlY2FkbyBhbHNhY3RsWzYwOF06IGFsc2EtbGliIG1haW4uYzoxNDEyOihzbmRf
+dXNlX2Nhc2VfbWdyX29wZW4pIGVycm9yOiBmYWlsZWQgdG8gaW1wb3J0IGh3OjEgdXNlIGNhc2Ug
+Y29uZmk+DQptYXIgMTEgMDE6MDY6MTggc3RlYW0tZGVjYWRvIGFsc2FjdGxbNjA4XTogRm91bmQg
+aGFyZHdhcmU6ICJhY3A1eCIgIiIgIiIgIiIgIiINCm1hciAxMSAwMTowNjoxOCBzdGVhbS1kZWNh
+ZG8gYWxzYWN0bFs2MDhdOiBIYXJkd2FyZSBpcyBpbml0aWFsaXplZCB1c2luZyBhIGdlbmVyaWMg
+bWV0aG9kDQptYXIgMTEgMDE6MDY6MTggc3RlYW0tZGVjYWRvIHN5c3RlbWRbMV06IEZpbmlzaGVk
+IFNhdmUvUmVzdG9yZSBTb3VuZCBDYXJkIFN0YXRlLg0KYGBgDQpsb29raW5nIGF0IG15IGFsc2Eg
+cGFja2FnZXMgdGhlc2UgYXJlIHRoZSB2ZXJzaW9ucyBpbnN0YWxsZWQ6IA0KDQpgYGANCmRwa2cg
+LWwgfCBncmVwIGFsc2ENCmlpICBhbHNhLWJhc2UgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIDEuMC4yNStkZnNnLTB1YnVudHU3ICAgICAgICAgICAgICAgICAgICBhbGwg
+ICAgICAgICAgQUxTQSBkcml2ZXIgY29uZmlndXJhdGlvbiBmaWxlcw0KaWkgIGFsc2EtdG9wb2xv
+Z3ktY29uZiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMS4yLjUuMS0yICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIGFsbCAgICAgICAgICBBTFNBIHRvcG9sb2d5IGNvbmZpZ3Vy
+YXRpb24gZmlsZXMNCmlpICBhbHNhLXVjbS1jb25mICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIDEuMi42LjMtMXVidW50dTEuMTEgICAgICAgICAgICAgICAgICAgICBhbGwgICAg
+ICAgICAgQUxTQSBVc2UgQ2FzZSBNYW5hZ2VyIGNvbmZpZ3VyYXRpb24gZmlsZXMNCmlpICBhbHNh
+LXV0aWxzICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDEuMi42LTF1YnVu
+dHUxICAgICAgICAgICAgICAgICAgICAgICAgICBhbWQ2NCAgICAgICAgVXRpbGl0aWVzIGZvciBj
+b25maWd1cmluZyBhbmQgdXNpbmcgQUxTQQ0KaWkgIGdzdHJlYW1lcjEuMC1hbHNhOmFtZDY0ICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgMS4yMC4xLTF1YnVudHUwLjEgICAgICAgICAgICAgICAg
+ICAgICAgIGFtZDY0ICAgICAgICBHU3RyZWFtZXIgcGx1Z2luIGZvciBBTFNBDQppaSAgcGlwZXdp
+cmUtYWxzYTphbWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAxLjAuMy0yfnVidW50
+dTIyLjA0ICAgICAgICAgICAgICAgICAgICAgYW1kNjQgICAgICAgIFBpcGVXaXJlIEFMU0EgcGx1
+Z2luDQppaSAgcGlwZXdpcmUtYXVkaW8tY2xpZW50LWxpYnJhcmllcyAgICAgICAgICAgICAgICAg
+ICAxLjAuMy0yfnVidW50dTIyLjA0ICAgICAgICAgICAgICAgICAgICAgYWxsICAgICAgICAgIHRy
+YW5zaXRpb25hbCBwYWNrYWdlIGZvciBwaXBld2lyZS1hbHNhIGFuZCBwaXBld2lyZS1qYWNrDQpg
+YGANCkknbSBydW5uaW5nIFVidW50dSAyMi4wNC40IExUUyBvbiBTdGVhbSBEZWNrIGhhcmR3YXJl
+IFZhbHZlIEp1cGl0ZXIgDQpBbnkgaWRlYXMgd2h5IGl0IHdvdWxkJ3Qgd29yaz8NCg0KVGhhbmtz
+IGluIGFkdmFuY2VkLgoKSXNzdWUgVVJMICAgICA6IGh0dHBzOi8vZ2l0aHViLmNvbS9hbHNhLXBy
+b2plY3QvYWxzYS11Y20tY29uZi9pc3N1ZXMvNDAxClJlcG9zaXRvcnkgVVJMOiBodHRwczovL2dp
+dGh1Yi5jb20vYWxzYS1wcm9qZWN0L2Fsc2EtdWNtLWNvbmYK

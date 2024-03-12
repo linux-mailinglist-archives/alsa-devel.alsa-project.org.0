@@ -2,159 +2,116 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2377C8798FB
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Mar 2024 17:30:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE2C787996F
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Mar 2024 17:57:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6BDEEE7D;
-	Tue, 12 Mar 2024 17:30:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6BDEEE7D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0EFB0EA3;
+	Tue, 12 Mar 2024 17:57:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0EFB0EA3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1710261019;
-	bh=IcVf7NWIVkll8edLcA1yimAxN2NZRW8r0YWSfscuY9E=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1710262640;
+	bh=+Jpp0SctZBoE5oavR5EXIu8le75lHRXJ7ZnPAA9ap1k=;
+	h=References:From:To:Cc:Subject:Date:In-reply-to:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=AVNc6UK6TvudPakKRhte/Tvjeo/oBg150GklWI6ZTrQuaqj/pHPQCYTVgjOYlYnyV
-	 LXATpSa0azLvBU4KHuxARDdgZDc0X9SJuTU7EzwExmLTTi0pE/wbY1jFB3DmfNxfzz
-	 fKXxoMcLVXsQ2XJ20RCOWUrSLbhJ+Vn5j8Zs4x8c=
+	b=TQw7Ckf71gpn1D9YQN0dxJ2Y8EIqrcDgTWcmeUmwGT8J92ShZinEyD7YA+NhcR2uQ
+	 ftCRiiey73QY564h/E6ekpumYb/99QJCBay0T07gGYO/XLG7vX0eTInkjxiLE0OVTH
+	 kW0mYTJNSLWNd3PGpIgNoDnSxEn79qVuAgX6F6oo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 17C2BF805AB; Tue, 12 Mar 2024 17:29:47 +0100 (CET)
+	id B8F1EF805A1; Tue, 12 Mar 2024 17:56:47 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 469BAF805A0;
-	Tue, 12 Mar 2024 17:29:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 42918F8057C;
+	Tue, 12 Mar 2024 17:56:47 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2FD91F8028D; Tue, 12 Mar 2024 17:29:37 +0100 (CET)
+	id 7BB8BF8028D; Tue, 12 Mar 2024 17:56:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on20600.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2408::600])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9E3FEF800E4
-	for <alsa-devel@alsa-project.org>; Tue, 12 Mar 2024 17:29:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9E3FEF800E4
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6C037F80093
+	for <alsa-devel@alsa-project.org>; Tue, 12 Mar 2024 17:56:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C037F80093
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=Zq1vjMA5
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iKDC/J7vpbCXdm47w/geer/xnxLaUlqxrIs9SXMv6MbTrGlAvQE4c+MSTlNYVcdKimrhNVmG2faLTLx6m397B6SFBvNWnbNGxsLsTjW6TlH5RLFE+83P6odTEjKhzQtpCXnXRKPNd1UFZkexw+h2dbD8vhFUW+iyOBYWhPs1dORGN31McQBcykhcCFcGiHOXp7rVuIYLv+2jnjZAXHSJpiXJ/EztG7pWypW/+h2DCbdF8UypwYljVJG67WynzMJtYs0S9e1X1jwzsjCeTUALLxwYKOongm6MJ/gXbx13BPslfMxF5e/M47zdzywIdSwakYJ6sCR1f3FbgxBsk1+cZw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qTZA2fYeiBcRfGDW8LZezTuT6G/5JqmBdeWSdRBUD8E=;
- b=HA9YamZbNpQWZ4ZJ3hyJsU/iP5kTzShx4Ckyx/IZJnmALoADuB5woMq73AI10+bGLH0uAK9SmB25qx0CJqufhnMq3n/PTsWQBciN5yTkEaPLeHqV0rs+xr0qTT+5KxX7FOGJr5xNe0VZa2719AMCnKsVmUxJH5Oh4sk9tD+Nj+q3CkNdcndigN8r18bXHJXMABVdtQm+swOzIMyWN2Y2l1BmYNp0/iPWnpXJ7/sTed7H4p0MNs+9PtzgrHgoywBbiN1+cAyrJwxocNJyyzvhqS3F0ydplnksRKm77DaTFZpnORRQVbX1tsK0feKBl5TpnSF+q94cPt9LnzjRM7mZ4w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qTZA2fYeiBcRfGDW8LZezTuT6G/5JqmBdeWSdRBUD8E=;
- b=Zq1vjMA5OBSjxlwAxd/LIMiivO5rd7JXwjrw5dYlKcwXmj5ufygvOF3dW9rKo8RsVCc+F5YkezMfopBC49UXJNCiueQL4uPo0XfrSNHEP03/XInjQ1rd6aLd82ZSk40ue03tGgnU0J9hYsiXdknWWvwKmR0FHxv2ywhvSNrQGPI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB4123.namprd12.prod.outlook.com (2603:10b6:5:21f::23)
- by SN7PR12MB7452.namprd12.prod.outlook.com (2603:10b6:806:299::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.35; Tue, 12 Mar
- 2024 16:29:19 +0000
-Received: from DM6PR12MB4123.namprd12.prod.outlook.com
- ([fe80::57a8:313:6bf6:ccb3]) by DM6PR12MB4123.namprd12.prod.outlook.com
- ([fe80::57a8:313:6bf6:ccb3%3]) with mapi id 15.20.7362.035; Tue, 12 Mar 2024
- 16:29:19 +0000
-Message-ID: <e6ec31d5-ab6b-4c28-8fbc-c706b56c7630@amd.com>
-Date: Tue, 12 Mar 2024 21:59:09 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V4 00/13] soundwire/SOF: add SoundWire Interface support
- for AMD SOF stack
-Content-Language: en-US
-To: Vinod Koul <vkoul@kernel.org>, Mark Brown <broonie@kernel.org>
-Cc: alsa-devel@alsa-project.org, yung-chuan.liao@linux.intel.com,
- pierre-louis.bossart@linux.intel.com, Basavaraj.Hiregoudar@amd.com,
- Sunil-kumar.Dommati@amd.com, vinod.koul@intel.com,
- venkataprasad.potturu@amd.com
-References: <20240129055147.1493853-1-Vijendar.Mukunda@amd.com>
- <565b9a1d-a074-4bb6-b4c5-2b9be9095a3f@sirena.org.uk>
- <581a81f4-e540-4de2-b17d-51bc192ae6ec@amd.com> <ZfBmoe4Rv2zjS7PV@matsya>
-From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
-In-Reply-To: <ZfBmoe4Rv2zjS7PV@matsya>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN3PR01CA0056.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:99::20) To DM6PR12MB4123.namprd12.prod.outlook.com
- (2603:10b6:5:21f::23)
+	dkim=pass (2048-bit key,
+ unprotected) header.d=baylibre-com.20230601.gappssmtp.com
+ header.i=@baylibre-com.20230601.gappssmtp.com header.a=rsa-sha256
+ header.s=20230601 header.b=y8OMofjg
+Received: by mail-lf1-x132.google.com with SMTP id
+ 2adb3069b0e04-512e39226efso138316e87.0
+        for <alsa-devel@alsa-project.org>;
+ Tue, 12 Mar 2024 09:56:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1710262595;
+ x=1710867395; darn=alsa-project.org;
+        h=mime-version:message-id:in-reply-to:date:subject:cc:to:from
+         :user-agent:references:from:to:cc:subject:date:message-id:reply-to;
+        bh=3B6MiC9H6tI4tQWlutOAgnzSQZlla384PUxY79mvHQA=;
+        b=y8OMofjglLkoEo8HSOlPVXNUSHFnob6qNQ5aRZBrrwiawmB6KZE2cIqF/1GuQoIj56
+         GcPkTu5DCPCHPZZs9kR1yfc/zhntuZtbGYBq2NLjLDKE0o8IQgHYSabyFN2XpO6kR+BO
+         CxPrngh12feX4wfGLsvyC235JQQRT6tWXujLIfHjqBvKS+MrPBOJe/QBCoxG5HRfVd9e
+         YYzfmC0iMATDFVYsEnDijzDIyajFkn9BicQ81c5tel3qdIXKdR7KOeEEDzLeZQBka0lp
+         54Aa424nBQGzmE3bdvQ1WvfAUCX+vM5h6odix94guD5kqKC8q6TrIB/M84Q+xXnsu6z8
+         v79Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1710262595; x=1710867395;
+        h=mime-version:message-id:in-reply-to:date:subject:cc:to:from
+         :user-agent:references:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=3B6MiC9H6tI4tQWlutOAgnzSQZlla384PUxY79mvHQA=;
+        b=iKhggGwcBMA/vC6cSbxkNWHE/wdaUFqNSmyx5uLz8gRyDsVqmdDTfrycX1C+9zsfFL
+         96VE/B9B+g8KdqnGXBIRrTe05LVXQktWfwIIhG2ct4zW3aPaqc1lRziLa/h3hDX81/Ej
+         yzBt5uYhGGsuGc4MMgsoukuXaoANjm9a6eOxJ8P6CNposzCpyjFSOudMaFDiVxeLt7ey
+         jEFOZ18s1xyho9DsdZJ5HDiW65L/lqX4f5bDLQsfifQL6EIO8Ev9zlqRqXvZ3NCjkwmA
+         ipDmMaf66b2s9YjrwnFiBZa84Ks9y9m+6xKKvihocEMITAtYxsQPBtVmvXvuyRg6QKTF
+         N7Rw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXFi3IbwNt95+DNY2v8L1cPabF+mSipeSYbsaGISsYGvKV9/GoWQcvbZVQKwFPtRdn43CSe2oT4/KEtshBlvXLJKl+bKI444p3a564=
+X-Gm-Message-State: AOJu0YySEEvKtHsTnCeXwcpjNqziIGvpupm2XlKyUu7sDZTSUVeiEyya
+	Mk1nFuR8WC6rkTpwDR1T5bzS5a+U0pxXp7X7flQ0Dz8Xf/nNaecARG6HEFTk7po=
+X-Google-Smtp-Source: 
+ AGHT+IF8U0bYGEWYmFU/rjKOeBTXnSq7EtQmLk15zyx333S4XxlgMeiXcEfYOOnLbUq1ruRV41D6WQ==
+X-Received: by 2002:ac2:5497:0:b0:513:39a0:1fec with SMTP id
+ t23-20020ac25497000000b0051339a01fecmr494622lfk.66.1710262594782;
+        Tue, 12 Mar 2024 09:56:34 -0700 (PDT)
+Received: from localhost ([2a01:e0a:3c5:5fb1:af7b:cf60:208b:83f4])
+        by smtp.gmail.com with ESMTPSA id
+ h15-20020a05600c350f00b004131d2307e7sm12971255wmq.12.2024.03.12.09.56.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 12 Mar 2024 09:56:34 -0700 (PDT)
+References: <87v8a64f3d.wl-kuninori.morimoto.gx@renesas.com>
+ <87ttpq4f2c.wl-kuninori.morimoto.gx@renesas.com>
+ <e7121fbc-c814-4153-9f17-82ad5de13e64@sirena.org.uk>
+ <87a5n46xjk.wl-kuninori.morimoto.gx@renesas.com>
+ <7248b107-db87-4409-b93c-f65035d0a6b4@sirena.org.uk>
+User-agent: mu4e 1.10.8; emacs 29.2
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Pierre-Louis
+ Bossart <pierre-louis.bossart@linux.intel.com>, Bard Liao
+ <yung-chuan.liao@linux.intel.com>, bard.liao@intel.com, Conor Dooley
+ <conor+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Rob Herring <robh+dt@kernel.org>,
+ Jerome Brunet <jbrunet@baylibre.com>, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org
+Subject: Re: [PATCH v7 1/5] ASoC: makes CPU/Codec channel connection map
+ more generic
+Date: Tue, 12 Mar 2024 17:29:25 +0100
+In-reply-to: <7248b107-db87-4409-b93c-f65035d0a6b4@sirena.org.uk>
+Message-ID: <1jo7bje6da.fsf@starbuckisacylon.baylibre.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4123:EE_|SN7PR12MB7452:EE_
-X-MS-Office365-Filtering-Correlation-Id: 87f8f540-ea11-4ebc-6de1-08dc42b19109
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	7ok9d64gYgep3xwnbCGNM8pV6OwyIPnBHcvF3UvGjk5PWrUeDeDTQbLcQsf8z2wV2fX6RqYH4pD/7hvsKKes4LdGpHrH0LwurVfCffM6pvPy7zRCsNHtcxZyvKW7Y/Mz1++YRXOFpfuxyb4ewPfpc65X9svQ+8SJn3CiZ0lxKigDlcNB+7mGhujIMM3NpYYJVx1Prr6LhEtGS/A2uMgEc7vsPkiqkn7diIRj/CYTnc3dXbR6uGT6kvNS6ky4aIsY4GDTI2Ta/g9JeJPmE6yte7659Y++T4rPdngmFUp6kXfWceiTSgX0+OHbIRHhuMzf2XRdUc+Tf38bzBzqu5TPNB+skToHa6lWvUDKipNTJMgAPJlpENppkh1pt2B8/+HsUtwrwMwoG8X7CxMJUkD7UOsVgrGy1nUPtAzVfU1dT9i7ZproRlPjXFEmZSV1kAI7gVyM2xZlfYIbv3jmhv74CQ6sy0MYT+tgLxHrtw6ttYTylR6iKk++3YmJN3W31mkux9psAlYDpUctCTQTignz/QJUKjiw4cvPEvIBmj7goBpRN1ZAmB5/i8YPcRKIJ+nPzDH2ofRIPQlAPgPefpUTNa75AEbD87HtqZWLH9/bErU=
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4123.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376005)(1800799015);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?Qm1QQUZtbGZpdFkzcElFL0dPREhpT3ZVTUtFVy9SWkVxaldySjd2b2FVRFJz?=
- =?utf-8?B?Mis5K3hZcmNYMHNFYm43YlhyenRGNXBmVFMvK1VSU3VlYW8zcmxVZ1BWRjA2?=
- =?utf-8?B?U1BLaHJQTVVGV2FSN1drcjI3SWdNUXptajhJcldBbkMya2g5aDZRNU4yZFR6?=
- =?utf-8?B?VHNweU1FOTlRai9LSjVQVmdJOGczUWJlL1dOam9YVzRWTElnelFxV3daOUFZ?=
- =?utf-8?B?eHo5Mk9iR2pGbU5FaW1sMHhUMUY5V21nZzJFZloyeERTeVV0Y1I0VkpFR0Vy?=
- =?utf-8?B?UnpLM0U5dzRKY3JJODl0NlJDS3RpVGErbzlBdUY0RUYyU2ZQNmIwRERLSnFo?=
- =?utf-8?B?RGNwTTdzZExWNkMvT01MOTl1WUxJcThnVkxZc3d1cFUwblJVZE5TSUtJREQr?=
- =?utf-8?B?M1pwcUV2V0J3bFcwVUtCUDdVUWVLT0tkNFhka2VPVEFqdWNsb0sremZ6eVl1?=
- =?utf-8?B?cFB0RFRKUHdoNVoyVnhkM3dWZUwxY3FGRnRxdDE1a0plcVlObHJ4L1A3N1gr?=
- =?utf-8?B?QzErVWtOZFFhT3Vrb2dOUXJuZFBXQkdBamNoNWZvdThUTGd3OUUySllTd2dE?=
- =?utf-8?B?S25PREV4Z2I4Smk0MXB0UHdodTUzdjZYR1h4em5US01EeWdiZ0drNmo4TW04?=
- =?utf-8?B?MjQyVm9odExTRWJvc3A4MFZIdmJaNHVYcGs0N3RLb3lOdTM3S0NYTkRNaUUz?=
- =?utf-8?B?NitJa3NZNnZUUWIzUGNzSVNsZTNad2p6OWZsQlFvSEJIWHdhWHEzeGQ0c041?=
- =?utf-8?B?UDZkYUo2VEdna0pZSGl5Q2tuTENYUE9yZ2x5U3dzamplcGRIaTU2QldjemxZ?=
- =?utf-8?B?MWNSRXBsMk16VHl5NWFuOXJlV295UjI3d0NhL20rYTUvQWJzYytsdVNSbEFh?=
- =?utf-8?B?VWpub1Q5YS9mdWkrV1lYRzZteld6ZzF2alFqNHc4bGZnSUpaQVJ5ektqRGNK?=
- =?utf-8?B?SGpLWXl0cmlKU1N1T2lhUTNVY1kxVGc4ZFg5UjVOOFd4UGprakYrODRzSVI0?=
- =?utf-8?B?Z25XdDFiL3d0Q0piemsvMVhXR1JDNS9jZE96bzVMNGtUenJIKy9HYUpOQTNI?=
- =?utf-8?B?T0NzdzBvNGo5T05RL0lGVUVCb21Rb1U4RGw2M05xVUo4NUZTUnZFT1loTUFW?=
- =?utf-8?B?MFA3UmdwZ3ZHc1NycmFrSEloSkhVUjJmbDJDd0M3RUZpOS90MjNMYXVwR2pV?=
- =?utf-8?B?TzNVZUptTGNTMFRCUEZoMDhrSE1WemJqN3R1S0wyM2ZnWHhJc3pRTDhPYW53?=
- =?utf-8?B?Wm1CaEJUM3BkYVJIMEhQVGVBZDA2Z1JuYno0QmhNZHM5ZVpHMTZhUEZzdURD?=
- =?utf-8?B?QkZDYmtsallWdDRDVEdoU0syOVdBZ0x5NmNjZ0hnTEFFeEY4OWhQQnpuRmpX?=
- =?utf-8?B?WVBJNjUvMnpGUThDWWhHNGpldTJVQ3k2UDZ1U25uVDl0WFB0MFRKQlZMdUZq?=
- =?utf-8?B?NUYzUVJzNUpJOFdRa1c1allBZnRVKzFkWGl6cnRLTEwydWJjMkhpZ0tjL3Vr?=
- =?utf-8?B?TjgvUlRlbGJoSEZ0K2Ntd1BjczNMaXJHMHAzU09IZnYvT0gvNURaRXRwWU1W?=
- =?utf-8?B?SWtEM1k2UHlLSmZYZnB3ekRBMHNYSXZSMWRHZ3BaTi96aTh3c0xzeFVDMXpt?=
- =?utf-8?B?eWtqTEVWckFzZmY0MzlsL3BUNHg2TUJVUUIxUThSLzBWTmZwNmFENm00dDU2?=
- =?utf-8?B?aHdneW44cjhJSlVZcnd2RVRSdWZpcDFSNzA4NGxWcDYzbWhKd09RSGhydmE5?=
- =?utf-8?B?cGhuZlhRS0k4Y0IvK241WERLZUplQVlGQkJObmZSaGFrV2hhZDdaaE40dFln?=
- =?utf-8?B?dzdpVjdhZmxHS0RpUEo1RW1ON2dIRTYxaEFiOVdxK1AvYWFFOWEvcGZxZXJP?=
- =?utf-8?B?alh3akk1bFJuK0ZFcTEvMGozOXBNcTZvb01EcnhXdWN3c1RKTDE0OHpkT3Nv?=
- =?utf-8?B?ejVXN2dONEdyU2NDT2NvbHNJcTl5YWt2eUd6K0IxeDkxZXkzNjZFTDFqUjRR?=
- =?utf-8?B?NFBNcGJJazNMbithTkJjaE9QSmc1R0Z6aXY0ZWVKdXA1NDA3UEZTV3ZlbDVO?=
- =?utf-8?B?dUNUZ05VSlVJcGk2ZlVwb2M0QXU5UFB4aVRQaXNIbnMvZFhrZzRMUHFOZUVu?=
- =?utf-8?Q?TlTduwkNiJeXvNqiB64242SEI?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 87f8f540-ea11-4ebc-6de1-08dc42b19109
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4123.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2024 16:29:19.3565
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- Qzl45/tCs98+8wnZG+Vhnlu0L/uWhUXs4EcEzQKn7vEAFotrfZdhl1CsUdb2e3Bsil75lJGfo8FYWCss1tCJnA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7452
-Message-ID-Hash: ZTIQXPQACY3SCN7HSIZRY7XN7UQUBPV2
-X-Message-ID-Hash: ZTIQXPQACY3SCN7HSIZRY7XN7UQUBPV2
-X-MailFrom: Vijendar.Mukunda@amd.com
+Content-Type: text/plain
+Message-ID-Hash: UUUMZNJAWKJMIREQLZEGFYBWY5EDCUST
+X-Message-ID-Hash: UUUMZNJAWKJMIREQLZEGFYBWY5EDCUST
+X-MailFrom: jbrunet@baylibre.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -166,7 +123,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZTIQXPQACY3SCN7HSIZRY7XN7UQUBPV2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UUUMZNJAWKJMIREQLZEGFYBWY5EDCUST/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -175,35 +132,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 12/03/24 19:58, Vinod Koul wrote:
-> On 04-03-24, 12:17, Mukunda,Vijendar wrote:
->> On 31/01/24 23:21, Mark Brown wrote:
->>> On Mon, Jan 29, 2024 at 11:21:34AM +0530, Vijendar Mukunda wrote:
->>>> This patch series is to redesign existing platform device creation logic
->>>> for SoundWire managers and Implement generic functions for SoundWire
->>>> manager probe, start and exit sequence which are common for both Legacy
->>>> (NO DSP enabled) and SOF stack, and add SoundWire Interface support for
->>>> AMD SOF stack (ACP 6.3 based platform).
->>> The following changes since commit 41bccc98fb7931d63d03f326a746ac4d429c1dd3:
->>>
->>>   Linux 6.8-rc2 (2024-01-28 17:01:12 -0800)
->>>
->>> are available in the Git repository at:
->>>
->>>   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-soundwire-amd-v6.9
->> Hi Vinod,
->>
->> As this patch series is merged in to sound git, Could you please let us know
->> when this soundwire patch series will be picked in to Soundwire git.
->>
->> We need to send few fixes on top of this patch series.
-> If you had told me earlier I would have pulled. It is late now in merge
-> window, pls send the patches after rc1 is out in two weeks
+
+On Tue 12 Mar 2024 at 13:51, Mark Brown <broonie@kernel.org> wrote:
+
+> [[PGP Signed Part:Undecided]]
+> On Tue, Mar 12, 2024 at 01:36:47AM +0000, Kuninori Morimoto wrote:
 >
-> BR
-Hi Mark,
+>> Hmm...
+>> does it have un-cleared "dai_link->ch_maps" ?
+>
+>> Thank you for your help !!
+>
+> I can't immediately see where ch_maps would get set for this board (it
+> looks like Intel is the only user?) but I might be missing something.  I
+> don't have the board myself so can't run anything directly - Jerome?
 
-As patches already got merged into for-next branch, are you going to
-create new tag for SoundWire patch series for RC1 release?
+This board (the u200 reference design) does not have anything particular
+compared to other Amlogic g12 based design. Not sure I have an u200 with me,
+I'll check.
+
+Mark, I suspect the boards you have (like the libretech Alta/Solitude or
+the kvim3 maybe) will show the same thing.
+
+The axg sound card (sound/soc/meson/axg-card.c) does not touch ch_maps.
+
+This cards uses a few tricks to deal with this rather complicated HW.
+Off the top of my head, maybe the following could complicate things
+for this rework:
+
+* dai_links are allocated with krealloc because we need to add links
+  for the TDM loopbacks. Whether or not loopback are needed is only known
+  halfway through the parsing of DT. Still, __GFP_ZERO is used, so ch_maps
+  should be cleared - so I doubt this is the problem
+
+* In addition to DPCM, the card uses "Codec 2 Codec" links.
+  IOW, there is 2 layers of links with '.no_pcm = 1'.
+  This is necessary because there another layer of digital routing past the
+  DPCM backends (basically a mux between the TDM backends and internals
+  codecs, like HDMI). Maybe this does not play well with this patch series.
+
+I can't really test right now, sorry.
+I can check and test further later this week.
+
+>
+> [[End of PGP Signed Part]]
 
 
+-- 
+Jerome

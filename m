@@ -2,86 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A3BF879945
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Mar 2024 17:46:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 734A9879A0A
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Mar 2024 18:06:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0C861E9A;
-	Tue, 12 Mar 2024 17:46:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C861E9A
+	by alsa0.perex.cz (Postfix) with ESMTPS id C1C59DEE;
+	Tue, 12 Mar 2024 18:06:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C1C59DEE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1710262011;
-	bh=GIDja9aBii3rVKEgujvTkdkq26dWlQqOSphipreMf8Y=;
+	s=default; t=1710263214;
+	bh=Uf8cg6osnMFBO1t7rBso5/vOFhBOjgmGncJZngxzjd0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=C5+Y9rCUyQnE422urguiHMNNE8b9+J/tKJQRwAlhPTlB/HScqYn0k6obMhWTIByVk
-	 lXRO2sCFmbUgWjjzVjW1BlO5LeVapRwYk8px5deeuV83jZRvlosbKDRAbBaWXkXBQ3
-	 TQksRh8kpkUXVI2w4qiIfHCyE9JIGkwWPerBzpQQ=
+	b=dPjrPcPeKovQStTbNs0kwRRCQ6rP8OcaM+1fOopR0D/WL9td9u0dEWcV3D70kRURm
+	 onpB+k4FBbq0OTVpIHRsDhpJxymjN4pnf07q2wtjtT9Urz//XpmObtbWoCTsa4kJLa
+	 7DqW5RgQfqPJf00UN36fY1NYDRanHXKyr8042g18=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A993DF80579; Tue, 12 Mar 2024 17:46:19 +0100 (CET)
+	id 71763F8057F; Tue, 12 Mar 2024 18:06:23 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E9D13F805A0;
-	Tue, 12 Mar 2024 17:46:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 86551F8059F;
+	Tue, 12 Mar 2024 18:06:22 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E578AF8028D; Tue, 12 Mar 2024 17:46:15 +0100 (CET)
+	id 1E849F8028D; Tue, 12 Mar 2024 18:06:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-6.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id AD509F800E4
-	for <alsa-devel@alsa-project.org>; Tue, 12 Mar 2024 17:46:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AD509F800E4
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4443EF80093
+	for <alsa-devel@alsa-project.org>; Tue, 12 Mar 2024 18:06:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4443EF80093
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=f/49XSD+
+ header.s=k20201202 header.b=CWlQBO2E
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id ACEC7CE1813;
-	Tue, 12 Mar 2024 16:46:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B567C43394;
-	Tue, 12 Mar 2024 16:46:04 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 65A1361221;
+	Tue, 12 Mar 2024 17:06:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D81B7C433C7;
+	Tue, 12 Mar 2024 17:06:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1710261966;
-	bh=GIDja9aBii3rVKEgujvTkdkq26dWlQqOSphipreMf8Y=;
+	s=k20201202; t=1710263172;
+	bh=Uf8cg6osnMFBO1t7rBso5/vOFhBOjgmGncJZngxzjd0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=f/49XSD+stWYzIs75s/vQJdYY6j460avHXABtNO4nCPF+/fd2fC7U50ibQY70VmgZ
-	 wcmm2kK72RbJRzlH5ItwhO3lwZD/4sf9Xc/1LPTFl2AH+R9XNB4GFEEi+Co6Ek3lAs
-	 jOQBe8AgmZqvUV1sZp+GjMI03b8tXvVOR2nNQuvzQkopuyE+jLw9RA3VupiNoutM6G
-	 FDmr6u/jwZu/NykJzNrSN37rNrJ2lbfAJ+JbEB1Y9tk3ukDlcmuC6Ix18ojJ37bPiR
-	 HWBtwra8EDloKMB3jOU4l77IS4xgJFDq5G5G/7TVXzn19FfzR9QokDsCJ7hxSrIU8j
-	 ZyEmX9UYxqJMw==
-Date: Tue, 12 Mar 2024 16:46:01 +0000
+	b=CWlQBO2E9oi3J8WUGd90L9LO2vDZLFT+81t05eP656l7cBjK3l6oWS9y5NKtS1R7X
+	 U6wMfU1LQOVNb9i7DeYX6419qcMQvciG6vlfHXLuXqZRkVM7ig4HffyFj5v32KYiyt
+	 wG6krudxbbtJ0WCKYPGCMzA9aLV/ZIOYRUoGtoU+MnDU0Cl5LZvm0hrwbUsf5URGXq
+	 1DSj5XKVHBouzyRGExUR3KFxl+ebHxWwVeTOXFyYUDAg9uyR/iJ76c8d5GNX7NeWm+
+	 SaZE6RIp2VkOBzVQcfGo1Sjng0/fBMpMNwXeSYGf+lINPhAIW2CuCFb/p9v27D9jNq
+	 VgJ6NzjxAebig==
+Date: Tue, 12 Mar 2024 17:06:06 +0000
 From: Mark Brown <broonie@kernel.org>
-To: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
-Cc: Vinod Koul <vkoul@kernel.org>, alsa-devel@alsa-project.org,
-	yung-chuan.liao@linux.intel.com,
-	pierre-louis.bossart@linux.intel.com, Basavaraj.Hiregoudar@amd.com,
-	Sunil-kumar.Dommati@amd.com, vinod.koul@intel.com,
-	venkataprasad.potturu@amd.com
-Subject: Re: [PATCH V4 00/13] soundwire/SOF: add SoundWire Interface support
- for AMD SOF stack
-Message-ID: <05bbc2e0-e8ac-4db0-9ed5-7e3ac765f252@sirena.org.uk>
-References: <20240129055147.1493853-1-Vijendar.Mukunda@amd.com>
- <565b9a1d-a074-4bb6-b4c5-2b9be9095a3f@sirena.org.uk>
- <581a81f4-e540-4de2-b17d-51bc192ae6ec@amd.com>
- <ZfBmoe4Rv2zjS7PV@matsya>
- <e6ec31d5-ab6b-4c28-8fbc-c706b56c7630@amd.com>
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>, bard.liao@intel.com,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Rob Herring <robh+dt@kernel.org>, alsa-devel@alsa-project.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v7 1/5] ASoC: makes CPU/Codec channel connection map more
+ generic
+Message-ID: <b9de4fd1-ef4a-4c30-b3cf-e36931be90f1@sirena.org.uk>
+References: <87v8a64f3d.wl-kuninori.morimoto.gx@renesas.com>
+ <87ttpq4f2c.wl-kuninori.morimoto.gx@renesas.com>
+ <e7121fbc-c814-4153-9f17-82ad5de13e64@sirena.org.uk>
+ <87a5n46xjk.wl-kuninori.morimoto.gx@renesas.com>
+ <7248b107-db87-4409-b93c-f65035d0a6b4@sirena.org.uk>
+ <1jo7bje6da.fsf@starbuckisacylon.baylibre.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="CFaOyNoWoTjHqmJM"
+	protocol="application/pgp-signature"; boundary="qzyKJgoXE2W54kV4"
 Content-Disposition: inline
-In-Reply-To: <e6ec31d5-ab6b-4c28-8fbc-c706b56c7630@amd.com>
+In-Reply-To: <1jo7bje6da.fsf@starbuckisacylon.baylibre.com>
 X-Cookie: Neutrinos have bad breadth.
-Message-ID-Hash: DKPECX4675LW27T5JFJGIK5NOQ64BMQQ
-X-Message-ID-Hash: DKPECX4675LW27T5JFJGIK5NOQ64BMQQ
+Message-ID-Hash: SJXHR3QYVAUAUGFULYQT57LR4BLTLQXK
+X-Message-ID-Hash: SJXHR3QYVAUAUGFULYQT57LR4BLTLQXK
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -94,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DKPECX4675LW27T5JFJGIK5NOQ64BMQQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SJXHR3QYVAUAUGFULYQT57LR4BLTLQXK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,37 +109,36 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---CFaOyNoWoTjHqmJM
+--qzyKJgoXE2W54kV4
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Tue, Mar 12, 2024 at 09:59:09PM +0530, Mukunda,Vijendar wrote:
-> On 12/03/24 19:58, Vinod Koul wrote:
+On Tue, Mar 12, 2024 at 05:29:25PM +0100, Jerome Brunet wrote:
 
-> >> We need to send few fixes on top of this patch series.
+> Mark, I suspect the boards you have (like the libretech Alta/Solitude or
+> the kvim3 maybe) will show the same thing.
 
-> > If you had told me earlier I would have pulled. It is late now in merge
-> > window, pls send the patches after rc1 is out in two weeks
+I don't have the kvim3 but I can try with the other two (modulo pain
+with u-boot), it'll be tomorrow now though.
 
-> As patches already got merged into for-next branch, are you going to
-> create new tag for SoundWire patch series for RC1 release?
+> I can't really test right now, sorry.
+> I can check and test further later this week.
 
-I'm not sure what you're expecting to be tagged here?  I expect
-everything I currently have applied to end up in -rc1.
+Ack - so long as someone looks into it.
 
---CFaOyNoWoTjHqmJM
+--qzyKJgoXE2W54kV4
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmXwhskACgkQJNaLcl1U
-h9A3Cgf/bJwKuZn4lipBC5hIXV/giuTNzFRB1+ufUU1TTXDVei5Wr/WkeJyMBm2J
-z0zu02o0hgCSQciCqGaSuUQGvkm0PdZxtZKiUB/TK2Ti4BQXDuGHhPjyY/bgouNv
-kjkE5m1e12JgSM4XcIoJOpCrroWbv0uCnpErrMAqnWV3tEGGl7zTJpGM/F3L3hjq
-48GQSkc2RV2RAMGCzLWbh32MXIZt8Mi3FiBHUDF9yL5MAYYlsSu5yuQep2JkXmHW
-vW0BmdFWhNyEJVVWqmcj0Mks17ImexSoEarCdCFNdy8qVL4aGSSdGXsajPdaSNLd
-aL76VToHrZNX+qwRwdg/fhgNJrfpGA==
-=Q07c
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmXwi34ACgkQJNaLcl1U
+h9B7/Qf8Dc4u7Q+xnQLjQXA481ZwsFRElrEC9u+wbJQEdPez1XIjaGTq7sLnf1HR
+mEEJprcCx0y4lwZI6kfgLAy8P8eOSJycRM6EASGbevwvANWDsKpkxrGPwVKVdHCI
+NgJcX9ULB+RliBq8x+syp0tWLhqo6OzqJ55xNHJTothmmfZgFH0oRdcBNE6kiqbH
+vMB7NhBlzq76bsorOHdKZDlCjOzPgYBElMWxEGPyRMBdTzgPVKzkSefrFmKZlxIR
+16Z1XZKpKTCIasuRhCSmyubAYXk9/Tg26kyfK2IVxFUgVYUNnm6pTeHp2wX/BgDO
+jkgP/TkCFXRJT+deLdtTysoWkQC4yw==
+=Y0PH
 -----END PGP SIGNATURE-----
 
---CFaOyNoWoTjHqmJM--
+--qzyKJgoXE2W54kV4--

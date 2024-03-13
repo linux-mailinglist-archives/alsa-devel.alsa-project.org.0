@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59B9787A6A9
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 Mar 2024 12:07:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D41587A6AA
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 Mar 2024 12:07:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0C1252345;
-	Wed, 13 Mar 2024 12:07:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C1252345
+	by alsa0.perex.cz (Postfix) with ESMTPS id 555FA231C;
+	Wed, 13 Mar 2024 12:07:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 555FA231C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1710328045;
-	bh=ejVpkmUpG3TujjmS9PY7/wxf0vTDuhO45Kdib7+YOaw=;
+	s=default; t=1710328058;
+	bh=jy17j4GnL9+x3VVzlB6GUuhq0JWZqZM8wbSx/KQK9R0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=dGDT5NdOOX7lJQEkUcIsKsZ0WpuQHEBp44TSdcpZJGXM/21Qzl3xVd2a/6QoW9Fo8
-	 e84IkZI1FPzkXYu7T2Y5FvNb7vwxfttYSakvMJx0KmYNOWFRn6lKq9b/83+MsUa7XT
-	 QPi243IAcw1Y8xqqynb0VqgtUoTFTfQmkb6S7MUU=
+	b=u4v0W7wc/e64TQef3+SvY4GLBe5w0e8/WdxB1PptYegf49TDR8ZAcoL0KeESdicFm
+	 jVyGt1GbiDPq80irIiXzrJVm53URwxJLFtROTrn2QXzTXflzXbHrrjR8RQ/yzb8Ppx
+	 gkSDNUlm3wvoMiSIikerP00ZTVtD2Pww2Y3ARbFM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E4AB3F8085B; Wed, 13 Mar 2024 12:04:00 +0100 (CET)
+	id 8A200F80C0D; Wed, 13 Mar 2024 12:04:02 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 25822F80844;
-	Wed, 13 Mar 2024 12:04:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A7ED3F808CC;
+	Wed, 13 Mar 2024 12:04:01 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EE385F80623; Wed, 13 Mar 2024 12:03:54 +0100 (CET)
+	id AC030F80624; Wed, 13 Mar 2024 12:03:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -37,23 +37,23 @@ Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 23E8AF805A9
-	for <alsa-devel@alsa-project.org>; Wed, 13 Mar 2024 12:02:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23E8AF805A9
+	by alsa1.perex.cz (Postfix) with ESMTPS id DA00DF8063B
+	for <alsa-devel@alsa-project.org>; Wed, 13 Mar 2024 12:02:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA00DF8063B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=collabora.com header.i=@collabora.com
- header.a=rsa-sha256 header.s=mail header.b=uEdGdLdy
+ header.a=rsa-sha256 header.s=mail header.b=JNmKMdd+
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1710327765;
-	bh=ejVpkmUpG3TujjmS9PY7/wxf0vTDuhO45Kdib7+YOaw=;
+	s=mail; t=1710327767;
+	bh=jy17j4GnL9+x3VVzlB6GUuhq0JWZqZM8wbSx/KQK9R0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=uEdGdLdyuL/OYGUVBvXT3W0MW3cxwohDqGRDvehG1wX0/uhPJIw7EEAWpBGBXtusD
-	 Oe6SN1qG+Wb6QIh4gkN1b7CP51vhm/qPD1irpOjeusoIo1ai/9Utx6TQhW1AohCC/b
-	 Z38dpkfXGcB85iZ+9dy0G3EbrIUSr8LvlZTvX1U5fuMoe+RndxCGYOwTAaYT4aED4w
-	 mZ4dXPVyo1CdsfdZ98VQFcd6Ft2yS6k4BfKmdOZBGj5ymnUIjaph92gJ0rbYB/VauO
-	 H+7wOvUoi6u7OJQZZst2arwg2a8jyk1maXmkMQEjoBnjvfDH9vb6GcHnE0W/F6/pDi
-	 I2kUsfsskVkGw==
+	b=JNmKMdd+LL/hqyid/LM+DBI6BeaIV3fWIjMkFTPDYL7nMlx3sLd2xtBHWrHPncIAM
+	 7KJyUhvFd8q8E1kVZ+dZezUBIyMDWhQar2zfco1tvLHFwIF2uArh6rwbNONyj5Y5YQ
+	 MH+WAqXGQu87Nx4MuK8SkA+GNNTj6WuLBYztaZ8oPLa6grHX4oyuJ+UAodaSsDwwJu
+	 WBshp+5yc7kKNwqaW3YBpB3k8n1jLlCo+5bxHj1+qfEn9ixLkIuIvYkIPafGiCZW63
+	 O1x+qKJiK8rxPzw+VglDf9Lh/L0X1pOefZzNU4KxDNw+SfYUEAvP/+yc9Rry4GbuVh
+	 H3DlDm2g493mQ==
 Received: from IcarusMOD.eternityproject.eu (cola.collaboradmins.com
  [195.201.22.229])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
@@ -61,8 +61,8 @@ Received: from IcarusMOD.eternityproject.eu (cola.collaboradmins.com
  SHA256)
 	(No client certificate requested)
 	(Authenticated sender: kholk11)
-	by madrid.collaboradmins.com (Postfix) with ESMTPSA id 0ED6D3782079;
-	Wed, 13 Mar 2024 11:02:43 +0000 (UTC)
+	by madrid.collaboradmins.com (Postfix) with ESMTPSA id 7363637820C6;
+	Wed, 13 Mar 2024 11:02:45 +0000 (UTC)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: broonie@kernel.org
 Cc: wenst@chromium.org,
@@ -102,19 +102,19 @@ Cc: wenst@chromium.org,
 	linux-mediatek@lists.infradead.org,
 	kernel@collabora.com,
 	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Subject: [PATCH v3 20/22] ASoC: dt-bindings: mt8186: Document audio-routing
- and dai-link subnode
-Date: Wed, 13 Mar 2024 12:01:45 +0100
+Subject: [PATCH v3 21/22] arm64: dts: mediatek: mt8195-cherry: Specify sound
+ DAI links and routing
+Date: Wed, 13 Mar 2024 12:01:46 +0100
 Message-ID: 
- <20240313110147.1267793-21-angelogioacchino.delregno@collabora.com>
+ <20240313110147.1267793-22-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.44.0
 In-Reply-To: 
  <20240313110147.1267793-1-angelogioacchino.delregno@collabora.com>
 References: <20240313110147.1267793-1-angelogioacchino.delregno@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 2I4HWXEGVDMMY5PKHXUYX4OCBBPXHLPD
-X-Message-ID-Hash: 2I4HWXEGVDMMY5PKHXUYX4OCBBPXHLPD
+Message-ID-Hash: AVWCEHTFCDRH545DSAI4BD4PMNN4Q4YR
+X-Message-ID-Hash: AVWCEHTFCDRH545DSAI4BD4PMNN4Q4YR
 X-MailFrom: angelogioacchino.delregno@collabora.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -127,7 +127,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2I4HWXEGVDMMY5PKHXUYX4OCBBPXHLPD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AVWCEHTFCDRH545DSAI4BD4PMNN4Q4YR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -136,387 +136,92 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Document the dai-link subnodes and the audio-routing property, allowing
-to describe machine specific audio hardware and links in device tree.
-
-While at it, also deprecate the old properties which were previously
-used with the driver's partially hardcoded configuration.
-
-Also, since describing machine specific audio hardware and links replaces
-the now deprecated old logic doing the same in a driver hardcoded fashion,
-it is not allowed to have both the old and new properties together.
+The drivers and bindings acquired support for specifying audio hardware
+and links in device tree: describe and link the sound related HW of this
+machine.
 
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- .../sound/mt8186-mt6366-da7219-max98357.yaml  | 131 ++++++++++++++++--
- .../sound/mt8186-mt6366-rt1019-rt5682s.yaml   | 120 ++++++++++++++--
- 2 files changed, 233 insertions(+), 18 deletions(-)
+ .../boot/dts/mediatek/mt8195-cherry.dtsi      | 45 +++++++++++++++++++
+ 1 file changed, 45 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/sound/mt8186-mt6366-da7219-max98357.yaml b/Documentation/devicetree/bindings/sound/mt8186-mt6366-da7219-max98357.yaml
-index 9853c11a1330..cbc641ecbe94 100644
---- a/Documentation/devicetree/bindings/sound/mt8186-mt6366-da7219-max98357.yaml
-+++ b/Documentation/devicetree/bindings/sound/mt8186-mt6366-da7219-max98357.yaml
-@@ -12,17 +12,46 @@ maintainers:
- description:
-   This binding describes the MT8186 sound card.
+diff --git a/arch/arm64/boot/dts/mediatek/mt8195-cherry.dtsi b/arch/arm64/boot/dts/mediatek/mt8195-cherry.dtsi
+index eb07cad1991f..86d283ffe807 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8195-cherry.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8195-cherry.dtsi
+@@ -242,6 +242,7 @@ adsp_device_mem: memory@60e80000 {
+ 	spk_amplifier: rt1019p {
+ 		compatible = "realtek,rt1019p";
+ 		label = "rt1019p";
++		#sound-dai-cells = <0>;
+ 		pinctrl-names = "default";
+ 		pinctrl-0 = <&rt1019p_pins_default>;
+ 		sdb-gpios = <&pio 100 GPIO_ACTIVE_HIGH>;
+@@ -336,6 +337,7 @@ &disp_pwm0 {
+ &dp_tx {
+ 	status = "okay";
  
-+allOf:
-+  - $ref: sound-card-common.yaml#
-+
- properties:
-   compatible:
-     enum:
-       - mediatek,mt8186-mt6366-da7219-max98357-sound
++	#sound-dai-cells = <0>;
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&dptx_pin>;
  
-+  audio-routing:
-+    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
-+    description:
-+      A list of the connections between audio components. Each entry is a
-+      pair of strings, the first being the connection's sink, the second
-+      being the connection's source.
-+      Valid names could be the input or output widgets of audio components,
-+      power supplies, MicBias of codec and the software switch.
-+    minItems: 2
-+    items:
-+      enum:
-+        # Sinks
-+        - HDMI1
-+        - Headphones
-+        - Line Out
-+        - MIC
-+        - Speakers
-+
-+        # Sources
-+        - Headset Mic
-+        - HPL
-+        - HPR
-+        - Speaker
-+        - TX
-+
-   mediatek,platform:
-     $ref: /schemas/types.yaml#/definitions/phandle
-     description: The phandle of MT8186 ASoC platform.
+@@ -406,6 +408,7 @@ audio_codec: codec@1a {
+ 		/* Realtek RT5682i or RT5682s, sharing the same configuration */
+ 		reg = <0x1a>;
+ 		interrupts-extended = <&pio 89 IRQ_TYPE_EDGE_BOTH>;
++		#sound-dai-cells = <0>;
+ 		realtek,jd-src = <1>;
  
-   headset-codec:
-     type: object
-+    deprecated: true
-     additionalProperties: false
-     properties:
-       sound-dai:
-@@ -32,6 +61,7 @@ properties:
+ 		AVDD-supply = <&mt6359_vio18_ldo_reg>;
+@@ -1132,6 +1135,48 @@ &sound {
+ 		"AFE_SOF_DL2", "AFE_SOF_DL3", "AFE_SOF_UL4", "AFE_SOF_UL5";
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&aud_pins_default>;
++
++	audio-routing =
++		"Headphone", "HPOL",
++		"Headphone", "HPOR",
++		"IN1P", "Headset Mic",
++		"Ext Spk", "Speaker";
++
++	mm-dai-link {
++		link-name = "ETDM1_IN_BE";
++		mediatek,clk-provider = "cpu";
++	};
++
++	hs-playback-dai-link {
++		link-name = "ETDM1_OUT_BE";
++		mediatek,clk-provider = "cpu";
++		codec {
++			sound-dai = <&audio_codec>;
++		};
++	};
++
++	hs-capture-dai-link {
++		link-name = "ETDM2_IN_BE";
++		mediatek,clk-provider = "cpu";
++		codec {
++			sound-dai = <&audio_codec>;
++		};
++	};
++
++	spk-playback-dai-link {
++		link-name = "ETDM2_OUT_BE";
++		mediatek,clk-provider = "cpu";
++		codec {
++			sound-dai = <&spk_amplifier>;
++		};
++	};
++
++	displayport-dai-link {
++		link-name = "DPTX_BE";
++		codec {
++			sound-dai = <&dp_tx>;
++		};
++	};
+ };
  
-   playback-codecs:
-     type: object
-+    deprecated: true
-     additionalProperties: false
-     properties:
-       sound-dai:
-@@ -53,32 +83,115 @@ properties:
-       A list of the desired dai-links in the sound card. Each entry is a
-       name defined in the machine driver.
- 
--additionalProperties: false
-+patternProperties:
-+  ".*-dai-link$":
-+    type: object
-+    additionalProperties: false
-+    description:
-+      Container for dai-link level properties and CODEC sub-nodes.
-+
-+    properties:
-+      link-name:
-+        description: Indicates dai-link name and PCM stream name
-+        items:
-+          enum:
-+            - I2S0
-+            - I2S1
-+            - I2S2
-+            - I2S3
-+
-+      codec:
-+        description: Holds subnode which indicates codec dai.
-+        type: object
-+        additionalProperties: false
-+        properties:
-+          sound-dai:
-+            minItems: 1
-+            maxItems: 2
-+        required:
-+          - sound-dai
-+
-+      dai-format:
-+        description: audio format
-+        items:
-+          enum:
-+            - i2s
-+            - right_j
-+            - left_j
-+            - dsp_a
-+            - dsp_b
-+
-+      mediatek,clk-provider:
-+        $ref: /schemas/types.yaml#/definitions/string
-+        description: Indicates dai-link clock master.
-+        items:
-+          enum:
-+            - cpu
-+            - codec
-+
-+    required:
-+      - link-name
-+
-+unevaluatedProperties: false
- 
- required:
-   - compatible
-   - mediatek,platform
--  - headset-codec
--  - playback-codecs
-+
-+# Disallow legacy properties if xxx-dai-link nodes are specified
-+if:
-+  not:
-+    patternProperties:
-+      ".*-dai-link$": false
-+then:
-+  properties:
-+    headset-codec: false
-+    speaker-codecs: false
- 
- examples:
-   - |
- 
-     sound: mt8186-sound {
-         compatible = "mediatek,mt8186-mt6366-da7219-max98357-sound";
--        mediatek,platform = <&afe>;
-+        model = "mt8186_da7219_m98357";
-         pinctrl-names = "aud_clk_mosi_off",
-                         "aud_clk_mosi_on";
-         pinctrl-0 = <&aud_clk_mosi_off>;
-         pinctrl-1 = <&aud_clk_mosi_on>;
-+        mediatek,platform = <&afe>;
-+
-+        audio-routing =
-+                "Headphones", "HPL",
-+                "Headphones", "HPR",
-+                "MIC", "Headset Mic",
-+                "Speakers", "Speaker",
-+                "HDMI1", "TX";
-+
-+        hs-playback-dai-link {
-+                link-name = "I2S0";
-+                dai-format = "i2s";
-+                mediatek,clk-provider = "cpu";
-+                codec {
-+                        sound-dai = <&da7219>;
-+                };
-+        };
- 
--        headset-codec {
--            sound-dai = <&da7219>;
-+        hs-capture-dai-link {
-+                link-name = "I2S1";
-+                dai-format = "i2s";
-+                mediatek,clk-provider = "cpu";
-+                codec {
-+                        sound-dai = <&da7219>;
-+                };
-         };
- 
--        playback-codecs {
--            sound-dai = <&anx_bridge_dp>,
--                        <&max98357a>;
-+        spk-dp-playback-dai-link {
-+                link-name = "I2S3";
-+                dai-format = "i2s";
-+                mediatek,clk-provider = "cpu";
-+                codec {
-+                        sound-dai = <&anx_bridge_dp>, <&max98357a>;
-+                };
-         };
-     };
- 
-diff --git a/Documentation/devicetree/bindings/sound/mt8186-mt6366-rt1019-rt5682s.yaml b/Documentation/devicetree/bindings/sound/mt8186-mt6366-rt1019-rt5682s.yaml
-index bdf7b0960533..ed93f18ef985 100644
---- a/Documentation/devicetree/bindings/sound/mt8186-mt6366-rt1019-rt5682s.yaml
-+++ b/Documentation/devicetree/bindings/sound/mt8186-mt6366-rt1019-rt5682s.yaml
-@@ -12,6 +12,9 @@ maintainers:
- description:
-   This binding describes the MT8186 sound card.
- 
-+allOf:
-+  - $ref: sound-card-common.yaml#
-+
- properties:
-   compatible:
-     enum:
-@@ -19,6 +22,34 @@ properties:
-       - mediatek,mt8186-mt6366-rt5682s-max98360-sound
-       - mediatek,mt8186-mt6366-rt5650-sound
- 
-+  audio-routing:
-+    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
-+    description:
-+      A list of the connections between audio components. Each entry is a
-+      pair of strings, the first being the connection's sink, the second
-+      being the connection's source.
-+      Valid names could be the input or output widgets of audio components,
-+      power supplies, MicBias of codec and the software switch.
-+    minItems: 2
-+    items:
-+      enum:
-+        # Sinks
-+        - HDMI1
-+        - Headphone
-+        - IN1P
-+        - IN1N
-+        - Line Out
-+        - Speakers
-+
-+        # Sources
-+        - Headset Mic
-+        - HPOL
-+        - HPOR
-+        - Speaker
-+        - SPOL
-+        - SPOR
-+        - TX
-+
-   mediatek,platform:
-     $ref: /schemas/types.yaml#/definitions/phandle
-     description: The phandle of MT8186 ASoC platform.
-@@ -32,6 +63,7 @@ properties:
- 
-   headset-codec:
-     type: object
-+    deprecated: true
-     additionalProperties: false
-     properties:
-       sound-dai:
-@@ -41,6 +73,7 @@ properties:
- 
-   playback-codecs:
-     type: object
-+    deprecated: true
-     additionalProperties: false
-     properties:
-       sound-dai:
-@@ -62,13 +95,56 @@ properties:
-       A list of the desired dai-links in the sound card. Each entry is a
-       name defined in the machine driver.
- 
--additionalProperties: false
-+patternProperties:
-+  ".*-dai-link$":
-+    type: object
-+    additionalProperties: false
-+    description:
-+      Container for dai-link level properties and CODEC sub-nodes.
-+
-+    properties:
-+      link-name:
-+        description: Indicates dai-link name and PCM stream name
-+        enum: [ I2S0, I2S1, I2S2, I2S3 ]
-+
-+      codec:
-+        description: Holds subnode which indicates codec dai.
-+        type: object
-+        additionalProperties: false
-+        properties:
-+          sound-dai:
-+            minItems: 1
-+            maxItems: 2
-+        required:
-+          - sound-dai
-+
-+      dai-format:
-+        description: audio format
-+        enum: [ i2s, right_j, left_j, dsp_a, dsp_b ]
-+
-+      mediatek,clk-provider:
-+        $ref: /schemas/types.yaml#/definitions/string
-+        description: Indicates dai-link clock master.
-+        enum: [ cpu, codec ]
-+
-+    required:
-+      - link-name
-+
-+unevaluatedProperties: false
- 
- required:
-   - compatible
-   - mediatek,platform
--  - headset-codec
--  - playback-codecs
-+
-+# Disallow legacy properties if xxx-dai-link nodes are specified
-+if:
-+  not:
-+    patternProperties:
-+      ".*-dai-link$": false
-+then:
-+  properties:
-+    headset-codec: false
-+    speaker-codecs: false
- 
- examples:
-   - |
-@@ -76,23 +152,49 @@ examples:
- 
-     sound: mt8186-sound {
-         compatible = "mediatek,mt8186-mt6366-rt1019-rt5682s-sound";
--        mediatek,platform = <&afe>;
-+        model = "mt8186_rt1019_rt5682s";
-         pinctrl-names = "aud_clk_mosi_off",
-                         "aud_clk_mosi_on",
-                         "aud_gpio_dmic_sec";
-         pinctrl-0 = <&aud_clk_mosi_off>;
-         pinctrl-1 = <&aud_clk_mosi_on>;
-         pinctrl-2 = <&aud_gpio_dmic_sec>;
-+        mediatek,platform = <&afe>;
- 
-         dmic-gpios = <&pio 23 GPIO_ACTIVE_HIGH>;
- 
--        headset-codec {
--            sound-dai = <&rt5682s>;
-+        audio-routing =
-+                "Headphone", "HPOL",
-+                "Headphone", "HPOR",
-+                "IN1P", "Headset Mic",
-+                "Speakers", "Speaker",
-+                "HDMI1", "TX";
-+
-+        hs-playback-dai-link {
-+                link-name = "I2S0";
-+                dai-format = "i2s";
-+                mediatek,clk-provider = "cpu";
-+                codec {
-+                        sound-dai = <&rt5682s 0>;
-+                };
-+        };
-+
-+        hs-capture-dai-link {
-+                link-name = "I2S1";
-+                dai-format = "i2s";
-+                mediatek,clk-provider = "cpu";
-+                codec {
-+                        sound-dai = <&rt5682s 0>;
-+                };
-         };
- 
--        playback-codecs {
--             sound-dai = <&it6505dptx>,
--                         <&rt1019p>;
-+        spk-hdmi-playback-dai-link {
-+                link-name = "I2S3";
-+                dai-format = "i2s";
-+                mediatek,clk-provider = "cpu";
-+                codec {
-+                        sound-dai = <&it6505dptx>, <&rt1019p>;
-+                };
-         };
-     };
- 
+ &spi0 {
 -- 
 2.44.0
 

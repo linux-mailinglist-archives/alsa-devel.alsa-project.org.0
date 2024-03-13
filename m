@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1C1587A660
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 Mar 2024 12:02:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8EAF87A666
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 Mar 2024 12:03:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A81A714E4;
-	Wed, 13 Mar 2024 12:02:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A81A714E4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 471921903;
+	Wed, 13 Mar 2024 12:03:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 471921903
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1710327771;
-	bh=XrN+FNQ9ZEEOf2BtHxTjYdpx2CTwrk9qIo8k7imhpew=;
+	s=default; t=1710327793;
+	bh=BDE29d7L8T5qLbPM3CF8LepTtXCFcdT0QPMlGf+kalQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=jQ1ujAd8xp3j4/heNB7K9ymviWKwWafX79Ojk6LPgQRG+v0fgsJmk78e6OXwMjPEB
-	 qLdz3BUYyn/86tgv3xysnBAg3Uux+uBalkTcFj0yKRIqy2F86yV2fRhfRVgSb/prDZ
-	 tCnYvW1kR+VJi0MrLpwWn2KKv8Z5Q2gL4BZEFmdQ=
+	b=XGhThEA5qx9cE/bbb0DTFNOKJqMQjIzUIfdQ1tXAx7ekT232S1BlX9Chtkqhj06CX
+	 /1X//5IBhhF9cG90CBvvdQCZkEQg/2trcyz0wuQ51dLrlfSchxvTt9cWpriMAfMZl0
+	 fFe1AZMFiI+7gEaUM81GaO7ijkWdlaB2B76H0XT8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1AAC5F80580; Wed, 13 Mar 2024 12:02:19 +0100 (CET)
+	id 2C3F3F805C7; Wed, 13 Mar 2024 12:02:29 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1894DF8057D;
-	Wed, 13 Mar 2024 12:02:19 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A71EFF80600;
+	Wed, 13 Mar 2024 12:02:28 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 006BFF80564; Wed, 13 Mar 2024 12:02:12 +0100 (CET)
+	id 56426F805BB; Wed, 13 Mar 2024 12:02:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -37,23 +37,23 @@ Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5A6A5F80088
-	for <alsa-devel@alsa-project.org>; Wed, 13 Mar 2024 12:02:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A6A5F80088
+	by alsa1.perex.cz (Postfix) with ESMTPS id 41CCCF8028D
+	for <alsa-devel@alsa-project.org>; Wed, 13 Mar 2024 12:02:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41CCCF8028D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=collabora.com header.i=@collabora.com
- header.a=rsa-sha256 header.s=mail header.b=R0FkK1zw
+ header.a=rsa-sha256 header.s=mail header.b=nBdF3YHv
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1710327719;
-	bh=XrN+FNQ9ZEEOf2BtHxTjYdpx2CTwrk9qIo8k7imhpew=;
+	s=mail; t=1710327722;
+	bh=BDE29d7L8T5qLbPM3CF8LepTtXCFcdT0QPMlGf+kalQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=R0FkK1zwssncZKvB15gtH6Th/fg/MPk7GBaTiHk+dVZS+VVcPzvsTrn0lGU/S4+6t
-	 fxCnc0mK1M199vk1pVtJlgSwtae0kh0W3qb2r+Je7bBtjx/+OPJObJ3ZArEEkXpOzm
-	 Ie6jjS8vITIamYQcH/9rEAh1DestdRMa+24n5stN1j/2gWgZlFqCmvJ1AuuQJPb9dL
-	 twAIrB8H1dBEznf5SsBb1oMei6gTVySlNOtpwW/gLoXMHC3uZ3xq8rYQh7QZc1lvNd
-	 lp/6ipRBZF3tGgZxLgFpf8HSTQlRFpEE+gdTMwva5CiX5FFsu+er2SpItHuXFN31xy
-	 UDX+4p09JXaUA==
+	b=nBdF3YHvNGmQzwoV0kbankS1NzipRVe4266jhzK1nyFUyZ/LneRdT1s3dBkqwwhST
+	 zyRMYjKQqctKHulgIW0s6tvz/tjikjbhudMcQkeM6anvuh02Tgd0a0kEBFGsguDcV2
+	 sYaJnq9DG5UDdetQ66A2E7JCQTjelRSbQt+YG8hzM1k83vAPMT0h6Fh4GJnCKLuQUU
+	 kqRxVbdGT47YHKjMMJGrcERjNT6e6GuB3N8gmyUT4yaPEhMleYuW7swtC3bMkN9OZa
+	 l5iFw675AcSpaWLxJ5aacKIGLpdFfR/abm00fzMZQeR783BFdxBfJI95SCrW67lzpA
+	 KgLh1xU0A+jEQ==
 Received: from IcarusMOD.eternityproject.eu (cola.collaboradmins.com
  [195.201.22.229])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
@@ -61,8 +61,8 @@ Received: from IcarusMOD.eternityproject.eu (cola.collaboradmins.com
  SHA256)
 	(No client certificate requested)
 	(Authenticated sender: kholk11)
-	by madrid.collaboradmins.com (Postfix) with ESMTPSA id AC5613782079;
-	Wed, 13 Mar 2024 11:01:57 +0000 (UTC)
+	by madrid.collaboradmins.com (Postfix) with ESMTPSA id 1DB2B37820D0;
+	Wed, 13 Mar 2024 11:02:00 +0000 (UTC)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: broonie@kernel.org
 Cc: wenst@chromium.org,
@@ -102,18 +102,18 @@ Cc: wenst@chromium.org,
 	linux-mediatek@lists.infradead.org,
 	kernel@collabora.com,
 	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Subject: [PATCH v3 01/22] ASoC: mediatek: mt8192-afe-pcm: Convert to
- devm_pm_runtime_enable()
-Date: Wed, 13 Mar 2024 12:01:26 +0100
-Message-ID: <20240313110147.1267793-2-angelogioacchino.delregno@collabora.com>
+Subject: [PATCH v3 02/22] ASoC: mediatek: mt8192-afe-pcm: Simplify with
+ dev_err_probe()
+Date: Wed, 13 Mar 2024 12:01:27 +0100
+Message-ID: <20240313110147.1267793-3-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.44.0
 In-Reply-To: 
  <20240313110147.1267793-1-angelogioacchino.delregno@collabora.com>
 References: <20240313110147.1267793-1-angelogioacchino.delregno@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: HCFD5IQHOGC3P4Z6HX7CHUXEKGKLOZRO
-X-Message-ID-Hash: HCFD5IQHOGC3P4Z6HX7CHUXEKGKLOZRO
+Message-ID-Hash: OVYQYYKYSOIO2IABNIRVLNGM5GCPJUG6
+X-Message-ID-Hash: OVYQYYKYSOIO2IABNIRVLNGM5GCPJUG6
 X-MailFrom: angelogioacchino.delregno@collabora.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -126,7 +126,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HCFD5IQHOGC3P4Z6HX7CHUXEKGKLOZRO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OVYQYYKYSOIO2IABNIRVLNGM5GCPJUG6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -135,144 +135,138 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Switch from pm_runtime_enable() to devm_pm_runtime_enable(), allowing
-to remove all gotos from the probe function.
+Simplify the probe function by switching error prints to return
+dev_err_probe(), lowering the lines count; while at it, also
+beautify some messages and change some others' level from warn
+to error.
 
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Reviewed-by: Chen-Yu Tsai <wenst@chromium.org>
 ---
- sound/soc/mediatek/mt8192/mt8192-afe-pcm.c | 46 ++++++++--------------
- 1 file changed, 17 insertions(+), 29 deletions(-)
+ sound/soc/mediatek/mt8192/mt8192-afe-pcm.c | 65 ++++++++--------------
+ 1 file changed, 22 insertions(+), 43 deletions(-)
 
 diff --git a/sound/soc/mediatek/mt8192/mt8192-afe-pcm.c b/sound/soc/mediatek/mt8192/mt8192-afe-pcm.c
-index bdd1e91824d9..794419d16b01 100644
+index 794419d16b01..aed22baef9fb 100644
 --- a/sound/soc/mediatek/mt8192/mt8192-afe-pcm.c
 +++ b/sound/soc/mediatek/mt8192/mt8192-afe-pcm.c
-@@ -2217,21 +2217,20 @@ static int mt8192_afe_pcm_dev_probe(struct platform_device *pdev)
- 		return ret;
- 	}
+@@ -2205,17 +2205,12 @@ static int mt8192_afe_pcm_dev_probe(struct platform_device *pdev)
  
--	pm_runtime_enable(&pdev->dev);
--	if (!pm_runtime_enabled(&pdev->dev))
--		goto err_pm_disable;
-+	ret = devm_pm_runtime_enable(&pdev->dev);
+ 	/* reset controller to reset audio regs before regmap cache */
+ 	rstc = devm_reset_control_get_exclusive(dev, "audiosys");
+-	if (IS_ERR(rstc)) {
+-		ret = PTR_ERR(rstc);
+-		dev_err(dev, "could not get audiosys reset:%d\n", ret);
+-		return ret;
+-	}
++	if (IS_ERR(rstc))
++		return dev_err_probe(dev, PTR_ERR(rstc), "could not get audiosys reset\n");
+ 
+ 	ret = reset_control_reset(rstc);
+-	if (ret) {
+-		dev_err(dev, "failed to trigger audio reset:%d\n", ret);
+-		return ret;
+-	}
 +	if (ret)
-+		return ret;
++		return dev_err_probe(dev, ret, "failed to trigger audio reset\n");
+ 
+ 	ret = devm_pm_runtime_enable(&pdev->dev);
+ 	if (ret)
+@@ -2223,25 +2218,21 @@ static int mt8192_afe_pcm_dev_probe(struct platform_device *pdev)
  
  	/* regmap init */
  	afe->regmap = syscon_node_to_regmap(dev->parent->of_node);
- 	if (IS_ERR(afe->regmap)) {
- 		dev_err(dev, "could not get regmap from parent\n");
--		ret = PTR_ERR(afe->regmap);
--		goto err_pm_disable;
-+		return PTR_ERR(afe->regmap);
- 	}
+-	if (IS_ERR(afe->regmap)) {
+-		dev_err(dev, "could not get regmap from parent\n");
+-		return PTR_ERR(afe->regmap);
+-	}
++	if (IS_ERR(afe->regmap))
++		return dev_err_probe(dev, PTR_ERR(afe->regmap),
++				     "could not get regmap from parent");
++
  	ret = regmap_attach_dev(dev, afe->regmap, &mt8192_afe_regmap_config);
- 	if (ret) {
- 		dev_warn(dev, "regmap_attach_dev fail, ret %d\n", ret);
--		goto err_pm_disable;
-+		return ret;
- 	}
+-	if (ret) {
+-		dev_warn(dev, "regmap_attach_dev fail, ret %d\n", ret);
+-		return ret;
+-	}
++	if (ret)
++		return dev_err_probe(dev, ret, "regmap_attach_dev fail\n");
  
  	/* enable clock for regcache get default value from hw */
-@@ -2241,7 +2240,7 @@ static int mt8192_afe_pcm_dev_probe(struct platform_device *pdev)
+ 	afe_priv->pm_runtime_bypass_reg_ctl = true;
+ 	pm_runtime_get_sync(&pdev->dev);
+ 
  	ret = regmap_reinit_cache(afe->regmap, &mt8192_afe_regmap_config);
- 	if (ret) {
- 		dev_err(dev, "regmap_reinit_cache fail, ret %d\n", ret);
--		goto err_pm_disable;
-+		return ret;
- 	}
+-	if (ret) {
+-		dev_err(dev, "regmap_reinit_cache fail, ret %d\n", ret);
+-		return ret;
+-	}
++	if (ret)
++		return dev_err_probe(dev, ret, "regmap_reinit_cache fail\n");
  
  	pm_runtime_put_sync(&pdev->dev);
-@@ -2254,10 +2253,8 @@ static int mt8192_afe_pcm_dev_probe(struct platform_device *pdev)
- 	afe->memif_size = MT8192_MEMIF_NUM;
- 	afe->memif = devm_kcalloc(dev, afe->memif_size, sizeof(*afe->memif),
- 				  GFP_KERNEL);
--	if (!afe->memif) {
--		ret = -ENOMEM;
--		goto err_pm_disable;
--	}
-+	if (!afe->memif)
-+		return -ENOMEM;
- 
- 	for (i = 0; i < afe->memif_size; i++) {
- 		afe->memif[i].data = &memif_data[i];
-@@ -2271,26 +2268,22 @@ static int mt8192_afe_pcm_dev_probe(struct platform_device *pdev)
- 	afe->irqs_size = MT8192_IRQ_NUM;
- 	afe->irqs = devm_kcalloc(dev, afe->irqs_size, sizeof(*afe->irqs),
- 				 GFP_KERNEL);
--	if (!afe->irqs) {
--		ret = -ENOMEM;
--		goto err_pm_disable;
--	}
-+	if (!afe->irqs)
-+		return -ENOMEM;
- 
- 	for (i = 0; i < afe->irqs_size; i++)
- 		afe->irqs[i].irq_data = &irq_data[i];
- 
- 	/* request irq */
- 	irq_id = platform_get_irq(pdev, 0);
--	if (irq_id < 0) {
--		ret = irq_id;
--		goto err_pm_disable;
--	}
-+	if (irq_id < 0)
-+		return irq_id;
+ 	afe_priv->pm_runtime_bypass_reg_ctl = false;
+@@ -2281,30 +2272,22 @@ static int mt8192_afe_pcm_dev_probe(struct platform_device *pdev)
  
  	ret = devm_request_irq(dev, irq_id, mt8192_afe_irq_handler,
  			       IRQF_TRIGGER_NONE, "asys-isr", (void *)afe);
- 	if (ret) {
- 		dev_err(dev, "could not request_irq for Afe_ISR_Handle\n");
--		goto err_pm_disable;
-+		return ret;
- 	}
+-	if (ret) {
+-		dev_err(dev, "could not request_irq for Afe_ISR_Handle\n");
+-		return ret;
+-	}
++	if (ret)
++		return dev_err_probe(dev, ret, "could not request_irq for Afe_ISR_Handle\n");
  
  	/* init sub_dais */
-@@ -2301,7 +2294,7 @@ static int mt8192_afe_pcm_dev_probe(struct platform_device *pdev)
- 		if (ret) {
- 			dev_warn(afe->dev, "dai register i %d fail, ret %d\n",
- 				 i, ret);
--			goto err_pm_disable;
-+			return ret;
- 		}
+ 	INIT_LIST_HEAD(&afe->sub_dais);
+ 
+ 	for (i = 0; i < ARRAY_SIZE(dai_register_cbs); i++) {
+ 		ret = dai_register_cbs[i](afe);
+-		if (ret) {
+-			dev_warn(afe->dev, "dai register i %d fail, ret %d\n",
+-				 i, ret);
+-			return ret;
+-		}
++		if (ret)
++			return dev_err_probe(afe->dev, ret, "dai %d register fail", i);
  	}
  
-@@ -2310,7 +2303,7 @@ static int mt8192_afe_pcm_dev_probe(struct platform_device *pdev)
- 	if (ret) {
- 		dev_warn(afe->dev, "mtk_afe_combine_sub_dai fail, ret %d\n",
- 			 ret);
--		goto err_pm_disable;
-+		return ret;
- 	}
+ 	/* init dai_driver and component_driver */
+ 	ret = mtk_afe_combine_sub_dai(afe);
+-	if (ret) {
+-		dev_warn(afe->dev, "mtk_afe_combine_sub_dai fail, ret %d\n",
+-			 ret);
+-		return ret;
+-	}
++	if (ret)
++		return dev_err_probe(afe->dev, ret, "mtk_afe_combine_sub_dai fail\n");
  
  	/* others */
-@@ -2329,7 +2322,7 @@ static int mt8192_afe_pcm_dev_probe(struct platform_device *pdev)
+ 	afe->mtk_afe_hardware = &mt8192_afe_hardware;
+@@ -2320,19 +2303,15 @@ static int mt8192_afe_pcm_dev_probe(struct platform_device *pdev)
+ 	/* register platform */
+ 	ret = devm_snd_soc_register_component(&pdev->dev,
  					      &mt8192_afe_component, NULL, 0);
- 	if (ret) {
- 		dev_warn(dev, "err_platform\n");
--		goto err_pm_disable;
-+		return ret;
- 	}
+-	if (ret) {
+-		dev_warn(dev, "err_platform\n");
+-		return ret;
+-	}
++	if (ret)
++		return dev_err_probe(dev, ret, "Couldn't register AFE component\n");
  
  	ret = devm_snd_soc_register_component(&pdev->dev,
-@@ -2338,15 +2331,10 @@ static int mt8192_afe_pcm_dev_probe(struct platform_device *pdev)
+ 					      &mt8192_afe_pcm_component,
+ 					      afe->dai_drivers,
  					      afe->num_dai_drivers);
- 	if (ret) {
- 		dev_warn(dev, "err_dai_component\n");
--		goto err_pm_disable;
-+		return ret;
- 	}
+-	if (ret) {
+-		dev_warn(dev, "err_dai_component\n");
+-		return ret;
+-	}
++	if (ret)
++		return dev_err_probe(dev, ret, "Couldn't register AFE-PCM component\n");
  
  	return 0;
--
--err_pm_disable:
--	pm_runtime_disable(&pdev->dev);
--
--	return ret;
  }
- 
- static void mt8192_afe_pcm_dev_remove(struct platform_device *pdev)
 -- 
 2.44.0
 

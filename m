@@ -2,118 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC79B87A58D
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 Mar 2024 11:07:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CADA87A63B
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 Mar 2024 11:58:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4BED610BE;
-	Wed, 13 Mar 2024 11:07:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4BED610BE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8E0F014E2;
+	Wed, 13 Mar 2024 11:58:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E0F014E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1710324451;
-	bh=HwGbsRac51u5IWwjbzw3ouLNHThjNvNYMLQfmsHJPTw=;
-	h=References:From:To:Cc:Subject:Date:In-reply-to:List-Id:
+	s=default; t=1710327496;
+	bh=cV0uvgWnqGHepjJQtn53stQ6AbMVYtngq3iROsqUVF4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=bhJ4jJf7hGLNG6HKk5iqUcJycmntPqG1oAt8/bcoX3IBIYo+ewYgN8z5TjrxzoOF4
-	 FgHyM4HwSAVo7im8pHzSUsE3vnuIH9MU2zxF3PLMS/qvsMmz6BjXagwMaXFCycO7+f
-	 NzqfdNZofyXQn7ac0y1ru0u7gG3rJRTQ7B/athqY=
+	b=Je1amt2GmamcfkBJM6WpE+G6OmhyC75MhydUSJTDmEdJ6wRqhQOr+wZEsQ62YSUfc
+	 5K+hFRD3GHIO2AaYynUQBb8bqKwdjHyD5V36nVmdeWtwSYL7paRTKFH+avbCXluw6C
+	 mlCVFfuve9cwTRPyEqb0YwpO5FrBT45lrMuPlijY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7E69CF80570; Wed, 13 Mar 2024 11:06:59 +0100 (CET)
+	id C812BF805AD; Wed, 13 Mar 2024 11:57:44 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DB67FF805A0;
-	Wed, 13 Mar 2024 11:06:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 554ABF8057A;
+	Wed, 13 Mar 2024 11:57:44 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 53654F804B0; Wed, 13 Mar 2024 11:03:51 +0100 (CET)
+	id 33414F8028D; Wed, 13 Mar 2024 11:57:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from relay7-d.mail.gandi.net (relay7-d.mail.gandi.net
+ [IPv6:2001:4b98:dc4:8::227])
+	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A2444F80088
-	for <alsa-devel@alsa-project.org>; Wed, 13 Mar 2024 11:03:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2444F80088
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0E3AFF80088
+	for <alsa-devel@alsa-project.org>; Wed, 13 Mar 2024 11:57:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E3AFF80088
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=baylibre-com.20230601.gappssmtp.com
- header.i=@baylibre-com.20230601.gappssmtp.com header.a=rsa-sha256
- header.s=20230601 header.b=LmARl/U0
-Received: by mail-lf1-x12e.google.com with SMTP id
- 2adb3069b0e04-513c81abeb4so705606e87.3
-        for <alsa-devel@alsa-project.org>;
- Wed, 13 Mar 2024 03:03:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1710324214;
- x=1710929014; darn=alsa-project.org;
-        h=mime-version:message-id:in-reply-to:date:subject:cc:to:from
-         :user-agent:references:from:to:cc:subject:date:message-id:reply-to;
-        bh=mFXVAdau/l1Yd43WSAm/Bs1i7fcklBkhvYYQSoayl5k=;
-        b=LmARl/U0m48QDuC4NZ5QlmZ1qraH2z2bXChVWOUNiNgKfkVTULvkKu8w4DqZwXPr9x
-         3yuBKaJO/AC4bW854lj9HnQ5nPYqrwDA4u9n1z55nb1YGcpu4KUVWCw6VmY61PRu9TO0
-         zGFI4/ohX3LqUuEK121ruPWxZozDfmuYn7Ya83erjkOfkHguBF813WrtbHaZ7jBnf+af
-         975N/deHKHGiNsTH6tUYOXOWEJkRgDseEtW6dDA6ntjNbEh5a9IsxjYsoU7qepGmGfJ0
-         2KfptVPNx9xgLHrHnOgBC0HDwBzU4l1NorLnA9GW/w0EAQuy3iWay9ZFHm3F6FQaB+6m
-         dKZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710324214; x=1710929014;
-        h=mime-version:message-id:in-reply-to:date:subject:cc:to:from
-         :user-agent:references:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=mFXVAdau/l1Yd43WSAm/Bs1i7fcklBkhvYYQSoayl5k=;
-        b=WlxJOHQ0GSlCfqreGvlBVQUcM1usMXi3mKmdGSt0mn+jyCObiGNjPHsp/m0LBQZF7+
-         /qXk6JD8ZVsXllHELmEA3QaEJqq20qAI1OVuFfKbwoJrEeb9kJ/FTM01dqK86lZGjuy1
-         kL+BNKlEaSmZ1GCSUWwRNV1tasM/wE4sxD20EjXuV52etSFxGy4YDwtlACcyw3lTEhB9
-         66+xqbG4YXeryRNcUlIlQ8YOsZHwjDuuuP2SIoFOQdN/tIPSG7EtxQk56Swd2348EFRp
-         gAZ5lRn8kKSe7dhXXhjG3MKaS8Vnvy6c44l/rBcs7TGXSGpwmnruTcdbMvu/siC3rTsS
-         I3Uw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV1wGYkh8kmIX5914AciMoAzcIYfJlRK6FE8IZQKsffTxoqAF0hfcAgSUhUPA7NpmrdBfGMZMnWhuztDtEO4LkbHQULCxgvqNTMLlo=
-X-Gm-Message-State: AOJu0YyQJzxh1W0IzSKYoN/PYN2mbq++nJ4UwRV2oWI9M954fiL6Z3TU
-	9zbJGDjUpDmJOtzC/5J23I6EpgX+n+byfNpiRXWKu4cODp2V7VmDr2YTrLmDwI8=
-X-Google-Smtp-Source: 
- AGHT+IFt0tL9EYUI8h3Qhh2fon51usuWluueHQ7dWS5cclJS8uIzb9fifp0Y06P8l3gUr4jEE5P/5g==
-X-Received: by 2002:a05:6512:3d06:b0:513:4afa:a719 with SMTP id
- d6-20020a0565123d0600b005134afaa719mr2343299lfv.59.1710324213904;
-        Wed, 13 Mar 2024 03:03:33 -0700 (PDT)
-Received: from localhost ([2a01:e0a:3c5:5fb1:5791:c3f6:da5e:acb8])
-        by smtp.gmail.com with ESMTPSA id
- j15-20020a05600c190f00b0041312855081sm1828615wmq.5.2024.03.13.03.03.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 13 Mar 2024 03:03:33 -0700 (PDT)
-References: <87v8a64f3d.wl-kuninori.morimoto.gx@renesas.com>
- <87ttpq4f2c.wl-kuninori.morimoto.gx@renesas.com>
- <e7121fbc-c814-4153-9f17-82ad5de13e64@sirena.org.uk>
- <87a5n46xjk.wl-kuninori.morimoto.gx@renesas.com>
- <7248b107-db87-4409-b93c-f65035d0a6b4@sirena.org.uk>
- <1jo7bje6da.fsf@starbuckisacylon.baylibre.com>
- <b9de4fd1-ef4a-4c30-b3cf-e36931be90f1@sirena.org.uk>
-User-agent: mu4e 1.10.8; emacs 29.2
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Jerome Brunet <jbrunet@baylibre.com>, Kuninori Morimoto
- <kuninori.morimoto.gx@renesas.com>, Pierre-Louis Bossart
- <pierre-louis.bossart@linux.intel.com>, Bard Liao
- <yung-chuan.liao@linux.intel.com>, bard.liao@intel.com, Conor Dooley
- <conor+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>, Rob Herring <robh+dt@kernel.org>,
- alsa-devel@alsa-project.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v7 1/5] ASoC: makes CPU/Codec channel connection map
- more generic
-Date: Wed, 13 Mar 2024 10:36:41 +0100
-In-reply-to: <b9de4fd1-ef4a-4c30-b3cf-e36931be90f1@sirena.org.uk>
-Message-ID: <1jh6haih3f.fsf@starbuckisacylon.baylibre.com>
+ unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
+ header.s=gm1 header.b=NxQoNp1f
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 363472000A;
+	Wed, 13 Mar 2024 10:57:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+	t=1710327441;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=IVCt5ZDF2pdAG11xTk8+M6M3EmGjgQ46WBLQ4Swbfyg=;
+	b=NxQoNp1fQN7hOOxjMYdzO+AyWmDka4FyvK6+2Yb+5YQgkb5gdrJK0/csvE25O7+HDpUmQO
+	bzGdg7aMzH3Z5X+KGPIq3bO6kV6ZmANjmWVB+KoV3W7IejoOYx8HRKtENqjfDmjf9IuCeU
+	B6VgwOErzF3Bn1AurRZ5fj+rMqOQy/yImdwETQK6mcOvqvoU496wzdGpFcqsVjRsjH/7b0
+	pDk51UF17odLw+6KaKJGZ0KxpVqsMx5MhmwItJvI8vtRa+egfbS3iGCVT5SW755HlNxLMd
+	mcwQ5+SlEcS+o44jlGRxyjUQOeetSDYquMLIfRrgMKZNZWazd1hGzrtYrPfKig==
+Date: Wed, 13 Mar 2024 11:57:17 +0100
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Pavel Hofman <pavel.hofman@ivitera.com>, Rob Herring
+ <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>, Liam Girdwood
+ <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Jaroslav Kysela
+ <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Heiko Stuebner
+ <heiko@sntech.de>, Philipp Zabel <p.zabel@pengutronix.de>, Thomas Petazzoni
+ <thomas.petazzoni@bootlin.com>, linux-rockchip@lists.infradead.org,
+ linux-sound@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org
+Subject: Re: [PATCH v4 1/7] ASoC: rockchip: i2s-tdm: Fix inaccurate sampling
+ rates
+Message-ID: <20240313115717.76dcc97f@booty>
+In-Reply-To: <865b94d6-e9b6-6db9-eae5-5c56d4802710@ivitera.com>
+References: <20240305-rk3308-audio-codec-v4-0-312acdbe628f@bootlin.com>
+	<20240305-rk3308-audio-codec-v4-1-312acdbe628f@bootlin.com>
+	<865b94d6-e9b6-6db9-eae5-5c56d4802710@ivitera.com>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain
-Message-ID-Hash: YVVDQ3L6LOGJNN4QSCDL4MCPYC7T2XZG
-X-Message-ID-Hash: YVVDQ3L6LOGJNN4QSCDL4MCPYC7T2XZG
-X-MailFrom: jbrunet@baylibre.com
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-GND-Sasl: luca.ceresoli@bootlin.com
+Message-ID-Hash: JOA4FEBGYOMNA6EAUVNXUAR73NMHT6CA
+X-Message-ID-Hash: JOA4FEBGYOMNA6EAUVNXUAR73NMHT6CA
+X-MailFrom: luca.ceresoli@bootlin.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -125,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YVVDQ3L6LOGJNN4QSCDL4MCPYC7T2XZG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JOA4FEBGYOMNA6EAUVNXUAR73NMHT6CA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -134,40 +106,182 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Hello Pavel, DT maintainers,
 
-On Tue 12 Mar 2024 at 17:06, Mark Brown <broonie@kernel.org> wrote:
+[a question about DT bindings below]
 
-> [[PGP Signed Part:Undecided]]
-> On Tue, Mar 12, 2024 at 05:29:25PM +0100, Jerome Brunet wrote:
->
->> Mark, I suspect the boards you have (like the libretech Alta/Solitude or
->> the kvim3 maybe) will show the same thing.
->
-> I don't have the kvim3 but I can try with the other two (modulo pain
-> with u-boot), it'll be tomorrow now though.
+On Wed, 6 Mar 2024 08:43:57 +0100
+Pavel Hofman <pavel.hofman@ivitera.com> wrote:
 
-I've check the other boards from same SoC family (g12 and sm1) for the
-same kernel build:
+> On 05. 03. 24 15:36, Luca Ceresoli wrote:
+> > The sample rates set by the rockchip_i2s_tdm driver in master mode are
+> > inaccurate up to 5% in several cases, due to the driver logic to configure
+> > clocks and a nasty interaction with the Common Clock Framework.
+> > 
+> > To understand what happens, here is the relevant section of the clock tree
+> > (slightly simplified), along with the names used in the driver:
+> > 
+> >         vpll0 _OR_ vpll1               "mclk_root"
+> >            clk_i2s2_8ch_tx_src         "mclk_parent"
+> >               clk_i2s2_8ch_tx_mux
+> >                  clk_i2s2_8ch_tx       "mclk" or "mclk_tx"
+> > 
+> > This is what happens when playing back e.g. at 192 kHz using
+> > audio-graph-card (when recording the same applies, only s/tx/rx/):
+> > 
+> >   0. at probe, rockchip_i2s_tdm_set_sysclk() stores the passed frequency in
+> >      i2s_tdm->mclk_tx_freq (*) which is 50176000, and that is never modified
+> >      afterwards
+> > 
+> >   1. when playback is started, rockchip_i2s_tdm_hw_params() is called and
+> >      does the following two calls
+> > 
+> >   2. rockchip_i2s_tdm_calibrate_mclk():
+> > 
+> >      2a. selects mclk_root0 (vpll0) as a parent for mclk_parent
+> >          (mclk_tx_src), which is OK because the vpll0 rate is a good for
+> >          192000 (and sumbultiple) rates
+> > 
+> >      2b. sets the mclk_root frequency based on ppm calibration computations
+> > 
+> >      2c. sets mclk_tx_src to 49152000 (= 256 * 192000), which is also OK as
+> >          it is a multiple of the required bit clock
+> > 
+> >   3. rockchip_i2s_tdm_set_mclk()
+> > 
+> >      3a. calls clk_set_rate() to set the rate of mclk_tx (clk_i2s2_8ch_tx)
+> >          to the value of i2s_tdm->mclk_tx_freq (*), i.e. 50176000 which is
+> >          not a multiple of the sampling frequency -- this is not OK
+> > 
+> >          3a1. clk_set_rate() reacts by reparenting clk_i2s2_8ch_tx_src to
+> >               vpll1 -- this is not OK because the default vpll1 rate can be
+> > 	     divided to get 44.1 kHz and related rates, not 192 kHz
+> > 
+> > The result is that the driver does a lot of ad-hoc decisions about clocks
+> > and ends up in using the wrong parent at an unoptimal rate.
+> > 
+> > Step 0 is one part of the problem: unless the card driver calls set_sysclk
+> > at each stream start, whatever rate is set in mclk_tx_freq during boot will
+> > be taken and used until reboot. Moreover the driver does not care if its
+> > value is not a multiple of any audio frequency.
+> > 
+> > Another part of the problem is that the whole reparenting and clock rate
+> > setting logic is conflicting with the CCF algorithms to achieve largely the
+> > same goal: selecting the best parent and setting the closest clock
+> > rate. And it turns out that only calling once clk_set_rate() on
+> > clk_i2s2_8ch_tx picks the correct vpll and sets the correct rate.
+> > 
+> > The fix is based on removing the custom logic in the driver to select the
+> > parent and set the various clocks, and just let the Clock Framework do it
+> > all. As a side effect, the set_sysclk() op becomes useless because we now
+> > let the CCF compute the appropriate value for the sampling rate.  It also
+> > implies that the whole calibration logic is now dead code and so it is
+> > removed along with the "PCM Clock Compensation in PPM" kcontrol, which has
+> > always been broken anyway. The handling of the 4 optional clocks also
+> > becomes dead code and is removed.
+> > 
+> > The actual rates have been tested playing 30 seconds of audio at various
+> > sampling rates before and after this change using sox:
+> > 
+> >      time play -r <sample_rate> -n synth 30 sine 950 gain -3
+> > 
+> > The time reported in the table below is the 'real' value reported by the
+> > 'time' command in the above command line.
+> > 
+> >       rate        before     after
+> >     ---------     ------     ------
+> >       8000 Hz     30.60s     30.63s
+> >      11025 Hz     30.45s     30.51s
+> >      16000 Hz     30.47s     30.50s
+> >      22050 Hz     30.78s     30.41s
+> >      32000 Hz     31.02s     30.43s
+> >      44100 Hz     30.78s     30.41s
+> >      48000 Hz     29.81s     30.45s
+> >      88200 Hz     30.78s     30.41s
+> >      96000 Hz     29.79s     30.42s
+> >     176400 Hz     27.40s     30.41s
+> >     192000 Hz     29.79s     30.42s
+> > 
+> > While the tests are running the clock tree confirms that:
+> > 
+> >   * without the patch, vpll1 is always used and clk_i2s2_8ch_tx always
+> >     produces 50176000 Hz, which cannot be divided for most audio rates
+> >     except the slowest ones, generating inaccurate rates
+> >   * with the patch:
+> >     - for 192000 Hz vpll0 is used
+> >     - for 176400 Hz vpll1 is used
+> >     - clk_i2s2_8ch_tx always produces (256 * <rate>) Hz
+> > 
+> > Tested on the RK3308 using the internal audio codec.
+> > 
+> > Fixes: 081068fd6414 ("ASoC: rockchip: add support for i2s-tdm controller")
+> > Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> >   
+> 
+> I tested this patch, it works OK on 8ch I2S0 of RK3308 Radxa Pi S, 
+> frequencies checked in clock summary and clock pins with an 
+> oscilloscope. It's basically identical issue with the same cause as I 
+> reported in 
+> https://lore.kernel.org/alsa-devel/20240304134329.392c75bf@booty/T/#m19d69461aa827f15a86d6d31ed1b1520e80a909e 
+> 
+> 
+> Just a note - the patch changes mclk frequencies from fixed 256 x 
+> 192000/176400  to variable 256 x fs. While 256 x fs is more standard 
+> than the fixed mclk for all samplerates of the same family, it may cause 
+> changes for existing users if using the mclk output pins. But the 
+> existing code was broken and had to be hacked to work anyway. Perhaps 
+> this may need some considering.
 
-https://linux.kernelci.org/test/job/mainline/branch/master/kernel/v6.8-rc7-250-g137e0ec05aeb/plan/baseline/
+Thanks for clearly describing this difference.
 
-* Only the u200 is failing. The others devices of the same family are fine.
-* The u200 is the only one being test with gcc-10 / defconfig + debug
-* The others have been tested with clang-16 / defconfig + CONFIG_ARM64_64K_PAGES
+This is something I considered and in the end I found no reason to use
+256 x 192000/176400 as it would use higher clocks than needed (or
+equal, at 192 and 176.4 kHz), deviating from the common practice and
+probably consuming a little more power, all apparently without any
+gains. And, last but not least, without a motivation in the docs I have
+available.
 
-I've checked locally with gcc-13 on the vim3l (sm1 - s905x3)
-* OK with defconfig
-* Problem reproduced with defconfig + debug fragment from kCI - Observations:
-  * Kernel is extremely fat (150+ MB)
-  * Boot process incredibly slow.
+Of course, should there be known reasons to keep the 256 x
+192000/176400 frequencies, I'd be fine with changing my patch.
 
-Fragment is here:
-https://storage.kernelci.org/mainline/master/v6.8-rc7-250-g137e0ec05aeb/arm64/defconfig+debug/gcc-10/config/kernelci.config
+> Also I wonder if the DTS description rockchip,i2s-tdm.yaml file may be 
+> updated too, as some clocks listed by it are removed by the patch:
+> 
+> -const: mclk_tx_src
+> -const: mclk_rx_src
+> -const: mclk_root0
+> -const: mclk_root1
+> 
+> IMO it may be a bit confusing if the description lists parameters which 
+> are not actually used by the driver anymore.
 
-I'll continue to check but this is apparently related to the options
-turned on by the debug fragment. Maybe it could be interesting to check
-another non-intel SoC manufacturer using DPCM with this fragment ?
-(another device relying on cleared ch_maps - Renesas and/or MTK maybe ?)
+You have a good point. I just checked the git history and indeed these
+four clocks have never been mentioned by any of the device trees in
+mainline.
+
+However removal of parts of bindings is normally never supposed to
+happen for backward compatibility.
+
+@DT maintainers: would removal of optional clocks from bindings allowed
+in this specific case?
+Quick facts:
+* bindings introduced in 2021, with the 4 optional clocks from the
+  beginning, no changes afterwards
+* none of the optional clocks ever appeared in arch/.../*.dts
+* the 4 optional clocks actually describe a part of the clock topology,
+  so their presence in I2S bindings is debatable at least
+* the I2S controller described by the bindings does not need the
+  4 optional clocks to work properly if the clocks are used correctly,
+  as this patch proves
+
+If this looks like a good idea, I can send a patch to remove those
+optional clocks. Otherwise I can send one to add a comment to
+discourage people from using them.
+
+Best regards,
+Luca
 
 -- 
-Jerome
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com

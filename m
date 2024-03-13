@@ -2,208 +2,135 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2862987CA0B
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Mar 2024 09:39:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D31587B193
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 Mar 2024 20:19:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B316A14E8;
-	Fri, 15 Mar 2024 09:39:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B316A14E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 54EB9210E;
+	Wed, 13 Mar 2024 20:19:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 54EB9210E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1710491972;
-	bh=g7h4Sf03F9pxrHfAHXEFOnywEsqvTJUUIRCF9FU3s5c=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
+	s=default; t=1710357596;
+	bh=U5Ctd0fHGAqPrMjfc2snlTP8ttHo2mRJD6/wag+K4jU=;
+	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=P6F84AyIDY5Ha4fgmPJReWXLB8L+Z5OOJGhYXO9d9N58EIQvL7E/EMCPbE+9j2sY2
-	 ypN9GEdQIUWJMAzKYb4ZUT9pnGCZ7P75PNAJ1vOtF7PoWI2J6fkq5wSLY0ESPRsN+o
-	 14twYe5ASKUzXxVkv+a3qNI3GtiHcGVzzPdhT7YE=
+	b=bjrdDZD35BmBkp/MK4QQ8Bvhb3iseHzsPPikXw4jH3TyRLkLMe+66TCtmlvJ4VbS/
+	 dKGn/5lz8TdjLLHnh3xueMWiiseF2aUrU4I64ULLi5+Vfn6VSr4skbRl7epUxSnczF
+	 i0lpXtxnvfCAGoIdMzW8R5q82O9RN/kZsCzr4hns=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 43673F805A0; Fri, 15 Mar 2024 09:39:02 +0100 (CET)
+	id ABC49F80571; Wed, 13 Mar 2024 20:19:22 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D36F9F8025F;
-	Fri, 15 Mar 2024 09:39:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 83B21F8059F;
+	Wed, 13 Mar 2024 20:19:21 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AAD10F804B0; Wed, 13 Mar 2024 17:04:05 +0100 (CET)
+	id 929B0F8028D; Wed, 13 Mar 2024 20:19:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
+X-Spam-Status: No, score=-2.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on20601.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2418::601])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E6984F80088
-	for <alsa-devel@alsa-project.org>; Wed, 13 Mar 2024 17:03:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E6984F80088
+	by alsa1.perex.cz (Postfix) with ESMTPS id CE7D5F8014B
+	for <alsa-devel@alsa-project.org>; Wed, 13 Mar 2024 20:18:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE7D5F8014B
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=4BzoVUlZ
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=m+Nzi/jX/O8mhl9GBZ2WY+kHWEiauUxJsqrwjO6A0/Pt5cR6WPUvCnhEAxWEB6FXub7EEHxhgcGKYl6zawF1HtqYi4qTqB34V30hUutiEy2BTT68uA0Q6uIs0DPLiq3j2+jMf3QYgh9rOM8ElCBxb19Y2P9nm7DYKYr4ASl4rIo1fWz3PNfP5p+APqJJHtjxatqFV4EsBXvks1ByOHrvu2zUJoBBLrblwacEepLrSzpGYTr1951raw3B1IdaxjLIhNvpsGAWQvaCRhAnH/gG+XmPtSWug/3Jyd4j2WoOwTKGprBFdp3HFXErNwou+JVp//+PjzeLMbTsqMzPFDIwsA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=g7h4Sf03F9pxrHfAHXEFOnywEsqvTJUUIRCF9FU3s5c=;
- b=NOWBKUx/QMiP+PeCNQSDlnluMh5Kmmmq+kYnHrHRunGCum99W1atubcJQW11l1ycQkRecCNYyA1e3QHo3LZFWeGqokx9GNPPTX66Jfy41rYCsJIV8/kLj8T2ueNAtZDTHvaf4MdJeqaP4xLap0GLrS/QX5hniCtefJlMVpihVhGewIzdmgMIwRkCrOuKxcAxfxFn8Ag+XUF01vGsiwEZGvSmLgpUFAFGBf34kgkXQnJ7I2kEBNT8clTdD7Hza7xaA/240IfAba2M18uWLJa0iDNcMyxsdekc0KW4yqurHKYwt1lQ1ZsKNAFxlVqjbznUSrzROw2Ss/1zwse6frp12Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=g7h4Sf03F9pxrHfAHXEFOnywEsqvTJUUIRCF9FU3s5c=;
- b=4BzoVUlZ0ZAYw2tKzQJQ7PLZqh64B3GzC+qxUYf79DkYDMozgCLlUEI9s3D7SWjxGeWsN3vGlrIMcdHMJUzch3raSXi0OYlxs4AYSUcqf2Xa0aWZfa/6LuLXA1/9jANdC0/9Zy1siS1qlTsvpxNDkzvunvz8JfTfefWcqmSY9rc=
-Received: from BN7PR12MB2802.namprd12.prod.outlook.com (2603:10b6:408:25::33)
- by IA0PR12MB7578.namprd12.prod.outlook.com (2603:10b6:208:43d::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.35; Wed, 13 Mar
- 2024 16:03:45 +0000
-Received: from BN7PR12MB2802.namprd12.prod.outlook.com
- ([fe80::2318:9906:4dae:a041]) by BN7PR12MB2802.namprd12.prod.outlook.com
- ([fe80::2318:9906:4dae:a041%5]) with mapi id 15.20.7386.017; Wed, 13 Mar 2024
- 16:03:45 +0000
-From: "Mahapatra, Amit Kumar" <amit.kumar-mahapatra@amd.com>
-To: Tudor Ambarus <tudor.ambarus@linaro.org>, "broonie@kernel.org"
-	<broonie@kernel.org>, "pratyush@kernel.org" <pratyush@kernel.org>,
-	"miquel.raynal@bootlin.com" <miquel.raynal@bootlin.com>, "richard@nod.at"
-	<richard@nod.at>, "vigneshr@ti.com" <vigneshr@ti.com>,
-	"sbinding@opensource.cirrus.com" <sbinding@opensource.cirrus.com>,
-	"lee@kernel.org" <lee@kernel.org>, "james.schulman@cirrus.com"
-	<james.schulman@cirrus.com>, "david.rhodes@cirrus.com"
-	<david.rhodes@cirrus.com>, "rf@opensource.cirrus.com"
-	<rf@opensource.cirrus.com>, "perex@perex.cz" <perex@perex.cz>,
-	"tiwai@suse.com" <tiwai@suse.com>
-CC: "linux-spi@vger.kernel.org" <linux-spi@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"michael@walle.cc" <michael@walle.cc>, "linux-mtd@lists.infradead.org"
-	<linux-mtd@lists.infradead.org>, "nicolas.ferre@microchip.com"
-	<nicolas.ferre@microchip.com>, "alexandre.belloni@bootlin.com"
-	<alexandre.belloni@bootlin.com>, "claudiu.beznea@tuxon.dev"
-	<claudiu.beznea@tuxon.dev>, "Simek, Michal" <michal.simek@amd.com>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "alsa-devel@alsa-project.org"
-	<alsa-devel@alsa-project.org>, "patches@opensource.cirrus.com"
-	<patches@opensource.cirrus.com>, "linux-sound@vger.kernel.org"
-	<linux-sound@vger.kernel.org>, "git (AMD-Xilinx)" <git@amd.com>,
-	"amitrkcian2002@gmail.com" <amitrkcian2002@gmail.com>, Conor Dooley
-	<conor.dooley@microchip.com>, "beanhuo@micron.com" <beanhuo@micron.com>
-Subject: RE: [PATCH v11 07/10] mtd: spi-nor: Add stacked memories support in
- spi-nor
-Thread-Topic: [PATCH v11 07/10] mtd: spi-nor: Add stacked memories support in
- spi-nor
-Thread-Index: 
- AQHaH4D9pFM5xtDoeEuMNIpXuxvtzbCcYmwAgAEJ+aCABhoaAIAAMcLwgAAzdICAADdZAIABtmWAgAQ4ECCAAAuVAIAAD5dQgAAYdQCAAAF/8IAGJHEAgAFe7KCAUIcDAIAAVewAgDPXogA=
-Date: Wed, 13 Mar 2024 16:03:45 +0000
-Message-ID: 
- <BN7PR12MB28028B63E69134094D50F3E4DC2A2@BN7PR12MB2802.namprd12.prod.outlook.com>
-References: <20231125092137.2948-1-amit.kumar-mahapatra@amd.com>
- <BN7PR12MB2802BEDFB821A1748185794CDC8AA@BN7PR12MB2802.namprd12.prod.outlook.com>
- <f5a47024-514a-4846-bc16-08cf0f9af912@linaro.org>
- <BN7PR12MB2802BB3DA682D9C13EF7DE08DC8FA@BN7PR12MB2802.namprd12.prod.outlook.com>
- <5a6f6764-6779-42b0-b6c6-3f638b85ef78@linaro.org>
- <BN7PR12MB28029EB1A7D09882878499A2DC8FA@BN7PR12MB2802.namprd12.prod.outlook.com>
- <c3fa1e04-92ed-48ab-a509-98e43abd5cd6@linaro.org>
- <BN7PR12MB2802E87F1A6CD22D904CAEACDC93A@BN7PR12MB2802.namprd12.prod.outlook.com>
- <b3d3c457-a43b-478a-85b3-52558227d139@linaro.org>
- <BN7PR12MB28027E62D66460A374E3CFEADC93A@BN7PR12MB2802.namprd12.prod.outlook.com>
- <e212f9fa-83c5-4b9e-8636-c8c6183096ab@linaro.org>
- <BN7PR12MB280237CDD7BB148479932874DC93A@BN7PR12MB2802.namprd12.prod.outlook.com>
- <576d56ed-d24b-40f9-9ae4-a02c50eea2ab@linaro.org>
- <BN7PR12MB2802F288C6A6B1580CF07959DC95A@BN7PR12MB2802.namprd12.prod.outlook.com>
- <c6f209c8-47da-4881-921d-683464b9ddd5@linaro.org>
- <9cdb7f8b-e64f-46f6-94cb-194a25a42ccd@linaro.org>
-In-Reply-To: <9cdb7f8b-e64f-46f6-94cb-194a25a42ccd@linaro.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN7PR12MB2802:EE_|IA0PR12MB7578:EE_
-x-ms-office365-filtering-correlation-id: 324089d3-1849-489b-6914-08dc4377295b
-x-ld-processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- 7kgfpfpPGX8+teMBan5OZWU4rZNA6NbUjTHkofexVZdSFgf7ird3JKGt2Gsf5XnmJr16Z/Q1wiHjv48G/PTlUJ1Q+ELVQ6z4AjfANMkwEo04bQV9rPclDOmecu05uIa5dp6XkDwuUGzDd8XT5yCL5QD+zPYXjSMaxpjm1+Ra1+6+Eceewy3tetVCW9TRNiJbKVxuLouMNu6Gf1sP3lb7SlxaMcLGtF1C+4WoeRjHk02Dhhe74YflUlav1OvVEZDnwaP+47OQonMhMmunikGVAYUlK56dsVXyaMt4A0oNTEHT5w8AXUwQYLIZ/lN+Q2Od4EkUXhyimxhH78UPwcvqS9SWiNR8eOG8J7B/YoDvabdX6Js/1G6AALx3hVkmUw1lvqPqBeDLGP7LQ8Feiq4qVWnjFNFgLSWVzYS9bvqIVXqMgeN26Pi7wlv0Rm1V/IE23TYfWYf+RFxp6y5egq1J0nmnopJpYf264ydGH5chHm1feJn8kaWqoYoDacNxfpnTznX0zW47sVF0r/6PkpmDzrIKct5Z0FFOr0JdPMCtsJXVzoyJ1AMKOfn+Mn7o7L1Ne9sCYixyVd8FBcKyDBICQTCHepRdkvqmtqn5jE8pECcPRojcheTPk64QQqeboBa2bZi9SuCTR+VmaNj08l82NMTwI7ZWNL/Hp8uOwvncv3QCLzbAnlKlqkXnynDNWhWO
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN7PR12MB2802.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(7416005)(1800799015)(376005)(38070700009)(921011);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?utf-8?B?WHd2ZEFvMDdXcmFWSVJKbGpRWFZySFZNM1d1T1pBVENOYVFoUGl3d1dFd2xw?=
- =?utf-8?B?dDJEZG4zQUZVZk9STGFsWm5VamlSV0ZJU1hGZE5XTm83TEw5M2FHaUdFbkw4?=
- =?utf-8?B?emlyRytIUCtENnlZdzBESGxtbG12ZE1nd0Y2S2N3NXdNemdRRDFtNXBDZ2xI?=
- =?utf-8?B?cHh3aHVmamd3R2twdEpGQXRyMk5iMURUekNEMFJLSUMxek0xMGY3OENDMHhn?=
- =?utf-8?B?b0hScG5XQ09oMXVvZXpmd1JwdUt0Qnc5eE1nSXZuSmdLMkZZc3pJT1NxQ3Jv?=
- =?utf-8?B?Y2J6b2dLQkhxVFc5ckwvUTU5K2JzVkVteXMrVTczMmtMY0JxdWVUZ3YrMkhE?=
- =?utf-8?B?UTIwOE53N0J1enZXdFZBS0p6YnJINWRCMXdBQWwyZmJ4dVJzWWZLVjBUZnNw?=
- =?utf-8?B?TlVYendsdG83eHRXTUFvWHFBN29SOGxZQllqS1N3WjR6R3BqTkZVYzZlcVFk?=
- =?utf-8?B?bXFoT3ZSNzJXcVoyNno3czc3VXFlamJta2syYXppV0pFQnFpZXZSWFZpWHA4?=
- =?utf-8?B?RG50cTFWb2dwbGFyanJPRk8xRTk5MzdkWkNETjNjaS9iTzlKOUFiaXdWZW5S?=
- =?utf-8?B?dVF2bU55bFRQNFJjWGJNdEJUTzRuYitzMGkwaDhzMFFqRXo0Y05LZmJEUW5p?=
- =?utf-8?B?NTRvWTA1Q1FIYlYraEdCendqZjAxYS94cldwTmMvY1BBTTQ4UDY3SEloM1I3?=
- =?utf-8?B?NjJZbk9qb01UTnk5ZUZ1REJuZGR0dXdQLzR0Ti84VTJURmVFZHBjZ0lXOUZl?=
- =?utf-8?B?QVJzVDduUWZOQW9yY3NyU1hUVUw3THJjUWhZa29JYkdHYnlxc1g2TGVUc3R2?=
- =?utf-8?B?cmRvNlM0Sm9OTUtKUEo5MUdqbkJIa1FHM0dhbXd5UThrOGpBd3ovQStwMHRp?=
- =?utf-8?B?N1dLc05NdUovamoxQTFBcDl1ZzRiblJUbkl5dElwMitoVy93OWd4VThTQklF?=
- =?utf-8?B?V0VjcWFITzRiZm9NZERlbk5Hb1lTNWg5YVVQejV0VU1OQUo2aEc1cTYyT0Rp?=
- =?utf-8?B?ZGRjVkhwK3d3bnJweWt6bCt5OFJqY2JBWW5PQmZkN25YTG5CODdOdXljVndq?=
- =?utf-8?B?eVpGRlRkYStOS0JKaXlkM3NuS0N5TWVNSHFxYXBLbWpqZHdaTmRXY2dhZERQ?=
- =?utf-8?B?NjFlcEZBVHZ2ekdNMEFra1JoTmtZOU9UUEU3ejFKYUJTa2NxNTEvSkJrbDlG?=
- =?utf-8?B?OWtscXJEbkNaUTZWb2dudHRMenEvTER6QzV3Z2FiQWlIL1kvajlrUXp3V1l2?=
- =?utf-8?B?Njd5aFZzZjRqQmY3cW54eVZkMWk5VzJ3d045bVltRWh2TGFkOE5GZzhwOXVw?=
- =?utf-8?B?N2dod0RSTlhvNUVLbU1YcW1jbERxcUhqdlFxdXFJdjY4L0Q0Y3lkb0Y1Rm9y?=
- =?utf-8?B?SGtNVU1kRFRUUU5JbHdRRVdWTWJPeWpWbTZDNHlWaTVNVkZKdXlUajNkWTlM?=
- =?utf-8?B?ZWpXK2hhTzR3bmI2alRSeDZKZ2szRnYrcjNKMTdkMUw5Uzg4TnhVUnc2WFZZ?=
- =?utf-8?B?QmVsNG9iNlNmb2JLa2FLUFNkOFlOMnYvaW9lWXJMWWx6NkdpVmdJdzZ3R1Q1?=
- =?utf-8?B?cGg1REllNGdNcUVLYkRNcDJ5U1NqcXhIOEdnbUhvVEVMQzFkOVEzT1U4U2NB?=
- =?utf-8?B?dmxVWFMrWjFBMko5em1qM0NNc0E4M01YSlYwYjdKaDlNdVpLRE1FL0VWbHRB?=
- =?utf-8?B?cDA4MzRDUm1QaU51WG9RVnFFeXYvTU9uUE5PZmtmSEhSQm9ZdTg5S3Z5c1o5?=
- =?utf-8?B?eCtKWjV0SnUrK3J1bC9xZGtnS3VZY3YvaXdiNUoyT0tJZHZzSjlESGhpYnhN?=
- =?utf-8?B?a0ZkRzZLYklmdDdjZUt0MnlYNWVpVjFSTFB4QnV0WTB3bHBwRkpTeVpQb01C?=
- =?utf-8?B?V3B2aXBZejczSW04ZkJSSXpDa05uY05hcUU2QlQ1N3V1d3Bhb05FYnk2Y3hI?=
- =?utf-8?B?aW5KYndSYStnVDV6dEhWbk5ldW5vbW0rVG5YNlVGdjg4UXpXZmFDcGViaDJ0?=
- =?utf-8?B?aFZqN3RLQjNYZHF1TUI3MkdLMEZ3RnM4ZTZ6SmFqVEE1UzN1OCtHNkY2NDlx?=
- =?utf-8?B?ZWsrRCthanJlWVRyMHlMb3BqZzUybEROS0ZBaitsVFZNWEc5WUlNb2orNXFk?=
- =?utf-8?Q?6Xk4=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key,
+ unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
+ header.s=qcppdkim1 header.b=IkQLFkI1
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 42DGF66r015454;
+	Wed, 13 Mar 2024 19:18:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+	message-id:date:mime-version:subject:to:cc:references:from
+	:in-reply-to:content-type:content-transfer-encoding; s=
+	qcppdkim1; bh=KTKmv5ZSX3PW4T2dtjcDox5Wlq9+CL4HUpMzr1+x5ME=; b=Ik
+	QLFkI13R2Ict+AQcLYytUzb2Dmj1SzsySsl4TpRIsNquh24sQq9k4KBFYlbfxIeu
+	RG8a2Ci7HFyj2FrIfklrwgoMfhNJxfAu4M4i2CjudUFE8awp8ZXz6UX3GQ3qgB8n
+	mTExL7pw1k19UAuf6oMehPmOSJwi89+nLsJVkFjunzkiXNyrK6pkrh/cDUAoQ55V
+	GIVvGRwvae3Jk9Pm6xr38EBX8aRr7bY9p27F5kDQtAQZG6P+AsZmp6wqtdtvsSEl
+	viiMlkQi31sX1iR87/RBiiYU469moLZEPDHAFem8IhGaOOBWuQkeAk0nOOQi4iAr
+	chzATwRiRz1E5RGQslcg==
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3wu81m1k70-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 13 Mar 2024 19:18:51 +0000 (GMT)
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+	by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
+ 42DJIoLp008331
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 13 Mar 2024 19:18:50 GMT
+Received: from [10.110.68.255] (10.80.80.8) by nalasex01b.na.qualcomm.com
+ (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Wed, 13 Mar
+ 2024 12:18:49 -0700
+Message-ID: <d97f635f-053b-70a7-5ffe-a1ae273091d1@quicinc.com>
+Date: Wed, 13 Mar 2024 12:18:45 -0700
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN7PR12MB2802.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 324089d3-1849-489b-6914-08dc4377295b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Mar 2024 16:03:45.3275
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 
- zppKlKiangAWEAH7rXb61+8zfeXCfsI/r1Tx94uItUXBiyEioRtYMZQA3jvn8OHKMjw34jdUUXqOzt/pXVhtGA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7578
-X-MailFrom: amit.kumar-mahapatra@amd.com
-X-Mailman-Rule-Hits: nonmember-moderation
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.13.1
+Subject: Re: [PATCH v18 20/41] ALSA: usb-audio: qcom: Introduce QC USB SND
+ offloading support
+Content-Language: en-US
+To: Albert Wang <albertccwang@google.com>
+CC: <srinivas.kandagatla@linaro.org>, <mathias.nyman@intel.com>,
+        <perex@perex.cz>, <conor+dt@kernel.org>, <corbet@lwn.net>,
+        <lgirdwood@gmail.com>, <andersson@kernel.org>,
+        <krzysztof.kozlowski+dt@linaro.org>, <gregkh@linuxfoundation.org>,
+        <Thinh.Nguyen@synopsys.com>, <broonie@kernel.org>,
+        <bgoswami@quicinc.com>, <tiwai@suse.com>, <robh+dt@kernel.org>,
+        <konrad.dybcio@linaro.org>, <linux-kernel@vger.kernel.org>,
+        <devicetree@vger.kernel.org>, <linux-sound@vger.kernel.org>,
+        <linux-usb@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
+        <linux-doc@vger.kernel.org>, <alsa-devel@alsa-project.org>
+References: <20240228013619.29758-1-quic_wcheng@quicinc.com>
+ <20240228013619.29758-21-quic_wcheng@quicinc.com>
+ <CANqn-rjTgHgzssxZiuwvTKzOS31wzjS4Y9G-XacZN4a7c82MaA@mail.gmail.com>
+From: Wesley Cheng <quic_wcheng@quicinc.com>
+In-Reply-To: 
+ <CANqn-rjTgHgzssxZiuwvTKzOS31wzjS4Y9G-XacZN4a7c82MaA@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: c1ey3JD6Fr1K_B5-zrMxzjn4x6MkJIlO
+X-Proofpoint-GUID: c1ey3JD6Fr1K_B5-zrMxzjn4x6MkJIlO
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-03-13_09,2024-03-13_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0
+ malwarescore=0 lowpriorityscore=0 clxscore=1011 phishscore=0
+ priorityscore=1501 mlxlogscore=999 impostorscore=0 suspectscore=0
+ spamscore=0 mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2402120000 definitions=main-2403130148
+Message-ID-Hash: TETZZVP364GWU65ETYGBSL6ZLFFWX3NU
+X-Message-ID-Hash: TETZZVP364GWU65ETYGBSL6ZLFFWX3NU
+X-MailFrom: quic_wcheng@quicinc.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: IGRARIJY4MX223Z45IL2EVRTFVGBIXAB
-X-Message-ID-Hash: IGRARIJY4MX223Z45IL2EVRTFVGBIXAB
-X-Mailman-Approved-At: Fri, 15 Mar 2024 08:35:08 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/X62CDMNCU5PHQ5LHOE72D5FORRYQUYW6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TETZZVP364GWU65ETYGBSL6ZLFFWX3NU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -212,99 +139,109 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogVHVkb3IgQW1iYXJ1cyA8
-dHVkb3IuYW1iYXJ1c0BsaW5hcm8ub3JnPg0KPiBTZW50OiBGcmlkYXksIEZlYnJ1YXJ5IDksIDIw
-MjQgOTo0NCBQTQ0KPiBUbzogTWFoYXBhdHJhLCBBbWl0IEt1bWFyIDxhbWl0Lmt1bWFyLW1haGFw
-YXRyYUBhbWQuY29tPjsNCj4gYnJvb25pZUBrZXJuZWwub3JnOyBwcmF0eXVzaEBrZXJuZWwub3Jn
-OyBtaXF1ZWwucmF5bmFsQGJvb3RsaW4uY29tOw0KPiByaWNoYXJkQG5vZC5hdDsgdmlnbmVzaHJA
-dGkuY29tOyBzYmluZGluZ0BvcGVuc291cmNlLmNpcnJ1cy5jb207DQo+IGxlZUBrZXJuZWwub3Jn
-OyBqYW1lcy5zY2h1bG1hbkBjaXJydXMuY29tOyBkYXZpZC5yaG9kZXNAY2lycnVzLmNvbTsNCj4g
-cmZAb3BlbnNvdXJjZS5jaXJydXMuY29tOyBwZXJleEBwZXJleC5jejsgdGl3YWlAc3VzZS5jb20N
-Cj4gQ2M6IGxpbnV4LXNwaUB2Z2VyLmtlcm5lbC5vcmc7IGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5l
-bC5vcmc7DQo+IG1pY2hhZWxAd2FsbGUuY2M7IGxpbnV4LW10ZEBsaXN0cy5pbmZyYWRlYWQub3Jn
-Ow0KPiBuaWNvbGFzLmZlcnJlQG1pY3JvY2hpcC5jb207IGFsZXhhbmRyZS5iZWxsb25pQGJvb3Rs
-aW4uY29tOw0KPiBjbGF1ZGl1LmJlem5lYUB0dXhvbi5kZXY7IFNpbWVrLCBNaWNoYWwgPG1pY2hh
-bC5zaW1la0BhbWQuY29tPjsgbGludXgtDQo+IGFybS1rZXJuZWxAbGlzdHMuaW5mcmFkZWFkLm9y
-ZzsgYWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnOw0KPiBwYXRjaGVzQG9wZW5zb3VyY2UuY2ly
-cnVzLmNvbTsgbGludXgtc291bmRAdmdlci5rZXJuZWwub3JnOyBnaXQgKEFNRC0NCj4gWGlsaW54
-KSA8Z2l0QGFtZC5jb20+OyBhbWl0cmtjaWFuMjAwMkBnbWFpbC5jb207IENvbm9yIERvb2xleQ0K
-PiA8Y29ub3IuZG9vbGV5QG1pY3JvY2hpcC5jb20+OyBiZWFuaHVvQG1pY3Jvbi5jb20NCj4gU3Vi
-amVjdDogUmU6IFtQQVRDSCB2MTEgMDcvMTBdIG10ZDogc3BpLW5vcjogQWRkIHN0YWNrZWQgbWVt
-b3JpZXMgc3VwcG9ydA0KPiBpbiBzcGktbm9yDQo+IA0KPiANCj4gDQo+IE9uIDIvOS8yNCAxMTow
-NiwgVHVkb3IgQW1iYXJ1cyB3cm90ZToNCj4gPg0KPiA+DQo+ID4gT24gMTIvMjEvMjMgMDY6NTQs
-IE1haGFwYXRyYSwgQW1pdCBLdW1hciB3cm90ZToNCj4gPj4+IFNvbWV0aGluZyBlbHNlIHRvIGNv
-bnNpZGVyOiBJIHNlZSB0aGF0IE1pY3JvbiBoYXMgYSB0d2luIHF1YWQgbW9kZToNCj4gPj4+IGh0
-dHBzOi8vbWVkaWEtd3d3Lm1pY3Jvbi5jb20vLQ0KPiA+Pj4gL21lZGlhL2NsaWVudC9nbG9iYWwv
-ZG9jdW1lbnRzL3Byb2R1Y3RzL2RhdGEtc2hlZXQvbm9yLWZsYXNoL3NlcmlhbC0NCj4gPj4+IG5v
-ci9tdDI1dC9nZW5lcmF0aW9uLQ0KPiA+Pj4NCj4gYi9tdDI1dF9xbGpzX2xfNTEyX3hiYV8wLnBk
-Zj9yZXY9ZGU3MGI3NzBjNWRjNGRhOGI4ZWFkMDZiNTdjMDM1MDANCj4gPj4+DQo+ID4+PiBUaGUg
-bWljcm9uJ3MgIlNlcGFyYXRlIENoaXAtU2VsZWN0IGFuZCBDbG9jayBTaWduYWxzIiByZXNlbWJs
-ZXMgdGhlDQo+ID4+PiBBTUQncyBkdWFsIHBhcmFsbGVsIDgtYml0Lg0KPiA+PiBZZXMsIEkgYWdy
-ZWUuDQo+ID4+DQo+ID4+PiBNaWNyb24ncyAiU2hhcmVkIENoaXAtU2VsZWN0IGFuZCBDbG9jayBT
-aWduYWxzIiBkaWZmZXJzIGZyb20gdGhlDQo+ID4+PiBBTUQncyBzdGFja2VkIG1vZGUsIGFzIE1p
-Y3JvbiB1c2VzIERRWzM6MF0gYW5kIERRWzc6NF0sIHdoZXJlYXMgQU1EDQo+ID4+PiBjb25zaWRl
-cnMgYm90aCBhcyBEUVszOjBdLg0KPiA+PiBZZXMsIGNvcnJlY3QuDQo+ID4NCj4gPiBBbWl0LCBw
-bGVhc2UgaGVscCBtZSB0byBhc3Nlc3MgdGhpcy4gSSBhc3N1bWUgTWljcm9uIGFuZCBNaWNyb2No
-aXAgaXMNCj4gPiB1c2luZyB0aGUgc2FtZSBjb25jZXB0cyBhcyBBTUQgdXNlcyBmb3IgdGhlICJE
-dWFsIFBhcmFsbGVsIDgtYml0IElPDQo+ID4gbW9kZSIsIGJ1dCB0aGV5IGNhbGwgaXQgIlR3aW4g
-UXVhZCBNb2RlIi4NCj4gPg0KPiA+IEkgd2FzIHdyb25nLCB0aGUgQU1EIGRhdGFzaGVldCBbMV0g
-d2FzIG1pc2xlYWRpbmcgWzJdLCBpdCBkZXNjcmliZWQNCj4gPiB0aGUgSU9zIGZvciBib3RoIGZs
-YXNoZXMgYXMgSU9bMzowXSwgYnV0IGxhdGVyIG9uIGluIHRoZSAiVGFibGUgUVNQSQ0KPiA+IElu
-dGVyZmFjZSBTaWduYWxzIiB0aGUgc2Vjb25kIGZsYXNoIGlzIGRlc2NyaWJlZCB3aXRoIElPWzc6
-NF0uDQo+ID4NCj4gPiBUaGUgQU1EJ3MgOC1iaXQgRHVhbCBGbGFzaCBQYXJhbGxlbCBJbnRlcmZh
-Y2UgaXMgdXNpbmcgZGVkaWNhdGVkIENTIw0KPiA+IGFuZCBDTEsjIGxpbmVzIGZvciBlYWNoIGZs
-YXNoLiBBcyBNaWNyb24gZG9lcywgaXNuJ3QgaXQ/DQo+ID4NCj4gPiBNaWNyb24gc2F5cyBbM10g
-dGhhdDoNCj4gPiAiVGhlIGRldmljZSBjb250YWlucyB0d28gcXVhZCBJL08gZGllLCBlYWNoIGFi
-bGUgdG8gb3BlcmF0ZQ0KPiA+IGluZGVwZW5kZW50bHkgZm9yIGEgdG90YWwgb2YgZWlnaHQgSS9P
-cy4gVGhlIG1lbW9yeSBtYXAgYXBwbGllcyB0bw0KPiA+IGVhY2ggZGllLiBFYWNoIGRpZSBoYXMg
-aW50ZXJuYWwgcmVnaXN0ZXJzIGZvciBzdGF0dXMsIGNvbmZpZ3VyYXRpb24sDQo+ID4gYW5kIGRl
-dmljZSBwcm90ZWN0aW9uIHRoYXQgY2FuIGJlIHNldCBhbmQgcmVhZCBpbmRlcGVuZGVudGx5IGZy
-b20gb25lDQo+IG90aGVyLg0KPiA+IE1pY3JvbiByZWNvbW1lbmRzIHRoYXQgaW50ZXJuYWwgY29u
-ZmlndXJhdGlvbiBzZXR0aW5ncyBmb3IgdGhlIHR3byBkaWUNCj4gPiBiZSBzZXQgaWRlbnRpY2Fs
-bHkuIg0KPiANCg0KSGVsbG8gVHVkb3IsDQoNCj4gQW1pdCwNCj4gDQo+IEkgZm9yZ290IHRvIHNh
-eSBteSBmaXJzdCBjb25jbHVzaW9uIGFib3V0IHRoZSBxdW90ZSBmcm9tIGFib3ZlLiBFdmVuIGlm
-IHRoZQ0KPiBkaWVzIGFyZSBpbiB0aGUgc2FtZSBwaHlzaWNhbCBwYWNrYWdlLCBtaWNyb24gYXNr
-cyB1c2VycyB0byBjb25maWd1cmUgZWFjaCBkaWUNCj4gYXMgaXQgaXMgYSBzZWxmLXN0YW5kaW5n
-IGVudGl0eSwgSU9XIHRvIGNvbmZpZ3VyZSBlYWNoIGRpZSBhcyBpdCBpcyBhIGZsYXNoIG9uIGl0
-cw0KPiBvd24uIFRvIG1lIGl0IGxvb2tzIGxpa2UgMiBjb25jYXRlbmF0ZWQgZmxhc2hlcyBhdCBm
-aXJzdCBsb29rLiBUaHVzIGlkZW50aWNhbCB0bw0KPiBob3cgQU1EIGNvbnRyb2xsZXIgd29ya3Mu
-DQo+IFBsZWFzZSBjbGFyaWZ5IHRoaXMuDQoNClRoYXTigJlzIGNvcnJlY3QsIHRoZSBNaWNyb24g
-Zmxhc2ggdGhhdCB5b3UgcmVmZXJyZWQgY2FuIGNvbW11bmljYXRlIHdpdGggDQp0aGUgQU1EIFFT
-UEkgY29udHJvbGxlciBpbiBib3RoIHBhcmFsbGVsIGFuZCBzdGFja2VkIG1vZGUuDQo+IA0KPiA+
-DQo+ID4gaXQgYWxzbyBzYXlzIHRoYXQ6DQo+ID4gIldoZW4gdXNpbmcgcXVhZCBjb21tYW5kcyBp
-biBYSU8tU1BJIG9yIHdoZW4gdXNpbmcgUUlPLVNQSSwNCj4gPiBEUVszOjBdL0RRWzc6NF0gYXJl
-IEkvTy4iDQo+IA0KPiBhbmQgdGhpcyB3b3VsZCBiZSBhIHBhcmFsbGVsIGNvbmNhdGVuYXRpb24g
-b2YgdHdvIGZsYXNoZXMuDQoNClRoYXQncyBjb3JyZWN0Lg0KDQpSZWdhcmRzLA0KQW1pdA0KPiAN
-Cj4gVGhlbiBpdCB3b3VsZCBiZSBnb29kIGlmIHlvdSBsZXQgdXMgbm93IHRoZSBzaW1pbGFyaXRp
-ZXMgYW5kIGRpZmZlcmVuY2VzDQo+IGJldHdlZW4gaG93IGFtZCBhbmQgbWNocCBjb250cm9sbGVy
-IHdvcmssIEkgc2NyYXdsZWQgZmV3IGlkZWFzIGJlbG93Lg0KPiANCj4gdGhhbmtzLA0KPiB0YQ0K
-PiA+DQo+ID4gU28gSSBndWVzcyB0aGUgdXBwZXIgbGF5ZXJzIGp1c3QgYXNrIGZvciBhIGNodW5r
-IG9mIG1lbW9yeSB0byBiZQ0KPiA+IHdyaXR0ZW4gYW5kIHRoZSBjb250cm9sbGVyIGhhbmRsZXMg
-dGhlIGNzIyBsaW5lcyBhdXRvbWF0aWNhbGx5LiBIb3cgaXMNCj4gPiB0aGUgQU1EIGNvbnRyb2xs
-ZXIgd29ya2luZywgZG8geW91IGhhdmUgdG8gZHJpdmUgdGhlIGNzIyBsaW5lcw0KPiA+IG1hbnVh
-bGx5LCBvciB5b3UganVzdCBzZXQgdGhlIHBhcmFsbGVsIG1vZGUgYW5kIHRoZSBjb250cm9sbGVy
-IHRha2VzIGNhcmUgb2YNCj4gZXZlcnl0aGluZz8NCj4gPg0KPiA+IEkgYXNzdW1lIHRoaXMgaXMg
-aG93IG1jaHAgaXMgaGFuZGxpbmcgdGhpbmdzLCB0aGV5IHNlZW0gdG8ganVzdCBzZXQgYQ0KPiA+
-IGJpdCB0aGUgcHJvdG9jb2wgaW50byB0aGUgUVNQSV9JRlIuUFJPVFRZUCByZWdpc3RlciBmaWVs
-ZCBhbmQgdGhhdCdzDQo+ID4gYWxsIFs0XS4gVGhleSBldmVuIHNlZW0gdG8gd3JpdGUgdGhlIHJl
-Z2lzdGVycyBvZiBib3RoIGZsYXNoZXMgYXQgdGhlIHNhbWUNCj4gdGltZS4NCj4gPg0KPiA+IElu
-IHdoYXQgcmVnYXJkcyB0aGUgQU1EJ3MgImR1YWwgc3RhY2sgaW50ZXJmYWNlIiwgQU1EIGlzIHNo
-YXJpbmcgdGhlDQo+ID4gY2xvY2sgYW5kIElPIGxpbmVzIGFuZCB1c2VzIGRlZGljYXRlZCBDUyMg
-bGluZXMgZm9yIHRoZSBmbGFzaGVzLA0KPiA+IHdoZXJlYXMgTWljcm9uIHNoYXJlcyB0aGUgQ1Mj
-IGFuZCBDTEsjIGxpbmVzIHdpdGggZGlmZmVyZW50IElPIGxpbmVzLg0KPiA+DQo+ID4gQW1pdCwg
-cGxlYXNlIHN0dWR5IHRoZSBhcmNoaXRlY3R1cmVzIHVzZWQgYnkgbWNocCwgbWljcm9uIGFuZCBh
-bWQgYW5kDQo+ID4gbGV0IHVzIGtub3cgaWYgdGhleSBhcmUgdGhlIHNhbWUgb3IgdGhleSBkaWZm
-ZXIsIGFuZCBpZiB0aGV5IGRpZmZlcg0KPiA+IHdoYXQgYXJlIHRoZSBkaWZmZXJlbmNlcy4NCj4g
-Pg0KPiA+IEkgYWRkZWQgQ29ub3IgZnJvbSBtY2hwIGluIGNjLCBJIHNlZSBOaWNvbGFzIGlzIGFs
-cmVhZHkgdGhlcmUsIGFuZA0KPiA+IEJlYW4gZnJvbSBtaWNyb24uDQo+ID4NCj4gPiBUaGFua3Ms
-DQo+ID4gdGENCj4gPg0KPiA+IFsxXQ0KPiA+IGh0dHBzOi8vZG9jcy54aWxpbnguY29tL3IvZW4t
-VVMvYW0wMTEtdmVyc2FsLWFjYXAtdHJtL1FTUEktRmxhc2gtSW50ZXINCj4gPiBmYWNlLVNpZ25h
-bHMNCj4gPiBbMl0NCj4gPg0KPiBodHRwczovL2RvY3MueGlsaW54LmNvbS92aWV3ZXIvYXR0YWNo
-bWVudC9kd21qaERKR0lDZEpxRDRzd3lWemNRL2ZEOG52DQo+ID4gNHJ5Nzh4TTBfRUY1a3Y0bUEN
-Cj4gPiBbM10NCj4gPiBodHRwczovL21lZGlhLXd3dy5taWNyb24uY29tLy0NCj4gL21lZGlhL2Ns
-aWVudC9nbG9iYWwvZG9jdW1lbnRzL3Byb2R1Y3RzLw0KPiA+IGRhdGEtc2hlZXQvbm9yLWZsYXNo
-L3NlcmlhbC1ub3IvbXQyNXQvZ2VuZXJhdGlvbi1iL210MjV0X3FsanNfbF81MTJfeGINCj4gPiBh
-XzAucGRmP3Jldj1kZTcwYjc3MGM1ZGM0ZGE4YjhlYWQwNmI1N2MwMzUwMA0KPiA+IFs0XQ0KPiA+
-DQo+IGh0dHBzOi8vd3cxLm1pY3JvY2hpcC5jb20vZG93bmxvYWRzL2FlbURvY3VtZW50cy9kb2N1
-bWVudHMvTVBVMzIvDQo+IFByb2R1DQo+ID4gY3REb2N1bWVudHMvRGF0YVNoZWV0cy9TQU1BN0c1
-LVNlcmllcy1EYXRhLVNoZWV0LURTNjAwMDE3NjUucGRmDQo=
+Hi Albert,
+
+On 3/13/2024 1:03 AM, Albert Wang wrote:
+> +/**
+> + * qc_usb_audio_offload_suspend() - USB offload PM suspend handler
+> + * @intf: USB interface
+> + * @message: suspend type
+> + *
+> + * PM suspend handler to ensure that the USB offloading driver is able to stop
+> + * any pending traffic, so that the bus can be suspended.
+> + *
+> + */
+> +static void qc_usb_audio_offload_suspend(struct usb_interface *intf,
+> +                                               pm_message_t message)
+> +{
+> +       struct qmi_uaudio_stream_ind_msg_v01 disconnect_ind = {0};
+> +       struct snd_usb_audio *chip = usb_get_intfdata(intf);
+> +       struct uaudio_qmi_svc *svc = uaudio_svc;
+> +       struct uaudio_dev *dev;
+> +       int card_num;
+> +       int ret;
+> +
+> +       if (!chip)
+> +               return;
+> +
+> +       card_num = chip->card->number;
+> +       if (card_num >= SNDRV_CARDS)
+> +               return;
+> +
+> +
+> +       mutex_lock(&chip->mutex);
+> +       dev = &uadev[card_num];
+> +
+> +       if (atomic_read(&dev->in_use)) {
+> +               mutex_unlock(&chip->mutex);
+> +               dev_dbg(uaudio_qdev->data->dev, "sending qmi
+> indication suspend\n");
+> +               disconnect_ind.dev_event = USB_QMI_DEV_DISCONNECT_V01;
+> +               disconnect_ind.slot_id = dev->udev->slot_id;
+> +               disconnect_ind.controller_num = dev->usb_core_id;
+> +               disconnect_ind.controller_num_valid = 1;
+> +               ret = qmi_send_indication(svc->uaudio_svc_hdl, &svc->client_sq,
+> +                               QMI_UAUDIO_STREAM_IND_V01,
+> +                               QMI_UAUDIO_STREAM_IND_MSG_V01_MAX_MSG_LEN,
+> +                               qmi_uaudio_stream_ind_msg_v01_ei,
+> +                               &disconnect_ind);
+> +               if (ret < 0)
+> +                       dev_err(uaudio_qdev->data->dev,
+> +                               "qmi send failed with err: %d\n", ret);
+> +
+> +               ret = wait_event_interruptible_timeout(dev->disconnect_wq,
+> +                               !atomic_read(&dev->in_use),
+> +                               msecs_to_jiffies(DEV_RELEASE_WAIT_TIMEOUT));
+> +               if (!ret) {
+> +                       dev_err(uaudio_qdev->data->dev,
+> +                               "timeout while waiting for dev_release\n");
+> +                       atomic_set(&dev->in_use, 0);
+> +               } else if (ret < 0) {
+> +                       dev_err(uaudio_qdev->data->dev,
+> +                               "failed with ret %d\n", ret);
+> +                               atomic_set(&dev->in_use, 0);
+> +               }
+> +               mutex_lock(&chip->mutex);
+> +       }
+> +       mutex_unlock(&chip->mutex);
+> +}
+> +
+> 
+> Hi Wesley,
+> 
+> The suspend function `qc_usb_audio_offload_suspend()` looks to stop
+> the traffic on the bus, so that the bus can be suspended. That allows
+> the application processor(AP) to enter suspend. There is a subtle
+> difference with our feature, which is to allow AP suspend with the
+> Host and USB controller active to continue the audio offloading. We
+> call this feature `allow AP suspend in playback`. So, I have some
+> points to clarify with you:
+
+Yes, I'm aware of that feature also.
+
+> 1. Will the suspend flow `usb_audio_suspend() -->
+> platform_ops->suspend_cb() --> qc_usb_audio_offload_suspend()` be
+> called when offloading is active?
+
+It can be.  This is why in our case, we are going to issue the 
+disconnect event to the audio DSP to stop the session if it is currently 
+in one.
+
+> 2. As my understanding, the suspend function is to allow AP suspend
+> when the offloading is IDLE, but it won't allow AP suspend when in
+> playback or capture. Please correct me if anything is wrong.
+
+As mentioned above, it will let apps go into PM suspend after forcing 
+the audio stream to be idle.  We won't block PM suspend entry.
+
+> 3. We would like to integrate the `allow AP suspend in playback`
+> feature with your framework to become one upstream offload solution.
+> Here is the patch:
+> https://patchwork.kernel.org/project/linux-pm/patch/20240223143833.1509961-1-guanyulin@google.com/
+> .
+
+Yes, I saw that patch as well.  I'll take a look once this series lands 
+upstream.
+
+Thanks
+Wesley Cheng

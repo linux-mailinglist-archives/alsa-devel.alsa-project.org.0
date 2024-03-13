@@ -2,94 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66E2987A7BA
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 Mar 2024 13:43:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2523787A85C
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 Mar 2024 14:29:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 51091211E;
-	Wed, 13 Mar 2024 13:43:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51091211E
+	by alsa0.perex.cz (Postfix) with ESMTPS id C08AB21A4;
+	Wed, 13 Mar 2024 14:28:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C08AB21A4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1710333800;
-	bh=DXSVZljyBLC5a5bv0CgQcHa/KwzURiQNZglsucfnuhs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1710336540;
+	bh=CHtNAQTIT1rvRWPPhR3rIHeiRbGPnmXiD2gTyBFLaGs=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=GfW35FyKBWqpqcCXTMn52M0+DwC5hB8qhV0NXxAzvKKRvhEYfW3F1jkTlK1Unk2fh
-	 ZwVwpUomvdtcMLQl2+zn4hOryfr8DFVISAWSKx0JLjCNA+bQ+YlBwF0vXU5/t7XfUf
-	 SN2IHLxvDBDjuIKLEXDNjClbDYhHmi1q/O51MlEA=
+	b=t4XxFg0NlHP5HZyZ3XL5fxQ0eRWw2uDZ81Tg4FyKcqAxqNJ9UzwzkmrMm+m1VMRgi
+	 0UR5cIMqXlJSOePhV0KcjCdkS3CfrfGf1jfOdSsAdGQNFm8dLhGE56IeOZpnGFaQDH
+	 47brXVoUjF9kLlO9KeK6plMz1i8xytG0ttlXGB/M=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 58DCCF8014B; Wed, 13 Mar 2024 13:42:48 +0100 (CET)
+	id 6801EF80579; Wed, 13 Mar 2024 14:28:29 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A7669F804E7;
-	Wed, 13 Mar 2024 13:42:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E9124F805A0;
+	Wed, 13 Mar 2024 14:28:28 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CC281F8028D; Wed, 13 Mar 2024 13:42:41 +0100 (CET)
+	id 979CAF8028D; Wed, 13 Mar 2024 14:28:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from gandalf.ozlabs.org (mail.ozlabs.org
+ [IPv6:2404:9400:2221:ea00::3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1671AF80088
-	for <alsa-devel@alsa-project.org>; Wed, 13 Mar 2024 13:42:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1671AF80088
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=S7iVlM1Y
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 1905361375;
-	Wed, 13 Mar 2024 12:42:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96983C433C7;
-	Wed, 13 Mar 2024 12:42:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1710333750;
-	bh=DXSVZljyBLC5a5bv0CgQcHa/KwzURiQNZglsucfnuhs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=S7iVlM1Yv1FdfGxD5dAxt5gtvqPHKBy18644j0pvXAICnMmlq1ZUb3cD2ioaZYpgL
-	 //AMzZ5ClKLtUS6DWftu9L9v6wjtj9YGYwI8yWCowMXyi02ls/9ZpA4v67CLHYdeHM
-	 dV2L8kBzrY7ZFOZ1H8f/o9kD40draOJ3M2tpzXnAzGXNdJLz82x2qnyaM4qjcsAn3y
-	 vdE/bTQB27TepIUa1O3ZbOU8KmTb45gboqvYF8DnTvTFJkmiflFrf7KtzyqHiEWpBn
-	 B8fp/TmKvEa0dEdzIIZeAQRmHGAJEC1S3ErwhRipgq0isUyWO+hx2JOZrfcgnpoKVW
-	 iUJ48KwBMVdBQ==
-Date: Wed, 13 Mar 2024 12:42:25 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Jerome Brunet <jbrunet@baylibre.com>
-Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>, bard.liao@intel.com,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Rob Herring <robh+dt@kernel.org>, alsa-devel@alsa-project.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v7 1/5] ASoC: makes CPU/Codec channel connection map more
- generic
-Message-ID: <0388cd67-42d7-4a20-bf05-6637d484d0bd@sirena.org.uk>
-References: <87v8a64f3d.wl-kuninori.morimoto.gx@renesas.com>
- <87ttpq4f2c.wl-kuninori.morimoto.gx@renesas.com>
- <e7121fbc-c814-4153-9f17-82ad5de13e64@sirena.org.uk>
- <87a5n46xjk.wl-kuninori.morimoto.gx@renesas.com>
- <7248b107-db87-4409-b93c-f65035d0a6b4@sirena.org.uk>
- <1jo7bje6da.fsf@starbuckisacylon.baylibre.com>
- <b9de4fd1-ef4a-4c30-b3cf-e36931be90f1@sirena.org.uk>
- <1jh6haih3f.fsf@starbuckisacylon.baylibre.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 86614F8014B
+	for <alsa-devel@alsa-project.org>; Wed, 13 Mar 2024 14:28:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 86614F8014B
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by mail.ozlabs.org (Postfix) with ESMTPSA id 4Tvrt96D1qz4x4T;
+	Thu, 14 Mar 2024 00:28:01 +1100 (AEDT)
+From: Michael Ellerman <patch-notifications@ellerman.id.au>
+To: Dawei Li <set_pte_at@outlook.com>
+Cc: npiggin@gmail.com, christophe.leroy@csgroup.eu,
+ linuxppc-dev@lists.ozlabs.org, linux-ide@vger.kernel.org,
+ netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-serial@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+In-Reply-To: 
+ <TYCP286MB232391520CB471E7C8D6EA84CAD19@TYCP286MB2323.JPNP286.PROD.OUTLOOK.COM>
+References: 
+ <TYCP286MB232391520CB471E7C8D6EA84CAD19@TYCP286MB2323.JPNP286.PROD.OUTLOOK.COM>
+Subject: Re: [PATCH v3] powerpc: macio: Make remove callback of macio driver
+ void returned
+Message-Id: <171033598348.517247.10069683831844972530.b4-ty@ellerman.id.au>
+Date: Thu, 14 Mar 2024 00:19:43 +1100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="wQxpEnVQw38uV/8e"
-Content-Disposition: inline
-In-Reply-To: <1jh6haih3f.fsf@starbuckisacylon.baylibre.com>
-X-Cookie: It's later than you think.
-Message-ID-Hash: BGXW7F22FY7AOI5E7QQJ3VPB3P7H7FOV
-X-Message-ID-Hash: BGXW7F22FY7AOI5E7QQJ3VPB3P7H7FOV
-X-MailFrom: broonie@kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: HNCTWU3PJF2AJCVBGSMZHEN6WX6O7HVL
+X-Message-ID-Hash: HNCTWU3PJF2AJCVBGSMZHEN6WX6O7HVL
+X-MailFrom: michael@ellerman.id.au
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -101,7 +79,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BGXW7F22FY7AOI5E7QQJ3VPB3P7H7FOV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HNCTWU3PJF2AJCVBGSMZHEN6WX6O7HVL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,38 +88,19 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Wed, 01 Feb 2023 22:36:19 +0800, Dawei Li wrote:
+> Commit fc7a6209d571 ("bus: Make remove callback return void") forces
+> bus_type::remove be void-returned, it doesn't make much sense for any
+> bus based driver implementing remove callbalk to return non-void to
+> its caller.
+> 
+> This change is for macio bus based drivers.
+> 
+> [...]
 
---wQxpEnVQw38uV/8e
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Applied to powerpc/next.
 
-On Wed, Mar 13, 2024 at 10:36:41AM +0100, Jerome Brunet wrote:
+[1/1] powerpc: macio: Make remove callback of macio driver void returned
+      https://git.kernel.org/powerpc/c/9db2235326c4b868b6e065dfa3a69011ee570848
 
-> * Only the u200 is failing. The others devices of the same family are fine.
-
-Oh, that's a shame :(
-
-> I'll continue to check but this is apparently related to the options
-> turned on by the debug fragment. Maybe it could be interesting to check
-> another non-intel SoC manufacturer using DPCM with this fragment ?
-> (another device relying on cleared ch_maps - Renesas and/or MTK maybe ?)
-
-The error reported was a kasan one so it may just be that that needs to
-be turned on to reproduce.
-
---wQxpEnVQw38uV/8e
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmXxnzAACgkQJNaLcl1U
-h9Ai0wf+OYHVg9zC6RMcSJpC7ACW+vbtvz0OdadwhgAlHiep1nwv1pT8HxQ/a6ww
-XtYXBPeyZ+Y7/NGN1c01Jvd/h61KP2A/wOM0e2XOh+C0TEqfknw9r+TFVkeqTnMY
-B684z8HI9r+W015kRWHkTV965eMBjxrXIw8iuRCPs75BpdxShLBDm4r6tw1O+j7f
-ZjRxYQmQS+0k++0IheEtoK1zx8h3jrFKYtmFyI7h/zaGTShIu4PwAscGGhk8wd1X
-jm1zEcn55OP3w/8FtzYSGaec0L6ehUDBv23Zpgnx9KuUIvehR/oWzo3uhlRTCKui
-0QHsYd3RamfGrNFDssvpWFVWblNP6Q==
-=ZlKR
------END PGP SIGNATURE-----
-
---wQxpEnVQw38uV/8e--
+cheers

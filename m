@@ -2,137 +2,131 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26B1A87C48A
-	for <lists+alsa-devel@lfdr.de>; Thu, 14 Mar 2024 21:58:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD0A787CA0D
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Mar 2024 09:40:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1495E19E7;
-	Thu, 14 Mar 2024 21:58:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1495E19E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id D3B20192C;
+	Fri, 15 Mar 2024 09:40:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D3B20192C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1710449899;
-	bh=i/In70euOucOu10Yn4mf9BZSNHDbmPI7QOVoNvr1wN0=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=RInipVZb7L5NhsLcPSve50CVTVU4Pdohmjtrg0DDhQFlj5TKHyAYCsbqJwhW/xix1
-	 mri9ony4pyIoxsuX5c1sHaaZN6BZXLF6kXY1bqFyQ5ozTUsONT6WXdhQnUSMrpWhz7
-	 frIeZlFxQxUa2sm4+GPeGgnO+MA2Ix0yHxg8bA8M=
+	s=default; t=1710492010;
+	bh=YgYS3RkelOTEkhUj4bVVmVrIgp/NrO8aKhUpHUD7bt4=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=aVRLuib2EHefrL3SVdgPFk7FSxpOUpHLzZTC6Y5O6/meWEttmaUfEgSGsWP37wxqS
+	 Ar8tiLYuixxzv3fOpcp+TLzgCdrKZeD6bqPyEnU+gvXO4WO9234m5ABdERtKL1wH1r
+	 LpKCFh+zPyqBfIsMKmWX7S+sf3q8PEi75WB0SNYg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2AF59F80563; Thu, 14 Mar 2024 21:57:46 +0100 (CET)
+	id 7FC40F805FF; Fri, 15 Mar 2024 09:39:17 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D16A1F80563;
-	Thu, 14 Mar 2024 21:57:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D690FF805E5;
+	Fri, 15 Mar 2024 09:39:16 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9B2A8F8028D; Thu, 14 Mar 2024 21:57:38 +0100 (CET)
+	id B15D0F804E7; Fri, 15 Mar 2024 00:23:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_PASS,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=no
+	autolearn_force=no version=3.4.6
+Received: from mx1.sberdevices.ru (mx1.sberdevices.ru [37.18.73.165])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BCAD8F800E4
-	for <alsa-devel@alsa-project.org>; Thu, 14 Mar 2024 21:57:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BCAD8F800E4
+	by alsa1.perex.cz (Postfix) with ESMTPS id BAA0FF8025F
+	for <alsa-devel@alsa-project.org>; Fri, 15 Mar 2024 00:23:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BAA0FF8025F
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=VypaMdDu
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 42EKFsjk019502;
-	Thu, 14 Mar 2024 20:57:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
-	message-id:date:mime-version:subject:to:cc:references:from
-	:in-reply-to:content-type:content-transfer-encoding; s=
-	qcppdkim1; bh=i1RRwlY+GSx5CIfYwtnNU1qLUiFuXaO9rJ+b19a99LU=; b=Vy
-	paMdDuLHTBjsvksPD2BnAdKbsOB51/5Li48ozD40T3l6rwY/B8nOD1KgUDng+sO3
-	aiaKBQRFPLsVhYNNk1dD3NVvrA2h3AJs8i3LKGOkWHs91I3yKQS6k6Z8jXZAblbZ
-	XnWX+kdgFjWTEj1sUGMlzP5+TQP0c3Ei+sRSCMdmlMD2M6GgRkigVqaZfBYHLpCA
-	LC2sZrKu/v4LCyVOXaLBWxaJT/9sDaOofQ9xNSObmdPran5eK+ggiUNcp9u0YLSr
-	gibSEaPxQ/pBdwBRDjOk/FkIOuSn23Ab+UZLXeuggME+SClx8erC9dBqmnIQtUZu
-	mn4R55nTAKEDQkQ5LqJg==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3wv81bg2qb-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 14 Mar 2024 20:57:21 +0000 (GMT)
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
-	by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
- 42EKvK31005345
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 14 Mar 2024 20:57:20 GMT
-Received: from [10.71.112.106] (10.80.80.8) by nalasex01b.na.qualcomm.com
- (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Thu, 14 Mar
- 2024 13:57:19 -0700
-Message-ID: <0e9f0f2f-a404-3b76-3c52-9eca7594efa3@quicinc.com>
-Date: Thu, 14 Mar 2024 13:57:19 -0700
+ unprotected) header.d=salutedevices.com header.i=@salutedevices.com
+ header.a=rsa-sha256 header.s=mail header.b=D1qg+4UM
+Received: from p-infra-ksmg-sc-msk01 (localhost [127.0.0.1])
+	by mx1.sberdevices.ru (Postfix) with ESMTP id 60CE810000E;
+	Fri, 15 Mar 2024 02:23:00 +0300 (MSK)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mx1.sberdevices.ru 60CE810000E
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=salutedevices.com;
+	s=mail; t=1710458580;
+	bh=k/KjHQTEMbNbNQoJ8kJxtt3YqCKnhYgeapWc9/6QS/4=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type:From;
+	b=D1qg+4UMdHIDAvwEQXQNNqThdhmlSxF9/GZZ7ZfnkfIZcsDRvPNSq0WUmPDfFNcVc
+	 4j3UhMUwYnw2FPlEVh1BxaCgbWmhdz45D5vx1oLqwFuZS22lbK+ZRmxWCn7MwJCnXj
+	 Fbms0j6G7g9rqb06AITwWzzWMOph30aCkz4ty9skD7vqzK1f+PgSTau7H1TupHlZLz
+	 PO/G2oZcY9ApS4cL2Ko4He0w6EEfVfvyewuvSN/1rJF+9XTXjUFODM/GtmvZE+u7gp
+	 QXer2VmNd2/uta0LFwyYWqmrVre5Q0mgQx4NEPQYGjuUquK5/SbgH8f9CuKIucykfW
+	 1CmMcIoQ+Ap6Q==
+Received: from smtp.sberdevices.ru (p-i-exch-sc-m02.sberdevices.ru
+ [172.16.192.103])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mx1.sberdevices.ru (Postfix) with ESMTPS;
+	Fri, 15 Mar 2024 02:23:00 +0300 (MSK)
+Received: from CAB-WSD-0003115.sberdevices.ru (100.64.160.123) by
+ p-i-exch-sc-m02.sberdevices.ru (172.16.192.103) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.40; Fri, 15 Mar 2024 02:22:59 +0300
+From: Jan Dakinevich <jan.dakinevich@salutedevices.com>
+To: Jan Dakinevich <jan.dakinevich@salutedevices.com>, Neil Armstrong
+	<neil.armstrong@linaro.org>, Jerome Brunet <jbrunet@baylibre.com>, Michael
+ Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Rob
+ Herring <robh@kernel.org>, Krzysztof Kozlowski
+	<krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>, Kevin Hilman <khilman@baylibre.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Liam Girdwood
+	<lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Linus Walleij
+	<linus.walleij@linaro.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
+	<tiwai@suse.com>, <linux-amlogic@lists.infradead.org>,
+	<linux-clk@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<alsa-devel@alsa-project.org>, <linux-sound@vger.kernel.org>,
+	<linux-gpio@vger.kernel.org>
+CC: <kernel@salutedevices.com>
+Subject: [PATCH 00/25] Introduce support of audio for Amlogic A1 SoC family
+Date: Fri, 15 Mar 2024 02:21:36 +0300
+Message-ID: <20240314232201.2102178-1-jan.dakinevich@salutedevices.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.1
-Subject: Re: [PATCH v18 20/41] ALSA: usb-audio: qcom: Introduce QC USB SND
- offloading support
-Content-Language: en-US
-To: Albert Wang <albertccwang@google.com>
-CC: <srinivas.kandagatla@linaro.org>, <mathias.nyman@intel.com>,
-        <perex@perex.cz>, <conor+dt@kernel.org>, <corbet@lwn.net>,
-        <lgirdwood@gmail.com>, <andersson@kernel.org>,
-        <krzysztof.kozlowski+dt@linaro.org>, <gregkh@linuxfoundation.org>,
-        <Thinh.Nguyen@synopsys.com>, <broonie@kernel.org>,
-        <bgoswami@quicinc.com>, <tiwai@suse.com>, <robh+dt@kernel.org>,
-        <konrad.dybcio@linaro.org>, <linux-kernel@vger.kernel.org>,
-        <devicetree@vger.kernel.org>, <linux-sound@vger.kernel.org>,
-        <linux-usb@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
-        <linux-doc@vger.kernel.org>, <alsa-devel@alsa-project.org>
-References: <20240228013619.29758-1-quic_wcheng@quicinc.com>
- <20240228013619.29758-21-quic_wcheng@quicinc.com>
- <CANqn-rjTgHgzssxZiuwvTKzOS31wzjS4Y9G-XacZN4a7c82MaA@mail.gmail.com>
- <d97f635f-053b-70a7-5ffe-a1ae273091d1@quicinc.com>
- <CANqn-ring2uf=A-F7VuRwnJ--n=FtFzSddCmR-=nfxCGcFAF2g@mail.gmail.com>
-From: Wesley Cheng <quic_wcheng@quicinc.com>
-In-Reply-To: 
- <CANqn-ring2uf=A-F7VuRwnJ--n=FtFzSddCmR-=nfxCGcFAF2g@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: hogKYBgJv_8ag5r84EkBXjMbinIFbgfn
-X-Proofpoint-ORIG-GUID: hogKYBgJv_8ag5r84EkBXjMbinIFbgfn
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-03-14_13,2024-03-13_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0
- impostorscore=0 spamscore=0 bulkscore=0 adultscore=0 mlxlogscore=999
- mlxscore=0 clxscore=1015 malwarescore=0 priorityscore=1501
- lowpriorityscore=0 phishscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.19.0-2402120000 definitions=main-2403140161
-Message-ID-Hash: FX7TQSPGZE6NT6LF3GMFRGL6CX5XJLIY
-X-Message-ID-Hash: FX7TQSPGZE6NT6LF3GMFRGL6CX5XJLIY
-X-MailFrom: quic_wcheng@quicinc.com
+Content-Type: text/plain
+X-Originating-IP: [100.64.160.123]
+X-ClientProxiedBy: p-i-exch-sc-m01.sberdevices.ru (172.16.192.107) To
+ p-i-exch-sc-m02.sberdevices.ru (172.16.192.103)
+X-KSMG-Rule-ID: 10
+X-KSMG-Message-Action: clean
+X-KSMG-AntiSpam-Lua-Profiles: 183875 [Feb 29 2024]
+X-KSMG-AntiSpam-Version: 6.1.0.3
+X-KSMG-AntiSpam-Envelope-From: YVDakinevich@sberdevices.ru
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Auth: dkim=none
+X-KSMG-AntiSpam-Info: LuaCore: 7 0.3.7
+ 6d6bf5bd8eea7373134f756a2fd73e9456bb7d1a, {Tracking_smtp_not_equal_from},
+ FromAlignment: n, {Tracking_smtp_domain_mismatch},
+ {Tracking_smtp_domain_2level_mismatch}, {Tracking_sender_alignment_int},
+ ApMailHostAddress: 100.64.160.123
+X-MS-Exchange-Organization-SCL: -1
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiPhishing: Clean
+X-KSMG-LinksScanning: Clean
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.0.1.6960,
+ bases: 2024/02/29 19:21:00 #23899999
+X-KSMG-AntiVirus-Status: Clean, skipped
+X-MailFrom: YVDakinevich@sberdevices.ru
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: NQ2UTWGPUKC73D6JK4MGYF7GVC2QZIFI
+X-Message-ID-Hash: NQ2UTWGPUKC73D6JK4MGYF7GVC2QZIFI
+X-Mailman-Approved-At: Fri, 15 Mar 2024 08:36:32 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FX7TQSPGZE6NT6LF3GMFRGL6CX5XJLIY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NQ2UTWGPUKC73D6JK4MGYF7GVC2QZIFI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -141,78 +135,95 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Albert
+This series includes the following:
 
-On 3/14/2024 3:29 AM, Albert Wang wrote:
-> On Thu, Mar 14, 2024 at 3:18 AM Wesley Cheng <quic_wcheng@quicinc.com> wrote:
->>
->> Hi Albert,
->>
->> On 3/13/2024 1:03 AM, Albert Wang wrote:
->>> Hi Wesley,
->>>
->>> The suspend function `qc_usb_audio_offload_suspend()` looks to stop
->>> the traffic on the bus, so that the bus can be suspended. That allows
->>> the application processor(AP) to enter suspend. There is a subtle
->>> difference with our feature, which is to allow AP suspend with the
->>> Host and USB controller active to continue the audio offloading. We
->>> call this feature `allow AP suspend in playback`. So, I have some
->>> points to clarify with you:
->>
->> Yes, I'm aware of that feature also.
->>
->>> 1. Will the suspend flow `usb_audio_suspend() -->
->>> platform_ops->suspend_cb() --> qc_usb_audio_offload_suspend()` be
->>> called when offloading is active?
->>
->> It can be.  This is why in our case, we are going to issue the
->> disconnect event to the audio DSP to stop the session if it is currently
->> in one.
->>
->>> 2. As my understanding, the suspend function is to allow AP suspend
->>> when the offloading is IDLE, but it won't allow AP suspend when in
->>> playback or capture. Please correct me if anything is wrong.
->>
->> As mentioned above, it will let apps go into PM suspend after forcing
->> the audio stream to be idle.  We won't block PM suspend entry.
->>
-> Right. Your design is to force the audio stream idle, or say, inform
-> the audio DSP
-> to stop the current offloading session first, then AP can go into PM
-> suspend as usual.
-> Then I can say the current design did not support the `allow AP
-> suspend in playback`
-> feature, right?
-> 
+ - new audio clock and reset controller data and adaptation for it of existing
+   code (patches 0001..0004);
 
-Correct, this series does not cover this mechanism.
+ - adaptation of existing audio components for A1 Soc (patches 0005..0021);
 
->> Yes, I saw that patch as well.  I'll take a look once this series lands
->> upstream.
-> 
-> That patch is rejected and archived now. So we need to find another
-> approach to do
-> that, even based on your framework.
-> 
+ - handy cosmetics for dai-link naming (patches 0022..0023);
 
-We can discuss that offline and come up with an approach that is 
-reviewable by maintainers and the community.
+ - integration of audio devices into common trees (patch 0024);
 
-Thanks
-Wesley Cheng
+ - audio support bring up on Amlogic ad402 reference board (patch 0025). This
+   patch is not actually checked on real hardware (because all ad402 that we had
+   were burned out). This patch is based on ad402's schematics and on experience
+   with our own hardware (which is very close to reference board);
 
-> Thanks,
-> Albert
-> 
-> 
->>> 3. We would like to integrate the `allow AP suspend in playback`
->>> feature with your framework to become one upstream offload solution.
->>> Here is the patch:
->>> https://patchwork.kernel.org/project/linux-pm/patch/20240223143833.1509961-1-guanyulin@google.com/
->>> .
->>
->> Yes, I saw that patch as well.  I'll take a look once this series lands
->> upstream.
->>
->> Thanks
->> Wesley Cheng
+Dmitry Rokosov (2):
+  ASoC: dt-bindings: meson: introduce link-name optional property
+  ASoC: meson: implement link-name optional property in meson card utils
+
+Jan Dakinevich (23):
+  clk: meson: a1: restrict an amount of 'hifi_pll' params
+  clk: meson: axg: move reset controller's code to separate module
+  dt-bindings: clock: meson: add A1 audio clock and reset controller
+    bindings
+  clk: meson: a1: add the audio clock controller driver
+  ASoC: meson: codec-glue: add support for capture stream
+  ASoC: meson: g12a-toacodec: fix "Lane Select" width
+  ASoC: meson: g12a-toacodec: rework the definition of bits
+  ASoC: dt-bindings: meson: g12a-toacodec: add support for A1 SoC family
+  ASoC: meson: g12a-toacodec: add support for A1 SoC family
+  ASoC: meson: t9015: prepare to adding new platforms
+  ASoC: dt-bindings: meson: t9015: add support for A1 SoC family
+  ASoC: meson: t9015: add support for A1 SoC family
+  ASoC: dt-bindings: meson: axg-pdm: document 'sysrate' property
+  ASoC: meson: axg-pdm: introduce 'sysrate' property
+  pinctrl/meson: fix typo in PDM's pin name
+  ASoC: dt-bindings: meson: meson-axg-audio-arb: claim support of A1 SoC
+    family
+  ASoC: dt-bindings: meson: axg-fifo: claim support of A1 SoC family
+  ASoC: dt-bindings: meson: axg-pdm: claim support of A1 SoC family
+  ASoC: dt-bindings: meson: axg-sound-card: claim support of A1 SoC
+    family
+  ASoC: dt-bindings: meson: axg-tdm-formatters: claim support of A1 SoC
+    family
+  ASoC: dt-bindings: meson: axg-tdm-iface: claim support of A1 SoC
+    family
+  arm64: dts: meson: a1: add audio devices
+  arm64: dts: ad402: enable audio
+
+ .../bindings/clock/amlogic,a1-audio-clkc.yaml |  83 +++
+ .../reset/amlogic,meson-axg-audio-arb.yaml    |  10 +-
+ .../bindings/sound/amlogic,axg-fifo.yaml      |   8 +
+ .../bindings/sound/amlogic,axg-pdm.yaml       |   5 +
+ .../sound/amlogic,axg-sound-card.yaml         |  12 +-
+ .../sound/amlogic,axg-tdm-formatters.yaml     |  22 +-
+ .../bindings/sound/amlogic,axg-tdm-iface.yaml |   6 +-
+ .../bindings/sound/amlogic,g12a-toacodec.yaml |   1 +
+ .../bindings/sound/amlogic,gx-sound-card.yaml |   6 +
+ .../bindings/sound/amlogic,t9015.yaml         |   4 +-
+ .../arm64/boot/dts/amlogic/meson-a1-ad402.dts | 126 ++++
+ arch/arm64/boot/dts/amlogic/meson-a1.dtsi     | 471 +++++++++++++++
+ drivers/clk/meson/Kconfig                     |  18 +
+ drivers/clk/meson/Makefile                    |   2 +
+ drivers/clk/meson/a1-audio.c                  | 556 ++++++++++++++++++
+ drivers/clk/meson/a1-audio.h                  |  58 ++
+ drivers/clk/meson/a1-pll.c                    |   8 +-
+ drivers/clk/meson/axg-audio.c                 |  95 +--
+ drivers/clk/meson/meson-audio-rstc.c          | 109 ++++
+ drivers/clk/meson/meson-audio-rstc.h          |  12 +
+ drivers/pinctrl/meson/pinctrl-meson-a1.c      |   6 +-
+ .../dt-bindings/clock/amlogic,a1-audio-clkc.h | 122 ++++
+ .../reset/amlogic,meson-a1-audio-reset.h      |  29 +
+ .../dt-bindings/sound/meson-g12a-toacodec.h   |   5 +
+ sound/soc/meson/axg-pdm.c                     |  10 +-
+ sound/soc/meson/g12a-toacodec.c               | 298 ++++++++--
+ sound/soc/meson/meson-card-utils.c            |  12 +-
+ sound/soc/meson/meson-codec-glue.c            | 174 ++++--
+ sound/soc/meson/meson-codec-glue.h            |  23 +
+ sound/soc/meson/t9015.c                       | 326 +++++++++-
+ 30 files changed, 2394 insertions(+), 223 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/clock/amlogic,a1-audio-clkc.yaml
+ create mode 100644 drivers/clk/meson/a1-audio.c
+ create mode 100644 drivers/clk/meson/a1-audio.h
+ create mode 100644 drivers/clk/meson/meson-audio-rstc.c
+ create mode 100644 drivers/clk/meson/meson-audio-rstc.h
+ create mode 100644 include/dt-bindings/clock/amlogic,a1-audio-clkc.h
+ create mode 100644 include/dt-bindings/reset/amlogic,meson-a1-audio-reset.h
+
+-- 
+2.34.1
+

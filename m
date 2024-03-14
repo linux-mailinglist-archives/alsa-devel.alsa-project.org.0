@@ -2,60 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85BF587CA10
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Mar 2024 09:40:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A986D87CA0E
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Mar 2024 09:40:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 016E01E93;
-	Fri, 15 Mar 2024 09:40:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 016E01E93
+	by alsa0.perex.cz (Postfix) with ESMTPS id D436B1931;
+	Fri, 15 Mar 2024 09:40:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D436B1931
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1710492049;
-	bh=QgV+Xw9NbQEO6idqHDJtYJNVbDwVxFgW0gvsSbHMu8Q=;
+	s=default; t=1710492016;
+	bh=I4I3rixjwMJeA/842jOqRrN3f/SVy1MHdGDJDq85lnw=;
 	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=fCiWEX6VL4F3P0mTPpxGNC2mpDPGha2e3HLS2i9Qr2Izt2DTnmgHe8w1vbwGkytsp
-	 1742lBSQeVg0g8BkD/NC08k1ecqOswBalD9pdn+mYeaA75o259NCzWKgLGqNS1JCi7
-	 E+ybzd7f7S2xMpBEpHSJMTbK00LaKBZti9Nx6JzA=
+	b=NHy0wwjI2U3Bdfe3Bz06dKI+jbzr8dtebJCqAKMCUMY7yicTcWdtIPKmVTEAmdeob
+	 5HsmqI8VZkzL44Kb6AqteorFGhFDSX+EhCDTOwBjHp1hixk0o0dnKPqVY31FpX24z4
+	 LNeqAixongCWqR0VgBls4dwztnEQa+g2kviwf20U=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4D482F80580; Fri, 15 Mar 2024 09:39:27 +0100 (CET)
+	id A98C0F805A1; Fri, 15 Mar 2024 09:39:19 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C4566F80677;
-	Fri, 15 Mar 2024 09:39:26 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4FA22F8061A;
+	Fri, 15 Mar 2024 09:39:19 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 82005F8057D; Fri, 15 Mar 2024 00:23:08 +0100 (CET)
+	id DB5E3F80563; Fri, 15 Mar 2024 00:23:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_PASS,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=no
 	autolearn_force=no version=3.4.6
-Received: from mx1.sberdevices.ru (mx1.sberdevices.ru [37.18.73.165])
+Received: from mx1.sberdevices.ru (mx2.sberdevices.ru [45.89.224.132])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 39A52F8028D
-	for <alsa-devel@alsa-project.org>; Fri, 15 Mar 2024 00:23:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 39A52F8028D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 669CAF800E4
+	for <alsa-devel@alsa-project.org>; Fri, 15 Mar 2024 00:23:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 669CAF800E4
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=salutedevices.com header.i=@salutedevices.com
- header.a=rsa-sha256 header.s=mail header.b=olAfs4U+
-Received: from p-infra-ksmg-sc-msk01 (localhost [127.0.0.1])
-	by mx1.sberdevices.ru (Postfix) with ESMTP id 2C36110000F;
+ header.a=rsa-sha256 header.s=mail header.b=hQ5pRDVs
+Received: from p-infra-ksmg-sc-msk02 (localhost [127.0.0.1])
+	by mx1.sberdevices.ru (Postfix) with ESMTP id 84D5B12000A;
 	Fri, 15 Mar 2024 02:23:01 +0300 (MSK)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mx1.sberdevices.ru 2C36110000F
+DKIM-Filter: OpenDKIM Filter v2.11.0 mx1.sberdevices.ru 84D5B12000A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=salutedevices.com;
 	s=mail; t=1710458581;
-	bh=gLbD9tc2pn1QeC2j87RMdeV5jO49713zgVqzzHkHt5E=;
+	bh=dXX2ljZlOjCb/UBesDdkIeLUfuEEcHbQL62Lmr1WJIA=;
 	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type:From;
-	b=olAfs4U+XHSt8Jjd8Kt9sbP4C31rhs/GCY26OiVHdADa4Y7Yp2XPE0JKjjsd9lW6v
-	 0cKI4H9dXCsXKID7URpBSBeYnTuS32Ueu5oVaUM5/dzdYScIhPKj2WkVZT7EYkEt9r
-	 I29pzstQtiDxer98h7IzQDdZcuVt57HKUu/eAukhxAZVCX2SOD76x3NTz06BFeFwR7
-	 RVvEljeL67R7hbxAOX9BtnzOQPd8S/XntJr3dNVx6xShjJrttCn1fGVg0oiQkhV0vu
-	 BcATVRWw3lAOtQ+tUOVXGMTiEQ+O1vHTO7hxkDCGqsWCyWwucLDfu7BQTi/OCQFwks
-	 RZL3jDyEKIsJw==
+	b=hQ5pRDVsYZ0gRSXupSa0JMLr/jK2r96lKQr2SwNtxNO/UzcxdESrIW13vIc6h3R+R
+	 4if/HWQwRE96/c0qsbz6cugwzJWGfFq4a6Euf2HNDbuu7xi2FgG5n7/tfuW+nwLwU5
+	 Guru83Ubzjs4eaIf4Eve8dD5ePQbf7e5Ydxf1HxFcOla00BoKG2zkHyu5n62gu4kF9
+	 M2XpWY49xUtnkirwm1Eh3j9F9CtzgSGQBLn94n+6XgJp2mWNZKDDTV6jkbrogYbKnJ
+	 SXPYwQ1k9INqr4xuuWEZ855yjELQnVPxTQ0nnI0jR0YT3w3pmfidls/JfUot87W/rl
+	 Av/kYDNSh1Bgw==
 Received: from smtp.sberdevices.ru (p-i-exch-sc-m02.sberdevices.ru
  [172.16.192.103])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
@@ -82,10 +82,10 @@ To: Jan Dakinevich <jan.dakinevich@salutedevices.com>, Neil Armstrong
 	<alsa-devel@alsa-project.org>, <linux-sound@vger.kernel.org>,
 	<linux-gpio@vger.kernel.org>
 CC: <kernel@salutedevices.com>
-Subject: [PATCH 02/25] clk: meson: axg: move reset controller's code to
- separate module
-Date: Fri, 15 Mar 2024 02:21:38 +0300
-Message-ID: <20240314232201.2102178-3-jan.dakinevich@salutedevices.com>
+Subject: [PATCH 03/25] dt-bindings: clock: meson: add A1 audio clock and reset
+ controller bindings
+Date: Fri, 15 Mar 2024 02:21:39 +0300
+Message-ID: <20240314232201.2102178-4-jan.dakinevich@salutedevices.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240314232201.2102178-1-jan.dakinevich@salutedevices.com>
 References: <20240314232201.2102178-1-jan.dakinevich@salutedevices.com>
@@ -106,13 +106,13 @@ X-KSMG-AntiSpam-Method: none
 X-KSMG-AntiSpam-Auth: dkim=none
 X-KSMG-AntiSpam-Info: LuaCore: 7 0.3.7
  6d6bf5bd8eea7373134f756a2fd73e9456bb7d1a, {Tracking_smtp_not_equal_from},
- FromAlignment: n, {Tracking_smtp_domain_mismatch},
+ {Tracking_uf_ne_domains}, FromAlignment: n, {Tracking_smtp_domain_mismatch},
  {Tracking_smtp_domain_2level_mismatch}, {Tracking_sender_alignment_int},
  ApMailHostAddress: 100.64.160.123
 X-MS-Exchange-Organization-SCL: -1
 X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiPhishing: Clean
-X-KSMG-LinksScanning: Clean
+X-KSMG-AntiPhishing: Clean, bases: 2024/02/29 16:52:00
+X-KSMG-LinksScanning: Clean, bases: 2024/02/29 16:52:00
 X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.0.1.6960,
  bases: 2024/02/29 19:21:00 #23899999
 X-KSMG-AntiVirus-Status: Clean, skipped
@@ -122,15 +122,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: V32FTDYFNUIQYX5SRYI6CQ2CU3CSRRNN
-X-Message-ID-Hash: V32FTDYFNUIQYX5SRYI6CQ2CU3CSRRNN
-X-Mailman-Approved-At: Fri, 15 Mar 2024 08:36:33 +0000
+Message-ID-Hash: XIGQFRAQSQIEBFGDREJ5MVY2FUEX3AQG
+X-Message-ID-Hash: XIGQFRAQSQIEBFGDREJ5MVY2FUEX3AQG
+X-Mailman-Approved-At: Fri, 15 Mar 2024 08:36:32 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/V32FTDYFNUIQYX5SRYI6CQ2CU3CSRRNN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XIGQFRAQSQIEBFGDREJ5MVY2FUEX3AQG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -139,317 +139,268 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-This code will by reused by A1 SoC.
-
 Signed-off-by: Jan Dakinevich <jan.dakinevich@salutedevices.com>
 ---
- drivers/clk/meson/Kconfig            |   5 ++
- drivers/clk/meson/Makefile           |   1 +
- drivers/clk/meson/axg-audio.c        |  95 +----------------------
- drivers/clk/meson/meson-audio-rstc.c | 109 +++++++++++++++++++++++++++
- drivers/clk/meson/meson-audio-rstc.h |  12 +++
- 5 files changed, 130 insertions(+), 92 deletions(-)
- create mode 100644 drivers/clk/meson/meson-audio-rstc.c
- create mode 100644 drivers/clk/meson/meson-audio-rstc.h
+ .../bindings/clock/amlogic,a1-audio-clkc.yaml |  83 ++++++++++++
+ .../dt-bindings/clock/amlogic,a1-audio-clkc.h | 122 ++++++++++++++++++
+ .../reset/amlogic,meson-a1-audio-reset.h      |  29 +++++
+ 3 files changed, 234 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/clock/amlogic,a1-audio-clkc.yaml
+ create mode 100644 include/dt-bindings/clock/amlogic,a1-audio-clkc.h
+ create mode 100644 include/dt-bindings/reset/amlogic,meson-a1-audio-reset.h
 
-diff --git a/drivers/clk/meson/Kconfig b/drivers/clk/meson/Kconfig
-index 29ffd14d267b..d6a2fa5f7e88 100644
---- a/drivers/clk/meson/Kconfig
-+++ b/drivers/clk/meson/Kconfig
-@@ -48,6 +48,10 @@ config COMMON_CLK_MESON_CPU_DYNDIV
- 	tristate
- 	select COMMON_CLK_MESON_REGMAP
- 
-+config COMMON_CLK_MESON_AUDIO_RSTC
-+	tristate
-+	select RESET_CONTROLLER
-+
- config COMMON_CLK_MESON8B
- 	bool "Meson8 SoC Clock controller support"
- 	depends on ARM
-@@ -101,6 +105,7 @@ config COMMON_CLK_AXG_AUDIO
- 	select COMMON_CLK_MESON_PHASE
- 	select COMMON_CLK_MESON_SCLK_DIV
- 	select COMMON_CLK_MESON_CLKC_UTILS
-+	select COMMON_CLK_MESON_AUDIO_RSTC
- 	select REGMAP_MMIO
- 	help
- 	  Support for the audio clock controller on AmLogic A113D devices,
-diff --git a/drivers/clk/meson/Makefile b/drivers/clk/meson/Makefile
-index 9ee4b954c896..88d94921a4dc 100644
---- a/drivers/clk/meson/Makefile
-+++ b/drivers/clk/meson/Makefile
-@@ -12,6 +12,7 @@ obj-$(CONFIG_COMMON_CLK_MESON_PLL) += clk-pll.o
- obj-$(CONFIG_COMMON_CLK_MESON_REGMAP) += clk-regmap.o
- obj-$(CONFIG_COMMON_CLK_MESON_SCLK_DIV) += sclk-div.o
- obj-$(CONFIG_COMMON_CLK_MESON_VID_PLL_DIV) += vid-pll-div.o
-+obj-$(CONFIG_COMMON_CLK_MESON_AUDIO_RSTC) += meson-audio-rstc.o
- 
- # Amlogic Clock controllers
- 
-diff --git a/drivers/clk/meson/axg-audio.c b/drivers/clk/meson/axg-audio.c
-index ac3482960903..990203a7ad5c 100644
---- a/drivers/clk/meson/axg-audio.c
-+++ b/drivers/clk/meson/axg-audio.c
-@@ -12,10 +12,10 @@
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
- #include <linux/reset.h>
--#include <linux/reset-controller.h>
- #include <linux/slab.h>
- 
- #include "meson-clkc-utils.h"
-+#include "meson-audio-rstc.h"
- #include "axg-audio.h"
- #include "clk-regmap.h"
- #include "clk-phase.h"
-@@ -1648,84 +1648,6 @@ static struct clk_regmap *const sm1_clk_regmaps[] = {
- 	&sm1_sysclk_b_en,
- };
- 
--struct axg_audio_reset_data {
--	struct reset_controller_dev rstc;
--	struct regmap *map;
--	unsigned int offset;
--};
--
--static void axg_audio_reset_reg_and_bit(struct axg_audio_reset_data *rst,
--					unsigned long id,
--					unsigned int *reg,
--					unsigned int *bit)
--{
--	unsigned int stride = regmap_get_reg_stride(rst->map);
--
--	*reg = (id / (stride * BITS_PER_BYTE)) * stride;
--	*reg += rst->offset;
--	*bit = id % (stride * BITS_PER_BYTE);
--}
--
--static int axg_audio_reset_update(struct reset_controller_dev *rcdev,
--				unsigned long id, bool assert)
--{
--	struct axg_audio_reset_data *rst =
--		container_of(rcdev, struct axg_audio_reset_data, rstc);
--	unsigned int offset, bit;
--
--	axg_audio_reset_reg_and_bit(rst, id, &offset, &bit);
--
--	regmap_update_bits(rst->map, offset, BIT(bit),
--			assert ? BIT(bit) : 0);
--
--	return 0;
--}
--
--static int axg_audio_reset_status(struct reset_controller_dev *rcdev,
--				unsigned long id)
--{
--	struct axg_audio_reset_data *rst =
--		container_of(rcdev, struct axg_audio_reset_data, rstc);
--	unsigned int val, offset, bit;
--
--	axg_audio_reset_reg_and_bit(rst, id, &offset, &bit);
--
--	regmap_read(rst->map, offset, &val);
--
--	return !!(val & BIT(bit));
--}
--
--static int axg_audio_reset_assert(struct reset_controller_dev *rcdev,
--				unsigned long id)
--{
--	return axg_audio_reset_update(rcdev, id, true);
--}
--
--static int axg_audio_reset_deassert(struct reset_controller_dev *rcdev,
--				unsigned long id)
--{
--	return axg_audio_reset_update(rcdev, id, false);
--}
--
--static int axg_audio_reset_toggle(struct reset_controller_dev *rcdev,
--				unsigned long id)
--{
--	int ret;
--
--	ret = axg_audio_reset_assert(rcdev, id);
--	if (ret)
--		return ret;
--
--	return axg_audio_reset_deassert(rcdev, id);
--}
--
--static const struct reset_control_ops axg_audio_rstc_ops = {
--	.assert = axg_audio_reset_assert,
--	.deassert = axg_audio_reset_deassert,
--	.reset = axg_audio_reset_toggle,
--	.status = axg_audio_reset_status,
--};
--
- static const struct regmap_config axg_audio_regmap_cfg = {
- 	.reg_bits	= 32,
- 	.val_bits	= 32,
-@@ -1745,7 +1667,6 @@ static int axg_audio_clkc_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
- 	const struct audioclk_data *data;
--	struct axg_audio_reset_data *rst;
- 	struct regmap *map;
- 	void __iomem *regs;
- 	struct clk_hw *hw;
-@@ -1807,18 +1728,8 @@ static int axg_audio_clkc_probe(struct platform_device *pdev)
- 	if (!data->reset_num)
- 		return 0;
- 
--	rst = devm_kzalloc(dev, sizeof(*rst), GFP_KERNEL);
--	if (!rst)
--		return -ENOMEM;
--
--	rst->map = map;
--	rst->offset = data->reset_offset;
--	rst->rstc.nr_resets = data->reset_num;
--	rst->rstc.ops = &axg_audio_rstc_ops;
--	rst->rstc.of_node = dev->of_node;
--	rst->rstc.owner = THIS_MODULE;
--
--	return devm_reset_controller_register(dev, &rst->rstc);
-+	return meson_audio_rstc_register(dev, map, data->reset_offset,
-+					 data->reset_num);
- }
- 
- static const struct audioclk_data axg_audioclk_data = {
-diff --git a/drivers/clk/meson/meson-audio-rstc.c b/drivers/clk/meson/meson-audio-rstc.c
+diff --git a/Documentation/devicetree/bindings/clock/amlogic,a1-audio-clkc.yaml b/Documentation/devicetree/bindings/clock/amlogic,a1-audio-clkc.yaml
 new file mode 100644
-index 000000000000..2079d24c40f4
+index 000000000000..c76cad4da493
 --- /dev/null
-+++ b/drivers/clk/meson/meson-audio-rstc.c
-@@ -0,0 +1,109 @@
-+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
++++ b/Documentation/devicetree/bindings/clock/amlogic,a1-audio-clkc.yaml
+@@ -0,0 +1,83 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/clock/amlogic,a1-audio-clkc.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Amlogic A1 Audio Clock Control Unit and Reset Controller
++
++maintainers:
++  - Neil Armstrong <neil.armstrong@linaro.org>
++  - Jerome Brunet <jbrunet@baylibre.com>
++  - Jan Dakinevich <jan.dakinevich@salutedevices.com>
++
++properties:
++  compatible:
++    const: amlogic,a1-audio-clkc
++
++  '#clock-cells':
++    const: 1
++
++  '#reset-cells':
++    const: 1
++
++  reg:
++    minItems: 2
++    maxItems: 2
++
++  clocks:
++    items:
++      - description: input main peripheral bus clock
++      - description: input dds_in
++      - description: input fixed pll div2
++      - description: input fixed pll div3
++      - description: input hifi_pll
++      - description: input oscillator (usually at 24MHz)
++
++  clock-names:
++    items:
++      - const: pclk
++      - const: dds_in
++      - const: fclk_div2
++      - const: fclk_div3
++      - const: hifi_pll
++      - const: xtal
++
++required:
++  - compatible
++  - '#clock-cells'
++  - '#reset-cells'
++  - reg
++  - clocks
++  - clock-names
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/amlogic,a1-pll-clkc.h>
++    #include <dt-bindings/clock/amlogic,a1-peripherals-clkc.h>
++    audio {
++        #address-cells = <2>;
++        #size-cells = <2>;
++
++        clkc_audio: audio-clock-controller@0 {
++                compatible = "amlogic,a1-audio-clkc";
++                reg = <0x0 0xfe050000 0x0 0xb0>,
++                      <0x0 0xfe054800 0x0 0x20>;
++                #clock-cells = <1>;
++                #reset-cells = <1>;
++                clocks = <&clkc_periphs CLKID_AUDIO>,
++                         <&clkc_periphs CLKID_DDS_IN>,
++                         <&clkc_pll CLKID_FCLK_DIV2>,
++                         <&clkc_pll CLKID_FCLK_DIV3>,
++                         <&clkc_pll CLKID_HIFI_PLL>,
++                         <&xtal>;
++                clock-names = "pclk",
++                              "dds_in",
++                              "fclk_div2",
++                              "fclk_div3",
++                              "hifi_pll",
++                              "xtal";
++        };
++    };
+diff --git a/include/dt-bindings/clock/amlogic,a1-audio-clkc.h b/include/dt-bindings/clock/amlogic,a1-audio-clkc.h
+new file mode 100644
+index 000000000000..3392974784e7
+--- /dev/null
++++ b/include/dt-bindings/clock/amlogic,a1-audio-clkc.h
+@@ -0,0 +1,122 @@
++/* SPDX-License-Identifier: (GPL-2.0 OR MIT) */
 +/*
-+ * Copyright (c) 2018 BayLibre, SAS.
-+ * Author: Jerome Brunet <jbrunet@baylibre.com>
++ * Copyright (c) 2024, SaluteDevices. All Rights Reserved.
++ *
++ * Author: Jan Dakinevich <jan.dakinevich@salutedevices.com>
 + */
 +
-+#include <linux/reset-controller.h>
++#ifndef __A1_AUDIO_CLKC_BINDINGS_H
++#define __A1_AUDIO_CLKC_BINDINGS_H
 +
-+#include "meson-audio-rstc.h"
++#define AUD_CLKID_DDR_ARB		1
++#define AUD_CLKID_TDMIN_A		2
++#define AUD_CLKID_TDMIN_B		3
++#define AUD_CLKID_TDMIN_LB		4
++#define AUD_CLKID_LOOPBACK		5
++#define AUD_CLKID_TDMOUT_A		6
++#define AUD_CLKID_TDMOUT_B		7
++#define AUD_CLKID_FRDDR_A		8
++#define AUD_CLKID_FRDDR_B		9
++#define AUD_CLKID_TODDR_A		10
++#define AUD_CLKID_TODDR_B		11
++#define AUD_CLKID_SPDIFIN		12
++#define AUD_CLKID_RESAMPLE		13
++#define AUD_CLKID_EQDRC			14
++#define AUD_CLKID_LOCKER		15
++#define AUD_CLKID_MST_A_MCLK_SEL	16
++#define AUD_CLKID_MST_A_MCLK_DIV	17
++#define AUD_CLKID_MST_A_MCLK		18
++#define AUD_CLKID_MST_B_MCLK_SEL	19
++#define AUD_CLKID_MST_B_MCLK_DIV	20
++#define AUD_CLKID_MST_B_MCLK		21
++#define AUD_CLKID_MST_C_MCLK_SEL	22
++#define AUD_CLKID_MST_C_MCLK_DIV	23
++#define AUD_CLKID_MST_C_MCLK		24
++#define AUD_CLKID_MST_D_MCLK_SEL	25
++#define AUD_CLKID_MST_D_MCLK_DIV	26
++#define AUD_CLKID_MST_D_MCLK		27
++#define AUD_CLKID_SPDIFIN_CLK_SEL	28
++#define AUD_CLKID_SPDIFIN_CLK_DIV	29
++#define AUD_CLKID_SPDIFIN_CLK		30
++#define AUD_CLKID_RESAMPLE_CLK_SEL	31
++#define AUD_CLKID_RESAMPLE_CLK_DIV	32
++#define AUD_CLKID_RESAMPLE_CLK		33
++#define AUD_CLKID_LOCKER_IN_CLK_SEL	34
++#define AUD_CLKID_LOCKER_IN_CLK_DIV	35
++#define AUD_CLKID_LOCKER_IN_CLK		36
++#define AUD_CLKID_LOCKER_OUT_CLK_SEL	37
++#define AUD_CLKID_LOCKER_OUT_CLK_DIV	38
++#define AUD_CLKID_LOCKER_OUT_CLK	39
++#define AUD_CLKID_EQDRC_CLK_SEL		40
++#define AUD_CLKID_EQDRC_CLK_DIV		41
++#define AUD_CLKID_EQDRC_CLK		42
++#define AUD_CLKID_MST_A_SCLK_PRE_EN	43
++#define AUD_CLKID_MST_A_SCLK_DIV	44
++#define AUD_CLKID_MST_A_SCLK_POST_EN	45
++#define AUD_CLKID_MST_A_SCLK		46
++#define AUD_CLKID_MST_B_SCLK_PRE_EN	47
++#define AUD_CLKID_MST_B_SCLK_DIV	48
++#define AUD_CLKID_MST_B_SCLK_POST_EN	49
++#define AUD_CLKID_MST_B_SCLK		50
++#define AUD_CLKID_MST_C_SCLK_PRE_EN	51
++#define AUD_CLKID_MST_C_SCLK_DIV	52
++#define AUD_CLKID_MST_C_SCLK_POST_EN	53
++#define AUD_CLKID_MST_C_SCLK		54
++#define AUD_CLKID_MST_D_SCLK_PRE_EN	55
++#define AUD_CLKID_MST_D_SCLK_DIV	56
++#define AUD_CLKID_MST_D_SCLK_POST_EN	57
++#define AUD_CLKID_MST_D_SCLK		58
++#define AUD_CLKID_MST_A_LRCLK_DIV	59
++#define AUD_CLKID_MST_A_LRCLK		60
++#define AUD_CLKID_MST_B_LRCLK_DIV	61
++#define AUD_CLKID_MST_B_LRCLK		62
++#define AUD_CLKID_MST_C_LRCLK_DIV	63
++#define AUD_CLKID_MST_C_LRCLK		64
++#define AUD_CLKID_MST_D_LRCLK_DIV	65
++#define AUD_CLKID_MST_D_LRCLK		66
++#define AUD_CLKID_TDMIN_A_SCLK_SEL	67
++#define AUD_CLKID_TDMIN_A_SCLK_PRE_EN	68
++#define AUD_CLKID_TDMIN_A_SCLK_POST_EN	69
++#define AUD_CLKID_TDMIN_A_SCLK		70
++#define AUD_CLKID_TDMIN_A_LRCLK		71
++#define AUD_CLKID_TDMIN_B_SCLK_SEL	72
++#define AUD_CLKID_TDMIN_B_SCLK_PRE_EN	73
++#define AUD_CLKID_TDMIN_B_SCLK_POST_EN	74
++#define AUD_CLKID_TDMIN_B_SCLK		75
++#define AUD_CLKID_TDMIN_B_LRCLK		76
++#define AUD_CLKID_TDMIN_LB_SCLK_SEL	77
++#define AUD_CLKID_TDMIN_LB_SCLK_PRE_EN	78
++#define AUD_CLKID_TDMIN_LB_SCLK_POST_EN	79
++#define AUD_CLKID_TDMIN_LB_SCLK		80
++#define AUD_CLKID_TDMIN_LB_LRCLK	81
++#define AUD_CLKID_TDMOUT_A_SCLK_SEL	82
++#define AUD_CLKID_TDMOUT_A_SCLK_PRE_EN	83
++#define AUD_CLKID_TDMOUT_A_SCLK_POST_EN	84
++#define AUD_CLKID_TDMOUT_A_SCLK		85
++#define AUD_CLKID_TDMOUT_A_LRCLK	86
++#define AUD_CLKID_TDMOUT_B_SCLK_SEL	87
++#define AUD_CLKID_TDMOUT_B_SCLK_PRE_EN	88
++#define AUD_CLKID_TDMOUT_B_SCLK_POST_EN	89
++#define AUD_CLKID_TDMOUT_B_SCLK		90
++#define AUD_CLKID_TDMOUT_B_LRCLK	91
 +
-+struct meson_audio_reset_data {
-+	struct reset_controller_dev rstc;
-+	struct regmap *map;
-+	unsigned int offset;
-+};
++#define AUD2_CLKID_DDR_ARB		100
++#define AUD2_CLKID_PDM			101
++#define AUD2_CLKID_TDMIN_VAD		102
++#define AUD2_CLKID_TODDR_VAD		103
++#define AUD2_CLKID_VAD			104
++#define AUD2_CLKID_AUDIOTOP		105
++#define AUD2_CLKID_VAD_MCLK_SEL		106
++#define AUD2_CLKID_VAD_MCLK_DIV		107
++#define AUD2_CLKID_VAD_MCLK		108
++#define AUD2_CLKID_VAD_CLK_SEL		109
++#define AUD2_CLKID_VAD_CLK_DIV		110
++#define AUD2_CLKID_VAD_CLK		111
++#define AUD2_CLKID_PDM_DCLK_SEL		112
++#define AUD2_CLKID_PDM_DCLK_DIV		113
++#define AUD2_CLKID_PDM_DCLK		114
++#define AUD2_CLKID_PDM_SYSCLK_SEL	115
++#define AUD2_CLKID_PDM_SYSCLK_DIV	116
++#define AUD2_CLKID_PDM_SYSCLK		117
 +
-+static void meson_audio_reset_reg_and_bit(struct meson_audio_reset_data *rst,
-+					  unsigned long id,
-+					  unsigned int *reg,
-+					  unsigned int *bit)
-+{
-+	unsigned int stride = regmap_get_reg_stride(rst->map);
-+
-+	*reg = (id / (stride * BITS_PER_BYTE)) * stride;
-+	*reg += rst->offset;
-+	*bit = id % (stride * BITS_PER_BYTE);
-+}
-+
-+static int meson_audio_reset_update(struct reset_controller_dev *rcdev,
-+				    unsigned long id, bool assert)
-+{
-+	struct meson_audio_reset_data *rst =
-+		container_of(rcdev, struct meson_audio_reset_data, rstc);
-+	unsigned int offset, bit;
-+
-+	meson_audio_reset_reg_and_bit(rst, id, &offset, &bit);
-+
-+	regmap_update_bits(rst->map, offset, BIT(bit),
-+			assert ? BIT(bit) : 0);
-+
-+	return 0;
-+}
-+
-+static int meson_audio_reset_status(struct reset_controller_dev *rcdev,
-+				    unsigned long id)
-+{
-+	struct meson_audio_reset_data *rst =
-+		container_of(rcdev, struct meson_audio_reset_data, rstc);
-+	unsigned int val, offset, bit;
-+
-+	meson_audio_reset_reg_and_bit(rst, id, &offset, &bit);
-+
-+	regmap_read(rst->map, offset, &val);
-+
-+	return !!(val & BIT(bit));
-+}
-+
-+static int meson_audio_reset_assert(struct reset_controller_dev *rcdev,
-+				    unsigned long id)
-+{
-+	return meson_audio_reset_update(rcdev, id, true);
-+}
-+
-+static int meson_audio_reset_deassert(struct reset_controller_dev *rcdev,
-+				      unsigned long id)
-+{
-+	return meson_audio_reset_update(rcdev, id, false);
-+}
-+
-+static int meson_audio_reset_toggle(struct reset_controller_dev *rcdev,
-+				    unsigned long id)
-+{
-+	int ret;
-+
-+	ret = meson_audio_reset_assert(rcdev, id);
-+	if (ret)
-+		return ret;
-+
-+	return meson_audio_reset_deassert(rcdev, id);
-+}
-+
-+static const struct reset_control_ops meson_audio_rstc_ops = {
-+	.assert = meson_audio_reset_assert,
-+	.deassert = meson_audio_reset_deassert,
-+	.reset = meson_audio_reset_toggle,
-+	.status = meson_audio_reset_status,
-+};
-+
-+int meson_audio_rstc_register(struct device *dev, struct regmap *map,
-+			      unsigned int offset, unsigned int num)
-+{
-+	struct meson_audio_reset_data *rst;
-+
-+	rst = devm_kzalloc(dev, sizeof(*rst), GFP_KERNEL);
-+	if (!rst)
-+		return -ENOMEM;
-+
-+	rst->map = map;
-+	rst->offset = offset;
-+	rst->rstc.nr_resets = num;
-+	rst->rstc.ops = &meson_audio_rstc_ops;
-+	rst->rstc.of_node = dev->of_node;
-+	rst->rstc.owner = THIS_MODULE;
-+
-+	return devm_reset_controller_register(dev, &rst->rstc);
-+}
-+EXPORT_SYMBOL_GPL(meson_audio_rstc_register);
-+
-+MODULE_LICENSE("GPL v2");
-diff --git a/drivers/clk/meson/meson-audio-rstc.h b/drivers/clk/meson/meson-audio-rstc.h
++#endif /* __A1_AUDIO_CLKC_BINDINGS_H */
+diff --git a/include/dt-bindings/reset/amlogic,meson-a1-audio-reset.h b/include/dt-bindings/reset/amlogic,meson-a1-audio-reset.h
 new file mode 100644
-index 000000000000..6b441549de03
+index 000000000000..6b7ad8ea3da2
 --- /dev/null
-+++ b/drivers/clk/meson/meson-audio-rstc.h
-@@ -0,0 +1,12 @@
++++ b/include/dt-bindings/reset/amlogic,meson-a1-audio-reset.h
+@@ -0,0 +1,29 @@
 +/* SPDX-License-Identifier: (GPL-2.0 OR MIT) */
++/*
++ * Copyright (c) 2024, SaluteDevices. All Rights Reserved.
++ *
++ * Author: Jan Dakinevich <jan.dakinevich@salutedevices.com>
++ */
 +
-+#ifndef __MESON_AUDIO_RSTC_H
-+#define __MESON_AUDIO_RSTC_H
++#ifndef _DT_BINDINGS_AMLOGIC_MESON_A1_AUDIO_RESET_H
++#define _DT_BINDINGS_AMLOGIC_MESON_A1_AUDIO_RESET_H
 +
-+#include <linux/device.h>
-+#include <linux/regmap.h>
++#define AUD_RESET_DDRARB	0
++#define AUD_RESET_TDMIN_A	1
++#define AUD_RESET_TDMIN_B	2
++#define AUD_RESET_TDMIN_LB	3
++#define AUD_RESET_LOOPBACK	4
++#define AUD_RESET_TDMOUT_A	5
++#define AUD_RESET_TDMOUT_B	6
++#define AUD_RESET_FRDDR_A	7
++#define AUD_RESET_FRDDR_B	8
++#define AUD_RESET_TODDR_A	9
++#define AUD_RESET_TODDR_B	10
++#define AUD_RESET_SPDIFIN	11
++#define AUD_RESET_RESAMPLE	12
++#define AUD_RESET_EQDRC		13
++#define AUD_RESET_LOCKER	14
++#define AUD_RESET_TOACODEC	30
++#define AUD_RESET_CLKTREE	31
 +
-+int meson_audio_rstc_register(struct device *dev, struct regmap *map,
-+			      unsigned int offset, unsigned int num);
-+
-+#endif /* __MESON_AUDIO_RSTC_H */
++#endif
 -- 
 2.34.1
 

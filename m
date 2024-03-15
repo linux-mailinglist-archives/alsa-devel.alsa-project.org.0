@@ -2,124 +2,132 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04CE887CA35
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Mar 2024 09:46:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03A5787CA67
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Mar 2024 10:07:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0FE3A7F4;
-	Fri, 15 Mar 2024 09:46:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0FE3A7F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4CB3622AB;
+	Fri, 15 Mar 2024 10:07:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4CB3622AB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1710492405;
-	bh=YO2Lw/70OHLUA6P+Wt7ionnMIRIkXQXi0auO7poeLh4=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=STqC/jB906LY0QJaHmh5nsuCCwFB8zlK19fZs8GxFB2/fUhvzHYIsSuXsK0VoxvrH
-	 aL6VgrQamMoz0EEOKuUvsTV/TW5KzUDlWTN4Jhnp06a+yR0ht+xH5CEUY1dBa+X+DW
-	 qdp9JyOHhbO1WhTqRjU8Gaf9L5+47ZK+tFVlGE7g=
+	s=default; t=1710493633;
+	bh=VYYch6XeureEVUpN2Mw2LknizCfpr7ksjmijCa7rU1g=;
+	h=References:From:To:Cc:Subject:Date:In-reply-to:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=KlOcpOhB+CAdaiIjYuDDwd6No+qI90ZaXsTO3voxPpmqy6ezDV4ydZnhMXLmyimSZ
+	 6An6livd6ki4mW4VMNUHnddFmsSBtNtmlkNoVbXI9Rx2jOotTtqSWuCUo8c1NfDEtG
+	 /mk4hUzgIDDIY6EZnUWMGyEGf3BXTx6XSePIqSUs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CF198F8085A; Fri, 15 Mar 2024 09:41:49 +0100 (CET)
+	id F0524F8059F; Fri, 15 Mar 2024 10:06:39 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 54AE2F8971C;
-	Fri, 15 Mar 2024 09:41:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B4154F8057B;
+	Fri, 15 Mar 2024 10:06:38 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 077FAF8028D; Fri, 15 Mar 2024 09:21:28 +0100 (CET)
+	id C46AEF8028D; Fri, 15 Mar 2024 10:06:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_PASS,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
- [64.147.123.24])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [IPv6:2a00:1450:4864:20::334])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 050D0F80093
-	for <alsa-devel@alsa-project.org>; Fri, 15 Mar 2024 09:21:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 050D0F80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id DE4CFF8014B
+	for <alsa-devel@alsa-project.org>; Fri, 15 Mar 2024 10:06:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE4CFF8014B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=jichi.ca header.i=@jichi.ca header.a=rsa-sha256
- header.s=fm3 header.b=VilPOjha;
-	dkim=pass (2048-bit key,
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm1 header.b=JdrRq/dJ
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
-	by mailout.west.internal (Postfix) with ESMTP id E28643200564;
-	Fri, 15 Mar 2024 04:21:12 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
-  by compute6.internal (MEProxy); Fri, 15 Mar 2024 04:21:13 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jichi.ca; h=cc
-	:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to; s=fm3; t=1710490872; x=1710577272; bh=Rc9NjdCjkI77CoTN8FsCu
-	R5vFmaUncDapWwCpfstAQg=; b=VilPOjhalrwQJG6fZZ8eN3tMjhXAuPID+qQ4j
-	QLRcerzBfbGinwjROQ09/I3vzY4GAvrFoduXC5ShQMebjozD8FsCjr3Sysrm7yp1
-	HzdD1emoEAYlIORzvhN/NuP16wtIF0PW247RAOvFZNKzK1Kskb2B7VuuFj6CB8nW
-	857upVVTq4bkP07fWP114uj1hAyzUQd8dbEVypj++a3bAN7CPetdFO1slGq/waNC
-	P2vmUsttvFaK/6DiPt20wyLVlxtrFuHiC4A1rB91RVAG5S4aXC+2Dq4OchbwWnZG
-	eJndI2I1NbNw/tRMFzTDHLfLmwDC7uaHPoYMCuAUIJOgVIC1A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm1; t=1710490872; x=1710577272; bh=Rc9NjdCjkI77CoTN8FsCuR5vFmaU
-	ncDapWwCpfstAQg=; b=JdrRq/dJz1y711lPnMvSXwEoO1pqP+YMQPSwKczje//Y
-	HtN6qE/oXLYwUbXNV77ThvvKw+Y81xl7V6fb1MXh2g561VXy5KDzTtGURmHifsDk
-	QeArz4pjRuIlMIQsR8fMoVz2MBIoE3eMQTj2NJHwqDVaMmlKB84PDjwMMxoGEthJ
-	IKsOUIi/UiTASS5hv2k8ipuXUf2lxqvDMjfPXGhVciQYgolSdC+n4qKBWLoeL8mV
-	loOFLnvxwjfgn9gIpqIm7Sj5U5/Ubz6PrjvR6+SycGjsCvqVFV0bgRzoa0tZEl09
-	64oNmWCAuvoI6S9gqPH/Le2xr+e2nnLcoaJe/6QnBQ==
-X-ME-Sender: <xms:-AT0Zbdp9Xh9phVfmwL5LZ9ZiwECwgPyxllENDxi9_ZMR7NFiOhidA>
-    <xme:-AT0ZROJImxiF671BL8NsyEmcjqPx3QZc-DjT6n2C4U2G8bgYQ5z-soKjiaDsnS-O
-    5V1ZDu3myt7V-ie0MI>
-X-ME-Received: 
- <xmr:-AT0ZUjHv-Cy9SxoJm5XkzHS06r-7QW8vmmcDFcfr8OsIxpg2c4d00fHdFuSezvYKVMNTsKu9bO4rG-ep8Aiud7-zY2Vo5q68BuD6w5CpFu7pmHLEpPHIg>
-X-ME-Proxy-Cause: 
- gggruggvucftvghtrhhoucdtuddrgedvledrjeekgdduudejucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucenucfjughrpefhvfevufffkffoggfgsedtkeertd
-    ertddtnecuhfhrohhmpehisehjihgthhhirdgtrgenucggtffrrghtthgvrhhnpeduledt
-    jeelleeikeevgeeiudehvdfgheelfedttefhuedvuedtvdevgeeujefgvdenucevlhhush
-    htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehisehjihgthhhirdgt
-    rg
-X-ME-Proxy: <xmx:-AT0Zc_19WnEWT9I3Ajdke_t54wGN_cybLI18Hvrvd7wTx2Cp3uvLg>
-    <xmx:-AT0ZXtnqXHP4iN4ePFbFsug95rtGcjTaToFaGzInpxsq5SKsvulLQ>
-    <xmx:-AT0ZbEtZChmNWynvHwmXlc59MeXz8jYxquUEmRXpaF3EJ6uCMthbg>
-    <xmx:-AT0ZeMLfkNj_5pAnFp6AAyK0TzJIpykoEJ0eABSLaVYqWEF-BQ8yQ>
-    <xmx:-AT0ZXI4iNwOrnaCj44CzYDOc95jf9tOuNIaEJkFMj2Blz_j7iIDmw>
-Feedback-ID: ie629468a:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 15 Mar 2024 04:21:09 -0400 (EDT)
-From: i@jichi.ca
-To: tiwai@suse.com
-Cc: alsa-devel@alsa-project.org,
-	Jichi Zhang <i@jichi.ca>
-Subject: [PATCH] ALSA: hda/realtek: Add quirk for Lenovo Yoga 9 14IMH9
-Date: Fri, 15 Mar 2024 01:19:56 -0700
-Message-ID: <20240315081954.45470-3-i@jichi.ca>
-X-Mailer: git-send-email 2.44.0
+ unprotected) header.d=baylibre-com.20230601.gappssmtp.com
+ header.i=@baylibre-com.20230601.gappssmtp.com header.a=rsa-sha256
+ header.s=20230601 header.b=c19IpF/0
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-412e784060cso17594495e9.1
+        for <alsa-devel@alsa-project.org>;
+ Fri, 15 Mar 2024 02:06:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1710493565;
+ x=1711098365; darn=alsa-project.org;
+        h=mime-version:message-id:in-reply-to:date:subject:cc:to:from
+         :user-agent:references:from:to:cc:subject:date:message-id:reply-to;
+        bh=ZpMSBa9vXitkcuu7vgMM3w3/yA6IqPigK2dGLCTN5uc=;
+        b=c19IpF/0sKqP4epuiQ4zL2KvsN9VeqDorxvWd/QnNgz88a6rYW2adkFH+mwbo3O7AW
+         J61+s9uwHKPx/XXPN4DM+jwZTxvmDdl30UJKtYBBegT1I/i30yTcB46lthIW8JrxFtCu
+         FMlANyA+l3mMTsX/PcdS0T7urqWhHhvAx4R20oFHxlNfxpo+ZWxC+fKdScGtfEgjTuhH
+         TsIC1qaMi+aAW+KcHUAlEGYzq3XtYr8wqQH5DTVXHQ5/5Sp6QtBzllEw5pipFWW0WxsZ
+         T5QQhwKWTfTIhlYve2i35yycc4/+zbgVlYvslq/eTjTXeHx+VskfnPqrJDnFQz1ylmQa
+         XPgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1710493565; x=1711098365;
+        h=mime-version:message-id:in-reply-to:date:subject:cc:to:from
+         :user-agent:references:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ZpMSBa9vXitkcuu7vgMM3w3/yA6IqPigK2dGLCTN5uc=;
+        b=pK/U8gfd2kflk4xr1knXXOGbtU+KyFgRV8djyJS3zbmmFYxOg+oPIA1TM+EUk1Dho9
+         X+DibQSUT1nT5JU7JOpOjhCceS0zC9erl9HVs5G0SNRlzXo53L6FNT4Wvpe43R1gGiiE
+         aTgjsbGYtlYpsYX4ymomHkwL9DvfGw2pwqZtDXpZU8npApYagh2eamw3jmFm9F45bA6m
+         ZU6muCH7ZXpAw6Y2oli7BooQqbIkPXevUAOa9nFafbqzRFACTgjzOV5GZg2jzP1mH5NT
+         YYOKurSizwrsUPSL3fXYMqpxtav+W1U7sVIPvbE2GyVyljZV9c1QoZWsRyFXRcEBWtf+
+         hi4g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVsEe5WCFICGO6Tnk2UBiVcQGF1YiJkZV1vw/W00c+FCyHQU1+zNXb6Dw7u8ryozCP+clEIKKU0BmjLMxVlhZCxA3xuUfWWfd9ojuY=
+X-Gm-Message-State: AOJu0YzaWvoPMJrJ+miSHLxSdmEMr7DUN1jk09+ymzh7jnnaeWJXsYjn
+	IuqJAAr3kPgZZRkZnI1Co4kCraoDJTo7K2QL2Pa3jjXhSAbn2BAupmcq2uBZLVI=
+X-Google-Smtp-Source: 
+ AGHT+IGv2qeT4+XV+fkhSqD7rZTLCUTw8RubHWgYTp3yu9LMq3zgewNkauR43y7qOB4OhUkwae7l8g==
+X-Received: by 2002:a05:600c:4f11:b0:414:37f:2798 with SMTP id
+ l17-20020a05600c4f1100b00414037f2798mr483210wmq.6.1710493564904;
+        Fri, 15 Mar 2024 02:06:04 -0700 (PDT)
+Received: from localhost ([2a01:e0a:3c5:5fb1:8151:4d0a:14d8:1124])
+        by smtp.gmail.com with ESMTPSA id
+ fj6-20020a05600c0c8600b00414024b2f49sm900044wmb.0.2024.03.15.02.06.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 15 Mar 2024 02:06:04 -0700 (PDT)
+References: <20240314232201.2102178-1-jan.dakinevich@salutedevices.com>
+ <20240314232201.2102178-2-jan.dakinevich@salutedevices.com>
+User-agent: mu4e 1.10.8; emacs 29.2
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Jan Dakinevich <jan.dakinevich@salutedevices.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jerome Brunet
+ <jbrunet@baylibre.com>, Michael  Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Rob  Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
+ <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, Kevin
+ Hilman <khilman@baylibre.com>, Martin Blumenstingl
+ <martin.blumenstingl@googlemail.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Linus Walleij <linus.walleij@linaro.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, alsa-devel@alsa-project.org,
+ linux-sound@vger.kernel.org, linux-gpio@vger.kernel.org,
+ kernel@salutedevices.com
+Subject: Re: [PATCH 01/25] clk: meson: a1: restrict an amount of 'hifi_pll'
+ params
+Date: Fri, 15 Mar 2024 09:58:50 +0100
+In-reply-to: <20240314232201.2102178-2-jan.dakinevich@salutedevices.com>
+Message-ID: <1j8r2jj24k.fsf@starbuckisacylon.baylibre.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MailFrom: i@jichi.ca
-X-Mailman-Rule-Hits: nonmember-moderation
+Content-Type: text/plain
+Message-ID-Hash: 35XXD6IF6Z6GJWKUHHNDJJ2WED57K3F7
+X-Message-ID-Hash: 35XXD6IF6Z6GJWKUHHNDJJ2WED57K3F7
+X-MailFrom: jbrunet@baylibre.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: S5A62N6LSWTPZ4SKG6LQE5BUOXDIITFD
-X-Message-ID-Hash: S5A62N6LSWTPZ4SKG6LQE5BUOXDIITFD
-X-Mailman-Approved-At: Fri, 15 Mar 2024 08:36:52 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/S5A62N6LSWTPZ4SKG6LQE5BUOXDIITFD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/35XXD6IF6Z6GJWKUHHNDJJ2WED57K3F7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -128,52 +136,54 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Jichi Zhang <i@jichi.ca>
 
-The speakers on the Lenovo Yoga 9 14IMH9 are similar to previous generations
-such as the 14IAP7, and the bass speakers can be fixed using similar methods
-with one caveat: 14IMH9 uses CS35L41 amplifiers which need to be activated
-seperately.
+On Fri 15 Mar 2024 at 02:21, Jan Dakinevich <jan.dakinevich@salutedevices.com> wrote:
 
-Signed-off-by: Jichi Zhang <i@jichi.ca>
----
- sound/pci/hda/patch_realtek.c | 33 +++++++++++++++++++++++++++++++++
- 1 file changed, 33 insertions(+)
+> Existing values were insufficient to produce accurate clock for audio
+> devices. New values are safe and most suitable to produce 48000Hz sample
+> rate.
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index b6cd13b17..6288d837a 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -7360,6 +7384,7 @@ enum {
- 	ALC287_FIXUP_LEGION_16ITHG6,
- 	ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK,
- 	ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN,
-+	ALC287_FIXUP_YOGA9_14IMH9_BASS_SPK_PIN,
- 	ALC295_FIXUP_DELL_INSPIRON_TOP_SPEAKERS,
- 	ALC236_FIXUP_DELL_DUAL_CODECS,
- 	ALC287_FIXUP_CS35L41_I2C_2_THINKPAD_ACPI,
-@@ -9490,6 +9515,12 @@ static const struct hda_fixup alc269_fixups[] = {
- 		.chained = true,
- 		.chain_id = ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK,
- 	},
-+	[ALC287_FIXUP_YOGA9_14IMH9_BASS_SPK_PIN] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc287_fixup_yoga9_14iap7_bass_spk_pin,
-+		.chained = true,
-+		.chain_id = ALC287_FIXUP_CS35L41_I2C_2,
-+	},
- 	[ALC295_FIXUP_DELL_INSPIRON_TOP_SPEAKERS] = {
- 		.type = HDA_FIXUP_FUNC,
- 		.v.func = alc295_fixup_dell_inspiron_top_speakers,
-@@ -10270,6 +10301,8 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x17aa, 0x38c3, "Y980 DUAL", ALC287_FIXUP_TAS2781_I2C),
- 	SND_PCI_QUIRK(0x17aa, 0x38cb, "Y790 YG DUAL", ALC287_FIXUP_TAS2781_I2C),
- 	SND_PCI_QUIRK(0x17aa, 0x38cd, "Y790 VECO DUAL", ALC287_FIXUP_TAS2781_I2C),
-+	SND_PCI_QUIRK(0x17aa, 0x38d2, "Lenovo Yoga 9 14IMH9", ALC287_FIXUP_YOGA9_14IMH9_BASS_SPK_PIN),
-+	SND_PCI_QUIRK(0x17aa, 0x38d7, "Lenovo Yoga 9 14IMH9", ALC287_FIXUP_YOGA9_14IMH9_BASS_SPK_PIN),
- 	SND_PCI_QUIRK(0x17aa, 0x3902, "Lenovo E50-80", ALC269_FIXUP_DMIC_THINKPAD_ACPI),
- 	SND_PCI_QUIRK(0x17aa, 0x3977, "IdeaPad S210", ALC283_FIXUP_INT_MIC),
- 	SND_PCI_QUIRK(0x17aa, 0x3978, "Lenovo B50-70", ALC269_FIXUP_DMIC_THINKPAD_ACPI),
+The hifi pll is not about 48k only. I see no reason to restrict the PLL
+to a single setting.
+
+You've provided no justification why the PLL driver can't reach the same
+setting for 48k. The setting below is just the crude part. the fine
+tuning is done done with the frac parameter so I doubt this provides a
+more accurate rate.
+
+>
+> Signed-off-by: Jan Dakinevich <jan.dakinevich@salutedevices.com>
+> ---
+>  drivers/clk/meson/a1-pll.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/clk/meson/a1-pll.c b/drivers/clk/meson/a1-pll.c
+> index 4325e8a6a3ef..00e06d03445b 100644
+> --- a/drivers/clk/meson/a1-pll.c
+> +++ b/drivers/clk/meson/a1-pll.c
+> @@ -74,9 +74,9 @@ static struct clk_regmap fixed_pll = {
+>  	},
+>  };
+>  
+> -static const struct pll_mult_range hifi_pll_mult_range = {
+> -	.min = 32,
+> -	.max = 64,
+> +static const struct pll_params_table hifi_pll_params_table[] = {
+> +	PLL_PARAMS(128, 5),
+> +	{ },
+>  };
+>  
+>  static const struct reg_sequence hifi_init_regs[] = {
+> @@ -124,7 +124,7 @@ static struct clk_regmap hifi_pll = {
+>  			.shift   = 6,
+>  			.width   = 1,
+>  		},
+> -		.range = &hifi_pll_mult_range,
+> +		.table = hifi_pll_params_table,
+>  		.init_regs = hifi_init_regs,
+>  		.init_count = ARRAY_SIZE(hifi_init_regs),
+>  	},
+
+
 -- 
-2.44.0
-
+Jerome

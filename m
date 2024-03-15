@@ -2,64 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C47AC87CE81
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Mar 2024 15:08:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D25187CE86
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Mar 2024 15:10:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BFFE52344;
-	Fri, 15 Mar 2024 15:08:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BFFE52344
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8A31B22AB;
+	Fri, 15 Mar 2024 15:10:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8A31B22AB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1710511708;
-	bh=WdUX4lu8bXJIZPkoiQQkUmr5EbLf/TIHgfd0F51z534=;
+	s=default; t=1710511837;
+	bh=txB3VCSUE8GHPntsFBv+qFgsatTpyjpzFZFx1kEapAE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=AArsfKFzR9/dgBAaMQV3IK4XgY+Mi2g4rEULY23PqWtLNbaCvVQE5reh/DBYby867
-	 ESDSoi82zlUv2lyDNEsJ83MgpdcUKG+HFafDlOAx6FGbSBkWbzkr/5obiPOVNHMsBJ
-	 9T7T/EbI4mJsrMIahJ4ZxTa8FBZCJ+BspegafGuY=
+	b=AGuv1Aw6X99oH0OcvF8hvjzgvBkX8T2V3qL5ofgwgVhD8bKpUnN80jbfN1rbzPCew
+	 0qA781AKHXkb1y7+aLlbFe2SMaPFUhQZygvbCqD2SR4IyoXnZIDMtEKRdRMC20SisX
+	 HT1moHEkr/164MmnoF/dp8MJlUPbtXuhJsi9Ny8U=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 69784F8025F; Fri, 15 Mar 2024 15:07:56 +0100 (CET)
+	id 9023CF805AB; Fri, 15 Mar 2024 15:10:06 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4F596F805A0;
-	Fri, 15 Mar 2024 15:07:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B1BDBF804B0;
+	Fri, 15 Mar 2024 15:10:05 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 73570F8028D; Fri, 15 Mar 2024 15:07:51 +0100 (CET)
+	id 7C86AF8028D; Fri, 15 Mar 2024 15:10:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+X-Spam-Status: No, score=-6.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5AFF5F800E4
-	for <alsa-devel@alsa-project.org>; Fri, 15 Mar 2024 15:07:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5AFF5F800E4
+	by alsa1.perex.cz (Postfix) with ESMTPS id 83C78F8014B
+	for <alsa-devel@alsa-project.org>; Fri, 15 Mar 2024 15:09:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83C78F8014B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=VrE85+Fu
+ header.s=k20201202 header.b=rn+/dkIg
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 62DA7CE20A8;
-	Fri, 15 Mar 2024 14:07:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C524C433C7;
-	Fri, 15 Mar 2024 14:07:16 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 37631616FF;
+	Fri, 15 Mar 2024 14:09:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A617C43390;
+	Fri, 15 Mar 2024 14:09:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1710511639;
-	bh=WdUX4lu8bXJIZPkoiQQkUmr5EbLf/TIHgfd0F51z534=;
+	s=k20201202; t=1710511795;
+	bh=txB3VCSUE8GHPntsFBv+qFgsatTpyjpzFZFx1kEapAE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=VrE85+Fu6T6PEiwbvP4kB2o7DTAVBxOF0HfvAXbb73daAwwJd6neO5BO8FodeKgeb
-	 D23zAIUVn22HBgwLKWdIzRSSe+AXB+rqGooc/TX9fAk6kaD+H6I9qNXvAEORrl3InK
-	 Z2f3Ym8ISoMMzQUDaE+rlLe2NHijhxsQQOGpJdpbKSKDT4/w6AZOHZ8/QNEcPMuDZa
-	 i07Z5m3471yM7r4D4bYvowbotVgl0+13LY/MR49TyJd87cRB4vxFR41RyI4hBjh9oJ
-	 CRq4AdsRq2pHv/NLYr2JOSWbKcH7OZlVT7t60oMNPXIP8+zlDzPeM5ZuZE0MNNdh9B
-	 EqyQ2noi/G/Nw==
-Date: Fri, 15 Mar 2024 14:07:13 +0000
+	b=rn+/dkIgs1K6Q0NulNzVY3euoVPQwoIlTLJNZFo7PN0iZR+s5sQWqILQKjSUg9YsV
+	 AkKJCEQoldsT0M3kMn5MRKQjPdMGU0pA2DF3eu03GOfZXJfh/rpbZN0JA0YPb+XJJ7
+	 GiAFBhPwVYJFsd41zM66DO4mcccVeZsHKAiLCxDe8aVQMpKy6qnnhekGOCrzBkQKOt
+	 cCeAcxDEgjc9+zWtM51XftSyrj2CW8txwiF40mfy3IN9fV92oREtdjc12OkquEEATS
+	 Qev2aNdhADqylUSdyOLI0LQ9HCQcgA4tTD3xU46tf2rhBdsWDaxUcvheifIh++dk86
+	 /GXuKLUdsShTA==
+Date: Fri, 15 Mar 2024 14:09:50 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Bastien Curutchet <bastien.curutchet@bootlin.com>
 Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
@@ -71,19 +71,19 @@ Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
 	linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
 	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
 	herve.codina@bootlin.com, christophercordahi@nanometrics.ca
-Subject: Re: [PATCH 04/13] ASoC: ti: davinci-i2s: Replace dev_err with
- dev_err_probe
-Message-ID: <6102130b-b496-4e75-9b9f-f960484848fb@sirena.org.uk>
+Subject: Re: [PATCH 09/13] ASoC: ti: davinci-i2s: Enable unexpected frame
+ pulses detection
+Message-ID: <51866f62-460d-4035-bcf1-b9f03cf9be0b@sirena.org.uk>
 References: <20240315112745.63230-1-bastien.curutchet@bootlin.com>
- <20240315112745.63230-5-bastien.curutchet@bootlin.com>
+ <20240315112745.63230-10-bastien.curutchet@bootlin.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="3GytGuMeU5fQLL4f"
+	protocol="application/pgp-signature"; boundary="zczSzXQ+ZeeLvl4t"
 Content-Disposition: inline
-In-Reply-To: <20240315112745.63230-5-bastien.curutchet@bootlin.com>
+In-Reply-To: <20240315112745.63230-10-bastien.curutchet@bootlin.com>
 X-Cookie: A well-known friend is a treasure.
-Message-ID-Hash: 3UP5B5JKEZ4OFNY3WD4ZHILQ2ZCODGDW
-X-Message-ID-Hash: 3UP5B5JKEZ4OFNY3WD4ZHILQ2ZCODGDW
+Message-ID-Hash: O7Y3KXNB4BFENGBJUQAB4YA6UPLCFPO7
+X-Message-ID-Hash: O7Y3KXNB4BFENGBJUQAB4YA6UPLCFPO7
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -96,7 +96,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3UP5B5JKEZ4OFNY3WD4ZHILQ2ZCODGDW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/O7Y3KXNB4BFENGBJUQAB4YA6UPLCFPO7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -106,34 +106,37 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---3GytGuMeU5fQLL4f
+--zczSzXQ+ZeeLvl4t
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Fri, Mar 15, 2024 at 12:27:36PM +0100, Bastien Curutchet wrote:
+On Fri, Mar 15, 2024 at 12:27:41PM +0100, Bastien Curutchet wrote:
 
-> -			dev_err(&pdev->dev, "no mem resource?\n");
-> -			return -ENODEV;
-> +			return dev_err_probe(&pdev->dev, -ENODEV, "no mem resource?\n");
->  		}
+> McBSP can generate an SYNCERR when unexpected frame pulses are
+> detected. The driver always disables this feature and ignore the
+> unexpected frame pulses.
 
-dev_err_probe() with a fixed error code doesn't seem to make much sense,
-the whole point is to handle deferral but for a straight lookup like
-this that can't happen.
+What does "unexpected" mean?
 
---3GytGuMeU5fQLL4f
+> Enable the generation of SYNCERR by the McBSP according to the
+> 'ti,enable-sync-err' device-tree property.
+
+Why would this be optional, and how is this reported - I'm not seeing
+any interrupt handling updates?
+
+--zczSzXQ+ZeeLvl4t
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmX0VhEACgkQJNaLcl1U
-h9DoVQf6AqSdqdzoCg7bciF4ooMQTN5zUTk3BOK75rX557NTNOzssKXfOkq3P6IK
-UPIgAGVmjLPycIsFR4/8r0Cbnh+/2WCn+5PB8u165TR6JaHq9LdBNqYI74E93Bxa
-F1BYs3h1+OwhReXF7bVNlWX5vpkeM7GXuP4kqmgiVv1jKGCHOJhbBMCN5qB8kGov
-6SCNIqh10yRWnjD8L68EtFgTxbF/Cx6Ohfm8nQalK6QC9BKc1t2JgsQuhm3xZLZX
-A+OfFqvzRN1Ct0w5TjA8YrFfS3NYydlCuyO8mRdAycIi4gaoarJGRm9PGwpAS3E9
-F4ppJpwm/ht2TzJDmVckcCGGihyOdg==
-=IT+L
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmX0Vq0ACgkQJNaLcl1U
+h9B6ogf9Gt1HwXN03wT222z3x2b/bwF19rqWov52RR4WPVcua6711ND9cDqiIcOW
+Oy2GTXmHEQmrDvT+GOcsjbOMpoYBoZi+7MZqRdv9/LYCZbFq/2H4AI2O/qmfF5kO
+f68g6bzryQdac8ZmG5edevGy+eDWm/s22EkLSqhBhHDJF+UuEFc+QHgl4UZC1bSG
+kxV38qN+cN6V2FzuXSuDdKlFytfkuGNF1ue5g+HADs3yRCjsgNeyJ/wx7MSUKq+s
+OW9uP6jkKDP39+SwFYgo8TFQIjZJKw1XteEEZuVQhP5XQNcNtK0Y8kkTsDzIa6Qu
+6P+cbhbwS1pcZxG521EwHYdEnIKmnQ==
+=Il8y
 -----END PGP SIGNATURE-----
 
---3GytGuMeU5fQLL4f--
+--zczSzXQ+ZeeLvl4t--

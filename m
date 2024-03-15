@@ -2,154 +2,122 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9759B87CB3F
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Mar 2024 11:17:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB60C87CB51
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Mar 2024 11:25:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EB63D22AE;
-	Fri, 15 Mar 2024 11:17:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB63D22AE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 063C321B3;
+	Fri, 15 Mar 2024 11:25:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 063C321B3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1710497844;
-	bh=Le34RBxbSQSoZlpWt27Xlzewd/eWX1ig4W7Q73xiS8Y=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1710498353;
+	bh=NfFTjprpYpTx/YOcA395cb2tUELkt8+AWxFx0BohTVw=;
+	h=References:From:To:Cc:Subject:Date:In-reply-to:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Gkih1Qk0GdBFtsig2hUr9ZD7AyNXVW2UG7AnncHrOn3o8T0eDakbhuJp1SiohdbhP
-	 abKOtJGRr3ea1rbZ3P7d3hAasUUhMehDXCDKBr7SBWPkscRO8M81Vtuut424HPML03
-	 7I02or8ddB19SjRxqNeBQPjdHxkKTN7oDjY1VUmI=
+	b=PHUKei2qLMK5wLQWpRP7qWBxcE/DDn7zyb54dOA5wOl80YoWuU1yix22eRspc8WPJ
+	 c6PD6pO4BcPWO70v1t1OV5F1k4Y7gViXEYjmXvyMev/XrOzpHfmbUVMZU+G1hSlwR6
+	 9bYilFy8A6H78GS8mR9fiSlImo8stVEBbT2plymc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 68278F805A0; Fri, 15 Mar 2024 11:16:53 +0100 (CET)
+	id 1A9F4F8057C; Fri, 15 Mar 2024 11:25:21 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 73477F805AF;
-	Fri, 15 Mar 2024 11:16:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8D6A0F8057B;
+	Fri, 15 Mar 2024 11:25:21 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 37B7DF8028D; Fri, 15 Mar 2024 11:16:45 +0100 (CET)
+	id CF60FF8028D; Fri, 15 Mar 2024 11:25:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [IPv6:2a00:1450:4864:20::42a])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1C986F800E4
-	for <alsa-devel@alsa-project.org>; Fri, 15 Mar 2024 11:16:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C986F800E4
+	by alsa1.perex.cz (Postfix) with ESMTPS id 09B38F800E4
+	for <alsa-devel@alsa-project.org>; Fri, 15 Mar 2024 11:25:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09B38F800E4
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=MgC+FN7J;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=Nhucof32;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=RKczVi8e;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=ZiOmniBw
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id D465A1FB56;
-	Fri, 15 Mar 2024 10:16:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1710497795;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aM7Fh7BB6+u1t/Mp/NSCwDxelG/N9MvjWgGxq738pns=;
-	b=MgC+FN7JRKbzLA6MXgT4CQVoV8UCIhnju+lQq2HHvrRNk0Hr19d0pj/UWmMt5etLclgxhd
-	RudmXAoWoyGyxsmTk7Bji0Wn/gvWLHRci2hbJ1TKGr85esw43AeKshFLy/Fo4hW18Pwzs5
-	GAV/BDhtTpS4Mm23LkS7MN1aRHrLRLk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1710497795;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aM7Fh7BB6+u1t/Mp/NSCwDxelG/N9MvjWgGxq738pns=;
-	b=Nhucof32grCj4iLqdWKX3ZBWo5fohaMZ+GGdI299h8+wV+ufXWeNQ5ccDWkWs2izBsZVh8
-	myHq563Zm8D/+DDQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1710497794;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aM7Fh7BB6+u1t/Mp/NSCwDxelG/N9MvjWgGxq738pns=;
-	b=RKczVi8eENKCaUMmhTV/k4F+gFZ3Uknqg97SBRHJyku6ADiMOL9T39ESkAnrTvsqdklHyn
-	M0IbtRTQWuA9xd6A2Ee+xBFBHuUf9Aq/OCzY7UsJKsRnN2D45xAJlt9mYWXB43VAy18agS
-	62fMhEfga0GLGUwltmfOCVM6jPfdDPg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1710497794;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aM7Fh7BB6+u1t/Mp/NSCwDxelG/N9MvjWgGxq738pns=;
-	b=ZiOmniBwnGvc9hoC9RW4kR1elWTFeZn9VAHrgPWH1YbbK+20CBD26hXiQRfB7tXQHYYwRw
-	ODdZN9SV4TJEz2BQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AF9C213460;
-	Fri, 15 Mar 2024 10:16:34 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Q2NKKQIg9GUxaQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Fri, 15 Mar 2024 10:16:34 +0000
-Date: Fri, 15 Mar 2024 11:16:34 +0100
-Message-ID: <87ttl7by0t.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: i@jichi.ca
-Cc: tiwai@suse.com,
-	alsa-devel@alsa-project.org
-Subject: Re: [PATCH] ALSA: hda/realtek: Add quirk for Lenovo Yoga 9 14IMH9
-In-Reply-To: <20240315081954.45470-3-i@jichi.ca>
-References: <20240315081954.45470-3-i@jichi.ca>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=RKczVi8e;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=ZiOmniBw
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-3.81 / 50.00];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	 TO_DN_NONE(0.00)[];
-	 RCVD_COUNT_THREE(0.00)[3];
-	 DKIM_TRACE(0.00)[suse.de:+];
-	 MX_GOOD(-0.01)[];
-	 NEURAL_HAM_SHORT(-0.20)[-0.998];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+];
-	 BAYES_HAM(-1.30)[90.04%];
-	 ARC_NA(0.00)[];
-	 R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	 FROM_HAS_DN(0.00)[];
-	 RCPT_COUNT_THREE(0.00)[3];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 NEURAL_HAM_LONG(-1.00)[-1.000];
-	 MIME_GOOD(-0.10)[text/plain];
-	 DWL_DNSWL_MED(-2.00)[suse.de:dkim];
-	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	 MID_CONTAINS_FROM(1.00)[];
-	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim];
-	 FUZZY_BLOCKED(0.00)[rspamd.com];
-	 RCVD_TLS_ALL(0.00)[]
-X-Rspamd-Queue-Id: D465A1FB56
-Message-ID-Hash: QF3PXBV5B3E6OPX2DR2B52JNZZE52SXB
-X-Message-ID-Hash: QF3PXBV5B3E6OPX2DR2B52JNZZE52SXB
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=baylibre-com.20230601.gappssmtp.com
+ header.i=@baylibre-com.20230601.gappssmtp.com header.a=rsa-sha256
+ header.s=20230601 header.b=3e5qa8XD
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-33e94c12cfaso1443299f8f.3
+        for <alsa-devel@alsa-project.org>;
+ Fri, 15 Mar 2024 03:25:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1710498307;
+ x=1711103107; darn=alsa-project.org;
+        h=mime-version:message-id:in-reply-to:date:subject:cc:to:from
+         :user-agent:references:from:to:cc:subject:date:message-id:reply-to;
+        bh=I3EB/6PldhsbhWY9+bYWiu2w8/wr6W5dSP5c/9sIMoI=;
+        b=3e5qa8XDZldnK7HwjUIaMDabzt1YlQPAG2qDTgNLMc/0q7L1gZm17EpRpoioAfRHzm
+         ghWCKWS9Zfj2xLyS9c2BmBAErqbyZUA2dqqTc3c92/OS/S1LgAMLSmrSXmK6JsRNw9ua
+         NcMsPSQ9ekVNhSh6kkVhDJ1wh7FClV+KsO8hWSDvt+XRd2t4UhwfcNY6DcvzcckFF+gq
+         +3GsuFf/wlFCifmh9CqSRStSMGpci6auHcQ1jp51C7Y5qnsFP8e6C+eSfFfV9Ru254Zt
+         HDojs2ihshIKAm+z1p0WTfyocbHxcGogBW5sisgrmI6tkbhQzCOW6QRaoDmVdjtmWayY
+         vNGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1710498307; x=1711103107;
+        h=mime-version:message-id:in-reply-to:date:subject:cc:to:from
+         :user-agent:references:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=I3EB/6PldhsbhWY9+bYWiu2w8/wr6W5dSP5c/9sIMoI=;
+        b=v7rbW12k3l9lUF10gUpgaKreTXtXd4ARYndy5bXI1+Oji/EVVQQihNnaLaLn13jqz1
+         PsrwRdn/nCHFThY4FoaSrb70e8zVGJLFsVLFlRKFZCW056i2CtK177AK69IRTFP+3UAp
+         Ht4EsguOjMptT3QI9LyMVsyGxkOs6EKmTGEkJEx1lU7a5zUuQBJAp7IqqaAJrzinpdSn
+         7DGb7WGQc9qVOC+vKFuxhoP50GqGOEYQrvgOqdNLohYWAXAPfOAlLS3qnZBxTGK9gtKl
+         Q35W9Hp7xyqRg+D84Ndsg3A6o/mbPD88ALoG8QltwVxceTy9wBag4gFql84wjGQNp+hY
+         V7yA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX4GDOvhTcwmJGP+q+ZlOZzLfklPUztoewHHa9ULs4ZxF8CBOO/SR1BCYQWseDozHKCx0dpH4pmKxuQ1JaSJTr8UUrCv5kYZAS/tok=
+X-Gm-Message-State: AOJu0YzAuNiy+16+TGREqX1N2ATkBYKmeRLT4P5hhU2BFjhaFoE4lOtZ
+	pju/h1lq5mWZsPhY3Aij8+Lmrw7WBI/irZx3b32+XrkL+wgSJD2qTvzgPekmB58=
+X-Google-Smtp-Source: 
+ AGHT+IGWDipfwojUVR3R0h/HAg8+ErMHQU1L9DU1QDqUHJY9+2A1t5wePivY0yDxiYGWnr60Q0NDnQ==
+X-Received: by 2002:a5d:4cc1:0:b0:33e:7f5c:732c with SMTP id
+ c1-20020a5d4cc1000000b0033e7f5c732cmr3060666wrt.62.1710498307090;
+        Fri, 15 Mar 2024 03:25:07 -0700 (PDT)
+Received: from localhost ([2a01:e0a:3c5:5fb1:8151:4d0a:14d8:1124])
+        by smtp.gmail.com with ESMTPSA id
+ o14-20020adfe80e000000b0033e8c50fc3fsm2818997wrm.90.2024.03.15.03.25.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 15 Mar 2024 03:25:06 -0700 (PDT)
+References: <20240314232201.2102178-1-jan.dakinevich@salutedevices.com>
+ <20240314232201.2102178-14-jan.dakinevich@salutedevices.com>
+ <ca80caab-2664-4797-a222-e14537eea440@linaro.org>
+User-agent: mu4e 1.10.8; emacs 29.2
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: Jan Dakinevich <jan.dakinevich@salutedevices.com>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Jerome Brunet <jbrunet@baylibre.com>, Michael
+ Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Rob
+ Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Kevin Hilman
+ <khilman@baylibre.com>, Martin Blumenstingl
+ <martin.blumenstingl@googlemail.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Linus Walleij <linus.walleij@linaro.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, alsa-devel@alsa-project.org,
+ linux-sound@vger.kernel.org, linux-gpio@vger.kernel.org,
+ kernel@salutedevices.com
+Subject: Re: [PATCH 13/25] ASoC: dt-bindings: meson: axg-pdm: document
+ 'sysrate' property
+Date: Fri, 15 Mar 2024 11:22:59 +0100
+In-reply-to: <ca80caab-2664-4797-a222-e14537eea440@linaro.org>
+Message-ID: <1jil1nhjwd.fsf@starbuckisacylon.baylibre.com>
+MIME-Version: 1.0
+Content-Type: text/plain
+Message-ID-Hash: IVWMFZGTH6K3WCGEJVNGWK6X2FX5XQGS
+X-Message-ID-Hash: IVWMFZGTH6K3WCGEJVNGWK6X2FX5XQGS
+X-MailFrom: jbrunet@baylibre.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -161,7 +129,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QF3PXBV5B3E6OPX2DR2B52JNZZE52SXB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IVWMFZGTH6K3WCGEJVNGWK6X2FX5XQGS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -170,21 +138,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 15 Mar 2024 09:19:56 +0100,
-i@jichi.ca wrote:
-> 
-> From: Jichi Zhang <i@jichi.ca>
-> 
-> The speakers on the Lenovo Yoga 9 14IMH9 are similar to previous generations
-> such as the 14IAP7, and the bass speakers can be fixed using similar methods
-> with one caveat: 14IMH9 uses CS35L41 amplifiers which need to be activated
-> seperately.
-> 
-> Signed-off-by: Jichi Zhang <i@jichi.ca>
 
-Applied now (with a correction of a typo in the description).
+On Fri 15 Mar 2024 at 11:00, Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org> wrote:
+
+> On 15/03/2024 00:21, Jan Dakinevich wrote:
+>> This option allow to redefine the rate of DSP system clock.
+>
+> And why is it suitable for bindings? Describe the hardware, not what you
+> want to do in the driver.
+>
+>> 
+>> Signed-off-by: Jan Dakinevich <jan.dakinevich@salutedevices.com>
+>> ---
+>>  Documentation/devicetree/bindings/sound/amlogic,axg-pdm.yaml | 4 ++++
+>>  1 file changed, 4 insertions(+)
+>> 
+>> diff --git a/Documentation/devicetree/bindings/sound/amlogic,axg-pdm.yaml b/Documentation/devicetree/bindings/sound/amlogic,axg-pdm.yaml
+>> index df21dd72fc65..d2f23a59a6b6 100644
+>> --- a/Documentation/devicetree/bindings/sound/amlogic,axg-pdm.yaml
+>> +++ b/Documentation/devicetree/bindings/sound/amlogic,axg-pdm.yaml
+>> @@ -40,6 +40,10 @@ properties:
+>>    resets:
+>>      maxItems: 1
+>>  
+>> +  sysrate:
+>> +    $ref: /schemas/types.yaml#/definitions/uint32
+>> +    description: redefine rate of DSP system clock
+>
+> No vendor prefix, so is it a generic property? Also, missing unit
+> suffix, but more importantly I don't understand why this is a property
+> of hardware.
+
++1.
+
+The appropriate way to set rate of the clock before the driver take over
+is 'assigned-rate', if you need to customize this for different
+platform.
+
+Then you don't have to deal with it in the device driver.
+
+>
+> Best regards,
+> Krzysztof
 
 
-thanks,
-
-Takashi
+-- 
+Jerome

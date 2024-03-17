@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 190F48812D2
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Mar 2024 15:01:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 066A18812D3
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Mar 2024 15:02:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 98CE4192C;
-	Wed, 20 Mar 2024 15:01:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 98CE4192C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 67ABA1914;
+	Wed, 20 Mar 2024 15:01:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 67ABA1914
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1710943302;
-	bh=gmZqrtyjjwD9R4sglF2+1zq31ebpUlWiHqXoiN/atwI=;
+	s=default; t=1710943321;
+	bh=TsgecbNrptHCzxnVHx58ycAMglAxWaTNOFIfsslw0P0=;
 	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=UYC0pmhlVj1BIODiafdwKiJ5+jrP7uOCMFSqqIevBO6aloVWwkmtXeOWHanYjz+q6
-	 JYXoyGU+QABZzOfdAKRWYUkflLSWoOY5529QnYL2QHj1pPU3erqk2odL1CnMskDtpB
-	 0SSpXPnjSaYQ5M4rXv7eILybxBBWsBzOlE/KzEps=
+	b=bNIyJCLNXdca+saqQHUHVYd2KYxZp17iQqjb3iuuxY9gptx3EsqVvDr6PEl21K6rD
+	 6k0eCYvS9t/NeUWTsLqiGygtEPt10YmfNnXii7yb8UkbgPJU5y731VGhxi1w/KHYtS
+	 jde8KFZdn6cW2jBB+hV/i8M7kPJX4Nnu1BHSgrj4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 75699F80563; Wed, 20 Mar 2024 15:00:15 +0100 (CET)
+	id AA3F2F8067E; Wed, 20 Mar 2024 15:00:17 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BDCEDF80636;
-	Wed, 20 Mar 2024 15:00:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 75C91F80679;
+	Wed, 20 Mar 2024 15:00:17 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 54D89F804E7; Sun, 17 Mar 2024 17:35:52 +0100 (CET)
+	id 7F5DDF804E7; Sun, 17 Mar 2024 17:40:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,66 +35,63 @@ X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mx1.sberdevices.ru (mx1.sberdevices.ru [37.18.73.165])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B683CF8025F
-	for <alsa-devel@alsa-project.org>; Sun, 17 Mar 2024 17:35:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B683CF8025F
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0F2AAF8025F
+	for <alsa-devel@alsa-project.org>; Sun, 17 Mar 2024 17:40:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0F2AAF8025F
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=salutedevices.com header.i=@salutedevices.com
- header.a=rsa-sha256 header.s=mail header.b=Ara94oKz
+ header.a=rsa-sha256 header.s=mail header.b=cX6WFVvU
 Received: from p-infra-ksmg-sc-msk01 (localhost [127.0.0.1])
-	by mx1.sberdevices.ru (Postfix) with ESMTP id 9E21D100003;
-	Sun, 17 Mar 2024 19:35:49 +0300 (MSK)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mx1.sberdevices.ru 9E21D100003
+	by mx1.sberdevices.ru (Postfix) with ESMTP id 2AEC8100003;
+	Sun, 17 Mar 2024 19:40:34 +0300 (MSK)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mx1.sberdevices.ru 2AEC8100003
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=salutedevices.com;
-	s=mail; t=1710693349;
-	bh=Ho5gEdZl2vZzSp+HXgGh6i6bfV8nU1CpEhQEWuG2/+k=;
+	s=mail; t=1710693634;
+	bh=lEq6Kb5vBlzArU0pRaYlg7z55lfmTSD3KSjeJpJTu0M=;
 	h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type:From;
-	b=Ara94oKz7OXqeuBEALrfmD21Q7S2/FkFqw9Rm4p1sWOnZzgnr1kRs62lsXW1DO7ok
-	 wu+D+HmHLdD6ji8551aC9cvT/8hgancPp+ia70XsCCIz6BMnQXJl/eXHf2Lxh0rFVm
-	 97LlkfOIS0UrIiP67Bji/8E5MyAa3++cbccunkLwfKx+I3E2wnPpWrcjOpgYlxO5FU
-	 psBttpHSrNxMsYt3RXhy2z4rNOl72SERA9vopOkTg6XaOar25tzy6d+pLHKHyh61++
-	 NGnhmG/bL2V8/zvLGsSGeR+/dwv1SxixreFtfha++c4DlLD7uZZdB8ieCblfJxpV1V
-	 c0Y81H3ervWxA==
+	b=cX6WFVvUwPP7EJJVC7Yvc9c6ByHDR2+CHSsC0r6Y2Rl7LGFUXFVzGeYI3V/szI1Zj
+	 RQQB0n1/eioqV5ehuDnSCJmpCzMnS+PgN846loM74ow4lQtw+YAKEL+ko1F0Y/vWLt
+	 blXftJAp1ZnqZQYMFOagvdTc+qDTpXVEut+4LWx/KCPVtvSJWPEmtvXFYO5dk+Dkvp
+	 iScd+8DVRSRQEABtMNGzm4nYtRg3dEOYd71UqJ3iB+Ay305ITReeLR84GBaJEmiQti
+	 nbZM+0KHX9wiXbINL3lENyc6ygjhxaMe2N9RnUW5Rne1l0kK3/wEIPuRm8WrRgXRsu
+	 7LuQz9Th9hROg==
 Received: from smtp.sberdevices.ru (p-i-exch-sc-m02.sberdevices.ru
  [172.16.192.103])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
 	by mx1.sberdevices.ru (Postfix) with ESMTPS;
-	Sun, 17 Mar 2024 19:35:49 +0300 (MSK)
+	Sun, 17 Mar 2024 19:40:34 +0300 (MSK)
 Received: from [172.28.160.49] (100.64.160.123) by
  p-i-exch-sc-m02.sberdevices.ru (172.16.192.103) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.40; Sun, 17 Mar 2024 19:35:48 +0300
-Message-ID: <54e924ae-4d45-4337-aeae-32eebe773b63@salutedevices.com>
-Date: Sun, 17 Mar 2024 19:35:06 +0300
+ 15.2.1118.40; Sun, 17 Mar 2024 19:40:33 +0300
+Message-ID: <b6fecbe4-862c-4ebe-9f56-8514a3c226d4@salutedevices.com>
+Date: Sun, 17 Mar 2024 19:39:50 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 13/25] ASoC: dt-bindings: meson: axg-pdm: document
- 'sysrate' property
+Subject: Re: [PATCH 19/25] ASoC: dt-bindings: meson: axg-sound-card: claim
+ support of A1 SoC family
 Content-Language: en-US
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Neil Armstrong
-	<neil.armstrong@linaro.org>, Jerome Brunet <jbrunet@baylibre.com>, Michael
- Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Rob
- Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>, Kevin Hilman <khilman@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Liam Girdwood
-	<lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Linus Walleij
-	<linus.walleij@linaro.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
-	<tiwai@suse.com>, <linux-amlogic@lists.infradead.org>,
-	<linux-clk@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<alsa-devel@alsa-project.org>, <linux-sound@vger.kernel.org>,
-	<linux-gpio@vger.kernel.org>
-CC: <kernel@salutedevices.com>
+To: Jerome Brunet <jbrunet@baylibre.com>
+CC: Neil Armstrong <neil.armstrong@linaro.org>, Michael Turquette
+	<mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+	Kevin Hilman <khilman@baylibre.com>, Martin Blumenstingl
+	<martin.blumenstingl@googlemail.com>, Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Linus Walleij <linus.walleij@linaro.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	<linux-amlogic@lists.infradead.org>, <linux-clk@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <alsa-devel@alsa-project.org>,
+	<linux-sound@vger.kernel.org>, <linux-gpio@vger.kernel.org>,
+	<kernel@salutedevices.com>
 References: <20240314232201.2102178-1-jan.dakinevich@salutedevices.com>
- <20240314232201.2102178-14-jan.dakinevich@salutedevices.com>
- <ca80caab-2664-4797-a222-e14537eea440@linaro.org>
- <827c4f17-043e-4e09-aea6-0fee22d1b234@salutedevices.com>
- <16a22924-054d-4d50-9f32-cc07c0bbbdf4@linaro.org>
+ <20240314232201.2102178-20-jan.dakinevich@salutedevices.com>
+ <1jr0gbhkgp.fsf@starbuckisacylon.baylibre.com>
 From: Jan Dakinevich <jan.dakinevich@salutedevices.com>
-In-Reply-To: <16a22924-054d-4d50-9f32-cc07c0bbbdf4@linaro.org>
+In-Reply-To: <1jr0gbhkgp.fsf@starbuckisacylon.baylibre.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [100.64.160.123]
@@ -127,15 +124,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: O4XVWJT6JWG6HJPQAVYKIUAE3GRWSDHP
-X-Message-ID-Hash: O4XVWJT6JWG6HJPQAVYKIUAE3GRWSDHP
+Message-ID-Hash: 3TH6KY2ZF3GM3WVVTA5KRSD25CJOS2QA
+X-Message-ID-Hash: 3TH6KY2ZF3GM3WVVTA5KRSD25CJOS2QA
 X-Mailman-Approved-At: Wed, 20 Mar 2024 13:57:13 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/O4XVWJT6JWG6HJPQAVYKIUAE3GRWSDHP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3TH6KY2ZF3GM3WVVTA5KRSD25CJOS2QA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -146,42 +143,50 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
 
-On 3/17/24 19:27, Krzysztof Kozlowski wrote:
-> On 17/03/2024 16:55, Jan Dakinevich wrote:
->>
->>
->> On 3/15/24 13:00, Krzysztof Kozlowski wrote:
->>> On 15/03/2024 00:21, Jan Dakinevich wrote:
->>>> This option allow to redefine the rate of DSP system clock.
->>>
->>> And why is it suitable for bindings? Describe the hardware, not what you
->>> want to do in the driver.
->>>
->>
->> What do you mean? I am adding some new property and should describe it
->> in dt-bindinds. Isn't it?
+On 3/15/24 13:06, Jerome Brunet wrote:
 > 
-> No, if the property is not suitable for bindings, you should not add it
-> in the first place. So again: explain what sort of hardware, not driver,
-> problem you are solving here, so we can understand why do you need new
-> property. Otherwise use existing properties or no properties, because we
-> do not define all possible clocks in the bindings.
+> On Fri 15 Mar 2024 at 02:21, Jan Dakinevich <jan.dakinevich@salutedevices.com> wrote:
 > 
-> Let's be clear: with such commit msg explanation as you have, my answer
-> is: no, driver should set clock frequency and you do not need this
-> property at all.
+>> Add "amlogic,a1-sound-card" compatible string alias to
+>> "amlogic,axg-sound-card".
+>>
+>> Signed-off-by: Jan Dakinevich <jan.dakinevich@salutedevices.com>
+>> ---
+>>  .../devicetree/bindings/sound/amlogic,axg-sound-card.yaml   | 6 +++++-
+>>  1 file changed, 5 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/Documentation/devicetree/bindings/sound/amlogic,axg-sound-card.yaml b/Documentation/devicetree/bindings/sound/amlogic,axg-sound-card.yaml
+>> index 5db718e4d0e7..492b41cc8ccd 100644
+>> --- a/Documentation/devicetree/bindings/sound/amlogic,axg-sound-card.yaml
+>> +++ b/Documentation/devicetree/bindings/sound/amlogic,axg-sound-card.yaml
+>> @@ -14,7 +14,11 @@ allOf:
+>>  
+>>  properties:
+>>    compatible:
+>> -    const: amlogic,axg-sound-card
+>> +    oneOf:
+>> +      - const: amlogic,axg-sound-card
+>> +      - items:
+>> +          - const: amlogic,a1-sound-card
+>> +          - const: amlogic,axg-sound-card
+> 
+> I know the rule about SoC related name but it is different here.
+> This does not describe HW in the SoC. 
+> 
+> The axg sound card is just a name, much like simple-card or
+> audio-graph-card. I could have named it "amlogic,my-awesome-card"
+> 
+> We would not add "amlogic,a1-simple-card", would we ?
+> 
+> It is purely a software component, which aggregate HW ones.
+> 
+> 
+>>    audio-aux-devs:
+>>      $ref: /schemas/types.yaml#/definitions/phandle-array
+> 
 > 
 
-Could you please take a look on answer to "Jerome Brunet
-<jbrunet@baylibre.com>"'s message on the same thread. There, I am trying
-to explain what I am solving by this commit.
-
-I would be happy to avoid this w/a, but currently this is the best I
-came up with.
-
-> Best regards,
-> Krzysztof
-> 
+So, I can drop a couple of commits like this. Right?
 
 -- 
 Best regards

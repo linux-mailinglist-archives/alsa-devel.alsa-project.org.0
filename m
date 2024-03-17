@@ -2,155 +2,137 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1B5087DCA0
-	for <lists+alsa-devel@lfdr.de>; Sun, 17 Mar 2024 09:38:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E5C28812C7
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Mar 2024 14:58:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2E16B233E;
-	Sun, 17 Mar 2024 09:38:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2E16B233E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 795AC1A2D;
+	Wed, 20 Mar 2024 14:58:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 795AC1A2D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1710664706;
-	bh=c+bbqGjD9ItjCEUMB5GJWo/HLn/d82hm11kvr0sPDsM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1710943119;
+	bh=xAVsxMnJoqTUvzQY5QFOBDRP+AQP097SoH7H4Z6KpPk=;
+	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=YTQ+CpVZLn2/2BTFkRps0zq/cc/ruMsnuhCJFPbT3m01mg9vtU1Z9PFbK3HG64phT
-	 AZn3b52u5JuFcemTLTN7P2XCA+JVHi5lZzoEjaqvLeeKWBN0loBOD1EPoWY7MrBXW/
-	 oQS+hJpWp6beuRXmLQKHywECi/Ustg2CBpqlcqn8=
+	b=FKbL6v6NUP9kkcGIah0MFEGfDHv2WQulf5bbPzv6T7FHeXbsKGB0ld4JYroJlXPBd
+	 AvzDxZyQYZEnwSrcOcu0YXbl2o/t23Zz4JWc1UBeErtGLdiJN1Te9MLUmSteg7mwjl
+	 9WNO+ne6zm1zjPWd+NpYU//5+/6A/BO6/qYitvVk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EFA07F805AC; Sun, 17 Mar 2024 09:37:52 +0100 (CET)
+	id 071DBF805A0; Wed, 20 Mar 2024 14:58:05 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C26A4F805C2;
-	Sun, 17 Mar 2024 09:37:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EDE16F80564;
+	Wed, 20 Mar 2024 14:58:04 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E1C5CF804E7; Sun, 17 Mar 2024 09:37:10 +0100 (CET)
+	id 8EBECF804E7; Sun, 17 Mar 2024 15:17:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_PASS,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=no
 	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mx1.sberdevices.ru (mx1.sberdevices.ru [37.18.73.165])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 27AE5F8025F
-	for <alsa-devel@alsa-project.org>; Sun, 17 Mar 2024 09:37:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 27AE5F8025F
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9F7D6F8025F
+	for <alsa-devel@alsa-project.org>; Sun, 17 Mar 2024 15:17:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F7D6F8025F
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=idxnekbf;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=Q+RUdSnE;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=idxnekbf;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=Q+RUdSnE
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	dkim=pass (2048-bit key,
+ unprotected) header.d=salutedevices.com header.i=@salutedevices.com
+ header.a=rsa-sha256 header.s=mail header.b=uv7Lm/X9
+Received: from p-infra-ksmg-sc-msk01 (localhost [127.0.0.1])
+	by mx1.sberdevices.ru (Postfix) with ESMTP id EEF53100004;
+	Sun, 17 Mar 2024 17:17:55 +0300 (MSK)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mx1.sberdevices.ru EEF53100004
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=salutedevices.com;
+	s=mail; t=1710685075;
+	bh=SQRSKK7y7FzIxWfxLiQrXC7XGIdk++wvMoC5iAR3Cb4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type:From;
+	b=uv7Lm/X9X5z1ZUSUWfoS0ttfd/72rpm6SUnpRRaNa24NwI+up88M2sXcGcvi9f9YN
+	 Jig10wMsHnHwV3wanec2UWaKwWicjrcIw9dzuHtmOHhcc7uYxFsB3ysm6RbjCzKe6y
+	 jFKr94t1wofL3qvT2jXHDt0cZ9TG2LvhthtFoXo8mnq8bJQBPmuOH+d043V2q04tZW
+	 98zrHAAMKuh6hEZvYg4S/n02z1WyFyc8uh7Y4DQZO2og/ahv9LdqCGSLBmonIYf9hv
+	 V9kuUDEqBFP9SD9NKttW20YDJR+hHD4daPmB+e6xNuANLo3Bwgo7cs0+9iYR4UQ95k
+	 jIktZ299+OK9Q==
+Received: from smtp.sberdevices.ru (p-i-exch-sc-m02.sberdevices.ru
+ [172.16.192.103])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id A1B0D20887;
-	Sun, 17 Mar 2024 08:37:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1710664624;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CA32GN7w7Gy0elzjx0zMFbSvrRho6U8r0Mxwq6cnA2k=;
-	b=idxnekbftCX5aURAKySfor03E7Z8WxA1OBVdEQRJyPjMu1UQyMwUaSlB8oyKUaHQ9DvoCm
-	qsjOuVYVLeODL1XH2tTUhZYPHwsBEyykKURk0pyqP60jTuH0mpZ7+hvalgpxMTj6y3BemA
-	UH5QMC8bCZQRgjkXXVEjgy0BnN50KmI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1710664624;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CA32GN7w7Gy0elzjx0zMFbSvrRho6U8r0Mxwq6cnA2k=;
-	b=Q+RUdSnEsCPdcGF5ICkX/BnzBGBvlSvISciuueVmtVI3VAvUC+tSWnJaoJ5gYDLmglKGsc
-	DMsWB8EWfr4JHpAw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1710664624;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CA32GN7w7Gy0elzjx0zMFbSvrRho6U8r0Mxwq6cnA2k=;
-	b=idxnekbftCX5aURAKySfor03E7Z8WxA1OBVdEQRJyPjMu1UQyMwUaSlB8oyKUaHQ9DvoCm
-	qsjOuVYVLeODL1XH2tTUhZYPHwsBEyykKURk0pyqP60jTuH0mpZ7+hvalgpxMTj6y3BemA
-	UH5QMC8bCZQRgjkXXVEjgy0BnN50KmI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1710664624;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CA32GN7w7Gy0elzjx0zMFbSvrRho6U8r0Mxwq6cnA2k=;
-	b=Q+RUdSnEsCPdcGF5ICkX/BnzBGBvlSvISciuueVmtVI3VAvUC+tSWnJaoJ5gYDLmglKGsc
-	DMsWB8EWfr4JHpAw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 80D2A1349D;
-	Sun, 17 Mar 2024 08:37:04 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 1rtbHbCr9mUjSAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Sun, 17 Mar 2024 08:37:04 +0000
-Date: Sun, 17 Mar 2024 09:37:03 +0100
-Message-ID: <874jd59rv4.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Cc: alsa-devel@alsa-project.org
-Subject: Re: [PATCH] ALSA: core: add kunitconfig
-In-Reply-To: <20240317024050.588370-1-o-takashi@sakamocchi.jp>
-References: <20240317024050.588370-1-o-takashi@sakamocchi.jp>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	 ARC_NA(0.00)[];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 FROM_HAS_DN(0.00)[];
-	 TO_DN_SOME(0.00)[];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 NEURAL_HAM_LONG(-1.00)[-1.000];
-	 MIME_GOOD(-0.10)[text/plain];
-	 RCVD_COUNT_THREE(0.00)[3];
-	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	 NEURAL_HAM_SHORT(-0.20)[-0.998];
-	 RCPT_COUNT_TWO(0.00)[2];
-	 MID_CONTAINS_FROM(1.00)[];
-	 FUZZY_BLOCKED(0.00)[rspamd.com];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+];
-	 RCVD_TLS_ALL(0.00)[];
-	 BAYES_HAM(-3.00)[100.00%]
-Authentication-Results: smtp-out2.suse.de;
-	none
-Message-ID-Hash: XND5LRZRHN6EYLNVZDBWN4LPSCLMPHXE
-X-Message-ID-Hash: XND5LRZRHN6EYLNVZDBWN4LPSCLMPHXE
-X-MailFrom: tiwai@suse.de
+	by mx1.sberdevices.ru (Postfix) with ESMTPS;
+	Sun, 17 Mar 2024 17:17:55 +0300 (MSK)
+Received: from [172.28.160.49] (100.64.160.123) by
+ p-i-exch-sc-m02.sberdevices.ru (172.16.192.103) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.40; Sun, 17 Mar 2024 17:17:55 +0300
+Message-ID: <cbfd9c66-cca5-49f5-9468-43710c48518e@salutedevices.com>
+Date: Sun, 17 Mar 2024 17:17:12 +0300
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 01/25] clk: meson: a1: restrict an amount of 'hifi_pll'
+ params
+Content-Language: en-US
+To: Jerome Brunet <jbrunet@baylibre.com>
+CC: Neil Armstrong <neil.armstrong@linaro.org>, Michael Turquette
+	<mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+	Kevin Hilman <khilman@baylibre.com>, Martin Blumenstingl
+	<martin.blumenstingl@googlemail.com>, Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Linus Walleij <linus.walleij@linaro.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	<linux-amlogic@lists.infradead.org>, <linux-clk@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <alsa-devel@alsa-project.org>,
+	<linux-sound@vger.kernel.org>, <linux-gpio@vger.kernel.org>,
+	<kernel@salutedevices.com>
+References: <20240314232201.2102178-1-jan.dakinevich@salutedevices.com>
+ <20240314232201.2102178-2-jan.dakinevich@salutedevices.com>
+ <1j8r2jj24k.fsf@starbuckisacylon.baylibre.com>
+From: Jan Dakinevich <jan.dakinevich@salutedevices.com>
+In-Reply-To: <1j8r2jj24k.fsf@starbuckisacylon.baylibre.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [100.64.160.123]
+X-ClientProxiedBy: p-i-exch-sc-m02.sberdevices.ru (172.16.192.103) To
+ p-i-exch-sc-m02.sberdevices.ru (172.16.192.103)
+X-KSMG-Rule-ID: 10
+X-KSMG-Message-Action: clean
+X-KSMG-AntiSpam-Lua-Profiles: 183875 [Feb 29 2024]
+X-KSMG-AntiSpam-Version: 6.1.0.3
+X-KSMG-AntiSpam-Envelope-From: YVDakinevich@sberdevices.ru
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Auth: dkim=none
+X-KSMG-AntiSpam-Info: LuaCore: 7 0.3.7
+ 6d6bf5bd8eea7373134f756a2fd73e9456bb7d1a, {Tracking_smtp_not_equal_from},
+ {Tracking_from_domain_doesnt_match_to}, FromAlignment: n,
+ {Tracking_smtp_domain_mismatch}, {Tracking_smtp_domain_2level_mismatch},
+ ApMailHostAddress: 100.64.160.123
+X-MS-Exchange-Organization-SCL: -1
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiPhishing: Clean
+X-KSMG-LinksScanning: Clean
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.0.1.6960,
+ bases: 2024/02/29 19:21:00 #23899999
+X-KSMG-AntiVirus-Status: Clean, skipped
+X-MailFrom: YVDakinevich@sberdevices.ru
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: PB7X4CQXWSNDXYYQLUSOKZQGD3DXB63C
+X-Message-ID-Hash: PB7X4CQXWSNDXYYQLUSOKZQGD3DXB63C
+X-Mailman-Approved-At: Wed, 20 Mar 2024 13:56:56 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XND5LRZRHN6EYLNVZDBWN4LPSCLMPHXE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PB7X4CQXWSNDXYYQLUSOKZQGD3DXB63C/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -159,48 +141,71 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sun, 17 Mar 2024 03:40:50 +0100,
-Takashi Sakamoto wrote:
-> 
-> It is helpful to add .kunitconfig if we work with the tools provided by
-> KUnit project. The file describes the series of kernel configurations to
-> satisfy the dependency to build the target test.
-> 
-> For example:
-> 
-> $ ./tools/testing/kunit/kunit.py run --arch=arm64 --cross_compile=aarch64-linux-gnu- --kunitconfig=sound/core/
-> [11:35:13] Configuring KUnit Kernel ...
-> Regenerating .config ...
-> Populating config with:
-> $ make ARCH=arm64 O=.kunit olddefconfig CROSS_COMPILE=aarch64-linux-gnu-
-> [11:35:19] Building KUnit Kernel ...
-> Populating config with:
-> $ make ARCH=arm64 O=.kunit olddefconfig CROSS_COMPILE=aarch64-linux-gnu-
-> Building with:
-> $ make ARCH=arm64 O=.kunit --jobs=8 CROSS_COMPILE=aarch64-linux-gnu-
-> [11:37:35] Starting KUnit Kernel (1/1)...
-> [11:37:35] ============================================================
-> Running tests with:
-> $ qemu-system-aarch64 -nodefaults -m 1024 -kernel .kunit/arch/arm64/boot/Image.gz -append 'kunit.enable=1 console=ttyAMA0 kunit_shutdown=reboot' -no-reboot -nographic -serial stdio -machine virt -cpu max,pauth-impdef=on
-> [11:37:35] ============== sound-core-test (10 subtests) ===============
-> [11:37:35] [PASSED] test_phys_format_size
-> [11:37:35] [PASSED] test_format_width
-> [11:37:35] [PASSED] test_format_endianness
-> [11:37:35] [PASSED] test_format_signed
-> [11:37:35] [PASSED] test_format_fill_silence
-> [11:37:35] [PASSED] test_playback_avail
-> [11:37:35] [PASSED] test_capture_avail
-> [11:37:35] [PASSED] test_card_set_id
-> [11:37:35] [PASSED] test_pcm_format_name
-> [11:37:35] [PASSED] test_card_add_component
-> [11:37:35] ================= [PASSED] sound-core-test =================
-> [11:37:35] ============================================================
-> [11:37:35] Testing complete. Ran 10 tests: passed: 10
-> [11:37:35] Elapsed time: 142.333s total, 5.617s configuring, 136.047s building, 0.630s running
-> 
-> Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-
-Applied now.  Thanks.
 
 
-Takashi
+On 3/15/24 11:58, Jerome Brunet wrote:
+> 
+> On Fri 15 Mar 2024 at 02:21, Jan Dakinevich <jan.dakinevich@salutedevices.com> wrote:
+> 
+>> Existing values were insufficient to produce accurate clock for audio
+>> devices. New values are safe and most suitable to produce 48000Hz sample
+>> rate.
+> 
+> The hifi pll is not about 48k only. I see no reason to restrict the PLL
+> to a single setting.
+> > You've provided no justification why the PLL driver can't reach the same
+> setting for 48k. The setting below is just the crude part. the fine
+> tuning is done done with the frac parameter so I doubt this provides a
+> more accurate rate.
+> 
+
+You are right, it is not about 48k only. However, there are two issues.
+
+First, indeed, I could just extend the range of multipliers to 1..255.
+But I am unsure if hifi_pll is able to handle whole range of
+mulptipliers. The value 128 is taken from Amlogic's branch, and I am
+pretty sure that it works.
+
+Second, unfortunately frac parameter currently doesn't work. When frac
+is used enabling of hifi_pll fails in meson_clk_pll_wait_lock(). I see
+it when try to use 44100Hz and multipliers' range is set to 1..255. So,
+support of other rates than 48k requires extra effort.
+
+>>
+>> Signed-off-by: Jan Dakinevich <jan.dakinevich@salutedevices.com>
+>> ---
+>>  drivers/clk/meson/a1-pll.c | 8 ++++----
+>>  1 file changed, 4 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/clk/meson/a1-pll.c b/drivers/clk/meson/a1-pll.c
+>> index 4325e8a6a3ef..00e06d03445b 100644
+>> --- a/drivers/clk/meson/a1-pll.c
+>> +++ b/drivers/clk/meson/a1-pll.c
+>> @@ -74,9 +74,9 @@ static struct clk_regmap fixed_pll = {
+>>  	},
+>>  };
+>>  
+>> -static const struct pll_mult_range hifi_pll_mult_range = {
+>> -	.min = 32,
+>> -	.max = 64,
+>> +static const struct pll_params_table hifi_pll_params_table[] = {
+>> +	PLL_PARAMS(128, 5),
+>> +	{ },
+>>  };
+>>  
+>>  static const struct reg_sequence hifi_init_regs[] = {
+>> @@ -124,7 +124,7 @@ static struct clk_regmap hifi_pll = {
+>>  			.shift   = 6,
+>>  			.width   = 1,
+>>  		},
+>> -		.range = &hifi_pll_mult_range,
+>> +		.table = hifi_pll_params_table,
+>>  		.init_regs = hifi_init_regs,
+>>  		.init_count = ARRAY_SIZE(hifi_init_regs),
+>>  	},
+> 
+> 
+
+-- 
+Best regards
+Jan Dakinevich

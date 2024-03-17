@@ -2,95 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31B4087DF7D
-	for <lists+alsa-devel@lfdr.de>; Sun, 17 Mar 2024 20:04:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A396A87DF87
+	for <lists+alsa-devel@lfdr.de>; Sun, 17 Mar 2024 20:10:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0886E22A5;
-	Sun, 17 Mar 2024 20:04:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0886E22A5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2F35323D5;
+	Sun, 17 Mar 2024 20:10:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F35323D5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1710702250;
-	bh=jxULVwpCUVr9kQOyAisgtABRYa85JCUAZu0zVjCuxi0=;
+	s=default; t=1710702654;
+	bh=m0Flx86hlt0ID5OEE6IkxZUX4ODTKKRFVINUHUA7ss0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=sarnDqzKMKf5nzhRjR7DHmjv1lRy75mYBEl0AT8t4V/sBTGI9DfHpbSN6QZg17qc8
-	 9uvyYPfJfcmQWluWKkpAzdhoGl7X0IYuXlrAsffiEgptlG5jvxbjdJKHZg5gqbJZml
-	 yCLNQKbGv9Q38aZbown7j+Cfbe6o9bMc+4yTuxUs=
+	b=HWi+4Rr/TrAZXRtlEdgCzn28+PblHmsD3CftddotGFArTQ8qVAKnY2obhx2qnN3he
+	 05nEhtUj44mk1thj6HBLpPkknZp69dkfOWrp1kcGHJcaRACGQ/X0eD2pKAbCSp4nwZ
+	 8fKQ3pPSxMlOKur9Oq+GtmiKz5lwjgQqFWNF5Jwo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 11284F80589; Sun, 17 Mar 2024 20:03:38 +0100 (CET)
+	id 445CBF805AC; Sun, 17 Mar 2024 20:10:23 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 547DFF80563;
-	Sun, 17 Mar 2024 20:03:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 88F0EF805A0;
+	Sun, 17 Mar 2024 20:10:22 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 073FDF804E7; Sun, 17 Mar 2024 20:03:34 +0100 (CET)
+	id 3BE52F804E7; Sun, 17 Mar 2024 20:10:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1F415F80093
-	for <alsa-devel@alsa-project.org>; Sun, 17 Mar 2024 20:03:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F415F80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id DA8D9F80088
+	for <alsa-devel@alsa-project.org>; Sun, 17 Mar 2024 20:10:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA8D9F80088
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Xi1NLRde
+ header.s=k20201202 header.b=rSi2XOPS
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 784A560B21;
-	Sun, 17 Mar 2024 19:03:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF428C433C7;
-	Sun, 17 Mar 2024 19:03:18 +0000 (UTC)
+	by sin.source.kernel.org (Postfix) with ESMTP id 8AF1CCE0916;
+	Sun, 17 Mar 2024 19:10:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83E14C433F1;
+	Sun, 17 Mar 2024 19:10:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1710702199;
-	bh=jxULVwpCUVr9kQOyAisgtABRYa85JCUAZu0zVjCuxi0=;
+	s=k20201202; t=1710702612;
+	bh=m0Flx86hlt0ID5OEE6IkxZUX4ODTKKRFVINUHUA7ss0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Xi1NLRdeQz3riPNdP1ZHBPXe07dfHk/rdBMlDxr2BAuWQwtUOT7wvm3iubrbXXRN0
-	 3vowVuTwWxL1s7iACpQuBk/vkRcZCT/JJ5Z8c0tC3QPuziteHXLw3/Z8COb++V4GZ6
-	 2eyOGxxt+APWQCchtJO/NvGK5HaFgYvHfO0lBLoy0k/h0fGna/hRg7DfRtlUG4KMxh
-	 1rZDa2CW6huDD/xp9X1X85VVCwEm1JLvFApN8U15+hRS7536bgd+HACCcW/V9KWZgw
-	 u+cyv0lcIr6NEMbrcKFNSdZn6Qi22PoIuJVZ9TF7SQyVWhwOpcVhuQs3cnSvP1x8Fd
-	 JSiL782nMVAlg==
-Date: Sun, 17 Mar 2024 13:03:16 -0600
+	b=rSi2XOPSw4Fdzj6YPbJ7NmZItS9T42PBNe8meEGA9KvXJRseIYJNeFYApi1qVRjuF
+	 hIcM+uFWfRSLKPwIEl2GIBRnd/xqgU02SVSNm08VSB2uIpoHwsjOHvrYMOKlecUNqe
+	 sNLexeaItJBWTmeVgGgkG0bjOqiKxcdEeQSmeE9JPymngvyhmvUGJSw1r1ho26OeJA
+	 sx7OgUz6iWHYATK8MUlkVmE+L1E8nd3af5BCjQjAKDUMxsERP65WIi+VlffTIPxhwL
+	 T8mRlVfXX8byeWK2sL7DNvakNHAC6ae1At+0UorQOGPwMdLHUrvc2KEyio6w6lWTzT
+	 OpDtA+MjP4/2w==
+Date: Sun, 17 Mar 2024 13:10:10 -0600
 From: Rob Herring <robh@kernel.org>
 To: Jan Dakinevich <jan.dakinevich@salutedevices.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, kernel@salutedevices.com,
 	Conor Dooley <conor+dt@kernel.org>,
+	linux-amlogic@lists.infradead.org,
 	Philipp Zabel <p.zabel@pengutronix.de>,
-	Kevin Hilman <khilman@baylibre.com>,
+	Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
 	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Linus Walleij <linus.walleij@linaro.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org,
+	linux-sound@vger.kernel.org, alsa-devel@alsa-project.org,
 	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org, linux-gpio@vger.kernel.org,
-	kernel@salutedevices.com
-Subject: Re: [PATCH 11/25] ASoC: dt-bindings: meson: t9015: add support for
- A1 SoC family
-Message-ID: <20240317190316.GA2071139-robh@kernel.org>
+	Stephen Boyd <sboyd@kernel.org>,
+	Kevin Hilman <khilman@baylibre.com>, linux-clk@vger.kernel.org,
+	Linus Walleij <linus.walleij@linaro.org>,
+	linux-gpio@vger.kernel.org,
+	Michael Turquette <mturquette@baylibre.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	linux-arm-kernel@lists.infradead.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jerome Brunet <jbrunet@baylibre.com>
+Subject: Re: [PATCH 16/25] ASoC: dt-bindings: meson: meson-axg-audio-arb:
+ claim support of A1 SoC family
+Message-ID: <171070260941.2083610.11098658927011018629.robh@kernel.org>
 References: <20240314232201.2102178-1-jan.dakinevich@salutedevices.com>
- <20240314232201.2102178-12-jan.dakinevich@salutedevices.com>
+ <20240314232201.2102178-17-jan.dakinevich@salutedevices.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20240314232201.2102178-12-jan.dakinevich@salutedevices.com>
-Message-ID-Hash: 4OHFVZRDYYEODR5RGG6O3F2FXWBCCRO7
-X-Message-ID-Hash: 4OHFVZRDYYEODR5RGG6O3F2FXWBCCRO7
+In-Reply-To: <20240314232201.2102178-17-jan.dakinevich@salutedevices.com>
+Message-ID-Hash: SWN4PNRHRHMOJBX5GP4YAY657S5VTYIW
+X-Message-ID-Hash: SWN4PNRHRHMOJBX5GP4YAY657S5VTYIW
 X-MailFrom: robh@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -103,7 +103,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4OHFVZRDYYEODR5RGG6O3F2FXWBCCRO7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SWN4PNRHRHMOJBX5GP4YAY657S5VTYIW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,33 +112,16 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, Mar 15, 2024 at 02:21:47AM +0300, Jan Dakinevich wrote:
-> Add "amlogic,t9015-a1" compatible string.
 
-That's obvious from the diff. Perhaps what does 'a1' mean? What the 
-difference from the existing compatible?
-
+On Fri, 15 Mar 2024 02:21:52 +0300, Jan Dakinevich wrote:
+> Add "amlogic,meson-a1-audio-arb" compatible string alias to
+> "amlogic,meson-sm1-audio-arb".
 > 
 > Signed-off-by: Jan Dakinevich <jan.dakinevich@salutedevices.com>
 > ---
->  Documentation/devicetree/bindings/sound/amlogic,t9015.yaml | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
+>  .../bindings/reset/amlogic,meson-axg-audio-arb.yaml    | 10 +++++++---
+>  1 file changed, 7 insertions(+), 3 deletions(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/sound/amlogic,t9015.yaml b/Documentation/devicetree/bindings/sound/amlogic,t9015.yaml
-> index 5f5cccdbeb34..ee8bd57dbcf9 100644
-> --- a/Documentation/devicetree/bindings/sound/amlogic,t9015.yaml
-> +++ b/Documentation/devicetree/bindings/sound/amlogic,t9015.yaml
-> @@ -21,7 +21,9 @@ properties:
->  
->    compatible:
->      items:
-> -      - const: amlogic,t9015
-> +      - enum:
-> +          - amlogic,t9015
-> +          - amlogic,t9015-a1
->  
->    clocks:
->      items:
-> -- 
-> 2.34.1
-> 
+
+Acked-by: Rob Herring <robh@kernel.org>
+

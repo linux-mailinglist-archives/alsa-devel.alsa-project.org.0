@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D90938812DA
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Mar 2024 15:03:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 997C08812DB
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Mar 2024 15:03:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 282EE20C3;
-	Wed, 20 Mar 2024 15:03:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 282EE20C3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 37AFF2340;
+	Wed, 20 Mar 2024 15:03:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 37AFF2340
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1710943420;
-	bh=YvF7eLe7205wxa6RAenyAxtCB0M8C9fT9UInMrApoEY=;
+	s=default; t=1710943424;
+	bh=QVvPe8HqF/hEu0sn46LH7OPfrbqHYTjl9rmwiW8KbI4=;
 	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=c+P+x9cH2E81sxGSQXmfQzounBTBSwI7O0X9x6LjwlYtmVA52i0H8BC8oshZNpfLb
-	 kteEXKPs3iE9P9vtt3PnH2PhhOlcnR8rXYzWINyZUugNHwwQYxfGKG9nJVt+V3w1+U
-	 v6KGn6LxC+y4EXOTVSGbo0r9PDiPbzHpoALyiw5A=
+	b=MDm+KdmIJeWlVCgWg5FE1Vkuj68RkDWGTAzmwuLJCj12IJxqKGtaAFKsTvjbYe0bJ
+	 4U2jddYzhtF9IIV9t1UrhfCllOS0XjsacS3s2BtJ/RL13GznYVvD6piSZiQpPzJLYd
+	 QcGubDNG2UvgxA7lPd2oZ64Vqr5yieuRAiV/LTh4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4D247F80794; Wed, 20 Mar 2024 15:00:32 +0100 (CET)
+	id 3690FF8079B; Wed, 20 Mar 2024 15:00:33 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8725BF80791;
-	Wed, 20 Mar 2024 15:00:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CBC9FF80805;
+	Wed, 20 Mar 2024 15:00:32 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 50305F804E7; Mon, 18 Mar 2024 23:36:04 +0100 (CET)
+	id E55ABF804E7; Mon, 18 Mar 2024 23:44:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,65 +35,64 @@ X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mx1.sberdevices.ru (mx1.sberdevices.ru [37.18.73.165])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4D5E7F8010B
-	for <alsa-devel@alsa-project.org>; Mon, 18 Mar 2024 23:35:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D5E7F8010B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5BC5FF8010B
+	for <alsa-devel@alsa-project.org>; Mon, 18 Mar 2024 23:44:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5BC5FF8010B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=salutedevices.com header.i=@salutedevices.com
- header.a=rsa-sha256 header.s=mail header.b=J+aHlngq
+ header.a=rsa-sha256 header.s=mail header.b=WlS06RNI
 Received: from p-infra-ksmg-sc-msk01 (localhost [127.0.0.1])
-	by mx1.sberdevices.ru (Postfix) with ESMTP id E086310000A;
-	Tue, 19 Mar 2024 01:35:58 +0300 (MSK)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mx1.sberdevices.ru E086310000A
+	by mx1.sberdevices.ru (Postfix) with ESMTP id 6A2F1100011;
+	Tue, 19 Mar 2024 01:44:06 +0300 (MSK)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mx1.sberdevices.ru 6A2F1100011
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=salutedevices.com;
-	s=mail; t=1710801358;
-	bh=vPcHUQZVimBhgCl8L1f1HwLGGZYqomI6G5dUIYpgXh8=;
+	s=mail; t=1710801846;
+	bh=pa+89jrrCMIW8EjfG4aAgry+/vfLF62TIUqpulm7Y9A=;
 	h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type:From;
-	b=J+aHlngq9//OVD9HE6Ik14KAs5VWEg57NxJNYzD9iYiuWq45OZAyUMhJz0HXqfp1N
-	 aiWgMRNxojFULwjNsxw1oxwj7hMwOPIWhNFAlyRdUaWAJ2sjAO32yOD7eR08Ez2QTM
-	 Q1390IWLe4lfY9vuAS4IRRhEEkBZejw/XcxM+8ueUzJ6obYKcRjxt6ZKs3QyXMWYOA
-	 iziszeAinZ+nPhqlLhc+F20oqkJzqzxrltZ7KkYJuB+7HXer2DxAeDu1YIJ+JyduG5
-	 VM+jNFHlsLUB5UIEaMseXMz22VUxYZlykmEziDmnsVkAy1NUdPaNr/ocv17UQOkkTe
-	 jPBin7Ojeet1g==
+	b=WlS06RNIBTg0cU271+LYNhxdIVW8REnQkfL0Eq7bHWiEE2NaTUtuoRzgcod99PVOu
+	 90XcrVazKIOpMrrn2Lj5waYPR3pBMpoyE/svDsna6Hn/ncEAfIi4zZg45J34L38rKP
+	 lVo4tRAfocFgZCrdouhaItZsCLKbBfZq89MVAWFQJgD6s6aIvAf1uPVna8WJxugmor
+	 mr6LDxYqk7REZoeeNrR4tv0MyJNkhX43aJ/+u2MHK2TfgTH/luXpJhpJbSgoUEi8Ou
+	 ViJNVVN54rulbLvS7z84IQ4pLJeCbFV/tkIbru90+UwDb6C7lz+ie/jrcPfO/9lnvd
+	 wZ99a9nIdhl9w==
 Received: from smtp.sberdevices.ru (p-i-exch-sc-m02.sberdevices.ru
  [172.16.192.103])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
 	by mx1.sberdevices.ru (Postfix) with ESMTPS;
-	Tue, 19 Mar 2024 01:35:58 +0300 (MSK)
+	Tue, 19 Mar 2024 01:44:06 +0300 (MSK)
 Received: from [172.28.64.112] (100.64.160.123) by
  p-i-exch-sc-m02.sberdevices.ru (172.16.192.103) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.40; Tue, 19 Mar 2024 01:35:58 +0300
-Message-ID: <d4cfef9e-3cae-4f1a-90b3-33d5707596f9@salutedevices.com>
-Date: Tue, 19 Mar 2024 01:35:12 +0300
+ 15.2.1118.40; Tue, 19 Mar 2024 01:44:05 +0300
+Message-ID: <bafa1669-e98f-4d45-b5cc-0c707df5ed52@salutedevices.com>
+Date: Tue, 19 Mar 2024 01:43:20 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/25] clk: meson: a1: restrict an amount of 'hifi_pll'
- params
+Subject: Re: [PATCH 12/25] ASoC: meson: t9015: add support for A1 SoC family
 Content-Language: en-US
-To: Jerome Brunet <jbrunet@baylibre.com>
-CC: Neil Armstrong <neil.armstrong@linaro.org>, Michael Turquette
-	<mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
-	Kevin Hilman <khilman@baylibre.com>, Martin Blumenstingl
-	<martin.blumenstingl@googlemail.com>, Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Linus Walleij <linus.walleij@linaro.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+To: Mark Brown <broonie@kernel.org>
+CC: Neil Armstrong <neil.armstrong@linaro.org>, Jerome Brunet
+	<jbrunet@baylibre.com>, Michael Turquette <mturquette@baylibre.com>, Stephen
+ Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	<krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>, Kevin Hilman <khilman@baylibre.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Liam Girdwood
+	<lgirdwood@gmail.com>, Linus Walleij <linus.walleij@linaro.org>, Jaroslav
+ Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
 	<linux-amlogic@lists.infradead.org>, <linux-clk@vger.kernel.org>,
 	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
 	<linux-arm-kernel@lists.infradead.org>, <alsa-devel@alsa-project.org>,
 	<linux-sound@vger.kernel.org>, <linux-gpio@vger.kernel.org>,
 	<kernel@salutedevices.com>
 References: <20240314232201.2102178-1-jan.dakinevich@salutedevices.com>
- <20240314232201.2102178-2-jan.dakinevich@salutedevices.com>
- <1j8r2jj24k.fsf@starbuckisacylon.baylibre.com>
- <cbfd9c66-cca5-49f5-9468-43710c48518e@salutedevices.com>
- <1jedc7hlg4.fsf@starbuckisacylon.baylibre.com>
+ <20240314232201.2102178-13-jan.dakinevich@salutedevices.com>
+ <5f8e8cd2-f9c4-4961-a85d-a0f3217294e6@sirena.org.uk>
+ <c4c0e3a3-eaa8-42c6-bbd3-e5c6993dc63b@salutedevices.com>
+ <30dadd4c-de10-43a7-baf8-8ddd49f5c80e@sirena.org.uk>
 From: Jan Dakinevich <jan.dakinevich@salutedevices.com>
-In-Reply-To: <1jedc7hlg4.fsf@starbuckisacylon.baylibre.com>
+In-Reply-To: <30dadd4c-de10-43a7-baf8-8ddd49f5c80e@sirena.org.uk>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 X-Originating-IP: [100.64.160.123]
@@ -110,7 +109,7 @@ X-KSMG-AntiSpam-Method: none
 X-KSMG-AntiSpam-Auth: dkim=none
 X-KSMG-AntiSpam-Info: LuaCore: 10 0.3.10
  53c821b925e16276b831986eabc71d60ab82ee60, {Tracking_smtp_not_equal_from},
- {Tracking_from_domain_doesnt_match_to},
+ {Tracking_arrow_text}, {Tracking_from_domain_doesnt_match_to},
  salutedevices.com:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;sberdevices.ru:7.1.1,5.0.1;smtp.sberdevices.ru:7.1.1,5.0.1;127.0.0.199:7.1.2;100.64.160.123:7.1.2,
  FromAlignment: n, {Tracking_smtp_domain_mismatch},
  {Tracking_smtp_domain_2level_mismatch}, {Tracking_white_helo},
@@ -128,15 +127,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: UHNNISOAQAGFOPM3UTT24DAT7AJ7VJQF
-X-Message-ID-Hash: UHNNISOAQAGFOPM3UTT24DAT7AJ7VJQF
-X-Mailman-Approved-At: Wed, 20 Mar 2024 13:58:58 +0000
+Message-ID-Hash: Y6BABE36MQSI7BL2HK4G7IUVUNEKMDBK
+X-Message-ID-Hash: Y6BABE36MQSI7BL2HK4G7IUVUNEKMDBK
+X-Mailman-Approved-At: Wed, 20 Mar 2024 13:58:59 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UHNNISOAQAGFOPM3UTT24DAT7AJ7VJQF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Y6BABE36MQSI7BL2HK4G7IUVUNEKMDBK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -147,112 +146,30 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
 
-On 3/18/24 13:17, Jerome Brunet wrote:
+On 3/18/24 16:48, Mark Brown wrote:
+> On Sun, Mar 17, 2024 at 07:27:14PM +0300, Jan Dakinevich wrote:
 > 
-> On Sun 17 Mar 2024 at 17:17, Jan Dakinevich <jan.dakinevich@salutedevices.com> wrote:
+>> Both mic bias and ADC's input mode depends on schematics and should be
+>> configurable. What is the better way to give access to these parameters?
+>> Device tree?
 > 
->> On 3/15/24 11:58, Jerome Brunet wrote:
->>>
->>> On Fri 15 Mar 2024 at 02:21, Jan Dakinevich <jan.dakinevich@salutedevices.com> wrote:
->>>
->>>> Existing values were insufficient to produce accurate clock for audio
->>>> devices. New values are safe and most suitable to produce 48000Hz sample
->>>> rate.
->>>
->>> The hifi pll is not about 48k only. I see no reason to restrict the PLL
->>> to a single setting.
->>>> You've provided no justification why the PLL driver can't reach the same
->>> setting for 48k. The setting below is just the crude part. the fine
->>> tuning is done done with the frac parameter so I doubt this provides a
->>> more accurate rate.
->>>
->>
->> You are right, it is not about 48k only. However, there are two issues.
->>
->> First, indeed, I could just extend the range of multipliers to 1..255.
+> Yes.
 > 
-> Why 1..255 ? This is not what I'm pointing out
+>>>> +	SOC_SINGLE("ADC Mic Bias Switch", LINEIN_CFG, MICBIAS_EN, 1, 0),
+>>>> +	SOC_ENUM("ADC Mic Bias Level", a1_adc_mic_bias_level),
 > 
-> According to the datasheet - the range is 32 - 64, as currently
-> set in the driver.
+>>> Why would micbias be user controlled rather than a DAPM widget as
+>>> normal?
 > 
+>> Yes, I could use SND_SOC_DAPM_SUPPLY, but it supports only raw values,
+>> and doesn't supports enums. Here, I want to use enum to restrict
+>> possible values, because only these values mentioned in the
+>> documentation that I have.
+> 
+> A supply is an on/off switch not an enum.  Users should not be selecting
+> values at all.
 
-Could you point where in the doc the range 32..64 is documented?
-Documentation that I have may be not so complete, but I don't see there
-any mention about it.
-
-Anyway, range 32..64 of multipliers is not enough to produce accurate
-clock, and a need 128 for 48kHz.
-
-> The change you have provided request a multipler of 128/5 = 25,6
-> If you put assigned-rate = 614400000 in DT, I see no reason can find the
-> same solution on its own.
-> 
-
-The reasoning is following. I don't know why 32..64 range was declared
-for this clock, and whether it would be safe to extend it and include
-128, which is required for 48kHz. But I know, that multiplier=128 is
-safe and works fine (together divider=5).
-
->> But I am unsure if hifi_pll is able to handle whole range of
->> mulptipliers. The value 128 is taken from Amlogic's branch, and I am
->> pretty sure that it works.
-> 
->>
->> Second, unfortunately frac parameter currently doesn't work. When frac
->> is used enabling of hifi_pll fails in meson_clk_pll_wait_lock(). I see
->> it when try to use 44100Hz and multipliers' range is set to 1..255. So,
->> support of other rates than 48k requires extra effort.
-> 
-> Then your change is even more problematic because it certainly does not
-> disable frac ... which you say is broken.
-> 
-> That parameter should be removed with a proper comment explaining why
-> you are disabling it. That type a limitation / known issue should be
-> mentionned in your change.
-> 
-
-Handling of frac should not be removed, it should be fixed to achieve
-another rates. But that is not the goal of this commit.
-
-
->>
->>>>
->>>> Signed-off-by: Jan Dakinevich <jan.dakinevich@salutedevices.com>
->>>> ---
->>>>  drivers/clk/meson/a1-pll.c | 8 ++++----
->>>>  1 file changed, 4 insertions(+), 4 deletions(-)
->>>>
->>>> diff --git a/drivers/clk/meson/a1-pll.c b/drivers/clk/meson/a1-pll.c
->>>> index 4325e8a6a3ef..00e06d03445b 100644
->>>> --- a/drivers/clk/meson/a1-pll.c
->>>> +++ b/drivers/clk/meson/a1-pll.c
->>>> @@ -74,9 +74,9 @@ static struct clk_regmap fixed_pll = {
->>>>  	},
->>>>  };
->>>>  
->>>> -static const struct pll_mult_range hifi_pll_mult_range = {
->>>> -	.min = 32,
->>>> -	.max = 64,
->>>> +static const struct pll_params_table hifi_pll_params_table[] = {
->>>> +	PLL_PARAMS(128, 5),
->>>> +	{ },
->>>>  };
->>>>  
->>>>  static const struct reg_sequence hifi_init_regs[] = {
->>>> @@ -124,7 +124,7 @@ static struct clk_regmap hifi_pll = {
->>>>  			.shift   = 6,
->>>>  			.width   = 1,
->>>>  		},
->>>> -		.range = &hifi_pll_mult_range,
->>>> +		.table = hifi_pll_params_table,
->>>>  		.init_regs = hifi_init_regs,
->>>>  		.init_count = ARRAY_SIZE(hifi_init_regs),
->>>>  	},
->>>
->>>
-> 
-> 
+Ok. For me it is great if I am free to move these kcontrols to device tree.
 
 -- 
 Best regards

@@ -2,102 +2,124 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5054687E7C7
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Mar 2024 11:56:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA91087E7CD
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Mar 2024 11:57:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B59C02BA9;
-	Mon, 18 Mar 2024 11:56:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B59C02BA9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5CB53238A;
+	Mon, 18 Mar 2024 11:56:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5CB53238A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1710759384;
-	bh=ZUhNoBxh3J6cWXi5e/gUPiqVtXXbt/Lv3dv2304O83Q=;
-	h=From:To:CC:References:In-Reply-To:Subject:Date:List-Id:
+	s=default; t=1710759425;
+	bh=ktqhDBsasebif64PIWUFmzzdHaGOsLDzz8vPPDymlSQ=;
+	h=References:From:To:Cc:Subject:Date:In-reply-to:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=SKfRhdQiNwe0ckqoWAMm/PCCFOwN1z5Jr2ISio1rYVGQhOQB8BQCaTUunm6UairT7
-	 QlVUHY5Gbo9V0+bK0vROLH5Lj7+qp0/Fdvi5dFYp927QtAnSeU7piRM2FGiaI7a8GT
-	 JM9zDZ/VsbPHJaDCJu23pxkcrOkzjCH5w6ZBbQjY=
+	b=sMePtIE0Ai6c93coCa7wS6Qa81Aks/RVPy/jZnxTtLdsNPFsCdHy7pTpwic4XjnfO
+	 BKIf17NPS7wdxPg4B5ptfdB0mKZhTRceH1JrYPISrLq51W1xaxzs6qmrfJOfUwnNIv
+	 AkiXajCQ94pEHzr9Y3J8aMguNWNpbnOl2qG7QXnE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EA1EBF805AF; Mon, 18 Mar 2024 11:55:43 +0100 (CET)
+	id 02D72F80580; Mon, 18 Mar 2024 11:56:33 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8DA1CF80589;
-	Mon, 18 Mar 2024 11:55:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6AA64F805AA;
+	Mon, 18 Mar 2024 11:56:33 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 80769F80564; Mon, 18 Mar 2024 11:55:40 +0100 (CET)
+	id 7B2CBF802DB; Mon, 18 Mar 2024 11:56:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1F42BF80570
-	for <alsa-devel@alsa-project.org>; Mon, 18 Mar 2024 11:55:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F42BF80570
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9A97AF804E7
+	for <alsa-devel@alsa-project.org>; Mon, 18 Mar 2024 11:56:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A97AF804E7
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=LlYDmlvx
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 42IArGAx022496;
-	Mon, 18 Mar 2024 05:55:28 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	from:to:cc:references:in-reply-to:subject:date:message-id
-	:mime-version:content-type:content-transfer-encoding; s=
-	PODMain02222019; bh=j/P3jhkFcI/GSjQOO7udR4a7hxdYtOwuw+ZHKLCwg/o=; b=
-	LlYDmlvxx3E7ipG1y8n+Plnyb5EcaYaIGIlbnFFiLilTT/xMnMYL6ZWhC6oCfKPV
-	VtVXe9JLHFyEE3wQFI5joq8O165r3FmU/4uy0DYRKukk3CzR3QX9wWwVlRiwjSDK
-	zD4uZjOR061G3aajvJsa/Go3rr2KW/QficPkP6mimzcA2eDgtywjOeGaA+7VvNz7
-	O3M4lzss9pAy6s3OD/i70s9N5HdSWqXzpJnV/VNPLIwpJ36yxp1OHL7mUTzK44BH
-	CaExhs+9ozNsNkQg93AvCR14SHk3le8UEQXw49XMbml8bw/u2X1BUeXIvisCGa7J
-	6rw32cLLtMwzvBEuyhUOFA==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3ww8txsuup-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 18 Mar 2024 05:55:28 -0500 (CDT)
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.4; Mon, 18 Mar
- 2024 10:55:25 +0000
-Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1544.4 via Frontend Transport; Mon, 18 Mar 2024 10:55:25 +0000
-Received: from LONN2DGDQ73 (LONN2DGDQ73.ad.cirrus.com [198.61.64.24])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id 29BE5820244;
-	Mon, 18 Mar 2024 10:55:25 +0000 (UTC)
-From: Stefan Binding <sbinding@opensource.cirrus.com>
-To: 'Anthony I Gilea' <i@cpp.in>,
-        'James Schulman'
-	<james.schulman@cirrus.com>,
-        'David Rhodes' <david.rhodes@cirrus.com>,
-        'Richard Fitzgerald' <rf@opensource.cirrus.com>,
-        'Jaroslav Kysela'
-	<perex@perex.cz>, 'Takashi Iwai' <tiwai@suse.com>
-CC: <alsa-devel@alsa-project.org>, <patches@opensource.cirrus.com>,
-        <linux-sound@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-References: <570989e3-299f-4617-adde-b6b8d1e06277@cpp.in>
-In-Reply-To: <570989e3-299f-4617-adde-b6b8d1e06277@cpp.in>
-Subject: RE: [PATCH] ALSA: hda: cs35l41: Support HP Spectre x360 14 eu0000
-Date: Mon, 18 Mar 2024 10:55:25 +0000
-Message-ID: <000901da7922$c81acee0$58506ca0$@opensource.cirrus.com>
+ unprotected) header.d=baylibre-com.20230601.gappssmtp.com
+ header.i=@baylibre-com.20230601.gappssmtp.com header.a=rsa-sha256
+ header.s=20230601 header.b=T83ILZnh
+Received: by mail-lj1-x234.google.com with SMTP id
+ 38308e7fff4ca-2d29aad15a5so51151091fa.3
+        for <alsa-devel@alsa-project.org>;
+ Mon, 18 Mar 2024 03:56:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1710759383;
+ x=1711364183; darn=alsa-project.org;
+        h=mime-version:message-id:in-reply-to:date:subject:cc:to:from
+         :user-agent:references:from:to:cc:subject:date:message-id:reply-to;
+        bh=F3i97oXHe0eAhEUjD88GKSO+6DE7eLwPQSdXhNfZFbQ=;
+        b=T83ILZnhigHhLT/X2WOVh+ypOGB2/xg7/Os4jIBmMBiKdctqn3PMOCSbAoQ2CvSr10
+         wH1C41zV0GpE+WAb59tP7vm0uTKw9t13zf/3AQ9iOili0OkaoFnAtT8jj2vRUlF0qylC
+         F3SHst7rBGPRBjnlEN/ec3kIdWNj1ZkQS4ZqSMnaUwwAVXU16XmMek09ZcaQ/5sjePp0
+         +qLXjUFkrkdN1qQtTZx2chvIPuhfV1X523WWpC2M5eunKJSe337x+Zp3/Ln6nQcyuenp
+         CLbVdWPuIJ/Q4nel04/BNnxn2HLAuvFTqMuFzSbgTIP6DiedQJYRVHBLTBXo6tpQBGSk
+         R8ZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1710759383; x=1711364183;
+        h=mime-version:message-id:in-reply-to:date:subject:cc:to:from
+         :user-agent:references:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=F3i97oXHe0eAhEUjD88GKSO+6DE7eLwPQSdXhNfZFbQ=;
+        b=jMQrzoh+2ofAEOnxXIj3b4mblTq6J0muQUkT4W8ujLj79E4Ukv7LRJkxNrn4Lq3G56
+         4Tp37WTW1iz+sEvPs0fP82tyfZ5EWDWojpi3NMMIksUOzjT4GwLbKBx2fvpP6UhbgABM
+         1eMJ/mnVjFPy47YHewZzAJons5ot5Lg8X0ucwNuu96kk6Lt3v49rKqKbxhl4zw1V3CDp
+         JKb9zJzVcWxfmF5xV96RjIac08CUscIAoOknV+hz/6mlLt8yImUM3xmJJk1QG6yPPxVi
+         snCvBLBsdbIftOMbQOZGaNvDkOHjq9a5b5v9Jvk2Lk0I3VquAjnLAQet/Mdw+V9wdVbE
+         AdAA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUZJENdI3whu1dOpWI3UQDpUMWM1MVELycEuOGZth1PC9rlsDHxLsHMaTxOe/MmdA+zd8/Tv/nKz0w8Or0nnU7gzqWZoiHZAecqcqs=
+X-Gm-Message-State: AOJu0YwijEjhQ5h290TF8OMPiCMcGhykX3Eh6W2UtaYSIh27lAPePVTM
+	Z9qtWlTX8V6/BLZys1JBguUmP/Rh0MmNnkUfPkr6/HKNd7IizPasR73LjJ9kZrw=
+X-Google-Smtp-Source: 
+ AGHT+IF2t1NObGaOQ+IPe7s03JmYlEbsyaNF+u7Gb3UFP+mZEEcwim7+2sDBYhdUxYtGEoaRHjxYsg==
+X-Received: by 2002:a19:8c0f:0:b0:513:9da7:3792 with SMTP id
+ o15-20020a198c0f000000b005139da73792mr7100240lfd.19.1710759382830;
+        Mon, 18 Mar 2024 03:56:22 -0700 (PDT)
+Received: from localhost ([2a01:e0a:3c5:5fb1:e4d5:78c0:18b:ad85])
+        by smtp.gmail.com with ESMTPSA id
+ n18-20020a05600c3b9200b0041407100b3csm7809350wms.30.2024.03.18.03.56.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 18 Mar 2024 03:56:22 -0700 (PDT)
+References: <20240314232201.2102178-1-jan.dakinevich@salutedevices.com>
+ <20240314232201.2102178-14-jan.dakinevich@salutedevices.com>
+ <ca80caab-2664-4797-a222-e14537eea440@linaro.org>
+ <1jil1nhjwd.fsf@starbuckisacylon.baylibre.com>
+ <6feba9ff-8bbf-4494-93f0-732679bc4032@salutedevices.com>
+User-agent: mu4e 1.10.8; emacs 29.2
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Jan Dakinevich <jan.dakinevich@salutedevices.com>
+Cc: Jerome Brunet <jbrunet@baylibre.com>, Krzysztof Kozlowski
+ <krzysztof.kozlowski@linaro.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
+ <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, Kevin
+ Hilman <khilman@baylibre.com>, Martin Blumenstingl
+ <martin.blumenstingl@googlemail.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Linus Walleij <linus.walleij@linaro.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, alsa-devel@alsa-project.org,
+ linux-sound@vger.kernel.org, linux-gpio@vger.kernel.org,
+ kernel@salutedevices.com
+Subject: Re: [PATCH 13/25] ASoC: dt-bindings: meson: axg-pdm: document
+ 'sysrate' property
+Date: Mon, 18 Mar 2024 11:55:35 +0100
+In-reply-to: <6feba9ff-8bbf-4494-93f0-732679bc4032@salutedevices.com>
+Message-ID: <1j1q87hkq2.fsf@starbuckisacylon.baylibre.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQGLr+NaMOldL6AUGiyN2yXXigp0abHa4c7g
-Content-Language: en-gb
-X-Proofpoint-GUID: F0-X8bZTpG4RpATfR3l8G2oHhUH0vcm6
-X-Proofpoint-ORIG-GUID: F0-X8bZTpG4RpATfR3l8G2oHhUH0vcm6
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: 5J6MJODSHONISB5HQJ4VZ3MRXVMWAX7H
-X-Message-ID-Hash: 5J6MJODSHONISB5HQJ4VZ3MRXVMWAX7H
-X-MailFrom: prvs=08079a9db2=sbinding@opensource.cirrus.com
+Content-Type: text/plain
+Message-ID-Hash: CA76ECDRBQENXZLYMFVTLFDLNGGCED26
+X-Message-ID-Hash: CA76ECDRBQENXZLYMFVTLFDLNGGCED26
+X-MailFrom: jbrunet@baylibre.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -109,7 +131,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5J6MJODSHONISB5HQJ4VZ3MRXVMWAX7H/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CA76ECDRBQENXZLYMFVTLFDLNGGCED26/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,67 +140,87 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi,
 
-Support for this laptop was previously added in patch:
-33e5e648e631 ("ALSA: hda: cs35l41: Support additional HP Envy Models")
+On Sun 17 Mar 2024 at 18:52, Jan Dakinevich <jan.dakinevich@salutedevices.com> wrote:
 
-Is your branch out of date?
+> On 3/15/24 13:22, Jerome Brunet wrote:
+>> 
+>> On Fri 15 Mar 2024 at 11:00, Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org> wrote:
+>> 
+>>> On 15/03/2024 00:21, Jan Dakinevich wrote:
+>>>> This option allow to redefine the rate of DSP system clock.
+>>>
+>>> And why is it suitable for bindings? Describe the hardware, not what you
+>>> want to do in the driver.
+>>>
+>>>>
+>>>> Signed-off-by: Jan Dakinevich <jan.dakinevich@salutedevices.com>
+>>>> ---
+>>>>  Documentation/devicetree/bindings/sound/amlogic,axg-pdm.yaml | 4 ++++
+>>>>  1 file changed, 4 insertions(+)
+>>>>
+>>>> diff --git a/Documentation/devicetree/bindings/sound/amlogic,axg-pdm.yaml b/Documentation/devicetree/bindings/sound/amlogic,axg-pdm.yaml
+>>>> index df21dd72fc65..d2f23a59a6b6 100644
+>>>> --- a/Documentation/devicetree/bindings/sound/amlogic,axg-pdm.yaml
+>>>> +++ b/Documentation/devicetree/bindings/sound/amlogic,axg-pdm.yaml
+>>>> @@ -40,6 +40,10 @@ properties:
+>>>>    resets:
+>>>>      maxItems: 1
+>>>>  
+>>>> +  sysrate:
+>>>> +    $ref: /schemas/types.yaml#/definitions/uint32
+>>>> +    description: redefine rate of DSP system clock
+>>>
+>>> No vendor prefix, so is it a generic property? Also, missing unit
+>>> suffix, but more importantly I don't understand why this is a property
+>>> of hardware.
+>> 
+>> +1.
+>> 
+>> The appropriate way to set rate of the clock before the driver take over
+>> is 'assigned-rate', if you need to customize this for different
+>> platform.
+>> 
+>
+> It would be great, but it doesn't work. Below, is what I want to see:
+>
+> 	assigned-clocks =
+> 		<&clkc_audio AUD2_CLKID_PDM_SYSCLK_SEL>,
+> 		<&clkc_audio AUD2_CLKID_PDM_SYSCLK_DIV>;
+> 	assigned-clock-parents =
+> 		<&clkc_pll CLKID_FCLK_DIV3>,
+> 		<0>;
+> 	assigned-clock-rates =
+> 		<0>,
+> 		<256000000>;
+>
+> But regardles of this declaration, PDM's driver unconditionally sets
+> sysclk'rate to 250MHz and throws away everything that was configured
+> before, reparents audio2_pdm_sysclk_mux to hifi_pll and changes
+> hifi_pll's rate.
+>
+> This value 250MHz is declared here:
+>
+> static const struct axg_pdm_cfg axg_pdm_config = {
+> 	.filters = &axg_default_filters,
+> 	.sys_rate = 250000000,
+> };
+>
+> The property 'sysrate' is intended to redefine hardcoded 'sys_rate'
+> value in 'axg_pdm_config'.
 
-Thanks,
-Stefan Binding
+What is stopping you from removing that from the driver and adding
+assigned-rate to 250M is the existing platform ?
 
-> -----Original Message-----
-> From: Anthony I Gilea <i@cpp.in>
-> Sent: Sunday, March 17, 2024 2:05 AM
-> To: James Schulman <james.schulman@cirrus.com>; David Rhodes
-> <david.rhodes@cirrus.com>; Richard Fitzgerald
-> <rf@opensource.cirrus.com>; Jaroslav Kysela <perex@perex.cz>; Takashi
-> Iwai <tiwai@suse.com>
-> Cc: alsa-devel@alsa-project.org; patches@opensource.cirrus.com; linux-
-> sound@vger.kernel.org; linux-kernel@vger.kernel.org
-> Subject: [PATCH] ALSA: hda: cs35l41: Support HP Spectre x360 14 eu0000
->=20
-> The new HP Spectre x360 has _DSD for CS35L41 amps in ACPI but
-> reset-gpios and spk-id-gpios are merged into single Package of size 4 =
-so
-> _DSD parser fails to parse it.
->=20
-> Overwrite broken _DSD with the correct configuration.
->=20
-> Signed-off-by: Anthony I Gilea <i@cpp.in>
-> ---
->   sound/pci/hda/cs35l41_hda_property.c | 2 ++
->   1 file changed, 2 insertions(+)
->=20
-> diff --ruNp a/sound/pci/hda/cs35l41_hda_property.c
-> b/sound/pci/hda/cs35l41_hda_property.c
->=20
-> --- a/sound/pci/hda/cs35l41_hda_property.c	2024-03-10
-> 23:38:09.000000000 +0300
-> +++ b/sound/pci/hda/cs35l41_hda_property.c	2024-03-14
-> 18:22:01.887566917 +0300
-> @@ -64,6 +64,7 @@ static const struct cs35l41_config cs35l
->   	{ "103C8BE5", 2, INTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0
-> }, 0, 1, -1, 1000, 4100, 24 },
->   	{ "103C8BE6", 2, INTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0
-> }, 0, 1, -1, 1000, 4100, 24 },
->   	{ "103C8B3A", 2, INTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0
-> }, 0, 1, -1, 1000, 4100, 24 },
-> +	{ "103C8C15", 2, INTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0
-> }, 0, 1, -1, 1000, 4100, 24 },
->   	{ "104312AF", 2, INTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0
-> }, 1, 2, 0, 1000, 4500, 24 },
->   	{ "10431433", 2, INTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0
-> }, 0, 1, -1, 1000, 4500, 24 },
->   	{ "10431463", 2, INTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0
-> }, 0, 1, -1, 1000, 4500, 24 },
-> @@ -405,6 +406,7 @@ static const struct cs35l41_prop_model c
->   	{ "CSC3551", "103C8BE5", generic_dsd_config },
->   	{ "CSC3551", "103C8BE6", generic_dsd_config },
->   	{ "CSC3551", "103C8B3A", generic_dsd_config },
-> +	{ "CSC3551", "103C8C15", generic_dsd_config },
->   	{ "CSC3551", "104312AF", generic_dsd_config },
->   	{ "CSC3551", "10431433", generic_dsd_config },
->   	{ "CSC3551", "10431463", generic_dsd_config },
+>
+>> Then you don't have to deal with it in the device driver.
+>> 
+>>>
+>>> Best regards,
+>>> Krzysztof
+>> 
+>> 
 
+
+-- 
+Jerome

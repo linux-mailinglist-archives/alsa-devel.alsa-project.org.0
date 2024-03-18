@@ -2,91 +2,136 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0232F87E17C
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Mar 2024 02:13:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF67C8812D5
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Mar 2024 15:02:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 94A3223E1;
-	Mon, 18 Mar 2024 02:12:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 94A3223E1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 39D1D1E3;
+	Wed, 20 Mar 2024 15:02:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 39D1D1E3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1710724382;
-	bh=R9nk88XFEQV12LnozYWGws5BK0Mfq9XjE0WavYqZF94=;
-	h=From:To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=VHUqxk2YbQDyWqR46QC5n2rjm4CY47CPOjtbgVwRHqEx3haCva6cb0SyhahWMtVZS
-	 Hu6UezS8rSod8wZdFY90+xtSnsFtKfAAwbbRJYsMJHRYtq78/ERs2nJ8QtSpS0uNc1
-	 a9seHAMjeBNNM2UuLRrmIi+7z9RgcFodwfYBtjAQ=
+	s=default; t=1710943355;
+	bh=ue+ngYpZQczjaWjC2/97iH40jedNa6xc3uMbfjw4jjk=;
+	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=p1B/LYyWLjmJSf31A0lyKpBUhKGIPS5Bw2Joe4pmScz1R2P77J4Oe5k9v/BfVYFbC
+	 n+H3W4radcIxw48FfSO2ORL0LWwVQCuTInjVLYAU/lnuSwggQ39VW01CIdmWYDlU7r
+	 j/0TR4m5xKzU9okLDR24YW+74Y84sz8lbOYr9O7o=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 71EB6F80088; Mon, 18 Mar 2024 02:12:30 +0100 (CET)
+	id B08ABF806BA; Wed, 20 Mar 2024 15:00:22 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D611CF8059F;
-	Mon, 18 Mar 2024 02:12:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 59D62F806C0;
+	Wed, 20 Mar 2024 15:00:21 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B15FDF804E7; Mon, 18 Mar 2024 02:12:24 +0100 (CET)
+	id D9D46F804E7; Mon, 18 Mar 2024 08:27:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-relay-canonical-0.canonical.com
- (smtp-relay-canonical-0.canonical.com [185.125.188.120])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mx1.sberdevices.ru (mx1.sberdevices.ru [37.18.73.165])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5E0F5F8010B
-	for <alsa-devel@alsa-project.org>; Mon, 18 Mar 2024 02:12:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E0F5F8010B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 34F91F80088
+	for <alsa-devel@alsa-project.org>; Mon, 18 Mar 2024 08:27:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34F91F80088
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=canonical.com header.i=@canonical.com
- header.a=rsa-sha256 header.s=20210705 header.b=L29zuMuw
-Received: from hwang4-ThinkPad-T14s-Gen-2a.conference (2.general.hwang4.uk.vpn
- [10.172.195.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest
- SHA256)
+ unprotected) header.d=salutedevices.com header.i=@salutedevices.com
+ header.a=rsa-sha256 header.s=mail header.b=VnGw2EO2
+Received: from p-infra-ksmg-sc-msk01 (localhost [127.0.0.1])
+	by mx1.sberdevices.ru (Postfix) with ESMTP id 51C11100003;
+	Mon, 18 Mar 2024 10:27:31 +0300 (MSK)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mx1.sberdevices.ru 51C11100003
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=salutedevices.com;
+	s=mail; t=1710746851;
+	bh=6eBBMkMfZ38/VKvG5K/FQSiHY3xSbVnH219JcM7xg+0=;
+	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:From;
+	b=VnGw2EO2nPizTbHONIIGLX+5hzjAt0tn586YH2n+Nhjyhclw+v5sfCXXWLvEo7/6y
+	 bd7RztKrqxLrZBw8CXY7FvdpzSlm9desv11YzbjzOS0KgMPCfL6f5J7lol/3zBQsVg
+	 3FdNsw1eHzOXUOH8P2/eqVz95tneJYyiygr5588ZrluwFkgV7TX0aLL39RhD1/cV3M
+	 hhhRl+onDEkQL7iEWHG/Mi7W1cqNFCeDg10qCyYLiYiis1rLwaUlt4RVGRAbvxw3aO
+	 EUcR2aghhldiuGJqtEl+/bF2hdTYPZLd4Fx7WVU91rwjgVIkxvFkr6swtw+VfYjwS+
+	 E9oPwXGgWH5Gw==
+Received: from smtp.sberdevices.ru (p-i-exch-sc-m02.sberdevices.ru
+ [172.16.192.103])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id EAF0140F03;
-	Mon, 18 Mar 2024 01:12:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20210705; t=1710724335;
-	bh=tcRRoJY6jbwxSg5p4b6l4WMGxKo6TMfhtjENcjfE7v8=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=L29zuMuwNIbCCi1e41E8DGqfJQ8Um06d1GIfdUUR+Yj3OjQdhOv8uNYlRRyXlXX+4
-	 /8f1RCaEHFeGr7Cp0mwnA8YP4UcYAWbrIyIDrW9cn6Ct6S+Vic2X+CIZ65mHLC9T26
-	 ztvbQ1hG+I2djIcxVuewEebMUAE1Cwj8KLAho/S3hGzX68o438o3WVe88xxWmJq3ls
-	 W/hXu1L8g5iwM8EZG3jT+LXJ9OY+e5XndkoPwljEoZEF5QrDJwquWLAhe4WtGXi4B1
-	 clnFlGhF8y6/OgOGn5zs1Fa13CnJ6ud5DipX6Du55PQC40On2jv7wKXnan+g8rr2zz
-	 JpoBWqaDi+xcw==
-From: Hui Wang <hui.wang@canonical.com>
-To: alsa-devel@alsa-project.org,
-	tiwai@suse.de
-Subject: [PATCH] ALSA: hda/realtek: fix the hp playback volume issue for LG
- machines
-Date: Mon, 18 Mar 2024 09:11:28 +0800
-Message-Id: <20240318011128.156023-1-hui.wang@canonical.com>
-X-Mailer: git-send-email 2.34.1
+	by mx1.sberdevices.ru (Postfix) with ESMTPS;
+	Mon, 18 Mar 2024 10:27:31 +0300 (MSK)
+Received: from localhost (100.64.160.123) by p-i-exch-sc-m02.sberdevices.ru
+ (172.16.192.103) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Mon, 18 Mar
+ 2024 10:27:30 +0300
+Date: Mon, 18 Mar 2024 10:27:30 +0300
+From: Dmitry Rokosov <ddrokosov@salutedevices.com>
+To: Rob Herring <robh@kernel.org>
+CC: Jan Dakinevich <jan.dakinevich@salutedevices.com>, Neil Armstrong
+	<neil.armstrong@linaro.org>, Jerome Brunet <jbrunet@baylibre.com>, Michael
+ Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
+	<conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, Kevin Hilman
+	<khilman@baylibre.com>, Martin Blumenstingl
+	<martin.blumenstingl@googlemail.com>, Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Linus Walleij <linus.walleij@linaro.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	<linux-amlogic@lists.infradead.org>, <linux-clk@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <alsa-devel@alsa-project.org>,
+	<linux-sound@vger.kernel.org>, <linux-gpio@vger.kernel.org>,
+	<kernel@salutedevices.com>
+Subject: Re: [PATCH 22/25] ASoC: dt-bindings: meson: introduce link-name
+ optional property
+Message-ID: <20240318072730.3u4qbwxijreyduwi@CAB-WSD-L081021>
+References: <20240314232201.2102178-1-jan.dakinevich@salutedevices.com>
+ <20240314232201.2102178-23-jan.dakinevich@salutedevices.com>
+ <20240317194534.GA2093375-robh@kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: IPU4TONQM7BMB2QZMZVAT4GM2FC7SIIM
-X-Message-ID-Hash: IPU4TONQM7BMB2QZMZVAT4GM2FC7SIIM
-X-MailFrom: hui.wang@canonical.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20240317194534.GA2093375-robh@kernel.org>
+User-Agent: NeoMutt/20220415
+X-Originating-IP: [100.64.160.123]
+X-ClientProxiedBy: p-i-exch-sc-m02.sberdevices.ru (172.16.192.103) To
+ p-i-exch-sc-m02.sberdevices.ru (172.16.192.103)
+X-KSMG-Rule-ID: 10
+X-KSMG-Message-Action: clean
+X-KSMG-AntiSpam-Lua-Profiles: 183875 [Feb 29 2024]
+X-KSMG-AntiSpam-Version: 6.1.0.3
+X-KSMG-AntiSpam-Envelope-From: ddrokosov@salutedevices.com
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Auth: dkim=none
+X-KSMG-AntiSpam-Info: LuaCore: 7 0.3.7
+ 6d6bf5bd8eea7373134f756a2fd73e9456bb7d1a, {Track_E25351},
+ {Tracking_from_domain_doesnt_match_to}, FromAlignment: s,
+ ApMailHostAddress: 100.64.160.123
+X-MS-Exchange-Organization-SCL: -1
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiPhishing: Clean
+X-KSMG-LinksScanning: Clean
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.0.1.6960,
+ bases: 2024/02/29 19:21:00 #23899999
+X-KSMG-AntiVirus-Status: Clean, skipped
+X-MailFrom: ddrokosov@salutedevices.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: DENIQGU57GEH7YV4N4QJIRDPW67OQHNA
+X-Message-ID-Hash: DENIQGU57GEH7YV4N4QJIRDPW67OQHNA
+X-Mailman-Approved-At: Wed, 20 Mar 2024 13:57:58 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IPU4TONQM7BMB2QZMZVAT4GM2FC7SIIM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DENIQGU57GEH7YV4N4QJIRDPW67OQHNA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -95,77 +140,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Recently we tested the headphone playback on 2 LG machines, if we set
-the volume to the max value or near to the max value, the sound is too
-loud, it could even bring harm to listeners.
+Hello Rob,
 
-A workaround is to decrease the max volume to a reasonable value for
-the headphone's amplifier, then the users couldn't set the volume
-bigger than that value from the userspace.
+On Sun, Mar 17, 2024 at 01:45:34PM -0600, Rob Herring wrote:
+> On Fri, Mar 15, 2024 at 02:21:58AM +0300, Jan Dakinevich wrote:
+> > From: Dmitry Rokosov <ddrokosov@salutedevices.com>
+> > 
+> > The 'link-name' property is an optional DT property that allows for the
+> > customization of the name associated with the DAI link and PCM stream.
+> > This functionality mirrors the approach commonly utilized in Qualcomm
+> > audio cards, providing flexibility in DAI naming conventions for
+> > improved system integration and userspace experience.
+> > 
+> > It allows userspace program to easy determine PCM stream purpose, e.g.:
+> >     ~ # cat /proc/asound/pcm
+> >     00-00: speaker (*) :  : playback 1
+> >     00-01: mics (*) :  : capture 1
+> >     00-02: loopback (*) :  : capture 1
+> > 
+> > Signed-off-by: Dmitry Rokosov <ddrokosov@salutedevices.com>
+> 
+> This needs your S-o-b as well.
 
-Signed-off-by: Hui Wang <hui.wang@canonical.com>
----
- sound/pci/hda/patch_realtek.c | 26 ++++++++++++++++++++++++++
- 1 file changed, 26 insertions(+)
+I will send this change in the separate patch series, as Neil suggested
+in the cover letter reply.
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index e904f62e1952..d463d416fc23 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -6964,6 +6964,25 @@ static void alc256_fixup_mic_no_presence_and_resume(struct hda_codec *codec,
- 	}
- }
- 
-+static void alc256_decrease_headphone_amp_val(struct hda_codec *codec,
-+					      const struct hda_fixup *fix, int action)
-+{
-+	u32 caps;
-+	u8 nsteps, offs;
-+
-+	if (action != HDA_FIXUP_ACT_PRE_PROBE)
-+		return;
-+
-+	caps = query_amp_caps(codec, 0x3, HDA_OUTPUT);
-+	nsteps = ((caps & AC_AMPCAP_NUM_STEPS) >> AC_AMPCAP_NUM_STEPS_SHIFT) - 10;
-+	offs = ((caps & AC_AMPCAP_OFFSET) >> AC_AMPCAP_OFFSET_SHIFT) - 10;
-+	caps &= ~AC_AMPCAP_NUM_STEPS & ~AC_AMPCAP_OFFSET;
-+	caps |= (nsteps << AC_AMPCAP_NUM_STEPS_SHIFT) | (offs << AC_AMPCAP_OFFSET_SHIFT);
-+
-+	if (snd_hda_override_amp_caps(codec, 0x3, HDA_OUTPUT, caps))
-+		codec_warn(codec, "failed to override amp caps for NID 0x3\n");
-+}
-+
- static void alc_fixup_dell4_mic_no_presence_quiet(struct hda_codec *codec,
- 						  const struct hda_fixup *fix,
- 						  int action)
-@@ -7382,6 +7401,7 @@ enum {
- 	ALC294_FIXUP_CS35L41_I2C_2,
- 	ALC245_FIXUP_CS35L56_SPI_4_HP_GPIO_LED,
- 	ALC256_FIXUP_ACER_SFG16_MICMUTE_LED,
-+	ALC256_FIXUP_HEADPHONE_AMP_VOL,
- };
- 
- /* A special fixup for Lenovo C940 and Yoga Duet 7;
-@@ -9581,6 +9601,10 @@ static const struct hda_fixup alc269_fixups[] = {
- 		.type = HDA_FIXUP_FUNC,
- 		.v.func = alc256_fixup_acer_sfg16_micmute_led,
- 	},
-+	[ALC256_FIXUP_HEADPHONE_AMP_VOL] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc256_decrease_headphone_amp_val,
-+	},
- };
- 
- static const struct snd_pci_quirk alc269_fixup_tbl[] = {
-@@ -10319,6 +10343,8 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x17aa, 0x9e56, "Lenovo ZhaoYang CF4620Z", ALC286_FIXUP_SONY_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1849, 0x1233, "ASRock NUC Box 1100", ALC233_FIXUP_NO_AUDIO_JACK),
- 	SND_PCI_QUIRK(0x1849, 0xa233, "Positivo Master C6300", ALC269_FIXUP_HEADSET_MIC),
-+	SND_PCI_QUIRK(0x1854, 0x0440, "LG CQ6", ALC256_FIXUP_HEADPHONE_AMP_VOL),
-+	SND_PCI_QUIRK(0x1854, 0x0441, "LG CQ6 AIO", ALC256_FIXUP_HEADPHONE_AMP_VOL),
- 	SND_PCI_QUIRK(0x19e5, 0x3204, "Huawei MACH-WX9", ALC256_FIXUP_HUAWEI_MACH_WX9_PINS),
- 	SND_PCI_QUIRK(0x19e5, 0x320f, "Huawei WRT-WX9 ", ALC256_FIXUP_ASUS_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1b35, 0x1235, "CZC B20", ALC269_FIXUP_CZC_B20),
 -- 
-2.34.1
-
+Thank you,
+Dmitry

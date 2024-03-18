@@ -2,115 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E60287EFC5
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Mar 2024 19:31:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D43587F0AE
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Mar 2024 20:59:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1602D238B;
-	Mon, 18 Mar 2024 19:31:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1602D238B
+	by alsa0.perex.cz (Postfix) with ESMTPS id E5EAA265E;
+	Mon, 18 Mar 2024 20:59:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E5EAA265E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1710786675;
-	bh=DjQM9uZLj7fLkV+FxcS/esMiszJE7yWdKJW1GjX2voA=;
+	s=default; t=1710791973;
+	bh=BQx6VNvTlzK5oQIvrUO32TBVz9kFRTi0gekP4j1rY5I=;
 	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=m5Z9cuVpPlQzZtLgxJBIy2zKw0QArc8qQVN8Ail04D63yIdzfac/z3XNpuUpQ1ZIo
-	 g6NC4F+Oyc7g4AF/Q6fA9jVMjy5AvH21NEpwl82wX8e9QO/Jp+GLsdvsHqhrkfuw3I
-	 oFE4eaok+aSvZQjQA8muonHDnmCPe8YAJ+L2bcsM=
+	b=PqnnM22YYRmUgStPQ1dvuBH+Zsqj72C1sgHSra8q3tavoM0UgN/CKqb38e6vkDuUf
+	 UoraVP21zmm8JXDFH8W+8oIKZp/pVsQnZn8sdRsUEpknAGjVmdsSAi/i/rEJeRmyEP
+	 N0JdRVxd2ZEZzKQx5WsCM1LqlyKHXZSLvQRGlAho=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B2FCAF805AF; Mon, 18 Mar 2024 19:30:43 +0100 (CET)
+	id C9DF6F805AB; Mon, 18 Mar 2024 20:59:01 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 424F5F8057F;
-	Mon, 18 Mar 2024 19:30:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 20529F805A0;
+	Mon, 18 Mar 2024 20:59:01 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7BC94F804E7; Mon, 18 Mar 2024 19:30:36 +0100 (CET)
+	id 9EE33F804E7; Mon, 18 Mar 2024 20:58:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-oo1-xc2a.google.com (mail-oo1-xc2a.google.com
- [IPv6:2607:f8b0:4864:20::c2a])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DBF6BF8010B
-	for <alsa-devel@alsa-project.org>; Mon, 18 Mar 2024 19:30:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DBF6BF8010B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2856BF8010B
+	for <alsa-devel@alsa-project.org>; Mon, 18 Mar 2024 20:58:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2856BF8010B
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256
- header.s=google header.b=KZHf/5Hs
-Received: by mail-oo1-xc2a.google.com with SMTP id
- 006d021491bc7-5a480985625so2053258eaf.0
-        for <alsa-devel@alsa-project.org>;
- Mon, 18 Mar 2024 11:30:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1710786622; x=1711391422;
- darn=alsa-project.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=bx6+Clm215KDMXgRL6qGOhGouTAzAkIrhJCqbLmQFoQ=;
-        b=KZHf/5HsubfxYw5tsNjN6XhNOak36dgJbvGTUunk56KKG/R8oJHlF1AKrE+eMacdCy
-         /FiikrCCWNslGTGjobs6so8iC3WDKL+HKZqupZyswUw+2Cca8cBtXP7UHWhfWUJM9NOy
-         ENOTCf71vVC5J09tkHu5q0xMIRux4JRHPWIrY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710786622; x=1711391422;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=bx6+Clm215KDMXgRL6qGOhGouTAzAkIrhJCqbLmQFoQ=;
-        b=ATNGL5DhKHd94zFKAWFLWxJkM+jhXjkG8nUxhOF7YTtpmPX1BVewpISf08X99BOm8t
-         K0tH5ThjCCexYp6M/3v9yIl9Upys3/1gb3S9/Ozc/at374YJq4bQY53Patram856+Ciw
-         7LNl7Wu5wQBF653z7Km+RGDQDeK0Y57o5C3VpK0vKKr2ccCEp+s1uku0Rh6ndcIu3Ai4
-         zV9UaPBDnxOx9+OAGe4x0NZ+FlzSIUgo9B1L6KaJdYt89u4neqNbj09PojpHtTe6F4Kv
-         9/ks0CMhutCP1v53MH80k9NuoGEBung38DBifkRmj5bII1ynObeOfdGbkNKJRQYsTame
-         ejLA==
-X-Gm-Message-State: AOJu0Yws/7K4MNZQRRZ8FYvaiC4K14z6KLci8qF6PzXpffu+Wi6FYBm2
-	MKauqx2Dur2q7dbO3C+b2jrGpR8AsAS1YoeUwDZ2uZJTs4JqhNIEicv1i/GYLvRo3eAoqc2x8Q=
-	=
-X-Google-Smtp-Source: 
- AGHT+IErJ/xRW7g7bK7mjoC/S9jIyOCdlmPELHx6SbC2qbW2DcgABdt7TF6/lkNRCftJOabdtLbxMg==
-X-Received: by 2002:a05:6358:b250:b0:17c:297f:df62 with SMTP id
- lo16-20020a056358b25000b0017c297fdf62mr11734509rwc.16.1710786621165;
-        Mon, 18 Mar 2024 11:30:21 -0700 (PDT)
-Received: from localhost ([2620:15c:9d:4:aeb9:10c8:d95b:b0f9])
-        by smtp.gmail.com with UTF8SMTPSA id
- z8-20020a63c048000000b005c6e8fa9f24sm7643777pgi.49.2024.03.18.11.30.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 18 Mar 2024 11:30:20 -0700 (PDT)
-From: cujomalainey@chromium.org
-To: alsa-devel@alsa-project.org
-Cc: Curtis Malainey <cujomalainey@chromium.org>,
-	Wojciech Macek <wmacek@google.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=AhqWEDHz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1710791929; x=1742327929;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=BQx6VNvTlzK5oQIvrUO32TBVz9kFRTi0gekP4j1rY5I=;
+  b=AhqWEDHzRnUNVvZqNpOg+YIn1ll8CmhZous6IQkkABsElxgR0rbsTqGu
+   z+fllKmiqicD31XxXNV82Eb8KsXLA+091me1pk8bRT0cXL70a6FhKrzmV
+   YaX0G6cC5zIy62j/bDVyftwAT8YwhTH2GsZvQrbtVtJnDO1Hh5zh19886
+   zRz5xElldGkxPrw23d2XHlEWB8C1GhXbmd0eQbtRNMCJxbm/b3ERTORsA
+   30OYepY9cueeH36F1+APqS7m27bu/ivJT16fCnkQncbTajATx6Fja2DeM
+   84+8uaTYkb4r9oga5Z0dOLbEvj5luxOErEQpXGMDkBctg5NddhBzk9+03
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,11017"; a="16776149"
+X-IronPort-AV: E=Sophos;i="6.07,135,1708416000";
+   d="scan'208";a="16776149"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Mar 2024 12:58:44 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,11017"; a="937060632"
+X-IronPort-AV: E=Sophos;i="6.07,135,1708416000";
+   d="scan'208";a="937060632"
+Received: from black.fi.intel.com ([10.237.72.28])
+  by fmsmga001.fm.intel.com with ESMTP; 18 Mar 2024 12:58:39 -0700
+Received: by black.fi.intel.com (Postfix, from userid 1003)
+	id C6F03815; Mon, 18 Mar 2024 21:58:38 +0200 (EET)
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: alsa-devel@alsa-project.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-sound@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Cc: Shengjiu Wang <shengjiu.wang@gmail.com>,
+	Xiubo Li <Xiubo.Lee@gmail.com>,
+	Fabio Estevam <festevam@gmail.com>,
+	Nicolin Chen <nicoleotsuka@gmail.com>,
 	Liam Girdwood <lgirdwood@gmail.com>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
 	Mark Brown <broonie@kernel.org>,
 	Jaroslav Kysela <perex@perex.cz>,
 	Takashi Iwai <tiwai@suse.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Rander Wang <rander.wang@intel.com>,
-	Trevor Wu <trevor.wu@mediatek.com>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH] ASoC: SOF: Remove libraries from topology lookups
-Date: Mon, 18 Mar 2024 11:29:54 -0700
-Message-ID: <20240318183004.3976923-1-cujomalainey@chromium.org>
-X-Mailer: git-send-email 2.44.0.291.gc1ea87d7ee-goog
+	Shawn Guo <shawnguo@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Subject: [PATCH v1 1/1] ASoC: fsl: imx-es8328: Switch to using gpiod API
+Date: Mon, 18 Mar 2024 21:58:37 +0200
+Message-ID: <20240318195837.180069-1-andriy.shevchenko@linux.intel.com>
+X-Mailer: git-send-email 2.43.0.rc1.1.gbec44491f096
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: NCW2VZ4OOHSD47OTTWZ6EL3EKSDORK6I
-X-Message-ID-Hash: NCW2VZ4OOHSD47OTTWZ6EL3EKSDORK6I
-X-MailFrom: cujomalainey@chromium.org
+Message-ID-Hash: C7OGJJXYOSKVX3PU45AZ5ZMEFV3NFB2U
+X-Message-ID-Hash: C7OGJJXYOSKVX3PU45AZ5ZMEFV3NFB2U
+X-MailFrom: andriy.shevchenko@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -122,7 +107,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NCW2VZ4OOHSD47OTTWZ6EL3EKSDORK6I/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/C7OGJJXYOSKVX3PU45AZ5ZMEFV3NFB2U/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -131,34 +116,69 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Curtis Malainey <cujomalainey@chromium.org>
+This updates the driver to gpiod API, and removes yet another use of
+of_get_named_gpio().
 
-Default firmware shipped in open source are not licensed for 3P
-libraries, therefore topologies should not reference them.
-
-If a OS wants to use 3P (that they have licensed) then they should use
-the appropriate topology override mechanisms.
-
-Fixes: 8a7d5d85ed2161 ("ASoC: SOF: mediatek: mt8195: Add devicetree support to select topologies")
-Signed-off-by: Curtis Malainey <cujomalainey@chromium.org>
-Cc: Wojciech Macek <wmacek@google.com>
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- sound/soc/sof/mediatek/mt8195/mt8195.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/fsl/imx-es8328.c | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
 
-diff --git a/sound/soc/sof/mediatek/mt8195/mt8195.c b/sound/soc/sof/mediatek/mt8195/mt8195.c
-index 8ee7ee246344c..f143baf75af60 100644
---- a/sound/soc/sof/mediatek/mt8195/mt8195.c
-+++ b/sound/soc/sof/mediatek/mt8195/mt8195.c
-@@ -573,7 +573,7 @@ static struct snd_sof_dsp_ops sof_mt8195_ops = {
- static struct snd_sof_of_mach sof_mt8195_machs[] = {
- 	{
- 		.compatible = "google,tomato",
--		.sof_tplg_filename = "sof-mt8195-mt6359-rt1019-rt5682-dts.tplg"
-+		.sof_tplg_filename = "sof-mt8195-mt6359-rt1019-rt5682.tplg"
- 	}, {
- 		.compatible = "mediatek,mt8195",
- 		.sof_tplg_filename = "sof-mt8195.tplg"
+diff --git a/sound/soc/fsl/imx-es8328.c b/sound/soc/fsl/imx-es8328.c
+index 6f0d031c1d5f..ad915c55cc35 100644
+--- a/sound/soc/fsl/imx-es8328.c
++++ b/sound/soc/fsl/imx-es8328.c
+@@ -3,7 +3,7 @@
+ // Copyright 2012 Freescale Semiconductor, Inc.
+ // Copyright 2012 Linaro Ltd.
+ 
+-#include <linux/gpio.h>
++#include <linux/gpio/consumer.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
+ #include <linux/of_platform.h>
+@@ -23,7 +23,7 @@ struct imx_es8328_data {
+ 	struct snd_soc_card card;
+ 	char codec_dai_name[DAI_NAME_SIZE];
+ 	char platform_name[DAI_NAME_SIZE];
+-	int jack_gpio;
++	struct gpio_desc *jack_gpiod;
+ };
+ 
+ static struct snd_soc_jack_gpio headset_jack_gpios[] = {
+@@ -54,8 +54,8 @@ static int imx_es8328_dai_init(struct snd_soc_pcm_runtime *rtd)
+ 					struct imx_es8328_data, card);
+ 	int ret = 0;
+ 
+-	/* Headphone jack detection */
+-	if (gpio_is_valid(data->jack_gpio)) {
++	if (data->jack_gpiod) {
++		/* Headphone jack detection */
+ 		ret = snd_soc_card_jack_new_pins(rtd->card, "Headphone",
+ 						 SND_JACK_HEADSET | SND_JACK_BTN_0,
+ 						 &headset_jack,
+@@ -64,7 +64,7 @@ static int imx_es8328_dai_init(struct snd_soc_pcm_runtime *rtd)
+ 		if (ret)
+ 			return ret;
+ 
+-		headset_jack_gpios[0].gpio = data->jack_gpio;
++		headset_jack_gpios[0].desc = data->jack_gpiod;
+ 		ret = snd_soc_jack_add_gpios(&headset_jack,
+ 					     ARRAY_SIZE(headset_jack_gpios),
+ 					     headset_jack_gpios);
+@@ -174,7 +174,11 @@ static int imx_es8328_probe(struct platform_device *pdev)
+ 
+ 	data->dev = dev;
+ 
+-	data->jack_gpio = of_get_named_gpio(pdev->dev.of_node, "jack-gpio", 0);
++	data->jack_gpiod = devm_gpiod_get_optional(dev, "jack");
++	if (IS_ERR(data->jack_gpiod)) {
++		ret = PTR_ERR(data->jack_gpiod);
++		goto put_device;
++	}
+ 
+ 	/*
+ 	 * CPU == Platform
 -- 
-2.44.0.291.gc1ea87d7ee-goog
+2.43.0.rc1.1.gbec44491f096
 

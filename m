@@ -2,171 +2,117 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D2D287F6A5
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Mar 2024 06:23:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C20BA87F849
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Mar 2024 08:23:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 70EC9265E;
-	Tue, 19 Mar 2024 06:23:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 70EC9265E
+	by alsa0.perex.cz (Postfix) with ESMTPS id BE42527AA;
+	Tue, 19 Mar 2024 08:23:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE42527AA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1710825795;
-	bh=HAOvkShkvF6jZcsQiRt6BQMNXi5VuwmSeeexbfhBXj4=;
+	s=default; t=1710833001;
+	bh=tLyQfFKsXoctTbm+XgLM7x5sCgbf+c/mzOwdabc4Fzw=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=vEnHBjfks4Imlmq85sZwojeIoPpGqsfxQOHSu+yTUX2xIvvohV4AP53JwjgH2F6ah
-	 cTNOCemEXlfLwHDV8YDznIvDyQjAtetXDEb5cBmcHQzMMVJYUdMuXJDKqS3w00DqmG
-	 8cmPS6PUrVXnO+ARNnl9EqW6ADpnMRZFZdl+oChI=
+	b=Mv9HRyVMSyA1ZcuLo6P/Klu3pVXS5aAiJBpSuQNGnSCm8xcWf+CzchuBmTWzP5Yp3
+	 +bR1cD/JPuE1WZr0poQsXtjYrtj7Ln1YczDc/ASuCk9qycFJlq9DuyBPuheMyoFIQZ
+	 vZYghg9mCOGuLcFPUbNdfKvmXFSqwKuFPRcOkP+Q=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 075ABF805D2; Tue, 19 Mar 2024 06:22:22 +0100 (CET)
+	id 15811F805A0; Tue, 19 Mar 2024 08:22:49 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 36FE2F805CA;
-	Tue, 19 Mar 2024 06:22:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BCB0FF805A0;
+	Tue, 19 Mar 2024 08:22:49 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F1767F804E7; Tue, 19 Mar 2024 06:18:07 +0100 (CET)
+	id 15F0AF804E7; Tue, 19 Mar 2024 08:21:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [IPv6:2a00:1450:4864:20::236])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=no autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DAD10F8025F
-	for <alsa-devel@alsa-project.org>; Tue, 19 Mar 2024 06:18:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DAD10F8025F
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=XIktEs3u
-Received: by mail-lj1-x236.google.com with SMTP id
- 38308e7fff4ca-2d4a901e284so34856251fa.1
-        for <alsa-devel@alsa-project.org>;
- Mon, 18 Mar 2024 22:17:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1710825479; x=1711430279;
- darn=alsa-project.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=JI2FbCtp4a1d8gqLlxYEpKkEq7SXIcQUhF5rSMJv6eY=;
-        b=XIktEs3u9RWvj4YNfu6fIuSdG3nZ+ea13rCb/X/THalxtsAbx4oi5ucXNitHnmF62n
-         yey5aDm6wSLe7YW7KBiZFhCQR0bEUMulF42iUTeLpz27bxq5v7Bdi/MBo5h52EaAj3c2
-         /URaglDOM/oXCUpMAh6qRrJGmdk1HjgWFKl5BI9fwCs6pLLqjFiJoHn3vf7GzbmRhm+v
-         RHTDr6gaDDT+qrUc9Fl/kVzfPt/boT+XYA2kMQZVasK3AGWYkQo87q5O/pl0oS/TF4D+
-         Ltl1OIeffvflD64MWYA+dqxXCJR9y/q824J7vQnFTzasXtUCs2XIjj8em7fKFkIwSwRJ
-         vk8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710825479; x=1711430279;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=JI2FbCtp4a1d8gqLlxYEpKkEq7SXIcQUhF5rSMJv6eY=;
-        b=hya1RnoAhzEGpsjeZGDIlds37Jf6xX58sG9kfEFCZjIptTInDnK9TAz3nU3MbqvwKa
-         +GSdVkKEAxgfuCDde7Msx15Lc/u00KZdVU4/OPkjK8LK7UjPMSrVnsPGZIxvBXZ+15M1
-         z1fP4Tftv5nVn+uAbvHT5uu4H6RtZ4RAObQjEQeuZKHL3aEXy6dtmiY6z3tEfyqXtoue
-         amv/I0ztEpB/ItswdunpPW8SusSqwCQtcpoeVo7fJdIKV+/UIg5ANh37ZI5TgPo8Cv3K
-         LOSB87y9d3XaU2FjFOfA5W92c6j06B0q4mb/AHCeumVuw9WdC+wOQcenW310//fU6eX4
-         xxhA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWmqFLFwAMMuPv+L6hv+DyLJ7eu8MIHU1JZrw4fFb8hZXplbROzDY86IIAhzJI4TnwHthm2YUpdfHWIsEPEUe5q46Z2yBJxt62Eod0=
-X-Gm-Message-State: AOJu0YxU+FGmYOSJ+VlYfGjLT8h9/f3IjcLkOyUaw6WXCeQK87XPdcHP
-	AleYlGGHrY80BVXvVnjgMLNxt8uw/b+CJXtyU1sgCRW2Hf6uxLkFv45jg+UDUZo=
-X-Google-Smtp-Source: 
- AGHT+IHar+3YLlq5DM7n+Ac5r+Zn05BDnf47HvVfCmOszqWWqnMfN5usck6Hs24uZ5aHqMoY3k04LQ==
-X-Received: by 2002:a05:651c:337:b0:2d4:513d:7b34 with SMTP id
- b23-20020a05651c033700b002d4513d7b34mr5860519ljp.17.1710825478704;
-        Mon, 18 Mar 2024 22:17:58 -0700 (PDT)
-Received: from [192.168.1.20] ([178.197.222.97])
-        by smtp.gmail.com with ESMTPSA id
- dm18-20020a170907949200b00a45200fe2b5sm5566916ejc.224.2024.03.18.22.17.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 18 Mar 2024 22:17:58 -0700 (PDT)
-Message-ID: <1eb98856-dd51-4fab-84d3-392bc4c60e3f@linaro.org>
-Date: Tue, 19 Mar 2024 06:17:56 +0100
+	by alsa1.perex.cz (Postfix) with ESMTPS id 315EBF80088
+	for <alsa-devel@alsa-project.org>; Tue, 19 Mar 2024 08:21:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 315EBF80088
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id B3309CE0A13;
+	Tue, 19 Mar 2024 07:21:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D98CC433F1;
+	Tue, 19 Mar 2024 07:21:42 +0000 (UTC)
+Message-ID: <0898cc9b-5eaa-41b4-9fc3-2483044c537a@xs4all.nl>
+Date: Tue, 19 Mar 2024 08:21:40 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 13/25] ASoC: dt-bindings: meson: axg-pdm: document
- 'sysrate' property
-Content-Language: en-US
-To: Jan Dakinevich <jan.dakinevich@salutedevices.com>,
- Jerome Brunet <jbrunet@baylibre.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Kevin Hilman <khilman@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Linus Walleij <linus.walleij@linaro.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, linux-amlogic@lists.infradead.org,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- linux-gpio@vger.kernel.org, kernel@salutedevices.com
-References: <20240314232201.2102178-1-jan.dakinevich@salutedevices.com>
- <20240314232201.2102178-14-jan.dakinevich@salutedevices.com>
- <ca80caab-2664-4797-a222-e14537eea440@linaro.org>
- <1jil1nhjwd.fsf@starbuckisacylon.baylibre.com>
- <6feba9ff-8bbf-4494-93f0-732679bc4032@salutedevices.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
- 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
- D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <6feba9ff-8bbf-4494-93f0-732679bc4032@salutedevices.com>
+Subject: Re: [PATCH v14 00/16] Add audio support in v4l2 framework
+Content-Language: en-US, nl
+To: Shengjiu Wang <shengjiu.wang@gmail.com>
+Cc: Shengjiu Wang <shengjiu.wang@nxp.com>, sakari.ailus@iki.fi,
+ tfiga@chromium.org, m.szyprowski@samsung.com, mchehab@kernel.org,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Xiubo.Lee@gmail.com, festevam@gmail.com, nicoleotsuka@gmail.com,
+ lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org
+References: <1710150841-26991-1-git-send-email-shengjiu.wang@nxp.com>
+ <399da377-c2b6-4226-9108-8a1e776b6f3b@xs4all.nl>
+ <CAA+D8APgFvATshUJCNxCynJsYr_6=A+V=xf5qFpimd4i4g1ygg@mail.gmail.com>
+ <CAA+D8AM-ptHySA6V-s1h3MESfyVZPxB-o_sm9F4wJYCWTeV+YQ@mail.gmail.com>
+From: Hans Verkuil <hverkuil@xs4all.nl>
+Autocrypt: addr=hverkuil@xs4all.nl; keydata=
+ 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
+In-Reply-To: 
+ <CAA+D8AM-ptHySA6V-s1h3MESfyVZPxB-o_sm9F4wJYCWTeV+YQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: UWFSOZM3RJSYIDGGZMKEYHX66JG76JVD
-X-Message-ID-Hash: UWFSOZM3RJSYIDGGZMKEYHX66JG76JVD
-X-MailFrom: krzysztof.kozlowski@linaro.org
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: CMG6K7OHR7E7VAQVW2KUU642Z7C7A7RS
+X-Message-ID-Hash: CMG6K7OHR7E7VAQVW2KUU642Z7C7A7RS
+X-MailFrom: SRS0=kK+l=KZ=xs4all.nl=hverkuil@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -178,7 +124,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UWFSOZM3RJSYIDGGZMKEYHX66JG76JVD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CMG6K7OHR7E7VAQVW2KUU642Z7C7A7RS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -187,82 +133,234 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 17/03/2024 16:52, Jan Dakinevich wrote:
-> 
-> 
-> On 3/15/24 13:22, Jerome Brunet wrote:
+On 19/03/2024 4:14 am, Shengjiu Wang wrote:
+> On Tue, Mar 19, 2024 at 10:24 AM Shengjiu Wang <shengjiu.wang@gmail.com> wrote:
 >>
->> On Fri 15 Mar 2024 at 11:00, Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org> wrote:
+>> On Mon, Mar 18, 2024 at 11:56 PM Hans Verkuil <hverkuil@xs4all.nl> wrote:
+>>>
+>>> Hi Shengjiu,
+>>>
+>>> I was about to prepare a pull request for this when I realized that
+>>> entries for the new drivers need to be added to the MAINTAINERS file.
+>>>
+>>> Can you post patches 'v14 17/16' and 'v14/18/16' adding entries for each
+>>> new driver?
 >>
->>> On 15/03/2024 00:21, Jan Dakinevich wrote:
->>>> This option allow to redefine the rate of DSP system clock.
+>> Ok,  How about the change below?
+>>
+>> VIRTUAL MEM2MEM DRIVER FOR AUDIO
+>> M:      Hans Verkuil <hverkuil@xs4all.nl>
+>> M:      Shengjiu Wang <shengjiu.wang@gmail.com>
+>> L:      linux-media@vger.kernel.org
+>> S:      Maintained
+>> W:      https://linuxtv.org
+>> T:      git git://linuxtv.org/media_tree.git
+>> F:      drivers/media/test-drivers/vim2m-audio.c
+>>
+>> NXP ASRC V4L2 MEM2MEM DRIVERS
+>> M:      Shengjiu Wang <shengjiu.wang@gmail.com>
+>> L:      linux-media@vger.kernel.org
+>> S:      Maintained
+>> W:      https://linuxtv.org
+>> T:      git git://linuxtv.org/media_tree.git
+>> F:      drivers/media/platform/nxp/imx-asrc.c
+>>
+> 
+> BTW, should I merge this change to PATCH 15/16  and PATCH 16/16?
+> That I will resend the whole patch series.  Seems this is a better way.
+
+That's fine!
+
+Regards,
+
+	Hans
+
+> 
+> Best regrads
+> Shengjiu Wang
+> 
+>> best regards
+>> wang shengjiu
+>>
 >>>
->>> And why is it suitable for bindings? Describe the hardware, not what you
->>> want to do in the driver.
+>>> Thank you,
 >>>
+>>>         Hans
+>>>
+>>> On 11/03/2024 10:53 am, Shengjiu Wang wrote:
+>>>> Audio signal processing also has the requirement for memory to
+>>>> memory similar as Video.
 >>>>
->>>> Signed-off-by: Jan Dakinevich <jan.dakinevich@salutedevices.com>
->>>> ---
->>>>  Documentation/devicetree/bindings/sound/amlogic,axg-pdm.yaml | 4 ++++
->>>>  1 file changed, 4 insertions(+)
+>>>> This asrc memory to memory (memory ->asrc->memory) case is a non
+>>>> real time use case.
 >>>>
->>>> diff --git a/Documentation/devicetree/bindings/sound/amlogic,axg-pdm.yaml b/Documentation/devicetree/bindings/sound/amlogic,axg-pdm.yaml
->>>> index df21dd72fc65..d2f23a59a6b6 100644
->>>> --- a/Documentation/devicetree/bindings/sound/amlogic,axg-pdm.yaml
->>>> +++ b/Documentation/devicetree/bindings/sound/amlogic,axg-pdm.yaml
->>>> @@ -40,6 +40,10 @@ properties:
->>>>    resets:
->>>>      maxItems: 1
->>>>  
->>>> +  sysrate:
->>>> +    $ref: /schemas/types.yaml#/definitions/uint32
->>>> +    description: redefine rate of DSP system clock
+>>>> User fills the input buffer to the asrc module, after conversion, then asrc
+>>>> sends back the output buffer to user. So it is not a traditional ALSA playback
+>>>> and capture case.
+>>>>
+>>>> It is a specific use case,  there is no reference in current kernel.
+>>>> v4l2 memory to memory is the closed implementation,  v4l2 current
+>>>> support video, image, radio, tuner, touch devices, so it is not
+>>>> complicated to add support for this specific audio case.
+>>>>
+>>>> Because we had implemented the "memory -> asrc ->i2s device-> codec"
+>>>> use case in ALSA.  Now the "memory->asrc->memory" needs
+>>>> to reuse the code in asrc driver, so the first 3 patches is for refining
+>>>> the code to make it can be shared by the "memory->asrc->memory"
+>>>> driver.
+>>>>
+>>>> The main change is in the v4l2 side, A /dev/vl4-audioX will be created,
+>>>> user applications only use the ioctl of v4l2 framework.
+>>>>
+>>>> Other change is to add memory to memory support for two kinds of i.MX ASRC
+>>>> module.
+>>>>
+>>>> changes in v14:
+>>>> - document the reservation of 'AUXX' fourcc format.
+>>>> - add v4l2_audfmt_to_fourcc() definition.
+>>>>
+>>>> changes in v13
+>>>> - change 'pixelformat' to 'audioformat' in dev-audio-mem2mem.rst
+>>>> - add more description for clock drift in ext-ctrls-audio-m2m.rst
+>>>> - Add "media: v4l2-ctrls: add support for fraction_bits" from Hans
+>>>>   to avoid build issue for kernel test robot
+>>>>
+>>>> changes in v12
+>>>> - minor changes according to comments
+>>>> - drop min_buffers_needed = 1 and V4L2_CTRL_FLAG_UPDATE flag
+>>>> - drop bus_info
+>>>>
+>>>> changes in v11
+>>>> - add add-fixed-point-test-controls in vivid.
+>>>> - add v4l2_ctrl_fp_compose() helper function for min and max
+>>>>
+>>>> changes in v10
+>>>> - remove FIXED_POINT type
+>>>> - change code base on media: v4l2-ctrls: add support for fraction_bits
+>>>> - fix issue reported by kernel test robot
+>>>> - remove module_alias
+>>>>
+>>>> changes in v9:
+>>>> - add MEDIA_ENT_F_PROC_AUDIO_RESAMPLER.
+>>>> - add MEDIA_INTF_T_V4L_AUDIO
+>>>> - add media controller support
+>>>> - refine the vim2m-audio to support 8k<->16k conversion.
+>>>>
+>>>> changes in v8:
+>>>> - refine V4L2_CAP_AUDIO_M2M to be 0x00000008
+>>>> - update doc for FIXED_POINT
+>>>> - address comments for imx-asrc
+>>>>
+>>>> changes in v7:
+>>>> - add acked-by from Mark
+>>>> - separate commit for fixed point, m2m audio class, audio rate controls
+>>>> - use INTEGER_MENU for rate,  FIXED_POINT for rate offset
+>>>> - remove used fmts
+>>>> - address other comments for Hans
+>>>>
+>>>> changes in v6:
+>>>> - use m2m_prepare/m2m_unprepare/m2m_start/m2m_stop to replace
+>>>>   m2m_start_part_one/m2m_stop_part_one, m2m_start_part_two/m2m_stop_part_two.
+>>>> - change V4L2_CTRL_TYPE_ASRC_RATE to V4L2_CTRL_TYPE_FIXED_POINT
+>>>> - fix warning by kernel test rebot
+>>>> - remove some unused format V4L2_AUDIO_FMT_XX
+>>>> - Get SNDRV_PCM_FORMAT from V4L2_AUDIO_FMT in driver.
+>>>> - rename audm2m to viaudm2m.
+>>>>
+>>>> changes in v5:
+>>>> - remove V4L2_AUDIO_FMT_LPCM
+>>>> - define audio pixel format like V4L2_AUDIO_FMT_S8...
+>>>> - remove rate and format in struct v4l2_audio_format.
+>>>> - Add V4L2_CID_ASRC_SOURCE_RATE and V4L2_CID_ASRC_DEST_RATE controls
+>>>> - updata document accordingly.
+>>>>
+>>>> changes in v4:
+>>>> - update document style
+>>>> - separate V4L2_AUDIO_FMT_LPCM and V4L2_CAP_AUDIO_M2M in separate commit
+>>>>
+>>>> changes in v3:
+>>>> - Modify documents for adding audio m2m support
+>>>> - Add audio virtual m2m driver
+>>>> - Defined V4L2_AUDIO_FMT_LPCM format type for audio.
+>>>> - Defined V4L2_CAP_AUDIO_M2M capability type for audio m2m case.
+>>>> - with modification in v4l-utils, pass v4l2-compliance test.
+>>>>
+>>>> changes in v2:
+>>>> - decouple the implementation in v4l2 and ALSA
+>>>> - implement the memory to memory driver as a platfrom driver
+>>>>   and move it to driver/media
+>>>> - move fsl_asrc_common.h to include/sound folder
+>>>>
+>>>> Hans Verkuil (1):
+>>>>   media: v4l2-ctrls: add support for fraction_bits
+>>>>
+>>>> Shengjiu Wang (15):
+>>>>   ASoC: fsl_asrc: define functions for memory to memory usage
+>>>>   ASoC: fsl_easrc: define functions for memory to memory usage
+>>>>   ASoC: fsl_asrc: move fsl_asrc_common.h to include/sound
+>>>>   ASoC: fsl_asrc: register m2m platform device
+>>>>   ASoC: fsl_easrc: register m2m platform device
+>>>>   media: uapi: Add V4L2_CAP_AUDIO_M2M capability flag
+>>>>   media: v4l2: Add audio capture and output support
+>>>>   media: uapi: Define audio sample format fourcc type
+>>>>   media: uapi: Add V4L2_CTRL_CLASS_M2M_AUDIO
+>>>>   media: uapi: Add audio rate controls support
+>>>>   media: uapi: Declare interface types for Audio
+>>>>   media: uapi: Add an entity type for audio resampler
+>>>>   media: vivid: add fixed point test controls
+>>>>   media: imx-asrc: Add memory to memory driver
+>>>>   media: vim2m-audio: add virtual driver for audio memory to memory
+>>>>
+>>>>  .../media/mediactl/media-types.rst            |   11 +
+>>>>  .../userspace-api/media/v4l/buffer.rst        |    6 +
+>>>>  .../userspace-api/media/v4l/common.rst        |    1 +
+>>>>  .../media/v4l/dev-audio-mem2mem.rst           |   71 +
+>>>>  .../userspace-api/media/v4l/devices.rst       |    1 +
+>>>>  .../media/v4l/ext-ctrls-audio-m2m.rst         |   59 +
+>>>>  .../userspace-api/media/v4l/pixfmt-audio.rst  |  100 ++
+>>>>  .../userspace-api/media/v4l/pixfmt.rst        |    1 +
+>>>>  .../media/v4l/vidioc-enum-fmt.rst             |    2 +
+>>>>  .../media/v4l/vidioc-g-ext-ctrls.rst          |    4 +
+>>>>  .../userspace-api/media/v4l/vidioc-g-fmt.rst  |    4 +
+>>>>  .../media/v4l/vidioc-querycap.rst             |    3 +
+>>>>  .../media/v4l/vidioc-queryctrl.rst            |   11 +-
+>>>>  .../media/videodev2.h.rst.exceptions          |    3 +
+>>>>  .../media/common/videobuf2/videobuf2-v4l2.c   |    4 +
+>>>>  drivers/media/platform/nxp/Kconfig            |   13 +
+>>>>  drivers/media/platform/nxp/Makefile           |    1 +
+>>>>  drivers/media/platform/nxp/imx-asrc.c         | 1256 +++++++++++++++++
+>>>>  drivers/media/test-drivers/Kconfig            |   10 +
+>>>>  drivers/media/test-drivers/Makefile           |    1 +
+>>>>  drivers/media/test-drivers/vim2m-audio.c      |  793 +++++++++++
+>>>>  drivers/media/test-drivers/vivid/vivid-core.h |    2 +
+>>>>  .../media/test-drivers/vivid/vivid-ctrls.c    |   26 +
+>>>>  drivers/media/v4l2-core/v4l2-compat-ioctl32.c |    9 +
+>>>>  drivers/media/v4l2-core/v4l2-ctrls-api.c      |    1 +
+>>>>  drivers/media/v4l2-core/v4l2-ctrls-core.c     |   93 +-
+>>>>  drivers/media/v4l2-core/v4l2-ctrls-defs.c     |   10 +
+>>>>  drivers/media/v4l2-core/v4l2-dev.c            |   21 +
+>>>>  drivers/media/v4l2-core/v4l2-ioctl.c          |   66 +
+>>>>  drivers/media/v4l2-core/v4l2-mem2mem.c        |   13 +-
+>>>>  include/media/v4l2-ctrls.h                    |   13 +-
+>>>>  include/media/v4l2-dev.h                      |    2 +
+>>>>  include/media/v4l2-ioctl.h                    |   34 +
+>>>>  .../fsl => include/sound}/fsl_asrc_common.h   |   60 +
+>>>>  include/uapi/linux/media.h                    |    2 +
+>>>>  include/uapi/linux/v4l2-controls.h            |    9 +
+>>>>  include/uapi/linux/videodev2.h                |   50 +-
+>>>>  sound/soc/fsl/fsl_asrc.c                      |  144 ++
+>>>>  sound/soc/fsl/fsl_asrc.h                      |    4 +-
+>>>>  sound/soc/fsl/fsl_asrc_dma.c                  |    2 +-
+>>>>  sound/soc/fsl/fsl_easrc.c                     |  233 +++
+>>>>  sound/soc/fsl/fsl_easrc.h                     |    6 +-
+>>>>  42 files changed, 3128 insertions(+), 27 deletions(-)
+>>>>  create mode 100644 Documentation/userspace-api/media/v4l/dev-audio-mem2mem.rst
+>>>>  create mode 100644 Documentation/userspace-api/media/v4l/ext-ctrls-audio-m2m.rst
+>>>>  create mode 100644 Documentation/userspace-api/media/v4l/pixfmt-audio.rst
+>>>>  create mode 100644 drivers/media/platform/nxp/imx-asrc.c
+>>>>  create mode 100644 drivers/media/test-drivers/vim2m-audio.c
+>>>>  rename {sound/soc/fsl => include/sound}/fsl_asrc_common.h (60%)
+>>>>
 >>>
->>> No vendor prefix, so is it a generic property? Also, missing unit
->>> suffix, but more importantly I don't understand why this is a property
->>> of hardware.
->>
->> +1.
->>
->> The appropriate way to set rate of the clock before the driver take over
->> is 'assigned-rate', if you need to customize this for different
->> platform.
->>
 > 
-> It would be great, but it doesn't work. Below, is what I want to see:
-> 
-> 	assigned-clocks =
-> 		<&clkc_audio AUD2_CLKID_PDM_SYSCLK_SEL>,
-> 		<&clkc_audio AUD2_CLKID_PDM_SYSCLK_DIV>;
-> 	assigned-clock-parents =
-> 		<&clkc_pll CLKID_FCLK_DIV3>,
-> 		<0>;
-> 	assigned-clock-rates =
-> 		<0>,
-> 		<256000000>;
-> 
-> But regardles of this declaration, PDM's driver unconditionally sets
-
-That's driver's problem. You do not change bindings, just because your
-driver behaves differently. Just fix driver.
-
-> sysclk'rate to 250MHz and throws away everything that was configured
-> before, reparents audio2_pdm_sysclk_mux to hifi_pll and changes
-> hifi_pll's rate.
-> 
-> This value 250MHz is declared here:
-> 
-> static const struct axg_pdm_cfg axg_pdm_config = {
-> 	.filters = &axg_default_filters,
-> 	.sys_rate = 250000000,
-> };
-> 
-> The property 'sysrate' is intended to redefine hardcoded 'sys_rate'
-> value in 'axg_pdm_config'.
-
-What does it have to do with bindings? Change driver if you are not
-happy how it operates.
-
-Best regards,
-Krzysztof
 

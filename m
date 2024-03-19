@@ -2,102 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 895C487F6A4
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Mar 2024 06:22:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D2D287F6A5
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Mar 2024 06:23:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CEF19240A;
-	Tue, 19 Mar 2024 06:22:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CEF19240A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 70EC9265E;
+	Tue, 19 Mar 2024 06:23:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 70EC9265E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1710825768;
-	bh=vMYOcFp28SYyP2tvNAU0IH+DCWd0/H20pM8Uz7RyXyk=;
+	s=default; t=1710825795;
+	bh=HAOvkShkvF6jZcsQiRt6BQMNXi5VuwmSeeexbfhBXj4=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=pOeUc0GsHK/TjiborU59QLg7STFDMdl5qObI739YNWqrmYHkjSSDuOkqZ7hEEKAxL
-	 euQHoxeCQfi5yl+jmsIiXbKv3P8+HuAL4OA0BqmVSdRyflx9ka21uBqinFkBeKZBbI
-	 g8KxMjRUYyy06Y2zJTAdCDD3+dXIyjHY2xMyoVjA=
+	b=vEnHBjfks4Imlmq85sZwojeIoPpGqsfxQOHSu+yTUX2xIvvohV4AP53JwjgH2F6ah
+	 cTNOCemEXlfLwHDV8YDznIvDyQjAtetXDEb5cBmcHQzMMVJYUdMuXJDKqS3w00DqmG
+	 8cmPS6PUrVXnO+ARNnl9EqW6ADpnMRZFZdl+oChI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 038E8F80588; Tue, 19 Mar 2024 06:22:17 +0100 (CET)
+	id 075ABF805D2; Tue, 19 Mar 2024 06:22:22 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0C530F805A0;
-	Tue, 19 Mar 2024 06:22:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 36FE2F805CA;
+	Tue, 19 Mar 2024 06:22:21 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 926DDF804E7; Tue, 19 Mar 2024 06:17:16 +0100 (CET)
+	id F1767F804E7; Tue, 19 Mar 2024 06:18:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [IPv6:2a00:1450:4864:20::62d])
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [IPv6:2a00:1450:4864:20::236])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 284E1F8025F
-	for <alsa-devel@alsa-project.org>; Tue, 19 Mar 2024 06:17:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 284E1F8025F
+	by alsa1.perex.cz (Postfix) with ESMTPS id DAD10F8025F
+	for <alsa-devel@alsa-project.org>; Tue, 19 Mar 2024 06:18:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DAD10F8025F
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=NqGrxtwf
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-a2f22bfb4e6so703287166b.0
+ header.s=google header.b=XIktEs3u
+Received: by mail-lj1-x236.google.com with SMTP id
+ 38308e7fff4ca-2d4a901e284so34856251fa.1
         for <alsa-devel@alsa-project.org>;
- Mon, 18 Mar 2024 22:17:08 -0700 (PDT)
+ Mon, 18 Mar 2024 22:17:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1710825427; x=1711430227;
+        d=linaro.org; s=google; t=1710825479; x=1711430279;
  darn=alsa-project.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=A6dmZujj3rrpeCLhV31DevVs1siyY1p4z7CzCm28mJ8=;
-        b=NqGrxtwfcvtmYjCtS2it7LtNcW4QQ5g7HsDyXOeG7IoEWln5gR59WNg+V4EvH/iM9z
-         Njykmz2FmIojP9WHQibA9DYotrao01ZIx8pHRm8+TJSZWSYRmMEK7ywoMPKUVNt6PHzp
-         m+tpe5y5VRa9Rq3IrooKpaqupsOlXbupxDrf13Qg2dIi2J3I55msNJAHqSeokDUWYTo0
-         mAEZ6VmAZWwW17focKG7vD7Ou8Cu629t5HIfRt25RVOKGTL1VQH+KVIShTw2agRqqmIH
-         RUu3MAJwRiYyu4woia/fAPqusDv7MQRkTFwWc8PTaeHVH3bTrAG1WfcnGQpmGKy7Q/OL
-         sbnA==
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=JI2FbCtp4a1d8gqLlxYEpKkEq7SXIcQUhF5rSMJv6eY=;
+        b=XIktEs3u9RWvj4YNfu6fIuSdG3nZ+ea13rCb/X/THalxtsAbx4oi5ucXNitHnmF62n
+         yey5aDm6wSLe7YW7KBiZFhCQR0bEUMulF42iUTeLpz27bxq5v7Bdi/MBo5h52EaAj3c2
+         /URaglDOM/oXCUpMAh6qRrJGmdk1HjgWFKl5BI9fwCs6pLLqjFiJoHn3vf7GzbmRhm+v
+         RHTDr6gaDDT+qrUc9Fl/kVzfPt/boT+XYA2kMQZVasK3AGWYkQo87q5O/pl0oS/TF4D+
+         Ltl1OIeffvflD64MWYA+dqxXCJR9y/q824J7vQnFTzasXtUCs2XIjj8em7fKFkIwSwRJ
+         vk8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710825427; x=1711430227;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=A6dmZujj3rrpeCLhV31DevVs1siyY1p4z7CzCm28mJ8=;
-        b=T9UdVZwfU7vu31q5boBjG73C6AIQhiYUluVcql7H4y1Cq9TN/jgRgNB3A6GdUQlLc9
-         NOH1ziNFzT5QYEznUk+OUMbrDSSza65DKVZImpafB9Dxpe4PrF+2HdIPZqqTk6kNqjSH
-         j1b/FKOrXwwOSrYhy1OpKAFrbrolZbiNwFpGa2DL/EAatpNqdEJu0xWBvegzYk2tVX0B
-         QaRGsux9YpprQhTmH3lLikGJMNupKy0ln6UFR00LhA5tOn6obmSHQRAdvwtDwHTsCRe/
-         xVP87YotSzAgqYQcGsWSglA4O5rQhj8/vPRfctVlMQlC9rCpjGp9pGNU20QIWxJU1xGL
-         R+lA==
+        d=1e100.net; s=20230601; t=1710825479; x=1711430279;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=JI2FbCtp4a1d8gqLlxYEpKkEq7SXIcQUhF5rSMJv6eY=;
+        b=hya1RnoAhzEGpsjeZGDIlds37Jf6xX58sG9kfEFCZjIptTInDnK9TAz3nU3MbqvwKa
+         +GSdVkKEAxgfuCDde7Msx15Lc/u00KZdVU4/OPkjK8LK7UjPMSrVnsPGZIxvBXZ+15M1
+         z1fP4Tftv5nVn+uAbvHT5uu4H6RtZ4RAObQjEQeuZKHL3aEXy6dtmiY6z3tEfyqXtoue
+         amv/I0ztEpB/ItswdunpPW8SusSqwCQtcpoeVo7fJdIKV+/UIg5ANh37ZI5TgPo8Cv3K
+         LOSB87y9d3XaU2FjFOfA5W92c6j06B0q4mb/AHCeumVuw9WdC+wOQcenW310//fU6eX4
+         xxhA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVKtY3/eRWe2mUq/LNjplanpkIE1b21BsJyIgvOJTk1/alh3gjfwf+MS8mWP/WZ9NZR9DW9kkXB6zFFvRNz0m9H84kZp1Oo0Hjgqf8=
-X-Gm-Message-State: AOJu0YzFnGLE01Eikx8De5zRolzIxRnoo/o9oJcI2G7r/qpY8p0OU6UV
-	TaZbuiNMr7IU9KVUdlqBoyhLlvf3Ypzo7IL7PwxhDYqEtraEwG+EdMXPRtiTFGE=
+ AJvYcCWmqFLFwAMMuPv+L6hv+DyLJ7eu8MIHU1JZrw4fFb8hZXplbROzDY86IIAhzJI4TnwHthm2YUpdfHWIsEPEUe5q46Z2yBJxt62Eod0=
+X-Gm-Message-State: AOJu0YxU+FGmYOSJ+VlYfGjLT8h9/f3IjcLkOyUaw6WXCeQK87XPdcHP
+	AleYlGGHrY80BVXvVnjgMLNxt8uw/b+CJXtyU1sgCRW2Hf6uxLkFv45jg+UDUZo=
 X-Google-Smtp-Source: 
- AGHT+IEmNGvabBJ6k+gmhVzndKnI6ZiE6h4BbtVDtsDUU3kYdiaT5WpmQM/PfthEbTFQJrgj5cSwbQ==
-X-Received: by 2002:a17:906:88d:b0:a46:b1b3:aba0 with SMTP id
- n13-20020a170906088d00b00a46b1b3aba0mr778832eje.17.1710825427121;
-        Mon, 18 Mar 2024 22:17:07 -0700 (PDT)
+ AGHT+IHar+3YLlq5DM7n+Ac5r+Zn05BDnf47HvVfCmOszqWWqnMfN5usck6Hs24uZ5aHqMoY3k04LQ==
+X-Received: by 2002:a05:651c:337:b0:2d4:513d:7b34 with SMTP id
+ b23-20020a05651c033700b002d4513d7b34mr5860519ljp.17.1710825478704;
+        Mon, 18 Mar 2024 22:17:58 -0700 (PDT)
 Received: from [192.168.1.20] ([178.197.222.97])
         by smtp.gmail.com with ESMTPSA id
- dm18-20020a170907949200b00a45200fe2b5sm5566916ejc.224.2024.03.18.22.17.05
+ dm18-20020a170907949200b00a45200fe2b5sm5566916ejc.224.2024.03.18.22.17.56
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 18 Mar 2024 22:17:06 -0700 (PDT)
-Message-ID: <4b8564e1-0342-4682-a963-bc32ff69622c@linaro.org>
-Date: Tue, 19 Mar 2024 06:17:04 +0100
+        Mon, 18 Mar 2024 22:17:58 -0700 (PDT)
+Message-ID: <1eb98856-dd51-4fab-84d3-392bc4c60e3f@linaro.org>
+Date: Tue, 19 Mar 2024 06:17:56 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 13/25] ASoC: dt-bindings: meson: axg-pdm: document
  'sysrate' property
+Content-Language: en-US
 To: Jan Dakinevich <jan.dakinevich@salutedevices.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jerome Brunet <jbrunet@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
  Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
  <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
@@ -110,15 +110,12 @@ To: Jan Dakinevich <jan.dakinevich@salutedevices.com>,
  linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- linux-gpio@vger.kernel.org
-Cc: kernel@salutedevices.com
+ linux-gpio@vger.kernel.org, kernel@salutedevices.com
 References: <20240314232201.2102178-1-jan.dakinevich@salutedevices.com>
  <20240314232201.2102178-14-jan.dakinevich@salutedevices.com>
  <ca80caab-2664-4797-a222-e14537eea440@linaro.org>
- <827c4f17-043e-4e09-aea6-0fee22d1b234@salutedevices.com>
- <16a22924-054d-4d50-9f32-cc07c0bbbdf4@linaro.org>
- <54e924ae-4d45-4337-aeae-32eebe773b63@salutedevices.com>
-Content-Language: en-US
+ <1jil1nhjwd.fsf@starbuckisacylon.baylibre.com>
+ <6feba9ff-8bbf-4494-93f0-732679bc4032@salutedevices.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -164,11 +161,11 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
  fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
  D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <54e924ae-4d45-4337-aeae-32eebe773b63@salutedevices.com>
+In-Reply-To: <6feba9ff-8bbf-4494-93f0-732679bc4032@salutedevices.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: MHIUKL2W5RXGOUDDWIXZ4MNQRE7CDIL3
-X-Message-ID-Hash: MHIUKL2W5RXGOUDDWIXZ4MNQRE7CDIL3
+Message-ID-Hash: UWFSOZM3RJSYIDGGZMKEYHX66JG76JVD
+X-Message-ID-Hash: UWFSOZM3RJSYIDGGZMKEYHX66JG76JVD
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -181,7 +178,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MHIUKL2W5RXGOUDDWIXZ4MNQRE7CDIL3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UWFSOZM3RJSYIDGGZMKEYHX66JG76JVD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -190,48 +187,81 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 17/03/2024 17:35, Jan Dakinevich wrote:
+On 17/03/2024 16:52, Jan Dakinevich wrote:
 > 
 > 
-> On 3/17/24 19:27, Krzysztof Kozlowski wrote:
->> On 17/03/2024 16:55, Jan Dakinevich wrote:
+> On 3/15/24 13:22, Jerome Brunet wrote:
+>>
+>> On Fri 15 Mar 2024 at 11:00, Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org> wrote:
+>>
+>>> On 15/03/2024 00:21, Jan Dakinevich wrote:
+>>>> This option allow to redefine the rate of DSP system clock.
 >>>
+>>> And why is it suitable for bindings? Describe the hardware, not what you
+>>> want to do in the driver.
 >>>
->>> On 3/15/24 13:00, Krzysztof Kozlowski wrote:
->>>> On 15/03/2024 00:21, Jan Dakinevich wrote:
->>>>> This option allow to redefine the rate of DSP system clock.
 >>>>
->>>> And why is it suitable for bindings? Describe the hardware, not what you
->>>> want to do in the driver.
+>>>> Signed-off-by: Jan Dakinevich <jan.dakinevich@salutedevices.com>
+>>>> ---
+>>>>  Documentation/devicetree/bindings/sound/amlogic,axg-pdm.yaml | 4 ++++
+>>>>  1 file changed, 4 insertions(+)
 >>>>
+>>>> diff --git a/Documentation/devicetree/bindings/sound/amlogic,axg-pdm.yaml b/Documentation/devicetree/bindings/sound/amlogic,axg-pdm.yaml
+>>>> index df21dd72fc65..d2f23a59a6b6 100644
+>>>> --- a/Documentation/devicetree/bindings/sound/amlogic,axg-pdm.yaml
+>>>> +++ b/Documentation/devicetree/bindings/sound/amlogic,axg-pdm.yaml
+>>>> @@ -40,6 +40,10 @@ properties:
+>>>>    resets:
+>>>>      maxItems: 1
+>>>>  
+>>>> +  sysrate:
+>>>> +    $ref: /schemas/types.yaml#/definitions/uint32
+>>>> +    description: redefine rate of DSP system clock
 >>>
->>> What do you mean? I am adding some new property and should describe it
->>> in dt-bindinds. Isn't it?
+>>> No vendor prefix, so is it a generic property? Also, missing unit
+>>> suffix, but more importantly I don't understand why this is a property
+>>> of hardware.
 >>
->> No, if the property is not suitable for bindings, you should not add it
->> in the first place. So again: explain what sort of hardware, not driver,
->> problem you are solving here, so we can understand why do you need new
->> property. Otherwise use existing properties or no properties, because we
->> do not define all possible clocks in the bindings.
+>> +1.
 >>
->> Let's be clear: with such commit msg explanation as you have, my answer
->> is: no, driver should set clock frequency and you do not need this
->> property at all.
+>> The appropriate way to set rate of the clock before the driver take over
+>> is 'assigned-rate', if you need to customize this for different
+>> platform.
 >>
 > 
-> Could you please take a look on answer to "Jerome Brunet
-> <jbrunet@baylibre.com>"'s message on the same thread. There, I am trying
-> to explain what I am solving by this commit.
+> It would be great, but it doesn't work. Below, is what I want to see:
+> 
+> 	assigned-clocks =
+> 		<&clkc_audio AUD2_CLKID_PDM_SYSCLK_SEL>,
+> 		<&clkc_audio AUD2_CLKID_PDM_SYSCLK_DIV>;
+> 	assigned-clock-parents =
+> 		<&clkc_pll CLKID_FCLK_DIV3>,
+> 		<0>;
+> 	assigned-clock-rates =
+> 		<0>,
+> 		<256000000>;
+> 
+> But regardles of this declaration, PDM's driver unconditionally sets
 
-How is this answer here? You asked "What do you mean", so apparently you
-did not understand why I am responding and why you cannot just document
-whatever you wish, because that "whatever you wish" is not correct. I
-explained that but now you respond that I should read other part of
-emails. Really?
+That's driver's problem. You do not change bindings, just because your
+driver behaves differently. Just fix driver.
 
-So again, do you understand that commit msg should provide rationale why
-you think this describes hardware and why this is suitable for bindings?
+> sysclk'rate to 250MHz and throws away everything that was configured
+> before, reparents audio2_pdm_sysclk_mux to hifi_pll and changes
+> hifi_pll's rate.
+> 
+> This value 250MHz is declared here:
+> 
+> static const struct axg_pdm_cfg axg_pdm_config = {
+> 	.filters = &axg_default_filters,
+> 	.sys_rate = 250000000,
+> };
+> 
+> The property 'sysrate' is intended to redefine hardcoded 'sys_rate'
+> value in 'axg_pdm_config'.
 
+What does it have to do with bindings? Change driver if you are not
+happy how it operates.
 
 Best regards,
 Krzysztof

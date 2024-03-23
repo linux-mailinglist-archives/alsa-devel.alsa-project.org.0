@@ -2,103 +2,140 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE192887C29
-	for <lists+alsa-devel@lfdr.de>; Sun, 24 Mar 2024 10:49:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6192A887834
+	for <lists+alsa-devel@lfdr.de>; Sat, 23 Mar 2024 12:08:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2E555162C;
-	Sun, 24 Mar 2024 10:49:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2E555162C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0D1D2193B;
+	Sat, 23 Mar 2024 12:08:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D1D2193B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1711273799;
-	bh=dqNdFzDav8LT0eeQGhnGEPZYDofLjfHq/dxayOwpeo4=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=Ri2iXy8MLuiVm7R1SkZKSXsMS0CeI4n4y8wFbZc/j7md34wWyq+vGMm+4y03Xx5d1
-	 LQJqY1ksrbcR+hE86Jd2XKopvOY5jpoxV65rzD8vh1owVg3bFXFJVZt7fYDeHhFVdV
-	 3+R4LQRjBDbg8fSkhE28g+BO3RqzVCuvhm4Z6/Zg=
+	s=default; t=1711192120;
+	bh=GKfniStSmaKJBlwXjHGZn4ndTI8K8+feyQvaKzamjq8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=NFyNrPSmIVIu5FLvnAwsRUrfjhO8251+vAxtL4yWtx+IFwaCDZ7lMzDzBeKRvL1lD
+	 sagU+qPML6urJvygG7jchorbcN7DGu6HNj+TIl3MOK/Lu8PHEtzbM4bI7XisP1DDzC
+	 KCb+Ze/LPEPKViX31rR5G1TslETDLtdq/k7IHjJE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 46412F805B2; Sun, 24 Mar 2024 10:49:19 +0100 (CET)
+	id 170A3F805B1; Sat, 23 Mar 2024 12:08:16 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BD8B9F805C2;
-	Sun, 24 Mar 2024 10:49:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8EF2DF805A9;
+	Sat, 23 Mar 2024 12:08:15 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2C63BF804E7; Sat, 23 Mar 2024 07:05:18 +0100 (CET)
+	id 15C17F804E7; Sat, 23 Mar 2024 12:06:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=no autolearn_force=no
-	version=3.4.6
-Received: from mail.nppct.ru (mail.nppct.ru [195.133.245.4])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 65532F8010B
-	for <alsa-devel@alsa-project.org>; Sat, 23 Mar 2024 07:03:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 65532F8010B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 09519F8010B
+	for <alsa-devel@alsa-project.org>; Sat, 23 Mar 2024 12:06:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09519F8010B
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=nppct.ru header.i=@nppct.ru header.a=rsa-sha256
- header.s=dkim header.b=YsHkIRqv
-Received: from mail.nppct.ru (localhost [127.0.0.1])
-	by mail.nppct.ru (Postfix) with ESMTP id 0E2491C14D0
-	for <alsa-devel@alsa-project.org>; Sat, 23 Mar 2024 09:03:54 +0300 (MSK)
-Authentication-Results: mail.nppct.ru (amavisd-new); dkim=pass (1024-bit key)
-	reason="pass (just generated, assumed good)" header.d=nppct.ru
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nppct.ru; h=
-	content-transfer-encoding:content-type:content-type:mime-version
-	:x-mailer:message-id:date:date:subject:subject:to:from:from; s=
-	dkim; t=1711173832; x=1712037833; bh=dqNdFzDav8LT0eeQGhnGEPZYDof
-	LjfHq/dxayOwpeo4=; b=YsHkIRqvWQKYIMxnD97F0HIXWNpS6EkxErXonl3SSFP
-	p+c2GiRkYrjB6bKpRhk1uzvoY8PFbIVEtTZ+rW1t6JLE9Dw9J+WxSQxjekpsb5VY
-	p6q1UymDgt0st5IcHKoo7Wq24URe+bgcpGjqKmESGwBNDGvAs8kdKJccpOXHKZlk
-	=
-X-Virus-Scanned: Debian amavisd-new at mail.nppct.ru
-Received: from mail.nppct.ru ([127.0.0.1])
-	by mail.nppct.ru (mail.nppct.ru [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id jMJjwX2BQctY for <alsa-devel@alsa-project.org>;
-	Sat, 23 Mar 2024 09:03:52 +0300 (MSK)
-Received: from localhost.localdomain (mail.dev-ai-melanoma.ru
- [185.130.227.204])
-	by mail.nppct.ru (Postfix) with ESMTPSA id B46AC1C14A0;
-	Sat, 23 Mar 2024 09:03:50 +0300 (MSK)
-From: Andrey Shumilin <shum.sdl@nppct.ru>
-To: Clemens Ladisch <clemens@ladisch.de>
-Cc: Andrey Shumilin <shum.sdl@nppct.ru>,
-	Takashi Sakamoto <o-takashi@sakamocchi.jp>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org,
-	khoroshilov@ispras.ru,
-	ykarpov@ispras.ru,
-	vmerzlyakov@ispras.ru,
-	vefanov@ispras.ru
-Subject: [PATCH] amdtp-stream: Checking a variable for zero before dividing
-Date: Sat, 23 Mar 2024 09:03:38 +0300
-Message-Id: <20240323060338.663707-1-shum.sdl@nppct.ru>
-X-Mailer: git-send-email 2.30.2
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=qj3JQEev
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id D0A306066C;
+	Sat, 23 Mar 2024 11:06:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F4DFC433C7;
+	Sat, 23 Mar 2024 11:06:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1711191966;
+	bh=GKfniStSmaKJBlwXjHGZn4ndTI8K8+feyQvaKzamjq8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=qj3JQEevEWnr2rTBehVg/0C4JeqKTWP8uIMU5ZRwezo7KB09HU81dENjM9fKsQUgl
+	 30YrK3Qw4wkMcST6xDsx0Y1JfoYGxyXIeyy3wJG+cdruL+IKxlhM/2y+RzjOXgBlLZ
+	 sz2YQ9l1TkaAq27rrzCWl9pQk66z88n52LyTAae5ZztoBLVHe95XbPCPA3qtcXjLW+
+	 V2C0U97oO2CsQkNfsuOpGG+F3KyWhjhH+6/FPPcj/xmW1sUFcW7Xp+iJUFzD8DmqgO
+	 5zUpODxm1ZX3Sw25lv0OmMs1byVdR4CB8EGJJT6wMjAVDCm6dWeQuf24qkdQhe/O1L
+	 ZWcNuHwT+pT+g==
+Message-ID: <b8b33dab-809a-47d3-b4a3-cc487a02b5d3@kernel.org>
+Date: Sat, 23 Mar 2024 12:05:57 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/2] ASoC: dt-bindings: Added schema for
+ "nuvoton,nau8325"
+To: Seven Lee <wtli@nuvoton.com>, broonie@kernel.org
+Cc: lgirdwood@gmail.com, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ robh+dt@kernel.org, conor+dt@kernel.org, YHCHuang@nuvoton.com,
+ KCHSU0@nuvoton.com, CTLIN0@nuvoton.com, SJLIN0@nuvoton.com,
+ scott6986@gmail.com, supercraig0719@gmail.com, dardar923@gmail.com
+References: <20240322025405.3340064-1-wtli@nuvoton.com>
+ <20240322025405.3340064-2-wtli@nuvoton.com>
+Content-Language: en-US
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 fv0=
+In-Reply-To: <20240322025405.3340064-2-wtli@nuvoton.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-MailFrom: shum.sdl@nppct.ru
-X-Mailman-Rule-Hits: nonmember-moderation
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: QB3URJP46DAH4WYN3TVVMKT4PN5VONH6
+X-Message-ID-Hash: QB3URJP46DAH4WYN3TVVMKT4PN5VONH6
+X-MailFrom: krzk@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: INX547PJOROZVQ67IGOTDT6FQTQT2A52
-X-Message-ID-Hash: INX547PJOROZVQ67IGOTDT6FQTQT2A52
-X-Mailman-Approved-At: Sun, 24 Mar 2024 09:46:15 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/INX547PJOROZVQ67IGOTDT6FQTQT2A52/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QB3URJP46DAH4WYN3TVVMKT4PN5VONH6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,31 +144,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The step variable is initialized to zero.
-It changes in the loop, but if it doesn’t change
-it will remain zero.
-The patch added a variable check.
+On 22/03/2024 03:54, Seven Lee wrote:
+> Add a DT schema for describing nau8325 audio amplifiers. The key features
+> are as follows:
+>   - Low SPK_VDD Quiescent Current
+>   - Gain Setting with 2-wire interface
+>   - Powerful Stereo Class-D Amplifier
+>   - Low Output Noise
+>   - Low Current Shutdown Mode
+>   - Click-and Pop Suppression
 
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
-Signed-off-by: Andrey Shumilin <shum.sdl@nppct.ru>
----
- sound/firewire/amdtp-stream.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Please use scripts/get_maintainers.pl to get a list of necessary people
+and lists to CC (and consider --no-git-fallback argument). It might
+happen, that command when run on an older kernel, gives you outdated
+entries. Therefore please be sure you base your patches on recent Linux
+kernel.
 
-diff --git a/sound/firewire/amdtp-stream.c b/sound/firewire/amdtp-stream.c
-index c9f153f85ae6..b61aa30f43a9 100644
---- a/sound/firewire/amdtp-stream.c
-+++ b/sound/firewire/amdtp-stream.c
-@@ -168,7 +168,8 @@ static int apply_constraint_to_size(struct snd_pcm_hw_params *params,
- 		if (snd_interval_test(r, amdtp_rate_table[i]))
- 			step = max(step, amdtp_syt_intervals[i]);
- 	}
--
-+	if (step == 0)
-+		return -EINVAL;
- 	t.min = roundup(s->min, step);
- 	t.max = rounddown(s->max, step);
- 	t.integer = 1;
--- 
-2.30.2
+Tools like b4 or scripts/get_maintainer.pl provide you proper list of
+people, so fix your workflow. Tools might also fail if you work on some
+ancient tree (don't, instead use mainline), work on fork of kernel
+(don't, instead use mainline) or you ignore some maintainers (really
+don't). Just use b4 and everything should be fine, although remember
+about `b4 prep --auto-to-cc` if you added new patches to the patchset.
+
+You keep skipping maintainers on almost all your patches. Why?
+
+Best regards,
+Krzysztof
 

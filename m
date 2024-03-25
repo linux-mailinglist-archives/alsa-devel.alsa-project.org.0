@@ -2,122 +2,126 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABD42894BBB
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Apr 2024 08:47:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07D34894BBC
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Apr 2024 08:47:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0983623E0;
-	Tue,  2 Apr 2024 08:47:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0983623E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 993022BAC;
+	Tue,  2 Apr 2024 08:47:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 993022BAC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712040433;
-	bh=+OIjmq/msMJ1nthLx4ArprFpl/aIBuVdUAwqkFQH2wY=;
-	h=Date:From:To:Subject:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1712040448;
+	bh=e18u4Zx+/EJmVkR05i1wQWx/l3yrJ3WydzFhrZJeVEo=;
+	h=From:To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=Ez7J8SlXxzCURfPFJhcHc04ANrnOlMYRczov4xloPYpfd/UQyGsoNHAXjsNxdAjjg
-	 8LdNQqdwaA7DD1qUoF5h63lUZU2K8qrFXSjy+7iu6y5arQtiylYJDTi+cAx292awFm
-	 6BTAcN1zZ2s+jUx+v2Oo8eJQrwNH3y/cAvuU6at4=
+	b=L6Szc5mRBwfkPgwD5h4v5c5RCn3ZIwH0r+rqF3HaosIer7ihiVSabFDp5CUjBevFM
+	 zofq0n29xJmZgciiPoxPfk1Bul/7C+l2UyIj0EwdxBgqDFT5112nsomSXh0UQ6dGCl
+	 10C1DHAIuA/5Kf/bGbFEPp0YpJ6KGEUmz649cpd4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DF0CDF805D4; Tue,  2 Apr 2024 08:46:26 +0200 (CEST)
+	id C5EF0F805F8; Tue,  2 Apr 2024 08:46:30 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1E90FF805D3;
-	Tue,  2 Apr 2024 08:46:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 146C8F805E3;
+	Tue,  2 Apr 2024 08:46:30 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2F0A8F805E6; Mon, 25 Mar 2024 17:14:28 +0100 (CET)
+	id C393FF8025F; Tue, 26 Mar 2024 00:54:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_LOW,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from fhigh1-smtp.messagingengine.com
- (fhigh1-smtp.messagingengine.com [103.168.172.152])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_PASS,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=no autolearn_force=no
+	version=3.4.6
+Received: from mx1.sberdevices.ru (mx2.sberdevices.ru [45.89.224.132])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C6BA9F805E3
-	for <alsa-devel@alsa-project.org>; Mon, 25 Mar 2024 17:14:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6BA9F805E3
+	by alsa1.perex.cz (Postfix) with ESMTPS id CC67AF80093
+	for <alsa-devel@alsa-project.org>; Tue, 26 Mar 2024 00:54:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC67AF80093
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256
- header.s=fm2 header.b=PBhkAZJz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm2 header.b=nOFe9GT9
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
-	by mailfhigh.nyi.internal (Postfix) with ESMTP id 48DB4114015F
-	for <alsa-devel@alsa-project.org>; Mon, 25 Mar 2024 12:14:15 -0400 (EDT)
-Received: from imap42 ([10.202.2.92])
-  by compute3.internal (MEProxy); Mon, 25 Mar 2024 12:14:15 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
-	cc:content-type:content-type:date:date:from:from:in-reply-to
-	:message-id:mime-version:reply-to:subject:subject:to:to; s=fm2;
-	 t=1711383255; x=1711469655; bh=wEyO9FDH4khOoC/BG1WNRgZjHYfO2Koa
-	+qfLwIMgQXo=; b=PBhkAZJzYlXZoszK5y9QfhpNn1HtW1Ey1T+WpzWVEBK+FDkS
-	pigYx31ImzPpvGGS/lmfquQhTUKe/H9SNt/D3hDLSJBvfehggkEEoRzKj18h8Grs
-	eIGuSKAxzOLlvpt28RwQVI8BHN8LilSKoREVfu6wLvuHBQTNPbWSz3RHv52VzHRT
-	hvbYdTErVRKMz6Q39Q3x/Z/jp1UIHRN6Cd9XDTxkqqQCjZ9pFqco9r+/MdCuclxc
-	Dny45pn587ODamLA5RMHd9+08JMBFRASDR2nzT0ss+5nmWvcVo2eMv/pGaEmKopk
-	wZAy/5YX2tbNOdnJfoBs2nsvoP+h00AaGsjWug==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:message-id
-	:mime-version:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1711383255; x=1711469655; bh=wEyO9FDH4khOoC/BG1WNRgZjHYfO2Koa+qf
-	LwIMgQXo=; b=nOFe9GT9f0X1Yhfv+74aYiYf90Rp2OOWbFmRiLyYpugcPdn1sQy
-	OP0AD4WLXAU7/2umwxYF30C3YRW9P26jaUeEyB99PG49tWNlSgsri+IR5xv1fWuz
-	lA3nMjFk7kKRbkoW7fI09DfuCHSoE1cdamJqkPIoVzx8KHXS37VzxkvblICBQ4w2
-	9Pox0fIgof6qNJl0RKwqrrU+3A6hdj1b1VaLij6Z/zvh5XpdgZjpD8qzp4iNaYsy
-	sdy8qetWRjKxmk9nfNRwm7AN7L8ByORh2V9JPjHZikWYo3AgEcuFncc0/M8xqeMl
-	tlTJ6ixVVJszRGU6s2yzt0CW9CGhvSJ3Dvg==
-X-ME-Sender: <xms:1qIBZgh06_D6FV60_aRsvIk3OW1aafPM1FDtyc5eH9Gns1QbEggGRw>
-    <xme:1qIBZpCz1U1ChccfDW8cU_BKat9ftpVNklGLnJiVCUb7vAYqdV-ioj_eEje-RQ-vI
-    OSAfQeeGBU2yHhMWA>
-X-ME-Proxy-Cause: 
- gggruggvucftvghtrhhoucdtuddrgedvledrudduuddgvdeiucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucenucfjughrpefofgggkfffhffvufgtsehttdertd
-    erredtnecuhfhrohhmpedftfhosggvrhhtucfjohhskhhinhdfuceorhhhohhskhhinhes
-    fhgrshhtmhgrihhlrdhorhhgqeenucggtffrrghtthgvrhhnpedtveeuvdefuedukedute
-    dvjeetvdeigedttdetheelkeeghfelgeelgfeujedtjeenucffohhmrghinheprghlshgr
-    qdhprhhojhgvtghtrdhorhhgnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpe
-    hmrghilhhfrhhomheprhhhohhskhhinhesfhgrshhtmhgrihhlrdhorhhg
-X-ME-Proxy: <xmx:1qIBZoEscYNsNLSNkjDgOdXkODO1kTOYK-2wYEOPe5w_ut3uxDBGNg>
-    <xmx:1qIBZhRF-86D5W2fzZcmHU9buaYdOUWTPutnaOTSkn6gsBuxrwElbg>
-    <xmx:1qIBZtwlwCOKaeXYnUwlOQbboYM-qFZ2itU4UV0F62E4RaqyMCmI8w>
-    <xmx:1qIBZv5iigpGO9e9tFGh_wHfGliSwhX8LQWGA-oYfR4IbFSt9aKI5w>
-    <xmx:16IBZupehkEiOwd7PtuIhQqS_aCqLAll-P8oaqDZWzW4r6NVsHOpSQ>
-Feedback-ID: ib8714271:Fastmail
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
-	id 9CEF4BC0082; Mon, 25 Mar 2024 12:14:14 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.11.0-alpha0-332-gdeb4194079-fm-20240319.002-gdeb41940
+ unprotected) header.d=salutedevices.com header.i=@salutedevices.com
+ header.a=rsa-sha256 header.s=mail header.b=R5ju2o7B
+Received: from p-infra-ksmg-sc-msk02 (localhost [127.0.0.1])
+	by mx1.sberdevices.ru (Postfix) with ESMTP id 99E62120002;
+	Tue, 26 Mar 2024 02:54:21 +0300 (MSK)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mx1.sberdevices.ru 99E62120002
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=salutedevices.com;
+	s=mail; t=1711410861;
+	bh=/VGhO9g3eLyI3DESf5O8GZK0vOI9FoBBKXuZ7OPsOuY=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type:From;
+	b=R5ju2o7B45ahyVSiF39mcNRMAUqnPGpji4GHX/iajeG4RrqfujwqkOcymDjiyMR+D
+	 8Hl/clsCTydAowO3FflAD+m3faQW7+AQG1TAMj0LlJQ1UBehLETGdJ9Hrsyn0AUzBk
+	 BqEJploVZ7iNb/ealUhK2ublCUf0CfhMgDxQLwqoUHbM6gyw4X9qPp4okHt6M1trz9
+	 93WJejsLAbB2Zq7ox5f09jzThHyBGRyZQnEYrR052DkfuaEdnRdowWxwKjr2Xbz4D8
+	 yDWtlb9JDgneTuE0/Ba3D76wlftiymjKg+rva+EeY3rV6SnY7kQXZpHVK1aDQfrM6b
+	 uiRdsbYuYqjiA==
+Received: from smtp.sberdevices.ru (p-i-exch-sc-m02.sberdevices.ru
+ [172.16.192.103])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mx1.sberdevices.ru (Postfix) with ESMTPS;
+	Tue, 26 Mar 2024 02:54:21 +0300 (MSK)
+Received: from CAB-WSD-0003115.sberdevices.ru (100.64.160.123) by
+ p-i-exch-sc-m02.sberdevices.ru (172.16.192.103) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.40; Tue, 26 Mar 2024 02:54:20 +0300
+From: Jan Dakinevich <jan.dakinevich@salutedevices.com>
+To: Jan Dakinevich <jan.dakinevich@salutedevices.com>, Jerome Brunet
+	<jbrunet@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
+	<broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
+	<tiwai@suse.com>, Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman
+	<khilman@baylibre.com>, Martin Blumenstingl
+	<martin.blumenstingl@googlemail.com>, <alsa-devel@alsa-project.org>,
+	<linux-sound@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-amlogic@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+Subject: [RFC PATCH v2] ASoC: meson: g12a-toacodec: rework the definition of
+ bits
+Date: Tue, 26 Mar 2024 02:53:11 +0300
+Message-ID: <20240325235311.411920-1-jan.dakinevich@salutedevices.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Message-Id: <5266542c-3f18-41ad-b57c-395e9c57f655@app.fastmail.com>
-Date: Mon, 25 Mar 2024 12:13:54 -0400
-From: "Robert Hoskin" <rhoskin@fastmail.org>
-To: alsa-devel@alsa-project.org
-Subject: alsa-info uploads re periodic sound failures on P16 w/ Mint
+Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-MailFrom: rhoskin@fastmail.org
+X-Originating-IP: [100.64.160.123]
+X-ClientProxiedBy: p-i-exch-sc-m02.sberdevices.ru (172.16.192.103) To
+ p-i-exch-sc-m02.sberdevices.ru (172.16.192.103)
+X-KSMG-Rule-ID: 10
+X-KSMG-Message-Action: clean
+X-KSMG-AntiSpam-Lua-Profiles: 184404 [Mar 25 2024]
+X-KSMG-AntiSpam-Version: 6.1.0.4
+X-KSMG-AntiSpam-Envelope-From: YVDakinevich@sberdevices.ru
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Auth: dkim=none
+X-KSMG-AntiSpam-Info: LuaCore: 11 0.3.11
+ 5ecf9895443a5066245fcb91e8430edf92b1b594, {Tracking_smtp_not_equal_from},
+ {Tracking_uf_ne_domains},
+ salutedevices.com:7.1.1;lore.kernel.org:7.1.1;100.64.160.123:7.1.2;smtp.sberdevices.ru:5.0.1,7.1.1;sberdevices.ru:5.0.1,7.1.1;127.0.0.199:7.1.2;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1,
+ FromAlignment: n, {Tracking_smtp_domain_mismatch},
+ {Tracking_smtp_domain_2level_mismatch}, {Tracking_sender_alignment_int},
+ {Tracking_white_helo}, ApMailHostAddress: 100.64.160.123
+X-MS-Exchange-Organization-SCL: -1
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiPhishing: Clean, bases: 2024/03/25 23:10:00
+X-KSMG-LinksScanning: Clean, bases: 2024/03/25 23:09:00
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.0.1.6960,
+ bases: 2024/03/25 18:32:00 #24438765
+X-KSMG-AntiVirus-Status: Clean, skipped
+X-MailFrom: YVDakinevich@sberdevices.ru
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: BPE2QKCADVUH63IOGCM62VBIKAGL56OY
-X-Message-ID-Hash: BPE2QKCADVUH63IOGCM62VBIKAGL56OY
+Message-ID-Hash: Z2SA7HNIOEUIBCOROS5ZGQX2GEIKNXOE
+X-Message-ID-Hash: Z2SA7HNIOEUIBCOROS5ZGQX2GEIKNXOE
 X-Mailman-Approved-At: Tue, 02 Apr 2024 06:46:15 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BPE2QKCADVUH63IOGCM62VBIKAGL56OY/>
+Archived-At: <>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -126,42 +130,154 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Greetings!  
+There is a lot of defines, but almost all of them are not used. Lets
+rework them:
 
-The alsa-info output links below is from a Lenovo P16 Gen2, running Linux Mint 21.3, with an intermittent sound problem.  
+ - keep separate the definition for different platforms to make easier
+   checking that they match documentation.
 
-The problem is that: 
-Sound will be available from either built in speakers or headphones, perhaps for several days after a startup, but at some point will fail, with both Headphones (via jack) and internal Speakers disappearing from the "sound" app, and "Dummy Output" appearing in their place.   If it's possible to reproduce this failure, I haven't figured out how.  It happens when it happens, usually after a few days of uptime. 
+ - use LSB/MSB sufixes for uniformity.
 
-I've found that sound can be restored with "sudo alsa force-reload", so I do have a workaround.  
+ - don't use hard-coded values for already declared defines.
 
-*** For before-and-after comparison purposes...
-***
-This report was taken when "Dummy Output" was shown in the Sound app:
-http://alsa-project.org/db/?f=4ec46710d176deb77fcdd950520eaafc4c9db1c3
-***
-This report was taken after a "sudo alsa force-reload", which restored both headphones and speakers to the Sound app"
-http://alsa-project.org/db/?f=3832b192eaa22ea4d51b0e6073f389318b983356
-***
+Signed-off-by: Jan Dakinevich <jan.dakinevich@salutedevices.com>
+---
+Links:
 
-In the "System Reports" app, there are no crash reports shown.
+ [1] https://lore.kernel.org/lkml/20240314232201.2102178-1-jan.dakinevich@salutedevices.com/
 
-BUT... In the system logs app, I did find some lines in the Hardware section that may be relevant:
-09:41:50 kernel: sof-audio-pci-intel-tgl 0000:00:1f.3: ASoC: error at snd_soc_pcm_component_prepare on 0000:00:1f.3: -22
-09:41:50 kernel: sof-audio-pci-intel-tgl 0000:00:1f.3: ASoC: error at snd_soc_pcm_component_prepare on 0000:00:1f.3: -22
-09:41:50 kernel: sof-audio-pci-intel-tgl 0000:00:1f.3: error: set pcm hw_params after resume
-09:41:50 kernel: sof-audio-pci-intel-tgl 0000:00:1f.3: HW params ipc failed for stream 1
-09:41:50 kernel: sof-audio-pci-intel-tgl 0000:00:1f.3: ipc tx error for 0x60010000 (msg/reply size: 108/20): -22
+Changes v1 -> v2:
+ - Detached from v1's series (patch 7).
+ - Fixed my wrong understanding of SOC_SINGLE's input parameters.
 
-I really have no idea whether I'm submitting this in the right place or not, whether this is a kernel problem, a driver problem, a config problem, or whatever.  I can tell you that this Mint install is new on a new machine, otherwise well-behaved, with subsequent updates that have not changed this sound behavior.  
+ sound/soc/meson/g12a-toacodec.c | 79 ++++++++++++++++++++-------------
+ 1 file changed, 49 insertions(+), 30 deletions(-)
 
-Hope this is useful to you, love to have it fixed.
-
-Thanks!
-
-- Bob
-
-
+diff --git a/sound/soc/meson/g12a-toacodec.c b/sound/soc/meson/g12a-toacodec.c
+index 531bb8707a3e..22181f4bab72 100644
+--- a/sound/soc/meson/g12a-toacodec.c
++++ b/sound/soc/meson/g12a-toacodec.c
+@@ -20,26 +20,37 @@
+ #define G12A_TOACODEC_DRV_NAME "g12a-toacodec"
+ 
+ #define TOACODEC_CTRL0			0x0
+-#define  CTRL0_ENABLE_SHIFT		31
+-#define  CTRL0_DAT_SEL_SM1_MSB		19
+-#define  CTRL0_DAT_SEL_SM1_LSB		18
+-#define  CTRL0_DAT_SEL_MSB		15
+-#define  CTRL0_DAT_SEL_LSB		14
+-#define  CTRL0_LANE_SEL_SM1		16
+-#define  CTRL0_LANE_SEL			12
+-#define  CTRL0_LRCLK_SEL_SM1_MSB	14
+-#define  CTRL0_LRCLK_SEL_SM1_LSB	12
+-#define  CTRL0_LRCLK_SEL_MSB		9
+-#define  CTRL0_LRCLK_SEL_LSB		8
+-#define  CTRL0_LRCLK_INV_SM1		BIT(10)
+-#define  CTRL0_BLK_CAP_INV_SM1		BIT(9)
+-#define  CTRL0_BLK_CAP_INV		BIT(7)
+-#define  CTRL0_BCLK_O_INV_SM1		BIT(8)
+-#define  CTRL0_BCLK_O_INV		BIT(6)
+-#define  CTRL0_BCLK_SEL_SM1_MSB		6
+-#define  CTRL0_BCLK_SEL_MSB		5
+-#define  CTRL0_BCLK_SEL_LSB		4
+-#define  CTRL0_MCLK_SEL			GENMASK(2, 0)
++
++/* Common bits */
++#define CTRL0_ENABLE_SHIFT		31
++#define CTRL0_MCLK_SEL			GENMASK(2, 0)
++
++/* G12A bits */
++#define CTRL0_DAT_SEL_G12A_MSB		15
++#define CTRL0_DAT_SEL_G12A_LSB		14
++#define CTRL0_LANE_SEL_G12A_MSB		13
++#define CTRL0_LANE_SEL_G12A_LSB		12
++#define CTRL0_LANE_SEL_G12A_MAX		3
++#define CTRL0_LRCLK_SEL_G12A_MSB	9
++#define CTRL0_LRCLK_SEL_G12A_LSB	8
++#define CTRL0_BLK_CAP_INV_G12A		BIT(7)
++#define CTRL0_BCLK_O_INV_G12A		BIT(6)
++#define CTRL0_BCLK_SEL_G12A_MSB		5
++#define CTRL0_BCLK_SEL_G12A_LSB		4
++
++/* SM1 bits */
++#define CTRL0_DAT_SEL_SM1_MSB		19
++#define CTRL0_DAT_SEL_SM1_LSB		18
++#define CTRL0_LANE_SEL_SM1_MSB		17
++#define CTRL0_LANE_SEL_SM1_LSB		16
++#define CTRL0_LANE_SEL_SM1_MAX		3
++#define CTRL0_LRCLK_SEL_SM1_MSB		14
++#define CTRL0_LRCLK_SEL_SM1_LSB		12
++#define CTRL0_LRCLK_INV_SM1		BIT(10)
++#define CTRL0_BLK_CAP_INV_SM1		BIT(9)
++#define CTRL0_BCLK_O_INV_SM1		BIT(8)
++#define CTRL0_BCLK_SEL_SM1_MSB		6
++#define CTRL0_BCLK_SEL_SM1_LSB		4
+ 
+ #define TOACODEC_OUT_CHMAX		2
+ 
+@@ -108,7 +119,7 @@ static int g12a_toacodec_mux_put_enum(struct snd_kcontrol *kcontrol,
+ }
+ 
+ static SOC_ENUM_SINGLE_DECL(g12a_toacodec_mux_enum, TOACODEC_CTRL0,
+-			    CTRL0_DAT_SEL_LSB,
++			    CTRL0_DAT_SEL_G12A_LSB,
+ 			    g12a_toacodec_mux_texts);
+ 
+ static SOC_ENUM_SINGLE_DECL(sm1_toacodec_mux_enum, TOACODEC_CTRL0,
+@@ -210,7 +221,7 @@ static int g12a_toacodec_component_probe(struct snd_soc_component *c)
+ {
+ 	/* Initialize the static clock parameters */
+ 	return snd_soc_component_write(c, TOACODEC_CTRL0,
+-				       CTRL0_BLK_CAP_INV);
++				       CTRL0_BLK_CAP_INV_G12A);
+ }
+ 
+ static int sm1_toacodec_component_probe(struct snd_soc_component *c)
+@@ -229,11 +240,13 @@ static const struct snd_soc_dapm_route g12a_toacodec_routes[] = {
+ };
+ 
+ static const struct snd_kcontrol_new g12a_toacodec_controls[] = {
+-	SOC_SINGLE("Lane Select", TOACODEC_CTRL0, CTRL0_LANE_SEL, 3, 0),
++	SOC_SINGLE("Lane Select", TOACODEC_CTRL0, CTRL0_LANE_SEL_G12A_LSB,
++		   CTRL0_LANE_SEL_G12A_MAX, 0),
+ };
+ 
+ static const struct snd_kcontrol_new sm1_toacodec_controls[] = {
+-	SOC_SINGLE("Lane Select", TOACODEC_CTRL0, CTRL0_LANE_SEL_SM1, 3, 0),
++	SOC_SINGLE("Lane Select", TOACODEC_CTRL0, CTRL0_LANE_SEL_SM1_LSB,
++		   CTRL0_LANE_SEL_SM1_MAX, 0),
+ };
+ 
+ static const struct snd_soc_component_driver g12a_toacodec_component_drv = {
+@@ -266,16 +279,22 @@ static const struct regmap_config g12a_toacodec_regmap_cfg = {
+ 
+ static const struct g12a_toacodec_match_data g12a_toacodec_match_data = {
+ 	.component_drv	= &g12a_toacodec_component_drv,
+-	.field_dat_sel	= REG_FIELD(TOACODEC_CTRL0, 14, 15),
+-	.field_lrclk_sel = REG_FIELD(TOACODEC_CTRL0, 8, 9),
+-	.field_bclk_sel	= REG_FIELD(TOACODEC_CTRL0, 4, 5),
++	.field_dat_sel	= REG_FIELD(TOACODEC_CTRL0, CTRL0_DAT_SEL_G12A_LSB,
++				    CTRL0_DAT_SEL_G12A_MSB),
++	.field_lrclk_sel = REG_FIELD(TOACODEC_CTRL0, CTRL0_LRCLK_SEL_G12A_LSB,
++				     CTRL0_LRCLK_SEL_G12A_MSB),
++	.field_bclk_sel	= REG_FIELD(TOACODEC_CTRL0, CTRL0_BCLK_SEL_G12A_LSB,
++				    CTRL0_BCLK_SEL_G12A_MSB),
+ };
+ 
+ static const struct g12a_toacodec_match_data sm1_toacodec_match_data = {
+ 	.component_drv	= &sm1_toacodec_component_drv,
+-	.field_dat_sel	= REG_FIELD(TOACODEC_CTRL0, 18, 19),
+-	.field_lrclk_sel = REG_FIELD(TOACODEC_CTRL0, 12, 14),
+-	.field_bclk_sel	= REG_FIELD(TOACODEC_CTRL0, 4, 6),
++	.field_dat_sel	= REG_FIELD(TOACODEC_CTRL0, CTRL0_DAT_SEL_SM1_LSB,
++				    CTRL0_DAT_SEL_SM1_MSB),
++	.field_lrclk_sel = REG_FIELD(TOACODEC_CTRL0, CTRL0_LRCLK_SEL_SM1_LSB,
++				     CTRL0_LRCLK_SEL_SM1_MSB),
++	.field_bclk_sel	= REG_FIELD(TOACODEC_CTRL0, CTRL0_BCLK_SEL_SM1_LSB,
++				    CTRL0_BCLK_SEL_SM1_MSB),
+ };
+ 
+ static const struct of_device_id g12a_toacodec_of_match[] = {
 -- 
-  Robert Hoskin
-  rhoskin@fastmail.org
+2.34.1
+

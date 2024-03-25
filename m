@@ -2,80 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3EDC88B407
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 Mar 2024 23:28:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2884188B47F
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 Mar 2024 23:49:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6C8302355;
-	Mon, 25 Mar 2024 23:28:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C8302355
+	by alsa0.perex.cz (Postfix) with ESMTPS id B1F542392;
+	Mon, 25 Mar 2024 23:49:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1F542392
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1711405737;
-	bh=JuRL/NLx4Ofr4TC9kRiPYG5Dd80BJiF+EAadQpS1jOk=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1711406997;
+	bh=j5QIHPHRdNPGCUAt2I/D/pju3UaGGamlyiXm1vob6Vo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=CHU/TDSKsqqk2c7kLCwBwS/Yw+n+ts6m1jzwP+V+S+j+wjis6vBIATbsy2Qr0HGk7
-	 +zniJwcaJ9OA815CQbMqipklGc7U5AbtLy25VnZKZfzTBGM/aX3uUoWvUMN4afJhhp
-	 ec+VswabMz45NYb9WGT0ZeQLynwzB/g8MkEybTjs=
+	b=Q25lYG31i6ZCpzcsWWkD08WPGS3P+9XaMbJetc44i/YR76WziMaVE8ly60bA7+/nd
+	 UTY6cgj1uy3AXmerlbHXDhOvXoWWbI3Bwj5XQUYa5oAsFUYSfDNAAJAmWDfZYDaWMa
+	 bv0m7LSa9Sr7/gHj8iXEkp5m8/3K4+Y5hccnjNzI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8256FF80587; Mon, 25 Mar 2024 23:28:25 +0100 (CET)
+	id 57419F805A8; Mon, 25 Mar 2024 23:49:25 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id F2B98F805A1;
-	Mon, 25 Mar 2024 23:28:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8422CF805A1;
+	Mon, 25 Mar 2024 23:49:25 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A0A00F80236; Mon, 25 Mar 2024 23:28:18 +0100 (CET)
+	id B190EF80236; Mon, 25 Mar 2024 23:49:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7CFE6F80093
-	for <alsa-devel@alsa-project.org>; Mon, 25 Mar 2024 23:28:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7CFE6F80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2D2A9F80074
+	for <alsa-devel@alsa-project.org>; Mon, 25 Mar 2024 23:49:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D2A9F80074
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=SCKe29nx
+ header.s=k20201202 header.b=ZO8UcII5
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 223C6CE1D96;
-	Mon, 25 Mar 2024 22:28:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 385DBC433F1;
-	Mon, 25 Mar 2024 22:28:00 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id A4FC8611E2;
+	Mon, 25 Mar 2024 22:49:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C889CC433C7;
+	Mon, 25 Mar 2024 22:49:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1711405681;
-	bh=JuRL/NLx4Ofr4TC9kRiPYG5Dd80BJiF+EAadQpS1jOk=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=SCKe29nxAjJs0RDxWbnzWqj3UCmlCux+GnEczWX33pCCFb4hOnj2DqT1HPsYCi34I
-	 OVMajZhVTHJIY3CALmXk7kPOmZq1YrrDU0mReoZ1xZE1P9YANcmszCRS3YThVlSiYf
-	 08b8WSm1/B/U9uXv7erHoXZY2KAJY2TxlHz7xfTjR+QeWqTmIpWVR0I1A+k2GhHe64
-	 3Zj3myRmtZe+1m2XER3/N9IzwV9RWToljACwdB6tHz2SGMIkMlJYfUMyIF62w6+eja
-	 zAsBmwm6Al/YQI6VfLL+/ED50Mt8ZesZauy3u9B5VgxPbqbFw3asCGvmubz0EgD9Mf
-	 CN9vD3ELz902Q==
+	s=k20201202; t=1711406953;
+	bh=j5QIHPHRdNPGCUAt2I/D/pju3UaGGamlyiXm1vob6Vo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ZO8UcII5wtl7nM5TdOwMLKgNWkRgDYHyvG8nUZVCFhWNTzEV4cKEFYGIfxbdamrhR
+	 qjri35hpItnkYqurAER9RUQDTpfzbfelz5NIRhpu9AemBkuciNItfQJFW0gdCiQVLv
+	 dufWifWKbgY3qwc73DXBQw5T9KAFx4T1mQgLN5j3BWfAsgwG4AVayH9omqFosFPMvE
+	 Z9iMaYRiJeYfIteFBEhvo7flqIqxlYV9D1VRRjxqoQP5mGzpv32qPWZJAAiFPJPGO1
+	 wqy+4Rsi9EPcRSE+nxQ6hWDPVn+bMN84e/4wlPVPxX7AuZOLYQdB4BBjHaD2S5TK8/
+	 5M8VS/uxCWf0A==
+Date: Mon, 25 Mar 2024 22:49:09 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Cc: linux-sound@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, patches@opensource.cirrus.com,
- Simon Trimmer <simont@opensource.cirrus.com>
-In-Reply-To: <20240325144450.293630-1-rf@opensource.cirrus.com>
-References: <20240325144450.293630-1-rf@opensource.cirrus.com>
-Subject: Re: [PATCH] ASoC: cs-amp-lib: Check for no firmware controls when
- writing calibration
-Message-Id: <171140567996.375229.415823964227571386.b4-ty@kernel.org>
-Date: Mon, 25 Mar 2024 22:27:59 +0000
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: linux-sound@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.de,
+	Shuming Fan <shumingf@realtek.com>,
+	Derek Fang <derek.fang@realtek.com>, Jack Yu <jack.yu@realtek.com>
+Subject: Re: [PATCH 0/6] ASoC: rt-sdw: fix locking and improve error logs
+Message-ID: <5f39e69c-00ce-4436-ad4c-3edcfcc00e62@sirena.org.uk>
+References: <20240325221817.206465-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14-dev
-Message-ID-Hash: BONLXYHSQPPSAQ4FISND562GVBFYI6YG
-X-Message-ID-Hash: BONLXYHSQPPSAQ4FISND562GVBFYI6YG
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Sy8oTdvmjq+l7VNK"
+Content-Disposition: inline
+In-Reply-To: <20240325221817.206465-1-pierre-louis.bossart@linux.intel.com>
+X-Cookie: Evil isn't all bad.
+Message-ID-Hash: VLJXBQUU5QSV3KE7FYZSDES5KCLXT2K6
+X-Message-ID-Hash: VLJXBQUU5QSV3KE7FYZSDES5KCLXT2K6
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -88,7 +87,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BONLXYHSQPPSAQ4FISND562GVBFYI6YG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VLJXBQUU5QSV3KE7FYZSDES5KCLXT2K6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -97,41 +96,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 25 Mar 2024 14:44:50 +0000, Richard Fitzgerald wrote:
-> When a wmfw file has not been loaded the firmware control descriptions
-> necessary to write a stored calibration are not present. In this case
-> print a more descriptive error message.
-> 
-> The message is logged at info level because it is not fatal, and does
-> not necessarily imply that anything is broken.
-> 
-> [...]
 
-Applied to
+--Sy8oTdvmjq+l7VNK
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+On Mon, Mar 25, 2024 at 05:18:11PM -0500, Pierre-Louis Bossart wrote:
+> Fix a set of problematic locking sequences and update error messages,
+> tested on SOF/SoundWire platforms.
+>=20
+> Pierre-Louis Bossart (6):
+>   ASoC: rt5682-sdw: fix locking sequence
+>   ASoC: rt711-sdca: fix locking sequence
+>   ASoC: rt711-sdw: fix locking sequence
+>   ASoC: rt712-sdca-sdw: fix locking sequence
+>   ASoC: rt722-sdca-sdw: fix locking sequence
+>   ASoC: rt-sdw*: add __func__ to all error logs
 
-Thanks!
+Copying some of the Realtek people for review.
 
-[1/1] ASoC: cs-amp-lib: Check for no firmware controls when writing calibration
-      commit: e2d7ad717a6b0880843dbc60855a5b97ad0395f8
+--Sy8oTdvmjq+l7VNK
+Content-Type: application/pgp-signature; name="signature.asc"
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+-----BEGIN PGP SIGNATURE-----
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmYB/2QACgkQJNaLcl1U
+h9BbdAf/Rlmx+L1L98ocIYTDmFklZGo9WLJH92hXP3EDW6n41XfRAqsJoBKfpZ59
+h8FLDtUYchrMGqWiHnuEU/1fE+4+OzcBM2R5zxTucMMdR2e9N9PmaVQVW25pVBQH
+nSX9wA5qogWzXzbAdjGeO7/r5woUiTDTvMayBY+MrP35cWRD21ymlT95iV+2y4mv
+o0Zj3pul3PD4D4X1+T4+f5lGUVHr3VYse0AuiR/WniO8+lBoXtJZzsnQWXYvHgaP
+79G/RjYt/03/VErhyV9sG7W0ge0sPAlrSh86vvfomVx8Jd+3jR+gjXORIGk1AmRc
+hrcF0UKzAiDqIOt3M6jXpXPvTiW9gA==
+=Zgpw
+-----END PGP SIGNATURE-----
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+--Sy8oTdvmjq+l7VNK--

@@ -2,123 +2,122 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0756E894BBA
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Apr 2024 08:46:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABD42894BBB
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Apr 2024 08:47:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2040723D6;
-	Tue,  2 Apr 2024 08:46:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2040723D6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0983623E0;
+	Tue,  2 Apr 2024 08:47:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0983623E0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712040416;
-	bh=+MeltPZVNKwDT4s9LWJGLhPwYg6oTgYBzKVCn15VZsc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=ITdNIJob+rXOjVLdB1ZYlzoFVRe6HaoBfxAFxLFJziAuay+ZKscYaGYnkD04m33Ll
-	 C1mLGbNRiTXh17xV99yBggafPSJR5zNhu3UBbTyEJU9c5puqIQNRNFuN011cAFh8It
-	 c7AXO1MDDDCPFPs5XD3rYGZvm9MN2TnvbFoe4t40=
+	s=default; t=1712040433;
+	bh=+OIjmq/msMJ1nthLx4ArprFpl/aIBuVdUAwqkFQH2wY=;
+	h=Date:From:To:Subject:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=Ez7J8SlXxzCURfPFJhcHc04ANrnOlMYRczov4xloPYpfd/UQyGsoNHAXjsNxdAjjg
+	 8LdNQqdwaA7DD1qUoF5h63lUZU2K8qrFXSjy+7iu6y5arQtiylYJDTi+cAx292awFm
+	 6BTAcN1zZ2s+jUx+v2Oo8eJQrwNH3y/cAvuU6at4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1D270F8059F; Tue,  2 Apr 2024 08:46:20 +0200 (CEST)
+	id DF0CDF805D4; Tue,  2 Apr 2024 08:46:26 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1BECDF805A0;
-	Tue,  2 Apr 2024 08:46:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1E90FF805D3;
+	Tue,  2 Apr 2024 08:46:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 24777F80236; Mon, 25 Mar 2024 15:25:14 +0100 (CET)
+	id 2F0A8F805E6; Mon, 25 Mar 2024 17:14:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_LOW,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [IPv6:2a00:1450:4864:20::12c])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Received: from fhigh1-smtp.messagingengine.com
+ (fhigh1-smtp.messagingengine.com [103.168.172.152])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8A80BF8015B
-	for <alsa-devel@alsa-project.org>; Mon, 25 Mar 2024 15:25:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A80BF8015B
+	by alsa1.perex.cz (Postfix) with ESMTPS id C6BA9F805E3
+	for <alsa-devel@alsa-project.org>; Mon, 25 Mar 2024 17:14:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6BA9F805E3
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=VQDSZFLq
-Received: by mail-lf1-x12c.google.com with SMTP id
- 2adb3069b0e04-513d3746950so5398043e87.1
-        for <alsa-devel@alsa-project.org>;
- Mon, 25 Mar 2024 07:25:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1711376706; x=1711981506;
- darn=alsa-project.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=O3PUtNY4boQ+ipy4wQYd09otPfOvXLpDaCkOQ9UXG84=;
-        b=VQDSZFLqhwEZ3PR5GXPfscTuZ2SGQNbi5S1+rIt56DpCECR0/6AeMWsSRhMUpDpxEP
-         Bp+ZA7MWFSxLPvk4c7W1kSlhcnmy2VpZ5tTayL3EMfYUg8smt1MqD5gtpCmEyvlp17MG
-         aXJtBYehcdgTHDDpiaHcL8HOIFPC/FQ/HpW3A+8X7G/SSOhroycP5qBQFQg4f9h8apd5
-         PikAXBapyIwETunl+ZLr8BlIbFBU5p/NfttyiYB95XA7dl46/DyH/2PDo7dxtgaUmnrX
-         Y5ncH2g1dE+Q3Ia8W2ZjLnrOfwR4UjhzdbEVbAXXGFfl9dX/EdYCNb0cRh045FLVw/Zz
-         Yf0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711376706; x=1711981506;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=O3PUtNY4boQ+ipy4wQYd09otPfOvXLpDaCkOQ9UXG84=;
-        b=BiVOXaY42knZncy1/WOXXm8k5rKNQGIBr5CacWJtf6nkkUy54odrZwTa85JicxhLBW
-         S8Eo++hWwjQMu0zXYvhkZlDsvAmFIfD/LgnbnrRTvp7De/LIEeSZYy/hIVTWKpTyFFgY
-         ThpTU5v17dstgGLUwi/6TqaMJNWASKTzmFIoqBy9XMnHruh+2PxuMFyxngiM5Cn2Ew7W
-         QF63GrQb8QhDJuDC69c2IkwcWW9BA2a4VvJboTraO6MtIF8zyn/AhZdAFiT7W6U6/Ipf
-         01f227S/IuqQMUmV5FAVe6RVIwE/mfDFHK/5SKEMnZGojMicQTbJy/9PhnsHuPMD0XP2
-         9sug==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVU4SycA1qFIg9W7Purb1SbsxXGS++Sk9dFh1mW4i66WYC3v+i/LCInejsWaGjypvk6YrMA0nMzlY3WtgmyaGF6wUiBQkqc6loGW9s=
-X-Gm-Message-State: AOJu0YwIqANBqZMqk0X8Ycd1S5yAwAbKQ1ohto0cjqUM8SIUBr2OiaFv
-	IV4xIjwh8gYAW/4NudtIeDfR5PmbG2KCqRq+ikd6bSjoRKTxBYIHkI2Y0FGXAu8=
-X-Google-Smtp-Source: 
- AGHT+IEFidCgty+v00DMTxMPtnXdVdXzQmlAggnT/0h5fv4Uf17UIa5tj3pq//IwqDLEoDELOZO2Xw==
-X-Received: by 2002:a19:ca14:0:b0:513:23be:e924 with SMTP id
- a20-20020a19ca14000000b0051323bee924mr4375709lfg.59.1711376705571;
-        Mon, 25 Mar 2024 07:25:05 -0700 (PDT)
-Received: from localhost ([102.222.70.76])
-        by smtp.gmail.com with ESMTPSA id
- l12-20020a1709062a8c00b00a45f39b2d16sm3104885eje.200.2024.03.25.07.25.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 25 Mar 2024 07:25:05 -0700 (PDT)
-Date: Mon, 25 Mar 2024 17:25:00 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Su Hui <suhui@nfschina.com>
-Cc: arnaud.pouliquen@foss.st.com, lgirdwood@gmail.com, broonie@kernel.org,
-	perex@perex.cz, tiwai@suse.com, nathan@kernel.org,
-	ndesaulniers@google.com, morbo@google.com, justinstitt@google.com,
-	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
-	kernel-janitors@vger.kernel.org
-Subject: Re: [PATCH] ASoC: sti: uniperif: fix the undefined bitwise shift
- behavior problem
-Message-ID: <5d850276-a872-45fb-9df2-2b72479787be@moroto.mountain>
-References: <20240325034032.1031885-1-suhui@nfschina.com>
+ unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256
+ header.s=fm2 header.b=PBhkAZJz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm2 header.b=nOFe9GT9
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+	by mailfhigh.nyi.internal (Postfix) with ESMTP id 48DB4114015F
+	for <alsa-devel@alsa-project.org>; Mon, 25 Mar 2024 12:14:15 -0400 (EDT)
+Received: from imap42 ([10.202.2.92])
+  by compute3.internal (MEProxy); Mon, 25 Mar 2024 12:14:15 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
+	cc:content-type:content-type:date:date:from:from:in-reply-to
+	:message-id:mime-version:reply-to:subject:subject:to:to; s=fm2;
+	 t=1711383255; x=1711469655; bh=wEyO9FDH4khOoC/BG1WNRgZjHYfO2Koa
+	+qfLwIMgQXo=; b=PBhkAZJzYlXZoszK5y9QfhpNn1HtW1Ey1T+WpzWVEBK+FDkS
+	pigYx31ImzPpvGGS/lmfquQhTUKe/H9SNt/D3hDLSJBvfehggkEEoRzKj18h8Grs
+	eIGuSKAxzOLlvpt28RwQVI8BHN8LilSKoREVfu6wLvuHBQTNPbWSz3RHv52VzHRT
+	hvbYdTErVRKMz6Q39Q3x/Z/jp1UIHRN6Cd9XDTxkqqQCjZ9pFqco9r+/MdCuclxc
+	Dny45pn587ODamLA5RMHd9+08JMBFRASDR2nzT0ss+5nmWvcVo2eMv/pGaEmKopk
+	wZAy/5YX2tbNOdnJfoBs2nsvoP+h00AaGsjWug==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:message-id
+	:mime-version:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1711383255; x=1711469655; bh=wEyO9FDH4khOoC/BG1WNRgZjHYfO2Koa+qf
+	LwIMgQXo=; b=nOFe9GT9f0X1Yhfv+74aYiYf90Rp2OOWbFmRiLyYpugcPdn1sQy
+	OP0AD4WLXAU7/2umwxYF30C3YRW9P26jaUeEyB99PG49tWNlSgsri+IR5xv1fWuz
+	lA3nMjFk7kKRbkoW7fI09DfuCHSoE1cdamJqkPIoVzx8KHXS37VzxkvblICBQ4w2
+	9Pox0fIgof6qNJl0RKwqrrU+3A6hdj1b1VaLij6Z/zvh5XpdgZjpD8qzp4iNaYsy
+	sdy8qetWRjKxmk9nfNRwm7AN7L8ByORh2V9JPjHZikWYo3AgEcuFncc0/M8xqeMl
+	tlTJ6ixVVJszRGU6s2yzt0CW9CGhvSJ3Dvg==
+X-ME-Sender: <xms:1qIBZgh06_D6FV60_aRsvIk3OW1aafPM1FDtyc5eH9Gns1QbEggGRw>
+    <xme:1qIBZpCz1U1ChccfDW8cU_BKat9ftpVNklGLnJiVCUb7vAYqdV-ioj_eEje-RQ-vI
+    OSAfQeeGBU2yHhMWA>
+X-ME-Proxy-Cause: 
+ gggruggvucftvghtrhhoucdtuddrgedvledrudduuddgvdeiucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucenucfjughrpefofgggkfffhffvufgtsehttdertd
+    erredtnecuhfhrohhmpedftfhosggvrhhtucfjohhskhhinhdfuceorhhhohhskhhinhes
+    fhgrshhtmhgrihhlrdhorhhgqeenucggtffrrghtthgvrhhnpedtveeuvdefuedukedute
+    dvjeetvdeigedttdetheelkeeghfelgeelgfeujedtjeenucffohhmrghinheprghlshgr
+    qdhprhhojhgvtghtrdhorhhgnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpe
+    hmrghilhhfrhhomheprhhhohhskhhinhesfhgrshhtmhgrihhlrdhorhhg
+X-ME-Proxy: <xmx:1qIBZoEscYNsNLSNkjDgOdXkODO1kTOYK-2wYEOPe5w_ut3uxDBGNg>
+    <xmx:1qIBZhRF-86D5W2fzZcmHU9buaYdOUWTPutnaOTSkn6gsBuxrwElbg>
+    <xmx:1qIBZtwlwCOKaeXYnUwlOQbboYM-qFZ2itU4UV0F62E4RaqyMCmI8w>
+    <xmx:1qIBZv5iigpGO9e9tFGh_wHfGliSwhX8LQWGA-oYfR4IbFSt9aKI5w>
+    <xmx:16IBZupehkEiOwd7PtuIhQqS_aCqLAll-P8oaqDZWzW4r6NVsHOpSQ>
+Feedback-ID: ib8714271:Fastmail
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+	id 9CEF4BC0082; Mon, 25 Mar 2024 12:14:14 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.11.0-alpha0-332-gdeb4194079-fm-20240319.002-gdeb41940
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240325034032.1031885-1-suhui@nfschina.com>
-X-MailFrom: dan.carpenter@linaro.org
+Message-Id: <5266542c-3f18-41ad-b57c-395e9c57f655@app.fastmail.com>
+Date: Mon, 25 Mar 2024 12:13:54 -0400
+From: "Robert Hoskin" <rhoskin@fastmail.org>
+To: alsa-devel@alsa-project.org
+Subject: alsa-info uploads re periodic sound failures on P16 w/ Mint
+Content-Type: text/plain
+X-MailFrom: rhoskin@fastmail.org
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: TV2UPH5CIK76D7KXGIV5LODWDJEV4ZXI
-X-Message-ID-Hash: TV2UPH5CIK76D7KXGIV5LODWDJEV4ZXI
-X-Mailman-Approved-At: Tue, 02 Apr 2024 06:46:14 +0000
+Message-ID-Hash: BPE2QKCADVUH63IOGCM62VBIKAGL56OY
+X-Message-ID-Hash: BPE2QKCADVUH63IOGCM62VBIKAGL56OY
+X-Mailman-Approved-At: Tue, 02 Apr 2024 06:46:15 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TV2UPH5CIK76D7KXGIV5LODWDJEV4ZXI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BPE2QKCADVUH63IOGCM62VBIKAGL56OY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -127,77 +126,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, Mar 25, 2024 at 11:40:33AM +0800, Su Hui wrote:
-> Clang static checker(scan-build):
-> sound/soc/sti/uniperif_player.c:1115:12: warning:
-> The result of the left shift is undefined because the right operand is
-> negative [core.UndefinedBinaryOperatorResult]
-> 
-> When UNIPERIF_CONFIG_BACK_STALL_REQ_SHIFT(ip) equals to -1, the result of
-> SET_UNIPERIF_CONFIG_BACK_STALL_REQ_DISABLE(ip) is undefined.
-> 
-> Here are some results of using different compilers.
-> 		1UL >> -1	1UL << -1
-> gcc 10.2.1	0x2		0
-> gcc 11.4.0	0		0x8000000000000000
-> clang 14.0.0	0x64b8a45d72a0	0x64b8a45d72a0
-> clang 17.0.0	0x556c43b0f2a0	0x556c43b0f2a0
-> 
-> Add some macros to ensure that when right opreand is negative or other
-> invalid values, the results of bitwise shift is zero.
-> 
-> Fixes: e1ecace6a685 ("ASoC: sti: Add uniperipheral header file")
-> Signed-off-by: Su Hui <suhui@nfschina.com>
-> ---
->  sound/soc/sti/uniperif.h | 17 ++++++++++++++---
->  1 file changed, 14 insertions(+), 3 deletions(-)
-> 
-> diff --git a/sound/soc/sti/uniperif.h b/sound/soc/sti/uniperif.h
-> index 2a5de328501c..1cbff01fbff0 100644
-> --- a/sound/soc/sti/uniperif.h
-> +++ b/sound/soc/sti/uniperif.h
-> @@ -12,17 +12,28 @@
->  
->  #include <sound/dmaengine_pcm.h>
->  
-> +#define SR_SHIFT(a, b)		({unsigned long __a = (a); \
-> +				unsigned int __b = (b); \
-> +				__b < BITS_PER_LONG ? \
-> +				__a >> __b : 0; })
+Greetings!  
 
-The code definitely looks buggy, but how do you know your solution is
-correct without testing it?
+The alsa-info output links below is from a Lenovo P16 Gen2, running Linux Mint 21.3, with an intermittent sound problem.  
 
-I don't like this solution at all.  This is basically a really
-complicated way of writing "if (b != -1)".  Instead of checking for -1,
-the better solution is to just stop passing -1.  If you review that
-file, every time it uses "-1" that's either dead code or a bug...
+The problem is that: 
+Sound will be available from either built in speakers or headphones, perhaps for several days after a startup, but at some point will fail, with both Headphones (via jack) and internal Speakers disappearing from the "sound" app, and "Dummy Output" appearing in their place.   If it's possible to reproduce this failure, I haven't figured out how.  It happens when it happens, usually after a few days of uptime. 
 
-sound/soc/sti/uniperif.h
-   132  #define UNIPERIF_ITS_UNDERFLOW_REC_DONE_SHIFT(ip) \
-   133          ((ip)->ver < SND_ST_UNIPERIF_VERSION_UNI_PLR_TOP_1_0 ? -1 : 12)
-                                                                      ^^^^
-This is dead code
+I've found that sound can be restored with "sudo alsa force-reload", so I do have a workaround.  
 
-   134  #define UNIPERIF_ITS_UNDERFLOW_REC_DONE_MASK(ip) \
-   135          ((ip)->ver < SND_ST_UNIPERIF_VERSION_UNI_PLR_TOP_1_0 ? \
-                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-because the version is checked here.
+*** For before-and-after comparison purposes...
+***
+This report was taken when "Dummy Output" was shown in the Sound app:
+http://alsa-project.org/db/?f=4ec46710d176deb77fcdd950520eaafc4c9db1c3
+***
+This report was taken after a "sudo alsa force-reload", which restored both headphones and speakers to the Sound app"
+http://alsa-project.org/db/?f=3832b192eaa22ea4d51b0e6073f389318b983356
+***
 
-   136                  0 : (BIT(UNIPERIF_ITS_UNDERFLOW_REC_DONE_SHIFT(ip))))
+In the "System Reports" app, there are no crash reports shown.
 
-Just delete UNIPERIF_ITS_UNDERFLOW_REC_DONE_SHIFT() and use 12 directly.
+BUT... In the system logs app, I did find some lines in the Hardware section that may be relevant:
+09:41:50 kernel: sof-audio-pci-intel-tgl 0000:00:1f.3: ASoC: error at snd_soc_pcm_component_prepare on 0000:00:1f.3: -22
+09:41:50 kernel: sof-audio-pci-intel-tgl 0000:00:1f.3: ASoC: error at snd_soc_pcm_component_prepare on 0000:00:1f.3: -22
+09:41:50 kernel: sof-audio-pci-intel-tgl 0000:00:1f.3: error: set pcm hw_params after resume
+09:41:50 kernel: sof-audio-pci-intel-tgl 0000:00:1f.3: HW params ipc failed for stream 1
+09:41:50 kernel: sof-audio-pci-intel-tgl 0000:00:1f.3: ipc tx error for 0x60010000 (msg/reply size: 108/20): -22
 
-[ snip ]
+I really have no idea whether I'm submitting this in the right place or not, whether this is a kernel problem, a driver problem, a config problem, or whatever.  I can tell you that this Mint install is new on a new machine, otherwise well-behaved, with subsequent updates that have not changed this sound behavior.  
 
-   988  #define UNIPERIF_BIT_CONTROL_OFFSET(ip)  \
-   989          ((ip)->ver < SND_ST_UNIPERIF_VERSION_UNI_PLR_TOP_1_0 ? -1 : 0x004c)
-                                                                       ^^^
-Negative offsets seem like a bug.
+Hope this is useful to you, love to have it fixed.
 
-   990  #define GET_UNIPERIF_BIT_CONTROL(ip) \
-   991          readl_relaxed(ip->base + UNIPERIF_BIT_CONTROL_OFFSET(ip))
+Thanks!
 
-regards,
-dan carpenter
+- Bob
 
+
+-- 
+  Robert Hoskin
+  rhoskin@fastmail.org

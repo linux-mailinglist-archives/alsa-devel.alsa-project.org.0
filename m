@@ -2,97 +2,159 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0056188AF73
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 Mar 2024 20:10:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ADFA388AFDE
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 Mar 2024 20:25:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8AD7914DD;
-	Mon, 25 Mar 2024 20:10:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8AD7914DD
+	by alsa0.perex.cz (Postfix) with ESMTPS id F346520C4;
+	Mon, 25 Mar 2024 20:25:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F346520C4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1711393825;
-	bh=OUTG06nJDlO6TyRUnO74rozzjf6s+aA5Hb3q1CX7FjU=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=CiFJxKkGbA7EYiZsvX5PDVi4Q58peMHh9jBkcM7O/W5uIEzHpB7s7BwdX7ZKbJwHW
-	 nOrN7NGXOkdsmb8vul6CgS8/iLnNlgmCytgigYvtCkGaWWQiT6EXy3TJv+PZ1V0lmC
-	 z9a/BwnF2tYgMPidTgu+YoRrqiwLXaufWDyMSxk4=
+	s=default; t=1711394736;
+	bh=FVbkQCzAdIw4q3itUG9P08Dcata9gXWtTydpboh50RU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=Q4tPLQmApeOsCB5yD3hpGHCdVqujzd1VoESHaUhjn0MK42yGdhCTGMVBKH65qhX1H
+	 4uw+C/ljQBOB3cQXMdzmdJ49kJAr//BeWSwiF9LRdea5XqeAoVxyCrSqIxMEY4GsIi
+	 lgkdEJ0GiglXYY8S67WG2VcB17n7lZNnM0iBCqUc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 27234F805AE; Mon, 25 Mar 2024 15:55:23 +0100 (CET)
+	id 88C8CF80602; Mon, 25 Mar 2024 17:20:47 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BAF26F805C4;
-	Mon, 25 Mar 2024 15:55:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 321F9F80601;
+	Mon, 25 Mar 2024 17:20:47 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6EA3FF805AE; Mon, 25 Mar 2024 15:55:18 +0100 (CET)
+	id 22055F805E8; Mon, 25 Mar 2024 17:20:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 79005F80564
-	for <alsa-devel@alsa-project.org>; Mon, 25 Mar 2024 15:55:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79005F80564
+	by alsa1.perex.cz (Postfix) with ESMTPS id C9986F805E3
+	for <alsa-devel@alsa-project.org>; Mon, 25 Mar 2024 17:20:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C9986F805E3
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=UA6FZVGf
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 42P3P0eY021761;
-	Mon, 25 Mar 2024 09:55:13 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	from:to:cc:subject:date:message-id:mime-version
-	:content-transfer-encoding:content-type; s=PODMain02222019; bh=W
-	iglk1r0cdxZ5D6UfXZHUlMlHakoY8HthLuTK4xjf0k=; b=UA6FZVGfwAyKfRlaD
-	L4L8q2mSseLEdZFSrCj4C811itT4Nnraulv3reSfs2WweNpX6I6rigQT9K1qibYQ
-	wGUj3kxdKkVx7d/V4F6hljpO6luHX+zZAOScrs9YUA21ibGr7Wx3C7VITJfkzqwE
-	Zv30KrEsV8WX8+XXbCkJTBb7jTrS3YPMy+yJEp0pmZigIGGeAZOzbO+4ahnVDihX
-	zrE/09DPZ7rA/1OmIeasmBo1LSt4wVeBchPbT6YdVzTbJ/0vXIE7s1fzbxQ3jHdK
-	DpStjGZG0RJyiB0skkq9RgZY6QuwZjM3RRWBGYkZZvru3JV8v8pIG4L4nsb6J+sO
-	GXA+g==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3x1vfybjc3-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 25 Mar 2024 09:55:13 -0500 (CDT)
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.4; Mon, 25 Mar
- 2024 14:55:11 +0000
-Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1544.4 via Frontend Transport; Mon, 25 Mar 2024 14:55:11 +0000
-Received: from ediswws06.ad.cirrus.com (ediswws06.ad.cirrus.com
- [198.90.208.18])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id EEEE2820244;
-	Mon, 25 Mar 2024 14:55:10 +0000 (UTC)
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-To: <tiwai@suse.com>
-CC: <linux-sound@vger.kernel.org>, <alsa-devel@alsa-project.org>,
-        <linux-kernel@vger.kernel.org>, <patches@opensource.cirrus.com>,
-        "Simon
- Trimmer" <simont@opensource.cirrus.com>,
-        Richard Fitzgerald
-	<rf@opensource.cirrus.com>
-Subject: [PATCH] ALSA: hda: cs35l56: Set the init_done flag before
- component_add()
-Date: Mon, 25 Mar 2024 14:55:10 +0000
-Message-ID: <20240325145510.328378-1-rf@opensource.cirrus.com>
-X-Mailer: git-send-email 2.39.2
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: xYezW5GbRV6U63GUk9w_nk9e9zLQz_H-
-X-Proofpoint-GUID: xYezW5GbRV6U63GUk9w_nk9e9zLQz_H-
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: ZKRZPCOTEB6O7J53CFUODXWU2TA3ILGZ
-X-Message-ID-Hash: ZKRZPCOTEB6O7J53CFUODXWU2TA3ILGZ
-X-MailFrom: prvs=081491209a=rf@opensource.cirrus.com
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=dFQALtxg;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=3Jr5cvn4;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=dFQALtxg;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=3Jr5cvn4
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 34E423476E;
+	Mon, 25 Mar 2024 16:20:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1711383630;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=47zzowitN7FnCAMt8Wzhn4k4ZMZM2cQ36obDnp4K5bw=;
+	b=dFQALtxgQrLApuv3dK4Gk/Y1evBLn6QNuDtcFGSoQhHViz9dkWKqEMTg6JyRXRSG/hWtd6
+	NJe0Z5pwIpKu6GZeXPobp9tNQSQr9Gz3JPVUPjxfrqMaIIsZkLBOZBttrS2FJRLOHqyltV
+	MFIQCNbS5KmNU14Igwb6L+hpKOGfXF4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1711383630;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=47zzowitN7FnCAMt8Wzhn4k4ZMZM2cQ36obDnp4K5bw=;
+	b=3Jr5cvn4sJk308DRLI/MyI7PwY0BRTNyQk5dth9jsGmT6eFXlKFVXHFA4/QMYuzIC58xeY
+	5PZXJlmIWEBZItAQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1711383630;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=47zzowitN7FnCAMt8Wzhn4k4ZMZM2cQ36obDnp4K5bw=;
+	b=dFQALtxgQrLApuv3dK4Gk/Y1evBLn6QNuDtcFGSoQhHViz9dkWKqEMTg6JyRXRSG/hWtd6
+	NJe0Z5pwIpKu6GZeXPobp9tNQSQr9Gz3JPVUPjxfrqMaIIsZkLBOZBttrS2FJRLOHqyltV
+	MFIQCNbS5KmNU14Igwb6L+hpKOGfXF4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1711383630;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=47zzowitN7FnCAMt8Wzhn4k4ZMZM2cQ36obDnp4K5bw=;
+	b=3Jr5cvn4sJk308DRLI/MyI7PwY0BRTNyQk5dth9jsGmT6eFXlKFVXHFA4/QMYuzIC58xeY
+	5PZXJlmIWEBZItAQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EF1A213503;
+	Mon, 25 Mar 2024 16:20:29 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([10.150.64.162])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id WuaCOE2kAWYTFgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 25 Mar 2024 16:20:29 +0000
+Date: Mon, 25 Mar 2024 17:20:31 +0100
+Message-ID: <87o7b2waeo.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Cc: <tiwai@suse.com>,
+	<linux-sound@vger.kernel.org>,
+	<alsa-devel@alsa-project.org>,
+	<linux-kernel@vger.kernel.org>,
+	<patches@opensource.cirrus.com>,
+	"Simon Trimmer" <simont@opensource.cirrus.com>
+Subject: Re: [PATCH] ALSA: hda: cs35l56: Raise device name message log level
+In-Reply-To: <20240325142937.257869-1-rf@opensource.cirrus.com>
+References: <20240325142937.257869-1-rf@opensource.cirrus.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-3.15 / 50.00];
+	 ARC_NA(0.00)[];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	 RCVD_DKIM_ARC_DNSWL_HI(-1.00)[];
+	 FROM_HAS_DN(0.00)[];
+	 TO_DN_SOME(0.00)[];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 NEURAL_HAM_LONG(-1.00)[-1.000];
+	 MIME_GOOD(-0.10)[text/plain];
+	 DWL_DNSWL_BLOCKED(0.00)[suse.de:dkim];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	 DKIM_TRACE(0.00)[suse.de:+];
+	 MX_GOOD(-0.01)[];
+	 RCPT_COUNT_SEVEN(0.00)[7];
+	 MID_CONTAINS_FROM(1.00)[];
+	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+];
+	 NEURAL_HAM_SHORT(-0.20)[-1.000];
+	 RCVD_IN_DNSWL_HI(-0.50)[2a07:de40:b281:104:10:150:64:97:from];
+	 RCVD_TLS_ALL(0.00)[];
+	 BAYES_HAM(-1.14)[88.64%]
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=dFQALtxg;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=3Jr5cvn4
+X-Rspamd-Queue-Id: 34E423476E
+Message-ID-Hash: ELO3CX5NOBP67BX665FD3KFGJSWECUDI
+X-Message-ID-Hash: ELO3CX5NOBP67BX665FD3KFGJSWECUDI
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -104,7 +166,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZKRZPCOTEB6O7J53CFUODXWU2TA3ILGZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ELO3CX5NOBP67BX665FD3KFGJSWECUDI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,40 +175,19 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Simon Trimmer <simont@opensource.cirrus.com>
+On Mon, 25 Mar 2024 15:29:37 +0100,
+Richard Fitzgerald wrote:
+> 
+> From: Simon Trimmer <simont@opensource.cirrus.com>
+> 
+> The system and amplifier names influence which firmware and tuning files
+> are downloaded to the device; log these values to aid end-user system
+> support.
+> 
+> Signed-off-by: Simon Trimmer <simont@opensource.cirrus.com>
+> Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
 
-Initialization is completed before adding the component as that can
-start the process of the device binding and trigger actions that check
-init_done.
+Thanks, applied now.
 
-Signed-off-by: Simon Trimmer <simont@opensource.cirrus.com>
-Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
-Fixes: 73cfbfa9caea ("ALSA: hda/cs35l56: Add driver for Cirrus Logic CS35L56 amplifier")
----
- sound/pci/hda/cs35l56_hda.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/pci/hda/cs35l56_hda.c b/sound/pci/hda/cs35l56_hda.c
-index f3c5715f5e02..1a3f84599cb5 100644
---- a/sound/pci/hda/cs35l56_hda.c
-+++ b/sound/pci/hda/cs35l56_hda.c
-@@ -1045,14 +1045,14 @@ int cs35l56_hda_common_probe(struct cs35l56_hda *cs35l56, int hid, int id)
- 	pm_runtime_mark_last_busy(cs35l56->base.dev);
- 	pm_runtime_enable(cs35l56->base.dev);
- 
-+	cs35l56->base.init_done = true;
-+
- 	ret = component_add(cs35l56->base.dev, &cs35l56_hda_comp_ops);
- 	if (ret) {
- 		dev_err(cs35l56->base.dev, "Register component failed: %d\n", ret);
- 		goto pm_err;
- 	}
- 
--	cs35l56->base.init_done = true;
--
- 	return 0;
- 
- pm_err:
--- 
-2.39.2
-
+Takashi

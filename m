@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBD7C88B3C5
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 Mar 2024 23:16:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2890F88B3C1
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 Mar 2024 23:16:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6B04B22A9;
-	Mon, 25 Mar 2024 23:16:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B04B22A9
+	by alsa0.perex.cz (Postfix) with ESMTPS id CBD4D2341;
+	Mon, 25 Mar 2024 23:15:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CBD4D2341
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1711405000;
-	bh=cTGlmFcd/tUte778k7zrKmXEcc6C33NrMttRG8k+ypI=;
+	s=default; t=1711404962;
+	bh=xXYDf5Yx8awx5/zxr4AQ4Z2qqLzUBRKjDHFB9ZaxsUM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=TOVTiZ/3a7rafMV8LBwIIY8d63Pc3ZbitYdGoCuQCpH4+M8rMdJ22/Cey6Ew1rpbW
-	 Udf0rt9x9sNZXoKrtAPDjXXlZdkZaF6UbRPC5YP8xj9ur0sUQCc4nbrinRFjJQMnJL
-	 4hlDWwVohiHUsZ0PTDwIa7jYaiM0RX/IrrcFeYZk=
+	b=mlhys1N3gJnb1u/NAPVTeFJwzKBP9PUnm3RA79SGH3/cGy12nqVIVClIlE1MuRo1Z
+	 pkVmODoLi7UT9wJc5r4/xmJ0gHCyNN5qUABTegALKz7keLRnZ21fRwh9IaP1Sniqm5
+	 Jzh3r3a8/K9bgk4r5jVAlNrgkwp37SQzIY/oX8zc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0D959F80CB7; Mon, 25 Mar 2024 23:12:31 +0100 (CET)
+	id 0768FF805E7; Mon, 25 Mar 2024 23:12:22 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 24C31F80CAA;
-	Mon, 25 Mar 2024 23:12:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5FF90F8087B;
+	Mon, 25 Mar 2024 23:12:22 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AA598F806F9; Mon, 25 Mar 2024 23:12:03 +0100 (CET)
+	id EBFAAF80699; Mon, 25 Mar 2024 23:11:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,35 +35,35 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 992BFF805B1
-	for <alsa-devel@alsa-project.org>; Mon, 25 Mar 2024 23:11:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 992BFF805B1
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4A5E2F805BD
+	for <alsa-devel@alsa-project.org>; Mon, 25 Mar 2024 23:11:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A5E2F805BD
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=ka+qGJJo
+ header.s=Intel header.b=PuzxX94F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1711404689; x=1742940689;
+  t=1711404690; x=1742940690;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=cTGlmFcd/tUte778k7zrKmXEcc6C33NrMttRG8k+ypI=;
-  b=ka+qGJJo+BDAw/moO0Z/SJpRxjbvHcxnXUjFHnvJ0I9nhQX8h0mPxozv
-   Y8FsnZwxP5ESYlFQRr86hVuCGqxgPanEMtUHz0cZ4riuU9JzQwo8Bwe5Q
-   jEinhyEbnwRd/SnbMRonqBp3XMdq7Mfr4oye6UV+zSF6GzC9l7QXCqap7
-   gfJQu+Bu9FLXlMWJyuQK1rWhFEmw0kTtH6ApwMgT2QPNilvMIoTuaExx8
-   Z2jJEA8oSWJUbeUDfIlSQgwq5oMf+wEDIPrt6BZljvJzZ/gOsgJ9ih5tV
-   L+DMD7okAlbSk+O9+6NpcHYn30ND8YlH1XFKWd5zOuKDlz1/mBzE3xSHY
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,11024"; a="6643653"
+  bh=xXYDf5Yx8awx5/zxr4AQ4Z2qqLzUBRKjDHFB9ZaxsUM=;
+  b=PuzxX94FeJhijmgEgCH+THeGflp751zWb6rSGw1sIAjhmZDaHuAm9b74
+   V4B67OQnYMMzD9n7kDYbLSG0I+cnYSh7WrN4tqwXN5qUmrkpq4fd4RmZm
+   PbGQst11ZB3IayY02iQUHArnZivTsO7xPv1rUIWcEWEexbgSAZ1cAW3gX
+   saKHlGb/V2InFQMBLZULZwKlu1b5TKmwXGXOq3Lh7U2K7GDSqWz8CBCql
+   2KhpUXPpqvT3e2fpxVCkIuMHFXUy1EesXcsHSb9n3BiZJLEsKa5V5fKC5
+   hSayJSaxPDOpVhlkhQe1b6/iPOC+zQxR8IkOTwmRrc9rDHCWBUhMiDtk2
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,11024"; a="6643657"
 X-IronPort-AV: E=Sophos;i="6.07,154,1708416000";
-   d="scan'208";a="6643653"
+   d="scan'208";a="6643657"
 Received: from orviesa009.jf.intel.com ([10.64.159.149])
   by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  25 Mar 2024 15:11:23 -0700
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.07,154,1708416000";
-   d="scan'208";a="15722139"
+   d="scan'208";a="15722145"
 Received: from jaimbres-mobl2.amr.corp.intel.com (HELO pbossart-mobl6.lan)
  ([10.212.98.109])
   by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
@@ -76,17 +76,16 @@ Cc: alsa-devel@alsa-project.org,
 	Brent Lu <brent.lu@intel.com>,
 	Bard Liao <yung-chuan.liao@linux.intel.com>,
 	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [PATCH 12/21] ASoC: Intel: sof_da7219: use common module for DAI link
- generation
-Date: Mon, 25 Mar 2024 17:10:50 -0500
-Message-Id: <20240325221059.206042-13-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 13/21] ASoC: Intel: sof_da7219: add codec exit function
+Date: Mon, 25 Mar 2024 17:10:51 -0500
+Message-Id: <20240325221059.206042-14-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20240325221059.206042-1-pierre-louis.bossart@linux.intel.com>
 References: <20240325221059.206042-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: PY3ZIPBC4TFCG3Q4LLC3DRM2PYQMR3DP
-X-Message-ID-Hash: PY3ZIPBC4TFCG3Q4LLC3DRM2PYQMR3DP
+Message-ID-Hash: 2FXVSGVMUQX32JMM2HZBL72AOA2ADQ6R
+X-Message-ID-Hash: 2FXVSGVMUQX32JMM2HZBL72AOA2ADQ6R
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -99,7 +98,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PY3ZIPBC4TFCG3Q4LLC3DRM2PYQMR3DP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2FXVSGVMUQX32JMM2HZBL72AOA2ADQ6R/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,592 +109,41 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Brent Lu <brent.lu@intel.com>
 
-Use intel_board module to generate DAI link array and update num_links
-field in snd_soc_card structure.
+Add exit function to headphone codec dai link.
 
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Signed-off-by: Brent Lu <brent.lu@intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/intel/boards/Kconfig             |   1 +
- sound/soc/intel/boards/sof_board_helpers.h |  13 +
- sound/soc/intel/boards/sof_da7219.c        | 391 ++++++---------------
- 3 files changed, 129 insertions(+), 276 deletions(-)
+ sound/soc/intel/boards/sof_da7219.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/sound/soc/intel/boards/Kconfig b/sound/soc/intel/boards/Kconfig
-index 18ac3ce0752e..e5df64fec319 100644
---- a/sound/soc/intel/boards/Kconfig
-+++ b/sound/soc/intel/boards/Kconfig
-@@ -624,6 +624,7 @@ config SND_SOC_INTEL_SOF_DA7219_MACH
- 	select SND_SOC_MAX98357A
- 	select SND_SOC_MAX98373_I2C
- 	select SND_SOC_DMIC
-+	select SND_SOC_INTEL_SOF_BOARD_HELPERS
- 	select SND_SOC_INTEL_SOF_MAXIM_COMMON
- 	select SND_SOC_INTEL_SOF_SSP_COMMON
- 	help
-diff --git a/sound/soc/intel/boards/sof_board_helpers.h b/sound/soc/intel/boards/sof_board_helpers.h
-index 0d0a8d97843b..1701481ab6ae 100644
---- a/sound/soc/intel/boards/sof_board_helpers.h
-+++ b/sound/soc/intel/boards/sof_board_helpers.h
-@@ -83,6 +83,17 @@ enum {
- 	 (((k6) & SOF_LINK_IDS_MASK) << (SOF_LINK_IDS_SHIFT * 5)) | \
- 	 (((k7) & SOF_LINK_IDS_MASK) << (SOF_LINK_IDS_SHIFT * 6)))
- 
-+/*
-+ * sof_da7219_private: private data for da7219 machine driver
-+ *
-+ * @is_jsl_board: true for JSL boards
-+ * @pll_bypass: true for PLL bypass mode
-+ */
-+struct sof_da7219_private {
-+	bool is_jsl_board;
-+	bool pll_bypass;
-+};
-+
- /*
-  * sof_rt5682_private: private data for rt5682 machine driver
-  *
-@@ -112,6 +123,7 @@ struct sof_rt5682_private {
-  * @amp_link: pointer to speaker amplifier dai link
-  * @link_order_overwrite: custom DAI link order
-  * @link_id_overwrite: custom DAI link ID
-+ * @da7219: private data for da7219 machine driver
-  * @rt5682: private data for rt5682 machine driver
-  */
- struct sof_card_private {
-@@ -142,6 +154,7 @@ struct sof_card_private {
- 	unsigned long link_id_overwrite;
- 
- 	union {
-+		struct sof_da7219_private da7219;
- 		struct sof_rt5682_private rt5682;
- 	};
- };
 diff --git a/sound/soc/intel/boards/sof_da7219.c b/sound/soc/intel/boards/sof_da7219.c
-index 290bf75bdaef..f0cb1572c6c4 100644
+index f0cb1572c6c4..3d9c48107f58 100644
 --- a/sound/soc/intel/boards/sof_da7219.c
 +++ b/sound/soc/intel/boards/sof_da7219.c
-@@ -15,35 +15,24 @@
- #include <sound/soc-acpi.h>
- #include <sound/sof.h>
- #include "../../codecs/da7219.h"
--#include "hda_dsp_common.h"
--#include "sof_hdmi_common.h"
-+#include "sof_board_helpers.h"
- #include "sof_maxim_common.h"
--#include "sof_ssp_common.h"
- 
--/* Board Quirks */
--#define SOF_DA7219_JSL_BOARD			BIT(2)
-+/* Driver-specific board quirks: from bit 0 to 7 */
-+#define SOF_DA7219_JSL_BOARD			BIT(0)
- 
- #define DIALOG_CODEC_DAI	"da7219-hifi"
- 
--struct card_private {
--	struct snd_soc_jack headset_jack;
--	struct sof_hdmi_private hdmi;
--	enum sof_ssp_codec codec_type;
--	enum sof_ssp_codec amp_type;
--
--	unsigned int pll_bypass:1;
--};
--
- static int platform_clock_control(struct snd_soc_dapm_widget *w,
- 				  struct snd_kcontrol *k, int  event)
- {
- 	struct snd_soc_dapm_context *dapm = w->dapm;
- 	struct snd_soc_card *card = dapm->card;
--	struct card_private *ctx = snd_soc_card_get_drvdata(card);
-+	struct sof_card_private *ctx = snd_soc_card_get_drvdata(card);
- 	struct snd_soc_dai *codec_dai;
- 	int ret = 0;
- 
--	if (ctx->pll_bypass)
-+	if (ctx->da7219.pll_bypass)
- 		return ret;
- 
- 	/* PLL SRM mode */
-@@ -74,8 +63,6 @@ static const struct snd_kcontrol_new controls[] = {
- 	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
- 	SOC_DAPM_PIN_SWITCH("Headset Mic"),
- 	SOC_DAPM_PIN_SWITCH("Line Out"),
--	SOC_DAPM_PIN_SWITCH("Left Spk"),
--	SOC_DAPM_PIN_SWITCH("Right Spk"),
- };
- 
- static const struct snd_soc_dapm_widget widgets[] = {
-@@ -83,14 +70,9 @@ static const struct snd_soc_dapm_widget widgets[] = {
- 	SND_SOC_DAPM_MIC("Headset Mic", NULL),
- 	SND_SOC_DAPM_LINE("Line Out", NULL),
- 
--	SND_SOC_DAPM_SPK("Left Spk", NULL),
--	SND_SOC_DAPM_SPK("Right Spk", NULL),
--
- 	SND_SOC_DAPM_SUPPLY("Platform Clock", SND_SOC_NOPM, 0, 0,
- 			    platform_clock_control, SND_SOC_DAPM_POST_PMD |
- 			    SND_SOC_DAPM_PRE_PMU),
--
--	SND_SOC_DAPM_MIC("SoC DMIC", NULL),
- };
- 
- static const struct snd_soc_dapm_route audio_map[] = {
-@@ -102,9 +84,6 @@ static const struct snd_soc_dapm_route audio_map[] = {
- 	{ "Headphone Jack", NULL, "Platform Clock" },
- 	{ "Headset Mic", NULL, "Platform Clock" },
- 	{ "Line Out", NULL, "Platform Clock" },
--
--	/* digital mics */
--	{"DMic", NULL, "SoC DMIC"},
- };
- 
- static struct snd_soc_jack_pin jack_pins[] = {
-@@ -124,7 +103,7 @@ static struct snd_soc_jack_pin jack_pins[] = {
- 
- static int da7219_codec_init(struct snd_soc_pcm_runtime *rtd)
- {
--	struct card_private *ctx = snd_soc_card_get_drvdata(rtd->card);
-+	struct sof_card_private *ctx = snd_soc_card_get_drvdata(rtd->card);
- 	struct snd_soc_dai *codec_dai = snd_soc_rtd_to_codec(rtd, 0);
- 	struct snd_soc_component *component = codec_dai->component;
- 	struct snd_soc_jack *jack = &ctx->headset_jack;
-@@ -157,7 +136,7 @@ static int da7219_codec_init(struct snd_soc_pcm_runtime *rtd)
- 			return ret;
- 		}
- 
--		ctx->pll_bypass = 1;
-+		ctx->da7219.pll_bypass = true;
- 	}
- 
- 	/*
-@@ -222,215 +201,11 @@ static const struct snd_soc_ops max98373_ops = {
- 	.hw_params = max98373_hw_params,
- };
- 
--static int hdmi_init(struct snd_soc_pcm_runtime *rtd)
--{
--	struct card_private *ctx = snd_soc_card_get_drvdata(rtd->card);
--	struct snd_soc_dai *dai = snd_soc_rtd_to_codec(rtd, 0);
--
--	ctx->hdmi.hdmi_comp = dai->component;
--
--	return 0;
--}
--
- static int card_late_probe(struct snd_soc_card *card)
- {
--	struct card_private *ctx = snd_soc_card_get_drvdata(card);
--
--	if (!ctx->hdmi.idisp_codec)
--		return 0;
--
--	if (!ctx->hdmi.hdmi_comp)
--		return -EINVAL;
--
--	return hda_dsp_hdmi_build_controls(card, ctx->hdmi.hdmi_comp);
-+	return sof_intel_board_card_late_probe(card);
+@@ -167,6 +167,13 @@ static int da7219_codec_init(struct snd_soc_pcm_runtime *rtd)
+ 	return ret;
  }
  
--SND_SOC_DAILINK_DEF(ssp0_pin,
--	DAILINK_COMP_ARRAY(COMP_CPU("SSP0 Pin")));
--SND_SOC_DAILINK_DEF(ssp0_codec,
--	DAILINK_COMP_ARRAY(COMP_CODEC("i2c-DLGS7219:00", DIALOG_CODEC_DAI)));
--
--SND_SOC_DAILINK_DEF(ssp1_pin,
--	DAILINK_COMP_ARRAY(COMP_CPU("SSP1 Pin")));
--
--SND_SOC_DAILINK_DEF(ssp2_pin,
--	DAILINK_COMP_ARRAY(COMP_CPU("SSP2 Pin")));
--SND_SOC_DAILINK_DEF(dummy_codec,
--	DAILINK_COMP_ARRAY(COMP_CODEC("snd-soc-dummy", "snd-soc-dummy-dai")));
--
--SND_SOC_DAILINK_DEF(dmic_pin,
--	DAILINK_COMP_ARRAY(COMP_CPU("DMIC01 Pin")));
--SND_SOC_DAILINK_DEF(dmic_codec,
--	DAILINK_COMP_ARRAY(COMP_CODEC("dmic-codec", "dmic-hifi")));
--
--SND_SOC_DAILINK_DEF(dmic16k_pin,
--	DAILINK_COMP_ARRAY(COMP_CPU("DMIC16k Pin")));
--
--SND_SOC_DAILINK_DEF(idisp1_pin,
--	DAILINK_COMP_ARRAY(COMP_CPU("iDisp1 Pin")));
--SND_SOC_DAILINK_DEF(idisp1_codec,
--	DAILINK_COMP_ARRAY(COMP_CODEC("ehdaudio0D2", "intel-hdmi-hifi1")));
--
--SND_SOC_DAILINK_DEF(idisp2_pin,
--	DAILINK_COMP_ARRAY(COMP_CPU("iDisp2 Pin")));
--SND_SOC_DAILINK_DEF(idisp2_codec,
--	DAILINK_COMP_ARRAY(COMP_CODEC("ehdaudio0D2", "intel-hdmi-hifi2")));
--
--SND_SOC_DAILINK_DEF(idisp3_pin,
--	DAILINK_COMP_ARRAY(COMP_CPU("iDisp3 Pin")));
--SND_SOC_DAILINK_DEF(idisp3_codec,
--	DAILINK_COMP_ARRAY(COMP_CODEC("ehdaudio0D2", "intel-hdmi-hifi3")));
--
--SND_SOC_DAILINK_DEF(idisp4_pin,
--	DAILINK_COMP_ARRAY(COMP_CPU("iDisp4 Pin")));
--SND_SOC_DAILINK_DEF(idisp4_codec,
--	DAILINK_COMP_ARRAY(COMP_CODEC("ehdaudio0D2", "intel-hdmi-hifi4")));
--
--SND_SOC_DAILINK_DEF(platform, /* subject to be overridden during probe */
--	DAILINK_COMP_ARRAY(COMP_PLATFORM("0000:00:1f.3")));
--
--static struct snd_soc_dai_link jsl_dais[] = {
--	/* Back End DAI links */
--	{
--		.name = "SSP1-Codec",
--		.id = 0,
--		.ignore_pmdown_time = 1,
--		.no_pcm = 1,
--		.dpcm_playback = 1,
--		.dpcm_capture = 1, /* IV feedback */
--		SND_SOC_DAILINK_REG(ssp1_pin, max_98373_components, platform),
--	},
--	{
--		.name = "SSP0-Codec",
--		.id = 1,
--		.no_pcm = 1,
--		.init = da7219_codec_init,
--		.ignore_pmdown_time = 1,
--		.dpcm_playback = 1,
--		.dpcm_capture = 1,
--		SND_SOC_DAILINK_REG(ssp0_pin, ssp0_codec, platform),
--	},
--	{
--		.name = "dmic01",
--		.id = 2,
--		.ignore_suspend = 1,
--		.dpcm_capture = 1,
--		.no_pcm = 1,
--		SND_SOC_DAILINK_REG(dmic_pin, dmic_codec, platform),
--	},
--	{
--		.name = "iDisp1",
--		.id = 3,
--		.init = hdmi_init,
--		.dpcm_playback = 1,
--		.no_pcm = 1,
--		SND_SOC_DAILINK_REG(idisp1_pin, idisp1_codec, platform),
--	},
--	{
--		.name = "iDisp2",
--		.id = 4,
--		.init = hdmi_init,
--		.dpcm_playback = 1,
--		.no_pcm = 1,
--		SND_SOC_DAILINK_REG(idisp2_pin, idisp2_codec, platform),
--	},
--	{
--		.name = "iDisp3",
--		.id = 5,
--		.init = hdmi_init,
--		.dpcm_playback = 1,
--		.no_pcm = 1,
--		SND_SOC_DAILINK_REG(idisp3_pin, idisp3_codec, platform),
--	},
--	{
--		.name = "dmic16k",
--		.id = 6,
--		.ignore_suspend = 1,
--		.dpcm_capture = 1,
--		.no_pcm = 1,
--		SND_SOC_DAILINK_REG(dmic16k_pin, dmic_codec, platform),
--	}
--};
--
--static struct snd_soc_dai_link adl_dais[] = {
--	/* Back End DAI links */
--	{
--		.name = "SSP0-Codec",
--		.id = 0,
--		.no_pcm = 1,
--		.init = da7219_codec_init,
--		.ignore_pmdown_time = 1,
--		.dpcm_playback = 1,
--		.dpcm_capture = 1,
--		SND_SOC_DAILINK_REG(ssp0_pin, ssp0_codec, platform),
--	},
--	{
--		.name = "dmic01",
--		.id = 1,
--		.ignore_suspend = 1,
--		.dpcm_capture = 1,
--		.no_pcm = 1,
--		SND_SOC_DAILINK_REG(dmic_pin, dmic_codec, platform),
--	},
--	{
--		.name = "dmic16k",
--		.id = 2,
--		.ignore_suspend = 1,
--		.dpcm_capture = 1,
--		.no_pcm = 1,
--		SND_SOC_DAILINK_REG(dmic16k_pin, dmic_codec, platform),
--	},
--	{
--		.name = "iDisp1",
--		.id = 3,
--		.init = hdmi_init,
--		.dpcm_playback = 1,
--		.no_pcm = 1,
--		SND_SOC_DAILINK_REG(idisp1_pin, idisp1_codec, platform),
--	},
--	{
--		.name = "iDisp2",
--		.id = 4,
--		.init = hdmi_init,
--		.dpcm_playback = 1,
--		.no_pcm = 1,
--		SND_SOC_DAILINK_REG(idisp2_pin, idisp2_codec, platform),
--	},
--	{
--		.name = "iDisp3",
--		.id = 5,
--		.init = hdmi_init,
--		.dpcm_playback = 1,
--		.no_pcm = 1,
--		SND_SOC_DAILINK_REG(idisp3_pin, idisp3_codec, platform),
--	},
--	{
--		.name = "iDisp4",
--		.id = 6,
--		.init = hdmi_init,
--		.dpcm_playback = 1,
--		.no_pcm = 1,
--		SND_SOC_DAILINK_REG(idisp4_pin, idisp4_codec, platform),
--	},
--	{
--		.name = "SSP1-Codec",
--		.id = 7,
--		.no_pcm = 1,
--		.dpcm_playback = 1,
--		/* feedback stream or firmware-generated echo reference */
--		.dpcm_capture = 1,
--		SND_SOC_DAILINK_REG(ssp1_pin, max_98373_components, platform),
--	},
--	{
--		.name = "SSP2-BT",
--		.id = 8,
--		.no_pcm = 1,
--		.dpcm_playback = 1,
--		.dpcm_capture = 1,
--		SND_SOC_DAILINK_REG(ssp2_pin, dummy_codec, platform),
--	},
--};
--
- static struct snd_soc_card card_da7219 = {
- 	.name = "da7219", /* the sof- prefix is added by the core */
- 	.owner = THIS_MODULE,
-@@ -444,28 +219,100 @@ static struct snd_soc_card card_da7219 = {
- 	.late_probe = card_late_probe,
- };
- 
-+static struct snd_soc_dai_link_component da7219_component[] = {
-+	{
-+		.name = "i2c-DLGS7219:00",
-+		.dai_name = DIALOG_CODEC_DAI,
-+	}
-+};
-+
-+static int
-+sof_card_dai_links_create(struct device *dev, struct snd_soc_card *card,
-+			  struct sof_card_private *ctx)
++static void da7219_codec_exit(struct snd_soc_pcm_runtime *rtd)
 +{
-+	int ret;
++	struct snd_soc_component *component = snd_soc_rtd_to_codec(rtd, 0)->component;
 +
-+	ret = sof_intel_board_set_dai_link(dev, card, ctx);
-+	if (ret)
-+		return ret;
-+
-+	if (!ctx->codec_link) {
-+		dev_err(dev, "codec link not available");
-+		return -EINVAL;
-+	}
-+
-+	/* codec-specific fields for headphone codec */
-+	ctx->codec_link->codecs = da7219_component;
-+	ctx->codec_link->num_codecs = ARRAY_SIZE(da7219_component);
-+	ctx->codec_link->init = da7219_codec_init;
-+
-+	if (ctx->amp_type == CODEC_NONE)
-+		return 0;
-+
-+	if (!ctx->amp_link) {
-+		dev_err(dev, "amp link not available");
-+		return -EINVAL;
-+	}
-+
-+	/* codec-specific fields for speaker amplifier */
-+	switch (ctx->amp_type) {
-+	case CODEC_MAX98360A:
-+		max_98360a_dai_link(ctx->amp_link);
-+		break;
-+	case CODEC_MAX98373:
-+		ctx->amp_link->codecs = max_98373_components;
-+		ctx->amp_link->num_codecs = ARRAY_SIZE(max_98373_components);
-+		ctx->amp_link->init = max_98373_spk_codec_init;
-+		if (ctx->da7219.is_jsl_board) {
-+			ctx->amp_link->ops = &max98373_ops; /* use local ops */
-+		} else {
-+			/* TBD: implement the amp for later platform */
-+			dev_err(dev, "max98373 not support yet\n");
-+			return -EINVAL;
-+		}
-+		break;
-+	default:
-+		dev_err(dev, "invalid amp type %d\n", ctx->amp_type);
-+		return -EINVAL;
-+	}
-+
-+	return 0;
++	snd_soc_component_set_jack(component, NULL, NULL);
 +}
 +
-+#define JSL_LINK_ORDER	SOF_LINK_ORDER(SOF_LINK_AMP,         \
-+					SOF_LINK_CODEC,      \
-+					SOF_LINK_DMIC01,     \
-+					SOF_LINK_IDISP_HDMI, \
-+					SOF_LINK_DMIC16K,    \
-+					SOF_LINK_NONE,       \
-+					SOF_LINK_NONE)
-+
- static int audio_probe(struct platform_device *pdev)
+ static int max98373_hw_params(struct snd_pcm_substream *substream,
+ 			      struct snd_pcm_hw_params *params)
  {
- 	struct snd_soc_acpi_mach *mach = pdev->dev.platform_data;
--	struct snd_soc_dai_link *dai_links;
--	struct card_private *ctx;
-+	struct sof_card_private *ctx;
- 	unsigned long board_quirk = 0;
--	int ret, amp_idx;
--
--	ctx = devm_kzalloc(&pdev->dev, sizeof(*ctx), GFP_KERNEL);
--	if (!ctx)
--		return -ENOMEM;
-+	int ret;
+@@ -245,6 +252,7 @@ sof_card_dai_links_create(struct device *dev, struct snd_soc_card *card,
+ 	ctx->codec_link->codecs = da7219_component;
+ 	ctx->codec_link->num_codecs = ARRAY_SIZE(da7219_component);
+ 	ctx->codec_link->init = da7219_codec_init;
++	ctx->codec_link->exit = da7219_codec_exit;
  
- 	if (pdev->id_entry && pdev->id_entry->driver_data)
- 		board_quirk = (unsigned long)pdev->id_entry->driver_data;
- 
--	ctx->codec_type = sof_ssp_detect_codec_type(&pdev->dev);
--	ctx->amp_type = sof_ssp_detect_amp_type(&pdev->dev);
-+	dev_dbg(&pdev->dev, "board_quirk = %lx\n", board_quirk);
-+
-+	/* initialize ctx with board quirk */
-+	ctx = sof_intel_board_get_ctx(&pdev->dev, board_quirk);
-+	if (!ctx)
-+		return -ENOMEM;
- 
- 	if (mach->mach_params.codec_mask & IDISP_CODEC_MASK)
- 		ctx->hdmi.idisp_codec = true;
- 
- 	if (board_quirk & SOF_DA7219_JSL_BOARD) {
-+		ctx->da7219.is_jsl_board = true;
-+
-+		/* overwrite the DAI link order for JSL boards */
-+		ctx->link_order_overwrite = JSL_LINK_ORDER;
-+
- 		/* backward-compatible with existing devices */
- 		switch (ctx->amp_type) {
- 		case CODEC_MAX98360A:
-@@ -480,46 +327,27 @@ static int audio_probe(struct platform_device *pdev)
- 		default:
- 			break;
- 		}
--
--		dai_links = jsl_dais;
--		amp_idx = 0;
--
--		card_da7219.num_links = ARRAY_SIZE(jsl_dais);
--	} else {
--		dai_links = adl_dais;
--		amp_idx = 7;
--
--		card_da7219.num_links = ARRAY_SIZE(adl_dais);
- 	}
- 
--	dev_dbg(&pdev->dev, "board_quirk = %lx\n", board_quirk);
-+	/* update dai_link */
-+	ret = sof_card_dai_links_create(&pdev->dev, &card_da7219, ctx);
-+	if (ret)
-+		return ret;
- 
--	/* speaker amp */
-+	/* update codec_conf */
- 	switch (ctx->amp_type) {
--	case CODEC_MAX98360A:
--		max_98360a_dai_link(&dai_links[amp_idx]);
--		break;
- 	case CODEC_MAX98373:
--		dai_links[amp_idx].codecs = max_98373_components;
--		dai_links[amp_idx].num_codecs = ARRAY_SIZE(max_98373_components);
--		dai_links[amp_idx].init = max_98373_spk_codec_init;
--		if (board_quirk & SOF_DA7219_JSL_BOARD) {
--			dai_links[amp_idx].ops = &max98373_ops; /* use local ops */
--		} else {
--			/* TBD: implement the amp for later platform */
--			dev_err(&pdev->dev, "max98373 not support yet\n");
--			return -EINVAL;
--		}
--
- 		max_98373_set_codec_conf(&card_da7219);
- 		break;
-+	case CODEC_MAX98360A:
-+	case CODEC_NONE:
-+		/* no codec conf required */
-+		break;
- 	default:
- 		dev_err(&pdev->dev, "invalid amp type %d\n", ctx->amp_type);
- 		return -EINVAL;
- 	}
- 
--	card_da7219.dai_link = dai_links;
--
- 	card_da7219.dev = &pdev->dev;
- 
- 	ret = snd_soc_fixup_dai_links_platform_name(&card_da7219,
-@@ -535,19 +363,31 @@ static int audio_probe(struct platform_device *pdev)
- static const struct platform_device_id board_ids[] = {
- 	{
- 		.name = "jsl_mx98373_da7219",
--		.driver_data = (kernel_ulong_t)(SOF_DA7219_JSL_BOARD),
-+		.driver_data = (kernel_ulong_t)(SOF_DA7219_JSL_BOARD |
-+					SOF_SSP_PORT_CODEC(0) |
-+					SOF_SSP_PORT_AMP(1)),
- 	},
- 	{
- 		.name = "jsl_mx98360_da7219",
--		.driver_data = (kernel_ulong_t)(SOF_DA7219_JSL_BOARD),
-+		.driver_data = (kernel_ulong_t)(SOF_DA7219_JSL_BOARD |
-+					SOF_SSP_PORT_CODEC(0) |
-+					SOF_SSP_PORT_AMP(1)),
- 	},
- 	{
- 		.name = "adl_mx98360_da7219",
--		/* no quirk needed for this board */
-+		.driver_data = (kernel_ulong_t)(SOF_SSP_PORT_CODEC(0) |
-+					SOF_SSP_PORT_AMP(1) |
-+					SOF_NUM_IDISP_HDMI(4) |
-+					SOF_SSP_PORT_BT_OFFLOAD(2) |
-+					SOF_BT_OFFLOAD_PRESENT),
- 	},
- 	{
- 		.name = "rpl_mx98360_da7219",
--		/* no quirk needed for this board */
-+		.driver_data = (kernel_ulong_t)(SOF_SSP_PORT_CODEC(0) |
-+					SOF_SSP_PORT_AMP(1) |
-+					SOF_NUM_IDISP_HDMI(4) |
-+					SOF_SSP_PORT_BT_OFFLOAD(2) |
-+					SOF_BT_OFFLOAD_PRESENT),
- 	},
- 	{ }
- };
-@@ -568,6 +408,5 @@ MODULE_DESCRIPTION("ASoC Intel(R) SOF Machine driver for Dialog codec");
- MODULE_AUTHOR("Yong Zhi <yong.zhi@intel.com>");
- MODULE_AUTHOR("Brent Lu <brent.lu@intel.com>");
- MODULE_LICENSE("GPL v2");
--MODULE_IMPORT_NS(SND_SOC_INTEL_HDA_DSP_COMMON);
-+MODULE_IMPORT_NS(SND_SOC_INTEL_SOF_BOARD_HELPERS);
- MODULE_IMPORT_NS(SND_SOC_INTEL_SOF_MAXIM_COMMON);
--MODULE_IMPORT_NS(SND_SOC_INTEL_SOF_SSP_COMMON);
+ 	if (ctx->amp_type == CODEC_NONE)
+ 		return 0;
 -- 
 2.40.1
 

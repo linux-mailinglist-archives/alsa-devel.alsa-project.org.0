@@ -2,80 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2884188B47F
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 Mar 2024 23:49:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DEBE88B515
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Mar 2024 00:14:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B1F542392;
-	Mon, 25 Mar 2024 23:49:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1F542392
+	by alsa0.perex.cz (Postfix) with ESMTPS id 272E62369;
+	Tue, 26 Mar 2024 00:14:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 272E62369
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1711406997;
-	bh=j5QIHPHRdNPGCUAt2I/D/pju3UaGGamlyiXm1vob6Vo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1711408469;
+	bh=Mrh9SPT/w9jyav9m5OpYx1ZRCZOxPVd30OC7EfnHLQ4=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Q25lYG31i6ZCpzcsWWkD08WPGS3P+9XaMbJetc44i/YR76WziMaVE8ly60bA7+/nd
-	 UTY6cgj1uy3AXmerlbHXDhOvXoWWbI3Bwj5XQUYa5oAsFUYSfDNAAJAmWDfZYDaWMa
-	 bv0m7LSa9Sr7/gHj8iXEkp5m8/3K4+Y5hccnjNzI=
+	b=tM3cD4IDJEjGuI9q1zC+YuTumKooz2ThJUO4zBdGKaWi686LsUcpxGqtpmNS7imDV
+	 +mK3hhm7QV+dq9JpjFPCG28sty1zGiw1HuR2uk4zjIuKQUBr+m1RTZO66uEWXZM3y2
+	 uN+jevHT9QCDJUcbRCMWO8dSBWEALzbxV/zdfxGU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 57419F805A8; Mon, 25 Mar 2024 23:49:25 +0100 (CET)
+	id 342E2F8059F; Tue, 26 Mar 2024 00:13:57 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8422CF805A1;
-	Mon, 25 Mar 2024 23:49:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 70DF4F8059F;
+	Tue, 26 Mar 2024 00:13:57 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B190EF80236; Mon, 25 Mar 2024 23:49:19 +0100 (CET)
+	id CB8B5F80236; Tue, 26 Mar 2024 00:13:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from irl.hu (irl.hu [95.85.9.111])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2D2A9F80074
-	for <alsa-devel@alsa-project.org>; Mon, 25 Mar 2024 23:49:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D2A9F80074
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=ZO8UcII5
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id A4FC8611E2;
-	Mon, 25 Mar 2024 22:49:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C889CC433C7;
-	Mon, 25 Mar 2024 22:49:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1711406953;
-	bh=j5QIHPHRdNPGCUAt2I/D/pju3UaGGamlyiXm1vob6Vo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ZO8UcII5wtl7nM5TdOwMLKgNWkRgDYHyvG8nUZVCFhWNTzEV4cKEFYGIfxbdamrhR
-	 qjri35hpItnkYqurAER9RUQDTpfzbfelz5NIRhpu9AemBkuciNItfQJFW0gdCiQVLv
-	 dufWifWKbgY3qwc73DXBQw5T9KAFx4T1mQgLN5j3BWfAsgwG4AVayH9omqFosFPMvE
-	 Z9iMaYRiJeYfIteFBEhvo7flqIqxlYV9D1VRRjxqoQP5mGzpv32qPWZJAAiFPJPGO1
-	 wqy+4Rsi9EPcRSE+nxQ6hWDPVn+bMN84e/4wlPVPxX7AuZOLYQdB4BBjHaD2S5TK8/
-	 5M8VS/uxCWf0A==
-Date: Mon, 25 Mar 2024 22:49:09 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: linux-sound@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.de,
-	Shuming Fan <shumingf@realtek.com>,
-	Derek Fang <derek.fang@realtek.com>, Jack Yu <jack.yu@realtek.com>
-Subject: Re: [PATCH 0/6] ASoC: rt-sdw: fix locking and improve error logs
-Message-ID: <5f39e69c-00ce-4436-ad4c-3edcfcc00e62@sirena.org.uk>
-References: <20240325221817.206465-1-pierre-louis.bossart@linux.intel.com>
+	by alsa1.perex.cz (Postfix) with UTF8SMTPS id 3585AF801D5
+	for <alsa-devel@alsa-project.org>; Tue, 26 Mar 2024 00:13:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3585AF801D5
+Received: from [192.168.2.4] (51b68717.dsl.pool.telekom.hu
+ [::ffff:81.182.135.23])
+  (AUTH: CRAM-MD5 soyer@irl.hu, )
+  by irl.hu with ESMTPSA
+  id 0000000000077165.0000000066020525.0023AE94;
+ Tue, 26 Mar 2024 00:13:41 +0100
+Message-ID: <e5a06991c5540219366db84ce4e820e22a939929.camel@irl.hu>
+Subject: Re: [PATCH 3/3] ALSA: hda/tas2781: add debug statements to kcontrols
+From: Gergo Koteles <soyer@irl.hu>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+  Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+  Baojun Xu <baojun.xu@ti.com>, Jaroslav Kysela <perex@perex.cz>,
+  Takashi Iwai <tiwai@suse.com>,
+  Andy Shevchenko <andy.shevchenko@gmail.com>
+Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+  linux-kernel@vger.kernel.org
+Date: Tue, 26 Mar 2024 00:13:40 +0100
+In-Reply-To: <377e0f33-697c-4baf-ac48-baff6199dd53@linux.intel.com>
+References: <cover.1711401621.git.soyer@irl.hu>
+	 <cbdc337b911bee0f80f805b936041fd59c1db54a.1711401621.git.soyer@irl.hu>
+	 <377e0f33-697c-4baf-ac48-baff6199dd53@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.50.4 (3.50.4-1.fc39) 
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Sy8oTdvmjq+l7VNK"
-Content-Disposition: inline
-In-Reply-To: <20240325221817.206465-1-pierre-louis.bossart@linux.intel.com>
-X-Cookie: Evil isn't all bad.
-Message-ID-Hash: VLJXBQUU5QSV3KE7FYZSDES5KCLXT2K6
-X-Message-ID-Hash: VLJXBQUU5QSV3KE7FYZSDES5KCLXT2K6
-X-MailFrom: broonie@kernel.org
+Message-ID-Hash: RNNCVZURX3QDZH4GIEF3AD2MLSJ45CNX
+X-Message-ID-Hash: RNNCVZURX3QDZH4GIEF3AD2MLSJ45CNX
+X-MailFrom: soyer@irl.hu
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -87,7 +77,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VLJXBQUU5QSV3KE7FYZSDES5KCLXT2K6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RNNCVZURX3QDZH4GIEF3AD2MLSJ45CNX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,39 +86,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Hi Pierre-Louis,
 
---Sy8oTdvmjq+l7VNK
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, Mar 25, 2024 at 05:18:11PM -0500, Pierre-Louis Bossart wrote:
-> Fix a set of problematic locking sequences and update error messages,
-> tested on SOF/SoundWire platforms.
+On Mon, 2024-03-25 at 17:01 -0500, Pierre-Louis Bossart wrote:
 >=20
-> Pierre-Louis Bossart (6):
->   ASoC: rt5682-sdw: fix locking sequence
->   ASoC: rt711-sdca: fix locking sequence
->   ASoC: rt711-sdw: fix locking sequence
->   ASoC: rt712-sdca-sdw: fix locking sequence
->   ASoC: rt722-sdca-sdw: fix locking sequence
->   ASoC: rt-sdw*: add __func__ to all error logs
+>=20
+> > +++ b/sound/pci/hda/tas2781_hda_i2c.c
+> > @@ -189,6 +189,9 @@ static int tasdevice_get_profile_id(struct snd_kcon=
+trol *kcontrol,
+> > =20
+> >  	ucontrol->value.integer.value[0] =3D tas_priv->rcabin.profile_cfg_id;
+> > =20
+> > +	dev_dbg(tas_priv->dev, "%s: %d\n", __func__,
+>=20
+> Nit-pick: you don't need to add __func__ to dev_dbg logs, the user can
+> add the information with the dyndbg parameter, e.g.
+>=20
+> options snd_intel_dspcfg dyndbg=3D+pmf
+>=20
+> dev_err/warn don't have this functionality though so in those cases
+> there's no replacement for __func__
+>=20
 
-Copying some of the Realtek people for review.
+Thanks. I just put a #define DEBUG into the first line and rebuilt the
+module. It will be faster this way :)
 
---Sy8oTdvmjq+l7VNK
-Content-Type: application/pgp-signature; name="signature.asc"
+I will send a v2.
 
------BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmYB/2QACgkQJNaLcl1U
-h9BbdAf/Rlmx+L1L98ocIYTDmFklZGo9WLJH92hXP3EDW6n41XfRAqsJoBKfpZ59
-h8FLDtUYchrMGqWiHnuEU/1fE+4+OzcBM2R5zxTucMMdR2e9N9PmaVQVW25pVBQH
-nSX9wA5qogWzXzbAdjGeO7/r5woUiTDTvMayBY+MrP35cWRD21ymlT95iV+2y4mv
-o0Zj3pul3PD4D4X1+T4+f5lGUVHr3VYse0AuiR/WniO8+lBoXtJZzsnQWXYvHgaP
-79G/RjYt/03/VErhyV9sG7W0ge0sPAlrSh86vvfomVx8Jd+3jR+gjXORIGk1AmRc
-hrcF0UKzAiDqIOt3M6jXpXPvTiW9gA==
-=Zgpw
------END PGP SIGNATURE-----
+Regards,
+Gergo
 
---Sy8oTdvmjq+l7VNK--

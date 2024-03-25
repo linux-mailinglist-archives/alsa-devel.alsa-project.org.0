@@ -2,100 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B969D88AE15
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 Mar 2024 19:25:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FD7F88AF28
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 Mar 2024 20:00:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A9541EC7;
-	Mon, 25 Mar 2024 19:25:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A9541EC7
+	by alsa0.perex.cz (Postfix) with ESMTPS id CBA9C14E2;
+	Mon, 25 Mar 2024 20:00:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CBA9C14E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1711391136;
-	bh=MAe5uuROFbCiGuIhQXAD8TvICt0pICzM9nlR0AdeEI4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1711393247;
+	bh=rwbT+Rd3okr1qwfVbwVcY3pmiq1BxSNd33xG79KtlE8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=bvG4Zly2PsudMdE22FNMpiySteI+RbFtw43mrBUTZse3h/OqZ7qHkTTDQJfJOdTDL
-	 cUElwLBSvlttFudCEYdRhfE8U9VCzK1+MdifWHVSqR+i4yxhsshatx36u4ko0eJM9L
-	 6sNFX86fgItHFuYDqtlfWf6EU/h1/aWbl8ZeAbFM=
+	b=gSWj2C/qkcOT+zXIT/ms/cLE0NLbfsiNjca8NvXbb9f5Qft2jw6UIw/G4Oc6wPvzm
+	 HEIcyBVZSrT5sJTKE1yeIT3Vy15hpJNKP/ikzTvGfZQtB7Ek4S+Th77/DHwRAUPUhn
+	 HN5pbuH+XgWJ7tfEpdU2nTJoeY7Y/Sl5wwwCh5jg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6C5A3F8063E; Mon, 25 Mar 2024 18:07:09 +0100 (CET)
+	id CBCEBF8069E; Mon, 25 Mar 2024 18:44:29 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DBEB0F80673;
-	Mon, 25 Mar 2024 18:07:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 69F13F8069A;
+	Mon, 25 Mar 2024 18:44:29 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CC5ABF80642; Mon, 25 Mar 2024 18:07:01 +0100 (CET)
+	id D1D42F80685; Mon, 25 Mar 2024 18:44:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_NONE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-2.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 79E71F805D8
-	for <alsa-devel@alsa-project.org>; Mon, 25 Mar 2024 18:06:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79E71F805D8
+	by alsa1.perex.cz (Postfix) with ESMTPS id DDBF4F80681
+	for <alsa-devel@alsa-project.org>; Mon, 25 Mar 2024 18:44:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DDBF4F80681
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=cUD4Mxnk
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1711386418; x=1742922418;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=MAe5uuROFbCiGuIhQXAD8TvICt0pICzM9nlR0AdeEI4=;
-  b=cUD4MxnksLTA1nlmr/F+AFaLhT3GccSM2btAnC6OUermRoixVcFFSqfY
-   PjfcMhms8Ev9+GsTnKoY6Ms4ld6+ipBlWtV9HygS+wQCNa44MX0snZjgH
-   9xTHNcKWCm/qmie2/5EPt2oVudD6H9suC+5QeYAZt0JFPxZ2pVadWiO5T
-   +kaNEwPWHbPU7zG3TeSP3aNorwIIyPFdqSHizoLkGre1u+RWBQtbRvHXV
-   VUSInpj8rANlGV9Huxt9fX0Ybf0+sHwBkwUkbcFiyEhdJYqSwrx7ydB/A
-   cBPXXuBYU59YFvRWtp7iMrTgEfdb5cfNsz3jnRJGhpw26eL11aDaIawpN
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,11024"; a="6266963"
-X-IronPort-AV: E=Sophos;i="6.07,153,1708416000";
-   d="scan'208";a="6266963"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2024 10:06:51 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,11024"; a="914849374"
-X-IronPort-AV: E=Sophos;i="6.07,153,1708416000";
-   d="scan'208";a="914849374"
-Received: from smile.fi.intel.com ([10.237.72.54])
-  by fmsmga002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2024 10:06:47 -0700
-Received: from andy by smile.fi.intel.com with local (Exim 4.97)
-	(envelope-from <andriy.shevchenko@linux.intel.com>)
-	id 1ronmW-0000000G3ar-2wkT;
-	Mon, 25 Mar 2024 19:06:44 +0200
-Date: Mon, 25 Mar 2024 19:06:44 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
-	linux-sound@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Cc: Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
-	Fabio Estevam <festevam@gmail.com>,
-	Nicolin Chen <nicoleotsuka@gmail.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>, Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>
-Subject: Re: [PATCH v2 1/1] ASoC: fsl: imx-es8328: Switch to using gpiod API
-Message-ID: <ZgGvJDEpMjaeZzpC@smile.fi.intel.com>
-References: <20240318200804.181516-1-andriy.shevchenko@linux.intel.com>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=kLwbbKKR
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id BDD14CE1C0D;
+	Mon, 25 Mar 2024 17:44:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD3FFC433F1;
+	Mon, 25 Mar 2024 17:44:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1711388652;
+	bh=rwbT+Rd3okr1qwfVbwVcY3pmiq1BxSNd33xG79KtlE8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=kLwbbKKRSG24OfQv4aAskaKKW3cI7i4aJ5xQQ7aWR+6/oM++s8Mc83D8aJwGKZS73
+	 CAMw/nWjpAlhXDnLj7wM78qsf9i11kbmI9hYKwOqG3PEEIJjnYbuTk6ESHtUqEPbSa
+	 vO08va9UmZ9HQSBZ9Sv0fBbm5IC6UY8Yi8zhr+OFfauqxDdziOF30800m32EFZVS4o
+	 q3jNVDMsoeoWfWkbPiDanzRTnLnJsNFUm3EUu95lSHKmEZTizlztZV7w4biGTnQEp1
+	 myIG/5mLWuYaQ1zFZqQzHyI6aI0htamKAe+ZWtnbPYeBNkk5yQsxU20y88sn+mPWk/
+	 fhHfANJFvAmNA==
+From: Mark Brown <broonie@kernel.org>
+To: Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>,
+ Alexander Stein <alexander.stein@ew.tq-group.com>
+Cc: alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20240314141642.2943605-1-alexander.stein@ew.tq-group.com>
+References: <20240314141642.2943605-1-alexander.stein@ew.tq-group.com>
+Subject: Re: [PATCH 1/1] ASoC: fsl: fsl_ssi: Add dev_err_probe if PCM DMA
+ init fails
+Message-Id: <171138864957.327140.15499315160101216810.b4-ty@kernel.org>
+Date: Mon, 25 Mar 2024 17:44:09 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240318200804.181516-1-andriy.shevchenko@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Message-ID-Hash: 6NE2F5AKPW26T52SUOILUSVT4EA5AC6Z
-X-Message-ID-Hash: 6NE2F5AKPW26T52SUOILUSVT4EA5AC6Z
-X-MailFrom: andriy.shevchenko@linux.intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14-dev
+Message-ID-Hash: 6JNEHFFYCYYOYRFQXYY4WK76VKOZXQQL
+X-Message-ID-Hash: 6JNEHFFYCYYOYRFQXYY4WK76VKOZXQQL
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -107,7 +90,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6NE2F5AKPW26T52SUOILUSVT4EA5AC6Z/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6JNEHFFYCYYOYRFQXYY4WK76VKOZXQQL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -116,14 +99,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, Mar 18, 2024 at 10:07:56PM +0200, Andy Shevchenko wrote:
-> This updates the driver to gpiod API, and removes yet another use of
-> of_get_named_gpio().
+On Thu, 14 Mar 2024 15:16:42 +0100, Alexander Stein wrote:
+> This happens especially if this driver is built-in, but SDMA driver
+> is configured as module.
+> 
+> 
 
-This also needs a leftover removal. :-(
+Applied to
 
--- 
-With Best Regards,
-Andy Shevchenko
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
+Thanks!
+
+[1/1] ASoC: fsl: fsl_ssi: Add dev_err_probe if PCM DMA init fails
+      commit: 3ca49e7f9475ac06614edf1bfece123eafbdf8f3
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 

@@ -2,75 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E32B1894BB5
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Apr 2024 08:45:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9022894BB6
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Apr 2024 08:45:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7018127A9;
-	Tue,  2 Apr 2024 08:45:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7018127A9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5364A240A;
+	Tue,  2 Apr 2024 08:45:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5364A240A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712040340;
-	bh=rcdcVMOwAqKdq7n5jkVq5QjE+E4mBd0LmLt5lwYal+k=;
+	s=default; t=1712040356;
+	bh=OQ6DaWqLtLK0mHL2i6HS0EPqyqAvookaS2ecZGz/nWM=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Z5iuWY9/0wODGp7wC25fPLDrRfKs4p7OOmJ87b82YcAGwQRXZoURaav0Z7VwlSANu
-	 ub7SmApdZ0GcE7QRe3ot6iNe0v8tq4+F++iWKTH1LU9bTgORvrhfk0Mv882JE4vYAK
-	 T/jDLKqE2qIbsimC7meROWyeKGhhITO7ZW0KZxM0=
+	b=I1+uxGduY2C4l6tvxcu4XAwC9xscJe7Vi4Lw7TiNhrACAaA2tLAqoSilkZemG2VxR
+	 cE/CZGgLXAfN3IIl9OL3qLdfiOPwldOTVtFJZiI85FKBv9SMtLX29Cx5f3x6I5Y7vJ
+	 AXKbZYlCNZibImLn9VbWfsy1IWC08mq8rWxvOHAM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 904CDF805D9; Tue,  2 Apr 2024 08:44:55 +0200 (CEST)
+	id 79334F805F1; Tue,  2 Apr 2024 08:45:05 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9BDB3F805CB;
-	Tue,  2 Apr 2024 08:44:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 37F57F805F5;
+	Tue,  2 Apr 2024 08:45:05 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 77263F80236; Mon, 25 Mar 2024 02:58:02 +0100 (CET)
+	id 47050F80236; Mon, 25 Mar 2024 03:13:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9D570F8015B
-	for <alsa-devel@alsa-project.org>; Mon, 25 Mar 2024 02:54:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D570F8015B
+	by alsa1.perex.cz (Postfix) with ESMTPS id F3F6CF8015B
+	for <alsa-devel@alsa-project.org>; Mon, 25 Mar 2024 03:13:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3F6CF8015B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=UgoRuOdI
+ header.s=k20201202 header.b=IW3oS+vk
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 7D67260DF5;
-	Mon, 25 Mar 2024 01:54:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 9BD4FC43143;
-	Mon, 25 Mar 2024 01:54:22 +0000 (UTC)
+	by sin.source.kernel.org (Postfix) with ESMTP id 464E9CE100F;
+	Mon, 25 Mar 2024 02:13:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A557CC43142;
+	Mon, 25 Mar 2024 02:13:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1711331662;
-	bh=rcdcVMOwAqKdq7n5jkVq5QjE+E4mBd0LmLt5lwYal+k=;
+	s=k20201202; t=1711332787;
+	bh=OQ6DaWqLtLK0mHL2i6HS0EPqyqAvookaS2ecZGz/nWM=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
-	b=UgoRuOdIKc1atcNCSy+fGMyIxd2EIL85aFzdiUP5IhrVwfyLuX4y1UYA/UQBPsAMD
-	 3sCV/0MeXlbM7sefeRf+lmdvdlgZ0TKvCfmEeGYkPwifpZb/yub4hlREVfgCNhRtZz
-	 ZiY0yetiX2oMC1bHns3loNE8fmm9pIIDXR7KvrkZSK4WdOtTGUmUud3p6vcyL60zKX
-	 9BjSBTkapaueuWOl6AMlmsqrYlvbxlrUS29IKX7go0Y/Tq8wfA4UxOJ9FCpuAE+CY5
-	 CxMUxLEonlCV+T0zvdc8MGEzb5H247rE1FolcBQONxia7RxxTo1NzWXjR86IfgfIYv
-	 gVtR4ZEqxDVIw==
+	b=IW3oS+vkvE1rg2omkWdnXg451W2R8QWxmUug1tn/Bg6l3cfmeu1XEIle4W9BtNPp4
+	 0oal/S4apZS+BzY3gBaCjlntTY0jgQlz1t3PTdy9XjaTcskT+il7ElSZAp+JWMzJPx
+	 t4H/ihZGECuHFrRbX8V87SXD5ftRGwC5bn6CdPejAvtWiLKQtnbNuipuyb5sBYBBYm
+	 r76u6K1eEb3PqAdmigNT4nSlFA/s5U3UgALZVL8Mu6HumRAnW3tR7xT39q806nrvhq
+	 m7JZPsTIIGWptqQY1qCZ3jSIb5cnxMaBAWbnn/lCp4J/k3we+Ge3Bv+ms0rQoNcWaw
+	 NOIkisLFJZphg==
 Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
  (localhost.localdomain [127.0.0.1])
 	by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 886E5D2D0E3;
-	Mon, 25 Mar 2024 01:54:22 +0000 (UTC)
+ 90BCDD2D0E3;
+	Mon, 25 Mar 2024 02:13:07 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Subject: Re: [PATCH v3 00/32] spi: get rid of some legacy macros
 From: patchwork-bot+chrome-platform@kernel.org
 Message-Id: 
- <171133166255.9916.6727664409114778134.git-patchwork-notify@kernel.org>
-Date: Mon, 25 Mar 2024 01:54:22 +0000
+ <171133278756.9916.16032493309661657935.git-patchwork-notify@kernel.org>
+Date: Mon, 25 Mar 2024 02:13:07 +0000
 References: <cover.1707324793.git.u.kleine-koenig@pengutronix.de>
 In-Reply-To: <cover.1707324793.git.u.kleine-koenig@pengutronix.de>
 To: 
@@ -115,15 +116,14 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
  suspicious-header
-Message-ID-Hash: FL4T7BVQE3YF7NUVF6GVP6TVFBPGFUW3
-X-Message-ID-Hash: FL4T7BVQE3YF7NUVF6GVP6TVFBPGFUW3
-X-Mailman-Approved-At: Tue, 02 Apr 2024 06:44:47 +0000
+Message-ID-Hash: 6GBNFUDJVLOUDP3RXGC3UTESQ55SEMZK
+X-Message-ID-Hash: 6GBNFUDJVLOUDP3RXGC3UTESQ55SEMZK
+X-Mailman-Approved-At: Tue, 02 Apr 2024 06:44:52 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ESB42B4POHKPR5TS664EU3EDAFSOR7J3/>
+Archived-At: <>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -134,7 +134,7 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 Hello:
 
-This patch was applied to chrome-platform/linux.git (for-kernelci)
+This patch was applied to chrome-platform/linux.git (for-next)
 by Mark Brown <broonie@kernel.org>:
 
 On Wed,  7 Feb 2024 19:40:14 +0100 you wrote:

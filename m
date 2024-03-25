@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DD2488B3C7
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 Mar 2024 23:16:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0F7788B3CF
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 Mar 2024 23:17:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0DB6A2353;
-	Mon, 25 Mar 2024 23:16:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0DB6A2353
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7EE6E2353;
+	Mon, 25 Mar 2024 23:17:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7EE6E2353
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1711405018;
-	bh=Ui4/pc3t6yv4LKYzMgDyXcmrAS0utPOVaM6bIzs2a80=;
+	s=default; t=1711405052;
+	bh=gQL3YXeDyA5WniIBUY3v0SIELfeKyoQhHUp8fHkCRPY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=W/YKm4ElxEHtnYBEEUsMKnFp6PWMjHm02KKd90lLqGX+4QZyptCuVaZNqsTU7aOFu
-	 n9kn3j/ApNwSfZS1b0FobkEq5Qiyysjf7Bx1bHraDyX1y2uDkviYp8WWhrZL5Anrn8
-	 sla0cbwtQ4JxcFy3lTxUQFpwcYWpfu134L+yUSXM=
+	b=vA+GTyUOWkMHvDtjv7/MEOOpTjf6w5J4XBNqWXNmIqRJtIf5M6R2IKprvYZtFQV+k
+	 5xIIgGtr6d5sRL7rqLOfDxuKpzJ495b2HDN69wfyL9VQTHrD/Zy0WICNAJEVH7qWtX
+	 GZYsuOdaNg0M9BkFLrqvi76fOZ5fW5QD3Lfj4fZA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3F2D6F89610; Mon, 25 Mar 2024 23:12:35 +0100 (CET)
+	id 97257F896E8; Mon, 25 Mar 2024 23:12:42 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 55996F89616;
-	Mon, 25 Mar 2024 23:12:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 125D5F896F0;
+	Mon, 25 Mar 2024 23:12:42 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9AFF6F805CB; Mon, 25 Mar 2024 23:12:05 +0100 (CET)
+	id 3A14EF805BF; Mon, 25 Mar 2024 23:12:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,39 +34,39 @@ X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2B85AF805E8
-	for <alsa-devel@alsa-project.org>; Mon, 25 Mar 2024 23:11:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B85AF805E8
+	by alsa1.perex.cz (Postfix) with ESMTPS id 60653F805C6
+	for <alsa-devel@alsa-project.org>; Mon, 25 Mar 2024 23:11:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60653F805C6
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=MAkshluq
+ header.s=Intel header.b=P7YLjql7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1711404694; x=1742940694;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=Ui4/pc3t6yv4LKYzMgDyXcmrAS0utPOVaM6bIzs2a80=;
-  b=MAkshluqQ85lkSSGX9USQeAWOMSaSg5QJYBY+7G67dEd56QasbwcvkhF
-   ixAH47X1fa0G1JlIMMZDUugNDaN9gAQ3z2d4YYj4pjnxwy+sbqrCNV6F8
-   umUWA2ZE4MLtKluSZUVAC5AyFezB+tGHlmnfEBdgiJ6CuYIQ86dJhN5/+
-   cMkwCXsEIIr+4oOzBdacV8fQ4yt63VWnhmJdFjvh/feUWkA//AWsBBnfy
-   izO/avZOkEYgKa1cjoHUMZouRva5iN7eApjmeqSy347R/196jVG4ZfScs
-   mLMyEJSdrtlflYL7xAxUzHTN7+F64fxssWsG8Qvvl4yE3f9AE5NBUp69G
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,11024"; a="6643687"
+  bh=gQL3YXeDyA5WniIBUY3v0SIELfeKyoQhHUp8fHkCRPY=;
+  b=P7YLjql7rDqOqw61Vm+B7SE1j+OgLmQRxlBbXj4z8ZcgnHOAMz5gRWB5
+   3SBDiszw9cW/rmQNR9EnEEXwFve5xgwpzyl/rFcrvZNY4oztiMOArakZE
+   1iqj5U56/u4CJf+mqarsV2/OIU9NP9vtwYkrIUvfFO+aQdEgHjRVXGlS1
+   p3UKuOJ/PPzf17CR6tJQ32EUD3KZh15gmqFVIAB0GZu5cpiGvHQrkMHW7
+   W9mpp5iOQIuK/yMT667V1+/xeToDDGZxh/viX+3nmlX/W4rGg1ljR0+Wr
+   TwsPI8Q7zI+L+KJcuTN3Wf/E81aFx/LignnmF+7ZCjNxfUscS7Zl8i2dF
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,11024"; a="6643692"
 X-IronPort-AV: E=Sophos;i="6.07,154,1708416000";
-   d="scan'208";a="6643687"
+   d="scan'208";a="6643692"
 Received: from orviesa009.jf.intel.com ([10.64.159.149])
   by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2024 15:11:27 -0700
+ 25 Mar 2024 15:11:28 -0700
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.07,154,1708416000";
-   d="scan'208";a="15722178"
+   d="scan'208";a="15722182"
 Received: from jaimbres-mobl2.amr.corp.intel.com (HELO pbossart-mobl6.lan)
  ([10.212.98.109])
   by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2024 15:11:26 -0700
+ 25 Mar 2024 15:11:27 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: linux-sound@vger.kernel.org
 Cc: alsa-devel@alsa-project.org,
@@ -75,17 +75,16 @@ Cc: alsa-devel@alsa-project.org,
 	Brent Lu <brent.lu@intel.com>,
 	Bard Liao <yung-chuan.liao@linux.intel.com>,
 	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [PATCH 19/21] ASoC: Intel: sof_ssp_amp: remove unnecessary idisp HDMI
- quirk
-Date: Mon, 25 Mar 2024 17:10:57 -0500
-Message-Id: <20240325221059.206042-20-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 20/21] ASoC: Intel: sof_nau8825: remove sof_nau8825 board id
+Date: Mon, 25 Mar 2024 17:10:58 -0500
+Message-Id: <20240325221059.206042-21-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20240325221059.206042-1-pierre-louis.bossart@linux.intel.com>
 References: <20240325221059.206042-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: RO4KXJ2S5ZZJBKRPVSXWDY3WTE33CTG3
-X-Message-ID-Hash: RO4KXJ2S5ZZJBKRPVSXWDY3WTE33CTG3
+Message-ID-Hash: I6DRVJWXJOIAYG7W5FWQFRTISYOW2RJZ
+X-Message-ID-Hash: I6DRVJWXJOIAYG7W5FWQFRTISYOW2RJZ
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -98,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RO4KXJ2S5ZZJBKRPVSXWDY3WTE33CTG3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/I6DRVJWXJOIAYG7W5FWQFRTISYOW2RJZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,52 +108,63 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Brent Lu <brent.lu@intel.com>
 
-Remove SOF_NUM_IDISP_HDMI(3) from board quirks since the value is 3 if
-not defined.
+Remove sof_nau8825 board id and use adl_nau8825_def instead since SSP
+port assignment is the same.
 
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Signed-off-by: Brent Lu <brent.lu@intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/intel/boards/sof_ssp_amp.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+ sound/soc/intel/boards/sof_nau8825.c              | 14 +++-----------
+ sound/soc/intel/common/soc-acpi-intel-adl-match.c |  2 +-
+ 2 files changed, 4 insertions(+), 12 deletions(-)
 
-diff --git a/sound/soc/intel/boards/sof_ssp_amp.c b/sound/soc/intel/boards/sof_ssp_amp.c
-index b99af8bc4ccc..206c9b723805 100644
---- a/sound/soc/intel/boards/sof_ssp_amp.c
-+++ b/sound/soc/intel/boards/sof_ssp_amp.c
-@@ -152,8 +152,8 @@ static int sof_ssp_amp_probe(struct platform_device *pdev)
- 	case CODEC_CS35L41:
- 		cs35l41_set_codec_conf(&sof_ssp_amp_card);
+diff --git a/sound/soc/intel/boards/sof_nau8825.c b/sound/soc/intel/boards/sof_nau8825.c
+index b9db6e236a93..23fe8b4015cc 100644
+--- a/sound/soc/intel/boards/sof_nau8825.c
++++ b/sound/soc/intel/boards/sof_nau8825.c
+@@ -271,10 +271,10 @@ static int sof_audio_probe(struct platform_device *pdev)
+ 	case CODEC_RT1015P:
+ 		sof_rt1015p_codec_conf(&sof_audio_card_nau8825);
  		break;
-+	case CODEC_RT1308:
++	case CODEC_MAX98360A:
++	case CODEC_NAU8318:
++	case CODEC_RT1019P:
  	case CODEC_NONE:
--	case CODEC_RT1308:
+-	case CODEC_MAX98360A:
+-	case CODEC_NAU8318:
+-	case CODEC_RT1019P:
  		/* no codec conf required */
  		break;
  	default:
-@@ -196,21 +196,18 @@ static const struct platform_device_id board_ids[] = {
- 		.name = "adl_lt6911_hdmi_ssp",
- 		.driver_data = (kernel_ulong_t)(SOF_SSP_MASK_HDMI_CAPTURE(0x5) |
- 					/* SSP 0 and SSP 2 are used for HDMI IN */
--					SOF_NUM_IDISP_HDMI(3) |
- 					SOF_HDMI_PLAYBACK_PRESENT),
+@@ -297,14 +297,6 @@ static int sof_audio_probe(struct platform_device *pdev)
+ }
+ 
+ static const struct platform_device_id board_ids[] = {
+-	{
+-		.name = "sof_nau8825",
+-		.driver_data = (kernel_ulong_t)(SOF_SSP_PORT_CODEC(0) |
+-					SOF_NUM_IDISP_HDMI(4) |
+-					SOF_SSP_PORT_BT_OFFLOAD(2) |
+-					SOF_BT_OFFLOAD_PRESENT),
+-
+-	},
+ 	{
+ 		.name = "adl_rt1019p_8825",
+ 		.driver_data = (kernel_ulong_t)(SOF_SSP_PORT_CODEC(0) |
+diff --git a/sound/soc/intel/common/soc-acpi-intel-adl-match.c b/sound/soc/intel/common/soc-acpi-intel-adl-match.c
+index 6c710e9a26f1..7ce8aade07d7 100644
+--- a/sound/soc/intel/common/soc-acpi-intel-adl-match.c
++++ b/sound/soc/intel/common/soc-acpi-intel-adl-match.c
+@@ -563,7 +563,7 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_adl_machines[] = {
  	},
  	{
- 		.name = "rpl_lt6911_hdmi_ssp",
- 		.driver_data = (kernel_ulong_t)(SOF_SSP_MASK_HDMI_CAPTURE(0x5) |
- 					/* SSP 0 and SSP 2 are used for HDMI IN */
--					SOF_NUM_IDISP_HDMI(3) |
- 					SOF_HDMI_PLAYBACK_PRESENT),
+ 		.id = "10508825",
+-		.drv_name = "sof_nau8825",
++		.drv_name = "adl_nau8825_def",
+ 		.sof_tplg_filename = "sof-adl-nau8825.tplg",
  	},
  	{
- 		.name = "mtl_lt6911_hdmi_ssp",
- 		.driver_data = (kernel_ulong_t)(SOF_SSP_MASK_HDMI_CAPTURE(0x5) |
- 					/* SSP 0 and SSP 2 are used for HDMI IN */
--					SOF_NUM_IDISP_HDMI(3) |
- 					SOF_HDMI_PLAYBACK_PRESENT),
- 	},
- 	{ }
 -- 
 2.40.1
 

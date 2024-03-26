@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78BF288C88D
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Mar 2024 17:06:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4793188C89B
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Mar 2024 17:08:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CFFCF2BD2;
-	Tue, 26 Mar 2024 17:06:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CFFCF2BD2
+	by alsa0.perex.cz (Postfix) with ESMTPS id B06042BDB;
+	Tue, 26 Mar 2024 17:08:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B06042BDB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1711469217;
-	bh=p4bcEeZvlLZOeW2O2yiVYCUk6wRlaf1Q9CsfKwwjbvA=;
+	s=default; t=1711469328;
+	bh=IC2RlwDvtxL8qrJSQldmoJ23HS9asJZ5NZo+X58uK6k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=J2VtL4SqNnV5pZmo21gFNxlWBCFMHxDCEzkaSnnhxO8akM4B7zEBBuNrQLFjtU4z8
-	 9j5onkUSjsjKlNcdn05wnPJKjy/uG+FNcUJHWujsmqbozSuc7FSDHEn+veD3coLgxv
-	 LWE4HSlKrwQOgcGWV1Rt+225T0UF5XRSVQmJy+rM=
+	b=IqtNITz7Qokm7BnFLAJbfW4xB0TXzGQnEaUHHVrnilSmUOs/lQ+439rcdbDim5avl
+	 /CiMdnrDKU6nV1ivw8o3vwTY74scYEPcdDqbEq3IzZ3kjGv0mdUdrbsLpRensvZbDi
+	 3boa7hOuADpQ1BoSyvkE9hxD1lnwLiwKdQZYkp48=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9607EF80609; Tue, 26 Mar 2024 17:06:05 +0100 (CET)
+	id 1E17DF806DA; Tue, 26 Mar 2024 17:06:27 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 34CD1F805FF;
-	Tue, 26 Mar 2024 17:06:05 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 64900F806CC;
+	Tue, 26 Mar 2024 17:06:27 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E929BF805AF; Tue, 26 Mar 2024 17:05:46 +0100 (CET)
+	id E1B02F805E4; Tue, 26 Mar 2024 17:06:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,41 +35,41 @@ X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E8E7EF8055C
-	for <alsa-devel@alsa-project.org>; Tue, 26 Mar 2024 17:05:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8E7EF8055C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 68063F80563
+	for <alsa-devel@alsa-project.org>; Tue, 26 Mar 2024 17:05:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68063F80563
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=fsoHKQx8
+ header.s=Intel header.b=J0w4CMJC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1711469131; x=1743005131;
+  t=1711469133; x=1743005133;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=p4bcEeZvlLZOeW2O2yiVYCUk6wRlaf1Q9CsfKwwjbvA=;
-  b=fsoHKQx8vzbJq2+4sS/BO4E901w0lHcnRkbQ+U1b2nHR4qBmmXdp+A3f
-   2yIbvT5EcSbMODBuTEqSJh18zh/ge+VI7d5WaqmbfrC7RfOvWczDOV96Z
-   4uJEiKWjEavPxIxPer2L7dw+/0Y3du61f22yrAmBkv1FkWbHyt5mJTBpr
-   GgPkTf2GJzUSLHangkdcu6RdeHdRXNncIlFGAAIRBVeZY43dnSXF5fSm9
-   IaRiDIEIdvm1wTLLQCjUF5/JtPinbsi6efAnldwjaNSSvuNP1oyXt+9fV
-   kMj5ZJGR/m3dhbeWBx0RPIcY/1qTQxh5PHiRKUKBqAJZA399kYQmZgJyg
-   Q==;
-X-CSE-ConnectionGUID: 0tnh8G8GSjGazu3zzgBbdA==
-X-CSE-MsgGUID: f6BznRnGTUKJ2p8UJmNXLg==
-X-IronPort-AV: E=McAfee;i="6600,9927,11025"; a="17260371"
+  bh=IC2RlwDvtxL8qrJSQldmoJ23HS9asJZ5NZo+X58uK6k=;
+  b=J0w4CMJCharOtsXNPebZzYUvdFUvwupEQ5HLDaKk/ZMNl2Hthkihn+s1
+   Gp7/bgHiD033V+wEItiZf5R8c6QznWFZGKxDXJlYCLgKDbIXqCrZhrgbt
+   h5G2GsCxxb8NyTFnlFKE21WuGZAvZi20QHtgQNx/rhAd/eJxzHpipDSSL
+   igX9YZBppjzSAlAH140tlANdndUrEoGivRqMT59QMBZCA314tCPX74MEG
+   +5JrCdEyuqruqI37zo33DUUtWDz7Nc/k0BVX0z9rkCYGTr36dy5Gn+Xs/
+   czH6pRcUmBKxAAHGrp4mBJsL1rc3HsXMeK6UpgnvgZ/vD+eo2IydsgOmK
+   w==;
+X-CSE-ConnectionGUID: v30GWrKgSN6rmUHO9xD0hA==
+X-CSE-MsgGUID: ZEYDZnNeRtWsHKRk5pf2pg==
+X-IronPort-AV: E=McAfee;i="6600,9927,11025"; a="17260378"
 X-IronPort-AV: E=Sophos;i="6.07,156,1708416000";
-   d="scan'208";a="17260371"
+   d="scan'208";a="17260378"
 Received: from fmviesa005.fm.intel.com ([10.60.135.145])
   by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Mar 2024 09:04:47 -0700
+ 26 Mar 2024 09:04:48 -0700
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.07,156,1708416000";
-   d="scan'208";a="20482180"
+   d="scan'208";a="20482188"
 Received: from bhubbert-mobl.amr.corp.intel.com (HELO
  pbossart-mobl6.intel.com) ([10.212.65.108])
   by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Mar 2024 09:04:46 -0700
+ 26 Mar 2024 09:04:47 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: linux-sound@vger.kernel.org
 Cc: alsa-devel@alsa-project.org,
@@ -82,16 +82,16 @@ Cc: alsa-devel@alsa-project.org,
 	Oder Chiou <oder_chiou@realtek.com>,
 	Bard liao <yung-chuan.liao@linux.intel.com>,
 	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [PATCH 07/34] ASoC: Intel: sof_sdw: Move flags to private struct
-Date: Tue, 26 Mar 2024 11:04:02 -0500
-Message-Id: <20240326160429.13560-8-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 08/34] ASoC: Intel: sof_sdw: Only pass dai_link pointer around
+Date: Tue, 26 Mar 2024 11:04:03 -0500
+Message-Id: <20240326160429.13560-9-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20240326160429.13560-1-pierre-louis.bossart@linux.intel.com>
 References: <20240326160429.13560-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: KMB62S5P2NQY2I7KTZ4ZXH735QCVSOJT
-X-Message-ID-Hash: KMB62S5P2NQY2I7KTZ4ZXH735QCVSOJT
+Message-ID-Hash: 37FQZ4634A3FE4J4MPMMGMUQ6PSDNDXR
+X-Message-ID-Hash: 37FQZ4634A3FE4J4MPMMGMUQ6PSDNDXR
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -104,7 +104,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KMB62S5P2NQY2I7KTZ4ZXH735QCVSOJT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/37FQZ4634A3FE4J4MPMMGMUQ6PSDNDXR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,111 +115,202 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-Move the flags ignore_pch_dmic and append_dai_type into the drivers
-private structure rather than passing them around between functions.
+Rather than passing around a pointer to the dai_link array and
+an index into this array, simply pass a pointer to the current
+dai_link. Also move the DAI link pointer sanity check to the end
+of the DAI link creation, and change it to a warn on. This check
+should only be hit if there is a serious bug in the machine driver,
+so checking it on each iteration is excessive.
 
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/intel/boards/sof_sdw.c        | 21 +++++++--------------
- sound/soc/intel/boards/sof_sdw_common.h |  2 ++
- 2 files changed, 9 insertions(+), 14 deletions(-)
+ sound/soc/intel/boards/sof_sdw.c | 62 +++++++++++++++-----------------
+ 1 file changed, 29 insertions(+), 33 deletions(-)
 
 diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
-index 45732884e310..5557db68a002 100644
+index 5557db68a002..0ffa6e36dbed 100644
 --- a/sound/soc/intel/boards/sof_sdw.c
 +++ b/sound/soc/intel/boards/sof_sdw.c
-@@ -1463,10 +1463,7 @@ static int create_sdw_dailink(struct snd_soc_card *card, int *link_index,
- 			      struct snd_soc_dai_link *dai_links, int sdw_be_num,
+@@ -1459,8 +1459,8 @@ static int sof_sdw_rtd_init(struct snd_soc_pcm_runtime *rtd)
+ 
+ static const char * const type_strings[] = {"SimpleJack", "SmartAmp", "SmartMic"};
+ 
+-static int create_sdw_dailink(struct snd_soc_card *card, int *link_index,
+-			      struct snd_soc_dai_link *dai_links, int sdw_be_num,
++static int create_sdw_dailink(struct snd_soc_card *card,
++			      struct snd_soc_dai_link **dai_links,
  			      const struct snd_soc_acpi_link_adr *adr_link,
  			      struct snd_soc_codec_conf **codec_conf,
--			      int *be_id, bool *ignore_pch_dmic,
--			      bool append_dai_type,
--			      int adr_index,
--			      int dai_index)
-+			      int *be_id, int adr_index, int dai_index)
- {
- 	struct mc_private *ctx = snd_soc_card_get_drvdata(card);
- 	struct device *dev = card->dev;
-@@ -1549,8 +1546,7 @@ static int create_sdw_dailink(struct snd_soc_card *card, int *link_index,
- 	if (!codec_info)
- 		return -EINVAL;
- 
--	if (codec_info->ignore_pch_dmic)
--		*ignore_pch_dmic = true;
-+	ctx->ignore_pch_dmic |= codec_info->ignore_pch_dmic;
- 
- 	for_each_pcm_streams(stream) {
- 		char *name, *cpu_name;
-@@ -1572,7 +1568,7 @@ static int create_sdw_dailink(struct snd_soc_card *card, int *link_index,
+ 			      int *be_id, int adr_index, int dai_index)
+@@ -1597,35 +1597,28 @@ static int create_sdw_dailink(struct snd_soc_card *card, int *link_index,
+ 			cpus[k].dai_name = cpu_name;
  		}
  
- 		/* create stream name according to first link id */
--		if (append_dai_type) {
-+		if (ctx->append_dai_type) {
- 			name = devm_kasprintf(dev, GFP_KERNEL,
- 					      sdw_stream_name[stream + 2], cpu_dai_id[0],
- 					      type_strings[codec_info->dais[dai_index].dai_type]);
-@@ -1647,8 +1643,6 @@ static int sof_card_dai_links_create(struct snd_soc_card *card)
- 	struct snd_soc_codec_conf *codec_conf;
- 	struct sof_sdw_codec_info *codec_info;
- 	struct sof_sdw_codec_info *ssp_info;
--	bool append_dai_type = false;
--	bool ignore_pch_dmic = false;
+-		/*
+-		 * We create sdw dai links at first stage, so link index should
+-		 * not be larger than sdw_be_num
+-		 */
+-		if (*link_index >= sdw_be_num) {
+-			dev_err(dev, "invalid dai link index %d\n", *link_index);
+-			return -EINVAL;
+-		}
+-
+ 		playback = (stream == SNDRV_PCM_STREAM_PLAYBACK);
+ 		capture = (stream == SNDRV_PCM_STREAM_CAPTURE);
+ 
+-		init_dai_link(dev, dai_links + *link_index, be_id, name,
+-			      playback, capture, cpus, cpu_dai_num, codecs, codec_num,
++		init_dai_link(dev, *dai_links, be_id, name, playback, capture,
++			      cpus, cpu_dai_num, codecs, codec_num,
+ 			      sof_sdw_rtd_init, &sdw_ops);
+ 
+ 		/*
+ 		 * SoundWire DAILINKs use 'stream' functions and Bank Switch operations
+ 		 * based on wait_for_completion(), tag them as 'nonatomic'.
+ 		 */
+-		dai_links[*link_index].nonatomic = true;
+-		dai_links[*link_index].ch_maps = sdw_codec_ch_maps;
++		(*dai_links)->nonatomic = true;
++		(*dai_links)->ch_maps = sdw_codec_ch_maps;
+ 
+-		ret = set_codec_init_func(card, adr_link, dai_links + (*link_index)++,
++		ret = set_codec_init_func(card, adr_link, *dai_links,
+ 					  playback, group_id, adr_index, dai_index);
+ 		if (ret < 0) {
+ 			dev_err(dev, "failed to init codec 0x%x\n", codec_info->part_id);
+ 			return ret;
+ 		}
++
++		(*dai_links)++;
+ 	}
+ 
+ 	return 0;
+@@ -1646,7 +1639,7 @@ static int sof_card_dai_links_create(struct snd_soc_card *card)
  	int codec_conf_num = 0;
  	bool group_generated[SDW_MAX_GROUPS] = { };
  	struct snd_soc_dai_link *dai_links;
-@@ -1732,7 +1726,7 @@ static int sof_card_dai_links_create(struct snd_soc_card *card)
- 			if (!codec_info)
- 				return -EINVAL;
- 			if (codec_info->dai_num > 1) {
--				append_dai_type = true;
-+				ctx->append_dai_type = true;
- 				goto out;
- 			}
- 			for (j = 0; j < i; j++) {
-@@ -1740,7 +1734,7 @@ static int sof_card_dai_links_create(struct snd_soc_card *card)
- 				    SDW_PART_ID(adr_link->adr_d[j].adr)) ||
- 				    (SDW_MFG_ID(adr_link->adr_d[i].adr) !=
- 				    SDW_MFG_ID(adr_link->adr_d[j].adr))) {
--					append_dai_type = true;
-+					ctx->append_dai_type = true;
- 					goto out;
- 				}
- 			}
-@@ -1771,8 +1765,7 @@ static int sof_card_dai_links_create(struct snd_soc_card *card)
- 				ret = create_sdw_dailink(card, &link_index, dai_links,
- 							 sdw_be_num, adr_link,
+-	int num_links, link_index = 0;
++	int num_links;
+ 	char *name, *cpu_dai_name;
+ 	char *codec_name, *codec_dai_name;
+ 	int i, j, be_id = 0;
+@@ -1703,6 +1696,8 @@ static int sof_card_dai_links_create(struct snd_soc_card *card)
+ 	if (!codec_conf)
+ 		return -ENOMEM;
+ 
++	card->dai_link = dai_links;
++	card->num_links = num_links;
+ 	card->codec_conf = codec_conf;
+ 	card->num_configs = codec_conf_num;
+ 
+@@ -1762,12 +1757,13 @@ static int sof_card_dai_links_create(struct snd_soc_card *card)
+ 			for (j = 0; j < codec_info->dai_num ; j++) {
+ 				int current_be_id;
+ 
+-				ret = create_sdw_dailink(card, &link_index, dai_links,
+-							 sdw_be_num, adr_link,
++				ret = create_sdw_dailink(card, &dai_links, adr_link,
  							 &codec_conf, &current_be_id,
--							 &ignore_pch_dmic,
--							 append_dai_type, i, j);
-+							 i, j);
+ 							 i, j);
  				if (ret < 0) {
- 					dev_err(dev, "failed to create dai link %d\n", link_index);
+-					dev_err(dev, "failed to create dai link %d\n", link_index);
++					dev_err(dev,
++						"failed to create dai link %d on 0x%x\n",
++						j, codec_info->part_id);
  					return ret;
-@@ -1825,7 +1818,7 @@ static int sof_card_dai_links_create(struct snd_soc_card *card)
+ 				}
+ 
+@@ -1800,19 +1796,18 @@ static int sof_card_dai_links_create(struct snd_soc_card *card)
+ 		playback = ssp_info->dais[0].direction[SNDRV_PCM_STREAM_PLAYBACK];
+ 		capture = ssp_info->dais[0].direction[SNDRV_PCM_STREAM_CAPTURE];
+ 
+-		ret = init_simple_dai_link(dev, dai_links + link_index, &be_id, name,
++		ret = init_simple_dai_link(dev, dai_links, &be_id, name,
+ 					   playback, capture, cpu_dai_name,
+ 					   codec_name, ssp_info->dais[0].dai_name,
+ 					   NULL, ssp_info->ops);
+ 		if (ret)
+ 			return ret;
+ 
+-		ret = ssp_info->dais[0].init(card, NULL, dai_links + link_index,
+-					     ssp_info, 0);
++		ret = ssp_info->dais[0].init(card, NULL, dai_links, ssp_info, 0);
+ 		if (ret < 0)
+ 			return ret;
+ 
+-		link_index++;
++		dai_links++;
+ 	}
+ 
  DMIC:
- 	/* dmic */
- 	if (dmic_num > 0) {
--		if (ignore_pch_dmic) {
-+		if (ctx->ignore_pch_dmic) {
- 			dev_warn(dev, "Ignoring PCH DMIC\n");
+@@ -1823,16 +1818,16 @@ static int sof_card_dai_links_create(struct snd_soc_card *card)
  			goto HDMI;
  		}
-diff --git a/sound/soc/intel/boards/sof_sdw_common.h b/sound/soc/intel/boards/sof_sdw_common.h
-index a04cbab9bc70..1daf98a5849f 100644
---- a/sound/soc/intel/boards/sof_sdw_common.h
-+++ b/sound/soc/intel/boards/sof_sdw_common.h
-@@ -103,6 +103,8 @@ struct mc_private {
- 	struct device *amp_dev1, *amp_dev2;
- 	/* To store SDW Pin index for each SoundWire link */
- 	unsigned int sdw_pin_index[SDW_MAX_LINKS];
-+	bool append_dai_type;
-+	bool ignore_pch_dmic;
- };
  
- extern unsigned long sof_sdw_quirk;
+-		ret = init_simple_dai_link(dev, dai_links + link_index, &be_id, "dmic01",
++		ret = init_simple_dai_link(dev, dai_links, &be_id, "dmic01",
+ 					   0, 1, // DMIC only supports capture
+ 					   "DMIC01 Pin", "dmic-codec", "dmic-hifi",
+ 					   sof_sdw_dmic_init, NULL);
+ 		if (ret)
+ 			return ret;
+ 
+-		link_index++;
++		dai_links++;
+ 
+-		ret = init_simple_dai_link(dev, dai_links + link_index, &be_id, "dmic16k",
++		ret = init_simple_dai_link(dev, dai_links, &be_id, "dmic16k",
+ 					   0, 1, // DMIC only supports capture
+ 					   "DMIC16k Pin", "dmic-codec", "dmic-hifi",
+ 					   /* don't call sof_sdw_dmic_init() twice */
+@@ -1840,7 +1835,7 @@ static int sof_card_dai_links_create(struct snd_soc_card *card)
+ 		if (ret)
+ 			return ret;
+ 
+-		link_index++;
++		dai_links++;
+ 	}
+ 
+ HDMI:
+@@ -1858,14 +1853,14 @@ static int sof_card_dai_links_create(struct snd_soc_card *card)
+ 			codec_dai_name = "snd-soc-dummy-dai";
+ 		}
+ 
+-		ret = init_simple_dai_link(dev, dai_links + link_index, &be_id, name,
++		ret = init_simple_dai_link(dev, dai_links, &be_id, name,
+ 					   1, 0, // HDMI only supports playback
+ 					   cpu_dai_name, codec_name, codec_dai_name,
+ 					   i == 0 ? sof_sdw_hdmi_init : NULL, NULL);
+ 		if (ret)
+ 			return ret;
+ 
+-		link_index++;
++		dai_links++;
+ 	}
+ 
+ 	if (sof_sdw_quirk & SOF_SSP_BT_OFFLOAD_PRESENT) {
+@@ -1875,15 +1870,16 @@ static int sof_card_dai_links_create(struct snd_soc_card *card)
+ 		name = devm_kasprintf(dev, GFP_KERNEL, "SSP%d-BT", port);
+ 		cpu_dai_name = devm_kasprintf(dev, GFP_KERNEL, "SSP%d Pin", port);
+ 
+-		ret = init_simple_dai_link(dev, dai_links + link_index, &be_id, name,
++		ret = init_simple_dai_link(dev, dai_links, &be_id, name,
+ 					   1, 1, cpu_dai_name, snd_soc_dummy_dlc.name,
+ 					   snd_soc_dummy_dlc.dai_name, NULL, NULL);
+ 		if (ret)
+ 			return ret;
++
++		dai_links++;
+ 	}
+ 
+-	card->dai_link = dai_links;
+-	card->num_links = num_links;
++	WARN_ON(dai_links != card->dai_link + card->num_links);
+ 
+ 	return 0;
+ }
 -- 
 2.40.1
 

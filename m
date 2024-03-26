@@ -2,150 +2,115 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 143B488C081
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Mar 2024 12:20:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3F6888C20B
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Mar 2024 13:26:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E0B5822CE;
-	Tue, 26 Mar 2024 12:20:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E0B5822CE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 45F342355;
+	Tue, 26 Mar 2024 13:26:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 45F342355
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1711452056;
-	bh=JZJYfdkOEfrBChAlxdomlE/FMRCLxwEMSTjs1gzQjmI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=YWHhLhXM49OzC9Ia6tfHZbaw4qBwTKtzPMtaFM9Bj17deNQPW1JwfYarQQ5HP5l32
-	 lynXdPV7XvWN7IDEqO1/o3Zgdkz4GvOQWWKd0X2H8/WdLXzi3QdziIy+7oLvpxpLiY
-	 MlFF0rVFgoyET1A3bekbkrRrlDgQjmzw1Tz54X3U=
+	s=default; t=1711455994;
+	bh=4/FUC3PgeGbPj/ACm7P2erlBnN7nF3Qy/MNNSPLifnI=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=ZvWFDiqIMXU9mZrer3ySli1suPyctxkQxdTsuUvG+uC2IcMT7zdAY4qZ99cEwTu+r
+	 ConDS+maiad2zDGZ2CvGqSoSY6rYyPeMeJcwxEhsym/DT/7zcOAFFHsQHn2btXBDx9
+	 Y1eSuKu8gBnpMfM2eqfa/JmdxzTFp5yik1nv/ePA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D07F6F80236; Tue, 26 Mar 2024 12:20:25 +0100 (CET)
+	id A6716F8057D; Tue, 26 Mar 2024 13:26:02 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 15D83F805A0;
-	Tue, 26 Mar 2024 12:20:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EB342F805A0;
+	Tue, 26 Mar 2024 13:26:01 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A8E03F8025F; Tue, 26 Mar 2024 12:20:20 +0100 (CET)
+	id 6A5AFF801D5; Tue, 26 Mar 2024 13:25:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D9D21F801EB
-	for <alsa-devel@alsa-project.org>; Tue, 26 Mar 2024 12:20:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D9D21F801EB
+	by alsa1.perex.cz (Postfix) with ESMTPS id 68DA5F801D5
+	for <alsa-devel@alsa-project.org>; Tue, 26 Mar 2024 13:25:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68DA5F801D5
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=qFWDvUdh;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=RGiqrTXZ;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=qFWDvUdh;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=RGiqrTXZ
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 7E50037AD9;
-	Tue, 26 Mar 2024 11:20:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1711452007;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tUTUfOoY+2SogT+OaWxxDe3rJC42MpmS4UtIqhLd8AA=;
-	b=qFWDvUdhEw+1w/36ez/ULmEshiSbU5BLtgbDEF5s7BImFrCk9b0FDVTJDah6rEIFcP+GDv
-	1tKvqWfah85kRk1vM3jHpa66iHIuxUF0xWPPxWdWbTDHPxRbl4bYf6kuD+FcICqI/jIQdT
-	LFo/4EeF93yBxknPJXIF9twrAR84Y0s=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1711452007;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tUTUfOoY+2SogT+OaWxxDe3rJC42MpmS4UtIqhLd8AA=;
-	b=RGiqrTXZMmGKLYf71hZOyClLQLEXPh5KTBTWeJIWdVc50zMD57PT2M/+RVnKyF8BAcKIus
-	hrKfijCK98fmQMAg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1711452007;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tUTUfOoY+2SogT+OaWxxDe3rJC42MpmS4UtIqhLd8AA=;
-	b=qFWDvUdhEw+1w/36ez/ULmEshiSbU5BLtgbDEF5s7BImFrCk9b0FDVTJDah6rEIFcP+GDv
-	1tKvqWfah85kRk1vM3jHpa66iHIuxUF0xWPPxWdWbTDHPxRbl4bYf6kuD+FcICqI/jIQdT
-	LFo/4EeF93yBxknPJXIF9twrAR84Y0s=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1711452007;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tUTUfOoY+2SogT+OaWxxDe3rJC42MpmS4UtIqhLd8AA=;
-	b=RGiqrTXZMmGKLYf71hZOyClLQLEXPh5KTBTWeJIWdVc50zMD57PT2M/+RVnKyF8BAcKIus
-	hrKfijCK98fmQMAg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2737D13306;
-	Tue, 26 Mar 2024 11:20:07 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id n7DQB2evAmb6DgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Tue, 26 Mar 2024 11:20:07 +0000
-Date: Tue, 26 Mar 2024 12:20:08 +0100
-Message-ID: <87le65utnb.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: "Gustavo A. R. Silva" <gustavoars@kernel.org>
-Cc: Clemens Ladisch <clemens@ladisch.de>,
-	Takashi Sakamoto <o-takashi@sakamocchi.jp>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v2][next] ALSA: firewire-lib: Avoid
- -Wflex-array-member-not-at-end warning
-In-Reply-To: <ZgIsBqoMb7p3fMDr@neat>
-References: <ZgIsBqoMb7p3fMDr@neat>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Authentication-Results: smtp-out1.suse.de;
-	none
-X-Spamd-Result: default: False [-3.29 / 50.00];
-	 ARC_NA(0.00)[];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 FROM_HAS_DN(0.00)[];
-	 TO_DN_SOME(0.00)[];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 NEURAL_HAM_LONG(-1.00)[-1.000];
-	 MIME_GOOD(-0.10)[text/plain];
-	 RCVD_COUNT_THREE(0.00)[3];
-	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	 NEURAL_HAM_SHORT(-0.20)[-1.000];
-	 RCPT_COUNT_SEVEN(0.00)[9];
-	 MID_CONTAINS_FROM(1.00)[];
-	 FUZZY_BLOCKED(0.00)[rspamd.com];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+];
-	 RCVD_TLS_ALL(0.00)[];
-	 BAYES_HAM(-2.99)[99.97%]
-Message-ID-Hash: DKV7WKQTGXZRTMRN66HCR2VKH4D6RWU2
-X-Message-ID-Hash: DKV7WKQTGXZRTMRN66HCR2VKH4D6RWU2
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=cYqfVGUX
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1711455953; x=1742991953;
+  h=message-id:date:mime-version:subject:to:references:from:
+   in-reply-to:content-transfer-encoding;
+  bh=4/FUC3PgeGbPj/ACm7P2erlBnN7nF3Qy/MNNSPLifnI=;
+  b=cYqfVGUX7qI1z9b/CQn2RLW7Fsnd8lIJPnJ8A4b6mygxQiHht5bpJoQm
+   pcofReuzwyqSnNDmmO6wPyb+Qneiym7iDowej4gZvOe9BrIpzk4XvuBFD
+   n5C8PVySFxf4aQSCQ3wAv6Jdi9Qj5XEmZD71hKkNIwcwUstpXlXxZ3MFQ
+   xWbIFgwh/B840iMPzBnWuP5UifSLUv+EA/tOYr7AfovAMrdlmVLLKlsmp
+   7zc2ArlBRqPFOe6DCtjtfpmHB2dN5Lbw3rIhnbhqeIPPTbhraRlPCVc5v
+   OtdrFyLO/oEju3KT6QvskaxFsCPaW/q7jRrviC1DvaZ0NTlbEFZkHsEWV
+   Q==;
+X-CSE-ConnectionGUID: f1+L/I0/TZW9FEOiL+6CRw==
+X-CSE-MsgGUID: JocPyZHaSfu0UBh24PZpLg==
+X-IronPort-AV: E=McAfee;i="6600,9927,11024"; a="10299229"
+X-IronPort-AV: E=Sophos;i="6.07,156,1708416000";
+   d="scan'208";a="10299229"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Mar 2024 05:25:49 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.07,156,1708416000";
+   d="scan'208";a="47099724"
+Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.94.0.53])
+ ([10.94.0.53])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Mar 2024 05:25:41 -0700
+Message-ID: <83d63442-ae4c-4e5e-a610-c0c0be54d50e@linux.intel.com>
+Date: Tue, 26 Mar 2024 13:25:38 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 00/15] ASoC: replace dpcm_playback/capture to
+ playback/capture_only
+Content-Language: en-US
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Alper Nebi Yasak <alpernebiyasak@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Banajit Goswami <bgoswami@quicinc.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, Brent Lu <brent.lu@intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>, Hans de Goede <hdegoede@redhat.com>,
+ Jaroslav Kysela <perex@perex.cz>, Jerome Brunet <jbrunet@baylibre.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Kevin Hilman <khilman@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Linus Walleij <linus.walleij@linaro.org>, Mark Brown <broonie@kernel.org>,
+ Maso Huang <maso.huang@mediatek.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>,
+ Shengjiu Wang <shengjiu.wang@gmail.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>, Takashi Iwai <tiwai@suse.com>,
+ Trevor Wu <trevor.wu@mediatek.com>, Vinod Koul <vkoul@kernel.org>,
+ Xiubo Li <Xiubo.Lee@gmail.com>, alsa-devel@alsa-project.org,
+ imx@lists.linux.dev, linux-sound@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+References: <87o7b353of.wl-kuninori.morimoto.gx@renesas.com>
+From: =?UTF-8?Q?Amadeusz_S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+In-Reply-To: <87o7b353of.wl-kuninori.morimoto.gx@renesas.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: 2NUI35HH76D4LFDFACJ46752STTHDIR4
+X-Message-ID-Hash: 2NUI35HH76D4LFDFACJ46752STTHDIR4
+X-MailFrom: amadeuszx.slawinski@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -157,7 +122,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DKV7WKQTGXZRTMRN66HCR2VKH4D6RWU2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2NUI35HH76D4LFDFACJ46752STTHDIR4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -166,27 +131,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 26 Mar 2024 02:59:34 +0100,
-Gustavo A. R. Silva wrote:
+On 3/25/2024 5:35 AM, Kuninori Morimoto wrote:
 > 
-> Use the `DEFINE_FLEX()` helper for an on-stack definition of a
-> flexible structure where the size of the flexible-array member
-> is known at compile-time, and refactor the rest of the code,
-> accordingly.
+> Hi Mark
 > 
-> So, with these changes, fix the following warning:
-> sound/firewire/amdtp-stream.c:1184:46: warning: structure containing a flexible array member is not at the end of another structure [-Wflex-array-member-not-at-end]
+> When we use DPCM, we need to set dpcm_playback/capture flag.
+> If these flag are set, soc_get_playback_capture() will check its
+> availability, but non DPCM case is checked without special flags.
 > 
-> Link: https://github.com/KSPP/linux/issues/202
-> Signed-off-by: Gustavo A. R. Silva <gustavoars@kernel.org>
-> ---
-> Changes in v2:
->  - Use DEFINE_FLEX() helper instead of a new tagged struct.
+> OTOH, it cares playback/capture_only flag. It is needed.
 > 
-> v1:
->  - Link: https://lore.kernel.org/linux-hardening/d3a764eb76909b16b8a22d9ff530e5edf0e59e6b.1709658886.git.gustavoars@kernel.org/
+> This patch remove DPCM special flag, and replace it playback/capture_only
+> flag if needed.
+> 
 
-Applied now.  Thanks.
+One general note, I wonder if playback/capture_only should be renamed to 
+something more descriptive, current names are a bit weird from use case 
+point of view. I mean no flags, means both capture and playback are 
+enabled. Then you do something like playback_only = 1, which effectively 
+affects capture stream. Notice that flag is named playback, but affects 
+capture. Perhaps, something like capture_disabled, playback_disabled 
+would make more sense? This would also make more sense to me for 
+something like playback_only = 1; capture_only = 1; which while weird 
+doesn't instantly seem that wrong, while disable on both directions 
+instantly seems broken.
 
 
-Takashi

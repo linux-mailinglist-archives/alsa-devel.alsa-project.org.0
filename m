@@ -2,96 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CBEA88C2D0
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Mar 2024 13:59:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E31B88C2EF
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Mar 2024 14:04:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6B3DB238B;
-	Tue, 26 Mar 2024 13:59:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B3DB238B
+	by alsa0.perex.cz (Postfix) with ESMTPS id F28542369;
+	Tue, 26 Mar 2024 14:03:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F28542369
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1711457976;
-	bh=MtfhUEPPdvxqzOoAPyYQzVuPsUOh0otfavoqH+DBvNY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1711458244;
+	bh=cSjaZbPLR1fQ/eUfBQ2cemr+zFkzT1K8arROWQiRWLM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=jt4lvDXdH7+MayYjn3FcmUXQRW249ZNjp1draATdUr823rgBzBOxHmViH/iFhJQZq
-	 nZROaRLjUxjBcDeq4UB8IgAsvRvt0F1J36A3qCGIETuYS/h7yozhr6P1BRVky+R7ao
-	 H7lDUuAG9yl4Bykhf+aLSq4QjGxLjwJmcidSoFQ4=
+	b=aCLqAqtiiEJoRx8YBH3hOH13K5fcjoF7wavHUnb99iijVeMNeyDsCtlwz6p28vMrf
+	 bPcY5LPgn121TKS1GWD2QG8XXj+d1uDoLYTvpiPMAbd7Dfb6lCebdfWmHk76+RmD10
+	 BXcW+OUwgnvCKqPHGwuHfUuBwoPEtyeIEGAfp7mo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B6761F805A9; Tue, 26 Mar 2024 13:59:04 +0100 (CET)
+	id 006F4F805AD; Tue, 26 Mar 2024 14:03:31 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id AEAC7F8057C;
-	Tue, 26 Mar 2024 13:59:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 97BA9F805A8;
+	Tue, 26 Mar 2024 14:03:31 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D5A1BF8025F; Tue, 26 Mar 2024 13:58:59 +0100 (CET)
+	id 37B42F8025F; Tue, 26 Mar 2024 14:03:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B3F29F80093
-	for <alsa-devel@alsa-project.org>; Tue, 26 Mar 2024 13:58:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3F29F80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id 37441F801EB
+	for <alsa-devel@alsa-project.org>; Tue, 26 Mar 2024 14:03:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37441F801EB
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=CLvF/uFE
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1711457934; x=1742993934;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=MtfhUEPPdvxqzOoAPyYQzVuPsUOh0otfavoqH+DBvNY=;
-  b=CLvF/uFEdhHnVoIBC2VAhpmx2+YNY0pz8p0zreqVXOaeMNdnvJE5PfXt
-   JF06AHKxMedNVycuMhe914SdxPsmxDK73X+hPNmutLxU7MLg0v3v1WeYK
-   V2hvzFdO6VD5vJFRzwE9VhX9mbhU7uNcBCqZOa9rEm97FaR0QzwqtW72X
-   RFUtiDA4TCxdT4ZT/g8WXwJKdt59hQ27KcWmWQJ/lFH4V9M78bllFUCEU
-   LMbElfrmM9CuFqw8Gh7xuZ/mwP3p/1RTZsKpG04KAb/OC1/hajRtYOxil
-   1DYDjGFdPcwcZRKAgdC99vPWEPVdsmt04pV1z0ZZOggKhIX7nEExXuE5J
-   Q==;
-X-CSE-ConnectionGUID: 5WgT4mSmSKeJu3pMOTWB1w==
-X-CSE-MsgGUID: 8rs3Zbh7RFexDi080mMttw==
-X-IronPort-AV: E=McAfee;i="6600,9927,11024"; a="6717080"
-X-IronPort-AV: E=Sophos;i="6.07,156,1708416000";
-   d="scan'208";a="6717080"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Mar 2024 05:58:50 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,156,1708416000";
-   d="scan'208";a="46972395"
-Received: from lkp-server01.sh.intel.com (HELO be39aa325d23) ([10.239.97.150])
-  by orviesa002.jf.intel.com with ESMTP; 26 Mar 2024 05:58:47 -0700
-Received: from kbuild by be39aa325d23 with local (Exim 4.96)
-	(envelope-from <lkp@intel.com>)
-	id 1rp6O4-00003Q-2A;
-	Tue, 26 Mar 2024 12:58:44 +0000
-Date: Tue, 26 Mar 2024 20:58:27 +0800
-From: kernel test robot <lkp@intel.com>
-To: Gergo Koteles <soyer@irl.hu>, Shenghao Ding <shenghao-ding@ti.com>,
-	Kevin Lu <kevin-lu@ti.com>, Baojun Xu <baojun.xu@ti.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: oe-kbuild-all@lists.linux.dev, alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Gergo Koteles <soyer@irl.hu>, stable@vger.kernel.org
-Subject: Re: [PATCH 1/3] ALSA: hda/tas2781: remove digital gain kcontrol
-Message-ID: <202403262031.SxBP17EM-lkp@intel.com>
-References: 
- <313e00499eb2caadd23a92284fdec418b650b7f4.1711401621.git.soyer@irl.hu>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=KzIyiKjk
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id 9A3A4CE1D80;
+	Tue, 26 Mar 2024 13:03:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9E8CC433F1;
+	Tue, 26 Mar 2024 13:03:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1711458189;
+	bh=cSjaZbPLR1fQ/eUfBQ2cemr+zFkzT1K8arROWQiRWLM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=KzIyiKjkwxNi0/djMaYyBukoVoNYhmHV+htRm5MIBzkySyfWG04sgm966SpB07lal
+	 ZtNnXJ6xRvSNp/OaFw9d8EjmJwibbDfWndV1uZfGtk7FcypTAPIU3XRlFizoj6r9kR
+	 CI3W9juVVjFVoNFK1r+zpR3IdBMUsLOnwK5usyEkg9BORarr6pcz/Gebyt7c2QER/P
+	 E28/3eNEPy+5qI5xCTDkyYvZVVMy+ynMh0ADDVcBhLduoOp+d5EJXy8ydD3jvZ0VX9
+	 CqU17LIIXnKZauJtn0WGBQWrBw2URyhy0+5fAPUGtm9y6xedU052GMp5Ek2OZLEU9i
+	 taWwzYwmaMr7w==
+From: Mark Brown <broonie@kernel.org>
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Cc: lgirdwood@gmail.com, linux-sound@vger.kernel.org,
+ alsa-devel@alsa-project.org, patches@opensource.cirrus.com
+In-Reply-To: <20240326105434.852907-1-ckeepax@opensource.cirrus.com>
+References: <20240326105434.852907-1-ckeepax@opensource.cirrus.com>
+Subject: Re: [PATCH] ASoC: cs42l43: Correct extraction of data pointer in
+ suspend/resume
+Message-Id: <171145818853.73919.2525513604875844696.b4-ty@kernel.org>
+Date: Tue, 26 Mar 2024 13:03:08 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: 
- <313e00499eb2caadd23a92284fdec418b650b7f4.1711401621.git.soyer@irl.hu>
-Message-ID-Hash: EKD6OWKUZZZGQQIMFDQAMOIIWT55QTMY
-X-Message-ID-Hash: EKD6OWKUZZZGQQIMFDQAMOIIWT55QTMY
-X-MailFrom: lkp@intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14-dev
+Message-ID-Hash: A7E3ZZ53HEJSZXAK2JXIGMQIIL33RLG4
+X-Message-ID-Hash: A7E3ZZ53HEJSZXAK2JXIGMQIIL33RLG4
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -103,7 +87,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EKD6OWKUZZZGQQIMFDQAMOIIWT55QTMY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/A7E3ZZ53HEJSZXAK2JXIGMQIIL33RLG4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,51 +96,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Gergo,
+On Tue, 26 Mar 2024 10:54:34 +0000, Charles Keepax wrote:
+> The current code is pulling the wrong pointer causing it to disable the
+> wrong IRQ. Correct the code to pull the correct cs42l43 core data
+> pointer.
+> 
+> 
 
-kernel test robot noticed the following build errors:
+Applied to
 
-[auto build test ERROR on 4cece764965020c22cff7665b18a012006359095]
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Gergo-Koteles/ALSA-hda-tas2781-remove-digital-gain-kcontrol/20240326-052937
-base:   4cece764965020c22cff7665b18a012006359095
-patch link:    https://lore.kernel.org/r/313e00499eb2caadd23a92284fdec418b650b7f4.1711401621.git.soyer%40irl.hu
-patch subject: [PATCH 1/3] ALSA: hda/tas2781: remove digital gain kcontrol
-config: i386-buildonly-randconfig-004-20240326 (https://download.01.org/0day-ci/archive/20240326/202403262031.SxBP17EM-lkp@intel.com/config)
-compiler: gcc-12 (Debian 12.2.0-14) 12.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240326/202403262031.SxBP17EM-lkp@intel.com/reproduce)
+Thanks!
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202403262031.SxBP17EM-lkp@intel.com/
+[1/1] ASoC: cs42l43: Correct extraction of data pointer in suspend/resume
+      commit: 56ebbd19c2989f7450341f581e2724a149d0f08e
 
-All errors (new ones prefixed by >>):
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-   In file included from sound/soc/codecs/tas2781-i2c.c:29:
->> sound/soc/codecs/tas2781-i2c.c:148:41: error: 'dvc_tlv' undeclared here (not in a function)
-     148 |                 tas2781_digital_putvol, dvc_tlv),
-         |                                         ^~~~~~~
-   include/sound/soc.h:271:19: note: in definition of macro 'SOC_SINGLE_RANGE_EXT_TLV'
-     271 |         .tlv.p = (tlv_array), \
-         |                   ^~~~~~~~~
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-vim +/dvc_tlv +148 sound/soc/codecs/tas2781-i2c.c
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-ef3bcde75d06d6 Shenghao Ding 2023-06-18  141  
-ef3bcde75d06d6 Shenghao Ding 2023-06-18  142  static const struct snd_kcontrol_new tas2781_snd_controls[] = {
-ef3bcde75d06d6 Shenghao Ding 2023-06-18  143  	SOC_SINGLE_RANGE_EXT_TLV("Speaker Analog Gain", TAS2781_AMP_LEVEL,
-ef3bcde75d06d6 Shenghao Ding 2023-06-18  144  		1, 0, 20, 0, tas2781_amp_getvol,
-ef3bcde75d06d6 Shenghao Ding 2023-06-18  145  		tas2781_amp_putvol, amp_vol_tlv),
-ef3bcde75d06d6 Shenghao Ding 2023-06-18  146  	SOC_SINGLE_RANGE_EXT_TLV("Speaker Digital Gain", TAS2781_DVC_LVL,
-ef3bcde75d06d6 Shenghao Ding 2023-06-18  147  		0, 0, 200, 1, tas2781_digital_getvol,
-ef3bcde75d06d6 Shenghao Ding 2023-06-18 @148  		tas2781_digital_putvol, dvc_tlv),
-ef3bcde75d06d6 Shenghao Ding 2023-06-18  149  	SOC_SINGLE_BOOL_EXT("Speaker Force Firmware Load", 0,
-ef3bcde75d06d6 Shenghao Ding 2023-06-18  150  		tas2781_force_fwload_get, tas2781_force_fwload_put),
-ef3bcde75d06d6 Shenghao Ding 2023-06-18  151  };
-ef3bcde75d06d6 Shenghao Ding 2023-06-18  152  
+Thanks,
+Mark
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki

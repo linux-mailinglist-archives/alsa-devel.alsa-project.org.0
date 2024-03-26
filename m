@@ -2,71 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E960788C9B7
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Mar 2024 17:48:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F305088CAC1
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Mar 2024 18:26:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 35AB52C0A;
-	Tue, 26 Mar 2024 17:48:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 35AB52C0A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2945C2BF3;
+	Tue, 26 Mar 2024 18:26:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2945C2BF3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1711471706;
-	bh=bqg/sFWTPVvFgqt6Vk3VOgpcqeZChiXBV3Mbug+MVEM=;
-	h=Date:From:To:Subject:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=BI/cpWIuHmNilE0uiWFsv01IHxookxOTh1DRkVREsK5P8AMwN9B9xSLaF2nMdYU8e
-	 wpPqMti4/vW//xYeHMx25jj2x5a6filUYWVAlbN+nw9hGkfwU6RMzP3R56Xum22dTp
-	 6QbL0qaRblr73NGyvL5PMrfY57voqVeHIYiQxhDk=
+	s=default; t=1711474013;
+	bh=Ka0BqODwFrLwyN3SMEtrICxiPAvB0WKMvGb82tkKccg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=cruEPtnaIY21xoJf0DXjbIjhZ+FDBpvUrNY+wRNAUu5BywY7KvPkJRgYqVxAhtqVw
+	 tph39vfwORG4cybams3gO5eAqhxCwxZOs9jDCQbBXE+TwdA3WYlpPRnYmrkqgez5fc
+	 JezShotLv8H7QKc9pPP83+Uc8d/OA3rafEwwZIe8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B9AB3F805AA; Tue, 26 Mar 2024 17:47:54 +0100 (CET)
+	id C52F2F8057C; Tue, 26 Mar 2024 18:26:21 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 220DFF80236;
-	Tue, 26 Mar 2024 17:47:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E1D58F805A0;
+	Tue, 26 Mar 2024 18:26:20 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 11562F8025F; Tue, 26 Mar 2024 17:47:48 +0100 (CET)
+	id DBA29F8025F; Tue, 26 Mar 2024 18:26:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+X-Spam-Status: No, score=0.0 required=5.0 tests=T_SPF_HELO_TEMPERROR
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from out-175.mta1.migadu.com (out-175.mta1.migadu.com
- [95.215.58.175])
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BE173F801EB
-	for <alsa-devel@alsa-project.org>; Tue, 26 Mar 2024 17:47:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE173F801EB
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=jookia.org header.i=@jookia.org header.a=rsa-sha256
- header.s=key1 header.b=Ko85/ACa
-Date: Wed, 27 Mar 2024 03:47:06 +1100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jookia.org; s=key1;
-	t=1711471660;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type;
-	bh=bqg/sFWTPVvFgqt6Vk3VOgpcqeZChiXBV3Mbug+MVEM=;
-	b=Ko85/ACaALGpuoQ2eTpzrvEirGFyjOChBId/e5tSo+K9uikkP6fmOx7Hjv4qyaOtBOEo3R
-	K0l5b1/RFCOICC6IEXC518ao60zZbUR01wDUpCYc7tNCYG1AoKYYALI1onU2qcO8eJcd7j
-	PTJ79Wh1/+4LV3uSwFrhKyPZWN7FMcYz0GoziUM3o41SVAF7KdQLNVPB63T8HMJ/N/j7xE
-	3glt4ZSHFq2ymO8PyEZb5hPh0Ao9oMMLh4lHN8nNDhPRSh7tT+U0afPofakUCyxZU1/FjT
-	YfzWefhFhc2LU+L8hTomiB2AqGbMHqS8Q71z+fjxtgmR9tg/WLeDhjD/PbdLMg==
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: John Watts <contact@jookia.org>
-To: alsa-devel@alsa-project.org
-Subject: How to add jack GPIOs to audio-graph-cards?
-Message-ID: <ZgL8Cr1t5aUhrClM@titan>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 19D85F80093
+	for <alsa-devel@alsa-project.org>; Tue, 26 Mar 2024 18:26:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 19D85F80093
+Received: from [194.95.143.137] (helo=phil.dip.tu-dresden.de)
+	by gloria.sntech.de with esmtpsa  (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.94.2)
+	(envelope-from <heiko@sntech.de>)
+	id 1rpAYb-000658-2p; Tue, 26 Mar 2024 18:25:53 +0100
+From: Heiko Stuebner <heiko@sntech.de>
+To: Jaroslav Kysela <perex@perex.cz>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Rob Herring <robh+dt@kernel.org>,
+	Mark Brown <broonie@kernel.org>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: Heiko Stuebner <heiko@sntech.de>,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	alsa-devel@alsa-project.org,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: (subset) [PATCH v4 0/7] Add support for the internal RK3308 audio
+ codec
+Date: Tue, 26 Mar 2024 18:25:50 +0100
+Message-Id: <171147393346.1162935.3469121716836265382.b4-ty@sntech.de>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20240305-rk3308-audio-codec-v4-0-312acdbe628f@bootlin.com>
+References: <20240305-rk3308-audio-codec-v4-0-312acdbe628f@bootlin.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Migadu-Flow: FLOW_OUT
-Message-ID-Hash: VWTRRKVV2KYH3JD4XOGG7NBQBGK5EWGW
-X-Message-ID-Hash: VWTRRKVV2KYH3JD4XOGG7NBQBGK5EWGW
-X-MailFrom: contact@jookia.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: QOHDCFVF3ZNYICFUZAI4UU43UD4SO5UB
+X-Message-ID-Hash: QOHDCFVF3ZNYICFUZAI4UU43UD4SO5UB
+X-MailFrom: heiko@sntech.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -78,7 +88,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VWTRRKVV2KYH3JD4XOGG7NBQBGK5EWGW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QOHDCFVF3ZNYICFUZAI4UU43UD4SO5UB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -87,20 +97,28 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi there,
+On Tue, 05 Mar 2024 15:36:27 +0100, Luca Ceresoli wrote:
+> This series adds a driver for the internal audio codec of the Rockchip
+> RK3308 SoC, along with some related patches. This codec is internally
+> connected to the I2S peripherals on the same chip, and it has some
+> peculiarities arising from that interconnection.
+> 
+> For proper bidirectional operation with the internal codec at any possible
+> combination of sampling rates, the I2S peripheral needs two clock sources
+> (tx and rx), while connection with an external codec commonly needs only
+> one.
+> 
+> [...]
 
-audio-graph-card's device tree schema indicates it supports the following:
+Applied, thanks!
 
-- pa-gpios
-- hp-det-gpio
-- mic-det-gpio
+[5/7] arm64: defconfig: enable Rockchip RK3308 internal audio codec driver
+      commit: 9fdd7b45da18b84d5e7d5a6b8b4b0167910f2d13
+[6/7] arm64: dts: rockchip: add i2s_8ch_2 and i2s_8ch_3
+      commit: b5ffc424360eaced41f405f0e38bcabe61fecf39
+[7/7] arm64: dts: rockchip: add the internal audio codec
+      commit: 30d72458624bb1ba7bab1c7a1d5f4c42f512010c
 
-But only implements pa-gpios.
-
-audio-graph-card2 doesn't implement any of these but will still attempts to
-grab pa-gpios but never use it (possibly a bug?)
-
-When using audio graph cards, how are you intended to add detection GPIOs?
-Are there future plans to add a jacks { } section of some sort for this?
-
-John.
+Best regards,
+-- 
+Heiko Stuebner <heiko@sntech.de>

@@ -2,82 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9965C88C6E2
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Mar 2024 16:28:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D00C88C6E4
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Mar 2024 16:28:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 11F4827A6;
-	Tue, 26 Mar 2024 16:28:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 11F4827A6
+	by alsa0.perex.cz (Postfix) with ESMTPS id EBE242BC9;
+	Tue, 26 Mar 2024 16:28:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EBE242BC9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1711466916;
-	bh=jnDKCBGZ3mEKwOzhDtE+4+tTWxXMCbPw9/Yta9NdMSU=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=Jz4/V68iN21eMN6Rv08JoqMq6P5oRhoDexKqt8uPq8EhTf8dYN5ufSGffO1Gh8d98
-	 x+3Sc8QV3BAhYpqjq5+U4KU0hjytnyRX+cNotbBGDVJggNNTCNzacz3qeRJ469J9zx
-	 1O/fJAqf5YKM3cdMOb9ByTtQRwdsZrPVPcSFRb4E=
+	s=default; t=1711466934;
+	bh=F6sUfcI9QR2xWONCcuwbnAKV6tmHdtr9+98sV20UKp8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=VVVzl0HN2nR0aqicvK3k7JgWBQAtMCuMQph0eBp71nXQvzaQ5uolCDuyxhM/PnwCM
+	 rBpFjUU3QLdCWrvy/1/YHNdXsKZqkfD2gXQDLJhe8uB0ti08Sp9Fq91B+CUVXn/mSN
+	 jyFF9arY9h3OhhjcBl7CBx5Z1uxeWkv1r1X+8JBk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9683EF805C4; Tue, 26 Mar 2024 16:27:52 +0100 (CET)
+	id 537B4F805E2; Tue, 26 Mar 2024 16:28:01 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BEEE0F805B4;
-	Tue, 26 Mar 2024 16:27:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C390DF805F0;
+	Tue, 26 Mar 2024 16:28:00 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id ACF80F8025F; Tue, 26 Mar 2024 16:27:47 +0100 (CET)
+	id D91D7F805E0; Tue, 26 Mar 2024 16:27:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 961E0F801EB
-	for <alsa-devel@alsa-project.org>; Tue, 26 Mar 2024 16:27:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 961E0F801EB
+	by alsa1.perex.cz (Postfix) with ESMTPS id D9413F805D9
+	for <alsa-devel@alsa-project.org>; Tue, 26 Mar 2024 16:27:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D9413F805D9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=cneiOIVU
+ header.s=k20201202 header.b=Bm4GiVxC
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id E4ED4612BF;
-	Tue, 26 Mar 2024 15:27:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91A6BC43390;
-	Tue, 26 Mar 2024 15:27:38 +0000 (UTC)
+	by sin.source.kernel.org (Postfix) with ESMTP id 315D3CE1843;
+	Tue, 26 Mar 2024 15:27:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE24FC433A6;
+	Tue, 26 Mar 2024 15:27:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1711466861;
-	bh=jnDKCBGZ3mEKwOzhDtE+4+tTWxXMCbPw9/Yta9NdMSU=;
-	h=From:To:In-Reply-To:References:Subject:Date:From;
-	b=cneiOIVUSw3BIhivAzv7EQjXpMfXoxj46GIJw2UWv9LBhSZcI+8Yi55Oq07LD7G51
-	 NqsrY++g921HTWD9o0mTh/l5wcYPQuNFK8W7f4UPFUz1cdWAD0J3LTxQ4aQV6bz2U9
-	 blo7r8Er+d4IQtdlVHo+81d6QdYQ+smDe0FPSeMCYJNVw1TawIaKYZ2+k1qk+eud84
-	 +La8Lh/eKF7BHyTnRK6feuaUcj0Mg9IWNzTNR8A6HUfn+KhhcCY3vqz3RYVXEUwFsy
-	 VpzqEaUxk+KXWSHbvM/ZV5wO2OGTSvn+7+lO2jz8ptIQXJaan1vdB2oYGk7SAR2KZk
-	 lGNXQMXuvvO7Q==
+	s=k20201202; t=1711466866;
+	bh=F6sUfcI9QR2xWONCcuwbnAKV6tmHdtr9+98sV20UKp8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=Bm4GiVxCedja/Jx8UhogGl+SbWC1b8kpxvHFXqwIeUVUWSC5TyjUPkf/AgNxR7rvl
+	 Vt2DbbIDQfKO/AsUQr1ph7l1E59YeMCY7mTUo/i3tHUfjwwvHcW2cx5TJ2iqhSEGZF
+	 vv3goEkdkspcC3gxH46SyAhr5riikrbWM+3L8R1V8ZqmxDZalB3tbjrZaOBHlO/T/B
+	 OfXoJfpbqMft0kmLGiKDhULP7us89vMufHzSYHk9iSH1q0avNzCh6yjD5ukJ//TDdK
+	 Wh+ZFtWetwDNA/NKVNFtVcIqsQmQEZQZLuminZvR2hkXLn8fn3WpwMd1ClMbXDcOZy
+	 MFZyGYC8jeNQA==
 From: Mark Brown <broonie@kernel.org>
-To: shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com, festevam@gmail.com,
- nicoleotsuka@gmail.com, lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
- shawnguo@kernel.org, s.hauer@pengutronix.de, kernel@pengutronix.de,
- linux-imx@nxp.com, alsa-devel@alsa-project.org,
- linuxppc-dev@lists.ozlabs.org, linux-sound@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Chancel Liu <chancel.liu@nxp.com>
-In-Reply-To: <20240311111349.723256-1-chancel.liu@nxp.com>
-References: <20240311111349.723256-1-chancel.liu@nxp.com>
-Subject: Re: [PATCH v3 0/5] ASoC: fsl: Support register and unregister
- rpmsg sound card through remoteproc
-Message-Id: <171146685832.132239.2142300799841463466.b4-ty@kernel.org>
-Date: Tue, 26 Mar 2024 15:27:38 +0000
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+ tiwai@suse.com, perex@perex.cz, amadeuszx.slawinski@linux.intel.com,
+ pierre-louis.bossart@linux.intel.com, hdegoede@redhat.com
+In-Reply-To: <20240308090502.2136760-1-cezary.rojewski@intel.com>
+References: <20240308090502.2136760-1-cezary.rojewski@intel.com>
+Subject: Re: [PATCH v2 0/5] ASoC: Harden DAPM route checks and Intel fixes
+Message-Id: <171146686463.132239.1157973134119038922.b4-ty@kernel.org>
+Date: Tue, 26 Mar 2024 15:27:44 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.14-dev
-Message-ID-Hash: HVVK2XUCTBYIV663KW37FFBOPK7WYTOI
-X-Message-ID-Hash: HVVK2XUCTBYIV663KW37FFBOPK7WYTOI
+Message-ID-Hash: 3UVDR5JFFVT2HI5WCD4LO5I34KZ7DYNT
+X-Message-ID-Hash: 3UVDR5JFFVT2HI5WCD4LO5I34KZ7DYNT
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -90,7 +86,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HVVK2XUCTBYIV663KW37FFBOPK7WYTOI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3UVDR5JFFVT2HI5WCD4LO5I34KZ7DYNT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,16 +95,19 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 11 Mar 2024 20:13:44 +0900, Chancel Liu wrote:
-> 	echo /lib/firmware/fw.elf > /sys/class/remoteproc/remoteproc0/firmware
-> (A)	echo start > /sys/class/remoteproc/remoteproc0/state
-> (B)	echo stop > /sys/class/remoteproc/remoteproc0/state
+On Fri, 08 Mar 2024 10:04:57 +0100, Cezary Rojewski wrote:
+> Set of loosely connected patches. Most impactful change is dropping any
+> permisiveness when snd_soc_dapm_add_routes() fails in soc-topology.c To
+> do it safely, disable route checks for all skylake-driver boards.
 > 
-> The rpmsg sound card is registered in (A) and unregistered in (B).
-> After "start", imx-audio-rpmsg registers devices for ASoC platform driver
-> and machine driver. Then sound card is registered. After "stop",
-> imx-audio-rpmsg unregisters devices for ASoC platform driver and machine
-> driver. Then sound card is unregistered.
+> Relevant background:
+> 
+> Since commit daa480bde6b3 ("ASoC: soc-core: tidyup for
+> snd_soc_dapm_add_routes()") route checks are no longer permissive. Probe
+> failures for Intel boards have been partially addressed by commit
+> a22ae72b86a4 ("ASoC: soc-core: isable route checks for legacy devices")
+> and its follow up but only skl_nau88l25_ssm4567.c is patched. The rest
+> of the boards still need fixing.
 > 
 > [...]
 
@@ -118,16 +117,16 @@ Applied to
 
 Thanks!
 
-[1/5] ASoC: fsl: imx-pcm-rpmsg: Register component with rpmsg channel name
-      commit: 41f96cd53f2838ac4894491ac5eadb06f1e5b858
-[2/5] ASoC: fsl: imx-audio-rpmsg: Register device with rpmsg channel name
-      commit: dacc7459745df168152b5cceba34efade9b5e063
-[3/5] ASoC: fsl: Let imx-audio-rpmsg register platform device for card
-      commit: c73524768e9e1a7ac9eb3a4d36a1ac0d34f22644
-[4/5] ASoC: fsl: fsl_rpmsg: Register CPU DAI with name of rpmsg channel
-      commit: 0aa7f5406afa828a93d84d75c9b9ac991cd75367
-[5/5] ASoC: fsl: imx-rpmsg: Update to correct DT node
-      commit: c14445bdcb98feddf9afaeb05e6193cc1f8eec1a
+[1/5] ASoC: Intel: Disable route checks for Skylake boards
+      commit: 0cb3b7fd530b8c107443218ce6db5cb6e7b5dbe1
+[2/5] ASoC: topology: Do not ignore route checks when parsing graphs
+      commit: 6974857c2b2c7e2d2db59c0e23cc42b0efc58cd8
+[3/5] ASoC: Intel: avs: ssm4567: Do not ignore route checks
+      commit: e6719d48ba6329536c459dcee5a571e535687094
+[4/5] ASoC: Intel: avs: ssm4567: Board cleanup
+      commit: 3a2be3f05110fa1a5c682ff72a26681ed4f54cef
+[5/5] ASoC: Intel: avs: i2s_test: Remove redundant dapm routes
+      commit: 60c10c678b582d41532fefa12667d8adca75811b
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

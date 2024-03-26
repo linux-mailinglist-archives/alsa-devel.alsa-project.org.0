@@ -2,105 +2,170 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B9B6894BCA
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Apr 2024 08:49:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39799894BCB
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Apr 2024 08:49:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 420A92BB9;
-	Tue,  2 Apr 2024 08:49:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 420A92BB9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5F19E86E;
+	Tue,  2 Apr 2024 08:49:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F19E86E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712040578;
-	bh=F7sKqkt5uCoMZspxFpj4Kz8IbfFkMsDTZ1lbiQYPRME=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1712040595;
+	bh=6prWtj8fdoDjxAu3GH4lU1VfxJUuCv8LjtmH0XZaJ/c=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=jiXiaBBoycdamoMRsxI4umWDw1RcW7uzQURsgZiUcL5nTK3wLEi3wMonCT1RW7EqN
-	 D8L/NXbNqfOb+gpkeGXml7sQaPuO3Fz1bfB90I4KxFbpnzJHROMd864gVW1FYu2OBv
-	 8Oe8IBBAg4WZrhw9P3chIOy6/eB8DpyI5bwROdbE=
+	b=KlMKQ7njCRMQ1TU8E/VWzu+h7UFbQQtgfXzyg7SpYPm3hI/4Uwc5qebQ6Xc4dph8h
+	 HMidZ9T2S1gKgSiqlLnMJOetr9LC5E870wYd8mEvHp2No+pzh+b7/7YyM/YN4HjZ6K
+	 Ce4UMYxnOd79OpP1pvqi7H0q6R9uueFbQsLYEIMY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D2C6BF805E3; Tue,  2 Apr 2024 08:47:40 +0200 (CEST)
+	id 36E53F805FF; Tue,  2 Apr 2024 08:47:44 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 98421F805DF;
-	Tue,  2 Apr 2024 08:47:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F0E09F805EA;
+	Tue,  2 Apr 2024 08:47:43 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 26EC3F8025F; Tue, 26 Mar 2024 02:10:34 +0100 (CET)
+	id 65CDBF8025F; Tue, 26 Mar 2024 03:03:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from lelv0142.ext.ti.com (lelv0142.ext.ti.com [198.47.23.249])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn
+ (mail-bjschn02on20713.outbound.protection.partner.outlook.cn
+ [IPv6:2406:e500:4440:2::713])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E5381F80093
-	for <alsa-devel@alsa-project.org>; Tue, 26 Mar 2024 02:10:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5381F80093
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
- header.s=ti-com-17Q1 header.b=Ca9bKO17
-Received: from fllv0034.itg.ti.com ([10.64.40.246])
-	by lelv0142.ext.ti.com (8.15.2/8.15.2) with ESMTP id 42Q1A4is009834;
-	Mon, 25 Mar 2024 20:10:04 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
-	s=ti-com-17Q1; t=1711415404;
-	bh=Ho+kxlw24f5GUUPjJ/o03GF70SkJicIKEfuh7SJqEws=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References;
-	b=Ca9bKO17UiPv267Sq7NdRxSNo75/9pmCzLI+CiXJMlI5amLFzzf+jwBsyra1VEffy
-	 ZOoPhHnCvnOZyZhgxEm8O6xuY38HAEJBvPjgmBGLQQ9Fteyblimihe4hZfWo6gijO4
-	 jdOZvJnm9lZprOvEFsvlbFso40s2YYUpTYFD1JcM=
-Received: from DLEE107.ent.ti.com (dlee107.ent.ti.com [157.170.170.37])
-	by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 42Q1A4Z7107569
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 25 Mar 2024 20:10:04 -0500
-Received: from DLEE108.ent.ti.com (157.170.170.38) by DLEE107.ent.ti.com
- (157.170.170.37) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Mon, 25
- Mar 2024 20:10:03 -0500
-Received: from lelvsmtp5.itg.ti.com (10.180.75.250) by DLEE108.ent.ti.com
- (157.170.170.38) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
- Frontend Transport; Mon, 25 Mar 2024 20:10:03 -0500
-Received: from lelvsmtp5.itg.ti.com ([10.250.165.138])
-	by lelvsmtp5.itg.ti.com (8.15.2/8.15.2) with ESMTP id 42Q19AYE120020;
-	Mon, 25 Mar 2024 20:09:58 -0500
-From: Baojun Xu <baojun.xu@ti.com>
-To: <tiwai@suse.de>
-CC: <robh+dt@kernel.org>, <andriy.shevchenko@linux.intel.com>,
-        <lgirdwood@gmail.com>, <perex@perex.cz>,
-        <pierre-louis.bossart@linux.intel.com>, <kevin-lu@ti.com>,
-        <13916275206@139.com>, <alsa-devel@alsa-project.org>,
-        <linux-kernel@vger.kernel.org>, <liam.r.girdwood@intel.com>,
-        <yung-chuan.liao@linux.intel.com>, <baojun.xu@ti.com>,
-        <broonie@kernel.org>, <soyer@irl.hu>
-Subject: [PATCH v1 8/8] ALSA: hda/tas2781: Add tas2781 SPI-based driver
-Date: Tue, 26 Mar 2024 09:09:05 +0800
-Message-ID: <20240326010905.2147-8-baojun.xu@ti.com>
-X-Mailer: git-send-email 2.43.0.windows.1
-In-Reply-To: <20240326010905.2147-1-baojun.xu@ti.com>
-References: <20240326010905.2147-1-baojun.xu@ti.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 240E1F801EB
+	for <alsa-devel@alsa-project.org>; Tue, 26 Mar 2024 03:03:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 240E1F801EB
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=CWt2MBTooGCF5QyO6SlLQxdrRUlnfM1ShTQKTZZNPtfW+QVWb//3CTBgi34fDdVR8fVICIKEHhH/6mzPw6szFmumRNxJQ0VqlTszdkCr7KwATe2H2M9u5/s6zHwycsw/ooAZ9j8GCvsUqcv0Cb2lVBvc+H//LOEIvxE/L9j6xWQ6i+Sgk2L7qGpqxAnnnKO9+HQbVDGmEgByznUA8XAtAuciqk2duNf/EYmeDUxVTU7qbrHTZMgneFldEbWe20nyDLIjHTDxBUSzW1dNfOAyaJeQzuVvrfaSsUKuf4QTLQzPwZ9U1DD2KjfOgD/jfZ+IAwJ4Qh0rYg9z//qYWX3ggA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6prWtj8fdoDjxAu3GH4lU1VfxJUuCv8LjtmH0XZaJ/c=;
+ b=IWcpprJ4bvVOrjmD9Y3QUdQJax5sMFgeMhXS2ToI2P9RWz4FtOTFiE9ORy/xarzxQ55BLipj0FzxyNTp9S3HMe5KtxaJAanzcGp7W21ab9FGKFJi2BdsyYiteKJTeh8wzeVcbk3eztcfbJcnTV9D7Whlx/abpApyHS3wIhlhIOhsNpxHwGdEc4HnOdb8o7fzLtVwVSsFgzezWh9vy1AGE5Q+M6jiyxqAeQezsyfnoi6+IKAUiGxUiBN4ayqdImflMc7ied9ubvE9IXmWH10BxRR51A+wEUJBJOHYjN+17BylKdEUu7pGo7qvqwEFXsiI8L9eYsc8XXZpvpfPkBQzbg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Received: from NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:8::10) by NTZPR01MB1036.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:8::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.26; Tue, 26 Mar
+ 2024 02:02:59 +0000
+Received: from NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn
+ ([fe80::9a50:2c82:c5d4:2b3d]) by
+ NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn ([fe80::9a50:2c82:c5d4:2b3d%4])
+ with mapi id 15.20.7409.028; Tue, 26 Mar 2024 02:02:59 +0000
+From: Xingyu Wu <xingyu.wu@starfivetech.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, Liam Girdwood
+	<lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Claudiu Beznea
+	<Claudiu.Beznea@microchip.com>, Jaroslav Kysela <perex@perex.cz>, Takashi
+ Iwai <tiwai@suse.com>, Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
+	<krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
+	<conor.dooley@microchip.com>
+CC: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+	"linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>
+Subject: 
+ =?utf-8?B?5Zue5aSNOiBbUEFUQ0ggdjIgMi8yXSBBU29DOiBjZG5zOiBBZGQgZHJpdmVy?=
+ =?utf-8?Q?s_of_Cadence_Multi-Channel_I2S_Controller?=
+Thread-Topic: [PATCH v2 2/2] ASoC: cdns: Add drivers of Cadence Multi-Channel
+ I2S Controller
+Thread-Index: AQHaeqVhb5UxutBmeUyJ/qlePUaJGrFAuWEAgAJZ7cA=
+Date: Tue, 26 Mar 2024 02:02:59 +0000
+Message-ID: 
+ <NTZPR01MB0956BFADB4B3DA507D938F669F35A@NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn>
+References: <20240320090239.168743-1-xingyu.wu@starfivetech.com>
+ <20240320090239.168743-3-xingyu.wu@starfivetech.com>
+ <1d0399d2-684f-490e-8711-f636e987a0b8@linux.intel.com>
+In-Reply-To: <1d0399d2-684f-490e-8711-f636e987a0b8@linux.intel.com>
+Accept-Language: en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: NTZPR01MB0956:EE_|NTZPR01MB1036:EE_
+x-ms-office365-filtering-correlation-id: 603dfe77-fa5c-4293-309c-08dc4d38dc6f
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ E+JrlniR+qSZhpdlhOLqZ4zBY+3wCFWZMRhBBsZGK4f6UWUrJkt0o8jz1EvoKUdgRqVUTINjFbakjOpeEefr2/26cSrg8YPvuOx11j7kw6wnxB0YcqVM58lMB4PB7tNRQYwVJPOVFoXxjtxpQDMUz23v2CKjXsZSGP2HAD1P0tg3DOGce2am1b426G7hM8xQEBZeJVFU3QLG+ARudkFCcciMz0gPB+69HY5u+PuV7Pm5Z0zbVZajLsleTcbOZOhRnyfsv+/ZkGxbGVqHdstcLFdMKjV7t0uMqBTs7DbHcJdivw/BoyTQpxS/RY9HhK8S4wFseOEl1SNAA/RJfo5c6hJLc+Jb8zG0pN9rw/u3PsZa1kqzQCWPlnHtjwi96WO55KHblOK4bwq2HKJCAaLakr4xKZbnRGm3ovyFtUubbqyLqkBEdXK6aj3mTrVsA8Bhnn2dAj/TbD7J+93Bly1Bojap+ZJ/klOWp8LghpYql6b9f2KetMuegbsfpaFaZMbgm3+Lgm4zOUsV7eGTVGTT9MAIdm2wZMjrn30urHy9g40ki4T4lNIVaL1hnJ9IMqwwuFzMnyPDAEx/YZNKps8ZWnDtYtVneVKuC8UMN/0R+YLU4qnL+1EV1mD+xX4BDv47
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:zh-cn;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230031)(366007)(41320700004)(7416005)(1800799015)(38070700009);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?utf-8?B?SmtQbFZHcU4wcTduQzJoRkt4OW5lcUZNQ3V6emFQa0k1dG4yeG1xcEgxaEl5?=
+ =?utf-8?B?OGZYNUh5M284Wmxjdk5CN0pRVE5MaUN1NDBialBBY1VWZ2Z1SmtReG5jSmF4?=
+ =?utf-8?B?dEV5SStWVkErYXBPeURJTytNZmpCRVdTcXRYMWdaQUV1MHdueXpRaHRMRnFu?=
+ =?utf-8?B?QWVVUUo4dHQwWmhwUm9rYnF0K0grdlhqZmN4STRFT3I1K0tyQ0JVdVpjcVVm?=
+ =?utf-8?B?VFRueG02bnJOVzd2V0tNOUpmNWIxMDJyTlduU0JNZGVZd3I4V1R5N1FYTVlR?=
+ =?utf-8?B?VXdPbGdHVGQ2c1pWemJLTTQyU1M1TTFDaWdITVF0UWNLaFV2UVpBYmo0dS9E?=
+ =?utf-8?B?eTF4V1gvTGJ1bEtiN1hDQlpxZVVjcTZDNU5UUWdWSEZhYnU2eFVnS004SXBX?=
+ =?utf-8?B?U0FhNXhVRUpaVGRPZTVXYkplOE0wOXJKWkswUGJmdE1uMjhLdTB6aUR3TTVj?=
+ =?utf-8?B?aE16dVhXVHRjektVTEZ5MmQ4SVIyVzA1NFU1TWRXNm9jRkJpN3p3a3k5dUEr?=
+ =?utf-8?B?RXNubUV2VlAvT09VNmZncFVWam5qdzNjWngwV1N1YnpKOXF4UXpHMU5sT1hp?=
+ =?utf-8?B?SEZVQklUdVRBWGtaTWZBZXNENG0zMzYydnptS2lPdWtNdU81WFVwMWR0NTVx?=
+ =?utf-8?B?U1NNejF6bG5LY09TZkdHY0dpK3FPWE1nTk94dmlmbkVRS2hYb0FvTTVXOUNz?=
+ =?utf-8?B?dmUwb2xjQklvRTYyTGpQdEd5SW0wejRkQWJaQkFMRElRa2hUWWJ3M2pCOExB?=
+ =?utf-8?B?QWpXNUxnN21RYWQzUW5rVWk3ME9lNUxKTGxoZEIxN01KU3Jad1VnZDVUZUk0?=
+ =?utf-8?B?WlljWjlKajBTandFdmw3R0NYbkhLNXdaTFNJbFpqOWR2bjQ2cURUQWtmcjh4?=
+ =?utf-8?B?R0dSd2dBb2t5bkxYeEVFdnpoaVBSZUFwVGhCUnNRUlhSMnBWRksyUGZKeHE1?=
+ =?utf-8?B?NTc0d1NCVUFSbnRUSXl6aURBVDN2aWJGN1drR2NuL0kxaG9oUWV6UzdRa0lL?=
+ =?utf-8?B?eG9FWEF4SWg5RS93Y2cvNm9mQlQzc3M0dkRyNVpkZUhQMzFmdE95czRrZUxR?=
+ =?utf-8?B?cGUzNThPWSt0Y1hsM1llY2NDR0hXdVhDSEQrU2g1ZFczRkhkMGFmdm40UllK?=
+ =?utf-8?B?TXBmTFJDVE95WnNWdVBqeXpaNHZEK1IrTVJqdGtqRmVKTlBPUVZZd3B4Y2Fs?=
+ =?utf-8?B?UHJ3NjkzZTJnUlRzdzhVRGlpckJ5YjZWYkE0Z2MycU04OVpwcTdiZG9UbGM2?=
+ =?utf-8?B?N1dBOVQ3eE5SWXpXYkRBb29MaXViOWxXWE5DTTlsZ0ZjREx4dnR4dWw0ZzlC?=
+ =?utf-8?B?WFd6R3JOTmxWRTRqbFJSL3RYcDJrSGVTZUxkZWdRSHVQdmlHUElsWGFXRGtF?=
+ =?utf-8?B?YnFRamFDN214VXIwaGlaQzN1bGVzVW55eWpZQS9SK2Rla0pzWVhZQnNtSi9p?=
+ =?utf-8?B?MlZFeTNWUEpRWnJhazJ3L21vTWZyNnc4enQ5Qjc1ZEY2akpZOEh1cmxjL0ZE?=
+ =?utf-8?B?bUtKSENTKzFKSG44Q1g1ZmlpS0lxbVdnT1ByeXJMSSthbjJNb3E4NmVpc3ZY?=
+ =?utf-8?B?MmN6b0xpTHlhaXIyaXd0dnF3RUVpQkRVL24zL3dUNlRvMmg4OFNRUXJPNjkv?=
+ =?utf-8?B?dXhDNTVCd1JTVU1KVld0ZEpwV3FoRDE0dDMyYmFzMVlQbmZSNFZQQU8zOTl6?=
+ =?utf-8?B?dGpwMUtSVlBSQkhnbzZCcy9MT3BQeVpxdzRxcnE3SkxBeDZGRXJhR3pyU2Y5?=
+ =?utf-8?B?eTFodmRQOFFsK3Vyb3ZnMkt6a3JkMzNjWVN2aGh6T1hRRjg5VzM5Q0pBVjlk?=
+ =?utf-8?B?R0xOV1JMQUc4RkJVZllXVVcvT2h3L1IraUF1OGhhbGF0TTRtby92Z3N5aWVC?=
+ =?utf-8?B?WlF5WEVuMmV3NjhCbVVMLytER2ZDbG1hRXVLVFpxZG9DN1NrMHllRjByL3dk?=
+ =?utf-8?B?Y2c3bU5RT0lHaGVxcEEwM0dvaWorclJhQTFrZE4ySWQrbU9SV2JhK3U1aW1F?=
+ =?utf-8?B?cU9VVUlrYWZZc1BzeHBuTGg5Uk5tQ0pmclF0YWVlWDdFTzRNWGFMa0pGZUFJ?=
+ =?utf-8?B?UWs1UE9jNC9McEt2Njgxb2FEWjVZaWprS1J5cEpOQTBGUUVGQWZzZXVDRWZG?=
+ =?utf-8?Q?D1Sa1ddKBfcvzrRTkIH5lQMbR?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-X-MailFrom: baojun.xu@ti.com
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: 
+ NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 603dfe77-fa5c-4293-309c-08dc4d38dc6f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Mar 2024 02:02:59.1230
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 
+ ON5k2VsjucxyHGc++9gBEV0CSWhAUpUGH+UFlwN0Qn6Jt3rYIj8AihyhVsAwxqpcJdsXTE5i0fNGMNl2M+O13RIfmUDrmMNzz81fZQ8l9Ig=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: NTZPR01MB1036
+X-MailFrom: xingyu.wu@starfivetech.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: ZZZEJYOMSP524EJW42F7DT465Y4JY3BW
-X-Message-ID-Hash: ZZZEJYOMSP524EJW42F7DT465Y4JY3BW
+Message-ID-Hash: GNCIEOBKMY2YDS3DXPEOZVLPQ3HEIHF6
+X-Message-ID-Hash: GNCIEOBKMY2YDS3DXPEOZVLPQ3HEIHF6
 X-Mailman-Approved-At: Tue, 02 Apr 2024 06:47:33 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZZZEJYOMSP524EJW42F7DT465Y4JY3BW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6IH5UY66AT67P6474YASMI5VDCQAPJCZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,1304 +174,229 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Main file for tas2781 spi driver.
-
-Signed-off-by: Baojun Xu <baojun.xu@ti.com>
----
- sound/pci/hda/tas2781_hda_spi.c | 1284 +++++++++++++++++++++++++++++++
- 1 file changed, 1284 insertions(+)
- create mode 100644 sound/pci/hda/tas2781_hda_spi.c
-
-diff --git a/sound/pci/hda/tas2781_hda_spi.c b/sound/pci/hda/tas2781_hda_spi.c
-new file mode 100644
-index 000000000..ef3543dfc
---- /dev/null
-+++ b/sound/pci/hda/tas2781_hda_spi.c
-@@ -0,0 +1,1284 @@
-+// SPDX-License-Identifier: GPL-2.0
-+//
-+// TAS2781 HDA SPI driver
-+//
-+// Copyright 2024 Texas Instruments, Inc.
-+//
-+// Author: Baojun Xu <baojun.xu@ti.com>
-+
-+#include <linux/acpi.h>
-+#include <linux/crc8.h>
-+#include <linux/crc32.h>
-+#include <linux/efi.h>
-+#include <linux/firmware.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/module.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/regmap.h>
-+#include <linux/spi/spi.h>
-+#include <sound/hda_codec.h>
-+#include <sound/soc.h>
-+#include <sound/tlv.h>
-+#include <sound/tas2781-tlv.h>
-+
-+#include "tas2781-spi.h"
-+
-+#include "hda_local.h"
-+#include "hda_auto_parser.h"
-+#include "hda_component.h"
-+#include "hda_jack.h"
-+#include "hda_generic.h"
-+
-+#define TASDEVICE_SPEAKER_CALIBRATION_SIZE	20
-+
-+/* No standard control callbacks for SNDRV_CTL_ELEM_IFACE_CARD
-+ * Define two controls, one is Volume control callbacks, the other is
-+ * flag setting control callbacks.
-+ */
-+
-+/* Volume control callbacks for tas2781 */
-+#define ACARD_SINGLE_RANGE_EXT_TLV(xname, xreg, xshift, xmin, xmax, xinvert, \
-+	xhandler_get, xhandler_put, tlv_array) \
-+{	.iface = SNDRV_CTL_ELEM_IFACE_CARD, .name = (xname),\
-+	.access = SNDRV_CTL_ELEM_ACCESS_TLV_READ |\
-+		 SNDRV_CTL_ELEM_ACCESS_READWRITE,\
-+	.tlv.p = (tlv_array), \
-+	.info = snd_soc_info_volsw_range, \
-+	.get = xhandler_get, .put = xhandler_put, \
-+	.private_value = (unsigned long)&(struct soc_mixer_control) \
-+		{.reg = xreg, .rreg = xreg, .shift = xshift, \
-+		 .rshift = xshift, .min = xmin, .max = xmax, \
-+		 .invert = xinvert} }
-+
-+/* Flag control callbacks for tas2781 */
-+#define ACARD_SINGLE_BOOL_EXT(xname, xdata, xhandler_get, xhandler_put) \
-+{	.iface = SNDRV_CTL_ELEM_IFACE_CARD, .name = xname, \
-+	.info = snd_ctl_boolean_mono_info, \
-+	.get = xhandler_get, .put = xhandler_put, \
-+	.private_value = xdata }
-+
-+
-+enum calib_data {
-+	R0_VAL = 0,
-+	INV_R0,
-+	R0LOW,
-+	POWER,
-+	TLIM,
-+	CALIB_MAX
-+};
-+
-+struct tas2781_hda {
-+	struct device *dev;
-+	struct gpio_desc *cs_gpio;
-+	struct gpio_desc *reset_gpio;
-+	struct tasdevice_priv *priv;
-+	struct snd_kcontrol *dsp_prog_ctl;
-+	struct snd_kcontrol *dsp_conf_ctl;
-+	struct snd_kcontrol *prof_ctl;
-+	struct snd_kcontrol *snd_ctls[3];
-+};
-+
-+static const struct regmap_range_cfg tasdevice_ranges[] = {
-+	{
-+		.range_min = 0,
-+		.range_max = 256 * 128,
-+		.selector_reg = TASDEVICE_PAGE_SELECT,
-+		.selector_mask = 0xff,
-+		.selector_shift = 0,
-+		.window_start = 0,
-+		.window_len = 128,
-+	},
-+};
-+
-+static const struct regmap_config tasdevice_regmap = {
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+	.cache_type = REGCACHE_NONE,
-+	.ranges = tasdevice_ranges,
-+	.num_ranges = ARRAY_SIZE(tasdevice_ranges),
-+	.max_register = 256 * 128,
-+};
-+
-+
-+static void tas2781_spi_reset(struct tasdevice_priv *tas_dev);
-+static int tasdevice_spi_init(struct tasdevice_priv *tas_priv);
-+static int tasdevice_spi_amp_putvol(struct tasdevice_priv *tas_priv,
-+	struct snd_ctl_elem_value *ucontrol, struct soc_mixer_control *mc);
-+static int tasdevice_spi_amp_getvol(struct tasdevice_priv *tas_priv,
-+	struct snd_ctl_elem_value *ucontrol, struct soc_mixer_control *mc);
-+static int tasdevice_spi_digital_putvol(struct tasdevice_priv *tas_priv,
-+	struct snd_ctl_elem_value *ucontrol, struct soc_mixer_control *mc);
-+static int tasdevice_spi_digital_getvol(struct tasdevice_priv *tas_priv,
-+	struct snd_ctl_elem_value *ucontrol, struct soc_mixer_control *mc);
-+
-+static int tasdevice_spi_change_chn_book(struct tasdevice_priv *tas_priv,
-+	unsigned short chn, int book)
-+{
-+	int ret = 0;
-+
-+	if (chn == tas_priv->index) {
-+		struct tasdevice *tasdev = &tas_priv->tasdevice;
-+		struct regmap *map = tas_priv->regmap;
-+
-+		if (tasdev->cur_book != book) {
-+			/* Change to page 0 before book change.
-+			 */
-+			ret = regmap_write(map, TASDEVICE_PAGE_SELECT, 0);
-+			if (ret < 0) {
-+				dev_err(tas_priv->dev, "%s, E=%d\n",
-+					__func__, ret);
-+				goto out;
-+			}
-+			ret = regmap_write(map, TASDEVICE_BOOKCTL_REG, book);
-+			if (ret < 0) {
-+				dev_err(tas_priv->dev, "%s, E=%d\n",
-+					__func__, ret);
-+				goto out;
-+			}
-+			tasdev->cur_book = book;
-+		}
-+	}
-+
-+out:
-+	return ret;
-+}
-+
-+int tasdevice_spi_dev_read(struct tasdevice_priv *tas_priv,
-+	unsigned short chn, unsigned int reg, unsigned int *val)
-+{
-+	int ret = 0;
-+
-+	if (chn  == tas_priv->index) {
-+		struct regmap *map = tas_priv->regmap;
-+
-+		ret = tasdevice_spi_change_chn_book(tas_priv, chn,
-+			TASDEVICE_BOOK_ID(reg));
-+		if (ret < 0)
-+			goto out;
-+
-+		ret = regmap_read(map, TASDEVICE_PGRG(reg), val);
-+		if (ret < 0)
-+			dev_err(tas_priv->dev, "%s, E=%d\n", __func__, ret);
-+	}
-+
-+out:
-+	return ret;
-+}
-+EXPORT_SYMBOL_GPL(tasdevice_spi_dev_read);
-+
-+int tasdevice_spi_dev_write(struct tasdevice_priv *tas_priv,
-+	unsigned short chn, unsigned int reg, unsigned int value)
-+{
-+	int ret = 0;
-+
-+	if (chn  == tas_priv->index) {
-+		struct regmap *map = tas_priv->regmap;
-+
-+		ret = tasdevice_spi_change_chn_book(tas_priv, chn,
-+			TASDEVICE_BOOK_ID(reg));
-+		if (ret < 0)
-+			goto out;
-+
-+		ret = regmap_write(map, TASDEVICE_PGRG(reg),
-+			value);
-+		if (ret < 0)
-+			dev_err(tas_priv->dev, "%s, E=%d\n", __func__, ret);
-+	}
-+
-+out:
-+	return ret;
-+}
-+EXPORT_SYMBOL_GPL(tasdevice_spi_dev_write);
-+
-+int tasdevice_spi_dev_bulk_write(
-+	struct tasdevice_priv *tas_priv, unsigned short chn,
-+	unsigned int reg, unsigned char *data, unsigned int len)
-+{
-+	int ret = 0;
-+
-+	if (chn  == tas_priv->index) {
-+		struct regmap *map = tas_priv->regmap;
-+
-+		ret = tasdevice_spi_change_chn_book(tas_priv, chn,
-+			TASDEVICE_BOOK_ID(reg));
-+		if (ret < 0)
-+			goto out;
-+
-+		ret = regmap_bulk_write(map, TASDEVICE_PGRG(reg),
-+			data, len);
-+		if (ret < 0)
-+			dev_err(tas_priv->dev, "%s, E=%d\n", __func__, ret);
-+	}
-+
-+out:
-+	return ret;
-+}
-+EXPORT_SYMBOL_GPL(tasdevice_spi_dev_bulk_write);
-+
-+int tasdevice_spi_dev_bulk_read(struct tasdevice_priv *tas_priv,
-+	unsigned short chn, unsigned int reg, unsigned char *data,
-+	unsigned int len)
-+{
-+	int ret = 0;
-+
-+	if (chn  == tas_priv->index) {
-+		struct regmap *map = tas_priv->regmap;
-+
-+		ret = tasdevice_spi_change_chn_book(tas_priv, chn,
-+			TASDEVICE_BOOK_ID(reg));
-+		if (ret < 0)
-+			goto out;
-+
-+		ret = regmap_bulk_read(map, TASDEVICE_PGRG(reg), data, len);
-+		if (ret < 0)
-+			dev_err(tas_priv->dev, "%s, E=%d\n", __func__, ret);
-+	}
-+out:
-+	return ret;
-+}
-+EXPORT_SYMBOL_GPL(tasdevice_spi_dev_bulk_read);
-+
-+int tasdevice_spi_dev_update_bits(
-+	struct tasdevice_priv *tas_priv, unsigned short chn,
-+	unsigned int reg, unsigned int mask, unsigned int value)
-+{
-+	int ret = 0;
-+
-+	if (chn  == tas_priv->index) {
-+		struct regmap *map = tas_priv->regmap;
-+
-+		ret = tasdevice_spi_change_chn_book(tas_priv, chn,
-+			TASDEVICE_BOOK_ID(reg));
-+		if (ret < 0)
-+			goto out;
-+
-+		ret = regmap_update_bits(map, TASDEVICE_PGRG(reg),
-+			mask, value);
-+		if (ret < 0)
-+			dev_err(tas_priv->dev, "%s, E=%d\n", __func__, ret);
-+	}
-+
-+out:
-+	return ret;
-+}
-+EXPORT_SYMBOL_GPL(tasdevice_spi_dev_update_bits);
-+
-+static void tas2781_spi_reset(struct tasdevice_priv *tas_dev)
-+{
-+	int ret;
-+
-+	if (tas_dev->reset) {
-+		gpiod_set_value_cansleep(tas_dev->reset, 0);
-+		usleep_range(500, 1000);
-+		gpiod_set_value_cansleep(tas_dev->reset, 1);
-+	} else {
-+		ret = tasdevice_spi_dev_write(tas_dev, tas_dev->index,
-+			TAS2781_REG_SWRESET, TAS2781_REG_SWRESET_RESET);
-+		if (ret < 0)
-+			dev_err(tas_dev->dev, "dev swreset fail, %d\n", ret);
-+	}
-+	usleep_range(1000, 1050);
-+}
-+
-+static int tasdevice_spi_init(struct tasdevice_priv *tas_priv)
-+{
-+	tas_priv->cur_prog = -1;
-+	tas_priv->cur_conf = -1;
-+
-+	tas_priv->tasdevice.cur_book = -1;
-+	tas_priv->tasdevice.cur_prog = -1;
-+	tas_priv->tasdevice.cur_conf = -1;
-+
-+	mutex_init(&tas_priv->codec_lock);
-+
-+	return 0;
-+}
-+
-+static int tasdevice_clamp(int val, int max, unsigned int invert)
-+{
-+	if (val > max)
-+		val = max;
-+	if (invert)
-+		val = max - val;
-+	if (val < 0)
-+		val = 0;
-+	return val;
-+}
-+
-+static int tasdevice_spi_amp_putvol(struct tasdevice_priv *tas_priv,
-+	struct snd_ctl_elem_value *ucontrol, struct soc_mixer_control *mc)
-+{
-+	unsigned int invert = mc->invert;
-+	unsigned char mask;
-+	int max = mc->max;
-+	int val, ret;
-+
-+	mask = (1 << fls(max)) - 1;
-+	mask <<= mc->shift;
-+	val = tasdevice_clamp(ucontrol->value.integer.value[0], max, invert);
-+	ret = tasdevice_spi_dev_update_bits(tas_priv, tas_priv->index,
-+		mc->reg, mask, (unsigned int)(val << mc->shift));
-+	if (ret)
-+		dev_err(tas_priv->dev, "set AMP vol error in dev %d\n",
-+			tas_priv->ndev);
-+
-+	return ret;
-+}
-+
-+static int tasdevice_spi_amp_getvol(struct tasdevice_priv *tas_priv,
-+	struct snd_ctl_elem_value *ucontrol, struct soc_mixer_control *mc)
-+{
-+	unsigned int invert = mc->invert;
-+	unsigned char mask = 0;
-+	int max = mc->max;
-+	int ret, val;
-+
-+	/* Read the primary device */
-+	ret = tasdevice_spi_dev_read(tas_priv, tas_priv->index, mc->reg, &val);
-+	if (ret) {
-+		dev_err(tas_priv->dev, "%s, get AMP vol error\n", __func__);
-+		goto out;
-+	}
-+
-+	mask = (1 << fls(max)) - 1;
-+	mask <<= mc->shift;
-+	val = (val & mask) >> mc->shift;
-+	val = tasdevice_clamp(val, max, invert);
-+	ucontrol->value.integer.value[0] = val;
-+
-+out:
-+	return ret;
-+
-+}
-+
-+static int tasdevice_spi_digital_putvol(struct tasdevice_priv *tas_priv,
-+	struct snd_ctl_elem_value *ucontrol, struct soc_mixer_control *mc)
-+{
-+	unsigned int invert = mc->invert;
-+	int max = mc->max;
-+	int val, ret;
-+
-+	val = tasdevice_clamp(ucontrol->value.integer.value[0], max, invert);
-+
-+	ret = tasdevice_spi_dev_write(tas_priv, tas_priv->index, mc->reg,
-+		(unsigned int)val);
-+	if (ret)
-+		dev_err(tas_priv->dev, "set digital vol err in dev %d\n",
-+			tas_priv->ndev);
-+
-+	return ret;
-+
-+}
-+
-+static int tasdevice_spi_digital_getvol(struct tasdevice_priv *tas_priv,
-+	struct snd_ctl_elem_value *ucontrol, struct soc_mixer_control *mc)
-+{
-+	unsigned int invert = mc->invert;
-+	int max = mc->max;
-+	int ret, val;
-+
-+	/* Read the primary device as the whole */
-+	ret = tasdevice_spi_dev_read(tas_priv, tas_priv->index, mc->reg, &val);
-+	if (ret) {
-+		dev_err(tas_priv->dev, "%s, get digital vol error\n",
-+			__func__);
-+		goto out;
-+	}
-+
-+	val = tasdevice_clamp(val, max, invert);
-+	ucontrol->value.integer.value[0] = val;
-+
-+out:
-+	return ret;
-+
-+}
-+
-+static int tas2781_read_acpi(struct tas2781_hda *tas_hda, const char *hid,
-+	int id)
-+{
-+	struct tasdevice_priv *p = tas_hda->priv;
-+	struct acpi_device *adev;
-+	struct device *physdev;
-+	u32 values[HDA_MAX_COMPONENTS];
-+	const char *sub, *property;
-+	size_t nval;
-+	int ret, i;
-+
-+	/*
-+	 * ACPI_COMPANION isn't available when this driver was instantiated by
-+	 * the serial-multi-instantiate driver, so lookup the node by HID
-+	 */
-+	if (!ACPI_COMPANION(p->dev)) {
-+		adev = acpi_dev_get_first_match_dev(hid, NULL, -1);
-+		if (!adev) {
-+			dev_err(p->dev,
-+				"Failed to find an ACPI device for %s\n",
-+				dev_name(p->dev));
-+			return -ENODEV;
-+		}
-+		ACPI_COMPANION_SET(p->dev, adev);
-+	}
-+	adev = acpi_dev_get_first_match_dev(hid, NULL, -1);
-+	if (!adev) {
-+		dev_err(p->dev,
-+			"Failed to find an ACPI device for %s\n", hid);
-+		return -ENODEV;
-+	}
-+
-+	strscpy(p->dev_name, hid, sizeof(p->dev_name));
-+	physdev = get_device(acpi_get_first_physical_node(adev));
-+	acpi_dev_put(adev);
-+
-+	/* No side-effect to the playback even if subsystem_id is NULL*/
-+	sub = acpi_get_subsystem_id(ACPI_HANDLE(physdev));
-+	if (IS_ERR(sub))
-+		sub = NULL;
-+
-+	p->acpi_subsystem_id = sub;
-+
-+	put_device(physdev);
-+
-+	property = "ti,dev-index";
-+	ret = device_property_count_u32(p->dev, property);
-+	if (ret <= 0)
-+		goto err;
-+
-+	if (ret > ARRAY_SIZE(values)) {
-+		ret = -EINVAL;
-+		goto err;
-+	}
-+	nval = ret;
-+
-+	ret = device_property_read_u32_array(p->dev, property, values, nval);
-+	if (ret)
-+		goto err;
-+
-+	p->index = 0xFF;
-+	for (i = 0; i < nval; i++) {
-+		if (values[i] == id) {
-+			p->index = i;
-+			break;
-+		}
-+	}
-+	/*
-+	 * It's not an error for the ID to be missing: for I2C there can be
-+	 * an alias address that is not a real device. So reject silently.
-+	 */
-+	if (p->ndev == 0xFF) {
-+		dev_dbg(p->dev, "No index found in %s\n", property);
-+		ret = -ENODEV;
-+		goto err;
-+	}
-+
-+	p->reset = devm_gpiod_get_index_optional(p->dev,
-+		"reset", p->ndev, GPIOD_OUT_LOW);
-+	if (IS_ERR(p->reset)) {
-+		ret = PTR_ERR(p->reset);
-+
-+		/*
-+		 * If RESET is shared the first amp to probe will grab the
-+		 * reset line and reset all the amps
-+		 */
-+		if (ret != -EBUSY)
-+			return dev_err_probe(p->dev, ret,
-+				"Failed to get reset GPIO\n");
-+
-+		dev_info(p->dev, "Reset GPIO busy, assume shared reset\n");
-+		p->reset = NULL;
-+	}
-+
-+	return 0;
-+
-+err:
-+	dev_err(p->dev, "read acpi error, ret: %d\n", ret);
-+	acpi_dev_put(adev);
-+
-+	return ret;
-+}
-+
-+static void tas2781_hda_playback_hook(struct device *dev, int action)
-+{
-+	struct tas2781_hda *tas_hda = dev_get_drvdata(dev);
-+
-+	dev_dbg(tas_hda->dev, "%s: action = %d\n", __func__, action);
-+	switch (action) {
-+	case HDA_GEN_PCM_ACT_OPEN:
-+		pm_runtime_get_sync(dev);
-+		mutex_lock(&tas_hda->priv->codec_lock);
-+		tasdevice_tuning_switch(tas_hda->priv, 0);
-+		mutex_unlock(&tas_hda->priv->codec_lock);
-+		break;
-+	case HDA_GEN_PCM_ACT_CLOSE:
-+		mutex_lock(&tas_hda->priv->codec_lock);
-+		tasdevice_tuning_switch(tas_hda->priv, 1);
-+		mutex_unlock(&tas_hda->priv->codec_lock);
-+
-+		pm_runtime_mark_last_busy(dev);
-+		pm_runtime_put_autosuspend(dev);
-+		break;
-+	default:
-+		dev_dbg(tas_hda->dev, "Playback action not supported: %d\n",
-+			action);
-+		break;
-+	}
-+}
-+
-+static int tasdevice_info_profile(struct snd_kcontrol *kcontrol,
-+	struct snd_ctl_elem_info *uinfo)
-+{
-+	struct tasdevice_priv *tas_priv = snd_kcontrol_chip(kcontrol);
-+
-+	uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
-+	uinfo->count = 1;
-+	uinfo->value.integer.min = 0;
-+	uinfo->value.integer.max = tas_priv->rcabin.ncfgs - 1;
-+
-+	return 0;
-+}
-+
-+static int tasdevice_get_profile_id(struct snd_kcontrol *kcontrol,
-+	struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct tasdevice_priv *tas_priv = snd_kcontrol_chip(kcontrol);
-+
-+	ucontrol->value.integer.value[0] = tas_priv->rcabin.profile_cfg_id;
-+
-+	return 0;
-+}
-+
-+static int tasdevice_set_profile_id(struct snd_kcontrol *kcontrol,
-+	struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct tasdevice_priv *tas_priv = snd_kcontrol_chip(kcontrol);
-+	int nr_profile = ucontrol->value.integer.value[0];
-+	int max = tas_priv->rcabin.ncfgs - 1;
-+	int val, ret = 0;
-+
-+	val = clamp(nr_profile, 0, max);
-+
-+	if (tas_priv->rcabin.profile_cfg_id != val) {
-+		tas_priv->rcabin.profile_cfg_id = val;
-+		ret = 1;
-+	}
-+
-+	return ret;
-+}
-+
-+static int tasdevice_info_programs(struct snd_kcontrol *kcontrol,
-+	struct snd_ctl_elem_info *uinfo)
-+{
-+	struct tasdevice_priv *tas_priv = snd_kcontrol_chip(kcontrol);
-+	struct tasdevice_fw *tas_fw = tas_priv->fmw;
-+
-+	uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
-+	uinfo->count = 1;
-+	uinfo->value.integer.min = 0;
-+	uinfo->value.integer.max = tas_fw->nr_programs - 1;
-+
-+	return 0;
-+}
-+
-+static int tasdevice_info_config(struct snd_kcontrol *kcontrol,
-+	struct snd_ctl_elem_info *uinfo)
-+{
-+	struct tasdevice_priv *tas_priv = snd_kcontrol_chip(kcontrol);
-+	struct tasdevice_fw *tas_fw = tas_priv->fmw;
-+
-+	uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
-+	uinfo->count = 1;
-+	uinfo->value.integer.min = 0;
-+	uinfo->value.integer.max = tas_fw->nr_configurations - 1;
-+
-+	return 0;
-+}
-+
-+static int tasdevice_program_get(struct snd_kcontrol *kcontrol,
-+	struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct tasdevice_priv *tas_priv = snd_kcontrol_chip(kcontrol);
-+
-+	ucontrol->value.integer.value[0] = tas_priv->cur_prog;
-+
-+	return 0;
-+}
-+
-+static int tasdevice_program_put(struct snd_kcontrol *kcontrol,
-+	struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct tasdevice_priv *tas_priv = snd_kcontrol_chip(kcontrol);
-+	struct tasdevice_fw *tas_fw = tas_priv->fmw;
-+	int nr_program = ucontrol->value.integer.value[0];
-+	int max = tas_fw->nr_programs - 1;
-+	int val, ret = 0;
-+
-+	val = clamp(nr_program, 0, max);
-+
-+	if (tas_priv->cur_prog != val) {
-+		tas_priv->cur_prog = val;
-+		ret = 1;
-+	}
-+
-+	return ret;
-+}
-+
-+static int tasdevice_config_get(struct snd_kcontrol *kcontrol,
-+	struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct tasdevice_priv *tas_priv = snd_kcontrol_chip(kcontrol);
-+
-+	ucontrol->value.integer.value[0] = tas_priv->cur_conf;
-+
-+	return 0;
-+}
-+
-+static int tasdevice_config_put(struct snd_kcontrol *kcontrol,
-+	struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct tasdevice_priv *tas_priv = snd_kcontrol_chip(kcontrol);
-+	struct tasdevice_fw *tas_fw = tas_priv->fmw;
-+	int nr_config = ucontrol->value.integer.value[0];
-+	int max = tas_fw->nr_configurations - 1;
-+	int val, ret = 0;
-+
-+	val = clamp(nr_config, 0, max);
-+
-+	if (tas_priv->cur_conf != val) {
-+		tas_priv->cur_conf = val;
-+		ret = 1;
-+	}
-+
-+	return ret;
-+}
-+
-+/*
-+ * tas2781_digital_getvol - get the volum control
-+ * @kcontrol: control pointer
-+ * @ucontrol: User data
-+ * Customer Kcontrol for tas2781 is primarily for regmap booking, paging
-+ * depends on internal regmap mechanism.
-+ * tas2781 contains book and page two-level register map, especially
-+ * book switching will set the register BXXP00R7F, after switching to the
-+ * correct book, then leverage the mechanism for paging to access the
-+ * register.
-+ */
-+static int tas2781_digital_getvol(struct snd_kcontrol *kcontrol,
-+	struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct tasdevice_priv *tas_priv = snd_kcontrol_chip(kcontrol);
-+	struct soc_mixer_control *mc =
-+		(struct soc_mixer_control *)kcontrol->private_value;
-+
-+	return tasdevice_spi_digital_getvol(tas_priv, ucontrol, mc);
-+}
-+
-+static int tas2781_amp_getvol(struct snd_kcontrol *kcontrol,
-+	struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct tasdevice_priv *tas_priv = snd_kcontrol_chip(kcontrol);
-+	struct soc_mixer_control *mc =
-+		(struct soc_mixer_control *)kcontrol->private_value;
-+
-+	return tasdevice_spi_amp_getvol(tas_priv, ucontrol, mc);
-+}
-+
-+static int tas2781_digital_putvol(struct snd_kcontrol *kcontrol,
-+	struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct tasdevice_priv *tas_priv = snd_kcontrol_chip(kcontrol);
-+	struct soc_mixer_control *mc =
-+		(struct soc_mixer_control *)kcontrol->private_value;
-+
-+	/* The check of the given value is in tasdevice_digital_putvol. */
-+	return tasdevice_spi_digital_putvol(tas_priv, ucontrol, mc);
-+}
-+
-+static int tas2781_amp_putvol(struct snd_kcontrol *kcontrol,
-+	struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct tasdevice_priv *tas_priv = snd_kcontrol_chip(kcontrol);
-+	struct soc_mixer_control *mc =
-+		(struct soc_mixer_control *)kcontrol->private_value;
-+
-+	/* The check of the given value is in tasdevice_amp_putvol. */
-+	return tasdevice_spi_amp_putvol(tas_priv, ucontrol, mc);
-+}
-+
-+static int tas2781_force_fwload_get(struct snd_kcontrol *kcontrol,
-+	struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct tasdevice_priv *tas_priv = snd_kcontrol_chip(kcontrol);
-+
-+	ucontrol->value.integer.value[0] = (int)tas_priv->force_fwload_status;
-+	dev_dbg(tas_priv->dev, "%s : Force FWload %s\n", __func__,
-+			tas_priv->force_fwload_status ? "ON" : "OFF");
-+
-+	return 0;
-+}
-+
-+static int tas2781_force_fwload_put(struct snd_kcontrol *kcontrol,
-+	struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct tasdevice_priv *tas_priv = snd_kcontrol_chip(kcontrol);
-+	bool change, val = (bool)ucontrol->value.integer.value[0];
-+
-+	if (tas_priv->force_fwload_status == val)
-+		change = false;
-+	else {
-+		change = true;
-+		tas_priv->force_fwload_status = val;
-+	}
-+	dev_dbg(tas_priv->dev, "%s : Force FWload %s\n", __func__,
-+		tas_priv->force_fwload_status ? "ON" : "OFF");
-+
-+	return change;
-+}
-+
-+static const struct snd_kcontrol_new tas2781_snd_controls[] = {
-+	ACARD_SINGLE_RANGE_EXT_TLV("Speaker Analog Gain", TAS2781_AMP_LEVEL,
-+		1, 0, 20, 0, tas2781_amp_getvol,
-+		tas2781_amp_putvol, amp_vol_tlv),
-+	ACARD_SINGLE_RANGE_EXT_TLV("Speaker Digital Gain", TAS2781_DVC_LVL,
-+		0, 0, 200, 1, tas2781_digital_getvol,
-+		tas2781_digital_putvol, dvc_tlv),
-+	ACARD_SINGLE_BOOL_EXT("Speaker Force Firmware Load", 0,
-+		tas2781_force_fwload_get, tas2781_force_fwload_put),
-+};
-+
-+static const struct snd_kcontrol_new tas2781_prof_ctrl = {
-+	.name = "Speaker Profile Id",
-+	.iface = SNDRV_CTL_ELEM_IFACE_CARD,
-+	.info = tasdevice_info_profile,
-+	.get = tasdevice_get_profile_id,
-+	.put = tasdevice_set_profile_id,
-+};
-+
-+static const struct snd_kcontrol_new tas2781_dsp_prog_ctrl = {
-+	.name = "Speaker Program Id",
-+	.iface = SNDRV_CTL_ELEM_IFACE_CARD,
-+	.info = tasdevice_info_programs,
-+	.get = tasdevice_program_get,
-+	.put = tasdevice_program_put,
-+};
-+
-+static const struct snd_kcontrol_new tas2781_dsp_conf_ctrl = {
-+	.name = "Speaker Config Id",
-+	.iface = SNDRV_CTL_ELEM_IFACE_CARD,
-+	.info = tasdevice_info_config,
-+	.get = tasdevice_config_get,
-+	.put = tasdevice_config_put,
-+};
-+
-+static void tas2781_apply_calib(struct tasdevice_priv *tas_priv)
-+{
-+	static const unsigned char page_array[CALIB_MAX] = {
-+		0x17, 0x18, 0x18, 0x13, 0x18
-+	};
-+	static const unsigned char rgno_array[CALIB_MAX] = {
-+		0x74, 0x0c, 0x14, 0x70, 0x7c
-+	};
-+	unsigned char *data;
-+	int j, rc;
-+
-+	data = tas_priv->cali_data.data +
-+		tas_priv->ndev * TASDEVICE_SPEAKER_CALIBRATION_SIZE;
-+	for (j = 0; j < CALIB_MAX; j++) {
-+		rc = tasdevice_spi_dev_bulk_write(tas_priv, tas_priv->index,
-+			TASDEVICE_REG(0, page_array[j], rgno_array[j]),
-+			&(data[4 * j]), 4);
-+		if (rc < 0)
-+			dev_err(tas_priv->dev,
-+				"chn %d calib %d bulk_wr err = %d\n",
-+				tas_priv->ndev, j, rc);
-+	}
-+
-+}
-+
-+/* Update the calibration data, including speaker impedance, f0, etc,
-+ * into algo. Calibrate data is done by manufacturer in the factory.
-+ * These data are used by Algo for calculating the speaker temperature,
-+ * speaker membrane excursion and f0 in real time during playback.
-+ * Calibration data format in EFI is V2, since 2024.
-+ */
-+static int tas2781_save_calibration(struct tasdevice_priv *tas_priv)
-+{
-+	efi_guid_t efi_guid = EFI_GUID(0x02f9af02, 0x7734, 0x4233, 0xb4, 0x3d,
-+		0x93, 0xfe, 0x5a, 0xa3, 0x5d, 0xb3);
-+	static efi_char16_t efi_name[] = L"CALI_DATA";
-+	struct tm *tm = &tas_priv->tm;
-+	unsigned int attr, crc;
-+	unsigned int *tmp_val;
-+	efi_status_t status;
-+
-+	tas_priv->cali_data.total_sz = 0;
-+	/* Get real size of UEFI variable */
-+	status = efi.get_variable(efi_name, &efi_guid, &attr,
-+		&tas_priv->cali_data.total_sz, tas_priv->cali_data.data);
-+	if (status == EFI_BUFFER_TOO_SMALL) {
-+		/* Allocate data buffer of data_size bytes */
-+		tas_priv->cali_data.data = devm_kzalloc(tas_priv->dev,
-+			tas_priv->cali_data.total_sz, GFP_KERNEL);
-+		if (!tas_priv->cali_data.data)
-+			return -ENOMEM;
-+		/* Get variable contents into buffer */
-+		status = efi.get_variable(efi_name, &efi_guid, &attr,
-+			&tas_priv->cali_data.total_sz,
-+			tas_priv->cali_data.data);
-+	}
-+	if (status != EFI_SUCCESS)
-+		return -EINVAL;
-+
-+	tmp_val = (unsigned int *)tas_priv->cali_data.data;
-+	if (tmp_val[0] == 2781) {
-+		/* Calibration data is in V2 format.
-+		 * struct cali_data {
-+		 *      short link_id;
-+		 *      short unique_id;
-+		 *      char cali_data[20];
-+		 *}
-+		 *
-+		 * struct {
-+		 *      int ChipID;
-+		 *      int Device-Sum (4 bytes)
-+		 *      int  TimeStamp of Calibration (4 bytes)
-+		 *
-+		 *      struct cali_data cali_data[Device-Sum];
-+		 *      int CRC (4 bytes)
-+		 * } ueft;
-+		 */
-+		crc = crc32(~0, tas_priv->cali_data.data,
-+			3 + tmp_val[0]  * 6) ^ ~0;
-+		dev_dbg(tas_priv->dev, "cali crc 0x%08x PK tmp_val 0x%08x\n",
-+			crc, tmp_val[3+tmp_val[0]*6]);
-+
-+		if (crc == tmp_val[3+tmp_val[0]*6]) {
-+			time64_to_tm(tmp_val[2], 0, tm);
-+			dev_dbg(tas_priv->dev, "%4ld-%2d-%2d, %2d:%2d:%2d\n",
-+				tm->tm_year, tm->tm_mon, tm->tm_mday,
-+				tm->tm_hour, tm->tm_min, tm->tm_sec);
-+			tasdevice_apply_calibration(tas_priv);
-+		} else {
-+			tas_priv->cali_data.total_sz = 0;
-+		}
-+	} else {
-+		/* Calibration data is in V1 format.
-+		 * struct cali_data {
-+		 *      char cali_data[20];
-+		 * }
-+		 *
-+		 * struct {
-+		 *      struct cali_data cali_data[4];
-+		 *      int  TimeStamp of Calibration (4 bytes)
-+		 *      int CRC (4 bytes)
-+		 * } ueft;
-+		 */
-+		crc = crc32(~0, tas_priv->cali_data.data, 84) ^ ~0;
-+		dev_dbg(tas_priv->dev, "cali crc 0x%08x PK tmp_val 0x%08x\n",
-+			crc, tmp_val[21]);
-+
-+		if (crc == tmp_val[21]) {
-+			time64_to_tm(tmp_val[20], 0, tm);
-+			dev_dbg(tas_priv->dev, "%4ld-%2d-%2d, %2d:%2d:%2d\n",
-+				tm->tm_year, tm->tm_mon, tm->tm_mday,
-+				tm->tm_hour, tm->tm_min, tm->tm_sec);
-+			tasdevice_apply_calibration(tas_priv);
-+		} else
-+			tas_priv->cali_data.total_sz = 0;
-+	}
-+	return 0;
-+}
-+
-+static void tas2781_hda_remove_controls(struct tas2781_hda *tas_hda)
-+{
-+	struct hda_codec *codec = tas_hda->priv->codec;
-+
-+	if (tas_hda->dsp_prog_ctl)
-+		snd_ctl_remove(codec->card, tas_hda->dsp_prog_ctl);
-+
-+	if (tas_hda->dsp_conf_ctl)
-+		snd_ctl_remove(codec->card, tas_hda->dsp_conf_ctl);
-+
-+	for (int i = ARRAY_SIZE(tas_hda->snd_ctls) - 1; i >= 0; i--)
-+		if (tas_hda->snd_ctls[i])
-+			snd_ctl_remove(codec->card, tas_hda->snd_ctls[i]);
-+
-+	if (tas_hda->prof_ctl)
-+		snd_ctl_remove(codec->card, tas_hda->prof_ctl);
-+}
-+
-+static void tasdev_fw_ready(const struct firmware *fmw, void *context)
-+{
-+	struct tasdevice_priv *tas_priv = context;
-+	struct tas2781_hda *tas_hda = dev_get_drvdata(tas_priv->dev);
-+	struct hda_codec *codec = tas_priv->codec;
-+	int i, ret;
-+
-+	pm_runtime_get_sync(tas_priv->dev);
-+	mutex_lock(&tas_priv->codec_lock);
-+
-+	ret = tasdevice_spi_rca_parser(tas_priv, fmw);
-+	if (ret)
-+		goto out;
-+
-+	tas_hda->prof_ctl = snd_ctl_new1(&tas2781_prof_ctrl, tas_priv);
-+	ret = snd_ctl_add(codec->card, tas_hda->prof_ctl);
-+	if (ret) {
-+		dev_err(tas_priv->dev,
-+			"Failed to add KControl %s = %d\n",
-+			tas2781_prof_ctrl.name, ret);
-+		goto out;
-+	}
-+
-+	for (i = 0; i < ARRAY_SIZE(tas2781_snd_controls); i++) {
-+		tas_hda->snd_ctls[i] = snd_ctl_new1(&tas2781_snd_controls[i],
-+			tas_priv);
-+		ret = snd_ctl_add(codec->card, tas_hda->snd_ctls[i]);
-+		if (ret) {
-+			dev_err(tas_priv->dev,
-+				"Failed to add KControl %s = %d\n",
-+				tas2781_snd_controls[i].name, ret);
-+			goto out;
-+		}
-+	}
-+
-+	tasdevice_dsp_remove(tas_priv);
-+
-+	tas_priv->fw_state = TASDEVICE_DSP_FW_PENDING;
-+	scnprintf(tas_priv->coef_binaryname, 64, "TAS2XXX%04X-%01d.bin",
-+		codec->core.subsystem_id & 0xffff, tas_priv->index);
-+	dev_info(tas_priv->dev, "Binary %s.\n", tas_priv->coef_binaryname);
-+	ret = tasdevice_dsp_parser(tas_priv);
-+	if (ret) {
-+		dev_err(tas_priv->dev, "dspfw load %s error\n",
-+			tas_priv->coef_binaryname);
-+		tas_priv->fw_state = TASDEVICE_DSP_FW_FAIL;
-+		goto out;
-+	}
-+
-+	tas_hda->dsp_prog_ctl = snd_ctl_new1(&tas2781_dsp_prog_ctrl,
-+		tas_priv);
-+	ret = snd_ctl_add(codec->card, tas_hda->dsp_prog_ctl);
-+	if (ret) {
-+		dev_err(tas_priv->dev,
-+			"Failed to add KControl %s = %d\n",
-+			tas2781_dsp_prog_ctrl.name, ret);
-+		goto out;
-+	}
-+
-+	tas_hda->dsp_conf_ctl = snd_ctl_new1(&tas2781_dsp_conf_ctrl,
-+		tas_priv);
-+	ret = snd_ctl_add(codec->card, tas_hda->dsp_conf_ctl);
-+	if (ret) {
-+		dev_err(tas_priv->dev,
-+			"Failed to add KControl %s = %d\n",
-+			tas2781_dsp_conf_ctrl.name, ret);
-+		goto out;
-+	}
-+
-+	tas_priv->fw_state = TASDEVICE_DSP_FW_ALL_OK;
-+	tasdevice_prmg_load(tas_priv, 0);
-+	if (tas_priv->fmw->nr_programs > 0)
-+		tas_priv->cur_prog = 0;
-+	if (tas_priv->fmw->nr_configurations > 0)
-+		tas_priv->cur_conf = 0;
-+
-+	/* If calibrated data occurs error, dsp will still works with default
-+	 * calibrated data inside algo.
-+	 */
-+	tasdevice_save_calibration(tas_priv);
-+
-+	tasdevice_tuning_switch(tas_hda->priv, 0);
-+
-+out:
-+	mutex_unlock(&tas_hda->priv->codec_lock);
-+	if (fmw)
-+		release_firmware(fmw);
-+	pm_runtime_mark_last_busy(tas_hda->dev);
-+	pm_runtime_put_autosuspend(tas_hda->dev);
-+}
-+
-+static int tas2781_hda_bind(struct device *dev, struct device *master,
-+	void *master_data)
-+{
-+	struct tas2781_hda *tas_hda = dev_get_drvdata(dev);
-+	struct hda_component *comps = master_data;
-+	struct hda_codec *codec;
-+	unsigned int subid;
-+	int ret;
-+
-+	if (!comps || tas_hda->priv->index < 0 ||
-+		tas_hda->priv->index >= HDA_MAX_COMPONENTS)
-+		return -EINVAL;
-+
-+	comps = &comps[tas_hda->priv->index];
-+	if (comps->dev)
-+		return -EBUSY;
-+
-+	codec = comps->codec;
-+	subid = codec->core.subsystem_id >> 16;
-+
-+	switch (subid) {
-+	case 0x103C:
-+		tas_hda->priv->catlog_id = HP;
-+		break;
-+	default:
-+		tas_hda->priv->catlog_id = OTHERS;
-+		break;
-+	}
-+
-+	pm_runtime_get_sync(dev);
-+
-+	comps->dev = dev;
-+
-+	strscpy(comps->name, dev_name(dev), sizeof(comps->name));
-+
-+	dev_info(dev, "Bind %d.%d.\n", subid, (int)tas_hda->priv->catlog_id);
-+	ret = tascodec_init(tas_hda->priv, codec, THIS_MODULE,
-+		tasdev_fw_ready);
-+	if (!ret)
-+		comps->playback_hook = tas2781_hda_playback_hook;
-+
-+	pm_runtime_mark_last_busy(dev);
-+	pm_runtime_put_autosuspend(dev);
-+
-+	return ret;
-+}
-+
-+static void tas2781_hda_unbind(struct device *dev,
-+	struct device *master, void *master_data)
-+{
-+	struct tas2781_hda *tas_hda = dev_get_drvdata(dev);
-+	struct hda_component *comps = master_data;
-+
-+	comps = &comps[tas_hda->priv->index];
-+
-+	if (comps->dev == dev) {
-+		comps->dev = NULL;
-+		memset(comps->name, 0, sizeof(comps->name));
-+		comps->playback_hook = NULL;
-+	}
-+
-+	tas2781_hda_remove_controls(tas_hda);
-+
-+	tasdevice_config_info_remove(tas_hda->priv);
-+	tasdevice_dsp_remove(tas_hda->priv);
-+
-+	tas_hda->priv->fw_state = TASDEVICE_DSP_FW_PENDING;
-+}
-+
-+static const struct component_ops tas2781_hda_comp_ops = {
-+	.bind = tas2781_hda_bind,
-+	.unbind = tas2781_hda_unbind,
-+};
-+
-+static void tas2781_hda_remove(struct device *dev)
-+{
-+	struct tas2781_hda *tas_hda = dev_get_drvdata(dev);
-+
-+	pm_runtime_get_sync(tas_hda->dev);
-+	pm_runtime_disable(tas_hda->dev);
-+
-+	component_del(tas_hda->dev, &tas2781_hda_comp_ops);
-+
-+	pm_runtime_put_noidle(tas_hda->dev);
-+
-+	tasdevice_remove(tas_hda->priv);
-+}
-+
-+static int tas2781_hda_spi_probe(struct spi_device *spi)
-+{
-+	struct tas2781_hda *tas_hda;
-+	struct tasdevice_priv *tas_priv;
-+	const char *device_name;
-+	int ret;
-+
-+	tas_hda = devm_kzalloc(&spi->dev, sizeof(*tas_hda), GFP_KERNEL);
-+	if (!tas_hda)
-+		return -ENOMEM;
-+
-+	dev_set_drvdata(&spi->dev, tas_hda);
-+	tas_hda->dev = &spi->dev;
-+
-+	tas_priv = devm_kzalloc(&spi->dev, sizeof(*tas_priv), GFP_KERNEL);
-+	if (!tas_priv)
-+		return -ENOMEM;
-+	tas_priv->dev = &spi->dev;
-+	tas_priv->client = (void *)spi;
-+	tas_hda->priv = tas_priv;
-+
-+	if (strstr(dev_name(&spi->dev), "TXNW2781")) {
-+		device_name = "TXNW2781";
-+		tas_hda->priv->save_calibration = tas2781_save_calibration;
-+		tas_hda->priv->apply_calibration = tas2781_apply_calib;
-+	} else
-+		return -ENODEV;
-+
-+	tas_hda->priv->irq_info.irq = spi->irq;
-+	ret = tas2781_read_acpi(tas_hda, device_name,
-+		spi_get_chipselect(spi, 0));
-+	if (ret)
-+		return dev_err_probe(tas_hda->dev, ret,
-+			"Platform not supported\n");
-+
-+	tas_hda->priv->regmap = devm_regmap_init_spi(spi, &tasdevice_regmap);
-+	if (IS_ERR(tas_hda->priv->regmap)) {
-+		ret = PTR_ERR(tas_hda->priv->regmap);
-+		dev_err(tas_priv->dev, "Failed to allocate regmap: %d\n",
-+			ret);
-+		goto err;
-+	}
-+	ret = tasdevice_spi_init(tas_hda->priv);
-+	if (ret)
-+		goto err;
-+
-+	pm_runtime_set_autosuspend_delay(tas_hda->dev, 3000);
-+	pm_runtime_use_autosuspend(tas_hda->dev);
-+	pm_runtime_mark_last_busy(tas_hda->dev);
-+	pm_runtime_set_active(tas_hda->dev);
-+	pm_runtime_get_noresume(tas_hda->dev);
-+	pm_runtime_enable(tas_hda->dev);
-+
-+	pm_runtime_put_autosuspend(tas_hda->dev);
-+
-+	tas2781_spi_reset(tas_hda->priv);
-+
-+	ret = component_add(tas_hda->dev, &tas2781_hda_comp_ops);
-+	if (ret) {
-+		dev_err(tas_hda->dev, "Register component failed: %d\n", ret);
-+		pm_runtime_disable(tas_hda->dev);
-+	}
-+
-+err:
-+	if (ret)
-+		tas2781_hda_remove(&spi->dev);
-+	return ret;
-+}
-+
-+static void tas2781_hda_spi_remove(struct spi_device *spi)
-+{
-+	tas2781_hda_remove(&spi->dev);
-+}
-+
-+static int tas2781_runtime_suspend(struct device *dev)
-+{
-+	struct tas2781_hda *tas_hda = dev_get_drvdata(dev);
-+
-+	dev_dbg(tas_hda->dev, "Runtime Suspend\n");
-+
-+	mutex_lock(&tas_hda->priv->codec_lock);
-+
-+	if (tas_hda->priv->playback_started) {
-+		tasdevice_tuning_switch(tas_hda->priv, 1);
-+		tas_hda->priv->playback_started = false;
-+	}
-+
-+	tas_hda->priv->tasdevice.cur_book = -1;
-+	tas_hda->priv->tasdevice.cur_prog = -1;
-+	tas_hda->priv->tasdevice.cur_conf = -1;
-+
-+	mutex_unlock(&tas_hda->priv->codec_lock);
-+
-+	return 0;
-+}
-+
-+static int tas2781_runtime_resume(struct device *dev)
-+{
-+	struct tas2781_hda *tas_hda = dev_get_drvdata(dev);
-+
-+	dev_dbg(tas_hda->dev, "Runtime Resume\n");
-+
-+	mutex_lock(&tas_hda->priv->codec_lock);
-+
-+	tasdevice_prmg_load(tas_hda->priv, tas_hda->priv->cur_prog);
-+
-+	/* If calibrated data occurs error, dsp will still works with default
-+	 * calibrated data inside algo.
-+	 */
-+	tasdevice_apply_calibration(tas_hda->priv);
-+
-+	mutex_unlock(&tas_hda->priv->codec_lock);
-+
-+	return 0;
-+}
-+
-+static int tas2781_system_suspend(struct device *dev)
-+{
-+	struct tas2781_hda *tas_hda = dev_get_drvdata(dev);
-+	int ret;
-+
-+	dev_dbg(tas_hda->priv->dev, "System Suspend\n");
-+
-+	ret = pm_runtime_force_suspend(dev);
-+	if (ret)
-+		return ret;
-+
-+	/* Shutdown chip before system suspend */
-+	tasdevice_tuning_switch(tas_hda->priv, 1);
-+
-+	/*
-+	 * Reset GPIO may be shared, so cannot reset here.
-+	 * However beyond this point, amps may be powered down.
-+	 */
-+	return 0;
-+}
-+
-+static int tas2781_system_resume(struct device *dev)
-+{
-+	struct tas2781_hda *tas_hda = dev_get_drvdata(dev);
-+	int ret;
-+
-+	dev_info(tas_hda->priv->dev, "System Resume\n");
-+
-+	ret = pm_runtime_force_resume(dev);
-+	if (ret)
-+		return ret;
-+
-+	mutex_lock(&tas_hda->priv->codec_lock);
-+
-+	tas_hda->priv->tasdevice.cur_book = -1;
-+	tas_hda->priv->tasdevice.cur_prog = -1;
-+	tas_hda->priv->tasdevice.cur_conf = -1;
-+
-+	tas2781_spi_reset(tas_hda->priv);
-+	tasdevice_prmg_load(tas_hda->priv, tas_hda->priv->cur_prog);
-+
-+	/* If calibrated data occurs error, dsp will still work with default
-+	 * calibrated data inside algo.
-+	 */
-+	tasdevice_apply_calibration(tas_hda->priv);
-+	mutex_unlock(&tas_hda->priv->codec_lock);
-+
-+	return 0;
-+}
-+
-+static const struct dev_pm_ops tas2781_hda_pm_ops = {
-+	RUNTIME_PM_OPS(tas2781_runtime_suspend, tas2781_runtime_resume, NULL)
-+	SYSTEM_SLEEP_PM_OPS(tas2781_system_suspend, tas2781_system_resume)
-+};
-+
-+static const struct spi_device_id tas2781_hda_spi_id[] = {
-+	{ "tas2781-hda", 0 },
-+	{}
-+};
-+
-+static const struct acpi_device_id tas2781_acpi_hda_match[] = {
-+	{"TXNW2781", 0 },
-+	{}
-+};
-+MODULE_DEVICE_TABLE(acpi, tas2781_acpi_hda_match);
-+
-+static struct spi_driver tas2781_hda_spi_driver = {
-+	.driver = {
-+		.name		= "tas2781-hda",
-+		.acpi_match_table = tas2781_acpi_hda_match,
-+		.pm		= &tas2781_hda_pm_ops,
-+	},
-+	.id_table	= tas2781_hda_spi_id,
-+	.probe		= tas2781_hda_spi_probe,
-+	.remove		= tas2781_hda_spi_remove,
-+};
-+module_spi_driver(tas2781_hda_spi_driver);
-+
-+MODULE_DESCRIPTION("TAS2781 HDA Driver");
-+MODULE_AUTHOR("Baojun Xu, TI, <baojun.xu@ti.com>");
-+MODULE_LICENSE("GPL");
-+MODULE_IMPORT_NS(SND_SOC_TAS2781_FMWLIB);
--- 
-2.40.1
-
+PiA+IGRpZmYgLS1naXQgYS9zb3VuZC9zb2MvY2Rucy9LY29uZmlnIGIvc291bmQvc29jL2NkbnMv
+S2NvbmZpZyBuZXcgZmlsZQ0KPiA+IG1vZGUgMTAwNjQ0IGluZGV4IDAwMDAwMDAwMDAwMC4uNjFl
+ZjcxOGViZmU3DQo+ID4gLS0tIC9kZXYvbnVsbA0KPiA+ICsrKyBiL3NvdW5kL3NvYy9jZG5zL0tj
+b25maWcNCj4gPiBAQCAtMCwwICsxLDE4IEBADQo+ID4gKyMgU1BEWC1MaWNlbnNlLUlkZW50aWZp
+ZXI6IEdQTC0yLjAtb25seSBjb25maWcgU05EX1NPQ19DQURFTkNFX0kyU19NQw0KPiA+ICsgICAg
+ICAgIHRyaXN0YXRlICJDYWRlbmNlIEkyUyBNdWx0aS1DaGFubmVsIENvbnRyb2xsZXIgRGV2aWNl
+IERyaXZlciINCj4gPiArCWRlcGVuZHMgb24gSEFWRV9DTEsNCj4gDQo+IGluZGVudGF0aW9uIGlz
+IG9mZg0KDQpXaWxsIGZpeC4gVGhhbmtzLg0KDQo+IA0KPiA+ICsgICAgICAgIHNlbGVjdCBTTkRf
+U09DX0dFTkVSSUNfRE1BRU5HSU5FX1BDTQ0KPiA+ICsgICAgICAgIGhlbHANCj4gPiArICAgICAg
+ICAgU2F5IFkgb3IgTSBpZiB5b3Ugd2FudCB0byBhZGQgc3VwcG9ydCBmb3IgSTJTIGRyaXZlciBm
+b3IgdGhlDQo+ID4gKyAgICAgICAgIENhZGVuY2UgTXVsdGktQ2hhbm5lbCBJMlMgQ29udHJvbGxl
+ciBkZXZpY2UuIFRoZSBkZXZpY2Ugc3VwcG9ydHMNCj4gPiArICAgICAgICAgdXAgdG8gYSBtYXhp
+bXVtIG9mIDggY2hhbm5lbHMgZWFjaCBmb3IgcGxheSBhbmQgcmVjb3JkLg0KPiANCj4gPiArLy8g
+U1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjANCj4gPiArLyoNCj4gPiArICogQ2FkZW5j
+ZSBNdWx0aS1DaGFubmVsIEkyUyBjb250cm9sbGVyIFBDTSBkcml2ZXINCj4gPiArICoNCj4gPiAr
+ICogQ29weXJpZ2h0IChjKSAyMDIyLTIwMjMgU3RhckZpdmUgVGVjaG5vbG9neSBDby4sIEx0ZC4N
+Cj4gDQo+IDIwMjQ/DQoNCldpbGwgZml4Lg0KDQo+IA0KPiA+ICsgKi8NCj4gPiArDQo+ID4gKyNp
+bmNsdWRlIDxsaW51eC9pby5oPg0KPiA+ICsjaW5jbHVkZSA8bGludXgvcmN1cGRhdGUuaD4NCj4g
+PiArI2luY2x1ZGUgPHNvdW5kL3BjbV9wYXJhbXMuaD4NCj4gPiArI2luY2x1ZGUgImNkbnMtaTJz
+LW1jLmgiDQo+ID4gKw0KPiA+ICsjZGVmaW5lIFBFUklPRF9CWVRFU19NSU4JNDA5Ng0KPiA+ICsj
+ZGVmaW5lIEJVRkZFUl9CWVRFU19NQVgJKDMgKiAyICogOCAqIFBFUklPRF9CWVRFU19NSU4pDQo+
+IA0KPiB3aGF0IGFyZSB0aG9zZSAzIGFuZCAyIGFuZCA4IGZhY3RvcnM/IGEgY29tbWVudCBvciB0
+aGUgdXNlIG9mIG1hY3JvcyB3b3VsZCBoZWxwLg0KDQpXaWxsIGZpeC4NCg0KPiANCj4gPiArI2Rl
+ZmluZSBQRVJJT0RTX01JTgkJMg0KPiA+ICsNCj4gPiArc3RhdGljIHVuc2lnbmVkIGludCBjZG5z
+X2kyc19wY21fdHgoc3RydWN0IGNkbnNfaTJzX2RldiAqZGV2LA0KPiA+ICsJCQkJICAgIHN0cnVj
+dCBzbmRfcGNtX3J1bnRpbWUgKnJ1bnRpbWUsDQo+ID4gKwkJCQkgICAgdW5zaWduZWQgaW50IHR4
+X3B0ciwgYm9vbCAqcGVyaW9kX2VsYXBzZWQsDQo+ID4gKwkJCQkgICAgc25kX3BjbV9mb3JtYXRf
+dCBmb3JtYXQpDQo+ID4gK3sNCj4gPiArCXVuc2lnbmVkIGludCBwZXJpb2RfcG9zID0gdHhfcHRy
+ICUgcnVudGltZS0+cGVyaW9kX3NpemU7DQo+IA0KPiBub3QgZm9sbG93aW5nIHdoYXQgdGhlIG1v
+ZHVsbyBpcyBmb3IsIHVzdWFsbHkgaXQncyBtb2R1bG8gdGhlIGJ1ZmZlciBzaXplPw0KDQpUaGlz
+IGlzIHRvIHNlZSBpZiB0aGUgbmV3IGRhdGEgaXMgZGl2aXNpYmxlIGJ5IHBlcmlvZF9zaXplIGFu
+ZCB0byBkZXRlcm1pbmUgd2hldGhlcg0KaXQgaXMgZW5vdWdoIGZvciBhIHBlcmlvZF9zaXplIGlu
+IHRoZSBsYXRlciBsb29wLg0KDQo+IA0KPiA+ICsJY29uc3QgdTE2ICgqcDE2KVsyXSA9ICh2b2lk
+ICopcnVudGltZS0+ZG1hX2FyZWE7DQo+ID4gKwljb25zdCB1MzIgKCpwMzIpWzJdID0gKHZvaWQg
+KilydW50aW1lLT5kbWFfYXJlYTsNCj4gPiArCXUzMiBkYXRhWzJdOw0KPiA+ICsJaW50IGk7DQo+
+ID4gKw0KPiA+ICsJZm9yIChpID0gMDsgaSA8IENETlNfSTJTX0ZJRk9fREVQVEg7IGkrKykgew0K
+PiA+ICsJCWlmIChmb3JtYXQgPT0gU05EUlZfUENNX0ZPUk1BVF9TMTZfTEUpIHsNCj4gPiArCQkJ
+ZGF0YVswXSA9IHAxNlt0eF9wdHJdWzBdOw0KPiA+ICsJCQlkYXRhWzFdID0gcDE2W3R4X3B0cl1b
+MV07DQo+ID4gKwkJfSBlbHNlIGlmIChmb3JtYXQgPT0gU05EUlZfUENNX0ZPUk1BVF9TMzJfTEUp
+IHsNCj4gPiArCQkJZGF0YVswXSA9IHAzMlt0eF9wdHJdWzBdOw0KPiA+ICsJCQlkYXRhWzFdID0g
+cDMyW3R4X3B0cl1bMV07DQo+ID4gKwkJfQ0KPiANCj4gd2hhdCBhYm91dCBvdGhlciBmb3JtYXRz
+IGltcGxpZWQgYnkgdGhlIHVzZSBvZiAnZWxzZSBpZicgPw0KDQpJIHRoaW5rIEkganVzdCBzdXBw
+b3J0IFMxNl9MRSBhbmQgUzMyX0xFIGluIHRoZSBzbmRfc29jX2RhaV9kcml2ZXIgc3RydWN0LA0K
+YW5kIEFMU0EgZGV2aWNlIHdpbGwgZmlsdGVyIG91dCBvdGhlciBmb3JtYXRzIGZvciBtZSwgc28g
+SSBkaWRuJ3QgYWRkIHRoZW0uDQpEbyBJIHN0aWxsIGhhdmUgdG8gYWRkIHRoZSBvdGhlciBjYXNl
+Pw0KCQ0KPiA+ICsNCj4gPiArCQlpb3dyaXRlMzIoZGF0YVswXSwgZGV2LT5iYXNlICsgQ0ROU19G
+SUZPX01FTSk7DQo+ID4gKwkJaW93cml0ZTMyKGRhdGFbMV0sIGRldi0+YmFzZSArIENETlNfRklG
+T19NRU0pOw0KPiA+ICsJCXBlcmlvZF9wb3MrKzsNCj4gPiArCQlpZiAoKyt0eF9wdHIgPj0gcnVu
+dGltZS0+YnVmZmVyX3NpemUpDQo+ID4gKwkJCXR4X3B0ciA9IDA7DQo+ID4gKwl9DQo+ID4gKw0K
+PiA+ICsJKnBlcmlvZF9lbGFwc2VkID0gcGVyaW9kX3BvcyA+PSBydW50aW1lLT5wZXJpb2Rfc2l6
+ZTsNCj4gPiArCXJldHVybiB0eF9wdHI7DQo+ID4gK30NCj4gDQo+ID4gK3N0YXRpYyB2b2lkIGNk
+bnNfaTJzX3BjbV90cmFuc2ZlcihzdHJ1Y3QgY2Ruc19pMnNfZGV2ICpkZXYsIGJvb2wNCj4gPiAr
+cHVzaCkNCj4gDQo+ICdwdXNoJyByZWFsbHkgbWVhbnMgJ3R4JyBzbyB3aGF0IG5vdCB1c2UgYSBz
+aW1wbGVyIG5hbWluZz8NCg0KV2lsbCBmaXguDQoNCj4gDQo+ID4gK3sNCj4gPiArCXN0cnVjdCBz
+bmRfcGNtX3N1YnN0cmVhbSAqc3Vic3RyZWFtOw0KPiA+ICsJYm9vbCBhY3RpdmUsIHBlcmlvZF9l
+bGFwc2VkOw0KPiA+ICsNCj4gPiArCXJjdV9yZWFkX2xvY2soKTsNCj4gPiArCWlmIChwdXNoKQ0K
+PiA+ICsJCXN1YnN0cmVhbSA9IHJjdV9kZXJlZmVyZW5jZShkZXYtPnR4X3N1YnN0cmVhbSk7DQo+
+ID4gKwllbHNlDQo+ID4gKwkJc3Vic3RyZWFtID0gcmN1X2RlcmVmZXJlbmNlKGRldi0+cnhfc3Vi
+c3RyZWFtKTsNCj4gPiArDQo+ID4gKwlhY3RpdmUgPSBzdWJzdHJlYW0gJiYgc25kX3BjbV9ydW5u
+aW5nKHN1YnN0cmVhbSk7DQo+ID4gKwlpZiAoYWN0aXZlKSB7DQo+ID4gKwkJdW5zaWduZWQgaW50
+IHB0cjsNCj4gPiArCQl1bnNpZ25lZCBpbnQgbmV3X3B0cjsNCj4gPiArDQo+ID4gKwkJaWYgKHB1
+c2gpIHsNCj4gPiArCQkJcHRyID0gUkVBRF9PTkNFKGRldi0+dHhfcHRyKTsNCj4gPiArCQkJbmV3
+X3B0ciA9IGRldi0+dHhfZm4oZGV2LCBzdWJzdHJlYW0tPnJ1bnRpbWUsIHB0ciwNCj4gPiArCQkJ
+CQkgICAgICZwZXJpb2RfZWxhcHNlZCwgZGV2LT5mb3JtYXQpOw0KPiA+ICsJCQljbXB4Y2hnKCZk
+ZXYtPnR4X3B0ciwgcHRyLCBuZXdfcHRyKTsNCj4gPiArCQl9IGVsc2Ugew0KPiA+ICsJCQlwdHIg
+PSBSRUFEX09OQ0UoZGV2LT5yeF9wdHIpOw0KPiA+ICsJCQluZXdfcHRyID0gZGV2LT5yeF9mbihk
+ZXYsIHN1YnN0cmVhbS0+cnVudGltZSwgcHRyLA0KPiA+ICsJCQkJCSAgICAgJnBlcmlvZF9lbGFw
+c2VkLCBkZXYtPmZvcm1hdCk7DQo+ID4gKwkJCWNtcHhjaGcoJmRldi0+cnhfcHRyLCBwdHIsIG5l
+d19wdHIpOw0KPiA+ICsJCX0NCj4gPiArDQo+ID4gKwkJaWYgKHBlcmlvZF9lbGFwc2VkKQ0KPiA+
+ICsJCQlzbmRfcGNtX3BlcmlvZF9lbGFwc2VkKHN1YnN0cmVhbSk7DQo+ID4gKwl9DQo+ID4gKwly
+Y3VfcmVhZF91bmxvY2soKTsNCj4gPiArfQ0KPiA+ICsNCj4gPiArdm9pZCBjZG5zX2kyc19wY21f
+cHVzaF90eChzdHJ1Y3QgY2Ruc19pMnNfZGV2ICpkZXYpIHsNCj4gPiArCWNkbnNfaTJzX3BjbV90
+cmFuc2ZlcihkZXYsIHRydWUpOw0KPiA+ICt9DQo+ID4gKw0KPiA+ICt2b2lkIGNkbnNfaTJzX3Bj
+bV9wb3Bfcngoc3RydWN0IGNkbnNfaTJzX2RldiAqZGV2KSB7DQo+ID4gKwljZG5zX2kyc19wY21f
+dHJhbnNmZXIoZGV2LCBmYWxzZSk7DQo+ID4gK30NCj4gPiArDQo+ID4gK3N0YXRpYyBpbnQgY2Ru
+c19pMnNfcGNtX29wZW4oc3RydWN0IHNuZF9zb2NfY29tcG9uZW50ICpjb21wb25lbnQsDQo+ID4g
+KwkJCSAgICAgc3RydWN0IHNuZF9wY21fc3Vic3RyZWFtICpzdWJzdHJlYW0pIHsNCj4gPiArCXN0
+cnVjdCBzbmRfcGNtX3J1bnRpbWUgKnJ1bnRpbWUgPSBzdWJzdHJlYW0tPnJ1bnRpbWU7DQo+ID4g
+KwlzdHJ1Y3Qgc25kX3NvY19wY21fcnVudGltZSAqcnRkID0gc25kX3NvY19zdWJzdHJlYW1fdG9f
+cnRkKHN1YnN0cmVhbSk7DQo+ID4gKwlzdHJ1Y3QgY2Ruc19pMnNfZGV2ICpkZXYgPQ0KPiA+ICtz
+bmRfc29jX2RhaV9nZXRfZHJ2ZGF0YShzbmRfc29jX3J0ZF90b19jcHUocnRkLCAwKSk7DQo+ID4g
+Kw0KPiA+ICsJc25kX3NvY19zZXRfcnVudGltZV9od3BhcmFtcyhzdWJzdHJlYW0sICZjZG5zX2ky
+c19wY21faGFyZHdhcmUpOw0KPiA+ICsJc25kX3BjbV9od19jb25zdHJhaW50X2ludGVnZXIocnVu
+dGltZSwNCj4gU05EUlZfUENNX0hXX1BBUkFNX1BFUklPRFMpOw0KPiA+ICsJcnVudGltZS0+cHJp
+dmF0ZV9kYXRhID0gZGV2Ow0KPiA+ICsNCj4gPiArCXJldHVybiAwOw0KPiA+ICt9DQo+ID4gKw0K
+PiA+ICtzdGF0aWMgaW50IGNkbnNfaTJzX3BjbV9jbG9zZShzdHJ1Y3Qgc25kX3NvY19jb21wb25l
+bnQgKmNvbXBvbmVudCwNCj4gPiArCQkJICAgICAgc3RydWN0IHNuZF9wY21fc3Vic3RyZWFtICpz
+dWJzdHJlYW0pIHsNCj4gPiArCXN5bmNocm9uaXplX3JjdSgpOw0KPiA+ICsJcmV0dXJuIDA7DQo+
+IA0KPiBydW50aW1lLT5wcml2YXRlX2RhdGEgPSBOVUxMPw0KDQpXaWxsIGFkZC4NCg0KPiANCj4g
+PiArfQ0KPiA+ICsNCj4gPiArc3RhdGljIGludCBjZG5zX2kyc19wY21faHdfcGFyYW1zKHN0cnVj
+dCBzbmRfc29jX2NvbXBvbmVudCAqY29tcG9uZW50LA0KPiA+ICsJCQkJICBzdHJ1Y3Qgc25kX3Bj
+bV9zdWJzdHJlYW0gKnN1YnN0cmVhbSwNCj4gPiArCQkJCSAgc3RydWN0IHNuZF9wY21faHdfcGFy
+YW1zICpod19wYXJhbXMpIHsNCj4gPiArCXN0cnVjdCBzbmRfcGNtX3J1bnRpbWUgKnJ1bnRpbWUg
+PSBzdWJzdHJlYW0tPnJ1bnRpbWU7DQo+ID4gKwlzdHJ1Y3QgY2Ruc19pMnNfZGV2ICpkZXYgPSBy
+dW50aW1lLT5wcml2YXRlX2RhdGE7DQo+ID4gKw0KPiA+ICsJZGV2LT5mb3JtYXQgPSBwYXJhbXNf
+Zm9ybWF0KGh3X3BhcmFtcyk7DQo+IA0KPiBkb24ndCB5b3UgbmVlZCB0byB0ZXN0IGlmIHRoZSBm
+b3JtYXRzIGFyZSBzdXBwb3J0ZWQ/DQoNCldpbGwgYWRkIHRoZSB0ZXN0Lg0KDQo+IA0KPiA+ICsJ
+ZGV2LT50eF9mbiA9IGNkbnNfaTJzX3BjbV90eDsNCj4gPiArCWRldi0+cnhfZm4gPSBjZG5zX2ky
+c19wY21fcng7DQo+ID4gKw0KPiA+ICsJcmV0dXJuIDA7DQo+ID4gK30NCj4gDQo+ID4gK3N0YXRp
+YyBpbnQgY2Ruc19pMnNfc3RhcnQoc3RydWN0IGNkbnNfaTJzX2RldiAqaTJzLA0KPiA+ICsJCQkg
+IHN0cnVjdCBzbmRfcGNtX3N1YnN0cmVhbSAqc3Vic3RyZWFtKSB7DQo+ID4gKwlzdHJ1Y3Qgc25k
+X3BjbV9ydW50aW1lICpydW50aW1lID0gc3Vic3RyZWFtLT5ydW50aW1lOw0KPiA+ICsJdW5zaWdu
+ZWQgY2hhciBtYXhfY2ggPSBpMnMtPm1heF9jaGFubmVsczsNCj4gPiArCXVuc2lnbmVkIGNoYXIg
+aTJzX2NoOw0KPiA+ICsJaW50IGk7DQo+ID4gKw0KPiA+ICsJLyogRWFjaCBjaGFubmVsIGlzIHN0
+ZXJlbyAqLw0KPiA+ICsJaTJzX2NoID0gcnVudGltZS0+Y2hhbm5lbHMgLyAyOw0KPiA+ICsJaWYg
+KHN1YnN0cmVhbS0+c3RyZWFtID09IFNORFJWX1BDTV9TVFJFQU1fQ0FQVFVSRSkgew0KPiA+ICsJ
+CWlmICgoaTJzX2NoICsgaTJzLT50eF91c2luZ19jaGFubmVscykgPiBtYXhfY2gpIHsNCj4gPiAr
+CQkJZGV2X2VycihpMnMtPmRldiwNCj4gPiArCQkJCSJNYXggJWQgY2hhbm5lbHM6IHVzaW5nICVk
+IGZvciBUWCwgZG8gbm90IHN1cHBvcnQgJWQgZm9yIFJYXG4iLA0KPiA+ICsJCQkJbWF4X2NoLCBp
+MnMtPnR4X3VzaW5nX2NoYW5uZWxzLCBpMnNfY2gpOw0KPiA+ICsJCQlyZXR1cm4gLUVOT01FTTsN
+Cj4gDQo+IEVOT01FTSBpcyBmb3IgbWVtb3J5IGFsbG9jYXRpb24sIHRoYXQgbG9va3MgbW9yZSBs
+aWtlIEVJTlZBTD8NCg0KV2lsbCBmaXguDQoNCj4gDQo+ID4gKwkJfQ0KPiA+ICsNCj4gPiArCQlp
+MnMtPnJ4X3VzaW5nX2NoYW5uZWxzID0gaTJzX2NoOw0KPiA+ICsJCS8qIEVuYWJsZSBjaGFubmVs
+cyBmcm9tIDAgdG8gJ21heF9jaCcgYXMgdHggKi8NCj4gPiArCQlmb3IgKGkgPSAwOyBpIDwgaTJz
+X2NoOyBpKyspDQo+ID4gKwkJCWNkbnNfaTJzX2NoYW5uZWxfc3RhcnQoaTJzLCBDRE5TX0kyU19D
+TV8wIDw8IGksDQo+ID4gKwkJCQkJICAgICAgIENETlNfSTJTX1RDX1JFQ0VJVkVSKTsNCj4gPiAr
+DQo+ID4gKwl9IGVsc2Ugew0KPiA+ICsJCWlmICgoaTJzX2NoICsgaTJzLT5yeF91c2luZ19jaGFu
+bmVscykgPiBtYXhfY2gpIHsNCj4gPiArCQkJZGV2X2VycihpMnMtPmRldiwNCj4gPiArCQkJCSJN
+YXggJWQgY2hhbm5lbHM6IHVzaW5nICVkIGZvciBSWCwgZG8gbm90IHN1cHBvcnQgJWQgZm9yIFRY
+XG4iLA0KPiA+ICsJCQkJbWF4X2NoLCBpMnMtPnJ4X3VzaW5nX2NoYW5uZWxzLCBpMnNfY2gpOw0K
+PiA+ICsJCQlyZXR1cm4gLUVOT01FTTsNCj4gPiArCQl9DQo+ID4gKw0KPiA+ICsJCWkycy0+dHhf
+dXNpbmdfY2hhbm5lbHMgPSBpMnNfY2g7DQo+ID4gKwkJLyogRW5hYmxlIGNoYW5uZWxzIGZyb20g
+J21heF9jaCcgdG8gMCBhcyByeCAqLw0KPiA+ICsJCWZvciAoaSA9IChtYXhfY2ggLSAxKTsgaSA+
+IChtYXhfY2ggLSBpMnNfY2ggLSAxKTsgaS0tKSB7DQo+ID4gKwkJCWlmIChpIDwgMCkNCj4gPiAr
+CQkJCXJldHVybiAtRUlOVkFMOw0KPiANCj4gdGhhdCBpcyBhIHRlc3QgeW91IGNhbiBwcm9iYWJs
+eSBmYWN0b3Igb3V0IG9mIHRoZSBsb29wIGJlZm9yZSBkb2luZyBhbnl0aGluZyB0aGF0J3MNCj4g
+aW5jb25zaXN0ZW50Lg0KDQpPSywgSSB3aWxsIG1vdmUgaXQgb3V0IG9mIHRoZSBsb29wLiBUaGFu
+a3MuDQoNCj4gDQo+ID4gKw0KPiA+ICsJCQljZG5zX2kyc19jaGFubmVsX3N0YXJ0KGkycywgQ0RO
+U19JMlNfQ01fMCA8PCBpLA0KPiA+ICsJCQkJCSAgICAgICBDRE5TX0kyU19UQ19UUkFOU01JVFRF
+Uik7DQo+ID4gKwkJfQ0KPiA+ICsJfQ0KPiA+ICsJY2Ruc19pMnNfZW5hYmxlX2Nsb2NrKGkycywg
+c3Vic3RyZWFtLT5zdHJlYW0pOw0KPiA+ICsNCj4gPiArCWlmIChpMnMtPmlycSA+PSAwKQ0KPiA+
+ICsJCWNkbnNfaTJzX3NldF9hbGxfaXJxX21hc2soaTJzLCBmYWxzZSk7DQo+ID4gKw0KPiA+ICsJ
+Y2Ruc19pMnNfY2xlYXJfaW50KGkycyk7DQo+ID4gKw0KPiA+ICsJcmV0dXJuIDA7DQo+ID4gK30N
+Cj4gPiArDQo+ID4gK3N0YXRpYyBpbnQgY2Ruc19pMnNfc3RvcChzdHJ1Y3QgY2Ruc19pMnNfZGV2
+ICppMnMsDQo+ID4gKwkJCSBzdHJ1Y3Qgc25kX3BjbV9zdWJzdHJlYW0gKnN1YnN0cmVhbSkgew0K
+PiA+ICsJdW5zaWduZWQgY2hhciBpMnNfY2g7DQo+ID4gKwlpbnQgaTsNCj4gPiArDQo+ID4gKwlj
+ZG5zX2kyc19jbGVhcl9pbnQoaTJzKTsNCj4gPiArDQo+ID4gKwlpZiAoc3Vic3RyZWFtLT5zdHJl
+YW0gPT0gU05EUlZfUENNX1NUUkVBTV9DQVBUVVJFKSB7DQo+ID4gKwkJaTJzX2NoID0gaTJzLT5y
+eF91c2luZ19jaGFubmVsczsNCj4gPiArCQlmb3IgKGkgPSAwOyBpIDwgaTJzX2NoOyBpKyspDQo+
+ID4gKwkJCWNkbnNfaTJzX2NoYW5uZWxfc3RvcChpMnMsIChDRE5TX0kyU19DTV8wIDw8IGkpKTsN
+Cj4gPiArDQo+ID4gKwkJaTJzLT5yeF91c2luZ19jaGFubmVscyA9IDA7DQo+ID4gKwl9IGVsc2Ug
+ew0KPiA+ICsJCXVuc2lnbmVkIGNoYXIgbWF4X2NoID0gaTJzLT5tYXhfY2hhbm5lbHM7DQo+ID4g
+Kw0KPiA+ICsJCWkyc19jaCA9IGkycy0+dHhfdXNpbmdfY2hhbm5lbHM7DQo+ID4gKwkJZm9yIChp
+ID0gKG1heF9jaCAtIDEpOyBpID4gKG1heF9jaCAtIGkyc19jaCAtIDEpOyBpLS0pIHsNCj4gPiAr
+CQkJaWYgKGkgPCAwKQ0KPiA+ICsJCQkJcmV0dXJuIC1FSU5WQUw7DQo+IA0KPiBzYW1lIGhlcmUs
+IGZpcnN0IHRlc3QgaWYgdGhlIGNoYW5uZWwgbWFwcyBhcmUgdmFsaWQsIHRoZW4gZG8gdGhlIGxv
+b3A/DQoNCldpbGwgZml4Lg0KDQo+IA0KPiA+ICsNCj4gPiArCQkJY2Ruc19pMnNfY2hhbm5lbF9z
+dG9wKGkycywgKENETlNfSTJTX0NNXzAgPDwgaSkpOw0KPiA+ICsJCX0NCj4gPiArDQo+ID4gKwkJ
+aTJzLT50eF91c2luZ19jaGFubmVscyA9IDA7DQo+ID4gKwl9DQo+ID4gKw0KPiA+ICsJaWYgKGky
+cy0+aXJxID49IDAgJiYgIWkycy0+dHhfdXNpbmdfY2hhbm5lbHMgJiYgIWkycy0+cnhfdXNpbmdf
+Y2hhbm5lbHMpDQo+ID4gKwkJY2Ruc19pMnNfc2V0X2FsbF9pcnFfbWFzayhpMnMsIHRydWUpOw0K
+PiA+ICsNCj4gPiArCXJldHVybiAwOw0KPiA+ICt9DQo+IA0KPiA+ICtzdGF0aWMgaW50IGNkbnNf
+aTJzX3NldF9mbXQoc3RydWN0IHNuZF9zb2NfZGFpICpjcHVfZGFpLA0KPiA+ICsJCQkgICAgdW5z
+aWduZWQgaW50IGZtdCkNCj4gPiArew0KPiA+ICsJc3RydWN0IGNkbnNfaTJzX2RldiAqaTJzID0g
+c25kX3NvY19kYWlfZ2V0X2RydmRhdGEoY3B1X2RhaSk7DQo+ID4gKwlpbnQgcmV0ID0gMDsNCj4g
+PiArDQo+ID4gKwlzd2l0Y2ggKGZtdCAmIFNORF9TT0NfREFJRk1UX01BU1RFUl9NQVNLKSB7DQo+
+ID4gKwljYXNlIFNORF9TT0NfREFJRk1UX0NCTV9DRk06DQo+ID4gKwkJaTJzLT50eF9zeW5jX21z
+X21vZGUgPSBDRE5TX0kyU19NQVNURVJfTU9ERTsNCj4gPiArCQlpMnMtPnJ4X3N5bmNfbXNfbW9k
+ZSA9IENETlNfSTJTX01BU1RFUl9NT0RFOw0KPiA+ICsJCWNkbnNfaTJzX3NldF9tc19tb2RlKGky
+cyk7DQo+ID4gKwkJYnJlYWs7DQo+ID4gKwljYXNlIFNORF9TT0NfREFJRk1UX0NCU19DRlM6DQo+
+ID4gKwkJaTJzLT50eF9zeW5jX21zX21vZGUgPSBDRE5TX0kyU19TTEFWRV9NT0RFOw0KPiA+ICsJ
+CWkycy0+cnhfc3luY19tc19tb2RlID0gQ0ROU19JMlNfU0xBVkVfTU9ERTsNCj4gPiArCQljZG5z
+X2kyc19zZXRfbXNfbW9kZShpMnMpOw0KPiA+ICsJCWJyZWFrOw0KPiA+ICsJY2FzZSBTTkRfU09D
+X0RBSUZNVF9DQk1fQ0ZTOg0KPiA+ICsJY2FzZSBTTkRfU09DX0RBSUZNVF9DQlNfQ0ZNOg0KPiAN
+Cj4gdGhhdCdzIHRoZSBvbGQgc3R1ZmYsIHVzZSBDQlAvQ0JDIG1hY3JvcyBwbGVhc2UuDQoNCldp
+bGwgZml4Lg0KDQo+IA0KPiA+ICsJCXJldCA9IC1FSU5WQUw7DQo+ID4gKwkJYnJlYWs7DQo+ID4g
+KwlkZWZhdWx0Og0KPiA+ICsJCWRldl9kYmcoaTJzLT5kZXYsICJJbnZhbGlkIG1hc3Rlci9zbGF2
+ZSBmb3JtYXRcbiIpOw0KPiA+ICsJCXJldCA9IC1FSU5WQUw7DQo+ID4gKwkJYnJlYWs7DQo+ID4g
+Kwl9DQo+ID4gKwlyZXR1cm4gcmV0Ow0KPiA+ICt9DQo+IA0KPiA+ICsjaWZkZWYgQ09ORklHX1BN
+DQo+IA0KPiBEbyB3ZSBuZWVkIHRoaXMgb3IganVzdCByZWx5IG9uIF9fdW51c2VkPw0KDQpJIHRo
+aW5rIGJvdGggYXJlIE9LLg0KDQo+IA0KPiA+ICtzdGF0aWMgaW50IGNkbnNfaTJzX3J1bnRpbWVf
+c3VzcGVuZChzdHJ1Y3QgZGV2aWNlICpkZXYpIHsNCj4gPiArCXN0cnVjdCBjZG5zX2kyc19kZXYg
+KmkycyA9IGRldl9nZXRfZHJ2ZGF0YShkZXYpOw0KPiA+ICsNCj4gPiArCWNsa19kaXNhYmxlX3Vu
+cHJlcGFyZShpMnMtPmNsa3NbMV0uY2xrKTsgLyogSUNHIGNsb2NrICovDQo+ID4gKwlyZXR1cm4g
+MDsNCj4gPiArfQ0KPiA+ICsNCj4gPiArc3RhdGljIGludCBjZG5zX2kyc19ydW50aW1lX3Jlc3Vt
+ZShzdHJ1Y3QgZGV2aWNlICpkZXYpIHsNCj4gPiArCXN0cnVjdCBjZG5zX2kyc19kZXYgKmkycyA9
+IGRldl9nZXRfZHJ2ZGF0YShkZXYpOw0KPiA+ICsNCj4gPiArCXJldHVybiBjbGtfcHJlcGFyZV9l
+bmFibGUoaTJzLT5jbGtzWzFdLmNsayk7IC8qIElDRyBjbG9jayAqLyB9DQo+ID4gKyNlbmRpZg0K
+PiANCj4gPiArc3RhdGljIGludCBjZG5zX2kyc19wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNl
+ICpwZGV2KSB7DQo+ID4gKwlzdHJ1Y3QgY2Ruc19pMnNfZGV2ICppMnM7DQo+ID4gKwlzdHJ1Y3Qg
+cmVzb3VyY2UgKnJlczsNCj4gPiArCWludCByZXQ7DQo+ID4gKw0KPiA+ICsJaTJzID0gZGV2bV9r
+emFsbG9jKCZwZGV2LT5kZXYsIHNpemVvZigqaTJzKSwgR0ZQX0tFUk5FTCk7DQo+ID4gKwlpZiAo
+IWkycykgew0KPiA+ICsJCXJldCA9IC1FTk9NRU07DQo+ID4gKwkJZ290byBlcnI7DQo+ID4gKwl9
+DQo+ID4gKwlwbGF0Zm9ybV9zZXRfZHJ2ZGF0YShwZGV2LCBpMnMpOw0KPiA+ICsNCj4gPiArCWky
+cy0+YmFzZSA9IGRldm1fcGxhdGZvcm1fZ2V0X2FuZF9pb3JlbWFwX3Jlc291cmNlKHBkZXYsIDAs
+ICZyZXMpOw0KPiA+ICsJaWYgKElTX0VSUihpMnMtPmJhc2UpKSB7DQo+ID4gKwkJcmV0ID0gUFRS
+X0VSUihpMnMtPmJhc2UpOw0KPiA+ICsJCWdvdG8gZXJyOw0KPiA+ICsJfQ0KPiA+ICsNCj4gPiAr
+CWkycy0+ZGV2ID0gJnBkZXYtPmRldjsNCj4gPiArCWkycy0+cGh5YmFzZSA9IHJlcy0+c3RhcnQ7
+DQo+ID4gKw0KPiA+ICsJcmV0ID0gY2Ruc19pMnNfaW5pdChpMnMpOw0KPiA+ICsJaWYgKHJldCkN
+Cj4gPiArCQlnb3RvIGVycjsNCj4gPiArDQo+ID4gKwlpMnMtPmlycSA9IHBsYXRmb3JtX2dldF9p
+cnEocGRldiwgMCk7DQo+ID4gKwlpZiAoaTJzLT5pcnEgPj0gMCkgew0KPiA+ICsJCXJldCA9IGRl
+dm1fcmVxdWVzdF9pcnEoJnBkZXYtPmRldiwgaTJzLT5pcnEsIGNkbnNfaTJzX2lycV9oYW5kbGVy
+LA0KPiA+ICsJCQkJICAgICAgIDAsIHBkZXYtPm5hbWUsIGkycyk7DQo+ID4gKwkJaWYgKHJldCA8
+IDApIHsNCj4gPiArCQkJZGV2X2VycigmcGRldi0+ZGV2LCAicmVxdWVzdF9pcnEgZmFpbGVkXG4i
+KTsNCj4gPiArCQkJZ290byBlcnI7DQo+ID4gKwkJfQ0KPiA+ICsJfQ0KPiA+ICsNCj4gPiArCXJl
+dCA9IGRldm1fc25kX3NvY19yZWdpc3Rlcl9jb21wb25lbnQoJnBkZXYtPmRldiwNCj4gPiArCQkJ
+CQkgICAgICAmY2Ruc19pMnNfY29tcG9uZW50LA0KPiA+ICsJCQkJCSAgICAgICZjZG5zX2kyc19k
+YWksIDEpOw0KPiA+ICsJaWYgKHJldCA8IDApIHsNCj4gPiArCQlkZXZfZXJyKCZwZGV2LT5kZXYs
+ICJjb3VsZG4ndCByZWdpc3RlciBjb21wb25lbnRcbiIpOw0KPiA+ICsJCWdvdG8gZXJyOw0KPiA+
+ICsJfQ0KPiA+ICsNCj4gPiArCWlmIChpMnMtPmlycSA+PSAwKQ0KPiA+ICsJCXJldCA9IGNkbnNf
+aTJzX3BjbV9yZWdpc3RlcihwZGV2KTsNCj4gPiArCWVsc2UNCj4gPiArCQlyZXQgPSBkZXZtX3Nu
+ZF9kbWFlbmdpbmVfcGNtX3JlZ2lzdGVyKCZwZGV2LT5kZXYsIE5VTEwsIDApOw0KPiA+ICsNCj4g
+PiArCWlmIChyZXQpIHsNCj4gPiArCQlkZXZfZXJyKCZwZGV2LT5kZXYsICJjb3VsZCBub3QgcmVn
+aXN0ZXIgcGNtOiAlZFxuIiwgcmV0KTsNCj4gPiArCQlnb3RvIGVycjsNCj4gPiArCX0NCj4gPiAr
+DQo+ID4gKwlwbV9ydW50aW1lX2VuYWJsZSgmcGRldi0+ZGV2KTsNCj4gPiArCWlmIChwbV9ydW50
+aW1lX2VuYWJsZWQoJnBkZXYtPmRldikpDQo+ID4gKwkJY2Ruc19pMnNfcnVudGltZV9zdXNwZW5k
+KCZwZGV2LT5kZXYpOw0KPiANCj4gdGhhdCBzZXF1ZW5jZSBsb29rcyBzdXNwaWNpb3VzLi4uLiBX
+aHkgd291bGQgeW91IHN1c3BlbmQgaW1tZWRpYXRlbHkgZHVyaW5nIHRoZQ0KPiBwcm9iZT8gWW91
+J3JlIHByb2JhYmx5IG1pc3NpbmcgYWxsIHRoZSBhdXRvc3VzcGVuZCBzdHVmZj8NCg0KU2luY2Ug
+SSBoYXZlIGVuYWJsZWQgY2xvY2tzIGJlZm9yZSwgYW5kIHRoZSBkZXZpY2UgaXMgaW4gdGhlIHN1
+c3BlbmQgc3RhdGUgYWZ0ZXINCnBtX3J1bnRpbWVfZW5hYmxlKCksIEkgbmVlZCB0byBkaXNhYmxl
+IGNsb2NrcyBpbiBjZG5zX2kyc19ydW50aW1lX3N1c3BlbmQoKQ0KdG8gbWF0Y2ggdGhlIHN1c3Bl
+bmQgc3RhdGUuDQoNCj4gDQo+ID4gKw0KPiA+ICsJZGV2X2RiZygmcGRldi0+ZGV2LCAiSTJTIHN1
+cHBvcnRzICVkIHN0ZXJlbyBjaGFubmVscyB3aXRoICVzLlxuIiwNCj4gPiArCQlpMnMtPm1heF9j
+aGFubmVscywgKChpMnMtPmlycSA8IDApID8gImRtYSIgOiAiaW50ZXJydXB0IikpOw0KPiA+ICsN
+Cj4gPiArCXJldHVybiAwOw0KPiA+ICsNCj4gPiArZXJyOg0KPiA+ICsJcmV0dXJuIHJldDsNCj4g
+PiArfQ0KPiA+ICsNCj4gPiArc3RhdGljIGludCBjZG5zX2kyc19yZW1vdmUoc3RydWN0IHBsYXRm
+b3JtX2RldmljZSAqcGRldikgew0KPiA+ICsJcG1fcnVudGltZV9kaXNhYmxlKCZwZGV2LT5kZXYp
+Ow0KPiA+ICsJaWYgKCFwbV9ydW50aW1lX3N0YXR1c19zdXNwZW5kZWQoJnBkZXYtPmRldikpDQo+
+ID4gKwkJY2Ruc19pMnNfcnVudGltZV9zdXNwZW5kKCZwZGV2LT5kZXYpOw0KPiANCj4gLi4uIGFu
+ZCB0aGlzIG9uZSB0b28uIE9uY2UgeW91J3ZlIGRpc2FibGVkIHBtX3J1bnRpbWUsIGNoZWNraW5n
+IHRoZSBzdGF0dXMgaXMNCj4gaXJyZWxldmFudC4uLg0KDQpJIHRoaW5rIHRoZSBjbG9ja3MgbmVl
+ZCB0byBiZSBhbHdheXMgZW5hYmxlZCBhZnRlciBwcm9iZSBpZiBkaXNhYmxlIHBtX3J1bnRpbWUs
+DQphbmQgc2hvdWxkIGJlIGRpc2FibGVkIHdoZW4gcmVtb3ZlLiBUaGlzIHdpbGwgZG8gdGhhdC4N
+Cg0KPiANCj4gPiArDQo+ID4gKwlyZXR1cm4gMDsNCj4gPiArfQ0KPiA+ICsNCg0KQmVzdCByZWdh
+cmRzLA0KWGluZ3l1IFd1DQo=

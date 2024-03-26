@@ -2,105 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C7CF88C685
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Mar 2024 16:14:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9972488C625
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Mar 2024 16:01:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A833D2408;
-	Tue, 26 Mar 2024 16:14:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A833D2408
+	by alsa0.perex.cz (Postfix) with ESMTPS id DAD8C279F;
+	Tue, 26 Mar 2024 16:01:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DAD8C279F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1711466057;
-	bh=N5vpAX5ok4BXjms0T9fuLUBgLvF4hsCxME6vnFJ3oyc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1711465281;
+	bh=qUUvhGe91HR/wsvtB7K0cyzfk4u4vLEk2tLsleCKi1Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=b3/3tnwq57UCf40Z1816j9W5uymFQz87+Xz4Tq6sRbN31ezwqXw2QM3NjTbDyOr98
-	 Q+hoby17r1hMNXClzpbCtwhN5qAifNogy4u65yS+iWAx/O0sP/3S/w61ZcEGRtFNEA
-	 4I0nii/nb6sRol4vSgPz1fGJf2u0T5Lhrkv8hcA8=
+	b=HOpX4KDbVAnZneS5zjxq0taPWlw1+qYUJCH6/Punqbs8YrEh4Xp91H2oHx+UVv/vR
+	 bTsUkMq0AqL6V030LxRh4XBcGs51GG0j6URfsE3V8pSqTyF0RwwxbV2H0oinHcPOPW
+	 tFgU0qwG73FBoeBTpSHJXgpq6JRehi6GRRRde2WA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A0F3AF8057E; Tue, 26 Mar 2024 16:13:45 +0100 (CET)
+	id B87EFF805C1; Tue, 26 Mar 2024 16:00:38 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 133C6F805A9;
-	Tue, 26 Mar 2024 16:13:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E6914F805CA;
+	Tue, 26 Mar 2024 16:00:36 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CC278F8055C; Tue, 26 Mar 2024 16:13:39 +0100 (CET)
+	id 8D055F8025F; Tue, 26 Mar 2024 16:00:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_EF,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id ACB78F80093
-	for <alsa-devel@alsa-project.org>; Tue, 26 Mar 2024 16:13:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ACB78F80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5CA54F801D5
+	for <alsa-devel@alsa-project.org>; Tue, 26 Mar 2024 16:00:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5CA54F801D5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=XW/2J1Dj
+ header.s=Intel header.b=JZM3qHE7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1711466015; x=1743002015;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=N5vpAX5ok4BXjms0T9fuLUBgLvF4hsCxME6vnFJ3oyc=;
-  b=XW/2J1DjcVvPhq7DN9c510/xWqnckHBepJHJaeONgnYO5HNktLhqW+C/
-   CPL+NPI9naxyzN+l9DUlIBPAQTDObBJcJpKJaFiwhHni2h3z+7AO25x0p
-   +8PRqT8N03/Dsc6hpHRQ8ZYTW3IXwZbsOBwEa9RIeDEUMjJSw6+DBR7Em
-   63m+IPf2zXjtzWZmgbNdHsa50E7aerIeiljC7ZjM9bmd0+MS/GDjmbKPk
-   s+AE5c82M6BJKer2H5OEqSs/f3Wq0e0Zbyy/+NxyrYR7kP5E9xkdjog6z
-   W++C4mZVCf0/1b5cIsYQkWyeIaOpft95k2WN37/zBcAzbpKGp4EY1jl4j
-   w==;
-X-CSE-ConnectionGUID: u0dD4gwJQWaBvU9E7qvHMw==
-X-CSE-MsgGUID: WDnG7NpNTX+Ac0HhbEN5OQ==
-X-IronPort-AV: E=McAfee;i="6600,9927,11025"; a="9489023"
+  t=1711465230; x=1743001230;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=qUUvhGe91HR/wsvtB7K0cyzfk4u4vLEk2tLsleCKi1Q=;
+  b=JZM3qHE746R0LsLxLFitKqHGFUnoHKQokRC5WohnFmfunyfiZFmSwhBi
+   7kR/DbHEMvjVnCw7WudNEN2grdqmTZLVoq5UoGWBzjF/59D04W7PC2V2Z
+   A1qDMD11V3Cqf0Se5XatX4EFH2w4+qsl/AlVDmb/HpSlQ+MdoLbcrB+js
+   uylCnNPBR0K+SsuUzjg8HWgqvJXVpBTr+GDK7F6bTgUruthgpFl+Yrj76
+   8/dRCfC4kcTxKwuqyD3LrAyu9cvCRxiyNinJkRWlaJQUOdV4BIuGfD5Fo
+   bARBL+Epa5e63sR2jdVpogoIkFegPoAOzKzHmSBcxoLyo3QRv/6fpNE91
+   g==;
+X-CSE-ConnectionGUID: b6sLBLEbRU6hiQb9nbKtIA==
+X-CSE-MsgGUID: PvHrgCcwS5akMmqBSxC6RA==
+X-IronPort-AV: E=McAfee;i="6600,9927,11025"; a="6414840"
 X-IronPort-AV: E=Sophos;i="6.07,156,1708416000";
-   d="scan'208";a="9489023"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Mar 2024 08:13:31 -0700
+   d="scan'208";a="6414840"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Mar 2024 08:00:26 -0700
 X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,11025"; a="914882655"
 X-IronPort-AV: E=Sophos;i="6.07,156,1708416000";
-   d="scan'208";a="15862590"
-Received: from bhubbert-mobl.amr.corp.intel.com (HELO [10.212.65.108])
- ([10.212.65.108])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Mar 2024 08:13:28 -0700
-Message-ID: <bc8d97e2-6742-4ca3-bd6a-143fe88f617b@linux.intel.com>
-Date: Tue, 26 Mar 2024 10:00:19 -0500
+   d="scan'208";a="914882655"
+Received: from smile.fi.intel.com ([10.237.72.54])
+  by fmsmga002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Mar 2024 08:00:22 -0700
+Received: from andy by smile.fi.intel.com with local (Exim 4.97)
+	(envelope-from <andriy.shevchenko@linux.intel.com>)
+	id 1rp8Hj-0000000GKif-1YRd;
+	Tue, 26 Mar 2024 17:00:19 +0200
+Date: Tue, 26 Mar 2024 17:00:19 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Baojun Xu <baojun.xu@ti.com>
+Cc: tiwai@suse.de, robh+dt@kernel.org, lgirdwood@gmail.com, perex@perex.cz,
+	pierre-louis.bossart@linux.intel.com, kevin-lu@ti.com,
+	13916275206@139.com, alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org, liam.r.girdwood@intel.com,
+	yung-chuan.liao@linux.intel.com, broonie@kernel.org, soyer@irl.hu
+Subject: Re: [PATCH v1 2/8] ALSA: hda/tas2781: Add tas2781 SPI-based driver
+Message-ID: <ZgLjAz99JZQvrx_h@smile.fi.intel.com>
+References: <20240326010905.2147-1-baojun.xu@ti.com>
+ <20240326010905.2147-2-baojun.xu@ti.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [EXTERNAL] Re: [PATCH v11] ASoc: tas2783: Add tas2783 codec
- driver
-Content-Language: en-US
-To: "Ding, Shenghao" <shenghao-ding@ti.com>,
- "broonie@kernel.org" <broonie@kernel.org>
-Cc: "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>, "perex@perex.cz"
- <perex@perex.cz>, "13916275206@139.com" <13916275206@139.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "liam.r.girdwood@intel.com" <liam.r.girdwood@intel.com>,
- "bard.liao@intel.com" <bard.liao@intel.com>,
- "mengdong.lin@intel.com" <mengdong.lin@intel.com>,
- "yung-chuan.liao@linux.intel.com" <yung-chuan.liao@linux.intel.com>,
- "Lu, Kevin" <kevin-lu@ti.com>, "tiwai@suse.de" <tiwai@suse.de>,
- "Xu, Baojun" <baojun.xu@ti.com>, "soyer@irl.hu" <soyer@irl.hu>,
- "Baojun.Xu@fpt.com" <Baojun.Xu@fpt.com>,
- "Navada Kanyana, Mukund" <navada@ti.com>
-References: <20240319135811.186-1-shenghao-ding@ti.com>
- <34f404cd-a12d-4ffa-9398-72de3be244b3@linux.intel.com>
- <51a81ac8aace456aae7d07634912367c@ti.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <51a81ac8aace456aae7d07634912367c@ti.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: KCWL6DXYFZP5FZF6B7OBWKJW5DX2VBRP
-X-Message-ID-Hash: KCWL6DXYFZP5FZF6B7OBWKJW5DX2VBRP
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240326010905.2147-2-baojun.xu@ti.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Message-ID-Hash: AWKAHJNI2FLS5YZQWBEOMWEXXJPLAMDT
+X-Message-ID-Hash: AWKAHJNI2FLS5YZQWBEOMWEXXJPLAMDT
+X-MailFrom: andriy.shevchenko@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -112,7 +104,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KCWL6DXYFZP5FZF6B7OBWKJW5DX2VBRP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AWKAHJNI2FLS5YZQWBEOMWEXXJPLAMDT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -121,35 +113,17 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Tue, Mar 26, 2024 at 09:08:59AM +0800, Baojun Xu wrote:
+> Add TXNW2781 support in smi.
 
->>> +
->>> +	/* Check Calibrated Data V2 */
->>> +	if (tmp_val[0] == 2783) {
->>> +		const struct calibdatav2_info calib_info = {
->>> +			.number_of_devices = tmp_val[1],
->>> +			.crc32_indx = 3 + tmp_val[1] * 6,
->>> +			.byt_sz = 12 + tmp_val[1] * 24,
->>> +			.cali_data = &tmp_val[3]
->>> +		};
->>> +
->>> +		if (calib_info.number_of_devices >
->> TAS2783_MAX_DEV_NUM ||
->>> +			calib_info.number_of_devices == 0) {
->>> +			dev_dbg(tas_dev->dev, "No dev in calibrated data
->> V2.");
->>
->> the log is not aligned with the first condition where you have too many
->> devices.
->>
->> It's not clear why it's not an error.
-> playback still work without calibrated data stored in UEFI, for example bypass mode.
-> Even if in case of bypass mode, algo can still work with default calibrated data.
-> So, not an error.
+Same comment WRT the commit message.
 
-I would use a dev_info with a clearer message that defaults are used,
-e.g. along the lines of
+I'm wondering why the patch 1&2 can't be folded...
+If this should go separate, with the commit message fixed,
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-dev_info(tas_dev->dev, "using default calibration data, no device found
-in EFI data v2").
+-- 
+With Best Regards,
+Andy Shevchenko
 
-dev_warn would work as well if this is really not expected.
+

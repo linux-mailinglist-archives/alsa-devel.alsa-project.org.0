@@ -2,98 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FD8F88DE9C
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 Mar 2024 13:17:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C53488DF4D
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 Mar 2024 13:23:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7E3AD2C0D;
-	Wed, 27 Mar 2024 13:17:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E3AD2C0D
+	by alsa0.perex.cz (Postfix) with ESMTPS id AD0642C04;
+	Wed, 27 Mar 2024 13:22:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD0642C04
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1711541859;
-	bh=yGbTvt55JZ2yuDQH/tYgERxwi8pr+LShEOfGErix1xQ=;
+	s=default; t=1711542181;
+	bh=mgHimy+byUwgB5+ODcBJAyj/keJcA2B3A9AbHPUV5vA=;
 	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=GC0nmc6JDzk+tf4dzda6zaayKzKD76Op+vaPYZsSVZ8Xdrue8/YDScAalWQg2sTqs
-	 S921EYwGg51ptkYrfdxuKYlcDiDrI61C8HliBmoV19K5I3JFw1m65TUX2evUhSJFwV
-	 WWeEHnrU9wlZ7PnJ6uRvMXmLd7AphW6O8kNofojA=
+	b=DIjjnRSXIY6sQKL7ObRZxvlq3wCMpODjddWT6YTfbw6C8yEK45L1mLOugzI3Sg2+C
+	 YV1iEgXCuHFUr41w0kMJfDM28yah6CXZdDrXlNmTpqb/aedy/ivTO3zY6IsKGWCkgE
+	 GM9uUvcuux9SQ9y65TE7h+mA7aWO+GTnHQ8no8rI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D12F1F805AD; Wed, 27 Mar 2024 13:17:05 +0100 (CET)
+	id E8C23F805A1; Wed, 27 Mar 2024 13:22:30 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E49ABF80093;
-	Wed, 27 Mar 2024 13:17:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 79598F80579;
+	Wed, 27 Mar 2024 13:22:30 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6E084F8025F; Wed, 27 Mar 2024 13:16:36 +0100 (CET)
+	id E712DF8025F; Wed, 27 Mar 2024 13:22:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [IPv6:2a00:1450:4864:20::133])
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [IPv6:2a00:1450:4864:20::12a])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DE4D3F80093
-	for <alsa-devel@alsa-project.org>; Wed, 27 Mar 2024 13:16:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE4D3F80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0FD43F801D5
+	for <alsa-devel@alsa-project.org>; Wed, 27 Mar 2024 13:22:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0FD43F801D5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=SqWHWMQY
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-513d717269fso8240674e87.0
+ header.s=google header.b=XWgS5ef+
+Received: by mail-lf1-x12a.google.com with SMTP id
+ 2adb3069b0e04-513e134f73aso8374544e87.2
         for <alsa-devel@alsa-project.org>;
- Wed, 27 Mar 2024 05:16:29 -0700 (PDT)
+ Wed, 27 Mar 2024 05:22:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1711541788; x=1712146588;
+        d=linaro.org; s=google; t=1711542142; x=1712146942;
  darn=alsa-project.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:to:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=QGoONQs2q09/EmrMgof9g4Mv4aufcbjH95ck2Mtngjw=;
-        b=SqWHWMQYC/XjHX9L+reUTA5GFo2ZAKh5zK+2SdjIwfoUv8TSB4beKtZT5AXNBu50Ce
-         jHTjtoWEITDcdR3+L7gztsA8S/U06CLtWiMVND4skTCKqu9lAoos+QdpBv5cpnI/g7kR
-         6yQO/XBMxfg7EoxcRSVJBOywmTvGh0TUQLPprvDd3+zCMMQr5rOKk/U0X5FJXTceHhK6
-         WIDiA8G4Wi1RycD1EfMsmepiqaN9iYB7FaOQUmIb15Urg2Aj+MJIBx1PNFeYW7fqS9QV
-         xxthitT4H+rtzSp2fN1qiq8omTxT0LtQw1WaJWZoGjpJ+sf6oMC38ETFMNORFKXSs8tT
-         IPcQ==
+        bh=OmcRGS5TlQaotd06qJrgXX+1RvodsZtckupwlgr6QW8=;
+        b=XWgS5ef++4HD9qQ6rCOJ5RmAgPCMYpDNb2Iewp73VrphFfV65Lc7vgdjMGw0tjWUNu
+         DEXCTkXXRVkzF3Hxn56qnFiHIp1T/Y6RJUuD+tewd9YukUf9euzKqPV0pjx0Hx7tzAoP
+         zTrcTfLvRp94KtNPsKRAUd6kKMkQdk+TVK2pHBbeeJxJ4MxztzL9QC87eMAYXBLQHZc/
+         G26UYNOg0I6ecDHG66/UXJRqEcewwu2sBYSZEaBEDs5/AaiGRNvhVtGb8O3afOIhO5Bb
+         o+P6asvJ6z9aGk790llwecJP0EKIjf9GHsO7SMdPxgpuxm+pOP5uAoLv9wxHaDRUHC0B
+         Dc4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711541788; x=1712146588;
+        d=1e100.net; s=20230601; t=1711542142; x=1712146942;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:to:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=QGoONQs2q09/EmrMgof9g4Mv4aufcbjH95ck2Mtngjw=;
-        b=s4S713XNijASvO/xLPaeXoGYeH0EmGk8DInyI00J+8e/oiKuSN3rQTn1dteINLqPjc
-         6Zq8bNWwhxDyMXnUqM26RH3x5tC2gZYxAwEK9Av7sA4o8y5nVauzRID06iKycH+SJsrK
-         hrOvPSvFFh+Wv85EJcYF1OyV4/Ey3Yl3ZmviAa+jvLwZJg81WKx4+n4lrHiftShLNFcK
-         WGWze2v/MHSEzig89rllmbae/B3TYm07CVQHqWtLMOvu60x9kVXoxKWe7iHT22uarvqq
-         +xpKtdn9uLxt4GdKtjUTyVMqXU8cTsYcdRIx4k0kwriBdmxLj+5WqhpGgL2iTK5xiGeN
-         3SvQ==
+        bh=OmcRGS5TlQaotd06qJrgXX+1RvodsZtckupwlgr6QW8=;
+        b=SxFfizEQoFuE50Ie51fWgoxgqmGvF1Ku/qyyxY+tLEuKFJTrAjsij6a7lIP3/iL6hf
+         mbU4F1ZylOMUJlXMhalwcCdqqcTdhGe8sAnTRICNaH9KpP9w50Nr3cSySPx9/pzXkRC8
+         3JtWhXfIOA4GvqtbJ36ZECjhb4RGfn0Phpd+tAKTOJ6aPhKGngcKHRDwaltSZPghLyZE
+         XbW2FejDlhQ4Fkxz7r3jRfFPbes2YHDCIiwSSLGFalZEjRowULMyXyMNXoKx52CyBMtl
+         a9DbwiexDF8xiYGpgTvuAn2GzSIHsVsMS3bCFGHoekVVEk779Plu6dpt6r423aW148g7
+         PPHw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX8qZFZX9SjQovZqMfl36kc7pUWw4CflW5P9+Ist0ZN5xwoo4P4k/mKFPNIuJ2oUR92n4QdQIHZfrBBpUPyvKRBcMuZDYSVFhaapcg=
-X-Gm-Message-State: AOJu0YxgGZfctZj41Z5EoWms5Zzi7frIYqXM92fsyeHqHj0JPetEAa0k
-	+0hc5tdgZlwbxcX+gquu8uF3Lt2WqT8l9Uy8vhaqi4HLIO2SEA87odOxaenTEO4=
+ AJvYcCW+JNmnlxn81JjG+VFpSGpeQeBjJfVQ2eqpLEIhDoCOt1QaRp6WQCDIR0oueUfkxWYi6kkyci5EkrmeQBruLg7np2q0M+eS6ewclLE=
+X-Gm-Message-State: AOJu0YxHTrJGG2aPLbf3Rv2hGpxmmItOYvbvaK3x4VyK0avLY6MDi7as
+	E+447VuPT1sliBoQTuUu0b3Du1ya4844VauEmu/4OZzSoHbBE5c8VrOjqV5KkQM=
 X-Google-Smtp-Source: 
- AGHT+IEBW23L28y0ojSMrVa/3AvQS2hcjIPuTGjzOiK2HxOvnKRvYjYdOJ6ZDfOkXAc4n2VT6ydGxw==
-X-Received: by 2002:ac2:504a:0:b0:513:da61:9b46 with SMTP id
- a10-20020ac2504a000000b00513da619b46mr1660346lfm.53.1711541788426;
-        Wed, 27 Mar 2024 05:16:28 -0700 (PDT)
+ AGHT+IHtBSxEVchSrE3xWoYzGCiDQD4FtHnKvLyASr4Du/viFPqbbyU6bNRNsqaYfG4X7z5dzSQv4g==
+X-Received: by 2002:ac2:4983:0:b0:515:c00d:7766 with SMTP id
+ f3-20020ac24983000000b00515c00d7766mr851252lfl.54.1711542141717;
+        Wed, 27 Mar 2024 05:22:21 -0700 (PDT)
 Received: from [192.168.1.20] ([178.197.206.205])
         by smtp.gmail.com with ESMTPSA id
- fi24-20020a056402551800b0056bfa6ad5eesm4904744edb.91.2024.03.27.05.16.26
+ n6-20020a05640204c600b0056b8dcdaca5sm1382464edw.73.2024.03.27.05.22.20
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 27 Mar 2024 05:16:27 -0700 (PDT)
-Message-ID: <c807c633-c29f-4216-8a53-e0bfa16e6f24@linaro.org>
-Date: Wed, 27 Mar 2024 13:16:25 +0100
+        Wed, 27 Mar 2024 05:22:21 -0700 (PDT)
+Message-ID: <3dbb428f-0265-4741-a28e-5613799133e9@linaro.org>
+Date: Wed, 27 Mar 2024 13:22:19 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/2] ASoC: dt-bindings: qcom,qcm6490: Add qcm6490 snd
- qcs6490 sound card
+Subject: Re: [PATCH v1 2/2] ASoC: qcom: qcm6490: Add machine driver for
+ qcm6490
 To: Mohammad Rafi Shaik <quic_mohs@quicinc.com>,
  srinivas.kandagatla@linaro.org, bgoswami@quicinc.com, broonie@kernel.org,
  krzysztof.kozlowski+dt@linaro.org, andersson@kernel.org,
@@ -102,7 +102,7 @@ To: Mohammad Rafi Shaik <quic_mohs@quicinc.com>,
  alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
  linux-arm-msm@vger.kernel.org
 References: <20240327113228.1706975-1-quic_mohs@quicinc.com>
- <20240327113228.1706975-2-quic_mohs@quicinc.com>
+ <20240327113228.1706975-3-quic_mohs@quicinc.com>
 Content-Language: en-US
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
@@ -149,11 +149,11 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
  fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
  D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <20240327113228.1706975-2-quic_mohs@quicinc.com>
+In-Reply-To: <20240327113228.1706975-3-quic_mohs@quicinc.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: WTQBL3RRVOVYJFZEQN2KPBT7JS3CXKOP
-X-Message-ID-Hash: WTQBL3RRVOVYJFZEQN2KPBT7JS3CXKOP
+Message-ID-Hash: L6J3MH6VJLPHRZH2PQ3JUAEZG7BO6HCU
+X-Message-ID-Hash: L6J3MH6VJLPHRZH2PQ3JUAEZG7BO6HCU
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -165,8 +165,7 @@ X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WTQBL3RRVOVYJFZEQN2KPBT7JS3CXKOP/>
+Archived-At: <>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -176,30 +175,28 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 On 27/03/2024 12:32, Mohammad Rafi Shaik wrote:
-> Document bindings for the Qualcomm qcm6490 and qcs6490 SoC sound card.
-> The bindings are the same as for other newer Qualcomm ADSP sound cards,
-> thus keep them in existing qcom,sm8250.yaml file, even though Linux driver
-> is separate.
-> 
-> Signed-off-by: Mohammad Rafi Shaik <quic_mohs@quicinc.com>
-> ---
->  Documentation/devicetree/bindings/sound/qcom,sm8250.yaml | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
-> index 2ab6871e89e5..247ad3d10933 100644
-> --- a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
-> +++ b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
-> @@ -29,6 +29,8 @@ properties:
->        - enum:
->            - qcom,apq8016-sbc-sndcard
->            - qcom,msm8916-qdsp6-sndcard
-> +          - qcom,qcm6490-sndcard
-> +          - qcom,qcs6490-sndcard
+> +
+> +static int qcm6490_snd_hw_free(struct snd_pcm_substream *substream)
+> +{
+> +	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+> +	struct qcm6490_snd_data *data = snd_soc_card_get_drvdata(rtd->card);
+> +	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
+> +	struct sdw_stream_runtime *sruntime = data->sruntime[cpu_dai->id];
+> +
+> +	return qcom_snd_sdw_hw_free(substream, sruntime,
+> +				    &data->stream_prepared[cpu_dai->id]);
+> +}
+> +
+> +static const struct snd_soc_ops qcm6490_be_ops = {
+> +	.hw_params = qcm6490_snd_hw_params,
+> +	.hw_free = qcm6490_snd_hw_free,
+> +	.prepare = qcm6490_snd_prepare,
+> +};
 
-What are the differences between these sound cards? I know that we ask
-for specific compatibles per each SoC block, but for similar SoCs sound
-cards might be an exception. It's more of a software construct anyway.
+I think you leak sdw_stream, because of missing shutdown.
+
+Except that everything looks like sc8280xp, except the snd_init(), so I
+wonder how important that difference is? Cannot be combined into sc8280xp?
 
 Best regards,
 Krzysztof

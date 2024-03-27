@@ -2,140 +2,132 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FBD788D66C
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 Mar 2024 07:33:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 761BC88D836
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 Mar 2024 08:59:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7D5BF2BF5;
-	Wed, 27 Mar 2024 07:33:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D5BF2BF5
+	by alsa0.perex.cz (Postfix) with ESMTPS id DCE652C06;
+	Wed, 27 Mar 2024 08:59:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DCE652C06
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1711521221;
-	bh=17lQP/6cUYkFTior5yW/mQtOmY7Orut49YPwqyvGCBU=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=qy3dM6/f3HFFRBaIooAd2bvJbSyOWt267YgC+kIq//ePyYsG0FdJYlT4Nr4BCeMDh
-	 aXJZhedoE1KS1IhMTXGLkvnLeky4/ul4rlQhYEGd1+ok/WjZdXojhU51yjcBP9elF4
-	 MaQpCf/Nqt7FuCg6cbGSxOdgEmWK7s7YbLs7xLxs=
+	s=default; t=1711526365;
+	bh=KcpvCSLZRo8Nfh45hvHZk5IfZTlTMKSqQ7SJZTaumH0=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=tPB4nNU0ngsHaHsmgWvu0iXCfmx+07CgIbRO2So+4ht601GYEEebBwoPot9MwcVJE
+	 87jNaxAjsl8Utj2tAM6s4FomlHO0Oq23QwVoevIozOxMVRxWSvGD1lISIk4X6RQ02l
+	 chb7vnU290shB33+P5udAszdf+ayZi/dEjI8tBQ4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 40247F805A8; Wed, 27 Mar 2024 07:33:21 +0100 (CET)
+	id 33991F805C4; Wed, 27 Mar 2024 08:58:36 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B6E4FF80587;
-	Wed, 27 Mar 2024 07:33:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 54265F805CA;
+	Wed, 27 Mar 2024 08:58:34 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E69A6F8025F; Wed, 27 Mar 2024 07:32:08 +0100 (CET)
+	id 4B382F802DB; Wed, 27 Mar 2024 08:58:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on20600.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2412::600])
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from APC01-SG2-obe.outbound.protection.outlook.com
+ (mail-sgaapc01on20625.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:feab::625])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E98C6F801D5
-	for <alsa-devel@alsa-project.org>; Wed, 27 Mar 2024 07:31:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E98C6F801D5
+	by alsa1.perex.cz (Postfix) with ESMTPS id 32AEFF8025F
+	for <alsa-devel@alsa-project.org>; Wed, 27 Mar 2024 08:58:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 32AEFF8025F
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=K/VQSrXL
+ unprotected) header.d=nuvoton.com header.i=@nuvoton.com header.a=rsa-sha256
+ header.s=selector1 header.b=V+7XteFg
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VFgO6w64d0/ax142XsuLPXOgHNQTa1TPkt9ZbUmU738xjY0VXaqr7QdLeUllhGt+PY2ueWkpDoLJMTxqITW5ZzGUhRQV+u2z+dNKb3SS3EgXWuCdpPhZGg5P8KuYXYem+JvbqEAgjlZyO9rhyyT6Qht/hUUFLu54r8JtVe5vAIgeICWBT5hPaTEZ6y/ufI6FhaGrq28D0eb5EV8/MyeUk5Cmmf8j5HzLNTZO7v4Az9xoQTmyCelJIHjb47QRV6N4/15SjRe1A6mMxdHCKQJxjZlLVpVP8FNZM1sf+XWBaEhyYrM+Z065bXfLYB28IRk2RXTlKBIf5y7SWOt/QY3GXg==
+ b=ELjvAfb/DzucMGnSxv9tW0ijN0te/CnOCG78t7GKNDN4mo7Ln66MRVHmhr4cnH0dTa4gOJE4W94bJ3KV5iFUlJluqmbKrqECIWVid84mFBGO3+T07sqk7f6VBhWBqPvwJyMv4HH5eoClEk37oRBmy9FxYUkpLJGBgAnf0s57gmzHkK8ryqc1KMOiQiySmKtOYZkU3AWRiZ+VOOgCnpAqQii1Q151/Qtv4b/zVdaFGy0d5+BsFZGEsS8AdHL18AOWYqQ3/Ihe+2X+Um4EPKey3T3fMdz0wqLxa7dHdcaFq52ndscOuaTyq4veYsoOF3YiXtnfr0johTOZWofKIpb6Mw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gor4f/qSypQ7yItu/jaZAS0gMOiyJgzdGq8p5XYuN30=;
- b=FWd+qVK2JfxAuOnxnTHGAK7K8WjM88fPkzDUCkUS1gGk+WUJqlTZvY/rl46ur7rKtOheENfN5YCvxxb9wAVRlHzX04mXIopJCWKGs6zPA/jz1JezCvh3AbnYiI4dLhMvEiCL6sXCXLg3bmcXd2PGBCM7Jb5mpl5gE3LaI9gvnDnyWezwhCABRtMcYsEgtxHUbCCi3ExosDwNFEfhG8EhshG1m0qBCwCm/l4G2AbA0Zpz8nGb/yaIGntpEt1umHOHOnOJAT4eMSbEx5kZSPDtZlj8TPelhD7HYEojigqYvsl9abQzrGEAf/SA4GKpJdUddprmqJoOBpXMgxXWMsEjVA==
+ bh=VY54/bVH5xqZ+TsuTNHsbve5RcuM1pZy9jC43LA6+eE=;
+ b=MOSBddc2lbdR5yDJs2HaxV3cAPZ1T1ELeMYz+7pTRHs892bs82qkpfp7EUIKa6Rp1a953Ck9LFEcCQEYEMNo5+NqQIfLy3SG+LLbCtPtpfS0IUamEKJsMDF6wl0mOlPzdD7PvfHwN71XCYyvNbwO/1NC6KL0DCzKSYShiSa7ZMpy63gngX0lZ8o3LXyz2ygowD752BxuYwNeCBc/gsEyUNhic57DUXTi9C4/WMsUq/ipWPa9ruy5TWoepG67kQbvI5/DI8H3STPBtHWyOs1J8b7UfolzkJNRgOM5CkPc6vEaog8gmucSkUoadj6oDAxN8UjXuJswAzudJSbcsLZV6g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ 175.98.123.7) smtp.rcpttodomain=kernel.org smtp.mailfrom=nuvoton.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=nuvoton.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nuvoton.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gor4f/qSypQ7yItu/jaZAS0gMOiyJgzdGq8p5XYuN30=;
- b=K/VQSrXLg/pBdCEkEN3R9KeyrXSBfWPhdVwSWH3GMvLFwmirxwT03Qdpy0/Fv54NH4cMZFftQ6IX/l+WXsEfU1GRHkQwCBSX382WvVIzjUCslTptxsuHaRHyTeWq+m1dSXoLez5xQaiva06f2FP0Jytoogct7HBtWSqHJC37gEI=
-Received: from BLAPR05CA0004.namprd05.prod.outlook.com (2603:10b6:208:36e::8)
- by SN7PR12MB8028.namprd12.prod.outlook.com (2603:10b6:806:341::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.32; Wed, 27 Mar
- 2024 06:31:51 +0000
-Received: from BL6PEPF0001AB75.namprd02.prod.outlook.com
- (2603:10b6:208:36e:cafe::62) by BLAPR05CA0004.outlook.office365.com
- (2603:10b6:208:36e::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.12 via Frontend
- Transport; Wed, 27 Mar 2024 06:31:51 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BL6PEPF0001AB75.mail.protection.outlook.com (10.167.242.168) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7409.10 via Frontend Transport; Wed, 27 Mar 2024 06:31:51 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 27 Mar
- 2024 01:31:51 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 26 Mar
- 2024 23:31:50 -0700
-Received: from vijendar-X570-GAMING-X.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35
- via Frontend Transport; Wed, 27 Mar 2024 01:31:47 -0500
-From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-To: <vkoul@kernel.org>
-CC: <broonie@kernel.org>, <alsa-devel@alsa-project.org>,
-	<pierre-louis.bossart@linux.intel.com>, <Basavaraj.Hiregoudar@amd.com>,
-	<Sunil-kumar.Dommati@amd.com>, <venkataprasad.potturu@amd.com>, "Vijendar
- Mukunda" <Vijendar.Mukunda@amd.com>, Bard Liao
-	<yung-chuan.liao@linux.intel.com>, Sanyog Kale <sanyog.r.kale@intel.com>,
-	Mastan Katragadda <Mastan.Katragadda@amd.com>, open list
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH 2/2] soundwire: amd: fix for wake interrupt handling for
- clockstop mode
-Date: Wed, 27 Mar 2024 12:01:43 +0530
-Message-ID: <20240327063143.2266464-2-Vijendar.Mukunda@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240327063143.2266464-1-Vijendar.Mukunda@amd.com>
-References: <20240327063143.2266464-1-Vijendar.Mukunda@amd.com>
+ bh=VY54/bVH5xqZ+TsuTNHsbve5RcuM1pZy9jC43LA6+eE=;
+ b=V+7XteFgZFi0KhVArGdm8jvqq0oA62wbJ7kTQ4BUhl/VhnZlAVZgRWoed3Gbk55SztWgK8BP3z0ylGvucVOSRKHHJhorcGvMCFPl/UfYxhNUtC3G0U+YBYgj0b7x/PzJuQ434dI2kYnChjEbkzbwh/jyljBnNQv2o0SogYnx6+8=
+Received: from PSBPR02CA0007.apcprd02.prod.outlook.com (2603:1096:301::17) by
+ SEZPR03MB6716.apcprd03.prod.outlook.com (2603:1096:101:64::6) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7409.23; Wed, 27 Mar 2024 07:58:00 +0000
+Received: from HK2PEPF00006FAE.apcprd02.prod.outlook.com
+ (2603:1096:301:0:cafe::2e) by PSBPR02CA0007.outlook.office365.com
+ (2603:1096:301::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.13 via Frontend
+ Transport; Wed, 27 Mar 2024 07:57:59 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 175.98.123.7)
+ smtp.mailfrom=nuvoton.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nuvoton.com;
+Received-SPF: Pass (protection.outlook.com: domain of nuvoton.com designates
+ 175.98.123.7 as permitted sender) receiver=protection.outlook.com;
+ client-ip=175.98.123.7; helo=NTHCCAS02.nuvoton.com; pr=C
+Received: from NTHCCAS02.nuvoton.com (175.98.123.7) by
+ HK2PEPF00006FAE.mail.protection.outlook.com (10.167.8.4) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7409.10 via Frontend Transport; Wed, 27 Mar 2024 07:57:59 +0000
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS02.nuvoton.com
+ (10.1.9.121) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Wed, 27 Mar
+ 2024 15:57:57 +0800
+Received: from localhost.localdomain (10.11.36.27) by NTHCCAS01.nuvoton.com
+ (10.1.8.28) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
+ Transport; Wed, 27 Mar 2024 15:57:57 +0800
+From: Seven Lee <wtli@nuvoton.com>
+To: <broonie@kernel.org>
+CC: <lgirdwood@gmail.com>, <alsa-devel@alsa-project.org>,
+	<devicetree@vger.kernel.org>, <linux-sound@vger.kernel.org>,
+	<krzysztof.kozlowski+dt@linaro.org>, <linux-kernel@vger.kernel.org>,
+	<robh+dt@kernel.org>, <conor+dt@kernel.org>, <perex@perex.cz>,
+	<tiwai@suse.com>, <YHCHuang@nuvoton.com>, <KCHSU0@nuvoton.com>,
+	<CTLIN0@nuvoton.com>, <SJLIN0@nuvoton.com>, <wtli@nuvoton.com>,
+	<scott6986@gmail.com>, <supercraig0719@gmail.com>, <dardar923@gmail.com>
+Subject: [PATCH v5 0/2] ASoC: nau8325: Modify driver code and dtschema.
+Date: Wed, 27 Mar 2024 15:57:53 +0800
+Message-ID: <20240327075755.3410381-1-wtli@nuvoton.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
+X-NotSetDelaration: True
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB75:EE_|SN7PR12MB8028:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4165160d-e72e-4530-b6d9-08dc4e2796a6
+X-MS-TrafficTypeDiagnostic: HK2PEPF00006FAE:EE_|SEZPR03MB6716:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9f61dfc5-d5de-4746-410d-08dc4e339efe
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info: 
-	ueJpIZ28qxzXEqHBDt8LkUAfj7vR3ZI6dmDlOl7jKoWJlE84sUPqYWa0EdNKRj9KPB96eisTQ+IaAVujndfIarqJKp6wUbp2naN99nhkEn5uIZhQNQLJwoYlxXeICxRarOOn3/D5OHgtRZKcxjfD+g/F3we1YBmN1R4N/ynjHXvMg5uWbaFWNdKz7scVL9iFVJ5wttHPAZrlXXwwSZhH8XiFm2AXWBOf92uRFQX+cLNsKYSGeRbbp3SQKC6nvEfZVGjaT4+yn5cPhBKmAm6rGBombP9IUB65IuNwG+/2RqdTeCVLJhB41j4YMUEuBMgIC76lp4zwHe01nKq+n9utHvMi02fKEmB8yr0TE6lcKutLWthGBKaw68DGOOuyCeWHwLp0x6GsTg3hHSlMG4oQsTybLilyfnU658cByWiIj+K0LG0Ie8zRrUbjwmE8HAiv5O3tp3Ewr+ZXIQzK0T+CXZFoWMZHsEHs91TPsuCE8uBYw9F9NZPkjyekRx7m5NDW3yOZ6kLSnbBP/D+y0odqRWKmOk9fhURvzEymZ0C0I8L2Q52GWKAqZmSmdIy6VUcUE2THQgCxC/sJ0enjlLd0Mk7Ws+TdkdKWn7ZMaeZEcu4XlBAh6+QUYJU9toUuY+P6QmUd7t8QO9enkiXFqPNC3ywET8DjOhj9wYX2AofdauGfkRM7phM4H7tJY135akQYHDhu3MkKKiNNPT+PJLncAGLlVEPU3cihwEHFKD0d+B1nKGhRj/yTXFP1Gv3QgEPi
+	PESunSWPWnuspWEH7OvekPgMIre2veKnrEgRl22veQgCqrAS6sbcGFc+UnJrqQLhwDEf9Af8NmkK4bZFKTCtEOajq12PsSyCkanEOc6CBEybBoy1ipUlnMPPokpwb+31odVp7vx4eQmV1xrGO5gdfz5SbK+xDHEj2mzEtSIHu7tnLHJO4zn8YH553cokx58lTroo5Hnl6Y6LnC21+tKw6XfCY1J4M6oBKv+vSZh4Ji5hKBc07c5JikgBqBGHh4OOtGeW1Vjzyddlx2qbKGneMvwPiIhIi6oAmPTOYIrtYkEHGP8J0YO1HKCU0WEl2lbWpNcL6JR8uKNaqjeX8HShxywsBNm341QvQqOdTk2PtnHW+/wavRzAZd/7QUYb2PK9p5KnK2XIWZ/hrdADcCkp9gNQGKOO9FNF6RmlFom9F0SMulJPRXBdWh9ngYw6wXcQhMfXBq5a2HmhY+dnrGnLcDTCju2lpNhKGJlCNIXXUZDZWDTrlPVTWjPKjI1lkw/4tBUE7bgaq2xuenxhJtcbFfknhZ9bIhCga/JWoAV7jiOZMz0e7e8DLG98SE1uajfMGZ69LW8HmoFMa4uw1OfwY04JWl/UR1Xw69Penhmd8gR/qbEi9VEyGWHV7Hh/2S5AdrWiUbqqULBFLldZs5FmZWKa3r7SBIuECrbIuAIxpX0ipuTUjN5Z3KtgfoZ99r8+OON/QaGbs+vR+PZM0u0dLEbV8y/j7pdwF3t5/ud/R6XhcS9OzgI9HzaAbF9pw8/F
 X-Forefront-Antispam-Report: 
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(376005)(82310400014)(36860700004)(1800799015);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2024 06:31:51.7654
+	CIP:175.98.123.7;CTRY:TW;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:NTHCCAS02.nuvoton.com;PTR:175-98-123-7.static.tfn.net.tw;CAT:NONE;SFS:(13230031)(82310400014)(7416005)(36860700004)(1800799015)(376005);DIR:OUT;SFP:1101;
+X-OriginatorOrg: nuvoton.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2024 07:57:59.7216
  (UTC)
 X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 4165160d-e72e-4530-b6d9-08dc4e2796a6
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+ 9f61dfc5-d5de-4746-410d-08dc4e339efe
+X-MS-Exchange-CrossTenant-Id: a3f24931-d403-4b4a-94f1-7d83ac638e07
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
- TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+ TenantId=a3f24931-d403-4b4a-94f1-7d83ac638e07;Ip=[175.98.123.7];Helo=[NTHCCAS02.nuvoton.com]
 X-MS-Exchange-CrossTenant-AuthSource: 
-	BL6PEPF0001AB75.namprd02.prod.outlook.com
+	HK2PEPF00006FAE.apcprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8028
-Message-ID-Hash: BDZFPHGZ5LRVTJKGQADWSR6IYGATG5PS
-X-Message-ID-Hash: BDZFPHGZ5LRVTJKGQADWSR6IYGATG5PS
-X-MailFrom: Vijendar.Mukunda@amd.com
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR03MB6716
+Message-ID-Hash: S2NLUXZ44TCKVEAZBJZAVGIJBYOUSW3H
+X-Message-ID-Hash: S2NLUXZ44TCKVEAZBJZAVGIJBYOUSW3H
+X-MailFrom: WTLI@nuvoton.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -147,7 +139,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BDZFPHGZ5LRVTJKGQADWSR6IYGATG5PS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/S2NLUXZ44TCKVEAZBJZAVGIJBYOUSW3H/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -156,88 +148,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-When SoundWire Wake interrupt is enabled along with SoundWire Wake
-enable register, SoundWire wake interrupt will be reported
-when SoundWire manager is in D3 state and ACP is in D3 state.
+Revise properties description and use standard units in dtschema.
+The unit conversion driver based on the attribute must also be
+changed accordingly.
 
-When SoundWire Wake interrupt is reported, it will invoke runtime
-resume of the SoundWire manager device.
+Change:
+V1 -> V2:
+- Revise the driver description part for the C++ comment.
+- In the nau8325_clkdet_put function, modify the max variable to hard code.
+- Removed "Clock Detection" switch control.
+- modify the "ALC Enable" switch name.
+- Revise the dtschema for "nuvoton,dac-vref".
 
-In case of system level suspend, for ClockStop Mode SoundWire Wake
-interrupt should be disabled.
-It should be enabled only for runtime suspend scenario.
-Change wake interrupt enable/disable sequence for ClockStop Mode in
-system level suspend and runtime suspend sceanrio.
+V2 -> V3:
+- Properties use standard unit suffixes.
+- Modify the enum definition.
+- Driver code should be used dev_dbg().
 
-Fixes: 9cf1efc5ed2d ("soundwire: amd: add pm_prepare callback and pm ops support")
+V3 -> V4:
+- Properties use standard unit suffixes.
+- Modify the enum definition.
 
-Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
----
- drivers/soundwire/amd_manager.c | 15 +++++++++++++++
- drivers/soundwire/amd_manager.h |  3 ++-
- 2 files changed, 17 insertions(+), 1 deletion(-)
+V4->V5:
+- Properties use standard unit suffixes for vref-impedance and dac-vref.
+- Revise the enum definition.
+- Modify the code related to properties usage in the NAU8325 codec driver.
+- Re-arrange header files in alphabetical order.
 
-diff --git a/drivers/soundwire/amd_manager.c b/drivers/soundwire/amd_manager.c
-index 1066d87aa011..20d94bcfc9b4 100644
---- a/drivers/soundwire/amd_manager.c
-+++ b/drivers/soundwire/amd_manager.c
-@@ -129,6 +129,19 @@ static void amd_sdw_set_frameshape(struct amd_sdw_manager *amd_manager)
- 	writel(frame_size, amd_manager->mmio + ACP_SW_FRAMESIZE);
- }
- 
-+static void amd_sdw_wake_enable(struct amd_sdw_manager *amd_manager, bool enable)
-+{
-+	u32 wake_ctrl;
-+
-+	wake_ctrl = readl(amd_manager->mmio + ACP_SW_STATE_CHANGE_STATUS_MASK_8TO11);
-+	if (enable)
-+		wake_ctrl |= AMD_SDW_WAKE_INTR_MASK;
-+	else
-+		wake_ctrl &= ~AMD_SDW_WAKE_INTR_MASK;
-+
-+	writel(wake_ctrl, amd_manager->mmio + ACP_SW_STATE_CHANGE_STATUS_MASK_8TO11);
-+}
-+
- static void amd_sdw_ctl_word_prep(u32 *lower_word, u32 *upper_word, struct sdw_msg *msg,
- 				  int cmd_offset)
- {
-@@ -1094,6 +1107,7 @@ static int __maybe_unused amd_suspend(struct device *dev)
- 	}
- 
- 	if (amd_manager->power_mode_mask & AMD_SDW_CLK_STOP_MODE) {
-+		amd_sdw_wake_enable(amd_manager, false);
- 		return amd_sdw_clock_stop(amd_manager);
- 	} else if (amd_manager->power_mode_mask & AMD_SDW_POWER_OFF_MODE) {
- 		/*
-@@ -1120,6 +1134,7 @@ static int __maybe_unused amd_suspend_runtime(struct device *dev)
- 		return 0;
- 	}
- 	if (amd_manager->power_mode_mask & AMD_SDW_CLK_STOP_MODE) {
-+		amd_sdw_wake_enable(amd_manager, true);
- 		return amd_sdw_clock_stop(amd_manager);
- 	} else if (amd_manager->power_mode_mask & AMD_SDW_POWER_OFF_MODE) {
- 		ret = amd_sdw_clock_stop(amd_manager);
-diff --git a/drivers/soundwire/amd_manager.h b/drivers/soundwire/amd_manager.h
-index 418b679e0b1a..707065468e05 100644
---- a/drivers/soundwire/amd_manager.h
-+++ b/drivers/soundwire/amd_manager.h
-@@ -152,7 +152,7 @@
- #define AMD_SDW0_EXT_INTR_MASK		0x200000
- #define AMD_SDW1_EXT_INTR_MASK		4
- #define AMD_SDW_IRQ_MASK_0TO7		0x77777777
--#define AMD_SDW_IRQ_MASK_8TO11		0x000d7777
-+#define AMD_SDW_IRQ_MASK_8TO11		0x000c7777
- #define AMD_SDW_IRQ_ERROR_MASK		0xff
- #define AMD_SDW_MAX_FREQ_NUM		1
- #define AMD_SDW0_MAX_TX_PORTS		3
-@@ -190,6 +190,7 @@
- #define AMD_SDW_CLK_RESUME_REQ				2
- #define AMD_SDW_CLK_RESUME_DONE				3
- #define AMD_SDW_WAKE_STAT_MASK				BIT(16)
-+#define AMD_SDW_WAKE_INTR_MASK				BIT(16)
- 
- static u32 amd_sdw_freq_tbl[AMD_SDW_MAX_FREQ_NUM] = {
- 	AMD_SDW_DEFAULT_CLK_FREQ,
+Seven Lee (2):
+  ASoC: dt-bindings: Added schema for "nuvoton,nau8325"
+  ASoC: nau8325: new driver
+
+ .../bindings/sound/nuvoton,nau8325.yaml       |  80 ++
+ sound/soc/codecs/nau8325.c                    | 893 ++++++++++++++++++
+ sound/soc/codecs/nau8325.h                    | 391 ++++++++
+ 3 files changed, 1364 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/nuvoton,nau8325.yaml
+ create mode 100644 sound/soc/codecs/nau8325.c
+ create mode 100644 sound/soc/codecs/nau8325.h
+
 -- 
-2.34.1
+2.25.1
 

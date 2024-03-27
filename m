@@ -2,56 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C5FF88ECF0
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 Mar 2024 18:46:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E70C88ECF4
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 Mar 2024 18:46:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AFA8D2C4B;
-	Wed, 27 Mar 2024 18:46:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AFA8D2C4B
+	by alsa0.perex.cz (Postfix) with ESMTPS id CB5112C5C;
+	Wed, 27 Mar 2024 18:46:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CB5112C5C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1711561585;
-	bh=YsWuS/bN+ordVLNDDyUzgcWCwI9QLJJQ0tzgJwDTOpA=;
+	s=default; t=1711561593;
+	bh=hnGUSISMWJyKzUzYwhipDPpfcmTFJLBeQqZyefNwj0Q=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=kyeYs23vpS5NXvW4EZOydQB3Kr/qKLpIo2Au3C3UcDxO3cIHBuiYGGijSTPMshbrZ
-	 xbNGeYKfBX/drYUJBsPmgoA4Uw6nhTeDyXBPCCiV4mVMbuuaHHej5Goi1++X519TOg
-	 00HkMlqXRXBl/1Nehh+zUCi4t/FDTeCdN7/uKeiU=
+	b=Ee3svcNiBbo4M8pyixQprPW4VlRBTUQDoevgM1G0I94wuXRFb26QXN7h0HK+FZZGL
+	 LCH+M6g53AzCx8WTtCijhcJ3IjQjddZuLdu3C+BkVI94QsJoHF3mNoQrBgXzKKFXz1
+	 sel5+qVeIeGr7PrlC2JJwbhh5Rk+T5jlFHMjEGw0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F3C7FF805F7; Wed, 27 Mar 2024 18:45:26 +0100 (CET)
+	id C521BF80093; Wed, 27 Mar 2024 18:45:28 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8C120F805E0;
-	Wed, 27 Mar 2024 18:45:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A3B36F8060E;
+	Wed, 27 Mar 2024 18:45:27 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 62FA1F805B3; Wed, 27 Mar 2024 18:45:19 +0100 (CET)
+	id F0B60F805DF; Wed, 27 Mar 2024 18:45:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No,
  score=-4.8 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8000FF801EB
-	for <alsa-devel@alsa-project.org>; Wed, 27 Mar 2024 18:45:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8000FF801EB
+	by alsa1.perex.cz (Postfix) with ESMTPS id 63681F805AD
+	for <alsa-devel@alsa-project.org>; Wed, 27 Mar 2024 18:45:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63681F805AD
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 695C5615E0;
+	by dfw.source.kernel.org (Postfix) with ESMTP id ABC5A615EB;
+	Wed, 27 Mar 2024 17:45:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D915CC433F1;
 	Wed, 27 Mar 2024 17:45:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F643C433C7;
-	Wed, 27 Mar 2024 17:45:09 +0000 (UTC)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Date: Wed, 27 Mar 2024 18:44:37 +0100
-Subject: [PATCH 02/18] ASoC: tlv320aic32x4-spi: drop driver owner
- assignment
+Date: Wed, 27 Mar 2024 18:44:38 +0100
+Subject: [PATCH 03/18] ASoC: tlv320aic3x-spi: drop driver owner assignment
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240327-module-owner-var-v1-2-86d5002ba6dc@linaro.org>
+Message-Id: <20240327-module-owner-var-v1-3-86d5002ba6dc@linaro.org>
 References: <20240327-module-owner-var-v1-0-86d5002ba6dc@linaro.org>
 In-Reply-To: <20240327-module-owner-var-v1-0-86d5002ba6dc@linaro.org>
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
@@ -62,25 +62,25 @@ Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
  alsa-devel@alsa-project.org,
  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=730;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=707;
  i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
- bh=YsWuS/bN+ordVLNDDyUzgcWCwI9QLJJQ0tzgJwDTOpA=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBmBFsN6qyk31Kq51SDkb1+nr67wbSc1UZfPgCFC
- UQZKmSc+ZWJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZgRbDQAKCRDBN2bmhouD
- 11ozEACRwJ27ei9Jb74W2gi2HWdW7qpjp6WxnRj8fNEeSYTu/bMA0ZZBIVNBmJKYeF/CU12J+sp
- p/umQxlWpZf6QO8cN8reIFlHEkxfKdkJsfOioBIB6SUUcQ6kMqd/B/cIZXnbT7Lt8sa5Vxx1kiK
- tRphy9ogSVX/lY3ckO7lcDtz2/V9YVJnLaKdvFCNme322Co+jmLC8n0R/EDWUJ/kwyE724fEbjc
- VctQ0CXYdaPlsLGAFtAooG2DDM/qY6wDVpXpPc46lsSzT91+T4hQxBaUqtNieGGn5KOEx32V7HX
- +f/vgmxkBY6m4aovqN5NCJQRU9CORKxGaiilmLzrUN5XhLznMMA+J9MVG9tTlEKZ4sHTmVfvYf8
- NgG23OcL/7I+Q631p/qz2DD04+fqAGcFElqSeRN0nQdYcE937KW55xqNnedhhXrqCc1Ul/yUBNn
- 6XO2sV2EjbVzidK2wPblYVFXaB2wyv37RxpwJZ8raOaBenhAf1TCPdCrIUHCU9TlJC+S/AiAUpq
- i6kxuG2OsW0hzDD/v4Qvg+EwDuibmwOzAinAz7pbbJA5Dmgg9NdoCvEbKaUh2mqoO/F/SpXVQ9h
- HrygfNaaHfPZkZWvb2YQQ2t4CkTCqgcyTAtlSVYtVi1aSKxKLe+JIG0EPbqT11M9gsU3u2efOGQ
- 0F2CMiFpPUtXQUg==
+ bh=hnGUSISMWJyKzUzYwhipDPpfcmTFJLBeQqZyefNwj0Q=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBmBFsOhPk3ZT6rW9aW41+tt1GhJmtZw4eivIzRi
+ 2ZnIV2XDO+JAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZgRbDgAKCRDBN2bmhouD
+ 1yOdEACI2wi4JJYyNZ/aFgOP+1zVwgvyQbAte66nrWJH4bhhKiu7El6ePUWWzvY+S9QcRxefKSB
+ WBpC4PxTsjYPg2kKMQJdH8keyl/qtNjGs9SBuLfvjaKr4awvPX65mozDQV4HgowKG5DTllrUIr3
+ rdt8W4PVnD0aYKVeao1DDrOl4OgQk5IterLd9d5IgAIEWpUFrf2B9cqcu/byEn4Xzep0JgQZSwT
+ rLiCdYzv8Fee/CQZ8oFAYJa+mLbsdAsMOtfbFuh8ILV0LOu57wyzxYz5ovlgG2eHYA2hck1cY6M
+ qQNx+2XT8vsTWikmhmARRJajaPYVVG8wkmZ+TE44S0D5PxpDOVDenb3xK1SkG3RuqdEqkpEzqC+
+ SBj3Cfk9IdQgrlWtz50U+Bx7PlxfqXZWFoLYANJAPAaCXDAx+5jG3OSKqBWijOMmZh/eAWl0imc
+ sjRRT8mv6l6WCHywvVOJ5FVy/XgKkLhNA9rLYgRczPfPZ/inGoub7NxmuwLQFFh3NRRd3akH2C1
+ d9pYswKdgIWBrN+Z9CjnmH6Ibn+36qUX3DHbn3XGA41BHU4lRy5sYd+CHbyWdLgopBKQI0RNu//
+ ZsC80XbcF5ED41An2v7/Z/Eh6uKwzHK95nm+hZg+Qpp7j9Ih98Qk1bqnmDi+4m3Ye5OvNZr/Utk
+ 99RKUsUBTvbA3UQ==
 X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
  fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-Message-ID-Hash: 7DAKZ4YGKC2YXR7L5HAWL2KOEOQW6BAU
-X-Message-ID-Hash: 7DAKZ4YGKC2YXR7L5HAWL2KOEOQW6BAU
+Message-ID-Hash: 5UWYH2VIMYONJHVNVMXT5JYPM5AXVETU
+X-Message-ID-Hash: 5UWYH2VIMYONJHVNVMXT5JYPM5AXVETU
 X-MailFrom: SRS0=G+Mr=LB=linaro.org=krzysztof.kozlowski@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -93,7 +93,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7DAKZ4YGKC2YXR7L5HAWL2KOEOQW6BAU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5UWYH2VIMYONJHVNVMXT5JYPM5AXVETU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,21 +107,21 @@ does not need to.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- sound/soc/codecs/tlv320aic32x4-spi.c | 1 -
+ sound/soc/codecs/tlv320aic3x-spi.c | 1 -
  1 file changed, 1 deletion(-)
 
-diff --git a/sound/soc/codecs/tlv320aic32x4-spi.c b/sound/soc/codecs/tlv320aic32x4-spi.c
-index d5976c91766e..92246243ff94 100644
---- a/sound/soc/codecs/tlv320aic32x4-spi.c
-+++ b/sound/soc/codecs/tlv320aic32x4-spi.c
-@@ -56,7 +56,6 @@ MODULE_DEVICE_TABLE(of, aic32x4_of_id);
- static struct spi_driver aic32x4_spi_driver = {
+diff --git a/sound/soc/codecs/tlv320aic3x-spi.c b/sound/soc/codecs/tlv320aic3x-spi.c
+index deed6ec7e081..f8c1c16eaa0e 100644
+--- a/sound/soc/codecs/tlv320aic3x-spi.c
++++ b/sound/soc/codecs/tlv320aic3x-spi.c
+@@ -63,7 +63,6 @@ MODULE_DEVICE_TABLE(of, aic3x_of_id);
+ static struct spi_driver aic3x_spi_driver = {
  	.driver = {
- 		.name = "tlv320aic32x4",
+ 		.name = "tlv320aic3x",
 -		.owner = THIS_MODULE,
- 		.of_match_table = aic32x4_of_id,
+ 		.of_match_table = aic3x_of_id,
  	},
- 	.probe =    aic32x4_spi_probe,
+ 	.probe = aic3x_spi_probe,
 
 -- 
 2.34.1

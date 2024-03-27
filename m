@@ -2,159 +2,133 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C53488DF4D
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 Mar 2024 13:23:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD62388E143
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 Mar 2024 13:56:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AD0642C04;
-	Wed, 27 Mar 2024 13:22:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD0642C04
+	by alsa0.perex.cz (Postfix) with ESMTPS id 298182C06;
+	Wed, 27 Mar 2024 13:56:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 298182C06
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1711542181;
-	bh=mgHimy+byUwgB5+ODcBJAyj/keJcA2B3A9AbHPUV5vA=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=DIjjnRSXIY6sQKL7ObRZxvlq3wCMpODjddWT6YTfbw6C8yEK45L1mLOugzI3Sg2+C
-	 YV1iEgXCuHFUr41w0kMJfDM28yah6CXZdDrXlNmTpqb/aedy/ivTO3zY6IsKGWCkgE
-	 GM9uUvcuux9SQ9y65TE7h+mA7aWO+GTnHQ8no8rI=
+	s=default; t=1711544189;
+	bh=7tvzWOMU15U3qLtaG45FvaCp1yBq+rNh+P9CuovlHu4=;
+	h=References:From:To:Cc:Subject:Date:In-reply-to:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=OZoH4b8fyi52LJaEDUg67/XrsqY7u1Z2o9yreJe1lIdwWWYxJfmN2Y6mBPiDErsNb
+	 FkGUfQRPWxaukosUhHfmmmExljEmGZH1Pc49HvR43W9uNjfg7irK7CnntloC7BKVHC
+	 VHcSlkYxDIkS68IKy5V3YZtcx0BjhdRT385SbxYE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E8C23F805A1; Wed, 27 Mar 2024 13:22:30 +0100 (CET)
+	id EED33F80589; Wed, 27 Mar 2024 13:55:58 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 79598F80579;
-	Wed, 27 Mar 2024 13:22:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 22874F8057B;
+	Wed, 27 Mar 2024 13:55:58 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E712DF8025F; Wed, 27 Mar 2024 13:22:25 +0100 (CET)
+	id CE236F8025F; Wed, 27 Mar 2024 13:55:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [IPv6:2a00:1450:4864:20::435])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0FD43F801D5
-	for <alsa-devel@alsa-project.org>; Wed, 27 Mar 2024 13:22:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0FD43F801D5
+	by alsa1.perex.cz (Postfix) with ESMTPS id 14DA2F80093
+	for <alsa-devel@alsa-project.org>; Wed, 27 Mar 2024 13:55:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14DA2F80093
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=XWgS5ef+
-Received: by mail-lf1-x12a.google.com with SMTP id
- 2adb3069b0e04-513e134f73aso8374544e87.2
+ unprotected) header.d=baylibre-com.20230601.gappssmtp.com
+ header.i=@baylibre-com.20230601.gappssmtp.com header.a=rsa-sha256
+ header.s=20230601 header.b=Fc+OgUF4
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-341cf28dff6so2153351f8f.1
         for <alsa-devel@alsa-project.org>;
- Wed, 27 Mar 2024 05:22:22 -0700 (PDT)
+ Wed, 27 Mar 2024 05:55:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1711542142; x=1712146942;
- darn=alsa-project.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=OmcRGS5TlQaotd06qJrgXX+1RvodsZtckupwlgr6QW8=;
-        b=XWgS5ef++4HD9qQ6rCOJ5RmAgPCMYpDNb2Iewp73VrphFfV65Lc7vgdjMGw0tjWUNu
-         DEXCTkXXRVkzF3Hxn56qnFiHIp1T/Y6RJUuD+tewd9YukUf9euzKqPV0pjx0Hx7tzAoP
-         zTrcTfLvRp94KtNPsKRAUd6kKMkQdk+TVK2pHBbeeJxJ4MxztzL9QC87eMAYXBLQHZc/
-         G26UYNOg0I6ecDHG66/UXJRqEcewwu2sBYSZEaBEDs5/AaiGRNvhVtGb8O3afOIhO5Bb
-         o+P6asvJ6z9aGk790llwecJP0EKIjf9GHsO7SMdPxgpuxm+pOP5uAoLv9wxHaDRUHC0B
-         Dc4w==
+        d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1711544137;
+ x=1712148937; darn=alsa-project.org;
+        h=mime-version:message-id:in-reply-to:date:subject:cc:to:from
+         :user-agent:references:from:to:cc:subject:date:message-id:reply-to;
+        bh=Vp48KocudoiGALvWKkmTWkUXKZEVfSQEtoMbBwrHz/0=;
+        b=Fc+OgUF4Jom2qk5N2KZwCL9iAW8QSs7rX9vctwlGXLSipmyfgizNnwLXtlN1CdeDIj
+         v4Nd7HcAUQWUxvApWIbmCS4UEufJocPdpjZUfEaC/szG7Urmt4vST9tBMsp8vIaywIXr
+         2BH0r1IMppCPTvRhH0mgZUthdXz1aMqODTWYiGk+KmZQm60vfihVZoj1VKON4SQpGUXo
+         aHz3kdndZVdeXRecgnouvEYSVUR4FgzsRG4dXowLyaUMSUlC/7PzKNvQ1catgfkqCypw
+         gQVHTOxUvtKYUrVJxzJfaes8iIPS/rDMqOz82ETuq0f7auvM9Dd+vgsJ0C+Q4+qXOLlT
+         DxwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711542142; x=1712146942;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=OmcRGS5TlQaotd06qJrgXX+1RvodsZtckupwlgr6QW8=;
-        b=SxFfizEQoFuE50Ie51fWgoxgqmGvF1Ku/qyyxY+tLEuKFJTrAjsij6a7lIP3/iL6hf
-         mbU4F1ZylOMUJlXMhalwcCdqqcTdhGe8sAnTRICNaH9KpP9w50Nr3cSySPx9/pzXkRC8
-         3JtWhXfIOA4GvqtbJ36ZECjhb4RGfn0Phpd+tAKTOJ6aPhKGngcKHRDwaltSZPghLyZE
-         XbW2FejDlhQ4Fkxz7r3jRfFPbes2YHDCIiwSSLGFalZEjRowULMyXyMNXoKx52CyBMtl
-         a9DbwiexDF8xiYGpgTvuAn2GzSIHsVsMS3bCFGHoekVVEk779Plu6dpt6r423aW148g7
-         PPHw==
+        d=1e100.net; s=20230601; t=1711544137; x=1712148937;
+        h=mime-version:message-id:in-reply-to:date:subject:cc:to:from
+         :user-agent:references:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Vp48KocudoiGALvWKkmTWkUXKZEVfSQEtoMbBwrHz/0=;
+        b=I40NVx42otyQ3jbDEgUCV65/WbGXzmiH5vMPGFJGMWLbXey905pAnzLbrkrxEcrfC0
+         styfQE+CCebOVNlvcv9hdy5gd7R7qNagPJSuM+HhVRP3T6K5L3Zl4GiGyl5Nrh7VyoEd
+         ADuzBTaw01+cYgUIkrzBd1qLiaiZNn84cNNIU/cSPghXfJS7FEsLqimqmrcb5ZGCcB2I
+         QqOxiHhkOeDdpaf23l/BItLMtRNqrdsrsqYVISDVGdznTjOBuJY8IL51vHt1Oawm+nf/
+         Bf77pb4fChXx5xMkQDNNoglavXaMYIZyieqtvAOyOvfip2AMvTQrFFdlhObnrhdohQpG
+         Iczg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW+JNmnlxn81JjG+VFpSGpeQeBjJfVQ2eqpLEIhDoCOt1QaRp6WQCDIR0oueUfkxWYi6kkyci5EkrmeQBruLg7np2q0M+eS6ewclLE=
-X-Gm-Message-State: AOJu0YxHTrJGG2aPLbf3Rv2hGpxmmItOYvbvaK3x4VyK0avLY6MDi7as
-	E+447VuPT1sliBoQTuUu0b3Du1ya4844VauEmu/4OZzSoHbBE5c8VrOjqV5KkQM=
+ AJvYcCXXbmoHc20GYQMmmTUL5VStIwn6ElxxAEkIwkYIo1/rjhYcOI62aINEQR3qoo2mT/fkcJVsaC7c3aO6u4sg9jpJZv525nuTuXtP+KM=
+X-Gm-Message-State: AOJu0Yx/4kUGXbQsMykFq3BpJj5wLkSTV9gj352xQqlRHT3y0dLS5TIq
+	Sx+RUUJFAm+vEsmxF1sky4sx2YzRrRTgf/wzV7mdFxD9hUKtMhpybSsy0mZLUEQ=
 X-Google-Smtp-Source: 
- AGHT+IHtBSxEVchSrE3xWoYzGCiDQD4FtHnKvLyASr4Du/viFPqbbyU6bNRNsqaYfG4X7z5dzSQv4g==
-X-Received: by 2002:ac2:4983:0:b0:515:c00d:7766 with SMTP id
- f3-20020ac24983000000b00515c00d7766mr851252lfl.54.1711542141717;
-        Wed, 27 Mar 2024 05:22:21 -0700 (PDT)
-Received: from [192.168.1.20] ([178.197.206.205])
+ AGHT+IFNNxBDz2Tx/jpDPmwWEphhbXKgsW+qHx/Yz0edPYKGGY5dsGFKtIqCm7B13uhNEaK0FJ6NZA==
+X-Received: by 2002:adf:a3d0:0:b0:33e:1ee0:6292 with SMTP id
+ m16-20020adfa3d0000000b0033e1ee06292mr4235689wrb.58.1711544137249;
+        Wed, 27 Mar 2024 05:55:37 -0700 (PDT)
+Received: from localhost ([2a01:e0a:3c5:5fb1:e2f0:34bb:2ffe:1a3b])
         by smtp.gmail.com with ESMTPSA id
- n6-20020a05640204c600b0056b8dcdaca5sm1382464edw.73.2024.03.27.05.22.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 27 Mar 2024 05:22:21 -0700 (PDT)
-Message-ID: <3dbb428f-0265-4741-a28e-5613799133e9@linaro.org>
-Date: Wed, 27 Mar 2024 13:22:19 +0100
+ h2-20020a5d5042000000b00341c162a6d4sm11641186wrt.107.2024.03.27.05.55.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 27 Mar 2024 05:55:36 -0700 (PDT)
+References: <87o7b353of.wl-kuninori.morimoto.gx@renesas.com>
+ <8734sf53kv.wl-kuninori.morimoto.gx@renesas.com>
+ <1j7chp9gbb.fsf@starbuckisacylon.baylibre.com>
+ <87v858cwki.wl-kuninori.morimoto.gx@renesas.com>
+User-agent: mu4e 1.10.8; emacs 29.2
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: Jerome Brunet <jbrunet@baylibre.com>, Amadeusz =?utf-8?B?U8WCYXdpxYRz?=
+ =?utf-8?B?a2k=?=
+ <amadeuszx.slawinski@linux.intel.com>, Alper Nebi Yasak
+ <alpernebiyasak@gmail.com>, AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>, Banajit Goswami
+ <bgoswami@quicinc.com>, Bard Liao <yung-chuan.liao@linux.intel.com>, Brent
+   Lu <brent.lu@intel.com>, Cezary Rojewski <cezary.rojewski@intel.com>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, Daniel Baluta
+ <daniel.baluta@nxp.com>, Hans de Goede <hdegoede@redhat.com>, Jaroslav
+   Kysela <perex@perex.cz>, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Kevin  Hilman <khilman@baylibre.com>, Liam  Girdwood
+ <lgirdwood@gmail.com>, Linus  Walleij <linus.walleij@linaro.org>, Mark
+ Brown <broonie@kernel.org>, Maso  Huang <maso.huang@mediatek.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Peter Ujfalusi
+ <peter.ujfalusi@linux.intel.com>, Pierre-Louis Bossart
+ <pierre-louis.bossart@linux.intel.com>, Ranjani Sridharan
+ <ranjani.sridharan@linux.intel.com>, Sascha Hauer
+ <s.hauer@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>, Shengjiu Wang
+ <shengjiu.wang@gmail.com>, Srinivas Kandagatla
+ <srinivas.kandagatla@linaro.org>, Sylwester Nawrocki
+ <s.nawrocki@samsung.com>, Takashi Iwai <tiwai@suse.com>, Trevor Wu
+ <trevor.wu@mediatek.com>, Vinod Koul <vkoul@kernel.org>, Xiubo Li
+ <Xiubo.Lee@gmail.com>, alsa-devel@alsa-project.org, imx@lists.linux.dev,
+ linux-sound@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [PATCH 15/15] ASoC: soc-pcm: indicate warning if DPCM BE Codec
+ has no settings
+Date: Wed, 27 Mar 2024 13:30:32 +0100
+In-reply-to: <87v858cwki.wl-kuninori.morimoto.gx@renesas.com>
+Message-ID: <1jcyrfal6f.fsf@starbuckisacylon.baylibre.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/2] ASoC: qcom: qcm6490: Add machine driver for
- qcm6490
-To: Mohammad Rafi Shaik <quic_mohs@quicinc.com>,
- srinivas.kandagatla@linaro.org, bgoswami@quicinc.com, broonie@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, andersson@kernel.org,
- konrad.dybcio@linaro.org, lgirdwood@gmail.com, tiwai@suse.com,
- quic_rohkumar@quicinc.com, linux-kernel@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- linux-arm-msm@vger.kernel.org
-References: <20240327113228.1706975-1-quic_mohs@quicinc.com>
- <20240327113228.1706975-3-quic_mohs@quicinc.com>
-Content-Language: en-US
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzTRLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnp5c3p0b2Yua296bG93c2tpQGxpbmFyby5vcmc+wsGUBBMBCgA+FiEE
- m9B+DgxR+NWWd7dUG5NDfTtBYpsFAmI+BxMCGwMFCRRfreEFCwkIBwIGFQoJCAsCBBYCAwEC
- HgECF4AACgkQG5NDfTtBYptgbhAAjAGunRoOTduBeC7V6GGOQMYIT5n3OuDSzG1oZyM4kyvO
- XeodvvYv49/ng473E8ZFhXfrre+c1olbr1A8pnz9vKVQs9JGVa6wwr/6ddH7/yvcaCQnHRPK
- mnXyP2BViBlyDWQ71UC3N12YCoHE2cVmfrn4JeyK/gHCvcW3hUW4i5rMd5M5WZAeiJj3rvYh
- v8WMKDJOtZFXxwaYGbvFJNDdvdTHc2x2fGaWwmXMJn2xs1ZyFAeHQvrp49mS6PBQZzcx0XL5
- cU9ZjhzOZDn6Apv45/C/lUJvPc3lo/pr5cmlOvPq1AsP6/xRXsEFX/SdvdxJ8w9KtGaxdJuf
- rpzLQ8Ht+H0lY2On1duYhmro8WglOypHy+TusYrDEry2qDNlc/bApQKtd9uqyDZ+rx8bGxyY
- qBP6bvsQx5YACI4p8R0J43tSqWwJTP/R5oPRQW2O1Ye1DEcdeyzZfifrQz58aoZrVQq+innR
- aDwu8qDB5UgmMQ7cjDSeAQABdghq7pqrA4P8lkA7qTG+aw8Z21OoAyZdUNm8NWJoQy8m4nUP
- gmeeQPRc0vjp5JkYPgTqwf08cluqO6vQuYL2YmwVBIbO7cE7LNGkPDA3RYMu+zPY9UUi/ln5
- dcKuEStFZ5eqVyqVoZ9eu3RTCGIXAHe1NcfcMT9HT0DPp3+ieTxFx6RjY3kYTGLOwU0EVUNc
- NAEQAM2StBhJERQvgPcbCzjokShn0cRA4q2SvCOvOXD+0KapXMRFE+/PZeDyfv4dEKuCqeh0
- hihSHlaxTzg3TcqUu54w2xYskG8Fq5tg3gm4kh1Gvh1LijIXX99ABA8eHxOGmLPRIBkXHqJY
- oHtCvPc6sYKNM9xbp6I4yF56xVLmHGJ61KaWKf5KKWYgA9kfHufbja7qR0c6H79LIsiYqf92
- H1HNq1WlQpu/fh4/XAAaV1axHFt/dY/2kU05tLMj8GjeQDz1fHas7augL4argt4e+jum3Nwt
- yupodQBxncKAUbzwKcDrPqUFmfRbJ7ARw8491xQHZDsP82JRj4cOJX32sBg8nO2N5OsFJOcd
- 5IE9v6qfllkZDAh1Rb1h6DFYq9dcdPAHl4zOj9EHq99/CpyccOh7SrtWDNFFknCmLpowhct9
- 5ZnlavBrDbOV0W47gO33WkXMFI4il4y1+Bv89979rVYn8aBohEgET41SpyQz7fMkcaZU+ok/
- +HYjC/qfDxT7tjKXqBQEscVODaFicsUkjheOD4BfWEcVUqa+XdUEciwG/SgNyxBZepj41oVq
- FPSVE+Ni2tNrW/e16b8mgXNngHSnbsr6pAIXZH3qFW+4TKPMGZ2rZ6zITrMip+12jgw4mGjy
- 5y06JZvA02rZT2k9aa7i9dUUFggaanI09jNGbRA/ABEBAAHCwXwEGAEKACYCGwwWIQSb0H4O
- DFH41ZZ3t1Qbk0N9O0FimwUCYDzvagUJFF+UtgAKCRAbk0N9O0Fim9JzD/0auoGtUu4mgnna
- oEEpQEOjgT7l9TVuO3Qa/SeH+E0m55y5Fjpp6ZToc481za3xAcxK/BtIX5Wn1mQ6+szfrJQ6
- 59y2io437BeuWIRjQniSxHz1kgtFECiV30yHRgOoQlzUea7FgsnuWdstgfWi6LxstswEzxLZ
- Sj1EqpXYZE4uLjh6dW292sO+j4LEqPYr53hyV4I2LPmptPE9Rb9yCTAbSUlzgjiyyjuXhcwM
- qf3lzsm02y7Ooq+ERVKiJzlvLd9tSe4jRx6Z6LMXhB21fa5DGs/tHAcUF35hSJrvMJzPT/+u
- /oVmYDFZkbLlqs2XpWaVCo2jv8+iHxZZ9FL7F6AHFzqEFdqGnJQqmEApiRqH6b4jRBOgJ+cY
- qc+rJggwMQcJL9F+oDm3wX47nr6jIsEB5ZftdybIzpMZ5V9v45lUwmdnMrSzZVgC4jRGXzsU
- EViBQt2CopXtHtYfPAO5nAkIvKSNp3jmGxZw4aTc5xoAZBLo0OV+Ezo71pg3AYvq0a3/oGRG
- KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
- fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
- D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <20240327113228.1706975-3-quic_mohs@quicinc.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: L6J3MH6VJLPHRZH2PQ3JUAEZG7BO6HCU
-X-Message-ID-Hash: L6J3MH6VJLPHRZH2PQ3JUAEZG7BO6HCU
-X-MailFrom: krzysztof.kozlowski@linaro.org
+Content-Type: text/plain
+Message-ID-Hash: DZYKRITZ724IN4ZBD7W36VTIJZHMWO3X
+X-Message-ID-Hash: DZYKRITZ724IN4ZBD7W36VTIJZHMWO3X
+X-MailFrom: jbrunet@baylibre.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -165,7 +139,8 @@ X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: <>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DZYKRITZ724IN4ZBD7W36VTIJZHMWO3X/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -174,30 +149,122 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 27/03/2024 12:32, Mohammad Rafi Shaik wrote:
-> +
-> +static int qcm6490_snd_hw_free(struct snd_pcm_substream *substream)
-> +{
-> +	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-> +	struct qcm6490_snd_data *data = snd_soc_card_get_drvdata(rtd->card);
-> +	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
-> +	struct sdw_stream_runtime *sruntime = data->sruntime[cpu_dai->id];
-> +
-> +	return qcom_snd_sdw_hw_free(substream, sruntime,
-> +				    &data->stream_prepared[cpu_dai->id]);
-> +}
-> +
-> +static const struct snd_soc_ops qcm6490_be_ops = {
-> +	.hw_params = qcm6490_snd_hw_params,
-> +	.hw_free = qcm6490_snd_hw_free,
-> +	.prepare = qcm6490_snd_prepare,
-> +};
 
-I think you leak sdw_stream, because of missing shutdown.
+On Wed 27 Mar 2024 at 01:06, Kuninori Morimoto <kuninori.morimoto.gx@renesas.com> wrote:
 
-Except that everything looks like sc8280xp, except the snd_init(), so I
-wonder how important that difference is? Cannot be combined into sc8280xp?
+> Hi Jerome
+>
+> Thank you for your feedback
+>
+>> I'm not quite sure what you mean by "should have validation" and what
+>> setting exactly we should validate ?
+>> 
+>> I know I should be able to able to understand that
+>> from the code below but, somehow I have trouble deciphering it.
+>
+> Current ASoC have validation for ^^^ part
+>
+> 	DPCM
+> 		[CPU/xxxx]-[xxxx/Codec]
+> 		^^^^                   (A)
+> 	Normal
+> 		[CPU/Codec]
+> 		^^^^^^^^^^^
+>
+> (In many case, this "xxxx" is "dummy")
 
-Best regards,
-Krzysztof
+Yes for many DPCM user, you have:
 
+       DPCM
+               [CPU/dummy]-[dummy/Codec]
+
+FYI: on Amlogic it is mostly the following
+(only considering DCPM, omitting C2C ...)
+
+       DPCM
+               [CPU-FE/dummy]-[CPU-BE/Codec]
+
+With possibly several BE instances per FE, and several codecs per BE.
+
+And there is even this for loopbacks:
+
+       DPCM
+               [CPU-FE/dummy]-[CPU-BE/dummy]
+
+
+> By this patch-set, It will check all cases
+>
+> 	DPCM
+> 		[CPU/xxxx]-[xxxx/Codec]
+> 		^^^^^^^^^   ^^^^^^^^^^ (B)
+> 	Normal
+> 		[CPU/Codec]
+> 		^^^^^^^^^^^
+>
+> At first, in [CPU/xxxx] case, "xxxx" part should be also checked
+> (in many case, this "xxxx" is "dummy").
+>
+> And, because it didn't check (A) part before,
+> (B) part might be error on some board (at least Intel board).
+> To avoid such case, temporally it uses "dummy" instead of "Codec"
+> before [15/15]. This means (B) part checked as like below.
+>
+> 	[xxxx/Codec] -> [xxxx/dummy]
+>
+> Because "dummy" will pass all cases, (B) part is almost same as no check.
+> Yes, it is no meaning, but the code will be simple.
+>
+>> Where you have a CPU supporting both direction and 2 codecs, each
+>> supporting 1 stream direction ? This is a valid i2s configuration.
+> (snip)
+>> >  		/*
+>> > -		 * FIXME
+>> > +		 * FIXME / CLEAN-UP-ME
+>> >  		 *
+>> >  		 * DPCM BE Codec has been no checked before.
+>> >  		 * It should be checked, but it breaks compatibility.
+>> >  		 * It ignores BE Codec here, so far.
+>> >  		 */
+>> > -		if (dai_link->no_pcm)
+>> > -			codec_dai = dummy_dai;
+>> > +		if ((dai_link->no_pcm) &&
+>> > +		    ((cpu_play_t	&& !codec_play_t) ||
+>> > +		     (cpu_capture_t	&& !codec_capture_t))) {
+>> > +			dev_warn_once(rtd->dev, "DCPM BE Codec has no stream settings (%s)\n",
+>> > +				      codec_dai->name);
+>> 
+>> Taking one codec at a time, would you trigger a warning for the use case I
+>> described above ?
+>
+> Oops, indeed it will indicate warning in your case.
+> How about this ?
+>
+> 	if ((dai_link->no_pcm) &&
+                         ^ Actually my comment applies to all links, DPCM backend or not
+
+> 	    (!codec_play_t && !codec_capture_t)) {
+
+A codec that does not support playback and does not support capture does
+not support much, does it ? ;)
+
+I suppose you meant something like:
+
+>           (!cpu_play_t && !codec_capture_t)) { 
+
+Then at first glance, maybe ... CPU and codec seem to exclude each other but
+that will only work as long as DCPM is limited to a single CPU per link.
+
+> 		dev_warn_once(...)
+> 		...
+> 	}
+>
+> Thank you for your help !!
+>
+> Best regards
+> ---
+> Renesas Electronics
+> Ph.D. Kuninori Morimoto
+
+
+-- 
+Jerome

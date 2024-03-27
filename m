@@ -2,85 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FB8E88ED1D
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 Mar 2024 18:50:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C56FC88EEBF
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 Mar 2024 19:58:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 65F5F2C56;
-	Wed, 27 Mar 2024 18:50:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 65F5F2C56
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9AAE62C43;
+	Wed, 27 Mar 2024 19:57:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9AAE62C43
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1711561840;
-	bh=TPIwJyHJ+747cO/ACTo9CUsEqoc7Fc18IjkZxXaUALs=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:List-Id:
+	s=default; t=1711565882;
+	bh=OfAba53dQ06otKA3IjFlOaA0wy3ja83eDdFvPK/hbB0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=nPDNOrzdzQQKnZ/G7vWhvZupnraBmvu4B+/kwpxSILlVB/aNzjo3iNgYl7pMsjMaN
-	 QHI/UYURfE/oIJFtuHsnjcuxvtaAHYA9GF/e2Waz4k/HiicyXlg095VNraHLCwyYPD
-	 gfTmynCuEs5yTaJ56jMrU7UHvds2iF13IZuds/nQ=
+	b=trv1otUY/2bgz0QA+s+SGvUpFvw3vUdomGhpz3nQhz/9GBZOUvzPoXRZG7CUzAdAl
+	 daoOK34o2JEVnGxlcmXg/k92Xuf2Q6mwcC43s9I0dkkLhhDVbFLViqP5xutjwAvP5R
+	 KYwhOabEUTJvHuPxtH5CXyzoAN3dM1w9QDH4JA+g=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C499AF80CB4; Wed, 27 Mar 2024 18:46:26 +0100 (CET)
+	id 73228F8058C; Wed, 27 Mar 2024 19:57:31 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4517AF80608;
-	Wed, 27 Mar 2024 18:46:26 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C088CF805A0;
+	Wed, 27 Mar 2024 19:57:30 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A9151F80C78; Wed, 27 Mar 2024 18:46:22 +0100 (CET)
+	id 89190F8025F; Wed, 27 Mar 2024 19:57:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No,
- score=-4.8 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A21A5F80C73
-	for <alsa-devel@alsa-project.org>; Wed, 27 Mar 2024 18:46:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A21A5F80C73
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 3771FCE2534;
-	Wed, 27 Mar 2024 17:46:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23D6BC43390;
-	Wed, 27 Mar 2024 17:46:11 +0000 (UTC)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Date: Wed, 27 Mar 2024 18:44:53 +0100
-Subject: [PATCH 18/18] ASoC: sdw-mockup: drop driver owner assignment
+	by alsa1.perex.cz (Postfix) with ESMTPS id A7BE2F801D5
+	for <alsa-devel@alsa-project.org>; Wed, 27 Mar 2024 19:57:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7BE2F801D5
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=OtZnBNuN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1711565844; x=1743101844;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=OfAba53dQ06otKA3IjFlOaA0wy3ja83eDdFvPK/hbB0=;
+  b=OtZnBNuNUagNq6SQZm9PPZnuFs6Zya3SnKOC2ne1OGQ7lCpBK1Go2ATD
+   GAkCPiriDLs1g8hfAL2Cb7NKYD1gcRDDmVhuskIS7AzgeJ4Kw5Ph15JGn
+   RATkM8XKA+82X1t4Hl+mrDhynsI2aMc3xkf0LfLtHN8e0ge0/8xGoi9Q1
+   C8T4MtcZ4o8QC3dGuXnzGpbVbkvUZ0jRYTl+7kfn0iHL2t7EZLYpmaBm5
+   hKtw4pAewAAOLmrq+OAq88c49gUmIvn2kOScxK5xsO1Gnp8IXqU6CwUpD
+   RwlOfKoxE6TE722q4tabvizoRAI8gwVtURpXo7j+mdGnrRFgHPgr7GA+7
+   A==;
+X-CSE-ConnectionGUID: FoUeIgupSziGCNzdtc3iGQ==
+X-CSE-MsgGUID: 0ndxgt+eRj+uXdhC3DrsFg==
+X-IronPort-AV: E=McAfee;i="6600,9927,11026"; a="6555475"
+X-IronPort-AV: E=Sophos;i="6.07,159,1708416000";
+   d="scan'208";a="6555475"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Mar 2024 11:57:18 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.07,159,1708416000";
+   d="scan'208";a="16404593"
+Received: from ssherman-mobl.amr.corp.intel.com (HELO [10.212.117.1])
+ ([10.212.117.1])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Mar 2024 11:57:17 -0700
+Message-ID: <a256c478-2cdb-4012-ab95-b6ccba1194e8@linux.intel.com>
+Date: Wed, 27 Mar 2024 13:14:02 -0500
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20240327-module-owner-var-v1-18-86d5002ba6dc@linaro.org>
-References: <20240327-module-owner-var-v1-0-86d5002ba6dc@linaro.org>
-In-Reply-To: <20240327-module-owner-var-v1-0-86d5002ba6dc@linaro.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 00/18] ASoC: drop driver owner assignment
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
  Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
  Baojun Xu <baojun.xu@ti.com>, Oder Chiou <oder_chiou@realtek.com>
 Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
- alsa-devel@alsa-project.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=697;
- i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
- bh=TPIwJyHJ+747cO/ACTo9CUsEqoc7Fc18IjkZxXaUALs=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBmBFsbPRhLLRW6aIenPvFaDhNNkrhsJU/87RgSq
- 1indSOHKTWJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZgRbGwAKCRDBN2bmhouD
- 1+urD/9nYozdlVyHTbH1gmrxRj+UdO9xzVICmYBU4OUt5C86nmFnA8tt2lh37b3gLRcms/eK5zY
- uDclO/E0Vm6fMwDz+bL7WcV1TNPvgHXVkym+8ilScw84szrTux9xNOF7ko0PTq4nZrgKov9831P
- 9awI7+Ug5/mT7LlSt7QUZfK6SnIa/8LKULNpfUb/p0dldEVzMFHQWU5MwuYIZTTa1/WNu0huJCS
- /Tfzd68AhMie5D9u9+WdYkFbkhTuAgWQY8mNoaDxwwCwQAYxGzcosz1VP3SCXzYrzV4REMwGZfa
- VrsYaLKv8VNRco7WOpKhkzGjGLMztrKa/E3sAJ4AszhXajxQ5YobwCQdsfCDDsleJffP8aWS4Nj
- dSqzB46rnSA1Da+m8DVbQMltM2ihMS5uB/Ot2AQAFPvUeH5tAK4BXksHs8HWY00cAN0U6TfUgdC
- l1cfqq+bMFVqtZRqUuw8U9jjkiffcH/ztorX/CDXl4N4uSCCkudP7+0G+ZRdz9kvqxQCRxuoYLg
- ZDJX1oZxEqMe68+gHx6VKESYNUQOUpwvp4vAigBpUoa98U35Uujrx0LTi27tfoa24QQEyugx70c
- exIZOdxjULDaAzPN2O+Xh6btXgJAMjtzIboUdQaUsOFkAz8Fic2htJfMNxis9mmvc77dPvnzd80
- C+xIPhW09WpOvJQ==
-X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
- fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-Message-ID-Hash: KFUCBXZ6ZR2ARXHIYRJCDHFCWLC7CAQW
-X-Message-ID-Hash: KFUCBXZ6ZR2ARXHIYRJCDHFCWLC7CAQW
-X-MailFrom: SRS0=G+Mr=LB=linaro.org=krzysztof.kozlowski@kernel.org
+ alsa-devel@alsa-project.org
+References: <20240327-module-owner-var-v1-0-86d5002ba6dc@linaro.org>
+Content-Language: en-US
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20240327-module-owner-var-v1-0-86d5002ba6dc@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: 2BF7B6I6BB3XWZ2PLQTRZL6VJXUMEJD4
+X-Message-ID-Hash: 2BF7B6I6BB3XWZ2PLQTRZL6VJXUMEJD4
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -92,7 +102,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KFUCBXZ6ZR2ARXHIYRJCDHFCWLC7CAQW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2BF7B6I6BB3XWZ2PLQTRZL6VJXUMEJD4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -101,27 +111,12 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Core in sdw_register_driver() already sets the .owner, so driver does
-not need to.
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
----
- sound/soc/codecs/sdw-mockup.c | 1 -
- 1 file changed, 1 deletion(-)
 
-diff --git a/sound/soc/codecs/sdw-mockup.c b/sound/soc/codecs/sdw-mockup.c
-index 5498ff027c58..574c08b14f0c 100644
---- a/sound/soc/codecs/sdw-mockup.c
-+++ b/sound/soc/codecs/sdw-mockup.c
-@@ -262,7 +262,6 @@ MODULE_DEVICE_TABLE(sdw, sdw_mockup_id);
- static struct sdw_driver sdw_mockup_sdw_driver = {
- 	.driver = {
- 		.name = "sdw-mockup",
--		.owner = THIS_MODULE,
- 	},
- 	.probe = sdw_mockup_sdw_probe,
- 	.remove = sdw_mockup_sdw_remove,
+On 3/27/24 12:44, Krzysztof Kozlowski wrote:
+> Core for several drivers already sets the driver.owner, so driver does
+> not need to.  Simplify the drivers.
 
--- 
-2.34.1
+Nice cleanup, thanks.
 
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>

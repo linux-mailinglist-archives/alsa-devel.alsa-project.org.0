@@ -2,97 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEA7988D575
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 Mar 2024 05:25:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66F7288D581
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 Mar 2024 05:46:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EAFB92BE4;
-	Wed, 27 Mar 2024 05:24:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EAFB92BE4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 81C4D2BD7;
+	Wed, 27 Mar 2024 05:46:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 81C4D2BD7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1711513508;
-	bh=HTItWPms0pqAtokhHLP7v+ctnR3icIkNDyzsM1SRPxI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=k4eC6WdNOYra1u0wsFGmIsT+ZZkSt90IYHsa9dkUctXDEG0fXxShPGPIKH5Y3Uit/
-	 qG8Lx2xK4BXMvfdXXYInwSALRmQ+Xtlkw20ps686Avz9GghdMSghhdIELrSXfBm4Wx
-	 yD+2hBiOwjBYKDJuOvMRs5TD3esxAlFvubqr4kXQ=
+	s=default; t=1711514791;
+	bh=VwXPjkQWHsEIlbcjAG7STaTTGaYYWFxbZHNruzz0/kM=;
+	h=Date:From:To:Subject:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=tyIgSvVltuSxqYDUMTqykZTudgk821WapzeATeawS67H3d+TzdCMbwJDxTQGaGYH/
+	 cURBGUldG/Iq1juoASmfll6tMFRGwlBvZC5sPr/PVn21Oxbs45/pgXstv86CLBHtd2
+	 gp2Wojn0pttOajsOfIiF2o3n5emfAI5HP/6Xq6Xk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B12C1F805A1; Wed, 27 Mar 2024 05:24:34 +0100 (CET)
+	id 2CBE3F805AB; Wed, 27 Mar 2024 05:45:59 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2FE5FF8059F;
-	Wed, 27 Mar 2024 05:24:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B7C56F8057D;
+	Wed, 27 Mar 2024 05:45:59 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E8F10F8025F; Wed, 27 Mar 2024 05:22:31 +0100 (CET)
+	id 0B2B9F8025F; Wed, 27 Mar 2024 05:43:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from out-176.mta1.migadu.com (out-176.mta1.migadu.com
+ [IPv6:2001:41d0:203:375::b0])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 02209F80074
-	for <alsa-devel@alsa-project.org>; Wed, 27 Mar 2024 05:22:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02209F80074
+	by alsa1.perex.cz (Postfix) with ESMTPS id A2AC9F801D5
+	for <alsa-devel@alsa-project.org>; Wed, 27 Mar 2024 05:43:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2AC9F801D5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=X2b+BcVe
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1711513342; x=1743049342;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=HTItWPms0pqAtokhHLP7v+ctnR3icIkNDyzsM1SRPxI=;
-  b=X2b+BcVeUdMD6WPBHdCKspG0jnCTFk14gsuV8kb3mIuaAHtU921Fy2k3
-   TsB4klUozYeTfuFEunLSlyAjhWjBCN6lmicRPSmp4IlymJNXaiE9WMYnf
-   0qsXsJ6u7Fewh/9FhRzvBQ8x79ovdTW378sBTQgDlr49XlO0WXHQOXy+X
-   ehAqjne7X2y2oBU6gBKYFBY1lnrMV1/TUBdR4UwBOudaJmvgOpOGlxJLb
-   eceaim5ym30zV+7v5zUBXNh45EFpiTkN4AUt+cCG7U807jYi+F+gvmz/v
-   AI7NJNfe0c4ps4mAPymfIEEea81zX/kWZZJRBgG93OYWuwygwB0n9o3K9
-   A==;
-X-CSE-ConnectionGUID: hdhl0MrfT3C6uDmmgiOa9A==
-X-CSE-MsgGUID: 2+6lSimWTWeRD3Fj8oedow==
-X-IronPort-AV: E=McAfee;i="6600,9927,11025"; a="6458265"
-X-IronPort-AV: E=Sophos;i="6.07,157,1708416000";
-   d="scan'208";a="6458265"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Mar 2024 21:22:16 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,157,1708416000";
-   d="scan'208";a="20892618"
-Received: from lkp-server01.sh.intel.com (HELO be39aa325d23) ([10.239.97.150])
-  by orviesa004.jf.intel.com with ESMTP; 26 Mar 2024 21:22:14 -0700
-Received: from kbuild by be39aa325d23 with local (Exim 4.96)
-	(envelope-from <lkp@intel.com>)
-	id 1rpKnj-0000kS-0U;
-	Wed, 27 Mar 2024 04:22:11 +0000
-Date: Wed, 27 Mar 2024 12:21:30 +0800
-From: kernel test robot <lkp@intel.com>
-To: Gergo Koteles <soyer@irl.hu>, Shenghao Ding <shenghao-ding@ti.com>,
-	Kevin Lu <kevin-lu@ti.com>, Baojun Xu <baojun.xu@ti.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Gergo Koteles <soyer@irl.hu>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 1/3] ALSA: hda/tas2781: remove digital gain kcontrol
-Message-ID: <202403271212.5Lxo4b20-lkp@intel.com>
-References: 
- <313e00499eb2caadd23a92284fdec418b650b7f4.1711401621.git.soyer@irl.hu>
+ unprotected) header.d=jookia.org header.i=@jookia.org header.a=rsa-sha256
+ header.s=key1 header.b=ptj7Ykr4
+Date: Wed, 27 Mar 2024 15:43:20 +1100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jookia.org; s=key1;
+	t=1711514624;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:mime-version:mime-version:content-type:content-type;
+	bh=VwXPjkQWHsEIlbcjAG7STaTTGaYYWFxbZHNruzz0/kM=;
+	b=ptj7Ykr4doTktP4kzG7Tve7pDIWpRvsLzggJTwQUtj+T9NP+X8eXAkH0REN6Jxji6+7pIV
+	9IyjVFzSEYh/SeuIO900RivK6AP2yyrwYlVPLGL5k74w4VYYEtTeHLPzRomCf0W50zZ6iU
+	JXGysdIAB7EMXriq8MNMhqHMLhfuXMEsC94F00BPJ5ED0xUJO3wJsHKU/KqUrVrBbrjncm
+	Ct/YoZuL3o44gYo4d74uUGkB0ewQfWN2LBQgUC1V/4MmtA3+EkZAfd655XBxg1nDd59yia
+	tRM4vwDy2XfqbMQi0q2nIrbvX64ikHbNpjj07F73vjiiGoYLQFzsQwr4NwCZWg==
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: John Watts <contact@jookia.org>
+To: alsa-devel@alsa-project.org
+Subject: Writing documentation for simple device tree ASoC cards
+Message-ID: <ZgOj6BsGdDZCHXwq@titan>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: 
- <313e00499eb2caadd23a92284fdec418b650b7f4.1711401621.git.soyer@irl.hu>
-Message-ID-Hash: XQG5RUF6MV7N6AIXNX2Q5SLNFJ42GBUY
-X-Message-ID-Hash: XQG5RUF6MV7N6AIXNX2Q5SLNFJ42GBUY
-X-MailFrom: lkp@intel.com
+X-Migadu-Flow: FLOW_OUT
+Message-ID-Hash: HWRUFRTIXNRZ6ISE3U623KLLRLXAM6FM
+X-Message-ID-Hash: HWRUFRTIXNRZ6ISE3U623KLLRLXAM6FM
+X-MailFrom: contact@jookia.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -103,8 +77,7 @@ X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XQG5RUF6MV7N6AIXNX2Q5SLNFJ42GBUY/>
+Archived-At: <>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,54 +86,77 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Gergo,
+Hello!
 
-kernel test robot noticed the following build errors:
+I've spent way too much time digging through emails, documentation and
+kernel source code to form a mental model that lets me understand and
+use simple-sound-card, audio-graph-card and audio-graph-card2.
 
-[auto build test ERROR on 4cece764965020c22cff7665b18a012006359095]
+There's really no introductory documentation geared towards people who
+are writing device trees intending to glue together multiple audio
+components in to a single sound card. I'm deciding I'll try and take up
+this task to provide some basic documentation for this.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Gergo-Koteles/ALSA-hda-tas2781-remove-digital-gain-kcontrol/20240326-052937
-base:   4cece764965020c22cff7665b18a012006359095
-patch link:    https://lore.kernel.org/r/313e00499eb2caadd23a92284fdec418b650b7f4.1711401621.git.soyer%40irl.hu
-patch subject: [PATCH 1/3] ALSA: hda/tas2781: remove digital gain kcontrol
-config: i386-randconfig-011-20240326 (https://download.01.org/0day-ci/archive/20240327/202403271212.5Lxo4b20-lkp@intel.com/config)
-compiler: clang version 17.0.6 (https://github.com/llvm/llvm-project 6009708b4367171ccdbf4b5905cb6a803753fe18)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240327/202403271212.5Lxo4b20-lkp@intel.com/reproduce)
+Before starting I would like to quickly go over some notes in case I'm
+actually just incredibly wrong. I'd rather find that out now than later.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202403271212.5Lxo4b20-lkp@intel.com/
+As a general ASoC refresher:
 
-All errors (new ones prefixed by >>):
+- ALSA provides PCM interfaces and controls to a sound card
+- ASoC introduces the concept of components
+- Components are what you instantiate with the device tree
+- Components can be asked to set a clock or create a PCM stream
+- Components have one or more DAIs
+- DAIs represent capabilities of a stream
+- Components have DAPM widgets for power management
+- These can be related to physical pins on the board or DAI streams
+- CPU components are ones that ALSA can use directly to process data
+- Codec components provide information about DAIs or drive streams
 
->> sound/soc/codecs/tas2781-i2c.c:148:27: error: use of undeclared identifier 'dvc_tlv'
-     148 |                 tas2781_digital_putvol, dvc_tlv),
-         |                                         ^
->> sound/soc/codecs/tas2781-i2c.c:595:19: error: invalid application of 'sizeof' to an incomplete type 'const struct snd_kcontrol_new[]'
-     595 |         .num_controls           = ARRAY_SIZE(tas2781_snd_controls),
-         |                                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/array_size.h:11:32: note: expanded from macro 'ARRAY_SIZE'
-      11 | #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]) + __must_be_array(arr))
-         |                                ^~~~~
-   2 errors generated.
+Most of this is already explained in the documentation.
 
+The generic sound cards you can create using simple-sound-card and
+audio-graph-card are machine drivers. Their jobs are to ensure that
+when using a DAI all the related components, clocking and power
+management is set up and ready for use.
 
-vim +/dvc_tlv +148 sound/soc/codecs/tas2781-i2c.c
+This is done by:
 
-ef3bcde75d06d6 Shenghao Ding 2023-06-18  141  
-ef3bcde75d06d6 Shenghao Ding 2023-06-18  142  static const struct snd_kcontrol_new tas2781_snd_controls[] = {
-ef3bcde75d06d6 Shenghao Ding 2023-06-18  143  	SOC_SINGLE_RANGE_EXT_TLV("Speaker Analog Gain", TAS2781_AMP_LEVEL,
-ef3bcde75d06d6 Shenghao Ding 2023-06-18  144  		1, 0, 20, 0, tas2781_amp_getvol,
-ef3bcde75d06d6 Shenghao Ding 2023-06-18  145  		tas2781_amp_putvol, amp_vol_tlv),
-ef3bcde75d06d6 Shenghao Ding 2023-06-18  146  	SOC_SINGLE_RANGE_EXT_TLV("Speaker Digital Gain", TAS2781_DVC_LVL,
-ef3bcde75d06d6 Shenghao Ding 2023-06-18  147  		0, 0, 200, 1, tas2781_digital_getvol,
-ef3bcde75d06d6 Shenghao Ding 2023-06-18 @148  		tas2781_digital_putvol, dvc_tlv),
-ef3bcde75d06d6 Shenghao Ding 2023-06-18  149  	SOC_SINGLE_BOOL_EXT("Speaker Force Firmware Load", 0,
-ef3bcde75d06d6 Shenghao Ding 2023-06-18  150  		tas2781_force_fwload_get, tas2781_force_fwload_put),
-ef3bcde75d06d6 Shenghao Ding 2023-06-18  151  };
-ef3bcde75d06d6 Shenghao Ding 2023-06-18  152  
+- Linking multiple DAIs together
+- Connecting DAPM widgets together to power on components
+- Calculate and setting the shared clock (usually mclk)
+- Setting DAI properties (like TDM slots and width)
+- Adding widgets for jack detection
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+DAI linking isn't explained in the documentation but was a core part
+of my confusion when trying to use these cards: I didn't understand if
+it represented some relationship between physical pins, PCM channels,
+etc.
+My fuzzy model of a DAI link is that it exists to group DAIs (and thus
+components) necessary to acheive a desired data flow, where that flow is
+left up to the components themselves to implement.
+
+There's a lot of examples for actually using the simple family of cards
+but I imagine documenting the above would help people troubleshoot or
+describe their problems better.
+
+Other minor notes:
+
+- sound-name-prefix is very useful and fits in somewhere here
+- audio-graph-cards don't support GPIO jacks from what I can see
+
+I also have noticed that with audio-graph-card you can't use a DAI
+multiple times in different cards. This makes sense but is this due to
+the way graphs and endpoints work or due to the underlying sound system?
+
+This problem and jacks seem to point towards maybe allowing specification
+of DAPM widgets in the device tree, and maybe kcontrols for selecting
+which codec to use? I'm not sure.
+
+It would also be useful to understand the scope of these simple cards.
+Complex audio needs like mine seem to be outside the scope at the moment
+and require writing a custom card driver.
+Perhaps it's worth taking that as an opportunity to write a driver using
+the simple card framework as an example?
+
+John.

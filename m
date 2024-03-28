@@ -2,83 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0B4D89081A
-	for <lists+alsa-devel@lfdr.de>; Thu, 28 Mar 2024 19:16:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1CA9890942
+	for <lists+alsa-devel@lfdr.de>; Thu, 28 Mar 2024 20:29:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 395E82C3B;
-	Thu, 28 Mar 2024 19:16:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 395E82C3B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 748FA2C9F;
+	Thu, 28 Mar 2024 20:29:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 748FA2C9F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1711649809;
-	bh=XYumxhYQMlVXPyD6eFz7QV/Af0iVgBK9pjvmrjbn53I=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1711654181;
+	bh=Nw7UVEH0a9tRFeHtk6dToEX6iVYCsePji0jVeTefwOI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=TM5e4UXRu90OXv1km5w8gUZNjhgVQANkskCGbswXtl9HqfChzbqrrm19ygUMBg7rH
-	 9ghZSeV7JfmD7feYcsMGo5kf5dJv8YXbHNMTiM76VHVgrZ1hV8L0epN74MrUmFTorZ
-	 aI3n0Ob+lJLBQvPOkQzZIf8ZmI4keCuhFiNBKKwU=
+	b=pchFH5hTVn4MQ3aXC3sH7HO0KQqfBz0quXrSdxjJWouXZGcvTwtQhy/pQ5HfNgzmR
+	 yvnw+071RM71iDFFlp4Z8w9Thb7Hh/CKXkSnOK4sa5+WFG+o4Eand5yLyOtuvuoPj1
+	 Kd7efXlG7zEtSja/FoDj0EpqLiQrRnOYiLLVkpiU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 72D4BF805D9; Thu, 28 Mar 2024 19:16:08 +0100 (CET)
+	id 52F47F8057C; Thu, 28 Mar 2024 20:29:08 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D4AADF805C6;
-	Thu, 28 Mar 2024 19:16:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AE020F805A0;
+	Thu, 28 Mar 2024 20:29:08 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 41ED2F805B1; Thu, 28 Mar 2024 19:16:04 +0100 (CET)
+	id 01A38F8025F; Thu, 28 Mar 2024 20:29:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 08984F8057B
-	for <alsa-devel@alsa-project.org>; Thu, 28 Mar 2024 19:15:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08984F8057B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 31E9EF801EB
+	for <alsa-devel@alsa-project.org>; Thu, 28 Mar 2024 20:28:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31E9EF801EB
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Srlt5lru
+ header.s=k20201202 header.b=W5O94yj8
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 454E9CE294B;
-	Thu, 28 Mar 2024 18:15:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E00FC433F1;
-	Thu, 28 Mar 2024 18:15:51 +0000 (UTC)
+	by sin.source.kernel.org (Postfix) with ESMTP id 31A9CCE2CBD;
+	Thu, 28 Mar 2024 19:28:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79C8EC433C7;
+	Thu, 28 Mar 2024 19:28:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1711649756;
-	bh=XYumxhYQMlVXPyD6eFz7QV/Af0iVgBK9pjvmrjbn53I=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=Srlt5lru4pZE9gnz9nYJ33Bhg1GtU7BoRo14z6mUvxVjUafLV/W5t6OcD48DTSLun
-	 K/NHOlsULIG1LYtQux+ai9Eloc6jc66HzJznVREy0ej7GJ7VsK/vmL2COHrbr6ZYWI
-	 1kgTjRatEz0LYKEQuxt794DRZqHmhlyNhCpUQCjjzD7rJy05ebhSBRTqVwzlhKbLgQ
-	 lpQl5x5eqyLAczCE28+3xNbCzG8V2lKQ5qeKNh4Y6+GOipTIG0izLnGiPeF1uVHN02
-	 BpztGVoGQVN35b2g3j4+dpKTXci8wGRg0nQ/iFGh6NO/9y6gsyt6VxvFNnSEWF43VP
-	 CdaVM2ijP9MlA==
-From: Vinod Koul <vkoul@kernel.org>
-To: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Sanyog Kale <sanyog.r.kale@intel.com>, linux-arm-msm@vger.kernel.org,
- alsa-devel@alsa-project.org, kernel@pengutronix.de
-In-Reply-To: <20240307180359.190008-2-u.kleine-koenig@pengutronix.de>
-References: <20240307180359.190008-2-u.kleine-koenig@pengutronix.de>
-Subject: Re: [PATCH] soundwire: qcom: Convert to platform remove callback
- returning void
-Message-Id: <171164975143.128475.15075246895425655363.b4-ty@kernel.org>
-Date: Thu, 28 Mar 2024 23:45:51 +0530
+	s=k20201202; t=1711654129;
+	bh=Nw7UVEH0a9tRFeHtk6dToEX6iVYCsePji0jVeTefwOI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=W5O94yj8jgo4OfsZ399hf3ZeVZFmihwlUWFwgqs8GpT4QyL8UeSlb4Z5kzFU6JWzp
+	 to2Ukwwl6F/oSvjgjn4jsfCLOFrlGwSVrUjRTMaxOnMNkz2tJL12uavg7zNxkz6CoI
+	 m+tq48/mYyYDSwRi0Xgt25Kb4VzEM0W21P/nMzgLAsfPVTrmTLl5batE5Yx1Qe2DHz
+	 KA3r4sHbMDKW9DxVQ44PLSVgHa1SHV0F9AHEDCsXnB7WDUZYo/AY19/Q05Xz9hnhLG
+	 LhFfy9tZ1xbFJ2IEtfaK0c8RgjFA1+NLhYM8YF+0nFKavBjCsXQ44c/FrcPibW2BTx
+	 d772wANjHfR3g==
+Date: Thu, 28 Mar 2024 19:28:44 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Stephen Lee <slee08177@gmail.com>
+Cc: lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
+	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org, roman.gushchin@linux.dev,
+	dennis@kernel.org
+Subject: Re: [PATCH] ASoC: ops: Fix wraparound for mask in snd_soc_get_volsw
+Message-ID: <ad9088ab-cd55-4c59-b0af-65e44475124a@sirena.org.uk>
+References: <20240326010131.6211-1-slee08177@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.12.3
-Message-ID-Hash: GFRH5ACH76C6EQXDODSX2USAOE7TK3KB
-X-Message-ID-Hash: GFRH5ACH76C6EQXDODSX2USAOE7TK3KB
-X-MailFrom: vkoul@kernel.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="fcY7Zu6uSdocuvCO"
+Content-Disposition: inline
+In-Reply-To: <20240326010131.6211-1-slee08177@gmail.com>
+X-Cookie: Yes, but which self do you want to be?
+Message-ID-Hash: 6T2C47MX2DYBDV5UHOAI6XDWTY2KMKGZ
+X-Message-ID-Hash: 6T2C47MX2DYBDV5UHOAI6XDWTY2KMKGZ
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -89,8 +88,7 @@ X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GFRH5ACH76C6EQXDODSX2USAOE7TK3KB/>
+Archived-At: <>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,26 +98,30 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
-On Thu, 07 Mar 2024 19:03:59 +0100, Uwe Kleine-König wrote:
-> The .remove() callback for a platform driver returns an int which makes
-> many driver authors wrongly assume it's possible to do error handling by
-> returning an error code. However the value returned is ignored (apart
-> from emitting a warning) and this typically results in resource leaks.
-> 
-> To improve here there is a quest to make the remove callback return
-> void. In the first step of this quest all drivers are converted to
-> .remove_new(), which already returns void. Eventually after all drivers
-> are converted, .remove_new() will be renamed to .remove().
-> 
-> [...]
+--fcY7Zu6uSdocuvCO
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Applied, thanks!
+On Mon, Mar 25, 2024 at 06:01:31PM -0700, Stephen Lee wrote:
 
-[1/1] soundwire: qcom: Convert to platform remove callback returning void
-      commit: fe12bec586332f3f84feea6dddad15d40889034a
+> This seems to show up in quite a few places in the alsa subsystem,
+> should they be addressed altogether?
 
-Best regards,
--- 
-~Vinod
+Probably worth it, yes.
 
+--fcY7Zu6uSdocuvCO
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmYFxOwACgkQJNaLcl1U
+h9AMpAf+O5E+hqTgoIg1rWfMJgpCMlfl5IMhAkNW2/BrrNnRk7dJokixpLb2HEIA
+PC2lh4j5vfmmGRtwF0SDdIrNuGAkTR5OGwm5wei4orBmS1HAVhBlu/+n85pBhG99
+WyQaaqLdzMii5PZ3xLB82bh+mRJF0jlvb/3wLkzDKqF9F3sssPgNOXXihZ2O1K14
++wp5O0xoF0DYqsicJKEgPxTNU6GmW/ONkKuIeVkXGhTXnFQcbHGJ+nQzYzAIaWsC
+9b/+Oyn2s/6+qTM17dPiPrLhKvz6AZ5N3zaA3HplS+Nk/Mxq7vHcVfwb2NyBL+CS
+S9nQgr9W+PbToigTz3mN6t8tCL2lIg==
+=E4V/
+-----END PGP SIGNATURE-----
+
+--fcY7Zu6uSdocuvCO--

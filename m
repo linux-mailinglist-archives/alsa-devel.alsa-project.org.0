@@ -2,80 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0211B890819
-	for <lists+alsa-devel@lfdr.de>; Thu, 28 Mar 2024 19:16:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0B4D89081A
+	for <lists+alsa-devel@lfdr.de>; Thu, 28 Mar 2024 19:16:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7BEB12CAD;
-	Thu, 28 Mar 2024 19:16:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7BEB12CAD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 395E82C3B;
+	Thu, 28 Mar 2024 19:16:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 395E82C3B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1711649791;
-	bh=rIL/RbCTqRPeLSNUR01+nAhLNjjxpyUuDFgGJNbe3gk=;
+	s=default; t=1711649809;
+	bh=XYumxhYQMlVXPyD6eFz7QV/Af0iVgBK9pjvmrjbn53I=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=gOjZWN4pe5xp7a9LMomTEGuYSf9yMQ/MCo7zFiWA5TIjiOtH+RSH6WQWmGMjhvBiX
-	 GhD5NjqA5xTyzno3Lv6pyP5bffG2IsBWmR/IOUSVdE6dgxBxQICAyZDtuNrLCGXBxS
-	 NZg7zKXMgztyFGSdOW9/9w/R0qQQ4ouyhVqW5lJU=
+	b=TM5e4UXRu90OXv1km5w8gUZNjhgVQANkskCGbswXtl9HqfChzbqrrm19ygUMBg7rH
+	 9ghZSeV7JfmD7feYcsMGo5kf5dJv8YXbHNMTiM76VHVgrZ1hV8L0epN74MrUmFTorZ
+	 aI3n0Ob+lJLBQvPOkQzZIf8ZmI4keCuhFiNBKKwU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 429EAF80571; Thu, 28 Mar 2024 19:16:00 +0100 (CET)
+	id 72D4BF805D9; Thu, 28 Mar 2024 19:16:08 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A7D02F80236;
-	Thu, 28 Mar 2024 19:15:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D4AADF805C6;
+	Thu, 28 Mar 2024 19:16:07 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 469CDF8025F; Thu, 28 Mar 2024 19:15:55 +0100 (CET)
+	id 41ED2F805B1; Thu, 28 Mar 2024 19:16:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C82D4F80074
-	for <alsa-devel@alsa-project.org>; Thu, 28 Mar 2024 19:15:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C82D4F80074
+	by alsa1.perex.cz (Postfix) with ESMTPS id 08984F8057B
+	for <alsa-devel@alsa-project.org>; Thu, 28 Mar 2024 19:15:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08984F8057B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=CtiIMkQm
+ header.s=k20201202 header.b=Srlt5lru
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 8328ACE2C36;
-	Thu, 28 Mar 2024 18:15:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72449C433F1;
-	Thu, 28 Mar 2024 18:15:43 +0000 (UTC)
+	by sin.source.kernel.org (Postfix) with ESMTP id 454E9CE294B;
+	Thu, 28 Mar 2024 18:15:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E00FC433F1;
+	Thu, 28 Mar 2024 18:15:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1711649747;
-	bh=rIL/RbCTqRPeLSNUR01+nAhLNjjxpyUuDFgGJNbe3gk=;
+	s=k20201202; t=1711649756;
+	bh=XYumxhYQMlVXPyD6eFz7QV/Af0iVgBK9pjvmrjbn53I=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=CtiIMkQmCh9a/0N/3P2DLD0QhLHp/Kt9fbxbPQ3ssIYyckRTxinp8lfwYUpzO/jac
-	 fMlHWcbfiiIzdQyKdC9bgxtCB35ZsJraQtdF1pB8tMmXpA8hg44HW9S2J2cFYxGnOB
-	 yo7iD+WWFCKD8xqz29xGf422wyt8O+EHbXzO4K+Iqc0EtCtr/kVjxmK/4VznQvWNY7
-	 t69gA4hN1ZDPlb19F39mUW9jZ0cYAH7rydGF9yMraDsFnf7bBb9kXkrrqSKSQRFzrU
-	 q0N3teu3U99JwA0RmmEDyBSbE5WAUbdZxlZSTzF4Pmd3bXx1B9lb/RQKH0mJb4f8gj
-	 2OCCBPT/3vbMQ==
+	b=Srlt5lru4pZE9gnz9nYJ33Bhg1GtU7BoRo14z6mUvxVjUafLV/W5t6OcD48DTSLun
+	 K/NHOlsULIG1LYtQux+ai9Eloc6jc66HzJznVREy0ej7GJ7VsK/vmL2COHrbr6ZYWI
+	 1kgTjRatEz0LYKEQuxt794DRZqHmhlyNhCpUQCjjzD7rJy05ebhSBRTqVwzlhKbLgQ
+	 lpQl5x5eqyLAczCE28+3xNbCzG8V2lKQ5qeKNh4Y6+GOipTIG0izLnGiPeF1uVHN02
+	 BpztGVoGQVN35b2g3j4+dpKTXci8wGRg0nQ/iFGh6NO/9y6gsyt6VxvFNnSEWF43VP
+	 CdaVM2ijP9MlA==
 From: Vinod Koul <vkoul@kernel.org>
-To: alsa-devel@alsa-project.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-kernel@vger.kernel.org, Dan Williams <dan.j.williams@intel.com>,
+To: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
  Bard Liao <yung-chuan.liao@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Sanyog Kale <sanyog.r.kale@intel.com>
-In-Reply-To: <2024013025-spoiling-exact-ad20@gregkh>
-References: <2024013025-spoiling-exact-ad20@gregkh>
-Subject: Re: (subset) [PATCH 0/7] Soundwire: clean up sysfs group creation
-Message-Id: <171164974294.128475.17340584183341425045.b4-ty@kernel.org>
-Date: Thu, 28 Mar 2024 23:45:42 +0530
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Sanyog Kale <sanyog.r.kale@intel.com>, linux-arm-msm@vger.kernel.org,
+ alsa-devel@alsa-project.org, kernel@pengutronix.de
+In-Reply-To: <20240307180359.190008-2-u.kleine-koenig@pengutronix.de>
+References: <20240307180359.190008-2-u.kleine-koenig@pengutronix.de>
+Subject: Re: [PATCH] soundwire: qcom: Convert to platform remove callback
+ returning void
+Message-Id: <171164975143.128475.15075246895425655363.b4-ty@kernel.org>
+Date: Thu, 28 Mar 2024 23:45:51 +0530
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.12.3
-Message-ID-Hash: DEWTEQNWTWFJIR4UNPUFVDBZRFY4HIDW
-X-Message-ID-Hash: DEWTEQNWTWFJIR4UNPUFVDBZRFY4HIDW
+Message-ID-Hash: GFRH5ACH76C6EQXDODSX2USAOE7TK3KB
+X-Message-ID-Hash: GFRH5ACH76C6EQXDODSX2USAOE7TK3KB
 X-MailFrom: vkoul@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -88,7 +90,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DEWTEQNWTWFJIR4UNPUFVDBZRFY4HIDW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GFRH5ACH76C6EQXDODSX2USAOE7TK3KB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,34 +100,23 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
-On Tue, 30 Jan 2024 10:46:26 -0800, Greg Kroah-Hartman wrote:
-> Note, this is a redone version of a very old series I wrote back in
-> 2022:
-> 	https://lore.kernel.org/r/20220824135951.3604059-1-gregkh@linuxfoundation.org
-> but everyone has forgotten about it now, and I've reworked it, so I'm
-> considering it a "new" version, and not v2.
+On Thu, 07 Mar 2024 19:03:59 +0100, Uwe Kleine-König wrote:
+> The .remove() callback for a platform driver returns an int which makes
+> many driver authors wrongly assume it's possible to do error handling by
+> returning an error code. However the value returned is ignored (apart
+> from emitting a warning) and this typically results in resource leaks.
 > 
-> Here's a series that adds the functionality to the driver core to hide
-> entire attribute groups, in a much saner way than we have attempted in
-> the past (i.e. dynamically figuring it out.)  Many thanks to Dan for
-> this patch.  I'll also be taking this into my driver-core branch and
-> creating a stable tag for anyone else to pull from to get it into their
-> trees, as I think it will want to be in many for this development cycle.
+> To improve here there is a quest to make the remove callback return
+> void. In the first step of this quest all drivers are converted to
+> .remove_new(), which already returns void. Eventually after all drivers
+> are converted, .remove_new() will be renamed to .remove().
 > 
 > [...]
 
 Applied, thanks!
 
-[2/6] soundwire: sysfs: move sdw_slave_dev_attr_group into the existing list of groups
-      commit: b1b11bb07898b7e0313438734c310100219e676f
-[3/6] soundwire: sysfs: cleanup the logic for creating the dp0 sysfs attributes
-      commit: 3ee43f7cc9841cdf3f2bec2de4b1e729fd17e303
-[4/6] soundwire: sysfs: have the driver core handle the creation of the device groups
-      commit: fc7e56017b51482f1b9da2e778eedb4bd1deb6b3
-[5/6] soundwire: sysfs: remove sdw_slave_sysfs_init()
-      commit: f88c1afe338edbcbfd23743742c45581075fb86c
-[6/6] soundwire: sysfs: remove unneeded ATTRIBUTE_GROUPS() comments
-      commit: 91c4dd2e5c9066577960c7eef7dd8e699220c85e
+[1/1] soundwire: qcom: Convert to platform remove callback returning void
+      commit: fe12bec586332f3f84feea6dddad15d40889034a
 
 Best regards,
 -- 

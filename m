@@ -2,86 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45EC18902F3
-	for <lists+alsa-devel@lfdr.de>; Thu, 28 Mar 2024 16:23:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1356890809
+	for <lists+alsa-devel@lfdr.de>; Thu, 28 Mar 2024 19:12:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E18122C88;
-	Thu, 28 Mar 2024 16:22:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E18122C88
+	by alsa0.perex.cz (Postfix) with ESMTPS id 83D0A2CA5;
+	Thu, 28 Mar 2024 19:12:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 83D0A2CA5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1711639382;
-	bh=vozNlw6gpO1XJWv36UdylIBiUWYDdoPfKk5/j4lfe/8=;
+	s=default; t=1711649557;
+	bh=8ERlPwQRmltkadYzho+Rro39TG8es6t+TgCTY0LtOY4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=VU4DGqi0sdr1nSscRfrdAgbW8Dcv6iV6N90wv1ubpkJ+KNfjU3TZSsoioNsPsuw0O
-	 6eqPixhkv407KmcSzOAolt8v2xmdKAzgcC7MJCDBsnf3PDQ9rNUqbhpGoJCLgwB9XJ
-	 TYrf6Ss3+eAIjPl71VTzUpMUF9UXxB5ycrzrpp7c=
+	b=J79TzkuLCTfZtdXvvFyq88C4RccFQsmruh6myLsOPRPfiBaDqD0tvJPm4VkVyFcTu
+	 ep1S5tSKYZSbsc2Jx5eOMDstAfzfN4XNBsdzGbMV4oYFDzd/u7pETBzlR5OrTvtpc8
+	 Z8cYGvF4EtB3hMWZbGF+bi/ejERgrzVdw3NBUU5E=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A892FF805BB; Thu, 28 Mar 2024 16:22:31 +0100 (CET)
+	id 47998F805AB; Thu, 28 Mar 2024 19:12:06 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 974EFF80564;
-	Thu, 28 Mar 2024 16:22:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B74D8F805A1;
+	Thu, 28 Mar 2024 19:12:05 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0C47EF8025F; Thu, 28 Mar 2024 16:22:26 +0100 (CET)
+	id 98744F8025F; Thu, 28 Mar 2024 19:12:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 29710F801EB
-	for <alsa-devel@alsa-project.org>; Thu, 28 Mar 2024 16:22:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29710F801EB
+	by alsa1.perex.cz (Postfix) with ESMTPS id 864FDF801EB
+	for <alsa-devel@alsa-project.org>; Thu, 28 Mar 2024 19:11:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 864FDF801EB
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=qK2XdBMn
+ header.s=k20201202 header.b=GpLVOni3
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id B5489CE2BC2;
-	Thu, 28 Mar 2024 15:22:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88098C433F1;
-	Thu, 28 Mar 2024 15:22:10 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 19F9E617C9;
+	Thu, 28 Mar 2024 18:11:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7525FC433C7;
+	Thu, 28 Mar 2024 18:11:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1711639334;
-	bh=vozNlw6gpO1XJWv36UdylIBiUWYDdoPfKk5/j4lfe/8=;
+	s=k20201202; t=1711649510;
+	bh=8ERlPwQRmltkadYzho+Rro39TG8es6t+TgCTY0LtOY4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=qK2XdBMn83E6sWLnuqy7ufTtf7QtdwBq7TOHEVsVXuj5DlwqaNourPcQKQ7KkNUH7
-	 iKb7WcFSeJ5lVoMNpSKFH3eoZQ6N7u2BJdtKEp+iPj+/yfhvzsXcIP18BSzIqoGFRv
-	 sDchmBwBpXjAoI9EppNdn1uydU45Nbz+dXqDIfJ75JpuyPoyu5HXpY+oTjaidjUmqV
-	 EiInY6rBB+IvT3NSTC1ZDVBRlkukMHY2LocTlJFQS6W0ExtrSFaBry3/otf3xk9apo
-	 twLJNjuceeRGH8zrHTbAI0gPC3+sj8IhGE9iIhJOXO8orE6vpe60jIeLLAWjP6/Pu7
-	 qxnm0sHCBnKsw==
-Date: Thu, 28 Mar 2024 15:22:07 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Seven Lee <wtli@nuvoton.com>
-Cc: lgirdwood@gmail.com, alsa-devel@alsa-project.org,
-	devicetree@vger.kernel.org, linux-sound@vger.kernel.org,
-	krzysztof.kozlowski+dt@linaro.org, linux-kernel@vger.kernel.org,
-	robh+dt@kernel.org, conor+dt@kernel.org, perex@perex.cz,
-	tiwai@suse.com, YHCHuang@nuvoton.com, KCHSU0@nuvoton.com,
-	CTLIN0@nuvoton.com, SJLIN0@nuvoton.com, scott6986@gmail.com,
-	supercraig0719@gmail.com, dardar923@gmail.com
-Subject: Re: [PATCH v5 2/2] ASoC: nau8325: new driver
-Message-ID: <8278611a-a46f-4d5e-9861-67ff1084db50@sirena.org.uk>
-References: <20240327075755.3410381-1-wtli@nuvoton.com>
- <20240327075755.3410381-3-wtli@nuvoton.com>
+	b=GpLVOni31qJBk2L7atKQfrCiSYuR67xOjIwCmPeg0B1vT1WPl4D+M6ICz8XoV4YD+
+	 MCrreMSwGr+6u8xWzxQefYw+DNczGXnI1vpaueOnYaA1+kkXEx0M3aUQ+B1Kj44js8
+	 3AaWMo5G/LAIWZGdiX4Y//OKXgbZO6vnmBz3UJqbNNxvRqOnYFYajNiWsWuQcNUNNE
+	 zOcEpUZMH1TVeWdSnkOOCdQG1zyZK0s81fcJpC5oYU2NdBbptGXTbWVR4oXiM8H/Dr
+	 NJ7HA6qv7qtBTyx7CDm6yWBNRQya2fC4BW74QLgsCRVbeNUp6Iq9xwgOUuleIwIvPA
+	 J+6/jMRG4qrTA==
+Date: Thu, 28 Mar 2024 23:41:44 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Cc: broonie@kernel.org, alsa-devel@alsa-project.org,
+	pierre-louis.bossart@linux.intel.com, Basavaraj.Hiregoudar@amd.com,
+	Sunil-kumar.Dommati@amd.com, venkataprasad.potturu@amd.com,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Sanyog Kale <sanyog.r.kale@intel.com>,
+	Mastan Katragadda <Mastan.Katragadda@amd.com>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 2/2] soundwire: amd: fix for wake interrupt handling for
+ clockstop mode
+Message-ID: <ZgWy4M8nr7IFqpoa@matsya>
+References: <20240327063143.2266464-1-Vijendar.Mukunda@amd.com>
+ <20240327063143.2266464-2-Vijendar.Mukunda@amd.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="EYfydwHOIW727Hww"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20240327075755.3410381-3-wtli@nuvoton.com>
-X-Cookie: Yes, but which self do you want to be?
-Message-ID-Hash: TKZ6QPPV7FVG27YMGX35KQTAFKVKG22C
-X-Message-ID-Hash: TKZ6QPPV7FVG27YMGX35KQTAFKVKG22C
-X-MailFrom: broonie@kernel.org
+In-Reply-To: <20240327063143.2266464-2-Vijendar.Mukunda@amd.com>
+Message-ID-Hash: RCX7YPNWBEMYXJH75IWHXECA4I7USYFE
+X-Message-ID-Hash: RCX7YPNWBEMYXJH75IWHXECA4I7USYFE
+X-MailFrom: vkoul@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -93,7 +92,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TKZ6QPPV7FVG27YMGX35KQTAFKVKG22C/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RCX7YPNWBEMYXJH75IWHXECA4I7USYFE/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,38 +101,97 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On 27-03-24, 12:01, Vijendar Mukunda wrote:
+> When SoundWire Wake interrupt is enabled along with SoundWire Wake
+> enable register, SoundWire wake interrupt will be reported
+> when SoundWire manager is in D3 state and ACP is in D3 state.
+> 
+> When SoundWire Wake interrupt is reported, it will invoke runtime
+> resume of the SoundWire manager device.
+> 
+> In case of system level suspend, for ClockStop Mode SoundWire Wake
+> interrupt should be disabled.
+> It should be enabled only for runtime suspend scenario.
+> Change wake interrupt enable/disable sequence for ClockStop Mode in
+> system level suspend and runtime suspend sceanrio.
+> 
+> Fixes: 9cf1efc5ed2d ("soundwire: amd: add pm_prepare callback and pm ops support")
+> 
 
---EYfydwHOIW727Hww
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+no empty line b/w fixes and s-o-b line please
 
-On Wed, Mar 27, 2024 at 03:57:55PM +0800, Seven Lee wrote:
+I have fixed it up while applying
+Also, fixes should be first patch followed by other changes...
 
-> +static const char * const nau8325_dac_oversampl[] = {
-> +	"64", "256", "128", "", "32" };
+> Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+> ---
+>  drivers/soundwire/amd_manager.c | 15 +++++++++++++++
+>  drivers/soundwire/amd_manager.h |  3 ++-
+>  2 files changed, 17 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/soundwire/amd_manager.c b/drivers/soundwire/amd_manager.c
+> index 1066d87aa011..20d94bcfc9b4 100644
+> --- a/drivers/soundwire/amd_manager.c
+> +++ b/drivers/soundwire/amd_manager.c
+> @@ -129,6 +129,19 @@ static void amd_sdw_set_frameshape(struct amd_sdw_manager *amd_manager)
+>  	writel(frame_size, amd_manager->mmio + ACP_SW_FRAMESIZE);
+>  }
+>  
+> +static void amd_sdw_wake_enable(struct amd_sdw_manager *amd_manager, bool enable)
+> +{
+> +	u32 wake_ctrl;
 > +
-> +static const struct soc_enum nau8325_dac_oversampl_enum =
-> +	SOC_ENUM_SINGLE(NAU8325_R29_DAC_CTRL1, NAU8325_DAC_OVERSAMPLE_SFT,
-> +			ARRAY_SIZE(nau8325_dac_oversampl),
-> +			nau8325_dac_oversampl);
+> +	wake_ctrl = readl(amd_manager->mmio + ACP_SW_STATE_CHANGE_STATUS_MASK_8TO11);
+> +	if (enable)
+> +		wake_ctrl |= AMD_SDW_WAKE_INTR_MASK;
+> +	else
+> +		wake_ctrl &= ~AMD_SDW_WAKE_INTR_MASK;
+> +
+> +	writel(wake_ctrl, amd_manager->mmio + ACP_SW_STATE_CHANGE_STATUS_MASK_8TO11);
+> +}
+> +
+>  static void amd_sdw_ctl_word_prep(u32 *lower_word, u32 *upper_word, struct sdw_msg *msg,
+>  				  int cmd_offset)
+>  {
+> @@ -1094,6 +1107,7 @@ static int __maybe_unused amd_suspend(struct device *dev)
+>  	}
+>  
+>  	if (amd_manager->power_mode_mask & AMD_SDW_CLK_STOP_MODE) {
+> +		amd_sdw_wake_enable(amd_manager, false);
+>  		return amd_sdw_clock_stop(amd_manager);
+>  	} else if (amd_manager->power_mode_mask & AMD_SDW_POWER_OFF_MODE) {
+>  		/*
+> @@ -1120,6 +1134,7 @@ static int __maybe_unused amd_suspend_runtime(struct device *dev)
+>  		return 0;
+>  	}
+>  	if (amd_manager->power_mode_mask & AMD_SDW_CLK_STOP_MODE) {
+> +		amd_sdw_wake_enable(amd_manager, true);
+>  		return amd_sdw_clock_stop(amd_manager);
+>  	} else if (amd_manager->power_mode_mask & AMD_SDW_POWER_OFF_MODE) {
+>  		ret = amd_sdw_clock_stop(amd_manager);
+> diff --git a/drivers/soundwire/amd_manager.h b/drivers/soundwire/amd_manager.h
+> index 418b679e0b1a..707065468e05 100644
+> --- a/drivers/soundwire/amd_manager.h
+> +++ b/drivers/soundwire/amd_manager.h
+> @@ -152,7 +152,7 @@
+>  #define AMD_SDW0_EXT_INTR_MASK		0x200000
+>  #define AMD_SDW1_EXT_INTR_MASK		4
+>  #define AMD_SDW_IRQ_MASK_0TO7		0x77777777
+> -#define AMD_SDW_IRQ_MASK_8TO11		0x000d7777
+> +#define AMD_SDW_IRQ_MASK_8TO11		0x000c7777
+>  #define AMD_SDW_IRQ_ERROR_MASK		0xff
+>  #define AMD_SDW_MAX_FREQ_NUM		1
+>  #define AMD_SDW0_MAX_TX_PORTS		3
+> @@ -190,6 +190,7 @@
+>  #define AMD_SDW_CLK_RESUME_REQ				2
+>  #define AMD_SDW_CLK_RESUME_DONE				3
+>  #define AMD_SDW_WAKE_STAT_MASK				BIT(16)
+> +#define AMD_SDW_WAKE_INTR_MASK				BIT(16)
+>  
+>  static u32 amd_sdw_freq_tbl[AMD_SDW_MAX_FREQ_NUM] = {
+>  	AMD_SDW_DEFAULT_CLK_FREQ,
+> -- 
+> 2.34.1
 
-This should really be a SOC_VALUE_ENUM so you can just hide the fourth
-value rather than having the empty (presumably invalid) option.  Please
-send an incremental patch doing this.
-
---EYfydwHOIW727Hww
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmYFix8ACgkQJNaLcl1U
-h9BlSQf9EyTsgJpalcSaLea4nqxS0rWOxqW45DemoZI42X3n4+1V/McyJUdeRp4g
-uhtCOzVmY+IpsWRTjh7JkmXeCINHodUMWV9pJ5DNtnkssW0APQ3NTnNCcLfxyZMF
-jDAj/Bp6Q+uZSI5lmoEhZ21bzefN0ysYMtrzEym5lT3EA4RCKDuuJEBY248mT/y0
-21d/BmZpJfmbwqr5EkLBnYYSItkVtXu4+XRh8bPlL0RVGAv3EYLKLTq45wgsznbQ
-UUqTz1+NWfeETQDMV3m2RcEafHiE2DBkb9ZptqtObVuXsx5DUyrnjGpSocfv850C
-iPdllwLhZ2RkwVo1Rlaq17ockWjx2g==
-=j0PB
------END PGP SIGNATURE-----
-
---EYfydwHOIW727Hww--
+-- 
+~Vinod

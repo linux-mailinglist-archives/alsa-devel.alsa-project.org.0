@@ -2,88 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB891890AA0
-	for <lists+alsa-devel@lfdr.de>; Thu, 28 Mar 2024 21:07:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D01C4890B65
+	for <lists+alsa-devel@lfdr.de>; Thu, 28 Mar 2024 21:35:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 154E12CAA;
-	Thu, 28 Mar 2024 21:07:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 154E12CAA
+	by alsa0.perex.cz (Postfix) with ESMTPS id A3C192CAC;
+	Thu, 28 Mar 2024 21:35:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A3C192CAC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1711656447;
-	bh=Wxy3FfO8nWGTOCNgNtvEM6jvzzVf2qp+0P+Xe146MYg=;
-	h=Date:From:To:Cc:Subject:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=Xhf6mEjju+sEEcZ6VuJ4bdPtzgruHknkyBq57bAHoJ5i7ZZT/3t7i02JAUaQgYOzd
-	 MnWYwtRYD029VqSgCWhzai61NzCAuJWIHRteI8us9yC09iCNN/uQxrqUJvuyxkc9i0
-	 UNd1B/Rs7IvEMSM4JJ5PnjTCe+LuCjVHt1y/EFA8=
+	s=default; t=1711658128;
+	bh=EZ6pFz2V/DRj+qMyZoOeq2lbUpexXlez3RxaoFi+MTs=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=lkJsEDKW6J+zS10/ATiIHz9Wlv3zWGOAxmxXN5yxORpi+E5ZwUn8NFq6PnTPFwcTJ
+	 VMiTULijBqeVRclg5amknoiLyF9dhc+0m6MuMXOJKPRJ850R+lqLayxSk6hcwKb5SC
+	 kIVzP3tVqXrA5iWYBREhsPiH4DhArrkixA966j0k=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 29CEFF805AB; Thu, 28 Mar 2024 21:06:55 +0100 (CET)
+	id 9B978F80580; Thu, 28 Mar 2024 21:34:56 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 46257F80563;
-	Thu, 28 Mar 2024 21:06:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1C7D3F8057F;
+	Thu, 28 Mar 2024 21:34:56 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A4821F8025F; Thu, 28 Mar 2024 21:06:50 +0100 (CET)
+	id 7E6C5F8025F; Thu, 28 Mar 2024 21:34:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8AD0CF801EB
-	for <alsa-devel@alsa-project.org>; Thu, 28 Mar 2024 21:06:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8AD0CF801EB
+	by alsa1.perex.cz (Postfix) with ESMTPS id 96C6DF80074
+	for <alsa-devel@alsa-project.org>; Thu, 28 Mar 2024 21:34:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96C6DF80074
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=ashl/C7f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1711656405; x=1743192405;
-  h=date:from:to:cc:subject:message-id:mime-version;
-  bh=Wxy3FfO8nWGTOCNgNtvEM6jvzzVf2qp+0P+Xe146MYg=;
-  b=ashl/C7fdHpN27DA/uhlLqRv4bwJoDrU1FeNcFeQCBdJJtPTjm5p24em
-   0FnQWvzJ1Qg4OuEEeceM9qHAGGOMYn7VMQFDVjFkiC/hnJK/ROPckVlj/
-   XV+joAb8jKgyMx1A2FD4M7cuhqC5/6fMTSA+fmJ5dFkU8pUKsuqOizT00
-   lv7s051VC2TnwQFQ/GcBjscULAOnxXUpYWQZ1Z6WpxduXPCMnQecccpj2
-   e5/3wQJeHSftz1AvqgTASA1364M8vvP5Kv7Qn4FNHn5shMgK0t87Iu1WK
-   OOisvvtsBg+ts021rSyS7JDqvQBbs5/Ejw+xgZbpaZFSa8peYo3gLcBPS
-   Q==;
-X-CSE-ConnectionGUID: NLa5Q4HyQZGt6yaC0GHcfA==
-X-CSE-MsgGUID: 8KqAOApYQOKkVVcuzJ4Quw==
-X-IronPort-AV: E=McAfee;i="6600,9927,11027"; a="7030076"
-X-IronPort-AV: E=Sophos;i="6.07,162,1708416000";
-   d="scan'208";a="7030076"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Mar 2024 13:06:22 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,162,1708416000";
-   d="scan'208";a="16786650"
-Received: from lkp-server01.sh.intel.com (HELO be39aa325d23) ([10.239.97.150])
-  by fmviesa006.fm.intel.com with ESMTP; 28 Mar 2024 13:06:21 -0700
-Received: from kbuild by be39aa325d23 with local (Exim 4.96)
-	(envelope-from <lkp@intel.com>)
-	id 1rpw0w-0002US-32;
-	Thu, 28 Mar 2024 20:06:18 +0000
-Date: Fri, 29 Mar 2024 04:05:33 +0800
-From: kernel test robot <lkp@intel.com>
-To: Gergo Koteles <soyer@irl.hu>
-Cc: oe-kbuild-all@lists.linux.dev, alsa-devel@alsa-project.org,
-	Takashi Iwai <tiwai@suse.de>
-Subject: [tiwai-sound:for-linus 12/17] include/sound/tas2781-tlv.h:18:35:
- warning: 'dvc_tlv' defined but not used
-Message-ID: <202403290354.v0StnRpc-lkp@intel.com>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=etFj1VwD
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id 53AB261036;
+	Thu, 28 Mar 2024 20:34:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA1C1C433C7;
+	Thu, 28 Mar 2024 20:34:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1711658076;
+	bh=EZ6pFz2V/DRj+qMyZoOeq2lbUpexXlez3RxaoFi+MTs=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=etFj1VwDblqPoOCViaQ76mHoMshtJet5OHHeqs1+JnJqJSoJTnOaHUypSj3Z7zw4R
+	 Fajuz2PnfN9e7KjDtb/ciBRZemG3Bte/q/ycV69W0DaPtVWpX+FhGEgVqMhIy4o1DB
+	 GhIJe3/dKi19gGbZpgqPgQB10EhE+aYV114+Hgll+dj7MK9PGOPlMblVK8L3Coa6jP
+	 CdGut4kL4Y+AudZg/iEskRAEvZ2VAHkWpMU2dGAeDdka3lma+DiMl83g/12/hUP1e8
+	 VJ7dbFok91h8pZ5alHKK4ciUCfFWoWWUPokNPFo5Ry97tn/fJV9kyWqRoh6OeGxAFa
+	 tCnIi+3GJu9wQ==
+From: Mark Brown <broonie@kernel.org>
+To: linux-sound@vger.kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ =?utf-8?q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
+In-Reply-To: <20240325221925.206507-1-pierre-louis.bossart@linux.intel.com>
+References: <20240325221925.206507-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH] ASoC: hdac_hda: improve error logs
+Message-Id: <171165807451.133067.5238673797323353251.b4-ty@kernel.org>
+Date: Thu, 28 Mar 2024 20:34:34 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Message-ID-Hash: MWMZDYFBXU27WCGNDUABCCNM7LFEVSAQ
-X-Message-ID-Hash: MWMZDYFBXU27WCGNDUABCCNM7LFEVSAQ
-X-MailFrom: lkp@intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14-dev
+Message-ID-Hash: LMTEOEH4LRR4E7EFX4NWVDYYXCOEC4I5
+X-Message-ID-Hash: LMTEOEH4LRR4E7EFX4NWVDYYXCOEC4I5
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -95,7 +87,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MWMZDYFBXU27WCGNDUABCCNM7LFEVSAQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LMTEOEH4LRR4E7EFX4NWVDYYXCOEC4I5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,46 +96,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-linus
-head:   2d0401ee38d43ab0e4cdd02dfc9d402befb2b5c8
-commit: ae065d0ce9e36ca4efdfb9b96ce3395bd1c19372 [12/17] ALSA: hda/tas2781: remove digital gain kcontrol
-config: i386-allmodconfig (https://download.01.org/0day-ci/archive/20240329/202403290354.v0StnRpc-lkp@intel.com/config)
-compiler: gcc-12 (Ubuntu 12.3.0-9ubuntu2) 12.3.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240329/202403290354.v0StnRpc-lkp@intel.com/reproduce)
+On Mon, 25 Mar 2024 17:19:25 -0500, Pierre-Louis Bossart wrote:
+> We have a couple of duplicate logs and missing information, add
+> __func__ consistently and make sure useful error codes are logged.
+> 
+> 
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202403290354.v0StnRpc-lkp@intel.com/
+Applied to
 
-All warnings (new ones prefixed by >>):
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-   In file included from include/sound/tlv.h:10,
-                    from sound/pci/hda/tas2781_hda_i2c.c:22:
->> include/sound/tas2781-tlv.h:18:35: warning: 'dvc_tlv' defined but not used [-Wunused-const-variable=]
-      18 | static const DECLARE_TLV_DB_SCALE(dvc_tlv, -10000, 100, 0);
-         |                                   ^~~~~~~
-   include/uapi/sound/tlv.h:53:22: note: in definition of macro 'SNDRV_CTL_TLVD_DECLARE_DB_SCALE'
-      53 |         unsigned int name[] = { \
-         |                      ^~~~
-   include/sound/tas2781-tlv.h:18:14: note: in expansion of macro 'DECLARE_TLV_DB_SCALE'
-      18 | static const DECLARE_TLV_DB_SCALE(dvc_tlv, -10000, 100, 0);
-         |              ^~~~~~~~~~~~~~~~~~~~
+Thanks!
 
+[1/1] ASoC: hdac_hda: improve error logs
+      commit: ea5fee227ff3dae209062ac9544906debe1e9ac1
 
-vim +/dvc_tlv +18 include/sound/tas2781-tlv.h
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-678f38eba1f2fe Shenghao Ding 2023-06-18  17  
-678f38eba1f2fe Shenghao Ding 2023-06-18 @18  static const DECLARE_TLV_DB_SCALE(dvc_tlv, -10000, 100, 0);
-678f38eba1f2fe Shenghao Ding 2023-06-18  19  static const DECLARE_TLV_DB_SCALE(amp_vol_tlv, 1100, 50, 0);
-678f38eba1f2fe Shenghao Ding 2023-06-18  20  
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-:::::: The code at line 18 was first introduced by commit
-:::::: 678f38eba1f2fe33ff700e85390ac98393e609ef ASoC: tas2781: Add Header file for tas2781 driver
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-:::::: TO: Shenghao Ding <13916275206@139.com>
-:::::: CC: Mark Brown <broonie@kernel.org>
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Thanks,
+Mark
+

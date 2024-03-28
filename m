@@ -2,86 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E647A890CD9
-	for <lists+alsa-devel@lfdr.de>; Thu, 28 Mar 2024 23:02:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19688890DD1
+	for <lists+alsa-devel@lfdr.de>; Thu, 28 Mar 2024 23:48:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5FC1C2CAD;
-	Thu, 28 Mar 2024 23:02:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5FC1C2CAD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 68F8A2CB1;
+	Thu, 28 Mar 2024 23:48:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68F8A2CB1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1711663358;
-	bh=c6tBfXAorSFrCAwy+dAcRla3vtX3ePerZfaK2+3P1Os=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Hc2XFZ6ajmAKIVX3td2J2Sgqt8ojuWzpZSY78Npeu6WS8ZOuBIGM/mylW4w1bty6B
-	 /39Tl7JDFoB0xY6lX+DlOm8YI7Sj5ylqMlD7GXWNksjjoZQEWPGXVhHvGjGFDE1yg3
-	 OT5W/34ijeqLy++y2uw6Yuht3EBErRgD6emb83Ns=
+	s=default; t=1711666124;
+	bh=4ad7yQtm68+AT2mdcchsQ2drGN+aCD6c8DrgJXxKOTI=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=rNEGjkbewAAalRqNkvaZnZswdNWznvM9/cbPAhrKg49UL5Pqpu1AhzHQuBl53GHrw
+	 rWKmFoKWqJAwLfptrRcVRc+N4uSQJ8PnDHQqw8KgRHT6LqWYgcUh1BbQRis8wIUBik
+	 +oFwz9DLazplmxAaomafGgyTlPybkcpHU3pvmBdk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 576B7F805AF; Thu, 28 Mar 2024 23:02:06 +0100 (CET)
+	id 9239FF805AA; Thu, 28 Mar 2024 23:48:11 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A185DF8057C;
-	Thu, 28 Mar 2024 23:02:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B8800F805A0;
+	Thu, 28 Mar 2024 23:48:10 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B36EFF8025F; Thu, 28 Mar 2024 23:02:01 +0100 (CET)
+	id C9D2BF80236; Thu, 28 Mar 2024 23:48:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from irl.hu (irl.hu [95.85.9.111])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 97010F80093
-	for <alsa-devel@alsa-project.org>; Thu, 28 Mar 2024 23:01:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97010F80093
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=eTmGNy4x
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 68B9561044;
-	Thu, 28 Mar 2024 22:01:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 935F0C433F1;
-	Thu, 28 Mar 2024 22:01:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1711663297;
-	bh=c6tBfXAorSFrCAwy+dAcRla3vtX3ePerZfaK2+3P1Os=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=eTmGNy4xAJbgQ3Iuf5oISoOo6PcIVzpw/Wz77nZBmeW5yWWKxw/s6IuVXhDWa9Q5W
-	 azi4rjqcTixylT6tEWqtgLMyKAV8A6AG3LKM7yOmfruJXqYrDx1hEtqmWb/M8dIgz7
-	 qzByJotMu2EZ5kkfBz93CFCkb28ZDZGzdm8Ix2xW32lAQPIqFP3y3MFkrejW9yDuJZ
-	 bfkYKfuzdC1ydkgEYmwE5Tm7zDSJqBUemm1f/T/tuNqWN5rZnqWZ0dk18BaxIafvGd
-	 h2OLzacNUWAs4Wa9KkTrMLwTNpjNxWwRD5zwQ/uPRNA7e/ZaXt0D0F6PlCsxi/R3Vj
-	 uM7+E5G0j/WIw==
-From: Mark Brown <broonie@kernel.org>
-To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-Cc: alsa-devel@alsa-project.org, venkataprasad.potturu@amd.com,
- Basavaraj.Hiregoudar@amd.com, Sunil-kumar.Dommati@amd.com,
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Syed Saba Kareem <Syed.SabaKareem@amd.com>,
- Jarkko Nikula <jarkko.nikula@bitmer.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- "open list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <linux-sound@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>
-In-Reply-To: <20240327104657.3537664-1-Vijendar.Mukunda@amd.com>
-References: <20240327104657.3537664-1-Vijendar.Mukunda@amd.com>
-Subject: Re: (subset) [PATCH 1/2] ASoC: amd: acp: fix for acp_init function
- error handling
-Message-Id: <171166329431.152246.4663516656562563292.b4-ty@kernel.org>
-Date: Thu, 28 Mar 2024 22:01:34 +0000
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+	by alsa1.perex.cz (Postfix) with UTF8SMTPS id 5F6AAF801EB
+	for <alsa-devel@alsa-project.org>; Thu, 28 Mar 2024 23:47:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5F6AAF801EB
+Received: from fedori.lan (51b68717.dsl.pool.telekom.hu
+ [::ffff:81.182.135.23])
+  (AUTH: CRAM-MD5 soyer@irl.hu, )
+  by irl.hu with ESMTPSA
+  id 0000000000069CB0.000000006605F396.0024401B;
+ Thu, 28 Mar 2024 23:47:50 +0100
+From: Gergo Koteles <soyer@irl.hu>
+To: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+  Baojun Xu <baojun.xu@ti.com>, Jaroslav Kysela <perex@perex.cz>,
+  Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+  linux-kernel@vger.kernel.org, Gergo Koteles <soyer@irl.hu>,
+  kernel test robot <lkp@intel.com>
+Subject: [PATCH] ASoC: tas2781: mark dvc_tlv with __maybe_unused
+Date: Thu, 28 Mar 2024 23:47:37 +0100
+Message-ID: 
+ <0e461545a2a6e9b6152985143e50526322e5f76b.1711665731.git.soyer@irl.hu>
+X-Mailer: git-send-email 2.44.0
+Mime-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14-dev
-Message-ID-Hash: MS6RDAN6SBCQ3FQKOGLHOZZRUTCCKB3V
-X-Message-ID-Hash: MS6RDAN6SBCQ3FQKOGLHOZZRUTCCKB3V
-X-MailFrom: broonie@kernel.org
+X-Mime-Autoconverted: from 8bit to 7bit by courier 1.0
+Message-ID-Hash: A3PFJJ3HZAAHFKVLBNAKUHWNOLXBQF5M
+X-Message-ID-Hash: A3PFJJ3HZAAHFKVLBNAKUHWNOLXBQF5M
+X-MailFrom: soyer@irl.hu
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -93,7 +73,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MS6RDAN6SBCQ3FQKOGLHOZZRUTCCKB3V/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/A3PFJJ3HZAAHFKVLBNAKUHWNOLXBQF5M/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,39 +82,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 27 Mar 2024 16:16:52 +0530, Vijendar Mukunda wrote:
-> If acp_init() fails, acp pci driver probe should return error.
-> Add acp_init() function return value check logic.
-> 
-> Fixes: e61b415515d3 ("ASoC: amd: acp: refactor the acp init and de-init sequence")
-> 
-> 
+Since we put dvc_tlv static variable to a header file it's copied to
+each module that includes the header. But not all of them are actually
+used it.
 
-Applied to
+Fix this W=1 build warning:
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+include/sound/tas2781-tlv.h:18:35: warning: 'dvc_tlv' defined but not
+used [-Wunused-const-variable=]
 
-Thanks!
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202403290354.v0StnRpc-lkp@intel.com/
+Fixes: ae065d0ce9e3 ("ALSA: hda/tas2781: remove digital gain kcontrol")
+Signed-off-by: Gergo Koteles <soyer@irl.hu>
+---
+ include/sound/tas2781-tlv.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-[2/2] ASoC: amd: acp: fix for acp pdm configuration check
-      commit: 4af565de9f8c74b9f6035924ce0d40adec211246
+diff --git a/include/sound/tas2781-tlv.h b/include/sound/tas2781-tlv.h
+index 4038dd421150..1dc59005d241 100644
+--- a/include/sound/tas2781-tlv.h
++++ b/include/sound/tas2781-tlv.h
+@@ -15,7 +15,7 @@
+ #ifndef __TAS2781_TLV_H__
+ #define __TAS2781_TLV_H__
+ 
+-static const DECLARE_TLV_DB_SCALE(dvc_tlv, -10000, 100, 0);
++static const __maybe_unused DECLARE_TLV_DB_SCALE(dvc_tlv, -10000, 100, 0);
+ static const DECLARE_TLV_DB_SCALE(amp_vol_tlv, 1100, 50, 0);
+ 
+ #endif
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+base-commit: 2d0401ee38d43ab0e4cdd02dfc9d402befb2b5c8
+-- 
+2.44.0
 

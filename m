@@ -2,110 +2,120 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 108E5892112
-	for <lists+alsa-devel@lfdr.de>; Fri, 29 Mar 2024 16:59:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69ACD892124
+	for <lists+alsa-devel@lfdr.de>; Fri, 29 Mar 2024 17:02:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6914C2CC2;
-	Fri, 29 Mar 2024 16:58:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6914C2CC2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 679CD2CD4;
+	Fri, 29 Mar 2024 17:02:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 679CD2CD4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1711727940;
-	bh=A1bgOcngoGNeuXrg9Irwhjmy26htvQefZYRFRk1Yg1s=;
+	s=default; t=1711728164;
+	bh=L8+1iqD1UKDmdElfzLXxH11absC54R8ftjQtS/mWJyA=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=p9b/TrbRXg+kxbRnE3plKvE6CmIdi8avv6egzvM0qZBjYx0Qmmgfs4Rb7oZ5oWrTs
-	 9YNH2BDTF+nnD0WzElNb7CKEkY//zAvZhOM9nnm7faiTnWzeZdIjRTYDVGkINNoyG9
-	 uh/Wqp/oZqv2KFdcEJZueib1bQVlEOuWBD54+AAw=
+	b=drzmGGqFJY6jsCaaFK9dP2e+iQ5pEUVmEXdgiPzPU17Ne+WdLSj71bJyJmgtxfpJ2
+	 44mRMNWqi7ehmyh7ILfoBx8FKDznblbA5/8SL3BJ6SsX6bk8MeqO1AFg6wC8qhmxSC
+	 Kcb67hG+gHwGihXkn4yI8cVngGrSK6Ju3lwg7nrM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 07B9AF8057C; Fri, 29 Mar 2024 16:58:38 +0100 (CET)
+	id EF888F805A8; Fri, 29 Mar 2024 17:02:12 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6E917F8057D;
-	Fri, 29 Mar 2024 16:58:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1388DF80571;
+	Fri, 29 Mar 2024 17:02:12 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5F1AFF8025F; Fri, 29 Mar 2024 16:58:32 +0100 (CET)
+	id 0F2E4F8025F; Fri, 29 Mar 2024 17:02:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [IPv6:2a00:1450:4864:20::329])
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [IPv6:2a00:1450:4864:20::32c])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9557EF801D5
-	for <alsa-devel@alsa-project.org>; Fri, 29 Mar 2024 16:58:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9557EF801D5
+	by alsa1.perex.cz (Postfix) with ESMTPS id B10BEF801D5
+	for <alsa-devel@alsa-project.org>; Fri, 29 Mar 2024 17:02:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B10BEF801D5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=nY0nzVwG
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-41551526477so3215175e9.0
+ header.s=google header.b=nRakKbca
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-414970d4185so14979295e9.3
         for <alsa-devel@alsa-project.org>;
- Fri, 29 Mar 2024 08:58:24 -0700 (PDT)
+ Fri, 29 Mar 2024 09:02:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1711727903; x=1712332703;
+        d=linaro.org; s=google; t=1711728120; x=1712332920;
  darn=alsa-project.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=5iRY6WBaoFR3Ut7RsgjjeOP69wD4aIaTAzv0eG7uu5Q=;
-        b=nY0nzVwGJe3f6lfcKgLlfUmVcOOTwuF/uuwhqklOqbvTfZGIyG5w75EJ8339f9Ncbl
-         YQamKcHuVsqqFBH12rzZ/WiFv8TGtEVd5FTdEq0p3pxMYfKap4wErXfigQkZRmbeQfU6
-         I7xFeIy5xTzbJ3BOo3/FKo9wBt4n5WCD+eXv/y1Cdom1Jc8Si110ou0GuJup77BNfFwR
-         0nFPDskI34Q+03LlUeQDCz06JLXU4Mmqmbr9pZ8mNxBPL8+B7rzLXYckIbjhDkJMWvEe
-         21sGeAGH1MNrAyDQyYDTeRDuPb4ZW4it0yj7eHcqM9MJxBfR87JhsqG8f/P8c1tB68jI
-         cHRg==
+        bh=bFFHNWdBMBRnZh/Xixjl6/7JeoW3k4wZ85ixXvuMxUQ=;
+        b=nRakKbcaknGt39tF/aqM/5aUHkvtaYDybYtqr6Kd5aryHpJ0U8P/iS9qaHCGVKbLMS
+         Wi0lE0iaJkMEhVJwSaljI65dT52eRFXFUPqBRzpwrO9ZAGBXohjFUeHycLMkzPL0nkfp
+         NtxwAwx2RpYzs0QaJYbCQ/j14XTJfHefrI4JREsj8jobDAa+ZNHn+ZaSuBZkaMmxfCPU
+         QnINdgfJzMjVJQqpPIr7kPVWmGAb4lBJvp1L1WrnCkn47IZv1dk88d48KLvnFr3iIUGZ
+         izlKPOSmZnuKPEsubOqRhk2k9BWrjMHCnnqafjqFNJLOYMOEByTdCvnXfUybYYVSNfGn
+         6ioA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711727903; x=1712332703;
+        d=1e100.net; s=20230601; t=1711728120; x=1712332920;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=5iRY6WBaoFR3Ut7RsgjjeOP69wD4aIaTAzv0eG7uu5Q=;
-        b=ONt3nb5FG3XiAmT8v0hFxRmV9y1NHUJFMIqB/3ZUQZ6R5Cn2Jgdj3dAbpecWCapVCr
-         KxhR3iB+66drDlrK/gglUGkRhr4AeiRD+sWwr2pAfd0Z9sCfQjhycsJCxzRYQ05c2sos
-         PSSmehNVousI42uUWeMvjPgXJvxQcr7boKsWuhSPTL8ZrjbwfyGJXl5LlRsbbmUM8vKt
-         jftn2LCch+ZML7E3o8cg8VWO4Pv2yc+n/LD5TqN4wkOyKTNzGvyD7RNQB5xgd1+ih5JT
-         QSOvtfgzslCnc9KUjzDr/LQ/r5u0esWUtnWNNV+DpD63nph/c+Ctzk/1l6iCxPkj7SOw
-         9/Sg==
+        bh=bFFHNWdBMBRnZh/Xixjl6/7JeoW3k4wZ85ixXvuMxUQ=;
+        b=s107xd/0iY9KiK3tgu3hHV8/Y7eD86rw3tCIdJJZBRiPmPNTWHrqYALODDVIVSPq4z
+         Ve+rfnmYb0zYlRWSnhHUnnvyNR+P1n91hzach6oq+An+fgMHN1Wh6dgrOWhSafBdtDbF
+         VjI7UX3ooLyz0JAQrrfimcbIleovW4CUhJK7aeVC0pfbSPZYc3go3T2n+dOKPnsaMXPR
+         8ef+STbQakgfPEGirVB3EFZpDD0jX7u0WcUGY8NZDHETkRG49rzv/5WspvWIEF8B0wZ9
+         FKJuxwiau3Z6fbbtiwnWXIHo0mcSlD0ODKBh9DplAafQZhG3SpKPbC3oDqXssWwNsHWs
+         O9+w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU/4QSIWiikvN8417BkW9dKyc83pgpsOSuk9xavbctBo89bJ7OK3nA6NxfxbapVV1bgBhJupTbJLQrbbJ/NsMn5vrP7aEKsdGv6az8=
-X-Gm-Message-State: AOJu0YxKn+ontbEkV4l8WlzrjYPpRisK03dDIQEidXpdMhkJBBz3vh+A
-	jG0yMLmlY6JejV9cG6HYgAlaz1WuIfiVNa/0Qq2S8DHwH9fVSGJSVjB/MUhZIXo=
+ AJvYcCXXYuKvScdQ96JoR0AWIYzLJnmPit1UhzTNzuy9TAggzwh49kYb5OPUr+HPGQjXoJtvqVNuAtcQ6MuWsk5T0Lcy+1y8MHGDMowIrmw=
+X-Gm-Message-State: AOJu0YyvbpTcGYdXewBoLCKZOYXANLklV6DPjnARPsbEZR/hesY3Bzw1
+	GtZrGbwc3wNCg0/0X3/v7jMFNEBGwRWCzZ0QUJvtKmbJBY2tv6g3yC+OAziFHV4=
 X-Google-Smtp-Source: 
- AGHT+IGs8uMaED9NrwRWp6VqyH2obfV07nqS2HtPgQn6vsGCO8x4AzJBZmyKgceC6bz9Fi5is28FOw==
-X-Received: by 2002:a05:600c:3ba7:b0:414:8938:70ec with SMTP id
- n39-20020a05600c3ba700b00414893870ecmr2089688wms.27.1711727902900;
-        Fri, 29 Mar 2024 08:58:22 -0700 (PDT)
+ AGHT+IGlf76ZFo7enpn/TIJKsmshD5ys3tj2AM3CNMbcaOwbYvFNj6HA0V/ZJkHNSo7Pm5iUe6Bpog==
+X-Received: by 2002:a05:600c:4e8b:b0:414:c1b:4bbc with SMTP id
+ f11-20020a05600c4e8b00b004140c1b4bbcmr1751398wmq.6.1711728119935;
+        Fri, 29 Mar 2024 09:01:59 -0700 (PDT)
 Received: from [192.168.1.20] ([178.197.223.16])
         by smtp.gmail.com with ESMTPSA id
- t12-20020a05600c450c00b004154853f778sm4681379wmo.48.2024.03.29.08.58.21
+ ay1-20020a05600c1e0100b0041554f8eafesm387365wmb.13.2024.03.29.09.01.58
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 29 Mar 2024 08:58:22 -0700 (PDT)
-Message-ID: <a42c41aa-cbaa-463c-ade9-5083930dec64@linaro.org>
-Date: Fri, 29 Mar 2024 16:58:19 +0100
+        Fri, 29 Mar 2024 09:01:59 -0700 (PDT)
+Message-ID: <7297bd78-4f74-4d23-afb3-9b7aecbe451d@linaro.org>
+Date: Fri, 29 Mar 2024 17:01:57 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/2] ASoC: qcom: qcm6490: Add machine driver for
- qcm6490
-To: Mohammad Rafi Shaik <quic_mohs@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: srinivas.kandagatla@linaro.org, bgoswami@quicinc.com, broonie@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, andersson@kernel.org,
- konrad.dybcio@linaro.org, lgirdwood@gmail.com, tiwai@suse.com,
- quic_rohkumar@quicinc.com, linux-kernel@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- linux-arm-msm@vger.kernel.org
-References: <20240327113228.1706975-1-quic_mohs@quicinc.com>
- <20240327113228.1706975-3-quic_mohs@quicinc.com>
- <CAA8EJpqh0emOFUPSj8rPaKr2hZRWwOh9NNTco8fyJCtwXe9sSA@mail.gmail.com>
- <92b449da-1569-40f9-d8c9-48949c986853@quicinc.com>
+Subject: =?UTF-8?B?UmU6IOWbnuWkjTogW1BBVENIIHYyIDEvMl0gQVNvQzogZHQtYmluZGlu?=
+ =?UTF-8?Q?gs=3A_Add_bindings_for_Cadence_I2S-MC_controller?=
+To: Mark Brown <broonie@kernel.org>
+Cc: Xingyu Wu <xingyu.wu@starfivetech.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Claudiu Beznea <Claudiu.Beznea@microchip.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor.dooley@microchip.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>
+References: <20240320090239.168743-1-xingyu.wu@starfivetech.com>
+ <20240320090239.168743-2-xingyu.wu@starfivetech.com>
+ <9d9efb8a-0b3c-4e7a-8673-07cd3b1f5f87@linaro.org>
+ <NTZPR01MB0956BD6189974378958562D99F35A@NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn>
+ <9b1a5100-8536-4b59-b2e7-d6ebd2ba9e66@linaro.org>
+ <NTZPR01MB0956230296D881F112F92D119F35A@NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn>
+ <16f72b4a-2aa9-49d5-a4aa-ed94eea1f32a@linaro.org>
+ <NTZPR01MB09563633F5C3B5FBC95D61289F3AA@NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn>
+ <7b4a35d0-6764-4c6a-9f1d-57481324c680@linaro.org>
+ <ZgbDx6oD+mMUIvH1@finisterre.sirena.org.uk>
 Content-Language: en-US
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
@@ -152,11 +162,11 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
  fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
  D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <92b449da-1569-40f9-d8c9-48949c986853@quicinc.com>
+In-Reply-To: <ZgbDx6oD+mMUIvH1@finisterre.sirena.org.uk>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: NVKHDIF5A4PK5UPO2W4UUUJW53T6DMHT
-X-Message-ID-Hash: NVKHDIF5A4PK5UPO2W4UUUJW53T6DMHT
+Message-ID-Hash: HKYK3TRIWOYEA5Z6THBORXZJGBIKU4WZ
+X-Message-ID-Hash: HKYK3TRIWOYEA5Z6THBORXZJGBIKU4WZ
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -169,7 +179,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NVKHDIF5A4PK5UPO2W4UUUJW53T6DMHT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HKYK3TRIWOYEA5Z6THBORXZJGBIKU4WZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -178,33 +188,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 29/03/2024 16:19, Mohammad Rafi Shaik wrote:
+On 29/03/2024 14:36, Mark Brown wrote:
+> On Fri, Mar 29, 2024 at 12:42:22PM +0100, Krzysztof Kozlowski wrote:
 > 
-> On 3/27/2024 6:39 PM, Dmitry Baryshkov wrote:
->> On Wed, 27 Mar 2024 at 13:34, Mohammad Rafi Shaik<quic_mohs@quicinc.com>  wrote:
->>> Add machine driver for qcm6490 SoC.
->>>
->>> This initial supports which includes WSA883x Speakers with onboard DMIC
->>> connected to internal LPASS codec via VA macros respectively and also
->>> WCD937x based headset.
->>>
->>> Add compatible for sound card on Qualcomm qcs6490 boards.
->> Granted that qcm6490 is similar to sc7280, is there any reason why you
->> can not use one of the existing sound card drivers? Like sc7280.c or
->> sc8280xp.c?
+>> I stated and I keep my statement that such block is usually not usable
+>> on its own and always needs some sort of quirks or SoC-specific
+>> implementation. At least this is what I saw in other similar cases, but
+>> not exactly I2S.
 > 
-> The qcs6490/qcm6490 has additional interfaces like MI2S, which requires 
-> additional machine driver modification.
-> 
-> Example : Required new DAPM widget change in machine driver for MI2S 
-> interface which is specific to qcs6490/qcm6490.
-> 
-> So, using new qcm6490 machine driver.
-> 
-> Will try to use existing sc8280xp.c machine driver.
+> I wouldn't be so pessimistic, especially not for I2S - a good portion of
+> quirks there are extra features rather than things needed for basic
+> operation, a lot of things that might in the past have been quirks for
+> basic operation are these days hidden behind the DT bindings.
 
-In that case, if it does not fit into sc8280xp, it looks fine for a new
-driver. Maybe just mention this in commit msg.
+OK, I trust your judgement, so cdns as fallback seems okay, but I don't
+think it warrants cdns as used alone. Not particularly because cdns is
+different, but because we expect specific SoC compatible always.
+
+Thus if cdns,i2s-mc stays, then:
+
+items:
+  - enum:
+      - starfive,jh8100-i2s
+  - cdns,i2s-mc
 
 Best regards,
 Krzysztof

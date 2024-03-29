@@ -2,61 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DA858919C4
-	for <lists+alsa-devel@lfdr.de>; Fri, 29 Mar 2024 13:47:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 474B58919E1
+	for <lists+alsa-devel@lfdr.de>; Fri, 29 Mar 2024 13:49:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7DD102CB2;
-	Fri, 29 Mar 2024 13:47:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7DD102CB2
+	by alsa0.perex.cz (Postfix) with ESMTPS id AE9582CA6;
+	Fri, 29 Mar 2024 13:48:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE9582CA6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1711716449;
+	s=default; t=1711716536;
 	bh=24ZfbhX4pI7+/FQ2TTtmh8cVzbSFP7TYidogpYLdsoI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=dzSteFW/VNYyFwKDL6Ai040E7eFQM1Hlj3azgVl9UAbmGyfejJarwgDCmCznNLqeJ
-	 sf99VcptFU4ONuNYryWX+wsxF9K5UrjR6ovGWq55VmzAeEzl/Tfof3j5h4UdUBJpv6
-	 2QilszTMXl4NdqqQT6md676vcha41OZ8PaFw7rt4=
+	b=pCXFyd2BMtwAEKdxK872EcsgjxhcVrVCUhvdvg05tIC3EtRumI5k4Os9gZZyUW4fy
+	 CF7NsX7f6hqDr+KdOlQx6E2vju3/JBa4jDD6sIsxCz1t+pg4SFdfBY1w9s1cU8J8ba
+	 vk5j281b/yWkf2geRBP8J5hGFUd89vauRVCRa1MY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9173BF805C9; Fri, 29 Mar 2024 13:46:52 +0100 (CET)
+	id 8BB8DF805AB; Fri, 29 Mar 2024 13:48:25 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id F3A53F805C6;
-	Fri, 29 Mar 2024 13:46:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CC84BF805A1;
+	Fri, 29 Mar 2024 13:48:24 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 978C6F80564; Fri, 29 Mar 2024 13:46:47 +0100 (CET)
+	id E8E9EF8025F; Fri, 29 Mar 2024 13:48:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A26F5F801EB
-	for <alsa-devel@alsa-project.org>; Fri, 29 Mar 2024 13:46:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A26F5F801EB
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1DA1EF80093
+	for <alsa-devel@alsa-project.org>; Fri, 29 Mar 2024 13:48:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1DA1EF80093
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=u05kSsP3
+ header.s=k20201202 header.b=cKasXNMv
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id F0E836190D;
-	Fri, 29 Mar 2024 12:46:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 898B5C433C7;
-	Fri, 29 Mar 2024 12:46:41 +0000 (UTC)
+	by sin.source.kernel.org (Postfix) with ESMTP id CBA28CE2F8B;
+	Fri, 29 Mar 2024 12:48:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F26C8C433F1;
+	Fri, 29 Mar 2024 12:48:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1711716402;
+	s=k20201202; t=1711716494;
 	bh=24ZfbhX4pI7+/FQ2TTtmh8cVzbSFP7TYidogpYLdsoI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=u05kSsP3XMmwAi1gOWmybowXYvNJ79q/0IOKGS6W97PHtwqx6BE+fLZ2P0kKeX4pR
-	 6C2tJC4jLuB496GBRnUtENZKaPS8aYQzkd24ecWqn8n0cQb46050z6AfrbufwMZ6LB
-	 1pNbcbgyrmeEiC1iPlyMjjJL6bA4pNulIE1GyjwB7LvJr9o6N+OvWTQipTfCtRJpGj
-	 1DtD+JmoxnMa15dFbs+xILH+B5IZ8GSdj5LAPhGZveUuxV5M2DwDvQG5dOs0g12Xdb
-	 cEK7OQTJnWgMpUrMl1LkTRRAsULIEqYD388mx7xUEy2YM84lqOKURJEPBlH2Q6D/X3
-	 9AyoEX13qCpTg==
+	b=cKasXNMvd2fi9ZFinhLwPB+8oMkPSed3RdqKp3YVn09CFXZnm4CKrKarGTHA/5Cvf
+	 nXEB/Se5K58G4wj7FazzU3OETHBOw4lI57lFApQtcdmx9tW809VwtLQuAfKBALSunX
+	 enYLqbF3F2RmkyWJC5kycvgCPRJpkBwb067VjivVJCcbLbDc1cewYEJiFvpQOT0yXe
+	 yInUn+qcq7cyWUYCoR8z8dDAMl9BiSbGp3G3EbGMpqqK1y84fv5YEh4EakG0tQ6ABt
+	 Fcd8ue8ihX+OslvLb7edYySAjMe+8w5kZ9+qcswRuxCRyrTU5sT3OmrMwXMzioT3kz
+	 +H2/Ij9pEyi5g==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
@@ -68,20 +68,20 @@ Cc: Takashi Sakamoto <o-takashi@sakamocchi.jp>,
 	tiwai@suse.com,
 	alsa-devel@alsa-project.org,
 	linux-sound@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.1 20/52] ALSA: firewire-lib: handle quirk to
+Subject: [PATCH AUTOSEL 5.15 13/34] ALSA: firewire-lib: handle quirk to
  calculate payload quadlets as data block counter
-Date: Fri, 29 Mar 2024 08:45:14 -0400
-Message-ID: <20240329124605.3091273-20-sashal@kernel.org>
+Date: Fri, 29 Mar 2024 08:47:14 -0400
+Message-ID: <20240329124750.3092394-13-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240329124605.3091273-1-sashal@kernel.org>
-References: <20240329124605.3091273-1-sashal@kernel.org>
+In-Reply-To: <20240329124750.3092394-1-sashal@kernel.org>
+References: <20240329124750.3092394-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.1.83
+X-stable-base: Linux 5.15.153
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: L4WC4XARAQZ23ZZYKYEYF6FEOFKFEWVB
-X-Message-ID-Hash: L4WC4XARAQZ23ZZYKYEYF6FEOFKFEWVB
+Message-ID-Hash: P3HGH7ARZ3T4TLCT2WQTKWPJEEDFZAJJ
+X-Message-ID-Hash: P3HGH7ARZ3T4TLCT2WQTKWPJEEDFZAJJ
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -94,7 +94,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/L4WC4XARAQZ23ZZYKYEYF6FEOFKFEWVB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/P3HGH7ARZ3T4TLCT2WQTKWPJEEDFZAJJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>

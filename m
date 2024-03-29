@@ -2,220 +2,131 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0E42894C17
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Apr 2024 09:03:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A7B1894C18
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Apr 2024 09:04:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 345502D07;
-	Tue,  2 Apr 2024 09:03:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 345502D07
+	by alsa0.perex.cz (Postfix) with ESMTPS id 89CA92C5D;
+	Tue,  2 Apr 2024 09:03:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 89CA92C5D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712041423;
-	bh=leo+Yi4AfSnMVg8mcM4Xju1MFqd5FSUEovb4t8XjI+U=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1712041442;
+	bh=v8mIn4wI6Nk8yWeAoiTyvSclm6AdbmqShOByjQ1EiZc=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=A9TOurNGP+Qx9FY6wD0FaMw2U8Z22sZ809x5ZgzHk2O1lMcH1rST9N9TEjuAMOTGN
-	 AKoE16zrmEr/0HTDX0uQf/T1upJ2wuvGSY8k83Ew8vQ0ufL2ihL4DqVa1JeJnH2L74
-	 yck5y7x1WA3Mtif1JtIDOTgqf0Y9jHQyZK9S+FFE=
+	b=IS6utURt4Tt5hFYP0D3GEzvEBjfBjSD4VP1d2LypL1zPgtyZ7WlJmdZM76/dp3s5d
+	 xIHpqmnrLiRH8nqRCc4/1P1ae85c6wtGgrwhPl6YYF5X1eMd50oyW9au3NCmohSrAp
+	 JT/36V+akYyrwdQhps39CA0sEvwGdmArF7GnaFRs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 333E3F80617; Tue,  2 Apr 2024 08:54:21 +0200 (CEST)
+	id 34926F89931; Tue,  2 Apr 2024 08:54:28 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 24D68F8992F;
-	Tue,  2 Apr 2024 08:54:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8BB52F89943;
+	Tue,  2 Apr 2024 08:54:27 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7AB50F8025F; Fri, 29 Mar 2024 13:22:31 +0100 (CET)
+	id 322B6F8025F; Fri, 29 Mar 2024 14:24:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	SPF_HELO_NONE,SPF_NONE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,
+	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [IPv6:2a00:1450:4864:20::22b])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
+ [217.70.183.196])
+	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B3B9FF801EB
-	for <alsa-devel@alsa-project.org>; Fri, 29 Mar 2024 13:22:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3B9FF801EB
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0F12EF801EB
+	for <alsa-devel@alsa-project.org>; Fri, 29 Mar 2024 14:24:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0F12EF801EB
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=bgdev-pl.20230601.gappssmtp.com
- header.i=@bgdev-pl.20230601.gappssmtp.com header.a=rsa-sha256
- header.s=20230601 header.b=dGZWOr2u
-Received: by mail-lj1-x22b.google.com with SMTP id
- 38308e7fff4ca-2d6eedf3e99so28317181fa.1
-        for <alsa-devel@alsa-project.org>;
- Fri, 29 Mar 2024 05:22:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bgdev-pl.20230601.gappssmtp.com; s=20230601; t=1711714946;
- x=1712319746; darn=alsa-project.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=TdH2/uZDyLmBSFlZ529ZdmMTMc2xJjXR5We9XRvPLc8=;
-        b=dGZWOr2uCDmJ8k6bSOGcJSXsKZGS5F8EUq6GyMkKMuQke/pGj2QfwlPdgZ2B9Bce0T
-         q77sg7oNReFzBqWaYuQ8lXb+0ZH5rj7iOPW5sSHIKSk4nfYZjPWwTgDH5xJtMqBA1XlH
-         2gFUEBkMSboOAulSJCk2X3vG7a92vgh9vbmoXfUWNqBRHXaHEGoeg2llboVmGsACaV+x
-         18TxvSLVQ75UR3DfHYyWXOPuaxYyhqvhraliqLhAfwoc2sXvThwggdYQ091RucylmD9h
-         gxq/VBfrlemwwkl0h8us5g0ZJPI7j+gtlbyjbf0/2KOq1sCGRX+QqVmwkZT4pQ4KupuX
-         mRJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711714946; x=1712319746;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=TdH2/uZDyLmBSFlZ529ZdmMTMc2xJjXR5We9XRvPLc8=;
-        b=Mkyms1A294hDTKOZZu9WeSN1JCHh86lz+95rq5CF1w/ro61ionuHcdcV3CcInlwCfc
-         AmXsYPF2vtnB/u6HcMFoo87rVVAtCzmZkV4S7+L3PTHldpgP7XzeMYzGvW5WdQgFcwsd
-         J4oJiaTq5aakFhwn9PJc2KRCDeeU+fquimA75FTZAPFsjuGAuN/qcVQ6cApDaGsk4QoS
-         1O5FY2WnaaVkfctNOQLFWSh5C3nOM0cwHDy8/QS6WpNfoL2b5BsacxISMv0/U5xZrjcP
-         HbNe6Bf72e6VqR9Ma60eIAfkgbFax+RCWdp4TqpRCzpgEJ7oe/KJ1dSZccCVTYMVVcGm
-         iWBg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXbCleqbsFHhHSTsgcdO4FZZAWRJaRmLOM0KDYrlP52aak9y/tBfpuDyDJXzxY4cGROeKwHawa2hUpl+/b1iW+zQUFg64X56SVv8zY=
-X-Gm-Message-State: AOJu0YyYxNMhSRLR+xeV79maLyfgsNW6x1gm8/5GFIpq4zTy6HVW5+rw
-	/R8FjHX4UiTy0A3Wtriq6OMFGTqq57CndUBTFJwKNm3B7xuIgKk5P0m4IDkZEBT1+I/3DQihG4w
-	TXfgdJsoUJdx/L2SQz54iFC/pg4HsDNsn5u4DsQ==
-X-Google-Smtp-Source: 
- AGHT+IE+HnSCJL2quawa1K1lMrp38Nm79TgJqcEd/z4x+7H7IfVDrdpUOVuBJN0I2Fw0lOyMRLNfqEQZZUdPpNwT2ZM=
-X-Received: by 2002:a2e:8350:0:b0:2d3:5480:92aa with SMTP id
- l16-20020a2e8350000000b002d3548092aamr644831ljh.25.1711714946358; Fri, 29 Mar
- 2024 05:22:26 -0700 (PDT)
+ unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
+ header.s=gm1 header.b=N8cvRHyP
+Received: by mail.gandi.net (Postfix) with ESMTPSA id DFE1FE0008;
+	Fri, 29 Mar 2024 13:24:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+	t=1711718648;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Z8zwe634gu5wQNCVCxvtpKe0aX4n7o17eGhcQXcT/N4=;
+	b=N8cvRHyPJgw5j5LKkih7d26o4xz2NIuPQNXKFj8uupd470/nXWH0scfZaHHEl3j9CKrBex
+	Pbskzy//s8gOQPW0Q9RyQ6c6e6pf+5HxiHLme7pdkxLnOW5BEkSDlSNai8dTMispVpfws/
+	hLchxIIMJdRL9lZzAYWvm3+M0LJCFePBNb3hgl4yEe6YKKbSw+vwZuovy5Yywy4bpJw4mb
+	KIdJHjIhBxrWkPrLV2Q9PnSYK7cgJP063BauaJRtBMkA4rsytPkNKxJG5OQUu7EsZeBmQ5
+	XyV61Cs61Per8cmpSkvlDdInL17uL9nbTK8mu1ED+Jqje3CvdwTG/6T7JXVqIA==
+Message-ID: <106a9957-cf7f-4789-8edc-fdc641cd854a@bootlin.com>
+Date: Fri, 29 Mar 2024 14:24:07 +0100
 MIME-Version: 1.0
-References: <20240327-module-owner-virtio-v1-0-0feffab77d99@linaro.org>
- <20240327-module-owner-virtio-v1-9-0feffab77d99@linaro.org>
- <CAMRc=McY6PJj7fmLkNv07ogcYq=8fUb2o6w2uA1=D9cbzyoRoA@mail.gmail.com>
- <1303b572-719e-410d-a11a-3f17a5bb3b63@linaro.org>
-In-Reply-To: <1303b572-719e-410d-a11a-3f17a5bb3b63@linaro.org>
-From: Bartosz Golaszewski <brgl@bgdev.pl>
-Date: Fri, 29 Mar 2024 13:22:15 +0100
-Message-ID: 
- <CAMRc=Mfeez9kXkkVxdmUk5dy=L=rbnYkYujO6jSCT5WAyUw2HA@mail.gmail.com>
-Subject: Re: [PATCH 09/22] gpio: virtio: drop owner assignment
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Richard Weinberger <richard@nod.at>,
-	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
- Johannes Berg <johannes@sipsolutions.net>,
-	Paolo Bonzini <pbonzini@redhat.com>, Stefan Hajnoczi <stefanha@redhat.com>,
- Jens Axboe <axboe@kernel.dk>,
-	Marcel Holtmann <marcel@holtmann.org>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Olivia Mackall <olivia@selenic.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
-	Amit Shah <amit@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Gonglei <arei.gonglei@huawei.com>,
-	"David S. Miller" <davem@davemloft.net>, Viresh Kumar <vireshk@kernel.org>,
-	Linus Walleij <linus.walleij@linaro.org>, David Airlie <airlied@redhat.com>,
-	Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
-	Chia-I Wu <olvaffe@gmail.com>,
- Jean-Philippe Brucker <jean-philippe@linaro.org>,
-	Joerg Roedel <joro@8bytes.org>, Alexander Graf <graf@amazon.com>,
- Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Eric Van Hensbergen <ericvh@kernel.org>, Latchesar Ionkov <lucho@ionkov.net>,
-	Dominique Martinet <asmadeus@codewreck.org>,
- Christian Schoenebeck <linux_oss@crudebyte.com>,
-	Stefano Garzarella <sgarzare@redhat.com>, Kalle Valo <kvalo@kernel.org>,
-	Dan Williams <dan.j.williams@intel.com>,
- Vishal Verma <vishal.l.verma@intel.com>,
-	Dave Jiang <dave.jiang@intel.com>, Ira Weiny <ira.weiny@intel.com>,
-	Pankaj Gupta <pankaj.gupta.linux@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
- Vivek Goyal <vgoyal@redhat.com>,
-	Miklos Szeredi <miklos@szeredi.hu>,
- Anton Yakovlev <anton.yakovlev@opensynergy.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- virtualization@lists.linux.dev,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-um@lists.infradead.org, linux-block@vger.kernel.org,
-	linux-bluetooth@vger.kernel.org, linux-crypto@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, iommu@lists.linux.dev,
-	netdev@vger.kernel.org, v9fs@lists.linux.dev, kvm@vger.kernel.org,
-	linux-wireless@vger.kernel.org, nvdimm@lists.linux.dev,
-	linux-remoteproc@vger.kernel.org, linux-scsi@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org, alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-MailFrom: brgl@bgdev.pl
-X-Mailman-Rule-Hits: max-recipients
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 13/13] ASoC: ti: davinci-i2s: Opitonally drive DX pin
+ during capture streams
+From: Bastien Curutchet <bastien.curutchet@bootlin.com>
+To: =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, herve.codina@bootlin.com,
+ christophercordahi@nanometrics.ca
+References: <20240315112745.63230-1-bastien.curutchet@bootlin.com>
+ <20240315112745.63230-14-bastien.curutchet@bootlin.com>
+ <00182d1d-ef29-457f-9e3e-6e9b57592118@gmail.com>
+ <0bb26153-8bcb-475f-8892-5eb925fec538@bootlin.com>
+ <7925bbe5-17e8-42cb-a5f0-4f3e06810a90@gmail.com>
+ <d20dc37c-13fa-43d1-af52-dce8d8dcdd75@gmail.com>
+ <5467add6-0099-4e54-a4f7-12aa149d03c7@bootlin.com>
+ <e6994ff1-6c32-4dac-846a-5f4f18b2f996@gmail.com>
+ <16e6cded-33c1-408c-9bfc-b0b9a8da4cbf@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <16e6cded-33c1-408c-9bfc-b0b9a8da4cbf@bootlin.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-GND-Sasl: bastien.curutchet@bootlin.com
+X-MailFrom: bastien.curutchet@bootlin.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
- suspicious-header
-Message-ID-Hash: TPVTQAOWDVZ4CTEL3P7UCSF5NHBDCMCN
-X-Message-ID-Hash: TPVTQAOWDVZ4CTEL3P7UCSF5NHBDCMCN
-X-Mailman-Approved-At: Tue, 02 Apr 2024 06:52:16 +0000
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: QSDUH2GPMGIMTYIKQ2SBFHHBUQEN474U
+X-Message-ID-Hash: QSDUH2GPMGIMTYIKQ2SBFHHBUQEN474U
+X-Mailman-Approved-At: Tue, 02 Apr 2024 06:52:17 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TPVTQAOWDVZ4CTEL3P7UCSF5NHBDCMCN/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QSDUH2GPMGIMTYIKQ2SBFHHBUQEN474U/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, Mar 29, 2024 at 12:35=E2=80=AFPM Krzysztof Kozlowski
-<krzysztof.kozlowski@linaro.org> wrote:
->
-> On 29/03/2024 11:27, Bartosz Golaszewski wrote:
-> > On Wed, Mar 27, 2024 at 1:45=E2=80=AFPM Krzysztof Kozlowski
-> > <krzysztof.kozlowski@linaro.org> wrote:
-> >>
-> >> virtio core already sets the .owner, so driver does not need to.
-> >>
-> >> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> >>
-> >> ---
-> >>
-> >> Depends on the first patch.
-> >> ---
-> >>  drivers/gpio/gpio-virtio.c | 1 -
-> >>  1 file changed, 1 deletion(-)
-> >>
-> >> diff --git a/drivers/gpio/gpio-virtio.c b/drivers/gpio/gpio-virtio.c
-> >> index fcc5e8c08973..9fae8e396c58 100644
-> >> --- a/drivers/gpio/gpio-virtio.c
-> >> +++ b/drivers/gpio/gpio-virtio.c
-> >> @@ -653,7 +653,6 @@ static struct virtio_driver virtio_gpio_driver =3D=
- {
-> >>         .remove                 =3D virtio_gpio_remove,
-> >>         .driver                 =3D {
-> >>                 .name           =3D KBUILD_MODNAME,
-> >> -               .owner          =3D THIS_MODULE,
-> >>         },
-> >>  };
-> >>  module_virtio_driver(virtio_gpio_driver);
-> >>
-> >> --
-> >> 2.34.1
-> >>
-> >
-> > Applied, thanks!
->
-> I expressed dependency in two places: cover letter and this patch.
-> Please drop it, because without dependency this won't work. Patch could
-> go with the dependency and with your ack or next cycle.
->
-> Best regards,
-> Krzysztof
+Hi Péter,
+
+>> Can you use aplay /dev/zero and a DT property to select T1 framing for
+>> the playback? Or that would be too coarse for timing the start of
+>> playback and capture?
+>>
+> 
+> That's a good idea, thank you. I'll try this and come back to you.
+> 
 >
 
-Dropped, and:
+I tried it and it works fine, thank you.
 
-Acked-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+We still need to run some performance tests before fully adopting it but
+anyway I'll send a new iteration of the patch series that drops the
+drive-dx part and just keeps a DT property to select T1 framing.
+
+Best regards,
+Bastien

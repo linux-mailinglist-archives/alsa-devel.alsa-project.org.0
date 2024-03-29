@@ -2,87 +2,109 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93D738922D1
-	for <lists+alsa-devel@lfdr.de>; Fri, 29 Mar 2024 18:36:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC65C892380
+	for <lists+alsa-devel@lfdr.de>; Fri, 29 Mar 2024 19:40:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D96EB2CCD;
-	Fri, 29 Mar 2024 18:36:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D96EB2CCD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4B2422CB9;
+	Fri, 29 Mar 2024 19:39:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B2422CB9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1711733776;
-	bh=IKp5hVryh+AhRCHQEkLVpXkjg9FXgRVlJMTHmJin/sw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1711737607;
+	bh=qw+LyXS4Jxo0zDRbwxDiYKHnX2Jw5hLsTZxGE8VC8ss=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=TrvDCcB2HylNV+G3gbnlfEgy2Tx19zXIGzVUMD5cScW3LluMAZqKGXEASkFx+BmU9
-	 MxRv8VlUW5w69SyzHnA3IEsLtrxrRZ0WQ5fpzoC/vg03ErZ8kWbw2Tux2WdTMV/3vh
-	 rhgIGbmmdGJDF62PSsXQg/WCUPAgFFJEfKXhMzeQ=
+	b=O3VXPtyE3MQPcbfLMNPr5b/jKhx+qcPLvoV9Ub3Vak+jtFLXqjyBBzHF0M3TsFBxh
+	 WDAmXnoCMvRbt2mLUEjFAUQ9NP0x7DfVz533FZ9sdqr8a8+mIOlld/pI7zRmKTIMO/
+	 MBIb1KyfWDYBEsV6KuDMdqq0BpESMRZwGx1b/Bq8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 76BFDF80588; Fri, 29 Mar 2024 18:35:44 +0100 (CET)
+	id 94733F805AE; Fri, 29 Mar 2024 19:39:35 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CBF6EF80588;
-	Fri, 29 Mar 2024 18:35:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0A268F80579;
+	Fri, 29 Mar 2024 19:39:35 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 809D7F8025F; Fri, 29 Mar 2024 18:35:38 +0100 (CET)
+	id 18DD2F8025F; Fri, 29 Mar 2024 19:39:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Received: from mail-yb1-xb36.google.com (mail-yb1-xb36.google.com
+ [IPv6:2607:f8b0:4864:20::b36])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9F82DF80093
-	for <alsa-devel@alsa-project.org>; Fri, 29 Mar 2024 18:35:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F82DF80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id 602A1F80093
+	for <alsa-devel@alsa-project.org>; Fri, 29 Mar 2024 19:39:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 602A1F80093
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=dg9vyq4C
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 1385B6181A;
-	Fri, 29 Mar 2024 17:35:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2ABF0C433F1;
-	Fri, 29 Mar 2024 17:35:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1711733728;
-	bh=IKp5hVryh+AhRCHQEkLVpXkjg9FXgRVlJMTHmJin/sw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=dg9vyq4CAACubfsARV5FqqZOVaoCSo5AIk6xvHC7VcmZQKN5RxfultGE3tRqXKq7Z
-	 L1ctud3gpB/s5Dz/RAiyTW4xeLlXy8BM41Ce4UaXZFBhlgUnI/n7o8Mdx0jAbyS0eD
-	 dPlIOGGaPbYGjK92cBPsEKjLeMf7a82kCQb4tyERAHpUIilVDPBODOcb2EjLe6Mwkw
-	 +PiHzhAlu3g3aUpqxrUfbCSauYQrV1NEdyVcY/GCqgkeXFQ9ChqEqKxASzCfAL3g00
-	 46A2+r0fjG8T3gOU3W0gewDA8jsmZPj8kNjsfzeOjSwHmY0Mk7xpOszDkw3LE8JZEz
-	 GkwcvhSAU26uQ==
-From: Mark Brown <broonie@kernel.org>
-To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-Cc: alsa-devel@alsa-project.org, Sunil-kumar.Dommati@amd.com,
- Basavaraj.Hiregoudar@amd.com, venkataprasad.potturu@amd.com,
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Syed Saba Kareem <Syed.SabaKareem@amd.com>,
- Jarkko Nikula <jarkko.nikula@bitmer.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- "open list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <linux-sound@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>
-In-Reply-To: <20240329053815.2373979-1-Vijendar.Mukunda@amd.com>
-References: <20240329053815.2373979-1-Vijendar.Mukunda@amd.com>
-Subject: Re: [PATCH V2] ASoC: amd: acp: fix for acp_init function error
- handling
-Message-Id: <171173372430.1605169.8973753810276675106.b4-ty@kernel.org>
-Date: Fri, 29 Mar 2024 17:35:24 +0000
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=nYYyxYaU
+Received: by mail-yb1-xb36.google.com with SMTP id
+ 3f1490d57ef6-dc6d8bd618eso2187143276.3
+        for <alsa-devel@alsa-project.org>;
+ Fri, 29 Mar 2024 11:39:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1711737559; x=1712342359;
+ darn=alsa-project.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=3lLr/63FZWa2U7lSsfTE/HR44aBZA5xAziz+mA0POm4=;
+        b=nYYyxYaUEO2QQb+1z71yhSCTCZxXshnrNWs7HdgukucFFn2anKJS/wcNZS6GbZ9sBN
+         7/F9t3KslwqGy2mtQjErXScy2HFsJnIHoA/G9dBlXa35YSRcf8HBkbTHdEFThMORyOpU
+         AZn04s29SEYZZDvVIorrt6J7XpIpEmIS7GdCmNdCvrq9nO71dCF6unaDh9oyzvUtFKmp
+         /ZqbpL+D3nAaAOisZE+jHlUKdkz76oeQ4oaIStvW7ifc+Bm6N0+TbfgGfWfbHA9kZFtu
+         pUQZVbySNzY+UQXWBN3wom8Rkqml9QlmpbyhiR/LaSuwcI/Iwgu5G5HWSgBdnlo6P8fG
+         n2FA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1711737559; x=1712342359;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=3lLr/63FZWa2U7lSsfTE/HR44aBZA5xAziz+mA0POm4=;
+        b=Ucsj1KEGk9kwPZQQuXTQjfJecOrT2bPN+4Beaz//Iqu+JwDBfi9zu4A6OPFdO1L+I4
+         ApgDUZ6eCZF6yRoUwY1dLq7DMW08cBMUNVlZKy/i+o+ui9h0JxE29qY7ySDgvsOWvBxe
+         cWHzHXVcYVhADJ20SNMdBVpBYOmob9+YPjkCqFmgU55o+Z/20yYo6OzScObTCmVunlqJ
+         6CM3M1YADOrlECUPJ7sHXEybpkBeh2mpab2RwpxZ1mJY4GVhgSZL2u9qM2hPAaAMu+SB
+         7Xj9qDqpl778G5sSwjZPoa5A17PCWFqxVCKdIi8K083fD/5fmoOBmsZduaDx8D8LbD+I
+         H3oQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWp1zXYc2ARNq007EMZKVbN3w9Sg4QnkPyYRsoh4K0JvRTnOx14bRPQ+to6rtCKFO8rGO4JCX0PHAPP8nP6RWClecuVNqL8yZ742kQ=
+X-Gm-Message-State: AOJu0Yz4Qp1PBz5GGnTcx96ukbXNVDlLW/WQ1jxW6zRie+xO9PpXvcEl
+	R6Htl6Y8id9zlFGQ4EYOmpLvseQh4jcgOeZzdOwjY0o6Nv32xyA3U3mlGT9klNkESFPHIWyGsNj
+	cR87GpKSvftRBKJxfA49SvVrOBTnpU2+Zf0R05Q==
+X-Google-Smtp-Source: 
+ AGHT+IG6LHCIDykcmLA6i5jn5Wvc80VbM5tLJ6fDDXX2T5HcQwx31rikXyypNkMk6YErFbMKbGLu3vNXn1mOcGtZ810=
+X-Received: by 2002:a25:f622:0:b0:dd0:972b:d218 with SMTP id
+ t34-20020a25f622000000b00dd0972bd218mr3373650ybd.41.1711737559195; Fri, 29
+ Mar 2024 11:39:19 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-0438c
-Message-ID-Hash: 37H34V5AIXT7J4YFA77LYH4IFUE3QIWG
-X-Message-ID-Hash: 37H34V5AIXT7J4YFA77LYH4IFUE3QIWG
-X-MailFrom: broonie@kernel.org
+References: <20240327113228.1706975-1-quic_mohs@quicinc.com>
+ <20240327113228.1706975-3-quic_mohs@quicinc.com>
+ <CAA8EJpqh0emOFUPSj8rPaKr2hZRWwOh9NNTco8fyJCtwXe9sSA@mail.gmail.com>
+ <92b449da-1569-40f9-d8c9-48949c986853@quicinc.com>
+In-Reply-To: <92b449da-1569-40f9-d8c9-48949c986853@quicinc.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Fri, 29 Mar 2024 20:39:08 +0200
+Message-ID: 
+ <CAA8EJprLB6+i4H5tK9LbJYOEH8v9QF78u-+HMmqPqfpvz5J8zw@mail.gmail.com>
+Subject: Re: [PATCH v1 2/2] ASoC: qcom: qcm6490: Add machine driver for
+ qcm6490
+To: Mohammad Rafi Shaik <quic_mohs@quicinc.com>
+Cc: srinivas.kandagatla@linaro.org, bgoswami@quicinc.com, broonie@kernel.org,
+	krzysztof.kozlowski+dt@linaro.org, andersson@kernel.org,
+	konrad.dybcio@linaro.org, lgirdwood@gmail.com, tiwai@suse.com,
+	quic_rohkumar@quicinc.com, linux-kernel@vger.kernel.org,
+	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Message-ID-Hash: 22D2DAUQKYFTBPZDNYYY5EAAUUMSW7RV
+X-Message-ID-Hash: 22D2DAUQKYFTBPZDNYYY5EAAUUMSW7RV
+X-MailFrom: dmitry.baryshkov@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -94,7 +116,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/37H34V5AIXT7J4YFA77LYH4IFUE3QIWG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/22D2DAUQKYFTBPZDNYYY5EAAUUMSW7RV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -103,37 +125,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 29 Mar 2024 11:08:12 +0530, Vijendar Mukunda wrote:
-> If acp_init() fails, acp pci driver probe should return error.
-> Add acp_init() function return value check logic.
-> 
-> 
+Hi,
 
-Applied to
+On Fri, 29 Mar 2024 at 17:20, Mohammad Rafi Shaik <quic_mohs@quicinc.com> wrote:
+>
+>
+> On 3/27/2024 6:39 PM, Dmitry Baryshkov wrote:
+>
+> On Wed, 27 Mar 2024 at 13:34, Mohammad Rafi Shaik <quic_mohs@quicinc.com> wrote:
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Please turn off HTML mail composition and never ever send HTML email
+to OSS mailing lists.
+Now quotation levels are broken...
 
-Thanks!
+>
+> Add machine driver for qcm6490 SoC.
+>
+> This initial supports which includes WSA883x Speakers with onboard DMIC
+> connected to internal LPASS codec via VA macros respectively and also
+> WCD937x based headset.
+>
+> Add compatible for sound card on Qualcomm qcs6490 boards.
+>
+> Granted that qcm6490 is similar to sc7280, is there any reason why you
+> can not use one of the existing sound card drivers? Like sc7280.c or
+> sc8280xp.c?
+>
+> The qcs6490/qcm6490 has additional interfaces like MI2S, which requires additional machine driver modification.
+>
+> Example : Required new DAPM widget change in machine driver for MI2S interface which is specific to qcs6490/qcm6490.
+>
+> So, using new qcm6490 machine driver.
+>
+> Will try to use existing sc8280xp.c machine driver.
 
-[1/1] ASoC: amd: acp: fix for acp_init function error handling
-      commit: 2c603a4947a1247102ccb008d5eb6f37a4043c98
+What about sc7280? In the end, qcm6490 is sc7280 with different firmware / spin.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+-- 
+With best wishes
+Dmitry

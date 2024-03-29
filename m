@@ -2,82 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7C60891910
-	for <lists+alsa-devel@lfdr.de>; Fri, 29 Mar 2024 13:34:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C542891913
+	for <lists+alsa-devel@lfdr.de>; Fri, 29 Mar 2024 13:35:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 23D992CA6;
-	Fri, 29 Mar 2024 13:34:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 23D992CA6
+	by alsa0.perex.cz (Postfix) with ESMTPS id E90FD2CBB;
+	Fri, 29 Mar 2024 13:34:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E90FD2CBB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1711715695;
-	bh=qTt4KDqrXeyw7RGiQehYLzJUsrTZmyh6yO4pY/kW7QQ=;
+	s=default; t=1711715707;
+	bh=IILtF9tSsWuvGOpEPCx8H2bDnQGM42QHz2TEYyNEtMs=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=kCW8VX1MV4prSuFEUgJZ/sGpsszBgWKdVqMxSlY3005cL8ue0/q6LDmn5GztLkRSx
-	 3w822VqKjzgiid/XE40gsHFbN0DfvsmQ1uhuKOzeIEyMNR5/ZPXMbTatvtguF8FC7E
-	 70klR8JMw64Rn3Q2XtWrdgT8dX9oYJaR6vDwoZ1o=
+	b=Tc2BMRl64cTKP0GST/TGQxuaOTLUSp8YahergrsXN8vk9UclfCdk2l4eE7JDCXoXf
+	 05Lgsu63B/DfcB95yC1+uZDWQl7RbYa0O+ErV6xHZ2RGDojQ6iSESf7EAt2mtJ2iiD
+	 6cAI199BnCVWYK+LWj/ZIEMnkOE9N86QeLIhKO5c=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6DD88F805A8; Fri, 29 Mar 2024 13:34:22 +0100 (CET)
+	id 2C77CF805C8; Fri, 29 Mar 2024 13:34:24 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3652DF802DB;
-	Fri, 29 Mar 2024 13:34:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4F53AF805D3;
+	Fri, 29 Mar 2024 13:34:24 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 20BFBF8055C; Fri, 29 Mar 2024 13:34:17 +0100 (CET)
+	id 58F8DF8055C; Fri, 29 Mar 2024 13:34:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 28603F80236
-	for <alsa-devel@alsa-project.org>; Fri, 29 Mar 2024 13:34:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 28603F80236
+	by alsa1.perex.cz (Postfix) with ESMTPS id 427FCF8025F
+	for <alsa-devel@alsa-project.org>; Fri, 29 Mar 2024 13:34:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 427FCF8025F
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=X7W9FMkg
+ header.s=k20201202 header.b=sztq18cL
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 6937CCE2963;
+	by dfw.source.kernel.org (Postfix) with ESMTP id A9E946192D;
+	Fri, 29 Mar 2024 12:34:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39541C433F1;
 	Fri, 29 Mar 2024 12:34:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1EC6C43390;
-	Fri, 29 Mar 2024 12:33:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1711715641;
-	bh=qTt4KDqrXeyw7RGiQehYLzJUsrTZmyh6yO4pY/kW7QQ=;
+	s=k20201202; t=1711715645;
+	bh=IILtF9tSsWuvGOpEPCx8H2bDnQGM42QHz2TEYyNEtMs=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=X7W9FMkgGc4kdZ6bP2+wdt3z3TpFAFr93b57eaWXr7PWE6e21DN5FsGMDtiAX9kde
-	 5uYB+tCK5JI1m2msjBtUq1RrtWYwFurZTIVhwfbsdQJw/ZoTRuHM343Pk2BmqiJwp+
-	 Z5CZeSB27kQIRtlnlye0hkc+PjGS3+mPs5zStzDNkq+DpeFeXE2KL8zb87QujcgI7S
-	 XUyrZB35i30ExyvQEVo/3BdC2B40hgMv0vdbPlrjNnj1tIQ45gsYJeTGfqKXNCQltW
-	 Rb28rlQZRUiU0N4K4FGP9Ov7kpjPQHCA4ZXeYjV0WUQ9iqx4Fwd4mfbd52a8sQD8Wt
-	 +aGpGC38l35VA==
+	b=sztq18cLNMkWSlCr7Tgtuvt2ijOxcVa0KBn9XnbWMmhZbpZpGBO0n2clnMq/+wI/D
+	 VZPpkx4ewaXfNtzWS7y4pzccBJIRQzRTf4zuvhjoWiGKdeserypZ+mGNZxZQAoKhKn
+	 IiIxlHkabRQeZ7AVww86vGUhjj6DEqy4aeo5cVpaD220EOnS5zSDbMUZVjeZwORcQR
+	 b3D6YcVmXmIoxA9jo9bjDWI72LWsbsx0u0ef+DH/xYT3dafi4yi96YhtS6YeJf2dN6
+	 ZAUlAp/n8VRxA7Tmn/yQ4et4SK826fapc6XyBiAeS3DlR791XLRudqZf6u52uBuO06
+	 SCGbjyXJNuOhg==
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Shenghao Ding <shenghao-ding@ti.com>,
- Kevin Lu <kevin-lu@ti.com>, Baojun Xu <baojun.xu@ti.com>,
- Oder Chiou <oder_chiou@realtek.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
- alsa-devel@alsa-project.org
-In-Reply-To: <20240327-module-owner-var-v1-0-86d5002ba6dc@linaro.org>
-References: <20240327-module-owner-var-v1-0-86d5002ba6dc@linaro.org>
-Subject: Re: [PATCH 00/18] ASoC: drop driver owner assignment
-Message-Id: <171171563939.7557.7260921573529586225.b4-ty@kernel.org>
-Date: Fri, 29 Mar 2024 12:33:59 +0000
+To: Seven Lee <wtli@nuvoton.com>
+Cc: lgirdwood@gmail.com, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-sound@vger.kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, linux-kernel@vger.kernel.org,
+ robh+dt@kernel.org, conor+dt@kernel.org, perex@perex.cz, tiwai@suse.com,
+ YHCHuang@nuvoton.com, KCHSU0@nuvoton.com, CTLIN0@nuvoton.com,
+ SJLIN0@nuvoton.com, scott6986@gmail.com, supercraig0719@gmail.com,
+ dardar923@gmail.com
+In-Reply-To: <20240327075755.3410381-1-wtli@nuvoton.com>
+References: <20240327075755.3410381-1-wtli@nuvoton.com>
+Subject: Re: [PATCH v5 0/2] ASoC: nau8325: Modify driver code and dtschema.
+Message-Id: <171171564196.7557.2053181572527484871.b4-ty@kernel.org>
+Date: Fri, 29 Mar 2024 12:34:01 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.14-dev
-Message-ID-Hash: VKKZ5B4RHLUMDST6TPWNNDGS7UCZZ4BO
-X-Message-ID-Hash: VKKZ5B4RHLUMDST6TPWNNDGS7UCZZ4BO
+Message-ID-Hash: TIQTOVS6SBAWLEQSHJ5UJFO5V4LR5RUL
+X-Message-ID-Hash: TIQTOVS6SBAWLEQSHJ5UJFO5V4LR5RUL
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -90,7 +90,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VKKZ5B4RHLUMDST6TPWNNDGS7UCZZ4BO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TIQTOVS6SBAWLEQSHJ5UJFO5V4LR5RUL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,14 +99,18 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 27 Mar 2024 18:44:35 +0100, Krzysztof Kozlowski wrote:
-> Core for several drivers already sets the driver.owner, so driver does
-> not need to.  Simplify the drivers.
+On Wed, 27 Mar 2024 15:57:53 +0800, Seven Lee wrote:
+> Revise properties description and use standard units in dtschema.
+> The unit conversion driver based on the attribute must also be
+> changed accordingly.
 > 
-> Patches are independent, no dependencies.
-> 
-> Best regards,
-> Krzysztof
+> Change:
+> V1 -> V2:
+> - Revise the driver description part for the C++ comment.
+> - In the nau8325_clkdet_put function, modify the max variable to hard code.
+> - Removed "Clock Detection" switch control.
+> - modify the "ALC Enable" switch name.
+> - Revise the dtschema for "nuvoton,dac-vref".
 > 
 > [...]
 
@@ -116,42 +120,10 @@ Applied to
 
 Thanks!
 
-[01/18] ASoC: loongson: i2s/pci: drop driver owner assignment
-        commit: c335412ced27459b6ce71e812344a0bbaf43ab6a
-[02/18] ASoC: tlv320aic32x4-spi: drop driver owner assignment
-        commit: 8a4836231c98bde3fa49ad657c09342d2d7e27a7
-[03/18] ASoC: tlv320aic3x-spi: drop driver owner assignment
-        commit: 54b8a522e67a8dfe135867c00f9fa297f0841c92
-[04/18] ASoC: max98373-sdw: drop driver owner assignment
-        commit: fe2065d645445dc2de61d9b336c41113759eef8a
-[05/18] ASoC: rt1017-sdca-sdw: drop driver owner assignment
-        commit: d95c19aa2ca60010bb1976399b5a822ff165a8ef
-[06/18] ASoC: rt1308-sdw: drop driver owner assignment
-        commit: b982047530d7a29eb68d42acaa19f249ac6ae5a7
-[07/18] ASoC: rt1316-sdw: drop driver owner assignment
-        commit: 7d5a2656626a6fbf573bde981c1550428a261cf2
-[08/18] ASoC: rt1318-sdw: drop driver owner assignment
-        commit: 3b7859dec834e96e8e833d2b2f2b4434e0e3b286
-[09/18] ASoC: rt5682-sdw: drop driver owner assignment
-        commit: e140dfeb1028ef49c34ae238863398c2c7e792f0
-[10/18] ASoC: rt700-sdw: drop driver owner assignment
-        commit: 554bec0c52dc6b6bbd605aa09462d15e9c41575b
-[11/18] ASoC: rt711-sdca-sdw: drop driver owner assignment
-        commit: 852298a5e1ce7e72cb3c491bce3bca7262f6ef16
-[12/18] ASoC: rt711-sdw: drop driver owner assignment
-        commit: 37dc3531c56b86143b69576c4b56434d8bfcbf59
-[13/18] ASoC: rt712-sdca-dmic: drop driver owner assignment
-        commit: e50d2fbb6371f4d8482f5e4e112155278db6fc34
-[14/18] ASoC: rt712-sdca-sdw: drop driver owner assignment
-        commit: 7c00f1706e4b9ac02fdfb2a6b93b4487cbcefd3d
-[15/18] ASoC: rt715-sdca-sdw: drop driver owner assignment
-        commit: d4f501e2926e32be76c0c564a634f06edef768bf
-[16/18] ASoC: rt715-sdw: drop driver owner assignment
-        commit: eb9e0757976fdf34b65d70c7d25a7f0d3d1ecea9
-[17/18] ASoC: rt722-sdca-sdw: drop driver owner assignment
-        commit: 8c70ce6108cda5c36b9c4e66b1fd7dc8ded2a7d6
-[18/18] ASoC: sdw-mockup: drop driver owner assignment
-        commit: 29580cd7b9c6f975e88597ca66a001b16b97bae9
+[1/2] ASoC: dt-bindings: Added schema for "nuvoton,nau8325"
+      commit: 2e4c003b3672085267a358ebf82129b4e08dd64f
+[2/2] ASoC: nau8325: new driver
+      commit: c0a3873b9938bfaa77bd337cad33266a50a6583f
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99AEA8919C0
-	for <lists+alsa-devel@lfdr.de>; Fri, 29 Mar 2024 13:47:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DA858919C4
+	for <lists+alsa-devel@lfdr.de>; Fri, 29 Mar 2024 13:47:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DDF9A2CA0;
-	Fri, 29 Mar 2024 13:46:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DDF9A2CA0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7DD102CB2;
+	Fri, 29 Mar 2024 13:47:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7DD102CB2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1711716427;
-	bh=oC2Wv1oSxUrAS8eJuP0RItudpO00CkGVe6OsWXeu2A4=;
+	s=default; t=1711716449;
+	bh=24ZfbhX4pI7+/FQ2TTtmh8cVzbSFP7TYidogpYLdsoI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=GNYqxqxpSLNeF0ZJoTHNvahGZOKdfp1JcF9xi4ApVqhI/oOtdQQ/znS55pBYaQwqv
-	 0rmh9NkggPalTul2GwQLDl9OVheGjiVtgYGxKD82Vjoqhzk24oV7mwsXkn0fYQd+4A
-	 xjk4rFsJE9lTJpHQ0UgOMq1+rEYCJ3Z/7FY4+jzk=
+	b=dzSteFW/VNYyFwKDL6Ai040E7eFQM1Hlj3azgVl9UAbmGyfejJarwgDCmCznNLqeJ
+	 sf99VcptFU4ONuNYryWX+wsxF9K5UrjR6ovGWq55VmzAeEzl/Tfof3j5h4UdUBJpv6
+	 2QilszTMXl4NdqqQT6md676vcha41OZ8PaFw7rt4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 24F0BF8059F; Fri, 29 Mar 2024 13:46:36 +0100 (CET)
+	id 9173BF805C9; Fri, 29 Mar 2024 13:46:52 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A98F9F80580;
-	Fri, 29 Mar 2024 13:46:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F3A53F805C6;
+	Fri, 29 Mar 2024 13:46:51 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B6362F8025F; Fri, 29 Mar 2024 13:46:32 +0100 (CET)
+	id 978C6F80564; Fri, 29 Mar 2024 13:46:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,63 +35,53 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A1479F801EB
-	for <alsa-devel@alsa-project.org>; Fri, 29 Mar 2024 13:46:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1479F801EB
+	by alsa1.perex.cz (Postfix) with ESMTPS id A26F5F801EB
+	for <alsa-devel@alsa-project.org>; Fri, 29 Mar 2024 13:46:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A26F5F801EB
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=eL//vnsn
+ header.s=k20201202 header.b=u05kSsP3
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 155926190D;
-	Fri, 29 Mar 2024 12:46:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF60AC433F1;
-	Fri, 29 Mar 2024 12:46:26 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id F0E836190D;
+	Fri, 29 Mar 2024 12:46:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 898B5C433C7;
+	Fri, 29 Mar 2024 12:46:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1711716388;
-	bh=oC2Wv1oSxUrAS8eJuP0RItudpO00CkGVe6OsWXeu2A4=;
+	s=k20201202; t=1711716402;
+	bh=24ZfbhX4pI7+/FQ2TTtmh8cVzbSFP7TYidogpYLdsoI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=eL//vnsngcTBpXFOJJaIPDgfDvC2LIJBvnCRtMc01/GypTlUi1VQBfNsOrt792ots
-	 p8fz5Zbo1HKlQSz+cC0yVMrhqsae83zzupcHr69LNIwGflB3mJwehNCvnzFJRcBoC3
-	 d4heAi6ENpQB9Z+yw55rovhka3IV2//Y5ZHZ6VBqsMa1qnG8Lf8PXkp9CbEgCs7GB4
-	 4/a6pU6r7P9OOI1Oso0Y2YvvDnGW5liUnElmXgwmtoQm4mv1srqmwYYrguMBXVEE1a
-	 IUppE97jFDUzT1eMDrjI8ESlYn3A+p8zaYF10QEbXBxi6ho7w6xlh9W1qfv6XrAxKD
-	 h4xGTsOZLYpNQ==
+	b=u05kSsP3XMmwAi1gOWmybowXYvNJ79q/0IOKGS6W97PHtwqx6BE+fLZ2P0kKeX4pR
+	 6C2tJC4jLuB496GBRnUtENZKaPS8aYQzkd24ecWqn8n0cQb46050z6AfrbufwMZ6LB
+	 1pNbcbgyrmeEiC1iPlyMjjJL6bA4pNulIE1GyjwB7LvJr9o6N+OvWTQipTfCtRJpGj
+	 1DtD+JmoxnMa15dFbs+xILH+B5IZ8GSdj5LAPhGZveUuxV5M2DwDvQG5dOs0g12Xdb
+	 cEK7OQTJnWgMpUrMl1LkTRRAsULIEqYD388mx7xUEy2YM84lqOKURJEPBlH2Q6D/X3
+	 9AyoEX13qCpTg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: mosomate <mosomate@gmail.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Mark Brown <broonie@kernel.org>,
+Cc: Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>,
-	vkoul@kernel.org,
-	cezary.rojewski@intel.com,
-	liam.r.girdwood@linux.intel.com,
-	peter.ujfalusi@linux.intel.com,
-	ranjani.sridharan@linux.intel.com,
-	kai.vehmanen@linux.intel.com,
+	clemens@ladisch.de,
 	perex@perex.cz,
 	tiwai@suse.com,
-	ckeepax@opensource.cirrus.com,
-	uday.m.bhat@intel.com,
 	alsa-devel@alsa-project.org,
 	linux-sound@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.1 13/52] ASoC: Intel: common: DMI remap for
- rebranded Intel NUC M15 (LAPRC710) laptops
-Date: Fri, 29 Mar 2024 08:45:07 -0400
-Message-ID: <20240329124605.3091273-13-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.1 20/52] ALSA: firewire-lib: handle quirk to
+ calculate payload quadlets as data block counter
+Date: Fri, 29 Mar 2024 08:45:14 -0400
+Message-ID: <20240329124605.3091273-20-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240329124605.3091273-1-sashal@kernel.org>
 References: <20240329124605.3091273-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.1.83
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: GGMKGZF3CFKL7AHNIQANQBOA2LIGW3E4
-X-Message-ID-Hash: GGMKGZF3CFKL7AHNIQANQBOA2LIGW3E4
+Message-ID-Hash: L4WC4XARAQZ23ZZYKYEYF6FEOFKFEWVB
+X-Message-ID-Hash: L4WC4XARAQZ23ZZYKYEYF6FEOFKFEWVB
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -104,7 +94,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GGMKGZF3CFKL7AHNIQANQBOA2LIGW3E4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/L4WC4XARAQZ23ZZYKYEYF6FEOFKFEWVB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,67 +103,69 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: mosomate <mosomate@gmail.com>
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 
-[ Upstream commit c13e03126a5be90781084437689724254c8226e1 ]
+[ Upstream commit 4a486439d2ca85752c46711f373b6ddc107bb35d ]
 
-Added DMI quirk to handle the rebranded variants of Intel NUC M15
-(LAPRC710) laptops. The DMI matching is based on motherboard
-attributes.
+Miglia Harmony Audio (OXFW970) has a quirk to put the number of
+accumulated quadlets in CIP payload into the dbc field of CIP header.
 
-Link: https://github.com/thesofproject/linux/issues/4218
-Signed-off-by: Máté Mosonyi <mosomate@gmail.com>
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20240208165545.93811-20-pierre-louis.bossart@linux.intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+This commit handles the quirk in the packet processing layer.
+
+Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Link: https://lore.kernel.org/r/20240218074128.95210-4-o-takashi@sakamocchi.jp
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/soundwire/dmi-quirks.c   |  8 ++++++++
- sound/soc/intel/boards/sof_sdw.c | 11 +++++++++++
- 2 files changed, 19 insertions(+)
+ sound/firewire/amdtp-stream.c | 12 ++++++++----
+ sound/firewire/amdtp-stream.h |  4 ++++
+ 2 files changed, 12 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/soundwire/dmi-quirks.c b/drivers/soundwire/dmi-quirks.c
-index 9ebdd0cd0b1cf..91ab97a456fa9 100644
---- a/drivers/soundwire/dmi-quirks.c
-+++ b/drivers/soundwire/dmi-quirks.c
-@@ -130,6 +130,14 @@ static const struct dmi_system_id adr_remap_quirk_table[] = {
- 		},
- 		.driver_data = (void *)intel_rooks_county,
- 	},
-+	{
-+		/* quirk used for NUC15 LAPRC710 skew */
-+		.matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "Intel Corporation"),
-+			DMI_MATCH(DMI_BOARD_NAME, "LAPRC710"),
-+		},
-+		.driver_data = (void *)intel_rooks_county,
-+	},
- 	{
- 		.matches = {
- 			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc"),
-diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
-index 985012f2003e2..d1e6e4208c376 100644
---- a/sound/soc/intel/boards/sof_sdw.c
-+++ b/sound/soc/intel/boards/sof_sdw.c
-@@ -224,6 +224,17 @@ static const struct dmi_system_id sof_sdw_quirk_table[] = {
- 					SOF_SDW_PCH_DMIC |
- 					RT711_JD2_100K),
- 	},
-+	{
-+		/* NUC15 LAPRC710 skews */
-+		.callback = sof_sdw_quirk_cb,
-+		.matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "Intel Corporation"),
-+			DMI_MATCH(DMI_BOARD_NAME, "LAPRC710"),
-+		},
-+		.driver_data = (void *)(SOF_SDW_TGL_HDMI |
-+					SOF_SDW_PCH_DMIC |
-+					RT711_JD2_100K),
-+	},
- 	/* TigerLake-SDCA devices */
- 	{
- 		.callback = sof_sdw_quirk_cb,
+diff --git a/sound/firewire/amdtp-stream.c b/sound/firewire/amdtp-stream.c
+index f8b644cb9157a..8753125683692 100644
+--- a/sound/firewire/amdtp-stream.c
++++ b/sound/firewire/amdtp-stream.c
+@@ -771,10 +771,14 @@ static int check_cip_header(struct amdtp_stream *s, const __be32 *buf,
+ 	} else {
+ 		unsigned int dbc_interval;
+ 
+-		if (*data_blocks > 0 && s->ctx_data.tx.dbc_interval > 0)
+-			dbc_interval = s->ctx_data.tx.dbc_interval;
+-		else
+-			dbc_interval = *data_blocks;
++		if (!(s->flags & CIP_DBC_IS_PAYLOAD_QUADLETS)) {
++			if (*data_blocks > 0 && s->ctx_data.tx.dbc_interval > 0)
++				dbc_interval = s->ctx_data.tx.dbc_interval;
++			else
++				dbc_interval = *data_blocks;
++		} else {
++			dbc_interval = payload_length / sizeof(__be32);
++		}
+ 
+ 		lost = dbc != ((*data_block_counter + dbc_interval) & 0xff);
+ 	}
+diff --git a/sound/firewire/amdtp-stream.h b/sound/firewire/amdtp-stream.h
+index 1f957c946c956..cf9ab347277f2 100644
+--- a/sound/firewire/amdtp-stream.h
++++ b/sound/firewire/amdtp-stream.h
+@@ -37,6 +37,9 @@
+  *	the value of current SYT_INTERVAL; e.g. initial value is not zero.
+  * @CIP_UNAWARE_SYT: For outgoing packet, the value in SYT field of CIP is 0xffff.
+  *	For incoming packet, the value in SYT field of CIP is not handled.
++ * @CIP_DBC_IS_PAYLOAD_QUADLETS: Available for incoming packet, and only effective with
++ *	CIP_DBC_IS_END_EVENT flag. The value of dbc field is the number of accumulated quadlets
++ *	in CIP payload, instead of the number of accumulated data blocks.
+  */
+ enum cip_flags {
+ 	CIP_NONBLOCKING		= 0x00,
+@@ -51,6 +54,7 @@ enum cip_flags {
+ 	CIP_NO_HEADER		= 0x100,
+ 	CIP_UNALIGHED_DBC	= 0x200,
+ 	CIP_UNAWARE_SYT		= 0x400,
++	CIP_DBC_IS_PAYLOAD_QUADLETS = 0x800,
+ };
+ 
+ /**
 -- 
 2.43.0
 

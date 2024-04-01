@@ -2,132 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCF31893AAF
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Apr 2024 13:45:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19C0A893AB1
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Apr 2024 13:46:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 173B022C9;
-	Mon,  1 Apr 2024 13:44:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 173B022C9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2553622CB;
+	Mon,  1 Apr 2024 13:46:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2553622CB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1711971903;
-	bh=mRH/4AnFnz8F1ujnCdhf0gADx01YxKeux0q9imCjYk0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1711971973;
+	bh=rHhsnFn1ylR46yCmyO+WzrZSaq3fhEA0XUeZg61LMLM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=cshmksSW6b5TzJ8vjhFyJyAQu4fNKS9cjbXOU2Bfo0OXPHTjvwUaGcFkPdgg2xOya
-	 64Ir5vcxJpP/FBE44TQH48pU8WZXS2Ij7iUtHMpapqTAFUdzbyJ17PYzb5Ef/TfgjU
-	 XNWJ6Es8z+CgOILPHtPHn7ixA4pqSTuIcoUojOsA=
+	b=gsaQlWwUB61lyyFRhaLujUo+K/nesLq+X+T8zUGCd+wlyDaAtoqr8kGQbNw3zc6RU
+	 Bm274cO6BkyWNjFkzYAEau7+fcGmnOjEYB2t77L6AdAS4l2MftSVNnalXaOjG2xRFk
+	 oS5hmeWlUEzOzd4JKWojj++YCtmTC5ANHYa0no1M=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 917B8F805AF; Mon,  1 Apr 2024 13:44:30 +0200 (CEST)
+	id 4F9B4F805AA; Mon,  1 Apr 2024 13:45:37 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 53FAEF8055C;
-	Mon,  1 Apr 2024 13:44:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C7D54F80580;
+	Mon,  1 Apr 2024 13:45:36 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 479DBF80236; Mon,  1 Apr 2024 13:44:24 +0200 (CEST)
+	id 3BCBFF80236; Mon,  1 Apr 2024 13:45:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_MSPIKE_H3,
+	RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 577F2F8016E
-	for <alsa-devel@alsa-project.org>; Mon,  1 Apr 2024 13:44:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 577F2F8016E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 86978F80130
+	for <alsa-devel@alsa-project.org>; Mon,  1 Apr 2024 13:45:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 86978F80130
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=nNA/J9KR;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=u0xXrDp1
-Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:98])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 7DEA1201B2;
-	Mon,  1 Apr 2024 11:44:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1711971853;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4b4pOuVnVa2b7wCP2qWaNboruRj+293BXnsb6acQj50=;
-	b=nNA/J9KRzW0fvE0DkwA0J8OHlqnXU0tvq2kTbg5A59ahB9kXp39j83aa7HzCzvKylOEFDE
-	4hqs464DZaL6GPoL6CS9Q51MDbRhuHbgipBYcvaUOeVI9YflzJL4kGBjU8ZBgA88AE7Q7c
-	u5kxl0hq5j8MbUfdg8BJzL4zbZ0DeXg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1711971853;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4b4pOuVnVa2b7wCP2qWaNboruRj+293BXnsb6acQj50=;
-	b=u0xXrDp1KEP1jAWpSwzjty8gJKgRo0IUi7e28ybvQeqnHzwCW7JNX2onaKDLmEFIuQ+XvR
-	RC/AF1dBrBa2HhBA==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=none
-Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 53674139BE;
-	Mon,  1 Apr 2024 11:44:13 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap2.dmz-prg2.suse.org with ESMTPSA
-	id zvzKEg2eCmZ/DwAAn2gu4w
-	(envelope-from <tiwai@suse.de>); Mon, 01 Apr 2024 11:44:13 +0000
-Date: Mon, 01 Apr 2024 13:44:17 +0200
-Message-ID: <87ttkle29a.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-Cc: alsa-devel@alsa-project.org,
-	Jaroslav Kysela <perex@perex.cz>,
-	Arthur Marsh <arthur.marsh@internode.on.net>
-Subject: Re: [PATCH 00/18] ALSA: emu10k1 & emux: fixes related to wavetable
- playback
-In-Reply-To: <ZgqYDAXb2HKw6IiE@ugly>
-References: <20240401100742.506001-1-oswald.buddenhagen@gmx.de>
-	<87r0fp5paj.wl-tiwai@suse.de>
-	<ZgqYDAXb2HKw6IiE@ugly>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Queue-Id: 7DEA1201B2
-X-Spamd-Result: default: False [-1.24 / 50.00];
-	BAYES_HAM(-1.93)[94.60%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	ARC_NA(0.00)[];
-	FREEMAIL_TO(0.00)[gmx.de];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_ALL(0.00)[];
-	R_DKIM_NA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmx.de,internode.on.net];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[alsa-project.org,perex.cz,internode.on.net];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCPT_COUNT_THREE(0.00)[4]
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-Message-ID-Hash: 3KEAFKRJNFYBGVK7SKACP5KNWZIH3YO5
-X-Message-ID-Hash: 3KEAFKRJNFYBGVK7SKACP5KNWZIH3YO5
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=gmx.de header.i=oswald.buddenhagen@gmx.de
+ header.a=rsa-sha256 header.s=s31663417 header.b=InrVNlyL
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1711971927; x=1712576727;
+	i=oswald.buddenhagen@gmx.de;
+	bh=rHhsnFn1ylR46yCmyO+WzrZSaq3fhEA0XUeZg61LMLM=;
+	h=X-UI-Sender-Class:Date:From:To:Cc:Subject:References:
+	 In-Reply-To;
+	b=InrVNlyLyxZipLiqFdi8oB57E83906lPgXKZ1mUqrjuOKZxd8znEZBgKsS8VLg+6
+	 LZ6VvvQg+aect+1+BkyFosxmwlWJ11mbX22JyMrOZkPmUDc4Bjc/jAYv5m9wWNT49
+	 +XhE+a5Ah5SE+R6tWntHyyZTQlFHvGNCUDOQV0iHqNkVkI3AtfHyOi+KPVtQjvwm8
+	 awNTHd/rE5dYgCpSiJCc0diNVgNW8O2jis8Sy0C3ZnNA3q/C8kCBqZ3TexWCA8Fn/
+	 Pd0sLabzHFs6bKUXCybkzvzj7IvAuQF4ZryD5J8Ouj5dUx/VxUW9WQUyTo86yUT+v
+	 ZNxaFk6qO6xGTyqoPQ==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from ugly.fritz.box ([89.247.162.100]) by mail.gmx.net (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1N7i8Y-1sueQv35jG-014jTj; Mon, 01
+ Apr 2024 13:45:27 +0200
+Received: by ugly.fritz.box (masqmail 0.3.6-dev, from userid 1000)
+	id 1rrG6R-97c-00; Mon, 01 Apr 2024 13:45:27 +0200
+Date: Mon, 1 Apr 2024 13:45:27 +0200
+From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.de>,
+	Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH] ALSA: aaci: report FIFO size in frames
+Message-ID: <ZgqeV4M8DGpl6KHJ@ugly>
+References: <20240401101339.506625-1-oswald.buddenhagen@gmx.de>
+ <ZgqNFjOU4mpcyHH8@shell.armlinux.org.uk>
+ <ZgqOZ0B8h3l48aoh@shell.armlinux.org.uk>
+ <ZgqSHq6obzwRDfXs@ugly>
+ <ZgqU0ygGn3zhbgQw@shell.armlinux.org.uk>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <ZgqU0ygGn3zhbgQw@shell.armlinux.org.uk>
+X-Provags-ID: V03:K1:jTv7rEY4VYkVeYRmnEKfyYpipSSxantI5WaeuP+HvhRflr58eHS
+ lQjE4TOB5vB7fLkddRzBcZTYZSWqWwfCdpRL8APAXFB4d0hsaCzNJe0xqy61LLEbrYh4B6d
+ 8d1J58d+HqxsItHCMG/KWBHNC3O/aLlL1ecd4pHN3c+QSAoRiqp+3V+GLLfP2pevcr8vu1X
+ 70GWXfJ+hAPbGxk8e0dyw==
+UI-OutboundReport: notjunk:1;M01:P0:bqJZa/qt9sg=;5+zmyprgh1n8+v02ESCK1Wzl8N0
+ z3oVYAtxP7HfTsD1XEgCch10zDeXU/H3wx7Z4v/aIALWjFwLBEgYThBdectWyhkzt0H+kcsRj
+ 88KOhl5RbzL/7zw2pSY2xgATvKfD2wheFoeCuWg9p/npoBA28G3YABnEuAZyo4FQEa2F1mJmG
+ KblTA8QgPurUlS8A0Ofn/BGCLp+FInYYgJM8x1y8Gy7qTDfc9xb6FHZ/FzpYd6yhmXomv5Jsr
+ uT+2a69yFaH9wIZOhKSiVToh8nYKdHOSR+YQY4nLnQZ1OObjb6Xuv1gWffwhf45bkcls2tm3a
+ PMvL3UayO5BGQXJg//AVY8r6EoY+vJggvcpglZ1yUNVX0tktfKLoN6wJytooakoJmtzsaKZmQ
+ 3jD1VXCJtSNcB62vuUEfDRQsYVhIs0ZEHwVtAxASEWSMsNU6KEQVBenl6DR27y/dC8Ubxheef
+ ddrt4K62B8L+nb3d0ksD+tRJOFKHUFlC4izFmktRTKs0GXp4T0PDEWZ4rknNilH1ZpbCb6m4j
+ I5BguqrPGVT9K2lOGXvxVr180BZpQ8JJbNWOFLwDR0CAMdw3zs2oDMHe1CJlbHgZbab6tpo82
+ mUHsM5jPt4KjLEtURt2fyVDDIRbBuy6CLIB2FHuMdR/f8uIkBcMnp1wM/RBGOttJZVdCWYy8l
+ AuBfKLoxhCUjJeHnzLNLa0YYp32JIgKXBAe6jS9MLQJOryjj6BlydXXV3KfDmvWP/QKnp5hSd
+ gEDpjlwxMOQdoiou3zyABcc4se4kuM3c1rreMwJea4yPxIKPi/6Dk3rx7gXkq1kHfAcJ4oRds
+ AOGsDU2CkTcYTv4bdcnXjJ63SUbN/rxP8MuoOJt02AV2w=
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: JWAOVPMEGKREEF64JS44H2KUZ3FXRA74
+X-Message-ID-Hash: JWAOVPMEGKREEF64JS44H2KUZ3FXRA74
+X-MailFrom: oswald.buddenhagen@gmx.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -139,39 +110,24 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3KEAFKRJNFYBGVK7SKACP5KNWZIH3YO5/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JWAOVPMEGKREEF64JS44H2KUZ3FXRA74/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 01 Apr 2024 13:18:36 +0200,
-Oswald Buddenhagen wrote:
-> 
-> On Mon, Apr 01, 2024 at 12:51:32PM +0200, Takashi Iwai wrote:
-> > Could you give Fixes tag in each commit if it's a regression fix for
-> > the  corresponding commit?
-> > 
-> i did. you'll see it when the later patches arrive (minor hiccup with
-> mail delivery on my end ...).
-> 
-> of course this won't help a lot with picking to stable, because the fix
-> actually depends on several of the prior patches. i can re-arrange the
-> series to minimize the hard dependency chain, but it will still be ~10
-> patches.
+On Mon, Apr 01, 2024 at 12:04:51PM +0100, Russell King (Oracle) wrote:
+>I think where the confusion comes from is that fifo_depth is the
+>depth of the hardware FIFO in units of 16-bit quantities, [...]
 >
-> an alternative approach would be just reverting the offending patch and
-> re-fixing it as part of the subsequent series. the revert would be
-> easily pickable, but that merely replaces the current problem with the
-> (admittedly less audible) previous problem. your choice.
+... irrespective of mono/stereo?
+well, with that explanation it makes sense.
+i recommend that you adjust the comment to make it more helpful/less
+misleading. maybe something like "We configure ALSA to expect the FIFO
+size in bytes. This works best for us, because [...]".
 
-Judging from the amount of patches, I prefer a quicker "fix" for the
-known regression, so a revert-and-rewrite sounds more like a
-reasonable approach.  Care to resubmit with that?
+the patch is retracted.
 
-
-thanks,
-
-Takashi

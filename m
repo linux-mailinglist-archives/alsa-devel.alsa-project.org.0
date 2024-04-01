@@ -2,30 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74CDC893C1A
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Apr 2024 16:18:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E488893C6E
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Apr 2024 16:58:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B5F4D22C9;
-	Mon,  1 Apr 2024 16:18:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B5F4D22C9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 50FF22366;
+	Mon,  1 Apr 2024 16:58:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 50FF22366
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1711981121;
-	bh=5bt+hlfswKgZWdinasBXnLJeTnqNA1b1IaHxT+bgZSc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=htktxfuPRivkeHZ8lwTURkWd2C1+3Ddbc30LyfJ2HmNYI+WgQEqHUNUGTB7zN5waQ
-	 8Rjsx2WDbkihuzzMDCSTlPVCwCL7AGyHP200M1DGoV8R7R5YHuQMErclif18Zvbxm8
-	 qHztY36Cd+FGo6VdVnW3ZpmZJDk4lpiPveU2XKRM=
+	s=default; t=1711983536;
+	bh=1/lj47ubau9B00MPE/XwFVc2LbzwpQgE/WpGquXOMdw=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=FZFlRs1oA1fID1UKliIpX0LFK9YfPG9K4EVO8fWe+UqtybCWXPsBnpux0PeNtPVbp
+	 xT6zPoV5GGOy1mf6N+UazXgCdFcDybpNG+wWUv3ZzoVJbd/HSsslmIrdHxbAcoKZMr
+	 /XH9MT3LA+lzINZEfP81noJW6B3nJ1J7GrZIsnC8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A7BC6F805A1; Mon,  1 Apr 2024 16:18:09 +0200 (CEST)
+	id 98A20F805AB; Mon,  1 Apr 2024 16:58:24 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4C3BAF80579;
-	Mon,  1 Apr 2024 16:18:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 42293F8057D;
+	Mon,  1 Apr 2024 16:58:24 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A2EB6F80236; Mon,  1 Apr 2024 16:18:04 +0200 (CEST)
+	id 23E35F80236; Mon,  1 Apr 2024 16:58:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -37,69 +36,61 @@ Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
 	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
  server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 79BDCF8016E
-	for <alsa-devel@alsa-project.org>; Mon,  1 Apr 2024 16:17:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79BDCF8016E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 44C67F80114
+	for <alsa-devel@alsa-project.org>; Mon,  1 Apr 2024 16:58:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 44C67F80114
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmx.de header.i=oswald.buddenhagen@gmx.de
- header.a=rsa-sha256 header.s=s31663417 header.b=a2TtN43c
+ header.a=rsa-sha256 header.s=s31663417 header.b=HKj/9rLN
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1711981079; x=1712585879;
+	s=s31663417; t=1711983489; x=1712588289;
 	i=oswald.buddenhagen@gmx.de;
-	bh=5bt+hlfswKgZWdinasBXnLJeTnqNA1b1IaHxT+bgZSc=;
-	h=X-UI-Sender-Class:Date:From:To:Cc:Subject:References:
-	 In-Reply-To;
-	b=a2TtN43c0mwsMFPvRRnV/nuDQ5fjYG3nY+0YU1EardXh8T1ZKmfYHA+p9l50iyEd
-	 GeNLdU+1Q69p8BhKxIR1nkToSe85wLChqR5nJ8QhaTUdndiNzcxE0WBVZM5k2l2Jm
-	 02CPZ9VoFxw53mdpeWKlrm+Awrd1YEkFbA3J63/zOcGSPhfBO4ZIDa3MoMRF/6+JJ
-	 yeDz58It5D621z5lcB1EzBKrb78PS2SyaEnV3B0uMFqbPq6Y+3/QeCdS+Psg+Msvk
-	 NebpQlb8TIMnO9Jj2sNi3m/Wd2byvEQY03Te70TQJfwF1EiKlaRieZh8KQVrHvYcg
-	 iFS31jFPWdvvd6la5A==
+	bh=dho26Ue/YruMpBHf4LBm24jda4a/x89Gu0ST0fzBG1s=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date;
+	b=HKj/9rLN+IwkTtNwAzSkwpMPHPNM8KrmAtG3RjiBVYM1c02xgTwT7cfpDfs0DBMS
+	 c6HNY7OmyM76eDGDqixSDL8Up+p633eiw26SY51N+sGGLi4ZduZHxwVxTEp8zLYv0
+	 EnKAN693+TnszleDD67aL4XhM43XWCXER2R1PHkCOti/nBmw98rROEs0DczclnGzu
+	 2I+reP3gvG31DsW42TDtnEGH8wpxXXgJ6KnNymm6o7u/Bxy8PY7dAoZ+YGs1lpkUR
+	 xAnac8R2KXBhVo091MQSqvoPJ8zIDzG9/tPlrmtJrUx80ECPOuPP4USVKXFRkRMG/
+	 LUZAXqosEBO9YJsw+w==
 X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
 Received: from ugly.fritz.box ([89.247.162.100]) by mail.gmx.net (mrgmx004
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MvbBk-1siRMn1Uow-00saIG; Mon, 01
- Apr 2024 16:17:59 +0200
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1N2mBa-1spcx81QVA-0134fN; Mon, 01
+ Apr 2024 16:58:09 +0200
 Received: by ugly.fritz.box (masqmail 0.3.6-dev, from userid 1000)
-	id 1rrITx-CYB-00; Mon, 01 Apr 2024 16:17:53 +0200
-Date: Mon, 1 Apr 2024 16:17:53 +0200
+	id 1rrJ6r-DZ5-00; Mon, 01 Apr 2024 16:58:05 +0200
 From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.de>,
-	Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH] ALSA: aaci: report FIFO size in frames
-Message-ID: <ZgrCEU6rHuEtT6/8@ugly>
-References: <20240401101339.506625-1-oswald.buddenhagen@gmx.de>
- <ZgqNFjOU4mpcyHH8@shell.armlinux.org.uk>
- <ZgqOZ0B8h3l48aoh@shell.armlinux.org.uk>
- <ZgqSHq6obzwRDfXs@ugly>
- <ZgqU0ygGn3zhbgQw@shell.armlinux.org.uk>
- <ZgqeV4M8DGpl6KHJ@ugly>
- <Zgq33GqYqtln0qyX@shell.armlinux.org.uk>
+To: alsa-devel@alsa-project.org
+Cc: Takashi Iwai <tiwai@suse.de>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Arthur Marsh <arthur.marsh@internode.on.net>
+Subject: [PATCH] Revert "ALSA: emu10k1: fix synthesizer sample playback
+ position and caching"
+Date: Mon,  1 Apr 2024 16:58:05 +0200
+Message-ID: <20240401145805.528794-1-oswald.buddenhagen@gmx.de>
+X-Mailer: git-send-email 2.42.0.419.g70bf8a5751
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <Zgq33GqYqtln0qyX@shell.armlinux.org.uk>
-X-Provags-ID: V03:K1:2N+zk9+MXVXdPNiK9IJwS4wbO7i5h59M2ao72DAkBcpcBtwdC46
- Buf90cr/m9CKS/F1BCON2P6BmzicZH/3KTaNoOYtDj1u1LDc+8y5o6nppflNZ9B0q1b0Fw5
- VI6PUlLHTIawVfhEPCsKUNdplLh2P9LR37hRxz+dHu7xnEGn/2Q8gNwN3kp3+S3jCr6BAyR
- Pc0WTSwlWehJlyRpCAj6g==
-UI-OutboundReport: notjunk:1;M01:P0:OhyQolpi3mM=;lWJPqYbPT5PxJJndQ73hhqNPY+U
- QVTyKwsNTwMoGDHYydHwaU47dlLhsspqoy2SWvZoeMap9to2Bcw8cq5sQVKqsWDNPjqtUC632
- Wl5UevBNUDOTpYUNvxZ77gjZeg66hZHchegZwON6YhQULmPrn8AyNiTY1dr/U0qUqJmUGGE5I
- 7qUi34sLGmFLV2aBpN6ZzocjoLqlkbxnTxgBqg8mVZOVLZlahsAEVkGIwaZwYrtquPngqtumO
- SRbQ+wNGMe14JdFzrLb5mq9VbTMzFVGtg6nJId1ttoBlSNQyGW0Hp0iCTy5GAXA5kBQeQHOXp
- FQgeQ1iwPOd6rETT40FL00NvEChwh/x0sXcUv11ghNizjL3fWJhINU2+mcfAdROAQ31aF9oOz
- hgJaaix5S+7PyLtXHJMy9IdPDNrtHWSngp5dHA8AVSh70PLYsAdWZf4eH5u8oIWVevy0axopm
- 8BnG0iGSYROZ1v/mRV+V8vWl4arYUbirnRzLNTnKRWb9wH+XmVAg4MpPH7RjbpW1svJxvinWc
- vMySx2pI04fW+E2R+S97H5IDgrZfvlbeSg9xxF4j+SkCQLMOB8ZLWPJQtp9xtedE/r4HP1ziV
- GI6EekNt9ofPeRg7VmEOgnfj3WC9k3/NS1Vc7sRsaUcOIjzQBZ6rG3jZUfU5OztarhSfp2b53
- 7jTLKaP9hrpan795yQOuG5oSH+bcgqWBNFK3rjJBbmeo1DUJYO4nIOO4GnpaKxkEpzxArXbyF
- RC1CToZZYpuL+89HSpxKJbit69xAv2kND3fhsPWC6hfCkr7ZxX6oPI9MRfTf5TDU8WgZpC7aX
- w3BUuBsAWeN/PdQpwEx11t0OE/85LxWlryugJDmEkZd9A=
 Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: WRTEIUA2TYGUQ3ZFFECLC5K2XOKQBSYH
-X-Message-ID-Hash: WRTEIUA2TYGUQ3ZFFECLC5K2XOKQBSYH
+X-Provags-ID: V03:K1:KJ0WQspFoF/iryD36a7E+DUEStQ8c5EJ5hPRLoL4aaFEveFCzHX
+ d1nE0J14I0w71NkAFDsXVfyIi2ajmcvQ6yNVrqfEk5ngujaodB4a8LbkPP/Ar3epxK1fXOM
+ 3mfrAkwKVCyYv281kup9HpBtv5zaeoX4LlCziQbx6XG/HdMkabRfOFZm/Ize23XMwc30b9s
+ 3lwS4ZLGVPPyEpjtms3Hg==
+UI-OutboundReport: notjunk:1;M01:P0:BqY8q5dNXXw=;s2pcfKvuMXXExq+6jo1FtRQfnhB
+ T+GESpDzKhp2jE/zgg1gbyooqq/hQVrX+onfmdM1vPZtm0AADZkmrh26N9bcNxbtDL4zsbbZM
+ RcjqjBoAgQDAM1V8d6HGlKg+numNZJwc8R/9VDLHhgWoV1Oh1vAsZxLiKKCweY/pW7bwFr4VQ
+ z3ZeCiu9xmOsye3ZfbZCStY9bNSsNTAdEeqgndAHdl44qCd2idAIu/IoI1vYdDrMMYKXx4iYS
+ pZ+MggxbLeQ75Lb4WtRkGRNLIuI7OM8nnT/09FFtzoUTi28V7U7g0u6G/mGRtfIIUwTmpLKIL
+ +L/rM+jf09RAGtXuAJhFhqjsK8m0X0UmstveGtNh05YuVNtn1gPFnNIp9auml3j0ZSxzLS3sh
+ AWjkF2mgPU2IawwF9aTKLEqxE80RfHlrh0SYpEN5ePYpCjRc8BbIE3ImLp4iF2l+WBtmc0XUE
+ jII4A5f06GQ1td+5tdD69ax13HQTauEEF18izBSqJ4VXou0Do7FqpH01Imha5lcPOC0mnouA2
+ aJEqBRrikZM6yUZdEzUnoHJY8H2+3ogJVAP4EZwvoPjrtaHgxDG6rLrV87o8RCNHt+7wYDF+w
+ 3QqsSsZ7Pmx5RtDUrx2aVs+OL7gSbP1phycbJqAUthyvR10V4J2ABHMNehFmctlDLoKE3/QoM
+ UEuey2z3E5CvclVbj7WzTLIwNs6rBN+hynwyBEVvEZ75XaoP8EsQibf8uanKPikgAvBCv/m4z
+ 2Av5xNS5IeAyo55agj4uQLm0RvXqqNP6yGIcmfGdTQ2iV9A0j2VpnzFD8rhQtaxgODekXt3+u
+ cfjnvoejn3PW2Ty0gnhZU9bJNuwcOUPj1JQ4J9eMxTJzI=
+Message-ID-Hash: 3AWS4TLNCIYTKCPVPXTFYAVM4V2RM237
+X-Message-ID-Hash: 3AWS4TLNCIYTKCPVPXTFYAVM4V2RM237
 X-MailFrom: oswald.buddenhagen@gmx.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -112,7 +103,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WRTEIUA2TYGUQ3ZFFECLC5K2XOKQBSYH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3AWS4TLNCIYTKCPVPXTFYAVM4V2RM237/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -121,20 +112,66 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, Apr 01, 2024 at 02:34:20PM +0100, Russell King (Oracle) wrote:
->Oh FFS. So you generated a patch based on the contents of a mere
->comment? That is NOT how kernel development should be done. Do not do
->this.
->
-i think that speculative/rfc patches are a perfectly fine way to get
-things clarified, and the linux kernel is no exception to that.
+As already anticipated in the original commit, playback was broken for
+very short samples. I just didn't expect it to be an actual problem,
+because we're talking about less than 1.5 milliseconds here. But clearly
+such wavetable samples do actually exist.
 
->Comments are not always correct.
->
-so how about taking the opportunity to fix this one?
+The problem was that for such short samples we'd set the current
+position beyond the end of the loop, so we'd run off the end of the
+sample and play garbage.
+This is a bigger (more audible) problem than the original one, which was
+that we'd start playback with garbage (whatever was still in the cache),
+which would be mostly masked by the note's attack phase.
 
->NAK to *all* your patches whether I've seen them or
->not if this is how you behave.
->
-it was a pleasure to work with you.
+So revert to the old behavior for now. We'll subsequently fix it
+properly with a bigger patch series.
+Note that this isn't a full revert - the dead code is not re-introduced,
+because that would be silly.
+
+Fixes: df335e9a8b (ALSA: emu10k1: fix synthesizer sample playback position=
+ and caching, 2023-05-18)
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=3D218625
+Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+=2D--
+ sound/pci/emu10k1/emu10k1_callback.c | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
+
+diff --git a/sound/pci/emu10k1/emu10k1_callback.c b/sound/pci/emu10k1/emu1=
+0k1_callback.c
+index d36234b88fb4..941bfbf812ed 100644
+=2D-- a/sound/pci/emu10k1/emu10k1_callback.c
++++ b/sound/pci/emu10k1/emu10k1_callback.c
+@@ -255,7 +255,7 @@ lookup_voices(struct snd_emux *emu, struct snd_emu10k1=
+ *hw,
+ 		/* check if sample is finished playing (non-looping only) */
+ 		if (bp !=3D best + V_OFF && bp !=3D best + V_FREE &&
+ 		    (vp->reg.sample_mode & SNDRV_SFNT_SAMPLE_SINGLESHOT)) {
+-			val =3D snd_emu10k1_ptr_read(hw, CCCA_CURRADDR, vp->ch) - 64;
++			val =3D snd_emu10k1_ptr_read(hw, CCCA_CURRADDR, vp->ch);
+ 			if (val >=3D vp->reg.loopstart)
+ 				bp =3D best + V_OFF;
+ 		}
+@@ -362,7 +362,7 @@ start_voice(struct snd_emux_voice *vp)
+
+ 	map =3D (hw->silent_page.addr << hw->address_mode) | (hw->address_mode ?=
+ MAP_PTI_MASK1 : MAP_PTI_MASK0);
+
+-	addr =3D vp->reg.start + 64;
++	addr =3D vp->reg.start;
+ 	temp =3D vp->reg.parm.filterQ;
+ 	ccca =3D (temp << 28) | addr;
+ 	if (vp->apitch < 0xe400)
+@@ -430,9 +430,6 @@ start_voice(struct snd_emux_voice *vp)
+ 		/* Q & current address (Q 4bit value, MSB) */
+ 		CCCA, ccca,
+
+-		/* cache */
+-		CCR, REG_VAL_PUT(CCR_CACHEINVALIDSIZE, 64),
+-
+ 		/* reset volume */
+ 		VTFT, vtarget | vp->ftarget,
+ 		CVCF, vtarget | CVCF_CURRENTFILTER_MASK,
+=2D-
+2.42.0.419.g70bf8a5751
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09C3689409C
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Apr 2024 18:32:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C4BB8940A7
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Apr 2024 18:32:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0E8E82341;
-	Mon,  1 Apr 2024 18:31:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E8E82341
+	by alsa0.perex.cz (Postfix) with ESMTPS id 975552408;
+	Mon,  1 Apr 2024 18:32:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 975552408
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1711989128;
-	bh=X6o+CiRuRbPSoFA1uNV4CraaV9Ro04bAs5btj8iowP0=;
+	s=default; t=1711989158;
+	bh=eTX/7NaNoXDzfyhrzqmm6Ups4VgCiQZr26N1KsucA/U=;
 	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=DznCclKFvunN3Grv0SocB2aPtDcp9Af4VHXkp+VX5e3PTswdpSoIsolA2/xRPc6zO
-	 j9XhAdDEGfNvkVYDvS6asD613MuvSTa6K1EwcqRdVq+BFxGC+WoMaFWi7VhRaQLIxL
-	 7zS+b5aGrusfZIpvDCIy3zluPYMXPvVHWFMQFiHc=
+	b=T99qE9DkoDgyxwhjmwNVKLyxBXfKh5WFn6wOqTjm2P2KZtb7SRHB5j+2VXBHrAFQ4
+	 oL0+KQgHXX6E3uVPCliEBt6vy68hmksLegIqvYVfvAtVkExdxYUsifeevMb4iZj3SK
+	 Xja5pEthpVBMfFqmT/9AF9HvHbFnMMnnulPvXjto=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 98F8DF805F2; Mon,  1 Apr 2024 18:31:06 +0200 (CEST)
+	id 7CAFFF80571; Mon,  1 Apr 2024 18:31:14 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6F079F805F5;
-	Mon,  1 Apr 2024 18:31:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9B0F2F80638;
+	Mon,  1 Apr 2024 18:31:13 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F0FA2F8055C; Mon,  1 Apr 2024 18:30:58 +0200 (CEST)
+	id DFFB9F805C4; Mon,  1 Apr 2024 18:31:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,47 +34,46 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6E544F80236
-	for <alsa-devel@alsa-project.org>; Mon,  1 Apr 2024 18:30:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6E544F80236
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0E48DF80238
+	for <alsa-devel@alsa-project.org>; Mon,  1 Apr 2024 18:30:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E48DF80238
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=QIJ38AlZ
+ header.s=Intel header.b=j3csYqDk
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1711989050; x=1743525050;
+  t=1711989051; x=1743525051;
   h=message-id:date:mime-version:subject:to:references:from:
    in-reply-to:content-transfer-encoding;
-  bh=X6o+CiRuRbPSoFA1uNV4CraaV9Ro04bAs5btj8iowP0=;
-  b=QIJ38AlZvcUdUOlXTUo710bIu9YN8jFCv5rxNLiFuw0VWK9dXE4tTTbw
-   6RuPdAckgiBOZwNdfwXuC2zDmX7cCzBoXS6XVNyb3/bjtKKWddWXYHMLe
-   qE4/FdQvfP9dM5fpmZt/fYneomY9tUaO+T+X3EIIYpKKXxkLWtAaaulBA
-   zpL3h0a/psT97MOKwz5RpMwPyhbkYBJ2Rd/zCO+pIDLK9zixvkBrziRvS
-   /fpoBVBFYbkVSo7AJUyWRA4lunHeONzUhymYa08xWiD9tY/jArH9edEPO
-   wz3z5S8/iDocouO1MhMXPSj/ozuI3P+Wqhi22BKaSqrWQoYKNlhOjl+dR
-   g==;
-X-CSE-ConnectionGUID: hjwm6ltjToiAJse9itLcHw==
-X-CSE-MsgGUID: f73mKAsoSIeEYrCUsCybdQ==
-X-IronPort-AV: E=McAfee;i="6600,9927,11031"; a="10083752"
+  bh=eTX/7NaNoXDzfyhrzqmm6Ups4VgCiQZr26N1KsucA/U=;
+  b=j3csYqDkx+ZBl6a8emvTC5CX+Tw3zq96Bn/ZZlkmwi3+wcLmz1pIDyAq
+   mXVPklR9HaXsOWhFHKvBe0TKfEirDT6iK/scCeWCmsv4G+ThzA5zl5D3b
+   w3z7bIJ9nan9fKM39mw9FmJpLUNreGzPnmnKb7KMVu8h9gYgeuQRf3cpI
+   LfUEUs42N0jKDDdDmRUxaoa1qNbQZ+KEkHJLiD+PZ36OxddIn62sk2dbx
+   lXvS1qs5awPMoMLLoXoiFeC+BmtkBOqTl2Bpixnp5FJzfDz6/84SyAKKx
+   K3u/oFS2h32YM2F1AnRDSS6AatmUndKeHRrQCfQiUTzvDCKKRksoRMIVP
+   Q==;
+X-CSE-ConnectionGUID: frho7VdkSmiEybNd6zHylQ==
+X-CSE-MsgGUID: 5N+7Brm7QOKhQpgS3u06gw==
+X-IronPort-AV: E=McAfee;i="6600,9927,11031"; a="10083783"
 X-IronPort-AV: E=Sophos;i="6.07,172,1708416000";
-   d="scan'208";a="10083752"
+   d="scan'208";a="10083783"
 Received: from orviesa006.jf.intel.com ([10.64.159.146])
   by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Apr 2024 09:30:46 -0700
+ 01 Apr 2024 09:30:49 -0700
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.07,172,1708416000";
-   d="scan'208";a="18224587"
+   d="scan'208";a="18224594"
 Received: from anahar-mobl.amr.corp.intel.com (HELO [10.212.2.239])
  ([10.212.2.239])
   by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Apr 2024 09:30:43 -0700
-Message-ID: <1a42ebbb-1e1f-4ecf-a1ec-7af292f7ff96@linux.intel.com>
-Date: Mon, 1 Apr 2024 11:22:07 -0500
+ 01 Apr 2024 09:30:47 -0700
+Message-ID: <54ace545-8cdc-49aa-8214-5f07bee0e2f6@linux.intel.com>
+Date: Mon, 1 Apr 2024 11:26:43 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 09/16] ASoC: soc-core: Replace dpcm_playback/capture to
- playback/capture_only
+Subject: Re: [PATCH v2 13/16] ASoC: remove snd_soc_dai_link_set_capabilities()
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
  =?UTF-8?Q?Amadeusz_S=C5=82awi=C5=84ski?=
  <amadeuszx.slawinski@linux.intel.com>,
@@ -103,14 +102,14 @@ To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
  imx@lists.linux.dev, linux-sound@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com
 References: <87zfuesz8y.wl-kuninori.morimoto.gx@renesas.com>
- <87msqdudn7.wl-kuninori.morimoto.gx@renesas.com>
+ <87h6gludmj.wl-kuninori.morimoto.gx@renesas.com>
 Content-Language: en-US
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <87msqdudn7.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87h6gludmj.wl-kuninori.morimoto.gx@renesas.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: OXPGRO4MFPTMCGUHD54QKYSGXSOXAKCS
-X-Message-ID-Hash: OXPGRO4MFPTMCGUHD54QKYSGXSOXAKCS
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: MPZAERGNAWTFBCNIKXULHVJ5T4V2SDXY
+X-Message-ID-Hash: MPZAERGNAWTFBCNIKXULHVJ5T4V2SDXY
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -123,7 +122,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OXPGRO4MFPTMCGUHD54QKYSGXSOXAKCS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MPZAERGNAWTFBCNIKXULHVJ5T4V2SDXY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -134,58 +133,42 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
 
-On 3/31/24 19:31, Kuninori Morimoto wrote:
-> soc_get_playback_capture() is now handling DPCM and normal comprehensively
-> for playback/capture stream. We can use playback/capture_only flag
-> instead of using dpcm_playback/capture. This patch replace these.
+On 3/31/24 19:32, Kuninori Morimoto wrote:
+> snd_soc_dai_link_set_capabilities() checks all CPU/Codec DAI (Y)(Z)
+> for Playback/Capture (X) and checks its validation (A), and setup
+> dpcm_playback/capture flags (a).
 > 
-> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> Reviewed-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
-> ---
->  sound/soc/soc-core.c | 20 +-------------------
->  1 file changed, 1 insertion(+), 19 deletions(-)
+> 	void snd_soc_dai_link_set_capabilities(...)
+> 	{
+> 		...
+> (X)		for_each_pcm_streams(direction) {
+> 			...
+> (Y)			for_each_link_cpus(dai_link, i, cpu) {
+> 				...
+> (A)				if (... snd_soc_dai_stream_valid(...)) {
+> 					...
+> 				}
+> 			}
+> (Z)			for_each_link_codecs(dai_link, i, codec) {
+> 				...
+> (A)				if (... snd_soc_dai_stream_valid(...)) {
+> 					...
+> 				}
+> 			}
+> 			...
+> 		}
 > 
-> diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-> index 3ab6626ad680..b168cf642092 100644
-> --- a/sound/soc/soc-core.c
-> +++ b/sound/soc/soc-core.c
-> @@ -2000,25 +2000,7 @@ static void soc_check_tplg_fes(struct snd_soc_card *card)
->  				dai_link->platforms->name = component->name;
->  
->  			/* convert non BE into BE */
-> -			if (!dai_link->no_pcm) {
-> -				dai_link->no_pcm = 1;
-> -
-> -				if (dai_link->dpcm_playback)
-> -					dev_warn(card->dev,
-> -						 "invalid configuration, dailink %s has flags no_pcm=0 and dpcm_playback=1\n",
-> -						 dai_link->name);
-> -				if (dai_link->dpcm_capture)
-> -					dev_warn(card->dev,
-> -						 "invalid configuration, dailink %s has flags no_pcm=0 and dpcm_capture=1\n",
-> -						 dai_link->name);
-> -
-> -				/* convert normal link into DPCM one */
-> -				if (!(dai_link->dpcm_playback ||
-> -				      dai_link->dpcm_capture)) {
-> -					dai_link->dpcm_playback = !dai_link->capture_only;
-> -					dai_link->dpcm_capture = !dai_link->playback_only;
-> -				}
-> -			}
-> +			dai_link->no_pcm = 1;
->  
->  			/*
->  			 * override any BE fixups
+> (a)		dai_link->dpcm_playback = supported[...];
+> (a)		dai_link->dpcm_capture  = supported[...];
+> 	}
+> 
+> This validation check will be automatically done on new
+> soc_get_playback_capture(). snd_soc_dai_link_set_capabilities() is no
+> longer needed. Let's remove it.
 
-Not following this last change either, the code used to be conditional
+Humm, this is really hard to review.
 
-                        /* convert non BE into BE */
-			if (!dai_link->no_pcm) {
-				dai_link->no_pcm = 1;
+soc_get_playback_capture() used to do a verification of the match
+between dailink and dais, and now it doesn't have it any longer and this
+patch removes the checks?
 
-and not it's unconditional
-
-                        dai_link->no_pcm = 1;
-
-It's not clear to me how this is related to the
-dpcm_playback/dpcm_capture removal.

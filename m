@@ -2,82 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9443896F54
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 Apr 2024 14:51:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 637A1896F5D
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 Apr 2024 14:52:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ECC2E2D07;
-	Wed,  3 Apr 2024 14:51:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ECC2E2D07
+	by alsa0.perex.cz (Postfix) with ESMTPS id B622D2CF7;
+	Wed,  3 Apr 2024 14:51:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B622D2CF7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712148686;
-	bh=D/FfpbAsiof89LgUZ4/UlHEJN8aXS0QySDUDCd5cFgU=;
+	s=default; t=1712148726;
+	bh=Yd/6Gbpag1vTI2OOLqRqO6ZI0sVmA5/QE1SmwNXPKsI=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=aneHhHjByayFDKUGQHqnMsgrQmfEy7LbuoBK6r7fR771pLflpKiy5TQrlIYiTa5Sd
-	 dj9h5nXQO2oninWaZiQpWuPlCs+NmTPp6j7dIyB2z/6u5XpnyCKDa2xRf1PbmCoV+O
-	 In7irIKUTRuK8rgNE3C5iGnT4muZ/kUdMvzwWaZQ=
+	b=qjhWYHP/sW50/HEI9NcyhzuloGfrGN4ctIZKew7lF8C2M7Zk5KGIsK9cgDVIRiL2Q
+	 30+bNG5UWhgzTOzqeXUXyvKCUMS295R87RM4Axc10p1zIL3iQjWI6BEs29Y9an+Uu4
+	 Hswz20jGoisV7PLyXMNidP0LBJUGmf7JQfu9U/GM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CE416F805CB; Wed,  3 Apr 2024 14:50:44 +0200 (CEST)
+	id CD1C7F80616; Wed,  3 Apr 2024 14:50:50 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4C69CF805C9;
-	Wed,  3 Apr 2024 14:50:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1F8EFF80609;
+	Wed,  3 Apr 2024 14:50:50 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C8364F8055C; Wed,  3 Apr 2024 14:50:35 +0200 (CEST)
+	id 25FECF805B1; Wed,  3 Apr 2024 14:50:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.7 required=5.0 tests=DATE_IN_PAST_12_24,
-	DKIMWL_WL_HIGH,DKIM_SIGNED,DKIM_VALID,DKIM_VALID_EF,SPF_HELO_NONE,
-	SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=no autolearn_force=no
-	version=3.4.6
+X-Spam-Status: No, score=-4.3 required=5.0 tests=DATE_IN_PAST_12_24,
+	DKIMWL_WL_HIGH,DKIM_SIGNED,DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2906DF8016E
-	for <alsa-devel@alsa-project.org>; Wed,  3 Apr 2024 14:50:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2906DF8016E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 22C62F80236
+	for <alsa-devel@alsa-project.org>; Wed,  3 Apr 2024 14:50:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 22C62F80236
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=ONc6bG9F
+ header.s=Intel header.b=eQMTcRvp
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1712148631; x=1743684631;
+  t=1712148632; x=1743684632;
   h=message-id:date:mime-version:subject:to:cc:references:
    from:in-reply-to:content-transfer-encoding;
-  bh=D/FfpbAsiof89LgUZ4/UlHEJN8aXS0QySDUDCd5cFgU=;
-  b=ONc6bG9Fn5WXNe7gsl3MFxZnsKh2XtFfGIrrY9OASMkEXY/SzPf3rOCE
-   z2YN7RH5aJMTjtOyl7w6Cj2p33d6L7cThfv5v6CFmefb5Gzmrg+Uh2s+m
-   QHasVEisDBrNzN2irDi9iFsmLdeaB6qAjXpeBblZV9COo+rKfhJKkw3rR
-   Cbht6HCYPo1dvYvWJFTpYpG+TfrtuWrl2KPel+hJrmyVDGjjSJxwwePt/
-   OiUXvB2Up7xI+kp0fzS70/0o5XmHnjycoK0dy9cY1p3BudjH6f9s8KtDe
-   pVLivksaeE5cTgc3cyrkGWWqxSdmsiUidJETmUFxBwORqAGAK5FM8Ui5V
-   w==;
-X-CSE-ConnectionGUID: VbQtxK1BTn+Ha3yDcZQO+A==
-X-CSE-MsgGUID: jkTFcKw6SEiWVf8AGNduVw==
-X-IronPort-AV: E=McAfee;i="6600,9927,11033"; a="7539335"
+  bh=Yd/6Gbpag1vTI2OOLqRqO6ZI0sVmA5/QE1SmwNXPKsI=;
+  b=eQMTcRvpNBjMqt2CVpGc5su+zcGvx99RUA7PwZljqY/uekjQHw0WeTV7
+   4/Lg6Qi0Hj3sBNyCSt1MIrpuZjDZoNpuRQbPTHjUorjynzNO8zyVIlU6V
+   dRNnV1HZTUepDpIohxrHWmQ/ihQP1V0rEeryuRLnMXzcZf1rRcPIpfKym
+   jsmt1EbqU1L3JOwU2iT3DNXEfgaFJTiqVNIFSqzoEJpSgV+Mihl+aT169
+   umIS1eYWqWztfF+o7jvALD//bEGXygkWHkauXZfhuZip3zybO3d0GwUYh
+   jBCll42h5r3X+OeG08uEQsqWqHxnxD77wUNhJOEohisoJKw9foxG4Tw4i
+   A==;
+X-CSE-ConnectionGUID: 2os2YyklSRSguPG8BfDIKA==
+X-CSE-MsgGUID: 3Hp9pGoQRHmgQ1so+Eq16g==
+X-IronPort-AV: E=McAfee;i="6600,9927,11033"; a="7539359"
 X-IronPort-AV: E=Sophos;i="6.07,177,1708416000";
-   d="scan'208";a="7539335"
+   d="scan'208";a="7539359"
 Received: from fmviesa010.fm.intel.com ([10.60.135.150])
   by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Apr 2024 05:50:28 -0700
-X-CSE-ConnectionGUID: /D+wW3RkS/a6+yA0ZGswww==
-X-CSE-MsgGUID: J/jGeT/nQbCMDRSoTLK5iQ==
+ 03 Apr 2024 05:50:31 -0700
+X-CSE-ConnectionGUID: A39AzG6RQqGoBfvyRqzbOA==
+X-CSE-MsgGUID: tuUeZuvUTk29WVSEVJrlRQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.07,177,1708416000";
-   d="scan'208";a="18343238"
+   d="scan'208";a="18343252"
 Received: from makulkar-mobl1.amr.corp.intel.com (HELO [10.212.52.18])
  ([10.212.52.18])
   by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Apr 2024 05:50:26 -0700
-Message-ID: <2cb2f96f-836c-4816-86f8-2262c2dd1ce3@linux.intel.com>
-Date: Tue, 2 Apr 2024 09:09:23 -0500
+ 03 Apr 2024 05:50:28 -0700
+Message-ID: <4c40b4bc-f2bd-45b7-8b14-456ddf1be94b@linux.intel.com>
+Date: Tue, 2 Apr 2024 09:13:55 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 09/16] ASoC: soc-core: Replace dpcm_playback/capture to
- playback/capture_only
+Subject: Re: [PATCH v2 13/16] ASoC: remove snd_soc_dai_link_set_capabilities()
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Cc: =?UTF-8?Q?Amadeusz_S=C5=82awi=C5=84ski?=
  <amadeuszx.slawinski@linux.intel.com>,
@@ -106,16 +105,16 @@ Cc: =?UTF-8?Q?Amadeusz_S=C5=82awi=C5=84ski?=
  imx@lists.linux.dev, linux-sound@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com
 References: <87zfuesz8y.wl-kuninori.morimoto.gx@renesas.com>
- <87msqdudn7.wl-kuninori.morimoto.gx@renesas.com>
- <1a42ebbb-1e1f-4ecf-a1ec-7af292f7ff96@linux.intel.com>
- <871q7o8y0d.wl-kuninori.morimoto.gx@renesas.com>
+ <87h6gludmj.wl-kuninori.morimoto.gx@renesas.com>
+ <54ace545-8cdc-49aa-8214-5f07bee0e2f6@linux.intel.com>
+ <87y19w7gjq.wl-kuninori.morimoto.gx@renesas.com>
 Content-Language: en-US
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <871q7o8y0d.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87y19w7gjq.wl-kuninori.morimoto.gx@renesas.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: 37JLO2LGFQCGJ7G6Z2KZ3D5UJ5MTSWB7
-X-Message-ID-Hash: 37JLO2LGFQCGJ7G6Z2KZ3D5UJ5MTSWB7
+Message-ID-Hash: WMTAO327KF6U4J34523HO3KJFYRLJJVM
+X-Message-ID-Hash: WMTAO327KF6U4J34523HO3KJFYRLJJVM
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -128,7 +127,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/37JLO2LGFQCGJ7G6Z2KZ3D5UJ5MTSWB7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WMTAO327KF6U4J34523HO3KJFYRLJJVM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -139,46 +138,62 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
 
-On 4/1/24 18:27, Kuninori Morimoto wrote:
+On 4/1/24 19:29, Kuninori Morimoto wrote:
 > 
 > Hi Pierre-Louis
 > 
-> Thank you for the feedback
+>>> snd_soc_dai_link_set_capabilities() checks all CPU/Codec DAI (Y)(Z)
+>>> for Playback/Capture (X) and checks its validation (A), and setup
+>>> dpcm_playback/capture flags (a).
+>>>
+>>> 	void snd_soc_dai_link_set_capabilities(...)
+>>> 	{
+>>> 		...
+>>> (X)		for_each_pcm_streams(direction) {
+>>> 			...
+>>> (Y)			for_each_link_cpus(dai_link, i, cpu) {
+>>> 				...
+>>> (A)				if (... snd_soc_dai_stream_valid(...)) {
+>>> 					...
+>>> 				}
+>>> 			}
+>>> (Z)			for_each_link_codecs(dai_link, i, codec) {
+>>> 				...
+>>> (A)				if (... snd_soc_dai_stream_valid(...)) {
+>>> 					...
+>>> 				}
+>>> 			}
+>>> 			...
+>>> 		}
+>>>
+>>> (a)		dai_link->dpcm_playback = supported[...];
+>>> (a)		dai_link->dpcm_capture  = supported[...];
+>>> 	}
+>>>
+>>> This validation check will be automatically done on new
+>>> soc_get_playback_capture(). snd_soc_dai_link_set_capabilities() is no
+>>> longer needed. Let's remove it.
+>>
+>> Humm, this is really hard to review.
+>>
+>> soc_get_playback_capture() used to do a verification of the match
+>> between dailink and dais, and now it doesn't have it any longer and this
+>> patch removes the checks?
 > 
->>>  			/* convert non BE into BE */
->>> -			if (!dai_link->no_pcm) {
->>> -				dai_link->no_pcm = 1;
->>> -
->>> -				if (dai_link->dpcm_playback)
->>> -					dev_warn(card->dev,
->>> -						 "invalid configuration, dailink %s has flags no_pcm=0 and dpcm_playback=1\n",
->>> -						 dai_link->name);
->>> -				if (dai_link->dpcm_capture)
->>> -					dev_warn(card->dev,
->>> -						 "invalid configuration, dailink %s has flags no_pcm=0 and dpcm_capture=1\n",
->>> -						 dai_link->name);
->>> -
->>> -				/* convert normal link into DPCM one */
->>> -				if (!(dai_link->dpcm_playback ||
->>> -				      dai_link->dpcm_capture)) {
->>> -					dai_link->dpcm_playback = !dai_link->capture_only;
->>> -					dai_link->dpcm_capture = !dai_link->playback_only;
->>> -				}
->>> -			}
->>> +			dai_link->no_pcm = 1;
-> (snip)
->> It's not clear to me how this is related to the
->> dpcm_playback/dpcm_capture removal.
-> 
-> In my understanding, if "dai_link->no_pcm" was 0, it sets no_pcm and
-> convert setting to BE. If no_pcm was 1, it is BE anyway. So no_pcm will
-> be 1 anyway after this code.
-> And then, dpcm_playback/capture is no longer needed.
-> So it just set no_pcm = 1 here. But am I wrong ??
+> Hmm..., Maybe I'm misunderstanding ?
+> I think this patch is very clear to remove, because it is 100% duplicate
+> code. Maybe this mutual misunderstanding is based [01/15] review ?
+> I think we need to dig it first.
 
-The problem is that the patchset is supposed to be only about removal of
-flags to align on one set, but then we also have "simplifications" or
-removal of checks without explanations.
+I agree this looks like duplicate code, but why can't we remove it first
+*before* any code modification?
 
-It would be far less invasive if we only replaced flags and had
-iso-functionality. Then we can discuss the merits of simplifications.
+It's very hard to review because it comes as the 13th patch of a series
+and you've already removed similar code earlier which precisely checked
+the consistency between dailink and dais.
+
+In this function, it's a similar case btw where the settings provided by
+the machine drivers are overridden by the framework, so that's another
+case of collision between machine driver and framework. Which of the two
+should be trusted?
+

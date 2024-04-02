@@ -2,240 +2,148 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84920894C73
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Apr 2024 09:15:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E41C894B9B
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Apr 2024 08:41:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 95CC82CA3;
-	Tue,  2 Apr 2024 09:15:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95CC82CA3
+	by alsa0.perex.cz (Postfix) with ESMTPS id CB13E23CD;
+	Tue,  2 Apr 2024 08:41:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CB13E23CD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712042146;
-	bh=ZBEAXjMl8aMOJStM89IW/3Bd78fUZuAHkBQ/AZwUAGs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1712040106;
+	bh=qH0D3AhRYnb6bjEzB+stgfVObi4cQW3F92hHyMZ/AG4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=hK/UdnQBEuoq6O8hKyh630mLizr02XP0Ibn/HnKKm94/bUPva8lJMiS4BT+16t91y
-	 ymx5IibIvubYozBwkAfZMdjmDFfj4MtiSVas2YH5YSL9NqHdvYvrOHZvRaQxRX2YxV
-	 yL09qKgbl0gTk2qm0BQm4ENFc4fkYOWMKEqwm+f4=
+	b=b5ZtVhkN28lPJ7EdaEPG10+h8Wtu+o90c/WusFHLRUqhP1fM+IaQcEEgAvHHm+jS3
+	 JRV7TOpMrbN1QVOKrocsmZpH7dmeieFj6Wlxu1EgH2GvmQAMJtPdOfCTg84CJNIUD8
+	 L5Japz/w7WJ9STqOHMgWI1BDe+oo04XyBgUxEC4k=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D9AD0F89C19; Tue,  2 Apr 2024 08:58:29 +0200 (CEST)
+	id 6EE79F80587; Tue,  2 Apr 2024 08:41:16 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5153BF89C29;
-	Tue,  2 Apr 2024 08:58:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C4AF9F805A0;
+	Tue,  2 Apr 2024 08:41:15 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 08D91F8020D; Tue,  2 Apr 2024 08:32:30 +0200 (CEST)
+	id 23512F8020D; Tue,  2 Apr 2024 08:41:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,
-	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from repost01.tmes.trendmicro.eu (repost01.tmes.trendmicro.eu
- [18.185.115.114])
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 95E3DF80114
-	for <alsa-devel@alsa-project.org>; Tue,  2 Apr 2024 08:32:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 95E3DF80114
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6DC28F80114
+	for <alsa-devel@alsa-project.org>; Tue,  2 Apr 2024 08:40:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6DC28F80114
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=opensynergy.com header.i=@opensynergy.com
- header.a=rsa-sha256 header.s=TM-DKIM-20210503141657 header.b=A7CGFidQ
-Received: from 104.47.7.169_.trendmicro.com (unknown [172.21.171.124])
-	by repost01.tmes.trendmicro.eu (Postfix) with SMTP id 69DCF10000C4D;
-	Tue,  2 Apr 2024 06:32:15 +0000 (UTC)
-X-TM-MAIL-RECEIVED-TIME: 1712039438.648000
-X-TM-MAIL-UUID: 66fca560-4a5e-4235-9f5a-556509e14da8
-Received: from DEU01-BE0-obe.outbound.protection.outlook.com (unknown
- [104.47.7.169])
-	by repre01.tmes.trendmicro.eu (Trend Micro Email Security) with ESMTPS id
- 9E71A1000041F;
-	Tue,  2 Apr 2024 06:30:38 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GlyCwV4WCbhV0P+lbpRtzFgGSR1uDGUA+XFrwWxH6CJKm7DAbnXViMCiH6a1XDUdheA6fb+EosxWZ4ez8R4j6q5XroK274k5l7u2ay9uNr5BZLEGMfhrRxckcCO+lMiy3BwH0NBdntsaexN2HG5yq9xtFUi1an0X77H9UjRocMz+KMzgz9F7d3Q0w7Kiyc4KjWIPcUNjbPExhemLmo9dURqUNiUYo2P+OkNPZUIZDqkL/xvUm/gQprD9umO+vjPO1zUkE3NQ42KzUCiXtLIOtg+JPC3Npc3WBimvnZU1MG+v6luNHs8xy42KwYSlBPI6XuCAxDGgjwz4bxJIHOvv7w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1Qs0KpbVK2J6Fqba87auZMO49qKNG9wDQGX6mRNhOTc=;
- b=HLADAHymBaTD7/n/uFvEOAST/iqs06xE2ngsGIoZkaH1Qqij8hmhggFk7vbivKmlb07Tr5gDxg/8hkaIhSzC+EMVpcQZttHSSIN5XvnL1P34Wcmw22lEN3YGKaYajewEtQIZ8Wc2KY+DEtBaVmODKsOgaMP91boJA6Va6cJD/MHxSFQNI3mZiKu8KWBoO/0MTxlNmlFnR01XJ0eiAUu5BrgNDW6ASsJUUK57TVVj5qtTi4STgKTP5+0fV28DIIUmJL04x23WLoCmDVm27ZPSykEdlb4ZfIEUwuqXmkN0NhCuJ9Aln+d4k6Z067VNXkFxx2kL5I97D1Ced2IiqpRYoA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=opensynergy.com; dmarc=pass action=none
- header.from=opensynergy.com; dkim=pass header.d=opensynergy.com; arc=none
-Message-ID: <cfab0ca9-6e01-4fe7-bf00-3e1e7cd5b33e@opensynergy.com>
-Date: Tue, 2 Apr 2024 08:30:31 +0200
-Subject: Re: [PATCH v2 25/25] sound: virtio: drop owner assignment
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>,
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Jonathan Corbet <corbet@lwn.net>,
- David Hildenbrand <david@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Richard Weinberger <richard@nod.at>,
- Anton Ivanov <anton.ivanov@cambridgegreys.com>,
- Johannes Berg <johannes@sipsolutions.net>,
- Paolo Bonzini <pbonzini@redhat.com>, Stefan Hajnoczi <stefanha@redhat.com>,
- Jens Axboe <axboe@kernel.dk>, Marcel Holtmann <marcel@holtmann.org>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
- Olivia Mackall <olivia@selenic.com>, Herbert Xu
- <herbert@gondor.apana.org.au>, Amit Shah <amit@kernel.org>,
- Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Gonglei <arei.gonglei@huawei.com>, "David S. Miller" <davem@davemloft.net>,
- Sudeep Holla <sudeep.holla@arm.com>,
- Cristian Marussi <cristian.marussi@arm.com>,
- Viresh Kumar <vireshk@kernel.org>, Linus Walleij <linus.walleij@linaro.org>,
- Bartosz Golaszewski <brgl@bgdev.pl>, David Airlie <airlied@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
- <olvaffe@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Daniel Vetter <daniel@ffwll.ch>,
- Jean-Philippe Brucker <jean-philippe@linaro.org>,
- Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Alexander Graf <graf@amazon.com>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Eric Van Hensbergen <ericvh@kernel.org>,
- Latchesar Ionkov <lucho@ionkov.net>,
- Dominique Martinet <asmadeus@codewreck.org>,
- Christian Schoenebeck <linux_oss@crudebyte.com>,
- Stefano Garzarella <sgarzare@redhat.com>, Kalle Valo <kvalo@kernel.org>,
- Dan Williams <dan.j.williams@intel.com>,
- Vishal Verma <vishal.l.verma@intel.com>, Dave Jiang <dave.jiang@intel.com>,
- Ira Weiny <ira.weiny@intel.com>, Pankaj Gupta
- <pankaj.gupta.linux@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- "James E.J. Bottomley" <jejb@linux.ibm.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Vivek Goyal <vgoyal@redhat.com>, Miklos Szeredi <miklos@szeredi.hu>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: virtualization@lists.linux.dev, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-um@lists.infradead.org,
- linux-block@vger.kernel.org, linux-bluetooth@vger.kernel.org,
- linux-crypto@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-gpio@vger.kernel.org, dri-devel@lists.freedesktop.org,
- iommu@lists.linux.dev, netdev@vger.kernel.org, v9fs@lists.linux.dev,
- kvm@vger.kernel.org, linux-wireless@vger.kernel.org, nvdimm@lists.linux.dev,
- linux-remoteproc@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-sound@vger.kernel.org
-References: <20240331-module-owner-virtio-v2-0-98f04bfaf46a@linaro.org>
- <20240331-module-owner-virtio-v2-25-98f04bfaf46a@linaro.org>
-Content-Language: en-US
-From: Anton Yakovlev <anton.yakovlev@opensynergy.com>
-In-Reply-To: <20240331-module-owner-virtio-v2-25-98f04bfaf46a@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0159.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b3::15) To BEZP281MB2374.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:b10:5c::11)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BEZP281MB2374:EE_|FRYP281MB3161:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	fIOq54zz9MjbZGfW0IyOo00+ZveeYzBUBtoIDl46iUfIMnzeu+vTPV9G54jRufB9xtyN1SJgzy4syB6pUDEewcGzGmARyaUEc90sUbRgmsDrKe819Z80/z3vgINJIekjovyogS/XTp/EBxkIOSWNaJ66whwVox7e99xvL8NxD+HwAZ2jHmQ+TsqD3wrwuZJLuzQrQyi5EFNmyS5fdgmy2vzXKKJrIgwUKRHy14E1ldSsMkCiZrq5q8MP2RSafNX5Ep8C9X6A8i7Lh5tConcf49cGHKYiotxJV33vUr9a9fQisNF6leN4Ku38nZIW8G4WpGDZGOt6s0S60GyMXP5OVPd7c6ZYT891EILhOmyxM1NQI0QjEd+QR7xyDvBuAAZEUkFQG8IuIlPMln1iGyTOiwkCdwUDlTfCAnw1Pa7RDmqaKbcx7JDwooRlrlrcUuYpvIo6Wyv1NOqkQVAQ5LgIefzf1OxqIQcoFku95BjcG98I7PGzHFlLgXfL80U0jxfIKK8KxrJy8GE7XZKgadhy1J65AJ/Kxe6y9fFNW4jf8EnGr02Gr25zDt+ZzMkT+H/Mtrl/nzYgtmlTX6CxT82DFoDjKsWvTryQBIWSDN9b/GKTVYSBzWC6QvFwCKD2u6vbrfO4EZwdB2rWnysbst+Fu9m/RjBm9K8KIpca1RpUEq+L0gAfTaWE2DefZdolC5RREJeqXw+7ThmMxeMgLZj0xA==
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BEZP281MB2374.DEUP281.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230031)(376005)(7416005)(1800799015)(366007)(921011);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?blRUVjYyTkxGV0M0a0VaNlZuQ1NzVDNUYitoWnAwUXRWVFdqVW8xL3ptSnB4?=
- =?utf-8?B?VHVjTEY0VUtEZ0I2QU5jZXlHcEd4dSs5K3hmdEYzb3dzeFR1czNxZ0lBQ01G?=
- =?utf-8?B?WFZoQ2k2TXBWNHV4S3VSQWwxNGhIS0JoaFk3R1RzcW5LdHlsOHA5NVJxUElp?=
- =?utf-8?B?eUpJN2lEV3daeFA3aXZVa1Ura3REa2FNS1p4U21OTDY0NVl1b0tWZndSNnRs?=
- =?utf-8?B?c3Q4aFhocUpBNllQZlBSVjl1QVlrbDBvUVF4SDFZSUx1eFZlamV0UnFUVkd2?=
- =?utf-8?B?dUJGYkZjY09rakRaLzNPeUZtYlRDdGtqSkxDSmp6dEdMbWRPbS9xaUJWbk5Z?=
- =?utf-8?B?TEhmYlhVNW5jb3lQYi91TmlXZ3BoaFh1UkxDM2U3K21OZmI1dWNIcDRVSGVw?=
- =?utf-8?B?eXZweFIvOXpjSWhtYkVWK3lROUJSVmNIaTRUOXdYUndZVjFKczNWMDJQRlZm?=
- =?utf-8?B?amJ0aFFJTWhOclBVc2VySjRZaG9hQTI4cThXR0RoMHdQaXlibDJNR2kwc3V4?=
- =?utf-8?B?Q0VjbDVGc2lkM1JIUE1pVGNIS1A3YWRNVWhZd1U2QTYwMHhlZm5nRUtSUGFw?=
- =?utf-8?B?dC9lVjFFKzRTQ1lPYmVucTRmYUUzSVBBR1laVmdPaTQ2RkRsckdzeGErZkNF?=
- =?utf-8?B?WWl2S3pVY1JzcElhY0w0cnNjSUVla3Q3c3NvMFFJK3hHUmI0aHB0ZVkwSVMx?=
- =?utf-8?B?S0tSejhsSmlIZFZXVFdOem9JcWtIVy9Ta1VvN1ljZUo0cnZZZ3BmSXk3NDNC?=
- =?utf-8?B?OFQ1TXZKczhKdzd2RTlYU09iNHFBUVB5bTMrUENISHYyZ0FmWEdkV2dsOEF5?=
- =?utf-8?B?UWtVTFRENTV5MkZONUpSOGpqU3hBWE1HTHZGWDRaM0FXSDBPdW5MVDRROTln?=
- =?utf-8?B?ZHFrVSswQ25BQURkaUJFdG1qNGh2M1NpenFuRFhCcVNCQmVhY1ZRREZ5OVNT?=
- =?utf-8?B?MXdkUGdaUTdjNWxYbVJQMWg0cHNYbFp1UFB2cVVURUVOMEFuMkdTQ3ZaeUdQ?=
- =?utf-8?B?dzlLcXh5a3V5KzdKQTNVV1VQZ2FsMVU3OE5QQW1pL3FwMW5TQVZvRFFZVG5O?=
- =?utf-8?B?aDdrK01FNFZVdHpRTWxZK2JMK29pOEZhSmhXNHc1RElsY1dyVVI5cHRnWE81?=
- =?utf-8?B?c0NBVmlhWVNGd3RxZzBvM2I3aGR4aVA0MUNOajNUaGxZVnNhSDEySWkxUDZH?=
- =?utf-8?B?ejNrRnNLVWJJcGN1UnRoQXRxSjZqQWhVckZnWkVpK25kVUpra0E3c1NHdFJJ?=
- =?utf-8?B?RCtNaUoyRHJ4bnp1QWh5VS9GV09ydnk4bEpKOUpIaW1xRDBPbnNrNVIwOVQ1?=
- =?utf-8?B?cEJVeTU2SDQrd0hrS1Avd09FR1VBSkZPVnp2bWR4ZlV4UWJ0b0VLOUNvcWVM?=
- =?utf-8?B?OGUrVTRsVi8yckxjU1MyWjU4b2h1VU1oN1l1aXBZdGdMN3FISGJuUmxmLzRM?=
- =?utf-8?B?NEpQR2RPOVZIRnNzWjk1akt3WXlrWlFtc25NTFJZN1RSdS9xYkt4cjRWam5F?=
- =?utf-8?B?NnNzbEhjMUZBSlpieHBJVktCZFFtWjk2RTRENUoxYTROTVhXQzNEaExCWG1w?=
- =?utf-8?B?UVlFbklZYTk5ekZwUHhsTlBwM25EaWprcmprYkZKS3lzU2JDYmdWblB6ekJB?=
- =?utf-8?B?MmF1bW0xQUNFV2VNU0pkSkVRRnRkNkR6eHk0OXRBTnpuWnk3TnpSb21FVGdU?=
- =?utf-8?B?SysyWFprU0FTRFRtdGtHTm1pQlZvZmFLNXRRV01OUW1lZzRWUG01c1NlUGw4?=
- =?utf-8?B?dmRqV1pGSTZNUFpRTHJ0eUhXbEFMczBEdGJvc0J4UDJEVkkzU29WOW1GSjNJ?=
- =?utf-8?B?WDRUOXl1ay9OekVtRHFYSWV3R2dCMXJwT0VsZ2UwM3lhSEdiVWRRM2dsbjdI?=
- =?utf-8?B?TUgzeCs4YjlyMGFDM1RPRmM0RDYyd210NEtLdFFHRy9MRG1rYXpNYXVyd1FC?=
- =?utf-8?B?ei9iVHpnK0pWMzBBSW5xZTRiTG03OW15ZGFNbTdQdHRHL3FjWTlGYlFwdlIy?=
- =?utf-8?B?d2NyRnN4dVFOaXdac0RSOVE0MXdzdEcyS0draThveEVwbDNseEpKSEkxMkhL?=
- =?utf-8?B?SmVndTNoRXJtSFNwL3dIMGxzRmdkeCt2S0Q2dzhWdCtmaVVnY1h3OSttODE5?=
- =?utf-8?Q?VC6GVSFSz9C7S9Wo4L5XZo+QI?=
-X-OriginatorOrg: opensynergy.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- ad2547a1-b8ea-4071-42df-08dc52de6885
-X-MS-Exchange-CrossTenant-AuthSource: BEZP281MB2374.DEUP281.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Apr 2024 06:30:37.2050
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 800fae25-9b1b-4edc-993d-c939c4e84a64
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- IJhIWTU+RHOaEdakYzkQ1ad7D2hwRbYVRgbjUAiqMWbve5wY9sDF6b/+ijvv4JfRXP0crWSexiqoil9yPFVbCw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: FRYP281MB3161
-X-TM-AS-ERS: 104.47.7.169-0.0.0.0
-X-TMASE-Version: StarCloud-1.3-9.1.1015-28292.005
-X-TMASE-Result: 10--5.445600-4.000000
-X-TMASE-MatchedRID: wQVy7q402w1TzAVQ78TKJRhvdi92BBAuZK1SF2R3edhrIVA3IGfCC6DE
-	DQa+uiKUH2xok6cGGNABKhB2N2U17vLk2AFN1sunQj0AQ98QP92q8lf9o0av1xIIN3MAx5f9anZ
-	VdS5mxHyDZQoKdarzvOEvGuhUCHAT+IFpwsDCYKBaOxpgjiWHdd/upPexrMg4sZFfGXBYeAAKjR
-	CEKUuElpLHk4pGN/0DFk3xbexPTOS72HhspQkaIw==
-X-TMASE-XGENCLOUD: 9e9e9fa0-8253-4e7c-919c-70703b990615-0-0-200-0
-X-TM-Deliver-Signature: 5FBE828BD7A94C0C52584343C217624E
-X-TM-Addin-Auth: 78cuz+pexj/pn1SmQsOZGkZZYypEyT/44Vj2byjl7NNjYTH0fSc9lfkL0fP
-	xPDhlwk1PfhNKWFCVMj9tFI8/gEUTGFLrDXomc/w5mFspJcQvW8bjQnb+FSG9QRjqGtUQPFgol8
-	Ww9/WL3vHqsq6VQWeaWmBp08o0va3jKPQsEnlzZ5fzN5HBIyRVKAaEU3wb8qnjye0TzNasLDM1I
-	71TpnnRTvDzoJIdCdDaXnUWrAVcysLbHbzZ6kIEdTILRnq/hwrHCMEGlyZhZlhz28TwTs1DY+2x
-	REGvXOXiBuZsb1o=.P4ei9focH1shZUt6/8XbQLxrdp4UTkVfy2yLfcnabYWfblNk64FUohEbOH
-	UOH+AMU/Ckd5AX1DzCuC3+4Pu7tKP9ejAofN7LVSP+lhgk3VVOx0jCIddBoOEKnWY3gRH0uu0Qq
-	02k3cH+Sqs0Y+R9KIz9YUAS1GDXDErPQ5pKO+r6mKkGlw1dwLJnnE2bJ6LTbHclwxioVu4fuqA5
-	Ph+bsLwi3zQKkiYBOfTAez8aGkogKYXjce0bfeArPtVJ73vac004ukEG9CR33oxoH/MOn+1CRzM
-	fR1QqFeto2OlRdIhVbHa+koY8W3at2JdfvqmDciv2+HiNF/koBYm+QsZeOg==
-X-TM-Addin-ProductCode: EMS
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=opensynergy.com;
-	s=TM-DKIM-20210503141657; t=1712039535;
-	bh=ZBEAXjMl8aMOJStM89IW/3Bd78fUZuAHkBQ/AZwUAGs=; l=889;
-	h=Date:To:From;
-	b=A7CGFidQ7EmvHwlJ1HrqwRnbnsXMZ3gjCVHFSGu9WkvgXKcwtOK84GoQWE+sJXa5d
-	 C8qilhq95NUIlunEbT3uRWpyT2VZzaGUvb8Y8d+kPfevSbp3Hw3Ja6cIYRlU5oY12L
-	 F4TIBe2UNLP7eeessSTSj8EAc2Z/5aPHH3pgY2KKN4hILWfJmMFxhfhXvFhdgJC3TC
-	 z4/hz6/LS4+jn1K4yfEJ57JrIjDulP2cPA5aszppGAdznzIyF3cf9zzvdNAoeFJO5J
-	 kVk+MnW6pUmKdCb+SrYsC0H+aO2JxIouNRNPYR8g62naKKGqj/f+AvcOv7RVCHQJ+A
-	 tPhogaFJgwvHg==
-X-MailFrom: Anton.Yakovlev@opensynergy.com
-X-Mailman-Rule-Hits: max-recipients
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=BN9Pu55U;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=gODISPjK
+Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:98])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 755CD34376;
+	Tue,  2 Apr 2024 06:40:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1712040058;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4mzXMyPJdq2oR/609Gwa9Fp+XSu7c9aHRHlkUdrdW1g=;
+	b=BN9Pu55UEX5XoTzQN30DlZmr4seOr0zE2OtjRtTHpmQzfrbFv15Tnr/fQ6u4A8/1qKX3Jc
+	LjNdLEGWkJwpUNGAMHmzMViwuIMDUAADWwLClyKAesPucHbTWW6caGQYT8/vQquoZ2JC2F
+	rmNbP91e9mIBkUExOOBOYOgAuHFDnNM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1712040058;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4mzXMyPJdq2oR/609Gwa9Fp+XSu7c9aHRHlkUdrdW1g=;
+	b=gODISPjKHgAy9B8B+QMXz7vM5eMe+dvO4XanrpoGesUxpcAnaAL2dXAk3NJGrNXxvt/9ug
+	BLZIm42fFJyKRYCw==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=none
+Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 3A32913AA3;
+	Tue,  2 Apr 2024 06:40:58 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap2.dmz-prg2.suse.org with ESMTPSA
+	id Ga26DHqoC2btPgAAn2gu4w
+	(envelope-from <tiwai@suse.de>); Tue, 02 Apr 2024 06:40:58 +0000
+Date: Tue, 02 Apr 2024 08:41:02 +0200
+Message-ID: <87ttkks1vl.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Cc: <broonie@kernel.org>,
+	<tiwai@suse.com>,
+	<linux-sound@vger.kernel.org>,
+	<alsa-devel@alsa-project.org>,
+	<linux-kernel@vger.kernel.org>,
+	<patches@opensource.cirrus.com>
+Subject: Re: [PATCH v2 0/3] ASoC: Use snd_ctl_find_id_mixer() instead of
+ open-coding
+In-Reply-To: <20240401100210.61277-1-rf@opensource.cirrus.com>
+References: <20240401100210.61277-1-rf@opensource.cirrus.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Bar: +
+X-Spamd-Result: default: False [1.37 / 50.00];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	 TO_DN_SOME(0.00)[];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 MX_GOOD(-0.01)[];
+	 NEURAL_HAM_SHORT(-0.20)[-1.000];
+	 RCPT_COUNT_SEVEN(0.00)[7];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 R_DKIM_NA(2.20)[];
+	 MIME_TRACE(0.00)[0:+];
+	 BAYES_HAM(-0.02)[52.73%];
+	 ARC_NA(0.00)[];
+	 FROM_HAS_DN(0.00)[];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 NEURAL_HAM_LONG(-1.00)[-0.999];
+	 MIME_GOOD(-0.10)[text/plain];
+	 DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	 MID_CONTAINS_FROM(1.00)[];
+	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
+	 RCVD_IN_DNSWL_HI(-0.50)[2a07:de40:b281:106:10:150:64:167:received];
+	 RCVD_TLS_ALL(0.00)[];
+	 RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:98:from]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 755CD34376
+Message-ID-Hash: 3KMD7BWQEHCIAFIJYRL6ITV6LQ3PDQST
+X-Message-ID-Hash: 3KMD7BWQEHCIAFIJYRL6ITV6LQ3PDQST
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
- suspicious-header
-Message-ID-Hash: OIJDZQPGZRRTHDYIA22ZOQDCNL2OUF6E
-X-Message-ID-Hash: OIJDZQPGZRRTHDYIA22ZOQDCNL2OUF6E
-X-Mailman-Approved-At: Tue, 02 Apr 2024 06:55:05 +0000
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OIJDZQPGZRRTHDYIA22ZOQDCNL2OUF6E/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3KMD7BWQEHCIAFIJYRL6ITV6LQ3PDQST/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -244,33 +152,30 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Krzysztof,
-
-On 31.03.2024 10:44, Krzysztof Kozlowski wrote:
-> virtio core already sets the .owner, so driver does not need to.
+On Mon, 01 Apr 2024 12:02:07 +0200,
+Richard Fitzgerald wrote:
 > 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-
-Acked-by: Anton Yakovlev <anton.yakovlev@opensynergy.com>
-
-
-> ---
+> The first two patches change snd_soc_card_get_kcontrol() to use the
+> core snd_ctl_find_id_mixer() functionality instead of open-coding its
+> own list walk.
 > 
-> Depends on the first patch.
-> ---
->   sound/virtio/virtio_card.c | 1 -
->   1 file changed, 1 deletion(-)
+> The last patch adds a KUnit test for this, which was tested on the
+> original and modified code.
 > 
-> diff --git a/sound/virtio/virtio_card.c b/sound/virtio/virtio_card.c
-> index 2da20c625247..7805daea0102 100644
-> --- a/sound/virtio/virtio_card.c
-> +++ b/sound/virtio/virtio_card.c
-> @@ -438,7 +438,6 @@ static unsigned int features[] = {
->   
->   static struct virtio_driver virtsnd_driver = {
->   	.driver.name = KBUILD_MODNAME,
-> -	.driver.owner = THIS_MODULE,
->   	.id_table = id_table,
->   	.feature_table = features,
->   	.feature_table_size = ARRAY_SIZE(features),
+> Changes in V2:
+> Only change is in the KUnit test (patch #3) to make the const strings
+> more consty.
 > 
+> Richard Fitzgerald (3):
+>   ALSA: control: Introduce snd_ctl_find_id_mixer_locked()
+>   ASoC: soc-card: Use snd_ctl_find_id_mixer() instead of open-coding
+>   ASoC: soc-card: Add KUnit test case for snd_soc_card_get_kcontrol
+
+I suppose this goes via Mark's tree.  Feel free to take my ack:
+
+Reviewed-by: Takashi Iwai <tiwai@suse.de>
+
+
+thanks,
+
+Takashi

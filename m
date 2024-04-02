@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5411895804
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Apr 2024 17:19:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0F72895805
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Apr 2024 17:20:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 502C02C35;
-	Tue,  2 Apr 2024 17:19:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 502C02C35
+	by alsa0.perex.cz (Postfix) with ESMTPS id 335242C00;
+	Tue,  2 Apr 2024 17:20:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 335242C00
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712071198;
-	bh=8BNO4J7F02OW61F3M9kbM+GcaQ/g6Fcbv0k9xzs+WiY=;
+	s=default; t=1712071216;
+	bh=5HUVtiHfmlXk+jWscSVzpLeX0qMTIto3rwwmG7/w/HA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=r4gdVxfpkxA/a98kpwEN3VKnX4G/xObPSKUJP0VRHtXga8WIzZjuNtJWc0MQ7n/zm
-	 ayp2x3MV9YJUgFJIucj8bHKyiMHbSKkdaIm1WQOHQO5r18bEjoHBGAmQVUyRhPyRA5
-	 t2Gp/jbOBWlXgLW4nfFUWHhD1aQedJMHhi2OLDxE=
+	b=RCx7Cf/5++35vKX9ZGBreCiL6VIWL32Zq7ONsdLVmtULYnb21o+auN33V10oV07/p
+	 d1lDEQgeZ1ti4cdYEddkNvwXgUFnu/v6cVGEqTLpaUymlkVIwYrFgCyJk0bC9HX/DV
+	 gqj/Ii/JK4cqy9OGwADgJ+g6BE+elIANQHbf5kSQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 39447F805ED; Tue,  2 Apr 2024 17:18:58 +0200 (CEST)
+	id 76DBCF8061A; Tue,  2 Apr 2024 17:19:03 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 36E6EF8055C;
-	Tue,  2 Apr 2024 17:18:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D2A2FF80568;
+	Tue,  2 Apr 2024 17:19:02 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 65B8DF80570; Tue,  2 Apr 2024 17:18:49 +0200 (CEST)
+	id A370BF805D8; Tue,  2 Apr 2024 17:18:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,43 +34,43 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EC969F8056F
+	by alsa1.perex.cz (Postfix) with ESMTPS id 06B94F80114
 	for <alsa-devel@alsa-project.org>; Tue,  2 Apr 2024 17:18:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC969F8056F
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06B94F80114
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=VarHcijf
+ header.s=Intel header.b=KIuX5njr
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1712071128; x=1743607128;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=8BNO4J7F02OW61F3M9kbM+GcaQ/g6Fcbv0k9xzs+WiY=;
-  b=VarHcijfP6n7FgmOMU2niQoN8diZbO86MMQwa3NifH60Hm8CdRTKiKU8
-   7n/9m1X/BVzP8TabKe+nEjHW1/d7zxKqhc38RgmIbd2IlTHRU5ETiQWCC
-   H8PcE3RciL44Dklt6hBDjyZxxPKO80i2hIlLDLvpyw33wku4huPT2NUMj
-   ieckrS8x3M8N9F3FVLT2LB3GPsvJm337LWSzPzVrsfA3E/DkIU1ueBnTG
-   k2wrTSpkOdGHjUonX89kw9GThWEyRLhvwusxRn89l3qyDLBxhdYQ2MkVz
-   xigELuonjy92O6pVzzm6laYf+FBUYFmoBIUIKqe64D7FQ4ZWkFC8yJNt3
-   w==;
-X-CSE-ConnectionGUID: 7L7kPZQEQjGh87RLICfpgQ==
-X-CSE-MsgGUID: vSR9aLssT06jq57c6DKPLA==
-X-IronPort-AV: E=McAfee;i="6600,9927,11032"; a="29729959"
+  bh=5HUVtiHfmlXk+jWscSVzpLeX0qMTIto3rwwmG7/w/HA=;
+  b=KIuX5njr2F/QKn0LWSuCEClNwxnWg+Y7Uk27MonV/xfqPVz+EJprrnpy
+   hvzWIz1Wf8+5Hj5qnTw3wZjXoXMm/7hyXk66d9fqqdh36zshtVUXy/EhT
+   O5wB+GdSqXLOWb/bWL/ufEiM+l0nX5OrMa69XVpigkGWaQwj4vqO1DOVt
+   MlJtxPu5YfEZtWexTqapu6IawpB41cxro9Xk/YCwND3Qkgsc6+Pfc3eBX
+   ic1PTKCuOTvRj79eyKT88SbLgg8LG4ViHQ+9AqiIJNfU7yderhVbnUDpK
+   xFGZC/YuLaZnvx3YK8Ok7pWmC+WT/NZLNNyIovUyrlLLBsz2YUZ0JNP+/
+   Q==;
+X-CSE-ConnectionGUID: EOICnnE2Qqq5ISCd1S6XJQ==
+X-CSE-MsgGUID: /1UGdPQCSsCCipqGRf8HyQ==
+X-IronPort-AV: E=McAfee;i="6600,9927,11032"; a="29729978"
 X-IronPort-AV: E=Sophos;i="6.07,175,1708416000";
-   d="scan'208";a="29729959"
+   d="scan'208";a="29729978"
 Received: from orviesa005.jf.intel.com ([10.64.159.145])
   by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  02 Apr 2024 08:18:40 -0700
-X-CSE-ConnectionGUID: u0gNtmf8TD2rz5WPWo6wPg==
-X-CSE-MsgGUID: GcNid/E1SRCwug/Zt5CUdQ==
+X-CSE-ConnectionGUID: 1McjJpYVTg2gV98giP6G5w==
+X-CSE-MsgGUID: BwOOpI5kSxaHrOR+zOOY9w==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.07,175,1708416000";
-   d="scan'208";a="22796499"
+   d="scan'208";a="22796503"
 Received: from skhare-mobl5.amr.corp.intel.com (HELO pbossart-mobl6.intel.com)
  ([10.212.8.83])
   by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Apr 2024 08:18:38 -0700
+ 02 Apr 2024 08:18:39 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: linux-sound@vger.kernel.org
 Cc: alsa-devel@alsa-project.org,
@@ -78,16 +78,17 @@ Cc: alsa-devel@alsa-project.org,
 	broonie@kernel.org,
 	Bard Liao <yung-chuan.liao@linux.intel.com>,
 	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [PATCH 05/17] ASoC: SOF: Intel: hda-dai: set lowest N bits in ch_mask
-Date: Tue,  2 Apr 2024 10:18:16 -0500
-Message-Id: <20240402151828.175002-6-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 06/17] ASoC: SOF: Intel: hda-dai: set dma_stream_channel_map
+ device
+Date: Tue,  2 Apr 2024 10:18:17 -0500
+Message-Id: <20240402151828.175002-7-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20240402151828.175002-1-pierre-louis.bossart@linux.intel.com>
 References: <20240402151828.175002-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 57QJMBJIOSNSL7A3I46UNX5EAHC75K6J
-X-Message-ID-Hash: 57QJMBJIOSNSL7A3I46UNX5EAHC75K6J
+Message-ID-Hash: WCJKD5FMD2U5HSDLULVDQ4PANAFWWZYP
+X-Message-ID-Hash: WCJKD5FMD2U5HSDLULVDQ4PANAFWWZYP
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -99,8 +100,7 @@ X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/57QJMBJIOSNSL7A3I46UNX5EAHC75K6J/>
+Archived-At: <>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -111,48 +111,141 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Bard Liao <yung-chuan.liao@linux.intel.com>
 
-We always use the lowest N channels of stream. So, set ch_mask to
-GENMASK(params_channels(params) - 1, 0).
+sof_ipc4_dma_config_tlv{} is required for ACE2.x. The patch follow the
+convention to set the dma_stream_channel_map.mapping device as
+"link_id << 8 | pdi_id".
+And the mapping in sof_ipc4_alh_configuration_blob{} should be the same
+as dma_stream_channel_map.mapping in sof_ipc4_dma_config{}.
+The purposes of device id is to map DMA tlv.
 
 Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/sof/intel/hda-dai.c | 8 +-------
- 1 file changed, 1 insertion(+), 7 deletions(-)
+ sound/soc/sof/intel/hda-dai.c | 36 +++++++++++++++++++++++++++++++++--
+ sound/soc/sof/ipc4-topology.c | 13 +++++++++++++
+ 2 files changed, 47 insertions(+), 2 deletions(-)
 
 diff --git a/sound/soc/sof/intel/hda-dai.c b/sound/soc/sof/intel/hda-dai.c
-index 01c544b7e046..810d2997794f 100644
+index 810d2997794f..de71e1595a78 100644
 --- a/sound/soc/sof/intel/hda-dai.c
 +++ b/sound/soc/sof/intel/hda-dai.c
-@@ -441,7 +441,6 @@ int sdw_hda_dai_hw_params(struct snd_pcm_substream *substream,
+@@ -346,6 +346,7 @@ static int non_hda_dai_hw_params(struct snd_pcm_substream *substream,
+ 				 struct snd_soc_dai *cpu_dai)
+ {
+ 	struct snd_soc_dapm_widget *w = snd_soc_dai_get_widget(cpu_dai, substream->stream);
++	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
+ 	struct sof_ipc4_dma_config_tlv *dma_config_tlv;
+ 	const struct hda_dai_widget_dma_ops *ops;
+ 	struct sof_ipc4_dma_config *dma_config;
+@@ -353,6 +354,8 @@ static int non_hda_dai_hw_params(struct snd_pcm_substream *substream,
+ 	struct hdac_ext_stream *hext_stream;
+ 	struct hdac_stream *hstream;
+ 	struct snd_sof_dev *sdev;
++	struct snd_soc_dai *dai;
++	int cpu_dai_id;
+ 	int stream_id;
+ 	int ret;
+ 
+@@ -392,7 +395,12 @@ static int non_hda_dai_hw_params(struct snd_pcm_substream *substream,
+ 	/* configure TLV */
+ 	ipc4_copier = widget_to_copier(w);
+ 
+-	dma_config_tlv = &ipc4_copier->dma_config_tlv[0];
++	for_each_rtd_cpu_dais(rtd, cpu_dai_id, dai) {
++		if (dai == cpu_dai)
++			break;
++	}
++
++	dma_config_tlv = &ipc4_copier->dma_config_tlv[cpu_dai_id];
+ 	dma_config_tlv->type = SOF_IPC4_GTW_DMA_CONFIG_ID;
+ 	/* dma_config_priv_size is zero */
+ 	dma_config_tlv->length = sizeof(dma_config_tlv->dma_config);
+@@ -403,7 +411,11 @@ static int non_hda_dai_hw_params(struct snd_pcm_substream *substream,
+ 	dma_config->pre_allocated_by_host = 1;
+ 	dma_config->dma_channel_id = stream_id - 1;
+ 	dma_config->stream_id = stream_id;
+-	dma_config->dma_stream_channel_map.device_count = 0; /* mapping not used */
++	/*
++	 * Currently we use a DMA for each device in ALH blob. The device will
++	 * be copied in sof_ipc4_prepare_copier_module.
++	 */
++	dma_config->dma_stream_channel_map.device_count = 1;
+ 	dma_config->dma_priv_config_size = 0;
+ 
+ skip_tlv:
+@@ -440,7 +452,10 @@ int sdw_hda_dai_hw_params(struct snd_pcm_substream *substream,
+ {
  	struct snd_soc_dapm_widget *w = snd_soc_dai_get_widget(cpu_dai, substream->stream);
  	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
++	struct sof_ipc4_dma_config_tlv *dma_config_tlv;
  	const struct hda_dai_widget_dma_ops *ops;
--	struct snd_soc_dai_link_ch_map *ch_maps;
++	struct sof_ipc4_dma_config *dma_config;
++	struct sof_ipc4_copier *ipc4_copier;
  	struct hdac_ext_stream *hext_stream;
  	struct snd_soc_dai *dai;
  	struct snd_sof_dev *sdev;
-@@ -449,7 +448,6 @@ int sdw_hda_dai_hw_params(struct snd_pcm_substream *substream,
+@@ -448,6 +463,7 @@ int sdw_hda_dai_hw_params(struct snd_pcm_substream *substream,
  	int cpu_dai_id;
  	int ch_mask;
  	int ret;
--	int j;
++	int i;
  
  	ret = non_hda_dai_hw_params(substream, params, cpu_dai);
  	if (ret < 0) {
-@@ -479,11 +477,7 @@ int sdw_hda_dai_hw_params(struct snd_pcm_substream *substream,
- 	if (!cpu_dai_found)
- 		return -ENODEV;
+@@ -489,6 +505,22 @@ int sdw_hda_dai_hw_params(struct snd_pcm_substream *substream,
+ 		return ret;
+ 	}
  
--	ch_mask = 0;
--	for_each_link_ch_maps(rtd->dai_link, j, ch_maps) {
--		if (ch_maps->cpu == cpu_dai_id)
--			ch_mask |= ch_maps->ch_mask;
--	}
-+	ch_mask = GENMASK(params_channels(params) - 1, 0);
++	ipc4_copier = widget_to_copier(w);
++	dma_config_tlv = &ipc4_copier->dma_config_tlv[cpu_dai_id];
++	dma_config = &dma_config_tlv->dma_config;
++	dma_config->dma_stream_channel_map.mapping[0].device = link_id << 8 | cpu_dai->id;
++	dma_config->dma_stream_channel_map.mapping[0].channel_mask = ch_mask;
++
++	/*
++	 * copy the dma_config_tlv to all ipc4_copier in the same link. Because only one copier
++	 * will be handled in sof_ipc4_prepare_copier_module.
++	 */
++	for_each_rtd_cpu_dais(rtd, i, dai) {
++		w = snd_soc_dai_get_widget(dai, substream->stream);
++		ipc4_copier = widget_to_copier(w);
++		memcpy(&ipc4_copier->dma_config_tlv[cpu_dai_id], dma_config_tlv,
++		       sizeof(*dma_config_tlv));
++	}
+ 	return 0;
+ }
  
- 	ret = hdac_bus_eml_sdw_map_stream_ch(sof_to_bus(sdev), link_id, cpu_dai->id,
- 					     ch_mask,
+diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
+index 1870488b3cf6..28ab687a1d9c 100644
+--- a/sound/soc/sof/ipc4-topology.c
++++ b/sound/soc/sof/ipc4-topology.c
+@@ -1704,6 +1704,7 @@ sof_ipc4_prepare_copier_module(struct snd_sof_widget *swidget,
+ 		 */
+ 		if (ipc4_copier->dai_type == SOF_DAI_INTEL_ALH) {
+ 			struct sof_ipc4_alh_configuration_blob *blob;
++			struct sof_ipc4_dma_config *dma_config;
+ 			struct sof_ipc4_copier_data *alh_data;
+ 			struct sof_ipc4_copier *alh_copier;
+ 			struct snd_sof_widget *w;
+@@ -1743,6 +1744,18 @@ sof_ipc4_prepare_copier_module(struct snd_sof_widget *swidget,
+ 				alh_copier = (struct sof_ipc4_copier *)dai->private;
+ 				alh_data = &alh_copier->data;
+ 				blob->alh_cfg.mapping[i].device = alh_data->gtw_cfg.node_id;
++
++				/*
++				 * The mapping[i] device in ALH blob should be the same as the
++				 * dma_config_tlv[i] mapping device if a dma_config_tlv is present.
++				 * The device id will be used for DMA tlv mapping purposes.
++				 */
++				if (ipc4_copier->dma_config_tlv[i].length) {
++					dma_config = &ipc4_copier->dma_config_tlv[i].dma_config;
++					blob->alh_cfg.mapping[i].device =
++						dma_config->dma_stream_channel_map.mapping[0].device;
++				}
++
+ 				/*
+ 				 * Set the same channel mask for playback as the audio data is
+ 				 * duplicated for all speakers. For capture, split the channels
 -- 
 2.40.1
 

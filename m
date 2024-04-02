@@ -2,136 +2,121 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A35098948F3
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Apr 2024 03:49:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2649C894905
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Apr 2024 03:52:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C08A522AB;
-	Tue,  2 Apr 2024 03:49:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C08A522AB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 649AD22A8;
+	Tue,  2 Apr 2024 03:52:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 649AD22A8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712022575;
-	bh=xwgKT4QWg7PYY2MgtNiuW0lK0ZdOIRwkOV/Mdj/hbpw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=fF5uTt/tAC17XZ6cu+JK4kA0HNgCbox/4Pvc180h75xfk/U6Z7+vrvKSD0cE1IbXo
-	 9bXiBwMTDE7Fc10iRQlLe22c6m31J7FAiheTVFyQ8dD/dsLqjGeWrrpBmD5gOfoILc
-	 ie39HA7Wdqx+qmJBw1EAa3X7bNieEJW20XXtXtkM=
+	s=default; t=1712022747;
+	bh=yVklnQZkvuukUb5TI3+wA5MCAtaQ8hORKgo5k4bzUCI=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=KiI2cm3L9CNJcxrkYokS8cntmrSaInakyBCg6bNMScx2VWXE74n13pnvHY7Mv6mIh
+	 3Hd06G7uShpw4s2RF/dhj2vYTTpbShi9MQoWONXO6Wdz7srkwU9j3FCW+VFspJEabO
+	 xbtg/acqBhgMUym2dUdDXTfNfHoU7UxRbvGbqmQU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 50419F8057E; Tue,  2 Apr 2024 03:49:03 +0200 (CEST)
+	id A8911F8059F; Tue,  2 Apr 2024 03:51:55 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BB3A8F8057B;
-	Tue,  2 Apr 2024 03:49:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 11494F8057A;
+	Tue,  2 Apr 2024 03:51:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6B633F80236; Tue,  2 Apr 2024 03:48:58 +0200 (CEST)
+	id 70CBEF80236; Tue,  2 Apr 2024 03:51:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_MSPIKE_H4,
-	RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
- [205.220.177.32])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from wfhigh3-smtp.messagingengine.com
+ (wfhigh3-smtp.messagingengine.com [64.147.123.154])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 64391F8016E
-	for <alsa-devel@alsa-project.org>; Tue,  2 Apr 2024 03:48:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64391F8016E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0840EF80114
+	for <alsa-devel@alsa-project.org>; Tue,  2 Apr 2024 03:51:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0840EF80114
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256
- header.s=corp-2023-11-20 header.b=CTG48LGu
-Received: from pps.filterd (m0333520.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 431IKCQ9009659;
-	Tue, 2 Apr 2024 01:48:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type : content-transfer-encoding; s=corp-2023-11-20;
- bh=L9IxItlvqA1yIzQ1+sVrLHxRvr61/Tb3C75G4rmCcAQ=;
- b=CTG48LGug34c6CkHKet8GhYB1nQVJyps9stIGiL2hqvslsOCRAnbCUzpzFEWEM18EoXs
- EB9+H+zbmdhOpo6dbXmJIKRAg882F7RZFi6eEjeKnpCBouaOCBa4tckN470B1QAIvSy6
- T9Rjy1wb38hRO/bXH+5oKDyqbHgajqQolR94I6D/dlIyKltmAGBPbfO7WO3BRTgruUA8
- AGgI3GOFll2Qo/cwy70tT/yq80qBikDcnhfAd96YVhvW+QJS+JE1JX1ZM0cEaRiAr5C1
- s81LKqWNXX7K4nSvYdTOaS0jY3QC5uNlzmudLs0vOK6xtHptVIFZWFKHXb15w8vOCIfL OA==
-Received: from iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com
- (iadpaimrmta01.appoci.oracle.com [130.35.100.223])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3x7tb9sjps-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 02 Apr 2024 01:48:47 +0000
-Received: from pps.filterd
- (iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
-	by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (8.17.1.19/8.17.1.19)
- with ESMTP id 4320lCLT018692;
-	Tue, 2 Apr 2024 01:48:47 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id
- 3x696cd6c1-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 02 Apr 2024 01:48:47 +0000
-Received: from iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com
- (iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
-	by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 4321mkN9030130;
-	Tue, 2 Apr 2024 01:48:46 GMT
-Received: from ca-mkp2.ca.oracle.com.com
- (mpeterse-ol9.allregionaliads.osdevelopmeniad.oraclevcn.com
- [100.100.251.135])
-	by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTP id
- 3x696cd6bp-1;
-	Tue, 02 Apr 2024 01:48:46 +0000
-From: "Martin K. Petersen" <martin.petersen@oracle.com>
-To: llvm@lists.linux.dev, Arnd Bergmann <arnd@kernel.org>
-Cc: "Martin K . Petersen" <martin.petersen@oracle.com>,
-        Arnd Bergmann <arnd@arndb.de>,
-        Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-        Claudiu Manoil <claudiu.manoil@nxp.com>,
-        Vladimir Oltean <vladimir.oltean@nxp.com>,
-        Jakub Kicinski <kuba@kernel.org>, Saeed Mahameed <saeedm@nvidia.com>,
-        Leon Romanovsky <leon@kernel.org>, Ariel Elior <aelior@marvell.com>,
-        Manish Chopra <manishc@marvell.com>,
-        Hans de Goede <hdegoede@redhat.com>,
-        =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-        Maximilian Luz <luzmaximilian@gmail.com>,
-        Hannes Reinecke <hare@kernel.org>, Helge Deller <deller@gmx.de>,
-        Masahiro Yamada <masahiroy@kernel.org>,
-        Nathan Chancellor <nathan@kernel.org>,
-        Nicolas Schier <nicolas@fjasle.eu>,
-        Johannes Berg <johannes@sipsolutions.net>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-        Nick Desaulniers <ndesaulniers@google.com>,
-        Bill Wendling <morbo@google.com>,
-        Justin Stitt <justinstitt@google.com>, linux-input@vger.kernel.org,
-        linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-        linux-rdma@vger.kernel.org, platform-driver-x86@vger.kernel.org,
-        linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, linux-kbuild@vger.kernel.org,
-        linuxppc-dev@lists.ozlabs.org, alsa-devel@alsa-project.org,
-        linux-sound@vger.kernel.org
-Subject: Re: (subset) [PATCH 0/9] enabled -Wformat-truncation for clang
-Date: Mon,  1 Apr 2024 21:48:35 -0400
-Message-ID: <171202249144.2135322.4411557752324466054.b4-ty@oracle.com>
+ unprotected) header.d=ljones.dev header.i=@ljones.dev header.a=rsa-sha256
+ header.s=fm3 header.b=X4y7ooI/;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm2 header.b=By5EdEgK
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+	by mailfhigh.west.internal (Postfix) with ESMTP id 2A143180008F;
+	Mon,  1 Apr 2024 21:51:39 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+  by compute5.internal (MEProxy); Mon, 01 Apr 2024 21:51:40 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ljones.dev; h=cc
+	:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to; s=fm3; t=1712022698; x=1712109098; bh=wKpiPWBbBrJfJ1GZmz9eV
+	aeSFAsiH0SYmwmSOg718gI=; b=X4y7ooI/Mv4GEBIMWodAe/qTWZYvyJnqAXYMG
+	SXmupajCMzJRSnrr4CIU7N6epm1aFKUjk28STQq3rpi6sXMi0Jn9FcP3jUEdhDuV
+	ttBlhQUhqtIGX8eJyTDn/qGd+nk063hqt422m1/4tYLKIGkLVJMhOk7TYZvGE0ht
+	kjVSLVaCqLjt75G/WDJ6CtivM+8SppNnWRxPhtdPPlfvmVjhHLugUVRXyZWMksZa
+	+CufLRcnxFrIYab08YJSIfZ93JLaxxTqN3Qt90C0nO0fxdJMX2GXS50HdljzT4ju
+	XAkRAU4ibUjABXAR0PDckCHynJTyLWM/4p5p2eVfLWhp31cGg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm2; t=1712022698; x=1712109098; bh=wKpiPWBbBrJfJ1GZmz9eVaeSFAsi
+	H0SYmwmSOg718gI=; b=By5EdEgKA991Sut2s1QMithRDFoUUuSthQZvNMJk3ZjZ
+	I+C8Ctb2P58cCN94GYBK9DO4f4xJoI8kQ/Rd+hI4OeKD/UfGDV5aIywmDvouf9jE
+	jLH+/KF7hQ/PdNxK5OqjyRkTGDIa7i+NiAvmuv5K9soQ1WcXQMmAqPKHGt1mVgA2
+	DnhSm/3iiQL42EOcgMhkuW7RQZ3ka4OUxnek8kkXJ3czOmdRP65N0ZMPNMLw/L/7
+	8c5ch1YHxcNLqtAwdudqdqA+upcdau0GPpNCbFruOaD1SSMw+5RtAdTbjthCeUXg
+	2EjGTAXmP4MC5qXvV4MLm+JzzNOaIBQO1kz8tAqRAQ==
+X-ME-Sender: <xms:qGQLZntOi2jHlO4ynoYwRh_Y0_v_t1gKo9q43jYufo_f0P5GRlq25A>
+    <xme:qGQLZocILfesoGYJNQ0UvaGjWb3ZUk6P5cpIqz21FzQdLDbpgl1bP74uy-z9XVHKx
+    -38CjjsaQDGTF5Aw9c>
+X-ME-Received: 
+ <xmr:qGQLZqxDqplJFZXvcG-ZpGP4fdeWfonXjxxlb_FHvwKcFZoh-meQfbqMB6Mc>
+X-ME-Proxy-Cause: 
+ gggruggvucftvghtrhhoucdtuddrgedvledrudefuddgheduucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucenucfjughrpefhvfevufffkffoggfgsedtkeertd
+    ertddtnecuhfhrohhmpedfnfhukhgvucffrdculfhonhgvshdfuceolhhukhgvsehljhho
+    nhgvshdruggvvheqnecuggftrfgrthhtvghrnhepgfdujedthfduudekffefkeeiffdttd
+    dvhfegudduueffuefhfefggeefteevvdegnecuvehluhhsthgvrhfuihiivgeptdenucfr
+    rghrrghmpehmrghilhhfrhhomheplhhukhgvsehljhhonhgvshdruggvvh
+X-ME-Proxy: <xmx:qGQLZmPEvjU2R71cMKi-xsDn3_TIvfkR8zI5_yW2wLJLNBERIpGVjw>
+    <xmx:qGQLZn9UMmgtJ2JkcVAw2M7fJYXYQiHv4ki40TapBA2gszG5MfbhOQ>
+    <xmx:qGQLZmWwUh0rGm-qqwaGekDbG9CCS2gwsLFpU46d0hdBZBmQcc7TsQ>
+    <xmx:qGQLZodqaWxZCArrQLvsZ3bsJyG2bCzRcckGyvKjXfDxbyIADemAHA>
+    <xmx:qmQLZtcRll8JUMgVHPgbydl6a4IjDHL6v4MA9BzBGFHUPg6vOLmoknSz4jg>
+Feedback-ID: i5ec1447f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 1 Apr 2024 21:51:32 -0400 (EDT)
+From: "Luke D. Jones" <luke@ljones.dev>
+To: tiwai@suse.com
+Cc: james.schulman@cirrus.com,
+	david.rhodes@cirrus.com,
+	rf@opensource.cirrus.com,
+	perex@perex.cz,
+	alsa-devel@alsa-project.org,
+	patches@opensource.cirrus.com,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	kailang@realtek.com,
+	shenghao-ding@ti.com,
+	foss@athaariq.my.id,
+	"Luke D. Jones" <luke@ljones.dev>
+Subject: [PATCH] ALSA: hda/realtek: cs35l41: Support ASUS ROG G634JYR
+Date: Tue,  2 Apr 2024 14:51:26 +1300
+Message-ID: <20240402015126.21115-1-luke@ljones.dev>
 X-Mailer: git-send-email 2.44.0
-In-Reply-To: <20240326223825.4084412-1-arnd@kernel.org>
-References: <20240326223825.4084412-1-arnd@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-04-01_18,2024-04-01_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
- phishscore=0 spamscore=0
- bulkscore=0 adultscore=0 mlxlogscore=999 suspectscore=0 malwarescore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2403210000
- definitions=main-2404020012
-X-Proofpoint-GUID: LNUyxeCija5WK7SmvL47CZEEitUJovRX
-X-Proofpoint-ORIG-GUID: LNUyxeCija5WK7SmvL47CZEEitUJovRX
-Message-ID-Hash: OXJXDGPXMQAIYPWJT6QXFJ7MVYMPVQF7
-X-Message-ID-Hash: OXJXDGPXMQAIYPWJT6QXFJ7MVYMPVQF7
-X-MailFrom: martin.petersen@oracle.com
+Message-ID-Hash: UPV2OALTEATG6MFU463XNH2FLLZNEFYA
+X-Message-ID-Hash: UPV2OALTEATG6MFU463XNH2FLLZNEFYA
+X-MailFrom: luke@ljones.dev
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -143,7 +128,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OXJXDGPXMQAIYPWJT6QXFJ7MVYMPVQF7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UPV2OALTEATG6MFU463XNH2FLLZNEFYA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -152,23 +137,50 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 26 Mar 2024 23:37:59 +0100, Arnd Bergmann wrote:
+Fixes the realtek quirk to initialise the Cirrus amp correctly and adds
+related quirk for missing DSD properties. This model laptop has slightly
+updated internals compared to the previous version with Realtek Codec
+ID of 0x1caf.
 
-> With randconfig build testing, I found only eight files that produce
-> warnings with clang when -Wformat-truncation is enabled. This means
-> we can just turn it on by default rather than only enabling it for
-> "make W=1".
-> 
-> Unfortunately, gcc produces a lot more warnings when the option
-> is enabled, so it's not yet possible to turn it on both both
-> compilers.
-> 
-> [...]
+Signed-off-by: Luke D. Jones <luke@ljones.dev>
+---
+ sound/pci/hda/cs35l41_hda_property.c | 2 ++
+ sound/pci/hda/patch_realtek.c        | 2 +-
+ 2 files changed, 3 insertions(+), 1 deletion(-)
 
-Applied to 6.9/scsi-fixes, thanks!
-
-[7/9] scsi: mylex: fix sysfs buffer lengths
-      https://git.kernel.org/mkp/scsi/c/1197c5b2099f
-
+diff --git a/sound/pci/hda/cs35l41_hda_property.c b/sound/pci/hda/cs35l41_hda_property.c
+index 72ec872afb8d..25c117db3317 100644
+--- a/sound/pci/hda/cs35l41_hda_property.c
++++ b/sound/pci/hda/cs35l41_hda_property.c
+@@ -108,6 +108,7 @@ static const struct cs35l41_config cs35l41_config_table[] = {
+ 	{ "10431F12", 2, INTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, 1, -1, 1000, 4500, 24 },
+ 	{ "10431F1F", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 1, -1, 0, 0, 0, 0 },
+ 	{ "10431F62", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 1, 2, 0, 0, 0, 0 },
++	{ "10433A60", 2, INTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 1, 2, 0, 1000, 4500, 24 },
+ 	{ "17AA386F", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, -1, -1, 0, 0, 0 },
+ 	{ "17AA38A9", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, 2, -1, 0, 0, 0 },
+ 	{ "17AA38AB", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, 2, -1, 0, 0, 0 },
+@@ -496,6 +497,7 @@ static const struct cs35l41_prop_model cs35l41_prop_model_table[] = {
+ 	{ "CSC3551", "10431F12", generic_dsd_config },
+ 	{ "CSC3551", "10431F1F", generic_dsd_config },
+ 	{ "CSC3551", "10431F62", generic_dsd_config },
++	{ "CSC3551", "10433A60", generic_dsd_config },
+ 	{ "CSC3551", "17AA386F", generic_dsd_config },
+ 	{ "CSC3551", "17AA38A9", generic_dsd_config },
+ 	{ "CSC3551", "17AA38AB", generic_dsd_config },
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index a17c36a36aa5..8da2827bb3c3 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -10133,7 +10133,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1043, 0x3a30, "ASUS G814JVR/JIR", ALC245_FIXUP_CS35L41_SPI_2),
+ 	SND_PCI_QUIRK(0x1043, 0x3a40, "ASUS G814JZR", ALC245_FIXUP_CS35L41_SPI_2),
+ 	SND_PCI_QUIRK(0x1043, 0x3a50, "ASUS G834JYR/JZR", ALC245_FIXUP_CS35L41_SPI_2),
+-	SND_PCI_QUIRK(0x1043, 0x3a60, "ASUS G634JYR/JZR", ALC245_FIXUP_CS35L41_SPI_2),
++	SND_PCI_QUIRK(0x1043, 0x3a60, "ASUS G634JYR/JZR", ALC285_FIXUP_ASUS_SPI_REAR_SPEAKERS),
+ 	SND_PCI_QUIRK(0x1043, 0x831a, "ASUS P901", ALC269_FIXUP_STEREO_DMIC),
+ 	SND_PCI_QUIRK(0x1043, 0x834a, "ASUS S101", ALC269_FIXUP_STEREO_DMIC),
+ 	SND_PCI_QUIRK(0x1043, 0x8398, "ASUS P1005", ALC269_FIXUP_STEREO_DMIC),
 -- 
-Martin K. Petersen	Oracle Linux Engineering
+2.44.0
+

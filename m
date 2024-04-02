@@ -2,139 +2,139 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80DEF894950
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Apr 2024 04:24:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE786894952
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Apr 2024 04:25:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DEB1523E1;
-	Tue,  2 Apr 2024 04:24:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DEB1523E1
+	by alsa0.perex.cz (Postfix) with ESMTPS id C99132393;
+	Tue,  2 Apr 2024 04:25:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C99132393
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712024693;
-	bh=mhvyh3S28pgY0XczHMG/53UGAM6cbsEXfsT9F6ywXFA=;
+	s=default; t=1712024718;
+	bh=2lWNtk02+KG24CiDtdD97MfK3INjyYbowMj4JPnwLRo=;
 	h=To:Cc:In-Reply-To:References:From:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=DCf/eDG37rRsfV29A81uf68Zqh5DYCZP101LzafoeZABmZPcyTS3cIypyH+CAXx9L
-	 QagAO/eegE77+BlkPD/zfdWpk0VSmYpJLCHylhYZchMXRtSSNG40J6KPNJladdgKk0
-	 99xEZSrHqvnSbDaAcSWRnlhtMkfqBae1yyUyYK68=
+	b=AMpI0pt6HqoWTS1pKdd6hDX4PyBN6PU8Nw34of2aRIuzL/aWu5khzzr+B2W83FkPt
+	 nMxzdVI+wmoKwFroyWrdvdS3W0B6pTAYhp9sorolvd0DkXpe4eEU1z53g5nBYnIHTO
+	 85w0/xSDX5SagqZtTsBhgCrWJ2JV0y9bviqyvdQQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5162DF805D3; Tue,  2 Apr 2024 04:24:19 +0200 (CEST)
+	id 719ACF805FB; Tue,  2 Apr 2024 04:24:25 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 88C80F805E4;
-	Tue,  2 Apr 2024 04:24:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A9468F8057F;
+	Tue,  2 Apr 2024 04:24:24 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2C41AF80589; Tue,  2 Apr 2024 04:24:16 +0200 (CEST)
+	id A9721F8058C; Tue,  2 Apr 2024 04:24:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from JPN01-TYC-obe.outbound.protection.outlook.com
- (mail-tycjpn01on20700.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2019::700])
+Received: from JPN01-OS0-obe.outbound.protection.outlook.com
+ (mail-os0jpn01on20700.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:201a::700])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 19A20F805D3
-	for <alsa-devel@alsa-project.org>; Tue,  2 Apr 2024 04:24:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 19A20F805D3
+	by alsa1.perex.cz (Postfix) with ESMTPS id 13BE2F80588
+	for <alsa-devel@alsa-project.org>; Tue,  2 Apr 2024 04:24:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13BE2F80588
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
- header.s=selector1 header.b=QOSkQfFD
+ header.s=selector1 header.b=e1DqH8zD
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QhfsvwZRAW3F5zLGsLi2bjsaQJzr7lc3NCwJLFJiXfnM4fVewv1frKrPVLkrX3vu/ZLssCRhKa+Ro4yYyvFeNaP7fNxtwMoF1fVV8RmLC2xnRvM2C/jz8HErxOdBYBB6p03NE4Pw/nNdlzDCWH9meDXqv7UaDL7oIm6/dR6zMo43YnUUXHUjySja8Ffty3bc3wts+XPqxCByR9oIu8v30Q1hbc6dDExg0GoXcwYCpXbxieT2FUArl4YMsVkhxxeAztpnwflrdxJ63nUQUA3JKkT6m8g4nGx7HVLTRUEjEApEaPMdIxIw8fMs2N7pIlYfobUCszjC5Bs89gSAHtiApQ==
+ b=Fkxj/16aCtImDUmXPlpi0sVS/kVNb5roG2ZRjQYipRIeyAMeM0bxikMPip6h50rFlyZpi0O2dpKOT3ZPOibKLlpdtzhJfxTacu7ADoIEbUZbSMkfkasCLjWJ3sk5EhbIFYGOzlXwU12SCn7Cm/jbAXhs3sCxC29K2Dxji2UH70wHV1lBVE1x0GicBC3ywpkI3C8qi/35yhobXsjpXz8MFgdvGGFIAsbhJUXU+RH/jSQFNarubqpUDV10XFd3wKG980YAhD2QjDshFt3VXQtF1BE/19YFtZ2VRkiOIjhX8f4TXcbNihyns/S/HZoUYV5mvQKZSC68QYnQBPGv8axHwQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8zqAoCmfvYyC/NbMep3oJx9Co9fwb0KRVN1FETga0Cs=;
- b=GJKIZ6GRrSShle+vI3U5Op3jmJKEOlHtzf5RxM1DZr514fTRDuDoMw+DGzpnXHCpmNMN+j4wdZRkysUbFOG+XNSXk1S1q4EHE5njXwWaGQpQN9RPStv/wFWjnulmPtb5a4lkJJUqH7MFUMEqFmc3D7wotmw4T26lnfsUSJXno0ve2olYTgRDx2w4Lw/gwmTcTKB17P9sOT0TNjdGfFDDWa9GfO7BxLMH3uuv3u8Q7T867Q6IF9E9gJ3yA+sDi4ijd2QVNtH1PLH8yYzqY0q2PjM0uYMHJYdhdC42bGLQm6Bni6JZhVAWs6oCAeAWru7QQ3xtKXYNIzn6tlkz9uTr4w==
+ bh=orD9JULd8gZB1HLcn3gMSsTpzHeM6sW2XxzS/XYoDQ0=;
+ b=iyJ+MHSsc3NxasElOkG4I4sCH6IyL3aGQ7NJyyiAYGAmrJCmanS/o3tllmBzldH/t7ATJ4rcW3UDFACYQAVhN0lW56D4363tn9q25IAia3eoPADr4LMjdGXdOrDH45+DlObJSM5rpZx8ppDSAwasu8UGfaHhAj0xyt7tVHCP4w+M29jsnsQpVM8aLFsSwsA4RB4HF/leomWFerFXCtvhbykfWOjcpscWlwXlY+TN08vEEXM+Zu8Y36TBBES/MoSPlAddwxTxykiUCkQxU79uf5kX+VyK4i2wR3bZei+GEx88AnDnr02s4ugoghsPT64tTbQJtgKByzXKQ1KFnqwgSw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
  dkim=pass header.d=renesas.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8zqAoCmfvYyC/NbMep3oJx9Co9fwb0KRVN1FETga0Cs=;
- b=QOSkQfFDbn1y1Aq5+3vFmEPhDcvx6csJdUa1sNrspqz5poyBgcvMKAsL00b5JYaVBHqKlm+RDTiH7Nkk4Zd1V3Bmt6hi1s/w5aTS8DBtJq9oHuah8yV4t3NEBIVNWsgnn27QX6DQYZADe4mBRd/n+Y07YKXKk3SJCa0cIe2lvRo=
+ bh=orD9JULd8gZB1HLcn3gMSsTpzHeM6sW2XxzS/XYoDQ0=;
+ b=e1DqH8zDo54vwhGzeMwAESFYQLItyNhkSAVoW2klzSKlOK1ZnFU/UYgIq179y0ZPMIavN8vYp79rk6t/OiAebAzEwJ8CNZtI3H6mB7Up5Sle8rJnfHWQiwDx/D7V9KH4F5OLWr4AKOIcLa7ydXUGcMSdWICt2Ye2ZeMipz817T0=
 Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
- (2603:1096:400:3a9::11) by OS3PR01MB5959.jpnprd01.prod.outlook.com
- (2603:1096:604:d9::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.45; Tue, 2 Apr
- 2024 02:24:02 +0000
+ (2603:1096:400:3a9::11) by TY3PR01MB11608.jpnprd01.prod.outlook.com
+ (2603:1096:400:370::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46; Tue, 2 Apr
+ 2024 02:24:10 +0000
 Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
  ([fe80::131e:55c0:a4a0:713b]) by TYCPR01MB10914.jpnprd01.prod.outlook.com
  ([fe80::131e:55c0:a4a0:713b%7]) with mapi id 15.20.7386.025; Tue, 2 Apr 2024
- 02:24:02 +0000
-Message-ID: <87zfuca4e6.wl-kuninori.morimoto.gx@renesas.com>
+ 02:24:09 +0000
+Message-ID: <87y19wa4dy.wl-kuninori.morimoto.gx@renesas.com>
 To: Mark Brown <broonie@kernel.org>
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
  Khanh Le <khanh.le.xr@renesas.com>
 In-Reply-To: <8734s4bizh.wl-kuninori.morimoto.gx@renesas.com>
 References: <8734s4bizh.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 2/5] ASoC: rsnd: don't get resource from ID
+Subject: [PATCH 3/5] ASoC: rsnd: rename rsnd_is_e3() to rsnd_is_gen3_e3()
 Content-Type: text/plain; charset=US-ASCII
-Date: Tue, 2 Apr 2024 02:24:01 +0000
-X-ClientProxiedBy: TYCP286CA0100.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:2b4::7) To TYCPR01MB10914.jpnprd01.prod.outlook.com
+Date: Tue, 2 Apr 2024 02:24:09 +0000
+X-ClientProxiedBy: TYWPR01CA0050.jpnprd01.prod.outlook.com
+ (2603:1096:400:17f::19) To TYCPR01MB10914.jpnprd01.prod.outlook.com
  (2603:1096:400:3a9::11)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYCPR01MB10914:EE_|OS3PR01MB5959:EE_
+X-MS-TrafficTypeDiagnostic: TYCPR01MB10914:EE_|TY3PR01MB11608:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info: 
-	haKd0AZf+tegZYTL2DrahhDF51NfEBJbg03aaACaDxFBC50HnK/xoHtJDsgAmrshZOtuXJUk9ouMD2mDIGcM5mBaJV6xidQ1+fzRKOrqo3NLLdVTw1Ij1NTdVqLDXGQwDWVHsm2291rHYKjyuj23OMfGMnulvfQqExdk/A3dwHophC9LTHuhMqvbdZZSAAiC1QhKQFtaOSDR7xkKkazbznI7ZF89XiGz7bfTxs0XZhSttgYaByPQFuTdeEah9pScVkCTqKcJMUPzwF1qAV/yU50h3zjuXliuX3QwSNZGAuKhJFfr2QCJgPgGU9Mrw+VvIaKy2ENUvDrc9+zYxUnaNOLJVRk17QqS9MYWb5rQt8q78lV1yRgcWtY2TrvPAkXH0nNGUJc2uUO4qgg6ajxqO1BuM8Pl3aHfNbcV7z9/DWVagbQQlcju/6R0ryagthUEABWSCIxj6tImwRrA9FwhTSDKUrLhzjQB3yIsHXVPCQcm4M3s1XGUd5W4OKNUL8uCEolnKFo8teKuDsQZD8VW9J7lDBOEkP4MwLsETU/pFTGfsGwMwBMMm7bbjFBcJyAHFT1cMzb6d2TeF9q1leU43UY6Roa+OPdP3ByQeYzBrgSdVH/xdWzAGKJ9ZAdvwbXUMvOQMnLzbQp7zee6YcsqIPcGxCNgTMOLFapvkZmV/lz8EFD+B5Wr4vyLNsjX8Z3NXSgiTE6YGKH/vyDpnfPgIQ==
+	IUaG//lSvF5Q1XiK99Ta6IgUHG/9YIfoUPDw46uVbKM3X2HqG6vmKrGeinT3WEAqjGTxHuEKBtXqw+tLhTmGENMYzlNBV+pmTD4Bd4xDM3BwKzIwWTkfrd1v35FLCM/aW3wqU4ma9wIbrgx8moyzNyyGmmtT9tAFmGXBQXSAxGnzyuxgbrJdcIbTG8S6M1i9pxrzu1VUDQafsEGp1l6EgPCWlyDwx8lGix9DSKBBgVZjphp6dEh2GzvqKKrjkmkBssnMzoAisCQIBubDa53Ur+lokANqM+00w01EnLdKrg7DR4yYmoFKbjMywFDg9TBvvlgM16pkTZqUlVzYRGRshJEuNP/U907XewsZp9gWtC6hHhc9f8q6/FS55NAdcCxQ2f/ofG7KGVTIAnfYYuV8BZmnXfJSldQpsOOCUYFMqaLjNymvNhEjNBDhi1NZ7WI2HVfTrV+hu0tgzQ/04ioqQaDn8/6dHEmypozIEnR78RBEwkenOeJMcu/BW3+CI6xGs3DiWCjqhya1jByklQp2PbCqZPeRS0e+XbMbb6ufhnCU5Ec7um+npET5wwl9aFOhUqSwFBzXdUPbgolPAGHUhvgKOALcwwU7eqBdTUYn4JDg3JqRw1BLwVE557Yqf/ZghwoqG3b4KGkQhIGt2cg7jxfOP3kTeHEpWlwzSFr8nNq1yiB6cxkNOHrLDvjliaiX9mfoEqwmZFBLZWjCyA0ADQ==
 X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB10914.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376005)(52116005)(1800799015)(366007)(38350700005);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB10914.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376005)(366007)(52116005)(1800799015)(38350700005);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?mEuANLPMlxHzOvpV/Ookae9GNjZJA7pxLv3jpo2BYHNqvvbMrHTn11HIBqye?=
- =?us-ascii?Q?o1o0n5wFYQY/FzcuItgXFSMuWEBzJV08hJhWiVDtRMxAw5QJKzYA4x2NnSJt?=
- =?us-ascii?Q?l3ubZ0OVAs2r3fGNVJEHJ+NVQVHNobNQoQCPzdAdbmCM4LbdeLz9pkmyU4YZ?=
- =?us-ascii?Q?og2bipe5CEDFPhtUsXbhGVCXrEtpWDLf+sAoTfrBCxiyHOGIEmF5KMnhs2Ng?=
- =?us-ascii?Q?OB+/3grKywnImq8k3tOIviObSlIKB0bOOrxaV97F5RHcXC/GxKZrP46QQqYC?=
- =?us-ascii?Q?jW3HC7XMHP8I3EoNRNOQvaL4AWicUzEWdORRl6pvaxiZilNynR6/Iab03qS7?=
- =?us-ascii?Q?1PPqZUzmNRyDhA2Zfqb4aBRJzQP+vXBNq8IODQ3nLJnov+GgBUZ69YwtqENo?=
- =?us-ascii?Q?+kYSctbFnNJtcG9K9XjO5C/BHZM2zxMaZohIQP+IVn3RZwMtWTDYldrkHcCD?=
- =?us-ascii?Q?99p2FOaqOC3l75v3WnUp0+sZ5epS7VXPlxQrTWBjzaGbpyKyEY9Elb1mgeBJ?=
- =?us-ascii?Q?UOrTvWqiCnKyH5i6zVq1zSA79IwIhRqsCQwqqGOgWCjrx9JEa69UnnTTLpCl?=
- =?us-ascii?Q?OLj03ieBAH7/QRR8o9qhrg6viyhIX1HWYcJJV+ssot/rdOYnLkT2IgHZ3Fwk?=
- =?us-ascii?Q?HGegRI7T6QwB8ZgrNuCJotlSGp2i1MtzweYWB0N4tYuUW3h+baDhTQa3STS3?=
- =?us-ascii?Q?BJ7sqc9iwLRVQCKb2yeq4Swq9xlghVknpy5DuqAM2IwIQZO3+nn6R6M9MGkl?=
- =?us-ascii?Q?LUB1mfHKpP/03I4hgzFaBcnpHLcvzI0891rrmUDPgmB/4Tmgh/jOGEN+mznQ?=
- =?us-ascii?Q?YvmdXA+VyLvmC4TNnkB8I7Xx97puJsoPa9SOPYienkw/QRU8bcHf6MIozwBz?=
- =?us-ascii?Q?Wozecb0Hb896bMVpkd1qReBanGrGo4F9B+HGWGql69bW1FEeXHZeRPXDabto?=
- =?us-ascii?Q?Sc/xFi9Utg5ZMueJbIAKTpXbT0B2DcwjeIvjA7ILBD/A6G1jcBfa1lejb3R5?=
- =?us-ascii?Q?0sZUEyKCs32sSq1HZU3HuD0F6ROn49Yhlq54iEjoJi+sE/3ZmKOSW6YnjQeQ?=
- =?us-ascii?Q?hmiRtdo+cREhgwUlHSuWwiKN1E4siyxppOkY1/inGhm7WJHoDXOTD0Le+Dog?=
- =?us-ascii?Q?I86rE7btBp/rNfkCPb/yju/PFxENlojHNdhpWrnSAbiNrY/Iex6pErVeoN0a?=
- =?us-ascii?Q?g1zQ0BQ4jrcrfY7HqNAVjlkLUZBhPbKWggyQCe/Qfi19jJ4GnzsMXrJHIIW2?=
- =?us-ascii?Q?rOdPlFiTCvLE/D0y+lApkwLisuGFpbabmI7bPgsJzCr/wLiz0cU7TFYetWYZ?=
- =?us-ascii?Q?xWbyE3YVVsVtXd4GU+Vcuz/SfXO4yc5eMRMTDPNGOdubqQPGEuKcQi6jACBa?=
- =?us-ascii?Q?AB2Ux3Kz8YO6MlGhAfdFq9PTTelpqoa9wyEBVCRMq86s906EIAo9AiBksk4p?=
- =?us-ascii?Q?VfRpcovZkVZKGJYPv4sI5ZTFGPc5LENpwLoyPFyohtPwnhiD8sWKeiLM9oW+?=
- =?us-ascii?Q?Vhigs05ULPnww5BPUb9DxQY5jaYEniukgngeadZurVGGAtcCyiurSgyL12dc?=
- =?us-ascii?Q?K6YTrqcUpXHORnBDn/OZVT5+a+S4t9LLXmAtxaPHtwP15A3K5lSzO6y1bz5x?=
- =?us-ascii?Q?btJw/uBRlWPTr0AUnlQ1wfk=3D?=
+	=?us-ascii?Q?+jw2NHdJ6gQLFt3fzX5JoiZ39gG5SfNN/yzKegojJcTcqhdJ1gHZ/+x4+Hap?=
+ =?us-ascii?Q?vhuGtBnHzTu3iZDNQRc3252ZUaAqlUsw5dtN+10ozJeXdWmhYowdVkOwWwV/?=
+ =?us-ascii?Q?cFH0ZXi50X9B/4J75xEyGumLwRZG7LZD42ko6YkxFlq26oOcGyvawf5AFf6D?=
+ =?us-ascii?Q?ZVnvjOnNuFGbMciCJwoGM5Ef7dWLP8zp6OVC7bjF9XWovHEVvyB6lsAmkBDP?=
+ =?us-ascii?Q?/MpiKAGU9vn7ojWD2voMLpuKBGZRIjdA040+CF0dMkm96KsRCAiLpGqFtjMV?=
+ =?us-ascii?Q?W2kAlh2hjuIjb30M8GRTIrE2sEwqYJzVpUvWBAUSAqzKugIAXUM7g/8zPxoe?=
+ =?us-ascii?Q?9SG/hZUycC7PW3hWqzhy9IFnz08x+DIj0I8uqRzYvlLgi5EUJvcDA0vxaZSg?=
+ =?us-ascii?Q?eiwTpPcmlTf1bQSyRTXso8CkettF6jrLZFI4LQm6dDEZZlCZMDe48sx2ryyd?=
+ =?us-ascii?Q?T065n+fP9Nxh6aQivSAy5DirbMcOJeG7doEWTLrI5qb1WXFVjPNAZtsJidG0?=
+ =?us-ascii?Q?MNbRAZ5GF9wBSUvMOR+7zyI+Mzt0JIQRLfgwfQguz9TzwgcOcBRwgZN0o/Bt?=
+ =?us-ascii?Q?TC4s6fRJwRb/bANCDcxkuWxX50aKbk/6vX3r2EMtoX0UUDS86vvkona2Q9u1?=
+ =?us-ascii?Q?b8LcYAW9DMvwzZpexqx0ok8kbLlzCcQFr1hRZOKegrbjBSynQ3qLTFpdPbeo?=
+ =?us-ascii?Q?qTo1aRIETtVowRCKMYmNI4vK3SkUtusIv2G9QM+Mu86/wmvp//CHhcKsPJkt?=
+ =?us-ascii?Q?0FY9rU/WRFSXFnREf0A0wYoj9kLdQXfruYud/EBdIbpvd/qcQACizpDbq6So?=
+ =?us-ascii?Q?0NR2NTMhSf789c+aWR6cMuAev5fd00nO8sowIDdK+oOWAjm8a37VpnCK8FH8?=
+ =?us-ascii?Q?MPYsADODdpAxXXNfHIAsbgG5GDbsY067afW9EG7ZSjHCfHe6kFRQ4icCwbjE?=
+ =?us-ascii?Q?6owIFtyi6sezKKottn4xn6AqIwVsUZXQsF5QAA2AmFaRoK1VDvoIMAW7s6FZ?=
+ =?us-ascii?Q?MuvcP+LpWJ366uFChJKjqMKikd1vIbN++BmylqPD5/n4kykNwU2soDhLl0ds?=
+ =?us-ascii?Q?Rzmd7QkxorHwaQtiw1E5z1nVcoDj6/elGjPmQb9DGKSNzDSMGNBK9AMaFcNy?=
+ =?us-ascii?Q?38spVuf1i5ZZbxuQ7qasVi683d0SolGnzso39Q7d316r8o4pKSEfFJGvhBmH?=
+ =?us-ascii?Q?XPsaXcv0OZ8T9DnZiN33brXJpXwDtGCO5HfDshIG/fQ9LodpAkh2PHURYfYy?=
+ =?us-ascii?Q?lhJG05T6pmAurot+y/XGDCcMLRWMoG+TUHPnUjjvRX92QJa8NEV/WWTiQfbj?=
+ =?us-ascii?Q?6tkdZc4ORq2bBzUGJE3A+Bb5fpwC8EfbepoedTo9W63yXaEXa/oTtJr71D40?=
+ =?us-ascii?Q?VI/IaEGha8XKxMmrTFmGfGn7JfomXbUgMHHBFmyhn4DhH6pOPjb4j/veFowp?=
+ =?us-ascii?Q?4eTxdVBMT41bIiM1Q+FYhYDUIF6EOlaCDHqJ61/PZQygmwHXymPW+boGIeLK?=
+ =?us-ascii?Q?FGk12Nfarl7aHuI5wJzAuFNKuA1vpb2GIqU3qXD9jPcfS8SH082GfGtLzJvQ?=
+ =?us-ascii?Q?QAr7h7qkpuzWEcM8nuf7pV7vI+aBHjvLZpXcjksuc8VVDWR5itmL6F9h0NVD?=
+ =?us-ascii?Q?v/lRgO4Im1V+ecMQ+XPaZ2g=3D?=
 X-OriginatorOrg: renesas.com
 X-MS-Exchange-CrossTenant-Network-Message-Id: 
- bb47a454-aecd-4af9-0973-08dc52bbf5fc
+ ebb0df50-bdf7-4393-ce5f-08dc52bbfa89
 X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB10914.jpnprd01.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Apr 2024 02:24:02.0059
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Apr 2024 02:24:09.6563
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
 X-MS-Exchange-CrossTenant-UserPrincipalName: 
- SCwuSAIdSSiDIw+qwGKnRvfEJBcswl6FAzoN1vMkEVMl8nW9gAdw6Oj482braUM2rvinI6LTdFLzhDaBXhqGe+3/EvLkaznL84I078Rv9OL+SOfp3obH7DdfOJgNHHkH
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3PR01MB5959
-Message-ID-Hash: 2OJD33J3ASS6X4QSUYL55G7QTXEH73UD
-X-Message-ID-Hash: 2OJD33J3ASS6X4QSUYL55G7QTXEH73UD
+ oZZAglIoY5K+hfjM0ZjZwpb3ugr/7DauI3q/tVtpdn9INVnJHIyZTlB1OPY9Q9sg9FiKBYwtsTJJeLZYtR5EFoL7vV4bOrgnJEE8P6Xl7ASxPf9lHNP6p0KCu/AtQRZx
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY3PR01MB11608
+Message-ID-Hash: 5FA4X4GR25XSVMHJSRFUFETJCI64IHSK
+X-Message-ID-Hash: 5FA4X4GR25XSVMHJSRFUFETJCI64IHSK
 X-MailFrom: kuninori.morimoto.gx@renesas.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -147,7 +147,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2OJD33J3ASS6X4QSUYL55G7QTXEH73UD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5FA4X4GR25XSVMHJSRFUFETJCI64IHSK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -156,232 +156,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-All SoC has reg-name, no need to support getting resource from ID
-any more. Remove it. To get physical address for DMA settings,
-it still need to know the index, but it is no longer fixed.
-This patch tidyup it.
+Renesas Sound driver is using rsnd_is_genX() macro to handling
+difference. We can use "grep rsnd_is_gen" to find-out difference for
+each SoC except rsnd_is_e3(). Let's put same rule for E3 as well.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/sh/rcar/cmd.c  |  2 +-
- sound/soc/sh/rcar/ctu.c  |  2 +-
- sound/soc/sh/rcar/dma.c  |  6 +++---
- sound/soc/sh/rcar/dvc.c  |  2 +-
- sound/soc/sh/rcar/gen.c  | 22 ++++++++++------------
- sound/soc/sh/rcar/mix.c  |  2 +-
- sound/soc/sh/rcar/rsnd.h | 19 +++++--------------
- sound/soc/sh/rcar/src.c  |  6 +++---
- sound/soc/sh/rcar/ssi.c  |  2 +-
- sound/soc/sh/rcar/ssiu.c |  2 +-
- 10 files changed, 27 insertions(+), 38 deletions(-)
+ sound/soc/sh/rcar/rsnd.h | 2 +-
+ sound/soc/sh/rcar/src.c  | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/sh/rcar/cmd.c b/sound/soc/sh/rcar/cmd.c
-index 329e6ab1b222..ec086d8e4d44 100644
---- a/sound/soc/sh/rcar/cmd.c
-+++ b/sound/soc/sh/rcar/cmd.c
-@@ -119,7 +119,7 @@ static void rsnd_cmd_debug_info(struct seq_file *m,
- 				struct rsnd_dai_stream *io,
- 				struct rsnd_mod *mod)
- {
--	rsnd_debugfs_mod_reg_show(m, mod, RSND_GEN2_SCU,
-+	rsnd_debugfs_mod_reg_show(m, mod, RSND_BASE_SCU,
- 				  0x180 + rsnd_mod_id_raw(mod) * 0x20, 0x30);
- }
- #define DEBUG_INFO .debug_info = rsnd_cmd_debug_info
-diff --git a/sound/soc/sh/rcar/ctu.c b/sound/soc/sh/rcar/ctu.c
-index e39eb2ac7e95..a35fc5ef8770 100644
---- a/sound/soc/sh/rcar/ctu.c
-+++ b/sound/soc/sh/rcar/ctu.c
-@@ -284,7 +284,7 @@ static void rsnd_ctu_debug_info(struct seq_file *m,
- 				struct rsnd_dai_stream *io,
- 				struct rsnd_mod *mod)
- {
--	rsnd_debugfs_mod_reg_show(m, mod, RSND_GEN2_SCU,
-+	rsnd_debugfs_mod_reg_show(m, mod, RSND_BASE_SCU,
- 				  0x500 + rsnd_mod_id_raw(mod) * 0x100, 0x100);
- }
- #define DEBUG_INFO .debug_info = rsnd_ctu_debug_info
-diff --git a/sound/soc/sh/rcar/dma.c b/sound/soc/sh/rcar/dma.c
-index 1c494e521463..7b499eee5080 100644
---- a/sound/soc/sh/rcar/dma.c
-+++ b/sound/soc/sh/rcar/dma.c
-@@ -585,8 +585,8 @@ rsnd_gen2_dma_addr(struct rsnd_dai_stream *io,
- {
- 	struct rsnd_priv *priv = rsnd_io_to_priv(io);
- 	struct device *dev = rsnd_priv_to_dev(priv);
--	phys_addr_t ssi_reg = rsnd_gen_get_phy_addr(priv, RSND_GEN2_SSI);
--	phys_addr_t src_reg = rsnd_gen_get_phy_addr(priv, RSND_GEN2_SCU);
-+	phys_addr_t ssi_reg = rsnd_gen_get_phy_addr(priv, RSND_BASE_SSI);
-+	phys_addr_t src_reg = rsnd_gen_get_phy_addr(priv, RSND_BASE_SCU);
- 	int is_ssi = !!(rsnd_io_to_mod_ssi(io) == mod) ||
- 		     !!(rsnd_io_to_mod_ssiu(io) == mod);
- 	int use_src = !!rsnd_io_to_mod_src(io);
-@@ -666,7 +666,7 @@ rsnd_gen4_dma_addr(struct rsnd_dai_stream *io, struct rsnd_mod *mod,
- 		   int is_play, int is_from)
- {
- 	struct rsnd_priv *priv = rsnd_io_to_priv(io);
--	phys_addr_t addr = rsnd_gen_get_phy_addr(priv, RSND_GEN4_SDMC);
-+	phys_addr_t addr = rsnd_gen_get_phy_addr(priv, RSND_BASE_SDMC);
- 	int id = rsnd_mod_id(mod);
- 	int busif = rsnd_mod_id_sub(mod);
- 
-diff --git a/sound/soc/sh/rcar/dvc.c b/sound/soc/sh/rcar/dvc.c
-index 16befcbc312c..f349d6ab9fe5 100644
---- a/sound/soc/sh/rcar/dvc.c
-+++ b/sound/soc/sh/rcar/dvc.c
-@@ -294,7 +294,7 @@ static void rsnd_dvc_debug_info(struct seq_file *m,
- 				struct rsnd_dai_stream *io,
- 				struct rsnd_mod *mod)
- {
--	rsnd_debugfs_mod_reg_show(m, mod, RSND_GEN2_SCU,
-+	rsnd_debugfs_mod_reg_show(m, mod, RSND_BASE_SCU,
- 				  0xe00 + rsnd_mod_id(mod) * 0x100, 0x60);
- }
- #define DEBUG_INFO .debug_info = rsnd_dvc_debug_info
-diff --git a/sound/soc/sh/rcar/gen.c b/sound/soc/sh/rcar/gen.c
-index e566712e5234..d1f20cde66be 100644
---- a/sound/soc/sh/rcar/gen.c
-+++ b/sound/soc/sh/rcar/gen.c
-@@ -177,8 +177,6 @@ static int _rsnd_gen_regmap_init(struct rsnd_priv *priv,
- 	regc.name = name;
- 
- 	res = platform_get_resource_byname(pdev, IORESOURCE_MEM, name);
--	if (!res)
--		res = platform_get_resource(pdev, IORESOURCE_MEM, reg_id);
- 	if (!res)
- 		return -ENODEV;
- 
-@@ -425,10 +423,10 @@ static int rsnd_gen4_probe(struct rsnd_priv *priv)
- 	 * ssiu: SSIU0
- 	 * ssi : SSI0
- 	 */
--	int ret_ssiu = rsnd_gen_regmap_init(priv, 1, RSND_GEN4_SSIU, "ssiu", conf_common_ssiu);
--	int ret_ssi  = rsnd_gen_regmap_init(priv, 1, RSND_GEN4_SSI,  "ssi",  conf_common_ssi);
--	int ret_adg  = rsnd_gen_regmap_init(priv, 1, RSND_GEN4_ADG,  "adg",  conf_common_adg);
--	int ret_sdmc = rsnd_gen_regmap_init(priv, 1, RSND_GEN4_SDMC, "sdmc", conf_null);
-+	int ret_ssiu = rsnd_gen_regmap_init(priv, 1, RSND_BASE_SSIU, "ssiu", conf_common_ssiu);
-+	int ret_ssi  = rsnd_gen_regmap_init(priv, 1, RSND_BASE_SSI,  "ssi",  conf_common_ssi);
-+	int ret_adg  = rsnd_gen_regmap_init(priv, 1, RSND_BASE_ADG,  "adg",  conf_common_adg);
-+	int ret_sdmc = rsnd_gen_regmap_init(priv, 1, RSND_BASE_SDMC, "sdmc", conf_null);
- 
- 	return ret_adg | ret_ssiu | ret_ssi | ret_sdmc;
- }
-@@ -443,10 +441,10 @@ static int rsnd_gen2_probe(struct rsnd_priv *priv)
- 	 * ssiu: SSIU0 - SSIU9
- 	 * scu : SRC0  - SRC9 etc
- 	 */
--	int ret_ssi  = rsnd_gen_regmap_init(priv, 10, RSND_GEN2_SSI,  "ssi",  conf_common_ssi);
--	int ret_ssiu = rsnd_gen_regmap_init(priv, 10, RSND_GEN2_SSIU, "ssiu", conf_common_ssiu);
--	int ret_scu  = rsnd_gen_regmap_init(priv, 10, RSND_GEN2_SCU,  "scu",  conf_common_scu);
--	int ret_adg  = rsnd_gen_regmap_init(priv,  1, RSND_GEN2_ADG,  "adg",  conf_common_adg);
-+	int ret_ssi  = rsnd_gen_regmap_init(priv, 10, RSND_BASE_SSI,  "ssi",  conf_common_ssi);
-+	int ret_ssiu = rsnd_gen_regmap_init(priv, 10, RSND_BASE_SSIU, "ssiu", conf_common_ssiu);
-+	int ret_scu  = rsnd_gen_regmap_init(priv, 10, RSND_BASE_SCU,  "scu",  conf_common_scu);
-+	int ret_adg  = rsnd_gen_regmap_init(priv,  1, RSND_BASE_ADG,  "adg",  conf_common_adg);
- 
- 	return ret_ssi | ret_ssiu | ret_scu | ret_adg;
- }
-@@ -460,8 +458,8 @@ static int rsnd_gen1_probe(struct rsnd_priv *priv)
- 	/*
- 	 * ssi : SSI0 - SSI8
- 	 */
--	int ret_ssi  = rsnd_gen_regmap_init(priv, 9, RSND_GEN1_SSI, "ssi", conf_common_ssi);
--	int ret_adg  = rsnd_gen_regmap_init(priv, 1, RSND_GEN1_ADG, "adg", conf_common_adg);
-+	int ret_ssi  = rsnd_gen_regmap_init(priv, 9, RSND_BASE_SSI, "ssi", conf_common_ssi);
-+	int ret_adg  = rsnd_gen_regmap_init(priv, 1, RSND_BASE_ADG, "adg", conf_common_adg);
- 
- 	return ret_adg | ret_ssi;
- }
-diff --git a/sound/soc/sh/rcar/mix.c b/sound/soc/sh/rcar/mix.c
-index 1de0e085804c..e724103a2e8d 100644
---- a/sound/soc/sh/rcar/mix.c
-+++ b/sound/soc/sh/rcar/mix.c
-@@ -259,7 +259,7 @@ static void rsnd_mix_debug_info(struct seq_file *m,
- 				struct rsnd_dai_stream *io,
- 				struct rsnd_mod *mod)
- {
--	rsnd_debugfs_mod_reg_show(m, mod, RSND_GEN2_SCU,
-+	rsnd_debugfs_mod_reg_show(m, mod, RSND_BASE_SCU,
- 				  0xd00 + rsnd_mod_id(mod) * 0x40, 0x30);
- }
- #define DEBUG_INFO .debug_info = rsnd_mix_debug_info
 diff --git a/sound/soc/sh/rcar/rsnd.h b/sound/soc/sh/rcar/rsnd.h
-index e063286cc328..45cf21320280 100644
+index 45cf21320280..ff294aa2d640 100644
 --- a/sound/soc/sh/rcar/rsnd.h
 +++ b/sound/soc/sh/rcar/rsnd.h
-@@ -20,20 +20,11 @@
- #include <sound/soc.h>
- #include <sound/pcm_params.h>
+@@ -703,7 +703,7 @@ struct rsnd_priv {
+ #define rsnd_is_gen2(priv)	(((priv)->flags & RSND_GEN_MASK) == RSND_GEN2)
+ #define rsnd_is_gen3(priv)	(((priv)->flags & RSND_GEN_MASK) == RSND_GEN3)
+ #define rsnd_is_gen4(priv)	(((priv)->flags & RSND_GEN_MASK) == RSND_GEN4)
+-#define rsnd_is_e3(priv)	(((priv)->flags & \
++#define rsnd_is_gen3_e3(priv)	(((priv)->flags & \
+ 					(RSND_GEN_MASK | RSND_SOC_MASK)) == \
+ 					(RSND_GEN3 | RSND_SOC_E))
  
--#define RSND_GEN1_SRU	0
--#define RSND_GEN1_ADG	1
--#define RSND_GEN1_SSI	2
--
--#define RSND_GEN2_SCU	0
--#define RSND_GEN2_ADG	1
--#define RSND_GEN2_SSIU	2
--#define RSND_GEN2_SSI	3
--
--#define RSND_GEN4_ADG	0
--#define RSND_GEN4_SSIU	1
--#define RSND_GEN4_SSI	2
--#define RSND_GEN4_SDMC	3
--
-+#define RSND_BASE_ADG	0
-+#define RSND_BASE_SSI	1
-+#define RSND_BASE_SSIU	2
-+#define RSND_BASE_SCU	3	// for Gen2/Gen3
-+#define RSND_BASE_SDMC	3	// for Gen4	reuse
- #define RSND_BASE_MAX	4
- 
- /*
 diff --git a/sound/soc/sh/rcar/src.c b/sound/soc/sh/rcar/src.c
-index 3241a1bdc9ea..8822d50b6d86 100644
+index 8822d50b6d86..431e6d195b09 100644
 --- a/sound/soc/sh/rcar/src.c
 +++ b/sound/soc/sh/rcar/src.c
-@@ -606,13 +606,13 @@ static void rsnd_src_debug_info(struct seq_file *m,
- 				struct rsnd_dai_stream *io,
- 				struct rsnd_mod *mod)
- {
--	rsnd_debugfs_mod_reg_show(m, mod, RSND_GEN2_SCU,
-+	rsnd_debugfs_mod_reg_show(m, mod, RSND_BASE_SCU,
- 				  rsnd_mod_id(mod) * 0x20, 0x20);
- 	seq_puts(m, "\n");
--	rsnd_debugfs_mod_reg_show(m, mod, RSND_GEN2_SCU,
-+	rsnd_debugfs_mod_reg_show(m, mod, RSND_BASE_SCU,
- 				  0x1c0, 0x20);
- 	seq_puts(m, "\n");
--	rsnd_debugfs_mod_reg_show(m, mod, RSND_GEN2_SCU,
-+	rsnd_debugfs_mod_reg_show(m, mod, RSND_BASE_SCU,
- 				  0x200 + rsnd_mod_id(mod) * 0x40, 0x40);
- }
- #define DEBUG_INFO .debug_info = rsnd_src_debug_info
-diff --git a/sound/soc/sh/rcar/ssi.c b/sound/soc/sh/rcar/ssi.c
-index 0a46aa1975fa..8d2a86383ae0 100644
---- a/sound/soc/sh/rcar/ssi.c
-+++ b/sound/soc/sh/rcar/ssi.c
-@@ -1049,7 +1049,7 @@ static void rsnd_ssi_debug_info(struct seq_file *m,
- 	seq_printf(m, "chan:            %d\n",		ssi->chan);
- 	seq_printf(m, "user:            %d\n",		ssi->usrcnt);
- 
--	rsnd_debugfs_mod_reg_show(m, mod, RSND_GEN2_SSI,
-+	rsnd_debugfs_mod_reg_show(m, mod, RSND_BASE_SSI,
- 				  rsnd_mod_id(mod) * 0x40, 0x40);
- }
- #define DEBUG_INFO .debug_info = rsnd_ssi_debug_info
-diff --git a/sound/soc/sh/rcar/ssiu.c b/sound/soc/sh/rcar/ssiu.c
-index 17bd8cc86dd0..665e8b2db579 100644
---- a/sound/soc/sh/rcar/ssiu.c
-+++ b/sound/soc/sh/rcar/ssiu.c
-@@ -413,7 +413,7 @@ static void rsnd_ssiu_debug_info(struct seq_file *m,
- 				 struct rsnd_dai_stream *io,
- 				struct rsnd_mod *mod)
- {
--	rsnd_debugfs_mod_reg_show(m, mod, RSND_GEN2_SSIU,
-+	rsnd_debugfs_mod_reg_show(m, mod, RSND_BASE_SSIU,
- 				  rsnd_mod_id(mod) * 0x80, 0x80);
- }
- #define DEBUG_INFO .debug_info = rsnd_ssiu_debug_info
+@@ -310,7 +310,7 @@ static void rsnd_src_set_convert_rate(struct rsnd_dai_stream *io,
+ 	/*
+ 	 * E3 need to overwrite
+ 	 */
+-	if (rsnd_is_e3(priv))
++	if (rsnd_is_gen3_e3(priv))
+ 		switch (rsnd_mod_id(mod)) {
+ 		case 0:
+ 		case 4:
 -- 
 2.25.1
 

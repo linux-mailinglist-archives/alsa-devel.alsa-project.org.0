@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3236289AF1C
-	for <lists+alsa-devel@lfdr.de>; Sun,  7 Apr 2024 09:21:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DBD389AF1F
+	for <lists+alsa-devel@lfdr.de>; Sun,  7 Apr 2024 09:22:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CFB8821E2;
-	Sun,  7 Apr 2024 09:21:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CFB8821E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id A2ACB2BC4;
+	Sun,  7 Apr 2024 09:21:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A2ACB2BC4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712474506;
-	bh=bmmXl9802fqjQBn/Jkyn+cPSqGGb+PgZV0INCHN8xQs=;
+	s=default; t=1712474520;
+	bh=PbCYgrPVbVOdhV1jC/4KII4virJ8WGK/ifPusT5Ym9k=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=jfAQFVEt79aRZTm0Pj2x5sb2/BOODnrLsKZEkexg3H3/BPUO2kTHa3cLboM7wUQm6
-	 TJHz5nvHdbT42Hh8WFqcpn9HixeJwDDJKvFdPopZ5N5R2amg9sijuArxaNcLLdUHyP
-	 0TxCsWiQFi8BBi9wcnPSTT1j7YwCnDcZ6gLrGJM8=
+	b=aMxPAICfoGR84f8GJxLBus4E7Ugj7O/dJODdAkaxaK4wqC21cx3V6GwY6jWIKMNbZ
+	 Te2lKxC43Zft7LTgQE8ICa9CJokoiS3i5BbdjzYAka26+zo3RbdWCW+IeBimKwzKrr
+	 HPDvnDw4JulZ5/FYimJ9akL9mte3b0+9EfIvzZwo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A09FEF80C20; Sun,  7 Apr 2024 09:17:50 +0200 (CEST)
+	id B0D85F80CB3; Sun,  7 Apr 2024 09:17:53 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1BDD7F808C7;
-	Sun,  7 Apr 2024 09:17:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A8637F80C7E;
+	Sun,  7 Apr 2024 09:17:52 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C28DFF8020D; Tue,  2 Apr 2024 22:34:17 +0200 (CEST)
+	id 7C7FFF8020D; Tue,  2 Apr 2024 22:34:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,44 +33,44 @@ X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C4935F8015B
-	for <alsa-devel@alsa-project.org>; Tue,  2 Apr 2024 22:34:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4935F8015B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1FD3CF8015B
+	for <alsa-devel@alsa-project.org>; Tue,  2 Apr 2024 22:34:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1FD3CF8015B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256
- header.s=mimecast20190719 header.b=ULI9Hm+I
+ header.s=mimecast20190719 header.b=f6U0DyP5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1712090054;
+	s=mimecast20190719; t=1712090084;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=k+RL3GcJX3cDss5q+sY+fk2hjsigjZNfwAD2FrDBS7E=;
-	b=ULI9Hm+IqXzFbANvx9Z+1howuSHxvg1QKHLzPWmq4/wERNHFjhUIhmzZGQq0U1IL4rbUzX
-	Hdb5V37Mn9ELi4v1UGs2VJR++LD6uS0/wxplGZDUs/IxaIzjuzZlOjnL/P6mXOyAQ9dvZZ
-	NmdYpI0HFEW/In0n9PAc0Xzwmj05jhk=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-296-uo-AESLwMNe1F3Y3OnjEcw-1; Tue, 02 Apr 2024 16:34:11 -0400
-X-MC-Unique: uo-AESLwMNe1F3Y3OnjEcw-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+	bh=OmliKS7IXk0y+y9ssPc7arVQxLqF15p8TNQCcmbmlpA=;
+	b=f6U0DyP5RTDuDa4zavUrwkOVaS3it37P0oHjHsWeG1Ly6Lg0TSGAlC1XgialT9oJ1I0FwU
+	UlaoJD/wMnY2JW+k4Lj4MMY/LgttSBQxtUE7XhRN7Bfk6XJ9qH8xnbkA6zHjFhUMGNrPjz
+	XepIrotzXv36o1KlWTgPU9830qQy3o4=
+Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-637-M7s17IMyP86NjAj3PJZL_Q-1; Tue,
+ 02 Apr 2024 16:34:41 -0400
+X-MC-Unique: M7s17IMyP86NjAj3PJZL_Q-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D6F238007A1;
-	Tue,  2 Apr 2024 20:34:08 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BEB671C29EA4;
+	Tue,  2 Apr 2024 20:34:38 +0000 (UTC)
 Received: from localhost (unknown [10.39.193.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 9B5012166B31;
-	Tue,  2 Apr 2024 20:34:07 +0000 (UTC)
-Date: Tue, 2 Apr 2024 16:34:02 -0400
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 6A6D640C6DAE;
+	Tue,  2 Apr 2024 20:34:37 +0000 (UTC)
+Date: Tue, 2 Apr 2024 16:34:18 -0400
 From: Stefan Hajnoczi <stefanha@redhat.com>
 To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Cc: "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>,
@@ -135,16 +135,16 @@ Cc: "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>,
 	nvdimm@lists.linux.dev, linux-remoteproc@vger.kernel.org,
 	linux-scsi@vger.kernel.org, linux-fsdevel@vger.kernel.org,
 	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org
-Subject: Re: [PATCH v2 23/25] scsi: virtio: drop owner assignment
-Message-ID: <20240402203402.GF2507314@fedora>
+Subject: Re: [PATCH v2 24/25] fuse: virtio: drop owner assignment
+Message-ID: <20240402203418.GG2507314@fedora>
 References: <20240331-module-owner-virtio-v2-0-98f04bfaf46a@linaro.org>
- <20240331-module-owner-virtio-v2-23-98f04bfaf46a@linaro.org>
+ <20240331-module-owner-virtio-v2-24-98f04bfaf46a@linaro.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="SdnH/2DvDGR9ROwI"
+	protocol="application/pgp-signature"; boundary="y2TTKZujScqhsi/4"
 Content-Disposition: inline
-In-Reply-To: <20240331-module-owner-virtio-v2-23-98f04bfaf46a@linaro.org>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.6
+In-Reply-To: <20240331-module-owner-virtio-v2-24-98f04bfaf46a@linaro.org>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.2
 X-MailFrom: stefanha@redhat.com
 X-Mailman-Rule-Hits: max-recipients
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
@@ -153,15 +153,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
  suspicious-header
-Message-ID-Hash: YVOP33ZQWHDCWGKKJE2EAGLOSKF5ATVB
-X-Message-ID-Hash: YVOP33ZQWHDCWGKKJE2EAGLOSKF5ATVB
-X-Mailman-Approved-At: Sun, 07 Apr 2024 07:14:49 +0000
+Message-ID-Hash: MP426REXPHKZ2AEGV3CI527OPZ5DQ3QO
+X-Message-ID-Hash: MP426REXPHKZ2AEGV3CI527OPZ5DQ3QO
+X-Mailman-Approved-At: Sun, 07 Apr 2024 07:15:19 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YVOP33ZQWHDCWGKKJE2EAGLOSKF5ATVB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MP426REXPHKZ2AEGV3CI527OPZ5DQ3QO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -171,12 +171,12 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---SdnH/2DvDGR9ROwI
+--y2TTKZujScqhsi/4
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Sun, Mar 31, 2024 at 10:44:10AM +0200, Krzysztof Kozlowski wrote:
+On Sun, Mar 31, 2024 at 10:44:11AM +0200, Krzysztof Kozlowski wrote:
 > virtio core already sets the .owner, so driver does not need to.
 >=20
 > Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
@@ -185,25 +185,25 @@ On Sun, Mar 31, 2024 at 10:44:10AM +0200, Krzysztof Kozlowski wrote:
 >=20
 > Depends on the first patch.
 > ---
->  drivers/scsi/virtio_scsi.c | 1 -
+>  fs/fuse/virtio_fs.c | 1 -
 >  1 file changed, 1 deletion(-)
 
 Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
 
---SdnH/2DvDGR9ROwI
+--y2TTKZujScqhsi/4
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmYMa7oACgkQnKSrs4Gr
-c8i1eAf+MLJRFV0ReS0TcAxQ+rR1jKUab1SBLeUTszPuKgXc/iozA1gMDlecO6Va
-kcBlhSRh2WIBmWmb/Zixp1fhkCo2yQjvOS2t4x6po9gH4YxAhUGTfsCGVK6TDTeI
-MxEodu79iPW81/dZ0Sz4XxNKTWN0UKwdDDxivNVfAjGKRX7Ug7ojT1bY04/UH+B7
-M6G/LYvcqIQPuU90RkeZYDxV8odWVMnyresdB4gVZMZ2J91//XRuJBl294JTil+P
-dQLKeFSnoXA002bIy+vlZUhxz8fANlOWqe5+TedLa/S/1FB+cDjQY6plBLIIEYSs
-0XHoSaVTwf2D+3pavZKFIL1sIWbMNw==
-=BxEA
+iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmYMa8oACgkQnKSrs4Gr
+c8hVnAf/cA3xbyK70jAgkZV9EtimcENA8Vicjc5wwuE2Vt1WSOZUWtD+a8KtqIDS
+ICvCIk7XlMHoB7BYaP8qlXQ0kjkARmT7hwEQyqEDL/MzEgyKhChus/pV8g6Cvywl
+OdPkT57aujxEBU5+l5t8TnP2I8CziPoDf0uizIpf5r2pZstP0q/mRVNFevjTDeSu
+L+LjxHElpmAVApGciiGOH+cpPYuKAejObzy5z92m7jZgh/LfHtcK29bhoWwNTL1l
+e6ryz/B2YrpyrVdDjqUD1iJ2WR2qxEUAI3moU5ySGqG/w5Lg0+ji+9TlCE46xoQ/
+U1ALdKDyNFUB1iRXdA00oKhEe6MUOw==
+=AQF3
 -----END PGP SIGNATURE-----
 
---SdnH/2DvDGR9ROwI--
+--y2TTKZujScqhsi/4--
 

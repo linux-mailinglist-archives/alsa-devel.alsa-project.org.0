@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF1AB896A4B
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 Apr 2024 11:16:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46824896A46
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 Apr 2024 11:16:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 739B12C92;
-	Wed,  3 Apr 2024 11:16:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 739B12C92
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3EB962C5E;
+	Wed,  3 Apr 2024 11:15:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3EB962C5E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712135792;
-	bh=TIYDuamY99Xghx3cSn4teoxVFT0wk7VjYsDuL74bV9c=;
+	s=default; t=1712135765;
+	bh=68Ebllns87Qtj6T741kWqjemPHFqRDgQfjhIbBcWx+k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=TkxTch8rsA6KWWEjHV2QXaxi/PIB1ZFXkXBPoQZ7t7Po5yTZhGmj3nhj2ryvDAYPs
-	 yxHbdc/PtPiFhs74GvfPhXzhOUUsy8S4/2QsTWLVIg+3QIu8tzt8Y0WYIXIgr/GY+A
-	 BDnh0RGytMyR9YHn4X3RWb66e7Yk5yErSeBASP2Q=
+	b=fwV2vYwga0PtP8fadQ8e8OTEpOUWHfqoXvc7qWU2sXW7yZCab9+Wq5VnnAqlTi/IX
+	 fkLm6WIiL4bAZz/NBGprLeRPmywifBAOvy8764iddxdP5rsbsSobLhhIGy8gbjFHZr
+	 VSs6lK48HlMdhHOH6Wse5vOl+/0hYmGrN2xFFfm0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F1F48F80616; Wed,  3 Apr 2024 11:15:24 +0200 (CEST)
+	id 4C5A7F805C9; Wed,  3 Apr 2024 11:15:11 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5C206F805F9;
-	Wed,  3 Apr 2024 11:15:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 776D0F805CB;
+	Wed,  3 Apr 2024 11:15:10 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8660AF805FC; Wed,  3 Apr 2024 11:15:18 +0200 (CEST)
+	id 0A4CAF80238; Wed,  3 Apr 2024 11:15:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,41 +35,41 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3F7EBF8016E
-	for <alsa-devel@alsa-project.org>; Wed,  3 Apr 2024 11:14:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F7EBF8016E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 81C80F8020D
+	for <alsa-devel@alsa-project.org>; Wed,  3 Apr 2024 11:14:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81C80F8020D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=Vq7aXlX+
+ header.s=Intel header.b=T9LJPwpU
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1712135698; x=1743671698;
+  t=1712135700; x=1743671700;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=TIYDuamY99Xghx3cSn4teoxVFT0wk7VjYsDuL74bV9c=;
-  b=Vq7aXlX+oy9ZJeAGjL8Osgd2/YhVjZBdC7s3mWLA7K02lQWkxzI+01a7
-   vxFNh8hF3Ws08pmP2kne6iACUFH4ZNH0secT0nz4dkNv8laogz8gJRcTK
-   121ZpIqMzdD48jKMx/CcB/Y9ZPRyCNL7ZKdqDfYEVYBC8qiRhpkuR7kBu
-   9awumC7xW3QjKN53xPYGJ2UlqMcyK6mROk+daENFSMrtVoFPPDDBCKLVL
-   hR9g0NDwzvMXxhC7PSn5w208MBQFP82zoBigUbaLe/BxGf2bp0rNLIurY
-   ajKpClTuv5hN9fMgr0QIeGgqmtdGS+Q62TGQqBlmnXzWc1WTsesEVyarA
-   A==;
-X-CSE-ConnectionGUID: OjMcnQxmQPaDMd5Ug6VLDA==
-X-CSE-MsgGUID: s6rVGLHQR9yDsEFal04I7w==
-X-IronPort-AV: E=McAfee;i="6600,9927,11032"; a="10322549"
+  bh=68Ebllns87Qtj6T741kWqjemPHFqRDgQfjhIbBcWx+k=;
+  b=T9LJPwpUcFs9fbWTkR5Q0XZMwlkN66oAS7sdY42b6s/o/qA7teHQYDzd
+   JPQ7ezeLojr17/o4ehl1DT8ulr7TP3sW65anmKKD/LN6We1j7rsQxzmXx
+   n1vQ4iXDusRWIbaK80rS9wmCn0PBBgVCkq0fRcYo1+ii/F64B6UaWdA3r
+   na66C71ZZPQERbZmcokX/TIRPgdjy1dX/IlajAL8qXkyiicUG/D3PH4Fd
+   6reRWKc/oCBHCeydrmAZXZ6BAiXScnECkMF2/7uDRVVhuGtXPKIJFMiN+
+   396Kufae55MTeTv8SlPPIydp52DTVdoVpwf4VzYimkFCsKe7vNcdGjkkO
+   g==;
+X-CSE-ConnectionGUID: kz3D9ZXmQp+sQTbhXLwYPg==
+X-CSE-MsgGUID: 60V7q3C7Q8mj8i4fZ58hiA==
+X-IronPort-AV: E=McAfee;i="6600,9927,11032"; a="10322557"
 X-IronPort-AV: E=Sophos;i="6.07,177,1708416000";
-   d="scan'208";a="10322549"
+   d="scan'208";a="10322557"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
   by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Apr 2024 02:14:55 -0700
-X-CSE-ConnectionGUID: M578HhvySnSeiRM4KwNtsA==
-X-CSE-MsgGUID: QuEuiGDRQBeFMZu0UVl3jw==
+ 03 Apr 2024 02:14:58 -0700
+X-CSE-ConnectionGUID: eQ90Fz6TQV+raAy9sMq6WQ==
+X-CSE-MsgGUID: SxMmx1MCQd+b3UfP1LJWBw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.07,177,1708416000";
-   d="scan'208";a="18410501"
+   d="scan'208";a="18410506"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
-  by fmviesa006.fm.intel.com with ESMTP; 03 Apr 2024 02:14:53 -0700
+  by fmviesa006.fm.intel.com with ESMTP; 03 Apr 2024 02:14:55 -0700
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: broonie@kernel.org
 Cc: alsa-devel@alsa-project.org,
@@ -82,17 +82,17 @@ Cc: alsa-devel@alsa-project.org,
 	cujomalainey@chromium.org,
 	lmajczak@google.com,
 	Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: [PATCH 1/4] ASoC: Intel: Skylake: Remove soc-topology ABI v4 support
-Date: Wed,  3 Apr 2024 11:16:26 +0200
-Message-Id: <20240403091629.647267-2-cezary.rojewski@intel.com>
+Subject: [PATCH 2/4] ASoC: topology: Remove ABI v4 support
+Date: Wed,  3 Apr 2024 11:16:27 +0200
+Message-Id: <20240403091629.647267-3-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240403091629.647267-1-cezary.rojewski@intel.com>
 References: <20240403091629.647267-1-cezary.rojewski@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: NOXSHEURJHL2SAS2E7TYBUH2WM7K7PVJ
-X-Message-ID-Hash: NOXSHEURJHL2SAS2E7TYBUH2WM7K7PVJ
+Message-ID-Hash: E5KERZGJTCE5X44F7NFE5UXUMJKN3CWC
+X-Message-ID-Hash: E5KERZGJTCE5X44F7NFE5UXUMJKN3CWC
 X-MailFrom: cezary.rojewski@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -105,7 +105,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NOXSHEURJHL2SAS2E7TYBUH2WM7K7PVJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/E5KERZGJTCE5X44F7NFE5UXUMJKN3CWC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -114,287 +114,287 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The only known users are Chromebook configurations. Starting from
-kernel v5.4, all of them are making use of soc-topology ABI v5.
+There are no users of soc-topology ABI v4 since kernel v5.4 so remove
+all v4 -> v5 converters.
 
 Cc: Curtis Malainey <cujomalainey@chromium.org>
 Cc: Łukasz Majczak <lmajczak@google.com>
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- include/uapi/sound/skl-tplg-interface.h |  74 -----------
- sound/soc/intel/skylake/skl-topology.c  | 169 ------------------------
- 2 files changed, 243 deletions(-)
+ sound/soc/soc-topology.c | 210 +++------------------------------------
+ 1 file changed, 16 insertions(+), 194 deletions(-)
 
-diff --git a/include/uapi/sound/skl-tplg-interface.h b/include/uapi/sound/skl-tplg-interface.h
-index 4bf9c4f9add8..940c4269322b 100644
---- a/include/uapi/sound/skl-tplg-interface.h
-+++ b/include/uapi/sound/skl-tplg-interface.h
-@@ -165,78 +165,4 @@ enum skl_tuple_type {
- 	SKL_TYPE_DATA
- };
- 
--/* v4 configuration data */
--
--struct skl_dfw_v4_module_pin {
--	__u16 module_id;
--	__u16 instance_id;
--} __packed;
--
--struct skl_dfw_v4_module_fmt {
--	__u32 channels;
--	__u32 freq;
--	__u32 bit_depth;
--	__u32 valid_bit_depth;
--	__u32 ch_cfg;
--	__u32 interleaving_style;
--	__u32 sample_type;
--	__u32 ch_map;
--} __packed;
--
--struct skl_dfw_v4_module_caps {
--	__u32 set_params:2;
--	__u32 rsvd:30;
--	__u32 param_id;
--	__u32 caps_size;
--	__u32 caps[HDA_SST_CFG_MAX];
--} __packed;
--
--struct skl_dfw_v4_pipe {
--	__u8 pipe_id;
--	__u8 pipe_priority;
--	__u16 conn_type:4;
--	__u16 rsvd:4;
--	__u16 memory_pages:8;
--} __packed;
--
--struct skl_dfw_v4_module {
--	char uuid[SKL_UUID_STR_SZ];
--
--	__u16 module_id;
--	__u16 instance_id;
--	__u32 max_mcps;
--	__u32 mem_pages;
--	__u32 obs;
--	__u32 ibs;
--	__u32 vbus_id;
--
--	__u32 max_in_queue:8;
--	__u32 max_out_queue:8;
--	__u32 time_slot:8;
--	__u32 core_id:4;
--	__u32 rsvd1:4;
--
--	__u32 module_type:8;
--	__u32 conn_type:4;
--	__u32 dev_type:4;
--	__u32 hw_conn_type:4;
--	__u32 rsvd2:12;
--
--	__u32 params_fixup:8;
--	__u32 converter:8;
--	__u32 input_pin_type:1;
--	__u32 output_pin_type:1;
--	__u32 is_dynamic_in_pin:1;
--	__u32 is_dynamic_out_pin:1;
--	__u32 is_loadable:1;
--	__u32 rsvd3:11;
--
--	struct skl_dfw_v4_pipe pipe;
--	struct skl_dfw_v4_module_fmt in_fmt[MAX_IN_QUEUE];
--	struct skl_dfw_v4_module_fmt out_fmt[MAX_OUT_QUEUE];
--	struct skl_dfw_v4_module_pin in_pin[MAX_IN_QUEUE];
--	struct skl_dfw_v4_module_pin out_pin[MAX_OUT_QUEUE];
--	struct skl_dfw_v4_module_caps caps;
--} __packed;
--
- #endif
-diff --git a/sound/soc/intel/skylake/skl-topology.c b/sound/soc/intel/skylake/skl-topology.c
-index 96cfebded072..e27f0fc3d897 100644
---- a/sound/soc/intel/skylake/skl-topology.c
-+++ b/sound/soc/intel/skylake/skl-topology.c
-@@ -2682,168 +2682,6 @@ static int skl_tplg_get_desc_blocks(struct device *dev,
- 	return -EINVAL;
+diff --git a/sound/soc/soc-topology.c b/sound/soc/soc-topology.c
+index fad9432a10f1..e73dc4e786ff 100644
+--- a/sound/soc/soc-topology.c
++++ b/sound/soc/soc-topology.c
+@@ -1768,75 +1768,6 @@ static int soc_tplg_pcm_create(struct soc_tplg *tplg,
+ 	return  soc_tplg_fe_link_create(tplg, pcm);
  }
  
--/* Functions to parse private data from configuration file format v4 */
+-/* copy stream caps from the old version 4 of source */
+-static void stream_caps_new_ver(struct snd_soc_tplg_stream_caps *dest,
+-				struct snd_soc_tplg_stream_caps_v4 *src)
+-{
+-	dest->size = cpu_to_le32(sizeof(*dest));
+-	memcpy(dest->name, src->name, SNDRV_CTL_ELEM_ID_NAME_MAXLEN);
+-	dest->formats = src->formats;
+-	dest->rates = src->rates;
+-	dest->rate_min = src->rate_min;
+-	dest->rate_max = src->rate_max;
+-	dest->channels_min = src->channels_min;
+-	dest->channels_max = src->channels_max;
+-	dest->periods_min = src->periods_min;
+-	dest->periods_max = src->periods_max;
+-	dest->period_size_min = src->period_size_min;
+-	dest->period_size_max = src->period_size_max;
+-	dest->buffer_size_min = src->buffer_size_min;
+-	dest->buffer_size_max = src->buffer_size_max;
+-}
 -
--/*
-- * Add pipeline from topology binary into driver pipeline list
+-/**
+- * pcm_new_ver - Create the new version of PCM from the old version.
+- * @tplg: topology context
+- * @src: older version of pcm as a source
+- * @pcm: latest version of pcm created from the source
 - *
-- * If already added we return that instance
-- * Otherwise we create a new instance and add into driver list
+- * Support from version 4. User should free the returned pcm manually.
 - */
--static int skl_tplg_add_pipe_v4(struct device *dev,
--			struct skl_module_cfg *mconfig, struct skl_dev *skl,
--			struct skl_dfw_v4_pipe *dfw_pipe)
+-static int pcm_new_ver(struct soc_tplg *tplg,
+-		       struct snd_soc_tplg_pcm *src,
+-		       struct snd_soc_tplg_pcm **pcm)
 -{
--	struct skl_pipeline *ppl;
--	struct skl_pipe *pipe;
--	struct skl_pipe_params *params;
+-	struct snd_soc_tplg_pcm *dest;
+-	struct snd_soc_tplg_pcm_v4 *src_v4;
+-	int i;
 -
--	list_for_each_entry(ppl, &skl->ppl_list, node) {
--		if (ppl->pipe->ppl_id == dfw_pipe->pipe_id) {
--			mconfig->pipe = ppl->pipe;
--			return 0;
--		}
+-	*pcm = NULL;
+-
+-	if (le32_to_cpu(src->size) != sizeof(*src_v4)) {
+-		dev_err(tplg->dev, "ASoC: invalid PCM size\n");
+-		return -EINVAL;
 -	}
 -
--	ppl = devm_kzalloc(dev, sizeof(*ppl), GFP_KERNEL);
--	if (!ppl)
+-	dev_warn(tplg->dev, "ASoC: old version of PCM\n");
+-	src_v4 = (struct snd_soc_tplg_pcm_v4 *)src;
+-	dest = kzalloc(sizeof(*dest), GFP_KERNEL);
+-	if (!dest)
 -		return -ENOMEM;
 -
--	pipe = devm_kzalloc(dev, sizeof(*pipe), GFP_KERNEL);
--	if (!pipe)
--		return -ENOMEM;
+-	dest->size = cpu_to_le32(sizeof(*dest)); /* size of latest abi version */
+-	memcpy(dest->pcm_name, src_v4->pcm_name, SNDRV_CTL_ELEM_ID_NAME_MAXLEN);
+-	memcpy(dest->dai_name, src_v4->dai_name, SNDRV_CTL_ELEM_ID_NAME_MAXLEN);
+-	dest->pcm_id = src_v4->pcm_id;
+-	dest->dai_id = src_v4->dai_id;
+-	dest->playback = src_v4->playback;
+-	dest->capture = src_v4->capture;
+-	dest->compress = src_v4->compress;
+-	dest->num_streams = src_v4->num_streams;
+-	for (i = 0; i < le32_to_cpu(dest->num_streams); i++)
+-		memcpy(&dest->stream[i], &src_v4->stream[i],
+-		       sizeof(struct snd_soc_tplg_stream));
 -
--	params = devm_kzalloc(dev, sizeof(*params), GFP_KERNEL);
--	if (!params)
--		return -ENOMEM;
+-	for (i = 0; i < 2; i++)
+-		stream_caps_new_ver(&dest->caps[i], &src_v4->caps[i]);
 -
--	pipe->ppl_id = dfw_pipe->pipe_id;
--	pipe->memory_pages = dfw_pipe->memory_pages;
--	pipe->pipe_priority = dfw_pipe->pipe_priority;
--	pipe->conn_type = dfw_pipe->conn_type;
--	pipe->state = SKL_PIPE_INVALID;
--	pipe->p_params = params;
--	INIT_LIST_HEAD(&pipe->w_list);
--
--	ppl->pipe = pipe;
--	list_add(&ppl->node, &skl->ppl_list);
--
--	mconfig->pipe = pipe;
--
+-	*pcm = dest;
 -	return 0;
 -}
 -
--static void skl_fill_module_pin_info_v4(struct skl_dfw_v4_module_pin *dfw_pin,
--					struct skl_module_pin *m_pin,
--					bool is_dynamic, int max_pin)
--{
--	int i;
--
--	for (i = 0; i < max_pin; i++) {
--		m_pin[i].id.module_id = dfw_pin[i].module_id;
--		m_pin[i].id.instance_id = dfw_pin[i].instance_id;
--		m_pin[i].in_use = false;
--		m_pin[i].is_dynamic = is_dynamic;
--		m_pin[i].pin_state = SKL_PIN_UNBIND;
--	}
--}
--
--static void skl_tplg_fill_fmt_v4(struct skl_module_pin_fmt *dst_fmt,
--				 struct skl_dfw_v4_module_fmt *src_fmt,
--				 int pins)
--{
--	int i;
--
--	for (i = 0; i < pins; i++) {
--		dst_fmt[i].fmt.channels  = src_fmt[i].channels;
--		dst_fmt[i].fmt.s_freq = src_fmt[i].freq;
--		dst_fmt[i].fmt.bit_depth = src_fmt[i].bit_depth;
--		dst_fmt[i].fmt.valid_bit_depth = src_fmt[i].valid_bit_depth;
--		dst_fmt[i].fmt.ch_cfg = src_fmt[i].ch_cfg;
--		dst_fmt[i].fmt.ch_map = src_fmt[i].ch_map;
--		dst_fmt[i].fmt.interleaving_style =
--						src_fmt[i].interleaving_style;
--		dst_fmt[i].fmt.sample_type = src_fmt[i].sample_type;
--	}
--}
--
--static int skl_tplg_get_pvt_data_v4(struct snd_soc_tplg_dapm_widget *tplg_w,
--				    struct skl_dev *skl, struct device *dev,
--				    struct skl_module_cfg *mconfig)
--{
--	struct skl_dfw_v4_module *dfw =
--				(struct skl_dfw_v4_module *)tplg_w->priv.data;
--	int ret;
--	int idx = mconfig->fmt_cfg_idx;
--
--	dev_dbg(dev, "Parsing Skylake v4 widget topology data\n");
--
--	ret = guid_parse(dfw->uuid, (guid_t *)mconfig->guid);
--	if (ret)
--		return ret;
--	mconfig->id.module_id = -1;
--	mconfig->id.instance_id = dfw->instance_id;
--	mconfig->module->resources[0].cpc = dfw->max_mcps / 1000;
--	mconfig->module->resources[0].ibs = dfw->ibs;
--	mconfig->module->resources[0].obs = dfw->obs;
--	mconfig->core_id = dfw->core_id;
--	mconfig->module->max_input_pins = dfw->max_in_queue;
--	mconfig->module->max_output_pins = dfw->max_out_queue;
--	mconfig->module->loadable = dfw->is_loadable;
--	skl_tplg_fill_fmt_v4(mconfig->module->formats[0].inputs, dfw->in_fmt,
--			     MAX_IN_QUEUE);
--	skl_tplg_fill_fmt_v4(mconfig->module->formats[0].outputs, dfw->out_fmt,
--			     MAX_OUT_QUEUE);
--
--	mconfig->params_fixup = dfw->params_fixup;
--	mconfig->converter = dfw->converter;
--	mconfig->m_type = dfw->module_type;
--	mconfig->vbus_id = dfw->vbus_id;
--	mconfig->module->resources[0].is_pages = dfw->mem_pages;
--
--	ret = skl_tplg_add_pipe_v4(dev, mconfig, skl, &dfw->pipe);
--	if (ret)
--		return ret;
--
--	mconfig->dev_type = dfw->dev_type;
--	mconfig->hw_conn_type = dfw->hw_conn_type;
--	mconfig->time_slot = dfw->time_slot;
--	mconfig->formats_config[idx].caps_size = dfw->caps.caps_size;
--
--	mconfig->m_in_pin = devm_kcalloc(dev,
--				MAX_IN_QUEUE, sizeof(*mconfig->m_in_pin),
--				GFP_KERNEL);
--	if (!mconfig->m_in_pin)
--		return -ENOMEM;
--
--	mconfig->m_out_pin = devm_kcalloc(dev,
--				MAX_OUT_QUEUE, sizeof(*mconfig->m_out_pin),
--				GFP_KERNEL);
--	if (!mconfig->m_out_pin)
--		return -ENOMEM;
--
--	skl_fill_module_pin_info_v4(dfw->in_pin, mconfig->m_in_pin,
--				    dfw->is_dynamic_in_pin,
--				    mconfig->module->max_input_pins);
--	skl_fill_module_pin_info_v4(dfw->out_pin, mconfig->m_out_pin,
--				    dfw->is_dynamic_out_pin,
--				    mconfig->module->max_output_pins);
--
--	if (mconfig->formats_config[idx].caps_size) {
--		mconfig->formats_config[idx].set_params = dfw->caps.set_params;
--		mconfig->formats_config[idx].param_id = dfw->caps.param_id;
--		mconfig->formats_config[idx].caps =
--		devm_kzalloc(dev, mconfig->formats_config[idx].caps_size,
--			     GFP_KERNEL);
--		if (!mconfig->formats_config[idx].caps)
--			return -ENOMEM;
--		memcpy(mconfig->formats_config[idx].caps, dfw->caps.caps,
--		       dfw->caps.caps_size);
--	}
--
--	return 0;
--}
--
- static int skl_tplg_get_caps_data(struct device *dev, char *data,
- 				  struct skl_module_cfg *mconfig)
+ static int soc_tplg_pcm_elems_load(struct soc_tplg *tplg,
+ 	struct snd_soc_tplg_hdr *hdr)
  {
-@@ -2877,13 +2715,6 @@ static int skl_tplg_get_pvt_data(struct snd_soc_tplg_dapm_widget *tplg_w,
- 	char *data;
- 	int ret;
+@@ -1852,8 +1783,7 @@ static int soc_tplg_pcm_elems_load(struct soc_tplg *tplg,
+ 	/* check the element size and count */
+ 	pcm = (struct snd_soc_tplg_pcm *)tplg->pos;
+ 	size = le32_to_cpu(pcm->size);
+-	if (size > sizeof(struct snd_soc_tplg_pcm)
+-		|| size < sizeof(struct snd_soc_tplg_pcm_v4)) {
++	if (size > sizeof(struct snd_soc_tplg_pcm)) {
+ 		dev_err(tplg->dev, "ASoC: invalid size %d for PCM elems\n",
+ 			size);
+ 		return -EINVAL;
+@@ -1872,15 +1802,11 @@ static int soc_tplg_pcm_elems_load(struct soc_tplg *tplg,
+ 		/* check ABI version by size, create a new version of pcm
+ 		 * if abi not match.
+ 		 */
+-		if (size == sizeof(*pcm)) {
+-			abi_match = true;
+-			_pcm = pcm;
+-		} else {
+-			abi_match = false;
+-			ret = pcm_new_ver(tplg, pcm, &_pcm);
+-			if (ret < 0)
+-				return ret;
+-		}
++		if (size != sizeof(*pcm))
++			return -EINVAL;
++
++		abi_match = true;
++		_pcm = pcm;
  
--	/*
--	 * v4 configuration files have a valid UUID at the start of
--	 * the widget's private data.
--	 */
--	if (uuid_is_valid((char *)tplg_w->priv.data))
--		return skl_tplg_get_pvt_data_v4(tplg_w, skl, dev, mconfig);
+ 		/* create the FE DAIs and DAI links */
+ 		ret = soc_tplg_pcm_create(tplg, _pcm);
+@@ -1972,49 +1898,6 @@ static void set_link_hw_format(struct snd_soc_dai_link *link,
+ 	}
+ }
+ 
+-/**
+- * link_new_ver - Create a new physical link config from the old
+- * version of source.
+- * @tplg: topology context
+- * @src: old version of phyical link config as a source
+- * @link: latest version of physical link config created from the source
+- *
+- * Support from version 4. User need free the returned link config manually.
+- */
+-static int link_new_ver(struct soc_tplg *tplg,
+-			struct snd_soc_tplg_link_config *src,
+-			struct snd_soc_tplg_link_config **link)
+-{
+-	struct snd_soc_tplg_link_config *dest;
+-	struct snd_soc_tplg_link_config_v4 *src_v4;
+-	int i;
 -
- 	/* Read the NUM_DATA_BLOCKS descriptor */
- 	array = (struct snd_soc_tplg_vendor_array *)tplg_w->priv.data;
- 	ret = skl_tplg_get_desc_blocks(dev, array);
+-	*link = NULL;
+-
+-	if (le32_to_cpu(src->size) !=
+-	    sizeof(struct snd_soc_tplg_link_config_v4)) {
+-		dev_err(tplg->dev, "ASoC: invalid physical link config size\n");
+-		return -EINVAL;
+-	}
+-
+-	dev_warn(tplg->dev, "ASoC: old version of physical link config\n");
+-
+-	src_v4 = (struct snd_soc_tplg_link_config_v4 *)src;
+-	dest = kzalloc(sizeof(*dest), GFP_KERNEL);
+-	if (!dest)
+-		return -ENOMEM;
+-
+-	dest->size = cpu_to_le32(sizeof(*dest));
+-	dest->id = src_v4->id;
+-	dest->num_streams = src_v4->num_streams;
+-	for (i = 0; i < le32_to_cpu(dest->num_streams); i++)
+-		memcpy(&dest->stream[i], &src_v4->stream[i],
+-		       sizeof(struct snd_soc_tplg_stream));
+-
+-	*link = dest;
+-	return 0;
+-}
+-
+ /**
+  * snd_soc_find_dai_link - Find a DAI link
+  *
+@@ -2131,8 +2014,7 @@ static int soc_tplg_link_elems_load(struct soc_tplg *tplg,
+ 	/* check the element size and count */
+ 	link = (struct snd_soc_tplg_link_config *)tplg->pos;
+ 	size = le32_to_cpu(link->size);
+-	if (size > sizeof(struct snd_soc_tplg_link_config)
+-		|| size < sizeof(struct snd_soc_tplg_link_config_v4)) {
++	if (size > sizeof(struct snd_soc_tplg_link_config)) {
+ 		dev_err(tplg->dev, "ASoC: invalid size %d for physical link elems\n",
+ 			size);
+ 		return -EINVAL;
+@@ -2147,15 +2029,11 @@ static int soc_tplg_link_elems_load(struct soc_tplg *tplg,
+ 	for (i = 0; i < count; i++) {
+ 		link = (struct snd_soc_tplg_link_config *)tplg->pos;
+ 		size = le32_to_cpu(link->size);
+-		if (size == sizeof(*link)) {
+-			abi_match = true;
+-			_link = link;
+-		} else {
+-			abi_match = false;
+-			ret = link_new_ver(tplg, link, &_link);
+-			if (ret < 0)
+-				return ret;
+-		}
++		if (size != sizeof(*link))
++			return -EINVAL;
++
++		abi_match = true;
++		_link = link;
+ 
+ 		ret = soc_tplg_link_config(tplg, _link);
+ 		if (ret < 0) {
+@@ -2280,57 +2158,6 @@ static int soc_tplg_dai_elems_load(struct soc_tplg *tplg,
+ 	return 0;
+ }
+ 
+-/**
+- * manifest_new_ver - Create a new version of manifest from the old version
+- * of source.
+- * @tplg: topology context
+- * @src: old version of manifest as a source
+- * @manifest: latest version of manifest created from the source
+- *
+- * Support from version 4. Users need free the returned manifest manually.
+- */
+-static int manifest_new_ver(struct soc_tplg *tplg,
+-			    struct snd_soc_tplg_manifest *src,
+-			    struct snd_soc_tplg_manifest **manifest)
+-{
+-	struct snd_soc_tplg_manifest *dest;
+-	struct snd_soc_tplg_manifest_v4 *src_v4;
+-	int size;
+-
+-	*manifest = NULL;
+-
+-	size = le32_to_cpu(src->size);
+-	if (size != sizeof(*src_v4)) {
+-		dev_warn(tplg->dev, "ASoC: invalid manifest size %d\n",
+-			 size);
+-		if (size)
+-			return -EINVAL;
+-		src->size = cpu_to_le32(sizeof(*src_v4));
+-	}
+-
+-	dev_warn(tplg->dev, "ASoC: old version of manifest\n");
+-
+-	src_v4 = (struct snd_soc_tplg_manifest_v4 *)src;
+-	dest = kzalloc(sizeof(*dest) + le32_to_cpu(src_v4->priv.size),
+-		       GFP_KERNEL);
+-	if (!dest)
+-		return -ENOMEM;
+-
+-	dest->size = cpu_to_le32(sizeof(*dest)); /* size of latest abi version */
+-	dest->control_elems = src_v4->control_elems;
+-	dest->widget_elems = src_v4->widget_elems;
+-	dest->graph_elems = src_v4->graph_elems;
+-	dest->pcm_elems = src_v4->pcm_elems;
+-	dest->dai_link_elems = src_v4->dai_link_elems;
+-	dest->priv.size = src_v4->priv.size;
+-	if (dest->priv.size)
+-		memcpy(dest->priv.data, src_v4->priv.data,
+-		       le32_to_cpu(src_v4->priv.size));
+-
+-	*manifest = dest;
+-	return 0;
+-}
+-
+ static int soc_tplg_manifest_load(struct soc_tplg *tplg,
+ 				  struct snd_soc_tplg_hdr *hdr)
+ {
+@@ -2341,16 +2168,11 @@ static int soc_tplg_manifest_load(struct soc_tplg *tplg,
+ 	manifest = (struct snd_soc_tplg_manifest *)tplg->pos;
+ 
+ 	/* check ABI version by size, create a new manifest if abi not match */
+-	if (le32_to_cpu(manifest->size) == sizeof(*manifest)) {
+-		abi_match = true;
+-		_manifest = manifest;
+-	} else {
+-		abi_match = false;
++	if (le32_to_cpu(manifest->size) != sizeof(*manifest))
++		return -EINVAL;
+ 
+-		ret = manifest_new_ver(tplg, manifest, &_manifest);
+-		if (ret < 0)
+-			return ret;
+-	}
++	abi_match = true;
++	_manifest = manifest;
+ 
+ 	/* pass control to component driver for optional further init */
+ 	if (tplg->ops && tplg->ops->manifest)
 -- 
 2.25.1
 

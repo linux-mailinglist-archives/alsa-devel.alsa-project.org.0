@@ -2,100 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 820D8896B84
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 Apr 2024 12:05:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D5C7896D2C
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 Apr 2024 12:51:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 732332CCD;
-	Wed,  3 Apr 2024 12:05:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 732332CCD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 60C722CAB;
+	Wed,  3 Apr 2024 12:51:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 60C722CAB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712138745;
-	bh=Y7WN2tYAYpmCgOP1gQPKV9jeKqkz0Te+qM3j90UOY1g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1712141483;
+	bh=zEs09Pf70wWA8RG+pKCKh6egma5W4v+1joh1kjYqyIM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=jWnEGM7zSBPCjt2g++A8R+DlV7+Inh431hwMtmJlLuDO0VFzcCY3/HPb99klVCtb/
-	 dvrU17EaHbspYL3AoIMyPZmYB4RIBcT41N/ll4JbV6agHMbr7DzjBO46uQCZZxYN3Z
-	 cvjHzU+l9ZWbsyaPg9vSLcVZ6tbAxzRUpDnSC6p0=
+	b=Q7EJ1509rKoWLdOSlP8XA2WQNz84BTGj8DAktQMl3r2YKhzZ7XygZ1FALqSv6SFQu
+	 1PpEikPzxOnNfPLprQZEoFJGhrLrqcNp1ZzwBhwj1ZnKUl+58SI7d8+xO5V+vVD9yq
+	 ZH9duqvQfMojev88RzjbA/mofmwGdQNK9ZOVXE9g=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4FBD8F8056F; Wed,  3 Apr 2024 12:05:13 +0200 (CEST)
+	id 6FD76F8058C; Wed,  3 Apr 2024 12:51:02 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9C2FAF80578;
-	Wed,  3 Apr 2024 12:05:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DA6BFF8057A;
+	Wed,  3 Apr 2024 12:51:01 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4C399F8020D; Wed,  3 Apr 2024 12:05:08 +0200 (CEST)
+	id 3237FF8020D; Wed,  3 Apr 2024 12:50:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_NONE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C473AF8015B
-	for <alsa-devel@alsa-project.org>; Wed,  3 Apr 2024 12:05:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C473AF8015B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 731A8F80114
+	for <alsa-devel@alsa-project.org>; Wed,  3 Apr 2024 12:50:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 731A8F80114
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=b+C0f+A1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1712138703; x=1743674703;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Y7WN2tYAYpmCgOP1gQPKV9jeKqkz0Te+qM3j90UOY1g=;
-  b=b+C0f+A1ZXQOh215Ooj8tDSO68dnO3MAvOEz068IPeF6JrsSayjAOcOD
-   1E/wVCyp21e1VZPM3zTKClM/mWhwY63SnDzhl0oPEFG6QLdBYVPK4d+kE
-   XPLgsZLBOur23Z1tq4j6sifxXitL9S51qJyXz7lqZkg+//8czIg9U8ob8
-   SH+5NglPIv5MzBtvZe1VzeXaQiqksTNJiMpIJA2Ud0iksZSBltn/pgu0R
-   Gp6e6ZK9Jsfl7VNRxwgj9763g523DiUFhH7qPFKrQfLHwDa/2DDps03uO
-   c0TMCH56FOeG9jCEQ4a+VNPydfnvt463qxvTfVsgrjwsFklGKKHlXA3Xg
-   g==;
-X-CSE-ConnectionGUID: Y7Ot4MqTQsOaCz/lY4be2Q==
-X-CSE-MsgGUID: CdYtZ/ZXRiW/Yj6XDd7iMQ==
-X-IronPort-AV: E=McAfee;i="6600,9927,11032"; a="7485609"
-X-IronPort-AV: E=Sophos;i="6.07,177,1708416000";
-   d="scan'208";a="7485609"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Apr 2024 03:04:57 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,11032"; a="915177205"
-X-IronPort-AV: E=Sophos;i="6.07,177,1708416000";
-   d="scan'208";a="915177205"
-Received: from smile.fi.intel.com (HELO smile) ([10.237.72.54])
-  by fmsmga002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Apr 2024 03:04:53 -0700
-Received: from andy by smile with local (Exim 4.97)
-	(envelope-from <andriy.shevchenko@linux.intel.com>)
-	id 1rrxUA-000000015H8-1gdE;
-	Wed, 03 Apr 2024 13:04:50 +0300
-Date: Wed, 3 Apr 2024 13:04:50 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Shenghao Ding <shenghao-ding@ti.com>
-Cc: broonie@kernel.org, lgirdwood@gmail.com, perex@perex.cz,
-	pierre-louis.bossart@linux.intel.com, 13916275206@139.com,
-	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
-	liam.r.girdwood@intel.com, bard.liao@intel.com,
-	yung-chuan.liao@linux.intel.com, kevin-lu@ti.com, tiwai@suse.de,
-	baojun.xu@ti.com, soyer@irl.hu, Baojun.Xu@fpt.com, navada@ti.com,
-	v-po@ti.com
-Subject: Re: [PATCH v1] ALSA: hda/tas2781: correct the register for pow
- calibrated data
-Message-ID: <Zg0pwtuQ9gfeXwxd@smile.fi.intel.com>
-References: <20240402231300.362-1-shenghao-ding@ti.com>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=Ow/ufA70
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id C6F73CE22D9;
+	Wed,  3 Apr 2024 10:50:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29EC2C433F1;
+	Wed,  3 Apr 2024 10:50:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1712141444;
+	bh=zEs09Pf70wWA8RG+pKCKh6egma5W4v+1joh1kjYqyIM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=Ow/ufA70icQL7tcZCl+EFjqELra4W9CscBHPaWEWvx/7W7++hxdoPnh2rBq4K8/d0
+	 SOX7qS+UXgoMmsLF5mchzS58+pLtRwQnrpLm1opQnYLv86VwC0IfLVEJ4p49b3xPNd
+	 OMowe6ogXQHimLQpAEF8RMtKWz2XpUu8Z0W1CEhQUGj03zgJmCNKAuphg+6O3EaKDQ
+	 KYLK2aZUBnruUekRPCKQzoApIv9ImT8HT5tXI9NoZrCTAqu4DQBeL1v069AcqiZXxC
+	 RD8lu8URcekNC4aq67bRNA0By0cGkzEkoHNHGYtBB91c+z/x6sKrfYIVE+vc+q30MA
+	 Z3hn7zhZW44xg==
+From: Mark Brown <broonie@kernel.org>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
+ Khanh Le <khanh.le.xr@renesas.com>
+In-Reply-To: <8734s4bizh.wl-kuninori.morimoto.gx@renesas.com>
+References: <8734s4bizh.wl-kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH 0/5] ASoC: rsnd: reg cleanup
+Message-Id: <171214144388.677375.6241132080321241812.b4-ty@kernel.org>
+Date: Wed, 03 Apr 2024 11:50:43 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240402231300.362-1-shenghao-ding@ti.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Message-ID-Hash: N765PVMEYQMMK6XNHXFATFLH23V7BUN4
-X-Message-ID-Hash: N765PVMEYQMMK6XNHXFATFLH23V7BUN4
-X-MailFrom: andriy.shevchenko@linux.intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14-dev
+Message-ID-Hash: 746CD4W5SQWASUHZ2KABHJ7W5AIBTCF3
+X-Message-ID-Hash: 746CD4W5SQWASUHZ2KABHJ7W5AIBTCF3
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -107,7 +86,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/N765PVMEYQMMK6XNHXFATFLH23V7BUN4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/746CD4W5SQWASUHZ2KABHJ7W5AIBTCF3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -116,25 +95,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, Apr 03, 2024 at 07:12:59AM +0800, Shenghao Ding wrote:
-> fixed tas2781 calibrated data - pow was written into a wrong register.
+On Tue, 02 Apr 2024 02:23:35 +0000, Kuninori Morimoto wrote:
+> These are Renesas Sound driver cleanups for Gen3/Gen4.
+> 
+> Kuninori Morimoto (5):
+>   ASoC: rsnd: cleanup regmap table
+>   ASoC: rsnd: don't get resource from ID
+>   ASoC: rsnd: rename rsnd_is_e3() to rsnd_is_gen3_e3()
+>   ASoC: rsnd: R-Car Gen1/Gen2 exception
+>   ASoC: rsnd: no exception for SCU
+> 
+> [...]
 
-fixed --> Fix
+Applied to
 
-Fixes tag?
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-> Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
+Thanks!
 
-...
+[1/5] ASoC: rsnd: cleanup regmap table
+      commit: 35aaed1bc3c32c52b7fda525cd7bd19998035518
+[2/5] ASoC: rsnd: don't get resource from ID
+      commit: 6e4e5432942a57f4c3e6a5a4a97a4d1a164dca61
+[3/5] ASoC: rsnd: rename rsnd_is_e3() to rsnd_is_gen3_e3()
+      commit: 0b8ef53e120981c218ba037dddda98f414af2207
+[4/5] ASoC: rsnd: R-Car Gen1/Gen2 exception
+      commit: 5be0e7f7f275aa5f05d8708db021cef0fed749d1
+[5/5] ASoC: rsnd: no exception for SCU
+      commit: 07f6232ff1c9909cd87e42020c91b265a58918da
 
-> +		0x17, 0x18, 0x18, 0x13, 0x18
-> +		0x74, 0x0c, 0x14, 0x70, 0x7c
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-While at it, can you add a trailing comma?
-It will help in case of extending this in the future.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
--- 
-With Best Regards,
-Andy Shevchenko
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 

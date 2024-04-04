@@ -2,175 +2,122 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD4C089AF22
-	for <lists+alsa-devel@lfdr.de>; Sun,  7 Apr 2024 09:22:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AAAB889AF24
+	for <lists+alsa-devel@lfdr.de>; Sun,  7 Apr 2024 09:23:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 92F8D2BD3;
-	Sun,  7 Apr 2024 09:22:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 92F8D2BD3
+	by alsa0.perex.cz (Postfix) with ESMTPS id DB7CE2BD7;
+	Sun,  7 Apr 2024 09:23:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB7CE2BD7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712474573;
-	bh=xTu/IdCn/048THaVHddyM991QlKheudeHaOzDUEba/4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=LH02lLRkBZIQzI489thWJuv8hIQQh0N0L8GvgK1p4aZx8duShfx+psl55WpwdEpnO
-	 qFVrt0oskoTC5tshaLaEEVqnnh4pMni5dy4yM7FW3qocBRvX+0uBZN3+oCRsHB23Dk
-	 wP77VZLtahq8qSuy1GHQ5Jnzql9TG74tkVX34TY8=
+	s=default; t=1712474595;
+	bh=YsR66LWGItmKjfFG/4thl5QkI/T85/VwbY4I36tSedw=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=jAcDBPB7LUHNaA8I9fhrnlZ+9R2emajKWsHZRetW4iHJWC9HgiA2EUc4nr9wGpKhu
+	 RPZtxHM1178kz+p3pbyejGkc7AHf8RtAJaoevkIIpbT1qC6gty/45VBGVyo4bPGNsm
+	 edI44TnsURZqo4HNDoG5VehbaWHg2e51KbAGrwUU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9B240F896EA; Sun,  7 Apr 2024 09:18:03 +0200 (CEST)
+	id 836A9F8970F; Sun,  7 Apr 2024 09:18:05 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E02CEF805D2;
-	Sun,  7 Apr 2024 09:18:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3A3FAF89716;
+	Sun,  7 Apr 2024 09:18:05 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3A840F8020D; Thu,  4 Apr 2024 13:46:10 +0200 (CEST)
+	id 66224F8020D; Thu,  4 Apr 2024 18:07:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-yb1-xb2a.google.com (mail-yb1-xb2a.google.com
- [IPv6:2607:f8b0:4864:20::b2a])
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-pj1-x1032.google.com (mail-pj1-x1032.google.com
+ [IPv6:2607:f8b0:4864:20::1032])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 81EECF80114
-	for <alsa-devel@alsa-project.org>; Thu,  4 Apr 2024 13:41:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81EECF80114
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1CE58F80114
+	for <alsa-devel@alsa-project.org>; Thu,  4 Apr 2024 18:07:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1CE58F80114
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=B5FY594l
-Received: by mail-yb1-xb2a.google.com with SMTP id
- 3f1490d57ef6-dcc80d6004bso1019463276.0
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=OoelHQ9y
+Received: by mail-pj1-x1032.google.com with SMTP id
+ 98e67ed59e1d1-2a20a9df742so836632a91.1
         for <alsa-devel@alsa-project.org>;
- Thu, 04 Apr 2024 04:41:31 -0700 (PDT)
+ Thu, 04 Apr 2024 09:07:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1712230889; x=1712835689;
+        d=gmail.com; s=20230601; t=1712246824; x=1712851624;
  darn=alsa-project.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=xTu/IdCn/048THaVHddyM991QlKheudeHaOzDUEba/4=;
-        b=B5FY594lFTabAw4RSPWJ4OmeWuQ0741Hv+X0DgnP50v+qRI/1vgpOTzLQkBzW276fm
-         X84rJzwz+XwrWrk1d5Lt+Zs+FxyWDza3sMxFJmi/AS9oX6T8O9jhJlfFmjds4pcTTxlF
-         vd+/n+f5YQ1kJbdjtL3D6vtqVqnsr4GbeaBc62gRPBp6TtuWfxZgPajPqkegz9nNFgk5
-         FxBSvN2GxRK85y/d5eBn0dkWx/X6EUu+9ZdBZwID8f5rgbJ7g1yH7E9jCB7UV+cg0U+O
-         xZKftIM0zgxYbdcTBw0xzKx8TAN7E8kM04fTl0E0+6iXrj/k9P6lxDs6K1O1KKh20JOx
-         opWw==
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=LwkMEGu4bH84VlMdGnCK4KPRxbhmbdEM0Bw2IunWXXM=;
+        b=OoelHQ9y0wNYOQVfOa4wyI9YfsAEbDdPkrBF7G04fe4kaVhPN3TM1NdOrs2BmsT+TJ
+         KgdwsnNHgFQVmtG2nKq7avePdlfo6KP2hQhVB1hLKGP65Qnnd2Ur7F7hlzOqdABMGOJP
+         7Xrytiic+H47ej0PfpaFuQiitbgzbAIaU3+rsNig66YpGXYS2Jo4Vh7Ui0LYUaF5Wo9A
+         84nm+DkAvsgnrKnJxfV6pu4PCUjmxDhs0K1yS8EBcsoFOxrZYit000Chri1kgCqsUkEb
+         94cxc+GgSW7PTmmvuakdFZndiJem4ISDm1LFPgvE0nvGltlmEgqJa80wE7G3uE0Vzc6u
+         V13g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712230889; x=1712835689;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=xTu/IdCn/048THaVHddyM991QlKheudeHaOzDUEba/4=;
-        b=WPdVYFulD0nqCF2DOdiWHWs2USxoYs/CNB29tdlY26QZ4CHQIqQIn4q2ctjS/Flu6h
-         raIgEVRjJL50JC6nOnL+0aD6c0qKH4ao4gnB7rfefwUEY9XObp428PvefYJewwpmF1k5
-         20unt/owsnPMfw42IjmWqa332dD2stRsO2GS9SRMmpc1HhF6NV8ZdD3pmpWVRHDgYq0b
-         y6/r9CKAWBezjyocLK45ORRv8URROX0F9d/1w38FcOWFWU4qLCbDrHGeY3bNDk8hGSZR
-         OXEKR5lg0btlM7aQiIxsVF4c8Tnyo9q1wHKYxisc5fqAOmPJqvQnvvyl7+4y9uv4GZtR
-         bf4A==
+        d=1e100.net; s=20230601; t=1712246824; x=1712851624;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=LwkMEGu4bH84VlMdGnCK4KPRxbhmbdEM0Bw2IunWXXM=;
+        b=jfHQblZ2YSBqEDTsWnRO2EeXl4Nry8KIOCZu4dQvkFznz6lS/qgePll3GUYEYUXDuT
+         sZQrTw6ql3j/8R5qvD0oCffTS6K3er46tmPD6MGeu6F3YdeEQdKXSRV3S6oYgOsFwMLW
+         FlpX9azOgJniyvgQMEZy5mIkS/qd9UE/Ugu37Un5aYePlfey4WXl4h0vOO9OoMZErL0j
+         3xYZ8rTmGCsU+9Cys870Aq8pZTINx4BCVkR9vQ9qW9hbPTeS6mXOlupMuIl6nIWhUZEX
+         2oKhXmJNScTcUOT/wL9uFh75nXfecToYvMmZn38XO3UAbJi0eI6sS0w9sqjCx0K/19ik
+         No7w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUSMu3OEQxXymgxPkkYKxgzZDvVtLC3i9u284P1Tcvf557lArzofVe/w+XECY9QcqKak9Nb2If5j4pnPAON2Y2rB8EjCNLYW0OBBJk=
-X-Gm-Message-State: AOJu0YwUNYuRriq0b55bPWuTb7OxGopjWRykB/kwwKUSdXcORbQYUCsc
-	QPZ1lCYszGOHWHA+qfhket306QxuN/T0zp7f/V0ZCbZ0snHj/ZDC5IIGc6Ma53du7eXhGl0Z7ue
-	8/VHVVEZfYS75rxZ7Za4uOC3IBAvDV0LsbIc5NA==
+ AJvYcCWN/Q9rJJT8rkjCbM0hEsbroIEV22gunoW6okhXb/iv54hERcvvHkNuOK466uVFCvkDnz0uZ4FfYtdFqxHp/P1tJRKaHQbZ7h1+8yk=
+X-Gm-Message-State: AOJu0YzzaSP+UJjJ8Z7xgiOL2cvGwEh8nICXGudyCyw6I9b907HGMcmt
+	9Jom8mGmLPDZ9fH1gBezHW3T7wYu+58Id7kh8i/XqPaXeCQolmgq
 X-Google-Smtp-Source: 
- AGHT+IEhL+O4bSIOCRsSy+Vdywn61xtrVBJ3li47sHwN1FOt8H7g9W+tj2/Or7rao9/9euGeRsXbtXq4vPMz7+GnZRc=
-X-Received: by 2002:a25:ba86:0:b0:dd1:6fab:81e4 with SMTP id
- s6-20020a25ba86000000b00dd16fab81e4mr2034373ybg.37.1712230889318; Thu, 04 Apr
- 2024 04:41:29 -0700 (PDT)
+ AGHT+IHibPG0W6H55vie7dFKnWlXEFmJq9c7f5VRpXhqgGA+gL558fvkCHxdOte330lCDtfdPWWS2w==
+X-Received: by 2002:a17:90a:b10f:b0:29b:b3fa:b7a5 with SMTP id
+ z15-20020a17090ab10f00b0029bb3fab7a5mr2556863pjq.7.1712246822352;
+        Thu, 04 Apr 2024 09:07:02 -0700 (PDT)
+Received: from localhost.localdomain ([203.188.229.101])
+        by smtp.gmail.com with ESMTPSA id
+ g14-20020a17090ace8e00b002a2979a8651sm1685928pju.54.2024.04.04.09.06.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 04 Apr 2024 09:07:01 -0700 (PDT)
+From: Mighty <bavishimithil@gmail.com>
+To: 
+Cc: Mithil Bavishi <bavishimithil@gmail.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	alsa-devel@alsa-project.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] dt-bindings: omap-mcpdm: Convert to DT schema
+Date: Thu,  4 Apr 2024 21:36:49 +0530
+Message-Id: <20240404160649.967-1-bavishimithil@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20240331-module-owner-virtio-v2-0-98f04bfaf46a@linaro.org>
- <20240331-module-owner-virtio-v2-12-98f04bfaf46a@linaro.org>
-In-Reply-To: <20240331-module-owner-virtio-v2-12-98f04bfaf46a@linaro.org>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Thu, 4 Apr 2024 13:41:18 +0200
-Message-ID: 
- <CACRpkdYpVUq1SgxnPVfRdTiNg3o8dcBePxoxu9GRYy6LdzUE5A@mail.gmail.com>
-Subject: Re: [PATCH v2 12/25] gpio: virtio: drop owner assignment
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Jonathan Corbet <corbet@lwn.net>,
-	David Hildenbrand <david@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
-	Richard Weinberger <richard@nod.at>,
- Anton Ivanov <anton.ivanov@cambridgegreys.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
- Paolo Bonzini <pbonzini@redhat.com>,
-	Stefan Hajnoczi <stefanha@redhat.com>, Jens Axboe <axboe@kernel.dk>,
-	Marcel Holtmann <marcel@holtmann.org>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Olivia Mackall <olivia@selenic.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
-	Amit Shah <amit@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Gonglei <arei.gonglei@huawei.com>,
-	"David S. Miller" <davem@davemloft.net>, Sudeep Holla <sudeep.holla@arm.com>,
-	Cristian Marussi <cristian.marussi@arm.com>,
- Viresh Kumar <vireshk@kernel.org>,
-	Bartosz Golaszewski <brgl@bgdev.pl>, David Airlie <airlied@redhat.com>,
-	Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu <olvaffe@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>, Daniel Vetter <daniel@ffwll.ch>,
-	Jean-Philippe Brucker <jean-philippe@linaro.org>,
- Joerg Roedel <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Alexander Graf <graf@amazon.com>,
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
-	Eric Van Hensbergen <ericvh@kernel.org>, Latchesar Ionkov <lucho@ionkov.net>,
-	Dominique Martinet <asmadeus@codewreck.org>,
- Christian Schoenebeck <linux_oss@crudebyte.com>,
-	Stefano Garzarella <sgarzare@redhat.com>, Kalle Valo <kvalo@kernel.org>,
-	Dan Williams <dan.j.williams@intel.com>,
- Vishal Verma <vishal.l.verma@intel.com>,
-	Dave Jiang <dave.jiang@intel.com>, Ira Weiny <ira.weiny@intel.com>,
-	Pankaj Gupta <pankaj.gupta.linux@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
- "James E.J. Bottomley" <jejb@linux.ibm.com>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
- Vivek Goyal <vgoyal@redhat.com>,
-	Miklos Szeredi <miklos@szeredi.hu>,
- Anton Yakovlev <anton.yakovlev@opensynergy.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- virtualization@lists.linux.dev,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-um@lists.infradead.org, linux-block@vger.kernel.org,
-	linux-bluetooth@vger.kernel.org, linux-crypto@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, iommu@lists.linux.dev,
-	netdev@vger.kernel.org, v9fs@lists.linux.dev, kvm@vger.kernel.org,
-	linux-wireless@vger.kernel.org, nvdimm@lists.linux.dev,
-	linux-remoteproc@vger.kernel.org, linux-scsi@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org, alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org,
-	Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- Viresh Kumar <viresh.kumar@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-MailFrom: linus.walleij@linaro.org
-X-Mailman-Rule-Hits: max-recipients
+Content-Transfer-Encoding: 8bit
+X-MailFrom: bavishimithil@gmail.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
- suspicious-header
-Message-ID-Hash: B6IB7W3PMTN6SO2F3LTU56ZUPTVGCC4L
-X-Message-ID-Hash: B6IB7W3PMTN6SO2F3LTU56ZUPTVGCC4L
-X-Mailman-Approved-At: Sun, 07 Apr 2024 07:15:20 +0000
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: Z5O5H2VLFGDFTQ5DPRVFJHGWWJQIOJBD
+X-Message-ID-Hash: Z5O5H2VLFGDFTQ5DPRVFJHGWWJQIOJBD
+X-Mailman-Approved-At: Sun, 07 Apr 2024 07:15:21 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/B6IB7W3PMTN6SO2F3LTU56ZUPTVGCC4L/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Z5O5H2VLFGDFTQ5DPRVFJHGWWJQIOJBD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -179,16 +126,119 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sun, Mar 31, 2024 at 10:45=E2=80=AFAM Krzysztof Kozlowski
-<krzysztof.kozlowski@linaro.org> wrote:
+From: Mithil Bavishi <bavishimithil@gmail.com>
 
-> virtio core already sets the .owner, so driver does not need to.
->
-> Acked-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
-> Acked-by: Viresh Kumar <viresh.kumar@linaro.org>
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Convert the OMAP4+ McPDM bindings to DT schema.
 
-Acked-by: Linus Walleij <linus.walleij@linaro.org>
+Signed-off-by: Mighty <bavishimithil@gmail.com>
+---
+ .../devicetree/bindings/sound/omap-mcpdm.txt  | 30 ----------
+ .../bindings/sound/ti,omap-mcpdm.yaml         | 59 +++++++++++++++++++
+ 2 files changed, 59 insertions(+), 30 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/sound/omap-mcpdm.txt
+ create mode 100644 Documentation/devicetree/bindings/sound/ti,omap-mcpdm.yaml
 
-Yours,
-Linus Walleij
+diff --git a/Documentation/devicetree/bindings/sound/omap-mcpdm.txt b/Documentation/devicetree/bindings/sound/omap-mcpdm.txt
+deleted file mode 100644
+index ff98a0cb5..000000000
+--- a/Documentation/devicetree/bindings/sound/omap-mcpdm.txt
++++ /dev/null
+@@ -1,30 +0,0 @@
+-* Texas Instruments OMAP4+ McPDM
+-
+-Required properties:
+-- compatible: "ti,omap4-mcpdm"
+-- reg: Register location and size as an array:
+-       <MPU access base address, size>,
+-       <L3 interconnect address, size>;
+-- interrupts: Interrupt number for McPDM
+-- ti,hwmods: Name of the hwmod associated to the McPDM
+-- clocks:  phandle for the pdmclk provider, likely <&twl6040>
+-- clock-names: Must be "pdmclk"
+-
+-Example:
+-
+-mcpdm: mcpdm@40132000 {
+-	compatible = "ti,omap4-mcpdm";
+-	reg = <0x40132000 0x7f>, /* MPU private access */
+-	      <0x49032000 0x7f>; /* L3 Interconnect */
+-	interrupts = <0 112 0x4>;
+-	interrupt-parent = <&gic>;
+-	ti,hwmods = "mcpdm";
+-};
+-
+-In board DTS file the pdmclk needs to be added:
+-
+-&mcpdm {
+-	clocks = <&twl6040>;
+-	clock-names = "pdmclk";
+-	status = "okay";
+-};
+diff --git a/Documentation/devicetree/bindings/sound/ti,omap-mcpdm.yaml b/Documentation/devicetree/bindings/sound/ti,omap-mcpdm.yaml
+new file mode 100644
+index 000000000..4d5d37e98
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/ti,omap-mcpdm.yaml
+@@ -0,0 +1,59 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/ti,omap-mcpdm.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: OMAP McPDM
++
++maintainers:
++  - Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
++
++description:
++  OMAP ALSA SoC DAI driver using McPDM port used by TWL6040
++
++properties:
++  compatible:
++    const: ti,omap4-mcpdm
++
++  reg:
++    description:
++      Register location and size as an array
++      <MPU access base address, size>,
++      <L3 interconnect address, size>;
++
++  interrupts:
++    maxItems: 1
++
++  ti,hwmods:
++    maxItems: 1
++
++  clocks:
++    description: phandle for the pdmclk provider, likely <&twl6040>
++
++  clock-names:
++    description: Must be "pdmclk"
++
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - ti,hwmods
++  - clocks
++  - clock-names
++
++additionalProperties: false
++
++examples:
++  - |
++    mcpdm@0 {
++      compatible = "ti,omap4-mcpdm";
++      reg = <0x40132000 0x7f>, /* MPU private access */
++            <0x49032000 0x7f>; /* L3 Interconnect */
++      interrupts = <0 112 0x4>;
++      interrupt-parent = <&gic>;
++      ti,hwmods = "mcpdm";
++      clocks = <&twl6040>;
++      clock-names = "pdmclk";
++    };
+-- 
+2.34.1
+

@@ -2,142 +2,129 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94BF1897E32
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Apr 2024 06:27:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7994C898382
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Apr 2024 10:52:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E5EB92C74;
-	Thu,  4 Apr 2024 06:27:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E5EB92C74
+	by alsa0.perex.cz (Postfix) with ESMTPS id BB8912C6C;
+	Thu,  4 Apr 2024 10:52:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BB8912C6C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712204842;
-	bh=upbDgiA+zCOEh5rIdZlfJ4VyGQRR/fnBSIaZ8IluFD0=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=lLi3M4APylTdqQcqgTZDISlXS9YcyPvPGn03/KLDFXQZ4fUM+OYmHXf10nuz+LW3j
-	 F7zWqxXc6v7twjcoTZbgYsv8hu4W42kLRy90stG0ySRHh0V+kRBQMuIdJ8GYm4XN9p
-	 K6WUiVgmYrthdD966wZL3Vy6axnH2m8GU8mcnD3E=
+	s=default; t=1712220778;
+	bh=aRrOYrta+1RXuR175jubYLyOAM6aPkS6N48rtWm1kxg=;
+	h=References:From:To:Cc:Subject:Date:In-reply-to:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=BE5X0pFrpBOEL/XeOCHZUFuS58UiRRK2XPBDHr7hZdwsX7LiF+3R3XbVBs9uKPOhp
+	 WbTeQZrxy9qSGsWW+je560neoMM6D3f6jSsAQu02H0matLFFHV0glmhKDbyp4GdnoO
+	 Hk9c6F5i82BnkEe00xyB8qhiN3L4kV7TUYtSMUDg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 76231F805CA; Thu,  4 Apr 2024 06:26:42 +0200 (CEST)
+	id 39368F805A1; Thu,  4 Apr 2024 10:52:29 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EF840F805C1;
-	Thu,  4 Apr 2024 06:26:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 829ADF805A9;
+	Thu,  4 Apr 2024 10:52:24 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 932DDF8020D; Thu,  4 Apr 2024 06:23:46 +0200 (CEST)
+	id D3DECF80568; Thu,  4 Apr 2024 10:48:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI
-	shortcircuit=no autolearn=unavailable version=3.4.6
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on20601.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2414::601])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [IPv6:2a00:1450:4864:20::42a])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8AC45F80007;
-	Thu,  4 Apr 2024 06:17:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8AC45F80007
+	by alsa1.perex.cz (Postfix) with ESMTPS id 74DFBF80114
+	for <alsa-devel@alsa-project.org>; Thu,  4 Apr 2024 10:45:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74DFBF80114
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=MBE9KSp1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gm5iCLMu2VYyPJEJNRH3OsdwiyFejuEBNIcwHW+R41SIzMen0MJ9U4D+76sr9/z6/4lNXgfVDJG7HAX2+lQMr3wdD3ENUQ4D+0irga4vsv9Vd0xAAGRSUxti9/NaMBPPMEYMwoKcI5dHtVEo/SNWRluqGZPvbBTpMrKsq2oNbXhh/U52H3/On7WcRWAVTDdOZmTeqSdy13JAR3KKPSZrJX/+2cSyQ/NQf1ktUu42zB9G6ij1TPcPwvNXLy0pnq7O9lO/FUi/1awow3rXWdMwBpHkiV+LChNKtVFS7V/GhKv2CqZze5dXMUQExkuABWk9eu6n87QCZlr9gc07GM6lyg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RJ8L2NOLCLTkgc2s6Gc1VnZNqEndYSbgtjRbPYJsRvY=;
- b=g9QpH6T5U281Twqjh9jcB65jjniIFZEtSRs5eQajfVbd+8rkd5zLbgNWLYrFnfPMsLLiAPq2F53LcAlmxWc/2M0Dt4mkovnOMVUQ12IOGhZa8pI3ciNzITJ1cEqDx7bCTS3Rdw7R72Ry1JUEBP5DqK2D+OGNmxsg2eLOoYbxYrPeea0q/unDRcCpBMaBzSYOtvh1YKjz8tYUaKGU3jn3uL2Wbv25e+Dk9b5F2CAge1wY5jsSU5Fp7UfIkqmTCQPZoCjH8eXjHqWznbi2GRRPBvrpotjPgzlzVZ4Dqr0hCaW7LrbYPQRpVzwp73PD2qySTo7e9xx+g/yxxcXKM1VcpA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RJ8L2NOLCLTkgc2s6Gc1VnZNqEndYSbgtjRbPYJsRvY=;
- b=MBE9KSp1gwizbXhPktSZwYEOQLQuZV8jHwiyHvRS3S/yPTQz5NFbnT9b768B3AgtNFT88hX64CBG/SzjzswZEUv0Tr17IkDbF6YttblJST7S2738ml4KlIlFfCrYzWO7lldK0P3oq02EbcqQBoX2Obn4sy4Yqa3CKwVnmCn5ioU=
-Received: from SA0PR13CA0009.namprd13.prod.outlook.com (2603:10b6:806:130::14)
- by DM4PR12MB6637.namprd12.prod.outlook.com (2603:10b6:8:bb::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46; Thu, 4 Apr
- 2024 04:17:25 +0000
-Received: from SN1PEPF00026367.namprd02.prod.outlook.com
- (2603:10b6:806:130:cafe::ea) by SA0PR13CA0009.outlook.office365.com
- (2603:10b6:806:130::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7452.26 via Frontend
- Transport; Thu, 4 Apr 2024 04:17:24 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- SN1PEPF00026367.mail.protection.outlook.com (10.167.241.132) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7452.22 via Frontend Transport; Thu, 4 Apr 2024 04:17:24 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 3 Apr
- 2024 23:17:23 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 3 Apr
- 2024 21:17:23 -0700
-Received: from vijendar-X570-GAMING-X.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35
- via Frontend Transport; Wed, 3 Apr 2024 23:17:17 -0500
-From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-To: <broonie@kernel.org>
-CC: <alsa-devel@alsa-project.org>, <Sunil-kumar.Dommati@amd.com>,
-	<Basavaraj.Hiregoudar@amd.com>, <venkataprasad.potturu@amd.com>, "Vijendar
- Mukunda" <Vijendar.Mukunda@amd.com>, Pierre-Louis Bossart
-	<pierre-louis.bossart@linux.intel.com>, Liam Girdwood <lgirdwood@gmail.com>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Bard Liao
-	<yung-chuan.liao@linux.intel.com>, Ranjani Sridharan
-	<ranjani.sridharan@linux.intel.com>, Daniel Baluta <daniel.baluta@nxp.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>, Jaroslav Kysela
-	<perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Cristian Ciocaltea
-	<cristian.ciocaltea@collabora.com>, Emil Velikov
-	<emil.velikov@collabora.com>, Mastan Katragadda <Mastan.Katragadda@amd.com>,
-	Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>, "moderated list:SOUND - SOUND
- OPEN FIRMWARE (SOF) DRIVERS" <sound-open-firmware@alsa-project.org>, "open
- list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
-	<linux-sound@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
-Subject: [PATCH] ASoC: SOF: amd: fix for false dsp interrupts
-Date: Thu, 4 Apr 2024 09:47:13 +0530
-Message-ID: <20240404041717.430545-1-Vijendar.Mukunda@amd.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key,
+ unprotected) header.d=baylibre-com.20230601.gappssmtp.com
+ header.i=@baylibre-com.20230601.gappssmtp.com header.a=rsa-sha256
+ header.s=20230601 header.b=TYg9Z/82
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3436fec6a70so529273f8f.2
+        for <alsa-devel@alsa-project.org>;
+ Thu, 04 Apr 2024 01:45:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1712220323;
+ x=1712825123; darn=alsa-project.org;
+        h=mime-version:message-id:in-reply-to:date:subject:cc:to:from
+         :user-agent:references:from:to:cc:subject:date:message-id:reply-to;
+        bh=8fo6r6+GpOmbs58KA8H03fqz5IfKM9XbnGIu84c+CU0=;
+        b=TYg9Z/82e2jJoYmjcqowBAzNUXQNTWw8XtB1ZlwzWmOPvg87ZIWeO0AVc6kx+KpH7t
+         bhgLRl5jW8WKuMOf4/mYbjpwiLKa8uIFU9UTNjutwr8/WLKxzaPOZVe+0VkCSDLf/Kz6
+         WYPVoBLTKI8xFg7pvNtIAsoWx3gsQS9xl+oL0voPRN+qgHWNp8kW7ZeBzHnaNPZUU0AW
+         2WOWh73ppQ7rk5TmWdsZp3H9GlWrSZhUpc5oeFwgRG95yMM/+LScHvZwQN5+1wkYYbeo
+         utR+753TsXJ52lMFjC7DJTL1PVBDOO541GbceY2H+s24LEkuk9RGhpJZtYdmX8Nb8Gck
+         ssiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1712220323; x=1712825123;
+        h=mime-version:message-id:in-reply-to:date:subject:cc:to:from
+         :user-agent:references:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=8fo6r6+GpOmbs58KA8H03fqz5IfKM9XbnGIu84c+CU0=;
+        b=NiPpoT/IQBgoy96c9DIlNgSWEYxnTHafrfkCLZDvJSyIREoYx+qeC36D+ajdHllp+o
+         aCFHAMnCvyIqhChmNrUsSwaqIbWF+dJrtHBdQBS1TRIYY5p69/ejpb/4pMOQ81Q1Gfab
+         +sruCiKf/bBMSKp838To4iQA94XcdGPy8TJD6NNKDD/wSewcRtlC2BfVM+psTB5UKia9
+         5EBBYv0SuYai8fK1DAbsDM/0DgJGTRvmJITu//BhLSyzpPTdE9OCl655JdWYocSg2XFX
+         Vt5Y+Z+a+h0GqenWxLUd/zoe9wc582z7yy/6AEoWoljbOz7RkAHIgWAdtqZ4fVyz9wMi
+         75SQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVYo66760WplbTvjVjfgvK6J014XOxl3EXsqzs8uHSF7eB6k6/abU2ixJhEXqi3ji78TaL+y21pvlf7nJDzJKcYO+23zhkz3SlJMuM=
+X-Gm-Message-State: AOJu0YzHr0dg7czfYf1g7nZRLl49BQsg4C79KD8r2GJGcs4lfDPFz0fc
+	bohBj461eeczqL6pIozAirq/KMi1icOw4f39cKlKhI3/+1XZRsDD5iAHKiCVKd0=
+X-Google-Smtp-Source: 
+ AGHT+IEAcsOPc4S1DUcCXvM+g9yxoPEXC4apjaO2kFEGisIgkysCQizj9ZAWeb5epN2r4xqgWw8tKA==
+X-Received: by 2002:adf:fec4:0:b0:343:61bb:115d with SMTP id
+ q4-20020adffec4000000b0034361bb115dmr1666179wrs.26.1712220323243;
+        Thu, 04 Apr 2024 01:45:23 -0700 (PDT)
+Received: from localhost ([2a01:e0a:3c5:5fb1:b7ad:8118:73f1:92e5])
+        by smtp.gmail.com with ESMTPSA id
+ bs26-20020a056000071a00b003439b45ca08sm3621056wrb.17.2024.04.04.01.45.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 04 Apr 2024 01:45:22 -0700 (PDT)
+References: <87zfuesz8y.wl-kuninori.morimoto.gx@renesas.com>
+User-agent: mu4e 1.10.8; emacs 29.2
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: =?utf-8?Q?Amadeusz_S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>, Alper Nebi
+ Yasak <alpernebiyasak@gmail.com>, AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>, Banajit Goswami
+ <bgoswami@quicinc.com>, Bard Liao <yung-chuan.liao@linux.intel.com>, Brent
+  Lu <brent.lu@intel.com>, Cezary Rojewski <cezary.rojewski@intel.com>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, Daniel Baluta
+ <daniel.baluta@nxp.com>, Hans de Goede <hdegoede@redhat.com>, Jaroslav
+  Kysela <perex@perex.cz>, Jerome Brunet <jbrunet@baylibre.com>, Kai
+ Vehmanen <kai.vehmanen@linux.intel.com>, Kevin Hilman
+ <khilman@baylibre.com>, Liam  Girdwood <lgirdwood@gmail.com>, Linus
+ Walleij <linus.walleij@linaro.org>, Mark Brown <broonie@kernel.org>, Maso
+ Huang <maso.huang@mediatek.com>, Matthias Brugger
+ <matthias.bgg@gmail.com>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Pierre-Louis Bossart
+ <pierre-louis.bossart@linux.intel.com>, Ranjani Sridharan
+ <ranjani.sridharan@linux.intel.com>, Sascha Hauer
+ <s.hauer@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>, Shengjiu Wang
+ <shengjiu.wang@gmail.com>, Srinivas Kandagatla
+ <srinivas.kandagatla@linaro.org>, Sylwester Nawrocki
+ <s.nawrocki@samsung.com>, Takashi Iwai <tiwai@suse.com>, Trevor Wu
+ <trevor.wu@mediatek.com>, Vinod Koul <vkoul@kernel.org>, Xiubo Li
+ <Xiubo.Lee@gmail.com>, alsa-devel@alsa-project.org, imx@lists.linux.dev,
+ linux-sound@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [PATCH v2 00/16] ASoC: Replace dpcm_playback/capture to
+ playback/capture_only
+Date: Thu, 04 Apr 2024 10:27:11 +0200
+In-reply-to: <87zfuesz8y.wl-kuninori.morimoto.gx@renesas.com>
+Message-ID: <1jil0xplcu.fsf@starbuckisacylon.baylibre.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF00026367:EE_|DM4PR12MB6637:EE_
-X-MS-Office365-Filtering-Correlation-Id: a5228266-d63d-4bb9-8358-08dc545e2169
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	TVI17PCm5UUqPBNCmXCW8u0Rb2jTE/NosuAzQn1QlTyoyisYJIxMcQrDoQQomCCVX9DF29zMsgz2wzJKaOpFvuZneqgNkLCBTOWU+/6KHw8iM/kS/pGv1JK8iPNax/BB84a5U3lydWvb85j51h4nwbw3ytw6UkmEpqSYk8eJ04BmSEc390IMsSZp7BojDvzABeVlWmk2pLGUHcL+AKgr2ds8d2fINszF5+M1+9hkVGKqcYjXEvAIArmIMiATSJlU5nwlFQzADa0J2T8qNRhimFtWD3j+EqarEjKouSb2FCLuWSfSR9RfFPIHk6kSwDmbyzHSoCz0qXiyNO7v+accGqWyj6wyuIb3pWd+FM7nP/iAETbEni3R0i1Ic0b1B4MWFCcdVHjMIl32ydJGD4B/klCosZ5X4ND8Wyp5zUGHcTr1iLKdlDAu7a7DcNWMlcwoHQUKGRWZvziZAg3JU/9HaXFPhEGTNz/zHFGL3cMiJNd4wlFlybOdn4IjMZRLFH5XWa/ttYsPVORpw3kIXhF0hyBo1a+GRsztox56CqKGjQsRcUQUJ6yNf5NtRnyV1kb/4Es7sc849j4HSC86+8mZ/1488yWNm1xDOem8sytMa54eikghwYlUpiwse8jC4jgP0Ll7+CqLeeflgKQkXv0hYvmBsE+ayKmjDpWP9kydumqZpOHrRH5kzsOp3mLbS1qyBC4cicDgHc5UxL+L0+EtealWSYE+JvRmUfkFOceYI09EszC9QZ/0ksAE/+KJcefB
-X-Forefront-Antispam-Report: 
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(82310400014)(376005)(7416005)(36860700004)(1800799015);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Apr 2024 04:17:24.2583
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- a5228266-d63d-4bb9-8358-08dc545e2169
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
- TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: 
-	SN1PEPF00026367.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6637
-Message-ID-Hash: NVKYRVVWO2IHLT6XP4RMFL2EBGTD32YQ
-X-Message-ID-Hash: NVKYRVVWO2IHLT6XP4RMFL2EBGTD32YQ
-X-MailFrom: Vijendar.Mukunda@amd.com
+Message-ID-Hash: 6TIVANQ5HBNB24MAU54E5MS5SDLW276G
+X-Message-ID-Hash: 6TIVANQ5HBNB24MAU54E5MS5SDLW276G
+X-MailFrom: jbrunet@baylibre.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -149,7 +136,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NVKYRVVWO2IHLT6XP4RMFL2EBGTD32YQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6TIVANQ5HBNB24MAU54E5MS5SDLW276G/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -158,46 +145,179 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Before ACP firmware loading, DSP interrupts are not expected.
-Sometimes after reboot, it's observed that before ACP firmware is loaded
-false DSP interrupt is reported.
-Registering the interrupt handler before acp initialization causing false
-interrupts sometimes on reboot as ACP reset is not applied.
-Correct the sequence by invoking acp initialization sequence prior to
-registering interrupt handler.
 
-Fixes: 738a2b5e2cc9 ("ASoC: SOF: amd: Add IPC support for ACP IP block")
-Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
----
- sound/soc/sof/amd/acp.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+On Mon 01 Apr 2024 at 00:27, Kuninori Morimoto <kuninori.morimoto.gx@renesas.com> wrote:
 
-diff --git a/sound/soc/sof/amd/acp.c b/sound/soc/sof/amd/acp.c
-index be7dc1e02284..c12c7f820529 100644
---- a/sound/soc/sof/amd/acp.c
-+++ b/sound/soc/sof/amd/acp.c
-@@ -704,6 +704,10 @@ int amd_sof_acp_probe(struct snd_sof_dev *sdev)
- 		goto unregister_dev;
- 	}
- 
-+	ret = acp_init(sdev);
-+	if (ret < 0)
-+		goto free_smn_dev;
-+
- 	sdev->ipc_irq = pci->irq;
- 	ret = request_threaded_irq(sdev->ipc_irq, acp_irq_handler, acp_irq_thread,
- 				   IRQF_SHARED, "AudioDSP", sdev);
-@@ -713,10 +717,6 @@ int amd_sof_acp_probe(struct snd_sof_dev *sdev)
- 		goto free_smn_dev;
- 	}
- 
--	ret = acp_init(sdev);
--	if (ret < 0)
--		goto free_ipc_irq;
--
- 	/* scan SoundWire capabilities exposed by DSDT */
- 	ret = acp_sof_scan_sdw_devices(sdev, chip->sdw_acpi_dev_addr);
- 	if (ret < 0) {
+> Hi Mark
+>
+> This is v2 patch-set
+>
+> When we use DPCM, we need to set dpcm_playback/capture flag.
+> If these flag are set, soc_get_playback_capture() will check its
+> availability, but non DPCM doesn't need such special flags.
+>
+> OTOH, it cares playback/capture_only flag. It is needed.
+>
+> This patch remove DPCM special flag, and replace it playback/capture_only
+> flag if needed.
+
+Hi Kuninori-san,
+
+Thanks for taking the time to clean the dpcm flags.
+While at it, I wonder if it would be worth taking it a step further.
+
+playback_only and capture_only have implication on each other. If one is
+set, the other can/must not be set. This leads to conditions which can
+be fairly hard to read and possibly bugs.
+
+I had to re-read the meson patch a few times to make sure it still had the
+same meaning, TBH
+
+Wouldn't it be better to replace those 2 flags with a single bitfield ?
+
+something like:
+
+unsigned int directions;
+#define PLAYBACK_VALID	BIT(0)
+#define CAPTURE_VALID BIT(1)
+
+... or something similar.
+
+I think conditions on the enabled stream would become much clearer like
+this. The only invalid configuation would be '!directions', which again
+is easier to read, instead of checking if both flags are set.
+
+It would be easy to keep playback_only/capture_only tests, where
+necessary, with an helper function.
+
+What do you think ?
+
+Sorry if it is a bit late to discuss this.
+
+>
+> v1 -> v2
+> 	- based on latest ASoC branch
+> 	- keep comment on Intel
+> 	- tidyup patch title
+> 	- tidyup DPCM BE warning output condition
+> 	- Add new patch for Document
+>
+> Link: https://lore.kernel.org/r/87o7b353of.wl-kuninori.morimoto.gx@renesas.com
+>
+> Kuninori Morimoto (16):
+>   ASoC: soc-pcm.c: cleanup soc_get_playback_capture()
+>   ASoC: amd: Replace dpcm_playback/capture to playback/capture_only
+>   ASoC: fsl: Replace dpcm_playback/capture to playback/capture_only
+>   ASoC: sof: Replace dpcm_playback/capture to playback/capture_only
+>   ASoC: meson: Replace dpcm_playback/capture to playback/capture_only
+>   ASoC: Intel: Replace dpcm_playback/capture to playback/capture_only
+>   ASoC: samsung: Replace dpcm_playback/capture to playback/capture_only
+>   ASoC: mediatek: Replace dpcm_playback/capture to playback/capture_only
+>   ASoC: soc-core: Replace dpcm_playback/capture to playback/capture_only
+>   ASoC: soc-topology: Replace dpcm_playback/capture to
+>     playback/capture_only
+>   ASoC: soc-compress: Replace dpcm_playback/capture to
+>     playback/capture_only
+>   ASoC: Intel: avs: boards: Replace dpcm_playback/capture to
+>     playback/capture_only
+>   ASoC: remove snd_soc_dai_link_set_capabilities()
+>   ASoC: soc-pcm: remove dpcm_playback/capture
+>   ASoC: soc-pcm: indicate warning if DPCM BE Codec has no settings
+>   ASoC: doc: remove .dpcm_playback/capture flags
+>
+>  Documentation/sound/soc/dpcm.rst              | 14 ++-
+>  include/sound/soc-dai.h                       |  1 -
+>  include/sound/soc.h                           |  4 -
+>  sound/soc/amd/acp-da7219-max98357a.c          | 20 ++---
+>  sound/soc/amd/acp-es8336.c                    |  2 -
+>  sound/soc/amd/acp/acp-mach-common.c           | 24 ++---
+>  sound/soc/amd/acp3x-rt5682-max9836.c          |  6 +-
+>  sound/soc/amd/vangogh/acp5x-mach.c            |  6 --
+>  sound/soc/fsl/fsl-asoc-card.c                 | 16 ++--
+>  sound/soc/fsl/imx-audmix.c                    |  6 +-
+>  sound/soc/fsl/imx-card.c                      |  7 +-
+>  sound/soc/generic/audio-graph-card.c          |  2 -
+>  sound/soc/generic/audio-graph-card2.c         |  2 -
+>  sound/soc/generic/simple-card.c               |  2 -
+>  sound/soc/intel/avs/boards/da7219.c           |  2 -
+>  sound/soc/intel/avs/boards/dmic.c             |  4 +-
+>  sound/soc/intel/avs/boards/es8336.c           |  2 -
+>  sound/soc/intel/avs/boards/hdaudio.c          |  4 -
+>  sound/soc/intel/avs/boards/i2s_test.c         |  2 -
+>  sound/soc/intel/avs/boards/max98357a.c        |  2 +-
+>  sound/soc/intel/avs/boards/max98373.c         |  2 -
+>  sound/soc/intel/avs/boards/max98927.c         |  2 -
+>  sound/soc/intel/avs/boards/nau8825.c          |  2 -
+>  sound/soc/intel/avs/boards/rt274.c            |  2 -
+>  sound/soc/intel/avs/boards/rt286.c            |  2 -
+>  sound/soc/intel/avs/boards/rt298.c            |  2 -
+>  sound/soc/intel/avs/boards/rt5514.c           |  2 +-
+>  sound/soc/intel/avs/boards/rt5663.c           |  2 -
+>  sound/soc/intel/avs/boards/rt5682.c           |  2 -
+>  sound/soc/intel/avs/boards/ssm4567.c          |  2 -
+>  sound/soc/intel/boards/bdw-rt5650.c           |  4 -
+>  sound/soc/intel/boards/bdw-rt5677.c           |  4 -
+>  sound/soc/intel/boards/bdw_rt286.c            | 10 +--
+>  sound/soc/intel/boards/bxt_da7219_max98357a.c | 32 ++++---
+>  sound/soc/intel/boards/bxt_rt298.c            | 26 +++---
+>  sound/soc/intel/boards/bytcht_cx2072x.c       |  6 +-
+>  sound/soc/intel/boards/bytcht_da7213.c        |  6 +-
+>  sound/soc/intel/boards/bytcht_es8316.c        |  6 +-
+>  sound/soc/intel/boards/bytcht_nocodec.c       |  6 +-
+>  sound/soc/intel/boards/bytcr_rt5640.c         |  6 +-
+>  sound/soc/intel/boards/bytcr_rt5651.c         |  6 +-
+>  sound/soc/intel/boards/bytcr_wm5102.c         |  6 +-
+>  sound/soc/intel/boards/cht_bsw_max98090_ti.c  |  6 +-
+>  sound/soc/intel/boards/cht_bsw_nau8824.c      |  6 +-
+>  sound/soc/intel/boards/cht_bsw_rt5645.c       |  6 +-
+>  sound/soc/intel/boards/cht_bsw_rt5672.c       |  6 +-
+>  sound/soc/intel/boards/cml_rt1011_rt5682.c    | 15 ++--
+>  sound/soc/intel/boards/ehl_rt5660.c           | 14 ++-
+>  sound/soc/intel/boards/glk_rt5682_max98357a.c | 30 +++----
+>  sound/soc/intel/boards/hsw_rt5640.c           | 10 +--
+>  sound/soc/intel/boards/kbl_da7219_max98357a.c | 26 +++---
+>  sound/soc/intel/boards/kbl_da7219_max98927.c  | 54 +++++-------
+>  sound/soc/intel/boards/kbl_rt5660.c           | 18 ++--
+>  sound/soc/intel/boards/kbl_rt5663_max98927.c  | 44 +++++-----
+>  .../intel/boards/kbl_rt5663_rt5514_max98927.c | 22 ++---
+>  sound/soc/intel/boards/skl_hda_dsp_common.c   | 14 ++-
+>  .../soc/intel/boards/skl_nau88l25_max98357a.c | 26 +++---
+>  sound/soc/intel/boards/skl_nau88l25_ssm4567.c | 26 +++---
+>  sound/soc/intel/boards/skl_rt286.c            | 26 +++---
+>  sound/soc/intel/boards/sof_board_helpers.c    | 13 +--
+>  sound/soc/intel/boards/sof_es8336.c           |  8 +-
+>  sound/soc/intel/boards/sof_pcm512x.c          |  8 +-
+>  sound/soc/intel/boards/sof_sdw.c              |  4 +-
+>  sound/soc/intel/boards/sof_wm8804.c           |  2 -
+>  sound/soc/mediatek/mt2701/mt2701-cs42448.c    | 20 ++---
+>  sound/soc/mediatek/mt2701/mt2701-wm8960.c     |  6 +-
+>  sound/soc/mediatek/mt6797/mt6797-mt6351.c     | 24 ++---
+>  sound/soc/mediatek/mt7986/mt7986-wm8960.c     |  6 +-
+>  sound/soc/mediatek/mt8173/mt8173-max98090.c   |  6 +-
+>  .../mediatek/mt8173/mt8173-rt5650-rt5514.c    |  6 +-
+>  .../mediatek/mt8173/mt8173-rt5650-rt5676.c    | 10 +--
+>  sound/soc/mediatek/mt8173/mt8173-rt5650.c     | 10 +--
+>  .../mediatek/mt8183/mt8183-da7219-max98357.c  | 34 +++-----
+>  .../mt8183/mt8183-mt6358-ts3a227-max98357.c   | 34 +++-----
+>  .../mt8186/mt8186-mt6366-da7219-max98357.c    | 86 +++++++-----------
+>  .../mt8186/mt8186-mt6366-rt1019-rt5682s.c     | 86 +++++++-----------
+>  sound/soc/mediatek/mt8188/mt8188-mt6359.c     | 58 ++++++-------
+>  .../mt8192/mt8192-mt6359-rt1015-rt5682.c      | 78 ++++++++---------
+>  sound/soc/mediatek/mt8195/mt8195-mt6359.c     | 60 +++++++------
+>  sound/soc/meson/axg-card.c                    |  9 +-
+>  sound/soc/meson/gx-card.c                     |  1 -
+>  sound/soc/meson/meson-card-utils.c            |  4 +-
+>  sound/soc/qcom/common.c                       |  1 -
+>  sound/soc/samsung/odroid.c                    | 11 ++-
+>  sound/soc/soc-compress.c                      | 10 ++-
+>  sound/soc/soc-core.c                          | 20 +----
+>  sound/soc/soc-dai.c                           | 38 --------
+>  sound/soc/soc-pcm.c                           | 87 ++++++++-----------
+>  sound/soc/soc-topology-test.c                 |  2 -
+>  sound/soc/soc-topology.c                      |  4 +-
+>  sound/soc/sof/nocodec.c                       |  4 -
+>  91 files changed, 502 insertions(+), 863 deletions(-)
+
+
 -- 
-2.34.1
-
+Jerome

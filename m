@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 179E1898E97
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Apr 2024 21:04:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37067898E9E
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Apr 2024 21:05:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CC81D2CEE;
-	Thu,  4 Apr 2024 21:04:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC81D2CEE
+	by alsa0.perex.cz (Postfix) with ESMTPS id EF4622CDD;
+	Thu,  4 Apr 2024 21:05:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF4622CDD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712257492;
-	bh=5PXai1ELdJMCIV3le8QrsuCjyQcUu0kNXQzg+DVqnkw=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=JSd1VsuYRb88FX4nG3m8ssdstmIDb4J2z3loh+1ouBojfi3mlAHfqHL/eO/tPhvlk
-	 7XryUZrnxUYn3BxUp2Cjd52jPEaHbux20nMkY7iqa96Uj5so1DbjeAWCS+xU2rzM5s
-	 CwcHVfqWCy2dZqRKINzEXxVTqpaxK2P2BGvUhB2k=
+	s=default; t=1712257525;
+	bh=gvWvwJz1TMcsZ+arLk6e5VFQm8nhkbazC2Uqjo8O/ic=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=YeKjpTHuSQ/F53UPBsvc69yRVN81sJtWvRp0kwwZSWegdZYXS3pg81qYJoDxjhjMc
+	 alvfettzLO+fVjwt8RLY1nmEsvMAiJoda039lewcIyMl8DF8wRZHNdn7XTzn/McPJB
+	 4CPsjE2vnsB6Hx/V3HqYWX5qqyOoh95V3pODx5BE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D9A8BF805BF; Thu,  4 Apr 2024 21:04:20 +0200 (CEST)
+	id 45CF8F805FD; Thu,  4 Apr 2024 21:04:26 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 71202F805AB;
-	Thu,  4 Apr 2024 21:04:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BE740F805F7;
+	Thu,  4 Apr 2024 21:04:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BF02FF80568; Thu,  4 Apr 2024 21:04:11 +0200 (CEST)
+	id 1FCAFF8020D; Thu,  4 Apr 2024 21:04:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,39 +35,39 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 131B8F80007
-	for <alsa-devel@alsa-project.org>; Thu,  4 Apr 2024 21:04:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 131B8F80007
+	by alsa1.perex.cz (Postfix) with ESMTPS id D7AFEF80114
+	for <alsa-devel@alsa-project.org>; Thu,  4 Apr 2024 21:04:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D7AFEF80114
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=VqGaZmb5
+ header.s=Intel header.b=ED/w7CNJ
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1712257448; x=1743793448;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=5PXai1ELdJMCIV3le8QrsuCjyQcUu0kNXQzg+DVqnkw=;
-  b=VqGaZmb5RRwevzsKPLEvx6A4e5HZS1k4UT0jk0j3VzW/2ynVzQZIbQlk
-   QUgRauL2wvLQl3x5rEzkFglpY3TH3aQKsbWq/MR1lMvyb+aSUgRKukm6f
-   g551rJdGy4jJKYA/9p5PwSWkZ7mgOvirlhZINUWIyRR8PZbWlQkIyzrCl
-   ANFOJcQC9QlOF4lAhaSn+ALprOD8O7/ojuMLrJ/EWkFBfu9Pw54HXNNee
-   rjJ79bgaz+dCO2MDbQUDnigZ1tTJj20RwgJALRA1Qa/wyLH0kelESxm4x
-   nVGoYpKnkIVwoRMX3KF7BJ5s7A8NzC9BstiftldJ3qtABdHOs7Fy76qXu
-   g==;
-X-CSE-ConnectionGUID: odHpGw9pR/ihznXcZYed8A==
-X-CSE-MsgGUID: UWYugmbGRAq4R2WsK3aFdA==
-X-IronPort-AV: E=McAfee;i="6600,9927,11034"; a="7433855"
+  t=1712257449; x=1743793449;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=gvWvwJz1TMcsZ+arLk6e5VFQm8nhkbazC2Uqjo8O/ic=;
+  b=ED/w7CNJu12U1EbZoDn4E8qy8oVJc9h+WrJwdQQcUQg75iRUv2v5WKOa
+   uww+ao1qxzU3oiWutpP5qfQU92a/J9x8i/n0z8PJDzcNMB9iEBgkSY90h
+   HEGl3WYOWbl0wLufWnz6JTaUrFVWd3/3+aPbIfB5Jax2yoJ1eYtotv9Kf
+   fl/T5VEjtb35G/q7J9oQe8uUHqlhubkmJEpkWmIgsKbiE+BVFlnwtmy5E
+   E+6HV3iimjWm5mK3KMXKkKjVwqbg3qd8TG4/UQl97IMvm39qQBp2ink8Y
+   uv70KiiWe6raH+8QQBOOc/SaG7nV8aqxkBvvTpYjSRn2YEHRiBdZus3NH
+   w==;
+X-CSE-ConnectionGUID: wudPjVd4SqqLfU1gcJ5Xfg==
+X-CSE-MsgGUID: NOPpGBgXQ4ydRW+kQP79iA==
+X-IronPort-AV: E=McAfee;i="6600,9927,11034"; a="7433861"
 X-IronPort-AV: E=Sophos;i="6.07,179,1708416000";
-   d="scan'208";a="7433855"
+   d="scan'208";a="7433861"
 Received: from orviesa008.jf.intel.com ([10.64.159.148])
   by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  04 Apr 2024 12:04:04 -0700
-X-CSE-ConnectionGUID: WdkdDkcbTMadF2e63i5eCA==
-X-CSE-MsgGUID: jcVqJTJlQEiKYNvdXqfUuQ==
+X-CSE-ConnectionGUID: KHTE80dDQGaUdnzi4OBsNA==
+X-CSE-MsgGUID: xF8Og7J8Sc63xgcAh590cw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.07,179,1708416000";
-   d="scan'208";a="19492305"
+   d="scan'208";a="19492306"
 Received: from sparrish-mobl1.amr.corp.intel.com (HELO
  pbossart-mobl6.intel.com) ([10.212.119.106])
   by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
@@ -76,16 +77,20 @@ To: linux-sound@vger.kernel.org
 Cc: alsa-devel@alsa-project.org,
 	tiwai@suse.de,
 	broonie@kernel.org,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [PATCH 0/4] ASoC: SOF: Intel: improve and extend HDaudio-based wakes
-Date: Thu,  4 Apr 2024 14:03:53 -0500
-Message-Id: <20240404190357.138073-1-pierre-louis.bossart@linux.intel.com>
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	=?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>
+Subject: [PATCH 1/4] ASoC: SOF: Intel: hda-ctrl: add missing WAKE_STS clear
+Date: Thu,  4 Apr 2024 14:03:54 -0500
+Message-Id: <20240404190357.138073-2-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.40.1
+In-Reply-To: <20240404190357.138073-1-pierre-louis.bossart@linux.intel.com>
+References: <20240404190357.138073-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: OMDUYQT3X2XTR7AFMZKEL7JFFGWX3TBJ
-X-Message-ID-Hash: OMDUYQT3X2XTR7AFMZKEL7JFFGWX3TBJ
+Message-ID-Hash: DLEEMKKUZJSKLJDISRAQFBNKRS5DLMYK
+X-Message-ID-Hash: DLEEMKKUZJSKLJDISRAQFBNKRS5DLMYK
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -98,7 +103,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OMDUYQT3X2XTR7AFMZKEL7JFFGWX3TBJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DLEEMKKUZJSKLJDISRAQFBNKRS5DLMYK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,26 +112,46 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-For LunarLake, the SoundWire in-band wake detection is reported with
-the HDAudio WAKE_EN/WAKE_STS registers. In the existing code, these
-registers are only handled for HDaudio codecs. Now the same registers
-have to be handled with care as shared resources.
+For some reason, the programming sequences in the SOF driver do not
+include a clear of the WAKE_STS bits before resetting the controller.
 
-The in-band wake detection mainly used for jack detection. Without
-this patchset, the SoundWire headset codecs signal an event that would
-be ignored and not reported.
+This clear is not formally required by the HDaudio specification, but
+was added to harden the snd-hda-reset back in 2007. Adding this
+sequence back avoids an issue reported by the Intel CI.
 
-Pierre-Louis Bossart (4):
-  ASoC: SOF: Intel: hda-ctrl: add missing WAKE_STS clear
-  ASoC: SOF: Intel: lnl: add helper to detect SoundWire wakes
-  ASoC: SOF: Intel: hda-codec: preserve WAKEEN values
-  ASoC: SOF: Intel: hda-ctrl: only clear WAKESTS for HDaudio codecs
+Closes: https://github.com/thesofproject/linux/issues/4889
+Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+---
+ sound/soc/sof/intel/hda-ctrl.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
- sound/soc/sof/intel/hda-codec.c | 15 ++++++++++++---
- sound/soc/sof/intel/hda-ctrl.c  |  9 ++++++++-
- sound/soc/sof/intel/lnl.c       | 18 ++++++++++++++++++
- 3 files changed, 38 insertions(+), 4 deletions(-)
-
+diff --git a/sound/soc/sof/intel/hda-ctrl.c b/sound/soc/sof/intel/hda-ctrl.c
+index 84bf01bd360a..b4f0756e21f6 100644
+--- a/sound/soc/sof/intel/hda-ctrl.c
++++ b/sound/soc/sof/intel/hda-ctrl.c
+@@ -184,6 +184,7 @@ int hda_dsp_ctrl_init_chip(struct snd_sof_dev *sdev)
+ 	struct hdac_bus *bus = sof_to_bus(sdev);
+ 	struct hdac_stream *stream;
+ 	int sd_offset, ret = 0;
++	u32 gctl;
+ 
+ 	if (bus->chip_init)
+ 		return 0;
+@@ -192,6 +193,12 @@ int hda_dsp_ctrl_init_chip(struct snd_sof_dev *sdev)
+ 
+ 	hda_dsp_ctrl_misc_clock_gating(sdev, false);
+ 
++	/* clear WAKE_STS if not in reset */
++	gctl = snd_sof_dsp_read(sdev, HDA_DSP_HDA_BAR, SOF_HDA_GCTL);
++	if (gctl & SOF_HDA_GCTL_RESET)
++		snd_sof_dsp_write(sdev, HDA_DSP_HDA_BAR,
++				  SOF_HDA_WAKESTS, SOF_HDA_WAKESTS_INT_MASK);
++
+ 	/* reset HDA controller */
+ 	ret = hda_dsp_ctrl_link_reset(sdev, true);
+ 	if (ret < 0) {
 -- 
 2.40.1
 

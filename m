@@ -2,30 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FB82898E6A
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Apr 2024 20:56:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 179E1898E97
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Apr 2024 21:04:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 783DA2CD1;
-	Thu,  4 Apr 2024 20:56:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 783DA2CD1
+	by alsa0.perex.cz (Postfix) with ESMTPS id CC81D2CEE;
+	Thu,  4 Apr 2024 21:04:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC81D2CEE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712257005;
-	bh=afNioHGncXnRJlF/ZevFtsEpxu9GMprGXgRv6adODQM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=HE0XXekUmF7n3cDUMxNwiPnQjpsNidshR/PIMR08ChfrE686SK4yVEhMSkBBXj0sV
-	 B+NLQZNwqnCA71jP1qz7J5mYNRbozgTaRFZtj+uYut9+uEdszK2hd4wHo+ov1dn47i
-	 hRY/u9hzJ7WkAbQGKg0y+jGhu6wszveW04l9HJW0=
+	s=default; t=1712257492;
+	bh=5PXai1ELdJMCIV3le8QrsuCjyQcUu0kNXQzg+DVqnkw=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=JSd1VsuYRb88FX4nG3m8ssdstmIDb4J2z3loh+1ouBojfi3mlAHfqHL/eO/tPhvlk
+	 7XryUZrnxUYn3BxUp2Cjd52jPEaHbux20nMkY7iqa96Uj5so1DbjeAWCS+xU2rzM5s
+	 CwcHVfqWCy2dZqRKINzEXxVTqpaxK2P2BGvUhB2k=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0ABCAF80630; Thu,  4 Apr 2024 20:55:25 +0200 (CEST)
+	id D9A8BF805BF; Thu,  4 Apr 2024 21:04:20 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1E131F80641;
-	Thu,  4 Apr 2024 20:55:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 71202F805AB;
+	Thu,  4 Apr 2024 21:04:19 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1C485F805E1; Thu,  4 Apr 2024 20:55:17 +0200 (CEST)
+	id BF02FF80568; Thu,  4 Apr 2024 21:04:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,63 +34,58 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 51614F8020D
-	for <alsa-devel@alsa-project.org>; Thu,  4 Apr 2024 20:55:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51614F8020D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 131B8F80007
+	for <alsa-devel@alsa-project.org>; Thu,  4 Apr 2024 21:04:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 131B8F80007
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=K4iS1xnB
+ header.s=Intel header.b=VqGaZmb5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1712256905; x=1743792905;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=afNioHGncXnRJlF/ZevFtsEpxu9GMprGXgRv6adODQM=;
-  b=K4iS1xnBKCmhV99J6JQHSuInfYU9PpooMIK8ktU1MZWraWL89m5Xrw7J
-   s1E9ouuDZtJzzL1GkzWY2rt3Nw99FvfidLSxZYjibVPiAgi3z8jteQI1w
-   oCjd+4wtWqhGmcEuD9wWd199tNKlb1v/gJMBClmGhJ7vo/B8iehtaKGd+
-   2mIPL/HBiKLs9J8bwB612X6/rxgCn9xhxcG4/80F0sd2/4FyrkhtXgg41
-   Xnm0Rat3s8rwr6t0XO7PMv69qKOzj32I57HmQrbpwoM8/bof0jDtzJpG1
-   bQEoEDz4Fl57blYORresP+VZGsZU9AQaTKgai458jTEnzGjV/KYsyBZK2
+  t=1712257448; x=1743793448;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=5PXai1ELdJMCIV3le8QrsuCjyQcUu0kNXQzg+DVqnkw=;
+  b=VqGaZmb5RRwevzsKPLEvx6A4e5HZS1k4UT0jk0j3VzW/2ynVzQZIbQlk
+   QUgRauL2wvLQl3x5rEzkFglpY3TH3aQKsbWq/MR1lMvyb+aSUgRKukm6f
+   g551rJdGy4jJKYA/9p5PwSWkZ7mgOvirlhZINUWIyRR8PZbWlQkIyzrCl
+   ANFOJcQC9QlOF4lAhaSn+ALprOD8O7/ojuMLrJ/EWkFBfu9Pw54HXNNee
+   rjJ79bgaz+dCO2MDbQUDnigZ1tTJj20RwgJALRA1Qa/wyLH0kelESxm4x
+   nVGoYpKnkIVwoRMX3KF7BJ5s7A8NzC9BstiftldJ3qtABdHOs7Fy76qXu
    g==;
-X-CSE-ConnectionGUID: fOl7dinUTrWMDIFdMlEv1g==
-X-CSE-MsgGUID: UFqex+kRT8+NMe4apUzWUQ==
-X-IronPort-AV: E=McAfee;i="6600,9927,11034"; a="7432810"
+X-CSE-ConnectionGUID: odHpGw9pR/ihznXcZYed8A==
+X-CSE-MsgGUID: UWYugmbGRAq4R2WsK3aFdA==
+X-IronPort-AV: E=McAfee;i="6600,9927,11034"; a="7433855"
 X-IronPort-AV: E=Sophos;i="6.07,179,1708416000";
-   d="scan'208";a="7432810"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
+   d="scan'208";a="7433855"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
   by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Apr 2024 11:55:01 -0700
-X-CSE-ConnectionGUID: aHo12uyoSGS26cpp5olWEg==
-X-CSE-MsgGUID: C10+nUKDTGuU152yUCmKqg==
+ 04 Apr 2024 12:04:04 -0700
+X-CSE-ConnectionGUID: WdkdDkcbTMadF2e63i5eCA==
+X-CSE-MsgGUID: jcVqJTJlQEiKYNvdXqfUuQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.07,179,1708416000";
-   d="scan'208";a="23574633"
+   d="scan'208";a="19492305"
 Received: from sparrish-mobl1.amr.corp.intel.com (HELO
  pbossart-mobl6.intel.com) ([10.212.119.106])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Apr 2024 11:55:00 -0700
+  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Apr 2024 12:04:04 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: linux-sound@vger.kernel.org
 Cc: alsa-devel@alsa-project.org,
 	tiwai@suse.de,
 	broonie@kernel.org,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	=?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
-	Rander Wang <rander.wang@intel.com>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Subject: [PATCH 4/4] ASoC: SOF: Intel: hda-stream: clarify comment
-Date: Thu,  4 Apr 2024 13:54:48 -0500
-Message-Id: <20240404185448.136157-5-pierre-louis.bossart@linux.intel.com>
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 0/4] ASoC: SOF: Intel: improve and extend HDaudio-based wakes
+Date: Thu,  4 Apr 2024 14:03:53 -0500
+Message-Id: <20240404190357.138073-1-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20240404185448.136157-1-pierre-louis.bossart@linux.intel.com>
-References: <20240404185448.136157-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: CKYX3X7P2YHSIGY4MD2BN2NHQICN4N5E
-X-Message-ID-Hash: CKYX3X7P2YHSIGY4MD2BN2NHQICN4N5E
+Message-ID-Hash: OMDUYQT3X2XTR7AFMZKEL7JFFGWX3TBJ
+X-Message-ID-Hash: OMDUYQT3X2XTR7AFMZKEL7JFFGWX3TBJ
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -104,7 +98,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CKYX3X7P2YHSIGY4MD2BN2NHQICN4N5E/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OMDUYQT3X2XTR7AFMZKEL7JFFGWX3TBJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,29 +107,26 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The Yoda grammar and multiple negatives are unclear.
+For LunarLake, the SoundWire in-band wake detection is reported with
+the HDAudio WAKE_EN/WAKE_STS registers. In the existing code, these
+registers are only handled for HDaudio codecs. Now the same registers
+have to be handled with care as shared resources.
 
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Rander Wang <rander.wang@intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
----
- sound/soc/sof/intel/hda-stream.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+The in-band wake detection mainly used for jack detection. Without
+this patchset, the SoundWire headset codecs signal an event that would
+be ignored and not reported.
 
-diff --git a/sound/soc/sof/intel/hda-stream.c b/sound/soc/sof/intel/hda-stream.c
-index 76c33795ade4..91b1371745e6 100644
---- a/sound/soc/sof/intel/hda-stream.c
-+++ b/sound/soc/sof/intel/hda-stream.c
-@@ -785,7 +785,7 @@ static bool hda_dsp_stream_check(struct hdac_bus *bus, u32 status)
- 				continue;
- 			}
- 
--			/* Inform ALSA only in case not do that with IPC */
-+			/* Inform ALSA only if the IPC position is not used */
- 			if (s->substream && sof_hda->no_ipc_position) {
- 				snd_sof_pcm_period_elapsed(s->substream);
- 			} else if (s->cstream) {
+Pierre-Louis Bossart (4):
+  ASoC: SOF: Intel: hda-ctrl: add missing WAKE_STS clear
+  ASoC: SOF: Intel: lnl: add helper to detect SoundWire wakes
+  ASoC: SOF: Intel: hda-codec: preserve WAKEEN values
+  ASoC: SOF: Intel: hda-ctrl: only clear WAKESTS for HDaudio codecs
+
+ sound/soc/sof/intel/hda-codec.c | 15 ++++++++++++---
+ sound/soc/sof/intel/hda-ctrl.c  |  9 ++++++++-
+ sound/soc/sof/intel/lnl.c       | 18 ++++++++++++++++++
+ 3 files changed, 38 insertions(+), 4 deletions(-)
+
 -- 
 2.40.1
 

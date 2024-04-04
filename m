@@ -2,72 +2,164 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C305899106
-	for <lists+alsa-devel@lfdr.de>; Fri,  5 Apr 2024 00:09:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28B208991EF
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 Apr 2024 01:14:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 70E0B2CEA;
-	Fri,  5 Apr 2024 00:09:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 70E0B2CEA
+	by alsa0.perex.cz (Postfix) with ESMTPS id C15152CE8;
+	Fri,  5 Apr 2024 01:14:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C15152CE8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712268578;
-	bh=KIPXXQnRcEH3SLDhnU5Lo93GXULzI86V1PpY8NSofag=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=o+5JUcBped6yh7IRNow6sLE4YGPK3iLRzqb5ftpgAbnXK7vdL69ArMz89foHAPVrC
-	 nctH1qVt1E5M5Uh0Z3HH64ScMbtif/rzPYuP4eT1+RCNmDhJsN63u50emR7FAeavKO
-	 b2Vc8xxYecWf8egtCYqp4bBVp8qnSlyfN0GFNGhk=
+	s=default; t=1712272494;
+	bh=Ucg1BJoQUPeQ64IRapCNQ0MoOp5xyatQwhQGd2BIjLk=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=K/aeNWXMkGspaZnRWpaHatG4SUq5bmCKEgFX/jNqgQUM/+rvc9AxMGB9V/kbv1GAz
+	 GyghCsnWGvuk4zLz6ISMHd93RMfJBe7c+HH/vqBt5BpKAMkE/9eN0dU9vxE9vdWR6j
+	 f4s0VOX4K3i+AIWAVmOf8CSScylUwsU2TnihUqek=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 182B5F805A1; Fri,  5 Apr 2024 00:09:07 +0200 (CEST)
+	id 6FEDDF80588; Fri,  5 Apr 2024 01:14:23 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BE03BF805A1;
-	Fri,  5 Apr 2024 00:09:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AF4E0F8059F;
+	Fri,  5 Apr 2024 01:14:22 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A0A6FF8020D; Fri,  5 Apr 2024 00:07:45 +0200 (CEST)
+	id 6D8B0F8020D; Fri,  5 Apr 2024 01:14:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,PP_MIME_FAKE_ASCII_TEXT,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from JPN01-TYC-obe.outbound.protection.outlook.com
+ (mail-tycjpn01on20701.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:2019::701])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 03B3DF80007
-	for <alsa-devel@alsa-project.org>; Fri,  5 Apr 2024 00:07:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03B3DF80007
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8756BF80007
+	for <alsa-devel@alsa-project.org>; Fri,  5 Apr 2024 01:14:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8756BF80007
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=lIzx7ssL
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 485F3616FE;
-	Thu,  4 Apr 2024 22:07:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95599C433C7;
-	Thu,  4 Apr 2024 22:07:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1712268444;
-	bh=KIPXXQnRcEH3SLDhnU5Lo93GXULzI86V1PpY8NSofag=;
-	h=From:To:Cc:Subject:Date:From;
-	b=lIzx7ssLWiJ9jU04nM0zaoDx+Rz+y1vHPjP3BiG+PsFWxTx7mQhYSt23YC5ikGgx/
-	 4PgShO0MnBaxNdVvIh8UI2XrDIrAjvOzup84YqmPmfo00FBqFc5rC/UwJi9IrI6aJ0
-	 4H8LZIg+gvbFr46JmpLGDd7mr4TCLunf//y4bJk5ItRY7zrfxELonXVJHkVDpjQWSQ
-	 +BuilQqj3NgW3l93X0v8LgNgNEDxHqh3izHVle1LhGjYClV6y3PAN9fTgK8R+OLrmB
-	 XAgBL9qd7kfzBYexoKFT1eyEWuCEGjzNR4ahtfpIz0ebhwBJD9OyVs3uSN05K/+eB4
-	 Cm8BFd3bXnnfQ==
-From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>
-Subject: [GIT PULL] ASoC fixes for v6.9-rc2
-Date: Thu, 04 Apr 2024 23:07:13 +0100
-Message-Id: <20240404220723.95599C433C7@smtp.kernel.org>
-Message-ID-Hash: MGJYE5MYDR4V3RDZWRDVSKYYAHAPFM5E
-X-Message-ID-Hash: MGJYE5MYDR4V3RDZWRDVSKYYAHAPFM5E
-X-MailFrom: broonie@kernel.org
+	dkim=pass (1024-bit key,
+ unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
+ header.s=selector1 header.b=DJm0snxB
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=jBl7hsmSeUGqdZ+4ZSkxmZc38WWruQymX1ZCspbmCUwydgdcy243nvkjGTYRz7Ewms+YHMXW4lX/DLzVNbrA2nKVrhaBktdKtBzfUkbKKDTNHZDsBmBxwWQ5P9W34eN6Oqj5la/jF6HJ8Bq8ir/+XEZOEVcfV22Vm6/PxNUmLGN9IWeUJ2DK+k5DD0QQQPqcEcxdyHkjlExSifHPJ2ywRKSlgW/rRWmLCPzuY0jLQI4ycUgh8l7Yu0a4t90g0cWW68jbleokQ+e99ZgkIf2pAQPKFbmHNlItuAovlEkeZ/Z9SbJwM3esfCok7EAO8xe30wArejYs3pu0wvQBIecsBw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cMlle8t5qu8Z5r/1AAVEMPyeW4R1CyP7sQ+ENP8GqGc=;
+ b=UIP8/Mo9s3lojrfY5IKyrs30VxcIuJ09sS8aEN68RewFT8yXujLs9Mr4zc7wkDGXevFc3CFxALgURNcUaE8qQw+FizlSBnJX2KfMMQAliQ8FCruY5GXX+qPxloR9+TjQeS8e2cjYJrQh/MK9dkrYqOfPqA8Oz4C9+iyNK5/okpUvCjKYLgLp2PqqUfHLjFZ2dyAcJmMKumgldHeO2VFegJTHRtwT7mXfeH1e39wtGnmI/xWIXtl5+PeQjhTBHkhdOTND/vkoe1q0XVhjRkx4Mc614lfQWQaNpiSU/SHaDAOfUBImFPiwW0bzpX11QsdxzSr+GcOtc1qZdbv4NwZ6bg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cMlle8t5qu8Z5r/1AAVEMPyeW4R1CyP7sQ+ENP8GqGc=;
+ b=DJm0snxBx4b4yPl4helZmikk0vdnpvaeoC4dr75eyZskqUsZiJ42mZmCM4dezAQPbIU88WC/gy5gD4MXj7eSCqEzZVp4iOdXrpxbZU2IBfsedJCN1xys28x0MrPcbs63C43p0/ltXwuNRAcqXUcGXaIc63QSmR+xk+YvPdGEdLg=
+Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
+ (2603:1096:400:3a9::11) by TYCPR01MB6913.jpnprd01.prod.outlook.com
+ (2603:1096:400:b8::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46; Thu, 4 Apr
+ 2024 23:13:58 +0000
+Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
+ ([fe80::131e:55c0:a4a0:713b]) by TYCPR01MB10914.jpnprd01.prod.outlook.com
+ ([fe80::131e:55c0:a4a0:713b%7]) with mapi id 15.20.7386.025; Thu, 4 Apr 2024
+ 23:13:57 +0000
+Message-ID: <877chcraaa.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: Xiubo Li <Xiubo.Lee@gmail.com>,	Vinod Koul <vkoul@kernel.org>,	Trevor Wu
+ <trevor.wu@mediatek.com>,	Takashi Iwai <tiwai@suse.com>,	Sylwester
+ Nawrocki <s.nawrocki@samsung.com>,	Srinivas Kandagatla
+ <srinivas.kandagatla@linaro.org>,	Shengjiu Wang <shengjiu.wang@gmail.com>,
+	Shawn Guo <shawnguo@kernel.org>,	Sascha Hauer <s.hauer@pengutronix.de>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,	Pierre-Louis Bossart
+ <pierre-louis.bossart@linux.intel.com>,	Peter Ujfalusi
+ <peter.ujfalusi@linux.intel.com>,	Neil Armstrong
+ <neil.armstrong@linaro.org>,	Matthias Brugger <matthias.bgg@gmail.com>,
+	Maso Huang <maso.huang@mediatek.com>,	Mark Brown <broonie@kernel.org>,
+	Linux-ALSA <alsa-devel@alsa-project.org>,	Linus Walleij
+ <linus.walleij@linaro.org>,	Liam Girdwood <lgirdwood@gmail.com>,	Kevin
+ Hilman <khilman@baylibre.com>,	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Jaroslav  Kysela <perex@perex.cz>,	Hans de Goede <hdegoede@redhat.com>,
+	Daniel Baluta <daniel.baluta@nxp.com>,	Cristian Ciocaltea
+ <cristian.ciocaltea@collabora.com>,	Cezary Rojewski
+ <cezary.rojewski@intel.com>,	Brent  Lu <brent.lu@intel.com>,	Bard Liao
+ <yung-chuan.liao@linux.intel.com>,	Banajit Goswami <bgoswami@quicinc.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Amadeusz =?ISO-8859-2?Q?S=B3awi=F1ski?=
+ <amadeuszx.slawinski@linux.intel.com>,	Alper Nebi Yasak
+ <alpernebiyasak@gmail.com>,	linux-stm32@st-md-mailman.stormreply.com,
+	linux-sound@vger.kernel.org,	imx@lists.linux.dev
+Subject: Re: [PATCH v2 00/16] ASoC: Replace dpcm_playback/capture to
+ playback/capture_only
+In-Reply-To: <1jil0xplcu.fsf@starbuckisacylon.baylibre.com>
+References: <87zfuesz8y.wl-kuninori.morimoto.gx@renesas.com>
+	<1jil0xplcu.fsf@starbuckisacylon.baylibre.com>
+User-Agent: Wanderlust/2.15.9 Emacs/27.1 Mule/6.0
+Content-Type: text/plain; charset=US-ASCII
+Date: Thu, 4 Apr 2024 23:13:56 +0000
+X-ClientProxiedBy: TYCP286CA0195.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:382::13) To TYCPR01MB10914.jpnprd01.prod.outlook.com
+ (2603:1096:400:3a9::11)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYCPR01MB10914:EE_|TYCPR01MB6913:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	6ZI7IKjqFFf5hB9MeFyklGbF4Cn4qbsRwTM/OCEUI5ZqhxOvkSAFdY4H+soqqvfTytq360TcXPQ9c1Iv1eApe+Vkp2tOL3zq1sVePHUMORSVpCYRcYSWaQc9wE7K5hTSz76gnTvX4i7VOQXZUDmubBMtr8l7u/v3ENFCNNu02XAwUOe3yYBWE7SYfICWVU2CneVjvJC0AAbkDuSqe/czs6kUUA0EwpvECI2wnGvhk3J2LUoWXZEIus5zKT3AwK1cNsgDw2HWIdrAwkYp1bAOav9r2NDr9s1pFkhMERXk7a/Z40Dfy8yYjybeAEwbuIHBwJfHDKw03Iny6SvxF4jtJeIDvl2PkgCQgD+4QAWW9r/ZMkKVDkVErWyYRv6uOs4iSn/0dt4vSrQlqexTimNgUvBH8c8BrIPxXwqRHoD4yta/Gro47n+sxlJcU2SK7kVW69JsR3QEO5XmA3y8pkY6tcUmsVdES4/KCqX68/xa5bPf7n+QeCfsD0CFKOh2xdBJ2SaEQQj7buAAeucWgyFXc1WPvihni8/iN7yVbfj7FjNhUKmI/B4pyACZ6aKPO7kYZdL7e0/vIOILrdL/7rvxNhCHXGqkJHtP4R1RxsMN5TxMR/QfNClBrHqC/6vryal7riHKtu5s0hE3ugIJsZ0gT+eaikfVoD98iQf7Y0bwCsDS/wchyBpeCkGCHOpo9BqiyJ8+jFTdA/s03vueYABL6JLa6CRBqBFUnD2TBmuize0=
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB10914.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(1800799015)(366007)(7416005)(52116005)(376005)(38350700005);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?us-ascii?Q?TA/rZKrz5gD2JIZhQoS1iycYOl1KXIET7pLlBlL88cpIWjxXm/xbPbsVOe4C?=
+ =?us-ascii?Q?YGgAtTum2/VE2aX9NL5sfn1SIkJ7OiWwdHhmd6WwrXIRKf2mCDStB/mPxlyb?=
+ =?us-ascii?Q?K5WjRp01RkPsHTmQ1oYXx3r2BlLB5aeGVr8BX6xQZlzDFNAfeDvSGQd005tW?=
+ =?us-ascii?Q?3ReQ28MjrFIDJxmLgmzfbC92a3965IWBoo8DUL+rgWiKA7RLnqcOks2rKh+L?=
+ =?us-ascii?Q?KGnQxszWLc3yrssciw+X6xqUqTHSX8ZbuUoe5dCLEIl0eW3C5xYEFBVyu4hQ?=
+ =?us-ascii?Q?xprVrBd0JQQOPNwusddIzhtHvtV8qnoy0QzcGo6mL7PdOWJ5lFSM6PlbOba/?=
+ =?us-ascii?Q?ZC6OcTD2JZ6YoHRb+v1b/4TybgJsSQP44fboh4SRcY+oCKYs+k/SveizHvCs?=
+ =?us-ascii?Q?UGM091GF8O1vsTS5icJWNLYpDGNxUiLzruailq/NSYNsaphKkiX7MDb/rVkW?=
+ =?us-ascii?Q?dy0h2FVh4wFpjEvlhCEwjBSwFWC7kbZuL6ZFkddBNP1aSSuJdNsMAu90QS+2?=
+ =?us-ascii?Q?a9Cx5tjXUIkNET5cZo9vBEK8CdUvBUP2volS1rwBI+iIrdrp18JayVCdCsIP?=
+ =?us-ascii?Q?wU38nhYjczxgH0/g+0ncvrc47/Il9TfAka+rrUTQ6Xgs2rAan8HWaxxWYTXh?=
+ =?us-ascii?Q?F+5oQLfDKPJ6MXhpYoOzPaJ1jCf3cWedC8yDOeImHNds9xOlBSQ5gHlImP+G?=
+ =?us-ascii?Q?uu080Xxb2IW3h6dO4Ub/4Bgqx29mm2yvzqO7AGP1I0NZTwDAauBscfN1uhcS?=
+ =?us-ascii?Q?JMS5tP/E0zBDIl8fXSysUWdtvtw1Ksg16nrhKFLUJ+83YYp2IF3r5OgqwwRA?=
+ =?us-ascii?Q?rf9ZGSOe+63oX+SrHIVQrmOq0Fz31uzL8VlxtIHl3MVvvC+aRFnLHNDQna7t?=
+ =?us-ascii?Q?tQZ7Uqt2LX3CLEJ0R+1ttw5m4bLshUARfeMXp45zy9AFzfVq4en4JqB4mL1t?=
+ =?us-ascii?Q?ZnU1bVtcrPptwLme2I9JNwe/DUpP5UUSHqeW7aSTAswT2o8RnUqRd+aHAj+T?=
+ =?us-ascii?Q?3vWHhMykMs+U3slYvOnWGFo85GYCRePfyerHvmQ+q4VXaBR/dmRHn8zme5yi?=
+ =?us-ascii?Q?06QXIHaaSkpXFTbZIMqGUVWbI8Cx5L4+s6iJZx6LwUCJyH8MQjMvr8SeeBWC?=
+ =?us-ascii?Q?qnbkMVc/VOPfa1zxh+8DZZimSRlojyndxPc5e4ll77rqRUlv37qr0dSJYamX?=
+ =?us-ascii?Q?5h+RJYB6c6meDL2SovIPNwPqtgrgbN5eVmZUuaBArNpb4Rf491JQZ11U7DHx?=
+ =?us-ascii?Q?e0UPnv7xs40+u5mPkJraCLtXR85DyykwuicuqCZ6hX9+6FZtR4RkuFJRQWZz?=
+ =?us-ascii?Q?sAbQqbHEthvsCj8YYQQ3JYC2xkO/juEAQynfapuxNtLoBDdQO7TlsU1c9UIV?=
+ =?us-ascii?Q?4I8hXxQL5fPVeDBA3og/pTWf6zxBtgJvjEBNG6Nhl+CR7NRo3Ovyezj4tFE0?=
+ =?us-ascii?Q?sxArDuMZ9g8aqGYEBIdx84Tba++KnoH5s7XcM/f/u7XaqNTDlvsOj88/k7Pz?=
+ =?us-ascii?Q?Iei9GQvt3Cq7EohIY7FUfTxGpfRHcGQNveJMO4Sdvpd5UsJ0gymgmOlTBn0/?=
+ =?us-ascii?Q?MerdU83rR2qsB0d4TIzyZXVt6Zn+uRHuQ5H2F+yS4viAkE3HfYmmuC2b+qli?=
+ =?us-ascii?Q?W8clNz7bxjyUd6YPIxofg5w=3D?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 2c14f534-3956-497e-f00f-08dc54fce75d
+X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB10914.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Apr 2024 23:13:57.3007
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ tyx8xh0JVJCbnTuf5Hwugn+UKKHKuo1oVkmdk3G6YhORcPHPNLIjtsuuLIzyNsQiiYWk39xymqHJhSEQYEmLiqsS1lnDUbMCDOBUgoeU+GHhcrUoAL0sOwv9YeJsTTwk
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB6913
+Message-ID-Hash: 4WDTEE357O4JPT336XALJQNE7SQA4P6I
+X-Message-ID-Hash: 4WDTEE357O4JPT336XALJQNE7SQA4P6I
+X-MailFrom: kuninori.morimoto.gx@renesas.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -79,7 +171,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MGJYE5MYDR4V3RDZWRDVSKYYAHAPFM5E/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4WDTEE357O4JPT336XALJQNE7SQA4P6I/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -88,153 +180,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The following changes since commit 4cece764965020c22cff7665b18a012006359095:
 
-  Linux 6.9-rc1 (2024-03-24 14:10:05 -0700)
+Hi Jerome
 
-are available in the Git repository at:
+Thank you for your feedback
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.9-rc2
+> playback_only and capture_only have implication on each other. If one is
+> set, the other can/must not be set. This leads to conditions which can
+> be fairly hard to read and possibly bugs.
+(snip)
+> Wouldn't it be better to replace those 2 flags with a single bitfield ?
+> 
+> something like:
+> 
+> unsigned int directions;
+> #define PLAYBACK_VALID	BIT(0)
+> #define CAPTURE_VALID BIT(1)
 
-for you to fetch changes up to 90f8917e7a15f6dd508779048bdf00ce119b6ca0:
+I think Amadeusz indicated similar idea, and basically I can agree about
+it. But in this patch-set, I want focus to removing dpcm_xxx flag as 1st
+step. So I'm happy to create such patch-set, but I want to handle it as
+another patch-set.
 
-  ASoC: SOF: Core: Add remove_late() to sof_init_environment failure path (2024-04-04 19:51:51 +0100)
+Thank you for your help !!
 
-----------------------------------------------------------------
-ASoC: Fixes for v6.9
-
-A relatively large set of fixes here, the biggest piece of it is a
-series correcting some problems with the delay reporting for Intel SOF
-cards but there's a bunch of other things.  Everything here is driver
-specific except for a fix in the core for an issue with sign extension
-handling volume controls.
-
-----------------------------------------------------------------
-Amadeusz Sławiński (1):
-      ASoC: Intel: avs: boards: Add modules description
-
-Chaitanya Kumar Borah (1):
-      ASoC: SOF: Core: Add remove_late() to sof_init_environment failure path
-
-Charles Keepax (1):
-      ASoC: cs42l43: Correct extraction of data pointer in suspend/resume
-
-Mark Brown (4):
-      ASoC: SOF: ipc4/Intel: Fix delay reporting
-      ASoC: rt-sdw: fix locking and improve error logs
-      ASoC: codecs: ES8326: solve some hp issues and
-      ASoC: Merge up left over v6.8 fix
-
-Peter Ujfalusi (19):
-      ASoC: SOF: Add dsp_max_burst_size_in_ms member to snd_sof_pcm_stream
-      ASoC: SOF: ipc4-topology: Save the DMA maximum burst size for PCMs
-      ASoC: SOF: Intel: hda-pcm: Use dsp_max_burst_size_in_ms to place constraint
-      ASoC: SOF: Intel: hda: Implement get_stream_position (Linear Link Position)
-      ASoC: SOF: Intel: mtl/lnl: Use the generic get_stream_position callback
-      ASoC: SOF: Introduce a new callback pair to be used for PCM delay reporting
-      ASoC: SOF: Intel: Set the dai/host get frame/byte counter callbacks
-      ASoC: SOF: ipc4-pcm: Use the snd_sof_pcm_get_dai_frame_counter() for pcm_delay
-      ASoC: SOF: Intel: hda-common-ops: Do not set the get_stream_position callback
-      ASoC: SOF: Remove the get_stream_position callback
-      ASoC: SOF: ipc4-pcm: Move struct sof_ipc4_timestamp_info definition locally
-      ASoC: SOF: ipc4-pcm: Combine the SOF_IPC4_PIPE_PAUSED cases in pcm_trigger
-      ASoC: SOF: ipc4-pcm: Invalidate the stream_start_offset in PAUSED state
-      ASoC: SOF: sof-pcm: Add pointer callback to sof_ipc_pcm_ops
-      ASoC: SOF: ipc4-pcm: Correct the delay calculation
-      ALSA: hda: Add pplcllpl/u members to hdac_ext_stream
-      ASoC: SOF: Intel: hda: Compensate LLP in case it is not reset
-      ASoC: SOF: Intel: hda-dsp: Skip IMR boot on ACE platforms in case of S3 suspend
-      ASoC: SOF: Intel: lnl: Disable DMIC/SSP offload on remove
-
-Pierre-Louis Bossart (6):
-      ASoC: rt5682-sdw: fix locking sequence
-      ASoC: rt711-sdca: fix locking sequence
-      ASoC: rt711-sdw: fix locking sequence
-      ASoC: rt712-sdca-sdw: fix locking sequence
-      ASoC: rt722-sdca-sdw: fix locking sequence
-      ASoC: rt-sdw*: add __func__ to all error logs
-
-Rander Wang (1):
-      ASoC: SOF: mtrace: rework mtrace timestamp setting
-
-Richard Fitzgerald (1):
-      ASoC: wm_adsp: Fix missing mutex_lock in wm_adsp_write_ctl()
-
-Simon Trimmer (1):
-      ASoC: cs-amp-lib: Check for no firmware controls when writing calibration
-
-Stephen Lee (1):
-      ASoC: ops: Fix wraparound for mask in snd_soc_get_volsw
-
-Vijendar Mukunda (3):
-      ASoC: amd: acp: fix for acp pdm configuration check
-      ASoC: amd: acp: fix for acp_init function error handling
-      ASoC: SOF: amd: fix for false dsp interrupts
-
-Zhang Yi (4):
-      ASoC: codecs: ES8326: Solve error interruption issue
-      ASoC: codecs: ES8326: modify clock table
-      ASoC: codecs: ES8326: Solve a headphone detection issue after suspend and resume
-      ASoC: codecs: ES8326: Removing the control of ADC_SCALE
-
- include/sound/hdaudio_ext.h            |   3 +
- sound/soc/amd/acp/acp-pci.c            |  13 +--
- sound/soc/codecs/cs-amp-lib.c          |   5 +
- sound/soc/codecs/cs42l43.c             |  12 ++-
- sound/soc/codecs/es8326.c              |  37 ++++---
- sound/soc/codecs/es8326.h              |   2 +-
- sound/soc/codecs/rt1316-sdw.c          |   8 +-
- sound/soc/codecs/rt1318-sdw.c          |   8 +-
- sound/soc/codecs/rt5682-sdw.c          |  16 +--
- sound/soc/codecs/rt700.c               |  16 +--
- sound/soc/codecs/rt711-sdca-sdw.c      |   6 +-
- sound/soc/codecs/rt711-sdca.c          |  18 ++--
- sound/soc/codecs/rt711-sdw.c           |   8 +-
- sound/soc/codecs/rt711.c               |  16 +--
- sound/soc/codecs/rt712-sdca-dmic.c     |  24 +++--
- sound/soc/codecs/rt712-sdca-sdw.c      |   7 +-
- sound/soc/codecs/rt712-sdca.c          |  20 ++--
- sound/soc/codecs/rt715-sdca-sdw.c      |   2 +-
- sound/soc/codecs/rt715-sdca.c          |  46 ++++----
- sound/soc/codecs/rt715-sdw.c           |   4 +-
- sound/soc/codecs/rt715.c               |  24 ++---
- sound/soc/codecs/rt722-sdca-sdw.c      |   4 +-
- sound/soc/codecs/rt722-sdca.c          |  21 ++--
- sound/soc/codecs/wm_adsp.c             |   3 +-
- sound/soc/intel/avs/boards/da7219.c    |   1 +
- sound/soc/intel/avs/boards/dmic.c      |   1 +
- sound/soc/intel/avs/boards/es8336.c    |   1 +
- sound/soc/intel/avs/boards/i2s_test.c  |   1 +
- sound/soc/intel/avs/boards/max98357a.c |   1 +
- sound/soc/intel/avs/boards/max98373.c  |   1 +
- sound/soc/intel/avs/boards/max98927.c  |   1 +
- sound/soc/intel/avs/boards/nau8825.c   |   1 +
- sound/soc/intel/avs/boards/probe.c     |   1 +
- sound/soc/intel/avs/boards/rt274.c     |   1 +
- sound/soc/intel/avs/boards/rt286.c     |   1 +
- sound/soc/intel/avs/boards/rt298.c     |   1 +
- sound/soc/intel/avs/boards/rt5514.c    |   1 +
- sound/soc/intel/avs/boards/rt5663.c    |   1 +
- sound/soc/intel/avs/boards/rt5682.c    |   1 +
- sound/soc/intel/avs/boards/ssm4567.c   |   1 +
- sound/soc/soc-ops.c                    |   2 +-
- sound/soc/sof/amd/acp.c                |   8 +-
- sound/soc/sof/core.c                   |  14 +--
- sound/soc/sof/intel/hda-common-ops.c   |   3 +
- sound/soc/sof/intel/hda-dai-ops.c      |  11 ++
- sound/soc/sof/intel/hda-dsp.c          |  20 +++-
- sound/soc/sof/intel/hda-pcm.c          |  29 +++++
- sound/soc/sof/intel/hda-stream.c       |  70 ++++++++++++
- sound/soc/sof/intel/hda.h              |   6 ++
- sound/soc/sof/intel/lnl.c              |  34 ++++--
- sound/soc/sof/intel/mtl.c              |  14 ---
- sound/soc/sof/intel/mtl.h              |  10 --
- sound/soc/sof/ipc4-mtrace.c            |  11 +-
- sound/soc/sof/ipc4-pcm.c               | 191 ++++++++++++++++++++++++++-------
- sound/soc/sof/ipc4-priv.h              |  14 ---
- sound/soc/sof/ipc4-topology.c          |  22 +++-
- sound/soc/sof/ops.h                    |  24 ++++-
- sound/soc/sof/pcm.c                    |   8 ++
- sound/soc/sof/sof-audio.h              |   9 +-
- sound/soc/sof/sof-priv.h               |  24 +++--
- 60 files changed, 596 insertions(+), 267 deletions(-)
+Best regards
+---
+Renesas Electronics
+Ph.D. Kuninori Morimoto

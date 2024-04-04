@@ -2,172 +2,123 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4FFC898816
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Apr 2024 14:41:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE7208988ED
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Apr 2024 15:38:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F232D2CBE;
-	Thu,  4 Apr 2024 14:41:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F232D2CBE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 07E272C8E;
+	Thu,  4 Apr 2024 15:38:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 07E272C8E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712234497;
-	bh=24ocDmNm/37tN5V5qKT9aMp88zFL2QHbk1Qfe5eKGNY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1712237895;
+	bh=O2FCZHFbVWkFqB1QcGwdd1JkWBZ9ekBrh/mg+gockjc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=cQCvrfGxgg/eSEPdqsJorBX74GIH4RApVXnRCkvRHnPTLAco1eaXVbN0Ug+Xm/D9R
-	 8q18YIBt8EbTg9sAZFazLnFJhgV80xY7SfDFHEOR7LfH65k+wK+LzeKLZGUiCmubB+
-	 3NxaIzQPat3OYLjhNpInFm7+lAqzV1lMilLEq9TI=
+	b=Z3bEgzX2RmgsW3+PYgvIKN8ULygSCipRSHvC5B7db2eYoSUbwC3WUVeS5V89DaSS8
+	 Nv6qTXTCHEe1BNsMvdQqkpZJlK1qxOogTsjHbGNcS69MChodbQa/SAyAeOKIKoFxM/
+	 I1NmtMnzeMh4WBocqs9hFQvD+hRjyyQEJoVXzRhw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F26E3F805B4; Thu,  4 Apr 2024 14:41:05 +0200 (CEST)
+	id B9AA6F8057F; Thu,  4 Apr 2024 15:37:43 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C4191F80568;
-	Thu,  4 Apr 2024 14:41:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0E6FEF8057B;
+	Thu,  4 Apr 2024 15:37:41 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3671EF8020D; Thu,  4 Apr 2024 14:39:57 +0200 (CEST)
+	id 33BB2F8016E; Thu,  4 Apr 2024 15:32:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 108A1F80114
-	for <alsa-devel@alsa-project.org>; Thu,  4 Apr 2024 14:36:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 108A1F80114
+	by alsa1.perex.cz (Postfix) with ESMTPS id 316CCF80007
+	for <alsa-devel@alsa-project.org>; Thu,  4 Apr 2024 15:28:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 316CCF80007
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=GJRM475F;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=78LyZlUu;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=GJRM475F;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=78LyZlUu
-Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:98])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id C0A7A5D955;
-	Thu,  4 Apr 2024 12:36:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1712234168;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eXTV3MVLoZysUZqfH/s0T0+YlgQbu+yNiEzbDPdDIJU=;
-	b=GJRM475F5D/jXMH7aU5JMXbR9neBUEzRguV6anCQw9T4b5208ramDvQU/UZ358R3AU0aWa
-	+XestpDTdkVGBbGh1LLWcfBYV1HgDGjT6B20JIoSlJLvthDgk437G04fa4j8r3zZ+BYG5n
-	ie9y2k92R7yllm39F9yq1vsZIg39eJ0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1712234168;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eXTV3MVLoZysUZqfH/s0T0+YlgQbu+yNiEzbDPdDIJU=;
-	b=78LyZlUulFjm8D/ulI2C7vLkRYSjKXdYjxH9iB90FdwJOyy+jGkJZqGxdI68sdBQInS2gf
-	vAxcm1zjILviFBDA==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=GJRM475F;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=78LyZlUu
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1712234168;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eXTV3MVLoZysUZqfH/s0T0+YlgQbu+yNiEzbDPdDIJU=;
-	b=GJRM475F5D/jXMH7aU5JMXbR9neBUEzRguV6anCQw9T4b5208ramDvQU/UZ358R3AU0aWa
-	+XestpDTdkVGBbGh1LLWcfBYV1HgDGjT6B20JIoSlJLvthDgk437G04fa4j8r3zZ+BYG5n
-	ie9y2k92R7yllm39F9yq1vsZIg39eJ0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1712234168;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eXTV3MVLoZysUZqfH/s0T0+YlgQbu+yNiEzbDPdDIJU=;
-	b=78LyZlUulFjm8D/ulI2C7vLkRYSjKXdYjxH9iB90FdwJOyy+jGkJZqGxdI68sdBQInS2gf
-	vAxcm1zjILviFBDA==
-Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 464D913298;
-	Thu,  4 Apr 2024 12:36:08 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap2.dmz-prg2.suse.org with ESMTPSA
-	id WPe0D7ieDmbNYgAAn2gu4w
-	(envelope-from <tiwai@suse.de>); Thu, 04 Apr 2024 12:36:08 +0000
-Date: Thu, 04 Apr 2024 14:36:13 +0200
-Message-ID: <87zfu9nw3m.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Shenghao Ding <shenghao-ding@ti.com>
-Cc: <broonie@kernel.org>,
-	<andriy.shevchenko@linux.intel.com>,
-	<lgirdwood@gmail.com>,
-	<perex@perex.cz>,
-	<pierre-louis.bossart@linux.intel.com>,
-	<13916275206@139.com>,
-	<alsa-devel@alsa-project.org>,
-	<linux-kernel@vger.kernel.org>,
-	<liam.r.girdwood@intel.com>,
-	<bard.liao@intel.com>,
-	<yung-chuan.liao@linux.intel.com>,
-	<kevin-lu@ti.com>,
-	<baojun.xu@ti.com>,
-	<soyer@irl.hu>,
-	<Baojun.Xu@fpt.com>,
-	<navada@ti.com>,
-	<v-po@ti.com>
-Subject: Re: [PATCH v2] ALSA: hda/tas2781: correct the register for pow
- calibrated data
-In-Reply-To: <20240404122530.1049-1-shenghao-ding@ti.com>
-References: <20240404122530.1049-1-shenghao-ding@ti.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-1.09 / 50.00];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	BAYES_HAM(-0.58)[81.34%];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[18];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_ALL(0.00)[];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	FREEMAIL_ENVRCPT(0.00)[139.com,gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,linux.intel.com,gmail.com,perex.cz,139.com,alsa-project.org,vger.kernel.org,intel.com,ti.com,irl.hu,fpt.com];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap2.dmz-prg2.suse.org:helo,imap2.dmz-prg2.suse.org:rdns];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:98:from];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: C0A7A5D955
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-Message-ID-Hash: UJELU4D5YQO2IOIOJQWIUHFUM4MNKNMO
-X-Message-ID-Hash: UJELU4D5YQO2IOIOJQWIUHFUM4MNKNMO
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=FatHKcD5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1712237288; x=1743773288;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=O2FCZHFbVWkFqB1QcGwdd1JkWBZ9ekBrh/mg+gockjc=;
+  b=FatHKcD5YjsaY4w5GqGmwk1rdKWTu3ZX+wmNjYGtObWYd6sHdCrgcq14
+   /QdWcV8Yz8YQcviqSj8yqRS1tjKhQLZTLtEq8RmyDl+MjzcsLFO6Yl1iw
+   E9fnCO6CyBwNWs2WlsTpDyjcBK4Spngo31VBenZTA0ZmSUAE99OgiavrQ
+   YKO+8kDoPzDA8qn59IcAhyUGtwzLYBk5eEVlHLYTTXxZiDXBLG1w5J5Ge
+   YL/3fwKwFzrjyYV1D6H2Hgtiql23+uUzgXMSA8dPUI8DT+WVkINaghUx9
+   tLObjnJ7UtTBsOA9RbDH67qKm5LOlzqAOTITmsfdYeV71w1KSOJN9QYJ3
+   A==;
+X-CSE-ConnectionGUID: DtrPQcu9Ta2SrlNAZomfsQ==
+X-CSE-MsgGUID: L7jPmqFaQbuegKzLvYBi0Q==
+X-IronPort-AV: E=McAfee;i="6600,9927,11033"; a="7385551"
+X-IronPort-AV: E=Sophos;i="6.07,179,1708416000";
+   d="scan'208";a="7385551"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Apr 2024 06:28:00 -0700
+X-CSE-ConnectionGUID: sp3ox9/wRG+HXpegDZH/cQ==
+X-CSE-MsgGUID: 2kE90uPZQRaWPfZtXz0Ytg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.07,179,1708416000";
+   d="scan'208";a="23436766"
+Received: from libintan-mobl.amr.corp.intel.com (HELO [10.213.164.95])
+ ([10.213.164.95])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Apr 2024 06:27:58 -0700
+Message-ID: <40e23972-6745-48e2-81ae-4b93f2ee2dcc@linux.intel.com>
+Date: Thu, 4 Apr 2024 08:27:57 -0500
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 01/16] ASoC: soc-pcm.c: cleanup
+ soc_get_playback_capture()
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: =?UTF-8?Q?Amadeusz_S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>,
+ Alper Nebi Yasak <alpernebiyasak@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Banajit Goswami <bgoswami@quicinc.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, Brent Lu <brent.lu@intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>, Hans de Goede <hdegoede@redhat.com>,
+ Jaroslav Kysela <perex@perex.cz>, Jerome Brunet <jbrunet@baylibre.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Kevin Hilman <khilman@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Linus Walleij <linus.walleij@linaro.org>, Mark Brown <broonie@kernel.org>,
+ Maso Huang <maso.huang@mediatek.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>,
+ Shengjiu Wang <shengjiu.wang@gmail.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>, Takashi Iwai <tiwai@suse.com>,
+ Trevor Wu <trevor.wu@mediatek.com>, Vinod Koul <vkoul@kernel.org>,
+ Xiubo Li <Xiubo.Lee@gmail.com>, alsa-devel@alsa-project.org,
+ imx@lists.linux.dev, linux-sound@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+References: <87zfuesz8y.wl-kuninori.morimoto.gx@renesas.com>
+ <87y19xudor.wl-kuninori.morimoto.gx@renesas.com>
+ <b4b37541-b67f-4593-9fd5-fc6242a0673a@linux.intel.com>
+ <87zfuc7gya.wl-kuninori.morimoto.gx@renesas.com>
+ <600cef67-ad90-4b67-8da7-2006339d430b@linux.intel.com>
+ <874jch99m5.wl-kuninori.morimoto.gx@renesas.com>
+Content-Language: en-US
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <874jch99m5.wl-kuninori.morimoto.gx@renesas.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: 5JDR7QQ4DP6XGRPZ5TLQCFHGGFE6BKIA
+X-Message-ID-Hash: 5JDR7QQ4DP6XGRPZ5TLQCFHGGFE6BKIA
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -179,7 +130,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UJELU4D5YQO2IOIOJQWIUHFUM4MNKNMO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5JDR7QQ4DP6XGRPZ5TLQCFHGGFE6BKIA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -188,19 +139,108 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 04 Apr 2024 14:25:30 +0200,
-Shenghao Ding wrote:
+
+
+On 4/3/24 20:53, Kuninori Morimoto wrote:
 > 
-> Fixes: 5be27f1e3ec9 ("ALSA: hda/tas2781: Add tas2781 HDA driver")
+> Hi Pierre-Louis
 > 
-> Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
+> Thank you for your feedback.
+> I could understand your comment 80%, but not yet 100%
+> 
+>> With the older code, if the dpcm_playback was set for the dailink but
+>> there isn't any dai connected to support playback, an error was thrown.
+>>
+>> With the new code, if playback_only is set but there isn't any dai
+>> connected, there is no error thrown, is there?
+> (snip)
+>> Again we had a verification that if the dpcm_playback was set at the
+>> dailink level, it was actually supported by the dais.
+>>
+>> We seem to have lost this verification. We only have an error when there
+>> are no settings at all.
+> 
+> Pseudo code of new soc_get_playback_capture() is like this
+> 
+> 	soc_get_playback_capture(...)
+> 	{
+> 		...
+>  ^		for_each_rtd_ch_maps(...) {
+>  |			...
+> (A)			has_playback = xxx;
+>  |			has_capture  = xxx;
+>  v		}
+> 
+>  ^		if (dai_link->playback_only)
+>  |			has_capture = 0;
+> (B)
+>  |		if (dai_link->capture_only)
+>  v			has_playback = 0;
+> 
+>  ^		if (!has_playback && !has_capture) {
+> (C)			dev_err(...);
+>  v			return -EINVAL;
+> 		}
+> 		...
+> 	}
+> 
+> In old/new soc_get_playback_capture(), has_xxx will be set at least
+> if one of rtd connected DAI can handle playback/capture.
+> In new code, it will be handled at (A).
+> 
+> And unneeded has_xxx will be removed if xxx_only was set (B)
 
-It's always a bad sign when a patch is provided without a proper
-description.  Please give a bit more info.
+The problem is that we have two sources of information
 
-Also, you need no blank line between Fixes and Singed-off-by tags.
+1) the dais included in the dailink (the (A) part above)
+2) the dailink itself (the (B) part above)
 
+the code in A) constructs the information from the ground-up, but it's
+overridden by B).
 
-thanks,
+You can view it as 'removing unneeded has_xxx' flags, but it's also a
+problem is the dailink information is incorrect...
 
-Takashi
+In the past we would report an error if the dailink was not aligned with
+the dais. Now we just ignore the dai information.
+
+That's the concern, we're changing the behavior.
+
+> Then, if neither has_xxx was set, it will be error (C)
+
+That's not the concern. The concern is a discrepancy between A) and B).
+
+> 
+> 	In new code, if playback_only is set but there isn't any dai
+> 	connected, there is no error thrown, is there?
+> 
+> If playback_only was set, has_capture will be removed at (B).
+> And if DAI was not playback-able, this means has_playback was not set at (A).
+> In such case, (C) will indicate error. Same things happen if capture_only too.
+> 
+> So, old functions validation still exist in my opinion, but am I
+> misunderstanding ?
+> 
+> One note here is that in DPCM case, old function checks CPU only,
+> but new function checks both CPU and Codec.
+> 
+> 2nd note is that in current version of patch-set, if dai_link doesn't
+> have xxx_only settings (= it should have both playback/capture), but if
+> DAI has has_playback or has_capture only, it can't detect about it.
+> I suggested it in previous mail, and will fix in v3
+> 
+>> The point is that these flags are sometimes set in the machine driver,
+>> sometimes set in the framework, and the open is which one has the priority.
+> 
+> I couldn't understand this.
+> 
+> I think "machine driver" = CPU/Codec driver, but what is "these flags"
+> which is sometimes set in machine driver, and sometimes set in framework ??
+> dpcm_xxx ? xxx_only ?? I don't think framework set these...
+
+The has_xxx flag is set based on dai capabilities in (A) - which I call
+"the framework" OR by the machine driver setting the
+playback_only/capture_only flags, then used in (B) to override (A).
+
+When you have two sources of information competing to set a state, we
+have to be really careful on which one has priority/precedence.

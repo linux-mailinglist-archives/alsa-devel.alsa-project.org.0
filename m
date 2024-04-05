@@ -2,121 +2,118 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D57689AF28
-	for <lists+alsa-devel@lfdr.de>; Sun,  7 Apr 2024 09:24:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3DD089AF29
+	for <lists+alsa-devel@lfdr.de>; Sun,  7 Apr 2024 09:24:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 782752BF8;
-	Sun,  7 Apr 2024 09:23:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 782752BF8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 50A8E2BD6;
+	Sun,  7 Apr 2024 09:24:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 50A8E2BD6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712474649;
-	bh=k++WYzu2SQ+WHgshDPCyrYXOmKfezdQ0guNU1hHj0QE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1712474653;
+	bh=fcV/lnk1UVa7nCvp3tP9IiiToqsuQWJrAAJgl8OAb1I=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=skQc/zMkZN1JSzCdfKVy+70hOlzkMqd+RFCJplfUPM5gACjjb/qEqGrhxkrWwOkco
-	 FJzUJimIySckmUsKtWeVEAP/mwX6nv48Rx5wU9ncrDlVCcJ25rFACPx+I2EG/t5PNV
-	 XVtitij6kjL8i/lmC2FNfNHvfcVlAF/8Va8hVAUY=
+	b=oGl8ieeyYJmuoi0K5QjB3E4PZ1+V3NIJmNbXO7EbinEUaXA5yhMzaGaJ58G3p/LaS
+	 R2Sma/FKcpfUtuMFYMmptCYk4+PtphUX1wX9KisauyykR7OOu2ZuLSaXgh1cwLoEEv
+	 QHqrCJaG/FL9qwYcrNWuckMR913go6+LlGaWiR9c=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6DDEAF89724; Sun,  7 Apr 2024 09:18:11 +0200 (CEST)
+	id 95D13F805C4; Sun,  7 Apr 2024 09:18:12 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BBC0FF896EF;
-	Sun,  7 Apr 2024 09:18:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8B9A9F896EF;
+	Sun,  7 Apr 2024 09:18:12 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9236BF8020D; Fri,  5 Apr 2024 16:48:41 +0200 (CEST)
+	id 9476EF8020D; Fri,  5 Apr 2024 17:51:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [IPv6:2a00:1450:4864:20::236])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8117FF80007
-	for <alsa-devel@alsa-project.org>; Fri,  5 Apr 2024 16:48:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8117FF80007
+	by alsa1.perex.cz (Postfix) with ESMTPS id B9345F80130
+	for <alsa-devel@alsa-project.org>; Fri,  5 Apr 2024 17:51:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9345F80130
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=gbfUEpue
-Received: by mail-lj1-x236.google.com with SMTP id
- 38308e7fff4ca-2d48d75ab70so29244121fa.0
-        for <alsa-devel@alsa-project.org>;
- Fri, 05 Apr 2024 07:48:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1712328510; x=1712933310;
- darn=alsa-project.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=cFpu1whkh1nSy8kvvx+5UzrJKjw0DqYLany6m12D6u0=;
-        b=gbfUEpueLk36XsjMi17ZXciglesbhNy5T9wDlG7TKwv2VTxVTEAml9eHcXWs5JojCc
-         BFy7mg3G1LNWJqOitB88stzKLvkjrJM3j8S2gUB4zJ+SoVZw0sphoV7lWfjU66QIf7fV
-         P34ikzkWFQ/r12JvZFKNLl8NxpuvIgUqXamprkJqCZrDShb+gZgcH3lPgeT9nkd579s0
-         zrGSfnZE0CAK47f7TYvmbbRZjRnobu3Amob31o078ZLFr6JBiOAZ2yIbTweiUG258f4c
-         +glkTXjr2YNaKrwsx8rm60sGF53JoxA3zB8Tcz4vdSQGAIKL6iCWTAYI3no3dJqcZG6P
-         Q7/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712328510; x=1712933310;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=cFpu1whkh1nSy8kvvx+5UzrJKjw0DqYLany6m12D6u0=;
-        b=lkBtLgHiRj3NSZP84qFkRxEKLaqcvPA8vOplipq5xwQleXkv4GS0c0v1rkOIzhLmTw
-         JoRAAEUkLIZQdtk2OIqMg0QiI2Um4nuEPJg3klI9gjV6IyjzlNEiRyaYOIkgStcV8rT6
-         AkfvE/tPgTOFuZc4nqwtuGvZyLSE0grLV2q/vn5GCH+1C9dFPWHR1zrCUAHBqH0d7bjv
-         ghyx2zui+hmWAKjFaaqtOussxgf3fW5jWMMxmEFxwWL2UzwFfe+Cl2D7ym/uggIkR6WN
-         XKUjfkpGesI483EqyTW6z4v6bsdyD5FrrhQUs0aFWvNVpVecfnmEPnqpWePBD8hOFfqJ
-         4yFw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXhGROS5B7MM4XNH40ejv4y7oxKCGVukURQ4Y6aYmgQx9njrhgDEwI18PA+dBFeNiDyd9cwwYHN2fQKoQjFWOEzoJpO0KvfECgtP8w=
-X-Gm-Message-State: AOJu0YyZ0nbQN/Tv7pcssEVDlay4qbYePY4VU33FC0Ovz4h4JSd8FKi9
-	KQ3rfh6wB3xhXa7KCA0Ym+T084YJfwijGBDdCSvHd467NCBSi7LCUTwzd2VUSq0WXI+P/OyNdp/
-	B8lAHDl8x9sT+qIGdgsfiuX5YWd0=
-X-Google-Smtp-Source: 
- AGHT+IGrg/lFBS2AMqv3GmFvVcFL6woTGN8IKlxDkSWiTeKdq9HfiE5kNbCsRxC8SlKmB2gQiyBs2NPA5UHos4n1BAQ=
-X-Received: by 2002:a2e:a3d2:0:b0:2d6:c4ec:782 with SMTP id
- w18-20020a2ea3d2000000b002d6c4ec0782mr1273383lje.49.1712328509495; Fri, 05
- Apr 2024 07:48:29 -0700 (PDT)
+	dkim=pass (1024-bit key,
+ unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
+ header.s=ti-com-17Q1 header.b=KnqgyD2c
+Received: from lelv0265.itg.ti.com ([10.180.67.224])
+	by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 435FpbI1011641;
+	Fri, 5 Apr 2024 10:51:37 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+	s=ti-com-17Q1; t=1712332297;
+	bh=fcV/lnk1UVa7nCvp3tP9IiiToqsuQWJrAAJgl8OAb1I=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To;
+	b=KnqgyD2cuSCIe+G1XBsR/hm+Dept+4Yhs3oTmQwLorW/r9C5CzyAwgCf1hmn6hLjm
+	 /aS9H1xr6UzC3S1Um3DNhUVBNQa9anNO8anO3xeaUHYVGzUykj8t/RdUXqksOhxoom
+	 E0c85D+4wPI+tL7EVzu83U9GJmEtzHgLDsJaqz1Y=
+Received: from DLEE101.ent.ti.com (dlee101.ent.ti.com [157.170.170.31])
+	by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 435FpbNI004045
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Fri, 5 Apr 2024 10:51:37 -0500
+Received: from DLEE100.ent.ti.com (157.170.170.30) by DLEE101.ent.ti.com
+ (157.170.170.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Fri, 5
+ Apr 2024 10:51:36 -0500
+Received: from DLEE100.ent.ti.com ([fe80::ad4d:c227:3f85:880d]) by
+ DLEE100.ent.ti.com ([fe80::ad4d:c227:3f85:880d%17]) with mapi id
+ 15.01.2507.023; Fri, 5 Apr 2024 10:51:36 -0500
+From: "Xu, Baojun" <baojun.xu@ti.com>
+To: Gergo Koteles <soyer@irl.hu>, "tiwai@suse.de" <tiwai@suse.de>
+CC: "robh+dt@kernel.org" <robh+dt@kernel.org>,
+        "andriy.shevchenko@linux.intel.com"
+ <andriy.shevchenko@linux.intel.com>,
+        "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+        "perex@perex.cz"
+	<perex@perex.cz>,
+        "pierre-louis.bossart@linux.intel.com"
+	<pierre-louis.bossart@linux.intel.com>,
+        "Lu, Kevin" <kevin-lu@ti.com>,
+        "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+        "liam.r.girdwood@intel.com" <liam.r.girdwood@intel.com>,
+        "yung-chuan.liao@linux.intel.com" <yung-chuan.liao@linux.intel.com>,
+        "broonie@kernel.org" <broonie@kernel.org>,
+        "Ding, Shenghao"
+	<shenghao-ding@ti.com>
+Subject: Re: [EXTERNAL] Re: [PATCH v1 7/8] ALSA: hda/tas2781: Add tas2781
+ SPI-based driver
+Thread-Topic: [EXTERNAL] Re: [PATCH v1 7/8] ALSA: hda/tas2781: Add tas2781
+ SPI-based driver
+Thread-Index: AQHafxpR4bcqF619NkOKMcsae5yUWLFLsWeAgA4u1wU=
+Date: Fri, 5 Apr 2024 15:51:36 +0000
+Message-ID: <a64f246f48f447bc959f9d7591fbc477@ti.com>
+References: <20240326010905.2147-1-baojun.xu@ti.com>
+	 <20240326010905.2147-7-baojun.xu@ti.com>,<a84dd52c7ff74f9c8b84ba2ce2f0a9c2c3f20dae.camel@irl.hu>
+In-Reply-To: <a84dd52c7ff74f9c8b84ba2ce2f0a9c2c3f20dae.camel@irl.hu>
+Accept-Language: en-GB, zh-CN, en-US
+Content-Language: en-GB
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.64.41.94]
+x-exclaimer-md-config: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-References: <20240404160649.967-1-bavishimithil@gmail.com>
- <78091796-fd0a-42dd-a4da-f7bed3025bf9@linaro.org>
-In-Reply-To: <78091796-fd0a-42dd-a4da-f7bed3025bf9@linaro.org>
-From: Mithil <bavishimithil@gmail.com>
-Date: Fri, 5 Apr 2024 20:18:17 +0530
-Message-ID: 
- <CAGzNGRnuG_gLUrH1N57WvpKbpiNtFrcsG6nJcacQNJB_yMYNrA@mail.gmail.com>
-Subject: Re: [PATCH v2] dt-bindings: omap-mcpdm: Convert to DT schema
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
-	alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-MailFrom: bavishimithil@gmail.com
+X-MailFrom: baojun.xu@ti.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: OZTDN2GNI4BXBD4P5LALJ6MR2FGBD7P6
-X-Message-ID-Hash: OZTDN2GNI4BXBD4P5LALJ6MR2FGBD7P6
+Message-ID-Hash: WEXNTDAR3ZIX22SZDTOLSWJVDG7NII66
+X-Message-ID-Hash: WEXNTDAR3ZIX22SZDTOLSWJVDG7NII66
 X-Mailman-Approved-At: Sun, 07 Apr 2024 07:15:59 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OZTDN2GNI4BXBD4P5LALJ6MR2FGBD7P6/>
+Archived-At: <>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -125,184 +122,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-So sorry about the 2nd patch being sent as a new mail, here is a new
-patch with the changes as suggested
-
-> Please use subject prefixes matching the subsystem
-Changed the patch name to match the folder history.
-
-> Is it your full name?
-Fixed it, my apologies.
-
-> Filename like compatible.
-Fixed.
-
-> Please open existing bindings and look how it is done there.
-Changed it, is it fine now?
-
-> Same problem. Drop useless description but provide maxItems.
-Removed descriptions for interrupts and hwmods.
-
-> It does not look like you tested the bindings, at least after quick
-> look. Please run `make dt_binding_check`
-I did run it and it didnt produce any errors henceforth i submitted
-the patch.
-
-> Node names should be generic
-Changed as said.
-
->From c24a42724e870822d50ac6857ba9f32d0dce02ae Mon Sep 17 00:00:00 2001
-From: Mithil Bavishi <bavishimithil@gmail.com>
-Date: Mon, 1 Apr 2024 21:10:15 +0530
-Subject: [PATCH v2] dt-bindings: omap-mcpdm: Convert to DT schema
-
-Convert the OMAP4+ McPDM bindings to DT schema.
-
-Signed-off-by: Mithil Bavishi <bavishimithil@gmail.com>
----
- .../devicetree/bindings/sound/omap-mcpdm.txt  | 30 ----------
- .../bindings/sound/ti,omap-mcpdm.yaml         | 59 +++++++++++++++++++
- 2 files changed, 59 insertions(+), 30 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/sound/omap-mcpdm.txt
- create mode 100644 Documentation/devicetree/bindings/sound/ti,omap-mcpdm.y=
-aml
-
-diff --git a/Documentation/devicetree/bindings/sound/omap-mcpdm.txt
-b/Documentation/devicetree/bindings/sound/omap-mcpdm.txt
-deleted file mode 100644
-index ff98a0cb5..000000000
---- a/Documentation/devicetree/bindings/sound/omap-mcpdm.txt
-+++ /dev/null
-@@ -1,30 +0,0 @@
--* Texas Instruments OMAP4+ McPDM
--
--Required properties:
--- compatible: "ti,omap4-mcpdm"
--- reg: Register location and size as an array:
--       <MPU access base address, size>,
--       <L3 interconnect address, size>;
--- interrupts: Interrupt number for McPDM
--- ti,hwmods: Name of the hwmod associated to the McPDM
--- clocks:  phandle for the pdmclk provider, likely <&twl6040>
--- clock-names: Must be "pdmclk"
--
--Example:
--
--mcpdm: mcpdm@40132000 {
--       compatible =3D "ti,omap4-mcpdm";
--       reg =3D <0x40132000 0x7f>, /* MPU private access */
--             <0x49032000 0x7f>; /* L3 Interconnect */
--       interrupts =3D <0 112 0x4>;
--       interrupt-parent =3D <&gic>;
--       ti,hwmods =3D "mcpdm";
--};
--
--In board DTS file the pdmclk needs to be added:
--
--&mcpdm {
--       clocks =3D <&twl6040>;
--       clock-names =3D "pdmclk";
--       status =3D "okay";
--};
-diff --git a/Documentation/devicetree/bindings/sound/ti,omap-mcpdm.yaml
-b/Documentation/devicetree/bindings/sound/ti,omap-mcpdm.yaml
-new file mode 100644
-index 000000000..4d5d37e98
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/ti,omap-mcpdm.yaml
-@@ -0,0 +1,59 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/ti,omap-mcpdm.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: OMAP McPDM
-+
-+maintainers:
-+  - Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-+
-+description:
-+  OMAP ALSA SoC DAI driver using McPDM port used by TWL6040
-+
-+properties:
-+  compatible:
-+    const: ti,omap4-mcpdm
-+
-+  reg:
-+    description:
-+      Register location and size as an array
-+      <MPU access base address, size>,
-+      <L3 interconnect address, size>;
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  ti,hwmods:
-+    maxItems: 1
-+
-+  clocks:
-+    description: phandle for the pdmclk provider, likely <&twl6040>
-+
-+  clock-names:
-+    description: Must be "pdmclk"
-+
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - ti,hwmods
-+  - clocks
-+  - clock-names
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    mcpdm@0 {
-+      compatible =3D "ti,omap4-mcpdm";
-+      reg =3D <0x40132000 0x7f>, /* MPU private access */
-+            <0x49032000 0x7f>; /* L3 Interconnect */
-+      interrupts =3D <0 112 0x4>;
-+      interrupt-parent =3D <&gic>;
-+      ti,hwmods =3D "mcpdm";
-+      clocks =3D <&twl6040>;
-+      clock-names =3D "pdmclk";
-+    };
---
-2.34.1
-
-Best regards,
-Mithil
-
-
-
-On Fri, Apr 5, 2024 at 12:28=E2=80=AFPM Krzysztof Kozlowski
-<krzysztof.kozlowski@linaro.org> wrote:
->
-> On 04/04/2024 18:06, Mighty wrote:
-> > From: Mithil Bavishi <bavishimithil@gmail.com>
-> >
-> > Convert the OMAP4+ McPDM bindings to DT schema.
-> >
-> > Signed-off-by: Mighty <bavishimithil@gmail.com>
->
-> This does not match SoB. Can you respond to comments you receive?
->
-> Subject: nothing improved.
->
-> Rest... also did not improve. so you ignored entire feedback?
->
-> This is a friendly reminder during the review process.
->
-> It seems my or other reviewer's previous comments were not fully
-> addressed. Maybe the feedback got lost between the quotes, maybe you
-> just forgot to apply it. Please go back to the previous discussion and
-> either implement all requested changes or keep discussing them.
->
-> Thank you.
->
-> Best regards,
-> Krzysztof
->
+SGkgR2VyZ28sDQoNCkFuc3dlciBpbiBsaW5lOg0KDQo+IEZyb206IEdlcmdvIEtvdGVsZXMgPHNv
+eWVyQGlybC5odT4NCj4gU2VudDogMjcgTWFyY2ggMjAyNCAxODowMg0KPiBUbzogWHUsIEJhb2p1
+bjsgdGl3YWlAc3VzZS5kZQ0KPiBDYzogcm9iaCtkdEBrZXJuZWwub3JnOyBhbmRyaXkuc2hldmNo
+ZW5rb0BsaW51eC5pbnRlbC5jb207IGxnaXJkd29vZEBnbWFpbC5jb207IHBlcmV4QHBlcmV4LmN6
+OyBwaWVycmUtbG91aXMuYm9zc2FydEBsaW51eC5pbnRlbC5jb207IEx1LCBLZXZpbjsgMTM5MTYy
+NzUyMDZAMTM5LmNvbTsgYWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnOyBsaW51eC1rZXJuZWxA
+dmdlci5rZXJuZWwub3JnOyBsaWFtLnIuZ2lyZHdvb2RAaW50ZWwuY29tOyB5dW5nLWNodWFuLmxp
+YW9AbGludXguaW50ZWwuY29tOyBicm9vbmllQGtlcm5lbC5vcmcNCj4gU3ViamVjdDogW0VYVEVS
+TkFMXSBSZTogW1BBVENIIHYxIDcvOF0gQUxTQTogaGRhL3RhczI3ODE6IEFkZCB0YXMyNzgxIFNQ
+SS1iYXNlZCBkcml2ZXINCj4gDQo+IEhpIEJhb2p1biwgT24gVHVlLCAyMDI0LTAzLTI2IGF0IDA5
+OuKAijA5ICswODAwLCBCYW9qdW4gWHUgd3JvdGU6ID4gRmlybXdhcmUgYmluYXJ5IGxvYWQgbGli
+IGNvZGUgZm9yIHRhczI3ODEgc3BpIGRyaXZlci4gPiA+IFNpZ25lZC1vZmYtYnk6IEJhb2p1biBY
+dSA8YmFvanVuLuKAinh1QOKAinRpLuKAimNvbT4gPiAtLS0gPiBzb3VuZC9wY2kvaGRhL3RhczI3
+ODFfc3BpX2Z3bGliLuKAimMgfCAyMzc0ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrDQo+
+IFpqUWNtUVJZRnBmcHRCYW5uZXJTdGFydA0KPiBUaGlzIG1lc3NhZ2Ugd2FzIHNlbnQgZnJvbSBv
+dXRzaWRlIG9mIFRleGFzIEluc3RydW1lbnRzLg0KPiBEbyBub3QgY2xpY2sgbGlua3Mgb3Igb3Bl
+biBhdHRhY2htZW50cyB1bmxlc3MgeW91IHJlY29nbml6ZSB0aGUgc291cmNlIG9mIHRoaXMgZW1h
+aWwgYW5kIGtub3cgdGhlIGNvbnRlbnQgaXMgc2FmZS4NCj4gDQo+IFpqUWNtUVJZRnBmcHRCYW5u
+ZXJFbmQNCj4gDQo+IEhpIEJhb2p1biwNCj4gDQo+IE9uIFR1ZSwgMjAyNC0wMy0yNiBhdCAwOTow
+OSArMDgwMCwgQmFvanVuIFh1IHdyb3RlOg0KPiA+IEZpcm13YXJlIGJpbmFyeSBsb2FkIGxpYiBj
+b2RlIGZvciB0YXMyNzgxIHNwaSBkcml2ZXIuDQo+ID4NCj4gPiBTaWduZWQtb2ZmLWJ5OiBCYW9q
+dW4gWHUgPGJhb2p1bi54dUB0aS5jb20+DQo+ID4gLS0tDQo+ID4gIHNvdW5kL3BjaS9oZGEvdGFz
+Mjc4MV9zcGlfZndsaWIuYyB8IDIzNzQgKysrKysrKysrKysrKysrKysrKysrKysrKysrKysNCj4g
+PiAgMSBmaWxlIGNoYW5nZWQsIDIzNzQgaW5zZXJ0aW9ucygrKQ0KPiA+ICBjcmVhdGUgbW9kZSAx
+MDA2NDQgc291bmQvcGNpL2hkYS90YXMyNzgxX3NwaV9md2xpYi5jDQo+ID4NCj4gDQo+IElzIHRo
+aXMgZmlybXdhcmUgbG9hZGluZyBsb2dpYyB0aGUgc2FtZSBhcyB0aGUgYWxyZWFkeSBtZXJnZWQg
+dGFzMjc4MS0NCj4gZm13bGliPyBJZiB5ZXMsIHdoeSBkb24ndCB5b3UgdXNlIHRoYXQ/DQpJdCdz
+IGFsbW9zdCBzYW1lLCBidXQgb25lIGZpcm13YXJlIHdhcyBsb2FkZWQgaW4gSTJDIG1vZGUgYXMg
+b25lIEkyQyBkZXZpY2UNCndhcyBwcm9iZWQsIGFuZCBvcGVyYXRlIHNsYXZlcnMgYnkgYWRkcmVz
+cy4gQW5kIHdpdGggU1BJIG1vZGUsIHdlIHByb2JlIHR3bw0KU1BJIGRldmljZXMgaW4gY3VycmVu
+dCBjYXNlLCBzbyB3aWxsIGxvYWQgdHdvIGZpcm13YXJlIGJpbmFyeSwgYW5kIHNvbWUNCm9wZXJh
+dGlvbiBuZWVkIHRvIGJlIHByb2Nlc3NlZCBhcyBzcGVjaWFsIGNhc2UsIGZvciBleGFtcGxlLCB1
+bmRlciBTUEksDQpyZWFkIG5lZWQgb25lIGJ5dGUgc2hpZnRlZCBpZiBwYWdlIG51bWJlciBpcyBs
+YXJnZSB0aGFuIDEuDQo+IA0KPiBUaGFua3MsDQo+IEdlcmdvDQo+IA0KPiANCg0K

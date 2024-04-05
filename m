@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F6ED899915
-	for <lists+alsa-devel@lfdr.de>; Fri,  5 Apr 2024 11:12:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E51989991D
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 Apr 2024 11:14:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2D2182CF3;
-	Fri,  5 Apr 2024 11:12:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D2182CF3
+	by alsa0.perex.cz (Postfix) with ESMTPS id BCE002D1F;
+	Fri,  5 Apr 2024 11:14:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BCE002D1F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712308343;
-	bh=7o8XbCGvId3xPxY/IVwzWfcwOdaHK6AoLQbT+r4Ziy0=;
+	s=default; t=1712308453;
+	bh=57TGCSCkjrsonGnK9tulnMl2oRX3ewM3Ljw5o763Gfs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=MAA+k/Lw4xEMRZ2x6B2Sr6v78IBOlJwEqkL6mvVhFfLMKqNjCGlXTHGuLmEkS6sR3
-	 yxVlYnVXw+To08pm8B1MI6C6WYmz4pUrz5PCtaojgMuVjhd+b3qiSStQdOH8I3wYjH
-	 n9Qu7I7Q5JWQjyrccA1VVsxZhtBRBN47v82mwCwI=
+	b=QH1P6onYy44ujBv/pvl3eal65ll+tLxzxQLJRSyGEJIHTnnpJcHPjH+w7o3SPcqy+
+	 11ea26Vb7WimbF0poh7kh1Bd+GENmWRddIgbIYVthemu7Ez/CsFO5SVi3LTEykz9Fd
+	 PIMG6HgVRHqtoMbXE9Fg6jD7OeI2c5DDhft+GHrI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2B1C9F8065B; Fri,  5 Apr 2024 11:10:37 +0200 (CEST)
+	id 595FAF805C3; Fri,  5 Apr 2024 11:10:56 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 67277F8065B;
-	Fri,  5 Apr 2024 11:10:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 99B32F80238;
+	Fri,  5 Apr 2024 11:10:56 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BE771F80578; Fri,  5 Apr 2024 11:08:40 +0200 (CEST)
+	id E5A42F8057A; Fri,  5 Apr 2024 11:10:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,41 +35,41 @@ X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D8C47F8055C
-	for <alsa-devel@alsa-project.org>; Fri,  5 Apr 2024 11:08:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8C47F8055C
+	by alsa1.perex.cz (Postfix) with ESMTPS id B8C8BF80238
+	for <alsa-devel@alsa-project.org>; Fri,  5 Apr 2024 11:08:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8C8BF80238
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=Wm4XODVy
+ header.s=Intel header.b=Ckf9K0jJ
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1712308100; x=1743844100;
+  t=1712308103; x=1743844103;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=7o8XbCGvId3xPxY/IVwzWfcwOdaHK6AoLQbT+r4Ziy0=;
-  b=Wm4XODVyQZ8bOO00bvUSuTdzZD5Qpfy8nY48mg28K2mgcL+UUMy4qS0r
-   UQvv4kIeE8HRpi3h1VnVym5116Fq/mNPurrkntPQr50HbqYCQlaiUzg0+
-   7lmxx+FHpc8vUTVMSGrCKdF5b75l639xpGzv+hPhzI5Cy/zKD1bajbiQI
-   96aoZ6etOiciIhJIF2eb+y3AZI5r3806/z3OZRc8sH3sqL00tpaxQW+ry
-   uLF41UvjTSU7gWedOC3g7i6R/S+MScgIfdhhiIYmOrVe+2x0HqC9LLeKt
-   gQISO37XpD+kzo5Nx2B8vNy6e0PEuxj0tggV8wK/OzvJoTU6NaU+xem3V
+  bh=57TGCSCkjrsonGnK9tulnMl2oRX3ewM3Ljw5o763Gfs=;
+  b=Ckf9K0jJnaCDr9cyLTld5VyIPgIt8PFead1QtkAohQKKSyXWe7fOOMe3
+   /3m1W/p7GVzWa9zaEEK98WqgQwIBbjdOhiywCj7JVSBTSDVE+SOkIU2oO
+   yiS+ikABdYB5DwFnVUXeR+mo/oJdRQTSUhlhOeMMWcV6+/ZmJeUkogvUK
+   ul0CzkteoxhT3TL/qUp9TtiMcQf5PN+FBgsGT1+Ig0H0zlGj0NyrDL2zC
+   5fvZCggsjw/P3LKtZK/4kuEDH44qU+s/y87hdP0xrgaF+tWh+3k6y5nmP
+   H5zaoI/6MBWS08JhVUbFa7ArrtTfgaPvcDlz0/cI0ZtOVKsO9BEzehOCL
    g==;
-X-CSE-ConnectionGUID: Mv8SK7hQRCGjsbRuhwfVyg==
-X-CSE-MsgGUID: yzAIMngoTCSeh7b+RA3SQg==
-X-IronPort-AV: E=McAfee;i="6600,9927,11034"; a="7787443"
+X-CSE-ConnectionGUID: HKIS3zJ1SA2kiGieh/tTxQ==
+X-CSE-MsgGUID: 0RAkL4dqT520fLVp+y/mDQ==
+X-IronPort-AV: E=McAfee;i="6600,9927,11034"; a="7787451"
 X-IronPort-AV: E=Sophos;i="6.07,181,1708416000";
-   d="scan'208";a="7787443"
+   d="scan'208";a="7787451"
 Received: from orviesa009.jf.intel.com ([10.64.159.149])
   by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Apr 2024 02:08:18 -0700
-X-CSE-ConnectionGUID: ae6VOqs8TWSObeFA2A55zA==
-X-CSE-MsgGUID: GkZWwU/wTmC+y2HQTvtLXA==
+ 05 Apr 2024 02:08:20 -0700
+X-CSE-ConnectionGUID: QmZPM82BR9WvruM1H3RJDg==
+X-CSE-MsgGUID: uQ0JU06KTxySXF9any7D8A==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.07,181,1708416000";
-   d="scan'208";a="19042430"
+   d="scan'208";a="19042433"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
-  by orviesa009.jf.intel.com with ESMTP; 05 Apr 2024 02:08:16 -0700
+  by orviesa009.jf.intel.com with ESMTP; 05 Apr 2024 02:08:18 -0700
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: broonie@kernel.org
 Cc: alsa-devel@alsa-project.org,
@@ -79,17 +79,16 @@ Cc: alsa-devel@alsa-project.org,
 	amadeuszx.slawinski@linux.intel.com,
 	hdegoede@redhat.com,
 	Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: [PATCH 06/13] ASoC: Intel: avs: Replace risky functions with safer
- variants
-Date: Fri,  5 Apr 2024 11:09:22 +0200
-Message-Id: <20240405090929.1184068-7-cezary.rojewski@intel.com>
+Subject: [PATCH 07/13] ASoC: Intel: avs: Fix potential integer overflow
+Date: Fri,  5 Apr 2024 11:09:23 +0200
+Message-Id: <20240405090929.1184068-8-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240405090929.1184068-1-cezary.rojewski@intel.com>
 References: <20240405090929.1184068-1-cezary.rojewski@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: L2T3DI7RLL4U6JVTIK2CSFXIFNV4AKCY
-X-Message-ID-Hash: L2T3DI7RLL4U6JVTIK2CSFXIFNV4AKCY
+Message-ID-Hash: 2EAXTFJAK22BO3TXGYYPIKM7HTIRXCNK
+X-Message-ID-Hash: 2EAXTFJAK22BO3TXGYYPIKM7HTIRXCNK
 X-MailFrom: cezary.rojewski@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -102,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/L2T3DI7RLL4U6JVTIK2CSFXIFNV4AKCY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2EAXTFJAK22BO3TXGYYPIKM7HTIRXCNK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -111,50 +110,32 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-strscpy() and snprintf() are the recommended equivalents of their
-riskier friends.
+While stream_tag for CLDMA on SKL-based platforms is always 1, function
+hda_cldma_setup() uses AZX_SD_CTL_STRM() macro which does:
+	stream_tag << 20
 
+what combined with stream_tag type of 'unsigned int' generates a
+potential overflow issue. Update the field type to fix that.
+
+Fixes: 45864e49a05a ("ASoC: Intel: avs: Implement CLDMA transfer")
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- sound/soc/intel/avs/loader.c | 4 ++--
- sound/soc/intel/avs/pcm.c    | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ sound/soc/intel/avs/cldma.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/intel/avs/loader.c b/sound/soc/intel/avs/loader.c
-index 8e34d3536082..57370f0905dc 100644
---- a/sound/soc/intel/avs/loader.c
-+++ b/sound/soc/intel/avs/loader.c
-@@ -535,7 +535,7 @@ int avs_dsp_load_libraries(struct avs_dev *adev, struct avs_tplg_library *libs,
- 		if (ret)
- 			return ret;
+diff --git a/sound/soc/intel/avs/cldma.c b/sound/soc/intel/avs/cldma.c
+index d7a9390b5e48..585579840b64 100644
+--- a/sound/soc/intel/avs/cldma.c
++++ b/sound/soc/intel/avs/cldma.c
+@@ -35,7 +35,7 @@ struct hda_cldma {
  
--		strncpy(adev->lib_names[id], man->name, AVS_LIB_NAME_SIZE);
-+		strscpy(adev->lib_names[id], man->name, AVS_LIB_NAME_SIZE);
- 		id++;
- next_lib:
- 		i++;
-@@ -698,7 +698,7 @@ int avs_dsp_first_boot_firmware(struct avs_dev *adev)
- 	}
+ 	unsigned int buffer_size;
+ 	unsigned int num_periods;
+-	unsigned int stream_tag;
++	unsigned char stream_tag;
+ 	void __iomem *sd_addr;
  
- 	/* basefw always occupies slot 0 */
--	strcpy(&adev->lib_names[0][0], "BASEFW");
-+	strscpy(adev->lib_names[0], "BASEFW", AVS_LIB_NAME_SIZE);
- 
- 	ida_init(&adev->ppl_ida);
- 
-diff --git a/sound/soc/intel/avs/pcm.c b/sound/soc/intel/avs/pcm.c
-index 72f1bc3b7b1f..405de1d58178 100644
---- a/sound/soc/intel/avs/pcm.c
-+++ b/sound/soc/intel/avs/pcm.c
-@@ -1420,7 +1420,7 @@ static void avs_component_hda_unregister_dais(struct snd_soc_component *componen
- 
- 	mach = dev_get_platdata(component->card->dev);
- 	codec = mach->pdata;
--	sprintf(name, "%s-cpu", dev_name(&codec->core.dev));
-+	snprintf(name, sizeof(name), "%s-cpu", dev_name(&codec->core.dev));
- 
- 	for_each_component_dais_safe(component, dai, save) {
- 		int stream;
+ 	struct snd_dma_buffer dmab_data;
 -- 
 2.25.1
 

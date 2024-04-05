@@ -2,113 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBCE5899B28
-	for <lists+alsa-devel@lfdr.de>; Fri,  5 Apr 2024 12:47:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D06BD899BD5
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 Apr 2024 13:24:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C40731F3;
-	Fri,  5 Apr 2024 12:46:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C40731F3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1DEDB2D10;
+	Fri,  5 Apr 2024 13:23:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1DEDB2D10
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712314023;
-	bh=L4E8p/GV0Ds3nAyTGC7XhelVlzhjjV+Qy3Ty0PI9xhc=;
+	s=default; t=1712316241;
+	bh=qNaZ/Ljr6QC2DNYsYEV3APw00MOZudVAaiM+bryv7FM=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=LUOGR9ylZqQ92Kk1DRbndmHqD/n3fm4NiIy3aoQEjG9LaUt0lRCC5CEtQZx2NKIDh
-	 9E1PGFroCeIbhXIMxmAi+Uw+tK5tXhYPJFm3t1OPuxIOhEFjO8JmuXb2RCJUl45/fy
-	 rOZrk4j62U9mA/cZDUZNAMFEoH1f2gaws1fxYpDg=
+	b=XmW7fqDiNlv4zU0R9l12ZXzN6PACE5rmNDQte4+EcxD5K8P14QBrieTmq6YFmI6Z4
+	 uo67sWNEz7P80wNxXrOBgiYuu02JJsXsvY5tlOJtei8AWat7np1tzbY/DfgPF8JLDk
+	 ddj5M/5AItCB/Q1WASt/zrTFMTnlFP4Fv41wY20I=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6B3E6F805A1; Fri,  5 Apr 2024 12:46:32 +0200 (CEST)
+	id C09B9F80578; Fri,  5 Apr 2024 13:23:29 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CE37CF8059F;
-	Fri,  5 Apr 2024 12:46:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 20736F8016E;
+	Fri,  5 Apr 2024 13:23:29 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8169FF8020D; Fri,  5 Apr 2024 12:46:27 +0200 (CEST)
+	id 7B34AF8020D; Fri,  5 Apr 2024 13:23:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-yw1-x1131.google.com (mail-yw1-x1131.google.com
- [IPv6:2607:f8b0:4864:20::1131])
+Received: from mail-pj1-x102c.google.com (mail-pj1-x102c.google.com
+ [IPv6:2607:f8b0:4864:20::102c])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 95DECF80130
-	for <alsa-devel@alsa-project.org>; Fri,  5 Apr 2024 12:46:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 95DECF80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id 55E13F80007
+	for <alsa-devel@alsa-project.org>; Fri,  5 Apr 2024 13:23:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55E13F80007
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=XQOOJ+iZ
-Received: by mail-yw1-x1131.google.com with SMTP id
- 00721157ae682-6156483284fso22843387b3.0
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=NTZRuGHX
+Received: by mail-pj1-x102c.google.com with SMTP id
+ 98e67ed59e1d1-2a2d248a2e1so1236950a91.0
         for <alsa-devel@alsa-project.org>;
- Fri, 05 Apr 2024 03:46:20 -0700 (PDT)
+ Fri, 05 Apr 2024 04:23:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1712313978; x=1712918778;
+        d=gmail.com; s=20230601; t=1712316198; x=1712920998;
  darn=alsa-project.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=q464s0pydIE+zRv4fDUf6M5jc7NXRIaMdUPXgVeAtAQ=;
-        b=XQOOJ+iZoLk/iEpCJqXLnFukSqxRkxxokpa/vmP04SQUQRXJZvEWjCVpp+4E/RSi4G
-         DOXxAuR7uFRCNzbyMlY9hDdTesuQo0BiJJmxCs7H69aM5+Rt5o89MMXcRoTc6MT9Lkyt
-         1JeSqMkPoyrdtPRnHYEzX+my+uce9vvqCfZilX4oqV2Y24VLzl6ckcAjr8I4NIhrg0hj
-         txLVFptfr5pweDr4b4wV1C3uXPS6/3cAssInGInEJ5dJk/XrmsLvfbROYpivG3n1DhGJ
-         bQUUjkOSRNd9882+xjkXJ29f8aQvifRAlSNU4B9NN6Gi5yYgb23Zyci1UCav8NFQc1fz
-         xBUg==
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=qNaZ/Ljr6QC2DNYsYEV3APw00MOZudVAaiM+bryv7FM=;
+        b=NTZRuGHXlBB0K57iV7WBwz1tcmaQqq0/4d6iHhO4VNy1YtceV2iUnVf6lnpQfJ5wKS
+         FUrxGO9U2G4iTdqjeawgIfZqDzOVw803Vcv2Qbub8g5DMXeLYdnRf/aNRDrzqNmc3X7w
+         2s1kTwsJg/GN5z0ikZI6ObqhNC5yL17ZToyH6wvFpxSf8F/A8SD+WHs3qbM/hrKhyOuJ
+         lTKjVSMMyQ5iyu9XtFPyQEUW8aTEINekArGY/wPaKlXsid6bDK11ZfAMaD3CZ+ijBYdu
+         Th6lEulIT/7wr819bmW5QIQWK8tbUM6ARfzQUO1x7xlyZzBiSHmEpHRAT9v2NBwX9UiT
+         ERLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712313978; x=1712918778;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=q464s0pydIE+zRv4fDUf6M5jc7NXRIaMdUPXgVeAtAQ=;
-        b=wSPkvicowYC3KMK67HxKOqxWXoFTU4nSumiRgp5h1w5kPmpTH83eY1orVBnDfalyij
-         WGkbcndSc1O1vw+ZZwS5+SrHt9N8Yc45psrux6wrsAqH1xo9tDchCwUw/EAIubYRgiwG
-         EToND5V/M5DB8omrENBGskFw8ZIg+/0zBIDTrGtjRUEv84rCakKblV7atXTqmd8fBazW
-         n6jUQF/dYl4nuB3f+wE31PQl3eFBtYxNU2A/ji//Tk9LvRt0hdRbfr+vnTr+AU/HRKhL
-         lC2D9tyYiprAXdNdkml/NrzdPkqrLx0TLSifmib/uGeYnLN61tWu6WUj1XMks3D4+iE+
-         lefA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUPierz10RzYJeiZ3+zl8bgPiU126gjt0gVYGAW49ARXnMda50c3TtjyXylbkDiUY3pc/KHYxpRNerKEK7VFFpOyS+2NodMAvU2fAI=
-X-Gm-Message-State: AOJu0Yz4yDRt9V1JvIMW42ayqqxqujb+I4H5n3Am/paY9rF/TGE2+Qlo
-	tBDD7mo+0z1Fm3u8ri1piAVTaNdrQNkfoBYtGRUGjh0Wdsydvck5EeJbG+LrNepw5JvETOKDjAt
-	Na48jID+0XHocpeKvsue1LAz5LRFoRbfCQf2tQA==
+        d=1e100.net; s=20230601; t=1712316198; x=1712920998;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=qNaZ/Ljr6QC2DNYsYEV3APw00MOZudVAaiM+bryv7FM=;
+        b=vc5y4MMmomSI9qzin6ElHK4HC0dVoQD8yLX3Wz3cC1HEEGGNEYhNJyyvFrABdKqCE/
+         U7E9qUvDirKorV4psANbWObB23fcHR4HPXZ0QTJ37f8zg17Jv9Y3dGzC4GAI4/rPzklU
+         JaNiZe/Q2hFVGraThjjCbBXDvNSk11+HQXwGK2cOcYCSZ9gKYivkY/clSifBAK1CmQZs
+         p5MznAbWYAJHYq/rr+x1+59UkXOsV17amEENEHPpOh26rGjikGxSlaWYcRruK3ZsKEnF
+         sBhrCYIRBbVf/5URjTnFWWNcHx/E4S9VM3HviQwvQ3xn06yLuEdKllq7QQddSdsCSyJC
+         uM4w==
+X-Gm-Message-State: AOJu0Ywu3XJgkMCqw39Bd9qdHx74C0GVoGJ3pq5KBB39pwYn0I7WtscO
+	RDG7obeCjnJqLhMtltxoZwL891AOJh98oitewTApfKI9F2jd0QTM2PEFo2VKYiHdoierCXx3NYX
+	tre+GKQP8lk/EiksAOFKfkSgRx8s=
 X-Google-Smtp-Source: 
- AGHT+IFD4lOAA6OE545MWaALDTv8kewFB0UhOTHwNBgdOdA/c4Xh5GLbUDrWS+o4QO2az8mbVpwytUQzz3UDkLFdfw8=
-X-Received: by 2002:a25:bc85:0:b0:dcc:44d7:5c7f with SMTP id
- e5-20020a25bc85000000b00dcc44d75c7fmr782319ybk.62.1712313978067; Fri, 05 Apr
- 2024 03:46:18 -0700 (PDT)
+ AGHT+IFUtlRTeX/Z/ireLG6vtDIUcECDstSGFFj0Bj1JaWWkGsRjoqnUaGS3+LWh1lgtAOfA4MdiQrNnWuEjF7UMW30=
+X-Received: by 2002:a17:90a:b382:b0:2a2:9d4c:2166 with SMTP id
+ e2-20020a17090ab38200b002a29d4c2166mr3162921pjr.4.1712316197906; Fri, 05 Apr
+ 2024 04:23:17 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240404084631.417779-1-quic_mohs@quicinc.com>
- <20240404084631.417779-2-quic_mohs@quicinc.com>
- <CAA8EJpqWaYhzPKgTREtJnfdNZ4oSFZaRFM7Jhg+qd3AqadGOkA@mail.gmail.com>
- <797d67b9-9e09-8b84-9abc-dd4a4a2a40f5@quicinc.com>
-In-Reply-To: <797d67b9-9e09-8b84-9abc-dd4a4a2a40f5@quicinc.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 5 Apr 2024 13:46:07 +0300
+References: <20240401201151.560355-1-oswald.buddenhagen@gmx.de>
+In-Reply-To: <20240401201151.560355-1-oswald.buddenhagen@gmx.de>
+From: Manuel Lauss <manuel.lauss@gmail.com>
+Date: Fri, 5 Apr 2024 13:22:41 +0200
 Message-ID: 
- <CAA8EJpo2__vcpqq1zofyyZ6UwPPn7Ed0R=TPcMZ25+JHwRExwg@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] ASoC: dt-bindings: qcom,sm8250: Add QCM6490 snd
- QCS6490 sound card
-To: Mohammad Rafi Shaik <quic_mohs@quicinc.com>
-Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@quicinc.com>,
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- linux-arm-msm@vger.kernel.org,
-	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	quic_rohkumar@quicinc.com
+ <CAOLZvyGnfGjNA=N30LC+UVt92obOoHQt+bekADey=amKkTr8EQ@mail.gmail.com>
+Subject: Re: [PATCH v2] ASoC: au1x: declare that FIFO is reported in frames
+To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
-Message-ID-Hash: RSHMNINSUDNTL5GXDH4ITXZ3GHMKGOOS
-X-Message-ID-Hash: RSHMNINSUDNTL5GXDH4ITXZ3GHMKGOOS
-X-MailFrom: dmitry.baryshkov@linaro.org
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: EECE5ZUKLDVOZ5HANDXZ5GZRMSCAEHXI
+X-Message-ID-Hash: EECE5ZUKLDVOZ5HANDXZ5GZRMSCAEHXI
+X-MailFrom: manuel.lauss@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -120,7 +107,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RSHMNINSUDNTL5GXDH4ITXZ3GHMKGOOS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EECE5ZUKLDVOZ5HANDXZ5GZRMSCAEHXI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -129,46 +116,28 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 5 Apr 2024 at 08:56, Mohammad Rafi Shaik <quic_mohs@quicinc.com> wrote:
->
-> On 4/4/2024 2:23 PM, Dmitry Baryshkov wrote:
-> > On Thu, 4 Apr 2024 at 11:48, Mohammad Rafi Shaik <quic_mohs@quicinc.com> wrote:
-> >>
-> >> Document the bindings for the Qualcomm QCM6490 IDP and QCS6490 RB3Gen2
-> >> soc platforms sound card.
-> >>
-> >> The bindings are the same as for other newer Qualcomm ADSP sound cards,
-> >> thus keep them in existing qcom,sm8250.yaml file, even though Linux driver
-> >> is separate.
-> >>
-> >> Signed-off-by: Mohammad Rafi Shaik <quic_mohs@quicinc.com>
-> >> ---
-> >>   Documentation/devicetree/bindings/sound/qcom,sm8250.yaml | 2 ++
-> >>   1 file changed, 2 insertions(+)
-> >>
-> >> diff --git a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
-> >> index 2ab6871e89e5..ff1a27f26bc2 100644
-> >> --- a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
-> >> +++ b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
-> >> @@ -29,6 +29,8 @@ properties:
-> >>         - enum:
-> >>             - qcom,apq8016-sbc-sndcard
-> >>             - qcom,msm8916-qdsp6-sndcard
-> >> +          - qcom,qcm6490-sndcard
-> >> +          - qcom,qcs6490-rb3gen2-sndcard
-> >
-> > My 2c: you are adding one soundcard for the SoC family (qcm6490) and
-> > another one for the particular board kind (qcs6490-rb3gen2). That
-> > doesn't seem logical.
->
-> The qcm6490-sndcard compatible for enabling soundcard on
-> qcm6490 IDP boards.
->
-> Will change compatible name as qcom,qcm6490-idp-sndcard.
+Hello,
 
-Any consistent way is fine with me.
+On Mon, Apr 1, 2024 at 10:11=E2=80=AFPM Oswald Buddenhagen
+<oswald.buddenhagen@gmx.de> wrote:
+>
+> Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+> ---
+>
+> Is this right? The comment on the field says "fifo entries of AC97/I2S
+> PSC", which doesn't suggest bytes. The data sheet speaks of "words" and
+> "byte masks", but without digging into it I can't tell how it would
+> behave with different sample widths and channel counts (which the driver
+> does not seem to limit _at all_? what am I missing?).
 
+Each fifo entry contains a sample; wordsize is configured in register
+0x08[24:21].
+The fifo is 16 samples deep, so you can have 8 stereo frames or 16
+mono frames queued up.
+But the fifo isn't managed by hand, dma transfers are used instead and
+the amount
+of transmitted bytes is extracted from DMA information, so I think this cha=
+nge
+is pointless.
 
--- 
-With best wishes
-Dmitry
+Manuel

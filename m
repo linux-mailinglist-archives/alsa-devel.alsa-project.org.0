@@ -2,100 +2,158 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CC10899A55
-	for <lists+alsa-devel@lfdr.de>; Fri,  5 Apr 2024 12:08:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D70C899ADF
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 Apr 2024 12:30:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 779322D1C;
-	Fri,  5 Apr 2024 12:08:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 779322D1C
+	by alsa0.perex.cz (Postfix) with ESMTPS id F14792D03;
+	Fri,  5 Apr 2024 12:30:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F14792D03
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712311725;
-	bh=P9W+ZZQct7WCcuVA2dzO5wfwCSITBeI48v1sQMxHgoA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1712313011;
+	bh=leoE7kS0L9aZrdEKE2+xsF8vyWhVtEMH1Bvpai1gEaY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=vny/mmfBQ/2Orku9jj/JttlPIzCxUCZ8IE+u6v/AUFKFv74BP5YbixNGWyKiMwEas
-	 Q31tC/O14j2S2WyfyhY22IAkJD+O0fqG3kkPVOIPlDHxtoirIW0pwtifxSnHGcb3sh
-	 ZIU4SrpYidSha+pPegYQOhHb7Z99efkJqYUlXLSk=
+	b=WEdv820kj5XUXaCNgIPefEolwtBW1MqqxQ/YFG5xTaywlER+c3hmIkl2x8I4WCITm
+	 tRh0m9soeTYFkc8ZFrozzq6mHyNpyJC9RzC5GOT6s7taUuwWqj00MHgHX6jC2/0ND+
+	 I/r3Ih5ls8W2bjxCeYf7qammF7FVNTS+08VZoDa4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5EF75F8057B; Fri,  5 Apr 2024 12:08:14 +0200 (CEST)
+	id 49EB6F805AA; Fri,  5 Apr 2024 12:29:38 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BAAEBF8059F;
-	Fri,  5 Apr 2024 12:08:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E4F7EF8020D;
+	Fri,  5 Apr 2024 12:29:37 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6B9F3F8020D; Fri,  5 Apr 2024 12:08:06 +0200 (CEST)
+	id 6FF3CF8020D; Fri,  5 Apr 2024 12:29:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
- server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C47D3F80007
-	for <alsa-devel@alsa-project.org>; Fri,  5 Apr 2024 12:07:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C47D3F80007
+	by alsa1.perex.cz (Postfix) with ESMTPS id B6EB4F8015B
+	for <alsa-devel@alsa-project.org>; Fri,  5 Apr 2024 12:29:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6EB4F8015B
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmx.de header.i=oswald.buddenhagen@gmx.de
- header.a=rsa-sha256 header.s=s31663417 header.b=kLsG4/FX
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1712311678; x=1712916478;
-	i=oswald.buddenhagen@gmx.de;
-	bh=P9W+ZZQct7WCcuVA2dzO5wfwCSITBeI48v1sQMxHgoA=;
-	h=X-UI-Sender-Class:Date:From:To:Cc:Subject:References:
-	 In-Reply-To;
-	b=kLsG4/FX3M0M0VCDlCjbdKRPzPktBTOyYUItif93IzTR4XL97HievtTOx7EPaHFu
-	 NcJTCypTXx9J14OgORh8E96HTxBPVH6oXnsFRzzATx6hP6Jyzjh/qQ4WM/7iGsjZO
-	 +bbkigEG7iMbx+hGxdI223ulZYJid114dJxSdpCyYC5yAWQDYeMz0eIiAXltrvsS3
-	 exZx+qlIxnszqsCzvPLE8G+V0R+jZ3m+G5EDiePoI+cC6QS43IT7jIqMLv5AG0Wmi
-	 b1FO+7pXUEkvMF/Anyhcl+jGOcow4Y/tE+q5CFIdiDdecpRvmscrxy0l9J59XZRpl
-	 C4BaUTSi1gaS1iC+Cw==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from ugly.fritz.box ([89.247.162.116]) by mail.gmx.net (mrgmx004
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MPokD-1sDo6P0NSl-00MqQh; Fri, 05
- Apr 2024 12:07:58 +0200
-Received: by ugly.fritz.box (masqmail 0.3.6-dev, from userid 1000)
-	id 1rsgUH-t9o-00; Fri, 05 Apr 2024 12:07:57 +0200
-Date: Fri, 5 Apr 2024 12:07:57 +0200
-From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: alsa-devel@alsa-project.org, Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH v2 00/17] ALSA: emu10k1 & emux: fixes related to
- wavetable playback
-Message-ID: <Zg/NfajQ3gdsmbUb@ugly>
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=R/Wrc+PG;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=gjg2Xsqo;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=R/Wrc+PG;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=gjg2Xsqo
+Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:98])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 973541F78A;
+	Fri,  5 Apr 2024 10:29:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1712312960;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=W/BBCTLXoOFNiPV/VjRcdovDlIs+2UEQrQub9Z4VEnY=;
+	b=R/Wrc+PGjG0OWPnkfrfc/IWU3HI/6eycn/OKXVGBpl0NaOZs7ISRql7UBy5+lVD7jiwg+5
+	a2cydxg8rPtXpYofPNvIq9Im5zWO/s3F9533lGFlKbPj1t206ds7cr384xrj+/aZlJ+WJb
+	0DL+7opDOLFG8SV47Cm+OvpoCRYwOJo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1712312960;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=W/BBCTLXoOFNiPV/VjRcdovDlIs+2UEQrQub9Z4VEnY=;
+	b=gjg2XsqoXvlTkHF/iNyRGhZRz/5MkImkn18MT7V7aUGCZ3V1OJPKXR1ucWH1o7rFirO7Ms
+	saMpv0YqhhYptCDA==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="R/Wrc+PG";
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=gjg2Xsqo
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1712312960;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=W/BBCTLXoOFNiPV/VjRcdovDlIs+2UEQrQub9Z4VEnY=;
+	b=R/Wrc+PGjG0OWPnkfrfc/IWU3HI/6eycn/OKXVGBpl0NaOZs7ISRql7UBy5+lVD7jiwg+5
+	a2cydxg8rPtXpYofPNvIq9Im5zWO/s3F9533lGFlKbPj1t206ds7cr384xrj+/aZlJ+WJb
+	0DL+7opDOLFG8SV47Cm+OvpoCRYwOJo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1712312960;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=W/BBCTLXoOFNiPV/VjRcdovDlIs+2UEQrQub9Z4VEnY=;
+	b=gjg2XsqoXvlTkHF/iNyRGhZRz/5MkImkn18MT7V7aUGCZ3V1OJPKXR1ucWH1o7rFirO7Ms
+	saMpv0YqhhYptCDA==
+Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 67BDD139E8;
+	Fri,  5 Apr 2024 10:29:20 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap2.dmz-prg2.suse.org with ESMTPSA
+	id drjdF4DSD2YHbgAAn2gu4w
+	(envelope-from <tiwai@suse.de>); Fri, 05 Apr 2024 10:29:20 +0000
+Date: Fri, 05 Apr 2024 12:29:25 +0200
+Message-ID: <87zfu8m7ay.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+Cc: alsa-devel@alsa-project.org,
+	Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH v2 00/17] ALSA: emu10k1 & emux: fixes related to wavetable
+ playback
+In-Reply-To: <Zg/NfajQ3gdsmbUb@ugly>
 References: <20240404100048.819674-1-oswald.buddenhagen@gmx.de>
- <875xwwnp27.wl-tiwai@suse.de>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <875xwwnp27.wl-tiwai@suse.de>
-X-Provags-ID: V03:K1:ql/2x59VrlaECHEz+pLdQ/7FSO3yVXngCcR1WaxURDjZD9kxTwL
- wbyGS1xRPi7r+UREmqY1uU6Nfp/vPkYfzcfnfm6XWMBT1GizzVnAxQnM/1p4znbV6ccSIvK
- n11mq4DNDUNI7RNrUoOol5yNB2cAgrqShUAiQRtu7gQf4sCKpT/j0C68FsaA8r5gVNxURN3
- XTgLA1A37vGqJYrUYHJsw==
-UI-OutboundReport: notjunk:1;M01:P0:Pj3aAlUMCqM=;9d4dbEte07GzDDW3buXp/SrM964
- trUE/g2TJGnfL/E8wHMTL8IGhsyKtXG/DpZC6tcfCF0y0NrgndxXezJ2FQjn9zofI8kF9nLot
- XaKkj/JfvewbrpAosoXmFvoMeaaLFHGZiIZOT6V6zfCR5cXk45Sij6zqRDoh1vPWEERhw0AZV
- B+0lHXbmVoxBWYkHVh03KPTLrAIPohKEbRUBmeNSZIdmoiJPm/BFrx2GTEMNaJQHvykd6jQLv
- JOCGGcxMwwq1CUlfSxD6bTKZuXH/j4pdNRw0Bd5HEhzSnaVbuPIYbDUGPFGeqRgJ14vKMjOxW
- 6nb+DXIPcBX9ReEjL3dZbajIGbBtmVeA3aB2Vvd+djrH+9ct2k/lFHFiqqdDEhZ9l2jpAF8He
- IBOuXofRvRqAx4R1Du64xm9Iq/lh3316g7mr5il/LWkrcFYP895DD+06UHn0AHWvWlAkSdLMV
- KRVVG86lUO/MwGGDebklSjTR7eg8zxrznSIhLuIo/zd9gsNwV2iL6fb7WbrOFGb1BIvHeM9En
- v4eD/4fphnEUkKY3I2I3oxZst+S5TFNc4Umt1mijd36sQesb2mY/+ZB3sF/JTUNQDPfFtLVb/
- I2Y3AE//+ZTtUuTCHafcA34ROv2INSpGwjwQoDYmvEmWJynOxmA0eimOZPe4EEeZDskR2kTUD
- HiX15vyqKTv+z0ZbYBpCThwVaUNTzIfqrwesyYwAUoa7ch3T+Qk+I8OfZOlRJxnkz1BmS2PGJ
- 5BozhPb6MnPLZki46/LHrePAWzraQLPnrr4WysDSF0peRhWDsgCSIMvqo3P1KXI/H0GdJVkd9
- 8E8wKYPO9jzchSsulTVZp+10MUB4yCeac+QLV3NuBB6cY=
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: 47I6GWBKO5IVQLMBMIHMGYTGLX3Y7ZOK
-X-Message-ID-Hash: 47I6GWBKO5IVQLMBMIHMGYTGLX3Y7ZOK
-X-MailFrom: oswald.buddenhagen@gmx.de
+	<875xwwnp27.wl-tiwai@suse.de>
+	<Zg/NfajQ3gdsmbUb@ugly>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: 973541F78A
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-4.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	DWL_DNSWL_LOW(-1.00)[suse.de:dkim];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	ARC_NA(0.00)[];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	MIME_TRACE(0.00)[0:+];
+	TO_DN_SOME(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_TO(0.00)[gmx.de];
+	FREEMAIL_ENVRCPT(0.00)[gmx.de];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_THREE(0.00)[3];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap2.dmz-prg2.suse.org:helo,imap2.dmz-prg2.suse.org:rdns];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+]
+Message-ID-Hash: U5HOKIRM3THXDIWFW3M4WBOOGTS5W76H
+X-Message-ID-Hash: U5HOKIRM3THXDIWFW3M4WBOOGTS5W76H
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -107,7 +165,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/47I6GWBKO5IVQLMBMIHMGYTGLX3Y7ZOK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/U5HOKIRM3THXDIWFW3M4WBOOGTS5W76H/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -116,28 +174,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, Apr 05, 2024 at 11:20:32AM +0200, Takashi Iwai wrote:
->On Thu, 04 Apr 2024 12:00:31 +0200,
->Oswald Buddenhagen wrote:
->>
->> ---
->> This patch series needs to be applied on top of the patch titled
->> "Revert "ALSA: emu10k1: fix synthesizer sample playback position and
->> caching"".
+On Fri, 05 Apr 2024 12:07:57 +0200,
+Oswald Buddenhagen wrote:
+> 
+> On Fri, Apr 05, 2024 at 11:20:32AM +0200, Takashi Iwai wrote:
+> > On Thu, 04 Apr 2024 12:00:31 +0200,
+> > Oswald Buddenhagen wrote:
+> >> 
+> >> ---
+> >> This patch series needs to be applied on top of the patch titled
+> >> "Revert "ALSA: emu10k1: fix synthesizer sample playback position and
+> >> caching"".
+> > 
+> > The patch set isn't cleanly applicable even after the revert patch.
+> > The patch 7 fails.
+> > 
+> > Please rebase to the latest for-linus branch and resubmit.
+> > 
+> this makes no sense; i'm getting a bit-identical patch after the rebase
+> (which is unsurprising, as the file in question wasn't touched in
+> years).
+> 
+> are you sure you didn't corrupt the patch somehow (it happened before,
+> cf. summary of c960b012ec47)? or maybe you have an unpublished
+> conflicting commit?
 >
->The patch set isn't cleanly applicable even after the revert patch.
->The patch 7 fails.
->
->Please rebase to the latest for-linus branch and resubmit.
->
-this makes no sense; i'm getting a bit-identical patch after the rebase
-(which is unsurprising, as the file in question wasn't touched in
-years).
+> if there is an actual problem and you just named the wrong patch, then i
+> suspect that it's just git-am being stupid - the rebases from 6.8 and
+> later from your master from about a week ago went through smoothly.
 
-are you sure you didn't corrupt the patch somehow (it happened before,
-cf. summary of c960b012ec47)? or maybe you have an unpublished
-conflicting commit?
+No, I used b4 at this time, and such a failure shouldn't happen.
 
-if there is an actual problem and you just named the wrong patch, then i
-suspect that it's just git-am being stupid - the rebases from 6.8 and
-later from your master from about a week ago went through smoothly.
+Try by yourself to apply the submitted patch mails with git-am on the
+latest for-linus (or master) branch.
+
+
+thanks,
+
+Takashi

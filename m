@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C41EC89990D
-	for <lists+alsa-devel@lfdr.de>; Fri,  5 Apr 2024 11:11:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E035899913
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 Apr 2024 11:12:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C1DBD2D17;
-	Fri,  5 Apr 2024 11:11:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C1DBD2D17
+	by alsa0.perex.cz (Postfix) with ESMTPS id 282F22D2B;
+	Fri,  5 Apr 2024 11:12:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 282F22D2B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712308294;
-	bh=4U5eUPSVHVLioRHAIf9Fo+vGvEmxAF6r2cSIUvxQg8w=;
+	s=default; t=1712308330;
+	bh=8IPnmYlyD9UIlHOOUBWMwrj2iTulN0YzLI+v4m5ePr8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ksO1Ukrhxpwlpy87CvTX1qbphrCv7omq5/8zGrn3jBcuOKomfbSdKAD3oejhuvkZR
-	 Epmp0H90QbAOEwlCOMmVCtlRDOyM+X7z7AF/VYekuhZRmwP+H+UcFQot3ZxHwDseCb
-	 3P79LxA6xEqTWCakNjXccok3e4u9Oy65iv2sh5yk=
+	b=DJOO2BjlP8e9GdF4ojtaTEWh9ACsnLHn40eWy0edQGdiP/3b4a1+ubIwU41kTfB3J
+	 chhPh0KfPhc6+i1+g6m1qLBi1j7YV6nwWD8sh+SqlXO4IVCtuaSGE+oEvUxNE6CfBA
+	 8uBdgjbwrCpaN0Zt+wMuK9w5PNcbQQ8k4tKA86fo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 246C8F805FC; Fri,  5 Apr 2024 11:10:33 +0200 (CEST)
+	id B6C35F80655; Fri,  5 Apr 2024 11:10:36 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 54894F80612;
-	Fri,  5 Apr 2024 11:10:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BD900F80621;
+	Fri,  5 Apr 2024 11:10:35 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D7CBCF8057A; Fri,  5 Apr 2024 11:08:35 +0200 (CEST)
+	id 306C3F80579; Fri,  5 Apr 2024 11:08:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,41 +35,41 @@ X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B72F1F8016E
-	for <alsa-devel@alsa-project.org>; Fri,  5 Apr 2024 11:08:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B72F1F8016E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8B936F80130
+	for <alsa-devel@alsa-project.org>; Fri,  5 Apr 2024 11:08:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B936F80130
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=H2P/f8Ud
+ header.s=Intel header.b=a6MdlsqU
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1712308095; x=1743844095;
+  t=1712308099; x=1743844099;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=4U5eUPSVHVLioRHAIf9Fo+vGvEmxAF6r2cSIUvxQg8w=;
-  b=H2P/f8Udmu5c57/Ud9KA0hlEFk8SVku43hJpdzWyXow5tIUb8Byx0UdF
-   X3B0t9rUGqMEtI3Grzwp0svpXl/BS/CJBph/VEOY2AfuEJ2yg2wkTjuld
-   GGh0IYKP56ssi4a9Yyd8G6JHyUpei3Mlbq0bsAZNjRDYt1CIESbFfevPT
-   tsiNrO4jqNa8OtDQ+Xu9p8nd6G7iZDcjAPOqEUli7o/hHb9+mjI8UJaGJ
-   gzVuvx4W4q4mIaMh2PUUJy/GrQ83C2j8vYOZ30ZKl6UMJ+L69iPPcDygi
-   CWR+z5KgwbjQtO6OTcKbFK7Cp4vdyiGrsP8Yj+fA6tjj6WsqsAkSxwKSd
-   g==;
-X-CSE-ConnectionGUID: WuzzfmNwSgCh5iX581uu8w==
-X-CSE-MsgGUID: NSLUcacCTOKMMLCasgy9NQ==
-X-IronPort-AV: E=McAfee;i="6600,9927,11034"; a="7787428"
+  bh=8IPnmYlyD9UIlHOOUBWMwrj2iTulN0YzLI+v4m5ePr8=;
+  b=a6MdlsqUz9w8Hv/SHDcnNDM+q6YpnItsHMY9oOSoE5QnOW8dczYPy4ui
+   gLxYA3KiGsuZC7qdWcjMJr2xDB7Na7pgZBAbqt3b2DjuQTaReFGaXrJwT
+   5Vs5ZYmLdPQAp5L8pDmYV9Ug9M2ijlJPHEWz/Viw6fxX7UbswY+nYUMRi
+   TG8B6ig6CIL9EPIHzWHb4LmzmtQg8tV7dQgBjBfhIgQZzTRftcjkg36L4
+   5Zt62KQJskk6KUPw7vL+rqo9lQqpvHUii9FhpWwLMHv1yPjXepcmvVK2F
+   Fm73BfPd7viSpZlcAi22tV0zVFGreBdfPswgHJmGcU6m/6QhaLjIpTbI2
+   Q==;
+X-CSE-ConnectionGUID: 9t7qyDTATweout5leXKgHQ==
+X-CSE-MsgGUID: nufaCOzBR1GG2TW+FHdDoA==
+X-IronPort-AV: E=McAfee;i="6600,9927,11034"; a="7787435"
 X-IronPort-AV: E=Sophos;i="6.07,181,1708416000";
-   d="scan'208";a="7787428"
+   d="scan'208";a="7787435"
 Received: from orviesa009.jf.intel.com ([10.64.159.149])
   by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Apr 2024 02:08:14 -0700
-X-CSE-ConnectionGUID: kkSYAi88Tcm5aM5jnaFeSw==
-X-CSE-MsgGUID: 8CaWEeVRR+C5q++h6+JdbA==
+ 05 Apr 2024 02:08:16 -0700
+X-CSE-ConnectionGUID: I/Z/6ZVZRxi/zlU0Dn1bIg==
+X-CSE-MsgGUID: 2SClKS10TI+qMFEtok2pOA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.07,181,1708416000";
-   d="scan'208";a="19042424"
+   d="scan'208";a="19042427"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
-  by orviesa009.jf.intel.com with ESMTP; 05 Apr 2024 02:08:12 -0700
+  by orviesa009.jf.intel.com with ESMTP; 05 Apr 2024 02:08:14 -0700
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: broonie@kernel.org
 Cc: alsa-devel@alsa-project.org,
@@ -79,17 +79,16 @@ Cc: alsa-devel@alsa-project.org,
 	amadeuszx.slawinski@linux.intel.com,
 	hdegoede@redhat.com,
 	Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: [PATCH 04/13] ASoC: Intel: avs: Fix config_length for config-less
- copiers
-Date: Fri,  5 Apr 2024 11:09:20 +0200
-Message-Id: <20240405090929.1184068-5-cezary.rojewski@intel.com>
+Subject: [PATCH 05/13] ASoC: Intel: avs: Fix ASRC module initialization
+Date: Fri,  5 Apr 2024 11:09:21 +0200
+Message-Id: <20240405090929.1184068-6-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240405090929.1184068-1-cezary.rojewski@intel.com>
 References: <20240405090929.1184068-1-cezary.rojewski@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: FM73IMO4DYCYQ7QGSMOJJMSYWY4VFVSK
-X-Message-ID-Hash: FM73IMO4DYCYQ7QGSMOJJMSYWY4VFVSK
+Message-ID-Hash: 2SVZNKJJWK2T574FY2HUA6U4ZWONDYFU
+X-Message-ID-Hash: 2SVZNKJJWK2T574FY2HUA6U4ZWONDYFU
 X-MailFrom: cezary.rojewski@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -102,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FM73IMO4DYCYQ7QGSMOJJMSYWY4VFVSK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2SVZNKJJWK2T574FY2HUA6U4ZWONDYFU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -111,46 +110,27 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Copier's config_length shall always be at least one even if there is no
-configuration payload to carry. While the firmware treats
-config_length=0 or 1 in the same manner, the driver shall initialize the
-module properly.
+The ASRC module configuration consists of several reserved fields. Zero
+them out when initializing the module to avoid sending invalid data.
 
+Fixes: 274d79e51875 ("ASoC: Intel: avs: Configure modules according to their type")
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- sound/soc/intel/avs/path.c | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
+ sound/soc/intel/avs/path.c | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/sound/soc/intel/avs/path.c b/sound/soc/intel/avs/path.c
-index 5944865a1193..9bd03a44fcb9 100644
+index 9bd03a44fcb9..8dfd90587427 100644
 --- a/sound/soc/intel/avs/path.c
 +++ b/sound/soc/intel/avs/path.c
-@@ -148,11 +148,12 @@ static int avs_copier_create(struct avs_dev *adev, struct avs_path_module *mod)
- 	struct avs_copier_cfg *cfg;
- 	struct nhlt_specific_cfg *ep_blob;
- 	union avs_connector_node_id node_id = {0};
--	size_t cfg_size, data_size = 0;
-+	size_t cfg_size, data_size;
- 	void *data = NULL;
- 	u32 dma_type;
- 	int ret;
+@@ -365,6 +365,7 @@ static int avs_asrc_create(struct avs_dev *adev, struct avs_path_module *mod)
+ 	struct avs_tplg_module *t = mod->template;
+ 	struct avs_asrc_cfg cfg;
  
-+	data_size = sizeof(cfg->gtw_cfg.config);
- 	dma_type = t->cfg_ext->copier.dma_type;
- 	node_id.dma_type = dma_type;
- 
-@@ -233,10 +234,7 @@ static int avs_copier_create(struct avs_dev *adev, struct avs_path_module *mod)
- 		break;
- 	}
- 
--	cfg_size = sizeof(*cfg) + data_size;
--	/* Every config-BLOB contains gateway attributes. */
--	if (data_size)
--		cfg_size -= sizeof(cfg->gtw_cfg.config.attrs);
-+	cfg_size = offsetof(struct avs_copier_cfg, gtw_cfg.config) + data_size;
- 	if (cfg_size > AVS_MAILBOX_SIZE)
- 		return -EINVAL;
- 
++	memset(&cfg, 0, sizeof(cfg));
+ 	cfg.base.cpc = t->cfg_base->cpc;
+ 	cfg.base.ibs = t->cfg_base->ibs;
+ 	cfg.base.obs = t->cfg_base->obs;
 -- 
 2.25.1
 

@@ -2,163 +2,167 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28B208991EF
-	for <lists+alsa-devel@lfdr.de>; Fri,  5 Apr 2024 01:14:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA1358992AB
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 Apr 2024 02:47:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C15152CE8;
-	Fri,  5 Apr 2024 01:14:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C15152CE8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1225B2CF0;
+	Fri,  5 Apr 2024 02:47:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1225B2CF0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712272494;
-	bh=Ucg1BJoQUPeQ64IRapCNQ0MoOp5xyatQwhQGd2BIjLk=;
+	s=default; t=1712278035;
+	bh=Ku6c75e8jmILA61lXIiUdofTB4JlNJrA/tg48ilGjJg=;
 	h=From:To:Cc:Subject:In-Reply-To:References:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=K/aeNWXMkGspaZnRWpaHatG4SUq5bmCKEgFX/jNqgQUM/+rvc9AxMGB9V/kbv1GAz
-	 GyghCsnWGvuk4zLz6ISMHd93RMfJBe7c+HH/vqBt5BpKAMkE/9eN0dU9vxE9vdWR6j
-	 f4s0VOX4K3i+AIWAVmOf8CSScylUwsU2TnihUqek=
+	b=d7tbpXSId2b8J81YvNHoes+cvnOs1kJT0mXLTcCFIySOK+T4B+zpchtyrZfkzn6Jg
+	 R4RDDCrCBSqIlQngJ7/lAXx5PP13Ya16HpibQYF+S3APyt8wEOoGb1D8XUxo2RZrPJ
+	 QKk3TrC/RJBZMTYRj0iOq+PdEwPB/Pf+IXYB6JNk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6FEDDF80588; Fri,  5 Apr 2024 01:14:23 +0200 (CEST)
+	id 3F5A5F805AE; Fri,  5 Apr 2024 02:46:42 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id AF4E0F8059F;
-	Fri,  5 Apr 2024 01:14:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 522CEF80236;
+	Fri,  5 Apr 2024 02:46:42 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6D8B0F8020D; Fri,  5 Apr 2024 01:14:16 +0200 (CEST)
+	id 06898F8020D; Fri,  5 Apr 2024 02:46:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from JPN01-TYC-obe.outbound.protection.outlook.com
- (mail-tycjpn01on20701.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2019::701])
+Received: from JPN01-OS0-obe.outbound.protection.outlook.com
+ (mail-os0jpn01on20700.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:201a::700])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8756BF80007
-	for <alsa-devel@alsa-project.org>; Fri,  5 Apr 2024 01:14:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8756BF80007
+	by alsa1.perex.cz (Postfix) with ESMTPS id B0F62F8015B
+	for <alsa-devel@alsa-project.org>; Fri,  5 Apr 2024 02:46:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0F62F8015B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
- header.s=selector1 header.b=DJm0snxB
+ header.s=selector1 header.b=d8hfmcjD
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jBl7hsmSeUGqdZ+4ZSkxmZc38WWruQymX1ZCspbmCUwydgdcy243nvkjGTYRz7Ewms+YHMXW4lX/DLzVNbrA2nKVrhaBktdKtBzfUkbKKDTNHZDsBmBxwWQ5P9W34eN6Oqj5la/jF6HJ8Bq8ir/+XEZOEVcfV22Vm6/PxNUmLGN9IWeUJ2DK+k5DD0QQQPqcEcxdyHkjlExSifHPJ2ywRKSlgW/rRWmLCPzuY0jLQI4ycUgh8l7Yu0a4t90g0cWW68jbleokQ+e99ZgkIf2pAQPKFbmHNlItuAovlEkeZ/Z9SbJwM3esfCok7EAO8xe30wArejYs3pu0wvQBIecsBw==
+ b=jgPnAK6EPYN93RB0SV3p8UBexOF6tHsFqwMsbywU6vn8a6KabOIXTZDrXc/UiaIxnBjHFblha0lm/ZLw1XNyXyBirMjuletUgfhdhJ8VDBkQ6/o7NPFnIVN/jwUWK2g71tMeUCaMHonLq1XvX8DH6/NPepUEmJvzmCIOaKONXv10tnDe13YdkUZ+HSOzqk5OVIDBOhe8nqMwm2ezVsczE4xNyidVqMVqmp5/voTPcoTXtF9jTTjgphwbTY4ADuNSe+/m6wxie9e3jj+3AzHESA7AdfEijLHAdo4IocNpGGpkoLGSov5wuqlvFnl8jlqJq8svj4tAankNWqGTIkWQQg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cMlle8t5qu8Z5r/1AAVEMPyeW4R1CyP7sQ+ENP8GqGc=;
- b=UIP8/Mo9s3lojrfY5IKyrs30VxcIuJ09sS8aEN68RewFT8yXujLs9Mr4zc7wkDGXevFc3CFxALgURNcUaE8qQw+FizlSBnJX2KfMMQAliQ8FCruY5GXX+qPxloR9+TjQeS8e2cjYJrQh/MK9dkrYqOfPqA8Oz4C9+iyNK5/okpUvCjKYLgLp2PqqUfHLjFZ2dyAcJmMKumgldHeO2VFegJTHRtwT7mXfeH1e39wtGnmI/xWIXtl5+PeQjhTBHkhdOTND/vkoe1q0XVhjRkx4Mc614lfQWQaNpiSU/SHaDAOfUBImFPiwW0bzpX11QsdxzSr+GcOtc1qZdbv4NwZ6bg==
+ bh=1ea+dNNqizDQwYx+aect0c4YwAXF9It2j2lT4WpLkrM=;
+ b=aFKXWPi211Me3neHtogXOkNZNrlib6Jbf1jCrb4fHcCx27AHZf+B4h+lm72UHzTFrFi+o9AOU2zMjEtaiQoju0M6T0RbcZe1Oi/5XNl3mqJwvDtCzr5voFu5Hu8CVkKUYwFvrztmxyuczc6JWbKeRJstmHRJvAAHBSWRQYcE/WN4t7XCZ/UeMFbNswsmdXWxeR0FEnfjmBKWd+oMS1hjOdGezQK3g+oL0hcywDjTQRR1zEvlAo8EkdDwyQHnkj1kJx4n4MfEnHSKBonZ1OJ/7QVBJaKnxHRGHRxIXwCnajvXPvKtMZ1HBnf+DgtWGbHCAGxl50JZqC9Xx6UjeRubDg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
  dkim=pass header.d=renesas.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cMlle8t5qu8Z5r/1AAVEMPyeW4R1CyP7sQ+ENP8GqGc=;
- b=DJm0snxBx4b4yPl4helZmikk0vdnpvaeoC4dr75eyZskqUsZiJ42mZmCM4dezAQPbIU88WC/gy5gD4MXj7eSCqEzZVp4iOdXrpxbZU2IBfsedJCN1xys28x0MrPcbs63C43p0/ltXwuNRAcqXUcGXaIc63QSmR+xk+YvPdGEdLg=
+ bh=1ea+dNNqizDQwYx+aect0c4YwAXF9It2j2lT4WpLkrM=;
+ b=d8hfmcjDmcjs/ohX5aTsdHGWvjo6hbMJee4jqv51oZEDVnPXJAa9VNkX5UK0DoQWHRO/HdEmg8c2EbxKq5f+ItCKJtRM/yNtX9B70bYFQRZc85xysecPWrRTsJq4CJB/4IsC8UajP4DdyGohy+Vn9+bwc//wRnIhf2O0vvBFbs8=
 Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
- (2603:1096:400:3a9::11) by TYCPR01MB6913.jpnprd01.prod.outlook.com
- (2603:1096:400:b8::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46; Thu, 4 Apr
- 2024 23:13:58 +0000
+ (2603:1096:400:3a9::11) by OS7PR01MB11519.jpnprd01.prod.outlook.com
+ (2603:1096:604:241::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46; Fri, 5 Apr
+ 2024 00:46:16 +0000
 Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
  ([fe80::131e:55c0:a4a0:713b]) by TYCPR01MB10914.jpnprd01.prod.outlook.com
- ([fe80::131e:55c0:a4a0:713b%7]) with mapi id 15.20.7386.025; Thu, 4 Apr 2024
- 23:13:57 +0000
-Message-ID: <877chcraaa.wl-kuninori.morimoto.gx@renesas.com>
+ ([fe80::131e:55c0:a4a0:713b%7]) with mapi id 15.20.7386.025; Fri, 5 Apr 2024
+ 00:46:16 +0000
+Message-ID: <875xwwr60a.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: Jerome Brunet <jbrunet@baylibre.com>
-Cc: Xiubo Li <Xiubo.Lee@gmail.com>,	Vinod Koul <vkoul@kernel.org>,	Trevor Wu
- <trevor.wu@mediatek.com>,	Takashi Iwai <tiwai@suse.com>,	Sylwester
- Nawrocki <s.nawrocki@samsung.com>,	Srinivas Kandagatla
- <srinivas.kandagatla@linaro.org>,	Shengjiu Wang <shengjiu.wang@gmail.com>,
-	Shawn Guo <shawnguo@kernel.org>,	Sascha Hauer <s.hauer@pengutronix.de>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,	Pierre-Louis Bossart
- <pierre-louis.bossart@linux.intel.com>,	Peter Ujfalusi
- <peter.ujfalusi@linux.intel.com>,	Neil Armstrong
- <neil.armstrong@linaro.org>,	Matthias Brugger <matthias.bgg@gmail.com>,
-	Maso Huang <maso.huang@mediatek.com>,	Mark Brown <broonie@kernel.org>,
-	Linux-ALSA <alsa-devel@alsa-project.org>,	Linus Walleij
- <linus.walleij@linaro.org>,	Liam Girdwood <lgirdwood@gmail.com>,	Kevin
- Hilman <khilman@baylibre.com>,	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Jaroslav  Kysela <perex@perex.cz>,	Hans de Goede <hdegoede@redhat.com>,
-	Daniel Baluta <daniel.baluta@nxp.com>,	Cristian Ciocaltea
- <cristian.ciocaltea@collabora.com>,	Cezary Rojewski
- <cezary.rojewski@intel.com>,	Brent  Lu <brent.lu@intel.com>,	Bard Liao
- <yung-chuan.liao@linux.intel.com>,	Banajit Goswami <bgoswami@quicinc.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Amadeusz =?ISO-8859-2?Q?S=B3awi=F1ski?=
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: Amadeusz =?ISO-8859-2?Q?S=B3awi=F1ski?=
  <amadeuszx.slawinski@linux.intel.com>,	Alper Nebi Yasak
- <alpernebiyasak@gmail.com>,	linux-stm32@st-md-mailman.stormreply.com,
-	linux-sound@vger.kernel.org,	imx@lists.linux.dev
-Subject: Re: [PATCH v2 00/16] ASoC: Replace dpcm_playback/capture to
- playback/capture_only
-In-Reply-To: <1jil0xplcu.fsf@starbuckisacylon.baylibre.com>
+ <alpernebiyasak@gmail.com>,	AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>,	Banajit Goswami
+ <bgoswami@quicinc.com>,	Bard Liao <yung-chuan.liao@linux.intel.com>,	Brent
+ Lu <brent.lu@intel.com>,	Cezary Rojewski <cezary.rojewski@intel.com>,
+	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,	Daniel Baluta
+ <daniel.baluta@nxp.com>,	Hans de Goede <hdegoede@redhat.com>,	Jaroslav
+ Kysela <perex@perex.cz>,	Jerome Brunet <jbrunet@baylibre.com>,	Kai Vehmanen
+ <kai.vehmanen@linux.intel.com>,	Kevin Hilman <khilman@baylibre.com>,	Liam
+ Girdwood <lgirdwood@gmail.com>,	Linus Walleij <linus.walleij@linaro.org>,
+	Mark Brown <broonie@kernel.org>,	Maso Huang <maso.huang@mediatek.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,	Neil Armstrong
+ <neil.armstrong@linaro.org>,	Peter Ujfalusi
+ <peter.ujfalusi@linux.intel.com>,	Ranjani Sridharan
+ <ranjani.sridharan@linux.intel.com>,	Sascha Hauer <s.hauer@pengutronix.de>,
+	Shawn Guo <shawnguo@kernel.org>,	Shengjiu Wang <shengjiu.wang@gmail.com>,
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,	Sylwester Nawrocki
+ <s.nawrocki@samsung.com>,	Takashi Iwai <tiwai@suse.com>,	Trevor Wu
+ <trevor.wu@mediatek.com>,	Vinod Koul <vkoul@kernel.org>,	Xiubo Li
+ <Xiubo.Lee@gmail.com>,	alsa-devel@alsa-project.org,	imx@lists.linux.dev,
+	linux-sound@vger.kernel.org,	linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [PATCH v2 01/16] ASoC: soc-pcm.c: cleanup
+ soc_get_playback_capture()
+In-Reply-To: <40e23972-6745-48e2-81ae-4b93f2ee2dcc@linux.intel.com>
 References: <87zfuesz8y.wl-kuninori.morimoto.gx@renesas.com>
-	<1jil0xplcu.fsf@starbuckisacylon.baylibre.com>
+	<87y19xudor.wl-kuninori.morimoto.gx@renesas.com>
+	<b4b37541-b67f-4593-9fd5-fc6242a0673a@linux.intel.com>
+	<87zfuc7gya.wl-kuninori.morimoto.gx@renesas.com>
+	<600cef67-ad90-4b67-8da7-2006339d430b@linux.intel.com>
+	<874jch99m5.wl-kuninori.morimoto.gx@renesas.com>
+	<40e23972-6745-48e2-81ae-4b93f2ee2dcc@linux.intel.com>
 User-Agent: Wanderlust/2.15.9 Emacs/27.1 Mule/6.0
 Content-Type: text/plain; charset=US-ASCII
-Date: Thu, 4 Apr 2024 23:13:56 +0000
-X-ClientProxiedBy: TYCP286CA0195.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:382::13) To TYCPR01MB10914.jpnprd01.prod.outlook.com
+Date: Fri, 5 Apr 2024 00:46:14 +0000
+X-ClientProxiedBy: TYCP301CA0040.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:400:380::12) To TYCPR01MB10914.jpnprd01.prod.outlook.com
  (2603:1096:400:3a9::11)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYCPR01MB10914:EE_|TYCPR01MB6913:EE_
+X-MS-TrafficTypeDiagnostic: TYCPR01MB10914:EE_|OS7PR01MB11519:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info: 
-	6ZI7IKjqFFf5hB9MeFyklGbF4Cn4qbsRwTM/OCEUI5ZqhxOvkSAFdY4H+soqqvfTytq360TcXPQ9c1Iv1eApe+Vkp2tOL3zq1sVePHUMORSVpCYRcYSWaQc9wE7K5hTSz76gnTvX4i7VOQXZUDmubBMtr8l7u/v3ENFCNNu02XAwUOe3yYBWE7SYfICWVU2CneVjvJC0AAbkDuSqe/czs6kUUA0EwpvECI2wnGvhk3J2LUoWXZEIus5zKT3AwK1cNsgDw2HWIdrAwkYp1bAOav9r2NDr9s1pFkhMERXk7a/Z40Dfy8yYjybeAEwbuIHBwJfHDKw03Iny6SvxF4jtJeIDvl2PkgCQgD+4QAWW9r/ZMkKVDkVErWyYRv6uOs4iSn/0dt4vSrQlqexTimNgUvBH8c8BrIPxXwqRHoD4yta/Gro47n+sxlJcU2SK7kVW69JsR3QEO5XmA3y8pkY6tcUmsVdES4/KCqX68/xa5bPf7n+QeCfsD0CFKOh2xdBJ2SaEQQj7buAAeucWgyFXc1WPvihni8/iN7yVbfj7FjNhUKmI/B4pyACZ6aKPO7kYZdL7e0/vIOILrdL/7rvxNhCHXGqkJHtP4R1RxsMN5TxMR/QfNClBrHqC/6vryal7riHKtu5s0hE3ugIJsZ0gT+eaikfVoD98iQf7Y0bwCsDS/wchyBpeCkGCHOpo9BqiyJ8+jFTdA/s03vueYABL6JLa6CRBqBFUnD2TBmuize0=
+	2/gmkhBa6/9g0ja1E0+xpc7Ml42YNm7+2gMyB33O/oOFr9uvrPO4Cu+49zmG2jtCzgCv7gY1IDseMyqFu0sPs++ctB/0XTyFBW6F6o2wUHSOUDyFKJBg2g0AlcpSilt+6r38eY+H6aFoZJXe4NZ743Yn9BSKMOX7GAh3KopI3+rGJC+IXnA7WXqPvydPwsRyphqyrQL8F9X8gbcJr+tdJclNje5nxQhfM/0OT0b3LgIpnvLvvcJ+QsyrCisDw+CXGpNZOsOtBDVpUKsxSPAq4u09fGkTrI+IgokOI1XBnFOLg6z3bqx1ORMD9ihQ0bRffFnwfDIWRkjHVrsfBfFLnSRn8ukrnexIFv7d00lY3ePLjv7kh54BHKIm/owhp9DpY3rhN7652jP2IK9yc0rI9rzMSHrWc4J5q6v8dl/otN/dAb/ANnhhY3yibA8ugARjr11Bp+qvamk6Jg5KQqoeyDwUh9N+GBp/n+lGOkhW8ytpee90+/PlQsPVZXkmEkhTOEjD2N0BWSUO5uJ+Q08jboBPCzYOLqUoCLf39/H8gwycDRB7fmiqdGC41pCoC9K+pzZqQGnhlcUsC4sTodaG7liQ4C9c9v2rt/Btw//Ak5fNwzS38BXU7VmOVl8Vq9UVcyaqJMoRNVs+63BF6IJUx1wr1a/4gM6od4g1wi+hXzJ+We0PRwWE7TQmFDvPv/QSVILEO+ClvU4UBx5udGB/cjqo4Am4ywyLCF/kbRXb5lk=
 X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB10914.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(1800799015)(366007)(7416005)(52116005)(376005)(38350700005);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB10914.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366007)(52116005)(7416005)(1800799015)(376005)(38350700005);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?TA/rZKrz5gD2JIZhQoS1iycYOl1KXIET7pLlBlL88cpIWjxXm/xbPbsVOe4C?=
- =?us-ascii?Q?YGgAtTum2/VE2aX9NL5sfn1SIkJ7OiWwdHhmd6WwrXIRKf2mCDStB/mPxlyb?=
- =?us-ascii?Q?K5WjRp01RkPsHTmQ1oYXx3r2BlLB5aeGVr8BX6xQZlzDFNAfeDvSGQd005tW?=
- =?us-ascii?Q?3ReQ28MjrFIDJxmLgmzfbC92a3965IWBoo8DUL+rgWiKA7RLnqcOks2rKh+L?=
- =?us-ascii?Q?KGnQxszWLc3yrssciw+X6xqUqTHSX8ZbuUoe5dCLEIl0eW3C5xYEFBVyu4hQ?=
- =?us-ascii?Q?xprVrBd0JQQOPNwusddIzhtHvtV8qnoy0QzcGo6mL7PdOWJ5lFSM6PlbOba/?=
- =?us-ascii?Q?ZC6OcTD2JZ6YoHRb+v1b/4TybgJsSQP44fboh4SRcY+oCKYs+k/SveizHvCs?=
- =?us-ascii?Q?UGM091GF8O1vsTS5icJWNLYpDGNxUiLzruailq/NSYNsaphKkiX7MDb/rVkW?=
- =?us-ascii?Q?dy0h2FVh4wFpjEvlhCEwjBSwFWC7kbZuL6ZFkddBNP1aSSuJdNsMAu90QS+2?=
- =?us-ascii?Q?a9Cx5tjXUIkNET5cZo9vBEK8CdUvBUP2volS1rwBI+iIrdrp18JayVCdCsIP?=
- =?us-ascii?Q?wU38nhYjczxgH0/g+0ncvrc47/Il9TfAka+rrUTQ6Xgs2rAan8HWaxxWYTXh?=
- =?us-ascii?Q?F+5oQLfDKPJ6MXhpYoOzPaJ1jCf3cWedC8yDOeImHNds9xOlBSQ5gHlImP+G?=
- =?us-ascii?Q?uu080Xxb2IW3h6dO4Ub/4Bgqx29mm2yvzqO7AGP1I0NZTwDAauBscfN1uhcS?=
- =?us-ascii?Q?JMS5tP/E0zBDIl8fXSysUWdtvtw1Ksg16nrhKFLUJ+83YYp2IF3r5OgqwwRA?=
- =?us-ascii?Q?rf9ZGSOe+63oX+SrHIVQrmOq0Fz31uzL8VlxtIHl3MVvvC+aRFnLHNDQna7t?=
- =?us-ascii?Q?tQZ7Uqt2LX3CLEJ0R+1ttw5m4bLshUARfeMXp45zy9AFzfVq4en4JqB4mL1t?=
- =?us-ascii?Q?ZnU1bVtcrPptwLme2I9JNwe/DUpP5UUSHqeW7aSTAswT2o8RnUqRd+aHAj+T?=
- =?us-ascii?Q?3vWHhMykMs+U3slYvOnWGFo85GYCRePfyerHvmQ+q4VXaBR/dmRHn8zme5yi?=
- =?us-ascii?Q?06QXIHaaSkpXFTbZIMqGUVWbI8Cx5L4+s6iJZx6LwUCJyH8MQjMvr8SeeBWC?=
- =?us-ascii?Q?qnbkMVc/VOPfa1zxh+8DZZimSRlojyndxPc5e4ll77rqRUlv37qr0dSJYamX?=
- =?us-ascii?Q?5h+RJYB6c6meDL2SovIPNwPqtgrgbN5eVmZUuaBArNpb4Rf491JQZ11U7DHx?=
- =?us-ascii?Q?e0UPnv7xs40+u5mPkJraCLtXR85DyykwuicuqCZ6hX9+6FZtR4RkuFJRQWZz?=
- =?us-ascii?Q?sAbQqbHEthvsCj8YYQQ3JYC2xkO/juEAQynfapuxNtLoBDdQO7TlsU1c9UIV?=
- =?us-ascii?Q?4I8hXxQL5fPVeDBA3og/pTWf6zxBtgJvjEBNG6Nhl+CR7NRo3Ovyezj4tFE0?=
- =?us-ascii?Q?sxArDuMZ9g8aqGYEBIdx84Tba++KnoH5s7XcM/f/u7XaqNTDlvsOj88/k7Pz?=
- =?us-ascii?Q?Iei9GQvt3Cq7EohIY7FUfTxGpfRHcGQNveJMO4Sdvpd5UsJ0gymgmOlTBn0/?=
- =?us-ascii?Q?MerdU83rR2qsB0d4TIzyZXVt6Zn+uRHuQ5H2F+yS4viAkE3HfYmmuC2b+qli?=
- =?us-ascii?Q?W8clNz7bxjyUd6YPIxofg5w=3D?=
+	=?us-ascii?Q?7PbQDSDKuWm2ojemTluy12aQu9jYnUKHYJjLONMBLsSwcrxLiZqSv6Bl3bNt?=
+ =?us-ascii?Q?e5hhURaLSQAZO8jaKpkENqTqvWxopCQLXE6jXke1u8J61ZEsTGRJBlR/5zNj?=
+ =?us-ascii?Q?3fgNPlbVWOPPpjnziMGQwfjs7ueWAWjY3e2dnWdnQe377EDvTgCJ8cxAN3PJ?=
+ =?us-ascii?Q?LFrLxNu7uROkOrgLzPIdqJuwgM2YQq0W6d5a1xfFmX5kfROtHOCaIg4a8F6f?=
+ =?us-ascii?Q?wuAWBi0IyQDanx3cMHXoUiLUXrhlz6ABuU5wOLuNfQyefuZfG74xXYf9qwEf?=
+ =?us-ascii?Q?qo81aJFycgZPgPBsmofKLlVxSu/8BpeMPb+Ao/ajc7/Z0MLmUfDe7V1CH5oS?=
+ =?us-ascii?Q?t3xIjimP99H/VrpPk0FzpXs67pRa8GZEqNSDh4KbogQVgwKTlBVMkD7O2ERn?=
+ =?us-ascii?Q?K3y90/N96e3UiloUNiGXK8MQijaXYleyHaiRO89y3M3QnU1L7zccBowN98oY?=
+ =?us-ascii?Q?oqrHl9fX30jKpajJbnUHf2IkXco31RVmKQpV69/652WOhqbk74w1AHrmnp7G?=
+ =?us-ascii?Q?cMEzj1TKHVZiE4+VpuRvI1nPBypFJDdsI5JhoumjTdUxQHL/SjWrm/C8FQNS?=
+ =?us-ascii?Q?GhJwDOnO2CX2N8L5f7q/ZYwjfpRKJTcM3mkqpsx2GMuiUSIQsBwkhB16noU6?=
+ =?us-ascii?Q?1O725MUVa4G5hWaA+1Guy1GURUzxu5EYM61mddXB45/jeGWCD1HHZnVS7+o6?=
+ =?us-ascii?Q?sBt3ufT6qUGx3nrLPDX6CKCDhc9/umZuDbQTMUYAGF+zcTqVqLE+dj4TQYRn?=
+ =?us-ascii?Q?tu89FbSMeq39NgrX6Lw4MsqzIBDKA1bw/HUzd0h9XmuMeGPTe9Em3qklXDLo?=
+ =?us-ascii?Q?Kaox5jQV7XEzbrRRep3P2s+dsvs9yvsGktfbKu+wGxiVn0bPn04goav9L1Hz?=
+ =?us-ascii?Q?YYP00NXwCeQgX5nMSJzj301YpdDTquQXsjTY/KLxte10A1w7K2HNTyXJeNIa?=
+ =?us-ascii?Q?NlrRPYzXI2F61tsRo7rqF+Eq4lfRGImiFd4fwpVEj3uju3FRUHOUSHr0dnS4?=
+ =?us-ascii?Q?ifSDZI7VWEDVyzSWeTN2dzF6BN6X/jfT4EhHWsSfVkoWV4XhCVcJ3BpzURx2?=
+ =?us-ascii?Q?aDsCFypH6poQrv/ltA5979YyrarbsNRawc2V3CqBbmkdGzTDgjSwhsGIZbh5?=
+ =?us-ascii?Q?ckfkt2J4VxCVDLP/NzOsR/iMURNaENLc7dTmdpE4f7dVaef5InbnneOOLJdQ?=
+ =?us-ascii?Q?8Lz4OBULlYBoTPPpCUia90juKCJy9d/jGP2yb4pidLzNz2XSmTyKQuCFkSZQ?=
+ =?us-ascii?Q?hSYpdX3VTleEvBiiPGYEgPqCZrIOOUyudV4w6m96hkrOtBexHhHEqj8nIres?=
+ =?us-ascii?Q?pKTdW81iN7gIXXJfYk+Ld2KRL24f6aEroLCN1s+vrmUjGzzcxDbAc+zhK/5s?=
+ =?us-ascii?Q?Xupie59B5ul3+j18FJInCPx0YCaLKbWX2jgpI6Pxn9gsXKqdgJZgpzKkEn8l?=
+ =?us-ascii?Q?EkJDs/A6kObxUBxPiHvRfV7YnhXm4+KXwW0uKpG8LyBz7Sok3etO5QOK2OTg?=
+ =?us-ascii?Q?2sDKgZaYofPK5OfFvLCw9Fz9DH4i6bXqayXRfoaM7h/L7NcCWnongCNHZaXy?=
+ =?us-ascii?Q?EyoC/Pp0n78JXiYXdFZ+PCbkPTkY1UAZGTOdPsshdF/cQ+UuYzF1wSBc1iFr?=
+ =?us-ascii?Q?InzHnZ9gVwEEfBhOmte4uuI=3D?=
 X-OriginatorOrg: renesas.com
 X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 2c14f534-3956-497e-f00f-08dc54fce75d
+ 3b2ebce6-2931-4d15-6a84-08dc5509cd47
 X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB10914.jpnprd01.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Apr 2024 23:13:57.3007
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Apr 2024 00:46:16.8386
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
 X-MS-Exchange-CrossTenant-UserPrincipalName: 
- tyx8xh0JVJCbnTuf5Hwugn+UKKHKuo1oVkmdk3G6YhORcPHPNLIjtsuuLIzyNsQiiYWk39xymqHJhSEQYEmLiqsS1lnDUbMCDOBUgoeU+GHhcrUoAL0sOwv9YeJsTTwk
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB6913
-Message-ID-Hash: 4WDTEE357O4JPT336XALJQNE7SQA4P6I
-X-Message-ID-Hash: 4WDTEE357O4JPT336XALJQNE7SQA4P6I
+ hF/qJ+pc/n2Z6U7iDfSaM0vho03hgC6/83sEdgJlEGUn8+Zc6H04iwa2SDPYsz5xt6yDsxwAOcz6JlWtfF4WfCFZKGorWxkXxBEP8v5a1OzuSFFf96VKlRMotrDNk9PC
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS7PR01MB11519
+Message-ID-Hash: MJOSCN3UEUIQJG727XS54KYFFSYYWADE
+X-Message-ID-Hash: MJOSCN3UEUIQJG727XS54KYFFSYYWADE
 X-MailFrom: kuninori.morimoto.gx@renesas.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -171,7 +175,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4WDTEE357O4JPT336XALJQNE7SQA4P6I/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MJOSCN3UEUIQJG727XS54KYFFSYYWADE/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -181,26 +185,53 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
-Hi Jerome
+Hi Pierre-Louis
 
-Thank you for your feedback
+Thank you for clarifying the point
 
-> playback_only and capture_only have implication on each other. If one is
-> set, the other can/must not be set. This leads to conditions which can
-> be fairly hard to read and possibly bugs.
-(snip)
-> Wouldn't it be better to replace those 2 flags with a single bitfield ?
+> > And unneeded has_xxx will be removed if xxx_only was set (B)
 > 
-> something like:
+> The problem is that we have two sources of information
 > 
-> unsigned int directions;
-> #define PLAYBACK_VALID	BIT(0)
-> #define CAPTURE_VALID BIT(1)
+> 1) the dais included in the dailink (the (A) part above)
+> 2) the dailink itself (the (B) part above)
+> 
+> the code in A) constructs the information from the ground-up, but it's
+> overridden by B).
+> 
+> You can view it as 'removing unneeded has_xxx' flags, but it's also a
+> problem is the dailink information is incorrect...
+> 
+> In the past we would report an error if the dailink was not aligned with
+> the dais. Now we just ignore the dai information.
 
-I think Amadeusz indicated similar idea, and basically I can agree about
-it. But in this patch-set, I want focus to removing dpcm_xxx flag as 1st
-step. So I'm happy to create such patch-set, but I want to handle it as
-another patch-set.
+Ah, OK now I could understand.
+
+Hmm... is below what you mean in summary?
+
+dpcm_xxx is used to declare that the DAI/dailink is possible to use
+playback/capture. For example dpcm_playback means the DAI / dailink
+should playback-able, if not it is error.
+
+xxx_only is used to limit the playback/capture.
+For example the DAI / dailink can use both playback and capture,
+but want to use playback only for some reasons, we can use playback_only.
+
+So these are used for different purpose.
+
+Hmm... I re-consider about it for many cases, and indeed these can't
+merge. But in such case, this feature is needed not only for DPCM ?
+
+Now Jerome / Amadeusz are suggesting new idea to use bitfield idea.
+We can use it ?
+
+	#define PLAYBACK_VALID	BIT(0)
+	#define CAPTURE_VALID	BIT(1)
+
+	#define PLAYBACK_LIMIT	BIT(2)
+	#define CAPTURE_LIMIT	BIT(3)
+
+I need to think about keeping compatibility, but maybe OK.
 
 Thank you for your help !!
 

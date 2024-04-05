@@ -2,122 +2,121 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAAB889AF24
-	for <lists+alsa-devel@lfdr.de>; Sun,  7 Apr 2024 09:23:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8899D89AF25
+	for <lists+alsa-devel@lfdr.de>; Sun,  7 Apr 2024 09:23:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DB7CE2BD7;
-	Sun,  7 Apr 2024 09:23:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB7CE2BD7
+	by alsa0.perex.cz (Postfix) with ESMTPS id D15642BAA;
+	Sun,  7 Apr 2024 09:23:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D15642BAA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712474595;
-	bh=YsR66LWGItmKjfFG/4thl5QkI/T85/VwbY4I36tSedw=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=jAcDBPB7LUHNaA8I9fhrnlZ+9R2emajKWsHZRetW4iHJWC9HgiA2EUc4nr9wGpKhu
-	 RPZtxHM1178kz+p3pbyejGkc7AHf8RtAJaoevkIIpbT1qC6gty/45VBGVyo4bPGNsm
-	 edI44TnsURZqo4HNDoG5VehbaWHg2e51KbAGrwUU=
+	s=default; t=1712474612;
+	bh=ENpzVE+q5ryrMkh3yO/S86u98pMGkux5Vev9j/jMmc8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=Fs+c043F32SmqICoKqXaYnaAUuH1IwcLqKN0CAC4VBFFwo9+abnjZ+p1phJw5ECv6
+	 pGJuDYXQCLzmZWYPhbprSWKp6rWzmpRNE8e6rFPsODbQCHHNo69dbqf1SSqya9z4wS
+	 1dE7XYcRJmr8MquMvGwUlC4OG/lab3O7cRtknrgQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 836A9F8970F; Sun,  7 Apr 2024 09:18:05 +0200 (CEST)
+	id 197ABF8973C; Sun,  7 Apr 2024 09:18:07 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3A3FAF89716;
-	Sun,  7 Apr 2024 09:18:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7F8BEF8971B;
+	Sun,  7 Apr 2024 09:18:07 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 66224F8020D; Thu,  4 Apr 2024 18:07:22 +0200 (CEST)
+	id 0B28CF8020D; Fri,  5 Apr 2024 07:44:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-pj1-x1032.google.com (mail-pj1-x1032.google.com
- [IPv6:2607:f8b0:4864:20::1032])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from abb.hmeau.com (abb.hmeau.com [144.6.53.87])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1CE58F80114
-	for <alsa-devel@alsa-project.org>; Thu,  4 Apr 2024 18:07:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1CE58F80114
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=OoelHQ9y
-Received: by mail-pj1-x1032.google.com with SMTP id
- 98e67ed59e1d1-2a20a9df742so836632a91.1
-        for <alsa-devel@alsa-project.org>;
- Thu, 04 Apr 2024 09:07:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1712246824; x=1712851624;
- darn=alsa-project.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=LwkMEGu4bH84VlMdGnCK4KPRxbhmbdEM0Bw2IunWXXM=;
-        b=OoelHQ9y0wNYOQVfOa4wyI9YfsAEbDdPkrBF7G04fe4kaVhPN3TM1NdOrs2BmsT+TJ
-         KgdwsnNHgFQVmtG2nKq7avePdlfo6KP2hQhVB1hLKGP65Qnnd2Ur7F7hlzOqdABMGOJP
-         7Xrytiic+H47ej0PfpaFuQiitbgzbAIaU3+rsNig66YpGXYS2Jo4Vh7Ui0LYUaF5Wo9A
-         84nm+DkAvsgnrKnJxfV6pu4PCUjmxDhs0K1yS8EBcsoFOxrZYit000Chri1kgCqsUkEb
-         94cxc+GgSW7PTmmvuakdFZndiJem4ISDm1LFPgvE0nvGltlmEgqJa80wE7G3uE0Vzc6u
-         V13g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712246824; x=1712851624;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=LwkMEGu4bH84VlMdGnCK4KPRxbhmbdEM0Bw2IunWXXM=;
-        b=jfHQblZ2YSBqEDTsWnRO2EeXl4Nry8KIOCZu4dQvkFznz6lS/qgePll3GUYEYUXDuT
-         sZQrTw6ql3j/8R5qvD0oCffTS6K3er46tmPD6MGeu6F3YdeEQdKXSRV3S6oYgOsFwMLW
-         FlpX9azOgJniyvgQMEZy5mIkS/qd9UE/Ugu37Un5aYePlfey4WXl4h0vOO9OoMZErL0j
-         3xYZ8rTmGCsU+9Cys870Aq8pZTINx4BCVkR9vQ9qW9hbPTeS6mXOlupMuIl6nIWhUZEX
-         2oKhXmJNScTcUOT/wL9uFh75nXfecToYvMmZn38XO3UAbJi0eI6sS0w9sqjCx0K/19ik
-         No7w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWN/Q9rJJT8rkjCbM0hEsbroIEV22gunoW6okhXb/iv54hERcvvHkNuOK466uVFCvkDnz0uZ4FfYtdFqxHp/P1tJRKaHQbZ7h1+8yk=
-X-Gm-Message-State: AOJu0YzzaSP+UJjJ8Z7xgiOL2cvGwEh8nICXGudyCyw6I9b907HGMcmt
-	9Jom8mGmLPDZ9fH1gBezHW3T7wYu+58Id7kh8i/XqPaXeCQolmgq
-X-Google-Smtp-Source: 
- AGHT+IHibPG0W6H55vie7dFKnWlXEFmJq9c7f5VRpXhqgGA+gL558fvkCHxdOte330lCDtfdPWWS2w==
-X-Received: by 2002:a17:90a:b10f:b0:29b:b3fa:b7a5 with SMTP id
- z15-20020a17090ab10f00b0029bb3fab7a5mr2556863pjq.7.1712246822352;
-        Thu, 04 Apr 2024 09:07:02 -0700 (PDT)
-Received: from localhost.localdomain ([203.188.229.101])
-        by smtp.gmail.com with ESMTPSA id
- g14-20020a17090ace8e00b002a2979a8651sm1685928pju.54.2024.04.04.09.06.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 04 Apr 2024 09:07:01 -0700 (PDT)
-From: Mighty <bavishimithil@gmail.com>
-To: 
-Cc: Mithil Bavishi <bavishimithil@gmail.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	alsa-devel@alsa-project.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] dt-bindings: omap-mcpdm: Convert to DT schema
-Date: Thu,  4 Apr 2024 21:36:49 +0530
-Message-Id: <20240404160649.967-1-bavishimithil@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	by alsa1.perex.cz (Postfix) with ESMTPS id EAC2FF80007
+	for <alsa-devel@alsa-project.org>; Fri,  5 Apr 2024 07:44:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EAC2FF80007
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.94.2 #2 (Debian))
+	id 1rscKZ-00FRbc-P8; Fri, 05 Apr 2024 13:41:40 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation);
+ Fri, 05 Apr 2024 13:41:56 +0800
+Date: Fri, 5 Apr 2024 13:41:56 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: "Michael S. Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowang@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	David Hildenbrand <david@redhat.com>,
+	Gerd Hoffmann <kraxel@redhat.com>,
+	Richard Weinberger <richard@nod.at>,
+	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Stefan Hajnoczi <stefanha@redhat.com>, Jens Axboe <axboe@kernel.dk>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Olivia Mackall <olivia@selenic.com>, Amit Shah <amit@kernel.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Gonglei <arei.gonglei@huawei.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Sudeep Holla <sudeep.holla@arm.com>,
+	Cristian Marussi <cristian.marussi@arm.com>,
+	Viresh Kumar <vireshk@kernel.org>,
+	Linus Walleij <linus.walleij@linaro.org>,
+	Bartosz Golaszewski <brgl@bgdev.pl>,
+	David Airlie <airlied@redhat.com>,
+	Gurchetan Singh <gurchetansingh@chromium.org>,
+	Chia-I Wu <olvaffe@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Daniel Vetter <daniel@ffwll.ch>,
+	Jean-Philippe Brucker <jean-philippe@linaro.org>,
+	Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Alexander Graf <graf@amazon.com>, Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Eric Van Hensbergen <ericvh@kernel.org>,
+	Latchesar Ionkov <lucho@ionkov.net>,
+	Dominique Martinet <asmadeus@codewreck.org>,
+	Christian Schoenebeck <linux_oss@crudebyte.com>,
+	Stefano Garzarella <sgarzare@redhat.com>,
+	Kalle Valo <kvalo@kernel.org>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Dave Jiang <dave.jiang@intel.com>, Ira Weiny <ira.weiny@intel.com>,
+	Pankaj@alsa-project.org, "Gupta <pankaj.gupta.linux"@gma
+Subject: Re: [PATCH v2 10/25] crypto: virtio - drop owner assignment
+Message-ID: <Zg+PJPyueR1icHRp@gondor.apana.org.au>
+References: <20240331-module-owner-virtio-v2-0-98f04bfaf46a@linaro.org>
+ <20240331-module-owner-virtio-v2-10-98f04bfaf46a@linaro.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MailFrom: bavishimithil@gmail.com
-X-Mailman-Rule-Hits: nonmember-moderation
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240331-module-owner-virtio-v2-10-98f04bfaf46a@linaro.org>
+X-MailFrom: herbert@gondor.apana.org.au
+X-Mailman-Rule-Hits: implicit-dest; max-recipients
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: Z5O5H2VLFGDFTQ5DPRVFJHGWWJQIOJBD
-X-Message-ID-Hash: Z5O5H2VLFGDFTQ5DPRVFJHGWWJQIOJBD
-X-Mailman-Approved-At: Sun, 07 Apr 2024 07:15:21 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; max-size; news-moderation; no-subject; digests;
+ suspicious-header
+Message-ID-Hash: ZZ6QWC7TUO7LPGTQJKAVTDGB3WCOK4S3
+X-Message-ID-Hash: ZZ6QWC7TUO7LPGTQJKAVTDGB3WCOK4S3
+X-Mailman-Approved-At: Sun, 07 Apr 2024 07:15:59 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Z5O5H2VLFGDFTQ5DPRVFJHGWWJQIOJBD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZZ6QWC7TUO7LPGTQJKAVTDGB3WCOK4S3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -126,119 +125,20 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Mithil Bavishi <bavishimithil@gmail.com>
+On Sun, Mar 31, 2024 at 10:43:57AM +0200, Krzysztof Kozlowski wrote:
+> virtio core already sets the .owner, so driver does not need to.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> 
+> ---
+> 
+> Depends on the first patch.
+> ---
+>  drivers/crypto/virtio/virtio_crypto_core.c | 1 -
+>  1 file changed, 1 deletion(-)
 
-Convert the OMAP4+ McPDM bindings to DT schema.
-
-Signed-off-by: Mighty <bavishimithil@gmail.com>
----
- .../devicetree/bindings/sound/omap-mcpdm.txt  | 30 ----------
- .../bindings/sound/ti,omap-mcpdm.yaml         | 59 +++++++++++++++++++
- 2 files changed, 59 insertions(+), 30 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/sound/omap-mcpdm.txt
- create mode 100644 Documentation/devicetree/bindings/sound/ti,omap-mcpdm.yaml
-
-diff --git a/Documentation/devicetree/bindings/sound/omap-mcpdm.txt b/Documentation/devicetree/bindings/sound/omap-mcpdm.txt
-deleted file mode 100644
-index ff98a0cb5..000000000
---- a/Documentation/devicetree/bindings/sound/omap-mcpdm.txt
-+++ /dev/null
-@@ -1,30 +0,0 @@
--* Texas Instruments OMAP4+ McPDM
--
--Required properties:
--- compatible: "ti,omap4-mcpdm"
--- reg: Register location and size as an array:
--       <MPU access base address, size>,
--       <L3 interconnect address, size>;
--- interrupts: Interrupt number for McPDM
--- ti,hwmods: Name of the hwmod associated to the McPDM
--- clocks:  phandle for the pdmclk provider, likely <&twl6040>
--- clock-names: Must be "pdmclk"
--
--Example:
--
--mcpdm: mcpdm@40132000 {
--	compatible = "ti,omap4-mcpdm";
--	reg = <0x40132000 0x7f>, /* MPU private access */
--	      <0x49032000 0x7f>; /* L3 Interconnect */
--	interrupts = <0 112 0x4>;
--	interrupt-parent = <&gic>;
--	ti,hwmods = "mcpdm";
--};
--
--In board DTS file the pdmclk needs to be added:
--
--&mcpdm {
--	clocks = <&twl6040>;
--	clock-names = "pdmclk";
--	status = "okay";
--};
-diff --git a/Documentation/devicetree/bindings/sound/ti,omap-mcpdm.yaml b/Documentation/devicetree/bindings/sound/ti,omap-mcpdm.yaml
-new file mode 100644
-index 000000000..4d5d37e98
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/ti,omap-mcpdm.yaml
-@@ -0,0 +1,59 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/ti,omap-mcpdm.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: OMAP McPDM
-+
-+maintainers:
-+  - Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-+
-+description:
-+  OMAP ALSA SoC DAI driver using McPDM port used by TWL6040
-+
-+properties:
-+  compatible:
-+    const: ti,omap4-mcpdm
-+
-+  reg:
-+    description:
-+      Register location and size as an array
-+      <MPU access base address, size>,
-+      <L3 interconnect address, size>;
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  ti,hwmods:
-+    maxItems: 1
-+
-+  clocks:
-+    description: phandle for the pdmclk provider, likely <&twl6040>
-+
-+  clock-names:
-+    description: Must be "pdmclk"
-+
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - ti,hwmods
-+  - clocks
-+  - clock-names
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    mcpdm@0 {
-+      compatible = "ti,omap4-mcpdm";
-+      reg = <0x40132000 0x7f>, /* MPU private access */
-+            <0x49032000 0x7f>; /* L3 Interconnect */
-+      interrupts = <0 112 0x4>;
-+      interrupt-parent = <&gic>;
-+      ti,hwmods = "mcpdm";
-+      clocks = <&twl6040>;
-+      clock-names = "pdmclk";
-+    };
+Acked-by: Herbert Xu <herbert@gondor.apana.org.au>
 -- 
-2.34.1
-
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt

@@ -2,80 +2,152 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4250F89A796
-	for <lists+alsa-devel@lfdr.de>; Sat,  6 Apr 2024 01:21:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C728D89A96E
+	for <lists+alsa-devel@lfdr.de>; Sat,  6 Apr 2024 08:53:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CD5402D5E;
-	Sat,  6 Apr 2024 01:21:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD5402D5E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 035482CF3;
+	Sat,  6 Apr 2024 08:53:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 035482CF3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712359288;
-	bh=GISLT5oK/o/IQq1tDNBirwJ9eyt2MEiYKYIyxzI8NHU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1712386402;
+	bh=C2NgITu0l9qaQbRqHLuuVXCjkvrLNmq1GDZRbl52qWA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=qYTH/JJuCTfNWkg+bhHHy44LNzLP5+9r/OJXMCEzhcsSkCWLvN+89oO8XhpWvBMK/
-	 epk9Mzu/bEJ/UYAidtTbilwQ2a0dsJ67td11qwRWqSfVMkecb6Nfaw/pZb+MEJgrb/
-	 DzUttCXNPj66iUR9hhgGHSn6WjLu9YCW+zDu7zlE=
+	b=i9VLvjtMwkZc5ArTsDH5RtoLDomBbEjaRd50ztosML1gbwZDoZf+2+9HT0HD+gNod
+	 /bGFfLcH4C8CAGFBGqwbvA8CF8O27gYXZ1WyXqHNrRwteAX5p7rTv6D1rX0iHRvCOL
+	 /TpuD013viZnijhWFtAgMSGPeOdJFVArknmWQD74=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C60ECF805F6; Sat,  6 Apr 2024 01:20:30 +0200 (CEST)
+	id 287D1F80238; Sat,  6 Apr 2024 08:52:59 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D79AAF805F3;
-	Sat,  6 Apr 2024 01:20:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4989FF8058C;
+	Sat,  6 Apr 2024 08:52:58 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 45A48F8057F; Sat,  6 Apr 2024 01:20:26 +0200 (CEST)
+	id F3E0AF8020D; Sat,  6 Apr 2024 08:40:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B2CE7F8020D
-	for <alsa-devel@alsa-project.org>; Sat,  6 Apr 2024 01:20:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2CE7F8020D
+	by alsa1.perex.cz (Postfix) with ESMTPS id B1E5BF8015B
+	for <alsa-devel@alsa-project.org>; Sat,  6 Apr 2024 08:40:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B1E5BF8015B
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=sCLpdsAz
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 93D81612D4;
-	Fri,  5 Apr 2024 23:20:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D18B3C433C7;
-	Fri,  5 Apr 2024 23:20:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1712359205;
-	bh=GISLT5oK/o/IQq1tDNBirwJ9eyt2MEiYKYIyxzI8NHU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=sCLpdsAzObzqlBz9zzkUzgNRR/FFqreuZLuTp1xhVp9sIjeF6b5IDkWJhicsbilsW
-	 VCOuejWMPBdO7PgGdDvyN1CBP9JFV45f0O0TiBHk2AAYZbzVzN++MLxfK7t4W3lKnQ
-	 GT37exkzFDArbQRz18Meo4Uyku38Cf6yN2ByBl6xEUhT3XRRdJOy9l0WlrIcF6oNZc
-	 CVsubYyx+Xo+dfnMwAZHN/OmR2QSm4x9K1dzr86DP64mwgtL/Z4P9GaZ43EzWBiMen
-	 rHhRcJ3hER3VM/UkgUj8hMXDmG9t8d0ZckZVG2ofJg1uRqlOMSZEeXSN5/wOAmInn3
-	 HvNw7ZyqR1bhQ==
-From: Mark Brown <broonie@kernel.org>
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- tiwai@suse.com, perex@perex.cz, amadeuszx.slawinski@linux.intel.com,
- hdegoede@redhat.com
-In-Reply-To: <20240405090929.1184068-1-cezary.rojewski@intel.com>
-References: <20240405090929.1184068-1-cezary.rojewski@intel.com>
-Subject: Re: [PATCH 00/13] ASoC: Intel: avs: Fixes and cleanups for 6.10
-Message-Id: <171235920358.198289.9542168405810750674.b4-ty@kernel.org>
-Date: Sat, 06 Apr 2024 00:20:03 +0100
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14-dev
-Message-ID-Hash: KJHCTRE2BG64B5HDS5KGUNW6ZWYX5WBV
-X-Message-ID-Hash: KJHCTRE2BG64B5HDS5KGUNW6ZWYX5WBV
-X-MailFrom: broonie@kernel.org
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=O5sfR+UL;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=oFS74DHM;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=O5sfR+UL;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=oFS74DHM
+Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org
+ [10.150.64.98])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 555CD21AF0;
+	Sat,  6 Apr 2024 06:40:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1712385607;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=iHNTJ9pWqueerMcDv6FMSUrIGJncPuN8KrhU7yg5Bls=;
+	b=O5sfR+UL43Hqq+f82JNFZhX2CvYxiAMvPKtvfr6WSbuuouwIt2eKglU42vnsSsWkIKMdn0
+	moPdWXUWJrTQg06YedXHL8TPbkVHqPTIfNgelMLRSAWG9E0RR58BlsWf9z/pIIcVIXJ94Y
+	9h/YZF2BzHVUjlh4mIMR7+fNBvnjNpQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1712385607;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=iHNTJ9pWqueerMcDv6FMSUrIGJncPuN8KrhU7yg5Bls=;
+	b=oFS74DHMOTbWizV9wbzUPPIK3tP4uTqMI3eEicDo1jqdEF+PJ6TS72GOi3GMdaAf0lLd18
+	pLogi+fadD6WYPAw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1712385607;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=iHNTJ9pWqueerMcDv6FMSUrIGJncPuN8KrhU7yg5Bls=;
+	b=O5sfR+UL43Hqq+f82JNFZhX2CvYxiAMvPKtvfr6WSbuuouwIt2eKglU42vnsSsWkIKMdn0
+	moPdWXUWJrTQg06YedXHL8TPbkVHqPTIfNgelMLRSAWG9E0RR58BlsWf9z/pIIcVIXJ94Y
+	9h/YZF2BzHVUjlh4mIMR7+fNBvnjNpQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1712385607;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=iHNTJ9pWqueerMcDv6FMSUrIGJncPuN8KrhU7yg5Bls=;
+	b=oFS74DHMOTbWizV9wbzUPPIK3tP4uTqMI3eEicDo1jqdEF+PJ6TS72GOi3GMdaAf0lLd18
+	pLogi+fadD6WYPAw==
+Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 31025139E8;
+	Sat,  6 Apr 2024 06:40:07 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap2.dmz-prg2.suse.org with ESMTPSA
+	id pfFrCkfuEGYKTAAAn2gu4w
+	(envelope-from <tiwai@suse.de>); Sat, 06 Apr 2024 06:40:07 +0000
+Date: Sat, 06 Apr 2024 08:40:13 +0200
+Message-ID: <87edbjm1te.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+Cc: alsa-devel@alsa-project.org,
+	Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH v2 00/17] ALSA: emu10k1 & emux: fixes related to wavetable
+ playback
+In-Reply-To: <ZhBFHmw/AGXvBULl@ugly>
+References: <20240404100048.819674-1-oswald.buddenhagen@gmx.de>
+	<875xwwnp27.wl-tiwai@suse.de>
+	<Zg/NfajQ3gdsmbUb@ugly>
+	<87zfu8m7ay.wl-tiwai@suse.de>
+	<ZhBFHmw/AGXvBULl@ugly>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-2.13 / 50.00];
+	BAYES_HAM(-1.83)[94.03%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_TO(0.00)[gmx.de];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmx.de];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_THREE(0.00)[3];
+	RCVD_TLS_ALL(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap2.dmz-prg2.suse.org:helo,imap2.dmz-prg2.suse.org:rdns]
+Message-ID-Hash: Y5XCIKNDE6TMEDNNGJO3S5NRQA2XP5PH
+X-Message-ID-Hash: Y5XCIKNDE6TMEDNNGJO3S5NRQA2XP5PH
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -87,7 +159,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KJHCTRE2BG64B5HDS5KGUNW6ZWYX5WBV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Y5XCIKNDE6TMEDNNGJO3S5NRQA2XP5PH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,66 +168,33 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 05 Apr 2024 11:09:16 +0200, Cezary Rojewski wrote:
-> Set of changes targeting the avs-driver only. No new features, patchset
-> either fixes or fortifies existing code.
+On Fri, 05 Apr 2024 20:38:22 +0200,
+Oswald Buddenhagen wrote:
 > 
-> Patchset starts off with a fix for debugbility on ICL+ platforms which I
-> have forgotten to fixup when providing support for these initially.
-> The next two address copier module initialization, most importantly,
-> silence the gcc 'field-spanning write' false-positive.
+> On Fri, Apr 05, 2024 at 12:29:25PM +0200, Takashi Iwai wrote:
+> > Try by yourself to apply the submitted patch mails with git-am on the
+> > latest for-linus (or master) branch.
+> > 
+> ok, the problem is indeed patch corruption, but it's not your fault.
+> trailing tabs got stripped from the patches in flight.
 > 
-> [...]
+> while my reading of
+> https://www.rfc-editor.org/rfc/rfc5321#section-2.3.10 is that MTAs may
+> not just strip trailing whitespace, the ones i tried apparently do.
+> somebody may want to verify that ...
+> 
+> anyway, you can still apply the patches by adding --ignore-whitespace to
+> git-am's command line.
+> 
+> if the process doesn't permit that, i'll re-post after convincing
+> git-send-email to apply quoted-printable content-transfer-encoding to
+> ensure preservation of trailing whitespace.
 
-Applied to
+Yes, please resubmit with the correct content.
+All the original posts are archived and may be used to check for the
+correctness of the patches later.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Thanks!
+thanks,
 
-[01/13] ASoC: Intel: avs: Restore stream decoupling on prepare
-        commit: 680507581e025d16a0b6d3782603ca8c598fbe2b
-[02/13] ASoC: Intel: avs: Fix debug-slot offset calculation
-        commit: c91b692781c1839fcc389b2a9120e46593c6424b
-[03/13] ASoC: Intel: avs: Silence false-positive memcpy() warnings
-        commit: 6dd68c2da44d92c25b323bcc2603421463437a64
-[04/13] ASoC: Intel: avs: Fix config_length for config-less copiers
-        commit: beeeee9686affef32ee04d8ae30db8c53cbc7aee
-[05/13] ASoC: Intel: avs: Fix ASRC module initialization
-        commit: 9d2e26f31c7cc3fa495c423af9b4902ec0dc7be3
-[06/13] ASoC: Intel: avs: Replace risky functions with safer variants
-        commit: 47714847592b574ff594ceca7ebe0ada70dbac3c
-[07/13] ASoC: Intel: avs: Fix potential integer overflow
-        commit: c7e832cabe635df47c2bf6df7801e97bf3045b1e
-[08/13] ASoC: Intel: avs: Test result of avs_get_module_entry()
-        commit: 41bf4525fadb3d8df3860420d6ac9025c51a3bac
-[09/13] ASoC: Intel: avs: Remove dead code
-        commit: d58275f474b4a27b4e97839ffe8d9fe55c0cc40a
-[10/13] ASoC: Intel: avs: Wake from D0ix when starting streaming
-        commit: 30df76bbcb59254ce646477e3e05f00021a10117
-[11/13] ASoC: Intel: avs: Init debugfs before booting firmware
-        commit: ff0aefe2d217ce6fec6487b225737b2019eb88c0
-[12/13] ASoC: Intel: avs: Add assert_static to guarantee ABI sizes
-        commit: c2b10acb62c195db2c976d614d9d8092ad6339ae
-[13/13] ASoC: Intel: avs: Rule invalid buffer and period sizes out
-        commit: 9a385993504e47a0fd6fd34b5384827b4abdee60
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+Takashi

@@ -2,152 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C728D89A96E
-	for <lists+alsa-devel@lfdr.de>; Sat,  6 Apr 2024 08:53:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F0FF89A976
+	for <lists+alsa-devel@lfdr.de>; Sat,  6 Apr 2024 09:07:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 035482CF3;
-	Sat,  6 Apr 2024 08:53:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 035482CF3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 836A82CEE;
+	Sat,  6 Apr 2024 09:06:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 836A82CEE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712386402;
-	bh=C2NgITu0l9qaQbRqHLuuVXCjkvrLNmq1GDZRbl52qWA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=i9VLvjtMwkZc5ArTsDH5RtoLDomBbEjaRd50ztosML1gbwZDoZf+2+9HT0HD+gNod
-	 /bGFfLcH4C8CAGFBGqwbvA8CF8O27gYXZ1WyXqHNrRwteAX5p7rTv6D1rX0iHRvCOL
-	 /TpuD013viZnijhWFtAgMSGPeOdJFVArknmWQD74=
+	s=default; t=1712387223;
+	bh=N0bTxMevMmBLUSV0tGAdxWcGwmSg8SMJcqX+Dczo9zw=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=Fe47hLbvRlRfBmwnfxT5M+XG4XAnipSr3nk8rE0EdmCBQHIGOqkYMjLivlUmzEzkd
+	 kZHLLmb5kL3I2hJpWTkkOUO5Yltp3FMYKGiU5Q0w4eGNY6lUi1NPfXITasBJq4poR3
+	 UZdb/BvawOgVyUBgFh0k38Ymvxrn84+SPYzaDoiQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 287D1F80238; Sat,  6 Apr 2024 08:52:59 +0200 (CEST)
+	id E16B1F805B1; Sat,  6 Apr 2024 09:06:30 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4989FF8058C;
-	Sat,  6 Apr 2024 08:52:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 06A0EF8058C;
+	Sat,  6 Apr 2024 09:06:29 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F3E0AF8020D; Sat,  6 Apr 2024 08:40:32 +0200 (CEST)
+	id BC8FCF8056F; Sat,  6 Apr 2024 08:49:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H2,RCVD_IN_SBL_CSS,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B1E5BF8015B
-	for <alsa-devel@alsa-project.org>; Sat,  6 Apr 2024 08:40:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B1E5BF8015B
+	by alsa1.perex.cz (Postfix) with ESMTPS id ACD66F80568
+	for <alsa-devel@alsa-project.org>; Sat,  6 Apr 2024 08:48:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ACD66F80568
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=O5sfR+UL;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=oFS74DHM;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=O5sfR+UL;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=oFS74DHM
-Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org
- [10.150.64.98])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 555CD21AF0;
-	Sat,  6 Apr 2024 06:40:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1712385607;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=iHNTJ9pWqueerMcDv6FMSUrIGJncPuN8KrhU7yg5Bls=;
-	b=O5sfR+UL43Hqq+f82JNFZhX2CvYxiAMvPKtvfr6WSbuuouwIt2eKglU42vnsSsWkIKMdn0
-	moPdWXUWJrTQg06YedXHL8TPbkVHqPTIfNgelMLRSAWG9E0RR58BlsWf9z/pIIcVIXJ94Y
-	9h/YZF2BzHVUjlh4mIMR7+fNBvnjNpQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1712385607;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=iHNTJ9pWqueerMcDv6FMSUrIGJncPuN8KrhU7yg5Bls=;
-	b=oFS74DHMOTbWizV9wbzUPPIK3tP4uTqMI3eEicDo1jqdEF+PJ6TS72GOi3GMdaAf0lLd18
-	pLogi+fadD6WYPAw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1712385607;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=iHNTJ9pWqueerMcDv6FMSUrIGJncPuN8KrhU7yg5Bls=;
-	b=O5sfR+UL43Hqq+f82JNFZhX2CvYxiAMvPKtvfr6WSbuuouwIt2eKglU42vnsSsWkIKMdn0
-	moPdWXUWJrTQg06YedXHL8TPbkVHqPTIfNgelMLRSAWG9E0RR58BlsWf9z/pIIcVIXJ94Y
-	9h/YZF2BzHVUjlh4mIMR7+fNBvnjNpQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1712385607;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=iHNTJ9pWqueerMcDv6FMSUrIGJncPuN8KrhU7yg5Bls=;
-	b=oFS74DHMOTbWizV9wbzUPPIK3tP4uTqMI3eEicDo1jqdEF+PJ6TS72GOi3GMdaAf0lLd18
-	pLogi+fadD6WYPAw==
-Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 31025139E8;
-	Sat,  6 Apr 2024 06:40:07 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap2.dmz-prg2.suse.org with ESMTPSA
-	id pfFrCkfuEGYKTAAAn2gu4w
-	(envelope-from <tiwai@suse.de>); Sat, 06 Apr 2024 06:40:07 +0000
-Date: Sat, 06 Apr 2024 08:40:13 +0200
-Message-ID: <87edbjm1te.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-Cc: alsa-devel@alsa-project.org,
-	Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH v2 00/17] ALSA: emu10k1 & emux: fixes related to wavetable
+	dkim=pass (2048-bit key,
+ unprotected) header.d=gmx.de header.i=oswald.buddenhagen@gmx.de
+ header.a=rsa-sha256 header.s=s31663417 header.b=fIjaPdHt
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1712386111; x=1712990911;
+	i=oswald.buddenhagen@gmx.de;
+	bh=QXdMSplDvZwNOV8wYThgcUxdrpx0xDRvIN39SPaFaZc=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date;
+	b=fIjaPdHtJjSuRy4pUSLDBqYmzJoDZUZk/RTkL0RPNeIL0xZEzkPkcivzUG+dE7YU
+	 h1P4OEkmMYHoCDkcEUw2kfaiMu6G2cnEvj1R2D9LRXwh1zO8w6ddptsLX7WdChDk7
+	 TN7ABulK9POk+Tsx8laCQrEIIBEN6G9ZvktUqP5UkOGVnt20KnSUOcJhacws5cxTh
+	 4X7x8cZcqmRGdywxXGWsbacAbxaERjFuYuPM1s9KTDVt7zOVk11sJtYHUte0+Xukp
+	 urqasB1r39ValYKLoduzaGoGq2yF4nJaNQpqDVFGTmOGEkqb2AJmMPXwG6gTir1M1
+	 n2206wHhjL3GjJ0VXQ==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from ugly.fritz.box ([89.247.162.118]) by mail.gmx.net (mrgmx004
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MaJ7v-1sGFsw0Zan-00WEyC; Sat, 06
+ Apr 2024 08:48:31 +0200
+Received: by ugly.fritz.box (masqmail 0.3.6-dev, from userid 1000)
+	id 1rszqo-JqR-00; Sat, 06 Apr 2024 08:48:30 +0200
+From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+To: alsa-devel@alsa-project.org
+Cc: Takashi Iwai <tiwai@suse.de>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Arthur Marsh <arthur.marsh@internode.on.net>
+Subject: [PATCH v3 00/17] ALSA: emu10k1 & emux: fixes related to wavetable
  playback
-In-Reply-To: <ZhBFHmw/AGXvBULl@ugly>
-References: <20240404100048.819674-1-oswald.buddenhagen@gmx.de>
-	<875xwwnp27.wl-tiwai@suse.de>
-	<Zg/NfajQ3gdsmbUb@ugly>
-	<87zfu8m7ay.wl-tiwai@suse.de>
-	<ZhBFHmw/AGXvBULl@ugly>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-2.13 / 50.00];
-	BAYES_HAM(-1.83)[94.03%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[gmx.de];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmx.de];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[3];
-	RCVD_TLS_ALL(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap2.dmz-prg2.suse.org:helo,imap2.dmz-prg2.suse.org:rdns]
-Message-ID-Hash: Y5XCIKNDE6TMEDNNGJO3S5NRQA2XP5PH
-X-Message-ID-Hash: Y5XCIKNDE6TMEDNNGJO3S5NRQA2XP5PH
-X-MailFrom: tiwai@suse.de
+Date: Sat,  6 Apr 2024 08:48:13 +0200
+Message-ID: <20240406064830.1029573-1-oswald.buddenhagen@gmx.de>
+X-Mailer: git-send-email 2.44.0.701.g2cf7baacf3.dirty
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:6rkDgGrsdFlBnWYzDFEl5zoCZ8CHlLyyBOihePWRYPVT1ERAm9g
+ LbCTCHAbOQCmAnlZ95gdslPeMcXFdKMJhAxulY+cFrECBEplPFk9W0aMTitzG6pG6crOsPs
+ adUaG2DQzEg93OEzxWSH3Qah3EWWYokCrWulIWTPYLnCkWKPnQs1zUfFO6l6afbrOnzSNiI
+ YclnwRfjXeyJtwoQ7O9uw==
+UI-OutboundReport: notjunk:1;M01:P0:gIYxt62bt5U=;PSVAvquMNzcrWhX2SmQuGoLu4+d
+ FDHIbpx6xI/x2Q4+SGptIBMi+DoZkHcrPZVrBqpCx/aaav2XHqpDG0N1DUGbvqvIjJbSy/zUt
+ M2/vkBcUhIZ5dzWxblXkCTeEU8K+QOvY+ZlIunLCj4uhJRIovnt3lhEfZOWqeSPyc+Dwiy92D
+ f8MCGFdiwMuRiSuL4CucWckR9hsvGQY2E6bhrq/zh+GvGZB0bMM71gVr4uEu7HQvJfO3tZVEQ
+ +Su3IpLksUArLecTmclZEOTMOFJ7xU3s7W/StzBs+/ejtR/1gHAd3ti2SCSoRXWCGhLOEBNFV
+ i61fCRfoCs+z33OiOxRq+C3loRezdBMvTOm5etZkJouibKLAohumgEjZxzrRq92R3OZ7qYGAy
+ +4eDTDbzkJv78d9lm5nueGtjp4LXz7GWY1NPXM4qLtnlW4IcVpdjVsSaK1padvDJouAZv1Blx
+ z+LGRscPReJ1iBqoI3I9/+cuZRPIUdBi21AlVoMXIvGRD16kCic+42Q5H45wG+++AqiHlx5Oz
+ 6tfXcYvHKSyQ7QjvWNzP71+qbx4iChcc680J3h3TYRIHaD48vBSvlnAGHfh2rmUbceJtuWmfT
+ t6/QMtL0xkMn5mXOt/9kXgY8lF/OBOtemOXhzNJbuHDKNxg6hRxPc8XSXJeOA1u/MAlnshkIC
+ +jdEUN3Z6dNmr+tvrUDZWdb932sPmfTaCnrcps4Mo+fP6HWnqCfpCdqtyR/cWvUzo5upnHMLM
+ v9pVcQuPJLyRCRNfVSI1YpCr2XRepa5VSCwSIfAxXfnrgbSAanmZJQTCuwp9kbvq5ItFRvElB
+ bkMx367OyDundsRLwVxwqautYu09uRJeBApJQpCOECX7M=
+Message-ID-Hash: SXPWNHCYJSZRMDE7ZCNIPNNSW2H4KGGY
+X-Message-ID-Hash: SXPWNHCYJSZRMDE7ZCNIPNNSW2H4KGGY
+X-MailFrom: oswald.buddenhagen@gmx.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -159,7 +103,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Y5XCIKNDE6TMEDNNGJO3S5NRQA2XP5PH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SXPWNHCYJSZRMDE7ZCNIPNNSW2H4KGGY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -168,33 +112,46 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 05 Apr 2024 20:38:22 +0200,
-Oswald Buddenhagen wrote:
-> 
-> On Fri, Apr 05, 2024 at 12:29:25PM +0200, Takashi Iwai wrote:
-> > Try by yourself to apply the submitted patch mails with git-am on the
-> > latest for-linus (or master) branch.
-> > 
-> ok, the problem is indeed patch corruption, but it's not your fault.
-> trailing tabs got stripped from the patches in flight.
-> 
-> while my reading of
-> https://www.rfc-editor.org/rfc/rfc5321#section-2.3.10 is that MTAs may
-> not just strip trailing whitespace, the ones i tried apparently do.
-> somebody may want to verify that ...
-> 
-> anyway, you can still apply the patches by adding --ignore-whitespace to
-> git-am's command line.
-> 
-> if the process doesn't permit that, i'll re-post after convincing
-> git-send-email to apply quoted-printable content-transfer-encoding to
-> ensure preservation of trailing whitespace.
+---
+v3:
+- re-send with safer transfer encoding
+v2:
+- rebased on top of reverting problematic commit first
 
-Yes, please resubmit with the correct content.
-All the original posts are archived and may be used to check for the
-correctness of the patches later.
+Oswald Buddenhagen (17):
+  ALSA: emux: fix /proc teardown at module unload
+  ALSA: emux: prune unused parameter from snd_soundfont_load_guspatch()
+  ALSA: emux: fix validation of snd_emux.num_ports
+  ALSA: emux: fix init of patch_info.truesize in load_data()
+  ALSA: emu10k1: prune vestiges of
+    SNDRV_SFNT_SAMPLE_{BIDIR,REVERSE}_LOOP support
+  ALSA: emux: centralize & improve patch info validation
+  ALSA: emux: improve patch ioctl data validation
+  ALSA: emu10k1: move patch loader assertions into low-level functions
+  ALSA: emu10k1: fix sample signedness issues in wavetable loader
+  ALSA: emu10k1: fix playback of 8-bit wavetable samples
+  ALSA: emu10k1: merge conditions in patch loader
+  ALSA: emu10k1: fix wavetable offset recalculation
+  ALSA: emu10k1: de-duplicate size calculations for 16-bit samples
+  ALSA: emu10k1: improve cache behavior documentation
+  ALSA: emu10k1: fix wavetable playback position and caching, take 2
+  ALSA: emu10k1: shrink blank space in front of wavetable samples
+  ALSA: emux: simplify snd_sf_list.callback handling
 
+ include/sound/emu10k1.h              |  32 +++--
+ include/sound/soundfont.h            |   2 +-
+ sound/isa/sb/emu8000_patch.c         |  13 --
+ sound/pci/emu10k1/emu10k1_callback.c |  13 +-
+ sound/pci/emu10k1/emu10k1_patch.c    | 207 +++++++++++----------------
+ sound/pci/emu10k1/memory.c           |  55 +++++--
+ sound/synth/emux/emux.c              |   6 +-
+ sound/synth/emux/emux_hwdep.c        |   3 +-
+ sound/synth/emux/emux_oss.c          |   3 +-
+ sound/synth/emux/emux_proc.c         |   1 +
+ sound/synth/emux/emux_seq.c          |   6 +-
+ sound/synth/emux/soundfont.c         |  73 +++++++---
+ 12 files changed, 219 insertions(+), 195 deletions(-)
 
-thanks,
+--=20
+2.44.0.701.g2cf7baacf3.dirty
 
-Takashi

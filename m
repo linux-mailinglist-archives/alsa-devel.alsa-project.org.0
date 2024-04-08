@@ -2,87 +2,115 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B91A89BB5C
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 Apr 2024 11:14:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A55B289BB6F
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 Apr 2024 11:17:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5E27822A6;
-	Mon,  8 Apr 2024 11:14:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E27822A6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 710AF227E;
+	Mon,  8 Apr 2024 11:17:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 710AF227E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712567680;
-	bh=yjHosGWFkgQaeqcNWdnYg8bpLNaDwA+1zf/saXYJoh4=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1712567859;
+	bh=ydZJw7d35Ff9MPe3LKMKV9TaBpQgVGBrz9NBba+U30U=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ZpGaF3luSpGJ4BOsDfa2nXsLBa6UaSGzl79yre4Ls4OEExRV55GLWwsS2sjj0VdFn
-	 4BVXJ5lvREky4iiZwNrkEfyxYC3cwgEIsN1bLADcZRSZa16ZmN1rGKhvmYSoII1Bx4
-	 bVDclP1jQ6OVchjez3z929NbS+vl9f4d8eeYrUMA=
+	b=sHhDb2L7S3JRx71VP3F4np5tQyOMFgsYmm9IAfCHM8UjWkqobNglqL6k6P3VFhE7S
+	 KcWXHlkyLDQ+omHsztUSGPgMpyhzT2Gw3ee//t1V1+etLOIBamNYZ0DHrHfUW5kXnF
+	 fwkJi+9kxqiiV1+C7M+Qcr+/TAcJNngsevmY1QOI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 86384F805B3; Mon,  8 Apr 2024 11:14:07 +0200 (CEST)
+	id C48E4F80589; Mon,  8 Apr 2024 11:17:08 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 21549F805CA;
-	Mon,  8 Apr 2024 11:14:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 77BCCF8057E;
+	Mon,  8 Apr 2024 11:17:08 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 97753F8026D; Mon,  8 Apr 2024 11:11:28 +0200 (CEST)
+	id 4AC67F8026D; Mon,  8 Apr 2024 11:17:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_SBL_CSS,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [IPv6:2a00:1450:4864:20::42a])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 51824F80130
-	for <alsa-devel@alsa-project.org>; Mon,  8 Apr 2024 11:11:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51824F80130
-X-SpamFilter-By: ArmorX SpamTrap 5.78 with qID 4389B9X201703306,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (rtexh36505.realtek.com.tw[172.21.6.25])
-	by rtits2.realtek.com.tw (8.15.2/2.95/5.92) with ESMTPS id 4389B9X201703306
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 8 Apr 2024 17:11:09 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXH36505.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.35; Mon, 8 Apr 2024 17:11:07 +0800
-Received: from localhost.localdomain (172.22.102.111) by
- RTEXMBS01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.35; Mon, 8 Apr 2024 17:11:06 +0800
-From: <derek.fang@realtek.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>
-CC: <alsa-devel@alsa-project.org>, <lars@metafoo.de>, <flove@realtek.com>,
-        <oder_chiou@realtek.com>, <jack.yu@realtek.com>,
-        <shumingf@realtek.com>, <albertchen@realtek.com>,
-        <nico_cui@realsil.com.cn>, Derek Fang
-	<derek.fang@realtek.com>
-Subject: [PATCH 2/2] ASoC: dt-bindings: rt5645: add cbj sleeve gpio property
-Date: Mon, 8 Apr 2024 17:10:57 +0800
-Message-ID: <20240408091057.14165-2-derek.fang@realtek.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240408091057.14165-1-derek.fang@realtek.com>
-References: <20240408091057.14165-1-derek.fang@realtek.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id DF75CF80130
+	for <alsa-devel@alsa-project.org>; Mon,  8 Apr 2024 11:16:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF75CF80130
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=C/UItviN
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-345600106d3so1116697f8f.0
+        for <alsa-devel@alsa-project.org>;
+ Mon, 08 Apr 2024 02:16:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1712567818; x=1713172618;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Kyn/nAbJTaoSC8qDBWXGUmDfOwA1IOLpAo8aFHObHYE=;
+        b=C/UItviN/GmTqWjcYb4h5/sckCXbqMKLNSFxjUiXfCX9YDJaGPsW/N5j4ceI3eGuIn
+         aboPFcyxMTQ6+8QUun0/loG8VBn1AePzxx0Kn+oMRYeSPMh7ubpE9I4bqMmjeprLzn/8
+         TkxwmIm7MFG9sMBBwMgkG9moxr4YGcdl8aU+/y1VitVPaOh4bCiiiV20gNry/Oxxxr+V
+         MHyvdWz/dRzm/0WPj/2Ah6lxNz6b+vGWHqdmVemfC44kELKOJT/dMKUMbJGOvafYRW0X
+         ZwhB5XxmhRLInt5nKcRjainAVYpBHi0NhPD+R5TAiktaK2SHfDn/REZ2EDiHtBzMdmsv
+         503g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1712567818; x=1713172618;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Kyn/nAbJTaoSC8qDBWXGUmDfOwA1IOLpAo8aFHObHYE=;
+        b=kUqwOkRcECnH9OrNnetdRh6bn1+jk2A9H4AoyEU6yuvoTEXbUgKUZY4E7PA/Cnlc3f
+         PgTyQsFaTbvJ7M5qFvZ1Xnpnn0crd9cC4e/znEKAUv+USp1/vdpjvrIvkPNew8tjb6er
+         1BIgIy57SJs3zOGbcF8wcB0HghQWH5nvblVUkXw0rH2urSQYt2O8Mx046iEIvUXXjbxi
+         bAP5MuVszPW1jNnq9cwoHTVKIapqVQjm+GW5xxbKkMxGV40sXvKqARJBoaqB7eJSSv/K
+         5PgKWGyeZjmlT9WDEqKYkNiEiPjjSbyELWjn6Nmm89hqRLSm1Vh52cxTnJaeICNyZyfe
+         0hTQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXAkU1Wr1xi0I9l54IhfB4KoNy35Rv8RoHEaNQPaKoCr9ELfUcjlDTFhm4YDYKP5uqgUiVtLSn3fXcFLJrXkX9WF7M8vggOJmVtgBE=
+X-Gm-Message-State: AOJu0YxVvlB8nU5BnYJoaUiz3ANejv8no9qB7ofVDXeFuo3IWBLaDOGG
+	WLnNZRx1R72u8Rd7eYt2393o50uPs72Srd8fJef21wIgm8bREB9K92gh+jUq4KE=
+X-Google-Smtp-Source: 
+ AGHT+IFbW+GZvWtDNwC+hUfv0CeQti5p0/4Lt39sOJliVc7683eESlFh87O+IacxG6iRBQDyz+nk9A==
+X-Received: by 2002:adf:f28e:0:b0:33e:3bf3:a097 with SMTP id
+ k14-20020adff28e000000b0033e3bf3a097mr5598241wro.26.1712567818504;
+        Mon, 08 Apr 2024 02:16:58 -0700 (PDT)
+Received: from [192.168.1.195] ([5.133.47.210])
+        by smtp.googlemail.com with ESMTPSA id
+ q8-20020adfea08000000b00341c6440c36sm8586391wrm.74.2024.04.08.02.16.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 08 Apr 2024 02:16:58 -0700 (PDT)
+Message-ID: <499dc405-a292-44c2-860f-db78ad7becc8@linaro.org>
+Date: Mon, 8 Apr 2024 10:16:51 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [172.22.102.111]
-X-ClientProxiedBy: RTEXH36506.realtek.com.tw (172.21.6.27) To
- RTEXMBS01.realtek.com.tw (172.21.6.94)
-X-KSE-ServerInfo: RTEXMBS01.realtek.com.tw, 9
-X-KSE-AntiSpam-Interceptor-Info: fallback
-X-KSE-Antivirus-Interceptor-Info: fallback
-X-KSE-AntiSpam-Interceptor-Info: fallback
-X-KSE-ServerInfo: RTEXH36505.realtek.com.tw, 9
-X-KSE-AntiSpam-Interceptor-Info: fallback
-X-KSE-Antivirus-Interceptor-Info: fallback
-X-KSE-AntiSpam-Interceptor-Info: fallback
-Message-ID-Hash: XXN5DZNZK75JF6FKR2QUV4BAZELXN64C
-X-Message-ID-Hash: XXN5DZNZK75JF6FKR2QUV4BAZELXN64C
-X-MailFrom: derek.fang@realtek.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RESEND v3 0/2] Add support for QCM6490 and QCS6490
+To: Mohammad Rafi Shaik <quic_mohs@quicinc.com>,
+ Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>
+Cc: linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, quic_rohkumar@quicinc.com
+References: <20240408042331.403103-1-quic_mohs@quicinc.com>
+Content-Language: en-US
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+In-Reply-To: <20240408042331.403103-1-quic_mohs@quicinc.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: PUM2BVL4TJ4JD3PTRCC4DU4IBJPLH6UY
+X-Message-ID-Hash: PUM2BVL4TJ4JD3PTRCC4DU4IBJPLH6UY
+X-MailFrom: srinivas.kandagatla@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -94,7 +122,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XXN5DZNZK75JF6FKR2QUV4BAZELXN64C/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PUM2BVL4TJ4JD3PTRCC4DU4IBJPLH6UY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -103,37 +131,30 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Derek Fang <derek.fang@realtek.com>
 
-Add an optional gpio property to control external CBJ circuits
-to avoid some electric noise caused by sleeve/ring2 contacts floating.
 
-Signed-off-by: Derek Fang <derek.fang@realtek.com>
+On 08/04/2024 05:23, Mohammad Rafi Shaik wrote:
+> This patchset adds support for sound card on Qualcomm QCM6490 IDP and
+> QCS6490 RB3Gen2 boards.
+> 
+> Changes since v2:
+> 	- Modify qcm6490 compatible name as qcm6490-idp. Suggested by Dmitry
+> 
+> Changes since v1:
+> 	- Use existing sc8280xp machine driver instead of separate driver.
+> 	- Modify qcs6490 compatible name as qcs6490-rb3gen2.
+> 
+> Mohammad Rafi Shaik (2):
+>    ASoC: dt-bindings: qcom,sm8250: Add QCM6490 snd QCS6490 sound card
+>    ASoC: qcom: sc8280xp: Add support for QCM6490 and QCS6490
+> 
 
-diff --git a/Documentation/devicetree/bindings/sound/rt5645.txt b/Documentation/devicetree/bindings/sound/rt5645.txt
-index 41a62fd2ae1f..c1fa379f5f3e 100644
---- a/Documentation/devicetree/bindings/sound/rt5645.txt
-+++ b/Documentation/devicetree/bindings/sound/rt5645.txt
-@@ -20,6 +20,11 @@ Optional properties:
-   a GPIO spec for the external headphone detect pin. If jd-mode = 0,
-   we will get the JD status by getting the value of hp-detect-gpios.
- 
-+- cbj-sleeve-gpios:
-+  a GPIO spec to control the external combo jack circuit to tie the sleeve/ring2
-+  contacts to the ground or floating. It could avoid some electric noise from the
-+  active speaker jacks.
-+
- - realtek,in2-differential
-   Boolean. Indicate MIC2 input are differential, rather than single-ended.
- 
-@@ -68,6 +73,7 @@ codec: rt5650@1a {
- 	compatible = "realtek,rt5650";
- 	reg = <0x1a>;
- 	hp-detect-gpios = <&gpio 19 0>;
-+	cbj-sleeve-gpios = <&gpio 20 0>;
- 	interrupt-parent = <&gpio>;
- 	interrupts = <7 IRQ_TYPE_EDGE_FALLING>;
- 	realtek,dmic-en = "true";
--- 
-2.34.1
+LGTM,
 
+Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+
+--srini
+>   Documentation/devicetree/bindings/sound/qcom,sm8250.yaml | 2 ++
+>   sound/soc/qcom/sc8280xp.c                                | 2 ++
+>   2 files changed, 4 insertions(+)
+> 

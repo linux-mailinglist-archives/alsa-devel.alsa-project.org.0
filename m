@@ -2,124 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DB6689BAC7
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 Apr 2024 10:49:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4533489BB56
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 Apr 2024 11:14:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8F9882235;
-	Mon,  8 Apr 2024 10:48:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8F9882235
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2DE3A22CE;
+	Mon,  8 Apr 2024 11:14:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2DE3A22CE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712566144;
-	bh=nIn/zPewsG9q+wrG7O743ZFUtC6bgOwv5+buBPM+YFQ=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Z6qNMDrWA/tbdxaKjir+KnhiGJQFMbyGipLLkrV/bjnubaj0n/3s0U9AjRDSxGlMF
-	 v5bB78FbOlaODyW1KXiCsnmFgOON++lSPuH7ArAdhtoc3+Io5R0tKUJXuUsO1HVf8s
-	 KzgG0Y+r586waVtjfizqVQZ2siBOuC8WtVzv1szc=
+	s=default; t=1712567669;
+	bh=dqtDNqkfypVl0ESxBGqnTPxZt58r7lAPgQ8/Ej91IUg=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=kN1dnH5jOUHaL+ngXAPvEmCIE0ancnJovgWltbbr3soCiRjaHcEEL1DPO+kTYK+68
+	 q9nVDmJySuNLt692Si2bFcsdz1DJOxUJ8xvkvUzuPpN+4Y12tdvDjnNDrTzxEIqZnr
+	 XM+VYCB048EexO/2xzzRmsZ7l9hrxHUfFpQaEcrg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 90AE0F805A8; Mon,  8 Apr 2024 10:48:25 +0200 (CEST)
+	id 9AA41F80587; Mon,  8 Apr 2024 11:14:06 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A615DF8059F;
-	Mon,  8 Apr 2024 10:48:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 03509F80568;
+	Mon,  8 Apr 2024 11:14:06 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 91F2DF8026D; Mon,  8 Apr 2024 10:45:17 +0200 (CEST)
+	id 88ECFF8028B; Mon,  8 Apr 2024 11:11:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E6E1EF80130
-	for <alsa-devel@alsa-project.org>; Mon,  8 Apr 2024 10:45:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E6E1EF80130
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=UAVjRcBe
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 4386dMxB009177;
-	Mon, 8 Apr 2024 08:45:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
-	message-id:date:mime-version:subject:to:cc:references:from
-	:in-reply-to:content-type:content-transfer-encoding; s=
-	qcppdkim1; bh=wkPa/yuRBAbkzPtrxt9b+AV06OSilI8lIKaafg+mXV0=; b=UA
-	VjRcBeGe437/rmaw+JYZDjRpTQO7nPJVgLvp+NP1YzoZ5OVLk1UiFl25iTbAOKsc
-	fSY+kCxaBQ0iaNug+r+R2xrbzHTGfmBun4B6TKYnWk6SvFohYiSf/3TS8grLQDgo
-	941tT7rgXjCGFPtpe9dgtkfskgEZSlY0eKmsWnjsTisxGsgLKusNkznxdzRzTpry
-	J7LH4UF54xRxlpKGnx7h5mhuEfahR+xtF0QacxU+I2BUVjKOB7m16mnbITPbeOw8
-	pU/8uqyD2LXj8Z3/dQ7ShwY///bJ1UimqIF0xwWI/Yvb93o6CFZR+2a/OhiZDRHM
-	SO3VQofAdYgP54lEey1w==
-Received: from nasanppmta02.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3xcbg307e0-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 08 Apr 2024 08:45:06 +0000 (GMT)
-Received: from nasanex01c.na.qualcomm.com (nasanex01c.na.qualcomm.com
- [10.45.79.139])
-	by NASANPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
- 4388j4fo010728
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 8 Apr 2024 08:45:04 GMT
-Received: from [10.216.2.95] (10.80.80.8) by nasanex01c.na.qualcomm.com
- (10.45.79.139) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.4; Mon, 8 Apr 2024
- 01:44:58 -0700
-Message-ID: <c2708201-64ae-0e5a-edcc-08b8ad0e999d@quicinc.com>
-Date: Mon, 8 Apr 2024 14:14:52 +0530
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6144DF800C9
+	for <alsa-devel@alsa-project.org>; Mon,  8 Apr 2024 11:11:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6144DF800C9
+X-SpamFilter-By: ArmorX SpamTrap 5.78 with qID 4389B6X201703306,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (rtexh36505.realtek.com.tw[172.21.6.25])
+	by rtits2.realtek.com.tw (8.15.2/2.95/5.92) with ESMTPS id 4389B6X201703306
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 8 Apr 2024 17:11:06 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXH36505.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.35; Mon, 8 Apr 2024 17:11:07 +0800
+Received: from localhost.localdomain (172.22.102.111) by
+ RTEXMBS01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.35; Mon, 8 Apr 2024 17:11:06 +0800
+From: <derek.fang@realtek.com>
+To: <broonie@kernel.org>, <lgirdwood@gmail.com>
+CC: <alsa-devel@alsa-project.org>, <lars@metafoo.de>, <flove@realtek.com>,
+        <oder_chiou@realtek.com>, <jack.yu@realtek.com>,
+        <shumingf@realtek.com>, <albertchen@realtek.com>,
+        <nico_cui@realsil.com.cn>, Derek Fang
+	<derek.fang@realtek.com>
+Subject: [PATCH 1/2] ASoC: rt5645: Fix the electric noise due to the CBJ
+ contacts floating
+Date: Mon, 8 Apr 2024 17:10:56 +0800
+Message-ID: <20240408091057.14165-1-derek.fang@realtek.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Subject: Re: [RESEND v3 0/2] Add support for QCM6490 and QCS6490
-Content-Language: en-US
-To: Krzysztof Kozlowski <krzk@kernel.org>,
-        Srinivas Kandagatla
-	<srinivas.kandagatla@linaro.org>,
-        Banajit Goswami <bgoswami@quicinc.com>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        "Rob
- Herring" <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        "Conor
- Dooley" <conor+dt@kernel.org>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
-	<tiwai@suse.com>
-CC: <linux-arm-msm@vger.kernel.org>, <alsa-devel@alsa-project.org>,
-        <linux-sound@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <quic_rohkumar@quicinc.com>
-References: <20240408042331.403103-1-quic_mohs@quicinc.com>
- <67ca18b4-0904-41e4-8218-ecb2016d532d@kernel.org>
-From: Mohammad Rafi Shaik <quic_mohs@quicinc.com>
-In-Reply-To: <67ca18b4-0904-41e4-8218-ecb2016d532d@kernel.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nasanex01c.na.qualcomm.com (10.45.79.139)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: 4T7kCvwu9m1rGFpH5T2dTAgYnEKoJnZb
-X-Proofpoint-GUID: 4T7kCvwu9m1rGFpH5T2dTAgYnEKoJnZb
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-04-08_07,2024-04-05_02,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011
- priorityscore=1501 malwarescore=0 phishscore=0 spamscore=0 adultscore=0
- mlxlogscore=772 impostorscore=0 lowpriorityscore=0 suspectscore=0
- bulkscore=0 mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2404010003 definitions=main-2404080067
-Message-ID-Hash: LVZXOUKFBB6FG35WUQL3LYASLMNEMVDM
-X-Message-ID-Hash: LVZXOUKFBB6FG35WUQL3LYASLMNEMVDM
-X-MailFrom: quic_mohs@quicinc.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [172.22.102.111]
+X-ClientProxiedBy: RTEXH36506.realtek.com.tw (172.21.6.27) To
+ RTEXMBS01.realtek.com.tw (172.21.6.94)
+X-KSE-ServerInfo: RTEXMBS01.realtek.com.tw, 9
+X-KSE-AntiSpam-Interceptor-Info: fallback
+X-KSE-Antivirus-Interceptor-Info: fallback
+X-KSE-AntiSpam-Interceptor-Info: fallback
+X-KSE-ServerInfo: RTEXH36505.realtek.com.tw, 9
+X-KSE-AntiSpam-Interceptor-Info: fallback
+X-KSE-Antivirus-Interceptor-Info: fallback
+X-KSE-AntiSpam-Interceptor-Info: fallback
+Message-ID-Hash: VBGIZDB6U6B6CJS7S4HR6WFPZB4YC3OS
+X-Message-ID-Hash: VBGIZDB6U6B6CJS7S4HR6WFPZB4YC3OS
+X-MailFrom: derek.fang@realtek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -131,7 +92,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LVZXOUKFBB6FG35WUQL3LYASLMNEMVDM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VBGIZDB6U6B6CJS7S4HR6WFPZB4YC3OS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -140,28 +101,94 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 4/8/2024 11:26 AM, Krzysztof Kozlowski wrote:
-> On 08/04/2024 06:23, Mohammad Rafi Shaik wrote:
->> This patchset adds support for sound card on Qualcomm QCM6490 IDP and
->> QCS6490 RB3Gen2 boards.
->>
->> Changes since v2:
->> 	- Modify qcm6490 compatible name as qcm6490-idp. Suggested by Dmitry
->>
->> Changes since v1:
->> 	- Use existing sc8280xp machine driver instead of separate driver.
->> 	- Modify qcs6490 compatible name as qcs6490-rb3gen2.
->>
-> 
-> Why are you resending 15 minutes after previous round?
-> 
-> Best regards,
-> Krzysztof
-> 
-Found one mistake in cover-letter.
-Instead of qcm6490-idp given qcs6490-idp.
+From: Derek Fang <derek.fang@realtek.com>
 
-Modified the cover-letter and reposted.
+The codec leaves tie combo jack's sleeve/ring2 to floating status
+default. It would cause electric noise while connecting the active
+speaker jack during boot or shutdown.
+This patch requests a gpio to control the additional jack circuit
+to tie the contacts to the ground or floating.
 
-Thanks & Regards,
-Rafi.
+Signed-off-by: Derek Fang <derek.fang@realtek.com>
+
+diff --git a/sound/soc/codecs/rt5645.c b/sound/soc/codecs/rt5645.c
+index e3ba04484813..d0d24a53df74 100644
+--- a/sound/soc/codecs/rt5645.c
++++ b/sound/soc/codecs/rt5645.c
+@@ -444,6 +444,7 @@ struct rt5645_priv {
+ 	struct regmap *regmap;
+ 	struct i2c_client *i2c;
+ 	struct gpio_desc *gpiod_hp_det;
++	struct gpio_desc *gpiod_cbj_sleeve;
+ 	struct snd_soc_jack *hp_jack;
+ 	struct snd_soc_jack *mic_jack;
+ 	struct snd_soc_jack *btn_jack;
+@@ -3186,6 +3187,9 @@ static int rt5645_jack_detect(struct snd_soc_component *component, int jack_inse
+ 		regmap_update_bits(rt5645->regmap, RT5645_IN1_CTRL2,
+ 			RT5645_CBJ_MN_JD, 0);
+ 
++		if (rt5645->gpiod_cbj_sleeve)
++			gpiod_set_value(rt5645->gpiod_cbj_sleeve, 1);
++
+ 		msleep(600);
+ 		regmap_read(rt5645->regmap, RT5645_IN1_CTRL3, &val);
+ 		val &= 0x7;
+@@ -3202,6 +3206,8 @@ static int rt5645_jack_detect(struct snd_soc_component *component, int jack_inse
+ 			snd_soc_dapm_disable_pin(dapm, "Mic Det Power");
+ 			snd_soc_dapm_sync(dapm);
+ 			rt5645->jack_type = SND_JACK_HEADPHONE;
++			if (rt5645->gpiod_cbj_sleeve)
++				gpiod_set_value(rt5645->gpiod_cbj_sleeve, 0);
+ 		}
+ 		if (rt5645->pdata.level_trigger_irq)
+ 			regmap_update_bits(rt5645->regmap, RT5645_IRQ_CTRL2,
+@@ -3229,6 +3235,9 @@ static int rt5645_jack_detect(struct snd_soc_component *component, int jack_inse
+ 		if (rt5645->pdata.level_trigger_irq)
+ 			regmap_update_bits(rt5645->regmap, RT5645_IRQ_CTRL2,
+ 				RT5645_JD_1_1_MASK, RT5645_JD_1_1_INV);
++
++		if (rt5645->gpiod_cbj_sleeve)
++			gpiod_set_value(rt5645->gpiod_cbj_sleeve, 0);
+ 	}
+ 
+ 	return rt5645->jack_type;
+@@ -4012,6 +4021,16 @@ static int rt5645_i2c_probe(struct i2c_client *i2c)
+ 			return ret;
+ 	}
+ 
++	rt5645->gpiod_cbj_sleeve = devm_gpiod_get_optional(&i2c->dev, "cbj-sleeve",
++							   GPIOD_OUT_LOW);
++
++	if (IS_ERR(rt5645->gpiod_cbj_sleeve)) {
++		ret = PTR_ERR(rt5645->gpiod_cbj_sleeve);
++		dev_info(&i2c->dev, "failed to initialize gpiod, ret=%d\n", ret);
++		if (ret != -ENOENT)
++			return ret;
++	}
++
+ 	for (i = 0; i < ARRAY_SIZE(rt5645->supplies); i++)
+ 		rt5645->supplies[i].supply = rt5645_supply_names[i];
+ 
+@@ -4259,6 +4278,9 @@ static void rt5645_i2c_remove(struct i2c_client *i2c)
+ 	cancel_delayed_work_sync(&rt5645->jack_detect_work);
+ 	cancel_delayed_work_sync(&rt5645->rcclock_work);
+ 
++	if (rt5645->gpiod_cbj_sleeve)
++		gpiod_set_value(rt5645->gpiod_cbj_sleeve, 0);
++
+ 	regulator_bulk_disable(ARRAY_SIZE(rt5645->supplies), rt5645->supplies);
+ }
+ 
+@@ -4274,6 +4296,9 @@ static void rt5645_i2c_shutdown(struct i2c_client *i2c)
+ 		0);
+ 	msleep(20);
+ 	regmap_write(rt5645->regmap, RT5645_RESET, 0);
++
++	if (rt5645->gpiod_cbj_sleeve)
++		gpiod_set_value(rt5645->gpiod_cbj_sleeve, 0);
+ }
+ 
+ static int __maybe_unused rt5645_sys_suspend(struct device *dev)
+-- 
+2.34.1
+

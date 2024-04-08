@@ -2,105 +2,127 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7FB78A9AC6
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Apr 2024 15:03:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD77E8A9ECA
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Apr 2024 17:44:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8B1D0DEE;
-	Thu, 18 Apr 2024 15:03:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B1D0DEE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 334F3DEE;
+	Thu, 18 Apr 2024 17:44:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 334F3DEE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1713445424;
-	bh=Zb0FoMjxs0n61sYEGfUe+TJZmKIF3dIF1soB4gHZJSs=;
-	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=FlOs58EJYGs6fD1+TJLSekCIX4qhhm9W//5OgclKnxMFRqKLUQc7bWhebehrq127J
-	 xizw+kfkK8Hk/jdoxnCzjugOZJagkxs6/MwJhz+9Qv1uqTYAUKAjDzoG7d26qW6hsV
-	 WfSTajhhWk64L+tKVHXnv1/mPgCYmmDGq1emIVps=
+	s=default; t=1713455064;
+	bh=RRyqPnteX9svo/FeqH7qejShvl+Wu9J6rtShURC1Bwc=;
+	h=Date:From:To:Cc:Subject:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=iaxhr0n99q5IOuuiexX4EhMtfjsJV2iQdySHpg2PcQP0Fi7GJvcYUkfXTqiFzQ7dF
+	 INmdD6b6ckIgFLyHTkbhtCvkX1SwI+bG7+IJpBQH8kMkkhj29KcY8/YBlxpluxFu65
+	 IpOcmcyh2ices3b4vNE7T+okE4xrE6vjOYyLDrFU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EF578F8058C; Thu, 18 Apr 2024 15:03:12 +0200 (CEST)
+	id 43C30F80578; Thu, 18 Apr 2024 17:43:51 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8A2D7F8025A;
-	Thu, 18 Apr 2024 15:03:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9CADFF80589;
+	Thu, 18 Apr 2024 17:43:51 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F2A78F8025A; Thu, 18 Apr 2024 15:03:06 +0200 (CEST)
+	id E8DFDF8026D; Mon,  8 Apr 2024 10:10:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [IPv6:2a00:1450:4864:20::534])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 512CAF8013D
-	for <alsa-devel@alsa-project.org>; Thu, 18 Apr 2024 15:02:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 512CAF8013D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4C398F80130
+	for <alsa-devel@alsa-project.org>; Mon,  8 Apr 2024 10:10:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4C398F80130
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=WDVttgJs
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 43I4jfe8023908;
-	Thu, 18 Apr 2024 08:02:53 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	date:from:to:cc:subject:message-id:references:mime-version
-	:content-type:in-reply-to; s=PODMain02222019; bh=r8zK1/13z0HJ+6I
-	XCaTJo+f0tyrzjy+dr5hvebpgKvk=; b=WDVttgJs4TWFLFOt2u3HwGc82O4VJMZ
-	JpPLaIEPA560L2ISXdpx49dIaNfSduSevhxJrzZXrRwPh4BSGjMHS7GsO2LsRTdv
-	ogzz31p4bfkyLdR3hHWa3+kJ0H3rNZAU/gFOPyYglee3TXqQYbL58nsz+Vtyilby
-	NpBjwk33k5SZr/se6ZT5IgNETpzQk8FTYZZYt3C49J7iPYCntUamC4JxKDRcHB07
-	1aJ6YrK3KSwRDMzdWIUooaiLQbbVJNyi0FvcPKLEWmS0UinljgXCnbOOTpZPIdQp
-	6eeWjSLqcs8sdXI+ILeTi5TfLkKf2pbrZ2WE9AjCykfTBRr/83WJcew==
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3xfqeycrt1-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 18 Apr 2024 08:02:52 -0500 (CDT)
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 18 Apr
- 2024 14:02:50 +0100
-Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1544.9 via Frontend Transport; Thu, 18 Apr 2024 14:02:50 +0100
-Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com
- [198.61.86.93])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPS id B47C1820245;
-	Thu, 18 Apr 2024 13:02:50 +0000 (UTC)
-Date: Thu, 18 Apr 2024 13:02:49 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Maciej Strozek <mstrozek@opensource.cirrus.com>
-CC: Mark Brown <broonie@kernel.org>, <patches@opensource.cirrus.com>,
-        <alsa-devel@alsa-project.org>, <linux-spi@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2] spi: cs42l43: Correct name of ACPI property
-Message-ID: <ZiEZ+aSNM0d1/X+2@ediswmail9.ad.cirrus.com>
-References: <20240418103315.1487267-1-mstrozek@opensource.cirrus.com>
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=Pp8ihlE1
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-56e56ee8d5cso976417a12.2
+        for <alsa-devel@alsa-project.org>;
+ Mon, 08 Apr 2024 01:10:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1712563818; x=1713168618;
+ darn=alsa-project.org;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=zrHqjLybF7CJnuNHXKR+lEoGvKA0pqz74L9RRTV+fT8=;
+        b=Pp8ihlE1aCJZCuHhOvPOj07gYU21kWE+9zR58o0f8nbSSBQqrBlIxlTEIWLeSM7OF3
+         EMeQ/1/bLhmFxPVa4GgLzi4pvwFjkBv2m3toQOG9trOELjNp1rMvCpSugfwI+Tj1lGYn
+         GqIHOVXN+cuIxhrDOPoF2hTt9/mh7MapN29KAYYps5JXqlD/ZgXhI5Pedi1nwr9OUsaH
+         lczk8U2tt+EKHgIdtxwKT6gHA6SxPmTmMOpbo+IsfbHTbMQ+buQ4sISZ3AzfcyH3L7Ic
+         MvkfrrfFRUR73umST8MMXoI77xX1gM2Cp+6m0hl5HWoyTOF7W9ZOHuw/i4KWHt3nDezI
+         Et5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1712563818; x=1713168618;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=zrHqjLybF7CJnuNHXKR+lEoGvKA0pqz74L9RRTV+fT8=;
+        b=RytKLnEC2ORqCnbkbvwzjkm1LwvLVV2AV2cpodMMkH5OmFtqujm7pf47GJ9yWGewIE
+         DC+nBEu/MnPPEIua9+drflIWEr95jsft5QOa5Hw+tWcgNhTJFwDm5NTariDmjCCcQslr
+         81o/Tq6TGcqjQ4i1HnH5O8BkSnE9YlWUkLWklGFLQIKqOyc9TCOnQ7nJRnsI/fL0p9Lp
+         smXBk03JOA1UpQ6xX2mlLJDOHdzRhkknb4G6n7Sq8Wwz1iGQjRIfEbWyDdYAMgTTQMPB
+         7NRyVgTQL6ZtTQ2wnO4DMuIMD3aoeYtqOOe94Upm4Fye5nq/u1WAToQ7xhULOuc9HF/D
+         h0Pg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWA0P7kWpI/I+bK5e09gn0m6U1sZaE4PHHINmk+UmUXA8KmNSsKEewdOJuQJkiUhOrScK3BVOJ7YcBVDC9MBxtUEt22cLwR8Vkfn8I=
+X-Gm-Message-State: AOJu0Yy5De/4pmmneqkdzL5oH6Gpmxdmq0YDObLUoEd1foyB8BSgjeqJ
+	dzaTnM+69lDXQvxbOQ4qnRAeSi9wYQWfJWu1rBR7O3YBhfvrKP0ttWN/XAXoKY0=
+X-Google-Smtp-Source: 
+ AGHT+IFaWJ0ko+880OE4+Ydorjjhc+EVFX8MZM5sS9kOSFgetr0n6d6xvsAp8RTPVZNNLK44nNU7nQ==
+X-Received: by 2002:a17:906:fcab:b0:a51:8a78:d2ff with SMTP id
+ qw11-20020a170906fcab00b00a518a78d2ffmr5620413ejb.34.1712563818217;
+        Mon, 08 Apr 2024 01:10:18 -0700 (PDT)
+Received: from localhost ([102.222.70.76])
+        by smtp.gmail.com with ESMTPSA id
+ my46-20020a1709065a6e00b00a4735e440e1sm4149587ejc.97.2024.04.08.01.10.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 08 Apr 2024 01:10:17 -0700 (PDT)
+Date: Mon, 8 Apr 2024 10:35:59 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Brent Lu <brent.lu@intel.com>
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>, Terry Cheong <htcheong@chromium.org>,
+	Uday M Bhat <uday.m.bhat@intel.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Mac Chiang <mac.chiang@intel.com>, apoorv <apoorv@intel.com>,
+	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
+Subject: [PATCH] ASoC: Intel: sof_rt5682: Fix uninitialized variable in probe
+Message-ID: <6e16433f-1897-46a2-b3ee-e177e7d846b8@moroto.mountain>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20240418103315.1487267-1-mstrozek@opensource.cirrus.com>
-X-Proofpoint-GUID: xcKt_Uew1h2qac4f3ucpYGS5MbEk8KYz
-X-Proofpoint-ORIG-GUID: xcKt_Uew1h2qac4f3ucpYGS5MbEk8KYz
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: 7C7YRE7K2QEAWTYQD3MHJLCL54BH66RO
-X-Message-ID-Hash: 7C7YRE7K2QEAWTYQD3MHJLCL54BH66RO
-X-MailFrom: prvs=1838e553da=ckeepax@opensource.cirrus.com
+X-Mailer: git-send-email haha only kidding
+X-MailFrom: dan.carpenter@linaro.org
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: UBPGLTUETTUIZOASUV6QO4OWWQVIW2R4
+X-Message-ID-Hash: UBPGLTUETTUIZOASUV6QO4OWWQVIW2R4
+X-Mailman-Approved-At: Thu, 18 Apr 2024 15:43:45 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7C7YRE7K2QEAWTYQD3MHJLCL54BH66RO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UBPGLTUETTUIZOASUV6QO4OWWQVIW2R4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,13 +131,28 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, Apr 18, 2024 at 11:33:15AM +0100, Maciej Strozek wrote:
-> Fixes: 439fbc97502a ("spi: cs42l43: Add bridged cs35l56 amplifiers")
-> 
-> Signed-off-by: Maciej Strozek <mstrozek@opensource.cirrus.com>
-> ---
+Initialize "is_legacy_cpu" to false to prevent an uninitialized variable
+bug.
 
-Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Fixes: 8efcd4864652 ("ASoC: Intel: sof_rt5682: use common module for sof_card_private initialization")
+Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+---
+ sound/soc/intel/boards/sof_rt5682.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks,
-Charles
+diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
+index aadd341a202c..966bcd3e8bdc 100644
+--- a/sound/soc/intel/boards/sof_rt5682.c
++++ b/sound/soc/intel/boards/sof_rt5682.c
+@@ -606,7 +606,7 @@ static int sof_audio_probe(struct platform_device *pdev)
+ {
+ 	struct snd_soc_acpi_mach *mach = pdev->dev.platform_data;
+ 	struct sof_card_private *ctx;
+-	bool is_legacy_cpu;
++	bool is_legacy_cpu = false;
+ 	int ret;
+ 
+ 	if (pdev->id_entry && pdev->id_entry->driver_data)
+-- 
+2.43.0
+

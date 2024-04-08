@@ -2,119 +2,112 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71A2189BF81
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 Apr 2024 14:54:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09EF489C2DF
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 Apr 2024 15:36:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6549C21B5;
-	Mon,  8 Apr 2024 14:54:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6549C21B5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4EEFA233F;
+	Mon,  8 Apr 2024 15:35:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4EEFA233F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712580873;
-	bh=WEyYkpof9FQ9wxzmt9yxgXdvUZ5yezofqlz1rRRr7SE=;
+	s=default; t=1712583364;
+	bh=MKEJkIg+7b5Q63SxsKbj/le6LRd0RObiYTnv/jfJonE=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=JUiVa+M9P0FjxQiKKQgkH11vtGW4OvWmL2F/mi7ldX3PXmZiJQen20JOI0qFFLaW1
-	 RSsxmP5o5zYU8ET1nImgoW7m0vorsssr85r+GSYilt7D1snKMXmpkjg58M6BxAH1qp
-	 m8+6+osC9nELvqZsTJULCbkQgNQLCpUQ68Ey3MNg=
+	b=TjFYS6904Ck/byDucd6uRvWkJw5S8CSD6nP/1F8/bPUhAlO/jx/UnbpgZz2d2TYYi
+	 QoiEuAw/MJ56amOn/+6t6D3ML1YAk7oqdSNRg5/o/S2CRXhz5mQ2bbmsP0F5MuG0cv
+	 UhBffwwn5DJKsEcT5mfEM57g/sh7Exdqm2m5AWVw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5CE1DF805A0; Mon,  8 Apr 2024 14:54:02 +0200 (CEST)
+	id C9D2AF805AB; Mon,  8 Apr 2024 15:35:32 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9BBBBF80588;
-	Mon,  8 Apr 2024 14:54:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0AB07F80579;
+	Mon,  8 Apr 2024 15:35:32 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 90B1FF8026D; Mon,  8 Apr 2024 14:53:58 +0200 (CEST)
+	id 093D4F8026D; Mon,  8 Apr 2024 15:35:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_SBL_CSS,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [IPv6:2a00:1450:4864:20::32c])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No,
+ score=-4.8 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 24158F80130
-	for <alsa-devel@alsa-project.org>; Mon,  8 Apr 2024 14:53:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24158F80130
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=lgeSI49k
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-4165caf9b2dso11046795e9.1
-        for <alsa-devel@alsa-project.org>;
- Mon, 08 Apr 2024 05:53:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1712580833; x=1713185633;
- darn=alsa-project.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=EIfWhO56deLbZSEvQDXUk02FMIpJsCPYMFdPM9Dpyf8=;
-        b=lgeSI49kNiMiL/2AlJduV4FmGzjvPZZcaGaaDS1dW9sao9OjWNQvmczcfZvxSK56hE
-         a0Z8MsxhEG5ZC8LcTh7xvBlOsn/FIvNLeeQZ64aPCjstHM89QKFfXaGGgiV6hzcfaaHP
-         Ldv8ivK2TFZyHlg2hMwhjxKQtbLEUxJ0swrIO1eUHjWiHhyDMvghxNq03OkSMDdUOLDH
-         LyD/c9Dc1GlhTP1xguZb2GpJrfd5uo6Er7dOyOmhzGad+FlJMmb1ZIvSSDghOkDHc2WR
-         ck8Xdoz4I6r0aWAEh2YYynVUBby2FqtBprRVSbGaa/A/Em4xbTrvDJ+8xc3bH2qCiq/C
-         voPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712580833; x=1713185633;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=EIfWhO56deLbZSEvQDXUk02FMIpJsCPYMFdPM9Dpyf8=;
-        b=j2OFZ4xADbY+WZz5i72fI56cyTOFp0cWDJk0WvOLjTbzI7Q121QNt9q8JXym6PlTIi
-         IBS73s4bkkdDLGJSQiDS0MPm5oQl+owb+aMaIe7d62gI7GsUXNpw4bDT+8ZKGseRD5EG
-         K4PsW2rnhSRV6L8HqYJ9kH+K0BoOgpK9W3SOqmKub2pUMUsSKQmIOEwIbfIzSwFXBNMB
-         wL5OYpcS14/abvDqyh3iYlkPhtA0Efu3N9hK5HWgSzTO/1VXYBDAC9ImXuPJh/TBuR1q
-         g5wf6K1gqWsnzKcBbi5uyYEiLiklvxZZjsepI0n8MTaPiSnh1nYqRQBkXLpyqS7F292G
-         5ieA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUHfKnfNc8vla2kT1fiYnQBuy9jifJT/e8LwoDMQWbfL1a71mUuFsZk0jsxm6KruwZs5sV2dF4bKqtzyGjfLEZMGBUY1c0S4PoKwuw=
-X-Gm-Message-State: AOJu0Yw9Z+keOcHm++wrkb9dGQTFim1/4Ag9HpkOH6jnUxAOsPk/bGIC
-	4e+GxDTPZ1vCYXckVHnj+30FRWA2gAUR/8tfnub7sUfTkhpvo6+/4SVPd4hDh2U=
-X-Google-Smtp-Source: 
- AGHT+IHyE5Dd+kfClSIf5iATYVOm+3kL+yD0XMIPSdxm4HEG5u0fs2phS7pNvDc9p8PpDMGtMsfFfg==
-X-Received: by 2002:a05:600c:3b8b:b0:414:8889:5a2e with SMTP id
- n11-20020a05600c3b8b00b0041488895a2emr8878647wms.30.1712580833297;
-        Mon, 08 Apr 2024 05:53:53 -0700 (PDT)
-Received: from [192.168.1.195] ([5.133.47.210])
-        by smtp.googlemail.com with ESMTPSA id
- bg8-20020a05600c3c8800b00414807ef8dfsm13342654wmb.5.2024.04.08.05.53.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 08 Apr 2024 05:53:52 -0700 (PDT)
-Message-ID: <baa6543c-5e2e-4f28-a95b-a086b32d1f2d@linaro.org>
-Date: Mon, 8 Apr 2024 13:53:51 +0100
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0C697F800C9
+	for <alsa-devel@alsa-project.org>; Mon,  8 Apr 2024 15:35:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C697F800C9
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id 031EBCE131C;
+	Mon,  8 Apr 2024 13:35:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3F87C433C7;
+	Mon,  8 Apr 2024 13:35:04 +0000 (UTC)
+Message-ID: <dc025dd5-e151-49a9-b2c0-1a5764a08723@xs4all.nl>
+Date: Mon, 8 Apr 2024 15:35:03 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RESEND v3 2/2] ASoC: qcom: sc8280xp: Add support for QCM6490 and
- QCS6490
-To: Bjorn Andersson <andersson@kernel.org>,
- Mohammad Rafi Shaik <quic_mohs@quicinc.com>
-Cc: Banajit Goswami <bgoswami@quicinc.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, linux-arm-msm@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- quic_rohkumar@quicinc.com
-References: <20240408042331.403103-1-quic_mohs@quicinc.com>
- <20240408042331.403103-3-quic_mohs@quicinc.com>
- <45yy3cvepk4uwi2jdmh4w6l5ac3dffqhbot6xzv2bwjvo637ss@pryzth2hghyu>
-Content-Language: en-US
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <45yy3cvepk4uwi2jdmh4w6l5ac3dffqhbot6xzv2bwjvo637ss@pryzth2hghyu>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: DUQDJVA3PUB3MOEBXWWASZUJABXGC5IJ
-X-Message-ID-Hash: DUQDJVA3PUB3MOEBXWWASZUJABXGC5IJ
-X-MailFrom: srinivas.kandagatla@linaro.org
+Subject: Re: [GIT PULL FOR v6.10] Add imx-asrc m2m audio rate control driver
+Content-Language: en-US, nl
+To: Shengjiu Wang <shengjiu.wang@nxp.com>
+Cc: Linux Media Mailing List <linux-media@vger.kernel.org>,
+ Mark Brown <broonie@kernel.org>, alsa-devel@alsa-project.org,
+ Mauro Carvalho Chehab <maurochehab@gmail.com>
+References: <369cc35b-9625-4512-bb7a-7d5ccfe28e5c@xs4all.nl>
+ <20240321155754.66681c24@coco.lan>
+From: Hans Verkuil <hverkuil@xs4all.nl>
+Autocrypt: addr=hverkuil@xs4all.nl; keydata=
+ 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
+In-Reply-To: <20240321155754.66681c24@coco.lan>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: TMU3KKCPH27ZOB7MP6KWSDGSI5MJIHUD
+X-Message-ID-Hash: TMU3KKCPH27ZOB7MP6KWSDGSI5MJIHUD
+X-MailFrom: SRS0=8U8k=LN=xs4all.nl=hverkuil@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -126,7 +119,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DUQDJVA3PUB3MOEBXWWASZUJABXGC5IJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TMU3KKCPH27ZOB7MP6KWSDGSI5MJIHUD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -135,56 +128,192 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Hi Shengjiu,
 
-
-On 08/04/2024 13:45, Bjorn Andersson wrote:
-> On Mon, Apr 08, 2024 at 09:53:31AM +0530, Mohammad Rafi Shaik wrote:
->> Add compatibles for sound card on Qualcomm QCM6490 IDP and
->> QCS6490 RB3Gen2 boards.
->>
->> Signed-off-by: Mohammad Rafi Shaik <quic_mohs@quicinc.com>
->> ---
->>   sound/soc/qcom/sc8280xp.c | 2 ++
->>   1 file changed, 2 insertions(+)
->>
->> diff --git a/sound/soc/qcom/sc8280xp.c b/sound/soc/qcom/sc8280xp.c
->> index b7fd503a1666..878bd50ad4a7 100644
->> --- a/sound/soc/qcom/sc8280xp.c
->> +++ b/sound/soc/qcom/sc8280xp.c
->> @@ -169,6 +169,8 @@ static int sc8280xp_platform_probe(struct platform_device *pdev)
->>   }
->>   
->>   static const struct of_device_id snd_sc8280xp_dt_match[] = {
->> +	{.compatible = "qcom,qcm6490-idp-sndcard", "qcm6490"},
->> +	{.compatible = "qcom,qcs6490-rb3gen2-sndcard", "qcs6490"},
+On 21/03/2024 15:57, Mauro Carvalho Chehab wrote:
+> Em Tue, 19 Mar 2024 16:15:35 +0100
+> Hans Verkuil <hverkuil@xs4all.nl> escreveu:
 > 
-> We now have 4 <platform>-sndcard and two <board>-sndcard compatibles
-> here.
+>> Hi Mauro,
+>>
+>> This adds support for the imx-asrc m2m audio rate control driver. Most of these
+>> patches add support for the new v4l-audioX device nodes and related types,
+>> and adding support for fixed point control types.
+>>
+>> The ASoC patches have been acked by Mark Brown.
+>>
+>> It also adds a vim2m-audio test driver so we can test the v4l-audio infrastructure.
+>>
+>> Since V4L2 is fourcc-based all the way, directly using snd_pcm_format_t values
+>> is not an option: fourcc's are expected to be printable characters, and it is
+>> pretty much certain that there are applications that show it like that to the
+>> end-user. The utilities in v4l-utils certainly do, and it is in fact a
+>> perfectly reasonable thing to do. So instead we map the snd_pcm_format_t value
+>> to a fourcc with v4l2_audfmt_to_fourcc and map it back with v4l2_fourcc_to_audfmt.
 > 
-> Not saying that your patch is wrong, but is this driver board-specific
-> or soc-specific? Srinivas, Krzysztof?
+> I still think that this can cause maintenance burden to sync up changes
+> from fourcc to snd_pcm_format_t for no good reason, as any apps that will
+> be working with this will require changes anyway to support the new
+> devnodes and ioctls.
 
-Normally this should be board specific.
+I will need more time to dig into this. I was on vacation for over a week, and
+after that I was very busy. This needs more time from me.
 
-In the past we made them SoC specific and provided a way to do board 
-specific changes based on compatible. Recently we stopped adding new 
-drivers as most of these drivers turned out to be identical and lots of 
-code duplication.
+But I haven't forgotten this, and it is on my todo list!
 
-Having these compatibles will help both the userspace UCM and provide 
-hooks to do any board/soc specific configurations.
+Regards,
 
-thanks,
-Srini
+	Hans
 
 > 
-> Regards,
-> Bjorn
+> With regards to printable fourcc values, it doesn't seem the best for audio.
+> I mean, for V4L2, when we had fourcc introduced, the formats were:
 > 
->>   	{.compatible = "qcom,sc8280xp-sndcard", "sc8280xp"},
->>   	{.compatible = "qcom,sm8450-sndcard", "sm8450"},
->>   	{.compatible = "qcom,sm8550-sndcard", "sm8550"},
->> -- 
->> 2.25.1
+> 	RGB3
+> 	BGR3
+> 	YUYV
+> 	...
+> 
+> so, just printing them as ASCII would make sense, but those days were
+> gone a very long time ago, as now we have fourccs like:
+> 
+> 	pBCC
+> 
+> Which you can't really know what it means, except by looking on its
+> definition:
+> 
+> 	#define V4L2_PIX_FMT_SBGGR12P v4l2_fourcc('p', 'B', 'C', 'C')
+> 
+> For audio, even today's proposal makes no sense to be printed as
+> ASCII. See, it is a lot clearer if userspace would print:
+> 
+> 	"PCM A-LAW"	# for ITU-T G711 A-law 8-bit encoding
+> 	"PCM μ-LAW"	# for ITU-T G711 μ-law 8-bit encoding
+> 	"PCM S8"	# for low-quality s8 encoding
+> 	...
+> 	"PCM S32_LE"
+> 	...
+> 
+> than any obfuscated fourccs:
+> 
+> 	"AUAL"		# currently missing at V4L2 proposal patch
+> 	"AUML"		# currently missing at V4L2 proposal patch
+> 	"AU00"
+> 	...
+> 	"AU10"
+> 	...
+> 
+> Besides that, there were never any warranty that fourccs are printable
+> at the media subsystem. I might be wrong but I guess we even used some
+> unprintable ones in the past.
+> 
+> 
+> So, the argument that new apps that will support audio will need to
+> receive a fourcc instead of snd_pcm_format_t sounds bogus to me.
+> 
+> Also, the current proposal misses lots of already-existing codes at
+> snd_pcm_format_t.
+> 
+> 
 >>
+>> This PR is using v15 of the patch series:
 >>
+>> https://patchwork.linuxtv.org/project/linux-media/list/?series=12460
+>>
+>> And the corresponding v4l-utils patch series is here:
+>>
+>> https://patchwork.linuxtv.org/user/todo/linux-media/?series=12074
+>>
+>> Regards,
+>>
+>> 	Hans
+>>
+>> The following changes since commit b14257abe7057def6127f6fb2f14f9adc8acabdb:
+>>
+>>   media: rcar-isp: Disallow unbind of devices (2024-03-07 16:35:13 +0100)
+>>
+>> are available in the Git repository at:
+>>
+>>   git://linuxtv.org/hverkuil/media_tree.git tags/br-audio
+>>
+>> for you to fetch changes up to af06c8792653c42d1f126505ec9180255091d94e:
+>>
+>>   media: vim2m-audio: add virtual driver for audio memory to memory (2024-03-19 15:55:38 +0100)
+>>
+>> ----------------------------------------------------------------
+>> Tag branch
+>>
+>> ----------------------------------------------------------------
+>> Hans Verkuil (1):
+>>       media: v4l2-ctrls: add support for fraction_bits
+>>
+>> Shengjiu Wang (15):
+>>       ASoC: fsl_asrc: define functions for memory to memory usage
+>>       ASoC: fsl_easrc: define functions for memory to memory usage
+>>       ASoC: fsl_asrc: move fsl_asrc_common.h to include/sound
+>>       ASoC: fsl_asrc: register m2m platform device
+>>       ASoC: fsl_easrc: register m2m platform device
+>>       media: uapi: Add V4L2_CAP_AUDIO_M2M capability flag
+>>       media: v4l2: Add audio capture and output support
+>>       media: uapi: Define audio sample format fourcc type
+>>       media: uapi: Add V4L2_CTRL_CLASS_M2M_AUDIO
+>>       media: uapi: Add audio rate controls support
+>>       media: uapi: Declare interface types for Audio
+>>       media: uapi: Add an entity type for audio resampler
+>>       media: vivid: add fixed point test controls
+>>       media: imx-asrc: Add memory to memory driver
+>>       media: vim2m-audio: add virtual driver for audio memory to memory
+>>
+>>  Documentation/userspace-api/media/mediactl/media-types.rst    |   11 +
+>>  Documentation/userspace-api/media/v4l/buffer.rst              |    6 +
+>>  Documentation/userspace-api/media/v4l/common.rst              |    1 +
+>>  Documentation/userspace-api/media/v4l/dev-audio-mem2mem.rst   |   71 +++
+>>  Documentation/userspace-api/media/v4l/devices.rst             |    1 +
+>>  Documentation/userspace-api/media/v4l/ext-ctrls-audio-m2m.rst |   59 +++
+>>  Documentation/userspace-api/media/v4l/pixfmt-audio.rst        |  100 ++++
+>>  Documentation/userspace-api/media/v4l/pixfmt.rst              |    1 +
+>>  Documentation/userspace-api/media/v4l/vidioc-enum-fmt.rst     |    2 +
+>>  Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst  |    4 +
+>>  Documentation/userspace-api/media/v4l/vidioc-g-fmt.rst        |    4 +
+>>  Documentation/userspace-api/media/v4l/vidioc-querycap.rst     |    3 +
+>>  Documentation/userspace-api/media/v4l/vidioc-queryctrl.rst    |   11 +-
+>>  Documentation/userspace-api/media/videodev2.h.rst.exceptions  |    3 +
+>>  MAINTAINERS                                                   |   17 +
+>>  drivers/media/common/videobuf2/videobuf2-v4l2.c               |    4 +
+>>  drivers/media/platform/nxp/Kconfig                            |   13 +
+>>  drivers/media/platform/nxp/Makefile                           |    1 +
+>>  drivers/media/platform/nxp/imx-asrc.c                         | 1256 +++++++++++++++++++++++++++++++++++++++++++++++++++
+>>  drivers/media/test-drivers/Kconfig                            |   10 +
+>>  drivers/media/test-drivers/Makefile                           |    1 +
+>>  drivers/media/test-drivers/vim2m-audio.c                      |  793 ++++++++++++++++++++++++++++++++
+>>  drivers/media/test-drivers/vivid/vivid-core.h                 |    2 +
+>>  drivers/media/test-drivers/vivid/vivid-ctrls.c                |   26 ++
+>>  drivers/media/v4l2-core/v4l2-compat-ioctl32.c                 |    9 +
+>>  drivers/media/v4l2-core/v4l2-ctrls-api.c                      |    1 +
+>>  drivers/media/v4l2-core/v4l2-ctrls-core.c                     |   93 +++-
+>>  drivers/media/v4l2-core/v4l2-ctrls-defs.c                     |   10 +
+>>  drivers/media/v4l2-core/v4l2-dev.c                            |   21 +
+>>  drivers/media/v4l2-core/v4l2-ioctl.c                          |   66 +++
+>>  drivers/media/v4l2-core/v4l2-mem2mem.c                        |   13 +-
+>>  include/media/v4l2-ctrls.h                                    |   13 +-
+>>  include/media/v4l2-dev.h                                      |    2 +
+>>  include/media/v4l2-ioctl.h                                    |   34 ++
+>>  {sound/soc/fsl => include/sound}/fsl_asrc_common.h            |   60 +++
+>>  include/uapi/linux/media.h                                    |    2 +
+>>  include/uapi/linux/v4l2-controls.h                            |    9 +
+>>  include/uapi/linux/videodev2.h                                |   50 +-
+>>  sound/soc/fsl/fsl_asrc.c                                      |  144 ++++++
+>>  sound/soc/fsl/fsl_asrc.h                                      |    4 +-
+>>  sound/soc/fsl/fsl_asrc_dma.c                                  |    2 +-
+>>  sound/soc/fsl/fsl_easrc.c                                     |  233 ++++++++++
+>>  sound/soc/fsl/fsl_easrc.h                                     |    6 +-
+>>  43 files changed, 3145 insertions(+), 27 deletions(-)
+>>  create mode 100644 Documentation/userspace-api/media/v4l/dev-audio-mem2mem.rst
+>>  create mode 100644 Documentation/userspace-api/media/v4l/ext-ctrls-audio-m2m.rst
+>>  create mode 100644 Documentation/userspace-api/media/v4l/pixfmt-audio.rst
+>>  create mode 100644 drivers/media/platform/nxp/imx-asrc.c
+>>  create mode 100644 drivers/media/test-drivers/vim2m-audio.c
+>>  rename {sound/soc/fsl => include/sound}/fsl_asrc_common.h (60%)
+>>
+> 
+

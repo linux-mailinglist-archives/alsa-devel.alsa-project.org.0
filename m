@@ -2,124 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2C6F89CAB4
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 Apr 2024 19:23:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D9E789CAB5
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 Apr 2024 19:24:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D434F23CF;
-	Mon,  8 Apr 2024 19:23:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D434F23CF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 21B4423DE;
+	Mon,  8 Apr 2024 19:24:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 21B4423DE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712597032;
-	bh=9YZUFujOhMTTG62YTRxcfo0Pxm72VS2PmasBoZHfmRw=;
+	s=default; t=1712597054;
+	bh=PSdUNjxecv9/EH8TvrTsRyagADl80n4dir3Oe48bPOI=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=XRriynR8kwfvgJ+FFn11SnifXVYRkUni7HyQA8f5fEOVTqrtR/SCiFyzr+RKwICaY
-	 lE0sNH7fCah7xUP/r06ctOHYfp1+09HuiET3Fv6tSKsuY1EujksKdN2oK0iThEknef
-	 EXRY+vepk6syjxc1TZPoV+uH5jjrD0qDJeMvME8A=
+	b=ULg02jKotosZaIhzY45cNH+nnkDjeX7fGwhTHaZjrKfialExtkQvO+Rd1Kfoj7B0J
+	 q0ZpfkbYmQM3gvVGqiFnDLkMO5ifodaxY58qz999yH9fqO1GaWVN1OtE/CVgPvt4kN
+	 NZuMKgjtvYNufFKJyNLGKL2yCNVPmkXMyVaaX5vI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2EC93F805BA; Mon,  8 Apr 2024 19:23:11 +0200 (CEST)
+	id 3290DF805F3; Mon,  8 Apr 2024 19:23:15 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4BA39F805B0;
-	Mon,  8 Apr 2024 19:23:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 22D36F805E6;
+	Mon,  8 Apr 2024 19:23:15 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 68691F8028B; Mon,  8 Apr 2024 19:23:06 +0200 (CEST)
+	id 81093F805B0; Mon,  8 Apr 2024 19:23:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+X-Spam-Status: No, score=-3.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_NONE
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4C1BBF80238
+	by alsa1.perex.cz (Postfix) with ESMTPS id 61CDAF8026D
 	for <alsa-devel@alsa-project.org>; Mon,  8 Apr 2024 19:23:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4C1BBF80238
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61CDAF8026D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=aZRUFVI3
+ header.s=Intel header.b=jUeIjzTl
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1712596981; x=1744132981;
+  t=1712596982; x=1744132982;
   h=message-id:date:mime-version:subject:to:cc:references:
    from:in-reply-to:content-transfer-encoding;
-  bh=9YZUFujOhMTTG62YTRxcfo0Pxm72VS2PmasBoZHfmRw=;
-  b=aZRUFVI3yCaLiTmj1QS4mbrtE2p8o52v9YGJWPP5CC3sBg6V4mUEZeDF
-   /5cmCrSC5SRRLw6OzKIMlrEZk4ForaI36ENCvgGkVdr6eGHKlSGmiXA6v
-   O1Zdzvr7S/nblecN1Cruj4WiYVIhukW9rSjWRJcfdgcclJD7s2rux6UHn
-   sZ9LU4nGer12/ffeERTZqS6W+9UvspDqWDfjWRaxvG4OW91xBs7Gezxl7
-   vhm1vxM3L9yhRRWRtq4o8dEJNboDtKMPpZLibvC6gREeSvQ8aKAH+FW33
-   VXm4ZGCA8Q5i/StJ6uqwUATozLNCyOvi2Tj5Nbc2mpmxqGIUkH0K1PQI6
-   A==;
-X-CSE-ConnectionGUID: VNxMNDKESfu3S1KMxS4qrA==
-X-CSE-MsgGUID: Yofnv2ENR+Gq3bh5AQ4tGQ==
-X-IronPort-AV: E=McAfee;i="6600,9927,11038"; a="7757441"
+  bh=PSdUNjxecv9/EH8TvrTsRyagADl80n4dir3Oe48bPOI=;
+  b=jUeIjzTlJSj3aLsevjMC2f8HosHPA3Qa3VdKuWas4gMh1DvFFIRbHnyl
+   Xfg3FG1QCAsVcobtpWjSZ6T5WB+mUawz/4jlscImO203MedBoDUT1Zjy0
+   Ds1HQIy/76WW1/mv6iSlFqo2Z0VAsMdA6/uQyPcjfex06Eqg019pqTFg0
+   nIkbdfgnKvy7m9gnOqBL1BIq2jKoJIHskn2pOP1Y7RQXFgLS/764LpEZ2
+   JpEfxnMnbJDSTrLIoGVleB79Fef37K/94Bv0Zl/+SAHaNiFqW0AempNuc
+   iGW9d6eMcQmWaeGkBCNDKk96/uuk/rN5d2d4YVLiOjyhUZ6GbbxmlSRzx
+   w==;
+X-CSE-ConnectionGUID: odHhPbSeR3uN1ZzK8Q1/CQ==
+X-CSE-MsgGUID: mkyYIzhiSzSVlho+tdmiMw==
+X-IronPort-AV: E=McAfee;i="6600,9927,11038"; a="7757469"
 X-IronPort-AV: E=Sophos;i="6.07,187,1708416000";
-   d="scan'208";a="7757441"
+   d="scan'208";a="7757469"
 Received: from orviesa004.jf.intel.com ([10.64.159.144])
   by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Apr 2024 10:22:58 -0700
-X-CSE-ConnectionGUID: fG6IZotJT4u76Vx3qwpS7A==
-X-CSE-MsgGUID: izqID2hnQtuQZJDnjXRadA==
+ 08 Apr 2024 10:23:00 -0700
+X-CSE-ConnectionGUID: a8sq+q/VRRmRTSHSWV6cuw==
+X-CSE-MsgGUID: OlpQj4e/SoSchFFOlUJeuw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.07,187,1708416000";
-   d="scan'208";a="24697450"
+   d="scan'208";a="24697460"
 Received: from shahsmit-mobl1.amr.corp.intel.com (HELO [10.212.101.141])
  ([10.212.101.141])
   by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Apr 2024 10:22:56 -0700
-Message-ID: <acf98b6b-7c18-4f1e-ab8f-039c88679ab9@linux.intel.com>
-Date: Mon, 8 Apr 2024 10:34:25 -0500
+ 08 Apr 2024 10:22:59 -0700
+Message-ID: <ba585faa-d761-45ed-9e44-784097b3439a@linux.intel.com>
+Date: Mon, 8 Apr 2024 10:37:29 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/16] ASoC: soc-pcm.c: cleanup
- soc_get_playback_capture()
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: =?UTF-8?Q?Amadeusz_S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>,
- Alper Nebi Yasak <alpernebiyasak@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Banajit Goswami <bgoswami@quicinc.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>, Brent Lu <brent.lu@intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Daniel Baluta <daniel.baluta@nxp.com>, Hans de Goede <hdegoede@redhat.com>,
- Jaroslav Kysela <perex@perex.cz>, Jerome Brunet <jbrunet@baylibre.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Kevin Hilman <khilman@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Linus Walleij <linus.walleij@linaro.org>, Mark Brown <broonie@kernel.org>,
- Maso Huang <maso.huang@mediatek.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
+Subject: Re: [PATCH] ASoC: Intel: sof_rt5682: Fix uninitialized variable in
+ probe
+To: Dan Carpenter <dan.carpenter@linaro.org>, Brent Lu <brent.lu@intel.com>
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
  Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
  Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>,
- Shengjiu Wang <shengjiu.wang@gmail.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>, Takashi Iwai <tiwai@suse.com>,
- Trevor Wu <trevor.wu@mediatek.com>, Vinod Koul <vkoul@kernel.org>,
- Xiubo Li <Xiubo.Lee@gmail.com>, alsa-devel@alsa-project.org,
- imx@lists.linux.dev, linux-sound@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com
-References: <87zfuesz8y.wl-kuninori.morimoto.gx@renesas.com>
- <87y19xudor.wl-kuninori.morimoto.gx@renesas.com>
- <b4b37541-b67f-4593-9fd5-fc6242a0673a@linux.intel.com>
- <87zfuc7gya.wl-kuninori.morimoto.gx@renesas.com>
- <600cef67-ad90-4b67-8da7-2006339d430b@linux.intel.com>
- <874jch99m5.wl-kuninori.morimoto.gx@renesas.com>
- <40e23972-6745-48e2-81ae-4b93f2ee2dcc@linux.intel.com>
- <875xwwr60a.wl-kuninori.morimoto.gx@renesas.com>
- <87sezwecf1.wl-kuninori.morimoto.gx@renesas.com>
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, Mark Brown
+ <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Terry Cheong <htcheong@chromium.org>,
+ Uday M Bhat <uday.m.bhat@intel.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Mac Chiang <mac.chiang@intel.com>, apoorv <apoorv@intel.com>,
+ alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
+References: <6e16433f-1897-46a2-b3ee-e177e7d846b8@moroto.mountain>
 Content-Language: en-US
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <87sezwecf1.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <6e16433f-1897-46a2-b3ee-e177e7d846b8@moroto.mountain>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: Q7NS2YYNQBZ57DL335BUVWK6JX4I6WQF
-X-Message-ID-Hash: Q7NS2YYNQBZ57DL335BUVWK6JX4I6WQF
+Message-ID-Hash: RZZMIYRAAKUIODDPSXW6IIKCAZX7YWZH
+X-Message-ID-Hash: RZZMIYRAAKUIODDPSXW6IIKCAZX7YWZH
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -132,8 +111,9 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Q7NS2YYNQBZ57DL335BUVWK6JX4I6WQF/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RZZMIYRAAKUIODDPSXW6IIKCAZX7YWZH/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
@@ -142,83 +122,31 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
 
-On 4/7/24 22:55, Kuninori Morimoto wrote:
+On 4/8/24 02:35, Dan Carpenter wrote:
+> Initialize "is_legacy_cpu" to false to prevent an uninitialized variable
+> bug.
 > 
-> Hi Pierre-Louis, again
-> 
->> dpcm_xxx is used to declare that the DAI/dailink is possible to use
->> playback/capture. For example dpcm_playback means the DAI / dailink
->> should playback-able, if not it is error.
->>
->> xxx_only is used to limit the playback/capture.
->> For example the DAI / dailink can use both playback and capture,
->> but want to use playback only for some reasons, we can use playback_only.
-> 
-> My pervious patch-set was "try to merge dpcm_xxx and xxx_only flag",
-> but next patch will be "expand assertion flag to all connection".
-> This "assertion flag" was originaly dpcm_xxx.
-> 
-> In next patch-set, it will assume for example current "dpcm_playback"
-> as "playback_assertion". It can be used not only for DPCM, but
-> all connection, but is not mandatory option.
-> 
-> Its pseudo code is like below, but what do you think ?
-> 
-> 	soc_get_playback_capture(...)
-> 	{
-> 		...
-> 		/*
-> 		 * get HW / DAI availability
-> 		 */
-> 		for_each_rtd_ch_maps(...) {
-> 			...
-> 			has_playback = xxx;
-> 			has_capture  = xxx;
-> 		}
-> 
-> 		/*
-> 		 * "xxx_assersion" was "dpcm_xxx" before, but expand to
-> 		 * all connection. It is not mandatory option.
-> 		 * It will be error if dai_link has xxx_assersion flag,
-> 		 * but DAI was not valid
-> 		 */
-> 		if (dai_link->playback_assertion && !has_playback) {
-> 			dev_err(rtd->dev, ...);
-> 			return -EINVAL;
->  		}
-> 		if (dai_link->capture_assertion  && !has_capture) {
-> 			dev_err(rtd->dev, ...);
-> 			return -EINVAL;
-> 		}
-> 
-> 		/*
-> 		 * xxx_only flag limits availability. It will indicate warning
-> 		 * if DAI was not valid.
-> 		 */
-> 		if (dai_link->playback_only) {
-> 			if (!has_capture)
-> 				dev_warn(rtd->dev, ...);
-> 			has_capture = 0;
-> 		}
-> 
-> 		if (dai_link->capture_only) {
-> 			if (!has_playback)
-> 				dev_warn(rtd->dev, ...);
-> 			has_playback = 0;
-> 		}
-> 
-> 		/*
-> 		 * No Playback, No Capture is error
-> 		 */
-> 		if (!has_playback && !has_capture) {
-> 			dev_err(rtd->dev, ...);
-> 			return -EINVAL;
-> 		}
-> 		...
-> 	}
+> Fixes: 8efcd4864652 ("ASoC: Intel: sof_rt5682: use common module for sof_card_private initialization")
+> Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
 
-The code looks fine, but what are we trying to achieve?
-I thought the idea was to have a single field at the dailink, and with
-the example above we would still have two - just like today.
-This looks like a lot of code churn in many drivers for limited
-benefits. Or I am missing something?
+Good catch.
+
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+
+> ---
+>  sound/soc/intel/boards/sof_rt5682.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
+> index aadd341a202c..966bcd3e8bdc 100644
+> --- a/sound/soc/intel/boards/sof_rt5682.c
+> +++ b/sound/soc/intel/boards/sof_rt5682.c
+> @@ -606,7 +606,7 @@ static int sof_audio_probe(struct platform_device *pdev)
+>  {
+>  	struct snd_soc_acpi_mach *mach = pdev->dev.platform_data;
+>  	struct sof_card_private *ctx;
+> -	bool is_legacy_cpu;
+> +	bool is_legacy_cpu = false;
+>  	int ret;
+>  
+>  	if (pdev->id_entry && pdev->id_entry->driver_data)

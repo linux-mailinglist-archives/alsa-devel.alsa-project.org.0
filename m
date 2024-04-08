@@ -2,140 +2,114 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6413E89CB67
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 Apr 2024 20:03:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A3AC89CBB5
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 Apr 2024 20:30:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3E63F23D4;
-	Mon,  8 Apr 2024 20:03:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3E63F23D4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2E6F323D1;
+	Mon,  8 Apr 2024 20:30:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2E6F323D1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712599432;
-	bh=8IC6AsgV+sSctxGk3R4/3Zg85XkOACeyjxZRS4gFavc=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=niVKBCOFGqvk5omfaDV2e90Oh0PKy+POr9PVBU1bL7UFIiphQw28XSnSk2iR+Hbss
-	 8Zr+th3WG6O62xfdcbQIaEz22IHEy+oxBTAdDmOqedu8AwUHE+k6mshnP5uZmLYBiU
-	 LgGXGj7/8r8pf9lqDLacjBHGh1CCSPU+lFS0BMUU=
+	s=default; t=1712601034;
+	bh=nzM23wh9zowee65GrxL/O51+DWEPGKQ69scyyxUr8JM=;
+	h=References:From:To:Cc:Subject:Date:In-reply-to:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=F4ok/1L408sVYWFq0Fc4OOuYapl3uTuMBDADmtxiAw3fR+VUoJSi/lDK6Iz9rCn/V
+	 7chCu63lbrXx/ExUBTwZyA+4btEF6LyFZkbmce7AdMhq5t9jIBB7RvC8a1gWowRgJB
+	 K+BGlSWwZlL1OCNpOk4RL+dW5mR1rYl7mOl8/lMw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 56FBFF805AA; Mon,  8 Apr 2024 20:03:20 +0200 (CEST)
+	id 3C5FDF80588; Mon,  8 Apr 2024 20:30:00 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 84157F8013D;
-	Mon,  8 Apr 2024 20:03:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 45C85F8058C;
+	Mon,  8 Apr 2024 20:30:00 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E24E9F8028B; Mon,  8 Apr 2024 20:03:16 +0200 (CEST)
+	id 336C4F8026D; Mon,  8 Apr 2024 20:29:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on20600.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2409::600])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [IPv6:2a00:1450:4864:20::336])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 75CE7F8013D
-	for <alsa-devel@alsa-project.org>; Mon,  8 Apr 2024 20:02:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 75CE7F8013D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 70155F8013D
+	for <alsa-devel@alsa-project.org>; Mon,  8 Apr 2024 20:29:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 70155F8013D
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=4hd5qruZ
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nPevfOVFiBNTUaVhO6Pyfhx4djTV3yALIR8AOWo+pXGaySgMKL9Cu/YR5Vnq39fbmpf8ECndrUJX0mkrmyrmP0aeJYWEYT/nYnL4sDf8ApZpDT9IqYygDKyv8EWmbV011/C60kk9Km6i6boO0TF8Xpqz99GyKWS2SYo8LFakXn6VDxJJMES3MtNnnaygjkq0aQvxzwxaL8c6WzXxOS18HpoljDJWdRvGP+hU7mfFArda5shtBiy2SglYgL40Q/EfYMxcPqK0VFsgnLMb8pDXzC1WvGSIR2bnqlrn0aC6njrzB8yQAZu70uA2gxhTxXvgMHEggo7I0fW/2abDzcXjiQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=i2femoaYcJJamd6wwIdA3to6ZmvP++teISEfbILJZgg=;
- b=AZwlCaojye2w0eVlWTpB7y5fcNPpRUWrVq4VXd9QkQz3nPWIfiJ8PQWiOd8NFHKcYzJJUc0rjhFQlWRppe3CEVMdRIdhIJDCMBI4+sOXjHzhk7Zw2SLg5E/OHXIT8DFaoRDyR2mMxNgAJHqDUnDBQKX3ufEth43ptroCeDK7ahyVoiAqwIM9sCnchSL5EzD/y4W+bs2U8w87xcFm31kPOiXUv23mjC2iBoiDnaBuvQAjkUokpnwkSXYvUT5w/SwnMJULIR7JfJci/f0b+9XmsiXFKJtYnBvgL1wKpofmzYMMJzotHnsKfpulk2R+S3fd9W4a0NgvtN2U2nfPCZ0yRA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=i2femoaYcJJamd6wwIdA3to6ZmvP++teISEfbILJZgg=;
- b=4hd5qruZ3MJOQ9WPaufQoD2vCrZGD85zMWcCo2MZ7BtFBjDVfVg4WmMIJCr9fwqN794sKoPcWmbdk5J6UwSDRI6EPe82pDh6rPiMq2xJEz4Df2MMRf9YHIAwIYQC41pN+k4UCsoZbkM8BKbwzeUYUVY9YJx0Q1y8SIjFEuG3miM=
-Received: from CYZPR14CA0012.namprd14.prod.outlook.com (2603:10b6:930:8f::7)
- by DS7PR12MB6358.namprd12.prod.outlook.com (2603:10b6:8:95::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.53; Mon, 8 Apr
- 2024 18:02:36 +0000
-Received: from CY4PEPF0000EE39.namprd03.prod.outlook.com
- (2603:10b6:930:8f:cafe::de) by CYZPR14CA0012.outlook.office365.com
- (2603:10b6:930:8f::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46 via Frontend
- Transport; Mon, 8 Apr 2024 18:02:36 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000EE39.mail.protection.outlook.com (10.167.242.13) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7452.22 via Frontend Transport; Mon, 8 Apr 2024 18:02:35 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 8 Apr
- 2024 13:02:34 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 8 Apr
- 2024 13:02:34 -0500
-Received: from vijendar-X570-GAMING-X.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35
- via Frontend Transport; Mon, 8 Apr 2024 13:02:30 -0500
-From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-To: <broonie@kernel.org>
-CC: <alsa-devel@alsa-project.org>, <Sunil-kumar.Dommati@amd.com>,
-	<Basavaraj.Hiregoudar@amd.com>, <venkataprasad.potturu@amd.com>, "Vijendar
- Mukunda" <Vijendar.Mukunda@amd.com>, kernel test robot <lkp@intel.com>, "Liam
- Girdwood" <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, "Takashi
- Iwai" <tiwai@suse.com>, Arnd Bergmann <arnd@arndb.de>, Lucas Tanure
-	<lucas.tanure@collabora.com>, Cristian Ciocaltea
-	<cristian.ciocaltea@collabora.com>, Syed Saba Kareem
-	<Syed.SabaKareem@amd.com>, "open list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER
- MANAGEM..." <linux-sound@vger.kernel.org>, open list
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH] ASoC: amd: fix for soundwire build dependencies for legacy
- stack
-Date: Mon, 8 Apr 2024 23:32:26 +0530
-Message-ID: <20240408180229.3287220-1-Vijendar.Mukunda@amd.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key,
+ unprotected) header.d=baylibre-com.20230601.gappssmtp.com
+ header.i=@baylibre-com.20230601.gappssmtp.com header.a=rsa-sha256
+ header.s=20230601 header.b=JuKLCqcx
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-4155819f710so36978975e9.2
+        for <alsa-devel@alsa-project.org>;
+ Mon, 08 Apr 2024 11:29:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1712600982;
+ x=1713205782; darn=alsa-project.org;
+        h=mime-version:message-id:in-reply-to:date:subject:cc:to:from
+         :user-agent:references:from:to:cc:subject:date:message-id:reply-to;
+        bh=3y8+lTNdEv9p3qVZZSAL5TYeLEpaLOV40uPPZs1+/rA=;
+        b=JuKLCqcxbcVA8b6BlhFHgwh2aPoIzsTCXlS7LHReM8mQxu4TlMLXg6ru0phl7K4cKD
+         JLLcJYkl7FW3JQamjdXxjwjJr8jT793+rdc7K73Bbq8OfKr+oy8H3OCCH7SWi10stb/3
+         FxpaYKXIoOijNPnd7IaDshQIlBTSvQ/htgG+YZrIEYJUt6vZXGqjH8wBNsUF8n2RH+Yz
+         VANpsfPbh0WK6MIAQbRyimRztb2wWwIes2rA5WpSjSNwGbsJgv94J0RwVIhNBUXVjFxq
+         vITRVttjpNNIU1vnQVahR9eFD6l5QySO4EeB6+Geyk3PmMiVqR6r8AqeuhkoDz5Tk99d
+         9e8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1712600982; x=1713205782;
+        h=mime-version:message-id:in-reply-to:date:subject:cc:to:from
+         :user-agent:references:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=3y8+lTNdEv9p3qVZZSAL5TYeLEpaLOV40uPPZs1+/rA=;
+        b=qOtsWA5W2KeH557XlGi3Y8A0PM4mHfBFb1VRoqIJuGO6h1meieoXtYHgD7USqF+/na
+         xw5y0EVyECYMq3m/00kQskpSPd1bWxgthlqiI5YgAdUIb3snkWyb/pERq8TSK77jaPH1
+         D2IAeWxuxO19muLR/I+EJwHGD+HKmBFF+y2scOdg4SXW37GVd1vZAQMzRKaMmey5MFTa
+         LPzywrShbRm1AhMy9k6qEZUjVRM8+uV+11hCvBXCcxIIS74Hxn9zg0YL8FsspIRUq/Bz
+         h2dIdUGkhAzXD5+Bs1NJ7/tH/aQ1qmMMwMcuAbA8uUk2nZNiq53BMPNTY6ql3xf/daIb
+         W+ww==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVNXir8eHRINRIBimEeqU5aAGEEcgC5mePsWoknjMvcmiGXmdsrvTS66LLpt/MLfv+DNsIqLjxnq1nrs+1aTO9+tSO2hoD407E0EVQ=
+X-Gm-Message-State: AOJu0YwO3AfYYdeiNdKvXO0uoD+6fisiQGIcBf7p6HChrzMoZ5esZPH0
+	DP9brDXEJy2Wacp4w+meEbmkQ+1ulr+EKLrtzk1mrmDNLfBBVw31rd28a6r5Hgs=
+X-Google-Smtp-Source: 
+ AGHT+IFh8WHFAL+5KwNrKiDCA+QmN0hRuRdo0rWFUNNknNOcm/Yw6c64MqzQj6hHHotqbMcZSl4VIw==
+X-Received: by 2002:a05:600c:4683:b0:415:8651:9b8e with SMTP id
+ p3-20020a05600c468300b0041586519b8emr8571532wmo.39.1712600981964;
+        Mon, 08 Apr 2024 11:29:41 -0700 (PDT)
+Received: from localhost ([2a01:e0a:3c5:5fb1:90bc:1f0d:aae2:3c66])
+        by smtp.gmail.com with ESMTPSA id
+ bg8-20020a05600c3c8800b00414807ef8dfsm14255016wmb.5.2024.04.08.11.29.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 08 Apr 2024 11:29:41 -0700 (PDT)
+References: <20240408164947.30717-1-ddrokosov@salutedevices.com>
+ <20240408164947.30717-3-ddrokosov@salutedevices.com>
+User-agent: mu4e 1.10.8; emacs 29.2
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Dmitry Rokosov <ddrokosov@salutedevices.com>
+Cc: neil.armstrong@linaro.org, lgirdwood@gmail.com, jbrunet@baylibre.com,
+ broonie@kernel.org, conor+dt@kernel.org, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, perex@perex.cz, tiwai@suse.com,
+ khilman@baylibre.com, martin.blumenstingl@googlemail.com,
+ kernel@salutedevices.com, rockosov@gmail.com,
+ linux-amlogic@lists.infradead.org, alsa-devel@alsa-project.org,
+ linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v1 2/2] ASoC: meson: implement link-name optional
+ property in meson card utils
+Date: Mon, 08 Apr 2024 20:15:54 +0200
+In-reply-to: <20240408164947.30717-3-ddrokosov@salutedevices.com>
+Message-ID: <1j1q7fpv1n.fsf@starbuckisacylon.baylibre.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE39:EE_|DS7PR12MB6358:EE_
-X-MS-Office365-Filtering-Correlation-Id: 77f35211-f809-4832-a1ce-08dc57f6126e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	eNkKzUykRlJsD/KqLThGVoEKuUANvVHXla9j50Xt1nA1RE18H6YDWn9aiT1BcM+BtMyapm/q+FiQteKwji56xM/NQNbF0ewb/q9uEKvc86JYmOCIwNCIFUU4IE2/iLijYQuwVbKk64VauaXYzSkznWJHwUnWoHaYVkpgBPdWxVPgF8qT4ibD1rH1rYnhqdQojX5rxf6s1Ny3MJlWvynaHxYspB36BU6XtXadtqiOPNJhwPIE69qQJQ4bdQTl5pnK/kdqrdmlTz9Qx6AOrZ8y9V+pDj5rdKSboPPwZ/nIxCeNVMaBWfFxdvi5jnnUDd8aE4cjye/MiVWTG8IGrX12bZl8njRhIjGnI3p+XDdOo6zHlQK/1luuSJF4TFr4nmPjR0E9q820f1VDdUkvZA4tugBPuHzOUScxU5vOhNobERbd7pPEsyNAce+WKPrPGTWAI9GESEXD17gKCYaPLZoqiEiiw48lyHeRFYeBUi7MeV7eRIS/ZkFLv9qjGP3vVV4fdI8FmFpArshOGH/0RoaFoRA/67c67W46PXF/WoLQX01/ZWFnku09ih4xYQGmGJ1yHjVnvT+Noe2KdYVS2gp1X6sGMTchZOogbCGUxmFS4h1/W49w2Y1bFWFVbwYIt6VDbO58dcxDeP8RG8sZs1IKbWngdU2ja/SI7U7UIADFQYWckMDt6MP5oTpgfw+i9BaM
-X-Forefront-Antispam-Report: 
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(82310400014)(376005)(1800799015)(7416005)(36860700004);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2024 18:02:35.9141
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 77f35211-f809-4832-a1ce-08dc57f6126e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
- TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: 
-	CY4PEPF0000EE39.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6358
-Message-ID-Hash: C2XWTH4TVUPAZYUNYQDJI4DNYUPFDQI2
-X-Message-ID-Hash: C2XWTH4TVUPAZYUNYQDJI4DNYUPFDQI2
-X-MailFrom: Vijendar.Mukunda@amd.com
+Message-ID-Hash: QHCQD5Q2T2D33C3YWXDJPW222XYAWP2G
+X-Message-ID-Hash: QHCQD5Q2T2D33C3YWXDJPW222XYAWP2G
+X-MailFrom: jbrunet@baylibre.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -147,7 +121,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/C2XWTH4TVUPAZYUNYQDJI4DNYUPFDQI2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QHCQD5Q2T2D33C3YWXDJPW222XYAWP2G/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -156,72 +130,73 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The SND_SOC_AMD_SOUNDWIRE Kconfig symbol has build dependency on
-SOUNDWIRE_AMD. It gets it wrong for a configuration involving
-SND_SOC_AMD_SOUNDWIRE_LINK_BASELINE=y,SND_SOC_AMD_PS=y and SOUNDWIRE_AMD=m,
-which results in a link failure:
 
-ld: vmlinux.o: in function `amd_sdw_probe':
->> sound/soc/amd/ps/pci-ps.c:271:(.text+0x1d51eff):
-	undefined reference to `sdw_amd_probe'
-ld: vmlinux.o: in function `acp63_sdw_machine_select':
->> sound/soc/amd/ps/pci-ps.c:294:(.text+0x1d525d5):
-	undefined reference to `sdw_amd_get_slave_info'
-ld: vmlinux.o: in function `amd_sdw_exit':
->> sound/soc/amd/ps/pci-ps.c:280:(.text+0x1d538ce):
-	undefined reference to `sdw_amd_exit'
+On Mon 08 Apr 2024 at 19:49, Dmitry Rokosov <ddrokosov@salutedevices.com> wrote:
 
-Add a top level check config that forbids any of the AMD ACP drivers
-with version >= 6.3 from being built-in with CONFIG_SOUNDWIRE_AMD=m.
-Move SND_AMD_ACP_CONFIG common dependency config to
-SND_SOC_AMD_ACP63_TOPLEVEL config.
+> The 'link-name' property presents an optional DT feature that empowers
+> users to customize the name associated with the DAI link and PCM stream.
+> This functionality reflects the approach often employed in Qualcomm
+> audio cards, providing enhanced flexibility in DAI naming conventions
+> for improved system integration and userspace experience.
+>
+> It allows userspace program to easy determine PCM stream purpose, e.g.:
+>     ~ # cat /proc/asound/pcm
+>     00-00: speaker (*) :  : playback 1
+>     00-01: mics (*) :  : capture 1
+>     00-02: loopback (*) :  : capture 1
 
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202404061257.khJml82D-lkp@intel.com/
-Fixes: a806793f231e ("ASoC: amd: simplify soundwire dependencies for legacy stack")
-Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
----
- sound/soc/amd/Kconfig | 16 +++++++++++++++-
- 1 file changed, 15 insertions(+), 1 deletion(-)
+The example above is exactly what you should not do with link names, at
+least with the amlogic audio system.
 
-diff --git a/sound/soc/amd/Kconfig b/sound/soc/amd/Kconfig
-index 3508f5a96b75..6dec44f516c1 100644
---- a/sound/soc/amd/Kconfig
-+++ b/sound/soc/amd/Kconfig
-@@ -132,6 +132,19 @@ config SND_SOC_AMD_RPL_ACP6x
-           Say m if you have such a device.
-           If unsure select "N".
- 
-+config SND_SOC_AMD_ACP63_TOPLEVEL
-+	tristate "support for AMD platforms with ACP version >= 6.3"
-+	default SND_AMD_ACP_CONFIG
-+	depends on SND_AMD_ACP_CONFIG
-+	depends on SOUNDWIRE_AMD || !SOUNDWIRE_AMD
-+	depends on X86 || COMPILE_TEST
-+	help
-+	  This adds support for AMD platforms with ACP version >= 6.3.
-+	  Say Y if you have such a device.
-+	  If unsure select "N".
-+
-+if SND_SOC_AMD_ACP63_TOPLEVEL
-+
- config SND_SOC_AMD_SOUNDWIRE_LINK_BASELINE
- 	tristate
- 	select SND_AMD_SOUNDWIRE_ACPI if ACPI
-@@ -149,7 +162,6 @@ config SND_SOC_AMD_SOUNDWIRE
- 
- config SND_SOC_AMD_PS
-         tristate "AMD Audio Coprocessor-v6.3 Pink Sardine support"
--	select SND_AMD_ACP_CONFIG
- 	select SND_SOC_AMD_SOUNDWIRE_LINK_BASELINE
-         depends on X86 && PCI && ACPI
-         help
-@@ -170,3 +182,5 @@ config SND_SOC_AMD_PS_MACH
-           DMIC can be connected directly to ACP IP.
-           Say m if you have such a device.
-           If unsure select "N".
-+
-+endif
+Userspace pcm, otherwise known as DPCM frontend, are merely that:
+frontends. What they do is entirely defined by the routing defined by
+the userspace (amixer and friends)
+
+So naming the interface in DT (the FW describing the HW) after what the
+the userspace SW could possibly set later on is wrong.
+
+Bottom line: I have mixed feeling about this change. It could allow all
+sort of bad names to be set.
+
+The only way it could make sense HW wise is if the only allowed names
+where (fr|to)ddr_[abcd], which could help maps the interface and the
+kcontrol.
+
+Such restriction should be documented in the binding doc.
+
+>
+> The previous naming approach using auto-generated fe or be strings
+> continues to be utilized as a fallback.
+>
+> Signed-off-by: Dmitry Rokosov <ddrokosov@salutedevices.com>
+> ---
+>  sound/soc/meson/meson-card-utils.c | 12 ++++++++----
+>  1 file changed, 8 insertions(+), 4 deletions(-)
+>
+> diff --git a/sound/soc/meson/meson-card-utils.c b/sound/soc/meson/meson-card-utils.c
+> index ed6c7e2f609c..7bae72905a9b 100644
+> --- a/sound/soc/meson/meson-card-utils.c
+> +++ b/sound/soc/meson/meson-card-utils.c
+> @@ -94,10 +94,14 @@ static int meson_card_set_link_name(struct snd_soc_card *card,
+>  				    struct device_node *node,
+>  				    const char *prefix)
+>  {
+> -	char *name = devm_kasprintf(card->dev, GFP_KERNEL, "%s.%s",
+> -				    prefix, node->full_name);
+> -	if (!name)
+> -		return -ENOMEM;
+> +	const char *name;
+> +
+> +	if (of_property_read_string(node, "link-name", &name)) {
+> +		name = devm_kasprintf(card->dev, GFP_KERNEL, "%s.%s",
+> +				      prefix, node->full_name);
+> +		if (!name)
+> +			return -ENOMEM;
+> +	}
+>  
+>  	link->name = name;
+>  	link->stream_name = name;
+
+
 -- 
-2.34.1
-
+Jerome

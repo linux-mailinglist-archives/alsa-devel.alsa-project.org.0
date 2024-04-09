@@ -2,79 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED17489D9CF
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Apr 2024 15:08:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1D5289D9DA
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Apr 2024 15:09:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AC9822BBB;
-	Tue,  9 Apr 2024 15:08:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC9822BBB
+	by alsa0.perex.cz (Postfix) with ESMTPS id C9FF42BB9;
+	Tue,  9 Apr 2024 15:09:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C9FF42BB9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712668121;
-	bh=efQW4n4+VTeV6F+TzLQ/Ws25y4//427fEzcwv/kchgY=;
+	s=default; t=1712668174;
+	bh=bqwaqDPwZwF2/ArlMn7guYurYsRr70Krg4VvKA29s3Q=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=I0cHzrNNP56hAaHuO1I2359yfCXqFkjVfhjK5YI7eJD5P7TjqvM/isY4cqcFh4yuT
-	 wOolhVpMlEv8qOMC9dtwvyBSnXJk2qXQEv7jsoEggbA+LtReIwVmcPnIh/Uh6NUlMh
-	 Ds2OXxT9dkiwE/fIiNKQxu8OwZR1S4kT5emzbFUw=
+	b=C/CZd0R7x0Lq1QXiu1a5qeydxDaPZGfBr6EEkrnIeTi4Iq8i0J9yxi5fSRk4VPsRi
+	 W5sbLs05ziwRAdNtRoC0E090a2fTVPDvlMSHiy92FdUwc2wMTdPjRG0GtaFmKHC8RS
+	 BSbIBpi3O1CK1hYuq8cYF6hdZZk5cK98C2O+FiNY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5F482F805AB; Tue,  9 Apr 2024 15:08:10 +0200 (CEST)
+	id 5669BF80611; Tue,  9 Apr 2024 15:08:19 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B35D8F8058C;
-	Tue,  9 Apr 2024 15:08:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C787DF80611;
+	Tue,  9 Apr 2024 15:08:18 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1674BF80423; Tue,  9 Apr 2024 15:08:04 +0200 (CEST)
+	id 57F35F805C0; Tue,  9 Apr 2024 15:08:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1AE29F80236
-	for <alsa-devel@alsa-project.org>; Tue,  9 Apr 2024 15:07:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1AE29F80236
+	by alsa1.perex.cz (Postfix) with ESMTPS id B7C4FF8026D
+	for <alsa-devel@alsa-project.org>; Tue,  9 Apr 2024 15:07:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7C4FF8026D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=XYRyRNhd
+ header.s=k20201202 header.b=fRJW1/JE
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 05276CE1E8E;
-	Tue,  9 Apr 2024 13:07:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9FE6C433C7;
-	Tue,  9 Apr 2024 13:07:53 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 8E32D616FA;
+	Tue,  9 Apr 2024 13:07:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEED4C43390;
+	Tue,  9 Apr 2024 13:07:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1712668075;
-	bh=efQW4n4+VTeV6F+TzLQ/Ws25y4//427fEzcwv/kchgY=;
+	s=k20201202; t=1712668077;
+	bh=bqwaqDPwZwF2/ArlMn7guYurYsRr70Krg4VvKA29s3Q=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=XYRyRNhdEF2x1ljcqMNm4wvZ6bUaA88jFdFP5nsaWcvpxa8vQrUW+W3TYFqFJQH4s
-	 gif8mbrpvlGPzjfBzJ+fkSmXmZL9i8vCybiVHNAFACpT5kS6Tkp3jJbVl0rFnW6Pr0
-	 5/rFbWCpmuoa2F1INpDbg8pKri/nYXGEZlt/8xYtDcIieIWaVc5tuyy/Y0V/A4rdPs
-	 SlVWgU0xI/LtwPNuZXAmU+fyQ0WUoce1pXSw9SEGqHl81cJ1parm7D+s/zIIfIgXFS
-	 72cbsGpR5Y4zPo67bkqZY9p0v6RYCzXD+VHgNrNKds6bPvh4pZEhLRIdK+cI/U3ecz
-	 TIIQuEcs6bqBA==
+	b=fRJW1/JET2KcykiHBgr7D75cc+0taxIalUKuY5B2dwbdcS8L7/izvDDh2dYPYeX9s
+	 0fHcpwVqLXf7a/XyB3WD8cIEIVqzUN6qiJb1eWRfmnwSGlanHG8uB0QqwsauxC0B41
+	 hXVkVNTcgwlTur7Kmq3NQGvqzg/zWK2rZjijD3v6pnVLto3CsqPC1yAXeG8XNPtma2
+	 +MfRNrQXjClifCCsYW3BHGjk/H7UsuJipp8Qocl5iXVu2BR2LzEcDxO/pc1AN8tLrp
+	 Uw3uxBWNAbPPrheBAXlrHxuTUFD0frtZOcte6FAtkgfKA1/U+gm+rql0BBO/KVrLhQ
+	 NzwEPTCWBCy4w==
 From: Mark Brown <broonie@kernel.org>
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- tiwai@suse.com, perex@perex.cz, amadeuszx.slawinski@linux.intel.com,
- hdegoede@redhat.com, kernel test robot <lkp@intel.com>
-In-Reply-To: <20240408081840.1319431-1-cezary.rojewski@intel.com>
-References: <20240408081840.1319431-1-cezary.rojewski@intel.com>
-Subject: Re: [PATCH] ASoC: Intel: avs: Fix debug window description
-Message-Id: <171266807341.28088.11267755974349863620.b4-ty@kernel.org>
-Date: Tue, 09 Apr 2024 14:07:53 +0100
+To: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Hans de Goede <hdegoede@redhat.com>
+Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org
+In-Reply-To: <20240407191559.21596-1-hdegoede@redhat.com>
+References: <20240407191559.21596-1-hdegoede@redhat.com>
+Subject: Re: [PATCH] ASoC: Intel: bytcr_rt5640: Apply Asus T100TA quirk to
+ Asus T100TAM too
+Message-Id: <171266807550.28088.15662614766655326891.b4-ty@kernel.org>
+Date: Tue, 09 Apr 2024 14:07:55 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.14-dev
-Message-ID-Hash: STXPJMD5DBQE64X3MXBBNFXLJLDAGSFO
-X-Message-ID-Hash: STXPJMD5DBQE64X3MXBBNFXLJLDAGSFO
+Message-ID-Hash: HZKPR7Z7ES3T6KLF47W6CICGPXKPMTSB
+X-Message-ID-Hash: HZKPR7Z7ES3T6KLF47W6CICGPXKPMTSB
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -87,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/STXPJMD5DBQE64X3MXBBNFXLJLDAGSFO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HZKPR7Z7ES3T6KLF47W6CICGPXKPMTSB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,12 +98,17 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 08 Apr 2024 10:18:40 +0200, Cezary Rojewski wrote:
-> Recent changes addressed PAGE_SIZE ambiguity in 2/3 locations for struct
-> avs_icl_memwnd2. The unaddressed one causes build errors when
-> PAGE_SIZE != SZ_4K.
+On Sun, 07 Apr 2024 21:15:59 +0200, Hans de Goede wrote:
+> The Asus T100TA quirk has been using an exact match on a product-name of
+> "T100TA" but there are also T100TAM variants with a slightly higher
+> clocked CPU and a metal backside which need the same quirk.
 > 
+> Sort the existing T100TA (stereo speakers) below the more specific
+> T100TAF (mono speaker) quirk and switch from exact matching to
+> substring matching so that the T100TA quirk will also match on
+> the T100TAM models.
 > 
+> [...]
 
 Applied to
 
@@ -109,8 +116,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: Intel: avs: Fix debug window description
-      commit: 7a1625c1711b526a77cb9c3acc15dbba71896a40
+[1/1] ASoC: Intel: bytcr_rt5640: Apply Asus T100TA quirk to Asus T100TAM too
+      commit: e50729d742ec364895f1c389c32315984a987aa5
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

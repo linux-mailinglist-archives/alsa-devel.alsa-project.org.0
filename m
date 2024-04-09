@@ -2,92 +2,115 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17F4F89D2AD
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Apr 2024 08:48:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B481889D814
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Apr 2024 13:38:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 38A65299A;
-	Tue,  9 Apr 2024 08:48:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 38A65299A
+	by alsa0.perex.cz (Postfix) with ESMTPS id E9F7223D2;
+	Tue,  9 Apr 2024 13:37:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E9F7223D2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712645338;
-	bh=jPOzgHzSYofrjQjACqoQ9r5VH8RQJtJ8/RD4UUKiT9s=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1712662687;
+	bh=2sa0czol+M3wlqjbrCy6HFZ0ZDdi6agl2iY8luWcwKU=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=j3+ATPi6TyG8i5y41Oo/j6CRTwqzueA/4Ytu0hurUMi7WXHyx36mXs0jK+TZM6M23
-	 rby3vHs0MLsLW51f1eVJXsMykICvx5OQTNE3+z6fmTE/2aoDJECM8LxZV5yesuJifm
-	 oPepBSGoNjt62USZY6GzUhtSdqTQFbfphSbidUTw=
+	b=GDN5pdFSzfzNnhM0ZJkM64nhFuqnfAl3zjY1TJxQ3tDhsvLHkVD4QazyB173rzyKz
+	 2/ZwEgUeSuREJ7N2b1fE+/xT8qkHzSXHza9b95GXOtz5cWY2TXYSjRceNS5vi/+xI0
+	 KTrgfHbglf3Hxd8MxG7+xy2QRwLRfJNbKE/kvN6I=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5D93BF8055C; Tue,  9 Apr 2024 08:48:39 +0200 (CEST)
+	id 75BC0F8065A; Tue,  9 Apr 2024 13:36:35 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 04DC5F805B4;
-	Tue,  9 Apr 2024 08:48:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 734ECF8060F;
+	Tue,  9 Apr 2024 13:36:34 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 250C4F8056F; Tue,  9 Apr 2024 08:48:34 +0200 (CEST)
+	id 239B7F80579; Tue,  9 Apr 2024 13:34:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=unavailable
+	autolearn_force=no version=3.4.6
+Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
+ [IPv6:2a00:1098:ed:100::25])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E4E74F800C9
-	for <alsa-devel@alsa-project.org>; Tue,  9 Apr 2024 08:47:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4E74F800C9
-X-SpamFilter-By: ArmorX SpamTrap 5.78 with qID 4396lhKQ32674939,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (rtexh36505.realtek.com.tw[172.21.6.25])
-	by rtits2.realtek.com.tw (8.15.2/2.95/5.92) with ESMTPS id 4396lhKQ32674939
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 9 Apr 2024 14:47:43 +0800
-Received: from RTEXDAG01.realtek.com.tw (172.21.6.100) by
- RTEXH36505.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.35; Tue, 9 Apr 2024 14:47:43 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXDAG01.realtek.com.tw (172.21.6.100) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.35; Tue, 9 Apr 2024 14:47:43 +0800
-Received: from RTEXMBS01.realtek.com.tw ([fe80::d5b2:56ba:6b47:9975]) by
- RTEXMBS01.realtek.com.tw ([fe80::d5b2:56ba:6b47:9975%5]) with mapi id
- 15.01.2507.035; Tue, 9 Apr 2024 14:47:43 +0800
-Content-Type: multipart/mixed;
-	boundary="_000_6a9b1d1fb2ea4f04b2157799f04053b1realtekcom_"
-From: Jack Yu <jack.yu@realtek.com>
-To: "broonie@kernel.org" <broonie@kernel.org>,
-        "lgirdwood@gmail.com"
-	<lgirdwood@gmail.com>
-CC: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
-        "lars@metafoo.de" <lars@metafoo.de>,
-        "Flove(HsinFu)" <flove@realtek.com>,
-        Oder Chiou <oder_chiou@realtek.com>,
-        =?big5?B?U2h1bWluZyBbrVOu0bvKXQ==?=
-	<shumingf@realtek.com>,
-        =?big5?B?RGVyZWsgW6TovHe4cV0=?=
-	<derek.fang@realtek.com>,
-        Jack Yu <jack.yu@realtek.com>
-Subject: [PATCH 2/2] ASoC: rt722-sdca: modify channel number to support 4
- channels
-Thread-Topic: [PATCH 2/2] ASoC: rt722-sdca: modify channel number to support 4
- channels
-Thread-Index: AdqKSdHnhzfNMQf6TjKtxfLWCQ6GYA==
-Date: Tue, 9 Apr 2024 06:47:43 +0000
-Message-ID: <6a9b1d1fb2ea4f04b2157799f04053b1@realtek.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-TNEF-Correlator: <6a9b1d1fb2ea4f04b2157799f04053b1@realtek.com>
-x-originating-ip: [172.22.102.102]
+	by alsa1.perex.cz (Postfix) with ESMTPS id EF4F6F80236
+	for <alsa-devel@alsa-project.org>; Tue,  9 Apr 2024 13:33:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF4F6F80236
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=collabora.com header.i=@collabora.com
+ header.a=rsa-sha256 header.s=mail header.b=D14Qe1+d
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1712662410;
+	bh=2sa0czol+M3wlqjbrCy6HFZ0ZDdi6agl2iY8luWcwKU=;
+	h=From:To:Cc:Subject:Date:From;
+	b=D14Qe1+dY6nxSzSEqTMvcCkZ+ZodJyh7mvU5newHJvq3qcXrDmRf6GOHmT5KpoJZg
+	 T7CqC5zwpMpgqMSpI89xS0cO8VjusWoTFmW1lBKZ1Cv91N2OrC/J96jI6+Hnxu7Q48
+	 T1j/m0J7QNTLGvAMpGfHkWwjnL8QkrQTjA7UWSNb/+ZHpwsPMNmb4iV7pkfLYJC6n7
+	 bJbj+RvosTiSxyRq7b9EBkwh+byGWB/re5Hm6yDkG27YOSl5hZhjJdK2uuMndPlP+7
+	 /Pduw0MhgSVu34XJGZVXirGEkOUvpGGTnZg5r3U0WAOnRAinqvv8gpVzsOlmfK2xWk
+	 3Tb+8t959dnpw==
+Received: from IcarusMOD.eternityproject.eu (cola.collaboradmins.com
+ [195.201.22.229])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by madrid.collaboradmins.com (Postfix) with ESMTPSA id 4CEF637820F5;
+	Tue,  9 Apr 2024 11:33:28 +0000 (UTC)
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+To: broonie@kernel.org
+Cc: wenst@chromium.org,
+	lgirdwood@gmail.com,
+	robh@kernel.org,
+	krzysztof.kozlowski+dt@linaro.org,
+	conor+dt@kernel.org,
+	matthias.bgg@gmail.com,
+	perex@perex.cz,
+	tiwai@suse.com,
+	trevor.wu@mediatek.com,
+	maso.huang@mediatek.com,
+	xiazhengqiao@huaqin.corp-partner.google.com,
+	arnd@arndb.de,
+	kuninori.morimoto.gx@renesas.com,
+	shraash@google.com,
+	amergnat@baylibre.com,
+	nicolas.ferre@microchip.com,
+	u.kleine-koenig@pengutronix.de,
+	dianders@chromium.org,
+	frank.li@vivo.com,
+	allen-kh.cheng@mediatek.com,
+	eugen.hristev@collabora.com,
+	claudiu.beznea@tuxon.dev,
+	jarkko.nikula@bitmer.com,
+	jiaxin.yu@mediatek.com,
+	alpernebiyasak@gmail.com,
+	ckeepax@opensource.cirrus.com,
+	zhourui@huaqin.corp-partner.google.com,
+	nfraprado@collabora.com,
+	alsa-devel@alsa-project.org,
+	shane.chien@mediatek.com,
+	linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	kernel@collabora.com,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Subject: [PATCH v4 00/18] SoC: Cleanup MediaTek soundcard machine drivers
+Date: Tue,  9 Apr 2024 13:32:52 +0200
+Message-ID: <20240409113310.303261-1-angelogioacchino.delregno@collabora.com>
+X-Mailer: git-send-email 2.44.0
 MIME-Version: 1.0
-X-KSE-ServerInfo: RTEXH36505.realtek.com.tw, 9
-X-KSE-AntiSpam-Interceptor-Info: fallback
-X-KSE-Antivirus-Interceptor-Info: fallback
-X-KSE-AntiSpam-Interceptor-Info: fallback
-Message-ID-Hash: 54ZUXYFY6SAFT536DBWDO7BV6J5EP3SD
-X-Message-ID-Hash: 54ZUXYFY6SAFT536DBWDO7BV6J5EP3SD
-X-MailFrom: jack.yu@realtek.com
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: 5ABA54DJYLNOEXH6HP7JLJD4BNWFNHH5
+X-Message-ID-Hash: 5ABA54DJYLNOEXH6HP7JLJD4BNWFNHH5
+X-MailFrom: angelogioacchino.delregno@collabora.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -99,7 +122,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/54ZUXYFY6SAFT536DBWDO7BV6J5EP3SD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5ABA54DJYLNOEXH6HP7JLJD4BNWFNHH5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,117 +131,107 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
---_000_6a9b1d1fb2ea4f04b2157799f04053b1realtekcom_
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
+Changes in v4:
+ - Rebased over next-20240409
+ - Dropped the first 4 patches from v3 as were already picked by Mark
 
-Q2hhbm5lbCBudW1iZXJzIG9mIGRtaWMgc3VwcG9ydHMgNCBjaGFubmVscywgbW9kaWZ5IGNoYW5u
-ZWxzX21heA0KcmVnYXJkaW5nIHRvIHRoaXMgaXNzdWUuDQoNClNpZ25lZC1vZmYtYnk6IEphY2sg
-WXUgPGphY2sueXVAcmVhbHRlay5jb20+DQotLS0NCiBzb3VuZC9zb2MvY29kZWNzL3J0NzIyLXNk
-Y2EuYyB8IDIgKy0NCiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24o
-LSkNCg0KZGlmZiAtLWdpdCBhL3NvdW5kL3NvYy9jb2RlY3MvcnQ3MjItc2RjYS5jIGIvc291bmQv
-c29jL2NvZGVjcy9ydDcyMi1zZGNhLmMNCmluZGV4IDg3YmQ1MGU3NjFmYy4uZTViZDllZjgxMmRl
-IDEwMDY0NA0KLS0tIGEvc291bmQvc29jL2NvZGVjcy9ydDcyMi1zZGNhLmMNCisrKyBiL3NvdW5k
-L3NvYy9jb2RlY3MvcnQ3MjItc2RjYS5jDQpAQCAtMTMzMCw3ICsxMzMwLDcgQEAgc3RhdGljIHN0
-cnVjdCBzbmRfc29jX2RhaV9kcml2ZXIgcnQ3MjJfc2RjYV9kYWlbXSA9IHsNCiAJCS5jYXB0dXJl
-ID0gew0KIAkJCS5zdHJlYW1fbmFtZSA9ICJEUDYgRE1pYyBDYXB0dXJlIiwNCiAJCQkuY2hhbm5l
-bHNfbWluID0gMSwNCi0JCQkuY2hhbm5lbHNfbWF4ID0gMiwNCisJCQkuY2hhbm5lbHNfbWF4ID0g
-NCwNCiAJCQkucmF0ZXMgPSBSVDcyMl9TVEVSRU9fUkFURVMsDQogCQkJLmZvcm1hdHMgPSBSVDcy
-Ml9GT1JNQVRTLA0KIAkJfSwNCi0tIA0KMi4zNC4xDQoNCg==
+Changes in v3:
+ - Added audio-routing names in enum in all yaml files
+ - Added mention of disallowing old and new properties together in
+   commit message of bindings patches
+ - Fixed validation errors with sound-card-common.yaml inclusion
+   due to missing model property in examples
+ - Removed `else` enforcing headset-codec/speaker-codecs requirement
+   if xxx-dai-link not present to avoid future commit noise as the
+   deprecated statement will disallow deprecated properties as required
 
---_000_6a9b1d1fb2ea4f04b2157799f04053b1realtekcom_
-Content-Disposition: attachment; filename="winmail.dat"
-Content-Transfer-Encoding: base64
-Content-Type: application/ms-tnef; name="winmail.dat"
+Changes in v2:
+ - Bindings: Changed link-name/codec/clk-provider to remove `items`
+   and leave just the enum
+ - Moved .*-dai-link pattern additionalProperties after `type: object`
+ - Added ref to sound-card-common.yaml
+ - Fixed dai-link-xxx -> xxx-dai-link typo in example comment
 
-eJ8+IhEnAQaQCAAEAAAAAAABAAEAAQeQBgAIAAAAtgMAAAAAAAC5AAEJgAEAIQAAAEJFRUU3NjhF
-Q0M4RTBDNDBBNjdCOURGMzVFMTA2OEZFAI8HAQ2ABAACAAAAAgACAAEFgAMADgAAAOgHBAAJAAYA
-LwArAAIAXgEBIIADAA4AAADoBwQACQAGAC8AKwACAF4BAQiABwAYAAAASVBNLk1pY3Jvc29mdCBN
-YWlsLk5vdGUAMQgBBIABAEoAAABbUEFUQ0ggMi8yXSBBU29DOiBydDcyMi1zZGNhOiBtb2RpZnkg
-Y2hhbm5lbCBudW1iZXIgdG8gc3VwcG9ydCA0IGNoYW5uZWxzAGgYAQuAAQAhAAAAQkVFRTc2OEVD
-QzhFMEM0MEE2N0I5REYzNUUxMDY4RkUAjwcBA5AGAHwSAABEAAAAAgF/AAEAAAAvAAAAPDZhOWIx
-ZDFmYjJlYTRmMDRiMjE1Nzc5OWYwNDA1M2IxQHJlYWx0ZWsuY29tPgAACwAfDgAAAAACAQkQAQAA
-AN4CAADaAgAAggQAAExaRnU7UGydYQAKZmJpZAQAAGNjwHBnMTI1MgD+A0PwdGV4dAH3AqQD4wIA
-BGNoCsBzZXQwIO8HbQKDAFARTTIKgAa0AoCWfQqACMg7CWIxOQ7AvwnDFnIKMhZxAoAVYioJsHMJ
-8ASQYXQFsg5QA2Bzom8BgCBFeBHBbhgwXQZSdgSQF7YCEHIAwHR9CFBuGjEQIAXABaAbZGSaIANS
-IBAiF7JcdgiQ5HdrC4BkNR1TBPAHQA0XcDAKcRfyYmttawZzAZAAICBCTV9C4EVHSU59CvwB8Qvx
-nCBDGaEYUAMgbnUG0EcEkAQgGTAgZG0OUCCwc3VwcAkRBCA0G9CxIbRzLCAEYQaQeSPHol8AwHhc
-bAuAZQqArQlwZwsRC4BnHMBvHMDaaAQAIAQBClAuJaUlpUhTaWcYUGQtGTBmQC1ieTogSgDQa0Ag
-WXUgPGopcS74eXVACXAHQBAgKiAFoPRtPiWlLSugJaUjEAhgZR3ALxkgYy8FoAWBc4YvACABwDIt
-c2QeUIEq4CB8IDIgKyvH3jEccAMQGeAZlGQkUC8QFwuAEgAAIGkCICgrKc8v8gEAHnAwgy0pJ5wk
-kdMisCugZ2kFQGEsoSx/fS2JYjOPLVslpR2xEDAgCDg3Yh3QMGU3NkIxEbAuLmU1OFA5PQEQOA6Q
-AQAvAB6gNjTeNCs4M282fyXDKz1QNW8TO/8lw0BAMwAxMzP4MCw3LmBANT/xH2EwgKEjAXRydWMF
-QHMdwPJfPhFfZAtwQqAFEBoxHiAtY0JgLdFColtdIN49AzAAACvlKuBhBTAIcI8Z4ER7QcEqgG1f
-bkbQgUWiIkRQNiBEGNHzIZBFVCIsRLgk9wuARGG6MUiWLUkpJYBEYTJIlnorSs40SJgYcQeRRHBS
-AlRDglNURVJFT+hfUkFPAFNImBrkTlgwRk9STU9wT6hcfQdKNzrQJaUyLjM0Lg8AUCerFUJVEAAA
-HwBCAAEAAAAQAAAASgBhAGMAawAgAFkAdQAAAB8AZQABAAAAKAAAAGoAYQBjAGsALgB5AHUAQABy
-AGUAYQBsAHQAZQBrAC4AYwBvAG0AAAAfAGQAAQAAAAoAAABTAE0AVABQAAAAAAACAUEAAQAAAFoA
-AAAAAAAAgSsfpL6jEBmdbgDdAQ9UAgAAAIBKAGEAYwBrACAAWQB1AAAAUwBNAFQAUAAAAGoAYQBj
-AGsALgB5AHUAQAByAGUAYQBsAHQAZQBrAC4AYwBvAG0AAAAAAB8AAl0BAAAAKAAAAGoAYQBjAGsA
-LgB5AHUAQAByAGUAYQBsAHQAZQBrAC4AYwBvAG0AAAAfAOVfAQAAADAAAABzAGkAcAA6AGoAYQBj
-AGsALgB5AHUAQAByAGUAYQBsAHQAZQBrAC4AYwBvAG0AAAAfABoMAQAAABAAAABKAGEAYwBrACAA
-WQB1AAAAHwAfDAEAAAAoAAAAagBhAGMAawAuAHkAdQBAAHIAZQBhAGwAdABlAGsALgBjAG8AbQAA
-AB8AHgwBAAAACgAAAFMATQBUAFAAAAAAAAIBGQwBAAAAWgAAAAAAAACBKx+kvqMQGZ1uAN0BD1QC
-AAAAgEoAYQBjAGsAIABZAHUAAABTAE0AVABQAAAAagBhAGMAawAuAHkAdQBAAHIAZQBhAGwAdABl
-AGsALgBjAG8AbQAAAAAAHwABXQEAAAAoAAAAagBhAGMAawAuAHkAdQBAAHIAZQBhAGwAdABlAGsA
-LgBjAG8AbQAAAAsAQDoBAAAAHwAaAAEAAAASAAAASQBQAE0ALgBOAG8AdABlAAAAAAADAPE/BAQA
-AAsAQDoBAAAAAwD9P7YDAAACAQswAQAAABAAAAC+7naOzI4MQKZ7nfNeEGj+AwAXAAEAAABAADkA
-gJGE0kmK2gFAAAgw672N0kmK2gELACkAAAAAAB8A2T8BAAAAAAIAAEMAaABhAG4AbgBlAGwAIABu
-AHUAbQBiAGUAcgBzACAAbwBmACAAZABtAGkAYwAgAHMAdQBwAHAAbwByAHQAcwAgADQAIABjAGgA
-YQBuAG4AZQBsAHMALAAgAG0AbwBkAGkAZgB5ACAAYwBoAGEAbgBuAGUAbABzAF8AbQBhAHgADQAK
-AHIAZQBnAGEAcgBkAGkAbgBnACAAdABvACAAdABoAGkAcwAgAGkAcwBzAHUAZQAuAA0ACgANAAoA
-UwBpAGcAbgBlAGQALQBvAGYAZgAtAGIAeQA6ACAASgBhAGMAawAgAFkAdQAgADwAagBhAGMAawAu
-AHkAdQBAAHIAZQBhAGwAdABlAGsALgBjAG8AbQA+AA0ACgAtAC0ALQANAAoAIABzAG8AdQBuAGQA
-LwBzAG8AYwAvAGMAbwBkAGUAYwBzAC8AcgB0ADcAMgAyAC0AcwBkAGMAYQAuAGMAIAB8ACAAMgAg
-ACsALQANAAoAIAAxACAAZgBpAGwAZQAgAGMAaABhAG4AZwBlAGQALAAgADEAIABpAG4AcwBlAHIA
-dABpAG8AbgAoACsAKQAsACAAMQAgAGQAZQBsAGUAdABpAG8AbgAoAC0AKQANAAoADQAKAGQAaQBm
-AGYAIAAtAC0AZwBpAHQAIABhAC8AcwBvAHUAbgBkAC8AcwBvAAAACwAAgAggBgAAAAAAwAAAAAAA
-AEYAAAAAFIUAAAEAAAAfAACAhgMCAAAAAADAAAAAAAAARgEAAAAeAAAAYQBjAGMAZQBwAHQAbABh
-AG4AZwB1AGEAZwBlAAAAAAABAAAAGgAAAHoAaAAtAFQAVwAsACAAZQBuAC0AVQBTAAAAAAADAACA
-CCAGAAAAAADAAAAAAAAARgEAAAAyAAAARQB4AGMAaABhAG4AZwBlAEEAcABwAGwAaQBjAGEAdABp
-AG8AbgBGAGwAYQBnAHMAAAAAACAAAABIAACACCAGAAAAAADAAAAAAAAARgEAAAAiAAAATgBlAHQA
-dwBvAHIAawBNAGUAcwBzAGEAZwBlAEkAZAAAAAAAYgKDnhD4mUfqvgjcWGD1FB8AAIATj/JB9IMU
-QaWE7ttaawv/AQAAABYAAABDAGwAaQBlAG4AdABJAG4AZgBvAAAAAAABAAAAKgAAAEMAbABpAGUA
-bgB0AD0ATQBTAEUAeABjAGgAYQBuAGcAZQBSAFAAQwAAAAAAHwD6PwEAAAAQAAAASgBhAGMAawAg
-AFkAdQAAAB8ANwABAAAAlAAAAFsAUABBAFQAQwBIACAAMgAvADIAXQAgAEEAUwBvAEMAOgAgAHIA
-dAA3ADIAMgAtAHMAZABjAGEAOgAgAG0AbwBkAGkAZgB5ACAAYwBoAGEAbgBuAGUAbAAgAG4AdQBt
-AGIAZQByACAAdABvACAAcwB1AHAAcABvAHIAdAAgADQAIABjAGgAYQBuAG4AZQBsAHMAAAAfAD0A
-AQAAAAIAAAAAAAAAAwA2AAAAAAACAXEAAQAAABYAAAAB2opJ0eeHN80xB/pOMq3F8tYJDoZgAAAf
-AHAAAQAAAJQAAABbAFAAQQBUAEMASAAgADIALwAyAF0AIABBAFMAbwBDADoAIAByAHQANwAyADIA
-LQBzAGQAYwBhADoAIABtAG8AZABpAGYAeQAgAGMAaABhAG4AbgBlAGwAIABuAHUAbQBiAGUAcgAg
-AHQAbwAgAHMAdQBwAHAAbwByAHQAIAA0ACAAYwBoAGEAbgBuAGUAbABzAAAAHwA1EAEAAABeAAAA
-PAA2AGEAOQBiADEAZAAxAGYAYgAyAGUAYQA0AGYAMAA0AGIAMgAxADUANwA3ADkAOQBmADAANAAw
-ADUAMwBiADEAQAByAGUAYQBsAHQAZQBrAC4AYwBvAG0APgAAAAAAAwDeP7YDAAADABMSAAAAAAIB
-AIATj/JB9IMUQaWE7ttaawv/AQAAAC4AAABIAGUAYQBkAGUAcgBCAG8AZAB5AEYAcgBhAGcAbQBl
-AG4AdABMAGkAcwB0AAAAAAABAAAAIgAAAAEACgAAAAQAAAAAAAAAFAAAAAAAAAAAAAAA/////wAA
-AAAAAAsAAIATj/JB9IMUQaWE7ttaawv/AQAAABwAAABIAGEAcwBRAHUAbwB0AGUAZABUAGUAeAB0
-AAAAAAAAAAsAAIATj/JB9IMUQaWE7ttaawv/AQAAACgAAABJAHMAUQB1AG8AdABlAGQAVABlAHgA
-dABDAGgAYQBuAGcAZQBkAAAAAAAAAEAABzB1XYPSSYraAQIBCwABAAAAEAAAAL7udo7MjgxApnud
-814QaP4DACYAAAAAAAsABgwAAAAAAgEQMAEAAABGAAAAAAAAANvpxEokoOdBkxsquyuzbUwHAEy3
-fQ1VoXlEvnOFOWLQAKUAAABpYPcAADKvOAVKsE5GgMfHOCK6D1oAAAHXuKcAAAAAAgETMAEAAAAQ
-AAAAhzfNMQf6TjKtxfLWCQ6GYAIBFDABAAAADAAAADwAAAA45WPuQwAAAB8A+D8BAAAAEAAAAEoA
-YQBjAGsAIABZAHUAAAAfACJAAQAAAAYAAABFAFgAAAAAAB8AI0ABAAAAtgAAAC8ATwA9AFIAVABF
-AFgAQwBIAC8ATwBVAD0ARQBYAEMASABBAE4ARwBFACAAQQBEAE0ASQBOAEkAUwBUAFIAQQBUAEkA
-VgBFACAARwBSAE8AVQBQACAAKABGAFkARABJAEIATwBIAEYAMgAzAFMAUABEAEwAVAApAC8AQwBO
-AD0AUgBFAEMASQBQAEkARQBOAFQAUwAvAEMATgA9AFUAUwBFAFIANQA5ADgANgA1ADEAMAA5AAAA
-AAAfACRAAQAAAAYAAABFAFgAAAAAAB8AJUABAAAAtgAAAC8ATwA9AFIAVABFAFgAQwBIAC8ATwBV
-AD0ARQBYAEMASABBAE4ARwBFACAAQQBEAE0ASQBOAEkAUwBUAFIAQQBUAEkAVgBFACAARwBSAE8A
-VQBQACAAKABGAFkARABJAEIATwBIAEYAMgAzAFMAUABEAEwAVAApAC8AQwBOAD0AUgBFAEMASQBQ
-AEkARQBOAFQAUwAvAEMATgA9AFUAUwBFAFIANQA5ADgANgA1ADEAMAA5AAAAAAAfADBAAQAAABAA
-AABKAGEAYwBrACAAWQB1AAAAHwAxQAEAAAAQAAAASgBhAGMAawAgAFkAdQAAAB8AOEABAAAAEAAA
-AEoAYQBjAGsAIABZAHUAAAAfADlAAQAAABAAAABKAGEAYwBrACAAWQB1AAAAAwBZQAAAAAADAFpA
-AAAAAAMACVkBAAAAHwAKXQEAAAAoAAAAagBhAGMAawAuAHkAdQBAAHIAZQBhAGwAdABlAGsALgBj
-AG8AbQAAAB8AC10BAAAAKAAAAGoAYQBjAGsALgB5AHUAQAByAGUAYQBsAHQAZQBrAC4AYwBvAG0A
-AAAfAACAH6TrM6h6LkK+e3nhqY5UswEAAAA4AAAAQwBvAG4AdgBlAHIAcwBhAHQAaQBvAG4ASQBu
-AGQAZQB4AFQAcgBhAGMAawBpAG4AZwBFAHgAAAABAAAAJAEAAEkASQA9AFsAQwBJAEQAPQAzADEA
-YwBkADMANwA4ADcALQBmAGEAMAA3AC0AMwAyADQAZQAtAGEAZABjADUALQBmADIAZAA2ADAAOQAw
-AGUAOAA2ADYAMAA7AEkARABYAEgARQBBAEQAPQBEAEEAOABBADQAOQBEADEARQA3ADsASQBEAFgA
-QwBPAFUATgBUAD0AMQBdADsAUABTAD0AVQBuAGsAbgBvAHcAbgA7AFYAZQByAHMAaQBvAG4APQBW
-AGUAcgBzAGkAbwBuACAAMQA1AC4AMQAgACgAQgB1AGkAbABkACAAMgA1ADAANwAuADAAKQAsACAA
-UwB0AGEAZwBlAD0ASAA0ADsAVQBQAD0AMQAwADsARABQAD0AMQBDADUAAAALAACACCAGAAAAAADA
-AAAAAAAARgAAAACChQAAAAAAAAMADTT9PwAAHwAAgIYDAgAAAAAAwAAAAAAAAEYBAAAAIAAAAHgA
-LQBtAHMALQBoAGEAcwAtAGEAdAB0AGEAYwBoAAAAAQAAAAIAAAAAAAAAHwAAgIYDAgAAAAAAwAAA
-AAAAAEYBAAAAIgAAAHgALQBvAHIAaQBnAGkAbgBhAHQAaQBuAGcALQBpAHAAAAAAAAEAAAAiAAAA
-WwAxADcAMgAuADIAMgAuADEAMAAyAC4AMQAwADIAXQAAAAAAV10=
+This series performs a cleanup of most of the MediaTek AFE drivers and
+soundcard machine drivers, reducing code duplication and setting a base
+to be consistent with their devicetree bindings, as many of those are
+using different properties and nodes for no good reason.
 
---_000_6a9b1d1fb2ea4f04b2157799f04053b1realtekcom_--
+Summarizing:
+ - Commonizes functions and ops where possible
+ - Adds a common probe mechanism, increasing maintainability of
+   soundcard drivers for older MediaTek SoCs
+ - Migrates all drivers to support the new bindings
+   - Obviously retains compatibility with old device trees
+ - Reduces machine-specific parameters hardcoding in drivers
+   - Can now set machine-specific params in device tree
+   - Uses the `audio-routing` and `dai-link` nodes like some
+     other non-MediaTek SoC sound drivers
+ - Imposes consistency between MediaTek ASoC machine soundcard
+   drivers bindings
+ - Reduces code size and greatly reduces the amount of code that
+   will be required for newer drivers (retaining compatibility with
+   the old bindings was costly in terms of code size, otherwise
+   this series would've removed ~1000 more lines, or something
+   along that line).
+
+This series was (manually) tested on MT8173, MT8192, MT8195 and MT8186
+Chromebooks.
+
+AngeloGioacchino Del Regno (18):
+  ASoC: mediatek: Add common machine soundcard driver probe mechanism
+  ASoC: mediatek: common: Constify struct mtk_sof_priv
+  ASoC: mediatek: mt8188: Migrate to mtk_soundcard_common_probe
+  ASoC: mediatek: mt8195: Migrate to mtk_soundcard_common_probe
+  ASoC: mediatek: mt8192: Migrate to mtk_soundcard_common_probe
+  ASoC: mediatek: mt8186: Migrate to mtk_soundcard_common_probe
+  ASoC: mediatek: Add common snd_soc_ops .startup() callback
+  ASoC: mediatek: mt8195: Migrate to the common mtk_soundcard_startup
+  ASoC: mediatek: mt8192: Migrate to the common mtk_soundcard_startup
+  ASoC: mediatek: mt8186-rt1019: Migrate to the common
+    mtk_soundcard_startup
+  ASoC: mediatek: Add common mtk_afe_component_probe callback
+  ASoC: mediatek: Use common mtk_afe_pcm_platform with common probe cb
+  ASoC: mediatek: mt8186: Unify mt8186-mt6366 machine drivers
+  ASoC: dt-bindings: mt8195: Document audio-routing and dai-link subnode
+  ASoC: dt-bindings: mt8192: Document audio-routing and dai-link subnode
+  ASoC: dt-bindings: mt8186: Document audio-routing and dai-link subnode
+  arm64: dts: mediatek: mt8195-cherry: Specify sound DAI links and
+    routing
+  arm64: dts: mediatek: mt8186-corsola: Specify sound DAI links and
+    routing
+
+ .../sound/mt8186-mt6366-da7219-max98357.yaml  |  131 +-
+ .../sound/mt8186-mt6366-rt1019-rt5682s.yaml   |  120 +-
+ .../sound/mt8192-mt6359-rt1015-rt5682.yaml    |  139 +-
+ .../bindings/sound/mt8195-mt6359.yaml         |  134 ++
+ .../boot/dts/mediatek/mt8186-corsola.dtsi     |   42 +-
+ .../boot/dts/mediatek/mt8195-cherry.dtsi      |   45 +
+ sound/soc/mediatek/Kconfig                    |   24 +-
+ .../mediatek/common/mtk-afe-platform-driver.c |   18 +
+ .../soc/mediatek/common/mtk-dsp-sof-common.c  |   15 +-
+ .../soc/mediatek/common/mtk-dsp-sof-common.h  |    1 -
+ sound/soc/mediatek/common/mtk-soc-card.h      |    7 +-
+ .../mediatek/common/mtk-soundcard-driver.c    |  199 +++
+ .../mediatek/common/mtk-soundcard-driver.h    |   42 +
+ sound/soc/mediatek/mt6797/mt6797-afe-pcm.c    |   14 +-
+ sound/soc/mediatek/mt7986/mt7986-afe-pcm.c    |   14 +-
+ sound/soc/mediatek/mt8183/mt8183-afe-pcm.c    |   14 +-
+ sound/soc/mediatek/mt8186/Makefile            |    3 +-
+ sound/soc/mediatek/mt8186/mt8186-afe-pcm.c    |   19 +-
+ sound/soc/mediatek/mt8186/mt8186-dai-adda.c   |    2 +-
+ .../mt8186/mt8186-mt6366-da7219-max98357.c    | 1189 -----------------
+ ...t6366-rt1019-rt5682s.c => mt8186-mt6366.c} |  578 ++++----
+ sound/soc/mediatek/mt8188/mt8188-afe-pcm.c    |   21 +-
+ sound/soc/mediatek/mt8188/mt8188-mt6359.c     |  203 +--
+ sound/soc/mediatek/mt8192/mt8192-afe-pcm.c    |   25 +-
+ .../mt8192/mt8192-mt6359-rt1015-rt5682.c      |  301 ++---
+ sound/soc/mediatek/mt8195/mt8195-afe-pcm.c    |   21 +-
+ sound/soc/mediatek/mt8195/mt8195-mt6359.c     |  487 +++----
+ 27 files changed, 1613 insertions(+), 2195 deletions(-)
+ delete mode 100644 sound/soc/mediatek/mt8186/mt8186-mt6366-da7219-max98357.c
+ rename sound/soc/mediatek/mt8186/{mt8186-mt6366-rt1019-rt5682s.c => mt8186-mt6366.c} (72%)
+
+-- 
+2.44.0
+

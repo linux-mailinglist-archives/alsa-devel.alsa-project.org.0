@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3985C89DA0B
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Apr 2024 15:22:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 841AE89DA36
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Apr 2024 15:27:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6E1862BCB;
-	Tue,  9 Apr 2024 15:22:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E1862BCB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1FA332BB0;
+	Tue,  9 Apr 2024 15:27:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1FA332BB0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712668941;
-	bh=masoxDhlXgLCo1KXGygaq1QCZyxhfrMjwYq4hc53AlE=;
+	s=default; t=1712669261;
+	bh=bjUWsJGJ49GWkXT/l3XmkoDvoj1OV3m8mUAmjwQeaBE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=q+weSQSDNUDQ+4eQyuKtmgFMv+4pKQ5X7d7xIaGjR84Atmzoyf8lFE5DgWFnXPUF8
-	 8oyReEwLVEGDO9P/Fo647kXTdbjKXg8+Ln3b5+BZ/YitX7p/3lsE5nXj3rvitkCeW2
-	 6/kwjsaGCGj3K+NSI1DlcwKHEL+X3Zungl0wfSrE=
+	b=eksiQcHmhnBqxxJ/7oCENImxjAvtqzDEMoQuZecp8F5+5bg5o4GzDUqKqQ8Mg2Zqh
+	 81xDPn+E9ffCfgEqJnOot1O1TEYx9IX2gcJLT/HmdN3c4/1o/aane5UGfCmWtOlKAA
+	 vDhlYACyo1Jw18lzTaOwpjKun3fxBIDqUr9vt/ZE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0C74BF80587; Tue,  9 Apr 2024 15:21:49 +0200 (CEST)
+	id 907BDF80589; Tue,  9 Apr 2024 15:27:09 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 324C9F805A0;
-	Tue,  9 Apr 2024 15:21:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1DA7AF8057A;
+	Tue,  9 Apr 2024 15:27:09 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C335BF8026D; Tue,  9 Apr 2024 15:21:44 +0200 (CEST)
+	id 47046F8026D; Tue,  9 Apr 2024 15:27:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,46 +34,46 @@ X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 568AEF800C9
-	for <alsa-devel@alsa-project.org>; Tue,  9 Apr 2024 15:21:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 568AEF800C9
+	by alsa1.perex.cz (Postfix) with ESMTPS id 48B0CF800C9
+	for <alsa-devel@alsa-project.org>; Tue,  9 Apr 2024 15:27:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48B0CF800C9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=ccpQ63R+
+ header.s=Intel header.b=ZQpRbe34
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1712668899; x=1744204899;
+  t=1712669223; x=1744205223;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=masoxDhlXgLCo1KXGygaq1QCZyxhfrMjwYq4hc53AlE=;
-  b=ccpQ63R+2vOzYRG8X7TtrA4uOpxwtRJ8ix8JcGI5sH4aTaS4RkOjYfI5
-   J7jpwbDq0zY9w/ND0tN1U0oVmq2Rv/3FIg6t5BM+tSVoc6ygYwhv493Uo
-   nhn16OZ1sZ+RHn1Nr02p6mmoWa07S4ngrfz8ssxQVNUFQnvbPxtAVftCk
-   HZPHUYzuog1GTZ1Tyc0ShrqkXccTipdiU+vcLtx7bYZEE3YhqZLoKEb3F
-   hTc+fF9ABgs1xYJY/UYChU/eczviSbYRwyW01nb9I6gkyFcF4QPrZQZvD
-   kzn25ecYG3Q32mOYDqBMuXbqrlg4vXPOx3jaIgQ5CLJp0Hctn1YoOhzv9
+  bh=bjUWsJGJ49GWkXT/l3XmkoDvoj1OV3m8mUAmjwQeaBE=;
+  b=ZQpRbe34Kb5MAoSbD7BW+aQCeSFLGhs69wG+UgzGMxKEAl4En/rJRkH7
+   IFh5PivMEJ7tlm7OFGn+VP49IHGBLQJcwvmQDfO86ygkvXv9mv/HKPIRW
+   tqLntFEXRc+NRiAL4FkvGW1TpqEoQ0QhRLAg4rdsrgVKDPi1or/sk+AuS
+   b0xFfHLjmVqmtThoCfNL9x5/x73aORu+WMQK7j8oEt1rI9uGs4Pj9PX7Z
+   IRt6kmb5u8Zvk8RE2tozsE2rULrg7GBvsWuWmeQzkaQsgThlra33udukS
+   F6SkPy1rcwnHMxciGxyl7E3wFy6x8pFogKkoblsQaYw/MbTtGG0ABmhkB
    Q==;
-X-CSE-ConnectionGUID: JZlCJEbKSeqCQ4di9hHZ5w==
-X-CSE-MsgGUID: O7ExyFsiQl6um3o1vZA1CA==
-X-IronPort-AV: E=McAfee;i="6600,9927,11039"; a="11775834"
+X-CSE-ConnectionGUID: AH8yIMoKR0OfspI/wPH6Eg==
+X-CSE-MsgGUID: E/cME+RSTy2GS3fm5+pdFA==
+X-IronPort-AV: E=McAfee;i="6600,9927,11039"; a="11776266"
 X-IronPort-AV: E=Sophos;i="6.07,189,1708416000";
-   d="scan'208";a="11775834"
+   d="scan'208";a="11776266"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
   by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Apr 2024 06:21:35 -0700
+ 09 Apr 2024 06:26:59 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,11039"; a="915399687"
+X-IronPort-AV: E=McAfee;i="6600,9927,11039"; a="915399802"
 X-IronPort-AV: E=Sophos;i="6.07,189,1708416000";
-   d="scan'208";a="915399687"
+   d="scan'208";a="915399802"
 Received: from smile.fi.intel.com (HELO smile) ([10.237.72.54])
   by fmsmga002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Apr 2024 06:21:31 -0700
+ 09 Apr 2024 06:26:55 -0700
 Received: from andy by smile with local (Exim 4.97)
 	(envelope-from <andriy.shevchenko@linux.intel.com>)
-	id 1ruBPk-00000002oTH-0zVa;
-	Tue, 09 Apr 2024 16:21:28 +0300
-Date: Tue, 9 Apr 2024 16:21:27 +0300
+	id 1ruBUy-00000002oWi-2L30;
+	Tue, 09 Apr 2024 16:26:52 +0300
+Date: Tue, 9 Apr 2024 16:26:52 +0300
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Baojun Xu <baojun.xu@ti.com>
 Cc: tiwai@suse.de, robh+dt@kernel.org, lgirdwood@gmail.com, perex@perex.cz,
@@ -81,18 +81,18 @@ Cc: tiwai@suse.de, robh+dt@kernel.org, lgirdwood@gmail.com, perex@perex.cz,
 	shenghao-ding@ti.com, navada@ti.com, alsa-devel@alsa-project.org,
 	linux-kernel@vger.kernel.org, liam.r.girdwood@intel.com,
 	yung-chuan.liao@linux.intel.com, broonie@kernel.org, soyer@irl.hu
-Subject: Re: [PATCH v2 2/3] ALSA: hda/tas2781: Main code of tas2781 driver
- for SPI
-Message-ID: <ZhVA1_HTET4Q4T9d@smile.fi.intel.com>
+Subject: Re: [PATCH v2 3/3] ALSA: hda/tas2781: Firmware load for tas2781
+ driver for SPI
+Message-ID: <ZhVCHJrjKDVOP5ji@smile.fi.intel.com>
 References: <20240409024816.1180-1-baojun.xu@ti.com>
- <20240409024816.1180-3-baojun.xu@ti.com>
+ <20240409024816.1180-4-baojun.xu@ti.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20240409024816.1180-3-baojun.xu@ti.com>
+In-Reply-To: <20240409024816.1180-4-baojun.xu@ti.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Message-ID-Hash: XGQO5KB4O7AB7OOCQZQVLJJ4MSNCG7FT
-X-Message-ID-Hash: XGQO5KB4O7AB7OOCQZQVLJJ4MSNCG7FT
+Message-ID-Hash: YCN3QQ5U6L2CLA3WJWOIWCXM4DCBY5LR
+X-Message-ID-Hash: YCN3QQ5U6L2CLA3WJWOIWCXM4DCBY5LR
 X-MailFrom: andriy.shevchenko@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -105,7 +105,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XGQO5KB4O7AB7OOCQZQVLJJ4MSNCG7FT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YCN3QQ5U6L2CLA3WJWOIWCXM4DCBY5LR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -114,274 +114,129 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, Apr 09, 2024 at 10:48:14AM +0800, Baojun Xu wrote:
-> Main source code for tas2781 driver for SPI.
+On Tue, Apr 09, 2024 at 10:48:15AM +0800, Baojun Xu wrote:
+> Firmware download and parser lib for tas2781, it work for spi
+> device with a single firmware binary file.
+
+I believe this also can benefit from comments given against previous patches.
 
 ...
 
-> +#ifndef __TAS2781_SPI_H__
-> +#define __TAS2781_SPI_H__
+> +		im = &(calibration->dev_data);
 
-+ bits.h
-+ mutex.h
-+ time.h? (for struct tm)
-+ types.h
+Unneeded parentheses.
 
-struct calidata is from?..
-
-> +#include <sound/tas2781-dsp.h>
-
-Not sure how this is being used.
-
-Also some forward declarations:
-
-+ struct device;
-+ struct firmware;
-+ struct gpio_desc;
-+ struct regmap;
-
-(I might missed something)
-
-...
-
-> +#define TASDEVICE_RATES			(SNDRV_PCM_RATE_44100 |\
-> +	SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_96000 |\
-> +	SNDRV_PCM_RATE_88200)
-
-For lines likes this, the formatting can be
-
-#define TASDEVICE_RATES							      \
-	(SNDRV_PCM_RATE_44100 | SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_96000 | \
-	 SNDRV_PCM_RATE_88200)
-
-which from my p.o.v. looks better.
-
-...
-
-> +#define TAS2781_SPI_MAX_FREQ		4000000
-
-4 * HZZ_PER_MHZ ?
-
-...
-
-> +enum device_catlog_id {
-
-Too generic name.
-
-> +	HP = 0,
-> +	OTHERS
-
-Ditto. Please, add namespace.
-
-> +};
-
-...
-
-> +#include <linux/acpi.h>
-> +#include <linux/crc8.h>
-> +#include <linux/crc32.h>
-> +#include <linux/efi.h>
-> +#include <linux/firmware.h>
-> +#include <linux/mod_devicetable.h>
-> +#include <linux/module.h>
-> +#include <linux/pm_runtime.h>
-
-+ property.h
-
-> +#include <linux/regmap.h>
-> +#include <linux/spi/spi.h>
-> +#include <sound/hda_codec.h>
-> +#include <sound/soc.h>
-> +#include <sound/tlv.h>
-> +#include <sound/tas2781-tlv.h>
-
-...
-
-> +/* No standard control callbacks for SNDRV_CTL_ELEM_IFACE_CARD
-> + * Define two controls, one is Volume control callbacks, the other is
-> + * flag setting control callbacks.
-> + */
-
-/*
- * Follow the example of the multi-line
- * comments style as in this comment. Apply
- * it to all your comments.
- */
-
-...
-
-> +	.private_value = (unsigned long)&(struct soc_mixer_control) \
-> +		{.reg = xreg, .rreg = xreg, .shift = xshift, \
-> +		 .rshift = xshift, .min = xmin, .max = xmax, \
-> +		 .invert = xinvert} }
-
-It is unreadable.
-
-	.private_value = (unsigned long)&(struct soc_mixer_control) {	      \
-		.reg = xreg, .rreg = xreg, .shift = xshift, .rshift = xshift, \
-		.min = xmin, .max = xmax, .invert = xinvert,		      \
-	},								      \
-
-
-See the difference?
-
-Please, apply this to all twisted macros:
-- logical split
-- leaving trailing commas
-- better formatting
-
-...
-
-> +		.range_max = 256 * 128,
-
-Perhaps you want to define this as it's used a lot in the C and header files.
-
-...
-
-> +static const struct regmap_config tasdevice_regmap = {
-> +	.reg_bits = 8,
-> +	.val_bits = 8,
-> +	.cache_type = REGCACHE_NONE,
-> +	.ranges = tasdevice_ranges,
-> +	.num_ranges = ARRAY_SIZE(tasdevice_ranges),
-> +	.max_register = 256 * 128,
-> +};
 > +
+> +		if (!im->dev_blks)
+> +			continue;
 > +
-
-One too many blank lines.
-
-> +static void tas2781_spi_reset(struct tasdevice_priv *tas_dev);
-> +static int tasdevice_spi_init(struct tasdevice_priv *tas_priv);
-> +static int tasdevice_spi_amp_putvol(struct tasdevice_priv *tas_priv,
-> +	struct snd_ctl_elem_value *ucontrol, struct soc_mixer_control *mc);
-> +static int tasdevice_spi_amp_getvol(struct tasdevice_priv *tas_priv,
-> +	struct snd_ctl_elem_value *ucontrol, struct soc_mixer_control *mc);
-> +static int tasdevice_spi_digital_putvol(struct tasdevice_priv *tas_priv,
-> +	struct snd_ctl_elem_value *ucontrol, struct soc_mixer_control *mc);
-> +static int tasdevice_spi_digital_getvol(struct tasdevice_priv *tas_priv,
-> +	struct snd_ctl_elem_value *ucontrol, struct soc_mixer_control *mc);
-
-Why do you need forward declarations here?
-
-...
-
-> +static int tasdevice_spi_switch_book(struct tasdevice_priv *tas_priv,
-> +	int book)
-
-Can be on a single line.
-
-> +{
-> +	struct tasdevice *tasdev = &tas_priv->tasdevice;
-> +	struct regmap *map = tas_priv->regmap;
-> +	int ret = 0;
-> +
-> +	if (tasdev->cur_book != book) {
-> +		/* Change to page 0 before book change. */
-> +		ret = regmap_write(map, TASDEVICE_PAGE_SELECT, 0);
-> +		if (ret < 0) {
-> +			dev_err(tas_priv->dev, "%s, E=%d\n", __func__, ret);
-> +			return ret;
+> +		for (blks = 0; blks < im->nr_blk; blks++) {
+> +			block = &(im->dev_blks[blks]);
+> +			if (!block)
+> +				continue;
+> +			kfree(block->data);
 > +		}
-> +		ret = regmap_write(map, TASDEVICE_BOOKCTL_REG, book);
-> +		if (ret < 0)
-> +			dev_err(tas_priv->dev, "%s, E=%d\n", __func__, ret);
-
-Non-fatal error?
-
-> +		tasdev->cur_book = book;
+> +		kfree(im->dev_blks);
 > +	}
-> +
-> +	return ret;
+> +	kfree(tas_fmw->calibrations);
+> +out:
+> +	kfree(tas_fmw);
+
+It may gain if you use cleanup.h from day 1.
+
 > +}
-
-...
-
-> +int tasdevice_spi_dev_read(struct tasdevice_priv *tas_priv,
-> +	unsigned int reg, unsigned int *val)
+> +
+> +void tasdevice_spi_calbin_remove(void *context)
 > +{
-> +	struct regmap *map = tas_priv->regmap;
-> +	int ret;
-> +
-> +	ret = tasdevice_spi_switch_book(tas_priv, TASDEVICE_BOOK_ID(reg));
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	/*
-> +	 * In our TAS2781 SPI mode, if read from other book (not book 0),
-> +	 * or read from page number larger than 1 in book 0, one byte more
-> +	 * read is needed, and first byte is a dummy byte, need to be ignored.
-> +	 */
-> +	if ((TASDEVICE_BOOK_ID(reg) > 0) || (TASDEVICE_PAGE_ID(reg) > 1)) {
-> +		unsigned char data[2];
-> +
-> +		ret = regmap_bulk_read(map, TASDEVICE_PGRG(reg), data, 2);
+> +	struct tasdevice_priv *tas_priv = (struct tasdevice_priv *) context;
 
-sizeof(data) ?
+Casting is not needed.
 
-> +		*val = data[1];
+> +	struct tasdevice *tasdev;
+
+> +	if (!tas_priv)
+> +		return;
+
+How is this not a dead code?
+
+> +	tasdev = &(tas_priv->tasdevice);
+> +	if (tasdev->cali_data_fmw) {
+> +		tas2781_clear_calfirmware(tasdev->cali_data_fmw);
+> +		tasdev->cali_data_fmw = NULL;
+> +	}
+> +}
+
+...
+
+> +void tasdevice_spi_config_info_remove(void *context)
+> +{
+> +	struct tasdevice_priv *tas_priv = (struct tasdevice_priv *) context;
+> +	struct tasdevice_rca *rca = &(tas_priv->rcabin);
+> +	struct tasdevice_config_info **ci = rca->cfg_info;
+> +	int i, j;
+> +
+> +	if (!ci)
+> +		return;
+> +	for (i = 0; i < rca->ncfgs; i++) {
+> +		if (!ci[i])
+> +			continue;
+> +		if (ci[i]->blk_data) {
+> +			for (j = 0; j < (int)ci[i]->real_nblocks; j++) {
+
+Oh, explicit castings should be _rarely_ used. What's the problem with making j
+to be the same type as real_nblocks?
+
+> +				if (!ci[i]->blk_data[j])
+> +					continue;
+> +				kfree(ci[i]->blk_data[j]->regdata);
+> +				kfree(ci[i]->blk_data[j]);
+> +			}
+> +			kfree(ci[i]->blk_data);
+> +		}
+> +		kfree(ci[i]);
+> +	}
+> +	kfree(ci);
+> +}
+
+...
+
+> +	if (cfg_no >= 0
+> +		&& (tas_priv->tasdevice.cur_conf != cfg_no)
+> +		&& (cfg_info[rca_conf_no]->active_dev & 1)
+> +		&& (tas_priv->tasdevice.is_loaderr == false)) {
+
+This is unparsable. Please, use postfix style and proper indentation.
+
+	if (foo &&
+	    bar ...) {
+		...stuff...;
+	}
+
+> +		status++;
+> +		tas_priv->tasdevice.is_loading = true;
 > +	} else {
-> +		ret = regmap_read(map, TASDEVICE_PGRG(reg), val);
+> +		tas_priv->tasdevice.is_loading = false;
 > +	}
-> +	if (ret < 0)
-> +		dev_err(tas_priv->dev, "%s, E=%d\n", __func__, ret);
+
+...
+
+> +	if (state == 0) {
+> +		if (tas_priv->cur_prog < tas_fmw->nr_programs) {
+> +			/*dsp mode or tuning mode*/
+> +			profile_cfg_id = tas_priv->rcabin.profile_cfg_id;
+> +			tasdevice_spi_select_tuningprm_cfg(tas_priv,
+> +				tas_priv->cur_prog, tas_priv->cur_conf,
+> +				profile_cfg_id);
+> +		}
 > +
-> +	return ret;
-> +}
-> +EXPORT_SYMBOL_GPL(tasdevice_spi_dev_read);
+> +		tasdevice_spi_select_cfg_blk(tas_priv, profile_cfg_id,
+> +			TASDEVICE_BIN_BLK_PRE_POWER_UP);
+> +	} else
+> +		tasdevice_spi_select_cfg_blk(tas_priv, profile_cfg_id,
+> +			TASDEVICE_BIN_BLK_PRE_SHUTDOWN);
 
-No namespace, why?
-
-...
-
-> +	return ret;
-> +
-> +}
-
-Here and in other places, one too many blank lines.
-
-...
-
-> +	static const unsigned char page_array[CALIB_MAX] = {
-> +		0x17, 0x18, 0x18, 0x13, 0x18
-
-Leave trailing comma, can be helpful in the future.
-
-> +	};
-> +	static const unsigned char rgno_array[CALIB_MAX] = {
-> +		0x74, 0x0c, 0x14, 0x70, 0x7c
-
-Ditto.
-
-> +	};
-
-
-...
-
-> +	data = tas_priv->cali_data.data +
-> +		tas_priv->index * TASDEVICE_SPEAKER_CALIBRATION_SIZE;
-> +	for (j = 0; j < CALIB_MAX; j++) {
-> +		rc = tasdevice_spi_dev_bulk_write(tas_priv,
-> +			TASDEVICE_REG(0, page_array[j], rgno_array[j]),
-> +			&(data[4 * j]), 4);
-> +		if (rc < 0)
-> +			dev_err(tas_priv->dev,
-> +				"chn %d calib %d bulk_wr err = %d\n",
-> +				tas_priv->index, j, rc);
-
-The indentation here and in some other places is a mess. Please,
-take your time to split these in more readable way.
-
-> +	}
-> +
-
-Again, too many unneeded blank lines in the code.
-
-> +}
-
-...
-
-I stopped here as there are already enough for next version.
+Out of a sudden different style (no {} in 'else' branch). Try to be consistent
+in style everywhere.
 
 -- 
 With Best Regards,

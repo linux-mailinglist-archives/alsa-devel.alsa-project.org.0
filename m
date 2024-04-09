@@ -2,98 +2,117 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 841AE89DA36
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Apr 2024 15:27:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 751D289DCC7
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Apr 2024 16:40:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1FA332BB0;
-	Tue,  9 Apr 2024 15:27:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1FA332BB0
+	by alsa0.perex.cz (Postfix) with ESMTPS id AB0982BCB;
+	Tue,  9 Apr 2024 16:40:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB0982BCB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712669261;
-	bh=bjUWsJGJ49GWkXT/l3XmkoDvoj1OV3m8mUAmjwQeaBE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1712673614;
+	bh=VsIhIpo9XbPHMfhPqNlNwCHGDoqMfYE2kWZHJaXVHvw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=eksiQcHmhnBqxxJ/7oCENImxjAvtqzDEMoQuZecp8F5+5bg5o4GzDUqKqQ8Mg2Zqh
-	 81xDPn+E9ffCfgEqJnOot1O1TEYx9IX2gcJLT/HmdN3c4/1o/aane5UGfCmWtOlKAA
-	 vDhlYACyo1Jw18lzTaOwpjKun3fxBIDqUr9vt/ZE=
+	b=YFzZvF5Ru4ahp4OWjF+MZydq8sMNBZxhteGjdJjIdF0XiUw5uzhr4ZlrkEEiIzSVU
+	 IHRg9wzCWRZObYWvG2rzkwDYmizOCQC3gu6sn1T0DoxPEN+khm7pSrROFfNW1U8oxj
+	 SB/UiJogYkplaVHu6jOXM+w0xAKyK8YSXLOnyzxo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 907BDF80589; Tue,  9 Apr 2024 15:27:09 +0200 (CEST)
+	id 9D7D7F80579; Tue,  9 Apr 2024 16:39:43 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1DA7AF8057A;
-	Tue,  9 Apr 2024 15:27:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C408AF8057A;
+	Tue,  9 Apr 2024 16:39:42 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 47046F8026D; Tue,  9 Apr 2024 15:27:05 +0200 (CEST)
+	id D74E3F8026D; Tue,  9 Apr 2024 16:39:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [IPv6:2a00:1450:4864:20::136])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 48B0CF800C9
-	for <alsa-devel@alsa-project.org>; Tue,  9 Apr 2024 15:27:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48B0CF800C9
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6A4C4F80130
+	for <alsa-devel@alsa-project.org>; Tue,  9 Apr 2024 16:39:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A4C4F80130
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=ZQpRbe34
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1712669223; x=1744205223;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=bjUWsJGJ49GWkXT/l3XmkoDvoj1OV3m8mUAmjwQeaBE=;
-  b=ZQpRbe34Kb5MAoSbD7BW+aQCeSFLGhs69wG+UgzGMxKEAl4En/rJRkH7
-   IFh5PivMEJ7tlm7OFGn+VP49IHGBLQJcwvmQDfO86ygkvXv9mv/HKPIRW
-   tqLntFEXRc+NRiAL4FkvGW1TpqEoQ0QhRLAg4rdsrgVKDPi1or/sk+AuS
-   b0xFfHLjmVqmtThoCfNL9x5/x73aORu+WMQK7j8oEt1rI9uGs4Pj9PX7Z
-   IRt6kmb5u8Zvk8RE2tozsE2rULrg7GBvsWuWmeQzkaQsgThlra33udukS
-   F6SkPy1rcwnHMxciGxyl7E3wFy6x8pFogKkoblsQaYw/MbTtGG0ABmhkB
-   Q==;
-X-CSE-ConnectionGUID: AH8yIMoKR0OfspI/wPH6Eg==
-X-CSE-MsgGUID: E/cME+RSTy2GS3fm5+pdFA==
-X-IronPort-AV: E=McAfee;i="6600,9927,11039"; a="11776266"
-X-IronPort-AV: E=Sophos;i="6.07,189,1708416000";
-   d="scan'208";a="11776266"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Apr 2024 06:26:59 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,11039"; a="915399802"
-X-IronPort-AV: E=Sophos;i="6.07,189,1708416000";
-   d="scan'208";a="915399802"
-Received: from smile.fi.intel.com (HELO smile) ([10.237.72.54])
-  by fmsmga002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Apr 2024 06:26:55 -0700
-Received: from andy by smile with local (Exim 4.97)
-	(envelope-from <andriy.shevchenko@linux.intel.com>)
-	id 1ruBUy-00000002oWi-2L30;
-	Tue, 09 Apr 2024 16:26:52 +0300
-Date: Tue, 9 Apr 2024 16:26:52 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Baojun Xu <baojun.xu@ti.com>
-Cc: tiwai@suse.de, robh+dt@kernel.org, lgirdwood@gmail.com, perex@perex.cz,
-	pierre-louis.bossart@linux.intel.com, kevin-lu@ti.com,
-	shenghao-ding@ti.com, navada@ti.com, alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org, liam.r.girdwood@intel.com,
-	yung-chuan.liao@linux.intel.com, broonie@kernel.org, soyer@irl.hu
-Subject: Re: [PATCH v2 3/3] ALSA: hda/tas2781: Firmware load for tas2781
- driver for SPI
-Message-ID: <ZhVCHJrjKDVOP5ji@smile.fi.intel.com>
-References: <20240409024816.1180-1-baojun.xu@ti.com>
- <20240409024816.1180-4-baojun.xu@ti.com>
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=b4AskDsX
+Received: by mail-lf1-x136.google.com with SMTP id
+ 2adb3069b0e04-516d47ce662so7297234e87.1
+        for <alsa-devel@alsa-project.org>;
+ Tue, 09 Apr 2024 07:39:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1712673566; x=1713278366;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=YKneFpmrGWPkDYn40mrK/8lEAAuKeHF1X4WijCDVMIA=;
+        b=b4AskDsXVWs9lqqhagWF35Q+iUwe2ZGrCRr+nu4NAXFyvcFTJiVWLVsYbUCrDrpVqR
+         SOPj8bglV+J0W6me+8cx6dgOKpMhTPB01w/WOzHrdqADYXjlj4Yw1d1wW65AsKbmVU7+
+         WOzrAdgIm8CSjRKCwdU78IeEKT4cMHqydD0GFYiRIr0LF0yDWN6SGDV4Hp/TpH6nlCcg
+         tgp+KQebXFiUD/ZtE1pHj9FP49hBr+yxuwS9meMICwsJMkNFX60/oe33dhGaP2s3YCtM
+         Oc5AwsaxsVi4buZU6JAxMyI5Oh9mQYbsAxvuVh+aVMlSmhWLfIT+lPO4xtnhcpKdMytr
+         Gg5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1712673566; x=1713278366;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=YKneFpmrGWPkDYn40mrK/8lEAAuKeHF1X4WijCDVMIA=;
+        b=wMWX7Y2jdK0PiRjk8z1KTzlh+/vPXj2+xCcw17cYwTZX0E88DhK6pt4dbQJWPn2Y8M
+         1SKX5Fb4/Hl5TolsiJPjwU5rMQ9sM2h1mIAIfEVaTucMnYCIsi3MLFwysqSTfdsH/dla
+         ZDMvtRbNfpzSlqH5RNL3yWGcfAliWFcz0AVGmmjf97a4VwEHeIqN9rwdzoDz6SJNbOWU
+         56tgafFkJSpKF55lJ0xtZUEqzrm+U7oLZzpoofdK7K2JYeDy821MvBsVJSSzIkfb8JyF
+         rebk4tUdwNgNWl1/a1wWmLin6f6tj+kl/6wjY+xklZg2qM2jzdQxPoWyxCzpL7JxupOU
+         4HiQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVq/A+NAAaSSK5p1lK/OZUbYq+OiQCvoeoudWUr5U97YmNPTbzDiVv/rAb2b+QCISI4ouHK7ynBAnuou/kPs72zoIT0k5sppuvry5E=
+X-Gm-Message-State: AOJu0YwUzHzBDHnUIXlKvYtSA1jdybm84K1a99DsjOxnTD4GG7W4t/OB
+	YsoTxiSsU/lIR6VigvylLvSrvk2sqK0Ut4aEHsJb0KHHmxyIGipt
+X-Google-Smtp-Source: 
+ AGHT+IFNvQ/ssefNKErjmnIGx6yZ1F9nt1Qiw7IcOB3RIUN0vBkaXWO1MGpGc6B7hXDExOz5QM8pow==
+X-Received: by 2002:a05:6512:1188:b0:515:af1f:5bad with SMTP id
+ g8-20020a056512118800b00515af1f5badmr12034231lfr.28.1712673565917;
+        Tue, 09 Apr 2024 07:39:25 -0700 (PDT)
+Received: from ?IPV6:2001:999:588:88e2:b205:90f0:e68f:63c6?
+ ([2001:999:588:88e2:b205:90f0:e68f:63c6])
+        by smtp.gmail.com with ESMTPSA id
+ a22-20020a195f56000000b00516d0aecc5esm1594774lfj.141.2024.04.09.07.39.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 09 Apr 2024 07:39:25 -0700 (PDT)
+Message-ID: <e15d8d41-c4ad-4cfb-b10a-89e06a4ece11@gmail.com>
+Date: Tue, 9 Apr 2024 17:39:31 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240409024816.1180-4-baojun.xu@ti.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Message-ID-Hash: YCN3QQ5U6L2CLA3WJWOIWCXM4DCBY5LR
-X-Message-ID-Hash: YCN3QQ5U6L2CLA3WJWOIWCXM4DCBY5LR
-X-MailFrom: andriy.shevchenko@linux.intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 00/13] ASoC: ti: davinci-i2s: Add features to McBSP
+ driver
+To: Bastien Curutchet <bastien.curutchet@bootlin.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, herve.codina@bootlin.com,
+ christophercordahi@nanometrics.ca
+References: <20240402071213.11671-1-bastien.curutchet@bootlin.com>
+From: =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@gmail.com>
+Content-Language: en-US
+In-Reply-To: <20240402071213.11671-1-bastien.curutchet@bootlin.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: A36VJJX2KAJSPJTXM6SP5I4THBUVMZW2
+X-Message-ID-Hash: A36VJJX2KAJSPJTXM6SP5I4THBUVMZW2
+X-MailFrom: peter.ujfalusi@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -105,7 +124,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YCN3QQ5U6L2CLA3WJWOIWCXM4DCBY5LR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/A36VJJX2KAJSPJTXM6SP5I4THBUVMZW2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -114,132 +133,90 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, Apr 09, 2024 at 10:48:15AM +0800, Baojun Xu wrote:
-> Firmware download and parser lib for tas2781, it work for spi
-> device with a single firmware binary file.
+Hi Bastien,
 
-I believe this also can benefit from comments given against previous patches.
+On 02/04/2024 10:12, Bastien Curutchet wrote:
+> This series aims to add some features to McBSP driver.
+> 
+> Convert bindings from .txt to .yaml.
+> Add possibility to use an external clock as sample rate generator's
+> input.
+> Add handling of new formats (TDM, S24_LE, BP_FC).
+> Enable the detection of unexpected frame pulses.
+> Set the clock free-running mode according to SND_SOC_DAIFMT_[GATED/CONT]
+> configuration in DAI format.
+> Add ti,T1-framing[tx/rx] properties in DT. They allow to set the data
+> delay to two bit-clock periods.
+> 
+> This has been tested on a platform designed off of the DAVINCI/OMAP-L138
+> connected to 3 daisy-chained AD7767. An external clock drives the
+> sample rate generator through the CLKS pin.
+> The hardware I have only allowed me to test acquisition side of McBSP.
+> It is connected to a 6 channels TDM and acts as Bit clock provider and
+> Frame clock consumer.
 
-...
+Nice and clean, thank you for the updates!
 
-> +		im = &(calibration->dev_data);
+Acked-by: Peter Ujfalusi <peter.ujfalusi@gmail.com>
 
-Unneeded parentheses.
+PS: sorry for the delay.
 
-> +
-> +		if (!im->dev_blks)
-> +			continue;
-> +
-> +		for (blks = 0; blks < im->nr_blk; blks++) {
-> +			block = &(im->dev_blks[blks]);
-> +			if (!block)
-> +				continue;
-> +			kfree(block->data);
-> +		}
-> +		kfree(im->dev_blks);
-> +	}
-> +	kfree(tas_fmw->calibrations);
-> +out:
-> +	kfree(tas_fmw);
-
-It may gain if you use cleanup.h from day 1.
-
-> +}
-> +
-> +void tasdevice_spi_calbin_remove(void *context)
-> +{
-> +	struct tasdevice_priv *tas_priv = (struct tasdevice_priv *) context;
-
-Casting is not needed.
-
-> +	struct tasdevice *tasdev;
-
-> +	if (!tas_priv)
-> +		return;
-
-How is this not a dead code?
-
-> +	tasdev = &(tas_priv->tasdevice);
-> +	if (tasdev->cali_data_fmw) {
-> +		tas2781_clear_calfirmware(tasdev->cali_data_fmw);
-> +		tasdev->cali_data_fmw = NULL;
-> +	}
-> +}
-
-...
-
-> +void tasdevice_spi_config_info_remove(void *context)
-> +{
-> +	struct tasdevice_priv *tas_priv = (struct tasdevice_priv *) context;
-> +	struct tasdevice_rca *rca = &(tas_priv->rcabin);
-> +	struct tasdevice_config_info **ci = rca->cfg_info;
-> +	int i, j;
-> +
-> +	if (!ci)
-> +		return;
-> +	for (i = 0; i < rca->ncfgs; i++) {
-> +		if (!ci[i])
-> +			continue;
-> +		if (ci[i]->blk_data) {
-> +			for (j = 0; j < (int)ci[i]->real_nblocks; j++) {
-
-Oh, explicit castings should be _rarely_ used. What's the problem with making j
-to be the same type as real_nblocks?
-
-> +				if (!ci[i]->blk_data[j])
-> +					continue;
-> +				kfree(ci[i]->blk_data[j]->regdata);
-> +				kfree(ci[i]->blk_data[j]);
-> +			}
-> +			kfree(ci[i]->blk_data);
-> +		}
-> +		kfree(ci[i]);
-> +	}
-> +	kfree(ci);
-> +}
-
-...
-
-> +	if (cfg_no >= 0
-> +		&& (tas_priv->tasdevice.cur_conf != cfg_no)
-> +		&& (cfg_info[rca_conf_no]->active_dev & 1)
-> +		&& (tas_priv->tasdevice.is_loaderr == false)) {
-
-This is unparsable. Please, use postfix style and proper indentation.
-
-	if (foo &&
-	    bar ...) {
-		...stuff...;
-	}
-
-> +		status++;
-> +		tas_priv->tasdevice.is_loading = true;
-> +	} else {
-> +		tas_priv->tasdevice.is_loading = false;
-> +	}
-
-...
-
-> +	if (state == 0) {
-> +		if (tas_priv->cur_prog < tas_fmw->nr_programs) {
-> +			/*dsp mode or tuning mode*/
-> +			profile_cfg_id = tas_priv->rcabin.profile_cfg_id;
-> +			tasdevice_spi_select_tuningprm_cfg(tas_priv,
-> +				tas_priv->cur_prog, tas_priv->cur_conf,
-> +				profile_cfg_id);
-> +		}
-> +
-> +		tasdevice_spi_select_cfg_blk(tas_priv, profile_cfg_id,
-> +			TASDEVICE_BIN_BLK_PRE_POWER_UP);
-> +	} else
-> +		tasdevice_spi_select_cfg_blk(tas_priv, profile_cfg_id,
-> +			TASDEVICE_BIN_BLK_PRE_SHUTDOWN);
-
-Out of a sudden different style (no {} in 'else' branch). Try to be consistent
-in style everywhere.
+> 
+> Change log v1 -> v2:
+>   PATCH 1 (bindings):
+>      * Drop power-domains property's description
+>      * Drop the unused label 'mcbsp0' in example
+>      * Add <> around each entry of the 'dmas' property
+>      * Add 'Reviewed-by: Rob Herring <robh@kernel.org>'
+>   PATCH 2 (bindings):
+>      * Drop the 'ti,enable-sync-err' flag
+>      * Drop the 'ti,disable-free-run' flag
+>      * Add 'Reviewed-by: Rob Herring <robh@kernel.org>'
+>   PATCH 4:
+>      * In probe() use dev_err for fixed error
+>   PATCH 7 (TDM):
+>      * set playback.max_channels to 128
+>      * Add a check on tx_mask as the one done for rx_mask
+>      * Allow TDM with BP_FP format
+>   PATCH 9:
+>      * Detection of unexpected frame pulses is enabled by default
+>   PATCH 10:
+>      * Free-running mode is selected by the DAI format through
+>        SND_SOC_DAIFMT_[CONT/GATED]
+>   PATCH 12:
+>      * drop the 'ti,drive-dx' property
+>      * add 'ti,T1-framing-[rx/tx]' properties
+>   PATCH 13:
+>      * Drop the drive_dx part
+>      * Add support for 'T1 framing' with data delay set to 2 bit-clock
+>        periods
+> Bastien Curutchet (13):
+>   ASoC: dt-bindings: davinci-mcbsp: convert McBSP bindings to yaml
+>     schema
+>   ASoC: dt-bindings: davinci-mcbsp: Add optional clock
+>   ASoC: ti: davinci-i2s: Remove the unused clk_input_pin attribute
+>   ASoC: ti: davinci-i2s: Replace dev_err with dev_err_probe
+>   ASoC: ti: davinci-i2s: Use external clock to drive sample rate
+>     generator
+>   ASoC: ti: davinci-i2s: Delete unnecessary assignment
+>   ASoC: ti: davinci-i2s: Add TDM support
+>   ASoC: ti: davinci-i2s: Add handling of BP_FC format
+>   ASoC: ti: davinci-i2s: Enable unexpected frame pulses detection
+>   ASoC: ti: davinci-i2s: Link free-run mode to
+>     SND_SOC_DAIFMT_[GATED/CONT]
+>   ASoC: ti: davinci-i2s: Add S24_LE to supported formats
+>   ASoC: dt-bindings: davinci-mcbsp: Add the 'ti,T1-framing-{rx/tx}'
+>     flags
+>   ASoC: ti: davinci-i2s: Add T1 framing support
+> 
+>  .../bindings/sound/davinci-mcbsp.txt          |  50 ----
+>  .../bindings/sound/davinci-mcbsp.yaml         | 113 +++++++
+>  include/linux/platform_data/davinci_asp.h     |  15 -
+>  sound/soc/ti/davinci-i2s.c                    | 278 ++++++++++++++----
+>  4 files changed, 333 insertions(+), 123 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/sound/davinci-mcbsp.txt
+>  create mode 100644 Documentation/devicetree/bindings/sound/davinci-mcbsp.yaml
+> 
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+Péter

@@ -2,98 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CF918A9F13
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Apr 2024 17:51:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B95088A9F15
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Apr 2024 17:51:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EB65E14EA;
-	Thu, 18 Apr 2024 17:51:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB65E14EA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5B84C20C5;
+	Thu, 18 Apr 2024 17:51:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B84C20C5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1713455495;
-	bh=n4JrkSorhynZmSYFDegpGZt7tneK34MYTFY2bPGDfD0=;
+	s=default; t=1713455508;
+	bh=xJfhI9QPat0r98+lhtVmHv0dk3LFeZuD6e/my70ds9U=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=K665wspAxBqC2ovH0fvxdzin3VREuPWjo4GkNnVKNIAX9RMEvoDr49oCBAom1NXJ9
-	 fN0tkSNk3HK64kVPMXWI+U2KxHc0B2YYKQKLFswjvZwl/jV0wZkgnSrWeoOFFYQfaI
-	 KdTmW/874K2f34rhFAz4xtxl2waCBrPBW3h1sIzQ=
+	b=OA3p3bia2yNuyjhU2YoXvMRq2JZ4Sg860XzAq6OMwJJwMtVHPQQkHOzGQI1xQGNNh
+	 ecAwDYNQvzfIpSsUvOQro8zGFqjsDBheMFj8BF+me7QSd3obFLt/sh2PMwnSYzr0IO
+	 CDU0LTDkpjAcVsv00X3JAbJCG4kB96qTVjjfILdU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7AA2CF896EB; Thu, 18 Apr 2024 17:46:25 +0200 (CEST)
+	id 9D1EAF805D2; Thu, 18 Apr 2024 17:47:04 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EA49AF896FC;
-	Thu, 18 Apr 2024 17:46:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A594EF805A0;
+	Thu, 18 Apr 2024 17:47:04 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 24211F800C9; Wed, 10 Apr 2024 17:13:56 +0200 (CEST)
+	id 73B8BF8026D; Wed, 10 Apr 2024 17:14:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [IPv6:2a00:1450:4864:20::434])
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [IPv6:2a00:1450:4864:20::433])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 213F1F800C9
-	for <alsa-devel@alsa-project.org>; Wed, 10 Apr 2024 17:13:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 213F1F800C9
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3FD50F8013D
+	for <alsa-devel@alsa-project.org>; Wed, 10 Apr 2024 17:14:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3FD50F8013D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=baylibre-com.20230601.gappssmtp.com
  header.i=@baylibre-com.20230601.gappssmtp.com header.a=rsa-sha256
- header.s=20230601 header.b=iIo0zJRc
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-34682953048so409883f8f.3
+ header.s=20230601 header.b=1hgOk/Bt
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-343e46ec237so4099425f8f.2
         for <alsa-devel@alsa-project.org>;
- Wed, 10 Apr 2024 08:13:52 -0700 (PDT)
+ Wed, 10 Apr 2024 08:14:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1712762030;
- x=1713366830; darn=alsa-project.org;
+        d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1712762071;
+ x=1713366871; darn=alsa-project.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=Xb0tDuasjSNlJsy4sDFiJMtEhz1/MxQR3B46cvvCuH4=;
-        b=iIo0zJRccYf3vOKNJv398mm7Y6FkCF3VrLqebyLBm7CKjZ/QQH9SB/vzeQxwnFgi3u
-         yDQVRnQtwFmT+Ah9ElGCZi8Mi4MeqN+Nh7uFunFcZxQQ+vcRvYzluZaF7Gw6afOiik/Q
-         haelVqR7KmxzcgMM2YfzXk2iRmqxJ8lgacXtvU9F9iYnyXk6fBCyzJgziQReJvC7rGT0
-         xGjbsizoogn51mF9LOBN8RwL57kCniJocb71IPx7l6JAw0lq0Supr1btTK7TueP181BZ
-         Hr1A1Bi0D0mVvM6GjNLxY9VUqAA7vH77OLpsn+sLUI27DkkwODTYNuY33HvISf2R5zK2
-         ex7A==
+        bh=rTWr7zCunTSu7yV6LyAJ4TilgZ8hrFbQ0RRY5+GeIDY=;
+        b=1hgOk/BtKSoUdR4Zi/hX7ozBOn6x0+k6LOi2xiDKBJ8A+lmGLTd8Oo25+R1k0A9wwv
+         Wb6PrZKEqg39/p3LzZggdkOJprVWDh9Jo9SS4yEk85uSJkbOjDXST4y4tbb3oKIvSj6D
+         CJ0iMHV8qd9vKOijPwa3RSRVhzE0coogce6Jh5QUvITKnSdrZDYyZxd9BsCIsvsQT7Cu
+         JbW6PepKtrHqbaUeKFSyIndC9v5ayT5T/cmZS82tvlis4SfF6kEC6XsRXO3fUJSeGzSF
+         xVq/7j7+YrWPfnU9kPY7zyCPi5TTQ6kOmFO6ZGjx200LKY1H99ngsFY3jxTvDgFsFg33
+         O6SQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712762030; x=1713366830;
+        d=1e100.net; s=20230601; t=1712762071; x=1713366871;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Xb0tDuasjSNlJsy4sDFiJMtEhz1/MxQR3B46cvvCuH4=;
-        b=mZaV8iLHMYpz/n3UONMloBLG+CZ1j3QNWPPczwVFhtgb1HfUduIv5CLPuCcm7n/bww
-         qbpobU8zmPOHv2G341X5U0+phmSKLWT5aJG5Hioc/B1sHVGX7fadOW24H275VIkP6NM+
-         qb5dp8643aWR96plHBHjAxKdQ1uezTt9JWS4mjPhjxd/fD/PQX31z5DYUu0jgiAFU8z1
-         R/D70oXAYWIe45gg6PBD5bbRUxUP5Aw4Lk8BFla2EoqxkZZOgsiSNiHxdPGDDIXwMSi8
-         l0hJKtFhQiLlwmMSlitGXKXKgff429aIoIQZUcTqMREH/hWZKVMls2+oou1KzJjY0Trz
-         4QJw==
+        bh=rTWr7zCunTSu7yV6LyAJ4TilgZ8hrFbQ0RRY5+GeIDY=;
+        b=MLw8Fcf2CFEGICuxS+58lGLa/ynS+DAldUMrYlnFr2IfSxpDt680ki/PzI8K25HcSI
+         v0nCyXEjv72IOKYux75ypSGJlYGQGWTuZIDOn8J2KWoWf3bW+og/bDT/EC2h9Fgfp5yH
+         AlMgO0/PrJsxADbQhkPhiXeMP6YaXul0pcnIgaBUeE9SIyMrYJaZy55wJldoPmclFdbd
+         3+akMLT0zJctg1M4+g+1/oacsp70N0OGbKoei+7FavMVroV9VHQcbkHjCB2Ssbu5QcVu
+         w46NRf/l2eJukRdQ1yjO5ZBBJ2yX/WX8mhnRdtZb+x05/jMn5SHL4uJGZ/HRp/cpT3Vg
+         UWPA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWnFRvdFiG/vt/3N8Y1nQOypdIiISj9lR1B3sq+owJ1truZtmOibaJM/RM7oS1W6NqIi0LNf+GqNCh0W80GjRHWnHca8iHho3Oj0lw=
-X-Gm-Message-State: AOJu0YwnwIuDU2EOAcbNNlfH8pveesV0L9kKnYs2BD7dn0IfYsZn6ky6
-	qRRaI4G+j5EwFxrQaPy0F97Pbu1VZFcEGMAVATJ4gleE4Wyi+dDOO3jpLo/KRuE=
+ AJvYcCUayKa6HNIrBbTT81bSiJb73pwYVWsDEOwnGyBlGByiWg4eAagDiFpGs8Njk2fB4R1AE8cyc5dVnKFqlYNjBN/1nyYqel8GOQi+agk=
+X-Gm-Message-State: AOJu0YyY7v8g3Ow4uF6rCNz6eFPQbtIT54VuTO3Xc6wW8qteF4V31NpF
+	2bLJBBNZbBG93dt/fyXaYk2wwlbCURPQXuGZjwogRcWVFrMc3hq4KxVtBKNYpGA=
 X-Google-Smtp-Source: 
- AGHT+IGoier3Sm8gMlqmjZALBvxdoG/1vWwzVX851wh99fQXUyteeMA3kD8B7Fgl7bkM9Q+1QuTWTQ==
-X-Received: by 2002:a05:6000:186b:b0:343:6b76:251f with SMTP id
- d11-20020a056000186b00b003436b76251fmr3201804wri.42.1712762030404;
-        Wed, 10 Apr 2024 08:13:50 -0700 (PDT)
+ AGHT+IHsg96eOL2a4LJhVDQUrGOMuFbwCCDLT+zKpSk4ARDLKr/ObMqBjfvII1zIu2uKlKh/jpN3ew==
+X-Received: by 2002:a05:6000:2a5:b0:343:7b6b:dcc6 with SMTP id
+ l5-20020a05600002a500b003437b6bdcc6mr2373938wry.30.1712762070970;
+        Wed, 10 Apr 2024 08:14:30 -0700 (PDT)
 Received: from [192.168.1.172] ([93.5.22.158])
         by smtp.gmail.com with ESMTPSA id
- n15-20020a05600c500f00b00417c0fa4b82sm1118117wmr.25.2024.04.10.08.13.48
+ d26-20020adfa35a000000b003469e7f5c52sm176322wrb.80.2024.04.10.08.14.29
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 10 Apr 2024 08:13:50 -0700 (PDT)
-Message-ID: <fd7cc1d7-f293-47f9-9ff6-98b78150d61e@baylibre.com>
-Date: Wed, 10 Apr 2024 17:13:48 +0200
+        Wed, 10 Apr 2024 08:14:30 -0700 (PDT)
+Message-ID: <437bdabd-f16e-4a2d-b9c2-55c91b2e399e@baylibre.com>
+Date: Wed, 10 Apr 2024 17:14:28 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 11/18] ASoC: mediatek: Add common
- mtk_afe_component_probe callback
+Subject: Re: [PATCH v4 12/18] ASoC: mediatek: Use common mtk_afe_pcm_platform
+ with common probe cb
 To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
  broonie@kernel.org
 Cc: wenst@chromium.org, lgirdwood@gmail.com, robh@kernel.org,
@@ -113,11 +113,11 @@ Cc: wenst@chromium.org, lgirdwood@gmail.com, robh@kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
  kernel@collabora.com
 References: <20240409113310.303261-1-angelogioacchino.delregno@collabora.com>
- <20240409113310.303261-12-angelogioacchino.delregno@collabora.com>
+ <20240409113310.303261-13-angelogioacchino.delregno@collabora.com>
 Content-Language: en-US
 From: Alexandre Mergnat <amergnat@baylibre.com>
 In-Reply-To: 
- <20240409113310.303261-12-angelogioacchino.delregno@collabora.com>
+ <20240409113310.303261-13-angelogioacchino.delregno@collabora.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-MailFrom: amergnat@baylibre.com
@@ -126,15 +126,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: J3WSNYXICBK74OHHUPFAABCNK7QVHMLT
-X-Message-ID-Hash: J3WSNYXICBK74OHHUPFAABCNK7QVHMLT
-X-Mailman-Approved-At: Thu, 18 Apr 2024 15:46:03 +0000
+Message-ID-Hash: 2EQP2H4W3J6HXVT77W4YITH4HCZBGXHI
+X-Message-ID-Hash: 2EQP2H4W3J6HXVT77W4YITH4HCZBGXHI
+X-Mailman-Approved-At: Thu, 18 Apr 2024 15:47:00 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/J3WSNYXICBK74OHHUPFAABCNK7QVHMLT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2EQP2H4W3J6HXVT77W4YITH4HCZBGXHI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -143,14 +143,19 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Also done for mt8365-afe-pcm in my serie
+
 Reviewed-by: Alexandre Mergnat <amergnat@baylibre.com>
 
 On 09/04/2024 13:33, AngeloGioacchino Del Regno wrote:
-> Multiple MediaTek AFE PCM component drivers are using their own .probe()
-> callback, but most of those are simply duplicated functions as they are
-> doing exactly the same thing over and over.
+> Since the mtk-afe-platform-driver generic mtk_afe_pcm_platform now has
+> a common .probe() callback, there is no reason to keep duplicating this
+> function over and over in the SoC specific AFE-PCM drivers: switch over
+> to register with the common bits instead.
 > 
-> Add a common probe callback for this component to reduce duplication.
+> Note that MT8186 was left out of this because it is registering some
+> extra sinegen controls in the AFE-PCM probe callback and needs extra
+> cleanups to be able to use the common bits.
 
 -- 
 Regards,

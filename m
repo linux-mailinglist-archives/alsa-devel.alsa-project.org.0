@@ -2,64 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E480E89FC19
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 Apr 2024 17:55:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB8BD89FC28
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 Apr 2024 17:56:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6B3D723DE;
-	Wed, 10 Apr 2024 17:55:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B3D723DE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6946722AA;
+	Wed, 10 Apr 2024 17:56:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6946722AA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712764551;
-	bh=jZMyjdjUmhYqQT6GUAIiOEEUTxWVsQ0j2fhViTmvDBw=;
+	s=default; t=1712764594;
+	bh=nI5H5Oi7NfxlOQLWFliwvxz12AjodVIonU7PNCClEZg=;
 	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=koVxHg4NMSgApaWQiCIKC+vDan4H/kJhzSdyEk3iiWMFFj+vQPO/R3NcHJRM4FgyX
-	 UUqbjAB5fgQfvvFOvKoW2zxgktJR/sFZtVOJGTTnNrGNRidnEGQy1sAXTJ6YE1e8ZP
-	 vbnuyjtXMd7259KlMpeD7A8wHFj0fQD1BCNf0BGw=
+	b=prijxtrvVf2VVni/KEwj5T7MOWPFNwSD8UkV5cFgH2q+NJdgRr7xdpvFBXbUYa0L2
+	 ULXVTufdUzPUC7SHHr+QFB5cXOmqmVGHNpaUqERRDX0XDpsKVC5mor0k6dESXl3ziC
+	 n6K0mLcrPahzuRKAM6+JKWEiHcKI2IQZWRwBnG/E=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BF5C2F8062D; Wed, 10 Apr 2024 17:54:29 +0200 (CEST)
+	id C147FF80692; Wed, 10 Apr 2024 17:54:35 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1DE6AF805FF;
-	Wed, 10 Apr 2024 17:54:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2CD43F80694;
+	Wed, 10 Apr 2024 17:54:35 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CD34BF805B1; Wed, 10 Apr 2024 17:52:50 +0200 (CEST)
+	id 03AEAF80571; Wed, 10 Apr 2024 17:52:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
 Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
  [67.231.149.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E612CF805AC
-	for <alsa-devel@alsa-project.org>; Wed, 10 Apr 2024 17:52:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E612CF805AC
+	by alsa1.perex.cz (Postfix) with ESMTPS id A2B18F805AE
+	for <alsa-devel@alsa-project.org>; Wed, 10 Apr 2024 17:52:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2B18F805AE
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=MqR4RwZR
+ header.s=PODMain02222019 header.b=He+VdkiE
 Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
 	by mx0a-001ae601.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 43A5ji58028164;
-	Wed, 10 Apr 2024 10:52:41 -0500
+ 43A5ji5A028164;
+	Wed, 10 Apr 2024 10:52:42 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
 	from:to:cc:subject:date:message-id:in-reply-to:references
 	:mime-version:content-transfer-encoding:content-type; s=
-	PODMain02222019; bh=7oc/pQ7XNHEudGDaNrkMtxQFHLi6gb7q1U0szHAo3kU=; b=
-	MqR4RwZR5Rh0hd/wqDrYeWDWIY+NSoXEBLsCNEpnaVBLaxDc+BLU253DQ8WtG0T9
-	oqRY8n8icjNvdW16GdPNIAMoKx4XNHR1o+JTwhyEJhf6LysdXoBGtxkUiRuB/nXV
-	wh93SCG0h0YPQBmRtuVoEFGl2E6CZy8gortYuXPBxPNW+YFE43S5sOOVw5u1u7Nt
-	bcQ5OkczXSD94zgh0uKPltTMyzjPkwKVKL/OkW2ziw5yiUT7fKyz7pMLSwfjUuhu
-	lEDFI9ojeFZZ0BT1yW5TZCwFLYtYZEzzmeVRXzTj/Hij0JTLO/dN/QaKm5RTMoEw
-	YARGeIEyD4RAGd0Ry/4zYQ==
+	PODMain02222019; bh=/OqTZZjRkAbMo+sRpjQI0cVTC8ltQ+LaMd+cRPBtkcc=; b=
+	He+VdkiESTZ0xBnvviCaiiDKRiOoWBHb+hzA1ynsUUlIQpEd8UpBhlzmN2Zoh3CI
+	uVFicabse0oKBZb6Btp3p1GV2SPffd1o750SlvjhBqRS6ZP1HU7AzrRdukhzjNma
+	4louQT3LaIxIIR/gc7dBJ25AV0SsIYERG9ns8yhoyduuAvZ8VUOoRPbUFnYCSg7J
+	5IGcg7GcOpLs5qiL33Z5G7GazobGMYXWY0pIhIsStHaIMGv/VGnaDIjNEQjdT4Ta
+	JCdxD0fr2lfdAnSQtpLR1wNYujcZwzm9+clZ87w2NCtqUS0I6GcgoK3vApU8UdqS
+	ckG7B0U4amL3XSSyUU6eNw==
 Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3xb3sxn6f9-2
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3xb3sxn6f9-3
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 10 Apr 2024 10:52:41 -0500 (CDT)
+	Wed, 10 Apr 2024 10:52:42 -0500 (CDT)
 Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
  (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 10 Apr
@@ -70,29 +70,29 @@ Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
  via Frontend Transport; Wed, 10 Apr 2024 16:52:26 +0100
 Received: from sbinding-cirrus-dsktp2.ad.cirrus.com (SHANCC79D24.ad.cirrus.com
  [198.61.64.86])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id D8A58820270;
-	Wed, 10 Apr 2024 15:52:25 +0000 (UTC)
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id 18C0D82024A;
+	Wed, 10 Apr 2024 15:52:26 +0000 (UTC)
 From: Stefan Binding <sbinding@opensource.cirrus.com>
 To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
 CC: <alsa-devel@alsa-project.org>, <linux-sound@vger.kernel.org>,
         <linux-kernel@vger.kernel.org>, <patches@opensource.cirrus.com>,
         "Stefan
  Binding" <sbinding@opensource.cirrus.com>
-Subject: [PATCH v1 3/7] ALSA: hda/realtek: Add quirks for HP Omen models using
- CS35L41
-Date: Wed, 10 Apr 2024 16:52:19 +0100
-Message-ID: <20240410155223.7164-4-sbinding@opensource.cirrus.com>
+Subject: [PATCH v1 4/7] ALSA: hda: cs35l41: Update DSP1RX5/6 Sources for DSP
+ config
+Date: Wed, 10 Apr 2024 16:52:20 +0100
+Message-ID: <20240410155223.7164-5-sbinding@opensource.cirrus.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240410155223.7164-1-sbinding@opensource.cirrus.com>
 References: <20240410155223.7164-1-sbinding@opensource.cirrus.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: rhHgPKiuQWPp2_TCGGwenRrNZ3ZsfwzT
-X-Proofpoint-GUID: rhHgPKiuQWPp2_TCGGwenRrNZ3ZsfwzT
+X-Proofpoint-ORIG-GUID: 1cmClrWHnpaT4L94SeprS0MgHElY3jpD
+X-Proofpoint-GUID: 1cmClrWHnpaT4L94SeprS0MgHElY3jpD
 X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: SOGSQLJAURGLAMU5RBVSGZC2XFHQQKFA
-X-Message-ID-Hash: SOGSQLJAURGLAMU5RBVSGZC2XFHQQKFA
+Message-ID-Hash: 4RE25XPB663KVDUO2PPVY55HQRJX5AUW
+X-Message-ID-Hash: 4RE25XPB663KVDUO2PPVY55HQRJX5AUW
 X-MailFrom: prvs=1830201b57=sbinding@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -105,7 +105,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SOGSQLJAURGLAMU5RBVSGZC2XFHQQKFA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4RE25XPB663KVDUO2PPVY55HQRJX5AUW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -114,37 +114,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add 4 laptops using CS35L41 HDA.
-None of these laptops have _DSD, so require entries in property
-configuration table for cs35l41_hda driver.
+Currently, all PC systems are set to use VBSTMON for DSP1RX5_SRC,
+however, this is required only for external boost systems.
+Internal boost systems require VPMON instead of VBSTMON to be the
+input to DSP1RX5_SRC.
+All systems require DSP1RX6_SRC to be set to VBSTMON.
+Also fix incorrect comment for DACPCM1_SRC to use DSP1TX1.
 
 Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
 ---
- sound/pci/hda/patch_realtek.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ sound/pci/hda/cs35l41_hda.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index d6940bc4ec39..a1c038158393 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -10040,6 +10040,8 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x103c, 0x8b92, "HP", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x8b96, "HP", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
- 	SND_PCI_QUIRK(0x103c, 0x8b97, "HP", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
-+	SND_PCI_QUIRK(0x103c, 0x8bb3, "HP Slim OMEN", ALC287_FIXUP_CS35L41_I2C_2),
-+	SND_PCI_QUIRK(0x103c, 0x8bb4, "HP Slim OMEN", ALC287_FIXUP_CS35L41_I2C_2),
- 	SND_PCI_QUIRK(0x103c, 0x8bdd, "HP Envy 17", ALC287_FIXUP_CS35L41_I2C_2),
- 	SND_PCI_QUIRK(0x103c, 0x8bde, "HP Envy 17", ALC287_FIXUP_CS35L41_I2C_2),
- 	SND_PCI_QUIRK(0x103c, 0x8bdf, "HP Envy 15", ALC287_FIXUP_CS35L41_I2C_2),
-@@ -10060,6 +10062,8 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x103c, 0x8c47, "HP EliteBook 840 G11", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x8c48, "HP EliteBook 860 G11", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x8c49, "HP Elite x360 830 2-in-1 G11", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
-+	SND_PCI_QUIRK(0x103c, 0x8c4d, "HP Omen", ALC287_FIXUP_CS35L41_I2C_2),
-+	SND_PCI_QUIRK(0x103c, 0x8c4e, "HP Omen", ALC287_FIXUP_CS35L41_I2C_2),
- 	SND_PCI_QUIRK(0x103c, 0x8c4f, "HP Envy 15", ALC287_FIXUP_CS35L41_I2C_2),
- 	SND_PCI_QUIRK(0x103c, 0x8c50, "HP Envy 17", ALC287_FIXUP_CS35L41_I2C_2),
- 	SND_PCI_QUIRK(0x103c, 0x8c51, "HP Envy 17", ALC287_FIXUP_CS35L41_I2C_2),
+diff --git a/sound/pci/hda/cs35l41_hda.c b/sound/pci/hda/cs35l41_hda.c
+index c2a8e4361eef..875285201bbc 100644
+--- a/sound/pci/hda/cs35l41_hda.c
++++ b/sound/pci/hda/cs35l41_hda.c
+@@ -102,7 +102,7 @@ static const struct reg_sequence cs35l41_hda_config_dsp[] = {
+ 	{ CS35L41_SP_HIZ_CTRL,		0x00000003 }, // Hi-Z unused/disabled
+ 	{ CS35L41_SP_TX_WL,		0x00000018 }, // 24 cycles/slot
+ 	{ CS35L41_SP_RX_WL,		0x00000018 }, // 24 cycles/slot
+-	{ CS35L41_DAC_PCM1_SRC,		0x00000032 }, // DACPCM1_SRC = ERR_VOL
++	{ CS35L41_DAC_PCM1_SRC,		0x00000032 }, // DACPCM1_SRC = DSP1TX1
+ 	{ CS35L41_ASP_TX1_SRC,		0x00000018 }, // ASPTX1 SRC = VMON
+ 	{ CS35L41_ASP_TX2_SRC,		0x00000019 }, // ASPTX2 SRC = IMON
+ 	{ CS35L41_ASP_TX3_SRC,		0x00000028 }, // ASPTX3 SRC = VPMON
+@@ -111,7 +111,7 @@ static const struct reg_sequence cs35l41_hda_config_dsp[] = {
+ 	{ CS35L41_DSP1_RX2_SRC,		0x00000008 }, // DSP1RX2 SRC = ASPRX1
+ 	{ CS35L41_DSP1_RX3_SRC,         0x00000018 }, // DSP1RX3 SRC = VMON
+ 	{ CS35L41_DSP1_RX4_SRC,         0x00000019 }, // DSP1RX4 SRC = IMON
+-	{ CS35L41_DSP1_RX5_SRC,         0x00000029 }, // DSP1RX5 SRC = VBSTMON
++	{ CS35L41_DSP1_RX6_SRC,         0x00000029 }, // DSP1RX6 SRC = VBSTMON
+ };
+ 
+ static const struct reg_sequence cs35l41_hda_unmute[] = {
+@@ -693,6 +693,10 @@ static void cs35l41_hda_play_start(struct device *dev)
+ 	if (cs35l41->cs_dsp.running) {
+ 		regmap_multi_reg_write(reg, cs35l41_hda_config_dsp,
+ 				       ARRAY_SIZE(cs35l41_hda_config_dsp));
++		if (cs35l41->hw_cfg.bst_type == CS35L41_INT_BOOST)
++			regmap_write(reg, CS35L41_DSP1_RX5_SRC, CS35L41_INPUT_SRC_VPMON);
++		else
++			regmap_write(reg, CS35L41_DSP1_RX5_SRC, CS35L41_INPUT_SRC_VBSTMON);
+ 		regmap_update_bits(reg, CS35L41_PWR_CTRL2,
+ 				   CS35L41_VMON_EN_MASK | CS35L41_IMON_EN_MASK,
+ 				   1 << CS35L41_VMON_EN_SHIFT | 1 << CS35L41_IMON_EN_SHIFT);
 -- 
 2.34.1
 

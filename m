@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 468378A9F02
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Apr 2024 17:49:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E58E08A9EFD
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Apr 2024 17:49:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C57CD1914;
-	Thu, 18 Apr 2024 17:49:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C57CD1914
+	by alsa0.perex.cz (Postfix) with ESMTPS id 29F33E67;
+	Thu, 18 Apr 2024 17:49:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 29F33E67
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1713455392;
+	s=default; t=1713455367;
 	bh=9VfcLjEoMTpi7xm+VUn6B0UvA2/X0m8cCVXK0p51Jw4=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=hHeZJ8rjZl1PlZYXEIJZW/meVHNBJy5wgwL3ZioYs3ecSqWvGGtFcdNSRjLcB2Rfh
-	 jo6SVJPI0aJeWhDsJRqL8AkvwNOgjz+ioEWVRGkdCd/q3qo5Elh8F5yOMUYRyi6BU1
-	 hfskbW1BOYl+02DFf09h1ucKy+cv9NVxdXB0zwM0=
+	b=vOcmeWRao8+SInFBq8TVbGYLyXdTX7UODXWRCkYkVroLVln4h5lQd7Vi/h6Tqrisb
+	 SRA3Qigu4S/6sHF7zk1kKY9OYBQhpAQLFBYVz56fVItVGB/NPjSwzrlNTvHRFqKBvK
+	 S8I+Rg5IJGRPK++RBi3O75/VXBH8BDW3zoAlAFa8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 84E5AF80616; Thu, 18 Apr 2024 17:46:07 +0200 (CEST)
+	id 334A1F80878; Thu, 18 Apr 2024 17:45:21 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 26AD8F80616;
-	Thu, 18 Apr 2024 17:46:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4E907F80C90;
+	Thu, 18 Apr 2024 17:45:21 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
 	id E2891F8026D; Wed, 10 Apr 2024 16:00:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
@@ -127,7 +127,7 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1
 Message-ID-Hash: SSOLB3XN4DZY3IFF2FXQV67KWM6BIEPV
 X-Message-ID-Hash: SSOLB3XN4DZY3IFF2FXQV67KWM6BIEPV
-X-Mailman-Approved-At: Thu, 18 Apr 2024 15:46:02 +0000
+X-Mailman-Approved-At: Thu, 18 Apr 2024 15:45:05 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -

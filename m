@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B02C28A018B
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 Apr 2024 22:56:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE3B38A018E
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 Apr 2024 22:56:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 320D92999;
-	Wed, 10 Apr 2024 22:56:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 320D92999
+	by alsa0.perex.cz (Postfix) with ESMTPS id 20C4D2BC6;
+	Wed, 10 Apr 2024 22:56:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 20C4D2BC6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712782588;
-	bh=0WYBVqUQGlOFYyjVjE2osoofygiFLNbiCtHVQPVQu4E=;
+	s=default; t=1712782600;
+	bh=1fYUihKmz+w7nrA/FjAUTSJZtMWHKfN+hN2ym7MkZjs=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=kIzNOKYQdfwwB9+ul4mToLRksMb03uyZnKZ5e6eg6qnvPCNEKISRgYiEBy2icMV73
-	 Arl7HXZ4z8e7jM8S+2AhAfiKPj79m+DU/+qB5FSCsb5aaf++uWkFXhPu7xOg1s1DCV
-	 kDucua5QhB2DkooNt37b6fVgGjRWI648A0mriJHM=
+	b=Z1PZmDED61FSYdIxHyuBxbuQ41J/unXAnPzW6mhIj6zaZvZMSlEq1vDNQyNMJ2/Gj
+	 KHWQ5IbrNKWB3oKRrwWdj5rjYstFX67CXFGf0t9szu22JbVZN/QfAZYrjza8O96Vp3
+	 kuyi7dGoJ6seCW02zxOTi5/csKm15PATN1Re3JMo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B1B4BF805B2; Wed, 10 Apr 2024 22:55:57 +0200 (CEST)
+	id 8A63CF805CA; Wed, 10 Apr 2024 22:55:58 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9D9EDF80423;
-	Wed, 10 Apr 2024 22:55:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 60397F805C9;
+	Wed, 10 Apr 2024 22:55:58 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 28AF1F8028B; Wed, 10 Apr 2024 22:55:50 +0200 (CEST)
+	id DD3F9F8026D; Wed, 10 Apr 2024 22:55:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-6.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,46 +33,45 @@ X-Spam-Status: No, score=-6.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 88ADBF800C9
+	by alsa1.perex.cz (Postfix) with ESMTPS id 35D9DF80130
 	for <alsa-devel@alsa-project.org>; Wed, 10 Apr 2024 22:55:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 88ADBF800C9
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35D9DF80130
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=TE/fwInJ
+ header.s=k20201202 header.b=K5eAqxz5
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 0608C61EDB;
-	Wed, 10 Apr 2024 20:55:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92322C43390;
-	Wed, 10 Apr 2024 20:55:39 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 8785061EBF;
+	Wed, 10 Apr 2024 20:55:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DAE1C433F1;
+	Wed, 10 Apr 2024 20:55:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1712782540;
-	bh=0WYBVqUQGlOFYyjVjE2osoofygiFLNbiCtHVQPVQu4E=;
+	s=k20201202; t=1712782542;
+	bh=1fYUihKmz+w7nrA/FjAUTSJZtMWHKfN+hN2ym7MkZjs=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=TE/fwInJJNLo+8+zEovfg9Yn56tMOFWPy/MhjARmjwfHXzKNwCFJmIia2V4/0WkiH
-	 DuWBqTZs/AodA4+xnh4Pqmfovx2BV7buW3XpL30p61A/0SC1YjSqEBNTbQDgwIiLEp
-	 3M/JEpf6fABvQsdUJfevfHgNNdksq7OtU2rzQg0+HJlblCC8dEB6wJ+xG3Qft8+PqI
-	 yyTvx7HyH69REQMeyeAroYr27aPUpKr90XtP7aD5aBH4TwCS+tFbOIQbpD1XsdDbCe
-	 9aprvXG6JZnzfRR25Zen+cFEOlS+Uv7ZO8JlJLMG6Mtrsy5LAdI/3yE/Pbkk81iX4C
-	 LMwqK1U89D31w==
+	b=K5eAqxz5q0e5EObEd5IkijNDnbvJmUPvi/B+Ab3V9XvW6Qvt1ESAaEuoEdX568kNj
+	 pEJJa285qRtMQ9MEmwiLnbqDG3HFx1ljDuni6Q3bXzpswlWbyckivHc61n/4NYn3oe
+	 ZlmWqn7arkxqPLJQiVqiuEHPdh04JGkQ+Sj+o3ABRvdDCmCliheE5HdMvlzyGveYsn
+	 gYBQbnbAuOcnzW/3bwzY84U4yse3R8hqcnu4907hdD7lT0zexUu2kBrL1m5guA7ZuU
+	 ePBJMLBS5FH6qLki7+L36qCVWMAF2lTuIS/i5orFB18tWerTcwQeUR1LqNKbxeuKEH
+	 G1OFuqrfzA7oA==
 From: Mark Brown <broonie@kernel.org>
 To: Richard Fitzgerald <rf@opensource.cirrus.com>
 Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
  linux-kernel@vger.kernel.org, patches@opensource.cirrus.com
-In-Reply-To: <20240410160833.20837-1-rf@opensource.cirrus.com>
-References: <20240410160833.20837-1-rf@opensource.cirrus.com>
-Subject: Re: [PATCH] ASoC: cs35l56: Include array_size.h
-Message-Id: <171278253931.69181.5426734835911028247.b4-ty@kernel.org>
-Date: Wed, 10 Apr 2024 21:55:39 +0100
+In-Reply-To: <20240410161312.22313-1-rf@opensource.cirrus.com>
+References: <20240410161312.22313-1-rf@opensource.cirrus.com>
+Subject: Re: [PATCH] ASoC: wm_adsp: Include array_size.h
+Message-Id: <171278254083.69181.1643120705707152702.b4-ty@kernel.org>
+Date: Wed, 10 Apr 2024 21:55:40 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.14-dev
-Message-ID-Hash: PFGOLDYPIO4P7UYLNAUSME5CHK6WSCGE
-X-Message-ID-Hash: PFGOLDYPIO4P7UYLNAUSME5CHK6WSCGE
+Message-ID-Hash: EXOPRSPLSTHXVD3PR6GHTGSV62DR2PRE
+X-Message-ID-Hash: EXOPRSPLSTHXVD3PR6GHTGSV62DR2PRE
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -85,18 +84,16 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PFGOLDYPIO4P7UYLNAUSME5CHK6WSCGE/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EXOPRSPLSTHXVD3PR6GHTGSV62DR2PRE/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 10 Apr 2024 17:08:33 +0100, Richard Fitzgerald wrote:
-> Explicitly #include array_size.h for the source files that use
-> ARRAY_SIZE().
+On Wed, 10 Apr 2024 17:13:12 +0100, Richard Fitzgerald wrote:
+> Explicitly #include array_size.h for the ARRAY_SIZE() macro.
 > 
 > 
 
@@ -106,8 +103,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: cs35l56: Include array_size.h
-      commit: 28d31ffac3d3ef6d60c4eb392a47d5e19dbb15e8
+[1/1] ASoC: wm_adsp: Include array_size.h
+      commit: 4693b120299a5893034d1882ddbbe08af1d2ff07
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

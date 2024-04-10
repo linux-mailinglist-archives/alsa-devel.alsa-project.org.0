@@ -2,97 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2518389FC0E
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 Apr 2024 17:55:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3124389FC86
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 Apr 2024 18:09:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 05AC02346;
-	Wed, 10 Apr 2024 17:55:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 05AC02346
+	by alsa0.perex.cz (Postfix) with ESMTPS id DEAF12235;
+	Wed, 10 Apr 2024 18:09:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DEAF12235
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712764511;
-	bh=TVVL0K6vOEFqZsCE7v7GdkiXNDbZLCx8wexLXrIAEMg=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=FU4qvsSU1My/f4Hz7KgHwy1fNYV+7vF5/jzDblCCrfz//550O5sjvIEQAG/26f0rV
-	 tkqoOM38GIUIdj9zPMUq1y7uvM3MrW/saI7lLe34XIFMlxgiVRagQRzFaO+7Ozwizb
-	 Nmzz+aaC/NxVUF7P+r+aBrPn8ybyYcOPA51ovrDQ=
+	s=default; t=1712765367;
+	bh=uIp+Ly6NhCx68e61qpQZ5cWRk4j7iTO0QltCVLYEnfY=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=Qh/GAdvNmSchlZ6y2ToXQ53bEh0kINmBYtPyJNisqBXRXZy79HBA+/Cg5s8PO/y1C
+	 lOGCqx25xEx2Dwe6+Ya8KnYkvGzG9UuWm9kQLo91s9fVZw2HKTXwyCj6mLgD6ceZ4p
+	 mqY1e3TfBe5BuQPjjb8jrjFsiVqEOnrE7FlyV3Ms=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EB7FAF805C9; Wed, 10 Apr 2024 17:54:24 +0200 (CEST)
+	id 1B3A5F80423; Wed, 10 Apr 2024 18:08:55 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 02AF9F805BE;
-	Wed, 10 Apr 2024 17:54:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 767A7F8059F;
+	Wed, 10 Apr 2024 18:08:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0FBE6F8028B; Wed, 10 Apr 2024 17:52:41 +0200 (CEST)
+	id 6B64FF8026D; Wed, 10 Apr 2024 18:08:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DAFB4F80238
-	for <alsa-devel@alsa-project.org>; Wed, 10 Apr 2024 17:52:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DAFB4F80238
+	by alsa1.perex.cz (Postfix) with ESMTPS id C8C39F8013D
+	for <alsa-devel@alsa-project.org>; Wed, 10 Apr 2024 18:08:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8C39F8013D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=jvWbhcEQ
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 43A5bInZ024942;
-	Wed, 10 Apr 2024 10:52:29 -0500
+ header.s=PODMain02222019 header.b=WH8YFB8k
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
+ 43AAVPBH003230;
+	Wed, 10 Apr 2024 11:08:39 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	from:to:cc:subject:date:message-id:in-reply-to:references
-	:mime-version:content-transfer-encoding:content-type; s=
-	PODMain02222019; bh=Hr+V6gKcASsd2ylYLtiWHYDaf8qbB5KXVCuuLr+vFyo=; b=
-	jvWbhcEQmcoi0u0DoGY8zyt2j9wMp93Vi5d4iUpXkL8Ousxww+QWswyj3Y4Pch+o
-	8nl/PIMb/kylRiSLRNWrJR7LAfXEEzs2cDnUe3oqBNCrmeIU5nqaZCccIYclScbZ
-	OaAeudVHQijxED8p86KzQvW8XnHmwbEmIEbAWF1gFhujU4xCEMfZ4Hg5eH2v26vL
-	vcgGJriSjR3mFWZ5p2Z9JiCPc+sanASJbr/uMmIbcn7GwvO4pzZC4ShbocUTsANz
-	qJ8bpWhr2tbWhD3yzV+XHKgpBwruMYsoTjZRIV+RZuxkhddk27lJEQx14LiAp2vI
-	jl91qwNa1JUbaT9X1cGLMQ==
+	from:to:cc:subject:date:message-id:mime-version
+	:content-transfer-encoding:content-type; s=PODMain02222019; bh=O
+	CzWokGvgPVgqbKJreriPnsCx85RwRyagqB/QJQ8/vI=; b=WH8YFB8kpbw2FOPVK
+	wqKtZfOfJwamIjjmbrH78vmjCngoOQmuH9js5Z3KcCr5tjkWdbrTYM7wbYG8TfwJ
+	FngR/S+2R7ag6YQuKiJlHccKktGxSGNtZbofUgJoW+s2pLjPZW0l4D7F8Cv1j81b
+	1IjP7PQzMNl7dy3mEMk+/NpIE8+/cFvOB4HgXSRuwxLBwOaBeF5QrVsJ/3gVtjf7
+	2r8Ta6n/L+HDjsXJIiIgAJPGwJVpFBkNtFcj5MeFk4qvD9MuOeO/pMcXJoeF8sq2
+	Nh1/Bp+8r+J4DNM0P8Pbhsp19/u9uw/qNqYimfgBDtm/SH9RgTVEttfe5Hkl+3sE
+	JI95w==
 Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3xb2tjnhdh-4
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3xb3sxn7k0-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 10 Apr 2024 10:52:28 -0500 (CDT)
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
+	Wed, 10 Apr 2024 11:08:39 -0500 (CDT)
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
  (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 10 Apr
- 2024 16:52:26 +0100
+ 2024 17:08:37 +0100
 Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1544.9 via Frontend Transport; Wed, 10 Apr 2024 16:52:26 +0100
-Received: from sbinding-cirrus-dsktp2.ad.cirrus.com (SHANCC79D24.ad.cirrus.com
- [198.61.64.86])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id BC5B5820271;
-	Wed, 10 Apr 2024 15:52:26 +0000 (UTC)
-From: Stefan Binding <sbinding@opensource.cirrus.com>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+ ediex01.ad.cirrus.com (198.61.84.80) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9
+ via Frontend Transport; Wed, 10 Apr 2024 17:08:37 +0100
+Received: from EDIN4L06LR3.ad.cirrus.com (EDIN4L06LR3.ad.cirrus.com
+ [198.61.64.213])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id C104682024A;
+	Wed, 10 Apr 2024 16:08:36 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: <broonie@kernel.org>
 CC: <alsa-devel@alsa-project.org>, <linux-sound@vger.kernel.org>,
         <linux-kernel@vger.kernel.org>, <patches@opensource.cirrus.com>,
-        "Stefan
- Binding" <sbinding@opensource.cirrus.com>
-Subject: [PATCH v1 7/7] ALSA: hda: cs35l41: Remove Speaker ID for Lenovo
- Legion slim 7 16ARHA7
-Date: Wed, 10 Apr 2024 16:52:23 +0100
-Message-ID: <20240410155223.7164-8-sbinding@opensource.cirrus.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240410155223.7164-1-sbinding@opensource.cirrus.com>
-References: <20240410155223.7164-1-sbinding@opensource.cirrus.com>
+        "Richard
+ Fitzgerald" <rf@opensource.cirrus.com>
+Subject: [PATCH] ASoC: cs35l56: Include array_size.h
+Date: Wed, 10 Apr 2024 17:08:33 +0100
+Message-ID: <20240410160833.20837-1-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: -R1tNNNKH8pgNI0GFMFgD2nu7zPkt-Hz
-X-Proofpoint-GUID: -R1tNNNKH8pgNI0GFMFgD2nu7zPkt-Hz
+X-Proofpoint-ORIG-GUID: Itkn7BXLBpQp6x6Z1s9Jn7mBqLTJXMsw
+X-Proofpoint-GUID: Itkn7BXLBpQp6x6Z1s9Jn7mBqLTJXMsw
 X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: XCHOTENRBSKMTULVUL2BI5A4DL2NAOH5
-X-Message-ID-Hash: XCHOTENRBSKMTULVUL2BI5A4DL2NAOH5
-X-MailFrom: prvs=1830201b57=sbinding@opensource.cirrus.com
+Message-ID-Hash: MWPZTGMV3FWMXCEBLGKNHZYKRYWGVLFZ
+X-Message-ID-Hash: MWPZTGMV3FWMXCEBLGKNHZYKRYWGVLFZ
+X-MailFrom: prvs=1830ba3822=rf@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -104,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XCHOTENRBSKMTULVUL2BI5A4DL2NAOH5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MWPZTGMV3FWMXCEBLGKNHZYKRYWGVLFZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,34 +110,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-These laptops do not have _DSD and must be added by configuration
-table, however, the initial entries for them are incorrect:
-Neither laptop contains a Speaker ID GPIO.
-This issue would not affect audio playback, but may affect which files
-are loaded when loading firmware.
+Explicitly #include array_size.h for the source files that use
+ARRAY_SIZE().
 
-Fixes: b67a7dc418aa ("ALSA: hda/realtek: Add sound quirks for Lenovo Legion slim 7 16ARHA7 models")
-
-Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
+Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
 ---
- sound/pci/hda/cs35l41_hda_property.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/codecs/cs35l56-shared.c | 1 +
+ sound/soc/codecs/cs35l56.c        | 1 +
+ 2 files changed, 2 insertions(+)
 
-diff --git a/sound/pci/hda/cs35l41_hda_property.c b/sound/pci/hda/cs35l41_hda_property.c
-index efa62e99d330..6f82b28e26dd 100644
---- a/sound/pci/hda/cs35l41_hda_property.c
-+++ b/sound/pci/hda/cs35l41_hda_property.c
-@@ -112,8 +112,8 @@ static const struct cs35l41_config cs35l41_config_table[] = {
- 	{ "10431F62", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 1, 2, 0, 0, 0, 0 },
- 	{ "10433A60", 2, INTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 1, 2, 0, 1000, 4500, 24 },
- 	{ "17AA386F", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, -1, -1, 0, 0, 0 },
--	{ "17AA3877", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, 1, -1, 0, 0, 0 },
--	{ "17AA3878", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, 1, -1, 0, 0, 0 },
-+	{ "17AA3877", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, -1, -1, 0, 0, 0 },
-+	{ "17AA3878", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, -1, -1, 0, 0, 0 },
- 	{ "17AA38A9", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, 2, -1, 0, 0, 0 },
- 	{ "17AA38AB", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, 2, -1, 0, 0, 0 },
- 	{ "17AA38B4", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, 1, -1, 0, 0, 0 },
+diff --git a/sound/soc/codecs/cs35l56-shared.c b/sound/soc/codecs/cs35l56-shared.c
+index ec1d95e57061..3aa39f5923eb 100644
+--- a/sound/soc/codecs/cs35l56-shared.c
++++ b/sound/soc/codecs/cs35l56-shared.c
+@@ -5,6 +5,7 @@
+ // Copyright (C) 2023 Cirrus Logic, Inc. and
+ //                    Cirrus Logic International Semiconductor Ltd.
+ 
++#include <linux/array_size.h>
+ #include <linux/firmware/cirrus/wmfw.h>
+ #include <linux/gpio/consumer.h>
+ #include <linux/regmap.h>
+diff --git a/sound/soc/codecs/cs35l56.c b/sound/soc/codecs/cs35l56.c
+index 6331b8c6136e..dfd703d9e12f 100644
+--- a/sound/soc/codecs/cs35l56.c
++++ b/sound/soc/codecs/cs35l56.c
+@@ -6,6 +6,7 @@
+ //                    Cirrus Logic International Semiconductor Ltd.
+ 
+ #include <linux/acpi.h>
++#include <linux/array_size.h>
+ #include <linux/completion.h>
+ #include <linux/debugfs.h>
+ #include <linux/delay.h>
 -- 
-2.34.1
+2.39.2
 

@@ -2,97 +2,114 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB9948A06DF
-	for <lists+alsa-devel@lfdr.de>; Thu, 11 Apr 2024 05:41:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C67838A0B69
+	for <lists+alsa-devel@lfdr.de>; Thu, 11 Apr 2024 10:37:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E9D9D27A8;
-	Thu, 11 Apr 2024 05:40:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E9D9D27A8
+	by alsa0.perex.cz (Postfix) with ESMTPS id CE91021E2;
+	Thu, 11 Apr 2024 10:37:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE91021E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712806869;
-	bh=2vVOJkm9dcqmIFTabw4YgBLSFIUdPWkH3GowrVie1xo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=psufknlVhvxA0OdUCu72ScGCZhZ9eTvOvJRV/rtvLsIU9OP6Vz6ZHWPnNq96xkbos
-	 gCJXK4UsbPcIi61jREqaoMvq667ovPJMtvZq2gnU0O7DsggYTgoN2UlL3glmGXf25v
-	 hBzFnWElD9jp84ulBgYtVJ5Ekrcq8GHad4I9HAOI=
+	s=default; t=1712824637;
+	bh=jDijeIxWJ3u2OJneyrANQzTSRpC1Gztlo97PwAJrQv4=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=k534U7xzEs012JTXi4KpdISznKZFAXJk/ANMUFHbt21u2W7Vp/U9R5IS4+PHFOqTx
+	 QgqbC13iskluaj50dss5NDuRENGildf/DPDHd5rUufMqJ9xwr3Rl4iTeWGSGRFk6rw
+	 r1IbWiWi+I3YCecsiOxXyMgCXfqWO8P+ORo6dXHw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AB5F0F805AE; Thu, 11 Apr 2024 05:40:36 +0200 (CEST)
+	id AA3B9F8059F; Thu, 11 Apr 2024 10:36:45 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 29F7BF80130;
-	Thu, 11 Apr 2024 05:40:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 69EABF8059F;
+	Thu, 11 Apr 2024 10:36:44 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6A612F80238; Thu, 11 Apr 2024 05:40:25 +0200 (CEST)
+	id 75672F8026D; Thu, 11 Apr 2024 10:33:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [IPv6:2a00:1450:4864:20::32a])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D9693F80236
-	for <alsa-devel@alsa-project.org>; Thu, 11 Apr 2024 05:40:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D9693F80236
+	by alsa1.perex.cz (Postfix) with ESMTPS id B9E4FF80236
+	for <alsa-devel@alsa-project.org>; Thu, 11 Apr 2024 10:33:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9E4FF80236
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=FcubdOcl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1712806811; x=1744342811;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=2vVOJkm9dcqmIFTabw4YgBLSFIUdPWkH3GowrVie1xo=;
-  b=FcubdOclhqAQ0B6zmetpC5TEF1OXNBQbfhIfvz7vTnGCNqlOO6wdxeTg
-   s3Bf1I5SCxPAA5RQt/JYqglAfOllZ3NdokiWLUWPeN2jhoPEMREA3XXtX
-   Z3lTXLQOhIi3X+DjqUvK18ayg97hmXNL5z8CrUkJd5T2GDmtvAbFxIAIX
-   zpV7u/oYngSnJsfKxT6pZN3iqLutRONiLeEEjmfn+iw7hTbVgjcTGIlAX
-   sClLE1GhfwVsBTtoG3t5VZvmDYPJqQopVbLUkogmSS/0u7DR7KoPuhkZx
-   CTOnCvnQi7vh6iKyPI/hTdXwbig57qvciIWIRcZ0NwJISjbBO7LgTfcBB
-   Q==;
-X-CSE-ConnectionGUID: IKkAdkfDTS64W9ZLRTczgQ==
-X-CSE-MsgGUID: ze/Qp53+TGKaYvaymS9f/Q==
-X-IronPort-AV: E=McAfee;i="6600,9927,11039"; a="8375826"
-X-IronPort-AV: E=Sophos;i="6.07,192,1708416000";
-   d="scan'208";a="8375826"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Apr 2024 20:40:05 -0700
-X-CSE-ConnectionGUID: JzFuyIHkS1mooMbLng2hCQ==
-X-CSE-MsgGUID: SpoaNdRSSfCRG/krM6/zWQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,192,1708416000";
-   d="scan'208";a="20805023"
-Received: from lkp-server01.sh.intel.com (HELO e61807b1d151) ([10.239.97.150])
-  by fmviesa009.fm.intel.com with ESMTP; 10 Apr 2024 20:40:03 -0700
-Received: from kbuild by e61807b1d151 with local (Exim 4.96)
-	(envelope-from <lkp@intel.com>)
-	id 1rulI9-0008As-01;
-	Thu, 11 Apr 2024 03:40:01 +0000
-Date: Thu, 11 Apr 2024 11:39:52 +0800
-From: kernel test robot <lkp@intel.com>
-To: Stefan Binding <sbinding@opensource.cirrus.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: oe-kbuild-all@lists.linux.dev, alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
-	patches@opensource.cirrus.com,
-	Stefan Binding <sbinding@opensource.cirrus.com>
-Subject: Re: [PATCH v1 1/7] ALSA: hda: cs35l41: Set the max PCM Gain using
- tuning setting
-Message-ID: <202404111107.rM73jRGt-lkp@intel.com>
-References: <20240410155223.7164-2-sbinding@opensource.cirrus.com>
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=aaKtr1F2
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-417d02ab780so4635815e9.3
+        for <alsa-devel@alsa-project.org>;
+ Thu, 11 Apr 2024 01:33:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1712824414; x=1713429214;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=vkHTK4ESqX/TNOQes5BFEePnKxCub16nXuCyISi2cPE=;
+        b=aaKtr1F2ndVW7RkJn2mTU0w5Z87ChTm2YvvJKkI/8QPmGYm5z9/YfZWIxNHhdTVgup
+         KQrJOvwUuAnQTwnIN3QytVEhuqXVljs0KmuGd6d3ZUos5LY5OPzXjcOhlQFcUYOV0Dk/
+         0pA7Geqpa0EcghlwTck6Hvt9EN+LJsOn++7RC9cXw3EFPB3YnYFZrVMPSxd481hTXc+o
+         w6aKwOc7fi5Hdd8FkQlk4rXuVHyZalyicdsJXMmOqsS7JbINOQEiBT9IZnvJrXfnghYR
+         hfV201PGccABbJMPnxJWnG6WlY1FbNmumy4kvL4Mo2IEVFuW5b9+5hOUUBHjoMH6NRqH
+         7w9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1712824414; x=1713429214;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=vkHTK4ESqX/TNOQes5BFEePnKxCub16nXuCyISi2cPE=;
+        b=CLp1N9tZeN6hAk5BcpQqklrYVMSVAbm5HuW7KqggIwHwjsQjWdstc0sZesBC8N5EKT
+         HJJ0wo6bSeg6cbrheoD5BLozXKMRfwRPSYacThQBtm8GiZ85ubSxEbNJ/A1VonrJMuqM
+         Shnb91nf4rl19oJWDs66B3BZ0Z4j3WCvfo1nufbnTFmpWhKc0RpVABOpcRdajIVg1nuu
+         tPwERYwbmQSM/eODKzdj5Xc00YKy0dG3XcAFg20GdtuMCrBS+UwrIAwX7l42tQVSFbAT
+         5gC+TM9ae2ZhfWXK7ZEjQPpC09n8LHa8ue7LtCYD1FheNKpWq4wesDjhhbgg3z9UWeek
+         g7mw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX/UWIMCMh3SZac7qMVgwzPDC/TjYHoDGvKxm52bkfRC0PBoPe2KzLIkf3Q7GTOPABMD09XzuAip4o9Rv12yHYP9aLTiYSRa3mECTc=
+X-Gm-Message-State: AOJu0Yzcp4rkrVWkp5kIju9mia2oPx7IktyeRa5PIqHMt+wr5hU/u3NN
+	xgfhg9ijQoJRInS/lPkFbBXTUT50qc7Ahjrtl02K4dGddRo8xgpc
+X-Google-Smtp-Source: 
+ AGHT+IFtp0DWfwST7nMWZ2qCwJgGiOsf+Npw3G6Qc3gK3g7PsMXoDvpLhJgs+HsHbc8zzfeOrRU/+w==
+X-Received: by 2002:a05:600c:3148:b0:417:e541:978b with SMTP id
+ h8-20020a05600c314800b00417e541978bmr159850wmo.31.1712824414086;
+        Thu, 11 Apr 2024 01:33:34 -0700 (PDT)
+Received: from localhost
+ (craw-09-b2-v4wan-169726-cust2117.vm24.cable.virginm.net. [92.238.24.70])
+        by smtp.gmail.com with ESMTPSA id
+ l35-20020a05600c1d2300b004161af729f4sm1629871wms.31.2024.04.11.01.33.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 11 Apr 2024 01:33:33 -0700 (PDT)
+From: Colin Ian King <colin.i.king@gmail.com>
+To: Shenghao Ding <shenghao-ding@ti.com>,
+	Kevin Lu <kevin-lu@ti.com>,
+	Baojun Xu <baojun.xu@ti.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org
+Cc: kernel-janitors@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH][next] ASoC: codecs: tas2780: remove redundant assignments to
+ variable ret
+Date: Thu, 11 Apr 2024 09:33:32 +0100
+Message-Id: <20240411083332.304887-1-colin.i.king@gmail.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240410155223.7164-2-sbinding@opensource.cirrus.com>
-Message-ID-Hash: GRSICLA3BPHNZZ4ECYY7TEHJ5G5WCSJV
-X-Message-ID-Hash: GRSICLA3BPHNZZ4ECYY7TEHJ5G5WCSJV
-X-MailFrom: lkp@intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: 4BWVPNXYP3YMO6TDMK6WQ4VEVPZACYUS
+X-Message-ID-Hash: 4BWVPNXYP3YMO6TDMK6WQ4VEVPZACYUS
+X-MailFrom: colin.i.king@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -103,8 +120,7 @@ X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GRSICLA3BPHNZZ4ECYY7TEHJ5G5WCSJV/>
+Archived-At: <>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,105 +129,40 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Stefan,
+Variable ret is being assigned a value that is never read in a couple
+of places. The variable is being re-assigned later on. The assignments
+are redundant and can be removed.
 
-kernel test robot noticed the following build warnings:
+Cleans up clang scan build warning:
+sound/soc/codecs/tas2780.c:84:2: warning: Value stored to 'ret' is
+never read [deadcode.DeadStores]
 
-[auto build test WARNING on tiwai-sound/for-next]
-[also build test WARNING on tiwai-sound/for-linus linus/master v6.9-rc3 next-20240410]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+---
+ sound/soc/codecs/tas2780.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Stefan-Binding/ALSA-hda-cs35l41-Set-the-max-PCM-Gain-using-tuning-setting/20240410-235446
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
-patch link:    https://lore.kernel.org/r/20240410155223.7164-2-sbinding%40opensource.cirrus.com
-patch subject: [PATCH v1 1/7] ALSA: hda: cs35l41: Set the max PCM Gain using tuning setting
-config: loongarch-allyesconfig (https://download.01.org/0day-ci/archive/20240411/202404111107.rM73jRGt-lkp@intel.com/config)
-compiler: loongarch64-linux-gcc (GCC) 13.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240411/202404111107.rM73jRGt-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202404111107.rM73jRGt-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
-   In file included from include/linux/printk.h:566,
-                    from include/asm-generic/bug.h:22,
-                    from arch/loongarch/include/asm/bug.h:60,
-                    from include/linux/bug.h:5,
-                    from include/linux/thread_info.h:13,
-                    from include/asm-generic/preempt.h:5,
-                    from ./arch/loongarch/include/generated/asm/preempt.h:1,
-                    from include/linux/preempt.h:79,
-                    from include/linux/spinlock.h:56,
-                    from include/linux/mmzone.h:8,
-                    from include/linux/gfp.h:7,
-                    from include/linux/slab.h:16,
-                    from include/linux/resource_ext.h:11,
-                    from include/linux/acpi.h:13,
-                    from sound/pci/hda/cs35l41_hda.c:9:
-   sound/pci/hda/cs35l41_hda.c: In function 'cs35l41_load_tuning_params':
->> sound/pci/hda/cs35l41_hda.c:565:39: warning: '%s' directive argument is null [-Wformat-overflow=]
-     565 |                 dev_dbg(cs35l41->dev, "Missing Tuning Param File: %s: %d\n",
-         |                                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/dynamic_debug.h:224:29: note: in definition of macro '__dynamic_func_call_cls'
-     224 |                 func(&id, ##__VA_ARGS__);                       \
-         |                             ^~~~~~~~~~~
-   include/linux/dynamic_debug.h:250:9: note: in expansion of macro '_dynamic_func_call_cls'
-     250 |         _dynamic_func_call_cls(_DPRINTK_CLASS_DFLT, fmt, func, ##__VA_ARGS__)
-         |         ^~~~~~~~~~~~~~~~~~~~~~
-   include/linux/dynamic_debug.h:273:9: note: in expansion of macro '_dynamic_func_call'
-     273 |         _dynamic_func_call(fmt, __dynamic_dev_dbg,              \
-         |         ^~~~~~~~~~~~~~~~~~
-   include/linux/dev_printk.h:155:9: note: in expansion of macro 'dynamic_dev_dbg'
-     155 |         dynamic_dev_dbg(dev, dev_fmt(fmt), ##__VA_ARGS__)
-         |         ^~~~~~~~~~~~~~~
-   include/linux/dev_printk.h:155:30: note: in expansion of macro 'dev_fmt'
-     155 |         dynamic_dev_dbg(dev, dev_fmt(fmt), ##__VA_ARGS__)
-         |                              ^~~~~~~
-   sound/pci/hda/cs35l41_hda.c:565:17: note: in expansion of macro 'dev_dbg'
-     565 |                 dev_dbg(cs35l41->dev, "Missing Tuning Param File: %s: %d\n",
-         |                 ^~~~~~~
-   sound/pci/hda/cs35l41_hda.c:565:67: note: format string is defined here
-     565 |                 dev_dbg(cs35l41->dev, "Missing Tuning Param File: %s: %d\n",
-         |                                                                   ^~
-
-
-vim +565 sound/pci/hda/cs35l41_hda.c
-
-   555	
-   556	static int cs35l41_load_tuning_params(struct cs35l41_hda *cs35l41, char *tuning_filename)
-   557	{
-   558		const struct firmware *tuning_param_file = NULL;
-   559		char *tuning_param_filename = NULL;
-   560		int ret;
-   561	
-   562		ret = cs35l41_request_tuning_param_file(cs35l41, tuning_filename, &tuning_param_file,
-   563							&tuning_param_filename, cs35l41->acpi_subsystem_id);
-   564		if (ret) {
- > 565			dev_dbg(cs35l41->dev, "Missing Tuning Param File: %s: %d\n",
-   566				tuning_param_filename, ret);
-   567			return 0;
-   568		}
-   569	
-   570		ret = cs35l41_read_tuning_params(cs35l41, tuning_param_file);
-   571		if (ret) {
-   572			dev_err(cs35l41->dev, "Error reading Tuning Params from file: %s: %d\n",
-   573				tuning_param_filename, ret);
-   574			/* Reset to default Tuning Parameters */
-   575			cs35l41_set_default_tuning_params(cs35l41);
-   576		}
-   577	
-   578		release_firmware(tuning_param_file);
-   579		kfree(tuning_param_filename);
-   580	
-   581		return ret;
-   582	}
-   583	
-
+diff --git a/sound/soc/codecs/tas2780.c b/sound/soc/codecs/tas2780.c
+index 41076be23854..972e8ea5ebde 100644
+--- a/sound/soc/codecs/tas2780.c
++++ b/sound/soc/codecs/tas2780.c
+@@ -71,7 +71,7 @@ static int tas2780_codec_resume(struct snd_soc_component *component)
+ {
+ 	struct tas2780_priv *tas2780 =
+ 		snd_soc_component_get_drvdata(component);
+-	int ret = 0;
++	int ret;
+ 
+ 	ret = snd_soc_component_update_bits(component, TAS2780_PWR_CTRL,
+ 		TAS2780_PWR_CTRL_MASK, TAS2780_PWR_CTRL_ACTIVE);
+@@ -81,7 +81,6 @@ static int tas2780_codec_resume(struct snd_soc_component *component)
+ 			__func__, ret);
+ 		goto err;
+ 	}
+-	ret = 0;
+ 	regcache_cache_only(tas2780->regmap, false);
+ 	ret = regcache_sync(tas2780->regmap);
+ err:
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.39.2
+

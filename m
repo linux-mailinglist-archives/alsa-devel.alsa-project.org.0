@@ -2,97 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A07958A129D
-	for <lists+alsa-devel@lfdr.de>; Thu, 11 Apr 2024 13:10:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 404CA8A155E
+	for <lists+alsa-devel@lfdr.de>; Thu, 11 Apr 2024 15:16:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EC1A32BAD;
-	Thu, 11 Apr 2024 13:10:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC1A32BAD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6C5542BC6;
+	Thu, 11 Apr 2024 15:16:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C5542BC6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712833830;
-	bh=TVVL0K6vOEFqZsCE7v7GdkiXNDbZLCx8wexLXrIAEMg=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=qsPZCUo5xOz7eg79Q1FeUAqA2FCvTbzqdskchZfcndq1BQYd46g7+HlF6mdTEtoW1
-	 0uZEpEnXt29AeHyi1pggmsCHpAZqTmaoHF7WEHQYrUAQc00Mm+5bbbcuPfz+GwYJvt
-	 tyzRNJkC6amWrf0yFVNFAGv7O3TgoLaC6PvafO2c=
+	s=default; t=1712841401;
+	bh=7VRjMLO3OkjDzMWstsLOrmcdXFMRXOwDI3UhW6A28nk=;
+	h=Date:From:Subject:To:Cc:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=WDJ/3x/9SRjR/Vz+L/7189xcbp2G6iYVqoQHRzc20Ej8D4Q1JIfN1wGI76i9jx2sw
+	 yLIYdNSt0xoKCVFuUZkeP4jDD4SPXjU8FZ/2x7NYmIwGMGpkl+vku00VR4XI0lZEjc
+	 L64S5Ggkjak9QY9+Y1jZwnJTUP19t28hIC+H+T28=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DAE70F80678; Thu, 11 Apr 2024 13:08:49 +0200 (CEST)
+	id E7EFCF8057E; Thu, 11 Apr 2024 15:16:09 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id AD665F8065B;
-	Thu, 11 Apr 2024 13:08:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 86A30F8057F;
+	Thu, 11 Apr 2024 15:16:09 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 53D1BF80613; Thu, 11 Apr 2024 13:08:43 +0200 (CEST)
+	id BFD07F8026D; Thu, 11 Apr 2024 15:16:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=unavailable autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
+X-Spam-Status: No, score=-2.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 95CB0F80568
-	for <alsa-devel@alsa-project.org>; Thu, 11 Apr 2024 13:08:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 95CB0F80568
+	by alsa1.perex.cz (Postfix) with ESMTPS id BD97AF80130
+	for <alsa-devel@alsa-project.org>; Thu, 11 Apr 2024 15:15:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD97AF80130
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=BlJJlBEP
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 43B40AxW009489;
-	Thu, 11 Apr 2024 06:08:20 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	from:to:cc:subject:date:message-id:in-reply-to:references
-	:mime-version:content-transfer-encoding:content-type; s=
-	PODMain02222019; bh=Hr+V6gKcASsd2ylYLtiWHYDaf8qbB5KXVCuuLr+vFyo=; b=
-	BlJJlBEPyJYUsNLQmGqm0VZKM5msopraPPUrTUAhUuYJDYotSX8+RAjghGSmIH+a
-	I2jHb9UGY3G3qhO2KArfxVGfuX0DYJlwgWBAKy8WsDYxR8b/dD2kbwufvkaSIv02
-	wowKx+5DZMxSiMsEB2pkFNI1pjLJHWMVuDZUEWXDw+I0zIomZWrH8OzIXzI0SSBX
-	1YDTZ/pIfE7NA/tP2IBf+KnkRLjS00X9evm3f3OZPNoJr+sDRwAqBQRtidYxDZez
-	g30sscnKtbBk1SjCquOE4x4IioHyEjIXzfNMrtSGBKZBumKjGBgKZ7xyLeR3jB7g
-	xCgEl+MplenNF2rY17scvA==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3xb3sxpva8-3
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 11 Apr 2024 06:08:19 -0500 (CDT)
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 11 Apr
- 2024 12:08:16 +0100
-Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
- ediex01.ad.cirrus.com (198.61.84.80) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9
- via Frontend Transport; Thu, 11 Apr 2024 12:08:16 +0100
-Received: from sbinding-cirrus-dsktp2.ad.cirrus.com (unknown [198.61.64.140])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id B4EC482024A;
-	Thu, 11 Apr 2024 11:08:16 +0000 (UTC)
-From: Stefan Binding <sbinding@opensource.cirrus.com>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-CC: <alsa-devel@alsa-project.org>, <linux-sound@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <patches@opensource.cirrus.com>,
-        "Stefan
- Binding" <sbinding@opensource.cirrus.com>
-Subject: [PATCH v2 7/7] ALSA: hda: cs35l41: Remove Speaker ID for Lenovo
- Legion slim 7 16ARHA7
-Date: Thu, 11 Apr 2024 12:08:13 +0100
-Message-ID: <20240411110813.330483-8-sbinding@opensource.cirrus.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240411110813.330483-1-sbinding@opensource.cirrus.com>
-References: <20240411110813.330483-1-sbinding@opensource.cirrus.com>
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=KzdIKpZR
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1712841356; x=1744377356;
+  h=message-id:date:mime-version:from:subject:to:cc:
+   content-transfer-encoding;
+  bh=7VRjMLO3OkjDzMWstsLOrmcdXFMRXOwDI3UhW6A28nk=;
+  b=KzdIKpZR76vlwOLvSZim0cxp38FCjREROmNPmSxRmXagK5WL/lGiDyDh
+   7y59zVzDuUzy8G9aUCJ5YiHEdv/1nd4BhUXatEGh7k0PjTDmlCT4UcYrc
+   SP8bmnSKQnTG34pp5xSsM4/aaUMdMFbRNscF96ZNOa+bnWtJYsbSk4AR/
+   3SLhtcF4EoQwe+aHJ0a6TypOlXgoYAmLbYSZnlgZzMf4s6UDpVtqJ0ppf
+   6r/DxpGOsat19W+xxsWB0Fr6onpw0jSXVOxobOPf6HB1iNXlGln190p38
+   lzAYVgooqWKn6lOi/EY9ag+gQ26dWc3JTebgsgyWky8/M/JGcFpzcadYE
+   A==;
+X-CSE-ConnectionGUID: IyCObjzMTI6GdA2mPsxsxQ==
+X-CSE-MsgGUID: tXzcoj8nSWmb5eRghMf+eA==
+X-IronPort-AV: E=McAfee;i="6600,9927,11041"; a="19670067"
+X-IronPort-AV: E=Sophos;i="6.07,193,1708416000";
+   d="scan'208";a="19670067"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Apr 2024 06:15:50 -0700
+X-CSE-ConnectionGUID: IKEtevXlQ1GVSAdgH2ObNw==
+X-CSE-MsgGUID: rRW3I0KHSyGNhkqjzkL+jQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.07,193,1708416000";
+   d="scan'208";a="51862709"
+Received: from dosull6x-mobl.ger.corp.intel.com (HELO [10.252.43.18])
+ ([10.252.43.18])
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Apr 2024 06:15:48 -0700
+Message-ID: <fa1d1a94-57d9-4caf-9569-f9a9f3d725c2@linux.intel.com>
+Date: Thu, 11 Apr 2024 16:15:48 +0300
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
+Subject: UCM vs SOF vs HDMI passthrough
+To: alsa-devel@alsa-project.org
+Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ wim.taymans@gmail.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: IMGmyUQA9zpzkkE64L5KuIOFgMOF8uco
-X-Proofpoint-GUID: IMGmyUQA9zpzkkE64L5KuIOFgMOF8uco
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: AG2AK6C6SX7VPWWMBKIBWPLVXBSBEYZY
-X-Message-ID-Hash: AG2AK6C6SX7VPWWMBKIBWPLVXBSBEYZY
-X-MailFrom: prvs=1831d0461d=sbinding@opensource.cirrus.com
+Message-ID-Hash: D6TCYB5Q6UL6THMWCZNTWGJJDE4HFP3L
+X-Message-ID-Hash: D6TCYB5Q6UL6THMWCZNTWGJJDE4HFP3L
+X-MailFrom: peter.ujfalusi@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -104,7 +96,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AG2AK6C6SX7VPWWMBKIBWPLVXBSBEYZY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/D6TCYB5Q6UL6THMWCZNTWGJJDE4HFP3L/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,34 +105,74 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-These laptops do not have _DSD and must be added by configuration
-table, however, the initial entries for them are incorrect:
-Neither laptop contains a Speaker ID GPIO.
-This issue would not affect audio playback, but may affect which files
-are loaded when loading firmware.
+Hi,
 
-Fixes: b67a7dc418aa ("ALSA: hda/realtek: Add sound quirks for Lenovo Legion slim 7 16ARHA7 models")
+afaik for HDMI passthrough there should be a usable PCM mapping present
+for user space:
+aplay -L | grep hdmi
+hdmi:CARD=PCH,DEV=0
+hdmi:CARD=PCH,DEV=1
+hdmi:CARD=PCH,DEV=2
 
-Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
----
- sound/pci/hda/cs35l41_hda_property.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+or similar.
 
-diff --git a/sound/pci/hda/cs35l41_hda_property.c b/sound/pci/hda/cs35l41_hda_property.c
-index efa62e99d330..6f82b28e26dd 100644
---- a/sound/pci/hda/cs35l41_hda_property.c
-+++ b/sound/pci/hda/cs35l41_hda_property.c
-@@ -112,8 +112,8 @@ static const struct cs35l41_config cs35l41_config_table[] = {
- 	{ "10431F62", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 1, 2, 0, 0, 0, 0 },
- 	{ "10433A60", 2, INTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 1, 2, 0, 1000, 4500, 24 },
- 	{ "17AA386F", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, -1, -1, 0, 0, 0 },
--	{ "17AA3877", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, 1, -1, 0, 0, 0 },
--	{ "17AA3878", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, 1, -1, 0, 0, 0 },
-+	{ "17AA3877", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, -1, -1, 0, 0, 0 },
-+	{ "17AA3878", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, -1, -1, 0, 0, 0 },
- 	{ "17AA38A9", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, 2, -1, 0, 0, 0 },
- 	{ "17AA38AB", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, 2, -1, 0, 0, 0 },
- 	{ "17AA38B4", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, 1, -1, 0, 0, 0 },
--- 
-2.34.1
+SOF with IPC4 (Meteor Lake and newer or some TGL/ADL setups with 2024.03
+release) it is possible to use passthrough via HDMI technically but we
+are lacking the "hdmi:..." PCMs, so in reality it is not usable for
+applications. Afaik.
 
+So far I managed to cook up two ways of doing this, but neither one is
+good enough as they will create the "hdmi:..." for both IPC3 and IPC4
+setups and IPC3 firmware cannot support passthrough.
+
+Setups:
+sof-hda-dsp cards have HDMI PCMs: pcm3-5
+sof-soundwire cards have HDMI PCMs: pcm5-7
+
+[A] use card profile
+Add these to /usr/share/alsa/cards/aliases.conf:
+sof-hda-dsp cards.sof-hda-dsp
+sof-soundwire cards.sof-soundwire
+
+Create the minimal sof-hda-ds.conf and sof-soundwire.conf to handle the
+two types of HDMI PCM numbering.
+
+[B] Using UCM
+https://github.com/ujfalusi/alsa-ucm-conf/tree/topic/sof-hdmi
+
+It is using the BootSequence[] to create three files:
+[1] /var/lib/alsa/conf.d/42-sof-hdmi.conf
+[2] /var/lib/alsa/card[card_number].conf.d/30-sof-hdmi-common.conf
+[3] /var/lib/alsa/card[card_number].conf.d/31-sof-hdmi.conf
+
+[1] includes the pcm/iec958.conf and pcm/hdmi.conf to global space of
+    alsaconf to be used by the card macros
+[2] Card specific macros for hdmi PCM definition, ampping
+[3] Card specific definitions of the three HDMI port
+
+In both case I have the needed PCMs:
+aplay -L | grep hdmi
+
+hdmi:CARD=sofhdadsp,DEV=0
+hdmi:CARD=sofhdadsp,DEV=1
+hdmi:CARD=sofhdadsp,DEV=2
+or
+hdmi:CARD=sofsoundwire,DEV=0
+hdmi:CARD=sofsoundwire,DEV=1
+hdmi:CARD=sofsoundwire,DEV=2
+
+But it is unconditional and they will be created for all sof-hda-dsp and
+sof-soundwire cards.
+
+I would really appreciate some guidance on how we can achieve this
+correctly (the code for the UCM way leaves much to be desired, I know).
+
+How can this be done conditionally?
+We can set the HDMI PCMs to advertise IEC958_SUBFRAME_LE for IPC4 only,
+but how can we use that?
+Should we add some parameter to 'amixer -c0 info', like ipc_version:4/3,
+so if the ipc_version is 3 or missing we assume that passthrough is not
+supported?
+
+Thanks for the help,
+Péter

@@ -2,95 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4BFD8A21C2
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 Apr 2024 00:33:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9309A8A21C8
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 Apr 2024 00:36:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 401B32BE8;
-	Fri, 12 Apr 2024 00:33:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 401B32BE8
+	by alsa0.perex.cz (Postfix) with ESMTPS id B5EFD2C17;
+	Fri, 12 Apr 2024 00:36:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B5EFD2C17
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712874803;
-	bh=9Qw2Cq3PH55dtnROwvZO0TlbYZU94NAm34n3h9nv0S4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1712875004;
+	bh=ZgKCfsWFqENGu2Mnw8GcJWs4r368JeG6kTQENU1jAkw=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=hOH7NXAoCaV3qxukOvDuKOZ8vmiD9INp0yxvNG0jBqMPR1UzXp/htC/CxFdpOVe5K
-	 y8u7iC54otZriROIOaw1WBdcmpBo48ih2rOO+6X/RZA0XJRhEXqHw+yBIwXOIw1HQB
-	 GFx0vOGyQvqJ/zBCsGQx1BxnrgG7xTjp8DgkHJy4=
+	b=sxEx1WWwp4fJuxlf3JxwaD0gWDi4M3OnfeNtr4Pu0bjQXo2ii2n5+dlUTmAbUtSX6
+	 d0Uu7SGpNbmcIYYUBBQEtWaGZS1aLiK6SBMWsk1/A80aoaiXieKELmvOrk/+7t+J1p
+	 c0jkX2Fc3NKjE6QWel6DYPgXsqzHvqdsAhiZLgVQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7A08EF8063B; Fri, 12 Apr 2024 00:31:58 +0200 (CEST)
+	id AAC30F805A9; Fri, 12 Apr 2024 00:36:12 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C7493F80649;
-	Fri, 12 Apr 2024 00:31:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F12ACF80571;
+	Fri, 12 Apr 2024 00:36:11 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BA4ECF80236; Fri, 12 Apr 2024 00:16:46 +0200 (CEST)
+	id F05CDF80238; Fri, 12 Apr 2024 00:36:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_NONE,
-	URIBL_BLOCKED shortcircuit=no autolearn=unavailable autolearn_force=no
-	version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-7.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B348DF8057A
-	for <alsa-devel@alsa-project.org>; Fri, 12 Apr 2024 00:04:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B348DF8057A
+	by alsa1.perex.cz (Postfix) with ESMTPS id BE758F800C9
+	for <alsa-devel@alsa-project.org>; Fri, 12 Apr 2024 00:36:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE758F800C9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=KNgn2pfN
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1712873071; x=1744409071;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=9Qw2Cq3PH55dtnROwvZO0TlbYZU94NAm34n3h9nv0S4=;
-  b=KNgn2pfNEvAQB3Uab3RPCV8Ws0DuMcbYC+JK1yE5IfKXvA7kikiBcx1U
-   x8wrG6iKWFXy2mx33d8WdFXFsi4qpjWI8uCbld+AE0jQmGH7vtRsDT+3/
-   jZ8TC6BS8TF20MC3uLQS+DN6qneobrzBPNBSIRSkKfa81DQi3XL84oX9I
-   c5rb8aad3fQ+YJOafNoHiwPWcpE9TIuY1WEcdmjy5xeioivrSHDoYZ50z
-   FFbRfh9xBpb92wc0IsTCGfgAQZrMvN9xDiY0gsfj6cs0L3IFJ4VLkbVJM
-   r50NbLIV5TqMhHCKNKA29+VmeQ1VTqa2a7dpNn2HkeE/hvHIFpxeo+5vT
-   A==;
-X-CSE-ConnectionGUID: KDWJtEVGQAOZeLYpYP2Jcw==
-X-CSE-MsgGUID: 0gUCjU0tSYGC0hIUyllN7w==
-X-IronPort-AV: E=McAfee;i="6600,9927,11041"; a="19708392"
-X-IronPort-AV: E=Sophos;i="6.07,194,1708416000";
-   d="scan'208";a="19708392"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Apr 2024 15:04:21 -0700
-X-CSE-ConnectionGUID: K1q6XdaETSSlw34hX7IWuw==
-X-CSE-MsgGUID: qAbqon27QxWe1zxH34SteQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,194,1708416000";
-   d="scan'208";a="21628770"
-Received: from aramana1-mobl.amr.corp.intel.com (HELO pbossart-mobl6.lan)
- ([10.213.177.233])
-  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Apr 2024 15:04:21 -0700
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: linux-sound@vger.kernel.org
-Cc: alsa-devel@alsa-project.org,
-	tiwai@suse.de,
-	broonie@kernel.org,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [PATCH 12/12] ASoC: Intel: sof_rt5682: use RT5682S_PLL1 if needed
-Date: Thu, 11 Apr 2024 17:03:47 -0500
-Message-Id: <20240411220347.131267-13-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20240411220347.131267-1-pierre-louis.bossart@linux.intel.com>
-References: <20240411220347.131267-1-pierre-louis.bossart@linux.intel.com>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=GOKeKENm
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id CC5A36217E;
+	Thu, 11 Apr 2024 22:35:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DD48C072AA;
+	Thu, 11 Apr 2024 22:35:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1712874957;
+	bh=ZgKCfsWFqENGu2Mnw8GcJWs4r368JeG6kTQENU1jAkw=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=GOKeKENm2iBE7FcHqURXogLvsi1VM/SOP+bnihaC34q1pf5cC0YxmAU3RB69q2IU7
+	 qRlB7GrGAhUthAcVE9Nb+kl2dD07dQreOwOlCWoM+EYYLtsT2X4qctULVfmYqEwa8i
+	 xBr9kt68BlyRlTaq8ueOR48JFobItbNt1zjQ7EKX7GxLn2cf5Hm/t+Z3FTgR5zaUH+
+	 p2dlk0GbzsCfoRVzOb5qPo8ISM5hSua+WNUC2KMfwSkYx7M3VcvHF/PXVjOHp75ohb
+	 ZXdVJ3aCvU4Y4NoFXN6tqIATZo0SncP7FXrA4HZs1SbEOVTKkduTIjYocK21umR2H3
+	 pbaVp7pVlDdqw==
+From: Mark Brown <broonie@kernel.org>
+To: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+ Baojun Xu <baojun.xu@ti.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+ Lukas Bulwahn <lbulwahn@redhat.com>
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Lukas Bulwahn <lukas.bulwahn@redhat.com>
+In-Reply-To: <20240411075803.53657-1-lukas.bulwahn@redhat.com>
+References: <20240411075803.53657-1-lukas.bulwahn@redhat.com>
+Subject: Re: [PATCH] MAINTAINERS: adjust file entry in TEXAS INSTRUMENTS
+ AUDIO (ASoC/HDA) DRIVERS
+Message-Id: <171287495520.96963.7535991617111488759.b4-ty@kernel.org>
+Date: Thu, 11 Apr 2024 23:35:55 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: G5FG3GYZP7CQCUU5H34KUQYJOJOOQP7D
-X-Message-ID-Hash: G5FG3GYZP7CQCUU5H34KUQYJOJOOQP7D
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14-dev
+Message-ID-Hash: N64R2MAWFHC6V37TKBYDCT5QMGXHZKII
+X-Message-ID-Hash: N64R2MAWFHC6V37TKBYDCT5QMGXHZKII
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -101,7 +88,8 @@ X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: <>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/N64R2MAWFHC6V37TKBYDCT5QMGXHZKII/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,48 +98,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
+On Thu, 11 Apr 2024 09:58:03 +0200, Lukas Bulwahn wrote:
+> Commit 8167bd1c8a45 ("ASoC: dt-bindings: ti,pcm1681: Convert to dtschema")
+> converts ti,pcm1681.txt to ti,pcm1681.yaml, but misses to adjust the file
+> entry in TEXAS INSTRUMENTS AUDIO (ASoC/HDA) DRIVERS.
+> 
+> Hence, ./scripts/get_maintainer.pl --self-test=patterns complains about a
+> broken reference.
+> 
+> [...]
 
-When 96KHz sample rate is used, and MCLK is 24.576MHz, we will need
-pll_in = 24576000 and pll_out = 49152000 which is not supported by
-RT5682S_PLL2. Use RT5682S_PLL1 in this case.
-We don't test sample rate because RT5682S_PLL2 doesn't support 24.576MHz
-input and in the MCLK = 24.576MHz, sample rate = 48KHz case, i.e.
-pll_in == pll_out, PLL will not be used at all.
+Applied to
 
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
- sound/soc/intel/boards/sof_rt5682.c | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
 
-diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
-index 735e07ea62bd..062012de3de2 100644
---- a/sound/soc/intel/boards/sof_rt5682.c
-+++ b/sound/soc/intel/boards/sof_rt5682.c
-@@ -340,8 +340,19 @@ static int sof_rt5682_hw_params(struct snd_pcm_substream *substream,
- 		clk_id = RT5682_SCLK_S_PLL1;
- 		break;
- 	case CODEC_RT5682S:
--		pll_id = RT5682S_PLL2;
--		clk_id = RT5682S_SCLK_S_PLL2;
-+		/*
-+		 * For MCLK = 24.576MHz and sample rate = 96KHz case, use PLL1  We don't test
-+		 * pll_out or params_rate() here since rt5682s PLL2 doesn't support 24.576MHz
-+		 * input, so we have no choice but to use PLL1. Besides, we will not use PLL at
-+		 * all if pll_in == pll_out. ex, MCLK = 24.576Mhz and sample rate = 48KHz
-+		 */
-+		if (pll_in == 24576000) {
-+			pll_id = RT5682S_PLL1;
-+			clk_id = RT5682S_SCLK_S_PLL1;
-+		} else {
-+			pll_id = RT5682S_PLL2;
-+			clk_id = RT5682S_SCLK_S_PLL2;
-+		}
- 		break;
- 	default:
- 		dev_err(rtd->dev, "invalid codec type %d\n", ctx->codec_type);
--- 
-2.40.1
+Thanks!
+
+[1/1] MAINTAINERS: adjust file entry in TEXAS INSTRUMENTS AUDIO (ASoC/HDA) DRIVERS
+      commit: 82116e539ffb7ce0c317c208d53d2126cdcee687
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 

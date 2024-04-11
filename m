@@ -2,139 +2,134 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A735A8A9F17
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Apr 2024 17:52:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC7F88A9F1B
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Apr 2024 17:52:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DF2C914E9;
-	Thu, 18 Apr 2024 17:51:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF2C914E9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8591420C3;
+	Thu, 18 Apr 2024 17:52:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8591420C3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1713455522;
-	bh=GGGXqb/dRvAmsbMVacoTodVUEkGNMLSBqd77vagY4mQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Y/ek6Gd7Vdu1vylNBRTVddrWsr+kXie8K1YJCTKAcLM+xnMMigyPbmTAQC2kzPito
-	 oxj0NvvMmvs2l16CeCtvAL3WIqTfFR6quvhGC0X2OfGohZh9916v4Nfocw3yu2WO4A
-	 8pMANg8H4o523lwk16vixGh33fLuuzLEYSSG1YaU=
+	s=default; t=1713455544;
+	bh=joMzTyz23qmG+b+PQc5HQqQmeMqXg/U9MthFl8kkmFU=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=Geck7vG4AdD+3mlBGhKAKnhmZkYD0WGNPEQjoaU8HE6I2UKyH790n0yjKRh902Rv1
+	 8YCBQolzODJ1HJi0BnPzH3I0gXCuQq1Yv1If1z9qAMbNcdj1WeYJUjOXcHmAxk0edU
+	 bcl9r/THi8lQCR6HSUW94Em/vruEFpkkmAL4z574=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 57F55F806A2; Thu, 18 Apr 2024 17:47:08 +0200 (CEST)
+	id B20D4F89715; Thu, 18 Apr 2024 17:47:11 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0F0C1F80698;
-	Thu, 18 Apr 2024 17:47:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6A9C3F89700;
+	Thu, 18 Apr 2024 17:47:11 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D42A6F8026D; Wed, 10 Apr 2024 17:38:55 +0200 (CEST)
+	id 1D555F80238; Thu, 11 Apr 2024 09:58:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [IPv6:2a00:1450:4864:20::22f])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-7.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 24B15F800C9
-	for <alsa-devel@alsa-project.org>; Wed, 10 Apr 2024 17:38:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24B15F800C9
+	by alsa1.perex.cz (Postfix) with ESMTPS id A3676F80130
+	for <alsa-devel@alsa-project.org>; Thu, 11 Apr 2024 09:58:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3676F80130
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=baylibre-com.20230601.gappssmtp.com
- header.i=@baylibre-com.20230601.gappssmtp.com header.a=rsa-sha256
- header.s=20230601 header.b=YzxDCTDi
-Received: by mail-lj1-x22f.google.com with SMTP id
- 38308e7fff4ca-2d700beb6beso74742831fa.2
+	dkim=pass (1024-bit key,
+ unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256
+ header.s=mimecast20190719 header.b=UB9nTPxu
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1712822291;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=SqVTw0UTFVtH3IwS7qkCBECw2fl92QBlfhYoyR8m1lo=;
+	b=UB9nTPxuJVLgTOmQQ5HluYz7DkVWjuuANJ7kVOhr1TQ+CWTukaAsrgZE2ovAPJyMV6/2/P
+	O8VhQFk1Exa1lFYHiV5hs2d8CoV5YJ8cR4pOWv0HD5Q7K3JvkXYSBII94E0qMjgZ28Ag6/
+	DT1JBPBHhHSid++sXYk7vHYVNGrS34c=
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-308-I5FlCDVDNXmBzW1MdgAdxg-1; Thu, 11 Apr 2024 03:58:10 -0400
+X-MC-Unique: I5FlCDVDNXmBzW1MdgAdxg-1
+Received: by mail-qk1-f198.google.com with SMTP id
+ af79cd13be357-78e13eddaf3so124028185a.0
         for <alsa-devel@alsa-project.org>;
- Wed, 10 Apr 2024 08:38:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1712763531;
- x=1713368331; darn=alsa-project.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=ziNLBEavMFMG0GfbRRHA8010gbB3jZaJU46gRxSDrTY=;
-        b=YzxDCTDiLbF12kgyGM8bbYE0tne/torzrqT4yFIyUGVuPo830GnYEkeRDM9UMUmTt8
-         KS4EF2T25d1iAGa4F99Q1rna8zCNbs+DC1WNB2k6amDfeDgELJefosfp9PIIrBRlCLcj
-         7HBjEHknZ22f49FDPdxg/jIdjHnRr6G6DL7srELXIH4sipM5PVlX6ys/qHAfiVO5Ws7V
-         WIt+J7aYclyQaFksMD96pFzMFyg7dNvELDZiR8Oyqaus2166E8c2lpjATyxYxrc8936U
-         tbA4ZqauTToN3JPc4z4GYFm36fSKlWCykm6HWVrTBZCN4OLVqrv+I3P4Rw7KbiyWrWIU
-         nhnw==
+ Thu, 11 Apr 2024 00:58:10 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712763531; x=1713368331;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ziNLBEavMFMG0GfbRRHA8010gbB3jZaJU46gRxSDrTY=;
-        b=r+t4T42xLxZYmZXyRa1z/N9GFWsZ6aKJQhB8MEX6l5Ei9Kj0ITYthJ5FNos1hYmUWf
-         RSS3lGUiSs7hpXrDbhqYrTOizQNE+q8F4/LyfoyyyepKKBy7ffuoOveTDmx57zKq0YMK
-         mykgYBYg5Tf7Q0q0wNw/5PqPu9nl7Rl0JX5XRjYmZl2d1lhZwLYmdWIlsqPgEufcrcEH
-         M1kD+IuWHc+Mp4osgpI4ir7yGKtd6hfYaRLOkIer4BwUpC3TPjhN51e4T69nV55K2ay4
-         DKCPQGZ+uQ+JaOA7BD3WzIPTfqMKbMKRUsSMk+CGSdzSNz/77rWWtOWBPZgvYVCJC7Cq
-         MfdA==
+        d=1e100.net; s=20230601; t=1712822289; x=1713427089;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=SqVTw0UTFVtH3IwS7qkCBECw2fl92QBlfhYoyR8m1lo=;
+        b=HzgM5tb6VOW1dlMBbUQ0qsa4QVZIngCG3O12qiArEgaW7hNb67QYaQtfhpzwzn4Cz8
+         APB4nIq2do2CH7oyjhE2Dn3LGiWu3Nw7vWArsgeQMESZdpJY7He74N7QOZlnua50bblf
+         8LYgOAuxN1nkQ8sR6YGM0P01qWOcjRHb0bkQ7h8uEkTMGv4mGGDS5BSoWLkiyeeI1iD/
+         GhhnJ3qr1EJHt4eMdwWjTXeDs5gWu93mh4Q8ObhGmdvU+yQ+pFKM7GU+/RlyFWCuap+r
+         zfZ2u38wml1za/uRY/V8GB893Yp4142BYOmzEiF9LMLPOc6RDpEp/WufyFYL3yaihIRJ
+         jRaw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXv+T0wcDtw/HGnjy8b4lmcd77fldPjGHNG2iHJrnUzMqczpq9fvtk0bTQy65W3YDDI5FN1S6paONLkW56Htu/NWwZt+g7VXRcyMQo=
-X-Gm-Message-State: AOJu0Yx0cl4mZUYFSTHSiAup+nuWL1+Hnild67X/MkiIvUYUwWfU3Ucw
-	26km1KHRtrQ7YZehhsOKJeW90nMpBCyqhN+lDhoUggXnN2CbrrIxTSqOm0W5MOA=
+ AJvYcCWA2L3aq9/IkhIIsQiHzMat1ylhacZ3YLZAe7hR8Pp4QtrjE1NwwUQR6/5vFet483njyHe1CJxOwj6WZ4WedgLbjbQEkG50z8IgDok=
+X-Gm-Message-State: AOJu0YxiYQ09trd/BZHun+u0yixtKdA7Bqs+uandxqqBg9UcGdSO1KD4
+	8UonqEdm+UUj5mlYuWYrpUHXhh4TYfankMJVnAZSv6XI9IXSKvfMz8psq3AlIAQYWtCHxif9zgH
+	8yVvVsTBWx+vXGcqh8ttOcIHNfhoRlEXeArfUw/Ujxd3eeterlknI8Ez+dInQ
+X-Received: by 2002:a05:620a:3d0:b0:78e:ba91:a4a9 with SMTP id
+ r16-20020a05620a03d000b0078eba91a4a9mr2901288qkm.33.1712822289664;
+        Thu, 11 Apr 2024 00:58:09 -0700 (PDT)
 X-Google-Smtp-Source: 
- AGHT+IG2wwHYacJLlQJ1p8tbRHpThfXnZhkjy+riyIarl5DIopRdALbX2un4cz4Xr1qBJqWWBM+Yfw==
-X-Received: by 2002:a05:651c:1a28:b0:2d8:34ad:7f4e with SMTP id
- by40-20020a05651c1a2800b002d834ad7f4emr2818446ljb.4.1712763530670;
-        Wed, 10 Apr 2024 08:38:50 -0700 (PDT)
-Received: from [192.168.1.172] ([93.5.22.158])
+ AGHT+IEvSh9y4I/IGdCNvTciq7eFbqCOuLJohMuODkTcOR2jUHxmkOOxyBUfrylL1fqN6UUVEDDAUg==
+X-Received: by 2002:a05:620a:3d0:b0:78e:ba91:a4a9 with SMTP id
+ r16-20020a05620a03d000b0078eba91a4a9mr2901266qkm.33.1712822289235;
+        Thu, 11 Apr 2024 00:58:09 -0700 (PDT)
+Received: from lbulwahn-thinkpadx1carbongen9.rmtde.csb
+ ([2a02:810d:7e40:14b0:4ce1:e394:7ac0:6905])
         by smtp.gmail.com with ESMTPSA id
- v7-20020a05600c470700b00416b2cbad06sm2591936wmo.41.2024.04.10.08.38.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 10 Apr 2024 08:38:50 -0700 (PDT)
-Message-ID: <757b554b-add9-4d0e-89cf-0a5569187f18@baylibre.com>
-Date: Wed, 10 Apr 2024 17:38:48 +0200
+ bj38-20020a05620a192600b0078d679f6efesm691961qkb.16.2024.04.11.00.58.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 11 Apr 2024 00:58:08 -0700 (PDT)
+From: Lukas Bulwahn <lbulwahn@redhat.com>
+X-Google-Original-From: Lukas Bulwahn <lukas.bulwahn@redhat.com>
+To: Shenghao Ding <shenghao-ding@ti.com>,
+	Kevin Lu <kevin-lu@ti.com>,
+	Baojun Xu <baojun.xu@ti.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org
+Cc: kernel-janitors@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Lukas Bulwahn <lukas.bulwahn@redhat.com>
+Subject: [PATCH] MAINTAINERS: adjust file entry in TEXAS INSTRUMENTS AUDIO
+ (ASoC/HDA) DRIVERS
+Date: Thu, 11 Apr 2024 09:58:03 +0200
+Message-ID: <20240411075803.53657-1-lukas.bulwahn@redhat.com>
+X-Mailer: git-send-email 2.44.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 13/18] ASoC: mediatek: mt8186: Unify mt8186-mt6366
- machine drivers
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- broonie@kernel.org
-Cc: wenst@chromium.org, lgirdwood@gmail.com, robh@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
- matthias.bgg@gmail.com, perex@perex.cz, tiwai@suse.com,
- trevor.wu@mediatek.com, maso.huang@mediatek.com,
- xiazhengqiao@huaqin.corp-partner.google.com, arnd@arndb.de,
- kuninori.morimoto.gx@renesas.com, shraash@google.com,
- nicolas.ferre@microchip.com, u.kleine-koenig@pengutronix.de,
- dianders@chromium.org, frank.li@vivo.com, allen-kh.cheng@mediatek.com,
- eugen.hristev@collabora.com, claudiu.beznea@tuxon.dev,
- jarkko.nikula@bitmer.com, jiaxin.yu@mediatek.com, alpernebiyasak@gmail.com,
- ckeepax@opensource.cirrus.com, zhourui@huaqin.corp-partner.google.com,
- nfraprado@collabora.com, alsa-devel@alsa-project.org,
- shane.chien@mediatek.com, linux-sound@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- kernel@collabora.com
-References: <20240409113310.303261-1-angelogioacchino.delregno@collabora.com>
- <20240409113310.303261-14-angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-From: Alexandre Mergnat <amergnat@baylibre.com>
-In-Reply-To: 
- <20240409113310.303261-14-angelogioacchino.delregno@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MailFrom: amergnat@baylibre.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
+X-MailFrom: lbulwahn@redhat.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: BQMAX7S7SSRDKF6SY6QKADQZE5UA3QE6
-X-Message-ID-Hash: BQMAX7S7SSRDKF6SY6QKADQZE5UA3QE6
-X-Mailman-Approved-At: Thu, 18 Apr 2024 15:47:00 +0000
+Message-ID-Hash: QPLRO4MECNGDHH72VKX3OLLJ76UJOZ37
+X-Message-ID-Hash: QPLRO4MECNGDHH72VKX3OLLJ76UJOZ37
+X-Mailman-Approved-At: Thu, 18 Apr 2024 15:47:01 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BQMAX7S7SSRDKF6SY6QKADQZE5UA3QE6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QPLRO4MECNGDHH72VKX3OLLJ76UJOZ37/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -143,46 +138,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Commit 8167bd1c8a45 ("ASoC: dt-bindings: ti,pcm1681: Convert to dtschema")
+converts ti,pcm1681.txt to ti,pcm1681.yaml, but misses to adjust the file
+entry in TEXAS INSTRUMENTS AUDIO (ASoC/HDA) DRIVERS.
 
+Hence, ./scripts/get_maintainer.pl --self-test=patterns complains about a
+broken reference.
 
-On 09/04/2024 13:33, AngeloGioacchino Del Regno wrote:
-> @@ -318,16 +409,24 @@ static int mt8186_it6505_i2s_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
->   static int mt8186_sof_dai_link_fixup(struct snd_soc_pcm_runtime *rtd,
->   				     struct snd_pcm_hw_params *params)
->   {
-> +	struct mtk_soc_card_data *soc_card_data = snd_soc_card_get_drvdata(rtd->card);
->   	int ret;
->   
->   	ret = mtk_sof_dai_link_fixup(rtd, params);
->   
->   	if (!strcmp(rtd->dai_link->name, "I2S0") ||
->   	    !strcmp(rtd->dai_link->name, "I2S1") ||
-> -	    !strcmp(rtd->dai_link->name, "I2S2"))
-> -		mt8186_i2s_hw_params_fixup(rtd, params);
-> -	else if (!strcmp(rtd->dai_link->name, "I2S3"))
-> -		mt8186_it6505_i2s_hw_params_fixup(rtd, params);
-> +	    !strcmp(rtd->dai_link->name, "I2S2")) {
-> +		if (soc_card_data->card_data->flags & DA7219_CODEC_PRESENT)
+Adjust the file entry in TEXAS INSTRUMENTS AUDIO (ASoC/HDA) DRIVERS after
+this conversion.
 
-Is the flag missing like you did for mt8195-mt6359.c ?
-			if (!(codec_init & MT6359_CODEC_INIT)) {
-				dai_link->init = mt8195_mt6359_init;
-				codec_init |= MT6359_CODEC_INIT;
+Signed-off-by: Lukas Bulwahn <lukas.bulwahn@redhat.com>
+---
+ MAINTAINERS | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-
-> +			mt8186_i2s_hw_params_32le_fixup(rtd, params);
-> +		else
-> +			mt8186_i2s_hw_params_24le_fixup(rtd, params);
-> +	} else if (!strcmp(rtd->dai_link->name, "I2S3")) {
-> +		if (soc_card_data->card_data->flags & DA7219_CODEC_PRESENT)
-> +			mt8186_i2s_hw_params_24le_fixup(rtd, params);
-> +		else
-> +			mt8186_i2s_hw_params_32le_fixup(rtd, params);
-> +	}
->   
->   	return ret;
->   }
-
+diff --git a/MAINTAINERS b/MAINTAINERS
+index e5431f06ab55..d39e0f2556f7 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -21976,7 +21976,7 @@ F:	Documentation/devicetree/bindings/sound/tas2552.txt
+ F:	Documentation/devicetree/bindings/sound/tas2562.yaml
+ F:	Documentation/devicetree/bindings/sound/tas2770.yaml
+ F:	Documentation/devicetree/bindings/sound/tas27xx.yaml
+-F:	Documentation/devicetree/bindings/sound/ti,pcm1681.txt
++F:	Documentation/devicetree/bindings/sound/ti,pcm1681.yaml
+ F:	Documentation/devicetree/bindings/sound/ti,pcm3168a.yaml
+ F:	Documentation/devicetree/bindings/sound/ti,tlv320*.yaml
+ F:	Documentation/devicetree/bindings/sound/tlv320adcx140.yaml
 -- 
-Regards,
-Alexandre
+2.44.0
+

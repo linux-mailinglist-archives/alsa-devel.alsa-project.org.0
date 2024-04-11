@@ -2,120 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 035A58A15C7
-	for <lists+alsa-devel@lfdr.de>; Thu, 11 Apr 2024 15:39:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1D9A8A1723
+	for <lists+alsa-devel@lfdr.de>; Thu, 11 Apr 2024 16:28:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4A7932BCC;
-	Thu, 11 Apr 2024 15:38:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A7932BCC
+	by alsa0.perex.cz (Postfix) with ESMTPS id F18E8240C;
+	Thu, 11 Apr 2024 16:27:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F18E8240C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712842744;
-	bh=eTMYfNiOYulv/yNO5OZTpX+Rk9/rrqOLSZsOoMf3Z68=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=exznYFZzFhDtqLkJZ5blPjr5yTCmJAxXbVZ4gK1AzxUUtzKm0KOIe+RXxAy4TjW2n
-	 owNztJZ9tEwPGlBLnY+MT9wYD/mOhXeFWdvaBALS0IBlx//JXhTYqKZQPeTom0JUvN
-	 z7RZBXoe58HTrpiotU+2eIju7YE/pGVhNUB/xJyU=
+	s=default; t=1712845684;
+	bh=ExoEEktZ0Q694B1jGfibfgqap3Fns8pq0px5FRmYhys=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=bWdZSKnE0QSMdyjjL/n53PG8+ffYs6RlQfKUtQsyKEKYkhBrmiQoM78sSIPo3A/Lq
+	 nh6qJp68kxDbz9+G9oSeovXRVhJj1T5TRb0bWjPHfZ2sFWTghHFfWUpEszynNk4ges
+	 T59cjv8A7Nza3rhnpZo6Vu1ci1rGDgFRoZR6+ig4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2C4F3F80580; Thu, 11 Apr 2024 15:38:31 +0200 (CEST)
+	id B27B0F8056F; Thu, 11 Apr 2024 16:27:31 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 355FCF80578;
-	Thu, 11 Apr 2024 15:38:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1C96CF8059F;
+	Thu, 11 Apr 2024 16:27:31 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 73E3AF8026D; Thu, 11 Apr 2024 15:38:26 +0200 (CEST)
+	id DB2C4F8026D; Thu, 11 Apr 2024 16:27:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 44153F8013D
-	for <alsa-devel@alsa-project.org>; Thu, 11 Apr 2024 15:38:19 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
-	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 71F872A87;
-	Thu, 11 Apr 2024 15:38:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 71F872A87
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
-	t=1712842698; bh=tupnvZiHYVksQkpoZxWovH1rA92sZhxtBd6IBqU4JQ4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=chWIcWBBRJNVD41xTS+RPTzA6XO0bXCgj1Hdzu9bUps3kaWCRIksb67pO7htU+gns
-	 cShzHdioRK8gx6daVZpBFFp2rnJAyUTtTcTUlzIiXbzgCWjhfBLA+3lh5MagyS3h8S
-	 1gAKSHi+WKHtVJnmgNLIU92c0JJTisu5IocgeBMU=
-Received: from [192.168.100.98] (unknown [192.168.100.98])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	(Authenticated sender: perex)
-	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
-	Thu, 11 Apr 2024 15:38:14 +0200 (CEST)
-Message-ID: <4fe03ef7-881e-4078-a819-cbe6500ede7d@perex.cz>
-Date: Thu, 11 Apr 2024 15:38:13 +0200
+	by alsa1.perex.cz (Postfix) with ESMTPS id F3278F80236
+	for <alsa-devel@alsa-project.org>; Thu, 11 Apr 2024 16:27:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3278F80236
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=Y6xQRd3M
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
+ 43BAfAIA006316;
+	Thu, 11 Apr 2024 09:27:17 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
+	from:to:cc:subject:date:message-id:mime-version
+	:content-transfer-encoding:content-type; s=PODMain02222019; bh=Z
+	Y+B99ld798igcjetqgoBpCqki2RZTaHQvRZhUJbx5E=; b=Y6xQRd3MOd0LGr/0m
+	o1vCjLrFX0XrR9ppDQHQm358RyeRnyuUkgJoIQPnHCY5QeywNyvKuiwWZaaSd9yS
+	bhxUQ4tlySv+vHY6bbaPu9+242KKOBW0M9kPsDlfA829kYfqy6pHrQXUgRiorf10
+	BLACJv16EKRESlievpRFIh5hipoxtpToSiujavQ7lXgJG5b7sh82Lf9X2xIgzAOd
+	FXZONU6m+sQ7ZWijrMogWMX2bG9yBM3PczodmWguL5BfzbKPaN84V/YgdSfhvbzA
+	hszr4zshDtjLwPG1u6BGZg094lR0eEcTBA2TDSVP9mwNFb73TnKTHvlmnh1eDY6T
+	IoWng==
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3xb3sxq55r-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 11 Apr 2024 09:27:17 -0500 (CDT)
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 11 Apr
+ 2024 15:27:15 +0100
+Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
+ ediex01.ad.cirrus.com (198.61.84.80) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9
+ via Frontend Transport; Thu, 11 Apr 2024 15:27:15 +0100
+Received: from sbinding-cirrus-dsktp2.ad.cirrus.com (unknown [198.61.64.140])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id 35AFB820242;
+	Thu, 11 Apr 2024 14:27:15 +0000 (UTC)
+From: Stefan Binding <sbinding@opensource.cirrus.com>
+To: Mark Brown <broonie@kernel.org>
+CC: <alsa-devel@alsa-project.org>, <linux-sound@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <patches@opensource.cirrus.com>,
+        "Stefan
+ Binding" <sbinding@opensource.cirrus.com>
+Subject: [PATCH v1] ASoC: cs35l41: Update DSP1RX5/6 Sources for DSP config
+Date: Thu, 11 Apr 2024 15:26:48 +0100
+Message-ID: <20240411142648.650921-1-sbinding@opensource.cirrus.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: UCM vs SOF vs HDMI passthrough
-Content-Language: en-US
-To: =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
- alsa-devel@alsa-project.org
-Cc: Takashi Iwai <tiwai@suse.com>, wim.taymans@gmail.com
-References: <fa1d1a94-57d9-4caf-9569-f9a9f3d725c2@linux.intel.com>
-From: Jaroslav Kysela <perex@perex.cz>
-Autocrypt: addr=perex@perex.cz; keydata=
- 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
-In-Reply-To: <fa1d1a94-57d9-4caf-9569-f9a9f3d725c2@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: DHYANOWBIFJDB2AVKP4KUGJ7M627BEUI
-X-Message-ID-Hash: DHYANOWBIFJDB2AVKP4KUGJ7M627BEUI
-X-MailFrom: perex@perex.cz
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: 12Rhjm7ZXsn-PGLzIqvG5rshIIjAkxj5
+X-Proofpoint-GUID: 12Rhjm7ZXsn-PGLzIqvG5rshIIjAkxj5
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: 3WPT77KJ3A254TZEXPDAI744IU6PDK5W
+X-Message-ID-Hash: 3WPT77KJ3A254TZEXPDAI744IU6PDK5W
+X-MailFrom: prvs=1831d0461d=sbinding@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -126,7 +99,8 @@ X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: <>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3WPT77KJ3A254TZEXPDAI744IU6PDK5W/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -135,27 +109,67 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 11. 04. 24 15:15, Péter Ujfalusi wrote:
+Currently, all ASoC systems are set to use VPMON for DSP1RX5_SRC,
+however, this is required only for internal boost systems.
+External boost systems require VBSTMON instead of VPMON to be the
+input to DSP1RX5_SRC.
+Shared Boost Active acts like Internal boost (requires VPMON).
+Shared Boost Passive acts like External boost (requires VBSTMON)
+All systems require DSP1RX6_SRC to be set to VBSTMON.
 
-> [B] Using UCM
-> https://github.com/ujfalusi/alsa-ucm-conf/tree/topic/sof-hdmi
+Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
+---
+ sound/soc/codecs/cs35l41.c | 26 ++++++++++++++++++++------
+ 1 file changed, 20 insertions(+), 6 deletions(-)
 
-This is only way to go. The configuration for "legacy" PCM device names should 
-be handled through UCM (when UCM config exists for this hw).
-
-> Should we add some parameter to 'amixer -c0 info', like ipc_version:4/3,
-> so if the ipc_version is 3 or missing we assume that passthrough is not
-> supported?
-
-UCM must be able to detect sound card capabilities. For passthrough, there 
-should be some controls for AES bits which may be used for the conditional 
-matching. If it's not sufficient, a hint to the components string (mixer info 
-structure) may be added by the driver. Also PCM name or subname may be matched 
-for a substring, if you like (seems more related than the components string).
-
-					Jaroslav
-
+diff --git a/sound/soc/codecs/cs35l41.c b/sound/soc/codecs/cs35l41.c
+index dfb4ce53491b..f8e57a2fc3e3 100644
+--- a/sound/soc/codecs/cs35l41.c
++++ b/sound/soc/codecs/cs35l41.c
+@@ -1094,6 +1094,7 @@ static int cs35l41_handle_pdata(struct device *dev, struct cs35l41_hw_cfg *hw_cf
+ static int cs35l41_dsp_init(struct cs35l41_private *cs35l41)
+ {
+ 	struct wm_adsp *dsp;
++	uint32_t dsp1rx5_src;
+ 	int ret;
+ 
+ 	dsp = &cs35l41->dsp;
+@@ -1113,16 +1114,29 @@ static int cs35l41_dsp_init(struct cs35l41_private *cs35l41)
+ 		return ret;
+ 	}
+ 
+-	ret = regmap_write(cs35l41->regmap, CS35L41_DSP1_RX5_SRC,
+-			   CS35L41_INPUT_SRC_VPMON);
++	switch (cs35l41->hw_cfg.bst_type) {
++	case CS35L41_INT_BOOST:
++	case CS35L41_SHD_BOOST_ACTV:
++		dsp1rx5_src = CS35L41_INPUT_SRC_VPMON;
++		break;
++	case CS35L41_EXT_BOOST:
++	case CS35L41_SHD_BOOST_PASS:
++		dsp1rx5_src = CS35L41_INPUT_SRC_VBSTMON;
++		break;
++	default:
++		dev_err(cs35l41->dev, "wm_halo_init failed - Invalid Boost Type: %d\n",
++			cs35l41->hw_cfg.bst_type);
++		goto err_dsp;
++	}
++
++	ret = regmap_write(cs35l41->regmap, CS35L41_DSP1_RX5_SRC, dsp1rx5_src);
+ 	if (ret < 0) {
+-		dev_err(cs35l41->dev, "Write INPUT_SRC_VPMON failed: %d\n", ret);
++		dev_err(cs35l41->dev, "Write DSP1RX5_SRC: %d failed: %d\n", dsp1rx5_src, ret);
+ 		goto err_dsp;
+ 	}
+-	ret = regmap_write(cs35l41->regmap, CS35L41_DSP1_RX6_SRC,
+-			   CS35L41_INPUT_SRC_CLASSH);
++	ret = regmap_write(cs35l41->regmap, CS35L41_DSP1_RX6_SRC, CS35L41_INPUT_SRC_VBSTMON);
+ 	if (ret < 0) {
+-		dev_err(cs35l41->dev, "Write INPUT_SRC_CLASSH failed: %d\n", ret);
++		dev_err(cs35l41->dev, "Write CS35L41_INPUT_SRC_VBSTMON failed: %d\n", ret);
+ 		goto err_dsp;
+ 	}
+ 	ret = regmap_write(cs35l41->regmap, CS35L41_DSP1_RX7_SRC,
 -- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+2.34.1
 

@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C69F68A21B4
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 Apr 2024 00:24:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BAE088A21B3
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 Apr 2024 00:23:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 02FF62BE3;
-	Fri, 12 Apr 2024 00:24:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 02FF62BE3
+	by alsa0.perex.cz (Postfix) with ESMTPS id F0AAF2BD0;
+	Fri, 12 Apr 2024 00:23:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F0AAF2BD0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712874250;
-	bh=aYhhNME9fvwSMylxt5ncTLkt/NErQVZsyt2NYVWI+O0=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=qXErbhaQ97I9QOuKGHmaGYuhEZeg52Q7XoSYSOfBkmxEBJxzlWQTWRlU6TqcgvYE9
-	 bI8iLEhxp8nfe8sgvSCUmsL0ts/QnSv0Y1wNgg68EsmYRwIPZqmAQwpEnn7fkHy9Pp
-	 MEd48YAHYoqkGWVamCtXoCe/pLDHidtl+B6oSsbQ=
+	s=default; t=1712874217;
+	bh=oqtHSPMLAUON0JmK9Out3TiJRj9J67t4yJqtjUWl/kM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=uwnA9AIH6dPQzafnb4baNKCIDxW8bzSIZkjJI95WampoxA2YDjf6OqJMNEcsHNWAA
+	 RQyyQx2ZjV1gAcBn9rZjibFPro0KHOd5rNZzAnUAt3VXHVFayS98cdA2iYxck9oUyL
+	 ylW6UijGv5/y0QACiV+77JiYiV/nbqRyegvbeS+g=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1958FF805D2; Fri, 12 Apr 2024 00:23:24 +0200 (CEST)
+	id 75FF2F8057F; Fri, 12 Apr 2024 00:23:16 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CFC70F805CA;
-	Fri, 12 Apr 2024 00:23:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3226AF8058C;
+	Fri, 12 Apr 2024 00:23:14 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BAC94F8057C; Fri, 12 Apr 2024 00:10:58 +0200 (CEST)
+	id 42582F800C9; Fri, 12 Apr 2024 00:10:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
@@ -33,57 +34,61 @@ X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 35739F80130
-	for <alsa-devel@alsa-project.org>; Fri, 12 Apr 2024 00:04:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35739F80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id 36BC0F800C9
+	for <alsa-devel@alsa-project.org>; Fri, 12 Apr 2024 00:04:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36BC0F800C9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=irWtrb4W
+ header.s=Intel header.b=Vh0auoVE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1712873060; x=1744409060;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=aYhhNME9fvwSMylxt5ncTLkt/NErQVZsyt2NYVWI+O0=;
-  b=irWtrb4W1aP95/Pb6E/F5eLE97lB7iUEV+I9tfv4lSEjYZj7bohRANqN
-   8b+oeKeKvoMvIjCLErLHD3yYXWELr0OBU7jSaLCUog0XEIrlfW722Qc2m
-   NqRg+J+ct7RvUwY7FF2h8euhnLxUQZsvJJkWDQ3dW154Yqu9KGiEV0rG2
-   zOq1dVgNllDWrIiwNDwcw7c2yy08KStfjkdK7ya144/rboQTrXIZMCLqo
-   MZU092nuqRgtpPsPFHezG8fPRzrWNQeYXnnNYFcsjqGQsFfjjjJ9KZNis
-   N/JT0xlPJxb5ASSMUZQ8xphz7BtQ95XlPJhVLjMIQLs+oeUIkpQXcxfoP
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=oqtHSPMLAUON0JmK9Out3TiJRj9J67t4yJqtjUWl/kM=;
+  b=Vh0auoVETkZ8B+R3iGiHjnLe7Hq/rOSd64K/uuXn4ydjyg/35eLubhz+
+   01QeEfWNZiOd/kvc4jxUeSsvlPVZrrl4nuEqNcu5IrG2aKAu7axqr1Hs3
+   kBic0yM0UckGUaBBe9TwPhZZp8JMkKKvmr3bpeP88v4QgTjzYwrKN4TyB
+   2X8U71NHeg/qzouoriZT8yhj6tNs2x+BG8LzRHRiQVRhWBp188wutV+1u
+   1qy98m7zaCvFOcN9GyASa3A8IS96lOCDoQL5vlQPaMqwDc9NflPGkHKtm
+   swUb4eaoOs588gRmv/wTDn7yYLBa+vIflcgUBv4akoO54ISwl6o5BMTjU
    g==;
-X-CSE-ConnectionGUID: v9fCkhGVRPi/xsyXhIwDcw==
-X-CSE-MsgGUID: WVCYVEjUR92jbPkQ1L7QHA==
-X-IronPort-AV: E=McAfee;i="6600,9927,11041"; a="19708329"
+X-CSE-ConnectionGUID: ysKIbRYCQoG/jBo2D1hlCQ==
+X-CSE-MsgGUID: LhSQXTzTTKmWAxMPgw8C5A==
+X-IronPort-AV: E=McAfee;i="6600,9927,11041"; a="19708335"
 X-IronPort-AV: E=Sophos;i="6.07,194,1708416000";
-   d="scan'208";a="19708329"
+   d="scan'208";a="19708335"
 Received: from orviesa008.jf.intel.com ([10.64.159.148])
   by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Apr 2024 15:04:11 -0700
-X-CSE-ConnectionGUID: lZW5ilL3SUCi0hxLax+cXQ==
-X-CSE-MsgGUID: +c8Q8HRVQ3akoMZcTc163g==
+ 11 Apr 2024 15:04:12 -0700
+X-CSE-ConnectionGUID: 3ANGd8e5S9W4NuJjisqYnw==
+X-CSE-MsgGUID: QqoSnvSjRG20aoIcUe5l5w==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.07,194,1708416000";
-   d="scan'208";a="21628680"
+   d="scan'208";a="21628698"
 Received: from aramana1-mobl.amr.corp.intel.com (HELO pbossart-mobl6.lan)
  ([10.213.177.233])
   by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Apr 2024 15:04:11 -0700
+ 11 Apr 2024 15:04:12 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: linux-sound@vger.kernel.org
 Cc: alsa-devel@alsa-project.org,
 	tiwai@suse.de,
 	broonie@kernel.org,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
 	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [PATCH 00/12] ASoC: Intel: updates for 6.10 - part4
-Date: Thu, 11 Apr 2024 17:03:35 -0500
-Message-Id: <20240411220347.131267-1-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 01/12] ASoC: Intel: sof_sdw: add missing sof_sdw_rt_amp_init
+ for Realtek multi-function codecs
+Date: Thu, 11 Apr 2024 17:03:36 -0500
+Message-Id: <20240411220347.131267-2-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.40.1
+In-Reply-To: <20240411220347.131267-1-pierre-louis.bossart@linux.intel.com>
+References: <20240411220347.131267-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: XJNBM4ZBSIEDOK7D3XAUB4LFVG3JZPKQ
-X-Message-ID-Hash: XJNBM4ZBSIEDOK7D3XAUB4LFVG3JZPKQ
+Message-ID-Hash: WBMTZN4YQHLJRRPDXDEBNPDSKRKQJWAR
+X-Message-ID-Hash: WBMTZN4YQHLJRRPDXDEBNPDSKRKQJWAR
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -96,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XJNBM4ZBSIEDOK7D3XAUB4LFVG3JZPKQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WBMTZN4YQHLJRRPDXDEBNPDSKRKQJWAR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -105,51 +110,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-More cleanups from Brent, notably the removal of the redundant
-cml_rt1011_rt5682 machine driver, fixes for SoundWire platforms and
-changes to sof_rt5682 to allow for 96+ sampling rates.
+From: Bard Liao <yung-chuan.liao@linux.intel.com>
 
-For the rest of this kernel cycle, we are still working on SoundWire
-updates for MeteorLake (usual missing ACPI signature required for
-topology selection and jack detection information). We'll provide
-those patches as soon as they are reviewed/validated.
+We do need "info->amp_num++;" for the speaker dai.
 
-Bard Liao (2):
-  ASoC: Intel: sof_sdw: add missing sof_sdw_rt_amp_init for Realtek
-    multi-function codecs
-  ASoC: Intel: sof_rt5682: use RT5682S_PLL1 if needed
+Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+---
+ sound/soc/intel/boards/sof_sdw.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Brent Lu (6):
-  ASoC: Intel: sof_da7219: mach cleanup for adl boards
-  ASoC: Intel: sof_da7219: mach cleanup for rpl boards
-  ASoC: Intel: sof_da7219: add mtl_da7219_def for mtl boards
-  ASoC: Intel: sof_realtek_common: support 4xALC1011 amplifier
-  ASoC: Intel: sof_rt5682: support ALC1011 on cml boards
-  ASoC: Intel: cml_rt1011_rt5682: delete driver
-
-Pierre-Louis Bossart (4):
-  ASoC: Intel: soc-acpi: add support for HP Omen14 SoundWire
-    configuration
-  ASoC: Intel: sof_sdw: add JD2 quirk for HP Omen 14
-  ASoC: Intel: sof_sdw: add quirk for Dell SKU 0C0F
-  ASoC: Intel: sof_sdw: remove FOUR_SPEAKER quirks
-
- sound/soc/intel/boards/Kconfig                |  12 +-
- sound/soc/intel/boards/Makefile               |   2 -
- sound/soc/intel/boards/cml_rt1011_rt5682.c    | 609 ------------------
- sound/soc/intel/boards/sof_da7219.c           |   8 +
- sound/soc/intel/boards/sof_realtek_common.c   | 178 ++++-
- sound/soc/intel/boards/sof_realtek_common.h   |   4 +-
- sound/soc/intel/boards/sof_rt5682.c           |  37 +-
- sound/soc/intel/boards/sof_sdw.c              |  87 ++-
- sound/soc/intel/boards/sof_sdw_common.h       |   1 +
- .../intel/common/soc-acpi-intel-adl-match.c   |  19 +-
- .../intel/common/soc-acpi-intel-cml-match.c   |   2 +-
- .../intel/common/soc-acpi-intel-mtl-match.c   |  36 ++
- .../intel/common/soc-acpi-intel-rpl-match.c   |  19 +-
- 13 files changed, 297 insertions(+), 717 deletions(-)
- delete mode 100644 sound/soc/intel/boards/cml_rt1011_rt5682.c
-
+diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
+index b94835448b1b..8a2cd19d8be6 100644
+--- a/sound/soc/intel/boards/sof_sdw.c
++++ b/sound/soc/intel/boards/sof_sdw.c
+@@ -737,6 +737,8 @@ static struct sof_sdw_codec_info codec_info_list[] = {
+ 				.dai_name = "rt712-sdca-aif2",
+ 				.dai_type = SOF_SDW_DAI_TYPE_AMP,
+ 				.dailink = {SDW_AMP_OUT_DAI_ID, SDW_UNUSED_DAI_ID},
++				.init = sof_sdw_rt_amp_init,
++				.exit = sof_sdw_rt_amp_exit,
+ 				.rtd_init = rt712_spk_rtd_init,
+ 			},
+ 		},
+@@ -912,6 +914,8 @@ static struct sof_sdw_codec_info codec_info_list[] = {
+ 				.dai_type = SOF_SDW_DAI_TYPE_AMP,
+ 				/* No feedback capability is provided by rt722-sdca codec driver*/
+ 				.dailink = {SDW_AMP_OUT_DAI_ID, SDW_UNUSED_DAI_ID},
++				.init = sof_sdw_rt_amp_init,
++				.exit = sof_sdw_rt_amp_exit,
+ 				.rtd_init = rt722_spk_rtd_init,
+ 			},
+ 			{
 -- 
 2.40.1
 

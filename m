@@ -2,111 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9791A8A0CCC
-	for <lists+alsa-devel@lfdr.de>; Thu, 11 Apr 2024 11:50:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A809B8A0CCE
+	for <lists+alsa-devel@lfdr.de>; Thu, 11 Apr 2024 11:50:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 930DC27AB;
-	Thu, 11 Apr 2024 11:50:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 930DC27AB
+	by alsa0.perex.cz (Postfix) with ESMTPS id BBA1B211A;
+	Thu, 11 Apr 2024 11:50:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BBA1B211A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712829012;
-	bh=YljiLEM+2502rDhcPH5SPGgvCOflIAg75YCzejRyOxc=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1712829024;
+	bh=+e34Pb3pZ1eg94TgXhBzORR5jz/zvBqwI7txDmuccvc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=qgzA3s3gIJJBa1QHFJD1C2z3tKUHxk/BGvt10F9bLbaFIfck0GhJvP4W7RmO0kNbx
-	 ap6QvpzT7lXo+SYQ4Kx/WGQa9W2rdby+KchIbT1NTeskwxTnLGevVnAo83xAxmZQKE
-	 au82LUoXMX+zKSqh1LWhf2RM4KzUw3hhaEfB+jsk=
+	b=ZAU2248K9c5WyIUHSBQxQ/0ZL+mlbDM0CRhaVRlW0I9VRuVjnGJgll/ZTbU1WlqvI
+	 T/32XYXtLMIgR/7IDgSZpD4I2jP8GNA2tkuZxWyjUelfq9qMKNv37xG1Z9aRR5wQ4p
+	 0zGfyv4pjLhfojb20fO6jXIz2bYWMWE6QaNkx+Rk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4A19BF805C3; Thu, 11 Apr 2024 11:49:38 +0200 (CEST)
+	id 2F498F805AC; Thu, 11 Apr 2024 11:49:47 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id AF10EF805C4;
-	Thu, 11 Apr 2024 11:49:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 04828F805E2;
+	Thu, 11 Apr 2024 11:49:47 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E7D31F80423; Thu, 11 Apr 2024 11:49:32 +0200 (CEST)
+	id 7BB46F8055C; Thu, 11 Apr 2024 11:49:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [IPv6:2a00:1450:4864:20::22e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-7.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DFF8AF80578
-	for <alsa-devel@alsa-project.org>; Thu, 11 Apr 2024 11:49:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DFF8AF80578
+	by alsa1.perex.cz (Postfix) with ESMTPS id 061B8F80236
+	for <alsa-devel@alsa-project.org>; Thu, 11 Apr 2024 11:49:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 061B8F80236
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=Vq5jlkE8
-Received: by mail-lj1-x22e.google.com with SMTP id
- 38308e7fff4ca-2d87450361fso70048071fa.2
-        for <alsa-devel@alsa-project.org>;
- Thu, 11 Apr 2024 02:49:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1712828968; x=1713433768;
- darn=alsa-project.org;
-        h=content-transfer-encoding:mime-version:date:message-id:subject
-         :references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=m0Ot7Mdt2VD94EglEUw0Txp6mp1b/ubctfzlEme5QGA=;
-        b=Vq5jlkE8aM8380vLJrTZr8MHNmNauInIDTKW9k3KFfHcBfw98XmjN8MDHcvZlQHmZF
-         Sc5Jrk5RIrN5UlApXsXQXSd6Z1yOrQhO9p5B/lXxn1I+zeDoUWtiTUp/LtiDNOkO0tPF
-         iyq1l9S0xw9H8MHeenoiEHTHFbBnYPZL3mnGMSTFIKpdtpUQaSx9CMFe3ZcW399vrfbi
-         AsGFJVloFOwHZqAUyIOTrCPNbPOCA7ksPWDxI+jxd5bD4ck5jMTAkt13hRqt/lQ8IKfQ
-         N2VB6kW/RB4HTFUR4r/jNFiTJYPaglTbrQdykDA2/rBEO4gk08T8AOdRmiIM8M+VuUof
-         Cdww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712828968; x=1713433768;
-        h=content-transfer-encoding:mime-version:date:message-id:subject
-         :references:in-reply-to:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=m0Ot7Mdt2VD94EglEUw0Txp6mp1b/ubctfzlEme5QGA=;
-        b=A1j8N+aWI3pVsUDKGOrqNG/AmVjvhdPdiNAAqEPQ7Tk5gjB37XauhKlDHGjfgpj9ql
-         XC9jeRZWzNwf84TS8rEp6EGQ9WBFz3H5Lbsr2DhnbuYud7j9t3wI4+Nw5p5Nbjr8ohVc
-         F/spfZSrIEesrdNsE5ArqPDhVQne+xpRoQWHu7Ge7scmaEmjX7eHN5xlZppsrVvM+0cr
-         Ltfj+v42DCNlXILoMD7BLSMUKacoR4EGPAKGM/Pcque8Bhd1M81nPvYN6XWvWroyc+Ey
-         NoCjyFPw/sueuVluCZqHUi5fwdTONH+H+mjEz6tRz9Qs2667mrfcnfNlS8eaEfxQvQUo
-         2RVA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXN2X4IhzaL9lBxB9UsFpLxb0lSSSMmZes0WQxyCsFmmSG38asq3PpKEDbuxy/ASMWmHh+XI+MppB8TonOpgM6Ly6Hy+g0GRPVio5I=
-X-Gm-Message-State: AOJu0YyL5V4lkIcSPFcORauv3isWe5a0Tt8AGi2ayEO1o1twtE+J9MFD
-	MWZkyvsisY6ri/voW9SkZqF+nl+Uc5q48uzBPsGb7ZBL1T5hLvLwfpcoRwLcgls=
-X-Google-Smtp-Source: 
- AGHT+IHmv9BSzH8SzRers7OY2UQV4cLJI3NNIheWaBTAk/ZLpUWaujEKBeOt+Mndy28v4BrrcjLXeQ==
-X-Received: by 2002:a2e:9b0b:0:b0:2d8:e978:e38d with SMTP id
- u11-20020a2e9b0b000000b002d8e978e38dmr2048890lji.10.1712828967797;
-        Thu, 11 Apr 2024 02:49:27 -0700 (PDT)
-Received: from [192.168.1.195] ([5.133.47.210])
-        by smtp.gmail.com with ESMTPSA id
- be3-20020a05600c1e8300b0041632fcf272sm1792905wmb.22.2024.04.11.02.49.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 11 Apr 2024 02:49:27 -0700 (PDT)
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-To: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-Cc: linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- kernel@pengutronix.de
-In-Reply-To: <20240225001911.46196-2-u.kleine-koenig@pengutronix.de>
-References: <20240225001911.46196-2-u.kleine-koenig@pengutronix.de>
-Subject: Re: [PATCH] slimbus: Convert to platform remove callback returning
- void
-Message-Id: <171282896694.158118.17443154512490212488.b4-ty@linaro.org>
-Date: Thu, 11 Apr 2024 10:49:26 +0100
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=GY1JBLEA
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id A1AFA61FD6;
+	Thu, 11 Apr 2024 09:49:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6CE8C433C7;
+	Thu, 11 Apr 2024 09:49:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1712828971;
+	bh=+e34Pb3pZ1eg94TgXhBzORR5jz/zvBqwI7txDmuccvc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=GY1JBLEAkpKc9458lEMO1wnDyXbJ3NMgZWQpxjRF+tJiMTivgCJercSi+X7UhfciK
+	 1HRCEL+qXUG5IyERDDalInO6re3w0u4C10Lrtx4cIMKHKm/W1gkr0oBxQjrJ54ycp5
+	 dZ/FDvZl2tQpTt7KrbM5OH5zqAwkcu/fWL4WZxgCGftTg4wTAt7wCwQd7P8ovgVQ8Y
+	 eSHB4NZFpoavhIIcO21XCH+KXmysCThmyKRT4h0tc6BgN6zJ8Da+SOhRvEIW50LRmT
+	 2ffaRMvmJoiDUxym72uWgKOhQ8BJZJKbLcsv6kqVAa8kK+xLwCXs/X9fYNfKHlC2Ca
+	 6QMz2hXVtK7+Q==
+Date: Thu, 11 Apr 2024 15:19:27 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Sanyog Kale <sanyog.r.kale@intel.com>,
+	linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH v2] soundwire: qcom: allow multi-link on newer devices
+Message-ID: <ZheyJ5PORudx9gsK@matsya>
+References: <20240405144141.47217-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.12.2
-Message-ID-Hash: NH66WNC6FBWU5EFMEAXGHNRGW2O37TRD
-X-Message-ID-Hash: NH66WNC6FBWU5EFMEAXGHNRGW2O37TRD
-X-MailFrom: srinivas.kandagatla@linaro.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240405144141.47217-1-krzysztof.kozlowski@linaro.org>
+Message-ID-Hash: KQNHRNR57WXKCB5FRYYJC73YJQMT4AEK
+X-Message-ID-Hash: KQNHRNR57WXKCB5FRYYJC73YJQMT4AEK
+X-MailFrom: vkoul@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -118,7 +88,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NH66WNC6FBWU5EFMEAXGHNRGW2O37TRD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KQNHRNR57WXKCB5FRYYJC73YJQMT4AEK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -127,26 +97,82 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-
-On Sun, 25 Feb 2024 01:19:12 +0100, Uwe Kleine-König wrote:
-> The .remove() callback for a platform driver returns an int which makes
-> many driver authors wrongly assume it's possible to do error handling by
-> returning an error code. However the value returned is ignored (apart
-> from emitting a warning) and this typically results in resource leaks.
+On 05-04-24, 16:41, Krzysztof Kozlowski wrote:
+> Newer Qualcomm SoCs like X1E80100 might come with four speakers spread
+> over two Soundwire controllers, thus they need a multi-link Soundwire
+> stream runtime.
 > 
-> To improve here there is a quest to make the remove callback return
-> void. In the first step of this quest all drivers are converted to
-> .remove_new(), which already returns void. Eventually after all drivers
-> are converted, .remove_new() will be renamed to .remove().
+> Cc: Mark Brown <broonie@kernel.org>
+> Cc: alsa-devel@alsa-project.org
+> Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 > 
-> [...]
+> ---
+> 
+> Changes in v2:
+> 1. Only rebase (slightly different context)
 
-Applied, thanks!
+Applying /tmp/v2_20240405_krzysztof_kozlowski_soundwire_qcom_allow_multi_link_on_newer_devices.mbx
+Applying: soundwire: qcom: allow multi-link on newer devices
+error: drivers/soundwire/qcom.c: does not match index
+Patch failed at 0001 soundwire: qcom: allow multi-link on newer devices
 
-[1/1] slimbus: Convert to platform remove callback returning void
-      commit: f6c637ffe528068f5470551a1424f173a139d0c7
+This fails as well :-(
 
-Best regards,
+
+> ---
+>  drivers/soundwire/qcom.c | 22 ++++++++++++++++++++++
+>  1 file changed, 22 insertions(+)
+> 
+> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
+> index fb70afe64fcc..ce5cf3ecceb5 100644
+> --- a/drivers/soundwire/qcom.c
+> +++ b/drivers/soundwire/qcom.c
+> @@ -905,6 +905,18 @@ static int qcom_swrm_init(struct qcom_swrm_ctrl *ctrl)
+>  	return 0;
+>  }
+>  
+> +static int qcom_swrm_read_prop(struct sdw_bus *bus)
+> +{
+> +	struct qcom_swrm_ctrl *ctrl = to_qcom_sdw(bus);
+> +
+> +	if (ctrl->version >= SWRM_VERSION_2_0_0) {
+> +		bus->multi_link = true;
+> +		bus->hw_sync_min_links = 3;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>  static enum sdw_command_response qcom_swrm_xfer_msg(struct sdw_bus *bus,
+>  						    struct sdw_msg *msg)
+>  {
+> @@ -1056,6 +1068,7 @@ static const struct sdw_master_port_ops qcom_swrm_port_ops = {
+>  };
+>  
+>  static const struct sdw_master_ops qcom_swrm_ops = {
+> +	.read_prop = qcom_swrm_read_prop,
+>  	.xfer_msg = qcom_swrm_xfer_msg,
+>  	.pre_bank_switch = qcom_swrm_pre_bank_switch,
+>  };
+> @@ -1173,6 +1186,15 @@ static int qcom_swrm_stream_alloc_ports(struct qcom_swrm_ctrl *ctrl,
+>  
+>  	mutex_lock(&ctrl->port_lock);
+>  	list_for_each_entry(m_rt, &stream->master_list, stream_node) {
+> +		/*
+> +		 * For streams with multiple masters:
+> +		 * Allocate ports only for devices connected to this master.
+> +		 * Such devices will have ports allocated by their own master
+> +		 * and its qcom_swrm_stream_alloc_ports() call.
+> +		 */
+> +		if (ctrl->bus.id != m_rt->bus->id)
+> +			continue;
+> +
+>  		if (m_rt->direction == SDW_DATA_DIR_RX) {
+>  			maxport = ctrl->num_dout_ports;
+>  			port_mask = &ctrl->dout_port_mask;
+> -- 
+> 2.34.1
+
 -- 
-Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-
+~Vinod

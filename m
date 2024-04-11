@@ -2,93 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAE088A21B3
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 Apr 2024 00:23:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 072288A21B7
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 Apr 2024 00:25:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F0AAF2BD0;
-	Fri, 12 Apr 2024 00:23:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F0AAF2BD0
+	by alsa0.perex.cz (Postfix) with ESMTPS id EBF372BF5;
+	Fri, 12 Apr 2024 00:25:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EBF372BF5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712874217;
-	bh=oqtHSPMLAUON0JmK9Out3TiJRj9J67t4yJqtjUWl/kM=;
+	s=default; t=1712874347;
+	bh=Kbiv77vxQq3VJjGZ7RvYiy7zJq+A+aZfJkXlW/grBDc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=uwnA9AIH6dPQzafnb4baNKCIDxW8bzSIZkjJI95WampoxA2YDjf6OqJMNEcsHNWAA
-	 RQyyQx2ZjV1gAcBn9rZjibFPro0KHOd5rNZzAnUAt3VXHVFayS98cdA2iYxck9oUyL
-	 ylW6UijGv5/y0QACiV+77JiYiV/nbqRyegvbeS+g=
+	b=lGgZHKQgBWK9tya+jb648xMjAG0cNMwCFJsghNfoUgSM48qypBzWnWD13/onG62D2
+	 a/Z8DT9RUj0BhpTkPt4dYAUqQmzeQ8DDNDHFrAX5tLpVt3dTfDEOcjdKBPvVbVDcmf
+	 +zdObPKRx6M6pV9hMOAtXQJzZpfWMLPkmSCCfIjE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 75FF2F8057F; Fri, 12 Apr 2024 00:23:16 +0200 (CEST)
+	id 56FECF805AE; Fri, 12 Apr 2024 00:25:13 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3226AF8058C;
-	Fri, 12 Apr 2024 00:23:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7067CF805B4;
+	Fri, 12 Apr 2024 00:25:12 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 42582F800C9; Fri, 12 Apr 2024 00:10:33 +0200 (CEST)
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	RCVD_IN_MSPIKE_H2,TIME_LIMIT_EXCEEDED,URIBL_BLOCKED shortcircuit=no
-	autolearn=unavailable version=3.4.6
+	id 5037DF800C9; Fri, 12 Apr 2024 00:14:25 +0200 (CEST)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 36BC0F800C9
-	for <alsa-devel@alsa-project.org>; Fri, 12 Apr 2024 00:04:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36BC0F800C9
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4AA69F8026D
+	for <alsa-devel@alsa-project.org>; Fri, 12 Apr 2024 00:04:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4AA69F8026D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=Vh0auoVE
+ header.s=Intel header.b=WVLgeQPm
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1712873060; x=1744409060;
+  t=1712873062; x=1744409062;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=oqtHSPMLAUON0JmK9Out3TiJRj9J67t4yJqtjUWl/kM=;
-  b=Vh0auoVETkZ8B+R3iGiHjnLe7Hq/rOSd64K/uuXn4ydjyg/35eLubhz+
-   01QeEfWNZiOd/kvc4jxUeSsvlPVZrrl4nuEqNcu5IrG2aKAu7axqr1Hs3
-   kBic0yM0UckGUaBBe9TwPhZZp8JMkKKvmr3bpeP88v4QgTjzYwrKN4TyB
-   2X8U71NHeg/qzouoriZT8yhj6tNs2x+BG8LzRHRiQVRhWBp188wutV+1u
-   1qy98m7zaCvFOcN9GyASa3A8IS96lOCDoQL5vlQPaMqwDc9NflPGkHKtm
-   swUb4eaoOs588gRmv/wTDn7yYLBa+vIflcgUBv4akoO54ISwl6o5BMTjU
-   g==;
-X-CSE-ConnectionGUID: ysKIbRYCQoG/jBo2D1hlCQ==
-X-CSE-MsgGUID: LhSQXTzTTKmWAxMPgw8C5A==
-X-IronPort-AV: E=McAfee;i="6600,9927,11041"; a="19708335"
+  bh=Kbiv77vxQq3VJjGZ7RvYiy7zJq+A+aZfJkXlW/grBDc=;
+  b=WVLgeQPmtMVsSnlfsDWmcjyulG/N4t7k0qiWaSrntdjtqup1lI9IgbHy
+   CA0FZfPuTUc0ggcnZSkpq2fqqiU1SYgsXlaxcyL/mNUlEWWwX107lRDVA
+   e2Gd5ojmB1/VGkM1PEkNOAcxnpUJIpOIwnhiAOiFxJrndBFj0oaoec95x
+   /pR5pkPB2B1d/SI944mbf56+v7W1iA09NKHtqQiB7A8hOvD1ghwZrMsA7
+   29RqI6dsjaVce/B4HUft3uDgKZy1BxtkYM/nKUq4uwc9XpuBthAVV2qh7
+   2ltFmiI1ywOCpwWdA8C0EOazHdVIyCoEq+RDfXXNYVNDSMtvS4TAIwywW
+   Q==;
+X-CSE-ConnectionGUID: 4Ux0iriwSAupPNQBXZnobw==
+X-CSE-MsgGUID: 13buQPNQQFu29a/9oalalA==
+X-IronPort-AV: E=McAfee;i="6600,9927,11041"; a="19708340"
 X-IronPort-AV: E=Sophos;i="6.07,194,1708416000";
-   d="scan'208";a="19708335"
+   d="scan'208";a="19708340"
 Received: from orviesa008.jf.intel.com ([10.64.159.148])
   by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Apr 2024 15:04:12 -0700
-X-CSE-ConnectionGUID: 3ANGd8e5S9W4NuJjisqYnw==
-X-CSE-MsgGUID: QqoSnvSjRG20aoIcUe5l5w==
+ 11 Apr 2024 15:04:13 -0700
+X-CSE-ConnectionGUID: n0ovwgHsTQKoQzRwtPERSQ==
+X-CSE-MsgGUID: iX8eRg2NTPW/XSnD8RtMfw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.07,194,1708416000";
-   d="scan'208";a="21628698"
+   d="scan'208";a="21628715"
 Received: from aramana1-mobl.amr.corp.intel.com (HELO pbossart-mobl6.lan)
  ([10.213.177.233])
   by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Apr 2024 15:04:12 -0700
+ 11 Apr 2024 15:04:13 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: linux-sound@vger.kernel.org
 Cc: alsa-devel@alsa-project.org,
 	tiwai@suse.de,
 	broonie@kernel.org,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
 	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [PATCH 01/12] ASoC: Intel: sof_sdw: add missing sof_sdw_rt_amp_init
- for Realtek multi-function codecs
-Date: Thu, 11 Apr 2024 17:03:36 -0500
-Message-Id: <20240411220347.131267-2-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 02/12] ASoC: Intel: soc-acpi: add support for HP Omen14
+ SoundWire configuration
+Date: Thu, 11 Apr 2024 17:03:37 -0500
+Message-Id: <20240411220347.131267-3-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20240411220347.131267-1-pierre-louis.bossart@linux.intel.com>
 References: <20240411220347.131267-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: WBMTZN4YQHLJRRPDXDEBNPDSKRKQJWAR
-X-Message-ID-Hash: WBMTZN4YQHLJRRPDXDEBNPDSKRKQJWAR
+Message-ID-Hash: IZKS7GZV2IIC3WVVOGXOJR7GFZPILNCJ
+X-Message-ID-Hash: IZKS7GZV2IIC3WVVOGXOJR7GFZPILNCJ
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -101,7 +95,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WBMTZN4YQHLJRRPDXDEBNPDSKRKQJWAR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IZKS7GZV2IIC3WVVOGXOJR7GFZPILNCJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,38 +104,68 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
+This platform has an RT711-sdca on link0 and RT1316 on link3
 
-We do need "info->amp_num++;" for the speaker dai.
-
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Closes: https://github.com/thesofproject/linux/issues/4880
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/intel/boards/sof_sdw.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ .../intel/common/soc-acpi-intel-mtl-match.c   | 29 +++++++++++++++++++
+ 1 file changed, 29 insertions(+)
 
-diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
-index b94835448b1b..8a2cd19d8be6 100644
---- a/sound/soc/intel/boards/sof_sdw.c
-+++ b/sound/soc/intel/boards/sof_sdw.c
-@@ -737,6 +737,8 @@ static struct sof_sdw_codec_info codec_info_list[] = {
- 				.dai_name = "rt712-sdca-aif2",
- 				.dai_type = SOF_SDW_DAI_TYPE_AMP,
- 				.dailink = {SDW_AMP_OUT_DAI_ID, SDW_UNUSED_DAI_ID},
-+				.init = sof_sdw_rt_amp_init,
-+				.exit = sof_sdw_rt_amp_exit,
- 				.rtd_init = rt712_spk_rtd_init,
- 			},
- 		},
-@@ -912,6 +914,8 @@ static struct sof_sdw_codec_info codec_info_list[] = {
- 				.dai_type = SOF_SDW_DAI_TYPE_AMP,
- 				/* No feedback capability is provided by rt722-sdca codec driver*/
- 				.dailink = {SDW_AMP_OUT_DAI_ID, SDW_UNUSED_DAI_ID},
-+				.init = sof_sdw_rt_amp_init,
-+				.exit = sof_sdw_rt_amp_exit,
- 				.rtd_init = rt722_spk_rtd_init,
- 			},
- 			{
+diff --git a/sound/soc/intel/common/soc-acpi-intel-mtl-match.c b/sound/soc/intel/common/soc-acpi-intel-mtl-match.c
+index 75935b454e5d..264f5c19af56 100644
+--- a/sound/soc/intel/common/soc-acpi-intel-mtl-match.c
++++ b/sound/soc/intel/common/soc-acpi-intel-mtl-match.c
+@@ -296,6 +296,15 @@ static const struct snd_soc_acpi_adr_device rt1316_2_group2_adr[] = {
+ 	}
+ };
+ 
++static const struct snd_soc_acpi_adr_device rt1316_3_single_adr[] = {
++	{
++		.adr = 0x000330025D131601ull,
++		.num_endpoints = 1,
++		.endpoints = &single_endpoint,
++		.name_prefix = "rt1316-1"
++	}
++};
++
+ static const struct snd_soc_acpi_adr_device rt1318_1_group1_adr[] = {
+ 	{
+ 		.adr = 0x000130025D131801ull,
+@@ -562,6 +571,20 @@ static const struct snd_soc_acpi_link_adr mtl_rt713_l0_rt1316_l12[] = {
+ 	{}
+ };
+ 
++static const struct snd_soc_acpi_link_adr mtl_rt711_l0_rt1316_l3[] = {
++	{
++		.mask = BIT(0),
++		.num_adr = ARRAY_SIZE(rt711_sdca_0_adr),
++		.adr_d = rt711_sdca_0_adr,
++	},
++	{
++		.mask = BIT(3),
++		.num_adr = ARRAY_SIZE(rt1316_3_single_adr),
++		.adr_d = rt1316_3_single_adr,
++	},
++	{}
++};
++
+ static const struct snd_soc_acpi_adr_device mx8363_2_adr[] = {
+ 	{
+ 		.adr = 0x000230019F836300ull,
+@@ -703,6 +726,12 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_mtl_sdw_machines[] = {
+ 		.drv_name = "sof_sdw",
+ 		.sof_tplg_filename = "sof-mtl-rt711-l0-rt1316-l23-rt714-l1.tplg",
+ 	},
++	{
++		.link_mask = 0x9, /* 2 active links required */
++		.links = mtl_rt711_l0_rt1316_l3,
++		.drv_name = "sof_sdw",
++		.sof_tplg_filename = "sof-mtl-rt711-l0-rt1316-l3.tplg",
++	},
+ 	{
+ 		.link_mask = BIT(0),
+ 		.links = mtl_rt722_only,
 -- 
 2.40.1
 

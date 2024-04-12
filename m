@@ -2,141 +2,139 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D7358A25E3
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 Apr 2024 07:46:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DD4B8A2C91
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 Apr 2024 12:39:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DEB172C2A;
-	Fri, 12 Apr 2024 07:46:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DEB172C2A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9B1E72BC7;
+	Fri, 12 Apr 2024 12:38:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B1E72BC7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712900812;
-	bh=5oykbQrzdjX671101D9+buHnuBZCW5fFYaJgtHoVMmM=;
-	h=From:Subject:To:Cc:Date:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1712918341;
+	bh=6S416KwxLfCtEeZ6OyMeopnp0v2WlooLPqk1tgImJgE=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=nrM9GjdMHGC1NsvTXiZb+spBoXiksMlZM45fJnZNDjDd3Av6FAuC1Pe9rMu/5jsNN
-	 qVY+VjUAoQvdwSxZTA/aAvwYyZZrDCYZH9SqF1oBw7vI7KCFQzb1WuJLxkt2WgqOX5
-	 2cmYD3T0EONubCkgpRBD3GduCigiixECXC81LVS8=
+	b=ZXY9EmcL+41B+N+tzj2jvKjS0G7Ak1BqJZIJL5zDV6Sbhi4VRBxBFqe0RCbv8aK5r
+	 Of5LFGqfVn4IN/ltxJb7Z3u3LMgxAEK/pUmXCPdpMyiZgscq/n/p69kqQwgryWQscC
+	 xaPxV/nUdQQq0q3lvMKts14Y3Qe90VxSgNGaXWI0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5592AF805C3; Fri, 12 Apr 2024 07:46:17 +0200 (CEST)
+	id 60744F805E7; Fri, 12 Apr 2024 12:37:59 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A3FB5F805C2;
-	Fri, 12 Apr 2024 07:46:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E19A4F805E2;
+	Fri, 12 Apr 2024 12:37:58 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B32CAF805B0; Fri, 12 Apr 2024 07:46:11 +0200 (CEST)
+	id 52B96F80238; Fri, 12 Apr 2024 12:36:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.3 required=5.0 tests=AC_FROM_MANY_DOTS,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=no autolearn_force=no
+X-Spam-Level: 
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from JPN01-TYC-obe.outbound.protection.outlook.com
- (mail-tycjpn01on20600.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2019::600])
+Received: from APC01-TYZ-obe.outbound.protection.outlook.com
+ (mail-tyzapc01on20600.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:2011::600])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0FCA2F8057F
-	for <alsa-devel@alsa-project.org>; Fri, 12 Apr 2024 07:46:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0FCA2F8057F
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5831EF8026D
+	for <alsa-devel@alsa-project.org>; Fri, 12 Apr 2024 12:36:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5831EF8026D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
- header.s=selector1 header.b=UlmfN+4T
+ unprotected) header.d=nuvoton.com header.i=@nuvoton.com header.a=rsa-sha256
+ header.s=selector1 header.b=f/y3/o+O
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BWN7w+O/GMif8jW1VxT8m+vC/se98+TxLs4iHxXGQ7Vre3jEeNJKnGll0oEh1KaaJR3Wc2U43/urDwknrhrw1VtgFuautbjBbn6hVghOBtkE7N08029dXvFG7bWPItLCD/K4PEQE3NOkOasaYI2bHCSDoZEQ9vsFk6HQIQSx8L6egOuzgyw5BM2ugrVtOzkn9jKC+M132dlJTVqBowKmfi5aFPtiVp8fvjv+nN/Hpoc8hDeip7T6NI67Ho29Q4va1z8jHTl/o0ztTt7ul/vng8ajT8tAmZFOwO9Xg/sf/cMIviKJv7hrptCpRRF2BQF1sUk2mA3RWdqpyNcumAzNXg==
+ b=RKImd7XeZh/fBOwxLz5MHI6E1T97lGnWmPvl+OZl6xbBoNKK3qqq2fzr+de7zoKbwR1zWI/cFsSd0OIQjsoN8yXBbWlS6IimD7bQo7bt7cOeWG5rmJVrPBgp1wP14rctqYGEiIVPbQOQ2twoAKzf80SpwyCd8LLCuwkvtTyEgxi0J9Iy9V/KUxSM/t0smu1oOO15olkT5Th2WixnwwY4oSppGkTw0+L9chrwWE7zJ+yKOWHnTNB1Lxzc3MmGiKjvJjdN//zt2OsXHVRNTB+g0OmV4WkO0p9Y6u46MnvGGcDtJtmPvjHSm0gfEfeWeGDF2KvqySpPfzkzJMcGbHL01g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=V+JOtLXCP6D+X60IbUQL7q2JrS9v19FGDQy3WMUTzdU=;
- b=ErVxh/7uFetWWUTw2zuhvfSLjK3VmUmS/s1Y9wLWd7K1zV13Cz8mk+hDC8EHjx/P8/K6N5/ZMxCtTgfiPCC/VuMP81Vl+jRcxxw2k3e1uStBpqPx5ybQqB/L+dOCaMKjgcNzcV3WEX9wAEuCiJSBywz+zucep4DqQBcQCyTyhIyAa/1UHj7GeQ30knXgb0ENVPyXjNy4dpX/Jyzt0ht7oRr9ci/LfNTVSFo/S8qMcOiRMHPoyMq8Na7lFdeSqf7Gjif17s4NKzWRoB8v/qAu7PlZmcdzn9tcABxuH9QOCtUU+kYVOUoWWce6CXdB1w7nYElwBn/qJ2F7izaUAKTG0w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ bh=EUvrX9jrmtMjpHmz6D8VLu5LDN7o/EHtoES/dsqqc4o=;
+ b=d+CkUYipw1S/5dmrLsw868rGaWs8yjSMLwR1A6GF/XY9qv5uHM6+ujoHeHtLCExuQDRM/37YJM2woGte3bUNbq5tE0ehnTUuC7N5g20zoHaavNAMaW2UrcdhHJn/8GmJVZVUINkqh4AVprWpHwmEX9Aiw43U83RTEpgjcYePGmIHOTCuw2bUatNDzBBO6UuGOgns2o5IDwxd4mB2XfS5TgxIR4dChrrqeo624pCPoBS2sd0si3J1VONgeLzXQNHkCJrpU9SzDR1pSUUi2zpo2+ziAeTIvs3dkS/sC5hnYfswNh3+AhwOQoiHvGiYFEti2g90S4mNdsBOag8nuqZ9bQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 211.75.126.7) smtp.rcpttodomain=kernel.org smtp.mailfrom=nuvoton.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=nuvoton.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nuvoton.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V+JOtLXCP6D+X60IbUQL7q2JrS9v19FGDQy3WMUTzdU=;
- b=UlmfN+4TCHFuZCSzxbkIWA0Ltv/bSFHSeNgY7s29OilOfrgya6j/IzgYIPzLwGkLkq8Q6gAJ+8w2a7MRAn7KzN52zaimxINeOJzLwKLka7qz2Vm4buqO+5SxDA/MZjQrIa6XQsDsAVT/L10nB59LeLhZh9qixKDIUgCaIiyE3Sw=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
- (2603:1096:400:3a9::11) by TYVPR01MB10684.jpnprd01.prod.outlook.com
- (2603:1096:400:2ad::5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.55; Fri, 12 Apr
- 2024 05:46:03 +0000
-Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
- ([fe80::131e:55c0:a4a0:713b]) by TYCPR01MB10914.jpnprd01.prod.outlook.com
- ([fe80::131e:55c0:a4a0:713b%7]) with mapi id 15.20.7386.025; Fri, 12 Apr 2024
- 05:46:03 +0000
-Message-ID: <871q7bcew5.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH] ASoC: dt-bindings: renesas: add R8A779H0 V4M
-User-Agent: Wanderlust/2.15.9 Emacs/27.1 Mule/6.0
-To: Mark Brown <broonie@kernel.org>
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>
-Content-Type: text/plain; charset=US-ASCII
-Date: Fri, 12 Apr 2024 05:46:03 +0000
-X-ClientProxiedBy: TY2PR0101CA0029.apcprd01.prod.exchangelabs.com
- (2603:1096:404:8000::15) To TYCPR01MB10914.jpnprd01.prod.outlook.com
- (2603:1096:400:3a9::11)
+ bh=EUvrX9jrmtMjpHmz6D8VLu5LDN7o/EHtoES/dsqqc4o=;
+ b=f/y3/o+O6NZqBha72xpiztySIv0B/HIl5kTTMi6Mu7IZUyZc8I9HlQXTf61IPJ1GMCV+ER4OdRWBjeM0h5MMABdfjdXHpajIWF1tLxCR/TiVnSI5yUazVZgwPQt44jY+lZkaqX/eeAoqhOzWDZJxGfCKopF1qnT2EMCfdK3TwmM=
+Received: from SG2PR02CA0035.apcprd02.prod.outlook.com (2603:1096:3:18::23) by
+ TY0PR03MB6536.apcprd03.prod.outlook.com (2603:1096:400:21c::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46; Fri, 12 Apr
+ 2024 10:36:00 +0000
+Received: from SG2PEPF000B66CA.apcprd03.prod.outlook.com
+ (2603:1096:3:18:cafe::57) by SG2PR02CA0035.outlook.office365.com
+ (2603:1096:3:18::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7472.26 via Frontend
+ Transport; Fri, 12 Apr 2024 10:36:00 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 211.75.126.7)
+ smtp.mailfrom=nuvoton.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nuvoton.com;
+Received-SPF: Pass (protection.outlook.com: domain of nuvoton.com designates
+ 211.75.126.7 as permitted sender) receiver=protection.outlook.com;
+ client-ip=211.75.126.7; helo=NTHCCAS01.nuvoton.com; pr=C
+Received: from NTHCCAS01.nuvoton.com (211.75.126.7) by
+ SG2PEPF000B66CA.mail.protection.outlook.com (10.167.240.22) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7452.22 via Frontend Transport; Fri, 12 Apr 2024 10:36:00 +0000
+Received: from NTHCML01B.nuvoton.com (10.1.8.178) by NTHCCAS01.nuvoton.com
+ (10.1.8.28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 12 Apr
+ 2024 18:35:55 +0800
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCML01B.nuvoton.com
+ (10.1.8.178) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Fri, 12 Apr
+ 2024 18:35:55 +0800
+Received: from localhost.localdomain (10.11.36.27) by NTHCCAS01.nuvoton.com
+ (10.1.8.28) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
+ Transport; Fri, 12 Apr 2024 18:35:55 +0800
+From: Seven Lee <wtli@nuvoton.com>
+To: <broonie@kernel.org>
+CC: <lgirdwood@gmail.com>, <alsa-devel@alsa-project.org>,
+	<devicetree@vger.kernel.org>, <linux-sound@vger.kernel.org>,
+	<krzysztof.kozlowski+dt@linaro.org>, <linux-kernel@vger.kernel.org>,
+	<robh+dt@kernel.org>, <conor+dt@kernel.org>, <perex@perex.cz>,
+	<tiwai@suse.com>, <YHCHuang@nuvoton.com>, <KCHSU0@nuvoton.com>,
+	<CTLIN0@nuvoton.com>, <SJLIN0@nuvoton.com>, <wtli@nuvoton.com>,
+	<scott6986@gmail.com>, <supercraig0719@gmail.com>, <dardar923@gmail.com>,
+	<edson.drosdeck@gmail.com>, <u.kleine-koenig@pengutronix.de>
+Subject: [PATCH 1/3] ASoC: dt-bindings: nau8821: Add delay control for ADC
+Date: Fri, 12 Apr 2024 18:35:52 +0800
+Message-ID: <20240412103554.3487290-1-wtli@nuvoton.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NotSetDelaration: True
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYCPR01MB10914:EE_|TYVPR01MB10684:EE_
-X-MS-Office365-Filtering-Correlation-Id: fec5e58f-51d0-414e-bdcc-08dc5ab3d6fc
+X-MS-TrafficTypeDiagnostic: SG2PEPF000B66CA:EE_|TY0PR03MB6536:EE_
+X-MS-Office365-Filtering-Correlation-Id: a69cfc3b-137e-494e-0841-08dc5adc586a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info: 
-	qfEOOFdmqA9QiaNqAWrCf+OsaRz2ehvMEaLQLdGMNXuMXlmhzvtuzKU0K8LjWdU4YwQZ0izW4p6HtMeuP5kfDSxu1ICy6hSfIZ3MV3N3SfV1kGlyScK2Yh975aKY6eVoTE+9uHR5gF918qBskwefmeAGCNJt8Kt6ApJK9DTClklXv30QqrSqqe4mbNA9vRR4f7GoopWqjGX4BF/PQj2NiTrao1msuB1g6WE3UvjBw8p99T0C9WDr+xGka8hJ6HQSWAWYRHG+pkpn6g9wAigHjQVElzszMB3UKnl69/EgqLd1qIK3EgIVaH2ePFAiuCwnSVrl6eJkkmFaQROL29zJGKREkDm6Esp86FMtpgktCMlYumSkgUSuTU+OlI8JgVidG1IIYnlReiQcT59FlLo2ZxX1KIFdLdRg7RnC3fxCMG+qlmYbSmkeoNVol41ltTkoxDI5jDY7sqtofRp2vlW2rXO25xIicczpI2/r6NK8hUu7lYqw8zZbAKqsolhOF3Ye06tAHU5jYOMF8oNxLelbpfwx++8bE9doXndcp4e/ykffsL771Y0WpQnvNeMwrmLUlpkNi9gWnyCsZEzY6jb8MDK+jKb6IN202QN/f9NND5fvQW+exTIZBwgsnzpLHHXdXNNnJdwRl/IVPRt1qQ+9JnlPwsDJH+T8worwT/Ji2eJBcndlsU8izS5v0yQqGAC5//0zv8QCXGJBHf6vrs+HvA==
+	p6jPcI/C54wRH3dO005Ca9wMFQ91G1IjHTLgq1B1oIKZtUqaPrMLnhJAC/dJuWKYCXCbS25yARR0M6tvbQKzTMrFVzAxXIFLE3mTHgmp2wdAbAQlDtMIYSUf155hRGXpucvTZaVkfJZnwTon5DpuWQjaV5GnrjDdEUtuCKzvm1NQs7RrVoulMKfzCZ7ODcq4Y8Qd7MH0fNEzt574J9ihJ7S+Fd/w2pgRSvayHDaag9TX05NFTm9m2Je1O424YCvZmtr9YwXxU871AKepabRxFw9sbx2dFQ90hN887a2bse0EA3gYYwvOjSTz9HjE5qvnk0Up6tjp8WmbumCfKB8uTXli2j+D/QW5LwSS/0nP7ts44der6lH7HPkpxhr4DW0lpMoTsNjFxGtXsfiYEEBUGPiDhzinZS+vbhRWnNLXvUjpxHDfJWksspXy7kTcFIiv0cAjoOn/T5Mt4qORQDzFTQSjiNEiEcTJLlYc/1DhAHorV5PtCMv8+a90hUprERgwHWFJcJFIHlg47HIMeZMR7VH/GTa6cDzm5chfGsL5jYs3S/1MLFdc3TGn++9wt0Gki5sK4460bpne22AEhK+GMwYrBP83JWFxpJ14NZJ0Bueck67otWBUVJrlqY+A8EwG6nEHOFT/kzghrPneq3QGJzEAqXnp4frTL1G2bBiFQBuG7yVIJf1rC8vmj0q3VdifCYRqb0cIhW/tXSS+Zs4k1ZA/VPGTuYcFUEMFgvaThHjRFtk8A7h5sLr/AvAb5krI
 X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB10914.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(1800799015)(366007)(376005)(52116005)(38350700005);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?XhJZI/jcqqLKf4DsWFud0oTx0sLg2IVy3qLN+tf+PRA/V5L8eB4mEqVZEMX1?=
- =?us-ascii?Q?vNL7OWS+JrAn2mmGysyBhKAPnpHxz9o4gQJsAgQgpzN/oXhC4sF2OFXp2eHm?=
- =?us-ascii?Q?brfXMKg6imJKq+r+75lAg7WQpg3oGeIe1nXaBD88WHMquHHTqwvo+PA6gYN9?=
- =?us-ascii?Q?mqbUGMD4Znlp+jOsdPhGMsPIsg1QrJ1/Tq5fyPRFqk/+ibDLlifnelOL3Y6d?=
- =?us-ascii?Q?+cGW7YUVK4DVGOe1A2FxtO7zsFBhKhdIK35Nz0+d4G1Y6uCNsu8NqPd0H1Rl?=
- =?us-ascii?Q?FO1d0anO/9WaDJDOaFXyxMMbscJF4TBVFnKbRmS9Jlk3weyaL6UxEm0wvRIT?=
- =?us-ascii?Q?thWU21lZp+U21BEH3OawLvT+xxtFSf4IuXbMSECPfdHqO6rd3uofx1SjN4ah?=
- =?us-ascii?Q?PMX3d7r+Rys1lfTWKvFO84/NUTCzza/scTleOGhIpxdUgTrK4nz8Yr+1KFCQ?=
- =?us-ascii?Q?3B+cuAEG1wmNEo6In2wnVC9MxEr8ulmZDzD4201lumNrFPjh2UoLraiO/JrF?=
- =?us-ascii?Q?CcRSg0bK8SqucGUqdjksu2xH1+njCJ2EyyNNKr3hLDsTMuX3UXGZARHII1rE?=
- =?us-ascii?Q?pRaqAZ8QbV72df9/VBS5JxaaLfHnoC1JzE8LEh10yZfZVolVoQRmiQJZ9DHF?=
- =?us-ascii?Q?Pz4vhLnY470nj3rCYMizP+TGtQYZxWPXWJIdqr5FtL4uKz5QyUKXRGPcOBml?=
- =?us-ascii?Q?kpvePPQfQbl/pmVa27C9pZvosjAT9cgwaDJpsWkNpxoaqMEUL+qrhpv/KkuS?=
- =?us-ascii?Q?gfNL5y7bNXVIzAhphEpv8jD2ckyfCCTXUH1wi8kQp5Iino1Q/Yj5/alWEjBT?=
- =?us-ascii?Q?KoXkDGRpqFvWLYl1Xgo9llrAQihNpV+FTE0/mD7d/dsWiochrhGOKxpaKkiK?=
- =?us-ascii?Q?a1fS4BBY01K1cuTFNXRrEfpWXfOAEaEiSOpt8JIzPht9NGhVhh0RDb9SuL3J?=
- =?us-ascii?Q?Zze+m2PgRGAmLrVgJsWXVGE3D9srfbuDN3Nqbw7/TAPvZ+WWjAP5+GrZQ3rI?=
- =?us-ascii?Q?ARQoQmDZEF7gLodN9BEqYqCH1Xd1orgr6jS4GgCnOfWWTB3ToqAsmYdiJ5sa?=
- =?us-ascii?Q?kJXyfNKuYq5EdrcqrfmG/ox1lbhH8+CVQKYilSmA9F0Wbu6Covf7FiVFAwR0?=
- =?us-ascii?Q?IhMlqQpT6Fn6tCz//wLE7JNW2+x7wwnZGxGYDQ65NkuzigjDJcP0mN9cp0eU?=
- =?us-ascii?Q?x1F8z3mwNdBMurrDAM3FDGVJuG2lRodPI17UYsmfyvLaNXiuPzmegD2koda7?=
- =?us-ascii?Q?u7ROJf6aBWHo6xz7X/nJylPn4lD5qUsLYe+RUKu1k1BK5B9VhRyOvA14zL0d?=
- =?us-ascii?Q?Jr2DuEWa2cTt8OKw6Cy2jvLAgNC3rxAt9QGPf/+/DYiCrWbBpegT+RZJvV+w?=
- =?us-ascii?Q?g8Q2WzzIcZZS499ahTtwxVnXGOhYdEc2iItC3jZ4RGBzRUoaGjLT+akXAr9D?=
- =?us-ascii?Q?JDL5kqe5bXmFIA/833hKLisFmtmlZYYE0WfsU2dxZq/QqUdPxxf6thk2lvOR?=
- =?us-ascii?Q?L7Pn1LzbwDcVE9BfAqWpdHzX7eYX4D7XgaCCS0fuNR7jclCRNr4Pwy+lwHdM?=
- =?us-ascii?Q?VY6qPsXwly9Dpe2z3Ytxyaw9j2A8mtaP6lhWVw43rSLrDCHiL4Be3UpugdrJ?=
- =?us-ascii?Q?tg7SHO3TxYq2emS2qJPZbrE=3D?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- fec5e58f-51d0-414e-bdcc-08dc5ab3d6fc
-X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB10914.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Apr 2024 05:46:03.3179
+	CIP:211.75.126.7;CTRY:TW;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:NTHCCAS01.nuvoton.com;PTR:211-75-126-7.hinet-ip.hinet.net;CAT:NONE;SFS:(13230031)(36860700004)(7416005)(82310400014)(376005)(1800799015);DIR:OUT;SFP:1101;
+X-OriginatorOrg: nuvoton.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Apr 2024 10:36:00.1322
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- LtQ1hW8D9M0yO7VBsqDdwahxdNgJOs76UrQjOy3ewEaS97tCXGiL/W56deeMezL9+niyozH7Di8OKXdV73fHjCIAGS3KAIXRHlMYTY5jvpgNzUUDatu1XXM/7ju1Ncsd
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYVPR01MB10684
-Message-ID-Hash: ZIOY4D5V73L4KJ6OFFOFX3R4O2JGPJGH
-X-Message-ID-Hash: ZIOY4D5V73L4KJ6OFFOFX3R4O2JGPJGH
-X-MailFrom: kuninori.morimoto.gx@renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ a69cfc3b-137e-494e-0841-08dc5adc586a
+X-MS-Exchange-CrossTenant-Id: a3f24931-d403-4b4a-94f1-7d83ac638e07
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
+ TenantId=a3f24931-d403-4b4a-94f1-7d83ac638e07;Ip=[211.75.126.7];Helo=[NTHCCAS01.nuvoton.com]
+X-MS-Exchange-CrossTenant-AuthSource: 
+	SG2PEPF000B66CA.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY0PR03MB6536
+Message-ID-Hash: WHEDCPTSJ4FNZLLMUGPEV2G6CLM7U4A4
+X-Message-ID-Hash: WHEDCPTSJ4FNZLLMUGPEV2G6CLM7U4A4
+X-MailFrom: WTLI@nuvoton.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -148,7 +146,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZIOY4D5V73L4KJ6OFFOFX3R4O2JGPJGH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WHEDCPTSJ4FNZLLMUGPEV2G6CLM7U4A4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -157,25 +155,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add document for R-Car V4M (R8A779H0).
+Change the original fixed delay to the assignment from the property. It
+will make it more flexible to different platforms to avoid pop noise at
+the beginning of recording.
 
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Signed-off-by: Seven Lee <wtli@nuvoton.com>
 ---
- Documentation/devicetree/bindings/sound/renesas,rsnd.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ .../devicetree/bindings/sound/nuvoton,nau8821.yaml        | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
-index 996a13f21b63..b3da278cf141 100644
---- a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
-+++ b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
-@@ -49,6 +49,7 @@ properties:
-       # for Gen4 SoC
-       - items:
-           - const: renesas,rcar_sound-r8a779g0  # R-Car V4H
-+          - const: renesas,rcar_sound-r8a779h0  # R-Car V4M
-           - const: renesas,rcar_sound-gen4
-       # for Generic
-       - enum:
+diff --git a/Documentation/devicetree/bindings/sound/nuvoton,nau8821.yaml b/Documentation/devicetree/bindings/sound/nuvoton,nau8821.yaml
+index 054b53954ac3..a726c5a9b067 100644
+--- a/Documentation/devicetree/bindings/sound/nuvoton,nau8821.yaml
++++ b/Documentation/devicetree/bindings/sound/nuvoton,nau8821.yaml
+@@ -103,6 +103,13 @@ properties:
+         just limited to the left adc for design demand.
+     type: boolean
+ 
++  nuvoton,adc-delay-ms:
++    description: Delay (in ms) to make input path stable and avoid pop noise.
++        The default value is 125 and range between 125 to 500 ms.
++    minimum: 125
++    maximum: 500
++    default: 125
++
+   '#sound-dai-cells':
+     const: 0
+ 
+@@ -136,6 +143,7 @@ examples:
+             nuvoton,jack-eject-debounce = <0>;
+             nuvoton,dmic-clk-threshold = <3072000>;
+             nuvoton,dmic-slew-rate = <0>;
++            nuvoton,nuvoton,adc-delay-ms = <125>;
+             #sound-dai-cells = <0>;
+         };
+     };
 -- 
 2.25.1
 

@@ -2,85 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92B2B8A359B
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 Apr 2024 20:27:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73FFA8A3605
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 Apr 2024 20:52:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0CB8C211D;
-	Fri, 12 Apr 2024 20:26:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0CB8C211D
+	by alsa0.perex.cz (Postfix) with ESMTPS id CD36C27AB;
+	Fri, 12 Apr 2024 20:51:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD36C27AB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1712946429;
-	bh=SvdlhNNtUWHChB5l1joPBSlS4XqFexo2+rAXJJlhAE8=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject:List-Id:
+	s=default; t=1712947926;
+	bh=XXFPVsizfUKlbLYg75o726rqFYPfLrkYyKabptRENuY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=r5zDKuR7NLN+kfN2Nw9loXTUs8QUcM7LYBspLvLVaq0I07oDKDjpW1A1+k+qyAl1i
-	 VcqESLgEXMwHmoJQqnyNFkEh78YIhgfQ+3DpL++i/O+QkYimG/71pSpli8KcUZ55hZ
-	 WJ7+0HArvCMM4i58Su7nLGV831Ir/KalQmGc1UZg=
+	b=OgeH4PekD6y9zOVc4IogGSU6uv7xcBqpN7+JT+cSTI1jXbkLRqSGPLB/MU83C7b4K
+	 qUKpXPi0JFVGMN/7XsKE+P868MRqKnvjXO9pMvMTf/m+mwEMrw5toh4I/ZBicc2BpO
+	 PLhL4jvCEpqKPqdRz5MwilT5HHCx4RByHR4FvglA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0CA6DF805A0; Fri, 12 Apr 2024 13:17:43 +0200 (CEST)
+	id D5A5AF805D5; Fri, 12 Apr 2024 13:45:20 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A4651F80589;
-	Fri, 12 Apr 2024 13:17:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DDDE8F805C2;
+	Fri, 12 Apr 2024 13:45:19 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7CB69F8055C; Fri, 12 Apr 2024 13:17:39 +0200 (CEST)
+	id BDC27F805BA; Fri, 12 Apr 2024 13:45:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8F78DF80238
-	for <alsa-devel@alsa-project.org>; Fri, 12 Apr 2024 13:17:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8F78DF80238
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3CB47F80130
+	for <alsa-devel@alsa-project.org>; Fri, 12 Apr 2024 13:45:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3CB47F80130
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=FVb1Fjbu
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 3443BCE386B;
-	Fri, 12 Apr 2024 11:17:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B7A7C113CC;
-	Fri, 12 Apr 2024 11:17:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1712920649;
-	bh=SvdlhNNtUWHChB5l1joPBSlS4XqFexo2+rAXJJlhAE8=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
-	b=FVb1FjbuIh0ACxAJQxzVk9u0EuMVSPdiXpsMhzvNDRhpiVlqEviQ9mzm6ZHvL+uiu
-	 LyPSyrh76UCV6BeRqUhXSHsnc73W+rmgc/FT0ya2cAkH+WHBG4tbyl4ds4AoL2lpdq
-	 NsBRgUzh8OSTyIuouYRSfCmZROhdqHr1I8zZssb14WoFS1Nv9rCIZUqLZZZNAoTA/T
-	 l+niw7ysStJGtIM+leJ/eiMY/oD2in17aYJjMUWf0SEDqEom61jE+lvF64NxoykFg7
-	 jaqw8SrgZTCEhL6QXuTiWcfsXOmMqDfUkcVpqt2I4A1y/ZobeVQ242TSVcBvPiucZC
-	 jIkpSYOezqtrg==
-Date: Fri, 12 Apr 2024 06:17:27 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=SB34NkC3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1712922307; x=1744458307;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=XXFPVsizfUKlbLYg75o726rqFYPfLrkYyKabptRENuY=;
+  b=SB34NkC3hbwr9HcgR437vJ72EgOS2iGP95A86iKLt4XMwjYL7pFTpiEy
+   u/+aCUCfJ+TCpLiqK0586SiCo+VA7KgBj0emYx058H56S2ld2Z1E6x+9i
+   xUtO4BmBrtBBTCefsRkx+SpOeBrSoaAPn7aHoPQlTNqo5Uzp5+Qd5AMkC
+   xeB81yr3lP4dGFutVhlkv+h4hOfxSEGOxMiE1x5GA1KwW7kaT5mOj9cAu
+   itUWt3+ucBr1KcPCQ5yAg48poKMsNRo04a/E4SdSaVP/PAKxqR4dkhTqe
+   rkPWIxO4vxO1pKdW5Qt2w4NWpTK5eeajJHSWwX03tu0lRjFAbX1+iBsoS
+   A==;
+X-CSE-ConnectionGUID: NZIqvy2aRm+3XaE9D1nGpQ==
+X-CSE-MsgGUID: 1AsYRy4HTTi5elXyl0dfuw==
+X-IronPort-AV: E=McAfee;i="6600,9927,11041"; a="18930418"
+X-IronPort-AV: E=Sophos;i="6.07,196,1708416000";
+   d="scan'208";a="18930418"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Apr 2024 04:44:57 -0700
+X-CSE-ConnectionGUID: dWybNnj/SP+GG+SiaVzICg==
+X-CSE-MsgGUID: J0nhiP/UTu+n/o8okxM7Lg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.07,196,1708416000";
+   d="scan'208";a="21705245"
+Received: from aelgham-mobl2.ger.corp.intel.com (HELO [10.249.38.65])
+ ([10.249.38.65])
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Apr 2024 04:44:56 -0700
+Message-ID: <96f4709c-6545-454c-b84b-25a78939abf6@linux.intel.com>
+Date: Fri, 12 Apr 2024 14:44:56 +0300
 MIME-Version: 1.0
-From: Rob Herring <robh@kernel.org>
-To: Seven Lee <wtli@nuvoton.com>
-Cc: linux-kernel@vger.kernel.org, robh+dt@kernel.org, broonie@kernel.org,
- linux-sound@vger.kernel.org, dardar923@gmail.com,
- devicetree@vger.kernel.org, CTLIN0@nuvoton.com, lgirdwood@gmail.com,
- krzysztof.kozlowski+dt@linaro.org, KCHSU0@nuvoton.com, perex@perex.cz,
- SJLIN0@nuvoton.com, scott6986@gmail.com, alsa-devel@alsa-project.org,
- edson.drosdeck@gmail.com, YHCHuang@nuvoton.com, conor+dt@kernel.org,
- u.kleine-koenig@pengutronix.de, supercraig0719@gmail.com, tiwai@suse.com
-In-Reply-To: <20240412103554.3487290-1-wtli@nuvoton.com>
-References: <20240412103554.3487290-1-wtli@nuvoton.com>
-Message-Id: <171292064682.1830010.10520655676449462428.robh@kernel.org>
-Subject: Re: [PATCH 1/3] ASoC: dt-bindings: nau8821: Add delay control for
- ADC
-Message-ID-Hash: IB67CRTOC7PUTHBS7H5U5CYGX6E7R75O
-X-Message-ID-Hash: IB67CRTOC7PUTHBS7H5U5CYGX6E7R75O
-X-MailFrom: robh@kernel.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: UCM vs SOF vs HDMI passthrough
+To: Jaroslav Kysela <perex@perex.cz>, alsa-devel@alsa-project.org
+Cc: Takashi Iwai <tiwai@suse.com>, wim.taymans@gmail.com
+References: <fa1d1a94-57d9-4caf-9569-f9a9f3d725c2@linux.intel.com>
+ <4fe03ef7-881e-4078-a819-cbe6500ede7d@perex.cz>
+Content-Language: en-US
+From: =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
+In-Reply-To: <4fe03ef7-881e-4078-a819-cbe6500ede7d@perex.cz>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: ELLJ2OVYDIVWTK2U5AHWWNGSCUNNX2EO
+X-Message-ID-Hash: ELLJ2OVYDIVWTK2U5AHWWNGSCUNNX2EO
+X-MailFrom: peter.ujfalusi@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -92,7 +100,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IB67CRTOC7PUTHBS7H5U5CYGX6E7R75O/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ELLJ2OVYDIVWTK2U5AHWWNGSCUNNX2EO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,39 +110,47 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
-On Fri, 12 Apr 2024 18:35:52 +0800, Seven Lee wrote:
-> Change the original fixed delay to the assignment from the property. It
-> will make it more flexible to different platforms to avoid pop noise at
-> the beginning of recording.
+
+On 11/04/2024 16:38, Jaroslav Kysela wrote:
+> On 11. 04. 24 15:15, Péter Ujfalusi wrote:
 > 
-> Signed-off-by: Seven Lee <wtli@nuvoton.com>
-> ---
->  .../devicetree/bindings/sound/nuvoton,nau8821.yaml        | 8 ++++++++
->  1 file changed, 8 insertions(+)
+>> [B] Using UCM
+>> https://github.com/ujfalusi/alsa-ucm-conf/tree/topic/sof-hdmi
 > 
+> This is only way to go. The configuration for "legacy" PCM device names
+> should be handled through UCM (when UCM config exists for this hw).
 
-My bot found errors running 'make dt_binding_check' on your patch:
+OK, I will drop the other option.
 
-yamllint warnings/errors:
+>> Should we add some parameter to 'amixer -c0 info', like ipc_version:4/3,
+>> so if the ipc_version is 3 or missing we assume that passthrough is not
+>> supported?
+> 
+> UCM must be able to detect sound card capabilities. For passthrough,
+> there should be some controls for AES bits which may be used for the
+> conditional matching. If it's not sufficient, a hint to the components
+> string (mixer info structure) may be added by the driver. Also PCM name
+> or subname may be matched for a substring, if you like (seems more
+> related than the components string).
 
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/nuvoton,nau8821.example.dtb: codec@1b: Unevaluated properties are not allowed ('nuvoton,nuvoton,adc-delay-ms' was unexpected)
-	from schema $id: http://devicetree.org/schemas/sound/nuvoton,nau8821.yaml#
+Thanks for the advice!
 
-doc reference errors (make refcheckdocs):
+I have now something really working in a way it should be.
+The kernel will add "hdmi-pt:1" to the card's components when HDMI
+passthrough is possible (IPC4, ChainDMA enabled for HDMI PCM). [1]
 
-See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20240412103554.3487290-1-wtli@nuvoton.com
+UCM will use the existence of "hdmi-pt:1" to decide to create the needed
+mapping PCMs [2]
 
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
+[1] https://github.com/thesofproject/linux/pull/4921
+[2] https://github.com/ujfalusi/alsa-ucm-conf/tree/topic/sof-hdmi
 
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
+I'm not sure about the "hdmi-pt:1", can we just have plain "hdmi-pt" or
+we need a param:value pair always?
 
-pip3 install dtschema --upgrade
+There are still funky things done in the UCM patch due to lack of
+experience with it. I guess I should create a formal PR to get it
+reviewed and correct, right?
 
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
+Thank you,
+Péter

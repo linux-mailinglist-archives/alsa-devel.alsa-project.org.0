@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 302668A44DB
-	for <lists+alsa-devel@lfdr.de>; Sun, 14 Apr 2024 21:30:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA1758A44DC
+	for <lists+alsa-devel@lfdr.de>; Sun, 14 Apr 2024 21:30:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 66FE4F52;
-	Sun, 14 Apr 2024 21:30:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 66FE4F52
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9343314E4;
+	Sun, 14 Apr 2024 21:30:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9343314E4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1713123017;
-	bh=d3ouW42zFxz0ULl4IdLTz1BOvZr9/hAe1UhmxGGBFOY=;
+	s=default; t=1713123039;
+	bh=OnnlxCYEjwqjO8RoJo30yB4EEVnxGLprCY84bMFxezI=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=C2R/uAsafp65ll1N3gCJK0ua+74rmyn/vj4Bc5rf9TraO4iKuZr5tOTw48Mc83wf6
-	 ovl9PD095jQtT4JtgWhJsj3gGkT0ZEtBc74Hrege4ivapkQEhVf+lAgf4M+ifOeN7r
-	 Abp1fnraNtzO8MpufkYeh9AbVyBRdGmkg2wDJYMY=
+	b=SuLe/Glh73Lz2batMZKifWnNyKL/PXZbrayS99ys4qZEFA7tPvvbi2bkqetuE8nga
+	 FGPZKOhnzU/ZM+Bi5O5e/DW8AVBDhogx1olJo4IlKpxjgorjN4FEX292VRCUJEpIiv
+	 ADuihR4kiqoHZBj6RxlIag9HAfSfrJmzkJJUxNAM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B97ABF805AE; Sun, 14 Apr 2024 21:29:45 +0200 (CEST)
+	id 2CF1FF805D3; Sun, 14 Apr 2024 21:29:46 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5FEFFF80580;
-	Sun, 14 Apr 2024 21:29:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 81054F805BF;
+	Sun, 14 Apr 2024 21:29:46 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7B9AFF8025A; Sun, 14 Apr 2024 21:28:20 +0200 (CEST)
+	id D97DEF8025A; Sun, 14 Apr 2024 21:29:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-3.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
@@ -33,21 +33,21 @@ X-Spam-Status: No, score=-3.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
 	autolearn=ham autolearn_force=no version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
  [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id BB856F8001F
-	for <alsa-devel@alsa-project.org>; Sun, 14 Apr 2024 21:28:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB856F8001F
+	by alsa1.perex.cz (Postfix) with ESMTP id 962AFF8001F
+	for <alsa-devel@alsa-project.org>; Sun, 14 Apr 2024 21:29:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 962AFF8001F
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
+From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1713122885528753042-webhooks-bot@alsa-project.org>
-References: <1713122885528753042-webhooks-bot@alsa-project.org>
+In-Reply-To: <1713122942524380207-webhooks-bot@alsa-project.org>
+References: <1713122942524380207-webhooks-bot@alsa-project.org>
 Subject: weird behaviour with alsactl restore under pipewire
-Message-Id: <20240414192820.7B9AFF8025A@alsa1.perex.cz>
-Date: Sun, 14 Apr 2024 21:28:20 +0200 (CEST)
-Message-ID-Hash: B4XV4OBKYBM5TJ7OYD4JAXSDVGS7DJAT
-X-Message-ID-Hash: B4XV4OBKYBM5TJ7OYD4JAXSDVGS7DJAT
+Message-Id: <20240414192904.D97DEF8025A@alsa1.perex.cz>
+Date: Sun, 14 Apr 2024 21:29:04 +0200 (CEST)
+Message-ID-Hash: ONP6ORQFN3UTPO7XWWKAXTTOSLDIG7V2
+X-Message-ID-Hash: ONP6ORQFN3UTPO7XWWKAXTTOSLDIG7V2
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -60,7 +60,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/B4XV4OBKYBM5TJ7OYD4JAXSDVGS7DJAT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ONP6ORQFN3UTPO7XWWKAXTTOSLDIG7V2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -69,7 +69,7 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-utils issue #263 was opened from lucasreis1:
+alsa-project/alsa-utils issue #263 was edited from lucasreis1:
 
 So I'm at the point where I need to manually disable auto-mute after every reboot on my card. I've tried storing info using `alsactl store` and enabling `alsa-restore.service`, but I get errors when calling restore after boot (either manually or via the systemd service):
 
@@ -163,6 +163,9 @@ If I store configs again via `alsactl store` and restore them using `alsactl res
 
 Here's the output of `alsa-info.sh` if it helps:
 [alsa-info.txt](https://github.com/alsa-project/alsa-utils/files/14971854/alsa-info.txt)
+
+
+Note that this only happens with my speakers, I have headphonse connected which work fine and are not auto-muted after every boot.
 
 Issue URL     : https://github.com/alsa-project/alsa-utils/issues/263
 Repository URL: https://github.com/alsa-project/alsa-utils

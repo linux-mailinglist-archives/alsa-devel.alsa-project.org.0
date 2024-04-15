@@ -2,85 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A746D8A4CA7
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 Apr 2024 12:42:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 714A68A4CFD
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 Apr 2024 12:53:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4CE56EC1;
-	Mon, 15 Apr 2024 12:42:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4CE56EC1
+	by alsa0.perex.cz (Postfix) with ESMTPS id A363B14DC;
+	Mon, 15 Apr 2024 12:53:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A363B14DC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1713177741;
-	bh=82Y0G3bT9AqEKJFTZ4ff2iCO6NUje1NWCT51cseTFrM=;
-	h=Date:To:From:Subject:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=TaErvpYDeBlKVhd8Fj7GagwBbuD9KCyiVI0vqQx0LJWQCIq4KqNpLiHg4Z0oRju59
-	 VwZ4szXpVHt4ATW6jdkNRICvITNifHC2AVWQ27lHH9c5M058xv+wGNQXRAhmywJM4R
-	 sH103L/FXm9SSyRewcLlsUn/+0ZxqxUCbtYcKKlQ=
+	s=default; t=1713178434;
+	bh=rnyoSsMHQxr2FpuWYiyNFR/ZDGJBdTKFdNrtzd5MXvI=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=E/TE7JmcOzrpKigRJUGewZ4goe+h00Ocd3ANNfp6I79tsQN+1sM7q3sqN+yrXG2Np
+	 T+HQ9lpOG9WGE2rxjTOPXTEc7rgsIiqE5sdxeFQgsHd/gluqejxDYMzBL8Np3mjici
+	 it9unt+N9QZx+Acecgef56fSw6IsLcvzFjXNVBQM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A2EDEF80570; Mon, 15 Apr 2024 12:41:49 +0200 (CEST)
+	id D510FF80496; Mon, 15 Apr 2024 12:53:33 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 383B2F8059F;
-	Mon, 15 Apr 2024 12:41:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4BFB2F8059F;
+	Mon, 15 Apr 2024 12:53:33 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0BE51F8025A; Mon, 15 Apr 2024 12:41:45 +0200 (CEST)
+	id 7BFDFF8025A; Mon, 15 Apr 2024 12:53:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-2.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from smtp.ivitera.com (smtp.ivitera.com [88.101.85.59])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E2A65F80124
-	for <alsa-devel@alsa-project.org>; Mon, 15 Apr 2024 12:41:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2A65F80124
+	by alsa1.perex.cz (Postfix) with ESMTPS id F3EE3F8013D
+	for <alsa-devel@alsa-project.org>; Mon, 15 Apr 2024 12:53:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3EE3F8013D
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=ivitera.com header.i=@ivitera.com header.a=rsa-sha256
- header.s=mail header.b=gDA+9Q/S;
-	dkim=pass (1024-bit key) header.d=ivitera.com header.i=@ivitera.com
- header.a=rsa-sha256 header.s=mail header.b=q0qczvVN
-Received: from localhost (localhost [127.0.0.1])
-	by smtp.ivitera.com (Postfix) with ESMTP id 3AA5D16A162;
-	Mon, 15 Apr 2024 12:41:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ivitera.com; s=mail;
-	t=1713177698; bh=82Y0G3bT9AqEKJFTZ4ff2iCO6NUje1NWCT51cseTFrM=;
-	h=Date:To:From:Subject:From;
-	b=gDA+9Q/SbCW5/+2nCdf6sWD6FGsG2EwxuykVoPG8AbvVI37V6TOkX83itncptxKOv
-	 9FirBktE9ro3mpDbUjEwT3ZrwyMQESRxIx7PuBMOTi+DCPQk7VnWx+PYX7yPEtXQM5
-	 7n8y9MN+UQc39g2vszfA34I5xdLzgYVnBXL7rICA=
-Received: from smtp.ivitera.com ([127.0.0.1])
-	by localhost (localhost [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id 2rXtn4ru8W1q; Mon, 15 Apr 2024 12:41:37 +0200 (CEST)
-Received: from [192.168.105.22] (dustin.pilsfree.net [81.201.58.138])
-	(Authenticated sender: pavel)
-	by smtp.ivitera.com (Postfix) with ESMTPSA id AD77F16B032;
-	Mon, 15 Apr 2024 12:41:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ivitera.com; s=mail;
-	t=1713177697; bh=82Y0G3bT9AqEKJFTZ4ff2iCO6NUje1NWCT51cseTFrM=;
-	h=Date:To:From:Subject:From;
-	b=q0qczvVNpHQh3y4zVtw4mH3K/R/5ZLEK+b+p3Ba8d/hkoTbXQwuienJmBPey3IayL
-	 jU2nhxQJgzrRM8t2P2pLH6YoF8vm/SjLJT5tWFnSB074T5yprIqeXa337q9+NmKyCG
-	 C5++rZuCYvdfXTIeHLzaM5Cu/ciP92eKOUFs0AYU=
-Message-ID: <272260bd-f185-115a-ce80-ed0560fa891b@ivitera.com>
-Date: Mon, 15 Apr 2024 12:41:25 +0200
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=f8H1GZdS
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id ED1B060C56;
+	Mon, 15 Apr 2024 10:53:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2EDFC3277B;
+	Mon, 15 Apr 2024 10:53:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1713178402;
+	bh=rnyoSsMHQxr2FpuWYiyNFR/ZDGJBdTKFdNrtzd5MXvI=;
+	h=From:To:In-Reply-To:References:Subject:Date:From;
+	b=f8H1GZdSXQsUopLuk7g5T7VRzyN2HLk8mfqZoMWBzWUN1CCl2JBGhgv4/zS8m4KF+
+	 fLiNBJGSZoM3GMmgDUsl801iV0bkPFgCcBZ269I1wF9wuB1W43xK7muyg47/i6dJYE
+	 5di4w8z+X2AjQ3yxV/ePFJFDrzpf5x1LkRrbEFBYhgP+fc18Te4lZ220I8evqejHSZ
+	 fMbg2K7mCZPlLjUSVUvwM1FuLOEmtnA4WLjLp05qYs1v4WGz9FSv/RZU4XP0gnrD4x
+	 htOtG6T51U9Jkya+Gnbv443xhpVqyL7Kxoeyu7xdortxcHQtzNFS/xbpAT7ZSDOQK6
+	 hYXRbUxPvg6PQ==
+From: Mark Brown <broonie@kernel.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>, alsa-devel@alsa-project.org,
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzk@kernel.org>
+In-Reply-To: <20240414154839.126852-1-krzk@kernel.org>
+References: <20240414154839.126852-1-krzk@kernel.org>
+Subject: Re: [PATCH 1/2] ASoC: wcd934x: Drop unneeded MODULE_ALIAS
+Message-Id: <171317840045.1652048.10866553206625890591.b4-ty@kernel.org>
+Date: Mon, 15 Apr 2024 19:53:20 +0900
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Content-Language: en-US
-To: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.de>
-From: Pavel Hofman <pavel.hofman@ivitera.com>
-Subject: DSD formats in snd-aloop?
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: W7PGLUGXRN4XIROQISOD4FWOIMGIGDB5
-X-Message-ID-Hash: W7PGLUGXRN4XIROQISOD4FWOIMGIGDB5
-X-MailFrom: pavel.hofman@ivitera.com
+X-Mailer: b4 0.14-dev
+Message-ID-Hash: Y623QJ5P6JSRSRTXMSUANSW3YVABCU6T
+X-Message-ID-Hash: Y623QJ5P6JSRSRTXMSUANSW3YVABCU6T
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -92,7 +88,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/W7PGLUGXRN4XIROQISOD4FWOIMGIGDB5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Y623QJ5P6JSRSRTXMSUANSW3YVABCU6T/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -101,13 +97,40 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi,
+On Sun, 14 Apr 2024 17:48:38 +0200, Krzysztof Kozlowski wrote:
+> The ID table already has respective entry and MODULE_DEVICE_TABLE and
+> creates proper alias for platform driver.  Having another MODULE_ALIAS
+> causes the alias to be duplicated.
+> 
+> 
 
-Please would you accept a patch which adds the 16/32bit alsa DSD formats 
-to the list of supported audio formats in snd-aloop? The loopback device 
-does not modify or access the actual samples in any way, defines no 
-volume or mute controls, it's strictly bitperfect.
+Applied to
 
-Thanks a lot for considering,
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Pavel.
+Thanks!
+
+[1/2] ASoC: wcd934x: Drop unneeded MODULE_ALIAS
+      commit: 615169c727b13ff4ec6c43b62501f73f9f88a11a
+[2/2] ASoC: samsung: i2s: Drop unneeded MODULE_ALIAS
+      commit: 9d85ec4e91e354ed2d8291e1ea3ba76e660205a0
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+

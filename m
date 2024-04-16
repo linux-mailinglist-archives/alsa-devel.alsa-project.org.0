@@ -2,87 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B73A8A6A95
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Apr 2024 14:18:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A63BA8A6AA2
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Apr 2024 14:18:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 82C821909;
-	Tue, 16 Apr 2024 14:18:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 82C821909
+	by alsa0.perex.cz (Postfix) with ESMTPS id C736E1928;
+	Tue, 16 Apr 2024 14:18:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C736E1928
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1713269906;
-	bh=h0FjqXKWDHaiJdhJimUQ5KYctoiR+sYhWz1IQ2fYOKY=;
+	s=default; t=1713269938;
+	bh=Po9JsvvQFIs+av+zg4F0ovlQ3vsrMgHU61mOQKoQK0g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=L3oMV9O0I3KofEURM+Q8B5sWZrB2Lfrn10tjNt52TIbPAC2G7HHtSknj0KC3d8BPZ
-	 og6jpArHhfUOAz+nRxxLcYxT6yzopLszfM1mGDx+ZqeFGvvfbJcC1YkULsX4I/9OKX
-	 0HUDw6dCjeB3KV+7+Xxi62bnO0tR15pnOZHSUhxw=
+	b=k5ki5iGAtTRdgjTrk3arjqlFG8RQcUpFLbTdKC5bE5KVPEHoKWCPbFq3GG1B2NQaQ
+	 QpKDqhm4WqfTCuOqoG2L7SAZd2p8L3FTQX751NsSdGjhwU0kfgopeoPwX36cc6tmoB
+	 JZTfYQSjGmNFuWSV1Xo7OiY9wtxTXvbRTOFZnrIQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 92ED2F805AD; Tue, 16 Apr 2024 14:17:45 +0200 (CEST)
+	id CD169F80619; Tue, 16 Apr 2024 14:17:49 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 12E3DF805C8;
-	Tue, 16 Apr 2024 14:17:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0E44EF8060E;
+	Tue, 16 Apr 2024 14:17:49 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0356DF80494; Tue, 16 Apr 2024 14:17:36 +0200 (CEST)
+	id 4FFD5F80236; Tue, 16 Apr 2024 14:17:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
 Received: from smtp.ivitera.com (smtp.ivitera.com [88.101.85.59])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BED14F80124
-	for <alsa-devel@alsa-project.org>; Tue, 16 Apr 2024 14:17:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BED14F80124
+	by alsa1.perex.cz (Postfix) with ESMTPS id 05103F8025A
+	for <alsa-devel@alsa-project.org>; Tue, 16 Apr 2024 14:17:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 05103F8025A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=ivitera.com header.i=@ivitera.com header.a=rsa-sha256
- header.s=mail header.b=QNk/gMtQ;
+ header.s=mail header.b=JOpDsHuy;
 	dkim=pass (1024-bit key) header.d=ivitera.com header.i=@ivitera.com
- header.a=rsa-sha256 header.s=mail header.b=BcVfCdGQ
+ header.a=rsa-sha256 header.s=mail header.b=JOpDsHuy
 Received: from localhost (localhost [127.0.0.1])
-	by smtp.ivitera.com (Postfix) with ESMTP id 4BD0217329D;
+	by smtp.ivitera.com (Postfix) with ESMTP id 7BBF8173312;
 	Tue, 16 Apr 2024 14:17:28 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ivitera.com; s=mail;
-	t=1713269848; bh=h0FjqXKWDHaiJdhJimUQ5KYctoiR+sYhWz1IQ2fYOKY=;
+	t=1713269848; bh=Po9JsvvQFIs+av+zg4F0ovlQ3vsrMgHU61mOQKoQK0g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=QNk/gMtQMJy+ZThP/E+ut0L60OTFoYsrA7kWDZ//VgLCpXUGXsbETYSwkiRpGCLz0
-	 A4yz4DF5ONqu84+8w7Zfi4+ZL1fZ6qeVYzgFFD6/euS3RNBm//6qDU4zTHYXM4/KLJ
-	 QU28R806yiioV1Xyq7T3mCOrhz87lgDiKqz/itkg=
+	b=JOpDsHuyxaK15TREJpEkgMn79dHnBsP/ZdDRnS42f+6ZKCnLLiFQkMyJ8ZexuGW2S
+	 Bw+50SWsP2A+QxCq2UwNvBHBFif6fZll6hFHLBr4MYuG/+C1lGwvjV5zb1bTxirZqe
+	 ZKSQcN/q854P5LpwKExRdnu4SoqlTpe4ATj7PDo4=
 Received: from smtp.ivitera.com ([127.0.0.1])
 	by localhost (localhost [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id lkNrOpZtwDP6; Tue, 16 Apr 2024 14:17:28 +0200 (CEST)
+	with ESMTP id h-iAE4tPRGdK; Tue, 16 Apr 2024 14:17:28 +0200 (CEST)
 Received: from precision.insite.cz (dustin.pilsfree.net [81.201.58.138])
 	(Authenticated sender: pavel)
-	by smtp.ivitera.com (Postfix) with ESMTPSA id D1675173704;
-	Tue, 16 Apr 2024 14:17:27 +0200 (CEST)
+	by smtp.ivitera.com (Postfix) with ESMTPSA id 179BA1730F9;
+	Tue, 16 Apr 2024 14:17:28 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ivitera.com; s=mail;
-	t=1713269847; bh=h0FjqXKWDHaiJdhJimUQ5KYctoiR+sYhWz1IQ2fYOKY=;
+	t=1713269848; bh=Po9JsvvQFIs+av+zg4F0ovlQ3vsrMgHU61mOQKoQK0g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=BcVfCdGQuwGDNyX+PGqx8JtoMs07aYJx0pwvGU+ByenpquZzzreERU6lN7itI6oa8
-	 oX/dnMFrFbftWrc00teFTGflHsx1Aih2NXyAN+CKmunt/FhTM61d30xU15ciq6LK0a
-	 VCq/pc9/mbtS+Z/Ga0Ii6Mqvx897VTDnjSRp+bLg=
+	b=JOpDsHuyxaK15TREJpEkgMn79dHnBsP/ZdDRnS42f+6ZKCnLLiFQkMyJ8ZexuGW2S
+	 Bw+50SWsP2A+QxCq2UwNvBHBFif6fZll6hFHLBr4MYuG/+C1lGwvjV5zb1bTxirZqe
+	 ZKSQcN/q854P5LpwKExRdnu4SoqlTpe4ATj7PDo4=
 From: Pavel Hofman <pavel.hofman@ivitera.com>
 To: alsa-devel@alsa-project.org
 Cc: Jaroslav Kysela <perex@perex.cz>,
 	Takashi Iwai <tiwai@suse.de>,
 	Pavel Hofman <pavel.hofman@ivitera.com>
-Subject: [PATCH 2/3] ALSA:pcm: add support for 705.6kHz and 768kHz sample
- rates
-Date: Tue, 16 Apr 2024 14:17:25 +0200
-Message-Id: <20240416121726.628679-3-pavel.hofman@ivitera.com>
+Subject: [PATCH 3/3] ALSA:aloop: add support for up to 768kHz sample rate
+Date: Tue, 16 Apr 2024 14:17:26 +0200
+Message-Id: <20240416121726.628679-4-pavel.hofman@ivitera.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240416121726.628679-1-pavel.hofman@ivitera.com>
 References: <20240416121726.628679-1-pavel.hofman@ivitera.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: SOXEAW53AUJ5TJRR3XMKOSUESW5JUXJ6
-X-Message-ID-Hash: SOXEAW53AUJ5TJRR3XMKOSUESW5JUXJ6
+Message-ID-Hash: FSFOOKOO3F5GLHF2OTZ5KLMKVP6ZTWEU
+X-Message-ID-Hash: FSFOOKOO3F5GLHF2OTZ5KLMKVP6ZTWEU
 X-MailFrom: pavel.hofman@ivitera.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -95,7 +93,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SOXEAW53AUJ5TJRR3XMKOSUESW5JUXJ6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FSFOOKOO3F5GLHF2OTZ5KLMKVP6ZTWEU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,56 +102,30 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Many modern codecs support 705.6kHz and 768kHz sample rates. Current HW
-params fail to set 705.6kHz and 768kHz sample rates as these are not in the
-known-rates list.
-
-Add these new rates to the known-rates list to allow them.
-
-Also add defines in pcm.h so that drivers can use it.
+Many modern codecs support rates up to 768kHz (including DSD1024). Add
+support for rates up to 768kHz to the loopback driver.
 
 Signed-off-by: Pavel Hofman <pavel.hofman@ivitera.com>
 ---
- include/sound/pcm.h     | 5 +++++
- sound/core/pcm_native.c | 2 +-
- 2 files changed, 6 insertions(+), 1 deletion(-)
+ sound/drivers/aloop.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/include/sound/pcm.h b/include/sound/pcm.h
-index 210096f124ee..61c6054618c8 100644
---- a/include/sound/pcm.h
-+++ b/include/sound/pcm.h
-@@ -120,6 +120,8 @@ struct snd_pcm_ops {
- #define SNDRV_PCM_RATE_192000		(1U<<12)	/* 192000Hz */
- #define SNDRV_PCM_RATE_352800		(1U<<13)	/* 352800Hz */
- #define SNDRV_PCM_RATE_384000		(1U<<14)	/* 384000Hz */
-+#define SNDRV_PCM_RATE_705600		(1U<<15)	/* 705600Hz */
-+#define SNDRV_PCM_RATE_768000		(1U<<16)	/* 768000Hz */
- 
- #define SNDRV_PCM_RATE_CONTINUOUS	(1U<<30)	/* continuous range */
- #define SNDRV_PCM_RATE_KNOT		(1U<<31)	/* supports more non-continuos rates */
-@@ -135,6 +137,9 @@ struct snd_pcm_ops {
- #define SNDRV_PCM_RATE_8000_384000	(SNDRV_PCM_RATE_8000_192000|\
- 					 SNDRV_PCM_RATE_352800|\
- 					 SNDRV_PCM_RATE_384000)
-+#define SNDRV_PCM_RATE_8000_768000	(SNDRV_PCM_RATE_8000_384000|\
-+					 SNDRV_PCM_RATE_705600|\
-+					 SNDRV_PCM_RATE_768000)
- #define _SNDRV_PCM_FMTBIT(fmt)		(1ULL << (__force int)SNDRV_PCM_FORMAT_##fmt)
- #define SNDRV_PCM_FMTBIT_S8		_SNDRV_PCM_FMTBIT(S8)
- #define SNDRV_PCM_FMTBIT_U8		_SNDRV_PCM_FMTBIT(U8)
-diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
-index 0b76e76823d2..521ba56392a0 100644
---- a/sound/core/pcm_native.c
-+++ b/sound/core/pcm_native.c
-@@ -2416,7 +2416,7 @@ static int snd_pcm_hw_rule_sample_bits(struct snd_pcm_hw_params *params,
- 
- static const unsigned int rates[] = {
- 	5512, 8000, 11025, 16000, 22050, 32000, 44100,
--	48000, 64000, 88200, 96000, 176400, 192000, 352800, 384000
-+	48000, 64000, 88200, 96000, 176400, 192000, 352800, 384000, 705600, 768000
- };
- 
- const struct snd_pcm_hw_constraint_list snd_pcm_known_rates = {
+diff --git a/sound/drivers/aloop.c b/sound/drivers/aloop.c
+index 44ee2a4bc2b0..d6dd4b8c750a 100644
+--- a/sound/drivers/aloop.c
++++ b/sound/drivers/aloop.c
+@@ -931,9 +931,9 @@ static const struct snd_pcm_hardware loopback_pcm_hardware =
+ 			 SNDRV_PCM_FMTBIT_DSD_U8 |
+ 			 SNDRV_PCM_FMTBIT_DSD_U16_LE | SNDRV_PCM_FMTBIT_DSD_U16_BE |
+ 			 SNDRV_PCM_FMTBIT_DSD_U32_LE | SNDRV_PCM_FMTBIT_DSD_U32_BE),
+-	.rates =	SNDRV_PCM_RATE_CONTINUOUS | SNDRV_PCM_RATE_8000_192000,
++	.rates =	SNDRV_PCM_RATE_CONTINUOUS | SNDRV_PCM_RATE_8000_768000,
+ 	.rate_min =		8000,
+-	.rate_max =		192000,
++	.rate_max =		768000,
+ 	.channels_min =		1,
+ 	.channels_max =		32,
+ 	.buffer_bytes_max =	2 * 1024 * 1024,
 -- 
 2.25.1
 

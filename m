@@ -2,81 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEA2E8A68B6
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Apr 2024 12:40:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA36A8A6917
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Apr 2024 12:53:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 26728EC1;
-	Tue, 16 Apr 2024 12:40:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 26728EC1
+	by alsa0.perex.cz (Postfix) with ESMTPS id CDD2C852;
+	Tue, 16 Apr 2024 12:53:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CDD2C852
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1713264044;
-	bh=hNctvS/WLFpY8f2jueQ+vJMsiRhGdgQTThlnjXrGA70=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=D1k/+fn+JRq3Lh5/fAApVKhAE5Xj6hyATzWU97XLKOjXFiMCDqZZ/rH/tE3G4tHH3
-	 Py9oiJN8KLgCJQ+ea7rQLg8p4o6pgiUOjPCdifAynkqhXQlvr9Moulcg7Lq//MtlFG
-	 sojpouFQMAvm4tywVphJUDUW6c5vLRj3f72lkBaQ=
+	s=default; t=1713264833;
+	bh=ORzJHukE90c6p0exd6bxeQUjEqrZvTR2VChJYnwV0/o=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=JSsit9/xMBLjGyox9dCojePwVuQQQFJ7sey5vBw6oIGOP0kzohbXpPJ1XJADMnslg
+	 ykWGJi7Zv2+1+byrXAVuiqive1wXBvwJJsFyLZSo5gG/GfiJsuxNQZog9JdU7eUGhg
+	 DLzRhjpTv/pYRgYKpU3+PeVo8TINDhu9hRtgzVWE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BB9A9F8057F; Tue, 16 Apr 2024 12:40:22 +0200 (CEST)
+	id BF1E8F80571; Tue, 16 Apr 2024 12:53:21 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E371DF8059F;
-	Tue, 16 Apr 2024 12:40:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 23ABBF80571;
+	Tue, 16 Apr 2024 12:53:21 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B1C63F8025A; Tue, 16 Apr 2024 12:39:16 +0200 (CEST)
+	id 53A7BF8025A; Tue, 16 Apr 2024 12:51:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+X-Spam-Status: No, score=-4.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E13C7F8003A
-	for <alsa-devel@alsa-project.org>; Tue, 16 Apr 2024 12:39:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E13C7F8003A
+	by alsa1.perex.cz (Postfix) with ESMTPS id A042BF8013D
+	for <alsa-devel@alsa-project.org>; Tue, 16 Apr 2024 12:51:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A042BF8013D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=ZVPLla6S
+ header.s=k20201202 header.b=oZkmmSoT
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id A4CDC6119D;
-	Tue, 16 Apr 2024 10:39:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09477C2BD10;
-	Tue, 16 Apr 2024 10:39:00 +0000 (UTC)
+	by sin.source.kernel.org (Postfix) with ESMTP id D9823CE0E4D;
+	Tue, 16 Apr 2024 10:50:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63DB1C2BD10;
+	Tue, 16 Apr 2024 10:50:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1713263944;
-	bh=hNctvS/WLFpY8f2jueQ+vJMsiRhGdgQTThlnjXrGA70=;
-	h=From:To:In-Reply-To:References:Subject:Date:From;
-	b=ZVPLla6S9+Tm1Fb+FVhWPDVKcuu+6k0rW8chZ8aT2kCKbVqG5LrvJTt9RKRoTRWhe
-	 v6i9WRn8wbd2K+AwPMonuYOfSG/rReMCZD0Z++Yx3f34NkGPAqRyiFZvZ4tOq6XKpF
-	 h9x+cEYVU9e9C0UWqfnE+CFL3rYOLabGy5JMr3Q2Wjg/4zfK6IIxFXprG3VUuxAaGC
-	 SDnxyILS5AHGbqwUC7iC8948jrTjpaIXw1Mv5m2pADi6d7+aysqrdufqU0LP+m81RA
-	 rmZm7QR+lO1q3BXqo6/hr++Mnt8qpZJSoW/noANqQAz+QRVtdl3ZBp8aig/sEtAopa
-	 IlrBn1zWSHrXQ==
+	s=k20201202; t=1713264655;
+	bh=ORzJHukE90c6p0exd6bxeQUjEqrZvTR2VChJYnwV0/o=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=oZkmmSoTSZSqXS8zRaN1PnfQTn4PAXyWKk9cpe8zAz7s9QEJ6+3KQWgOCTD4p4LO/
+	 9a2ptGGd9WtmlcpM7b/PR3ZNYjQ1yDa8RCQyySi7FvTkPFiNswA7o1ecBHxSC3BYS/
+	 Xji30wUXo/jI8UcxHQ6nwhadTkWfXnoV3d8ep6/Ruih/4BFP/M/nKtbaA3GO4V/ozB
+	 sUpOzleF9lnYU3GZYXpDxpEOqI8W2GOlE7n5UKK78TSXmIJfGg5XlQiv93qdIcVPyK
+	 ZXyxtzuCI368SdRWPR7HjbBaOt8QWQKigVQeO6OSMUxBtIXJW23NVFMgv+XafR+VfM
+	 e2GhOs+iNTxCQ==
 From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, robh+dt@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
- shengjiu.wang@gmail.com, linux-sound@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Xiubo.Lee@gmail.com, festevam@gmail.com, nicoleotsuka@gmail.com,
- perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
- linuxppc-dev@lists.ozlabs.org, Shengjiu Wang <shengjiu.wang@nxp.com>
-In-Reply-To: <1713165456-3494-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1713165456-3494-1-git-send-email-shengjiu.wang@nxp.com>
-Subject: Re: [PATCH 0/2] ASoC: fsl-asoc-card: add wm8904 codec support
-Message-Id: <171326394076.1668526.17357841814427298563.b4-ty@kernel.org>
-Date: Tue, 16 Apr 2024 19:39:00 +0900
+To: lgirdwood@gmail.com, Jack Yu <jack.yu@realtek.com>
+Cc: alsa-devel@alsa-project.org, lars@metafoo.de,
+ pierre-louis.bossart@intel.com, bard.liao@intel.com,
+ "Flove(HsinFu)" <flove@realtek.com>, Oder Chiou <oder_chiou@realtek.com>,
+ =?utf-8?q?Shuming_=5B=E8=8C=83=E6=9B=B8=E9=8A=98=5D?= <shumingf@realtek.com>,
+ =?utf-8?q?Derek_=5B=E6=96=B9=E5=BE=B7=E7=BE=A9=5D?= <derek.fang@realtek.com>
+In-Reply-To: <6a103ce9134d49d8b3941172c87a7bd4@realtek.com>
+References: <6a103ce9134d49d8b3941172c87a7bd4@realtek.com>
+Subject: Re: [PATCH] ASoC: rt715: add vendor clear control register
+Message-Id: <171326465306.1672629.12253085432451197854.b4-ty@kernel.org>
+Date: Tue, 16 Apr 2024 19:50:53 +0900
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.14-dev
-Message-ID-Hash: ICC52RNCTZMJHQGWM7IR65RZVXAJBJWI
-X-Message-ID-Hash: ICC52RNCTZMJHQGWM7IR65RZVXAJBJWI
+Message-ID-Hash: ODU37RQDLZNYYFNTLXVSELJBJ5ITNMXH
+X-Message-ID-Hash: ODU37RQDLZNYYFNTLXVSELJBJ5ITNMXH
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -89,7 +88,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ICC52RNCTZMJHQGWM7IR65RZVXAJBJWI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ODU37RQDLZNYYFNTLXVSELJBJ5ITNMXH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,15 +97,12 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 15 Apr 2024 15:17:34 +0800, Shengjiu Wang wrote:
-> add wm8904 codec support in fsl-asoc-card.
+On Mon, 15 Apr 2024 06:27:23 +0000, Jack Yu wrote:
+> Add vendor clear control register in readable register's
+> callback function. This prevents an access failure reported
+> in Intel CI tests.
 > 
-> Shengjiu Wang (2):
->   ASoC: fsl-asoc-card: add wm8904 codec support
->   ASoC: dt-bindings: fsl-asoc-card: Add compatbile string for wm8904
->     codec
 > 
-> [...]
 
 Applied to
 
@@ -114,10 +110,8 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: fsl-asoc-card: add wm8904 codec support
-      commit: 51f67862ea6ea83f9fa4cda2e59d7bfd4387f63b
-[2/2] ASoC: dt-bindings: fsl-asoc-card: Add compatbile string for wm8904 codec
-      commit: 62c48dd33b4f2e037554d1322ae4f9f60e9461ef
+[1/1] ASoC: rt715: add vendor clear control register
+      commit: cebfbc89ae2552dbb58cd9b8206a5c8e0e6301e9
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

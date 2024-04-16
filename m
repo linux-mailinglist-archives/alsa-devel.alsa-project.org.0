@@ -2,114 +2,108 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A8108A6D3B
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Apr 2024 16:03:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C64E8A6D74
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Apr 2024 16:10:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4634D14DC;
-	Tue, 16 Apr 2024 16:03:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4634D14DC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4009214E7;
+	Tue, 16 Apr 2024 16:10:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4009214E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1713276200;
-	bh=aq4WULx4oU8PWVFDbyE/q2y5CCkeP+pW40hjR/O5U5U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1713276622;
+	bh=xl5IPlI4/tfZkMhTro5AZJ5MrQh47xHxKI0qjQASmg4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=gaZTxi0CPOuiooKH7lI+8B2VilZadXT5M88JkjuMEiUNIqxxuKqtB6r7uoGvkqiON
-	 SIC2JMn/gS+GkLiMPuCTvfPPx3Y2aenrX+hDJQfYgtv12B4f9D7nQkHkwGlx2KRru2
-	 1KOt5uia3d6QkV1TZdTML4jWFgzCjKe403+Z8CBY=
+	b=ZP8dVNHKrZ1jbpbaG99cuHM3CvFvSTEcyDFr8fCP6r5nCKgR7nsc6gUMs1zQk6DGu
+	 VobLBQrQMswho8M894PWKS9x6WqUbPDTFzcrmujCa2a3Os9xM5VTEEvfULE78ILNqO
+	 M2L6SBLRR7qQfDHe+qhfP6ds2yL8jjnXrhWB3lfc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A4BDDF8058C; Tue, 16 Apr 2024 16:02:48 +0200 (CEST)
+	id CDAA7F8057E; Tue, 16 Apr 2024 16:09:50 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EB048F805A0;
-	Tue, 16 Apr 2024 16:02:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3E153F8057B;
+	Tue, 16 Apr 2024 16:09:50 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 46D38F8025A; Tue, 16 Apr 2024 16:02:43 +0200 (CEST)
+	id 70C3EF8025A; Tue, 16 Apr 2024 16:09:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=-7.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C4C63F8003A
-	for <alsa-devel@alsa-project.org>; Tue, 16 Apr 2024 16:02:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4C63F8003A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7C7E7F8003A
+	for <alsa-devel@alsa-project.org>; Tue, 16 Apr 2024 16:09:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7C7E7F8003A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=Y8bbwDPw
+ header.s=Intel header.b=YvIb3yKJ
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1713276155; x=1744812155;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=aq4WULx4oU8PWVFDbyE/q2y5CCkeP+pW40hjR/O5U5U=;
-  b=Y8bbwDPwYuvZ9SrBQO/y8rUtINKvYLIhOheSbBNuJiNlLa3E6HckuY8v
-   Z6bU7q15WoZ/ArYSO0VooifN5d2+/r9XidilW7J4x7Kb94Km/HD4yBanD
-   0TwobIUfz7fn5nTWELtSCd3jtmhSQUyA9suMR4lfoCDgX5bOmdQOblDDS
-   nd0EqVZPCx0V/WcHiJYmkTnDiV9yzqyGSnbXRgwze8Xq8eOshy3qEey4v
-   rihPWwQCtJjUN9h4G6Nkk54zLtfL5u60wlnhs51/b8hHHzy84sbCxpA65
-   LbNjPJD3u5DqjJMkV4cWgGoBk9Gg5G7WpivaB1nGAK+H2/nV8F84NfQaN
+  t=1713276574; x=1744812574;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=xl5IPlI4/tfZkMhTro5AZJ5MrQh47xHxKI0qjQASmg4=;
+  b=YvIb3yKJ65xBRqMTt2PvNXqeX/2LzkN5WYLsW/s/PK7O92CIx6ePRRZp
+   wiXiEyiN/GHS+yomyOj7xPeaWweQbIGznBsO2TPAktk3IAA4OtYpcIH+y
+   MAzOBBDixHCi6jyHB21+33BRN2bUTvCBq6AF23AR6xbN3nCJmuV4yujKb
+   uDJQ4GTXm1O3Hw8mo0QpkrBR9vHpB9c2ZzF3S5zGbtaxZQ1t1QrEkR5px
+   jdwCEd//SVJsQ1E/nB8F72c4dZltXEH/F7TI+aIqv6oXJO54hy5gffvFS
+   CRO7SowRt+e0YFU2f5jB2eZZi6fnJ3ZunOtWyc868R4RgeNtIc/hssz2S
    g==;
-X-CSE-ConnectionGUID: HGFxbq0TSKeCF4Yptf3IMQ==
-X-CSE-MsgGUID: xe0JFOqLQUGGB0vOMiXj/A==
-X-IronPort-AV: E=McAfee;i="6600,9927,11046"; a="31194930"
+X-CSE-ConnectionGUID: BEBYC2qWQcG8C2x/wkeJMA==
+X-CSE-MsgGUID: hgGDY3KnRVec71XyGYT88Q==
+X-IronPort-AV: E=McAfee;i="6600,9927,11046"; a="9268340"
 X-IronPort-AV: E=Sophos;i="6.07,206,1708416000";
-   d="scan'208";a="31194930"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Apr 2024 07:02:20 -0700
-X-CSE-ConnectionGUID: icVMWAgLTwW81gHbqyIMKg==
-X-CSE-MsgGUID: WApQUCbISDWHDcL4/0VG6g==
+   d="scan'208";a="9268340"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Apr 2024 07:09:26 -0700
+X-CSE-ConnectionGUID: D37ivQksQBauF6ebrBBz0w==
+X-CSE-MsgGUID: 8CvRz0DHSZOhm7rXWB9uyg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.07,206,1708416000";
-   d="scan'208";a="22744751"
-Received: from smile.fi.intel.com ([10.237.72.54])
-  by orviesa007.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Apr 2024 07:02:17 -0700
-Received: from andy by smile.fi.intel.com with local (Exim 4.97)
-	(envelope-from <andriy.shevchenko@linux.intel.com>)
-	id 1rwjO1-00000004iJI-0sDY;
-	Tue, 16 Apr 2024 17:02:13 +0300
-Date: Tue, 16 Apr 2024 17:02:12 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: "Xu, Baojun" <baojun.xu@ti.com>
-Cc: "tiwai@suse.de" <tiwai@suse.de>,
-	"robh+dt@kernel.org" <robh+dt@kernel.org>,
-	"lgirdwood@gmail.com" <lgirdwood@gmail.com>,
-	"perex@perex.cz" <perex@perex.cz>,
-	"pierre-louis.bossart@linux.intel.com"
- <pierre-louis.bossart@linux.intel.com>,
-	"Lu, Kevin" <kevin-lu@ti.com>,
-	"Ding, Shenghao" <shenghao-ding@ti.com>,
-	"Navada Kanyana, Mukund" <navada@ti.com>,
-	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"liam.r.girdwood@intel.com" <liam.r.girdwood@intel.com>,
-	"yung-chuan.liao@linux.intel.com" <yung-chuan.liao@linux.intel.com>,
-	"broonie@kernel.org" <broonie@kernel.org>,
-	"soyer@irl.hu" <soyer@irl.hu>,
-	"13916275206@139.com" <13916275206@139.com>
-Subject: Re: [EXTERNAL] Re: [PATCH v2 1/3] ALSA: hda/tas2781: Modification
- for add tas2781 driver for SPI
-Message-ID: <Zh6E5PzTfxawXVbT@smile.fi.intel.com>
-References: <20240409024816.1180-1-baojun.xu@ti.com>
- <20240409024816.1180-2-baojun.xu@ti.com>
- <ZhU8fCOLOlu4azGL@smile.fi.intel.com>
- <9287a3c1a2384cacad92652fdd1cac2e@ti.com>
+   d="scan'208";a="22333136"
+Received: from sekosto-mobl.amr.corp.intel.com (HELO [10.213.183.148])
+ ([10.213.183.148])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Apr 2024 07:09:25 -0700
+Message-ID: <35d9f59e-3cc1-41a7-bb1d-f482c004d323@linux.intel.com>
+Date: Tue, 16 Apr 2024 08:51:07 -0500
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <9287a3c1a2384cacad92652fdd1cac2e@ti.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Message-ID-Hash: 5RNQ5DNCJUZVSULQZEM6PLPS6LCBCLL4
-X-Message-ID-Hash: 5RNQ5DNCJUZVSULQZEM6PLPS6LCBCLL4
-X-MailFrom: andriy.shevchenko@linux.intel.com
+User-Agent: Mozilla Thunderbird
+Subject: =?UTF-8?B?UmU6IOWbnuWkjTogW1BBVENIIHYyIDIvMl0gQVNvQzogY2RuczogQWRk?=
+ =?UTF-8?Q?_drivers_of_Cadence_Multi-Channel_I2S_Controller?=
+To: Xingyu Wu <xingyu.wu@starfivetech.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Claudiu Beznea <Claudiu.Beznea@microchip.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor.dooley@microchip.com>
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>
+References: <20240320090239.168743-1-xingyu.wu@starfivetech.com>
+ <20240320090239.168743-3-xingyu.wu@starfivetech.com>
+ <1d0399d2-684f-490e-8711-f636e987a0b8@linux.intel.com>
+ <NTZPR01MB0956BFADB4B3DA507D938F669F35A@NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn>
+ <ef510647-c409-4da6-9cd4-ff4e54cbee74@linux.intel.com>
+ <NTZPR01MB09567BE742A91B8C9E02EF4F9F08A@NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn>
+Content-Language: en-US
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: 
+ <NTZPR01MB09567BE742A91B8C9E02EF4F9F08A@NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: PCEB47XBI3ZASLWHPMXG7XV2RLRXV4HW
+X-Message-ID-Hash: PCEB47XBI3ZASLWHPMXG7XV2RLRXV4HW
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -121,7 +115,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5RNQ5DNCJUZVSULQZEM6PLPS6LCBCLL4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PCEB47XBI3ZASLWHPMXG7XV2RLRXV4HW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -130,41 +124,127 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, Apr 16, 2024 at 07:45:21AM +0000, Xu, Baojun wrote:
-> > From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> > Sent: 09 April 2024 21:02
-> > On Tue, Apr 09, 2024 at 10: 48: 13AM +0800, Baojun Xu wrote:
-> > On Tue, Apr 09, 2024 at 10:48:13AM +0800, Baojun Xu wrote:
 
-...
 
-> > > @@ -39,6 +39,7 @@ snd-hda-scodec-cs35l56-spi-objs :=  cs35l56_hda_spi.o
-> > >  snd-hda-cs-dsp-ctls-objs :=          hda_cs_dsp_ctl.o
-> > >  snd-hda-scodec-component-objs :=     hda_component.o
-> > >  snd-hda-scodec-tas2781-i2c-objs :=   tas2781_hda_i2c.o
-> > > +snd-hda-scodec-tas2781-spi-objs :=   tas2781_hda_spi.o tas2781_spi_fwlib.o
-> > 
-> > Actually these 'objs' has to be 'y', can you fix it in the prerequisite patch?
+On 4/16/24 02:23, Xingyu Wu wrote:
+> On 02/04/2024 21:57, Pierre-Louis Bossart wrote:
+>>
+>>
+>>>>
+>>>>> +#define PERIODS_MIN		2
+>>>>> +
+>>>>> +static unsigned int cdns_i2s_pcm_tx(struct cdns_i2s_dev *dev,
+>>>>> +				    struct snd_pcm_runtime *runtime,
+>>>>> +				    unsigned int tx_ptr, bool *period_elapsed,
+>>>>> +				    snd_pcm_format_t format)
+>>>>> +{
+>>>>> +	unsigned int period_pos = tx_ptr % runtime->period_size;
+>>>>
+>>>> not following what the modulo is for, usually it's modulo the buffer size?
+>>>
+>>> This is to see if the new data is divisible by period_size and to
+>>> determine whether it is enough for a period_size in the later loop.
+>>
+>> That didn't answer to my question, the position is usually between
+>> 0..buffer_size.1.
 > 
-> Do you mean set CONFIG_SND_HDA_SCODEC_TAS2781_SPI=y in .config?
-
-No. I mean the Kconfig syntax in use. -objs is for user space tools. Kernel
-code should use -y in this case.
-
-> It's m now.
+> Yes, this position will be used later in the cdns_i2s_pcm_pointer().
+> But this cdns_i2s_pcm_tx() is called by I2S hardware interrupt which
+> would be frequently called several times each period. The period_pos
+> is used to determine whether there is enough a period_size to call
+> snd_pcm_period_elapsed().
 > 
-> > Also wondering why fwlib is only a requirement for SPI. How does I²C work?
+>>
+>> Doing increments on a modulo value then comparisons as done below seems
+>> rather questionable.
+>>
+>>>>> +
+>>>>> +		iowrite32(data[0], dev->base + CDNS_FIFO_MEM);
+>>>>> +		iowrite32(data[1], dev->base + CDNS_FIFO_MEM);
+>>>>> +		period_pos++;
+>>>>> +		if (++tx_ptr >= runtime->buffer_size)
+>>>>> +			tx_ptr = 0;
+>>>>> +	}
+>>>>> +
+>>>>> +	*period_elapsed = period_pos >= runtime->period_size;
+>>>>> +	return tx_ptr;
+>>>>> +}
+>>
+>>>>> +	pm_runtime_enable(&pdev->dev);
+>>>>> +	if (pm_runtime_enabled(&pdev->dev))
+>>>>> +		cdns_i2s_runtime_suspend(&pdev->dev);
+>>>>
+>>>> that sequence looks suspicious.... Why would you suspend immediately
+>>>> during the probe? You're probably missing all the autosuspend stuff?
+>>>
+>>> Since I have enabled clocks before, and the device is in the suspend
+>>> state after pm_runtime_enable(), I need to disable clocks in
+>>> cdns_i2s_runtime_suspend() to match the suspend state.
+>>
+>> That is very odd on two counts
+>> a) if you haven't enabled the clocks, why do you need to disbale them?
+>> b) if you do a pm_runtime_enable(), then the branch if
+>> (pm_runtime_enabled) is always true.
+>>
 > 
-> Because in I2C mode, one probed device driver will support all devices,
-> firmware binary is only one file, include all of devices.
-> But in SPI mode, multi driver probed, so we use single firmware binary for
-> every spi device.
+> a) It must enable clocks first to read and write registers when I2S probe.
+> Then it is done to probe, the clocks are still enabled and the state of pm
+> is suspend. So it need to be disabled to match the state and will resume
+> and be enabled by ALSA.
 
-But does I²C version still need the firmware? Can't the FW handling be factored
-out to a single module for both?
+I think you are missing a pm_runtime_set_active() to reconcile the pm
+state with the hardware state. The premise of pm_runtime is that on
+probe your device is active and later on it will suspend. Having
+pm_runtime_enabled with a suspended device without the framework
+involved to trigger the transition to suspend is asking for trouble.
 
--- 
-With Best Regards,
-Andy Shevchenko
+> b) Because CONFIG_PM would be disabled and pm_runtime_enabled()
+> return false , then it is no need to disable clock and I2S still can work.
+
+Again you are trying to make things more complicated than they need to
+be. Don't try to actively manage and query states, let the framework do
+it for you.
+
+Try to probe and bring the device to an active state. Then use
+pm_runtime_mark_last_busy(), use pm_runtime_enable and let autosuspend
+do the work for you. If pm_runtime is not enabled the suspend will not
+happen.
+
+Also keep in mind that pm_runtime_enabled() will return false if the
+user mucks with the power state in sysfs, it's not only a case of
+CONFIG_PM being selected or not.
+> 
+>>
+>>>
+>>>>
+>>>>> +
+>>>>> +	dev_dbg(&pdev->dev, "I2S supports %d stereo channels with %s.\n",
+>>>>> +		i2s->max_channels, ((i2s->irq < 0) ? "dma" : "interrupt"));
+>>>>> +
+>>>>> +	return 0;
+>>>>> +
+>>>>> +err:
+>>>>> +	return ret;
+>>>>> +}
+>>>>> +
+>>>>> +static int cdns_i2s_remove(struct platform_device *pdev) {
+>>>>> +	pm_runtime_disable(&pdev->dev);
+>>>>> +	if (!pm_runtime_status_suspended(&pdev->dev))
+>>>>> +		cdns_i2s_runtime_suspend(&pdev->dev);
+>>>>
+>>>> ... and this one too. Once you've disabled pm_runtime, checking the
+>>>> status is irrelevant...
+>>>
+>>> I think the clocks need to be always enabled after probe if disable
+>>> pm_runtime, and should be disabled when remove. This will do that.
+>>
+>> if you are disabling pm_runtime, then the pm_runtime state becames invalid.
+>> When pm_runtime_disable() is added in remove operations, it's mainly to
+>> prevent the device from suspending.
+> 
+> Should I use the pm_runtime_enabled() before the pm_runtime_disable()?
+
+It doesn't matter, the problem is the second part where you try to check
+the status of pm_runtime *after* disabling it.
 
 

@@ -2,86 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03D248A6573
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Apr 2024 09:52:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DEA2E8A68B6
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Apr 2024 12:40:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2F6DB15FE;
-	Tue, 16 Apr 2024 09:52:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F6DB15FE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 26728EC1;
+	Tue, 16 Apr 2024 12:40:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 26728EC1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1713253964;
-	bh=a19vA6wI20HdT0Dr8/OmeBGoDRFOQGDMAe/IdzCQ1Wc=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=MA9/8P7d6UOD7nEWqkUZlKduK4XCXnxz8hzkMTDXc6rKIbyseVdH/Vgop8ZaXZQGt
-	 Vk65SiItjosv1L01OHFL7S7jo9ntb7+tZqnPcpKBzc/t2p2qciuO+gtya8u+GFL516
-	 rMXhMvVY9VP64ZngAdaxUt+oTmVK/3srHW48Kpgw=
+	s=default; t=1713264044;
+	bh=hNctvS/WLFpY8f2jueQ+vJMsiRhGdgQTThlnjXrGA70=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=D1k/+fn+JRq3Lh5/fAApVKhAE5Xj6hyATzWU97XLKOjXFiMCDqZZ/rH/tE3G4tHH3
+	 Py9oiJN8KLgCJQ+ea7rQLg8p4o6pgiUOjPCdifAynkqhXQlvr9Moulcg7Lq//MtlFG
+	 sojpouFQMAvm4tywVphJUDUW6c5vLRj3f72lkBaQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AA1A4F80423; Tue, 16 Apr 2024 09:52:12 +0200 (CEST)
+	id BB9A9F8057F; Tue, 16 Apr 2024 12:40:22 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 27B35F805A0;
-	Tue, 16 Apr 2024 09:52:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E371DF8059F;
+	Tue, 16 Apr 2024 12:40:21 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 13EE8F8025A; Tue, 16 Apr 2024 09:51:59 +0200 (CEST)
+	id B1C63F8025A; Tue, 16 Apr 2024 12:39:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-7.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 40296F80124
-	for <alsa-devel@alsa-project.org>; Tue, 16 Apr 2024 09:51:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 40296F80124
+	by alsa1.perex.cz (Postfix) with ESMTPS id E13C7F8003A
+	for <alsa-devel@alsa-project.org>; Tue, 16 Apr 2024 12:39:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E13C7F8003A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=pa53K9ZC
+ header.s=k20201202 header.b=ZVPLla6S
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 069DDCE0EE2;
-	Tue, 16 Apr 2024 07:51:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE4C2C113CE;
-	Tue, 16 Apr 2024 07:51:45 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id A4CDC6119D;
+	Tue, 16 Apr 2024 10:39:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09477C2BD10;
+	Tue, 16 Apr 2024 10:39:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1713253905;
-	bh=a19vA6wI20HdT0Dr8/OmeBGoDRFOQGDMAe/IdzCQ1Wc=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
-	b=pa53K9ZChmBVU8nR3+qp6d91nC5m2nR2Wl5sSGi2QJSsJEbusQo7tijjpUG3wJgaS
-	 WKM2nloIaEmglewwgemiEGrjgtolzRKdyM40iGqJU4yE/cm+Ojm3wH6dbzNNM8/7kf
-	 HYQwdmV10GXXuOFOdF7ioPoCHVo30ecS4OJml2NAti5DmPcIX3t7JD6GK56nYvHEWh
-	 WN5xb2om9+P8wewmRP4xLuQgr4gFAU5tHqVuBy08NWf+ma9Qo4sDLds8KjAFpIeNhx
-	 i7XUyD6aKilDLyUAxjJC+vNPbjrDHU1xYLiADrwzfAZk7eBf9G8L0mGVuN6JPRoUcS
-	 qWqDj6DLvyEIA==
-Date: Tue, 16 Apr 2024 02:51:44 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20201202; t=1713263944;
+	bh=hNctvS/WLFpY8f2jueQ+vJMsiRhGdgQTThlnjXrGA70=;
+	h=From:To:In-Reply-To:References:Subject:Date:From;
+	b=ZVPLla6S9+Tm1Fb+FVhWPDVKcuu+6k0rW8chZ8aT2kCKbVqG5LrvJTt9RKRoTRWhe
+	 v6i9WRn8wbd2K+AwPMonuYOfSG/rReMCZD0Z++Yx3f34NkGPAqRyiFZvZ4tOq6XKpF
+	 h9x+cEYVU9e9C0UWqfnE+CFL3rYOLabGy5JMr3Q2Wjg/4zfK6IIxFXprG3VUuxAaGC
+	 SDnxyILS5AHGbqwUC7iC8948jrTjpaIXw1Mv5m2pADi6d7+aysqrdufqU0LP+m81RA
+	 rmZm7QR+lO1q3BXqo6/hr++Mnt8qpZJSoW/noANqQAz+QRVtdl3ZBp8aig/sEtAopa
+	 IlrBn1zWSHrXQ==
+From: Mark Brown <broonie@kernel.org>
+To: lgirdwood@gmail.com, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
+ shengjiu.wang@gmail.com, linux-sound@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Xiubo.Lee@gmail.com, festevam@gmail.com, nicoleotsuka@gmail.com,
+ perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
+ linuxppc-dev@lists.ozlabs.org, Shengjiu Wang <shengjiu.wang@nxp.com>
+In-Reply-To: <1713165456-3494-1-git-send-email-shengjiu.wang@nxp.com>
+References: <1713165456-3494-1-git-send-email-shengjiu.wang@nxp.com>
+Subject: Re: [PATCH 0/2] ASoC: fsl-asoc-card: add wm8904 codec support
+Message-Id: <171326394076.1668526.17357841814427298563.b4-ty@kernel.org>
+Date: Tue, 16 Apr 2024 19:39:00 +0900
 MIME-Version: 1.0
-From: Rob Herring <robh@kernel.org>
-To: Mohammad Rafi Shaik <quic_mohs@quicinc.com>
-Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-sound@vger.kernel.org,
- Jaroslav Kysela <perex@perex.cz>, quic_pkumpatl@quicinc.com,
- Takashi Iwai <tiwai@suse.com>, linux-arm-msm@vger.kernel.org,
- Banajit Goswami <bgoswami@quicinc.com>, devicetree@vger.kernel.org,
- quic_rohkumar@quicinc.com, Mark Brown <broonie@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, alsa-devel@alsa-project.org
-In-Reply-To: <20240416063600.309747-4-quic_mohs@quicinc.com>
-References: <20240416063600.309747-1-quic_mohs@quicinc.com>
- <20240416063600.309747-4-quic_mohs@quicinc.com>
-Message-Id: <171325390367.1353462.6738496215058640142.robh@kernel.org>
-Subject: Re: [PATCH v2 3/8] ASoC: dt-bindings: wcd937x-sdw: add bindings
- for wcd937x-sdw
-Message-ID-Hash: VQN3JSCMUNUSR7OUVF45R3OSV2MQTYWC
-X-Message-ID-Hash: VQN3JSCMUNUSR7OUVF45R3OSV2MQTYWC
-X-MailFrom: robh@kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14-dev
+Message-ID-Hash: ICC52RNCTZMJHQGWM7IR65RZVXAJBJWI
+X-Message-ID-Hash: ICC52RNCTZMJHQGWM7IR65RZVXAJBJWI
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -93,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VQN3JSCMUNUSR7OUVF45R3OSV2MQTYWC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ICC52RNCTZMJHQGWM7IR65RZVXAJBJWI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,52 +98,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-
-On Tue, 16 Apr 2024 12:05:55 +0530, Mohammad Rafi Shaik wrote:
-> From: Prasad Kumpatla <quic_pkumpatl@quicinc.com>
+On Mon, 15 Apr 2024 15:17:34 +0800, Shengjiu Wang wrote:
+> add wm8904 codec support in fsl-asoc-card.
 > 
-> Qualcomm WCD9370/WCD9375 Codec is a standalone Hi-Fi audio codec IC
-> connected over SoundWire. This device has two SoundWire devices RX and
-> TX respectively.
-> This binding is for those slave devices on WCD9370/WCD9375.
+> Shengjiu Wang (2):
+>   ASoC: fsl-asoc-card: add wm8904 codec support
+>   ASoC: dt-bindings: fsl-asoc-card: Add compatbile string for wm8904
+>     codec
 > 
-> Co-developed-by: Mohammad Rafi Shaik <quic_mohs@quicinc.com>
-> Signed-off-by: Mohammad Rafi Shaik <quic_mohs@quicinc.com>
-> Signed-off-by: Prasad Kumpatla <quic_pkumpatl@quicinc.com>
-> ---
->  .../bindings/sound/qcom,wcd937x-sdw.yaml      | 71 +++++++++++++++++++
->  1 file changed, 71 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/qcom,wcd937x-sdw.yaml
-> 
+> [...]
 
-My bot found errors running 'make dt_binding_check' on your patch:
+Applied to
 
-yamllint warnings/errors:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/qcom,wcd937x.example.dtb: codec@0,4: 'qcom,port-mapping' is a required property
-	from schema $id: http://devicetree.org/schemas/sound/qcom,wcd937x-sdw.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/qcom,wcd937x.example.dtb: codec@0,3: 'qcom,port-mapping' is a required property
-	from schema $id: http://devicetree.org/schemas/sound/qcom,wcd937x-sdw.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/qcom,wcd937x-sdw.example.dtb: codec@0,4: 'qcom,port-mapping' is a required property
-	from schema $id: http://devicetree.org/schemas/sound/qcom,wcd937x-sdw.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/qcom,wcd937x-sdw.example.dtb: codec@0,3: 'qcom,port-mapping' is a required property
-	from schema $id: http://devicetree.org/schemas/sound/qcom,wcd937x-sdw.yaml#
+Thanks!
 
-doc reference errors (make refcheckdocs):
+[1/2] ASoC: fsl-asoc-card: add wm8904 codec support
+      commit: 51f67862ea6ea83f9fa4cda2e59d7bfd4387f63b
+[2/2] ASoC: dt-bindings: fsl-asoc-card: Add compatbile string for wm8904 codec
+      commit: 62c48dd33b4f2e037554d1322ae4f9f60e9461ef
 
-See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20240416063600.309747-4-quic_mohs@quicinc.com
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-pip3 install dtschema --upgrade
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+Thanks,
+Mark
 

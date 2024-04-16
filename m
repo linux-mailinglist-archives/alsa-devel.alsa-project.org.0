@@ -2,117 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17BFD8A64E4
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Apr 2024 09:20:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03D248A6573
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Apr 2024 09:52:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6EFE0210C;
-	Tue, 16 Apr 2024 09:20:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6EFE0210C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2F6DB15FE;
+	Tue, 16 Apr 2024 09:52:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F6DB15FE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1713252023;
-	bh=SRSwRgJbTBz/3750pVOWh9FKrFSoG2LU80QaUy5HTjg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1713253964;
+	bh=a19vA6wI20HdT0Dr8/OmeBGoDRFOQGDMAe/IdzCQ1Wc=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=IR6io9w8fpTrRr+/Vk0Ufr+8+ptVHQoXHTYqk8rT0owh/swn7IVl+oVGFe2ecQcEh
-	 Hb6ihNEIEwrDu7kd4YX1SVKWL4QE1tsBkla58drvrYX1yePIfnZfTAIdsbv8gv6fre
-	 l9OxAoVUrwdeGsl3MBCbed2Nj6NBQ7Su3e/4l6x0=
+	b=MA9/8P7d6UOD7nEWqkUZlKduK4XCXnxz8hzkMTDXc6rKIbyseVdH/Vgop8ZaXZQGt
+	 Vk65SiItjosv1L01OHFL7S7jo9ntb7+tZqnPcpKBzc/t2p2qciuO+gtya8u+GFL516
+	 rMXhMvVY9VP64ZngAdaxUt+oTmVK/3srHW48Kpgw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8EC20F80C41; Tue, 16 Apr 2024 09:16:31 +0200 (CEST)
+	id AA1A4F80423; Tue, 16 Apr 2024 09:52:12 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C66D4F80C15;
-	Tue, 16 Apr 2024 09:16:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 27B35F805A0;
+	Tue, 16 Apr 2024 09:52:12 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5F4AAF80496; Tue, 16 Apr 2024 09:15:16 +0200 (CEST)
+	id 13EE8F8025A; Tue, 16 Apr 2024 09:51:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=unavailable autolearn_force=no version=3.4.6
-Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
- [46.235.227.194])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C9E6EF8057E
-	for <alsa-devel@alsa-project.org>; Tue, 16 Apr 2024 09:15:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C9E6EF8057E
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=collabora.com header.i=@collabora.com
- header.a=rsa-sha256 header.s=mail header.b=sAcjfMHW
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1713251701;
-	bh=SRSwRgJbTBz/3750pVOWh9FKrFSoG2LU80QaUy5HTjg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=sAcjfMHWFXTPGeF/nm7OoyhAE4ooMwh1w5xzheHOVXvkUW4AFdfUJg8V/mmPbI+9D
-	 Ji/S2alaDeOTs0wan2CUJQgS1eHyP8NEEfJIsxJqNXHmxmvWzsKEI3TyxX9WbMzUwD
-	 yKepQZRko8plHDOSZIpzZP0ymKQ6ji9sbe6SZVUA5Ge/RxS/UdcQiYdd0ljr0DvXxq
-	 6sJvGBCYYikzv4EyboGrj4oxRpXYYKEIjB9ZNKtVqBWVTtNgaVIda1eHs4OVt/qfKa
-	 cAX3a2OUF4R70gUw4jtJ6P+ynNosiF8LwqyyEldPqfWDWx1Y9FxOXxfmdtGLQ7dVyI
-	 KZeaRXxalpRvg==
-Received: from IcarusMOD.eternityproject.eu (cola.collaboradmins.com
- [195.201.22.229])
+X-Spam-Status: No, score=-7.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by madrid.collaboradmins.com (Postfix) with ESMTPSA id 30B26378213E;
-	Tue, 16 Apr 2024 07:14:59 +0000 (UTC)
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-To: broonie@kernel.org
-Cc: wenst@chromium.org,
-	lgirdwood@gmail.com,
-	robh@kernel.org,
-	krzysztof.kozlowski+dt@linaro.org,
-	conor+dt@kernel.org,
-	matthias.bgg@gmail.com,
-	perex@perex.cz,
-	tiwai@suse.com,
-	trevor.wu@mediatek.com,
-	maso.huang@mediatek.com,
-	xiazhengqiao@huaqin.corp-partner.google.com,
-	arnd@arndb.de,
-	kuninori.morimoto.gx@renesas.com,
-	shraash@google.com,
-	amergnat@baylibre.com,
-	nicolas.ferre@microchip.com,
-	u.kleine-koenig@pengutronix.de,
-	dianders@chromium.org,
-	frank.li@vivo.com,
-	allen-kh.cheng@mediatek.com,
-	eugen.hristev@collabora.com,
-	claudiu.beznea@tuxon.dev,
-	jarkko.nikula@bitmer.com,
-	jiaxin.yu@mediatek.com,
-	alpernebiyasak@gmail.com,
-	ckeepax@opensource.cirrus.com,
-	zhourui@huaqin.corp-partner.google.com,
-	nfraprado@collabora.com,
-	alsa-devel@alsa-project.org,
-	shane.chien@mediatek.com,
-	linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	kernel@collabora.com,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Subject: [PATCH v5 18/18] arm64: dts: mediatek: mt8186-corsola: Specify sound
- DAI links and routing
-Date: Tue, 16 Apr 2024 09:14:10 +0200
-Message-ID: <20240416071410.75620-19-angelogioacchino.delregno@collabora.com>
-X-Mailer: git-send-email 2.44.0
-In-Reply-To: <20240416071410.75620-1-angelogioacchino.delregno@collabora.com>
-References: <20240416071410.75620-1-angelogioacchino.delregno@collabora.com>
-MIME-Version: 1.0
+	by alsa1.perex.cz (Postfix) with ESMTPS id 40296F80124
+	for <alsa-devel@alsa-project.org>; Tue, 16 Apr 2024 09:51:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 40296F80124
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=pa53K9ZC
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id 069DDCE0EE2;
+	Tue, 16 Apr 2024 07:51:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE4C2C113CE;
+	Tue, 16 Apr 2024 07:51:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1713253905;
+	bh=a19vA6wI20HdT0Dr8/OmeBGoDRFOQGDMAe/IdzCQ1Wc=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+	b=pa53K9ZChmBVU8nR3+qp6d91nC5m2nR2Wl5sSGi2QJSsJEbusQo7tijjpUG3wJgaS
+	 WKM2nloIaEmglewwgemiEGrjgtolzRKdyM40iGqJU4yE/cm+Ojm3wH6dbzNNM8/7kf
+	 HYQwdmV10GXXuOFOdF7ioPoCHVo30ecS4OJml2NAti5DmPcIX3t7JD6GK56nYvHEWh
+	 WN5xb2om9+P8wewmRP4xLuQgr4gFAU5tHqVuBy08NWf+ma9Qo4sDLds8KjAFpIeNhx
+	 i7XUyD6aKilDLyUAxjJC+vNPbjrDHU1xYLiADrwzfAZk7eBf9G8L0mGVuN6JPRoUcS
+	 qWqDj6DLvyEIA==
+Date: Tue, 16 Apr 2024 02:51:44 -0500
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: BNGQQR42QXZC6F2TXAHQOJYBT5W5I6SM
-X-Message-ID-Hash: BNGQQR42QXZC6F2TXAHQOJYBT5W5I6SM
-X-MailFrom: angelogioacchino.delregno@collabora.com
+MIME-Version: 1.0
+From: Rob Herring <robh@kernel.org>
+To: Mohammad Rafi Shaik <quic_mohs@quicinc.com>
+Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-sound@vger.kernel.org,
+ Jaroslav Kysela <perex@perex.cz>, quic_pkumpatl@quicinc.com,
+ Takashi Iwai <tiwai@suse.com>, linux-arm-msm@vger.kernel.org,
+ Banajit Goswami <bgoswami@quicinc.com>, devicetree@vger.kernel.org,
+ quic_rohkumar@quicinc.com, Mark Brown <broonie@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, alsa-devel@alsa-project.org
+In-Reply-To: <20240416063600.309747-4-quic_mohs@quicinc.com>
+References: <20240416063600.309747-1-quic_mohs@quicinc.com>
+ <20240416063600.309747-4-quic_mohs@quicinc.com>
+Message-Id: <171325390367.1353462.6738496215058640142.robh@kernel.org>
+Subject: Re: [PATCH v2 3/8] ASoC: dt-bindings: wcd937x-sdw: add bindings
+ for wcd937x-sdw
+Message-ID-Hash: VQN3JSCMUNUSR7OUVF45R3OSV2MQTYWC
+X-Message-ID-Hash: VQN3JSCMUNUSR7OUVF45R3OSV2MQTYWC
+X-MailFrom: robh@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -124,7 +93,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BNGQQR42QXZC6F2TXAHQOJYBT5W5I6SM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VQN3JSCMUNUSR7OUVF45R3OSV2MQTYWC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -133,77 +102,52 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The drivers and bindings acquired support for specifying audio hardware
-and links in device tree: describe and link the sound related HW of this
-machine.
 
-Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
----
- .../boot/dts/mediatek/mt8186-corsola.dtsi     | 42 ++++++++++++++++---
- 1 file changed, 37 insertions(+), 5 deletions(-)
+On Tue, 16 Apr 2024 12:05:55 +0530, Mohammad Rafi Shaik wrote:
+> From: Prasad Kumpatla <quic_pkumpatl@quicinc.com>
+> 
+> Qualcomm WCD9370/WCD9375 Codec is a standalone Hi-Fi audio codec IC
+> connected over SoundWire. This device has two SoundWire devices RX and
+> TX respectively.
+> This binding is for those slave devices on WCD9370/WCD9375.
+> 
+> Co-developed-by: Mohammad Rafi Shaik <quic_mohs@quicinc.com>
+> Signed-off-by: Mohammad Rafi Shaik <quic_mohs@quicinc.com>
+> Signed-off-by: Prasad Kumpatla <quic_pkumpatl@quicinc.com>
+> ---
+>  .../bindings/sound/qcom,wcd937x-sdw.yaml      | 71 +++++++++++++++++++
+>  1 file changed, 71 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/qcom,wcd937x-sdw.yaml
+> 
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt8186-corsola.dtsi b/arch/arm64/boot/dts/mediatek/mt8186-corsola.dtsi
-index 1807e9d6cb0e..afdab5724eaa 100644
---- a/arch/arm64/boot/dts/mediatek/mt8186-corsola.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8186-corsola.dtsi
-@@ -42,7 +42,7 @@ backlight_lcd0: backlight-lcd0 {
- 		default-brightness-level = <576>;
- 	};
- 
--	bt-sco-codec {
-+	bt-sco {
- 		compatible = "linux,bt-sco";
- 		#sound-dai-cells = <0>;
- 	};
-@@ -223,12 +223,44 @@ sound: sound {
- 		mediatek,adsp = <&adsp>;
- 		mediatek,platform = <&afe>;
- 
--		playback-codecs {
--			sound-dai = <&it6505dptx>, <&rt1019p>;
-+		audio-routing =
-+			"Headphone", "HPOL",
-+			"Headphone", "HPOR",
-+			"IN1P", "Headset Mic",
-+			"Speakers", "Speaker",
-+			"HDMI1", "TX";
-+
-+		hs-playback-dai-link {
-+			link-name = "I2S0";
-+			dai-format = "i2s";
-+			mediatek,clk-provider = "cpu";
-+			codec {
-+				sound-dai = <&rt5682s 0>;
-+			};
-+		};
-+
-+		hs-capture-dai-link {
-+			link-name = "I2S1";
-+			dai-format = "i2s";
-+			mediatek,clk-provider = "cpu";
-+			codec {
-+				sound-dai = <&rt5682s 0>;
-+			};
- 		};
- 
--		headset-codec {
--			sound-dai = <&rt5682s 0>;
-+		spk-share-dai-link {
-+			link-name = "I2S2";
-+			mediatek,clk-provider = "cpu";
-+		};
-+
-+		spk-hdmi-playback-dai-link {
-+			link-name = "I2S3";
-+			dai-format = "i2s";
-+			mediatek,clk-provider = "cpu";
-+			/* RT1019P and IT6505 connected to the same I2S line */
-+			codec {
-+				sound-dai = <&it6505dptx>, <&rt1019p>;
-+			};
- 		};
- 	};
- 
--- 
-2.44.0
+My bot found errors running 'make dt_binding_check' on your patch:
+
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/qcom,wcd937x.example.dtb: codec@0,4: 'qcom,port-mapping' is a required property
+	from schema $id: http://devicetree.org/schemas/sound/qcom,wcd937x-sdw.yaml#
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/qcom,wcd937x.example.dtb: codec@0,3: 'qcom,port-mapping' is a required property
+	from schema $id: http://devicetree.org/schemas/sound/qcom,wcd937x-sdw.yaml#
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/qcom,wcd937x-sdw.example.dtb: codec@0,4: 'qcom,port-mapping' is a required property
+	from schema $id: http://devicetree.org/schemas/sound/qcom,wcd937x-sdw.yaml#
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/qcom,wcd937x-sdw.example.dtb: codec@0,3: 'qcom,port-mapping' is a required property
+	from schema $id: http://devicetree.org/schemas/sound/qcom,wcd937x-sdw.yaml#
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20240416063600.309747-4-quic_mohs@quicinc.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 

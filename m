@@ -2,127 +2,121 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA0A48A9F5A
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Apr 2024 17:59:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C0868A9F5D
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Apr 2024 17:59:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 172442BBB;
-	Thu, 18 Apr 2024 17:59:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 172442BBB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3D57D2BD5;
+	Thu, 18 Apr 2024 17:59:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D57D2BD5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1713455959;
-	bh=VbYJ4kEHAj9Rmh1z0P+Ie72tg4lO+L1d5IkKtKg9t0o=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=vJOeKVg0D23+L6JYvjb84fqWMZTSj+0H+5iu6Ll6RWjQzSEyFZmozrmI0LnhGwHPn
-	 G7/CTnSo5xyXynjZDqHu0R+xYbRrmTKlZUC9vQkpT2zR6mi/qPJEPo5/6WmaF0V8Zf
-	 xzOFTKaJLIVJRpka647dh6ww8+E84PU/2CgaQ9wI=
+	s=default; t=1713455972;
+	bh=EMzVQWGtX/eIzEA/zdNuq2XVLHcIfNLVAyy5jrhNRxQ=;
+	h=Date:From:To:Cc:Subject:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=sOMvvpb7E3z+c4w6JBWgn7K4aniwmVVvE/+EXHo4b2C9FLDneKHQcwesDjz8Ln7uj
+	 GwYKGbvYrcW3j/g/hA0jI1zpvQxaiOMgEUjuUC1QEkmcogH0TYVKManoeRLvRn1QJd
+	 uAmqli+2dTUVF4DBKc6nU7/6huUX6NE95an1gHhU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DCD43F8968D; Thu, 18 Apr 2024 17:53:07 +0200 (CEST)
+	id C0F5FF89715; Thu, 18 Apr 2024 17:53:10 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D762EF896CB;
-	Thu, 18 Apr 2024 17:53:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 40E63F89703;
+	Thu, 18 Apr 2024 17:53:10 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 325F0F8025A; Wed, 17 Apr 2024 11:42:54 +0200 (CEST)
+	id 1A1A4F8025A; Wed, 17 Apr 2024 11:52:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [IPv6:2a00:1450:4864:20::529])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9DF47F80124
-	for <alsa-devel@alsa-project.org>; Wed, 17 Apr 2024 11:42:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9DF47F80124
+	by alsa1.perex.cz (Postfix) with ESMTPS id 65A8EF80124
+	for <alsa-devel@alsa-project.org>; Wed, 17 Apr 2024 11:52:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 65A8EF80124
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=BUoFuiSF
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 43H8Gtd0015591;
-	Wed, 17 Apr 2024 09:42:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
-	message-id:date:mime-version:subject:to:cc:references:from
-	:in-reply-to:content-type:content-transfer-encoding; s=
-	qcppdkim1; bh=nPrkdTRcH2FKiX4DtNfZTegoE6WoIshS52dgky2QtCM=; b=BU
-	oFuiSFCDx3l842lN/F1u/hFf/KWWx5VF3flwUYftNlQGJSXCLpyqODmp7C/RmQWp
-	WKkySnLulJwz4q7CM1hXSy/l5ztkNmFDIuNyyLSghKqKFgIuwXV2oPGUbjI953jE
-	y9OSh2vD+FaJ9d4l3ua4RF+41zPk+/DQqhXIaTEalwgfdUzj27rhOrcmhGu08833
-	sC7PY9/a9K6WUM897gdnK//Xdm6h23RfPprzKHSUGoD9aMi8zEM4R924Gbdpaa89
-	kXSAIm+7kdC5z17FyPPy2s6neXMOItpbzKfyFaXcTPJhMOCYMRKl0u59qW/kXlig
-	eavWaS6M73ZlCSiQApmg==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3xjarpg69b-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 17 Apr 2024 09:42:47 +0000 (GMT)
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
-	by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
- 43H9gk0E004109
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 17 Apr 2024 09:42:46 GMT
-Received: from [10.216.60.103] (10.80.80.8) by nalasex01b.na.qualcomm.com
- (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 17 Apr
- 2024 02:42:41 -0700
-Message-ID: <720e1ee0-79b0-4d30-b1b8-a90676057161@quicinc.com>
-Date: Wed, 17 Apr 2024 15:12:38 +0530
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=od2JRNLN
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-57042f84cabso2386647a12.2
+        for <alsa-devel@alsa-project.org>;
+ Wed, 17 Apr 2024 02:52:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1713347559; x=1713952359;
+ darn=alsa-project.org;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=aS8oohQSnWtm5/ggCUPuCf5r4nvKB3/gwwUVKLME+0Q=;
+        b=od2JRNLNRmmOITJfxaszFRG5+OOkuXIg5ZNugxT4cZ1nnd80dZb0Zj28hgJWrA9/6y
+         nT016aY9hGhYbSuMRnS08AQTFDmbpHqubciBhcRGJufDzyIhAcpGpYy0d8S5JO0lZ4iO
+         JlvKKCE2GKuB24pbgDkijou88dAMKnRWbj8nQ4gCqwgLwPuaWoztSHj1CcZoAi4ZlLMx
+         jimDTFTSWaDt8k9zcTbpt12kt5JI4LXOKSepZ1NYzK9iYyc9XWSt8bH6IoSEeU8uK8+K
+         Lp/tsRUiWa5W2F3B+evAg9ZdxMmCUwW3L6uMoKsiZGuvjBS+WL0OVb0uXK1EAeOsAXGP
+         Ojjw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1713347559; x=1713952359;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=aS8oohQSnWtm5/ggCUPuCf5r4nvKB3/gwwUVKLME+0Q=;
+        b=YKF9WlKmHi3sg6Tcx+NDpcfpvM7DEBWslNlm5hdUEmtGb10aKl959cBJ3+RLEv6DFv
+         wT5PBbp0aP9r0sqa92G+B6r4dJKyyJ/p5HCJhxpFcAL9PRlbWupwPPhHMnOPbz8kpFm2
+         iRSEGGTHVSnNOxuquX2n1TgxR3A6dDppfYEW3Ky9qyvWptRbhxB7T9j8GgmWY0hoX9y0
+         mPD8uknr+8gJsOvl4q60h5UstfSV1mQPNd/V2Tl0KJy5hqoIJF8wI+GGmruDlgvDvrlJ
+         8yAf0Tv4VW1Df64dFqKpZBXfMZ3Z4zl2/LBjoUhPAn6q6fosJDQAQVbMqcxnyTwLyhxe
+         WBLg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUJWj+xKLBI48VEG5Apmx26CNfhK/ZziIIODsyoMy4PDSCgPEkjtVfS8CN5n9QhKJ5ZZ0eZpaF0SphkJDMLdadWtZsoIu/t/Te/C/E=
+X-Gm-Message-State: AOJu0YyIbCpW4YX1MIXAIE8IpS9FAlMRteuPHQaHznfK2RRHlniXS9OM
+	DcmYsRw5rO2s2d0awbi4urF6Jnpu6DP8pGVMqVzA6EaMN93C9VVl3mFrwGRFOX4=
+X-Google-Smtp-Source: 
+ AGHT+IHjbEE1PXIxusfNci6KoXg1ftVPH3rWidgWbOaaR9occvuaSUnnQtaaZswO2dIcUCmYmpgEHg==
+X-Received: by 2002:a50:9b1e:0:b0:568:bfcd:e895 with SMTP id
+ o30-20020a509b1e000000b00568bfcde895mr10176685edi.41.1713347558535;
+        Wed, 17 Apr 2024 02:52:38 -0700 (PDT)
+Received: from localhost ([102.222.70.76])
+        by smtp.gmail.com with ESMTPSA id
+ j1-20020aa7de81000000b0056e62321eedsm7001133edv.17.2024.04.17.02.52.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 17 Apr 2024 02:52:38 -0700 (PDT)
+Date: Wed, 17 Apr 2024 12:52:34 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: David Rhodes <drhodes@opensource.cirrus.com>
+Cc: James Schulman <james.schulman@cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
+	patches@opensource.cirrus.com, linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
+Subject: [PATCH] ASoC: cs35l41: Delete unnecessary condition in
+ cs35l41_pcm_hw_params()
+Message-ID: <1ee32bfb-6f6c-4b61-887b-6f655abbfc47@moroto.mountain>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 RESEND] slimbus: stream: Add null pointer check for
- client functions
-Content-Language: en-US
-To: Bjorn Andersson <quic_bjorande@quicinc.com>
-CC: <andersson@kernel.org>, <konrad.dybcio@linaro.org>,
-        <srinivas.kandagatla@linaro.org>, <linux-arm-msm@vger.kernel.org>,
-        <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>,
-        <quic_msavaliy@quicinc.com>, <quic_vtanuku@quicinc.com>,
-        <quic_anupkulk@quicinc.com>, <quic_cchiluve@quicinc.com>
-References: <20240327083214.29443-1-quic_vdadhani@quicinc.com>
- <ZhgIHHP1FUeCr+vx@hu-bjorande-lv.qualcomm.com>
-From: Viken Dadhaniya <quic_vdadhani@quicinc.com>
-In-Reply-To: <ZhgIHHP1FUeCr+vx@hu-bjorande-lv.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: a-Ht6a8lg7W_lO9ZJvW6GY13FBFlUnVe
-X-Proofpoint-ORIG-GUID: a-Ht6a8lg7W_lO9ZJvW6GY13FBFlUnVe
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-04-17_08,2024-04-16_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0
- malwarescore=0 mlxlogscore=999 phishscore=0 adultscore=0 impostorscore=0
- priorityscore=1501 lowpriorityscore=0 spamscore=0 mlxscore=0 bulkscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2404010003
- definitions=main-2404170066
-X-MailFrom: quic_vdadhani@quicinc.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
+X-MailFrom: dan.carpenter@linaro.org
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: JSUO2VT2PI6ONW6GP5JLBQCK4CMEYVBH
-X-Message-ID-Hash: JSUO2VT2PI6ONW6GP5JLBQCK4CMEYVBH
+Message-ID-Hash: TCDCLOHHHIXZ25CWTIYJOASB7MXKFUPU
+X-Message-ID-Hash: TCDCLOHHHIXZ25CWTIYJOASB7MXKFUPU
 X-Mailman-Approved-At: Thu, 18 Apr 2024 15:52:45 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JSUO2VT2PI6ONW6GP5JLBQCK4CMEYVBH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TCDCLOHHHIXZ25CWTIYJOASB7MXKFUPU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -131,168 +125,32 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+This code returns -EINVAL if "i" is out of bounds a few lines earlier.
+Delete this unnecessary check and pull the code in a tab.
 
+Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+---
+ sound/soc/codecs/cs35l41.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-On 4/11/2024 9:26 PM, Bjorn Andersson wrote:
-> On Wed, Mar 27, 2024 at 02:02:14PM +0530, Viken Dadhaniya wrote:
->> There is a possible scenario where client driver is calling
-> 
-> How can we asses the validity or the risk of this problem?
-> How would I know if this matches e.g. a bug report reported by a user?
-> 
-> Describe the problem such that the reviewer can asses the validity and
-> severity of your bug fixes.
+diff --git a/sound/soc/codecs/cs35l41.c b/sound/soc/codecs/cs35l41.c
+index 2799ccd6b5c7..d3da6a9f7f2b 100644
+--- a/sound/soc/codecs/cs35l41.c
++++ b/sound/soc/codecs/cs35l41.c
+@@ -772,10 +772,9 @@ static int cs35l41_pcm_hw_params(struct snd_pcm_substream *substream,
+ 
+ 	asp_wl = params_width(params);
+ 
+-	if (i < ARRAY_SIZE(cs35l41_fs_rates))
+-		regmap_update_bits(cs35l41->regmap, CS35L41_GLOBAL_CLK_CTRL,
+-				   CS35L41_GLOBAL_FS_MASK,
+-				   cs35l41_fs_rates[i].fs_cfg << CS35L41_GLOBAL_FS_SHIFT);
++	regmap_update_bits(cs35l41->regmap, CS35L41_GLOBAL_CLK_CTRL,
++			   CS35L41_GLOBAL_FS_MASK,
++			   cs35l41_fs_rates[i].fs_cfg << CS35L41_GLOBAL_FS_SHIFT);
+ 
+ 	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
+ 		regmap_update_bits(cs35l41->regmap, CS35L41_SP_FORMAT,
+-- 
+2.43.0
 
-Ok. Updated commit log in v2
-
-> 
->> slimbus stream APIs in incorrect sequence and it might lead to
->> invalid null access of the stream pointer in slimbus
->> enable/disable/prepare/unprepare/free function.
->>
->> Fix this by checking validity of the stream before accessing in
->> all function API’s exposed to client.
->>
-> 
-> You use the work "fix" a few time, are you fixing an actual bug? Are you
-> just guarding the driver from incorrect usage?
-> 
-> If it's a fix, then add Fixes and Cc: stable here.
-
-Let me correct myself there. Not a fix but consider an improvement where 
-preventing a crash due to client following the incorrect sequence.
-
-> 
->> Signed-off-by: Viken Dadhaniya <quic_vdadhani@quicinc.com>
->> ---
->>   drivers/slimbus/stream.c | 37 +++++++++++++++++++++++++++++++++----
->>   1 file changed, 33 insertions(+), 4 deletions(-)
->>
->> diff --git a/drivers/slimbus/stream.c b/drivers/slimbus/stream.c
->> index 1d6b38657917..c5a436fd0952 100644
->> --- a/drivers/slimbus/stream.c
->> +++ b/drivers/slimbus/stream.c
->> @@ -202,10 +202,16 @@ static int slim_get_prate_code(int rate)
->>   int slim_stream_prepare(struct slim_stream_runtime *rt,
->>   			struct slim_stream_config *cfg)
->>   {
->> -	struct slim_controller *ctrl = rt->dev->ctrl;
->> +	struct slim_controller *ctrl;
->>   	struct slim_port *port;
->>   	int num_ports, i, port_id, prrate;
->>   
->> +	if (!rt || !cfg) {
->> +		pr_err("%s: Stream or cfg is NULL, Check from client side\n", __func__);
-> 
-> Use dev_err() and write your error messages such that they make sense
-> without the use of __func__.
-
-For error scenario, we don't have valid dev to be used in dev_err argument.
-this log will help for debug. Please let us know any concern with pr_err
-
-> 
->> +		return -EINVAL;
-> 
-> Is this expected to happen during normal operation, or is this a sign of
-> a bug?
-> 
-
-It's a scenario where client doesn't follow the proper sequence and 
-slimbus driver can crash if not checked against NULL.
-
-> 
-> Neither of the two callers of this function checks the return value, so
-> is this really going to result in a good system state?
-> 
-
-we expect client to check return value of framework APIs.
-
-> 
-> It would make sense to require the client to pass valid rt and cfg
-> pointers, and if you have an issue in the client driver in which we
-> might end up with invalid points, then those drivers should be fixed -
-> rather than relying on chance and swipe it under the rug here.
-> 
-> Regards,
-> Bjorn
-> 
-
-Agree. it is sequence mismatch from client driver, and they should take 
-care. it is leading to NULL pointer access in slimbus APIs, so prevent 
-crash by adding check.
-
->> +	}
->> +
->> +	ctrl = rt->dev->ctrl;
->>   	if (rt->ports) {
->>   		dev_err(&rt->dev->dev, "Stream already Prepared\n");
->>   		return -EINVAL;
->> @@ -358,9 +364,15 @@ int slim_stream_enable(struct slim_stream_runtime *stream)
->>   {
->>   	DEFINE_SLIM_BCAST_TXN(txn, SLIM_MSG_MC_BEGIN_RECONFIGURATION,
->>   				3, SLIM_LA_MANAGER, NULL);
->> -	struct slim_controller *ctrl = stream->dev->ctrl;
->> +	struct slim_controller *ctrl;
->>   	int ret, i;
->>   
->> +	if (!stream) {
->> +		pr_err("%s: Stream is NULL, Check from client side\n", __func__);
->> +		return -EINVAL;
->> +	}
->> +
->> +	ctrl = stream->dev->ctrl;
->>   	if (ctrl->enable_stream) {
->>   		ret = ctrl->enable_stream(stream);
->>   		if (ret)
->> @@ -411,12 +423,18 @@ int slim_stream_disable(struct slim_stream_runtime *stream)
->>   {
->>   	DEFINE_SLIM_BCAST_TXN(txn, SLIM_MSG_MC_BEGIN_RECONFIGURATION,
->>   				3, SLIM_LA_MANAGER, NULL);
->> -	struct slim_controller *ctrl = stream->dev->ctrl;
->> +	struct slim_controller *ctrl;
->>   	int ret, i;
->>   
->> +	if (!stream) {
->> +		pr_err("%s: Stream is NULL, Check from client side\n", __func__);
->> +		return -EINVAL;
->> +	}
->> +
->>   	if (!stream->ports || !stream->num_ports)
->>   		return -EINVAL;
->>   
->> +	ctrl = stream->dev->ctrl;
->>   	if (ctrl->disable_stream)
->>   		ctrl->disable_stream(stream);
->>   
->> @@ -448,6 +466,11 @@ int slim_stream_unprepare(struct slim_stream_runtime *stream)
->>   {
->>   	int i;
->>   
->> +	if (!stream) {
->> +		pr_err("%s: Stream is NULL, Check from client side\n", __func__);
->> +		return -EINVAL;
->> +	}
->> +
->>   	if (!stream->ports || !stream->num_ports)
->>   		return -EINVAL;
->>   
->> @@ -476,8 +499,14 @@ EXPORT_SYMBOL_GPL(slim_stream_unprepare);
->>    */
->>   int slim_stream_free(struct slim_stream_runtime *stream)
->>   {
->> -	struct slim_device *sdev = stream->dev;
->> +	struct slim_device *sdev;
->> +
->> +	if (!stream) {
->> +		pr_err("%s: Stream is NULL, Check from client side\n", __func__);
->> +		return -EINVAL;
->> +	}
->>   
->> +	sdev = stream->dev;
->>   	spin_lock(&sdev->stream_list_lock);
->>   	list_del(&stream->node);
->>   	spin_unlock(&sdev->stream_list_lock);
->> -- 
->> QUALCOMM INDIA, on behalf of Qualcomm Innovation Center, Inc. is a member
->> of Code Aurora Forum, hosted by The Linux Foundation
->>

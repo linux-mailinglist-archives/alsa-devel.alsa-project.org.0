@@ -2,122 +2,114 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 143C48AA004
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Apr 2024 18:30:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C74F8AA15F
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Apr 2024 19:49:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 355542356;
-	Thu, 18 Apr 2024 18:30:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 355542356
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7D2DA1945;
+	Thu, 18 Apr 2024 19:49:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D2DA1945
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1713457829;
-	bh=n5UTBwm9LwxWCwUD5WYTPdP8hKDjMr22biXL1uuugRA=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=swtRguDkkISDAX0EK31XBZ141jphFqLt/eDZOFc3qJBgLWn+AHFc0g+sFRExecRpf
-	 3hWLW9Venla51rg9PcgvQegMhEMgLZVQMnbzKd9bKThcM8Jcj6I7c6hLewUO/cKa3v
-	 ZV4nasI1w24oCXZOvz8JpBrRRUBFcMJAkpPr4rUs=
+	s=default; t=1713462581;
+	bh=P2+1M5xlz5nO98fQHEzHTaHBC6pZovHWDXMrzDKvvkk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=Rpjcf7VOBVrptlim8hCaa9M1rB8GATVk4QetJVYKQ1jEA6iDttDJdGsEdR8iifIu0
+	 YKbpEI7kVBywiq61sSgTiwZ6yEPIn2hL+uD4biu94UEtCU38GXZ+5ElKgKstre0PaO
+	 7u99qGv+qgGRNl8Re++LfrD6w3UweYN52dKlAFyo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1FFCCF805AE; Thu, 18 Apr 2024 18:29:57 +0200 (CEST)
+	id E5BDAF805AE; Thu, 18 Apr 2024 19:49:09 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0360DF80589;
-	Thu, 18 Apr 2024 18:29:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7CFF8F805A0;
+	Thu, 18 Apr 2024 19:49:09 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 279EFF80423; Thu, 18 Apr 2024 18:29:48 +0200 (CEST)
+	id 1AFA3F8025A; Thu, 18 Apr 2024 19:49:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
-	shortcircuit=no autolearn=unavailable autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [IPv6:2a00:1450:4864:20::22c])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 92EF2F8003A
-	for <alsa-devel@alsa-project.org>; Thu, 18 Apr 2024 18:29:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92EF2F8003A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 54E80F8003A
+	for <alsa-devel@alsa-project.org>; Thu, 18 Apr 2024 19:48:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54E80F8003A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=XJecNykd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1713457777; x=1744993777;
-  h=message-id:date:mime-version:subject:to:references:from:
-   in-reply-to:content-transfer-encoding;
-  bh=n5UTBwm9LwxWCwUD5WYTPdP8hKDjMr22biXL1uuugRA=;
-  b=XJecNykdUQi84uD6gV8zZ0SWBbadjZCdA80/nb30658xR42prpg/22ad
-   FwU5361lhqAANy35BLDuMD2Fr+qZiyojOF+sH8QXuW5k0HIbJdSgBPHj+
-   pJKoa0BKljWIqi0SbPBG4I94xP/yhnc5YramkClM0zqUquXXjEIhOttt+
-   8ixjCvObOTCjEdYbPBC+VJ0Q3p9AmgoRl3oi0akA8l1zT4VUHEOUvq1gf
-   GAebaBpPUmYtMtQXkYZ1Kq+XoFcdv2ntQAbrvR53bL1LqtOAe19ovJS3R
-   M2z1zMEg33/jFqBZvGiTTyO9tDe1GZzWfmiSImwMzXSzGgQhpt2dE9Hg9
-   Q==;
-X-CSE-ConnectionGUID: opKObz48QO6/L+3KoSntqQ==
-X-CSE-MsgGUID: 0PH3t9P8RLaqX5bY4ly8MA==
-X-IronPort-AV: E=McAfee;i="6600,9927,11047"; a="8882355"
-X-IronPort-AV: E=Sophos;i="6.07,212,1708416000";
-   d="scan'208";a="8882355"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Apr 2024 09:27:57 -0700
-X-CSE-ConnectionGUID: QL+FsKavRtigEK3tKkR75g==
-X-CSE-MsgGUID: ZaFP6k8bT0OPD8LxfPhFXg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,212,1708416000";
-   d="scan'208";a="23105114"
-Received: from rswoodsx-mobl.amr.corp.intel.com (HELO [10.213.167.100])
- ([10.213.167.100])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Apr 2024 09:27:53 -0700
-Message-ID: <aa01d483-3a24-4388-be11-86b92bade374@linux.intel.com>
-Date: Thu, 18 Apr 2024 11:26:06 -0500
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=G1rP+qlI
+Received: by mail-lj1-x22c.google.com with SMTP id
+ 38308e7fff4ca-2d9fe2b37acso15166501fa.2
+        for <alsa-devel@alsa-project.org>;
+ Thu, 18 Apr 2024 10:48:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1713462535; x=1714067335;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=nWjRP/RRJQ8mM83fkHijl/axycbWYPWuBIUVY65UOGA=;
+        b=G1rP+qlIdUdBH5rTZ3jqiA/N9eAR6gJDTz6luNdp73LY2Ohs7my+XlyVm/BOwzs8KC
+         Iss/EUB/iY2SPUu/qs70eopGT3gVESRaxI632PtJLwGxzutRVpbW6YgMbA/iz7IrtqwJ
+         9N82RRWGtCdobmTT2oL4+HOtOKYx38ZYW5vPoPuFvt74oI71ekV31vU8IVoOUokGFBDl
+         wdSOeZ9KkpG7fohJlxnuexhk5wgQo8H5Q2HgQAbgNHRSobRf2pU9a+DbZA9yEt44zzkY
+         j2N9WyghjhypF6s2y9QwFBlRIhObGuET7bJ6BlqpIVnY8FyZ6lpyF7PA0yCU6BBbWf+m
+         EWaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1713462535; x=1714067335;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=nWjRP/RRJQ8mM83fkHijl/axycbWYPWuBIUVY65UOGA=;
+        b=GswDJz4QFvjC9DLCCRZ/qpr3I5uM4dwJXsb7hZNwLOslErhdsTZQelesS/X0K0kDUN
+         DBk86RMb/1HNA4Lw+5p36qpIbhvWwz1fF9MenQz88Zp58LmtOP159YSSSYidA7/P/eLF
+         fFXrbIYchN32Qj+U5Vh6ZiY6z7Vzc5Mz4/q7hZSxvnb3134yGWJxZ4WSvbjge5w4NBHA
+         xvEFveU6jEZIqzRkJwkeAmjz8nC8PRcwDhUEjbyG6CNHMkoNsAc6vfxsFDAMLP4FqPDO
+         DFWDo9i0zexS41ru2T8CcH+mTayIBaxGucJjgjXZ5gZH+TIAGRqpBkevLRcR5B4O0M2t
+         cHeQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVEg2sXnpFOd5S0RmH2ODvuABvezgJVMJtlqB5RxFoFLxT/oE742DjokcfyxBoXGFaTgW11hqxNmHxqEkXwmRDDnVbc7q6j8AiJqHo=
+X-Gm-Message-State: AOJu0YyFVi/uu9TkPfm3eWBka5eZzRH7AevjziBLt/dfMGX7DxOKT2S8
+	42uGMqd83AvkFXMkncCVU4UTMxnGitt+38EPeX9e06fgKDcv5UuS
+X-Google-Smtp-Source: 
+ AGHT+IFLN8AVKD6AbFTXCtyt/i2xPnyVSWhKPGW1JF/2/FqWjGy5naOgcXt0w7tJVCAdQgHvWpQApQ==
+X-Received: by 2002:a2e:8807:0:b0:2da:9ebe:e35f with SMTP id
+ x7-20020a2e8807000000b002da9ebee35fmr1923468ljh.22.1713462534894;
+        Thu, 18 Apr 2024 10:48:54 -0700 (PDT)
+Received: from [10.0.0.100] (host-213-145-200-116.kaisa-laajakaista.fi.
+ [213.145.200.116])
+        by smtp.gmail.com with ESMTPSA id
+ p12-20020a2ea40c000000b002d80b78c1e0sm268671ljn.117.2024.04.18.10.48.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 18 Apr 2024 10:48:54 -0700 (PDT)
+Message-ID: <f0dcab9a-1f9d-4db5-b886-0d2174070f37@gmail.com>
+Date: Thu, 18 Apr 2024 20:49:09 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 19/23] ASoC: Intel: Replace playback/capture_only to
- playback/capture_assertion
-To: =?UTF-8?Q?Amadeusz_S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Alper Nebi Yasak <alpernebiyasak@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Banajit Goswami <bgoswami@quicinc.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>, Brent Lu <brent.lu@intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Daniel Baluta <daniel.baluta@nxp.com>, Hans de Goede <hdegoede@redhat.com>,
- Jaroslav Kysela <perex@perex.cz>, Jerome Brunet <jbrunet@baylibre.com>,
- Jiawei Wang <me@jwang.link>, Jonathan Corbet <corbet@lwn.net>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Kevin Hilman <khilman@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Maso Huang <maso.huang@mediatek.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>,
- Shengjiu Wang <shengjiu.wang@gmail.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>, Takashi Iwai <tiwai@suse.com>,
- Vinod Koul <vkoul@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
- alsa-devel@alsa-project.org, imx@lists.linux.dev, linux-doc@vger.kernel.org,
- linux-sound@vger.kernel.org
-References: <87h6fz8g3u.wl-kuninori.morimoto.gx@renesas.com>
- <87plun71db.wl-kuninori.morimoto.gx@renesas.com>
- <481d5755-ac70-4a01-899d-9d39f5075350@linux.intel.com>
+Subject: Re: [PATCH] ASoC: ti: davinci-mcasp: Fix race condition during probe
+To: Joao Paulo Goncalves <jpaulo.silvagoncalves@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Cc: Joao Paulo Goncalves <joao.goncalves@toradex.com>,
+ Jai Luthra <j-luthra@ti.com>, alsa-devel@alsa-project.org,
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20240417184138.1104774-1-jpaulo.silvagoncalves@gmail.com>
+From: =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@gmail.com>
 Content-Language: en-US
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <481d5755-ac70-4a01-899d-9d39f5075350@linux.intel.com>
+In-Reply-To: <20240417184138.1104774-1-jpaulo.silvagoncalves@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: UASGNDRHFVRXJKURBGJKHRNE6VABWLU2
-X-Message-ID-Hash: UASGNDRHFVRXJKURBGJKHRNE6VABWLU2
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+Message-ID-Hash: JNZEF6CW6FYIBPJ6K26OLXD5OILZH2GF
+X-Message-ID-Hash: JNZEF6CW6FYIBPJ6K26OLXD5OILZH2GF
+X-MailFrom: peter.ujfalusi@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -129,7 +121,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UASGNDRHFVRXJKURBGJKHRNE6VABWLU2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JNZEF6CW6FYIBPJ6K26OLXD5OILZH2GF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -140,44 +132,84 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
 
-On 4/18/24 06:19, Amadeusz Sławiński wrote:
-> On 4/18/2024 6:15 AM, Kuninori Morimoto wrote:
->> soc_get_playback_capture() is now handling DPCM and normal
->> comprehensively for playback/capture stream in same code.
->> This patch converts xxx_only flag to xxx_assertion.
->>
->> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
->> ---
->>   sound/soc/intel/boards/bdw-rt5677.c | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/sound/soc/intel/boards/bdw-rt5677.c
->> b/sound/soc/intel/boards/bdw-rt5677.c
->> index 54e3c5d3c251..9170b1d509e2 100644
->> --- a/sound/soc/intel/boards/bdw-rt5677.c
->> +++ b/sound/soc/intel/boards/bdw-rt5677.c
->> @@ -339,7 +339,7 @@ static struct snd_soc_dai_link bdw_rt5677_dais[] = {
->>       {
->>           .name = "Codec DSP",
->>           .stream_name = "Wake on Voice",
->> -        .capture_only = 1,
->> +        .capture_assertion = 1,
->>           .ops = &bdw_rt5677_dsp_ops,
->>           SND_SOC_DAILINK_REG(dsp),
->>       },
+On 17/04/2024 21:41, Joao Paulo Goncalves wrote:
+> From: Joao Paulo Goncalves <joao.goncalves@toradex.com>
 > 
-> Should this have been part of patch 8?
+> When using davinci-mcasp as CPU DAI with simple-card, there are some
+> conditions that cause simple-card to finish registering a sound card before
+> davinci-mcasp finishes registering all sound components. This creates a
+> non-working sound card from userspace with no problem indication apart
+> from not being able to play/record audio on a PCM stream. The issue
+> arises during simultaneous probe execution of both drivers. Specifically,
+> the simple-card driver, awaiting a CPU DAI, proceeds as soon as
+> davinci-mcasp registers its DAI. However, this process can lead to the
+> client mutex lock (client_mutex in soc-core.c) being held or davinci-mcasp
+> being preempted before PCM DMA registration on davinci-mcasp finishes.
+> This situation occurs when the probes of both drivers run concurrently.
+> Below is the code path for this condition. To solve the issue, defer
+> davinci-mcasp CPU DAI registration to the last step in the audio part of
+> it. This way, simple-card CPU DAI parsing will be deferred until all
+> audio components are registered.
+> 
+> Fail Code Path:
+> 
+> simple-card.c: probe starts
+> simple-card.c: simple_dai_link_of: simple_parse_node(..,cpu,..) returns EPROBE_DEFER, no CPU DAI yet
+> davinci-mcasp.c: probe starts
+> davinci-mcasp.c: devm_snd_soc_register_component() register CPU DAI
+> simple-card.c: probes again, finish CPU DAI parsing and call devm_snd_soc_register_card()
+> simple-card.c: finish probe
+> davinci-mcasp.c: *dma_pcm_platform_register() register PCM  DMA
+> davinci-mcasp.c: probe finish
 
-Patch 8 deals with the following changes
+Interesting... Thanks for the details.
+Acked-by: Peter Ujfalusi <peter.ujfalusi@gmail.com>
 
--		.dpcm_playback = 1,
--		.dpcm_capture = 1,
-+		.playback_assertion = 1,
-+		.capture_assertion = 1,
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: 9fbd58cf4ab0 ("ASoC: davinci-mcasp: Choose PCM driver based on configured DMA controller")
 
-This case is about
+Just to note that the DAI registration was always before the platform
+registration (ever since the DAI driver started to register the
+platform) and I think most TI (and probably other vendor's) driver does
+things this way. McASP does a bit of lifting by requesting a DMA channel
+to figure out the type of DMA...
 
-> -        .capture_only = 1,
-> +        .capture_assertion = 1,
+> Signed-off-by: Joao Paulo Goncalves <joao.goncalves@toradex.com>
+> ---
+>  sound/soc/ti/davinci-mcasp.c | 12 ++++++------
+>  1 file changed, 6 insertions(+), 6 deletions(-)
+> 
+> diff --git a/sound/soc/ti/davinci-mcasp.c b/sound/soc/ti/davinci-mcasp.c
+> index b892d66f78470..1e760c3155213 100644
+> --- a/sound/soc/ti/davinci-mcasp.c
+> +++ b/sound/soc/ti/davinci-mcasp.c
+> @@ -2417,12 +2417,6 @@ static int davinci_mcasp_probe(struct platform_device *pdev)
+>  
+>  	mcasp_reparent_fck(pdev);
+>  
+> -	ret = devm_snd_soc_register_component(&pdev->dev, &davinci_mcasp_component,
+> -					      &davinci_mcasp_dai[mcasp->op_mode], 1);
+> -
+> -	if (ret != 0)
+> -		goto err;
+> -
+>  	ret = davinci_mcasp_get_dma_type(mcasp);
+>  	switch (ret) {
+>  	case PCM_EDMA:
+> @@ -2449,6 +2443,12 @@ static int davinci_mcasp_probe(struct platform_device *pdev)
+>  		goto err;
+>  	}
+>  
+> +	ret = devm_snd_soc_register_component(&pdev->dev, &davinci_mcasp_component,
+> +					      &davinci_mcasp_dai[mcasp->op_mode], 1);
+> +
+> +	if (ret != 0)
+> +		goto err;
+> +
+>  no_audio:
+>  	ret = davinci_mcasp_init_gpiochip(mcasp);
+>  	if (ret) {
 
-I think it's good to make this change separately.
+-- 
+Péter

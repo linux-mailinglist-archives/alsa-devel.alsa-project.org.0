@@ -2,158 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62EED8A9405
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Apr 2024 09:32:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 251AC8A96A8
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Apr 2024 11:50:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CA92BEDB;
-	Thu, 18 Apr 2024 09:31:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA92BEDB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 88A4DB65;
+	Thu, 18 Apr 2024 11:50:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 88A4DB65
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1713425520;
-	bh=V8W5eJCawbdGL5jA4GpB/sidgLpAVnXqP2OZun/RdiU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=FOhsfYCsf4mXxAi4m5S6nEYnfdIGpKGJTd31iKRvHUhwnoX3JMhFJdozT/0z1zG88
-	 IsvQBvnXnsktTv4Sa+690gWLnuEVkk5J78Yekn8AqYblfFk/k0zUztL2MmHlzFmMRK
-	 4UYydk4w2I7wmB+KxX57VAnEzbPdTJ1QJuzu/Cxw=
+	s=default; t=1713433857;
+	bh=QQb/yEHNcu6BoLkFoAVAEDTaV0FNvGALpQ1jbEEDhqo=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=LuRo+vG1zECcPH6BmKr8b8SPqeR9wLt2HSXMbzGU4J+8pcciluBtPqykWbUxl7s65
+	 oKFaDA7XBBjYZbqvZWhYDExxDkymHY/SVlSroEXG7x+INIOnOK1zUcGAbN7xWf04VL
+	 PIhI23ozU4CIaWSzm73bGaNnEq3tuD1OfXZR/G48=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AC358F805AC; Thu, 18 Apr 2024 09:31:28 +0200 (CEST)
+	id 3982AF80587; Thu, 18 Apr 2024 11:50:25 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 279E7F805A0;
-	Thu, 18 Apr 2024 09:31:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 229F8F8059F;
+	Thu, 18 Apr 2024 11:50:24 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DAB7DF8025A; Thu, 18 Apr 2024 09:31:21 +0200 (CEST)
+	id 3613EF8025A; Thu, 18 Apr 2024 11:44:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 588D4F8003A
-	for <alsa-devel@alsa-project.org>; Thu, 18 Apr 2024 09:31:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 588D4F8003A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5BA32F80124
+	for <alsa-devel@alsa-project.org>; Thu, 18 Apr 2024 11:42:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5BA32F80124
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=tNNs1BuL;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=odBcOFHG;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=tNNs1BuL;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=odBcOFHG
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 01AF45C5E1;
-	Thu, 18 Apr 2024 07:31:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1713425467;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Gm0WKneDt6T4QEdBgQcIxzWrvmhDwkvlbQQZhAQymXw=;
-	b=tNNs1BuLgxAd+iqfoHxo8u9D864ofv4oBrRDkBBvqSPUIzM73BOwPosByp3L9NQkp4tfrz
-	mO6mo6Ky3WoxfBSNpouaHZIWRIRWqRtRyyR7rMNZkDqaKogaO3bP7/mZJ2hFGlbu2pIQ4v
-	ceGfj7KjXivG1pFk5mwH0gJ0z3KKxek=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1713425467;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Gm0WKneDt6T4QEdBgQcIxzWrvmhDwkvlbQQZhAQymXw=;
-	b=odBcOFHGHMVrXSJe9d+6PWBHKCmYtupts9kLy0XD9yzQpD3+7RE2VZhjrZG/Ey0QrJ4Efu
-	/edKuoGyx6jizZBg==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=tNNs1BuL;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=odBcOFHG
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1713425467;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Gm0WKneDt6T4QEdBgQcIxzWrvmhDwkvlbQQZhAQymXw=;
-	b=tNNs1BuLgxAd+iqfoHxo8u9D864ofv4oBrRDkBBvqSPUIzM73BOwPosByp3L9NQkp4tfrz
-	mO6mo6Ky3WoxfBSNpouaHZIWRIRWqRtRyyR7rMNZkDqaKogaO3bP7/mZJ2hFGlbu2pIQ4v
-	ceGfj7KjXivG1pFk5mwH0gJ0z3KKxek=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1713425467;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Gm0WKneDt6T4QEdBgQcIxzWrvmhDwkvlbQQZhAQymXw=;
-	b=odBcOFHGHMVrXSJe9d+6PWBHKCmYtupts9kLy0XD9yzQpD3+7RE2VZhjrZG/Ey0QrJ4Efu
-	/edKuoGyx6jizZBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CEC381384C;
-	Thu, 18 Apr 2024 07:31:06 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id ZdTXMDrMIGbwCgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Thu, 18 Apr 2024 07:31:06 +0000
-Date: Thu, 18 Apr 2024 09:31:15 +0200
-Message-ID: <87cyqnxh30.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Pavel Hofman <pavel.hofman@ivitera.com>
-Cc: alsa-devel@alsa-project.org,
-	Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH 0/3] adding 705.6/768kHz rates; DSD and 768kHz in aloop
-In-Reply-To: <20240416121726.628679-1-pavel.hofman@ivitera.com>
-References: <20240416121726.628679-1-pavel.hofman@ivitera.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-0.58 / 50.00];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	BAYES_HAM(-0.07)[62.32%];
-	MX_GOOD(-0.01)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_TLS_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	DWL_DNSWL_BLOCKED(0.00)[suse.de:dkim];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[3];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spamd-Bar: /
-X-Rspamd-Queue-Id: 01AF45C5E1
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-Message-ID-Hash: B26UOPX6OM4YTJ6IBC4GLA62E4IKACUP
-X-Message-ID-Hash: B26UOPX6OM4YTJ6IBC4GLA62E4IKACUP
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=H6opVoQK
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
+ 43I4tftJ004328;
+	Thu, 18 Apr 2024 04:42:11 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
+	from:to:cc:subject:date:message-id:mime-version
+	:content-transfer-encoding:content-type; s=PODMain02222019; bh=1
+	N2CZOBMiSECQas0FB6FFT900jfO8opQ645yOpaXiLc=; b=H6opVoQKIF/+r5NM0
+	8yyfh51sPLm36vt9dQ5W/Fb1U2lM/liBRDGRdR4tMxoA6EZ7c7Dw4L2nqyC9isWY
+	a9GgfGD3Eol77kQ17yxwX+ZdJsp3fX+Ih44wWDxDlDAVCZdzvjKZqR8s4U0xEG7q
+	cPTduglX79VoBBviB4DcVXuT21fRBn/Bw8H3eYpGCest/VaeVLa+oMBIwdVYVPnN
+	uA9xfg6I7RznubgJf+1vuMpD9rQUpxhaN3/2gFNJ55q0GwtlrBMT7zqEzHLLPaos
+	Ckx5gG3p0NEhPhJkQn66Un8jv2b2cDwBL/AcrOdp7pBK1GccEYeg98o4BZjfbSPz
+	n07qA==
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3xfqeyckaj-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 18 Apr 2024 04:42:11 -0500 (CDT)
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 18 Apr
+ 2024 10:42:09 +0100
+Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
+ ediex01.ad.cirrus.com (198.61.84.80) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9
+ via Frontend Transport; Thu, 18 Apr 2024 10:42:09 +0100
+Received: from ediswws03.ad.cirrus.com (ediswws03.ad.cirrus.com
+ [198.90.208.11])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id 094DC820245;
+	Thu, 18 Apr 2024 09:42:09 +0000 (UTC)
+From: Maciej Strozek <mstrozek@opensource.cirrus.com>
+To: Mark Brown <broonie@kernel.org>
+CC: <patches@opensource.cirrus.com>, <alsa-devel@alsa-project.org>,
+        <linux-spi@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        Maciej Strozek
+	<mstrozek@opensource.cirrus.com>
+Subject: [PATCH] spi: cs42l43: Correct name of ACPI property
+Date: Thu, 18 Apr 2024 10:42:06 +0100
+Message-ID: <20240418094206.1323489-1-mstrozek@opensource.cirrus.com>
+X-Mailer: git-send-email 2.39.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-GUID: 7DMe5XzNF2zLqLaM82aRsM8UBOaRyPq5
+X-Proofpoint-ORIG-GUID: 7DMe5XzNF2zLqLaM82aRsM8UBOaRyPq5
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: 66ORN3EFQOBJTHQZ76LRGQH3FUHPFE7V
+X-Message-ID-Hash: 66ORN3EFQOBJTHQZ76LRGQH3FUHPFE7V
+X-MailFrom: prvs=183834ae71=mstrozek@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -165,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/B26UOPX6OM4YTJ6IBC4GLA62E4IKACUP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/66ORN3EFQOBJTHQZ76LRGQH3FUHPFE7V/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -174,24 +110,26 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 16 Apr 2024 14:17:23 +0200,
-Pavel Hofman wrote:
-> 
-> This patch series allows using the loopback driver in modern chains with
-> samplerates up to 768kHz and DSD formats.
-> 
-> The patch "ALSA:pcm: add support for 705.6kHz and 768kHz sample rates" is
-> basically a copy of commit 4cc4531c310e ("ALSA: pcm: add support for 352.8KHz and 384KHz sample rate").
-> 
-> As of loopback performance at 768kHz - in my tests aloop runs OK event at
-> 12MHz samplerate.
-> 
-> Pavel Hofman (3):
->   ALSA:aloop: add DSD formats
->   ALSA:pcm: add support for 705.6kHz and 768kHz sample rates
->   ALSA:aloop: add support for up to 768kHz sample rate
+Fixes: 1f05252a3a95 ("Add bridged amplifiers to cs42l43")
 
-Applied to for-next branch now.  Thanks.
+Signed-off-by: Maciej Strozek <mstrozek@opensource.cirrus.com>
+---
+ drivers/spi/spi-cs42l43.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/drivers/spi/spi-cs42l43.c b/drivers/spi/spi-cs42l43.c
+index cdc61cd089ad..9d747ea69926 100644
+--- a/drivers/spi/spi-cs42l43.c
++++ b/drivers/spi/spi-cs42l43.c
+@@ -267,7 +267,7 @@ static bool cs42l43_has_sidecar(struct fwnode_handle *fwnode)
+ 			continue;
 
-Takashi
+ 		ret = fwnode_property_read_u32(ext_fwnode,
+-					       "01fa-cirrus-sidecar-instances",
++					       "01fa-sidecar-instances",
+ 					       &val);
+
+ 		fwnode_handle_put(ext_fwnode);
+--
+2.34.1
+

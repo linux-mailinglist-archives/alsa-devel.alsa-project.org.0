@@ -2,93 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9142C8AB136
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 Apr 2024 17:02:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 808E18AB138
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 Apr 2024 17:02:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B4F4FE82;
-	Fri, 19 Apr 2024 17:02:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B4F4FE82
+	by alsa0.perex.cz (Postfix) with ESMTPS id 22CC6E0F;
+	Fri, 19 Apr 2024 17:02:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 22CC6E0F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1713538955;
-	bh=Yaor62sYcDjIvBNPTk74x1zdaU8YS2t8ezX+C3LnvTI=;
+	s=default; t=1713538973;
+	bh=6VfB2MxnfpwxDajfB1IcH+LrSDMjCd5/ucMZhFDOGNM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=gOLVlkvsL5OCccZoMGONf8nyLAnYx/ZJ1/mpND+3vBBL2XnJklaLZMyr9S4y/eUol
-	 M3PSvKl0qMIfIBwmO7UwWzYalku6QehCL1pslKIs9jQgiP077q/zU7hJ42dHSgBvrr
-	 y3nJjT7oi8cbcbUYE0/zjbEZc9qhVbjfozrNP3VM=
+	b=Ap4SOpkMPiGwBxCwUeDtB2Ro8WC1DCcngisPg89BhV05kgUBLFn59k7WNERYnq/j/
+	 njZxJS2f7B/KWAKjbT1EKh/xMLNfQnOD4N4qDaS8AuIFV0omZsdS6bDUlCeHn1UT80
+	 txgyY5uIbxLSLmSIiEAv50rxHFLIfQluVntmxO38=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A48D2F8057A; Fri, 19 Apr 2024 17:02:03 +0200 (CEST)
+	id 8BCB8F805D3; Fri, 19 Apr 2024 17:02:06 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 07DC6F8058C;
-	Fri, 19 Apr 2024 17:02:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 39322F805CA;
+	Fri, 19 Apr 2024 17:02:06 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1ABB4F80494; Fri, 19 Apr 2024 17:01:59 +0200 (CEST)
+	id 2CDABF80494; Fri, 19 Apr 2024 17:02:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: ***
 X-Spam-Status: No, score=3.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_SBL_CSS,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=no autolearn_force=no
 	version=3.4.6
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [IPv6:2a00:1450:4864:20::329])
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [IPv6:2a00:1450:4864:20::32d])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 34F33F801C0
-	for <alsa-devel@alsa-project.org>; Fri, 19 Apr 2024 17:01:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34F33F801C0
+	by alsa1.perex.cz (Postfix) with ESMTPS id B1CB5F8025A
+	for <alsa-devel@alsa-project.org>; Fri, 19 Apr 2024 17:01:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B1CB5F8025A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=QqthIG6/
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-419ca3f3dd0so2894075e9.2
+ header.s=google header.b=jQz6cDsa
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-418c1920313so17338645e9.1
         for <alsa-devel@alsa-project.org>;
- Fri, 19 Apr 2024 08:01:50 -0700 (PDT)
+ Fri, 19 Apr 2024 08:01:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1713538909; x=1714143709;
+        d=linaro.org; s=google; t=1713538910; x=1714143710;
  darn=alsa-project.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=du5C0hgzbqVxZXImYAbxQy35/QgbiTxBZrKV2sLLphs=;
-        b=QqthIG6/qL193rJtPAS3qTNnjRnVEthV4ycLlj0Y+k46e6LIaPuysOgOgjVi6qU2s+
-         D3xxaprCeMFakMFepfIlATrq5M1RIOhMEhaWlT8+MsdxT2JMt9cqcSzCsOg7eZ0aeN9q
-         BKfkzrZojdmJUUa940bHeTY8u2MAH0wI6S/nffOt+n2juJ7W0UzvG7nAE65z+kCjl27Z
-         eXy5blXFYB1ToXFbw9XBZH96/Tdrk5qPWJFnQ0L6vRNqCksofJTSmpE0PmbJZ1P0HznH
-         suqD9XPsRnfyaGfJymQFypb3GdS8oq969hOHDj2hZ7QtpyWsLczMjT0BabKmi9Z+CLUd
-         XgCg==
+        bh=sMUP+wlhZ8g+tuzLPiwn3mBsR+LeHm7xmSWj9q3JJJ4=;
+        b=jQz6cDsadRkWKcipI7DCwiYAuX2xeTQrBZ6e/F3X6Sb5f/vcw0bKk5RvA+iI8/+g6Q
+         XGKNYD7wsN1H43dBXgNgXwlo2fKjMq70UBiAiSsraqEz+9tNtzsOzptNNBowWUBb+JFk
+         7MZ49t04odLE+i5yALSat0wdhBoKmkZB1jyaW6TGzbH82l3SQz43PaPo16TljMtCjeXp
+         KrjjNDHIr6qGxuRjZB/p9iw8s6f9LhN5EerYjd0tTs8bygeqORbHbqk+onezMpj5sO/R
+         oQtgHcY4F26NRLKro2wbEGrowhXp+6/1+2KyCD4garsyMwPwFhufCa1Wiu4fNQktQhnz
+         pBWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713538909; x=1714143709;
+        d=1e100.net; s=20230601; t=1713538910; x=1714143710;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=du5C0hgzbqVxZXImYAbxQy35/QgbiTxBZrKV2sLLphs=;
-        b=GWlHm5fEATbmPOQtAaoc2als1PbbmwEsPMHeagb0S12eZUUUcBbYNv/NWfk9RjCiWO
-         cTUNS/wJ5MndqY3qX33keHCEIlgn01Fb0Obyx1bCeFhNU+vBFSJvIYQobFLtQ+bdRm4n
-         8iJLNQjtUN+9dh9lxk8xi4affAeaAaWjC/PRjWk3OopGI8b4DGiYl48Fv+i6qzfFAI59
-         GRWJ9Q8B8Jv54/GFudNBcl0z0/dQaVEpw1Txxlm6PYZDlzPPQrI3+N1TDCpu7bsiChZv
-         eIWvS2W/SAXEcxSceVuOUQkSpoKI6msc4vCmvZKFDj7AQUjJ03V4L1xOE1oob0rQeDnV
-         vMuw==
+        bh=sMUP+wlhZ8g+tuzLPiwn3mBsR+LeHm7xmSWj9q3JJJ4=;
+        b=lI3pXKEKAymxBILwJUOLBswNtpRKMs3RFdZfkS6laTiTTfthv7ZWr5u1LQr1Ijy8zD
+         0cmLdLByncqaRsaXeGGw9SLh08C5/5gVePZDTaEaLW4u3djWjw4EuL5ToQzWj5aH16OQ
+         48V22C51Ezf+cNIlCevRanjtJhOHJa1cCr/e+v/8RS78AAXyC3AntlSTiDq1+PheVrUG
+         HZxOm+/RVmgKRf6i7/JoOpir0i4FPRKDr+f6MJ5P711bXUrwhSY4BVAtfc7xQX1UVn5R
+         n3TANmX8CE0RXvAB/TCv3SY5w4uOKY/2A/1L2gCfqOXgFNgk1Z2bb8zKwNDjbEkgSHqr
+         upaw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXusZKO2j4bC2mhpypQh6IyXKn2y64NJ1jNlfB1y+JLRe/wGnGCby0V0IMWtOGuH9JNibRR8ceQzrGZfVLXmGjrwtTIldktL6s28O4=
-X-Gm-Message-State: AOJu0Yw3YJzPX+fQKqjssN4Dm2XTaYOt+UFLwtkCLHYF3Jtrv9yLMi0Q
-	gZ0a/voOVdvdfmtHSDO4o/AHoMm11JujMu/Lj1MHyhn/io/Aw6Q7EaWuuTTs16caOgSoF8AMSie
-	U
+ AJvYcCW4zEFiusbzbtDmp7KWrxd3igvgLmeWbKCq2B1ffNx755wV6fJ6XqepW8h5gvqR/wZtuJ7OkkY/m224Hjr3TmUJFiCBGtiz0vrgbzU=
+X-Gm-Message-State: AOJu0Yxmq+UJvQ9DP0tnLf81KBSID+iR1/I+LH8qZ6S2AygIqIOpI1bk
+	Cimfg6CCeCGG6P3Zp5v3Hp91PRYCv+wYm/MqH6brRgiIzbfyz8RUJ1hc1R1dwUg=
 X-Google-Smtp-Source: 
- AGHT+IEIK53TDBowNSsIB8o/KBchyuj/pRPeFMmAXDj0MXN4/pA43aqm2tY0y8v2ZBLiX0IgHACxzQ==
-X-Received: by 2002:a05:600c:3108:b0:418:b425:d7da with SMTP id
- g8-20020a05600c310800b00418b425d7damr2069794wmo.32.1713538909053;
-        Fri, 19 Apr 2024 08:01:49 -0700 (PDT)
+ AGHT+IHpuWndHVKKKBXkjzI7oYy1jjgdAKfsoS5fJeCifW0YVwRYgaH5UckN0SgJC5ZFGU4MLWkuGQ==
+X-Received: by 2002:a05:600c:1d01:b0:419:96:965 with SMTP id
+ l1-20020a05600c1d0100b0041900960965mr1874240wms.37.1713538910674;
+        Fri, 19 Apr 2024 08:01:50 -0700 (PDT)
 Received: from localhost.localdomain ([5.133.47.210])
         by smtp.gmail.com with ESMTPSA id
- f11-20020a05600c4e8b00b00417ee886977sm10660462wmq.4.2024.04.19.08.01.47
+ f11-20020a05600c4e8b00b00417ee886977sm10660462wmq.4.2024.04.19.08.01.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 19 Apr 2024 08:01:48 -0700 (PDT)
+        Fri, 19 Apr 2024 08:01:49 -0700 (PDT)
 From: srinivas.kandagatla@linaro.org
 To: broonie@kernel.org
 Cc: perex@perex.cz,
@@ -99,16 +98,16 @@ Cc: perex@perex.cz,
 	steev@kali.org,
 	jenneron@postmarketos.org,
 	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: [PATCH 2/4] ASoC: qcom: common: add Display port Jack function
-Date: Fri, 19 Apr 2024 16:01:38 +0100
-Message-Id: <20240419150140.92527-3-srinivas.kandagatla@linaro.org>
+Subject: [PATCH 3/4] ASoC: qcom: sc8280xp: add Display port Jack
+Date: Fri, 19 Apr 2024 16:01:39 +0100
+Message-Id: <20240419150140.92527-4-srinivas.kandagatla@linaro.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240419150140.92527-1-srinivas.kandagatla@linaro.org>
 References: <20240419150140.92527-1-srinivas.kandagatla@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: CLXY6ATXLEHEIYZQDMZQQYNWLYYVPYQO
-X-Message-ID-Hash: CLXY6ATXLEHEIYZQDMZQQYNWLYYVPYQO
+Message-ID-Hash: MOLBFGVM5EOZO7W6XJ45RX43PDL2WKSC
+X-Message-ID-Hash: MOLBFGVM5EOZO7W6XJ45RX43PDL2WKSC
 X-MailFrom: srinivas.kandagatla@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -121,8 +120,9 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CLXY6ATXLEHEIYZQDMZQQYNWLYYVPYQO/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MOLBFGVM5EOZO7W6XJ45RX43PDL2WKSC/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
@@ -131,78 +131,56 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 
-Add a common function to add Display port jack, this can be used by
-multiple board files and avoid any code duplication.
+Add support to Display Port Jack events, by making use of common helper
+function.
 
 Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 ---
- sound/soc/qcom/common.c | 30 ++++++++++++++++++++++++++++++
- sound/soc/qcom/common.h |  3 +++
- 2 files changed, 33 insertions(+)
+ sound/soc/qcom/sc8280xp.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/sound/soc/qcom/common.c b/sound/soc/qcom/common.c
-index 747041fa7866..50abd4acaa3e 100644
---- a/sound/soc/qcom/common.c
-+++ b/sound/soc/qcom/common.c
-@@ -7,10 +7,14 @@
- #include <sound/jack.h>
- #include <linux/input-event-codes.h>
- #include "common.h"
-+#define NAME_SIZE	32
- 
- static const struct snd_soc_dapm_widget qcom_jack_snd_widgets[] = {
- 	SND_SOC_DAPM_HP("Headphone Jack", NULL),
- 	SND_SOC_DAPM_MIC("Mic Jack", NULL),
-+	SND_SOC_DAPM_SPK("HDMI/DP0 Jack", NULL),
-+	SND_SOC_DAPM_SPK("HDMI/DP1 Jack", NULL),
-+	SND_SOC_DAPM_SPK("HDMI/DP2 Jack", NULL),
+diff --git a/sound/soc/qcom/sc8280xp.c b/sound/soc/qcom/sc8280xp.c
+index b7fd503a1666..ced89cf65b5b 100644
+--- a/sound/soc/qcom/sc8280xp.c
++++ b/sound/soc/qcom/sc8280xp.c
+@@ -19,6 +19,7 @@ struct sc8280xp_snd_data {
+ 	struct snd_soc_card *card;
+ 	struct sdw_stream_runtime *sruntime[AFE_PORT_MAX];
+ 	struct snd_soc_jack jack;
++	struct snd_soc_jack hdmi_jack[8];
+ 	bool jack_setup;
  };
  
- int qcom_snd_parse_of(struct snd_soc_card *card)
-@@ -239,4 +243,30 @@ int qcom_snd_wcd_jack_setup(struct snd_soc_pcm_runtime *rtd,
- 	return 0;
- }
- EXPORT_SYMBOL_GPL(qcom_snd_wcd_jack_setup);
-+
-+int qcom_snd_dp_jack_setup(struct snd_soc_pcm_runtime *rtd,
-+			   struct snd_soc_jack *hdmi_jack, int hdmi_pcm_id)
-+{
-+	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
-+	struct snd_soc_dai *codec_dai = snd_soc_rtd_to_codec(rtd, 0);
-+	struct snd_soc_card *card = rtd->card;
-+	char jack_name[NAME_SIZE];
-+	int rval, i;
-+
-+	snprintf(jack_name, sizeof(jack_name), "HDMI/DP%d Jack", hdmi_pcm_id);
-+	rval = snd_soc_card_jack_new(card, jack_name, SND_JACK_AVOUT, hdmi_jack);
-+	if (rval)
-+		return rval;
-+
-+	for_each_rtd_codec_dais(rtd, i, codec_dai) {
-+		rval = snd_soc_component_set_jack(codec_dai->component, hdmi_jack, NULL);
-+		if (rval != 0 && rval != -ENOTSUPP) {
-+			dev_warn(card->dev, "Failed to set jack: %d\n", rval);
-+			return rval;
-+		}
-+	}
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(qcom_snd_dp_jack_setup);
- MODULE_LICENSE("GPL");
-diff --git a/sound/soc/qcom/common.h b/sound/soc/qcom/common.h
-index d7f80ee5ae26..3675d72c5285 100644
---- a/sound/soc/qcom/common.h
-+++ b/sound/soc/qcom/common.h
-@@ -9,5 +9,8 @@
- int qcom_snd_parse_of(struct snd_soc_card *card);
- int qcom_snd_wcd_jack_setup(struct snd_soc_pcm_runtime *rtd,
- 			    struct snd_soc_jack *jack, bool *jack_setup);
-+int qcom_snd_dp_jack_setup(struct snd_soc_pcm_runtime *rtd,
-+			   struct snd_soc_jack *jack, int id);
-+
+@@ -27,6 +28,8 @@ static int sc8280xp_snd_init(struct snd_soc_pcm_runtime *rtd)
+ 	struct sc8280xp_snd_data *data = snd_soc_card_get_drvdata(rtd->card);
+ 	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
+ 	struct snd_soc_card *card = rtd->card;
++	struct snd_soc_jack *hdmi_jack  = NULL;
++	int hdmi_pcm_id = 0;
  
- #endif
+ 	switch (cpu_dai->id) {
+ 	case WSA_CODEC_DMA_RX_0:
+@@ -41,10 +44,20 @@ static int sc8280xp_snd_init(struct snd_soc_pcm_runtime *rtd)
+ 		snd_soc_limit_volume(card, "SpkrLeft PA Volume", 17);
+ 		snd_soc_limit_volume(card, "SpkrRight PA Volume", 17);
+ 		break;
++	case DISPLAY_PORT_RX_0:
++		hdmi_pcm_id = 0;
++		hdmi_jack = &data->hdmi_jack[hdmi_pcm_id];
++		break;
++	case DISPLAY_PORT_RX_1 ... DISPLAY_PORT_RX_7:
++		hdmi_pcm_id = cpu_dai->id - DISPLAY_PORT_RX_1 + 1;
++		hdmi_jack = &data->hdmi_jack[hdmi_pcm_id];
+ 	default:
+ 		break;
+ 	}
+ 
++	if (hdmi_jack)
++		return qcom_snd_dp_jack_setup(rtd, hdmi_jack, hdmi_pcm_id);
++
+ 	return qcom_snd_wcd_jack_setup(rtd, &data->jack, &data->jack_setup);
+ }
+ 
 -- 
 2.43.0
 

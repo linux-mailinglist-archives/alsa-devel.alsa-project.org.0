@@ -2,80 +2,111 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 009B08AA688
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 Apr 2024 03:26:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 228048AA818
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 Apr 2024 07:53:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 43601EBE;
-	Fri, 19 Apr 2024 03:25:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 43601EBE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 34D42B65;
+	Fri, 19 Apr 2024 07:53:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 34D42B65
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1713489967;
-	bh=KGbKhUOEPigGgq2Jl8R0BeO4mee9gHipm6cfp8UjpCw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1713506015;
+	bh=DDv5h5HCNwIchwKdYozppsYyGKsrmtNPVNB+kld7Csk=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=QbXzalS04YFC/TUcp99v+TwQ3ViU698MWkQCtDwxE9yEciCXDj23b90Bm06DZZTGN
-	 sTTQQ0wTYPEQwXmSLM6IQYdQ0zegmDtjg5qDCHB9jvpLR69NquBZE/YzOD0dQq1Xx+
-	 7HCQAR2vFkEN5InL10lIMlZZK8HM6kzLbKDMqttk=
+	b=B5cjNOtpOnkehW4jOofyW2zYpMGgji5CoaKUnxRA37hA7L7NYQdpcPJoqQzI7mKqI
+	 A89t3D67Xcajtrb2dLLhae/z42AVSYzvJfpjquAkLPPhx29/4VU02iQ4BtTITwceZX
+	 F05rG90hylrKG/zTkc1JVnccLeWlyVSt8KKq9Dw4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3AE5CF805AD; Fri, 19 Apr 2024 03:25:32 +0200 (CEST)
+	id D9837F8057D; Fri, 19 Apr 2024 07:53:02 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 75678F80494;
-	Fri, 19 Apr 2024 03:25:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 70D52F8059F;
+	Fri, 19 Apr 2024 07:53:01 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B5FB8F8025A; Fri, 19 Apr 2024 03:25:28 +0200 (CEST)
+	id 10C77F8025A; Fri, 19 Apr 2024 07:48:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [IPv6:2a00:1450:4864:20::52c])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5E166F8013D
-	for <alsa-devel@alsa-project.org>; Fri, 19 Apr 2024 03:25:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E166F8013D
+	by alsa1.perex.cz (Postfix) with ESMTPS id D185FF801C0
+	for <alsa-devel@alsa-project.org>; Fri, 19 Apr 2024 07:47:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D185FF801C0
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=U7hTFuXW
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id EF9EE615F3;
-	Fri, 19 Apr 2024 01:25:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44D78C113CC;
-	Fri, 19 Apr 2024 01:25:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1713489920;
-	bh=KGbKhUOEPigGgq2Jl8R0BeO4mee9gHipm6cfp8UjpCw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=U7hTFuXWS1rN4vRFGlZpm+5AcFc1ufUbobeGwi6IyoKnBzO1HQ8sc2yHfE5zY05N9
-	 S997pklLR0BUTD0HpPceeLvU8w9eidARmOkYShmhZAB0T9WJnLCj4FGsJfmqacqTfP
-	 BULyw+QCZfrr7OntnEyLb5Eis1eocVFSv5nWAF7FztMgqAabIClfSJx9bdGJeR5sql
-	 9i8Ie+ZzcKBmbmhh+eIcIZQg5lqlo3HlSrD5K/g+nnCt6TmQLPsxINBcVrNiYDMQ4R
-	 n52rLEpof1dysIbbHkpzte+Sf2kKESqkJGdgi6lu46Bt4nOCdP7MxMh/00B4qaNSAz
-	 ESCIJwrwgQP0Q==
-Date: Fri, 19 Apr 2024 10:25:17 +0900
-From: Mark Brown <broonie@kernel.org>
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
-	linux-sound@vger.kernel.org
-Subject: Re: Question: layout of a patchset dependent on another tree
-Message-ID: <ZiHH_ZG3YebvefRj@finisterre.sirena.org.uk>
-References: <2d1980e9-f5b2-4c9e-9348-af69166d0882@intel.com>
+ unprotected) header.d=kali.org header.i=@kali.org header.a=rsa-sha256
+ header.s=google header.b=Ve68/ZsF
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-56e47843cc7so1489205a12.0
+        for <alsa-devel@alsa-project.org>;
+ Thu, 18 Apr 2024 22:47:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kali.org; s=google; t=1713505622; x=1714110422;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=oqAAIaynXWTmCZkKAS87XgyHGXeDGz4/5vtU3XxRi9k=;
+        b=Ve68/ZsFJF1Ad9gh59QAhzDGUuUEbzG5o4AL27VoHSQqll34NQblvehwyhbWTcpnK3
+         EaDdptIyOLIaEvPF9j32xWAzSJU/FzbND9p98APqQ/cSppGFpPGEnEXC/HnnuFgKjvou
+         9f3zbjTYl2j2RwN2sdXcj5SAZs3CBv1eT3V2lfOaxXLOKS87+cACpdgvbnsth8dC/WRL
+         8U9kr+M/J0xOR7CPDAdd5jw4jh21HBUIZiE7M7yQiV/n35+Spw7De04A2bEztj6nKRG1
+         KcPrHRio3j9nGGf9r2r5T3ia0rdbGJBEUBIBhi+TBUztIJPLXvaJ4awBdAz233X+1lfh
+         sI1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1713505622; x=1714110422;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=oqAAIaynXWTmCZkKAS87XgyHGXeDGz4/5vtU3XxRi9k=;
+        b=mQWPKYL+olehdQCWvv0sGGhoJkWQIwA7iJ48jU75ar7W5zTQuR3P2tgBZs83Ti31Cw
+         NGBjg6aEFN3vddNZQkxDqzyQfHTJfQPlfdQiKkuEnSYgiID/MOtbqFpruXxElPs4fN4A
+         3Gvld9rBbWPHrCETAqOhmAZxdmvEwaly/DJgVekT1aGYXZ11F9BDTKYQZLOsgV1Dq1ch
+         7FT7ngGeMD2E5hz/rI1G1ffB24VzejmcT1PX3ZugT0/1DyuqCjnTpEiPb8L0ZbnOKMQx
+         f2iqWcfMajX3Un9CaSEjoO7GwHA/ly20KOBNQJavZoXytZXgMD8ibwP3QOE5x/UNVmKs
+         YpJA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUrpR7VkT1mA80ZkVBrBWb6rHfinxmK8IVsJhHUSfLVhuX5wiCiooAG4Scl8z5DjRoiu0Mmd/px1yFjI0FgwJRpqALJOzvvE1ATW18=
+X-Gm-Message-State: AOJu0Yw0gIq83VCd/MJ/H0VJTzOE4Q4Vfe09psczjVacVwi1txeG9d43
+	RO1gJ3DIBJCtKr9W0cQIZ/ony2ijnMdofeQX8CQKjzjY6TRGltJlYFcZjot2lmZsptG0GouLi3M
+	I9EkHpvCn0duvgnZwkfBBQFSrpdyQCnUOtHkRZg==
+X-Google-Smtp-Source: 
+ AGHT+IHHAfaZ1NZrYxHPy6GwaV4DPbUEBeZyilIDmUO+m3CqYQiH43kN2ZxvrBVG3Ivt8+6yminJOjlWWA8AYfUwV+c=
+X-Received: by 2002:a50:c31c:0:b0:56c:2ef7:f3e6 with SMTP id
+ a28-20020a50c31c000000b0056c2ef7f3e6mr748584edb.0.1713505621565; Thu, 18 Apr
+ 2024 22:47:01 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Li+p0Qq5xCtvKgsP"
-Content-Disposition: inline
-In-Reply-To: <2d1980e9-f5b2-4c9e-9348-af69166d0882@intel.com>
-X-Cookie: TANSTAAFL
-Message-ID-Hash: 3IXLEUQL7E6XFYUSSB3G7QZ6JTO64P53
-X-Message-ID-Hash: 3IXLEUQL7E6XFYUSSB3G7QZ6JTO64P53
-X-MailFrom: broonie@kernel.org
+References: <20240413064225.39643-1-jenneron@postmarketos.org>
+ <20240413064225.39643-2-jenneron@postmarketos.org>
+ <3b245ae8-31ee-4576-a123-0dc3aba4ce10@linaro.org>
+In-Reply-To: <3b245ae8-31ee-4576-a123-0dc3aba4ce10@linaro.org>
+From: Steev Klimaszewski <steev@kali.org>
+Date: Fri, 19 Apr 2024 00:46:50 -0500
+Message-ID: 
+ <CAKXuJqhQssxfTQ+6Bf2JbHjX3f6k4whB1j-G189SNXmkTyvdQw@mail.gmail.com>
+Subject: Re: [PATCH v1 1/1] soundwire: qcom: disable stop clock on 1.3.0 and
+ below
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Cc: Anton Bambura <jenneron@postmarketos.org>, Andy Gross <agross@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+	Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Sanyog Kale <sanyog.r.kale@intel.com>, linux-arm-msm@vger.kernel.org,
+	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: UALEWDU4NKQLNPW3CY2AAJZRED4WFL4L
+X-Message-ID-Hash: UALEWDU4NKQLNPW3CY2AAJZRED4WFL4L
+X-MailFrom: steev@kali.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -87,7 +118,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3IXLEUQL7E6XFYUSSB3G7QZ6JTO64P53/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UALEWDU4NKQLNPW3CY2AAJZRED4WFL4L/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,41 +127,56 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Hi Srini,
 
---Li+p0Qq5xCtvKgsP
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On Wed, Apr 17, 2024 at 6:43=E2=80=AFAM Srinivas Kandagatla
+<srinivas.kandagatla@linaro.org> wrote:
+>
+> This is not the right fix, this can be determined from codec
+> clk_stop_mode1 flag.
+>
+> can you try this patch:
+>
+> ----------------------------->cut<-----------------------------
+> From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> Date: Wed, 17 Apr 2024 12:38:49 +0100
+> Subject: [PATCH] ASoC: codecs: wsa881x: set clk_stop_mode1 flag
+>
+> WSA881x codecs do not retain the state while clock is stopped, so mark
+> this with clk_stop_mode1 flag.
+>
+> Fixes: a0aab9e1404a ("ASoC: codecs: add wsa881x amplifier support")
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> ---
+>   sound/soc/codecs/wsa881x.c | 1 +
+>   1 file changed, 1 insertion(+)
+>
+> diff --git a/sound/soc/codecs/wsa881x.c b/sound/soc/codecs/wsa881x.c
+> index 3c025dabaf7a..1253695bebd8 100644
+> --- a/sound/soc/codecs/wsa881x.c
+> +++ b/sound/soc/codecs/wsa881x.c
+> @@ -1155,6 +1155,7 @@ static int wsa881x_probe(struct sdw_slave *pdev,
+>         pdev->prop.sink_ports =3D GENMASK(WSA881X_MAX_SWR_PORTS, 0);
+>         pdev->prop.sink_dpn_prop =3D wsa_sink_dpn_prop;
+>         pdev->prop.scp_int1_mask =3D SDW_SCP_INT1_BUS_CLASH | SDW_SCP_INT=
+1_PARITY;
+> +       pdev->prop.clk_stop_mode1 =3D true;
+>         gpiod_direction_output(wsa881x->sd_n, !wsa881x->sd_n_val);
+>
+>         wsa881x->regmap =3D devm_regmap_init_sdw(pdev, &wsa881x_regmap_co=
+nfig);
+> --
+> 2.21.0
+> ----------------------------->cut<-----------------------------
+>
+>
+> thanks,
+> Srini
+>
+> >               if (!found) {
+> >                       qcom_swrm_set_slave_dev_num(bus, NULL, i);
+> >                       sdw_slave_add(bus, &id, NULL);
+>
 
-On Thu, Apr 18, 2024 at 01:43:25PM +0200, Cezary Rojewski wrote:
-
-> I'd like to send changes which do modify the avs-driver but are dependent on
-> ACPI/NHLT changes I've recently upstream [1] to Rafael's linux-acpi tree.
-> Thanks to Rafael, there's an immutable branch [2] that has all relevant
-> commits on the top.
-
-> Should I send both the NHLT+avs changes and have broonie/for-next as a base
-> for that or provide only the avs changes and state the dependency within the
-> cover-letter? The latter will fail to compile without its dependency
-> obviously.
-
-I'd send based on the immutable branch so long as that will merge into
-my tree easily enough (doesn't have to be perfect).  If it needs the
-immutable branch merging into the ASoC tree first then I'd send based on
-that merge with a note in the cover letter explaining this.
-
---Li+p0Qq5xCtvKgsP
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmYhx/0ACgkQJNaLcl1U
-h9CQ1Qf/R4/qXGOmW5XJw5wzcAFG9D51e/SNzL1ah9HEm0NexPfBt/omw5PzS/aZ
-abg8j9ZvPYpSxxhM/nGaJ0Qf5NzybfB1ebUkPIAVI/sXXyWJRqUIK3kLqQsyUQOx
-K6PWoezrCP6yWrKU3zEjApLMud+fgThArQnz5n0pfJd4eyu5gyojIaeg7NiurtDV
-IXchjctOsrWVAMzcoxh5NGjcfCMJQnsID6006jDazXp/aIiKevfUdtV45Yv1UTzr
-YhkLZi+G9kmfRBJ+xCP5mT1fjQNpeQuargnhPJu0x9U+zb1XKHApKstYRoYhbzyc
-FygHl6AsO8ynHIhMsMgRsDjRH0zPBw==
-=8PLJ
------END PGP SIGNATURE-----
-
---Li+p0Qq5xCtvKgsP--
+I tested it here on my c630 and can confirm that your patch does fix
+the audio as well.

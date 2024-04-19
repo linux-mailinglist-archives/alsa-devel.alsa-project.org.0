@@ -2,111 +2,123 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 228048AA818
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 Apr 2024 07:53:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F0988AA93A
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 Apr 2024 09:32:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 34D42B65;
-	Fri, 19 Apr 2024 07:53:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 34D42B65
+	by alsa0.perex.cz (Postfix) with ESMTPS id DBDD3A4A;
+	Fri, 19 Apr 2024 09:32:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DBDD3A4A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1713506015;
-	bh=DDv5h5HCNwIchwKdYozppsYyGKsrmtNPVNB+kld7Csk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=B5cjNOtpOnkehW4jOofyW2zYpMGgji5CoaKUnxRA37hA7L7NYQdpcPJoqQzI7mKqI
-	 A89t3D67Xcajtrb2dLLhae/z42AVSYzvJfpjquAkLPPhx29/4VU02iQ4BtTITwceZX
-	 F05rG90hylrKG/zTkc1JVnccLeWlyVSt8KKq9Dw4=
+	s=default; t=1713511938;
+	bh=1W1wKmyjgUnLlO7H58gYIoT+uueMc19QlOOhLij24FM=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=arrMuT802uVHL49ds19gQF8Qfdii8nZYO0Tt61rSpFQ70wiBeosbtr7Z3bmPBHJTx
+	 AeABIr0Fj4XKCX2/iOKbu1pTcfe9BiI76Yr/qBlgec8548/l9ota6JUNvkOACfeO6j
+	 hPPRgj7As/jSBUrgQP3Nv2JDlFKrfEUcnYCLqzJM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D9837F8057D; Fri, 19 Apr 2024 07:53:02 +0200 (CEST)
+	id 2DEA3F80580; Fri, 19 Apr 2024 09:31:48 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 70D52F8059F;
-	Fri, 19 Apr 2024 07:53:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 295ACF80589;
+	Fri, 19 Apr 2024 09:31:47 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 10C77F8025A; Fri, 19 Apr 2024 07:48:42 +0200 (CEST)
+	id 884FBF8025A; Fri, 19 Apr 2024 09:31:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-2.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [IPv6:2a00:1450:4864:20::52c])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D185FF801C0
-	for <alsa-devel@alsa-project.org>; Fri, 19 Apr 2024 07:47:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D185FF801C0
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0694AF801C0
+	for <alsa-devel@alsa-project.org>; Fri, 19 Apr 2024 09:31:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0694AF801C0
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kali.org header.i=@kali.org header.a=rsa-sha256
- header.s=google header.b=Ve68/ZsF
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-56e47843cc7so1489205a12.0
-        for <alsa-devel@alsa-project.org>;
- Thu, 18 Apr 2024 22:47:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kali.org; s=google; t=1713505622; x=1714110422;
- darn=alsa-project.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=oqAAIaynXWTmCZkKAS87XgyHGXeDGz4/5vtU3XxRi9k=;
-        b=Ve68/ZsFJF1Ad9gh59QAhzDGUuUEbzG5o4AL27VoHSQqll34NQblvehwyhbWTcpnK3
-         EaDdptIyOLIaEvPF9j32xWAzSJU/FzbND9p98APqQ/cSppGFpPGEnEXC/HnnuFgKjvou
-         9f3zbjTYl2j2RwN2sdXcj5SAZs3CBv1eT3V2lfOaxXLOKS87+cACpdgvbnsth8dC/WRL
-         8U9kr+M/J0xOR7CPDAdd5jw4jh21HBUIZiE7M7yQiV/n35+Spw7De04A2bEztj6nKRG1
-         KcPrHRio3j9nGGf9r2r5T3ia0rdbGJBEUBIBhi+TBUztIJPLXvaJ4awBdAz233X+1lfh
-         sI1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713505622; x=1714110422;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=oqAAIaynXWTmCZkKAS87XgyHGXeDGz4/5vtU3XxRi9k=;
-        b=mQWPKYL+olehdQCWvv0sGGhoJkWQIwA7iJ48jU75ar7W5zTQuR3P2tgBZs83Ti31Cw
-         NGBjg6aEFN3vddNZQkxDqzyQfHTJfQPlfdQiKkuEnSYgiID/MOtbqFpruXxElPs4fN4A
-         3Gvld9rBbWPHrCETAqOhmAZxdmvEwaly/DJgVekT1aGYXZ11F9BDTKYQZLOsgV1Dq1ch
-         7FT7ngGeMD2E5hz/rI1G1ffB24VzejmcT1PX3ZugT0/1DyuqCjnTpEiPb8L0ZbnOKMQx
-         f2iqWcfMajX3Un9CaSEjoO7GwHA/ly20KOBNQJavZoXytZXgMD8ibwP3QOE5x/UNVmKs
-         YpJA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUrpR7VkT1mA80ZkVBrBWb6rHfinxmK8IVsJhHUSfLVhuX5wiCiooAG4Scl8z5DjRoiu0Mmd/px1yFjI0FgwJRpqALJOzvvE1ATW18=
-X-Gm-Message-State: AOJu0Yw0gIq83VCd/MJ/H0VJTzOE4Q4Vfe09psczjVacVwi1txeG9d43
-	RO1gJ3DIBJCtKr9W0cQIZ/ony2ijnMdofeQX8CQKjzjY6TRGltJlYFcZjot2lmZsptG0GouLi3M
-	I9EkHpvCn0duvgnZwkfBBQFSrpdyQCnUOtHkRZg==
-X-Google-Smtp-Source: 
- AGHT+IHHAfaZ1NZrYxHPy6GwaV4DPbUEBeZyilIDmUO+m3CqYQiH43kN2ZxvrBVG3Ivt8+6yminJOjlWWA8AYfUwV+c=
-X-Received: by 2002:a50:c31c:0:b0:56c:2ef7:f3e6 with SMTP id
- a28-20020a50c31c000000b0056c2ef7f3e6mr748584edb.0.1713505621565; Thu, 18 Apr
- 2024 22:47:01 -0700 (PDT)
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=i+sRtcYO
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1713511885; x=1745047885;
+  h=message-id:date:mime-version:subject:to:references:from:
+   in-reply-to:content-transfer-encoding;
+  bh=1W1wKmyjgUnLlO7H58gYIoT+uueMc19QlOOhLij24FM=;
+  b=i+sRtcYOpA8oWHEu8EqRat33KRBeh1DTmf/jez7jgPRtiOewmSYwZd3I
+   0zjq/RcnJJQP6mogk5OrqIMTbkkYQ+blpcNz6Z4hwQJUY8P/0RamSI4uv
+   tL81eV9qgZsqUTG6AJQ3hLq9Vs1HTyf9j7L2w2icFrH2c+lTB4KP0d6i9
+   2ONxA79AxOxr8NYHHS7EZXVrJUHyS6W1FU4akZbbmBiT+hBGWnSPM+kg7
+   WxVbBSsfe0oS+IWfWshTzCsaawAl0AwlB8MO+2srPIkMrglw77nAR+msN
+   ypzt/3eK3vvKVn9Hv9nY3cc6ixfw44LGqdRmVi+7HJN8zCGTzzqtDvn4Q
+   A==;
+X-CSE-ConnectionGUID: 8XT3UvwlRyKu3Hd9t8fUvQ==
+X-CSE-MsgGUID: nzjSQxuwRBGYjXffpNRqNQ==
+X-IronPort-AV: E=McAfee;i="6600,9927,11047"; a="8972453"
+X-IronPort-AV: E=Sophos;i="6.07,213,1708416000";
+   d="scan'208";a="8972453"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Apr 2024 00:31:19 -0700
+X-CSE-ConnectionGUID: fCprXCqsQCC9GuV7KLXVkg==
+X-CSE-MsgGUID: 43memXPHTduSJHre2tY33Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.07,213,1708416000";
+   d="scan'208";a="23285237"
+Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.94.8.107])
+ ([10.94.8.107])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Apr 2024 00:31:10 -0700
+Message-ID: <6bb27015-293d-403d-9144-b44454b6bc20@linux.intel.com>
+Date: Fri, 19 Apr 2024 09:31:07 +0200
 MIME-Version: 1.0
-References: <20240413064225.39643-1-jenneron@postmarketos.org>
- <20240413064225.39643-2-jenneron@postmarketos.org>
- <3b245ae8-31ee-4576-a123-0dc3aba4ce10@linaro.org>
-In-Reply-To: <3b245ae8-31ee-4576-a123-0dc3aba4ce10@linaro.org>
-From: Steev Klimaszewski <steev@kali.org>
-Date: Fri, 19 Apr 2024 00:46:50 -0500
-Message-ID: 
- <CAKXuJqhQssxfTQ+6Bf2JbHjX3f6k4whB1j-G189SNXmkTyvdQw@mail.gmail.com>
-Subject: Re: [PATCH v1 1/1] soundwire: qcom: disable stop clock on 1.3.0 and
- below
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Cc: Anton Bambura <jenneron@postmarketos.org>, Andy Gross <agross@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
-	Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Sanyog Kale <sanyog.r.kale@intel.com>, linux-arm-msm@vger.kernel.org,
-	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: UALEWDU4NKQLNPW3CY2AAJZRED4WFL4L
-X-Message-ID-Hash: UALEWDU4NKQLNPW3CY2AAJZRED4WFL4L
-X-MailFrom: steev@kali.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 19/23] ASoC: Intel: Replace playback/capture_only to
+ playback/capture_assertion
+Content-Language: en-US
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Alper Nebi Yasak <alpernebiyasak@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Banajit Goswami <bgoswami@quicinc.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, Brent Lu <brent.lu@intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>, Hans de Goede <hdegoede@redhat.com>,
+ Jaroslav Kysela <perex@perex.cz>, Jerome Brunet <jbrunet@baylibre.com>,
+ Jiawei Wang <me@jwang.link>, Jonathan Corbet <corbet@lwn.net>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Kevin Hilman <khilman@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Maso Huang <maso.huang@mediatek.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>,
+ Shengjiu Wang <shengjiu.wang@gmail.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>, Takashi Iwai <tiwai@suse.com>,
+ Vinod Koul <vkoul@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ alsa-devel@alsa-project.org, imx@lists.linux.dev, linux-doc@vger.kernel.org,
+ linux-sound@vger.kernel.org
+References: <87h6fz8g3u.wl-kuninori.morimoto.gx@renesas.com>
+ <87plun71db.wl-kuninori.morimoto.gx@renesas.com>
+ <481d5755-ac70-4a01-899d-9d39f5075350@linux.intel.com>
+ <aa01d483-3a24-4388-be11-86b92bade374@linux.intel.com>
+From: =?UTF-8?Q?Amadeusz_S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+In-Reply-To: <aa01d483-3a24-4388-be11-86b92bade374@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: MB5DGQQVQFTZMFCWJFHBZHU2WFL4RXJR
+X-Message-ID-Hash: MB5DGQQVQFTZMFCWJFHBZHU2WFL4RXJR
+X-MailFrom: amadeuszx.slawinski@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -118,7 +130,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UALEWDU4NKQLNPW3CY2AAJZRED4WFL4L/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MB5DGQQVQFTZMFCWJFHBZHU2WFL4RXJR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -127,56 +139,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Srini,
+On 4/18/2024 6:26 PM, Pierre-Louis Bossart wrote:
+> 
+> 
+> On 4/18/24 06:19, Amadeusz Sławiński wrote:
+>> On 4/18/2024 6:15 AM, Kuninori Morimoto wrote:
+>>> soc_get_playback_capture() is now handling DPCM and normal
+>>> comprehensively for playback/capture stream in same code.
+>>> This patch converts xxx_only flag to xxx_assertion.
+>>>
+>>> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+>>> ---
+>>>    sound/soc/intel/boards/bdw-rt5677.c | 2 +-
+>>>    1 file changed, 1 insertion(+), 1 deletion(-)
+>>>
+>>> diff --git a/sound/soc/intel/boards/bdw-rt5677.c
+>>> b/sound/soc/intel/boards/bdw-rt5677.c
+>>> index 54e3c5d3c251..9170b1d509e2 100644
+>>> --- a/sound/soc/intel/boards/bdw-rt5677.c
+>>> +++ b/sound/soc/intel/boards/bdw-rt5677.c
+>>> @@ -339,7 +339,7 @@ static struct snd_soc_dai_link bdw_rt5677_dais[] = {
+>>>        {
+>>>            .name = "Codec DSP",
+>>>            .stream_name = "Wake on Voice",
+>>> -        .capture_only = 1,
+>>> +        .capture_assertion = 1,
+>>>            .ops = &bdw_rt5677_dsp_ops,
+>>>            SND_SOC_DAILINK_REG(dsp),
+>>>        },
+>>
+>> Should this have been part of patch 8?
+> 
+> Patch 8 deals with the following changes
+> 
+> -		.dpcm_playback = 1,
+> -		.dpcm_capture = 1,
+> +		.playback_assertion = 1,
+> +		.capture_assertion = 1,
+> 
+> This case is about
+> 
+>> -        .capture_only = 1,
+>> +        .capture_assertion = 1,
+> 
+> I think it's good to make this change separately.
 
-On Wed, Apr 17, 2024 at 6:43=E2=80=AFAM Srinivas Kandagatla
-<srinivas.kandagatla@linaro.org> wrote:
->
-> This is not the right fix, this can be determined from codec
-> clk_stop_mode1 flag.
->
-> can you try this patch:
->
-> ----------------------------->cut<-----------------------------
-> From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-> Date: Wed, 17 Apr 2024 12:38:49 +0100
-> Subject: [PATCH] ASoC: codecs: wsa881x: set clk_stop_mode1 flag
->
-> WSA881x codecs do not retain the state while clock is stopped, so mark
-> this with clk_stop_mode1 flag.
->
-> Fixes: a0aab9e1404a ("ASoC: codecs: add wsa881x amplifier support")
-> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-> ---
->   sound/soc/codecs/wsa881x.c | 1 +
->   1 file changed, 1 insertion(+)
->
-> diff --git a/sound/soc/codecs/wsa881x.c b/sound/soc/codecs/wsa881x.c
-> index 3c025dabaf7a..1253695bebd8 100644
-> --- a/sound/soc/codecs/wsa881x.c
-> +++ b/sound/soc/codecs/wsa881x.c
-> @@ -1155,6 +1155,7 @@ static int wsa881x_probe(struct sdw_slave *pdev,
->         pdev->prop.sink_ports =3D GENMASK(WSA881X_MAX_SWR_PORTS, 0);
->         pdev->prop.sink_dpn_prop =3D wsa_sink_dpn_prop;
->         pdev->prop.scp_int1_mask =3D SDW_SCP_INT1_BUS_CLASH | SDW_SCP_INT=
-1_PARITY;
-> +       pdev->prop.clk_stop_mode1 =3D true;
->         gpiod_direction_output(wsa881x->sd_n, !wsa881x->sd_n_val);
->
->         wsa881x->regmap =3D devm_regmap_init_sdw(pdev, &wsa881x_regmap_co=
-nfig);
-> --
-> 2.21.0
-> ----------------------------->cut<-----------------------------
->
->
-> thanks,
-> Srini
->
-> >               if (!found) {
-> >                       qcom_swrm_set_slave_dev_num(bus, NULL, i);
-> >                       sdw_slave_add(bus, &id, NULL);
->
-
-I tested it here on my c630 and can confirm that your patch does fix
-the audio as well.
+Indeed, missed that.

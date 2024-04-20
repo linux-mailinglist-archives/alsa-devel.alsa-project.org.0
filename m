@@ -2,113 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 954FE8AB141
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 Apr 2024 17:03:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EBE6E8AB81D
+	for <lists+alsa-devel@lfdr.de>; Sat, 20 Apr 2024 02:27:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0ED8114E5;
-	Fri, 19 Apr 2024 17:03:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0ED8114E5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 74A5DB65;
+	Sat, 20 Apr 2024 02:26:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 74A5DB65
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1713539014;
-	bh=bPISGBwHKS65Ig8Nwyh0u0FEtW0ODA1tiQEsn9m1a78=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=j6YQ2mRK4QSsLNfi/FfAcqXaBKn3CYBec6uIUIGXfqoRKNmCvTNEGImeHtBSwbawt
-	 z9z+cwGq67tlkxZ+I7O525164PCS83KXinRUE5+LFfglYfzmAkxQUYCVPNw/qca9Gm
-	 PzhZfTISkij5DHgWYG4p00A8LIXTDmh9X5ME2U8Y=
+	s=default; t=1713572820;
+	bh=SNHtumGqvwr1lZZ9ZIBoUzL+sDV4Ix/gONciePeUyFQ=;
+	h=From:Date:Subject:To:Cc:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=E/fSMy3rT6fpAO+caquR2cSRkcf37w9pU7j13p0kOXP+xL2dRhw4tUCTeYP4mfKz7
+	 CpFhXRMg35u6FhNGqTT0LqxVrgW1ow8Fmsc67clG2iDJoT563+OU0CtpNd9yGqNh+8
+	 JqXZn3ZmIJK/u1FT/KYVlMQBN9uWzdGX/GAvwbeE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AB964F80619; Fri, 19 Apr 2024 17:02:14 +0200 (CEST)
+	id 14AE4F805AE; Sat, 20 Apr 2024 02:26:29 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CC423F80604;
-	Fri, 19 Apr 2024 17:02:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A8F4EF8057A;
+	Sat, 20 Apr 2024 02:26:28 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 56E6FF805C2; Fri, 19 Apr 2024 17:02:05 +0200 (CEST)
+	id 02EE9F8025A; Sat, 20 Apr 2024 02:26:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: ***
-X-Spam-Status: No, score=3.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_SBL_CSS,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=no autolearn_force=no
-	version=3.4.6
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [IPv6:2a00:1450:4864:20::231])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A0635F801C0
-	for <alsa-devel@alsa-project.org>; Fri, 19 Apr 2024 17:01:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0635F801C0
+	by alsa1.perex.cz (Postfix) with ESMTPS id 572A1F8003A
+	for <alsa-devel@alsa-project.org>; Sat, 20 Apr 2024 02:26:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 572A1F8003A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=x48LWHGK
-Received: by mail-lj1-x231.google.com with SMTP id
- 38308e7fff4ca-2db17e8767cso30252631fa.3
-        for <alsa-devel@alsa-project.org>;
- Fri, 19 Apr 2024 08:01:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1713538913; x=1714143713;
- darn=alsa-project.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=SKK2lHWVNTM0FrAdLX6Qzm6HKxic16xHNY/tlXN6dfw=;
-        b=x48LWHGKLsac272x5hPR2K9yAWCkMXPlBBq4cI6GvlgjPeQ3gTvCpn1PWPOPmw8JAZ
-         188vPlCRugXibcy7qjJSm0v3cD+W+H3IP7XNw54jZRkSLPidKQ6UXespuaQfvq+D/P4/
-         WkgqdX44Ub2ClKvqcN66+cDiHPZpa8pci8ABo/62AG8pFjIly78qyk7bkygheg3lhqfq
-         gsTyIpQ3mHd724NqlSR1n1VdJKzvZU9BilTaa3VJ6B3EjtkHxzhYQ7uHjT3ccJpnn5+l
-         ZTBzPk7DMTGYYKh8f9xdUxuNRja8f8zYEAWDhwWBubMo6gYRgWvdg0/0MPNdhWesCvUI
-         RLvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713538913; x=1714143713;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=SKK2lHWVNTM0FrAdLX6Qzm6HKxic16xHNY/tlXN6dfw=;
-        b=pn5Lee/KFIIdmDC5wAIjbwOIr6yoWq7xhSHjN8c9Wj9OYREjcOkKUJC5FarlaUzdRa
-         ITU8CggU8SWirDWZpjKDidUw+qC2O/duQ8Gmzrs+54FsJYk+w1YfisSUbkxfmJsAJT9Z
-         rFEoqcr/g+10NaCNar7XrjWJre85zLkqoS4ED0QT/ZKqw4yeTaEpZfLKzARp8an4p44L
-         LUTD3I26+rY5nBuBXmlAn5StnwsavJABr5p5L8h89zaioqMejp7O+JoTQ8fTZi5at01w
-         0gaJ2R9eh5D4gWSW9nffAc9klyr9a0DAhpRsOW6exq3gMgH/fqKU3ZpifY7JsQzIyp79
-         Cvng==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX2sfttmfff7hlgVWBsRoB13n5gGYjuvawTDW/OETeyinayRT08wzDDAr0SnNEO8jBo0yHveu4cSy6uQhAEV5IUz4j6hiY1VwzVpM0=
-X-Gm-Message-State: AOJu0Yx3Xbb5TiiLuGQA3Nrj4POWjKaCp2HscyE7Y9u6h0qCE5VBaQ/R
-	yulf+6B4Xpf/7WSjvThJb/8+rJTqPl0mV1aAVRDci/9nkswGLITq1Jfx2WU9e8o=
-X-Google-Smtp-Source: 
- AGHT+IGGJookUTMXcDbddWvz5/sMR1qyz7+vIW0U7CPi5oZhv1EIeWy4UabCosCISYA4f+jbMedvEg==
-X-Received: by 2002:a05:651c:3cc:b0:2d8:59cb:89ef with SMTP id
- f12-20020a05651c03cc00b002d859cb89efmr1379263ljp.24.1713538912186;
-        Fri, 19 Apr 2024 08:01:52 -0700 (PDT)
-Received: from localhost.localdomain ([5.133.47.210])
-        by smtp.gmail.com with ESMTPSA id
- f11-20020a05600c4e8b00b00417ee886977sm10660462wmq.4.2024.04.19.08.01.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 19 Apr 2024 08:01:51 -0700 (PDT)
-From: srinivas.kandagatla@linaro.org
-To: broonie@kernel.org
-Cc: perex@perex.cz,
-	tiwai@suse.com,
-	lgirdwood@gmail.com,
-	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org,
-	steev@kali.org,
-	jenneron@postmarketos.org,
-	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: [PATCH 4/4] ASoC: qcom: sm8250: fix a typo in function name
-Date: Fri, 19 Apr 2024 16:01:40 +0100
-Message-Id: <20240419150140.92527-5-srinivas.kandagatla@linaro.org>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240419150140.92527-1-srinivas.kandagatla@linaro.org>
-References: <20240419150140.92527-1-srinivas.kandagatla@linaro.org>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=AEm/Al3Y
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id DF6EACE1AD8;
+	Sat, 20 Apr 2024 00:26:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EADCC072AA;
+	Sat, 20 Apr 2024 00:26:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1713572768;
+	bh=SNHtumGqvwr1lZZ9ZIBoUzL+sDV4Ix/gONciePeUyFQ=;
+	h=From:Date:Subject:To:Cc:From;
+	b=AEm/Al3Y/lnCA+rSEpzUsw4YwQhg/ziHfeBnNKMZES2l/oTN6jgFoHXoSDtLHENV9
+	 JXOQ8fhGhoAuDY9gtQOhywd3/E3ziE+UA8MZf5etYR3i/KR8FTyHA7ksvWGfucF49J
+	 dchf5VO1G205lcgriReHdAaQVJcrZPisLHcghAI3ZopYP8zDy0+qIX6cyGZOg5j7Zx
+	 SA67BTjIgaYTMycak/czUUoqflfJUo1UsQmRzxJ+gsgd7vjtOK3SI6mQSyNWX60f2n
+	 ytTmrrvNTncjjocd5bXRENxtDKcWB5BK2Pgh57eplVylQN6/7f8r3R6eP2m+H4+vK7
+	 nnrMP/8tj0C3Q==
+From: Nathan Chancellor <nathan@kernel.org>
+Date: Fri, 19 Apr 2024 17:25:59 -0700
+Subject: [PATCH] ALSA: scarlett2: Zero initialize ret in
+ scarlett2_ag_target_ctl_get()
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: RQUZ6NERVU3DEQ2OLX422BPPRUYMEWB3
-X-Message-ID-Hash: RQUZ6NERVU3DEQ2OLX422BPPRUYMEWB3
-X-MailFrom: srinivas.kandagatla@linaro.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: 
+ <20240419-alsa-scarlett2-fix-wsometimes-uninitialized-v1-1-e2ace8642e08@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAJYLI2YC/x2NwQrCMBAFf6Xs2YU2pEr9FfGwNlt9kKaSTVUs/
+ XeDx4FhZiPTDDU6NxtlfcGwpArdoaHxIemujFCZXOt867uBJZqwjZKjluJ4wofftsxaMKvxmpB
+ QIBFfDRy8n07Hfrj1TqgWn1mr/79drvv+AwrggP19AAAA
+To: g@b4.vu, tiwai@suse.com
+Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+ llvm@lists.linux.dev, patches@lists.linux.dev,
+ Nathan Chancellor <nathan@kernel.org>
+X-Mailer: b4 0.14-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2182; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=SNHtumGqvwr1lZZ9ZIBoUzL+sDV4Ix/gONciePeUyFQ=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDGnK3PNfz9zypEevTnzlgnVzA4XzFG9yRk6znZqwytkwN
+ 4cj4sirjlIWBjEuBlkxRZbqx6rHDQ3nnGW8cWoSzBxWJpAhDFycAjARppsM/0vv6EtNt//fbKsl
+ bbKjU+s9c9vhRc9tf5Wf4rYWkKlQaWf4p2QwYUvLteTCux/NXki83FQ47cf3nS7NxZ43xf5xuWq
+ VcwIA
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
+Message-ID-Hash: OJPJJDHCG2PZDVWPHDUTK7R554ZCL3XW
+X-Message-ID-Hash: OJPJJDHCG2PZDVWPHDUTK7R554ZCL3XW
+X-MailFrom: nathan@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -119,7 +96,8 @@ X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: <>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OJPJJDHCG2PZDVWPHDUTK7R554ZCL3XW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -128,38 +106,57 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Clang warns (or errors with CONFIG_WERROR):
 
-Fix a small type in the function name as its confusing to see a SoC name
-that does not exist. 
+  sound/usb/mixer_scarlett2.c:3697:6: error: variable 'err' is used uninitialized whenever 'if' condition is false [-Werror,-Wsometimes-uninitialized]
+   3697 |         if (private->autogain_updated) {
+        |             ^~~~~~~~~~~~~~~~~~~~~~~~~
+  sound/usb/mixer_scarlett2.c:3707:9: note: uninitialized use occurs here
+   3707 |         return err;
+        |                ^~~
+  sound/usb/mixer_scarlett2.c:3697:2: note: remove the 'if' if its condition is always true
+   3697 |         if (private->autogain_updated) {
+        |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  sound/usb/mixer_scarlett2.c:3688:9: note: initialize the variable 'err' to silence this warning
+   3688 |         int err;
+        |                ^
+        |                 = 0
+  1 error generated.
 
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Initialize ret to zero to ensure ret is initialized in all paths within
+scarlett2_ag_target_ctl_get(), which matches the style of other
+functions in this driver.
+
+Fixes: e30ea5340c25 ("ALSA: scarlett2: Add autogain target controls")
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
 ---
- sound/soc/qcom/sm8250.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+FWIW, a lot of the functions that end in just 'mutex_unlock()' before
+returning could probably benefit from the cleanup.h infrastructure,
+which would help with the scope of err in this particular function, but
+I decided to go with the most minimal fix here.
+---
+ sound/usb/mixer_scarlett2.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/qcom/sm8250.c b/sound/soc/qcom/sm8250.c
-index d70df72c0160..9bd159b81d69 100644
---- a/sound/soc/qcom/sm8250.c
-+++ b/sound/soc/qcom/sm8250.c
-@@ -70,7 +70,7 @@ static int sm8250_snd_startup(struct snd_pcm_substream *substream)
- 	return qcom_snd_sdw_startup(substream);
- }
+diff --git a/sound/usb/mixer_scarlett2.c b/sound/usb/mixer_scarlett2.c
+index a2de31a0371b..b251d25f2a85 100644
+--- a/sound/usb/mixer_scarlett2.c
++++ b/sound/usb/mixer_scarlett2.c
+@@ -3685,7 +3685,7 @@ static int scarlett2_ag_target_ctl_get(
+ 	struct usb_mixer_elem_info *elem = kctl->private_data;
+ 	struct usb_mixer_interface *mixer = elem->head.mixer;
+ 	struct scarlett2_data *private = mixer->private_data;
+-	int err;
++	int err = 0;
  
--static void sm2450_snd_shutdown(struct snd_pcm_substream *substream)
-+static void sm8250_snd_shutdown(struct snd_pcm_substream *substream)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
- 	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
-@@ -115,7 +115,7 @@ static int sm8250_snd_hw_free(struct snd_pcm_substream *substream)
+ 	mutex_lock(&private->data_mutex);
  
- static const struct snd_soc_ops sm8250_be_ops = {
- 	.startup = sm8250_snd_startup,
--	.shutdown = sm2450_snd_shutdown,
-+	.shutdown = sm8250_snd_shutdown,
- 	.hw_params = sm8250_snd_hw_params,
- 	.hw_free = sm8250_snd_hw_free,
- 	.prepare = sm8250_snd_prepare,
+
+---
+base-commit: 32cb23a0f911317cdb5030035e49a204aa86fef5
+change-id: 20240419-alsa-scarlett2-fix-wsometimes-uninitialized-d44f7659b52a
+
+Best regards,
 -- 
-2.43.0
+Nathan Chancellor <nathan@kernel.org>
 

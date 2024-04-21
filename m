@@ -2,96 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED30B8AB828
-	for <lists+alsa-devel@lfdr.de>; Sat, 20 Apr 2024 02:37:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AC548ABDF3
+	for <lists+alsa-devel@lfdr.de>; Sun, 21 Apr 2024 03:05:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CF187E68;
-	Sat, 20 Apr 2024 02:37:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CF187E68
+	by alsa0.perex.cz (Postfix) with ESMTPS id D1C94DFA;
+	Sun, 21 Apr 2024 03:05:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D1C94DFA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1713573430;
-	bh=adroiXsVs79FpRa83a3I9kMT/edKYfdAupWkdkWbHbI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1713661536;
+	bh=zsIYacikpcD55jKm+iNIYO7i4OgOVZdvFB3IGX220Cs=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=eoRi0sc09aFh/ePWODnMVZ+6hBn/uKdZ/dSr2VlMrieonR/hH3xjDnsJWCAmnPEnu
-	 lPDzSB4zAKCt3AYpswihohLnp2k/h6zUE+cHt35QervDGWripKr1dTAC0I/fE5XCYb
-	 zclaZdT818rZmpJEO1vlEvnPmfHrhVDmfrG0PSRw=
+	b=ML8WfKtCL7CRAfrYdEZ6HiVtf6dwafvc7hnDpXnBHaUBP/e+xmAJYhDtNX4EL4Kkk
+	 GD4lApd9g15T4V8V7LGCyDJgUQh1BxndvsaDQlyNKe2LMSj3bxfk6iNR6AKK7omuxq
+	 VlXXAgPHpP5juyj6R3sBvMbpcnnftzsniMktIxx8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0D2C6F8057F; Sat, 20 Apr 2024 02:36:39 +0200 (CEST)
+	id D2753F8057F; Sun, 21 Apr 2024 03:05:04 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1ECDBF80588;
-	Sat, 20 Apr 2024 02:36:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DBC70F8058C;
+	Sun, 21 Apr 2024 03:05:03 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 31E5EF80423; Sat, 20 Apr 2024 02:36:33 +0200 (CEST)
+	id 31D8BF802E8; Sun, 21 Apr 2024 03:03:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-7.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7E7A6F8013D
-	for <alsa-devel@alsa-project.org>; Sat, 20 Apr 2024 02:36:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E7A6F8013D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 693A4F801C0
+	for <alsa-devel@alsa-project.org>; Sun, 21 Apr 2024 03:03:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 693A4F801C0
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=PXH4B9Jq
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1713573384; x=1745109384;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=adroiXsVs79FpRa83a3I9kMT/edKYfdAupWkdkWbHbI=;
-  b=PXH4B9JqR/0Y6KVuHXqAZp61qN9uhgdmpG7MfjaIeSSlLqSKTjuuiIVL
-   9csuSNUyhK7YgalXuX+yjMGHGpT6Kir/adRGE2ssr7qk7tGYQBo0Nz/AZ
-   1TMPyiTWCR3DyErdTsJpBn1n1Gq9OVewWfbRpYCrHiMqcJ+b6TNY+/8fN
-   btmkX7UuJ6j/QVFsuTUnnHaaq4AlZf9aodixUq2s204NZr+MbTk6mhjSq
-   nwCdKhO3vunRumtdUFQW4/mpoWBvvXzC5rCZGNq4if6Rsu4lvw+ypEsV4
-   TZmF4Vh2ocDC5r484eXLrJjrJVQ1ef6VYshQtyMx7yxvbnRVUaGxnUBGw
-   w==;
-X-CSE-ConnectionGUID: QZcOM6ZaR/ecwdCvFQ899Q==
-X-CSE-MsgGUID: 43lRVqDYT8yuuG3i1EA5Cw==
-X-IronPort-AV: E=McAfee;i="6600,9927,11049"; a="9114257"
-X-IronPort-AV: E=Sophos;i="6.07,215,1708416000";
-   d="scan'208";a="9114257"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Apr 2024 17:36:18 -0700
-X-CSE-ConnectionGUID: B9zqgS3SSeuvqwAywk9lag==
-X-CSE-MsgGUID: H/C8eYBvQ3OPqPOd6QmliA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,215,1708416000";
-   d="scan'208";a="23546753"
-Received: from unknown (HELO 23c141fc0fd8) ([10.239.97.151])
-  by fmviesa010.fm.intel.com with ESMTP; 19 Apr 2024 17:36:16 -0700
-Received: from kbuild by 23c141fc0fd8 with local (Exim 4.96)
-	(envelope-from <lkp@intel.com>)
-	id 1rxyiD-000AbM-0u;
-	Sat, 20 Apr 2024 00:36:13 +0000
-Date: Sat, 20 Apr 2024 08:35:23 +0800
-From: kernel test robot <lkp@intel.com>
-To: srinivas.kandagatla@linaro.org, broonie@kernel.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev, perex@perex.cz,
-	tiwai@suse.com, lgirdwood@gmail.com, alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org, steev@kali.org,
-	jenneron@postmarketos.org,
-	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH 2/4] ASoC: qcom: common: add Display port Jack function
-Message-ID: <202404200809.tfVSiQo5-lkp@intel.com>
-References: <20240419150140.92527-3-srinivas.kandagatla@linaro.org>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=DpiFmXSM
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id B024F60B2A;
+	Sun, 21 Apr 2024 01:03:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 962CDC072AA;
+	Sun, 21 Apr 2024 01:03:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1713661393;
+	bh=zsIYacikpcD55jKm+iNIYO7i4OgOVZdvFB3IGX220Cs=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=DpiFmXSMl61Zx3X4COSLWu2+6TDtdsRsdav4ATP7y79M2YS/LSfqf9yAvF4xTS4F0
+	 q7MdFW/23wp76hittNwQnbEXm/7/yeTJ8Mi525hQoRbHtNtPfhO8zT3xCL0UbJj3hZ
+	 +jWlPi2r1AHgmiQRlCvdHMvHTZwSOSoyrI6Zi3qYCW1thmgWzE72+KTtvnyy/0Rm7+
+	 qBiGBP6eJnP0Tq4hnNv5ZpI7JNQCTVAvvNKSGxanZODFqQHIU1HoS7B6DXDtxX+SKB
+	 0WsyKi0Wr8ntAwvHCxjjdy6Mefe0txdrDSL5/BvnVrQAKfa7HVdaWebHDrjtIv8X1n
+	 E9GDfo7tcAnGw==
+From: Mark Brown <broonie@kernel.org>
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+ tiwai@suse.com, perex@perex.cz, amadeuszx.slawinski@linux.intel.com,
+ hdegoede@redhat.com
+In-Reply-To: <20240419084857.2719593-1-cezary.rojewski@intel.com>
+References: <20240419084857.2719593-1-cezary.rojewski@intel.com>
+Subject: Re: [PATCH 0/2] ASoC: Intel: avs: Refactor IRQ handling
+Message-Id: <171366139151.1739626.4193433952768635118.b4-ty@kernel.org>
+Date: Sun, 21 Apr 2024 10:03:11 +0900
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240419150140.92527-3-srinivas.kandagatla@linaro.org>
-Message-ID-Hash: I2UD7RCGTVYFJ6UF5PI66XSBSV23HWC6
-X-Message-ID-Hash: I2UD7RCGTVYFJ6UF5PI66XSBSV23HWC6
-X-MailFrom: lkp@intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14-dev
+Message-ID-Hash: SHUVMVEWEZVM3HFLGDTJSRL4XBD4KIDE
+X-Message-ID-Hash: SHUVMVEWEZVM3HFLGDTJSRL4XBD4KIDE
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -103,7 +87,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/I2UD7RCGTVYFJ6UF5PI66XSBSV23HWC6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SHUVMVEWEZVM3HFLGDTJSRL4XBD4KIDE/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,45 +96,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi,
+On Fri, 19 Apr 2024 10:48:55 +0200, Cezary Rojewski wrote:
+> The existing code can be both improved and simplified. To make this
+> change easier to manage, first add new implementation and then remove
+> deadcode in a separate patch.
+> 
+> Simplification achieved with:
+> 
+> - reduce the amount of resources requested by the driver i.e.: IPC and
+>   CLDMA request_irq() merged into one
+> - reduce the number of DSP ops from 2 to 1:
+>   irq_handler/thread() vs dsp_interrupt()
+> - drop ambiguity around CLDMA interrupt, let skl.c handle that
+>   explicitly as it is the only user
+> 
+> [...]
 
-kernel test robot noticed the following build warnings:
+Applied to
 
-[auto build test WARNING on broonie-sound/for-next]
-[also build test WARNING on linus/master v6.9-rc4 next-20240419]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-url:    https://github.com/intel-lab-lkp/linux/commits/srinivas-kandagatla-linaro-org/ASoC-qcom-q6dsp-parse-Display-port-tokens/20240419-230514
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-patch link:    https://lore.kernel.org/r/20240419150140.92527-3-srinivas.kandagatla%40linaro.org
-patch subject: [PATCH 2/4] ASoC: qcom: common: add Display port Jack function
-config: arm-defconfig (https://download.01.org/0day-ci/archive/20240420/202404200809.tfVSiQo5-lkp@intel.com/config)
-compiler: clang version 14.0.6 (https://github.com/llvm/llvm-project.git f28c006a5895fc0e329fe15fead81e37457cb1d1)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240420/202404200809.tfVSiQo5-lkp@intel.com/reproduce)
+Thanks!
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202404200809.tfVSiQo5-lkp@intel.com/
+[1/2] ASoC: Intel: avs: New IRQ handling implementation
+      commit: 7ce6ceeb77bfd9fb0b22203190bd6f57fe917b51
+[2/2] ASoC: Intel: avs: Remove unused IRQ-related code
+      commit: 84049e2db59ad9b09461b6d7ec56bd3e8fe75eca
 
-All warnings (new ones prefixed by >>):
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
->> sound/soc/qcom/common.c:250:22: warning: unused variable 'cpu_dai' [-Wunused-variable]
-           struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
-                               ^
-   1 warning generated.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-vim +/cpu_dai +250 sound/soc/qcom/common.c
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-   246	
-   247	int qcom_snd_dp_jack_setup(struct snd_soc_pcm_runtime *rtd,
-   248				   struct snd_soc_jack *hdmi_jack, int hdmi_pcm_id)
-   249	{
- > 250		struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
+Thanks,
+Mark
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki

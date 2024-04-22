@@ -2,54 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33D7F8AC7D4
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Apr 2024 10:53:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBE118AC8BE
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Apr 2024 11:21:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 82DF793A;
-	Mon, 22 Apr 2024 10:53:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 82DF793A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1E9F7DFA;
+	Mon, 22 Apr 2024 11:20:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E9F7DFA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1713775992;
-	bh=UiNigEV2cBniNIz0bhcCBnSYvnHHEdsY5NtZAnRhzeM=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=aS+MhnHRNARbYmiyC+0h1zSL2BETH7qdvmCsm1SKSgyizX2LQ02Ajh43Snw2Aqibc
-	 ZMND1STsH7CvB/7+KNLTtPfmDFhINVbGGmG/evAjxNn8COpXRCpBAMjNjX7+Oz1GTL
-	 5wzAlmAfnS1C6v4m38HpG+osFj/9WIw22H6dz1wg=
+	s=default; t=1713777662;
+	bh=T5tRASABoyAmF4/TwmiQdb4aSxJ5IjEe6kgVUHlghnY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=NwjEJU/nlZRw4X5agtXCZH5eR+d048Hg/CrzTBqynQMG7ZNduKq2lRcQT2cNNA5rl
+	 25swOACOnE/9KwNB23zEEkDfT0HV6371g8jRZJRs9t+FUWGsE3pw8bdfupneZIt9XC
+	 3J5UdDO6OtuemBr8l54T05ROgGv6xFRfnnoL/uzM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 73E4EF80587; Mon, 22 Apr 2024 10:52:41 +0200 (CEST)
+	id 0362CF805AB; Mon, 22 Apr 2024 11:20:30 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 07121F8059F;
-	Mon, 22 Apr 2024 10:52:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 95641F80579;
+	Mon, 22 Apr 2024 11:20:30 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3BA97F8024E; Mon, 22 Apr 2024 10:52:34 +0200 (CEST)
+	id 71D44F802E8; Mon, 22 Apr 2024 11:20:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=no autolearn_force=no
-	version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
- [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id A499AF8003A
-	for <alsa-devel@alsa-project.org>; Mon, 22 Apr 2024 10:52:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A499AF8003A
+X-Spam-Level: 
+X-Spam-Status: No,
+ score=-5.0 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_NONE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from bmailout2.hostsharing.net (bmailout2.hostsharing.net
+ [83.223.78.240])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id C5AB4F800B5
+	for <alsa-devel@alsa-project.org>; Mon, 22 Apr 2024 11:20:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C5AB4F800B5
+Received: from h08.hostsharing.net (h08.hostsharing.net
+ [IPv6:2a01:37:1000::53df:5f1c:0])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256
+	 client-signature RSA-PSS (4096 bits) client-digest SHA256)
+	(Client CN "*.hostsharing.net",
+ Issuer "RapidSSL TLS RSA CA G1" (verified OK))
+	by bmailout2.hostsharing.net (Postfix) with ESMTPS id 2EF4A280108A8;
+	Mon, 22 Apr 2024 11:20:16 +0200 (CEST)
+Received: by h08.hostsharing.net (Postfix, from userid 100393)
+	id 03FB34D34A; Mon, 22 Apr 2024 11:20:15 +0200 (CEST)
+Date: Mon, 22 Apr 2024 11:20:15 +0200
+From: Lukas Wunner <lukas@wunner.de>
+To: Dan Williams <dan.j.williams@intel.com>
+Cc: gregkh@linuxfoundation.org,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Marc Herbert <marc.herbert@intel.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
+	linux-coco@lists.linux.dev, alsa-devel@alsa-project.org
+Subject: Re: [PATCH 1/3] sysfs: Fix crash on empty group attributes array
+Message-ID: <ZiYrzzk9Me1aksmE@wunner.de>
+References: 
+ <170863444851.1479840.10249410842428140526.stgit@dwillia2-xfh.jf.intel.com>
+ <170863445442.1479840.1818801787239831650.stgit@dwillia2-xfh.jf.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub pull_request - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1713775950068747044-webhooks-bot@alsa-project.org>
-References: <1713775950068747044-webhooks-bot@alsa-project.org>
-Subject: sof-hda-dsp/sof-soundwire: Create "hdmi:" mapping PCMs to allow
- passthrough if supported
-Message-Id: <20240422085234.3BA97F8024E@alsa1.perex.cz>
-Date: Mon, 22 Apr 2024 10:52:34 +0200 (CEST)
-Message-ID-Hash: C35RRXNKP3D427YEFVCC5CVW3CGTK3LY
-X-Message-ID-Hash: C35RRXNKP3D427YEFVCC5CVW3CGTK3LY
-X-MailFrom: github@alsa-project.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: 
+ <170863445442.1479840.1818801787239831650.stgit@dwillia2-xfh.jf.intel.com>
+Message-ID-Hash: QHNSZCUPAE226SPNYO2SRAJZA6OSWFTN
+X-Message-ID-Hash: QHNSZCUPAE226SPNYO2SRAJZA6OSWFTN
+X-MailFrom: foo00@h08.hostsharing.net
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -61,7 +86,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/C35RRXNKP3D427YEFVCC5CVW3CGTK3LY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QHNSZCUPAE226SPNYO2SRAJZA6OSWFTN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -70,41 +95,62 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-ucm-conf pull request #411 was opened from ujfalusi:
+On Thu, Feb 22, 2024 at 12:40:54PM -0800, Dan Williams wrote:
+> It turns out that arch/x86/events/intel/core.c makes use of "empty"
+> attributes.
+> 
+> 	static struct attribute *empty_attrs;
+> 
+> 	__init int intel_pmu_init(void)
+> 	{
+> 	        struct attribute **extra_skl_attr = &empty_attrs;
+> 	        struct attribute **extra_attr = &empty_attrs;
+> 	        struct attribute **td_attr    = &empty_attrs;
+> 	        struct attribute **mem_attr   = &empty_attrs;
+> 	        struct attribute **tsx_attr   = &empty_attrs;
+> 		...
+> 
+> That breaks the assumption __first_visible() that expects that if
+> grp->attrs is set then grp->attrs[0] must also be set and results in
+> backtraces like:
+> 
+>     BUG: kernel NULL pointer dereference, address: 00rnel mode
+>     #PF: error_code(0x0000) - not-present ] PREEMPT SMP NOPTI
+>     CPU: 1 PID: 1 Comm: swapper/IP: 0010:exra_is_visible+0x14/0x20
+>      ? exc_page_fault+0x68/0x190
+>      internal_create_groups+0x42/0xa0
+>      pmu_dev_alloc+0xc0/0xe0
+>      perf_event_sysfs_init+0x580000000000 ]---
+>     RIP: 0010:exra_is_visible+0x14/0
+> 
+> Check for non-empty attributes array before calling is_visible().
+[...]
+> --- a/fs/sysfs/group.c
+> +++ b/fs/sysfs/group.c
+> @@ -33,10 +33,10 @@ static void remove_files(struct kernfs_node *parent,
+>  
+>  static umode_t __first_visible(const struct attribute_group *grp, struct kobject *kobj)
+>  {
+> -	if (grp->attrs && grp->is_visible)
+> +	if (grp->attrs && grp->attrs[0] && grp->is_visible)
+>  		return grp->is_visible(kobj, grp->attrs[0], 0);
+>  
+> -	if (grp->bin_attrs && grp->is_bin_visible)
+> +	if (grp->bin_attrs && grp->bin_attrs[0] && grp->is_bin_visible)
+>  		return grp->is_bin_visible(kobj, grp->bin_attrs[0], 0);
+>  
+>  	return 0;
 
-Hi,
+I'm wondering why 0 is returned by default and not SYSFS_GROUP_INVISIBLE.
 
-SOF with IPC4 can use 'ChainDMA' on selected PCMs (HDMI/DP currently) which allows them to be used for bytestream passthrough since the data is passed through unmodified.
-The kernel will list the PCMs with ChainDMA to the card's components list:
-https://github.com/thesofproject/linux/pull/4921
-For example for sof-dsp-hda cards `iec61937-pcm:5,4,3` will be added.
+An empty attribute list (containing just the NULL sentinel) will now
+result in the attribute group being visible as an empty directory.
 
-For user space to use HDMI passthrough, the `hdmi:` PCM device should be present correctly mapping to the machine, for example for sof-dsp-hda:
-```
-aplay -L | grep hdmi
+I thought the whole point was to hide such empty directories.
 
-hdmi:CARD=sofhdadsp,DEV=0
-hdmi:CARD=sofhdadsp,DEV=1
-hdmi:CARD=sofhdadsp,DEV=2
-```
-This PR does this by
-1. Checking the `iec61937-pcm` indexes against the expected HDMI devices (sof-dsp-hda: 3-5, sof-soundwire: 5-7)
-2. If there is a match (passthrough can be supported) then we will create three conf files:
+Was it a conscious decision to return 0?
+Did you expect breakage if SYSFS_GROUP_INVISIBLE is returned?
 
-The generated files are:
-[1] /var/lib/alsa/conf.d/42-sof-hdmi.conf
-[2] /var/lib/alsa/card[card_number].conf.d/30-sof-hdmi-common.conf
-[3] /var/lib/alsa/card[card_number].conf.d/31-sof-hdmi.conf
+Thanks,
 
-[1] includes the pcm/iec958.conf and pcm/hdmi.conf to global space of
-    alsaconf to be used by the card macros
-[2] Card specific macros for hdmi PCM definition, mapping
-[3] Card specific definitions of the three HDMI port
-
-Note for [1]: I needed to use `shell "echo '...` since the `cfg-save` would expand the includes into the saved config file and that just does not result a working alsa configuration.
-
-@perexg, I'm sure all this can be done in a cleaner way... We cannot do this unconditionally as if the HDMI is not using ChainDMA (and SOF is not IPC4) then the passthrough is not possible since the firmware might touch the data.
-
-Request URL   : https://github.com/alsa-project/alsa-ucm-conf/pull/411
-Patch URL     : https://github.com/alsa-project/alsa-ucm-conf/pull/411.patch
-Repository URL: https://github.com/alsa-project/alsa-ucm-conf
+Lukas

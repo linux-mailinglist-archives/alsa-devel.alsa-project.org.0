@@ -2,80 +2,54 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 551628AC668
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Apr 2024 10:12:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33D7F8AC7D4
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Apr 2024 10:53:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B1F37E9F;
-	Mon, 22 Apr 2024 10:11:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1F37E9F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 82DF793A;
+	Mon, 22 Apr 2024 10:53:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 82DF793A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1713773525;
-	bh=tiunuwwIr+bT8wSKpR0JU0OLDOp21MSUyCfID33k7mE=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=isXw/3YM1go1mqQwkDGWOk4bz4Cg6JjZuebvrDuwXP3S+HZCjyCbQAdDby00TwjR9
-	 VUtyW/N7Wt6Ndea1UO+tQtRdTqjCSomKB8777ym2+1mAmfr8aYAH7bdtjvUcB4tbXl
-	 kNWjkzySW/4J/tyW50jSgqqrHP1OnbViyoFDD+a4=
+	s=default; t=1713775992;
+	bh=UiNigEV2cBniNIz0bhcCBnSYvnHHEdsY5NtZAnRhzeM=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=aS+MhnHRNARbYmiyC+0h1zSL2BETH7qdvmCsm1SKSgyizX2LQ02Ajh43Snw2Aqibc
+	 ZMND1STsH7CvB/7+KNLTtPfmDFhINVbGGmG/evAjxNn8COpXRCpBAMjNjX7+Oz1GTL
+	 5wzAlmAfnS1C6v4m38HpG+osFj/9WIw22H6dz1wg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EFED4F805D3; Mon, 22 Apr 2024 10:11:28 +0200 (CEST)
+	id 73E4EF80587; Mon, 22 Apr 2024 10:52:41 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 77EDAF805C7;
-	Mon, 22 Apr 2024 10:11:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 07121F8059F;
+	Mon, 22 Apr 2024 10:52:41 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 05DACF80578; Mon, 22 Apr 2024 10:11:21 +0200 (CEST)
+	id 3BA97F8024E; Mon, 22 Apr 2024 10:52:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3F661F800B5
-	for <alsa-devel@alsa-project.org>; Mon, 22 Apr 2024 10:09:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F661F800B5
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=naI0badn
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 81332CE0A5F;
-	Mon, 22 Apr 2024 08:09:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18CDAC3277B;
-	Mon, 22 Apr 2024 08:09:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1713773363;
-	bh=tiunuwwIr+bT8wSKpR0JU0OLDOp21MSUyCfID33k7mE=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=naI0badn9M+zP1N20U8ONn8PYfBYNNNF3mY0EQMaidlznFfldtdbTsKqYImW9zkBZ
-	 bCom4HawD65gcwUR3a4P0xMVu1TwizouXYGDnON+Jhxb/AOfxv/s4pJQ0nNUE5FLN1
-	 /8fPzzxUAw8TDFk0jRb9grhSDEeqMSomK693ElBoGrnoh1uvmlj+d3lf0l/+OeDxBy
-	 0I7kYBd8w4K6lWDBEJH0IQHgiqNrhW4rGUh+43bxJ9AAaUwTCv36/uaa9WRQyvU4nK
-	 edYoF291g4S9xuoqx4RxG3z6WPptn841qCqUSI0clSlDga8+Y8l1BElMzyP7hLVV8S
-	 YiVJaMvvFHhBQ==
-From: Mark Brown <broonie@kernel.org>
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- tiwai@suse.com, perex@perex.cz, amadeuszx.slawinski@linux.intel.com,
- pierre-louis.bossart@linux.intel.com, hdegoede@redhat.com,
- rafael@kernel.org
-In-Reply-To: <20240419084307.2718881-1-cezary.rojewski@intel.com>
-References: <20240419084307.2718881-1-cezary.rojewski@intel.com>
-Subject: Re: (subset) [PATCH 0/2] ASoC: Intel: avs: Switch to acpi-nhlt
-Message-Id: <171377336060.1755143.11859734715680324302.b4-ty@kernel.org>
-Date: Mon, 22 Apr 2024 17:09:20 +0900
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=no autolearn_force=no
+	version=3.4.6
+Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
+ [207.180.221.201])
+	by alsa1.perex.cz (Postfix) with ESMTP id A499AF8003A
+	for <alsa-devel@alsa-project.org>; Mon, 22 Apr 2024 10:52:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A499AF8003A
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14-dev
-Message-ID-Hash: SBSVVD6AV53P2AIRCMQTXDZBBRVTERFE
-X-Message-ID-Hash: SBSVVD6AV53P2AIRCMQTXDZBBRVTERFE
-X-MailFrom: broonie@kernel.org
+From: GitHub pull_request - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1713775950068747044-webhooks-bot@alsa-project.org>
+References: <1713775950068747044-webhooks-bot@alsa-project.org>
+Subject: sof-hda-dsp/sof-soundwire: Create "hdmi:" mapping PCMs to allow
+ passthrough if supported
+Message-Id: <20240422085234.3BA97F8024E@alsa1.perex.cz>
+Date: Mon, 22 Apr 2024 10:52:34 +0200 (CEST)
+Message-ID-Hash: C35RRXNKP3D427YEFVCC5CVW3CGTK3LY
+X-Message-ID-Hash: C35RRXNKP3D427YEFVCC5CVW3CGTK3LY
+X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -87,7 +61,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SBSVVD6AV53P2AIRCMQTXDZBBRVTERFE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/C35RRXNKP3D427YEFVCC5CVW3CGTK3LY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,45 +70,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 19 Apr 2024 10:43:05 +0200, Cezary Rojewski wrote:
-> The change is based on rafael/acpi-nhlt [1] immutable branch which
-> Rafael kindly prepared for me. Without the topmost changes to ACPI/NHLT,
-> the patches present will fail to compile.
-> 
-> Recent changes for the ACPI tree [2] refactored interfaces of the NHLT
-> table. Currently we have two implementations - one found in acpi
-> subsystem (unused) and one in sound/hda/. As NHLT is part of ACPI, idea
-> is to make the former useful and then switch all users of existing
-> sound/hda/intel-nhlt.c to this new interface over time and remove the
-> duplicate afterward.
-> 
-> [...]
+alsa-project/alsa-ucm-conf pull request #411 was opened from ujfalusi:
 
-Applied to
+Hi,
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+SOF with IPC4 can use 'ChainDMA' on selected PCMs (HDMI/DP currently) which allows them to be used for bytestream passthrough since the data is passed through unmodified.
+The kernel will list the PCMs with ChainDMA to the card's components list:
+https://github.com/thesofproject/linux/pull/4921
+For example for sof-dsp-hda cards `iec61937-pcm:5,4,3` will be added.
 
-Thanks!
+For user space to use HDMI passthrough, the `hdmi:` PCM device should be present correctly mapping to the machine, for example for sof-dsp-hda:
+```
+aplay -L | grep hdmi
 
-[2/2] ASoC: Intel: avs: Switch to ACPI NHLT
-      commit: f5d20b253d1a51aadb8881d899caaaa989217e89
+hdmi:CARD=sofhdadsp,DEV=0
+hdmi:CARD=sofhdadsp,DEV=1
+hdmi:CARD=sofhdadsp,DEV=2
+```
+This PR does this by
+1. Checking the `iec61937-pcm` indexes against the expected HDMI devices (sof-dsp-hda: 3-5, sof-soundwire: 5-7)
+2. If there is a match (passthrough can be supported) then we will create three conf files:
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+The generated files are:
+[1] /var/lib/alsa/conf.d/42-sof-hdmi.conf
+[2] /var/lib/alsa/card[card_number].conf.d/30-sof-hdmi-common.conf
+[3] /var/lib/alsa/card[card_number].conf.d/31-sof-hdmi.conf
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+[1] includes the pcm/iec958.conf and pcm/hdmi.conf to global space of
+    alsaconf to be used by the card macros
+[2] Card specific macros for hdmi PCM definition, mapping
+[3] Card specific definitions of the three HDMI port
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+Note for [1]: I needed to use `shell "echo '...` since the `cfg-save` would expand the includes into the saved config file and that just does not result a working alsa configuration.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+@perexg, I'm sure all this can be done in a cleaner way... We cannot do this unconditionally as if the HDMI is not using ChainDMA (and SOF is not IPC4) then the passthrough is not possible since the firmware might touch the data.
 
-Thanks,
-Mark
-
+Request URL   : https://github.com/alsa-project/alsa-ucm-conf/pull/411
+Patch URL     : https://github.com/alsa-project/alsa-ucm-conf/pull/411.patch
+Repository URL: https://github.com/alsa-project/alsa-ucm-conf

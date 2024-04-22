@@ -2,95 +2,107 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4FB78ACD33
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Apr 2024 14:47:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57F108ACE96
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Apr 2024 15:45:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 26899DF8;
-	Mon, 22 Apr 2024 14:47:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 26899DF8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 750A7DF6;
+	Mon, 22 Apr 2024 15:44:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 750A7DF6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1713790033;
-	bh=Ozo7BcATG7EAukIL81V6IzUsbkPqptA/zQ1ktuKfe3w=;
-	h=From:Date:Subject:To:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1713793503;
+	bh=eLwGpBWNSzsKehoMyzaBaeqO5Km6GsohfpkHMeO3sMI=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=M6rVrdmaW42/WQCvJx1dCnzjPPcQOPCflvkTr54UjMVFC/5pFSOGXU4nqXr/OBtB6
-	 Y1h5bz7cQrte/IGwdw2oJuKbcGg2/46JgcT+vyxxvurekFYP5F6UnrOCW8io/jGGM5
-	 xqJ3IkuzS/XRGFBf68B9r58QgnhaxIuRiFQN/UmM=
+	b=cubbIlehgwp+n/dwEnkLR0SZ+rTSqoYlnjhze75rjLNAh8cxARKTGM9wjJ8qCw9Vk
+	 m/UDDSUrg0ZDz70i1bJtguvi42klRkQCdZ5sxf+cEgFBwkdjevITGFoDhF1pHQ1uIL
+	 jWhBslhDddFezJ4u+UieHA3/Jdh943Z8GYOQfbiE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 46DA5F805AC; Mon, 22 Apr 2024 14:46:41 +0200 (CEST)
+	id 36B66F805F4; Mon, 22 Apr 2024 15:44:12 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C53EFF80579;
-	Mon, 22 Apr 2024 14:46:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 38A19F805F1;
+	Mon, 22 Apr 2024 15:44:12 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AE27BF802E8; Mon, 22 Apr 2024 14:46:35 +0200 (CEST)
+	id F24FFF802E8; Mon, 22 Apr 2024 15:44:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
+X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_SBL_CSS,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [IPv6:2a00:1450:4864:20::42e])
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [IPv6:2a00:1450:4864:20::329])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5B5CBF8003C
-	for <alsa-devel@alsa-project.org>; Mon, 22 Apr 2024 14:46:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B5CBF8003C
+	by alsa1.perex.cz (Postfix) with ESMTPS id E4323F800B5
+	for <alsa-devel@alsa-project.org>; Mon, 22 Apr 2024 15:44:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4323F800B5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=YYUwEPxs
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-34b3ef55a86so421874f8f.0
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=pXsXFAAI
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-41a4f291f80so8084685e9.1
         for <alsa-devel@alsa-project.org>;
- Mon, 22 Apr 2024 05:46:29 -0700 (PDT)
+ Mon, 22 Apr 2024 06:44:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1713789988; x=1714394788;
+        d=linaro.org; s=google; t=1713793439; x=1714398239;
  darn=alsa-project.org;
-        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=Q0n4cgcy35e+PoLL2c0MZESh3f/cFfTbbl7okJJjUOg=;
-        b=YYUwEPxs+ARrkbSkUal1C4XCM3D1dbNe2WWBx6Zj26+5gxTVOazrANeTcoKRNeLYap
-         lqnE6GOxDp1YfNU+QoiCf4NahIjneQpvKOBX+Hn+zla6PKMU1hCZCoLaBtXoK1rFqLZA
-         GFo4RJBNXScY/hF5OB+pNnHSSp2rBo9Z/0oKo1U7Clg/L3hGWf4LW9AtEzVwAzXRqfv0
-         rOPRQTqkDAJ/la69aE/q0JY7Ey+yNIIXEHMUE4ArEM/sBEP+wk4bOHC686Xs3H6ykj2v
-         obRmiYVNrfkWCqzFaNDOq0GhvlZOVNAjTwKSNw9pemAzWdI8slCZBRateQSvI6tIRJXR
-         vb2w==
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=IyhHpXfSBoKLASPLnhxuYO1fMBmMIpkOZFN42OM7jY4=;
+        b=pXsXFAAIBO6siwoStWv6kF1IhcY394WpZoQyh5pEVIzRXp8QmjFEh1RFGTElLASJQ0
+         uTXrwM0IVLErVRKIoFHwOCoU1PDhZeXubJNz37IFIzYZdGdmPYLtSVANYI/MKJW+WNvo
+         AL87kD39NQGM7zetgSbvt+DcD1OqbnSWGzR4wHTE6Zj1pS24T2J0Ll1DuAas4Je8daxa
+         UufogQ3Z460+CPmZrUNElBWAiGdhtoReSs+NJXgCaFHMqRX8fKCBn5Ghy1ypcXdl7yXT
+         qZeeKGrz9YRKBR458TTE3Wz85vNjZkD/QvLo/Sn57a98Y3PMABFG8WOt+TqerhG8pW3D
+         ulNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713789988; x=1714394788;
-        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Q0n4cgcy35e+PoLL2c0MZESh3f/cFfTbbl7okJJjUOg=;
-        b=A3n350quE206CvH91IJaYzPa2qImDupYpgxbsai/I39jIIRLT9+DIxXvtcrY+mMj1y
-         A8lEY/Tg+7tBaICCN3wDXkSqS+QvFZBhHo4ts14eNPZNJEzCBSJ3h5mED1YIuSccZHfz
-         THGdQgrYVB0Vt8PbA55vCKKsWK5nNDgcUK3ivoXgtTfcU/upBNqlk3/x3SRcDDy0+7Zk
-         +7rFcGBKdLr0sod7nbQdqtRogrDRNBEiIvksKBYz51HMHcmpOIEfKfq4rgw2+5O1mXjg
-         p0/q+eUA1D234TA5FvqeUIsAcRsbqQVTConSxieLfbdzdNx81itY9XJAMK5NPURRUBuO
-         y0Ig==
-X-Gm-Message-State: AOJu0Yzw+z3b/7VcXERK9yh79x684eRqgezdWUAKQ9Kowiurpe0zcLgB
-	ljvhZZGnWDsS0v4xWTfa0Te1/yARTNb6Q7RGDflga+oXw5miFXoasNYu4G/n0sscpThZSbBBlv+
-	6+Y8qD3L6N2g3eXMGlbvSuZwCD0uy7/aKkrw=
+        d=1e100.net; s=20230601; t=1713793439; x=1714398239;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=IyhHpXfSBoKLASPLnhxuYO1fMBmMIpkOZFN42OM7jY4=;
+        b=fc98B/8Sqf1GjQcjotykkww9fHxB5kId06mSuvsQABD48EdcdYuI9fWrgFmCkcDcGj
+         VbT88cQAMiNR7ed7/1nN4PvaSEDlURLANzNVRltBxSN9/qhH/XH64k39IDwBsyGioHVh
+         5F4qJIgU9OVh9h3T0Ll3uU8Ufh2+zk5GV9iCS6PT4+8qkd9kq9bl03Ray37KUycC+xHP
+         jkYbLY8fQL+Re0LrVCMYO0C7353uwzQW7IB/5PmnPke0n3QSTETfBuUbco1Y35dSs/II
+         qm0D71oCmsrS4dYGBZPDXlwWRr/cr8JzryKs79mbiREBjfk7nnhYKezZNsl2bKE4oxpk
+         OXjw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXysGrpT7ubvUXbcmkd6S6v8jaIiQrzhOtJVYoKbbVh427q9irZGf14m4J1qGTgN/7zseDI5nw8QmBKaLDMQi7L1tB3RlWBrvt8CJ0=
+X-Gm-Message-State: AOJu0YziuRYMU6K7itzEgCEXOnVVBzU6ZpH4eGZyu2yQdCyHKTGqDwb/
+	iJPMrmdgbJxx9f2UKdsBSwq8A7LBAhhrJarsaPAcMgYXip4yKZPyFfez5E4D634=
 X-Google-Smtp-Source: 
- AGHT+IG7fRBZdjXuuR4zCN2w0hEtEpOIU1Xz5dYWaieBzBgZgwnkcH6hcQcAoSYNfscDm+HgN1Yo6bey4aJlfpGaUmk=
-X-Received: by 2002:a05:6000:c4a:b0:33e:d865:41f with SMTP id
- do10-20020a0560000c4a00b0033ed865041fmr5202488wrb.35.1713789987855; Mon, 22
- Apr 2024 05:46:27 -0700 (PDT)
+ AGHT+IGVKGiL+8Ldo4qtKC5/WdzouQLf24IRdTEX/wcJBZuyxLhla2b8gT7u4AqyanBsHU3HdncymA==
+X-Received: by 2002:a5d:69c1:0:b0:343:ef1b:9f69 with SMTP id
+ s1-20020a5d69c1000000b00343ef1b9f69mr8121800wrw.43.1713793439531;
+        Mon, 22 Apr 2024 06:43:59 -0700 (PDT)
+Received: from localhost.localdomain ([5.133.47.210])
+        by smtp.gmail.com with ESMTPSA id
+ g18-20020a05600c4ed200b00417d624cffbsm20731069wmq.6.2024.04.22.06.43.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 22 Apr 2024 06:43:59 -0700 (PDT)
+From: srinivas.kandagatla@linaro.org
+To: broonie@kernel.org
+Cc: perex@perex.cz,
+	tiwai@suse.com,
+	lgirdwood@gmail.com,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Subject: [PATCH v2 0/4] ASoC: qcom: display port changes
+Date: Mon, 22 Apr 2024 14:43:50 +0100
+Message-Id: <20240422134354.89291-1-srinivas.kandagatla@linaro.org>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-From: Jaime <enopatch@gmail.com>
-Date: Mon, 22 Apr 2024 13:46:16 +0100
-Message-ID: 
- <CAAbCkmLGdbfsN+PXsOr8nV7rY44vvxV8y7jN1cxOr7wfsGeKwA@mail.gmail.com>
-Subject: snd_hda_intel with buffer_size set to 32768 sounds horrible. Kernel
- driver bug?
-To: alsa-devel@alsa-project.org
-Content-Type: text/plain; charset="UTF-8"
-Message-ID-Hash: YSGPENFV2BTRZNIG4WWOHNFBNRP4KDDE
-X-Message-ID-Hash: YSGPENFV2BTRZNIG4WWOHNFBNRP4KDDE
-X-MailFrom: enopatch@gmail.com
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: 6VBDMB4R7WNG3M6HYRYS33Y7BR2ZE6LD
+X-Message-ID-Hash: 6VBDMB4R7WNG3M6HYRYS33Y7BR2ZE6LD
+X-MailFrom: srinivas.kandagatla@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -102,7 +114,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YSGPENFV2BTRZNIG4WWOHNFBNRP4KDDE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6VBDMB4R7WNG3M6HYRYS33Y7BR2ZE6LD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -111,34 +123,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Fresh Debian Bookworm (v12) installation with alsa but no sound
-server. aplay with no .asoundrc sounds great (default buffer_size is
-16384). If I force the buffer_size to 32768 ([1]), then aplay sounds
-horrible ([2]). Is this a kernel driver bug? (If yes, I'll log it at
-https://bugzilla.kernel.org) I discovered this bug because pipewire
-sets the buffer_size to 32768 hence it triggers this bug - I've logged
-a bug against pipewire at [3]. Output from alsa-info at [4]. TIA.
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 
-[1] To set aplay's buffer_size to 32768, I use the following ~/.asoundrc:
-pcm.!default {
-  type plug
-  slave {
-    pcm {
-      type dmix
-      ipc_key 1234
-      slave {
-        period_size 1024
-        buffer_size 32768
-        pcm "hw:0"
-        format S32_LE
-      }
-    }
-  }
-}
+This patchset adds support for.
+	1. parse Display Port module tokens from ASoC topology
+	2. add support to DP/HDMI Jack events.
+	3. fixes a typo in function name in sm8250
 
-[2] Upload of horrible sound at
-https://audio.com/jt-1796478503182974/audio/alsaonlybuf-32768nopipewire
+Verified these patches on X13s along with changes to tplg in 
+https://git.codelinaro.org/linaro/qcomlt/audioreach-topology/-/tree/topic/x13s-dp?ref_type=heads
+and ucm changes from https://github.com/Srinivas-Kandagatla/alsa-ucm-conf/tree/topic/x13s-dp
 
-[3] https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/3966
+Thanks,
+Srini
 
-[4] http://alsa-project.org/db/?f=5dbfb02c81bb1523505c725a189b6f0133f2b3d7
+Changes since v1:
+	- Fixed unused variable warning.
+	- fixed warning 'break;' to avoid fall-through
+
+Srinivas Kandagatla (4):
+  ASoC: qcom: q6dsp: parse Display port tokens
+  ASoC: qcom: common: add Display port Jack function
+  ASoC: qcom: sc8280xp: add Display port Jack
+  ASoC: qcom: sm8250: fix a typo in function name
+
+ sound/soc/qcom/common.c         | 29 +++++++++++++++++++++++++++++
+ sound/soc/qcom/common.h         |  3 +++
+ sound/soc/qcom/qdsp6/topology.c | 26 ++++++++++++++++++++++++++
+ sound/soc/qcom/sc8280xp.c       | 14 ++++++++++++++
+ sound/soc/qcom/sm8250.c         |  4 ++--
+ 5 files changed, 74 insertions(+), 2 deletions(-)
+
+-- 
+2.25.1
+

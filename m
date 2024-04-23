@@ -2,84 +2,162 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 210AE8AE0C8
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Apr 2024 11:13:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C670B8AE15B
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Apr 2024 11:52:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AD5501909;
-	Tue, 23 Apr 2024 11:13:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD5501909
+	by alsa0.perex.cz (Postfix) with ESMTPS id 27DB21665;
+	Tue, 23 Apr 2024 11:51:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 27DB21665
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1713863623;
-	bh=DbSe3xJTG/wsJlhVHw+X4gsBLue00y+X3lq4gNx/WHw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1713865921;
+	bh=NwPBsU1LTEWXKuj15xiSO/1zVXaOkdb9/phHy+RmCfE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=tzgozHupZixE/x507LodwHxSVK2YL+D2888nR0V7eLBzVlROImZjiXcMulzXzXWbz
-	 zZmcl1e5TgehVxhoYqHJexp3Vkw+8pq2OV4nj8EWf0x2BViG2cth/wkAeDDY/vz48c
-	 tklC7ukQgxbrin79FWxBxhZE7cTIci9XzpMYpS14=
+	b=J2EOTEGJrb5O0pjEwYOmsGHScbpRunsm/GJU50QnGsToRWMWnbCOCPjA7e/ssXefZ
+	 yPZT6DpNp8Hoyy825x6hZq0nyy/mFL0ag93gxOG0lFcLfIZf92cHCGOjSqZwLUmtk6
+	 8FhEB/vc/Oc5R+9oVYBKfI6suWtIMmCbdSwwZpmk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 23F4FF8056F; Tue, 23 Apr 2024 11:13:07 +0200 (CEST)
+	id 852DDF805A8; Tue, 23 Apr 2024 11:51:29 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 42C05F805A0;
-	Tue, 23 Apr 2024 11:13:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C772DF805A0;
+	Tue, 23 Apr 2024 11:51:28 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 57DD5F80423; Tue, 23 Apr 2024 11:12:20 +0200 (CEST)
+	id 8C84CF80423; Tue, 23 Apr 2024 11:49:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [IPv6:2a00:1450:4864:20::42d])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 57B22F8003A
-	for <alsa-devel@alsa-project.org>; Tue, 23 Apr 2024 11:12:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57B22F8003A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 071B1F801C0
+	for <alsa-devel@alsa-project.org>; Tue, 23 Apr 2024 11:49:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 071B1F801C0
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=A9W7i5X9
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 055EC6125A;
-	Tue, 23 Apr 2024 09:12:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D928FC116B1;
-	Tue, 23 Apr 2024 09:11:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1713863519;
-	bh=DbSe3xJTG/wsJlhVHw+X4gsBLue00y+X3lq4gNx/WHw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=A9W7i5X9gGu1js6nvhetxsI4lWSZAwqYGnb5vvIH+zJNaY7Oj/6rfGTv2QAMYfRuI
-	 sha9hXhYyLE3uQEUzPD6tIfxGhh67d5lvUd1UbqdH6s+BVA9rjbsJPCPuIO0aPGLAI
-	 IzglsUZNfFzEXExHr/r1VttHxaPvO2ovvB46n0QVk0yMk1Hcqw1TgJ8t2ghtGR/05a
-	 oMUHZB6NZNxwauuCJnnpv5rh3EJBArNqJzkWxeU1b7TYgjvOeSGYIHbk05FFbXVGg0
-	 NEkPXcE3IcMUm7YPaPTAm5YFPrZvM7YVh2CeWsfXVZBhASHDsTImU9J9rRwMEB1l2p
-	 oiw+QFtL4bF4w==
-From: Mark Brown <broonie@kernel.org>
-To: David Rhodes <drhodes@opensource.cirrus.com>,
- Dan Carpenter <dan.carpenter@linaro.org>
-Cc: James Schulman <james.schulman@cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
- patches@opensource.cirrus.com, linux-sound@vger.kernel.org,
- linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
-In-Reply-To: <1ee32bfb-6f6c-4b61-887b-6f655abbfc47@moroto.mountain>
-References: <1ee32bfb-6f6c-4b61-887b-6f655abbfc47@moroto.mountain>
-Subject: Re: [PATCH] ASoC: cs35l41: Delete unnecessary condition in
- cs35l41_pcm_hw_params()
-Message-Id: <171386351644.1781735.13200288316295785566.b4-ty@kernel.org>
-Date: Tue, 23 Apr 2024 18:11:56 +0900
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=av6UfotY
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-346f4266e59so3973890f8f.3
+        for <alsa-devel@alsa-project.org>;
+ Tue, 23 Apr 2024 02:49:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1713865773; x=1714470573;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Igu1DHe9/mbdgePnFlKk0Kt8J0+Ygp+bDiGAG2bpm6A=;
+        b=av6UfotYFnMh27dY1ZsuYM+VgOJP7wZoM1mUcXb9GWv5Dw1pFqJ6fq4jmeWoKbuXg1
+         YAD1CQLuRH+5HVWDkuVlpA+bUmDoBWhc9P/1iRIWHGEGOIQj0K/b7/OzUeXRtBrzukld
+         aKE9UtZYJpVn5CETyBPauUdeTtj1ziZcrdi2CdP4qvEuBhLvPFlxygW7g7DUmo1Mz5yK
+         CvPk2oEo54hOw/S3BtXljxMn0PiUKDUMfL85I1x2NRwL3iXwBER+dEk5IOolxcuc49H6
+         IrxVvHtWzLp6J4SHJktyETRmiFiSSohU+t/XeFzn5g18ErL6oENjfqBp7IRcD/Kn5JZz
+         EgQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1713865773; x=1714470573;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Igu1DHe9/mbdgePnFlKk0Kt8J0+Ygp+bDiGAG2bpm6A=;
+        b=ak2dF4JXaPvsntqFTjv1qWq1yMPnBwoRVQXAgl1RThm+Ua6McgFr9Z7AAuq+Lw7RNa
+         JywVX3i5LCQgWrpFzekFxdLSbpVnjy/KwCeog6iQ1U8Od955o3SzOedc6b2uOoaE8mhh
+         DKkib5TB5h7HxEq2sarg99bbd2TIHaisXd7nZaXbtP+79LdtHTK6OUca5wBMLizPsQgT
+         641MJIOHVXQL/bR6WPY8PJ8n7DpxIYl1aYe63KyQBStWA6k7jkSYb2kr7nAmmFZvIlXM
+         2dW7O26MWj5C/iVkmf2T96y9zl1sPGqTVYxyEQjsF81BcknfKmvdTSvNs/uAnOtoTL2l
+         ii9Q==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXUhnS5x8bE80aw1YdNe/tMq4PyI98J0e6T7KYXcV0qhw/77xozYM4ishDXMHrLcNgYu+Iv1QshrKUf8b2+nVhBZLomUI5+wTVcuEI=
+X-Gm-Message-State: AOJu0YxW+mCDO6nfeA1E6hhQYzcdDeQewK5RKhDrTg2rdNIMETaCJIyH
+	xGbWkq/QHbpfOCyNeeBuW3zAg6QFh/lznchqjDOjr4DApoxRh9J+P5/Ncf7pA+c=
+X-Google-Smtp-Source: 
+ AGHT+IHRgo8HGU7FZWnB41V7PjyatID5UWrOs8dLpeBKw2fehyBq06F7/Ka8YFaKJRJjS5uYDUGJxw==
+X-Received: by 2002:a5d:4082:0:b0:343:b5f0:f511 with SMTP id
+ o2-20020a5d4082000000b00343b5f0f511mr7052352wrp.12.1713865771621;
+        Tue, 23 Apr 2024 02:49:31 -0700 (PDT)
+Received: from [192.168.1.20] ([178.197.223.16])
+        by smtp.gmail.com with ESMTPSA id
+ j6-20020adff006000000b00349856b640bsm14183531wro.67.2024.04.23.02.49.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 23 Apr 2024 02:49:30 -0700 (PDT)
+Message-ID: <a5f8746f-14f8-4e56-9ac7-30c7ba6fad30@linaro.org>
+Date: Tue, 23 Apr 2024 11:49:28 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] ASoC: dt-bindings: Add PDM controller for the
+ StarFive JH8100 SoC
+To: Xingyu Wu <xingyu.wu@starfivetech.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor.dooley@microchip.com>
+Cc: Walker Chen <walker.chen@starfivetech.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-sound@vger.kernel.org
+References: <20240423083405.263912-1-xingyu.wu@starfivetech.com>
+ <20240423083405.263912-2-xingyu.wu@starfivetech.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Content-Language: en-US
+Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
+ 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
+ D2GYIS41Kv4Isx2dEFh+/Q==
+In-Reply-To: <20240423083405.263912-2-xingyu.wu@starfivetech.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14-dev
-Message-ID-Hash: PXH2YNIW4XHQV367SMVEYEWSF5FXXWTZ
-X-Message-ID-Hash: PXH2YNIW4XHQV367SMVEYEWSF5FXXWTZ
-X-MailFrom: broonie@kernel.org
+Message-ID-Hash: 6XS6LVT2NSXXZF2XW7Q4K7GGS7ZEYNRG
+X-Message-ID-Hash: 6XS6LVT2NSXXZF2XW7Q4K7GGS7ZEYNRG
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -91,7 +169,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PXH2YNIW4XHQV367SMVEYEWSF5FXXWTZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6XS6LVT2NSXXZF2XW7Q4K7GGS7ZEYNRG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,37 +178,92 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 17 Apr 2024 12:52:34 +0300, Dan Carpenter wrote:
-> This code returns -EINVAL if "i" is out of bounds a few lines earlier.
-> Delete this unnecessary check and pull the code in a tab.
+On 23/04/2024 10:34, Xingyu Wu wrote:
+> Add bindings about the PDM controller for the StarFive JH8100 SoC.
 > 
-> 
+> Signed-off-by: Xingyu Wu <xingyu.wu@starfivetech.com>
 
-Applied to
+If there is going to be resend/new version, three nits. Anyway:
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-Thanks!
+...
 
-[1/1] ASoC: cs35l41: Delete unnecessary condition in cs35l41_pcm_hw_params()
-      commit: 181d58cfe90f6a2ad53f6811d318fbc7149df8c1
+> +
+> +title: StarFive JH8100 PDM controller
+> +
+> +description: |
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Do not need '|' unless you need to preserve formatting.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+> +  The Pulse Density Modulation (PDM) controller is a digital PDM out
+> +  microphone interface controller and decoder that supports both up to 4
+> +  channels, and an Inter-IC Sound (I2S) transmitter that outputs standard
+> +  stereo audio data to another device. The I2S transmitter can be
+> +  configured to operate either a master or a slave (default mode). The PDM
+> +  controller includes two PDM blocks, each PDM block can drive one
+> +  bitstream sampling clock and two bitstream coming data (mono/stereo)
+> +  with sampling clock rising and falling edge.
+> +
+> +maintainers:
+> +  - Xingyu Wu <xingyu.wu@starfivetech.com>
+> +  - Walker Chen <walker.chen@starfivetech.com>
+> +
+> +allOf:
+> +  - $ref: dai-common.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: starfive,jh8100-pdm
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    items:
+> +      - description: DMIC output clock
+> +      - description: Main ICG clock
+> +
+> +  clock-names:
+> +    items:
+> +      - const: dmic
+> +      - const: icg
+> +
+> +  resets:
+> +    maxItems: 1
+> +
+> +  "#sound-dai-cells":
+> +    const: 0
+> +
+> +  starfive,syscon:
+> +    $ref: /schemas/types.yaml#/definitions/phandle-array
+> +    items:
+> +      - items:
+> +          - description: phandle to System Register Controller sys_syscon_ne node.
+> +          - description: PDM source enabled control offset of SYS_SYSCON_NE register.
+> +          - description: PDM source enabled control mask
+> +    description:
+> +      The phandle to System Register Controller syscon node and the PDM source
+> +      from I2S enabled control offset and mask of SYS_SYSCON_NE register.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+This description duplicates items. Drop redundant parts (there is really
+never a need to say phandle is a phandle because it cannot be anything
+else). Instead say what is it used for.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
 
-Thanks,
-Mark
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - clock-names
+> +  - resets
+> +  - '#sound-dai-cells'
+
+Use consistent quotes, either ' or "
+
+
+
+Best regards,
+Krzysztof
 

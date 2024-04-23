@@ -2,92 +2,111 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5A5D8AEB5B
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Apr 2024 17:43:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3C288AF2FE
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Apr 2024 17:56:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DEBBE14E6;
-	Tue, 23 Apr 2024 17:43:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DEBBE14E6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 66321F52;
+	Tue, 23 Apr 2024 17:56:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 66321F52
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1713887037;
-	bh=VF5/Sec0n6Cv8p5GNgovR3lfxCPanV1UA1P9ASmMFKY=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=T9Cm+pmoIwhl15GnHOtnG6XrRQc2MLV742jBemvjqVhfCrovYbMuRyVWf0wDCPMaw
-	 2d7CiW4ar593AaBdFGKl4NUwsMjqa5oUKqMLhnHS1gcKOPPree7wT1zx5GfL3SOX0n
-	 4vQO9dWtbrbASFCvzwwLUaZEjSjv+bpVwzwicM/U=
+	s=default; t=1713887782;
+	bh=Ej8/m7SdFnqgrwQhjVcEPBmt81QzHjxp6CjbBxx+vI0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=CfNSnO4UpSput8XQhddyCyT1r/7OezUzcz3RjdafYGj+cszzZ94Ev9M6+XzcMqzz3
+	 xQ9NTN3D9PuAfVPsxD0LSE2cJz0IiAAOWQwxT6zt6NrWSDYo87rUR9zRUNcu9wQN5x
+	 R4hJYtj5Yo/rS7OSK4Lav7BPEfnFR5aS5qD9svRU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 57AB6F805AB; Tue, 23 Apr 2024 17:43:26 +0200 (CEST)
+	id 5F12AF8056F; Tue, 23 Apr 2024 17:55:50 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1C4ADF805A0;
-	Tue, 23 Apr 2024 17:43:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C5F20F80570;
+	Tue, 23 Apr 2024 17:55:50 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 540E8F80423; Tue, 23 Apr 2024 17:43:19 +0200 (CEST)
+	id E9A96F80423; Tue, 23 Apr 2024 17:55:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_SBL_CSS,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [IPv6:2a00:1450:4864:20::429])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 72AE1F8003A
-	for <alsa-devel@alsa-project.org>; Tue, 23 Apr 2024 17:43:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 72AE1F8003A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 10B4AF8003C
+	for <alsa-devel@alsa-project.org>; Tue, 23 Apr 2024 17:55:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10B4AF8003C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=h8j0RWbV
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 43N5qORd019606;
-	Tue, 23 Apr 2024 10:43:09 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
-	from:to:cc:subject:date:message-id:mime-version
-	:content-transfer-encoding:content-type; s=PODMain02222019; bh=p
-	qCXY0F/hH5vE3n5vzvGnl1NWHE0FIkwzef1pxPp3HM=; b=h8j0RWbVKY1mcxoni
-	v6umdZLoopSjSx2m+pXM/i1RRqJqTWfhjlHMLzXY755L5ve7QJsEsd3uRmcyj8cq
-	LvCc7GoFfNvZhAFw+hdH+dJw1wEj8Gd8ilZjX0XhM52rGerv6W07jcYIOlS2g0iZ
-	nuj5SLq34pJCQtSNb3KylUr/Zrt0t2P2ApFl8k0kQ5kn/lq3ikRsRnl32q9hM68q
-	qpaQnMInshWphEJ85UZV/GgWm7xpZCOkNNtInnzUMj+9BtHJnB3rG6XFx+MDo0P2
-	Xv6zMxl7oKSFQuLFdIVZaf1WTIhBltEDa0U2J2wE2x8gDCxkTIvhzL4r3FrGyyTk
-	XoWbQ==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3xmqmh29bj-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 23 Apr 2024 10:43:09 -0500 (CDT)
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 23 Apr
- 2024 16:43:05 +0100
-Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1544.9 via Frontend Transport; Tue, 23 Apr 2024 16:43:05 +0100
-Received: from ediswws07.ad.cirrus.com (ediswws07.ad.cirrus.com
- [198.90.208.14])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id BE99A820243;
-	Tue, 23 Apr 2024 15:43:05 +0000 (UTC)
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: <perex@perex.cz>
-CC: <pierre-louis.bossart@linux.intel.com>, <bard.liao@intel.com>,
-        <alsa-devel@alsa-project.org>, <patches@opensource.cirrus.com>
-Subject: [PATCH alsa-ucm-conf] sof-soundwire: Add basic support for cs42l43's
- speaker
-Date: Tue, 23 Apr 2024 16:43:05 +0100
-Message-ID: <20240423154305.2782347-1-ckeepax@opensource.cirrus.com>
-X-Mailer: git-send-email 2.39.2
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=FmRc3DC5
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-345b857d7adso4613984f8f.1
+        for <alsa-devel@alsa-project.org>;
+ Tue, 23 Apr 2024 08:55:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1713887734; x=1714492534;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=IW7ZL4jAlMLz9cl+B/4SKCxX48cMreRrpQi5eMp0DZg=;
+        b=FmRc3DC5BeAHDqzA94fYsRTZLaxo8HCHFo3GUwky2s/MzI6VvcvutIl4EFdYkb6WLM
+         ikFJPgH3VWyaBOU/hFcqmF7e/saOGtuGgaK6JDZHMMkhLrhajUGgpOFmbHC1qgathLbn
+         sRU8jDL5aoY9JlRPQvpO42tMvpvDiXwmwNTktaC1m3I1f6M+rLwAVFz+KB9JItziQRXi
+         r8K6yMfnLH6GSRYXu++AhglixgGagndBVUdwhqHPl8HgpafXdW62texcJNoS7qRWHRQx
+         XI/pl78dZFKr3/4T2qDNCh6sxkjUd/CUvj6ori7utXUfHBx0KCogpqDkzNbCZ/0zw0Fb
+         RSnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1713887734; x=1714492534;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=IW7ZL4jAlMLz9cl+B/4SKCxX48cMreRrpQi5eMp0DZg=;
+        b=eX6925FHv5vD16pJEZ9k/0EEaDipu/rcw6bo3z66CIYYp75oc9SDIZAWcFC0zujn8B
+         EchfjySG4IqkHrrS5VzPF2LfPAl5axEoE/8Dhyp6tmrP9n/9PDUaaz9HNGYAvobGP5Uk
+         8MSLOeaqG+BjIw8jbNNb4UkuIeNVKDyFdkgWv9OJtFQDoBRsRQ9KL2N14EtvSbog+7bh
+         zgDUMS7QZtPGgWYaEwn8m43IA28lv5ouv641f+8Hfm/g0aPF/dvwPXv/kEznWDP6Ybnx
+         WcLy2NrveMwqu+cAS6FheQ+pBS7Th/GP1HsRNMsEwgd5ZarPDIFRrj3jKpOBvMjYsXWI
+         6n2A==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXyQesKTn6dcqogfXS7GoTBxqQCioYJrJTr3iMbdemshuGglEb77EFTVwALR6BI1N9K3spN77bUp6QZ6ZIckfMbokL/faR2f6iKaa0=
+X-Gm-Message-State: AOJu0YydeJfS5n0o/iruq3EfaMuLb4RiTeHLEYyCupz0kQElFmVBBY0L
+	RyTvjb2qdCDJmGkQrrfwgJCiC5tQGYR3cX+/jpU42mZONpxx1GjHkAhgRtEIeus=
+X-Google-Smtp-Source: 
+ AGHT+IE8hjf2SDJhBCEz7Eup94Cqf+emuhCs+kF2rRPWSjs9aeWo2uin89OSuJPdxvp0W8z6jY9zNw==
+X-Received: by 2002:a5d:69c1:0:b0:343:ef1b:9f69 with SMTP id
+ s1-20020a5d69c1000000b00343ef1b9f69mr11023947wrw.43.1713887733821;
+        Tue, 23 Apr 2024 08:55:33 -0700 (PDT)
+Received: from [192.168.1.195] ([5.133.47.210])
+        by smtp.googlemail.com with ESMTPSA id
+ a6-20020a05600c348600b0041ab78cb237sm2690632wmq.31.2024.04.23.08.55.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 23 Apr 2024 08:55:33 -0700 (PDT)
+Message-ID: <b9d0e2fd-069c-439c-a85f-1e99bf9018c3@linaro.org>
+Date: Tue, 23 Apr 2024 16:55:32 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: wO1e9wE5kDJLrxsbfio6vqx-EDZJ8q4u
-X-Proofpoint-GUID: wO1e9wE5kDJLrxsbfio6vqx-EDZJ8q4u
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: 4VA4FJFXNMPLU33ZPX74OBUVTKMXULJ5
-X-Message-ID-Hash: 4VA4FJFXNMPLU33ZPX74OBUVTKMXULJ5
-X-MailFrom: prvs=184338f5c6=ckeepax@opensource.cirrus.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/4] ASoC: qcom: common: add Display port Jack function
+To: Johan Hovold <johan@kernel.org>
+Cc: broonie@kernel.org, perex@perex.cz, tiwai@suse.com, lgirdwood@gmail.com,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+References: <20240422134354.89291-1-srinivas.kandagatla@linaro.org>
+ <20240422134354.89291-3-srinivas.kandagatla@linaro.org>
+ <ZiejT5yddioQ8upR@hovoldconsulting.com>
+Content-Language: en-US
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+In-Reply-To: <ZiejT5yddioQ8upR@hovoldconsulting.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: WLCG4E4ZTCA6JXDE2VI3Y6YZGDKFCGZI
+X-Message-ID-Hash: WLCG4E4ZTCA6JXDE2VI3Y6YZGDKFCGZI
+X-MailFrom: srinivas.kandagatla@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -99,7 +118,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4VA4FJFXNMPLU33ZPX74OBUVTKMXULJ5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WLCG4E4ZTCA6JXDE2VI3Y6YZGDKFCGZI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,46 +127,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Previous support was added for the mics and headset on cs42l43, expand
-this support with additional configuration for the speaker output.
 
-Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
----
- ucm2/sof-soundwire/cs42l43-spk.conf | 25 +++++++++++++++++++++++++
- 1 file changed, 25 insertions(+)
- create mode 100644 ucm2/sof-soundwire/cs42l43-spk.conf
 
-diff --git a/ucm2/sof-soundwire/cs42l43-spk.conf b/ucm2/sof-soundwire/cs42l43-spk.conf
-new file mode 100644
-index 0000000..73f1299
---- /dev/null
-+++ b/ucm2/sof-soundwire/cs42l43-spk.conf
-@@ -0,0 +1,25 @@
-+# Use case Configuration for sof-soundwire card
-+
-+SectionDevice."Speaker" {
-+	Comment "Speaker"
-+
-+	ConflictingDevice [
-+		"Headphones"
-+	]
-+
-+	EnableSequence [
-+		cset "name='cs42l43 Speaker L Input 1' 'DP5RX1'"
-+		cset "name='cs42l43 Speaker R Input 1' 'DP5RX2'"
-+	]
-+
-+	DisableSequence [
-+		cset "name='cs42l43 Speaker L Input 1' 'None'"
-+		cset "name='cs42l43 Speaker R Input 1' 'None'"
-+	]
-+
-+	Value {
-+		PlaybackPriority 100
-+		PlaybackPCM "hw:${CardId},0"
-+		PlaybackMixerElem "cs42l43 Speaker Digital"
-+	}
-+}
--- 
-2.39.2
+On 23/04/2024 13:02, Johan Hovold wrote:
+> On Mon, Apr 22, 2024 at 02:43:52PM +0100, Srinivas Kandagatla wrote:
+>   
+>>   static const struct snd_soc_dapm_widget qcom_jack_snd_widgets[] = {
+>>   	SND_SOC_DAPM_HP("Headphone Jack", NULL),
+>>   	SND_SOC_DAPM_MIC("Mic Jack", NULL),
+>> +	SND_SOC_DAPM_SPK("HDMI/DP0 Jack", NULL),
+>> +	SND_SOC_DAPM_SPK("HDMI/DP1 Jack", NULL),
+>> +	SND_SOC_DAPM_SPK("HDMI/DP2 Jack", NULL),
+> 
+> Shouldn't these be split in dedicated HDMI and DP jacks too? What if you
+> have a machine with HDMI and DP jacks which would otherwise both claim
+> "HDMI/DP0"?
 
+These map to the Jack's added as part of qcom_snd_dp_jack_setup and 
+belong to DISPLAY_PORT_RX_0, DISPLAY_PORT_RX_1, DISPLAY_PORT_RX_2.
+
+If its going via USB-C DP controller it will be either DP or an HDMI ?
+
+This is the most common naming for the USB-C DP/HDMI jack events.
+
+Qualcomm LPASS in some older SoCs had a dedicated HDMI interface which 
+is different to this one.
+
+Usual Other ways to connect HDMI is via external HDMI Bridge using I2S 
+interface which totally different to this DP interface.
+
+So none of these will conflict.
+
+
+hope this clarifies.
+
+thanks,
+Srini
+> 
+> Johan

@@ -2,80 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 818678ADD09
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Apr 2024 07:06:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 554BE8ADDF2
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Apr 2024 09:01:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C2F33162E;
-	Tue, 23 Apr 2024 07:06:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C2F33162E
+	by alsa0.perex.cz (Postfix) with ESMTPS id D04D114E9;
+	Tue, 23 Apr 2024 09:00:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D04D114E9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1713848803;
-	bh=M0Oo2/rDVfDRqkmgxoKkdOS/0wTXJfumeJLtRvmFJgU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=OLs4IkDkE1fCk2YcCcef2Zz0QrRHLYBQwjfmASei2qWqTg17Ow8e7J4YgGoF73H3k
-	 rOaDbP1v4NKlXCI/I397EvIE4BrvTC6uPFCrreC9IctOHH4DWTuZJoAmH0/Q/w9B52
-	 Zf8Yo60jSEAbLIJtjg3DnYxjU/bCnck9ITMTCvSs=
+	s=default; t=1713855662;
+	bh=RBj1K/AM0hxb43XR8N2A+DOFlFZY6TSlv2naU15lEDc=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=IsPX30lJmubQ3YJ0EgNTg1JcEE7ODtatOoG+j0cw8XuoGTcEePB4YbzSGauAD9EXK
+	 NypOy51W7IJ+gugEObiWeQHsBXfTaLGXBJMgFbMpN8g4ojplUTA39V6fED0nxu0Dbw
+	 3Zipo0QAsUVc5P8jl1In55uPyhBSYRpiLRHbVNMk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 96C98F805AC; Tue, 23 Apr 2024 07:06:12 +0200 (CEST)
+	id 3878FF8057D; Tue, 23 Apr 2024 09:00:31 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BFE7CF805A1;
-	Tue, 23 Apr 2024 07:06:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 61914F80578;
+	Tue, 23 Apr 2024 09:00:31 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EE7F9F80423; Tue, 23 Apr 2024 07:04:16 +0200 (CEST)
+	id B1ED8F80423; Tue, 23 Apr 2024 09:00:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D1C25F801C0
-	for <alsa-devel@alsa-project.org>; Tue, 23 Apr 2024 07:04:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1C25F801C0
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=FbmEcnVF
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id A7DD861069;
-	Tue, 23 Apr 2024 05:04:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6FBAC116B1;
-	Tue, 23 Apr 2024 05:04:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1713848648;
-	bh=M0Oo2/rDVfDRqkmgxoKkdOS/0wTXJfumeJLtRvmFJgU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=FbmEcnVFYX/wRd+3iJS9w/ncO82zw1Y3QSKTqKcnSYKYkRRwtDnJtXzkdfvPwkwut
-	 DWl+78pKKbZ4ORHGucJeyjMRBv4WhsrErs8aRMNmpZvoCEnWDSZqop3lC2evggPicv
-	 9yy8i2SBaWT5dg425a9gef4qt4dLrC01knMfrTa+DybCqv9ecwL55HcQMr95yUi0lC
-	 ghkVmBlPtipFRD5TlL0eXs1cTlz+OVkcVpL2P7NwtdEb18UWr5yGN7ocitoTyxqYrl
-	 fhNEleWsitvFWfM7MJSPDjTm3tTMX3CCtxyszLaH8k3X/w9qZxsG8s4n09hHM2tq02
-	 hOSlZauRzN/IQ==
-From: Mark Brown <broonie@kernel.org>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Cc: linux-kernel@vger.kernel.org, patches@opensource.cirrus.com,
- alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- Simon Trimmer <simont@opensource.cirrus.com>
-In-Reply-To: <20240422103211.236063-1-rf@opensource.cirrus.com>
-References: <20240422103211.236063-1-rf@opensource.cirrus.com>
-Subject: Re: [PATCH] ASoC: cs35l56: Avoid static analysis warning of
- uninitialised variable
-Message-Id: <171384864615.1769239.12719650496450465908.b4-ty@kernel.org>
-Date: Tue, 23 Apr 2024 14:04:06 +0900
+	by alsa1.perex.cz (Postfix) with ESMTPS id 34ADEF8003A
+	for <alsa-devel@alsa-project.org>; Tue, 23 Apr 2024 08:59:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34ADEF8003A
+X-SpamFilter-By: ArmorX SpamTrap 5.78 with qID 43N6xZ8H1969698,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (rtexh36505.realtek.com.tw[172.21.6.25])
+	by rtits2.realtek.com.tw (8.15.2/2.95/5.92) with ESMTPS id 43N6xZ8H1969698
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 23 Apr 2024 14:59:35 +0800
+Received: from RTEXDAG01.realtek.com.tw (172.21.6.100) by
+ RTEXH36505.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.35; Tue, 23 Apr 2024 14:59:36 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXDAG01.realtek.com.tw (172.21.6.100) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.35; Tue, 23 Apr 2024 14:59:35 +0800
+Received: from RTEXMBS01.realtek.com.tw ([fe80::d5b2:56ba:6b47:9975]) by
+ RTEXMBS01.realtek.com.tw ([fe80::d5b2:56ba:6b47:9975%5]) with mapi id
+ 15.01.2507.035; Tue, 23 Apr 2024 14:59:35 +0800
+Content-Type: multipart/mixed;
+	boundary="_000_b1f546ad16dc4c7abb7daa7396e8345crealtekcom_"
+From: Jack Yu <jack.yu@realtek.com>
+To: "broonie@kernel.org" <broonie@kernel.org>,
+        "lgirdwood@gmail.com"
+	<lgirdwood@gmail.com>
+CC: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+        "lars@metafoo.de" <lars@metafoo.de>,
+        "Flove(HsinFu)" <flove@realtek.com>,
+        Oder Chiou <oder_chiou@realtek.com>,
+        =?big5?B?U2h1bWluZyBbrVOu0bvKXQ==?=
+	<shumingf@realtek.com>,
+        =?big5?B?RGVyZWsgW6TovHe4cV0=?=
+	<derek.fang@realtek.com>,
+        Jack Yu <jack.yu@realtek.com>
+Subject: [PATCH] ASoC: rt715-sdca: volume step modification
+Thread-Topic: [PATCH] ASoC: rt715-sdca: volume step modification
+Thread-Index: AdqVS8xGwMcrM0SbRSq9cLyQhdP5Jg==
+Date: Tue, 23 Apr 2024 06:59:35 +0000
+Message-ID: <b1f546ad16dc4c7abb7daa7396e8345c@realtek.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-TNEF-Correlator: <b1f546ad16dc4c7abb7daa7396e8345c@realtek.com>
+x-originating-ip: [172.22.102.102]
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14-dev
-Message-ID-Hash: G3A3SI6S53QHIEAFX5DVTFI742BIHQAP
-X-Message-ID-Hash: G3A3SI6S53QHIEAFX5DVTFI742BIHQAP
-X-MailFrom: broonie@kernel.org
+X-KSE-ServerInfo: RTEXH36505.realtek.com.tw, 9
+X-KSE-AntiSpam-Interceptor-Info: fallback
+X-KSE-Antivirus-Interceptor-Info: fallback
+X-KSE-AntiSpam-Interceptor-Info: fallback
+Message-ID-Hash: IKMSV6W6WQ4P66BYF74HQ47WISX5YC35
+X-Message-ID-Hash: IKMSV6W6WQ4P66BYF74HQ47WISX5YC35
+X-MailFrom: jack.yu@realtek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -87,7 +98,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/G3A3SI6S53QHIEAFX5DVTFI742BIHQAP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IKMSV6W6WQ4P66BYF74HQ47WISX5YC35/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,42 +107,142 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 22 Apr 2024 11:32:11 +0100, Richard Fitzgerald wrote:
-> Static checkers complain that the silicon_uid variable passed by
-> pointer to cs35l56_read_silicon_uid() could later be used
-> uninitialised when calling cs_amp_get_efi_calibration_data().
-> 
-> cs35l56_read_silicon_uid() must have succeeded to call
-> cs_amp_get_efi_calibration_data() and that would have populated the
-> variable.
-> 
-> [...]
+--_000_b1f546ad16dc4c7abb7daa7396e8345crealtekcom_
+Content-Type: text/plain; charset="big5"
+Content-Transfer-Encoding: base64
 
-Applied to
+Vm9sdW1lIHN0ZXAgKGRCL3N0ZXApIG1vZGlmaWNhdGlvbiB0byBmaXggZm9ybWF0IGVycm9yDQp3
+aGljaCBzaG93biBpbiBhbWl4ZXIgY29udHJvbC4NCg0KU2lnbmVkLW9mZi1ieTogSmFjayBZdSA8
+amFjay55dUByZWFsdGVrLmNvbT4NCi0tLQ0KIHNvdW5kL3NvYy9jb2RlY3MvcnQ3MTUtc2RjYS5j
+IHwgOCArKysrLS0tLQ0KIDEgZmlsZSBjaGFuZ2VkLCA0IGluc2VydGlvbnMoKyksIDQgZGVsZXRp
+b25zKC0pDQoNCmRpZmYgLS1naXQgYS9zb3VuZC9zb2MvY29kZWNzL3J0NzE1LXNkY2EuYyBiL3Nv
+dW5kL3NvYy9jb2RlY3MvcnQ3MTUtc2RjYS5jDQppbmRleCAzYTZkZmUxZjZjNDguLjdlMTBmZDkx
+MzgxMiAxMDA2NDQNCi0tLSBhL3NvdW5kL3NvYy9jb2RlY3MvcnQ3MTUtc2RjYS5jDQorKysgYi9z
+b3VuZC9zb2MvY29kZWNzL3J0NzE1LXNkY2EuYw0KQEAgLTMxNiw3ICszMTYsNyBAQCBzdGF0aWMg
+aW50IHJ0NzE1X3NkY2Ffc2V0X2FtcF9nYWluXzhjaF9nZXQoc3RydWN0IHNuZF9rY29udHJvbCAq
+a2NvbnRyb2wsDQogCXJldHVybiAwOw0KIH0NCiANCi1zdGF0aWMgY29uc3QgREVDTEFSRV9UTFZf
+REJfU0NBTEUoaW5fdm9sX3RsdiwgLTE3NjI1LCAzNzUsIDApOw0KK3N0YXRpYyBjb25zdCBERUNM
+QVJFX1RMVl9EQl9TQ0FMRShpbl92b2xfdGx2LCAtMTcyNSwgNzUsIDApOw0KIHN0YXRpYyBjb25z
+dCBERUNMQVJFX1RMVl9EQl9TQ0FMRShtaWNfdm9sX3RsdiwgMCwgMTAwMCwgMCk7DQogDQogc3Rh
+dGljIGludCBydDcxNV9zZGNhX2dldF92b2xzdyhzdHJ1Y3Qgc25kX2tjb250cm9sICprY29udHJv
+bCwNCkBAIC00NzcsNyArNDc3LDcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBzbmRfa2NvbnRyb2xf
+bmV3IHJ0NzE1X3NkY2Ffc25kX2NvbnRyb2xzW10gPSB7DQogCQkJUlQ3MTVfU0RDQV9GVV9WT0xf
+Q1RSTCwgQ0hfMDEpLA0KIAkJU0RXX1NEQ0FfQ1RMKEZVTl9NSUNfQVJSQVksIFJUNzE1X1NEQ0Ff
+RlVfQURDN18yN19WT0wsDQogCQkJUlQ3MTVfU0RDQV9GVV9WT0xfQ1RSTCwgQ0hfMDIpLA0KLQkJ
+CTB4MmYsIDB4N2YsIDAsDQorCQkJMHgyZiwgMHgzZiwgMCwNCiAJCXJ0NzE1X3NkY2Ffc2V0X2Ft
+cF9nYWluX2dldCwgcnQ3MTVfc2RjYV9zZXRfYW1wX2dhaW5fcHV0LA0KIAkJaW5fdm9sX3Rsdiks
+DQogCVJUNzE1X1NEQ0FfRVhUX1RMVigiRlUwMiBDYXB0dXJlIFZvbHVtZSIsDQpAQCAtNDg1LDEz
+ICs0ODUsMTMgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBzbmRfa2NvbnRyb2xfbmV3IHJ0NzE1X3Nk
+Y2Ffc25kX2NvbnRyb2xzW10gPSB7DQogCQkJUlQ3MTVfU0RDQV9GVV9WT0xfQ1RSTCwgQ0hfMDEp
+LA0KIAkJcnQ3MTVfc2RjYV9zZXRfYW1wX2dhaW5fNGNoX2dldCwNCiAJCXJ0NzE1X3NkY2Ffc2V0
+X2FtcF9nYWluXzRjaF9wdXQsDQotCQlpbl92b2xfdGx2LCA0LCAweDdmKSwNCisJCWluX3ZvbF90
+bHYsIDQsIDB4M2YpLA0KIAlSVDcxNV9TRENBX0VYVF9UTFYoIkZVMDYgQ2FwdHVyZSBWb2x1bWUi
+LA0KIAkJU0RXX1NEQ0FfQ1RMKEZVTl9NSUNfQVJSQVksIFJUNzE1X1NEQ0FfRlVfQURDMTBfMTFf
+Vk9MLA0KIAkJCVJUNzE1X1NEQ0FfRlVfVk9MX0NUUkwsIENIXzAxKSwNCiAJCXJ0NzE1X3NkY2Ff
+c2V0X2FtcF9nYWluXzRjaF9nZXQsDQogCQlydDcxNV9zZGNhX3NldF9hbXBfZ2Fpbl80Y2hfcHV0
+LA0KLQkJaW5fdm9sX3RsdiwgNCwgMHg3ZiksDQorCQlpbl92b2xfdGx2LCA0LCAweDNmKSwNCiAJ
+LyogTUlDIEJvb3N0IENvbnRyb2wgKi8NCiAJUlQ3MTVfU0RDQV9CT09TVF9FWFRfVExWKCJGVTBF
+IEJvb3N0IiwNCiAJCVNEV19TRENBX0NUTChGVU5fTUlDX0FSUkFZLCBSVDcxNV9TRENBX0ZVX0RN
+SUNfR0FJTl9FTiwNCi0tIA0KMi4zNC4xDQoNCg==
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+--_000_b1f546ad16dc4c7abb7daa7396e8345crealtekcom_
+Content-Disposition: attachment; filename="winmail.dat"
+Content-Transfer-Encoding: base64
+Content-Type: application/ms-tnef; name="winmail.dat"
 
-Thanks!
+eJ8+ItsyAQaQCAAEAAAAAAABAAEAAQeQBgAIAAAAtgMAAAAAAAC5AAEJgAEAIQAAADg2QkU4MDUw
+RThEMUJBNEM5NDZFNzRGN0I5NTM3OEZCAFgHAQ2ABAACAAAAAgACAAEFgAMADgAAAOgHBAAXAAYA
+OwAjAAIAcAEBIIADAA4AAADoBwQAFwAGADsAIwACAHABAQiABwAYAAAASVBNLk1pY3Jvc29mdCBN
+YWlsLk5vdGUAMQgBBIABADMAAABbUEFUQ0hdIEFTb0M6IHJ0NzE1LXNkY2E6IHZvbHVtZSBzdGVw
+IG1vZGlmaWNhdGlvbgAXEQELgAEAIQAAADg2QkU4MDUwRThEMUJBNEM5NDZFNzRGN0I5NTM3OEZC
+AFgHAQOQBgCkEwAARAAAAAIBfwABAAAALwAAADxiMWY1NDZhZDE2ZGM0YzdhYmI3ZGFhNzM5NmU4
+MzQ1Y0ByZWFsdGVrLmNvbT4AAAsAHw4AAAAAAgEJEAEAAABgBAAAXAQAAFIJAABMWkZ1B0kAN2EA
+CmZiaWQEAABjY8BwZzEyNTIA/gND8HRleHQB9wKkA+MCAARjaArAc2V0MCDvB20CgwBQEU0yCoAG
+tAKAln0KgAjIOwliMTkOwL8JwxZyCjIWcQKAFWIqCbBzCfAEkGF0BbIOUANgc6JvAYAgRXgRwW4Y
+MF0GUnYEkBe2AhByAMB0fQhQbhoxECAFwAWgG2RkmiADUiAQIheyXHYIkOR3awuAZDUdUwTwB0AN
+F3AwCnEX8mJrbWsGcwGQACAgQk1fQuBFR0lOfQr8AfEL8VQgVgbwdQeAIB9gZUBwIChkQi8iEine
+IARhBpAOUBiAaQIgHMCybxxwaXgccBrzIASQUQNgclxsC4BlCoB3imgOUGgiAGhvdwOgsQuAIGFt
+JBAbtHQDYIxsLiUFJQVTaWcYUARkLRkwZi1ieToEIEoA0GsgWXUghDxqKTEueXVACXBPB0AQICng
+BaBtPiUFLT8rYCUFIgAIYB3AIpBvYyYvBaAFgXMvACA3MTA1LXNkHlAqoCB8cCA4ICsuMSthK4cx
+DyPxHnAb0BmjZCwgNA8mIRIAACAjkXMoKynPMBIBAB5wMKQtKSdcIyGkZiArYGdpBUBhLGH7LD8t
+SWIzzy0bJQUdsRAwQCAzYTZkZhdwZoA2YzQ4Li43HoHhBXA5MTM4DpAvIB6g+DY0NCr4M682vyUj
+LjEnNa88PyUjQEAzQDMx+DYsNy4gQHRAMR9hI4DvLdALgAVALSNfLYJCcBIQIl8mYHBfZwtxXzgX
+EcBDQBIQKB9gcnVjJQVAcx3AX2sm1SAqbUTWLCuWCXB0CHADoDD7FiArpVwgQEcmKwVBdRvhAR9g
+IERFQ0xBUgBFX1RMVl9EQoBfU0NBTEUoQ3FCdgbwX3RsdjAQLZgxNzYOoDAQMzdL4fQwKUcGK0i/
+Sc9K3UvSX0wsQWZNj06YJnBjSvgw/zAQHpFUQVCpUN1B7UPhSvKPA+BEH0UvP/Y0NzdAov9alEFI
+UcRYD0sRGFAH4EIqg1iBJtVzW10gPQMwkwAAK6VSVEJCU0RO4ABfRlVfVk9MXxBDVFJMMBBDSF/c
+MDExECuWYKBXYJRhYARMKGDwTl9NSUNiX1JgUkFZMBBgTEHxYLA3XzJlgGEhRfdgTwVhWTJiFy0w
+eDJmWUxBeDdpMkX2K2kGM39pmkIfQyZD4TAQa89DNXA+dW1gK5ZK2GIYZplFWHJUTlIoImdAaEBh
+sGGvBTAIcBngIaQiWds4S+D/OcBa4XRkW29cf12PXp9fr+9nD2HNbZ9DNTRDtHwPfR9rQ7FvGS1K
+2jRpRGIXK++Bn2rgcH9xjjZyn2I/Y0/HZF96kB6QXzExZc96b/97f38PfZ+OP49PgM+B34Lvc4P/
+K+EvKgXQiWAfsG9vGRAFQBtBWPQvi7+MwELYT09TceBxykWXpIevz4i/ic9OkJ0iR0EgIHGwDk5o
+dzsQJQUyLjM0Hi4AUCdrFUKiEB8AQgABAAAAEAAAAEoAYQBjAGsAIABZAHUAAAAfAGUAAQAAACgA
+AABqAGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAAHwBkAAEAAAAKAAAAUwBN
+AFQAUAAAAAAAAgFBAAEAAABaAAAAAAAAAIErH6S+oxAZnW4A3QEPVAIAAACASgBhAGMAawAgAFkA
+dQAAAFMATQBUAFAAAABqAGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAAAAAf
+AAJdAQAAACgAAABqAGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAAHwDlXwEA
+AAAwAAAAcwBpAHAAOgBqAGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAAHwAa
+DAEAAAAQAAAASgBhAGMAawAgAFkAdQAAAB8AHwwBAAAAKAAAAGoAYQBjAGsALgB5AHUAQAByAGUA
+YQBsAHQAZQBrAC4AYwBvAG0AAAAfAB4MAQAAAAoAAABTAE0AVABQAAAAAAACARkMAQAAAFoAAAAA
+AAAAgSsfpL6jEBmdbgDdAQ9UAgAAAIBKAGEAYwBrACAAWQB1AAAAUwBNAFQAUAAAAGoAYQBjAGsA
+LgB5AHUAQAByAGUAYQBsAHQAZQBrAC4AYwBvAG0AAAAAAB8AAV0BAAAAKAAAAGoAYQBjAGsALgB5
+AHUAQAByAGUAYQBsAHQAZQBrAC4AYwBvAG0AAAALAEA6AQAAAB8AGgABAAAAEgAAAEkAUABNAC4A
+TgBvAHQAZQAAAAAAAwDxPwQEAAALAEA6AQAAAAMA/T+2AwAAAgELMAEAAAAQAAAAhr6AUOjRukyU
+bnT3uVN4+wMAFwABAAAAQAA5AIClr8xLldoBQAAIMKE7HM1LldoBCwApAAAAAAAfANk/AQAAAAAC
+AABWAG8AbAB1AG0AZQAgAHMAdABlAHAAIAAoAGQAQgAvAHMAdABlAHAAKQAgAG0AbwBkAGkAZgBp
+AGMAYQB0AGkAbwBuACAAdABvACAAZgBpAHgAIABmAG8AcgBtAGEAdAAgAGUAcgByAG8AcgANAAoA
+dwBoAGkAYwBoACAAcwBoAG8AdwBuACAAaQBuACAAYQBtAGkAeABlAHIAIABjAG8AbgB0AHIAbwBs
+AC4ADQAKAA0ACgBTAGkAZwBuAGUAZAAtAG8AZgBmAC0AYgB5ADoAIABKAGEAYwBrACAAWQB1ACAA
+PABqAGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAD4ADQAKAC0ALQAtAA0ACgAg
+AHMAbwB1AG4AZAAvAHMAbwBjAC8AYwBvAGQAZQBjAHMALwByAHQANwAxADUALQBzAGQAYwBhAC4A
+YwAgAHwAIAA4ACAAKwArACsAKwAtAC0ALQAtAA0ACgAgADEAIABmAGkAbABlACAAYwBoAGEAbgBn
+AGUAZAAsACAANAAgAGkAbgBzAGUAcgB0AGkAbwBuAHMAKAArACkALAAgADQAIABkAGUAbABlAHQA
+aQBvAG4AcwAoAC0AKQANAAoADQAKAGQAaQBmAGYAIAAtAC0AZwBpAHQAIABhAC8AcwBvAHUAbgAA
+AAsAAIAIIAYAAAAAAMAAAAAAAABGAAAAABSFAAABAAAAHwAAgIYDAgAAAAAAwAAAAAAAAEYBAAAA
+HgAAAGEAYwBjAGUAcAB0AGwAYQBuAGcAdQBhAGcAZQAAAAAAAQAAABoAAAB6AGgALQBUAFcALAAg
+AGUAbgAtAFUAUwAAAAAAAwAAgAggBgAAAAAAwAAAAAAAAEYBAAAAMgAAAEUAeABjAGgAYQBuAGcA
+ZQBBAHAAcABsAGkAYwBhAHQAaQBvAG4ARgBsAGEAZwBzAAAAAAAgAAAASAAAgAggBgAAAAAAwAAA
+AAAAAEYBAAAAIgAAAE4AZQB0AHcAbwByAGsATQBlAHMAcwBhAGcAZQBJAGQAAAAAALJoUJlDKoRL
+050I3GNi754fAACAE4/yQfSDFEGlhO7bWmsL/wEAAAAWAAAAQwBsAGkAZQBuAHQASQBuAGYAbwAA
+AAAAAQAAACoAAABDAGwAaQBlAG4AdAA9AE0AUwBFAHgAYwBoAGEAbgBnAGUAUgBQAEMAAAAAAB8A
++j8BAAAAEAAAAEoAYQBjAGsAIABZAHUAAAAfADcAAQAAAGYAAABbAFAAQQBUAEMASABdACAAQQBT
+AG8AQwA6ACAAcgB0ADcAMQA1AC0AcwBkAGMAYQA6ACAAdgBvAGwAdQBtAGUAIABzAHQAZQBwACAA
+bQBvAGQAaQBmAGkAYwBhAHQAaQBvAG4AAAAAAB8APQABAAAAAgAAAAAAAAADADYAAAAAAAIBcQAB
+AAAAFgAAAAHalUvMRsDHKzNEm0UqvXC8kIXT+SYAAB8AcAABAAAAZgAAAFsAUABBAFQAQwBIAF0A
+IABBAFMAbwBDADoAIAByAHQANwAxADUALQBzAGQAYwBhADoAIAB2AG8AbAB1AG0AZQAgAHMAdABl
+AHAAIABtAG8AZABpAGYAaQBjAGEAdABpAG8AbgAAAAAAHwA1EAEAAABeAAAAPABiADEAZgA1ADQA
+NgBhAGQAMQA2AGQAYwA0AGMANwBhAGIAYgA3AGQAYQBhADcAMwA5ADYAZQA4ADMANAA1AGMAQABy
+AGUAYQBsAHQAZQBrAC4AYwBvAG0APgAAAAAAAwDeP7YDAAADABMSAAAAAAIBAIATj/JB9IMUQaWE
+7ttaawv/AQAAAC4AAABIAGUAYQBkAGUAcgBCAG8AZAB5AEYAcgBhAGcAbQBlAG4AdABMAGkAcwB0
+AAAAAAABAAAAIgAAAAEACgAAAAQAAAAAAAAAFAAAAAAAAAAAAAAA/////wAAAAAAAAsAAIATj/JB
+9IMUQaWE7ttaawv/AQAAABwAAABIAGEAcwBRAHUAbwB0AGUAZABUAGUAeAB0AAAAAAAAAAsAAIAT
+j/JB9IMUQaWE7ttaawv/AQAAACgAAABJAHMAUQB1AG8AdABlAGQAVABlAHgAdABDAGgAYQBuAGcA
+ZQBkAAAAAAAAAEAABzD+rhPNS5XaAQIBCwABAAAAEAAAAIa+gFDo0bpMlG5097lTePsDACYAAAAA
+AAsABgwAAAAAAgEQMAEAAABGAAAAAAAAANvpxEokoOdBkxsquyuzbUwHAEy3fQ1VoXlEvnOFOWLQ
+AKUAAABpYPcAADKvOAVKsE5GgMfHOCK6D1oAAAHXuM8AAAAAAgETMAEAAAAQAAAAwMcrM0SbRSq9
+cLyQhdP5JgIBFDABAAAADAAAAIwAAACpl58HVgAAAB8A+D8BAAAAEAAAAEoAYQBjAGsAIABZAHUA
+AAAfACJAAQAAAAYAAABFAFgAAAAAAB8AI0ABAAAAtgAAAC8ATwA9AFIAVABFAFgAQwBIAC8ATwBV
+AD0ARQBYAEMASABBAE4ARwBFACAAQQBEAE0ASQBOAEkAUwBUAFIAQQBUAEkAVgBFACAARwBSAE8A
+VQBQACAAKABGAFkARABJAEIATwBIAEYAMgAzAFMAUABEAEwAVAApAC8AQwBOAD0AUgBFAEMASQBQ
+AEkARQBOAFQAUwAvAEMATgA9AFUAUwBFAFIANQA5ADgANgA1ADEAMAA5AAAAAAAfACRAAQAAAAYA
+AABFAFgAAAAAAB8AJUABAAAAtgAAAC8ATwA9AFIAVABFAFgAQwBIAC8ATwBVAD0ARQBYAEMASABB
+AE4ARwBFACAAQQBEAE0ASQBOAEkAUwBUAFIAQQBUAEkAVgBFACAARwBSAE8AVQBQACAAKABGAFkA
+RABJAEIATwBIAEYAMgAzAFMAUABEAEwAVAApAC8AQwBOAD0AUgBFAEMASQBQAEkARQBOAFQAUwAv
+AEMATgA9AFUAUwBFAFIANQA5ADgANgA1ADEAMAA5AAAAAAAfADBAAQAAABAAAABKAGEAYwBrACAA
+WQB1AAAAHwAxQAEAAAAQAAAASgBhAGMAawAgAFkAdQAAAB8AOEABAAAAEAAAAEoAYQBjAGsAIABZ
+AHUAAAAfADlAAQAAABAAAABKAGEAYwBrACAAWQB1AAAAAwBZQAAAAAADAFpAAAAAAAMACVkBAAAA
+HwAKXQEAAAAoAAAAagBhAGMAawAuAHkAdQBAAHIAZQBhAGwAdABlAGsALgBjAG8AbQAAAB8AC10B
+AAAAKAAAAGoAYQBjAGsALgB5AHUAQAByAGUAYQBsAHQAZQBrAC4AYwBvAG0AAAAfAACAH6TrM6h6
+LkK+e3nhqY5UswEAAAA4AAAAQwBvAG4AdgBlAHIAcwBhAHQAaQBvAG4ASQBuAGQAZQB4AFQAcgBh
+AGMAawBpAG4AZwBFAHgAAAABAAAAJAEAAEkASQA9AFsAQwBJAEQAPQAzADMAMgBiAGMANwBjADAA
+LQA5AGIANAA0AC0AMgBhADQANQAtAGIAZAA3ADAALQBiAGMAOQAwADgANQBkADMAZgA5ADIANgA7
+AEkARABYAEgARQBBAEQAPQBEAEEAOQA1ADQAQgBDAEMANAA2ADsASQBEAFgAQwBPAFUATgBUAD0A
+MQBdADsAUABTAD0AVQBuAGsAbgBvAHcAbgA7AFYAZQByAHMAaQBvAG4APQBWAGUAcgBzAGkAbwBu
+ACAAMQA1AC4AMQAgACgAQgB1AGkAbABkACAAMgA1ADAANwAuADAAKQAsACAAUwB0AGEAZwBlAD0A
+SAA0ADsAVQBQAD0AMQAwADsARABQAD0AMQBDADUAAAALAACACCAGAAAAAADAAAAAAAAARgAAAACC
+hQAAAAAAAAMADTT9PwAAHwAAgIYDAgAAAAAAwAAAAAAAAEYBAAAAIAAAAHgALQBtAHMALQBoAGEA
+cwAtAGEAdAB0AGEAYwBoAAAAAQAAAAIAAAAAAAAAHwAAgIYDAgAAAAAAwAAAAAAAAEYBAAAAIgAA
+AHgALQBvAHIAaQBnAGkAbgBhAHQAaQBuAGcALQBpAHAAAAAAAAEAAAAiAAAAWwAxADcAMgAuADIA
+MgAuADEAMAAyAC4AMQAwADIAXQAAAAAAedw=
 
-[1/1] ASoC: cs35l56: Avoid static analysis warning of uninitialised variable
-      commit: f2602fba4723e408380eb9a56e921d36a1ae21f8
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+--_000_b1f546ad16dc4c7abb7daa7396e8345crealtekcom_--

@@ -2,121 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 047588AFC37
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Apr 2024 00:49:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D41B8AFD8D
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Apr 2024 03:04:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0A93F191C;
-	Wed, 24 Apr 2024 00:49:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A93F191C
+	by alsa0.perex.cz (Postfix) with ESMTPS id D43951909;
+	Wed, 24 Apr 2024 03:04:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D43951909
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1713912578;
-	bh=TRuX/tTAJzD7cSBZjxwlCUN8qWsw1eNS9r8xYN+qJVw=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
+	s=default; t=1713920668;
+	bh=FCgxI9hRZbqu0+iAf2lCbUV0+8hj7ctLbKQ6/k8LXak=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=BXRZUyHrUj5gDioXVR85vNzJuaCDpTYFl/jtCBLcXnhXydE1sOSQPKUFkcHgPcO8I
-	 GJrO9bTfonJYz7Ep4a+QZX8zs0odT/v6IAd56MJbc/Ru3Eh1/0/56WAMjfpSklu4HH
-	 /zRybl8eXBExHpbY5kY2dPHfSw/l9tmfAIfj1x0k=
+	b=SjEqoVceSUAd+jei/YMIGnYBx2sbgBjozFaPDY1jUAexbFu3z4a2RtyTLj+EC19YN
+	 AjTzNgUXcbd9/KCkjOUG7mEpxJuv6tH+ZYmRArmDx12gaDdaQN138pEJ5QQ8RHRu1y
+	 R/4er9DlEnI0u3EOayN0MXAJFIfeCuIh+oklGYSU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 62AF2F80589; Wed, 24 Apr 2024 00:49:06 +0200 (CEST)
+	id 149D2F805AB; Wed, 24 Apr 2024 03:03:56 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CBDAFF805A0;
-	Wed, 24 Apr 2024 00:49:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 882F1F805A1;
+	Wed, 24 Apr 2024 03:03:56 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DF4E5F80423; Wed, 24 Apr 2024 00:48:59 +0200 (CEST)
+	id 33177F80423; Wed, 24 Apr 2024 03:03:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3070CF800B5
-	for <alsa-devel@alsa-project.org>; Wed, 24 Apr 2024 00:48:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3070CF800B5
+	by alsa1.perex.cz (Postfix) with ESMTPS id 48B85F800B5
+	for <alsa-devel@alsa-project.org>; Wed, 24 Apr 2024 03:03:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48B85F800B5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=cBW+NGtN
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 43NM5IQN015367;
-	Tue, 23 Apr 2024 22:48:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
-	message-id:date:mime-version:subject:to:cc:references:from
-	:in-reply-to:content-type:content-transfer-encoding; s=
-	qcppdkim1; bh=DDXZUb9B2qp1xMWb0EroroBnTTf58sdaiaj+26UKu5I=; b=cB
-	W+NGtNYFM1GqoOmyCowtmgRlTJaC2dalqNTOCyIa1B4tBeynyAvca5C5fvTmmvcj
-	jDzKC/l6wzG/EaGZeQsMwjMqjAbaK9a0N4MG4gnHxZDdi2eiebpl/LPBKUtl1PcM
-	9g5x2oV6G1gZNpF8XFXy6R2n9vLcAClfUSksV36DkTDoWKgb7esBgqdxbKNqLSUP
-	HTuZby/22SS/haVSE4yq6RwshxKOOxWekycPAEqRmAgmFJiSI3Z0EH7cW3RF8OKS
-	vPGA3ZU5xoPc2Zc6ueVlzG8ZQcTFaWMYeNVcu3jR2SXFxsaEn+8AAMJizpXhg1xB
-	5hmtyvO22MVROv/Cgd9Q==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3xpjp8gqp4-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 23 Apr 2024 22:48:45 +0000 (GMT)
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
-	by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
- 43NMmit4014980
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 23 Apr 2024 22:48:44 GMT
-Received: from [10.110.64.215] (10.80.80.8) by nalasex01b.na.qualcomm.com
- (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 23 Apr
- 2024 15:48:43 -0700
-Message-ID: <32ea2ffa-5ee4-5344-826d-3572085af705@quicinc.com>
-Date: Tue, 23 Apr 2024 15:48:43 -0700
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=EyJGO1H3
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id 8280ECE1072;
+	Wed, 24 Apr 2024 01:03:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF98BC116B1;
+	Wed, 24 Apr 2024 01:03:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1713920605;
+	bh=FCgxI9hRZbqu0+iAf2lCbUV0+8hj7ctLbKQ6/k8LXak=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=EyJGO1H3UiCDxrVt+fTv5npZByP4+CC1qF/PEGz86qgf4A1ythwY1vAHUgMnQh9N3
+	 5ZCJDsxhBWe0VgFKV6AwxnwUo3q269Ipmqvn7XtfIRDQGDlNWnY55pfjSgwkKkILO6
+	 UWi+YlGwksjaUWxKM7cZOBo38XkAgmVaOsrPMNhorA4xgCRCF0j2UlV1YSLvc6nE+X
+	 /sWiQNFASvZ2ISdRA4scjH4JkA3n3XW6GPL27VDWp7K4+vuZsnxVOp7haNukSoTZac
+	 TLJiIFL0qsH+g3ftqzYMCRiw6iU02SNGO9h8tEbgZGidERrvj9fWCUh1Bx65MsTElA
+	 cUhSlHRH/pgtA==
+From: Mark Brown <broonie@kernel.org>
+To: lgirdwood@gmail.com, Jack Yu <jack.yu@realtek.com>
+Cc: alsa-devel@alsa-project.org, lars@metafoo.de,
+ "Flove(HsinFu)" <flove@realtek.com>, Oder Chiou <oder_chiou@realtek.com>,
+ =?utf-8?q?Shuming_=5B=E8=8C=83=E6=9B=B8=E9=8A=98=5D?= <shumingf@realtek.com>,
+ =?utf-8?q?Derek_=5B=E6=96=B9=E5=BE=B7=E7=BE=A9=5D?= <derek.fang@realtek.com>
+In-Reply-To: <b1f546ad16dc4c7abb7daa7396e8345c@realtek.com>
+References: <b1f546ad16dc4c7abb7daa7396e8345c@realtek.com>
+Subject: Re: [PATCH] ASoC: rt715-sdca: volume step modification
+Message-Id: <171392060325.1783869.17838876674703834561.b4-ty@kernel.org>
+Date: Wed, 24 Apr 2024 10:03:23 +0900
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Subject: Re: [PATCH v19 41/41] ASoC: doc: Add documentation for SOC USB
-Content-Language: en-US
-To: Bagas Sanjaya <bagasdotme@gmail.com>, <srinivas.kandagatla@linaro.org>,
-        <mathias.nyman@intel.com>, <perex@perex.cz>, <conor+dt@kernel.org>,
-        <corbet@lwn.net>, <lgirdwood@gmail.com>, <andersson@kernel.org>,
-        <krzysztof.kozlowski+dt@linaro.org>, <gregkh@linuxfoundation.org>,
-        <Thinh.Nguyen@synopsys.com>, <broonie@kernel.org>,
-        <bgoswami@quicinc.com>, <tiwai@suse.com>, <robh@kernel.org>,
-        <konrad.dybcio@linaro.org>
-CC: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-sound@vger.kernel.org>, <linux-usb@vger.kernel.org>,
-        <linux-arm-msm@vger.kernel.org>, <linux-doc@vger.kernel.org>,
-        <alsa-devel@alsa-project.org>
-References: <20240422224906.15868-1-quic_wcheng@quicinc.com>
- <20240422224906.15868-42-quic_wcheng@quicinc.com>
- <ZicSOzE8KyaYGi0v@archie.me>
-From: Wesley Cheng <quic_wcheng@quicinc.com>
-In-Reply-To: <ZicSOzE8KyaYGi0v@archie.me>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: W15zYV3-qeG-OQ9c9nb1NdmLHuOGZuDd
-X-Proofpoint-ORIG-GUID: W15zYV3-qeG-OQ9c9nb1NdmLHuOGZuDd
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1011,Hydra:6.0.650,FMLib:17.11.176.26
- definitions=2024-04-23_18,2024-04-23_02,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 mlxlogscore=999
- priorityscore=1501 phishscore=0 spamscore=0 clxscore=1011 bulkscore=0
- impostorscore=0 suspectscore=0 lowpriorityscore=0 adultscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2404010003 definitions=main-2404230061
-Message-ID-Hash: 5CQ6WKHIP3I3SPF55LNEIK3AXN4Z7JA4
-X-Message-ID-Hash: 5CQ6WKHIP3I3SPF55LNEIK3AXN4Z7JA4
-X-MailFrom: quic_wcheng@quicinc.com
+X-Mailer: b4 0.14-dev
+Message-ID-Hash: 45YOLRL3B6R5JMKKW7SKWFHKD4HQBSYM
+X-Message-ID-Hash: 45YOLRL3B6R5JMKKW7SKWFHKD4HQBSYM
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -128,7 +88,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5CQ6WKHIP3I3SPF55LNEIK3AXN4Z7JA4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/45YOLRL3B6R5JMKKW7SKWFHKD4HQBSYM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -137,78 +97,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Bagas,
-
-On 4/22/2024 6:43 PM, Bagas Sanjaya wrote:
-> On Mon, Apr 22, 2024 at 03:49:06PM -0700, Wesley Cheng wrote:
->> +.. code-block:: rst
->> +
->> +int snd_soc_usb_setup_offload_jack(struct snd_soc_component *component,
->> +					struct snd_soc_jack *jack)
->> +..
+On Tue, 23 Apr 2024 06:59:35 +0000, Jack Yu wrote:
+> Volume step (dB/step) modification to fix format error
+> which shown in amixer control.
 > 
-> You forget to indent snd_soc_usb_setup_offload_jack() prototype:
-> 
-> ---- >8 ----
-> diff --git a/Documentation/sound/soc/usb.rst b/Documentation/sound/soc/usb.rst
-> index 3f7c3ef6a0c03c..0b6da0be9f317f 100644
-> --- a/Documentation/sound/soc/usb.rst
-> +++ b/Documentation/sound/soc/usb.rst
-> @@ -218,8 +218,8 @@ state.
->   
->   .. code-block:: rst
->   
-> -int snd_soc_usb_setup_offload_jack(struct snd_soc_component *component,
-> -					struct snd_soc_jack *jack)
-> +        int snd_soc_usb_setup_offload_jack(struct snd_soc_component *component,
-> +        					struct snd_soc_jack *jack)
->   ..
->   
->     - ``component``: ASoC component to add the jack
-> 
->> +USB Offload Playback Route Select Kcontrol
->> +-----------------------------------
-> 
-> USB offload playback heading underlines are not long enough to cover heading
-> titles, so I have to extend them:
-> 
-> ---- >8 ----
-> diff --git a/Documentation/sound/soc/usb.rst b/Documentation/sound/soc/usb.rst
-> index 0b6da0be9f317f..5e0e9fad131b24 100644
-> --- a/Documentation/sound/soc/usb.rst
-> +++ b/Documentation/sound/soc/usb.rst
-> @@ -482,7 +482,7 @@ into the physical USB port and enumerated.  The kcontrols are defined as:
->       kcontrol exposed by the platform card.
->   
->   USB Offload Playback Route Select Kcontrol
-> ------------------------------------
-> +------------------------------------------
->   In order to allow for vendor specific implementations on audio offloading device
->   selection, the SOC USB layer exposes the following:
->   
-> @@ -545,7 +545,7 @@ along to the external DSP.
->   
->   
->   USB Offload Playback Route Status
-> --------------------
-> +---------------------------------
->   SOC USB exposes APIs for keeping track of the offloading state, and expects this
->   to be maintained by the BE DAI link that created/added the SOC USB device.
->   
-> @@ -573,7 +573,7 @@ When executing the kcontrol get callback, it will loop across the active_list ar
->   and report to the application for active USB sound card and USB PCM device indexes.
->   
->   USB Offload Playback Capable Card
-> --------------------------------
-> +---------------------------------
->   USB sound also creates a kcontrol for applications to help determine which platform
->   sound card USB offloading is linked to.  This will allow applications to further
->   query the platform sound card for specific information about the current USB offload
-> 
-> Thanks.
 > 
 
-Thanks for the review.  Will fix these all in the next revision.
+Applied to
 
-Thanks
-Wesley Cheng
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+
+Thanks!
+
+[1/1] ASoC: rt715-sdca: volume step modification
+      commit: bda16500dd0b05e2e047093b36cbe0873c95aeae
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+

@@ -2,53 +2,121 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A48058B06EB
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Apr 2024 12:06:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 644498B0806
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Apr 2024 13:08:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A18B6E68;
-	Wed, 24 Apr 2024 12:06:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A18B6E68
+	by alsa0.perex.cz (Postfix) with ESMTPS id BD819828;
+	Wed, 24 Apr 2024 13:08:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD819828
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1713953213;
-	bh=awSVwD04MQGPoIfLjY6MLztUosndOjE9LFw1Y+spunQ=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=soQSjoe1THRcOWQp6kvRskv/HcPMngdEnDAFuQm2yTUg/zumWbB9qkcrryiAkQsCo
-	 ZDBoXCiV67lntf9SlMMJs6Y7I12reV3z6y9rDYieNPVXcwFd6vgUXxP97dBxPFRAhG
-	 2bFq0eNw9El0rX0yPH3a/luLbj1SbzFUyHMbmwls=
+	s=default; t=1713956918;
+	bh=k7/+KQo0qWHphO+ecWfaZcAYmdN717/VhvgP/38ZANY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=Y97GlV5wyWzViFKveSTYzIKDwAlVZDbL6+Lol6nwxlWuI/bGaDGaT8FAywxZJ251u
+	 sPl5IcMfHXNIQp84/G1ZUsEoWJiPdmvR62aYIyetDA78YnVkDcy4/hTe+vVTFY4wiZ
+	 GupkJa2+UmUObXBrcmRnekMIUjJFh3DPdSImmbyY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CC0C3F80588; Wed, 24 Apr 2024 12:06:21 +0200 (CEST)
+	id 8FBE9F805A1; Wed, 24 Apr 2024 13:07:57 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1ED45F800B5;
-	Wed, 24 Apr 2024 12:06:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 189DDF805A1;
+	Wed, 24 Apr 2024 13:07:57 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id ADB9CF80423; Wed, 24 Apr 2024 12:06:16 +0200 (CEST)
+	id A4091F80423; Wed, 24 Apr 2024 13:07:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=no autolearn_force=no
-	version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
- [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0D223F8003C
-	for <alsa-devel@alsa-project.org>; Wed, 24 Apr 2024 12:06:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D223F8003C
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 22030F801C0
+	for <alsa-devel@alsa-project.org>; Wed, 24 Apr 2024 13:07:45 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 11DD51D92;
+	Wed, 24 Apr 2024 13:07:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 11DD51D92
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+	t=1713956864; bh=dtcXxLJmlcRYXY7P4Rglq9OrXqRpI6rF9wOfxAD8/0E=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=1xMm/YBSvIPpUHpOSu49MKxwhDmIOPCqRk11tC+VJGKirQfTqWwuaz8DgBpH9FtVv
+	 X1HGqnwgYBWQz0Y+tZTR4zHyGR8sgjxTgtT8TBA+aUwXopH44LJXOxXUO9VRqU7Xrl
+	 Ft2rMo/U00/dcP1lCCljRKuhXXrMg7VNw01uNOWE=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	(Authenticated sender: perex)
+	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+	Wed, 24 Apr 2024 13:07:38 +0200 (CEST)
+Message-ID: <aac67730-5536-4767-8114-ab6df013b16d@perex.cz>
+Date: Wed, 24 Apr 2024 13:07:37 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH alsa-ucm-conf] sof-soundwire: Add basic support for
+ cs42l43's speaker
+Content-Language: en-US
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Cc: pierre-louis.bossart@linux.intel.com, bard.liao@intel.com,
+ alsa-devel@alsa-project.org, patches@opensource.cirrus.com
+References: <20240423154305.2782347-1-ckeepax@opensource.cirrus.com>
+From: Jaroslav Kysela <perex@perex.cz>
+Autocrypt: addr=perex@perex.cz; keydata=
+ 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
+In-Reply-To: <20240423154305.2782347-1-ckeepax@opensource.cirrus.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1713953171087199926-webhooks-bot@alsa-project.org>
-References: <1713953171087199926-webhooks-bot@alsa-project.org>
-Subject: UCM Path condition type does not support variables as file path
-Message-Id: <20240424100616.ADB9CF80423@alsa1.perex.cz>
-Date: Wed, 24 Apr 2024 12:06:16 +0200 (CEST)
-Message-ID-Hash: C3OBBLNXXWPVJXGHLGWSJW4H6TGURY3G
-X-Message-ID-Hash: C3OBBLNXXWPVJXGHLGWSJW4H6TGURY3G
-X-MailFrom: github@alsa-project.org
+Message-ID-Hash: 2ENDL47K22O5Y7Z7UKBAHBFKLZSLKZUT
+X-Message-ID-Hash: 2ENDL47K22O5Y7Z7UKBAHBFKLZSLKZUT
+X-MailFrom: perex@perex.cz
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -60,43 +128,25 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/C3OBBLNXXWPVJXGHLGWSJW4H6TGURY3G/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2ENDL47K22O5Y7Z7UKBAHBFKLZSLKZUT/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-lib issue #395 was opened from singalsu:
+On 23. 04. 24 17:43, Charles Keepax wrote:
+> Previous support was added for the mics and headset on cs42l43, expand
+> this support with additional configuration for the speaker output.
+> 
+> Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-To control audio processing in SOF I want to do do this:
+Thanks. Applied.
 
-```
-Define.SpeakerIirBlob "${ConfTopDir}/sof/ipc4/eq_iir/highpass_100hz_0db_48khz.blob"
-Define.SpeakerFirBlob "${ConfTopDir}/sof/ipc4/eq_fir/pass.blob"
-Define.SpeakerDrcBlob "${ConfTopDir}/sof/ipc4/drc/spk_default.blob"
-Define.HeadphoneIirBlob "${ConfTopDir}/sof/ipc4/eq_iir/pass.blob"
-Define.HeadphoneFirBlob "${ConfTopDir}/sof/ipc4/eq_fir/pass.blob"
-Define.ProductConfigSOF "/sof/product_configs/${CardLongName}.conf"
-Define.FullPathToIt "${ConfTopDir}${var:ProductConfigSOF}"
+				Jaroslav
 
-If.HasProductConfig {
-        Condition {
-                Type Path
-                Mode read
-                Path "${var:FullPathToIt}"
-        }
-        True {
-                Include.product-config.File "${var:ProductConfigSOF}"
-        }
-}
-```
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
 
-However if I replace line as "Path "/usr/share/alsa/ucm2/sof/product_configs/ACME-2000--foobar.conf" (product name obfuscated for confidentiality) the True condition is achieved. It looks like Path is not evaluating variables.
-
-This feature was added in commit 2f57b404b1c1c376316ca0c6bb5e789e2066298f where the usage is explained.
-
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/395
-Repository URL: https://github.com/alsa-project/alsa-lib

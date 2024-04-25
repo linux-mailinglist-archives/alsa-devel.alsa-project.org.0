@@ -2,122 +2,165 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B20108B1DE0
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Apr 2024 11:24:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5C0A8B1DCF
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Apr 2024 11:22:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A68E1E0D;
-	Thu, 25 Apr 2024 11:23:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A68E1E0D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7BAE9B71;
+	Thu, 25 Apr 2024 11:22:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7BAE9B71
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1714037046;
-	bh=7Ab9Uf8rWsSgwirdPGiJH7KCvUWhp4dinFO9fAfD+BQ=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1714036971;
+	bh=HDlJSLefKXe2JUBM3NFVTfxfmPrNGrt+DF2ru5JAiok=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=oup4nxK18pTCjo5h7GCeMHMiw7Za0zwhkVTb2OqdqkBXmwYmdK6fqqIYFfWF280Q8
-	 gfOAXZV9dKvAj5GC0OeTOVmsu0++IkJE8P5VT4upK0DFa4YHBqR+03Vl+2v64IvhpR
-	 +S9Pog1m6Og7C9efQThh6+BP/NUCzkGNTuC/C9mQ=
+	b=umL+jPlACl4cjkHbt1FebtHaheTBNytXz0RHNDJgstuIiEtapa++T1jTaz3L8ACcx
+	 ZCqnUxhdUfCdNGZnKdSZSQdcyKY1iNLvYWiz5NYcIhmAN21y8KXZOiM9+wf5tAC5Oz
+	 B0rQzh6LqrhWz5FFxlQ7tixkubFHwCuXoFbHXHjY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D99FCF805D5; Thu, 25 Apr 2024 11:23:20 +0200 (CEST)
+	id 8B030F80548; Thu, 25 Apr 2024 11:22:30 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3B567F805B5;
-	Thu, 25 Apr 2024 11:23:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C92EFF805A1;
+	Thu, 25 Apr 2024 11:22:28 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D5525F805AD; Thu, 25 Apr 2024 11:23:16 +0200 (CEST)
+	id 96EFEF80423; Thu, 25 Apr 2024 11:22:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C693EF805FD
-	for <alsa-devel@alsa-project.org>; Thu, 25 Apr 2024 11:20:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C693EF805FD
+	by alsa1.perex.cz (Postfix) with ESMTPS id C83D8F802E8
+	for <alsa-devel@alsa-project.org>; Thu, 25 Apr 2024 11:22:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C83D8F802E8
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=M/UFinRz
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 43P365x2023172;
-	Thu, 25 Apr 2024 09:20:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
-	from:to:cc:subject:date:message-id:in-reply-to:references
-	:mime-version:content-transfer-encoding:content-type; s=
-	qcppdkim1; bh=SpoAd/Rf2LLZj93edJ+wVrXlxe5EZ1m4zMtuy7cxlxc=; b=M/
-	UFinRzHqIljSSY1RyogOjRG6cNHPQwcTSnT2NhkPbgjShA1S4fX4Thvr4PsC3RGm
-	1xjshto9QEHFyBeCc0Pt2+snidcZ2o6f3iq6dRBKtmenhZ8jdNjAJjrsXqaNl/d8
-	dHP488jLmY+RESclHperMg6OJ7xhfFdKiITOL5XSwIEZqD5ZIblbnEP1rCANRIcT
-	NJNTvMglD51FOy/K7b8nhnVDVuVE38zDpup7Tk6YccjOAT+MsDAd/n9p8pajGD9r
-	Q47QyrxZHfcBjwJdjzZBqUu4rcd1LEOyAPeaJlAidmTj1mAO2oJ8wTxvvJ+Uxsv1
-	gAfqqCVTKqbyst/2pSJA==
-Received: from nasanppmta04.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3xqenghnaq-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 25 Apr 2024 09:20:42 +0000 (GMT)
-Received: from nasanex01c.na.qualcomm.com (nasanex01c.na.qualcomm.com
- [10.45.79.139])
-	by NASANPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
- 43P9KfhC032610
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 25 Apr 2024 09:20:41 GMT
-Received: from hu-mohs-hyd.qualcomm.com (10.80.80.8) by
- nasanex01c.na.qualcomm.com (10.45.79.139) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.9; Thu, 25 Apr 2024 02:20:36 -0700
-From: Mohammad Rafi Shaik <quic_mohs@quicinc.com>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-        Banajit Goswami
-	<bgoswami@quicinc.com>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
-	<broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski
-	<krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela
-	<perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>
-CC: <linux-arm-msm@vger.kernel.org>, <alsa-devel@alsa-project.org>,
-        <linux-sound@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <quic_rohkumar@quicinc.com>,
-        <quic_pkumpatl@quicinc.com>,
-        Mohammad Rafi Shaik <quic_mohs@quicinc.com>
-Subject: [PATCH v3 7/7] ASoC: codecs: wcd937x: add audio routing and Kconfig
-Date: Thu, 25 Apr 2024 14:48:57 +0530
-Message-ID: <20240425091857.2161088-8-quic_mohs@quicinc.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240425091857.2161088-1-quic_mohs@quicinc.com>
-References: <20240425091857.2161088-1-quic_mohs@quicinc.com>
-MIME-Version: 1.0
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=HmGrcuXV;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=7kTHxT7Q;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=HmGrcuXV;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=7kTHxT7Q
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id D76B3205A4;
+	Thu, 25 Apr 2024 09:22:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1714036930;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WsEP3vEV/iyEKIFQ6+MZRsSwkcuVQPAVQsrBK6Ka6x0=;
+	b=HmGrcuXVQYNzTBFAmy47lsV8quKoGV6qW7lpgkclvW2uwrc2fX5g8hL9wT0oLUtovn7RY+
+	Mll9EKQ4kZtyTazbBKIS99n/2TLOehf0NVudRZMOwL2yj8CRJ5BjNnJJInNu/0p0jcv+SG
+	jJbeJPjX1rZn41t9X72mHH+B/nFTAkM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1714036930;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WsEP3vEV/iyEKIFQ6+MZRsSwkcuVQPAVQsrBK6Ka6x0=;
+	b=7kTHxT7QxM/BDERe81R/g0L3bOlaAJqrxTjpaEiXekqXEtaEuTXVQPjWAfkxlpsuYEEvA5
+	Nu7EHgNKYxtlSnAw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1714036930;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WsEP3vEV/iyEKIFQ6+MZRsSwkcuVQPAVQsrBK6Ka6x0=;
+	b=HmGrcuXVQYNzTBFAmy47lsV8quKoGV6qW7lpgkclvW2uwrc2fX5g8hL9wT0oLUtovn7RY+
+	Mll9EKQ4kZtyTazbBKIS99n/2TLOehf0NVudRZMOwL2yj8CRJ5BjNnJJInNu/0p0jcv+SG
+	jJbeJPjX1rZn41t9X72mHH+B/nFTAkM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1714036930;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WsEP3vEV/iyEKIFQ6+MZRsSwkcuVQPAVQsrBK6Ka6x0=;
+	b=7kTHxT7QxM/BDERe81R/g0L3bOlaAJqrxTjpaEiXekqXEtaEuTXVQPjWAfkxlpsuYEEvA5
+	Nu7EHgNKYxtlSnAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9D8021393C;
+	Thu, 25 Apr 2024 09:22:10 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([10.150.64.162])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id atZbJcIgKmYhLAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Thu, 25 Apr 2024 09:22:10 +0000
+Date: Thu, 25 Apr 2024 11:22:12 +0200
+Message-ID: <871q6tbxvf.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Pavel Hofman <pavel.hofman@ivitera.com>
+Cc: "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+	Ruslan Bilovol <ruslan.bilovol@gmail.com>,
+	Felipe Balbi
+ <balbi@kernel.org>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Julian Scheel <julian@jusst.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	John Keeping <john@metanate.com>,
+	AKASH KUMAR <quic_akakum@quicinc.com>,
+	Jack Pham <jackp@codeaurora.org>,
+	Chris Wulff <Chris.Wulff@biamp.com>
+Subject: Re: usb:gadget:f_uac2: RFC: allowing multiple altsetttings for
+ channel/samplesize combinations
+In-Reply-To: <72e9b581-4a91-2319-cb9f-0bcb370f34a1@ivitera.com>
+References: <35be4668-58d3-894a-72cf-de1afaacae45@ivitera.com>
+	<72e9b581-4a91-2319-cb9f-0bcb370f34a1@ivitera.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nasanex01c.na.qualcomm.com (10.45.79.139)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: mhBrhs-NEeKb6U0Xq9DNLD4MdHFm830Q
-X-Proofpoint-ORIG-GUID: mhBrhs-NEeKb6U0Xq9DNLD4MdHFm830Q
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1011,Hydra:6.0.650,FMLib:17.11.176.26
- definitions=2024-04-25_09,2024-04-25_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0
- mlxlogscore=999 phishscore=0 malwarescore=0 mlxscore=0 impostorscore=0
- lowpriorityscore=0 adultscore=0 priorityscore=1501 clxscore=1015
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2404010003 definitions=main-2404250066
-Message-ID-Hash: 77NATVOTLQFL4Q33BMDYWXBRQBB7XN7B
-X-Message-ID-Hash: 77NATVOTLQFL4Q33BMDYWXBRQBB7XN7B
-X-MailFrom: quic_mohs@quicinc.com
+X-Spamd-Result: default: False [-1.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_ALL(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,alsa-project.org,gmail.com,kernel.org,baylibre.com,jusst.de,linuxfoundation.org,metanate.com,quicinc.com,codeaurora.org,biamp.com];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	TO_DN_SOME(0.00)[]
+Message-ID-Hash: EY4WFCALUTY6KLZDSF5FDAECX45LNNPS
+X-Message-ID-Hash: EY4WFCALUTY6KLZDSF5FDAECX45LNNPS
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -129,7 +172,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/77NATVOTLQFL4Q33BMDYWXBRQBB7XN7B/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EY4WFCALUTY6KLZDSF5FDAECX45LNNPS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -138,188 +181,88 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Prasad Kumpatla <quic_pkumpatl@quicinc.com>
+On Wed, 24 Apr 2024 09:40:52 +0200,
+Pavel Hofman wrote:
+> 
+> 
+> On 17. 04. 24 13:07, Pavel Hofman wrote:
+> 
+> > I am considering implementation of multiple altsettings to f_uac2, so
+> > that multiple combinations of channels and samplesizes can be offered to
+> > the host.
+> > 
+> > Configuration:
+> > --------------
+> > * each altsetting for each direction should define
+> >    * channel mask
+> >    * samplesize
+> >    * hs_bint bInterval
+> >    * c_sync type (for capture only)
+> > 
+> > 
+> > Perhaps the easiest config would be allowing lists for the existing
+> > parameters (like the multiple samplerates were implemented). All the
+> > list params would have to have the same number of items - initial check.
+> > First values in the list would apply to altsetting 1, second to
+> > altsetting 2 etc.
+> > 
+> > Or the altsetting could be some structured configfs param - please is
+> > there any recommended standard for structured configfs params?
+> > 
+> > 
+> > Should the config also adjust the list of allowed samplerates for each
+> > altsetting? Technically it makes sense as higher number of channels can
+> > decrease the max samplerate, e.g. for via a TDM interface. If so, it
+> > would need either the structured configuration or some "list of lists"
+> > format.
+> > 
+> > 
+> > Implementation:
+> > ---------------
+> > 
+> > Parameters could be turned to arrays of fixed predefined sizes, like the
+> > p/s_srates. E.g. 5 max. altsettings in each direction would consume only
+> > 4 * (5-1) + 3* (5-1) = 28 extra ints (excluding the samplerates config).
+> > 
+> > Currently all descriptor structs are statically pre-allocated as there
+> > are only two hard-coded altsettings. IMO the descriptors specific for
+> > each altsetting could be allocated dynamically in a loop over all
+> > none-zero alsettings.
+> > 
+> > Please may I ask UAC2 gadget "stakeholders" for comments, suggestions,
+> > recommendations, so that my eventual initial version was in some
+> > generally acceptable direction?
+> > 
+> 
+> This feature has coincidentally arisen in recent commits by Chris
+> https://lore.kernel.org/lkml/c9928edb-8b2d-1948-40b8-c16e34cea3e2@ivitera.com/T/
+> 
+> Maybe Takashi's commits to the midi gadget could be a way
+> https://patchwork.kernel.org/project/alsa-devel/list/?series=769151&state=%2A&archive=both
+> The midi gadget allows multiple configurations now, where configs are
+> placed into a separate block.X configfs directory. That way the configfs
+> recommendation to keep one value per item is adhered to and the
+> configuration is nice and clean.
+> 
+> This method would nicely allow various samplerate lists for each
+> altsetting, without having to use some obscure list of lists.
+> 
+> The f_uac2 tree config could have e.g. alt.1-X subdirs, to fit the
+> altsetting ID. I am not sure the dot index not starting with 0 would be
+> an issue.
+> 
+> Now the question would be what to do with the existing (and the new
+> params added by Chris) flat-structure parameters which apply to (the
+> only one) altsetting 1. Maybe they could be used as defaults for the
+> other altsettings for unspecified parameters?
+> 
+> I very much appreciate any input, thank you all in advance.
 
-This patch adds audio routing for both playback and capture and
-Makefile and Kconfigs changes for wcd937x.
+IMO, a softer approach would be to use subdirs for alt1+ while flat
+files are kept used for alt0.  Alternatively, we may allow creating
+alt0, too, and the values there will win over the flat values.
 
-Co-developed-by: Mohammad Rafi Shaik <quic_mohs@quicinc.com>
-Signed-off-by: Mohammad Rafi Shaik <quic_mohs@quicinc.com>
-Signed-off-by: Prasad Kumpatla <quic_pkumpatl@quicinc.com>
----
- sound/soc/codecs/Kconfig   | 20 ++++++++++
- sound/soc/codecs/Makefile  |  7 ++++
- sound/soc/codecs/wcd937x.c | 80 ++++++++++++++++++++++++++++++++++++++
- 3 files changed, 107 insertions(+)
 
-diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index 4afc43d3f71f..a6bb5716632d 100644
---- a/sound/soc/codecs/Kconfig
-+++ b/sound/soc/codecs/Kconfig
-@@ -278,6 +278,7 @@ config SND_SOC_ALL_CODECS
- 	imply SND_SOC_UDA1380
- 	imply SND_SOC_WCD9335
- 	imply SND_SOC_WCD934X
-+	imply SND_SOC_WCD937X_SDW
- 	imply SND_SOC_WCD938X_SDW
- 	imply SND_SOC_WCD939X_SDW
- 	imply SND_SOC_LPASS_MACRO_COMMON
-@@ -2100,6 +2101,25 @@ config SND_SOC_WCD934X
- 	  The WCD9340/9341 is a audio codec IC Integrated in
- 	  Qualcomm SoCs like SDM845.
- 
-+config SND_SOC_WCD937X
-+	depends on SND_SOC_WCD937X_SDW
-+	tristate
-+	depends on SOUNDWIRE || !SOUNDWIRE
-+	select SND_SOC_WCD_CLASSH
-+
-+config SND_SOC_WCD937X_SDW
-+	tristate "WCD9370/WCD9375 Codec - SDW"
-+	select SND_SOC_WCD937X
-+	select SND_SOC_WCD_MBHC
-+	select REGMAP_IRQ
-+	depends on SOUNDWIRE
-+	select REGMAP_SOUNDWIRE
-+	help
-+	  The WCD9370/9375 is an audio codec IC used with SoCs
-+	  like SC7280 or QCM6490 chipsets, and it connected
-+	  via soundwire.
-+	  To compile this codec driver say Y or m.
-+
- config SND_SOC_WCD938X
- 	depends on SND_SOC_WCD938X_SDW
- 	tristate
-diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
-index cddb16cd6a4c..e5ffd2f02e11 100644
---- a/sound/soc/codecs/Makefile
-+++ b/sound/soc/codecs/Makefile
-@@ -316,6 +316,8 @@ snd-soc-wcd-classh-objs := wcd-clsh-v2.o
- snd-soc-wcd-mbhc-objs := wcd-mbhc-v2.o
- snd-soc-wcd9335-objs := wcd9335.o
- snd-soc-wcd934x-objs := wcd934x.o
-+snd-soc-wcd937x-objs := wcd937x.o
-+snd-soc-wcd937x-sdw-objs := wcd937x-sdw.o
- snd-soc-wcd938x-objs := wcd938x.o
- snd-soc-wcd938x-sdw-objs := wcd938x-sdw.o
- snd-soc-wcd939x-objs := wcd939x.o
-@@ -710,6 +712,11 @@ obj-$(CONFIG_SND_SOC_WCD_CLASSH)	+= snd-soc-wcd-classh.o
- obj-$(CONFIG_SND_SOC_WCD_MBHC)	+= snd-soc-wcd-mbhc.o
- obj-$(CONFIG_SND_SOC_WCD9335)	+= snd-soc-wcd9335.o
- obj-$(CONFIG_SND_SOC_WCD934X)	+= snd-soc-wcd934x.o
-+obj-$(CONFIG_SND_SOC_WCD937X)	+= snd-soc-wcd937x.o
-+ifdef CONFIG_SND_SOC_WCD937X_SDW
-+# avoid link failure by forcing sdw code built-in when needed
-+obj-$(CONFIG_SND_SOC_WCD937X) += snd-soc-wcd937x-sdw.o
-+endif
- obj-$(CONFIG_SND_SOC_WCD938X)	+= snd-soc-wcd938x.o
- ifdef CONFIG_SND_SOC_WCD938X_SDW
- # avoid link failure by forcing sdw code built-in when needed
-diff --git a/sound/soc/codecs/wcd937x.c b/sound/soc/codecs/wcd937x.c
-index 87e571dc4a11..d0795e39e99b 100644
---- a/sound/soc/codecs/wcd937x.c
-+++ b/sound/soc/codecs/wcd937x.c
-@@ -2421,6 +2421,77 @@ static const struct snd_soc_dapm_widget wcd9375_dapm_widgets[] = {
- 	SND_SOC_DAPM_OUTPUT("DMIC6_OUTPUT"),
- };
- 
-+static const struct snd_soc_dapm_route wcd937x_audio_map[] = {
-+	{ "ADC1_OUTPUT", NULL, "ADC1_MIXER" },
-+	{ "ADC1_MIXER", "Switch", "ADC1 REQ" },
-+	{ "ADC1 REQ", NULL, "ADC1" },
-+	{ "ADC1", NULL, "AMIC1" },
-+
-+	{ "ADC2_OUTPUT", NULL, "ADC2_MIXER" },
-+	{ "ADC2_MIXER", "Switch", "ADC2 REQ" },
-+	{ "ADC2 REQ", NULL, "ADC2" },
-+	{ "ADC2", NULL, "ADC2 MUX" },
-+	{ "ADC2 MUX", "INP3", "AMIC3" },
-+	{ "ADC2 MUX", "INP2", "AMIC2" },
-+
-+	{ "IN1_HPHL", NULL, "VDD_BUCK" },
-+	{ "IN1_HPHL", NULL, "CLS_H_PORT" },
-+	{ "RX1", NULL, "IN1_HPHL" },
-+	{ "RDAC1", NULL, "RX1" },
-+	{ "HPHL_RDAC", "Switch", "RDAC1" },
-+	{ "HPHL PGA", NULL, "HPHL_RDAC" },
-+	{ "HPHL", NULL, "HPHL PGA" },
-+
-+	{ "IN2_HPHR", NULL, "VDD_BUCK" },
-+	{ "IN2_HPHR", NULL, "CLS_H_PORT" },
-+	{ "RX2", NULL, "IN2_HPHR" },
-+	{ "RDAC2", NULL, "RX2" },
-+	{ "HPHR_RDAC", "Switch", "RDAC2" },
-+	{ "HPHR PGA", NULL, "HPHR_RDAC" },
-+	{ "HPHR", NULL, "HPHR PGA" },
-+
-+	{ "IN3_AUX", NULL, "VDD_BUCK" },
-+	{ "IN3_AUX", NULL, "CLS_H_PORT" },
-+	{ "RX3", NULL, "IN3_AUX" },
-+	{ "RDAC4", NULL, "RX3" },
-+	{ "AUX_RDAC", "Switch", "RDAC4" },
-+	{ "AUX PGA", NULL, "AUX_RDAC" },
-+	{ "AUX", NULL, "AUX PGA" },
-+
-+	{ "RDAC3_MUX", "RX3", "RX3" },
-+	{ "RDAC3_MUX", "RX1", "RX1" },
-+	{ "RDAC3", NULL, "RDAC3_MUX" },
-+	{ "EAR_RDAC", "Switch", "RDAC3" },
-+	{ "EAR PGA", NULL, "EAR_RDAC" },
-+	{ "EAR", NULL, "EAR PGA" },
-+};
-+
-+static const struct snd_soc_dapm_route wcd9375_audio_map[] = {
-+	{ "ADC3_OUTPUT", NULL, "ADC3_MIXER" },
-+	{ "ADC3_OUTPUT", NULL, "ADC3_MIXER" },
-+	{ "ADC3_MIXER", "Switch", "ADC3 REQ" },
-+	{ "ADC3 REQ", NULL, "ADC3" },
-+	{ "ADC3", NULL, "AMIC4" },
-+
-+	{ "DMIC1_OUTPUT", NULL, "DMIC1_MIXER" },
-+	{ "DMIC1_MIXER", "Switch", "DMIC1" },
-+
-+	{ "DMIC2_OUTPUT", NULL, "DMIC2_MIXER" },
-+	{ "DMIC2_MIXER", "Switch", "DMIC2" },
-+
-+	{ "DMIC3_OUTPUT", NULL, "DMIC3_MIXER" },
-+	{ "DMIC3_MIXER", "Switch", "DMIC3" },
-+
-+	{ "DMIC4_OUTPUT", NULL, "DMIC4_MIXER" },
-+	{ "DMIC4_MIXER", "Switch", "DMIC4" },
-+
-+	{ "DMIC5_OUTPUT", NULL, "DMIC5_MIXER" },
-+	{ "DMIC5_MIXER", "Switch", "DMIC5" },
-+
-+	{ "DMIC6_OUTPUT", NULL, "DMIC6_MIXER" },
-+	{ "DMIC6_MIXER", "Switch", "DMIC6" },
-+};
-+
- static int wcd937x_set_micbias_data(struct wcd937x_priv *wcd937x)
- {
- 	int vout_ctl[3];
-@@ -2557,6 +2628,13 @@ static int wcd937x_soc_codec_probe(struct snd_soc_component *component)
- 			dev_err(component->dev, "Failed to add snd_ctls\n");
- 			return ret;
- 		}
-+
-+		ret = snd_soc_dapm_add_routes(dapm, wcd9375_audio_map,
-+					      ARRAY_SIZE(wcd9375_audio_map));
-+		if (ret < 0) {
-+			dev_err(component->dev, "Failed to add routes\n");
-+			return ret;
-+		}
- 	}
- 
- 	ret = wcd937x_mbhc_init(component);
-@@ -2600,6 +2678,8 @@ static const struct snd_soc_component_driver soc_codec_dev_wcd937x = {
- 	.num_controls = ARRAY_SIZE(wcd937x_snd_controls),
- 	.dapm_widgets = wcd937x_dapm_widgets,
- 	.num_dapm_widgets = ARRAY_SIZE(wcd937x_dapm_widgets),
-+	.dapm_routes = wcd937x_audio_map,
-+	.num_dapm_routes = ARRAY_SIZE(wcd937x_audio_map),
- 	.set_jack = wcd937x_codec_set_jack,
- 	.endianness = 1,
- };
--- 
-2.25.1
+thanks,
 
+Takashi

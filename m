@@ -2,122 +2,163 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24D3E8B1C46
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Apr 2024 09:55:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D63608B1CE9
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Apr 2024 10:38:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 46BB3E66;
-	Thu, 25 Apr 2024 09:55:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 46BB3E66
+	by alsa0.perex.cz (Postfix) with ESMTPS id C5776A4A;
+	Thu, 25 Apr 2024 10:38:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C5776A4A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1714031710;
-	bh=vRBK1tGIksdvmEJ3yyacPeqvBEzSzzKwG56ZNfZ+3nU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1714034309;
+	bh=0dIh4LHgUbJuCJF+8DoH/DJlCPUPndY1t3Z95Mcsx0U=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=PwLVH4sOmL2G+qN2qcuAC+MDQl5QNVH/jCl+v91lKVNiwLstPehAO1MwVlblRCptD
-	 5vCu+zhGF81mloRS6ODXBndKvYbWx4qMAMF2T/9/4mHkil70YQRHEnBhcb4MJlGkrH
-	 WCQJMLPp1hVzGmhhugtcMXE0xV7VB4beOrdKTCmM=
+	b=LRW2OHdwYg3Cr/4MEYVfLr588pPQNftGMY8WsWVO37jYhoc8ScbPtIjb9i5lfSgtc
+	 H0tRnp/TYXq+0Q0RhhAXoNG/87b1H19BM2I3tnbgEJaeu3eKv/V6nk7mpQp8xGj2Rk
+	 EVfj0Yc20+gNdbDAkNyfL7PLJMHvWS2mDrTC0P/o=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E6EF7F805AD; Thu, 25 Apr 2024 09:54:37 +0200 (CEST)
+	id AD80BF80578; Thu, 25 Apr 2024 10:37:57 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3AC9CF80548;
-	Thu, 25 Apr 2024 09:54:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C7F8BF802E8;
+	Thu, 25 Apr 2024 10:37:56 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 83132F80423; Thu, 25 Apr 2024 09:54:33 +0200 (CEST)
+	id F06D3F80423; Thu, 25 Apr 2024 10:37:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-relay-canonical-1.canonical.com
- (smtp-relay-canonical-1.canonical.com [185.125.188.121])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4BC0EF8003A
-	for <alsa-devel@alsa-project.org>; Thu, 25 Apr 2024 09:54:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4BC0EF8003A
+	by alsa1.perex.cz (Postfix) with ESMTPS id A67E2F800B5
+	for <alsa-devel@alsa-project.org>; Thu, 25 Apr 2024 10:36:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A67E2F800B5
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=canonical.com header.i=@canonical.com
- header.a=rsa-sha256 header.s=20210705 header.b=sz4QI7xG
-Received: from [192.168.1.152] (unknown [222.129.33.118])
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=cPMyMMNB;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=pP97c+74;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=cPMyMMNB;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=pP97c+74
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id B0B3F3F950;
-	Thu, 25 Apr 2024 07:54:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20210705; t=1714031665;
-	bh=2U4eh3Qpu+E6acBnezi9TrCzbonPPfKsJhHsj7XAieM=;
-	h=Content-Type:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To;
-	b=sz4QI7xGc4f9Ph1zobEDx+DUTLewodGxEq5Lw8ACvGKstNGLGgYjXmszQSWdeMC+8
-	 kbaiR7HP+T3mWOR53W+mODWaZFXGeKN1hdIlS2aKwLPDSXrG4uNFxHRd+QTyG9zojL
-	 UGQrNZme/RzkSQM2wQiRp0fQBDwfkuUP6kkZmLrFZb1FFSUI61ilN+jxQDlQtSIPYS
-	 +QRONeAzTZ9HHItghdaCCrTgjsxoaGRZx/DKHRL0aAEisFc4gpsGibHScB2Y45Z9eW
-	 USfBZntLPecRnVP+N26v1Aq5k6vfSC5gyRbPEnEiQvDuR7XYAPx/Pqm+00XyP8+4xm
-	 Eyw79uy2/PycA==
-Message-ID: <3ba54d1d-7b09-4257-9f05-9a1182bf03dc@canonical.com>
-Date: Thu, 25 Apr 2024 15:54:17 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 9BF2E223F5;
+	Thu, 25 Apr 2024 08:36:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1714034163;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Jf88i74i2+qTbNAAy8w1XykSSgUoUDBY5wMNzPfpBFQ=;
+	b=cPMyMMNBCZMSJTfVgSN8ghwjp22r2+AB+ja7YRhKDQffLfyi3/r64OXKxw4V2F7s+IRoqI
+	PyawQAndLXigMEhvEY8GN2T2z+yIynCIG+1LBz9TS6+Z36dmlSFSa/iYpwevnXWfeiFnIu
+	ihxLmOjhr0bjmdZI0o8IBCdmUx3s6pk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1714034163;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Jf88i74i2+qTbNAAy8w1XykSSgUoUDBY5wMNzPfpBFQ=;
+	b=pP97c+74fuKTcAxRZ+jU1wX/cnoBK5Ib8LuwPJgHujf+0aUZD2O4QW3Ah7xBmfr4bhGHJt
+	qs7dym2ons4XwACA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1714034163;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Jf88i74i2+qTbNAAy8w1XykSSgUoUDBY5wMNzPfpBFQ=;
+	b=cPMyMMNBCZMSJTfVgSN8ghwjp22r2+AB+ja7YRhKDQffLfyi3/r64OXKxw4V2F7s+IRoqI
+	PyawQAndLXigMEhvEY8GN2T2z+yIynCIG+1LBz9TS6+Z36dmlSFSa/iYpwevnXWfeiFnIu
+	ihxLmOjhr0bjmdZI0o8IBCdmUx3s6pk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1714034163;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Jf88i74i2+qTbNAAy8w1XykSSgUoUDBY5wMNzPfpBFQ=;
+	b=pP97c+74fuKTcAxRZ+jU1wX/cnoBK5Ib8LuwPJgHujf+0aUZD2O4QW3Ah7xBmfr4bhGHJt
+	qs7dym2ons4XwACA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7D9E613991;
+	Thu, 25 Apr 2024 08:36:03 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([10.150.64.162])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id h/0LHvMVKmZHHwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Thu, 25 Apr 2024 08:36:03 +0000
+Date: Thu, 25 Apr 2024 10:36:14 +0200
+Message-ID: <87edatc001.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Aaron Ma <aaron.ma@canonical.com>
+Cc: shenghao-ding@ti.com,
+	kevin-lu@ti.com,
+	baojun.xu@ti.com,
+	alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com
 Subject: Re: [PATCH] ALSA: hda/ASOC tas2781: align the path of firmware
-To: Takashi Iwai <tiwai@suse.de>
-Cc: shenghao-ding@ti.com, kevin-lu@ti.com, baojun.xu@ti.com,
- alsa-devel@alsa-project.org, linux-sound@vger.kernel.org, perex@perex.cz,
- tiwai@suse.com
+In-Reply-To: <3ba54d1d-7b09-4257-9f05-9a1182bf03dc@canonical.com>
 References: <20240425072000.22284-1-aaron.ma@canonical.com>
- <87h6fpc21p.wl-tiwai@suse.de>
-Content-Language: en-US
-From: Aaron Ma <aaron.ma@canonical.com>
-Autocrypt: addr=aaron.ma@canonical.com; keydata=
- xsBNBFffeLkBCACi4eE4dPsgWN6B9UDOVcAvb5QgU/hRG6yS0I1lGKQv4KA+bke0c5g8clbO
- 9gIlIl2bityfA9NzBsDik4Iei3AxMbFyxv9keMwcOFQBIOZF0P3f05qjxftF8P+yp9QTV4hp
- BkFzsXzWRgXN3r8hU8wqZybepF4B1C83sm2kQ5A5N0AUGbZli9i2G+/VscG9sWfLy8T7f4YW
- MjmlijCjoV6k29vsmTWQPZ7EApNpvR5BnZQPmQWzkkr0lNXlsKcyLgefQtlwg6drK4fe4wz0
- ouBIHJEiXE1LWK1hUzkCUASra4WRwKk1Mv/NLLE/aJRqEvF2ukt3uVuM77RWfl7/H/v5ABEB
- AAHNIUFhcm9uIE1hIDxhYXJvbi5tYUBjYW5vbmljYWwuY29tPsLAdwQTAQgAIQUCV994uQIb
- AwULCQgHAgYVCAkKCwIEFgIDAQIeAQIXgAAKCRDNxCzQfVU6ntJ9B/9aVy0+RkLqF9QpLmw+
- LAf1m3Fd+4ZarPTerqDqkLla3ekYhbrEtlI1mYuB5f+gtrIjmcW27gacHdslKB9YwaL8B4ZB
- GJKhcrntLg4YPzYUnXZkHHTv1hMw7fBYw82cBT+EbG0Djh6Po6Ihqyr3auHhfFcp1PZH4Mtq
- 6hN5KaDZzF/go+tRF5e4bn61Nhdue7mrhFSlfkzLG2ehHWmRV+S91ksH81YDFnazK0sRINBx
- V1S8ts3WJ2f1AbgmnDlbK3c/AfI5YxnIHn/x2ZdXj1P/wn7DgZHmpMy5DMuk0gN34NLUPLA/
- cHeKoBAF8emugljiKecKBpMTLe8FrVOxbkrazsBNBFffeLkBCACweKP3Wx+gK81+rOUpuQ00
- sCyKzdtMuXXJ7oL4GzYHbLfJq+F+UHpQbytVGTn3R5+Y61v41g2zTYZooaC+Hs1+ixf+buG2
- +2LZjPSELWPNzH9lsKNlCcEvu1XhyyHkBDbnFFHWlUlql3nSXMo//dOTG/XGKaEaZUxjCLUC
- 8ehLc16DJDvdXsPwWhHrCH/4k92F6qQ14QigBMsl75jDTDJMEYgRYEBT1D/bwxdIeoN1BfIG
- mYgf059RrWax4SMiJtVDSUuDOpdwoEcZ0FWesRfbFrM+k/XKiIbjMZSvLunA4FIsOdWYOob4
- Hh0rsm1G+fBLYtT+bE26OWpQ/lSn4TdhABEBAAHCwF8EGAEIAAkFAlffeLkCGwwACgkQzcQs
- 0H1VOp6p5Af/ap5EVuP1AhFdPD3pXLNrUUt72W3cuAOjXyss43qFC2YRjGfktrizsDjQU46g
- VKoD6EW9XUPgvYM+k8BJEoXDLhHWnCnMKlbHP3OImxzLRhF4kdlnLicz1zKRcessQatRpJgG
- NIiD+eFyh0CZcWBO1BB5rWikjO/idicHao2stFdaBmIeXvhT9Xp6XNFEmzOmfHps+kKpWshY
- 9LDAU0ERBNsW4bekOCa/QxfqcbZYRjrVQvya0EhrPhq0bBpzkIL/7QSBMcdv6IajTlHnLARF
- nAIofCEKeEl7+ksiRapL5Nykcbt4dldE3sQWxIybC94SZ4inENKw6I8RNpigWm0R5w==
-In-Reply-To: <87h6fpc21p.wl-tiwai@suse.de>
-Message-ID-Hash: AX4SOUV2E55SJ4XMYH4MN3IJEIUNLGL4
-X-Message-ID-Hash: AX4SOUV2E55SJ4XMYH4MN3IJEIUNLGL4
-X-MailFrom: aaron.ma@canonical.com
+	<87h6fpc21p.wl-tiwai@suse.de>
+	<3ba54d1d-7b09-4257-9f05-9a1182bf03dc@canonical.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	ARC_NA(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	TO_DN_SOME(0.00)[]
+Message-ID-Hash: 5GSHHNEPBCE27Z5OQQWMOQ2SNVAGHGEI
+X-Message-ID-Hash: 5GSHHNEPBCE27Z5OQQWMOQ2SNVAGHGEI
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8; format=flowed
-X-Content-Filtered-By: Mailman/MimeDel 3.3.9
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AX4SOUV2E55SJ4XMYH4MN3IJEIUNLGL4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5GSHHNEPBCE27Z5OQQWMOQ2SNVAGHGEI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -126,49 +167,88 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-DQpPbiA0LzI1LzI0IDE1OjUyLCBUYWthc2hpIEl3YWkgd3JvdGU6DQo+IE9uIFRodSwgMjUgQXBy
-IDIwMjQgMDk6MjA6MDAgKzAyMDAsDQo+IEFhcm9uIE1hIHdyb3RlOg0KPj4gVEkgdXBzdHJlYW0g
-dGhlIGZpbGVzIGluIHRpL3RhczI3ODEgZm9yIGxpbnV4LWZpcm13YXJlLg0KPj4gTWFrZSB0aGUg
-ZHJpdmVyIGZpbmQgdGhlIGNvcnJlY3QgZmlsZXMuDQo+IE5vdGUgdGhhdCB0aGUgdXBzdHJlYW0g
-bGludXgtZmlybXdhcmUgcHJvdmlkZXMgc3ltbGlua3MgdG8NCj4gdGkvdGFzMjc4MS8qIGZpbGVz
-LCBzbyBpdCdzIG5vdCAiaW5jb3JyZWN0Iiwgc28gZmFyIDopDQoNCiQgZmluZCAuIC1pbmFtZSBU
-SUFTMjc4MVJDQTIuYmluDQouL3RpL3RhczI3ODEvVElBUzI3ODFSQ0EyLmJpbg0KDQpPbmx5IG9u
-ZSBiaW4gZmlsZSBmb3VuZC4NCkNvdWxkIHlvdSBwb2ludCBpdCBvdXQgY2xlYXJseT8NCg0KVGhh
-bmtzLA0KQWFyb24NCg0KPg0KPg0KPiB0aGFua3MsDQo+DQo+IFRha2FzaGkNCj4NCj4+IFNpZ25l
-ZC1vZmYtYnk6IEFhcm9uIE1hPGFhcm9uLm1hQGNhbm9uaWNhbC5jb20+DQo+PiAtLS0NCj4+ICAg
-aW5jbHVkZS9zb3VuZC90YXMyNzgxLmggICAgICAgICAgIHwgMSArDQo+PiAgIHNvdW5kL3BjaS9o
-ZGEvdGFzMjc4MV9oZGFfaTJjLmMgICB8IDIgKy0NCj4+ICAgc291bmQvc29jL2NvZGVjcy90YXMy
-NzgxLWNvbWxpYi5jIHwgMiArLQ0KPj4gICAzIGZpbGVzIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygr
-KSwgMiBkZWxldGlvbnMoLSkNCj4+DQo+PiBkaWZmIC0tZ2l0IGEvaW5jbHVkZS9zb3VuZC90YXMy
-NzgxLmggYi9pbmNsdWRlL3NvdW5kL3RhczI3ODEuaA0KPj4gaW5kZXggOTljYTNlNDAxZmQxLi43
-MjExOWNjMzJjMGYgMTAwNjQ0DQo+PiAtLS0gYS9pbmNsdWRlL3NvdW5kL3RhczI3ODEuaA0KPj4g
-KysrIGIvaW5jbHVkZS9zb3VuZC90YXMyNzgxLmgNCj4+IEBAIC0yMSw2ICsyMSw3IEBADQo+PiAg
-IC8qIHZlcnNpb24gbnVtYmVyICovDQo+PiAgICNkZWZpbmUgVEFTMjc4MV9EUlZfVkVSCQkJMQ0K
-Pj4gICAjZGVmaW5lIFNNQVJUQU1QX01PRFVMRV9OQU1FCQkidGFzMjc4MSINCj4+ICsjZGVmaW5l
-IFRBUzI3ODFfRklSTVdBUkVfUk9PVAkJInRpL3RhczI3ODEvIg0KPj4gICAjZGVmaW5lIFRBUzI3
-ODFfR0xPQkFMX0FERFIJMHg0MA0KPj4gICAjZGVmaW5lIFRBUzI1NjNfR0xPQkFMX0FERFIJMHg0
-OA0KPj4gICAjZGVmaW5lIFRBU0RFVklDRV9SQVRFUwkJCShTTkRSVl9QQ01fUkFURV80NDEwMCB8
-XA0KPj4gZGlmZiAtLWdpdCBhL3NvdW5kL3BjaS9oZGEvdGFzMjc4MV9oZGFfaTJjLmMgYi9zb3Vu
-ZC9wY2kvaGRhL3RhczI3ODFfaGRhX2kyYy5jDQo+PiBpbmRleCA3NWY3Njc0YzY2ZWUuLjcyZGMx
-NDY5NjU1ZiAxMDA2NDQNCj4+IC0tLSBhL3NvdW5kL3BjaS9oZGEvdGFzMjc4MV9oZGFfaTJjLmMN
-Cj4+ICsrKyBiL3NvdW5kL3BjaS9oZGEvdGFzMjc4MV9oZGFfaTJjLmMNCj4+IEBAIC02NDksNyAr
-NjQ5LDcgQEAgc3RhdGljIHZvaWQgdGFzZGV2X2Z3X3JlYWR5KGNvbnN0IHN0cnVjdCBmaXJtd2Fy
-ZSAqZm13LCB2b2lkICpjb250ZXh0KQ0KPj4gICAJdGFzZGV2aWNlX2RzcF9yZW1vdmUodGFzX3By
-aXYpOw0KPj4gICANCj4+ICAgCXRhc19wcml2LT5md19zdGF0ZSA9IFRBU0RFVklDRV9EU1BfRldf
-UEVORElORzsNCj4+IC0Jc2NucHJpbnRmKHRhc19wcml2LT5jb2VmX2JpbmFyeW5hbWUsIDY0LCAi
-VEFTMlhYWCUwNFguYmluIiwNCj4+ICsJc2NucHJpbnRmKHRhc19wcml2LT5jb2VmX2JpbmFyeW5h
-bWUsIDY0LCAiJXNUQVMyWFhYJTA0WC5iaW4iLCBUQVMyNzgxX0ZJUk1XQVJFX1JPT1QsDQo+PiAg
-IAkJY29kZWMtPmNvcmUuc3Vic3lzdGVtX2lkICYgMHhmZmZmKTsNCj4+ICAgCXJldCA9IHRhc2Rl
-dmljZV9kc3BfcGFyc2VyKHRhc19wcml2KTsNCj4+ICAgCWlmIChyZXQpIHsNCj4+IGRpZmYgLS1n
-aXQgYS9zb3VuZC9zb2MvY29kZWNzL3RhczI3ODEtY29tbGliLmMgYi9zb3VuZC9zb2MvY29kZWNz
-L3RhczI3ODEtY29tbGliLmMNCj4+IGluZGV4IDNhYTgxNTE0ZGFkNy4uOTZmZTFiODU1ZWM5IDEw
-MDY0NA0KPj4gLS0tIGEvc291bmQvc29jL2NvZGVjcy90YXMyNzgxLWNvbWxpYi5jDQo+PiArKysg
-Yi9zb3VuZC9zb2MvY29kZWNzL3RhczI3ODEtY29tbGliLmMNCj4+IEBAIC0yNzcsNyArMjc3LDcg
-QEAgaW50IHRhc2NvZGVjX2luaXQoc3RydWN0IHRhc2RldmljZV9wcml2ICp0YXNfcHJpdiwgdm9p
-ZCAqY29kZWMsDQo+PiAgIAkgKi8NCj4+ICAgCW11dGV4X2xvY2soJnRhc19wcml2LT5jb2RlY19s
-b2NrKTsNCj4+ICAgDQo+PiAtCXNjbnByaW50Zih0YXNfcHJpdi0+cmNhX2JpbmFyeW5hbWUsIDY0
-LCAiJXNSQ0ElZC5iaW4iLA0KPj4gKwlzY25wcmludGYodGFzX3ByaXYtPnJjYV9iaW5hcnluYW1l
-LCA2NCwgIiVzJXNSQ0ElZC5iaW4iLCBUQVMyNzgxX0ZJUk1XQVJFX1JPT1QsDQo+PiAgIAkJdGFz
-X3ByaXYtPmRldl9uYW1lLCB0YXNfcHJpdi0+bmRldik7DQo+PiAgIAljcmM4X3BvcHVsYXRlX21z
-Yih0YXNfcHJpdi0+Y3JjOF9sa3BfdGJsLCBUQVNERVZJQ0VfQ1JDOF9QT0xZTk9NSUFMKTsNCj4+
-ICAgCXRhc19wcml2LT5jb2RlYyA9IGNvZGVjOw0KPj4gLS0gDQo+PiAyLjM0LjENCj4+DQo=
+On Thu, 25 Apr 2024 09:54:17 +0200,
+Aaron Ma wrote:
+> 
+> 
+> On 4/25/24 15:52, Takashi Iwai wrote:
+> 
+>     On Thu, 25 Apr 2024 09:20:00 +0200,
+>     Aaron Ma wrote:
+>     
+>         TI upstream the files in ti/tas2781 for linux-firmware.
+>         Make the driver find the correct files.
+>         
+>     Note that the upstream linux-firmware provides symlinks to
+>     ti/tas2781/* files, so it's not "incorrect", so far :)
+> 
+> $ find . -iname TIAS2781RCA2.bin
+> ./ti/tas2781/TIAS2781RCA2.bin
+> 
+> Only one bin file found.
+> Could you point it out clearly?
+
+See WHENCE file.  It has "Link:" entries, and copy-firmware.sh creates
+corresponding symlinks.
+
+
+HTH,
+
+Takashi
+
+> 
+> Thanks,
+> Aaron
+> 
+>     thanks,
+>     
+>     Takashi
+> 
+>         Signed-off-by: Aaron Ma <aaron.ma@canonical.com>
+>         ---
+>          include/sound/tas2781.h           | 1 +
+>          sound/pci/hda/tas2781_hda_i2c.c   | 2 +-
+>          sound/soc/codecs/tas2781-comlib.c | 2 +-
+>          3 files changed, 3 insertions(+), 2 deletions(-)
+>         
+>         diff --git a/include/sound/tas2781.h b/include/sound/tas2781.h
+>         index 99ca3e401fd1..72119cc32c0f 100644
+>         --- a/include/sound/tas2781.h
+>         +++ b/include/sound/tas2781.h
+>         @@ -21,6 +21,7 @@
+>          /* version number */
+>          #define TAS2781_DRV_VER                                                1
+>          #define SMARTAMP_MODULE_NAME                                           "tas2781"
+>         +#define TAS2781_FIRMWARE_ROOT                                          "ti/tas2781/"
+>          #define TAS2781_GLOBAL_ADDR                      0x40
+>          #define TAS2563_GLOBAL_ADDR                      0x48
+>          #define TASDEVICE_RATES                                                (SNDRV_PCM_RATE_44100 |\
+>         diff --git a/sound/pci/hda/tas2781_hda_i2c.c b/sound/pci/hda/tas2781_hda_i2c.c
+>         index 75f7674c66ee..72dc1469655f 100644
+>         --- a/sound/pci/hda/tas2781_hda_i2c.c
+>         +++ b/sound/pci/hda/tas2781_hda_i2c.c
+>         @@ -649,7 +649,7 @@ static void tasdev_fw_ready(const struct firmware *fmw, void *context)
+>               tasdevice_dsp_remove(tas_priv);
+>          
+>               tas_priv->fw_state = TASDEVICE_DSP_FW_PENDING;
+>         -     scnprintf(tas_priv->coef_binaryname, 64, "TAS2XXX%04X.bin",
+>         +     scnprintf(tas_priv->coef_binaryname, 64, "%sTAS2XXX%04X.bin", TAS2781_FIRMWARE_ROOT,
+>                                     codec->core.subsystem_id & 0xffff);
+>               ret = tasdevice_dsp_parser(tas_priv);
+>               if (ret) {
+>         diff --git a/sound/soc/codecs/tas2781-comlib.c b/sound/soc/codecs/tas2781-comlib.c
+>         index 3aa81514dad7..96fe1b855ec9 100644
+>         --- a/sound/soc/codecs/tas2781-comlib.c
+>         +++ b/sound/soc/codecs/tas2781-comlib.c
+>         @@ -277,7 +277,7 @@ int tascodec_init(struct tasdevice_priv *tas_priv, void *codec,
+>                */
+>               mutex_lock(&tas_priv->codec_lock);
+>          
+>         -     scnprintf(tas_priv->rca_binaryname, 64, "%sRCA%d.bin",
+>         +     scnprintf(tas_priv->rca_binaryname, 64, "%s%sRCA%d.bin", TAS2781_FIRMWARE_ROOT,
+>                                     tas_priv->dev_name, tas_priv->ndev);
+>               crc8_populate_msb(tas_priv->crc8_lkp_tbl, TASDEVICE_CRC8_POLYNOMIAL);
+>               tas_priv->codec = codec;
+>         -- 
+>         2.34.1
+> 

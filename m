@@ -2,84 +2,260 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DB108B39D3
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Apr 2024 16:24:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6A188B39D4
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Apr 2024 16:24:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DA5F0192C;
-	Fri, 26 Apr 2024 16:24:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA5F0192C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 064F5162E;
+	Fri, 26 Apr 2024 16:24:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 064F5162E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1714141456;
-	bh=R6sayboPC5Q+DTt0RvBB94u+E4yjWkvlzV6GPTzDwAY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1714141471;
+	bh=ad6+sb9BGBwAXehYW3z4es0bpiKnw8BSr7KBTi8bx/0=;
+	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=GSczSzv15N2UFc/UNFFActYikBoz5FxATwkr/Vt48ofuEj1UppTp57w5U2oYv8ZoD
-	 wir/aotJex2Abi726YmMS0hRIlB2gruiUlG7kqEbelBTpcQ4A0kSPFA7d0Ipk5cz3n
-	 Tupu0UfdBPg44+U9R5cH/y4cEyraUQRIraH9kdQY=
+	b=IvlbPd7ltBh7s0icxfJ4o0oE7nSgeyrgDhzqBs69Qn7+exi8jGgxuE68AwatscszN
+	 FnI9rAXebwQofluYhsTZhhkJDul4SOeY/usfhRzzcrHPMA0Wpmh+2U4kkDnONNvS3m
+	 6c4hw7vZdIdCEG4yK35lVjZliRVsqpiydpFUiix8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3F2AEF80578; Fri, 26 Apr 2024 16:23:49 +0200 (CEST)
+	id 2EB58F805F0; Fri, 26 Apr 2024 16:23:51 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 97789F80578;
-	Fri, 26 Apr 2024 16:23:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 234C3F805D3;
+	Fri, 26 Apr 2024 16:23:51 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7338EF80423; Thu, 25 Apr 2024 13:04:24 +0200 (CEST)
+	id B7344F80423; Thu, 25 Apr 2024 22:59:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from www.schimsalabim.eu (vps01.schimsalabim.eu
- [IPv6:2a01:238:430d:5000:21c4:1c57:b27f:c8a])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2F890F800B5
-	for <alsa-devel@alsa-project.org>; Thu, 25 Apr 2024 13:04:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F890F800B5
-Received: from [192.168.0.158] (82-217-109-137.cable.dynamic.v4.ziggo.nl
- [82.217.109.137])
-	(authenticated bits=0)
-	by h2374449.stratoserver.net (8.14.7/8.14.7) with ESMTP id 43PB42GA030072
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
-	Thu, 25 Apr 2024 13:04:02 +0200
-Message-ID: <e256942d-eba1-4800-bd02-c490167dea12@schimsalabim.eu>
-Date: Thu, 25 Apr 2024 13:03:56 +0200
+	by alsa1.perex.cz (Postfix) with ESMTPS id C779BF8003A
+	for <alsa-devel@alsa-project.org>; Thu, 25 Apr 2024 22:59:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C779BF8003A
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=avvFswZf
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1714078771; x=1745614771;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=ad6+sb9BGBwAXehYW3z4es0bpiKnw8BSr7KBTi8bx/0=;
+  b=avvFswZfPuAUduLxmGrlqpq2HmBEHEhtOkZCA+XaVzD/ksFahfDiy/yY
+   g9RtJOYrzqnZ+7v33Q2G7FOfGxFnCYJ7jofys2JUlP7xb/GI50PV1xCwj
+   QG7XY+OtMoAM6/RsGcEtYajajj6MSkCJuC8WoKKd5BTGjTDvVKA6E7eG0
+   WuIf4tfYlCuv4X7o0Dklopv/XYoxd8vQAeAU3bX6ps6/NXX9QE5EQYSO9
+   hWWt8h/6dQTWDRDrJAgzj7i93W3bO62BeUFZcjx3uW+wm4tP4sMnUsDqf
+   6J22yaL2BJfMBCzaasF9YQZ56hEYuQ2HortBZ/fxE042LiOSAOcjjiMd2
+   g==;
+X-CSE-ConnectionGUID: qniZBnnwSp25U2RzZOjg0w==
+X-CSE-MsgGUID: ese91tzvT+616huKYbawQA==
+X-IronPort-AV: E=McAfee;i="6600,9927,11055"; a="35186862"
+X-IronPort-AV: E=Sophos;i="6.07,230,1708416000";
+   d="scan'208";a="35186862"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Apr 2024 13:59:24 -0700
+X-CSE-ConnectionGUID: rpsyjb1RQUig6bkdj/tEdA==
+X-CSE-MsgGUID: uyPFEYKUR2yVpQFnrkyj2A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.07,230,1708416000";
+   d="scan'208";a="29849700"
+Received: from orsmsx603.amr.corp.intel.com ([10.22.229.16])
+  by orviesa003.jf.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
+ 25 Apr 2024 13:59:24 -0700
+Received: from orsmsx612.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35; Thu, 25 Apr 2024 13:59:23 -0700
+Received: from orsmsx603.amr.corp.intel.com (10.22.229.16) by
+ ORSMSX612.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35; Thu, 25 Apr 2024 13:59:23 -0700
+Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
+ orsmsx603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35 via Frontend Transport; Thu, 25 Apr 2024 13:59:23 -0700
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com (104.47.55.168)
+ by edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.35; Thu, 25 Apr 2024 13:59:23 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=BwkjZJofZXmzYHTqY6R4TPyjeLA9XcGmtqUzDWss/2grK8o6QLtXN4W3Rm8gUlJjK97ZnXkRuEs6zAiZe3tUBQHBVbXefNn13peKXykeBo48O4ysfijlVXrOiCkXkq7vnv81+SsgBSQZXXRM5o6ag/kLA/bHGfE/y1N6sTGoFNfqGtBKAEILVs3U1erttPw7jUKHKjHciUgAoK1LYKc6qk28oSI7qGGAS7k1LKa1wdzqs4kEj1MXN3/yKlINp5dIuC6UfW8r0ie3e05PPckH31J/gRl9TMrwszxfJGCdZaUj2gLgztaWa2S1LoMGc29WHjrpIhgMl0dmcLHzODr0Ag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UtnnUUtpRLPE1JKhMifN/g9LnRUjDmKhaP1b8NExrdM=;
+ b=TccY8FCswQMqCTj16oSTkc+DNAjJghY/KJdzY01PZ0x5PIKY31oBGZyW4G6hhNh9JavVtOwi/6+zw7EBz/8bx6QI65LS3UfRykx/vFZ4ZnuG3oK4+fDmutm36myYTm2+PdWvbuNIJl9q20JewTXn2L8E7yhype3gukEnxJhDPFFjOLcDtipRChjI2dgXu5bRj5tqvc6lXu9PJk161RKUlyruwpqtFt/ZJKf1dHf7F3imGOQRdYNyMeU8qjbFQRkbMfCgh996cKexaKBGEMUE8fpJEqRvnNLfWnhmZeBaRf+n0EyuFgx1VdAKArzlyXLr1LcJ45rDMgHha3oBUX/eOw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SA1PR11MB6733.namprd11.prod.outlook.com (2603:10b6:806:25c::17)
+ by SJ2PR11MB8586.namprd11.prod.outlook.com (2603:10b6:a03:56e::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.22; Thu, 25 Apr
+ 2024 20:59:20 +0000
+Received: from SA1PR11MB6733.namprd11.prod.outlook.com
+ ([fe80::d543:d6c2:6eee:4ec]) by SA1PR11MB6733.namprd11.prod.outlook.com
+ ([fe80::d543:d6c2:6eee:4ec%4]) with mapi id 15.20.7519.020; Thu, 25 Apr 2024
+ 20:59:20 +0000
+Date: Thu, 25 Apr 2024 13:59:09 -0700
+From: Ira Weiny <ira.weiny@intel.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, "Michael S. Tsirkin"
+	<mst@redhat.com>, Jason Wang <jasowang@redhat.com>, Xuan Zhuo
+	<xuanzhuo@linux.alibaba.com>, Jonathan Corbet <corbet@lwn.net>, "David
+ Hildenbrand" <david@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>, "Richard
+ Weinberger" <richard@nod.at>, Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+	Johannes Berg <johannes@sipsolutions.net>, Paolo Bonzini
+	<pbonzini@redhat.com>, Stefan Hajnoczi <stefanha@redhat.com>, Jens Axboe
+	<axboe@kernel.dk>, Marcel Holtmann <marcel@holtmann.org>, "Luiz Augusto von
+ Dentz" <luiz.dentz@gmail.com>, Olivia Mackall <olivia@selenic.com>, "Herbert
+ Xu" <herbert@gondor.apana.org.au>, Amit Shah <amit@kernel.org>, Arnd Bergmann
+	<arnd@arndb.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Gonglei
+	<arei.gonglei@huawei.com>, "David S. Miller" <davem@davemloft.net>, "Sudeep
+ Holla" <sudeep.holla@arm.com>, Cristian Marussi <cristian.marussi@arm.com>,
+	Viresh Kumar <vireshk@kernel.org>, Linus Walleij <linus.walleij@linaro.org>,
+	Bartosz Golaszewski <brgl@bgdev.pl>, David Airlie <airlied@redhat.com>,
+	Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu <olvaffe@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+	<mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Daniel Vetter
+	<daniel@ffwll.ch>, Jean-Philippe Brucker <jean-philippe@linaro.org>, "Joerg
+ Roedel" <joro@8bytes.org>, Will Deacon <will@kernel.org>, Robin Murphy
+	<robin.murphy@arm.com>, Alexander Graf <graf@amazon.com>, Eric Dumazet
+	<edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>, Eric Van Hensbergen <ericvh@kernel.org>, "Latchesar
+ Ionkov" <lucho@ionkov.net>, Dominique Martinet <asmadeus@codewreck.org>,
+	Christian Schoenebeck <linux_oss@crudebyte.com>, Stefano Garzarella
+	<sgarzare@redhat.com>, Kalle Valo <kvalo@kernel.org>, Dan Williams
+	<dan.j.williams@intel.com>, Vishal Verma <vishal.l.verma@intel.com>, "Dave
+ Jiang" <dave.jiang@intel.com>, Ira Weiny <ira.weiny@intel.com>, Pankaj Gupta
+	<pankaj.gupta.linux@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>, "James E.J. Bottomley"
+	<jejb@linux.ibm.com>, "Martin K. Petersen" <martin.petersen@oracle.com>,
+	Vivek Goyal <vgoyal@redhat.com>, Miklos Szeredi <miklos@szeredi.hu>, "Anton
+ Yakovlev" <anton.yakovlev@opensynergy.com>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+CC: <virtualization@lists.linux.dev>, <linux-doc@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-um@lists.infradead.org>,
+	<linux-block@vger.kernel.org>, <linux-bluetooth@vger.kernel.org>,
+	<linux-crypto@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-gpio@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+	<iommu@lists.linux.dev>, <netdev@vger.kernel.org>, <v9fs@lists.linux.dev>,
+	<kvm@vger.kernel.org>, <linux-wireless@vger.kernel.org>,
+	<nvdimm@lists.linux.dev>, <linux-remoteproc@vger.kernel.org>,
+	<linux-scsi@vger.kernel.org>, <linux-fsdevel@vger.kernel.org>,
+	<alsa-devel@alsa-project.org>, <linux-sound@vger.kernel.org>, "Krzysztof
+ Kozlowski" <krzysztof.kozlowski@linaro.org>
+Subject: Re: [PATCH v2 21/25] nvdimm: virtio_pmem: drop owner assignment
+Message-ID: <662ac41d1655a_108a3c294c0@iweiny-mobl.notmuch>
+References: <20240331-module-owner-virtio-v2-0-98f04bfaf46a@linaro.org>
+ <20240331-module-owner-virtio-v2-21-98f04bfaf46a@linaro.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20240331-module-owner-virtio-v2-21-98f04bfaf46a@linaro.org>
+X-ClientProxiedBy: BYAPR01CA0039.prod.exchangelabs.com (2603:10b6:a03:94::16)
+ To SA1PR11MB6733.namprd11.prod.outlook.com (2603:10b6:806:25c::17)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ASoC: sunxi: DMIC: Add controls for adjusting the mic
- gains
-To: =?UTF-8?Q?Jernej_=C5=A0krabec?= <jernej.skrabec@gmail.com>,
-        Ban Tao <fengzheng923@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
-        Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>, Chen-Yu Tsai <wens@csie.org>,
-        Samuel Holland <samuel@sholland.org>
-Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
-        linux-kernel@vger.kernel.org
-References: <20240422150213.4040734-1-joao@schimsalabim.eu>
- <5772237.DvuYhMxLoT@jernej-laptop>
-Content-Language: en-US
-From: Joao Schim <joao@schimsalabim.eu>
-In-Reply-To: <5772237.DvuYhMxLoT@jernej-laptop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-MailFrom: joao@schimsalabim.eu
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA1PR11MB6733:EE_|SJ2PR11MB8586:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4a1e0950-9458-48d9-541b-08dc656a93d9
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: 
+ BCL:0;ARA:13230031|1800799015|376005|7416005|366007|921011;
+X-Microsoft-Antispam-Message-Info: 
+ =?us-ascii?Q?p4Pyvc1s10sc+1IhRVCgrka7N17JI8shpKV9e+qyo0zoB5fQBt09qhs/sKrY?=
+ =?us-ascii?Q?E2+mMbn2LeGPlwtKggkfSUJWmwlPSZuPRp1J6Jue9X1dR74+/AyxHAjobEH0?=
+ =?us-ascii?Q?WQGt3AiJM9GYXGDc23KiyG9FA6iqGOSXvJT2B7lk4IwKfd1DP2EaCUrlPzje?=
+ =?us-ascii?Q?XDfveANJWNuO9Gy7+XeQLWg7g8nKveuVWNOmnPx3iUgCpFN0A1smk8d7v1Nh?=
+ =?us-ascii?Q?Xkw5QspejlB+puqNeXnYrbMMHqHbyx3FnQ0QTCb5sjPTvK2EulzgN1mzuJCu?=
+ =?us-ascii?Q?asj+PD1MPLZFkKHD3JxdXa1PUxMF1KlGKwEDHSjaI9o8SwCNMSwKUV0kPoF8?=
+ =?us-ascii?Q?UyIsbaV0Q2NenIHOPrPAORzYXPno3jn1sV1OWN9nD6wGugDyScBB24A0UPAK?=
+ =?us-ascii?Q?Xl1Yw7vlZBfnhDOZrVHr4K0mFt/VUqdn5BgKDgmK6s8MSlm7FD+fr0Kg2VCZ?=
+ =?us-ascii?Q?/3H2W0xBSg2+LiHhbRiP63m1gi492rwD21Y/AxuHTfVkZGTRXD7PtcS+R1E2?=
+ =?us-ascii?Q?mg9IquTiLx9NJOXC8xb0SuG+KxgLTpQIQdCz1FegVg8c/85/kQcbhK570UHn?=
+ =?us-ascii?Q?oL4gj815Xf4bdBEhjrtuuMkUA/U0fkMeXSPZ0W+KGHAjwV/Z77LAzIVTdb34?=
+ =?us-ascii?Q?zFwwvW3hmxwch129QmUrtnH0HegY9iikAxAZrI47mteg5YT6xCHcCn+0LAoZ?=
+ =?us-ascii?Q?Vh1uRKxwaYciv5KUAaeopaLjzAdK2UnMAqSl7mFTa2XhHVAcoeW5SZfqQ6mI?=
+ =?us-ascii?Q?Ef9Ou6sjsJRNRMAqlHZDc+BU91w89febeyepipwh2E5j4Y0qQvKnBgInNg4Q?=
+ =?us-ascii?Q?1szmwA78wF7RUHF4mnzHXV+qOOnFPsp4pT9IPyEyk8WfQLYXyU2+G8k3NYYU?=
+ =?us-ascii?Q?LzUiz+kJEaq18cA9QUumZ3x6qZiOVCkytIg9nvY/7JMxRRhGvmNq10pLFS3I?=
+ =?us-ascii?Q?yxU843oCFnMIrPsomQnj9a6XVOxEUAPzV2a8m37ac7p6lFIC0f0nZGTaMdpN?=
+ =?us-ascii?Q?gjBOU9wQgHETI3EP20RewReN6Twd4KRZc6gHju/IVnyFRQG/a0ZdmcLUg589?=
+ =?us-ascii?Q?8DLFAKiGv4W0hJe7AsE3U70wX/MNSh0BCXvsy1nTqn9q2yt5OJrdKmxt2aEG?=
+ =?us-ascii?Q?RLTTyPIf2cnNonmNlnzhsO30KOSG/B0m3e7O6w00kVsw1x6EpKjGnQpue6k/?=
+ =?us-ascii?Q?3FiSlZKerTZdGeDvrR+yvsN/C/wzUXxaWd4u8CT5wDx2mB/F8dxLColXv/2B?=
+ =?us-ascii?Q?O8nhvq2PsisgGZ1csGP9/hKUZNKzSD4fYRrYmZbM+iTXei8aeRxqJZmkiqSY?=
+ =?us-ascii?Q?p7ccIMK+w/ETQCT56Po+IwHc?=
+X-Forefront-Antispam-Report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1PR11MB6733.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(1800799015)(376005)(7416005)(366007)(921011);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+ =?us-ascii?Q?wsgct7QwEtK35653A630MZZbe6OGEV6cvtUwSO58Z1F4ZjIxu8O/C3XQG/oy?=
+ =?us-ascii?Q?k/U3l3549wv24vu4Vn5YpLE/1R7HZd6yFj3K8xZunc5DwDNSqOoTnbZZWH2r?=
+ =?us-ascii?Q?9/u9Anm4StTkF6qIoUQuWF/Ok7zggCKO6Mkcc6Nbf+JYqkc4NW6YpVlAvNkZ?=
+ =?us-ascii?Q?Z8J39CEZFlKD1P6iFpxIr7NdSpW6rbdV6kqpsjhLzzMD7d03nvQdfd558bPn?=
+ =?us-ascii?Q?JOtIpqweL4Yp5UnYGXXPGkn2XosYvlK9obqtRSuwLHpvkTazk8L7RFL4gvTS?=
+ =?us-ascii?Q?r2822/0umLruRmyU5zMrMiExe6kpLm5NH/bCiLz+mb3qRH5B2e6RfKps4CX0?=
+ =?us-ascii?Q?cz8Q7s2FU7+YeBts744pBuioAihe7xZ2jC4U6mLqhKpLH+fEz55MoYeHsWot?=
+ =?us-ascii?Q?3phklxO5JZmIs54B26n76OOFdj4UqEEZxkGn7QPEoJBSfbpyklYcuik8y3RG?=
+ =?us-ascii?Q?6AvDNcI4ICU3LJ4VMY5cSZhpey4npddVqOPdiKKsOgqE+2Enxo23RpSwdlzG?=
+ =?us-ascii?Q?SCvHVf1vTDtOudUyrZolDF3tVPDZ5Bt1UsvJme9ckKVwO0GF/g+uooeprli6?=
+ =?us-ascii?Q?e8tnPUkhMSH9a5wmPiaoKCxuOnftMSRFgyE1cRMudoUwEM3UoIUAO8pu0Ne+?=
+ =?us-ascii?Q?iZkGaYiEmTY60BOHtguH5Iyu/75zXnd6s8PBaBlsa11hyyB/cpfVoeTo6Rnw?=
+ =?us-ascii?Q?p+0gX+vv4uzPytF+Q4oUTPDmxA4tImSFm3y7GH4QmMf6RpAVbBDuEMUYMM1E?=
+ =?us-ascii?Q?X7J3ZLS5CXgP+Yci6/COyMUgiqQiahNxfoTjBOxdkj1/HhKr0UfCPkwPweh7?=
+ =?us-ascii?Q?4Te3N0yxJY/yB0Ica2AePGO0ifByjOEH211v0P6jblkpSGCdC4q1PDnw68zM?=
+ =?us-ascii?Q?dFxDVNBShwQd8XwctHY07gYzecJsGLApVnXVnH2aJ7J94uU/iMtGA/Be2zGe?=
+ =?us-ascii?Q?4rHSo5GpPtqrm4lvw7yN420p7GFaiJR+DjLgaMX6pVhFXYChGvk1Se2qlMcH?=
+ =?us-ascii?Q?orXZmmAam0Io/XqqIReWh4DBg7uXkHQW2pbO3RqCGbeFO9+OsTBH6/3PGpvv?=
+ =?us-ascii?Q?NkKapXF/nYaZ4KoBzwmA2W0LjG7dgTvo1emYmZ8NM1BihO3K1qHbPOSdBF5n?=
+ =?us-ascii?Q?7iL/9m5JQacbQIGvpprGmc/b0drCTmhB12TGqeVntk59CuZh66N5BRGQaX6v?=
+ =?us-ascii?Q?B4IsB60HU9xFc6B5RquFclB43lTkiTI/jYxtZFBs2w7se2XR/7i7pitm+HwD?=
+ =?us-ascii?Q?+HhjfxciHg7FRXDQH1j8EYOYnlWGd3oIqoudOoBiQaVhblKR3XEeJ2piNVWZ?=
+ =?us-ascii?Q?wIrVdxzdN3iUGh/3TCwCYq5a3uJOVvZuYwoP6tgG/Y4TT4YDIeEEWsIEa4v4?=
+ =?us-ascii?Q?Qn8HUIgJat4puxTyG78/wKuyCBj/tY5GTO1D5k+w2mlHatjA/GveypbBn7Dy?=
+ =?us-ascii?Q?5Hbdn2EGydBcORjF9HoPyIEN3Zc0MTZlmS9Zz138CGq0ze9X+c+zWWpTZSFU?=
+ =?us-ascii?Q?4Xzm9KH6bCV05PLlC9L8gxl43enHlypa+H6a2tOEeUxslfEjaqpFeQQlIoNP?=
+ =?us-ascii?Q?BvYLfmniArrPmDLga8Wojh+vlOeQjwwu5vbMg2N+?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 4a1e0950-9458-48d9-541b-08dc656a93d9
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR11MB6733.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Apr 2024 20:59:20.2948
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ px3Eb8ILOwKiaQoVN8oktVBLNHHqIyrhbL4GczJuNngr6LtPzi8db4gjyL2OGxCp8pY2FlscDiwIlQqVIPv2wg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR11MB8586
+X-OriginatorOrg: intel.com
+X-MailFrom: ira.weiny@intel.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: LGS2GDVARAJHFIKBDO3ARUGPINE6TR5S
-X-Message-ID-Hash: LGS2GDVARAJHFIKBDO3ARUGPINE6TR5S
+Message-ID-Hash: IO4ZFLBBSFVWUHHTLILAQW43BUVRL2LA
+X-Message-ID-Hash: IO4ZFLBBSFVWUHHTLILAQW43BUVRL2LA
 X-Mailman-Approved-At: Fri, 26 Apr 2024 14:23:44 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LGS2GDVARAJHFIKBDO3ARUGPINE6TR5S/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IO4ZFLBBSFVWUHHTLILAQW43BUVRL2LA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -88,101 +264,36 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 4/24/24 20:42, Jernej Škrabec wrote:
-> Hi Joao,
-Hi Jernej,  thanks for your prompt response.
->
-> Dne ponedeljek, 22. april 2024 ob 17:02:13 GMT +2 je Joao Schim napisal(a):
->> The AllWinner H6 and later SoCs that sport a DMIC block contain a set of registers to control
->> the gain (left + right) of each of the four supported channels.
->>
->> Add ASoC controls for changing each of the stereo channel gains using alsamixer and alike
-> Add SoB tag.
-Yeah, i realized that too late. Thanks for bringing that to my 
-attention. I will add it in v1.
->
->> ---
->>   sound/soc/sunxi/sun50i-dmic.c | 34 ++++++++++++++++++++++++++++++++++
->>   1 file changed, 34 insertions(+)
->>
->> diff --git a/sound/soc/sunxi/sun50i-dmic.c b/sound/soc/sunxi/sun50i-dmic.c
->> index c76628bc86c6..f8613d8c3462 100644
->> --- a/sound/soc/sunxi/sun50i-dmic.c
->> +++ b/sound/soc/sunxi/sun50i-dmic.c
->> @@ -14,6 +14,7 @@
->>   #include <sound/dmaengine_pcm.h>
->>   #include <sound/pcm_params.h>
->>   #include <sound/soc.h>
->> +#include <sound/tlv.h>
->>   
->>   #define SUN50I_DMIC_EN_CTL			(0x00)
->>   	#define SUN50I_DMIC_EN_CTL_GLOBE			BIT(8)
->> @@ -43,6 +44,17 @@
->>   	#define SUN50I_DMIC_CH_NUM_N_MASK			GENMASK(2, 0)
->>   #define SUN50I_DMIC_CNT				(0x2c)
->>   	#define SUN50I_DMIC_CNT_N				(1 << 0)
->> +#define SUN50I_DMIC_D0D1_VOL_CTR		(0x30)
->> +	#define SUN50I_DMIC_D0D1_VOL_CTR_0R			(0)
->> +	#define SUN50I_DMIC_D0D1_VOL_CTR_0L			(8)
->> +	#define SUN50I_DMIC_D0D1_VOL_CTR_1R			(16)
->> +	#define SUN50I_DMIC_D0D1_VOL_CTR_1L			(24)
->> +#define SUN50I_DMIC_D2D3_VOL_CTR                (0x34)
->> +        #define SUN50I_DMIC_D2D3_VOL_CTR_2R                     (0)
->> +        #define SUN50I_DMIC_D2D3_VOL_CTR_2L                     (8)
->> +        #define SUN50I_DMIC_D2D3_VOL_CTR_3R                     (16)
->> +        #define SUN50I_DMIC_D2D3_VOL_CTR_3L                     (24)
->> +
->>   #define SUN50I_DMIC_HPF_CTRL			(0x38)
->>   #define SUN50I_DMIC_VERSION			(0x50)
->>   
->> @@ -273,8 +285,30 @@ static const struct of_device_id sun50i_dmic_of_match[] = {
->>   };
->>   MODULE_DEVICE_TABLE(of, sun50i_dmic_of_match);
->>   
->> +static const DECLARE_TLV_DB_SCALE(sun50i_dmic_vol_scale, -12000, 75, 1);
-> DECLARE_TLV_DB_SCALE is old name, SNDRV_CTL_TLVD_DECLARE_DB_SCALE should be
-> used instead.
-I can't seem to find that define in HEAD. what code-base are you 
-referring to that i should checkout ?
->
-> Other than that, it looks fine.
+Krzysztof Kozlowski wrote:
+> virtio core already sets the .owner, so driver does not need to.
+> 
+> Acked-by: Dave Jiang <dave.jiang@intel.com>
 
-Thanks.
+Acked-by: Ira Weiny <ira.weiny@intel.com>
 
-> Best regards,
-> Jernej
->
->> +
->> +static const struct snd_kcontrol_new sun50i_dmic_controls[] = {
->> +
->> +        SOC_DOUBLE_TLV("DMIC Channel 0 Capture Volume", SUN50I_DMIC_D0D1_VOL_CTR,
->> +                       SUN50I_DMIC_D0D1_VOL_CTR_0L, SUN50I_DMIC_D0D1_VOL_CTR_0R,
->> +                       0xFF, 0, sun50i_dmic_vol_scale),
->> +        SOC_DOUBLE_TLV("DMIC Channel 1 Capture Volume", SUN50I_DMIC_D0D1_VOL_CTR,
->> +                       SUN50I_DMIC_D0D1_VOL_CTR_1L, SUN50I_DMIC_D0D1_VOL_CTR_1R,
->> +                       0xFF, 0, sun50i_dmic_vol_scale),
->> +        SOC_DOUBLE_TLV("DMIC Channel 2 Capture Volume", SUN50I_DMIC_D2D3_VOL_CTR,
->> +                       SUN50I_DMIC_D2D3_VOL_CTR_2L, SUN50I_DMIC_D2D3_VOL_CTR_2R,
->> +                       0xFF, 0, sun50i_dmic_vol_scale),
->> +        SOC_DOUBLE_TLV("DMIC Channel 3 Capture Volume", SUN50I_DMIC_D2D3_VOL_CTR,
->> +                       SUN50I_DMIC_D2D3_VOL_CTR_3L, SUN50I_DMIC_D2D3_VOL_CTR_3R,
->> +                       0xFF, 0, sun50i_dmic_vol_scale),
->> +
->> +
->> +};
->> +
->>   static const struct snd_soc_component_driver sun50i_dmic_component = {
->>   	.name           = "sun50i-dmic",
->> +	.controls	= sun50i_dmic_controls,
->> +	.num_controls	= ARRAY_SIZE(sun50i_dmic_controls),
->>   };
->>   
->>   static int sun50i_dmic_runtime_suspend(struct device *dev)
->>
->
->
->
-Kind regards,
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> ---
+> 
+> Depends on the first patch.
+> ---
+>  drivers/nvdimm/virtio_pmem.c | 1 -
+>  1 file changed, 1 deletion(-)
+> 
+> diff --git a/drivers/nvdimm/virtio_pmem.c b/drivers/nvdimm/virtio_pmem.c
+> index 4ceced5cefcf..c9b97aeabf85 100644
+> --- a/drivers/nvdimm/virtio_pmem.c
+> +++ b/drivers/nvdimm/virtio_pmem.c
+> @@ -151,7 +151,6 @@ static struct virtio_driver virtio_pmem_driver = {
+>  	.feature_table		= features,
+>  	.feature_table_size	= ARRAY_SIZE(features),
+>  	.driver.name		= KBUILD_MODNAME,
+> -	.driver.owner		= THIS_MODULE,
+>  	.id_table		= id_table,
+>  	.validate		= virtio_pmem_validate,
+>  	.probe			= virtio_pmem_probe,
+> 
+> -- 
+> 2.34.1
+> 
 
-Joao
 

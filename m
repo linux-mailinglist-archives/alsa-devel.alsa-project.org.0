@@ -2,72 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78FC18B3B4A
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Apr 2024 17:25:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F6168B3B4F
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Apr 2024 17:25:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 121D6E65;
-	Fri, 26 Apr 2024 17:25:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 121D6E65
+	by alsa0.perex.cz (Postfix) with ESMTPS id F06C485D;
+	Fri, 26 Apr 2024 17:25:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F06C485D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1714145114;
-	bh=RZNfJj9F38dpuilu8NRrmzX3jZ+dUkuFYYD7MAVqxbc=;
+	s=default; t=1714145132;
+	bh=JiO2nqs/sWgSFc5uIdbhgYj17fRvGxX59e1sBqxBGAs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=NQLuWGkYVlQqeBZGgGsHobVOSCfqI6mF6/ryWLsJD28iB7/UqY4KNTV9SA1/NRR2K
-	 lF4XLLo7IR5w7PsT6k08TpeOWgHGm5MPOmPM2+VxdX2hNztk6Liyi+W8AswOPIVRAy
-	 35y0xnqmO/EMY7F5n3b17Dbu2C/AYIE3DZEHG284=
+	b=OqH1b7OPRMaz8kypUJJo+qDTZAqDSJ8r40kz9NhmKcb1dFJHpGldPHGVNxbbD4eO1
+	 olZYy0yhc8OGbRDF/DOzJvjTqtmgjmgtP7PBugf2HkpQVidpOWMFPRBu1bzuI1nGjk
+	 jpPggYZnLEdTz//bT8Sb4Y00hJ/mp77jHM+bXfwc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8D29FF80718; Fri, 26 Apr 2024 17:22:33 +0200 (CEST)
+	id AAB66F8076C; Fri, 26 Apr 2024 17:22:35 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A6D95F80730;
-	Fri, 26 Apr 2024 17:22:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EC8C4F80756;
+	Fri, 26 Apr 2024 17:22:34 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 14F1BF8060E; Fri, 26 Apr 2024 17:22:08 +0200 (CEST)
+	id 8E6DCF80649; Fri, 26 Apr 2024 17:22:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
+X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0B4C0F80571
-	for <alsa-devel@alsa-project.org>; Fri, 26 Apr 2024 17:21:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0B4C0F80571
+	by alsa1.perex.cz (Postfix) with ESMTPS id 99F4AF80578
+	for <alsa-devel@alsa-project.org>; Fri, 26 Apr 2024 17:21:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99F4AF80578
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=Vs9Nh7yq
+ header.s=Intel header.b=WRGYexqG
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1714144912; x=1745680912;
+  t=1714144914; x=1745680914;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=RZNfJj9F38dpuilu8NRrmzX3jZ+dUkuFYYD7MAVqxbc=;
-  b=Vs9Nh7yqPs5P8AN1n6FVU9iBjSh0KDv+NFomjKyutVVX7smanHE5I6r6
-   Q6ecI2H1SQ1RfXH/qDU7yxvTzMQp56yIUfpYHKrfRr0NCDT73zJZJcGF6
-   558RHmQyvuefvTy6rKGyLIw21mEzcf46WkqFT1XtnIZPq/caHubWfNfi+
-   NvB9AZjm3BjUrKqflgsxWidUHofwE2yzvloewNWc/OjR393wJf76mNu2A
-   0rxtyVY65mZDCmk2UOoyq/NUQzhkBE03xxHceie46rYWdDMR2etYSUpek
-   IcOlVy9FICUjdtoVkyZ9jhiJzmIGkcROGGhYbvCxGpCrZNXT/i5628iXl
-   A==;
-X-CSE-ConnectionGUID: OqwZmJBsTSq5u7Bz3q8cRw==
-X-CSE-MsgGUID: UOkaT78nT3i642o+dthyzg==
-X-IronPort-AV: E=McAfee;i="6600,9927,11056"; a="21290647"
+  bh=JiO2nqs/sWgSFc5uIdbhgYj17fRvGxX59e1sBqxBGAs=;
+  b=WRGYexqGH5CCVP5HfQ77MTMReRF+E8ycmxDJr5eUVdEJwzfJ2l95BS53
+   Zo6MlGpxmrBeNzFKoYAgGwWAmtV0eM5kRfngra9q0j/Cbc0OfEVsbKQ5z
+   jjxcbiNHZNBF/b1+yFv8yqp2K24MGeG59TsAGR24iDF2Mz7u1K6hYLqkN
+   RhapnpjMQIu4D4FaM1jyiR0e4lU8WN4agGK2mwBV0Xlx5vMB507nU/Ygu
+   54PSi1djLY7gLTBfc2eEvOuHNNJOubHxiDu4KZzTPM9r/48aAnuDNjzQD
+   N/wFeOnZdwVSk9eMjL1KgqRDtBwnS6Cf7ycrAUxMpYO9TXdcPTfmmy0Ig
+   g==;
+X-CSE-ConnectionGUID: gZjBeMDRQAKYu3PCTWjZbQ==
+X-CSE-MsgGUID: 5FggCMr9QE6ceOqRiTnnZQ==
+X-IronPort-AV: E=McAfee;i="6600,9927,11056"; a="21290652"
 X-IronPort-AV: E=Sophos;i="6.07,232,1708416000";
-   d="scan'208";a="21290647"
+   d="scan'208";a="21290652"
 Received: from orviesa004.jf.intel.com ([10.64.159.144])
   by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Apr 2024 08:21:46 -0700
-X-CSE-ConnectionGUID: 06E7xQTIQ5iaw7c1jIzf3A==
-X-CSE-MsgGUID: ObVN4uEdSZmAcHeOR4472w==
+ 26 Apr 2024 08:21:47 -0700
+X-CSE-ConnectionGUID: RWEu+Ar7RF+2fJQTjo1PVQ==
+X-CSE-MsgGUID: Fg7PsVoWQV6lZyS1q1ZwCQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.07,232,1708416000";
-   d="scan'208";a="30259037"
+   d="scan'208";a="30259038"
 Received: from atarkhan-mobl2.amr.corp.intel.com (HELO
  pbossart-mobl6.intel.com) ([10.212.33.33])
   by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
@@ -77,20 +76,21 @@ To: linux-sound@vger.kernel.org
 Cc: alsa-devel@alsa-project.org,
 	tiwai@suse.de,
 	broonie@kernel.org,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Maciej Strozek <mstrozek@opensource.cirrus.com>,
 	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
 	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [PATCH 11/12] ASoC: Intel: sof_sdw: Add callbacks to register sidecar
- devices
-Date: Fri, 26 Apr 2024 10:21:22 -0500
-Message-Id: <20240426152123.36284-12-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 12/12] ASoC: intel: sof_sdw: Add support for cs42l43-cs35l56
+ sidecar amps
+Date: Fri, 26 Apr 2024 10:21:23 -0500
+Message-Id: <20240426152123.36284-13-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20240426152123.36284-1-pierre-louis.bossart@linux.intel.com>
 References: <20240426152123.36284-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: E5HIIUSPMWKNG2BK4Y7EZVG7CDCEAK4P
-X-Message-ID-Hash: E5HIIUSPMWKNG2BK4Y7EZVG7CDCEAK4P
+Message-ID-Hash: DQ5HGIJDYWAY4XIF3PLQODEMA3BW6SCX
+X-Message-ID-Hash: DQ5HGIJDYWAY4XIF3PLQODEMA3BW6SCX
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -103,7 +103,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/E5HIIUSPMWKNG2BK4Y7EZVG7CDCEAK4P/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DQ5HGIJDYWAY4XIF3PLQODEMA3BW6SCX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,115 +112,303 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
+From: Maciej Strozek <mstrozek@opensource.cirrus.com>
 
-Add support for systems that have additional non-SoundWire devices
-(sidecars) connected to one of the SoundWire devices in the
-system. This is done through the addition of two callbacks, one used
-at endpoint parsing time that will return the number of devices and
-DAI links to be added, and another called later as the DAI links are
-created that will populate those devices into the appropriate arrays.
+The cs42l43 has both a SPI master and an I2S interface, these can
+be used to populate 2 cs35l56 amplifiers as sidecar devices along
+side the cs42l43. Giving a system that looks like:
+
+  +-----+           +---------+ <- SPI -> +---------+
+  | CPU | <- SDW -> | CS42L43 |           | CS35L56 |
+  +-----+           +---------+ <- I2S -> +---------+
+
+Add a quirk to specify this feature is present and use it to add
+codec to codec DAI link to connect the amplifiers into the sound
+card, add appropriate widgets, and setup clocking on the
+amplifiers.
 
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Signed-off-by: Maciej Strozek <mstrozek@opensource.cirrus.com>
 Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/intel/boards/sof_sdw.c        | 22 ++++++++++++++++++++--
- sound/soc/intel/boards/sof_sdw_common.h |  6 ++++++
- 2 files changed, 26 insertions(+), 2 deletions(-)
+ sound/soc/intel/boards/Kconfig           |   1 +
+ sound/soc/intel/boards/Makefile          |   1 +
+ sound/soc/intel/boards/bridge_cs35l56.c  | 137 +++++++++++++++++++++++
+ sound/soc/intel/boards/sof_sdw.c         |   6 +-
+ sound/soc/intel/boards/sof_sdw_common.h  |  20 ++++
+ sound/soc/intel/boards/sof_sdw_cs42l43.c |  14 ++-
+ 6 files changed, 173 insertions(+), 6 deletions(-)
+ create mode 100644 sound/soc/intel/boards/bridge_cs35l56.c
 
+diff --git a/sound/soc/intel/boards/Kconfig b/sound/soc/intel/boards/Kconfig
+index 0ad7b0a1e237..b122b8aedd9a 100644
+--- a/sound/soc/intel/boards/Kconfig
++++ b/sound/soc/intel/boards/Kconfig
+@@ -690,6 +690,7 @@ config SND_SOC_INTEL_SOUNDWIRE_SOF_MACH
+ 	select SND_SOC_CS42L43_SDW
+ 	select MFD_CS42L43
+ 	select MFD_CS42L43_SDW
++	select SND_SOC_CS35L56_SPI
+ 	select SND_SOC_CS35L56_SDW
+ 	select SND_SOC_DMIC
+ 	select SND_SOC_INTEL_HDA_DSP_COMMON
+diff --git a/sound/soc/intel/boards/Makefile b/sound/soc/intel/boards/Makefile
+index 119413c262de..1c099e717eca 100644
+--- a/sound/soc/intel/boards/Makefile
++++ b/sound/soc/intel/boards/Makefile
+@@ -37,6 +37,7 @@ snd-soc-ehl-rt5660-objs := ehl_rt5660.o
+ snd-soc-sof-ssp-amp-objs := sof_ssp_amp.o
+ snd-soc-sof-sdw-objs += sof_sdw.o				\
+ 			sof_sdw_maxim.o sof_sdw_rt_amp.o	\
++			bridge_cs35l56.o			\
+ 			sof_sdw_rt5682.o sof_sdw_rt700.o	\
+ 			sof_sdw_rt711.o sof_sdw_rt_sdca_jack_common.o	\
+ 			sof_sdw_rt712_sdca.o sof_sdw_rt722_sdca.o	\
+diff --git a/sound/soc/intel/boards/bridge_cs35l56.c b/sound/soc/intel/boards/bridge_cs35l56.c
+new file mode 100644
+index 000000000000..c3995e724aed
+--- /dev/null
++++ b/sound/soc/intel/boards/bridge_cs35l56.c
+@@ -0,0 +1,137 @@
++// SPDX-License-Identifier: GPL-2.0-only
++//
++// Intel SOF Machine Driver with Cirrus Logic CS35L56 Smart Amp
++
++#include <linux/module.h>
++#include <linux/platform_device.h>
++#include <sound/core.h>
++#include <sound/pcm.h>
++#include <sound/pcm_params.h>
++#include <sound/soc.h>
++#include <sound/soc-acpi.h>
++#include "sof_sdw_common.h"
++
++static const struct snd_soc_dapm_widget bridge_widgets[] = {
++	SND_SOC_DAPM_SPK("Bridge Speaker", NULL),
++};
++
++static const struct snd_soc_dapm_route bridge_map[] = {
++	{"Bridge Speaker", NULL, "AMPL SPK"},
++	{"Bridge Speaker", NULL, "AMPR SPK"},
++};
++
++static const char * const bridge_cs35l56_name_prefixes[] = {
++	"AMPL",
++	"AMPR",
++};
++
++static int bridge_cs35l56_asp_init(struct snd_soc_pcm_runtime *rtd)
++{
++	struct snd_soc_card *card = rtd->card;
++	int i, ret;
++	unsigned int rx_mask = 3; // ASP RX1, RX2
++	unsigned int tx_mask = 3; // ASP TX1, TX2
++	struct snd_soc_dai *codec_dai;
++	struct snd_soc_dai *cpu_dai;
++
++	card->components = devm_kasprintf(card->dev, GFP_KERNEL,
++					  "%s spk:cs35l56-bridge",
++					  card->components);
++	if (!card->components)
++		return -ENOMEM;
++
++	ret = snd_soc_dapm_new_controls(&card->dapm, bridge_widgets,
++					ARRAY_SIZE(bridge_widgets));
++	if (ret) {
++		dev_err(card->dev, "widgets addition failed: %d\n", ret);
++		return ret;
++	}
++
++	ret = snd_soc_dapm_add_routes(&card->dapm, bridge_map, ARRAY_SIZE(bridge_map));
++	if (ret) {
++		dev_err(card->dev, "map addition failed: %d\n", ret);
++		return ret;
++	}
++
++	/* 4 x 16-bit sample slots and FSYNC=48000, BCLK=3.072 MHz */
++	for_each_rtd_codec_dais(rtd, i, codec_dai) {
++		ret = snd_soc_dai_set_tdm_slot(codec_dai, tx_mask, rx_mask, 4, 16);
++		if (ret < 0)
++			return ret;
++
++		ret = snd_soc_dai_set_sysclk(codec_dai, 0, 3072000, SND_SOC_CLOCK_IN);
++		if (ret < 0)
++			return ret;
++	}
++
++	for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
++		ret = snd_soc_dai_set_tdm_slot(cpu_dai, tx_mask, rx_mask, 4, 16);
++		if (ret < 0)
++			return ret;
++	}
++
++	return 0;
++}
++
++static const struct snd_soc_pcm_stream bridge_params = {
++	.formats = SNDRV_PCM_FMTBIT_S16_LE,
++	.rate_min = 48000,
++	.rate_max = 48000,
++	.channels_min = 2,
++	.channels_max = 2,
++};
++
++SND_SOC_DAILINK_DEFS(bridge_dai,
++		     DAILINK_COMP_ARRAY(COMP_CODEC("cs42l43-codec", "cs42l43-asp")),
++		     DAILINK_COMP_ARRAY(COMP_CODEC("spi-cs35l56-left", "cs35l56-asp1"),
++					COMP_CODEC("spi-cs35l56-right", "cs35l56-asp1")),
++		     DAILINK_COMP_ARRAY(COMP_PLATFORM("cs42l43-codec")));
++
++static const struct snd_soc_dai_link bridge_dai_template = {
++	.name = "cs42l43-cs35l56",
++	.init = bridge_cs35l56_asp_init,
++	.c2c_params = &bridge_params,
++	.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_IB_IF | SND_SOC_DAIFMT_CBC_CFC,
++	SND_SOC_DAILINK_REG(bridge_dai),
++};
++
++int bridge_cs35l56_count_sidecar(struct snd_soc_card *card,
++				 int *num_dais, int *num_devs)
++{
++	if (sof_sdw_quirk & SOF_SIDECAR_AMPS) {
++		(*num_dais)++;
++		(*num_devs) += ARRAY_SIZE(bridge_cs35l56_name_prefixes);
++	}
++
++	return 0;
++}
++
++int bridge_cs35l56_add_sidecar(struct snd_soc_card *card,
++			       struct snd_soc_dai_link **dai_links,
++			       struct snd_soc_codec_conf **codec_conf)
++{
++	if (sof_sdw_quirk & SOF_SIDECAR_AMPS) {
++		**dai_links = bridge_dai_template;
++
++		for (int i = 0; i < ARRAY_SIZE(bridge_cs35l56_name_prefixes); i++) {
++			(*codec_conf)->dlc.name = (*dai_links)->codecs[i].name;
++			(*codec_conf)->name_prefix = bridge_cs35l56_name_prefixes[i];
++			(*codec_conf)++;
++		}
++
++		(*dai_links)++;
++	}
++
++	return 0;
++}
++
++int bridge_cs35l56_spk_init(struct snd_soc_card *card,
++			    struct snd_soc_dai_link *dai_links,
++			    struct sof_sdw_codec_info *info,
++			    bool playback)
++{
++	if (sof_sdw_quirk & SOF_SIDECAR_AMPS)
++		info->amp_num += ARRAY_SIZE(bridge_cs35l56_name_prefixes);
++
++	return 0;
++}
 diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
-index bf5f46a4c4aa..eaa79e29f5c2 100644
+index eaa79e29f5c2..b1595fdb500d 100644
 --- a/sound/soc/intel/boards/sof_sdw.c
 +++ b/sound/soc/intel/boards/sof_sdw.c
-@@ -1280,6 +1280,7 @@ struct sof_sdw_endpoint {
- 	u32 link_mask;
- 	const char *codec_name;
- 	const char *name_prefix;
-+	bool include_sidecar;
+@@ -39,6 +39,8 @@ static void log_quirks(struct device *dev)
+ 		dev_err(dev, "quirk SOF_SDW_NO_AGGREGATION enabled but no longer supported\n");
+ 	if (sof_sdw_quirk & SOF_CODEC_SPKR)
+ 		dev_dbg(dev, "quirk SOF_CODEC_SPKR enabled\n");
++	if (sof_sdw_quirk & SOF_SIDECAR_AMPS)
++		dev_dbg(dev, "quirk SOF_SIDECAR_AMPS enabled\n");
+ }
  
- 	struct sof_sdw_codec_info *codec_info;
- 	const struct sof_sdw_dai_info *dai_info;
-@@ -1335,7 +1336,8 @@ static struct sof_sdw_dailink *find_dailink(struct sof_sdw_dailink *dailinks,
- 
- static int parse_sdw_endpoints(struct snd_soc_card *card,
- 			       struct sof_sdw_dailink *sof_dais,
--			       struct sof_sdw_endpoint *sof_ends)
-+			       struct sof_sdw_endpoint *sof_ends,
-+			       int *num_devs)
- {
- 	struct device *dev = card->dev;
- 	struct mc_private *ctx = snd_soc_card_get_drvdata(card);
-@@ -1345,6 +1347,7 @@ static int parse_sdw_endpoints(struct snd_soc_card *card,
- 	struct sof_sdw_endpoint *sof_end = sof_ends;
- 	int num_dais = 0;
- 	int i, j;
-+	int ret;
- 
- 	for (adr_link = mach_params->links; adr_link->num_adr; adr_link++) {
- 		int num_link_dailinks = 0;
-@@ -1381,6 +1384,14 @@ static int parse_sdw_endpoints(struct snd_soc_card *card,
- 
- 			sof_end->name_prefix = adr_dev->name_prefix;
- 
-+			if (codec_info->count_sidecar && codec_info->add_sidecar) {
-+				ret = codec_info->count_sidecar(card, &num_dais, num_devs);
-+				if (ret)
-+					return ret;
-+
-+				sof_end->include_sidecar = true;
-+			}
-+
- 			for (j = 0; j < adr_dev->num_endpoints; j++) {
- 				const struct snd_soc_acpi_endpoint *adr_end;
- 				const struct sof_sdw_dai_info *dai_info;
-@@ -1453,6 +1464,7 @@ static int create_sdw_dailink(struct snd_soc_card *card,
- 	struct mc_private *ctx = snd_soc_card_get_drvdata(card);
- 	struct sof_sdw_endpoint *sof_end;
- 	int stream;
-+	int ret;
- 
- 	list_for_each_entry(sof_end, &sof_dai->endpoints, list) {
- 		if (sof_end->name_prefix) {
-@@ -1460,6 +1472,12 @@ static int create_sdw_dailink(struct snd_soc_card *card,
- 			(*codec_conf)->name_prefix = sof_end->name_prefix;
- 			(*codec_conf)++;
- 		}
-+
-+		if (sof_end->include_sidecar) {
-+			ret = sof_end->codec_info->add_sidecar(card, dai_links, codec_conf);
-+			if (ret)
-+				return ret;
-+		}
- 	}
- 
- 	for_each_pcm_streams(stream) {
-@@ -1757,7 +1775,7 @@ static int sof_card_dai_links_create(struct snd_soc_card *card)
- 		goto err_dai;
- 	}
- 
--	ret = parse_sdw_endpoints(card, sof_dais, sof_ends);
-+	ret = parse_sdw_endpoints(card, sof_dais, sof_ends, &num_devs);
- 	if (ret < 0)
- 		goto err_end;
- 
+ static int sof_sdw_quirk_cb(const struct dmi_system_id *id)
+@@ -995,6 +997,8 @@ static struct sof_sdw_codec_info codec_info_list[] = {
+ 	{
+ 		.part_id = 0x4243,
+ 		.codec_name = "cs42l43-codec",
++		.count_sidecar = bridge_cs35l56_count_sidecar,
++		.add_sidecar = bridge_cs35l56_add_sidecar,
+ 		.dais = {
+ 			{
+ 				.direction = {true, false},
+@@ -1023,7 +1027,7 @@ static struct sof_sdw_codec_info codec_info_list[] = {
+ 				.dailink = {SDW_AMP_OUT_DAI_ID, SDW_UNUSED_DAI_ID},
+ 				.init = sof_sdw_cs42l43_spk_init,
+ 				.rtd_init = cs42l43_spk_rtd_init,
+-				.quirk = SOF_CODEC_SPKR,
++				.quirk = SOF_CODEC_SPKR | SOF_SIDECAR_AMPS,
+ 			},
+ 		},
+ 		.dai_num = 4,
 diff --git a/sound/soc/intel/boards/sof_sdw_common.h b/sound/soc/intel/boards/sof_sdw_common.h
-index 853278c6e525..9dd42a8da8d7 100644
+index 9dd42a8da8d7..94657dd210f5 100644
 --- a/sound/soc/intel/boards/sof_sdw_common.h
 +++ b/sound/soc/intel/boards/sof_sdw_common.h
-@@ -98,6 +98,12 @@ struct sof_sdw_codec_info {
- 	const int dai_num;
+@@ -55,6 +55,16 @@ enum {
+ #define SOF_SDW_NO_AGGREGATION		BIT(14)
+ /* If a CODEC has an optional speaker output, this quirk will enable it */
+ #define SOF_CODEC_SPKR			BIT(15)
++/*
++ * If the CODEC has additional devices attached directly to it.
++ *
++ * For the cs42l43:
++ *   - 0 - No speaker output
++ *   - SOF_CODEC_SPKR - CODEC internal speaker
++ *   - SOF_SIDECAR_AMPS - 2x Sidecar amplifiers + CODEC internal speaker
++ *   - SOF_CODEC_SPKR | SOF_SIDECAR_AMPS - Not currently supported
++ */
++#define SOF_SIDECAR_AMPS		BIT(16)
  
- 	int (*codec_card_late_probe)(struct snd_soc_card *card);
+ /* BT audio offload: reserve 3 bits for future */
+ #define SOF_BT_OFFLOAD_SSP_SHIFT	15
+@@ -177,6 +187,16 @@ int sof_sdw_cs42l43_spk_init(struct snd_soc_card *card,
+ 			     bool playback);
+ 
+ /* CS AMP support */
++int bridge_cs35l56_count_sidecar(struct snd_soc_card *card,
++				 int *num_dais, int *num_devs);
++int bridge_cs35l56_add_sidecar(struct snd_soc_card *card,
++			       struct snd_soc_dai_link **dai_links,
++			       struct snd_soc_codec_conf **codec_conf);
++int bridge_cs35l56_spk_init(struct snd_soc_card *card,
++			    struct snd_soc_dai_link *dai_links,
++			    struct sof_sdw_codec_info *info,
++			    bool playback);
 +
-+	int  (*count_sidecar)(struct snd_soc_card *card,
-+			      int *num_dais, int *num_devs);
-+	int  (*add_sidecar)(struct snd_soc_card *card,
-+			    struct snd_soc_dai_link **dai_links,
-+			    struct snd_soc_codec_conf **codec_conf);
- };
+ int sof_sdw_cs_amp_init(struct snd_soc_card *card,
+ 			struct snd_soc_dai_link *dai_links,
+ 			struct sof_sdw_codec_info *info,
+diff --git a/sound/soc/intel/boards/sof_sdw_cs42l43.c b/sound/soc/intel/boards/sof_sdw_cs42l43.c
+index 5361249f0f53..0fd5e099bb1a 100644
+--- a/sound/soc/intel/boards/sof_sdw_cs42l43.c
++++ b/sound/soc/intel/boards/sof_sdw_cs42l43.c
+@@ -124,10 +124,14 @@ int cs42l43_spk_rtd_init(struct snd_soc_pcm_runtime *rtd)
+ 	struct snd_soc_card *card = rtd->card;
+ 	int ret;
  
- struct mc_private {
+-	card->components = devm_kasprintf(card->dev, GFP_KERNEL, "%s spk:cs42l43-spk",
+-					  card->components);
+-	if (!card->components)
+-		return -ENOMEM;
++	if (!(sof_sdw_quirk & SOF_SIDECAR_AMPS)) {
++		/* Will be set by the bridge code in this case */
++		card->components = devm_kasprintf(card->dev, GFP_KERNEL,
++						  "%s spk:cs42l43-spk",
++						  card->components);
++		if (!card->components)
++			return -ENOMEM;
++	}
+ 
+ 	ret = snd_soc_dapm_new_controls(&card->dapm, cs42l43_spk_widgets,
+ 					ARRAY_SIZE(cs42l43_spk_widgets));
+@@ -155,7 +159,7 @@ int sof_sdw_cs42l43_spk_init(struct snd_soc_card *card,
+ 
+ 	info->amp_num++;
+ 
+-	return 0;
++	return bridge_cs35l56_spk_init(card, dai_links, info, playback);
+ }
+ 
+ int cs42l43_dmic_rtd_init(struct snd_soc_pcm_runtime *rtd)
 -- 
 2.40.1
 

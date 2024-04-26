@@ -2,76 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 951318B3B55
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Apr 2024 17:26:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C414F8B3B56
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Apr 2024 17:26:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 14393F53;
-	Fri, 26 Apr 2024 17:26:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 14393F53
+	by alsa0.perex.cz (Postfix) with ESMTPS id 486C8DF6;
+	Fri, 26 Apr 2024 17:26:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 486C8DF6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1714145191;
-	bh=cQQ3/xSHxAwFaRMgLs/efEz09xsEo6FvKpnrVRkCnkE=;
+	s=default; t=1714145202;
+	bh=IhNyLvipIPGmOCLb0Rr8QiP1vU62Hi86DWOTep9C5b8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=hY7qBs77DZZUSFaRd2vEFiO7MupEsZVnNM2mGtYzWNtECMceZFWSv99gSku4Tg7UM
-	 9rIhYyD4e2fQ2SWsq5E1YvMjtRe1kaj0ZgR6LlwVPqKLtSnipnmDXrA8FzaTSf9B0D
-	 TwAlEFetnvBRGCaEhpc5Y3CxdWm722aQmfQxqdU0=
+	b=Rvs1nnwPVlxA0ZgQ94bTY6J/rUi2GpmeM5BwwipYB/roppvQfr90x5qzwAZNMvaSV
+	 AQ6WVFbbHBas+mR57JcLG9OrveO9voxV7weuD7LD0lni1ELNMXMQUXNpUQUqIehB5V
+	 K9Zb4gvw95l62g8P5gfPMiDmvkpBlJutgfaFJNmg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 04C9DF805D6; Fri, 26 Apr 2024 17:25:53 +0200 (CEST)
+	id 5632DF80548; Fri, 26 Apr 2024 17:25:56 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 41752F805E5;
-	Fri, 26 Apr 2024 17:25:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6259AF8060E;
+	Fri, 26 Apr 2024 17:25:56 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 978F2F80588; Fri, 26 Apr 2024 17:25:47 +0200 (CEST)
+	id 59020F805BB; Fri, 26 Apr 2024 17:25:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
+X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 05A31F800B5
-	for <alsa-devel@alsa-project.org>; Fri, 26 Apr 2024 17:25:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 05A31F800B5
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6532FF8003A
+	for <alsa-devel@alsa-project.org>; Fri, 26 Apr 2024 17:25:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6532FF8003A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=kulRFqOy
+ header.s=Intel header.b=jw7H0PhT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1714145143; x=1745681143;
+  t=1714145144; x=1745681144;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=cQQ3/xSHxAwFaRMgLs/efEz09xsEo6FvKpnrVRkCnkE=;
-  b=kulRFqOyZLMg0LoppgbKzYByFZM2chhQMYvm0FRM8enRKp205uXB3nWr
-   bvQGlpUMtzG1m3qCcijDiiALLoKriSfQK7g17keUtgXb3JCE4Zft+FG5s
-   FVEOodaP5HGp8xvH/bubW0Q/rZ1qnkcsOOE+OkwPUsUSqNqXCBHDFOUFj
-   J4jQJDbYzBbRtfvFB3ydSbqdmEWFMzexPoMfTWYutF/YWm4q/RtsRjrcx
-   e1YKwVaCMMXfj8Yz9NRvJyv0H8BZCpLwhK5tqCps/eLs74VS0/cMC/hCf
-   1bDJBMWxQC75TC9zCay8uA5hHj/plQ7UBJ/BF72KSjfK4ijUEi87g3xPs
-   w==;
-X-CSE-ConnectionGUID: rCT+hjbNRbaMPVb5BDxfXw==
-X-CSE-MsgGUID: RIAuH0scR3qEP4+CMQfJJg==
-X-IronPort-AV: E=McAfee;i="6600,9927,11056"; a="21291270"
+  bh=IhNyLvipIPGmOCLb0Rr8QiP1vU62Hi86DWOTep9C5b8=;
+  b=jw7H0PhTwIWtY65zzT4KyZmM3ggW1QUME9rzm0dcPOWLMbNZr+IR3ENU
+   x9JdxiSZcBmu7KOLbWmIht5ik91Fn9P6HWqf5dGDhifeUrz4A7LujhjqA
+   5o6BXjhAYp8191YTsBttHpXf6NDHXCVZQ1C4nF1VONzfGY90fPB961ck5
+   LYs6J/MrhSK4BqCM6zH6rvMvvv2vy66jDO1y+xIs+6W2XDwSAXfiaPjx4
+   SQEv78FRNUPGRw2tJ4xxl6DT8gbdVlWj2zlSNTrgb+J2xkgVIijgmhXW/
+   l1ohD/AMyUYuGQDuGoyKDd5aSnw0Y7N8B8w9ro77fo1JTcIOzL2OjkP9O
+   Q==;
+X-CSE-ConnectionGUID: 5WmPYJWsQ9S5XddjuPNqNQ==
+X-CSE-MsgGUID: gINCFQQSQlGxOzAva7aqxw==
+X-IronPort-AV: E=McAfee;i="6600,9927,11056"; a="21291275"
 X-IronPort-AV: E=Sophos;i="6.07,232,1708416000";
-   d="scan'208";a="21291270"
+   d="scan'208";a="21291275"
 Received: from orviesa004.jf.intel.com ([10.64.159.144])
   by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Apr 2024 08:25:39 -0700
-X-CSE-ConnectionGUID: jRxkH/CPS52wQyl+2iAS6A==
-X-CSE-MsgGUID: 2ykL97DBT8qj6c7Dr9Wc7Q==
+ 26 Apr 2024 08:25:40 -0700
+X-CSE-ConnectionGUID: icjGA+p+QJyV6mr5yZc9og==
+X-CSE-MsgGUID: U7ifzDJoSa6NfDm65a8XYQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.07,232,1708416000";
-   d="scan'208";a="30259531"
+   d="scan'208";a="30259536"
 Received: from atarkhan-mobl2.amr.corp.intel.com (HELO
  pbossart-mobl6.intel.com) ([10.212.33.33])
   by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Apr 2024 08:25:39 -0700
+ 26 Apr 2024 08:25:40 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: linux-sound@vger.kernel.org
 Cc: alsa-devel@alsa-project.org,
@@ -80,17 +79,17 @@ Cc: alsa-devel@alsa-project.org,
 	Brent Lu <brent.lu@intel.com>,
 	Bard Liao <yung-chuan.liao@linux.intel.com>,
 	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [PATCH 01/23] ASoC: Intel: nau8825/rt5682: move speaker widget to
- common modules
-Date: Fri, 26 Apr 2024 10:25:07 -0500
-Message-Id: <20240426152529.38345-2-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 02/23] ASoC: Intel: sof_maxim_common: support MAX98390 on cml
+ boards
+Date: Fri, 26 Apr 2024 10:25:08 -0500
+Message-Id: <20240426152529.38345-3-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20240426152529.38345-1-pierre-louis.bossart@linux.intel.com>
 References: <20240426152529.38345-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: JRAATIA5QCXMTPKWFAZSR7YXSSTJQD23
-X-Message-ID-Hash: JRAATIA5QCXMTPKWFAZSR7YXSSTJQD23
+Message-ID-Hash: MERUXNSA3PLN76N5JLFVKLJ274LPKGDM
+X-Message-ID-Hash: MERUXNSA3PLN76N5JLFVKLJ274LPKGDM
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -103,7 +102,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JRAATIA5QCXMTPKWFAZSR7YXSSTJQD23/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MERUXNSA3PLN76N5JLFVKLJ274LPKGDM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -114,328 +113,97 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Brent Lu <brent.lu@intel.com>
 
-Two machine drivers sof_rt5682 and sof_nau8825 always register two
-speaker widgets 'Left Spk' and 'Right Spk' regardless the actual
-number of speakers. Move the widget registration to speaker common
-modules to avoid useless speaker widgets for 1 or 4 speaker boards.
+Add support for 2xMAX98390 speaker amplifier running in I2S mode for
+existing cml boards.
 
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Signed-off-by: Brent Lu <brent.lu@intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/intel/boards/sof_maxim_common.c   | 66 ++++++++++++++-
- sound/soc/intel/boards/sof_nau8825.c        |  4 -
- sound/soc/intel/boards/sof_realtek_common.c | 93 ++++++++++++++++++++-
- sound/soc/intel/boards/sof_rt5682.c         | 32 +++++--
- 4 files changed, 180 insertions(+), 15 deletions(-)
+ sound/soc/intel/boards/sof_maxim_common.c | 42 +++++++++++++++++++----
+ 1 file changed, 35 insertions(+), 7 deletions(-)
 
 diff --git a/sound/soc/intel/boards/sof_maxim_common.c b/sound/soc/intel/boards/sof_maxim_common.c
-index cf2974718271..53c7392bf3dd 100644
+index 53c7392bf3dd..bb12aab15ad5 100644
 --- a/sound/soc/intel/boards/sof_maxim_common.c
 +++ b/sound/soc/intel/boards/sof_maxim_common.c
-@@ -12,6 +12,20 @@
+@@ -10,6 +10,7 @@
+ #include <sound/soc-dai.h>
+ #include <sound/soc-dapm.h>
  #include <uapi/sound/asound.h>
++#include "../common/soc-intel-quirks.h"
  #include "sof_maxim_common.h"
  
-+/*
-+ * Common structures and functions
-+ */
-+static const struct snd_kcontrol_new maxim_2spk_kcontrols[] = {
-+	SOC_DAPM_PIN_SWITCH("Left Spk"),
-+	SOC_DAPM_PIN_SWITCH("Right Spk"),
-+
-+};
-+
-+static const struct snd_soc_dapm_widget maxim_2spk_widgets[] = {
-+	SND_SOC_DAPM_SPK("Left Spk", NULL),
-+	SND_SOC_DAPM_SPK("Right Spk", NULL),
-+};
-+
- /* helper function to get the number of specific codec */
- static unsigned int get_num_codecs(const char *hid)
- {
-@@ -135,12 +149,40 @@ EXPORT_SYMBOL_NS(max_98373_ops, SND_SOC_INTEL_SOF_MAXIM_COMMON);
- int max_98373_spk_codec_init(struct snd_soc_pcm_runtime *rtd)
- {
- 	struct snd_soc_card *card = rtd->card;
-+	unsigned int num_codecs = get_num_codecs(MAX_98373_ACPI_HID);
- 	int ret;
- 
--	ret = snd_soc_dapm_add_routes(&card->dapm, max_98373_dapm_routes,
--				      ARRAY_SIZE(max_98373_dapm_routes));
--	if (ret)
--		dev_err(rtd->dev, "Speaker map addition failed: %d\n", ret);
-+	switch (num_codecs) {
-+	case 2:
-+		ret = snd_soc_dapm_new_controls(&card->dapm, maxim_2spk_widgets,
-+						ARRAY_SIZE(maxim_2spk_widgets));
-+		if (ret) {
-+			dev_err(rtd->dev, "fail to add max98373 widgets, ret %d\n",
-+				ret);
-+			return ret;
-+		}
-+
-+		ret = snd_soc_add_card_controls(card, maxim_2spk_kcontrols,
-+						ARRAY_SIZE(maxim_2spk_kcontrols));
-+		if (ret) {
-+			dev_err(rtd->dev, "fail to add max98373 kcontrols, ret %d\n",
-+				ret);
-+			return ret;
-+		}
-+
-+		ret = snd_soc_dapm_add_routes(&card->dapm, max_98373_dapm_routes,
-+					      ARRAY_SIZE(max_98373_dapm_routes));
-+		if (ret) {
-+			dev_err(rtd->dev, "fail to add max98373 routes, ret %d\n",
-+				ret);
-+			return ret;
-+		}
-+		break;
-+	default:
-+		dev_err(rtd->dev, "max98373: invalid num_codecs %d\n", num_codecs);
-+		return -EINVAL;
-+	}
-+
- 	return ret;
- }
- EXPORT_SYMBOL_NS(max_98373_spk_codec_init, SND_SOC_INTEL_SOF_MAXIM_COMMON);
-@@ -287,6 +329,22 @@ static int max_98390_init(struct snd_soc_pcm_runtime *rtd)
- 		fallthrough;
- 	case 2:
- 		/* add regular speakers dapm route */
-+		ret = snd_soc_dapm_new_controls(&card->dapm, maxim_2spk_widgets,
-+						ARRAY_SIZE(maxim_2spk_widgets));
-+		if (ret) {
-+			dev_err(rtd->dev, "fail to add max98390 woofer widgets, ret %d\n",
-+				ret);
-+			return ret;
-+		}
-+
-+		ret = snd_soc_add_card_controls(card, maxim_2spk_kcontrols,
-+						ARRAY_SIZE(maxim_2spk_kcontrols));
-+		if (ret) {
-+			dev_err(rtd->dev, "fail to add max98390 woofer kcontrols, ret %d\n",
-+				ret);
-+			return ret;
-+		}
-+
- 		ret = snd_soc_dapm_add_routes(&card->dapm, max_98390_dapm_routes,
- 					      ARRAY_SIZE(max_98390_dapm_routes));
- 		if (ret) {
-diff --git a/sound/soc/intel/boards/sof_nau8825.c b/sound/soc/intel/boards/sof_nau8825.c
-index fe5f9e8dd652..dd4dc4ec4255 100644
---- a/sound/soc/intel/boards/sof_nau8825.c
-+++ b/sound/soc/intel/boards/sof_nau8825.c
-@@ -140,15 +140,11 @@ static int sof_card_late_probe(struct snd_soc_card *card)
- static const struct snd_kcontrol_new sof_controls[] = {
- 	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
- 	SOC_DAPM_PIN_SWITCH("Headset Mic"),
--	SOC_DAPM_PIN_SWITCH("Left Spk"),
--	SOC_DAPM_PIN_SWITCH("Right Spk"),
- };
- 
- static const struct snd_soc_dapm_widget sof_widgets[] = {
- 	SND_SOC_DAPM_HP("Headphone Jack", NULL),
- 	SND_SOC_DAPM_MIC("Headset Mic", NULL),
--	SND_SOC_DAPM_SPK("Left Spk", NULL),
--	SND_SOC_DAPM_SPK("Right Spk", NULL),
- };
- 
- static const struct snd_soc_dapm_route sof_map[] = {
-diff --git a/sound/soc/intel/boards/sof_realtek_common.c b/sound/soc/intel/boards/sof_realtek_common.c
-index 20d094c52d28..cb1c21d822f6 100644
---- a/sound/soc/intel/boards/sof_realtek_common.c
-+++ b/sound/soc/intel/boards/sof_realtek_common.c
-@@ -21,6 +21,17 @@
  /*
-  * Common structures and functions
-  */
-+static const struct snd_kcontrol_new realtek_2spk_kcontrols[] = {
-+	SOC_DAPM_PIN_SWITCH("Left Spk"),
-+	SOC_DAPM_PIN_SWITCH("Right Spk"),
-+
+@@ -219,6 +220,17 @@ static const struct snd_soc_dapm_route max_98390_tt_dapm_routes[] = {
+ 	{ "TR Spk", NULL, "Tweeter Right BE_OUT" },
+ };
+ 
++static struct snd_soc_codec_conf max_98390_cml_codec_conf[] = {
++	{
++		.dlc = COMP_CODEC_CONF(MAX_98390_DEV0_NAME),
++		.name_prefix = "Left",
++	},
++	{
++		.dlc = COMP_CODEC_CONF(MAX_98390_DEV1_NAME),
++		.name_prefix = "Right",
++	},
 +};
 +
-+static const struct snd_soc_dapm_widget realtek_2spk_widgets[] = {
-+	SND_SOC_DAPM_SPK("Left Spk", NULL),
-+	SND_SOC_DAPM_SPK("Right Spk", NULL),
-+};
-+
- static const struct snd_kcontrol_new realtek_4spk_kcontrols[] = {
- 	SOC_DAPM_PIN_SWITCH("WL Ext Spk"),
- 	SOC_DAPM_PIN_SWITCH("WR Ext Spk"),
-@@ -181,6 +192,22 @@ static int rt1011_init(struct snd_soc_pcm_runtime *rtd)
+ static struct snd_soc_codec_conf max_98390_codec_conf[] = {
+ 	{
+ 		.dlc = COMP_CODEC_CONF(MAX_98390_DEV0_NAME),
+@@ -271,6 +283,7 @@ static int max_98390_hw_params(struct snd_pcm_substream *substream,
+ 			       struct snd_pcm_hw_params *params)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
++	struct snd_soc_dai_link *dai_link = rtd->dai_link;
+ 	struct snd_soc_dai *codec_dai;
+ 	int i, ret;
+ 
+@@ -280,13 +293,24 @@ static int max_98390_hw_params(struct snd_pcm_substream *substream,
+ 			return -ENODEV;
+ 		}
+ 
+-		ret = snd_soc_dai_set_tdm_slot(codec_dai, max_98390_tdm_mask[i].tx,
+-					       max_98390_tdm_mask[i].rx, 4,
+-					       params_width(params));
+-		if (ret < 0) {
+-			dev_err(codec_dai->dev, "fail to set tdm slot, ret %d\n",
+-				ret);
+-			return ret;
++		switch (dai_link->dai_fmt & SND_SOC_DAIFMT_FORMAT_MASK) {
++		case SND_SOC_DAIFMT_DSP_A:
++		case SND_SOC_DAIFMT_DSP_B:
++			/* 4-slot TDM */
++			ret = snd_soc_dai_set_tdm_slot(codec_dai,
++						       max_98390_tdm_mask[i].tx,
++						       max_98390_tdm_mask[i].rx,
++						       4,
++						       params_width(params));
++			if (ret < 0) {
++				dev_err(codec_dai->dev, "fail to set tdm slot, ret %d\n",
++					ret);
++				return ret;
++			}
++			break;
++		default:
++			dev_dbg(codec_dai->dev, "codec is in I2S mode\n");
++			break;
+ 		}
+ 	}
+ 	return 0;
+@@ -395,6 +419,10 @@ void max_98390_set_codec_conf(struct device *dev, struct snd_soc_card *card)
+ 
  	switch (num_codecs) {
  	case 2:
- 		if (!soc_intel_is_cml()) {
-+			ret = snd_soc_dapm_new_controls(&card->dapm, realtek_2spk_widgets,
-+							ARRAY_SIZE(realtek_2spk_widgets));
-+			if (ret) {
-+				dev_err(rtd->dev, "fail to add rt1011 widgets, ret %d\n",
-+					ret);
-+				return ret;
-+			}
++		if (soc_intel_is_cml())
++			card->codec_conf = max_98390_cml_codec_conf;
 +
-+			ret = snd_soc_add_card_controls(card, realtek_2spk_kcontrols,
-+							ARRAY_SIZE(realtek_2spk_kcontrols));
-+			if (ret) {
-+				dev_err(rtd->dev, "fail to add rt1011 kcontrols, ret %d\n",
-+					ret);
-+				return ret;
-+			}
-+
- 			ret = snd_soc_dapm_add_routes(&card->dapm, speaker_map_lr,
- 						      ARRAY_SIZE(speaker_map_lr));
- 			if (ret) {
-@@ -357,6 +384,20 @@ static int rt1015p_init(struct snd_soc_pcm_runtime *rtd)
- 	struct snd_soc_card *card = rtd->card;
- 	int ret;
- 
-+	ret = snd_soc_dapm_new_controls(&card->dapm, realtek_2spk_widgets,
-+					ARRAY_SIZE(realtek_2spk_widgets));
-+	if (ret) {
-+		dev_err(rtd->dev, "fail to add rt1015p widgets, ret %d\n", ret);
-+		return ret;
-+	}
-+
-+	ret = snd_soc_add_card_controls(card, realtek_2spk_kcontrols,
-+					ARRAY_SIZE(realtek_2spk_kcontrols));
-+	if (ret) {
-+		dev_err(rtd->dev, "fail to add rt1015p kcontrols, ret %d\n", ret);
-+		return ret;
-+	}
-+
- 	if (rt1015p_get_num_codecs() == 1)
- 		ret = snd_soc_dapm_add_routes(&card->dapm, rt1015p_1dev_dapm_routes,
- 					      ARRAY_SIZE(rt1015p_1dev_dapm_routes));
-@@ -486,8 +527,42 @@ static struct snd_soc_dai_link_component rt1015_components[] = {
- 
- static int speaker_codec_init_lr(struct snd_soc_pcm_runtime *rtd)
- {
--	return snd_soc_dapm_add_routes(&rtd->card->dapm, speaker_map_lr,
--					ARRAY_SIZE(speaker_map_lr));
-+	struct snd_soc_card *card = rtd->card;
-+	unsigned int num_codecs = get_num_codecs(RT1015_ACPI_HID);
-+	int ret;
-+
-+	switch (num_codecs) {
-+	case 2:
-+		ret = snd_soc_dapm_new_controls(&card->dapm, realtek_2spk_widgets,
-+						ARRAY_SIZE(realtek_2spk_widgets));
-+		if (ret) {
-+			dev_err(rtd->dev, "fail to add rt1015 widgets, ret %d\n",
-+				ret);
-+			return ret;
-+		}
-+
-+		ret = snd_soc_add_card_controls(card, realtek_2spk_kcontrols,
-+						ARRAY_SIZE(realtek_2spk_kcontrols));
-+		if (ret) {
-+			dev_err(rtd->dev, "fail to add rt1015 kcontrols, ret %d\n",
-+				ret);
-+			return ret;
-+		}
-+
-+		ret = snd_soc_dapm_add_routes(&rtd->card->dapm, speaker_map_lr,
-+					      ARRAY_SIZE(speaker_map_lr));
-+		if (ret) {
-+			dev_err(rtd->dev, "fail to add rt1015 routes, ret %d\n",
-+				ret);
-+			return ret;
-+		}
-+		break;
-+	default:
-+		dev_err(rtd->dev, "rt1015: invalid num_codecs %d\n", num_codecs);
-+		return -EINVAL;
-+	}
-+
-+	return ret;
- }
- 
- void sof_rt1015_codec_conf(struct snd_soc_card *card)
-@@ -624,6 +699,20 @@ static int rt1019p_init(struct snd_soc_pcm_runtime *rtd)
- 	struct snd_soc_card *card = rtd->card;
- 	int ret;
- 
-+	ret = snd_soc_dapm_new_controls(&card->dapm, realtek_2spk_widgets,
-+					ARRAY_SIZE(realtek_2spk_widgets));
-+	if (ret) {
-+		dev_err(rtd->dev, "fail to add rt1019p widgets, ret %d\n", ret);
-+		return ret;
-+	}
-+
-+	ret = snd_soc_add_card_controls(card, realtek_2spk_kcontrols,
-+					ARRAY_SIZE(realtek_2spk_kcontrols));
-+	if (ret) {
-+		dev_err(rtd->dev, "fail to add rt1019p kcontrols, ret %d\n", ret);
-+		return ret;
-+	}
-+
- 	ret = snd_soc_dapm_add_routes(&card->dapm, rt1019p_dapm_routes,
- 				      ARRAY_SIZE(rt1019p_dapm_routes));
- 	if (ret) {
-diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
-index 062012de3de2..1e70ce469650 100644
---- a/sound/soc/intel/boards/sof_rt5682.c
-+++ b/sound/soc/intel/boards/sof_rt5682.c
-@@ -431,16 +431,11 @@ static int sof_card_late_probe(struct snd_soc_card *card)
- static const struct snd_kcontrol_new sof_controls[] = {
- 	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
- 	SOC_DAPM_PIN_SWITCH("Headset Mic"),
--	SOC_DAPM_PIN_SWITCH("Left Spk"),
--	SOC_DAPM_PIN_SWITCH("Right Spk"),
--
- };
- 
- static const struct snd_soc_dapm_widget sof_widgets[] = {
- 	SND_SOC_DAPM_HP("Headphone Jack", NULL),
- 	SND_SOC_DAPM_MIC("Headset Mic", NULL),
--	SND_SOC_DAPM_SPK("Left Spk", NULL),
--	SND_SOC_DAPM_SPK("Right Spk", NULL),
- };
- 
- static const struct snd_soc_dapm_route sof_map[] = {
-@@ -452,6 +447,17 @@ static const struct snd_soc_dapm_route sof_map[] = {
- 	{ "IN1P", NULL, "Headset Mic" },
- };
- 
-+static const struct snd_kcontrol_new rt5650_spk_kcontrols[] = {
-+	SOC_DAPM_PIN_SWITCH("Left Spk"),
-+	SOC_DAPM_PIN_SWITCH("Right Spk"),
-+
-+};
-+
-+static const struct snd_soc_dapm_widget rt5650_spk_widgets[] = {
-+	SND_SOC_DAPM_SPK("Left Spk", NULL),
-+	SND_SOC_DAPM_SPK("Right Spk", NULL),
-+};
-+
- static const struct snd_soc_dapm_route rt5650_spk_dapm_routes[] = {
- 	/* speaker */
- 	{ "Left Spk", NULL, "SPOL" },
-@@ -463,6 +469,22 @@ static int rt5650_spk_init(struct snd_soc_pcm_runtime *rtd)
- 	struct snd_soc_card *card = rtd->card;
- 	int ret;
- 
-+	ret = snd_soc_dapm_new_controls(&card->dapm, rt5650_spk_widgets,
-+					ARRAY_SIZE(rt5650_spk_widgets));
-+	if (ret) {
-+		dev_err(rtd->dev, "fail to add rt5650 spk widgets, ret %d\n",
-+			ret);
-+		return ret;
-+	}
-+
-+	ret = snd_soc_add_card_controls(card, rt5650_spk_kcontrols,
-+					ARRAY_SIZE(rt5650_spk_kcontrols));
-+	if (ret) {
-+		dev_err(rtd->dev, "fail to add rt5650 spk kcontrols, ret %d\n",
-+			ret);
-+		return ret;
-+	}
-+
- 	ret = snd_soc_dapm_add_routes(&card->dapm, rt5650_spk_dapm_routes,
- 				      ARRAY_SIZE(rt5650_spk_dapm_routes));
- 	if (ret)
++		fallthrough;
+ 	case 4:
+ 		card->num_configs = num_codecs;
+ 		break;
 -- 
 2.40.1
 

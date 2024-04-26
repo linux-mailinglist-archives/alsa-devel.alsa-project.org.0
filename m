@@ -2,80 +2,124 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E90A98B400D
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Apr 2024 21:19:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ADBA88B40A6
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Apr 2024 22:04:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2602784D;
-	Fri, 26 Apr 2024 21:19:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2602784D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0389AB71;
+	Fri, 26 Apr 2024 22:04:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0389AB71
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1714159160;
-	bh=438/ZQiq5iRawfVdd1FY58I+HIjcB9icOdPfLvQJQ6M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1714161873;
+	bh=4Y/1SNbJpP6Iq6bpaDNDG2do5EqjdK+s/ofDm4Cz0GM=;
+	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=BuouKMmD8DE8Mw5eRwCa8VpbAKI2a3OHvzcwXx49WYzEl6PLFxLVqA1nMT+lQZtPu
-	 bkdvr8pkoYP0cacvL/W47oSggYG6y0+ceiJM/8+j2LoGjsQXXnZnK5h7evGNRtVcdG
-	 jqS6PwyxgQyq6eoVi8RlYHoXHc/erKyOhreqPG8I=
+	b=imPHOVRvkAZitoFpUzNKqJXGJBnhC+FfjlMHB6joRjOIWE4e7JlwuXcsO4ZYIudol
+	 F1aEY4Pn91BlZYSjOiuK1MQfvNVn0KWrAa2tDluj7CkFxUQyLlXddhoHv8Bbok/8ZZ
+	 n05zmcU4SISa0sxMAreO6IWxKnRWFVBLRUW9RMyM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0F758F8057C; Fri, 26 Apr 2024 21:18:48 +0200 (CEST)
+	id 75C40F80589; Fri, 26 Apr 2024 22:04:01 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 90998F8059F;
-	Fri, 26 Apr 2024 21:18:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EBA72F80579;
+	Fri, 26 Apr 2024 22:04:00 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 99773F802E8; Fri, 26 Apr 2024 21:18:43 +0200 (CEST)
+	id E60BEF80423; Fri, 26 Apr 2024 22:03:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No,
- score=-4.8 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_NONE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-7.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from bmailout3.hostsharing.net (bmailout3.hostsharing.net
- [IPv6:2a01:4f8:150:2161:1:b009:f23e:0])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2110BF8003A
-	for <alsa-devel@alsa-project.org>; Fri, 26 Apr 2024 21:18:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2110BF8003A
-Received: from h08.hostsharing.net (h08.hostsharing.net
- [IPv6:2a01:37:1000::53df:5f1c:0])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256
-	 client-signature RSA-PSS (4096 bits) client-digest SHA256)
-	(Client CN "*.hostsharing.net",
- Issuer "RapidSSL TLS RSA CA G1" (verified OK))
-	by bmailout3.hostsharing.net (Postfix) with ESMTPS id AE71E100FC294;
-	Fri, 26 Apr 2024 21:18:15 +0200 (CEST)
-Received: by h08.hostsharing.net (Postfix, from userid 100393)
-	id 5EEC3AF872; Fri, 26 Apr 2024 21:18:15 +0200 (CEST)
-Date: Fri, 26 Apr 2024 21:18:15 +0200
-From: Lukas Wunner <lukas@wunner.de>
-To: Dan Williams <dan.j.williams@intel.com>
-Cc: gregkh@linuxfoundation.org,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Marc Herbert <marc.herbert@intel.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
-	linux-coco@lists.linux.dev, alsa-devel@alsa-project.org
-Subject: Re: [PATCH 1/3] sysfs: Fix crash on empty group attributes array
-Message-ID: <Ziv9984CJeQ4muZy@wunner.de>
-References: 
- <170863444851.1479840.10249410842428140526.stgit@dwillia2-xfh.jf.intel.com>
- <170863445442.1479840.1818801787239831650.stgit@dwillia2-xfh.jf.intel.com>
- <ZiYrzzk9Me1aksmE@wunner.de>
- <662beb6ad280f_db82d29458@dwillia2-xfh.jf.intel.com.notmuch>
+	by alsa1.perex.cz (Postfix) with ESMTPS id EE6ACF8003C
+	for <alsa-devel@alsa-project.org>; Fri, 26 Apr 2024 22:03:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE6ACF8003C
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
+ header.s=qcppdkim1 header.b=LTutAkMA
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
+ 43QCBwdj013759;
+	Fri, 26 Apr 2024 20:03:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+	message-id:date:mime-version:subject:to:cc:references:from
+	:in-reply-to:content-type:content-transfer-encoding; s=
+	qcppdkim1; bh=CVAZFTsLc+ZUqoicJEH8S6rIGArbQdqBeftallr55BM=; b=LT
+	utAkMA83j3mmHOC5EsZVXQFScJhAWIiDmS8EZZ4zx+ionvatYbvZqsiDHEfColcc
+	7kCdPpAoqcqMyi/cELiDp7YnXq5mKUSf9pFl/VQ+68TA1K2PDLZq14FrAsdZ+sRc
+	5I1uSrAgY4z0vN/tS46aJGRrZPqzUNRhGPORUtSInegHg7NHitHelXU6yuFRRa7O
+	slbqL4ICvyNl4k9ruQfB6OGdpY9qYtwxiITczJ+mBsayfGrEqrVO/u7akFNr/c15
+	w9OA2Gv8q9x0tF4yvDw54aMxyIEqQjy8rk+zm79qCigYm90O6E38t9ED39FwJ7aV
+	s4VUIExgbu0B8W4k2QJA==
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3xr35ettv5-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 26 Apr 2024 20:03:19 +0000 (GMT)
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+	by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
+ 43QK3Hd7016370
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 26 Apr 2024 20:03:18 GMT
+Received: from [10.110.6.235] (10.80.80.8) by nalasex01b.na.qualcomm.com
+ (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Fri, 26 Apr
+ 2024 13:03:17 -0700
+Message-ID: <a24aac59-961f-0a1a-4558-61e333c6fa7f@quicinc.com>
+Date: Fri, 26 Apr 2024 13:03:11 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <662beb6ad280f_db82d29458@dwillia2-xfh.jf.intel.com.notmuch>
-Message-ID-Hash: AUEUBRITQMRY7AW4CFGNJXWNGGIELKMF
-X-Message-ID-Hash: AUEUBRITQMRY7AW4CFGNJXWNGGIELKMF
-X-MailFrom: foo00@h08.hostsharing.net
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+Subject: Re: [PATCH v20 08/41] usb: host: xhci-mem: Allow for interrupter
+ clients to choose specific index
+Content-Language: en-US
+To: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+	<amadeuszx.slawinski@linux.intel.com>,
+        <srinivas.kandagatla@linaro.org>, <mathias.nyman@intel.com>,
+        <perex@perex.cz>, <conor+dt@kernel.org>, <corbet@lwn.net>,
+        <lgirdwood@gmail.com>, <andersson@kernel.org>,
+        <krzysztof.kozlowski+dt@linaro.org>, <gregkh@linuxfoundation.org>,
+        <Thinh.Nguyen@synopsys.com>, <broonie@kernel.org>,
+        <bgoswami@quicinc.com>, <tiwai@suse.com>, <robh@kernel.org>,
+        <konrad.dybcio@linaro.org>
+CC: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-sound@vger.kernel.org>, <linux-usb@vger.kernel.org>,
+        <linux-arm-msm@vger.kernel.org>, <linux-doc@vger.kernel.org>,
+        <alsa-devel@alsa-project.org>
+References: <20240425215125.29761-1-quic_wcheng@quicinc.com>
+ <20240425215125.29761-9-quic_wcheng@quicinc.com>
+ <60c17b0c-8069-4019-b062-3b3cb892297b@linux.intel.com>
+From: Wesley Cheng <quic_wcheng@quicinc.com>
+In-Reply-To: <60c17b0c-8069-4019-b062-3b3cb892297b@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: g6oaGlBmz1dhPebrOegIfxkgZhb6mMgK
+X-Proofpoint-ORIG-GUID: g6oaGlBmz1dhPebrOegIfxkgZhb6mMgK
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1011,Hydra:6.0.650,FMLib:17.11.176.26
+ definitions=2024-04-26_17,2024-04-26_02,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxscore=0 mlxlogscore=718
+ lowpriorityscore=0 malwarescore=0 spamscore=0 bulkscore=0 impostorscore=0
+ phishscore=0 priorityscore=1501 clxscore=1011 suspectscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2404010003
+ definitions=main-2404260139
+Message-ID-Hash: YLC7QV6PBQKYAEYWECQI2FRODHXPVMQM
+X-Message-ID-Hash: YLC7QV6PBQKYAEYWECQI2FRODHXPVMQM
+X-MailFrom: quic_wcheng@quicinc.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -87,88 +131,37 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AUEUBRITQMRY7AW4CFGNJXWNGGIELKMF/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YLC7QV6PBQKYAEYWECQI2FRODHXPVMQM/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, Apr 26, 2024 at 10:59:06AM -0700, Dan Williams wrote:
-> Lukas Wunner wrote:
-> > > --- a/fs/sysfs/group.c
-> > > +++ b/fs/sysfs/group.c
-> > > @@ -33,10 +33,10 @@ static void remove_files(struct kernfs_node *parent,
-> > >  
-> > >  static umode_t __first_visible(const struct attribute_group *grp, struct kobject *kobj)
-> > >  {
-> > > -	if (grp->attrs && grp->is_visible)
-> > > +	if (grp->attrs && grp->attrs[0] && grp->is_visible)
-> > >  		return grp->is_visible(kobj, grp->attrs[0], 0);
-> > >  
-> > > -	if (grp->bin_attrs && grp->is_bin_visible)
-> > > +	if (grp->bin_attrs && grp->bin_attrs[0] && grp->is_bin_visible)
-> > >  		return grp->is_bin_visible(kobj, grp->bin_attrs[0], 0);
-> > >  
-> > >  	return 0;
-> > 
-> > I'm wondering why 0 is returned by default and not SYSFS_GROUP_INVISIBLE.
-> > 
-> > An empty attribute list (containing just the NULL sentinel) will now
-> > result in the attribute group being visible as an empty directory.
-> > 
-> > I thought the whole point was to hide such empty directories.
-> > 
-> > Was it a conscious decision to return 0?
-> > Did you expect breakage if SYSFS_GROUP_INVISIBLE is returned?
+Hi Amadeusz,
+
+On 4/26/2024 6:24 AM, Amadeusz Sławiński wrote:
+> On 4/25/2024 11:50 PM, Wesley Cheng wrote:
+>> Some clients may operate only on a specific XHCI interrupter instance.
+>> Allow for the associated class driver to request for the interrupter that
+>> it requires.
+>>
+>> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
+>> ---
 > 
-> Yes, the history is here:
+> (...)
 > 
->     https://lore.kernel.org/all/YwZCPdPl2T+ndzjU@kroah.com/
+>> -
+>> -    /* Find available secondary interrupter, interrupter 0 is 
+>> reserved for primary */
+>> +    /* Find available secondary interrupter, interrupter 0 is 
+>> reserverd for primary */
 > 
-> ...where an initial attempt to hide empty group directories resulted in
-> boot failures. The concern is that there might be user tooling that
-> depends on that empty directory. So the SYSFS_GROUP_INVISIBLE behavior
-> can only be enabled by explicit result from an is_visible() handler.
-> 
-> That way there is no regression potential for legacy cases where the
-> empty directory might matter.
+> You introduce a typo in here.
 
-The problem is that no ->is_visible() or ->is_bin_visible() callback
-is ever invoked for an empty attribute group.  So there is nothing
-that could return SYSFS_GROUP_INVISIBLE.
+Thanks for the review!  Will fix it.
 
-It is thus impossible to hide them.
-
-Even though an attribute group may be declared empty, attributes may
-dynamically be added it to it using sysfs_add_file_to_group().
-
-Case in point:  I'm declaring an empty attribute group named
-"spdm_signatures_group" in this patch, to which attributes are
-dynamically added:
-
-https://github.com/l1k/linux/commit/ca420b22af05
-
-Because it is impossible to hide the group, every PCI device exposes
-it as an empty directory in sysfs, even if it doesn't support CMA
-(PCI device authentication).
-
-Fortunately the next patch in the series adds a single bin_attribute
-"next_requester_nonce" to the attribute group.  Now I can suddenly
-hide the group on devices incapable of CMA, because an
-->is_bin_visible() callback is executed:
-
-https://github.com/l1k/linux/commit/8248bc34630e
-
-So in this case I'm able to dodge the bullet because the empty
-signatures/ directory for CMA-incapable devices is only briefly
-visible in the series.  Nobody will notice unless they apply
-only a subset of the series.
-
-But I want to raise awareness that the inability to hide
-empty attribute groups feels awkward.
-
-Thanks,
-
-Lukas
+Thanks
+Wesley Cheng

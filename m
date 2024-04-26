@@ -2,91 +2,111 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB5038B3BAD
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Apr 2024 17:34:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87CE68B3BAC
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Apr 2024 17:34:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2D56021A1;
-	Fri, 26 Apr 2024 17:34:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D56021A1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 17855DF9;
+	Fri, 26 Apr 2024 17:34:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 17855DF9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1714145697;
-	bh=E8SBpjlUE0ziTNnq8DnhOzI49IUmjroDksM8NxVFNMM=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=eQyY6BY7YQHsN3JPkmoVy8mfsPdt0+iylZodo0pLnsxdILjKAtEaR22EHSOjuensx
-	 zaztAEvoMDWxkJv9xIAKK9ZO13qezuKJvkd5LOyF6HtQdQpEOHlbBjLL7U3gglS8hW
-	 9FYKKgOakC75MjH7Lr0CMHDRJMa2BP3wuqpziX5M=
+	s=default; t=1714145678;
+	bh=twiWpSK9Cb/9sMit7KrauKpyDpxWaybLQZDeq8xxcKY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=pnQ9mn8iLInvfN7g1+V9jGg1BAiSQuOD+GEeEAaf8P0WnWYIiDqmSO3VZ+GmhpUHm
+	 KuzkaS36lWmYoJ5F9WlfrxC53UvQ3SUZJt1RSzatVirugfjN5DE1LA9Aeuxz89jILX
+	 f4av6P92C8wPJ+1csM72m+wi5SsbO3zlZkC0Y7f4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E1E1EF8070D; Fri, 26 Apr 2024 17:30:24 +0200 (CEST)
+	id 95FB1F806DA; Fri, 26 Apr 2024 17:30:22 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id F3A5EF80710;
-	Fri, 26 Apr 2024 17:30:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8C244F806CF;
+	Fri, 26 Apr 2024 17:30:21 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2476BF8069A; Fri, 26 Apr 2024 17:30:17 +0200 (CEST)
+	id 53390F8065A; Fri, 26 Apr 2024 17:30:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [IPv6:2a00:1450:4864:20::332])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 84669F805B2
-	for <alsa-devel@alsa-project.org>; Fri, 26 Apr 2024 17:30:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84669F805B2
+	by alsa1.perex.cz (Postfix) with ESMTPS id 13BFBF805CB
+	for <alsa-devel@alsa-project.org>; Fri, 26 Apr 2024 17:29:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13BFBF805CB
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=Tans0OQI
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1714145411; x=1745681411;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=E8SBpjlUE0ziTNnq8DnhOzI49IUmjroDksM8NxVFNMM=;
-  b=Tans0OQI435PwsQTrRziEjiELzcYMpHW25H1SakhflfnxhrJxPLqgr57
-   mOUmxPERfGf4UIAuJEESCazhlPeweYu/xTAo9kFI5ioSBERmTOoYLgKPt
-   OsW/Q11BZGghLL7wJKQar5lUrfzTd2tmkvKoPnFPO5MvgxIytfWaDCyon
-   UF98KBSP5HfArU3EPq5r1FX+4FlKvMCUfjlDTet0DGeM8sZ6jLSLo+cPl
-   Sp85n7nv8iQqKs90fFEdG0akGOItTr6NmUHuRXJgl/XVDEutVAJ0gc72S
-   ac1CtM37R+pQiC1ZLtgh0PSXPVKbFcHKjg8IY5PNMr/mL29+TWPRr+QnR
-   A==;
-X-CSE-ConnectionGUID: R6AF5G92Rca0VL+nuJnaiw==
-X-CSE-MsgGUID: Pp1qjBX7SiaiBzUSx9O0hw==
-X-IronPort-AV: E=McAfee;i="6600,9927,11056"; a="27339938"
-X-IronPort-AV: E=Sophos;i="6.07,232,1708416000";
-   d="scan'208";a="27339938"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Apr 2024 08:29:57 -0700
-X-CSE-ConnectionGUID: /8m65k2+SQG1LP+9NRX2wQ==
-X-CSE-MsgGUID: /rhV1HVyTmmPASL0YTTFvQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,232,1708416000";
-   d="scan'208";a="25332806"
-Received: from atarkhan-mobl2.amr.corp.intel.com (HELO
- pbossart-mobl6.intel.com) ([10.212.33.33])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Apr 2024 08:29:56 -0700
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: linux-sound@vger.kernel.org
-Cc: alsa-devel@alsa-project.org,
-	tiwai@suse.de,
-	broonie@kernel.org,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [PATCH] ASoC: cs35l56: fix usages of device_get_named_child_node()
-Date: Fri, 26 Apr 2024 10:29:39 -0500
-Message-Id: <20240426152939.38471-1-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.40.1
+ unprotected) header.d=baylibre-com.20230601.gappssmtp.com
+ header.i=@baylibre-com.20230601.gappssmtp.com header.a=rsa-sha256
+ header.s=20230601 header.b=KFYaVpcH
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-41ba1ba5591so4043495e9.1
+        for <alsa-devel@alsa-project.org>;
+ Fri, 26 Apr 2024 08:29:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1714145396;
+ x=1714750196; darn=alsa-project.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Vj88fGfTuV4/ceY0CRDNjfucEqH3NJ0Iz+8z4tgOcCE=;
+        b=KFYaVpcH85jFkilqqc8p78NFHIxEMz/wDvMiXWQf4Sek+nMfrbSQEUcJgv2uT/cqG9
+         tNaqmBkmHMbdsLchmVuI82Fp7wDrfKcQlENuRo4Yab3SlpRv0Sc+taOici/VNr0quHPQ
+         0oUPTEK3hrDcyRP8lgzvORQz/XvQKNfSv7feL75+O93/62y8UMM6rKwLsOlNuMiWr3qN
+         qOAl3NWp2YYgp0bseeibyuf0n5bn/eh047niVZvrs0CXu65gkybzBuEZZnz0AYiqrG2K
+         4H12WuMwj19Ercyuu4/ULT5334+QqDP6vIS79ELNCoq+iN+K+UVhtRwBGoKGwE6CLyqA
+         Ogzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1714145396; x=1714750196;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=Vj88fGfTuV4/ceY0CRDNjfucEqH3NJ0Iz+8z4tgOcCE=;
+        b=Rtlc3lZlBidAXcITFa7PbDenSimLtnQWUMGZOCw4YJ9FQHkCZD9Xu4uLZOWsxOUTbt
+         F41sHDnmbIGC0RoFHTVMOyz6Gb1x72g/q9cKkuLB72oBZCylnXR78airPhbD43lsrnxb
+         Q/iMDEVBIhENYKVmh1jJM6QreLr9q6jLLghtaW/0eg/PA7jOsDhPqiEHp20GXli8A4u2
+         Eeb94mSD0kVY/s4+rRarDuDU/3hpUqJLlK+1LJDMTEQS/CwHP8vJDFpiVwdypKb0eRhn
+         djrRVZGVvec93Yo1Xt7rKs1GKhZP1nUkAP3gsPue+IG/UoIol/h19H9G5vRt894BO62Y
+         /B/A==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUrvovZZiTRQ975eUtbkBq24FjwUJM6YiM+kXsE2DKkp/qXCYqikSqneiilCWPV3uClc90Q7N9u7DFoi1bzPqncTN1Fk9CeTF/ZlrQ=
+X-Gm-Message-State: AOJu0YxjTda/CSxVXBDRrTM6C7CP29MF14lcTOLvKnTD7dlp9dKqvOoZ
+	RjHfAttH8piuYdwnSjU1a3NXjsnLp0vDq+/kMV9UvOCphWccxMni3b0EZGHuS3c=
+X-Google-Smtp-Source: 
+ AGHT+IEJkZy/zcyYjS/mRx4ZV80tXFjeoyE7of0nB7BlzZ+4FKV/1yBAljbeQBu73IdnjR2X5uGAvA==
+X-Received: by 2002:a05:600c:b88:b0:418:f991:8ad4 with SMTP id
+ fl8-20020a05600c0b8800b00418f9918ad4mr113607wmb.6.1714145396564;
+        Fri, 26 Apr 2024 08:29:56 -0700 (PDT)
+Received: from toaster.lan ([2a01:e0a:3c5:5fb1:1926:f73e:8b99:1c0a])
+        by smtp.googlemail.com with ESMTPSA id
+ i13-20020a05600c354d00b00419fba938d8sm22628687wmq.27.2024.04.26.08.29.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 26 Apr 2024 08:29:56 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>
+Cc: Jerome Brunet <jbrunet@baylibre.com>,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	linux-amlogic@lists.infradead.org
+Subject: [PATCH 2/4] ASoC: meson: axg-card: make links nonatomic
+Date: Fri, 26 Apr 2024 17:29:39 +0200
+Message-ID: <20240426152946.3078805-3-jbrunet@baylibre.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20240426152946.3078805-1-jbrunet@baylibre.com>
+References: <20240426152946.3078805-1-jbrunet@baylibre.com>
 MIME-Version: 1.0
+X-Patchwork-Bot: notify
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: POJNCGIZ3YW4MUGDMMC5TJ2DU43W3SPB
-X-Message-ID-Hash: POJNCGIZ3YW4MUGDMMC5TJ2DU43W3SPB
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+Message-ID-Hash: 3O4FQKU2LIZ3MCXPUAHUAADZ6UJ7AKDX
+X-Message-ID-Hash: 3O4FQKU2LIZ3MCXPUAHUAADZ6UJ7AKDX
+X-MailFrom: jbrunet@baylibre.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -98,7 +118,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/POJNCGIZ3YW4MUGDMMC5TJ2DU43W3SPB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3O4FQKU2LIZ3MCXPUAHUAADZ6UJ7AKDX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,82 +127,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The documentation for device_get_named_child_node() mentions this
-important point:
+Non atomic operations need to be performed in the trigger callback
+of the TDM interfaces. Those are BEs but what matters is the nonatomic
+flag of the FE in the DPCM context. Just set nonatomic for everything so,
+at least, what is done is clear.
 
-"
-The caller is responsible for calling fwnode_handle_put() on the
-returned fwnode pointer.
-"
-
-Add fwnode_handle_put() to avoid leaked references.
-
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Fixes: 7864a79f37b5 ("ASoC: meson: add axg sound card support")
+Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
 ---
- sound/soc/codecs/cs35l56.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+ sound/soc/meson/axg-card.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/soc/codecs/cs35l56.c b/sound/soc/codecs/cs35l56.c
-index dfd703d9e12f..758dfdf9d3ea 100644
---- a/sound/soc/codecs/cs35l56.c
-+++ b/sound/soc/codecs/cs35l56.c
-@@ -1361,6 +1361,7 @@ static int cs35l56_try_get_broken_sdca_spkid_gpio(struct cs35l56_private *cs35l5
- 				    "spk-id-gpios", ACPI_TYPE_PACKAGE, &obj);
- 	if (ret) {
- 		dev_dbg(cs35l56->base.dev, "Could not get spk-id-gpios package: %d\n", ret);
-+		fwnode_handle_put(af01_fwnode);
- 		return -ENOENT;
- 	}
+diff --git a/sound/soc/meson/axg-card.c b/sound/soc/meson/axg-card.c
+index 3180aa4d3a15..8c5605c1e34e 100644
+--- a/sound/soc/meson/axg-card.c
++++ b/sound/soc/meson/axg-card.c
+@@ -318,6 +318,7 @@ static int axg_card_add_link(struct snd_soc_card *card, struct device_node *np,
  
-@@ -1368,6 +1369,7 @@ static int cs35l56_try_get_broken_sdca_spkid_gpio(struct cs35l56_private *cs35l5
- 	if (obj->package.count != 4) {
- 		dev_warn(cs35l56->base.dev, "Unexpected spk-id element count %d\n",
- 			 obj->package.count);
-+		fwnode_handle_put(af01_fwnode);
- 		return -ENOENT;
- 	}
+ 	dai_link->cpus = cpu;
+ 	dai_link->num_cpus = 1;
++	dai_link->nonatomic = true;
  
-@@ -1382,6 +1384,7 @@ static int cs35l56_try_get_broken_sdca_spkid_gpio(struct cs35l56_private *cs35l5
- 		 */
- 		ret = acpi_dev_add_driver_gpios(adev, cs35l56_af01_spkid_gpios_mapping);
- 		if (ret) {
-+			fwnode_handle_put(af01_fwnode);
- 			return dev_err_probe(cs35l56->base.dev, ret,
- 					     "Failed to add gpio mapping to AF01\n");
- 		}
-@@ -1389,14 +1392,17 @@ static int cs35l56_try_get_broken_sdca_spkid_gpio(struct cs35l56_private *cs35l5
- 		ret = devm_add_action_or_reset(cs35l56->base.dev,
- 					       cs35l56_acpi_dev_release_driver_gpios,
- 					       adev);
--		if (ret)
-+		if (ret) {
-+			fwnode_handle_put(af01_fwnode);
- 			return ret;
-+		}
- 
- 		dev_dbg(cs35l56->base.dev, "Added spk-id-gpios mapping to AF01\n");
- 	}
- 
- 	desc = fwnode_gpiod_get_index(af01_fwnode, "spk-id", 0, GPIOD_IN, NULL);
- 	if (IS_ERR(desc)) {
-+		fwnode_handle_put(af01_fwnode);
- 		ret = PTR_ERR(desc);
- 		return dev_err_probe(cs35l56->base.dev, ret, "Get GPIO from AF01 failed\n");
- 	}
-@@ -1405,9 +1411,12 @@ static int cs35l56_try_get_broken_sdca_spkid_gpio(struct cs35l56_private *cs35l5
- 	gpiod_put(desc);
- 
- 	if (ret < 0) {
-+		fwnode_handle_put(af01_fwnode);
- 		dev_err_probe(cs35l56->base.dev, ret, "Error reading spk-id GPIO\n");
- 		return ret;
--		}
-+	}
-+
-+	fwnode_handle_put(af01_fwnode);
- 
- 	dev_info(cs35l56->base.dev, "Got spk-id from AF01\n");
- 
+ 	ret = meson_card_parse_dai(card, np, dai_link->cpus);
+ 	if (ret)
 -- 
-2.40.1
+2.43.0
 

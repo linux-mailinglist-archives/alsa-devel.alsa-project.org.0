@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3613C8B3BC7
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Apr 2024 17:40:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 471E08B3BC8
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Apr 2024 17:40:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8563922A5;
-	Fri, 26 Apr 2024 17:40:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8563922A5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9CA621939;
+	Fri, 26 Apr 2024 17:40:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9CA621939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1714146019;
-	bh=flcFCyFG2/t8hSowAIB01UznDgaflhSitPfuUrp0c60=;
+	s=default; t=1714146033;
+	bh=v4RrR4ZevIdejO++X3NJ7yMsgRZ5oysDLZ7RLMPgM4U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=nKNFDRhglYHkXJ7CRbufQrwbxvjFDm3sGuEJPB9sHbz1M2mm98VSDv2X9usXYLVta
-	 qj+K3j6DuvIdzK0s6JaC599lZcXB9B22xQzNMT9B9I8FyetOFttgL0Rwed/IUG+V0A
-	 T+GszfyoO8aubOHU5NlkglziI9VNbJo3y3nw1Q5g=
+	b=t3U+xMyLb7k1F7xCNEO9UaNV1+aPLrPU7jMiZRV0eK2Z2ZvG4SnIW6XnkLYkn9bb4
+	 KmF3O3SchnlicdCd8tA2s1to+ewcECx2Aigcaya16Vdqs5r1LJxL5+ywfuOzfxIU6Z
+	 5UOEbuCc0LJi84sIso0qnQK1bRXpVxAY3a1kotVY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B5E7DF805B6; Fri, 26 Apr 2024 17:39:26 +0200 (CEST)
+	id 2FC4BF80602; Fri, 26 Apr 2024 17:39:29 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8987DF805D2;
-	Fri, 26 Apr 2024 17:39:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 475E3F80600;
+	Fri, 26 Apr 2024 17:39:29 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 69FF2F8003C; Fri, 26 Apr 2024 17:39:19 +0200 (CEST)
+	id 4D7F8F80548; Fri, 26 Apr 2024 17:39:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,62 +35,61 @@ X-Spam-Status: No, score=-5.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EBAF0F8003C
-	for <alsa-devel@alsa-project.org>; Fri, 26 Apr 2024 17:39:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EBAF0F8003C
+	by alsa1.perex.cz (Postfix) with ESMTPS id E7FF8F802E8
+	for <alsa-devel@alsa-project.org>; Fri, 26 Apr 2024 17:39:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7FF8F802E8
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=T3yLmCm0
+ header.s=Intel header.b=ch670naY
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1714145957; x=1745681957;
+  t=1714145959; x=1745681959;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=flcFCyFG2/t8hSowAIB01UznDgaflhSitPfuUrp0c60=;
-  b=T3yLmCm0SE1oEB/11RAuIAOhWzBaj2Cl0OR0AfBvnlGHjI73JF8vzCxF
-   1Ac3sTocamDsxlzJVmqyXvGGGfg/YMNnK2LY9I/ea6/VkRZlPvf1yzN30
-   KACVKeJz8kswxE2sEYENyMApRyD2XKf0PWj4wvqDE0ATSINw+xuOkOA6s
-   ig8A8Tx0DoRYW2zYzLV9j/+I51ZmKyYWm9uz0vN+t8nHSV8E75HEhJTOj
-   KJ/Dp0wEK/nB/u89BfWlE9R9OoCSyvvMRZUWQQHhmpy0UwrWJ8iOLF0/3
-   ivYHxpNEMa2P+wDFzOTJgn6634F4oatuBuSXFB+lioYOy9K/2ZKbkqn4M
+  bh=v4RrR4ZevIdejO++X3NJ7yMsgRZ5oysDLZ7RLMPgM4U=;
+  b=ch670naYJaovE1swHa9oZ0aPYJAqYiUeh6rstSi8+fEYGxGRmQIq3X3w
+   76LZP95mjjq6ywcOaFKtN5V/idQLGip+A6GaZ1VQhNewKPYVC1Nzv7mUZ
+   sktRUs3yJUBqv5UIEIduC6YbkizXuvRTJD8ZDIEi7lsiCyNStqF6bPvff
+   CeQGe5Ag/7Gl42EqC2i4OAG3wNahR8o5i87NzAcxCMDWomhpdgbt4nOAN
+   6zWPRLcctnj6Yf8yZq+hoHbGj81weEpN0y5d6rOX2hYEer1E6sxwt1Tbh
+   z5/O+Kqi/xQpqgeEjax3Dadr6fcm1st7vurnUJ3Br3yBdqFPs8joF5j9y
    w==;
-X-CSE-ConnectionGUID: Pq0DKgZER9SE/mldTNF3fg==
-X-CSE-MsgGUID: ZstzReK+Rg+rYwEM+gxY7w==
-X-IronPort-AV: E=McAfee;i="6600,9927,11056"; a="9718439"
+X-CSE-ConnectionGUID: 5grURr0LQHGgtzLkyTppHw==
+X-CSE-MsgGUID: /QrWuTtxQTiPts4qnL6buQ==
+X-IronPort-AV: E=McAfee;i="6600,9927,11056"; a="9718443"
 X-IronPort-AV: E=Sophos;i="6.07,233,1708416000";
-   d="scan'208";a="9718439"
+   d="scan'208";a="9718443"
 Received: from fmviesa001.fm.intel.com ([10.60.135.141])
   by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  26 Apr 2024 08:39:11 -0700
-X-CSE-ConnectionGUID: WL7/LIeJRTSSuULWaJyWbA==
-X-CSE-MsgGUID: cILyGG/0QEKLlCU1ZdfHEw==
+X-CSE-ConnectionGUID: dArphcUpTHu0MWM01xvL6g==
+X-CSE-MsgGUID: rKXOU+QqQPGxrrRIVFB3kw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.07,233,1708416000";
-   d="scan'208";a="56623540"
+   d="scan'208";a="56623541"
 Received: from atarkhan-mobl2.amr.corp.intel.com (HELO
  pbossart-mobl6.intel.com) ([10.212.33.33])
   by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Apr 2024 08:39:10 -0700
+ 26 Apr 2024 08:39:11 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: linux-sound@vger.kernel.org
 Cc: alsa-devel@alsa-project.org,
 	tiwai@suse.de,
 	broonie@kernel.org,
-	Yong Zhi <yong.zhi@intel.com>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [PATCH 2/5] ASoC: SOF: topology: remove incorrect widget id in error
- message
-Date: Fri, 26 Apr 2024 10:38:59 -0500
-Message-Id: <20240426153902.39560-3-pierre-louis.bossart@linux.intel.com>
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>
+Subject: [PATCH 3/5] ASoC: SOF: Intel: hda: simplify and reduce indentation
+ for hda_sdw_machine_select()
+Date: Fri, 26 Apr 2024 10:39:00 -0500
+Message-Id: <20240426153902.39560-4-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20240426153902.39560-1-pierre-louis.bossart@linux.intel.com>
 References: <20240426153902.39560-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: BE2JTTKN2Z5VXQENVSSIF7TTWYKOM7C6
-X-Message-ID-Hash: BE2JTTKN2Z5VXQENVSSIF7TTWYKOM7C6
+Message-ID-Hash: CPIQNHLU4IPFB7KCFBEKOWZQPWBAVZR5
+X-Message-ID-Hash: CPIQNHLU4IPFB7KCFBEKOWZQPWBAVZR5
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -103,7 +102,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BE2JTTKN2Z5VXQENVSSIF7TTWYKOM7C6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CPIQNHLU4IPFB7KCFBEKOWZQPWBAVZR5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,38 +111,183 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Yong Zhi <yong.zhi@intel.com>
+Simplify code to return when no links are enabled. No functional
+change, just code cleanup before updates.
 
-In sof_widget_ready() function, the shift field of
-struct snd_soc_tplg_dapm_widget is incorrectly used to print
-widget id in dev_err(scomp->dev, "error: failed to add widget id %d ..",
-this patch removes the useless tw->shift from the error output.
-
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Signed-off-by: Yong Zhi <yong.zhi@intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- sound/soc/sof/topology.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ sound/soc/sof/intel/hda.c | 139 +++++++++++++++++++-------------------
+ 1 file changed, 71 insertions(+), 68 deletions(-)
 
-diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
-index bcdb499c96a0..ec931a26b54f 100644
---- a/sound/soc/sof/topology.c
-+++ b/sound/soc/sof/topology.c
-@@ -1531,10 +1531,9 @@ static int sof_widget_ready(struct snd_soc_component *scomp, int index,
- 	/* check token parsing reply */
- 	if (ret < 0) {
- 		dev_err(scomp->dev,
--			"error: failed to add widget id %d type %d name : %s stream %s\n",
--			tw->shift, swidget->id, tw->name,
--			strnlen(tw->sname, SNDRV_CTL_ELEM_ID_NAME_MAXLEN) > 0
--				? tw->sname : "none");
-+			"failed to add widget type %d name : %s stream %s\n",
-+			swidget->id, tw->name, strnlen(tw->sname, SNDRV_CTL_ELEM_ID_NAME_MAXLEN) > 0
-+							? tw->sname : "none");
- 		goto widget_free;
+diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
+index 4d0fe706ebc1..8ddc1b0ca3c9 100644
+--- a/sound/soc/sof/intel/hda.c
++++ b/sound/soc/sof/intel/hda.c
+@@ -1653,92 +1653,95 @@ static struct snd_soc_acpi_mach *hda_sdw_machine_select(struct snd_sof_dev *sdev
+ 	hdev = pdata->hw_pdata;
+ 	link_mask = hdev->info.link_mask;
+ 
++	if (!link_mask) {
++		dev_info(sdev->dev, "SoundWire links not enabled\n");
++		return NULL;
++	}
++
+ 	/*
+ 	 * Select SoundWire machine driver if needed using the
+ 	 * alternate tables. This case deals with SoundWire-only
+ 	 * machines, for mixed cases with I2C/I2S the detection relies
+ 	 * on the HID list.
+ 	 */
+-	if (link_mask) {
+-		for (mach = pdata->desc->alt_machines;
+-		     mach && mach->link_mask; mach++) {
+-			/*
+-			 * On some platforms such as Up Extreme all links
+-			 * are enabled but only one link can be used by
+-			 * external codec. Instead of exact match of two masks,
+-			 * first check whether link_mask of mach is subset of
+-			 * link_mask supported by hw and then go on searching
+-			 * link_adr
+-			 */
+-			if (~link_mask & mach->link_mask)
+-				continue;
++	for (mach = pdata->desc->alt_machines;
++	     mach && mach->link_mask; mach++) {
++		/*
++		 * On some platforms such as Up Extreme all links
++		 * are enabled but only one link can be used by
++		 * external codec. Instead of exact match of two masks,
++		 * first check whether link_mask of mach is subset of
++		 * link_mask supported by hw and then go on searching
++		 * link_adr
++		 */
++		if (~link_mask & mach->link_mask)
++			continue;
+ 
+-			/* No need to match adr if there is no links defined */
+-			if (!mach->links)
+-				break;
++		/* No need to match adr if there is no links defined */
++		if (!mach->links)
++			break;
+ 
+-			link = mach->links;
+-			for (i = 0; i < hdev->info.count && link->num_adr;
+-			     i++, link++) {
+-				/*
+-				 * Try next machine if any expected Slaves
+-				 * are not found on this link.
+-				 */
+-				if (!snd_soc_acpi_sdw_link_slaves_found(sdev->dev, link,
+-									hdev->sdw->ids,
+-									hdev->sdw->num_slaves))
+-					break;
+-			}
+-			/* Found if all Slaves are checked */
+-			if (i == hdev->info.count || !link->num_adr)
++		link = mach->links;
++		for (i = 0; i < hdev->info.count && link->num_adr;
++		     i++, link++) {
++			/*
++			 * Try next machine if any expected Slaves
++			 * are not found on this link.
++			 */
++			if (!snd_soc_acpi_sdw_link_slaves_found(sdev->dev, link,
++								hdev->sdw->ids,
++								hdev->sdw->num_slaves))
+ 				break;
+ 		}
+-		if (mach && mach->link_mask) {
+-			int dmic_num = 0;
+-			bool tplg_fixup;
+-			const char *tplg_filename;
+-
+-			mach->mach_params.links = mach->links;
+-			mach->mach_params.link_mask = mach->link_mask;
+-			mach->mach_params.platform = dev_name(sdev->dev);
+-
+-			if (pdata->tplg_filename) {
+-				tplg_fixup = false;
+-			} else {
+-				tplg_fixup = true;
+-				tplg_filename = mach->sof_tplg_filename;
+-			}
++		/* Found if all Slaves are checked */
++		if (i == hdev->info.count || !link->num_adr)
++			break;
++	}
++	if (mach && mach->link_mask) {
++		int dmic_num = 0;
++		bool tplg_fixup;
++		const char *tplg_filename;
+ 
+-			/*
+-			 * DMICs use up to 4 pins and are typically pin-muxed with SoundWire
+-			 * link 2 and 3, or link 1 and 2, thus we only try to enable dmics
+-			 * if all conditions are true:
+-			 * a) 2 or fewer links are used by SoundWire
+-			 * b) the NHLT table reports the presence of microphones
+-			 */
+-			if (hweight_long(mach->link_mask) <= 2) {
+-				int ret;
++		mach->mach_params.links = mach->links;
++		mach->mach_params.link_mask = mach->link_mask;
++		mach->mach_params.platform = dev_name(sdev->dev);
+ 
+-				ret = dmic_detect_topology_fixup(sdev, &tplg_filename, "",
+-								 &dmic_num, tplg_fixup);
+-				if (ret < 0)
+-					return NULL;
+-			}
+-			if (tplg_fixup)
+-				pdata->tplg_filename = tplg_filename;
+-			mach->mach_params.dmic_num = dmic_num;
++		if (pdata->tplg_filename) {
++			tplg_fixup = false;
++		} else {
++			tplg_fixup = true;
++			tplg_filename = mach->sof_tplg_filename;
++		}
+ 
+-			dev_dbg(sdev->dev,
+-				"SoundWire machine driver %s topology %s\n",
+-				mach->drv_name,
+-				pdata->tplg_filename);
++		/*
++		 * DMICs use up to 4 pins and are typically pin-muxed with SoundWire
++		 * link 2 and 3, or link 1 and 2, thus we only try to enable dmics
++		 * if all conditions are true:
++		 * a) 2 or fewer links are used by SoundWire
++		 * b) the NHLT table reports the presence of microphones
++		 */
++		if (hweight_long(mach->link_mask) <= 2) {
++			int ret;
+ 
+-			return mach;
++			ret = dmic_detect_topology_fixup(sdev, &tplg_filename, "",
++							 &dmic_num, tplg_fixup);
++			if (ret < 0)
++				return NULL;
+ 		}
++		if (tplg_fixup)
++			pdata->tplg_filename = tplg_filename;
++		mach->mach_params.dmic_num = dmic_num;
++
++		dev_dbg(sdev->dev,
++			"SoundWire machine driver %s topology %s\n",
++			mach->drv_name,
++			pdata->tplg_filename);
+ 
+-		dev_info(sdev->dev, "No SoundWire machine driver found\n");
++		return mach;
  	}
  
++	dev_info(sdev->dev, "No SoundWire machine driver found\n");
++
+ 	return NULL;
+ }
+ #else
 -- 
 2.40.1
 

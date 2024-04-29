@@ -2,132 +2,145 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C17A18B59BA
-	for <lists+alsa-devel@lfdr.de>; Mon, 29 Apr 2024 15:19:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0915F8B5C05
+	for <lists+alsa-devel@lfdr.de>; Mon, 29 Apr 2024 16:55:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 16313839;
-	Mon, 29 Apr 2024 15:19:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 16313839
+	by alsa0.perex.cz (Postfix) with ESMTPS id 10D4C826;
+	Mon, 29 Apr 2024 16:55:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 10D4C826
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1714396767;
-	bh=GzTVP+cnONGx8I7Xig2IilKrZZe4Kz4khWj5HS9ejQ8=;
-	h=From:Date:Subject:To:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=LpKUkWzphcSTR4YkXPMyC4lm1x9lauz75fACS8uIV6Urb5J9YrHpXougwmhnnojpV
-	 p3k4l/xhE8uML3iSTWneDYhn1CU8//BRgjamBC18CYHRMT+jRfKK5oDTs6VKo74VL9
-	 PF/q/+zo2+fSR2HoB2XYlbpzc2wgFyNV2kdyvhdo=
+	s=default; t=1714402511;
+	bh=XREl17CHloVH9LS2iww9neF4mNAICGbwb3N+eWBXfvk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=tDclb4LIvRhyOxImgqs2CM3F1sazZCNeaWkwQOwkphxQAz4YwzpcsCHw44i6i64AO
+	 YXPoYvrB8uLEcs4yB1fTqlQygpmy5yn7/58MZXSXOFiz1zGQz8HQVy8WDzPMl4BaOq
+	 lz9z9CU4y+tEja3B14ryTCOohkDcYuv+ImNZxM9Q=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 803C1F8011B; Mon, 29 Apr 2024 15:18:55 +0200 (CEST)
+	id 0821FF805AD; Mon, 29 Apr 2024 16:54:38 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id F2D14F80578;
-	Mon, 29 Apr 2024 15:18:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8FF33F805A0;
+	Mon, 29 Apr 2024 16:54:38 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 69B98F8028D; Mon, 29 Apr 2024 15:18:50 +0200 (CEST)
+	id A43EDF8028D; Mon, 29 Apr 2024 16:54:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-yw1-x112f.google.com (mail-yw1-x112f.google.com
- [IPv6:2607:f8b0:4864:20::112f])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 83565F8003C
-	for <alsa-devel@alsa-project.org>; Mon, 29 Apr 2024 15:18:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83565F8003C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 976ECF8003C
+	for <alsa-devel@alsa-project.org>; Mon, 29 Apr 2024 16:54:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 976ECF8003C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=Ypbtq6Zd
-Received: by mail-yw1-x112f.google.com with SMTP id
- 00721157ae682-617e42a3f94so48658787b3.2
-        for <alsa-devel@alsa-project.org>;
- Mon, 29 Apr 2024 06:18:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1714396718; x=1715001518;
- darn=alsa-project.org;
-        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=5DrNmX/O5hzyTD3oW2jtllNOsgM2WyrTONwfmemwKBA=;
-        b=Ypbtq6ZdU3naNHE8u0In/f5I3WtYywP26UBRoRmJmrMMh/LYtvLkmdVpvgfoZtkrTd
-         hfXDTO2dhLGIQU80rpSIZo788YuNDZMDw8GWnmDoZdsDntyuPPj4N8vW3harSDf+5uHr
-         Dq5XfGWZoIo8FSV2zzPnv/yn7PpWq64r1tDDfKz5kmU7DP4U4d+AqP7Kb+Nt2sWNhAsK
-         fBINXQbsNBjC2a8DStuwl6wNL0Nk1noTrbrnjW7GXcxTuhlPDyX7iOiHYpuTQVmJJ2rd
-         cr5s16sfCLIvQ+LWvxybBWq6K9bAAANyism1eJ7t115ZJkBo14FshEGi/uAvSVrgAm5L
-         +Ffw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714396718; x=1715001518;
-        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=5DrNmX/O5hzyTD3oW2jtllNOsgM2WyrTONwfmemwKBA=;
-        b=fPtln3tz7BEzqB44tKZ2mlmb3M4F5a77H2ImUesMuhqhLNXsyj6+7XyrSuhUQltp5j
-         TZZPB+pq9diaQY76spL3Pqspcfnz6g7NaO/iOcY2Gn5aZja9rYIquHCA81INfShQUibQ
-         +l1EI/03fHJvX/gXGgIv9JPaaabjtTFen/vIKN9P/9gj6mqmFTCUT6mRTDCfmdcPIXHr
-         fKAHzncib/ISIapleHZElYfsWF5qz8UBOCWbtm8tK14bMHoCNJXOUyDwsaKHrFcfOIxX
-         ILAfJXHhj+4DIFId81twzXqBtfOVU6cspe47xYpvg7i4vMFNImQxZvXlAtHrhJ4Lj/iI
-         sUbw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUxIcN37NdV4GNLL37fQFjf2C7sjpyLJGqa5iBOQz2zUXNPq3yRQLNDezYeHLWUeVeD256ws8OjcS8ebGqXlCxsCAnfA2I4JG2ZJOY=
-X-Gm-Message-State: AOJu0YwzN2vErPCDKrNBH/wbgc7SM+K15zbNGubLJ4RRizb2youVgBXx
-	xR0S/mki1LVPbb485I254gpiv8TMGhgp6ElLhQgsoJ7hqx9RZBUj2lYDRjtmmOh3p8s8C0Zyqfl
-	f4gHO2JI/n8hajiPrwdvMZ4RCi2g=
-X-Google-Smtp-Source: 
- AGHT+IEEajCrlUb/3QTkb1ktXcly7kvHKmpfcjOnXNtOR6EpLBkfPPxV+knLS1Jw2S5EO2KTYc1niTKx5bbX+gOT3RA=
-X-Received: by 2002:a05:690c:387:b0:61a:e947:550d with SMTP id
- bh7-20020a05690c038700b0061ae947550dmr10138549ywb.44.1714396717862; Mon, 29
- Apr 2024 06:18:37 -0700 (PDT)
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=XXPPQqCn
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id EA824CE0C2F;
+	Mon, 29 Apr 2024 14:54:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD231C113CD;
+	Mon, 29 Apr 2024 14:54:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1714402449;
+	bh=XREl17CHloVH9LS2iww9neF4mNAICGbwb3N+eWBXfvk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=XXPPQqCntLwoiOXb9YO5bMX4zMDr/YgPfkLPH/CeWkd4WQp19+6iP9ASUkdN+fcbl
+	 ONk91QPa68V0YBAdAAX5GsV4fxcm1coYso4AP2MFTfthCIn9/V7jsuVdKnIheTDICp
+	 duOJVahxniXuCzTa1CXXC1pV1kx69bsrQ9cPTOK8pC2/Xj7hepPyF0ksF6kcaRkw3O
+	 G1ilwJOwpKRwIsCGuSJAVpsRmXikTIM1i2k4k7TnSIRjuPs+aeUlgRUiqORS6gyx7A
+	 FmcZmvAnukW03FMqKCYdktLntOiIVndXDEpbU+XpXHbDp0wG4ByQtWwoRAdcz0ONrb
+	 zV1/GjDNwyCMA==
+Received: from johan by xi.lan with local (Exim 4.97.1)
+	(envelope-from <johan@kernel.org>)
+	id 1s1SOP-000000005GI-05vD;
+	Mon, 29 Apr 2024 16:54:09 +0200
+Date: Mon, 29 Apr 2024 16:54:09 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Cc: broonie@kernel.org, perex@perex.cz, tiwai@suse.com, lgirdwood@gmail.com,
+	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/4] ASoC: qcom: common: add Display port Jack function
+Message-ID: <Zi-0kSU6TMcev05r@hovoldconsulting.com>
+References: <20240422134354.89291-1-srinivas.kandagatla@linaro.org>
+ <20240422134354.89291-3-srinivas.kandagatla@linaro.org>
+ <ZiejT5yddioQ8upR@hovoldconsulting.com>
+ <b9d0e2fd-069c-439c-a85f-1e99bf9018c3@linaro.org>
 MIME-Version: 1.0
-From: Muni Sekhar <munisekharrms@gmail.com>
-Date: Mon, 29 Apr 2024 18:48:26 +0530
-Message-ID: 
- <CAHhAz+iHtWqhvwa_dmTUv+mZhnZ2zHX0W53wDGF+uHhcgk7Gcg@mail.gmail.com>
-Subject: ALSA: Digital Microphone
-To: linux-sound@vger.kernel.org, alsa-devel <alsa-devel@alsa-project.org>,
-	linux-fpga@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Message-ID-Hash: 3GWNAV7Q4IVJGCCWJ4LF2HYU2LD7A7MH
-X-Message-ID-Hash: 3GWNAV7Q4IVJGCCWJ4LF2HYU2LD7A7MH
-X-MailFrom: munisekharrms@gmail.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b9d0e2fd-069c-439c-a85f-1e99bf9018c3@linaro.org>
+Message-ID-Hash: PKUJLFDA7WAXYQVWSZLD3UC34IYAFGIA
+X-Message-ID-Hash: PKUJLFDA7WAXYQVWSZLD3UC34IYAFGIA
+X-MailFrom: johan@kernel.org
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3GWNAV7Q4IVJGCCWJ4LF2HYU2LD7A7MH/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PKUJLFDA7WAXYQVWSZLD3UC34IYAFGIA/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi all,
+On Tue, Apr 23, 2024 at 04:55:32PM +0100, Srinivas Kandagatla wrote:
+> On 23/04/2024 13:02, Johan Hovold wrote:
+> > On Mon, Apr 22, 2024 at 02:43:52PM +0100, Srinivas Kandagatla wrote:
+> >   
+> >>   static const struct snd_soc_dapm_widget qcom_jack_snd_widgets[] = {
+> >>   	SND_SOC_DAPM_HP("Headphone Jack", NULL),
+> >>   	SND_SOC_DAPM_MIC("Mic Jack", NULL),
+> >> +	SND_SOC_DAPM_SPK("HDMI/DP0 Jack", NULL),
+> >> +	SND_SOC_DAPM_SPK("HDMI/DP1 Jack", NULL),
+> >> +	SND_SOC_DAPM_SPK("HDMI/DP2 Jack", NULL),
+> > 
+> > Shouldn't these be split in dedicated HDMI and DP jacks too? What if you
+> > have a machine with HDMI and DP jacks which would otherwise both claim
+> > "HDMI/DP0"?
+> 
+> These map to the Jack's added as part of qcom_snd_dp_jack_setup and 
+> belong to DISPLAY_PORT_RX_0, DISPLAY_PORT_RX_1, DISPLAY_PORT_RX_2.
+> 
+> If its going via USB-C DP controller it will be either DP or an HDMI ?
 
-We have a Digital Microphone block on a Xilinx FPGA board connected to
-x86 host CPU through PCIe, it basically emulates a Microphone sending
-data to DUT(device under test) in PDM format.
+It will always be DP out of the machine even if an adapter can convert
+to HDMI internally.
 
-Input to the Digital Microphone block is Signed 32-bit PCM sample.
-Xilinx FPGA code has logic to convert PCM samples to PDM with a
-Sigma-Delta Converter.
+The DRM ports are called "DP-1" and "DP-2" so it seems we should match
+that.
 
-Could you kindly recommend any specific ALSA driver within the Linux
-kernel that matches with my hardware setup.
+> This is the most common naming for the USB-C DP/HDMI jack events.
 
- Additionally, if there are any relevant documentation or community
-discussions that you could point me to, it would be immensely helpful.
+It looks like some Intel machines use names like "HDMI/DP, pcm=%d Jack"
+(with a pcm device number), but we also have "DP Jack". Not sure which
+are are used with USB-C, though. (Or if the former actually support HDMI
+altmode.)
 
+> Qualcomm LPASS in some older SoCs had a dedicated HDMI interface which 
+> is different to this one.
+> 
+> Usual Other ways to connect HDMI is via external HDMI Bridge using I2S 
+> interface which totally different to this DP interface.
 
--- 
-Thanks,
-Sekhar
+Sure, but if there's ever a design with such a port then it will be
+called "HDMI Jack" and then the "HDMI in "HDMI/DP0 Jack" is unnecessary
+and confusing when it is always DP out.
+
+Johan

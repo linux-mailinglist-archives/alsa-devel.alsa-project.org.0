@@ -2,116 +2,176 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A60288B4C66
-	for <lists+alsa-devel@lfdr.de>; Sun, 28 Apr 2024 17:34:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE0648B51EB
+	for <lists+alsa-devel@lfdr.de>; Mon, 29 Apr 2024 09:02:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 13F07B76;
-	Sun, 28 Apr 2024 17:34:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 13F07B76
+	by alsa0.perex.cz (Postfix) with ESMTPS id 13E2A7F1;
+	Mon, 29 Apr 2024 09:02:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 13E2A7F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1714318466;
-	bh=lAdyF9C/e2KNbvsWr1J5VmDP7l6N1dbBgMqOcKbi7EE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1714374147;
+	bh=09FThBTM6Hwa/xsabgjmzwu4MaDIcTHSgg/+eqvr7L8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=gidiFYMuR/y/+P1ioTB8wgt9aicCqJ/lC+ObEp0yrSSakDe8zBwAAdku2vV9oWwgt
-	 yIWurXWqaEGLPHa4lgxTOhyjAsyi8ICg++2/cmHfXqNb/zujAYyk32O8A4MWl1VHkQ
-	 N17sUlQLYIAMMimwxVB6EN+QKdZPZE5ganAXtuWA=
+	b=aBWToMVdDO09mAeILT01/gZ6dUcNGJ3Ue6J+WTZ+IqectQPxWU2AR1q0/VKVrWBI8
+	 fydMP/zydZpUnV7M2QT6QaM5mSYpJyspUbAhQbethyjlnpbW1fT8Gs0DFNYQmXJBE0
+	 gplNfcfXzPVLUAcQJ+Uy5IUE45WGEI7FY6A0agrg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A9A3BF80579; Sun, 28 Apr 2024 17:33:53 +0200 (CEST)
+	id 25DEBF805A1; Mon, 29 Apr 2024 09:01:54 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8A606F8059F;
-	Sun, 28 Apr 2024 17:33:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 24EABF80578;
+	Mon, 29 Apr 2024 09:01:54 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0C9EAF8028D; Sun, 28 Apr 2024 17:31:18 +0200 (CEST)
+	id 14526F8028D; Mon, 29 Apr 2024 08:57:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [IPv6:2a00:1450:4864:20::42b])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 74587F8003C
-	for <alsa-devel@alsa-project.org>; Sun, 28 Apr 2024 17:31:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74587F8003C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0ADF0F800B5
+	for <alsa-devel@alsa-project.org>; Mon, 29 Apr 2024 08:57:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0ADF0F800B5
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=KM09uaf9
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-34c8f393195so1162062f8f.0
-        for <alsa-devel@alsa-project.org>;
- Sun, 28 Apr 2024 08:31:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1714318259; x=1714923059;
- darn=alsa-project.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=JMTV3xU4yc9K0nQyO0gVgRVc9t4un6W7+V1vXXeKhGQ=;
-        b=KM09uaf9JQaauFT7z+Fwtzl9abOVsVwKwk9lyGYtppm52HVLfd/AwDYD5D4wiCxW/J
-         6Cvb7PM+CAnCgasmh17yy3s0LsoEEsgdCE6FiObIbFOMtrGDWTSM/xtZckkQ4pnvRx1+
-         jFVpq9qr5QZutkxzpEO9gDzetQ9M83jwMtlY1/22oSI5YHT2NbNVvlYLqkS5hjgQOyZD
-         gglDzlmMrIn2K+kcwsX9k649eWdRjx/KWplTI1jQpQCbC7zPtwaIfEGCgDpQckdQQesU
-         ptMbeLnSG2f1H0AvQ/H3p+3DVlxNnY1DGt8l2poDioCs/KQAIQud3N/zfpYVdtEvbITi
-         pHig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714318259; x=1714923059;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=JMTV3xU4yc9K0nQyO0gVgRVc9t4un6W7+V1vXXeKhGQ=;
-        b=A2s1LPKAvmUZ4QO+rhqnnyFZ1ilrohzqP/dTuXQiOIzBzlEHP8qN2NMqsVLOD+Xy/N
-         JrLlD7WsZPaVHzkq08q9V427t9hoZNZNjuzKaIsZTdAUw8/i1AZJ2d6ONumpBnQqExE6
-         A4apydTSYmNFEGjIMA2CxIHRB5K4CpRQHH84n64S5mqDD4h7PQgC9PIG3P6IxY8DuC7g
-         mQLo8ddFDX7g1DUoFAzAOqRmdVVy+59CtoA4UwzvK3IKV2RzbjvYJa/qUJ1mYzgjHdq+
-         ARRGjsXJvzxANGn5gk+5xwfVZcUe4LCH/dAkUlXIfC8zFdu91FYvdE8TB2w6lDQrSv1x
-         5Tlg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXkfAleBd0bQq19IVbWrljfhsqeHm4uJmdDXnB3jCAsMeHApwTy4x3mtZCa7wQWt3uf8GLv7pILoW+BepoU+4En6mQag6DScfHm3us=
-X-Gm-Message-State: AOJu0YybIWTYV45+/kXqdembi5EtxtdGiLNC5rw+kZv+7SeXjFT1+ekE
-	9Kpv0jR56wnt5wWeIBupu6Gxed1KxZgI08LXLctKYSZRsGMhzQefVNYbvFpf5i2/Itb8bkjeKc6
-	JiZpgI/9+fPnmkpnRkrlcjQIykOI=
-X-Google-Smtp-Source: 
- AGHT+IEyoLOE3V4IavblSRhUH7RhbYCfLdBTOhqWHPaaskMcMrE+AMmS0fRAnMEx9Col2XGiO/CIf5mQykbSHlnuAiI=
-X-Received: by 2002:a05:6000:11d0:b0:34d:118f:21ee with SMTP id
- i16-20020a05600011d000b0034d118f21eemr327836wrx.28.1714318259281; Sun, 28 Apr
- 2024 08:30:59 -0700 (PDT)
-MIME-Version: 1.0
-References: <35be4668-58d3-894a-72cf-de1afaacae45@ivitera.com>
- <72e9b581-4a91-2319-cb9f-0bcb370f34a1@ivitera.com>
- <871q6tbxvf.wl-tiwai@suse.de>
- <22301bb6-d893-2e65-6ebd-1787ca231387@ivitera.com>
-In-Reply-To: <22301bb6-d893-2e65-6ebd-1787ca231387@ivitera.com>
-From: Chris Wulff <crwulff@gmail.com>
-Date: Sun, 28 Apr 2024 11:30:47 -0400
-Message-ID: 
- <CAB0kiBJm=Ya6a1mWRZ28p9=D_BesH55DFk4fd4wP0be4zKPR7w@mail.gmail.com>
-Subject: Re: usb:gadget:f_uac2: RFC: allowing multiple altsetttings for
- channel/samplesize combinations
-To: Pavel Hofman <pavel.hofman@ivitera.com>
-Cc: Takashi Iwai <tiwai@suse.de>,
- "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
-	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Ruslan Bilovol <ruslan.bilovol@gmail.com>,
-	Felipe Balbi <balbi@kernel.org>, Jerome Brunet <jbrunet@baylibre.com>,
- Julian Scheel <julian@jusst.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- John Keeping <john@metanate.com>,
-	AKASH KUMAR <quic_akakum@quicinc.com>, Jack Pham <jackp@codeaurora.org>,
-	Chris Wulff <Chris.Wulff@biamp.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: YK3IYLTU5VL6FGMMDMHUFP6KQLQH3MMB
-X-Message-ID-Hash: YK3IYLTU5VL6FGMMDMHUFP6KQLQH3MMB
-X-MailFrom: crwulff@gmail.com
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=OJtApqpI;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=GNFMWpF+;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=OJtApqpI;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=GNFMWpF+
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 73D4D229E1;
+	Mon, 29 Apr 2024 06:57:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1714373821;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=foSFvja1xtZKhFfCb1ELz3yeDCDBi6VORfN0RMsU5pA=;
+	b=OJtApqpIPGDK99iFXGxcMgAEKKSpnM04GzeAMgKa2KYTtHV2N5fgr5FwKZcqya773HSXu6
+	51Yuz6es2QA/gM88Razf4OefFkQliUzDjRexy4Q5ImYaQlh0Z1SWxn5VN348qvzftAkX1H
+	xMYJpgUYptBOswYZmmf2ysYF9QoScuI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1714373821;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=foSFvja1xtZKhFfCb1ELz3yeDCDBi6VORfN0RMsU5pA=;
+	b=GNFMWpF+hD8jdZO3NGTur7+AX8P0TG8hhl97FjQtoFv8BAptI92Y6TI4srZUqvpGhG56FQ
+	OaByZXcdFnunNzDQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1714373821;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=foSFvja1xtZKhFfCb1ELz3yeDCDBi6VORfN0RMsU5pA=;
+	b=OJtApqpIPGDK99iFXGxcMgAEKKSpnM04GzeAMgKa2KYTtHV2N5fgr5FwKZcqya773HSXu6
+	51Yuz6es2QA/gM88Razf4OefFkQliUzDjRexy4Q5ImYaQlh0Z1SWxn5VN348qvzftAkX1H
+	xMYJpgUYptBOswYZmmf2ysYF9QoScuI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1714373821;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=foSFvja1xtZKhFfCb1ELz3yeDCDBi6VORfN0RMsU5pA=;
+	b=GNFMWpF+hD8jdZO3NGTur7+AX8P0TG8hhl97FjQtoFv8BAptI92Y6TI4srZUqvpGhG56FQ
+	OaByZXcdFnunNzDQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D1700138A7;
+	Mon, 29 Apr 2024 06:57:00 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([10.150.64.162])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id gBRzMbxEL2YQbQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 29 Apr 2024 06:57:00 +0000
+Date: Mon, 29 Apr 2024 08:57:12 +0200
+Message-ID: <87o79s1ws7.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: "Rajashekar Kuruva (Temp)" <quic_kuruva@quicinc.com>
+Cc: <srinivas.kandagatla@linaro.org>,
+	<mathias.nyman@intel.com>,
+	<perex@perex.cz>,
+	<conor+dt@kernel.org>,
+	<corbet@lwn.net>,
+	<lgirdwood@gmail.com>,
+	<andersson@kernel.org>,
+	<krzysztof.kozlowski+dt@linaro.org>,
+	<gregkh@linuxfoundation.org>,
+	<Thinh.Nguyen@synopsys.com>,
+	<broonie@kernel.org>,
+	<bgoswami@quicinc.com>,
+	<tiwai@suse.com>,
+	<robh@kernel.org>,
+	<konrad.dybcio@linaro.org>,
+	<linux-kernel@vger.kernel.org>,
+	<devicetree@vger.kernel.org>,
+	<linux-sound@vger.kernel.org>,
+	<linux-usb@vger.kernel.org>,
+	<linux-arm-msm@vger.kernel.org>,
+	<linux-doc@vger.kernel.org>,
+	<alsa-devel@alsa-project.org>
+Subject: Re: [PATCH] [RFC PATCH] ALSA: usb-audio: endpoint: Prevent NULL
+ pointer deference in snd_usb_endpoint_close
+In-Reply-To: <64ed9496-577c-4f31-b061-9f3dcaca4b26@quicinc.com>
+References: <20240426122511.547755-1-quic_kuruva@quicinc.com>
+	<877cgks399.wl-tiwai@suse.de>
+	<64ed9496-577c-4f31-b061-9f3dcaca4b26@quicinc.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-1.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	TAGGED_RCPT(0.00)[dt];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[linaro.org,intel.com,perex.cz,kernel.org,lwn.net,gmail.com,linuxfoundation.org,synopsys.com,quicinc.com,suse.com,vger.kernel.org,alsa-project.org];
+	RCPT_COUNT_TWELVE(0.00)[23];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	TO_DN_SOME(0.00)[]
+Message-ID-Hash: 5ADZ3OYYLBM5WMUGYSPN6RP5OYVSARNW
+X-Message-ID-Hash: 5ADZ3OYYLBM5WMUGYSPN6RP5OYVSARNW
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -123,7 +183,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YK3IYLTU5VL6FGMMDMHUFP6KQLQH3MMB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5ADZ3OYYLBM5WMUGYSPN6RP5OYVSARNW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -132,233 +192,84 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Pavel,
+On Mon, 29 Apr 2024 08:23:27 +0200,
+Rajashekar Kuruva (Temp) wrote:
+> 
+> 
+> On 4/26/2024 6:13 PM, Takashi Iwai wrote:
+> > On Fri, 26 Apr 2024 14:25:11 +0200,
+> > Rajashekar kuruva wrote:
+> >> When multiple plug-in and plug-out events occur,
+> >> there is a risk of encountering a NULL pointer dereference
+> >> leading to a kernel panic during a headset use-case.
+> >> this issue arises in the snd_usb_endpoint_close function
+> > Such a scenario can't happen: ep->iface_ref is changed only in
+> > chip->mutex lock, hence it can't be NULL there.
+> > 
+> > 
+> > thanks,
+> > 
+> > Takashi
+> 
+> Hi Takashi,
+> 
+> Actually we are facing NULL pointer deference while running headset
+> case when i checked call trace the last running function is
+> snd_usb_endpoint_close where iface_ref and clock_ref both are 0x0
+> 
+> [75703.933104][T10585] Unable to handle kernel NULL pointer
+> dereference at virtual address 0000000000000004
+> [75703.933113][T10585] [RB/E]rb_sreason_str_set: sreason_str set NULL
+> pointer dereference
+> [75703.933116][T10585] Mem abort info:
+> [75703.933117][T10585]   ESR = 0x0000000096000005
+> [75703.933119][T10585]   EC = 0x25: DABT (current EL), IL = 32 bits
+> [75703.933120][T10585]   SET = 0, FnV = 0
+> [75703.933121][T10585]   EA = 0, S1PTW = 0
+> [75703.933123][T10585]   FSC = 0x05: level 1 translation fault
+> [75703.933124][T10585] Data abort info:
+> [75703.933124][T10585]   ISV = 0, ISS = 0x00000005
+> [75703.933125][T10585]   CM = 0, WnR = 0
+> …
+> [75703.933676][T10585] CPU: 3 PID: 10585 Comm: kworker/u17:0 Tainted:
+> G S      W  OE 6.1.43-android14-11-ga2fa77d36d26-ab11204829 #1
+> [75703.933697][T10585] pstate: 62400005 (nZCv daif +PAN -UAO +TCO -DIT
+> -SSBS BTYPE=--)
+> [75703.933700][T10585] pc : snd_usb_endpoint_close+0x30/0x104
+> [75703.933721][T10585] lr : snd_usb_endpoint_close+0x28/0x104
+> [75703.933724][T10585] sp : ffffffc04b2bb740
+> [75703.933725][T10585] x29: ffffffc04b2bb740 x28: ffffff8024e3ba78
+> x27: ffffffd266e91da0
+> [75703.933728][T10585] x26: ffffffc04b2bb7a8 x25: ffffff89bec5be00
+> x24: 00000000ffffffea
+> [75703.933730][T10585] x23: 0000000000000002 x22: ffffff885d568008
+> x21: ffffff8024e3ba78
+> [75703.933732][T10585] x20: ffffff885d568000 x19: ffffff8024e3bb18
+> x18: ffffffd26db2d140
+> [75703.933734][T10585] x17: 00000000f01b0818 x16: 00000000f01b0818
+> x15: 0000000000000008
+> [75703.933736][T10585] x14: ffffff8a3e2b5780 x13: ffffff8a3e2b5780
+> x12: ffffffd26cbd2770
+> [75703.933738][T10585] x11: 0000000000000001 x10: ffffff8984320000 x9
+> : 4f43b86e946b4e00
+> [75703.933740][T10585] x8 : 0000000000000000 x7 : 0000000000000001 x6
+> : fffffffdef8e8b70
+> [75703.933742][T10585] x5 : 0000000000000001 x4 : 0000000000000000 x3
+> : ffffff8024e3bb28
+> [75703.933743][T10585] x2 : 00000001011fa7c9 x1 : ffffffc04b2bb680 x0
+> : 0000000000000000
+> [75703.933746][T10585] Call trace:
+> [75703.933747][T10585]  snd_usb_endpoint_close+0x30/0x104
 
-  Following up on this and discussions in this patch series
+Who is actually calling snd_usb_endpoint_close()?
+I guess that's rather a bug in the call pattern, not the code in
+USB-audio driver itself.
 
-https://lore.kernel.org/linux-usb/CO1PR17MB54195BE778868AFDFE2DCB36E1112@CO=
-1PR17MB5419.namprd17.prod.outlook.com/
-
-Example from that thread with c_alt_name changed to c_name as it lives
-in an "alt.x" directory
-and removal of the num_alt_modes in favor of just allowing "mkdir
-alt.x" to create new alt mode
-settings:
-
-(all existing properties + the following new properties)
-c_it_name
-c_it_ch_name
-c_fu_name
-c_ot_name
-p_it_name
-p_it_ch_name
-p_fu_name
-p_ot_name
-
-alt.0
-  c_name
-  p_name
-alt.1 (for alt.1, alt.2, etc.)
-  c_name
-  p_name
-  c_ssize
-  p_ssize
-  (Additional properties here for other things that are settable for
-each alt mode,
-   but the only one I've implemented in my prototype so far is sample size.=
-)
-
-
-Here is a more detailed breakdown of the (current) proposal:
-
-* Allow the user to create "alt.x" directories inside uac1 and uac2
-function configfs
-  * Prior to creation of any of these alt.x subdirectories, the
-function behaves the same
-    as it does today. No "alt.x" directories would exist on creation
-of the function.
-  * Creation of "alt.0" contains only "c_name" and "p_name" to set the
-USB string name
-     for this alt mode, with the defaults as "Capture Inactive" and
-"Playback Inactive"
-  * Creation of "alt.x" where x is an integer, contains the same name
-strings but
-     with defaults of "Capture Active" and "Playback Active" and
-additional files
-     for any per-alt-mode configurable settings (such as c_ssize, p_ssize, =
-etc.)
-     At the time of creation, values for those are copied from the
-corresponding settings
-     in the function main configfs directory.
-  * Creation of "alt.1" in particular changes the meaning of the files
-in the main
-     function configfs dir so that they are only _default_ values used
-when creating
-     "alt.x" directories and settings from "alt.1" will now be used
-for alt mode 1.
-     (Alt mode 1 always exists, even when "alt.1" has not been created.)
-
-* ALSA card interface behavior
-  * Configuration of the ALSA card interface remains the same. It is config=
-ured
-    when binding the function to match the settings in the main
-function configfs.
-    "alt.x" settings have no effect on the created ALSA card setup
-  * Sample size will be converted between ALSA and USB data by
-dropping extra bits
-    or zero padding samples (eg 16->24 will zero pad a byte, 24->16
-will drop a byte)
-  * Channel count differences will ignore extra incoming channels and
-zero outgoing
-    extra channels (eg 8->2 will just copy the first two and ignore
-the rest. 2->8 will
-    copy the first two and zero the rest.)
-  * Per-alt-mode configurable settings will have a read-only ALSA control (=
-like
-    sample rate does currently) that can be used to inform the program atta=
-ched
-    to the ALSA card what the current state of those settings are when the =
-USB
-    host selects an alt mode.
-
-An simple example of how this could be used to create a second alt mode:
-
-mkdir uac1.0
-echo 24 > uac1.0/p_ssize
-echo 24 > uac1.0/c_ssize
-mkdir uac1.0/alt.2
-echo 16 > uac1.0/alt.2/c_ssize
-
-NOTE: Alt modes are separately selectable by the host for playback and capt=
-ure
-so the host can pick and choose as desired. There is no need to make an alt=
- mode
-for every combination of playback and capture settings. In this
-example the host can
-pick either 24 or 16 bit samples for capture, but is only allowed 24
-bit samples for
-playback as both alt.1 (via uac1.0/p_ssize) and alt.2 (via default copied t=
-o
-uac1.0/alt.2/p_ssize) have been configured as 24-bit.
+snd_usb_endpoint_close() is supposed to be called only for a really
+opened endpoint.  So, if any, it's rather a race (or a bug) in the
+caller side, and it should be addressed there instead.
 
 
-On Thu, Apr 25, 2024 at 11:08=E2=80=AFAM Pavel Hofman <pavel.hofman@ivitera=
-.com> wrote:
->
->
-> On 25. 04. 24 11:22, Takashi Iwai wrote:
-> > On Wed, 24 Apr 2024 09:40:52 +0200,
-> > Pavel Hofman wrote:
-> >>
-> >>
-> >> On 17. 04. 24 13:07, Pavel Hofman wrote:
-> >>
-> >>> I am considering implementation of multiple altsettings to f_uac2, so
-> >>> that multiple combinations of channels and samplesizes can be offered=
- to
-> >>> the host.
-> >>>
-> >>> Configuration:
-> >>> --------------
-> >>> * each altsetting for each direction should define
-> >>>    * channel mask
-> >>>    * samplesize
-> >>>    * hs_bint bInterval
-> >>>    * c_sync type (for capture only)
-> >>>
-> >>>
-> >>> Perhaps the easiest config would be allowing lists for the existing
-> >>> parameters (like the multiple samplerates were implemented). All the
-> >>> list params would have to have the same number of items - initial che=
-ck.
-> >>> First values in the list would apply to altsetting 1, second to
-> >>> altsetting 2 etc.
-> >>>
-> >>> Or the altsetting could be some structured configfs param - please is
-> >>> there any recommended standard for structured configfs params?
-> >>>
-> >>>
-> >>> Should the config also adjust the list of allowed samplerates for eac=
-h
-> >>> altsetting? Technically it makes sense as higher number of channels c=
-an
-> >>> decrease the max samplerate, e.g. for via a TDM interface. If so, it
-> >>> would need either the structured configuration or some "list of lists=
-"
-> >>> format.
-> >>>
-> >>>
-> >>> Implementation:
-> >>> ---------------
-> >>>
-> >>> Parameters could be turned to arrays of fixed predefined sizes, like =
-the
-> >>> p/s_srates. E.g. 5 max. altsettings in each direction would consume o=
-nly
-> >>> 4 * (5-1) + 3* (5-1) =3D 28 extra ints (excluding the samplerates con=
-fig).
-> >>>
-> >>> Currently all descriptor structs are statically pre-allocated as ther=
-e
-> >>> are only two hard-coded altsettings. IMO the descriptors specific for
-> >>> each altsetting could be allocated dynamically in a loop over all
-> >>> none-zero alsettings.
-> >>>
-> >>> Please may I ask UAC2 gadget "stakeholders" for comments, suggestions=
-,
-> >>> recommendations, so that my eventual initial version was in some
-> >>> generally acceptable direction?
-> >>>
-> >>
-> >> This feature has coincidentally arisen in recent commits by Chris
-> >> https://lore.kernel.org/lkml/c9928edb-8b2d-1948-40b8-c16e34cea3e2@ivit=
-era.com/T/
-> >>
-> >> Maybe Takashi's commits to the midi gadget could be a way
-> >> https://patchwork.kernel.org/project/alsa-devel/list/?series=3D769151&=
-state=3D%2A&archive=3Dboth
-> >> The midi gadget allows multiple configurations now, where configs are
-> >> placed into a separate block.X configfs directory. That way the config=
-fs
-> >> recommendation to keep one value per item is adhered to and the
-> >> configuration is nice and clean.
-> >>
-> >> This method would nicely allow various samplerate lists for each
-> >> altsetting, without having to use some obscure list of lists.
-> >>
-> >> The f_uac2 tree config could have e.g. alt.1-X subdirs, to fit the
-> >> altsetting ID. I am not sure the dot index not starting with 0 would b=
-e
-> >> an issue.
-> >>
-> >> Now the question would be what to do with the existing (and the new
-> >> params added by Chris) flat-structure parameters which apply to (the
-> >> only one) altsetting 1. Maybe they could be used as defaults for the
-> >> other altsettings for unspecified parameters?
-> >>
-> >> I very much appreciate any input, thank you all in advance.
-> >
-> > IMO, a softer approach would be to use subdirs for alt1+ while flat
-> > files are kept used for alt0.
->
-> Thanks a lot for your help. IIUC almost all existing configs for the
-> UAC1/2 functions apply to the "run" altsetting - altsetting 1. The
-> altsetting 0 is for stopping the operation, IIUC. Actually that's how
-> the stream stop is detected on the gadget side - transition alt1 -> alt0.
->
-> Did you perhaps mean the first "running" altsetting?
->
->
-> >  Alternatively, we may allow creating
-> > alt0, too, and the values there will win over the flat values.
-> >
->
-> IIUC this would be the meaning of default configs, in case they are not
-> specified in the subdir. I like that as it would make the configuration
-> easier if not generated by some script.
->
-> Thanks,
->
-> Pavel.
->
->
+thanks,
+
+Takashi

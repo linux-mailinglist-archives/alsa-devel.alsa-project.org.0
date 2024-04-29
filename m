@@ -2,152 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24FF18B5C4B
-	for <lists+alsa-devel@lfdr.de>; Mon, 29 Apr 2024 17:03:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 777788B5D1B
+	for <lists+alsa-devel@lfdr.de>; Mon, 29 Apr 2024 17:16:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5784782C;
-	Mon, 29 Apr 2024 17:03:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5784782C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 06EA6839;
+	Mon, 29 Apr 2024 17:15:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 06EA6839
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1714403025;
-	bh=miTWxwVdZbDlZpdmKVl7wyYlLIVCGSI4AfkWRG9XsGs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1714403768;
+	bh=B70cHC5B2+Mi8fKnsDPo/GoKjmjKzMFW4JNazblknHQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=LZ7YDvEOUZ+L2n81lG8ouHLK7yOeATxzKTq/l+7T5gotH094K5u4UZxz84dV0hRXA
-	 7roNwegLtBkDuxP4kST1fNxOvJqdOmli6z+CaNB629Mug/5pYcIxqu6mit4HFn7qkh
-	 Dz52kj7Hcfb4qOQmOw8JOOQ6vmRvY3SQrq0eMvdg=
+	b=SvtuRfjypXudZ0CkapcFBuI6h/OsHIlArE/i9tpjZj1W9mKBi2OYmL+lHefEaPVBo
+	 6VKw2GsKOgXsuYWeJCKXdrtky7jnthS51YsQiVR56b5Kxs09k/9W22Llwj1u8JgJoo
+	 5ldxLG3dJOPMLRoHs+jAafVStNz4vtPMMReBHI5s=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A62F0F80571; Mon, 29 Apr 2024 17:03:19 +0200 (CEST)
+	id A6BE7F805A1; Mon, 29 Apr 2024 17:15:35 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3E6D8F8057A;
-	Mon, 29 Apr 2024 17:03:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E2ECBF8057B;
+	Mon, 29 Apr 2024 17:15:34 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A0818F804CC; Mon, 29 Apr 2024 17:03:15 +0200 (CEST)
+	id 25583F8028D; Mon, 29 Apr 2024 17:15:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2FA0FF8003C
-	for <alsa-devel@alsa-project.org>; Mon, 29 Apr 2024 17:02:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2FA0FF8003C
+	by alsa1.perex.cz (Postfix) with ESMTPS id BA84BF800B5
+	for <alsa-devel@alsa-project.org>; Mon, 29 Apr 2024 17:15:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BA84BF800B5
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=rCnAq+p9;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=Wh4NHGGF;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=lpCbELZ3;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=PgYvQ55k
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id A25511F449;
-	Mon, 29 Apr 2024 15:02:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1714402973;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rhynKhGQ4JRaS+p7qeBOoKEeBflNlibc5Py6TFNuPSY=;
-	b=rCnAq+p9D5b+dI02+/FS+IpKWGEMQNpZOVGWiTdijhGy501pz3tIOxAUeOn3QYvrNhe84B
-	4WYTmiGuPkq6CRjEMdge60HGc5TCbgi2zoGb0EU7lx51yp4lvozAfp0xqcXmzuHt24hmUA
-	EWguxiL/ipGKV82fQFDV+xhkPMu6OC0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1714402973;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rhynKhGQ4JRaS+p7qeBOoKEeBflNlibc5Py6TFNuPSY=;
-	b=Wh4NHGGF6ocVUqNMvsE6IbZvRwoQ1f1UXpSCAoqd8LQB5pzuPE/Meuq/KLSOC6hI30/+uz
-	QUKYK3r9SNkRcmAw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1714402972;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rhynKhGQ4JRaS+p7qeBOoKEeBflNlibc5Py6TFNuPSY=;
-	b=lpCbELZ3ONDfQjS5d+T26NqEf8z6WF0f5zzZw6pmQyY09qmwp8sVnNB6HkCKyaMMiwHd7L
-	dhjq6YCOlfZScATikMf7ctuJRaDTGv2H884SICt7C7/pi145zwn7w+yhre1EYS7oRQrkNQ
-	SW1lNkhaSQu9BXHpOKFkUiPQju371kk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1714402972;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rhynKhGQ4JRaS+p7qeBOoKEeBflNlibc5Py6TFNuPSY=;
-	b=PgYvQ55kKm4HSARxg/u1W8jqh9cXFFfnZTb5LUzaUCVCcTQmuOwIjtwxRxroElqw9YvzOU
-	6UgA9pOtinnv8mCg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6E9C2138A7;
-	Mon, 29 Apr 2024 15:02:52 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 2k2xGZy2L2YvFgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 29 Apr 2024 15:02:52 +0000
-Date: Mon, 29 Apr 2024 17:03:04 +0200
-Message-ID: <8734r4p5xz.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: linux-sound@vger.kernel.org,	alsa-devel@alsa-project.org,
-	broonie@kernel.org,	Mauro Carvalho Chehab <mchehab@kernel.org>,	Bard Liao
- <yung-chuan.liao@linux.intel.com>,	=?ISO-8859-1?Q?P=E9ter?= Ujfalusi
- <peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH] ALSA: hda: intel-dsp-config: harden I2C/I2S codec
- detection
-In-Reply-To: <20240426152818.38443-1-pierre-louis.bossart@linux.intel.com>
-References: <20240426152818.38443-1-pierre-louis.bossart@linux.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.83 / 50.00];
-	BAYES_HAM(-2.53)[97.89%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.998];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	RCVD_TLS_ALL(0.00)[];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[intel.com:email]
-Message-ID-Hash: IVEUPEG4BE5WIHECYYWIKQSU6V4BIL6P
-X-Message-ID-Hash: IVEUPEG4BE5WIHECYYWIKQSU6V4BIL6P
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=bLq3wE6s
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1714403726; x=1745939726;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=B70cHC5B2+Mi8fKnsDPo/GoKjmjKzMFW4JNazblknHQ=;
+  b=bLq3wE6s8Vk2B8XbHdYj3z3RsKzvnIM1kNEIUqJANAvsemIIwM0d7ixk
+   xxt8k32ME8adGSE0SjZXXLNpiURmwl7kcu6vqmylJNg8uIaNfrJUAWN8F
+   Y7XHQ5DDZ6Bxy6pIkyl5glQawqpe3UDcE4n+wgn1EQodwj0Dsa1BaFSqn
+   Ldq0vwRQE8rf9sLXG8oQnU6lvb+drYV8EVHf5CadOgsSP8MlFC/uYLToG
+   WfIFLhAPC1yFf6i0FnPOV0hQzxN2Xgr5rtvq7KsQyUJae/8unbkeiog2x
+   gDGGrBZPdFo1+WWjrs0nxFZU6ht62xG3XKX2wJ76zZNw2XjrYMD9T9yfj
+   g==;
+X-CSE-ConnectionGUID: vvR4rsPyQemL/JuWN+5LFw==
+X-CSE-MsgGUID: Z/U7wu7RTE2hHzVDPHJitg==
+X-IronPort-AV: E=McAfee;i="6600,9927,11059"; a="9945180"
+X-IronPort-AV: E=Sophos;i="6.07,239,1708416000";
+   d="scan'208";a="9945180"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Apr 2024 08:15:20 -0700
+X-CSE-ConnectionGUID: u85Xn9esQbiNAOHLNB2I7Q==
+X-CSE-MsgGUID: uvcJBmBaTs+Er142l9OU5A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.07,239,1708416000";
+   d="scan'208";a="30587851"
+Received: from pingchan-mobl.amr.corp.intel.com (HELO [10.212.49.248])
+ ([10.212.49.248])
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Apr 2024 08:15:20 -0700
+Message-ID: <8c87a931-9e9b-4922-a126-867da5e0b3df@linux.intel.com>
+Date: Mon, 29 Apr 2024 10:15:19 -0500
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ALSA: hda: intel-sdw-acpi: fix usage of
+ device_get_named_child_node()
+To: Takashi Iwai <tiwai@suse.de>
+Cc: linux-sound@vger.kernel.org, alsa-devel@alsa-project.org,
+ broonie@kernel.org
+References: <20240426152731.38420-1-pierre-louis.bossart@linux.intel.com>
+ <874jbkp5zz.wl-tiwai@suse.de>
+Content-Language: en-US
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <874jbkp5zz.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: 3DGCJF67F4QCWWFSFQH5PMLTLGKA2L2O
+X-Message-ID-Hash: 3DGCJF67F4QCWWFSFQH5PMLTLGKA2L2O
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -159,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IVEUPEG4BE5WIHECYYWIKQSU6V4BIL6P/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3DGCJF67F4QCWWFSFQH5PMLTLGKA2L2O/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -168,34 +110,32 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 26 Apr 2024 17:28:18 +0200,
-Pierre-Louis Bossart wrote:
-> 
-> The SOF driver is selected whenever specific I2C/I2S HIDs are reported
-> as 'present' in the ACPI DSDT. In some cases, an HID is reported but
-> the hardware does not actually rely on I2C/I2S.  This false positive
-> leads to an invalid selection of the SOF driver and as a result an
-> invalid topology is loaded.
-> 
-> This patch hardens the detection with a check that the NHLT table is
-> consistent with the report of an I2S-based codec in DSDT. This table
-> should expose at least one SSP endpoint configured for an I2S-codec
-> connection.
-> 
-> Tested on Huawei Matebook D14 (NBLB-WAX9N) using an HDaudio codec with
-> an invalid ES8336 ACPI HID reported:
-> 
-> [    7.858249] snd_hda_intel 0000:00:1f.3: DSP detected with PCI class/subclass/prog-if info 0x040380
-> [    7.858312] snd_hda_intel 0000:00:1f.3: snd_intel_dsp_find_config: no valid SSP found for HID ESSX8336, skipped
-> 
-> Reported-by: Mauro Carvalho Chehab <mchehab@kernel.org>
-> Tested-by: Mauro Carvalho Chehab <mchehab@kernel.org>
-> Closes: https://github.com/thesofproject/linux/issues/4934
-> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-> Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Hi Takashi,
 
-Applied now.  Thanks.
+>> The documentation for device_get_named_child_node() mentions this
+>> important point:
+>>
+>> "
+>> The caller is responsible for calling fwnode_handle_put() on the
+>> returned fwnode pointer.
+>> "
+>>
+>> Add fwnode_handle_put() to avoid a leaked reference.
+>>
+>> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> 
+> Can we have a corresponding Fixes tag?
 
+Good question.
 
-Takashi
+The initial code was in
+
+6d2c66695bf3 ("soundwire: intel: transition to 3 steps initialization")
+
+but then moved with
+
+08c2a4bc9f2a ("ALSA: hda: move Intel SoundWire ACPI scan to dedicated
+module")
+
+I guess a Fixes tag for the latter is good enough, it's a 2021 commit
+and that would probably cover most SoundWire platforms.

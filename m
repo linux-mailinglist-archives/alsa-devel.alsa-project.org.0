@@ -2,149 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 688108B5DCB
-	for <lists+alsa-devel@lfdr.de>; Mon, 29 Apr 2024 17:33:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 559A48B5E16
+	for <lists+alsa-devel@lfdr.de>; Mon, 29 Apr 2024 17:49:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B21ED823;
-	Mon, 29 Apr 2024 17:33:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B21ED823
+	by alsa0.perex.cz (Postfix) with ESMTPS id 486A5820;
+	Mon, 29 Apr 2024 17:49:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 486A5820
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1714404832;
-	bh=8IECo8OkMTR2jelHnyvI2VwFXrbvedpGsArS08GD99Y=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=sotSEMJsATjBYfDxL0DY0bg9IjnJuFjA/43K8LA1ZEYVXRkuz6gh/33LjVaE869bj
-	 T9oIri79yiRIEAIEWtWzIqRJGM3xcC5y/Hul4IJQjYsXRur8Voj/q3NLv/LhVTnB8D
-	 Akzxqm4qC9udG55QQ6dLTmcric6eKkZK0vNjk7cc=
+	s=default; t=1714405784;
+	bh=R25+vm62+Ne8uiOdiOfEZlbX4DfhAhHpc4l0dOcBfxY=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=TifHdaWDtjdJC4bnJJd7PtQU4Eke3af3vO0BPccGqrZKuKJ6HPNwJRtgAH4hUoOmT
+	 M+vAXOGTPvrkxdp5WXssNMFe+Uy9wy4r8MjIJJwOCf1nCmW88jU0ayMNm8x5dzNrC2
+	 sFdE2WfJ3N22i0MLTxUvP4akaIsS99kf5QRgNNeY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0460EF80588; Mon, 29 Apr 2024 17:33:20 +0200 (CEST)
+	id E4EADF805A8; Mon, 29 Apr 2024 17:49:12 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2A04AF80578;
-	Mon, 29 Apr 2024 17:33:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7F2E4F8057E;
+	Mon, 29 Apr 2024 17:49:12 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8D6E5F8028D; Mon, 29 Apr 2024 17:33:15 +0200 (CEST)
+	id 4E8E2F80548; Mon, 29 Apr 2024 17:49:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A459EF800B5
-	for <alsa-devel@alsa-project.org>; Mon, 29 Apr 2024 17:32:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A459EF800B5
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1BB30F8003C
+	for <alsa-devel@alsa-project.org>; Mon, 29 Apr 2024 17:48:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1BB30F8003C
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=IWogoiFK;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=rWuqhu8+;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=IWogoiFK;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=rWuqhu8+
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 4B743338C1;
-	Mon, 29 Apr 2024 15:32:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1714404763;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=k94lh0MxCewUqNQNuEIjURmcuvKGiUnWiBKGbbZqaCo=;
-	b=IWogoiFKwVnJ/2PNvQ5vCNAiOqt0mNfnwZPKz+tABKEcQh1BmASgdw8xoQgDbxWGi6TCq7
-	kJ2HtQ7uq69zJBs+Enawck/Qz+32LQNPxtbLu0coO2Bual+AUeC4ZrSsB+xbkADkrNgrW/
-	++DhDForMxxUBNOIzC+qv1nNsW4BUx4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1714404763;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=k94lh0MxCewUqNQNuEIjURmcuvKGiUnWiBKGbbZqaCo=;
-	b=rWuqhu8+ThLq4TqXjXigevPI4T7vYkZh4Y1tugcfTXogxVRX1R4yU+R3cNkfj0zjlRw47m
-	LInzEBeKXxMa4VAg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1714404763;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=k94lh0MxCewUqNQNuEIjURmcuvKGiUnWiBKGbbZqaCo=;
-	b=IWogoiFKwVnJ/2PNvQ5vCNAiOqt0mNfnwZPKz+tABKEcQh1BmASgdw8xoQgDbxWGi6TCq7
-	kJ2HtQ7uq69zJBs+Enawck/Qz+32LQNPxtbLu0coO2Bual+AUeC4ZrSsB+xbkADkrNgrW/
-	++DhDForMxxUBNOIzC+qv1nNsW4BUx4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1714404763;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=k94lh0MxCewUqNQNuEIjURmcuvKGiUnWiBKGbbZqaCo=;
-	b=rWuqhu8+ThLq4TqXjXigevPI4T7vYkZh4Y1tugcfTXogxVRX1R4yU+R3cNkfj0zjlRw47m
-	LInzEBeKXxMa4VAg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 290ED138A7;
-	Mon, 29 Apr 2024 15:32:43 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id MxfYCJu9L2ZdIAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 29 Apr 2024 15:32:43 +0000
-Date: Mon, 29 Apr 2024 17:32:55 +0200
-Message-ID: <87wmognpzs.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: linux-sound@vger.kernel.org,
-	alsa-devel@alsa-project.org,
-	broonie@kernel.org
-Subject: Re: [PATCH] ALSA: hda: intel-sdw-acpi: fix usage of
- device_get_named_child_node()
-In-Reply-To: <8c87a931-9e9b-4922-a126-867da5e0b3df@linux.intel.com>
-References: <20240426152731.38420-1-pierre-louis.bossart@linux.intel.com>
-	<874jbkp5zz.wl-tiwai@suse.de>
-	<8c87a931-9e9b-4922-a126-867da5e0b3df@linux.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-3.29 / 50.00];
-	BAYES_HAM(-2.99)[99.97%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	RCPT_COUNT_THREE(0.00)[4];
-	FROM_HAS_DN(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[intel.com:email]
-Message-ID-Hash: R5CAG2K66ANPY6YNEH6DEINOIIFIZ37O
-X-Message-ID-Hash: R5CAG2K66ANPY6YNEH6DEINOIIFIZ37O
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=cDOcxxid
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
+ 43T6w4ko002816;
+	Mon, 29 Apr 2024 10:48:57 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
+	from:to:cc:subject:date:message-id:mime-version
+	:content-transfer-encoding:content-type; s=PODMain02222019; bh=9
+	Z+InM3fGAIBxOq1qrvLElfhG+iCwLb2LgUarZtzndg=; b=cDOcxxidzkxxjOt5M
+	11bdj7m5rDHIVLMxFkB8THi62G5cbFL8edirJQ3WCNfYaeWz2V1+kRbL/ZDQj7w/
+	l3P5w1cvABbQlqMWhSS/uryoYvCIH/zTGpTQbuQZK95b78T4flBRA58rgH6PsMJe
+	tW/bpXiuoHmzGzn6cIZvBOakzEDh3ZqZpefuDOyd9Eq5U3x3aclWg48ZYuPLd1Bv
+	g7cSblqrBjHI1wgnQOhp1R8BvtLFdSQ+BAHJW5TVWrZu6JSYQSrU6pVI+Rj5N1mX
+	/OEa6NChESpErmE2x1dvV+N/sS23clr5ZrfzbLGlipKTt3Ft950VjdPB0L3W7myL
+	yTUaw==
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3xrwsjj2yj-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 29 Apr 2024 10:48:57 -0500 (CDT)
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 29 Apr
+ 2024 16:48:56 +0100
+Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1544.9 via Frontend Transport; Mon, 29 Apr 2024 16:48:55 +0100
+Received: from sbinding-cirrus-dsktp2.ad.cirrus.com (unknown [198.61.65.105])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id AB8D282024A;
+	Mon, 29 Apr 2024 15:48:55 +0000 (UTC)
+From: Stefan Binding <sbinding@opensource.cirrus.com>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+CC: <alsa-devel@alsa-project.org>, <linux-sound@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <patches@opensource.cirrus.com>,
+        "Stefan
+ Binding" <sbinding@opensource.cirrus.com>
+Subject: [PATCH v1 0/2] ALSA: hda: cs35l41: Ignore errors when configuring
+ interrupts to allow laptops with bad ACPI to play audio
+Date: Mon, 29 Apr 2024 16:48:51 +0100
+Message-ID: <20240429154853.9393-1-sbinding@opensource.cirrus.com>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: WkX4U-jiJGlRsx0YqXNZ_OE5832k4UuM
+X-Proofpoint-GUID: WkX4U-jiJGlRsx0YqXNZ_OE5832k4UuM
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: 2JPZDP2TKSYQZ2RKZCD4SXC5RP7LHEQ6
+X-Message-ID-Hash: 2JPZDP2TKSYQZ2RKZCD4SXC5RP7LHEQ6
+X-MailFrom: prvs=284996dae7=sbinding@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -156,7 +100,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/R5CAG2K66ANPY6YNEH6DEINOIIFIZ37O/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2JPZDP2TKSYQZ2RKZCD4SXC5RP7LHEQ6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -165,42 +109,27 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 29 Apr 2024 17:15:19 +0200,
-Pierre-Louis Bossart wrote:
-> 
-> Hi Takashi,
-> 
-> >> The documentation for device_get_named_child_node() mentions this
-> >> important point:
-> >>
-> >> "
-> >> The caller is responsible for calling fwnode_handle_put() on the
-> >> returned fwnode pointer.
-> >> "
-> >>
-> >> Add fwnode_handle_put() to avoid a leaked reference.
-> >>
-> >> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> > 
-> > Can we have a corresponding Fixes tag?
-> 
-> Good question.
-> 
-> The initial code was in
-> 
-> 6d2c66695bf3 ("soundwire: intel: transition to 3 steps initialization")
-> 
-> but then moved with
-> 
-> 08c2a4bc9f2a ("ALSA: hda: move Intel SoundWire ACPI scan to dedicated
-> module")
-> 
-> I guess a Fixes tag for the latter is good enough, it's a 2021 commit
-> and that would probably cover most SoundWire platforms.
+Some laptops have a bad _CRS defined for its interrupt.
+This errors out inside the driver probe for CS35L41 HDA.
+However, there is no fix in software for this bad configuration,
+and it is unlikely to get a new BIOS, therefore it is better to
+allow the laptop to continue probe, instead of erroring out inside
+the probe. The interrupt is only used for Error Detection and
+recovery, without the interrupt the driver will continue to function,
+but errors will not be detected, and recovery will require a reboot.
 
-OK, let's take it, then.  Applied now.
+Also add support for ASUS ROG 2024 laptops.
+These laptops were released without _DSD, so need to be added into
+the CS35L41 config table. Quirks for these laptops already exist.
 
+Stefan Binding (2):
+  ALSA: hda: cs35l41: Ignore errors when configuring IRQs
+  ALSA: hda: cs35l41: Add support for ASUS ROG 2024 Laptops
 
-thanks,
+ sound/pci/hda/cs35l41_hda.c          | 69 +++++++++++++++++++---------
+ sound/pci/hda/cs35l41_hda_property.c | 10 ++++
+ 2 files changed, 57 insertions(+), 22 deletions(-)
 
-Takashi
+-- 
+2.34.1
+

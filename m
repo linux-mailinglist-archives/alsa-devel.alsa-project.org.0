@@ -2,113 +2,110 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EF978B62E0
-	for <lists+alsa-devel@lfdr.de>; Mon, 29 Apr 2024 21:51:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F0D68B6312
+	for <lists+alsa-devel@lfdr.de>; Mon, 29 Apr 2024 22:03:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8CD49839;
-	Mon, 29 Apr 2024 21:51:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8CD49839
+	by alsa0.perex.cz (Postfix) with ESMTPS id D4BB9828;
+	Mon, 29 Apr 2024 22:03:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D4BB9828
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1714420273;
-	bh=eVY5B9TKSEJHZydMdH45kMqzzeNFXqTEx/rOwKxe4KM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1714421001;
+	bh=v+dxWNWY34GkaZ5wYOrRbLg5bO3DUAUxb8ICY4EgA1I=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=nICjCAemePc+XIvKkW3ZRL3w9VyZGdPEyy8teQQ/rPcVnAcxaNmsUIJR3cR8gS+zA
-	 yoO1d7gpjiPZj1WudwgdBq7kAWQUMt2GMI4RTGPxgSG0hHBJfEuPIZH3PBZtc4m247
-	 hgYQKIlM60VrDSPmO+dNPcBhs7nr36J5VOH1Mt3o=
+	b=atqu/lHcyGPJLAWRJcdy7ZyPuTqlxpmP9QD769o3jccAOKtqAX47qA6H3HrUYuZkD
+	 +bNBci6pCL/xb3UXAfzsuOsswNmRPK5mvhH31H1RDZBICU7RqAcI6kui3b60LNlV6j
+	 QnYRumQsthQ8Ai+y9ugZcaLf3ObZ+mfNGIXqT+Dg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 691B7F805AA; Mon, 29 Apr 2024 21:50:39 +0200 (CEST)
+	id 2003EF805A9; Mon, 29 Apr 2024 22:02:50 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A4F4EF80587;
-	Mon, 29 Apr 2024 21:50:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0150DF8059F;
+	Mon, 29 Apr 2024 22:02:49 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C5DCEF8028D; Mon, 29 Apr 2024 21:50:33 +0200 (CEST)
+	id 92F83F8028D; Mon, 29 Apr 2024 22:02:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com
- [IPv6:2607:f8b0:4864:20::631])
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [IPv6:2a00:1450:4864:20::529])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 37E6BF800B5
-	for <alsa-devel@alsa-project.org>; Mon, 29 Apr 2024 21:50:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37E6BF800B5
+	by alsa1.perex.cz (Postfix) with ESMTPS id AF27EF800B5
+	for <alsa-devel@alsa-project.org>; Mon, 29 Apr 2024 22:02:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF27EF800B5
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256
- header.s=google header.b=UPXWce0d
-Received: by mail-pl1-x631.google.com with SMTP id
- d9443c01a7336-1eac92f7c74so38072725ad.3
+	dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=DDqa6IuA
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-5724f26b8c9so6696389a12.1
         for <alsa-devel@alsa-project.org>;
- Mon, 29 Apr 2024 12:50:27 -0700 (PDT)
+ Mon, 29 Apr 2024 13:02:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1714420225; x=1715025025;
+        d=gmail.com; s=20230601; t=1714420946; x=1715025746;
  darn=alsa-project.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=t66m2yC6w51sUPxTLrw0e9BFXrR1zy7lTroSpOOOXcU=;
-        b=UPXWce0dvxccc7hf8f1Xlx+9gy2OufewTBIqNIHuQxYZcu8u+Xfy1pLn40If0YMmDQ
-         mnogEMzp8XvJT1CT/v+QQAcGHg4FU7K5Ch7A3YA+PEmL4AduZ6dX+IOBapf5L6atpeJF
-         1s7ABd67Q4Xo+ZuGuiAYNDtp+A40qvFSipRow=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714420225; x=1715025025;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=t66m2yC6w51sUPxTLrw0e9BFXrR1zy7lTroSpOOOXcU=;
-        b=Yj33TrQUWYZYl/1VYjz01Zy8tiC4HfRlmWR2RoHJvr7TMCMBnnEW3oZvkcBKLoTdY4
-         29huKhNnrkj5eNkw9yZ2Wd7rAt/oNPTAmUUv1OgLGg+VkxjI+VZjoPKLN6J3J/iX/WTN
-         veMhlWT3Vl667P40S4xiyNUmT8opf8CPLBy2vIG5TDalGh/ZtCEaUneSE+yQR0i27lQ3
-         7dOthzwqDihlOPZbBhe0Ny/PNuz0ID7aMj/GUjnqSe4nZlzQH5hQeapiPirQdxbHt85T
-         2qtsoW0PScXwDLE/Nq/bWK5gNbnj/IX631e03ishmf2npDLUzP+PCI8z0lVkTp8pkhyK
-         IknQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWECJ8Gzrg+d8EBm8s2qR6vDZqezqMtlhhQqJr9zsGuyH/tUozX8RnYDigcG3VWDfR9s/2EWo+TYAJumVSWPBBwe+87AHoB1RG6R/0=
-X-Gm-Message-State: AOJu0Ywwzq0BZSTz0Azya/oBfR699iFkN4I0O0RRIH3ZIpSsWktGWoQw
-	2gXO3hTe36uUHdNYxueQt574NrH8YBH0uDqU+etW3hz18RmfDP5UFXwJfUkffBm1fUw8IGpCa4Y
-	=
+        bh=VsKE8r7F5xni1GwzY6+eg4w0O41Z5E2Stz6sTWPm390=;
+        b=DDqa6IuAhOMpGof58lFIo2eDflshJgRtxUpC0jYpNmUvuM6YPGRgH3HOgcA/41MnzF
+         l1/5yrzruJX7hLWCvlYETFtYGajHOrYP8scp31gfi4kADvmY+W3lm4Uj50Kl+o6uKIKQ
+         ZKskc/NjbtsT0PtyNXOL1/tXn/gnDiLw8iEvl/viOi4EkeEdRK6zz2TXOyJJoBLquEF4
+         vfoCixpFb6sYhRFYa7kgc0an0hSh1oGobLrB7fBzvOOvaB1jmd1/FA4zNierWWppRgjf
+         AlkLntXKgjh90uRKG3Nt4qurNgmKUeiALDh10CkVjCtMRJvGPwBuUAtb/rj+uZEhFTNc
+         FJZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1714420946; x=1715025746;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=VsKE8r7F5xni1GwzY6+eg4w0O41Z5E2Stz6sTWPm390=;
+        b=Kk4H1gNOD7ettTDPsNAoY7YtCmH4rcgWzjcCFxXI5WhZnUaTl6LnKwXpf4KrPAeFKA
+         lYfgBUdzmssjvEsNJuFQFM/O/+SK7rYJAlwbAQXenv9qFbKzt0kYXceTHh7QyDv6O/tf
+         UJ/TntX7B3LKpQYv0N8s/PWzTBp4gINSvLW+cdnmb0ch/kOtdablAwS3pGVAqtVZWd2j
+         yQA7c2hqYRslGJvDhfGJEXc/mqxe11nfpUItHPSYogCE7rpTB1X9FSt3L0Rxc/bGo+C/
+         OmGQH+yOHSltQJlpBCM9zYw5S/dAjAFu/ko2BbY2m5MGIeRReR6oWovsmm8HNsE4ndkb
+         4Ezw==
+X-Gm-Message-State: AOJu0YyrVnz0o1k+AmnAdjc2MQSYVqvPZiEw82A7LvLo9XPmO5ppPH1F
+	cYA0CLbadS7P7sCZROpdgEgtAoHMLtn0Wrs1n6O4MEG0YNRT96YM
 X-Google-Smtp-Source: 
- AGHT+IE+SteDEJUNTAb7/nI8MNDpW/XVg8ijQNerSCdwLAPwwr/v5RyMt4I/w7vZ1LzWcXiblxshPA==
-X-Received: by 2002:a17:902:f7d4:b0:1eb:5b59:fab9 with SMTP id
- h20-20020a170902f7d400b001eb5b59fab9mr618246plw.53.1714420225318;
-        Mon, 29 Apr 2024 12:50:25 -0700 (PDT)
-Received: from www.outflux.net ([198.0.35.241])
+ AGHT+IHIKx0SyAjsW4Smx5uzNZpKk0OnRHPvT5Zv6XPyI3hdLPyaGW8TdxmJ1VY4Gefq40RqnxSymg==
+X-Received: by 2002:a17:907:7e9e:b0:a58:e8cf:664f with SMTP id
+ qb30-20020a1709077e9e00b00a58e8cf664fmr718919ejc.23.1714420945336;
+        Mon, 29 Apr 2024 13:02:25 -0700 (PDT)
+Received: from jernej-laptop.localnet (86-58-6-171.dynamic.telemach.net.
+ [86.58.6.171])
         by smtp.gmail.com with ESMTPSA id
- jj1-20020a170903048100b001e2526a5cc3sm20699547plb.307.2024.04.29.12.50.24
+ r20-20020a170906705400b00a555ef55ab5sm14215787ejj.218.2024.04.29.13.02.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 29 Apr 2024 12:50:24 -0700 (PDT)
-Date: Mon, 29 Apr 2024 12:50:24 -0700
-From: Kees Cook <keescook@chromium.org>
-To: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Clemens Ladisch <clemens@ladisch.de>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
-	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
-	linux1394-devel@lists.sourceforge.net
-Subject: Re: [PATCH 0/2][next] firewire: Avoid -Wflex-array-member-not-at-end
- warnings
-Message-ID: <202404291250.FA94E630@keescook>
-References: <cover.1709658886.git.gustavoars@kernel.org>
- <20240306011030.GA71684@workstation.local>
- <6a7854af-a183-4db2-8400-4d9eb0cc4308@embeddedor.com>
- <202404291129.F261DEA21F@keescook>
- <90ddce3b-1ad5-49be-89f9-2f3e48d73e19@embeddedor.com>
+        Mon, 29 Apr 2024 13:02:24 -0700 (PDT)
+From: Jernej =?utf-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
+To: Ban Tao <fengzheng923@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Chen-Yu Tsai <wens@csie.org>,
+ Samuel Holland <samuel@sholland.org>, Joao Schim <joao@schimsalabim.eu>
+Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Subject: 
+ Re: [PATCH v2] ASoC: sunxi: DMIC: Add controls for adjusting the mic gains
+Date: Mon, 29 Apr 2024 22:02:23 +0200
+Message-ID: <2931892.e9J7NaK4W3@jernej-laptop>
+In-Reply-To: <20240429194920.1596257-1-joao@schimsalabim.eu>
+References: <20240429194920.1596257-1-joao@schimsalabim.eu>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <90ddce3b-1ad5-49be-89f9-2f3e48d73e19@embeddedor.com>
-Message-ID-Hash: 7QYIICQNM2PFS7TDABQRBDXBAN62F7NP
-X-Message-ID-Hash: 7QYIICQNM2PFS7TDABQRBDXBAN62F7NP
-X-MailFrom: keescook@chromium.org
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
+Message-ID-Hash: QKB7CIGDHJFRGTNKE7MO37LIR77SVZJV
+X-Message-ID-Hash: QKB7CIGDHJFRGTNKE7MO37LIR77SVZJV
+X-MailFrom: jernej.skrabec@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -120,7 +117,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7QYIICQNM2PFS7TDABQRBDXBAN62F7NP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QKB7CIGDHJFRGTNKE7MO37LIR77SVZJV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -129,30 +126,86 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, Apr 29, 2024 at 12:42:23PM -0600, Gustavo A. R. Silva wrote:
+Dne ponedeljek, 29. april 2024 ob 21:49:20 GMT +2 je Joao Schim napisal(a):
+> The AllWinner H6 and later SoCs that sport a DMIC block contain a set of registers to control
+> the gain (left + right) of each of the four supported channels.
 > 
+> Add ASoC controls for changing each of the stereo channel gains using alsamixer and alike
 > 
-> On 4/29/24 12:30, Kees Cook wrote:
-> > On Wed, Mar 06, 2024 at 10:18:59AM -0600, Gustavo A. R. Silva wrote:
-> > > 
-> > > > Thanks for the improvements, however we are mostly at the end of
-> > > > development period for v6.8 kernel. Let me postpone applying the patches
-> > > > until closing the next merge window (for v6.9), since we need the term to
-> > > > evaluate the change. I mean that it goes to v6.10 kernel.
-> > > 
-> > > Sure, no problem.
-> > > 
-> > > Actually, I'll send a v2 with DEFINE_FLEX(), instead.
-> > 
-> > I was just going through the patch tracker to make sure stuff got
-> > handled -- did a v2 of these ever get posted? I don't see anything in
-> > the tracker nor changes here in -next.
-> 
-> Yes, it's in linux-next already:
-> 
-> https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?id=1d717123bb1a7555a432e51a41709badf8545dba
+> Signed-off-by: Joao Schim <joao@schimsalabim.eu>
 
-Ah-ha! Thank you! :)
+Reviewed-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 
--- 
-Kees Cook
+Best regards,
+Jernej
+
+> ---
+>  sound/soc/sunxi/sun50i-dmic.c | 34 ++++++++++++++++++++++++++++++++++
+>  1 file changed, 34 insertions(+)
+> 
+> diff --git a/sound/soc/sunxi/sun50i-dmic.c b/sound/soc/sunxi/sun50i-dmic.c
+> index c76628bc86c6..dd32780fb6a4 100644
+> --- a/sound/soc/sunxi/sun50i-dmic.c
+> +++ b/sound/soc/sunxi/sun50i-dmic.c
+> @@ -14,6 +14,7 @@
+>  #include <sound/dmaengine_pcm.h>
+>  #include <sound/pcm_params.h>
+>  #include <sound/soc.h>
+> +#include <sound/tlv.h>
+>  
+>  #define SUN50I_DMIC_EN_CTL			(0x00)
+>  	#define SUN50I_DMIC_EN_CTL_GLOBE			BIT(8)
+> @@ -43,6 +44,17 @@
+>  	#define SUN50I_DMIC_CH_NUM_N_MASK			GENMASK(2, 0)
+>  #define SUN50I_DMIC_CNT				(0x2c)
+>  	#define SUN50I_DMIC_CNT_N				(1 << 0)
+> +#define SUN50I_DMIC_D0D1_VOL_CTR		(0x30)
+> +	#define SUN50I_DMIC_D0D1_VOL_CTR_0R			(0)
+> +	#define SUN50I_DMIC_D0D1_VOL_CTR_0L			(8)
+> +	#define SUN50I_DMIC_D0D1_VOL_CTR_1R			(16)
+> +	#define SUN50I_DMIC_D0D1_VOL_CTR_1L			(24)
+> +#define SUN50I_DMIC_D2D3_VOL_CTR                (0x34)
+> +        #define SUN50I_DMIC_D2D3_VOL_CTR_2R                     (0)
+> +        #define SUN50I_DMIC_D2D3_VOL_CTR_2L                     (8)
+> +        #define SUN50I_DMIC_D2D3_VOL_CTR_3R                     (16)
+> +        #define SUN50I_DMIC_D2D3_VOL_CTR_3L                     (24)
+> +
+>  #define SUN50I_DMIC_HPF_CTRL			(0x38)
+>  #define SUN50I_DMIC_VERSION			(0x50)
+>  
+> @@ -273,8 +285,30 @@ static const struct of_device_id sun50i_dmic_of_match[] = {
+>  };
+>  MODULE_DEVICE_TABLE(of, sun50i_dmic_of_match);
+>  
+> +static const SNDRV_CTL_TLVD_DECLARE_DB_SCALE(sun50i_dmic_vol_scale, -12000, 75, 1);
+> +
+> +static const struct snd_kcontrol_new sun50i_dmic_controls[] = {
+> +
+> +        SOC_DOUBLE_TLV("DMIC Channel 0 Capture Volume", SUN50I_DMIC_D0D1_VOL_CTR,
+> +                       SUN50I_DMIC_D0D1_VOL_CTR_0L, SUN50I_DMIC_D0D1_VOL_CTR_0R,
+> +                       0xFF, 0, sun50i_dmic_vol_scale),
+> +        SOC_DOUBLE_TLV("DMIC Channel 1 Capture Volume", SUN50I_DMIC_D0D1_VOL_CTR,
+> +                       SUN50I_DMIC_D0D1_VOL_CTR_1L, SUN50I_DMIC_D0D1_VOL_CTR_1R,
+> +                       0xFF, 0, sun50i_dmic_vol_scale),
+> +        SOC_DOUBLE_TLV("DMIC Channel 2 Capture Volume", SUN50I_DMIC_D2D3_VOL_CTR,
+> +                       SUN50I_DMIC_D2D3_VOL_CTR_2L, SUN50I_DMIC_D2D3_VOL_CTR_2R,
+> +                       0xFF, 0, sun50i_dmic_vol_scale),
+> +        SOC_DOUBLE_TLV("DMIC Channel 3 Capture Volume", SUN50I_DMIC_D2D3_VOL_CTR,
+> +                       SUN50I_DMIC_D2D3_VOL_CTR_3L, SUN50I_DMIC_D2D3_VOL_CTR_3R,
+> +                       0xFF, 0, sun50i_dmic_vol_scale),
+> +
+> +
+> +};
+> +
+>  static const struct snd_soc_component_driver sun50i_dmic_component = {
+>  	.name           = "sun50i-dmic",
+> +	.controls	= sun50i_dmic_controls,
+> +	.num_controls	= ARRAY_SIZE(sun50i_dmic_controls),
+>  };
+>  
+>  static int sun50i_dmic_runtime_suspend(struct device *dev)
+> 
+
+
+
+

@@ -2,159 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DDC18B5799
-	for <lists+alsa-devel@lfdr.de>; Mon, 29 Apr 2024 14:13:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C17A18B59BA
+	for <lists+alsa-devel@lfdr.de>; Mon, 29 Apr 2024 15:19:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9CA68950;
-	Mon, 29 Apr 2024 14:13:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9CA68950
+	by alsa0.perex.cz (Postfix) with ESMTPS id 16313839;
+	Mon, 29 Apr 2024 15:19:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 16313839
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1714392830;
-	bh=is+ZZRR1qjQpcT+IviiIaio3XkpSgD8LftCNzbntfDU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=fN+1esg8BjTjrMosGqi/0+zi4jn6fOLyriHNrOHHwJ3kVpw/UwkawpvQdNo5FnHOB
-	 GyUCFUlWHuFe7OGG9P7x6yxddonZbVxsTCngCSZ+aaHbMxtKrh2cW0feWd3RL5ZDZ6
-	 yrFcYfT0M3gcglVFOdglm/BUppzihs0ptYIrjNZs=
+	s=default; t=1714396767;
+	bh=GzTVP+cnONGx8I7Xig2IilKrZZe4Kz4khWj5HS9ejQ8=;
+	h=From:Date:Subject:To:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=LpKUkWzphcSTR4YkXPMyC4lm1x9lauz75fACS8uIV6Urb5J9YrHpXougwmhnnojpV
+	 p3k4l/xhE8uML3iSTWneDYhn1CU8//BRgjamBC18CYHRMT+jRfKK5oDTs6VKo74VL9
+	 PF/q/+zo2+fSR2HoB2XYlbpzc2wgFyNV2kdyvhdo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7B98EF804CC; Mon, 29 Apr 2024 14:13:19 +0200 (CEST)
+	id 803C1F8011B; Mon, 29 Apr 2024 15:18:55 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 859D1F804CC;
-	Mon, 29 Apr 2024 14:13:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F2D14F80578;
+	Mon, 29 Apr 2024 15:18:54 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8867AF800B5; Mon, 29 Apr 2024 14:13:11 +0200 (CEST)
+	id 69B98F8028D; Mon, 29 Apr 2024 15:18:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Received: from mail-yw1-x112f.google.com (mail-yw1-x112f.google.com
+ [IPv6:2607:f8b0:4864:20::112f])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0DAF8F8003C
-	for <alsa-devel@alsa-project.org>; Mon, 29 Apr 2024 14:13:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0DAF8F8003C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 83565F8003C
+	for <alsa-devel@alsa-project.org>; Mon, 29 Apr 2024 15:18:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83565F8003C
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=u3z3yMXW;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=YdzBQ9nR;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=u3z3yMXW;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=YdzBQ9nR
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 93FD233743;
-	Mon, 29 Apr 2024 12:13:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1714392784;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ta/xgiOSdujgYrMackSTdmdnjtlcI/U1edyYAhI44nw=;
-	b=u3z3yMXWNO1peNgfA6o0JOXiHGnAkbUREtR7LKVaUrARitgKPwq17nahal7yzRHFrLQ69s
-	CrBdf+jL8oXheHO5lI9ijJ4PmQC/FmHC+/3fN1sWC9MgL14ddkJ2fpPxkYellyfaiVW/tl
-	tY4p++rSyiULhpzQD2fndc9Nxn98Egg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1714392784;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ta/xgiOSdujgYrMackSTdmdnjtlcI/U1edyYAhI44nw=;
-	b=YdzBQ9nR91L3a8xEkKxAtGDdrD7etwTeKKJAmILTesf7JWrO1gBB8AmUdafI7HcBnXjUVr
-	rBSYifoEGomkUBBg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1714392784;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ta/xgiOSdujgYrMackSTdmdnjtlcI/U1edyYAhI44nw=;
-	b=u3z3yMXWNO1peNgfA6o0JOXiHGnAkbUREtR7LKVaUrARitgKPwq17nahal7yzRHFrLQ69s
-	CrBdf+jL8oXheHO5lI9ijJ4PmQC/FmHC+/3fN1sWC9MgL14ddkJ2fpPxkYellyfaiVW/tl
-	tY4p++rSyiULhpzQD2fndc9Nxn98Egg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1714392784;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ta/xgiOSdujgYrMackSTdmdnjtlcI/U1edyYAhI44nw=;
-	b=YdzBQ9nR91L3a8xEkKxAtGDdrD7etwTeKKJAmILTesf7JWrO1gBB8AmUdafI7HcBnXjUVr
-	rBSYifoEGomkUBBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 37A28139DE;
-	Mon, 29 Apr 2024 12:13:04 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id +REoDNCOL2Z2VwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 29 Apr 2024 12:13:04 +0000
-Date: Mon, 29 Apr 2024 14:13:16 +0200
-Message-ID: <87il00pdsz.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: ManuLinares <mbarriolinares@gmail.com>
-Cc: alsa-devel@alsa-project.org,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	dengxiang <dengxiang@nfschina.com>,
-	Geraldo Nascimento <geraldogabriel@gmail.com>,
-	Max McCarthy <mmccarthy@mcintoshlabs.com>,
-	WhaleChang <whalechang@google.com>,
-	Lukasz Tyl <ltyl@hem-e.com>,
-	Jeremie Knuesel <knuesel@gmail.com>,
-	Alexander Tsoy <alexander@tsoy.me>,
-	Jussi Laako <jussi@sonarnerd.net>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ALSA: usb-audio: Add sampling rates support for Mbox3
-In-Reply-To: <87jzkgpdvm.wl-tiwai@suse.de>
-References: <20240428005733.202978-1-mbarriolinares@gmail.com>
-	<87jzkgpdvm.wl-tiwai@suse.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	FREEMAIL_TO(0.00)[gmail.com];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_CC(0.00)[alsa-project.org,perex.cz,suse.com,nfschina.com,gmail.com,mcintoshlabs.com,google.com,hem-e.com,tsoy.me,sonarnerd.net,vger.kernel.org];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	FROM_HAS_DN(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_DN_SOME(0.00)[]
-Message-ID-Hash: 27X75ECSF4BV5GDAOAVYUTFZ37D5OZ2O
-X-Message-ID-Hash: 27X75ECSF4BV5GDAOAVYUTFZ37D5OZ2O
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=Ypbtq6Zd
+Received: by mail-yw1-x112f.google.com with SMTP id
+ 00721157ae682-617e42a3f94so48658787b3.2
+        for <alsa-devel@alsa-project.org>;
+ Mon, 29 Apr 2024 06:18:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1714396718; x=1715001518;
+ darn=alsa-project.org;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=5DrNmX/O5hzyTD3oW2jtllNOsgM2WyrTONwfmemwKBA=;
+        b=Ypbtq6ZdU3naNHE8u0In/f5I3WtYywP26UBRoRmJmrMMh/LYtvLkmdVpvgfoZtkrTd
+         hfXDTO2dhLGIQU80rpSIZo788YuNDZMDw8GWnmDoZdsDntyuPPj4N8vW3harSDf+5uHr
+         Dq5XfGWZoIo8FSV2zzPnv/yn7PpWq64r1tDDfKz5kmU7DP4U4d+AqP7Kb+Nt2sWNhAsK
+         fBINXQbsNBjC2a8DStuwl6wNL0Nk1noTrbrnjW7GXcxTuhlPDyX7iOiHYpuTQVmJJ2rd
+         cr5s16sfCLIvQ+LWvxybBWq6K9bAAANyism1eJ7t115ZJkBo14FshEGi/uAvSVrgAm5L
+         +Ffw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1714396718; x=1715001518;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=5DrNmX/O5hzyTD3oW2jtllNOsgM2WyrTONwfmemwKBA=;
+        b=fPtln3tz7BEzqB44tKZ2mlmb3M4F5a77H2ImUesMuhqhLNXsyj6+7XyrSuhUQltp5j
+         TZZPB+pq9diaQY76spL3Pqspcfnz6g7NaO/iOcY2Gn5aZja9rYIquHCA81INfShQUibQ
+         +l1EI/03fHJvX/gXGgIv9JPaaabjtTFen/vIKN9P/9gj6mqmFTCUT6mRTDCfmdcPIXHr
+         fKAHzncib/ISIapleHZElYfsWF5qz8UBOCWbtm8tK14bMHoCNJXOUyDwsaKHrFcfOIxX
+         ILAfJXHhj+4DIFId81twzXqBtfOVU6cspe47xYpvg7i4vMFNImQxZvXlAtHrhJ4Lj/iI
+         sUbw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUxIcN37NdV4GNLL37fQFjf2C7sjpyLJGqa5iBOQz2zUXNPq3yRQLNDezYeHLWUeVeD256ws8OjcS8ebGqXlCxsCAnfA2I4JG2ZJOY=
+X-Gm-Message-State: AOJu0YwzN2vErPCDKrNBH/wbgc7SM+K15zbNGubLJ4RRizb2youVgBXx
+	xR0S/mki1LVPbb485I254gpiv8TMGhgp6ElLhQgsoJ7hqx9RZBUj2lYDRjtmmOh3p8s8C0Zyqfl
+	f4gHO2JI/n8hajiPrwdvMZ4RCi2g=
+X-Google-Smtp-Source: 
+ AGHT+IEEajCrlUb/3QTkb1ktXcly7kvHKmpfcjOnXNtOR6EpLBkfPPxV+knLS1Jw2S5EO2KTYc1niTKx5bbX+gOT3RA=
+X-Received: by 2002:a05:690c:387:b0:61a:e947:550d with SMTP id
+ bh7-20020a05690c038700b0061ae947550dmr10138549ywb.44.1714396717862; Mon, 29
+ Apr 2024 06:18:37 -0700 (PDT)
+MIME-Version: 1.0
+From: Muni Sekhar <munisekharrms@gmail.com>
+Date: Mon, 29 Apr 2024 18:48:26 +0530
+Message-ID: 
+ <CAHhAz+iHtWqhvwa_dmTUv+mZhnZ2zHX0W53wDGF+uHhcgk7Gcg@mail.gmail.com>
+Subject: ALSA: Digital Microphone
+To: linux-sound@vger.kernel.org, alsa-devel <alsa-devel@alsa-project.org>,
+	linux-fpga@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Message-ID-Hash: 3GWNAV7Q4IVJGCCWJ4LF2HYU2LD7A7MH
+X-Message-ID-Hash: 3GWNAV7Q4IVJGCCWJ4LF2HYU2LD7A7MH
+X-MailFrom: munisekharrms@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -166,38 +103,31 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/27X75ECSF4BV5GDAOAVYUTFZ37D5OZ2O/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3GWNAV7Q4IVJGCCWJ4LF2HYU2LD7A7MH/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 29 Apr 2024 14:11:41 +0200,
-Takashi Iwai wrote:
-> 
-> On Sun, 28 Apr 2024 02:57:29 +0200,
-> ManuLinares wrote:
-> > 
-> > This adds support for all sample rates supported by the hardware,
-> > Digidesign Mbox 3 supports: {44100, 48000, 88200, 96000}
-> > 
-> > Fixes syncing clock issues that presented as pops. To test this, without
-> > this patch playing 440hz tone produces pops.
-> > 
-> > Clock is now synced between playback and capture interfaces so no more
-> > latency drift issue when using pipewire pro-profile.
-> > (https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/3900)
-> > 
-> > Signed-off-by: ManuLinares <mbarriolinares@gmail.com>
+Hi all,
 
-Also, put a space between Manu and Linares (supposing it's your real
-name).  Signed-off-by is a legal requirement, hence it should be
-properly spelled.
+We have a Digital Microphone block on a Xilinx FPGA board connected to
+x86 host CPU through PCIe, it basically emulates a Microphone sending
+data to DUT(device under test) in PDM format.
+
+Input to the Digital Microphone block is Signed 32-bit PCM sample.
+Xilinx FPGA code has logic to convert PCM samples to PDM with a
+Sigma-Delta Converter.
+
+Could you kindly recommend any specific ALSA driver within the Linux
+kernel that matches with my hardware setup.
+
+ Additionally, if there are any relevant documentation or community
+discussions that you could point me to, it would be immensely helpful.
 
 
-thanks,
-
-Takashi
+-- 
+Thanks,
+Sekhar

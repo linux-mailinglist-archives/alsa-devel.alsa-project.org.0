@@ -2,86 +2,108 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86BA38B7CD9
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Apr 2024 18:29:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDDC48B7E40
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Apr 2024 19:12:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EAA40DEC;
-	Tue, 30 Apr 2024 18:28:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EAA40DEC
+	by alsa0.perex.cz (Postfix) with ESMTPS id C8105DFA;
+	Tue, 30 Apr 2024 19:12:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8105DFA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1714494541;
-	bh=u27bGd4V0G96pi8D9gvQaaGAkmUp7bSeoFGhoO/A8XE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1714497148;
+	bh=kiFeRvgm1GUqZrPzGzDk2qBEMMDhQdW6bA+PMgeiq1Y=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=lVyxNDNrbhL1IuzRqUPK6UMa+eIxGovPuGGa5aK1TgcXC5UsRdnDZFEcZMnjNTxxu
-	 UADIjQZSuzQP7PCXRtou79sEa0ATQZGcnr2Xuh5M0Y1BrvERMlIQIfQGidrwNhbkXl
-	 DJ4LpxGgCDpm+XHv6MBY+1tzA6Te1qHskgfPTGuc=
+	b=J/1J9k2hJLdhODYP59PFCco5sIsA1MdCaKahwnCCcL4fB5h3ydqBV3t+q6aiVWwGW
+	 WBKKvuDB4lRv+3pJMjGP/OHtjymd1sMxZR9c2BhkKMPBS72OqJZpkLcjGSKaxxNQPE
+	 rKvUv7ZyeInn77ATegDoR1W7WH5eD6qBrjwoVqvY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7DD5EF805A8; Tue, 30 Apr 2024 18:28:28 +0200 (CEST)
+	id BD043F8059F; Tue, 30 Apr 2024 19:11:56 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 259B7F805A0;
-	Tue, 30 Apr 2024 18:28:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D32F3F80269;
+	Tue, 30 Apr 2024 19:11:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 00DD7F80266; Tue, 30 Apr 2024 18:28:22 +0200 (CEST)
+	id 96C07F80266; Tue, 30 Apr 2024 19:10:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-pf1-x42e.google.com (mail-pf1-x42e.google.com
+ [IPv6:2607:f8b0:4864:20::42e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6A13FF8003C
-	for <alsa-devel@alsa-project.org>; Tue, 30 Apr 2024 18:28:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A13FF8003C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 67CB7F8023A
+	for <alsa-devel@alsa-project.org>; Tue, 30 Apr 2024 19:10:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67CB7F8023A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=OCiswKJN
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 188D8614AE;
-	Tue, 30 Apr 2024 16:28:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B2C0C2BBFC;
-	Tue, 30 Apr 2024 16:27:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1714494479;
-	bh=u27bGd4V0G96pi8D9gvQaaGAkmUp7bSeoFGhoO/A8XE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=OCiswKJNOu0sfl6Oov4FuPcbIbdEIAUmabyt1qX3yut7X6jtOUtNez6dT2UiSY6rd
-	 UmyD5qSfJyubO8kEyMTErYCZFFaSEvieHPnBf/O2A4ovxK9v590e5J/L2+RHeaDufu
-	 3aLtZ/r7wpN+MjcKfycQd3ZruzmmING/5cJxi/GHSRw/rwljtTiMnDsS3wfXBynfUg
-	 B4fyEoVTtsQN7u/8lKgsS41p9O3Kp948p3GmD1zd0hA8sXXiyo/YefgCGzFrpWqMJ/
-	 rBedlv16kTuD1X+QNkL5ru7Fpfk26uvfe2RSEm1+a4lgLtmlZkk9sQ1OLC8jaC+EHZ
-	 oFr1SVAafVguA==
-Date: Tue, 30 Apr 2024 17:27:52 +0100
-From: Mauro Carvalho Chehab <mchehab@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Cc: Sebastian Fricke <sebastian.fricke@collabora.com>, Shengjiu Wang
- <shengjiu.wang@nxp.com>, hverkuil@xs4all.nl, sakari.ailus@iki.fi,
- tfiga@chromium.org, m.szyprowski@samsung.com, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org, shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com,
- festevam@gmail.com, nicoleotsuka@gmail.com, lgirdwood@gmail.com,
- perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
- linuxppc-dev@lists.ozlabs.org
-Subject: Re: [PATCH v15 00/16] Add audio support in v4l2 framework
-Message-ID: <20240430172752.20ffcd56@sal.lan>
-In-Reply-To: <ZjEEKyvb02CWz3l4@finisterre.sirena.org.uk>
-References: <1710834674-3285-1-git-send-email-shengjiu.wang@nxp.com>
-	<20240430082112.jrovosb6lgblgpfg@basti-XPS-13-9310>
-	<ZjEEKyvb02CWz3l4@finisterre.sirena.org.uk>
-X-Mailer: Claws Mail 4.2.0 (GTK 3.24.41; x86_64-redhat-linux-gnu)
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=iRvXTaSS
+Received: by mail-pf1-x42e.google.com with SMTP id
+ d2e1a72fcca58-6eff2be3b33so5533420b3a.2
+        for <alsa-devel@alsa-project.org>;
+ Tue, 30 Apr 2024 10:10:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1714497030; x=1715101830;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=gCEBGy0iqEEScOu2GTcPLub3TdVLK2F9Tv6HBrxW28M=;
+        b=iRvXTaSSbz5fNOmlCyB47j2j5A+92zhZU/s9ga3iFPFHV6+ftYKO67fW+XHH0fFslq
+         BhgZSKf43EhZ+6HlSJh6juuz//Vx6+ps/WpzWrRKZlY3eStPR6D1zef778lCizlJvvZ0
+         Ky8JivJJsszUZVd3HTenK9UI3Sx0kw+UR/lSWkfsGB4k8f2f8/0618QvkMnIsNdXGQrN
+         dFzUNVwVCzBpgILb+3GJSR4OPJnmsNkgLJIsbY7nzV376mvsn9101dJrGRuFYV2/Lrhu
+         +0cVKTSV560RA/IGPnt6yyHSZOPqq6lukKrljsHuvAhEstbZpHEEg8WVtVdU/IkTxT05
+         0atg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1714497030; x=1715101830;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=gCEBGy0iqEEScOu2GTcPLub3TdVLK2F9Tv6HBrxW28M=;
+        b=KS4RrgI1oE+PO5yRTy7b+KFO0TozG09s83FUI0/5epeGv9V2qYpDubrvQXAK6eznhG
+         3ER1mqSyJGEZFwMjDTCXz1wn9lRMUAeYgSPNiMnJAUp1tr60i+OhWy/ypxKG2R1+aVve
+         WUycWLm0dIyn1U/qriJd+o+/kXlY3f1WNQKllp0in8FmDjrPLtyJ1J6Kp3AJX20S97Gf
+         Bm++ZKrQ9/CkpAhbiEob7710NfW/njl8DTligkvsEEDs/BHaQyXHWmKQjrgPSjZMmxXC
+         9Zm34sopVl0ql6VLowRgoicdf1uQ1rNSGcNw+pVF9CLMLsAQk/EkuHGHFd5uEntdc46m
+         nJQQ==
+X-Gm-Message-State: AOJu0Ywdz53ejzSWBDnns1/qPGLz3IOAE95HF569I1Gni4ielP985sMl
+	qDtKFM4OM/waKj7WUzl7FdZD+iPQZL2TgoVdLlUdZKM5T0v9HHS3QNvcg5AT
+X-Google-Smtp-Source: 
+ AGHT+IHMAVG0EWpQPuldpw9z2FO7NqH5u2MC/9Up//burvX3f4HqsG2eIM4ldekstXAdQJLqalFRug==
+X-Received: by 2002:a05:6a20:3254:b0:1ad:12fe:103a with SMTP id
+ hm20-20020a056a20325400b001ad12fe103amr443722pzc.23.1714497029594;
+        Tue, 30 Apr 2024 10:10:29 -0700 (PDT)
+Received: from thought.. ([186.139.89.143])
+        by smtp.gmail.com with ESMTPSA id
+ a8-20020a62bd08000000b006ea81423c65sm22028956pff.148.2024.04.30.10.10.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 30 Apr 2024 10:10:29 -0700 (PDT)
+From: Manuel Barrio Linares <mbarriolinares@gmail.com>
+To: alsa-devel@alsa-project.org
+Cc: Manuel Barrio Linares <mbarriolinares@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3] ALSA: usb-audio: Add sampling rates support for Mbox3
+Date: Tue, 30 Apr 2024 14:10:18 -0300
+Message-ID: <20240430171020.192285-1-mbarriolinares@gmail.com>
+X-Mailer: git-send-email 2.45.0
+In-Reply-To: <87cyq7nw19.wl-tiwai@suse.de>
+References: <87cyq7nw19.wl-tiwai@suse.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: PAMC3CB3XXQPUXHQTHBHNDCQ2QULT76Z
-X-Message-ID-Hash: PAMC3CB3XXQPUXHQTHBHNDCQ2QULT76Z
-X-MailFrom: mchehab@kernel.org
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: JCNSF7URWQPB37XHHLBDFSMW62NP622J
+X-Message-ID-Hash: JCNSF7URWQPB37XHHLBDFSMW62NP622J
+X-MailFrom: mbarriolinares@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -93,7 +115,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PAMC3CB3XXQPUXHQTHBHNDCQ2QULT76Z/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JCNSF7URWQPB37XHHLBDFSMW62NP622J/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,57 +124,239 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Em Tue, 30 Apr 2024 23:46:03 +0900
-Mark Brown <broonie@kernel.org> escreveu:
+This adds support for all sample rates supported by the
+hardware,Digidesign Mbox 3 supports: {44100, 48000, 88200, 96000}
 
-> On Tue, Apr 30, 2024 at 10:21:12AM +0200, Sebastian Fricke wrote:
-> 
-> > first of all thanks for all of this work and I am very sorry for only
-> > emerging this late into the series, I sadly didn't notice it earlier.  
-> 
-> It might be worth checking out the discussion on earlier versions...
-> 
-> > 1. The biggest objection is, that the Linux Kernel has a subsystem
-> > specifically targeted for audio devices, adding support for these
-> > devices in another subsystem are counterproductive as they work around
-> > the shortcomings of the audio subsystem while forcing support for a
-> > device into a subsystem that was never designed for such devices.
-> > Instead, the audio subsystem has to be adjusted to be able to support
-> > all of the required workflows, otherwise, the next audio driver with
-> > similar requirements will have to move to the media subsystem as well,
-> > the audio subsystem would then never experience the required change and
-> > soon we would have two audio subsystems.  
-> 
-> The discussion around this originally was that all the audio APIs are
-> very much centered around real time operations rather than completely
-> async memory to memory operations and that it's not clear that it's
-> worth reinventing the wheel simply for the sake of having things in
-> ALSA when that's already pretty idiomatic for the media subsystem.  It
-> wasn't the memory to memory bit per se, it was the disconnection from
-> any timing.
+Fixes syncing clock issues that presented as pops. To test this, without
+this patch playing 440hz tone produces pops.
 
-The media subsystem is also centered around real time. Without real
-time, you can't have a decent video conference system. Having
-mem2mem transfers actually help reducing real time delays, as it 
-avoids extra latency due to CPU congestion and/or data transfers
-from/to userspace.
+Clock is now synced between playback and capture interfaces so no more
+latency drift issue when using pipewire pro-profile.
+(https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/3900)
 
-> 
-> > So instead of hammering a driver into the wrong destination, I would
-> > suggest bundling our forces and implementing a general memory-to-memory
-> > framework that both the media and the audio subsystem can use, that
-> > addresses the current shortcomings of the implementation and allows you
-> > to upload the driver where it is supposed to be.  
-> 
-> That doesn't sound like an immediate solution to maintainer overload
-> issues...  if something like this is going to happen the DRM solution
-> does seem more general but I'm not sure the amount of stop energy is
-> proportionate.
+Signed-off-by: Manuel Barrio Linares <mbarriolinares@gmail.com>
+---
+v2: Cleaned up code. Explicit __le32 usage.
+v3: Get rid of sparse warnings
 
-I don't think maintainer overload is the issue here. The main
-point is to avoid a fork at the audio uAPI, plus the burden
-of re-inventing the wheel with new codes for audio formats,
-new documentation for them, etc.
+ sound/usb/quirks-table.h | 38 +++++++++++++--------
+ sound/usb/quirks.c       | 74 +++++++++++++++++++++++++++++++---------
+ 2 files changed, 81 insertions(+), 31 deletions(-)
 
-Regards,
-Mauro
+diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
+index 5d72dc8..73abc38 100644
+--- a/sound/usb/quirks-table.h
++++ b/sound/usb/quirks-table.h
+@@ -3013,21 +3013,28 @@ YAMAHA_DEVICE(0x7010, "UB99"),
+ 				.type = QUIRK_AUDIO_FIXED_ENDPOINT,
+ 				.data = &(const struct audioformat) {
+ 					.formats = SNDRV_PCM_FMTBIT_S24_3LE,
++					.fmt_bits = 24,
+ 					.channels = 4,
+ 					.iface = 2,
+ 					.altsetting = 1,
+ 					.altset_idx = 1,
+ 					.attributes = 0x00,
+-					.endpoint = 0x01,
++					.endpoint = USB_RECIP_INTERFACE | USB_DIR_OUT,
+ 					.ep_attr = USB_ENDPOINT_XFER_ISOC |
+ 						USB_ENDPOINT_SYNC_ASYNC,
+-					.rates = SNDRV_PCM_RATE_48000,
+-					.rate_min = 48000,
+-					.rate_max = 48000,
+-					.nr_rates = 1,
++					.rates = SNDRV_PCM_RATE_44100 | SNDRV_PCM_RATE_48000 |
++							SNDRV_PCM_RATE_88200 | SNDRV_PCM_RATE_96000,
++					.rate_min = 44100,
++					.rate_max = 96000,
++					.nr_rates = 4,
+ 					.rate_table = (unsigned int[]) {
+-						48000
+-					}
++						44100, 48000, 88200, 96000
++					},
++					.sync_ep = USB_RECIP_INTERFACE | USB_DIR_IN,
++					.sync_iface = 3,
++					.sync_altsetting = 1,
++					.sync_ep_idx = 1,
++					.implicit_fb = 1,
+ 				}
+ 			},
+ 			{
+@@ -3035,22 +3042,25 @@ YAMAHA_DEVICE(0x7010, "UB99"),
+ 				.type = QUIRK_AUDIO_FIXED_ENDPOINT,
+ 				.data = &(const struct audioformat) {
+ 					.formats = SNDRV_PCM_FMTBIT_S24_3LE,
++					.fmt_bits = 24,
+ 					.channels = 4,
+ 					.iface = 3,
+ 					.altsetting = 1,
+ 					.altset_idx = 1,
+-					.endpoint = 0x81,
+ 					.attributes = 0x00,
++					.endpoint = USB_RECIP_INTERFACE | USB_DIR_IN,
+ 					.ep_attr = USB_ENDPOINT_XFER_ISOC |
+ 						USB_ENDPOINT_SYNC_ASYNC,
+ 					.maxpacksize = 0x009c,
+-					.rates = SNDRV_PCM_RATE_48000,
+-					.rate_min = 48000,
+-					.rate_max = 48000,
+-					.nr_rates = 1,
++					.rates = SNDRV_PCM_RATE_44100 | SNDRV_PCM_RATE_48000 |
++							SNDRV_PCM_RATE_88200 | SNDRV_PCM_RATE_96000,
++					.rate_min = 44100,
++					.rate_max = 96000,
++					.nr_rates = 4,
+ 					.rate_table = (unsigned int[]) {
+-						48000
+-					}
++						44100, 48000, 88200, 96000
++					},
++					.implicit_fb = 0,
+ 				}
+ 			},
+ 			{
+diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
+index 09712e6..2f961f0 100644
+--- a/sound/usb/quirks.c
++++ b/sound/usb/quirks.c
+@@ -984,21 +984,13 @@ static int snd_usb_axefx3_boot_quirk(struct usb_device *dev)
+ 	return 0;
+ }
+ 
+-static void mbox3_setup_48_24_magic(struct usb_device *dev)
++static void mbox3_setup_defaults(struct usb_device *dev)
+ {
+ 	/* The Mbox 3 is "little endian" */
+ 	/* max volume is: 0x0000. */
+ 	/* min volume is: 0x0080 (shown in little endian form) */
+ 
+-
+-	/* Load 48000Hz rate into buffer */
+-	u8 com_buff[4] = {0x80, 0xbb, 0x00, 0x00};
+-
+-	/* Set 48000Hz sample rate */
+-	snd_usb_ctl_msg(dev, usb_sndctrlpipe(dev, 0),
+-			0x01, 0x21, 0x0100, 0x0001, &com_buff, 4);  //Is this really needed?
+-	snd_usb_ctl_msg(dev, usb_sndctrlpipe(dev, 0),
+-			0x01, 0x21, 0x0100, 0x8101, &com_buff, 4);
++	u8 com_buff[2];
+ 
+ 	/* Deactivate Tuner */
+ 	/* on  = 0x01*/
+@@ -1008,6 +1000,8 @@ static void mbox3_setup_48_24_magic(struct usb_device *dev)
+ 		0x01, 0x21, 0x0003, 0x2001, &com_buff, 1);
+ 
+ 	/* Set clock source to Internal (as opposed to S/PDIF) */
++	/* Internal  = 0x01*/
++	/* S/PDIF    = 0x02*/
+ 	com_buff[0] = 0x01;
+ 	snd_usb_ctl_msg(dev, usb_sndctrlpipe(dev, 0),
+ 			1, 0x21, 0x0100, 0x8001, &com_buff, 1);
+@@ -1113,9 +1107,11 @@ static void mbox3_setup_48_24_magic(struct usb_device *dev)
+ 			1, 0x21, 0x0107, 0x4201, &com_buff, 2);
+ 
+ 	/* Toggle allowing host control */
++	/* Not needed
+ 	com_buff[0] = 0x02;
+ 	snd_usb_ctl_msg(dev, usb_sndctrlpipe(dev, 0),
+ 			3, 0x21, 0x0000, 0x2001, &com_buff, 1);
++	 */
+ 
+ 	/* Do not dim fx returns */
+ 	com_buff[0] = 0x00;
+@@ -1259,26 +1255,27 @@ static int snd_usb_mbox3_boot_quirk(struct usb_device *dev)
+ 	descriptor_size = le16_to_cpu(get_cfg_desc(config)->wTotalLength);
+ 
+ 	if (descriptor_size != MBOX3_DESCRIPTOR_SIZE) {
+-		dev_err(&dev->dev, "Invalid descriptor size=%d.\n", descriptor_size);
++		dev_err(&dev->dev, "MBOX3: Invalid descriptor size=%d.\n", descriptor_size);
+ 		return -ENODEV;
+ 	}
+ 
+-	dev_dbg(&dev->dev, "device initialised!\n");
++	dev_dbg(&dev->dev, "MBOX3: device initialised!\n");
+ 
+ 	err = usb_get_descriptor(dev, USB_DT_DEVICE, 0,
+ 		&dev->descriptor, sizeof(dev->descriptor));
+ 	config = dev->actconfig;
+ 	if (err < 0)
+-		dev_dbg(&dev->dev, "error usb_get_descriptor: %d\n", err);
++		dev_dbg(&dev->dev, "MBOX3: error usb_get_descriptor: %d\n", err);
+ 
+ 	err = usb_reset_configuration(dev);
+ 	if (err < 0)
+-		dev_dbg(&dev->dev, "error usb_reset_configuration: %d\n", err);
+-	dev_dbg(&dev->dev, "mbox3_boot: new boot length = %d\n",
++		dev_dbg(&dev->dev, "MBOX3: error usb_reset_configuration: %d\n", err);
++
++	dev_dbg(&dev->dev, "MBOX3: new boot length = %d\n",
+ 		le16_to_cpu(get_cfg_desc(config)->wTotalLength));
+ 
+-	mbox3_setup_48_24_magic(dev);
+-	dev_info(&dev->dev, "Digidesign Mbox 3: 24bit 48kHz");
++	mbox3_setup_defaults(dev);
++	dev_info(&dev->dev, "MBOX3: Initialized.");
+ 
+ 	return 0; /* Successful boot */
+ }
+@@ -1734,6 +1731,46 @@ static int pioneer_djm_set_format_quirk(struct snd_usb_substream *subs,
+ 	return 0;
+ }
+ 
++static void mbox3_set_format_quirk(struct snd_usb_substream *subs,
++				const struct audioformat *fmt)
++{
++	__le32 buff4 = 0;
++	u8 buff1 = 0x01;
++	u32 new_rate = subs->data_endpoint->cur_rate;
++	u32 current_rate;
++
++	// Get current rate from card and check if changing it is needed
++	snd_usb_ctl_msg(subs->dev, usb_sndctrlpipe(subs->dev, 0),
++					0x01, 0x21 | USB_DIR_IN, 0x0100, 0x8101, &buff4, 4);
++	current_rate = le32_to_cpu(buff4);
++	dev_dbg(&subs->dev->dev,
++			 "MBOX3: Current configured sample rate: %d", current_rate);
++	if (current_rate == new_rate) {
++		dev_dbg(&subs->dev->dev,
++			"MBOX3: No change needed (current rate:%d == new rate:%d)",
++			current_rate, new_rate);
++		return;
++	}
++
++	// Set new rate
++	dev_info(&subs->dev->dev,
++			 "MBOX3: Changing sample rate to: %d", new_rate);
++	buff4 = cpu_to_le32(new_rate);
++	snd_usb_ctl_msg(subs->dev, usb_sndctrlpipe(subs->dev, 0),
++					0x01, 0x21, 0x0100, 0x8101, &buff4, 4);
++
++	// Set clock source to Internal
++	snd_usb_ctl_msg(subs->dev, usb_sndctrlpipe(subs->dev, 0),
++					0x01, 0x21, 0x0100, 0x8001, &buff1, 1);
++
++	// Check whether the change was successful
++	buff4 = 0;
++	snd_usb_ctl_msg(subs->dev, usb_sndctrlpipe(subs->dev, 0),
++					0x01, 0x21 | USB_DIR_IN, 0x0100, 0x8101, &buff4, 4);
++	if (new_rate != le32_to_cpu(buff4))
++		dev_warn(&subs->dev->dev, "MBOX3: Couldn't set the sample rate");
++}
++
+ void snd_usb_set_format_quirk(struct snd_usb_substream *subs,
+ 			      const struct audioformat *fmt)
+ {
+@@ -1755,6 +1792,9 @@ void snd_usb_set_format_quirk(struct snd_usb_substream *subs,
+ 	case USB_ID(0x08e4, 0x0163): /* Pioneer DJM-850 */
+ 		pioneer_djm_set_format_quirk(subs, 0x0086);
+ 		break;
++	case USB_ID(0x0dba, 0x5000):
++		mbox3_set_format_quirk(subs, fmt); /* Digidesign Mbox 3 */
++		break;
+ 	}
+ }
+ 
+-- 
+2.45.0
+

@@ -2,62 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8B228B7502
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Apr 2024 13:57:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C03858B7504
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Apr 2024 13:58:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3A92584A;
-	Tue, 30 Apr 2024 13:57:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3A92584A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 30254DEE;
+	Tue, 30 Apr 2024 13:57:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 30254DEE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1714478273;
-	bh=a+ld2ZZvv7tLr1Bh9lNHFCONf/H70v3VGrtqOfYridg=;
+	s=default; t=1714478285;
+	bh=xbu/88pNQJMGyYFWxPSQooiXbYc5BT6Brrv9un7SvOI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=osTY083OqsTlqCECigab4/Q4Gan4NlUZZnvAAI4512DjUWz4RUIgi7ZKNFPQES/Sk
-	 3AvyMQmfrIxkMYQdRQ/2CEd7GyAdwDR0HLvhE0kwTeKUH8jsJFdvifpo7+WTZgzrfC
-	 JNabEtvFHypENDk2yseq51JGIpv8J0FhIS2eeNzo=
+	b=N4PaeNnWaEXPeMRo2Ul5bObVsZnYl2In1ukuZddQ2+sVvjp9PYy+0SYH/D9tAU5Sz
+	 FOvi5VjzXenVp/KyvIsndOM9uqJNAHLXcXd6twt1KmfdvtH0sT0QabIvuUQOJH7s85
+	 VdS5o0GKUtSMb+8s3NW3ZVPp7CJLEZD3ob+nH0Xg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9AE6AF805B1; Tue, 30 Apr 2024 13:57:22 +0200 (CEST)
+	id 1CC06F805C9; Tue, 30 Apr 2024 13:57:25 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7A6C8F805AA;
-	Tue, 30 Apr 2024 13:57:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8D4F2F805C8;
+	Tue, 30 Apr 2024 13:57:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 77EFEF8057A; Tue, 30 Apr 2024 13:54:51 +0200 (CEST)
+	id 42E66F8025D; Tue, 30 Apr 2024 13:56:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,
-	RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,
+	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
 Received: from mail.zeus03.de (www.zeus03.de [194.117.254.33])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 63E6BF80266
-	for <alsa-devel@alsa-project.org>; Tue, 30 Apr 2024 13:54:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63E6BF80266
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0506AF80269
+	for <alsa-devel@alsa-project.org>; Tue, 30 Apr 2024 13:54:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0506AF80269
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com
- header.a=rsa-sha256 header.s=k1 header.b=DDY01gGn
+ header.a=rsa-sha256 header.s=k1 header.b=DyJgcIQP
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	sang-engineering.com; h=from:to:cc:subject:date:message-id
 	:in-reply-to:references:mime-version:content-transfer-encoding;
-	 s=k1; bh=1NBwNIfTuCbQxkbHSRkHt/W+DlGXOXdraPP5tuRqp/M=; b=DDY01g
-	GnhLWFUXavuTA87BFe2JQ2/EvQD2kgvTuQe4GQbFTiEyE/V2L7+o+ISIpvnOK8Ub
-	B2enIIQxRPo8xZ9UdZbRRTLfAKpOUod5o/54v8zJitvaTNP71hVMUhzUJP9SnYhP
-	+HNT2CPwCIQ/mo6JqwaoVOAhu0pu8T6So5A4E9kjCBhj1z5xmbJXWKhJWMVbOr7B
-	bKitY6wV1yIo+BJQUcAqgmTNDtXux0a6O7yanJxKsfBRX46ihUEfx7hhf7R0YK9U
-	gg1Ks7SHQ6FCrJamfNPH4b1u2+hksh4d3GOQVYfI518xTWRsAOS0Q5jUl20m6juB
-	KEAA042pvMKbfZ1w==
-Received: (qmail 2621585 invoked from network); 30 Apr 2024 13:54:41 +0200
+	 s=k1; bh=G48sT4e7XwBEsyu30MJVKv/f1vEN7+9RZstqd76uKpg=; b=DyJgcI
+	QPLZNzmqWc4gK8ouVyVvZZnkmFDc9ZHTKQ11ZFWWgWM2SsDhsmGFj80ct+K1e9Ic
+	qQx91APc1gBWezGCLTle2VROw11Qt+1Mt6ZAPgrzKLtMhn3YeZuo4g0zIWqqVB0z
+	eGngZwayDBIVtTWV+tmVHlPE891cnFkcQCoArdAmh19y2R4+nHvBP4MA4a9owZDL
+	3MbDT+7K//EkHL5AHZE7aNF6wD7xtbt3wiog4JC/KeokmYCOfbOmOBzV0zRk0cwH
+	UORzs+xgc+2bWYVbzwQZuxShvZ14BwCnwvbuvJg4tWTZUlKtLrvD7sAw1lVDj0YF
+	RPh5c+RrsQKLY/RQ==
+Received: (qmail 2621617 invoked from network); 30 Apr 2024 13:54:41 +0200
 Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted,
  authenticated); 30 Apr 2024 13:54:41 +0200
-X-UD-Smtp-Session: l3s3148p1@VbX6CE8X7I9ehhrb
+X-UD-Smtp-Session: l3s3148p1@11IFCU8X9o9ehhrb
 From: Wolfram Sang <wsa+renesas@sang-engineering.com>
 To: alsa-devel@alsa-project.org
 Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
@@ -68,17 +68,17 @@ Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
 	patches@opensource.cirrus.com,
 	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/4] ASoC: codecs: wm8994: use 'time_left' variable with
+Subject: [PATCH 4/4] ASoC: codecs: wm8996: use 'time_left' variable with
  wait_for_completion_timeout()
-Date: Tue, 30 Apr 2024 13:54:36 +0200
-Message-ID: <20240430115438.29134-4-wsa+renesas@sang-engineering.com>
+Date: Tue, 30 Apr 2024 13:54:37 +0200
+Message-ID: <20240430115438.29134-5-wsa+renesas@sang-engineering.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240430115438.29134-1-wsa+renesas@sang-engineering.com>
 References: <20240430115438.29134-1-wsa+renesas@sang-engineering.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: RYE646AG5KJZ4WEJ5CGDEBYYHVVPQ2ZW
-X-Message-ID-Hash: RYE646AG5KJZ4WEJ5CGDEBYYHVVPQ2ZW
+Message-ID-Hash: RVFKBNS5EVZ3VN5JVYLO3JA4R2CSIF6W
+X-Message-ID-Hash: RVFKBNS5EVZ3VN5JVYLO3JA4R2CSIF6W
 X-MailFrom: wsa+renesas@sang-engineering.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -91,7 +91,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RYE646AG5KJZ4WEJ5CGDEBYYHVVPQ2ZW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RVFKBNS5EVZ3VN5JVYLO3JA4R2CSIF6W/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -111,35 +111,49 @@ self explaining.
 
 Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 ---
- sound/soc/codecs/wm8994.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ sound/soc/codecs/wm8996.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/sound/soc/codecs/wm8994.c b/sound/soc/codecs/wm8994.c
-index fc9894975a1d..a99908582a50 100644
---- a/sound/soc/codecs/wm8994.c
-+++ b/sound/soc/codecs/wm8994.c
-@@ -2210,7 +2210,7 @@ static int _wm8994_set_fll(struct snd_soc_component *component, int id, int src,
- 	int reg_offset, ret;
- 	struct fll_div fll;
- 	u16 reg, clk1, aif_reg, aif_src;
--	unsigned long timeout;
-+	unsigned long time_left;
- 	bool was_enabled;
- 	struct clk *mclk;
+diff --git a/sound/soc/codecs/wm8996.c b/sound/soc/codecs/wm8996.c
+index e738326e33ed..66096e09c953 100644
+--- a/sound/soc/codecs/wm8996.c
++++ b/sound/soc/codecs/wm8996.c
+@@ -655,28 +655,28 @@ static void wait_for_dc_servo(struct snd_soc_component *component, u16 mask)
+ 	struct i2c_client *i2c = to_i2c_client(component->dev);
+ 	struct wm8996_priv *wm8996 = snd_soc_component_get_drvdata(component);
+ 	int ret;
+-	unsigned long timeout = 200;
++	unsigned long time_left = 200;
  
-@@ -2403,9 +2403,9 @@ static int _wm8994_set_fll(struct snd_soc_component *component, int id, int src,
- 				    WM8994_FLL1_FRAC, reg);
+ 	snd_soc_component_write(component, WM8996_DC_SERVO_2, mask);
  
- 		if (wm8994->fll_locked_irq) {
--			timeout = wait_for_completion_timeout(&wm8994->fll_locked[id],
--							      msecs_to_jiffies(10));
+ 	/* Use the interrupt if possible */
+ 	do {
+ 		if (i2c->irq) {
+-			timeout = wait_for_completion_timeout(&wm8996->dcs_done,
+-							      msecs_to_jiffies(200));
 -			if (timeout == 0)
-+			time_left = wait_for_completion_timeout(&wm8994->fll_locked[id],
-+								msecs_to_jiffies(10));
++			time_left = wait_for_completion_timeout(&wm8996->dcs_done,
++								msecs_to_jiffies(200));
 +			if (time_left == 0)
- 				dev_warn(component->dev,
- 					 "Timed out waiting for FLL lock\n");
+ 				dev_err(component->dev, "DC servo timed out\n");
+ 
  		} else {
+ 			msleep(1);
+-			timeout--;
++			time_left--;
+ 		}
+ 
+ 		ret = snd_soc_component_read(component, WM8996_DC_SERVO_2);
+ 		dev_dbg(component->dev, "DC servo state: %x\n", ret);
+-	} while (timeout && ret & mask);
++	} while (time_left && ret & mask);
+ 
+-	if (timeout == 0)
++	if (time_left == 0)
+ 		dev_err(component->dev, "DC servo timed out for %x\n", mask);
+ 	else
+ 		dev_dbg(component->dev, "DC servo complete for %x\n", mask);
 -- 
 2.43.0
 

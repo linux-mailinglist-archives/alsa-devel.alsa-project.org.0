@@ -2,110 +2,150 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F0D68B6312
-	for <lists+alsa-devel@lfdr.de>; Mon, 29 Apr 2024 22:03:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F169E8B6BC1
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Apr 2024 09:31:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D4BB9828;
-	Mon, 29 Apr 2024 22:03:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D4BB9828
+	by alsa0.perex.cz (Postfix) with ESMTPS id 75F6682A;
+	Tue, 30 Apr 2024 09:31:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 75F6682A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1714421001;
-	bh=v+dxWNWY34GkaZ5wYOrRbLg5bO3DUAUxb8ICY4EgA1I=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1714462284;
+	bh=lweGfDIlGI2nmsgmRB1WBR7R2QWr5hP78T1d5i2qsj8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=atqu/lHcyGPJLAWRJcdy7ZyPuTqlxpmP9QD769o3jccAOKtqAX47qA6H3HrUYuZkD
-	 +bNBci6pCL/xb3UXAfzsuOsswNmRPK5mvhH31H1RDZBICU7RqAcI6kui3b60LNlV6j
-	 QnYRumQsthQ8Ai+y9ugZcaLf3ObZ+mfNGIXqT+Dg=
+	b=Pf9cU7IQkURNUow+nYORAwlmGDbOXLrJIKIbn6tom+jKJjoB2ZAiNHDyE7CEiVrJS
+	 kbI9e1MGqui99eo28sz/WFujaWiWnkvCWo+x9TCTfNU/mI6naXY6PFoi6lKnokhm/J
+	 Pdz2ZWsR5QJlBBh4AAPhP2AzL51zQCL/qBNMf3io=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2003EF805A9; Mon, 29 Apr 2024 22:02:50 +0200 (CEST)
+	id 35BBCF8058C; Tue, 30 Apr 2024 09:30:53 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0150DF8059F;
-	Mon, 29 Apr 2024 22:02:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6A5F3F80570;
+	Tue, 30 Apr 2024 09:30:52 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 92F83F8028D; Mon, 29 Apr 2024 22:02:45 +0200 (CEST)
+	id 2743EF80266; Tue, 30 Apr 2024 09:29:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [IPv6:2a00:1450:4864:20::529])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id AF27EF800B5
-	for <alsa-devel@alsa-project.org>; Mon, 29 Apr 2024 22:02:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF27EF800B5
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7142AF8003A
+	for <alsa-devel@alsa-project.org>; Tue, 30 Apr 2024 09:29:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7142AF8003A
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=DDqa6IuA
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-5724f26b8c9so6696389a12.1
-        for <alsa-devel@alsa-project.org>;
- Mon, 29 Apr 2024 13:02:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1714420946; x=1715025746;
- darn=alsa-project.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=VsKE8r7F5xni1GwzY6+eg4w0O41Z5E2Stz6sTWPm390=;
-        b=DDqa6IuAhOMpGof58lFIo2eDflshJgRtxUpC0jYpNmUvuM6YPGRgH3HOgcA/41MnzF
-         l1/5yrzruJX7hLWCvlYETFtYGajHOrYP8scp31gfi4kADvmY+W3lm4Uj50Kl+o6uKIKQ
-         ZKskc/NjbtsT0PtyNXOL1/tXn/gnDiLw8iEvl/viOi4EkeEdRK6zz2TXOyJJoBLquEF4
-         vfoCixpFb6sYhRFYa7kgc0an0hSh1oGobLrB7fBzvOOvaB1jmd1/FA4zNierWWppRgjf
-         AlkLntXKgjh90uRKG3Nt4qurNgmKUeiALDh10CkVjCtMRJvGPwBuUAtb/rj+uZEhFTNc
-         FJZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714420946; x=1715025746;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=VsKE8r7F5xni1GwzY6+eg4w0O41Z5E2Stz6sTWPm390=;
-        b=Kk4H1gNOD7ettTDPsNAoY7YtCmH4rcgWzjcCFxXI5WhZnUaTl6LnKwXpf4KrPAeFKA
-         lYfgBUdzmssjvEsNJuFQFM/O/+SK7rYJAlwbAQXenv9qFbKzt0kYXceTHh7QyDv6O/tf
-         UJ/TntX7B3LKpQYv0N8s/PWzTBp4gINSvLW+cdnmb0ch/kOtdablAwS3pGVAqtVZWd2j
-         yQA7c2hqYRslGJvDhfGJEXc/mqxe11nfpUItHPSYogCE7rpTB1X9FSt3L0Rxc/bGo+C/
-         OmGQH+yOHSltQJlpBCM9zYw5S/dAjAFu/ko2BbY2m5MGIeRReR6oWovsmm8HNsE4ndkb
-         4Ezw==
-X-Gm-Message-State: AOJu0YyrVnz0o1k+AmnAdjc2MQSYVqvPZiEw82A7LvLo9XPmO5ppPH1F
-	cYA0CLbadS7P7sCZROpdgEgtAoHMLtn0Wrs1n6O4MEG0YNRT96YM
-X-Google-Smtp-Source: 
- AGHT+IHIKx0SyAjsW4Smx5uzNZpKk0OnRHPvT5Zv6XPyI3hdLPyaGW8TdxmJ1VY4Gefq40RqnxSymg==
-X-Received: by 2002:a17:907:7e9e:b0:a58:e8cf:664f with SMTP id
- qb30-20020a1709077e9e00b00a58e8cf664fmr718919ejc.23.1714420945336;
-        Mon, 29 Apr 2024 13:02:25 -0700 (PDT)
-Received: from jernej-laptop.localnet (86-58-6-171.dynamic.telemach.net.
- [86.58.6.171])
-        by smtp.gmail.com with ESMTPSA id
- r20-20020a170906705400b00a555ef55ab5sm14215787ejj.218.2024.04.29.13.02.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 29 Apr 2024 13:02:24 -0700 (PDT)
-From: Jernej =?utf-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
-To: Ban Tao <fengzheng923@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Chen-Yu Tsai <wens@csie.org>,
- Samuel Holland <samuel@sholland.org>, Joao Schim <joao@schimsalabim.eu>
-Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Subject: 
- Re: [PATCH v2] ASoC: sunxi: DMIC: Add controls for adjusting the mic gains
-Date: Mon, 29 Apr 2024 22:02:23 +0200
-Message-ID: <2931892.e9J7NaK4W3@jernej-laptop>
-In-Reply-To: <20240429194920.1596257-1-joao@schimsalabim.eu>
-References: <20240429194920.1596257-1-joao@schimsalabim.eu>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
-Message-ID-Hash: QKB7CIGDHJFRGTNKE7MO37LIR77SVZJV
-X-Message-ID-Hash: QKB7CIGDHJFRGTNKE7MO37LIR77SVZJV
-X-MailFrom: jernej.skrabec@gmail.com
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=kEySrfs2;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=gCvtzm7i;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=kEySrfs2;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=gCvtzm7i
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 7D2C41F7C7;
+	Tue, 30 Apr 2024 07:29:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1714462149;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=69ZdtCtJjvr3V5TXSmtMXF57C4EjGwdpN/08M8Ut6SQ=;
+	b=kEySrfs2e/papNB7c33RAcjpYFHuM0BbA6aXi0jYdZpKfmTX36UURTU4tlNO2fjcma9CnQ
+	VC5IXT4Fp1hnnndqiWaBDVsB9U9N6lV/eVdl92/cjeJt1IwbNBIT7GyB/ZRpjUg+YJf6if
+	vAkQhQ9PIZTDH3CseWUz2FY3GbozWLk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1714462149;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=69ZdtCtJjvr3V5TXSmtMXF57C4EjGwdpN/08M8Ut6SQ=;
+	b=gCvtzm7iVM1AABXqCJvvc2njO8UJCGR3lLVj8/SREf69eae9eJTWfcZ1ZqmPsApGBuRjX9
+	qoqsyj7Ftsg+PWCA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1714462149;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=69ZdtCtJjvr3V5TXSmtMXF57C4EjGwdpN/08M8Ut6SQ=;
+	b=kEySrfs2e/papNB7c33RAcjpYFHuM0BbA6aXi0jYdZpKfmTX36UURTU4tlNO2fjcma9CnQ
+	VC5IXT4Fp1hnnndqiWaBDVsB9U9N6lV/eVdl92/cjeJt1IwbNBIT7GyB/ZRpjUg+YJf6if
+	vAkQhQ9PIZTDH3CseWUz2FY3GbozWLk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1714462149;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=69ZdtCtJjvr3V5TXSmtMXF57C4EjGwdpN/08M8Ut6SQ=;
+	b=gCvtzm7iVM1AABXqCJvvc2njO8UJCGR3lLVj8/SREf69eae9eJTWfcZ1ZqmPsApGBuRjX9
+	qoqsyj7Ftsg+PWCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 49239133A7;
+	Tue, 30 Apr 2024 07:29:09 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([10.150.64.162])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id X5C2EMWdMGYRNAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Tue, 30 Apr 2024 07:29:09 +0000
+Date: Tue, 30 Apr 2024 09:29:21 +0200
+Message-ID: <87edannwa6.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Stefan Binding <sbinding@opensource.cirrus.com>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	<alsa-devel@alsa-project.org>,
+	<linux-sound@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>,
+	<patches@opensource.cirrus.com>
+Subject: Re: [PATCH v1 0/2] ALSA: hda: cs35l41: Ignore errors when configuring
+ interrupts to allow laptops with bad ACPI to play audio
+In-Reply-To: <20240429154853.9393-1-sbinding@opensource.cirrus.com>
+References: <20240429154853.9393-1-sbinding@opensource.cirrus.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-2.58 / 50.00];
+	BAYES_HAM(-2.28)[96.64%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns]
+Message-ID-Hash: KK7E5NN4DW6Z3ZQQZ7HUXVMADKHDWI43
+X-Message-ID-Hash: KK7E5NN4DW6Z3ZQQZ7HUXVMADKHDWI43
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -117,7 +157,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QKB7CIGDHJFRGTNKE7MO37LIR77SVZJV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KK7E5NN4DW6Z3ZQQZ7HUXVMADKHDWI43/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -126,86 +166,27 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Dne ponedeljek, 29. april 2024 ob 21:49:20 GMT +2 je Joao Schim napisal(a):
-> The AllWinner H6 and later SoCs that sport a DMIC block contain a set of registers to control
-> the gain (left + right) of each of the four supported channels.
+On Mon, 29 Apr 2024 17:48:51 +0200,
+Stefan Binding wrote:
 > 
-> Add ASoC controls for changing each of the stereo channel gains using alsamixer and alike
+> Some laptops have a bad _CRS defined for its interrupt.
+> This errors out inside the driver probe for CS35L41 HDA.
+> However, there is no fix in software for this bad configuration,
+> and it is unlikely to get a new BIOS, therefore it is better to
+> allow the laptop to continue probe, instead of erroring out inside
+> the probe. The interrupt is only used for Error Detection and
+> recovery, without the interrupt the driver will continue to function,
+> but errors will not be detected, and recovery will require a reboot.
 > 
-> Signed-off-by: Joao Schim <joao@schimsalabim.eu>
-
-Reviewed-by: Jernej Skrabec <jernej.skrabec@gmail.com>
-
-Best regards,
-Jernej
-
-> ---
->  sound/soc/sunxi/sun50i-dmic.c | 34 ++++++++++++++++++++++++++++++++++
->  1 file changed, 34 insertions(+)
+> Also add support for ASUS ROG 2024 laptops.
+> These laptops were released without _DSD, so need to be added into
+> the CS35L41 config table. Quirks for these laptops already exist.
 > 
-> diff --git a/sound/soc/sunxi/sun50i-dmic.c b/sound/soc/sunxi/sun50i-dmic.c
-> index c76628bc86c6..dd32780fb6a4 100644
-> --- a/sound/soc/sunxi/sun50i-dmic.c
-> +++ b/sound/soc/sunxi/sun50i-dmic.c
-> @@ -14,6 +14,7 @@
->  #include <sound/dmaengine_pcm.h>
->  #include <sound/pcm_params.h>
->  #include <sound/soc.h>
-> +#include <sound/tlv.h>
->  
->  #define SUN50I_DMIC_EN_CTL			(0x00)
->  	#define SUN50I_DMIC_EN_CTL_GLOBE			BIT(8)
-> @@ -43,6 +44,17 @@
->  	#define SUN50I_DMIC_CH_NUM_N_MASK			GENMASK(2, 0)
->  #define SUN50I_DMIC_CNT				(0x2c)
->  	#define SUN50I_DMIC_CNT_N				(1 << 0)
-> +#define SUN50I_DMIC_D0D1_VOL_CTR		(0x30)
-> +	#define SUN50I_DMIC_D0D1_VOL_CTR_0R			(0)
-> +	#define SUN50I_DMIC_D0D1_VOL_CTR_0L			(8)
-> +	#define SUN50I_DMIC_D0D1_VOL_CTR_1R			(16)
-> +	#define SUN50I_DMIC_D0D1_VOL_CTR_1L			(24)
-> +#define SUN50I_DMIC_D2D3_VOL_CTR                (0x34)
-> +        #define SUN50I_DMIC_D2D3_VOL_CTR_2R                     (0)
-> +        #define SUN50I_DMIC_D2D3_VOL_CTR_2L                     (8)
-> +        #define SUN50I_DMIC_D2D3_VOL_CTR_3R                     (16)
-> +        #define SUN50I_DMIC_D2D3_VOL_CTR_3L                     (24)
-> +
->  #define SUN50I_DMIC_HPF_CTRL			(0x38)
->  #define SUN50I_DMIC_VERSION			(0x50)
->  
-> @@ -273,8 +285,30 @@ static const struct of_device_id sun50i_dmic_of_match[] = {
->  };
->  MODULE_DEVICE_TABLE(of, sun50i_dmic_of_match);
->  
-> +static const SNDRV_CTL_TLVD_DECLARE_DB_SCALE(sun50i_dmic_vol_scale, -12000, 75, 1);
-> +
-> +static const struct snd_kcontrol_new sun50i_dmic_controls[] = {
-> +
-> +        SOC_DOUBLE_TLV("DMIC Channel 0 Capture Volume", SUN50I_DMIC_D0D1_VOL_CTR,
-> +                       SUN50I_DMIC_D0D1_VOL_CTR_0L, SUN50I_DMIC_D0D1_VOL_CTR_0R,
-> +                       0xFF, 0, sun50i_dmic_vol_scale),
-> +        SOC_DOUBLE_TLV("DMIC Channel 1 Capture Volume", SUN50I_DMIC_D0D1_VOL_CTR,
-> +                       SUN50I_DMIC_D0D1_VOL_CTR_1L, SUN50I_DMIC_D0D1_VOL_CTR_1R,
-> +                       0xFF, 0, sun50i_dmic_vol_scale),
-> +        SOC_DOUBLE_TLV("DMIC Channel 2 Capture Volume", SUN50I_DMIC_D2D3_VOL_CTR,
-> +                       SUN50I_DMIC_D2D3_VOL_CTR_2L, SUN50I_DMIC_D2D3_VOL_CTR_2R,
-> +                       0xFF, 0, sun50i_dmic_vol_scale),
-> +        SOC_DOUBLE_TLV("DMIC Channel 3 Capture Volume", SUN50I_DMIC_D2D3_VOL_CTR,
-> +                       SUN50I_DMIC_D2D3_VOL_CTR_3L, SUN50I_DMIC_D2D3_VOL_CTR_3R,
-> +                       0xFF, 0, sun50i_dmic_vol_scale),
-> +
-> +
-> +};
-> +
->  static const struct snd_soc_component_driver sun50i_dmic_component = {
->  	.name           = "sun50i-dmic",
-> +	.controls	= sun50i_dmic_controls,
-> +	.num_controls	= ARRAY_SIZE(sun50i_dmic_controls),
->  };
->  
->  static int sun50i_dmic_runtime_suspend(struct device *dev)
-> 
+> Stefan Binding (2):
+>   ALSA: hda: cs35l41: Ignore errors when configuring IRQs
+>   ALSA: hda: cs35l41: Add support for ASUS ROG 2024 Laptops
+
+Thanks, applied both patches to for-next branch now.
 
 
-
-
+Takashi

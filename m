@@ -2,122 +2,113 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5EC548B7796
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Apr 2024 15:49:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C92C58B7773
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Apr 2024 15:45:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 08B94162E;
-	Tue, 30 Apr 2024 15:49:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08B94162E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0B4A3820;
+	Tue, 30 Apr 2024 15:45:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B4A3820
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1714484969;
-	bh=jlydjqBi35a3hABy/KrwYY1HopWVDMfRB2O/6Edh1Jw=;
-	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1714484742;
+	bh=2UDOlMajI8DsE4OHRS3aVKxvrNd40hazdzrDjFIsdXE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=UnHWgryrVNqv6z9OZjOiW8JnL6WDES+GmBjClLDtSe8Xjt8Xepy03kiF5S+X0JWNY
-	 7EuVqwi+7BSyWu0hhF/vhNiIaaS6Uxyo5CdzP9HvjEQisUJDXbauedCdQji8CFxwE+
-	 fYUqgv8iJtU97lEpbIWI6I9UbrF1wOFzSk28+7jE=
+	b=iqTaovjvB/9KtNietOdM1Xr2d6cG7bkc+LdB+z/5t8kAyvWDvJNVHxVCTl/4Wrrvu
+	 WUhSe+jv/MIEGIhJkSlzG6Y/fSibuUI576AM8igleFEzA8/7HdcKBlgTqpFEM+2wvc
+	 EqScX6uBDiL/GLkE3smugiHa4wkTirUxjRZX1W04=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EA51EF806B6; Tue, 30 Apr 2024 15:47:22 +0200 (CEST)
+	id 5C21FF805F0; Tue, 30 Apr 2024 15:44:44 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 26693F8003C;
-	Tue, 30 Apr 2024 15:47:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DE44CF805E8;
+	Tue, 30 Apr 2024 15:44:43 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F3213F80266; Tue, 30 Apr 2024 15:30:15 +0200 (CEST)
+	id 139DAF80266; Tue, 30 Apr 2024 15:44:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-3.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 984D5F8003C
-	for <alsa-devel@alsa-project.org>; Tue, 30 Apr 2024 15:30:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 984D5F8003C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 59FC8F8003A
+	for <alsa-devel@alsa-project.org>; Tue, 30 Apr 2024 15:44:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59FC8F8003A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=nqXVoIBe
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 43U7dmdc008740;
-	Tue, 30 Apr 2024 13:30:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
-	date:from:to:cc:subject:message-id:references:mime-version
-	:content-type:in-reply-to; s=qcppdkim1; bh=fidFUpi4cf1KrWX5YDpHz
-	qgwyAXuG9D68KTSu4/w83A=; b=nqXVoIBeWCiDikSTdgAvmg2G0JcW8d46f50Ge
-	0N0mvDAP+nqmqRAQ4ZJnh4V9RtftHJOCzjaNhvK40feRfETu9qZLFkoxrnYLn9a5
-	+/yfa8kK7kGguYypleeCfIKHlUyyPM6YeFyuPPkJAUqv+DFK5xNwEuNXDoB44JfI
-	iPwP4bdrFbHTwKr3rll4GsyKcdJiiJ8r73GLjUo2ZpChcmW/w9789Z3iIlyl6u16
-	SD+yAeL00f6wV1dOEWq//tQtyGsiwx4IMtC7EKYW6NNOJIy3rFyxJykq58UkFI7A
-	5Q4HGOq9uYhI5npXPyrAvE9BCHb7Kb5WmIqjbLa4qJCnFDIFw==
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3xtfys3k8j-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 30 Apr 2024 13:30:03 +0000 (GMT)
-Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
- [10.47.97.35])
-	by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
- 43UDU2M2015731
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 30 Apr 2024 13:30:02 GMT
-Received: from hu-bjorande-lv.qualcomm.com (10.49.16.6) by
- nalasex01c.na.qualcomm.com (10.47.97.35) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.9; Tue, 30 Apr 2024 06:30:02 -0700
-Date: Tue, 30 Apr 2024 06:30:00 -0700
-From: Bjorn Andersson <quic_bjorande@quicinc.com>
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>
-CC: <alsa-devel@alsa-project.org>, Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konrad.dybcio@linaro.org>,
-        <linux-arm-msm@vger.kernel.org>,
-        Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH 0/3] slimbus: use 'time_left' instead of 'timeout' with
- wait_for_*() functions
-Message-ID: <ZjDyWFlx2cjfi1MJ@hu-bjorande-lv.qualcomm.com>
-References: <20240430120102.29459-1-wsa+renesas@sang-engineering.com>
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=hizNiqrS
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1714484668; x=1746020668;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=2UDOlMajI8DsE4OHRS3aVKxvrNd40hazdzrDjFIsdXE=;
+  b=hizNiqrSAr6urB2Wap6NPUTk7i8GLFaz40S2RT/pr9kuA3LWNCnMW6mH
+   tUjAz+GAwmc3uZx4wMvidHa1JHVn8dFBxmY+LsO+9I9wSDSyAIe4aeTfk
+   QghhuoXjS6F5w33+JePbOerFv4rP+h8Phkd8dtH4FWPp00F/SGwOKNlKn
+   hzXthn9DdBZICb6lOuH5JrnfduKP9+2rMP5AHJifYhbdthhD6W8tWXwL+
+   rg7o3HSeQ7pb3bBVbjycRRT6tjaDeVlgOqCRdsQw6l0KT3wT/KV2IhUDi
+   BKwb+xkFMXJbmsB/BzaY+tZCefsamCQDozadTb7y8dp2RET5DKY3/liaS
+   g==;
+X-CSE-ConnectionGUID: NWV5thHlSHicKCACVQG6gg==
+X-CSE-MsgGUID: NlZfsLF1TrWYPN/7LlY2ng==
+X-IronPort-AV: E=McAfee;i="6600,9927,11060"; a="10729734"
+X-IronPort-AV: E=Sophos;i="6.07,242,1708416000";
+   d="scan'208";a="10729734"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Apr 2024 06:44:22 -0700
+X-CSE-ConnectionGUID: mgmnKKShQMG9iua9PfZIfQ==
+X-CSE-MsgGUID: spqYxkyUQHScc8boV0HzRQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.07,242,1708416000";
+   d="scan'208";a="26964803"
+Received: from smile.fi.intel.com ([10.237.72.54])
+  by orviesa007.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Apr 2024 06:44:18 -0700
+Received: from andy by smile.fi.intel.com with local (Exim 4.97)
+	(envelope-from <andriy.shevchenko@linux.intel.com>)
+	id 1s1nmI-00000002g1m-0sDM;
+	Tue, 30 Apr 2024 16:44:14 +0300
+Date: Tue, 30 Apr 2024 16:44:13 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Baojun Xu <baojun.xu@ti.com>
+Cc: tiwai@suse.de, robh+dt@kernel.org, lgirdwood@gmail.com, perex@perex.cz,
+	pierre-louis.bossart@linux.intel.com, kevin-lu@ti.com,
+	shenghao-ding@ti.com, navada@ti.com, 13916275206@139.com,
+	v-po@ti.com, niranjan.hy@ti.com, alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org, liam.r.girdwood@intel.com,
+	yung-chuan.liao@linux.intel.com, broonie@kernel.org, soyer@irl.hu
+Subject: Re: [PATCH v4 1/3] ALSA: hda/tas2781: Add tas2781 hda driver based
+ on SPI
+Message-ID: <ZjD1rSJDXugxtDy2@smile.fi.intel.com>
+References: <20240430072544.1877-1-baojun.xu@ti.com>
+ <20240430072544.1877-2-baojun.xu@ti.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20240430120102.29459-1-wsa+renesas@sang-engineering.com>
-X-Originating-IP: [10.49.16.6]
-X-ClientProxiedBy: nalasex01a.na.qualcomm.com (10.47.209.196) To
- nalasex01c.na.qualcomm.com (10.47.97.35)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: afi6XheETSfeGAAApO7hcgPeQFaILgSO
-X-Proofpoint-ORIG-GUID: afi6XheETSfeGAAApO7hcgPeQFaILgSO
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1011,Hydra:6.0.650,FMLib:17.11.176.26
- definitions=2024-04-30_07,2024-04-30_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0
- spamscore=0 mlxscore=0 clxscore=1015 suspectscore=0 mlxlogscore=999
- lowpriorityscore=0 impostorscore=0 priorityscore=1501 bulkscore=0
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2404010003 definitions=main-2404300096
-X-MailFrom: quic_bjorande@quicinc.com
-X-Mailman-Rule-Hits: nonmember-moderation
+In-Reply-To: <20240430072544.1877-2-baojun.xu@ti.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Message-ID-Hash: 4HMOMV2JIQDZSXW66P4JNZYHKIZBUYLS
+X-Message-ID-Hash: 4HMOMV2JIQDZSXW66P4JNZYHKIZBUYLS
+X-MailFrom: andriy.shevchenko@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: OA6MACDNUQ7RWJDEHJNDMZ7IDOXSUDTH
-X-Message-ID-Hash: OA6MACDNUQ7RWJDEHJNDMZ7IDOXSUDTH
-X-Mailman-Approved-At: Tue, 30 Apr 2024 13:47:12 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OA6MACDNUQ7RWJDEHJNDMZ7IDOXSUDTH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4HMOMV2JIQDZSXW66P4JNZYHKIZBUYLS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -126,44 +117,48 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, Apr 30, 2024 at 02:00:58PM +0200, Wolfram Sang wrote:
-> There is a confusing pattern in the kernel to use a variable named 'timeout' to
-> store the result of wait_for_*() functions causing patterns like:
-> 
->         timeout = wait_for_completion_timeout(...)
->         if (!timeout) return -ETIMEDOUT;
-> 
-> with all kinds of permutations. Use 'time_left' as a variable to make the code
-> obvious and self explaining.
-> 
-> This is part of a tree-wide series. The rest of the patches can be found here
-> (some parts may still be WIP):
-> 
-> git://git.kernel.org/pub/scm/linux/kernel/git/wsa/linux.git i2c/time_left
-> 
-> Because these patches are generated, I audit them before sending. This is why I
-> will send series step by step. Build bot is happy with these patches, though.
-> No functional changes intended.
-> 
+On Tue, Apr 30, 2024 at 03:25:42PM +0800, Baojun Xu wrote:
+> Integrate tas2781 hda spi driver configs for HP (Varcolac).
+> Every tas2781 SPI node was added by serial-multi-instantie.c as a SPI device.
+> The code support Realtek as the primary codec.
 
-Reviewed-by: Bjorn Andersson <quic_bjorande@quicinc.com>
+...
 
-Regards,
-Bjorn
+> +		{"TIAS2781", },
 
-> Wolfram Sang (3):
->   slimbus: messaging: use 'time_left' variable with
->     wait_for_completion_timeout()
->   slimbus: qcom-ctrl: use 'time_left' variable with
->     wait_for_completion_timeout()
->   slimbus: qcom-ngd-ctrl: use 'time_left' variable with
->     wait_for_completion_timeout()
-> 
->  drivers/slimbus/messaging.c     |  9 +++++----
->  drivers/slimbus/qcom-ctrl.c     |  7 ++++---
->  drivers/slimbus/qcom-ngd-ctrl.c | 29 ++++++++++++++++-------------
->  3 files changed, 25 insertions(+), 20 deletions(-)
-> 
-> -- 
-> 2.43.0
-> 
+Is this for real? I mean you really abused ACPI specifications to get this into
+the real products on the market?! If so, never do this again.
+
+_This_ one is non-conforming abuse of ACPI specification and has not to be here
+at all. But, if the above is the case, provide the models of the devices and
+the excerpt of the DSDT where this broken ID happen, also add a big comment
+explaining how comes this happened and that you promise to never happen this
+again.
+
+...
+
+> +	{ "TIAS2781", (unsigned long)&tas2781_hda },
+
+Ditto.
+
+...
+
+> +config SND_HDA_SCODEC_TAS2781_SPI
+> +	tristate "Build TAS2781 HD-audio side codec support for SPI Bus"
+> +	depends on SPI_MASTER
+> +	depends on ACPI
+
+No compile test?
+
+> +	depends on EFI
+> +	depends on SND_SOC
+> +	select CRC32_SARWATE
+> +	help
+> +	  Say Y or M here to include TAS2781 SPI HD-audio side codec support
+> +	  in snd-hda-intel driver, such as ALC287.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+

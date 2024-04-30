@@ -2,124 +2,115 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 163C28B6C67
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Apr 2024 10:02:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5848F8B6D4D
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Apr 2024 10:50:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 180B883E;
-	Tue, 30 Apr 2024 10:02:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 180B883E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 87337825;
+	Tue, 30 Apr 2024 10:50:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 87337825
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1714464157;
-	bh=yVJdK01yhCnUukA30JdDhN5ZSKoRK85R+ezjnS2GijM=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
+	s=default; t=1714467032;
+	bh=778E1c8iAZG0ACA+zRws4wbilA1ZAtTXpb/AFIFHd3E=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=mDqTCogcqi1roF6aUOl/j6WLZFFfAbpj8JYaFmdmOkjN6hvGhetAljVfsWNjd3C8H
-	 QWxfnCCqg2h+Jmt9jso+B8ITIG32PiVvNisA9basfll5P0PPqIN+7IjVYiqYSv+FyT
-	 MV6YbufTab6ku5ueul1vMJlr8PkDiOMKm4+TNRpM=
+	b=vpPdwrc22VXRM4amcFZAGu/3OTX/6ZpKYiX57LwH1FtbfLCKDTpVKYcDJ2l0y1fGC
+	 PZT48x6tyYXGDzr3gq4+TiIRDmx97kfZuymJ5H5gGATPTVT6XruRjHsJArJmaGuziN
+	 aTNYHw2i8OJOxRFxWZ2lVazrL0H/Fl+olMZU+U/A=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 05FB8F80269; Tue, 30 Apr 2024 10:02:01 +0200 (CEST)
+	id 29BE4F80570; Tue, 30 Apr 2024 10:49:59 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 63B32F805A8;
-	Tue, 30 Apr 2024 10:02:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 64325F805A0;
+	Tue, 30 Apr 2024 10:49:59 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B9EF8F80266; Tue, 30 Apr 2024 10:01:54 +0200 (CEST)
+	id A99A3F80266; Tue, 30 Apr 2024 10:47:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No,
+ score=-2.1 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 81D1DF8003C
-	for <alsa-devel@alsa-project.org>; Tue, 30 Apr 2024 10:01:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81D1DF8003C
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=Wci2KBcs
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 43U3tGxi028667;
-	Tue, 30 Apr 2024 08:01:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
-	message-id:date:mime-version:subject:to:cc:references:from
-	:in-reply-to:content-type:content-transfer-encoding; s=
-	qcppdkim1; bh=GbwTd6BSjMG9RMTPFLFiWPip1PAsE7tlTno/hl5oWyc=; b=Wc
-	i2KBcsfht+cUMJKoqoB3EdqTZh6AduhAAH+HsCPqs5ajqiGHVRVpTEMkvclbRipM
-	x09kwYuCYoH0le70E6aLmknVp5fvTLvFgXtNFPZ7aa4bQrrorhiMQw9KgUCzufqf
-	/EJ8beUBFumjECZNGB2kWcGPZnldJjPpLVvoWcK6MT/nFRW5rdE1uqgn247NZ/L1
-	/u2qvAjm7wAuttXX1UlLjv+qlDlV0Jo33cRjEnus+jxbxZPVk7mhXxvzdb+h0JJe
-	4GzVe105ObdfaMfYAP4Pae6Jke554uusHFVOJniLhL7lroaRMam1HCO3uihVsAAs
-	nsXnUdkHSu52Hwz5c95Q==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3xtqkr8vc6-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 30 Apr 2024 08:01:36 +0000 (GMT)
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
-	by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
- 43U81Z3I021417
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 30 Apr 2024 08:01:35 GMT
-Received: from [10.110.61.50] (10.80.80.8) by nalasex01b.na.qualcomm.com
- (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 30 Apr
- 2024 01:01:34 -0700
-Message-ID: <9707364c-9743-83e2-2fc6-86c76322a1da@quicinc.com>
-Date: Tue, 30 Apr 2024 01:01:29 -0700
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5CE71F8003C
+	for <alsa-devel@alsa-project.org>; Tue, 30 Apr 2024 10:47:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5CE71F8003C
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id 950A5CE0F88;
+	Tue, 30 Apr 2024 08:47:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C809C2BBFC;
+	Tue, 30 Apr 2024 08:47:14 +0000 (UTC)
+Message-ID: <32d0c83c-4d0c-4d22-b2f1-d03d075f4898@xs4all.nl>
+Date: Tue, 30 Apr 2024 10:47:13 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Subject: Re: [PATCH v20 22/41] ASoC: usb: Add PCM format check API for USB
- backend
-To: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
-	<amadeuszx.slawinski@linux.intel.com>,
-        <srinivas.kandagatla@linaro.org>, <mathias.nyman@intel.com>,
-        <perex@perex.cz>, <conor+dt@kernel.org>, <corbet@lwn.net>,
-        <lgirdwood@gmail.com>, <andersson@kernel.org>,
-        <krzysztof.kozlowski+dt@linaro.org>, <gregkh@linuxfoundation.org>,
-        <Thinh.Nguyen@synopsys.com>, <broonie@kernel.org>,
-        <bgoswami@quicinc.com>, <tiwai@suse.com>, <robh@kernel.org>,
-        <konrad.dybcio@linaro.org>
-CC: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-sound@vger.kernel.org>, <linux-usb@vger.kernel.org>,
-        <linux-arm-msm@vger.kernel.org>, <linux-doc@vger.kernel.org>,
-        <alsa-devel@alsa-project.org>
-References: <20240425215125.29761-1-quic_wcheng@quicinc.com>
- <20240425215125.29761-23-quic_wcheng@quicinc.com>
- <3d70c19f-bab8-4e50-9551-de406a0e0314@linux.intel.com>
-Content-Language: en-US
-From: Wesley Cheng <quic_wcheng@quicinc.com>
-In-Reply-To: <3d70c19f-bab8-4e50-9551-de406a0e0314@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: btr3Xp9rudx4won1D-9fWNtZMOuVnQ-Y
-X-Proofpoint-ORIG-GUID: btr3Xp9rudx4won1D-9fWNtZMOuVnQ-Y
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1011,Hydra:6.0.650,FMLib:17.11.176.26
- definitions=2024-04-30_04,2024-04-29_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 bulkscore=0
- suspectscore=0 priorityscore=1501 mlxlogscore=874 malwarescore=0
- phishscore=0 mlxscore=0 clxscore=1015 lowpriorityscore=0 adultscore=0
- spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2404010003 definitions=main-2404300057
-Message-ID-Hash: 4JVFGEVBNBWTZHLMXISLZJT7E7VLE4PX
-X-Message-ID-Hash: 4JVFGEVBNBWTZHLMXISLZJT7E7VLE4PX
-X-MailFrom: quic_wcheng@quicinc.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v15 00/16] Add audio support in v4l2 framework
+Content-Language: en-US, nl
+To: Sebastian Fricke <sebastian.fricke@collabora.com>,
+ Shengjiu Wang <shengjiu.wang@nxp.com>
+Cc: sakari.ailus@iki.fi, tfiga@chromium.org, m.szyprowski@samsung.com,
+ mchehab@kernel.org, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org, shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com,
+ festevam@gmail.com, nicoleotsuka@gmail.com, lgirdwood@gmail.com,
+ broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org
+References: <1710834674-3285-1-git-send-email-shengjiu.wang@nxp.com>
+ <20240430082112.jrovosb6lgblgpfg@basti-XPS-13-9310>
+From: Hans Verkuil <hverkuil@xs4all.nl>
+Autocrypt: addr=hverkuil@xs4all.nl; keydata=
+ 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
+In-Reply-To: <20240430082112.jrovosb6lgblgpfg@basti-XPS-13-9310>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: A5TXBCHMULSTI2ILT5EFQJEFOZL3GS53
+X-Message-ID-Hash: A5TXBCHMULSTI2ILT5EFQJEFOZL3GS53
+X-MailFrom: SRS0=PY4m=MD=xs4all.nl=hverkuil@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -131,7 +122,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4JVFGEVBNBWTZHLMXISLZJT7E7VLE4PX/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/A5TXBCHMULSTI2ILT5EFQJEFOZL3GS53/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -140,43 +131,98 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Amadeusz,
+On 30/04/2024 10:21, Sebastian Fricke wrote:
+> Hey Shengjiu,
+> 
+> first of all thanks for all of this work and I am very sorry for only
+> emerging this late into the series, I sadly didn't notice it earlier.
+> 
+> I would like to voice a few concerns about the general idea of adding
+> Audio support to the Media subsystem.
+> 
+> 1. The biggest objection is, that the Linux Kernel has a subsystem
+> specifically targeted for audio devices, adding support for these
+> devices in another subsystem are counterproductive as they work around
+> the shortcomings of the audio subsystem while forcing support for a
+> device into a subsystem that was never designed for such devices.
+> Instead, the audio subsystem has to be adjusted to be able to support
+> all of the required workflows, otherwise, the next audio driver with
+> similar requirements will have to move to the media subsystem as well,
+> the audio subsystem would then never experience the required change and
+> soon we would have two audio subsystems.
+> 
+> 2. Closely connected to the previous objection, the media subsystem with
+> its current staff of maintainers is overworked and barely capable of
+> handling the workload, which includes an abundance of different devices
+> from DVB, codecs, cameras, PCI devices, radio tuners, HDMI CEC, IR
+> receivers, etc. Adding more device types to this matrix will make the
+> situation worse and should only be done with a plan for how first to
+> improve the current maintainer situation.
+> 
+> 3. By using the same framework and APIs as the video codecs, the audio
+> codecs are going to cause extra work for the video codec developers and
+> maintainers simply by occupying the same space that was orginally
+> designed for the purpose of video only. Even if you try to not cause any
+> extra stress the simple presence of the audio code in the codebase is
+> going to cause restrictions.
+> 
+> The main issue here is that the audio subsystem doesn't provide a
+> mem2mem framework and I would say you are in luck because the media
+> subsystem has gathered a lot of shortcomings with its current
+> implementation of the mem2mem framework over time, which is why a new
+> implementation will be necessary anyway.
+> 
+> So instead of hammering a driver into the wrong destination, I would
+> suggest bundling our forces and implementing a general memory-to-memory
+> framework that both the media and the audio subsystem can use, that
+> addresses the current shortcomings of the implementation and allows you
+> to upload the driver where it is supposed to be.
+> This is going to cause restrictions as well, like mentioned in the
+> concern number 3, but with the difference that we can make a general
+> plan for such a framework that accomodates lots of use cases and each
+> subsystem can add their routines on top of the general framework.
+> 
+> Another possible alternative is to try and make the DRM scheduler more
+> generally available, this scheduler is the most mature and in fact is
+> very similar to what you and what the media devices need.
+> Which again just shows how common your usecase actually is and how a
+> general solution is the best long term solution.
+> 
+> Please notice that Daniel Almeida is currently working on something
+> related to this:
+> https://lore.kernel.org/linux-media/3F80AC0D-DCAA-4EDE-BF58-BB1369C7EDCA@collabora.com/T/#u
+> 
+> If the toplevel maintainers decide to add the patchset so be it, but I
+> wanted to voice my concerns and also highlight that this is likely going
+> to cause extra stress for the video codecs maintainers and the
+> maintainers in general. We cannot spend a lot of time on audio codecs,
+> as video codecs already fill up our available time sufficiently,
+> so the use of the framework needs to be conservative and cause as little
+> extra work as possible for the original use case of the framework.
 
-On 4/26/2024 6:25 AM, Amadeusz Sławiński wrote:
-> On 4/25/2024 11:51 PM, Wesley Cheng wrote:
->> Introduce a helper to check if a particular PCM format is supported by 
->> the
->> USB audio device connected.  If the USB audio device does not have an
->> audio profile which can support the requested format, then notify the USB
->> backend.
->>
->> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
->> ---
-> 
-> (...)
-> 
->> +/**
->> + * snd_soc_usb_find_format() - Check if audio format is supported
->> + * @card_idx: USB sound chip array index
->> + * @params: PCM parameters
->> + * @direction: capture or playback
->> + *
->> + * Ensure that a requested audio profile from the ASoC side is able 
->> to be
->> + * supported by the USB device.
->> + *
->> + * Return 0 on success, negative on error.
->> + *
->> + */
->> +int snd_soc_usb_find_format(int card_idx, struct snd_pcm_hw_params 
->> *params,
->> +            int direction)
-> 
-> Perhaps name function similar to its snd_usb equivalent, so 
-> snd_soc_usb_find_supported_format?
-> 
+I would really like to get the input of the audio maintainers on this.
+Sebastian has a good point, especially with us being overworked :-)
 
-Will do.
+Having a shared mem2mem framework would certainly be nice, on the other
+hand, developing that will most likely take a substantial amount of time.
 
-Thanks
-Wesley Cheng
+Perhaps it is possible to copy the current media v4l2-mem2mem.c and turn
+it into an alsa-mem2mem.c? I really do not know enough about the alsa
+subsystem to tell if that is possible.
+
+While this driver is a rate converter, not an audio codec, the same
+principles would apply to off-line audio codecs as well. And it is true
+that we definitely do not want to support audio codecs in the media
+subsystem.
+
+Accepting this driver creates a precedent and would open the door for
+audio codecs.
+
+I may have been too hasty in saying yes to this, I did not consider
+the wider implications for our workload and what it can lead to. I
+sincerely apologize to Shengjiu Wang as it is no fun to end up in a
+situation like this.
+
+Regards,
+
+	Hans

@@ -2,77 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A95258B778B
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Apr 2024 15:47:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB2778B778C
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Apr 2024 15:48:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 07E30B6A;
-	Tue, 30 Apr 2024 15:47:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 07E30B6A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9E549E9A;
+	Tue, 30 Apr 2024 15:47:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E549E9A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1714484873;
-	bh=zj3KU5WojxV+uFClMlpfJ5QoCeWL4Ou+kVZkLfofrs4=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1714484888;
+	bh=f4HexFXrgl33Xvb0NsdgdkEQEzHfWh5sA10LWpZKdS4=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=G1MrwTe7vkyMxPX1pb5e8Mxr/uji5Ejv0lakPmZxev33zLug8tm4otlCA9X5pyeJU
-	 HI6HCv11Bz8XyplMJ/fruGEbff7bYbi7anX9khgaT/c0XBUeDflvH0cW6Dr8LC6qOZ
-	 M6LFLMqV+l8hpFLu6eaLTQ5S00HoPwIiB66rHIos=
+	b=tQAvde0H6AhyIKqDVxI6nCovhUl/DcW7e4v9EZg4oupRxbkmJ+coKtKdqKbDvOQRS
+	 aDo1VINtIfaIkOCIehBEGDIgZXr5oWyLLshQdLDL5Dub2mmgwGSN3R1GBhIKL3RGmF
+	 4mMXsJNxgZJmhe4PNGkZmz+CQrbZe3gaw6uxwvgw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 67FAFF805C6; Tue, 30 Apr 2024 15:47:03 +0200 (CEST)
+	id 70F51F805EF; Tue, 30 Apr 2024 15:47:05 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 45B60F805CB;
-	Tue, 30 Apr 2024 15:47:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4DCC7F805F4;
+	Tue, 30 Apr 2024 15:47:05 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8F225F8028D; Mon, 29 Apr 2024 21:49:42 +0200 (CEST)
+	id 1F290F80269; Tue, 30 Apr 2024 09:26:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from www.schimsalabim.eu (vps01.schimsalabim.eu
- [IPv6:2a01:238:430d:5000:21c4:1c57:b27f:c8a])
+X-Spam-Status: No, score=-6.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
+	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 66E93F8003C
-	for <alsa-devel@alsa-project.org>; Mon, 29 Apr 2024 21:49:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66E93F8003C
-Received: from localhost.localdomain (82-217-109-137.cable.dynamic.v4.ziggo.nl
- [82.217.109.137])
-	(authenticated bits=0)
-	by h2374449.stratoserver.net (8.14.7/8.14.7) with ESMTP id 43TJnPPQ000764
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
-	Mon, 29 Apr 2024 21:49:30 +0200
-From: Joao Schim <joao@schimsalabim.eu>
-To: Ban Tao <fengzheng923@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
-        Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>, Chen-Yu Tsai <wens@csie.org>,
-        Jernej Skrabec <jernej.skrabec@gmail.com>,
-        Samuel Holland <samuel@sholland.org>
-Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
-        linux-kernel@vger.kernel.org
-Subject: [PATCH v2] ASoC: sunxi: DMIC: Add controls for adjusting the mic
- gains
-Date: Mon, 29 Apr 2024 21:49:20 +0200
-Message-Id: <20240429194920.1596257-1-joao@schimsalabim.eu>
-X-Mailer: git-send-email 2.25.1
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1CF03F8023A
+	for <alsa-devel@alsa-project.org>; Tue, 30 Apr 2024 09:26:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1CF03F8023A
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
+ header.s=ti-com-17Q1 header.b=GoTCIlfl
+Received: from fllv0035.itg.ti.com ([10.64.41.0])
+	by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 43U7QbNU087453;
+	Tue, 30 Apr 2024 02:26:37 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+	s=ti-com-17Q1; t=1714461997;
+	bh=KTYnkmUys+v1UyGXnvoxWeo9cURnTj9K09u6LrUM9CA=;
+	h=From:To:CC:Subject:Date;
+	b=GoTCIlflIYy4J7RgskGGNAOfB0uv3KFT0dmKyNc/UC1SFKtYY3meBzzuE+BpkaZ05
+	 PbmjhSBbE+3ax88IjO6NkJgRpcjaMssHVtSA3XCQs7It2o8p0MRiA5Vug50H8Kam81
+	 zj0UC/aNjsN6JPTvHp2QSAngJTksVlGRsNz1mWLs=
+Received: from DLEE103.ent.ti.com (dlee103.ent.ti.com [157.170.170.33])
+	by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 43U7QbJr129537
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 30 Apr 2024 02:26:37 -0500
+Received: from DLEE106.ent.ti.com (157.170.170.36) by DLEE103.ent.ti.com
+ (157.170.170.33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Tue, 30
+ Apr 2024 02:26:36 -0500
+Received: from lelvsmtp6.itg.ti.com (10.180.75.249) by DLEE106.ent.ti.com
+ (157.170.170.36) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
+ Frontend Transport; Tue, 30 Apr 2024 02:26:36 -0500
+Received: from lelvsmtp5.itg.ti.com ([10.250.165.138])
+	by lelvsmtp6.itg.ti.com (8.15.2/8.15.2) with ESMTP id 43U7QT59096668;
+	Tue, 30 Apr 2024 02:26:30 -0500
+From: Baojun Xu <baojun.xu@ti.com>
+To: <tiwai@suse.de>
+CC: <robh+dt@kernel.org>, <andriy.shevchenko@linux.intel.com>,
+        <lgirdwood@gmail.com>, <perex@perex.cz>,
+        <pierre-louis.bossart@linux.intel.com>, <kevin-lu@ti.com>,
+        <shenghao-ding@ti.com>, <navada@ti.com>, <13916275206@139.com>,
+        <v-po@ti.com>, <niranjan.hy@ti.com>, <alsa-devel@alsa-project.org>,
+        <linux-kernel@vger.kernel.org>, <liam.r.girdwood@intel.com>,
+        <yung-chuan.liao@linux.intel.com>, <baojun.xu@ti.com>,
+        <broonie@kernel.org>, <soyer@irl.hu>
+Subject: [PATCH v4 0/3] ALSA: hda/tas2781: Add tas2781 driver for SPI.
+Date: Tue, 30 Apr 2024 15:25:41 +0800
+Message-ID: <20240430072544.1877-1-baojun.xu@ti.com>
+X-Mailer: git-send-email 2.43.0.windows.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-MailFrom: joao@schimsalabim.eu
+Content-Type: text/plain
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+X-MailFrom: baojun.xu@ti.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: YEA3CSLSROXA3CNEBKSA75JUQNSPYAYT
-X-Message-ID-Hash: YEA3CSLSROXA3CNEBKSA75JUQNSPYAYT
+Message-ID-Hash: D74KN5Y2CK3AKIL5L22YKXPQF6UVIANG
+X-Message-ID-Hash: D74KN5Y2CK3AKIL5L22YKXPQF6UVIANG
 X-Mailman-Approved-At: Tue, 30 Apr 2024 13:46:57 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YEA3CSLSROXA3CNEBKSA75JUQNSPYAYT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/D74KN5Y2CK3AKIL5L22YKXPQF6UVIANG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -81,77 +107,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The AllWinner H6 and later SoCs that sport a DMIC block contain a set of registers to control
-the gain (left + right) of each of the four supported channels.
+This patch was used to add TAS2781 devices on SPI support in sound/pci/hda.
+It use ACPI node descript about parameters of TAS2781 on SPI, it like:
+    Scope (_SB.PC00.SPI0)
+    {
+        Device (GSPK)
+        {
+            Name (_HID, "TXNW2781")  // _HID: Hardware ID
+            Method (_CRS, 0, NotSerialized)
+            {
+                Name (RBUF, ResourceTemplate ()
+                {
+                    SpiSerialBusV2 (...)
+                    SpiSerialBusV2 (...)
+                }
+            }
+        }
+    }
 
-Add ASoC controls for changing each of the stereo channel gains using alsamixer and alike
+And in platform/x86/serial-multi-instantiate.c, those spi devices will be
+added into system as a single SPI device, so TAS2781 SPI driver will
+probe twice for every single SPI device. And driver will also parser
+mono DSP firmware binary and RCA binary for itself.
 
-Signed-off-by: Joao Schim <joao@schimsalabim.eu>
----
- sound/soc/sunxi/sun50i-dmic.c | 34 ++++++++++++++++++++++++++++++++++
- 1 file changed, 34 insertions(+)
+Signed-off-by: Baojun Xu <baojun.xu@ti.com>
 
-diff --git a/sound/soc/sunxi/sun50i-dmic.c b/sound/soc/sunxi/sun50i-dmic.c
-index c76628bc86c6..dd32780fb6a4 100644
---- a/sound/soc/sunxi/sun50i-dmic.c
-+++ b/sound/soc/sunxi/sun50i-dmic.c
-@@ -14,6 +14,7 @@
- #include <sound/dmaengine_pcm.h>
- #include <sound/pcm_params.h>
- #include <sound/soc.h>
-+#include <sound/tlv.h>
- 
- #define SUN50I_DMIC_EN_CTL			(0x00)
- 	#define SUN50I_DMIC_EN_CTL_GLOBE			BIT(8)
-@@ -43,6 +44,17 @@
- 	#define SUN50I_DMIC_CH_NUM_N_MASK			GENMASK(2, 0)
- #define SUN50I_DMIC_CNT				(0x2c)
- 	#define SUN50I_DMIC_CNT_N				(1 << 0)
-+#define SUN50I_DMIC_D0D1_VOL_CTR		(0x30)
-+	#define SUN50I_DMIC_D0D1_VOL_CTR_0R			(0)
-+	#define SUN50I_DMIC_D0D1_VOL_CTR_0L			(8)
-+	#define SUN50I_DMIC_D0D1_VOL_CTR_1R			(16)
-+	#define SUN50I_DMIC_D0D1_VOL_CTR_1L			(24)
-+#define SUN50I_DMIC_D2D3_VOL_CTR                (0x34)
-+        #define SUN50I_DMIC_D2D3_VOL_CTR_2R                     (0)
-+        #define SUN50I_DMIC_D2D3_VOL_CTR_2L                     (8)
-+        #define SUN50I_DMIC_D2D3_VOL_CTR_3R                     (16)
-+        #define SUN50I_DMIC_D2D3_VOL_CTR_3L                     (24)
-+
- #define SUN50I_DMIC_HPF_CTRL			(0x38)
- #define SUN50I_DMIC_VERSION			(0x50)
- 
-@@ -273,8 +285,30 @@ static const struct of_device_id sun50i_dmic_of_match[] = {
- };
- MODULE_DEVICE_TABLE(of, sun50i_dmic_of_match);
- 
-+static const SNDRV_CTL_TLVD_DECLARE_DB_SCALE(sun50i_dmic_vol_scale, -12000, 75, 1);
-+
-+static const struct snd_kcontrol_new sun50i_dmic_controls[] = {
-+
-+        SOC_DOUBLE_TLV("DMIC Channel 0 Capture Volume", SUN50I_DMIC_D0D1_VOL_CTR,
-+                       SUN50I_DMIC_D0D1_VOL_CTR_0L, SUN50I_DMIC_D0D1_VOL_CTR_0R,
-+                       0xFF, 0, sun50i_dmic_vol_scale),
-+        SOC_DOUBLE_TLV("DMIC Channel 1 Capture Volume", SUN50I_DMIC_D0D1_VOL_CTR,
-+                       SUN50I_DMIC_D0D1_VOL_CTR_1L, SUN50I_DMIC_D0D1_VOL_CTR_1R,
-+                       0xFF, 0, sun50i_dmic_vol_scale),
-+        SOC_DOUBLE_TLV("DMIC Channel 2 Capture Volume", SUN50I_DMIC_D2D3_VOL_CTR,
-+                       SUN50I_DMIC_D2D3_VOL_CTR_2L, SUN50I_DMIC_D2D3_VOL_CTR_2R,
-+                       0xFF, 0, sun50i_dmic_vol_scale),
-+        SOC_DOUBLE_TLV("DMIC Channel 3 Capture Volume", SUN50I_DMIC_D2D3_VOL_CTR,
-+                       SUN50I_DMIC_D2D3_VOL_CTR_3L, SUN50I_DMIC_D2D3_VOL_CTR_3R,
-+                       0xFF, 0, sun50i_dmic_vol_scale),
-+
-+
-+};
-+
- static const struct snd_soc_component_driver sun50i_dmic_component = {
- 	.name           = "sun50i-dmic",
-+	.controls	= sun50i_dmic_controls,
-+	.num_controls	= ARRAY_SIZE(sun50i_dmic_controls),
- };
- 
- static int sun50i_dmic_runtime_suspend(struct device *dev)
+Baojun Xu (3):
+  ALSA: hda/tas2781: Add tas2781 hda driver based on SPI
+  ALSA: hda/tas2781: Tas2781 hda driver for SPI
+  ALSA: hda/tas2781: Firmware load for tas2781 hda driver based on SPI
+
+ drivers/acpi/scan.c                           |    2 +
+ .../platform/x86/serial-multi-instantiate.c   |   13 +
+ sound/pci/hda/Kconfig                         |   14 +
+ sound/pci/hda/Makefile                        |    2 +
+ sound/pci/hda/patch_realtek.c                 |   13 +
+ sound/pci/hda/tas2781-spi.h                   |  149 ++
+ sound/pci/hda/tas2781_hda_spi.c               | 1240 +++++++++
+ sound/pci/hda/tas2781_spi_fwlib.c             | 2252 +++++++++++++++++
+ 8 files changed, 3685 insertions(+)
+ create mode 100644 sound/pci/hda/tas2781-spi.h
+ create mode 100644 sound/pci/hda/tas2781_hda_spi.c
+ create mode 100644 sound/pci/hda/tas2781_spi_fwlib.c
+
 -- 
-2.25.1
+2.40.1
 

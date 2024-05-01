@@ -2,77 +2,110 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A42E8B8B6E
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 May 2024 15:44:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0CC48B8B7D
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 May 2024 15:56:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C00F5E80;
-	Wed,  1 May 2024 15:44:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C00F5E80
+	by alsa0.perex.cz (Postfix) with ESMTPS id 47453E72;
+	Wed,  1 May 2024 15:56:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 47453E72
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1714571054;
-	bh=z2VFJH9/TTaHh5ejO6dlfSh3KL6ufSg57ZzswSlInCU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1714571818;
+	bh=pFNsRounutZ0watyT0vICiz4MZiX/bMl6TXERH4tJEA=;
+	h=Date:To:Cc:References:Subject:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=os7YEaDWuZEDEE2IYo1KnLYA5ROjQ6dZhGyeur3Z/gZywFFy4w/pLwWrKuHUgFNpX
-	 GPO7uGI4riirkVMgwGFe1rzXGynxJJZdR70GEBu8DXo+E7oTWJ1x4i0e7DDvgPdPuv
-	 W1vdZO/TriBs6sW4DyV7iVPQE/3p3rUAN5SJNtxM=
+	b=u5tSgjoNHmJMWUuwJQNtYDvaNFT1dEZB2cGhxQH6DqWiLGv1TMi0N3buFdsAE0FwE
+	 WamfXq5CV6S/WbQmNpL0ha8+rjab6zdMzOy4vxH4cozsWOqmYa3N6SBwW4l2hM8MTn
+	 1e0shSwPZ1S1dkZl1pVJoAhL0aNzGAU+2V0rytKM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E6758F8057F; Wed,  1 May 2024 15:43:54 +0200 (CEST)
+	id 9379FF80589; Wed,  1 May 2024 15:56:23 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D46D7F805AC;
-	Wed,  1 May 2024 15:43:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D0A0EF8028D;
+	Wed,  1 May 2024 15:56:22 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 13F4BF80579; Wed,  1 May 2024 15:43:30 +0200 (CEST)
+	id E8A4AF80266; Wed,  1 May 2024 15:56:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_MSPIKE_H3,
+	RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mout.web.de (mout.web.de [217.72.192.78])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0E721F80266
-	for <alsa-devel@alsa-project.org>; Wed,  1 May 2024 15:43:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E721F80266
+	by alsa1.perex.cz (Postfix) with ESMTPS id A1516F8003A
+	for <alsa-devel@alsa-project.org>; Wed,  1 May 2024 15:56:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1516F8003A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=MdCJnQdv
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 8F5DF6179D;
-	Wed,  1 May 2024 13:43:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54D20C4AF18;
-	Wed,  1 May 2024 13:43:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1714571004;
-	bh=z2VFJH9/TTaHh5ejO6dlfSh3KL6ufSg57ZzswSlInCU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=MdCJnQdv/gUcZN1c5Yyf/QFREAwgMxKWcx/RZBt/53Gv87EGHiRpZwKLIYVTDEyQK
-	 PVae/futdrj/8WA1LpqUiViYnBPJj1ibq6tllvIGAPd1d3j+rblbxnBbazeKemOdAn
-	 ZoKDy/GWqVGqW16FAa9XEuKpqfcRATcwxYu0Wmh/XEaXH/QQ0REKIW+3pDoXN0QhbC
-	 OmUIQ08CpkeQDpabv4IWnRMKbq18tEWLQDzcoxg6ZcDgNP0YkAo6Uu59pY1dA9R5di
-	 ZlF6KwU/yJuB3TWgkesra5mCtWRKYSnVnCRLZd4vhV4AQpUOWZvCF8W6cDOboWp0A/
-	 GrZF6bFJA57tQ==
-From: Mark Brown <broonie@kernel.org>
-To: linux-sound@vger.kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de
-In-Reply-To: <20240426153902.39560-1-pierre-louis.bossart@linux.intel.com>
-References: <20240426153902.39560-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 0/5] ASoc: SOF: misc updates for 6.10
-Message-Id: <171457100276.1888704.18305360939038421630.b4-ty@kernel.org>
-Date: Wed, 01 May 2024 22:43:22 +0900
+ unprotected) header.d=web.de header.i=markus.elfring@web.de
+ header.a=rsa-sha256 header.s=s29768273 header.b=sj0Zz4Z7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+	s=s29768273; t=1714571742; x=1715176542; i=markus.elfring@web.de;
+	bh=tQlEmKt/yFE6pJw5QP1IkuqC5w2AGb1cHSuCQpauzPE=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
+	 Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 cc:content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=sj0Zz4Z7WwehrcScZnEP2j/CtHXElTLzUJbSFf43oTyrmvSs3qxxoNKvJTfjy9kf
+	 eKyVPlU2C6mXjSjLzgg9NwZ+D/jolsDD4ic9/8raeX3Ssde3i5mfhHz6QDH6YIMbU
+	 yvyND/btLfkkfD9txKHYPJi0F9z8izKAPGtmfbb6JbeeeK4KXiESJuPeWVqlr0Car
+	 nQ+MtAjgB1frlBE4a8H3oiGCKSPLbna5cdtv1t4Dzn1Nqd5BBPvJK+xfwKg6wdoGC
+	 hxFK3xu0EI79y5TASZvz7tMAr7M+x8LC7pIKJTNX+GcwAFxPeMBc2r6eEdlGuOzaV
+	 aXcilABJudedHnwFEA==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from [192.168.178.21] ([94.31.85.95]) by smtp.web.de (mrweb106
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1MDvDi-1ruVT82i28-00A9tM; Wed, 01
+ May 2024 15:55:42 +0200
+Message-ID: <745cc56b-0ef4-4cf9-9051-cae318866672@web.de>
+Date: Wed, 1 May 2024 15:55:32 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14-dev
-Message-ID-Hash: QHJGNLINGRGYX72UH7SK2FEWJLKDHFA3
-X-Message-ID-Hash: QHJGNLINGRGYX72UH7SK2FEWJLKDHFA3
-X-MailFrom: broonie@kernel.org
+User-Agent: Mozilla Thunderbird
+To: Shenghao Ding <shenghao-ding@ti.com>, alsa-devel@alsa-project.org,
+ kernel-janitors@vger.kernel.org, Mark Brown <broonie@kernel.org>
+Cc: LKML <linux-kernel@vger.kernel.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Baojun Xu <Baojun.Xu@fpt.com>, Baojun Xu <baojun.xu@ti.com>,
+ Bard Liao <bard.liao@intel.com>, Bard Liao
+ <yung-chuan.liao@linux.intel.com>,
+ Cameron Berkenpas <cameron.berkenpas@gmail.com>, Gergo Koteles
+ <soyer@irl.hu>, Jaroslav Kysela <perex@perex.cz>, Kevin Lu
+ <kevin-lu@ti.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Liam Girdwood <liam.r.girdwood@intel.com>, mimperial@lenovo.com,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Shenghao Ding <13916275206@139.com>, Takashi Iwai <tiwai@suse.de>
+References: <20240501122252.1215-1-shenghao-ding@ti.com>
+Subject: Re: [PATCH v2] ALSA: ASoc/tas2781: Fix wrong loading calibrated data
+ sequence
+Content-Language: en-GB
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <20240501122252.1215-1-shenghao-ding@ti.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:qpHfSCuTjsAcWFdlirrfvRAu9pQCfSGHdw+3AD0m9n0syVrYE01
+ R0K/9DdBU5eFNpmX04d7WSAGNRDTpKJ/6hxJ/zTBfzxWHfsz/Izx9X1gQrl0j+yDj3Ngmpn
+ UFC8JXaQKSBfrnf7D/rkdHjGtUSQOA7G8l5zFMedtOvx6e9QxFMnTOP5Twu4GKKHd7Ralsr
+ hPHDH+DVFFXa5U2bhLYPg==
+UI-OutboundReport: notjunk:1;M01:P0:G76/HUMR6xA=;H06TuOOrw5lW9fWGLZgvBGyaf8X
+ O1nq13maYQPevtHwMcJueYQQnADEojURhq9Ki8CXofg8Kpfyy4zGwoeXqpmJezdrA3PvgwE++
+ 26hRi0FlMEt7ORTlluriHHZkiJRTv9ZC+sBkX5733AV30RwBktyo6GN6qvpisGrvuxFZRTPy6
+ no1JScLRuH8tZd4T+DXG+UZaAPV41IvhVRnicrEkxaNx9/wt8vdBu8F0xQBSS1ghL7F1cPqaD
+ kQeYBbXIVdIlLaeXe8nNNHeh9mP3FhY0mxGzisw+lw8zBqTSfztw/KwSYLNKcTqcZswlAxXRz
+ 4yDbFEtiZVG6GBUHi4a3OctfsYfVmYfnfvNh0Nk/pHcj9D9bOkrOg6mEA6/XB5DZemuYr+5pl
+ E5W1c0nzTkaBwVlZPKWz3fxFlX9oaS3TJEd8PwI7BLuWOkLX6656IsFVoO1WvZPT56kugP0dv
+ zrFf5QOhX7SL8hMLRP6OC/oyMAsyZ2wTGCoDndMgc7pYBd7nPJ4jILDBJMFtAkhRkXlNxm03p
+ yt7ewUmPXSpC/rosJKrx+zyVvUfDBtv1RDKK2dQ///3a84vOICk7VFUNwDMNu9Z8aP8JKn9xI
+ /0TjDpkz6c6bxNAhUexgqmfboi9CqiFZPhu4ewUT7q6X3iV1erUfSenTQ/MQY7pbMDa7HWObX
+ LUoSfIO8Qi7sJvhjjfRnw+KEr/ui3HKlZS3HC+wPn61FSLSi91KJre8lCxAK7XUt47tKsiz7x
+ oeIPRW0plNaRYG/9uvsjsyrbNlRbqwAjRlxGJAU2ATXPAL0+khcdGd4GVS3fDFLzwODcPgeN6
+ Vc91a+7LcKArYW7CIqRAROJgzhm/yil/EUmulyTZFgR18=
+Message-ID-Hash: NE2F3QUZ5EG7ZXFEFDRMYMRD7VVDA5KK
+X-Message-ID-Hash: NE2F3QUZ5EG7ZXFEFDRMYMRD7VVDA5KK
+X-MailFrom: Markus.Elfring@web.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -84,7 +117,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QHJGNLINGRGYX72UH7SK2FEWJLKDHFA3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NE2F3QUZ5EG7ZXFEFDRMYMRD7VVDA5KK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -93,51 +126,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 26 Apr 2024 10:38:57 -0500, Pierre-Louis Bossart wrote:
-> Fixes when fw_lib_prefix is not set, updated error messages, improved
-> dmesg logs to SoundWire configurations not supported by ACPI
-> tables/topology and support for IEC61937 passthrough.
-> 
-> Peter Ujfalusi (2):
->   ASoC: SOF: debug: Handle cases when fw_lib_prefix is not set, NULL
->   ASoC: SOF: ipc4-topology: Advertise passthrough capable PCMs (using
->     ChainDMA)
-> 
-> [...]
+=E2=80=A6
+> +++ b/sound/soc/codecs/tas2781-fmwlib.c
+=E2=80=A6
+> @@ -2151,6 +2151,20 @@ static int tasdevice_load_data(struct tasdevice_p=
+riv *tas_priv,
+>  	return ret;
+>  }
+>
+> +static void tasdev_load_calibrated_data(struct tasdevice_priv *priv,
+> +	int i)
 
-Applied to
+Please put the second function parameter into the previous line.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Thanks!
+=E2=80=A6
+> +	if (cal_fmw) {
+> +		struct tasdevice_calibration *cal =3D cal_fmw->calibrations;
+> +
+> +		if (cal)
+> +			load_calib_data(priv, &cal->dev_data);
+> +		return;
 
-[1/5] ASoC: SOF: debug: Handle cases when fw_lib_prefix is not set, NULL
-      commit: b32487ca7b51ce430f15ec785269f11c25a6a560
-[2/5] ASoC: SOF: topology: remove incorrect widget id in error message
-      commit: 490e6c9b81e0c22087d250246717aee26ac5002e
-[3/5] ASoC: SOF: Intel: hda: simplify and reduce indentation for hda_sdw_machine_select()
-      commit: 5d4788b2647fabeaeeaf331e53451e0ed6241252
-[4/5] ASoC: SOF: Intel: hda: list SoundWire peripherals on mismatch
-      commit: 7ff01ca730f240811c13d9c3f8f8030211b3c911
-[5/5] ASoC: SOF: ipc4-topology: Advertise passthrough capable PCMs (using ChainDMA)
-      commit: eed4872a4220f30de37aeca695d2881630410b66
+Would this statement be redundant at the moment?
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+> +	}
+> +}
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+Regards,
+Markus

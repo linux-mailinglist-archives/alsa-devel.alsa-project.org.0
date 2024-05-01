@@ -2,76 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6D1F8B8B72
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 May 2024 15:45:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 331878B8B71
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 May 2024 15:44:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F419FDF8;
-	Wed,  1 May 2024 15:45:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F419FDF8
+	by alsa0.perex.cz (Postfix) with ESMTPS id D1C06E7D;
+	Wed,  1 May 2024 15:44:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D1C06E7D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1714571117;
-	bh=vXcDcxtnSs/apJuU11xn+Yb+fqjx2BAQ0xsxIB3/Fe0=;
+	s=default; t=1714571097;
+	bh=O6VvEOG1FYYxiSATtFdjPAV7d0igftAeyhbDcL2/oH0=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=iMQxNShDDr8pR+hVQ6wFZjOqbCnp+gFfL4ym3weH1hvlqWgYQytwbvB7aXjjPHXxl
-	 F32ZTB5d9kUNrJCa9j/f9aFQBWc4F0dHuPIJh2z0KKAI8DJVo9BVP0t7aDg1i/f31H
-	 R7+0J6nb0m5x/0aP6CHI+UIMrxIzy6r57oLrewT0=
+	b=muBN4llsvkQ02aFdH0m2iLQz7U1TPMBxaRHPADk7j1OR7bfyjYlECOSD5WTDKhlYw
+	 KVzgLS/aSZLWRijG+I4FwJwofoPdOMtnfcTu4TRdXSSjqUlOm6ljp6uWo4JM5due++
+	 yc35FOojRsgY9V4BVezpy+loli3eKZ+j/ydnTSpA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9E2ABF805AA; Wed,  1 May 2024 15:44:45 +0200 (CEST)
+	id 40E56F80611; Wed,  1 May 2024 15:44:01 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 61D6AF80580;
-	Wed,  1 May 2024 15:44:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 62894F805EF;
+	Wed,  1 May 2024 15:44:01 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4B9FFF8028D; Wed,  1 May 2024 15:44:40 +0200 (CEST)
+	id 5A57EF80580; Wed,  1 May 2024 15:43:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
-	shortcircuit=no autolearn=unavailable autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1B8F3F8025D
-	for <alsa-devel@alsa-project.org>; Wed,  1 May 2024 15:43:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1B8F3F8025D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8D33DF8003A
+	for <alsa-devel@alsa-project.org>; Wed,  1 May 2024 15:43:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D33DF8003A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=amDgI5Ro
+ header.s=k20201202 header.b=qh8W1fcN
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 3B183CE12FA;
-	Wed,  1 May 2024 13:43:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E112C4AF18;
-	Wed,  1 May 2024 13:43:20 +0000 (UTC)
+	by sin.source.kernel.org (Postfix) with ESMTP id BE264CE12FD;
+	Wed,  1 May 2024 13:43:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C60D4C113CC;
+	Wed,  1 May 2024 13:43:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1714571001;
-	bh=vXcDcxtnSs/apJuU11xn+Yb+fqjx2BAQ0xsxIB3/Fe0=;
+	s=k20201202; t=1714571002;
+	bh=O6VvEOG1FYYxiSATtFdjPAV7d0igftAeyhbDcL2/oH0=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=amDgI5RoQy9yqB66pcrgP0Nw4V1kiXuB06mPrZRrmNMkxeb7lBF12yRCmzI1m+w3Z
-	 3pjCuYXsu7ouGsyAYCjeK1mYUzBPvTDcuZdxCt9qe9pJ4Sf481tkwOp+PGrWR/wdB/
-	 odK6nWimy0OecG4fsTMaktEvoexTN6DIUeFXtRCvkuI1+5PnR212uc4VELbPuGBBz6
-	 wAXnc7DYC7vcOE/DFiT6XHeDmM/NCx50ShJaLYuYyhFx1LL4IP2MWpLgfFBtt/d7Gz
-	 JOR71woW/3kbwLwiOxNZqLc/yS1bUvwFid4U33wbJOnT7rKXDhxdmnO5tMXC8IxM7Z
-	 5sUDhDxzBbVvQ==
+	b=qh8W1fcNhbalI3y+nG4MQoEDqYZzv56KKCouGMwdNtQQ6ImtLhumgFcinolCuOUJ3
+	 dcwtvnQW4NvKJ0UwzADP0Z+EjWW0JZG1qkdgE8wsDY4ZxesO6g5ilAgOaCXBLjRCx7
+	 x8XY6qza8LaQndjO8KrQVKvVMaYWi+StgB6Lwb/HZoM4UNDclvuOoM8f3SJM3Yryhe
+	 i6FWm4V1uYMTgTsn9jgg8JkZuZg8qcf7Y9NwtUaUAvlDbAiUC60Bxx0xPRad7Wy4gn
+	 MLEk2n+A5XwxvsRgivZVy4OMGldX2CCvQ7usaj0zPkPRDBal6g1ZLWgVSp6yV7sG6/
+	 S1byDemKE4IKw==
 From: Mark Brown <broonie@kernel.org>
-To: linux-sound@vger.kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de
-In-Reply-To: <20240426152529.38345-1-pierre-louis.bossart@linux.intel.com>
-References: <20240426152529.38345-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 00/23] ASoC: Intel: updates for 6.10 - part6
-Message-Id: <171457100000.1888704.11793810516095524416.b4-ty@kernel.org>
-Date: Wed, 01 May 2024 22:43:20 +0900
+To: Liam Girdwood <lgirdwood@gmail.com>,
+ Jerome Brunet <jbrunet@baylibre.com>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ linux-amlogic@lists.infradead.org
+In-Reply-To: <20240426152946.3078805-1-jbrunet@baylibre.com>
+References: <20240426152946.3078805-1-jbrunet@baylibre.com>
+Subject: Re: [PATCH 0/4] ASoC: meson: tdm fixes
+Message-Id: <171457100123.1888704.3713341677013104535.b4-ty@kernel.org>
+Date: Wed, 01 May 2024 22:43:21 +0900
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.14-dev
-Message-ID-Hash: 3BND6VCCBSQ52RYGJSFV277DIMDYDMIW
-X-Message-ID-Hash: 3BND6VCCBSQ52RYGJSFV277DIMDYDMIW
+Message-ID-Hash: 6I5GTIVFIQQWIEY5OBFXOZNRXNPB4BGU
+X-Message-ID-Hash: 6I5GTIVFIQQWIEY5OBFXOZNRXNPB4BGU
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -84,7 +86,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3BND6VCCBSQ52RYGJSFV277DIMDYDMIW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6I5GTIVFIQQWIEY5OBFXOZNRXNPB4BGU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -93,36 +95,18 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 26 Apr 2024 10:25:06 -0500, Pierre-Louis Bossart wrote:
-> Last batch of cleanups from Brent Lu, with Chromebooks now supported
-> with fewer modular machine drivers.
+On Fri, 26 Apr 2024 17:29:37 +0200, Jerome Brunet wrote:
+> This patchset fixes 2 problems on TDM which both find a solution
+> by properly implementing the .trigger() callback for the TDM backend.
 > 
-> Bard Liao (1):
->   ASoC: Intel: sof_rt5682: add missing MAX98357A config
+> ATM, enabling the TDM formatters is done by the .prepare() callback
+> because handling the formatter is slow due to necessary calls to CCF.
 > 
-> Brent Lu (22):
->   ASoC: Intel: nau8825/rt5682: move speaker widget to common modules
->   ASoC: Intel: sof_maxim_common: support MAX98390 on cml boards
->   ASoC: Intel: sof_da7219: support MAX98390
->   ASoC: Intel: sof_da7219: add cml_da7219_def for cml boards
->   ASoC: Intel: sof_da7219: support MAX98390 on cml boards
->   ASoC: Intel: bxt_da7219_max98357a: remove MAX98390 support
->   ASoC: Intel: sof_da7219: support MAX98357A
->   ASoC: Intel: sof_da7219: support MAX98357A on cml boards
->   ASoC: Intel: bxt_da7219_max98357a: remove cml support
->   ASoC: Intel: sof_da7219: add glk_da7219_def for glk boards
->   ASoC: Intel: sof_da7219: support MAX98357A on glk boards
->   ASoC: Intel: bxt_da7219_max98357a: remove glk support
->   ASoC: Intel: sof_rt5682: add glk_rt5682_def for glk boards
->   ASoC: Intel: sof_rt5682: support MAX98357A on glk boards
->   ASoC: Intel: glk_rt5682_max98357a: delete driver
->   ASoC: Intel: sof-rt5682: add mclk_en to sof_rt5682_private
->   ASoC: Intel: sof-rt5682: remove SOF_RT5682_MCLK_BYTCHT_EN
->   ASoC: Intel: sof_rt5682: add icl_rt5682_def for icl boards
->   ASoC: Intel: sof-rt5682: add driver_data to sof_rt5682 board
->   ASoC: Intel: sof-rt5682: setup pll_id only when needed
->   ASoC: Intel: sof-rt5682: get bclk frequency from topology
->   ASoC: Intel: sof-rt5682: support bclk as PLL source on rt5682s
+> The first problem affects the TDMIN. Because .prepare() is called on DPCM
+> backend first, the formatter are started before the FIFOs and this may
+> cause a random channel shifts if the TDMIN use multiple lanes with more
+> than 2 slots per lanes. Using trigger() allows to set the FE/BE order,
+> solving the problem.
 > 
 > [...]
 
@@ -132,52 +116,14 @@ Applied to
 
 Thanks!
 
-[01/23] ASoC: Intel: nau8825/rt5682: move speaker widget to common modules
-        commit: d2d377fc22d23fd38188ea90b051584069a299a2
-[02/23] ASoC: Intel: sof_maxim_common: support MAX98390 on cml boards
-        commit: 3b3ed4752600b6462c184edc3284dcc277891aa6
-[03/23] ASoC: Intel: sof_da7219: support MAX98390
-        commit: b7654a7e217704694ed3e484f0a3c415f8678896
-[04/23] ASoC: Intel: sof_da7219: add cml_da7219_def for cml boards
-        commit: a0cf86d813d22d80046d83e9b36c1c2308903956
-[05/23] ASoC: Intel: sof_da7219: support MAX98390 on cml boards
-        commit: 5a2bc761fab23e47ef20a847476d504548dfb417
-[06/23] ASoC: Intel: bxt_da7219_max98357a: remove MAX98390 support
-        commit: 12e5fe68d0bb079cc5228d09280c1d82a61f0d18
-[07/23] ASoC: Intel: sof_rt5682: add missing MAX98357A config
-        commit: 5b093b0b47efefbb928c4d3a5e982bbeaefda44c
-[08/23] ASoC: Intel: sof_da7219: support MAX98357A
-        commit: 7873252c0e44ef5c0e04cf3c7c25f5e2c5180272
-[09/23] ASoC: Intel: sof_da7219: support MAX98357A on cml boards
-        commit: e895d16f4e8f0e5d90d7188e8fd9c507a97fb8b7
-[10/23] ASoC: Intel: bxt_da7219_max98357a: remove cml support
-        commit: 35ca48662cdf0749a2b9931d625690967fbce032
-[11/23] ASoC: Intel: sof_da7219: add glk_da7219_def for glk boards
-        commit: c7f9523d21d49b56498ac58e4b1afcb930eb551a
-[12/23] ASoC: Intel: sof_da7219: support MAX98357A on glk boards
-        commit: f46b768b7281e4ef784d06788be2f941c13eddde
-[13/23] ASoC: Intel: bxt_da7219_max98357a: remove glk support
-        commit: 8d6114b81d72c522f1ad55cd84ed37699d58c840
-[14/23] ASoC: Intel: sof_rt5682: add glk_rt5682_def for glk boards
-        commit: 44567d3d62dfe9df514299a98429a59129e0a2d0
-[15/23] ASoC: Intel: sof_rt5682: support MAX98357A on glk boards
-        commit: 5498a4edbf314532b7138aabe705faa34fb5df8d
-[16/23] ASoC: Intel: glk_rt5682_max98357a: delete driver
-        commit: 0cb6a8134c1cb59d8f41d84968c2e20cfbd7f6cc
-[17/23] ASoC: Intel: sof-rt5682: add mclk_en to sof_rt5682_private
-        commit: e91d54f8b1bd3393d91fd754a1c40df6f408e84b
-[18/23] ASoC: Intel: sof-rt5682: remove SOF_RT5682_MCLK_BYTCHT_EN
-        commit: 207255f3ae4d0cf5034666652668be572d9c5c1e
-[19/23] ASoC: Intel: sof_rt5682: add icl_rt5682_def for icl boards
-        commit: 76fb0d3221833e87b9150ba06728cdde215ec687
-[20/23] ASoC: Intel: sof-rt5682: add driver_data to sof_rt5682 board
-        commit: 76f33e2f93d63eaac93458fdfde3a505b8e73fa2
-[21/23] ASoC: Intel: sof-rt5682: setup pll_id only when needed
-        commit: b5aaf6a56dcafc2aeefdc7da1f9f86fa5cfa8df7
-[22/23] ASoC: Intel: sof-rt5682: get bclk frequency from topology
-        commit: 4524b1e3ef7884e0a54484dce8d921be7a06af13
-[23/23] ASoC: Intel: sof-rt5682: support bclk as PLL source on rt5682s
-        commit: 3d84e070253eb853e3190a23994aa3074615efd1
+[1/4] ASoC: meson: axg-fifo: use threaded irq to check periods
+      commit: b11d26660dff8d7430892008616452dc8e5fb0f3
+[2/4] ASoC: meson: axg-card: make links nonatomic
+      commit: dcba52ace7d4c12e2c8c273eff55ea03a84c8baf
+[3/4] ASoC: meson: axg-tdm-interface: manage formatters in trigger
+      commit: f949ed458ad15a00d41b37c745ebadaef171aaae
+[4/4] ASoC: meson: axg-tdm: add continuous clock support
+      commit: a5a89037d080e0870d7517c61f8b2123d58ab33b
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

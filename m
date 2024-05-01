@@ -2,110 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0CC48B8B7D
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 May 2024 15:56:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFA4F8B8BB0
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 May 2024 16:08:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 47453E72;
-	Wed,  1 May 2024 15:56:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 47453E72
+	by alsa0.perex.cz (Postfix) with ESMTPS id 709DDDFA;
+	Wed,  1 May 2024 16:08:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 709DDDFA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1714571818;
-	bh=pFNsRounutZ0watyT0vICiz4MZiX/bMl6TXERH4tJEA=;
-	h=Date:To:Cc:References:Subject:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=u5tSgjoNHmJMWUuwJQNtYDvaNFT1dEZB2cGhxQH6DqWiLGv1TMi0N3buFdsAE0FwE
-	 WamfXq5CV6S/WbQmNpL0ha8+rjab6zdMzOy4vxH4cozsWOqmYa3N6SBwW4l2hM8MTn
-	 1e0shSwPZ1S1dkZl1pVJoAhL0aNzGAU+2V0rytKM=
+	s=default; t=1714572526;
+	bh=1lHhAkh2+81GNHwtJ7H8m4duLXBzlPpuTBcE0BfXUME=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=GJ4dSRCivh6a3b00yLvR/8eh/12wVkgRBIGbUK2YU2IramhESUBvAdSEpUvql1YX0
+	 buKP4QjtSNaeiTpqWkh2M2McbN5MUl9VsiSNr5C9OHEijw9WtSclQGlqHBK0qWYZ4k
+	 s7KGNr2lNyg1eF2XCS2aeCcR/yLSsWwJQSeIdlhM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9379FF80589; Wed,  1 May 2024 15:56:23 +0200 (CEST)
+	id 7A57DF8003A; Wed,  1 May 2024 16:08:14 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D0A0EF8028D;
-	Wed,  1 May 2024 15:56:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F1741F8059F;
+	Wed,  1 May 2024 16:08:13 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E8A4AF80266; Wed,  1 May 2024 15:56:16 +0200 (CEST)
+	id 01DA6F80266; Wed,  1 May 2024 16:08:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_MSPIKE_H3,
-	RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-1.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,PP_MIME_FAKE_ASCII_TEXT,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mout.web.de (mout.web.de [217.72.192.78])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
- server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A1516F8003A
-	for <alsa-devel@alsa-project.org>; Wed,  1 May 2024 15:56:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1516F8003A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 04C15F800E2
+	for <alsa-devel@alsa-project.org>; Wed,  1 May 2024 16:08:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 04C15F800E2
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=web.de header.i=markus.elfring@web.de
- header.a=rsa-sha256 header.s=s29768273 header.b=sj0Zz4Z7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
-	s=s29768273; t=1714571742; x=1715176542; i=markus.elfring@web.de;
-	bh=tQlEmKt/yFE6pJw5QP1IkuqC5w2AGb1cHSuCQpauzPE=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
-	 Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 cc:content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=sj0Zz4Z7WwehrcScZnEP2j/CtHXElTLzUJbSFf43oTyrmvSs3qxxoNKvJTfjy9kf
-	 eKyVPlU2C6mXjSjLzgg9NwZ+D/jolsDD4ic9/8raeX3Ssde3i5mfhHz6QDH6YIMbU
-	 yvyND/btLfkkfD9txKHYPJi0F9z8izKAPGtmfbb6JbeeeK4KXiESJuPeWVqlr0Car
-	 nQ+MtAjgB1frlBE4a8H3oiGCKSPLbna5cdtv1t4Dzn1Nqd5BBPvJK+xfwKg6wdoGC
-	 hxFK3xu0EI79y5TASZvz7tMAr7M+x8LC7pIKJTNX+GcwAFxPeMBc2r6eEdlGuOzaV
-	 aXcilABJudedHnwFEA==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from [192.168.178.21] ([94.31.85.95]) by smtp.web.de (mrweb106
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1MDvDi-1ruVT82i28-00A9tM; Wed, 01
- May 2024 15:55:42 +0200
-Message-ID: <745cc56b-0ef4-4cf9-9051-cae318866672@web.de>
-Date: Wed, 1 May 2024 15:55:32 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Shenghao Ding <shenghao-ding@ti.com>, alsa-devel@alsa-project.org,
- kernel-janitors@vger.kernel.org, Mark Brown <broonie@kernel.org>
-Cc: LKML <linux-kernel@vger.kernel.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Baojun Xu <Baojun.Xu@fpt.com>, Baojun Xu <baojun.xu@ti.com>,
- Bard Liao <bard.liao@intel.com>, Bard Liao
- <yung-chuan.liao@linux.intel.com>,
- Cameron Berkenpas <cameron.berkenpas@gmail.com>, Gergo Koteles
- <soyer@irl.hu>, Jaroslav Kysela <perex@perex.cz>, Kevin Lu
- <kevin-lu@ti.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Liam Girdwood <liam.r.girdwood@intel.com>, mimperial@lenovo.com,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Shenghao Ding <13916275206@139.com>, Takashi Iwai <tiwai@suse.de>
-References: <20240501122252.1215-1-shenghao-ding@ti.com>
-Subject: Re: [PATCH v2] ALSA: ASoc/tas2781: Fix wrong loading calibrated data
- sequence
-Content-Language: en-GB
-From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <20240501122252.1215-1-shenghao-ding@ti.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:qpHfSCuTjsAcWFdlirrfvRAu9pQCfSGHdw+3AD0m9n0syVrYE01
- R0K/9DdBU5eFNpmX04d7WSAGNRDTpKJ/6hxJ/zTBfzxWHfsz/Izx9X1gQrl0j+yDj3Ngmpn
- UFC8JXaQKSBfrnf7D/rkdHjGtUSQOA7G8l5zFMedtOvx6e9QxFMnTOP5Twu4GKKHd7Ralsr
- hPHDH+DVFFXa5U2bhLYPg==
-UI-OutboundReport: notjunk:1;M01:P0:G76/HUMR6xA=;H06TuOOrw5lW9fWGLZgvBGyaf8X
- O1nq13maYQPevtHwMcJueYQQnADEojURhq9Ki8CXofg8Kpfyy4zGwoeXqpmJezdrA3PvgwE++
- 26hRi0FlMEt7ORTlluriHHZkiJRTv9ZC+sBkX5733AV30RwBktyo6GN6qvpisGrvuxFZRTPy6
- no1JScLRuH8tZd4T+DXG+UZaAPV41IvhVRnicrEkxaNx9/wt8vdBu8F0xQBSS1ghL7F1cPqaD
- kQeYBbXIVdIlLaeXe8nNNHeh9mP3FhY0mxGzisw+lw8zBqTSfztw/KwSYLNKcTqcZswlAxXRz
- 4yDbFEtiZVG6GBUHi4a3OctfsYfVmYfnfvNh0Nk/pHcj9D9bOkrOg6mEA6/XB5DZemuYr+5pl
- E5W1c0nzTkaBwVlZPKWz3fxFlX9oaS3TJEd8PwI7BLuWOkLX6656IsFVoO1WvZPT56kugP0dv
- zrFf5QOhX7SL8hMLRP6OC/oyMAsyZ2wTGCoDndMgc7pYBd7nPJ4jILDBJMFtAkhRkXlNxm03p
- yt7ewUmPXSpC/rosJKrx+zyVvUfDBtv1RDKK2dQ///3a84vOICk7VFUNwDMNu9Z8aP8JKn9xI
- /0TjDpkz6c6bxNAhUexgqmfboi9CqiFZPhu4ewUT7q6X3iV1erUfSenTQ/MQY7pbMDa7HWObX
- LUoSfIO8Qi7sJvhjjfRnw+KEr/ui3HKlZS3HC+wPn61FSLSi91KJre8lCxAK7XUt47tKsiz7x
- oeIPRW0plNaRYG/9uvsjsyrbNlRbqwAjRlxGJAU2ATXPAL0+khcdGd4GVS3fDFLzwODcPgeN6
- Vc91a+7LcKArYW7CIqRAROJgzhm/yil/EUmulyTZFgR18=
-Message-ID-Hash: NE2F3QUZ5EG7ZXFEFDRMYMRD7VVDA5KK
-X-Message-ID-Hash: NE2F3QUZ5EG7ZXFEFDRMYMRD7VVDA5KK
-X-MailFrom: Markus.Elfring@web.de
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=BatBGdta
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id 353C76179B;
+	Wed,  1 May 2024 14:07:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85AA7C072AA;
+	Wed,  1 May 2024 14:07:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1714572478;
+	bh=1lHhAkh2+81GNHwtJ7H8m4duLXBzlPpuTBcE0BfXUME=;
+	h=From:To:Cc:Subject:Date:From;
+	b=BatBGdtaxTpiH28obslvYvDBqYDwJ1MMXI3DbKhqJ+G35am6/SxI7epeTy6rb276H
+	 cy3YVaiQny+SgC50zeiyHxwtA7338mtCWQO365IkL2ZfUxEiKeUkyBst26SDps/u/M
+	 GPQOhoBiHgVAKpCTDkJvdk0m5tohzaNC53GbBSajTZuGdL3q71I2X95z/dnODSVZIg
+	 /Zagba7fxDt/EZhh/ggLNb5xhik+cwsKOf6CVmskuTYA3nr4PHQAY59TKPScN4kQlJ
+	 +eh/c6vKiZXz+29O9tq0mJ5JjTGsZfL7HH6XDWPta/6zug+mdlhhLZBhOR7/9re9WV
+	 nCfrsuSozOWpg==
+Message-ID: <549018ebcc16eaa42ffac7fdc865feb8.broonie@kernel.org>
+From: Mark Brown <broonie@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>
+Subject: [GIT PULL] ASoC fixes for v6.9-rc6
+Date: Wed, 01 May 2024 23:07:49 +0900
+Message-ID-Hash: BM5CHTJOQACAA3TC4N4YYWFQ7N2WIYHM
+X-Message-ID-Hash: BM5CHTJOQACAA3TC4N4YYWFQ7N2WIYHM
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -117,7 +78,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NE2F3QUZ5EG7ZXFEFDRMYMRD7VVDA5KK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BM5CHTJOQACAA3TC4N4YYWFQ7N2WIYHM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -126,34 +87,139 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-=E2=80=A6
-> +++ b/sound/soc/codecs/tas2781-fmwlib.c
-=E2=80=A6
-> @@ -2151,6 +2151,20 @@ static int tasdevice_load_data(struct tasdevice_p=
-riv *tas_priv,
->  	return ret;
->  }
->
-> +static void tasdev_load_calibrated_data(struct tasdevice_priv *priv,
-> +	int i)
+The following changes since commit fec50db7033ea478773b159e0e2efb135270e3b7:
 
-Please put the second function parameter into the previous line.
+  Linux 6.9-rc3 (2024-04-07 13:22:46 -0700)
 
+are available in the Git repository at:
 
-=E2=80=A6
-> +	if (cal_fmw) {
-> +		struct tasdevice_calibration *cal =3D cal_fmw->calibrations;
-> +
-> +		if (cal)
-> +			load_calib_data(priv, &cal->dev_data);
-> +		return;
+  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.9-rc6
 
-Would this statement be redundant at the moment?
+for you to fetch changes up to c5782bb5468acf86d8ca8e161267e8d055fb4161:
 
+  ASoC: meson: tdm fixes (2024-04-30 23:36:23 +0900)
 
-> +	}
-> +}
+----------------------------------------------------------------
+ASoC: Fixes for v6.9
 
+This is much larger than is ideal, partly due to your holiday but also
+due to several vendors having come in with relatively large fixes at
+similar times.  It's all driver specific stuff.
 
-Regards,
-Markus
+The meson fixes from Jerome fix some rare timing issues with blocking
+operations happening in triggers, plus the continuous clock support
+which fixes clocking for some platforms.  The SOF series from Peter
+builds to the fix to avoid spurious resets of ChainDMA which triggered
+errors in cleanup paths with both PulseAudio and PipeWire, and there's
+also some simple new debugfs files from Pierre which make support a lot
+eaiser.
+
+----------------------------------------------------------------
+Amadeusz Sławiński (1):
+      ASoC: Intel: avs: Set name of control as in topology
+
+Cezary Rojewski (1):
+      ASoC: Intel: avs: Fix debug window description
+
+Derek Fang (2):
+      ASoC: rt5645: Fix the electric noise due to the CBJ contacts floating
+      ASoC: dt-bindings: rt5645: add cbj sleeve gpio property
+
+Hans de Goede (1):
+      ASoC: Intel: bytcr_rt5640: Apply Asus T100TA quirk to Asus T100TAM too
+
+Jack Yu (4):
+      ASoC: rt722-sdca: modify channel number to support 4 channels
+      ASoC: rt722-sdca: add headset microphone vrefo setting
+      ASoC: rt715: add vendor clear control register
+      ASoC: rt715-sdca: volume step modification
+
+Jerome Brunet (5):
+      ASoC: meson: axg-fifo: use threaded irq to check periods
+      ASoC: meson: axg-card: make links nonatomic
+      ASoC: meson: axg-tdm-interface: manage formatters in trigger
+      ASoC: meson: axg-tdm: add continuous clock support
+      ASoC: meson: cards: select SND_DYNAMIC_MINORS
+
+Joao Paulo Goncalves (1):
+      ASoC: ti: davinci-mcasp: Fix race condition during probe
+
+Mark Brown (4):
+      ASoC: SOF: misc fixes
+      ASoC: SOF: ipc4-pcm: Do not reset ChainDMA if it is
+      ASoC: cs35l56: Fixes to handling of ASP1 config
+      ASoC: meson: tdm fixes
+
+Peter Ujfalusi (5):
+      ASoC: SOF: ipc4-pcm: Use consistent name for snd_sof_pcm_stream pointer
+      ASoC: SOF: ipc4-pcm: Use consistent name for sof_ipc4_timestamp_info pointer
+      ASoC: SOF: ipc4-pcm: Introduce generic sof_ipc4_pcm_stream_priv
+      ASoC: SOF: ipc4-pcm: Do not reset the ChainDMA if it has not been allocated
+      ASoC: SOF: Core: Handle error returned by sof_select_ipc_and_paths
+
+Pierre-Louis Bossart (4):
+      ASoC: SOF: Intel: add default firmware library path for LNL
+      ASoC: SOF: debug: show firmware/topology prefix/names
+      ASoC: da7219-aad: fix usage of device_get_named_child_node()
+      ASoC: cs35l56: fix usages of device_get_named_child_node()
+
+Ranjani Sridharan (1):
+      ASoC: SOF: pcm: Restrict DSP D0i3 during S0ix to IPC3
+
+Richard Fitzgerald (4):
+      regmap: Add regmap_read_bypassed()
+      ALSA: hda: cs35l56: Exit cache-only after cs35l56_wait_for_firmware_boot()
+      ASoC: cs35l56: Fix unintended bus access while resetting amp
+      ASoC: cs35l56: Prevent overwriting firmware ASP config
+
+Sameer Pujar (1):
+      ASoC: tegra: Fix DSPK 16-bit playback
+
+Simon Trimmer (1):
+      ASoC: cs35l56: Avoid static analysis warning of uninitialised variable
+
+Srinivas Kandagatla (1):
+      ASoC: codecs: wsa881x: set clk_stop_mode1 flag
+
+Stefan Binding (1):
+      ASoC: cs35l41: Update DSP1RX5/6 Sources for DSP config
+
+end.to.start (1):
+      ASoC: acp: Support microphone from device Acer 315-24p
+
+ Documentation/devicetree/bindings/sound/rt5645.txt |   6 ++
+ drivers/base/regmap/regmap.c                       |  37 +++++++
+ include/linux/regmap.h                             |   8 ++
+ include/sound/cs35l56.h                            |   2 +
+ sound/pci/hda/cs35l56_hda.c                        |   4 +
+ sound/soc/amd/yc/acp6x-mach.c                      |   7 ++
+ sound/soc/codecs/cs35l41.c                         |  26 +++--
+ sound/soc/codecs/cs35l56-sdw.c                     |   2 -
+ sound/soc/codecs/cs35l56-shared.c                  |  85 +++++++++------
+ sound/soc/codecs/cs35l56.c                         |  39 ++++++-
+ sound/soc/codecs/da7219-aad.c                      |   6 +-
+ sound/soc/codecs/rt5645.c                          |  25 +++++
+ sound/soc/codecs/rt715-sdca.c                      |   8 +-
+ sound/soc/codecs/rt715-sdw.c                       |   1 +
+ sound/soc/codecs/rt722-sdca.c                      |  27 +++--
+ sound/soc/codecs/rt722-sdca.h                      |   3 +
+ sound/soc/codecs/wsa881x.c                         |   1 +
+ sound/soc/intel/avs/icl.c                          |   2 +-
+ sound/soc/intel/avs/topology.c                     |   2 +
+ sound/soc/intel/boards/bytcr_rt5640.c              |  14 +--
+ sound/soc/meson/Kconfig                            |   1 +
+ sound/soc/meson/axg-card.c                         |   1 +
+ sound/soc/meson/axg-fifo.c                         |  29 ++++--
+ sound/soc/meson/axg-tdm-formatter.c                |  40 +++++++
+ sound/soc/meson/axg-tdm-interface.c                |  38 +++++--
+ sound/soc/meson/axg-tdm.h                          |   5 +
+ sound/soc/sof/core.c                               |   4 +-
+ sound/soc/sof/debug.c                              |  18 ++++
+ sound/soc/sof/intel/pci-lnl.c                      |   3 +
+ sound/soc/sof/ipc3-pcm.c                           |   1 +
+ sound/soc/sof/ipc4-pcm.c                           | 115 ++++++++++++++-------
+ sound/soc/sof/pcm.c                                |  13 ++-
+ sound/soc/sof/sof-audio.h                          |   2 +
+ sound/soc/tegra/tegra186_dspk.c                    |   7 +-
+ sound/soc/ti/davinci-mcasp.c                       |  12 +--
+ 35 files changed, 460 insertions(+), 134 deletions(-)

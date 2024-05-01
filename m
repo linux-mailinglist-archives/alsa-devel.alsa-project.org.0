@@ -2,147 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 658A88B8DCB
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 May 2024 18:12:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 244038B8F9D
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 May 2024 20:36:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AC9EDE0F;
-	Wed,  1 May 2024 18:11:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC9EDE0F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 72D33E0F;
+	Wed,  1 May 2024 20:35:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 72D33E0F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1714579926;
-	bh=5fahGpb5uYdA5bkZ4GrzwqW6Swzz235lhwKCeVGbG8w=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=MBda1ZZ9851is/kwEfyj13h/yXdyC2GiqLy9EpD8hf9ybbl/Bsqelxags+xii8GyI
-	 /vBVpX1J+AZ6Mzu5ND2ldGWq1ryAUBJ9RnhKRAKWoF8U84XQx9csxjkZ7jF4+qOUJi
-	 QWG6tZqX9QVwggicfXnAnQTOapJP7Cg1m0mZ2Q2Y=
+	s=default; t=1714588565;
+	bh=fCDzTzZbjGb6uqT6kSzbkYEbmAneq8Yq+jzepX8va1k=;
+	h=Date:From:To:Cc:Subject:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=Q5aKApAnacy98LMUjH0KD/VLBqS0/6eWwQVeR1sRAltyI3jYq07421t9NbivIv4ks
+	 TJTrwtF5+nOoOCUs2aeyFGo0JEkkZ6bTspABK2DZTBceTI6cXjQRRzTuzdZb8hfTtZ
+	 OhszVoLCdhyB/FIk6uffCCfGqQtGkelP6bkjDsuU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F2214F80587; Wed,  1 May 2024 18:11:34 +0200 (CEST)
+	id 55287F805AD; Wed,  1 May 2024 20:35:30 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 65961F8057B;
-	Wed,  1 May 2024 18:11:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 186BDF805A0;
+	Wed,  1 May 2024 20:35:30 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 62D6FF80266; Wed,  1 May 2024 18:11:28 +0200 (CEST)
+	id D2A3FF80266; Wed,  1 May 2024 20:35:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-1.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id ACE7EF8023A
-	for <alsa-devel@alsa-project.org>; Wed,  1 May 2024 18:11:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ACE7EF8023A
+	by alsa1.perex.cz (Postfix) with ESMTPS id E48EFF8023A
+	for <alsa-devel@alsa-project.org>; Wed,  1 May 2024 20:35:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E48EFF8023A
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=LyNkk+B2;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=3Sudy/GD;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=LyNkk+B2;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=3Sudy/GD
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id BAC7F1F835;
-	Wed,  1 May 2024 16:11:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1714579878;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7XA0gg+t09WHMl4fWsDziCzvlvMYJIwVwucXmAPq4WU=;
-	b=LyNkk+B2HfIYkVIP/rjV8nOwP2hQ25+X4kZnm6UcVGC7PkaGPRhWhII2u7wGtfpUxrqlty
-	Wor+kcbowXZ/grGyqK4Y+WrloFZSFE2lnbgkHD48keJwbI/o34SYjDj8t072v8ZKJsHTKZ
-	tpjec5+2DuGauB8IlMhN0L7CycpPRgY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1714579878;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7XA0gg+t09WHMl4fWsDziCzvlvMYJIwVwucXmAPq4WU=;
-	b=3Sudy/GD/JhZqMN09vxJtY0LN4iPFAGv15hukpQh40/4ZU1Bz5bFoJzUu/GmzbDZ9dMcOg
-	HVaGalKrhC6PvZAQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1714579878;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7XA0gg+t09WHMl4fWsDziCzvlvMYJIwVwucXmAPq4WU=;
-	b=LyNkk+B2HfIYkVIP/rjV8nOwP2hQ25+X4kZnm6UcVGC7PkaGPRhWhII2u7wGtfpUxrqlty
-	Wor+kcbowXZ/grGyqK4Y+WrloFZSFE2lnbgkHD48keJwbI/o34SYjDj8t072v8ZKJsHTKZ
-	tpjec5+2DuGauB8IlMhN0L7CycpPRgY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1714579878;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7XA0gg+t09WHMl4fWsDziCzvlvMYJIwVwucXmAPq4WU=;
-	b=3Sudy/GD/JhZqMN09vxJtY0LN4iPFAGv15hukpQh40/4ZU1Bz5bFoJzUu/GmzbDZ9dMcOg
-	HVaGalKrhC6PvZAQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9DB2B13942;
-	Wed,  1 May 2024 16:11:18 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id NPxPJaZpMmaCYwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Wed, 01 May 2024 16:11:18 +0000
-Date: Wed, 01 May 2024 18:11:30 +0200
-Message-ID: <87bk5pldfx.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	alsa-devel@alsa-project.org
-Subject: Re: [GIT PULL] ASoC fixes for v6.9-rc6
-In-Reply-To: <549018ebcc16eaa42ffac7fdc865feb8.broonie@kernel.org>
-References: <549018ebcc16eaa42ffac7fdc865feb8.broonie@kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-3.29 / 50.00];
-	BAYES_HAM(-2.99)[99.95%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_ALL(0.00)[];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[gmail.com,alsa-project.org];
-	RCPT_COUNT_THREE(0.00)[3];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns]
-Message-ID-Hash: IE7V6OT7OQHYU6ZJ7ZVGMHIVIJ6YODM4
-X-Message-ID-Hash: IE7V6OT7OQHYU6ZJ7ZVGMHIVIJ6YODM4
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=lDmL7wBB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1714588514; x=1746124514;
+  h=date:from:to:cc:subject:message-id:mime-version;
+  bh=fCDzTzZbjGb6uqT6kSzbkYEbmAneq8Yq+jzepX8va1k=;
+  b=lDmL7wBBtla3ZUfyx8uVhP9dLeZt8GJwZ3uXstSyMRBWgfzLyT4txhXg
+   /T5w6pF1dUhkENShI41tvywrnRXAoh6X0SciXS2vntCCPNPxEjbs77HC4
+   nUR6vi09fQnuyAhhkeBgcG6+w2xHpBR/jg4OqOOUuVRGZJSMrUZzhP57l
+   1ggWSWR/N4FST7EoUmmBAs6Dj8I3+L9Rd5g40i+udaj1BXZ0o5avwJlsg
+   jRRtZmj3pO6FhTSDwYY9tLylhw7QTTgp8ZEETQR+5V3pP4xIGYjsmeT1w
+   zE+M0HfaH9TG/kwKXPQXxSrA68frEvFMP0p7PIAOVna1AV7nd4/4QdHGe
+   A==;
+X-CSE-ConnectionGUID: TJq81GY2Scy7btBAHkNALw==
+X-CSE-MsgGUID: /b6Xur8GQ62U0gSp0YelLw==
+X-IronPort-AV: E=McAfee;i="6600,9927,11061"; a="35720566"
+X-IronPort-AV: E=Sophos;i="6.07,246,1708416000";
+   d="scan'208";a="35720566"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 May 2024 11:35:02 -0700
+X-CSE-ConnectionGUID: d+R5C+YhSvKYPrEH+M9+ig==
+X-CSE-MsgGUID: kZzV5MX4TyKLpBwDNOu+9w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.07,246,1708416000";
+   d="scan'208";a="27361187"
+Received: from lkp-server01.sh.intel.com (HELO e434dd42e5a1) ([10.239.97.150])
+  by orviesa007.jf.intel.com with ESMTP; 01 May 2024 11:35:00 -0700
+Received: from kbuild by e434dd42e5a1 with local (Exim 4.96)
+	(envelope-from <lkp@intel.com>)
+	id 1s2EnC-0009tG-0C;
+	Wed, 01 May 2024 18:34:58 +0000
+Date: Thu, 2 May 2024 02:34:55 +0800
+From: kernel test robot <lkp@intel.com>
+To: Kailang Yang <kailang@realtek.com>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.de>
+Subject: [tiwai-sound:for-linus 1/4] sound/pci/hda/patch_realtek.c:7222:8:
+ error: no member named 'power_hook' in 'struct alc_spec'
+Message-ID: <202405020226.ddBTVUNI-lkp@intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Message-ID-Hash: B2MDU3RBQNWIT7U6WOFWUMP4PHKNFFQV
+X-Message-ID-Hash: B2MDU3RBQNWIT7U6WOFWUMP4PHKNFFQV
+X-MailFrom: lkp@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -154,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IE7V6OT7OQHYU6ZJ7ZVGMHIVIJ6YODM4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/B2MDU3RBQNWIT7U6WOFWUMP4PHKNFFQV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -163,37 +106,103 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 01 May 2024 16:07:49 +0200,
-Mark Brown wrote:
-> 
-> The following changes since commit fec50db7033ea478773b159e0e2efb135270e3b7:
-> 
->   Linux 6.9-rc3 (2024-04-07 13:22:46 -0700)
-> 
-> are available in the Git repository at:
-> 
->   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.9-rc6
-> 
-> for you to fetch changes up to c5782bb5468acf86d8ca8e161267e8d055fb4161:
-> 
->   ASoC: meson: tdm fixes (2024-04-30 23:36:23 +0900)
-> 
-> ----------------------------------------------------------------
-> ASoC: Fixes for v6.9
-> 
-> This is much larger than is ideal, partly due to your holiday but also
-> due to several vendors having come in with relatively large fixes at
-> similar times.  It's all driver specific stuff.
-> 
-> The meson fixes from Jerome fix some rare timing issues with blocking
-> operations happening in triggers, plus the continuous clock support
-> which fixes clocking for some platforms.  The SOF series from Peter
-> builds to the fix to avoid spurious resets of ChainDMA which triggered
-> errors in cleanup paths with both PulseAudio and PipeWire, and there's
-> also some simple new debugfs files from Pierre which make support a lot
-> eaiser.
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-linus
+head:   9b3c22ab3929672b117f5c46d718692abb65da0b
+commit: 1e707769df072757bdcafab158bb159ead73daa4 [1/4] ALSA: hda/realtek - Set GPIO3 to default at S4 state for Thinkpad with ALC1318
+config: hexagon-allmodconfig (https://download.01.org/0day-ci/archive/20240502/202405020226.ddBTVUNI-lkp@intel.com/config)
+compiler: clang version 19.0.0git (https://github.com/llvm/llvm-project 37ae4ad0eef338776c7e2cffb3896153d43dcd90)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240502/202405020226.ddBTVUNI-lkp@intel.com/reproduce)
 
-Thanks, pulled now.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202405020226.ddBTVUNI-lkp@intel.com/
+
+Note: the tiwai-sound/for-linus HEAD 9b3c22ab3929672b117f5c46d718692abb65da0b builds fine.
+      It only hurts bisectability.
+
+All errors (new ones prefixed by >>):
+
+   In file included from sound/pci/hda/patch_realtek.c:17:
+   In file included from include/linux/pci.h:38:
+   In file included from include/linux/interrupt.h:11:
+   In file included from include/linux/hardirq.h:11:
+   In file included from ./arch/hexagon/include/generated/asm/hardirq.h:1:
+   In file included from include/asm-generic/hardirq.h:17:
+   In file included from include/linux/irq.h:20:
+   In file included from include/linux/io.h:13:
+   In file included from arch/hexagon/include/asm/io.h:328:
+   include/asm-generic/io.h:547:31: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+     547 |         val = __raw_readb(PCI_IOBASE + addr);
+         |                           ~~~~~~~~~~ ^
+   include/asm-generic/io.h:560:61: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+     560 |         val = __le16_to_cpu((__le16 __force)__raw_readw(PCI_IOBASE + addr));
+         |                                                         ~~~~~~~~~~ ^
+   include/uapi/linux/byteorder/little_endian.h:37:51: note: expanded from macro '__le16_to_cpu'
+      37 | #define __le16_to_cpu(x) ((__force __u16)(__le16)(x))
+         |                                                   ^
+   In file included from sound/pci/hda/patch_realtek.c:17:
+   In file included from include/linux/pci.h:38:
+   In file included from include/linux/interrupt.h:11:
+   In file included from include/linux/hardirq.h:11:
+   In file included from ./arch/hexagon/include/generated/asm/hardirq.h:1:
+   In file included from include/asm-generic/hardirq.h:17:
+   In file included from include/linux/irq.h:20:
+   In file included from include/linux/io.h:13:
+   In file included from arch/hexagon/include/asm/io.h:328:
+   include/asm-generic/io.h:573:61: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+     573 |         val = __le32_to_cpu((__le32 __force)__raw_readl(PCI_IOBASE + addr));
+         |                                                         ~~~~~~~~~~ ^
+   include/uapi/linux/byteorder/little_endian.h:35:51: note: expanded from macro '__le32_to_cpu'
+      35 | #define __le32_to_cpu(x) ((__force __u32)(__le32)(x))
+         |                                                   ^
+   In file included from sound/pci/hda/patch_realtek.c:17:
+   In file included from include/linux/pci.h:38:
+   In file included from include/linux/interrupt.h:11:
+   In file included from include/linux/hardirq.h:11:
+   In file included from ./arch/hexagon/include/generated/asm/hardirq.h:1:
+   In file included from include/asm-generic/hardirq.h:17:
+   In file included from include/linux/irq.h:20:
+   In file included from include/linux/io.h:13:
+   In file included from arch/hexagon/include/asm/io.h:328:
+   include/asm-generic/io.h:584:33: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+     584 |         __raw_writeb(value, PCI_IOBASE + addr);
+         |                             ~~~~~~~~~~ ^
+   include/asm-generic/io.h:594:59: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+     594 |         __raw_writew((u16 __force)cpu_to_le16(value), PCI_IOBASE + addr);
+         |                                                       ~~~~~~~~~~ ^
+   include/asm-generic/io.h:604:59: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+     604 |         __raw_writel((u32 __force)cpu_to_le32(value), PCI_IOBASE + addr);
+         |                                                       ~~~~~~~~~~ ^
+   In file included from sound/pci/hda/patch_realtek.c:17:
+   In file included from include/linux/pci.h:2693:
+   In file included from include/linux/dma-mapping.h:11:
+   In file included from include/linux/scatterlist.h:8:
+   In file included from include/linux/mm.h:2208:
+   include/linux/vmstat.h:522:36: warning: arithmetic between different enumeration types ('enum node_stat_item' and 'enum lru_list') [-Wenum-enum-conversion]
+     522 |         return node_stat_name(NR_LRU_BASE + lru) + 3; // skip "nr_"
+         |                               ~~~~~~~~~~~ ^ ~~~
+>> sound/pci/hda/patch_realtek.c:7222:8: error: no member named 'power_hook' in 'struct alc_spec'
+    7222 |         spec->power_hook = alc287_s4_power_gpio3_default;
+         |         ~~~~  ^
+   7 warnings and 1 error generated.
 
 
-Takashi
+vim +7222 sound/pci/hda/patch_realtek.c
+
+  7214	
+  7215	static void alc287_fixup_lenovo_thinkpad_with_alc1318(struct hda_codec *codec,
+  7216				       const struct hda_fixup *fix, int action)
+  7217	{
+  7218		struct alc_spec *spec = codec->spec;
+  7219	
+  7220		if (action != HDA_FIXUP_ACT_PRE_PROBE)
+  7221			return;
+> 7222		spec->power_hook = alc287_s4_power_gpio3_default;
+  7223		spec->gen.pcm_playback_hook = alc287_alc1318_playback_pcm_hook;
+  7224	}
+  7225	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki

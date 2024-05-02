@@ -2,176 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6D178B957B
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2024 09:46:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93C908B95A1
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2024 09:52:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B6701DEE;
-	Thu,  2 May 2024 09:46:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6701DEE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7D1DDE67;
+	Thu,  2 May 2024 09:52:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D1DDE67
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1714636009;
-	bh=G2F+pRuroYRYP/lwNUvpjm4eUMZYODI68gnHdFvmk5A=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=JZN3lq2W9FwsTXGAXpjENsj8KKLQswmYe/QnDmP1Enh8oSz/khUJfuBMhNRNxUDBR
-	 det/+lgN41IJGIPaAf2wTVuw7UML3xIIH3T8YwR3wzWXmEgFQTbIsUYukQhiAqXz1M
-	 RsMo9HWOTdf/WdbE8DoUE3YCRtcjbriCyZJ4DXXc=
+	s=default; t=1714636331;
+	bh=dcPU5dPg0ukcjDGkPs8b066dTcwFxZECYYiByecj3Vg=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=HtIjHfw9zoLMGMmPcjLPE7gngBFKnEU19PPSqa9GE/owj2qmvevCtyNQU2JCwx9Sa
+	 ilu3RF+1HAfbE8ZDklRqGqP2o0USb9ft952Foa0Q7OzBwnjE2FruwNwQH46kOewADz
+	 dYGwVffy5T4EdnAyTgNBksodNddnZNJb95TbFxVw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B857EF8057E; Thu,  2 May 2024 09:46:31 +0200 (CEST)
+	id D3454F805A0; Thu,  2 May 2024 09:51:40 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6336BF80580;
-	Thu,  2 May 2024 09:46:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A0EE7F8059F;
+	Thu,  2 May 2024 09:51:39 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 31BC0F80266; Thu,  2 May 2024 09:46:20 +0200 (CEST)
+	id 867D2F8003A; Thu,  2 May 2024 09:48:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from metis.whiteo.stw.pengutronix.de
+ (metis.whiteo.stw.pengutronix.de [IPv6:2a0a:edc0:2:b01:1d::104])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E9EC2F8003A
-	for <alsa-devel@alsa-project.org>; Thu,  2 May 2024 09:46:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9EC2F8003A
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=0kCiASM+;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=3PxaclT8;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=0kCiASM+;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=3PxaclT8
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 1B2CD1FBAF;
-	Thu,  2 May 2024 07:46:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1714635962;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=grBrX5v5BMK7IiisGU8WUSwT0CHWzdkb4PZ4mBQewnU=;
-	b=0kCiASM+3jGMhAqvGONuClyTbpR7p5db0zoU56cfzvj8ZLM1TibUzz1w1xMxYaPoEj0nk6
-	6zO1slhkluZbunRsjK6LWnAoTDdxAEpLlgdWt82+iXrCk6ut27P3+9mux6/YtGiRHsPce0
-	Q8WT8XRSSoZkls9WDZVKmlEqOdAX5gg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1714635962;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=grBrX5v5BMK7IiisGU8WUSwT0CHWzdkb4PZ4mBQewnU=;
-	b=3PxaclT8gno2WpuhwwnPIbk2kacgToaytnBHEwFzPUF+xZlvTtA4HU3gxAeJNZNwsBPr8W
-	2eKgWDE02MgRsmCg==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=0kCiASM+;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=3PxaclT8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1714635962;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=grBrX5v5BMK7IiisGU8WUSwT0CHWzdkb4PZ4mBQewnU=;
-	b=0kCiASM+3jGMhAqvGONuClyTbpR7p5db0zoU56cfzvj8ZLM1TibUzz1w1xMxYaPoEj0nk6
-	6zO1slhkluZbunRsjK6LWnAoTDdxAEpLlgdWt82+iXrCk6ut27P3+9mux6/YtGiRHsPce0
-	Q8WT8XRSSoZkls9WDZVKmlEqOdAX5gg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1714635962;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=grBrX5v5BMK7IiisGU8WUSwT0CHWzdkb4PZ4mBQewnU=;
-	b=3PxaclT8gno2WpuhwwnPIbk2kacgToaytnBHEwFzPUF+xZlvTtA4HU3gxAeJNZNwsBPr8W
-	2eKgWDE02MgRsmCg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9AA6B13957;
-	Thu,  2 May 2024 07:46:01 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id hL2KJLlEM2biUwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Thu, 02 May 2024 07:46:01 +0000
-Date: Thu, 02 May 2024 09:46:14 +0200
-Message-ID: <87sez0k661.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sebastian Fricke <sebastian.fricke@collabora.com>,
-	Shengjiu Wang <shengjiu.wang@nxp.com>,
-	hverkuil@xs4all.nl,
-	sakari.ailus@iki.fi,
-	tfiga@chromium.org,
-	m.szyprowski@samsung.com,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	shengjiu.wang@gmail.com,
-	Xiubo.Lee@gmail.com,
-	festevam@gmail.com,
-	nicoleotsuka@gmail.com,
-	lgirdwood@gmail.com,
-	perex@perex.cz,
-	tiwai@suse.com,
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6F2E2F8003A
+	for <alsa-devel@alsa-project.org>; Thu,  2 May 2024 09:47:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F2E2F8003A
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1s2RAF-0007Ka-2S; Thu, 02 May 2024 09:47:35 +0200
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.94.2)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1s2RAE-00FTpj-6I; Thu, 02 May 2024 09:47:34 +0200
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.96)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1s2RAE-00DWhh-0K;
+	Thu, 02 May 2024 09:47:34 +0200
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>
+Cc: Andy Shevchenko <andy@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
 	alsa-devel@alsa-project.org,
-	linuxppc-dev@lists.ozlabs.org
-Subject: Re: [PATCH v15 00/16] Add audio support in v4l2 framework
-In-Reply-To: <ZjGhPz-bokg6ZbDJ@finisterre.sirena.org.uk>
-References: <1710834674-3285-1-git-send-email-shengjiu.wang@nxp.com>
-	<20240430082112.jrovosb6lgblgpfg@basti-XPS-13-9310>
-	<ZjEEKyvb02CWz3l4@finisterre.sirena.org.uk>
-	<20240430172752.20ffcd56@sal.lan>
-	<ZjGhPz-bokg6ZbDJ@finisterre.sirena.org.uk>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: 1B2CD1FBAF
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-2.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TAGGED_RCPT(0.00)[];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[19];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com,xs4all.nl];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,collabora.com,nxp.com,xs4all.nl,iki.fi,chromium.org,samsung.com,vger.kernel.org,gmail.com,perex.cz,suse.com,alsa-project.org,lists.ozlabs.org];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim];
-	RCVD_COUNT_TWO(0.00)[2];
-	DKIM_TRACE(0.00)[suse.de:+]
-Message-ID-Hash: TYRADGYKL2GGS6ERMFIUDZEUKMB3X2QI
-X-Message-ID-Hash: TYRADGYKL2GGS6ERMFIUDZEUKMB3X2QI
-X-MailFrom: tiwai@suse.de
+	linux-sound@vger.kernel.org,
+	kernel@pengutronix.de
+Subject: [PATCH] ASoC: codecs: Drop explicit initialization of struct
+ i2c_device_id::driver_data to 0
+Date: Thu,  2 May 2024 09:47:20 +0200
+Message-ID: <20240502074722.1103986-2-u.kleine-koenig@pengutronix.de>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=65430;
+ i=u.kleine-koenig@pengutronix.de; h=from:subject;
+ bh=dcPU5dPg0ukcjDGkPs8b066dTcwFxZECYYiByecj3Vg=;
+ b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBmM0UKv+24Mkn0y/9owHUzbikrHK7kbF4lfJQdc
+ gc9UXLAqz+JATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZjNFCgAKCRCPgPtYfRL+
+ TqenCACPZbqKAYXpUUdqjoyc9antgjqJ5ecF1zV4QCnux47d0l1Wbt4qza6Jxt+BKdd57lHtoEH
+ T6ONrnv0XdOSj0kbrjFvt4DedzspZZkOpUT1E8m1SYQuFVOd52KclSN58DHkSbUCYlWkIgTlr8U
+ IW3zrXTfIqjOQmDev5G/hiILkVRcFrnLK9QW2srR8G95vxB1PNl3jQp6ca2TpTWjFU/g2L6RDdB
+ qQ4eIXM2rZfjCVx7aID3sR7rvwyvcGUdoirBooY52FJMYVPibdKl0XMPJ2syrmzFFIdi6XM4Fgm
+ OoflbR+rcbshLmCSQTH0W2x88bO8GQHtDp3ZVqN543dt9P7c
+X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
+ fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: alsa-devel@alsa-project.org
+Message-ID-Hash: ZZXMAB35KN7BZRTBA3WUIWZJJPL3OY4G
+X-Message-ID-Hash: ZZXMAB35KN7BZRTBA3WUIWZJJPL3OY4G
+X-MailFrom: ukl@pengutronix.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -183,7 +103,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TYRADGYKL2GGS6ERMFIUDZEUKMB3X2QI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZZXMAB35KN7BZRTBA3WUIWZJJPL3OY4G/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -192,56 +112,2045 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 01 May 2024 03:56:15 +0200,
-Mark Brown wrote:
-> 
-> On Tue, Apr 30, 2024 at 05:27:52PM +0100, Mauro Carvalho Chehab wrote:
-> > Mark Brown <broonie@kernel.org> escreveu:
-> > > On Tue, Apr 30, 2024 at 10:21:12AM +0200, Sebastian Fricke wrote:
-> 
-> > > The discussion around this originally was that all the audio APIs are
-> > > very much centered around real time operations rather than completely
-> 
-> > The media subsystem is also centered around real time. Without real
-> > time, you can't have a decent video conference system. Having
-> > mem2mem transfers actually help reducing real time delays, as it 
-> > avoids extra latency due to CPU congestion and/or data transfers
-> > from/to userspace.
-> 
-> Real time means strongly tied to wall clock times rather than fast - the
-> issue was that all the ALSA APIs are based around pushing data through
-> the system based on a clock.
-> 
-> > > That doesn't sound like an immediate solution to maintainer overload
-> > > issues...  if something like this is going to happen the DRM solution
-> > > does seem more general but I'm not sure the amount of stop energy is
-> > > proportionate.
-> 
-> > I don't think maintainer overload is the issue here. The main
-> > point is to avoid a fork at the audio uAPI, plus the burden
-> > of re-inventing the wheel with new codes for audio formats,
-> > new documentation for them, etc.
-> 
-> I thought that discussion had been had already at one of the earlier
-> versions?  TBH I've not really been paying attention to this since the
-> very early versions where I raised some similar "why is this in media"
-> points and I thought everyone had decided that this did actually make
-> sense.
+These drivers don't use the driver_data member of struct i2c_device_id,
+so don't explicitly initialize this member.
 
-Yeah, it was discussed in v1 and v2 threads, e.g.
-  https://patchwork.kernel.org/project/linux-media/cover/1690265540-25999-1-git-send-email-shengjiu.wang@nxp.com/#25485573
+This prepares putting driver_data in an anonymous union which requires
+either no initialization or named designators. But it's also a nice
+cleanup on its own.
 
-My argument at that time was how the operation would be, and the point
-was that it'd be a "batch-like" operation via M2M without any timing
-control.  It'd be a very special usage for for ALSA, and if any, it'd
-be hwdep -- that is a very hardware-specific API implementation -- or
-try compress-offload API, which looks dubious.
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+---
+ sound/soc/codecs/adau1372-i2c.c    | 2 +-
+ sound/soc/codecs/adau1373.c        | 2 +-
+ sound/soc/codecs/adau1701.c        | 8 ++++----
+ sound/soc/codecs/adau7118-i2c.c    | 2 +-
+ sound/soc/codecs/adav803.c         | 2 +-
+ sound/soc/codecs/ak4118.c          | 2 +-
+ sound/soc/codecs/ak4535.c          | 2 +-
+ sound/soc/codecs/ak4641.c          | 2 +-
+ sound/soc/codecs/ak4671.c          | 2 +-
+ sound/soc/codecs/cs35l32.c         | 2 +-
+ sound/soc/codecs/cs35l33.c         | 2 +-
+ sound/soc/codecs/cs35l34.c         | 2 +-
+ sound/soc/codecs/cs35l35.c         | 2 +-
+ sound/soc/codecs/cs35l36.c         | 2 +-
+ sound/soc/codecs/cs35l41-i2c.c     | 8 ++++----
+ sound/soc/codecs/cs35l45-i2c.c     | 2 +-
+ sound/soc/codecs/cs35l56-i2c.c     | 2 +-
+ sound/soc/codecs/cs4265.c          | 2 +-
+ sound/soc/codecs/cs4270.c          | 2 +-
+ sound/soc/codecs/cs4271-i2c.c      | 2 +-
+ sound/soc/codecs/cs42l42-i2c.c     | 2 +-
+ sound/soc/codecs/cs42l51-i2c.c     | 2 +-
+ sound/soc/codecs/cs42l52.c         | 2 +-
+ sound/soc/codecs/cs42l56.c         | 2 +-
+ sound/soc/codecs/cs42l73.c         | 2 +-
+ sound/soc/codecs/cs43130.c         | 8 ++++----
+ sound/soc/codecs/cs4341.c          | 2 +-
+ sound/soc/codecs/cs4349.c          | 2 +-
+ sound/soc/codecs/cs53l30.c         | 2 +-
+ sound/soc/codecs/cx2072x.c         | 4 ++--
+ sound/soc/codecs/da7210.c          | 2 +-
+ sound/soc/codecs/da7213.c          | 2 +-
+ sound/soc/codecs/da732x.c          | 2 +-
+ sound/soc/codecs/da9055.c          | 2 +-
+ sound/soc/codecs/es8316.c          | 2 +-
+ sound/soc/codecs/es8326.c          | 2 +-
+ sound/soc/codecs/es8328-i2c.c      | 4 ++--
+ sound/soc/codecs/isabelle.c        | 2 +-
+ sound/soc/codecs/lm4857.c          | 2 +-
+ sound/soc/codecs/lm49453.c         | 2 +-
+ sound/soc/codecs/max9768.c         | 2 +-
+ sound/soc/codecs/max98371.c        | 2 +-
+ sound/soc/codecs/max98373-i2c.c    | 2 +-
+ sound/soc/codecs/max98388.c        | 2 +-
+ sound/soc/codecs/max98390.c        | 2 +-
+ sound/soc/codecs/max9850.c         | 2 +-
+ sound/soc/codecs/max98520.c        | 2 +-
+ sound/soc/codecs/max9867.c         | 2 +-
+ sound/soc/codecs/max9877.c         | 2 +-
+ sound/soc/codecs/max98925.c        | 2 +-
+ sound/soc/codecs/max98926.c        | 2 +-
+ sound/soc/codecs/max98927.c        | 2 +-
+ sound/soc/codecs/ml26124.c         | 2 +-
+ sound/soc/codecs/mt6660.c          | 2 +-
+ sound/soc/codecs/nau8325.c         | 2 +-
+ sound/soc/codecs/nau8540.c         | 2 +-
+ sound/soc/codecs/nau8810.c         | 6 +++---
+ sound/soc/codecs/nau8821.c         | 2 +-
+ sound/soc/codecs/nau8822.c         | 2 +-
+ sound/soc/codecs/nau8824.c         | 2 +-
+ sound/soc/codecs/nau8825.c         | 2 +-
+ sound/soc/codecs/pcm1681.c         | 2 +-
+ sound/soc/codecs/pcm1789-i2c.c     | 2 +-
+ sound/soc/codecs/pcm179x-i2c.c     | 2 +-
+ sound/soc/codecs/rt1011.c          | 2 +-
+ sound/soc/codecs/rt1015.c          | 2 +-
+ sound/soc/codecs/rt1016.c          | 2 +-
+ sound/soc/codecs/rt1019.c          | 2 +-
+ sound/soc/codecs/rt1305.c          | 4 ++--
+ sound/soc/codecs/rt1308.c          | 2 +-
+ sound/soc/codecs/rt274.c           | 2 +-
+ sound/soc/codecs/rt286.c           | 4 ++--
+ sound/soc/codecs/rt298.c           | 2 +-
+ sound/soc/codecs/rt5514.c          | 2 +-
+ sound/soc/codecs/rt5616.c          | 2 +-
+ sound/soc/codecs/rt5631.c          | 4 ++--
+ sound/soc/codecs/rt5640.c          | 6 +++---
+ sound/soc/codecs/rt5645.c          | 4 ++--
+ sound/soc/codecs/rt5651.c          | 2 +-
+ sound/soc/codecs/rt5659.c          | 4 ++--
+ sound/soc/codecs/rt5660.c          | 2 +-
+ sound/soc/codecs/rt5663.c          | 2 +-
+ sound/soc/codecs/rt5665.c          | 2 +-
+ sound/soc/codecs/rt5668.c          | 2 +-
+ sound/soc/codecs/rt5670.c          | 6 +++---
+ sound/soc/codecs/rt5682-i2c.c      | 2 +-
+ sound/soc/codecs/rt5682s.c         | 2 +-
+ sound/soc/codecs/sgtl5000.c        | 2 +-
+ sound/soc/codecs/sma1303.c         | 2 +-
+ sound/soc/codecs/src4xxx-i2c.c     | 2 +-
+ sound/soc/codecs/ssm2518.c         | 2 +-
+ sound/soc/codecs/ssm4567.c         | 2 +-
+ sound/soc/codecs/sta32x.c          | 6 +++---
+ sound/soc/codecs/sta350.c          | 2 +-
+ sound/soc/codecs/sta529.c          | 2 +-
+ sound/soc/codecs/tas2552.c         | 2 +-
+ sound/soc/codecs/tas2764.c         | 2 +-
+ sound/soc/codecs/tas2770.c         | 2 +-
+ sound/soc/codecs/tas2780.c         | 2 +-
+ sound/soc/codecs/tas5086.c         | 2 +-
+ sound/soc/codecs/tas6424.c         | 2 +-
+ sound/soc/codecs/tda7419.c         | 2 +-
+ sound/soc/codecs/tfa9879.c         | 2 +-
+ sound/soc/codecs/tlv320aic23-i2c.c | 2 +-
+ sound/soc/codecs/ts3a227e.c        | 2 +-
+ sound/soc/codecs/tscs42xx.c        | 4 ++--
+ sound/soc/codecs/tscs454.c         | 2 +-
+ sound/soc/codecs/uda1380.c         | 2 +-
+ sound/soc/codecs/wm1250-ev1.c      | 2 +-
+ sound/soc/codecs/wm2000.c          | 2 +-
+ sound/soc/codecs/wm2200.c          | 2 +-
+ sound/soc/codecs/wm5100.c          | 2 +-
+ sound/soc/codecs/wm8510.c          | 2 +-
+ sound/soc/codecs/wm8523.c          | 2 +-
+ sound/soc/codecs/wm8711.c          | 2 +-
+ sound/soc/codecs/wm8728.c          | 2 +-
+ sound/soc/codecs/wm8731-i2c.c      | 2 +-
+ sound/soc/codecs/wm8737.c          | 2 +-
+ sound/soc/codecs/wm8741.c          | 2 +-
+ sound/soc/codecs/wm8750.c          | 4 ++--
+ sound/soc/codecs/wm8753.c          | 2 +-
+ sound/soc/codecs/wm8804-i2c.c      | 2 +-
+ sound/soc/codecs/wm8900.c          | 2 +-
+ sound/soc/codecs/wm8903.c          | 2 +-
+ sound/soc/codecs/wm8940.c          | 2 +-
+ sound/soc/codecs/wm8955.c          | 2 +-
+ sound/soc/codecs/wm8960.c          | 2 +-
+ sound/soc/codecs/wm8961.c          | 2 +-
+ sound/soc/codecs/wm8962.c          | 2 +-
+ sound/soc/codecs/wm8971.c          | 2 +-
+ sound/soc/codecs/wm8974.c          | 2 +-
+ sound/soc/codecs/wm8978.c          | 2 +-
+ sound/soc/codecs/wm8983.c          | 2 +-
+ sound/soc/codecs/wm8988.c          | 2 +-
+ sound/soc/codecs/wm8990.c          | 2 +-
+ sound/soc/codecs/wm8991.c          | 2 +-
+ sound/soc/codecs/wm8993.c          | 2 +-
+ sound/soc/codecs/wm8995.c          | 2 +-
+ sound/soc/codecs/wm8996.c          | 2 +-
+ sound/soc/codecs/wm9081.c          | 2 +-
+ sound/soc/codecs/wm9090.c          | 4 ++--
+ 141 files changed, 168 insertions(+), 168 deletions(-)
 
-OTOH, the argument was that there is already a framework for M2M in
-media API and that also fits for the batch-like operation, too.  So
-was the thread evolved until now.
+diff --git a/sound/soc/codecs/adau1372-i2c.c b/sound/soc/codecs/adau1372-i2c.c
+index 132b9e2cca59..2869325f9ace 100644
+--- a/sound/soc/codecs/adau1372-i2c.c
++++ b/sound/soc/codecs/adau1372-i2c.c
+@@ -21,7 +21,7 @@ static int adau1372_i2c_probe(struct i2c_client *client)
+ }
+ 
+ static const struct i2c_device_id adau1372_i2c_ids[] = {
+-	{ "adau1372", 0 },
++	{ "adau1372" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, adau1372_i2c_ids);
+diff --git a/sound/soc/codecs/adau1373.c b/sound/soc/codecs/adau1373.c
+index 3582c4b968a0..a910e252aa12 100644
+--- a/sound/soc/codecs/adau1373.c
++++ b/sound/soc/codecs/adau1373.c
+@@ -1496,7 +1496,7 @@ static int adau1373_i2c_probe(struct i2c_client *client)
+ }
+ 
+ static const struct i2c_device_id adau1373_i2c_id[] = {
+-	{ "adau1373", 0 },
++	{ "adau1373" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, adau1373_i2c_id);
+diff --git a/sound/soc/codecs/adau1701.c b/sound/soc/codecs/adau1701.c
+index d1392d9abccd..8bd6067df7f7 100644
+--- a/sound/soc/codecs/adau1701.c
++++ b/sound/soc/codecs/adau1701.c
+@@ -862,10 +862,10 @@ static int adau1701_i2c_probe(struct i2c_client *client)
+ }
+ 
+ static const struct i2c_device_id adau1701_i2c_id[] = {
+-	{ "adau1401", 0 },
+-	{ "adau1401a", 0 },
+-	{ "adau1701", 0 },
+-	{ "adau1702", 0 },
++	{ "adau1401" },
++	{ "adau1401a" },
++	{ "adau1701" },
++	{ "adau1702" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, adau1701_i2c_id);
+diff --git a/sound/soc/codecs/adau7118-i2c.c b/sound/soc/codecs/adau7118-i2c.c
+index b302b28eca7c..f9dc8f4ef9a4 100644
+--- a/sound/soc/codecs/adau7118-i2c.c
++++ b/sound/soc/codecs/adau7118-i2c.c
+@@ -68,7 +68,7 @@ static const struct of_device_id adau7118_of_match[] = {
+ MODULE_DEVICE_TABLE(of, adau7118_of_match);
+ 
+ static const struct i2c_device_id adau7118_id[] = {
+-	{"adau7118", 0},
++	{"adau7118"},
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(i2c, adau7118_id);
+diff --git a/sound/soc/codecs/adav803.c b/sound/soc/codecs/adav803.c
+index 78a317947df9..8b96c41f0354 100644
+--- a/sound/soc/codecs/adav803.c
++++ b/sound/soc/codecs/adav803.c
+@@ -14,7 +14,7 @@
+ #include "adav80x.h"
+ 
+ static const struct i2c_device_id adav803_id[] = {
+-	{ "adav803", 0 },
++	{ "adav803" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, adav803_id);
+diff --git a/sound/soc/codecs/ak4118.c b/sound/soc/codecs/ak4118.c
+index 74a10108c1d4..9a43235e6a11 100644
+--- a/sound/soc/codecs/ak4118.c
++++ b/sound/soc/codecs/ak4118.c
+@@ -396,7 +396,7 @@ MODULE_DEVICE_TABLE(of, ak4118_of_match);
+ #endif
+ 
+ static const struct i2c_device_id ak4118_id_table[] = {
+-	{ "ak4118", 0 },
++	{ "ak4118" },
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(i2c, ak4118_id_table);
+diff --git a/sound/soc/codecs/ak4535.c b/sound/soc/codecs/ak4535.c
+index 904bf91090aa..aadc46a47280 100644
+--- a/sound/soc/codecs/ak4535.c
++++ b/sound/soc/codecs/ak4535.c
+@@ -430,7 +430,7 @@ static int ak4535_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id ak4535_i2c_id[] = {
+-	{ "ak4535", 0 },
++	{ "ak4535" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, ak4535_i2c_id);
+diff --git a/sound/soc/codecs/ak4641.c b/sound/soc/codecs/ak4641.c
+index 5b7df2f0dd6a..ec33e7d73c6c 100644
+--- a/sound/soc/codecs/ak4641.c
++++ b/sound/soc/codecs/ak4641.c
+@@ -619,7 +619,7 @@ static void ak4641_i2c_remove(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id ak4641_i2c_id[] = {
+-	{ "ak4641", 0 },
++	{ "ak4641" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, ak4641_i2c_id);
+diff --git a/sound/soc/codecs/ak4671.c b/sound/soc/codecs/ak4671.c
+index 5b849b390c2a..d545aa2e0a39 100644
+--- a/sound/soc/codecs/ak4671.c
++++ b/sound/soc/codecs/ak4671.c
+@@ -646,7 +646,7 @@ static int ak4671_i2c_probe(struct i2c_client *client)
+ }
+ 
+ static const struct i2c_device_id ak4671_i2c_id[] = {
+-	{ "ak4671", 0 },
++	{ "ak4671" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, ak4671_i2c_id);
+diff --git a/sound/soc/codecs/cs35l32.c b/sound/soc/codecs/cs35l32.c
+index d1350ffbf3bd..96555263e10b 100644
+--- a/sound/soc/codecs/cs35l32.c
++++ b/sound/soc/codecs/cs35l32.c
+@@ -558,7 +558,7 @@ MODULE_DEVICE_TABLE(of, cs35l32_of_match);
+ 
+ 
+ static const struct i2c_device_id cs35l32_id[] = {
+-	{"cs35l32", 0},
++	{"cs35l32"},
+ 	{}
+ };
+ 
+diff --git a/sound/soc/codecs/cs35l33.c b/sound/soc/codecs/cs35l33.c
+index a19a2bafb37c..b03aab147530 100644
+--- a/sound/soc/codecs/cs35l33.c
++++ b/sound/soc/codecs/cs35l33.c
+@@ -1264,7 +1264,7 @@ static const struct of_device_id cs35l33_of_match[] = {
+ MODULE_DEVICE_TABLE(of, cs35l33_of_match);
+ 
+ static const struct i2c_device_id cs35l33_id[] = {
+-	{"cs35l33", 0},
++	{"cs35l33"},
+ 	{}
+ };
+ 
+diff --git a/sound/soc/codecs/cs35l34.c b/sound/soc/codecs/cs35l34.c
+index cca59de66b73..4c517231d765 100644
+--- a/sound/soc/codecs/cs35l34.c
++++ b/sound/soc/codecs/cs35l34.c
+@@ -1198,7 +1198,7 @@ static const struct of_device_id cs35l34_of_match[] = {
+ MODULE_DEVICE_TABLE(of, cs35l34_of_match);
+ 
+ static const struct i2c_device_id cs35l34_id[] = {
+-	{"cs35l34", 0},
++	{"cs35l34"},
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(i2c, cs35l34_id);
+diff --git a/sound/soc/codecs/cs35l35.c b/sound/soc/codecs/cs35l35.c
+index ddb7d63213a3..c39b3cfe9574 100644
+--- a/sound/soc/codecs/cs35l35.c
++++ b/sound/soc/codecs/cs35l35.c
+@@ -1639,7 +1639,7 @@ static const struct of_device_id cs35l35_of_match[] = {
+ MODULE_DEVICE_TABLE(of, cs35l35_of_match);
+ 
+ static const struct i2c_device_id cs35l35_id[] = {
+-	{"cs35l35", 0},
++	{"cs35l35"},
+ 	{}
+ };
+ 
+diff --git a/sound/soc/codecs/cs35l36.c b/sound/soc/codecs/cs35l36.c
+index f5bd32e434a0..bc79990615e8 100644
+--- a/sound/soc/codecs/cs35l36.c
++++ b/sound/soc/codecs/cs35l36.c
+@@ -1930,7 +1930,7 @@ static const struct of_device_id cs35l36_of_match[] = {
+ MODULE_DEVICE_TABLE(of, cs35l36_of_match);
+ 
+ static const struct i2c_device_id cs35l36_id[] = {
+-	{"cs35l36", 0},
++	{"cs35l36"},
+ 	{}
+ };
+ 
+diff --git a/sound/soc/codecs/cs35l41-i2c.c b/sound/soc/codecs/cs35l41-i2c.c
+index a0c457c0d04b..34097996b784 100644
+--- a/sound/soc/codecs/cs35l41-i2c.c
++++ b/sound/soc/codecs/cs35l41-i2c.c
+@@ -20,10 +20,10 @@
+ #include "cs35l41.h"
+ 
+ static const struct i2c_device_id cs35l41_id_i2c[] = {
+-	{ "cs35l40", 0 },
+-	{ "cs35l41", 0 },
+-	{ "cs35l51", 0 },
+-	{ "cs35l53", 0 },
++	{ "cs35l40" },
++	{ "cs35l41" },
++	{ "cs35l51" },
++	{ "cs35l53" },
+ 	{}
+ };
+ 
+diff --git a/sound/soc/codecs/cs35l45-i2c.c b/sound/soc/codecs/cs35l45-i2c.c
+index bc2af1ed0fe9..f5fc42dcc8c7 100644
+--- a/sound/soc/codecs/cs35l45-i2c.c
++++ b/sound/soc/codecs/cs35l45-i2c.c
+@@ -53,7 +53,7 @@ static const struct of_device_id cs35l45_of_match[] = {
+ MODULE_DEVICE_TABLE(of, cs35l45_of_match);
+ 
+ static const struct i2c_device_id cs35l45_id_i2c[] = {
+-	{ "cs35l45", 0 },
++	{ "cs35l45" },
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(i2c, cs35l45_id_i2c);
+diff --git a/sound/soc/codecs/cs35l56-i2c.c b/sound/soc/codecs/cs35l56-i2c.c
+index 7063c400e896..2bd2ff75cd50 100644
+--- a/sound/soc/codecs/cs35l56-i2c.c
++++ b/sound/soc/codecs/cs35l56-i2c.c
+@@ -57,7 +57,7 @@ static void cs35l56_i2c_remove(struct i2c_client *client)
+ }
+ 
+ static const struct i2c_device_id cs35l56_id_i2c[] = {
+-	{ "cs35l56", 0 },
++	{ "cs35l56" },
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(i2c, cs35l56_id_i2c);
+diff --git a/sound/soc/codecs/cs4265.c b/sound/soc/codecs/cs4265.c
+index 1ed1e60d8e53..78ffb7fa7fc5 100644
+--- a/sound/soc/codecs/cs4265.c
++++ b/sound/soc/codecs/cs4265.c
+@@ -638,7 +638,7 @@ static const struct of_device_id cs4265_of_match[] = {
+ MODULE_DEVICE_TABLE(of, cs4265_of_match);
+ 
+ static const struct i2c_device_id cs4265_id[] = {
+-	{ "cs4265", 0 },
++	{ "cs4265" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, cs4265_id);
+diff --git a/sound/soc/codecs/cs4270.c b/sound/soc/codecs/cs4270.c
+index 3bbb90c827f2..67e92bfecb56 100644
+--- a/sound/soc/codecs/cs4270.c
++++ b/sound/soc/codecs/cs4270.c
+@@ -734,7 +734,7 @@ static int cs4270_i2c_probe(struct i2c_client *i2c_client)
+  * cs4270_id - I2C device IDs supported by this driver
+  */
+ static const struct i2c_device_id cs4270_id[] = {
+-	{"cs4270", 0},
++	{"cs4270"},
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(i2c, cs4270_id);
+diff --git a/sound/soc/codecs/cs4271-i2c.c b/sound/soc/codecs/cs4271-i2c.c
+index 89fe7d1665df..1d210b969173 100644
+--- a/sound/soc/codecs/cs4271-i2c.c
++++ b/sound/soc/codecs/cs4271-i2c.c
+@@ -23,7 +23,7 @@ static int cs4271_i2c_probe(struct i2c_client *client)
+ }
+ 
+ static const struct i2c_device_id cs4271_i2c_id[] = {
+-	{ "cs4271", 0 },
++	{ "cs4271" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, cs4271_i2c_id);
+diff --git a/sound/soc/codecs/cs42l42-i2c.c b/sound/soc/codecs/cs42l42-i2c.c
+index 2552a1e6b82f..8d10f9328e02 100644
+--- a/sound/soc/codecs/cs42l42-i2c.c
++++ b/sound/soc/codecs/cs42l42-i2c.c
+@@ -78,7 +78,7 @@ static const struct acpi_device_id __maybe_unused cs42l42_acpi_match[] = {
+ MODULE_DEVICE_TABLE(acpi, cs42l42_acpi_match);
+ 
+ static const struct i2c_device_id cs42l42_id[] = {
+-	{"cs42l42", 0},
++	{"cs42l42"},
+ 	{}
+ };
+ 
+diff --git a/sound/soc/codecs/cs42l51-i2c.c b/sound/soc/codecs/cs42l51-i2c.c
+index 5ed2ef83dcdb..e7cc50096297 100644
+--- a/sound/soc/codecs/cs42l51-i2c.c
++++ b/sound/soc/codecs/cs42l51-i2c.c
+@@ -14,7 +14,7 @@
+ #include "cs42l51.h"
+ 
+ static struct i2c_device_id cs42l51_i2c_id[] = {
+-	{"cs42l51", 0},
++	{"cs42l51"},
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(i2c, cs42l51_i2c_id);
+diff --git a/sound/soc/codecs/cs42l52.c b/sound/soc/codecs/cs42l52.c
+index 4fc8a6ae8d92..7128d4c62f50 100644
+--- a/sound/soc/codecs/cs42l52.c
++++ b/sound/soc/codecs/cs42l52.c
+@@ -1215,7 +1215,7 @@ MODULE_DEVICE_TABLE(of, cs42l52_of_match);
+ 
+ 
+ static const struct i2c_device_id cs42l52_id[] = {
+-	{ "cs42l52", 0 },
++	{ "cs42l52" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, cs42l52_id);
+diff --git a/sound/soc/codecs/cs42l56.c b/sound/soc/codecs/cs42l56.c
+index 3e3a86dab4fc..aaa10c459b52 100644
+--- a/sound/soc/codecs/cs42l56.c
++++ b/sound/soc/codecs/cs42l56.c
+@@ -1330,7 +1330,7 @@ MODULE_DEVICE_TABLE(of, cs42l56_of_match);
+ 
+ 
+ static const struct i2c_device_id cs42l56_id[] = {
+-	{ "cs42l56", 0 },
++	{ "cs42l56" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, cs42l56_id);
+diff --git a/sound/soc/codecs/cs42l73.c b/sound/soc/codecs/cs42l73.c
+index 6ab67d196d10..21ba796a5cd9 100644
+--- a/sound/soc/codecs/cs42l73.c
++++ b/sound/soc/codecs/cs42l73.c
+@@ -1372,7 +1372,7 @@ static const struct of_device_id cs42l73_of_match[] = {
+ MODULE_DEVICE_TABLE(of, cs42l73_of_match);
+ 
+ static const struct i2c_device_id cs42l73_id[] = {
+-	{"cs42l73", 0},
++	{"cs42l73"},
+ 	{}
+ };
+ 
+diff --git a/sound/soc/codecs/cs43130.c b/sound/soc/codecs/cs43130.c
+index b6d829bbe3cc..be4037890fdb 100644
+--- a/sound/soc/codecs/cs43130.c
++++ b/sound/soc/codecs/cs43130.c
+@@ -2763,10 +2763,10 @@ MODULE_DEVICE_TABLE(acpi, cs43130_acpi_match);
+ 
+ 
+ static const struct i2c_device_id cs43130_i2c_id[] = {
+-	{"cs43130", 0},
+-	{"cs4399", 0},
+-	{"cs43131", 0},
+-	{"cs43198", 0},
++	{"cs43130"},
++	{"cs4399"},
++	{"cs43131"},
++	{"cs43198"},
+ 	{}
+ };
+ 
+diff --git a/sound/soc/codecs/cs4341.c b/sound/soc/codecs/cs4341.c
+index 2ceca5d0e5bf..d87aae31c516 100644
+--- a/sound/soc/codecs/cs4341.c
++++ b/sound/soc/codecs/cs4341.c
+@@ -248,7 +248,7 @@ static int cs4341_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id cs4341_i2c_id[] = {
+-	{ "cs4341", 0 },
++	{ "cs4341" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, cs4341_i2c_id);
+diff --git a/sound/soc/codecs/cs4349.c b/sound/soc/codecs/cs4349.c
+index ca8f21aa4837..a134ca722892 100644
+--- a/sound/soc/codecs/cs4349.c
++++ b/sound/soc/codecs/cs4349.c
+@@ -361,7 +361,7 @@ static const struct of_device_id cs4349_of_match[] = {
+ MODULE_DEVICE_TABLE(of, cs4349_of_match);
+ 
+ static const struct i2c_device_id cs4349_i2c_id[] = {
+-	{"cs4349", 0},
++	{"cs4349"},
+ 	{}
+ };
+ 
+diff --git a/sound/soc/codecs/cs53l30.c b/sound/soc/codecs/cs53l30.c
+index f4065555c36e..c0893146423b 100644
+--- a/sound/soc/codecs/cs53l30.c
++++ b/sound/soc/codecs/cs53l30.c
+@@ -1104,7 +1104,7 @@ static const struct of_device_id cs53l30_of_match[] = {
+ MODULE_DEVICE_TABLE(of, cs53l30_of_match);
+ 
+ static const struct i2c_device_id cs53l30_id[] = {
+-	{ "cs53l30", 0 },
++	{ "cs53l30" },
+ 	{}
+ };
+ 
+diff --git a/sound/soc/codecs/cx2072x.c b/sound/soc/codecs/cx2072x.c
+index f8b128084015..e8e22b1a1963 100644
+--- a/sound/soc/codecs/cx2072x.c
++++ b/sound/soc/codecs/cx2072x.c
+@@ -1686,8 +1686,8 @@ static void cx2072x_i2c_remove(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id cx2072x_i2c_id[] = {
+-	{ "cx20721", 0 },
+-	{ "cx20723", 0 },
++	{ "cx20721" },
++	{ "cx20723" },
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(i2c, cx2072x_i2c_id);
+diff --git a/sound/soc/codecs/da7210.c b/sound/soc/codecs/da7210.c
+index 1e232d01809c..da2d0242019e 100644
+--- a/sound/soc/codecs/da7210.c
++++ b/sound/soc/codecs/da7210.c
+@@ -1238,7 +1238,7 @@ static int da7210_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id da7210_i2c_id[] = {
+-	{ "da7210", 0 },
++	{ "da7210" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, da7210_i2c_id);
+diff --git a/sound/soc/codecs/da7213.c b/sound/soc/codecs/da7213.c
+index 369c62078780..a2b328f3b39f 100644
+--- a/sound/soc/codecs/da7213.c
++++ b/sound/soc/codecs/da7213.c
+@@ -2238,7 +2238,7 @@ static const struct dev_pm_ops da7213_pm = {
+ };
+ 
+ static const struct i2c_device_id da7213_i2c_id[] = {
+-	{ "da7213", 0 },
++	{ "da7213" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, da7213_i2c_id);
+diff --git a/sound/soc/codecs/da732x.c b/sound/soc/codecs/da732x.c
+index f8ca1afa8af5..b747f6fa12e4 100644
+--- a/sound/soc/codecs/da732x.c
++++ b/sound/soc/codecs/da732x.c
+@@ -1546,7 +1546,7 @@ static int da732x_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id da732x_i2c_id[] = {
+-	{ "da7320", 0},
++	{ "da7320"},
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, da732x_i2c_id);
+diff --git a/sound/soc/codecs/da9055.c b/sound/soc/codecs/da9055.c
+index c8a34572965d..8bb8fef2a1d1 100644
+--- a/sound/soc/codecs/da9055.c
++++ b/sound/soc/codecs/da9055.c
+@@ -1511,7 +1511,7 @@ static int da9055_i2c_probe(struct i2c_client *i2c)
+  * and PMIC, which must be different to operate together.
+  */
+ static const struct i2c_device_id da9055_i2c_id[] = {
+-	{ "da9055-codec", 0 },
++	{ "da9055-codec" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, da9055_i2c_id);
+diff --git a/sound/soc/codecs/es8316.c b/sound/soc/codecs/es8316.c
+index e53b2856d625..61729e5b50a8 100644
+--- a/sound/soc/codecs/es8316.c
++++ b/sound/soc/codecs/es8316.c
+@@ -887,7 +887,7 @@ static int es8316_i2c_probe(struct i2c_client *i2c_client)
+ }
+ 
+ static const struct i2c_device_id es8316_i2c_id[] = {
+-	{"es8316", 0 },
++	{"es8316" },
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(i2c, es8316_i2c_id);
+diff --git a/sound/soc/codecs/es8326.c b/sound/soc/codecs/es8326.c
+index 93385f181d2c..833ea52638ab 100644
+--- a/sound/soc/codecs/es8326.c
++++ b/sound/soc/codecs/es8326.c
+@@ -1263,7 +1263,7 @@ static void es8326_i2c_remove(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id es8326_i2c_id[] = {
+-	{"es8326", 0 },
++	{"es8326" },
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(i2c, es8326_i2c_id);
+diff --git a/sound/soc/codecs/es8328-i2c.c b/sound/soc/codecs/es8328-i2c.c
+index 3c4aaa0032a0..56bfbe9261ce 100644
+--- a/sound/soc/codecs/es8328-i2c.c
++++ b/sound/soc/codecs/es8328-i2c.c
+@@ -16,8 +16,8 @@
+ #include "es8328.h"
+ 
+ static const struct i2c_device_id es8328_id[] = {
+-	{ "es8328", 0 },
+-	{ "es8388", 0 },
++	{ "es8328" },
++	{ "es8388" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, es8328_id);
+diff --git a/sound/soc/codecs/isabelle.c b/sound/soc/codecs/isabelle.c
+index f9456133a89a..b7a94631d77d 100644
+--- a/sound/soc/codecs/isabelle.c
++++ b/sound/soc/codecs/isabelle.c
+@@ -1133,7 +1133,7 @@ static int isabelle_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id isabelle_i2c_id[] = {
+-	{ "isabelle", 0 },
++	{ "isabelle" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, isabelle_i2c_id);
+diff --git a/sound/soc/codecs/lm4857.c b/sound/soc/codecs/lm4857.c
+index e7542f71323d..26cdb750cbca 100644
+--- a/sound/soc/codecs/lm4857.c
++++ b/sound/soc/codecs/lm4857.c
+@@ -128,7 +128,7 @@ static int lm4857_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id lm4857_i2c_id[] = {
+-	{ "lm4857", 0 },
++	{ "lm4857" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, lm4857_i2c_id);
+diff --git a/sound/soc/codecs/lm49453.c b/sound/soc/codecs/lm49453.c
+index a4094689b3dd..ab89af7965bf 100644
+--- a/sound/soc/codecs/lm49453.c
++++ b/sound/soc/codecs/lm49453.c
+@@ -1442,7 +1442,7 @@ static int lm49453_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id lm49453_i2c_id[] = {
+-	{ "lm49453", 0 },
++	{ "lm49453" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, lm49453_i2c_id);
+diff --git a/sound/soc/codecs/max9768.c b/sound/soc/codecs/max9768.c
+index 8d0ca1be99c0..e4793a5d179e 100644
+--- a/sound/soc/codecs/max9768.c
++++ b/sound/soc/codecs/max9768.c
+@@ -206,7 +206,7 @@ static int max9768_i2c_probe(struct i2c_client *client)
+ }
+ 
+ static const struct i2c_device_id max9768_i2c_id[] = {
+-	{ "max9768", 0 },
++	{ "max9768" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, max9768_i2c_id);
+diff --git a/sound/soc/codecs/max98371.c b/sound/soc/codecs/max98371.c
+index f0e49179c38f..852db211ba1e 100644
+--- a/sound/soc/codecs/max98371.c
++++ b/sound/soc/codecs/max98371.c
+@@ -400,7 +400,7 @@ static int max98371_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id max98371_i2c_id[] = {
+-	{ "max98371", 0 },
++	{ "max98371" },
+ 	{ }
+ };
+ 
+diff --git a/sound/soc/codecs/max98373-i2c.c b/sound/soc/codecs/max98373-i2c.c
+index e7ec7875c4a9..1f7ff3dbcbbe 100644
+--- a/sound/soc/codecs/max98373-i2c.c
++++ b/sound/soc/codecs/max98373-i2c.c
+@@ -578,7 +578,7 @@ static int max98373_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id max98373_i2c_id[] = {
+-	{ "max98373", 0},
++	{ "max98373"},
+ 	{ },
+ };
+ 
+diff --git a/sound/soc/codecs/max98388.c b/sound/soc/codecs/max98388.c
+index 078adec29312..b847d7c59ec0 100644
+--- a/sound/soc/codecs/max98388.c
++++ b/sound/soc/codecs/max98388.c
+@@ -976,7 +976,7 @@ static int max98388_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id max98388_i2c_id[] = {
+-	{ "max98388", 0},
++	{ "max98388"},
+ 	{ },
+ };
+ 
+diff --git a/sound/soc/codecs/max98390.c b/sound/soc/codecs/max98390.c
+index 5b8e78e51630..57fa2db1e148 100644
+--- a/sound/soc/codecs/max98390.c
++++ b/sound/soc/codecs/max98390.c
+@@ -1104,7 +1104,7 @@ static int max98390_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id max98390_i2c_id[] = {
+-	{ "max98390", 0},
++	{ "max98390"},
+ 	{},
+ };
+ 
+diff --git a/sound/soc/codecs/max9850.c b/sound/soc/codecs/max9850.c
+index 8b012a85360a..c395132689b4 100644
+--- a/sound/soc/codecs/max9850.c
++++ b/sound/soc/codecs/max9850.c
+@@ -320,7 +320,7 @@ static int max9850_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id max9850_i2c_id[] = {
+-	{ "max9850", 0 },
++	{ "max9850" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, max9850_i2c_id);
+diff --git a/sound/soc/codecs/max98520.c b/sound/soc/codecs/max98520.c
+index edd05253d37c..479ded22672e 100644
+--- a/sound/soc/codecs/max98520.c
++++ b/sound/soc/codecs/max98520.c
+@@ -734,7 +734,7 @@ static int max98520_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id max98520_i2c_id[] = {
+-	{ "max98520", 0},
++	{ "max98520"},
+ 	{ },
+ };
+ 
+diff --git a/sound/soc/codecs/max9867.c b/sound/soc/codecs/max9867.c
+index 3b9dd158c34b..50db88fce904 100644
+--- a/sound/soc/codecs/max9867.c
++++ b/sound/soc/codecs/max9867.c
+@@ -684,7 +684,7 @@ static int max9867_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id max9867_i2c_id[] = {
+-	{ "max9867", 0 },
++	{ "max9867" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, max9867_i2c_id);
+diff --git a/sound/soc/codecs/max9877.c b/sound/soc/codecs/max9877.c
+index 2ae64fcf29c7..1bd0d4761ca6 100644
+--- a/sound/soc/codecs/max9877.c
++++ b/sound/soc/codecs/max9877.c
+@@ -151,7 +151,7 @@ static int max9877_i2c_probe(struct i2c_client *client)
+ }
+ 
+ static const struct i2c_device_id max9877_i2c_id[] = {
+-	{ "max9877", 0 },
++	{ "max9877" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, max9877_i2c_id);
+diff --git a/sound/soc/codecs/max98925.c b/sound/soc/codecs/max98925.c
+index a9c1d85cd0d5..66c78051bd09 100644
+--- a/sound/soc/codecs/max98925.c
++++ b/sound/soc/codecs/max98925.c
+@@ -617,7 +617,7 @@ static int max98925_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id max98925_i2c_id[] = {
+-	{ "max98925", 0 },
++	{ "max98925" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, max98925_i2c_id);
+diff --git a/sound/soc/codecs/max98926.c b/sound/soc/codecs/max98926.c
+index 922ce0dc4e60..ae962bda163e 100644
+--- a/sound/soc/codecs/max98926.c
++++ b/sound/soc/codecs/max98926.c
+@@ -565,7 +565,7 @@ static int max98926_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id max98926_i2c_id[] = {
+-	{ "max98926", 0 },
++	{ "max98926" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, max98926_i2c_id);
+diff --git a/sound/soc/codecs/max98927.c b/sound/soc/codecs/max98927.c
+index 70db9d3ff5a5..747aa6f1d54f 100644
+--- a/sound/soc/codecs/max98927.c
++++ b/sound/soc/codecs/max98927.c
+@@ -875,7 +875,7 @@ static void max98927_i2c_remove(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id max98927_i2c_id[] = {
+-	{ "max98927", 0},
++	{ "max98927"},
+ 	{ },
+ };
+ 
+diff --git a/sound/soc/codecs/ml26124.c b/sound/soc/codecs/ml26124.c
+index a45ef9d65703..c6585e8143a5 100644
+--- a/sound/soc/codecs/ml26124.c
++++ b/sound/soc/codecs/ml26124.c
+@@ -572,7 +572,7 @@ static int ml26124_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id ml26124_i2c_id[] = {
+-	{ "ml26124", 0 },
++	{ "ml26124" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, ml26124_i2c_id);
+diff --git a/sound/soc/codecs/mt6660.c b/sound/soc/codecs/mt6660.c
+index 5c50c7de26cd..39a57f643d81 100644
+--- a/sound/soc/codecs/mt6660.c
++++ b/sound/soc/codecs/mt6660.c
+@@ -559,7 +559,7 @@ static const struct of_device_id __maybe_unused mt6660_of_id[] = {
+ MODULE_DEVICE_TABLE(of, mt6660_of_id);
+ 
+ static const struct i2c_device_id mt6660_i2c_id[] = {
+-	{"mt6660", 0 },
++	{"mt6660" },
+ 	{},
+ };
+ MODULE_DEVICE_TABLE(i2c, mt6660_i2c_id);
+diff --git a/sound/soc/codecs/nau8325.c b/sound/soc/codecs/nau8325.c
+index d65f73144597..2266f320a8f2 100644
+--- a/sound/soc/codecs/nau8325.c
++++ b/sound/soc/codecs/nau8325.c
+@@ -871,7 +871,7 @@ static int nau8325_i2c_probe(struct i2c_client *i2c,
+ }
+ 
+ static const struct i2c_device_id nau8325_i2c_ids[] = {
+-	{ "nau8325", 0 },
++	{ "nau8325" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, nau8325_i2c_ids);
+diff --git a/sound/soc/codecs/nau8540.c b/sound/soc/codecs/nau8540.c
+index 22251fb2fa1f..7e59448e7ac6 100644
+--- a/sound/soc/codecs/nau8540.c
++++ b/sound/soc/codecs/nau8540.c
+@@ -965,7 +965,7 @@ static int nau8540_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id nau8540_i2c_ids[] = {
+-	{ "nau8540", 0 },
++	{ "nau8540" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, nau8540_i2c_ids);
+diff --git a/sound/soc/codecs/nau8810.c b/sound/soc/codecs/nau8810.c
+index 97a54059474c..dc3aaca89919 100644
+--- a/sound/soc/codecs/nau8810.c
++++ b/sound/soc/codecs/nau8810.c
+@@ -895,9 +895,9 @@ static int nau8810_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id nau8810_i2c_id[] = {
+-	{ "nau8810", 0 },
+-	{ "nau8812", 0 },
+-	{ "nau8814", 0 },
++	{ "nau8810" },
++	{ "nau8812" },
++	{ "nau8814" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, nau8810_i2c_id);
+diff --git a/sound/soc/codecs/nau8821.c b/sound/soc/codecs/nau8821.c
+index 6818bbd1d3c7..de5c4db05c8f 100644
+--- a/sound/soc/codecs/nau8821.c
++++ b/sound/soc/codecs/nau8821.c
+@@ -1922,7 +1922,7 @@ static int nau8821_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id nau8821_i2c_ids[] = {
+-	{ "nau8821", 0 },
++	{ "nau8821" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, nau8821_i2c_ids);
+diff --git a/sound/soc/codecs/nau8822.c b/sound/soc/codecs/nau8822.c
+index 7199d734c79f..e6909e64dfa3 100644
+--- a/sound/soc/codecs/nau8822.c
++++ b/sound/soc/codecs/nau8822.c
+@@ -1151,7 +1151,7 @@ static int nau8822_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id nau8822_i2c_id[] = {
+-	{ "nau8822", 0 },
++	{ "nau8822" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, nau8822_i2c_id);
+diff --git a/sound/soc/codecs/nau8824.c b/sound/soc/codecs/nau8824.c
+index 704af1cf8cbf..f92b95b21cae 100644
+--- a/sound/soc/codecs/nau8824.c
++++ b/sound/soc/codecs/nau8824.c
+@@ -2003,7 +2003,7 @@ static int nau8824_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id nau8824_i2c_ids[] = {
+-	{ "nau8824", 0 },
++	{ "nau8824" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, nau8824_i2c_ids);
+diff --git a/sound/soc/codecs/nau8825.c b/sound/soc/codecs/nau8825.c
+index cd30ad649bae..bde25bc6909d 100644
+--- a/sound/soc/codecs/nau8825.c
++++ b/sound/soc/codecs/nau8825.c
+@@ -2934,7 +2934,7 @@ static void nau8825_i2c_remove(struct i2c_client *client)
+ {}
+ 
+ static const struct i2c_device_id nau8825_i2c_ids[] = {
+-	{ "nau8825", 0 },
++	{ "nau8825" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, nau8825_i2c_ids);
+diff --git a/sound/soc/codecs/pcm1681.c b/sound/soc/codecs/pcm1681.c
+index 316ad53bc66a..fc152496d5dc 100644
+--- a/sound/soc/codecs/pcm1681.c
++++ b/sound/soc/codecs/pcm1681.c
+@@ -291,7 +291,7 @@ static const struct snd_soc_component_driver soc_component_dev_pcm1681 = {
+ };
+ 
+ static const struct i2c_device_id pcm1681_i2c_id[] = {
+-	{"pcm1681", 0},
++	{"pcm1681"},
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(i2c, pcm1681_i2c_id);
+diff --git a/sound/soc/codecs/pcm1789-i2c.c b/sound/soc/codecs/pcm1789-i2c.c
+index f2d0b4d21e41..abadf4f8ed5e 100644
+--- a/sound/soc/codecs/pcm1789-i2c.c
++++ b/sound/soc/codecs/pcm1789-i2c.c
+@@ -41,7 +41,7 @@ MODULE_DEVICE_TABLE(of, pcm1789_of_match);
+ #endif
+ 
+ static const struct i2c_device_id pcm1789_i2c_ids[] = {
+-	{ "pcm1789", 0 },
++	{ "pcm1789" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, pcm1789_i2c_ids);
+diff --git a/sound/soc/codecs/pcm179x-i2c.c b/sound/soc/codecs/pcm179x-i2c.c
+index 10579681f44b..effc1dd6df22 100644
+--- a/sound/soc/codecs/pcm179x-i2c.c
++++ b/sound/soc/codecs/pcm179x-i2c.c
+@@ -38,7 +38,7 @@ MODULE_DEVICE_TABLE(of, pcm179x_of_match);
+ #endif
+ 
+ static const struct i2c_device_id pcm179x_i2c_ids[] = {
+-	{ "pcm179x", 0 },
++	{ "pcm179x" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, pcm179x_i2c_ids);
+diff --git a/sound/soc/codecs/rt1011.c b/sound/soc/codecs/rt1011.c
+index d5285baad53a..a0e75b03e9dc 100644
+--- a/sound/soc/codecs/rt1011.c
++++ b/sound/soc/codecs/rt1011.c
+@@ -2206,7 +2206,7 @@ MODULE_DEVICE_TABLE(acpi, rt1011_acpi_match);
+ #endif
+ 
+ static const struct i2c_device_id rt1011_i2c_id[] = {
+-	{ "rt1011", 0 },
++	{ "rt1011" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, rt1011_i2c_id);
+diff --git a/sound/soc/codecs/rt1015.c b/sound/soc/codecs/rt1015.c
+index 1250cfaf2adc..0f806dde9c39 100644
+--- a/sound/soc/codecs/rt1015.c
++++ b/sound/soc/codecs/rt1015.c
+@@ -1097,7 +1097,7 @@ static const struct regmap_config rt1015_regmap = {
+ };
+ 
+ static const struct i2c_device_id rt1015_i2c_id[] = {
+-	{ "rt1015", 0 },
++	{ "rt1015" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, rt1015_i2c_id);
+diff --git a/sound/soc/codecs/rt1016.c b/sound/soc/codecs/rt1016.c
+index 919a1f25e584..fed4da23cba2 100644
+--- a/sound/soc/codecs/rt1016.c
++++ b/sound/soc/codecs/rt1016.c
+@@ -608,7 +608,7 @@ static const struct regmap_config rt1016_regmap = {
+ };
+ 
+ static const struct i2c_device_id rt1016_i2c_id[] = {
+-	{ "rt1016", 0 },
++	{ "rt1016" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, rt1016_i2c_id);
+diff --git a/sound/soc/codecs/rt1019.c b/sound/soc/codecs/rt1019.c
+index ceb8baa6a20d..d989d06a2614 100644
+--- a/sound/soc/codecs/rt1019.c
++++ b/sound/soc/codecs/rt1019.c
+@@ -540,7 +540,7 @@ static const struct regmap_config rt1019_regmap = {
+ };
+ 
+ static const struct i2c_device_id rt1019_i2c_id[] = {
+-	{ "rt1019", 0 },
++	{ "rt1019" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, rt1019_i2c_id);
+diff --git a/sound/soc/codecs/rt1305.c b/sound/soc/codecs/rt1305.c
+index 80888cbcf49c..c2b55be8d165 100644
+--- a/sound/soc/codecs/rt1305.c
++++ b/sound/soc/codecs/rt1305.c
+@@ -981,8 +981,8 @@ MODULE_DEVICE_TABLE(acpi, rt1305_acpi_match);
+ #endif
+ 
+ static const struct i2c_device_id rt1305_i2c_id[] = {
+-	{ "rt1305", 0 },
+-	{ "rt1306", 0 },
++	{ "rt1305" },
++	{ "rt1306" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, rt1305_i2c_id);
+diff --git a/sound/soc/codecs/rt1308.c b/sound/soc/codecs/rt1308.c
+index 86afb429d423..b366338cea71 100644
+--- a/sound/soc/codecs/rt1308.c
++++ b/sound/soc/codecs/rt1308.c
+@@ -795,7 +795,7 @@ MODULE_DEVICE_TABLE(acpi, rt1308_acpi_match);
+ #endif
+ 
+ static const struct i2c_device_id rt1308_i2c_id[] = {
+-	{ "rt1308", 0 },
++	{ "rt1308" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, rt1308_i2c_id);
+diff --git a/sound/soc/codecs/rt274.c b/sound/soc/codecs/rt274.c
+index 6e7843484250..bd61a257d7b5 100644
+--- a/sound/soc/codecs/rt274.c
++++ b/sound/soc/codecs/rt274.c
+@@ -1097,7 +1097,7 @@ MODULE_DEVICE_TABLE(of, rt274_of_match);
+ #endif
+ 
+ static const struct i2c_device_id rt274_i2c_id[] = {
+-	{"rt274", 0},
++	{"rt274"},
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(i2c, rt274_i2c_id);
+diff --git a/sound/soc/codecs/rt286.c b/sound/soc/codecs/rt286.c
+index f8994f4968c5..d0f533120c33 100644
+--- a/sound/soc/codecs/rt286.c
++++ b/sound/soc/codecs/rt286.c
+@@ -1075,8 +1075,8 @@ static const struct regmap_config rt286_regmap = {
+ };
+ 
+ static const struct i2c_device_id rt286_i2c_id[] = {
+-	{"rt286", 0},
+-	{"rt288", 0},
++	{"rt286"},
++	{"rt288"},
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(i2c, rt286_i2c_id);
+diff --git a/sound/soc/codecs/rt298.c b/sound/soc/codecs/rt298.c
+index 03d9839a5de3..13aef6c5e91c 100644
+--- a/sound/soc/codecs/rt298.c
++++ b/sound/soc/codecs/rt298.c
+@@ -1137,7 +1137,7 @@ static const struct regmap_config rt298_regmap = {
+ };
+ 
+ static const struct i2c_device_id rt298_i2c_id[] = {
+-	{"rt298", 0},
++	{"rt298"},
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(i2c, rt298_i2c_id);
+diff --git a/sound/soc/codecs/rt5514.c b/sound/soc/codecs/rt5514.c
+index a8cdc3d6994d..2b3c0f9e178c 100644
+--- a/sound/soc/codecs/rt5514.c
++++ b/sound/soc/codecs/rt5514.c
+@@ -1199,7 +1199,7 @@ static const struct regmap_config rt5514_regmap = {
+ };
+ 
+ static const struct i2c_device_id rt5514_i2c_id[] = {
+-	{ "rt5514", 0 },
++	{ "rt5514" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, rt5514_i2c_id);
+diff --git a/sound/soc/codecs/rt5616.c b/sound/soc/codecs/rt5616.c
+index e7aa60e73961..34461c462009 100644
+--- a/sound/soc/codecs/rt5616.c
++++ b/sound/soc/codecs/rt5616.c
+@@ -1320,7 +1320,7 @@ static const struct regmap_config rt5616_regmap = {
+ };
+ 
+ static const struct i2c_device_id rt5616_i2c_id[] = {
+-	{ "rt5616", 0 },
++	{ "rt5616" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, rt5616_i2c_id);
+diff --git a/sound/soc/codecs/rt5631.c b/sound/soc/codecs/rt5631.c
+index a64e66c2d3c4..12df0c4f2097 100644
+--- a/sound/soc/codecs/rt5631.c
++++ b/sound/soc/codecs/rt5631.c
+@@ -1669,8 +1669,8 @@ static const struct snd_soc_component_driver soc_component_dev_rt5631 = {
+ };
+ 
+ static const struct i2c_device_id rt5631_i2c_id[] = {
+-	{ "rt5631", 0 },
+-	{ "alc5631", 0 },
++	{ "rt5631" },
++	{ "alc5631" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, rt5631_i2c_id);
+diff --git a/sound/soc/codecs/rt5640.c b/sound/soc/codecs/rt5640.c
+index 174872ef35d2..16f3425a3e35 100644
+--- a/sound/soc/codecs/rt5640.c
++++ b/sound/soc/codecs/rt5640.c
+@@ -2949,9 +2949,9 @@ static const struct regmap_config rt5640_regmap = {
+ };
+ 
+ static const struct i2c_device_id rt5640_i2c_id[] = {
+-	{ "rt5640", 0 },
+-	{ "rt5639", 0 },
+-	{ "rt5642", 0 },
++	{ "rt5640" },
++	{ "rt5639" },
++	{ "rt5642" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, rt5640_i2c_id);
+diff --git a/sound/soc/codecs/rt5645.c b/sound/soc/codecs/rt5645.c
+index d0d24a53df74..05f574bf8b8f 100644
+--- a/sound/soc/codecs/rt5645.c
++++ b/sound/soc/codecs/rt5645.c
+@@ -3630,8 +3630,8 @@ static const struct regmap_config temp_regmap = {
+ };
+ 
+ static const struct i2c_device_id rt5645_i2c_id[] = {
+-	{ "rt5645", 0 },
+-	{ "rt5650", 0 },
++	{ "rt5645" },
++	{ "rt5650" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, rt5645_i2c_id);
+diff --git a/sound/soc/codecs/rt5651.c b/sound/soc/codecs/rt5651.c
+index 33a34bd0b405..00421a1f54bf 100644
+--- a/sound/soc/codecs/rt5651.c
++++ b/sound/soc/codecs/rt5651.c
+@@ -2199,7 +2199,7 @@ MODULE_DEVICE_TABLE(acpi, rt5651_acpi_match);
+ #endif
+ 
+ static const struct i2c_device_id rt5651_i2c_id[] = {
+-	{ "rt5651", 0 },
++	{ "rt5651" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, rt5651_i2c_id);
+diff --git a/sound/soc/codecs/rt5659.c b/sound/soc/codecs/rt5659.c
+index fb094c0fe740..a2652fa6e1d7 100644
+--- a/sound/soc/codecs/rt5659.c
++++ b/sound/soc/codecs/rt5659.c
+@@ -3815,8 +3815,8 @@ static const struct regmap_config rt5659_regmap = {
+ };
+ 
+ static const struct i2c_device_id rt5659_i2c_id[] = {
+-	{ "rt5658", 0 },
+-	{ "rt5659", 0 },
++	{ "rt5658" },
++	{ "rt5659" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, rt5659_i2c_id);
+diff --git a/sound/soc/codecs/rt5660.c b/sound/soc/codecs/rt5660.c
+index d5c2f0f2df98..3ac41d2c279b 100644
+--- a/sound/soc/codecs/rt5660.c
++++ b/sound/soc/codecs/rt5660.c
+@@ -1224,7 +1224,7 @@ static const struct regmap_config rt5660_regmap = {
+ };
+ 
+ static const struct i2c_device_id rt5660_i2c_id[] = {
+-	{ "rt5660", 0 },
++	{ "rt5660" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, rt5660_i2c_id);
+diff --git a/sound/soc/codecs/rt5663.c b/sound/soc/codecs/rt5663.c
+index 161dcb3915f9..9d32debd3689 100644
+--- a/sound/soc/codecs/rt5663.c
++++ b/sound/soc/codecs/rt5663.c
+@@ -3307,7 +3307,7 @@ static const struct regmap_config temp_regmap = {
+ };
+ 
+ static const struct i2c_device_id rt5663_i2c_id[] = {
+-	{ "rt5663", 0 },
++	{ "rt5663" },
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(i2c, rt5663_i2c_id);
+diff --git a/sound/soc/codecs/rt5665.c b/sound/soc/codecs/rt5665.c
+index 6f778c8f0832..47df14ba5278 100644
+--- a/sound/soc/codecs/rt5665.c
++++ b/sound/soc/codecs/rt5665.c
+@@ -4635,7 +4635,7 @@ static const struct regmap_config rt5665_regmap = {
+ };
+ 
+ static const struct i2c_device_id rt5665_i2c_id[] = {
+-	{"rt5665", 0},
++	{"rt5665"},
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(i2c, rt5665_i2c_id);
+diff --git a/sound/soc/codecs/rt5668.c b/sound/soc/codecs/rt5668.c
+index 6d8e228ccb57..494ca3ce9b96 100644
+--- a/sound/soc/codecs/rt5668.c
++++ b/sound/soc/codecs/rt5668.c
+@@ -2378,7 +2378,7 @@ static const struct regmap_config rt5668_regmap = {
+ };
+ 
+ static const struct i2c_device_id rt5668_i2c_id[] = {
+-	{"rt5668b", 0},
++	{"rt5668b"},
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(i2c, rt5668_i2c_id);
+diff --git a/sound/soc/codecs/rt5670.c b/sound/soc/codecs/rt5670.c
+index 0e34293f3395..30bf96c35b58 100644
+--- a/sound/soc/codecs/rt5670.c
++++ b/sound/soc/codecs/rt5670.c
+@@ -2871,9 +2871,9 @@ static const struct regmap_config rt5670_regmap = {
+ };
+ 
+ static const struct i2c_device_id rt5670_i2c_id[] = {
+-	{ "rt5670", 0 },
+-	{ "rt5671", 0 },
+-	{ "rt5672", 0 },
++	{ "rt5670" },
++	{ "rt5671" },
++	{ "rt5672" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, rt5670_i2c_id);
+diff --git a/sound/soc/codecs/rt5682-i2c.c b/sound/soc/codecs/rt5682-i2c.c
+index 62f26ce9d476..ff9e14fad0cd 100644
+--- a/sound/soc/codecs/rt5682-i2c.c
++++ b/sound/soc/codecs/rt5682-i2c.c
+@@ -318,7 +318,7 @@ static const struct acpi_device_id rt5682_acpi_match[] = {
+ MODULE_DEVICE_TABLE(acpi, rt5682_acpi_match);
+ 
+ static const struct i2c_device_id rt5682_i2c_id[] = {
+-	{"rt5682", 0},
++	{"rt5682"},
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(i2c, rt5682_i2c_id);
+diff --git a/sound/soc/codecs/rt5682s.c b/sound/soc/codecs/rt5682s.c
+index 12741668fdb3..f50f196d700d 100644
+--- a/sound/soc/codecs/rt5682s.c
++++ b/sound/soc/codecs/rt5682s.c
+@@ -3319,7 +3319,7 @@ static const struct acpi_device_id rt5682s_acpi_match[] = {
+ MODULE_DEVICE_TABLE(acpi, rt5682s_acpi_match);
+ 
+ static const struct i2c_device_id rt5682s_i2c_id[] = {
+-	{"rt5682s", 0},
++	{"rt5682s"},
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(i2c, rt5682s_i2c_id);
+diff --git a/sound/soc/codecs/sgtl5000.c b/sound/soc/codecs/sgtl5000.c
+index 2f468f41b94d..7aa89e34657e 100644
+--- a/sound/soc/codecs/sgtl5000.c
++++ b/sound/soc/codecs/sgtl5000.c
+@@ -1809,7 +1809,7 @@ static void sgtl5000_i2c_shutdown(struct i2c_client *client)
+ }
+ 
+ static const struct i2c_device_id sgtl5000_id[] = {
+-	{"sgtl5000", 0},
++	{"sgtl5000"},
+ 	{},
+ };
+ 
+diff --git a/sound/soc/codecs/sma1303.c b/sound/soc/codecs/sma1303.c
+index 61072e7574a0..980c48cbc348 100644
+--- a/sound/soc/codecs/sma1303.c
++++ b/sound/soc/codecs/sma1303.c
+@@ -1791,7 +1791,7 @@ static void sma1303_i2c_remove(struct i2c_client *client)
+ }
+ 
+ static const struct i2c_device_id sma1303_i2c_id[] = {
+-	{"sma1303", 0},
++	{"sma1303"},
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(i2c, sma1303_i2c_id);
+diff --git a/sound/soc/codecs/src4xxx-i2c.c b/sound/soc/codecs/src4xxx-i2c.c
+index 93af8e209b05..55f00ce7c718 100644
+--- a/sound/soc/codecs/src4xxx-i2c.c
++++ b/sound/soc/codecs/src4xxx-i2c.c
+@@ -19,7 +19,7 @@ static int src4xxx_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id src4xxx_i2c_ids[] = {
+-	{ "src4392", 0 },
++	{ "src4392" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, src4xxx_i2c_ids);
+diff --git a/sound/soc/codecs/ssm2518.c b/sound/soc/codecs/ssm2518.c
+index d20d897407eb..06016e88dd27 100644
+--- a/sound/soc/codecs/ssm2518.c
++++ b/sound/soc/codecs/ssm2518.c
+@@ -793,7 +793,7 @@ MODULE_DEVICE_TABLE(of, ssm2518_dt_ids);
+ #endif
+ 
+ static const struct i2c_device_id ssm2518_i2c_ids[] = {
+-	{ "ssm2518", 0 },
++	{ "ssm2518" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, ssm2518_i2c_ids);
+diff --git a/sound/soc/codecs/ssm4567.c b/sound/soc/codecs/ssm4567.c
+index 0a6f04d8f636..3e09c85abedb 100644
+--- a/sound/soc/codecs/ssm4567.c
++++ b/sound/soc/codecs/ssm4567.c
+@@ -471,7 +471,7 @@ static int ssm4567_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id ssm4567_i2c_ids[] = {
+-	{ "ssm4567", 0 },
++	{ "ssm4567" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, ssm4567_i2c_ids);
+diff --git a/sound/soc/codecs/sta32x.c b/sound/soc/codecs/sta32x.c
+index fcf0dbfbbbca..bd8848ea1ec2 100644
+--- a/sound/soc/codecs/sta32x.c
++++ b/sound/soc/codecs/sta32x.c
+@@ -1154,9 +1154,9 @@ static int sta32x_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id sta32x_i2c_id[] = {
+-	{ "sta326", 0 },
+-	{ "sta328", 0 },
+-	{ "sta329", 0 },
++	{ "sta326" },
++	{ "sta328" },
++	{ "sta329" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, sta32x_i2c_id);
+diff --git a/sound/soc/codecs/sta350.c b/sound/soc/codecs/sta350.c
+index 612cc1d7eafe..d1450de92652 100644
+--- a/sound/soc/codecs/sta350.c
++++ b/sound/soc/codecs/sta350.c
+@@ -1238,7 +1238,7 @@ static void sta350_i2c_remove(struct i2c_client *client)
+ {}
+ 
+ static const struct i2c_device_id sta350_i2c_id[] = {
+-	{ "sta350", 0 },
++	{ "sta350" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, sta350_i2c_id);
+diff --git a/sound/soc/codecs/sta529.c b/sound/soc/codecs/sta529.c
+index eedafef775e5..f7718491c899 100644
+--- a/sound/soc/codecs/sta529.c
++++ b/sound/soc/codecs/sta529.c
+@@ -363,7 +363,7 @@ static int sta529_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id sta529_i2c_id[] = {
+-	{ "sta529", 0 },
++	{ "sta529" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, sta529_i2c_id);
+diff --git a/sound/soc/codecs/tas2552.c b/sound/soc/codecs/tas2552.c
+index 8c9dc318b0e8..40f5f27e74c0 100644
+--- a/sound/soc/codecs/tas2552.c
++++ b/sound/soc/codecs/tas2552.c
+@@ -742,7 +742,7 @@ static void tas2552_i2c_remove(struct i2c_client *client)
+ }
+ 
+ static const struct i2c_device_id tas2552_id[] = {
+-	{ "tas2552", 0 },
++	{ "tas2552" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, tas2552_id);
+diff --git a/sound/soc/codecs/tas2764.c b/sound/soc/codecs/tas2764.c
+index a9838e0738cc..1dc719d726ab 100644
+--- a/sound/soc/codecs/tas2764.c
++++ b/sound/soc/codecs/tas2764.c
+@@ -738,7 +738,7 @@ static int tas2764_i2c_probe(struct i2c_client *client)
+ }
+ 
+ static const struct i2c_device_id tas2764_i2c_id[] = {
+-	{ "tas2764", 0},
++	{ "tas2764"},
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, tas2764_i2c_id);
+diff --git a/sound/soc/codecs/tas2770.c b/sound/soc/codecs/tas2770.c
+index 99bf402eb566..67bc1c8b0131 100644
+--- a/sound/soc/codecs/tas2770.c
++++ b/sound/soc/codecs/tas2770.c
+@@ -702,7 +702,7 @@ static int tas2770_i2c_probe(struct i2c_client *client)
+ }
+ 
+ static const struct i2c_device_id tas2770_i2c_id[] = {
+-	{ "tas2770", 0},
++	{ "tas2770"},
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, tas2770_i2c_id);
+diff --git a/sound/soc/codecs/tas2780.c b/sound/soc/codecs/tas2780.c
+index 972e8ea5ebde..a18ccf5fb7ad 100644
+--- a/sound/soc/codecs/tas2780.c
++++ b/sound/soc/codecs/tas2780.c
+@@ -626,7 +626,7 @@ static int tas2780_i2c_probe(struct i2c_client *client)
+ }
+ 
+ static const struct i2c_device_id tas2780_i2c_id[] = {
+-	{ "tas2780", 0},
++	{ "tas2780"},
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, tas2780_i2c_id);
+diff --git a/sound/soc/codecs/tas5086.c b/sound/soc/codecs/tas5086.c
+index f52c14b43f28..6d45df3b9ba4 100644
+--- a/sound/soc/codecs/tas5086.c
++++ b/sound/soc/codecs/tas5086.c
+@@ -891,7 +891,7 @@ static const struct snd_soc_component_driver soc_component_dev_tas5086 = {
+ };
+ 
+ static const struct i2c_device_id tas5086_i2c_id[] = {
+-	{ "tas5086", 0 },
++	{ "tas5086" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, tas5086_i2c_id);
+diff --git a/sound/soc/codecs/tas6424.c b/sound/soc/codecs/tas6424.c
+index da89e8c681dd..bb0500e9d3ea 100644
+--- a/sound/soc/codecs/tas6424.c
++++ b/sound/soc/codecs/tas6424.c
+@@ -792,7 +792,7 @@ static void tas6424_i2c_remove(struct i2c_client *client)
+ }
+ 
+ static const struct i2c_device_id tas6424_i2c_ids[] = {
+-	{ "tas6424", 0 },
++	{ "tas6424" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, tas6424_i2c_ids);
+diff --git a/sound/soc/codecs/tda7419.c b/sound/soc/codecs/tda7419.c
+index e187d74a1737..386b99c8023b 100644
+--- a/sound/soc/codecs/tda7419.c
++++ b/sound/soc/codecs/tda7419.c
+@@ -614,7 +614,7 @@ static int tda7419_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id tda7419_i2c_id[] = {
+-	{ "tda7419", 0 },
++	{ "tda7419" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, tda7419_i2c_id);
+diff --git a/sound/soc/codecs/tfa9879.c b/sound/soc/codecs/tfa9879.c
+index 8cca2ceadd9e..ac0c5c337677 100644
+--- a/sound/soc/codecs/tfa9879.c
++++ b/sound/soc/codecs/tfa9879.c
+@@ -296,7 +296,7 @@ static int tfa9879_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id tfa9879_i2c_id[] = {
+-	{ "tfa9879", 0 },
++	{ "tfa9879" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, tfa9879_i2c_id);
+diff --git a/sound/soc/codecs/tlv320aic23-i2c.c b/sound/soc/codecs/tlv320aic23-i2c.c
+index 9692ae007c91..a31fb95048b8 100644
+--- a/sound/soc/codecs/tlv320aic23-i2c.c
++++ b/sound/soc/codecs/tlv320aic23-i2c.c
+@@ -28,7 +28,7 @@ static int tlv320aic23_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id tlv320aic23_id[] = {
+-	{"tlv320aic23", 0},
++	{"tlv320aic23"},
+ 	{}
+ };
+ 
+diff --git a/sound/soc/codecs/ts3a227e.c b/sound/soc/codecs/ts3a227e.c
+index 6d9166d9116a..dbf448dd8864 100644
+--- a/sound/soc/codecs/ts3a227e.c
++++ b/sound/soc/codecs/ts3a227e.c
+@@ -427,7 +427,7 @@ static const struct dev_pm_ops ts3a227e_pm = {
+ };
+ 
+ static const struct i2c_device_id ts3a227e_i2c_ids[] = {
+-	{ "ts3a227e", 0 },
++	{ "ts3a227e" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, ts3a227e_i2c_ids);
+diff --git a/sound/soc/codecs/tscs42xx.c b/sound/soc/codecs/tscs42xx.c
+index 1eefc1fe6ea8..f8a3d1b40990 100644
+--- a/sound/soc/codecs/tscs42xx.c
++++ b/sound/soc/codecs/tscs42xx.c
+@@ -1485,8 +1485,8 @@ static int tscs42xx_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id tscs42xx_i2c_id[] = {
+-	{ "tscs42A1", 0 },
+-	{ "tscs42A2", 0 },
++	{ "tscs42A1" },
++	{ "tscs42A2" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, tscs42xx_i2c_id);
+diff --git a/sound/soc/codecs/tscs454.c b/sound/soc/codecs/tscs454.c
+index 744aef32a21f..850e5de9271e 100644
+--- a/sound/soc/codecs/tscs454.c
++++ b/sound/soc/codecs/tscs454.c
+@@ -3457,7 +3457,7 @@ static int tscs454_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id tscs454_i2c_id[] = {
+-	{ "tscs454", 0 },
++	{ "tscs454" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, tscs454_i2c_id);
+diff --git a/sound/soc/codecs/uda1380.c b/sound/soc/codecs/uda1380.c
+index 5c5751dc14e5..4f8fdd574585 100644
+--- a/sound/soc/codecs/uda1380.c
++++ b/sound/soc/codecs/uda1380.c
+@@ -782,7 +782,7 @@ static int uda1380_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id uda1380_i2c_id[] = {
+-	{ "uda1380", 0 },
++	{ "uda1380" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, uda1380_i2c_id);
+diff --git a/sound/soc/codecs/wm1250-ev1.c b/sound/soc/codecs/wm1250-ev1.c
+index 9fa6df48799b..1f59309d8c69 100644
+--- a/sound/soc/codecs/wm1250-ev1.c
++++ b/sound/soc/codecs/wm1250-ev1.c
+@@ -204,7 +204,7 @@ static int wm1250_ev1_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id wm1250_ev1_i2c_id[] = {
+-	{ "wm1250-ev1", 0 },
++	{ "wm1250-ev1" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, wm1250_ev1_i2c_id);
+diff --git a/sound/soc/codecs/wm2000.c b/sound/soc/codecs/wm2000.c
+index 9571ea53cb3f..a07a443ba196 100644
+--- a/sound/soc/codecs/wm2000.c
++++ b/sound/soc/codecs/wm2000.c
+@@ -929,7 +929,7 @@ static int wm2000_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id wm2000_i2c_id[] = {
+-	{ "wm2000", 0 },
++	{ "wm2000" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, wm2000_i2c_id);
+diff --git a/sound/soc/codecs/wm2200.c b/sound/soc/codecs/wm2200.c
+index 69c9c2bd7e7b..841247173d98 100644
+--- a/sound/soc/codecs/wm2200.c
++++ b/sound/soc/codecs/wm2200.c
+@@ -2474,7 +2474,7 @@ static const struct dev_pm_ops wm2200_pm = {
+ };
+ 
+ static const struct i2c_device_id wm2200_i2c_id[] = {
+-	{ "wm2200", 0 },
++	{ "wm2200" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, wm2200_i2c_id);
+diff --git a/sound/soc/codecs/wm5100.c b/sound/soc/codecs/wm5100.c
+index 7ee4b45c0834..11bbc94a282c 100644
+--- a/sound/soc/codecs/wm5100.c
++++ b/sound/soc/codecs/wm5100.c
+@@ -2670,7 +2670,7 @@ static const struct dev_pm_ops wm5100_pm = {
+ };
+ 
+ static const struct i2c_device_id wm5100_i2c_id[] = {
+-	{ "wm5100", 0 },
++	{ "wm5100" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, wm5100_i2c_id);
+diff --git a/sound/soc/codecs/wm8510.c b/sound/soc/codecs/wm8510.c
+index 0e671cce8447..4a31d6f89502 100644
+--- a/sound/soc/codecs/wm8510.c
++++ b/sound/soc/codecs/wm8510.c
+@@ -668,7 +668,7 @@ static int wm8510_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id wm8510_i2c_id[] = {
+-	{ "wm8510", 0 },
++	{ "wm8510" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, wm8510_i2c_id);
+diff --git a/sound/soc/codecs/wm8523.c b/sound/soc/codecs/wm8523.c
+index 41b14538b03c..138eba7e577a 100644
+--- a/sound/soc/codecs/wm8523.c
++++ b/sound/soc/codecs/wm8523.c
+@@ -517,7 +517,7 @@ static int wm8523_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id wm8523_i2c_id[] = {
+-	{ "wm8523", 0 },
++	{ "wm8523" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, wm8523_i2c_id);
+diff --git a/sound/soc/codecs/wm8711.c b/sound/soc/codecs/wm8711.c
+index 7d339cc65208..a1c99bbf5aa1 100644
+--- a/sound/soc/codecs/wm8711.c
++++ b/sound/soc/codecs/wm8711.c
+@@ -454,7 +454,7 @@ static int wm8711_i2c_probe(struct i2c_client *client)
+ }
+ 
+ static const struct i2c_device_id wm8711_i2c_id[] = {
+-	{ "wm8711", 0 },
++	{ "wm8711" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, wm8711_i2c_id);
+diff --git a/sound/soc/codecs/wm8728.c b/sound/soc/codecs/wm8728.c
+index d9cc78fbf1ea..2cbd6b189416 100644
+--- a/sound/soc/codecs/wm8728.c
++++ b/sound/soc/codecs/wm8728.c
+@@ -295,7 +295,7 @@ static int wm8728_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id wm8728_i2c_id[] = {
+-	{ "wm8728", 0 },
++	{ "wm8728" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, wm8728_i2c_id);
+diff --git a/sound/soc/codecs/wm8731-i2c.c b/sound/soc/codecs/wm8731-i2c.c
+index 7f68ad0380e0..1254e583af51 100644
+--- a/sound/soc/codecs/wm8731-i2c.c
++++ b/sound/soc/codecs/wm8731-i2c.c
+@@ -47,7 +47,7 @@ static int wm8731_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id wm8731_i2c_id[] = {
+-	{ "wm8731", 0 },
++	{ "wm8731" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, wm8731_i2c_id);
+diff --git a/sound/soc/codecs/wm8737.c b/sound/soc/codecs/wm8737.c
+index a0ba1e7dee98..efdc242c2ede 100644
+--- a/sound/soc/codecs/wm8737.c
++++ b/sound/soc/codecs/wm8737.c
+@@ -639,7 +639,7 @@ static int wm8737_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id wm8737_i2c_id[] = {
+-	{ "wm8737", 0 },
++	{ "wm8737" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, wm8737_i2c_id);
+diff --git a/sound/soc/codecs/wm8741.c b/sound/soc/codecs/wm8741.c
+index a0848774427b..4863d6ac461b 100644
+--- a/sound/soc/codecs/wm8741.c
++++ b/sound/soc/codecs/wm8741.c
+@@ -606,7 +606,7 @@ static int wm8741_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id wm8741_i2c_id[] = {
+-	{ "wm8741", 0 },
++	{ "wm8741" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, wm8741_i2c_id);
+diff --git a/sound/soc/codecs/wm8750.c b/sound/soc/codecs/wm8750.c
+index b8d76cd001da..cae97fa3bcb0 100644
+--- a/sound/soc/codecs/wm8750.c
++++ b/sound/soc/codecs/wm8750.c
+@@ -802,8 +802,8 @@ static int wm8750_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id wm8750_i2c_id[] = {
+-	{ "wm8750", 0 },
+-	{ "wm8987", 0 },
++	{ "wm8750" },
++	{ "wm8987" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, wm8750_i2c_id);
+diff --git a/sound/soc/codecs/wm8753.c b/sound/soc/codecs/wm8753.c
+index f42ed24314f3..38b76b7275e5 100644
+--- a/sound/soc/codecs/wm8753.c
++++ b/sound/soc/codecs/wm8753.c
+@@ -1580,7 +1580,7 @@ static int wm8753_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id wm8753_i2c_id[] = {
+-	{ "wm8753", 0 },
++	{ "wm8753" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, wm8753_i2c_id);
+diff --git a/sound/soc/codecs/wm8804-i2c.c b/sound/soc/codecs/wm8804-i2c.c
+index 7062a8b2f8b5..e80dad87219b 100644
+--- a/sound/soc/codecs/wm8804-i2c.c
++++ b/sound/soc/codecs/wm8804-i2c.c
+@@ -31,7 +31,7 @@ static void wm8804_i2c_remove(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id wm8804_i2c_id[] = {
+-	{ "wm8804", 0 },
++	{ "wm8804" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, wm8804_i2c_id);
+diff --git a/sound/soc/codecs/wm8900.c b/sound/soc/codecs/wm8900.c
+index 84d06c190411..e44fdf97796f 100644
+--- a/sound/soc/codecs/wm8900.c
++++ b/sound/soc/codecs/wm8900.c
+@@ -1286,7 +1286,7 @@ static void wm8900_i2c_remove(struct i2c_client *client)
+ {}
+ 
+ static const struct i2c_device_id wm8900_i2c_id[] = {
+-	{ "wm8900", 0 },
++	{ "wm8900" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, wm8900_i2c_id);
+diff --git a/sound/soc/codecs/wm8903.c b/sound/soc/codecs/wm8903.c
+index 84ae1102ac88..c643b5377d3a 100644
+--- a/sound/soc/codecs/wm8903.c
++++ b/sound/soc/codecs/wm8903.c
+@@ -2199,7 +2199,7 @@ static const struct of_device_id wm8903_of_match[] = {
+ MODULE_DEVICE_TABLE(of, wm8903_of_match);
+ 
+ static const struct i2c_device_id wm8903_i2c_id[] = {
+-	{ "wm8903", 0 },
++	{ "wm8903" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, wm8903_i2c_id);
+diff --git a/sound/soc/codecs/wm8940.c b/sound/soc/codecs/wm8940.c
+index b9432f8b64e5..8a532f7d750c 100644
+--- a/sound/soc/codecs/wm8940.c
++++ b/sound/soc/codecs/wm8940.c
+@@ -844,7 +844,7 @@ static int wm8940_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id wm8940_i2c_id[] = {
+-	{ "wm8940", 0 },
++	{ "wm8940" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, wm8940_i2c_id);
+diff --git a/sound/soc/codecs/wm8955.c b/sound/soc/codecs/wm8955.c
+index 4f4338326438..bae52a8a2e11 100644
+--- a/sound/soc/codecs/wm8955.c
++++ b/sound/soc/codecs/wm8955.c
+@@ -994,7 +994,7 @@ static int wm8955_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id wm8955_i2c_id[] = {
+-	{ "wm8955", 0 },
++	{ "wm8955" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, wm8955_i2c_id);
+diff --git a/sound/soc/codecs/wm8960.c b/sound/soc/codecs/wm8960.c
+index 7689fe3cc86d..00858b9c9568 100644
+--- a/sound/soc/codecs/wm8960.c
++++ b/sound/soc/codecs/wm8960.c
+@@ -1549,7 +1549,7 @@ static void wm8960_i2c_remove(struct i2c_client *client)
+ }
+ 
+ static const struct i2c_device_id wm8960_i2c_id[] = {
+-	{ "wm8960", 0 },
++	{ "wm8960" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, wm8960_i2c_id);
+diff --git a/sound/soc/codecs/wm8961.c b/sound/soc/codecs/wm8961.c
+index 8f8330efb341..d1c731e25777 100644
+--- a/sound/soc/codecs/wm8961.c
++++ b/sound/soc/codecs/wm8961.c
+@@ -966,7 +966,7 @@ static int wm8961_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id wm8961_i2c_id[] = {
+-	{ "wm8961", 0 },
++	{ "wm8961" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, wm8961_i2c_id);
+diff --git a/sound/soc/codecs/wm8962.c b/sound/soc/codecs/wm8962.c
+index 7c6ed2983128..3ef95b7dcbdb 100644
+--- a/sound/soc/codecs/wm8962.c
++++ b/sound/soc/codecs/wm8962.c
+@@ -3938,7 +3938,7 @@ static const struct dev_pm_ops wm8962_pm = {
+ };
+ 
+ static const struct i2c_device_id wm8962_i2c_id[] = {
+-	{ "wm8962", 0 },
++	{ "wm8962" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, wm8962_i2c_id);
+diff --git a/sound/soc/codecs/wm8971.c b/sound/soc/codecs/wm8971.c
+index e88f323d28b2..b97c7d5bd4e7 100644
+--- a/sound/soc/codecs/wm8971.c
++++ b/sound/soc/codecs/wm8971.c
+@@ -691,7 +691,7 @@ static int wm8971_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id wm8971_i2c_id[] = {
+-	{ "wm8971", 0 },
++	{ "wm8971" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, wm8971_i2c_id);
+diff --git a/sound/soc/codecs/wm8974.c b/sound/soc/codecs/wm8974.c
+index 260bac695b20..0ee3655cad01 100644
+--- a/sound/soc/codecs/wm8974.c
++++ b/sound/soc/codecs/wm8974.c
+@@ -707,7 +707,7 @@ static int wm8974_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id wm8974_i2c_id[] = {
+-	{ "wm8974", 0 },
++	{ "wm8974" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, wm8974_i2c_id);
+diff --git a/sound/soc/codecs/wm8978.c b/sound/soc/codecs/wm8978.c
+index 718bfef302cc..40d22b36b7a9 100644
+--- a/sound/soc/codecs/wm8978.c
++++ b/sound/soc/codecs/wm8978.c
+@@ -1056,7 +1056,7 @@ static int wm8978_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id wm8978_i2c_id[] = {
+-	{ "wm8978", 0 },
++	{ "wm8978" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, wm8978_i2c_id);
+diff --git a/sound/soc/codecs/wm8983.c b/sound/soc/codecs/wm8983.c
+index b26d6a68e8d2..252b4a6cac04 100644
+--- a/sound/soc/codecs/wm8983.c
++++ b/sound/soc/codecs/wm8983.c
+@@ -1059,7 +1059,7 @@ static int wm8983_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id wm8983_i2c_id[] = {
+-	{ "wm8983", 0 },
++	{ "wm8983" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, wm8983_i2c_id);
+diff --git a/sound/soc/codecs/wm8988.c b/sound/soc/codecs/wm8988.c
+index 76f214f12ce0..f0e9d6e38dc0 100644
+--- a/sound/soc/codecs/wm8988.c
++++ b/sound/soc/codecs/wm8988.c
+@@ -896,7 +896,7 @@ static int wm8988_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id wm8988_i2c_id[] = {
+-	{ "wm8988", 0 },
++	{ "wm8988" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, wm8988_i2c_id);
+diff --git a/sound/soc/codecs/wm8990.c b/sound/soc/codecs/wm8990.c
+index 5a8e765090af..573bd3d487ba 100644
+--- a/sound/soc/codecs/wm8990.c
++++ b/sound/soc/codecs/wm8990.c
+@@ -1238,7 +1238,7 @@ static int wm8990_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id wm8990_i2c_id[] = {
+-	{ "wm8990", 0 },
++	{ "wm8990" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, wm8990_i2c_id);
+diff --git a/sound/soc/codecs/wm8991.c b/sound/soc/codecs/wm8991.c
+index 590318aafaea..3bd9b362051b 100644
+--- a/sound/soc/codecs/wm8991.c
++++ b/sound/soc/codecs/wm8991.c
+@@ -1314,7 +1314,7 @@ static int wm8991_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id wm8991_i2c_id[] = {
+-	{ "wm8991", 0 },
++	{ "wm8991" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, wm8991_i2c_id);
+diff --git a/sound/soc/codecs/wm8993.c b/sound/soc/codecs/wm8993.c
+index 5b788f35e5e4..98a83f51ab26 100644
+--- a/sound/soc/codecs/wm8993.c
++++ b/sound/soc/codecs/wm8993.c
+@@ -1732,7 +1732,7 @@ static void wm8993_i2c_remove(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id wm8993_i2c_id[] = {
+-	{ "wm8993", 0 },
++	{ "wm8993" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, wm8993_i2c_id);
+diff --git a/sound/soc/codecs/wm8995.c b/sound/soc/codecs/wm8995.c
+index 59ef2ef8ce00..1f9a9b636935 100644
+--- a/sound/soc/codecs/wm8995.c
++++ b/sound/soc/codecs/wm8995.c
+@@ -2258,7 +2258,7 @@ static int wm8995_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id wm8995_i2c_id[] = {
+-	{"wm8995", 0},
++	{"wm8995"},
+ 	{}
+ };
+ 
+diff --git a/sound/soc/codecs/wm8996.c b/sound/soc/codecs/wm8996.c
+index e738326e33ed..f6c5adce164e 100644
+--- a/sound/soc/codecs/wm8996.c
++++ b/sound/soc/codecs/wm8996.c
+@@ -3069,7 +3069,7 @@ static void wm8996_i2c_remove(struct i2c_client *client)
+ }
+ 
+ static const struct i2c_device_id wm8996_i2c_id[] = {
+-	{ "wm8996", 0 },
++	{ "wm8996" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, wm8996_i2c_id);
+diff --git a/sound/soc/codecs/wm9081.c b/sound/soc/codecs/wm9081.c
+index e7ec799573d3..cb9d040b34d6 100644
+--- a/sound/soc/codecs/wm9081.c
++++ b/sound/soc/codecs/wm9081.c
+@@ -1360,7 +1360,7 @@ static void wm9081_i2c_remove(struct i2c_client *client)
+ {}
+ 
+ static const struct i2c_device_id wm9081_i2c_id[] = {
+-	{ "wm9081", 0 },
++	{ "wm9081" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, wm9081_i2c_id);
+diff --git a/sound/soc/codecs/wm9090.c b/sound/soc/codecs/wm9090.c
+index 50c1cbccfdb9..26191bcc161d 100644
+--- a/sound/soc/codecs/wm9090.c
++++ b/sound/soc/codecs/wm9090.c
+@@ -606,8 +606,8 @@ static int wm9090_i2c_probe(struct i2c_client *i2c)
+ }
+ 
+ static const struct i2c_device_id wm9090_id[] = {
+-	{ "wm9090", 0 },
+-	{ "wm9093", 0 },
++	{ "wm9090" },
++	{ "wm9093" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, wm9090_id);
+-- 
+2.43.0
 
-
-thanks,
-
-Takashi

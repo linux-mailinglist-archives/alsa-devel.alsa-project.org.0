@@ -2,104 +2,161 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 735158B99D5
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2024 13:14:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C0448B9C10
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2024 16:09:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B30FDBC0;
-	Thu,  2 May 2024 13:14:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B30FDBC0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9566BFAA;
+	Thu,  2 May 2024 16:08:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9566BFAA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1714648453;
-	bh=8yOR589ezBdkB5uNsMLgNtJ7R7IO8dRbDOHZynClA7Y=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=GXKHCZPpw9prfSDqD+lWOKyjQo8C/hQZEEqsvMeCogPTTv55aXdlP8KkPxCzzedr9
-	 wbstOfooin1fijcGL2ZsyCTHXyr61GHJTvP3MVcs8xBFQkhGVNtuOK2/Fa4KdGmnY9
-	 jmlET59tOkRd4I5s4AsqsaskAqk0eN0ONV0dgQNw=
+	s=default; t=1714658948;
+	bh=ZTxu7uZxc6ISaRj+4/BeB2+EuLKdRJdsEnYNeyCuAYg=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=NvILsnfER5nDkU40wq923PxBXo7E1doGjGwpzlPOiDUnfzG7CMGF/e/XbL9RqEpuL
+	 7DJNDUOqKaQlOW/U9oibPikDtCrz4/9IwvZ1h1nHW73N0YKtKIsmmtiWauUNqQJhUG
+	 o4DHDh0/VCNjsLfX1ELEOVAEbvl0MnRJaseDGjmI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AEFF9F805AB; Thu,  2 May 2024 13:13:41 +0200 (CEST)
+	id 00AFEF805C9; Thu,  2 May 2024 16:08:27 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0E377F805A1;
-	Thu,  2 May 2024 13:13:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 888E6F805CB;
+	Thu,  2 May 2024 16:08:27 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 853B4F80266; Thu,  2 May 2024 13:13:34 +0200 (CEST)
+	id 47E07F8025D; Thu,  2 May 2024 16:04:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp.ivitera.com (smtp.ivitera.com [88.101.85.59])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-6.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
+	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on20600.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:2416::600])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F22E2F8003A
-	for <alsa-devel@alsa-project.org>; Thu,  2 May 2024 13:13:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F22E2F8003A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 622BCF800AE
+	for <alsa-devel@alsa-project.org>; Thu,  2 May 2024 16:03:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 622BCF800AE
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=ivitera.com header.i=@ivitera.com header.a=rsa-sha256
- header.s=mail header.b=ID/90LXS;
-	dkim=pass (1024-bit key) header.d=ivitera.com header.i=@ivitera.com
- header.a=rsa-sha256 header.s=mail header.b=ID/90LXS
-Received: from localhost (localhost [127.0.0.1])
-	by smtp.ivitera.com (Postfix) with ESMTP id EC48717106E;
-	Thu,  2 May 2024 13:13:23 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ivitera.com; s=mail;
-	t=1714648403; bh=8yOR589ezBdkB5uNsMLgNtJ7R7IO8dRbDOHZynClA7Y=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ID/90LXSCF9F2FtiViofiG7+kvdbZABSBn84qU/COWxIRo284KvdRRAFDDWnqVlJP
-	 KByP3/pLZKcO+E0SxrES3rZJQRY8b/CIRZr4346Ng488QPVZuhmseR67mn3rOcZ+B5
-	 qfMvLDpfSlbLtpotWAoxog/Awb9ML1JFB7g/0vcA=
-Received: from smtp.ivitera.com ([127.0.0.1])
-	by localhost (localhost [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id tGCN2RXQUkHd; Thu,  2 May 2024 13:13:23 +0200 (CEST)
-Received: from [192.168.105.22] (dustin.pilsfree.net [81.201.58.138])
-	(Authenticated sender: pavel)
-	by smtp.ivitera.com (Postfix) with ESMTPSA id 194EE17106D;
-	Thu,  2 May 2024 13:13:23 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ivitera.com; s=mail;
-	t=1714648403; bh=8yOR589ezBdkB5uNsMLgNtJ7R7IO8dRbDOHZynClA7Y=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ID/90LXSCF9F2FtiViofiG7+kvdbZABSBn84qU/COWxIRo284KvdRRAFDDWnqVlJP
-	 KByP3/pLZKcO+E0SxrES3rZJQRY8b/CIRZr4346Ng488QPVZuhmseR67mn3rOcZ+B5
-	 qfMvLDpfSlbLtpotWAoxog/Awb9ML1JFB7g/0vcA=
-Message-ID: <fff3893d-dfa8-87ca-abe1-63bae8a32626@ivitera.com>
-Date: Thu, 2 May 2024 13:13:19 +0200
+ unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
+ header.s=selector1 header.b=bs08X5GR
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=C/L/y15mXmnJfsuhH2sPfJ2vJWldZyRFni8d5owbXUofwmiqI2nr68bFQ9VwL9ih9vhFgrHj2bEy/+J0wp/sTu1C0+JoXuSQF86vtU9fjbyZ10oXKKru/F6EmI6OQ+cEc8xSqCiWt0B3JEpXJDALf3cUCkqHNbVsSYlgQfF9aaHDXk7+2OmMd3RnwErulkcjrvqoPkwfaIJFofA+3A7J5oZVz8OkdpjBcDRYOLJZDkw+Z8cmdRTUOlP6Lev6BdsWMf+HcvgpuDTOH87aRCxcYkr56NLDhrA8ZQpOcZQI0LsyG1MLNSkyVW+I2kOHjYUPUtLtKV8qAMq5PCnT+GmX6A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=B1JnR2jPJSbQHLR0tQigxPxW+xDBTYKUcH0LUpiCJxE=;
+ b=ehJK4q2rDm1kQd4jIxWDeRIg9a6WC3FF7rbb+sdBJF6B4DAslYvqhLQqeM0M2Dju2QUuTTWHaf90iLyLaD0V0W0aiSUnAthJ4QwuzOR3N/bb06UwWW+W3d1TBkF5QBLxX1ocL2tj/90BFJ22soKZ5nxp3jqWSQPSVvYRYfs7Wnf7vmuADHXtQkAWyQ/6vpY2hVqTpRWs3Toxk/ADHV4ynVbbgEoN+kJzxGQetvAmXOYmHd6qPN5AfRlQ14tB2gf4sw9nYI5w7tdBTOn+Di/dGB8dydIfleKld935U2UqNogoLD/ANkWNjDJ2/h1/oEu8D976vnumRexbJnNkMn3z1Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=B1JnR2jPJSbQHLR0tQigxPxW+xDBTYKUcH0LUpiCJxE=;
+ b=bs08X5GRATfTCYi1yn03G8jxfCNZRiPB8UwO1OV4ZSX4OjYJH/dZ9/JkXrUs9FKVBcpCnRI5b7jIZbQl7uaRmsxY8vxPeDWa7rBXmqWMh28jMJN1AqKf9vGYdTayrEtvFYwoDrV+0/WLcFKktIPHu0WLyPZcL3PFQo1CtbhL6mc=
+Received: from MN2PR16CA0054.namprd16.prod.outlook.com (2603:10b6:208:234::23)
+ by IA1PR12MB7613.namprd12.prod.outlook.com (2603:10b6:208:42a::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.30; Thu, 2 May
+ 2024 14:03:46 +0000
+Received: from BL02EPF0001A0FD.namprd03.prod.outlook.com
+ (2603:10b6:208:234:cafe::aa) by MN2PR16CA0054.outlook.office365.com
+ (2603:10b6:208:234::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.29 via Frontend
+ Transport; Thu, 2 May 2024 14:03:46 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BL02EPF0001A0FD.mail.protection.outlook.com (10.167.242.104) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7544.18 via Frontend Transport; Thu, 2 May 2024 14:03:46 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 2 May
+ 2024 09:03:45 -0500
+Received: from vijendar-X570-GAMING-X.amd.com (10.180.168.240) by
+ SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35
+ via Frontend Transport; Thu, 2 May 2024 09:03:41 -0500
+From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+To: <broonie@kernel.org>
+CC: <alsa-devel@alsa-project.org>, <venkataprasad.potturu@amd.com>,
+	<Basavaraj.Hiregoudar@amd.com>, <Sunil-kumar.Dommati@amd.com>, "Vijendar
+ Mukunda" <Vijendar.Mukunda@amd.com>, Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, "Syed Saba
+ Kareem" <Syed.SabaKareem@amd.com>, V Sujith Kumar Reddy
+	<vsujithkumar.reddy@amd.com>, Kuninori Morimoto
+	<kuninori.morimoto.gx@renesas.com>, Claudiu Beznea
+	<claudiu.beznea@tuxon.dev>, Jarkko Nikula <jarkko.nikula@bitmer.com>, "open
+ list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+	<linux-sound@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
+Subject: [PATCH 1/2] ASoC: amd: acp: fix for acp platform device creation
+ failure
+Date: Thu, 2 May 2024 19:33:25 +0530
+Message-ID: <20240502140340.4049021-1-Vijendar.Mukunda@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Subject: Re: usb:gadget:f_uac2: RFC: allowing multiple altsetttings for
- channel/samplesize combinations
-To: Chris Wulff <Chris.Wulff@biamp.com>, Chris Wulff <crwulff@gmail.com>
-Cc: Takashi Iwai <tiwai@suse.de>,
- "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Ruslan Bilovol <ruslan.bilovol@gmail.com>, Felipe Balbi <balbi@kernel.org>,
- Jerome Brunet <jbrunet@baylibre.com>, Julian Scheel <julian@jusst.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- AKASH KUMAR <quic_akakum@quicinc.com>, Jack Pham <jackp@codeaurora.org>
-References: <35be4668-58d3-894a-72cf-de1afaacae45@ivitera.com>
- <72e9b581-4a91-2319-cb9f-0bcb370f34a1@ivitera.com>
- <871q6tbxvf.wl-tiwai@suse.de>
- <22301bb6-d893-2e65-6ebd-1787ca231387@ivitera.com>
- <CAB0kiBJm=Ya6a1mWRZ28p9=D_BesH55DFk4fd4wP0be4zKPR7w@mail.gmail.com>
- <CO1PR17MB5419D45A1BDC2AFA22F60DD9E1142@CO1PR17MB5419.namprd17.prod.outlook.com>
- <0ba8963c-9b2a-f7aa-3c0f-296bdddac5e5@ivitera.com>
- <CO1PR17MB54198ECD1842EAF3CC79985FE11A2@CO1PR17MB5419.namprd17.prod.outlook.com>
-Content-Language: en-US
-From: Pavel Hofman <pavel.hofman@ivitera.com>
-In-Reply-To: 
- <CO1PR17MB54198ECD1842EAF3CC79985FE11A2@CO1PR17MB5419.namprd17.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: TKSVRQHROFKZQLSDWGPSGC4T3FICHBSW
-X-Message-ID-Hash: TKSVRQHROFKZQLSDWGPSGC4T3FICHBSW
-X-MailFrom: pavel.hofman@ivitera.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB03.amd.com: Vijendar.Mukunda@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A0FD:EE_|IA1PR12MB7613:EE_
+X-MS-Office365-Filtering-Correlation-Id: 02c82d85-a9b4-4241-e42a-08dc6ab0aee6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: 
+	BCL:0;ARA:13230031|1800799015|7416005|376005|36860700004;
+X-Microsoft-Antispam-Message-Info: 
+	=?us-ascii?Q?WPCA2G/Z1ijDmU9JMuu44zZHvtqb85rWZ9WqE2PMbw4jtqvHXtWRL3IGoeRf?=
+ =?us-ascii?Q?E+EgDbYk+/yUY+XULvuUXQlLdBbFnZEQC5W/mYWhBrT6TnQVAWx8i5aYqhpE?=
+ =?us-ascii?Q?1nQd8+YkLGDz9TzC36GgA/zcxR4lRP/m3WW74MotT0fx7pxTskp5OBDyc9XT?=
+ =?us-ascii?Q?OIEi73tt/L6h7CKAntHI50tySWTNQFx3k1T56tHYREGrIT65ZrFT3XRKCpnt?=
+ =?us-ascii?Q?zb5JmX728kXhZ0hDM0rJCMmFLFZfoE//v+Ld+6tVC37BKSTauhfcygPseewU?=
+ =?us-ascii?Q?oSo/TAINrH1nxwCVjwihbQYMNjoXAAvBy9ZZG1wP2e2C56hkcIF+uHdFypPJ?=
+ =?us-ascii?Q?K393BRDToyUkP/Okv+vAq6XNEXR+1MAUuFd34nzA5ShGIB2pCUw00R3CGwuE?=
+ =?us-ascii?Q?fUvcaM3yAz6gcBoOt5qfxNBh7wG4lYzEiM9Cc+R+qyOkIkIKK7cNbvIB9+WH?=
+ =?us-ascii?Q?dbcW1BriSo3d03muaWGMpzuqZ3lgz7NkwI5Pw66/c3XNWyZAXt/Znu43/4j9?=
+ =?us-ascii?Q?85xxEROy35TABHRMBH1+SVJ2qEIgVTr098x4zMpvdTDz2WyZdmRFQiFXMCsr?=
+ =?us-ascii?Q?WA8zkPtmOE7JigSyavz7DxsqR0SqtqqWDaHsYxYydFXmbaVhjH0qQe1EJmtM?=
+ =?us-ascii?Q?ZO7utKjqt1rB6mPvogv+kSh1Vmt16tdgWmaRyd90pi5639JxA7pg+euRVtye?=
+ =?us-ascii?Q?m3or0rutlL++fM6UQveVltJuIlOtee4V1/q/1+0Ncv+MVBnD4wDMDpL2J0mt?=
+ =?us-ascii?Q?SZWkU6QInNbqN9imgAFf6b6drvdmBYrrXCI+xomaOC1aVHpmR/uaQ+kgeHHz?=
+ =?us-ascii?Q?E0hGY7RUhBR1M48dNJKVJ2CmA0bUzguqREXUKABFC9BKJoeMIHQO4sINH6Po?=
+ =?us-ascii?Q?kHDfYnUyjPYStFOqc4q96ihG8wkDWA7yDXh+l6GTvC9ncZUgAM8T/gVl8Bpd?=
+ =?us-ascii?Q?1FyV9RfVFGoKJHsf6Je+111dmUFSVhHr1g6cfSWdMlAtvu1Vzz7MaNgM2OsL?=
+ =?us-ascii?Q?1RIl3Hl6B8sTpplmlaSDyP7eB5/LeN+r/+DC/IgEeaZlWzIoAg9u25mLkAwU?=
+ =?us-ascii?Q?bQR5/7nkmLcWYd4t1FeSneWWGgh5rakxzWS3yJcTWPmX33b2cR1LSsG3FAhO?=
+ =?us-ascii?Q?1Oy9f9cBFISCCdSXaU78WMcwRKHXAoKLWIzoPwnsMed98UO3UlLc6cZejMfF?=
+ =?us-ascii?Q?b28o7Bkrmw2gvE8mY0saIfrmExF0z5IL1n8BPynaDYvHOUxZFCOAqG8i3YqT?=
+ =?us-ascii?Q?EzknxDWr3QFo4n7EuVpBoEDoKGY+Qop3BhVBGQHLTywpaBxjfR4L0IRSV1vd?=
+ =?us-ascii?Q?QFZwkUAeMcYQJb8x9vgVbw0m?=
+X-Forefront-Antispam-Report: 
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(1800799015)(7416005)(376005)(36860700004);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 May 2024 14:03:46.0298
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 02c82d85-a9b4-4241-e42a-08dc6ab0aee6
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
+ TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: 
+	BL02EPF0001A0FD.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7613
+Message-ID-Hash: GU7HDVPNPW65ZEV4T2BTYKLIJ6DPIJBV
+X-Message-ID-Hash: GU7HDVPNPW65ZEV4T2BTYKLIJ6DPIJBV
+X-MailFrom: Vijendar.Mukunda@amd.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -111,7 +168,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TKSVRQHROFKZQLSDWGPSGC4T3FICHBSW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GU7HDVPNPW65ZEV4T2BTYKLIJ6DPIJBV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,132 +177,263 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+ACP pin configuration varies based on acp version.
+ACP PCI driver should read the ACP PIN config value and based on config
+value, it has to create a platform device in below two conditions.
+1) If ACP PDM configuration is selected from BIOS and ACP PDM controller
+exists.
+2) If ACP I2S configuration is selected from BIOS.
 
-On 30. 04. 24 20:51, Chris Wulff wrote:
->> Would it make sense to name the p/c_fu_name properties specifically
->> p/c_fu_volume_name, to leave name room for additional feature units?
->> Yeah, I think that makes sense. I will change it to be p/c_fu_volume_name.
+Other than above scenarios, ACP PCI driver should skip the platform
+device creation logic, i.e. ACP PCI driver probe sequence should never
+fail if other acp pin configuration is selected. It should skip platform
+device creation logic.
 
-Just a thought - maybe just p/c_fu_vol_name would be shorter without
-loosing meaning, maybe.
-> 
->> Please what does p/c_it_ch_name stand for?
-> 
-> This is the iChannelNames string from the Input Terminal descriptor
-> "the name of the first logical channel" from the UAC1 spec.
+check_acp_pdm() function was implemented for ACP6.x platforms to check
+ACP PDM configuration. Previously, this code was safe guarded by
+FLAG_AMD_LEGACY_ONLY_DMIC flag check.
 
-Thanks!
+This implementation breaks audio use cases for Huawei Matebooks which are
+based on ACP3.x varaint uses I2S configuration.
+In current scenario, check_acp_pdm() function returns -ENODEV value
+which results in ACP PCI driver probe failure without creating a platform
+device even in case of valid ACP pin configuration.
 
+Implement check_acp_config() as a common function which invokes platform
+specific acp pin configuration check functions for ACP3.x, ACP6.0 & ACP6.3
+& ACP7.0 variants and checks for ACP PDM controller.
 
->>
->> Maybe we could leave it to the userspace here too. In fact there are
->> already open-source clients which try to handle this master/slave
->> principle of the loopback and gadget basically in the same way
->> https://github.com/HEnquist/camilladsp/pull/341*issue-2267218348
->> https://github.com/HEnquist/camilladsp/issues/342
->>
-> 
-> I will take a look at the references you provided. I may have solved this problem
-> in a different way and maybe there is a better way to handle this.
-> 
-> The primary use case for the USB gadget interface of the products that I am
-> working on is to interface with UC clients (like Microsoft Teams or Google Meet).
-> 
-> My basic problem is that I'm using alsaloop to connect the UAC gadget to a
-> second ALSA interface. I ended up making modifications to alsaloop that
-> keeps it running correctly when the host starts/stops audio on the USB interface.
-> Without doing that I was having trouble with dropping the start of speaking
-> or high latency when the USB host decides to start streaming audio because of
-> the time required to get alsaloop running again after getting notified that a
-> different alt mode was selected.
+Closes: https://bugzilla.kernel.org/show_bug.cgi?id=218780
+Fixes: 4af565de9f8c ("ASoC: amd: acp: fix for acp pdm configuration check")
+Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+---
+ sound/soc/amd/acp/acp-legacy-common.c | 96 ++++++++++++++++++++++-----
+ sound/soc/amd/acp/acp-pci.c           |  9 ++-
+ sound/soc/amd/acp/amd.h               | 10 ++-
+ sound/soc/amd/acp/chip_offset_byte.h  |  1 +
+ 4 files changed, 95 insertions(+), 21 deletions(-)
 
-I see, this is a common problem. In fact that linked CamillaDSP
-discussion has partly the same motivation - to avoid having to restart
-the whole process, to keep the latency down and loose as few initial
-samples as possible.
+diff --git a/sound/soc/amd/acp/acp-legacy-common.c b/sound/soc/amd/acp/acp-legacy-common.c
+index b5aff3f230be..3be7c6d55a6f 100644
+--- a/sound/soc/amd/acp/acp-legacy-common.c
++++ b/sound/soc/amd/acp/acp-legacy-common.c
+@@ -358,11 +358,25 @@ int smn_read(struct pci_dev *dev, u32 smn_addr)
+ }
+ EXPORT_SYMBOL_NS_GPL(smn_read, SND_SOC_ACP_COMMON);
+ 
+-int check_acp_pdm(struct pci_dev *pci, struct acp_chip_info *chip)
++static void check_acp3x_config(struct acp_chip_info *chip)
+ {
+-	struct acpi_device *pdm_dev;
+-	const union acpi_object *obj;
+-	u32 pdm_addr, val;
++	u32 val;
++
++	val = readl(chip->base + ACP3X_PIN_CONFIG);
++	switch (val) {
++	case ACP_CONFIG_4:
++		chip->is_i2s_config = true;
++		chip->is_pdm_config = true;
++		break;
++	default:
++		chip->is_pdm_config = true;
++		break;
++	}
++}
++
++static void check_acp6x_config(struct acp_chip_info *chip)
++{
++	u32 val;
+ 
+ 	val = readl(chip->base + ACP_PIN_CONFIG);
+ 	switch (val) {
+@@ -371,42 +385,94 @@ int check_acp_pdm(struct pci_dev *pci, struct acp_chip_info *chip)
+ 	case ACP_CONFIG_6:
+ 	case ACP_CONFIG_7:
+ 	case ACP_CONFIG_8:
+-	case ACP_CONFIG_10:
+ 	case ACP_CONFIG_11:
++	case ACP_CONFIG_14:
++		chip->is_pdm_config = true;
++		break;
++	case ACP_CONFIG_9:
++		chip->is_i2s_config = true;
++		break;
++	case ACP_CONFIG_10:
+ 	case ACP_CONFIG_12:
+ 	case ACP_CONFIG_13:
++		chip->is_i2s_config = true;
++		chip->is_pdm_config = true;
++		break;
++	default:
++		break;
++	}
++}
++
++static void check_acp70_config(struct acp_chip_info *chip)
++{
++	u32 val;
++
++	val = readl(chip->base + ACP_PIN_CONFIG);
++	switch (val) {
++	case ACP_CONFIG_4:
++	case ACP_CONFIG_5:
++	case ACP_CONFIG_6:
++	case ACP_CONFIG_7:
++	case ACP_CONFIG_8:
++	case ACP_CONFIG_11:
+ 	case ACP_CONFIG_14:
++	case ACP_CONFIG_17:
++	case ACP_CONFIG_18:
++		chip->is_pdm_config = true;
++		break;
++	case ACP_CONFIG_9:
++		chip->is_i2s_config = true;
++		break;
++	case ACP_CONFIG_10:
++	case ACP_CONFIG_12:
++	case ACP_CONFIG_13:
++	case ACP_CONFIG_19:
++	case ACP_CONFIG_20:
++		chip->is_i2s_config = true;
++		chip->is_pdm_config = true;
+ 		break;
+ 	default:
+-		return -EINVAL;
++		break;
+ 	}
++}
++
++void check_acp_config(struct pci_dev *pci, struct acp_chip_info *chip)
++{
++	struct acpi_device *pdm_dev;
++	const union acpi_object *obj;
++	u32 pdm_addr;
+ 
+ 	switch (chip->acp_rev) {
+ 	case ACP3X_DEV:
+ 		pdm_addr = ACP_RENOIR_PDM_ADDR;
++		check_acp3x_config(chip);
+ 		break;
+ 	case ACP6X_DEV:
+ 		pdm_addr = ACP_REMBRANDT_PDM_ADDR;
++		check_acp6x_config(chip);
+ 		break;
+ 	case ACP63_DEV:
+ 		pdm_addr = ACP63_PDM_ADDR;
++		check_acp6x_config(chip);
+ 		break;
+ 	case ACP70_DEV:
+ 		pdm_addr = ACP70_PDM_ADDR;
++		check_acp70_config(chip);
+ 		break;
+ 	default:
+-		return -EINVAL;
++		break;
+ 	}
+ 
+-	pdm_dev = acpi_find_child_device(ACPI_COMPANION(&pci->dev), pdm_addr, 0);
+-	if (pdm_dev) {
+-		if (!acpi_dev_get_property(pdm_dev, "acp-audio-device-type",
+-					   ACPI_TYPE_INTEGER, &obj) &&
+-					   obj->integer.value == pdm_addr)
+-			return 0;
++	if (chip->is_pdm_config) {
++		pdm_dev = acpi_find_child_device(ACPI_COMPANION(&pci->dev), pdm_addr, 0);
++		if (pdm_dev) {
++			if (!acpi_dev_get_property(pdm_dev, "acp-audio-device-type",
++						   ACPI_TYPE_INTEGER, &obj) &&
++						   obj->integer.value == pdm_addr)
++				chip->is_pdm_dev = true;
++		}
+ 	}
+-	return -ENODEV;
+ }
+-EXPORT_SYMBOL_NS_GPL(check_acp_pdm, SND_SOC_ACP_COMMON);
++EXPORT_SYMBOL_NS_GPL(check_acp_config, SND_SOC_ACP_COMMON);
+ 
+ MODULE_LICENSE("Dual BSD/GPL");
+diff --git a/sound/soc/amd/acp/acp-pci.c b/sound/soc/amd/acp/acp-pci.c
+index 5f35b90eab8d..ad320b29e87d 100644
+--- a/sound/soc/amd/acp/acp-pci.c
++++ b/sound/soc/amd/acp/acp-pci.c
+@@ -100,7 +100,6 @@ static int acp_pci_probe(struct pci_dev *pci, const struct pci_device_id *pci_id
+ 		ret = -EINVAL;
+ 		goto release_regions;
+ 	}
+-
+ 	dmic_dev = platform_device_register_data(dev, "dmic-codec", PLATFORM_DEVID_NONE, NULL, 0);
+ 	if (IS_ERR(dmic_dev)) {
+ 		dev_err(dev, "failed to create DMIC device\n");
+@@ -119,6 +118,10 @@ static int acp_pci_probe(struct pci_dev *pci, const struct pci_device_id *pci_id
+ 	if (ret)
+ 		goto unregister_dmic_dev;
+ 
++	check_acp_config(pci, chip);
++	if (!chip->is_pdm_dev && !chip->is_i2s_config)
++		goto skip_pdev_creation;
++
+ 	res = devm_kcalloc(&pci->dev, num_res, sizeof(struct resource), GFP_KERNEL);
+ 	if (!res) {
+ 		ret = -ENOMEM;
+@@ -136,10 +139,6 @@ static int acp_pci_probe(struct pci_dev *pci, const struct pci_device_id *pci_id
+ 		}
+ 	}
+ 
+-	ret = check_acp_pdm(pci, chip);
+-	if (ret < 0)
+-		goto skip_pdev_creation;
+-
+ 	chip->flag = flag;
+ 	memset(&pdevinfo, 0, sizeof(pdevinfo));
+ 
+diff --git a/sound/soc/amd/acp/amd.h b/sound/soc/amd/acp/amd.h
+index 5017e868f39b..d75b4eb34de8 100644
+--- a/sound/soc/amd/acp/amd.h
++++ b/sound/soc/amd/acp/amd.h
+@@ -138,6 +138,9 @@ struct acp_chip_info {
+ 	void __iomem *base;	/* ACP memory PCI base */
+ 	struct platform_device *chip_pdev;
+ 	unsigned int flag;	/* Distinguish b/w Legacy or Only PDM */
++	bool is_pdm_dev;	/* flag set to true when ACP PDM controller exists */
++	bool is_pdm_config;	/* flag set to true when PDM configuration is selected from BIOS */
++	bool is_i2s_config;	/* flag set to true when I2S configuration is selected from BIOS */
+ };
+ 
+ struct acp_stream {
+@@ -212,6 +215,11 @@ enum acp_config {
+ 	ACP_CONFIG_13,
+ 	ACP_CONFIG_14,
+ 	ACP_CONFIG_15,
++	ACP_CONFIG_16,
++	ACP_CONFIG_17,
++	ACP_CONFIG_18,
++	ACP_CONFIG_19,
++	ACP_CONFIG_20,
+ };
+ 
+ extern const struct snd_soc_dai_ops asoc_acp_cpu_dai_ops;
+@@ -240,7 +248,7 @@ void restore_acp_pdm_params(struct snd_pcm_substream *substream,
+ int restore_acp_i2s_params(struct snd_pcm_substream *substream,
+ 			   struct acp_dev_data *adata, struct acp_stream *stream);
+ 
+-int check_acp_pdm(struct pci_dev *pci, struct acp_chip_info *chip);
++void check_acp_config(struct pci_dev *pci, struct acp_chip_info *chip);
+ 
+ static inline u64 acp_get_byte_count(struct acp_dev_data *adata, int dai_id, int direction)
+ {
+diff --git a/sound/soc/amd/acp/chip_offset_byte.h b/sound/soc/amd/acp/chip_offset_byte.h
+index cfd6c4d07594..18da734c0e9e 100644
+--- a/sound/soc/amd/acp/chip_offset_byte.h
++++ b/sound/soc/amd/acp/chip_offset_byte.h
+@@ -20,6 +20,7 @@
+ #define ACP_SOFT_RESET                          0x1000
+ #define ACP_CONTROL                             0x1004
+ #define ACP_PIN_CONFIG				0x1440
++#define ACP3X_PIN_CONFIG			0x1400
+ 
+ #define ACP_EXTERNAL_INTR_REG_ADDR(adata, offset, ctrl) \
+ 	(adata->acp_base + adata->rsrc->irq_reg_offset + offset + (ctrl * 0x04))
+-- 
+2.34.1
 
-> I do still have the plug plugin in the pipeline
-> as well, so this does result in a double conversion with how I have the UAC
-> gadget driver currently doing sample size conversion.
-> 
-> If we allow userspace to handle all the rate/channel conversion (which does
-> seem like a cleaner approach and is what I initially was trying to do), I think that
-> would mean advertising multiple bit depths/channel counts in the hw_params.
-> That part is pretty easy.
-> 
-> Then the userspace program can pick which to use, but what should we do
-> with the sample data to/from USB if the userspace program picks a different
-> combination than the alt mode currently selected by the host?
-
-This is a very good point! I did not think about it. Using the plug
-plugin provides all the conversions necessary but hides the information
-about the original hw values.
-
-That would perhaps suggest to really add the alsa read-only controls
-informing about required (and only allowed) channels and format, just
-like aloop does
-https://github.com/torvalds/linux/blob/0106679839f7c69632b3b9833c3268c316c0a9fc/sound/drivers/aloop.c#L1588-L1611
-
-
-> 
-> Perhaps just discarding audio when the ALSA and USB formats differ would
-> be the right thing to do here.
-
-Can the USB format (incl. samplerate) change without going through
-altset 0 first, i.e. without explicit stop of the stream? A client
-subscribed to the Capture/Playback Rate ctl notifications will learn
-about this event first.
-
-Currently the u_audio.c code just sends the ctl notification in
-set_active(). There are cases in alsa drivers where change in incoming
-spdif rate stops the stream too, e.g.
-https://github.com/torvalds/linux/blob/0106679839f7c69632b3b9833c3268c316c0a9fc/sound/i2c/other/ak4114.c#L589-L597
-. I vaguely remember this was discussed when implementing the current
-u_audio solution and no support for stopping the stream was given. Maybe
-it could be optionally enabled with some config parameter. It may make
-it easier for the clients, otherwise they get stuck and wait for timeout.
-
-
-
-> I might be able to solve my latency/data chopping
-> issues instead by reconfiguring the ALSA pipeline in response to the change
-> of the ssize ALSA control (or uevent). I think a fair bit of my time delay was
-> re-launching alsaloop. I will experiment a bit with this and see what I can get.
-
-IMO the final solution to the latency/data chopping issue should avoid
-the restart of the loopback software (be it simple alsaloop or complex
-CamillaDSP). Nevertheless IMO the device will need to be re-opened
-anyway because hw params were changed. The gadget should facilitate this
-goal, ideally.
-
-Maybe a reasonable way would really be to offer the alsa ctls with
-required params and let user decide if the conversions will be provided
-by the plug plugin or by his client internally. E.g. a client natively
-capable of 48k-multiples could accept these rates directly and let the
-permanently-inserted plug do automatic rate conversion for the other
-rates, no change in client configuration needed -> no client restart.
-
-The question is (if this path was chosen) whether all of the controls
-should notify (like they do in aloop), or only the rate one (which
-always gets changed at any format change as the gadget must go through
-set_active(false), IMO. I do not know what overhead the extra
-notifications bring but every reduction counts :-)
-
->>
->> Are capture and playback alt modes dependent? I thought they were
->> separate configurations but I may be wrong.
->>
->> If they are separate, perhaps p_alt.X and c_alt.X dirs would make sense
->> instead, with using non-prefixed properties within them (ssize, ch_mask,
->> etc.). I.e. p/c_xxx on the main level (setting the defaults and default
->> alt1 for each direction) and non-prefixed properties in the actual
->> p/c_alt.X subdirs.
-> 
-> They are indeed separate. I like this idea. I will separate these into c_alt.x and p_alt.x
-> which can be created separately.
-
-Again - hats off to your fantastic effort.
-
-Thanks a lot,
-
-Pavel.

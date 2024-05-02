@@ -2,92 +2,123 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D55948BA3F4
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 May 2024 01:25:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5FC18BA426
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 May 2024 01:39:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3922BDFA;
-	Fri,  3 May 2024 01:25:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3922BDFA
+	by alsa0.perex.cz (Postfix) with ESMTPS id A4723E72;
+	Fri,  3 May 2024 01:39:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A4723E72
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1714692349;
-	bh=qXSaDu9v+OXECWQi18wi0ASMKFCVuk1uyWzeP00KOSQ=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=VnKRM1+j1KGqyLZYAw+7LJ6dmwMAJkvncuHfUkR9honoSaTMFSYEyquJCbwsEQv+F
-	 qvEfB/7jB1DCWOM1GFdyTODLEY3faYhfqY2rl1ywLT4pjgwxRA/w/2hjZd1yddHD6W
-	 LyqWw9hp9LccgaNOp/kZnjwa/ugcuT66042ENs7k=
+	s=default; t=1714693187;
+	bh=ScmNimVD55HCJMpU1ZPTM6tr5t4G+wAg/gscjQhbxFA=;
+	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=Ndqx/tPY2i0eMY0/Lx+dRVZcOgOXJNMntiLiIkUsU+LckUbIyRygFlWK2RC6cpRyQ
+	 IbbN0Yul8tG1bbALe1s0Kr9/gRUnWluVtrqtL4xiYRoSrxwx1MHccm+xn+rB9jgh9F
+	 Vf1R4z2r5BdYMYDRumMX5i68Sfet/TRlyuxUKq4M=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 012AEF805AF; Fri,  3 May 2024 01:25:27 +0200 (CEST)
+	id E4681F805AD; Fri,  3 May 2024 01:39:15 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id ABF0FF80570;
-	Fri,  3 May 2024 01:25:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6E6E0F805A1;
+	Fri,  3 May 2024 01:39:15 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3F3D3F80266; Fri,  3 May 2024 01:25:23 +0200 (CEST)
+	id D667EF80266; Fri,  3 May 2024 01:37:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
+X-Spam-Status: No, score=-3.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from fllv0015.ext.ti.com (fllv0015.ext.ti.com [198.47.19.141])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8161BF800AE
-	for <alsa-devel@alsa-project.org>; Fri,  3 May 2024 01:25:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8161BF800AE
+	by alsa1.perex.cz (Postfix) with ESMTPS id 51125F8023A
+	for <alsa-devel@alsa-project.org>; Fri,  3 May 2024 01:37:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51125F8023A
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
- header.s=ti-com-17Q1 header.b=RPBSwNXb
-Received: from lelv0266.itg.ti.com ([10.180.67.225])
-	by fllv0015.ext.ti.com (8.15.2/8.15.2) with ESMTP id 442NP2P4097410;
-	Thu, 2 May 2024 18:25:02 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
-	s=ti-com-17Q1; t=1714692302;
-	bh=1Igba9qc/3JOdjDKcJji6d5T+uHCRoguonaIxhTWhTE=;
-	h=From:To:CC:Subject:Date;
-	b=RPBSwNXbIpYxngufDIi3Sa2A2mQ27zZZ4VqtH7FrkoaWJhmRgSAVHZ8cEX/1AeH9/
-	 6MR0yUTJy8EOa6GrcNdTCdCiQC91jri7l6ue9lXGTJApYMd5yt1xTWS0cBa1XtsFE0
-	 MYRNQR3IjrbjozQzy1qB8jBbCA3ScMvvjtQGNwy8=
-Received: from DFLE101.ent.ti.com (dfle101.ent.ti.com [10.64.6.22])
-	by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 442NP2bT057493
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Thu, 2 May 2024 18:25:02 -0500
-Received: from DFLE102.ent.ti.com (10.64.6.23) by DFLE101.ent.ti.com
- (10.64.6.22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Thu, 2
- May 2024 18:25:01 -0500
-Received: from lelvsmtp6.itg.ti.com (10.180.75.249) by DFLE102.ent.ti.com
- (10.64.6.23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
- Frontend Transport; Thu, 2 May 2024 18:25:01 -0500
-Received: from LT5CG31242FY.dhcp.ti.com ([10.250.160.109])
-	by lelvsmtp6.itg.ti.com (8.15.2/8.15.2) with ESMTP id 442NOtIA110098;
-	Thu, 2 May 2024 18:24:56 -0500
-From: Shenghao Ding <shenghao-ding@ti.com>
-To: <broonie@kernel.org>
-CC: <andriy.shevchenko@linux.intel.com>, <lgirdwood@gmail.com>,
-        <perex@perex.cz>, <pierre-louis.bossart@linux.intel.com>,
-        <13916275206@139.com>, <alsa-devel@alsa-project.org>,
-        <linux-kernel@vger.kernel.org>, <liam.r.girdwood@intel.com>,
-        <bard.liao@intel.com>, <yung-chuan.liao@linux.intel.com>,
-        <kevin-lu@ti.com>, <cameron.berkenpas@gmail.com>, <tiwai@suse.de>,
-        <baojun.xu@ti.com>, <soyer@irl.hu>, <Baojun.Xu@fpt.com>,
-        Shenghao Ding <shenghao-ding@ti.com>
-Subject: [PATCH v3] ALSA: ASoc/tas2781: Fix wrong loading calibrated data
- sequence
-Date: Fri, 3 May 2024 07:24:49 +0800
-Message-ID: <20240502232450.484-1-shenghao-ding@ti.com>
-X-Mailer: git-send-email 2.33.0.windows.2
+	dkim=pass (2048-bit key,
+ unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
+ header.s=qcppdkim1 header.b=O2/n/1nn
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
+ 442NKMxO019950;
+	Thu, 2 May 2024 23:37:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+	message-id:date:mime-version:subject:to:cc:references:from
+	:in-reply-to:content-type:content-transfer-encoding; s=
+	qcppdkim1; bh=yRahZediyJwd+8tFnCwYNOlw++FRljCtETICqi0KlLs=; b=O2
+	/n/1nnkgzSroG5Sq+vOV2/J4HinUGZrLvxhaAONmKDPAQOgn9WUHzYJPDSt0QYpA
+	EFUBbWzML+H3epFcUwj3FPH+XY3XjvGnlqYZZUdT05ll8lkzvQkzcQdbtVJvhIcQ
+	YJqojw/vXeRHVRMBF4PLrTuWePYkHVoANXOTSTHaHMSJBazzvDgUYC6aRbwUI5kQ
+	Wt1zKVXPuZct2q7KHJ2bBtEgVwdE5ymRVmlm+HadKZxLHG5/x+o+bsf7vNaLJzn8
+	2aNjbYa+m2DaOOVxzlxaM+jxAL9qlvYSUmeePIy/D5uN5iKmvR3EcsIgRPeTWIyT
+	qfyHgkPnafCjNKbG+rUw==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3xvawbhapu-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 02 May 2024 23:37:17 +0000 (GMT)
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+	by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
+ 442NbGor013135
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 2 May 2024 23:37:16 GMT
+Received: from [10.71.112.114] (10.80.80.8) by nalasex01b.na.qualcomm.com
+ (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 2 May 2024
+ 16:37:15 -0700
+Message-ID: <a88b41f4-7e53-e162-5a6a-2d470e29c0bb@quicinc.com>
+Date: Thu, 2 May 2024 16:37:15 -0700
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+Subject: Re: [PATCH v20 06/41] usb: host: xhci-sideband: Expose a sideband
+ interrupter enable API
+Content-Language: en-US
+To: Mathias Nyman <mathias.nyman@linux.intel.com>,
+        <srinivas.kandagatla@linaro.org>, <mathias.nyman@intel.com>,
+        <perex@perex.cz>, <conor+dt@kernel.org>, <corbet@lwn.net>,
+        <lgirdwood@gmail.com>, <andersson@kernel.org>,
+        <krzysztof.kozlowski+dt@linaro.org>, <gregkh@linuxfoundation.org>,
+        <Thinh.Nguyen@synopsys.com>, <broonie@kernel.org>,
+        <bgoswami@quicinc.com>, <tiwai@suse.com>, <robh@kernel.org>,
+        <konrad.dybcio@linaro.org>
+CC: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-sound@vger.kernel.org>, <linux-usb@vger.kernel.org>,
+        <linux-arm-msm@vger.kernel.org>, <linux-doc@vger.kernel.org>,
+        <alsa-devel@alsa-project.org>
+References: <20240425215125.29761-1-quic_wcheng@quicinc.com>
+ <20240425215125.29761-7-quic_wcheng@quicinc.com>
+ <ddd682da-5cfd-db09-e316-3c54939caf90@linux.intel.com>
+From: Wesley Cheng <quic_wcheng@quicinc.com>
+In-Reply-To: <ddd682da-5cfd-db09-e316-3c54939caf90@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Message-ID-Hash: C3VFSVHLE5DIT6ITGBE6BZ2FBEY6TGWN
-X-Message-ID-Hash: C3VFSVHLE5DIT6ITGBE6BZ2FBEY6TGWN
-X-MailFrom: shenghao-ding@ti.com
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: RmyOpgti89lDhFfWlfBLnFZdjZ9mBcru
+X-Proofpoint-ORIG-GUID: RmyOpgti89lDhFfWlfBLnFZdjZ9mBcru
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1011,Hydra:6.0.650,FMLib:17.11.176.26
+ definitions=2024-05-02_14,2024-05-02_03,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxscore=0 phishscore=0
+ malwarescore=0 bulkscore=0 suspectscore=0 priorityscore=1501
+ impostorscore=0 lowpriorityscore=0 spamscore=0 clxscore=1015 adultscore=0
+ mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2404010003 definitions=main-2405020159
+Message-ID-Hash: JCKQVOZW5K6IMTY43IX26LYS2TDYNWD6
+X-Message-ID-Hash: JCKQVOZW5K6IMTY43IX26LYS2TDYNWD6
+X-MailFrom: quic_wcheng@quicinc.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -99,7 +130,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/C3VFSVHLE5DIT6ITGBE6BZ2FBEY6TGWN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JCKQVOZW5K6IMTY43IX26LYS2TDYNWD6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,243 +139,87 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Calibrated data will be set to default after loading DSP config params,
-which will cause speaker protection work abnormally. Reload calibrated
-data after loading DSP config params.
+Hi Mathias,
 
-'Fixes: 0a0877812628 ("ASoc: tas2781: Fix spelling mistake "calibraiton"
- -> "calibration"")'
-Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
+On 5/2/2024 4:07 AM, Mathias Nyman wrote:
+> On 26.4.2024 0.50, Wesley Cheng wrote:
+>> Some use cases maybe require that the secondary interrupter's events to
+>> be handled by the OS.  In this case, configure the IMOD and the
+>> skip_events property to enable the interrupter's events.  By default,
+>> assume that the secondary interrupter doesn't want to enable OS event
+>> handling.
+>>
+>> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
+>> ---
+>>   drivers/usb/host/xhci-sideband.c  | 28 ++++++++++++++++++++++++++++
+>>   include/linux/usb/xhci-sideband.h |  2 ++
+>>   2 files changed, 30 insertions(+)
+>>
+>> diff --git a/drivers/usb/host/xhci-sideband.c 
+>> b/drivers/usb/host/xhci-sideband.c
+>> index 255feae33c6e..6fdae9840c11 100644
+>> --- a/drivers/usb/host/xhci-sideband.c
+>> +++ b/drivers/usb/host/xhci-sideband.c
+>> @@ -237,6 +237,30 @@ xhci_sideband_get_event_buffer(struct 
+>> xhci_sideband *sb)
+>>   }
+>>   EXPORT_SYMBOL_GPL(xhci_sideband_get_event_buffer);
+>> +/**
+>> + * xhci_sideband_enable_interrupt - enable interrupt for secondary 
+>> interrupter
+>> + * @sb: sideband instance for this usb device
+>> + * @imod_interval: number of event ring segments to allocate
+>> + *
+>> + * Enables OS owned event handling for a particular interrupter if 
+>> client
+>> + * requests for it.  In addition, set the IMOD interval for this 
+>> particular
+>> + * interrupter.
+>> + *
+>> + * Returns 0 on success, negative error otherwise
+>> + */
+>> +int xhci_sideband_enable_interrupt(struct xhci_sideband *sb, u32 
+>> imod_interval)
+>> +{
+>> +    if (!sb || !sb->ir)
+>> +        return -ENODEV;
+>> +
+>> +    xhci_set_interrupter_moderation(sb->ir, imod_interval);
+> 
+> Is there a need to adjust the moderation after initial setup?
+> 
+> If not then maybe we could pass the imod_interval as a parameter to
+> xhci_create_secondary_interrupter(), and avoid exporting
+> xhci_set_interrupter_moderation()
+> 
+> 
 
----
-v3:
- - Remove redundant return in tasdev_load_calibrated_data
- - Put the second function parameter into the previous line for
-   tasdev_load_calibrated_data
- - | Reported-by: kernel test robot <lkp@intel.com>
-   | Closes: https://lore.kernel.org/oe-kbuild-all/202405021200.YHInjV43-lkp@intel.com/
-v2:
- - In the Subject, fixed --> Fix
- - In tas2781-fmwlib.c, tasdevice-fmw.c ---> tas2781-fmwlib.c
- - dsp --> DSP
- - Remove unneeded parentheses for & (dereference) operator
- - Add Fixes tag
- - Changed the copyright year to 2024 in the related files
- - In tas2781-dsp.h, __TASDEVICE_DSP_H__ --> __TAS2781_DSP_H__
-v1:
- - Download calibrated data after loading the new DSP config params
- - call tasdevice_prmg_load instead of tasdevice_prmg_calibdata_load, it
-   is unnecessary to load calibrated data after loading DSP program. Load
-   it after loading DSP config params each time.
- - Remove tasdevice_prmg_calibdata_load, because it is unnecessary to load
-   calibrated data after loading DSP program.
----
- include/sound/tas2781-dsp.h       |  7 +--
- sound/soc/codecs/tas2781-fmwlib.c | 99 +++++++------------------------
- sound/soc/codecs/tas2781-i2c.c    |  4 +-
- 3 files changed, 27 insertions(+), 83 deletions(-)
+Let me preface my comments by saying that I was trying to include some 
+aspects of enabling the secondary interrupter line within the main apps 
+proc.  If this gets too confusing, I can remove these mechanisms for 
+now.  For example, as you mentioned below 
+xhci_sideband_enable_interrupt() isn't going to be used in the offload path.
 
-diff --git a/include/sound/tas2781-dsp.h b/include/sound/tas2781-dsp.h
-index ea9af2726a53..7fba7ea26a4b 100644
---- a/include/sound/tas2781-dsp.h
-+++ b/include/sound/tas2781-dsp.h
-@@ -2,7 +2,7 @@
- //
- // ALSA SoC Texas Instruments TAS2781 Audio Smart Amplifier
- //
--// Copyright (C) 2022 - 2023 Texas Instruments Incorporated
-+// Copyright (C) 2022 - 2024 Texas Instruments Incorporated
- // https://www.ti.com
- //
- // The TAS2781 driver implements a flexible and configurable
-@@ -13,8 +13,8 @@
- // Author: Kevin Lu <kevin-lu@ti.com>
- //
- 
--#ifndef __TASDEVICE_DSP_H__
--#define __TASDEVICE_DSP_H__
-+#ifndef __TAS2781_DSP_H__
-+#define __TAS2781_DSP_H__
- 
- #define MAIN_ALL_DEVICES			0x0d
- #define MAIN_DEVICE_A				0x01
-@@ -180,7 +180,6 @@ void tasdevice_calbin_remove(void *context);
- int tasdevice_select_tuningprm_cfg(void *context, int prm,
- 	int cfg_no, int rca_conf_no);
- int tasdevice_prmg_load(void *context, int prm_no);
--int tasdevice_prmg_calibdata_load(void *context, int prm_no);
- void tasdevice_tuning_switch(void *context, int state);
- int tas2781_load_calibration(void *context, char *file_name,
- 	unsigned short i);
-diff --git a/sound/soc/codecs/tas2781-fmwlib.c b/sound/soc/codecs/tas2781-fmwlib.c
-index 45760fe19523..2ab4c7a55b90 100644
---- a/sound/soc/codecs/tas2781-fmwlib.c
-+++ b/sound/soc/codecs/tas2781-fmwlib.c
-@@ -2,7 +2,7 @@
- //
- // tasdevice-fmw.c -- TASDEVICE firmware support
- //
--// Copyright 2023 Texas Instruments, Inc.
-+// Copyright 2023 - 2024 Texas Instruments, Inc.
- //
- // Author: Shenghao Ding <shenghao-ding@ti.com>
- 
-@@ -1878,7 +1878,7 @@ int tas2781_load_calibration(void *context, char *file_name,
- {
- 	struct tasdevice_priv *tas_priv = (struct tasdevice_priv *)context;
- 	struct tasdevice *tasdev = &(tas_priv->tasdevice[i]);
--	const struct firmware *fw_entry;
-+	const struct firmware *fw_entry = NULL;
- 	struct tasdevice_fw *tas_fmw;
- 	struct firmware fmw;
- 	int offset = 0;
-@@ -2151,6 +2151,18 @@ static int tasdevice_load_data(struct tasdevice_priv *tas_priv,
- 	return ret;
- }
- 
-+static void tasdev_load_calibrated_data(struct tasdevice_priv *priv, int i)
-+{
-+	struct tasdevice_fw *cal_fmw = priv->tasdevice[i].cali_data_fmw;
-+
-+	if (cal_fmw) {
-+		struct tasdevice_calibration *cal = cal_fmw->calibrations;
-+
-+		if (cal)
-+			load_calib_data(priv, &cal->dev_data);
-+	}
-+}
-+
- int tasdevice_select_tuningprm_cfg(void *context, int prm_no,
- 	int cfg_no, int rca_conf_no)
- {
-@@ -2210,21 +2222,9 @@ int tasdevice_select_tuningprm_cfg(void *context, int prm_no,
- 		for (i = 0; i < tas_priv->ndev; i++) {
- 			if (tas_priv->tasdevice[i].is_loaderr == true)
- 				continue;
--			else if (tas_priv->tasdevice[i].is_loaderr == false
--				&& tas_priv->tasdevice[i].is_loading == true) {
--				struct tasdevice_fw *cal_fmw =
--					tas_priv->tasdevice[i].cali_data_fmw;
--
--				if (cal_fmw) {
--					struct tasdevice_calibration
--						*cal = cal_fmw->calibrations;
--
--					if (cal)
--						load_calib_data(tas_priv,
--							&(cal->dev_data));
--				}
-+			if (tas_priv->tasdevice[i].is_loaderr == false
-+				&& tas_priv->tasdevice[i].is_loading == true)
- 				tas_priv->tasdevice[i].cur_prog = prm_no;
--			}
- 		}
- 	}
- 
-@@ -2247,9 +2247,13 @@ int tasdevice_select_tuningprm_cfg(void *context, int prm_no,
- 			if (tas_priv->tasdevice[i].is_loaderr == true) {
- 				status |= 1 << (i + 4);
- 				continue;
--			} else if (tas_priv->tasdevice[i].is_loaderr == false
--				&& tas_priv->tasdevice[i].is_loading == true)
-+			}
-+
-+			if (tas_priv->tasdevice[i].is_loaderr == false
-+				&& tas_priv->tasdevice[i].is_loading == true) {
-+				tasdev_load_calibrated_data(tas_priv, i);
- 				tas_priv->tasdevice[i].cur_conf = cfg_no;
-+			}
- 		}
- 	} else
- 		dev_dbg(tas_priv->dev, "%s: Unneeded loading dsp conf %d\n",
-@@ -2308,65 +2312,6 @@ int tasdevice_prmg_load(void *context, int prm_no)
- }
- EXPORT_SYMBOL_NS_GPL(tasdevice_prmg_load, SND_SOC_TAS2781_FMWLIB);
- 
--int tasdevice_prmg_calibdata_load(void *context, int prm_no)
--{
--	struct tasdevice_priv *tas_priv = (struct tasdevice_priv *) context;
--	struct tasdevice_fw *tas_fmw = tas_priv->fmw;
--	struct tasdevice_prog *program;
--	int prog_status = 0;
--	int i;
--
--	if (!tas_fmw) {
--		dev_err(tas_priv->dev, "%s: Firmware is NULL\n", __func__);
--		goto out;
--	}
--
--	if (prm_no >= tas_fmw->nr_programs) {
--		dev_err(tas_priv->dev,
--			"%s: prm(%d) is not in range of Programs %u\n",
--			__func__, prm_no, tas_fmw->nr_programs);
--		goto out;
--	}
--
--	for (i = 0, prog_status = 0; i < tas_priv->ndev; i++) {
--		if (prm_no >= 0 && tas_priv->tasdevice[i].cur_prog != prm_no) {
--			tas_priv->tasdevice[i].cur_conf = -1;
--			tas_priv->tasdevice[i].is_loading = true;
--			prog_status++;
--		}
--		tas_priv->tasdevice[i].is_loaderr = false;
--	}
--
--	if (prog_status) {
--		program = &(tas_fmw->programs[prm_no]);
--		tasdevice_load_data(tas_priv, &(program->dev_data));
--		for (i = 0; i < tas_priv->ndev; i++) {
--			if (tas_priv->tasdevice[i].is_loaderr == true)
--				continue;
--			else if (tas_priv->tasdevice[i].is_loaderr == false
--				&& tas_priv->tasdevice[i].is_loading == true) {
--				struct tasdevice_fw *cal_fmw =
--					tas_priv->tasdevice[i].cali_data_fmw;
--
--				if (cal_fmw) {
--					struct tasdevice_calibration *cal =
--						cal_fmw->calibrations;
--
--					if (cal)
--						load_calib_data(tas_priv,
--							&(cal->dev_data));
--				}
--				tas_priv->tasdevice[i].cur_prog = prm_no;
--			}
--		}
--	}
--
--out:
--	return prog_status;
--}
--EXPORT_SYMBOL_NS_GPL(tasdevice_prmg_calibdata_load,
--	SND_SOC_TAS2781_FMWLIB);
--
- void tasdevice_tuning_switch(void *context, int state)
- {
- 	struct tasdevice_priv *tas_priv = (struct tasdevice_priv *) context;
-diff --git a/sound/soc/codecs/tas2781-i2c.c b/sound/soc/codecs/tas2781-i2c.c
-index b5abff230e43..9350972dfefe 100644
---- a/sound/soc/codecs/tas2781-i2c.c
-+++ b/sound/soc/codecs/tas2781-i2c.c
-@@ -2,7 +2,7 @@
- //
- // ALSA SoC Texas Instruments TAS2563/TAS2781 Audio Smart Amplifier
- //
--// Copyright (C) 2022 - 2023 Texas Instruments Incorporated
-+// Copyright (C) 2022 - 2024 Texas Instruments Incorporated
- // https://www.ti.com
- //
- // The TAS2563/TAS2781 driver implements a flexible and configurable
-@@ -414,7 +414,7 @@ static void tasdevice_fw_ready(const struct firmware *fmw,
- 				__func__, tas_priv->cal_binaryname[i]);
- 	}
- 
--	tasdevice_prmg_calibdata_load(tas_priv, 0);
-+	tasdevice_prmg_load(tas_priv, 0);
- 	tas_priv->cur_prog = 0;
- out:
- 	if (tas_priv->fw_state == TASDEVICE_DSP_FW_FAIL) {
--- 
-2.34.1
+However, I decided to add it so we can have some corresponding function 
+that will utilize/set skip_events = false. (as it is "true" by default) 
+Again, I can remove this part and revisit later when we actually have a 
+use case to handle secondary interrupts on apps.
 
+As for the IMOD setting, depending on what you think, I can add it as 
+part of xhci_create_secondary_interrupter()
+
+>> +    sb->ir->skip_events = false;
+>> +    xhci_enable_interrupter(sb->ir);
+>> +
+>> +    return 0;
+>> +}
+>> +EXPORT_SYMBOL_GPL(xhci_sideband_enable_interrupt);
+> 
+> I can't find the place where xhci_sideband_enable_interrupt() is called in
+> this series. How is it planned to be used?
+> 
+> Thanks
+> Mathias
+
+Thanks
+Wesley Cheng

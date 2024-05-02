@@ -2,161 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BF7C8B9C0D
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2024 16:08:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D55948BA3F4
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 May 2024 01:25:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F30DDE85;
-	Thu,  2 May 2024 16:08:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F30DDE85
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3922BDFA;
+	Fri,  3 May 2024 01:25:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3922BDFA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1714658935;
-	bh=QWzEkSdjvnADCmIvbRWb8cssbIqca65gv7G5OZVLxc8=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=fM838P3jOD92k7V++Hy8DeJV2XbGzE//wZSpGdS2pYgjyQl0A6DlKx24jTzgwDpbD
-	 724U/TvbBRrgn0YTkvXTruk2Iz+U7ROruzr90s/IiQAUJfVDtZcHeQQ0rgEJGEnRoB
-	 uBrGWZaADBh2svhgZ9vBRdoAJMWJMfkiHWarP+ok=
+	s=default; t=1714692349;
+	bh=qXSaDu9v+OXECWQi18wi0ASMKFCVuk1uyWzeP00KOSQ=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=VnKRM1+j1KGqyLZYAw+7LJ6dmwMAJkvncuHfUkR9honoSaTMFSYEyquJCbwsEQv+F
+	 qvEfB/7jB1DCWOM1GFdyTODLEY3faYhfqY2rl1ywLT4pjgwxRA/w/2hjZd1yddHD6W
+	 LyqWw9hp9LccgaNOp/kZnjwa/ugcuT66042ENs7k=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B4321F80578; Thu,  2 May 2024 16:08:23 +0200 (CEST)
+	id 012AEF805AF; Fri,  3 May 2024 01:25:27 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E8F39F804F2;
-	Thu,  2 May 2024 16:08:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ABF0FF80570;
+	Fri,  3 May 2024 01:25:27 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 208C5F80269; Thu,  2 May 2024 16:04:18 +0200 (CEST)
+	id 3F3D3F80266; Fri,  3 May 2024 01:25:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=unavailable
-	autolearn_force=no version=3.4.6
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on20600.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2416::600])
+X-Spam-Status: No, score=-1.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from fllv0015.ext.ti.com (fllv0015.ext.ti.com [198.47.19.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A1211F8025D
-	for <alsa-devel@alsa-project.org>; Thu,  2 May 2024 16:04:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1211F8025D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8161BF800AE
+	for <alsa-devel@alsa-project.org>; Fri,  3 May 2024 01:25:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8161BF800AE
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=07mEspSr
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XZln+5apSyZZkmARBh1ELGEqMOY5J7sA6syFbwb3ifGh8dlrbJ7cL4ZF1EwUxtMcM80zversdAhqxgypHHJ5a1zMWqsO+2c45+9ASfW3sDYktRdaXRhJhNz0/VoseAjxttHeK6P8T/ZKD2MFWaphCYi1f6QIc8N/sL3Rhybg1sRkFGN0C2xE/JDKqI3cjXVZtDaMoJGP5T0x40mrDiKzemKGIxa95ScjtRmA+CXGMZ66Dg51SVFHEk34TAISog8WbIq4YRLJLh/keao8Rs8mkgoEmJHFaiV+cY375K6nId2iVMlB8Zl1hPHP80Nx1dMT0kjqrik5O+1cDMiyWWyL7w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3orPfhOIf2ez8ZcEx0FaEOr17YZzaq39myVFLiquxiE=;
- b=Isak8mMRrOvXUrgYqFtF6yhLNH2dhMXsVUofr1Kj2/di6EbAsWwW6tsDiRLQXecuNJC3ke4eOEru24q+xD3RyPn9znlAZRfMdk2F/Dr1wEln0NgKLZ/tGjt61NR81H2XfXZPmIQThycE5IGdvIF9jJ1o1/W0wWpvWpZEUj00l43LlxEYWB515ECi2X4pp+3U+TbFrNye43HVZ0N180Lb77N2Yh1J8JNYFC6R7qsyrMjh/xTKxEGGqUdovf2zTd/iGczzMc9Nqa8nXRg803nuaO6SGRf3OAbwAahBOE5J5XH05CoZvF01tQx2rFXio0mzhWf5v9eXxSiezR1fxgcIkg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3orPfhOIf2ez8ZcEx0FaEOr17YZzaq39myVFLiquxiE=;
- b=07mEspSrqX/kmFMW7OMz/tAOHB1/XrCoGUwiNIK7CwatE7nw/xqvMO8AFhAdmbuwsvtzQYEA2J7JPPwOK/OfbmgE8jOLt80VRcSsumOcEBLF/4jV2IKAvzzaXyJp4OimEJHfA0JbnhAQb36Rcm2ooKqdmrZq47Ql//Bnix7Bqio=
-Received: from BL1P221CA0002.NAMP221.PROD.OUTLOOK.COM (2603:10b6:208:2c5::32)
- by DM4PR12MB5988.namprd12.prod.outlook.com (2603:10b6:8:6b::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.30; Thu, 2 May
- 2024 14:03:56 +0000
-Received: from BL02EPF00021F6C.namprd02.prod.outlook.com
- (2603:10b6:208:2c5:cafe::12) by BL1P221CA0002.outlook.office365.com
- (2603:10b6:208:2c5::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7519.34 via Frontend
- Transport; Thu, 2 May 2024 14:03:56 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF00021F6C.mail.protection.outlook.com (10.167.249.8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7544.18 via Frontend Transport; Thu, 2 May 2024 14:03:55 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 2 May
- 2024 09:03:52 -0500
-Received: from vijendar-X570-GAMING-X.amd.com (10.180.168.240) by
- SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.35
- via Frontend Transport; Thu, 2 May 2024 09:03:49 -0500
-From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+ unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
+ header.s=ti-com-17Q1 header.b=RPBSwNXb
+Received: from lelv0266.itg.ti.com ([10.180.67.225])
+	by fllv0015.ext.ti.com (8.15.2/8.15.2) with ESMTP id 442NP2P4097410;
+	Thu, 2 May 2024 18:25:02 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+	s=ti-com-17Q1; t=1714692302;
+	bh=1Igba9qc/3JOdjDKcJji6d5T+uHCRoguonaIxhTWhTE=;
+	h=From:To:CC:Subject:Date;
+	b=RPBSwNXbIpYxngufDIi3Sa2A2mQ27zZZ4VqtH7FrkoaWJhmRgSAVHZ8cEX/1AeH9/
+	 6MR0yUTJy8EOa6GrcNdTCdCiQC91jri7l6ue9lXGTJApYMd5yt1xTWS0cBa1XtsFE0
+	 MYRNQR3IjrbjozQzy1qB8jBbCA3ScMvvjtQGNwy8=
+Received: from DFLE101.ent.ti.com (dfle101.ent.ti.com [10.64.6.22])
+	by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 442NP2bT057493
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Thu, 2 May 2024 18:25:02 -0500
+Received: from DFLE102.ent.ti.com (10.64.6.23) by DFLE101.ent.ti.com
+ (10.64.6.22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Thu, 2
+ May 2024 18:25:01 -0500
+Received: from lelvsmtp6.itg.ti.com (10.180.75.249) by DFLE102.ent.ti.com
+ (10.64.6.23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
+ Frontend Transport; Thu, 2 May 2024 18:25:01 -0500
+Received: from LT5CG31242FY.dhcp.ti.com ([10.250.160.109])
+	by lelvsmtp6.itg.ti.com (8.15.2/8.15.2) with ESMTP id 442NOtIA110098;
+	Thu, 2 May 2024 18:24:56 -0500
+From: Shenghao Ding <shenghao-ding@ti.com>
 To: <broonie@kernel.org>
-CC: <alsa-devel@alsa-project.org>, <venkataprasad.potturu@amd.com>,
-	<Basavaraj.Hiregoudar@amd.com>, <Sunil-kumar.Dommati@amd.com>, "Vijendar
- Mukunda" <Vijendar.Mukunda@amd.com>, Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, "Syed Saba
- Kareem" <Syed.SabaKareem@amd.com>, Jarkko Nikula <jarkko.nikula@bitmer.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>, "open list:SOUND - SOC LAYER /
- DYNAMIC AUDIO POWER MANAGEM..." <linux-sound@vger.kernel.org>, open list
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH 2/2] ASoC: amd: acp: move chip->flag variable assignment
-Date: Thu, 2 May 2024 19:33:26 +0530
-Message-ID: <20240502140340.4049021-2-Vijendar.Mukunda@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240502140340.4049021-1-Vijendar.Mukunda@amd.com>
-References: <20240502140340.4049021-1-Vijendar.Mukunda@amd.com>
+CC: <andriy.shevchenko@linux.intel.com>, <lgirdwood@gmail.com>,
+        <perex@perex.cz>, <pierre-louis.bossart@linux.intel.com>,
+        <13916275206@139.com>, <alsa-devel@alsa-project.org>,
+        <linux-kernel@vger.kernel.org>, <liam.r.girdwood@intel.com>,
+        <bard.liao@intel.com>, <yung-chuan.liao@linux.intel.com>,
+        <kevin-lu@ti.com>, <cameron.berkenpas@gmail.com>, <tiwai@suse.de>,
+        <baojun.xu@ti.com>, <soyer@irl.hu>, <Baojun.Xu@fpt.com>,
+        Shenghao Ding <shenghao-ding@ti.com>
+Subject: [PATCH v3] ALSA: ASoc/tas2781: Fix wrong loading calibrated data
+ sequence
+Date: Fri, 3 May 2024 07:24:49 +0800
+Message-ID: <20240502232450.484-1-shenghao-ding@ti.com>
+X-Mailer: git-send-email 2.33.0.windows.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Received-SPF: None (SATLEXMB04.amd.com: Vijendar.Mukunda@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00021F6C:EE_|DM4PR12MB5988:EE_
-X-MS-Office365-Filtering-Correlation-Id: 77bc2d8f-db02-4243-3db3-08dc6ab0b4c5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230031|1800799015|36860700004|376005;
-X-Microsoft-Antispam-Message-Info: 
-	=?us-ascii?Q?piUdzXVFDhctGW8e2l+TUCST7jll1z+JnmuBzuBr0tsqZaYvCtMZEkbB9zeV?=
- =?us-ascii?Q?yLvJhnZ2qh2Jyw3wbujt0U5UV0KByZ5rRg70/fjnwLukAplF7TxKbmxGy7dB?=
- =?us-ascii?Q?faoHM0lX2/GYRP0mvyYT6ozYciEcYUZWRB46476WOOtqDvfrfXwTgHAaJYhc?=
- =?us-ascii?Q?s6ihJmWXZmMOprsGX3QTgsnQhGGSZWGCT+lKYlnjhZo9UmYuXR9biPIfwwsg?=
- =?us-ascii?Q?DEwNQ5h6pTxwTFmwhDYpR+WBRvvP19xG6HvvGvkFpOSv4S8fqb2RMEZWcAEZ?=
- =?us-ascii?Q?lC5bwQqRaIBt84Qo6g6YhNxTqLqECwoX12NHEqi26GNRNB5RyaDWs9iLkU+/?=
- =?us-ascii?Q?bDwdLSGfa+lpJ9Rw90nhdGBmg203ZsEgjsf1zYFXU34URkXy4VPx8esDc6MI?=
- =?us-ascii?Q?RHg1ZCsmDj9kzKbo1RhveBKRN6Y6nxo9GJWb4lHGqCRUPHz6Rf1ogvPo4z+p?=
- =?us-ascii?Q?ACzHovy+/fqq988SiMYeQCrAATXqZ2hdB4cPreBP2mJiQyZKaCZ0h0IrNbmo?=
- =?us-ascii?Q?06N1oe0c7a8MfP6PlAr2ae01DSe64tahwFIIwNmqL8lwn3S8ZOHPwz7Gem+u?=
- =?us-ascii?Q?jCEnCzoZo+e1XwFG7jT7eWFMLnIDE4hn0XciET6DzwkO60/zhkmygvzq3aws?=
- =?us-ascii?Q?Of76ujDaC8nL/UxLBoSk1cASw228Z4b/HOjB89ETIZxmXFqUmkIjlCO5UEgy?=
- =?us-ascii?Q?vvYCM06NFj75VOOmkH5dILFIBri2Jid5CJvcuIay8wac9wCyXk5xISCwMss7?=
- =?us-ascii?Q?Ydqkh4gnPINbCaEo7wGdwW5b24k7+oEJmt3KrSXekQiwIApEu4LwFEv0mjWt?=
- =?us-ascii?Q?fThrnaYRJhJxuWibXSTFt/+XtBNxV68RKeNkv04+dvfO/XKgVQA+LCoCxcEi?=
- =?us-ascii?Q?BWsLdONR+37QfffYMysI2lG16IHZK3U+BsN/BOfcKsBoBhjZUeGh9nAzIonW?=
- =?us-ascii?Q?znh6JZ0Y51pPr3BHEqSlJCKwCB7qHdsugaCqHniGSnM6GUoXbHMRANEI9z+G?=
- =?us-ascii?Q?SJRwzindFmDePnWJS66aiPh9dP5eY01AjsCliegGGWmVlRnb3CIhxa27Bb+C?=
- =?us-ascii?Q?oDUcI0u+NbZMxJlmqBXgjJZgw/f39ZZRPgb62zAExYKsvRt1YDs3OvXkEI5w?=
- =?us-ascii?Q?B1zlqW5Ie41sEYN9Ziox7rc7QMtIXyX2Tdb97d7rziF1QFF/+gQ8YNlHgpa7?=
- =?us-ascii?Q?ES1FaKAx/dPqgNzW7Aqi+vLwU3Y6ALn82MT/U7Hk7WTJKDvzsFnIRHBXjkDx?=
- =?us-ascii?Q?KNgMO6sOdiCxfZZBtJrB2gBpwsa6DOJY7pbQQOIhiZ6ChVczoeYqz6OiGeAr?=
- =?us-ascii?Q?1ff7HjJicKhGtQtywrM1idoAbjuPTkf5VvKV/OfdbBgbxuTE91CpXc+389MV?=
- =?us-ascii?Q?TtCFfAP1Opbaic41P6O56mGq54GZ?=
-X-Forefront-Antispam-Report: 
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(1800799015)(36860700004)(376005);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 May 2024 14:03:55.9068
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 77bc2d8f-db02-4243-3db3-08dc6ab0b4c5
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
- TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: 
-	BL02EPF00021F6C.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5988
-Message-ID-Hash: 4IFPHFJSEZQVDHGYM4ZM2J27EB3W7BIT
-X-Message-ID-Hash: 4IFPHFJSEZQVDHGYM4ZM2J27EB3W7BIT
-X-MailFrom: Vijendar.Mukunda@amd.com
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Message-ID-Hash: C3VFSVHLE5DIT6ITGBE6BZ2FBEY6TGWN
+X-Message-ID-Hash: C3VFSVHLE5DIT6ITGBE6BZ2FBEY6TGWN
+X-MailFrom: shenghao-ding@ti.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -168,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4IFPHFJSEZQVDHGYM4ZM2J27EB3W7BIT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/C3VFSVHLE5DIT6ITGBE6BZ2FBEY6TGWN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -177,34 +108,243 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-chip->flag variable should be assigned along with other structure
-variables for 'chip' structure. Move the variable assignment.
+Calibrated data will be set to default after loading DSP config params,
+which will cause speaker protection work abnormally. Reload calibrated
+data after loading DSP config params.
 
-Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+'Fixes: 0a0877812628 ("ASoc: tas2781: Fix spelling mistake "calibraiton"
+ -> "calibration"")'
+Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
+
 ---
- sound/soc/amd/acp/acp-pci.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+v3:
+ - Remove redundant return in tasdev_load_calibrated_data
+ - Put the second function parameter into the previous line for
+   tasdev_load_calibrated_data
+ - | Reported-by: kernel test robot <lkp@intel.com>
+   | Closes: https://lore.kernel.org/oe-kbuild-all/202405021200.YHInjV43-lkp@intel.com/
+v2:
+ - In the Subject, fixed --> Fix
+ - In tas2781-fmwlib.c, tasdevice-fmw.c ---> tas2781-fmwlib.c
+ - dsp --> DSP
+ - Remove unneeded parentheses for & (dereference) operator
+ - Add Fixes tag
+ - Changed the copyright year to 2024 in the related files
+ - In tas2781-dsp.h, __TASDEVICE_DSP_H__ --> __TAS2781_DSP_H__
+v1:
+ - Download calibrated data after loading the new DSP config params
+ - call tasdevice_prmg_load instead of tasdevice_prmg_calibdata_load, it
+   is unnecessary to load calibrated data after loading DSP program. Load
+   it after loading DSP config params each time.
+ - Remove tasdevice_prmg_calibdata_load, because it is unnecessary to load
+   calibrated data after loading DSP program.
+---
+ include/sound/tas2781-dsp.h       |  7 +--
+ sound/soc/codecs/tas2781-fmwlib.c | 99 +++++++------------------------
+ sound/soc/codecs/tas2781-i2c.c    |  4 +-
+ 3 files changed, 27 insertions(+), 83 deletions(-)
 
-diff --git a/sound/soc/amd/acp/acp-pci.c b/sound/soc/amd/acp/acp-pci.c
-index ad320b29e87d..20c824d8a323 100644
---- a/sound/soc/amd/acp/acp-pci.c
-+++ b/sound/soc/amd/acp/acp-pci.c
-@@ -100,6 +100,7 @@ static int acp_pci_probe(struct pci_dev *pci, const struct pci_device_id *pci_id
- 		ret = -EINVAL;
- 		goto release_regions;
- 	}
-+	chip->flag = flag;
- 	dmic_dev = platform_device_register_data(dev, "dmic-codec", PLATFORM_DEVID_NONE, NULL, 0);
- 	if (IS_ERR(dmic_dev)) {
- 		dev_err(dev, "failed to create DMIC device\n");
-@@ -139,7 +140,6 @@ static int acp_pci_probe(struct pci_dev *pci, const struct pci_device_id *pci_id
+diff --git a/include/sound/tas2781-dsp.h b/include/sound/tas2781-dsp.h
+index ea9af2726a53..7fba7ea26a4b 100644
+--- a/include/sound/tas2781-dsp.h
++++ b/include/sound/tas2781-dsp.h
+@@ -2,7 +2,7 @@
+ //
+ // ALSA SoC Texas Instruments TAS2781 Audio Smart Amplifier
+ //
+-// Copyright (C) 2022 - 2023 Texas Instruments Incorporated
++// Copyright (C) 2022 - 2024 Texas Instruments Incorporated
+ // https://www.ti.com
+ //
+ // The TAS2781 driver implements a flexible and configurable
+@@ -13,8 +13,8 @@
+ // Author: Kevin Lu <kevin-lu@ti.com>
+ //
+ 
+-#ifndef __TASDEVICE_DSP_H__
+-#define __TASDEVICE_DSP_H__
++#ifndef __TAS2781_DSP_H__
++#define __TAS2781_DSP_H__
+ 
+ #define MAIN_ALL_DEVICES			0x0d
+ #define MAIN_DEVICE_A				0x01
+@@ -180,7 +180,6 @@ void tasdevice_calbin_remove(void *context);
+ int tasdevice_select_tuningprm_cfg(void *context, int prm,
+ 	int cfg_no, int rca_conf_no);
+ int tasdevice_prmg_load(void *context, int prm_no);
+-int tasdevice_prmg_calibdata_load(void *context, int prm_no);
+ void tasdevice_tuning_switch(void *context, int state);
+ int tas2781_load_calibration(void *context, char *file_name,
+ 	unsigned short i);
+diff --git a/sound/soc/codecs/tas2781-fmwlib.c b/sound/soc/codecs/tas2781-fmwlib.c
+index 45760fe19523..2ab4c7a55b90 100644
+--- a/sound/soc/codecs/tas2781-fmwlib.c
++++ b/sound/soc/codecs/tas2781-fmwlib.c
+@@ -2,7 +2,7 @@
+ //
+ // tasdevice-fmw.c -- TASDEVICE firmware support
+ //
+-// Copyright 2023 Texas Instruments, Inc.
++// Copyright 2023 - 2024 Texas Instruments, Inc.
+ //
+ // Author: Shenghao Ding <shenghao-ding@ti.com>
+ 
+@@ -1878,7 +1878,7 @@ int tas2781_load_calibration(void *context, char *file_name,
+ {
+ 	struct tasdevice_priv *tas_priv = (struct tasdevice_priv *)context;
+ 	struct tasdevice *tasdev = &(tas_priv->tasdevice[i]);
+-	const struct firmware *fw_entry;
++	const struct firmware *fw_entry = NULL;
+ 	struct tasdevice_fw *tas_fmw;
+ 	struct firmware fmw;
+ 	int offset = 0;
+@@ -2151,6 +2151,18 @@ static int tasdevice_load_data(struct tasdevice_priv *tas_priv,
+ 	return ret;
+ }
+ 
++static void tasdev_load_calibrated_data(struct tasdevice_priv *priv, int i)
++{
++	struct tasdevice_fw *cal_fmw = priv->tasdevice[i].cali_data_fmw;
++
++	if (cal_fmw) {
++		struct tasdevice_calibration *cal = cal_fmw->calibrations;
++
++		if (cal)
++			load_calib_data(priv, &cal->dev_data);
++	}
++}
++
+ int tasdevice_select_tuningprm_cfg(void *context, int prm_no,
+ 	int cfg_no, int rca_conf_no)
+ {
+@@ -2210,21 +2222,9 @@ int tasdevice_select_tuningprm_cfg(void *context, int prm_no,
+ 		for (i = 0; i < tas_priv->ndev; i++) {
+ 			if (tas_priv->tasdevice[i].is_loaderr == true)
+ 				continue;
+-			else if (tas_priv->tasdevice[i].is_loaderr == false
+-				&& tas_priv->tasdevice[i].is_loading == true) {
+-				struct tasdevice_fw *cal_fmw =
+-					tas_priv->tasdevice[i].cali_data_fmw;
+-
+-				if (cal_fmw) {
+-					struct tasdevice_calibration
+-						*cal = cal_fmw->calibrations;
+-
+-					if (cal)
+-						load_calib_data(tas_priv,
+-							&(cal->dev_data));
+-				}
++			if (tas_priv->tasdevice[i].is_loaderr == false
++				&& tas_priv->tasdevice[i].is_loading == true)
+ 				tas_priv->tasdevice[i].cur_prog = prm_no;
+-			}
  		}
  	}
  
--	chip->flag = flag;
- 	memset(&pdevinfo, 0, sizeof(pdevinfo));
+@@ -2247,9 +2247,13 @@ int tasdevice_select_tuningprm_cfg(void *context, int prm_no,
+ 			if (tas_priv->tasdevice[i].is_loaderr == true) {
+ 				status |= 1 << (i + 4);
+ 				continue;
+-			} else if (tas_priv->tasdevice[i].is_loaderr == false
+-				&& tas_priv->tasdevice[i].is_loading == true)
++			}
++
++			if (tas_priv->tasdevice[i].is_loaderr == false
++				&& tas_priv->tasdevice[i].is_loading == true) {
++				tasdev_load_calibrated_data(tas_priv, i);
+ 				tas_priv->tasdevice[i].cur_conf = cfg_no;
++			}
+ 		}
+ 	} else
+ 		dev_dbg(tas_priv->dev, "%s: Unneeded loading dsp conf %d\n",
+@@ -2308,65 +2312,6 @@ int tasdevice_prmg_load(void *context, int prm_no)
+ }
+ EXPORT_SYMBOL_NS_GPL(tasdevice_prmg_load, SND_SOC_TAS2781_FMWLIB);
  
- 	pdevinfo.name = chip->name;
+-int tasdevice_prmg_calibdata_load(void *context, int prm_no)
+-{
+-	struct tasdevice_priv *tas_priv = (struct tasdevice_priv *) context;
+-	struct tasdevice_fw *tas_fmw = tas_priv->fmw;
+-	struct tasdevice_prog *program;
+-	int prog_status = 0;
+-	int i;
+-
+-	if (!tas_fmw) {
+-		dev_err(tas_priv->dev, "%s: Firmware is NULL\n", __func__);
+-		goto out;
+-	}
+-
+-	if (prm_no >= tas_fmw->nr_programs) {
+-		dev_err(tas_priv->dev,
+-			"%s: prm(%d) is not in range of Programs %u\n",
+-			__func__, prm_no, tas_fmw->nr_programs);
+-		goto out;
+-	}
+-
+-	for (i = 0, prog_status = 0; i < tas_priv->ndev; i++) {
+-		if (prm_no >= 0 && tas_priv->tasdevice[i].cur_prog != prm_no) {
+-			tas_priv->tasdevice[i].cur_conf = -1;
+-			tas_priv->tasdevice[i].is_loading = true;
+-			prog_status++;
+-		}
+-		tas_priv->tasdevice[i].is_loaderr = false;
+-	}
+-
+-	if (prog_status) {
+-		program = &(tas_fmw->programs[prm_no]);
+-		tasdevice_load_data(tas_priv, &(program->dev_data));
+-		for (i = 0; i < tas_priv->ndev; i++) {
+-			if (tas_priv->tasdevice[i].is_loaderr == true)
+-				continue;
+-			else if (tas_priv->tasdevice[i].is_loaderr == false
+-				&& tas_priv->tasdevice[i].is_loading == true) {
+-				struct tasdevice_fw *cal_fmw =
+-					tas_priv->tasdevice[i].cali_data_fmw;
+-
+-				if (cal_fmw) {
+-					struct tasdevice_calibration *cal =
+-						cal_fmw->calibrations;
+-
+-					if (cal)
+-						load_calib_data(tas_priv,
+-							&(cal->dev_data));
+-				}
+-				tas_priv->tasdevice[i].cur_prog = prm_no;
+-			}
+-		}
+-	}
+-
+-out:
+-	return prog_status;
+-}
+-EXPORT_SYMBOL_NS_GPL(tasdevice_prmg_calibdata_load,
+-	SND_SOC_TAS2781_FMWLIB);
+-
+ void tasdevice_tuning_switch(void *context, int state)
+ {
+ 	struct tasdevice_priv *tas_priv = (struct tasdevice_priv *) context;
+diff --git a/sound/soc/codecs/tas2781-i2c.c b/sound/soc/codecs/tas2781-i2c.c
+index b5abff230e43..9350972dfefe 100644
+--- a/sound/soc/codecs/tas2781-i2c.c
++++ b/sound/soc/codecs/tas2781-i2c.c
+@@ -2,7 +2,7 @@
+ //
+ // ALSA SoC Texas Instruments TAS2563/TAS2781 Audio Smart Amplifier
+ //
+-// Copyright (C) 2022 - 2023 Texas Instruments Incorporated
++// Copyright (C) 2022 - 2024 Texas Instruments Incorporated
+ // https://www.ti.com
+ //
+ // The TAS2563/TAS2781 driver implements a flexible and configurable
+@@ -414,7 +414,7 @@ static void tasdevice_fw_ready(const struct firmware *fmw,
+ 				__func__, tas_priv->cal_binaryname[i]);
+ 	}
+ 
+-	tasdevice_prmg_calibdata_load(tas_priv, 0);
++	tasdevice_prmg_load(tas_priv, 0);
+ 	tas_priv->cur_prog = 0;
+ out:
+ 	if (tas_priv->fw_state == TASDEVICE_DSP_FW_FAIL) {
 -- 
 2.34.1
 

@@ -2,116 +2,156 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 950908B98B7
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2024 12:23:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97C188B98BD
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2024 12:26:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E8684A4A;
-	Thu,  2 May 2024 12:23:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8684A4A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1E910E7F;
+	Thu,  2 May 2024 12:26:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E910E7F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1714645394;
-	bh=AvAVxcbuo3Sx2lLGX3xwFNmeRI8WgjtQjlrG/vXHx/M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1714645582;
+	bh=9TkTZ57YAAxNkPWthAJ9DpDRSGTHMSlyYmnHgN70MRQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=EREvuE/OiEICZEhwuetJ3hGwycvK/Bo16qmNI7N1162DMaws+ULADEuN0qmw0aN//
-	 4CFqGCzz37OtUpKXqzFtzKxWqkmgbqPSXQHSPCB31N13gohpZ44R/j7WH0O2GTUQsL
-	 tLPhv+agG6wRt3EououFZ+dkXuBrRx8hMW5kaXAk=
+	b=mOsiLAtXJ2lActsxNE5WXj9hzBxYKNbxsDMDiyd+l357dwZ2/tZXbC56DJs+o5QJS
+	 gKnquaLRwKWyM4tO4BeDxeThYf6P/PhuJ/Y6Iup/tHxugEANlB7Qz3BCuFfcQOHNrJ
+	 BAyAnuSGjJvASiKsDrmPndUWKyIo8x7Odp610Le8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8678CF805AB; Thu,  2 May 2024 12:22:43 +0200 (CEST)
+	id BC9F8F8057D; Thu,  2 May 2024 12:25:47 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1EA8CF80579;
-	Thu,  2 May 2024 12:22:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 18707F80570;
+	Thu,  2 May 2024 12:25:47 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 949FDF80266; Thu,  2 May 2024 12:22:38 +0200 (CEST)
+	id 18871F80266; Thu,  2 May 2024 12:25:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E9985F8003A
-	for <alsa-devel@alsa-project.org>; Thu,  2 May 2024 12:22:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9985F8003A
+	by alsa1.perex.cz (Postfix) with ESMTPS id B455BF8003A
+	for <alsa-devel@alsa-project.org>; Thu,  2 May 2024 12:25:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B455BF8003A
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=FN8UKcKX
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1714645355; x=1746181355;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=AvAVxcbuo3Sx2lLGX3xwFNmeRI8WgjtQjlrG/vXHx/M=;
-  b=FN8UKcKXfy8jSJ1WpqvI2nQYsHc0sbi3Cd/4VZYL+a1Oo0JA24llcYjA
-   JlS+zyGzDgo8o8WovvBoO9yjaNCF6XBNjZccbRHnrAGb/Ks/X3jEi6gEo
-   BOHfRpsBL0V1XhWLlaPTkZU9PtPrvjRTKfrtFkvJWHKkIzlGPtkPpH/fo
-   AE+QpF68vYydjTgtixYxf67l2vetOempV9VAh/ebA1AFhftVQ5uzzv8bZ
-   3T3XK9UpUJGhSaPWnpfdRXmH16a2EMsXkXPhmMA7BETbdQeLIvEzLoZZA
-   bf86XFQ4xLw9zVut4JyEJd5S/2J718AzJ8jOcIiMYwFCfyMZ/c7zva7g2
-   g==;
-X-CSE-ConnectionGUID: 2FiDOFf1RT+C1fGfagqOZw==
-X-CSE-MsgGUID: qp4IfVizQJ+TRrVBf4a11Q==
-X-IronPort-AV: E=McAfee;i="6600,9927,11061"; a="10533642"
-X-IronPort-AV: E=Sophos;i="6.07,247,1708416000";
-   d="scan'208";a="10533642"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 May 2024 03:22:31 -0700
-X-CSE-ConnectionGUID: Ng2PHk+GSbepSh3GnXNZMQ==
-X-CSE-MsgGUID: ZDXuDu7SSouRUtNzWjIBCw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,247,1708416000";
-   d="scan'208";a="64515040"
-Received: from smile.fi.intel.com ([10.237.72.54])
-  by orviesa001.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 May 2024 03:22:27 -0700
-Received: from andy by smile.fi.intel.com with local (Exim 4.97)
-	(envelope-from <andriy.shevchenko@linux.intel.com>)
-	id 1s2Ta3-00000003HQk-3iDD;
-	Thu, 02 May 2024 13:22:23 +0300
-Date: Thu, 2 May 2024 13:22:23 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: "Xu, Baojun" <baojun.xu@ti.com>
-Cc: "tiwai@suse.de" <tiwai@suse.de>,
-	"robh+dt@kernel.org" <robh+dt@kernel.org>,
-	"lgirdwood@gmail.com" <lgirdwood@gmail.com>,
-	"perex@perex.cz" <perex@perex.cz>,
-	"pierre-louis.bossart@linux.intel.com"
- <pierre-louis.bossart@linux.intel.com>,
-	"Lu, Kevin" <kevin-lu@ti.com>,
-	"Ding, Shenghao" <shenghao-ding@ti.com>,
-	"Navada Kanyana, Mukund" <navada@ti.com>,
-	"13916275206@139.com" <13916275206@139.com>,
-	"P O, Vijeth" <v-po@ti.com>,
-	"Holalu Yogendra, Niranjan" <niranjan.hy@ti.com>,
-	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"liam.r.girdwood@intel.com" <liam.r.girdwood@intel.com>,
-	"yung-chuan.liao@linux.intel.com" <yung-chuan.liao@linux.intel.com>,
-	"broonie@kernel.org" <broonie@kernel.org>,
-	"soyer@irl.hu" <soyer@irl.hu>
-Subject: Re: [EXTERNAL] Re: [PATCH v3 1/3] ALSA: hda/tas2781: Modification
- for add tas2781 driver for SPI
-Message-ID: <ZjNpX6TvB4Vv1akq@smile.fi.intel.com>
-References: <20240418040240.2337-1-baojun.xu@ti.com>
- <20240418040240.2337-2-baojun.xu@ti.com>
- <ZiEKc4OTVlOt8llU@smile.fi.intel.com>
- <0c7b29075dc347299602668660adb4b6@ti.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <0c7b29075dc347299602668660adb4b6@ti.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Message-ID-Hash: ZHF4TDMQEV7PIWJKL26EFJIEORJXJOWM
-X-Message-ID-Hash: ZHF4TDMQEV7PIWJKL26EFJIEORJXJOWM
-X-MailFrom: andriy.shevchenko@linux.intel.com
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=wtklsYGQ;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=8PRz+hei;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=wtklsYGQ;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=8PRz+hei
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id B4BA3351D9;
+	Thu,  2 May 2024 10:25:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1714645538;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=nRNsEWuTL5AgiSXgw65Rfs9x849N3wWjfMiLj4+bsbA=;
+	b=wtklsYGQzF6Cm63lDgSKIu0L0JY8LoTvP/AoFzxBCbF7xkEdqOu8IoVjaVNhcRDeNdrioN
+	bJJwrfzuegzGjd6bTgMHDhQxVEuMAadiuII9QGkOkzPzgTTF3C8/QIxw6uIcFTG1O18LZQ
+	NbJy+b+lmDtrQE9wqfFV9McxLM7uqm0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1714645538;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=nRNsEWuTL5AgiSXgw65Rfs9x849N3wWjfMiLj4+bsbA=;
+	b=8PRz+heicRrv7NM8CC8qiY3ggk0EhJQwXI5W/UqEXFvRTSNhVMPZlK9eW2jHn+gOV+C63V
+	/UhLosmJ02y38vBw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1714645538;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=nRNsEWuTL5AgiSXgw65Rfs9x849N3wWjfMiLj4+bsbA=;
+	b=wtklsYGQzF6Cm63lDgSKIu0L0JY8LoTvP/AoFzxBCbF7xkEdqOu8IoVjaVNhcRDeNdrioN
+	bJJwrfzuegzGjd6bTgMHDhQxVEuMAadiuII9QGkOkzPzgTTF3C8/QIxw6uIcFTG1O18LZQ
+	NbJy+b+lmDtrQE9wqfFV9McxLM7uqm0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1714645538;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=nRNsEWuTL5AgiSXgw65Rfs9x849N3wWjfMiLj4+bsbA=;
+	b=8PRz+heicRrv7NM8CC8qiY3ggk0EhJQwXI5W/UqEXFvRTSNhVMPZlK9eW2jHn+gOV+C63V
+	/UhLosmJ02y38vBw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7080B1386E;
+	Thu,  2 May 2024 10:25:38 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([10.150.64.162])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id xj3uGSJqM2bfDgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Thu, 02 May 2024 10:25:38 +0000
+Date: Thu, 02 May 2024 12:25:51 +0200
+Message-ID: <87edakjys0.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Simon Trimmer <simont@opensource.cirrus.com>
+Cc: 'Richard Fitzgerald'
+	<rf@opensource.cirrus.com>,
+	<tiwai@suse.com>,
+	<linux-sound@vger.kernel.org>,
+	<alsa-devel@alsa-project.org>,
+	<linux-kernel@vger.kernel.org>,
+	<patches@opensource.cirrus.com>
+Subject: Re: [PATCH] ALSA: hda: cs35l56: Perform firmware download in the
+ background
+In-Reply-To: <001401da9c79$fb9f2de0$f2dd89a0$@opensource.cirrus.com>
+References: <20240501111755.21231-1-simont@opensource.cirrus.com>
+	<87ttjgk6ph.wl-tiwai@suse.de>
+	<a9345d24-af36-42b4-9139-0701a0dbe1a3@opensource.cirrus.com>
+	<87h6fgk0ba.wl-tiwai@suse.de>
+	<001401da9c79$fb9f2de0$f2dd89a0$@opensource.cirrus.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	RCVD_TLS_ALL(0.00)[];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:email,cirrus.com:email,alsa-project.org:email]
+Message-ID-Hash: YYGXGLZBKVJXKLCZJ5GSYV6OCXBNFZCW
+X-Message-ID-Hash: YYGXGLZBKVJXKLCZJ5GSYV6OCXBNFZCW
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -123,7 +163,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZHF4TDMQEV7PIWJKL26EFJIEORJXJOWM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YYGXGLZBKVJXKLCZJ5GSYV6OCXBNFZCW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -132,27 +172,59 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, Apr 25, 2024 at 07:54:41AM +0000, Xu, Baojun wrote:
-> > From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> > Sent: 18 April 2024 19:56
-> > On Thu, Apr 18, 2024 at 12: 02: 37PM +0800, Baojun Xu wrote:
-> > On Thu, Apr 18, 2024 at 12:02:37PM +0800, Baojun Xu wrote:
-
-...
-
-> > >  sound/pci/hda/Kconfig                           | 15 +++++++++++++++
-> > >  sound/pci/hda/Makefile                          |  2 ++
-> > 
-> > Is this correct? You are adding a dead "code", isn't it?
+On Thu, 02 May 2024 12:17:48 +0200,
+Simon Trimmer wrote:
 > 
-> What's mean "dead code"? After add CONFIG_SND_HDA_SCODEC_TAS2781_SPI=m
-> in my config file, the whole patch code has worked.
+> > -----Original Message-----
+> > From: Takashi Iwai <tiwai@suse.de>
+> > Sent: Thursday, May 2, 2024 10:53 AM
+> > To: Richard Fitzgerald <rf@opensource.cirrus.com>
+> > Cc: Simon Trimmer <simont@opensource.cirrus.com>; tiwai@suse.com; linux-
+> > sound@vger.kernel.org; alsa-devel@alsa-project.org; linux-
+> > kernel@vger.kernel.org; patches@opensource.cirrus.com
+> > Subject: Re: [PATCH] ALSA: hda: cs35l56: Perform firmware download in the
+> > background
+> > 
+> > On Thu, 02 May 2024 11:21:36 +0200,
+> > Richard Fitzgerald wrote:
+> > >
+> > > On 02/05/2024 08:34, Takashi Iwai wrote:
+> > > > On Wed, 01 May 2024 13:17:55 +0200,
+> > > > Simon Trimmer wrote:
+> > > >> @@ -964,6 +1011,14 @@ int cs35l56_hda_common_probe(struct
+> > cs35l56_hda *cs35l56, int hid, int id)
+> > > >>   	mutex_init(&cs35l56->base.irq_lock);
+> > > >>   	dev_set_drvdata(cs35l56->base.dev, cs35l56);
+> > > >>   +	cs35l56->dsp_wq =
+> > > >> create_singlethread_workqueue("cs35l56-dsp");
+> > > >> +	if (!cs35l56->dsp_wq) {
+> > > >> +		ret = -ENOMEM;
+> > > >> +		goto err;
+> > > >> +	}
+> > > >
+> > > > Do we really need a dedicated workqueue?  In most usages, simple
+> > > > schedule_work*() works fine and is recommended.
+> > > >
+> > >
+> > > On a slow I2C bus with 4 amps this work could take over 2 seconds.
+> > > That seems too long to be blocking a global system queue. We use a
+> > > dedicated queue in the ASoC driver.
+> > >
+> > > Also if we queue work on an ordered (single-threaded) system queue the
+> > > firmware won't be downloaded to multiple amps in parallel, so we don't
+> > > get the best use of the available bus bandwidth.
+> > 
+> > OK, that sounds like a sensible argument.
+> > 
+> > But the patch has no call of a queue destructor.  Won't it leak
+> > resources?
+> 
+> Oops that's a good spot - I missed that and will send a v2
 
-Is that file already in the repository?
-If not, I don't see it in this patch either --> dead code.
-
--- 
-With Best Regards,
-Andy Shevchenko
+If you submit a newer version, it'd be appreciated to explain about
+the workqueue usage in the patch description, too.
 
 
+thanks,
+
+Takashi

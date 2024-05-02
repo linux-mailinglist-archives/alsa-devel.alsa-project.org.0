@@ -2,89 +2,108 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73B0B8B9707
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2024 11:01:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9023B8B971B
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2024 11:04:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 85900E0F;
-	Thu,  2 May 2024 11:00:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85900E0F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 222D8DFA;
+	Thu,  2 May 2024 11:04:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 222D8DFA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1714640465;
-	bh=F5Z3CegIuDz1KYzRsgzmDjZXhBZBJKlckcG9UPbVRbg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1714640662;
+	bh=lEtKJxXSlmQvsqd7yCKAQ50PVGAGqW5J4DYlQOjkAc0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=bHNC0diKgSJPdK8ofOVW8a4/6RN9Y0lHMJbM1VQqo7eWfd08SSIGrq/tmzLn0LYfC
-	 +ahYhcgavzTpjCImOjbFpG71KFVoEfp5cnz2CLBrPaAt7RiU6N0adbP2cC7JvlTrWz
-	 nhFt7UKICkXVjYJ4aTtgpBCRbtEfmRbscIiz7tlQ=
+	b=hYRDdTzhr6WTJ5t4AS+q08Oqiw0LZi5zi80k+44C6LGF7WhtmucoB8bjhS2LJD8CO
+	 UhNyiVyKhtyuiBu8StFKGHcTBmOZWh56EcAjHTDlTC9TKVOUlvBU/AqHay2dkeBnJI
+	 epPO6Q1SDVIquAu37oUfFTcRyE5Ws3UWMQLP2Jgg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D4569F80587; Thu,  2 May 2024 11:00:34 +0200 (CEST)
+	id 08C3FF8057C; Thu,  2 May 2024 11:03:50 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C3958F805A0;
-	Thu,  2 May 2024 11:00:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D36D0F800AE;
+	Thu,  2 May 2024 11:03:49 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1B810F80266; Thu,  2 May 2024 11:00:27 +0200 (CEST)
+	id B50F6F80266; Thu,  2 May 2024 11:03:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [IPv6:2a00:1450:4864:20::631])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 46FADF800E2
-	for <alsa-devel@alsa-project.org>; Thu,  2 May 2024 11:00:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46FADF800E2
+	by alsa1.perex.cz (Postfix) with ESMTPS id D2F49F800AE
+	for <alsa-devel@alsa-project.org>; Thu,  2 May 2024 11:03:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2F49F800AE
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=DLBAfjSh
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 5349C61A0D;
-	Thu,  2 May 2024 09:00:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 645ECC113CC;
-	Thu,  2 May 2024 09:00:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1714640406;
-	bh=F5Z3CegIuDz1KYzRsgzmDjZXhBZBJKlckcG9UPbVRbg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=DLBAfjShKr935qgIqx23bWiHXrn7CRnEUkn38ngre0YYP1eJiKj4vTQh/m1B/a8Ms
-	 wbTE3rPt4rsZAk69+U5zgpWlqXdpgnJtWpC3+DUZK5shSYpaFSfrgmGys00QN9axic
-	 jLmhK6fkJbRaU1NnP5sghmMr3paAiADobp1W6l/iCV30A96r94qCfGDUsrIq0b79x6
-	 P7lU4qdM+qiWFUfEeEvlOuwCB4Wb68fO+sXeqiDrp/dcO5nG+mk9fxUG7XjtW1eN2S
-	 OUyKULESIuqRiPvyV8LOA3bqHE4x+BCRfsNgCiJnKRbcnguykfNdTAD44sAJ0chiOa
-	 GeVN/aj3vjbqA==
-Date: Thu, 2 May 2024 09:59:56 +0100
-From: Mauro Carvalho Chehab <mchehab@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: Mark Brown <broonie@kernel.org>, Sebastian Fricke
- <sebastian.fricke@collabora.com>, Shengjiu Wang <shengjiu.wang@nxp.com>,
- hverkuil@xs4all.nl, sakari.ailus@iki.fi, tfiga@chromium.org,
- m.szyprowski@samsung.com, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org, shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com,
- festevam@gmail.com, nicoleotsuka@gmail.com, lgirdwood@gmail.com,
- perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
- linuxppc-dev@lists.ozlabs.org
-Subject: Re: [PATCH v15 00/16] Add audio support in v4l2 framework
-Message-ID: <20240502095956.0a8c5b26@sal.lan>
-In-Reply-To: <87sez0k661.wl-tiwai@suse.de>
-References: <1710834674-3285-1-git-send-email-shengjiu.wang@nxp.com>
-	<20240430082112.jrovosb6lgblgpfg@basti-XPS-13-9310>
-	<ZjEEKyvb02CWz3l4@finisterre.sirena.org.uk>
-	<20240430172752.20ffcd56@sal.lan>
-	<ZjGhPz-bokg6ZbDJ@finisterre.sirena.org.uk>
-	<87sez0k661.wl-tiwai@suse.de>
-X-Mailer: Claws Mail 4.2.0 (GTK 3.24.41; x86_64-redhat-linux-gnu)
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=DcXjggBL
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-a596cb8a7dbso44578766b.1
+        for <alsa-devel@alsa-project.org>;
+ Thu, 02 May 2024 02:03:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1714640606; x=1715245406;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=lEtKJxXSlmQvsqd7yCKAQ50PVGAGqW5J4DYlQOjkAc0=;
+        b=DcXjggBLe55xFBM4SRhVs+iOYXY7xhzBJRW3yJVSEXwgjbb5yIL2QLmwNwy6hH75f+
+         TkGsOgcv/nE6i2xftarfDk9sfcApeQbrh9emb4rp+ddTXdOSDmpf0hAU0rDW2/cLZ4Ca
+         z9CcRKNu2D0G9ggC+Joxm/0YbElzvqH4pIgqzEZY8QvF/R5lzx1OI4+BeCxir75ZyJn9
+         Mils0hDOL3djyp1QhX8HgvIHgc0yuowb1Mnhhyudc8tpoSICM59pexwzeDNDnZXdXUBF
+         mcJ0SRn6HNccffYsfl2TdzRFMqe+VX5i54xvTW0g4uIy4QzmqyslV/9B5fPpq4E7vJz6
+         Chcw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1714640606; x=1715245406;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=lEtKJxXSlmQvsqd7yCKAQ50PVGAGqW5J4DYlQOjkAc0=;
+        b=czRq8u3qPs1hfB1JlIzQMk0mNq8vWTjlb/xViM8CeEu1yiFpxy2ZXIWdIZ5LzfKkiV
+         Jaqfr6kt4LxtmvvAOytG/fqvbBKCDuR5DmdPCXucEiZNjWB886HWNDLOazRvVf6D993E
+         ibwrXndIBSj3Po6svr5BUZN3WcG6LfJbOixKL1OU2Ly5JLxFXkcyfOs/YBQmnYIoOVUM
+         uAqjlUnKQLzh0mfn4AzqfqG+PMJAOYSwsk+neHumNAXQ8oSdRGy1JTFFpz68Jq110OtY
+         w2f7sTdqoyY6H5zRhS1reOASwV63Lm7NJ1Vqsj8bV6XzOFqaHX5lIXcEHTHXN/hceKNx
+         zXkQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVmHRnC9udG9A2uRan4yGQVsOw82KVh8AA/zQJU2jfpBn9cKuyZecoAbQz8VRAx2/kZShOc1tsJ2oOljx9OguJcXgfkGbXHSQAxuv8=
+X-Gm-Message-State: AOJu0YyQ6dtA6nGHyewUHp9M8P7wvOV6/oPh9QMimmaSzn4EBOKP4MXJ
+	Yl7fQEs4fJ8kZ27WsaD8lwF2YAUWX/U6oSruYAIsaTXejLceVyGx+EPtgJb8L/M1ZOwn4ctlNCa
+	gr0EeYkm7jPXwAPNZVO/AzWm7uqU=
+X-Google-Smtp-Source: 
+ AGHT+IGw94Wmij15AjtKfmzjYu/+fDi97bU83JzDlqFnLK4MVTKfhR6YGZCnHgrja/O5jnNNaC6YaeBpl+sPbJB9VJQ=
+X-Received: by 2002:a17:906:40c9:b0:a58:e4d9:618b with SMTP id
+ a9-20020a17090640c900b00a58e4d9618bmr2903169ejk.19.1714640606290; Thu, 02 May
+ 2024 02:03:26 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: ENYHHMJANNHBZCBB4K3SIX4F5YUL2XVD
-X-Message-ID-Hash: ENYHHMJANNHBZCBB4K3SIX4F5YUL2XVD
-X-MailFrom: mchehab@kernel.org
+References: <20240502074722.1103986-2-u.kleine-koenig@pengutronix.de>
+In-Reply-To: <20240502074722.1103986-2-u.kleine-koenig@pengutronix.de>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Thu, 2 May 2024 12:02:50 +0300
+Message-ID: 
+ <CAHp75VfTzbQaU-i5VTeh3aZ0KSyNu8Xnbkr1PMvAty=rLQ0oVQ@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: codecs: Drop explicit initialization of struct
+ i2c_device_id::driver_data to 0
+To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+	Andy Shevchenko <andy@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>,
+	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+	kernel@pengutronix.de
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: KPB2YRCTCWQQTIKJY7555BUMV75GPHCF
+X-Message-ID-Hash: KPB2YRCTCWQQTIKJY7555BUMV75GPHCF
+X-MailFrom: andy.shevchenko@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -96,7 +115,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ENYHHMJANNHBZCBB4K3SIX4F5YUL2XVD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KPB2YRCTCWQQTIKJY7555BUMV75GPHCF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -105,85 +124,20 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Em Thu, 02 May 2024 09:46:14 +0200
-Takashi Iwai <tiwai@suse.de> escreveu:
+On Thu, May 2, 2024 at 10:47=E2=80=AFAM Uwe Kleine-K=C3=B6nig
+<u.kleine-koenig@pengutronix.de> wrote:
+>
+> These drivers don't use the driver_data member of struct i2c_device_id,
+> so don't explicitly initialize this member.
+>
+> This prepares putting driver_data in an anonymous union which requires
+> either no initialization or named designators. But it's also a nice
+> cleanup on its own.
 
-> On Wed, 01 May 2024 03:56:15 +0200,
-> Mark Brown wrote:
-> > 
-> > On Tue, Apr 30, 2024 at 05:27:52PM +0100, Mauro Carvalho Chehab wrote:  
-> > > Mark Brown <broonie@kernel.org> escreveu:  
-> > > > On Tue, Apr 30, 2024 at 10:21:12AM +0200, Sebastian Fricke wrote:  
-> >   
-> > > > The discussion around this originally was that all the audio APIs are
-> > > > very much centered around real time operations rather than completely  
-> >   
-> > > The media subsystem is also centered around real time. Without real
-> > > time, you can't have a decent video conference system. Having
-> > > mem2mem transfers actually help reducing real time delays, as it 
-> > > avoids extra latency due to CPU congestion and/or data transfers
-> > > from/to userspace.  
-> > 
-> > Real time means strongly tied to wall clock times rather than fast - the
-> > issue was that all the ALSA APIs are based around pushing data through
-> > the system based on a clock.
-> >   
-> > > > That doesn't sound like an immediate solution to maintainer overload
-> > > > issues...  if something like this is going to happen the DRM solution
-> > > > does seem more general but I'm not sure the amount of stop energy is
-> > > > proportionate.  
-> >   
-> > > I don't think maintainer overload is the issue here. The main
-> > > point is to avoid a fork at the audio uAPI, plus the burden
-> > > of re-inventing the wheel with new codes for audio formats,
-> > > new documentation for them, etc.  
-> > 
-> > I thought that discussion had been had already at one of the earlier
-> > versions?  TBH I've not really been paying attention to this since the
-> > very early versions where I raised some similar "why is this in media"
-> > points and I thought everyone had decided that this did actually make
-> > sense.  
-> 
-> Yeah, it was discussed in v1 and v2 threads, e.g.
->   https://patchwork.kernel.org/project/linux-media/cover/1690265540-25999-1-git-send-email-shengjiu.wang@nxp.com/#25485573
-> 
-> My argument at that time was how the operation would be, and the point
-> was that it'd be a "batch-like" operation via M2M without any timing
-> control.  It'd be a very special usage for for ALSA, and if any, it'd
-> be hwdep -- that is a very hardware-specific API implementation -- or
-> try compress-offload API, which looks dubious.
-> 
-> OTOH, the argument was that there is already a framework for M2M in
-> media API and that also fits for the batch-like operation, too.  So
-> was the thread evolved until now.
+There are some drivers that have other (than I=C2=B2C) ID tables, which
+follow the same format. Can you also do the same with them for the
+sake of consistency?
 
-M2M transfers are not a hardware-specific API, and such kind of
-transfers is not new either. Old media devices like bttv have
-internally a way to do PCI2PCI transfers, allowing media streams
-to be transferred directly without utilizing CPU. The media driver
-supports it for video, as this made a huge difference of performance
-back then.
-
-On embedded world, this is a pretty common scenario: different media
-IP blocks can communicate with each other directly via memory. This
-can happen for video capture, video display and audio.
-
-With M2M, most of the control is offloaded to the hardware.
-
-There are still time control associated with it, as audio and video
-needs to be in sync. This is done by controlling the buffers size 
-and could be fine-tuned by checking when the buffer transfer is done.
-
-On media, M2M buffer transfers are started via VIDIOC_QBUF,
-which is a request to do a frame transfer. A similar ioctl
-(VIDIOC_DQBUF) is used to monitor when the hardware finishes
-transfering the buffer. On other words, the CPU is responsible
-for time control.
-
-On other words, this is still real time. The main difference
-from a "sync" transfer is that the CPU doesn't need to copy data
-from/to different devices, as such operation is offloaded to the
-hardware.
-
-Regards,
-Mauro
+--=20
+With Best Regards,
+Andy Shevchenko

@@ -2,157 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C38128BAFA3
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 May 2024 17:17:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 893868BAFD7
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 May 2024 17:32:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 35958E72;
-	Fri,  3 May 2024 17:17:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 35958E72
+	by alsa0.perex.cz (Postfix) with ESMTPS id C5B06E7D;
+	Fri,  3 May 2024 17:32:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C5B06E7D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1714749470;
-	bh=KJfqZgax64prPMpPNUNofDSkKySTwOCkxTH+UF6nTso=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1714750330;
+	bh=ZTeqTIx6NtGxx8vrxI3M+OcWZ4Fj8MiLEDhysehAouk=;
+	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=CRFicBhcQVCxLMytKFLaLTUsMSP4D3i52NCRIXrSGf8m/U2oHb1G7Cit0Db1LGzxx
-	 u2/4d5tFTbvHNcP7uzPy0/981WB8ypUPIQIfw3Xu6SadxwHINHQ2JtZFxioEw15gAH
-	 HXai2KwfG+MrkDYXHePl4EgCd95B+zDvVRXPu9ok=
+	b=SiMy2yieP0XDgeFii/yxLi+p2skasFVo6PQIoN7oEAK0sPXaTtXsgrGaSBH6JgQiA
+	 NtHuKxcbT7uKw44ALBUz8zZ/3Uc3BfBu2ArjMQeJ1LRaB9UYog0NybjrcAxkvBb4Sf
+	 nk87pNNVk/+ePy35jIrQGLmhv33PG4lnpbVwNfgw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 12E26F8049C; Fri,  3 May 2024 17:17:18 +0200 (CEST)
+	id E143EF80571; Fri,  3 May 2024 17:31:36 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3C0BEF80578;
-	Fri,  3 May 2024 17:17:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1620FF804FB;
+	Fri,  3 May 2024 17:31:36 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E4D66F80266; Fri,  3 May 2024 17:17:13 +0200 (CEST)
+	id 12052F80266; Fri,  3 May 2024 17:31:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7C8CCF8023A
-	for <alsa-devel@alsa-project.org>; Fri,  3 May 2024 17:17:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7C8CCF8023A
+	by alsa1.perex.cz (Postfix) with ESMTPS id E6C88F800AE
+	for <alsa-devel@alsa-project.org>; Fri,  3 May 2024 17:31:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E6C88F800AE
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=b6wBVG10;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=5M4/TA5h;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=b6wBVG10;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=5M4/TA5h
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 736B533B85;
-	Fri,  3 May 2024 15:17:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1714749421;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=isFjC32uACt6O65rKRP2AYTy2BLvdanLyHjx9bEOYoU=;
-	b=b6wBVG10rWRDWC/tMakRx+KruYCZjN2543NHu976oIzu0JGN47DSY8iDZfYOyCQ0LwbJxw
-	s+enfHldW4I++Y0dmo87OWaS2DQCxwxuMuHZilQL8EvbD7NiN4NIeB9Wo4i+CjdBO8NwAX
-	5+EEL737XNZ7oF9NBdDdrSOq10zxrPk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1714749421;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=isFjC32uACt6O65rKRP2AYTy2BLvdanLyHjx9bEOYoU=;
-	b=5M4/TA5haAIuk+cA5ivsW29ZmdmtuEVP54jp+f6jhha/Cod1ggUopj4E6dg/Wxu/NonsMV
-	QaB1I7uuKiUB0KDQ==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=b6wBVG10;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="5M4/TA5h"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1714749421;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=isFjC32uACt6O65rKRP2AYTy2BLvdanLyHjx9bEOYoU=;
-	b=b6wBVG10rWRDWC/tMakRx+KruYCZjN2543NHu976oIzu0JGN47DSY8iDZfYOyCQ0LwbJxw
-	s+enfHldW4I++Y0dmo87OWaS2DQCxwxuMuHZilQL8EvbD7NiN4NIeB9Wo4i+CjdBO8NwAX
-	5+EEL737XNZ7oF9NBdDdrSOq10zxrPk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1714749421;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=isFjC32uACt6O65rKRP2AYTy2BLvdanLyHjx9bEOYoU=;
-	b=5M4/TA5haAIuk+cA5ivsW29ZmdmtuEVP54jp+f6jhha/Cod1ggUopj4E6dg/Wxu/NonsMV
-	QaB1I7uuKiUB0KDQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4689A139CB;
-	Fri,  3 May 2024 15:17:01 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id lxT9D+3/NGa0KQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Fri, 03 May 2024 15:17:01 +0000
-Date: Fri, 03 May 2024 17:17:15 +0200
-Message-ID: <87msp79b7o.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Cc: <tiwai@suse.com>,
-	<linux-kernel@vger.kernel.org>,
-	<patches@opensource.cirrus.com>,
-	<alsa-devel@alsa-project.org>,
-	<linux-sound@vger.kernel.org>
+	dkim=pass (2048-bit key,
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=Dr9O6AP+
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
+ 4436hOkY022022;
+	Fri, 3 May 2024 10:31:18 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
+	message-id:date:mime-version:subject:to:cc:references:from
+	:in-reply-to:content-type:content-transfer-encoding; s=
+	PODMain02222019; bh=pMP28VeqYfHHwml5T9dmOpi3+UZclYD9X6K1JwLGHJo=; b=
+	Dr9O6AP+oXJuidoEdBkHvdZCO3Bzt0nNAUUADrXr1Y1kDQsMpNmHzFxhVc9Q1K6h
+	5izS3niLeL8BO1z77Thvvj7KiaAiZrvW2lFqstbkEE5P6+HYeiU3Dtg907wworxv
+	M6A0Tk2aYXJzV8roem1kCWwgWhSbtR3+a1wIxQxHiPNno+ASYDc3ovhsuLO89Lz0
+	FLlaz2MKtCD6UAaUBsbnNQHBNHoefLac8xiURenWE6sOE7BMdlNKOSAyXeC8IA1h
+	1LaJUoNpdeqgXa3hxwdf8y4TUGS1SyB7xQ6GDLN8Arxig5t49ueVbekrFkMy59ZF
+	elrlc2ltlAjPW0x7uR7bhw==
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3xrxry6xm0-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 03 May 2024 10:31:17 -0500 (CDT)
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Fri, 3 May 2024
+ 16:31:15 +0100
+Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
+ ediex01.ad.cirrus.com (198.61.84.80) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9
+ via Frontend Transport; Fri, 3 May 2024 16:31:15 +0100
+Received: from [198.90.208.18] (ediswws06.ad.cirrus.com [198.90.208.18])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id 55FED82026C;
+	Fri,  3 May 2024 15:31:15 +0000 (UTC)
+Message-ID: <d9c5b863-53a5-4255-ab15-9ac3cb10ec10@opensource.cirrus.com>
+Date: Fri, 3 May 2024 16:31:15 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] ALSA: hda/cs_dsp_ctl: Actually remove ALSA controls
-In-Reply-To: <20240503144920.61075-1-rf@opensource.cirrus.com>
+To: Takashi Iwai <tiwai@suse.de>
+CC: <tiwai@suse.com>, <linux-kernel@vger.kernel.org>,
+        <patches@opensource.cirrus.com>, <alsa-devel@alsa-project.org>,
+        <linux-sound@vger.kernel.org>
 References: <20240503144920.61075-1-rf@opensource.cirrus.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-5.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	DWL_DNSWL_MED(-2.00)[suse.de:dkim];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_TLS_ALL(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: 736B533B85
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-Message-ID-Hash: 74WZFAAR4W6EYVBZGLVQ37VAZC5I56CA
-X-Message-ID-Hash: 74WZFAAR4W6EYVBZGLVQ37VAZC5I56CA
-X-MailFrom: tiwai@suse.de
+ <87msp79b7o.wl-tiwai@suse.de>
+Content-Language: en-GB
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+In-Reply-To: <87msp79b7o.wl-tiwai@suse.de>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: BAPHobn_D-X9cL0eHn5O9nS7ov3uewiI
+X-Proofpoint-GUID: BAPHobn_D-X9cL0eHn5O9nS7ov3uewiI
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: 46MZQESY435X2PY5N34T7WC2GDGCLTTA
+X-Message-ID-Hash: 46MZQESY435X2PY5N34T7WC2GDGCLTTA
+X-MailFrom: prvs=2853e2c642=rf@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -164,72 +104,92 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/74WZFAAR4W6EYVBZGLVQ37VAZC5I56CA/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/46MZQESY435X2PY5N34T7WC2GDGCLTTA/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 03 May 2024 16:49:20 +0200,
-Richard Fitzgerald wrote:
+On 03/05/2024 16:17, Takashi Iwai wrote:
+> On Fri, 03 May 2024 16:49:20 +0200,
+> Richard Fitzgerald wrote:
+>>
+>> hda_cs_dsp_control_remove() must remove the ALSA control when
+>> deleting all the infrastructure for handling the control.
+>>
+>> Without this it is possible for ALSA controls to be left in
+>> the Soundcard after the amp driver module has been unloaded.
+>> So the get/set callbacks point to code that no longer exists.
+>>
+>> Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+>> Fixes: 3233b978af23 ("ALSA: hda: hda_cs_dsp_ctl: Add Library to support CS_DSP ALSA controls")
+>> ---
+>> Note: it would be better to use the control private_free to do the
+>> cleanup, and that is my plan long-term. But that is a larger change
+>> to the code.
+>>
+>> I like to keep bugfix patches as simple as possible so they are
+>> low-risk and easy to cherry-pick into older kernels. So this patch
+>> fixes the bug. Sometime I will send a patch for future kernel
+>> versions that reworks the cleanup to use private_free.
 > 
-> hda_cs_dsp_control_remove() must remove the ALSA control when
-> deleting all the infrastructure for handling the control.
+> I also like to keep as simple as possible :)
 > 
-> Without this it is possible for ALSA controls to be left in
-> the Soundcard after the amp driver module has been unloaded.
-> So the get/set callbacks point to code that no longer exists.
+> One slight concern is whether cs_dsp kctls can be deleted at the
+> snd_card removal (disconnect) before this function gets called.
+> That is, snd_card_free() of the main card may delete all associated
+> kctls, and may this function be called afterwards?
+> If yes, this change would lead to a UAF.
 > 
-> Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
-> Fixes: 3233b978af23 ("ALSA: hda: hda_cs_dsp_ctl: Add Library to support CS_DSP ALSA controls")
-> ---
-> Note: it would be better to use the control private_free to do the
-> cleanup, and that is my plan long-term. But that is a larger change
-> to the code.
+
+That's a good question. This is is safe for the cs35l56 driver because
+if the soundcard (or HDA codec driver) is removed, the HDA codec will
+destroy the component binding in its HDA_FIXUP_ACT_FREE. This will cause
+an unbind() call to the amp driver, which will (indirectly) call this
+function to remove all the controls. So they will have been removed
+before the soundcard is cleaned up.
+
+But it turns out that the cs35l41 driver doesn't clean up the cs_dsp
+instance in its unbind() call so the controls _won't_ be cleaned up
+and a double-free is possible. The firmware handling in the cs35l41
+driver is strange and confusing so I'm not sure whether this is a bug
+or something necessary.
+
+> The structure is so complex and I can't follow immediately,
+> unfortunately...
 > 
-> I like to keep bugfix patches as simple as possible so they are
-> low-risk and easy to cherry-pick into older kernels. So this patch
-> fixes the bug. Sometime I will send a patch for future kernel
-> versions that reworks the cleanup to use private_free.
 
-I also like to keep as simple as possible :)
+Yes, I know. When this hda_cs_dsp_ctl code was first submitted to the
+kernel you suggested using private_free instead of this manual cleanup
+but for some reason that wasn't implemented.
 
-One slight concern is whether cs_dsp kctls can be deleted at the
-snd_card removal (disconnect) before this function gets called.
-That is, snd_card_free() of the main card may delete all associated
-kctls, and may this function be called afterwards?
-If yes, this change would lead to a UAF.
-
-The structure is so complex and I can't follow immediately,
-unfortunately...
-
-
-thanks,
-
-Takashi
-
-> ---
->  sound/pci/hda/hda_cs_dsp_ctl.c | 4 ++++
->  1 file changed, 4 insertions(+)
 > 
-> diff --git a/sound/pci/hda/hda_cs_dsp_ctl.c b/sound/pci/hda/hda_cs_dsp_ctl.c
-> index 463ca06036bf..a42653d3473d 100644
-> --- a/sound/pci/hda/hda_cs_dsp_ctl.c
-> +++ b/sound/pci/hda/hda_cs_dsp_ctl.c
-> @@ -203,6 +203,10 @@ void hda_cs_dsp_control_remove(struct cs_dsp_coeff_ctl *cs_ctl)
->  {
->  	struct hda_cs_dsp_coeff_ctl *ctl = cs_ctl->priv;
->  
-> +	/* Only public firmware controls will have an associated kcontrol */
-> +	if (ctl && ctl->kctl)
-> +		snd_ctl_remove(ctl->card, ctl->kctl);
-> +
->  	kfree(ctl);
->  }
->  EXPORT_SYMBOL_NS_GPL(hda_cs_dsp_control_remove, SND_HDA_CS_DSP_CONTROLS);
-> -- 
-> 2.39.2
+> thanks,
 > 
+> Takashi
+> 
+>> ---
+>>   sound/pci/hda/hda_cs_dsp_ctl.c | 4 ++++
+>>   1 file changed, 4 insertions(+)
+>>
+>> diff --git a/sound/pci/hda/hda_cs_dsp_ctl.c b/sound/pci/hda/hda_cs_dsp_ctl.c
+>> index 463ca06036bf..a42653d3473d 100644
+>> --- a/sound/pci/hda/hda_cs_dsp_ctl.c
+>> +++ b/sound/pci/hda/hda_cs_dsp_ctl.c
+>> @@ -203,6 +203,10 @@ void hda_cs_dsp_control_remove(struct cs_dsp_coeff_ctl *cs_ctl)
+>>   {
+>>   	struct hda_cs_dsp_coeff_ctl *ctl = cs_ctl->priv;
+>>   
+>> +	/* Only public firmware controls will have an associated kcontrol */
+>> +	if (ctl && ctl->kctl)
+>> +		snd_ctl_remove(ctl->card, ctl->kctl);
+>> +
+>>   	kfree(ctl);
+>>   }
+>>   EXPORT_SYMBOL_NS_GPL(hda_cs_dsp_control_remove, SND_HDA_CS_DSP_CONTROLS);
+>> -- 
+>> 2.39.2
+>>
+

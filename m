@@ -2,92 +2,189 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 086598BA913
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 May 2024 10:43:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 346A18BAB59
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 May 2024 13:06:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 384A7A4A;
-	Fri,  3 May 2024 10:43:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 384A7A4A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 530719F6;
+	Fri,  3 May 2024 13:06:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 530719F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1714725804;
-	bh=MET1Qlb3RINT8Dmpmt3ZV/bGlWPZcEfr50B9DIeHIIU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1714734382;
+	bh=GAXnuzl9HHI93E4+IRObTk1pifpQBYUecD+P8pIBJHw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=HSO4CDR/xPtJJvy3zX8Dt0dvTBAb8zrVnOtyCkElm4EkyIjc0tun79LjCCxqZayll
-	 4zrNoK4IaXUGln/7k3UXNZaX3W21U54+7ibNdF+IZgA5x90UDZ3LEsQxrpPlcy1mHR
-	 sVK7iMEVtLx75FvsU6YndtM6fQEUnar2CEJCJ/1Q=
+	b=rh97AKx5Rqv/xf0fDrjern4TFFsE8BcHlygeBWOTgpQuNQ+sARDN1B4NLIZSbavPA
+	 k7FJ0EMUveYqIlDt7yAF0xl2YgKmGS99Bl+qgHeaNSIK8grHEQ/UnwKufj6yt6oKuN
+	 q8Oqd0OQSsojxfqyixPqaHR/4w6HK6/NigQOKsEA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AE804F80570; Fri,  3 May 2024 10:42:52 +0200 (CEST)
+	id 5C316F8025D; Fri,  3 May 2024 13:05:50 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 43A3AF80570;
-	Fri,  3 May 2024 10:42:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 02221F805A1;
+	Fri,  3 May 2024 13:05:50 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4D69BF80266; Fri,  3 May 2024 10:42:45 +0200 (CEST)
+	id CB0ACF80266; Fri,  3 May 2024 13:03:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20600.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:2415::600])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 97F72F800E2
-	for <alsa-devel@alsa-project.org>; Fri,  3 May 2024 10:42:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97F72F800E2
+	by alsa1.perex.cz (Postfix) with ESMTPS id E5B27F800E2
+	for <alsa-devel@alsa-project.org>; Fri,  3 May 2024 13:03:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5B27F800E2
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=JIt7IELV
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 3E42F61CDF;
-	Fri,  3 May 2024 08:42:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14B42C116B1;
-	Fri,  3 May 2024 08:42:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1714725753;
-	bh=MET1Qlb3RINT8Dmpmt3ZV/bGlWPZcEfr50B9DIeHIIU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=JIt7IELVzP41blGAllJ9i8j/HS//Q/20ZO9vPGBh8jb46CD6lFpzHqh6QbE6VgOY2
-	 rJ0dQ5I+IE0MHPV9U+hn8BD4+lTOpcGpli29Gue6Q+GNcsz3a7uW5wTQIFIANNh+Ih
-	 c90B5GxcJU4Cen1jbpOB4Zq19rfVUU6XKR22jYI1ONTpok0fBVYIjBsIR3QRN0ahOE
-	 EVgqqfIW5tpxj3/tw0fzx3mKx7ybFh3xANShJf3fLXLHHirdNjAi6igogfygNFNiq/
-	 SpV2vQXcG/lvkopazpgf9f7UFEovF26N5XMXxRn63f9Z9ZxfaOK5OjI2Mh6NBcdWM8
-	 01uL84MAgn/gw==
-Date: Fri, 3 May 2024 09:42:25 +0100
-From: Mauro Carvalho Chehab <mchehab@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Cc: Takashi Iwai <tiwai@suse.de>, Sebastian Fricke
- <sebastian.fricke@collabora.com>, Shengjiu Wang <shengjiu.wang@nxp.com>,
- hverkuil@xs4all.nl, sakari.ailus@iki.fi, tfiga@chromium.org,
- m.szyprowski@samsung.com, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org, shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com,
- festevam@gmail.com, nicoleotsuka@gmail.com, lgirdwood@gmail.com,
- perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
- linuxppc-dev@lists.ozlabs.org
-Subject: Re: [PATCH v15 00/16] Add audio support in v4l2 framework
-Message-ID: <20240503094225.47fe4836@sal.lan>
-In-Reply-To: <ZjRCJ2ZcmKOIo7_p@finisterre.sirena.org.uk>
-References: <1710834674-3285-1-git-send-email-shengjiu.wang@nxp.com>
-	<20240430082112.jrovosb6lgblgpfg@basti-XPS-13-9310>
-	<ZjEEKyvb02CWz3l4@finisterre.sirena.org.uk>
-	<20240430172752.20ffcd56@sal.lan>
-	<ZjGhPz-bokg6ZbDJ@finisterre.sirena.org.uk>
-	<87sez0k661.wl-tiwai@suse.de>
-	<20240502095956.0a8c5b26@sal.lan>
-	<20240502102643.4ee7f6c2@sal.lan>
-	<ZjRCJ2ZcmKOIo7_p@finisterre.sirena.org.uk>
-X-Mailer: Claws Mail 4.2.0 (GTK 3.24.41; x86_64-redhat-linux-gnu)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+	dkim=pass (1024-bit key,
+ unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
+ header.s=selector1 header.b=a8VLwc2v
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=CKxSiztx273QYb0Coh1bf17TGha3C2ECEOtJnTOdeNuVV9pxIVo/gussipI98JotABLhfpwJ1HVPzul4lQKVf79DoOyj8QuUeD4QQHF+ZslKrjglIeSvJuo0zdHlNP1wNAoLluSfIUdT/A5qDy7F2MsBO1MS7Om0DnrT59Tn3nQRJ50qWgdeDCSo1nHlBatH5comfMoLU+JhR5qiLUEbqTZYimlFRaG01FTf6Re3CuCY9IZ8gKcua9HKY+ULaknYB+ySjgST8+zwfv4lp9jXZ4SjeMX2Vk3XBI4+g62O5LiBa0jf3phDsvCnopcEE+RN+dY1LzkC3EGneyGhAH0edA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CAVYXV9DRUCguMRlxbkbg8tEO6atVTEYFEDlDc+MLps=;
+ b=KxX93kf2w4AKRFGLutIDaLJDisO0gV/+ZiKQCmtXWfk6feq/V9Sgk9Fym8Pwdnp5g0iTp3zrEb5YjRW2pbHq8u2qa5b5GZhDCopPtLUvj6pttaD/b02fe9IqgRZlPDwTkkklpAJmKY9aQWXoUVEEm+NnPwnKJ6ybe0CsuGsABD2OQcge2Rx2y4+weqGTRoixy+7EuXdbulJVludrN8uhkSWqZcxKexVjcWMbo+fGQb7zBzmXquO0lu5aUqV/t6RIHgwKB0tv0Wt2khQDvU8TTnGxum+VsYZX3VAn073fltz+YwRWPlIP+2p8K4o0goC20usoV2Fttxmq0vsSA3ZuKg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CAVYXV9DRUCguMRlxbkbg8tEO6atVTEYFEDlDc+MLps=;
+ b=a8VLwc2vwUMTkHFloJwBI9Vbp5tSTm+CZB36nlDRvOPHL1jjsl6U9MlNZatmmZScDzeM50OccI4axC+JHV/iNuFvFawHUqpgZ/pJRVO9OAQhrNaJcoAQ7ZNOiSsVTRL294GTodMuW/gOAcRZn7pmWWMF0mgnBIPXcBZkknatXpc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB4123.namprd12.prod.outlook.com (2603:10b6:5:21f::23)
+ by SJ1PR12MB6147.namprd12.prod.outlook.com (2603:10b6:a03:45a::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.30; Fri, 3 May
+ 2024 11:03:29 +0000
+Received: from DM6PR12MB4123.namprd12.prod.outlook.com
+ ([fe80::512d:6caa:552a:7ebf]) by DM6PR12MB4123.namprd12.prod.outlook.com
+ ([fe80::512d:6caa:552a:7ebf%4]) with mapi id 15.20.7544.029; Fri, 3 May 2024
+ 11:03:29 +0000
+Message-ID: <d5a045ec-5ab3-43fc-9625-82e8fca87035@amd.com>
+Date: Fri, 3 May 2024 16:33:18 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] ASoC: amd: acp: fix for acp platform device creation
+ failure
+Content-Language: en-US
+To: broonie@kernel.org
+Cc: alsa-devel@alsa-project.org, venkataprasad.potturu@amd.com,
+ Basavaraj.Hiregoudar@amd.com, Sunil-kumar.Dommati@amd.com,
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Syed Saba Kareem <Syed.SabaKareem@amd.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ Jarkko Nikula <jarkko.nikula@bitmer.com>,
+ "open list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <linux-sound@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
+References: <20240502140340.4049021-1-Vijendar.Mukunda@amd.com>
+From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+In-Reply-To: <20240502140340.4049021-1-Vijendar.Mukunda@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: OXW5USYSBPERSYG7GWPUTH4SZQSFOS53
-X-Message-ID-Hash: OXW5USYSBPERSYG7GWPUTH4SZQSFOS53
-X-MailFrom: mchehab@kernel.org
+X-ClientProxiedBy: PN3PR01CA0062.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:99::11) To DM6PR12MB4123.namprd12.prod.outlook.com
+ (2603:10b6:5:21f::23)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4123:EE_|SJ1PR12MB6147:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3b2685ef-08e4-4689-3c2b-08dc6b60a985
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230031|1800799015|7416005|366007|376005;
+X-Microsoft-Antispam-Message-Info: 
+	=?utf-8?B?bi9BcXM2OTR6ZlhoRUhMMW9uRUthdXhOY2x1dGwybnBBeU55cnU3WUNVOFR2?=
+ =?utf-8?B?dkVodWVtNTAxTmV5Mm1xbHVEWEZOVVJaSk1MK1FidWhtd0lDVVk0Unh4bUp5?=
+ =?utf-8?B?a1Q3a202aHRpanZXUnI2RjlkSEtick5rOUg4bkJGY0U3OUxJdUtFUEk1N091?=
+ =?utf-8?B?dkVCK3ZlT1pxWEwyaU9RWnFIK2lFS24yR1VENndJMllsV0lZSE8zRmR3bGtN?=
+ =?utf-8?B?V0xXUkd0dUY0ZmU3UkM3NEdOSjVUMUhXQ01jTnJUTnZMcE9ZU1BxYngvbUp1?=
+ =?utf-8?B?Yy9MaTJwK0UrNENPbDZkdUtzbjE3STZ6dVJOckxHUXFIemg0a0t6Rmt1c0Ju?=
+ =?utf-8?B?N3BoVWt4M1RHQ0dHbUUyVUc3aURuVTNPZHhNTWppRGtOQktmS3V4SXlJbHpu?=
+ =?utf-8?B?TmRCMWhHRFZObXcrUTBDTEF6RGRsVWZMMzB0NXhNVXlQK1RUVmR2MjJXQi91?=
+ =?utf-8?B?alM2dDV4WTQxZnFpK2xWV2x4NXo0SExoM21FMWFTdlBVUFpFTVNhaFB4dlRa?=
+ =?utf-8?B?RDkwaFd0MDQ5UFNOeGpWQ0tqcThxeDI4NTlQTmlwZ2xVaTR4RzNDUVQ1RXhh?=
+ =?utf-8?B?UHR5d1FxMXZTaHIyUkFRSHFWSzdhR0h2YllPbUd1dUpEa2piRlNpS1dNOEky?=
+ =?utf-8?B?bGVOWWtVRFRTUTBhZ2ZWU0N2ZCtMV2tBY2ZQWkdJc3ptNmNuK2ovcVVjSnpD?=
+ =?utf-8?B?aG8yUEdxdXViMVI5c25zRlg3RlQ5VjB6S1RtOUszV3ZvQmg1SzdJazkrd0po?=
+ =?utf-8?B?SFRuVWlxR2F3c1ArZE1MYm1kR0I0dDNQZVVUZFNQTU56QjIydThKdHFtVEtl?=
+ =?utf-8?B?dUluOFhDTXpTbFcvWEdLUUtKa1FEV20rbi9RczZlRE1Pblo4NUtUSVRCNU9O?=
+ =?utf-8?B?OTlEMXJaNEoveXVRZlBrWTVzMGxtRmtjRW9KM1U5ZnowWFZyN2UxeGZrM0NB?=
+ =?utf-8?B?ZTZMMFI3dmR2Q3NaRm52U2trZDVWNGRSMncvZXZQb3hxTnRwUGFsV2E1VzY5?=
+ =?utf-8?B?UjBGMnZTaVV6TU5SM1ZHWURhOHZiUSs5ZXJ5bkVTSTJOcU9nWUkyT1RqL1hy?=
+ =?utf-8?B?UFpSYUdFYlB5U3BKdDNmNG5zc3VwbXhnZnRlMGpFLyt4QXRQZDdSNUFjVUFa?=
+ =?utf-8?B?M3MydGI1L1h4QnMrNEl3YVVpK2pLRWVlV004eFUvdXdlZ0VoTHpUVnA2Sks5?=
+ =?utf-8?B?RkZIM3ZJSS9VSkFlNk9EcFMyQkhvYXNYK1lzRXY4TGRzR0xtc1VMME9rLzJ5?=
+ =?utf-8?B?NUJPLzNSMWZLMjM5em5DZDZhK0FFdVoybTlIOXU0MCswamxmNFptVnJJUlRC?=
+ =?utf-8?B?MFBUd3JZSFpQVGVFRUhSam9KZmtoQktPalBoZ3BrTWFjT2NJSGIvcWxRVXZN?=
+ =?utf-8?B?OTdBTDVXWUk4YTI3R01MQ2tWQi8zakN2d0NBQVgzNzJ2NDM0ZkdFa1crZnVN?=
+ =?utf-8?B?T1QySGFiZFh0SjgydlArUEVpZ3pjbUZ4M0hDTU1DMmd6dG80aU83MFQ1T255?=
+ =?utf-8?B?VHhlUTZOWWlEQVJEVm9QYkVBTlB2MHpCNEpQWTdtbzM2R2E4aGVka0RYMjdU?=
+ =?utf-8?B?SjBURGt0bURTRTU4WWNXM0xJOGxvT3VuUUdDZ0J4YWhWMUxNZE90V1kyV1Jh?=
+ =?utf-8?Q?Ux4gdI8/EwTGF/LBLtP9QIecSCAI4LrsH3mdSit3bltA=3D?=
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4123.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(1800799015)(7416005)(366007)(376005);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?utf-8?B?NXdqUGZ3dmRIK3JvU1dlMG5xOFhmdGF2Sml6QTlrZlNjTjVVNUJHQldxT0Fu?=
+ =?utf-8?B?S0hQZG5rcHdXczJRY1o5THpjNDBtejdiUjAwem1qTloxRkNNZzhPeS81a1NR?=
+ =?utf-8?B?VnQ1blFZNy9IQmpNVGdEU0tmS1VUV2NrS3pLWXNWQTNCS0poMEVaWnpSdmhn?=
+ =?utf-8?B?bG80eUhQSU9CdmU4VzVZMEhzbmt5NU1yTEtkdWFKVkw1MytURGZsR0w1UXYz?=
+ =?utf-8?B?ZkNFY203TEUzVmZtaFlHMElNcStPcmNOZHhoKy9HdFVpU2R0Ylg2aFFQdWtI?=
+ =?utf-8?B?V3N0NnluQXd6TjJvT3labndFQWRiZDlQQlNUZmFpbEMrR2tpM05adUgzUEJY?=
+ =?utf-8?B?d1FlSXBJOGk4bTFIZFduaElvQXhaNnFSOG9GeDlYRHlFcmkvYktDL3g3R01P?=
+ =?utf-8?B?VWtucnhyYS92K0RqTjIzZTEzdmw0c0lxaCtITktwcE05amErRFg2TXcwaWxI?=
+ =?utf-8?B?YWwzTmxsdmNjRUd3Rk1sMUwyZ0F5ZWdWK0IvWDdSc3hvZDVXRWdHbTJEUVVJ?=
+ =?utf-8?B?M0dNMURiSjRiQjlNZFFleXVTbmJKREloSW4xSEdYOFA1bHBzeXRRcHB1clFT?=
+ =?utf-8?B?U2hnMWpWVCsvTXVsNWF1UUhXRnVnOHRmMzZhNHhTN2l5NldQM1MxbktEQmhJ?=
+ =?utf-8?B?T1VLeXp6VGRGd3VWWWFpQ0FYZ0ZvbURCMUhleVhYYjNLTXNWcy9PZGl3QThN?=
+ =?utf-8?B?MHRMMGRXVDdWaVRYTTRWUDBncUZtN1R2dzNuS2xHU0ZDMkRSQlJ4bE9TYjVI?=
+ =?utf-8?B?OE5NSVZ5RnU2Y2U0dUFzNGxJN2F3cG9hbGdCRXNocEllb1l4a0ZMNUlFVkpT?=
+ =?utf-8?B?Qm1TQ1JNTFpXcE9pV1I5eWc2Zjl2eEFvallQZ3dqYnJadWtqOTBlb0YxZ0tV?=
+ =?utf-8?B?MWw5Ky9rNzZBVFlBWTBDYnRiRzQ5N1Y5cmZIcVhIYmdKeTY0cVUrWWlzMzdn?=
+ =?utf-8?B?V3R6Vi90R0dZODFlYi9aYjUvdG9XS29Odk9ucGNMUHRuQUZlRkFuVkZSUWNR?=
+ =?utf-8?B?TERoU2dNbm9qQ2FwWXFXL09lUGp6U1d2Um91MVFpdlhvMXN3YjBLbW0zZVNU?=
+ =?utf-8?B?azRMeFVmTkc2UHNSdHlCMlhKVVB4R2hVTWllOFgvMXdYWUZzV3E0NWJqMHQw?=
+ =?utf-8?B?TFRaSkRGRmRHVDNVTlRldGZZQnY4OVp1RDFyRXRiV2c5MXltbWpxb2g3MW5t?=
+ =?utf-8?B?dHVZYkpQem5kbFB6WDBNZENpYkxEM3FPekI2L2hicm9ZS00vK2lDNDhFdUI2?=
+ =?utf-8?B?eEpQWGdnMGR0V0ZUZnlSRlAwRWZlSjFYNGFHMmtRWUtRc0FhUHVWbVd1YWpv?=
+ =?utf-8?B?SjVDa3pBUnQ5Y1lldmFOVWMzRGxYcXZ1TWtxajFQVjd3MmlhSjF5ektkZkZW?=
+ =?utf-8?B?ZFl1cVFUbW42Z1hoUTVFOTRpcHBjdU9JNkZkc0Uzdzh5MlJYSTYxdFNEdTZV?=
+ =?utf-8?B?RDMyZ1NuSlVYWlB3aXZ6VjNOcjA0ZHZac2J2Tm9RNkdaZDcwL0tqTW10NVFa?=
+ =?utf-8?B?TUhHc3lxbUY4T2o1ZzFZV052Qmlnekkyc0dabmJkTm1PVGduVGpxMFRnUlp0?=
+ =?utf-8?B?b1hsZjZWQnhncFM5Q2dHOURHdXVWNkdFZUpFY0wrR2o5d0FqeVM4cStjN2xF?=
+ =?utf-8?B?WSthWVphVEkwb3hlbEk3c05HSlVVcU5KOHArakdweWhFT2E2NzBMbGl2cmsv?=
+ =?utf-8?B?NmpSOUhkL0ErbUg4bDd4R0xjU0pyb0U2VTBqcUpRa0ttQVhXMTZRM3llNEVX?=
+ =?utf-8?B?NkxpNk5VQjRXd3pJUzZHazlabWJhSlJnNE5oNkpkTGNlU2QzM2JMd2wxaTM5?=
+ =?utf-8?B?TFlIQXlvUHhpS3FRNnRSNnhPdDM5OGJWNnVNTCtteEUvRS81WFJrWW41VEVB?=
+ =?utf-8?B?NllOVXFTUm9OQW5IRVdIMXNnY3ZyNG9XUzZ0anNEZTJjYUNUT2pxSTRBTmZL?=
+ =?utf-8?B?NGo3bENzUzhzYjhGUDdsc0NZWWcweWJYZklpWnpOS1ErRENDVExwMDhWZFNt?=
+ =?utf-8?B?dy9GTXZUbjVJcm9iOHNaSnVtenpPUERHSWw1ZzJBei9QdFJmMnZ2b3NxblZQ?=
+ =?utf-8?B?YzB0Um9mZitjbTBNc1l6cXpXYk5GNGVQRmphS0h4MWlGZ01KdGVmbUt2WmdX?=
+ =?utf-8?Q?EtSlWrm82IZcx0H/iD7Hh8uFa?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 3b2685ef-08e4-4689-3c2b-08dc6b60a985
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4123.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 May 2024 11:03:29.0415
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ ovqUbtRxJFL2VzHzByHAwwrI7XRpqh70IjDuKCu6en2hfAgi3G7lluDfLHFuMCIDTeHhtG/VhOMDxRNhy6NZEA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6147
+Message-ID-Hash: N52KLFMOYZ7KC5NJXBQRPSWQI5GTTDXR
+X-Message-ID-Hash: N52KLFMOYZ7KC5NJXBQRPSWQI5GTTDXR
+X-MailFrom: Vijendar.Mukunda@amd.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -99,7 +196,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OXW5USYSBPERSYG7GWPUTH4SZQSFOS53/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/N52KLFMOYZ7KC5NJXBQRPSWQI5GTTDXR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,44 +205,264 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Em Fri, 3 May 2024 10:47:19 +0900
-Mark Brown <broonie@kernel.org> escreveu:
+On 02/05/24 19:33, Vijendar Mukunda wrote:
+> ACP pin configuration varies based on acp version.
+> ACP PCI driver should read the ACP PIN config value and based on config
+> value, it has to create a platform device in below two conditions.
+> 1) If ACP PDM configuration is selected from BIOS and ACP PDM controller
+> exists.
+> 2) If ACP I2S configuration is selected from BIOS.
+>
+> Other than above scenarios, ACP PCI driver should skip the platform
+> device creation logic, i.e. ACP PCI driver probe sequence should never
+> fail if other acp pin configuration is selected. It should skip platform
+> device creation logic.
+>
+> check_acp_pdm() function was implemented for ACP6.x platforms to check
+> ACP PDM configuration. Previously, this code was safe guarded by
+> FLAG_AMD_LEGACY_ONLY_DMIC flag check.
+>
+> This implementation breaks audio use cases for Huawei Matebooks which are
+> based on ACP3.x varaint uses I2S configuration.
+> In current scenario, check_acp_pdm() function returns -ENODEV value
+> which results in ACP PCI driver probe failure without creating a platform
+> device even in case of valid ACP pin configuration.
+>
+> Implement check_acp_config() as a common function which invokes platform
+> specific acp pin configuration check functions for ACP3.x, ACP6.0 & ACP6.3
+> & ACP7.0 variants and checks for ACP PDM controller.
+>
+> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=218780
+> Fixes: 4af565de9f8c ("ASoC: amd: acp: fix for acp pdm configuration check")
+> Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+> ---
+>  sound/soc/amd/acp/acp-legacy-common.c | 96 ++++++++++++++++++++++-----
+>  sound/soc/amd/acp/acp-pci.c           |  9 ++-
+>  sound/soc/amd/acp/amd.h               | 10 ++-
+>  sound/soc/amd/acp/chip_offset_byte.h  |  1 +
+>  4 files changed, 95 insertions(+), 21 deletions(-)
+>
+> diff --git a/sound/soc/amd/acp/acp-legacy-common.c b/sound/soc/amd/acp/acp-legacy-common.c
+> index b5aff3f230be..3be7c6d55a6f 100644
+> --- a/sound/soc/amd/acp/acp-legacy-common.c
+> +++ b/sound/soc/amd/acp/acp-legacy-common.c
+> @@ -358,11 +358,25 @@ int smn_read(struct pci_dev *dev, u32 smn_addr)
+>  }
+>  EXPORT_SYMBOL_NS_GPL(smn_read, SND_SOC_ACP_COMMON);
+>  
+> -int check_acp_pdm(struct pci_dev *pci, struct acp_chip_info *chip)
+> +static void check_acp3x_config(struct acp_chip_info *chip)
+>  {
+> -	struct acpi_device *pdm_dev;
+> -	const union acpi_object *obj;
+> -	u32 pdm_addr, val;
+> +	u32 val;
+> +
+> +	val = readl(chip->base + ACP3X_PIN_CONFIG);
+> +	switch (val) {
+> +	case ACP_CONFIG_4:
+> +		chip->is_i2s_config = true;
+> +		chip->is_pdm_config = true;
+> +		break;
+> +	default:
+> +		chip->is_pdm_config = true;
+> +		break;
+> +	}
+> +}
+> +
+> +static void check_acp6x_config(struct acp_chip_info *chip)
+> +{
+> +	u32 val;
+>  
+>  	val = readl(chip->base + ACP_PIN_CONFIG);
+>  	switch (val) {
+> @@ -371,42 +385,94 @@ int check_acp_pdm(struct pci_dev *pci, struct acp_chip_info *chip)
+>  	case ACP_CONFIG_6:
+>  	case ACP_CONFIG_7:
+>  	case ACP_CONFIG_8:
+> -	case ACP_CONFIG_10:
+>  	case ACP_CONFIG_11:
+> +	case ACP_CONFIG_14:
+> +		chip->is_pdm_config = true;
+> +		break;
+> +	case ACP_CONFIG_9:
+> +		chip->is_i2s_config = true;
+> +		break;
+> +	case ACP_CONFIG_10:
+>  	case ACP_CONFIG_12:
+>  	case ACP_CONFIG_13:
+> +		chip->is_i2s_config = true;
+> +		chip->is_pdm_config = true;
+> +		break;
+> +	default:
+> +		break;
+> +	}
+> +}
+> +
+> +static void check_acp70_config(struct acp_chip_info *chip)
+> +{
+> +	u32 val;
+> +
+> +	val = readl(chip->base + ACP_PIN_CONFIG);
+> +	switch (val) {
+> +	case ACP_CONFIG_4:
+> +	case ACP_CONFIG_5:
+> +	case ACP_CONFIG_6:
+> +	case ACP_CONFIG_7:
+> +	case ACP_CONFIG_8:
+> +	case ACP_CONFIG_11:
+>  	case ACP_CONFIG_14:
+> +	case ACP_CONFIG_17:
+> +	case ACP_CONFIG_18:
+> +		chip->is_pdm_config = true;
+> +		break;
+> +	case ACP_CONFIG_9:
+> +		chip->is_i2s_config = true;
+> +		break;
+> +	case ACP_CONFIG_10:
+> +	case ACP_CONFIG_12:
+> +	case ACP_CONFIG_13:
+> +	case ACP_CONFIG_19:
+> +	case ACP_CONFIG_20:
+> +		chip->is_i2s_config = true;
+> +		chip->is_pdm_config = true;
+>  		break;
+>  	default:
+> -		return -EINVAL;
+> +		break;
+>  	}
+> +}
+> +
+> +void check_acp_config(struct pci_dev *pci, struct acp_chip_info *chip)
+> +{
+> +	struct acpi_device *pdm_dev;
+> +	const union acpi_object *obj;
+> +	u32 pdm_addr;
+>  
+>  	switch (chip->acp_rev) {
+>  	case ACP3X_DEV:
+>  		pdm_addr = ACP_RENOIR_PDM_ADDR;
+> +		check_acp3x_config(chip);
+>  		break;
+>  	case ACP6X_DEV:
+>  		pdm_addr = ACP_REMBRANDT_PDM_ADDR;
+> +		check_acp6x_config(chip);
+>  		break;
+>  	case ACP63_DEV:
+>  		pdm_addr = ACP63_PDM_ADDR;
+> +		check_acp6x_config(chip);
+>  		break;
+>  	case ACP70_DEV:
+>  		pdm_addr = ACP70_PDM_ADDR;
+> +		check_acp70_config(chip);
+>  		break;
+>  	default:
+> -		return -EINVAL;
+> +		break;
+>  	}
+>  
+> -	pdm_dev = acpi_find_child_device(ACPI_COMPANION(&pci->dev), pdm_addr, 0);
+> -	if (pdm_dev) {
+> -		if (!acpi_dev_get_property(pdm_dev, "acp-audio-device-type",
+> -					   ACPI_TYPE_INTEGER, &obj) &&
+> -					   obj->integer.value == pdm_addr)
+> -			return 0;
+> +	if (chip->is_pdm_config) {
+> +		pdm_dev = acpi_find_child_device(ACPI_COMPANION(&pci->dev), pdm_addr, 0);
+> +		if (pdm_dev) {
+> +			if (!acpi_dev_get_property(pdm_dev, "acp-audio-device-type",
+> +						   ACPI_TYPE_INTEGER, &obj) &&
+> +						   obj->integer.value == pdm_addr)
+> +				chip->is_pdm_dev = true;
+> +		}
+>  	}
+> -	return -ENODEV;
+>  }
+> -EXPORT_SYMBOL_NS_GPL(check_acp_pdm, SND_SOC_ACP_COMMON);
+> +EXPORT_SYMBOL_NS_GPL(check_acp_config, SND_SOC_ACP_COMMON);
+>  
+>  MODULE_LICENSE("Dual BSD/GPL");
+> diff --git a/sound/soc/amd/acp/acp-pci.c b/sound/soc/amd/acp/acp-pci.c
+> index 5f35b90eab8d..ad320b29e87d 100644
+> --- a/sound/soc/amd/acp/acp-pci.c
+> +++ b/sound/soc/amd/acp/acp-pci.c
+> @@ -100,7 +100,6 @@ static int acp_pci_probe(struct pci_dev *pci, const struct pci_device_id *pci_id
+>  		ret = -EINVAL;
+>  		goto release_regions;
+>  	}
+> -
+Empty line drop is not relevant to this patch.
+Will fix and re-spin the patch series.
+>  	dmic_dev = platform_device_register_data(dev, "dmic-codec", PLATFORM_DEVID_NONE, NULL, 0);
+>  	if (IS_ERR(dmic_dev)) {
+>  		dev_err(dev, "failed to create DMIC device\n");
+> @@ -119,6 +118,10 @@ static int acp_pci_probe(struct pci_dev *pci, const struct pci_device_id *pci_id
+>  	if (ret)
+>  		goto unregister_dmic_dev;
+>  
+> +	check_acp_config(pci, chip);
+> +	if (!chip->is_pdm_dev && !chip->is_i2s_config)
+> +		goto skip_pdev_creation;
+> +
+>  	res = devm_kcalloc(&pci->dev, num_res, sizeof(struct resource), GFP_KERNEL);
+>  	if (!res) {
+>  		ret = -ENOMEM;
+> @@ -136,10 +139,6 @@ static int acp_pci_probe(struct pci_dev *pci, const struct pci_device_id *pci_id
+>  		}
+>  	}
+>  
+> -	ret = check_acp_pdm(pci, chip);
+> -	if (ret < 0)
+> -		goto skip_pdev_creation;
+> -
+>  	chip->flag = flag;
+>  	memset(&pdevinfo, 0, sizeof(pdevinfo));
+>  
+> diff --git a/sound/soc/amd/acp/amd.h b/sound/soc/amd/acp/amd.h
+> index 5017e868f39b..d75b4eb34de8 100644
+> --- a/sound/soc/amd/acp/amd.h
+> +++ b/sound/soc/amd/acp/amd.h
+> @@ -138,6 +138,9 @@ struct acp_chip_info {
+>  	void __iomem *base;	/* ACP memory PCI base */
+>  	struct platform_device *chip_pdev;
+>  	unsigned int flag;	/* Distinguish b/w Legacy or Only PDM */
+> +	bool is_pdm_dev;	/* flag set to true when ACP PDM controller exists */
+> +	bool is_pdm_config;	/* flag set to true when PDM configuration is selected from BIOS */
+> +	bool is_i2s_config;	/* flag set to true when I2S configuration is selected from BIOS */
+>  };
+>  
+>  struct acp_stream {
+> @@ -212,6 +215,11 @@ enum acp_config {
+>  	ACP_CONFIG_13,
+>  	ACP_CONFIG_14,
+>  	ACP_CONFIG_15,
+> +	ACP_CONFIG_16,
+> +	ACP_CONFIG_17,
+> +	ACP_CONFIG_18,
+> +	ACP_CONFIG_19,
+> +	ACP_CONFIG_20,
+>  };
+>  
+>  extern const struct snd_soc_dai_ops asoc_acp_cpu_dai_ops;
+> @@ -240,7 +248,7 @@ void restore_acp_pdm_params(struct snd_pcm_substream *substream,
+>  int restore_acp_i2s_params(struct snd_pcm_substream *substream,
+>  			   struct acp_dev_data *adata, struct acp_stream *stream);
+>  
+> -int check_acp_pdm(struct pci_dev *pci, struct acp_chip_info *chip);
+> +void check_acp_config(struct pci_dev *pci, struct acp_chip_info *chip);
+>  
+>  static inline u64 acp_get_byte_count(struct acp_dev_data *adata, int dai_id, int direction)
+>  {
+> diff --git a/sound/soc/amd/acp/chip_offset_byte.h b/sound/soc/amd/acp/chip_offset_byte.h
+> index cfd6c4d07594..18da734c0e9e 100644
+> --- a/sound/soc/amd/acp/chip_offset_byte.h
+> +++ b/sound/soc/amd/acp/chip_offset_byte.h
+> @@ -20,6 +20,7 @@
+>  #define ACP_SOFT_RESET                          0x1000
+>  #define ACP_CONTROL                             0x1004
+>  #define ACP_PIN_CONFIG				0x1440
+> +#define ACP3X_PIN_CONFIG			0x1400
+>  
+>  #define ACP_EXTERNAL_INTR_REG_ADDR(adata, offset, ctrl) \
+>  	(adata->acp_base + adata->rsrc->irq_reg_offset + offset + (ctrl * 0x04))
 
-> On Thu, May 02, 2024 at 10:26:43AM +0100, Mauro Carvalho Chehab wrote:
-> > Mauro Carvalho Chehab <mchehab@kernel.org> escreveu:  
-> 
-> > > There are still time control associated with it, as audio and video
-> > > needs to be in sync. This is done by controlling the buffers size 
-> > > and could be fine-tuned by checking when the buffer transfer is done.  
-> 
-> ...
-> 
-> > Just complementing: on media, we do this per video buffer (or
-> > per half video buffer). A typical use case on cameras is to have
-> > buffers transferred 30 times per second, if the video was streamed 
-> > at 30 frames per second.   
-> 
-> IIRC some big use case for this hardware was transcoding so there was a
-> desire to just go at whatever rate the hardware could support as there
-> is no interactive user consuming the output as it is generated.
-
-Indeed, codecs could be used to just do transcoding, but I would
-expect it to be a border use case. See, as the chipsets implementing 
-codecs are typically the ones used on mobiles, I would expect that
-the major use cases to be to watch audio and video and to participate
-on audio/video conferences.
-
-Going further, the codec API may end supporting not only transcoding
-(which is something that CPU can usually handle without too much
-processing) but also audio processing that may require more 
-complex algorithms - even deep learning ones - like background noise
-removal, echo detection/removal, volume auto-gain, audio enhancement
-and such.
-
-On other words, the typical use cases will either have input
-or output being a physical hardware (microphone or speaker).
-
-> > I would assume that, on an audio/video stream, the audio data
-> > transfer will be programmed to also happen on a regular interval.  
-> 
-> With audio the API is very much "wake userspace every Xms".

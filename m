@@ -2,75 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61A4C8BAE20
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 May 2024 15:55:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1F7C8BAE1D
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 May 2024 15:54:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 85A01E85;
-	Fri,  3 May 2024 15:54:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85A01E85
+	by alsa0.perex.cz (Postfix) with ESMTPS id 35ECEE65;
+	Fri,  3 May 2024 15:54:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 35ECEE65
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1714744501;
-	bh=ozHuyHdjFFmEMPOCAmIhz3IPcmRtHA8gfL42hgB6vZs=;
+	s=default; t=1714744463;
+	bh=DbM05yrWm0mx/P+fZ4kSKYqqkfmLojuCqeatuGSUtCY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=vS6G/FdcM1NqHOcFgN9OOgtmOFZpNGZ49wSZ7AWzNNu1GBzZzaQjeVVA8LfCjdt5W
-	 CrbjLB3yC6/vdVMnN6uLdgmG+p+dWVXn3h/LvP1vZfDI0mx1tXQEc0Ifho/7LDoZGo
-	 4hoypHort1lwkkEiBqimtwyKcODFP0hMBHu8Q+kQ=
+	b=Hj78vQVHCHe8ZbEtT/uCIzYhA8w9RcQm1h5KBwbNwIKwFnFfUefDK1JMt09drEa8Z
+	 FDbqMqiQ6qUgo+9HbD3EaRd0TVwzN27zslbN/0jC9gKREP8uk++2wJHqYzG8biy+62
+	 l7j+J46T3oQr6kCFfdTzHg/igpt6xD+PPp77St8U=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C469DF806AA; Fri,  3 May 2024 15:53:09 +0200 (CEST)
+	id 97CADF80639; Fri,  3 May 2024 15:53:03 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 48C48F80589;
-	Fri,  3 May 2024 15:53:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 16A22F8063A;
+	Fri,  3 May 2024 15:53:03 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 23165F8061A; Fri,  3 May 2024 15:53:00 +0200 (CEST)
+	id 29919F805FF; Fri,  3 May 2024 15:52:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
-	shortcircuit=no autolearn=unavailable autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-6.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0C26BF8028D
-	for <alsa-devel@alsa-project.org>; Fri,  3 May 2024 15:52:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C26BF8028D
+	by alsa1.perex.cz (Postfix) with ESMTPS id C7C41F80269
+	for <alsa-devel@alsa-project.org>; Fri,  3 May 2024 15:52:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7C41F80269
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=OXSp1erC
+ header.s=Intel header.b=TkNxGqnh
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1714744360; x=1746280360;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=ozHuyHdjFFmEMPOCAmIhz3IPcmRtHA8gfL42hgB6vZs=;
-  b=OXSp1erCqOyTy6vsJBvKQ7cDPxG+pBs9V4ac4kO5E+CUpJ6cqzrM9CLR
-   J3WAFFmzrdB+JfB04srTL77yaJUrp8mOMKWt9LykJrzsFnt4CgrrOlyEL
-   6r1awaapMdPn7dpXrqd9MDn37JKW5GzrKr9VTVplxNGQBSaRvxUmyCPlg
-   HIwTxprIELNi7PQAdaGyMp8Qk0fpfmtyPZU37OM+NHl1NYCKLyVm2Wf9M
-   aIM6CQ2/5nc7H6eKUzIx3qsw2S7UIR5v7zq+7m6ixqd8kSeSbxeSWyIaL
-   gTw/9F2BaRN+HwxVux3oiVkVNrCmiO8MQiOp5Va0Ic3U66RF1pw5cJSgx
+  bh=DbM05yrWm0mx/P+fZ4kSKYqqkfmLojuCqeatuGSUtCY=;
+  b=TkNxGqnhRYoIKd0wDTxRveDa7++zzD5OINRIKBJtRVMgl8E7LNIIxIAg
+   ZXEr4jjB224hGtmD7yo+BWupC0LhP6/o0qoBKmLFv9+4OfjcwGyCC9Csk
+   /i0Q4hiWqhEMUdfUZpPcFDmpkujFvy///FY4ZQInSgeEdd5pN19wpRdkY
+   Wq+uYyMSgNPfAzAvktnrfjER/+aIeGwBftJBecS23eTkxXSYyVlvIqG1o
+   J0LKzW78xIbKlDBswc5sKu/oSEZkrQr1peq2oAg1siq5gTUaxlCjQv53o
+   UsOCJTlACahGuPPsle77hzoJrdxy9X1tZFCydBBumNtxzU/3PcfZrKaJ0
    g==;
-X-CSE-ConnectionGUID: GxgkElsMQZGBLbzzzd1hgA==
-X-CSE-MsgGUID: XmvUuME/SYyn4d0UBCMj8w==
-X-IronPort-AV: E=McAfee;i="6600,9927,11063"; a="28029417"
+X-CSE-ConnectionGUID: hVEWjfYdQkCPgx9+noPQTg==
+X-CSE-MsgGUID: hj/i9UhkSGiaIIufwwbk2Q==
+X-IronPort-AV: E=McAfee;i="6600,9927,11063"; a="28029422"
 X-IronPort-AV: E=Sophos;i="6.07,251,1708416000";
-   d="scan'208";a="28029417"
+   d="scan'208";a="28029422"
 Received: from fmviesa010.fm.intel.com ([10.60.135.150])
   by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 May 2024 06:52:36 -0700
-X-CSE-ConnectionGUID: bf5MWCNPQ+OM37fzsEWhRw==
-X-CSE-MsgGUID: C8HVVGyzS6eK7QcgkdQVig==
+ 03 May 2024 06:52:37 -0700
+X-CSE-ConnectionGUID: waoygavPSHyH5yZ/K79jcA==
+X-CSE-MsgGUID: kCoGVSUOTPuguo3r8ixrcg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.07,251,1708416000";
-   d="scan'208";a="27548735"
+   d="scan'208";a="27548756"
 Received: from sjslinke-mobl.amr.corp.intel.com (HELO
  pbossart-mobl6.intel.com) ([10.212.113.3])
   by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 May 2024 06:52:33 -0700
+ 03 May 2024 06:52:35 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: linux-sound@vger.kernel.org
 Cc: alsa-devel@alsa-project.org,
@@ -79,17 +80,16 @@ Cc: alsa-devel@alsa-project.org,
 	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
 	Bard Liao <yung-chuan.liao@linux.intel.com>,
 	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Subject: [PATCH 3/7] ASoC: SOF: Intel: start splitting top-level from common
- parts
-Date: Fri,  3 May 2024 08:52:17 -0500
-Message-Id: <20240503135221.229202-4-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 4/7] ASoC: SOF: Intel: move common code from hda.c
+Date: Fri,  3 May 2024 08:52:18 -0500
+Message-Id: <20240503135221.229202-5-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20240503135221.229202-1-pierre-louis.bossart@linux.intel.com>
 References: <20240503135221.229202-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: OGZFREVIEBYNHQBP55Z7U3OZ4MG64ZIW
-X-Message-ID-Hash: OGZFREVIEBYNHQBP55Z7U3OZ4MG64ZIW
+Message-ID-Hash: TNPBG3WN7RHFS7RU67ORCHLT5PPVCW6A
+X-Message-ID-Hash: TNPBG3WN7RHFS7RU67ORCHLT5PPVCW6A
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -102,7 +102,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OGZFREVIEBYNHQBP55Z7U3OZ4MG64ZIW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TNPBG3WN7RHFS7RU67ORCHLT5PPVCW6A/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -111,922 +111,1307 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The existing code relies on the 'HDA_COMMON' module and namespace. We
-need to start splitting top-level parts from the low-level ones,
-otherwise we will not be able to reuse the low-level parts DMA support
-for SoundWire/BPT.
+To avoid circular dependencies when moving hda.c to a separate module,
+we need to move the common code to hda-ipc.c and hda-dsp.c
 
-In the end the dependencies will be:
-
-         +----------------------------------------------+
-         |                                              |
-         |                                              v
-sof-pci-intel-xxx --> sof-intel-hda ------------> sof-hda-common
-                          |                             ^
-                          |                             |
-                          +-> soundwire_intel --> sof_hda_sdw_bpt
-
-This patch adds the initial split between the sof-pci-intel-xxx
-modules and the common parts, in a follow-up patch we will further
-split the HDA_COMMON parts
-
-Since the PCI modules are not all independent, i.e. the CNL parts are
-also used in JSL and TGL, additional Kconfig and namespace modules
-were added.
+No functionality change, just code move.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 ---
- sound/soc/sof/intel/Kconfig          |  3 +++
- sound/soc/sof/intel/Makefile         | 17 ++++++++---------
- sound/soc/sof/intel/apl.c            |  3 ---
- sound/soc/sof/intel/cnl.c            | 13 +++++++++----
- sound/soc/sof/intel/hda-common-ops.c |  1 +
- sound/soc/sof/intel/hda-ctrl.c       |  1 +
- sound/soc/sof/intel/hda-dai.c        |  1 +
- sound/soc/sof/intel/hda-dsp.c        | 16 ++++++++++++++++
- sound/soc/sof/intel/hda-ipc.c        | 11 +++++++++++
- sound/soc/sof/intel/hda-loader.c     |  4 ++++
- sound/soc/sof/intel/hda.c            | 18 ++++++++++++++++++
- sound/soc/sof/intel/icl.c            |  3 ---
- sound/soc/sof/intel/lnl.c            |  3 ---
- sound/soc/sof/intel/mtl.c            | 19 +++++++++++++++----
- sound/soc/sof/intel/pci-icl.c        |  1 +
- sound/soc/sof/intel/pci-lnl.c        |  2 ++
- sound/soc/sof/intel/pci-tgl.c        |  1 +
- sound/soc/sof/intel/telemetry.c      |  1 +
- sound/soc/sof/intel/tgl.c            |  6 ------
- 19 files changed, 92 insertions(+), 32 deletions(-)
+ sound/soc/sof/intel/hda-dsp.c    | 462 +++++++++++++++++++++++++
+ sound/soc/sof/intel/hda-ipc.c    |  99 ++++++
+ sound/soc/sof/intel/hda-stream.c |   4 +
+ sound/soc/sof/intel/hda.c        | 561 -------------------------------
+ sound/soc/sof/intel/hda.h        |  10 +
+ 5 files changed, 575 insertions(+), 561 deletions(-)
 
-diff --git a/sound/soc/sof/intel/Kconfig b/sound/soc/sof/intel/Kconfig
-index 9de86aaa8d07..b804be7321be 100644
---- a/sound/soc/sof/intel/Kconfig
-+++ b/sound/soc/sof/intel/Kconfig
-@@ -188,6 +188,7 @@ config SND_SOC_SOF_INTEL_ICL
- 	select SND_SOC_SOF_INTEL_SOUNDWIRE_LINK_BASELINE
- 	select SND_SOC_SOF_IPC3
- 	select SND_SOC_SOF_IPC4
-+	select SND_SOC_SOF_INTEL_CNL
- 
- config SND_SOC_SOF_ICELAKE
- 	tristate "SOF support for Icelake"
-@@ -215,6 +216,7 @@ config SND_SOC_SOF_INTEL_TGL
- 	select SND_SOC_SOF_INTEL_SOUNDWIRE_LINK_BASELINE
- 	select SND_SOC_SOF_IPC3
- 	select SND_SOC_SOF_IPC4
-+	select SND_SOC_SOF_INTEL_CNL
- 
- config SND_SOC_SOF_TIGERLAKE
- 	tristate "SOF support for Tigerlake"
-@@ -267,6 +269,7 @@ config SND_SOC_SOF_INTEL_LNL
- 	select SND_SOC_SOF_HDA_COMMON
- 	select SND_SOC_SOF_INTEL_SOUNDWIRE_LINK_BASELINE
- 	select SND_SOC_SOF_IPC4
-+	select SND_SOC_SOF_INTEL_MTL
- 
- config SND_SOC_SOF_LUNARLAKE
- 	tristate "SOF support for Lunarlake"
-diff --git a/sound/soc/sof/intel/Makefile b/sound/soc/sof/intel/Makefile
-index 6489d0660d58..c895bae0efdd 100644
---- a/sound/soc/sof/intel/Makefile
-+++ b/sound/soc/sof/intel/Makefile
-@@ -6,8 +6,7 @@ snd-sof-acpi-intel-bdw-objs := bdw.o
- snd-sof-intel-hda-common-objs := hda.o hda-loader.o hda-stream.o hda-trace.o \
- 				 hda-dsp.o hda-ipc.o hda-ctrl.o hda-pcm.o \
- 				 hda-dai.o hda-dai-ops.o hda-bus.o \
--				 skl.o hda-loader-skl.o \
--				 apl.o cnl.o tgl.o icl.o mtl.o lnl.o hda-common-ops.o \
-+				 hda-common-ops.o \
- 				 telemetry.o
- 
- snd-sof-intel-hda-mlink-objs := hda-mlink.o
-@@ -26,13 +25,13 @@ obj-$(CONFIG_SND_SOC_SOF_HDA_MLINK) += snd-sof-intel-hda-mlink.o
- obj-$(CONFIG_SND_SOC_SOF_HDA) += snd-sof-intel-hda.o
- 
- snd-sof-pci-intel-tng-objs := pci-tng.o
--snd-sof-pci-intel-skl-objs := pci-skl.o
--snd-sof-pci-intel-apl-objs := pci-apl.o
--snd-sof-pci-intel-cnl-objs := pci-cnl.o
--snd-sof-pci-intel-icl-objs := pci-icl.o
--snd-sof-pci-intel-tgl-objs := pci-tgl.o
--snd-sof-pci-intel-mtl-objs := pci-mtl.o
--snd-sof-pci-intel-lnl-objs := pci-lnl.o
-+snd-sof-pci-intel-skl-objs := pci-skl.o skl.o hda-loader-skl.o
-+snd-sof-pci-intel-apl-objs := pci-apl.o apl.o
-+snd-sof-pci-intel-cnl-objs := pci-cnl.o cnl.o
-+snd-sof-pci-intel-icl-objs := pci-icl.o icl.o
-+snd-sof-pci-intel-tgl-objs := pci-tgl.o tgl.o
-+snd-sof-pci-intel-mtl-objs := pci-mtl.o mtl.o
-+snd-sof-pci-intel-lnl-objs := pci-lnl.o lnl.o
- 
- obj-$(CONFIG_SND_SOC_SOF_MERRIFIELD) += snd-sof-pci-intel-tng.o
- obj-$(CONFIG_SND_SOC_SOF_INTEL_SKL) += snd-sof-pci-intel-skl.o
-diff --git a/sound/soc/sof/intel/apl.c b/sound/soc/sof/intel/apl.c
-index dee6c7f73e80..bc364c7cb3b6 100644
---- a/sound/soc/sof/intel/apl.c
-+++ b/sound/soc/sof/intel/apl.c
-@@ -29,7 +29,6 @@ static const struct snd_sof_debugfs_map apl_dsp_debugfs[] = {
- 
- /* apollolake ops */
- struct snd_sof_dsp_ops sof_apl_ops;
--EXPORT_SYMBOL_NS(sof_apl_ops, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- int sof_apl_ops_init(struct snd_sof_dev *sdev)
- {
-@@ -97,7 +96,6 @@ int sof_apl_ops_init(struct snd_sof_dev *sdev)
- 
- 	return 0;
- };
--EXPORT_SYMBOL_NS(sof_apl_ops_init, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- const struct sof_intel_dsp_desc apl_chip_info = {
- 	/* Apollolake */
-@@ -121,4 +119,3 @@ const struct sof_intel_dsp_desc apl_chip_info = {
- 	.disable_interrupts = hda_dsp_disable_interrupts,
- 	.hw_ip_version = SOF_INTEL_CAVS_1_5_PLUS,
- };
--EXPORT_SYMBOL_NS(apl_chip_info, SND_SOC_SOF_INTEL_HDA_COMMON);
-diff --git a/sound/soc/sof/intel/cnl.c b/sound/soc/sof/intel/cnl.c
-index 85e1e4760d0e..460bc404ddb6 100644
---- a/sound/soc/sof/intel/cnl.c
-+++ b/sound/soc/sof/intel/cnl.c
-@@ -110,6 +110,7 @@ irqreturn_t cnl_ipc4_irq_thread(int irq, void *context)
- 
- 	return IRQ_HANDLED;
- }
-+EXPORT_SYMBOL_NS(cnl_ipc4_irq_thread, SND_SOC_SOF_INTEL_CNL);
- 
- irqreturn_t cnl_ipc_irq_thread(int irq, void *context)
- {
-@@ -202,6 +203,7 @@ irqreturn_t cnl_ipc_irq_thread(int irq, void *context)
- 
- 	return IRQ_HANDLED;
- }
-+EXPORT_SYMBOL_NS(cnl_ipc_irq_thread, SND_SOC_SOF_INTEL_CNL);
- 
- static void cnl_ipc_host_done(struct snd_sof_dev *sdev)
- {
-@@ -284,6 +286,7 @@ int cnl_ipc4_send_msg(struct snd_sof_dev *sdev, struct snd_sof_ipc_msg *msg)
- 
- 	return 0;
- }
-+EXPORT_SYMBOL_NS(cnl_ipc4_send_msg, SND_SOC_SOF_INTEL_CNL);
- 
- int cnl_ipc_send_msg(struct snd_sof_dev *sdev, struct snd_sof_ipc_msg *msg)
- {
-@@ -331,6 +334,7 @@ int cnl_ipc_send_msg(struct snd_sof_dev *sdev, struct snd_sof_ipc_msg *msg)
- 
- 	return 0;
- }
-+EXPORT_SYMBOL_NS(cnl_ipc_send_msg, SND_SOC_SOF_INTEL_CNL);
- 
- void cnl_ipc_dump(struct snd_sof_dev *sdev)
- {
-@@ -351,6 +355,7 @@ void cnl_ipc_dump(struct snd_sof_dev *sdev)
- 		"error: host status 0x%8.8x dsp status 0x%8.8x mask 0x%8.8x\n",
- 		hipcida, hipctdr, hipcctl);
- }
-+EXPORT_SYMBOL_NS(cnl_ipc_dump, SND_SOC_SOF_INTEL_CNL);
- 
- void cnl_ipc4_dump(struct snd_sof_dev *sdev)
- {
-@@ -372,10 +377,11 @@ void cnl_ipc4_dump(struct snd_sof_dev *sdev)
- 		"Host IPC initiator: %#x|%#x|%#x, target: %#x|%#x|%#x, ctl: %#x\n",
- 		hipcidr, hipcidd, hipcida, hipctdr, hipctdd, hipctda, hipcctl);
- }
-+EXPORT_SYMBOL_NS(cnl_ipc4_dump, SND_SOC_SOF_INTEL_CNL);
- 
- /* cannonlake ops */
- struct snd_sof_dsp_ops sof_cnl_ops;
--EXPORT_SYMBOL_NS(sof_cnl_ops, SND_SOC_SOF_INTEL_HDA_COMMON);
-+EXPORT_SYMBOL_NS(sof_cnl_ops, SND_SOC_SOF_INTEL_CNL);
- 
- int sof_cnl_ops_init(struct snd_sof_dev *sdev)
- {
-@@ -444,7 +450,7 @@ int sof_cnl_ops_init(struct snd_sof_dev *sdev)
- 
- 	return 0;
- };
--EXPORT_SYMBOL_NS(sof_cnl_ops_init, SND_SOC_SOF_INTEL_HDA_COMMON);
-+EXPORT_SYMBOL_NS(sof_cnl_ops_init, SND_SOC_SOF_INTEL_CNL);
- 
- const struct sof_intel_dsp_desc cnl_chip_info = {
- 	/* Cannonlake */
-@@ -473,7 +479,6 @@ const struct sof_intel_dsp_desc cnl_chip_info = {
- 	.disable_interrupts = hda_dsp_disable_interrupts,
- 	.hw_ip_version = SOF_INTEL_CAVS_1_8,
- };
--EXPORT_SYMBOL_NS(cnl_chip_info, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- /*
-  * JasperLake is technically derived from IceLake, and should be in
-@@ -509,4 +514,4 @@ const struct sof_intel_dsp_desc jsl_chip_info = {
- 	.disable_interrupts = hda_dsp_disable_interrupts,
- 	.hw_ip_version = SOF_INTEL_CAVS_2_0,
- };
--EXPORT_SYMBOL_NS(jsl_chip_info, SND_SOC_SOF_INTEL_HDA_COMMON);
-+EXPORT_SYMBOL_NS(jsl_chip_info, SND_SOC_SOF_INTEL_CNL);
-diff --git a/sound/soc/sof/intel/hda-common-ops.c b/sound/soc/sof/intel/hda-common-ops.c
-index 466769c68da5..6a863ceba8da 100644
---- a/sound/soc/sof/intel/hda-common-ops.c
-+++ b/sound/soc/sof/intel/hda-common-ops.c
-@@ -105,3 +105,4 @@ const struct snd_sof_dsp_ops sof_hda_common_ops = {
- 
- 	.dsp_arch_ops = &sof_xtensa_arch_ops,
- };
-+EXPORT_SYMBOL_NS(sof_hda_common_ops, SND_SOC_SOF_INTEL_HDA_COMMON);
-diff --git a/sound/soc/sof/intel/hda-ctrl.c b/sound/soc/sof/intel/hda-ctrl.c
-index 6d941209847f..56c0f493042c 100644
---- a/sound/soc/sof/intel/hda-ctrl.c
-+++ b/sound/soc/sof/intel/hda-ctrl.c
-@@ -178,6 +178,7 @@ int hda_dsp_ctrl_clock_power_gating(struct snd_sof_dev *sdev, bool enable)
- 
- 	return 0;
- }
-+EXPORT_SYMBOL_NS(hda_dsp_ctrl_clock_power_gating, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- int hda_dsp_ctrl_init_chip(struct snd_sof_dev *sdev)
- {
-diff --git a/sound/soc/sof/intel/hda-dai.c b/sound/soc/sof/intel/hda-dai.c
-index 3f2fd84907d2..650e3a37326e 100644
---- a/sound/soc/sof/intel/hda-dai.c
-+++ b/sound/soc/sof/intel/hda-dai.c
-@@ -690,6 +690,7 @@ void hda_set_dai_drv_ops(struct snd_sof_dev *sdev, struct snd_sof_dsp_ops *ops)
- 		ipc4_data->nhlt = intel_nhlt_init(sdev->dev);
- 	}
- }
-+EXPORT_SYMBOL_NS(hda_set_dai_drv_ops, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- void hda_ops_free(struct snd_sof_dev *sdev)
- {
 diff --git a/sound/soc/sof/intel/hda-dsp.c b/sound/soc/sof/intel/hda-dsp.c
-index ef5c915db8ff..32f034074668 100644
+index 32f034074668..974ac1cd8c6e 100644
 --- a/sound/soc/sof/intel/hda-dsp.c
 +++ b/sound/soc/sof/intel/hda-dsp.c
-@@ -126,6 +126,7 @@ int hda_dsp_core_stall_reset(struct snd_sof_dev *sdev, unsigned int core_mask)
- 	/* set reset state */
- 	return hda_dsp_core_reset_enter(sdev, core_mask);
- }
-+EXPORT_SYMBOL_NS(hda_dsp_core_stall_reset, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- bool hda_dsp_core_is_enabled(struct snd_sof_dev *sdev, unsigned int core_mask)
- {
-@@ -151,6 +152,7 @@ bool hda_dsp_core_is_enabled(struct snd_sof_dev *sdev, unsigned int core_mask)
- 
- 	return is_enable;
- }
-+EXPORT_SYMBOL_NS(hda_dsp_core_is_enabled, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- int hda_dsp_core_run(struct snd_sof_dev *sdev, unsigned int core_mask)
- {
-@@ -178,6 +180,7 @@ int hda_dsp_core_run(struct snd_sof_dev *sdev, unsigned int core_mask)
- 
- 	return ret;
- }
-+EXPORT_SYMBOL_NS(hda_dsp_core_run, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- /*
-  * Power Management.
-@@ -229,6 +232,7 @@ int hda_dsp_core_power_up(struct snd_sof_dev *sdev, unsigned int core_mask)
- 
- 	return ret;
- }
-+EXPORT_SYMBOL_NS(hda_dsp_core_power_up, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- static int hda_dsp_core_power_down(struct snd_sof_dev *sdev, unsigned int core_mask)
- {
-@@ -276,6 +280,7 @@ int hda_dsp_enable_core(struct snd_sof_dev *sdev, unsigned int core_mask)
- 
- 	return hda_dsp_core_run(sdev, core_mask);
- }
-+EXPORT_SYMBOL_NS(hda_dsp_enable_core, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- int hda_dsp_core_reset_power_down(struct snd_sof_dev *sdev,
- 				  unsigned int core_mask)
-@@ -316,6 +321,7 @@ int hda_dsp_core_reset_power_down(struct snd_sof_dev *sdev,
- 
- 	return ret;
- }
-+EXPORT_SYMBOL_NS(hda_dsp_core_reset_power_down, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- void hda_dsp_ipc_int_enable(struct snd_sof_dev *sdev)
- {
-@@ -334,6 +340,7 @@ void hda_dsp_ipc_int_enable(struct snd_sof_dev *sdev)
- 	snd_sof_dsp_update_bits(sdev, HDA_DSP_BAR, HDA_DSP_REG_ADSPIC,
- 				HDA_DSP_ADSPIC_IPC, HDA_DSP_ADSPIC_IPC);
- }
-+EXPORT_SYMBOL_NS(hda_dsp_ipc_int_enable, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- void hda_dsp_ipc_int_disable(struct snd_sof_dev *sdev)
- {
-@@ -351,6 +358,7 @@ void hda_dsp_ipc_int_disable(struct snd_sof_dev *sdev)
- 	snd_sof_dsp_update_bits(sdev, HDA_DSP_BAR, chip->ipc_ctl,
- 			HDA_DSP_REG_HIPCCTL_BUSY | HDA_DSP_REG_HIPCCTL_DONE, 0);
- }
-+EXPORT_SYMBOL_NS(hda_dsp_ipc_int_disable, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- static int hda_dsp_wait_d0i3c_done(struct snd_sof_dev *sdev)
- {
-@@ -634,6 +642,7 @@ int hda_dsp_set_power_state_ipc3(struct snd_sof_dev *sdev,
- 
- 	return hda_dsp_set_power_state(sdev, target_state);
- }
-+EXPORT_SYMBOL_NS(hda_dsp_set_power_state_ipc3, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- int hda_dsp_set_power_state_ipc4(struct snd_sof_dev *sdev,
- 				 const struct sof_dsp_power_state *target_state)
-@@ -645,6 +654,7 @@ int hda_dsp_set_power_state_ipc4(struct snd_sof_dev *sdev,
- 
- 	return hda_dsp_set_power_state(sdev, target_state);
- }
-+EXPORT_SYMBOL_NS(hda_dsp_set_power_state_ipc4, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- /*
-  * Audio DSP states may transform as below:-
-@@ -853,6 +863,7 @@ int hda_dsp_resume(struct snd_sof_dev *sdev)
- 
- 	return snd_sof_dsp_set_power_state(sdev, &target_state);
- }
-+EXPORT_SYMBOL_NS(hda_dsp_resume, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- int hda_dsp_runtime_resume(struct snd_sof_dev *sdev)
- {
-@@ -868,6 +879,7 @@ int hda_dsp_runtime_resume(struct snd_sof_dev *sdev)
- 
- 	return snd_sof_dsp_set_power_state(sdev, &target_state);
- }
-+EXPORT_SYMBOL_NS(hda_dsp_runtime_resume, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- int hda_dsp_runtime_idle(struct snd_sof_dev *sdev)
- {
-@@ -1034,12 +1046,14 @@ int hda_dsp_shutdown_dma_flush(struct snd_sof_dev *sdev)
- 
- 	return ret;
- }
-+EXPORT_SYMBOL_NS(hda_dsp_shutdown_dma_flush, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- int hda_dsp_shutdown(struct snd_sof_dev *sdev)
- {
- 	sdev->system_suspend_target = SOF_SUSPEND_S3;
- 	return snd_sof_suspend(sdev->dev);
- }
-+EXPORT_SYMBOL_NS(hda_dsp_shutdown, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- int hda_dsp_set_hw_params_upon_resume(struct snd_sof_dev *sdev)
- {
-@@ -1118,6 +1132,7 @@ int hda_dsp_core_get(struct snd_sof_dev *sdev, int core)
- 
- 	return ret;
- }
-+EXPORT_SYMBOL_NS(hda_dsp_core_get, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- int hda_dsp_disable_interrupts(struct snd_sof_dev *sdev)
- {
-@@ -1126,3 +1141,4 @@ int hda_dsp_disable_interrupts(struct snd_sof_dev *sdev)
- 
- 	return 0;
- }
-+EXPORT_SYMBOL_NS(hda_dsp_disable_interrupts, SND_SOC_SOF_INTEL_HDA_COMMON);
-diff --git a/sound/soc/sof/intel/hda-ipc.c b/sound/soc/sof/intel/hda-ipc.c
-index a838dddb1d32..6919729cef52 100644
---- a/sound/soc/sof/intel/hda-ipc.c
-+++ b/sound/soc/sof/intel/hda-ipc.c
-@@ -20,6 +20,10 @@
+@@ -20,11 +20,21 @@
+ #include <sound/hda_register.h>
+ #include <sound/hda-mlink.h>
+ #include <trace/events/sof_intel.h>
++#include <sound/sof/xtensa.h>
+ #include "../sof-audio.h"
  #include "../ops.h"
  #include "hda.h"
++#include "mtl.h"
+ #include "hda-ipc.h"
  
-+EXPORT_TRACEPOINT_SYMBOL(sof_intel_ipc_firmware_initiated);
-+EXPORT_TRACEPOINT_SYMBOL(sof_intel_ipc_firmware_response);
-+EXPORT_TRACEPOINT_SYMBOL(sof_intel_hda_irq_ipc_check);
++#define EXCEPT_MAX_HDR_SIZE	0x400
++#define HDA_EXT_ROM_STATUS_SIZE 8
 +
- static void hda_dsp_ipc_host_done(struct snd_sof_dev *sdev)
++struct hda_dsp_msg_code {
++	u32 code;
++	const char *text;
++};
++
+ static bool hda_enable_trace_D0I3_S0;
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_DEBUG)
+ module_param_named(enable_trace_D0I3_S0, hda_enable_trace_D0I3_S0, bool, 0444);
+@@ -32,6 +42,83 @@ MODULE_PARM_DESC(enable_trace_D0I3_S0,
+ 		 "SOF HDA enable trace when the DSP is in D0I3 in S0");
+ #endif
+ 
++static void hda_get_interfaces(struct snd_sof_dev *sdev, u32 *interface_mask)
++{
++	const struct sof_intel_dsp_desc *chip;
++
++	chip = get_chip_info(sdev->pdata);
++	switch (chip->hw_ip_version) {
++	case SOF_INTEL_TANGIER:
++	case SOF_INTEL_BAYTRAIL:
++	case SOF_INTEL_BROADWELL:
++		interface_mask[SOF_DAI_DSP_ACCESS] =  BIT(SOF_DAI_INTEL_SSP);
++		break;
++	case SOF_INTEL_CAVS_1_5:
++	case SOF_INTEL_CAVS_1_5_PLUS:
++		interface_mask[SOF_DAI_DSP_ACCESS] =
++			BIT(SOF_DAI_INTEL_SSP) | BIT(SOF_DAI_INTEL_DMIC) | BIT(SOF_DAI_INTEL_HDA);
++		interface_mask[SOF_DAI_HOST_ACCESS] = BIT(SOF_DAI_INTEL_HDA);
++		break;
++	case SOF_INTEL_CAVS_1_8:
++	case SOF_INTEL_CAVS_2_0:
++	case SOF_INTEL_CAVS_2_5:
++	case SOF_INTEL_ACE_1_0:
++		interface_mask[SOF_DAI_DSP_ACCESS] =
++			BIT(SOF_DAI_INTEL_SSP) | BIT(SOF_DAI_INTEL_DMIC) |
++			BIT(SOF_DAI_INTEL_HDA) | BIT(SOF_DAI_INTEL_ALH);
++		interface_mask[SOF_DAI_HOST_ACCESS] = BIT(SOF_DAI_INTEL_HDA);
++		break;
++	case SOF_INTEL_ACE_2_0:
++		interface_mask[SOF_DAI_DSP_ACCESS] =
++			BIT(SOF_DAI_INTEL_SSP) | BIT(SOF_DAI_INTEL_DMIC) |
++			BIT(SOF_DAI_INTEL_HDA) | BIT(SOF_DAI_INTEL_ALH);
++		 /* all interfaces accessible without DSP */
++		interface_mask[SOF_DAI_HOST_ACCESS] =
++			interface_mask[SOF_DAI_DSP_ACCESS];
++		break;
++	default:
++		break;
++	}
++}
++
++u32 hda_get_interface_mask(struct snd_sof_dev *sdev)
++{
++	u32 interface_mask[SOF_DAI_ACCESS_NUM] = { 0 };
++
++	hda_get_interfaces(sdev, interface_mask);
++
++	return interface_mask[sdev->dspless_mode_selected];
++}
++
++bool hda_is_chain_dma_supported(struct snd_sof_dev *sdev, u32 dai_type)
++{
++	u32 interface_mask[SOF_DAI_ACCESS_NUM] = { 0 };
++	const struct sof_intel_dsp_desc *chip;
++
++	if (sdev->dspless_mode_selected)
++		return false;
++
++	hda_get_interfaces(sdev, interface_mask);
++
++	if (!(interface_mask[SOF_DAI_DSP_ACCESS] & BIT(dai_type)))
++		return false;
++
++	if (dai_type == SOF_DAI_INTEL_HDA)
++		return true;
++
++	switch (dai_type) {
++	case SOF_DAI_INTEL_SSP:
++	case SOF_DAI_INTEL_DMIC:
++	case SOF_DAI_INTEL_ALH:
++		chip = get_chip_info(sdev->pdata);
++		if (chip->hw_ip_version < SOF_INTEL_ACE_2_0)
++			return false;
++		return true;
++	default:
++		return false;
++	}
++}
++
+ /*
+  * DSP Core control.
+  */
+@@ -1134,6 +1221,98 @@ int hda_dsp_core_get(struct snd_sof_dev *sdev, int core)
+ }
+ EXPORT_SYMBOL_NS(hda_dsp_core_get, SND_SOC_SOF_INTEL_HDA_COMMON);
+ 
++#if IS_ENABLED(CONFIG_SND_SOC_SOF_INTEL_SOUNDWIRE)
++void hda_common_enable_sdw_irq(struct snd_sof_dev *sdev, bool enable)
++{
++	struct sof_intel_hda_dev *hdev;
++
++	hdev = sdev->pdata->hw_pdata;
++
++	if (!hdev->sdw)
++		return;
++
++	snd_sof_dsp_update_bits(sdev, HDA_DSP_BAR, HDA_DSP_REG_ADSPIC2,
++				HDA_DSP_REG_ADSPIC2_SNDW,
++				enable ? HDA_DSP_REG_ADSPIC2_SNDW : 0);
++}
++EXPORT_SYMBOL_NS(hda_common_enable_sdw_irq, SND_SOC_SOF_INTEL_HDA_COMMON);
++
++void hda_sdw_int_enable(struct snd_sof_dev *sdev, bool enable)
++{
++	u32 interface_mask = hda_get_interface_mask(sdev);
++	const struct sof_intel_dsp_desc *chip;
++
++	if (!(interface_mask & BIT(SOF_DAI_INTEL_ALH)))
++		return;
++
++	chip = get_chip_info(sdev->pdata);
++	if (chip && chip->enable_sdw_irq)
++		chip->enable_sdw_irq(sdev, enable);
++}
++EXPORT_SYMBOL_NS(hda_sdw_int_enable, SND_SOC_SOF_INTEL_HDA_COMMON);
++
++int hda_sdw_check_lcount_common(struct snd_sof_dev *sdev)
++{
++	struct sof_intel_hda_dev *hdev;
++	struct sdw_intel_ctx *ctx;
++	u32 caps;
++
++	hdev = sdev->pdata->hw_pdata;
++	ctx = hdev->sdw;
++
++	caps = snd_sof_dsp_read(sdev, HDA_DSP_BAR, ctx->shim_base + SDW_SHIM_LCAP);
++	caps &= SDW_SHIM_LCAP_LCOUNT_MASK;
++
++	/* Check HW supported vs property value */
++	if (caps < ctx->count) {
++		dev_err(sdev->dev,
++			"%s: BIOS master count %d is larger than hardware capabilities %d\n",
++			__func__, ctx->count, caps);
++		return -EINVAL;
++	}
++
++	return 0;
++}
++EXPORT_SYMBOL_NS(hda_sdw_check_lcount_common, SND_SOC_SOF_INTEL_HDA_COMMON);
++
++int hda_sdw_check_lcount_ext(struct snd_sof_dev *sdev)
++{
++	struct sof_intel_hda_dev *hdev;
++	struct sdw_intel_ctx *ctx;
++	struct hdac_bus *bus;
++	u32 slcount;
++
++	bus = sof_to_bus(sdev);
++
++	hdev = sdev->pdata->hw_pdata;
++	ctx = hdev->sdw;
++
++	slcount = hdac_bus_eml_get_count(bus, true, AZX_REG_ML_LEPTR_ID_SDW);
++
++	/* Check HW supported vs property value */
++	if (slcount < ctx->count) {
++		dev_err(sdev->dev,
++			"%s: BIOS master count %d is larger than hardware capabilities %d\n",
++			__func__, ctx->count, slcount);
++		return -EINVAL;
++	}
++
++	return 0;
++}
++EXPORT_SYMBOL_NS(hda_sdw_check_lcount_ext, SND_SOC_SOF_INTEL_HDA_COMMON);
++
++int hda_sdw_check_lcount(struct snd_sof_dev *sdev)
++{
++	const struct sof_intel_dsp_desc *chip;
++
++	chip = get_chip_info(sdev->pdata);
++	if (chip && chip->read_sdw_lcount)
++		return chip->read_sdw_lcount(sdev);
++
++	return 0;
++}
++#endif
++
+ int hda_dsp_disable_interrupts(struct snd_sof_dev *sdev)
  {
- 	/*
-@@ -66,6 +70,7 @@ int hda_dsp_ipc_send_msg(struct snd_sof_dev *sdev, struct snd_sof_ipc_msg *msg)
+ 	hda_sdw_int_enable(sdev, false);
+@@ -1142,3 +1321,286 @@ int hda_dsp_disable_interrupts(struct snd_sof_dev *sdev)
+ 	return 0;
+ }
+ EXPORT_SYMBOL_NS(hda_dsp_disable_interrupts, SND_SOC_SOF_INTEL_HDA_COMMON);
++
++static const struct hda_dsp_msg_code hda_dsp_rom_fw_error_texts[] = {
++	{HDA_DSP_ROM_CSE_ERROR, "error: cse error"},
++	{HDA_DSP_ROM_CSE_WRONG_RESPONSE, "error: cse wrong response"},
++	{HDA_DSP_ROM_IMR_TO_SMALL, "error: IMR too small"},
++	{HDA_DSP_ROM_BASE_FW_NOT_FOUND, "error: base fw not found"},
++	{HDA_DSP_ROM_CSE_VALIDATION_FAILED, "error: signature verification failed"},
++	{HDA_DSP_ROM_IPC_FATAL_ERROR, "error: ipc fatal error"},
++	{HDA_DSP_ROM_L2_CACHE_ERROR, "error: L2 cache error"},
++	{HDA_DSP_ROM_LOAD_OFFSET_TO_SMALL, "error: load offset too small"},
++	{HDA_DSP_ROM_API_PTR_INVALID, "error: API ptr invalid"},
++	{HDA_DSP_ROM_BASEFW_INCOMPAT, "error: base fw incompatible"},
++	{HDA_DSP_ROM_UNHANDLED_INTERRUPT, "error: unhandled interrupt"},
++	{HDA_DSP_ROM_MEMORY_HOLE_ECC, "error: ECC memory hole"},
++	{HDA_DSP_ROM_KERNEL_EXCEPTION, "error: kernel exception"},
++	{HDA_DSP_ROM_USER_EXCEPTION, "error: user exception"},
++	{HDA_DSP_ROM_UNEXPECTED_RESET, "error: unexpected reset"},
++	{HDA_DSP_ROM_NULL_FW_ENTRY,	"error: null FW entry point"},
++};
++
++#define FSR_ROM_STATE_ENTRY(state)	{FSR_STATE_ROM_##state, #state}
++static const struct hda_dsp_msg_code cavs_fsr_rom_state_names[] = {
++	FSR_ROM_STATE_ENTRY(INIT),
++	FSR_ROM_STATE_ENTRY(INIT_DONE),
++	FSR_ROM_STATE_ENTRY(CSE_MANIFEST_LOADED),
++	FSR_ROM_STATE_ENTRY(FW_MANIFEST_LOADED),
++	FSR_ROM_STATE_ENTRY(FW_FW_LOADED),
++	FSR_ROM_STATE_ENTRY(FW_ENTERED),
++	FSR_ROM_STATE_ENTRY(VERIFY_FEATURE_MASK),
++	FSR_ROM_STATE_ENTRY(GET_LOAD_OFFSET),
++	FSR_ROM_STATE_ENTRY(FETCH_ROM_EXT),
++	FSR_ROM_STATE_ENTRY(FETCH_ROM_EXT_DONE),
++	/* CSE states */
++	FSR_ROM_STATE_ENTRY(CSE_IMR_REQUEST),
++	FSR_ROM_STATE_ENTRY(CSE_IMR_GRANTED),
++	FSR_ROM_STATE_ENTRY(CSE_VALIDATE_IMAGE_REQUEST),
++	FSR_ROM_STATE_ENTRY(CSE_IMAGE_VALIDATED),
++	FSR_ROM_STATE_ENTRY(CSE_IPC_IFACE_INIT),
++	FSR_ROM_STATE_ENTRY(CSE_IPC_RESET_PHASE_1),
++	FSR_ROM_STATE_ENTRY(CSE_IPC_OPERATIONAL_ENTRY),
++	FSR_ROM_STATE_ENTRY(CSE_IPC_OPERATIONAL),
++	FSR_ROM_STATE_ENTRY(CSE_IPC_DOWN),
++};
++
++static const struct hda_dsp_msg_code ace_fsr_rom_state_names[] = {
++	FSR_ROM_STATE_ENTRY(INIT),
++	FSR_ROM_STATE_ENTRY(INIT_DONE),
++	FSR_ROM_STATE_ENTRY(CSE_MANIFEST_LOADED),
++	FSR_ROM_STATE_ENTRY(FW_MANIFEST_LOADED),
++	FSR_ROM_STATE_ENTRY(FW_FW_LOADED),
++	FSR_ROM_STATE_ENTRY(FW_ENTERED),
++	FSR_ROM_STATE_ENTRY(VERIFY_FEATURE_MASK),
++	FSR_ROM_STATE_ENTRY(GET_LOAD_OFFSET),
++	FSR_ROM_STATE_ENTRY(RESET_VECTOR_DONE),
++	FSR_ROM_STATE_ENTRY(PURGE_BOOT),
++	FSR_ROM_STATE_ENTRY(RESTORE_BOOT),
++	FSR_ROM_STATE_ENTRY(FW_ENTRY_POINT),
++	FSR_ROM_STATE_ENTRY(VALIDATE_PUB_KEY),
++	FSR_ROM_STATE_ENTRY(POWER_DOWN_HPSRAM),
++	FSR_ROM_STATE_ENTRY(POWER_DOWN_ULPSRAM),
++	FSR_ROM_STATE_ENTRY(POWER_UP_ULPSRAM_STACK),
++	FSR_ROM_STATE_ENTRY(POWER_UP_HPSRAM_DMA),
++	FSR_ROM_STATE_ENTRY(BEFORE_EP_POINTER_READ),
++	FSR_ROM_STATE_ENTRY(VALIDATE_MANIFEST),
++	FSR_ROM_STATE_ENTRY(VALIDATE_FW_MODULE),
++	FSR_ROM_STATE_ENTRY(PROTECT_IMR_REGION),
++	FSR_ROM_STATE_ENTRY(PUSH_MODEL_ROUTINE),
++	FSR_ROM_STATE_ENTRY(PULL_MODEL_ROUTINE),
++	FSR_ROM_STATE_ENTRY(VALIDATE_PKG_DIR),
++	FSR_ROM_STATE_ENTRY(VALIDATE_CPD),
++	FSR_ROM_STATE_ENTRY(VALIDATE_CSS_MAN_HEADER),
++	FSR_ROM_STATE_ENTRY(VALIDATE_BLOB_SVN),
++	FSR_ROM_STATE_ENTRY(VERIFY_IFWI_PARTITION),
++	FSR_ROM_STATE_ENTRY(REMOVE_ACCESS_CONTROL),
++	FSR_ROM_STATE_ENTRY(AUTH_BYPASS),
++	FSR_ROM_STATE_ENTRY(AUTH_ENABLED),
++	FSR_ROM_STATE_ENTRY(INIT_DMA),
++	FSR_ROM_STATE_ENTRY(PURGE_FW_ENTRY),
++	FSR_ROM_STATE_ENTRY(PURGE_FW_END),
++	FSR_ROM_STATE_ENTRY(CLEAN_UP_BSS_DONE),
++	FSR_ROM_STATE_ENTRY(IMR_RESTORE_ENTRY),
++	FSR_ROM_STATE_ENTRY(IMR_RESTORE_END),
++	FSR_ROM_STATE_ENTRY(FW_MANIFEST_IN_DMA_BUFF),
++	FSR_ROM_STATE_ENTRY(LOAD_CSE_MAN_TO_IMR),
++	FSR_ROM_STATE_ENTRY(LOAD_FW_MAN_TO_IMR),
++	FSR_ROM_STATE_ENTRY(LOAD_FW_CODE_TO_IMR),
++	FSR_ROM_STATE_ENTRY(FW_LOADING_DONE),
++	FSR_ROM_STATE_ENTRY(FW_CODE_LOADED),
++	FSR_ROM_STATE_ENTRY(VERIFY_IMAGE_TYPE),
++	FSR_ROM_STATE_ENTRY(AUTH_API_INIT),
++	FSR_ROM_STATE_ENTRY(AUTH_API_PROC),
++	FSR_ROM_STATE_ENTRY(AUTH_API_FIRST_BUSY),
++	FSR_ROM_STATE_ENTRY(AUTH_API_FIRST_RESULT),
++	FSR_ROM_STATE_ENTRY(AUTH_API_CLEANUP),
++};
++
++#define FSR_BRINGUP_STATE_ENTRY(state)	{FSR_STATE_BRINGUP_##state, #state}
++static const struct hda_dsp_msg_code fsr_bringup_state_names[] = {
++	FSR_BRINGUP_STATE_ENTRY(INIT),
++	FSR_BRINGUP_STATE_ENTRY(INIT_DONE),
++	FSR_BRINGUP_STATE_ENTRY(HPSRAM_LOAD),
++	FSR_BRINGUP_STATE_ENTRY(UNPACK_START),
++	FSR_BRINGUP_STATE_ENTRY(IMR_RESTORE),
++	FSR_BRINGUP_STATE_ENTRY(FW_ENTERED),
++};
++
++#define FSR_WAIT_STATE_ENTRY(state)	{FSR_WAIT_FOR_##state, #state}
++static const struct hda_dsp_msg_code fsr_wait_state_names[] = {
++	FSR_WAIT_STATE_ENTRY(IPC_BUSY),
++	FSR_WAIT_STATE_ENTRY(IPC_DONE),
++	FSR_WAIT_STATE_ENTRY(CACHE_INVALIDATION),
++	FSR_WAIT_STATE_ENTRY(LP_SRAM_OFF),
++	FSR_WAIT_STATE_ENTRY(DMA_BUFFER_FULL),
++	FSR_WAIT_STATE_ENTRY(CSE_CSR),
++};
++
++#define FSR_MODULE_NAME_ENTRY(mod)	[FSR_MOD_##mod] = #mod
++static const char * const fsr_module_names[] = {
++	FSR_MODULE_NAME_ENTRY(ROM),
++	FSR_MODULE_NAME_ENTRY(ROM_BYP),
++	FSR_MODULE_NAME_ENTRY(BASE_FW),
++	FSR_MODULE_NAME_ENTRY(LP_BOOT),
++	FSR_MODULE_NAME_ENTRY(BRNGUP),
++	FSR_MODULE_NAME_ENTRY(ROM_EXT),
++};
++
++static const char *
++hda_dsp_get_state_text(u32 code, const struct hda_dsp_msg_code *msg_code,
++		       size_t array_size)
++{
++	int i;
++
++	for (i = 0; i < array_size; i++) {
++		if (code == msg_code[i].code)
++			return msg_code[i].text;
++	}
++
++	return NULL;
++}
++
++void hda_dsp_get_state(struct snd_sof_dev *sdev, const char *level)
++{
++	const struct sof_intel_dsp_desc *chip = get_chip_info(sdev->pdata);
++	const char *state_text, *error_text, *module_text;
++	u32 fsr, state, wait_state, module, error_code;
++
++	fsr = snd_sof_dsp_read(sdev, HDA_DSP_BAR, chip->rom_status_reg);
++	state = FSR_TO_STATE_CODE(fsr);
++	wait_state = FSR_TO_WAIT_STATE_CODE(fsr);
++	module = FSR_TO_MODULE_CODE(fsr);
++
++	if (module > FSR_MOD_ROM_EXT)
++		module_text = "unknown";
++	else
++		module_text = fsr_module_names[module];
++
++	if (module == FSR_MOD_BRNGUP) {
++		state_text = hda_dsp_get_state_text(state, fsr_bringup_state_names,
++						    ARRAY_SIZE(fsr_bringup_state_names));
++	} else {
++		if (chip->hw_ip_version < SOF_INTEL_ACE_1_0)
++			state_text = hda_dsp_get_state_text(state,
++							cavs_fsr_rom_state_names,
++							ARRAY_SIZE(cavs_fsr_rom_state_names));
++		else
++			state_text = hda_dsp_get_state_text(state,
++							ace_fsr_rom_state_names,
++							ARRAY_SIZE(ace_fsr_rom_state_names));
++	}
++
++	/* not for us, must be generic sof message */
++	if (!state_text) {
++		dev_printk(level, sdev->dev, "%#010x: unknown ROM status value\n", fsr);
++		return;
++	}
++
++	if (wait_state) {
++		const char *wait_state_text;
++
++		wait_state_text = hda_dsp_get_state_text(wait_state, fsr_wait_state_names,
++							 ARRAY_SIZE(fsr_wait_state_names));
++		if (!wait_state_text)
++			wait_state_text = "unknown";
++
++		dev_printk(level, sdev->dev,
++			   "%#010x: module: %s, state: %s, waiting for: %s, %s\n",
++			   fsr, module_text, state_text, wait_state_text,
++			   fsr & FSR_HALTED ? "not running" : "running");
++	} else {
++		dev_printk(level, sdev->dev, "%#010x: module: %s, state: %s, %s\n",
++			   fsr, module_text, state_text,
++			   fsr & FSR_HALTED ? "not running" : "running");
++	}
++
++	error_code = snd_sof_dsp_read(sdev, HDA_DSP_BAR, chip->rom_status_reg + 4);
++	if (!error_code)
++		return;
++
++	error_text = hda_dsp_get_state_text(error_code, hda_dsp_rom_fw_error_texts,
++					    ARRAY_SIZE(hda_dsp_rom_fw_error_texts));
++	if (!error_text)
++		error_text = "unknown";
++
++	if (state == FSR_STATE_FW_ENTERED)
++		dev_printk(level, sdev->dev, "status code: %#x (%s)\n", error_code,
++			   error_text);
++	else
++		dev_printk(level, sdev->dev, "error code: %#x (%s)\n", error_code,
++			   error_text);
++}
++EXPORT_SYMBOL_NS(hda_dsp_get_state, SND_SOC_SOF_INTEL_HDA_COMMON);
++
++static void hda_dsp_get_registers(struct snd_sof_dev *sdev,
++				  struct sof_ipc_dsp_oops_xtensa *xoops,
++				  struct sof_ipc_panic_info *panic_info,
++				  u32 *stack, size_t stack_words)
++{
++	u32 offset = sdev->dsp_oops_offset;
++
++	/* first read registers */
++	sof_mailbox_read(sdev, offset, xoops, sizeof(*xoops));
++
++	/* note: variable AR register array is not read */
++
++	/* then get panic info */
++	if (xoops->arch_hdr.totalsize > EXCEPT_MAX_HDR_SIZE) {
++		dev_err(sdev->dev, "invalid header size 0x%x. FW oops is bogus\n",
++			xoops->arch_hdr.totalsize);
++		return;
++	}
++	offset += xoops->arch_hdr.totalsize;
++	sof_block_read(sdev, sdev->mmio_bar, offset,
++		       panic_info, sizeof(*panic_info));
++
++	/* then get the stack */
++	offset += sizeof(*panic_info);
++	sof_block_read(sdev, sdev->mmio_bar, offset, stack,
++		       stack_words * sizeof(u32));
++}
++
++/* dump the first 8 dwords representing the extended ROM status */
++void hda_dsp_dump_ext_rom_status(struct snd_sof_dev *sdev, const char *level,
++				 u32 flags)
++{
++	const struct sof_intel_dsp_desc *chip;
++	char msg[128];
++	int len = 0;
++	u32 value;
++	int i;
++
++	chip = get_chip_info(sdev->pdata);
++	for (i = 0; i < HDA_EXT_ROM_STATUS_SIZE; i++) {
++		value = snd_sof_dsp_read(sdev, HDA_DSP_BAR, chip->rom_status_reg + i * 0x4);
++		len += scnprintf(msg + len, sizeof(msg) - len, " 0x%x", value);
++	}
++
++	dev_printk(level, sdev->dev, "extended rom status: %s", msg);
++
++}
++
++void hda_dsp_dump(struct snd_sof_dev *sdev, u32 flags)
++{
++	char *level = (flags & SOF_DBG_DUMP_OPTIONAL) ? KERN_DEBUG : KERN_ERR;
++	struct sof_ipc_dsp_oops_xtensa xoops;
++	struct sof_ipc_panic_info panic_info;
++	u32 stack[HDA_DSP_STACK_DUMP_SIZE];
++
++	/* print ROM/FW status */
++	hda_dsp_get_state(sdev, level);
++
++	/* The firmware register dump only available with IPC3 */
++	if (flags & SOF_DBG_DUMP_REGS && sdev->pdata->ipc_type == SOF_IPC_TYPE_3) {
++		u32 status = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_SRAM_REG_FW_STATUS);
++		u32 panic = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_SRAM_REG_FW_TRACEP);
++
++		hda_dsp_get_registers(sdev, &xoops, &panic_info, stack,
++				      HDA_DSP_STACK_DUMP_SIZE);
++		sof_print_oops_and_stack(sdev, level, status, panic, &xoops,
++					 &panic_info, stack, HDA_DSP_STACK_DUMP_SIZE);
++	} else {
++		hda_dsp_dump_ext_rom_status(sdev, level, flags);
++	}
++}
+diff --git a/sound/soc/sof/intel/hda-ipc.c b/sound/soc/sof/intel/hda-ipc.c
+index 6919729cef52..2252c9198cc0 100644
+--- a/sound/soc/sof/intel/hda-ipc.c
++++ b/sound/soc/sof/intel/hda-ipc.c
+@@ -15,10 +15,12 @@
+  * Hardware interface for generic Intel audio DSP HDA IP
+  */
+ 
++#include <sound/hda_register.h>
+ #include <sound/sof/ipc4/header.h>
+ #include <trace/events/sof_intel.h>
+ #include "../ops.h"
+ #include "hda.h"
++#include "telemetry.h"
+ 
+ EXPORT_TRACEPOINT_SYMBOL(sof_intel_ipc_firmware_initiated);
+ EXPORT_TRACEPOINT_SYMBOL(sof_intel_ipc_firmware_response);
+@@ -450,3 +452,100 @@ int hda_set_stream_data_offset(struct snd_sof_dev *sdev,
  
  	return 0;
  }
-+EXPORT_SYMBOL_NS(hda_dsp_ipc_send_msg, SND_SOC_SOF_INTEL_HDA_COMMON);
++
++void hda_ipc4_dsp_dump(struct snd_sof_dev *sdev, u32 flags)
++{
++	char *level = (flags & SOF_DBG_DUMP_OPTIONAL) ? KERN_DEBUG : KERN_ERR;
++
++	/* print ROM/FW status */
++	hda_dsp_get_state(sdev, level);
++
++	if (flags & SOF_DBG_DUMP_REGS)
++		sof_ipc4_intel_dump_telemetry_state(sdev, flags);
++	else
++		hda_dsp_dump_ext_rom_status(sdev, level, flags);
++}
++EXPORT_SYMBOL_NS(hda_ipc4_dsp_dump, SND_SOC_SOF_INTEL_HDA_COMMON);
++
++bool hda_check_ipc_irq(struct snd_sof_dev *sdev)
++{
++	const struct sof_intel_dsp_desc *chip;
++
++	chip = get_chip_info(sdev->pdata);
++	if (chip && chip->check_ipc_irq)
++		return chip->check_ipc_irq(sdev);
++
++	return false;
++}
++
++void hda_ipc_irq_dump(struct snd_sof_dev *sdev)
++{
++	u32 adspis;
++	u32 intsts;
++	u32 intctl;
++	u32 ppsts;
++	u8 rirbsts;
++
++	/* read key IRQ stats and config registers */
++	adspis = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_REG_ADSPIS);
++	intsts = snd_sof_dsp_read(sdev, HDA_DSP_HDA_BAR, SOF_HDA_INTSTS);
++	intctl = snd_sof_dsp_read(sdev, HDA_DSP_HDA_BAR, SOF_HDA_INTCTL);
++	ppsts = snd_sof_dsp_read(sdev, HDA_DSP_PP_BAR, SOF_HDA_REG_PP_PPSTS);
++	rirbsts = snd_sof_dsp_read8(sdev, HDA_DSP_HDA_BAR, AZX_REG_RIRBSTS);
++
++	dev_err(sdev->dev, "hda irq intsts 0x%8.8x intlctl 0x%8.8x rirb %2.2x\n",
++		intsts, intctl, rirbsts);
++	dev_err(sdev->dev, "dsp irq ppsts 0x%8.8x adspis 0x%8.8x\n", ppsts, adspis);
++}
++EXPORT_SYMBOL_NS(hda_ipc_irq_dump, SND_SOC_SOF_INTEL_HDA_COMMON);
++
++void hda_ipc_dump(struct snd_sof_dev *sdev)
++{
++	u32 hipcie;
++	u32 hipct;
++	u32 hipcctl;
++
++	hda_ipc_irq_dump(sdev);
++
++	/* read IPC status */
++	hipcie = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_REG_HIPCIE);
++	hipct = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_REG_HIPCT);
++	hipcctl = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_REG_HIPCCTL);
++
++	/* dump the IPC regs */
++	/* TODO: parse the raw msg */
++	dev_err(sdev->dev, "host status 0x%8.8x dsp status 0x%8.8x mask 0x%8.8x\n",
++		hipcie, hipct, hipcctl);
++}
++EXPORT_SYMBOL_NS(hda_ipc_dump, SND_SOC_SOF_INTEL_HDA_COMMON);
++
++void hda_ipc4_dump(struct snd_sof_dev *sdev)
++{
++	u32 hipci, hipcie, hipct, hipcte, hipcctl;
++
++	hda_ipc_irq_dump(sdev);
++
++	hipci = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_REG_HIPCI);
++	hipcie = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_REG_HIPCIE);
++	hipct = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_REG_HIPCT);
++	hipcte = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_REG_HIPCTE);
++	hipcctl = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_REG_HIPCCTL);
++
++	/* dump the IPC regs */
++	/* TODO: parse the raw msg */
++	dev_err(sdev->dev, "Host IPC initiator: %#x|%#x, target: %#x|%#x, ctl: %#x\n",
++		hipci, hipcie, hipct, hipcte, hipcctl);
++}
++EXPORT_SYMBOL_NS(hda_ipc4_dump, SND_SOC_SOF_INTEL_HDA_COMMON);
++
++bool hda_ipc4_tx_is_busy(struct snd_sof_dev *sdev)
++{
++	struct sof_intel_hda_dev *hda = sdev->pdata->hw_pdata;
++	const struct sof_intel_dsp_desc *chip = hda->desc;
++	u32 val;
++
++	val = snd_sof_dsp_read(sdev, HDA_DSP_BAR, chip->ipc_req);
++
++	return !!(val & chip->ipc_req_mask);
++}
++EXPORT_SYMBOL_NS(hda_ipc4_tx_is_busy, SND_SOC_SOF_INTEL_HDA_COMMON);
+diff --git a/sound/soc/sof/intel/hda-stream.c b/sound/soc/sof/intel/hda-stream.c
+index c5afcda18359..4fef1964b5cd 100644
+--- a/sound/soc/sof/intel/hda-stream.c
++++ b/sound/soc/sof/intel/hda-stream.c
+@@ -24,6 +24,10 @@
+ #include "../ipc4-priv.h"
+ #include "hda.h"
  
- static inline bool hda_dsp_ipc4_pm_msg(u32 primary)
- {
-@@ -92,6 +97,7 @@ void hda_dsp_ipc4_schedule_d0i3_work(struct sof_intel_hda_dev *hdev,
- 	mod_delayed_work(system_wq, &hdev->d0i3_work,
- 			 msecs_to_jiffies(SOF_HDA_D0I3_WORK_DELAY_MS));
- }
-+EXPORT_SYMBOL_NS(hda_dsp_ipc4_schedule_d0i3_work, SND_SOC_SOF_INTEL_HDA_COMMON);
++int sof_hda_position_quirk = SOF_HDA_POSITION_QUIRK_USE_DPIB_REGISTERS;
++module_param_named(position_quirk, sof_hda_position_quirk, int, 0444);
++MODULE_PARM_DESC(position_quirk, "SOF HDaudio position quirk");
++
+ #define HDA_LTRP_GB_VALUE_US	95
  
- int hda_dsp_ipc4_send_msg(struct snd_sof_dev *sdev, struct snd_sof_ipc_msg *msg)
- {
-@@ -118,6 +124,7 @@ int hda_dsp_ipc4_send_msg(struct snd_sof_dev *sdev, struct snd_sof_ipc_msg *msg)
- 
- 	return 0;
- }
-+EXPORT_SYMBOL_NS(hda_dsp_ipc4_send_msg, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- void hda_dsp_ipc_get_reply(struct snd_sof_dev *sdev)
- {
-@@ -153,6 +160,7 @@ void hda_dsp_ipc_get_reply(struct snd_sof_dev *sdev)
- 		snd_sof_ipc_get_reply(sdev);
- 	}
- }
-+EXPORT_SYMBOL_NS(hda_dsp_ipc_get_reply, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- irqreturn_t hda_dsp_ipc4_irq_thread(int irq, void *context)
- {
-@@ -235,6 +243,7 @@ irqreturn_t hda_dsp_ipc4_irq_thread(int irq, void *context)
- 
- 	return IRQ_HANDLED;
- }
-+EXPORT_SYMBOL_NS(hda_dsp_ipc4_irq_thread, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- /* IPC handler thread */
- irqreturn_t hda_dsp_ipc_irq_thread(int irq, void *context)
-@@ -347,6 +356,7 @@ irqreturn_t hda_dsp_ipc_irq_thread(int irq, void *context)
- 
- 	return IRQ_HANDLED;
- }
-+EXPORT_SYMBOL_NS(hda_dsp_ipc_irq_thread, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- /* Check if an IPC IRQ occurred */
- bool hda_dsp_check_ipc_irq(struct snd_sof_dev *sdev)
-@@ -380,6 +390,7 @@ bool hda_dsp_check_ipc_irq(struct snd_sof_dev *sdev)
- out:
- 	return ret;
- }
-+EXPORT_SYMBOL_NS(hda_dsp_check_ipc_irq, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- int hda_dsp_ipc_get_mailbox_offset(struct snd_sof_dev *sdev)
- {
-diff --git a/sound/soc/sof/intel/hda-loader.c b/sound/soc/sof/intel/hda-loader.c
-index d0474522ea76..34c18275c949 100644
---- a/sound/soc/sof/intel/hda-loader.c
-+++ b/sound/soc/sof/intel/hda-loader.c
-@@ -219,6 +219,7 @@ int cl_dsp_init(struct snd_sof_dev *sdev, int stream_tag, bool imr_boot)
- 	kfree(dump_msg);
- 	return ret;
- }
-+EXPORT_SYMBOL_NS(cl_dsp_init, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- int hda_cl_trigger(struct device *dev, struct hdac_ext_stream *hext_stream, int cmd)
- {
-@@ -393,6 +394,7 @@ int hda_dsp_cl_boot_firmware_iccmax(struct snd_sof_dev *sdev)
- 
- 	return ret;
- }
-+EXPORT_SYMBOL_NS(hda_dsp_cl_boot_firmware_iccmax, SND_SOC_SOF_INTEL_CNL);
- 
- static int hda_dsp_boot_imr(struct snd_sof_dev *sdev)
- {
-@@ -546,6 +548,7 @@ int hda_dsp_cl_boot_firmware(struct snd_sof_dev *sdev)
- 
- 	return ret;
- }
-+EXPORT_SYMBOL_NS(hda_dsp_cl_boot_firmware, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- int hda_dsp_ipc4_load_library(struct snd_sof_dev *sdev,
- 			      struct sof_ipc4_fw_library *fw_lib, bool reload)
-@@ -649,6 +652,7 @@ int hda_dsp_ipc4_load_library(struct snd_sof_dev *sdev,
- 
- 	return ret;
- }
-+EXPORT_SYMBOL_NS(hda_dsp_ipc4_load_library, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- int hda_dsp_ext_man_get_cavs_config_data(struct snd_sof_dev *sdev,
- 					 const struct sof_ext_man_elem_header *hdr)
+ static inline const char *hda_hstream_direction_str(struct hdac_stream *hstream)
 diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
-index e86236d35fe8..b26fa2b8629b 100644
+index b26fa2b8629b..a6d16314879f 100644
 --- a/sound/soc/sof/intel/hda.c
 +++ b/sound/soc/sof/intel/hda.c
-@@ -223,6 +223,7 @@ void hda_common_enable_sdw_irq(struct snd_sof_dev *sdev, bool enable)
- 				HDA_DSP_REG_ADSPIC2_SNDW,
- 				enable ? HDA_DSP_REG_ADSPIC2_SNDW : 0);
- }
-+EXPORT_SYMBOL_NS(hda_common_enable_sdw_irq, SND_SOC_SOF_INTEL_HDA_COMMON);
+@@ -34,8 +34,6 @@
+ #include "../ops.h"
+ #include "../ipc4-topology.h"
+ #include "hda.h"
+-#include "telemetry.h"
+-#include "mtl.h"
  
- void hda_sdw_int_enable(struct snd_sof_dev *sdev, bool enable)
- {
-@@ -236,6 +237,7 @@ void hda_sdw_int_enable(struct snd_sof_dev *sdev, bool enable)
- 	if (chip && chip->enable_sdw_irq)
- 		chip->enable_sdw_irq(sdev, enable);
- }
-+EXPORT_SYMBOL_NS(hda_sdw_int_enable, SND_SOC_SOF_INTEL_HDA_COMMON);
+ #define CREATE_TRACE_POINTS
+ #include <trace/events/sof_intel.h>
+@@ -47,86 +45,6 @@
+ /* platform specific devices */
+ #include "shim.h"
  
- static int hda_sdw_acpi_scan(struct snd_sof_dev *sdev)
- {
-@@ -350,6 +352,7 @@ int hda_sdw_check_lcount_common(struct snd_sof_dev *sdev)
- 
- 	return 0;
- }
-+EXPORT_SYMBOL_NS(hda_sdw_check_lcount_common, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- int hda_sdw_check_lcount_ext(struct snd_sof_dev *sdev)
- {
-@@ -375,6 +378,7 @@ int hda_sdw_check_lcount_ext(struct snd_sof_dev *sdev)
- 
- 	return 0;
- }
-+EXPORT_SYMBOL_NS(hda_sdw_check_lcount_ext, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- static int hda_sdw_check_lcount(struct snd_sof_dev *sdev)
- {
-@@ -407,6 +411,7 @@ int hda_sdw_startup(struct snd_sof_dev *sdev)
- 
- 	return sdw_intel_startup(hdev->sdw);
- }
-+EXPORT_SYMBOL_NS(hda_sdw_startup, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- static int hda_sdw_exit(struct snd_sof_dev *sdev)
- {
-@@ -448,6 +453,7 @@ bool hda_common_check_sdw_irq(struct snd_sof_dev *sdev)
- out:
- 	return ret;
- }
-+EXPORT_SYMBOL_NS(hda_common_check_sdw_irq, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- static bool hda_dsp_check_sdw_irq(struct snd_sof_dev *sdev)
- {
-@@ -481,6 +487,7 @@ bool hda_sdw_check_wakeen_irq_common(struct snd_sof_dev *sdev)
- 
- 	return false;
- }
-+EXPORT_SYMBOL_NS(hda_sdw_check_wakeen_irq_common, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- static bool hda_sdw_check_wakeen_irq(struct snd_sof_dev *sdev)
- {
-@@ -583,6 +590,7 @@ int hda_dsp_post_fw_run(struct snd_sof_dev *sdev)
- 	/* re-enable clock gating and power gating */
- 	return hda_dsp_ctrl_clock_power_gating(sdev, true);
- }
-+EXPORT_SYMBOL_NS(hda_dsp_post_fw_run, SND_SOC_SOF_INTEL_HDA_COMMON);
+-#define EXCEPT_MAX_HDR_SIZE	0x400
+-#define HDA_EXT_ROM_STATUS_SIZE 8
+-
+-static void hda_get_interfaces(struct snd_sof_dev *sdev, u32 *interface_mask)
+-{
+-	const struct sof_intel_dsp_desc *chip;
+-
+-	chip = get_chip_info(sdev->pdata);
+-	switch (chip->hw_ip_version) {
+-	case SOF_INTEL_TANGIER:
+-	case SOF_INTEL_BAYTRAIL:
+-	case SOF_INTEL_BROADWELL:
+-		interface_mask[SOF_DAI_DSP_ACCESS] =  BIT(SOF_DAI_INTEL_SSP);
+-		break;
+-	case SOF_INTEL_CAVS_1_5:
+-	case SOF_INTEL_CAVS_1_5_PLUS:
+-		interface_mask[SOF_DAI_DSP_ACCESS] =
+-			BIT(SOF_DAI_INTEL_SSP) | BIT(SOF_DAI_INTEL_DMIC) | BIT(SOF_DAI_INTEL_HDA);
+-		interface_mask[SOF_DAI_HOST_ACCESS] = BIT(SOF_DAI_INTEL_HDA);
+-		break;
+-	case SOF_INTEL_CAVS_1_8:
+-	case SOF_INTEL_CAVS_2_0:
+-	case SOF_INTEL_CAVS_2_5:
+-	case SOF_INTEL_ACE_1_0:
+-		interface_mask[SOF_DAI_DSP_ACCESS] =
+-			BIT(SOF_DAI_INTEL_SSP) | BIT(SOF_DAI_INTEL_DMIC) |
+-			BIT(SOF_DAI_INTEL_HDA) | BIT(SOF_DAI_INTEL_ALH);
+-		interface_mask[SOF_DAI_HOST_ACCESS] = BIT(SOF_DAI_INTEL_HDA);
+-		break;
+-	case SOF_INTEL_ACE_2_0:
+-		interface_mask[SOF_DAI_DSP_ACCESS] =
+-			BIT(SOF_DAI_INTEL_SSP) | BIT(SOF_DAI_INTEL_DMIC) |
+-			BIT(SOF_DAI_INTEL_HDA) | BIT(SOF_DAI_INTEL_ALH);
+-		 /* all interfaces accessible without DSP */
+-		interface_mask[SOF_DAI_HOST_ACCESS] =
+-			interface_mask[SOF_DAI_DSP_ACCESS];
+-		break;
+-	default:
+-		break;
+-	}
+-}
+-
+-static u32 hda_get_interface_mask(struct snd_sof_dev *sdev)
+-{
+-	u32 interface_mask[SOF_DAI_ACCESS_NUM] = { 0 };
+-
+-	hda_get_interfaces(sdev, interface_mask);
+-
+-	return interface_mask[sdev->dspless_mode_selected];
+-}
+-
+-bool hda_is_chain_dma_supported(struct snd_sof_dev *sdev, u32 dai_type)
+-{
+-	u32 interface_mask[SOF_DAI_ACCESS_NUM] = { 0 };
+-	const struct sof_intel_dsp_desc *chip;
+-
+-	if (sdev->dspless_mode_selected)
+-		return false;
+-
+-	hda_get_interfaces(sdev, interface_mask);
+-
+-	if (!(interface_mask[SOF_DAI_DSP_ACCESS] & BIT(dai_type)))
+-		return false;
+-
+-	if (dai_type == SOF_DAI_INTEL_HDA)
+-		return true;
+-
+-	switch (dai_type) {
+-	case SOF_DAI_INTEL_SSP:
+-	case SOF_DAI_INTEL_DMIC:
+-	case SOF_DAI_INTEL_ALH:
+-		chip = get_chip_info(sdev->pdata);
+-		if (chip->hw_ip_version < SOF_INTEL_ACE_2_0)
+-			return false;
+-		return true;
+-	default:
+-		return false;
+-	}
+-}
+-
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_INTEL_SOUNDWIRE)
  
  /*
+@@ -210,35 +128,6 @@ static struct sdw_intel_ops sdw_ace2x_callback = {
+ 	.trigger = sdw_ace2x_trigger,
+ };
+ 
+-void hda_common_enable_sdw_irq(struct snd_sof_dev *sdev, bool enable)
+-{
+-	struct sof_intel_hda_dev *hdev;
+-
+-	hdev = sdev->pdata->hw_pdata;
+-
+-	if (!hdev->sdw)
+-		return;
+-
+-	snd_sof_dsp_update_bits(sdev, HDA_DSP_BAR, HDA_DSP_REG_ADSPIC2,
+-				HDA_DSP_REG_ADSPIC2_SNDW,
+-				enable ? HDA_DSP_REG_ADSPIC2_SNDW : 0);
+-}
+-EXPORT_SYMBOL_NS(hda_common_enable_sdw_irq, SND_SOC_SOF_INTEL_HDA_COMMON);
+-
+-void hda_sdw_int_enable(struct snd_sof_dev *sdev, bool enable)
+-{
+-	u32 interface_mask = hda_get_interface_mask(sdev);
+-	const struct sof_intel_dsp_desc *chip;
+-
+-	if (!(interface_mask & BIT(SOF_DAI_INTEL_ALH)))
+-		return;
+-
+-	chip = get_chip_info(sdev->pdata);
+-	if (chip && chip->enable_sdw_irq)
+-		chip->enable_sdw_irq(sdev, enable);
+-}
+-EXPORT_SYMBOL_NS(hda_sdw_int_enable, SND_SOC_SOF_INTEL_HDA_COMMON);
+-
+ static int hda_sdw_acpi_scan(struct snd_sof_dev *sdev)
+ {
+ 	u32 interface_mask = hda_get_interface_mask(sdev);
+@@ -330,67 +219,6 @@ static int hda_sdw_probe(struct snd_sof_dev *sdev)
+ 	return 0;
+ }
+ 
+-int hda_sdw_check_lcount_common(struct snd_sof_dev *sdev)
+-{
+-	struct sof_intel_hda_dev *hdev;
+-	struct sdw_intel_ctx *ctx;
+-	u32 caps;
+-
+-	hdev = sdev->pdata->hw_pdata;
+-	ctx = hdev->sdw;
+-
+-	caps = snd_sof_dsp_read(sdev, HDA_DSP_BAR, ctx->shim_base + SDW_SHIM_LCAP);
+-	caps &= SDW_SHIM_LCAP_LCOUNT_MASK;
+-
+-	/* Check HW supported vs property value */
+-	if (caps < ctx->count) {
+-		dev_err(sdev->dev,
+-			"%s: BIOS master count %d is larger than hardware capabilities %d\n",
+-			__func__, ctx->count, caps);
+-		return -EINVAL;
+-	}
+-
+-	return 0;
+-}
+-EXPORT_SYMBOL_NS(hda_sdw_check_lcount_common, SND_SOC_SOF_INTEL_HDA_COMMON);
+-
+-int hda_sdw_check_lcount_ext(struct snd_sof_dev *sdev)
+-{
+-	struct sof_intel_hda_dev *hdev;
+-	struct sdw_intel_ctx *ctx;
+-	struct hdac_bus *bus;
+-	u32 slcount;
+-
+-	bus = sof_to_bus(sdev);
+-
+-	hdev = sdev->pdata->hw_pdata;
+-	ctx = hdev->sdw;
+-
+-	slcount = hdac_bus_eml_get_count(bus, true, AZX_REG_ML_LEPTR_ID_SDW);
+-
+-	/* Check HW supported vs property value */
+-	if (slcount < ctx->count) {
+-		dev_err(sdev->dev,
+-			"%s: BIOS master count %d is larger than hardware capabilities %d\n",
+-			__func__, ctx->count, slcount);
+-		return -EINVAL;
+-	}
+-
+-	return 0;
+-}
+-EXPORT_SYMBOL_NS(hda_sdw_check_lcount_ext, SND_SOC_SOF_INTEL_HDA_COMMON);
+-
+-static int hda_sdw_check_lcount(struct snd_sof_dev *sdev)
+-{
+-	const struct sof_intel_dsp_desc *chip;
+-
+-	chip = get_chip_info(sdev->pdata);
+-	if (chip && chip->read_sdw_lcount)
+-		return chip->read_sdw_lcount(sdev);
+-
+-	return 0;
+-}
+-
+ int hda_sdw_startup(struct snd_sof_dev *sdev)
+ {
+ 	struct sof_intel_hda_dev *hdev;
+@@ -596,11 +424,6 @@ EXPORT_SYMBOL_NS(hda_dsp_post_fw_run, SND_SOC_SOF_INTEL_HDA_COMMON);
   * Debug
-@@ -826,6 +834,7 @@ void hda_dsp_get_state(struct snd_sof_dev *sdev, const char *level)
- 		dev_printk(level, sdev->dev, "error code: %#x (%s)\n", error_code,
- 			   error_text);
- }
-+EXPORT_SYMBOL_NS(hda_dsp_get_state, SND_SOC_SOF_INTEL_HDA_COMMON);
+  */
  
- static void hda_dsp_get_registers(struct snd_sof_dev *sdev,
- 				  struct sof_ipc_dsp_oops_xtensa *xoops,
-@@ -911,6 +920,7 @@ void hda_ipc4_dsp_dump(struct snd_sof_dev *sdev, u32 flags)
- 	else
- 		hda_dsp_dump_ext_rom_status(sdev, level, flags);
- }
-+EXPORT_SYMBOL_NS(hda_ipc4_dsp_dump, SND_SOC_SOF_INTEL_HDA_COMMON);
+-struct hda_dsp_msg_code {
+-	u32 code;
+-	const char *text;
+-};
+-
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_DEBUG)
+ static bool hda_use_msi = true;
+ module_param_named(use_msi, hda_use_msi, bool, 0444);
+@@ -609,10 +432,6 @@ MODULE_PARM_DESC(use_msi, "SOF HDA use PCI MSI mode");
+ #define hda_use_msi	(1)
+ #endif
  
- static bool hda_check_ipc_irq(struct snd_sof_dev *sdev)
- {
-@@ -942,6 +952,7 @@ void hda_ipc_irq_dump(struct snd_sof_dev *sdev)
- 		intsts, intctl, rirbsts);
- 	dev_err(sdev->dev, "dsp irq ppsts 0x%8.8x adspis 0x%8.8x\n", ppsts, adspis);
- }
-+EXPORT_SYMBOL_NS(hda_ipc_irq_dump, SND_SOC_SOF_INTEL_HDA_COMMON);
+-int sof_hda_position_quirk = SOF_HDA_POSITION_QUIRK_USE_DPIB_REGISTERS;
+-module_param_named(position_quirk, sof_hda_position_quirk, int, 0444);
+-MODULE_PARM_DESC(position_quirk, "SOF HDaudio position quirk");
+-
+ static char *hda_model;
+ module_param(hda_model, charp, 0444);
+ MODULE_PARM_DESC(hda_model, "Use the given HDA board model.");
+@@ -625,386 +444,6 @@ static int mclk_id_override = -1;
+ module_param_named(mclk_id, mclk_id_override, int, 0444);
+ MODULE_PARM_DESC(mclk_id, "SOF SSP mclk_id");
  
- void hda_ipc_dump(struct snd_sof_dev *sdev)
- {
-@@ -961,6 +972,7 @@ void hda_ipc_dump(struct snd_sof_dev *sdev)
- 	dev_err(sdev->dev, "host status 0x%8.8x dsp status 0x%8.8x mask 0x%8.8x\n",
- 		hipcie, hipct, hipcctl);
- }
-+EXPORT_SYMBOL_NS(hda_ipc_dump, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- void hda_ipc4_dump(struct snd_sof_dev *sdev)
- {
-@@ -979,6 +991,7 @@ void hda_ipc4_dump(struct snd_sof_dev *sdev)
- 	dev_err(sdev->dev, "Host IPC initiator: %#x|%#x, target: %#x|%#x, ctl: %#x\n",
- 		hipci, hipcie, hipct, hipcte, hipcctl);
- }
-+EXPORT_SYMBOL_NS(hda_ipc4_dump, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- bool hda_ipc4_tx_is_busy(struct snd_sof_dev *sdev)
- {
-@@ -990,6 +1003,7 @@ bool hda_ipc4_tx_is_busy(struct snd_sof_dev *sdev)
- 
- 	return !!(val & chip->ipc_req_mask);
- }
-+EXPORT_SYMBOL_NS(hda_ipc4_tx_is_busy, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
+-static const struct hda_dsp_msg_code hda_dsp_rom_fw_error_texts[] = {
+-	{HDA_DSP_ROM_CSE_ERROR, "error: cse error"},
+-	{HDA_DSP_ROM_CSE_WRONG_RESPONSE, "error: cse wrong response"},
+-	{HDA_DSP_ROM_IMR_TO_SMALL, "error: IMR too small"},
+-	{HDA_DSP_ROM_BASE_FW_NOT_FOUND, "error: base fw not found"},
+-	{HDA_DSP_ROM_CSE_VALIDATION_FAILED, "error: signature verification failed"},
+-	{HDA_DSP_ROM_IPC_FATAL_ERROR, "error: ipc fatal error"},
+-	{HDA_DSP_ROM_L2_CACHE_ERROR, "error: L2 cache error"},
+-	{HDA_DSP_ROM_LOAD_OFFSET_TO_SMALL, "error: load offset too small"},
+-	{HDA_DSP_ROM_API_PTR_INVALID, "error: API ptr invalid"},
+-	{HDA_DSP_ROM_BASEFW_INCOMPAT, "error: base fw incompatible"},
+-	{HDA_DSP_ROM_UNHANDLED_INTERRUPT, "error: unhandled interrupt"},
+-	{HDA_DSP_ROM_MEMORY_HOLE_ECC, "error: ECC memory hole"},
+-	{HDA_DSP_ROM_KERNEL_EXCEPTION, "error: kernel exception"},
+-	{HDA_DSP_ROM_USER_EXCEPTION, "error: user exception"},
+-	{HDA_DSP_ROM_UNEXPECTED_RESET, "error: unexpected reset"},
+-	{HDA_DSP_ROM_NULL_FW_ENTRY,	"error: null FW entry point"},
+-};
+-
+-#define FSR_ROM_STATE_ENTRY(state)	{FSR_STATE_ROM_##state, #state}
+-static const struct hda_dsp_msg_code cavs_fsr_rom_state_names[] = {
+-	FSR_ROM_STATE_ENTRY(INIT),
+-	FSR_ROM_STATE_ENTRY(INIT_DONE),
+-	FSR_ROM_STATE_ENTRY(CSE_MANIFEST_LOADED),
+-	FSR_ROM_STATE_ENTRY(FW_MANIFEST_LOADED),
+-	FSR_ROM_STATE_ENTRY(FW_FW_LOADED),
+-	FSR_ROM_STATE_ENTRY(FW_ENTERED),
+-	FSR_ROM_STATE_ENTRY(VERIFY_FEATURE_MASK),
+-	FSR_ROM_STATE_ENTRY(GET_LOAD_OFFSET),
+-	FSR_ROM_STATE_ENTRY(FETCH_ROM_EXT),
+-	FSR_ROM_STATE_ENTRY(FETCH_ROM_EXT_DONE),
+-	/* CSE states */
+-	FSR_ROM_STATE_ENTRY(CSE_IMR_REQUEST),
+-	FSR_ROM_STATE_ENTRY(CSE_IMR_GRANTED),
+-	FSR_ROM_STATE_ENTRY(CSE_VALIDATE_IMAGE_REQUEST),
+-	FSR_ROM_STATE_ENTRY(CSE_IMAGE_VALIDATED),
+-	FSR_ROM_STATE_ENTRY(CSE_IPC_IFACE_INIT),
+-	FSR_ROM_STATE_ENTRY(CSE_IPC_RESET_PHASE_1),
+-	FSR_ROM_STATE_ENTRY(CSE_IPC_OPERATIONAL_ENTRY),
+-	FSR_ROM_STATE_ENTRY(CSE_IPC_OPERATIONAL),
+-	FSR_ROM_STATE_ENTRY(CSE_IPC_DOWN),
+-};
+-
+-static const struct hda_dsp_msg_code ace_fsr_rom_state_names[] = {
+-	FSR_ROM_STATE_ENTRY(INIT),
+-	FSR_ROM_STATE_ENTRY(INIT_DONE),
+-	FSR_ROM_STATE_ENTRY(CSE_MANIFEST_LOADED),
+-	FSR_ROM_STATE_ENTRY(FW_MANIFEST_LOADED),
+-	FSR_ROM_STATE_ENTRY(FW_FW_LOADED),
+-	FSR_ROM_STATE_ENTRY(FW_ENTERED),
+-	FSR_ROM_STATE_ENTRY(VERIFY_FEATURE_MASK),
+-	FSR_ROM_STATE_ENTRY(GET_LOAD_OFFSET),
+-	FSR_ROM_STATE_ENTRY(RESET_VECTOR_DONE),
+-	FSR_ROM_STATE_ENTRY(PURGE_BOOT),
+-	FSR_ROM_STATE_ENTRY(RESTORE_BOOT),
+-	FSR_ROM_STATE_ENTRY(FW_ENTRY_POINT),
+-	FSR_ROM_STATE_ENTRY(VALIDATE_PUB_KEY),
+-	FSR_ROM_STATE_ENTRY(POWER_DOWN_HPSRAM),
+-	FSR_ROM_STATE_ENTRY(POWER_DOWN_ULPSRAM),
+-	FSR_ROM_STATE_ENTRY(POWER_UP_ULPSRAM_STACK),
+-	FSR_ROM_STATE_ENTRY(POWER_UP_HPSRAM_DMA),
+-	FSR_ROM_STATE_ENTRY(BEFORE_EP_POINTER_READ),
+-	FSR_ROM_STATE_ENTRY(VALIDATE_MANIFEST),
+-	FSR_ROM_STATE_ENTRY(VALIDATE_FW_MODULE),
+-	FSR_ROM_STATE_ENTRY(PROTECT_IMR_REGION),
+-	FSR_ROM_STATE_ENTRY(PUSH_MODEL_ROUTINE),
+-	FSR_ROM_STATE_ENTRY(PULL_MODEL_ROUTINE),
+-	FSR_ROM_STATE_ENTRY(VALIDATE_PKG_DIR),
+-	FSR_ROM_STATE_ENTRY(VALIDATE_CPD),
+-	FSR_ROM_STATE_ENTRY(VALIDATE_CSS_MAN_HEADER),
+-	FSR_ROM_STATE_ENTRY(VALIDATE_BLOB_SVN),
+-	FSR_ROM_STATE_ENTRY(VERIFY_IFWI_PARTITION),
+-	FSR_ROM_STATE_ENTRY(REMOVE_ACCESS_CONTROL),
+-	FSR_ROM_STATE_ENTRY(AUTH_BYPASS),
+-	FSR_ROM_STATE_ENTRY(AUTH_ENABLED),
+-	FSR_ROM_STATE_ENTRY(INIT_DMA),
+-	FSR_ROM_STATE_ENTRY(PURGE_FW_ENTRY),
+-	FSR_ROM_STATE_ENTRY(PURGE_FW_END),
+-	FSR_ROM_STATE_ENTRY(CLEAN_UP_BSS_DONE),
+-	FSR_ROM_STATE_ENTRY(IMR_RESTORE_ENTRY),
+-	FSR_ROM_STATE_ENTRY(IMR_RESTORE_END),
+-	FSR_ROM_STATE_ENTRY(FW_MANIFEST_IN_DMA_BUFF),
+-	FSR_ROM_STATE_ENTRY(LOAD_CSE_MAN_TO_IMR),
+-	FSR_ROM_STATE_ENTRY(LOAD_FW_MAN_TO_IMR),
+-	FSR_ROM_STATE_ENTRY(LOAD_FW_CODE_TO_IMR),
+-	FSR_ROM_STATE_ENTRY(FW_LOADING_DONE),
+-	FSR_ROM_STATE_ENTRY(FW_CODE_LOADED),
+-	FSR_ROM_STATE_ENTRY(VERIFY_IMAGE_TYPE),
+-	FSR_ROM_STATE_ENTRY(AUTH_API_INIT),
+-	FSR_ROM_STATE_ENTRY(AUTH_API_PROC),
+-	FSR_ROM_STATE_ENTRY(AUTH_API_FIRST_BUSY),
+-	FSR_ROM_STATE_ENTRY(AUTH_API_FIRST_RESULT),
+-	FSR_ROM_STATE_ENTRY(AUTH_API_CLEANUP),
+-};
+-
+-#define FSR_BRINGUP_STATE_ENTRY(state)	{FSR_STATE_BRINGUP_##state, #state}
+-static const struct hda_dsp_msg_code fsr_bringup_state_names[] = {
+-	FSR_BRINGUP_STATE_ENTRY(INIT),
+-	FSR_BRINGUP_STATE_ENTRY(INIT_DONE),
+-	FSR_BRINGUP_STATE_ENTRY(HPSRAM_LOAD),
+-	FSR_BRINGUP_STATE_ENTRY(UNPACK_START),
+-	FSR_BRINGUP_STATE_ENTRY(IMR_RESTORE),
+-	FSR_BRINGUP_STATE_ENTRY(FW_ENTERED),
+-};
+-
+-#define FSR_WAIT_STATE_ENTRY(state)	{FSR_WAIT_FOR_##state, #state}
+-static const struct hda_dsp_msg_code fsr_wait_state_names[] = {
+-	FSR_WAIT_STATE_ENTRY(IPC_BUSY),
+-	FSR_WAIT_STATE_ENTRY(IPC_DONE),
+-	FSR_WAIT_STATE_ENTRY(CACHE_INVALIDATION),
+-	FSR_WAIT_STATE_ENTRY(LP_SRAM_OFF),
+-	FSR_WAIT_STATE_ENTRY(DMA_BUFFER_FULL),
+-	FSR_WAIT_STATE_ENTRY(CSE_CSR),
+-};
+-
+-#define FSR_MODULE_NAME_ENTRY(mod)	[FSR_MOD_##mod] = #mod
+-static const char * const fsr_module_names[] = {
+-	FSR_MODULE_NAME_ENTRY(ROM),
+-	FSR_MODULE_NAME_ENTRY(ROM_BYP),
+-	FSR_MODULE_NAME_ENTRY(BASE_FW),
+-	FSR_MODULE_NAME_ENTRY(LP_BOOT),
+-	FSR_MODULE_NAME_ENTRY(BRNGUP),
+-	FSR_MODULE_NAME_ENTRY(ROM_EXT),
+-};
+-
+-static const char *
+-hda_dsp_get_state_text(u32 code, const struct hda_dsp_msg_code *msg_code,
+-		       size_t array_size)
+-{
+-	int i;
+-
+-	for (i = 0; i < array_size; i++) {
+-		if (code == msg_code[i].code)
+-			return msg_code[i].text;
+-	}
+-
+-	return NULL;
+-}
+-
+-void hda_dsp_get_state(struct snd_sof_dev *sdev, const char *level)
+-{
+-	const struct sof_intel_dsp_desc *chip = get_chip_info(sdev->pdata);
+-	const char *state_text, *error_text, *module_text;
+-	u32 fsr, state, wait_state, module, error_code;
+-
+-	fsr = snd_sof_dsp_read(sdev, HDA_DSP_BAR, chip->rom_status_reg);
+-	state = FSR_TO_STATE_CODE(fsr);
+-	wait_state = FSR_TO_WAIT_STATE_CODE(fsr);
+-	module = FSR_TO_MODULE_CODE(fsr);
+-
+-	if (module > FSR_MOD_ROM_EXT)
+-		module_text = "unknown";
+-	else
+-		module_text = fsr_module_names[module];
+-
+-	if (module == FSR_MOD_BRNGUP) {
+-		state_text = hda_dsp_get_state_text(state, fsr_bringup_state_names,
+-						    ARRAY_SIZE(fsr_bringup_state_names));
+-	} else {
+-		if (chip->hw_ip_version < SOF_INTEL_ACE_1_0)
+-			state_text = hda_dsp_get_state_text(state,
+-							cavs_fsr_rom_state_names,
+-							ARRAY_SIZE(cavs_fsr_rom_state_names));
+-		else
+-			state_text = hda_dsp_get_state_text(state,
+-							ace_fsr_rom_state_names,
+-							ARRAY_SIZE(ace_fsr_rom_state_names));
+-	}
+-
+-	/* not for us, must be generic sof message */
+-	if (!state_text) {
+-		dev_printk(level, sdev->dev, "%#010x: unknown ROM status value\n", fsr);
+-		return;
+-	}
+-
+-	if (wait_state) {
+-		const char *wait_state_text;
+-
+-		wait_state_text = hda_dsp_get_state_text(wait_state, fsr_wait_state_names,
+-							 ARRAY_SIZE(fsr_wait_state_names));
+-		if (!wait_state_text)
+-			wait_state_text = "unknown";
+-
+-		dev_printk(level, sdev->dev,
+-			   "%#010x: module: %s, state: %s, waiting for: %s, %s\n",
+-			   fsr, module_text, state_text, wait_state_text,
+-			   fsr & FSR_HALTED ? "not running" : "running");
+-	} else {
+-		dev_printk(level, sdev->dev, "%#010x: module: %s, state: %s, %s\n",
+-			   fsr, module_text, state_text,
+-			   fsr & FSR_HALTED ? "not running" : "running");
+-	}
+-
+-	error_code = snd_sof_dsp_read(sdev, HDA_DSP_BAR, chip->rom_status_reg + 4);
+-	if (!error_code)
+-		return;
+-
+-	error_text = hda_dsp_get_state_text(error_code, hda_dsp_rom_fw_error_texts,
+-					    ARRAY_SIZE(hda_dsp_rom_fw_error_texts));
+-	if (!error_text)
+-		error_text = "unknown";
+-
+-	if (state == FSR_STATE_FW_ENTERED)
+-		dev_printk(level, sdev->dev, "status code: %#x (%s)\n", error_code,
+-			   error_text);
+-	else
+-		dev_printk(level, sdev->dev, "error code: %#x (%s)\n", error_code,
+-			   error_text);
+-}
+-EXPORT_SYMBOL_NS(hda_dsp_get_state, SND_SOC_SOF_INTEL_HDA_COMMON);
+-
+-static void hda_dsp_get_registers(struct snd_sof_dev *sdev,
+-				  struct sof_ipc_dsp_oops_xtensa *xoops,
+-				  struct sof_ipc_panic_info *panic_info,
+-				  u32 *stack, size_t stack_words)
+-{
+-	u32 offset = sdev->dsp_oops_offset;
+-
+-	/* first read registers */
+-	sof_mailbox_read(sdev, offset, xoops, sizeof(*xoops));
+-
+-	/* note: variable AR register array is not read */
+-
+-	/* then get panic info */
+-	if (xoops->arch_hdr.totalsize > EXCEPT_MAX_HDR_SIZE) {
+-		dev_err(sdev->dev, "invalid header size 0x%x. FW oops is bogus\n",
+-			xoops->arch_hdr.totalsize);
+-		return;
+-	}
+-	offset += xoops->arch_hdr.totalsize;
+-	sof_block_read(sdev, sdev->mmio_bar, offset,
+-		       panic_info, sizeof(*panic_info));
+-
+-	/* then get the stack */
+-	offset += sizeof(*panic_info);
+-	sof_block_read(sdev, sdev->mmio_bar, offset, stack,
+-		       stack_words * sizeof(u32));
+-}
+-
+-/* dump the first 8 dwords representing the extended ROM status */
+-static void hda_dsp_dump_ext_rom_status(struct snd_sof_dev *sdev, const char *level,
+-					u32 flags)
+-{
+-	const struct sof_intel_dsp_desc *chip;
+-	char msg[128];
+-	int len = 0;
+-	u32 value;
+-	int i;
+-
+-	chip = get_chip_info(sdev->pdata);
+-	for (i = 0; i < HDA_EXT_ROM_STATUS_SIZE; i++) {
+-		value = snd_sof_dsp_read(sdev, HDA_DSP_BAR, chip->rom_status_reg + i * 0x4);
+-		len += scnprintf(msg + len, sizeof(msg) - len, " 0x%x", value);
+-	}
+-
+-	dev_printk(level, sdev->dev, "extended rom status: %s", msg);
+-
+-}
+-
+-void hda_dsp_dump(struct snd_sof_dev *sdev, u32 flags)
+-{
+-	char *level = (flags & SOF_DBG_DUMP_OPTIONAL) ? KERN_DEBUG : KERN_ERR;
+-	struct sof_ipc_dsp_oops_xtensa xoops;
+-	struct sof_ipc_panic_info panic_info;
+-	u32 stack[HDA_DSP_STACK_DUMP_SIZE];
+-
+-	/* print ROM/FW status */
+-	hda_dsp_get_state(sdev, level);
+-
+-	/* The firmware register dump only available with IPC3 */
+-	if (flags & SOF_DBG_DUMP_REGS && sdev->pdata->ipc_type == SOF_IPC_TYPE_3) {
+-		u32 status = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_SRAM_REG_FW_STATUS);
+-		u32 panic = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_SRAM_REG_FW_TRACEP);
+-
+-		hda_dsp_get_registers(sdev, &xoops, &panic_info, stack,
+-				      HDA_DSP_STACK_DUMP_SIZE);
+-		sof_print_oops_and_stack(sdev, level, status, panic, &xoops,
+-					 &panic_info, stack, HDA_DSP_STACK_DUMP_SIZE);
+-	} else {
+-		hda_dsp_dump_ext_rom_status(sdev, level, flags);
+-	}
+-}
+-
+-void hda_ipc4_dsp_dump(struct snd_sof_dev *sdev, u32 flags)
+-{
+-	char *level = (flags & SOF_DBG_DUMP_OPTIONAL) ? KERN_DEBUG : KERN_ERR;
+-
+-	/* print ROM/FW status */
+-	hda_dsp_get_state(sdev, level);
+-
+-	if (flags & SOF_DBG_DUMP_REGS)
+-		sof_ipc4_intel_dump_telemetry_state(sdev, flags);
+-	else
+-		hda_dsp_dump_ext_rom_status(sdev, level, flags);
+-}
+-EXPORT_SYMBOL_NS(hda_ipc4_dsp_dump, SND_SOC_SOF_INTEL_HDA_COMMON);
+-
+-static bool hda_check_ipc_irq(struct snd_sof_dev *sdev)
+-{
+-	const struct sof_intel_dsp_desc *chip;
+-
+-	chip = get_chip_info(sdev->pdata);
+-	if (chip && chip->check_ipc_irq)
+-		return chip->check_ipc_irq(sdev);
+-
+-	return false;
+-}
+-
+-void hda_ipc_irq_dump(struct snd_sof_dev *sdev)
+-{
+-	u32 adspis;
+-	u32 intsts;
+-	u32 intctl;
+-	u32 ppsts;
+-	u8 rirbsts;
+-
+-	/* read key IRQ stats and config registers */
+-	adspis = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_REG_ADSPIS);
+-	intsts = snd_sof_dsp_read(sdev, HDA_DSP_HDA_BAR, SOF_HDA_INTSTS);
+-	intctl = snd_sof_dsp_read(sdev, HDA_DSP_HDA_BAR, SOF_HDA_INTCTL);
+-	ppsts = snd_sof_dsp_read(sdev, HDA_DSP_PP_BAR, SOF_HDA_REG_PP_PPSTS);
+-	rirbsts = snd_sof_dsp_read8(sdev, HDA_DSP_HDA_BAR, AZX_REG_RIRBSTS);
+-
+-	dev_err(sdev->dev, "hda irq intsts 0x%8.8x intlctl 0x%8.8x rirb %2.2x\n",
+-		intsts, intctl, rirbsts);
+-	dev_err(sdev->dev, "dsp irq ppsts 0x%8.8x adspis 0x%8.8x\n", ppsts, adspis);
+-}
+-EXPORT_SYMBOL_NS(hda_ipc_irq_dump, SND_SOC_SOF_INTEL_HDA_COMMON);
+-
+-void hda_ipc_dump(struct snd_sof_dev *sdev)
+-{
+-	u32 hipcie;
+-	u32 hipct;
+-	u32 hipcctl;
+-
+-	hda_ipc_irq_dump(sdev);
+-
+-	/* read IPC status */
+-	hipcie = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_REG_HIPCIE);
+-	hipct = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_REG_HIPCT);
+-	hipcctl = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_REG_HIPCCTL);
+-
+-	/* dump the IPC regs */
+-	/* TODO: parse the raw msg */
+-	dev_err(sdev->dev, "host status 0x%8.8x dsp status 0x%8.8x mask 0x%8.8x\n",
+-		hipcie, hipct, hipcctl);
+-}
+-EXPORT_SYMBOL_NS(hda_ipc_dump, SND_SOC_SOF_INTEL_HDA_COMMON);
+-
+-void hda_ipc4_dump(struct snd_sof_dev *sdev)
+-{
+-	u32 hipci, hipcie, hipct, hipcte, hipcctl;
+-
+-	hda_ipc_irq_dump(sdev);
+-
+-	hipci = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_REG_HIPCI);
+-	hipcie = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_REG_HIPCIE);
+-	hipct = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_REG_HIPCT);
+-	hipcte = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_REG_HIPCTE);
+-	hipcctl = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_REG_HIPCCTL);
+-
+-	/* dump the IPC regs */
+-	/* TODO: parse the raw msg */
+-	dev_err(sdev->dev, "Host IPC initiator: %#x|%#x, target: %#x|%#x, ctl: %#x\n",
+-		hipci, hipcie, hipct, hipcte, hipcctl);
+-}
+-EXPORT_SYMBOL_NS(hda_ipc4_dump, SND_SOC_SOF_INTEL_HDA_COMMON);
+-
+-bool hda_ipc4_tx_is_busy(struct snd_sof_dev *sdev)
+-{
+-	struct sof_intel_hda_dev *hda = sdev->pdata->hw_pdata;
+-	const struct sof_intel_dsp_desc *chip = hda->desc;
+-	u32 val;
+-
+-	val = snd_sof_dsp_read(sdev, HDA_DSP_BAR, chip->ipc_req);
+-
+-	return !!(val & chip->ipc_req_mask);
+-}
+-EXPORT_SYMBOL_NS(hda_ipc4_tx_is_busy, SND_SOC_SOF_INTEL_HDA_COMMON);
+-
  static int hda_init(struct snd_sof_dev *sdev)
  {
-@@ -1354,6 +1368,7 @@ int hda_dsp_probe_early(struct snd_sof_dev *sdev)
- err:
- 	return ret;
- }
-+EXPORT_SYMBOL_NS(hda_dsp_probe_early, SND_SOC_SOF_INTEL_HDA_COMMON);
+ 	struct hda_bus *hbus;
+diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
+index 8b495264f23d..0345c90ead4d 100644
+--- a/sound/soc/sof/intel/hda.h
++++ b/sound/soc/sof/intel/hda.h
+@@ -619,6 +619,8 @@ void hda_ipc_dump(struct snd_sof_dev *sdev);
+ void hda_ipc_irq_dump(struct snd_sof_dev *sdev);
+ void hda_dsp_d0i3_work(struct work_struct *work);
+ int hda_dsp_disable_interrupts(struct snd_sof_dev *sdev);
++bool hda_check_ipc_irq(struct snd_sof_dev *sdev);
++u32 hda_get_interface_mask(struct snd_sof_dev *sdev);
  
- int hda_dsp_probe(struct snd_sof_dev *sdev)
- {
-@@ -1510,6 +1525,7 @@ int hda_dsp_probe(struct snd_sof_dev *sdev)
+ /*
+  * DSP PCM Operations.
+@@ -700,6 +702,8 @@ irqreturn_t hda_dsp_ipc_irq_thread(int irq, void *context);
+ int hda_dsp_ipc_cmd_done(struct snd_sof_dev *sdev, int dir);
  
- 	return ret;
- }
-+EXPORT_SYMBOL_NS(hda_dsp_probe, SND_SOC_SOF_INTEL_HDA_COMMON);
+ void hda_dsp_get_state(struct snd_sof_dev *sdev, const char *level);
++void hda_dsp_dump_ext_rom_status(struct snd_sof_dev *sdev, const char *level,
++				 u32 flags);
  
- void hda_dsp_remove(struct snd_sof_dev *sdev)
- {
-@@ -1563,6 +1579,7 @@ void hda_dsp_remove(struct snd_sof_dev *sdev)
- 	if (!sdev->dspless_mode_selected)
- 		iounmap(sdev->bar[HDA_DSP_BAR]);
- }
-+EXPORT_SYMBOL_NS(hda_dsp_remove, SND_SOC_SOF_INTEL_HDA_COMMON);
+ /*
+  * DSP Code loader.
+@@ -808,6 +812,7 @@ int hda_dsp_trace_trigger(struct snd_sof_dev *sdev, int cmd);
  
- void hda_dsp_remove_late(struct snd_sof_dev *sdev)
- {
-@@ -1578,6 +1595,7 @@ int hda_power_down_dsp(struct snd_sof_dev *sdev)
- 
- 	return hda_dsp_core_reset_power_down(sdev, chip->host_managed_cores_mask);
- }
-+EXPORT_SYMBOL_NS(hda_power_down_dsp, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA_AUDIO_CODEC)
- static void hda_generic_machine_select(struct snd_sof_dev *sdev,
-diff --git a/sound/soc/sof/intel/icl.c b/sound/soc/sof/intel/icl.c
-index 040698591992..115866225e05 100644
---- a/sound/soc/sof/intel/icl.c
-+++ b/sound/soc/sof/intel/icl.c
-@@ -97,7 +97,6 @@ static int icl_dsp_post_fw_run(struct snd_sof_dev *sdev)
- 
- /* Icelake ops */
- struct snd_sof_dsp_ops sof_icl_ops;
--EXPORT_SYMBOL_NS(sof_icl_ops, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- int sof_icl_ops_init(struct snd_sof_dev *sdev)
- {
-@@ -166,7 +165,6 @@ int sof_icl_ops_init(struct snd_sof_dev *sdev)
- 
- 	return 0;
- };
--EXPORT_SYMBOL_NS(sof_icl_ops_init, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- const struct sof_intel_dsp_desc icl_chip_info = {
- 	/* Icelake */
-@@ -195,4 +193,3 @@ const struct sof_intel_dsp_desc icl_chip_info = {
- 	.disable_interrupts = hda_dsp_disable_interrupts,
- 	.hw_ip_version = SOF_INTEL_CAVS_2_0,
- };
--EXPORT_SYMBOL_NS(icl_chip_info, SND_SOC_SOF_INTEL_HDA_COMMON);
-diff --git a/sound/soc/sof/intel/lnl.c b/sound/soc/sof/intel/lnl.c
-index 82c975823ab3..ca0cb91d2b2c 100644
---- a/sound/soc/sof/intel/lnl.c
-+++ b/sound/soc/sof/intel/lnl.c
-@@ -22,7 +22,6 @@
- 
- /* LunarLake ops */
- struct snd_sof_dsp_ops sof_lnl_ops;
--EXPORT_SYMBOL_NS(sof_lnl_ops, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- static const struct snd_sof_debugfs_map lnl_dsp_debugfs[] = {
- 	{"hda", HDA_DSP_HDA_BAR, 0, 0x4000, SOF_DEBUGFS_ACCESS_ALWAYS},
-@@ -182,7 +181,6 @@ int sof_lnl_ops_init(struct snd_sof_dev *sdev)
- 
- 	return 0;
- };
--EXPORT_SYMBOL_NS(sof_lnl_ops_init, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- /* Check if an SDW IRQ occurred */
- static bool lnl_dsp_check_sdw_irq(struct snd_sof_dev *sdev)
-@@ -246,4 +244,3 @@ const struct sof_intel_dsp_desc lnl_chip_info = {
- 	.disable_interrupts = lnl_dsp_disable_interrupts,
- 	.hw_ip_version = SOF_INTEL_ACE_2_0,
- };
--EXPORT_SYMBOL_NS(lnl_chip_info, SND_SOC_SOF_INTEL_HDA_COMMON);
-diff --git a/sound/soc/sof/intel/mtl.c b/sound/soc/sof/intel/mtl.c
-index 5d3b2d4be78a..13f780f33c22 100644
---- a/sound/soc/sof/intel/mtl.c
-+++ b/sound/soc/sof/intel/mtl.c
-@@ -77,6 +77,7 @@ bool mtl_dsp_check_ipc_irq(struct snd_sof_dev *sdev)
- 
- 	return false;
- }
-+EXPORT_SYMBOL_NS(mtl_dsp_check_ipc_irq, SND_SOC_SOF_INTEL_MTL);
- 
- /* Check if an SDW IRQ occurred */
- static bool mtl_dsp_check_sdw_irq(struct snd_sof_dev *sdev)
-@@ -120,6 +121,7 @@ int mtl_ipc_send_msg(struct snd_sof_dev *sdev, struct snd_sof_ipc_msg *msg)
- 
+ int hda_sdw_check_lcount_common(struct snd_sof_dev *sdev);
+ int hda_sdw_check_lcount_ext(struct snd_sof_dev *sdev);
++int hda_sdw_check_lcount(struct snd_sof_dev *sdev);
+ int hda_sdw_startup(struct snd_sof_dev *sdev);
+ void hda_common_enable_sdw_irq(struct snd_sof_dev *sdev, bool enable);
+ void hda_sdw_int_enable(struct snd_sof_dev *sdev, bool enable);
+@@ -827,6 +832,11 @@ static inline int hda_sdw_check_lcount_ext(struct snd_sof_dev *sdev)
  	return 0;
  }
-+EXPORT_SYMBOL_NS(mtl_ipc_send_msg, SND_SOC_SOF_INTEL_MTL);
  
- void mtl_enable_ipc_interrupts(struct snd_sof_dev *sdev)
++static inline int hda_sdw_check_lcount(struct snd_sof_dev *sdev)
++{
++	return 0;
++}
++
+ static inline int hda_sdw_startup(struct snd_sof_dev *sdev)
  {
-@@ -147,6 +149,7 @@ void mtl_disable_ipc_interrupts(struct snd_sof_dev *sdev)
- 	snd_sof_dsp_update_bits(sdev, HDA_DSP_BAR, chip->ipc_ctl,
- 				MTL_DSP_REG_HFIPCXCTL_BUSY | MTL_DSP_REG_HFIPCXCTL_DONE, 0);
- }
-+EXPORT_SYMBOL_NS(mtl_disable_ipc_interrupts, SND_SOC_SOF_INTEL_MTL);
- 
- static void mtl_enable_sdw_irq(struct snd_sof_dev *sdev, bool enable)
- {
-@@ -231,6 +234,7 @@ int mtl_enable_interrupts(struct snd_sof_dev *sdev, bool enable)
- 
- 	return ret;
- }
-+EXPORT_SYMBOL_NS(mtl_enable_interrupts, SND_SOC_SOF_INTEL_MTL);
- 
- /* pre fw run operations */
- int mtl_dsp_pre_fw_run(struct snd_sof_dev *sdev)
-@@ -281,6 +285,7 @@ int mtl_dsp_pre_fw_run(struct snd_sof_dev *sdev)
- 
- 	return ret;
- }
-+EXPORT_SYMBOL_NS(mtl_dsp_pre_fw_run, SND_SOC_SOF_INTEL_MTL);
- 
- int mtl_dsp_post_fw_run(struct snd_sof_dev *sdev)
- {
-@@ -307,6 +312,7 @@ int mtl_dsp_post_fw_run(struct snd_sof_dev *sdev)
- 	hda_sdw_int_enable(sdev, true);
  	return 0;
- }
-+EXPORT_SYMBOL_NS(mtl_dsp_post_fw_run, SND_SOC_SOF_INTEL_MTL);
- 
- void mtl_dsp_dump(struct snd_sof_dev *sdev, u32 flags)
- {
-@@ -324,6 +330,7 @@ void mtl_dsp_dump(struct snd_sof_dev *sdev, u32 flags)
- 
- 	sof_ipc4_intel_dump_telemetry_state(sdev, flags);
- }
-+EXPORT_SYMBOL_NS(mtl_dsp_dump, SND_SOC_SOF_INTEL_MTL);
- 
- static bool mtl_dsp_primary_core_is_enabled(struct snd_sof_dev *sdev)
- {
-@@ -434,6 +441,7 @@ int mtl_power_down_dsp(struct snd_sof_dev *sdev)
- 					     (dsphfdsscs & cpa) == 0, HDA_DSP_REG_POLL_INTERVAL_US,
- 					     HDA_DSP_RESET_TIMEOUT_US);
- }
-+EXPORT_SYMBOL_NS(mtl_power_down_dsp, SND_SOC_SOF_INTEL_MTL);
- 
- int mtl_dsp_cl_init(struct snd_sof_dev *sdev, int stream_tag, bool imr_boot)
- {
-@@ -536,6 +544,7 @@ int mtl_dsp_cl_init(struct snd_sof_dev *sdev, int stream_tag, bool imr_boot)
- 	kfree(dump_msg);
- 	return ret;
- }
-+EXPORT_SYMBOL_NS(mtl_dsp_cl_init, SND_SOC_SOF_INTEL_MTL);
- 
- irqreturn_t mtl_ipc_irq_thread(int irq, void *context)
- {
-@@ -619,16 +628,19 @@ irqreturn_t mtl_ipc_irq_thread(int irq, void *context)
- 
- 	return IRQ_HANDLED;
- }
-+EXPORT_SYMBOL_NS(mtl_ipc_irq_thread, SND_SOC_SOF_INTEL_MTL);
- 
- int mtl_dsp_ipc_get_mailbox_offset(struct snd_sof_dev *sdev)
- {
- 	return MTL_DSP_MBOX_UPLINK_OFFSET;
- }
-+EXPORT_SYMBOL_NS(mtl_dsp_ipc_get_mailbox_offset, SND_SOC_SOF_INTEL_MTL);
- 
- int mtl_dsp_ipc_get_window_offset(struct snd_sof_dev *sdev, u32 id)
- {
- 	return MTL_SRAM_WINDOW_OFFSET(id);
- }
-+EXPORT_SYMBOL_NS(mtl_dsp_ipc_get_window_offset, SND_SOC_SOF_INTEL_MTL);
- 
- void mtl_ipc_dump(struct snd_sof_dev *sdev)
- {
-@@ -646,6 +658,7 @@ void mtl_ipc_dump(struct snd_sof_dev *sdev)
- 		"Host IPC initiator: %#x|%#x|%#x, target: %#x|%#x|%#x, ctl: %#x\n",
- 		hipcidr, hipcidd, hipcida, hipctdr, hipctdd, hipctda, hipcctl);
- }
-+EXPORT_SYMBOL_NS(mtl_ipc_dump, SND_SOC_SOF_INTEL_MTL);
- 
- static int mtl_dsp_disable_interrupts(struct snd_sof_dev *sdev)
- {
-@@ -666,6 +679,7 @@ int mtl_dsp_core_get(struct snd_sof_dev *sdev, int core)
- 
- 	return 0;
- }
-+EXPORT_SYMBOL_NS(mtl_dsp_core_get, SND_SOC_SOF_INTEL_MTL);
- 
- int mtl_dsp_core_put(struct snd_sof_dev *sdev, int core)
- {
-@@ -683,10 +697,10 @@ int mtl_dsp_core_put(struct snd_sof_dev *sdev, int core)
- 
- 	return 0;
- }
-+EXPORT_SYMBOL_NS(mtl_dsp_core_put, SND_SOC_SOF_INTEL_MTL);
- 
- /* Meteorlake ops */
- struct snd_sof_dsp_ops sof_mtl_ops;
--EXPORT_SYMBOL_NS(sof_mtl_ops, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- int sof_mtl_ops_init(struct snd_sof_dev *sdev)
- {
-@@ -744,7 +758,6 @@ int sof_mtl_ops_init(struct snd_sof_dev *sdev)
- 
- 	return 0;
- };
--EXPORT_SYMBOL_NS(sof_mtl_ops_init, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- const struct sof_intel_dsp_desc mtl_chip_info = {
- 	.cores_num = 3,
-@@ -772,7 +785,6 @@ const struct sof_intel_dsp_desc mtl_chip_info = {
- 	.disable_interrupts = mtl_dsp_disable_interrupts,
- 	.hw_ip_version = SOF_INTEL_ACE_1_0,
- };
--EXPORT_SYMBOL_NS(mtl_chip_info, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- const struct sof_intel_dsp_desc arl_s_chip_info = {
- 	.cores_num = 2,
-@@ -800,4 +812,3 @@ const struct sof_intel_dsp_desc arl_s_chip_info = {
- 	.disable_interrupts = mtl_dsp_disable_interrupts,
- 	.hw_ip_version = SOF_INTEL_ACE_1_0,
- };
--EXPORT_SYMBOL_NS(arl_s_chip_info, SND_SOC_SOF_INTEL_HDA_COMMON);
-diff --git a/sound/soc/sof/intel/pci-icl.c b/sound/soc/sof/intel/pci-icl.c
-index b99c7c9aad7d..70689b8b431b 100644
---- a/sound/soc/sof/intel/pci-icl.c
-+++ b/sound/soc/sof/intel/pci-icl.c
-@@ -109,4 +109,5 @@ module_pci_driver(snd_sof_pci_intel_icl_driver);
- 
- MODULE_LICENSE("Dual BSD/GPL");
- MODULE_IMPORT_NS(SND_SOC_SOF_INTEL_HDA_COMMON);
-+MODULE_IMPORT_NS(SND_SOC_SOF_INTEL_CNL);
- MODULE_IMPORT_NS(SND_SOC_SOF_PCI_DEV);
-diff --git a/sound/soc/sof/intel/pci-lnl.c b/sound/soc/sof/intel/pci-lnl.c
-index b14e508f1f31..38ae649d1def 100644
---- a/sound/soc/sof/intel/pci-lnl.c
-+++ b/sound/soc/sof/intel/pci-lnl.c
-@@ -71,4 +71,6 @@ module_pci_driver(snd_sof_pci_intel_lnl_driver);
- 
- MODULE_LICENSE("Dual BSD/GPL");
- MODULE_IMPORT_NS(SND_SOC_SOF_INTEL_HDA_COMMON);
-+MODULE_IMPORT_NS(SND_SOC_SOF_INTEL_MTL);
-+MODULE_IMPORT_NS(SND_SOC_SOF_HDA_MLINK);
- MODULE_IMPORT_NS(SND_SOC_SOF_PCI_DEV);
-diff --git a/sound/soc/sof/intel/pci-tgl.c b/sound/soc/sof/intel/pci-tgl.c
-index a361ee9d1107..d7ecb892550f 100644
---- a/sound/soc/sof/intel/pci-tgl.c
-+++ b/sound/soc/sof/intel/pci-tgl.c
-@@ -318,4 +318,5 @@ module_pci_driver(snd_sof_pci_intel_tgl_driver);
- 
- MODULE_LICENSE("Dual BSD/GPL");
- MODULE_IMPORT_NS(SND_SOC_SOF_INTEL_HDA_COMMON);
-+MODULE_IMPORT_NS(SND_SOC_SOF_INTEL_CNL);
- MODULE_IMPORT_NS(SND_SOC_SOF_PCI_DEV);
-diff --git a/sound/soc/sof/intel/telemetry.c b/sound/soc/sof/intel/telemetry.c
-index 1a3b5c28a6f0..042360f0d03f 100644
---- a/sound/soc/sof/intel/telemetry.c
-+++ b/sound/soc/sof/intel/telemetry.c
-@@ -93,3 +93,4 @@ void sof_ipc4_intel_dump_telemetry_state(struct snd_sof_dev *sdev, u32 flags)
- free_telemetry_data:
- 	kfree(telemetry_data);
- }
-+EXPORT_SYMBOL_NS(sof_ipc4_intel_dump_telemetry_state, SND_SOC_SOF_INTEL_HDA_COMMON);
-diff --git a/sound/soc/sof/intel/tgl.c b/sound/soc/sof/intel/tgl.c
-index 6cda47a78118..6acc65923834 100644
---- a/sound/soc/sof/intel/tgl.c
-+++ b/sound/soc/sof/intel/tgl.c
-@@ -63,7 +63,6 @@ static int tgl_dsp_core_put(struct snd_sof_dev *sdev, int core)
- 
- /* Tigerlake ops */
- struct snd_sof_dsp_ops sof_tgl_ops;
--EXPORT_SYMBOL_NS(sof_tgl_ops, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- int sof_tgl_ops_init(struct snd_sof_dev *sdev)
- {
-@@ -135,7 +134,6 @@ int sof_tgl_ops_init(struct snd_sof_dev *sdev)
- 
- 	return 0;
- };
--EXPORT_SYMBOL_NS(sof_tgl_ops_init, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- const struct sof_intel_dsp_desc tgl_chip_info = {
- 	/* Tigerlake , Alderlake */
-@@ -164,7 +162,6 @@ const struct sof_intel_dsp_desc tgl_chip_info = {
- 	.disable_interrupts = hda_dsp_disable_interrupts,
- 	.hw_ip_version = SOF_INTEL_CAVS_2_5,
- };
--EXPORT_SYMBOL_NS(tgl_chip_info, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- const struct sof_intel_dsp_desc tglh_chip_info = {
- 	/* Tigerlake-H */
-@@ -193,7 +190,6 @@ const struct sof_intel_dsp_desc tglh_chip_info = {
- 	.disable_interrupts = hda_dsp_disable_interrupts,
- 	.hw_ip_version = SOF_INTEL_CAVS_2_5,
- };
--EXPORT_SYMBOL_NS(tglh_chip_info, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- const struct sof_intel_dsp_desc ehl_chip_info = {
- 	/* Elkhartlake */
-@@ -222,7 +218,6 @@ const struct sof_intel_dsp_desc ehl_chip_info = {
- 	.disable_interrupts = hda_dsp_disable_interrupts,
- 	.hw_ip_version = SOF_INTEL_CAVS_2_5,
- };
--EXPORT_SYMBOL_NS(ehl_chip_info, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
- const struct sof_intel_dsp_desc adls_chip_info = {
- 	/* Alderlake-S */
-@@ -251,4 +246,3 @@ const struct sof_intel_dsp_desc adls_chip_info = {
- 	.disable_interrupts = hda_dsp_disable_interrupts,
- 	.hw_ip_version = SOF_INTEL_CAVS_2_5,
- };
--EXPORT_SYMBOL_NS(adls_chip_info, SND_SOC_SOF_INTEL_HDA_COMMON);
 -- 
 2.40.1
 

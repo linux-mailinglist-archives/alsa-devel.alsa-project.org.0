@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1F7C8BAE1D
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 May 2024 15:54:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2870E8BAE1E
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 May 2024 15:54:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 35ECEE65;
-	Fri,  3 May 2024 15:54:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 35ECEE65
+	by alsa0.perex.cz (Postfix) with ESMTPS id 68FA9A4B;
+	Fri,  3 May 2024 15:54:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68FA9A4B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1714744463;
-	bh=DbM05yrWm0mx/P+fZ4kSKYqqkfmLojuCqeatuGSUtCY=;
+	s=default; t=1714744486;
+	bh=sIoVJ5Da2HwESOH6d+Mlq5Qfn1752f4j0Gjxy0qZU/E=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Hj78vQVHCHe8ZbEtT/uCIzYhA8w9RcQm1h5KBwbNwIKwFnFfUefDK1JMt09drEa8Z
-	 FDbqMqiQ6qUgo+9HbD3EaRd0TVwzN27zslbN/0jC9gKREP8uk++2wJHqYzG8biy+62
-	 l7j+J46T3oQr6kCFfdTzHg/igpt6xD+PPp77St8U=
+	b=LAlIK3Sbm/BM1r0Yj/QZQ5NDmz1p7Pu0m2dBtWH090Mr93Kna0R51/qvKs6BiMO8V
+	 IeucS1f9K05cdmUczLUtpVgwcCFrBWyfvmZiOpUdhEukGbwNFq4nWdEpCA8s5sLeZ1
+	 HueVhKci7gzNLlB2O1USIsvrEF+y6l8mjT3Ge2Qo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 97CADF80639; Fri,  3 May 2024 15:53:03 +0200 (CEST)
+	id A4463F80690; Fri,  3 May 2024 15:53:06 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 16A22F8063A;
-	Fri,  3 May 2024 15:53:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7B17FF8068A;
+	Fri,  3 May 2024 15:53:05 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 29919F805FF; Fri,  3 May 2024 15:52:56 +0200 (CEST)
+	id 3E574F8060B; Fri,  3 May 2024 15:52:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-6.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,43 +35,43 @@ X-Spam-Status: No, score=-6.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C7C41F80269
-	for <alsa-devel@alsa-project.org>; Fri,  3 May 2024 15:52:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7C41F80269
+	by alsa1.perex.cz (Postfix) with ESMTPS id 58C4BF8049C
+	for <alsa-devel@alsa-project.org>; Fri,  3 May 2024 15:52:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 58C4BF8049C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=TkNxGqnh
+ header.s=Intel header.b=LxyxuZH0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1714744360; x=1746280360;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=DbM05yrWm0mx/P+fZ4kSKYqqkfmLojuCqeatuGSUtCY=;
-  b=TkNxGqnhRYoIKd0wDTxRveDa7++zzD5OINRIKBJtRVMgl8E7LNIIxIAg
-   ZXEr4jjB224hGtmD7yo+BWupC0LhP6/o0qoBKmLFv9+4OfjcwGyCC9Csk
-   /i0Q4hiWqhEMUdfUZpPcFDmpkujFvy///FY4ZQInSgeEdd5pN19wpRdkY
-   Wq+uYyMSgNPfAzAvktnrfjER/+aIeGwBftJBecS23eTkxXSYyVlvIqG1o
-   J0LKzW78xIbKlDBswc5sKu/oSEZkrQr1peq2oAg1siq5gTUaxlCjQv53o
-   UsOCJTlACahGuPPsle77hzoJrdxy9X1tZFCydBBumNtxzU/3PcfZrKaJ0
-   g==;
-X-CSE-ConnectionGUID: hVEWjfYdQkCPgx9+noPQTg==
-X-CSE-MsgGUID: hj/i9UhkSGiaIIufwwbk2Q==
-X-IronPort-AV: E=McAfee;i="6600,9927,11063"; a="28029422"
+  bh=sIoVJ5Da2HwESOH6d+Mlq5Qfn1752f4j0Gjxy0qZU/E=;
+  b=LxyxuZH0NJUA+P/aKnlusQZed+FnJTorZ1tqn9Bghd2l5nnxcWBmBGDP
+   Xp9iogHmNqoHrMdd8mvoP4506N+GwV1CHzoxr/GRRxqBZSpY2dcsKYB4V
+   swMkg4RKELbSIwjvgHnxmrpIPEYp9pyamoQvax1Pkv8oW8It2019FiMeD
+   3AKLFLECobvEdVdAUTIbtNxSqQs9Cfc9XsSGQpaJGYXvxfZSI6MJcpivX
+   7iZScFr6hQBybo3Hhv4MFTLm5WeBViKmNFxqcShspMVD4py5QkedQ7735
+   +gQsCa2eTfAQIlW703lkYUp/W+j4XG9Bqad7ffGm3SfRvwJy3dHj24zkR
+   A==;
+X-CSE-ConnectionGUID: 9kJCtPMdSyiE77luW0SEng==
+X-CSE-MsgGUID: /pPu/wciRxOq7R4KIxy+Aw==
+X-IronPort-AV: E=McAfee;i="6600,9927,11063"; a="28029426"
 X-IronPort-AV: E=Sophos;i="6.07,251,1708416000";
-   d="scan'208";a="28029422"
+   d="scan'208";a="28029426"
 Received: from fmviesa010.fm.intel.com ([10.60.135.150])
   by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  03 May 2024 06:52:37 -0700
-X-CSE-ConnectionGUID: waoygavPSHyH5yZ/K79jcA==
-X-CSE-MsgGUID: kCoGVSUOTPuguo3r8ixrcg==
+X-CSE-ConnectionGUID: LJLy3QkKTa+3zIUE/u0MtQ==
+X-CSE-MsgGUID: PA434yMmSuGfcJglKsYL/w==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.07,251,1708416000";
-   d="scan'208";a="27548756"
+   d="scan'208";a="27548765"
 Received: from sjslinke-mobl.amr.corp.intel.com (HELO
  pbossart-mobl6.intel.com) ([10.212.113.3])
   by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 May 2024 06:52:35 -0700
+ 03 May 2024 06:52:36 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: linux-sound@vger.kernel.org
 Cc: alsa-devel@alsa-project.org,
@@ -80,16 +80,16 @@ Cc: alsa-devel@alsa-project.org,
 	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
 	Bard Liao <yung-chuan.liao@linux.intel.com>,
 	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Subject: [PATCH 4/7] ASoC: SOF: Intel: move common code from hda.c
-Date: Fri,  3 May 2024 08:52:18 -0500
-Message-Id: <20240503135221.229202-5-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 5/7] ASoC: SOF: Intel: move tracepoint creation
+Date: Fri,  3 May 2024 08:52:19 -0500
+Message-Id: <20240503135221.229202-6-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20240503135221.229202-1-pierre-louis.bossart@linux.intel.com>
 References: <20240503135221.229202-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: TNPBG3WN7RHFS7RU67ORCHLT5PPVCW6A
-X-Message-ID-Hash: TNPBG3WN7RHFS7RU67ORCHLT5PPVCW6A
+Message-ID-Hash: FON2SE2R25QKIPHUK2JN6O72BHOAO2GZ
+X-Message-ID-Hash: FON2SE2R25QKIPHUK2JN6O72BHOAO2GZ
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -102,1316 +102,62 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TNPBG3WN7RHFS7RU67ORCHLT5PPVCW6A/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FON2SE2R25QKIPHUK2JN6O72BHOAO2GZ/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-To avoid circular dependencies when moving hda.c to a separate module,
-we need to move the common code to hda-ipc.c and hda-dsp.c
-
-No functionality change, just code move.
+CREATE_TRACEPOINTS is supposed to be used once. To avoid modpost
+issues when creating modules, let's move the tracepoint creation in a
+single object file.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 ---
- sound/soc/sof/intel/hda-dsp.c    | 462 +++++++++++++++++++++++++
- sound/soc/sof/intel/hda-ipc.c    |  99 ++++++
- sound/soc/sof/intel/hda-stream.c |   4 +
- sound/soc/sof/intel/hda.c        | 561 -------------------------------
- sound/soc/sof/intel/hda.h        |  10 +
- 5 files changed, 575 insertions(+), 561 deletions(-)
+ sound/soc/sof/intel/Makefile      | 2 +-
+ sound/soc/sof/intel/hda.c         | 1 -
+ sound/soc/sof/intel/tracepoints.c | 3 +++
+ 3 files changed, 4 insertions(+), 2 deletions(-)
+ create mode 100644 sound/soc/sof/intel/tracepoints.c
 
-diff --git a/sound/soc/sof/intel/hda-dsp.c b/sound/soc/sof/intel/hda-dsp.c
-index 32f034074668..974ac1cd8c6e 100644
---- a/sound/soc/sof/intel/hda-dsp.c
-+++ b/sound/soc/sof/intel/hda-dsp.c
-@@ -20,11 +20,21 @@
- #include <sound/hda_register.h>
- #include <sound/hda-mlink.h>
- #include <trace/events/sof_intel.h>
-+#include <sound/sof/xtensa.h>
- #include "../sof-audio.h"
- #include "../ops.h"
- #include "hda.h"
-+#include "mtl.h"
- #include "hda-ipc.h"
+diff --git a/sound/soc/sof/intel/Makefile b/sound/soc/sof/intel/Makefile
+index c895bae0efdd..cf74548f87ad 100644
+--- a/sound/soc/sof/intel/Makefile
++++ b/sound/soc/sof/intel/Makefile
+@@ -7,7 +7,7 @@ snd-sof-intel-hda-common-objs := hda.o hda-loader.o hda-stream.o hda-trace.o \
+ 				 hda-dsp.o hda-ipc.o hda-ctrl.o hda-pcm.o \
+ 				 hda-dai.o hda-dai-ops.o hda-bus.o \
+ 				 hda-common-ops.o \
+-				 telemetry.o
++				 telemetry.o tracepoints.o
  
-+#define EXCEPT_MAX_HDR_SIZE	0x400
-+#define HDA_EXT_ROM_STATUS_SIZE 8
-+
-+struct hda_dsp_msg_code {
-+	u32 code;
-+	const char *text;
-+};
-+
- static bool hda_enable_trace_D0I3_S0;
- #if IS_ENABLED(CONFIG_SND_SOC_SOF_DEBUG)
- module_param_named(enable_trace_D0I3_S0, hda_enable_trace_D0I3_S0, bool, 0444);
-@@ -32,6 +42,83 @@ MODULE_PARM_DESC(enable_trace_D0I3_S0,
- 		 "SOF HDA enable trace when the DSP is in D0I3 in S0");
- #endif
+ snd-sof-intel-hda-mlink-objs := hda-mlink.o
  
-+static void hda_get_interfaces(struct snd_sof_dev *sdev, u32 *interface_mask)
-+{
-+	const struct sof_intel_dsp_desc *chip;
-+
-+	chip = get_chip_info(sdev->pdata);
-+	switch (chip->hw_ip_version) {
-+	case SOF_INTEL_TANGIER:
-+	case SOF_INTEL_BAYTRAIL:
-+	case SOF_INTEL_BROADWELL:
-+		interface_mask[SOF_DAI_DSP_ACCESS] =  BIT(SOF_DAI_INTEL_SSP);
-+		break;
-+	case SOF_INTEL_CAVS_1_5:
-+	case SOF_INTEL_CAVS_1_5_PLUS:
-+		interface_mask[SOF_DAI_DSP_ACCESS] =
-+			BIT(SOF_DAI_INTEL_SSP) | BIT(SOF_DAI_INTEL_DMIC) | BIT(SOF_DAI_INTEL_HDA);
-+		interface_mask[SOF_DAI_HOST_ACCESS] = BIT(SOF_DAI_INTEL_HDA);
-+		break;
-+	case SOF_INTEL_CAVS_1_8:
-+	case SOF_INTEL_CAVS_2_0:
-+	case SOF_INTEL_CAVS_2_5:
-+	case SOF_INTEL_ACE_1_0:
-+		interface_mask[SOF_DAI_DSP_ACCESS] =
-+			BIT(SOF_DAI_INTEL_SSP) | BIT(SOF_DAI_INTEL_DMIC) |
-+			BIT(SOF_DAI_INTEL_HDA) | BIT(SOF_DAI_INTEL_ALH);
-+		interface_mask[SOF_DAI_HOST_ACCESS] = BIT(SOF_DAI_INTEL_HDA);
-+		break;
-+	case SOF_INTEL_ACE_2_0:
-+		interface_mask[SOF_DAI_DSP_ACCESS] =
-+			BIT(SOF_DAI_INTEL_SSP) | BIT(SOF_DAI_INTEL_DMIC) |
-+			BIT(SOF_DAI_INTEL_HDA) | BIT(SOF_DAI_INTEL_ALH);
-+		 /* all interfaces accessible without DSP */
-+		interface_mask[SOF_DAI_HOST_ACCESS] =
-+			interface_mask[SOF_DAI_DSP_ACCESS];
-+		break;
-+	default:
-+		break;
-+	}
-+}
-+
-+u32 hda_get_interface_mask(struct snd_sof_dev *sdev)
-+{
-+	u32 interface_mask[SOF_DAI_ACCESS_NUM] = { 0 };
-+
-+	hda_get_interfaces(sdev, interface_mask);
-+
-+	return interface_mask[sdev->dspless_mode_selected];
-+}
-+
-+bool hda_is_chain_dma_supported(struct snd_sof_dev *sdev, u32 dai_type)
-+{
-+	u32 interface_mask[SOF_DAI_ACCESS_NUM] = { 0 };
-+	const struct sof_intel_dsp_desc *chip;
-+
-+	if (sdev->dspless_mode_selected)
-+		return false;
-+
-+	hda_get_interfaces(sdev, interface_mask);
-+
-+	if (!(interface_mask[SOF_DAI_DSP_ACCESS] & BIT(dai_type)))
-+		return false;
-+
-+	if (dai_type == SOF_DAI_INTEL_HDA)
-+		return true;
-+
-+	switch (dai_type) {
-+	case SOF_DAI_INTEL_SSP:
-+	case SOF_DAI_INTEL_DMIC:
-+	case SOF_DAI_INTEL_ALH:
-+		chip = get_chip_info(sdev->pdata);
-+		if (chip->hw_ip_version < SOF_INTEL_ACE_2_0)
-+			return false;
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
- /*
-  * DSP Core control.
-  */
-@@ -1134,6 +1221,98 @@ int hda_dsp_core_get(struct snd_sof_dev *sdev, int core)
- }
- EXPORT_SYMBOL_NS(hda_dsp_core_get, SND_SOC_SOF_INTEL_HDA_COMMON);
- 
-+#if IS_ENABLED(CONFIG_SND_SOC_SOF_INTEL_SOUNDWIRE)
-+void hda_common_enable_sdw_irq(struct snd_sof_dev *sdev, bool enable)
-+{
-+	struct sof_intel_hda_dev *hdev;
-+
-+	hdev = sdev->pdata->hw_pdata;
-+
-+	if (!hdev->sdw)
-+		return;
-+
-+	snd_sof_dsp_update_bits(sdev, HDA_DSP_BAR, HDA_DSP_REG_ADSPIC2,
-+				HDA_DSP_REG_ADSPIC2_SNDW,
-+				enable ? HDA_DSP_REG_ADSPIC2_SNDW : 0);
-+}
-+EXPORT_SYMBOL_NS(hda_common_enable_sdw_irq, SND_SOC_SOF_INTEL_HDA_COMMON);
-+
-+void hda_sdw_int_enable(struct snd_sof_dev *sdev, bool enable)
-+{
-+	u32 interface_mask = hda_get_interface_mask(sdev);
-+	const struct sof_intel_dsp_desc *chip;
-+
-+	if (!(interface_mask & BIT(SOF_DAI_INTEL_ALH)))
-+		return;
-+
-+	chip = get_chip_info(sdev->pdata);
-+	if (chip && chip->enable_sdw_irq)
-+		chip->enable_sdw_irq(sdev, enable);
-+}
-+EXPORT_SYMBOL_NS(hda_sdw_int_enable, SND_SOC_SOF_INTEL_HDA_COMMON);
-+
-+int hda_sdw_check_lcount_common(struct snd_sof_dev *sdev)
-+{
-+	struct sof_intel_hda_dev *hdev;
-+	struct sdw_intel_ctx *ctx;
-+	u32 caps;
-+
-+	hdev = sdev->pdata->hw_pdata;
-+	ctx = hdev->sdw;
-+
-+	caps = snd_sof_dsp_read(sdev, HDA_DSP_BAR, ctx->shim_base + SDW_SHIM_LCAP);
-+	caps &= SDW_SHIM_LCAP_LCOUNT_MASK;
-+
-+	/* Check HW supported vs property value */
-+	if (caps < ctx->count) {
-+		dev_err(sdev->dev,
-+			"%s: BIOS master count %d is larger than hardware capabilities %d\n",
-+			__func__, ctx->count, caps);
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_NS(hda_sdw_check_lcount_common, SND_SOC_SOF_INTEL_HDA_COMMON);
-+
-+int hda_sdw_check_lcount_ext(struct snd_sof_dev *sdev)
-+{
-+	struct sof_intel_hda_dev *hdev;
-+	struct sdw_intel_ctx *ctx;
-+	struct hdac_bus *bus;
-+	u32 slcount;
-+
-+	bus = sof_to_bus(sdev);
-+
-+	hdev = sdev->pdata->hw_pdata;
-+	ctx = hdev->sdw;
-+
-+	slcount = hdac_bus_eml_get_count(bus, true, AZX_REG_ML_LEPTR_ID_SDW);
-+
-+	/* Check HW supported vs property value */
-+	if (slcount < ctx->count) {
-+		dev_err(sdev->dev,
-+			"%s: BIOS master count %d is larger than hardware capabilities %d\n",
-+			__func__, ctx->count, slcount);
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_NS(hda_sdw_check_lcount_ext, SND_SOC_SOF_INTEL_HDA_COMMON);
-+
-+int hda_sdw_check_lcount(struct snd_sof_dev *sdev)
-+{
-+	const struct sof_intel_dsp_desc *chip;
-+
-+	chip = get_chip_info(sdev->pdata);
-+	if (chip && chip->read_sdw_lcount)
-+		return chip->read_sdw_lcount(sdev);
-+
-+	return 0;
-+}
-+#endif
-+
- int hda_dsp_disable_interrupts(struct snd_sof_dev *sdev)
- {
- 	hda_sdw_int_enable(sdev, false);
-@@ -1142,3 +1321,286 @@ int hda_dsp_disable_interrupts(struct snd_sof_dev *sdev)
- 	return 0;
- }
- EXPORT_SYMBOL_NS(hda_dsp_disable_interrupts, SND_SOC_SOF_INTEL_HDA_COMMON);
-+
-+static const struct hda_dsp_msg_code hda_dsp_rom_fw_error_texts[] = {
-+	{HDA_DSP_ROM_CSE_ERROR, "error: cse error"},
-+	{HDA_DSP_ROM_CSE_WRONG_RESPONSE, "error: cse wrong response"},
-+	{HDA_DSP_ROM_IMR_TO_SMALL, "error: IMR too small"},
-+	{HDA_DSP_ROM_BASE_FW_NOT_FOUND, "error: base fw not found"},
-+	{HDA_DSP_ROM_CSE_VALIDATION_FAILED, "error: signature verification failed"},
-+	{HDA_DSP_ROM_IPC_FATAL_ERROR, "error: ipc fatal error"},
-+	{HDA_DSP_ROM_L2_CACHE_ERROR, "error: L2 cache error"},
-+	{HDA_DSP_ROM_LOAD_OFFSET_TO_SMALL, "error: load offset too small"},
-+	{HDA_DSP_ROM_API_PTR_INVALID, "error: API ptr invalid"},
-+	{HDA_DSP_ROM_BASEFW_INCOMPAT, "error: base fw incompatible"},
-+	{HDA_DSP_ROM_UNHANDLED_INTERRUPT, "error: unhandled interrupt"},
-+	{HDA_DSP_ROM_MEMORY_HOLE_ECC, "error: ECC memory hole"},
-+	{HDA_DSP_ROM_KERNEL_EXCEPTION, "error: kernel exception"},
-+	{HDA_DSP_ROM_USER_EXCEPTION, "error: user exception"},
-+	{HDA_DSP_ROM_UNEXPECTED_RESET, "error: unexpected reset"},
-+	{HDA_DSP_ROM_NULL_FW_ENTRY,	"error: null FW entry point"},
-+};
-+
-+#define FSR_ROM_STATE_ENTRY(state)	{FSR_STATE_ROM_##state, #state}
-+static const struct hda_dsp_msg_code cavs_fsr_rom_state_names[] = {
-+	FSR_ROM_STATE_ENTRY(INIT),
-+	FSR_ROM_STATE_ENTRY(INIT_DONE),
-+	FSR_ROM_STATE_ENTRY(CSE_MANIFEST_LOADED),
-+	FSR_ROM_STATE_ENTRY(FW_MANIFEST_LOADED),
-+	FSR_ROM_STATE_ENTRY(FW_FW_LOADED),
-+	FSR_ROM_STATE_ENTRY(FW_ENTERED),
-+	FSR_ROM_STATE_ENTRY(VERIFY_FEATURE_MASK),
-+	FSR_ROM_STATE_ENTRY(GET_LOAD_OFFSET),
-+	FSR_ROM_STATE_ENTRY(FETCH_ROM_EXT),
-+	FSR_ROM_STATE_ENTRY(FETCH_ROM_EXT_DONE),
-+	/* CSE states */
-+	FSR_ROM_STATE_ENTRY(CSE_IMR_REQUEST),
-+	FSR_ROM_STATE_ENTRY(CSE_IMR_GRANTED),
-+	FSR_ROM_STATE_ENTRY(CSE_VALIDATE_IMAGE_REQUEST),
-+	FSR_ROM_STATE_ENTRY(CSE_IMAGE_VALIDATED),
-+	FSR_ROM_STATE_ENTRY(CSE_IPC_IFACE_INIT),
-+	FSR_ROM_STATE_ENTRY(CSE_IPC_RESET_PHASE_1),
-+	FSR_ROM_STATE_ENTRY(CSE_IPC_OPERATIONAL_ENTRY),
-+	FSR_ROM_STATE_ENTRY(CSE_IPC_OPERATIONAL),
-+	FSR_ROM_STATE_ENTRY(CSE_IPC_DOWN),
-+};
-+
-+static const struct hda_dsp_msg_code ace_fsr_rom_state_names[] = {
-+	FSR_ROM_STATE_ENTRY(INIT),
-+	FSR_ROM_STATE_ENTRY(INIT_DONE),
-+	FSR_ROM_STATE_ENTRY(CSE_MANIFEST_LOADED),
-+	FSR_ROM_STATE_ENTRY(FW_MANIFEST_LOADED),
-+	FSR_ROM_STATE_ENTRY(FW_FW_LOADED),
-+	FSR_ROM_STATE_ENTRY(FW_ENTERED),
-+	FSR_ROM_STATE_ENTRY(VERIFY_FEATURE_MASK),
-+	FSR_ROM_STATE_ENTRY(GET_LOAD_OFFSET),
-+	FSR_ROM_STATE_ENTRY(RESET_VECTOR_DONE),
-+	FSR_ROM_STATE_ENTRY(PURGE_BOOT),
-+	FSR_ROM_STATE_ENTRY(RESTORE_BOOT),
-+	FSR_ROM_STATE_ENTRY(FW_ENTRY_POINT),
-+	FSR_ROM_STATE_ENTRY(VALIDATE_PUB_KEY),
-+	FSR_ROM_STATE_ENTRY(POWER_DOWN_HPSRAM),
-+	FSR_ROM_STATE_ENTRY(POWER_DOWN_ULPSRAM),
-+	FSR_ROM_STATE_ENTRY(POWER_UP_ULPSRAM_STACK),
-+	FSR_ROM_STATE_ENTRY(POWER_UP_HPSRAM_DMA),
-+	FSR_ROM_STATE_ENTRY(BEFORE_EP_POINTER_READ),
-+	FSR_ROM_STATE_ENTRY(VALIDATE_MANIFEST),
-+	FSR_ROM_STATE_ENTRY(VALIDATE_FW_MODULE),
-+	FSR_ROM_STATE_ENTRY(PROTECT_IMR_REGION),
-+	FSR_ROM_STATE_ENTRY(PUSH_MODEL_ROUTINE),
-+	FSR_ROM_STATE_ENTRY(PULL_MODEL_ROUTINE),
-+	FSR_ROM_STATE_ENTRY(VALIDATE_PKG_DIR),
-+	FSR_ROM_STATE_ENTRY(VALIDATE_CPD),
-+	FSR_ROM_STATE_ENTRY(VALIDATE_CSS_MAN_HEADER),
-+	FSR_ROM_STATE_ENTRY(VALIDATE_BLOB_SVN),
-+	FSR_ROM_STATE_ENTRY(VERIFY_IFWI_PARTITION),
-+	FSR_ROM_STATE_ENTRY(REMOVE_ACCESS_CONTROL),
-+	FSR_ROM_STATE_ENTRY(AUTH_BYPASS),
-+	FSR_ROM_STATE_ENTRY(AUTH_ENABLED),
-+	FSR_ROM_STATE_ENTRY(INIT_DMA),
-+	FSR_ROM_STATE_ENTRY(PURGE_FW_ENTRY),
-+	FSR_ROM_STATE_ENTRY(PURGE_FW_END),
-+	FSR_ROM_STATE_ENTRY(CLEAN_UP_BSS_DONE),
-+	FSR_ROM_STATE_ENTRY(IMR_RESTORE_ENTRY),
-+	FSR_ROM_STATE_ENTRY(IMR_RESTORE_END),
-+	FSR_ROM_STATE_ENTRY(FW_MANIFEST_IN_DMA_BUFF),
-+	FSR_ROM_STATE_ENTRY(LOAD_CSE_MAN_TO_IMR),
-+	FSR_ROM_STATE_ENTRY(LOAD_FW_MAN_TO_IMR),
-+	FSR_ROM_STATE_ENTRY(LOAD_FW_CODE_TO_IMR),
-+	FSR_ROM_STATE_ENTRY(FW_LOADING_DONE),
-+	FSR_ROM_STATE_ENTRY(FW_CODE_LOADED),
-+	FSR_ROM_STATE_ENTRY(VERIFY_IMAGE_TYPE),
-+	FSR_ROM_STATE_ENTRY(AUTH_API_INIT),
-+	FSR_ROM_STATE_ENTRY(AUTH_API_PROC),
-+	FSR_ROM_STATE_ENTRY(AUTH_API_FIRST_BUSY),
-+	FSR_ROM_STATE_ENTRY(AUTH_API_FIRST_RESULT),
-+	FSR_ROM_STATE_ENTRY(AUTH_API_CLEANUP),
-+};
-+
-+#define FSR_BRINGUP_STATE_ENTRY(state)	{FSR_STATE_BRINGUP_##state, #state}
-+static const struct hda_dsp_msg_code fsr_bringup_state_names[] = {
-+	FSR_BRINGUP_STATE_ENTRY(INIT),
-+	FSR_BRINGUP_STATE_ENTRY(INIT_DONE),
-+	FSR_BRINGUP_STATE_ENTRY(HPSRAM_LOAD),
-+	FSR_BRINGUP_STATE_ENTRY(UNPACK_START),
-+	FSR_BRINGUP_STATE_ENTRY(IMR_RESTORE),
-+	FSR_BRINGUP_STATE_ENTRY(FW_ENTERED),
-+};
-+
-+#define FSR_WAIT_STATE_ENTRY(state)	{FSR_WAIT_FOR_##state, #state}
-+static const struct hda_dsp_msg_code fsr_wait_state_names[] = {
-+	FSR_WAIT_STATE_ENTRY(IPC_BUSY),
-+	FSR_WAIT_STATE_ENTRY(IPC_DONE),
-+	FSR_WAIT_STATE_ENTRY(CACHE_INVALIDATION),
-+	FSR_WAIT_STATE_ENTRY(LP_SRAM_OFF),
-+	FSR_WAIT_STATE_ENTRY(DMA_BUFFER_FULL),
-+	FSR_WAIT_STATE_ENTRY(CSE_CSR),
-+};
-+
-+#define FSR_MODULE_NAME_ENTRY(mod)	[FSR_MOD_##mod] = #mod
-+static const char * const fsr_module_names[] = {
-+	FSR_MODULE_NAME_ENTRY(ROM),
-+	FSR_MODULE_NAME_ENTRY(ROM_BYP),
-+	FSR_MODULE_NAME_ENTRY(BASE_FW),
-+	FSR_MODULE_NAME_ENTRY(LP_BOOT),
-+	FSR_MODULE_NAME_ENTRY(BRNGUP),
-+	FSR_MODULE_NAME_ENTRY(ROM_EXT),
-+};
-+
-+static const char *
-+hda_dsp_get_state_text(u32 code, const struct hda_dsp_msg_code *msg_code,
-+		       size_t array_size)
-+{
-+	int i;
-+
-+	for (i = 0; i < array_size; i++) {
-+		if (code == msg_code[i].code)
-+			return msg_code[i].text;
-+	}
-+
-+	return NULL;
-+}
-+
-+void hda_dsp_get_state(struct snd_sof_dev *sdev, const char *level)
-+{
-+	const struct sof_intel_dsp_desc *chip = get_chip_info(sdev->pdata);
-+	const char *state_text, *error_text, *module_text;
-+	u32 fsr, state, wait_state, module, error_code;
-+
-+	fsr = snd_sof_dsp_read(sdev, HDA_DSP_BAR, chip->rom_status_reg);
-+	state = FSR_TO_STATE_CODE(fsr);
-+	wait_state = FSR_TO_WAIT_STATE_CODE(fsr);
-+	module = FSR_TO_MODULE_CODE(fsr);
-+
-+	if (module > FSR_MOD_ROM_EXT)
-+		module_text = "unknown";
-+	else
-+		module_text = fsr_module_names[module];
-+
-+	if (module == FSR_MOD_BRNGUP) {
-+		state_text = hda_dsp_get_state_text(state, fsr_bringup_state_names,
-+						    ARRAY_SIZE(fsr_bringup_state_names));
-+	} else {
-+		if (chip->hw_ip_version < SOF_INTEL_ACE_1_0)
-+			state_text = hda_dsp_get_state_text(state,
-+							cavs_fsr_rom_state_names,
-+							ARRAY_SIZE(cavs_fsr_rom_state_names));
-+		else
-+			state_text = hda_dsp_get_state_text(state,
-+							ace_fsr_rom_state_names,
-+							ARRAY_SIZE(ace_fsr_rom_state_names));
-+	}
-+
-+	/* not for us, must be generic sof message */
-+	if (!state_text) {
-+		dev_printk(level, sdev->dev, "%#010x: unknown ROM status value\n", fsr);
-+		return;
-+	}
-+
-+	if (wait_state) {
-+		const char *wait_state_text;
-+
-+		wait_state_text = hda_dsp_get_state_text(wait_state, fsr_wait_state_names,
-+							 ARRAY_SIZE(fsr_wait_state_names));
-+		if (!wait_state_text)
-+			wait_state_text = "unknown";
-+
-+		dev_printk(level, sdev->dev,
-+			   "%#010x: module: %s, state: %s, waiting for: %s, %s\n",
-+			   fsr, module_text, state_text, wait_state_text,
-+			   fsr & FSR_HALTED ? "not running" : "running");
-+	} else {
-+		dev_printk(level, sdev->dev, "%#010x: module: %s, state: %s, %s\n",
-+			   fsr, module_text, state_text,
-+			   fsr & FSR_HALTED ? "not running" : "running");
-+	}
-+
-+	error_code = snd_sof_dsp_read(sdev, HDA_DSP_BAR, chip->rom_status_reg + 4);
-+	if (!error_code)
-+		return;
-+
-+	error_text = hda_dsp_get_state_text(error_code, hda_dsp_rom_fw_error_texts,
-+					    ARRAY_SIZE(hda_dsp_rom_fw_error_texts));
-+	if (!error_text)
-+		error_text = "unknown";
-+
-+	if (state == FSR_STATE_FW_ENTERED)
-+		dev_printk(level, sdev->dev, "status code: %#x (%s)\n", error_code,
-+			   error_text);
-+	else
-+		dev_printk(level, sdev->dev, "error code: %#x (%s)\n", error_code,
-+			   error_text);
-+}
-+EXPORT_SYMBOL_NS(hda_dsp_get_state, SND_SOC_SOF_INTEL_HDA_COMMON);
-+
-+static void hda_dsp_get_registers(struct snd_sof_dev *sdev,
-+				  struct sof_ipc_dsp_oops_xtensa *xoops,
-+				  struct sof_ipc_panic_info *panic_info,
-+				  u32 *stack, size_t stack_words)
-+{
-+	u32 offset = sdev->dsp_oops_offset;
-+
-+	/* first read registers */
-+	sof_mailbox_read(sdev, offset, xoops, sizeof(*xoops));
-+
-+	/* note: variable AR register array is not read */
-+
-+	/* then get panic info */
-+	if (xoops->arch_hdr.totalsize > EXCEPT_MAX_HDR_SIZE) {
-+		dev_err(sdev->dev, "invalid header size 0x%x. FW oops is bogus\n",
-+			xoops->arch_hdr.totalsize);
-+		return;
-+	}
-+	offset += xoops->arch_hdr.totalsize;
-+	sof_block_read(sdev, sdev->mmio_bar, offset,
-+		       panic_info, sizeof(*panic_info));
-+
-+	/* then get the stack */
-+	offset += sizeof(*panic_info);
-+	sof_block_read(sdev, sdev->mmio_bar, offset, stack,
-+		       stack_words * sizeof(u32));
-+}
-+
-+/* dump the first 8 dwords representing the extended ROM status */
-+void hda_dsp_dump_ext_rom_status(struct snd_sof_dev *sdev, const char *level,
-+				 u32 flags)
-+{
-+	const struct sof_intel_dsp_desc *chip;
-+	char msg[128];
-+	int len = 0;
-+	u32 value;
-+	int i;
-+
-+	chip = get_chip_info(sdev->pdata);
-+	for (i = 0; i < HDA_EXT_ROM_STATUS_SIZE; i++) {
-+		value = snd_sof_dsp_read(sdev, HDA_DSP_BAR, chip->rom_status_reg + i * 0x4);
-+		len += scnprintf(msg + len, sizeof(msg) - len, " 0x%x", value);
-+	}
-+
-+	dev_printk(level, sdev->dev, "extended rom status: %s", msg);
-+
-+}
-+
-+void hda_dsp_dump(struct snd_sof_dev *sdev, u32 flags)
-+{
-+	char *level = (flags & SOF_DBG_DUMP_OPTIONAL) ? KERN_DEBUG : KERN_ERR;
-+	struct sof_ipc_dsp_oops_xtensa xoops;
-+	struct sof_ipc_panic_info panic_info;
-+	u32 stack[HDA_DSP_STACK_DUMP_SIZE];
-+
-+	/* print ROM/FW status */
-+	hda_dsp_get_state(sdev, level);
-+
-+	/* The firmware register dump only available with IPC3 */
-+	if (flags & SOF_DBG_DUMP_REGS && sdev->pdata->ipc_type == SOF_IPC_TYPE_3) {
-+		u32 status = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_SRAM_REG_FW_STATUS);
-+		u32 panic = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_SRAM_REG_FW_TRACEP);
-+
-+		hda_dsp_get_registers(sdev, &xoops, &panic_info, stack,
-+				      HDA_DSP_STACK_DUMP_SIZE);
-+		sof_print_oops_and_stack(sdev, level, status, panic, &xoops,
-+					 &panic_info, stack, HDA_DSP_STACK_DUMP_SIZE);
-+	} else {
-+		hda_dsp_dump_ext_rom_status(sdev, level, flags);
-+	}
-+}
-diff --git a/sound/soc/sof/intel/hda-ipc.c b/sound/soc/sof/intel/hda-ipc.c
-index 6919729cef52..2252c9198cc0 100644
---- a/sound/soc/sof/intel/hda-ipc.c
-+++ b/sound/soc/sof/intel/hda-ipc.c
-@@ -15,10 +15,12 @@
-  * Hardware interface for generic Intel audio DSP HDA IP
-  */
- 
-+#include <sound/hda_register.h>
- #include <sound/sof/ipc4/header.h>
- #include <trace/events/sof_intel.h>
- #include "../ops.h"
- #include "hda.h"
-+#include "telemetry.h"
- 
- EXPORT_TRACEPOINT_SYMBOL(sof_intel_ipc_firmware_initiated);
- EXPORT_TRACEPOINT_SYMBOL(sof_intel_ipc_firmware_response);
-@@ -450,3 +452,100 @@ int hda_set_stream_data_offset(struct snd_sof_dev *sdev,
- 
- 	return 0;
- }
-+
-+void hda_ipc4_dsp_dump(struct snd_sof_dev *sdev, u32 flags)
-+{
-+	char *level = (flags & SOF_DBG_DUMP_OPTIONAL) ? KERN_DEBUG : KERN_ERR;
-+
-+	/* print ROM/FW status */
-+	hda_dsp_get_state(sdev, level);
-+
-+	if (flags & SOF_DBG_DUMP_REGS)
-+		sof_ipc4_intel_dump_telemetry_state(sdev, flags);
-+	else
-+		hda_dsp_dump_ext_rom_status(sdev, level, flags);
-+}
-+EXPORT_SYMBOL_NS(hda_ipc4_dsp_dump, SND_SOC_SOF_INTEL_HDA_COMMON);
-+
-+bool hda_check_ipc_irq(struct snd_sof_dev *sdev)
-+{
-+	const struct sof_intel_dsp_desc *chip;
-+
-+	chip = get_chip_info(sdev->pdata);
-+	if (chip && chip->check_ipc_irq)
-+		return chip->check_ipc_irq(sdev);
-+
-+	return false;
-+}
-+
-+void hda_ipc_irq_dump(struct snd_sof_dev *sdev)
-+{
-+	u32 adspis;
-+	u32 intsts;
-+	u32 intctl;
-+	u32 ppsts;
-+	u8 rirbsts;
-+
-+	/* read key IRQ stats and config registers */
-+	adspis = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_REG_ADSPIS);
-+	intsts = snd_sof_dsp_read(sdev, HDA_DSP_HDA_BAR, SOF_HDA_INTSTS);
-+	intctl = snd_sof_dsp_read(sdev, HDA_DSP_HDA_BAR, SOF_HDA_INTCTL);
-+	ppsts = snd_sof_dsp_read(sdev, HDA_DSP_PP_BAR, SOF_HDA_REG_PP_PPSTS);
-+	rirbsts = snd_sof_dsp_read8(sdev, HDA_DSP_HDA_BAR, AZX_REG_RIRBSTS);
-+
-+	dev_err(sdev->dev, "hda irq intsts 0x%8.8x intlctl 0x%8.8x rirb %2.2x\n",
-+		intsts, intctl, rirbsts);
-+	dev_err(sdev->dev, "dsp irq ppsts 0x%8.8x adspis 0x%8.8x\n", ppsts, adspis);
-+}
-+EXPORT_SYMBOL_NS(hda_ipc_irq_dump, SND_SOC_SOF_INTEL_HDA_COMMON);
-+
-+void hda_ipc_dump(struct snd_sof_dev *sdev)
-+{
-+	u32 hipcie;
-+	u32 hipct;
-+	u32 hipcctl;
-+
-+	hda_ipc_irq_dump(sdev);
-+
-+	/* read IPC status */
-+	hipcie = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_REG_HIPCIE);
-+	hipct = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_REG_HIPCT);
-+	hipcctl = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_REG_HIPCCTL);
-+
-+	/* dump the IPC regs */
-+	/* TODO: parse the raw msg */
-+	dev_err(sdev->dev, "host status 0x%8.8x dsp status 0x%8.8x mask 0x%8.8x\n",
-+		hipcie, hipct, hipcctl);
-+}
-+EXPORT_SYMBOL_NS(hda_ipc_dump, SND_SOC_SOF_INTEL_HDA_COMMON);
-+
-+void hda_ipc4_dump(struct snd_sof_dev *sdev)
-+{
-+	u32 hipci, hipcie, hipct, hipcte, hipcctl;
-+
-+	hda_ipc_irq_dump(sdev);
-+
-+	hipci = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_REG_HIPCI);
-+	hipcie = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_REG_HIPCIE);
-+	hipct = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_REG_HIPCT);
-+	hipcte = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_REG_HIPCTE);
-+	hipcctl = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_REG_HIPCCTL);
-+
-+	/* dump the IPC regs */
-+	/* TODO: parse the raw msg */
-+	dev_err(sdev->dev, "Host IPC initiator: %#x|%#x, target: %#x|%#x, ctl: %#x\n",
-+		hipci, hipcie, hipct, hipcte, hipcctl);
-+}
-+EXPORT_SYMBOL_NS(hda_ipc4_dump, SND_SOC_SOF_INTEL_HDA_COMMON);
-+
-+bool hda_ipc4_tx_is_busy(struct snd_sof_dev *sdev)
-+{
-+	struct sof_intel_hda_dev *hda = sdev->pdata->hw_pdata;
-+	const struct sof_intel_dsp_desc *chip = hda->desc;
-+	u32 val;
-+
-+	val = snd_sof_dsp_read(sdev, HDA_DSP_BAR, chip->ipc_req);
-+
-+	return !!(val & chip->ipc_req_mask);
-+}
-+EXPORT_SYMBOL_NS(hda_ipc4_tx_is_busy, SND_SOC_SOF_INTEL_HDA_COMMON);
-diff --git a/sound/soc/sof/intel/hda-stream.c b/sound/soc/sof/intel/hda-stream.c
-index c5afcda18359..4fef1964b5cd 100644
---- a/sound/soc/sof/intel/hda-stream.c
-+++ b/sound/soc/sof/intel/hda-stream.c
-@@ -24,6 +24,10 @@
- #include "../ipc4-priv.h"
- #include "hda.h"
- 
-+int sof_hda_position_quirk = SOF_HDA_POSITION_QUIRK_USE_DPIB_REGISTERS;
-+module_param_named(position_quirk, sof_hda_position_quirk, int, 0444);
-+MODULE_PARM_DESC(position_quirk, "SOF HDaudio position quirk");
-+
- #define HDA_LTRP_GB_VALUE_US	95
- 
- static inline const char *hda_hstream_direction_str(struct hdac_stream *hstream)
 diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
-index b26fa2b8629b..a6d16314879f 100644
+index a6d16314879f..b15b1f5edcea 100644
 --- a/sound/soc/sof/intel/hda.c
 +++ b/sound/soc/sof/intel/hda.c
-@@ -34,8 +34,6 @@
- #include "../ops.h"
+@@ -35,7 +35,6 @@
  #include "../ipc4-topology.h"
  #include "hda.h"
--#include "telemetry.h"
--#include "mtl.h"
  
- #define CREATE_TRACE_POINTS
+-#define CREATE_TRACE_POINTS
  #include <trace/events/sof_intel.h>
-@@ -47,86 +45,6 @@
- /* platform specific devices */
- #include "shim.h"
  
--#define EXCEPT_MAX_HDR_SIZE	0x400
--#define HDA_EXT_ROM_STATUS_SIZE 8
--
--static void hda_get_interfaces(struct snd_sof_dev *sdev, u32 *interface_mask)
--{
--	const struct sof_intel_dsp_desc *chip;
--
--	chip = get_chip_info(sdev->pdata);
--	switch (chip->hw_ip_version) {
--	case SOF_INTEL_TANGIER:
--	case SOF_INTEL_BAYTRAIL:
--	case SOF_INTEL_BROADWELL:
--		interface_mask[SOF_DAI_DSP_ACCESS] =  BIT(SOF_DAI_INTEL_SSP);
--		break;
--	case SOF_INTEL_CAVS_1_5:
--	case SOF_INTEL_CAVS_1_5_PLUS:
--		interface_mask[SOF_DAI_DSP_ACCESS] =
--			BIT(SOF_DAI_INTEL_SSP) | BIT(SOF_DAI_INTEL_DMIC) | BIT(SOF_DAI_INTEL_HDA);
--		interface_mask[SOF_DAI_HOST_ACCESS] = BIT(SOF_DAI_INTEL_HDA);
--		break;
--	case SOF_INTEL_CAVS_1_8:
--	case SOF_INTEL_CAVS_2_0:
--	case SOF_INTEL_CAVS_2_5:
--	case SOF_INTEL_ACE_1_0:
--		interface_mask[SOF_DAI_DSP_ACCESS] =
--			BIT(SOF_DAI_INTEL_SSP) | BIT(SOF_DAI_INTEL_DMIC) |
--			BIT(SOF_DAI_INTEL_HDA) | BIT(SOF_DAI_INTEL_ALH);
--		interface_mask[SOF_DAI_HOST_ACCESS] = BIT(SOF_DAI_INTEL_HDA);
--		break;
--	case SOF_INTEL_ACE_2_0:
--		interface_mask[SOF_DAI_DSP_ACCESS] =
--			BIT(SOF_DAI_INTEL_SSP) | BIT(SOF_DAI_INTEL_DMIC) |
--			BIT(SOF_DAI_INTEL_HDA) | BIT(SOF_DAI_INTEL_ALH);
--		 /* all interfaces accessible without DSP */
--		interface_mask[SOF_DAI_HOST_ACCESS] =
--			interface_mask[SOF_DAI_DSP_ACCESS];
--		break;
--	default:
--		break;
--	}
--}
--
--static u32 hda_get_interface_mask(struct snd_sof_dev *sdev)
--{
--	u32 interface_mask[SOF_DAI_ACCESS_NUM] = { 0 };
--
--	hda_get_interfaces(sdev, interface_mask);
--
--	return interface_mask[sdev->dspless_mode_selected];
--}
--
--bool hda_is_chain_dma_supported(struct snd_sof_dev *sdev, u32 dai_type)
--{
--	u32 interface_mask[SOF_DAI_ACCESS_NUM] = { 0 };
--	const struct sof_intel_dsp_desc *chip;
--
--	if (sdev->dspless_mode_selected)
--		return false;
--
--	hda_get_interfaces(sdev, interface_mask);
--
--	if (!(interface_mask[SOF_DAI_DSP_ACCESS] & BIT(dai_type)))
--		return false;
--
--	if (dai_type == SOF_DAI_INTEL_HDA)
--		return true;
--
--	switch (dai_type) {
--	case SOF_DAI_INTEL_SSP:
--	case SOF_DAI_INTEL_DMIC:
--	case SOF_DAI_INTEL_ALH:
--		chip = get_chip_info(sdev->pdata);
--		if (chip->hw_ip_version < SOF_INTEL_ACE_2_0)
--			return false;
--		return true;
--	default:
--		return false;
--	}
--}
--
- #if IS_ENABLED(CONFIG_SND_SOC_SOF_INTEL_SOUNDWIRE)
- 
- /*
-@@ -210,35 +128,6 @@ static struct sdw_intel_ops sdw_ace2x_callback = {
- 	.trigger = sdw_ace2x_trigger,
- };
- 
--void hda_common_enable_sdw_irq(struct snd_sof_dev *sdev, bool enable)
--{
--	struct sof_intel_hda_dev *hdev;
--
--	hdev = sdev->pdata->hw_pdata;
--
--	if (!hdev->sdw)
--		return;
--
--	snd_sof_dsp_update_bits(sdev, HDA_DSP_BAR, HDA_DSP_REG_ADSPIC2,
--				HDA_DSP_REG_ADSPIC2_SNDW,
--				enable ? HDA_DSP_REG_ADSPIC2_SNDW : 0);
--}
--EXPORT_SYMBOL_NS(hda_common_enable_sdw_irq, SND_SOC_SOF_INTEL_HDA_COMMON);
--
--void hda_sdw_int_enable(struct snd_sof_dev *sdev, bool enable)
--{
--	u32 interface_mask = hda_get_interface_mask(sdev);
--	const struct sof_intel_dsp_desc *chip;
--
--	if (!(interface_mask & BIT(SOF_DAI_INTEL_ALH)))
--		return;
--
--	chip = get_chip_info(sdev->pdata);
--	if (chip && chip->enable_sdw_irq)
--		chip->enable_sdw_irq(sdev, enable);
--}
--EXPORT_SYMBOL_NS(hda_sdw_int_enable, SND_SOC_SOF_INTEL_HDA_COMMON);
--
- static int hda_sdw_acpi_scan(struct snd_sof_dev *sdev)
- {
- 	u32 interface_mask = hda_get_interface_mask(sdev);
-@@ -330,67 +219,6 @@ static int hda_sdw_probe(struct snd_sof_dev *sdev)
- 	return 0;
- }
- 
--int hda_sdw_check_lcount_common(struct snd_sof_dev *sdev)
--{
--	struct sof_intel_hda_dev *hdev;
--	struct sdw_intel_ctx *ctx;
--	u32 caps;
--
--	hdev = sdev->pdata->hw_pdata;
--	ctx = hdev->sdw;
--
--	caps = snd_sof_dsp_read(sdev, HDA_DSP_BAR, ctx->shim_base + SDW_SHIM_LCAP);
--	caps &= SDW_SHIM_LCAP_LCOUNT_MASK;
--
--	/* Check HW supported vs property value */
--	if (caps < ctx->count) {
--		dev_err(sdev->dev,
--			"%s: BIOS master count %d is larger than hardware capabilities %d\n",
--			__func__, ctx->count, caps);
--		return -EINVAL;
--	}
--
--	return 0;
--}
--EXPORT_SYMBOL_NS(hda_sdw_check_lcount_common, SND_SOC_SOF_INTEL_HDA_COMMON);
--
--int hda_sdw_check_lcount_ext(struct snd_sof_dev *sdev)
--{
--	struct sof_intel_hda_dev *hdev;
--	struct sdw_intel_ctx *ctx;
--	struct hdac_bus *bus;
--	u32 slcount;
--
--	bus = sof_to_bus(sdev);
--
--	hdev = sdev->pdata->hw_pdata;
--	ctx = hdev->sdw;
--
--	slcount = hdac_bus_eml_get_count(bus, true, AZX_REG_ML_LEPTR_ID_SDW);
--
--	/* Check HW supported vs property value */
--	if (slcount < ctx->count) {
--		dev_err(sdev->dev,
--			"%s: BIOS master count %d is larger than hardware capabilities %d\n",
--			__func__, ctx->count, slcount);
--		return -EINVAL;
--	}
--
--	return 0;
--}
--EXPORT_SYMBOL_NS(hda_sdw_check_lcount_ext, SND_SOC_SOF_INTEL_HDA_COMMON);
--
--static int hda_sdw_check_lcount(struct snd_sof_dev *sdev)
--{
--	const struct sof_intel_dsp_desc *chip;
--
--	chip = get_chip_info(sdev->pdata);
--	if (chip && chip->read_sdw_lcount)
--		return chip->read_sdw_lcount(sdev);
--
--	return 0;
--}
--
- int hda_sdw_startup(struct snd_sof_dev *sdev)
- {
- 	struct sof_intel_hda_dev *hdev;
-@@ -596,11 +424,6 @@ EXPORT_SYMBOL_NS(hda_dsp_post_fw_run, SND_SOC_SOF_INTEL_HDA_COMMON);
-  * Debug
-  */
- 
--struct hda_dsp_msg_code {
--	u32 code;
--	const char *text;
--};
--
- #if IS_ENABLED(CONFIG_SND_SOC_SOF_DEBUG)
- static bool hda_use_msi = true;
- module_param_named(use_msi, hda_use_msi, bool, 0444);
-@@ -609,10 +432,6 @@ MODULE_PARM_DESC(use_msi, "SOF HDA use PCI MSI mode");
- #define hda_use_msi	(1)
- #endif
- 
--int sof_hda_position_quirk = SOF_HDA_POSITION_QUIRK_USE_DPIB_REGISTERS;
--module_param_named(position_quirk, sof_hda_position_quirk, int, 0444);
--MODULE_PARM_DESC(position_quirk, "SOF HDaudio position quirk");
--
- static char *hda_model;
- module_param(hda_model, charp, 0444);
- MODULE_PARM_DESC(hda_model, "Use the given HDA board model.");
-@@ -625,386 +444,6 @@ static int mclk_id_override = -1;
- module_param_named(mclk_id, mclk_id_override, int, 0444);
- MODULE_PARM_DESC(mclk_id, "SOF SSP mclk_id");
- 
--static const struct hda_dsp_msg_code hda_dsp_rom_fw_error_texts[] = {
--	{HDA_DSP_ROM_CSE_ERROR, "error: cse error"},
--	{HDA_DSP_ROM_CSE_WRONG_RESPONSE, "error: cse wrong response"},
--	{HDA_DSP_ROM_IMR_TO_SMALL, "error: IMR too small"},
--	{HDA_DSP_ROM_BASE_FW_NOT_FOUND, "error: base fw not found"},
--	{HDA_DSP_ROM_CSE_VALIDATION_FAILED, "error: signature verification failed"},
--	{HDA_DSP_ROM_IPC_FATAL_ERROR, "error: ipc fatal error"},
--	{HDA_DSP_ROM_L2_CACHE_ERROR, "error: L2 cache error"},
--	{HDA_DSP_ROM_LOAD_OFFSET_TO_SMALL, "error: load offset too small"},
--	{HDA_DSP_ROM_API_PTR_INVALID, "error: API ptr invalid"},
--	{HDA_DSP_ROM_BASEFW_INCOMPAT, "error: base fw incompatible"},
--	{HDA_DSP_ROM_UNHANDLED_INTERRUPT, "error: unhandled interrupt"},
--	{HDA_DSP_ROM_MEMORY_HOLE_ECC, "error: ECC memory hole"},
--	{HDA_DSP_ROM_KERNEL_EXCEPTION, "error: kernel exception"},
--	{HDA_DSP_ROM_USER_EXCEPTION, "error: user exception"},
--	{HDA_DSP_ROM_UNEXPECTED_RESET, "error: unexpected reset"},
--	{HDA_DSP_ROM_NULL_FW_ENTRY,	"error: null FW entry point"},
--};
--
--#define FSR_ROM_STATE_ENTRY(state)	{FSR_STATE_ROM_##state, #state}
--static const struct hda_dsp_msg_code cavs_fsr_rom_state_names[] = {
--	FSR_ROM_STATE_ENTRY(INIT),
--	FSR_ROM_STATE_ENTRY(INIT_DONE),
--	FSR_ROM_STATE_ENTRY(CSE_MANIFEST_LOADED),
--	FSR_ROM_STATE_ENTRY(FW_MANIFEST_LOADED),
--	FSR_ROM_STATE_ENTRY(FW_FW_LOADED),
--	FSR_ROM_STATE_ENTRY(FW_ENTERED),
--	FSR_ROM_STATE_ENTRY(VERIFY_FEATURE_MASK),
--	FSR_ROM_STATE_ENTRY(GET_LOAD_OFFSET),
--	FSR_ROM_STATE_ENTRY(FETCH_ROM_EXT),
--	FSR_ROM_STATE_ENTRY(FETCH_ROM_EXT_DONE),
--	/* CSE states */
--	FSR_ROM_STATE_ENTRY(CSE_IMR_REQUEST),
--	FSR_ROM_STATE_ENTRY(CSE_IMR_GRANTED),
--	FSR_ROM_STATE_ENTRY(CSE_VALIDATE_IMAGE_REQUEST),
--	FSR_ROM_STATE_ENTRY(CSE_IMAGE_VALIDATED),
--	FSR_ROM_STATE_ENTRY(CSE_IPC_IFACE_INIT),
--	FSR_ROM_STATE_ENTRY(CSE_IPC_RESET_PHASE_1),
--	FSR_ROM_STATE_ENTRY(CSE_IPC_OPERATIONAL_ENTRY),
--	FSR_ROM_STATE_ENTRY(CSE_IPC_OPERATIONAL),
--	FSR_ROM_STATE_ENTRY(CSE_IPC_DOWN),
--};
--
--static const struct hda_dsp_msg_code ace_fsr_rom_state_names[] = {
--	FSR_ROM_STATE_ENTRY(INIT),
--	FSR_ROM_STATE_ENTRY(INIT_DONE),
--	FSR_ROM_STATE_ENTRY(CSE_MANIFEST_LOADED),
--	FSR_ROM_STATE_ENTRY(FW_MANIFEST_LOADED),
--	FSR_ROM_STATE_ENTRY(FW_FW_LOADED),
--	FSR_ROM_STATE_ENTRY(FW_ENTERED),
--	FSR_ROM_STATE_ENTRY(VERIFY_FEATURE_MASK),
--	FSR_ROM_STATE_ENTRY(GET_LOAD_OFFSET),
--	FSR_ROM_STATE_ENTRY(RESET_VECTOR_DONE),
--	FSR_ROM_STATE_ENTRY(PURGE_BOOT),
--	FSR_ROM_STATE_ENTRY(RESTORE_BOOT),
--	FSR_ROM_STATE_ENTRY(FW_ENTRY_POINT),
--	FSR_ROM_STATE_ENTRY(VALIDATE_PUB_KEY),
--	FSR_ROM_STATE_ENTRY(POWER_DOWN_HPSRAM),
--	FSR_ROM_STATE_ENTRY(POWER_DOWN_ULPSRAM),
--	FSR_ROM_STATE_ENTRY(POWER_UP_ULPSRAM_STACK),
--	FSR_ROM_STATE_ENTRY(POWER_UP_HPSRAM_DMA),
--	FSR_ROM_STATE_ENTRY(BEFORE_EP_POINTER_READ),
--	FSR_ROM_STATE_ENTRY(VALIDATE_MANIFEST),
--	FSR_ROM_STATE_ENTRY(VALIDATE_FW_MODULE),
--	FSR_ROM_STATE_ENTRY(PROTECT_IMR_REGION),
--	FSR_ROM_STATE_ENTRY(PUSH_MODEL_ROUTINE),
--	FSR_ROM_STATE_ENTRY(PULL_MODEL_ROUTINE),
--	FSR_ROM_STATE_ENTRY(VALIDATE_PKG_DIR),
--	FSR_ROM_STATE_ENTRY(VALIDATE_CPD),
--	FSR_ROM_STATE_ENTRY(VALIDATE_CSS_MAN_HEADER),
--	FSR_ROM_STATE_ENTRY(VALIDATE_BLOB_SVN),
--	FSR_ROM_STATE_ENTRY(VERIFY_IFWI_PARTITION),
--	FSR_ROM_STATE_ENTRY(REMOVE_ACCESS_CONTROL),
--	FSR_ROM_STATE_ENTRY(AUTH_BYPASS),
--	FSR_ROM_STATE_ENTRY(AUTH_ENABLED),
--	FSR_ROM_STATE_ENTRY(INIT_DMA),
--	FSR_ROM_STATE_ENTRY(PURGE_FW_ENTRY),
--	FSR_ROM_STATE_ENTRY(PURGE_FW_END),
--	FSR_ROM_STATE_ENTRY(CLEAN_UP_BSS_DONE),
--	FSR_ROM_STATE_ENTRY(IMR_RESTORE_ENTRY),
--	FSR_ROM_STATE_ENTRY(IMR_RESTORE_END),
--	FSR_ROM_STATE_ENTRY(FW_MANIFEST_IN_DMA_BUFF),
--	FSR_ROM_STATE_ENTRY(LOAD_CSE_MAN_TO_IMR),
--	FSR_ROM_STATE_ENTRY(LOAD_FW_MAN_TO_IMR),
--	FSR_ROM_STATE_ENTRY(LOAD_FW_CODE_TO_IMR),
--	FSR_ROM_STATE_ENTRY(FW_LOADING_DONE),
--	FSR_ROM_STATE_ENTRY(FW_CODE_LOADED),
--	FSR_ROM_STATE_ENTRY(VERIFY_IMAGE_TYPE),
--	FSR_ROM_STATE_ENTRY(AUTH_API_INIT),
--	FSR_ROM_STATE_ENTRY(AUTH_API_PROC),
--	FSR_ROM_STATE_ENTRY(AUTH_API_FIRST_BUSY),
--	FSR_ROM_STATE_ENTRY(AUTH_API_FIRST_RESULT),
--	FSR_ROM_STATE_ENTRY(AUTH_API_CLEANUP),
--};
--
--#define FSR_BRINGUP_STATE_ENTRY(state)	{FSR_STATE_BRINGUP_##state, #state}
--static const struct hda_dsp_msg_code fsr_bringup_state_names[] = {
--	FSR_BRINGUP_STATE_ENTRY(INIT),
--	FSR_BRINGUP_STATE_ENTRY(INIT_DONE),
--	FSR_BRINGUP_STATE_ENTRY(HPSRAM_LOAD),
--	FSR_BRINGUP_STATE_ENTRY(UNPACK_START),
--	FSR_BRINGUP_STATE_ENTRY(IMR_RESTORE),
--	FSR_BRINGUP_STATE_ENTRY(FW_ENTERED),
--};
--
--#define FSR_WAIT_STATE_ENTRY(state)	{FSR_WAIT_FOR_##state, #state}
--static const struct hda_dsp_msg_code fsr_wait_state_names[] = {
--	FSR_WAIT_STATE_ENTRY(IPC_BUSY),
--	FSR_WAIT_STATE_ENTRY(IPC_DONE),
--	FSR_WAIT_STATE_ENTRY(CACHE_INVALIDATION),
--	FSR_WAIT_STATE_ENTRY(LP_SRAM_OFF),
--	FSR_WAIT_STATE_ENTRY(DMA_BUFFER_FULL),
--	FSR_WAIT_STATE_ENTRY(CSE_CSR),
--};
--
--#define FSR_MODULE_NAME_ENTRY(mod)	[FSR_MOD_##mod] = #mod
--static const char * const fsr_module_names[] = {
--	FSR_MODULE_NAME_ENTRY(ROM),
--	FSR_MODULE_NAME_ENTRY(ROM_BYP),
--	FSR_MODULE_NAME_ENTRY(BASE_FW),
--	FSR_MODULE_NAME_ENTRY(LP_BOOT),
--	FSR_MODULE_NAME_ENTRY(BRNGUP),
--	FSR_MODULE_NAME_ENTRY(ROM_EXT),
--};
--
--static const char *
--hda_dsp_get_state_text(u32 code, const struct hda_dsp_msg_code *msg_code,
--		       size_t array_size)
--{
--	int i;
--
--	for (i = 0; i < array_size; i++) {
--		if (code == msg_code[i].code)
--			return msg_code[i].text;
--	}
--
--	return NULL;
--}
--
--void hda_dsp_get_state(struct snd_sof_dev *sdev, const char *level)
--{
--	const struct sof_intel_dsp_desc *chip = get_chip_info(sdev->pdata);
--	const char *state_text, *error_text, *module_text;
--	u32 fsr, state, wait_state, module, error_code;
--
--	fsr = snd_sof_dsp_read(sdev, HDA_DSP_BAR, chip->rom_status_reg);
--	state = FSR_TO_STATE_CODE(fsr);
--	wait_state = FSR_TO_WAIT_STATE_CODE(fsr);
--	module = FSR_TO_MODULE_CODE(fsr);
--
--	if (module > FSR_MOD_ROM_EXT)
--		module_text = "unknown";
--	else
--		module_text = fsr_module_names[module];
--
--	if (module == FSR_MOD_BRNGUP) {
--		state_text = hda_dsp_get_state_text(state, fsr_bringup_state_names,
--						    ARRAY_SIZE(fsr_bringup_state_names));
--	} else {
--		if (chip->hw_ip_version < SOF_INTEL_ACE_1_0)
--			state_text = hda_dsp_get_state_text(state,
--							cavs_fsr_rom_state_names,
--							ARRAY_SIZE(cavs_fsr_rom_state_names));
--		else
--			state_text = hda_dsp_get_state_text(state,
--							ace_fsr_rom_state_names,
--							ARRAY_SIZE(ace_fsr_rom_state_names));
--	}
--
--	/* not for us, must be generic sof message */
--	if (!state_text) {
--		dev_printk(level, sdev->dev, "%#010x: unknown ROM status value\n", fsr);
--		return;
--	}
--
--	if (wait_state) {
--		const char *wait_state_text;
--
--		wait_state_text = hda_dsp_get_state_text(wait_state, fsr_wait_state_names,
--							 ARRAY_SIZE(fsr_wait_state_names));
--		if (!wait_state_text)
--			wait_state_text = "unknown";
--
--		dev_printk(level, sdev->dev,
--			   "%#010x: module: %s, state: %s, waiting for: %s, %s\n",
--			   fsr, module_text, state_text, wait_state_text,
--			   fsr & FSR_HALTED ? "not running" : "running");
--	} else {
--		dev_printk(level, sdev->dev, "%#010x: module: %s, state: %s, %s\n",
--			   fsr, module_text, state_text,
--			   fsr & FSR_HALTED ? "not running" : "running");
--	}
--
--	error_code = snd_sof_dsp_read(sdev, HDA_DSP_BAR, chip->rom_status_reg + 4);
--	if (!error_code)
--		return;
--
--	error_text = hda_dsp_get_state_text(error_code, hda_dsp_rom_fw_error_texts,
--					    ARRAY_SIZE(hda_dsp_rom_fw_error_texts));
--	if (!error_text)
--		error_text = "unknown";
--
--	if (state == FSR_STATE_FW_ENTERED)
--		dev_printk(level, sdev->dev, "status code: %#x (%s)\n", error_code,
--			   error_text);
--	else
--		dev_printk(level, sdev->dev, "error code: %#x (%s)\n", error_code,
--			   error_text);
--}
--EXPORT_SYMBOL_NS(hda_dsp_get_state, SND_SOC_SOF_INTEL_HDA_COMMON);
--
--static void hda_dsp_get_registers(struct snd_sof_dev *sdev,
--				  struct sof_ipc_dsp_oops_xtensa *xoops,
--				  struct sof_ipc_panic_info *panic_info,
--				  u32 *stack, size_t stack_words)
--{
--	u32 offset = sdev->dsp_oops_offset;
--
--	/* first read registers */
--	sof_mailbox_read(sdev, offset, xoops, sizeof(*xoops));
--
--	/* note: variable AR register array is not read */
--
--	/* then get panic info */
--	if (xoops->arch_hdr.totalsize > EXCEPT_MAX_HDR_SIZE) {
--		dev_err(sdev->dev, "invalid header size 0x%x. FW oops is bogus\n",
--			xoops->arch_hdr.totalsize);
--		return;
--	}
--	offset += xoops->arch_hdr.totalsize;
--	sof_block_read(sdev, sdev->mmio_bar, offset,
--		       panic_info, sizeof(*panic_info));
--
--	/* then get the stack */
--	offset += sizeof(*panic_info);
--	sof_block_read(sdev, sdev->mmio_bar, offset, stack,
--		       stack_words * sizeof(u32));
--}
--
--/* dump the first 8 dwords representing the extended ROM status */
--static void hda_dsp_dump_ext_rom_status(struct snd_sof_dev *sdev, const char *level,
--					u32 flags)
--{
--	const struct sof_intel_dsp_desc *chip;
--	char msg[128];
--	int len = 0;
--	u32 value;
--	int i;
--
--	chip = get_chip_info(sdev->pdata);
--	for (i = 0; i < HDA_EXT_ROM_STATUS_SIZE; i++) {
--		value = snd_sof_dsp_read(sdev, HDA_DSP_BAR, chip->rom_status_reg + i * 0x4);
--		len += scnprintf(msg + len, sizeof(msg) - len, " 0x%x", value);
--	}
--
--	dev_printk(level, sdev->dev, "extended rom status: %s", msg);
--
--}
--
--void hda_dsp_dump(struct snd_sof_dev *sdev, u32 flags)
--{
--	char *level = (flags & SOF_DBG_DUMP_OPTIONAL) ? KERN_DEBUG : KERN_ERR;
--	struct sof_ipc_dsp_oops_xtensa xoops;
--	struct sof_ipc_panic_info panic_info;
--	u32 stack[HDA_DSP_STACK_DUMP_SIZE];
--
--	/* print ROM/FW status */
--	hda_dsp_get_state(sdev, level);
--
--	/* The firmware register dump only available with IPC3 */
--	if (flags & SOF_DBG_DUMP_REGS && sdev->pdata->ipc_type == SOF_IPC_TYPE_3) {
--		u32 status = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_SRAM_REG_FW_STATUS);
--		u32 panic = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_SRAM_REG_FW_TRACEP);
--
--		hda_dsp_get_registers(sdev, &xoops, &panic_info, stack,
--				      HDA_DSP_STACK_DUMP_SIZE);
--		sof_print_oops_and_stack(sdev, level, status, panic, &xoops,
--					 &panic_info, stack, HDA_DSP_STACK_DUMP_SIZE);
--	} else {
--		hda_dsp_dump_ext_rom_status(sdev, level, flags);
--	}
--}
--
--void hda_ipc4_dsp_dump(struct snd_sof_dev *sdev, u32 flags)
--{
--	char *level = (flags & SOF_DBG_DUMP_OPTIONAL) ? KERN_DEBUG : KERN_ERR;
--
--	/* print ROM/FW status */
--	hda_dsp_get_state(sdev, level);
--
--	if (flags & SOF_DBG_DUMP_REGS)
--		sof_ipc4_intel_dump_telemetry_state(sdev, flags);
--	else
--		hda_dsp_dump_ext_rom_status(sdev, level, flags);
--}
--EXPORT_SYMBOL_NS(hda_ipc4_dsp_dump, SND_SOC_SOF_INTEL_HDA_COMMON);
--
--static bool hda_check_ipc_irq(struct snd_sof_dev *sdev)
--{
--	const struct sof_intel_dsp_desc *chip;
--
--	chip = get_chip_info(sdev->pdata);
--	if (chip && chip->check_ipc_irq)
--		return chip->check_ipc_irq(sdev);
--
--	return false;
--}
--
--void hda_ipc_irq_dump(struct snd_sof_dev *sdev)
--{
--	u32 adspis;
--	u32 intsts;
--	u32 intctl;
--	u32 ppsts;
--	u8 rirbsts;
--
--	/* read key IRQ stats and config registers */
--	adspis = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_REG_ADSPIS);
--	intsts = snd_sof_dsp_read(sdev, HDA_DSP_HDA_BAR, SOF_HDA_INTSTS);
--	intctl = snd_sof_dsp_read(sdev, HDA_DSP_HDA_BAR, SOF_HDA_INTCTL);
--	ppsts = snd_sof_dsp_read(sdev, HDA_DSP_PP_BAR, SOF_HDA_REG_PP_PPSTS);
--	rirbsts = snd_sof_dsp_read8(sdev, HDA_DSP_HDA_BAR, AZX_REG_RIRBSTS);
--
--	dev_err(sdev->dev, "hda irq intsts 0x%8.8x intlctl 0x%8.8x rirb %2.2x\n",
--		intsts, intctl, rirbsts);
--	dev_err(sdev->dev, "dsp irq ppsts 0x%8.8x adspis 0x%8.8x\n", ppsts, adspis);
--}
--EXPORT_SYMBOL_NS(hda_ipc_irq_dump, SND_SOC_SOF_INTEL_HDA_COMMON);
--
--void hda_ipc_dump(struct snd_sof_dev *sdev)
--{
--	u32 hipcie;
--	u32 hipct;
--	u32 hipcctl;
--
--	hda_ipc_irq_dump(sdev);
--
--	/* read IPC status */
--	hipcie = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_REG_HIPCIE);
--	hipct = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_REG_HIPCT);
--	hipcctl = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_REG_HIPCCTL);
--
--	/* dump the IPC regs */
--	/* TODO: parse the raw msg */
--	dev_err(sdev->dev, "host status 0x%8.8x dsp status 0x%8.8x mask 0x%8.8x\n",
--		hipcie, hipct, hipcctl);
--}
--EXPORT_SYMBOL_NS(hda_ipc_dump, SND_SOC_SOF_INTEL_HDA_COMMON);
--
--void hda_ipc4_dump(struct snd_sof_dev *sdev)
--{
--	u32 hipci, hipcie, hipct, hipcte, hipcctl;
--
--	hda_ipc_irq_dump(sdev);
--
--	hipci = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_REG_HIPCI);
--	hipcie = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_REG_HIPCIE);
--	hipct = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_REG_HIPCT);
--	hipcte = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_REG_HIPCTE);
--	hipcctl = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_REG_HIPCCTL);
--
--	/* dump the IPC regs */
--	/* TODO: parse the raw msg */
--	dev_err(sdev->dev, "Host IPC initiator: %#x|%#x, target: %#x|%#x, ctl: %#x\n",
--		hipci, hipcie, hipct, hipcte, hipcctl);
--}
--EXPORT_SYMBOL_NS(hda_ipc4_dump, SND_SOC_SOF_INTEL_HDA_COMMON);
--
--bool hda_ipc4_tx_is_busy(struct snd_sof_dev *sdev)
--{
--	struct sof_intel_hda_dev *hda = sdev->pdata->hw_pdata;
--	const struct sof_intel_dsp_desc *chip = hda->desc;
--	u32 val;
--
--	val = snd_sof_dsp_read(sdev, HDA_DSP_BAR, chip->ipc_req);
--
--	return !!(val & chip->ipc_req_mask);
--}
--EXPORT_SYMBOL_NS(hda_ipc4_tx_is_busy, SND_SOC_SOF_INTEL_HDA_COMMON);
--
- static int hda_init(struct snd_sof_dev *sdev)
- {
- 	struct hda_bus *hbus;
-diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
-index 8b495264f23d..0345c90ead4d 100644
---- a/sound/soc/sof/intel/hda.h
-+++ b/sound/soc/sof/intel/hda.h
-@@ -619,6 +619,8 @@ void hda_ipc_dump(struct snd_sof_dev *sdev);
- void hda_ipc_irq_dump(struct snd_sof_dev *sdev);
- void hda_dsp_d0i3_work(struct work_struct *work);
- int hda_dsp_disable_interrupts(struct snd_sof_dev *sdev);
-+bool hda_check_ipc_irq(struct snd_sof_dev *sdev);
-+u32 hda_get_interface_mask(struct snd_sof_dev *sdev);
- 
- /*
-  * DSP PCM Operations.
-@@ -700,6 +702,8 @@ irqreturn_t hda_dsp_ipc_irq_thread(int irq, void *context);
- int hda_dsp_ipc_cmd_done(struct snd_sof_dev *sdev, int dir);
- 
- void hda_dsp_get_state(struct snd_sof_dev *sdev, const char *level);
-+void hda_dsp_dump_ext_rom_status(struct snd_sof_dev *sdev, const char *level,
-+				 u32 flags);
- 
- /*
-  * DSP Code loader.
-@@ -808,6 +812,7 @@ int hda_dsp_trace_trigger(struct snd_sof_dev *sdev, int cmd);
- 
- int hda_sdw_check_lcount_common(struct snd_sof_dev *sdev);
- int hda_sdw_check_lcount_ext(struct snd_sof_dev *sdev);
-+int hda_sdw_check_lcount(struct snd_sof_dev *sdev);
- int hda_sdw_startup(struct snd_sof_dev *sdev);
- void hda_common_enable_sdw_irq(struct snd_sof_dev *sdev, bool enable);
- void hda_sdw_int_enable(struct snd_sof_dev *sdev, bool enable);
-@@ -827,6 +832,11 @@ static inline int hda_sdw_check_lcount_ext(struct snd_sof_dev *sdev)
- 	return 0;
- }
- 
-+static inline int hda_sdw_check_lcount(struct snd_sof_dev *sdev)
-+{
-+	return 0;
-+}
-+
- static inline int hda_sdw_startup(struct snd_sof_dev *sdev)
- {
- 	return 0;
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
+diff --git a/sound/soc/sof/intel/tracepoints.c b/sound/soc/sof/intel/tracepoints.c
+new file mode 100644
+index 000000000000..c223c96fe0e3
+--- /dev/null
++++ b/sound/soc/sof/intel/tracepoints.c
+@@ -0,0 +1,3 @@
++// SPDX-License-Identifier: GPL-2.0
++#define CREATE_TRACE_POINTS
++#include <trace/events/sof_intel.h>
 -- 
 2.40.1
 

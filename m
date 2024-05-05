@@ -2,91 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBA048BC05E
-	for <lists+alsa-devel@lfdr.de>; Sun,  5 May 2024 14:27:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9AF58BC198
+	for <lists+alsa-devel@lfdr.de>; Sun,  5 May 2024 17:04:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EBD09E67;
-	Sun,  5 May 2024 14:27:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EBD09E67
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4CC9B210;
+	Sun,  5 May 2024 17:03:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4CC9B210
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1714912038;
-	bh=kfEy6Lml/t/3cMIhRtI7Bj78a/7ugx6tLl1SRmL6rnE=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=NPRQ6oF/V+VfSeQw5p2Enemy63lX9x4okMjmOG161hPNczVzWHAD5RfcZOwiihhTD
-	 3E4WuzB7Gdnb12KTAoK3Vz9ljySjsRrzRvvLBCwWk3+7sLZ12Jv+ZzsUrKfEtkEkbt
-	 fcJrpFleJOFtvc8XO79LJ/tI70optFufhVegSH9w=
+	s=default; t=1714921444;
+	bh=aaWY3YW5vu+MJcht4MahH1HYM7AOmCM1zQmPkE3E/e4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=DHTPa5eWVHz6ARMVgE8BiYnCzP2ddrwezpxPbwciQ8zC66DPJQgwilHZe8UGfLfRA
+	 ZonnK016xfcReuylOwZqwlXR50cBkpSOs4iU/fmZW5aSKhQABhRIFmhS+0XXvhH+fC
+	 DsUqyOd7BGelRfMxMdWak57BqOBxsWQryDkWNNyA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B31C5F8003A; Sun,  5 May 2024 14:26:45 +0200 (CEST)
+	id DD933F805A8; Sun,  5 May 2024 17:03:28 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DE204F805A0;
-	Sun,  5 May 2024 14:26:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 590E4F80563;
+	Sun,  5 May 2024 17:03:28 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CFBDDF8049C; Sun,  5 May 2024 14:24:16 +0200 (CEST)
+	id 0D580F804E7; Sun,  5 May 2024 17:03:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 74DDBF8024C
-	for <alsa-devel@alsa-project.org>; Sun,  5 May 2024 14:24:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74DDBF8024C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 50FFCF8024C
+	for <alsa-devel@alsa-project.org>; Sun,  5 May 2024 17:03:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50FFCF8024C
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
- header.s=ti-com-17Q1 header.b=rzrBNOIY
-Received: from fllv0035.itg.ti.com ([10.64.41.0])
-	by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id 445CO12A070737;
-	Sun, 5 May 2024 07:24:01 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
-	s=ti-com-17Q1; t=1714911841;
-	bh=hfpl7gB5elHvkCdR9N7Mf+3OMIJmGNcSYdH3zrkPOkc=;
-	h=From:To:CC:Subject:Date;
-	b=rzrBNOIYnmHNPWOaM0biDrEcbZAVJRFQTAGnlvVROt0eAQJqTywPUG4gGqZFnc98t
-	 TrkqquSynMH0PyKYj70W7v3qJbn0j/mxwnvxOx2fIHxOvwOEk0h8AZQ7uGycTX/CU4
-	 vOQ502JtyoAd7+Iut7aScVYc5qfSHsk8qBBShtFw=
-Received: from DFLE104.ent.ti.com (dfle104.ent.ti.com [10.64.6.25])
-	by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 445CO1FB030030
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Sun, 5 May 2024 07:24:01 -0500
-Received: from DFLE113.ent.ti.com (10.64.6.34) by DFLE104.ent.ti.com
- (10.64.6.25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Sun, 5
- May 2024 07:24:01 -0500
-Received: from lelvsmtp5.itg.ti.com (10.180.75.250) by DFLE113.ent.ti.com
- (10.64.6.34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
- Frontend Transport; Sun, 5 May 2024 07:24:01 -0500
-Received: from LT5CG31242FY.dhcp.ti.com ([10.250.160.109])
-	by lelvsmtp5.itg.ti.com (8.15.2/8.15.2) with ESMTP id 445CNtWn068090;
-	Sun, 5 May 2024 07:23:56 -0500
-From: Shenghao Ding <shenghao-ding@ti.com>
-To: <broonie@kernel.org>
-CC: <andriy.shevchenko@linux.intel.com>, <lgirdwood@gmail.com>,
-        <perex@perex.cz>, <pierre-louis.bossart@linux.intel.com>,
-        <13916275206@139.com>, <alsa-devel@alsa-project.org>,
-        <linux-kernel@vger.kernel.org>, <liam.r.girdwood@intel.com>,
-        <bard.liao@intel.com>, <yung-chuan.liao@linux.intel.com>,
-        <kevin-lu@ti.com>, <cameron.berkenpas@gmail.com>, <tiwai@suse.de>,
-        <baojun.xu@ti.com>, <soyer@irl.hu>, <Baojun.Xu@fpt.com>,
-        Shenghao Ding <shenghao-ding@ti.com>
-Subject: [PATCH v2] ASoC: tas2781: Fix a warning reported by robot kernel test
-Date: Sun, 5 May 2024 20:23:45 +0800
-Message-ID: <20240505122346.1326-1-shenghao-ding@ti.com>
-X-Mailer: git-send-email 2.33.0.windows.2
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=hXV1rdkq
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id AC6E660C96;
+	Sun,  5 May 2024 15:03:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 211F5C4AF18;
+	Sun,  5 May 2024 15:03:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1714921391;
+	bh=aaWY3YW5vu+MJcht4MahH1HYM7AOmCM1zQmPkE3E/e4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=hXV1rdkqcvLp5eXPht+hHK4VlrnCJ8FdhGidjEpAN1ScqPEo78I0m9yZZG2osyLKk
+	 680AGkdmh1myU2LH2fSypQwN3HGbWEYX9bveI95VnEysVGgALkTkp7ZpQt8jWPIRFq
+	 RbrNzj6L+A8ApYJlrU2iYC1qhaw50ZxhCaYJAfPmJeAl1LawoyJQ+/yLpum5NfVKZT
+	 aVh7ctbo/EA30Nye/q2/8LvMusNVvgFo54LN/InnXz3DbxikDO1gkd8hsccUMaeyE9
+	 kKv+kmg6R/dQ3BeFzWrqL2RUy6XgBjrlszNYuWFC7ESes1uZrJZXbg+MbrvWWLB+LI
+	 F36WIg1sBVrbA==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+Cc: Andy Shevchenko <andy@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
+ linux-sound@vger.kernel.org, kernel@pengutronix.de
+In-Reply-To: <20240502074722.1103986-2-u.kleine-koenig@pengutronix.de>
+References: <20240502074722.1103986-2-u.kleine-koenig@pengutronix.de>
+Subject: Re: [PATCH] ASoC: codecs: Drop explicit initialization of struct
+ i2c_device_id::driver_data to 0
+Message-Id: <171492138878.1933443.16726044818716946890.b4-ty@kernel.org>
+Date: Mon, 06 May 2024 00:03:08 +0900
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Message-ID-Hash: H2G5PRRCMNY2WS4PCQNWZ643NFPKRTNQ
-X-Message-ID-Hash: H2G5PRRCMNY2WS4PCQNWZ643NFPKRTNQ
-X-MailFrom: shenghao-ding@ti.com
+X-Mailer: b4 0.14-dev
+Message-ID-Hash: J7QUE7XGEIXGCYKK3T74IOMHKYFR3IMI
+X-Message-ID-Hash: J7QUE7XGEIXGCYKK3T74IOMHKYFR3IMI
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -98,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/H2G5PRRCMNY2WS4PCQNWZ643NFPKRTNQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/J7QUE7XGEIXGCYKK3T74IOMHKYFR3IMI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,51 +98,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Fix a warning reported by robot kernel test that 'fw_entry' in function
-'tas2781_load_calibration' is used uninitialized with compiler
-sh4-linux-gcc (GCC) 13.2.0, an update of copyright and a correction of the
-comments.
+On Thu, 02 May 2024 09:47:20 +0200, Uwe Kleine-König wrote:
+> These drivers don't use the driver_data member of struct i2c_device_id,
+> so don't explicitly initialize this member.
+> 
+> This prepares putting driver_data in an anonymous union which requires
+> either no initialization or named designators. But it's also a nice
+> cleanup on its own.
+> 
+> [...]
 
-Fixes: ef3bcde75d06 ("ASoc: tas2781: Add tas2781 driver")
-Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
+Applied to
 
----
-v2:
- - Describe more what was actually an issue reported by robot kernel test.
- - Correct the subject suffix, ALSA: ASoc/tas2781 --> ASoC: tas2781.
-v1:
- - Update the copyright year to 2024
- - tasdevice-fmw.c --> tas2781-fmwlib.c
- - | Reported-by: kernel test robot <lkp@intel.com>
-   | Closes: https://lore.kernel.org/oe-kbuild-all/202405021200.YHInjV43-lkp@intel.com/
----
- sound/soc/codecs/tas2781-fmwlib.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-diff --git a/sound/soc/codecs/tas2781-fmwlib.c b/sound/soc/codecs/tas2781-fmwlib.c
-index 45760fe19523..a6be81adcb83 100644
---- a/sound/soc/codecs/tas2781-fmwlib.c
-+++ b/sound/soc/codecs/tas2781-fmwlib.c
-@@ -1,8 +1,8 @@
- // SPDX-License-Identifier: GPL-2.0
- //
--// tasdevice-fmw.c -- TASDEVICE firmware support
-+// tas2781-fmwlib.c -- TASDEVICE firmware support
- //
--// Copyright 2023 Texas Instruments, Inc.
-+// Copyright 2023 - 2024 Texas Instruments, Inc.
- //
- // Author: Shenghao Ding <shenghao-ding@ti.com>
- 
-@@ -1878,7 +1878,7 @@ int tas2781_load_calibration(void *context, char *file_name,
- {
- 	struct tasdevice_priv *tas_priv = (struct tasdevice_priv *)context;
- 	struct tasdevice *tasdev = &(tas_priv->tasdevice[i]);
--	const struct firmware *fw_entry;
-+	const struct firmware *fw_entry = NULL;
- 	struct tasdevice_fw *tas_fmw;
- 	struct firmware fmw;
- 	int offset = 0;
--- 
-2.34.1
+Thanks!
+
+[1/1] ASoC: codecs: Drop explicit initialization of struct i2c_device_id::driver_data to 0
+      commit: ba2a2c378ada0cd641a1887151ea8af532617c69
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 

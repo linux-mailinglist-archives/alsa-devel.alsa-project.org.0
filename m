@@ -2,99 +2,164 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 441928BCEE2
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 May 2024 15:23:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AB188BCFC4
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 May 2024 16:12:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 92CC4208;
-	Mon,  6 May 2024 15:23:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 92CC4208
+	by alsa0.perex.cz (Postfix) with ESMTPS id D40CA825;
+	Mon,  6 May 2024 16:11:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D40CA825
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1715001799;
-	bh=HyLdIy5f9/EBvRuI0GTtSPfaqq7n1U6/buN3znQZ3Io=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1715004727;
+	bh=p+Xdhnx4wdy3lSPFf7UhNmEtwq/+hm1NyXd/vNKFYHo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=npvpDST2bZiZ7yxuJhR84OMSQvoGxRhQKYkzviAJmzAnhKDOMMNG6a+SiOlYkugw8
-	 U9BFL+eooOESO//yS/vUp/6YSw8+FdUjU3iYq/NOCcxImVOg1rSVlbHamfLWKmBeKa
-	 lIEzDAwKcnsU60N0/eqtrixHUlBp7PF98qHpD/7g=
+	b=pvZ87CliCsWz3L5NtNVI0Zd9Q6Hu9AYMnqn2hq6sCMK0lydht7Ff1HapaCneey24O
+	 iyTTsCjEYy4jFrD1ixjpZm80LLO6A+cBcpv59GCxH/14wGQaglrEtH0slbWPlcAHY6
+	 eF7/SZ7qRFhYf57r+RF15koueqFmA+DXr7hOh+XI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 93B3FF8058C; Mon,  6 May 2024 15:13:52 +0200 (CEST)
+	id 5895CF805A9; Mon,  6 May 2024 16:11:34 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3329FF8057D;
-	Mon,  6 May 2024 15:13:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7537FF8057D;
+	Mon,  6 May 2024 16:11:34 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 081F3F8049C; Mon,  6 May 2024 15:13:47 +0200 (CEST)
+	id 38994F8049C; Mon,  6 May 2024 16:11:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CDCBFF80152
-	for <alsa-devel@alsa-project.org>; Mon,  6 May 2024 15:13:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CDCBFF80152
+	by alsa1.perex.cz (Postfix) with ESMTPS id B725AF800E2
+	for <alsa-devel@alsa-project.org>; Mon,  6 May 2024 16:11:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B725AF800E2
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=khitfA0L
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1715001217; x=1746537217;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=HyLdIy5f9/EBvRuI0GTtSPfaqq7n1U6/buN3znQZ3Io=;
-  b=khitfA0LLgsei5WSlNK7I13HqOCvu9iea2xORr0P8L7tw+8KaHJwWtxM
-   NhQmoFrBBCrKexDi/VHKUg5KPDIQTJ8W+M8Sbsy2JDoK94NtVzK6/W7/c
-   de75PZHsf10Pxxtuw7VH9taw4LMkF9LEJSgFevcP9WAN/yWvQ5OS1heEc
-   xbDzDCExi2kNKBkZjddjHpve9cvCh+pKVttNQxJY0SORxOcEI2Ds4de57
-   lvkSTrz7Tzq2SPgF4f6v36v0lnfKa8awMrmmzTVZqg2FIT+NtVzs4mGzk
-   vQre1SGt+dwGCIFZqBAUIhJo4pSyCrS58lbL+0PJ2Lh1s1OdyRXaU3GyZ
-   g==;
-X-CSE-ConnectionGUID: PhxHn9xsSV+uQ9acpeKd2Q==
-X-CSE-MsgGUID: BIjgvHHaSdS2J384LMJVFA==
-X-IronPort-AV: E=McAfee;i="6600,9927,11065"; a="21296159"
-X-IronPort-AV: E=Sophos;i="6.07,258,1708416000";
-   d="scan'208";a="21296159"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2024 06:13:32 -0700
-X-CSE-ConnectionGUID: YpuMv00uSNmVbCEvdrZxkg==
-X-CSE-MsgGUID: DVFmBwS7RByM34XvkpThXw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,258,1708416000";
-   d="scan'208";a="28256666"
-Received: from lkp-server01.sh.intel.com (HELO f8b243fe6e68) ([10.239.97.150])
-  by fmviesa010.fm.intel.com with ESMTP; 06 May 2024 06:13:26 -0700
-Received: from kbuild by f8b243fe6e68 with local (Exim 4.96)
-	(envelope-from <lkp@intel.com>)
-	id 1s3y9k-0000gh-07;
-	Mon, 06 May 2024 13:13:24 +0000
-Date: Mon, 6 May 2024 21:12:45 +0800
-From: kernel test robot <lkp@intel.com>
-To: Baojun Xu <baojun.xu@ti.com>, tiwai@suse.de
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev, robh+dt@kernel.org,
-	andriy.shevchenko@linux.intel.com, lgirdwood@gmail.com,
-	perex@perex.cz, pierre-louis.bossart@linux.intel.com,
-	kevin-lu@ti.com, shenghao-ding@ti.com, navada@ti.com,
-	13916275206@139.com, v-po@ti.com, niranjan.hy@ti.com,
-	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
-	liam.r.girdwood@intel.com, yung-chuan.liao@linux.intel.com,
-	baojun.xu@ti.com, broonie@kernel.org, soyer@irl.hu
-Subject: Re: [PATCH v4 2/3] ALSA: hda/tas2781: Tas2781 hda driver for SPI
-Message-ID: <202405062037.6HgeMiih-lkp@intel.com>
-References: <20240430072544.1877-3-baojun.xu@ti.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240430072544.1877-3-baojun.xu@ti.com>
-Message-ID-Hash: AGTTGQ4WPPZWFIGNN62JBUOXTDL2F43P
-X-Message-ID-Hash: AGTTGQ4WPPZWFIGNN62JBUOXTDL2F43P
-X-MailFrom: lkp@intel.com
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=jb76RfXx;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=QfrpxTz3;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=Z8RU8VIQ;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=q8BsFXKZ
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id CD9815FE40;
+	Mon,  6 May 2024 14:11:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1715004681;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=W57xwqkuyj/BWWW3i9ykpNAisrJ4FnrNu4TpCOGhdk8=;
+	b=jb76RfXx6bCPNKizKzh1kaEFbGjdIB1FV30CZ1CP57PweztgeVs1iXumbCE3bNpPbjEIn6
+	X4gWZnBnOdQASD+UzC12NVevemPLSNszQOjVbpAaMigwxoM4bGs8L86LkATrq1YmGUL6/s
+	I36jpcw1Oih2QxAZQ6svdq2/D8ObhTI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1715004681;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=W57xwqkuyj/BWWW3i9ykpNAisrJ4FnrNu4TpCOGhdk8=;
+	b=QfrpxTz3SEOLSOco9ZwQ2SPVUsJLIzGXFG97XnUcnnr2UIma8exJONWPyyrQ2N+fzu5wS2
+	vR4k/jjB3LqIifCw==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=Z8RU8VIQ;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=q8BsFXKZ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1715004680;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=W57xwqkuyj/BWWW3i9ykpNAisrJ4FnrNu4TpCOGhdk8=;
+	b=Z8RU8VIQUoAXVNaXqLxnp5+MmrJePvjhW/tDqlpAcpk2+iusOJG7L2k8WDsmz4wBGXnzrn
+	pyccbK5QvSxUZf7oZLVA7lAkJ2Mkbgzpl7KE/N7KySmQwkx0gVLrx8+NAi88gc8Se2O9o0
+	v90okfXCdJGM+fHk/PzU74886dH9lrM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1715004680;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=W57xwqkuyj/BWWW3i9ykpNAisrJ4FnrNu4TpCOGhdk8=;
+	b=q8BsFXKZwBl8guKysW9Sl8VvEI+IrGwLY1ivkdFXInztTbe2wFggUEeYZ6oCwAGoZlKXVl
+	WGrVIVK504VvL5Bw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B00F113A25;
+	Mon,  6 May 2024 14:11:20 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([10.150.64.162])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id CVjAKQjlOGYhaQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 06 May 2024 14:11:20 +0000
+Date: Mon, 06 May 2024 16:11:35 +0200
+Message-ID: <87a5l3ghd4.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Manu <mbarriolinares@gmail.com>
+Cc: alsa-devel@alsa-project.org,
+	kernelnewbies@kernelnewbies.org
+Subject: Re: ALSA: usb-audio: Adding mixer controls to Mbox3
+In-Reply-To: 
+ <CA+64nrt8gP5gJXaC=MS5AHjfZFSz=AvUT-CcRV9o2+zSenVXfg@mail.gmail.com>
+References: <87cyq7nw19.wl-tiwai@suse.de>
+	<20240430171020.192285-1-mbarriolinares@gmail.com>
+	<87mspakltl.wl-tiwai@suse.de>
+	<CA+64nrt8gP5gJXaC=MS5AHjfZFSz=AvUT-CcRV9o2+zSenVXfg@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-5.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	DWL_DNSWL_MED(-2.00)[suse.de:dkim];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_TO(0.00)[gmail.com];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_THREE(0.00)[3];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: CD9815FE40
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+Message-ID-Hash: 5J4QTEBKKLGBPE6FCFBSNLMPP6EJZ2RN
+X-Message-ID-Hash: 5J4QTEBKKLGBPE6FCFBSNLMPP6EJZ2RN
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -106,7 +171,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AGTTGQ4WPPZWFIGNN62JBUOXTDL2F43P/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5J4QTEBKKLGBPE6FCFBSNLMPP6EJZ2RN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,163 +180,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Baojun,
+On Wed, 01 May 2024 16:31:35 +0200,
+Manu wrote:
+> 
+> Thank you for all your help, Takashi!
+> 
+> I would like to add the hardware mixer controls for Mbox3.
+> I have already identified every control in the function "mbox3_setup_defaults"
+> of "quirks.c", but I am unsure about the structure needed to make the controls
+> appear in alsamixer (further investigation is required). I would appreciate any
+> help you or anyone else can provide.
 
-kernel test robot noticed the following build errors:
-
-[auto build test ERROR on tiwai-sound/for-linus]
-[also build test ERROR on rafael-pm/linux-next rafael-pm/bleeding-edge linus/master v6.9-rc7 next-20240506]
-[cannot apply to tiwai-sound/for-next]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Baojun-Xu/ALSA-hda-tas2781-Add-tas2781-hda-driver-based-on-SPI/20240430-153305
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-linus
-patch link:    https://lore.kernel.org/r/20240430072544.1877-3-baojun.xu%40ti.com
-patch subject: [PATCH v4 2/3] ALSA: hda/tas2781: Tas2781 hda driver for SPI
-config: riscv-allmodconfig (https://download.01.org/0day-ci/archive/20240506/202405062037.6HgeMiih-lkp@intel.com/config)
-compiler: clang version 19.0.0git (https://github.com/llvm/llvm-project 37ae4ad0eef338776c7e2cffb3896153d43dcd90)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240506/202405062037.6HgeMiih-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202405062037.6HgeMiih-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   In file included from sound/pci/hda/tas2781_hda_spi.c:15:
-   In file included from include/linux/efi.h:20:
-   In file included from include/linux/rtc.h:17:
-   In file included from include/linux/interrupt.h:21:
-   In file included from arch/riscv/include/asm/sections.h:9:
-   In file included from include/linux/mm.h:2208:
-   include/linux/vmstat.h:508:43: warning: arithmetic between different enumeration types ('enum zone_stat_item' and 'enum numa_stat_item') [-Wenum-enum-conversion]
-     508 |         return vmstat_text[NR_VM_ZONE_STAT_ITEMS +
-         |                            ~~~~~~~~~~~~~~~~~~~~~ ^
-     509 |                            item];
-         |                            ~~~~
-   include/linux/vmstat.h:515:43: warning: arithmetic between different enumeration types ('enum zone_stat_item' and 'enum numa_stat_item') [-Wenum-enum-conversion]
-     515 |         return vmstat_text[NR_VM_ZONE_STAT_ITEMS +
-         |                            ~~~~~~~~~~~~~~~~~~~~~ ^
-     516 |                            NR_VM_NUMA_EVENT_ITEMS +
-         |                            ~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/vmstat.h:522:36: warning: arithmetic between different enumeration types ('enum node_stat_item' and 'enum lru_list') [-Wenum-enum-conversion]
-     522 |         return node_stat_name(NR_LRU_BASE + lru) + 3; // skip "nr_"
-         |                               ~~~~~~~~~~~ ^ ~~~
-   include/linux/vmstat.h:527:43: warning: arithmetic between different enumeration types ('enum zone_stat_item' and 'enum numa_stat_item') [-Wenum-enum-conversion]
-     527 |         return vmstat_text[NR_VM_ZONE_STAT_ITEMS +
-         |                            ~~~~~~~~~~~~~~~~~~~~~ ^
-     528 |                            NR_VM_NUMA_EVENT_ITEMS +
-         |                            ~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/vmstat.h:536:43: warning: arithmetic between different enumeration types ('enum zone_stat_item' and 'enum numa_stat_item') [-Wenum-enum-conversion]
-     536 |         return vmstat_text[NR_VM_ZONE_STAT_ITEMS +
-         |                            ~~~~~~~~~~~~~~~~~~~~~ ^
-     537 |                            NR_VM_NUMA_EVENT_ITEMS +
-         |                            ~~~~~~~~~~~~~~~~~~~~~~
-   sound/pci/hda/tas2781_hda_spi.c:466:3: warning: label followed by a declaration is a C23 extension [-Wc23-extensions]
-     466 |                 guard(mutex)(&tas_hda->priv->codec_lock);
-         |                 ^
-   include/linux/cleanup.h:164:2: note: expanded from macro 'guard'
-     164 |         CLASS(_name, __UNIQUE_ID(guard))
-         |         ^
-   include/linux/cleanup.h:119:2: note: expanded from macro 'CLASS'
-     119 |         class_##_name##_t var __cleanup(class_##_name##_destructor) =   \
-         |         ^
-   <scratch space>:107:1: note: expanded from here
-     107 | class_mutex_t
-         | ^
->> sound/pci/hda/tas2781_hda_spi.c:471:2: error: cannot jump from switch statement to this case label
-     471 |         default:
-         |         ^
-   sound/pci/hda/tas2781_hda_spi.c:466:3: note: jump bypasses initialization of variable with __attribute__((cleanup))
-     466 |                 guard(mutex)(&tas_hda->priv->codec_lock);
-         |                 ^
-   include/linux/cleanup.h:164:15: note: expanded from macro 'guard'
-     164 |         CLASS(_name, __UNIQUE_ID(guard))
-         |                      ^
-   include/linux/compiler.h:189:29: note: expanded from macro '__UNIQUE_ID'
-     189 | #define __UNIQUE_ID(prefix) __PASTE(__PASTE(__UNIQUE_ID_, prefix), __COUNTER__)
-         |                             ^
-   include/linux/compiler_types.h:84:22: note: expanded from macro '__PASTE'
-      84 | #define __PASTE(a,b) ___PASTE(a,b)
-         |                      ^
-   include/linux/compiler_types.h:83:23: note: expanded from macro '___PASTE'
-      83 | #define ___PASTE(a,b) a##b
-         |                       ^
-   <scratch space>:105:1: note: expanded from here
-     105 | __UNIQUE_ID_guard511
-         | ^
-   sound/pci/hda/tas2781_hda_spi.c:462:3: note: jump bypasses initialization of variable with __attribute__((cleanup))
-     462 |                 guard(mutex)(&tas_hda->priv->codec_lock);
-         |                 ^
-   include/linux/cleanup.h:164:15: note: expanded from macro 'guard'
-     164 |         CLASS(_name, __UNIQUE_ID(guard))
-         |                      ^
-   include/linux/compiler.h:189:29: note: expanded from macro '__UNIQUE_ID'
-     189 | #define __UNIQUE_ID(prefix) __PASTE(__PASTE(__UNIQUE_ID_, prefix), __COUNTER__)
-         |                             ^
-   include/linux/compiler_types.h:84:22: note: expanded from macro '__PASTE'
-      84 | #define __PASTE(a,b) ___PASTE(a,b)
-         |                      ^
-   include/linux/compiler_types.h:83:23: note: expanded from macro '___PASTE'
-      83 | #define ___PASTE(a,b) a##b
-         |                       ^
-   <scratch space>:96:1: note: expanded from here
-      96 | __UNIQUE_ID_guard510
-         | ^
-   sound/pci/hda/tas2781_hda_spi.c:465:2: error: cannot jump from switch statement to this case label
-     465 |         case HDA_GEN_PCM_ACT_CLOSE:
-         |         ^
-   sound/pci/hda/tas2781_hda_spi.c:462:3: note: jump bypasses initialization of variable with __attribute__((cleanup))
-     462 |                 guard(mutex)(&tas_hda->priv->codec_lock);
-         |                 ^
-   include/linux/cleanup.h:164:15: note: expanded from macro 'guard'
-     164 |         CLASS(_name, __UNIQUE_ID(guard))
-         |                      ^
-   include/linux/compiler.h:189:29: note: expanded from macro '__UNIQUE_ID'
-     189 | #define __UNIQUE_ID(prefix) __PASTE(__PASTE(__UNIQUE_ID_, prefix), __COUNTER__)
-         |                             ^
-   include/linux/compiler_types.h:84:22: note: expanded from macro '__PASTE'
-      84 | #define __PASTE(a,b) ___PASTE(a,b)
-         |                      ^
-   include/linux/compiler_types.h:83:23: note: expanded from macro '___PASTE'
-      83 | #define ___PASTE(a,b) a##b
-         |                       ^
-   <scratch space>:96:1: note: expanded from here
-      96 | __UNIQUE_ID_guard510
-         | ^
-   6 warnings and 2 errors generated.
+I believe it'd be helpful if you can show some mock up or any examples
+you wanted to try (or had in your head).  If the question was about
+the complexity or too many code to add there, you can split to another
+file, too.
 
 
-vim +471 sound/pci/hda/tas2781_hda_spi.c
+thanks,
 
-   454	
-   455	static void tas2781_hda_playback_hook(struct device *dev, int action)
-   456	{
-   457		struct tas2781_hda *tas_hda = dev_get_drvdata(dev);
-   458	
-   459		switch (action) {
-   460		case HDA_GEN_PCM_ACT_OPEN:
-   461			pm_runtime_get_sync(dev);
-   462			guard(mutex)(&tas_hda->priv->codec_lock);
-   463			tasdevice_spi_tuning_switch(tas_hda->priv, 0);
-   464			break;
-   465		case HDA_GEN_PCM_ACT_CLOSE:
-   466			guard(mutex)(&tas_hda->priv->codec_lock);
-   467			tasdevice_spi_tuning_switch(tas_hda->priv, 1);
-   468			pm_runtime_mark_last_busy(dev);
-   469			pm_runtime_put_autosuspend(dev);
-   470			break;
- > 471		default:
-   472			dev_dbg(tas_hda->priv->dev,
-   473				"Playback action not supported: %d\n", action);
-   474			break;
-   475		}
-   476	}
-   477	
+Takashi
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+> 
+> Manuel Barrio Linares
+> 
+> 
+> On Wed, May 1, 2024 at 4:55 AM Takashi Iwai <tiwai@suse.de> wrote:
+> >
+> > On Tue, 30 Apr 2024 19:10:18 +0200,
+> > Manuel Barrio Linares wrote:
+> > >
+> > > This adds support for all sample rates supported by the
+> > > hardware,Digidesign Mbox 3 supports: {44100, 48000, 88200, 96000}
+> > >
+> > > Fixes syncing clock issues that presented as pops. To test this, without
+> > > this patch playing 440hz tone produces pops.
+> > >
+> > > Clock is now synced between playback and capture interfaces so no more
+> > > latency drift issue when using pipewire pro-profile.
+> > > (https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/3900)
+> > >
+> > > Signed-off-by: Manuel Barrio Linares <mbarriolinares@gmail.com>
+> >
+> > Applied to for-next branch now.  Thanks!
+> >
+> >
+> > Takashi

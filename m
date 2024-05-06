@@ -2,68 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D6728BC79F
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 May 2024 08:31:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B3558BC7A0
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 May 2024 08:31:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C0E513E8;
-	Mon,  6 May 2024 08:30:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C0E513E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 780C47F8;
+	Mon,  6 May 2024 08:31:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 780C47F8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1714977066;
-	bh=Wp8V1xbEsuIb8axNQCbpMXR4ddHlcSxKFTYvwFrK4jY=;
+	s=default; t=1714977081;
+	bh=q1g4NGGH7/ausmEg/1oVhs9w4Q/ZB/1rs+nRhq8ssuc=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ghjOFG47PqBpIDHOvplvD0jQFlsXVWbnmktRmfqpOhFZJaGVu7yK8kvlkdjHVA6TM
-	 HGmtRf5Yk+PCl03hmlVfD6qZ7LTY7gOA1Jzuolb+GftsVVtd0qIVCYvDwR4Y+EABGB
-	 hUAiU0aQIqtR637FFwPPwcXLgZcpaHnahiCOuAEs=
+	b=JDWhLoXEef+wgs5GjKSGWVcYOKXR28BaaytuS4GTSYdHXdsq2/upPCRquAG5ljHJp
+	 4dCQHVjdXpuG4Ej3+dv8TOiDv/X6PQZAQ/845BI8O5ewzuTqkmXcmFX8Mq45DjT2Nf
+	 5issPPUeI4UHNadOzJJdX2w6/6LgWv8WJkQD/aZU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 989B9F805A9; Mon,  6 May 2024 08:30:30 +0200 (CEST)
+	id AEB85F805C4; Mon,  6 May 2024 08:30:51 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DAA34F805A0;
-	Mon,  6 May 2024 08:30:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0DD85F805C4;
+	Mon,  6 May 2024 08:30:51 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B521CF8049C; Mon,  6 May 2024 08:30:11 +0200 (CEST)
+	id 94DF0F80563; Mon,  6 May 2024 08:30:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5CEE4F800E2
-	for <alsa-devel@alsa-project.org>; Mon,  6 May 2024 08:29:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5CEE4F800E2
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7B80AF80152
+	for <alsa-devel@alsa-project.org>; Mon,  6 May 2024 08:30:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7B80AF80152
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=ZpWFdlrQ
+ header.s=k20201202 header.b=AXB8Zjp9
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id D91C2CE0B37;
-	Mon,  6 May 2024 06:29:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4705CC116B1;
-	Mon,  6 May 2024 06:29:01 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 78CCA60FD1;
+	Mon,  6 May 2024 06:30:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 375B5C116B1;
+	Mon,  6 May 2024 06:30:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1714976946;
-	bh=Wp8V1xbEsuIb8axNQCbpMXR4ddHlcSxKFTYvwFrK4jY=;
+	s=k20201202; t=1714977037;
+	bh=q1g4NGGH7/ausmEg/1oVhs9w4Q/ZB/1rs+nRhq8ssuc=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ZpWFdlrQ3sfPb0TgPY+L2ht9cjLQDbaPrZ0snx2q4iQgsjHkkxuNbdGXuBAMXiSpR
-	 AlZ3Wsj3W7eTjQErU5BUddROrvn7GfMpcPxRmLNwCNqnQfdkBeCfQJ/xGvxVZnTzX2
-	 P5f5N7CuXzLnaSKJqLgognRdlUqQQjSyOUo/W2A+b7eNs0kiH3fMAghBucwgp/aGiN
-	 LCH/0YFS8mzDaMo3lTs8HUL9hUWoO4uIOiVjmbFesH1ZhwVAsSrS7ANprVyt+A+nDj
-	 nQOvfwKMLkOVUXmrGxfzlGg/FdTjM5d3O+cwRIQqpa7KkLXvV46uex5rV+8r16pL9o
-	 /zv7X10ycP8rg==
-Message-ID: <2efe0393-11ce-448d-81a9-eb2383bc1e4b@kernel.org>
-Date: Mon, 6 May 2024 08:28:59 +0200
+	b=AXB8Zjp9ykrIoQJB8Qr7a/tIXjqML5x9gDSQoonU5MOdWOHEEXcVvRIyrLHDoV1dK
+	 Nge7qgj/fmg+OC5bM1CbThSEZl4gVgN+bA5FTg1m2Dgmywqeu/8kUScCz3WOVprDAj
+	 Q3Ge9ZyL+B+n0ap1QIPYrJB7Ct+5ERHDZScSToyP1GnFgAsicQejrncwAwchCygKT4
+	 ItKBxo1JO4XMmZ83xG+QS8skhTDBBcp410nMW9O6JqoLEUM4wnLDBUgVX3hxTRV/zF
+	 M0b61/jArn1wH1ZWiCMlsTs7Km8g6O2T9etRQgyauGNy8/huNHQu4oJ+l7rnNBHlLG
+	 PyPc0I7KyavKg==
+Message-ID: <1038ca45-b9e9-4625-9c43-5ef4abf4a86d@kernel.org>
+Date: Mon, 6 May 2024 08:30:29 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] ASoC: dt-bindings: samsung,midas-audio: Add
- GPIO-based headset jack detection
+Subject: Re: [PATCH 2/3] ASoC: samsung: midas_wm1811: Add GPIO-based headset
+ jack detection
 To: Artur Weber <aweber.kernel@gmail.com>,
  Sylwester Nawrocki <s.nawrocki@samsung.com>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>
@@ -75,7 +76,7 @@ Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-samsung-soc@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht
 References: <20240503-midas-wm1811-gpio-jack-v1-0-e8cddbd67cbf@gmail.com>
- <20240503-midas-wm1811-gpio-jack-v1-1-e8cddbd67cbf@gmail.com>
+ <20240503-midas-wm1811-gpio-jack-v1-2-e8cddbd67cbf@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -121,11 +122,11 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  uZwJCLykjad45hsWcOGk3OcaAGQS6NDlfhM6O9aYNwGL6tGt/6BkRikNOs7VDEa4/HlbaSJo
  7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
  5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
-In-Reply-To: <20240503-midas-wm1811-gpio-jack-v1-1-e8cddbd67cbf@gmail.com>
+In-Reply-To: <20240503-midas-wm1811-gpio-jack-v1-2-e8cddbd67cbf@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: VDV5A7GLNF6UQGDB7YFNSMIJQWT2LCGT
-X-Message-ID-Hash: VDV5A7GLNF6UQGDB7YFNSMIJQWT2LCGT
+Message-ID-Hash: 3KSEOWLEXOSGUKZJICAI3K7D3AIQMY4X
+X-Message-ID-Hash: 3KSEOWLEXOSGUKZJICAI3K7D3AIQMY4X
 X-MailFrom: krzk@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -138,7 +139,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VDV5A7GLNF6UQGDB7YFNSMIJQWT2LCGT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3KSEOWLEXOSGUKZJICAI3K7D3AIQMY4X/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -148,49 +149,72 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 On 03/05/2024 20:55, Artur Weber wrote:
-> Some Samsung devices that share the midas-audio driver use a GPIO-based
-> approach to headset jack detection, as opposed to using the built-in
-> jack detection provided by the wm8994 driver.
-> 
-> Add DT configuration values that allow for describing these setups.
-> 
-> Signed-off-by: Artur Weber <aweber.kernel@gmail.com>
-> ---
->  .../bindings/sound/samsung,midas-audio.yaml        | 30 ++++++++++++++++++++++
->  1 file changed, 30 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/samsung,midas-audio.yaml b/Documentation/devicetree/bindings/sound/samsung,midas-audio.yaml
-> index 6ec80f529d84..9f521131f2b3 100644
-> --- a/Documentation/devicetree/bindings/sound/samsung,midas-audio.yaml
-> +++ b/Documentation/devicetree/bindings/sound/samsung,midas-audio.yaml
-> @@ -61,6 +61,36 @@ properties:
->      maxItems: 1
->      description: GPIO pin for line out selection
+> Some Samsung devices that use the midas_wm1811 driver use a GPIO-based
+> method for detecting whether the headset jack is plugged in, as well as
+> detecting which headset buttons are pressed. There are two GPIOs:
+> a "headset detect" GPIO responsible for detecting jack insertion, and
+> a "headset key" GPIO which triggers when a button on the headset is
+> pressed. The plug type and the button pressed are determined based
+> on information from an ADC channel.
+
+...
+
 >  
-> +  headset-detect-gpios:
-> +    maxItems: 1
-> +    description: GPIO for detection of headset insertion
-> +
-> +  headset-key-gpios:
-> +    maxItems: 1
-> +    description: GPIO for detection of headset key press
-> +
-> +  io-channels:
-> +    maxItems: 1
-> +    description: IO channel to read micbias voltage for headset detection
-> +
-> +  io-channel-names:
-> +    const: headset-detect
-> +
-> +  headset-4pole-threshold-microvolt:
+> @@ -433,6 +590,9 @@ static int midas_probe(struct platform_device *pdev)
+>  	struct snd_soc_card *card = &midas_card;
+>  	struct device *dev = &pdev->dev;
+>  	static struct snd_soc_dai_link *dai_link;
+> +	enum iio_chan_type channel_type;
+> +	u32 fourpole_threshold[2];
+> +	u32 button_threshold[3];
+>  	struct midas_priv *priv;
+>  	int ret, i;
+>  
+> @@ -468,6 +628,91 @@ static int midas_probe(struct platform_device *pdev)
+>  		return PTR_ERR(priv->gpio_lineout_sel);
+>  	}
+>  
+> +	priv->gpio_headset_detect = devm_gpiod_get_optional(dev,
+> +				"headset-detect", GPIOD_IN);
+> +	if (IS_ERR(priv->gpio_headset_detect)) {
+> +		dev_err(dev, "Failed to get headset jack detect GPIO\n");
 
-You need vendor prefix for this and next property.
+syntax is:
+return dev_err_probe()
 
-> +    minItems: 2
-> +    maxItems: 2
-> +    description: |
+> +		return PTR_ERR(priv->gpio_headset_detect);
+> +	}
+> +
+> +	if (priv->gpio_headset_detect) {
+> +		priv->adc_headset_detect = devm_iio_channel_get(dev,
+> +							"headset-detect");
+> +		if (IS_ERR(priv->adc_headset_detect)) {
+> +			dev_err(dev, "Failed to get ADC channel\n");
 
-Do not need '|' unless you need to preserve formatting.
+return dev_err_probe()
+
+> +			return PTR_ERR(priv->adc_headset_detect);
+> +		}
+> +
+
+> +		ret = iio_get_channel_type(priv->adc_headset_detect,
+> +					   &channel_type);
+> +		if (ret) {
+> +			dev_err(dev, "Failed to get ADC channel type\n");
+> +			return ret;
+> +		}
+> +
+> +		if (channel_type != IIO_VOLTAGE) {
+> +			dev_err(dev, "ADC channel is not voltage\n");
+> +			return ret;
+> +		}
+> +
+> +		priv->gpio_headset_key = devm_gpiod_get(dev, "headset-key",
+> +							GPIOD_IN);
+> +		if (IS_ERR(priv->gpio_headset_key)) {
+> +			dev_err(dev, "Failed to get headset key gpio\n");
+
+return dev_err_probe()
 
 
 

@@ -2,88 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40A298BC199
-	for <lists+alsa-devel@lfdr.de>; Sun,  5 May 2024 17:05:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F7938BC6EC
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 May 2024 07:35:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 862A56C1;
-	Sun,  5 May 2024 17:05:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 862A56C1
+	by alsa0.perex.cz (Postfix) with ESMTPS id CA97C20E;
+	Mon,  6 May 2024 07:34:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA97C20E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1714921533;
-	bh=oPE8LDuukrepCZDNBL3OUxIxwDD30ihJBAhHLx9X8t4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=L70OMWEEvBdbb86mcRpbZXTVShKKCwfN0uFKHmoF6ShPluf9MxXRVvHPtqAI9TlAs
-	 5BZ33vSVUcMtnRA1jBcm4z1f7LAMypyUasCAvr4BROSSJ5qFNhpiZBHvO6cPP697qS
-	 3dChFXgFQKzHqlXveVxVPvTyYtgVp/NmeRYNyDbI=
+	s=default; t=1714973702;
+	bh=IMso6YyTi3Ak72iVWYL0ZEM1Ah8zdCqQp2wAuBynAv8=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=ljDmIyZL7M8nyf8i73mFuo9gO4jd5PbY+iYQVRdwAKPMPtnOUkTbc4XOURVU+P3mZ
+	 bkqx5DrxUK9vKHKe7LtuWZCitE2Zs8xbQT6eIX2BLOli5CaU1nTVhOxyVsYrQgAeIN
+	 py3UKEbMfVcb4zaFZUlvUKQcDIIvi1f0cJZ/W4/I=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 34774F8057A; Sun,  5 May 2024 17:05:01 +0200 (CEST)
+	id CB9E8F8057E; Mon,  6 May 2024 07:34:51 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7C785F80564;
-	Sun,  5 May 2024 17:05:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EAA87F8049C;
+	Mon,  6 May 2024 07:34:50 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A20B0F8049C; Sun,  5 May 2024 17:03:24 +0200 (CEST)
+	id C9425F8049C; Mon,  6 May 2024 07:31:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.6 required=5.0 tests=AC_FROM_MANY_DOTS,
+	DKIMWL_WL_HIGH,DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D4F5EF800E2
-	for <alsa-devel@alsa-project.org>; Sun,  5 May 2024 17:03:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4F5EF800E2
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9465FF800E2
+	for <alsa-devel@alsa-project.org>; Mon,  6 May 2024 07:31:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9465FF800E2
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=lsPiD4mE
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id F256560C90;
-	Sun,  5 May 2024 15:03:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01065C4AF67;
-	Sun,  5 May 2024 15:03:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1714921395;
-	bh=oPE8LDuukrepCZDNBL3OUxIxwDD30ihJBAhHLx9X8t4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=lsPiD4mEIK71p5yF+C4j4SpIWv7eIH7svdqYO9zD03Ks/sAQvupfnwWcXA0njDKdH
-	 yNWYMrm/ON4piogM26WUP3466UZDkuTN9aJhLYYpSxsEuMUAHLx5CMJWk0EH6WlB9e
-	 +852GDSY1dLJmnTnQXXgHPTo1ZHGEUrtv1QegJ30kH4XQvggtq4M0sVpxPpLFQezuj
-	 kjb3ttQU4WT17yoZCvgL4rpUxjbOJDRkoF5XDwLtXyJeauWc/lPFU7ODmnK7ZRVSTl
-	 Ig2e42fgDtXOfKT9PSIblf06jmf6ZogVP4jkXLI1fMSE0yFlmzpcx3I4EjJGnotyNd
-	 HynQPdrq34aMg==
-From: Mark Brown <broonie@kernel.org>
-To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-Cc: alsa-devel@alsa-project.org, venkataprasad.potturu@amd.com,
- Basavaraj.Hiregoudar@amd.com, Sunil-kumar.Dommati@amd.com,
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Syed Saba Kareem <Syed.SabaKareem@amd.com>,
- V Sujith Kumar Reddy <vsujithkumar.reddy@amd.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- Jarkko Nikula <jarkko.nikula@bitmer.com>,
- "open list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <linux-sound@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>
-In-Reply-To: <20240502140340.4049021-1-Vijendar.Mukunda@amd.com>
-References: <20240502140340.4049021-1-Vijendar.Mukunda@amd.com>
-Subject: Re: [PATCH 1/2] ASoC: amd: acp: fix for acp platform device
- creation failure
-Message-Id: <171492139176.1933443.4741403457538760265.b4-ty@kernel.org>
-Date: Mon, 06 May 2024 00:03:11 +0900
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=aW0PlG7K
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1714973492; x=1746509492;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=IMso6YyTi3Ak72iVWYL0ZEM1Ah8zdCqQp2wAuBynAv8=;
+  b=aW0PlG7KN9bnRj/Ps9Mw7lWXTKOIR0h2OjIY36FLZkIP8jxoXXATrl28
+   69hLeYKnqgzEHx5cHak3BXr+oSx2ofsmlacClKnPQmOYLXP6d9wxC37QD
+   xPOzvKT2QtR68/3T+68rQ/F6IWYISqJO+LZkRXKDCtzZ/HmmMbB7/eQBr
+   xwk4NOgxgimpo68/2YE5JkOMQGPt4bqylSw7ALpOUH1O1+ldnZqjAYYRK
+   Hne345mV8rqegJGlpI7xiBefYFeMRIA222S08Up4iEWngxhI2sZ+KoaS/
+   jbPQCUn2VF1uyAXhuE4uTPviKC453zRcaRaLgX+V0gxqMu9GHquaTtuk7
+   w==;
+X-CSE-ConnectionGUID: ClRSPT1RS3iJekzv/+YLeg==
+X-CSE-MsgGUID: +1/c5+PaTj+5/lsjjJd7kQ==
+X-IronPort-AV: E=McAfee;i="6600,9927,11064"; a="22111325"
+X-IronPort-AV: E=Sophos;i="6.07,257,1708416000";
+   d="scan'208";a="22111325"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 May 2024 22:31:26 -0700
+X-CSE-ConnectionGUID: j87jTdywRm6kqMl/PCqDyw==
+X-CSE-MsgGUID: d8+dsFZKQ7qCqd4vz+rJzQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.07,257,1708416000";
+   d="scan'208";a="28162781"
+Received: from dut-2a59.iind.intel.com ([10.190.239.113])
+  by fmviesa006.fm.intel.com with ESMTP; 05 May 2024 22:31:24 -0700
+From: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+To: alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org
+Cc: tiwai@suse.de,
+	kai.vehmanen@linux.intel.com,
+	uma.shankar@intel.com
+Subject: [PATCH] ALSA: hda: Add Intel BMG PCI ID and HDMI codec vid
+Date: Mon,  6 May 2024 10:55:31 +0530
+Message-Id: <20240506052531.1150062-1-chaitanya.kumar.borah@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14-dev
-Message-ID-Hash: FH5TVADXZ3YUIJVH3D3H4Z6LDVO5EJJB
-X-Message-ID-Hash: FH5TVADXZ3YUIJVH3D3H4Z6LDVO5EJJB
-X-MailFrom: broonie@kernel.org
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: EPBQK4EULO33ECSXMIAQNE6E7RLHMYLW
+X-Message-ID-Hash: EPBQK4EULO33ECSXMIAQNE6E7RLHMYLW
+X-MailFrom: chaitanya.kumar.borah@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -95,7 +95,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FH5TVADXZ3YUIJVH3D3H4Z6LDVO5EJJB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EPBQK4EULO33ECSXMIAQNE6E7RLHMYLW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,43 +104,65 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 02 May 2024 19:33:25 +0530, Vijendar Mukunda wrote:
-> ACP pin configuration varies based on acp version.
-> ACP PCI driver should read the ACP PIN config value and based on config
-> value, it has to create a platform device in below two conditions.
-> 1) If ACP PDM configuration is selected from BIOS and ACP PDM controller
-> exists.
-> 2) If ACP I2S configuration is selected from BIOS.
-> 
-> [...]
+Add HD Audio PCI ID and HDMI codec vendor ID for Intel Battlemage.
 
-Applied to
+Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+---
+ include/linux/pci_ids.h    | 1 +
+ include/sound/hdaudio.h    | 1 +
+ sound/pci/hda/hda_intel.c  | 2 ++
+ sound/pci/hda/patch_hdmi.c | 1 +
+ 4 files changed, 5 insertions(+)
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-
-Thanks!
-
-[1/2] ASoC: amd: acp: fix for acp platform device creation failure
-      commit: 09068d624c490c0e89f33f963c402f1859964467
-[2/2] ASoC: amd: acp: move chip->flag variable assignment
-      (no commit info)
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+diff --git a/include/linux/pci_ids.h b/include/linux/pci_ids.h
+index a0c75e467df3..ae8e66242927 100644
+--- a/include/linux/pci_ids.h
++++ b/include/linux/pci_ids.h
+@@ -3106,6 +3106,7 @@
+ #define PCI_DEVICE_ID_INTEL_HDA_CML_S	0xa3f0
+ #define PCI_DEVICE_ID_INTEL_HDA_LNL_P	0xa828
+ #define PCI_DEVICE_ID_INTEL_S21152BB	0xb152
++#define PCI_DEVICE_ID_INTEL_HDA_BMG	0xe2f7
+ #define PCI_DEVICE_ID_INTEL_HDA_CML_R	0xf0c8
+ #define PCI_DEVICE_ID_INTEL_HDA_RKL_S	0xf1c8
+ 
+diff --git a/include/sound/hdaudio.h b/include/sound/hdaudio.h
+index a73d7f34f4e5..07638111b28f 100644
+--- a/include/sound/hdaudio.h
++++ b/include/sound/hdaudio.h
+@@ -731,6 +731,7 @@ static inline unsigned int snd_array_index(struct snd_array *array, void *ptr)
+ 			{ PCI_DEVICE(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_HDA_DG2_0) }, \
+ 			{ PCI_DEVICE(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_HDA_DG2_1) }, \
+ 			{ PCI_DEVICE(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_HDA_DG2_2) }, \
++			{ PCI_DEVICE(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_HDA_BMG) }, \
+ 			{ } \
+ 		}, pci) || HDA_CONTROLLER_IS_HSW(pci))
+ 
+diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
+index 9ea5925401f9..1d8171b11720 100644
+--- a/sound/pci/hda/hda_intel.c
++++ b/sound/pci/hda/hda_intel.c
+@@ -2499,6 +2499,8 @@ static const struct pci_device_id azx_ids[] = {
+ 	{ PCI_DEVICE_DATA(INTEL, HDA_RPL_M, AZX_DRIVER_SKL | AZX_DCAPS_INTEL_SKYLAKE) },
+ 	{ PCI_DEVICE_DATA(INTEL, HDA_RPL_PX, AZX_DRIVER_SKL | AZX_DCAPS_INTEL_SKYLAKE) },
+ 	{ PCI_DEVICE_DATA(INTEL, HDA_MTL, AZX_DRIVER_SKL | AZX_DCAPS_INTEL_SKYLAKE) },
++	/* Battlemage */
++	{ PCI_DEVICE_DATA(INTEL, HDA_BMG, AZX_DRIVER_SKL | AZX_DCAPS_INTEL_SKYLAKE) },
+ 	/* Lunarlake-P */
+ 	{ PCI_DEVICE_DATA(INTEL, HDA_LNL_P, AZX_DRIVER_SKL | AZX_DCAPS_INTEL_SKYLAKE) },
+ 	/* Arrow Lake-S */
+diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
+index 495d63101186..0a00c5ea42e0 100644
+--- a/sound/pci/hda/patch_hdmi.c
++++ b/sound/pci/hda/patch_hdmi.c
+@@ -4642,6 +4642,7 @@ HDA_CODEC_ENTRY(0x8086281a, "Jasperlake HDMI",	patch_i915_icl_hdmi),
+ HDA_CODEC_ENTRY(0x8086281b, "Elkhartlake HDMI",	patch_i915_icl_hdmi),
+ HDA_CODEC_ENTRY(0x8086281c, "Alderlake-P HDMI", patch_i915_adlp_hdmi),
+ HDA_CODEC_ENTRY(0x8086281d, "Meteor Lake HDMI",	patch_i915_adlp_hdmi),
++HDA_CODEC_ENTRY(0x8086281e, "Battlemage HDMI",	patch_i915_adlp_hdmi),
+ HDA_CODEC_ENTRY(0x8086281f, "Raptor Lake P HDMI",	patch_i915_adlp_hdmi),
+ HDA_CODEC_ENTRY(0x80862820, "Lunar Lake HDMI",	patch_i915_adlp_hdmi),
+ HDA_CODEC_ENTRY(0x80862880, "CedarTrail HDMI",	patch_generic_hdmi),
+-- 
+2.25.1
 

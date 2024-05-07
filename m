@@ -2,134 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF3B58BE6A3
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 May 2024 16:54:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 558FD8BE88A
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 May 2024 18:17:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1DD5E82A;
-	Tue,  7 May 2024 16:54:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1DD5E82A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8EC17826;
+	Tue,  7 May 2024 18:17:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8EC17826
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1715093667;
-	bh=mifg95j6vMi6i0U3kvqVfsZok1b6cRwUjaejQFe3tmc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=LqFI8bgJ24JG8CxdcyJSMrR+tBL/C1q2CwwPfwqO9HCoZJSzWRPRY9sLsofknahOE
-	 dzBf+5wO3595c29RVgHnKuzTFz7RP3gG+pQCZUkBZDOxbPQ0Dyx1TAFHvEQ54R6vqQ
-	 beJ7RlChnqGaAXlXmJ2BHldf5lVmS/wosWpr4u1k=
+	s=default; t=1715098646;
+	bh=Xx7Ej+9S8evVgDf2z9EGwZnJvMuS9cGkKNaqI+0ELtk=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=rjhOiyXD7t/fGUU3MwhM3oXl0T9iFutGfgRbgR3R4gZndEGR/PGcDif8qIoBhJm50
+	 ojAhzDoJZhk8Fc1FpcDHA7JpAsG42pa7xXQJfBb0WQ48FOwYkjBGUFZa3mYJGE8aRN
+	 ym2wZUSr4tLofQLfVV8QMM0kkuK5umuUPjH0Ntw8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1E754F8057D; Tue,  7 May 2024 16:53:54 +0200 (CEST)
+	id B2259F8057A; Tue,  7 May 2024 18:16:54 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2B36AF8057B;
-	Tue,  7 May 2024 16:53:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2293BF8059F;
+	Tue,  7 May 2024 18:16:52 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 66D37F8049C; Tue,  7 May 2024 16:53:49 +0200 (CEST)
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-5.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	id 0BE1AF8049C; Tue,  7 May 2024 18:10:42 +0200 (CEST)
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BB9AFF80152
-	for <alsa-devel@alsa-project.org>; Tue,  7 May 2024 16:53:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB9AFF80152
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6E5A5F80152
+	for <alsa-devel@alsa-project.org>; Tue,  7 May 2024 18:03:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6E5A5F80152
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=KVJZqZbO
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 954626179F;
-	Tue,  7 May 2024 14:53:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B52B2C4AF18;
-	Tue,  7 May 2024 14:53:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1715093620;
-	bh=mifg95j6vMi6i0U3kvqVfsZok1b6cRwUjaejQFe3tmc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=KVJZqZbOp1Mm5+5nreIunI8P4khD7SC2zW2LmEFSs7abqKasjKjDMWQp4PK9qjEZY
-	 LEZmb0PfJ+QsD1UNpax58S/o+7+qdrp5gHqDyhYZH75t8Ik2iJ/LCeR9O7mhHZBU7m
-	 hxoWxXY9nCpsFGDUq9+tzBLdhGCkGvDWpeK3k3yHUm7GPSjkWkYmyScd3ibZXQyn86
-	 5MkaP25YeSZmsI3UrVKBvp0c0AqBJm6xj/YBeywPkRe5rMJb+hNGiG4iI6wXr5JgpQ
-	 lAhzS/IL7aN7koM+GuHH1zdJ8S25NlY2gb7JvKQjKou+7uVNS0XUos9tCI/xhV0Lap
-	 /0OAqWwkpsSsQ==
-Message-ID: <7143551f-b149-40d6-933d-be4c28994607@kernel.org>
-Date: Tue, 7 May 2024 16:53:33 +0200
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=nFVPttSH
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
+ 447EWXPR028438;
+	Tue, 7 May 2024 11:01:38 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
+	from:to:cc:subject:date:message-id:mime-version
+	:content-transfer-encoding:content-type; s=PODMain02222019; bh=j
+	tTiHU6Lrbbii6hLYj4QMHgZinWZVyyt0Dx+k7hmrAw=; b=nFVPttSHSfcNq1Jsu
+	jLJs/RRTgPTLtdRDLJEJgAxc6g5VBkef9AWQFy1LF0Z7Egj36Lwh00aLaF6LJUW2
+	ev58XGFHZkH/oPLRFSgp51B7R2DOs7PGfA23xsNWRvu00xKBx/ZDKQBzB6GLZvGD
+	VvnedakDIfZuJKwgjPtRBYGtC74l5VZHNawBxsK0Cu8lQtlzZbLP6oW5DbygQYAp
+	MqOCsMC8flRzw6C08eOBVd6dc7+dkv/U/n31rsE4+UMfbX8duQclTW1/Lvu497fb
+	cf5NfYlYp7SSWVxQFu+psdtURePhGIJorpW2PG8ynBQQpbGgX2QcpYVj+v0T/MwB
+	Vc37g==
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3xy2cmhaug-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 07 May 2024 11:01:38 -0500 (CDT)
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 7 May 2024
+ 17:01:35 +0100
+Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1544.9 via Frontend Transport; Tue, 7 May 2024 17:01:35 +0100
+Received: from sbinding-cirrus-dsktp2.ad.cirrus.com (unknown [198.61.65.12])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id 81891820249;
+	Tue,  7 May 2024 16:01:35 +0000 (UTC)
+From: Stefan Binding <sbinding@opensource.cirrus.com>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+CC: <alsa-devel@alsa-project.org>, <linux-sound@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <patches@opensource.cirrus.com>,
+        "Stefan
+ Binding" <sbinding@opensource.cirrus.com>
+Subject: [PATCH v1] ALSA: hda/realtek: Add support for ASUS Zenbook 2024
+ HN7306W
+Date: Tue, 7 May 2024 17:01:31 +0100
+Message-ID: <20240507160131.356114-1-sbinding@opensource.cirrus.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] ARM: dts: samsung: exynos4212-tab3: Fix headset mic,
- add jack detection
-To: Artur Weber <aweber.kernel@gmail.com>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Alim Akhtar <alim.akhtar@samsung.com>, alsa-devel@alsa-project.org,
- linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht
-References: <20240503-midas-wm1811-gpio-jack-v1-0-e8cddbd67cbf@gmail.com>
- <20240503-midas-wm1811-gpio-jack-v1-3-e8cddbd67cbf@gmail.com>
- <d1007753-bdcf-4db9-bb01-b36e742cee4b@kernel.org>
- <c76fa2cc-d41e-45c5-891a-b83d5d0634b1@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGVBBMBCgA/AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJgPO8PBQkUX63hAAoJEBuTQ307
- QWKbBn8P+QFxwl7pDsAKR1InemMAmuykCHl+XgC0LDqrsWhAH5TYeTVXGSyDsuZjHvj+FRP+
- gZaEIYSw2Yf0e91U9HXo3RYhEwSmxUQ4Fjhc9qAwGKVPQf6YuQ5yy6pzI8brcKmHHOGrB3tP
- /MODPt81M1zpograAC2WTDzkICfHKj8LpXp45PylD99J9q0Y+gb04CG5/wXs+1hJy/dz0tYy
- iua4nCuSRbxnSHKBS5vvjosWWjWQXsRKd+zzXp6kfRHHpzJkhRwF6ArXi4XnQ+REnoTfM5Fk
- VmVmSQ3yFKKePEzoIriT1b2sXO0g5QXOAvFqB65LZjXG9jGJoVG6ZJrUV1MVK8vamKoVbUEe
- 0NlLl/tX96HLowHHoKhxEsbFzGzKiFLh7hyboTpy2whdonkDxpnv/H8wE9M3VW/fPgnL2nPe
- xaBLqyHxy9hA9JrZvxg3IQ61x7rtBWBUQPmEaK0azW+l3ysiNpBhISkZrsW3ZUdknWu87nh6
- eTB7mR7xBcVxnomxWwJI4B0wuMwCPdgbV6YDUKCuSgRMUEiVry10xd9KLypR9Vfyn1AhROrq
- AubRPVeJBf9zR5UW1trJNfwVt3XmbHX50HCcHdEdCKiT9O+FiEcahIaWh9lihvO0ci0TtVGZ
- MCEtaCE80Q3Ma9RdHYB3uVF930jwquplFLNF+IBCn5JRzsFNBFVDXDQBEADNkrQYSREUL4D3
- Gws46JEoZ9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLue
- MNsWLJBvBaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6ei
- OMheesVS5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wA
- GldWsRxbf3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA
- 6z6lBZn0WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9
- YegxWKvXXHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt
- 91pFzBSOIpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gU
- BLHFTg2hYnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/
- JoFzZ4B0p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu
- 4vXVFBYIGmpyNPYzRm0QPwARAQABwsF8BBgBCgAmAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtB
- YpsFAmA872oFCRRflLYACgkQG5NDfTtBYpvScw/9GrqBrVLuJoJ52qBBKUBDo4E+5fU1bjt0
- Gv0nh/hNJuecuRY6aemU6HOPNc2t8QHMSvwbSF+Vp9ZkOvrM36yUOufctoqON+wXrliEY0J4
- ksR89ZILRRAold9Mh0YDqEJc1HmuxYLJ7lnbLYH1oui8bLbMBM8S2Uo9RKqV2GROLi44enVt
- vdrDvo+CxKj2K+d4cleCNiz5qbTxPUW/cgkwG0lJc4I4sso7l4XMDKn95c7JtNsuzqKvhEVS
- oic5by3fbUnuI0cemeizF4QdtX2uQxrP7RwHFBd+YUia7zCcz0//rv6FZmAxWZGy5arNl6Vm
- lQqNo7/Poh8WWfRS+xegBxc6hBXahpyUKphAKYkah+m+I0QToCfnGKnPqyYIMDEHCS/RfqA5
- t8F+O56+oyLBAeWX7XcmyM6TGeVfb+OZVMJnZzK0s2VYAuI0Rl87FBFYgULdgqKV7R7WHzwD
- uZwJCLykjad45hsWcOGk3OcaAGQS6NDlfhM6O9aYNwGL6tGt/6BkRikNOs7VDEa4/HlbaSJo
- 7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
- 5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
-In-Reply-To: <c76fa2cc-d41e-45c5-891a-b83d5d0634b1@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: XNFY3JWBKVD2LEYMOJCZDHBEOPAYRATF
-X-Message-ID-Hash: XNFY3JWBKVD2LEYMOJCZDHBEOPAYRATF
-X-MailFrom: krzk@kernel.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: eH9MVN0oIpQj7gMEwNvdblta-VVel0L3
+X-Proofpoint-GUID: eH9MVN0oIpQj7gMEwNvdblta-VVel0L3
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: LJWM6PTDNYMGICBA74UNV3R624GRO56C
+X-Message-ID-Hash: LJWM6PTDNYMGICBA74UNV3R624GRO56C
+X-MailFrom: prvs=2857ba43c3=sbinding@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -141,7 +95,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XNFY3JWBKVD2LEYMOJCZDHBEOPAYRATF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LJWM6PTDNYMGICBA74UNV3R624GRO56C/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -150,44 +104,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 07/05/2024 14:44, Artur Weber wrote:
-> On 6.05.2024 08:31, Krzysztof Kozlowski wrote:
->> On 03/05/2024 20:55, Artur Weber wrote:
->>> Add the necessary properties to the samsung,midas-audio node to allow
->>> for headset jack detection, set up the mic bias regulator GPIO and fix
->>> some other small issues with the sound setup.
->>>
->>> Signed-off-by: Artur Weber <aweber.kernel@gmail.com>
->>
->> ...
->>
->>> +
->>>   &bus_acp {
->>>   	devfreq = <&bus_dmc>;
->>>   	status = "okay";
->>> @@ -505,12 +521,11 @@ &i2c_4 {
->>>   	wm1811: audio-codec@1a {
->>>   		compatible = "wlf,wm1811";
->>>   		reg = <0x1a>;
->>> -		clocks = <&pmu_system_controller 0>;
->>> -		clock-names = "MCLK1";
->>> +		clocks = <&pmu_system_controller 0>,
->>> +			 <&s5m8767_osc S2MPS11_CLK_BT>;
->>> +		clock-names = "MCLK1", "MCLK2";
->>>   		interrupt-controller;
->>>   		#interrupt-cells = <2>;
->>> -		interrupt-parent = <&gpx3>;
->>> -		interrupts = <6 IRQ_TYPE_LEVEL_HIGH>;
->>
->> Does not look related at all to the patch.
-> 
-> I rolled up two small changes to the wm1811 audio codec config here:
+This laptop uses CS35L41 HDA with 2 amps using I2C and Internal Boost.
 
+Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
+---
+ sound/pci/hda/patch_realtek.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-https://elixir.bootlin.com/linux/v6.8-rc5/source/Documentation/process/submitting-patches.rst#L171
-
-
-
-Best regards,
-Krzysztof
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 8502b30d5d5d..8c157158f1cb 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -10276,6 +10276,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1043, 0x1e63, "ASUS H7606W", ALC285_FIXUP_CS35L56_I2C_2),
+ 	SND_PCI_QUIRK(0x1043, 0x1e83, "ASUS GA605W", ALC285_FIXUP_CS35L56_I2C_2),
+ 	SND_PCI_QUIRK(0x1043, 0x1e8e, "ASUS Zephyrus G15", ALC289_FIXUP_ASUS_GA401),
++	SND_PCI_QUIRK(0x1043, 0x1ed3, "ASUS HN7306W", ALC287_FIXUP_CS35L41_I2C_2),
+ 	SND_PCI_QUIRK(0x1043, 0x1ee2, "ASUS UM6702RA/RC", ALC287_FIXUP_CS35L41_I2C_2),
+ 	SND_PCI_QUIRK(0x1043, 0x1c52, "ASUS Zephyrus G15 2022", ALC289_FIXUP_ASUS_GA401),
+ 	SND_PCI_QUIRK(0x1043, 0x1f11, "ASUS Zephyrus G14", ALC289_FIXUP_ASUS_GA401),
+-- 
+2.34.1
 

@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED78D8BF0C2
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 May 2024 01:11:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28F9D8BF0C3
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 May 2024 01:11:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5C8D7210;
-	Wed,  8 May 2024 01:11:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C8D7210
+	by alsa0.perex.cz (Postfix) with ESMTPS id 65C3DDF6;
+	Wed,  8 May 2024 01:11:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 65C3DDF6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1715123477;
-	bh=mlO1AB1Iz8VdqHcNQzJ0eSmS0bKUqYyoUn6XIjE4TJM=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=r55jGbxZkRfJrJxtxpIg6Hyj/aSxF623mmwYTjpOAW5ekswispv0o/kNnO15CqhcH
-	 xSc4EV6P8cCuZU2dnPwL8Y3QA3tJkie5wdtmZ4Lad2PDoPD/eb+IpB5xzdvLivPEQ9
-	 R8aieW40bcjMd6GHmxbIt3omvYAsCu5DJAE3mheo=
+	s=default; t=1715123491;
+	bh=R4A3Jb9aZLMRVk1H1aorfEqnyalruYt56W9sJFqjOhg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=QeyiwNoDmidqfjvabv/6mz8HIhVyVdomr5B+yXH1ESHa2hIgtGyAL1LpjYpzpwlUF
+	 DSJOHTuRDc41zJQaij5RIqxrr8mvejuYJ9XZtoafY+mQ5A2Y+gBljc87FiPJN6OAHM
+	 46PzIRJaRLsut93PaCYjGTUXivBeim1CiMFhh76I=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D5C13F805A8; Wed,  8 May 2024 01:10:46 +0200 (CEST)
+	id 47C35F805D6; Wed,  8 May 2024 01:10:49 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D64C1F805A9;
-	Wed,  8 May 2024 01:10:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 617C0F805CB;
+	Wed,  8 May 2024 01:10:48 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E3196F80423; Wed,  8 May 2024 01:10:41 +0200 (CEST)
+	id 5525EF80423; Wed,  8 May 2024 01:10:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,59 +36,55 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 281DBF800E2
-	for <alsa-devel@alsa-project.org>; Wed,  8 May 2024 01:10:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 281DBF800E2
+	by alsa1.perex.cz (Postfix) with ESMTPS id 089F0F8003A
+	for <alsa-devel@alsa-project.org>; Wed,  8 May 2024 01:10:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 089F0F8003A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=JrLFjPaO
+ header.s=k20201202 header.b=j0KHw/2L
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id AF77E61985;
-	Tue,  7 May 2024 23:10:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 900ABC2BBFC;
-	Tue,  7 May 2024 23:10:34 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 7275261A21;
+	Tue,  7 May 2024 23:10:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 046D4C4DDE5;
+	Tue,  7 May 2024 23:10:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1715123436;
-	bh=mlO1AB1Iz8VdqHcNQzJ0eSmS0bKUqYyoUn6XIjE4TJM=;
-	h=From:To:Cc:Subject:Date:From;
-	b=JrLFjPaOdJ6/C1eBKUy1ozF8req+Fdq64njZH5RtwZXxUnCzCs1Gz8uAU6gXTPSMj
-	 svjPJo2txJuZ5/8LAkWA6yJD3KLyNqDuZSY1iR1eaquGu+S4K9hcy7+CK3AQHCIm56
-	 emoAv0L1noh+nhDBP2IKo/gdm4VDp48G1EGgPpJqU4iJ+7I6G7g9WeX2JtKRVzxrFk
-	 UhNlbwfgBGnCYx0u3gMWCsCuC+hxWsgqy7+oGkS1BdsMf2ZV8Y7/rjZ+OUKtCROwza
-	 QQE+LKXM4WwDZKL4CoyfcO9gsQaSYB8QRnwl3yiLQQSfn6OMZr/6YG2fyTxsgQ0CS2
-	 I/7VCZDseSqsw==
+	s=k20201202; t=1715123439;
+	bh=R4A3Jb9aZLMRVk1H1aorfEqnyalruYt56W9sJFqjOhg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=j0KHw/2LVbdoNLEHXA4KYd7f7hnIRbeVueZ7T+AjfGhs1TdaIv4DdjCo96Hwnwnjr
+	 jg8XctyWzcEGH4UxuoKLbk8GypEHAySq25J8/4OezBaAO3alBsh1gENfRScFlr5Qmc
+	 +3GsHk+1rodkxrtrVCXolz5fUsYKKw4Fx2VPDqAMA1mKDTfyloxmnLtS2zWyIafo8o
+	 OSUfWhMyhL/mJQ4j7ec8B04wEG5sb5HDsCRDFUz5cOUu+72QxWCGTDdRlyVRpJ3073
+	 4fv1RGEkBJI1valR2jHmEpYsyswBjizNLo+qYtCqg+fBwUBnlKfx6R2ydggj3FXjap
+	 SRHGUWV37r+Bw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Hans de Goede <hdegoede@redhat.com>,
+Cc: Richard Fitzgerald <rf@opensource.cirrus.com>,
 	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	cezary.rojewski@intel.com,
-	pierre-louis.bossart@linux.intel.com,
-	liam.r.girdwood@linux.intel.com,
-	peter.ujfalusi@linux.intel.com,
-	yung-chuan.liao@linux.intel.com,
-	ranjani.sridharan@linux.intel.com,
-	kai.vehmanen@linux.intel.com,
+	james.schulman@cirrus.com,
+	david.rhodes@cirrus.com,
 	perex@perex.cz,
 	tiwai@suse.com,
-	kuninori.morimoto.gx@renesas.com,
-	alban.boye@protonmail.com,
 	alsa-devel@alsa-project.org,
+	patches@opensource.cirrus.com,
 	linux-sound@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.6 01/43] ASoC: Intel: bytcr_rt5640: Apply Asus
- T100TA quirk to Asus T100TAM too
-Date: Tue,  7 May 2024 19:09:22 -0400
-Message-ID: <20240507231033.393285-1-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.6 03/43] ALSA: hda: cs35l56: Exit cache-only after
+ cs35l56_wait_for_firmware_boot()
+Date: Tue,  7 May 2024 19:09:24 -0400
+Message-ID: <20240507231033.393285-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20240507231033.393285-1-sashal@kernel.org>
+References: <20240507231033.393285-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.6.30
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 2RLY7H2YMOXXKPWALBCSOVF75EG6RIPO
-X-Message-ID-Hash: 2RLY7H2YMOXXKPWALBCSOVF75EG6RIPO
+Message-ID-Hash: RV46U2TBV2U6LSQPYVU257G3MEURSJFJ
+X-Message-ID-Hash: RV46U2TBV2U6LSQPYVU257G3MEURSJFJ
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -99,8 +96,7 @@ X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2RLY7H2YMOXXKPWALBCSOVF75EG6RIPO/>
+Archived-At: <>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,68 +105,48 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Hans de Goede <hdegoede@redhat.com>
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
 
-[ Upstream commit e50729d742ec364895f1c389c32315984a987aa5 ]
+[ Upstream commit 73580ec607dfe125b140ed30c7c0a074db78c558 ]
 
-The Asus T100TA quirk has been using an exact match on a product-name of
-"T100TA" but there are also T100TAM variants with a slightly higher
-clocked CPU and a metal backside which need the same quirk.
+Adds calls to disable regmap cache-only after a successful return from
+cs35l56_wait_for_firmware_boot().
 
-Sort the existing T100TA (stereo speakers) below the more specific
-T100TAF (mono speaker) quirk and switch from exact matching to
-substring matching so that the T100TA quirk will also match on
-the T100TAM models.
+This is to prepare for a change in the shared ASoC module that will
+leave regmap in cache-only mode after cs35l56_system_reset(). This is
+to prevent register accesses going to the hardware while it is
+rebooting.
 
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
-Link: https://msgid.link/r/20240407191559.21596-1-hdegoede@redhat.com
+Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+Link: https://msgid.link/r/20240408101803.43183-3-rf@opensource.cirrus.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/intel/boards/bytcr_rt5640.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
+ sound/pci/hda/cs35l56_hda.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
-index e609249cc38d5..651408c6f399d 100644
---- a/sound/soc/intel/boards/bytcr_rt5640.c
-+++ b/sound/soc/intel/boards/bytcr_rt5640.c
-@@ -636,28 +636,30 @@ static const struct dmi_system_id byt_rt5640_quirk_table[] = {
- 					BYT_RT5640_USE_AMCR0F28),
- 	},
- 	{
-+		/* Asus T100TAF, unlike other T100TA* models this one has a mono speaker */
- 		.matches = {
- 			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
--			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "T100TA"),
-+			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "T100TAF"),
- 		},
- 		.driver_data = (void *)(BYT_RT5640_IN1_MAP |
- 					BYT_RT5640_JD_SRC_JD2_IN4N |
- 					BYT_RT5640_OVCD_TH_2000UA |
- 					BYT_RT5640_OVCD_SF_0P75 |
-+					BYT_RT5640_MONO_SPEAKER |
-+					BYT_RT5640_DIFF_MIC |
-+					BYT_RT5640_SSP0_AIF2 |
- 					BYT_RT5640_MCLK_EN),
- 	},
- 	{
-+		/* Asus T100TA and T100TAM, must come after T100TAF (mono spk) match */
- 		.matches = {
--			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
--			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "T100TAF"),
-+			DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "T100TA"),
- 		},
- 		.driver_data = (void *)(BYT_RT5640_IN1_MAP |
- 					BYT_RT5640_JD_SRC_JD2_IN4N |
- 					BYT_RT5640_OVCD_TH_2000UA |
- 					BYT_RT5640_OVCD_SF_0P75 |
--					BYT_RT5640_MONO_SPEAKER |
--					BYT_RT5640_DIFF_MIC |
--					BYT_RT5640_SSP0_AIF2 |
- 					BYT_RT5640_MCLK_EN),
- 	},
- 	{
+diff --git a/sound/pci/hda/cs35l56_hda.c b/sound/pci/hda/cs35l56_hda.c
+index 27848d6469636..05b1412868fc0 100644
+--- a/sound/pci/hda/cs35l56_hda.c
++++ b/sound/pci/hda/cs35l56_hda.c
+@@ -603,6 +603,8 @@ static int cs35l56_hda_fw_load(struct cs35l56_hda *cs35l56)
+ 		ret = cs35l56_wait_for_firmware_boot(&cs35l56->base);
+ 		if (ret)
+ 			goto err_powered_up;
++
++		regcache_cache_only(cs35l56->base.regmap, false);
+ 	}
+ 
+ 	/* Disable auto-hibernate so that runtime_pm has control */
+@@ -942,6 +944,8 @@ int cs35l56_hda_common_probe(struct cs35l56_hda *cs35l56, int id)
+ 	if (ret)
+ 		goto err;
+ 
++	regcache_cache_only(cs35l56->base.regmap, false);
++
+ 	ret = cs35l56_set_patch(&cs35l56->base);
+ 	if (ret)
+ 		goto err;
 -- 
 2.43.0
 

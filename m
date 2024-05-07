@@ -2,134 +2,123 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 416398BFD98
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 May 2024 14:48:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C1938BFD9E
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 May 2024 14:48:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7D9463E8;
-	Wed,  8 May 2024 14:47:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D9463E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7BA54DF9;
+	Wed,  8 May 2024 14:48:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7BA54DF9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1715172482;
-	bh=3Bh7T1/wgy8rXw/MiBuUU7AE6TtmbNQHbfi6brHZzW4=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=O9LNu8vc7RqonWmzsR99Q9jAUpM5Wlbyud5mYF7NPei9Q2o3IuMDg4xAgmj62hjvT
-	 YUALvuxTJlnDUe9Ni+5y3VCoMtZ9xCS3Yq8AiBMMMpuBwL6Bs2qVV+RYDTsrNMWPVw
-	 hOzYt3LWEWQfWmN+759KQij0LtfdctkXmdqlV9Ys=
+	s=default; t=1715172499;
+	bh=yI1QXgpwkkvbEH1Ku7BMujWu9zmZZy/s+Vkj0FGX0Gs=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=GCTpoz/r+2LpD9Ji8ZdKGtie1G+GU6D3Dal6Ei5xwRp/NhADUyF+wHO+kH0Fl+P7c
+	 EPqShlh8ym6tXLGo80deSVtQtOl1lycpUvRRnE0h8Ezu4oyrFyie2sCjUT6rWHMSma
+	 yKEYh4iCE5lWgaB9pz9H7r59Rm4YvgzXa8UdGx2g=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E723FF805D9; Wed,  8 May 2024 14:46:59 +0200 (CEST)
+	id A5367F80619; Wed,  8 May 2024 14:47:01 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CD17BF805D9;
-	Wed,  8 May 2024 14:46:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3B6D7F80602;
+	Wed,  8 May 2024 14:47:01 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5AC65F8049C; Tue,  7 May 2024 08:27:15 +0200 (CEST)
+	id E35E9F8049C; Tue,  7 May 2024 08:31:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=no autolearn_force=no
+	version=3.4.6
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 864BAF8024C
-	for <alsa-devel@alsa-project.org>; Tue,  7 May 2024 08:27:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 864BAF8024C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 272E7F80423
+	for <alsa-devel@alsa-project.org>; Tue,  7 May 2024 08:30:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 272E7F80423
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=ULny4eFU
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ header.s=qcppdkim1 header.b=klPOq7Bf
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
 	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 4476POoQ003958;
-	Tue, 7 May 2024 06:27:09 GMT
+ 4475lvkK002610;
+	Tue, 7 May 2024 06:30:11 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
-	content-type:message-id:date:mime-version:subject:to:cc
-	:references:from:in-reply-to; s=qcppdkim1; bh=1gfx8FW6mhtQf1wsE6
-	2S3VeJglJU+TrYw8qkAVXOGoA=; b=ULny4eFUUqtWmt/LC6PCyROL7jHrsbFZXT
-	6kigYPfPiQ+MEKyOAuKmtw5t+ZTyv0Oi+VjnFsuiskNT+3uQPe8nJdr9Az9YhvKo
-	rp67axUGHWyBES03O3e+mswsFuSRGKjWCfu63t+h/TN98UGbWt8tqf0oAknSOvJP
-	9r8Fpb3VrAnsUijBKsFIU4rrIeytka1GNs2RKsCcU7kbhDJRlNeltkjBhD0kPBux
-	PVbKpPwOGVJr/HSwQjzO8W6yro4dTfZWnmYAHQmOOoYCOS73AoZnB3YzfNnXbgag
-	VpiBHh6Oktn2jRfVPVV6mVitm/2ywEPYL+5u4iCJGl10paAHVNyg==
-Received: from nasanppmta02.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3xyf10803w-1
+	from:to:cc:subject:date:message-id; s=qcppdkim1; bh=D+m2+YkQlZgk
+	Ucb7R1YJIcsm/RN8EUqn1RxqnRme4WU=; b=klPOq7Bfm+Z89TQEUWyOywGJW4ov
+	qMsom6vflRVtTuD2Pd8nV5MtnRhK7f5pU3ckYOicDlU/SD35hwCiHsOJ7JoSNUgt
+	pnBIdGPAiJPzguWCLbsK3D6FIVIg4O/jVwF1jFcE8xnoOA7fhREuO9zfb0LzfqBK
+	sNoo51b0buPMKgy5+d4avHA6NCWTLeiS7FmYeez4R+AIwAe1uZ7OyDm6Su777RsR
+	X/kNoI81eJ7v38YCVgGqQ0j5yvMOkkYpUO6bkTrPRdkVDSDccFPXCaeRMP/SOKF9
+	cWunjdhJnfsZ+AXAwfMONSfEhpw6Vpwvps/u/HjnbGk9qJpZIezdPXDMJA==
+Received: from apblrppmta02.qualcomm.com
+ (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3xyc03gapn-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 07 May 2024 06:27:09 +0000 (GMT)
-Received: from nasanex01c.na.qualcomm.com (nasanex01c.na.qualcomm.com
- [10.45.79.139])
-	by NASANPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
- 4476R8Ce014119
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 7 May 2024 06:27:08 GMT
-Received: from [10.218.46.108] (10.80.80.8) by nasanex01c.na.qualcomm.com
- (10.45.79.139) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 6 May 2024
- 23:27:00 -0700
-Message-ID: <d193e3db-c829-4e60-b2bc-34d6874ff40c@quicinc.com>
-Date: Tue, 7 May 2024 11:56:57 +0530
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] [RFC PATCH] ALSA: usb-audio: endpoint: Prevent NULL
- pointer deference in snd_usb_endpoint_close
-To: Takashi Iwai <tiwai@suse.de>
-CC: <srinivas.kandagatla@linaro.org>, <mathias.nyman@intel.com>,
-        <perex@perex.cz>, <conor+dt@kernel.org>, <corbet@lwn.net>,
-        <lgirdwood@gmail.com>, <andersson@kernel.org>,
-        <krzysztof.kozlowski+dt@linaro.org>, <gregkh@linuxfoundation.org>,
-        <Thinh.Nguyen@synopsys.com>, <broonie@kernel.org>,
-        <bgoswami@quicinc.com>, <tiwai@suse.com>, <robh@kernel.org>,
-        <konrad.dybcio@linaro.org>, <linux-kernel@vger.kernel.org>,
-        <devicetree@vger.kernel.org>, <linux-sound@vger.kernel.org>,
-        <linux-usb@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
-        <linux-doc@vger.kernel.org>, <alsa-devel@alsa-project.org>
-References: <20240426122511.547755-1-quic_kuruva@quicinc.com>
- <877cgks399.wl-tiwai@suse.de>
- <64ed9496-577c-4f31-b061-9f3dcaca4b26@quicinc.com>
- <87o79s1ws7.wl-tiwai@suse.de>
-Content-Language: en-US
-From: "Rajashekar Kuruva (Temp)" <quic_kuruva@quicinc.com>
-In-Reply-To: <87o79s1ws7.wl-tiwai@suse.de>
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nasanex01c.na.qualcomm.com (10.45.79.139)
+	Tue, 07 May 2024 06:30:11 +0000 (GMT)
+Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTP id
+ 4476U8Wm031230;
+	Tue, 7 May 2024 06:30:08 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTP id 3xwe3kbws4-1;
+	Tue, 07 May 2024 06:30:08 +0000
+Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com
+ [127.0.0.1])
+	by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 4476U8ds031221;
+	Tue, 7 May 2024 06:30:08 GMT
+Received: from hu-maiyas-hyd.qualcomm.com (hu-vdadhani-hyd.qualcomm.com
+ [10.213.106.28])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTP id 4476U7je031215;
+	Tue, 07 May 2024 06:30:08 +0000
+Received: by hu-maiyas-hyd.qualcomm.com (Postfix, from userid 4047106)
+	id 219685000AB; Tue,  7 May 2024 12:00:06 +0530 (+0530)
+From: Viken Dadhaniya <quic_vdadhani@quicinc.com>
+To: andersson@kernel.org, konrad.dybcio@linaro.org,
+        srinivas.kandagatla@linaro.org, linux-arm-msm@vger.kernel.org,
+        alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Cc: quic_msavaliy@quicinc.com, quic_vtanuku@quicinc.com,
+        quic_anupkulk@quicinc.com, quic_cchiluve@quicinc.com,
+        Viken Dadhaniya <quic_vdadhani@quicinc.com>
+Subject: [PATCH v1] slimbus: qcom-ngd-ctrl: Add stream disable support
+Date: Tue,  7 May 2024 12:00:04 +0530
+Message-Id: <20240507063004.21853-1-quic_vdadhani@quicinc.com>
+X-Mailer: git-send-email 2.17.1
+X-QCInternal: smtphost
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: FLTpMUWeunbAHOTHear8G7DfWCebg4R1
-X-Proofpoint-GUID: FLTpMUWeunbAHOTHear8G7DfWCebg4R1
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: bzMpiYyZ9pHrJJCAj_lHQ_qhkwR4rM0g
+X-Proofpoint-GUID: bzMpiYyZ9pHrJJCAj_lHQ_qhkwR4rM0g
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.11.176.26
  definitions=2024-05-07_02,2024-05-06_02,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0
- priorityscore=1501 lowpriorityscore=0 impostorscore=0 mlxscore=0
- spamscore=0 suspectscore=0 malwarescore=0 bulkscore=0 phishscore=0
- mlxlogscore=787 clxscore=1015 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.19.0-2404010003 definitions=main-2405070043
-X-MailFrom: quic_kuruva@quicinc.com
+ bulkscore=0 malwarescore=0
+ phishscore=0 mlxscore=0 suspectscore=0 priorityscore=1501 mlxlogscore=999
+ adultscore=0 impostorscore=0 lowpriorityscore=0 clxscore=1015 spamscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2404010003
+ definitions=main-2405070044
+X-MailFrom: vdadhani@qualcomm.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: OUOXIPQBKQMTRYZ7LUTSLJ3ITBZOWSD7
-X-Message-ID-Hash: OUOXIPQBKQMTRYZ7LUTSLJ3ITBZOWSD7
+Message-ID-Hash: HNIKUQ5GJE7Y2O3APMLAPM336FFRTH3J
+X-Message-ID-Hash: HNIKUQ5GJE7Y2O3APMLAPM336FFRTH3J
 X-Mailman-Approved-At: Wed, 08 May 2024 12:46:49 +0000
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-X-Content-Filtered-By: Mailman/MimeDel 3.3.9
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OUOXIPQBKQMTRYZ7LUTSLJ3ITBZOWSD7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HNIKUQ5GJE7Y2O3APMLAPM336FFRTH3J/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -138,68 +127,152 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-DQpPbiA0LzI5LzIwMjQgMTI6MjcgUE0sIFRha2FzaGkgSXdhaSB3cm90ZToNCj4gT24gTW9uLCAy
-OSBBcHIgMjAyNCAwODoyMzoyNyArMDIwMCwNCj4gUmFqYXNoZWthciBLdXJ1dmEgKFRlbXApIHdy
-b3RlOg0KPj4NCj4+IE9uIDQvMjYvMjAyNCA2OjEzIFBNLCBUYWthc2hpIEl3YWkgd3JvdGU6DQo+
-Pj4gT24gRnJpLCAyNiBBcHIgMjAyNCAxNDoyNToxMSArMDIwMCwNCj4+PiBSYWphc2hla2FyIGt1
-cnV2YSB3cm90ZToNCj4+Pj4gV2hlbiBtdWx0aXBsZSBwbHVnLWluIGFuZCBwbHVnLW91dCBldmVu
-dHMgb2NjdXIsDQo+Pj4+IHRoZXJlIGlzIGEgcmlzayBvZiBlbmNvdW50ZXJpbmcgYSBOVUxMIHBv
-aW50ZXIgZGVyZWZlcmVuY2UNCj4+Pj4gbGVhZGluZyB0byBhIGtlcm5lbCBwYW5pYyBkdXJpbmcg
-YSBoZWFkc2V0IHVzZS1jYXNlLg0KPj4+PiB0aGlzIGlzc3VlIGFyaXNlcyBpbiB0aGUgc25kX3Vz
-Yl9lbmRwb2ludF9jbG9zZSBmdW5jdGlvbg0KPj4+IFN1Y2ggYSBzY2VuYXJpbyBjYW4ndCBoYXBw
-ZW46IGVwLT5pZmFjZV9yZWYgaXMgY2hhbmdlZCBvbmx5IGluDQo+Pj4gY2hpcC0+bXV0ZXggbG9j
-aywgaGVuY2UgaXQgY2FuJ3QgYmUgTlVMTCB0aGVyZS4NCj4+Pg0KPj4+DQo+Pj4gdGhhbmtzLA0K
-Pj4+DQo+Pj4gVGFrYXNoaQ0KPj4gSGkgVGFrYXNoaSwNCj4+DQo+PiBBY3R1YWxseSB3ZSBhcmUg
-ZmFjaW5nIE5VTEwgcG9pbnRlciBkZWZlcmVuY2Ugd2hpbGUgcnVubmluZyBoZWFkc2V0DQo+PiBj
-YXNlIHdoZW4gaSBjaGVja2VkIGNhbGwgdHJhY2UgdGhlIGxhc3QgcnVubmluZyBmdW5jdGlvbiBp
-cw0KPj4gc25kX3VzYl9lbmRwb2ludF9jbG9zZSB3aGVyZSBpZmFjZV9yZWYgYW5kIGNsb2NrX3Jl
-ZiBib3RoIGFyZSAweDANCj4+DQo+PiBbNzU3MDMuOTMzMTA0XVtUMTA1ODVdIFVuYWJsZSB0byBo
-YW5kbGUga2VybmVsIE5VTEwgcG9pbnRlcg0KPj4gZGVyZWZlcmVuY2UgYXQgdmlydHVhbCBhZGRy
-ZXNzIDAwMDAwMDAwMDAwMDAwMDQNCj4+IFs3NTcwMy45MzMxMTNdW1QxMDU4NV0gW1JCL0VdcmJf
-c3JlYXNvbl9zdHJfc2V0OiBzcmVhc29uX3N0ciBzZXQgTlVMTA0KPj4gcG9pbnRlciBkZXJlZmVy
-ZW5jZQ0KPj4gWzc1NzAzLjkzMzExNl1bVDEwNTg1XSBNZW0gYWJvcnQgaW5mbzoNCj4+IFs3NTcw
-My45MzMxMTddW1QxMDU4NV3CoMKgIEVTUiA9IDB4MDAwMDAwMDA5NjAwMDAwNQ0KPj4gWzc1NzAz
-LjkzMzExOV1bVDEwNTg1XcKgwqAgRUMgPSAweDI1OiBEQUJUIChjdXJyZW50IEVMKSwgSUwgPSAz
-MiBiaXRzDQo+PiBbNzU3MDMuOTMzMTIwXVtUMTA1ODVdwqDCoCBTRVQgPSAwLCBGblYgPSAwDQo+
-PiBbNzU3MDMuOTMzMTIxXVtUMTA1ODVdwqDCoCBFQSA9IDAsIFMxUFRXID0gMA0KPj4gWzc1NzAz
-LjkzMzEyM11bVDEwNTg1XcKgwqAgRlNDID0gMHgwNTogbGV2ZWwgMSB0cmFuc2xhdGlvbiBmYXVs
-dA0KPj4gWzc1NzAzLjkzMzEyNF1bVDEwNTg1XSBEYXRhIGFib3J0IGluZm86DQo+PiBbNzU3MDMu
-OTMzMTI0XVtUMTA1ODVdwqDCoCBJU1YgPSAwLCBJU1MgPSAweDAwMDAwMDA1DQo+PiBbNzU3MDMu
-OTMzMTI1XVtUMTA1ODVdwqDCoCBDTSA9IDAsIFduUiA9IDANCj4+IOKApg0KPj4gWzc1NzAzLjkz
-MzY3Nl1bVDEwNTg1XSBDUFU6IDMgUElEOiAxMDU4NSBDb21tOiBrd29ya2VyL3UxNzowIFRhaW50
-ZWQ6DQo+PiBHIFPCoMKgwqDCoMKgIFfCoCBPRSA2LjEuNDMtYW5kcm9pZDE0LTExLWdhMmZhNzdk
-MzZkMjYtYWIxMTIwNDgyOSAjMQ0KPj4gWzc1NzAzLjkzMzY5N11bVDEwNTg1XSBwc3RhdGU6IDYy
-NDAwMDA1IChuWkN2IGRhaWYgK1BBTiAtVUFPICtUQ08gLURJVA0KPj4gLVNTQlMgQlRZUEU9LS0p
-DQo+PiBbNzU3MDMuOTMzNzAwXVtUMTA1ODVdIHBjIDogc25kX3VzYl9lbmRwb2ludF9jbG9zZSsw
-eDMwLzB4MTA0DQo+PiBbNzU3MDMuOTMzNzIxXVtUMTA1ODVdIGxyIDogc25kX3VzYl9lbmRwb2lu
-dF9jbG9zZSsweDI4LzB4MTA0DQo+PiBbNzU3MDMuOTMzNzI0XVtUMTA1ODVdIHNwIDogZmZmZmZm
-YzA0YjJiYjc0MA0KPj4gWzc1NzAzLjkzMzcyNV1bVDEwNTg1XSB4Mjk6IGZmZmZmZmMwNGIyYmI3
-NDAgeDI4OiBmZmZmZmY4MDI0ZTNiYTc4DQo+PiB4Mjc6IGZmZmZmZmQyNjZlOTFkYTANCj4+IFs3
-NTcwMy45MzM3MjhdW1QxMDU4NV0geDI2OiBmZmZmZmZjMDRiMmJiN2E4IHgyNTogZmZmZmZmODli
-ZWM1YmUwMA0KPj4geDI0OiAwMDAwMDAwMGZmZmZmZmVhDQo+PiBbNzU3MDMuOTMzNzMwXVtUMTA1
-ODVdIHgyMzogMDAwMDAwMDAwMDAwMDAwMiB4MjI6IGZmZmZmZjg4NWQ1NjgwMDgNCj4+IHgyMTog
-ZmZmZmZmODAyNGUzYmE3OA0KPj4gWzc1NzAzLjkzMzczMl1bVDEwNTg1XSB4MjA6IGZmZmZmZjg4
-NWQ1NjgwMDAgeDE5OiBmZmZmZmY4MDI0ZTNiYjE4DQo+PiB4MTg6IGZmZmZmZmQyNmRiMmQxNDAN
-Cj4+IFs3NTcwMy45MzM3MzRdW1QxMDU4NV0geDE3OiAwMDAwMDAwMGYwMWIwODE4IHgxNjogMDAw
-MDAwMDBmMDFiMDgxOA0KPj4geDE1OiAwMDAwMDAwMDAwMDAwMDA4DQo+PiBbNzU3MDMuOTMzNzM2
-XVtUMTA1ODVdIHgxNDogZmZmZmZmOGEzZTJiNTc4MCB4MTM6IGZmZmZmZjhhM2UyYjU3ODANCj4+
-IHgxMjogZmZmZmZmZDI2Y2JkMjc3MA0KPj4gWzc1NzAzLjkzMzczOF1bVDEwNTg1XSB4MTE6IDAw
-MDAwMDAwMDAwMDAwMDEgeDEwOiBmZmZmZmY4OTg0MzIwMDAwIHg5DQo+PiA6IDRmNDNiODZlOTQ2
-YjRlMDANCj4+IFs3NTcwMy45MzM3NDBdW1QxMDU4NV0geDggOiAwMDAwMDAwMDAwMDAwMDAwIHg3
-IDogMDAwMDAwMDAwMDAwMDAwMSB4Ng0KPj4gOiBmZmZmZmZmZGVmOGU4YjcwDQo+PiBbNzU3MDMu
-OTMzNzQyXVtUMTA1ODVdIHg1IDogMDAwMDAwMDAwMDAwMDAwMSB4NCA6IDAwMDAwMDAwMDAwMDAw
-MDAgeDMNCj4+IDogZmZmZmZmODAyNGUzYmIyOA0KPj4gWzc1NzAzLjkzMzc0M11bVDEwNTg1XSB4
-MiA6IDAwMDAwMDAxMDExZmE3YzkgeDEgOiBmZmZmZmZjMDRiMmJiNjgwIHgwDQo+PiA6IDAwMDAw
-MDAwMDAwMDAwMDANCj4+IFs3NTcwMy45MzM3NDZdW1QxMDU4NV0gQ2FsbCB0cmFjZToNCj4+IFs3
-NTcwMy45MzM3NDddW1QxMDU4NV3CoCBzbmRfdXNiX2VuZHBvaW50X2Nsb3NlKzB4MzAvMHgxMDQN
-Cj4gV2hvIGlzIGFjdHVhbGx5IGNhbGxpbmcgc25kX3VzYl9lbmRwb2ludF9jbG9zZSgpPw0KPiBJ
-IGd1ZXNzIHRoYXQncyByYXRoZXIgYSBidWcgaW4gdGhlIGNhbGwgcGF0dGVybiwgbm90IHRoZSBj
-b2RlIGluDQo+IFVTQi1hdWRpbyBkcml2ZXIgaXRzZWxmLg0KPg0KPiBzbmRfdXNiX2VuZHBvaW50
-X2Nsb3NlKCkgaXMgc3VwcG9zZWQgdG8gYmUgY2FsbGVkIG9ubHkgZm9yIGEgcmVhbGx5DQo+IG9w
-ZW5lZCBlbmRwb2ludC4gIFNvLCBpZiBhbnksIGl0J3MgcmF0aGVyIGEgcmFjZSAob3IgYSBidWcp
-IGluIHRoZQ0KPiBjYWxsZXIgc2lkZSwgYW5kIGl0IHNob3VsZCBiZSBhZGRyZXNzZWQgdGhlcmUg
-aW5zdGVhZC4NCj4NCj4NCj4gdGhhbmtzLA0KPg0KPiBUYWthc2hpDQpIaSBUYWthc2hpLA0KDQpJ
-J20gY2hlY2tpbmcgb24gd2hvIGlzIGNhbGxpbmcgc25kX3VzYl9lbmRwb2ludF9jbG9zZSwgd2l0
-aG91dCBvcGVuZWQgDQplbmRwb2ludCBpcyBjcmVhdGVkLg0KDQpBcyBpdHMgcmFyZWx5IHJlcHJv
-ZHVjaWJsZSwgaXRzIHRha2luZyB0aW1lLiBJJ2xsIHJlcGxheSB5b3UgYmFjay4NCg0KVGhhbmtz
-LA0KDQpSYWphc2hla2FyIEsu
+Currently slimbus driver doesn't support stream disable
+callback, it only supports stream enable callback.
+
+In slimbus usecase, client is switching to new frequency
+with same channel and calling enable stream callback for
+new frequency but DSP subsystem is crashing as we are switching
+to new frequency with same channel without disabling stream
+for older frequency.
+
+Ideally, before switching to another frequency, client should
+call disable stream callback and then enable stream for newer frequency.
+
+Hence add support to disable stream via qcom_slim_ngd_disable_stream().
+
+Signed-off-by: Viken Dadhaniya <quic_vdadhani@quicinc.com>
+---
+ drivers/slimbus/qcom-ngd-ctrl.c | 70 +++++++++++++++++++++++++++++++++
+ drivers/slimbus/slimbus.h       | 13 ++++++
+ 2 files changed, 83 insertions(+)
+
+diff --git a/drivers/slimbus/qcom-ngd-ctrl.c b/drivers/slimbus/qcom-ngd-ctrl.c
+index e0b21f0f79c1..d952827d2e12 100644
+--- a/drivers/slimbus/qcom-ngd-ctrl.c
++++ b/drivers/slimbus/qcom-ngd-ctrl.c
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0
+ // Copyright (c) 2011-2017, The Linux Foundation. All rights reserved.
+ // Copyright (c) 2018, Linaro Limited
++// Copyright (c) 2024 Qualcomm Innovation Center, Inc. All rights reserved.
+ 
+ #include <linux/irq.h>
+ #include <linux/kernel.h>
+@@ -1084,6 +1085,74 @@ static int qcom_slim_ngd_enable_stream(struct slim_stream_runtime *rt)
+ 	return ret;
+ }
+ 
++static int qcom_slim_ngd_disable_stream(struct slim_stream_runtime *rt)
++{
++	struct slim_device *sdev = rt->dev;
++	struct slim_controller *ctrl = sdev->ctrl;
++	struct slim_val_inf msg =  {0};
++	u8 wbuf[SLIM_MSGQ_BUF_LEN];
++	u8 rbuf[SLIM_MSGQ_BUF_LEN];
++	struct slim_msg_txn txn = {0,};
++	int i, ret;
++
++	txn.mt = SLIM_MSG_MT_DEST_REFERRED_USER;
++	txn.dt = SLIM_MSG_DEST_LOGICALADDR;
++	txn.la = SLIM_LA_MGR;
++	txn.ec = 0;
++	txn.msg = &msg;
++	txn.msg->num_bytes = 0;
++	txn.msg->wbuf = wbuf;
++	txn.msg->rbuf = rbuf;
++
++	for (i = 0; i < rt->num_ports; i++) {
++		struct slim_port *port = &rt->ports[i];
++
++		if (txn.msg->num_bytes == 0) {
++			wbuf[txn.msg->num_bytes++] = (u8)(SLIM_CH_REMOVE << 6)
++							| (sdev->laddr & 0x1f);
++
++			ret = slim_alloc_txn_tid(ctrl, &txn);
++			if (ret) {
++				dev_err(&sdev->dev, "Fail to allocate TID\n");
++				return -ENXIO;
++			}
++			wbuf[txn.msg->num_bytes++] = txn.tid;
++		}
++		wbuf[txn.msg->num_bytes++] = port->ch.id;
++	}
++
++	txn.mc = SLIM_USR_MC_CHAN_CTRL;
++	txn.rl = txn.msg->num_bytes + 4;
++	ret = qcom_slim_ngd_xfer_msg_sync(ctrl, &txn);
++	if (ret) {
++		slim_free_txn_tid(ctrl, &txn);
++		dev_err(&sdev->dev, "TX timed out:MC:0x%x,mt:0x%x ret:%d\n",
++			txn.mc,	txn.mt, ret);
++		return ret;
++	}
++
++	txn.mc = SLIM_USR_MC_RECONFIG_NOW;
++	txn.msg->num_bytes = 2;
++	wbuf[1] = sdev->laddr;
++	txn.rl = txn.msg->num_bytes + 4;
++
++	ret = slim_alloc_txn_tid(ctrl, &txn);
++	if (ret) {
++		dev_err(ctrl->dev, "Fail to allocate TID ret:%d\n", ret);
++		return ret;
++	}
++
++	wbuf[0] = txn.tid;
++	ret = qcom_slim_ngd_xfer_msg_sync(ctrl, &txn);
++	if (ret) {
++		slim_free_txn_tid(ctrl, &txn);
++		dev_err(&sdev->dev, "TX timed out:MC:0x%x,mt:0x%x ret:%d\n",
++			txn.mc,	txn.mt, ret);
++	}
++
++	return ret;
++}
++
+ static int qcom_slim_ngd_get_laddr(struct slim_controller *ctrl,
+ 				   struct slim_eaddr *ea, u8 *laddr)
+ {
+@@ -1642,6 +1711,7 @@ static int qcom_slim_ngd_ctrl_probe(struct platform_device *pdev)
+ 	ctrl->ctrl.clkgear = SLIM_MAX_CLK_GEAR;
+ 	ctrl->ctrl.get_laddr = qcom_slim_ngd_get_laddr;
+ 	ctrl->ctrl.enable_stream = qcom_slim_ngd_enable_stream;
++	ctrl->ctrl.disable_stream = qcom_slim_ngd_disable_stream;
+ 	ctrl->ctrl.xfer_msg = qcom_slim_ngd_xfer_msg;
+ 	ctrl->ctrl.wakeup = NULL;
+ 	ctrl->state = QCOM_SLIM_NGD_CTRL_DOWN;
+diff --git a/drivers/slimbus/slimbus.h b/drivers/slimbus/slimbus.h
+index 00a7f112574b..21543d125614 100644
+--- a/drivers/slimbus/slimbus.h
++++ b/drivers/slimbus/slimbus.h
+@@ -1,6 +1,7 @@
+ /* SPDX-License-Identifier: GPL-2.0 */
+ /*
+  * Copyright (c) 2011-2017, The Linux Foundation
++ * Copyright (c) 2024 Qualcomm Innovation Center, Inc. All rights reserved.
+  */
+ 
+ #ifndef _DRIVERS_SLIMBUS_H
+@@ -316,6 +317,18 @@ enum slim_transport_protocol {
+ 	SLIM_PROTO_EXT_HALF_DUP,
+ };
+ 
++/*
++ * enum slim_ch_control: Channel control.
++ * Activate will schedule channel and/or group of channels in the TDM frame.
++ * Suspend will keep the schedule but data-transfer won't happen.
++ * Remove will remove the channel/group from the TDM frame.
++ */
++enum slim_ch_control {
++	SLIM_CH_ACTIVATE,
++	SLIM_CH_SUSPEND,
++	SLIM_CH_REMOVE,
++};
++
+ /**
+  * struct slim_stream_runtime  - SLIMbus stream runtime instance
+  *
+-- 
+2.17.1
+

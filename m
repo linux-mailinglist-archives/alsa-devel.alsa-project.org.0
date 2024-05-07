@@ -2,179 +2,117 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C268E8BE2EF
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 May 2024 15:05:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3D518BE39F
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 May 2024 15:21:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D612D826;
-	Tue,  7 May 2024 15:05:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D612D826
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4831082C;
+	Tue,  7 May 2024 15:21:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4831082C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1715087138;
-	bh=1dBXOfKIqa1iWTt+dKLPUl5EtlG+zkg8uA7QiORazBE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1715088088;
+	bh=mamtRdpVuLvc5n7H5rO8CzIxnBOX+3m2jzq6NAnyw8I=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=pTyMe6eQ7bCjs7D/TIT4sAOoq0/WN6jay8fM8PqeHrVVWkGA4vfmKlY2HYbJkaG7q
-	 iFjAXSlrGTZAzCl59WGxcrEi5b85n/pp7RgDUB/vrTdYH4U0AMm1Hlht+Qp6UhcSx6
-	 TwC2NBFr/QIq6PXrVlU7A+gR7f6Bpf0O4LzdyOFU=
+	b=hGEvbT6fCYLu2JAOA/DOVh8U48KQ4YyuBe0rzNjDFo4eLtzuWN0ffPOn+cZ6lH0LZ
+	 Qb4kiOz4LRFip7ki75LDl/dAeXQr6ro3pz6KfaxN8SNzvW4jD6tYoeVaD26vvxZATm
+	 NxrlTLNg4EYRvSqJXfoQwrxW5MdpoMWR7d2bUavk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 409CCF804E7; Tue,  7 May 2024 15:05:06 +0200 (CEST)
+	id 5C0A3F80570; Tue,  7 May 2024 15:20:55 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9FBECF80580;
-	Tue,  7 May 2024 15:05:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7E6BAF805A0;
+	Tue,  7 May 2024 15:20:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 678A4F8049C; Tue,  7 May 2024 15:05:02 +0200 (CEST)
+	id D02B8F8049C; Tue,  7 May 2024 15:20:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_SBL_CSS,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [IPv6:2a00:1450:4864:20::134])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 171D4F80152
-	for <alsa-devel@alsa-project.org>; Tue,  7 May 2024 15:04:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 171D4F80152
+	by alsa1.perex.cz (Postfix) with ESMTPS id 236B1F8024C
+	for <alsa-devel@alsa-project.org>; Tue,  7 May 2024 15:20:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 236B1F8024C
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=KN7qjhQo;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=MIuc94hQ;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=KN7qjhQo;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=MIuc94hQ
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 378AE33F07;
-	Tue,  7 May 2024 13:04:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1715087094;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+576eNXIXH7acYOv5kAfJsPPJ6gfQZfnrCWYRgf0fCM=;
-	b=KN7qjhQok1Rgk5eCnHvOO1G7k1FDIEqhl/YLpBTSEhS6Jo0RqUjs1jD+Pcn3qZxmmwlKqw
-	6+us6hC1Ngj444QwL/M31BqqkNF9bxaMShjpK79i9B2DspWaLmMMcOW79MCawIh2EQZ3WD
-	sFQRHnDgAr6CoJVoaDzaokxhMoHOZ4E=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1715087094;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+576eNXIXH7acYOv5kAfJsPPJ6gfQZfnrCWYRgf0fCM=;
-	b=MIuc94hQmcpaL8AtmDPYt8dIkE4u76HH2Xlw8MP1Z9o1wvsEtkuHTlUyyo6WQQvyaSmIzB
-	NilNYFF9TngpRYBQ==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=KN7qjhQo;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=MIuc94hQ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1715087094;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+576eNXIXH7acYOv5kAfJsPPJ6gfQZfnrCWYRgf0fCM=;
-	b=KN7qjhQok1Rgk5eCnHvOO1G7k1FDIEqhl/YLpBTSEhS6Jo0RqUjs1jD+Pcn3qZxmmwlKqw
-	6+us6hC1Ngj444QwL/M31BqqkNF9bxaMShjpK79i9B2DspWaLmMMcOW79MCawIh2EQZ3WD
-	sFQRHnDgAr6CoJVoaDzaokxhMoHOZ4E=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1715087094;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+576eNXIXH7acYOv5kAfJsPPJ6gfQZfnrCWYRgf0fCM=;
-	b=MIuc94hQmcpaL8AtmDPYt8dIkE4u76HH2Xlw8MP1Z9o1wvsEtkuHTlUyyo6WQQvyaSmIzB
-	NilNYFF9TngpRYBQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F3C84139CB;
-	Tue,  7 May 2024 13:04:53 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id yVP7OvUmOmaFIAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Tue, 07 May 2024 13:04:53 +0000
-Date: Tue, 07 May 2024 15:05:08 +0200
-Message-ID: <87cypxeprv.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Baojun Xu <baojun.xu@ti.com>,
-	robh+dt@kernel.org,
-	lgirdwood@gmail.com,
-	perex@perex.cz,
-	pierre-louis.bossart@linux.intel.com,
-	kevin-lu@ti.com,
-	shenghao-ding@ti.com,
-	navada@ti.com,
-	13916275206@139.com,
-	v-po@ti.com,
-	niranjan.hy@ti.com,
-	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org,
-	liam.r.girdwood@intel.com,
-	yung-chuan.liao@linux.intel.com,
-	broonie@kernel.org,
-	soyer@irl.hu
-Subject: Re: [PATCH v4 1/3] ALSA: hda/tas2781: Add tas2781 hda driver based on
- SPI
-In-Reply-To: <ZjD1-NSC3X_7JcQg@smile.fi.intel.com>
-References: <20240430072544.1877-1-baojun.xu@ti.com>
-	<20240430072544.1877-2-baojun.xu@ti.com>
-	<87jzkfm2hp.wl-tiwai@suse.de>
-	<ZjD1-NSC3X_7JcQg@smile.fi.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: 378AE33F07
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-3.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	DWL_DNSWL_LOW(-1.00)[suse.de:dkim];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[18];
-	MIME_TRACE(0.00)[0:+];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[139.com,gmail.com];
-	FREEMAIL_CC(0.00)[ti.com,kernel.org,gmail.com,perex.cz,linux.intel.com,139.com,alsa-project.org,vger.kernel.org,intel.com,irl.hu];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	TAGGED_RCPT(0.00)[dt];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns]
-Message-ID-Hash: SIEUHGKHDVAJEZVL6ZPSZDJQVEHRVVTH
-X-Message-ID-Hash: SIEUHGKHDVAJEZVL6ZPSZDJQVEHRVVTH
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=bmm1pxF7
+Received: by mail-lf1-x134.google.com with SMTP id
+ 2adb3069b0e04-52006fbae67so4377666e87.0
+        for <alsa-devel@alsa-project.org>;
+ Tue, 07 May 2024 06:20:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1715088044; x=1715692844;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=K752O0Pcm3pbK7QoMDyqSQ3O3yzgRSedQhsNAlMKLtQ=;
+        b=bmm1pxF72NhQ27AZEIWtDpM03yQCYNygxS/HkWpx+P1GIesBGctzUIzkgcyprAqTC7
+         vnhSUWtMLQVsloyMo69tyZ+81dYReo72cjRAYifs79O4TAYJ/Lt2AZZRNwNO7vlsn69b
+         ZPRX33pnDAsSWqaGoKnyKUPH4Q9DJraB+a+jpBmJUpjhpTs+IgWDeWOlqfETnot1kP4I
+         rDvYFDd8os4thqhsMQlMoDzyyOwHFEnm/UlgASqv29l8Uo+ttmgGfgRY+ioPN4cUE0Jj
+         Xfn7Y2IumenhK7l8Sy90AyPFk16DsLCp4phVT0tY7K3ZiHfnP03+VQ4YystwtY6OwuDI
+         km+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1715088044; x=1715692844;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=K752O0Pcm3pbK7QoMDyqSQ3O3yzgRSedQhsNAlMKLtQ=;
+        b=avULFc5YAHNruz3QymLdLIfkFcLLZh+jH6SAkSHstFOfSJP6HUL6PQOAwwvV90cwQF
+         Un+wkgDey13Qh3zfiuYDLjE6HlIwiQszz9wVtuCVN7gKp07FZEPAyau2y/eXgUlfzRMo
+         ji6T9Id10Xe0sIQTG/i8ByifLtD9Gv0bS/M38aMgCFeHpIjfbSxC9lXvk2PktG5WjenV
+         I/itp7S5Iazo8ztrgjVDxYG7TSz4CkppasFyVJ70zCIn1D2pSJTGSwEe1S6Hko4jfrhs
+         +8PTqfqdiTWd3dx2ko+ccLeOp08c19MtEVmtMs6LfOU3fo0kBEqeu9sR7mj7vWeOk8uy
+         uFKQ==
+X-Gm-Message-State: AOJu0YyC5zA2qlXlXXLavOcTzVt8gWnCKv/fTL9mswxdHlZKji4PA51Q
+	Lpczv/6Ur5ki9Zz6mOFSKxsFM8rIC9ayird0lxOHkU7J1UiUT8MAe3FQSvGH1yA=
+X-Google-Smtp-Source: 
+ AGHT+IEGgqheSj5TrFbScUYvwODCUxXLu8LisrOI8dAlAhc9ZxNegHyZOZbMATbWnAgxeOagu8p+xA==
+X-Received: by 2002:ac2:490b:0:b0:51e:fd97:af89 with SMTP id
+ n11-20020ac2490b000000b0051efd97af89mr8145136lfi.16.1715088043422;
+        Tue, 07 May 2024 06:20:43 -0700 (PDT)
+Received: from [192.168.1.195] ([5.133.47.210])
+        by smtp.googlemail.com with ESMTPSA id
+ a6-20020a05600c348600b0041c14e42e2bsm19558165wmq.44.2024.05.07.06.20.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 07 May 2024 06:20:42 -0700 (PDT)
+Message-ID: <738045d2-a445-4f93-abfd-203348a538d1@linaro.org>
+Date: Tue, 7 May 2024 14:20:41 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/4] ASoC: qcom: x1e80100: Correct channel mapping
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ James Schulman <james.schulman@cirrus.com>,
+ David Rhodes <david.rhodes@cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Lars-Peter Clausen <lars@metafoo.de>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Banajit Goswami <bgoswami@quicinc.com>
+Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+References: 
+ <20240507-asoc-x1e80100-4-channel-mapping-v1-0-b12c13e0a55d@linaro.org>
+ <20240507-asoc-x1e80100-4-channel-mapping-v1-4-b12c13e0a55d@linaro.org>
+Content-Language: en-US
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+In-Reply-To: 
+ <20240507-asoc-x1e80100-4-channel-mapping-v1-4-b12c13e0a55d@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: KPH6QG7OX7KCTBW22EYVFUWA637SXKCY
+X-Message-ID-Hash: KPH6QG7OX7KCTBW22EYVFUWA637SXKCY
+X-MailFrom: srinivas.kandagatla@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -186,7 +124,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SIEUHGKHDVAJEZVL6ZPSZDJQVEHRVVTH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KPH6QG7OX7KCTBW22EYVFUWA637SXKCY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -195,28 +133,116 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 30 Apr 2024 15:45:28 +0200,
-Andy Shevchenko wrote:
-> 
-> On Tue, Apr 30, 2024 at 02:58:10PM +0200, Takashi Iwai wrote:
-> > On Tue, 30 Apr 2024 09:25:42 +0200, Baojun Xu wrote:
-> 
-> ...
-> 
-> > >  snd-hda-cs-dsp-ctls-objs :=		hda_cs_dsp_ctl.o
-> > >  snd-hda-scodec-component-objs :=	hda_component.o
-> > >  snd-hda-scodec-tas2781-i2c-objs :=	tas2781_hda_i2c.o
-> > > +snd-hda-scodec-tas2781-spi-y :=	tas2781_hda_spi.o tas2781_spi_fwlib.o
-> > 
-> > A nitpicking: better to align with other lines (i.e. with *-objs
-> > instead of *-y).
-> 
-> I object this. The better approach is to have a precursor patch that switches
-> to y over objs (the latter is for user space code / tools).
+Thanks Krzystof for the patch.
 
-Indeed it can be a good cleanup, yeah.  Let me try.
+On 07/05/2024 11:27, Krzysztof Kozlowski wrote:
+> X1E80100 CRD board comes with four speakers arranged as left front+back
+> and then right front+back.  Using default channel mapping causes front
+> right speaker to play left back stream.
+> 
+> Adjust the channel maps for frontend DAIs to fix stereo and four-channel
+> playback.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> ---
+>   sound/soc/qcom/x1e80100.c | 37 +++++++++++++++++++++++++++++++++++--
+>   1 file changed, 35 insertions(+), 2 deletions(-)
+> 
+> diff --git a/sound/soc/qcom/x1e80100.c b/sound/soc/qcom/x1e80100.c
+> index c3c8bf7ffb5b..e90c68815b5c 100644
+> --- a/sound/soc/qcom/x1e80100.c
+> +++ b/sound/soc/qcom/x1e80100.c
+> @@ -12,6 +12,7 @@
+>   
+>   #include "common.h"
+>   #include "qdsp6/q6afe.h"
+> +#include "qdsp6/q6dsp-common.h"
+>   #include "sdw.h"
+>   
+>   struct x1e80100_snd_data {
+> @@ -74,7 +75,7 @@ static int x1e80100_snd_hw_params(struct snd_pcm_substream *substream,
+>   	return qcom_snd_sdw_hw_params(substream, params, &data->sruntime[cpu_dai->id]);
+>   }
+>   
+> -static int x1e80100_snd_prepare(struct snd_pcm_substream *substream)
+> +static int x1e80100_snd_be_prepare(struct snd_pcm_substream *substream)
+>   {
+>   	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+>   	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
+> @@ -96,12 +97,34 @@ static int x1e80100_snd_hw_free(struct snd_pcm_substream *substream)
+>   				    &data->stream_prepared[cpu_dai->id]);
+>   }
+>   
+> +static int x1e80100_snd_fe_prepare(struct snd_pcm_substream *substream)
+> +{
+> +	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
+> +	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
+> +
+> +	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
+> +		const unsigned int rx_slot[4] = { PCM_CHANNEL_FL,
+> +						  PCM_CHANNEL_LB,
+> +						  PCM_CHANNEL_FR,
+> +						  PCM_CHANNEL_RB };
+> +
+> +		snd_soc_dai_set_channel_map(cpu_dai, 0, NULL, ARRAY_SIZE(rx_slot),
+> +					    rx_slot);
+
+Channel mapping are specific to backend dais rather than front end pcm dais.
+
+This will set all the playback pcms with this channel maps, which is a 
+problem.
+
+example the 2 channel headset we will endup with data of front channel 
+and zeros on the right channel, however a speaker might work as you have 
+4 speakers in your system.
 
 
-thanks,
+So No for this approach.
 
-Takashi
+
+--srini
+
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>   static const struct snd_soc_ops x1e80100_be_ops = {
+>   	.startup = qcom_snd_sdw_startup,
+>   	.shutdown = x1e80100_snd_shutdown,
+>   	.hw_params = x1e80100_snd_hw_params,
+>   	.hw_free = x1e80100_snd_hw_free,
+> -	.prepare = x1e80100_snd_prepare,
+> +	.prepare = x1e80100_snd_be_prepare,
+> +};
+> +
+> +static const struct snd_soc_ops x1e80100_fe_ops = {
+> +	.prepare = x1e80100_snd_fe_prepare,
+>   };
+>   
+>   static void x1e80100_add_be_ops(struct snd_soc_card *card)
+> @@ -118,6 +141,15 @@ static void x1e80100_add_be_ops(struct snd_soc_card *card)
+>   	}
+>   }
+>   
+> +static int x1e80100_add_dai_link(struct snd_soc_card *card, struct snd_soc_dai_link *link)
+> +{
+> +	/* Add ops for Frontend DAIs coming from Topology */
+> +	if (link->dynamic && !link->no_pcm && !link->ops)
+> +		link->ops = &x1e80100_fe_ops;
+> +
+> +	return 0;
+> +}
+> +
+>   static int x1e80100_platform_probe(struct platform_device *pdev)
+>   {
+>   	struct snd_soc_card *card;
+> @@ -135,6 +167,7 @@ static int x1e80100_platform_probe(struct platform_device *pdev)
+>   
+>   	card->owner = THIS_MODULE;
+>   	card->dev = dev;
+> +	card->add_dai_link = x1e80100_add_dai_link;
+>   	dev_set_drvdata(dev, card);
+>   	snd_soc_card_set_drvdata(card, data);
+>   
+> 

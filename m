@@ -2,96 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DE198BEB69
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 May 2024 20:18:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0CDE8BEB6A
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 May 2024 20:19:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CFD8C826;
-	Tue,  7 May 2024 20:18:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CFD8C826
+	by alsa0.perex.cz (Postfix) with ESMTPS id 029DF827;
+	Tue,  7 May 2024 20:18:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 029DF827
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1715105918;
-	bh=e+Ui+xuAdmPzJfWHKGip4nd/QAAMiIFEurpFnUaCqqM=;
+	s=default; t=1715105940;
+	bh=z56DW4uwWXSfy2S2WxG5hWfb4HBVtScM8Dx6WGp0vzQ=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=vhX0VhzA180hntSKSMjZtfbOzwcp0sPkLNibagvMVI7BiTl0EAF3qMAzP8yHiWn0V
-	 THXRgcecCNp5z9d6cf337oCaZkmUHl7nEJN1h4X7ywpbm0RBH3UweY2JYKlkD5iqa5
-	 ER4SNG1RcY3V4odDlP0w1ze+hTZ7PX/aDERlzntI=
+	b=Wbh7ntd3bfNAKAKJeCXL3CUPr7isRx4BiXbZHVdUO+fO1AFhWT3C3eKdBUkiRVVHt
+	 KsvtEn8GJRl9dACV9k6ca8sk75B+owfCeDAsx8xmZiDeJhOsVKV8ZOTE0dhGTrF2zA
+	 NbvhrOU7RUoG4As/qHDHcI8q07A///vRdcaSOwVk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 19DDBF80570; Tue,  7 May 2024 20:18:06 +0200 (CEST)
+	id 05BC0F805CB; Tue,  7 May 2024 20:18:08 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 871C0F805AD;
-	Tue,  7 May 2024 20:18:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F0D89F805CA;
+	Tue,  7 May 2024 20:18:07 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D3BD4F8049C; Tue,  7 May 2024 20:16:04 +0200 (CEST)
+	id 2A783F8049C; Tue,  7 May 2024 20:16:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [IPv6:2a00:1450:4864:20::62b])
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0BDFEF80152
-	for <alsa-devel@alsa-project.org>; Tue,  7 May 2024 20:15:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0BDFEF80152
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6F878F80152
+	for <alsa-devel@alsa-project.org>; Tue,  7 May 2024 20:16:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F878F80152
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=uhEfDDRL
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-a59b58fe083so555357466b.0
+ header.s=google header.b=cbTm081D
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-51f3a49ff7dso3998140e87.2
         for <alsa-devel@alsa-project.org>;
- Tue, 07 May 2024 11:15:53 -0700 (PDT)
+ Tue, 07 May 2024 11:16:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1715105752; x=1715710552;
+        d=linaro.org; s=google; t=1715105773; x=1715710573;
  darn=alsa-project.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=32C2VWO0lNkaeoP0mjNW3/Db2bUiU2Lhen0koGKYiUM=;
-        b=uhEfDDRLi6oWtvvu46L9O96tgKUSyrhzlcJNwAbYCmnd+awJsKikVj3TYID5jV9H0p
-         JfCp+wjaa2N1TNbEzJUX2s5IBN+Ba+lvJUuG96RAN1RBNCqKOF/zgwjQkSyupBL5L+2z
-         WofW4YFZIKnj1KxxsUUWqPhMiPT2+MTD5yxmU+0y5NCsupVFzXYsGOKNI8abEkg0DdYS
-         8Rrw8iqLJWe+qiCOd20VY9U+mnp2HN8S6ltvszMaRn+ChrCIt7XlLKOk1prw2nQjCt91
-         KXtwyYHXr8nDZ4Hx0XSAQblHIzOIc7OWM+IFG91R5N+Xj8Ge/G/NmiSRfGVrwTs9+J2y
-         ksHw==
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=FtF0ji+6sky/klPDr1qbiHk0/IYbyBDqkgtl3xUgr1E=;
+        b=cbTm081DzPOxyBFatjz1P5vjabjJzx0i9518i85pV+A1wN7ACbJoA4luI5Mr/kcBqz
+         poUnlj8HSaKtDMyQHMprGqxn2pp5t+kkEvptmxm4BDPDbuR/0ld+SDJWStexDsJuAA+i
+         JIhCrkys3IVJb6mXAPwRb2q1r9EJV2KNqiIGTE7qw7F2ms+82YjegJUfo6uIf26C1/NY
+         bXlnMS/aJIQ4zVvH+RXGXKFaQ8RqFWBIdxPLMv+Dr8aF9qLS+kbCAd0ThAkqI+XjnAe5
+         3rtUyDMegTQrJ5oEXQz41cV5zJ8eVJSfhO/OZwBK0vATflpML7QSvRaRI+1hlHbPt6FG
+         bhBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715105752; x=1715710552;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=32C2VWO0lNkaeoP0mjNW3/Db2bUiU2Lhen0koGKYiUM=;
-        b=HTZeuXlkBtRn5aZNaeYf9l2HxuAzu5JK9zm+UUlzX4tqKucX+1RQXTjvpzDK/bL9et
-         oBizIjqKTCSt1IAzW5l9/tcc3UFgdvRtyIiibV9gzlDJoRiCuGbuT1ROL0Xpal07hf0a
-         qrlyy6nD7R7/HGcoiBPOFie6sxc+hhIQvv1uJ4BmO95e6bBVrEBonDktbSe6vd/povp7
-         Ed48JrkheoaV1EJapvoO3/Z83AXCbieLLxEiyrCZlWhR9D2h0lTeye7rGYzsVIC3DmUE
-         FuIOX/6PaxMz1YCsSQEcn/hxeDSeOnIOaKHL6An6NVMjMTkGTDZ6EAlhY5dX32zHQ66G
-         z96w==
-X-Gm-Message-State: AOJu0YxsjsguKsrnm91d0XfRtQeBtFxU4HkhdLXc+UABB/yN6xUHzqwt
-	cKSr05bAsbhKNwzdzKRDeQ5BV8Ngv68NcgdNqB+9nlwVnYoKSiONqjCZyLRjdDU=
+        d=1e100.net; s=20230601; t=1715105773; x=1715710573;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=FtF0ji+6sky/klPDr1qbiHk0/IYbyBDqkgtl3xUgr1E=;
+        b=uBgKH3SPUpleVlmOaeFMLvibtVdcR6gyEXfhaRlz9Ky0qLZdMQhvfZqumFOEmDdejn
+         o2Lc2TNzghlUob8Z8+n/u0vVW/Eln6C/9j3+bUfQy54+qgHw4kQI6OlgbS6XAzKMBtJk
+         +IFJB/859S5SftzvH+qFHV3peID8WBumteffbJ08C3wEzZesrG2lmiYi5LF4Q1XBATjO
+         XkgIRzir4B3v0xTyngxU2QO1hikLqbkFTVgI/8ngY7KKlQkpPxlpwHT3kYB7oncsT+pX
+         hfOyCk9o0Me4AB8t+i955tNSv6KDF+fGfIJ4MvdLThZ4d20AZVILSH489Er0niCgKttU
+         7mwA==
+X-Gm-Message-State: AOJu0YzpdAKWb9f/W5Ff9Oht4+sF1A+mF6zY6NbD24CL6hNMthSAjJFb
+	X8QVOBexKr3pY76PngbQ5X1O9pjhDN8sn6/28GMZWE9otM3zP8wCJfWNmFp7FBc=
 X-Google-Smtp-Source: 
- AGHT+IGqQGhRcCdpz1oNkC71DfaAcJyX6V8oR2QBO2ftNr4lnVvUu68bKc6YICcBN4y8APlxouEmKA==
-X-Received: by 2002:a50:c319:0:b0:570:5b3d:91f with SMTP id
- 4fb4d7f45d1cf-5731d9db2d1mr347441a12.23.1715105752469;
-        Tue, 07 May 2024 11:15:52 -0700 (PDT)
+ AGHT+IEaffYJmtcSK9ATh0btRVS69w4HbbXHVxQX/eRQ4nldlJt0OgzferuLRuqtQg0E9ut8Lg5j2w==
+X-Received: by 2002:ac2:4c0b:0:b0:51f:5d1a:7838 with SMTP id
+ 2adb3069b0e04-5217c566a27mr187547e87.25.1715105772565;
+        Tue, 07 May 2024 11:16:12 -0700 (PDT)
 Received: from [192.168.1.20] ([178.197.206.169])
         by smtp.gmail.com with ESMTPSA id
- n15-20020a05640206cf00b00572b029ca57sm6499357edy.25.2024.05.07.11.15.51
+ a26-20020a50ff1a000000b005728a272753sm6516812edu.67.2024.05.07.11.16.10
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 07 May 2024 11:15:52 -0700 (PDT)
-Message-ID: <c9462148-2131-4660-9f65-b53f22979387@linaro.org>
-Date: Tue, 7 May 2024 20:15:49 +0200
+        Tue, 07 May 2024 11:16:11 -0700 (PDT)
+Message-ID: <cd26593f-31bc-4a1d-abd9-2fbf3539b030@linaro.org>
+Date: Tue, 7 May 2024 20:16:09 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] ASoC: qcom: x1e80100: Correct channel mapping
+Subject: Re: [PATCH 2/4] ASoC: qcom: q6dsp: Implement proper channel mapping
+ in Audioreach
 To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
  James Schulman <james.schulman@cirrus.com>,
  David Rhodes <david.rhodes@cirrus.com>,
@@ -104,10 +105,10 @@ Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
  linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
 References: 
  <20240507-asoc-x1e80100-4-channel-mapping-v1-0-b12c13e0a55d@linaro.org>
- <20240507-asoc-x1e80100-4-channel-mapping-v1-4-b12c13e0a55d@linaro.org>
- <738045d2-a445-4f93-abfd-203348a538d1@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+ <20240507-asoc-x1e80100-4-channel-mapping-v1-2-b12c13e0a55d@linaro.org>
+ <89cf75d8-1f85-43d8-9c33-377a04b36121@linaro.org>
 Content-Language: en-US
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
  cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
@@ -152,11 +153,11 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
  fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
  D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <738045d2-a445-4f93-abfd-203348a538d1@linaro.org>
+In-Reply-To: <89cf75d8-1f85-43d8-9c33-377a04b36121@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: LUR7XZT4UMDZFODWM2ZLQKVNBASDTGN2
-X-Message-ID-Hash: LUR7XZT4UMDZFODWM2ZLQKVNBASDTGN2
+Message-ID-Hash: A6XJAAJBHF4EM2NOEKP5DHHKHTUL3NPP
+X-Message-ID-Hash: A6XJAAJBHF4EM2NOEKP5DHHKHTUL3NPP
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -169,7 +170,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LUR7XZT4UMDZFODWM2ZLQKVNBASDTGN2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/A6XJAAJBHF4EM2NOEKP5DHHKHTUL3NPP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -178,75 +179,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 07/05/2024 15:20, Srinivas Kandagatla wrote:
-> Thanks Krzystof for the patch.
+On 07/05/2024 15:25, Srinivas Kandagatla wrote:
+> 
 > 
 > On 07/05/2024 11:27, Krzysztof Kozlowski wrote:
->> X1E80100 CRD board comes with four speakers arranged as left front+back
->> and then right front+back.  Using default channel mapping causes front
->> right speaker to play left back stream.
+>> Instead of relying on default channel mapping in all Audioreach
+>> platforms, implement set_channel_map() callback to allow sound cards
+>> customize the mapping depending on needs.
 >>
->> Adjust the channel maps for frontend DAIs to fix stereo and four-channel
->> playback.
+>> The channel mapping is set on frontend DAIs coming from the topology,
+>> not DTS, thus need to add DAI ops in topology dai_load() callback.
 >>
 >> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 >> ---
->>   sound/soc/qcom/x1e80100.c | 37 +++++++++++++++++++++++++++++++++++--
->>   1 file changed, 35 insertions(+), 2 deletions(-)
->>
->> diff --git a/sound/soc/qcom/x1e80100.c b/sound/soc/qcom/x1e80100.c
->> index c3c8bf7ffb5b..e90c68815b5c 100644
->> --- a/sound/soc/qcom/x1e80100.c
->> +++ b/sound/soc/qcom/x1e80100.c
->> @@ -12,6 +12,7 @@
->>   
->>   #include "common.h"
->>   #include "qdsp6/q6afe.h"
->> +#include "qdsp6/q6dsp-common.h"
->>   #include "sdw.h"
->>   
->>   struct x1e80100_snd_data {
->> @@ -74,7 +75,7 @@ static int x1e80100_snd_hw_params(struct snd_pcm_substream *substream,
->>   	return qcom_snd_sdw_hw_params(substream, params, &data->sruntime[cpu_dai->id]);
->>   }
->>   
->> -static int x1e80100_snd_prepare(struct snd_pcm_substream *substream)
->> +static int x1e80100_snd_be_prepare(struct snd_pcm_substream *substream)
->>   {
->>   	struct snd_soc_pcm_runtime *rtd = substream->private_data;
->>   	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
->> @@ -96,12 +97,34 @@ static int x1e80100_snd_hw_free(struct snd_pcm_substream *substream)
->>   				    &data->stream_prepared[cpu_dai->id]);
->>   }
->>   
->> +static int x1e80100_snd_fe_prepare(struct snd_pcm_substream *substream)
->> +{
->> +	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
->> +	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
->> +
->> +	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
->> +		const unsigned int rx_slot[4] = { PCM_CHANNEL_FL,
->> +						  PCM_CHANNEL_LB,
->> +						  PCM_CHANNEL_FR,
->> +						  PCM_CHANNEL_RB };
->> +
->> +		snd_soc_dai_set_channel_map(cpu_dai, 0, NULL, ARRAY_SIZE(rx_slot),
->> +					    rx_slot);
+>>   sound/soc/qcom/qdsp6/audioreach.c |  2 +-
+>>   sound/soc/qcom/qdsp6/audioreach.h |  1 +
+>>   sound/soc/qcom/qdsp6/q6apm.c      | 28 +++++++++++++++++++++++++++-
+>>   sound/soc/qcom/qdsp6/q6apm.h      |  8 ++++++++
+>>   sound/soc/qcom/qdsp6/topology.c   | 12 ++++++++++++
+>>   5 files changed, 49 insertions(+), 2 deletions(-)
+> Please use the existing q6dma_set_channel_map() and set the channel map 
+> for the backend dai from machine driver, this should work.
 > 
-> Channel mapping are specific to backend dais rather than front end pcm dais.
+> setting channels on FE is not a scalable one.
 > 
-> This will set all the playback pcms with this channel maps, which is a 
-> problem.
+> Please take a look at some of the patches that I shared privately.
 > 
-> example the 2 channel headset we will endup with data of front channel 
-> and zeros on the right channel, however a speaker might work as you have 
-> 4 speakers in your system.
-> 
-> 
-> So No for this approach.
 
-OK, I'll go with setting channels for MFC (and expecting MFC being part
-of backend).
+Ack
 
 Best regards,
 Krzysztof

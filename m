@@ -2,82 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 353A18BE65C
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 May 2024 16:47:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7FBD8BE664
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 May 2024 16:48:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CC58B845;
-	Tue,  7 May 2024 16:47:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC58B845
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4BBEA845;
+	Tue,  7 May 2024 16:48:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4BBEA845
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1715093245;
-	bh=N0nCKnQCByT3IK3m7wyeGknqiLgIC3cuB/Cu7ARwNXk=;
+	s=default; t=1715093336;
+	bh=rh9ZHphu6xhB7OxL8asZBjORtt/B3YfKbGwrlZBc6cc=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=lF79t+UzRYoyqci0l+IfXXkJaQwCydJq4UhWdCHhAsiiHjNXD4w+U3CWTRBbFrXso
-	 rn8QXUk5WAdwfTMitQItlwj7EgKgydm1x7ZD9hLtxUGJVL8KA3k51injuWXW8sAgMU
-	 NIG6nIcjgLRldZd+dZG7/4Omg/3YixWkbLM2n+cM=
+	b=AUUh3bej6bHJgl4Xd8V4ZVkxPDFDE6gPyGGkaAoXKv3DQ/jVzqgYgx0DNk25qLKnA
+	 +m0fW73clr5Ana45FDuxI0k6mCcxV+zS2Y4blYUyPOthUzY36B8RtZehcqxvkrWcJb
+	 UImWejaTIEqKuB+4wJINBw8FYciXLciIbhwtYyX4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B597CF805A8; Tue,  7 May 2024 16:46:53 +0200 (CEST)
+	id 4E670F805D2; Tue,  7 May 2024 16:48:08 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 43675F8059F;
-	Tue,  7 May 2024 16:46:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AF116F805D4;
+	Tue,  7 May 2024 16:48:07 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D5E58F80423; Tue,  7 May 2024 16:40:25 +0200 (CEST)
+	id 5537DF804F2; Tue,  7 May 2024 16:41:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
-	SPF_HELO_NONE shortcircuit=no autolearn=unavailable autolearn_force=no
+X-Spam-Status: No, score=-5.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=unavailable autolearn_force=no
 	version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 56ADCF80423
-	for <alsa-devel@alsa-project.org>; Tue,  7 May 2024 16:35:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56ADCF80423
+	by alsa1.perex.cz (Postfix) with ESMTPS id C3820F8049C
+	for <alsa-devel@alsa-project.org>; Tue,  7 May 2024 16:35:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3820F8049C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=aPqSizRO
+ header.s=k20201202 header.b=UBu4+3nW
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 66CDE6179D;
+	by sin.source.kernel.org (Postfix) with ESMTP id 05D61CE139E;
+	Tue,  7 May 2024 14:35:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7556C4DDE3;
 	Tue,  7 May 2024 14:35:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37C8DC4DDE2;
-	Tue,  7 May 2024 14:35:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1715092505;
-	bh=N0nCKnQCByT3IK3m7wyeGknqiLgIC3cuB/Cu7ARwNXk=;
+	s=k20201202; t=1715092507;
+	bh=rh9ZHphu6xhB7OxL8asZBjORtt/B3YfKbGwrlZBc6cc=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=aPqSizROc6nkC1M30JjjYa4TqcuN2LVFmDCEX1yiBaD4A67donhVsuOX9Ts5WoG3v
-	 W7M1GDOTWsOl0Bufm3yPAxx/uyA+mDq9vY5n37fGNLecNUa6gaXx4VBEN7YCBbahCG
-	 Njp9f9QREQYHjfJmdBJw16zMIroiBGhcw7e8bg8ysTCzgsgqnILvLaAi9LnOvR6e+x
-	 5aC0qnj4STAmYHg+/nHDJKCeOfrAvZNJCIfBluGe6zFo1PqLTpQliUBvK3T308ncrg
-	 wqERY3tSpi/Q5NktzUyTtltwJYK8JrQac3n8CNEbTXAtzWS9nd7i9Q3jVJxFImCOyL
-	 7QpsuHopMIsDw==
+	b=UBu4+3nWgiamZFHlRcnS2ATFNkDtDSETJcVAzEKOqIElti2qiwitwR8zvQEstP4Fw
+	 DNPyQYbn+3m8DsBVBGGwCI06hLccmeCOhAUPQp+GdN/c60ctVDpHg54fVloDzVP3b9
+	 O3wvE3KwR18gti9jOzw8ekjIrYoumbsXZbhAruI3BNFJkHMpLGW/rVbvG4QMIJAKLU
+	 6C715L9YLPpBy5g+3dRM3RvldQ8pZYld9AdD9i4UWfqAkWeaKQ7BPKAOj408OV90kp
+	 D82JKoThpkkeS7WwA0DTh9hirQrPfWVSTfLMIZKDvh6l36/4q5H0CqtJb86oUBoruU
+	 CMFaNDr1ZzegQ==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org,
- Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: Jaroslav Kysela <perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org,
- patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.com>
-In-Reply-To: <20240430115438.29134-1-wsa+renesas@sang-engineering.com>
-References: <20240430115438.29134-1-wsa+renesas@sang-engineering.com>
-Subject: Re: [PATCH 0/4] ASoC: use 'time_left' instead of 'timeout' with
- wait_for_*() functions
-Message-Id: <171509250290.1985791.3642675927789530835.b4-ty@kernel.org>
-Date: Tue, 07 May 2024 23:35:02 +0900
+To: =?utf-8?q?Amadeusz_S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
+ alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+ =?utf-8?q?=C5=81ukasz_Majczak?= <lma@chromium.org>
+In-Reply-To: <20240506121106.3792340-1-amadeuszx.slawinski@linux.intel.com>
+References: <20240506121106.3792340-1-amadeuszx.slawinski@linux.intel.com>
+Subject: Re: [PATCH v2] ASoC: Intel: avs: boards: Properly name input
+ device
+Message-Id: <171509250547.1985791.9610168876081651324.b4-ty@kernel.org>
+Date: Tue, 07 May 2024 23:35:05 +0900
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.14-dev
-Message-ID-Hash: RYZZKPYF37GJ6QN7G4VYUJAHLFIBUEYZ
-X-Message-ID-Hash: RYZZKPYF37GJ6QN7G4VYUJAHLFIBUEYZ
+Message-ID-Hash: V4XMI2G26EXKHLUFWEBNVCGO7FACKAMZ
+X-Message-ID-Hash: V4XMI2G26EXKHLUFWEBNVCGO7FACKAMZ
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -90,7 +90,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RYZZKPYF37GJ6QN7G4VYUJAHLFIBUEYZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/V4XMI2G26EXKHLUFWEBNVCGO7FACKAMZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,17 +99,11 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 30 Apr 2024 13:54:33 +0200, Wolfram Sang wrote:
-> There is a confusing pattern in the kernel to use a variable named 'timeout' to
-> store the result of wait_for_*() functions causing patterns like:
+On Mon, 06 May 2024 14:11:06 +0200, Amadeusz Sławiński wrote:
+> Machine boards expose input device for use with userspace. Current name
+> in some cases is incorrect, fix it.
 > 
->         timeout = wait_for_completion_timeout(...)
->         if (!timeout) return -ETIMEDOUT;
 > 
-> with all kinds of permutations. Use 'time_left' as a variable to make the code
-> obvious and self explaining.
-> 
-> [...]
 
 Applied to
 
@@ -117,14 +111,8 @@ Applied to
 
 Thanks!
 
-[1/4] ASoC: codecs: wm8962: use 'time_left' variable with wait_for_completion_timeout()
-      commit: cfcd957e63506273dc54f34b320172c8709244c7
-[2/4] ASoC: codecs: wm8993: use 'time_left' variable with wait_for_completion_timeout()
-      commit: 0800660d8c59539b628f5a6646bb63091d58152f
-[3/4] ASoC: codecs: wm8994: use 'time_left' variable with wait_for_completion_timeout()
-      commit: 19c70b4668306632d3cbbecdf5fea98b528e873e
-[4/4] ASoC: codecs: wm8996: use 'time_left' variable with wait_for_completion_timeout()
-      commit: 4e1f953a4a447b5e001655b453505c4c15904c61
+[1/1] ASoC: Intel: avs: boards: Properly name input device
+      commit: 6490bec6d5bf1001032c5efea94bdf5b5104bce9
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

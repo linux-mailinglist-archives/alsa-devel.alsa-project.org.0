@@ -2,92 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 633078BF0D7
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 May 2024 01:12:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1805F8BF0ED
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 May 2024 01:13:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 94442843;
-	Wed,  8 May 2024 01:11:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 94442843
+	by alsa0.perex.cz (Postfix) with ESMTPS id A3034868;
+	Wed,  8 May 2024 01:13:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A3034868
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1715123519;
-	bh=sAAr9VYn+hvAOzBBZthjzXP3fDcDZfnu5BuEBB9blKo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=BzkQL0GIQl85NDFkpEOFtpNFlZfHZmUijX4mFBDQY3coreO4QfZ6OLf+TcBOeDgvQ
-	 zg3hWeIBgbLbNAzaqHnohD2jIWj9iT2A4Zfv9DZHeixzCIQL3zg8eQhRACyFhOOpau
-	 IFhSLKTVAcflzCAkctw0Ezq0cY4HLQsTYXPtDSWg=
+	s=default; t=1715123606;
+	bh=2kCkh82klDP0f8uMDqaHZ42FLcI8MjQ45oHOgzAbXCY=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=V2PAZPS+IT2uHcjmIIr0ZQ1TOkJBLG0nkMpdqOaMZv0Qhn2FroNV5Fr33SPWJyuH3
+	 /uHykF4gy/34wE7gaa3X3G5xCD/1+ojv3KzyPvPpf+9MNaaDkS9sv39UzBklyBczgD
+	 vKYUvkD4Ss0C+B9aJGEKhJPzVgpP1iw70mJSNLv4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EF55CF805FF; Wed,  8 May 2024 01:11:06 +0200 (CEST)
+	id E93E0F8058C; Wed,  8 May 2024 01:12:55 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 664C2F805FC;
-	Wed,  8 May 2024 01:11:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E851BF800E2;
+	Wed,  8 May 2024 01:12:54 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 30999F8057B; Wed,  8 May 2024 01:11:02 +0200 (CEST)
+	id 2740FF80423; Wed,  8 May 2024 01:12:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 51F11F80563
-	for <alsa-devel@alsa-project.org>; Wed,  8 May 2024 01:10:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51F11F80563
+	by alsa1.perex.cz (Postfix) with ESMTPS id 07792F800E2
+	for <alsa-devel@alsa-project.org>; Wed,  8 May 2024 01:12:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07792F800E2
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=hPxhBsxF
+ header.s=k20201202 header.b=lF/1Y1Oj
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 84D3ACE174D;
-	Tue,  7 May 2024 23:10:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5ACD9C4AF17;
-	Tue,  7 May 2024 23:10:54 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id DD8E861985;
+	Tue,  7 May 2024 23:12:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4778C2BBFC;
+	Tue,  7 May 2024 23:12:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1715123455;
-	bh=sAAr9VYn+hvAOzBBZthjzXP3fDcDZfnu5BuEBB9blKo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=hPxhBsxFUAjNyDVILyASJ2Zh7QUDm9FKMj2Y8lFQCawg+ZqF2B7uIQqTPgjRm7YBt
-	 WmGlJaKPuwXXnN9rdXBTelxvj4vGpd6P3mZkIYpBa4G8Wkwmbjhqo8FdyYvWpISpaS
-	 nM+J/qFm+OrR+mRnkS9+7/6uMbZOms4fmJHf9IcYnkzBWYTjIZW9OBY37uBMqc1NDy
-	 aBRxXJ14HcPYwFSV61vxqX/UTP6v4NFJ9sSp/cALtZlk3LSp81K77vBx4dApUaaQaG
-	 63GtYANT/6Sj2daBgHCS7Riv+vc1czFplXov8JRUihbWo0JpiIggvkPsg9fiCmgWKx
-	 pqWPYqPscE6bA==
+	s=k20201202; t=1715123554;
+	bh=2kCkh82klDP0f8uMDqaHZ42FLcI8MjQ45oHOgzAbXCY=;
+	h=From:To:Cc:Subject:Date:From;
+	b=lF/1Y1OjWglN7fv81DLrzNeJVdvdYIWTqBEZO0TDv2QKABptNVdIi1Hv8EpG+bxYx
+	 5TQ6qbCRD3p7sSs1ZPhKDFb5DnYuGSDTc2JFYaaGEq6fINNe3upnnSlcu4TQhbcr8u
+	 AdjwnUPFxaN8F/Ji2195DjUSA9aaWrcraQlQG0ukt7WA2CQ15bLkC4oJxSSYIy4CSk
+	 QOyDMS/baP7ME8HybBnRDYNHAskWlowWvBs20DbA2IHq+ll96bS00nWWDVO6/5EIYr
+	 mfslqoGiN12nKuv05IvTXTCm6ExNNuzDRo1Xx5Yd0GLJ/WRGfP865DjZi86X13j8qA
+	 nuDtdz2jZU34Q==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Stefan Binding <sbinding@opensource.cirrus.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
+Cc: Hans de Goede <hdegoede@redhat.com>,
 	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	james.schulman@cirrus.com,
-	david.rhodes@cirrus.com,
-	lgirdwood@gmail.com,
+	cezary.rojewski@intel.com,
+	pierre-louis.bossart@linux.intel.com,
+	liam.r.girdwood@linux.intel.com,
+	peter.ujfalusi@linux.intel.com,
+	yung-chuan.liao@linux.intel.com,
+	ranjani.sridharan@linux.intel.com,
+	kai.vehmanen@linux.intel.com,
 	perex@perex.cz,
 	tiwai@suse.com,
+	alban.boye@protonmail.com,
+	kuninori.morimoto.gx@renesas.com,
 	alsa-devel@alsa-project.org,
-	patches@opensource.cirrus.com,
 	linux-sound@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.6 12/43] ASoC: cs35l41: Update DSP1RX5/6 Sources for
- DSP config
-Date: Tue,  7 May 2024 19:09:33 -0400
-Message-ID: <20240507231033.393285-12-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.1 01/25] ASoC: Intel: bytcr_rt5640: Apply Asus
+ T100TA quirk to Asus T100TAM too
+Date: Tue,  7 May 2024 19:11:48 -0400
+Message-ID: <20240507231231.394219-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240507231033.393285-1-sashal@kernel.org>
-References: <20240507231033.393285-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.6.30
+X-stable-base: Linux 6.1.90
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 6NWDO6OE6YKRI4FMLXUJK4LN53GJ5WLL
-X-Message-ID-Hash: 6NWDO6OE6YKRI4FMLXUJK4LN53GJ5WLL
+Message-ID-Hash: LOK7CW4O37NK6FLNG5KNHGZW7SQMJPP2
+X-Message-ID-Hash: LOK7CW4O37NK6FLNG5KNHGZW7SQMJPP2
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -100,7 +100,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6NWDO6OE6YKRI4FMLXUJK4LN53GJ5WLL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LOK7CW4O37NK6FLNG5KNHGZW7SQMJPP2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,75 +109,68 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Stefan Binding <sbinding@opensource.cirrus.com>
+From: Hans de Goede <hdegoede@redhat.com>
 
-[ Upstream commit eefb831d2e4dd58d58002a2ef75ff989e073230d ]
+[ Upstream commit e50729d742ec364895f1c389c32315984a987aa5 ]
 
-Currently, all ASoC systems are set to use VPMON for DSP1RX5_SRC,
-however, this is required only for internal boost systems.
-External boost systems require VBSTMON instead of VPMON to be the
-input to DSP1RX5_SRC.
-Shared Boost Active acts like Internal boost (requires VPMON).
-Shared Boost Passive acts like External boost (requires VBSTMON)
-All systems require DSP1RX6_SRC to be set to VBSTMON.
+The Asus T100TA quirk has been using an exact match on a product-name of
+"T100TA" but there are also T100TAM variants with a slightly higher
+clocked CPU and a metal backside which need the same quirk.
 
-Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
-Reviewed-by: Richard Fitzgerald <rf@opensource.cirrus.com>
-Link: https://msgid.link/r/20240411142648.650921-1-sbinding@opensource.cirrus.com
+Sort the existing T100TA (stereo speakers) below the more specific
+T100TAF (mono speaker) quirk and switch from exact matching to
+substring matching so that the T100TA quirk will also match on
+the T100TAM models.
+
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+Link: https://msgid.link/r/20240407191559.21596-1-hdegoede@redhat.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/cs35l41.c | 26 ++++++++++++++++++++------
- 1 file changed, 20 insertions(+), 6 deletions(-)
+ sound/soc/intel/boards/bytcr_rt5640.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/sound/soc/codecs/cs35l41.c b/sound/soc/codecs/cs35l41.c
-index 5456e6bfa242f..bc541293089f0 100644
---- a/sound/soc/codecs/cs35l41.c
-+++ b/sound/soc/codecs/cs35l41.c
-@@ -1095,6 +1095,7 @@ static int cs35l41_handle_pdata(struct device *dev, struct cs35l41_hw_cfg *hw_cf
- static int cs35l41_dsp_init(struct cs35l41_private *cs35l41)
- {
- 	struct wm_adsp *dsp;
-+	uint32_t dsp1rx5_src;
- 	int ret;
- 
- 	dsp = &cs35l41->dsp;
-@@ -1114,16 +1115,29 @@ static int cs35l41_dsp_init(struct cs35l41_private *cs35l41)
- 		return ret;
- 	}
- 
--	ret = regmap_write(cs35l41->regmap, CS35L41_DSP1_RX5_SRC,
--			   CS35L41_INPUT_SRC_VPMON);
-+	switch (cs35l41->hw_cfg.bst_type) {
-+	case CS35L41_INT_BOOST:
-+	case CS35L41_SHD_BOOST_ACTV:
-+		dsp1rx5_src = CS35L41_INPUT_SRC_VPMON;
-+		break;
-+	case CS35L41_EXT_BOOST:
-+	case CS35L41_SHD_BOOST_PASS:
-+		dsp1rx5_src = CS35L41_INPUT_SRC_VBSTMON;
-+		break;
-+	default:
-+		dev_err(cs35l41->dev, "wm_halo_init failed - Invalid Boost Type: %d\n",
-+			cs35l41->hw_cfg.bst_type);
-+		goto err_dsp;
-+	}
-+
-+	ret = regmap_write(cs35l41->regmap, CS35L41_DSP1_RX5_SRC, dsp1rx5_src);
- 	if (ret < 0) {
--		dev_err(cs35l41->dev, "Write INPUT_SRC_VPMON failed: %d\n", ret);
-+		dev_err(cs35l41->dev, "Write DSP1RX5_SRC: %d failed: %d\n", dsp1rx5_src, ret);
- 		goto err_dsp;
- 	}
--	ret = regmap_write(cs35l41->regmap, CS35L41_DSP1_RX6_SRC,
--			   CS35L41_INPUT_SRC_CLASSH);
-+	ret = regmap_write(cs35l41->regmap, CS35L41_DSP1_RX6_SRC, CS35L41_INPUT_SRC_VBSTMON);
- 	if (ret < 0) {
--		dev_err(cs35l41->dev, "Write INPUT_SRC_CLASSH failed: %d\n", ret);
-+		dev_err(cs35l41->dev, "Write CS35L41_INPUT_SRC_VBSTMON failed: %d\n", ret);
- 		goto err_dsp;
- 	}
- 	ret = regmap_write(cs35l41->regmap, CS35L41_DSP1_RX7_SRC,
+diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
+index 094445036c20f..d6ef8e850412b 100644
+--- a/sound/soc/intel/boards/bytcr_rt5640.c
++++ b/sound/soc/intel/boards/bytcr_rt5640.c
+@@ -636,28 +636,30 @@ static const struct dmi_system_id byt_rt5640_quirk_table[] = {
+ 					BYT_RT5640_USE_AMCR0F28),
+ 	},
+ 	{
++		/* Asus T100TAF, unlike other T100TA* models this one has a mono speaker */
+ 		.matches = {
+ 			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
+-			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "T100TA"),
++			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "T100TAF"),
+ 		},
+ 		.driver_data = (void *)(BYT_RT5640_IN1_MAP |
+ 					BYT_RT5640_JD_SRC_JD2_IN4N |
+ 					BYT_RT5640_OVCD_TH_2000UA |
+ 					BYT_RT5640_OVCD_SF_0P75 |
++					BYT_RT5640_MONO_SPEAKER |
++					BYT_RT5640_DIFF_MIC |
++					BYT_RT5640_SSP0_AIF2 |
+ 					BYT_RT5640_MCLK_EN),
+ 	},
+ 	{
++		/* Asus T100TA and T100TAM, must come after T100TAF (mono spk) match */
+ 		.matches = {
+-			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
+-			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "T100TAF"),
++			DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
++			DMI_MATCH(DMI_PRODUCT_NAME, "T100TA"),
+ 		},
+ 		.driver_data = (void *)(BYT_RT5640_IN1_MAP |
+ 					BYT_RT5640_JD_SRC_JD2_IN4N |
+ 					BYT_RT5640_OVCD_TH_2000UA |
+ 					BYT_RT5640_OVCD_SF_0P75 |
+-					BYT_RT5640_MONO_SPEAKER |
+-					BYT_RT5640_DIFF_MIC |
+-					BYT_RT5640_SSP0_AIF2 |
+ 					BYT_RT5640_MCLK_EN),
+ 	},
+ 	{
 -- 
 2.43.0
 

@@ -2,122 +2,162 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B14528BF7F3
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 May 2024 10:03:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B21F78BF7F8
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 May 2024 10:04:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F1341E0F;
-	Wed,  8 May 2024 10:03:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F1341E0F
+	by alsa0.perex.cz (Postfix) with ESMTPS id DBA56868;
+	Wed,  8 May 2024 10:04:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DBA56868
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1715155396;
-	bh=iLf9Ouu1QPRwGrPweRhD0n9EL/v/ovbHy4unzhJAu4w=;
+	s=default; t=1715155483;
+	bh=jwC9M5BWq2vxWcPd0WqZZUFo5bYUj4aAuO4f1WiU67U=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=GSUPuMDz9LuWzYe4t2wdmBY5mFgZhrkTJ0B64J0zNedhTyoFSYOKgIrduI8UYUvVD
-	 0ISd+EcEm1cOXiCxhW59A0yyo93wYn88AWi8mBj3WUHl2wWx4v/iAOBXWJ5odnBHJs
-	 StHUtG8cc6GePwP2RoD0d9TlZgyDs2YE9ycZQoLk=
+	b=NvvxReWNNzMoSDJjEEuDXOIHx8+pxPgRmErivJlpdf4lAPNRq5joD7kVIgBJoE4fg
+	 1vBZsf98ia16rOB2FUaWG0eV8dX+S/5iTXmhl3UE3N2HE24X+C0l8pHgjrfwO7UbPs
+	 b6wVx0vwSJRX+xMQz09vPmlvuGXjJRUBoVCkRm0c=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D02D7F805B0; Wed,  8 May 2024 10:02:34 +0200 (CEST)
+	id 64030F805A8; Wed,  8 May 2024 10:04:07 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C1EC7F805B3;
-	Wed,  8 May 2024 10:02:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2D668F80564;
+	Wed,  8 May 2024 10:04:07 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AEE2DF8049C; Wed,  8 May 2024 10:01:26 +0200 (CEST)
+	id C0039F8049C; Wed,  8 May 2024 10:04:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No,
- score=-4.8 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [IPv6:2a00:1450:4864:20::62f])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4FB02F8024C
-	for <alsa-devel@alsa-project.org>; Wed,  8 May 2024 10:01:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4FB02F8024C
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 77BC3CE17F8;
-	Wed,  8 May 2024 08:01:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94F6BC113CC;
-	Wed,  8 May 2024 08:01:00 +0000 (UTC)
-Message-ID: <22d94c69-7e9f-4aba-ae71-50cc2e5dd8ab@xs4all.nl>
-Date: Wed, 8 May 2024 10:00:59 +0200
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7C4F6F8024C
+	for <alsa-devel@alsa-project.org>; Wed,  8 May 2024 10:03:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7C4F6F8024C
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=dnDPnAdM
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-a59a5f81af4so1048177766b.3
+        for <alsa-devel@alsa-project.org>;
+ Wed, 08 May 2024 01:03:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1715155429; x=1715760229;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=eu4SeCR/kEFNVAoI9TGLUZ5URLmJpaE5X6aXPMjBCyk=;
+        b=dnDPnAdMmwAlUkbP0QcqlwADvruc90Rt1BIJT65K2cMf9KIvhKZYIrEFOlwxc7cxBA
+         1iUmwj8Kh9aLA7DEV4QXAxxfmNE7VJfQONlEpbCNlx59AsXzir4igXlf+fvmok/m9281
+         BqhHEmTvbSqKEmCwJ1M0VB7vXq/IWiDswOVoEA1H0utYRYGJejeHlQ45XiMeEdFDEWla
+         t7GnAYKxHkvbgHXewtAhMv28Rtf6wmi6wQauuP4EOYP8L7fvAr+D1PaVX3lfrTEzNIeN
+         mM9qNeY9oaAyvwZCXPG2kjL+9ATqXj0oY+FSAciyp9toXbXKNcav7g5j4grPERvFlhbc
+         9g8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1715155429; x=1715760229;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=eu4SeCR/kEFNVAoI9TGLUZ5URLmJpaE5X6aXPMjBCyk=;
+        b=qQllGaw9L/WZh6pnR2KRwconAH1VlCT7vf7WekZtxezFlk5r6q07AX3oPxDPOQY9yj
+         mVRgPAjEXJKyE9EEsQYLdWYEoHc/rkFFuBGDoTfk6+TgJ9RSiM/LHhEOFIGY03UBPfrT
+         QXaO9as+B4YeCi6fIRaYwH+bSpBn/tU63NxOFd1d6RT12VbmgnbLCzwYmLp6SyDdqcsH
+         VnrWWFCMEp2cbtYIG7X3ijkM2Uk8ifydiqYu5evQOQCck8QwP8HZ6VbOuSg+bE5Tqykt
+         C1fbyIGm2CJxae9iQdAyIp/q+MPqz5iWdWh1F7nNnXvgpmyj9A4CjemwUBZ5Ct5vHtS1
+         9fCw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUYX7n+VBGZpVMUcwo/gNnKYqrV9H3+W+8sNzFZaS9Chpb08TbbF11jnhg5eOUUj89o6Db9W4IywpVKfFAYdBRXjzTgET8UM/8ZGA4=
+X-Gm-Message-State: AOJu0Yx0zvH5jtYOptO9R1gifiUO9ELa5vMmdihv9uL3oroMVz4e/lGV
+	de6xexTFd4fvfUX2VLyAfWux7HgohKRajljmejA9YLb6gSYnKzrJsnnc+a7eMTU=
+X-Google-Smtp-Source: 
+ AGHT+IHwFPyHnACE6OWnp5/5Gpo7kWNOw0G/J9KE5f4I8SUilDWBJu0uFLQdxEQ7R+clkHHUXEibKQ==
+X-Received: by 2002:a17:906:1957:b0:a59:a977:a157 with SMTP id
+ a640c23a62f3a-a59fb9f209dmr116411466b.73.1715155428636;
+        Wed, 08 May 2024 01:03:48 -0700 (PDT)
+Received: from [192.168.1.20] ([178.197.206.169])
+        by smtp.gmail.com with ESMTPSA id
+ fw14-20020a170906c94e00b00a59bf41edbesm4378311ejb.146.2024.05.08.01.03.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 08 May 2024 01:03:47 -0700 (PDT)
+Message-ID: <0e7496c4-7dfc-404d-944c-a1869389722b@linaro.org>
+Date: Wed, 8 May 2024 10:03:46 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v15 00/16] Add audio support in v4l2 framework
-Content-Language: en-US, nl
-To: Shengjiu Wang <shengjiu.wang@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.de>,
- Sebastian Fricke <sebastian.fricke@collabora.com>,
- Shengjiu Wang <shengjiu.wang@nxp.com>, sakari.ailus@iki.fi,
- tfiga@chromium.org, m.szyprowski@samsung.com, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org, Xiubo.Lee@gmail.com, festevam@gmail.com,
- nicoleotsuka@gmail.com, lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
- alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org
-References: <1710834674-3285-1-git-send-email-shengjiu.wang@nxp.com>
- <20240430082112.jrovosb6lgblgpfg@basti-XPS-13-9310>
- <ZjEEKyvb02CWz3l4@finisterre.sirena.org.uk> <20240430172752.20ffcd56@sal.lan>
- <ZjGhPz-bokg6ZbDJ@finisterre.sirena.org.uk> <87sez0k661.wl-tiwai@suse.de>
- <20240502095956.0a8c5b26@sal.lan> <20240502102643.4ee7f6c2@sal.lan>
- <ZjRCJ2ZcmKOIo7_p@finisterre.sirena.org.uk> <20240503094225.47fe4836@sal.lan>
- <CAA+D8APfM3ayXHAPadHLty52PYE9soQM6o780=mZs+R4px-AOQ@mail.gmail.com>
-From: Hans Verkuil <hverkuil@xs4all.nl>
-Autocrypt: addr=hverkuil@xs4all.nl; keydata=
- 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
-In-Reply-To: 
- <CAA+D8APfM3ayXHAPadHLty52PYE9soQM6o780=mZs+R4px-AOQ@mail.gmail.com>
+Subject: Re: [PATCH v3 1/2] ASoC: dt-bindings: Add bindings for Cadence I2S-MC
+ controller
+To: Xingyu Wu <xingyu.wu@starfivetech.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Claudiu Beznea <Claudiu.Beznea@microchip.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor.dooley@microchip.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-sound@vger.kernel.org
+References: <20240508070406.286159-1-xingyu.wu@starfivetech.com>
+ <20240508070406.286159-2-xingyu.wu@starfivetech.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Content-Language: en-US
+Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
+ 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
+ D2GYIS41Kv4Isx2dEFh+/Q==
+In-Reply-To: <20240508070406.286159-2-xingyu.wu@starfivetech.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: BN774JT2WMQ6IHNW3IV3PHZ3PIND3GLF
-X-Message-ID-Hash: BN774JT2WMQ6IHNW3IV3PHZ3PIND3GLF
-X-MailFrom: SRS0=unKQ=ML=xs4all.nl=hverkuil@kernel.org
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: MSS7BTBE2C6QE3H5GYHD44RRCQ73MLTQ
+X-Message-ID-Hash: MSS7BTBE2C6QE3H5GYHD44RRCQ73MLTQ
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -129,7 +169,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BN774JT2WMQ6IHNW3IV3PHZ3PIND3GLF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MSS7BTBE2C6QE3H5GYHD44RRCQ73MLTQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -138,108 +178,52 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 06/05/2024 10:49, Shengjiu Wang wrote:
-> On Fri, May 3, 2024 at 4:42 PM Mauro Carvalho Chehab <mchehab@kernel.org> wrote:
->>
->> Em Fri, 3 May 2024 10:47:19 +0900
->> Mark Brown <broonie@kernel.org> escreveu:
->>
->>> On Thu, May 02, 2024 at 10:26:43AM +0100, Mauro Carvalho Chehab wrote:
->>>> Mauro Carvalho Chehab <mchehab@kernel.org> escreveu:
->>>
->>>>> There are still time control associated with it, as audio and video
->>>>> needs to be in sync. This is done by controlling the buffers size
->>>>> and could be fine-tuned by checking when the buffer transfer is done.
->>>
->>> ...
->>>
->>>> Just complementing: on media, we do this per video buffer (or
->>>> per half video buffer). A typical use case on cameras is to have
->>>> buffers transferred 30 times per second, if the video was streamed
->>>> at 30 frames per second.
->>>
->>> IIRC some big use case for this hardware was transcoding so there was a
->>> desire to just go at whatever rate the hardware could support as there
->>> is no interactive user consuming the output as it is generated.
->>
->> Indeed, codecs could be used to just do transcoding, but I would
->> expect it to be a border use case. See, as the chipsets implementing
->> codecs are typically the ones used on mobiles, I would expect that
->> the major use cases to be to watch audio and video and to participate
->> on audio/video conferences.
->>
->> Going further, the codec API may end supporting not only transcoding
->> (which is something that CPU can usually handle without too much
->> processing) but also audio processing that may require more
->> complex algorithms - even deep learning ones - like background noise
->> removal, echo detection/removal, volume auto-gain, audio enhancement
->> and such.
->>
->> On other words, the typical use cases will either have input
->> or output being a physical hardware (microphone or speaker).
->>
+On 08/05/2024 09:04, Xingyu Wu wrote:
+> Add bindings for the Multi-Channel I2S controller of Cadence.
 > 
-> All, thanks for spending time to discuss, it seems we go back to
-> the start point of this topic again.
+> The Multi-Channel I2S (I2S-MC) implements a function of the
+> 8-channel I2S bus interfasce. Each channel can become receiver
+> or transmitter. Four I2S instances are used on the StarFive
+> JH8100 SoC. One instance of them is limited to 2 channels, two
+> instance are limited to 4 channels, and the other one can use
+> most 8 channels. Add a unique property about
+> 'starfive,i2s-max-channels' to distinguish each instance.
 > 
-> Our main request is that there is a hardware sample rate converter
-> on the chip, so users can use it in user space as a component like
-> software sample rate converter. It mostly may run as a gstreamer plugin.
-> so it is a memory to memory component.
-> 
-> I didn't find such API in ALSA for such purpose, the best option for this
-> in the kernel is the V4L2 memory to memory framework I found.
-> As Hans said it is well designed for memory to memory.
-> 
-> And I think audio is one of 'media'.  As I can see that part of Radio
-> function is in ALSA, part of Radio function is in V4L2. part of HDMI
-> function is in DRM, part of HDMI function is in ALSA...
-> So using V4L2 for audio is not new from this point of view.
-> 
-> Even now I still think V4L2 is the best option, but it looks like there
-> are a lot of rejects.  If develop a new ALSA-mem2mem, it is also
-> a duplication of code (bigger duplication that just add audio support
-> in V4L2 I think).
+> Signed-off-by: Xingyu Wu <xingyu.wu@starfivetech.com>
 
-After reading this thread I still believe that the mem2mem framework is
-a reasonable option, unless someone can come up with a method that is
-easy to implement in the alsa subsystem. From what I can tell from this
-discussion no such method exists.
 
->From the media side there are arguments that it adds extra maintenance
-load, which is true, but I believe that it is quite limited in practice.
+> +
+> +  starfive,i2s-max-channels:
+> +    description:
+> +      Number of I2S max stereo channels supported on the StarFive
+> +      JH8100 SoC.
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    enum: [2, 4, 8]
+> +
+> +allOf:
+> +  - $ref: dai-common.yaml#
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: starfive,jh8100-i2s
+> +    then:
+> +      required:
+> +        - starfive,i2s-max-channels
+> +    else:
+> +      properties:
+> +        starfive,i2s-max-channels: false
+> +
+> +required:
 
-That said, perhaps we should make a statement that while we support the
-use of audio m2m drivers, this is only for simple m2m audio processing like
-this driver, specifically where there is a 1-to-1 mapping between input and
-output buffers. At this point we do not want to add audio codec support or
-similar complex audio processing.
+I asked to put it after properties: block, not after allOf:. See
+example-schema for preferred order. Why? Because we are used to it and
+it makes reading the schema easier for us.
 
-Part of the reason is that codecs are hard, and we already have our hands
-full with all the video codecs. Part of the reason is that the v4l2-mem2mem
-framework probably needs to be forked to make a more advanced version geared
-towards codecs since the current framework is too limiting for some of the
-things we want to do. It was really designed for scalers, deinterlacers, etc.
-and the codec support was added later.
+Rest looks good, so with the re-order:
 
-If we ever allow such complex audio processing devices, then we would have
-to have another discussion, and I believe that will only be possible if
-most of the maintenance load would be on the alsa subsystem where the audio
-experts are.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-So my proposal is to:
+Best regards,
+Krzysztof
 
-1) add a clear statement to dev-audio-mem2mem.rst (patch 08/16) that only
-   simple audio devices with a 1-to-1 mapping of input to output buffer are
-   supported. Perhaps also in videodev2.h before struct v4l2_audio_format.
-
-2) I will experiment a bit trying to solve the main complaint about creating
-   new audio fourcc values and thus duplicating existing SNDRV_PCM_FORMAT_
-   values. I have some ideas for that.
-
-But I do not want to spend time on 2 until we agree that this is the way
-forward.
-
-Regards,
-
-	Hans

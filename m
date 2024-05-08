@@ -2,163 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F8028BF87B
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 May 2024 10:26:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BD718BF9E9
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 May 2024 11:57:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B8F07827;
-	Wed,  8 May 2024 10:26:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B8F07827
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9A1B384A;
+	Wed,  8 May 2024 11:57:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A1B384A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1715156777;
-	bh=yR3XoFNf5Y4X3lhAQdk0Tm3X5mQiV+Ctsnm7TSM1xM0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=IU/qn2+DlxUdXYODTHMalqGwncQ12U9vBqWb/usY+F9SaEZLBVBdGVK50NIL+nFjB
-	 8cOjwFkichN/j910Xvn4pK/AwZ++EPA71nHjD+tfvEXGZ0nXrSBfGijTkpuc0L75QI
-	 3DX5xvcnIrGUnOSO3Xy/s5OdAdZKKF+KO2b0lgM4=
+	s=default; t=1715162255;
+	bh=Mzl7cdo6GRa6aNpW/krWz0eupxXUOn59BXxd1oj37jU=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=LrkpiEhgzoL6HfhHXYJ4oGalHrM2Nh6kBn0O9EOETtoSOpYJq0i54YEeAXezeHWZ7
+	 uJnz7MdI4lIBlXJRuiNoF6vuMdXhLTw61jbYNgTy4BvUqmVJ1j2sVQMADb8nReZBni
+	 oEM0f+mnYcxCjYcScQwOVlc6RVgyfFMoy1uRs1Y0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 61321F805AD; Wed,  8 May 2024 10:25:46 +0200 (CEST)
+	id DCF40F8057C; Wed,  8 May 2024 11:57:04 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0005DF80580;
-	Wed,  8 May 2024 10:25:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EA64EF805A0;
+	Wed,  8 May 2024 11:57:03 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E3727F8049C; Wed,  8 May 2024 10:25:41 +0200 (CEST)
+	id EC17FF8049C; Wed,  8 May 2024 11:56:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [IPv6:2a00:1450:4864:20::634])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C5F1AF8003A
-	for <alsa-devel@alsa-project.org>; Wed,  8 May 2024 10:25:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C5F1AF8003A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8666EF8003A
+	for <alsa-devel@alsa-project.org>; Wed,  8 May 2024 11:56:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8666EF8003A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=HisZplk0
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-a59d0810f59so633319166b.0
-        for <alsa-devel@alsa-project.org>;
- Wed, 08 May 2024 01:25:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1715156736; x=1715761536;
- darn=alsa-project.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=KdH49O0cAgoNSOuWczucbNczC7ApQHsjG59jww0LLZo=;
-        b=HisZplk0Kf76cgzeH9dh72Z/zcbgP6sZLEESki3wNtkp4BHZ7V9RSGajo1Xg+c8MUf
-         hfw/XT3gAz56HQ8AdnmctK02Ov/j2EiKi24tqGZtchyg0ZRVY2d562j3FFsa8Wcf1FvK
-         VFLGjvif444WqGj+rLTYmSofOOXcsnxp7hDOlRIiNP5MEHXBVHPX+Dnit1S1/lQfY7j/
-         zZms/Y6xxm5iNdOhZNrlT5qaJPpXyjePHzDXH3AFzfUYkcHCyjRFqaBSr1Kx26kEM44o
-         fWqYtuHPkd/NR4zVFKG4VSO7By2wejzUvKnfxBoqhofgxZkb5rpvzfYZ0RsNVRoLOX5m
-         wuKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715156736; x=1715761536;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=KdH49O0cAgoNSOuWczucbNczC7ApQHsjG59jww0LLZo=;
-        b=kvOGquunaiXVJXwRyHbSWB4uKXeOeQxLQZc+d73YUl81MncTToI5fuI6wZgOe8QGrd
-         Loipp+ZDKE1ftlCCqPfmf5IJyzmvmt+4AeeXB3YkAY9Xls+Xk9j+5GoAiEK8wEW3JwpC
-         K58ciguzsnJfl7cvWq2h1npqQw9qUgRPSCyQExdnX+biqdZ5EwFj3TOdq90plXlZq2dT
-         sEgytJ1QZp2squmbVB/X1H4ygyp6SvHqNR7qFx+PO2+ZX3En4LUDAFGO8yhw/kIvK/G+
-         4OHPfNzZkMiUSha9sSSSPK/LD1y10uozX/VyVCobo8/l31s4o2Jw5zFSs6CKkXXIPYTt
-         WGzw==
-X-Gm-Message-State: AOJu0YwOLrzN9CJEJyC1J2dvhJsgIMfFKHH7qhqLIx6J8OHqcNVEsVRU
-	DrNFfRnRATVSQ+uRIx30cYGj7JpKiPV2e7gsoCQUcIRwCbm4Xhyls/bOg7NDsAo=
-X-Google-Smtp-Source: 
- AGHT+IEvfk2wq2f269sa9OQJkm0NGudvKkDF5KyeUGASVeWwBNkWKvwOoCvA5YQ846oBdBrzIb66Gg==
-X-Received: by 2002:a17:906:791:b0:a59:cfab:504 with SMTP id
- a640c23a62f3a-a59fb9b8620mr105914966b.48.1715156736514;
-        Wed, 08 May 2024 01:25:36 -0700 (PDT)
-Received: from [192.168.1.20] ([178.197.206.169])
-        by smtp.gmail.com with ESMTPSA id
- h8-20020a17090634c800b00a59b8e16ac7sm4518734ejb.36.2024.05.08.01.25.35
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 08 May 2024 01:25:35 -0700 (PDT)
-Message-ID: <9530cd0a-a10d-49be-a415-e9d2351c0cbc@linaro.org>
-Date: Wed, 8 May 2024 10:25:34 +0200
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=Fg7jsYSw
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
+ 4486vtiF026053;
+	Wed, 8 May 2024 04:56:31 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
+	from:to:cc:subject:date:message-id:mime-version
+	:content-transfer-encoding:content-type; s=PODMain02222019; bh=R
+	vqf78UChrZfvXZe6KiazLJ3FLV6tQAjUMLVg1LWMFg=; b=Fg7jsYSw4SHm94xl0
+	Zp8ABoUQ5zaQmHAX8qlORJ8UKfWNSLqBE1Ylc1L3yva8nvIU9xSIMrWFVlA1dMkD
+	8fHukjg4ur5Isl6JTTerGZRAdZqbE6K4dU4gDsxOMlS+Y4RXpJ+GnfEn4lnHX5uB
+	BF/m2xBTnZdsKdn6BodiNTV3UBkyJ4VQKxC5RYw0NLr83EaNNqOlRGTw8mLg640S
+	My4J6fp+qK/7maYjcr4WysCkC6aA+aMUZso4nN9TlxNfov0Z9+xdNrfNhHRIjh0e
+	lK1E9mUYW/hH3cZkiBx2O8hNr2CdeQKRttq+zZvCylOsdmm8hrkMc0Y7/+Uf1201
+	iSGFA==
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3xyshernev-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 08 May 2024 04:56:31 -0500 (CDT)
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 8 May 2024
+ 10:56:27 +0100
+Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
+ ediex01.ad.cirrus.com (198.61.84.80) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9
+ via Frontend Transport; Wed, 8 May 2024 10:56:27 +0100
+Received: from ediswws06.ad.cirrus.com (ediswws06.ad.cirrus.com
+ [198.90.208.18])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id 0D943820244;
+	Wed,  8 May 2024 09:56:27 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: <tiwai@suse.com>
+CC: <linux-kernel@vger.kernel.org>, <patches@opensource.cirrus.com>,
+        <alsa-devel@alsa-project.org>, <linux-sound@vger.kernel.org>
+Subject: [PATCH] ALSA: hda/cs_dsp_ctl: Use private_free for control cleanup
+Date: Wed, 8 May 2024 10:56:27 +0100
+Message-ID: <20240508095627.44476-1-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] ASoC: Constify channel mapping array arguments in
- set_channel_map()
-To: James Schulman <james.schulman@cirrus.com>,
- David Rhodes <david.rhodes@cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Lars-Peter Clausen <lars@metafoo.de>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@quicinc.com>
-Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-References: 
- <20240508-asoc-x1e80100-4-channel-mapping-v2-0-ccef9a66a572@linaro.org>
- <20240508-asoc-x1e80100-4-channel-mapping-v2-1-ccef9a66a572@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Content-Language: en-US
-Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
- 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
- D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: 
- <20240508-asoc-x1e80100-4-channel-mapping-v2-1-ccef9a66a572@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: JSSDM7YOHAI2JNFSGWA7WKFYCMQCAUL4
-X-Message-ID-Hash: JSSDM7YOHAI2JNFSGWA7WKFYCMQCAUL4
-X-MailFrom: krzysztof.kozlowski@linaro.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-GUID: HpwR96T6fm9AdjatzGpyAfUF0IKJAH6v
+X-Proofpoint-ORIG-GUID: HpwR96T6fm9AdjatzGpyAfUF0IKJAH6v
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: F4HT3NZMV6U7GS3BVZUSJ4EZPW5MPIFJ
+X-Message-ID-Hash: F4HT3NZMV6U7GS3BVZUSJ4EZPW5MPIFJ
+X-MailFrom: prvs=2858927d68=rf@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -170,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JSSDM7YOHAI2JNFSGWA7WKFYCMQCAUL4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/F4HT3NZMV6U7GS3BVZUSJ4EZPW5MPIFJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -179,21 +108,141 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 08/05/2024 10:16, Krzysztof Kozlowski wrote:
-> There is no need for implementations of DAI set_channel_map() to modify
-> contents of passed arrays with actual channel mapping.  Additionally,
-> the caller keeps full ownership of the array.
-> 
-> Constify these pointer arguments so the code will be safer and easier to
-> read (documenting the caller's ownership).
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Use the control private_free callback to free the associated data
+block. This ensures that the memory won't leak, whatever way the
+control gets destroyed.
 
-Oh, crap, I forgot Ack from Charles. I'll wait till tomorrow and send a
-new version with the tag included (unless some review comes).
+The original implementation didn't actually remove the ALSA
+controls in hda_cs_dsp_control_remove(). It only freed the internal
+tracking structure. This meant it was possible to remove/unload the
+amp driver while leaving its ALSA controls still present in the
+soundcard. Obviously attempting to access them could cause segfaults
+or at least dereferencing stale pointers.
 
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+Fixes: 3233b978af23 ("ALSA: hda: hda_cs_dsp_ctl: Add Library to support CS_DSP ALSA controls")
+---
+This replaces my earlier "keep it simple" attempt at cleanup.
+I decided that implementing private_free is the only sensible
+way to fix the cleanup.
+---
+ sound/pci/hda/hda_cs_dsp_ctl.c | 47 ++++++++++++++++++++++------------
+ 1 file changed, 31 insertions(+), 16 deletions(-)
 
-Best regards,
-Krzysztof
+diff --git a/sound/pci/hda/hda_cs_dsp_ctl.c b/sound/pci/hda/hda_cs_dsp_ctl.c
+index 463ca06036bf..9db45d7c17e5 100644
+--- a/sound/pci/hda/hda_cs_dsp_ctl.c
++++ b/sound/pci/hda/hda_cs_dsp_ctl.c
+@@ -8,6 +8,7 @@
+ 
+ #include <linux/module.h>
+ #include <sound/soc.h>
++#include <linux/cleanup.h>
+ #include <linux/firmware/cirrus/cs_dsp.h>
+ #include <linux/firmware/cirrus/wmfw.h>
+ #include "hda_cs_dsp_ctl.h"
+@@ -97,11 +98,23 @@ static unsigned int wmfw_convert_flags(unsigned int in)
+ 	return out;
+ }
+ 
+-static void hda_cs_dsp_add_kcontrol(struct hda_cs_dsp_coeff_ctl *ctl, const char *name)
++static void hda_cs_dsp_free_kcontrol(struct snd_kcontrol *kctl)
+ {
++	struct hda_cs_dsp_coeff_ctl *ctl = (struct hda_cs_dsp_coeff_ctl *)snd_kcontrol_chip(kctl);
+ 	struct cs_dsp_coeff_ctl *cs_ctl = ctl->cs_ctl;
++
++	/* NULL priv to prevent a double-free in hda_cs_dsp_control_remove() */
++	cs_ctl->priv = NULL;
++	kfree(ctl);
++}
++
++static void hda_cs_dsp_add_kcontrol(struct cs_dsp_coeff_ctl *cs_ctl,
++				    const struct hda_cs_dsp_ctl_info *info,
++				    const char *name)
++{
+ 	struct snd_kcontrol_new kcontrol = {0};
+ 	struct snd_kcontrol *kctl;
++	struct hda_cs_dsp_coeff_ctl *ctl __free(kfree) = NULL;
+ 	int ret = 0;
+ 
+ 	if (cs_ctl->len > ADSP_MAX_STD_CTRL_SIZE) {
+@@ -110,6 +123,13 @@ static void hda_cs_dsp_add_kcontrol(struct hda_cs_dsp_coeff_ctl *ctl, const char
+ 		return;
+ 	}
+ 
++	ctl = kzalloc(sizeof(*ctl), GFP_KERNEL);
++	if (!ctl)
++		return;
++
++	ctl->cs_ctl = cs_ctl;
++	ctl->card = info->card;
++
+ 	kcontrol.name = name;
+ 	kcontrol.info = hda_cs_dsp_coeff_info;
+ 	kcontrol.iface = SNDRV_CTL_ELEM_IFACE_MIXER;
+@@ -117,20 +137,22 @@ static void hda_cs_dsp_add_kcontrol(struct hda_cs_dsp_coeff_ctl *ctl, const char
+ 	kcontrol.get = hda_cs_dsp_coeff_get;
+ 	kcontrol.put = hda_cs_dsp_coeff_put;
+ 
+-	/* Save ctl inside private_data, ctl is owned by cs_dsp,
+-	 * and will be freed when cs_dsp removes the control */
+ 	kctl = snd_ctl_new1(&kcontrol, (void *)ctl);
+ 	if (!kctl)
+ 		return;
+ 
+-	ret = snd_ctl_add(ctl->card, kctl);
++	kctl->private_free = hda_cs_dsp_free_kcontrol;
++	ctl->kctl = kctl;
++
++	/* snd_ctl_add() calls our private_free on error, which will kfree(ctl) */
++	cs_ctl->priv = no_free_ptr(ctl);
++	ret = snd_ctl_add(info->card, kctl);
+ 	if (ret) {
+ 		dev_err(cs_ctl->dsp->dev, "Failed to add KControl %s = %d\n", kcontrol.name, ret);
+ 		return;
+ 	}
+ 
+ 	dev_dbg(cs_ctl->dsp->dev, "Added KControl: %s\n", kcontrol.name);
+-	ctl->kctl = kctl;
+ }
+ 
+ static void hda_cs_dsp_control_add(struct cs_dsp_coeff_ctl *cs_ctl,
+@@ -138,7 +160,6 @@ static void hda_cs_dsp_control_add(struct cs_dsp_coeff_ctl *cs_ctl,
+ {
+ 	struct cs_dsp *cs_dsp = cs_ctl->dsp;
+ 	char name[SNDRV_CTL_ELEM_ID_NAME_MAXLEN];
+-	struct hda_cs_dsp_coeff_ctl *ctl;
+ 	const char *region_name;
+ 	int ret;
+ 
+@@ -163,15 +184,7 @@ static void hda_cs_dsp_control_add(struct cs_dsp_coeff_ctl *cs_ctl,
+ 			 " %.*s", cs_ctl->subname_len - skip, cs_ctl->subname + skip);
+ 	}
+ 
+-	ctl = kzalloc(sizeof(*ctl), GFP_KERNEL);
+-	if (!ctl)
+-		return;
+-
+-	ctl->cs_ctl = cs_ctl;
+-	ctl->card = info->card;
+-	cs_ctl->priv = ctl;
+-
+-	hda_cs_dsp_add_kcontrol(ctl, name);
++	hda_cs_dsp_add_kcontrol(cs_ctl, info, name);
+ }
+ 
+ void hda_cs_dsp_add_controls(struct cs_dsp *dsp, const struct hda_cs_dsp_ctl_info *info)
+@@ -203,7 +216,9 @@ void hda_cs_dsp_control_remove(struct cs_dsp_coeff_ctl *cs_ctl)
+ {
+ 	struct hda_cs_dsp_coeff_ctl *ctl = cs_ctl->priv;
+ 
+-	kfree(ctl);
++	/* ctl and kctl may already have been removed by ALSA private_free */
++	if (ctl && ctl->kctl)
++		snd_ctl_remove(ctl->card, ctl->kctl);
+ }
+ EXPORT_SYMBOL_NS_GPL(hda_cs_dsp_control_remove, SND_HDA_CS_DSP_CONTROLS);
+ 
+-- 
+2.39.2
 

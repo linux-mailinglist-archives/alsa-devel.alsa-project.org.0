@@ -2,113 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E98AD8C0D08
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 May 2024 11:04:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 067758C0D0F
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 May 2024 11:06:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 319A6DEE;
-	Thu,  9 May 2024 11:04:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 319A6DEE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6AA6E82A;
+	Thu,  9 May 2024 11:06:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6AA6E82A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1715245466;
-	bh=6tEP5W7E5rNrTuVQkJNbh1NgFDLzBuXP4UK9b2HnLcQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=okCEnE99AsWuB1v/fus5Ahemg4Lfaz/ylZMri8xaeTxiTWsDPYxmgpG1ktNsX7H+M
-	 ldWKWK2cHs5+vg9MPKhHejZrKX/FUQR+hDSdBxCxdazpg4K/x3iqQhwsgvMKOeem/F
-	 J/JHvkc73Awop0bBtBqwy0fjdz6G4FH9ds5GpQN4=
+	s=default; t=1715245591;
+	bh=2SFbaJQX3uzDIRd0hMWkfCpBr/9eSi36913oX+5xZUo=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=dtgEV+/VXawHSTLQ08D9jqyNp7Lnrq6zmR7VKvDemhky7z8vTv2uwD6Dz7JgiTX2i
+	 FKEPyWw0k+zli3dejYrH5FUzY9vW/8OA8aVDvEJV0mPn70nnzs6hpwNkAoOZ3nUef0
+	 +RAqCOi7OO20FP72oD+wuAyNBaNIrSeSmGMoCZzY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 18F66F80570; Thu,  9 May 2024 11:03:53 +0200 (CEST)
+	id 7CA21F8057B; Thu,  9 May 2024 11:05:59 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 54370F800E2;
-	Thu,  9 May 2024 11:03:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EA5E3F805A1;
+	Thu,  9 May 2024 11:05:58 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 94CDDF8049C; Thu,  9 May 2024 10:59:45 +0200 (CEST)
+	id 7F8F6F804FB; Thu,  9 May 2024 11:04:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: ***
-X-Spam-Status: No, score=3.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_SBL_CSS,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=no autolearn_force=no
-	version=3.4.6
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [IPv6:2a00:1450:4864:20::331])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F4014F800E2
-	for <alsa-devel@alsa-project.org>; Thu,  9 May 2024 10:59:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F4014F800E2
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=VhDIq+fd
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-41c7ac6f635so3948895e9.3
-        for <alsa-devel@alsa-project.org>;
- Thu, 09 May 2024 01:59:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1715245182; x=1715849982;
- darn=alsa-project.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=3RC6fstJDXsghafNDD46lbDOhml+R8Iq6EzCaj20EYo=;
-        b=VhDIq+fdsRvqb7YF0ZKkYET/LUd6T5mxuw9fQGRYwuu4S5PpvHXJgrOOpy72sAgObu
-         Wqzp9Qi9PDEQkgRir0FrQBWxZRYufNHM1260Vvhvnvsys3XFOB4EtXETRWzrFaAq3Ujx
-         6mU6V4Eh2yZ8AaBKtvWYkVkjgSrzE6OGQqhfJHsNVoUlmiIX0ZpmmyoKLrzZTbU/9Zdj
-         siogWOVQlVk3UpKwX+se7Piih7og7FpyOo7qqoUapCUx4PvE9omyCIhYrSn6Vnm9vykI
-         dZ5ifVfAsW2cDk1rFgO9P7YFxdpi7jsO212EBd8UnZbYpjpAIPZd+t68lKznyD92tLYU
-         bUTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715245182; x=1715849982;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=3RC6fstJDXsghafNDD46lbDOhml+R8Iq6EzCaj20EYo=;
-        b=KaJu25O2ClG40QXBZPK3krIvKZhkfrR6UIyYhwEY0aaoMT/Ry46jeQbWmGF5n4lz7/
-         wCep/rMVZaFHSZgL+M8I8K6rJ6azdfEw52V1z7O2XZkulzk41DZCAg1Oc6MplAddTK3N
-         yUKz+VDm+jbgXcNqjc1sr6c9cgUkotiqSRTBeMOWsYfcXbdjkWJZL2JL2dqQLlxYf2lh
-         ygVKaiFqPnlu3GJzE8k5YE90iSUXYvhUT4QscgR52xS6FL5q/AmtPcYLX7m9ieMODyQp
-         cbhybxQSHg3t4Eipa1XpBK5A0s6qpO8+fqe2Lg1IxuPCt/+A+8hmA/mheLqEfRCVCa7P
-         l86A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWIJcsLGdPywh8iaL+f4I6BpGvgo/JeyXsaE4TCGVs7KAymm40kjVb7klLH5863LBlpTZE6yVCPez3lJEEm7xFHCoBJzbrnro5rceI=
-X-Gm-Message-State: AOJu0YwvMDUHyqxdnmmOywf8uHygZQoONFoSWDzDOac1A4699x8P0BLm
-	511iQX/tN1HHVJoRploNxL1BwARCPJt3J59hGFYmBOSNqSgu0uSxfovfP5VLYs4=
-X-Google-Smtp-Source: 
- AGHT+IFGM+zedQ3XccNEQmdxXTeGO/UYm0MlRcoX4lJrzzJEQVjrWdPX/UOeEIf8JIQxHSLjdaIf3w==
-X-Received: by 2002:a05:600c:4755:b0:41b:9e4f:d2b2 with SMTP id
- 5b1f17b1804b1-41f71cc1c66mr50020535e9.2.1715245181948;
-        Thu, 09 May 2024 01:59:41 -0700 (PDT)
-Received: from [192.168.1.195] ([5.133.47.210])
-        by smtp.googlemail.com with ESMTPSA id
- 5b1f17b1804b1-41f87c235b4sm52614135e9.11.2024.05.09.01.59.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 09 May 2024 01:59:41 -0700 (PDT)
-Message-ID: <a980d7a5-0d80-4ff1-93e1-b5f5806980c3@linaro.org>
-Date: Thu, 9 May 2024 09:59:40 +0100
+	by alsa1.perex.cz (Postfix) with ESMTPS id EA5B9F805AD
+	for <alsa-devel@alsa-project.org>; Thu,  9 May 2024 11:03:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA5B9F805AD
+X-SpamFilter-By: ArmorX SpamTrap 5.78 with qID 44993e5S21423646,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (rtexh36505.realtek.com.tw[172.21.6.25])
+	by rtits2.realtek.com.tw (8.15.2/2.95/5.92) with ESMTPS id 44993e5S21423646
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 9 May 2024 17:03:40 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXH36505.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.35; Thu, 9 May 2024 17:03:40 +0800
+Received: from sw-server.localdomain (172.22.102.1) by
+ RTEXMBS01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.35; Thu, 9 May 2024 17:03:40 +0800
+From: <shumingf@realtek.com>
+To: <broonie@kernel.org>, <lgirdwood@gmail.com>
+CC: <alsa-devel@alsa-project.org>, <lars@metafoo.de>, <flove@realtek.com>,
+        <oder_chiou@realtek.com>, <jack.yu@realtek.com>,
+        <derek.fang@realtek.com>, <pierre-louis.bossart@intel.com>,
+        <fred.oh@intel.com>, <marc.herbert@intel.com>,
+        Shuming Fan <shumingf@realtek.com>
+Subject: [PATCH] ASoC: rt711-sdca: add GE selected mode control
+Date: Thu, 9 May 2024 17:03:35 +0800
+Message-ID: <20240509090335.2300516-1-shumingf@realtek.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/4] ASoC: qcom: common: add Display port Jack function
-To: Johan Hovold <johan@kernel.org>
-Cc: broonie@kernel.org, perex@perex.cz, tiwai@suse.com, lgirdwood@gmail.com,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-References: <20240422134354.89291-1-srinivas.kandagatla@linaro.org>
- <20240422134354.89291-3-srinivas.kandagatla@linaro.org>
- <ZiejT5yddioQ8upR@hovoldconsulting.com>
- <b9d0e2fd-069c-439c-a85f-1e99bf9018c3@linaro.org>
- <Zi-0kSU6TMcev05r@hovoldconsulting.com>
-Content-Language: en-US
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <Zi-0kSU6TMcev05r@hovoldconsulting.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: V6GSTKFJ74L2YEB33TCFHTLVWBEI5C6P
-X-Message-ID-Hash: V6GSTKFJ74L2YEB33TCFHTLVWBEI5C6P
-X-MailFrom: srinivas.kandagatla@linaro.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [172.22.102.1]
+X-ClientProxiedBy: RTEXH36506.realtek.com.tw (172.21.6.27) To
+ RTEXMBS01.realtek.com.tw (172.21.6.94)
+X-KSE-ServerInfo: RTEXMBS01.realtek.com.tw, 9
+X-KSE-AntiSpam-Interceptor-Info: fallback
+X-KSE-Antivirus-Interceptor-Info: fallback
+X-KSE-AntiSpam-Interceptor-Info: fallback
+X-KSE-ServerInfo: RTEXH36505.realtek.com.tw, 9
+X-KSE-AntiSpam-Interceptor-Info: fallback
+X-KSE-Antivirus-Interceptor-Info: fallback
+X-KSE-AntiSpam-Interceptor-Info: fallback
+Message-ID-Hash: KCCCXKMK3SQMMAFVVY4F6JGSC2PN34BW
+X-Message-ID-Hash: KCCCXKMK3SQMMAFVVY4F6JGSC2PN34BW
+X-MailFrom: shumingf@realtek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -120,68 +90,150 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/V6GSTKFJ74L2YEB33TCFHTLVWBEI5C6P/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KCCCXKMK3SQMMAFVVY4F6JGSC2PN34BW/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+From: Shuming Fan <shumingf@realtek.com>
 
+The SDCA spec defines a 'selected_mode' control which can override
+the 'detected_mode' reported by hardware.
+This is useful for platform integration as well as in cases
+where the hardware is not able to accurately detect the jack type.
 
-On 29/04/2024 15:54, Johan Hovold wrote:
-> On Tue, Apr 23, 2024 at 04:55:32PM +0100, Srinivas Kandagatla wrote:
->> On 23/04/2024 13:02, Johan Hovold wrote:
->>> On Mon, Apr 22, 2024 at 02:43:52PM +0100, Srinivas Kandagatla wrote:
->>>    
->>>>    static const struct snd_soc_dapm_widget qcom_jack_snd_widgets[] = {
->>>>    	SND_SOC_DAPM_HP("Headphone Jack", NULL),
->>>>    	SND_SOC_DAPM_MIC("Mic Jack", NULL),
->>>> +	SND_SOC_DAPM_SPK("HDMI/DP0 Jack", NULL),
->>>> +	SND_SOC_DAPM_SPK("HDMI/DP1 Jack", NULL),
->>>> +	SND_SOC_DAPM_SPK("HDMI/DP2 Jack", NULL),
->>>
->>> Shouldn't these be split in dedicated HDMI and DP jacks too? What if you
->>> have a machine with HDMI and DP jacks which would otherwise both claim
->>> "HDMI/DP0"?
->>
->> These map to the Jack's added as part of qcom_snd_dp_jack_setup and
->> belong to DISPLAY_PORT_RX_0, DISPLAY_PORT_RX_1, DISPLAY_PORT_RX_2.
->>
->> If its going via USB-C DP controller it will be either DP or an HDMI ?
-> 
-> It will always be DP out of the machine even if an adapter can convert
-> to HDMI internally.
-> 
-> The DRM ports are called "DP-1" and "DP-2" so it seems we should match
-> that.
-> 
->> This is the most common naming for the USB-C DP/HDMI jack events.
-> 
-> It looks like some Intel machines use names like "HDMI/DP, pcm=%d Jack"
-> (with a pcm device number), but we also have "DP Jack". Not sure which
-> are are used with USB-C, though. (Or if the former actually support HDMI
-> altmode.)
+Signed-off-by: Shuming Fan <shumingf@realtek.com>
+---
+ sound/soc/codecs/rt711-sdca.c | 79 +++++++++++++++++++++++++++++++++++
+ sound/soc/codecs/rt711-sdca.h |  1 +
+ 2 files changed, 80 insertions(+)
 
-I checked this on my machine which has usb-c and I can confirm using 
-HDMI/DP naming for these jack.
+diff --git a/sound/soc/codecs/rt711-sdca.c b/sound/soc/codecs/rt711-sdca.c
+index 1e8dbfc3ecd9..6ff07170d770 100644
+--- a/sound/soc/codecs/rt711-sdca.c
++++ b/sound/soc/codecs/rt711-sdca.c
+@@ -81,6 +81,24 @@ static void rt711_sdca_reset(struct rt711_sdca_priv *rt711)
+ 		RT711_HDA_LEGACY_RESET_CTL, 0x1, 0x1);
+ }
+ 
++static void rt711_sdca_ge_force_jack_type(struct rt711_sdca_priv *rt711, unsigned int det_mode)
++{
++	switch (det_mode) {
++	case 0x00:
++		rt711_sdca_index_update_bits(rt711, RT711_VENDOR_REG, RT711_COMBO_JACK_AUTO_CTL1, 0x8000, 0x0000);
++		rt711_sdca_index_update_bits(rt711, RT711_VENDOR_HDA_CTL, RT711_PUSH_BTN_INT_CTL0, 0x10, 0x00);
++		break;
++	case 0x03:
++		rt711_sdca_index_update_bits(rt711, RT711_VENDOR_REG, RT711_COMBO_JACK_AUTO_CTL1, 0x8000, 0x8000);
++		rt711_sdca_index_update_bits(rt711, RT711_VENDOR_HDA_CTL, RT711_PUSH_BTN_INT_CTL0, 0x17, 0x13);
++		break;
++	case 0x05:
++		rt711_sdca_index_update_bits(rt711, RT711_VENDOR_REG, RT711_COMBO_JACK_AUTO_CTL1, 0x8000, 0x8000);
++		rt711_sdca_index_update_bits(rt711, RT711_VENDOR_HDA_CTL, RT711_PUSH_BTN_INT_CTL0, 0x17, 0x15);
++		break;
++	}
++}
++
+ static int rt711_sdca_calibration(struct rt711_sdca_priv *rt711)
+ {
+ 	unsigned int val, loop_rc = 0, loop_dc = 0;
+@@ -267,6 +285,15 @@ static int rt711_sdca_headset_detect(struct rt711_sdca_priv *rt711)
+ 		break;
+ 	}
+ 
++	if (rt711->ge_mode_override) {
++		if ((det_mode != rt711->ge_mode_override) && det_mode) {
++			det_mode = rt711->ge_mode_override;
++			rt711->jack_type =
++				(rt711->jack_type == SND_JACK_HEADPHONE) ? SND_JACK_HEADSET : SND_JACK_HEADPHONE;
++		}
++		rt711_sdca_ge_force_jack_type(rt711, det_mode);
++	}
++
+ 	/* write selected_mode */
+ 	if (det_mode) {
+ 		ret = regmap_write(rt711->regmap,
+@@ -790,6 +817,56 @@ static int rt711_sdca_fu0f_capture_put(struct snd_kcontrol *kcontrol,
+ 	return changed;
+ }
+ 
++static int rt711_sdca_ge_select_get(struct snd_kcontrol *kcontrol,
++			      struct snd_ctl_elem_value *ucontrol)
++{
++	struct soc_enum *e = (struct soc_enum *)kcontrol->private_value;
++	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
++	struct rt711_sdca_priv *rt711 = snd_soc_component_get_drvdata(component);
++	unsigned int val, item;
++
++	val = (rt711->ge_mode_override >> e->shift_l) & e->mask;
++	item = snd_soc_enum_val_to_item(e, val);
++	ucontrol->value.enumerated.item[0] = item;
++	return 0;
++}
++
++static int rt711_sdca_ge_select_put(struct snd_kcontrol *kcontrol,
++			      struct snd_ctl_elem_value *ucontrol)
++{
++	struct soc_enum *e = (struct soc_enum *)kcontrol->private_value;
++	unsigned int *item = ucontrol->value.enumerated.item;
++	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
++	struct rt711_sdca_priv *rt711 = snd_soc_component_get_drvdata(component);
++	unsigned int val, change = 0;
++
++	if (item[0] >= e->items)
++		return -EINVAL;
++
++	val = snd_soc_enum_item_to_val(e, item[0]) << e->shift_l;
++	if (rt711->ge_mode_override != val) {
++		rt711->ge_mode_override = val;
++		change = 1;
++	}
++
++	return change;
++}
++
++static const char * const rt711_sdca_ge_select[] = {
++	"None",
++	"Headphone",
++	"Headset",
++};
++
++static int rt711_sdca_ge_select_values[] = {
++	0,
++	3,
++	5,
++};
++
++static SOC_VALUE_ENUM_SINGLE_DECL(rt711_sdca_ge_mode_enum, SND_SOC_NOPM,
++	0, 0x7, rt711_sdca_ge_select, rt711_sdca_ge_select_values);
++
+ static const DECLARE_TLV_DB_SCALE(out_vol_tlv, -6525, 75, 0);
+ static const DECLARE_TLV_DB_SCALE(in_vol_tlv, -1725, 75, 0);
+ static const DECLARE_TLV_DB_SCALE(mic_vol_tlv, 0, 1000, 0);
+@@ -824,6 +901,8 @@ static const struct snd_kcontrol_new rt711_sdca_snd_controls[] = {
+ 		SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT711_SDCA_ENT_PLATFORM_FU15, RT711_SDCA_CTL_FU_CH_GAIN, CH_R),
+ 		8, 3, 0,
+ 		rt711_sdca_set_gain_get, rt711_sdca_set_gain_put, mic_vol_tlv),
++	SOC_ENUM_EXT("GE49 Selected Mode", rt711_sdca_ge_mode_enum,
++		rt711_sdca_ge_select_get, rt711_sdca_ge_select_put),
+ };
+ 
+ static int rt711_sdca_mux_get(struct snd_kcontrol *kcontrol,
+diff --git a/sound/soc/codecs/rt711-sdca.h b/sound/soc/codecs/rt711-sdca.h
+index 11d421e8ab2b..15263dcb0314 100644
+--- a/sound/soc/codecs/rt711-sdca.h
++++ b/sound/soc/codecs/rt711-sdca.h
+@@ -33,6 +33,7 @@ struct  rt711_sdca_priv {
+ 	int hw_ver;
+ 	bool fu0f_dapm_mute, fu0f_mixer_l_mute, fu0f_mixer_r_mute;
+ 	bool fu1e_dapm_mute, fu1e_mixer_l_mute, fu1e_mixer_r_mute;
++	unsigned int ge_mode_override;
+ };
+ 
+ /* NID */
+-- 
+2.34.1
 
-Either way I don't mind having any names, but my point here is to be 
-more consistent across.
-
-
---srini
-> 
->> Qualcomm LPASS in some older SoCs had a dedicated HDMI interface which
->> is different to this one.
->>
->> Usual Other ways to connect HDMI is via external HDMI Bridge using I2S
->> interface which totally different to this DP interface.
-> 
-> Sure, but if there's ever a design with such a port then it will be
-> called "HDMI Jack" and then the "HDMI in "HDMI/DP0 Jack" is unnecessary
-> and confusing when it is always DP out.
-> 
-> Johan

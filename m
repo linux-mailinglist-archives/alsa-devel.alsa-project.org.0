@@ -2,103 +2,157 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B9538C15CB
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 May 2024 21:58:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BEA48C14B3
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 May 2024 20:25:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B0D06210F;
-	Thu,  9 May 2024 21:58:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B0D06210F
+	by alsa0.perex.cz (Postfix) with ESMTPS id CC5A7E66;
+	Thu,  9 May 2024 20:25:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC5A7E66
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1715284696;
-	bh=+Xg6sg0lsspm+oGIl2gKYWFJ9L1HRkPP8JWiP000C8Y=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1715279147;
+	bh=OoYgrioelbsOKtHSb3Ts6idZ9W1cRPY/0JdsOVdNjFw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=FM57lPx/KB/diIHccFcQorc2zHMh7q9h8Z2mqV72FLARz6iV6V+zGZIiqSIxtlVTI
-	 Pxr0Ltq7w+avazMMzd/RlmBdp76pPowEgpvRmtdmkQbdGBpE/YggvUUI7IxoNXO+Yl
-	 QUwkbVWkR/2Dx73IefQN4oDulSalu6nfP2NfyfNg=
+	b=lEWmAcvFXLZj2IqGiCe1yNALaDiHqApUA6ds8cal0jNg+kWN1F8QnIgzWSaKh3NGD
+	 7JWyR0vgOFmCe+/798YJXHjgkSuMliJU4I5Ulsb0jySWkHaL0OvpZ/bNypS/vMIm61
+	 dgtOfHm7urh6iLEB9II4gTd+sIOhzpaAYakGhaJo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D0800F80152; Thu,  9 May 2024 21:56:40 +0200 (CEST)
+	id 19B2CF8057D; Thu,  9 May 2024 20:25:15 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9DED9F80681;
-	Thu,  9 May 2024 21:56:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A7E7DF805A0;
+	Thu,  9 May 2024 20:25:15 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D8B2EF80630; Thu,  9 May 2024 21:56:35 +0200 (CEST)
+	id 1FB68F8049C; Thu,  9 May 2024 20:25:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=DATE_IN_PAST_06_12,
-	DKIMWL_WL_HIGH,DKIM_SIGNED,DKIM_VALID,DKIM_VALID_EF,SPF_HELO_NONE,
-	SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=no autolearn_force=no
-	version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9DA3BF80623
-	for <alsa-devel@alsa-project.org>; Thu,  9 May 2024 21:56:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9DA3BF80623
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2F677F800E2
+	for <alsa-devel@alsa-project.org>; Thu,  9 May 2024 20:25:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F677F800E2
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=gpGW4apG
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1715284595; x=1746820595;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=+Xg6sg0lsspm+oGIl2gKYWFJ9L1HRkPP8JWiP000C8Y=;
-  b=gpGW4apGJySMVwvQW6F3K9q25qg2bucYSh3lm+6XeHjNYo7GRgwk6vIo
-   3PJyuBqo7caWKHSBcmkqNFjHAOIKSJe+zPEBTQhN9YA34WbG2CDN39SNc
-   LtvX6VxaP7mVz7SAVEDJx6B1erCS+KBw7te2fb+31ZqhhkzBbD1aXUZvc
-   /XLbD0Qv5OpFuYBwdsAWcNioyNhsqyBb6qO3zZlICZJWuMaVYmdpup8dJ
-   Xx/8h+phTgXJgyaMzfVEmdPcqPWtUJuiLVjOimgNcv5emrFx0BCidejPY
-   2VXb2tcR03zT22twpBQGtoJ7GW47t+GyGpdAJCfSZLlwFVlHjrSWr9AER
-   w==;
-X-CSE-ConnectionGUID: J0uQSDg2RVy5b5CRvPZ+NA==
-X-CSE-MsgGUID: dmRMBuktR7SPagGuXU812Q==
-X-IronPort-AV: E=McAfee;i="6600,9927,11068"; a="11454303"
-X-IronPort-AV: E=Sophos;i="6.08,148,1712646000";
-   d="scan'208";a="11454303"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 May 2024 12:56:32 -0700
-X-CSE-ConnectionGUID: 1ox1AHb5TkOlj5+tCcFZIQ==
-X-CSE-MsgGUID: qXDyMCKMR7Opd+vqjTIr4Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,148,1712646000";
-   d="scan'208";a="34213141"
-Received: from ajunnare-mobl.amr.corp.intel.com (HELO [10.213.181.85])
- ([10.213.181.85])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 May 2024 12:56:28 -0700
-Message-ID: <92abca40-5eda-49d0-bc9d-eeb1a76e3461@linux.intel.com>
-Date: Thu, 9 May 2024 08:17:39 -0500
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v21 38/39] ASoC: qcom: Populate SoC components string
-To: Wesley Cheng <quic_wcheng@quicinc.com>, srinivas.kandagatla@linaro.org,
- mathias.nyman@intel.com, perex@perex.cz, conor+dt@kernel.org,
- corbet@lwn.net, lgirdwood@gmail.com, andersson@kernel.org,
- krzk+dt@kernel.org, gregkh@linuxfoundation.org, Thinh.Nguyen@synopsys.com,
- broonie@kernel.org, bgoswami@quicinc.com, tiwai@suse.com,
- bagasdotme@gmail.com, robh@kernel.org, konrad.dybcio@linaro.org
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-doc@vger.kernel.org,
- alsa-devel@alsa-project.org
-References: <20240507195116.9464-1-quic_wcheng@quicinc.com>
- <20240507195116.9464-39-quic_wcheng@quicinc.com>
- <cb864ea4-95e3-4e99-920d-341188006291@linux.intel.com>
- <cdee0eb7-7fb7-f267-8203-7dfb0ea2d31d@quicinc.com>
-Content-Language: en-US
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <cdee0eb7-7fb7-f267-8203-7dfb0ea2d31d@quicinc.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: QGKVCGGZCRR5RWFTQC23TQMWKWUTH5DU
-X-Message-ID-Hash: QGKVCGGZCRR5RWFTQC23TQMWKWUTH5DU
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=A8UFbAph;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=7uH/ueaK;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=A8UFbAph;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=7uH/ueaK
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 6445A605B2;
+	Thu,  9 May 2024 18:25:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1715279102;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KnCVpeZusPnIDUJeLHJVPaKdd2uDQNX1q2chP9jLd20=;
+	b=A8UFbAphdpZs5QssilgNZc1S86sSZbWie43aXmrm8oaT5feh2b9cP7zFXh2EbGoHjE2J8r
+	AYS6jRM+9ynH6wN6ESLwYEOfR7k+YuEnqI7K322Q86SSaBu7eam5ufL0YqxTRr+4ID1WZ7
+	0WzXnqrZZep7fCRsGjWZw2v7GF6UwPM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1715279102;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KnCVpeZusPnIDUJeLHJVPaKdd2uDQNX1q2chP9jLd20=;
+	b=7uH/ueaKo9p/KhR91KgAOqOd2sP1DjShaEhHL0Om2PFGrHWTIGtgjlp4FrC6nJUAQvI1xL
+	F5HDYu0LJN3Vt1Cw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1715279102;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KnCVpeZusPnIDUJeLHJVPaKdd2uDQNX1q2chP9jLd20=;
+	b=A8UFbAphdpZs5QssilgNZc1S86sSZbWie43aXmrm8oaT5feh2b9cP7zFXh2EbGoHjE2J8r
+	AYS6jRM+9ynH6wN6ESLwYEOfR7k+YuEnqI7K322Q86SSaBu7eam5ufL0YqxTRr+4ID1WZ7
+	0WzXnqrZZep7fCRsGjWZw2v7GF6UwPM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1715279102;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KnCVpeZusPnIDUJeLHJVPaKdd2uDQNX1q2chP9jLd20=;
+	b=7uH/ueaKo9p/KhR91KgAOqOd2sP1DjShaEhHL0Om2PFGrHWTIGtgjlp4FrC6nJUAQvI1xL
+	F5HDYu0LJN3Vt1Cw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 217ED13941;
+	Thu,  9 May 2024 18:25:02 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([10.150.64.162])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id C7/WBv4UPWbGRAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Thu, 09 May 2024 18:25:02 +0000
+Date: Thu, 09 May 2024 20:25:16 +0200
+Message-ID: <87r0eaalmb.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mark Brown <broonie@kernel.org>
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+	Takashi Iwai <tiwai@suse.com>,
+	alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org,
+	perex@perex.cz,
+	amadeuszx.slawinski@linux.intel.com,
+	pierre-louis.bossart@linux.intel.com,
+	hdegoede@redhat.com,
+	rafael@kernel.org
+Subject: Re: [PATCH 1/2] ALSA: hda: intel-dsp-config: Switch to ACPI NHLT
+In-Reply-To: <ZjzuxCqME77ei91Z@finisterre.sirena.org.uk>
+References: <20240419084307.2718881-1-cezary.rojewski@intel.com>
+	<20240419084307.2718881-2-cezary.rojewski@intel.com>
+	<892ad456-cfe5-4ff1-ab67-7709677608cd@intel.com>
+	<87zfsz9n8d.wl-tiwai@suse.de>
+	<87v83n9lpv.wl-tiwai@suse.de>
+	<ZjzuxCqME77ei91Z@finisterre.sirena.org.uk>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns]
+Message-ID-Hash: 4COLLGUHCAL4LECQ2JTJ5KHGGUMH4PGE
+X-Message-ID-Hash: 4COLLGUHCAL4LECQ2JTJ5KHGGUMH4PGE
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -110,7 +164,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QGKVCGGZCRR5RWFTQC23TQMWKWUTH5DU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4COLLGUHCAL4LECQ2JTJ5KHGGUMH4PGE/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,51 +173,21 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Thu, 09 May 2024 17:41:56 +0200,
+Mark Brown wrote:
+> 
+> On Thu, May 09, 2024 at 03:08:28PM +0200, Takashi Iwai wrote:
+> 
+> > I don't know how Mark applied the ASoC patch, but if that actually
+> > worked, it's better to take from his tree.  Or, in such a case, at
+> > best to be merged through the tree where the new API got introduced
+> > (i.e. ACPI tree).
+> 
+> The cover letter mentioned a branch that's a dependency - TBH I'd been
+> expecting you to apply the core ALSA patch to your tree, but I can apply
+> to mine if you prefer?
+
+Ah thanks, I overlooked that.  Now applied to my tree.
 
 
-On 5/8/24 15:06, Wesley Cheng wrote:
-> Hi Pierre,
-> 
-> On 5/7/2024 2:40 PM, Pierre-Louis Bossart wrote:
->>
->>
->> On 5/7/24 14:51, Wesley Cheng wrote:
->>> For userspace to know about certain capabilities of the current platform
->>> card, add tags to the components string that it can use to enable
->>> support
->>> for that audio path.  In case of USB offloading, the "usboffldplybk:
->>> 1" tag
->>
->> usboffloadplayback?
->>
->> same question as before, do we need spaces?
->>
-> 
-> I think spaces are currently used as a delimiter, so I'll remove the
-> spaces.
-> 
->> And if we have controls, why do we need component strings? The component
->> string is not dynamic to the best of my knowledge, this could be
->> problematic if the card is no longer capable of supporting this stream,
->> while a control can be updated at will.
->>
-> 
-> Maybe I misunderstood your comment here:
-> 
-> https://lore.kernel.org/linux-usb/925d7c03-c288-49a4-8bcd-395b32810d75@linux.intel.com/
-> 
-> At the time, I didn't include the kcontrols on the USB SND portion of
-> it, which was added after this series.  My interpretation was that there
-> were userspace entities that could query for general information about
-> what the card supports based on the components string, or sound card
-> name.  I treated this as an independent identifier, since the change to
-> add the offload capable jack was present.
-
-My comment at the time stands: it's very hard to figure out that a
-random card supports USB and is connected to a given endpoint.
-
-It'd be much easier as you wrote in the comments on patch 34 to have a
-control in the "regular" USB card to point to the 'better' offloaded
-path exposed by another card. Applications wouldn't need to know what
-this other card is, they would then use the card:device information
-directly.
+Takashi

@@ -2,118 +2,121 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C98938C0D5E
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 May 2024 11:18:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF3818C0D98
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 May 2024 11:37:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 22BD4DF9;
-	Thu,  9 May 2024 11:17:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 22BD4DF9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0DC42E65;
+	Thu,  9 May 2024 11:37:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0DC42E65
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1715246284;
-	bh=MTiRf6y9CwK5s4EGi1w9HicVt5K4p9IXFySP3nBcgY4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1715247465;
+	bh=cy7CWmqg8JaRX86mPUU3bC3ulyypV5pK2pkW2V9kha8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=K7hqHM+NoGTgHO53SJD4FRLbdwh9oSV+77dWtEcNCtsaLH9gfQUYTdcgEEG7l15SG
-	 G347vR4kU7sYoO5dK+0b+AVRXo2odHh/NcM/p2fnGZMtpRSUQcfCtLnaawEynN0hUX
-	 0ANz02A3SCFlIMLbfsLFjpLj161BbJu3MXtO5fAs=
+	b=eFXM8yRtbQ4lSJ8XR3T4DgFAlwsWCrIQY2sjEsps1lOcmjP8M2QJPP1pUaRydK1BL
+	 2uk6/29gN3PHUebzCy4DlCNojOtmvhuSfzHEbDQo9sAcVF7zFMfMlzpMA5OQt9GNOq
+	 P7nCob64LX2kTQoUCL6OYwXW7WKcCx2zVmkvuWKc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B6253F8058C; Thu,  9 May 2024 11:17:31 +0200 (CEST)
+	id CC4B0F8057B; Thu,  9 May 2024 11:37:12 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E7CA0F80571;
-	Thu,  9 May 2024 11:17:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6F668F8057A;
+	Thu,  9 May 2024 11:37:12 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 545F8F8049C; Thu,  9 May 2024 11:17:26 +0200 (CEST)
+	id 8D0C0F8049C; Thu,  9 May 2024 11:37:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: ***
-X-Spam-Status: No, score=3.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_SBL_CSS,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=no autolearn_force=no
-	version=3.4.6
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [IPv6:2a00:1450:4864:20::331])
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-il1-x12d.google.com (mail-il1-x12d.google.com
+ [IPv6:2607:f8b0:4864:20::12d])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D4C44F800E2
-	for <alsa-devel@alsa-project.org>; Thu,  9 May 2024 11:17:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4C44F800E2
+	by alsa1.perex.cz (Postfix) with ESMTPS id 47253F8024C
+	for <alsa-devel@alsa-project.org>; Thu,  9 May 2024 11:36:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47253F8024C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=e/V/DI4X
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-41fc5645bb1so5096045e9.1
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=EtXDRFmH
+Received: by mail-il1-x12d.google.com with SMTP id
+ e9e14a558f8ab-36c947ff642so2955925ab.2
         for <alsa-devel@alsa-project.org>;
- Thu, 09 May 2024 02:17:23 -0700 (PDT)
+ Thu, 09 May 2024 02:36:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1715246243; x=1715851043;
+        d=gmail.com; s=20230601; t=1715247409; x=1715852209;
  darn=alsa-project.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=5bO70t2wwFBE6k9WTC5h87uZcklzatJMH5IRVgedzqQ=;
-        b=e/V/DI4XWIZ05h1aq9A/mmE2uc32xr8E0murrdDeSBMRuuNYQOvSqtAYSzaqivCX4b
-         07vPO1heC+zf1e3csvQwxpOoD3yogvTx+3OPnt1cMNcwB1KJLk4rNaICD0kI+lzWM22u
-         gdEx+5FpIqbNskfU2qCc4bLSWfkUTH/Rs888hZKxtVeXTh9BCkoXFKUvb1ls7xIhoQej
-         2VcCamHNZwmXiwdLiDTGbpg4SMSkCcPrgHB3kd0vCO1GldwVVj6vFcDNXMCVWOAj1Brs
-         nwaRQ8e3EmJHIhzMTaz1Q9c6EsbPMrLTf9N8WBjVLNbw/4l4XWhM7+/slOfNj6PxkpHa
-         ez9Q==
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=icJF1CnJVBJloJSGMiGDeLLdcHlpsMMYY04rY+Lcxgw=;
+        b=EtXDRFmHJZ/yYrQ9liSPGeaOg+/UfAGhijUzM5HGqoXtiV4zwZW4evbtOYwtLrlA/5
+         ZzcW91oJxtnuuOiZs6Bpjk+Qf4o0NVe3165coyCQVqZMuNxWc/rs6m7HuGyEDEE42O7o
+         FKS8wZcRn/wRpd1m+YkENGVeuK1tre3+v72uujujlMT7+iL1n4WgxuryHIK7mVWYOxg5
+         J/p3gljeh0+kl8CrWnIcXJcE7pTHGAlZN3L5NoIifDc3eua5VpSSHBDti+uKWyLl7z9E
+         9OBBtE7ccaBWKGDRa+5bAkmEikcZ5s8nKpeE2mPm/b9yR0nWBrJYa5mSNAkxYWSLAEGP
+         WVxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715246243; x=1715851043;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=5bO70t2wwFBE6k9WTC5h87uZcklzatJMH5IRVgedzqQ=;
-        b=IT7kHNIa9gaF2Qpe/Inm7ICelYQMGJ90tui+ueThqLSbTI+js++TO98GDa+Z0HcVcx
-         lvqUzrRnbJjmk8nuK/Nap/BKyz76e9n5KAl7vO2uqQrQsA7PweoBYgwfe8hO2HIWIZ/j
-         en22nO1jgg9Hnbs7wPd8W/NWXD8XreSslRaHgk5dbVTPOi6tSndEaWGzA108XGfelcJw
-         YSQNsU3qT7C/eqQ49Bvq8e/Bt8PC5pnqDlI9iG1ay78xMNNW22WxCwAjFUEqAbVkTsZ7
-         xIjibcnRweW1vAaZ8Crs5toV2FzP4+Q0s7adhAK86jngP0yxeR+0PUxey816TMcbmGOH
-         TQMg==
-X-Gm-Message-State: AOJu0Yxt1hZB2ZWjfR7GHeV7xMemRue74/3I6uC91cKoBQrte5G4D/RK
-	zLLBspcLJAIeCx2YGsz2SCftoOMSSeq48LMnzq5arq02MoS665C8VDXNoA4UUMQ=
+        d=1e100.net; s=20230601; t=1715247409; x=1715852209;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=icJF1CnJVBJloJSGMiGDeLLdcHlpsMMYY04rY+Lcxgw=;
+        b=vVhBECcpOHsiZRMHIhDevIT5jMF39SbPypW/pApuTihYkvvUz7N6ICQHC+x/mA14JX
+         /3lJEYwJmBd+l59acffAdQDZkXpQ04EEe2S6W5qKXym4w5CImm2AgRhWbV4h/3vJF7Gx
+         rsh8GIQn/jeMGi4/rqd4QAulvRd0H60AFLPpCqcPYi7h/nr/wXNz3nuF5vvPuoUwmVqp
+         ziEkKYts2d7dgcGhJeaUzYWx5Oj25MCdm0glyC8oe9KZEWFCW1A/MafoMvlEPBZ6tLeb
+         t1ADe/wfDl+Yle+SO8I9NR6TJCbKlmloIWnLIZAlr8kNt4ceLEXPVSh8u/MRnfOXcf5K
+         JYkg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWC/GQgpaTlb4ycGbk+rz5EMPzjVMwJ+n1xUFiV+0fawCUljtbAb2wk0Pjcx45g0WiVnAAd8RtnDHXOVHtt3/JuhB4QVxJygORy2a0=
+X-Gm-Message-State: AOJu0Yxwt7cfkb5IFLTRkrdHbOx/bufE4sDb/I2D+HEbba1zSivd1sla
+	dpQGb+3gwpdMsEp+6DVIxHvEA5N79yxxMbgvwm/nuqqv5/RNYOohEGEzcLRL3sQUvEAbUzbPi/v
+	iNwBJZpye8JsY0mMzErnflWQ8Ydc=
 X-Google-Smtp-Source: 
- AGHT+IGCauFH2yLFsnMMUE8CDtmkKT6iBzwdkH3n4+XpqeBKPgbCvrAfI3+5i8uo1Z4Oxn8hR675dg==
-X-Received: by 2002:a05:600c:1c12:b0:41b:f359:2b53 with SMTP id
- 5b1f17b1804b1-41f723a2496mr43405305e9.37.1715246242638;
-        Thu, 09 May 2024 02:17:22 -0700 (PDT)
-Received: from [192.168.1.195] ([5.133.47.210])
-        by smtp.googlemail.com with ESMTPSA id
- 5b1f17b1804b1-41f87c24f8fsm53550235e9.15.2024.05.09.02.17.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 09 May 2024 02:17:22 -0700 (PDT)
-Message-ID: <d3c78e43-44a9-4ef2-8e64-00f39b32172c@linaro.org>
-Date: Thu, 9 May 2024 10:17:21 +0100
+ AGHT+IHMQfSBHy/1AVL9IbmZYx6H7dVJ/ppx2qIzgSdZP+YkzczNvUqE8dIc975+bA41fUNr1I7kZKh8WGTA7uTz8Mg=
+X-Received: by 2002:a05:6e02:168a:b0:36a:3c07:9caf with SMTP id
+ e9e14a558f8ab-36caed59232mr53903665ab.30.1715247409368; Thu, 09 May 2024
+ 02:36:49 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/4] ASoC: qcom: qdsp6: Set channel mapping instead of
- fixed defaults
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- James Schulman <james.schulman@cirrus.com>,
- David Rhodes <david.rhodes@cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Lars-Peter Clausen <lars@metafoo.de>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Banajit Goswami <bgoswami@quicinc.com>
-Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-References: 
- <20240509-asoc-x1e80100-4-channel-mapping-v3-0-6f874552d7b2@linaro.org>
- <20240509-asoc-x1e80100-4-channel-mapping-v3-3-6f874552d7b2@linaro.org>
-Content-Language: en-US
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: 
- <20240509-asoc-x1e80100-4-channel-mapping-v3-3-6f874552d7b2@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: CYV2XA6QQ3YE57KXO4WHPNUR6MZ7WJ3T
-X-Message-ID-Hash: CYV2XA6QQ3YE57KXO4WHPNUR6MZ7WJ3T
-X-MailFrom: srinivas.kandagatla@linaro.org
+References: <1710834674-3285-1-git-send-email-shengjiu.wang@nxp.com>
+ <20240430082112.jrovosb6lgblgpfg@basti-XPS-13-9310>
+ <ZjEEKyvb02CWz3l4@finisterre.sirena.org.uk>
+ <20240430172752.20ffcd56@sal.lan> <ZjGhPz-bokg6ZbDJ@finisterre.sirena.org.uk>
+ <87sez0k661.wl-tiwai@suse.de> <20240502095956.0a8c5b26@sal.lan>
+ <20240502102643.4ee7f6c2@sal.lan> <ZjRCJ2ZcmKOIo7_p@finisterre.sirena.org.uk>
+ <20240503094225.47fe4836@sal.lan>
+ <CAA+D8APfM3ayXHAPadHLty52PYE9soQM6o780=mZs+R4px-AOQ@mail.gmail.com>
+ <22d94c69-7e9f-4aba-ae71-50cc2e5dd8ab@xs4all.nl>
+ <51408e79-646d-4d23-bc5b-cd173d363327@linux.intel.com>
+In-Reply-To: <51408e79-646d-4d23-bc5b-cd173d363327@linux.intel.com>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Thu, 9 May 2024 17:36:38 +0800
+Message-ID: 
+ <CAA+D8AM7+SvXBi=LKRqvJkLsrYW=nkHTfFe957z2Qzm89bc48g@mail.gmail.com>
+Subject: Re: [PATCH v15 00/16] Add audio support in v4l2 framework
+To: =?UTF-8?B?QW1hZGV1c3ogU8WCYXdpxYRza2k=?=
+ <amadeuszx.slawinski@linux.intel.com>
+Cc: Hans Verkuil <hverkuil@xs4all.nl>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.de>,
+	Sebastian Fricke <sebastian.fricke@collabora.com>,
+ Shengjiu Wang <shengjiu.wang@nxp.com>,
+	sakari.ailus@iki.fi, tfiga@chromium.org, m.szyprowski@samsung.com,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Xiubo.Lee@gmail.com, festevam@gmail.com, nicoleotsuka@gmail.com,
+	lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
+	alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: RI5T55Y2QST6DVA2TXTZYLAYDV54XBAF
+X-Message-ID-Hash: RI5T55Y2QST6DVA2TXTZYLAYDV54XBAF
+X-MailFrom: shengjiu.wang@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -125,7 +128,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CYV2XA6QQ3YE57KXO4WHPNUR6MZ7WJ3T/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RI5T55Y2QST6DVA2TXTZYLAYDV54XBAF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -134,197 +137,107 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Thanks Krzysztof for the patch.
+On Wed, May 8, 2024 at 4:14=E2=80=AFPM Amadeusz S=C5=82awi=C5=84ski
+<amadeuszx.slawinski@linux.intel.com> wrote:
+>
+> On 5/8/2024 10:00 AM, Hans Verkuil wrote:
+> > On 06/05/2024 10:49, Shengjiu Wang wrote:
+> >> On Fri, May 3, 2024 at 4:42=E2=80=AFPM Mauro Carvalho Chehab <mchehab@=
+kernel.org> wrote:
+> >>>
+> >>> Em Fri, 3 May 2024 10:47:19 +0900
+> >>> Mark Brown <broonie@kernel.org> escreveu:
+> >>>
+> >>>> On Thu, May 02, 2024 at 10:26:43AM +0100, Mauro Carvalho Chehab wrot=
+e:
+> >>>>> Mauro Carvalho Chehab <mchehab@kernel.org> escreveu:
+> >>>>
+> >>>>>> There are still time control associated with it, as audio and vide=
+o
+> >>>>>> needs to be in sync. This is done by controlling the buffers size
+> >>>>>> and could be fine-tuned by checking when the buffer transfer is do=
+ne.
+> >>>>
+> >>>> ...
+> >>>>
+> >>>>> Just complementing: on media, we do this per video buffer (or
+> >>>>> per half video buffer). A typical use case on cameras is to have
+> >>>>> buffers transferred 30 times per second, if the video was streamed
+> >>>>> at 30 frames per second.
+> >>>>
+> >>>> IIRC some big use case for this hardware was transcoding so there wa=
+s a
+> >>>> desire to just go at whatever rate the hardware could support as the=
+re
+> >>>> is no interactive user consuming the output as it is generated.
+> >>>
+> >>> Indeed, codecs could be used to just do transcoding, but I would
+> >>> expect it to be a border use case. See, as the chipsets implementing
+> >>> codecs are typically the ones used on mobiles, I would expect that
+> >>> the major use cases to be to watch audio and video and to participate
+> >>> on audio/video conferences.
+> >>>
+> >>> Going further, the codec API may end supporting not only transcoding
+> >>> (which is something that CPU can usually handle without too much
+> >>> processing) but also audio processing that may require more
+> >>> complex algorithms - even deep learning ones - like background noise
+> >>> removal, echo detection/removal, volume auto-gain, audio enhancement
+> >>> and such.
+> >>>
+> >>> On other words, the typical use cases will either have input
+> >>> or output being a physical hardware (microphone or speaker).
+> >>>
+> >>
+> >> All, thanks for spending time to discuss, it seems we go back to
+> >> the start point of this topic again.
+> >>
+> >> Our main request is that there is a hardware sample rate converter
+> >> on the chip, so users can use it in user space as a component like
+> >> software sample rate converter. It mostly may run as a gstreamer plugi=
+n.
+> >> so it is a memory to memory component.
+> >>
+> >> I didn't find such API in ALSA for such purpose, the best option for t=
+his
+> >> in the kernel is the V4L2 memory to memory framework I found.
+> >> As Hans said it is well designed for memory to memory.
+> >>
+> >> And I think audio is one of 'media'.  As I can see that part of Radio
+> >> function is in ALSA, part of Radio function is in V4L2. part of HDMI
+> >> function is in DRM, part of HDMI function is in ALSA...
+> >> So using V4L2 for audio is not new from this point of view.
+> >>
+> >> Even now I still think V4L2 is the best option, but it looks like ther=
+e
+> >> are a lot of rejects.  If develop a new ALSA-mem2mem, it is also
+> >> a duplication of code (bigger duplication that just add audio support
+> >> in V4L2 I think).
+> >
+> > After reading this thread I still believe that the mem2mem framework is
+> > a reasonable option, unless someone can come up with a method that is
+> > easy to implement in the alsa subsystem. From what I can tell from this
+> > discussion no such method exists.
+> >
+>
+> Hi,
+>
+> my main question would be how is mem2mem use case different from
+> loopback exposing playback and capture frontends in user space with DSP
+> (or other piece of HW) in the middle?
+>
+I think loopback has a timing control,  user need to feed data to playback =
+at a
+fixed time and get data from capture at a fixed time.  Otherwise there
+is xrun in
+playback and capture.
 
+mem2mem case: there is no such timing control,  user feeds data to it
+then it generates output,  if user doesn't feed data, there is no xrun.
+but mem2mem is just one of the components in the playback or capture
+pipeline, overall there is time control for whole pipeline,
 
-On 09/05/2024 07:51, Krzysztof Kozlowski wrote:
-> When constructing packets to DSP, the Audioreach code uses 'struct
-> audioreach_module_config' to configure parameters like number of
-> channels, bitrate, sample rate etc, but uses defaults for the channel
-> mapping.
-> 
-> Rework this code to copy the channel mapping from 'struct
-> audioreach_module_config', instead of using the default.  This requires
-> all callers to fill that structure: add missing initialization of
-> channel mapping.
-Adding this new function call is logically fine but its going to 
-introducing some sequencing issues.
+Best regards
+Shengjiu Wang
 
-set_channel_map might be overwritten by this if not done correctly.
-
-One such instance is in this patch..
-
-> 
-> Entire patch makes code more logical and easier to follow:
-> 1. q6apm-dai and q6apm-lpass-dais code which allocates 'struct
->     audioreach_module_config' initializes it fully, so fills both
->     the number of channels and the channel mapping.
-> 2. Audioreach code, which uses 'struct audioreach_module_config' when
->     constructing packets, copies entire contents of passed config, not
->     only pieces of it.
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> 
-> ---
-> 
-> Changes in v2:
-> 1. Extend commit msg, rationale.
-> 2. Rework to new approach, but most of the code stays.
-> 3. Export audioreach_set_channel_mapping() (needed by Q6APM DAIS and
->     LPASS DAIS)
-> 4. Correct channel mapping also in audioreach_mfc_set_media_format(),
->     because MFC DAI is now part of backend.
-> 5. Do not adjust dynamic DAIs (drop audioreach_dai_load()).
-> ---
->   sound/soc/qcom/qdsp6/audioreach.c       | 30 +++++++-----------------------
->   sound/soc/qcom/qdsp6/audioreach.h       |  1 +
->   sound/soc/qcom/qdsp6/q6apm-dai.c        |  2 ++
->   sound/soc/qcom/qdsp6/q6apm-lpass-dais.c |  5 ++++-
->   4 files changed, 14 insertions(+), 24 deletions(-)
-> 
-> diff --git a/sound/soc/qcom/qdsp6/audioreach.c b/sound/soc/qcom/qdsp6/audioreach.c
-> index 5291deac0a0b..750b8ba64211 100644
-> --- a/sound/soc/qcom/qdsp6/audioreach.c
-> +++ b/sound/soc/qcom/qdsp6/audioreach.c
-> @@ -267,7 +267,7 @@ void *audioreach_alloc_apm_cmd_pkt(int pkt_size, uint32_t opcode, uint32_t token
->   }
->   EXPORT_SYMBOL_GPL(audioreach_alloc_apm_cmd_pkt);
->   
-> -static void audioreach_set_channel_mapping(u8 *ch_map, int num_channels)
-> +void audioreach_set_channel_mapping(u8 *ch_map, int num_channels)
->   {
->   	if (num_channels == 1) {
->   		ch_map[0] =  PCM_CHANNEL_FL;
-> @@ -281,6 +281,7 @@ static void audioreach_set_channel_mapping(u8 *ch_map, int num_channels)
->   		ch_map[3] =  PCM_CHANNEL_RS;
->   	}
->   }
-> +EXPORT_SYMBOL_GPL(audioreach_set_channel_mapping);
->   
->   static void apm_populate_container_config(struct apm_container_obj *cfg,
->   					  struct audioreach_container *cont)
-> @@ -819,7 +820,7 @@ static int audioreach_mfc_set_media_format(struct q6apm_graph *graph,
->   	uint32_t num_channels = cfg->num_channels;
->   	int payload_size;
->   	struct gpr_pkt *pkt;
-> -	int rc;
-> +	int rc, i;
->   	void *p;
->   
->   	payload_size = APM_MFC_CFG_PSIZE(media_format, num_channels) +
-> @@ -842,18 +843,8 @@ static int audioreach_mfc_set_media_format(struct q6apm_graph *graph,
->   	media_format->sample_rate = cfg->sample_rate;
->   	media_format->bit_width = cfg->bit_width;
->   	media_format->num_channels = cfg->num_channels;
-> -
-> -	if (num_channels == 1) {
-> -		media_format->channel_mapping[0] = PCM_CHANNEL_FL;
-> -	} else if (num_channels == 2) {
-> -		media_format->channel_mapping[0] = PCM_CHANNEL_FL;
-> -		media_format->channel_mapping[1] = PCM_CHANNEL_FR;
-> -	} else if (num_channels == 4) {
-> -		media_format->channel_mapping[0] = PCM_CHANNEL_FL;
-> -		media_format->channel_mapping[1] = PCM_CHANNEL_FR;
-> -		media_format->channel_mapping[2] = PCM_CHANNEL_LS;
-> -		media_format->channel_mapping[3] = PCM_CHANNEL_RS;
-> -	}
-> +	for (i = 0; i < num_channels; i++)
-> +		media_format->channel_mapping[i] = cfg->channel_map[i];
->   
->   	rc = q6apm_send_cmd_sync(graph->apm, pkt, 0);
->   
-> @@ -883,9 +874,6 @@ static int audioreach_set_compr_media_format(struct media_format *media_fmt_hdr,
->   		mp3_cfg->q_factor = mcfg->bit_width - 1;
->   		mp3_cfg->endianness = PCM_LITTLE_ENDIAN;
->   		mp3_cfg->num_channels = mcfg->num_channels;
-> -
-> -		audioreach_set_channel_mapping(mp3_cfg->channel_mapping,
-> -					       mcfg->num_channels);
->   		break;
->   	case SND_AUDIOCODEC_AAC:
->   		media_fmt_hdr->data_format = DATA_FORMAT_RAW_COMPRESSED;
-> @@ -1104,9 +1092,7 @@ static int audioreach_pcm_set_media_format(struct q6apm_graph *graph,
->   	media_cfg->num_channels = mcfg->num_channels;
->   	media_cfg->q_factor = mcfg->bit_width - 1;
->   	media_cfg->bits_per_sample = mcfg->bit_width;
-> -
-> -	audioreach_set_channel_mapping(media_cfg->channel_mapping,
-> -				       num_channels);
-> +	memcpy(media_cfg->channel_mapping, mcfg->channel_map, mcfg->num_channels);
->   
->   	rc = q6apm_send_cmd_sync(graph->apm, pkt, 0);
->   
-> @@ -1163,9 +1149,7 @@ static int audioreach_shmem_set_media_format(struct q6apm_graph *graph,
->   		cfg->q_factor = mcfg->bit_width - 1;
->   		cfg->endianness = PCM_LITTLE_ENDIAN;
->   		cfg->num_channels = mcfg->num_channels;
-> -
-> -		audioreach_set_channel_mapping(cfg->channel_mapping,
-> -					       num_channels);
-> +		memcpy(cfg->channel_mapping, mcfg->channel_map, mcfg->num_channels);
->   	} else {
->   		rc = audioreach_set_compr_media_format(header, p, mcfg);
->   		if (rc) {
-> diff --git a/sound/soc/qcom/qdsp6/audioreach.h b/sound/soc/qcom/qdsp6/audioreach.h
-> index eb9306280988..208b74e50445 100644
-> --- a/sound/soc/qcom/qdsp6/audioreach.h
-> +++ b/sound/soc/qcom/qdsp6/audioreach.h
-> @@ -766,6 +766,7 @@ struct audioreach_module_config {
->   /* Packet Allocation routines */
->   void *audioreach_alloc_apm_cmd_pkt(int pkt_size, uint32_t opcode, uint32_t
->   				    token);
-> +void audioreach_set_channel_mapping(u8 *ch_map, int num_channels);
->   void *audioreach_alloc_cmd_pkt(int payload_size, uint32_t opcode,
->   			       uint32_t token, uint32_t src_port,
->   			       uint32_t dest_port);
-> diff --git a/sound/soc/qcom/qdsp6/q6apm-dai.c b/sound/soc/qcom/qdsp6/q6apm-dai.c
-> index 00bbd291be5c..8ab55869e8a2 100644
-> --- a/sound/soc/qcom/qdsp6/q6apm-dai.c
-> +++ b/sound/soc/qcom/qdsp6/q6apm-dai.c
-> @@ -243,6 +243,7 @@ static int q6apm_dai_prepare(struct snd_soc_component *component,
->   	cfg.num_channels = runtime->channels;
->   	cfg.bit_width = prtd->bits_per_sample;
->   	cfg.fmt = SND_AUDIOCODEC_PCM;
-> +	audioreach_set_channel_mapping(cfg.channel_map, runtime->channels);
->   
-
-Prepare can be called multiple times.. so we have channels overwritten here.
-
---srini
->   	if (prtd->state) {
->   		/* clear the previous setup if any  */
-> @@ -669,6 +670,7 @@ static int q6apm_dai_compr_set_params(struct snd_soc_component *component,
->   		cfg.num_channels = 2;
->   		cfg.bit_width = prtd->bits_per_sample;
->   		cfg.fmt = codec->id;
-> +		audioreach_set_channel_mapping(cfg.channel_map, cfg.num_channels);
->   		memcpy(&cfg.codec, codec, sizeof(*codec));
->   
->   		ret = q6apm_graph_media_format_shmem(prtd->graph, &cfg);
-> diff --git a/sound/soc/qcom/qdsp6/q6apm-lpass-dais.c b/sound/soc/qcom/qdsp6/q6apm-lpass-dais.c
-> index a4ad1d0e6abd..8340e4fb78f4 100644
-> --- a/sound/soc/qcom/qdsp6/q6apm-lpass-dais.c
-> +++ b/sound/soc/qcom/qdsp6/q6apm-lpass-dais.c
-> @@ -106,6 +106,7 @@ static int q6hdmi_hw_params(struct snd_pcm_substream *substream,
->   	cfg->bit_width = params_width(params);
->   	cfg->sample_rate = params_rate(params);
->   	cfg->num_channels = channels;
-> +	audioreach_set_channel_mapping(cfg->channel_map, channels);
->   
->   	switch (dai->id) {
->   	case DISPLAY_PORT_RX_0:
-> @@ -130,10 +131,12 @@ static int q6dma_hw_params(struct snd_pcm_substream *substream,
->   {
->   	struct q6apm_lpass_dai_data *dai_data = dev_get_drvdata(dai->dev);
->   	struct audioreach_module_config *cfg = &dai_data->module_config[dai->id];
-> +	int channels = hw_param_interval_c(params, SNDRV_PCM_HW_PARAM_CHANNELS)->max;
->   
->   	cfg->bit_width = params_width(params);
->   	cfg->sample_rate = params_rate(params);
-> -	cfg->num_channels = hw_param_interval_c(params, SNDRV_PCM_HW_PARAM_CHANNELS)->max;
-> +	cfg->num_channels = channels;
-> +	audioreach_set_channel_mapping(cfg->channel_map, channels);
->   
->   	return 0;
->   }
-> 
+> Amadeusz
+>

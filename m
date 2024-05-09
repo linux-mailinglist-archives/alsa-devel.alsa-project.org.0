@@ -2,82 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A4308C193D
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 May 2024 00:09:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9099B8C1969
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 May 2024 00:34:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3EAAD14EA;
-	Fri, 10 May 2024 00:09:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3EAAD14EA
+	by alsa0.perex.cz (Postfix) with ESMTPS id C7C7514DE;
+	Fri, 10 May 2024 00:33:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C7C7514DE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1715292589;
-	bh=dSr0oxLlibKNvuTG5gujhJneI5aqNdgz3TUp6moOfds=;
+	s=default; t=1715294046;
+	bh=VF+AfiIJHoS/yHmfkDQfIFqvpwDp+YeyZaff7Z1NEIY=;
 	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=eIeQCYmpl2bQ3Vd9goqbvj8jc8En3uz+3RFg5Dzi6lBId7hmMesFs7IBIAtulL+2E
-	 08/dLMzwy1qKerUpxe+Alp0XiwVqk0lE/YkppIbrXNrFke8dUP1PTVTiVevMifNAB6
-	 Ln0EHDJpDZtZejpq2ly5Yf3wznxgnn6yQJmyvGaQ=
+	b=s68vL5mbxQgWVmyHfCaIaUiPnRPxAQ2NsEnaJu/8GpxuAYPKz2+IfOBhbEyLQpXDW
+	 LhpSW3hUXowl5fwh2GDAZK2qaPItfunh5jdLfCG5FAEjF1tKSSPwszdJ3AQsi7ZoLz
+	 mdPTE/lD47ntXA7IbwxZzxc1HuGm58nJzT5V1OBs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AA706F805AC; Fri, 10 May 2024 00:09:15 +0200 (CEST)
+	id CAA57F805A0; Fri, 10 May 2024 00:33:34 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B1CE2F805A8;
-	Fri, 10 May 2024 00:09:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 63303F805A8;
+	Fri, 10 May 2024 00:33:34 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DD0E4F8049C; Fri, 10 May 2024 00:09:10 +0200 (CEST)
+	id 2E298F8049C; Fri, 10 May 2024 00:33:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
+X-Spam-Status: No, score=-8.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EBFC2F800E2
-	for <alsa-devel@alsa-project.org>; Fri, 10 May 2024 00:09:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EBFC2F800E2
+	by alsa1.perex.cz (Postfix) with ESMTPS id A89FDF8003A
+	for <alsa-devel@alsa-project.org>; Fri, 10 May 2024 00:32:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A89FDF8003A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=eSOPKI0x
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ header.s=qcppdkim1 header.b=XNMlLlmi
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
 	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 449M04T1014634;
-	Thu, 9 May 2024 22:09:04 GMT
+ 449MQLTH002289;
+	Thu, 9 May 2024 22:32:45 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
 	message-id:date:mime-version:subject:to:cc:references:from
 	:in-reply-to:content-type:content-transfer-encoding; s=
-	qcppdkim1; bh=duuW4RPEH3OftDT3NUAKs6T19v0gBVzrmpREhIv0D1Y=; b=eS
-	OPKI0xJbEG2v45oQ7va5DfqzXPveE9N9ZokpdZuY1122uprUGZW4xg9S5ceLPlow
-	SiuoZMgogOnQ0ONj2+2SfLT99jtvC47/rOJqJ9UzMI8Cim98A+jXoj6nHOGUXE5F
-	nZu5AGHDpNDDzZDNP6oSMYBPUpDcbJMoN6513791QcxDQFkV3vEcySAp8BRkQPk8
-	WuWVNie1kc5DnH+g8RUOKeAzky1q0IAor8a4qzuxn+Y3FIRlp6lmJMj83/1E3gz8
-	1LdyyRtKzTvteBSNvqvBlYGJCxC0uY/kDmCJDIuoUhjNh9l3E5bCGeO29zZ1+Qrd
-	9MUSR2popFDzLbK/KUUQ==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+	qcppdkim1; bh=lvV/C277I4DddRmj7GYxGQ4oTHE9NNGzDWC/trZCNVE=; b=XN
+	MlLlmiZicXeidDDFFy1jBMrXn45Bfn2BQL2qK5xDlGW+xyQG+0EnH6sjVF/7mcjC
+	UbyHlGx1jmlYgEsFlJN+MU6jUQPZwB5v34UOwPosCxNFPIZE+O05Fs9uvJBvmea/
+	litW61f5g558hZgqAC1YOP2sH4WHmF+ee0oETkWIiTP791/FEmb725gRJb9rEdeB
+	gTvszVtOplJS2dVDOoZExbFF7RZJGzqj4rvBikalcZqLMBLbitrpn/vb3TPvDKy8
+	D6wxMlvFGsKA3fGuVb9F3FiiIsm8h8LMTpO3v/02K+8JL8kodexBAFqBCKcWhWX3
+	mFsoh07K1TaIRJDeon0g==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3y16w180gn-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3y16w0r1k3-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 09 May 2024 22:09:04 +0000 (GMT)
+	Thu, 09 May 2024 22:32:45 +0000 (GMT)
 Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
  [10.47.209.197])
-	by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
- 449M9235023015
+	by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
+ 449MWhph004589
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 9 May 2024 22:09:02 GMT
+	Thu, 9 May 2024 22:32:43 GMT
 Received: from [10.71.112.114] (10.80.80.8) by nalasex01b.na.qualcomm.com
  (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 9 May 2024
- 15:09:01 -0700
-Message-ID: <96fe827b-e65f-570c-30de-1e51793f61a2@quicinc.com>
-Date: Thu, 9 May 2024 15:09:01 -0700
+ 15:32:43 -0700
+Message-ID: <e98f0e53-b6b7-5ad6-fe09-2f2487929f61@quicinc.com>
+Date: Thu, 9 May 2024 15:32:42 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.15.1
-Subject: Re: [PATCH v21 38/39] ASoC: qcom: Populate SoC components string
+Subject: Re: [PATCH v21 27/39] ASoC: Introduce SND kcontrols to select sound
+ card and PCM device
 Content-Language: en-US
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
         <srinivas.kandagatla@linaro.org>, <mathias.nyman@intel.com>,
@@ -91,12 +92,12 @@ CC: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
         <linux-arm-msm@vger.kernel.org>, <linux-doc@vger.kernel.org>,
         <alsa-devel@alsa-project.org>
 References: <20240507195116.9464-1-quic_wcheng@quicinc.com>
- <20240507195116.9464-39-quic_wcheng@quicinc.com>
- <cb864ea4-95e3-4e99-920d-341188006291@linux.intel.com>
- <cdee0eb7-7fb7-f267-8203-7dfb0ea2d31d@quicinc.com>
- <92abca40-5eda-49d0-bc9d-eeb1a76e3461@linux.intel.com>
+ <20240507195116.9464-28-quic_wcheng@quicinc.com>
+ <54b79b7b-49e6-418e-9a6b-11bcbada8398@linux.intel.com>
+ <3390ef12-67dd-9474-21fb-b8df35fff546@quicinc.com>
+ <f1368be7-fea5-450c-a61c-f289ba61f150@linux.intel.com>
 From: Wesley Cheng <quic_wcheng@quicinc.com>
-In-Reply-To: <92abca40-5eda-49d0-bc9d-eeb1a76e3461@linux.intel.com>
+In-Reply-To: <f1368be7-fea5-450c-a61c-f289ba61f150@linux.intel.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Originating-IP: [10.80.80.8]
@@ -105,19 +106,19 @@ X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: FIieVROshBWYeBTCKPjUthilHzKh18GX
-X-Proofpoint-ORIG-GUID: FIieVROshBWYeBTCKPjUthilHzKh18GX
+X-Proofpoint-GUID: VDvEEdoZl6xGIFhQdqSSzOZACpjh-pEN
+X-Proofpoint-ORIG-GUID: VDvEEdoZl6xGIFhQdqSSzOZACpjh-pEN
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.11.176.26
  definitions=2024-05-09_12,2024-05-09_01,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0
- impostorscore=0 lowpriorityscore=0 spamscore=0 mlxscore=0 bulkscore=0
- priorityscore=1501 adultscore=0 phishscore=0 mlxlogscore=712
- malwarescore=0 clxscore=1015 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.19.0-2405010000 definitions=main-2405090157
-Message-ID-Hash: YUR6T7ZS2PJUPTPUB3LFGLUSWUELFA6F
-X-Message-ID-Hash: YUR6T7ZS2PJUPTPUB3LFGLUSWUELFA6F
+ spamscore=0 bulkscore=0
+ malwarescore=0 suspectscore=0 adultscore=0 mlxlogscore=999 phishscore=0
+ mlxscore=0 lowpriorityscore=0 clxscore=1015 impostorscore=0
+ priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2405010000 definitions=main-2405090159
+Message-ID-Hash: MNAJNVSZY7C7V4VIHQSRWHXDDW6QH5JT
+X-Message-ID-Hash: MNAJNVSZY7C7V4VIHQSRWHXDDW6QH5JT
 X-MailFrom: quic_wcheng@quicinc.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -130,9 +131,8 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YUR6T7ZS2PJUPTPUB3LFGLUSWUELFA6F/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MNAJNVSZY7C7V4VIHQSRWHXDDW6QH5JT/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
@@ -141,63 +141,65 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 Hi Pierre,
 
-On 5/9/2024 6:17 AM, Pierre-Louis Bossart wrote:
+On 5/9/2024 6:07 AM, Pierre-Louis Bossart wrote:
 > 
 > 
-> On 5/8/24 15:06, Wesley Cheng wrote:
+> On 5/8/24 19:10, Wesley Cheng wrote:
 >> Hi Pierre,
 >>
->> On 5/7/2024 2:40 PM, Pierre-Louis Bossart wrote:
+>> On 5/7/2024 2:26 PM, Pierre-Louis Bossart wrote:
 >>>
 >>>
 >>> On 5/7/24 14:51, Wesley Cheng wrote:
->>>> For userspace to know about certain capabilities of the current platform
->>>> card, add tags to the components string that it can use to enable
->>>> support
->>>> for that audio path.  In case of USB offloading, the "usboffldplybk:
->>>> 1" tag
+>>>> Add SND kcontrol to SOC USB, which will allow for userpsace to determine
+>>>> which USB card number and PCM device to offload.  This allows for
+>>>> userspace
+>>>> to potentially tag an alternate path for a specific USB SND card and PCM
+>>>> device.  Previously, control was absent, and the offload path would be
+>>>> enabled on the last USB SND device which was connected.  This logic will
+>>>> continue to be applicable if no mixer input is received for specific
+>>>> device
+>>>> selection.
+>>>>
+>>>> An example to configure the offload device using tinymix:
+>>>> tinymix -D 0 set 'USB Offload Playback Route Select' 1 0
+>>>>
+>>>> The above command will configure the offload path to utilize card#1
+>>>> and PCM
+>>>> stream#0.
 >>>
->>> usboffloadplayback?
->>>
->>> same question as before, do we need spaces?
->>>
+>>> I don't know how this is usable in practice. Using card indices is
+>>> really hard to do, it depends on the order in which devices are
+>>> plugged-in...
 >>
->> I think spaces are currently used as a delimiter, so I'll remove the
->> spaces.
->>
->>> And if we have controls, why do we need component strings? The component
->>> string is not dynamic to the best of my knowledge, this could be
->>> problematic if the card is no longer capable of supporting this stream,
->>> while a control can be updated at will.
->>>
->>
->> Maybe I misunderstood your comment here:
->>
->> https://lore.kernel.org/linux-usb/925d7c03-c288-49a4-8bcd-395b32810d75@linux.intel.com/
->>
->> At the time, I didn't include the kcontrols on the USB SND portion of
->> it, which was added after this series.  My interpretation was that there
->> were userspace entities that could query for general information about
->> what the card supports based on the components string, or sound card
->> name.  I treated this as an independent identifier, since the change to
->> add the offload capable jack was present.
+>> How are the existing mechanisms handling USB audio devices, or what is
+>> the identifier being used?
 > 
-> My comment at the time stands: it's very hard to figure out that a
-> random card supports USB and is connected to a given endpoint.
+> Well it's a mess, that's why I asked.
 > 
-> It'd be much easier as you wrote in the comments on patch 34 to have a
-> control in the "regular" USB card to point to the 'better' offloaded
-> path exposed by another card. Applications wouldn't need to know what
-> this other card is, they would then use the card:device information
-> directly.
+> There are configuration work-arounds to make sure that 'local'
+> accessories are handled first and get repeatable card indices.
+> 
 
-OK, then it might be fine to remove the components tag if patch#34 is 
-there.  That kcontrol is exposed as part of the sound card created for 
-the USB device, so if applications queried, it would signify that there 
-is an offload path available.
+So is the intention of the configuration aspect you're thinking of to 
+have an entry that maps a USB device based on some identifier, which 
+will take the offload path by default?
 
-For this kcontrol, it will return the ASoC platform card index, would 
-that be sufficient?
+IMO, the concept of this selection of card and PCM device should happen 
+after the application discovers a USB device that is offload capable. 
+For example, maybe the application will use the USB VID/PID to lookup an 
+entry within the configuration.  If some offload tag is present, it can 
+further determine which card and PCM devices are associated w/ the USB 
+device?  Although this is under the assumption the application has 
+insight to the USB sysfs.
+
+> But between USB devices I guess the rule is 'anything goes'. Even if
+> there are two devices connected at boot, the index allocation will
+> depend on probe order. The card names are not necessarily super-useful
+> either, i.e. yesterday I was confused by an USB card named "CODEC"
+> without any details.
+
+That device is very informative :D
 
 Thanks
 Wesley Cheng

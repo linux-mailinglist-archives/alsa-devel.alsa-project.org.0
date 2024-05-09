@@ -2,100 +2,196 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 179A58C19D0
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 May 2024 01:11:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C2598C1A0C
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 May 2024 01:43:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7DA65E9D;
-	Fri, 10 May 2024 01:11:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7DA65E9D
+	by alsa0.perex.cz (Postfix) with ESMTPS id D114F14E6;
+	Fri, 10 May 2024 01:43:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D114F14E6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1715296290;
-	bh=MGh8/Zydz2ujwedtTOqwlPTEuKsnkt8sbW0reAIUVv0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1715298212;
+	bh=T47luIg5Me3IEbBpwOBn3y3w1Q3bW3fBVMWnEhOXYFw=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=G581LxPa7KO9BjrseqoegFYLAnXgfCLlL5344L1/ubdzBQszeOg1m70pzHOdq+g7I
-	 Aj0t7X8X2LOQSSf/5FtpzxUiDGNOa8oSX+cZoCy8nzmoKmZfWYM0RNEnuj/ZBtgud+
-	 /4ikk/6YyAa3l5jxClJHwgmRc3pUi7lBFr6beu1g=
+	b=ULE+/xTbRS3AGwy9H+lTsOr6vKKu1ReOMemZMwalGKpvzdRiaJK+x4OHVakMgt/1X
+	 WCuWaumruEKPEM2+3DOqTlKV2RD8utlazRwVTnseY0zPcNaeIne1b92wKMZ1xE1l9C
+	 UfdA7vpGFegL+TmfA+Oage0SLrAjrDNyGmaFAlIY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8527EF80571; Fri, 10 May 2024 01:10:59 +0200 (CEST)
+	id 39569F80580; Fri, 10 May 2024 01:42:58 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A3C1CF8058C;
-	Fri, 10 May 2024 01:10:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 804F7F805A1;
+	Fri, 10 May 2024 01:42:58 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 422F4F8049C; Fri, 10 May 2024 01:10:54 +0200 (CEST)
+	id DF03FF8049C; Fri, 10 May 2024 01:42:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from JPN01-TYC-obe.outbound.protection.outlook.com
+ (mail-tycjpn01on20600.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:2019::600])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 788DDF800E2
-	for <alsa-devel@alsa-project.org>; Fri, 10 May 2024 01:10:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 788DDF800E2
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0A97CF8024C
+	for <alsa-devel@alsa-project.org>; Fri, 10 May 2024 01:42:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A97CF8024C
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=TNIZLE2/
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1715296239; x=1746832239;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=MGh8/Zydz2ujwedtTOqwlPTEuKsnkt8sbW0reAIUVv0=;
-  b=TNIZLE2//QGLronjEM90wvmz42xAurWBDFTa5BnlZ1vT/c6JTY28645I
-   U1wziNxFwW2/nEE1ukn/5BOZbBz389lU3jUGLgKQ4V0ofQ/5cGbitiemd
-   ImlYy5vnsggIupCQYO1IXpb9iInFdRKh2vFn0TQgA5GZCG+a6ZRxYXoUG
-   tBFCGm15/4eQYpJYwjLQ8PldKVy4ZHWtrnvEZNBifMA1JUafxSMXKeXVt
-   QYu9RaNk/8KvdQt6OQrno4g4kqAnYXTwiyLDJjKFrFqqQO8vScSmyJBqY
-   a1MAcGnozzHAFtHDXMbu5cunCD1IAo8NXhbgBzl5/UV5408O59y6pjsTm
-   Q==;
-X-CSE-ConnectionGUID: pMNFJ9AUSDSvwJ+mwPGjjA==
-X-CSE-MsgGUID: +4v0GCzISe6CgUP5y/uViA==
-X-IronPort-AV: E=McAfee;i="6600,9927,11068"; a="28737692"
-X-IronPort-AV: E=Sophos;i="6.08,149,1712646000";
-   d="scan'208";a="28737692"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 May 2024 16:10:33 -0700
-X-CSE-ConnectionGUID: rhUqsZuZRka0osey9Emkxw==
-X-CSE-MsgGUID: pnt6RfLSTl+2NA+rjLRrsQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,149,1712646000";
-   d="scan'208";a="33940273"
-Received: from lkp-server01.sh.intel.com (HELO f8b243fe6e68) ([10.239.97.150])
-  by fmviesa004.fm.intel.com with ESMTP; 09 May 2024 16:10:28 -0700
-Received: from kbuild by f8b243fe6e68 with local (Exim 4.96)
-	(envelope-from <lkp@intel.com>)
-	id 1s5CuA-0005Tj-0H;
-	Thu, 09 May 2024 23:10:26 +0000
-Date: Fri, 10 May 2024 07:09:51 +0800
-From: kernel test robot <lkp@intel.com>
-To: Shengjiu Wang <shengjiu.wang@nxp.com>, lgirdwood@gmail.com,
-	broonie@kernel.org, robh+dt@kernel.org,
-	krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
-	shengjiu.wang@gmail.com, linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Xiubo.Lee@gmail.com, festevam@gmail.com, nicoleotsuka@gmail.com,
-	perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
-	linuxppc-dev@lists.ozlabs.org
-Cc: oe-kbuild-all@lists.linux.dev
-Subject: Re: [PATCH 3/4] ASoC: fsl_xcvr: Support reparent pll clocks for
- phy_clk
-Message-ID: <202405100658.D0KXAx8b-lkp@intel.com>
-References: <1715223460-32662-4-git-send-email-shengjiu.wang@nxp.com>
+	dkim=pass (1024-bit key,
+ unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
+ header.s=selector1 header.b=MoaQmslv
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Cu7fmoRB7FfEBMIbRmnCtiEpJXccmZ7sN/xvmj/onDrfqJIp8+iRENSYeJWod8Kqcg28OXzlDT0Bqi/foKp3CSpYKMIhGB3hyWtgs0ZyboxnLSsnHxr0ej5UkQ/hjg7v/ERNbD1SwC2P/nFJCQrbo03LsDxoTkuqiwkXdEybHmxBaQdnr9JAcM0BCYc6GnV1yfy5TZadBqak1N1JczJK+4yl3C7O/zrQn2ZtSZH62iATGUPutKTtd7vbyD0hN2D77tlizU5aNo+sAdDqniYGvjTaJO90odieNN1uk2P0K5+qSIy14BNKJmE0HWCPYy6Za2UU2pBrHj6Zyh9s1Us0IQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=57bbOVFVgwVM/vbmVWpJuyjxlPuf7GVqyf5s81UWpvM=;
+ b=k1cICag2YaHqM2SKKfEH2E7y2lVcf8dNFMUTQTUwB1VjzhAiCyDmoTdU6+DahjdhA/pFluBxPMdsljVsNvzfzsApg45JiXW24Hz4InReska4A+u3vfzdX+t5ZGnGBalM9kGWL70O8QR2xpppCBRhg78TN3zyys2W9qBq+ErI7hgmgvWcROAzx8+C2bKBsFeWhOTFZkiBXZrA6q94Cr1emNhHgiYsHnp6N0vwDyQ6HkJZzaUlCPaVnscUJwKEy/mUI46MTlHjo8KKw70wm/8e6RjW1IHD67XTPAxmCN1O3GPITXhn/jChXAPfLqn4FNtIa4JJ4NnboTMtZMFqbZ2sDQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=57bbOVFVgwVM/vbmVWpJuyjxlPuf7GVqyf5s81UWpvM=;
+ b=MoaQmslvLKZai9JSBFOKXb7f9mrVY4ca27UzDfGbVYiWH2LA2saiCc448kdg/lEABOIYTHNc/6lOz8Y0qZuvvuU0BrFfAOXtms1WO1Yk0d3c1vqjgn1whvHMURrqXPEZcf/spu5Xpzm+UeQ/HTddAOa3EOqG6o14JrMC6H6JfGY=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
+ (2603:1096:400:3a9::11) by TYWPR01MB10536.jpnprd01.prod.outlook.com
+ (2603:1096:400:29f::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.49; Thu, 9 May
+ 2024 23:42:32 +0000
+Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
+ ([fe80::2f40:537b:2694:7b76]) by TYCPR01MB10914.jpnprd01.prod.outlook.com
+ ([fe80::2f40:537b:2694:7b76%7]) with mapi id 15.20.7544.047; Thu, 9 May 2024
+ 23:42:32 +0000
+Message-ID: <878r0ir1qw.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: Amadeusz =?ISO-8859-2?Q?S=B3awi=F1ski?=
+ <amadeuszx.slawinski@linux.intel.com>,	Alexandre Belloni
+ <alexandre.belloni@bootlin.com>,	Alper Nebi Yasak
+ <alpernebiyasak@gmail.com>,	AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>,	Banajit Goswami
+ <bgoswami@quicinc.com>,	Bard Liao <yung-chuan.liao@linux.intel.com>,	Brent
+  Lu <brent.lu@intel.com>,	Cezary Rojewski <cezary.rojewski@intel.com>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,	Claudiu Beznea
+ <claudiu.beznea@tuxon.dev>,	Cristian Ciocaltea
+ <cristian.ciocaltea@collabora.com>,	Daniel Baluta <daniel.baluta@nxp.com>,
+	Hans de Goede <hdegoede@redhat.com>,	Jaroslav Kysela <perex@perex.cz>,
+	Jiawei Wang <me@jwang.link>,	Jonathan  Corbet <corbet@lwn.net>,	Kai
+ Vehmanen <kai.vehmanen@linux.intel.com>,	Kevin Hilman
+ <khilman@baylibre.com>,	Liam Girdwood <lgirdwood@gmail.com>,	Mark Brown
+ <broonie@kernel.org>,	Maso Huang <maso.huang@mediatek.com>,	Matthias
+ Brugger <matthias.bgg@gmail.com>,	Neil Armstrong
+ <neil.armstrong@linaro.org>,	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,	Pierre-Louis Bossart
+ <pierre-louis.bossart@linux.intel.com>,	Ranjani Sridharan
+ <ranjani.sridharan@linux.intel.com>,	Sascha Hauer <s.hauer@pengutronix.de>,
+	Shawn Guo <shawnguo@kernel.org>,	Shengjiu Wang <shengjiu.wang@gmail.com>,
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,	Sylwester Nawrocki
+ <s.nawrocki@samsung.com>,	Takashi Iwai <tiwai@suse.com>,	Vinod Koul
+ <vkoul@kernel.org>,	Xiubo Li <Xiubo.Lee@gmail.com>,
+	alsa-devel@alsa-project.org,	imx@lists.linux.dev,
+	linux-doc@vger.kernel.org,	linux-sound@vger.kernel.org
+Subject: Re: [PATCH 0/3] ASoC: grace time for DPCM cleanup
+In-Reply-To: <1j1q6b1gxs.fsf@starbuckisacylon.baylibre.com>
+References: <87wmo6dyxg.wl-kuninori.morimoto.gx@renesas.com>
+	<1jr0ee2ebk.fsf@starbuckisacylon.baylibre.com>
+	<87pltxmakr.wl-kuninori.morimoto.gx@renesas.com>
+	<87edaba5ze.wl-kuninori.morimoto.gx@renesas.com>
+	<1j1q6b1gxs.fsf@starbuckisacylon.baylibre.com>
+User-Agent: Wanderlust/2.15.9 Emacs/27.1 Mule/6.0
+Content-Type: text/plain; charset=US-ASCII
+Date: Thu, 9 May 2024 23:42:32 +0000
+X-ClientProxiedBy: TYCP301CA0004.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:400:386::12) To TYCPR01MB10914.jpnprd01.prod.outlook.com
+ (2603:1096:400:3a9::11)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1715223460-32662-4-git-send-email-shengjiu.wang@nxp.com>
-Message-ID-Hash: IAV76G6XC3NTYGGAYPTH7JFBKGMMSNQY
-X-Message-ID-Hash: IAV76G6XC3NTYGGAYPTH7JFBKGMMSNQY
-X-MailFrom: lkp@intel.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYCPR01MB10914:EE_|TYWPR01MB10536:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4cd00c29-5ae0-4fe7-1e75-08dc7081b22e
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: 
+	BCL:0;ARA:13230031|366007|1800799015|52116005|7416005|376005|38350700005;
+X-Microsoft-Antispam-Message-Info: 
+	=?us-ascii?Q?+YlYPhQceo/QwGe8mhK06PfMP7hexv/pPbfOowGyiEsrP90kltPfOPt/N1j5?=
+ =?us-ascii?Q?6jVmiOHzxgr/H197E9XIcrmar62o5gJbyXrydhGpeVGuYd353bh47svvqkU2?=
+ =?us-ascii?Q?do9kMk3kzwoV8Um+/v3maEZVFeZ8HStGivLyEkS2kS54efpgV2B31UxrPqeO?=
+ =?us-ascii?Q?k2kUKv3y8Opl7nNYiUDIrcK+45ZU6h4cfn5ZcRHzXVmVZiIFjIIqcQqORsXy?=
+ =?us-ascii?Q?aEIM5pW6p1R2qLtGRFNrtp4YiTQ4xoAnXvXtCd4elDIGwIgEIBfachl0VPZe?=
+ =?us-ascii?Q?r91ky6AzX/7wv8acKSeFsTKTvATBgwqdCjgumy5i61k2K/mP1lzCnGhx3nUD?=
+ =?us-ascii?Q?N/qyfD4Br9YjOs2XLsunqxfdswgrZ8yyQWb3iUyOwczZ/Zz06l8+3h+kLP3l?=
+ =?us-ascii?Q?RvIcLv9QHWjkinybMykfhbyxba0JG5I1AznVyeM3E3jnY/zeKVdWM+Wg0yQO?=
+ =?us-ascii?Q?DrDK/bp6ejaLL9TY5mgwkXvAt0TOfJAf9/EaiSf+UWh5l5+u9IVdQeXQxSpJ?=
+ =?us-ascii?Q?ynFbHFpJMR4d/ESRyDgCqeBrSCTgotRQ2Mwc47jGOCuhc4/i9+G3cAATkQNQ?=
+ =?us-ascii?Q?W1KUAeQmz6naIKS7fjgCFVW2Y4z1rSq9Bua2QkrbA6Aul5E8YUNWsvmjEO30?=
+ =?us-ascii?Q?w4WL6lFpriJzsXhJqJDO8aPihIA/kjTpMG2vnQSbdMODEAimWv6jD0gmrYDv?=
+ =?us-ascii?Q?7nOMxqNzygwgdWLfQNOGuSUQVVxd2G/YR+/79ebre2JcrGZgw/WC0UJ6/drJ?=
+ =?us-ascii?Q?Mgx8IQFbMyHqoMTIk4VvaoK6T3Pu8qC5QOj9n75pSJuBUqXKGzKPuX6FJwsW?=
+ =?us-ascii?Q?Wh2DdDmVy7S6SjvVmZChjIc2y9/SKMCwhzmAKYzb0emkyzq6w8yS+ARQamDQ?=
+ =?us-ascii?Q?pNxkH9LqQEPIy/LaQX09r/ZBhrRq9gKbhzXHNWfvRWA2d/p/MFwE6xbca1ik?=
+ =?us-ascii?Q?4BEAks2r4+21tgndIus9bxpbyTZoD9APj4IFmHGXHRlbJHLQp45ViochLHdJ?=
+ =?us-ascii?Q?0cwwO7i1zvKrri1bAXXF5+Q4/0/mLbFE21LpGqIJMdGshdGyY0ihq3iqYOUF?=
+ =?us-ascii?Q?/dIQoMfLFmVUtSFPD6l1OsOtK4qEg2MkKxvHv6Corvg02ccFGXqDQP95CAwZ?=
+ =?us-ascii?Q?bZgtc30G/tVoTHZsBkj0mHWamcaacI/wQ4XodTVr91XKwOXthLsnfRNGZ2+2?=
+ =?us-ascii?Q?bqkdTUjaqX4KqWGQl0s8PKkJ+DEG+Cj71RS/0fuf3K+MduiDU4SAUHqQbKME?=
+ =?us-ascii?Q?d0AKQGKde584TzhndZfPstdjSAh4lLstRRm54z0BjA/xkQckXRj6GrtR2hlK?=
+ =?us-ascii?Q?13JoW3ISctcbW8MukQt6kQqlBK/15FPLG18gPF+VHvpz1g=3D=3D?=
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB10914.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366007)(1800799015)(52116005)(7416005)(376005)(38350700005);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?us-ascii?Q?Lm3HTcLO+otOf+HvLNH8a0tf3doH6BFV+9uOYg4x9KC/HnAJD6F4uUNWF+GP?=
+ =?us-ascii?Q?OGlQZvwvT0fzEnJ5i5D7mDBMGl58OfO9YSlXuvqCunVWu0NBi+fzgLLkstF3?=
+ =?us-ascii?Q?9SAnAUTSKUcL07J82jvA4tGZiefKhONzb2YkXKgUTjRn72pQ8sBs1bdO4fv7?=
+ =?us-ascii?Q?D09G6bqXSWCtoPCSOFE05PftyRFF2w73IwNjBYCklhYKv+U9+fTj085+9uYM?=
+ =?us-ascii?Q?gstufesYgeFFoPBdyK7Wj53DbP9j1UoPSDiTws+85Cd8mQvuX8NjdG1W43mq?=
+ =?us-ascii?Q?mMZntwqjkimcDC3UuAwzxMdi3/AdWtQVLBBE2FUWKvgtjlG8rWpY/YzpEumh?=
+ =?us-ascii?Q?PMuYs5Lsz6sGrH8M6NXfhlgXOcWbgYuxnN0YH/vyyYlkyweQu6HKVxKIlEnr?=
+ =?us-ascii?Q?AchsDnRUne0tZ82dnQWWpwZ59Pc3uWJZu+aMKctzq/KOjZQ5aZA6xyN7dWuh?=
+ =?us-ascii?Q?e4oLk2oLZPQyxHJkZTaTHQEadnIhyc5z/RKtDdcd2FXYoBhtoTlMxVxmkwcI?=
+ =?us-ascii?Q?9NQALA3/SD0kDcW3IEOve138SQhDVi1Ws7IGhu644018hcJNfdqVNG5P4zpZ?=
+ =?us-ascii?Q?hG7iibun+tstCZHRlhKlZjNncaXSgB4Oz0uBv1bq1Z1av9YyY3yLayopPp1I?=
+ =?us-ascii?Q?C7iB4IX6tnXQl0OpIU+aQPE4ZjcOXI3ZuoGUPMItmLvdX1VVbMAz2BN2rQuv?=
+ =?us-ascii?Q?qGiVS6OxwSsTM/rKDE6zNxRzTtw0ZiBW47t1lYbCwUKVzrwFX8So9rkEFId+?=
+ =?us-ascii?Q?ZF3jZowmmPDJ+lBHXYSqQfWb03rWzsbpbIrk8yQrpfqMo8TLCX5TyCRxjoTJ?=
+ =?us-ascii?Q?NutvKYhyRljeyAIK645E3xv8hE3djDamfMH0ZGWIm03B5ZwWxSRMse5XzbNv?=
+ =?us-ascii?Q?4bij9ck09bmSikaArBAOGrnvgkQ4eH0ryNyLF1K9prXfeOOxRlaSi8JCuNDx?=
+ =?us-ascii?Q?jK7z4Mcr4BUiTexf02Rf8JoOOiwO6FnmY/cR7OTHArcKgAXQ2PIDZRKFsCl+?=
+ =?us-ascii?Q?fbDVvL3NNe28ZhWdCs1EhNWmi39T6w5TBgvxU8UWsSgMWF2kvuhwrkLVWkdu?=
+ =?us-ascii?Q?a3by5G/rlG9sOiSk+PkKIQ5iIRV1ZxSwxDll7nbeoObEvqx7srpXHoJ8KC9G?=
+ =?us-ascii?Q?vwWRqcTsi2RLwNJZjQQsu0L2dn3PylaurZLg1HrtBg+OU0QbkYZmAMoSxzYF?=
+ =?us-ascii?Q?VlqEfg+Tadda/XeJHV0wxAwPrDws0nqaVG2DupyGs5GU33/Jn3aIXABZeV9e?=
+ =?us-ascii?Q?rsWvzmAr4DPZ/M1rNnhCcqGn+DSqf1tK7885+qNx+hokN0peoMeQeggLp1CJ?=
+ =?us-ascii?Q?OfHhQNKWwMIyZUZbjQMNznd6cozhQmiU/yht/zScKt33RzPydtOTbmRvYPgC?=
+ =?us-ascii?Q?tudh9pdH0s0L73KK/SY1W6YApYrqQIGTBt/CmcahyIBETuKpukyH49SX8KAK?=
+ =?us-ascii?Q?SIQn0b7J1x87Ar5+cnxbXZXr/KdckVOeTNEVEeZ0RGawMgwW958L4fmU83mq?=
+ =?us-ascii?Q?TDtSmylAyzJ8LVoOx8ZiMvv6vkjNqus1EqqJhFhHhkgOlGUflOT8v1A/M3s+?=
+ =?us-ascii?Q?4ia9fbb6FwWM0wXDIW033y+Dj11cai6NVFm4eXxvJ4235wAB9m8gjPHDW3lP?=
+ =?us-ascii?Q?OCiaVM5qYlY6/0ZQMtoTsGY=3D?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 4cd00c29-5ae0-4fe7-1e75-08dc7081b22e
+X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB10914.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 May 2024 23:42:32.3359
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ nYVOqCS+i/1COIXNICNhbD+fkc5AXSEj7eisPvcFyaYSMC9HYucdNiCMQlbWxrbbZmka7TxwDjjRjgm9jg1CBxuRK7QI9/Au1UW9ybmCPa9s3idHoCkIZ9DfljmdE2+7
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWPR01MB10536
+Message-ID-Hash: BMK36I6GRXEBPCEZLCAGKTCUULDIH2QH
+X-Message-ID-Hash: BMK36I6GRXEBPCEZLCAGKTCUULDIH2QH
+X-MailFrom: kuninori.morimoto.gx@renesas.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -107,7 +203,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IAV76G6XC3NTYGGAYPTH7JFBKGMMSNQY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BMK36I6GRXEBPCEZLCAGKTCUULDIH2QH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -116,134 +212,114 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Shengjiu,
 
-kernel test robot noticed the following build errors:
+Hi Jerome
 
-[auto build test ERROR on broonie-sound/for-next]
-[also build test ERROR on linus/master v6.9-rc7 next-20240509]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Thank you for your reply
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Shengjiu-Wang/ASoC-dt-bindings-fsl-xcvr-Add-compatible-string-for-i-MX95/20240509-112112
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-patch link:    https://lore.kernel.org/r/1715223460-32662-4-git-send-email-shengjiu.wang%40nxp.com
-patch subject: [PATCH 3/4] ASoC: fsl_xcvr: Support reparent pll clocks for phy_clk
-config: x86_64-randconfig-103-20240509 (https://download.01.org/0day-ci/archive/20240510/202405100658.D0KXAx8b-lkp@intel.com/config)
-compiler: clang version 18.1.5 (https://github.com/llvm/llvm-project 617a15a9eac96088ae5e9134248d8236e34b91b1)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240510/202405100658.D0KXAx8b-lkp@intel.com/reproduce)
+> >> If so, did you get below warning too ?
+> >> 	 "both playback/capture are available, but not using playback_only flag (%s)\n",
+> >>
+> 
+> I've checked. No such trace, no.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202405100658.D0KXAx8b-lkp@intel.com/
+OK, thanks
 
-All errors (new ones prefixed by >>, old ones prefixed by <<):
+> >> Card
+> >> 	dpcm_playback = (0 or 1)
+> >> 	dpcm_capture  = (0 or 1)
+> >> 	playback_only = (0 or 1)
+> >> 	capture_only  = (0 or 1)
+> >> BE.CPU
+> >> 	playback = (available, not available)
+> >> 	capture  = (available, not available)
+> >> BE.Codec
+> >> 	playback = (available, not available)
+> >> 	capture  = (available, not available)
+> >> Expect
+> >> 	playback = (available, not available)
+> >> 	capture  = (available, not available)
+> 
+> I'm not too sure I undestand this. I'll try to illustrate the case
+> raising the warning as precisely as possible bellow
 
-WARNING: modpost: missing MODULE_DESCRIPTION() in fs/nfs/nfsv2.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in fs/nfs/nfsv4.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in fs/nls/nls_cp437.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in fs/nls/nls_cp855.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in fs/nls/nls_cp860.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in fs/nls/nls_cp865.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in fs/nls/nls_cp866.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in fs/nls/nls_cp950.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in fs/nls/nls_iso8859-7.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in fs/nls/nls_koi8-r.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in fs/nls/nls_koi8-u.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in fs/nls/nls_koi8-ru.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in fs/nls/mac-cyrillic.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in fs/nls/mac-greek.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in fs/nls/mac-roman.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in fs/unicode/utf8-selftest.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in fs/binfmt_misc.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in fs/jbd2/jbd2.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in fs/sysv/sysv.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in fs/autofs/autofs4.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in fs/btrfs/btrfs.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in security/keys/trusted-keys/trusted.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in crypto/af_alg.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in crypto/algif_hash.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in crypto/curve25519-generic.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in lib/math/prime_numbers.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in lib/crypto/libarc4.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/pinctrl/pinctrl-mcp23s08_i2c.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/gpio/gpio-pcf857x.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/pci/pci-stub.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/video/backlight/rt4831-backlight.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/video/fbdev/matrox/matroxfb_accel.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/video/fbdev/matrox/matroxfb_DAC1064.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/video/fbdev/matrox/matroxfb_Ti3026.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/video/fbdev/macmodes.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/video/fbdev/via/viafb.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/video/fbdev/kyro/kyrofb.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/acpi/acpi_tad.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/acpi/platform_profile.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/dma/qcom/hdma_mgmt.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/dma/qcom/hdma.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/dma/dmatest.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/regulator/max20411-regulator.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/regulator/rt4831-regulator.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/char/agp/amd64-agp.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/char/agp/via-agp.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/base/regmap/regmap-i2c.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/base/regmap/regmap-w1.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/base/regmap/regmap-sccb.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/base/regmap/regmap-spi-avmm.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/mfd/arizona.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/mfd/rt4831.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/cxl/cxl_pci.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/spi/spi-bitbang.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/uio/uio_aec.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/pcmcia/yenta_socket.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/pcmcia/i82092.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/input/matrix-keymap.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/i2c/busses/i2c-ccgx-ucsi.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/i2c/busses/i2c-ali1563.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/media/i2c/uda1342.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/media/tuners/tda9887.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/media/dvb-frontends/au8522_decoder.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/media/dvb-frontends/mb86a16.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/media/v4l2-core/v4l2-async.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/media/v4l2-core/v4l2-fwnode.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/thermal/intel/int340x_thermal/processor_thermal_rapl.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/thermal/intel/int340x_thermal/processor_thermal_rfim.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/thermal/intel/int340x_thermal/processor_thermal_mbox.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/thermal/intel/int340x_thermal/processor_thermal_wt_req.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/thermal/intel/int340x_thermal/processor_thermal_wt_hint.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/thermal/intel/int340x_thermal/processor_thermal_power_floor.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/watchdog/simatic-ipc-wdt.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/leds/simple/simatic-ipc-leds.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/leds/simple/simatic-ipc-leds-gpio-core.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/leds/simple/simatic-ipc-leds-gpio-apollolake.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/leds/simple/simatic-ipc-leds-gpio-f7188x.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/leds/simple/simatic-ipc-leds-gpio-elkhartlake.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/platform/x86/intel/intel-hid.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/platform/x86/amilo-rfkill.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/platform/x86/ibm_rtl.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/platform/x86/classmate-laptop.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/platform/x86/firmware_attributes_class.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/platform/x86/siemens/simatic-ipc.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/platform/x86/siemens/simatic-ipc-batt.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/platform/x86/siemens/simatic-ipc-batt-apollolake.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/rpmsg/rpmsg_char.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/devfreq/governor_simpleondemand.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/devfreq/governor_powersave.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/hwtracing/intel_th/intel_th_msu_sink.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/mtd/chips/cfi_util.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/mtd/chips/cfi_cmdset_0020.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/mtd/maps/map_funcs.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in sound/core/snd-pcm-dmaengine.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in sound/soc/codecs/snd-soc-sigmadsp.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in sound/soc/codecs/snd-soc-wm-adsp.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in sound/soc/amd/yc/snd-soc-acp6x-mach.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in sound/soc/amd/ps/snd-soc-ps-mach.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in sound/ac97_bus.o
-WARNING: modpost: missing MODULE_DESCRIPTION() in arch/x86/video/fbdev.o
->> ERROR: modpost: "fsl_asoc_reparent_pll_clocks" [sound/soc/fsl/snd-soc-fsl-xcvr.ko] undefined!
->> ERROR: modpost: "fsl_asoc_get_pll_clocks" [sound/soc/fsl/snd-soc-fsl-xcvr.ko] undefined!
+Thanks
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Because you got was
+
+(A)	axg-sound-card sound: CPU capture is available but Codec capture is
+	not (be.dai-link-6) Please update Codec driver
+
+It is for BE. And validation check is for each rtd only, this means it checks
+BE only, relationship with other rtd is not related here.
+
+>     --------
+>     |CPU BE|  This is the TDM interface. Capable of both Playback and
+>     --------  Capture. Through routing it can be connected to Playback
+>       ^       and/or Capture FE CPUs.
+>       |
+>       V
+>     -------------
+>     |BE Codec(s)| Possibly N codecs, supporting both direction, or a
+>     ------------- Single one, or one direction each. In this particular case
+>       |           it is Playback only C2C.
+
+So, I think the warning happen here.
+The validation check is checking this BE only.
+
+As I mentioned above, you use this BE through playback only FE and/or C2C,
+but that relationship is not related to here.
+
+According to above explanation, this BE itself is available for both
+playback and capture. And you didn't get below warning, I guess this BE
+has both dpcm_playback/capture flag, and no xxx_only flag.
+
+	 "both playback/capture are available, but not using playback_only
+	  flag (%s)\n",
+
+Before my patch, the validation check is checks CPU-BE only, but it also
+checks BE-Codec after my patch, and you got the warning (A).
+
+So, I guess your BE-Codec simply missing capture channels_min settings.
+Please double check it, or please tell me which codec driver this BE is
+using.
+
+	static struct snd_soc_dai_driver xxx_dai = {
+		...
+		.playback = {
+			...
+			.channels_min	= x,
+			...
+		},
+		.capture = {
+			...
+=>			.channels_min	= x,
+			...
+		},
+	},
+
+> But I noticed that we want to update below. I'm happy if it can solve your
+> issue.
+>
+> -	if (has_playback && !has_playback_both)
+> +	if (has_playback && !has_playback_both && !dai_link->capture_only)
+> 		dev_warn(rtd->card->dev, ...)
+>
+> -	if (has_capture && !has_capture_both)
+> +	if (has_capture && !has_capture_both && !dai_link->playback_only)
+> 		dev_warn(rtd->card->dev, ...)
+>
+> Honestly I'm a bit lost in all these flag :/
+
+Thanks, no problem, me too :9
+
+Unfortunately and confusingly, there are many combination exist around here.
+But because of your feedback, I noticed one missing pattern. Thanks
+
+
+Thank you for your help !!
+
+Best regards
+---
+Renesas Electronics
+Ph.D. Kuninori Morimoto

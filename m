@@ -2,79 +2,194 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E6288C0A1F
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 May 2024 05:20:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B4AF8C0B35
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 May 2024 07:53:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CED76E68;
-	Thu,  9 May 2024 05:20:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CED76E68
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4662ADF6;
+	Thu,  9 May 2024 07:53:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4662ADF6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1715224832;
-	bh=zkn2U5Dn/Ax3O7GpVyBbtoa+H+obFnYJJlCCzDb7A1I=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=O65usYG6QzV2bThJS6z7pX/qw5voiz9zMlWjFBui1SisQYy7UPm2VWdM9D8FeKevY
-	 1fLekizjSoZqWZ158QLHwuQVl3yjNvV5dY7U6RA3DISOUDSVWjzdvHj9aHcB2KYHnk
-	 0saS30U0bbRE+u3bZRDZ8Qv502x5nlN6Y1+EyO0w=
+	s=default; t=1715234020;
+	bh=Abn6ku78wy/1oamhGsfOpuJ+/CKZci0liEj7ItXib6Q=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=g0QANDjd1lfBEEtTXyJCeyvIohJZLbPamo6V4wfOQYMeIyGQvwcORQ54EL+N62sP/
+	 SA9URckGkopqWOUUE4SKkhEnjzucne8mivMzHRjzM8hgLGPMUL5PaunveZEvCrDgua
+	 EwKAi7+1xHEy9doq6CjQMOWtBPb6jTVjw9tLCu3E=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 455ACF80630; Thu,  9 May 2024 05:19:06 +0200 (CEST)
+	id 7AB45F80587; Thu,  9 May 2024 07:53:07 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B0BBFF80632;
-	Thu,  9 May 2024 05:19:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 85F00F80570;
+	Thu,  9 May 2024 07:53:07 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 21891F805E8; Thu,  9 May 2024 05:18:57 +0200 (CEST)
+	id 0846AF8049C; Thu,  9 May 2024 07:51:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from TY3P286CU002.outbound.protection.outlook.com
+ (mail-japaneastazlp170110002.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:c405::2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 86CB6F804E7
-	for <alsa-devel@alsa-project.org>; Thu,  9 May 2024 05:18:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 86CB6F804E7
-Received: from inva021.nxp.com (localhost [127.0.0.1])
-	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 383F72007D5;
-	Thu,  9 May 2024 05:18:44 +0200 (CEST)
-Received: from aprdc01srsp001v.ap-rdc01.nxp.com
- (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
-	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id A54E6200AB5;
-	Thu,  9 May 2024 05:18:43 +0200 (CEST)
-Received: from localhost.localdomain (shlinux2.ap.freescale.net
- [10.192.224.44])
-	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 8BB97180222F;
-	Thu,  9 May 2024 11:18:41 +0800 (+08)
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org,
-	robh+dt@kernel.org,
-	krzysztof.kozlowski+dt@linaro.org,
-	conor+dt@kernel.org,
-	shengjiu.wang@gmail.com,
-	linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Xiubo.Lee@gmail.com,
-	festevam@gmail.com,
-	nicoleotsuka@gmail.com,
-	perex@perex.cz,
-	tiwai@suse.com,
-	alsa-devel@alsa-project.org,
-	linuxppc-dev@lists.ozlabs.org
-Subject: [PATCH 4/4] ASoC: fsl_xcvr: Add support for i.MX95 platform
-Date: Thu,  9 May 2024 10:57:40 +0800
-Message-Id: <1715223460-32662-5-git-send-email-shengjiu.wang@nxp.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1715223460-32662-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1715223460-32662-1-git-send-email-shengjiu.wang@nxp.com>
-X-Virus-Scanned: ClamAV using ClamSMTP
-Message-ID-Hash: SHLPE4B24LIZFHZVA4I5HGVLHNICENWI
-X-Message-ID-Hash: SHLPE4B24LIZFHZVA4I5HGVLHNICENWI
-X-MailFrom: shengjiu.wang@nxp.com
+	by alsa1.perex.cz (Postfix) with ESMTPS id AC897F8024C
+	for <alsa-devel@alsa-project.org>; Thu,  9 May 2024 07:50:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC897F8024C
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
+ header.s=selector1 header.b=mGTn6HUC
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ZkpXgTW8UW3nFL3gntniE5xwA8nIPif12hZUnXwM7/a1l6zA4vgNg3xFtA/7b/+EFV3CiEk08jMJxJDd84YEFryxPzsg5IeHSPYlWG4t+er8seX/0CUEenZgUQA09Hwa66y40FMdCAcRKQPeHaFMUnUVoWEfst2dt5goqf6Mt09mro8D0p4V/lNnlVBu2P99Fw4DmHMcXlzt98y/Bc/dhm7s4fbQa6c37K7o6P029+Xq9Ga3tkQFdzHlT7qNZomxR9K9Ev/4ADGxFZ6FZD48qus7LWAy9ZUaDKey/ddvaXfXdOha4H8Rz9WuXAOKCz2PtvqmnNN3kSPrjnVtDRhzXA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aOca45vba7htqxKgkw2r5bdAFLt5wRXjXXCoEBJ5quI=;
+ b=O4kZcZqebAUN7untLuYpAmELcz/g9cSPMRfTzXdtDp6BRWhVClbR6wrZVSLUN1QI5MTMfP8v05E3bEEUPuaVVwg7/cRC16uu7DuRwmkvQtD2cWa6BcCCQD48kUdhLEELv9kaXHU6iDB3auSgXdiG5pXNc5vyGXxRm0ZFeZkIS7oYMj3Vo2RNzakZbZvKUdLvVKmgv9onyBbPDnETid/PYzVzIJB1KyricJ+W9HoAlkuBItz3GAeoqDnxWSp+muZ0H+k5nZUdPjqmkp5JF1TBZNhH3BDTpHsx70q2XzJtI/gwHfE6LKA7CDQxzoCk0gqIsjCs39DEE6xb1EldsJiv5Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aOca45vba7htqxKgkw2r5bdAFLt5wRXjXXCoEBJ5quI=;
+ b=mGTn6HUCpFYGXTPEeyGCQcHM+nY/YMyjaDJ/DqWVWP+2VWIKcAsGNVL/6r0N2/f901NPFIZW85412Gyd2PWtmFoZ9JeM0F+sL4bMmQ8WLz7c3uemVZwFHQzaszKBk8ePiTWEgJwG2j0IRcBxzp32G0JHPCuPIMyPs7BH4q9kU9o=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from TY3PR01MB10906.jpnprd01.prod.outlook.com
+ (2603:1096:400:3af::14) by TYCPR01MB11419.jpnprd01.prod.outlook.com
+ (2603:1096:400:37e::5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.47; Thu, 9 May
+ 2024 05:50:46 +0000
+Received: from TY3PR01MB10906.jpnprd01.prod.outlook.com
+ ([fe80::592:9b7b:ef57:2dd8]) by TY3PR01MB10906.jpnprd01.prod.outlook.com
+ ([fe80::592:9b7b:ef57:2dd8%4]) with mapi id 15.20.7544.046; Thu, 9 May 2024
+ 05:50:46 +0000
+Message-ID: <87edaba5ze.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: Amadeusz =?ISO-8859-2?Q?S=B3awi=F1ski?=
+ <amadeuszx.slawinski@linux.intel.com>,	Alexandre Belloni
+ <alexandre.belloni@bootlin.com>,	Alper Nebi Yasak
+ <alpernebiyasak@gmail.com>,	AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>,	Banajit Goswami
+ <bgoswami@quicinc.com>,	Bard Liao <yung-chuan.liao@linux.intel.com>,	Brent
+ Lu <brent.lu@intel.com>,	Cezary Rojewski <cezary.rojewski@intel.com>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,	Claudiu Beznea
+ <claudiu.beznea@tuxon.dev>,	Cristian Ciocaltea
+ <cristian.ciocaltea@collabora.com>,	Daniel Baluta <daniel.baluta@nxp.com>,
+	Hans de Goede <hdegoede@redhat.com>,	Jaroslav Kysela <perex@perex.cz>,
+	Jiawei Wang <me@jwang.link>,	Jonathan  Corbet <corbet@lwn.net>,	Kai
+ Vehmanen <kai.vehmanen@linux.intel.com>,	Kevin Hilman
+ <khilman@baylibre.com>,	Liam Girdwood <lgirdwood@gmail.com>,	Mark Brown
+ <broonie@kernel.org>,	Maso Huang <maso.huang@mediatek.com>,	Matthias
+ Brugger <matthias.bgg@gmail.com>,	Neil Armstrong
+ <neil.armstrong@linaro.org>,	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,	Pierre-Louis Bossart
+ <pierre-louis.bossart@linux.intel.com>,	Ranjani Sridharan
+ <ranjani.sridharan@linux.intel.com>,	Sascha Hauer <s.hauer@pengutronix.de>,
+	Shawn Guo <shawnguo@kernel.org>,	Shengjiu Wang <shengjiu.wang@gmail.com>,
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,	Sylwester Nawrocki
+ <s.nawrocki@samsung.com>,	Takashi Iwai <tiwai@suse.com>,	Vinod Koul
+ <vkoul@kernel.org>,	Xiubo Li <Xiubo.Lee@gmail.com>,
+	alsa-devel@alsa-project.org,	imx@lists.linux.dev,
+	linux-doc@vger.kernel.org,	linux-sound@vger.kernel.org
+Subject: Re: [PATCH 0/3] ASoC: grace time for DPCM cleanup
+In-Reply-To: <87pltxmakr.wl-kuninori.morimoto.gx@renesas.com>
+References: <87wmo6dyxg.wl-kuninori.morimoto.gx@renesas.com>
+	<1jr0ee2ebk.fsf@starbuckisacylon.baylibre.com>
+	<87pltxmakr.wl-kuninori.morimoto.gx@renesas.com>
+User-Agent: Wanderlust/2.15.9 Emacs/27.1 Mule/6.0
+Content-Type: text/plain; charset=US-ASCII
+Date: Thu, 9 May 2024 05:50:45 +0000
+X-ClientProxiedBy: TYCP286CA0115.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:29c::19) To TY3PR01MB10906.jpnprd01.prod.outlook.com
+ (2603:1096:400:3af::14)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY3PR01MB10906:EE_|TYCPR01MB11419:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1fc305a6-40fe-49ea-0ba7-08dc6febf8d9
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: 
+	BCL:0;ARA:13230031|376005|366007|52116005|1800799015|7416005|38350700005;
+X-Microsoft-Antispam-Message-Info: 
+	=?us-ascii?Q?FLmOiMzY6VWWLIAnYjLBfCWRHv1gx1THGpyp132L4Q5AvUoneS1D5zZckm0Y?=
+ =?us-ascii?Q?5hcgL6adJcXtWWfMQFSbYIIogr2tOdEWczNl+Hl3jiKYnZbcwPwYNvSwJjWy?=
+ =?us-ascii?Q?dy/GGL8kL8H3H2ka8GKiDZWxJQx7TfUCQa1oCOSoC7Y8PoW72fSlb1dRIWTg?=
+ =?us-ascii?Q?wuAJ7sNAfzzNaVoJikzmKzMGg8qvxvNGCzg0L8H7CvRDk/GAdKxl2CADv1dX?=
+ =?us-ascii?Q?mXmg1gcnpot3Gq7f1ORcqYcvsQ4kzXdUmqC8FmwVR4y2XqgNfEqOekUM5cmq?=
+ =?us-ascii?Q?YHTvlvezvF+eeXAS9n3Z7i1ydOJa83uHCxo17p5IkQnqd+FeANoTKCi0WLyB?=
+ =?us-ascii?Q?clp+DNL57nmLcHm7cpJsfjnf13bUTEKek949jqtTvzHolV6bqosV61MF9qqh?=
+ =?us-ascii?Q?nq4sDBcPIlpkZmUntiup08a7IUkqYP5b9NXpn6S0no10DjfUexD8CmJ9HPwL?=
+ =?us-ascii?Q?/LiM6AIlZeNdH+tK5JvYJNfG4wlqb2zdsglo/xTL8aJznE8oQSAdS0YYo8k/?=
+ =?us-ascii?Q?rDW4DPty3NU6rbvp8B+I2C7feYEbG2BJk9AloMleN45S6zTxZn1jBfijxOfG?=
+ =?us-ascii?Q?oMwecyKkzAkslx/XuU7kNRHG1+uFivTmsd0CQAlzrtDUvNDB33rNVbIJ1km/?=
+ =?us-ascii?Q?Y6xkuv81TMFccuIK1m02XvfOnf9svYfNj2r+zJsigdhZYoy0etUju0rMnXc+?=
+ =?us-ascii?Q?DKtgCdAUVp8xspuFyqSFoP2CNU0u8fD8GSHTS+rlBy4NDsmr2Ljis3xxS02q?=
+ =?us-ascii?Q?cNKPqeRwFfd8hZXlRxn03SVZaGM7Kt/QvdNo+1bZi7+279M3otni9jwiclcs?=
+ =?us-ascii?Q?SKTtsI8eX1/bzRTAWsiC+Vf5LdM32/3hJJ+cPBl5LcN7hAW89UfoSkX9/3Wh?=
+ =?us-ascii?Q?7xrpBD5Eb1ri5A5k4fDfSGGnhCtRgxg4YGbx+YOexcW+tKGEsAb/oV9Bymov?=
+ =?us-ascii?Q?+6kpj/izUqitQSjoXqZ8txN1NE0wKzStopnbnOTdygOtvj4iubGHgu2Z2/Ho?=
+ =?us-ascii?Q?7Dmo4E94zl9jnV8FQlDgo3It1smQCP2UjnoSVEuLWFD1bhlybOlEAMMaeErg?=
+ =?us-ascii?Q?VSWQ3Y+PwyXYOqcvyF2rv4au6wMvvo7ERKygy2w7AT+yZ9ORFF8ODwvRMc7Z?=
+ =?us-ascii?Q?RS/JCIyNLEkd524hpCffVM1HwLrv5ehx/yJD8lmy/qGHn82fikoZhL+ohmzW?=
+ =?us-ascii?Q?kdrHXWLjgywV6w17oYe6bGj2104oiMdx6rDOVaJYnaAi8wxSpdY9GuONH4JK?=
+ =?us-ascii?Q?kTjXYoE/shHNr9D3Ab3KlcmJISsp4ysV129vq1f6QukamhImr7pmpiUa9Ppc?=
+ =?us-ascii?Q?Wdr5E2RNio8Ib2GhMivhRuLagqfySu4MjWL0hJQ7bQETmg=3D=3D?=
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB10906.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376005)(366007)(52116005)(1800799015)(7416005)(38350700005);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?us-ascii?Q?KQ1HOzqn3Iar8sB3DTreUoqarOKDaIN134FgcDJa1Ax5S2DC0sCUGsL5SuY6?=
+ =?us-ascii?Q?EUpCCM40hZRnlt4s6qg3ANoTlXL2cdfJX6yaiEcp3/5NeQu6jsT81+/8TVK5?=
+ =?us-ascii?Q?C7PclZiP1HlGzweuQrPevaBFAoWYKg7xMndeAFcNgCD47KY12oIItaixULhV?=
+ =?us-ascii?Q?J2qmV2dlwCByF6LylNB9UBBaJST/+u9/34JQaSw0H72rm+sWqmMAZ3p5vfbd?=
+ =?us-ascii?Q?iPB8iAW8+R0bCLmOdDlWc+6ma3MKRkTxeOcskcA9u8r9Wgzf/9EWdzMvOeCM?=
+ =?us-ascii?Q?4Ym63zwOPhcMdBR3d5bSNexIi6zAkiJfXyxsnLwCofwoPKMk4qoHvMguHYWH?=
+ =?us-ascii?Q?MG5gZzzaARI9g52ji+jGhAr/vqCSizpZcVE1H6+/NJC/4evzsidQlYCQgleu?=
+ =?us-ascii?Q?uEjlJ3FxzfViYMFygAToDIjtZuweR1gkPR5dz2vHGWnuckO7jIyeAva8Oqpe?=
+ =?us-ascii?Q?gMejc+Dr5Od1jMAedX5iEBg2nQ+cxe8NWHNolTP378HSA4RYA9alRCPVWl13?=
+ =?us-ascii?Q?gccVywKkly3+9Ce2lsvnCTVux+egTFWcs2yM8H/ddkbTKzdsHK1D4Uu3Wcup?=
+ =?us-ascii?Q?InTERsN/ugdI/+MmsBB3coY7+Art+QVeVvZ5GaxwjsovMdAHTKXnVz4ZYIsl?=
+ =?us-ascii?Q?YWEb9g1vK/d1qsXrdsw+tjhCiSMOve7EF4CUU5mKzbErln2PWiML2bxR4wlc?=
+ =?us-ascii?Q?BSrvhRTdv1kCBBe5LJ79HSFjNaG8hER3bk5LSUYKKZmIAftdqUYl2aqjqeED?=
+ =?us-ascii?Q?TeIZAPpvaUxhNS39gSAEw53jyaw/KQ0FOQyO3OO6M5ZpssI4ZYHzRTnkr0Kk?=
+ =?us-ascii?Q?dkvPpdoiuutD+1x71r+03bT0jIuV/xiL0DzW9CLBPbNg0XLEMYAIbM8aQLH6?=
+ =?us-ascii?Q?ImXMvkiorkmFssRKUvM51Ayb2RI4G94pkPdcXOgthmi8iD1XU6y7BhEQhe5K?=
+ =?us-ascii?Q?k1r/IXX6/EiB/iwUy2pbnwD/zlP19XdSyjBUlBl9+BAWn/SMk06Eohj+2EO/?=
+ =?us-ascii?Q?2pWC/actHJ2U6jTnrOF5dnJzq7TIng7F1J0Job6TxD3zY13HQn8DSWmxDPqK?=
+ =?us-ascii?Q?oj5DC6HBIs9UeSCCx7XxK/JXbMXRWvL+lCD91VlNbz8HKXDINLCw3FUgwWdK?=
+ =?us-ascii?Q?ADGNyJs+ru2KFGa9WAKC5t4QTOpY+6/S5xj0ceTHiT/QM8d8cJuA7oRMFJn7?=
+ =?us-ascii?Q?FE0mqwXJXRKItcI5GyTsWv4cvzJnaZfIcVbJeRxzErXOg7iFLW/+fozUSc3y?=
+ =?us-ascii?Q?B462/wgIK7W4gU1eBHRSi97MVfLj6zLO9h8whB5iQybuVjIBBLwl6/pPUrkL?=
+ =?us-ascii?Q?3GBUkAhuE0Bca9YBDP/Ma/upnQUJ7vzwBHp1KHjVb+HZwqjS0K+CxR1XV1th?=
+ =?us-ascii?Q?+C6j8hQbTIKtcQhi7e2lnBC77GQzA/c4Yp0Kno7+1ogY5hrF07+LdRWNjCZ4?=
+ =?us-ascii?Q?GB7mn/kZGgTUOlSb9qXWizBs+ml9btuvID+TZFzKTyNbUh/llVGii5IHDzUJ?=
+ =?us-ascii?Q?xfsLEazQRJBPIalYxYrrxiDG//5xRoZhPpE0eb8KiLe7cJqeJRXEnaHI88pA?=
+ =?us-ascii?Q?hUYkky7XQL2zd964VT3c3OS5xfurgrAQo1yzJVRUcdRedYDsNcHtjB8+CTuI?=
+ =?us-ascii?Q?Pmi03NV7pfqMAPirPk5cpQ0=3D?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 1fc305a6-40fe-49ea-0ba7-08dc6febf8d9
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB10906.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 May 2024 05:50:46.4005
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ 2m0QDG0j926/ypjO99NbRU3BaqDaRyIiOgvwYE5WKJoiFRR8JTBlLSWst6a22uo5Wmx8m3dYmsMl6S82owK2ygOK7BR/hNuTPsJC2HgoTqiNjjlAv61qn5ebjMPJnHJO
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB11419
+Message-ID-Hash: 2IJWPNLWAXOMIOJQO2A4FPZZBXW5ECN4
+X-Message-ID-Hash: 2IJWPNLWAXOMIOJQO2A4FPZZBXW5ECN4
+X-MailFrom: kuninori.morimoto.gx@renesas.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -86,320 +201,74 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SHLPE4B24LIZFHZVA4I5HGVLHNICENWI/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2IJWPNLWAXOMIOJQO2A4FPZZBXW5ECN4/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On i.MX95, the XCVR uses a new PLL in the PHY, which is
-General Purpose (GP) PLL. Add GP PLL configuration support
-in the driver and add the 'pll_ver' flag to distinguish
-different PLL on different platforms.
 
-The XCVR also use PHY but limited for SPDIF only case
-Add 'use_phy' flag to distinguish these platforms.
+Hi Jerome
 
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-Reviewed-by: Chancel Liu <chancel.liu@nxp.com>
+I need your help
+
+> > I have tested this series on an Amlogic device (vim3l)
+> > This brings warnings for cases which are perfectly fine.
+> > 
+> > For example, one of the DPCM backends is the TDM interface. This
+> > interface is capable of both playback and capture. It can be associated
+> > with any i2s/TDM codec.
+> > 
+> > The codec may do playback and capture too, but it
+> > may also do a single direction. Then usual example is the hdmi codec
+> > which does playback only.
+> > 
+> > In this case I get:
+> >  axg-sound-card sound: CPU capture is available but Codec capture is not (be.dai-link-6) Please update Codec driver
+> > 
+> > I don't think this is right.
+> 
+> Hmm..., I'm confusing
+> Does it mean you want to use "playback only" on it ?
+> If so, did you get below warning too ?
+> 	 "both playback/capture are available, but not using playback_only flag (%s)\n",
+> 
+> If not, can you please fill below ?
+> 
+> Card
+> 	dpcm_playback = (0 or 1)
+> 	dpcm_capture  = (0 or 1)
+> 	playback_only = (0 or 1)
+> 	capture_only  = (0 or 1)
+> BE.CPU
+> 	playback = (available, not available)
+> 	capture  = (available, not available)
+> BE.Codec
+> 	playback = (available, not available)
+> 	capture  = (available, not available)
+> Expect
+> 	playback = (available, not available)
+> 	capture  = (available, not available)
+
+I need feedback from you, it is still not clear for me.
+But I noticed that we want to update below. I'm happy if it can solve your
+issue.
+
+-	if (has_playback && !has_playback_both)
++	if (has_playback && !has_playback_both && !dai_link->capture_only)
+		dev_warn(rtd->card->dev, ...)
+
+-	if (has_capture && !has_capture_both)
++	if (has_capture && !has_capture_both && !dai_link->playback_only)
+		dev_warn(rtd->card->dev, ...)
+
+
+
+Thank you for your help !!
+
+Best regards
 ---
- sound/soc/fsl/fsl_xcvr.c | 120 +++++++++++++++++++++++++--------------
- sound/soc/fsl/fsl_xcvr.h |  91 +++++++++++++++++++++++++++++
- 2 files changed, 168 insertions(+), 43 deletions(-)
-
-diff --git a/sound/soc/fsl/fsl_xcvr.c b/sound/soc/fsl/fsl_xcvr.c
-index 0ffa10e924ef..6b1715ac67c5 100644
---- a/sound/soc/fsl/fsl_xcvr.c
-+++ b/sound/soc/fsl/fsl_xcvr.c
-@@ -20,10 +20,17 @@
- 
- #define FSL_XCVR_CAPDS_SIZE	256
- 
-+enum fsl_xcvr_pll_verison {
-+	PLL_MX8MP,
-+	PLL_MX95,
-+};
-+
- struct fsl_xcvr_soc_data {
- 	const char *fw_name;
- 	bool spdif_only;
- 	bool use_edma;
-+	bool use_phy;
-+	enum fsl_xcvr_pll_verison pll_ver;
- };
- 
- struct fsl_xcvr {
-@@ -265,10 +272,10 @@ static int fsl_xcvr_ai_write(struct fsl_xcvr *xcvr, u8 reg, u32 data, bool phy)
- static int fsl_xcvr_en_phy_pll(struct fsl_xcvr *xcvr, u32 freq, bool tx)
- {
- 	struct device *dev = &xcvr->pdev->dev;
--	u32 i, div = 0, log2;
-+	u32 i, div = 0, log2, val;
- 	int ret;
- 
--	if (xcvr->soc_data->spdif_only)
-+	if (!xcvr->soc_data->use_phy)
- 		return 0;
- 
- 	for (i = 0; i < ARRAY_SIZE(fsl_xcvr_pll_cfg); i++) {
-@@ -291,45 +298,62 @@ static int fsl_xcvr_en_phy_pll(struct fsl_xcvr *xcvr, u32 freq, bool tx)
- 		return ret;
- 	}
- 
--	/* PLL: BANDGAP_SET: EN_VBG (enable bandgap) */
--	fsl_xcvr_ai_write(xcvr, FSL_XCVR_PLL_BANDGAP_SET,
--			  FSL_XCVR_PLL_BANDGAP_EN_VBG, 0);
--
--	/* PLL: CTRL0: DIV_INTEGER */
--	fsl_xcvr_ai_write(xcvr, FSL_XCVR_PLL_CTRL0, fsl_xcvr_pll_cfg[i].mfi, 0);
--	/* PLL: NUMERATOR: MFN */
--	fsl_xcvr_ai_write(xcvr, FSL_XCVR_PLL_NUM, fsl_xcvr_pll_cfg[i].mfn, 0);
--	/* PLL: DENOMINATOR: MFD */
--	fsl_xcvr_ai_write(xcvr, FSL_XCVR_PLL_DEN, fsl_xcvr_pll_cfg[i].mfd, 0);
--	/* PLL: CTRL0_SET: HOLD_RING_OFF, POWER_UP */
--	fsl_xcvr_ai_write(xcvr, FSL_XCVR_PLL_CTRL0_SET,
--			  FSL_XCVR_PLL_CTRL0_HROFF | FSL_XCVR_PLL_CTRL0_PWP, 0);
--	udelay(25);
--	/* PLL: CTRL0: Clear Hold Ring Off */
--	fsl_xcvr_ai_write(xcvr, FSL_XCVR_PLL_CTRL0_CLR,
--			  FSL_XCVR_PLL_CTRL0_HROFF, 0);
--	udelay(100);
--	if (tx) { /* TX is enabled for SPDIF only */
--		/* PLL: POSTDIV: PDIV0 */
--		fsl_xcvr_ai_write(xcvr, FSL_XCVR_PLL_PDIV,
--				  FSL_XCVR_PLL_PDIVx(log2, 0), 0);
--		/* PLL: CTRL_SET: CLKMUX0_EN */
--		fsl_xcvr_ai_write(xcvr, FSL_XCVR_PLL_CTRL0_SET,
--				  FSL_XCVR_PLL_CTRL0_CM0_EN, 0);
--	} else if (xcvr->mode == FSL_XCVR_MODE_EARC) { /* eARC RX */
--		/* PLL: POSTDIV: PDIV1 */
--		fsl_xcvr_ai_write(xcvr, FSL_XCVR_PLL_PDIV,
--				  FSL_XCVR_PLL_PDIVx(log2, 1), 0);
--		/* PLL: CTRL_SET: CLKMUX1_EN */
--		fsl_xcvr_ai_write(xcvr, FSL_XCVR_PLL_CTRL0_SET,
--				  FSL_XCVR_PLL_CTRL0_CM1_EN, 0);
--	} else { /* SPDIF / ARC RX */
--		/* PLL: POSTDIV: PDIV2 */
--		fsl_xcvr_ai_write(xcvr, FSL_XCVR_PLL_PDIV,
--				  FSL_XCVR_PLL_PDIVx(log2, 2), 0);
--		/* PLL: CTRL_SET: CLKMUX2_EN */
-+	switch (xcvr->soc_data->pll_ver) {
-+	case PLL_MX8MP:
-+		/* PLL: BANDGAP_SET: EN_VBG (enable bandgap) */
-+		fsl_xcvr_ai_write(xcvr, FSL_XCVR_PLL_BANDGAP_SET,
-+				  FSL_XCVR_PLL_BANDGAP_EN_VBG, 0);
-+
-+		/* PLL: CTRL0: DIV_INTEGER */
-+		fsl_xcvr_ai_write(xcvr, FSL_XCVR_PLL_CTRL0, fsl_xcvr_pll_cfg[i].mfi, 0);
-+		/* PLL: NUMERATOR: MFN */
-+		fsl_xcvr_ai_write(xcvr, FSL_XCVR_PLL_NUM, fsl_xcvr_pll_cfg[i].mfn, 0);
-+		/* PLL: DENOMINATOR: MFD */
-+		fsl_xcvr_ai_write(xcvr, FSL_XCVR_PLL_DEN, fsl_xcvr_pll_cfg[i].mfd, 0);
-+		/* PLL: CTRL0_SET: HOLD_RING_OFF, POWER_UP */
- 		fsl_xcvr_ai_write(xcvr, FSL_XCVR_PLL_CTRL0_SET,
--				  FSL_XCVR_PLL_CTRL0_CM2_EN, 0);
-+				  FSL_XCVR_PLL_CTRL0_HROFF | FSL_XCVR_PLL_CTRL0_PWP, 0);
-+		udelay(25);
-+		/* PLL: CTRL0: Clear Hold Ring Off */
-+		fsl_xcvr_ai_write(xcvr, FSL_XCVR_PLL_CTRL0_CLR,
-+				  FSL_XCVR_PLL_CTRL0_HROFF, 0);
-+		udelay(100);
-+		if (tx) { /* TX is enabled for SPDIF only */
-+			/* PLL: POSTDIV: PDIV0 */
-+			fsl_xcvr_ai_write(xcvr, FSL_XCVR_PLL_PDIV,
-+					  FSL_XCVR_PLL_PDIVx(log2, 0), 0);
-+			/* PLL: CTRL_SET: CLKMUX0_EN */
-+			fsl_xcvr_ai_write(xcvr, FSL_XCVR_PLL_CTRL0_SET,
-+					  FSL_XCVR_PLL_CTRL0_CM0_EN, 0);
-+		} else if (xcvr->mode == FSL_XCVR_MODE_EARC) { /* eARC RX */
-+			/* PLL: POSTDIV: PDIV1 */
-+			fsl_xcvr_ai_write(xcvr, FSL_XCVR_PLL_PDIV,
-+					  FSL_XCVR_PLL_PDIVx(log2, 1), 0);
-+			/* PLL: CTRL_SET: CLKMUX1_EN */
-+			fsl_xcvr_ai_write(xcvr, FSL_XCVR_PLL_CTRL0_SET,
-+					  FSL_XCVR_PLL_CTRL0_CM1_EN, 0);
-+		} else { /* SPDIF / ARC RX */
-+			/* PLL: POSTDIV: PDIV2 */
-+			fsl_xcvr_ai_write(xcvr, FSL_XCVR_PLL_PDIV,
-+					  FSL_XCVR_PLL_PDIVx(log2, 2), 0);
-+			/* PLL: CTRL_SET: CLKMUX2_EN */
-+			fsl_xcvr_ai_write(xcvr, FSL_XCVR_PLL_CTRL0_SET,
-+					  FSL_XCVR_PLL_CTRL0_CM2_EN, 0);
-+		}
-+		break;
-+	case PLL_MX95:
-+		val = fsl_xcvr_pll_cfg[i].mfi << FSL_XCVR_GP_PLL_DIV_MFI_SHIFT | div;
-+		fsl_xcvr_ai_write(xcvr, FSL_XCVR_GP_PLL_DIV, val, 0);
-+		val = fsl_xcvr_pll_cfg[i].mfn << FSL_XCVR_GP_PLL_NUMERATOR_MFN_SHIFT;
-+		fsl_xcvr_ai_write(xcvr, FSL_XCVR_GP_PLL_NUMERATOR, val, 0);
-+		fsl_xcvr_ai_write(xcvr, FSL_XCVR_GP_PLL_DENOMINATOR,
-+				  fsl_xcvr_pll_cfg[i].mfd, 0);
-+		val = FSL_XCVR_GP_PLL_CTRL_POWERUP | FSL_XCVR_GP_PLL_CTRL_CLKMUX_EN;
-+		fsl_xcvr_ai_write(xcvr, FSL_XCVR_GP_PLL_CTRL, val, 0);
-+		break;
-+	default:
-+		dev_err(dev, "Error for PLL version %d\n", xcvr->soc_data->pll_ver);
-+		return -EINVAL;
- 	}
- 
- 	if (xcvr->mode == FSL_XCVR_MODE_EARC) { /* eARC mode */
-@@ -378,7 +402,7 @@ static int fsl_xcvr_en_aud_pll(struct fsl_xcvr *xcvr, u32 freq)
- 		return ret;
- 	}
- 
--	if (xcvr->soc_data->spdif_only)
-+	if (!xcvr->soc_data->use_phy)
- 		return 0;
- 	/* Release AI interface from reset */
- 	ret = regmap_write(xcvr->regmap, FSL_XCVR_PHY_AI_CTRL_SET,
-@@ -1022,7 +1046,7 @@ static bool fsl_xcvr_readable_reg(struct device *dev, unsigned int reg)
- {
- 	struct fsl_xcvr *xcvr = dev_get_drvdata(dev);
- 
--	if (xcvr->soc_data->spdif_only)
-+	if (!xcvr->soc_data->use_phy)
- 		if ((reg >= FSL_XCVR_IER && reg <= FSL_XCVR_PHY_AI_RDATA) ||
- 		    reg > FSL_XCVR_TX_DPTH_BCRR)
- 			return false;
-@@ -1095,7 +1119,7 @@ static bool fsl_xcvr_writeable_reg(struct device *dev, unsigned int reg)
- {
- 	struct fsl_xcvr *xcvr = dev_get_drvdata(dev);
- 
--	if (xcvr->soc_data->spdif_only)
-+	if (!xcvr->soc_data->use_phy)
- 		if (reg >= FSL_XCVR_IER && reg <= FSL_XCVR_PHY_AI_RDATA)
- 			return false;
- 	switch (reg) {
-@@ -1239,6 +1263,8 @@ static irqreturn_t irq0_isr(int irq, void *devid)
- 
- static const struct fsl_xcvr_soc_data fsl_xcvr_imx8mp_data = {
- 	.fw_name = "imx/xcvr/xcvr-imx8mp.bin",
-+	.use_phy = true,
-+	.pll_ver = PLL_MX8MP,
- };
- 
- static const struct fsl_xcvr_soc_data fsl_xcvr_imx93_data = {
-@@ -1246,9 +1272,17 @@ static const struct fsl_xcvr_soc_data fsl_xcvr_imx93_data = {
- 	.use_edma = true,
- };
- 
-+static const struct fsl_xcvr_soc_data fsl_xcvr_imx95_data = {
-+	.spdif_only = true,
-+	.use_phy = true,
-+	.use_edma = true,
-+	.pll_ver = PLL_MX95,
-+};
-+
- static const struct of_device_id fsl_xcvr_dt_ids[] = {
- 	{ .compatible = "fsl,imx8mp-xcvr", .data = &fsl_xcvr_imx8mp_data },
- 	{ .compatible = "fsl,imx93-xcvr", .data = &fsl_xcvr_imx93_data},
-+	{ .compatible = "fsl,imx95-xcvr", .data = &fsl_xcvr_imx95_data},
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(of, fsl_xcvr_dt_ids);
-diff --git a/sound/soc/fsl/fsl_xcvr.h b/sound/soc/fsl/fsl_xcvr.h
-index 044058fc6aa2..882428592e1a 100644
---- a/sound/soc/fsl/fsl_xcvr.h
-+++ b/sound/soc/fsl/fsl_xcvr.h
-@@ -291,4 +291,95 @@
- #define FSL_XCVR_RX_CS_BUFF_1		0xA0 /* Second RX CS buffer */
- #define FSL_XCVR_CAP_DATA_STR		0x300 /* Capabilities data structure */
- 
-+/* GP PLL Registers */
-+#define FSL_XCVR_GP_PLL_CTRL			0x00
-+#define FSL_XCVR_GP_PLL_CTRL_SET		0x04
-+#define FSL_XCVR_GP_PLL_CTRL_CLR		0x08
-+#define FSL_XCVR_GP_PLL_CTRL_TOG		0x0C
-+#define FSL_XCVR_GP_PLL_ANA_PRG			0x10
-+#define FSL_XCVR_GP_PLL_ANA_PRG_SET		0x14
-+#define FSL_XCVR_GP_PLL_ANA_PRG_CLR		0x18
-+#define FSL_XCVR_GP_PLL_ANA_PRG_TOG		0x1C
-+#define FSL_XCVR_GP_PLL_TEST			0x20
-+#define FSL_XCVR_GP_PLL_TEST_SET		0x24
-+#define FSL_XCVR_GP_PLL_TEST_CLR		0x28
-+#define FSL_XCVR_GP_PLL_TEST_TOG		0x2C
-+#define FSL_XCVR_GP_PLL_SPREAD_SPECTRUM		0x30
-+#define FSL_XCVR_GP_PLL_SPREAD_SPECTRUM_SET	0x34
-+#define FSL_XCVR_GP_PLL_SPREAD_SPECTRUM_CLR	0x38
-+#define FSL_XCVR_GP_PLL_SPREAD_SPECTRUM_TOG	0x3C
-+#define FSL_XCVR_GP_PLL_NUMERATOR		0x40
-+#define FSL_XCVR_GP_PLL_NUMERATOR_SET		0x44
-+#define FSL_XCVR_GP_PLL_NUMERATOR_CLR		0x48
-+#define FSL_XCVR_GP_PLL_NUMERATOR_TOG		0x4C
-+#define FSL_XCVR_GP_PLL_DENOMINATOR		0x50
-+#define FSL_XCVR_GP_PLL_DENOMINATOR_SET		0x54
-+#define FSL_XCVR_GP_PLL_DENOMINATOR_CLR		0x58
-+#define FSL_XCVR_GP_PLL_DENOMINATOR_TOG		0x5C
-+#define FSL_XCVR_GP_PLL_DIV			0x60
-+#define FSL_XCVR_GP_PLL_DIV_SET			0x64
-+#define FSL_XCVR_GP_PLL_DIV_CLR			0x68
-+#define FSL_XCVR_GP_PLL_DIV_TOG			0x6C
-+#define FSL_XCVR_GP_PLL_DFS_CTRL0		0x70
-+#define FSL_XCVR_GP_PLL_DFS_CTRL0_SET		0x74
-+#define FSL_XCVR_GP_PLL_DFS_CTRL0_CLR		0x78
-+#define FSL_XCVR_GP_PLL_DFS_CTRL0_TOG		0x7C
-+#define FSL_XCVR_GP_PLL_DFS_DIV0		0x80
-+#define FSL_XCVR_GP_PLL_DFS_DIV0_SET		0x84
-+#define FSL_XCVR_GP_PLL_DFS_DIV0_CLR		0x88
-+#define FSL_XCVR_GP_PLL_DFS_DIV0_TOG		0x8C
-+#define FSL_XCVR_GP_PLL_DFS_CTRL1		0x90
-+#define FSL_XCVR_GP_PLL_DFS_CTRL1_SET		0x94
-+#define FSL_XCVR_GP_PLL_DFS_CTRL1_CLR		0x98
-+#define FSL_XCVR_GP_PLL_DFS_CTRL1_TOG		0x9C
-+#define FSL_XCVR_GP_PLL_DFS_DIV1		0xA0
-+#define FSL_XCVR_GP_PLL_DFS_DIV1_SET		0xA4
-+#define FSL_XCVR_GP_PLL_DFS_DIV1_CLR		0xA8
-+#define FSL_XCVR_GP_PLL_DFS_DIV1_TOG		0xAC
-+#define FSL_XCVR_GP_PLL_DFS_CTRL2		0xB0
-+#define FSL_XCVR_GP_PLL_DFS_CTRL2_SET		0xB4
-+#define FSL_XCVR_GP_PLL_DFS_CTRL2_CLR		0xB8
-+#define FSL_XCVR_GP_PLL_DFS_CTRL2_TOG		0xBC
-+#define FSL_XCVR_GP_PLL_DFS_DIV2		0xC0
-+#define FSL_XCVR_GP_PLL_DFS_DIV2_SET		0xC4
-+#define FSL_XCVR_GP_PLL_DFS_DIV2_CLR		0xC8
-+#define FSL_XCVR_GP_PLL_DFS_DIV2_TOG		0xCC
-+#define FSL_XCVR_GP_PLL_DFS_CTRL3		0xD0
-+#define FSL_XCVR_GP_PLL_DFS_CTRL3_SET		0xD4
-+#define FSL_XCVR_GP_PLL_DFS_CTRL3_CLR		0xD8
-+#define FSL_XCVR_GP_PLL_DFS_CTRL3_TOG		0xDC
-+#define FSL_XCVR_GP_PLL_DFS_DIV3		0xE0
-+#define FSL_XCVR_GP_PLL_DFS_DIV3_SET		0xE4
-+#define FSL_XCVR_GP_PLL_DFS_DIV3_CLR		0xE8
-+#define FSL_XCVR_GP_PLL_DFS_DIV3_TOG		0xEC
-+#define FSL_XCVR_GP_PLL_STATUS			0xF0
-+#define FSL_XCVR_GP_PLL_STATUS_SET		0xF4
-+#define FSL_XCVR_GP_PLL_STATUS_CLR		0xF8
-+#define FSL_XCVR_GP_PLL_STATUS_TOG		0xFC
-+
-+/* GP PLL Control Register */
-+#define FSL_XCVR_GP_PLL_CTRL_LBYPASS		BIT(31)
-+#define FSL_XCVR_GP_PLL_CTRL_HCS		BIT(16)
-+#define FSL_XCVR_GP_PLL_CTRL_MSD		BIT(12)
-+#define FSL_XCVR_GP_PLL_CTRL_DITHER_EN3		BIT(11)
-+#define FSL_XCVR_GP_PLL_CTRL_DITHER_EN2		BIT(10)
-+#define FSL_XCVR_GP_PLL_CTRL_DITHER_EN1		BIT(9)
-+#define FSL_XCVR_GP_PLL_CTRL_SPREADCTL		BIT(8)
-+#define FSL_XCVR_GP_PLL_CTRL_CLKMUX_BYPASS	BIT(2)
-+#define FSL_XCVR_GP_PLL_CTRL_CLKMUX_EN		BIT(1)
-+#define FSL_XCVR_GP_PLL_CTRL_POWERUP		BIT(0)
-+
-+/* GP PLL Numerator Register */
-+#define FSL_XCVR_GP_PLL_NUMERATOR_MFN_SHIFT	2
-+#define FSL_XCVR_GP_PLL_NUMERATOR_MFN		GENMASK(31, 2)
-+
-+/* GP PLL Denominator Register */
-+#define FSL_XCVR_GP_PLL_DENOMINATOR_MFD		GENMASK(29, 0)
-+
-+/* GP PLL Dividers Register */
-+#define FSL_XCVR_GP_PLL_DIV_MFI_SHIFT		16
-+#define FSL_XCVR_GP_PLL_DIV_MFI			GENMASK(24, 16)
-+#define FSL_XCVR_GP_PLL_DIV_RDIV		GENMASK(15, 13)
-+#define FSL_XCVR_GP_PLL_DIV_ODIV		GENMASK(7, 0)
-+
- #endif /* __FSL_XCVR_H */
--- 
-2.34.1
-
+Renesas Electronics
+Ph.D. Kuninori Morimoto

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F2E78C15C3
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 May 2024 21:57:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 392108C15C9
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 May 2024 21:58:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 95FC81931;
-	Thu,  9 May 2024 21:57:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95FC81931
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8DA3B20C1;
+	Thu,  9 May 2024 21:57:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8DA3B20C1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1715284672;
-	bh=3epbr7u3CfAFndEOsNu4jNNDKiPVR3FkG4nsSdqrrb0=;
+	s=default; t=1715284687;
+	bh=KWpE0p6D5Mx4AC48PvOC39QYe6ueT3DevHp41Jg8ly4=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=TjOK1xMauezRlqURFe/LevROOWzHqUivfEC1BMk03orP0ZsZMBGVT1Qp+OZGAmIq+
-	 +trPZs01xAft+DXznVjSLrYz10HhelIYZK9cE8UhuzIpGJVb1/jgjuJ3BeLkUz107H
-	 otWtXAAsrsRZpw9KxOzBhzeddSaO1JJc5eT6H7HU=
+	b=MbTy654QWoRgrrNsEOmB8xVG/k+eZEu5+9zO3ZK0jSWQnRmZ6aDl6fNsRCHHj1GaH
+	 JCNRIGFo9yQkUDKtOhXa9dIxMkAEuH7sgPtEZ1OYm6HD9JvhRXNQ3mnm03X2fZ2Lgf
+	 49raJPIXa7X/QhXAxT+S+rWwLd1Nf5+Toeq/u1Ko=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A7728F80621; Thu,  9 May 2024 21:56:34 +0200 (CEST)
+	id 2B697F8064C; Thu,  9 May 2024 21:56:37 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5B26FF8061E;
-	Thu,  9 May 2024 21:56:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D1812F8063C;
+	Thu,  9 May 2024 21:56:36 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6E995F805B0; Thu,  9 May 2024 21:56:27 +0200 (CEST)
+	id 50DC0F805D9; Thu,  9 May 2024 21:56:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=DATE_IN_PAST_06_12,
@@ -35,49 +35,49 @@ X-Spam-Status: No, score=0.4 required=5.0 tests=DATE_IN_PAST_06_12,
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 94E20F80580
-	for <alsa-devel@alsa-project.org>; Thu,  9 May 2024 21:56:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94E20F80580
+	by alsa1.perex.cz (Postfix) with ESMTPS id A7580F805BB
+	for <alsa-devel@alsa-project.org>; Thu,  9 May 2024 21:56:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7580F805BB
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=lKTGyPso
+ header.s=Intel header.b=J9Mw3Uch
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1715284586; x=1746820586;
+  t=1715284588; x=1746820588;
   h=message-id:date:mime-version:subject:to:cc:references:
    from:in-reply-to:content-transfer-encoding;
-  bh=3epbr7u3CfAFndEOsNu4jNNDKiPVR3FkG4nsSdqrrb0=;
-  b=lKTGyPsooEX2k20SxwSjtcU+p1BLwE+ku1tHGac7WZ/FNd0MVFuuSx5F
-   50RWvjpmauP8HzkJ/vD3Xum52YPNJO6p9Rixem3eSKS+BX+yDOCA8uo2c
-   apv2qFHXxNzhXbHzRdVwcL+OAG20aH14YM1IWEm0c8ZYJd1QYmqljEg0p
-   RP+n24vRrhZe8nWgKJH84XqxVbUoY2j4D+FrfLYmKxOuYnpFUTlHTU/0G
-   /XcpwScw5n8Xp6UueUfTOi4n273YfkDzeL8IhvNLk25MEuwmh4FLDRtsa
-   wNAnV/Nup7M8AwhbaQQFJ9HL7ToCVm+POYGLgw6eOEjwwDwHSPwNx1Xcz
-   Q==;
-X-CSE-ConnectionGUID: Rd2l6olJTamnVlgaltOJ+Q==
-X-CSE-MsgGUID: yM7YgivUS7iKkWMiVAy2Jw==
-X-IronPort-AV: E=McAfee;i="6600,9927,11068"; a="11454285"
+  bh=KWpE0p6D5Mx4AC48PvOC39QYe6ueT3DevHp41Jg8ly4=;
+  b=J9Mw3UchZBQbHyRAlNP7KKruD8M9mlOLsadZgbChgZ0YB+uOKvpXjL6Q
+   lqDHNiCRCZQ88c2anZDwZp3hdn6KnmFYVRZtf8UzkTLLzP7+GvGzSP0Vr
+   66kdumP0L0zpo53VYZDpvOar+mfw+K1QR4pNwSeRo8THGP7pR7eogXBzA
+   79c8GIyNugoRIgl3pO4et9rIJt0YvI9Gxi0Q9AVWSTyWMi4xTIqIaCF0c
+   jG76eyJl0XhjacfSbBh0e2wCB3LtK+6vF/mqKUyAMXR1UBfyr08+cR3r6
+   m2OnV1GehDdRhkTg/AP0i/N8A1p4xHDuMBHXPkx8jGcvFjRsHz+SXwcPv
+   w==;
+X-CSE-ConnectionGUID: 42vN64JbSzuWhZHQdDW7gg==
+X-CSE-MsgGUID: VVVVQhnoQZa03H42wzSMlg==
+X-IronPort-AV: E=McAfee;i="6600,9927,11068"; a="11454296"
 X-IronPort-AV: E=Sophos;i="6.08,148,1712646000";
-   d="scan'208";a="11454285"
+   d="scan'208";a="11454296"
 Received: from orviesa004.jf.intel.com ([10.64.159.144])
   by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 May 2024 12:56:23 -0700
-X-CSE-ConnectionGUID: mB+YzDLqRz6/iJpx7j2KHg==
-X-CSE-MsgGUID: J9w1UCm6QO6uAg+td9Am0g==
+ 09 May 2024 12:56:26 -0700
+X-CSE-ConnectionGUID: a41ju8XXQeG9r7e6NCexkA==
+X-CSE-MsgGUID: lQw9T7pCRA6d3UjUMCy9SQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.08,148,1712646000";
-   d="scan'208";a="34213110"
+   d="scan'208";a="34213124"
 Received: from ajunnare-mobl.amr.corp.intel.com (HELO [10.213.181.85])
  ([10.213.181.85])
   by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 May 2024 12:56:20 -0700
-Message-ID: <f1368be7-fea5-450c-a61c-f289ba61f150@linux.intel.com>
-Date: Thu, 9 May 2024 08:07:36 -0500
+ 09 May 2024 12:56:23 -0700
+Message-ID: <f4d59f05-9279-4c89-b5e1-57a0b3e8cddf@linux.intel.com>
+Date: Thu, 9 May 2024 08:11:33 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v21 27/39] ASoC: Introduce SND kcontrols to select sound
- card and PCM device
+Subject: Re: [PATCH v21 34/39] ALSA: usb-audio: Add USB offloading capable
+ kcontrol
 To: Wesley Cheng <quic_wcheng@quicinc.com>, srinivas.kandagatla@linaro.org,
  mathias.nyman@intel.com, perex@perex.cz, conor+dt@kernel.org,
  corbet@lwn.net, lgirdwood@gmail.com, andersson@kernel.org,
@@ -89,16 +89,17 @@ Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, linux-doc@vger.kernel.org,
  alsa-devel@alsa-project.org
 References: <20240507195116.9464-1-quic_wcheng@quicinc.com>
- <20240507195116.9464-28-quic_wcheng@quicinc.com>
- <54b79b7b-49e6-418e-9a6b-11bcbada8398@linux.intel.com>
- <3390ef12-67dd-9474-21fb-b8df35fff546@quicinc.com>
+ <20240507195116.9464-35-quic_wcheng@quicinc.com>
+ <4ce8ee3b-21d3-4aa3-8fd5-7dcccc2b8abe@linux.intel.com>
+ <a602e121-28e0-3255-87bb-c75355926125@quicinc.com>
+ <a0d19e7c-8fb0-e93a-d79b-319d8339504a@quicinc.com>
 Content-Language: en-US
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <3390ef12-67dd-9474-21fb-b8df35fff546@quicinc.com>
+In-Reply-To: <a0d19e7c-8fb0-e93a-d79b-319d8339504a@quicinc.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: P7ITVALERHKKAXVTZNLZHYSTO4WWFAQA
-X-Message-ID-Hash: P7ITVALERHKKAXVTZNLZHYSTO4WWFAQA
+Message-ID-Hash: 2SXPHI7HL6CRJY2JKMCCTXYXMNMQXSPP
+X-Message-ID-Hash: 2SXPHI7HL6CRJY2JKMCCTXYXMNMQXSPP
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -111,9 +112,8 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/P7ITVALERHKKAXVTZNLZHYSTO4WWFAQA/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2SXPHI7HL6CRJY2JKMCCTXYXMNMQXSPP/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
@@ -121,45 +121,52 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
-
-On 5/8/24 19:10, Wesley Cheng wrote:
-> Hi Pierre,
-> 
-> On 5/7/2024 2:26 PM, Pierre-Louis Bossart wrote:
->>
->>
->> On 5/7/24 14:51, Wesley Cheng wrote:
->>> Add SND kcontrol to SOC USB, which will allow for userpsace to determine
->>> which USB card number and PCM device to offload.  This allows for
->>> userspace
->>> to potentially tag an alternate path for a specific USB SND card and PCM
->>> device.  Previously, control was absent, and the offload path would be
->>> enabled on the last USB SND device which was connected.  This logic will
->>> continue to be applicable if no mixer input is received for specific
->>> device
->>> selection.
+>>>> It is expected for the USB offloading driver to add the kcontrol to the
+>>>> sound card associated with the USB audio device.  An example output
+>>>> would
+>>>> look like:
+>>>>
+>>>> tinymix -D 1 get 'USB Offload Playback Capable Card'
+>>>> 0 (range -1->32)
 >>>
->>> An example to configure the offload device using tinymix:
->>> tinymix -D 0 set 'USB Offload Playback Route Select' 1 0
+>>> You already gave the following examples in patch 29:
 >>>
->>> The above command will configure the offload path to utilize card#1
->>> and PCM
->>> stream#0.
+>>> "
+>>> USB offloading idle:
+>>> tinymix -D 0 get 'USB Offload Playback Route Status'
+>>> -->-1, -1 (range -1->32)
+>>>
+>>> USB offloading active(USB card#1 pcm#0):
+>>> tinymix -D 0 get 'USB Offload Playback Route Status'
+>>> -->1, 0 (range -1->32)
+>>> "
+>>>
+>>> Can you clarify how many controls there would be in the end?
 >>
->> I don't know how this is usable in practice. Using card indices is
->> really hard to do, it depends on the order in which devices are
->> plugged-in...
+>> For USB offload situations, there will be a set of controls for
+>> playback status and playback select.  The offload jack will also be
+>> there to tell us if there is an offload path available for the
+>> platform ASoC sound card.
+>>
+>>> Also isn't tinymix -D N going to give you the controls for card N?
+>>>
+>>
+>> Yes, since the offload portion is handled as a DPCM DAI link to the
+>> platform ASoC card, it will be included as a kcontrol for that.
+>>
+>> Thanks
+>> Wesley Cheng
+>>
+>>
 > 
-> How are the existing mechanisms handling USB audio devices, or what is
-> the identifier being used?
+> Sorry for responding again.  I read your email again, and wanted to also
+> add that aside from the above, which are all within the ASoC layer, as
+> we discussed previously, we should have a kcontrol in the USB SND card
+> to determine if there is an ASoC platform card capable of offloading.
+> This is also available from the SND card created by the USB audio device.
 
-Well it's a mess, that's why I asked.
+That makes sense: if the application wanted to use a given endpoint, it
+could check if there is a 'better' path exposed by another card. It'd be
+a lot easier than reading controls from random cards.
 
-There are configuration work-arounds to make sure that 'local'
-accessories are handled first and get repeatable card indices.
-
-But between USB devices I guess the rule is 'anything goes'. Even if
-there are two devices connected at boot, the index allocation will
-depend on probe order. The card names are not necessarily super-useful
-either, i.e. yesterday I was confused by an USB card named "CODEC"
-without any details.
+Was this part of this patchset or more of an idea for a future addition?

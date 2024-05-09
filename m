@@ -2,94 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C9D68C1328
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 May 2024 18:40:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFCF48C1390
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 May 2024 19:12:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CBD47E67;
-	Thu,  9 May 2024 18:40:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CBD47E67
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0F025E69;
+	Thu,  9 May 2024 19:11:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F025E69
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1715272839;
-	bh=SCXYAb7vitxLxtkFLM0yIYJIUoO70iWPghwmtNzSrLY=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=aFwyRGaqhOkO4R6znCGW53lY5aZRvN9AI/njwJzSq/574/aC+2ykPQtf7udBbVKwp
-	 XHGBYW5eZOKr+0f08d8VH15nEPV8SwUH+ozehyEkl9LLzcYnKW35JsjdSiqE5RrcvU
-	 Dijh0TryPJ6uv+Pu5DLm6IS07m46IvHbyTQiXnzw=
+	s=default; t=1715274724;
+	bh=YA/u5mUcOxyTQK4E6Daw3gCqDJqZ+z0mf7v0UCWoLp0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=fZjpcZjkbVu3x7hO6LfXgKC4rY3guuDId9fms/cmIaFRChM6aVhHDT1ukTuXiK4h5
+	 5RaTt2H4h8VUoAm+0uxTqBP4O2tF/zntADxRTK9kDa/7D10TpwNdbud4hLMJnOdawB
+	 Nkn98xHYA2ZWfy//zH61aZzNzPcpthPRm/z/1DY8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 09ABBF8061B; Thu,  9 May 2024 18:37:24 +0200 (CEST)
+	id BF4BBF805A8; Thu,  9 May 2024 19:11:31 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 76C22F80620;
-	Thu,  9 May 2024 18:37:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 70E9BF805A1;
+	Thu,  9 May 2024 19:11:31 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3B4B1F80614; Thu,  9 May 2024 18:37:21 +0200 (CEST)
+	id 83E54F8049C; Thu,  9 May 2024 19:11:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0A9EFF80610
-	for <alsa-devel@alsa-project.org>; Thu,  9 May 2024 18:37:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A9EFF80610
+	by alsa1.perex.cz (Postfix) with ESMTPS id 41260F8024C
+	for <alsa-devel@alsa-project.org>; Thu,  9 May 2024 19:11:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41260F8024C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=ZkpdwK6M
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1715272637; x=1746808637;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=SCXYAb7vitxLxtkFLM0yIYJIUoO70iWPghwmtNzSrLY=;
-  b=ZkpdwK6Mk2NmNtoPLK41s9OdxG+LYtnii7Ai82wpUzEV24r0NrBGuiJP
-   hlYtk0yNf2Vy9caHctGjWBK9uiYZuICZfxHxV4B2F3+MM+B4+xorSEC7f
-   ZhFkaih472S9h+s5/V0GHM1+VFhEQM1Oarzm3G4YvzfyYEGLqN5RMDgKW
-   K2Ch9dRO4WE0/WgFB00R7/lO0tEom93iGdOdV/NxsfYUUBc8Sh9pgn7VQ
-   W/LdwGy1TRw+PdSQqLbhVqwoHGGYf2EAL8mI1wOhx4WNYiCeHScYZxxqT
-   Z3UUsJHXhxjY2aDMarSBAPLFD0PSsx9Z7A49OLt9kVkYM5moTXLFYiVyD
-   w==;
-X-CSE-ConnectionGUID: lqUCW7pjR8eCFJC/mRCiGg==
-X-CSE-MsgGUID: O4bn7/r+SC231XEn2D6bEg==
-X-IronPort-AV: E=McAfee;i="6600,9927,11068"; a="11362564"
-X-IronPort-AV: E=Sophos;i="6.08,148,1712646000";
-   d="scan'208";a="11362564"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 May 2024 09:37:13 -0700
-X-CSE-ConnectionGUID: yMhnPOwlQvOsdP6pTnYPsw==
-X-CSE-MsgGUID: J9lXMQAnTt6SeDyVPBZGxA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,148,1712646000";
-   d="scan'208";a="29344989"
-Received: from ajunnare-mobl.amr.corp.intel.com (HELO
- pbossart-mobl6.intel.com) ([10.213.181.85])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 May 2024 09:37:12 -0700
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: linux-sound@vger.kernel.org
-Cc: alsa-devel@alsa-project.org,
-	tiwai@suse.de,
-	broonie@kernel.org,
-	Shuming Fan <shumingf@realtek.com>,
-	Jack Yu <jack.yu@realtek.com>,
-	Oder Chiou <oder_chiou@realtek.com>,
-	Bard liao <yung-chuan.liao@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [PATCH] ASoC: rt715-sdca-sdw: Fix wrong complete waiting in
- rt715_dev_resume()
-Date: Thu,  9 May 2024 11:36:58 -0500
-Message-Id: <20240509163658.68062-1-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.40.1
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=VTGvIKV3
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id C4E5161CF1;
+	Thu,  9 May 2024 17:11:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C539C116B1;
+	Thu,  9 May 2024 17:11:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1715274678;
+	bh=YA/u5mUcOxyTQK4E6Daw3gCqDJqZ+z0mf7v0UCWoLp0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=VTGvIKV3Q1U4y5xPkrsYLHkZEVfxKI5NSpA/MjGFH9qYIXb8ISw4VmwSYbRo3Wbpt
+	 AUc17UJ2ENNqqBx/mzOFCwj4TDG9E5t499JPnvS2tgX6zKQzzyhspPT8OquDgx5LGL
+	 ze8dMWHERjQ+aLj+EhFYiM5W0kjPL1KXaK50LQ09aUM1BSrKZIdnS5DfBX7E3jaeSH
+	 iZykHvXUCEsYdzCQgK3pG2gzcqvnMmxVb/aWTx2n2kAtKvMQ7UiZ1JHwbt4xnA78Xl
+	 f5DLkuB36V41YqYYP9cm4BriMD1pSpZN6rnhWZH7O9ldn3RRwdUsWH2x2dlVJA+Au2
+	 ecUhVXGcZxHnA==
+Date: Thu, 9 May 2024 18:11:13 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Shengjiu Wang <shengjiu.wang@nxp.com>
+Cc: lgirdwood@gmail.com, broonie@kernel.org, robh+dt@kernel.org,
+	krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
+	shengjiu.wang@gmail.com, linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Xiubo.Lee@gmail.com, festevam@gmail.com, nicoleotsuka@gmail.com,
+	perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
+	linuxppc-dev@lists.ozlabs.org
+Subject: Re: [PATCH 1/4] ASoC: dt-bindings: fsl,xcvr: Add compatible string
+ for i.MX95
+Message-ID: <20240509-phonics-wound-58d3435165f0@spud>
+References: <1715223460-32662-1-git-send-email-shengjiu.wang@nxp.com>
+ <1715223460-32662-2-git-send-email-shengjiu.wang@nxp.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: E67JYOG6Z5LUID5TI5QZVCHIEUREXSS4
-X-Message-ID-Hash: E67JYOG6Z5LUID5TI5QZVCHIEUREXSS4
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="o/G3P2Zf+UnkTwok"
+Content-Disposition: inline
+In-Reply-To: <1715223460-32662-2-git-send-email-shengjiu.wang@nxp.com>
+Message-ID-Hash: OKDFOYGL46V67GJEOYXO7VUKOSWFK6EW
+X-Message-ID-Hash: OKDFOYGL46V67GJEOYXO7VUKOSWFK6EW
+X-MailFrom: conor@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -101,7 +93,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/E67JYOG6Z5LUID5TI5QZVCHIEUREXSS4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OKDFOYGL46V67GJEOYXO7VUKOSWFK6EW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,41 +102,53 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
 
-enumeration_complete will be completed when a peripheral is attached.
-And initialization_complete will be completed when a peripheral is
-initialized. rt715_dev_resume() should wait for initialization_complete
-instead of enumeration_complete.
+--o/G3P2Zf+UnkTwok
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-the issue exists since commit 20d17057f0a8 ("ASoC: rt715-sdca: Add RT715
-sdca vendor-specific driver"), but the commit can only apply to
-commit f892e66fcabc ("ASoC: rt-sdw*: add __func__ to all error logs").
+On Thu, May 09, 2024 at 10:57:37AM +0800, Shengjiu Wang wrote:
+> Add compatible string "fsl,imx95-xcvr" for i.MX95 platform.
 
-Fixes: f892e66fcabc ("ASoC: rt-sdw*: add __func__ to all error logs")
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
- sound/soc/codecs/rt715-sdca-sdw.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+That's apparent from the diff. Why is it not compatible with existing
+devices?
 
-diff --git a/sound/soc/codecs/rt715-sdca-sdw.c b/sound/soc/codecs/rt715-sdca-sdw.c
-index d3fb02e8f31a..c8dabb9b16b5 100644
---- a/sound/soc/codecs/rt715-sdca-sdw.c
-+++ b/sound/soc/codecs/rt715-sdca-sdw.c
-@@ -234,10 +234,10 @@ static int __maybe_unused rt715_dev_resume(struct device *dev)
- 	if (!slave->unattach_request)
- 		goto regmap_sync;
- 
--	time = wait_for_completion_timeout(&slave->enumeration_complete,
-+	time = wait_for_completion_timeout(&slave->initialization_complete,
- 					   msecs_to_jiffies(RT715_PROBE_TIMEOUT));
- 	if (!time) {
--		dev_err(&slave->dev, "%s: Enumeration not complete, timed out\n", __func__);
-+		dev_err(&slave->dev, "%s: Initialization not complete, timed out\n", __func__);
- 		sdw_show_ping_status(slave->bus, true);
- 
- 		return -ETIMEDOUT;
--- 
-2.40.1
+Cheers,
+Conor.
 
+>=20
+> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+> ---
+>  Documentation/devicetree/bindings/sound/fsl,xcvr.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/sound/fsl,xcvr.yaml b/Docu=
+mentation/devicetree/bindings/sound/fsl,xcvr.yaml
+> index 0eb0c1ba8710..1c74a32def09 100644
+> --- a/Documentation/devicetree/bindings/sound/fsl,xcvr.yaml
+> +++ b/Documentation/devicetree/bindings/sound/fsl,xcvr.yaml
+> @@ -22,6 +22,7 @@ properties:
+>      enum:
+>        - fsl,imx8mp-xcvr
+>        - fsl,imx93-xcvr
+> +      - fsl,imx95-xcvr
+> =20
+>    reg:
+>      items:
+> --=20
+> 2.34.1
+>=20
+
+--o/G3P2Zf+UnkTwok
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZj0DsQAKCRB4tDGHoIJi
+0imKAQCYoCen/pDUqt0eydvNAg6kYtqxHG4j0dkiPPhCBQDTugD9ETg2kVQ8oDL8
+pD2YGMysprBxoLeYVTWRCjCN8LvUCwU=
+=iBRc
+-----END PGP SIGNATURE-----
+
+--o/G3P2Zf+UnkTwok--

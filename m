@@ -2,166 +2,112 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCAAC8C1B23
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 May 2024 02:25:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08DA18C1C67
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 May 2024 04:28:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2586414DC;
-	Fri, 10 May 2024 02:25:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2586414DC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5D88DE9A;
+	Fri, 10 May 2024 04:28:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D88DE9A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1715300745;
-	bh=bnvwYv926nWKAZGDvo2Qqj7bZo7UubL53Rcgw6mhrak=;
-	h=From:Subject:To:Cc:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=hMRSfN2WjJJ05d2r6l8EKb9OGxGmXwPHL2oqvCNdodOxeiCA04yzIZ15XxdhcGFT/
-	 oP0GdJf457lujs015TTFQHIKWji8S1oVtSiS34YLsTM70+o34TY/DuRKNaaqjFUbir
-	 DnqeJMoiVkoiU9CbYyGpOLUo07orjA0p1UWv2+Kg=
+	s=default; t=1715308097;
+	bh=bvd3blX+RJMgsJ0g7k7yJaqxHwFVzRJsAHzoNG3fBQw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=G8bbxW1lDzkAeVv83wVN+ZIJPpsf3ztnFBaONVjRtdQH7GRrgvWIr5zxc8cReizYU
+	 cyRvHN3xDsL3qgTlrpCSampwQFAOqlZdSylmVRhRgXrNU082bXrC/D7gZGefN7t+lC
+	 MwJKivupf8+sZuefGh4Vl5ry6i/apvKdJ6xehsdQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1882EF805AB; Fri, 10 May 2024 02:25:13 +0200 (CEST)
+	id 5F478F805A8; Fri, 10 May 2024 04:27:46 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 56EF7F80423;
-	Fri, 10 May 2024 02:25:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E3251F805A9;
+	Fri, 10 May 2024 04:27:45 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B0BD1F8049C; Fri, 10 May 2024 02:25:08 +0200 (CEST)
+	id 8354FF8049C; Fri, 10 May 2024 04:27:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No,
- score=-4.9 required=5.0 tests=AC_FROM_MANY_DOTS,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from JPN01-TYC-obe.outbound.protection.outlook.com
- (mail-tycjpn01on20601.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2019::601])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-il1-x131.google.com (mail-il1-x131.google.com
+ [IPv6:2607:f8b0:4864:20::131])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 33EBAF8024C
-	for <alsa-devel@alsa-project.org>; Fri, 10 May 2024 02:25:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33EBAF8024C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 19F34F8024C
+	for <alsa-devel@alsa-project.org>; Fri, 10 May 2024 04:27:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 19F34F8024C
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
- header.s=selector1 header.b=SkJLpsC8
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oFt4k65tIpTTa2g1Dph3Bk1GRGC1zxhkh6DqndK8ONFr3l5cN2QR936Z1L3C2lG4dyx9l9lrZ/UxeTLHgbsG79E/Fos+MryDmomgFdFdyHwHrG3bwS6Pfff74X1rOijuf0CQUDtJE7c+3m2f6vFvxyD4Uhdp4FntcYD6RVBTELrWhWGywz180VDLdcrx0otDk1ju1Ii0h0ng44a2Z6+MijZ5AOCOURshTQElDgpB+9Wco6r9NUepcEsBI4ff6xIe+RQn3tDpZ0x9uEXJfOguOKTOeHeYRaFFsHc0EFEhFnUQ2uR4KFT+rXXmmISB/bPo3kYZN37tMiFiOxvwNP9lww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dp6vvoHtM8h8omFpLtTDm5QclV5fLnIwNmja9Zd2iSs=;
- b=GEyCzEfq7xyS8c1uLvvWMMyeQzSR73IfaUF7Vhp4cDTjuxmibJuP6kY9EfabZbZ5xTY1VXSlfVBMuor9TmQ/JhenzctEDGtS1GuRhc3T7Ek56hcNb8ELqrVuMZMLIy2QI7H0csSWKvWZVwvLtJIpF89GrR90JDu2o3F9lg12FP2ZOsII5GpLofrmOzBz9SIVqhIzLk98+VIq1b9bnarpr2rb5YOz881biQSeiZMgdpz7OjzWA8zCa3GL8THwGOlBGStzxbksbVKWeLkt5KPa2UxKGj7B+DDF5OxOd3zDBAMyxXp0y+5kCGOrSc+EVU9F3TEzgRgeaRZ4C/+VZZsC3A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dp6vvoHtM8h8omFpLtTDm5QclV5fLnIwNmja9Zd2iSs=;
- b=SkJLpsC8zlR52a/SRusedveCrltuEM4iMFTEI1AeAb+dqjtTScTuKmIfprpwdWJulD30L9+0UYL6Uh9DFePjyRa9cMxtB88qoujWvos7816/sust5E9eH8zRSiZwryfeH6n/NNOmWMJK/rxeAb4SOLZ18eQE9Qg5l55a6MHwehA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
- (2603:1096:400:3a9::11) by TY3PR01MB10468.jpnprd01.prod.outlook.com
- (2603:1096:400:310::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.47; Fri, 10 May
- 2024 00:24:56 +0000
-Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
- ([fe80::2f40:537b:2694:7b76]) by TYCPR01MB10914.jpnprd01.prod.outlook.com
- ([fe80::2f40:537b:2694:7b76%7]) with mapi id 15.20.7544.047; Fri, 10 May 2024
- 00:24:55 +0000
-Message-ID: <875xvmqzs8.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH] ASoC: audio-graph-card2: call of_node_get() before
- of_get_next_child()
-User-Agent: Wanderlust/2.15.9 Emacs/27.1 Mule/6.0
-To: Mark Brown <broonie@kernel.org>
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
- "Dan Carpenter" <dan.carpenter@linaro.org>
-Content-Type: text/plain; charset=US-ASCII
-Date: Fri, 10 May 2024 00:24:55 +0000
-X-ClientProxiedBy: TY2PR0101CA0017.apcprd01.prod.exchangelabs.com
- (2603:1096:404:92::29) To TYCPR01MB10914.jpnprd01.prod.outlook.com
- (2603:1096:400:3a9::11)
+	dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=ahzOp5C0
+Received: by mail-il1-x131.google.com with SMTP id
+ e9e14a558f8ab-36c7bd2586eso6660115ab.0
+        for <alsa-devel@alsa-project.org>;
+ Thu, 09 May 2024 19:27:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1715308046; x=1715912846;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=tJIg9+M0Tl5oWYiRO4lX+sJC4I6tROA3nCXlHyRlexU=;
+        b=ahzOp5C0w3Z1FTJzUyC1zxUKCki0KtPPGt1TeZwcs1TM9Z0DVpneIB6ucIgFdMSbjB
+         dIZezjU7m//1K26xR78nBCj8qq1mJVK/ab8dIpKSHF9oH0nIT8WsYCIe2Zkr58IgWh5j
+         1Xf6DD5nU+nuVSZXjUUJuQzmdwNGAGmG9xPycZGmHhrUr/sqLIxAFf/Nk6RXtlIRgtpg
+         cK4oSPqA3qwS6nr766NxkBINaI6Q5e0Q6k3kidVrZsCrZ8Gh6QdKT1ScNhCQSrQauiCE
+         R/cYT0EMu70XLpjUSEt3KSIHmSPc0K42D2R5jPaesUOL/A5WiW2pmwXwuuG5Z1cHv8ho
+         lhqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1715308046; x=1715912846;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=tJIg9+M0Tl5oWYiRO4lX+sJC4I6tROA3nCXlHyRlexU=;
+        b=eHG6dPwDmNzY2tl2cDC4NW76wL6fXfjb4lUG6+gZbhhWVVfjpCCaNSVxkhJS5eW2Cf
+         90IENm8Uo9w3pPSOqeLKWqy5jTkl8E9+MBFRMylc4KA8C/LIPucDiu+weEdNlsmmi3Nh
+         iUKTzXCfNKZAb7Mh8kZmaEw4Lrl1c5mi+mHrshoU5w9WaNLVDHBUm5hDLE4uXnGbP41v
+         KgiGVEXZ5alSEvEC/xgoUXBS5RGRVNsEuMcJNO9qjviiPTS18zPy8crDXaS6yVX5eF8W
+         GLk0KDtTD03HMs7C4rfzD1lz/Gf5LZJYODYKKcWMSOChDQFUxDQaHui+66heLgbn0CkK
+         PvTw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWVZBCp1k/VoMO2ZmfgQH009eDh4NWReHhFbbaJM5gJMJY9EdBopU/e2CcB7oUA8AzlVPvuOCpmqvwKLC31DGDzXwm0dFty6FmOCHs=
+X-Gm-Message-State: AOJu0YzrhsA46Hv+ZM9XtXB2waTRydUSthQo9srrMzO5zdTXVAFQnYTb
+	BSV8V6LCza52gOFHgvQis84ZkIR4n6zeSx/b4IavQHrFgDQf4Ve3sGFFXPqcaqoyh6+80ZruzqA
+	a3QLVemV9lfAKmf04LH8jkeaauXE=
+X-Google-Smtp-Source: 
+ AGHT+IHBDYC2n71XP7WOuLCEc5J/fR/L9KPq4RQs/MbDRpyTSl0Iy+I8EcqM5V65ejYgeqpob2OgmskIn0fzTVIGW24=
+X-Received: by 2002:a05:6e02:1387:b0:36a:3f20:8cb with SMTP id
+ e9e14a558f8ab-36cc14ae0dbmr18245525ab.18.1715308046371; Thu, 09 May 2024
+ 19:27:26 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYCPR01MB10914:EE_|TY3PR01MB10468:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5384e3df-d06a-402c-417d-08dc70879e49
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: 
-	BCL:0;ARA:13230031|52116005|376005|366007|1800799015|38350700005;
-X-Microsoft-Antispam-Message-Info: 
-	=?us-ascii?Q?hZMkUrnMzy/ifDUK1GP635l29Oi0Qs/5kI96G6O/xj+SxegADeVJZUaly0I/?=
- =?us-ascii?Q?QlheF2pLELtT5JFS+vjWEfXB6rAKyL3MSIsGtfvO8Wruc4aTv3Hv1skD1GBJ?=
- =?us-ascii?Q?+M+Qx5gGypSCVxvbkZwtad3hAFFdT20a5pP/iMNYEFvze+al83f6aWOq9j0q?=
- =?us-ascii?Q?2ws+sfIjVkPbfoxnM0mh0gtNzQWdClEMxl1SLFNmhXwda5htGQeXlTVzeQ9n?=
- =?us-ascii?Q?uLzC0jZKMqor6DpvxwO5P8/qrGAHFoRQtJrn+mXxOdhpqVxq+Ot8+afk4uf6?=
- =?us-ascii?Q?/RoJJUhk0j2+FkzKgJdQMGoFjXJ3zr5FYuE35wI2tY+YSQtoFaQliY889sDV?=
- =?us-ascii?Q?+BIoIt8Vve/9nzLYtrhJw4T0i/ST9MA1cdpBYBfme+oCdFqGNplnajxoeuda?=
- =?us-ascii?Q?/Ob9FPPNVcYUNlK/1hI9IRtfKSD9vA2b2XB8woWv0hzKl7TqBO7w9n1sqWSg?=
- =?us-ascii?Q?H7m2QX69N3+uaAijp4jLvVHRSlwf+F7p3dko0c/ZoD2Omo9nwodm8vrpAzRy?=
- =?us-ascii?Q?itVop5Me9iDQKdDGVEif3HBtPPNF94aaWDfeo8BHvL8VpnEPcHT5N6FqjVtS?=
- =?us-ascii?Q?PIzWj3YsPAL2fN0luXp1AOBUSDDeMEnjYgNzQOz/PtpoeN7YnliDg0lRhVIU?=
- =?us-ascii?Q?PVgl8VF5i95s/uEgY+7s+B6OsVp73OIyK+irg9nTpAcSzaNYRkR9nbiyVjUx?=
- =?us-ascii?Q?Wnp/kA4EWtubUKBhnT0lUVZOVgda+jgOum9zip1WKVa/l2XnKVxzKjXtnCIj?=
- =?us-ascii?Q?tgJX4FcDfQd3jmjm25VWnY7+CJG9sP59qzZcynpqsPAMYU5b9zPBWtk+i0G/?=
- =?us-ascii?Q?i5ENpa4BGvLGaCYHVevEynwnlFxvd1EycWZbHcI2QClU3b1mKzX2E+Bnkfxa?=
- =?us-ascii?Q?vPRuzsgrlx9HgTLQ2YqN9o7vx3CYwI2KNaoRYVFyf/5P5Ig5EY08chprdmjV?=
- =?us-ascii?Q?B8HnxkV14BItrh0Id6gxQ43DRYOPbGctcH4ExX1UIbTBJ+2RoERTXROJU0Y/?=
- =?us-ascii?Q?knJcGj3ovmAO72WUVsdjUqZWDCNDCfx4pN7xIWsONv2KzTbJoVNZE//2oalO?=
- =?us-ascii?Q?Nt6IswERy99PoZ9XNRY6SZ+Gwt6YB3C+rKc7Zsgs0yLQ+dpHo6d1K8/GW5PO?=
- =?us-ascii?Q?YANxRyISqo78l11qVwfHwrJpq3H4qXKfY8wRc+nnIDDcGGXIXsFhi+6fqrIk?=
- =?us-ascii?Q?9F4ofzNbTXqhn8lnTmLa31otBuDzp1cxXvtqUv8mpNLIPFcqoiI++Uun0AGQ?=
- =?us-ascii?Q?LSzPmy5BvM7qAKsiV3BMj965GwobEoa2lscM6lnFog=3D=3D?=
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB10914.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(52116005)(376005)(366007)(1800799015)(38350700005);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?DdAAUoKajYRjw+zrxSvpDGRURhNz08gRW26ehK74C/iv9PGi0nh/CsEfnkgw?=
- =?us-ascii?Q?kyYqxVA0BJusJE0BQ7aq1Ut5GXrP1LaDxCzfh1jgGyH1Iw6sR//S/cJByBKH?=
- =?us-ascii?Q?Zm9ArvckhOF6gpJvR4N/HggG4WrDYm28TXsO1Wv63EdtEUaR3uj+Mb6Y83eF?=
- =?us-ascii?Q?D/k0aj3tK7B1FedRRG/hAfhCCsG+pi2RfaYhCmudnV1MXoSrQzryG+ZUH13g?=
- =?us-ascii?Q?znX0P9gogsq7972STHUf9+zRWtVJNfAnEsdmz4vhPm8d8ROM4SdgUYU9K/oM?=
- =?us-ascii?Q?5rlbtQ3KwK0bTNntMXcX7K70AwFS5tfhUkhWyDgMfPFIFc7ywdD+lZhJ38oY?=
- =?us-ascii?Q?ki1rMYHaV1DYPcnlfE1pR/IpuqQuxi7Ztnz2DPUpXEi6fB+U7GHt9GIzRhpj?=
- =?us-ascii?Q?qMag+gb5ps70pf1wGbPZJDQJdYHwqPXOuOkE1dJ58X1u1w/piHN5iQ96EKqk?=
- =?us-ascii?Q?7AzIw0e2ifCHAFnvb3Bgx1sv8nQB3bC6/UhvE+4GqTVsLNCcbfZ3eYpZMd7j?=
- =?us-ascii?Q?xBVsPF+M4xYLiFTMVITIeW0Xuvl4M0+BM5p5xWQdVyvtiCYDhG7AqTCiomMd?=
- =?us-ascii?Q?JN9E5eJI4ryETXpSY7IaD7S5gE+DMKiwR8dXsq/gXNBR6BQk4whWmc+Mvdsv?=
- =?us-ascii?Q?hc85Kvmek6a0s+rgPYwuYx3J+wZZ82YON0ZtzGOvroMt41Y+CgoTI3dgKrik?=
- =?us-ascii?Q?Comg25m/FNL93xjcUDZ8qb63ZEraceY0QKsQS8qQp0JsAJypFUPH30hjbaef?=
- =?us-ascii?Q?gW8BhPxPXBAdq8n9Iut1Gf/TGC8zqk3EOhXOLcS4L6M49z8GSubXuDD43+Yh?=
- =?us-ascii?Q?vT1C6SQXc22JMWwQwbuzAAzPc2+PO07iEXph7mrsk+y6I2muxC27Rl77U3az?=
- =?us-ascii?Q?qPCkJlp8Ksve0/rZdKdqZ7F49ytrw6U9jC49dYPRiFo9+L9OP0sWiCX0Db1r?=
- =?us-ascii?Q?PKWEm87GzLsYXVxwDD3zxgQjkHSnbmGQBcTdipr3sa46DPsxMJ2c2buDU1aY?=
- =?us-ascii?Q?b0mHfDLenZfZkLInRTRqzQOB6kJK51a3PsD6GFT5XVy8RqcxxRhktd6Ztbly?=
- =?us-ascii?Q?/xXPIym9/8d3d6W7CAUQBG4h53hInjuYK7o9wES1abpwNMOtvB9CZ5ew3QDe?=
- =?us-ascii?Q?//JYNzWowQeV86CpxuepPWKF15XuWBZTvds47+ZsKsQW337+1+/9G0rUK8jp?=
- =?us-ascii?Q?oUvDUQnY+o1CNdFrWLCBeL0yxFL6H4m91sh5bjoOiH4mOmqUUCgy5ci4igAS?=
- =?us-ascii?Q?DGoPInhpZ6+K4ZOta22InxUs7SEDBw9odCTQF5mAolxeHen1Hq7CRugP8cXA?=
- =?us-ascii?Q?XTD36E9EgLoWZVBEJ771yOt9L0XQqcR1iUoce3+0CJ42XdgFDkLn4KRYvTp0?=
- =?us-ascii?Q?SH27NZIjgjE5Mey0zyIulzl8fWUQH+tJREq340lPljE5IF+f+EgXSYqwhTsw?=
- =?us-ascii?Q?dv7Sy+9Gb5zmwL1ILftoao58ODZ7S6FAj+lQlgvmPfalkcO4ses3thpTh/c4?=
- =?us-ascii?Q?jEts4hEMWO7poQVhPcxhB9iB6C7K2EJlHamXY9HAg6n1XrUWeZyscCfZwHeo?=
- =?us-ascii?Q?eE09cDvkERHr97zMCvPCr/1TWEydpj4HkZlDDWjGVMpDi8h5K2BZ7ahB4SEZ?=
- =?us-ascii?Q?GtdVep/rC2iwqqwR88/pGL0=3D?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 5384e3df-d06a-402c-417d-08dc70879e49
-X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB10914.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 May 2024 00:24:55.9546
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- SgdCcR83wC6N16dYaac9SeurBmIVJoR7GOjx0xdvuUXlFnDxrkB+8r8w9OZYK2IcWNuHnQfWyVIDzbjR+0u5F4VQ/WXZhFsKtdeJq7cE7Bki1fba1UJgo5Y2fN4NOD7R
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY3PR01MB10468
-Message-ID-Hash: RKVBZXZ27XR4Z4RXXWE2QJR5ZMO4PLFB
-X-Message-ID-Hash: RKVBZXZ27XR4Z4RXXWE2QJR5ZMO4PLFB
-X-MailFrom: kuninori.morimoto.gx@renesas.com
+References: <1715223460-32662-1-git-send-email-shengjiu.wang@nxp.com>
+ <1715223460-32662-3-git-send-email-shengjiu.wang@nxp.com>
+ <20240509-repurpose-dumping-156b57c25960@spud>
+In-Reply-To: <20240509-repurpose-dumping-156b57c25960@spud>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Fri, 10 May 2024 10:27:15 +0800
+Message-ID: 
+ <CAA+D8AOkDbj_QsF9VescuAfFjKcB8FnOXqwjXVrrBM1Ck4ut4Q@mail.gmail.com>
+Subject: Re: [PATCH 2/4] ASoC: dt-bindings: fsl,xcvr: Add two PLL clock
+ sources
+To: Conor Dooley <conor@kernel.org>
+Cc: Shengjiu Wang <shengjiu.wang@nxp.com>, lgirdwood@gmail.com,
+ broonie@kernel.org,
+	robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Xiubo.Lee@gmail.com, festevam@gmail.com,
+	nicoleotsuka@gmail.com, perex@perex.cz, tiwai@suse.com,
+	alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: SGMQDF6EJ5SX5AFP4LORUMANFD3U3TUF
+X-Message-ID-Hash: SGMQDF6EJ5SX5AFP4LORUMANFD3U3TUF
+X-MailFrom: shengjiu.wang@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -173,7 +119,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RKVBZXZ27XR4Z4RXXWE2QJR5ZMO4PLFB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SGMQDF6EJ5SX5AFP4LORUMANFD3U3TUF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -182,35 +128,63 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-commit c6f597bc598a8 ("ASoC: audio-graph-card2: remove unneeded
-of_node_get()") removed of_node_get(), but it need to keep original
-reference, so of_node_get() itself is needed.
+On Fri, May 10, 2024 at 1:14=E2=80=AFAM Conor Dooley <conor@kernel.org> wro=
+te:
+>
+> On Thu, May 09, 2024 at 10:57:38AM +0800, Shengjiu Wang wrote:
+> > Add two PLL clock sources, they are the parent clocks of the root clock
+> > one is for 8kHz series rates, named as 'pll8k', another one is for
+> > 11kHz series rates, named as 'pll11k'. They are optional clocks,
+> > if there are such clocks, then the driver can switch between them to
+> > support more accurate sample rates.
+> >
+> > As 'pll8k' and 'pll11k' are optional, then add 'minItems: 4' for
+> > clocks and clock-names properties.
+>
+> Despite the detail given here in the commit message, the series this is
+> appearing in and one of the driver patches makes me a bit "suspicious"
+> of this patch. Are these newly added clocks available on all devices, or
+> just on the imx95, or?
 
-Because of_get_next_child() will call of_node_put() inside, if the
-reference count dropped to zero, then of_node_get() after that will be
-use afer free. Need to call of_node_get() *before* that.
+These newly added clocks are only available for the imx95 XCVR.
 
-Fixes: c6f597bc598a ("ASoC: audio-graph-card2: remove unneeded of_node_get()")
-Link: https://lore.kernel.org/r/f930862e-9d30-4ea3-b3e7-b4b4f411f6d1@moroto.mountain
-Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
----
- sound/soc/generic/audio-graph-card2.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/soc/generic/audio-graph-card2.c b/sound/soc/generic/audio-graph-card2.c
-index c4d52fadebb6..81e84095107e 100644
---- a/sound/soc/generic/audio-graph-card2.c
-+++ b/sound/soc/generic/audio-graph-card2.c
-@@ -1197,7 +1197,7 @@ static int graph_count_c2c(struct simple_util_priv *priv,
- {
- 	struct device_node *ports = of_get_parent(lnk);
- 	struct device_node *port0 = lnk;
--	struct device_node *port1 = of_get_next_child(ports, lnk);
-+	struct device_node *port1 = of_get_next_child(ports, of_node_get(lnk));
- 	struct device_node *ep0 = port_to_endpoint(port0);
- 	struct device_node *ep1 = port_to_endpoint(port1);
- 	struct device_node *codec0 = of_graph_get_remote_port(ep0);
--- 
-2.25.1
-
+Best regards
+Shengjiu Wang
+>
+> Thanks,
+> Conor.
+>
+> >
+> > Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+> > ---
+> >  Documentation/devicetree/bindings/sound/fsl,xcvr.yaml | 6 ++++++
+> >  1 file changed, 6 insertions(+)
+> >
+> > diff --git a/Documentation/devicetree/bindings/sound/fsl,xcvr.yaml b/Do=
+cumentation/devicetree/bindings/sound/fsl,xcvr.yaml
+> > index 1c74a32def09..c4660faed404 100644
+> > --- a/Documentation/devicetree/bindings/sound/fsl,xcvr.yaml
+> > +++ b/Documentation/devicetree/bindings/sound/fsl,xcvr.yaml
+> > @@ -50,6 +50,9 @@ properties:
+> >        - description: PHY clock
+> >        - description: SPBA clock
+> >        - description: PLL clock
+> > +      - description: PLL clock source for 8kHz series
+> > +      - description: PLL clock source for 11kHz series
+> > +    minItems: 4
+> >
+> >    clock-names:
+> >      items:
+> > @@ -57,6 +60,9 @@ properties:
+> >        - const: phy
+> >        - const: spba
+> >        - const: pll_ipg
+> > +      - const: pll8k
+> > +      - const: pll11k
+> > +    minItems: 4
+> >
+> >    dmas:
+> >      items:
+> > --
+> > 2.34.1
+> >

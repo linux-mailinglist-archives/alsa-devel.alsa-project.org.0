@@ -2,158 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E0248C25BF
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 May 2024 15:31:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27D9B8C2782
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 May 2024 17:17:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 08612E64;
-	Fri, 10 May 2024 15:30:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08612E64
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9C4C2E65;
+	Fri, 10 May 2024 17:17:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9C4C2E65
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1715347864;
-	bh=ukQ19+QYdfT48CkZzkoRrt1kHPMv9HiV44antQOwGyc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1715354246;
+	bh=IRB+pc4QjEmCYoDfPo7B7gkb2wYKCD7OVN0a/6SXhVg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=FAE/+CUm4G1cdBGw0ubXeOz2+04fng3U4sJXa+OpByCN64cjDqg0sErFG9ln67SFR
-	 HjnEGEFIznXovAEvgt/r+m5C1871lqj30pqY+eyn6+0ePE8aYMbeuMO3Ma9Cnzn7Q1
-	 k4vfKIIacG4+tCtFjleXiIO2WsXz/8x66H/CEoDo=
+	b=tI30teZF02Sgn9DCDTp5g9jGuZTvTBJvHayunftbIBK+zk4OsTGCFRSpjc8GCIj3g
+	 3xyllYTZT9ZH/9zRNB4rsJtD4zqwq9V9yRClai/RvpsuMEgdDdL1ChtisAI3cCUDtX
+	 qMJS/Kq6IZNN4kcqTSqjA8tMOsPA5I9ut0hXCKag=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A2D03F805AD; Fri, 10 May 2024 15:30:32 +0200 (CEST)
+	id CD5DAF80423; Fri, 10 May 2024 17:16:55 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0A93FF8049C;
-	Fri, 10 May 2024 15:30:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 980C9F8059F;
+	Fri, 10 May 2024 17:16:53 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 831B2F8049C; Fri, 10 May 2024 15:30:26 +0200 (CEST)
+	id 89AE4F8049C; Fri, 10 May 2024 17:13:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-0.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 25777F8003A
-	for <alsa-devel@alsa-project.org>; Fri, 10 May 2024 15:30:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25777F8003A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0E166F8024C
+	for <alsa-devel@alsa-project.org>; Fri, 10 May 2024 17:12:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E166F8024C
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=pB1c+UFY;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=EUlIqaEA;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=pB1c+UFY;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=EUlIqaEA
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 36E6E670A9;
-	Fri, 10 May 2024 13:30:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1715347818;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=B2mofxUFtuS+fDJGW5EpY05VjMf0EV3IzfCqcEd8OhU=;
-	b=pB1c+UFY/rWPrerXossrfY+qiKWY8IZRGolPUtWwxx/yTkR4CeJeSwb581D6ma/xewomdG
-	wS+sNiOAcjMc4rCEWbaftEYXE9d7ywoHM0zKz9CchEYe1s96DoxcF6y5jph1Hw73JsRfLo
-	DuM1iow6NA3HGr/Jzhs6DhB7g8kcUUk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1715347818;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=B2mofxUFtuS+fDJGW5EpY05VjMf0EV3IzfCqcEd8OhU=;
-	b=EUlIqaEAzd5R2U5jrwEJmIfKoU5kfrvhTrLZE5wt0XaY7QGLY2tw4JfqEYh4GX/uwg0vzg
-	ZhfKhIr1ZR2+eQCA==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=pB1c+UFY;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=EUlIqaEA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1715347818;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=B2mofxUFtuS+fDJGW5EpY05VjMf0EV3IzfCqcEd8OhU=;
-	b=pB1c+UFY/rWPrerXossrfY+qiKWY8IZRGolPUtWwxx/yTkR4CeJeSwb581D6ma/xewomdG
-	wS+sNiOAcjMc4rCEWbaftEYXE9d7ywoHM0zKz9CchEYe1s96DoxcF6y5jph1Hw73JsRfLo
-	DuM1iow6NA3HGr/Jzhs6DhB7g8kcUUk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1715347818;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=B2mofxUFtuS+fDJGW5EpY05VjMf0EV3IzfCqcEd8OhU=;
-	b=EUlIqaEAzd5R2U5jrwEJmIfKoU5kfrvhTrLZE5wt0XaY7QGLY2tw4JfqEYh4GX/uwg0vzg
-	ZhfKhIr1ZR2+eQCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1A820139AA;
-	Fri, 10 May 2024 13:30:18 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 6F1GBWohPmZKBgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Fri, 10 May 2024 13:30:18 +0000
-Date: Fri, 10 May 2024 15:30:33 +0200
-Message-ID: <87jzk1iykm.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	alsa-devel@alsa-project.org
-Subject: Re: [GIT PULL] ASoC fixes for v6.9-rc7-2
-In-Reply-To: <054c6ec1c792661eddd2dfb8c505585a.broonie@kernel.org>
-References: <054c6ec1c792661eddd2dfb8c505585a.broonie@kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: 36E6E670A9
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-5.51 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	DWL_DNSWL_MED(-2.00)[suse.de:dkim];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	MIME_TRACE(0.00)[0:+];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	FREEMAIL_CC(0.00)[gmail.com,alsa-project.org];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCPT_COUNT_THREE(0.00)[3];
-	RCVD_TLS_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim]
-Message-ID-Hash: USPM4XJF5HYZKLLZJ7BZNV6JVEFRGXGI
-X-Message-ID-Hash: USPM4XJF5HYZKLLZJ7BZNV6JVEFRGXGI
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=KAHNKCRF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1715353979; x=1746889979;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=IRB+pc4QjEmCYoDfPo7B7gkb2wYKCD7OVN0a/6SXhVg=;
+  b=KAHNKCRFBrSZvhj40X953qqx2MrXsZkNoC3h0UTPM91K1yqOX/BfEYGA
+   rAgDNooctdSfnTef9mFOTddPOsUjKbC0OV+QtcUwAZfR59ZByxAEgNY8m
+   gU7IGCcqFgNQ/1Fi4tpaa0KWW4xAkKHBF91ne4QNe7xZLk4y2SdAkpkJ2
+   DN3EAIpx8xQ2iODf6014B2XPqzicPNN3Mye7BL9V18PSVt0HLaZYGoNNH
+   ZpD+SI9nhv/PrP8L2ktR2an7/iVPdSuR/rSNazHmfo+80HwFcmmgHF3VH
+   0BEgC12Bhm75MLyzcWmZ/991MqJWiDGkynScbIKjUqsnPmoCYP4NUgO0A
+   Q==;
+X-CSE-ConnectionGUID: /sXWMaMJRri9B+j8jwLIxA==
+X-CSE-MsgGUID: 0OdoGh68SDOqXAv5FuIxmw==
+X-IronPort-AV: E=McAfee;i="6600,9927,11068"; a="11201790"
+X-IronPort-AV: E=Sophos;i="6.08,151,1712646000";
+   d="scan'208";a="11201790"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 May 2024 08:12:53 -0700
+X-CSE-ConnectionGUID: ScQD7gxITEGKr8SJL28UfQ==
+X-CSE-MsgGUID: 6GMjUwSsRR2qf6kS2BbL+Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.08,151,1712646000";
+   d="scan'208";a="29492945"
+Received: from smile.fi.intel.com ([10.237.72.54])
+  by orviesa010.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 May 2024 08:12:49 -0700
+Received: from andy by smile.fi.intel.com with local (Exim 4.97)
+	(envelope-from <andriy.shevchenko@linux.intel.com>)
+	id 1s5RvR-000000068kM-3SGV;
+	Fri, 10 May 2024 18:12:45 +0300
+Date: Fri, 10 May 2024 18:12:45 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Shenghao Ding <shenghao-ding@ti.com>
+Cc: broonie@kernel.org, lgirdwood@gmail.com, perex@perex.cz,
+	pierre-louis.bossart@linux.intel.com, 13916275206@139.com,
+	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+	liam.r.girdwood@intel.com, bard.liao@intel.com,
+	yung-chuan.liao@linux.intel.com, kevin-lu@ti.com,
+	cameron.berkenpas@gmail.com, tiwai@suse.de, baojun.xu@ti.com,
+	soyer@irl.hu, Baojun.Xu@fpt.com
+Subject: Re: [PATCH v4 1/3] ALSA: ASoc/tas2781: Fix wrong loading calibrated
+ data sequence
+Message-ID: <Zj45bfx4twerXKwc@smile.fi.intel.com>
+References: <20240510034123.1181-1-shenghao-ding@ti.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240510034123.1181-1-shenghao-ding@ti.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Message-ID-Hash: IUCM7JDTMXOKR3IHV5LW7SB7EPOBFRI6
+X-Message-ID-Hash: IUCM7JDTMXOKR3IHV5LW7SB7EPOBFRI6
+X-MailFrom: andriy.shevchenko@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -165,7 +107,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/USPM4XJF5HYZKLLZJ7BZNV6JVEFRGXGI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IUCM7JDTMXOKR3IHV5LW7SB7EPOBFRI6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -174,28 +116,27 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 10 May 2024 15:20:15 +0200,
-Mark Brown wrote:
+On Fri, May 10, 2024 at 11:41:19AM +0800, Shenghao Ding wrote:
+> Calibrated data will be set to default after loading DSP config params,
+> which will cause speaker protection work abnormally. Reload calibrated
+> data after loading DSP config params.
 > 
-> The following changes since commit c5782bb5468acf86d8ca8e161267e8d055fb4161:
-> 
->   ASoC: meson: tdm fixes (2024-04-30 23:36:23 +0900)
-> 
-> are available in the Git repository at:
-> 
->   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.9-rc7-2
-> 
-> for you to fetch changes up to e54f128b0c2fe543816941342e085e21f49c5b6c:
-> 
->   ASoC: audio-graph-card2: call of_node_get() before of_get_next_child() (2024-05-10 10:08:08 +0100)
-> 
-> ----------------------------------------------------------------
-> ASoC: Fixes for v6.9
-> 
-> A couple more minor fixes for ASoC, one incremental fix for earlier
-> issues and a minor formatting issue in the Makefile.
+> Fixes: ef3bcde75d06 ("ASoc: tas2781: Add tas2781 driver")
 
-Thanks, pulled now.
+How on earth this can be a fix?..
+
+> -// Copyright (C) 2022 - 2023 Texas Instruments Incorporated
+> +// Copyright (C) 2022 - 2024 Texas Instruments Incorporated
+
+> -#ifndef __TASDEVICE_DSP_H__
+> -#define __TASDEVICE_DSP_H__
+> +#ifndef __TAS2781_DSP_H__
+> +#define __TAS2781_DSP_H__
+
+> -int tasdevice_prmg_calibdata_load(void *context, int prm_no);
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
-Takashi

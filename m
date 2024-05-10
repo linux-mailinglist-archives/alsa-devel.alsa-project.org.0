@@ -2,99 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08DA18C1C67
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 May 2024 04:28:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 053088C1C6B
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 May 2024 04:31:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5D88DE9A;
-	Fri, 10 May 2024 04:28:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D88DE9A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7BAA7F50;
+	Fri, 10 May 2024 04:30:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7BAA7F50
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1715308097;
-	bh=bvd3blX+RJMgsJ0g7k7yJaqxHwFVzRJsAHzoNG3fBQw=;
+	s=default; t=1715308265;
+	bh=ZzdVd+yC6m/YJclBMlBaIakLpO01LhOZQZwe/MSFkz8=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=G8bbxW1lDzkAeVv83wVN+ZIJPpsf3ztnFBaONVjRtdQH7GRrgvWIr5zxc8cReizYU
-	 cyRvHN3xDsL3qgTlrpCSampwQFAOqlZdSylmVRhRgXrNU082bXrC/D7gZGefN7t+lC
-	 MwJKivupf8+sZuefGh4Vl5ry6i/apvKdJ6xehsdQ=
+	b=uDIOgiiD9v6lvciQajVdlWT9crYkl5yo1NQ5jLPi9mXiNFqZ8pbYP3ik00Uxwryod
+	 sSv3W6C+NdrHOxPaGvvR2ECVZfeuaULaib7zpZMdzcrNpJS4wKN8m7/3HGN97FTsDc
+	 OZz5iW3mjlTaWAIsxdcwThyWEudykvf+ChmuTdMY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5F478F805A8; Fri, 10 May 2024 04:27:46 +0200 (CEST)
+	id 503EAF80588; Fri, 10 May 2024 04:30:34 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E3251F805A9;
-	Fri, 10 May 2024 04:27:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 24EFCF805A0;
+	Fri, 10 May 2024 04:30:33 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8354FF8049C; Fri, 10 May 2024 04:27:39 +0200 (CEST)
+	id 1AE7FF80423; Fri, 10 May 2024 04:30:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
 	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-il1-x131.google.com (mail-il1-x131.google.com
- [IPv6:2607:f8b0:4864:20::131])
+Received: from mail-il1-x12d.google.com (mail-il1-x12d.google.com
+ [IPv6:2607:f8b0:4864:20::12d])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 19F34F8024C
-	for <alsa-devel@alsa-project.org>; Fri, 10 May 2024 04:27:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 19F34F8024C
+	by alsa1.perex.cz (Postfix) with ESMTPS id F18C6F8024C
+	for <alsa-devel@alsa-project.org>; Fri, 10 May 2024 04:30:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F18C6F8024C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=ahzOp5C0
-Received: by mail-il1-x131.google.com with SMTP id
- e9e14a558f8ab-36c7bd2586eso6660115ab.0
+ header.s=20230601 header.b=Ck0KNE4+
+Received: by mail-il1-x12d.google.com with SMTP id
+ e9e14a558f8ab-36c80f9c86bso7036065ab.0
         for <alsa-devel@alsa-project.org>;
- Thu, 09 May 2024 19:27:28 -0700 (PDT)
+ Thu, 09 May 2024 19:30:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1715308046; x=1715912846;
+        d=gmail.com; s=20230601; t=1715308222; x=1715913022;
  darn=alsa-project.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=tJIg9+M0Tl5oWYiRO4lX+sJC4I6tROA3nCXlHyRlexU=;
-        b=ahzOp5C0w3Z1FTJzUyC1zxUKCki0KtPPGt1TeZwcs1TM9Z0DVpneIB6ucIgFdMSbjB
-         dIZezjU7m//1K26xR78nBCj8qq1mJVK/ab8dIpKSHF9oH0nIT8WsYCIe2Zkr58IgWh5j
-         1Xf6DD5nU+nuVSZXjUUJuQzmdwNGAGmG9xPycZGmHhrUr/sqLIxAFf/Nk6RXtlIRgtpg
-         cK4oSPqA3qwS6nr766NxkBINaI6Q5e0Q6k3kidVrZsCrZ8Gh6QdKT1ScNhCQSrQauiCE
-         R/cYT0EMu70XLpjUSEt3KSIHmSPc0K42D2R5jPaesUOL/A5WiW2pmwXwuuG5Z1cHv8ho
-         lhqA==
+        bh=21VKHMMaZA0kpkZw9wZiu6Ve2UlBKMEGNlaolOO9V6A=;
+        b=Ck0KNE4+t254daIjoNsQcLkQd1ptfr74hYAzI6YGUHym2tW50rpdKFOu2w9B72fZEQ
+         knx/MQ6oKKFks6HCoKPnA5kJ5v0LqOeuJsj52jja6eukTXLnPEP+j5NTO9SdBOyCAKRF
+         If2CQCLNHUpAIeBN8hbusLc1wzv+DDGNlxW/cc5e+0+TsAkHRlcAYLpYptPBrYyoknRN
+         Sax6epjGq2wl34e+wx2sQoYJQ1ng9gNlsoZoqxrL94jYUvS36uemUM5GfBE4Za++vG0k
+         nCw3ccISB85ZH1eC0mIU76xo3BGvmodrfsBejTcZgEWjaqhrs4k1A8S1WmCSlHLSEiG1
+         JEtQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715308046; x=1715912846;
+        d=1e100.net; s=20230601; t=1715308222; x=1715913022;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=tJIg9+M0Tl5oWYiRO4lX+sJC4I6tROA3nCXlHyRlexU=;
-        b=eHG6dPwDmNzY2tl2cDC4NW76wL6fXfjb4lUG6+gZbhhWVVfjpCCaNSVxkhJS5eW2Cf
-         90IENm8Uo9w3pPSOqeLKWqy5jTkl8E9+MBFRMylc4KA8C/LIPucDiu+weEdNlsmmi3Nh
-         iUKTzXCfNKZAb7Mh8kZmaEw4Lrl1c5mi+mHrshoU5w9WaNLVDHBUm5hDLE4uXnGbP41v
-         KgiGVEXZ5alSEvEC/xgoUXBS5RGRVNsEuMcJNO9qjviiPTS18zPy8crDXaS6yVX5eF8W
-         GLk0KDtTD03HMs7C4rfzD1lz/Gf5LZJYODYKKcWMSOChDQFUxDQaHui+66heLgbn0CkK
-         PvTw==
+        bh=21VKHMMaZA0kpkZw9wZiu6Ve2UlBKMEGNlaolOO9V6A=;
+        b=lF09G8unqR8iIINFQvk2oqEsS64CXyTigzG0+1HS3cPkWsI4iu/u2h2+WrBSLyHEGI
+         r0HQ1a+0iHUNLpKnl4StY9NZ5lkQYgr1+OYhCq+fmHO532zXclOzmyJaPEUS4vJgl+3g
+         14JJz8NhGABdfcFiJccYE7sCKD3z21plo9c7XIAbqIBnsQ/4yeOdEAsx7xHK7D8Z056+
+         AfLIZnNKGun0+mbirMXke9JAR+KhgyCyD77aPAnJyIOnIE6LgWnN9fk00xuKk8fajJQZ
+         JYFDapS335iISX9t9M1U9PAYvlmAt4rdMId5iZ82cxSoDqgk6Uij0Mxjwjh6WcunhJcL
+         WJAg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWVZBCp1k/VoMO2ZmfgQH009eDh4NWReHhFbbaJM5gJMJY9EdBopU/e2CcB7oUA8AzlVPvuOCpmqvwKLC31DGDzXwm0dFty6FmOCHs=
-X-Gm-Message-State: AOJu0YzrhsA46Hv+ZM9XtXB2waTRydUSthQo9srrMzO5zdTXVAFQnYTb
-	BSV8V6LCza52gOFHgvQis84ZkIR4n6zeSx/b4IavQHrFgDQf4Ve3sGFFXPqcaqoyh6+80ZruzqA
-	a3QLVemV9lfAKmf04LH8jkeaauXE=
+ AJvYcCUDK2WECQczCIdGYvy9hJ5RIBSEz+5CE9Q/i5STTNntXRYkzCD3rzG+YMe4NNFVBoHCzRyj/t4c8ceu30g2gr1Lk28aI0K3LZslW4Y=
+X-Gm-Message-State: AOJu0YwrDkicTcMqfPrkn3hdNdtCcoSf9MJS4Mxl7hyqczupKfA0Mnwa
+	j/1RFhTiKSKl8if6AicooN8qgMoUht77vJEf5PItSY7yXIKO9LIUxz7kTvd3FYY8q4DowvMPjv9
+	TV7/he7iNPN9hjeGX6p4hxl/Gauk=
 X-Google-Smtp-Source: 
- AGHT+IHBDYC2n71XP7WOuLCEc5J/fR/L9KPq4RQs/MbDRpyTSl0Iy+I8EcqM5V65ejYgeqpob2OgmskIn0fzTVIGW24=
-X-Received: by 2002:a05:6e02:1387:b0:36a:3f20:8cb with SMTP id
- e9e14a558f8ab-36cc14ae0dbmr18245525ab.18.1715308046371; Thu, 09 May 2024
- 19:27:26 -0700 (PDT)
+ AGHT+IGrr4iwZg6NUnOgkVHX9/Croov3vFT4FOj9bA67E1Jv8+1P0qtMgoPO/Vex1YuXlIlPwX+ZWDLIR3wv6gRTbps=
+X-Received: by 2002:a05:6e02:1d83:b0:36c:47df:5922 with SMTP id
+ e9e14a558f8ab-36cc14e12bemr19098315ab.29.1715308222256; Thu, 09 May 2024
+ 19:30:22 -0700 (PDT)
 MIME-Version: 1.0
 References: <1715223460-32662-1-git-send-email-shengjiu.wang@nxp.com>
- <1715223460-32662-3-git-send-email-shengjiu.wang@nxp.com>
- <20240509-repurpose-dumping-156b57c25960@spud>
-In-Reply-To: <20240509-repurpose-dumping-156b57c25960@spud>
+ <1715223460-32662-2-git-send-email-shengjiu.wang@nxp.com>
+ <20240509-phonics-wound-58d3435165f0@spud>
+In-Reply-To: <20240509-phonics-wound-58d3435165f0@spud>
 From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Fri, 10 May 2024 10:27:15 +0800
+Date: Fri, 10 May 2024 10:30:11 +0800
 Message-ID: 
- <CAA+D8AOkDbj_QsF9VescuAfFjKcB8FnOXqwjXVrrBM1Ck4ut4Q@mail.gmail.com>
-Subject: Re: [PATCH 2/4] ASoC: dt-bindings: fsl,xcvr: Add two PLL clock
- sources
+ <CAA+D8AOn=fPmUHthSRZeAYSpA3mCCdQQAT2SmqjAALo8nRPHsQ@mail.gmail.com>
+Subject: Re: [PATCH 1/4] ASoC: dt-bindings: fsl,xcvr: Add compatible string
+ for i.MX95
 To: Conor Dooley <conor@kernel.org>
 Cc: Shengjiu Wang <shengjiu.wang@nxp.com>, lgirdwood@gmail.com,
  broonie@kernel.org,
@@ -105,8 +105,8 @@ Cc: Shengjiu Wang <shengjiu.wang@nxp.com>, lgirdwood@gmail.com,
 	alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: SGMQDF6EJ5SX5AFP4LORUMANFD3U3TUF
-X-Message-ID-Hash: SGMQDF6EJ5SX5AFP4LORUMANFD3U3TUF
+Message-ID-Hash: 2YS37OJOND5CSNYW6FUPLCPXARIO6K7Q
+X-Message-ID-Hash: 2YS37OJOND5CSNYW6FUPLCPXARIO6K7Q
 X-MailFrom: shengjiu.wang@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -119,7 +119,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SGMQDF6EJ5SX5AFP4LORUMANFD3U3TUF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2YS37OJOND5CSNYW6FUPLCPXARIO6K7Q/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -128,62 +128,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, May 10, 2024 at 1:14=E2=80=AFAM Conor Dooley <conor@kernel.org> wro=
+On Fri, May 10, 2024 at 1:11=E2=80=AFAM Conor Dooley <conor@kernel.org> wro=
 te:
 >
-> On Thu, May 09, 2024 at 10:57:38AM +0800, Shengjiu Wang wrote:
-> > Add two PLL clock sources, they are the parent clocks of the root clock
-> > one is for 8kHz series rates, named as 'pll8k', another one is for
-> > 11kHz series rates, named as 'pll11k'. They are optional clocks,
-> > if there are such clocks, then the driver can switch between them to
-> > support more accurate sample rates.
-> >
-> > As 'pll8k' and 'pll11k' are optional, then add 'minItems: 4' for
-> > clocks and clock-names properties.
+> On Thu, May 09, 2024 at 10:57:37AM +0800, Shengjiu Wang wrote:
+> > Add compatible string "fsl,imx95-xcvr" for i.MX95 platform.
 >
-> Despite the detail given here in the commit message, the series this is
-> appearing in and one of the driver patches makes me a bit "suspicious"
-> of this patch. Are these newly added clocks available on all devices, or
-> just on the imx95, or?
+> That's apparent from the diff. Why is it not compatible with existing
+> devices?
 
-These newly added clocks are only available for the imx95 XCVR.
+i.MX8MP:  There is PHY and support eARC, ARC, SPDIF
+i.MX93: There is no PHY and support SPDIF only
+i.MX95: There is PHY (PHY is different with i.MX8MP),  only support SPDIF.
+
+Will add such info in the commit message.
 
 Best regards
-Shengjiu Wang
+Shengjiu
 >
-> Thanks,
+> Cheers,
 > Conor.
 >
 > >
 > > Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
 > > ---
-> >  Documentation/devicetree/bindings/sound/fsl,xcvr.yaml | 6 ++++++
-> >  1 file changed, 6 insertions(+)
+> >  Documentation/devicetree/bindings/sound/fsl,xcvr.yaml | 1 +
+> >  1 file changed, 1 insertion(+)
 > >
 > > diff --git a/Documentation/devicetree/bindings/sound/fsl,xcvr.yaml b/Do=
 cumentation/devicetree/bindings/sound/fsl,xcvr.yaml
-> > index 1c74a32def09..c4660faed404 100644
+> > index 0eb0c1ba8710..1c74a32def09 100644
 > > --- a/Documentation/devicetree/bindings/sound/fsl,xcvr.yaml
 > > +++ b/Documentation/devicetree/bindings/sound/fsl,xcvr.yaml
-> > @@ -50,6 +50,9 @@ properties:
-> >        - description: PHY clock
-> >        - description: SPBA clock
-> >        - description: PLL clock
-> > +      - description: PLL clock source for 8kHz series
-> > +      - description: PLL clock source for 11kHz series
-> > +    minItems: 4
+> > @@ -22,6 +22,7 @@ properties:
+> >      enum:
+> >        - fsl,imx8mp-xcvr
+> >        - fsl,imx93-xcvr
+> > +      - fsl,imx95-xcvr
 > >
-> >    clock-names:
-> >      items:
-> > @@ -57,6 +60,9 @@ properties:
-> >        - const: phy
-> >        - const: spba
-> >        - const: pll_ipg
-> > +      - const: pll8k
-> > +      - const: pll11k
-> > +    minItems: 4
-> >
-> >    dmas:
+> >    reg:
 > >      items:
 > > --
 > > 2.34.1

@@ -2,118 +2,108 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E6888C2801
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 May 2024 17:40:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3F5D8C29A1
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 May 2024 19:59:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 551A3E9D;
-	Fri, 10 May 2024 17:39:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 551A3E9D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6C00FE97;
+	Fri, 10 May 2024 19:59:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C00FE97
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1715355604;
-	bh=ACx1uvyWtWuXvtWHFMekx8GERUUvgaoNeVkzE29kgyE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=iiipYJEbnbr0Rd+QXyHWkqgRpHj8cnv8brJfydY6/2SrjAWBJ9HrzkL8mHv2XWjwM
-	 Wtvwv832rViWQyUkNLYgugCFdhS6KsXja/uJNGu4wLRmxOAsX8BM4Ph+KuzlUvSzxI
-	 eK6nkzoJujcWbi6dDrsPYz1id7plgM4vCOrc5uXQ=
+	s=default; t=1715363958;
+	bh=XEetVV5LzjZUd07Qjndu3ZsIUuE/RU2UUw/4u9G5G2Y=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=dq5Uab1fM7g4KFdqK3NwKjg86c00RekBLIkFoDEruc3WDLFIGGLlNtOD0k3yhRkOs
+	 nyOubFxWxDrEcCmR1XlC80Rs5DbMxlyKIxPyh800UrVQaMVr/EjgVKvWJ/x1alFo9L
+	 C8sVopzFCnnbgB3Zuv0nZsXRlfPNWrgpRR30paYY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C2BAAF80579; Fri, 10 May 2024 17:39:32 +0200 (CEST)
+	id 54B87F8059F; Fri, 10 May 2024 19:58:47 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5AFC7F800E2;
-	Fri, 10 May 2024 17:39:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CA6BEF80563;
+	Fri, 10 May 2024 19:58:46 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 46455F8049C; Fri, 10 May 2024 17:39:24 +0200 (CEST)
+	id 2483BF8049C; Fri, 10 May 2024 19:58:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: ***
 X-Spam-Status: No, score=3.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_SBL_CSS,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=no autolearn_force=no
 	version=3.4.6
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [IPv6:2a00:1450:4864:20::22b])
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [IPv6:2a00:1450:4864:20::332])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8D824F8024C
-	for <alsa-devel@alsa-project.org>; Fri, 10 May 2024 17:39:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D824F8024C
+	by alsa1.perex.cz (Postfix) with ESMTPS id D864CF800E2
+	for <alsa-devel@alsa-project.org>; Fri, 10 May 2024 19:58:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D864CF800E2
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=is1L9LdV
-Received: by mail-lj1-x22b.google.com with SMTP id
- 38308e7fff4ca-2e0a34b2899so31893351fa.3
+ header.s=google header.b=v5coixus
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-41bab13ca81so22955495e9.1
         for <alsa-devel@alsa-project.org>;
- Fri, 10 May 2024 08:39:21 -0700 (PDT)
+ Fri, 10 May 2024 10:58:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1715355560; x=1715960360;
+        d=linaro.org; s=google; t=1715363918; x=1715968718;
  darn=alsa-project.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=zCGimXM0s95/gK/0gBrT6bfMmBtbTT9QqvxRV5ToZt8=;
-        b=is1L9LdVyrUSYGOlFBYUNwKGP2D07LsSgT/HNmTBgIt8St0v6LTITgB3EF2mEIWKc9
-         GeUngDWofaQNyzMZdCJ0BZK5GopdWh12NbQsqQwC5CIiZ+d00WqtOQhj0FYVjHtYOqUR
-         RgckdZtbtvt7zHFV0rT7Td4suI/KVjgJ4Cyg5Xi5X7BJckCarsKYxDxQ/81WgsNN0mzU
-         suM3XbD/ZiX60+0tM2K106H0vLI5zmGiPe+b8i1kWih6J4chrMhxQCHHZNAuCey+ghtj
-         DW9zci0g0kR9TWojWtxvLsK87eP72UYrjqvUAaQC2M7HzkZFxu0vdE3GRVyXK+CEgztW
-         jipg==
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=BXCAYOzW1kXWnEuZ/9Q/Y2a8adBdw5ihjWlLUmIWrWE=;
+        b=v5coixuszoOqRSBUl8R8PG0SEcU25gP9EDsr01kdEuzU9RHgDKZJoDXGd7pYWGLmsq
+         OA5lPACZZXPLH2N4sVAkR1tTqRMXbzKdG0eawKQU6pHs22uZN91YPc8fL2t71SJm4ASh
+         eQttCx4N9OyzZeOpBFt9GYkBPUdgFetFPFjE+Gpv4kwArud3CNa7KOw/EO7SbwpIuouM
+         /meEK092HwhW1XP/I0hV0zrd15izpzH7UyRiM12LVh1fvkBcXhKXNENB8zA7QUjrXQtQ
+         DJvFp5JTcz0C3xj5wZp7zUC7y6mBIkfY/n74I1zwVLX+AF4n378+yu8ydBIXlG0iucou
+         Lvbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715355560; x=1715960360;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=zCGimXM0s95/gK/0gBrT6bfMmBtbTT9QqvxRV5ToZt8=;
-        b=PEC+eBR0UcgTCoW1LhcQQC1lrjJvVq9r2dImlODUlcXuBE1hJp/GV7zPbbqiBlEvqw
-         L1LKG6iwyECVTX2qj5UYgcScIeK8GLbR3dv4SRDcJO4GlLPtOp8lWDNg076cMGwzPSH9
-         ISttqOl/VgG3VcNIEnVeQ5Mkya1PtioqKn5IBM4AzjTLHmpBj58UxspttVqdjs/BijCg
-         R+/4hnM9ZbTRAmySPoaEmZsA+CUGgfAUIByWkIPtTKk5/LTkNa9qv3RXl0jMMUUnCrqx
-         cnwj5VHWgyLJxcqvWluKGOWun7L2SyhcC1WRWylRtUaX8QXwjx8wB86OtcwuEvn9QXl6
-         UNQQ==
-X-Gm-Message-State: AOJu0YzYn20gRiXEw4XzhQ2P2seqTHRYz4fFDE+HrCPZG7J/mX7g/XDf
-	f9SZrmfXqC6uLQiOLPLVsuHiD22Q6QopFUeYVjSiSiFNNMiSROX3LzBZJ7HjuW8=
+        d=1e100.net; s=20230601; t=1715363918; x=1715968718;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=BXCAYOzW1kXWnEuZ/9Q/Y2a8adBdw5ihjWlLUmIWrWE=;
+        b=drZtOCbqfbiut+/CXYa8qFHXe5L1APd4BvgUww1XOSruQfFJHrGRV2gxL3QhVzT0UU
+         ucGHcW9uXYHLDNsS9hK+QJNXk3GKFcRVaJUUcAURcX3/vGAMZfPCHauipmJMWJaU2lbx
+         nAuOuxw2ZaipS2Otd+7Xv7lkiToBMUqb6VkzPjTDhuL33TnIlBPPMKmNTjdYppLu3vsd
+         UtlGidJKznkOMaUGSTfo0vx4Q71AU2K2vYY4ePUCh9x1egNnSaDLYXPsHuPlIhzASWYB
+         r94gRKj+oR82bAVkvO6KxAJtGMtMU2Il74NWGMYKhOzXwbYnFkfX+2yvqK/oAKRIVkrj
+         fjFA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUcBU0tezpz21Gld9Wc56pBKsfb8DWdP6yTj/A6pMS2zqdRpuNVqJucKvcp1DHCdJLLKv/x4HWg3MpiUB+rCV4e737+vEgTcdypG6E=
+X-Gm-Message-State: AOJu0Ywpo9nXRnGLhAeYrkPfLzzvGKIgwqI6C3Q9e+2dlmRuHuqUgzFE
+	9JZ7TemX9a51GKOonkbQxUKfvAf+Ndyv1K2VrQVgxS1lPCYG2xSwKh0Yeq6AYIY=
 X-Google-Smtp-Source: 
- AGHT+IF7TN741mMkhPYgttssExz8B4IDN3HPogI6xNSBiOv89abZm4bMmHO6ARPMs21agKthCxa3lw==
-X-Received: by 2002:a2e:7d09:0:b0:2e2:1647:f671 with SMTP id
- 38308e7fff4ca-2e5205c817emr25268691fa.47.1715355559934;
-        Fri, 10 May 2024 08:39:19 -0700 (PDT)
-Received: from [192.168.1.195] ([5.133.47.210])
-        by smtp.googlemail.com with ESMTPSA id
- 5b1f17b1804b1-41ff7a840d2sm27051475e9.39.2024.05.10.08.39.19
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 10 May 2024 08:39:19 -0700 (PDT)
-Message-ID: <adde3972-f055-464b-83ac-8d8a2d874e29@linaro.org>
-Date: Fri, 10 May 2024 16:39:18 +0100
+ AGHT+IFpNhfIiTH8BJNxZ6X9G34svc9ayq/CjtMPzgYhTlVv2lj1PM6vQcUjlEJ2Boam2c+yC2C1qw==
+X-Received: by 2002:a05:600c:2042:b0:41c:8754:8793 with SMTP id
+ 5b1f17b1804b1-41fead790ecmr27551705e9.41.1715363917705;
+        Fri, 10 May 2024 10:58:37 -0700 (PDT)
+Received: from localhost.localdomain ([5.133.47.210])
+        by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4200a8e6846sm11046755e9.15.2024.05.10.10.58.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 10 May 2024 10:58:37 -0700 (PDT)
+From: srinivas.kandagatla@linaro.org
+To: broonie@kernel.org
+Cc: perex@perex.cz,
+	tiwai@suse.com,
+	alsa-devel@alsa-project.org,
+	lgirdwood@gmail.com,
+	linux-kernel@vger.kernel.org,
+	krzysztof.kozlowski@linaro.org,
+	neil.armstrong@linaro.org,
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Subject: [PATCH 0/2] ASoC: codecs: lpass: add support for v2.6 rx macro
+Date: Fri, 10 May 2024 18:58:33 +0100
+Message-Id: <20240510175835.286775-1-srinivas.kandagatla@linaro.org>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/4] ASoC: qcom: qdsp6: Set channel mapping instead of
- fixed defaults
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- James Schulman <james.schulman@cirrus.com>,
- David Rhodes <david.rhodes@cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Lars-Peter Clausen <lars@metafoo.de>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Banajit Goswami <bgoswami@quicinc.com>
-Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-References: 
- <20240509-asoc-x1e80100-4-channel-mapping-v3-0-6f874552d7b2@linaro.org>
- <20240509-asoc-x1e80100-4-channel-mapping-v3-3-6f874552d7b2@linaro.org>
- <d3c78e43-44a9-4ef2-8e64-00f39b32172c@linaro.org>
- <aa8509c9-7475-40b3-82cb-9bfc1e33b202@linaro.org>
-Content-Language: en-US
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <aa8509c9-7475-40b3-82cb-9bfc1e33b202@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: HVG5UMVXTPR35M62GL4E3H3VR4RXMG4W
-X-Message-ID-Hash: HVG5UMVXTPR35M62GL4E3H3VR4RXMG4W
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: JMATANXW536YKFMOSGL7Y77OSNI7ZK4L
+X-Message-ID-Hash: JMATANXW536YKFMOSGL7Y77OSNI7ZK4L
 X-MailFrom: srinivas.kandagatla@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -126,7 +116,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HVG5UMVXTPR35M62GL4E3H3VR4RXMG4W/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JMATANXW536YKFMOSGL7Y77OSNI7ZK4L/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -135,47 +125,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 
+This patchset adds support to reading codec version and also adds
+support for v2.6 codec version in rx macro. 
 
-On 09/05/2024 12:43, Krzysztof Kozlowski wrote:
-> On 09/05/2024 11:17, Srinivas Kandagatla wrote:
->>> diff --git a/sound/soc/qcom/qdsp6/audioreach.h b/sound/soc/qcom/qdsp6/audioreach.h
->>> index eb9306280988..208b74e50445 100644
->>> --- a/sound/soc/qcom/qdsp6/audioreach.h
->>> +++ b/sound/soc/qcom/qdsp6/audioreach.h
->>> @@ -766,6 +766,7 @@ struct audioreach_module_config {
->>>    /* Packet Allocation routines */
->>>    void *audioreach_alloc_apm_cmd_pkt(int pkt_size, uint32_t opcode, uint32_t
->>>    				    token);
->>> +void audioreach_set_channel_mapping(u8 *ch_map, int num_channels);
->>>    void *audioreach_alloc_cmd_pkt(int payload_size, uint32_t opcode,
->>>    			       uint32_t token, uint32_t src_port,
->>>    			       uint32_t dest_port);
->>> diff --git a/sound/soc/qcom/qdsp6/q6apm-dai.c b/sound/soc/qcom/qdsp6/q6apm-dai.c
->>> index 00bbd291be5c..8ab55869e8a2 100644
->>> --- a/sound/soc/qcom/qdsp6/q6apm-dai.c
->>> +++ b/sound/soc/qcom/qdsp6/q6apm-dai.c
->>> @@ -243,6 +243,7 @@ static int q6apm_dai_prepare(struct snd_soc_component *component,
->>>    	cfg.num_channels = runtime->channels;
->>>    	cfg.bit_width = prtd->bits_per_sample;
->>>    	cfg.fmt = SND_AUDIOCODEC_PCM;
->>> +	audioreach_set_channel_mapping(cfg.channel_map, runtime->channels);
->>>    
->>
->> Prepare can be called multiple times.. so we have channels overwritten here.
-> 
-> Which is expected - just like we overwrite number of channels.
-This will work in q6apm-dai.c case as there is no set_channel_map callback.
+LPASS 2.6 has changes in some of the rx block which are required to get
+headset functional correctly.
 
-lgtm.
+Tested this on X13s and x1e80100 crd.
 
-Can you rename audioreach_set_channel_mapping to 
-audioreach_set_default_channel_mapping which makes it more obvious that 
-we are setting a default channel mappings.
+Thanks,
+Srini
 
+Srinivas Kandagatla (2):
+  ASoC: codecs: lpass-macro: add helpers to get codec version
+  ASoC: codec: lpass-rx-macro: add suppor for 2.6 codec version
 
---srini
-> 
-> Best regards,
-> Krzysztof
-> 
+ sound/soc/codecs/lpass-macro-common.c |  14 +
+ sound/soc/codecs/lpass-macro-common.h |  35 ++
+ sound/soc/codecs/lpass-rx-macro.c     | 565 +++++++++++++++++++-------
+ sound/soc/codecs/lpass-va-macro.c     |  29 ++
+ 4 files changed, 488 insertions(+), 155 deletions(-)
+
+-- 
+2.25.1
+

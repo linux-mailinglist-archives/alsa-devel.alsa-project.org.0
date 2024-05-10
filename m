@@ -2,82 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5EF7C8C213D
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 May 2024 11:45:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F15398C2414
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 May 2024 13:58:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 707AEDF9;
-	Fri, 10 May 2024 11:44:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 707AEDF9
+	by alsa0.perex.cz (Postfix) with ESMTPS id D6211852;
+	Fri, 10 May 2024 13:58:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6211852
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1715334299;
-	bh=YZDyPDoYwp2evd96TgCP6DJrbrwjATDoKr/htFbES+Y=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=IpsM3jusxXMbFCftGmSyq9gO2O/Jd5ThaPeKQVgHboH7SOrpqLMy/on5tXISQlUT9
-	 jEHgWBRfu6e1cFjvnQBEEypPsBGv/dl8geaitrXAyJR5xw5iBSbfv/bw0skfNkvscQ
-	 GIUuYhATYrK4KI82lc+18xEEqxDyboJ11LmBw+Eo=
+	s=default; t=1715342337;
+	bh=xbsNxiMgdA1TWDQLSfikjZA+rHU21AXwzosZE+vjAPI=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=HU0VTMvMoy+gWD+GAiQ4feR2y6s4uL/4z+21cQ0GkIMKSICZL2tX66TJxVAqcmu37
+	 YfM1IDuUydZDuB01tkaftM3f1S3WL64fQ+zjgqiWFPfr0/N5HPNKVRz0OnELDXTkZz
+	 gvItSMGGCAzx95IwxFpFqwJ7S1DUx3Kd80gNwf5E=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 38D5CF8049C; Fri, 10 May 2024 11:44:35 +0200 (CEST)
+	id 78395F804F2; Fri, 10 May 2024 13:58:25 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CCBF8F805A0;
-	Fri, 10 May 2024 11:44:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 975B6F804F2;
+	Fri, 10 May 2024 13:58:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9C1F9F8049C; Fri, 10 May 2024 11:41:26 +0200 (CEST)
+	id 849F0F8049C; Fri, 10 May 2024 13:58:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-3.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,PP_MIME_FAKE_ASCII_TEXT,
+	RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
 Received: from sin.source.kernel.org (sin.source.kernel.org
  [IPv6:2604:1380:40e1:4800::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C8111F800E2
-	for <alsa-devel@alsa-project.org>; Fri, 10 May 2024 11:41:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8111F800E2
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3E359F8024C
+	for <alsa-devel@alsa-project.org>; Fri, 10 May 2024 13:58:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E359F8024C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=n47szgIW
+ header.s=k20201202 header.b=F62ivHQy
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 7EC6DCE1D36;
-	Fri, 10 May 2024 09:41:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3772C32781;
-	Fri, 10 May 2024 09:41:07 +0000 (UTC)
+	by sin.source.kernel.org (Postfix) with ESMTP id 9FD2BCE1D99;
+	Fri, 10 May 2024 11:58:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BF0DC113CC;
+	Fri, 10 May 2024 11:58:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1715334069;
-	bh=YZDyPDoYwp2evd96TgCP6DJrbrwjATDoKr/htFbES+Y=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=n47szgIWaTwDqZ51jqCh+1lrUi52oo82Qn0zDqwMPMV3pY2iOucL/4Y/sIOzaQ4Df
-	 iNYM4l9xED2JIE+Ve76xMNEUt38DIQdpzai091c7xZM2wQsd6r3ag+9XSRipSvtgZi
-	 A83mSop3hzTCvHu/D87uEnH6/y1JNraDQPtqcv+UmvgTx96wfTbBPLGzcoxyukxfgd
-	 C9VM2Iz2hrpEHYpSYcOajfuWZPqsLsbFDQp6rvcn9agFj0VoG6aeHw49ucldRo6HDM
-	 ymr4xMFze4yvXsuj3LZiZl7AW3Rgrs26n4W99GmxB29ALK3InUq/AQHTi9h+HHLvJo
-	 Pm87UYPawU7gQ==
+	s=k20201202; t=1715342286;
+	bh=xbsNxiMgdA1TWDQLSfikjZA+rHU21AXwzosZE+vjAPI=;
+	h=From:To:Cc:Subject:Date:From;
+	b=F62ivHQyNjfYbsppyLdrD1uFfejaZc/X1K8pseX7DSJhhDyrVq8goRd13oKfxZJhe
+	 xNM1taD5UYxL9Xq8jv0liXvf6H2meTPqbL4fIwEBBt12CGBfIyZ47pvksr0TtYwlXJ
+	 Vldt0462iFy8PJ1LgmsD/NveTRnYqjk0OJUfNABlpUuWAa2p0zirQ7EVwC/mHrfOZl
+	 xqcCKq1fDxQ6zp7OXP2xB+fIn7gBoFAudyc0WiJ7kviO6xU8/fBu+0SSnwapPlaDSE
+	 YwLc3lP3JPnKVNav3sN9yyPci2HjQ0fUSI4HBWyuui7nByDu4VEgW6WZjQvb3DxoOn
+	 2/m+ixN6iiKkQ==
+Message-ID: <5d7330b5bc59eaa0a0ed5d7be3c9a838.broonie@kernel.org>
 From: Mark Brown <broonie@kernel.org>
-To: linux-sound@vger.kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de,
- Shuming Fan <shumingf@realtek.com>, Jack Yu <jack.yu@realtek.com>,
- Oder Chiou <oder_chiou@realtek.com>,
- Bard liao <yung-chuan.liao@linux.intel.com>
-In-Reply-To: <20240509163658.68062-1-pierre-louis.bossart@linux.intel.com>
-References: <20240509163658.68062-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH] ASoC: rt715-sdca-sdw: Fix wrong complete waiting in
- rt715_dev_resume()
-Message-Id: <171533406764.2055397.10613116905468386028.b4-ty@kernel.org>
-Date: Fri, 10 May 2024 10:41:07 +0100
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14-dev
-Message-ID-Hash: 3QXGEINU3A55VVUVUAYYARXSRF5QEVVQ
-X-Message-ID-Hash: 3QXGEINU3A55VVUVUAYYARXSRF5QEVVQ
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>
+Subject: [GIT PULL] ASoC fixes for v6.9-rc7
+Date: Fri, 10 May 2024 12:57:58 +0100
+Message-ID-Hash: KPIZPEUI6YRCCLJRWUYSUFLCWP2SM2FT
+X-Message-ID-Hash: KPIZPEUI6YRCCLJRWUYSUFLCWP2SM2FT
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -90,7 +80,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3QXGEINU3A55VVUVUAYYARXSRF5QEVVQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KPIZPEUI6YRCCLJRWUYSUFLCWP2SM2FT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,43 +89,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 09 May 2024 11:36:58 -0500, Pierre-Louis Bossart wrote:
-> enumeration_complete will be completed when a peripheral is attached.
-> And initialization_complete will be completed when a peripheral is
-> initialized. rt715_dev_resume() should wait for initialization_complete
-> instead of enumeration_complete.
-> 
-> the issue exists since commit 20d17057f0a8 ("ASoC: rt715-sdca: Add RT715
-> sdca vendor-specific driver"), but the commit can only apply to
-> commit f892e66fcabc ("ASoC: rt-sdw*: add __func__ to all error logs").
-> 
-> [...]
+The following changes since commit c5782bb5468acf86d8ca8e161267e8d055fb4161:
 
-Applied to
+  ASoC: meson: tdm fixes (2024-04-30 23:36:23 +0900)
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+are available in the Git repository at:
 
-Thanks!
+  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.9-rc7
 
-[1/1] ASoC: rt715-sdca-sdw: Fix wrong complete waiting in rt715_dev_resume()
-      commit: c8bdf9e727acb6e1b37febf422ef1751e5a2c7d1
+for you to fetch changes up to a85ed162f0efcfdd664954414a05d1d560cc95dc:
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+  ASoC: mediatek: mt8192: fix register configuration for tdm (2024-05-09 17:43:54 +0200)
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+----------------------------------------------------------------
+ASoC: Fixes for v6.9
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+A few final fixes for v6.9, none of them super major but all real.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+----------------------------------------------------------------
+Amadeusz Sławiński (1):
+      ASoC: Intel: avs: boards: Properly name input device
 
-Thanks,
-Mark
+Hsin-Te Yuan (1):
+      ASoC: mediatek: mt8192: fix register configuration for tdm
 
+Vijendar Mukunda (1):
+      ASoC: amd: acp: fix for acp platform device creation failure
+
+ sound/soc/amd/acp/acp-legacy-common.c      | 96 +++++++++++++++++++++++++-----
+ sound/soc/amd/acp/acp-pci.c                |  9 ++-
+ sound/soc/amd/acp/amd.h                    | 10 +++-
+ sound/soc/amd/acp/chip_offset_byte.h       |  1 +
+ sound/soc/intel/avs/boards/es8336.c        |  2 +-
+ sound/soc/intel/avs/boards/nau8825.c       |  2 +-
+ sound/soc/intel/avs/boards/rt274.c         |  3 +-
+ sound/soc/intel/avs/boards/rt286.c         |  4 +-
+ sound/soc/intel/avs/boards/rt298.c         |  4 +-
+ sound/soc/mediatek/mt8192/mt8192-dai-tdm.c |  4 +-
+ 10 files changed, 105 insertions(+), 30 deletions(-)

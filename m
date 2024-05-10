@@ -2,72 +2,158 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5CEE8C2594
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 May 2024 15:21:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E0248C25BF
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 May 2024 15:31:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CE7791DF;
-	Fri, 10 May 2024 15:21:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE7791DF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 08612E64;
+	Fri, 10 May 2024 15:30:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08612E64
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1715347276;
-	bh=TUWfu+YxY8cxHvvUihma0S9kguppxI7al5kEuZ8dmtQ=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=Y4jbZbpDHsfiisosRfpFznLH7AXh4K05l6cLrMOSymC9pBXZHtnJg0TGOAm95spH+
-	 Ti18BUUMn2xqxE6Lc3VmO2rgQuIbdDAEzis2jeKkqLbkLiWDFZtrFzh9fuyLfTOHKi
-	 OjmpPFhwh6jMNc18PXJviH+ogVTh3KX6/qFY2BMc=
+	s=default; t=1715347864;
+	bh=ukQ19+QYdfT48CkZzkoRrt1kHPMv9HiV44antQOwGyc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=FAE/+CUm4G1cdBGw0ubXeOz2+04fng3U4sJXa+OpByCN64cjDqg0sErFG9ln67SFR
+	 HjnEGEFIznXovAEvgt/r+m5C1871lqj30pqY+eyn6+0ePE8aYMbeuMO3Ma9Cnzn7Q1
+	 k4vfKIIacG4+tCtFjleXiIO2WsXz/8x66H/CEoDo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C7A95F80578; Fri, 10 May 2024 15:20:45 +0200 (CEST)
+	id A2D03F805AD; Fri, 10 May 2024 15:30:32 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1249BF80570;
-	Fri, 10 May 2024 15:20:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0A93FF8049C;
+	Fri, 10 May 2024 15:30:32 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 89464F8049C; Fri, 10 May 2024 15:20:41 +0200 (CEST)
+	id 831B2F8049C; Fri, 10 May 2024 15:30:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,PP_MIME_FAKE_ASCII_TEXT,
-	RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0E80EF8003A
-	for <alsa-devel@alsa-project.org>; Fri, 10 May 2024 15:20:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E80EF8003A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 25777F8003A
+	for <alsa-devel@alsa-project.org>; Fri, 10 May 2024 15:30:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25777F8003A
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=UQn4zV9Q
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 77F1ACE1DAC;
-	Fri, 10 May 2024 13:20:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7F8BC113CC;
-	Fri, 10 May 2024 13:20:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1715347228;
-	bh=TUWfu+YxY8cxHvvUihma0S9kguppxI7al5kEuZ8dmtQ=;
-	h=From:To:Cc:Subject:Date:From;
-	b=UQn4zV9QD/M/eAXU4yyeX7x5Cmmk2Y6vxAgo7d/a14GJOCNSYiMrWAM3NL5uJLHMU
-	 qezbJIviOP8a6BPGogpRgxnWkSzBh8olKA9h50aU51w3L/mVcYlu///Qk84hvU7FSH
-	 Id1WOIUadcmD0A2CxLJboObPdk0LOafjBNKEBG53YRpKmqp4wMyf3SgEwDUB/5ss+2
-	 NJCP//gyEdcdO6OypYSAIlugXv5jExcbtVSEqrkvuwboeThwHeZo4LAeJy1bqGdFKh
-	 GT+Vdtw7uEplx2Vw5uekusknIpthceSWNWuA/X0SMPedBYYGb0/Qzt5qseyr3/KHLm
-	 DjTQ4NYo9zCKQ==
-Message-ID: <054c6ec1c792661eddd2dfb8c505585a.broonie@kernel.org>
-From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>
-Subject: [GIT PULL] ASoC fixes for v6.9-rc7-2
-Date: Fri, 10 May 2024 14:20:15 +0100
-Message-ID-Hash: LAWXUNSMLQ33Q3YOS2X5OZYTPMYGYRWG
-X-Message-ID-Hash: LAWXUNSMLQ33Q3YOS2X5OZYTPMYGYRWG
-X-MailFrom: broonie@kernel.org
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=pB1c+UFY;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=EUlIqaEA;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=pB1c+UFY;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=EUlIqaEA
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 36E6E670A9;
+	Fri, 10 May 2024 13:30:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1715347818;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=B2mofxUFtuS+fDJGW5EpY05VjMf0EV3IzfCqcEd8OhU=;
+	b=pB1c+UFY/rWPrerXossrfY+qiKWY8IZRGolPUtWwxx/yTkR4CeJeSwb581D6ma/xewomdG
+	wS+sNiOAcjMc4rCEWbaftEYXE9d7ywoHM0zKz9CchEYe1s96DoxcF6y5jph1Hw73JsRfLo
+	DuM1iow6NA3HGr/Jzhs6DhB7g8kcUUk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1715347818;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=B2mofxUFtuS+fDJGW5EpY05VjMf0EV3IzfCqcEd8OhU=;
+	b=EUlIqaEAzd5R2U5jrwEJmIfKoU5kfrvhTrLZE5wt0XaY7QGLY2tw4JfqEYh4GX/uwg0vzg
+	ZhfKhIr1ZR2+eQCA==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=pB1c+UFY;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=EUlIqaEA
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1715347818;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=B2mofxUFtuS+fDJGW5EpY05VjMf0EV3IzfCqcEd8OhU=;
+	b=pB1c+UFY/rWPrerXossrfY+qiKWY8IZRGolPUtWwxx/yTkR4CeJeSwb581D6ma/xewomdG
+	wS+sNiOAcjMc4rCEWbaftEYXE9d7ywoHM0zKz9CchEYe1s96DoxcF6y5jph1Hw73JsRfLo
+	DuM1iow6NA3HGr/Jzhs6DhB7g8kcUUk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1715347818;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=B2mofxUFtuS+fDJGW5EpY05VjMf0EV3IzfCqcEd8OhU=;
+	b=EUlIqaEAzd5R2U5jrwEJmIfKoU5kfrvhTrLZE5wt0XaY7QGLY2tw4JfqEYh4GX/uwg0vzg
+	ZhfKhIr1ZR2+eQCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1A820139AA;
+	Fri, 10 May 2024 13:30:18 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([10.150.64.162])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 6F1GBWohPmZKBgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Fri, 10 May 2024 13:30:18 +0000
+Date: Fri, 10 May 2024 15:30:33 +0200
+Message-ID: <87jzk1iykm.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	alsa-devel@alsa-project.org
+Subject: Re: [GIT PULL] ASoC fixes for v6.9-rc7-2
+In-Reply-To: <054c6ec1c792661eddd2dfb8c505585a.broonie@kernel.org>
+References: <054c6ec1c792661eddd2dfb8c505585a.broonie@kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: 36E6E670A9
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-5.51 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	DWL_DNSWL_MED(-2.00)[suse.de:dkim];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	MIME_TRACE(0.00)[0:+];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	FREEMAIL_CC(0.00)[gmail.com,alsa-project.org];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCPT_COUNT_THREE(0.00)[3];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim]
+Message-ID-Hash: USPM4XJF5HYZKLLZJ7BZNV6JVEFRGXGI
+X-Message-ID-Hash: USPM4XJF5HYZKLLZJ7BZNV6JVEFRGXGI
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -79,7 +165,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LAWXUNSMLQ33Q3YOS2X5OZYTPMYGYRWG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/USPM4XJF5HYZKLLZJ7BZNV6JVEFRGXGI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -88,50 +174,28 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The following changes since commit c5782bb5468acf86d8ca8e161267e8d055fb4161:
+On Fri, 10 May 2024 15:20:15 +0200,
+Mark Brown wrote:
+> 
+> The following changes since commit c5782bb5468acf86d8ca8e161267e8d055fb4161:
+> 
+>   ASoC: meson: tdm fixes (2024-04-30 23:36:23 +0900)
+> 
+> are available in the Git repository at:
+> 
+>   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.9-rc7-2
+> 
+> for you to fetch changes up to e54f128b0c2fe543816941342e085e21f49c5b6c:
+> 
+>   ASoC: audio-graph-card2: call of_node_get() before of_get_next_child() (2024-05-10 10:08:08 +0100)
+> 
+> ----------------------------------------------------------------
+> ASoC: Fixes for v6.9
+> 
+> A couple more minor fixes for ASoC, one incremental fix for earlier
+> issues and a minor formatting issue in the Makefile.
 
-  ASoC: meson: tdm fixes (2024-04-30 23:36:23 +0900)
+Thanks, pulled now.
 
-are available in the Git repository at:
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.9-rc7-2
-
-for you to fetch changes up to e54f128b0c2fe543816941342e085e21f49c5b6c:
-
-  ASoC: audio-graph-card2: call of_node_get() before of_get_next_child() (2024-05-10 10:08:08 +0100)
-
-----------------------------------------------------------------
-ASoC: Fixes for v6.9
-
-A couple more minor fixes for ASoC, one incremental fix for earlier
-issues and a minor formatting issue in the Makefile.
-
-----------------------------------------------------------------
-Amadeusz Sławiński (1):
-      ASoC: Intel: avs: boards: Properly name input device
-
-Hsin-Te Yuan (1):
-      ASoC: mediatek: mt8192: fix register configuration for tdm
-
-Kuninori Morimoto (1):
-      ASoC: audio-graph-card2: call of_node_get() before of_get_next_child()
-
-Takashi Iwai (1):
-      ASoC: SOF: amd: Correct spaces in Makefile
-
-Vijendar Mukunda (1):
-      ASoC: amd: acp: fix for acp platform device creation failure
-
- sound/soc/amd/acp/acp-legacy-common.c      | 96 +++++++++++++++++++++++++-----
- sound/soc/amd/acp/acp-pci.c                |  9 ++-
- sound/soc/amd/acp/amd.h                    | 10 +++-
- sound/soc/amd/acp/chip_offset_byte.h       |  1 +
- sound/soc/generic/audio-graph-card2.c      |  2 +-
- sound/soc/intel/avs/boards/es8336.c        |  2 +-
- sound/soc/intel/avs/boards/nau8825.c       |  2 +-
- sound/soc/intel/avs/boards/rt274.c         |  3 +-
- sound/soc/intel/avs/boards/rt286.c         |  4 +-
- sound/soc/intel/avs/boards/rt298.c         |  4 +-
- sound/soc/mediatek/mt8192/mt8192-dai-tdm.c |  4 +-
- sound/soc/sof/amd/Makefile                 |  8 +--
- 12 files changed, 110 insertions(+), 35 deletions(-)
+Takashi

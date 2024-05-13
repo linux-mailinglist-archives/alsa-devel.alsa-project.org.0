@@ -2,139 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3088A8C3C48
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 May 2024 09:46:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B0398C3DDD
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 May 2024 11:13:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D1E02B76;
-	Mon, 13 May 2024 09:46:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D1E02B76
+	by alsa0.perex.cz (Postfix) with ESMTPS id 68DD286F;
+	Mon, 13 May 2024 11:13:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68DD286F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1715586406;
-	bh=bqeLw0EURFczvr0ROK0JvPzdR2l1fwgPdWTPSS0ztK0=;
-	h=References:From:To:Cc:Subject:Date:In-reply-to:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=rv0zVnX1nkfIqUW9PsxgHH3ayjajFdf4NlFpUAtZ8mmg0OB3BeZAQIPvk4ldBCGf1
-	 LYOONalE/dVjx9/2Mu14and/7s5buNkoxRI8V9lRp3JoJKw7ZB6TJCNjVdoS/C/O61
-	 wTc3D8R0wXBKDZXe6ZmtLfUAvNBgZbBIaIJbLLng=
+	s=default; t=1715591602;
+	bh=zb2CvNq4j4GIkLi0DtZrdgJwPgv9ih5YCGFFcCecTuo=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=ehzM00IMMLnzm8T8oghcBhEZiAbbEp7pustdKvxlpdgABg+eDRq8M42vT506DzWFy
+	 O7MKoUiAMkaqRBUI4ctJEm7LAA9hq3Lb4hhbVYtkT6tYXaekNofDR8+32vd+AOBbax
+	 WCUOrm89mh+Kf/tPr5YVUYE8YZ9aUwO+fCegB3Sw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DBB61F80580; Mon, 13 May 2024 09:46:14 +0200 (CEST)
+	id 37E23F8057B; Mon, 13 May 2024 11:12:46 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A3571F805A0;
-	Mon, 13 May 2024 09:46:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 853B9F805A0;
+	Mon, 13 May 2024 11:12:46 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8D431F80224; Mon, 13 May 2024 09:41:24 +0200 (CEST)
+	id 3E5CCF8003A; Mon, 13 May 2024 11:11:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [IPv6:2a00:1450:4864:20::32e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DAEFAF800E9
-	for <alsa-devel@alsa-project.org>; Mon, 13 May 2024 09:40:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DAEFAF800E9
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=baylibre-com.20230601.gappssmtp.com
- header.i=@baylibre-com.20230601.gappssmtp.com header.a=rsa-sha256
- header.s=20230601 header.b=t3Zq8YAY
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-42011507a54so7406245e9.0
-        for <alsa-devel@alsa-project.org>;
- Mon, 13 May 2024 00:40:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1715586050;
- x=1716190850; darn=alsa-project.org;
-        h=mime-version:message-id:in-reply-to:date:subject:cc:to:from
-         :user-agent:references:from:to:cc:subject:date:message-id:reply-to;
-        bh=jxDvLqtM5HD3XxV36Sf1rEr7tbwcAskZhewDbNVJWu8=;
-        b=t3Zq8YAY+GDntYUDz+k/l4G6gYVVV4BS9TXwPTkl0EDzJljtwV8bGyIY8+djKoPYxv
-         cwMYxuTX/n59Go2LDXUhPySuz9CxFPV8Ardy6ToIkQ15iKqm7rA/Hb0lDsIiG23yTLBF
-         37J1mIDqB7+k/WkYfWlsWKc7aeRy2xkmBnwZ1AEmzZdMrG4zEeYOkckh3zWdYghFHtEA
-         42rkhiVaqokFdEvbzKszAotMf9DKpDwAXZvcUWT+LWfTNWLqd7OcvP0HjWEyQ1esv3Nb
-         SxH6A34OvnsP7BgawP0sBVi4KJxWiY3xQhP2bD5EB5dBY6fAO1DFMH1US4ZBS5HtGhGt
-         lUjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715586050; x=1716190850;
-        h=mime-version:message-id:in-reply-to:date:subject:cc:to:from
-         :user-agent:references:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=jxDvLqtM5HD3XxV36Sf1rEr7tbwcAskZhewDbNVJWu8=;
-        b=TTy2KYro2tmBTsbwRa5DOnj/C2erpanSHJf0RthxZzNpq+mCEhAw2h+eBpUmMrPDTw
-         GSllJSqnj8evf9AvyamJNOl3dQAiTk2p2D2YrMz0T+Oyo3HDyixNepJ+6KIde0Mk7haM
-         YTejKAGhZ57lhtU8mNjk/hQkb/j5qcgMDb37kfoyiyI6VMCZc4XBUON+ty2lnX2SJS4y
-         niZTU8fpvU43mX7TGh2llp+AlLyIvXCuEOJf1XlPHb1/mFg4A9xS4PySqk9nbIazUfEX
-         WnO9OYSxOII5rPXOfxTHKs6cHawT8e9aCZFIbCeVkB46J96qB+JZ64RH3c789qRlXgYd
-         jk2A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWnDYaqX05ca01JgqYkjQAZUGgj1Dw/bl2MYzdt6akzZq8kGKa2pCphQ034iWRrrJPt1Kq6c7IYLeHEsJ6xvmex3y0ZrHwIEBMAZyo=
-X-Gm-Message-State: AOJu0YzHaAAm7TkizP7W+x+kRwhCOpFc2SWyk6uJ+PtnCLxIBcJkD2Ex
-	36YZaRrRYKuUDwVFrvd3d7JpmrK2KS9ApB3NYoBgN2SPsSvXSRzVNRtUtvL4VWs=
-X-Google-Smtp-Source: 
- AGHT+IGyShzaHstWPtHJJ6LRI/e/nWyJHEwUq6cM85MqUwzsSvsHegJxxu5ykS/QCDfvcEJlaBd6rQ==
-X-Received: by 2002:a05:600c:3112:b0:41b:e55c:8dc1 with SMTP id
- 5b1f17b1804b1-41fbd1b2e40mr93356095e9.20.1715586050311;
-        Mon, 13 May 2024 00:40:50 -0700 (PDT)
-Received: from localhost ([2a01:e0a:3c5:5fb1:5b77:3e5a:a808:339a])
-        by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3502b896a1dsm10367679f8f.32.2024.05.13.00.40.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 13 May 2024 00:40:49 -0700 (PDT)
-References: <87wmo6dyxg.wl-kuninori.morimoto.gx@renesas.com>
- <1jr0ee2ebk.fsf@starbuckisacylon.baylibre.com>
- <87pltxmakr.wl-kuninori.morimoto.gx@renesas.com>
- <87edaba5ze.wl-kuninori.morimoto.gx@renesas.com>
- <1j1q6b1gxs.fsf@starbuckisacylon.baylibre.com>
- <878r0ir1qw.wl-kuninori.morimoto.gx@renesas.com>
- <1jwmnzz5k3.fsf@starbuckisacylon.baylibre.com>
- <87pltqzi3n.wl-kuninori.morimoto.gx@renesas.com>
-User-agent: mu4e 1.10.8; emacs 29.2
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: Jerome Brunet <jbrunet@baylibre.com>, Amadeusz =?utf-8?B?U8WCYXdpxYRz?=
- =?utf-8?B?a2k=?=
- <amadeuszx.slawinski@linux.intel.com>, Alexandre Belloni
- <alexandre.belloni@bootlin.com>, Alper Nebi Yasak
- <alpernebiyasak@gmail.com>, AngeloGioacchino Del Regno
- <angelogioacchino.delregno@collabora.com>, Banajit Goswami
- <bgoswami@quicinc.com>, Bard Liao <yung-chuan.liao@linux.intel.com>, Brent
-     Lu <brent.lu@intel.com>, Cezary Rojewski <cezary.rojewski@intel.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>, Claudiu Beznea
- <claudiu.beznea@tuxon.dev>, Cristian Ciocaltea
- <cristian.ciocaltea@collabora.com>, Daniel Baluta <daniel.baluta@nxp.com>,
- Hans de Goede <hdegoede@redhat.com>, Jaroslav Kysela <perex@perex.cz>,
- Jiawei Wang <me@jwang.link>, Jonathan  Corbet <corbet@lwn.net>, Kai
-    Vehmanen <kai.vehmanen@linux.intel.com>, Kevin Hilman
- <khilman@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
- <broonie@kernel.org>, Maso Huang <maso.huang@mediatek.com>, Matthias
-    Brugger <matthias.bgg@gmail.com>, Neil Armstrong
- <neil.armstrong@linaro.org>, Nicolas Ferre <nicolas.ferre@microchip.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Pierre-Louis Bossart
- <pierre-louis.bossart@linux.intel.com>, Ranjani Sridharan
- <ranjani.sridharan@linux.intel.com>, Sascha Hauer
- <s.hauer@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>, Shengjiu Wang
- <shengjiu.wang@gmail.com>, Srinivas Kandagatla
- <srinivas.kandagatla@linaro.org>, Sylwester Nawrocki
- <s.nawrocki@samsung.com>, Takashi Iwai <tiwai@suse.com>, Vinod Koul
- <vkoul@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
- alsa-devel@alsa-project.org, imx@lists.linux.dev,
- linux-doc@vger.kernel.org, linux-sound@vger.kernel.org
-Subject: Re: [PATCH 0/3] ASoC: grace time for DPCM cleanup
-Date: Mon, 13 May 2024 09:36:03 +0200
-In-reply-to: <87pltqzi3n.wl-kuninori.morimoto.gx@renesas.com>
-Message-ID: <1jseymyxa6.fsf@starbuckisacylon.baylibre.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id DEF2FF8003A
+	for <alsa-devel@alsa-project.org>; Mon, 13 May 2024 11:10:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DEF2FF8003A
+X-SpamFilter-By: ArmorX SpamTrap 5.78 with qID 44D9AjNaA1398655,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (rtexh36505.realtek.com.tw[172.21.6.25])
+	by rtits2.realtek.com.tw (8.15.2/2.95/5.92) with ESMTPS id 44D9AjNaA1398655
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 13 May 2024 17:10:46 +0800
+Received: from RTEXMBS04.realtek.com.tw (172.21.6.97) by
+ RTEXH36505.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.35; Mon, 13 May 2024 17:10:45 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXMBS04.realtek.com.tw (172.21.6.97) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.35; Mon, 13 May 2024 17:10:45 +0800
+Received: from RTEXMBS01.realtek.com.tw ([fe80::d5b2:56ba:6b47:9975]) by
+ RTEXMBS01.realtek.com.tw ([fe80::d5b2:56ba:6b47:9975%5]) with mapi id
+ 15.01.2507.035; Mon, 13 May 2024 17:10:45 +0800
+From: Kailang <kailang@realtek.com>
+To: "Takashi Iwai (tiwai@suse.de)" <tiwai@suse.de>
+CC: " (alsa-devel@alsa-project.org)" <alsa-devel@alsa-project.org>
+Subject: Headset Mic lose issue ALC256
+Thread-Topic: Headset Mic lose issue ALC256
+Thread-Index: AdqlFRkPW0sCemNGQIK5QcUgKK3PTQ==
+Date: Mon, 13 May 2024 09:10:45 +0000
+Message-ID: <c8b638590c5f45a6a5c6aeb20c31fd5b@realtek.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: yes
+x-originating-ip: [172.22.102.106]
+Content-Type: multipart/mixed;
+	boundary="_002_c8b638590c5f45a6a5c6aeb20c31fd5brealtekcom_"
 MIME-Version: 1.0
-Content-Type: text/plain
-Message-ID-Hash: BMJWRC45GVEDBSUCRH2BJDRYF4E7ZFC5
-X-Message-ID-Hash: BMJWRC45GVEDBSUCRH2BJDRYF4E7ZFC5
-X-MailFrom: jbrunet@baylibre.com
+X-KSE-ServerInfo: RTEXH36505.realtek.com.tw, 9
+X-KSE-AntiSpam-Interceptor-Info: fallback
+X-KSE-Antivirus-Interceptor-Info: fallback
+X-KSE-AntiSpam-Interceptor-Info: fallback
+Message-ID-Hash: YKH3KJTYXUATN25XCR5J2XFO3GHXWJQM
+X-Message-ID-Hash: YKH3KJTYXUATN25XCR5J2XFO3GHXWJQM
+X-MailFrom: kailang@realtek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -146,7 +87,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BMJWRC45GVEDBSUCRH2BJDRYF4E7ZFC5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YKH3KJTYXUATN25XCR5J2XFO3GHXWJQM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -155,90 +96,68 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+--_002_c8b638590c5f45a6a5c6aeb20c31fd5brealtekcom_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon 13 May 2024 at 00:11, Kuninori Morimoto <kuninori.morimoto.gx@renesas.com> wrote:
+Hi Takashi,
 
-> Hi Jerome
->
-> Thank you for your feedback and analysis !
->
->>  - 1st problem: I see that following your removal of
->>    snd_soc_dai_link_set_capabilities(), the dpcm_playback/capture flags
->>    are no longer properly initialised in the amlogic card drivers.
->>    That will need fixing.
-> (snip)
->> This codec is not meant to have capture channels.
->> I think DT description and the card driver settings (before the removal of
->> snd_soc_dai_link_set_capabilities()) are correct.
->
-> OK, I see. Thank you for your analysis.
->
-> The problem was my patch checks CPU direction vs Codec direction only,
-> thus, it will indicates unexpected warnings, like this case.
->
-> Thank you for finding it, I hope v2 patch should be OK for you.
->
+New ChromeBook had Headset Mic issue.
+Attach patch will solve it.
 
-I'll check
+Many Thanks.
+Kailang
 
->> IMO, those check become too restrictive. We are adding a lot of code I'm
->> not sure I understand what we stand by going so far in the
->> consistency checks.
->> 
->> Initially those dpcm_playback/capture flag could be used to just
->> forcefully disable a link direction, regardless of the CPUs or codecs present
->> on the link. It was just another setting and it was not required to be consistent
->> with anything. It just declared whether the direction was allowed on the
->> link, or not.
->> 
->> It changed this commit, and the flags suddenly needed to be consistent
->> with whatever was on link:
->> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/sound/soc?h=v6.9-rc7&id=b73287f0b074
->> 
->> I complained back then and I still don't think this change was good.
->> 
->> If the flags needs to consistent with what is on the link, and we have
->> the ability to check it, why let card drivers set it and then complain
->> about it in ASoC checks ? Why not deal with it in the framework directly ?
->> 
->> I think the simplest solution would to just go back to the initial
->> meaning of these flags which was just the card driver declaring the
->> direction allowed/disallowed on a link. Then ASoC can mix that
->> information with whatever it finds with DAI drivers and figure out what
->> is actually possible.
->> 
->> It would give a clear and separate semantic meaning to those flags
->> instead something redundant with the DAI driver info.
->> 
->> What we have currently is not straight forward to set and check.
->> It makes the code unnecessarily complicated and difficult to maintain. I
->> think the difficulties with this patchset are a good illustration of
->> that, unfortunately.
->
-> By this patch-set, it will be handled automatically via CPU and Codec
-> driver settings, Card driver will no longer need to consider about
-> direction (like non-DPCM), and I hope people (including you) will be
-> happy about that.
->
+--_002_c8b638590c5f45a6a5c6aeb20c31fd5brealtekcom_
+Content-Type: application/octet-stream;
+	name="0000-2024y-new-chromebook.patch"
+Content-Description: 0000-2024y-new-chromebook.patch
+Content-Disposition: attachment; filename="0000-2024y-new-chromebook.patch";
+	size=2378; creation-date="Tue, 30 Apr 2024 08:40:20 GMT";
+	modification-date="Mon, 13 May 2024 09:07:13 GMT"
+Content-Transfer-Encoding: base64
 
-If it makes things simpler, I am happy for sure :)
+RnJvbSBmYjFhZTg4NGRiZTg1MTQwNzUxZjAxMWNkZjY5MjA5NmE2ZTgxM2E3IE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBLYWlsYW5nIFlhbmcgPGthaWxhbmdAcmVhbHRlay5jb20+CkRh
+dGU6IE1vbiwgMTMgTWF5IDIwMjQgMTY6Mzg6MTEgKzA4MDAKU3ViamVjdDogW1BBVENIXSBBTFNB
+OiBoZGEvcmVhbHRlayAtIGZpeGVkIGhlYWRzZXQgTWljIG5vdCBzaG93CgpBTEMyNTYgcnVuIG9u
+IFNPRiBtb2RlLiBCb290IHdpdGggcGx1Z2dlZCBoZWFkc2V0LCB0aGUgSGVhZHNldCBNaWMgd2ls
+bCBiZSBnb25lLgpQbHVnZ2VkIGhlYWRzZXQgYWZ0ZXIgYm9vdC4gSXQgaGFkIHBhcnRpYWwgZmFp
+bCB3aXRoIEhlYWRzZXQgTWljIGRldGVjdC4KQWRkIHNwZWMtPmVuXzNrcHVsbF9sb3cgPSBmYWxz
+ZSB3aWxsIHNvbHZlIGFsbCBpc3N1ZXMuCgpTaWduZWQtb2ZmLWJ5OiBLYWlsYW5nIFlhbmcgPGth
+aWxhbmdAcmVhbHRlay5jb20+CgpkaWZmIC0tZ2l0IGEvc291bmQvcGNpL2hkYS9wYXRjaF9yZWFs
+dGVrLmMgYi9zb3VuZC9wY2kvaGRhL3BhdGNoX3JlYWx0ZWsuYwppbmRleCBiZDFiODI0YmFhZTEu
+LmUxMzE4ZDAxODExOSAxMDA2NDQKLS0tIGEvc291bmQvcGNpL2hkYS9wYXRjaF9yZWFsdGVrLmMK
+KysrIGIvc291bmQvcGNpL2hkYS9wYXRjaF9yZWFsdGVrLmMKQEAgLTY1MzUsNiArNjUzNSwyMCBA
+QCBzdGF0aWMgdm9pZCBhbGMyOTVfZml4dXBfY2hyb21lYm9vayhzdHJ1Y3QgaGRhX2NvZGVjICpj
+b2RlYywKIAl9CiB9CiAKK3N0YXRpYyB2b2lkIGFsYzI1Nl9maXh1cF9jaHJvbWVib29rKHN0cnVj
+dCBoZGFfY29kZWMgKmNvZGVjLAorCQkJCSAgICBjb25zdCBzdHJ1Y3QgaGRhX2ZpeHVwICpmaXgs
+IGludCBhY3Rpb24pCit7CisJc3RydWN0IGFsY19zcGVjICpzcGVjID0gY29kZWMtPnNwZWM7CisK
+Kwlzd2l0Y2ggKGFjdGlvbikgeworCWNhc2UgSERBX0ZJWFVQX0FDVF9QUkVfUFJPQkU6CisJCXNw
+ZWMtPmdlbi5zdXBwcmVzc19hdXRvX211dGUgPSAxOworCQlzcGVjLT5nZW4uc3VwcHJlc3NfYXV0
+b19taWMgPSAxOworCQlzcGVjLT5lbl8za3B1bGxfbG93ID0gZmFsc2U7CisJCWJyZWFrOworCX0K
+K30KKwogc3RhdGljIHZvaWQgYWxjX2ZpeHVwX2Rpc2FibGVfbWljX3ZyZWYoc3RydWN0IGhkYV9j
+b2RlYyAqY29kZWMsCiAJCQkJICBjb25zdCBzdHJ1Y3QgaGRhX2ZpeHVwICpmaXgsIGludCBhY3Rp
+b24pCiB7CkBAIC03NTE1LDYgKzc1MjksNyBAQCBlbnVtIHsKIAlBTEMyODVfRklYVVBfQVNVU19H
+VTYwNV9TUElfMl9IRUFEU0VUX01JQywKIAlBTEMyODVfRklYVVBfQVNVU19HVTYwNV9TUElfU1BF
+QUtFUjJfVE9fREFDMSwKIAlBTEMyODdfRklYVVBfTEVOT1ZPX1RIS1BBRF9XSF9BTEMxMzE4LAor
+CUFMQzI1Nl9GSVhVUF9DSFJPTUVfQk9PSywKIH07CiAKIC8qIEEgc3BlY2lhbCBmaXh1cCBmb3Ig
+TGVub3ZvIEM5NDAgYW5kIFlvZ2EgRHVldCA3OwpAQCAtOTc5Nyw2ICs5ODEyLDEyIEBAIHN0YXRp
+YyBjb25zdCBzdHJ1Y3QgaGRhX2ZpeHVwIGFsYzI2OV9maXh1cHNbXSA9IHsKIAkJLmNoYWluZWQg
+PSB0cnVlLAogCQkuY2hhaW5faWQgPSBBTEMyNjlfRklYVVBfVEhJTktQQURfQUNQSQogCX0sCisJ
+W0FMQzI1Nl9GSVhVUF9DSFJPTUVfQk9PS10gPSB7CisJCS50eXBlID0gSERBX0ZJWFVQX0ZVTkMs
+CisJCS52LmZ1bmMgPSBhbGMyNTZfZml4dXBfY2hyb21lYm9vaywKKwkJLmNoYWluZWQgPSB0cnVl
+LAorCQkuY2hhaW5faWQgPSBBTEMyMjVfRklYVVBfSEVBRFNFVF9KQUNLCisJfSwKIH07CiAKIHN0
+YXRpYyBjb25zdCBzdHJ1Y3Qgc25kX3BjaV9xdWlyayBhbGMyNjlfZml4dXBfdGJsW10gPSB7CkBA
+IC0xMDc2MSw2ICsxMDc4Miw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgaGRhX21vZGVsX2ZpeHVw
+IGFsYzI2OV9maXh1cF9tb2RlbHNbXSA9IHsKIAl7LmlkID0gQUxDMjk1X0ZJWFVQX0hQX1gzNjAs
+IC5uYW1lID0gImFsYzI5NS1ocC14MzYwIn0sCiAJey5pZCA9IEFMQzIyNV9GSVhVUF9IRUFEU0VU
+X0pBQ0ssIC5uYW1lID0gImFsYy1oZWFkc2V0LWphY2sifSwKIAl7LmlkID0gQUxDMjk1X0ZJWFVQ
+X0NIUk9NRV9CT09LLCAubmFtZSA9ICJhbGMtY2hyb21lLWJvb2sifSwKKwl7LmlkID0gQUxDMjU2
+X0ZJWFVQX0NIUk9NRV9CT09LLCAubmFtZSA9ICJhbGMtMjAyNHktY2hyb21lYm9vayJ9LAogCXsu
+aWQgPSBBTEMyOTlfRklYVVBfUFJFREFUT1JfU1BLLCAubmFtZSA9ICJwcmVkYXRvci1zcGsifSwK
+IAl7LmlkID0gQUxDMjk4X0ZJWFVQX0hVQVdFSV9NQlhfU1RFUkVPLCAubmFtZSA9ICJodWF3ZWkt
+bWJ4LXN0ZXJlbyJ9LAogCXsuaWQgPSBBTEMyNTZfRklYVVBfTUVESU9OX0hFQURTRVRfTk9fUFJF
+U0VOQ0UsIC5uYW1lID0gImFsYzI1Ni1tZWRpb24taGVhZHNldCJ9LAo=
 
-However, I'm a bit confused. If it is handled automatically by the CPUs
-and Codecs settings, does it mean dpcm_playback/capture flags are
-no-ops from now on ?
-
-Should I update my card drivers to ditch those flags completely ?
-
-May I still disable a direction on a link from the card driver, like in
-the case I described above, when a TDM link has no slots for a direction ?
-
-> Thank you for your help !!
->
-> Best regards
-> ---
-> Renesas Electronics
-> Ph.D. Kuninori Morimoto
-
-
--- 
-Jerome
+--_002_c8b638590c5f45a6a5c6aeb20c31fd5brealtekcom_--

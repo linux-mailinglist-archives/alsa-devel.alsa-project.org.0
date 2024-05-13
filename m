@@ -2,119 +2,114 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 334DB8C42AB
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 May 2024 15:57:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EC1A8C4241
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 May 2024 15:42:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 732AD3E8;
-	Mon, 13 May 2024 15:57:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 732AD3E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8AF67950;
+	Mon, 13 May 2024 15:42:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8AF67950
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1715608668;
-	bh=+Ru4QZNBQKfH3yM4UOcLMhAWU/tf2NLGgtkBD/4wTls=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1715607769;
+	bh=NHGPLgtCUqCEfcn2vaIa5U959E4/fnbBgnnTfKGDUhM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=pHzNgIuEP2BeXdDAtAjXQDXEzlJ7AiVKh2qvZg/zka0QNMkB4ToftbCcH4fRML7hX
-	 ILjwee5UV/ifK/PPF26dD7fe61JFaoGAHkqiQ5PXj4ykGQns4QBmEiuyn4nIREGn+L
-	 c3qBPmHv204gATdfKZQq7Bbgnoo2n/jbNI+2rffg=
+	b=WULinCaYqMqdZ/8zNZRBozzt/Jw1suInLuYG4kadNt04KTdjOkWzJN7m8f4TtFrCo
+	 aPu+EsoB3dybjvVffgAB0UrugD0ofylFK/O5AWpjsjEvewa7k7WsjM0efpY/RhDXsq
+	 t11xqQ8oPu5yF+XFxr8LvsibMUTl/mOC3e6Mimjc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3F6E2F805B0; Mon, 13 May 2024 15:56:58 +0200 (CEST)
+	id 1D15AF80563; Mon, 13 May 2024 15:42:16 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id AC71FF805C4;
-	Mon, 13 May 2024 15:56:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 99BE0F80564;
+	Mon, 13 May 2024 15:42:16 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 32205F8049C; Fri, 10 May 2024 09:49:06 +0200 (CEST)
+	id A54BCF80224; Mon, 13 May 2024 15:42:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [IPv6:2a00:1450:4864:20::62c])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 255FAF8003A
-	for <alsa-devel@alsa-project.org>; Fri, 10 May 2024 09:45:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 255FAF8003A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3066DF800E2
+	for <alsa-devel@alsa-project.org>; Mon, 13 May 2024 15:42:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3066DF800E2
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=u4ZAOkBK
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-a59a387fbc9so438248166b.1
-        for <alsa-devel@alsa-project.org>;
- Fri, 10 May 2024 00:45:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1715327137; x=1715931937;
- darn=alsa-project.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=YIgmt5OKshocSBCjXZCas2SFAKDLyamCgrbyJz4pkKo=;
-        b=u4ZAOkBKmiu/UgCRDdnIunNBuaHXfPL4U6zcOUGOvNEpXAFe72QG9kNtGbQ4zXWyUt
-         fGZDz9eVjG00QiMUmssEDo6t7z7r5MA+bJpZh12+IHQozG8Jbpe5uzDIn1fyfkoJINnb
-         j1v36eNbE0hA8yWCXeGwMFySo+5j/E3LQEI9gLihZg01Zl1fVtPGuSkWPE+kjMk/rsiC
-         gc1jtRlyn/vY1MGfKYosuDXcr2Gp/snhqUAzhF+mx9VKCzPyOXzQWfhur0MdA99I+xzL
-         u6+88uMpsslYWXKk+q3PCZvJZnJALN4pB2YuVeQ7R2kugUCp57ao2cYUrR9bho4nmZZo
-         6T6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715327137; x=1715931937;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=YIgmt5OKshocSBCjXZCas2SFAKDLyamCgrbyJz4pkKo=;
-        b=B9Pms9/LIkpCBEWIOMNB3I3845oZnkeyIsc2PL/eL1sPIrNrWzf+cEao2SuJLMHEN7
-         RAZFKJmt9VMu0Srj2ita+fQtxt3Tf6eZifildDQle9zfEzUCkWrLLF4z6WG7HHTbqr2Q
-         McPcadoHjJ6GVm6RL5Hqve6nM7yQLG41la8Hnnzd+Z445E4yWs5joRVK/EU85PtsRk0Y
-         ZXHuQjCkMEQuM5TRtidG5nCozRkWfp14LDKdWhAm6N7dsQIKM+YTCnoIAMqDj74Vyo1k
-         svx4xlvH7SHyDJY3rQpPEjO7zPaExZrq3IkQP534m5KtrfIDrbrOPIGg7u/jYA+8Lr5W
-         C78w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX58HlH2EjTQpX2NvYZYj/Im+0bwN+7sMauHHIwcwOx/DgA5GGQvfDiVo5IR5FnJ84rkUh2WD+0WFKhHrgrsTezK74PWqB69yYFMZg=
-X-Gm-Message-State: AOJu0YzN4H5ymaQ6ZmjMAiBI3pbRl1QYRXKTUtLs8nEdb60pDHjkxrux
-	paQ9LOFCIzs2Zc8T3F+GbP0QQ6VX4MUegi3HpZuyorzMhy6HU7jLMYJygzzRbpY=
-X-Google-Smtp-Source: 
- AGHT+IFu5FG79XOkaw+QjujszVIXR0deMk6TMVlhFYxpxotP09JVmeUdudhoqJE1AgUoIqsrJ/dq4Q==
-X-Received: by 2002:a17:906:1c82:b0:a59:bfab:b254 with SMTP id
- a640c23a62f3a-a5a2d6808b2mr112243266b.64.1715327136810;
-        Fri, 10 May 2024 00:45:36 -0700 (PDT)
-Received: from localhost ([102.222.70.76])
-        by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a5a1781d342sm155936666b.6.2024.05.10.00.45.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 10 May 2024 00:45:36 -0700 (PDT)
-Date: Fri, 10 May 2024 10:45:33 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: Mark Brown <broonie@kernel.org>,
-	Linux-ALSA <alsa-devel@alsa-project.org>
-Subject: Re: [PATCH] ASoC: audio-graph-card2: call of_node_get() before
- of_get_next_child()
-Message-ID: <fc2467c7-db9a-46fe-bb50-5bf0a7230654@moroto.mountain>
-References: <875xvmqzs8.wl-kuninori.morimoto.gx@renesas.com>
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=ZSPIBpE2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1715607723; x=1747143723;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=NHGPLgtCUqCEfcn2vaIa5U959E4/fnbBgnnTfKGDUhM=;
+  b=ZSPIBpE2W0FjtJSS7mEhmi5TD7nsy/+G79PfVfof+RCupvKYpNr1ceV4
+   M4Iaw2CYdQodVPZu+WQFBfCeDhGgRVoAFzeRSJLbejtTM6pdoTujkOubs
+   gwD/9X2NjuVpo0c/stOFGQVGsauOfybuKoTpl4LlJc+OBBiFT3h4YHaDe
+   jo98AeUqsZRcToTh1CGiXe7UHT0ya0Fg1g4IQdc52lt5lkSt+5Ftt5rIx
+   AczYOv81v2XNjcnDsb/vPixAeke39NFj4U67ijacnmVdB0Esr6sFAbtQT
+   fQ2mTCCHqiWmJdzkLnSSySCfdZFgNiISXBZDiG1neueFjQbjIPX2XOp2f
+   w==;
+X-CSE-ConnectionGUID: ejnSgDCpTpepSRfaXF6/WQ==
+X-CSE-MsgGUID: xWnVr/mSRbmtFiE0+IfkIg==
+X-IronPort-AV: E=McAfee;i="6600,9927,11072"; a="34055956"
+X-IronPort-AV: E=Sophos;i="6.08,158,1712646000";
+   d="scan'208";a="34055956"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 May 2024 06:41:57 -0700
+X-CSE-ConnectionGUID: IDlEf8a7Qt6kUtLIFkGQJw==
+X-CSE-MsgGUID: kcqS9LquTyiO6UeF+3ehCA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.08,158,1712646000";
+   d="scan'208";a="30323298"
+Received: from sgoshi-mobl1.amr.corp.intel.com (HELO [10.212.69.71])
+ ([10.212.69.71])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 May 2024 06:41:56 -0700
+Message-ID: <88e6bbe3-94a2-4b50-b462-eb27376698c4@linux.intel.com>
+Date: Mon, 13 May 2024 08:41:55 -0500
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <875xvmqzs8.wl-kuninori.morimoto.gx@renesas.com>
-X-MailFrom: dan.carpenter@linaro.org
-X-Mailman-Rule-Hits: nonmember-moderation
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ASoC: intel: Constify struct snd_soc_ops
+To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, Mark Brown
+ <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>
+Cc: linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-sound@vger.kernel.org
+References: 
+ <242aef53b5b9533ae4cca78148622f5fe752b7ee.1715452901.git.christophe.jaillet@wanadoo.fr>
+Content-Language: en-US
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: 
+ <242aef53b5b9533ae4cca78148622f5fe752b7ee.1715452901.git.christophe.jaillet@wanadoo.fr>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: O6QTJDVJV7XYGMPVUR6HKWZROJMXCDDA
+X-Message-ID-Hash: O6QTJDVJV7XYGMPVUR6HKWZROJMXCDDA
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: ZC7NDOEB7WL3VF7HYOOV6NUCGT6ZZLH6
-X-Message-ID-Hash: ZC7NDOEB7WL3VF7HYOOV6NUCGT6ZZLH6
-X-Mailman-Approved-At: Mon, 13 May 2024 13:56:54 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZC7NDOEB7WL3VF7HYOOV6NUCGT6ZZLH6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/O6QTJDVJV7XYGMPVUR6HKWZROJMXCDDA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -123,23 +118,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, May 10, 2024 at 12:24:55AM +0000, Kuninori Morimoto wrote:
-> commit c6f597bc598a8 ("ASoC: audio-graph-card2: remove unneeded
-> of_node_get()") removed of_node_get(), but it need to keep original
-> reference, so of_node_get() itself is needed.
+
+
+On 5/11/24 13:42, Christophe JAILLET wrote:
+> Constifying "struct snd_soc_ops" moves some data to a read-only section, so
+> increase overall security.
 > 
-> Because of_get_next_child() will call of_node_put() inside, if the
-> reference count dropped to zero, then of_node_get() after that will be
-> use afer free. Need to call of_node_get() *before* that.
+> This structure is also part of scripts/const_structs.checkpatch.
 > 
-> Fixes: c6f597bc598a ("ASoC: audio-graph-card2: remove unneeded of_node_get()")
-> Link: https://lore.kernel.org/r/f930862e-9d30-4ea3-b3e7-b4b4f411f6d1@moroto.mountain
-> Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
-> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> As an example, on a x86_64, with allmodconfig:
+> Before:
+>    text	   data	    bss	    dec	    hex	filename
+>    6315	   3696	      0	  10011	   271b	sound/soc/intel/boards/ehl_rt5660.o
+> 
+> After:
+>    text	   data	    bss	    dec	    hex	filename
+>    6379	   3648	      0	  10027	   272b	sound/soc/intel/boards/ehl_rt5660.o
+> 
+> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
 > ---
+> Compile tested only.
+> 
+> I hope that it can be applied with this single patch because all files are
+> in sound/soc/intel/boards/
 
+Doesn't apply for me, can you rebase and resend?
+
+CONFLICT (content): Merge conflict in
+sound/soc/intel/boards/sof_maxim_common.h
+Auto-merging sound/soc/intel/boards/sof_maxim_common.c
+CONFLICT (content): Merge conflict in
+sound/soc/intel/boards/sof_maxim_common.c
+error: Failed to merge in the changes.
+
+Probably a result of all the changes in this directory...
 Thanks!
-
-regards,
-dan carpenter
-

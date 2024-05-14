@@ -2,132 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0F5E8C580D
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 May 2024 16:34:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4B4C8C5840
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 May 2024 16:46:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 28606208;
-	Tue, 14 May 2024 16:34:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 28606208
+	by alsa0.perex.cz (Postfix) with ESMTPS id CFD493E;
+	Tue, 14 May 2024 16:46:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CFD493E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1715697272;
-	bh=+IxW0MEtemQ59ohxen6OsJDtFiyIBSyf4pXlzCYNPeg=;
-	h=References:From:To:Cc:Subject:Date:In-reply-to:List-Id:
+	s=default; t=1715697977;
+	bh=wzTmRzJutMuitj1ZyyTCjWRU/hDuecvlwjfoxvBzzJY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=czJQsN4jGx05EHt4QDzeCvHu5n2tEMUm9a97nZA4c9MJwJuvOCLVBB9NW/xIet5QG
-	 V+DeaxxFS4fyWRyiPbp25MCYJrvwB4408Q+4Chq/GMRbmZrVSP7ECPvBJo7g7JsIsV
-	 2yKY8BCoP1DuMu5Ly1yCqXyNBD064mM05DLGKAYw=
+	b=qxeggqcAIA/HZgf1qAEys1f26k+6ASeLyME+mkuwmC8jd8NKFBrJdiIR7VKAe9EpZ
+	 2jEi7iRHsT3+2HiVHZFeX4hcbAgdR5Rw8V4mBioZWOAA+iiPZQqBRP4dAXT3/s/+Yt
+	 Pyi9iQwAqpHef8jF6M2QzAuGZdV64IKFn0Znntjg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0757DF8057C; Tue, 14 May 2024 16:34:01 +0200 (CEST)
+	id 79E5BF8025F; Tue, 14 May 2024 16:45:46 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 68427F80571;
-	Tue, 14 May 2024 16:34:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C8A55F801F5;
+	Tue, 14 May 2024 16:45:45 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D4577F80224; Tue, 14 May 2024 16:33:57 +0200 (CEST)
+	id 6AC1CF80224; Tue, 14 May 2024 16:45:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
- [IPv6:2a00:1450:4864:20::235])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-6.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 673EAF800F5
-	for <alsa-devel@alsa-project.org>; Tue, 14 May 2024 16:33:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 673EAF800F5
+	by alsa1.perex.cz (Postfix) with ESMTPS id 098C4F800F5
+	for <alsa-devel@alsa-project.org>; Tue, 14 May 2024 16:45:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 098C4F800F5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=baylibre-com.20230601.gappssmtp.com
- header.i=@baylibre-com.20230601.gappssmtp.com header.a=rsa-sha256
- header.s=20230601 header.b=2mYfjviG
-Received: by mail-lj1-x235.google.com with SMTP id
- 38308e7fff4ca-2e564cad1f6so48040291fa.1
-        for <alsa-devel@alsa-project.org>;
- Tue, 14 May 2024 07:33:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1715697230;
- x=1716302030; darn=alsa-project.org;
-        h=mime-version:message-id:in-reply-to:date:subject:cc:to:from
-         :user-agent:references:from:to:cc:subject:date:message-id:reply-to;
-        bh=2HpNVPq3YKqLVtMUiQ9jyLRuvtM9nOeWOTnThXBUYyw=;
-        b=2mYfjviG43/YeVCQ8iNCfn+Odu8jSMyg5yf8qU3LQXUgKNiwNd3Vjg27pOPvJAG/B8
-         VmwzC+86LMFpta2L2CFIeEoyQQF1o8RbpzbjT21UM1HyFlk2mX6jb5HuUydPAf6USP9W
-         OtDUOmeA4M0ZmT0ZqhaBWr8qeWccivEDBT5ksQmpO8mxuDbei+BGSh8RJnKzY1fE+kHE
-         kxGvSND9l/uqzKk8xxtuDb5vzDe3kNW6CQL+laMCz8WHLVyLQskA8VnTWP6FY9qzePkz
-         8JizKPrde8C5/plUe+fNZPs+2ontEihQDl3fsvo51armUmam0h+Daq2crk2U9tkOS4+k
-         sjYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715697230; x=1716302030;
-        h=mime-version:message-id:in-reply-to:date:subject:cc:to:from
-         :user-agent:references:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=2HpNVPq3YKqLVtMUiQ9jyLRuvtM9nOeWOTnThXBUYyw=;
-        b=ZqC0CpfJarp7pKUnz3R7NXq6a63qiXTY5qgf96MTRMzhugePFPn+9dz1BQ36RpLijO
-         T1g0GBmnlAyaBg4n/hIJj8wFebdj6nSHup48qyjh1VzNGJJ25ef7xVXgNWthRe7dJ3e5
-         838l3JuZ+KVlcQeOyRN0IVfzhDL+CvnIyQVkrJtlVvt/sA93BwJ0I4LWo40ilDspPNQ5
-         8FYJ0ZxRBqJRT57TtKREJYewqqpmjk/dP7Pm3GcJ27p5BFmxTp1OGUYh5KbwQ7NvSCRi
-         tU3Fbn84EnefMyCSWJZn7gxHvaS/IWrWjGNTtv11yB6AZzRNPCIOPaKAwi6EPoUvP2KB
-         vcbg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVmbPjhCXfyXo7hxZdkkS0LMY2+DOr0bm9mm3ayQH22RaGy2uHTCW8vAINV20W/PXV8rKTUqXN0Fb50/bNsRuQHLgsHC/SFRsjFomc=
-X-Gm-Message-State: AOJu0YyUMw0BtHMsX8xLmlIEyBhFIpprNaXOwwziXi5QtIG5NOd/Q4gQ
-	aMonHN41oP5n92c4J/mk2bbeBfwfmnMZcJplVKGE9idUClWdqXh2xswbqtLaAUw=
-X-Google-Smtp-Source: 
- AGHT+IFD4/QQf7DSCFn7BpKaHqZVvWjrhBM0s1pr0jlg9Ch9ima5C7dw+J80WKNKg5qjzUacSgKW4Q==
-X-Received: by 2002:a2e:a175:0:b0:2e3:3b4e:43e4 with SMTP id
- 38308e7fff4ca-2e5204b2ed4mr86104081fa.32.1715697229984;
-        Tue, 14 May 2024 07:33:49 -0700 (PDT)
-Received: from localhost ([2a01:e0a:3c5:5fb1:3f47:f219:de13:38a7])
-        by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3502b8a76e6sm13856362f8f.62.2024.05.14.07.33.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 14 May 2024 07:33:49 -0700 (PDT)
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=BGmWHQIi
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id 541B2CE128C;
+	Tue, 14 May 2024 14:45:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5018FC2BD10;
+	Tue, 14 May 2024 14:45:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1715697930;
+	bh=wzTmRzJutMuitj1ZyyTCjWRU/hDuecvlwjfoxvBzzJY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=BGmWHQIieVE2KDMVTUWg2LKGRaVwFMaoi1G3oWxRV58XyoKWK6P9sYUiaEf8PItdk
+	 MfMArjQiI7Xd3vhA/Of13m0f19rQbs5R86V+fPdJyquNBgCUxfl9Cvz7lOWctuJksI
+	 Sb04bSJ7vLGkIpsBXYJWQyjtwi9reEV3hFOSCofIsJJ5CpbTUo/yVSK1WYAOposC6q
+	 lXRrLW9GutUgkf0MnCSG+AHV0Xoa78yw3QfiQJetws8/I1s0fj5/W99zmFRH+iPVwS
+	 2vk19i4TliOK8yw6a0egdIqc55cFrjhLWXMPcSqHjH0UASF/pZzQFKOdtBkk9tPSry
+	 Q2q4S/wb7sXGA==
+Date: Tue, 14 May 2024 15:45:26 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+	linux-amlogic@lists.infradead.org
+Subject: Re: [PATCH RFC] ASoC: amlogic: do not use dpcm_playback/capture flags
+Message-ID: <46daae9b-10dc-4f49-8a25-c387d03ae87a@sirena.org.uk>
 References: <87o79azh65.wl-kuninori.morimoto.gx@renesas.com>
-User-agent: mu4e 1.10.8; emacs 29.2
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: =?utf-8?Q?Amadeusz_S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>, Alexandre
- Belloni <alexandre.belloni@bootlin.com>, Alper Nebi Yasak
- <alpernebiyasak@gmail.com>, AngeloGioacchino Del Regno
- <angelogioacchino.delregno@collabora.com>, Banajit Goswami
- <bgoswami@quicinc.com>, Bard Liao <yung-chuan.liao@linux.intel.com>, Brent
-  Lu <brent.lu@intel.com>, Cezary Rojewski <cezary.rojewski@intel.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>, Claudiu Beznea
- <claudiu.beznea@tuxon.dev>, Cristian Ciocaltea
- <cristian.ciocaltea@collabora.com>, Daniel Baluta <daniel.baluta@nxp.com>,
- Hans de Goede <hdegoede@redhat.com>, Jaroslav Kysela <perex@perex.cz>,
- Jerome Brunet <jbrunet@baylibre.com>, Jiawei Wang <me@jwang.link>,
- Jonathan  Corbet <corbet@lwn.net>, Kai Vehmanen
- <kai.vehmanen@linux.intel.com>, Kevin Hilman <khilman@baylibre.com>, Liam
- Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Maso
- Huang <maso.huang@mediatek.com>, Matthias Brugger
- <matthias.bgg@gmail.com>, Neil Armstrong <neil.armstrong@linaro.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>, Peter Ujfalusi
- <peter.ujfalusi@linux.intel.com>, Pierre-Louis Bossart
- <pierre-louis.bossart@linux.intel.com>, Ranjani Sridharan
- <ranjani.sridharan@linux.intel.com>, Sascha Hauer
- <s.hauer@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>, Shengjiu Wang
- <shengjiu.wang@gmail.com>, Srinivas Kandagatla
- <srinivas.kandagatla@linaro.org>, Sylwester Nawrocki
- <s.nawrocki@samsung.com>, Takashi Iwai <tiwai@suse.com>, Vinod Koul
- <vkoul@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
- alsa-devel@alsa-project.org, imx@lists.linux.dev,
- linux-doc@vger.kernel.org, linux-sound@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] ASoC: grace time for DPCM cleanup
-Date: Tue, 14 May 2024 16:31:55 +0200
-In-reply-to: <87o79azh65.wl-kuninori.morimoto.gx@renesas.com>
-Message-ID: <1jttj0xy2b.fsf@starbuckisacylon.baylibre.com>
+ <20240514143116.3824376-1-jbrunet@baylibre.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-Message-ID-Hash: RUDBNDN4UMYTG5F2NDCIS6RJTOUUVGEQ
-X-Message-ID-Hash: RUDBNDN4UMYTG5F2NDCIS6RJTOUUVGEQ
-X-MailFrom: jbrunet@baylibre.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="3SR10CprQBp87L0m"
+Content-Disposition: inline
+In-Reply-To: <20240514143116.3824376-1-jbrunet@baylibre.com>
+X-Cookie: In the war of wits, he's unarmed.
+Message-ID-Hash: 2XVFKAO72E6Y6OCWZB6YISVXYUQXUVKD
+X-Message-ID-Hash: 2XVFKAO72E6Y6OCWZB6YISVXYUQXUVKD
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -139,7 +90,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RUDBNDN4UMYTG5F2NDCIS6RJTOUUVGEQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2XVFKAO72E6Y6OCWZB6YISVXYUQXUVKD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -149,60 +100,41 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
-On Mon 13 May 2024 at 00:31, Kuninori Morimoto <kuninori.morimoto.gx@renesas.com> wrote:
+--3SR10CprQBp87L0m
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> Hi Mark, Pierre-Louis, Jerome
-> Cc each ASoC driver maintainer
->
-> As we discussed in [1], we don't need to use dpcm_playback/capture flag,
-> so we remove it. But we have been using it for 10 years, some driver might
-> get damage. The most likely case is that the device/driver can use both
-> playback/capture, but have only one flag, and not using xxx_only flag.
-> [1/3] patch indicates warning in such case.
->
-> And because of its history, DPCM has been checking CPU side only. But it should
-> check Codec side too same as non-DPCM. Some device/driver has been bypassed
-> this check. It should be error. [2/3] patch indicates warning in such case.
->
-> Because dpcm_xxx flag is no longer used by [1/3] patch, 
-> snd_soc_dai_link_set_capabilities() is no longer needed. [3/3] patch remove it.
->
-> These adds grace time for DPCM cleanup.
-> I'm not sure when dpcm_xxx will be removed, and Codec check bypass will be error,
-> but maybe v6.11 or v6.12 ?
-> Please check each driver by that time.
->
-> [1] https://lore.kernel.org/r/87edaym2cg.wl-kuninori.morimoto.gx@renesas.com
->
-> Link: https://lore.kernel.org/r/87edaym2cg.wl-kuninori.morimoto.gx@renesas.com
-> Link: https://lore.kernel.org/r/87wmo6dyxg.wl-kuninori.morimoto.gx@renesas.com
->
-> v1 -> v2
-> 	- tidyup Codec check warning output condition
->
-> Kuninori Morimoto (3):
->   ASoC: soc-pcm: Indicate warning if dpcm_playback/capture were used for availability limition
->   ASoC: soc-pcm: Indicate warning if CPU / Codec availability mismatch
->   ASoC: remove snd_soc_dai_link_set_capabilities()
+On Tue, May 14, 2024 at 04:30:46PM +0200, Jerome Brunet wrote:
+> dpcm_playback/capture flags are being deprecated in ASoC.
+> Use playback/capture_only flags instead
+>=20
+> Suggested-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
+> ---
+>=20
+> Following Kuninori's series, dpcm_playback/capture will be ignored.
+> However, properly disabling stream direction is important for Amlogic
+> audio drivers.
+>=20
+> I'm not too sure how this should be applied to avoid breaking bisect,
+> before or after Kuninori's series. Maybe it should be merged into it ?
 
-For Amlogic, with the change sent as RFC on this series.
+Probably better to integrate it I think?
 
-Tested-by: Jerome Brunet <jbrunet@baylibre.com>
+--3SR10CprQBp87L0m
+Content-Type: application/pgp-signature; name="signature.asc"
 
->
->  include/sound/soc-dai.h               |   1 -
->  include/sound/soc.h                   |   1 +
->  sound/soc/fsl/imx-card.c              |   3 -
->  sound/soc/generic/audio-graph-card.c  |   2 -
->  sound/soc/generic/audio-graph-card2.c |   2 -
->  sound/soc/generic/simple-card.c       |   2 -
->  sound/soc/meson/axg-card.c            |   1 -
->  sound/soc/meson/gx-card.c             |   1 -
->  sound/soc/qcom/common.c               |   1 -
->  sound/soc/soc-dai.c                   |  38 ---------
->  sound/soc/soc-pcm.c                   | 110 +++++++++++++++++++-------
->  11 files changed, 81 insertions(+), 81 deletions(-)
+-----BEGIN PGP SIGNATURE-----
 
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmZDeQUACgkQJNaLcl1U
+h9Cj2Qf9HLVOdSH5HaXxIypjX5tfpQwLPzkXCL218MMV73bB2xh2jUSxphoymOOH
+g/jtFZsI35zWgGd/xrN/JDW03rRJSbdDd+ZnNU+k8Cgvt7IiRG1dI8ZH7LjhDaw2
+ufxmUFtogpQOsuF23t1oWroO7Yrd85fnl/yQp53uTfeOqr+3zWGkRjJUxkl39UA1
+4zgESYgpKV6HkvjSak9//kWPz9MlIZN1zjiIg7kA4k2Y1+utiPrkE0ysSt0Q8Vbf
+jZyNJbacqoEYv2UeukWrsHiw6gqyrA5f8cGC1w6Jw27AScoSDVB2lviUxOMoifL6
+R+0iAdSYEauoEee4GA6jE08l4zyBMQ==
+=vfji
+-----END PGP SIGNATURE-----
 
--- 
-Jerome
+--3SR10CprQBp87L0m--

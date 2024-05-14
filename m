@@ -2,80 +2,54 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BA3A8C5A4F
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 May 2024 19:30:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50EDE8C5BC4
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 May 2024 21:44:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E93C9A4A;
-	Tue, 14 May 2024 19:30:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E93C9A4A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 730DE868;
+	Tue, 14 May 2024 21:43:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 730DE868
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1715707820;
-	bh=F2hF5WrNOQ4dV0yMKXRcrqI9SXfSwANL5rdUYGg+uTs=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=OoSwRqey6IlVjuGo13eKyaVOSpZ5GCzHPZA1XqSmqDkyLYXm8berzyK6LJtxdiy4l
-	 EH1fbTit0s+KTpF2li/hA0TIedP7/5wanb10vVUQoWMJhntwhxFo9DPwhHCHAGVQSD
-	 UF7+Od05avLVd2PfG4Y4dupUn6aH099HUMV/JLI8=
+	s=default; t=1715715842;
+	bh=f9Bic9XEfzxy+q20FtX8eQhRUTyN2Y699IGiFjTrcB4=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=db+AkYAbSemR8UWmA8sXYpMAzq6f6pqEhIFQw9n9yTNXEH7ZtJYMfxgwR5PnNgkTq
+	 +yEtLQrbUdD5DVZ25rqR4BJlXJ+rUUBvZpmMxBo9YrgUL2X2TvCSDUd46DMudSQw0B
+	 OI3VblnqipeeXqkzUazHuRE4OJgX4/YeCjiS0w7A=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CFD7EF805AA; Tue, 14 May 2024 19:29:47 +0200 (CEST)
+	id AE525F805AA; Tue, 14 May 2024 21:43:30 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 603EAF805A1;
-	Tue, 14 May 2024 19:29:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 24D41F8059F;
+	Tue, 14 May 2024 21:43:30 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E7B88F8024C; Tue, 14 May 2024 19:29:42 +0200 (CEST)
+	id 6F7FCF80224; Tue, 14 May 2024 21:43:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-6.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E8DDAF800F5
-	for <alsa-devel@alsa-project.org>; Tue, 14 May 2024 19:29:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8DDAF800F5
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=I7i+Q3Mb
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 98F2E6123F;
-	Tue, 14 May 2024 17:29:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1AC6C2BD11;
-	Tue, 14 May 2024 17:29:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1715707772;
-	bh=F2hF5WrNOQ4dV0yMKXRcrqI9SXfSwANL5rdUYGg+uTs=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=I7i+Q3MbLkuq4i3luX5LrUY90/B1xlBOVn179ajAySlTuVeGMqq9kYEqyariK3TQP
-	 1JlxbniTfdzMFrpYEEs8JP5sfrE8ItlsaVEW5k6Nqf60VrR7mgSfqoqeeLzwmbQEWX
-	 KxFcGs9woCW07wE08NxWXczm9GGyT0EPPe15q2T6b8g9ATXu1napw0fd6nDIkPNcGC
-	 S3ng/gBN8IIKvzkly1KeKhbe4AUZwXpV+5Yh19r9opVJJD8ACFZglVH/ieZqvhAqOa
-	 zHzg09yeeNzvLOupK8VM7J3vrMsS5TM+kKJqZGAvSL0uDhYEyu2DKeVTu8DAEn0tqs
-	 Q6F/Q2ILg3zRg==
-From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, Jack Yu <jack.yu@realtek.com>
-Cc: alsa-devel@alsa-project.org, lars@metafoo.de,
- "Flove(HsinFu)" <flove@realtek.com>, Oder Chiou <oder_chiou@realtek.com>,
- =?utf-8?q?Shuming_=5B=E8=8C=83=E6=9B=B8=E9=8A=98=5D?= <shumingf@realtek.com>,
- =?utf-8?q?Derek_=5B=E6=96=B9=E5=BE=B7=E7=BE=A9=5D?= <derek.fang@realtek.com>
-In-Reply-To: <b7614d9e38054aa6ad8efa620edb4162@realtek.com>
-References: <b7614d9e38054aa6ad8efa620edb4162@realtek.com>
-Subject: Re: [PATCH] ASoC: rt5645: mic-in detection threshold modification
-Message-Id: <171570777044.50952.13951229662953019520.b4-ty@kernel.org>
-Date: Tue, 14 May 2024 18:29:30 +0100
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=no
+	autolearn_force=no version=3.4.6
+Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
+ [207.180.221.201])
+	by alsa1.perex.cz (Postfix) with ESMTP id 58F2AF800E9
+	for <alsa-devel@alsa-project.org>; Tue, 14 May 2024 21:43:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 58F2AF800E9
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14-dev
-Message-ID-Hash: 3UQIX7RDAPTJAM6ATV7M2KBUKRTCGFEH
-X-Message-ID-Hash: 3UQIX7RDAPTJAM6ATV7M2KBUKRTCGFEH
-X-MailFrom: broonie@kernel.org
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1715715801664961576-webhooks-bot@alsa-project.org>
+References: <1715715801664961576-webhooks-bot@alsa-project.org>
+Subject: HCtl event callback gives "Fatal Python error: drop_gil: drop_gil:
+ GIL is not locked"
+Message-Id: <20240514194325.6F7FCF80224@alsa1.perex.cz>
+Date: Tue, 14 May 2024 21:43:25 +0200 (CEST)
+Message-ID-Hash: KRZG6UTTBDAXD5DFOAA4GHYYS56QYTV3
+X-Message-ID-Hash: KRZG6UTTBDAXD5DFOAA4GHYYS56QYTV3
+X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -87,7 +61,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3UQIX7RDAPTJAM6ATV7M2KBUKRTCGFEH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KRZG6UTTBDAXD5DFOAA4GHYYS56QYTV3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,36 +70,30 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 14 May 2024 02:31:22 +0000, Jack Yu wrote:
-> Modify mic-in detection threshold for better performance.
-> 
-> 
+alsa-project/alsa-python issue #11 was opened from HEnquist:
 
-Applied to
+I'm running the [hctltest2.py](https://github.com/alsa-project/alsa-python/blob/master/test/hctltest2.py) test.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Then change one of the controls, I tried the "Z Test Volume" that gets numid 4:
+`amixer -D hw:0 cset numid=4 5`
 
-Thanks!
+This generates and event, which runs the callback function. That results in the test script crashing, with:
 
-[1/1] ASoC: rt5645: mic-in detection threshold modification
-      commit: 1f900475314ef258af1a4c11bc9096fe2ffe263f
+```
+Fatal Python error: drop_gil: drop_gil: GIL is not locked
+Python runtime state: initialized
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Thread 0x00007cae1adbc740 (most recent call first):
+  File "/home/henrik/repos/camilladsp-controller/hctltest2.py", line 25 in event_callback
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+Current thread 0x00007cae1adbc740 (most recent call first):
+  File "/home/henrik/repos/camilladsp-controller/hctltest2.py", line 63 in <module>
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+Extension modules: pyalsa.alsahcontrol (total: 1)
+Aborted (core dumped)
+```
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+Tested on manjaro with python 3.11, and latest alsa-python.
 
-Thanks,
-Mark
-
+Issue URL     : https://github.com/alsa-project/alsa-python/issues/11
+Repository URL: https://github.com/alsa-project/alsa-python

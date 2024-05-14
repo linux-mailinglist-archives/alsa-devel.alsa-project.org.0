@@ -2,117 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0E688C4C59
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 May 2024 08:33:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D60DE8C4CF0
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 May 2024 09:28:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E83096C1;
-	Tue, 14 May 2024 08:33:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E83096C1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3E95883E;
+	Tue, 14 May 2024 09:27:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3E95883E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1715668436;
-	bh=kBAcps8nyWv/1jmLqIvu/lxyDrTrvBsKKoN14C+MCRU=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
+	s=default; t=1715671681;
+	bh=BOZXDlQW/ALMT/v+vXYr+gzuWqxOzMY84psbe2mKH9g=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=RrZunor7BNggOlg7J37Vpo+cEak7hwM97OnOA/RRSd1CcosJzvi/g6TG9kB51iwAd
-	 IcVhoP2ogWnqq+4RCOy6ZHE70oVlwjgr/zUa9LXt3I+uZc3d23PA/dz5zi2ZsUkXMl
-	 OMojfehbR/N4cZbOV+Xq2MUnaAgJchD9VDHmrjWc=
+	b=EzwxMBW4L1NS3RcIwCuuNBIJumdX4GT70fIPni/Vz8nCd7bnN4jI8qYVjQzoDiC3e
+	 HEirMCY/vh1bln+uFwLU7C7z/blJfmu4uW71+NKyNpM1qBbgVl5f1fA6xu42BO5Z0e
+	 Eqk2fBt5PQTDjxrIAA1lr+H505ujanOOn8TGFfPM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4BA7EF80570; Tue, 14 May 2024 08:33:35 +0200 (CEST)
+	id D081BF80588; Tue, 14 May 2024 09:27:29 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9E3A7F8059F;
-	Tue, 14 May 2024 08:33:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AE246F800E9;
+	Tue, 14 May 2024 09:27:28 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A6ED1F80224; Tue, 14 May 2024 08:31:39 +0200 (CEST)
+	id 5BBADF80224; Tue, 14 May 2024 09:24:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_PASS,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from lelv0142.ext.ti.com (lelv0142.ext.ti.com [198.47.23.249])
+X-Spam-Status: No, score=-6.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3B12CF8003A
-	for <alsa-devel@alsa-project.org>; Tue, 14 May 2024 08:31:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B12CF8003A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2A5BEF800E9;
+	Tue, 14 May 2024 09:24:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A5BEF800E9
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
- header.s=ti-com-17Q1 header.b=euQya6Xp
-Received: from fllv0034.itg.ti.com ([10.64.40.246])
-	by lelv0142.ext.ti.com (8.15.2/8.15.2) with ESMTP id 44E6VMF9027337;
-	Tue, 14 May 2024 01:31:22 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
-	s=ti-com-17Q1; t=1715668282;
-	bh=kBAcps8nyWv/1jmLqIvu/lxyDrTrvBsKKoN14C+MCRU=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To;
-	b=euQya6XpMYTG5ptwemU6BB43YtzDjBM2NtHxsHyFiCADBQhytzV+bgaVkEfSy8SL1
-	 cyqzDt4uuoLViXhu4zTUq3pc11/UTV2WXYRlhp9YiVT/Izge+DRPNXOaaJtWxBl0NC
-	 TKc4eSwj+e6Qj8aaFVgVg3aGsHzgvHlUsOT5R3CI=
-Received: from DLEE100.ent.ti.com (dlee100.ent.ti.com [157.170.170.30])
-	by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 44E6VMpD011074
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 14 May 2024 01:31:22 -0500
-Received: from DLEE101.ent.ti.com (157.170.170.31) by DLEE100.ent.ti.com
- (157.170.170.30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Tue, 14
- May 2024 01:31:22 -0500
-Received: from DLEE101.ent.ti.com ([fe80::91ee:60bc:bfb7:851c]) by
- DLEE101.ent.ti.com ([fe80::91ee:60bc:bfb7:851c%18]) with mapi id
- 15.01.2507.023; Tue, 14 May 2024 01:31:22 -0500
-From: "Ding, Shenghao" <shenghao-ding@ti.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-CC: "broonie@kernel.org" <broonie@kernel.org>,
-        "lgirdwood@gmail.com"
-	<lgirdwood@gmail.com>,
-        "perex@perex.cz" <perex@perex.cz>,
-        "pierre-louis.bossart@linux.intel.com"
-	<pierre-louis.bossart@linux.intel.com>,
-        "13916275206@139.com"
-	<13916275206@139.com>,
-        "alsa-devel@alsa-project.org"
-	<alsa-devel@alsa-project.org>,
-        "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>,
-        "liam.r.girdwood@intel.com"
-	<liam.r.girdwood@intel.com>,
-        "bard.liao@intel.com" <bard.liao@intel.com>,
-        "yung-chuan.liao@linux.intel.com" <yung-chuan.liao@linux.intel.com>,
-        "Lu,
- Kevin" <kevin-lu@ti.com>,
-        "cameron.berkenpas@gmail.com"
-	<cameron.berkenpas@gmail.com>,
-        "tiwai@suse.de" <tiwai@suse.de>, "Xu, Baojun"
-	<baojun.xu@ti.com>,
-        "soyer@irl.hu" <soyer@irl.hu>,
-        "Baojun.Xu@fpt.com"
-	<Baojun.Xu@fpt.com>
-Subject: RE: [EXTERNAL] Re: [PATCH v5 2/3] ASoC: tas2781: Fix wrong loading
- calibrated data sequence
-Thread-Topic: [EXTERNAL] Re: [PATCH v5 2/3] ASoC: tas2781: Fix wrong loading
- calibrated data sequence
-Thread-Index: AQHapBc5leN0axZoFUGYCdnWILUBZLGVRDAAgAEC+0A=
-Date: Tue, 14 May 2024 06:31:22 +0000
-Message-ID: <d9dd889f18ec4265a50a2490d80999c2@ti.com>
-References: <20240512025040.1276-1-shenghao-ding@ti.com>
- <20240512025040.1276-2-shenghao-ding@ti.com>
- <ZkHkjhxIZ8I0s3-D@smile.fi.intel.com>
-In-Reply-To: <ZkHkjhxIZ8I0s3-D@smile.fi.intel.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.85.14.106]
-x-exclaimer-md-config: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=QyluSkyg
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1715671459; x=1747207459;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=BOZXDlQW/ALMT/v+vXYr+gzuWqxOzMY84psbe2mKH9g=;
+  b=QyluSkygm5tNLSuFFoqEOIbJAljJtfIBTYiWIZVK9ghkEv4vNTcRcvF3
+   m8x4wM/115HPSi25GickQsjJNdFMIOACOL3xVkFMc4wZ+kFARKr+LU557
+   L5lhbXvZ++azyx9TOsv9pI8xtQ0zMHKabDbtagUAhmDtiRY0Paxn+0jww
+   mMZUQGkHfCyxF7il7/6Arqb3cdG1E9oQWAPy9/Isr/zI6PTmQINtQeAli
+   Tr8ywb2KV+h4IvXUZqUmjbDbFYja5b9P8blV+66vOjIoLQgkG7q0j3Y6v
+   u7oOBfalOwt7MzfdY7H53/ToMOTQ0omEx2PW7qRh4QTt1OyNHUiGw+j7d
+   w==;
+X-CSE-ConnectionGUID: varR9yrHSSCRcLjE24+EZg==
+X-CSE-MsgGUID: I6czbREvTAOuoxYo1Dhx9w==
+X-IronPort-AV: E=McAfee;i="6600,9927,11072"; a="11488948"
+X-IronPort-AV: E=Sophos;i="6.08,159,1712646000";
+   d="scan'208";a="11488948"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 May 2024 00:24:04 -0700
+X-CSE-ConnectionGUID: TKg2A2hNQSW6FXkQNLQQpA==
+X-CSE-MsgGUID: NEldkTQUSX6In4azeNWRZg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.08,159,1712646000";
+   d="scan'208";a="30638103"
+Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.94.32.104])
+ ([10.94.32.104])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 May 2024 00:23:58 -0700
+Message-ID: <9a34ea33-1294-4356-b9c4-295709a86cd2@linux.intel.com>
+Date: Tue, 14 May 2024 09:23:56 +0200
 MIME-Version: 1.0
-Message-ID-Hash: 4RINTS74PK7LOTNTKJEJ3ECU7WDM6SZG
-X-Message-ID-Hash: 4RINTS74PK7LOTNTKJEJ3ECU7WDM6SZG
-X-MailFrom: shenghao-ding@ti.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/6] ASoC: topology: Constify an argument of
+ snd_soc_tplg_component_load()
+Content-Language: en-US
+To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>, lgirdwood@gmail.com,
+ broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ cezary.rojewski@intel.com, pierre-louis.bossart@linux.intel.com,
+ peter.ujfalusi@linux.intel.com, yung-chuan.liao@linux.intel.com,
+ ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
+ srinivas.kandagatla@linaro.org, bgoswami@quicinc.com, daniel.baluta@nxp.com
+Cc: linux-sound@vger.kernel.org, alsa-devel@alsa-project.org,
+ sound-open-firmware@alsa-project.org, linux-kernel@vger.kernel.org,
+ kernel-janitors@vger.kernel.org
+References: 
+ <f2f983e791d7f941a95556bb147f426a345d84d4.1715526069.git.christophe.jaillet@wanadoo.fr>
+From: =?UTF-8?Q?Amadeusz_S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+In-Reply-To: 
+ <f2f983e791d7f941a95556bb147f426a345d84d4.1715526069.git.christophe.jaillet@wanadoo.fr>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: 4YEWCHKCGBRNQLMEUDJTLTTEM4QQSBYP
+X-Message-ID-Hash: 4YEWCHKCGBRNQLMEUDJTLTTEM4QQSBYP
+X-MailFrom: amadeuszx.slawinski@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -124,7 +110,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4RINTS74PK7LOTNTKJEJ3ECU7WDM6SZG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4YEWCHKCGBRNQLMEUDJTLTTEM4QQSBYP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -133,29 +119,54 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-SGkgQW5keQ0KVGhhbmtzIGZvciB5b3VyIGNvbW1lbnQuDQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNz
-YWdlLS0tLS0NCj4gRnJvbTogQW5keSBTaGV2Y2hlbmtvIDxhbmRyaXkuc2hldmNoZW5rb0BsaW51
-eC5pbnRlbC5jb20+DQo+IFNlbnQ6IE1vbmRheSwgTWF5IDEzLCAyMDI0IDY6MDAgUE0NCj4gVG86
-IERpbmcsIFNoZW5naGFvIDxzaGVuZ2hhby1kaW5nQHRpLmNvbT4NCj4gQ2M6IGJyb29uaWVAa2Vy
-bmVsLm9yZzsgbGdpcmR3b29kQGdtYWlsLmNvbTsgcGVyZXhAcGVyZXguY3o7IHBpZXJyZS0NCj4g
-bG91aXMuYm9zc2FydEBsaW51eC5pbnRlbC5jb207IDEzOTE2Mjc1MjA2QDEzOS5jb207IGFsc2Et
-ZGV2ZWxAYWxzYS0NCj4gcHJvamVjdC5vcmc7IGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc7
-IGxpYW0uci5naXJkd29vZEBpbnRlbC5jb207DQo+IGJhcmQubGlhb0BpbnRlbC5jb207IHl1bmct
-Y2h1YW4ubGlhb0BsaW51eC5pbnRlbC5jb207IEx1LCBLZXZpbiA8a2V2aW4tDQo+IGx1QHRpLmNv
-bT47IGNhbWVyb24uYmVya2VucGFzQGdtYWlsLmNvbTsgdGl3YWlAc3VzZS5kZTsgWHUsIEJhb2p1
-bg0KPiA8YmFvanVuLnh1QHRpLmNvbT47IHNveWVyQGlybC5odTsgQmFvanVuLlh1QGZwdC5jb20N
-Cj4gU3ViamVjdDogW0VYVEVSTkFMXSBSZTogW1BBVENIIHY1IDIvM10gQVNvQzogdGFzMjc4MTog
-Rml4IHdyb25nIGxvYWRpbmcNCj4gY2FsaWJyYXRlZCBkYXRhIHNlcXVlbmNlDQo+IA0KPiBPbiBT
-dW4sIE1heSAxMiwgMjAyNCBhdCAxMDo1MDozOEFNICswODAwLCBTaGVuZ2hhbyBEaW5nIHdyb3Rl
-Og0KPiA+IENhbGlicmF0ZWQgZGF0YSB3aWxsIGJlIHNldCB0byBkZWZhdWx0IGFmdGVyIGxvYWRp
-bmcgRFNQIGNvbmZpZw0KPiA+IHBhcmFtcywgd2hpY2ggd2lsbCBjYXVzZSBzcGVha2VyIHByb3Rl
-Y3Rpb24gd29yayBhYm5vcm1hbGx5LiBSZWxvYWQNCj4gPiBjYWxpYnJhdGVkIGRhdGEgYWZ0ZXIg
-bG9hZGluZyBEU1AgY29uZmlnIHBhcmFtcy4NCj4gDQo+IC4uLg0KPiANCj4gPiAtaW50IHRhc2Rl
-dmljZV9wcm1nX2NhbGliZGF0YV9sb2FkKHZvaWQgKmNvbnRleHQsIGludCBwcm1fbm8pDQo+IA0K
-PiA+IC1FWFBPUlRfU1lNQk9MX05TX0dQTCh0YXNkZXZpY2VfcHJtZ19jYWxpYmRhdGFfbG9hZCwN
-Cj4gPiAtCVNORF9TT0NfVEFTMjc4MV9GTVdMSUIpOw0KPiANCj4gQUZBSUNTIHRoZSBpMmMgZ2x1
-ZSBkcml2ZXIgc3RpbGwgdXNlcyB0aGlzLCBob3cgY2FuJ3QgdGhpcyBicmVhayB0aGUgYnVpbGQ/
-DQpbUEFUQ0ggdjUgMy8zXSBoYXMgcmVtb3ZlZCB0YXNkZXZpY2VfcHJtZ19jYWxpYmRhdGFfbG9h
-ZCwgYW5kIA0KdGFzZGV2aWNlX3BybWdfbG9hZCh0YXNfcHJpdiwgMCkgaGFzIGJlZW4gY2FsbGVk
-IGluc3RlYWQgb2YgDQp0YXNkZXZpY2VfcHJtZ19jYWxpYmRhdGFfbG9hZA0KPiANCj4gLS0NCj4g
-V2l0aCBCZXN0IFJlZ2FyZHMsDQo+IEFuZHkgU2hldmNoZW5rbw0KPiANCg0K
+On 5/13/2024 7:37 PM, Christophe JAILLET wrote:
+> snd_soc_tplg_component_load() does not modify its "*ops" argument. It
+> only read some values and stores it in "soc_tplg.ops".
+> 
+> This argument and the ops field in "struct soc_tplg" can be made const.
+> 
+> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+> ---
+>   include/sound/soc-topology.h | 2 +-
+>   sound/soc/soc-topology.c     | 4 ++--
+>   2 files changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/include/sound/soc-topology.h b/include/sound/soc-topology.h
+> index f055c6917f6c..1eedd203ac29 100644
+> --- a/include/sound/soc-topology.h
+> +++ b/include/sound/soc-topology.h
+> @@ -178,7 +178,7 @@ static inline const void *snd_soc_tplg_get_data(struct snd_soc_tplg_hdr *hdr)
+>   
+>   /* Dynamic Object loading and removal for component drivers */
+>   int snd_soc_tplg_component_load(struct snd_soc_component *comp,
+> -	struct snd_soc_tplg_ops *ops, const struct firmware *fw);
+> +	const struct snd_soc_tplg_ops *ops, const struct firmware *fw);
+>   int snd_soc_tplg_component_remove(struct snd_soc_component *comp);
+>   
+>   /* Binds event handlers to dynamic widgets */
+> diff --git a/sound/soc/soc-topology.c b/sound/soc/soc-topology.c
+> index 90ca37e008b3..b00ec01361c2 100644
+> --- a/sound/soc/soc-topology.c
+> +++ b/sound/soc/soc-topology.c
+> @@ -73,7 +73,7 @@ struct soc_tplg {
+>   	int bytes_ext_ops_count;
+>   
+>   	/* optional fw loading callbacks to component drivers */
+> -	struct snd_soc_tplg_ops *ops;
+> +	const struct snd_soc_tplg_ops *ops;
+>   };
+>   
+>   /* check we dont overflow the data for this control chunk */
+> @@ -2334,7 +2334,7 @@ static int soc_tplg_load(struct soc_tplg *tplg)
+>   
+>   /* load audio component topology from "firmware" file */
+>   int snd_soc_tplg_component_load(struct snd_soc_component *comp,
+> -	struct snd_soc_tplg_ops *ops, const struct firmware *fw)
+> +	const struct snd_soc_tplg_ops *ops, const struct firmware *fw)
+>   {
+>   	struct soc_tplg tplg;
+>   	int ret;
+
+Yes, makes sense to me.
+
+Reviewed-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>

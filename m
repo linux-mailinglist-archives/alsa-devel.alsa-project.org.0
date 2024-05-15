@@ -2,53 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0025F8C69DA
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 May 2024 17:36:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 143548C6B7D
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 May 2024 19:32:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4D313200;
-	Wed, 15 May 2024 17:36:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D313200
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6498483E;
+	Wed, 15 May 2024 19:31:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6498483E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1715787390;
-	bh=0ghQ3Cd5T54otV0JdwUgEfJOlpQqre/iBbnvvUC15OY=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=avnfyZS3+cpeT22NXefokbdaV1Jz/IKOLqf0f/rF5eA8xB3btWc+ZA61K2KFFToaW
-	 Sd+H6XIuManxwK+R7LfS4szVGAb+OswJc9b0M5yRfoRRyPUoUnRkQ9GcxiMdl78d6C
-	 Ey6O9t5rBMzWOawFsuxN4XNundHAPq+vcfvuaCT8=
+	s=default; t=1715794319;
+	bh=UN45XrcplBiWIwHLzWwPDlPwnn1T/rCPSLHiiDtQLpQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=k5k4Sel24gJec5Dqn4egNAi6cB3jzcTETU3uH1ccocEhfD2p4oBoqfZLcJIx+vn0i
+	 UDOCrSAaatXBZGOhD+P/wCY8Hmx7/BnIhO6AS9MY8AiLTUdwVWAS6ds+0DL0P2y3Qq
+	 EIzhNyjAuWR5LNRqpaXV3KhzfFR/ZL7eY0y56Xdw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AEA2EF804FB; Wed, 15 May 2024 17:35:58 +0200 (CEST)
+	id 58299F805AC; Wed, 15 May 2024 19:31:27 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 06F91F8025F;
-	Wed, 15 May 2024 17:35:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C55D9F8059F;
+	Wed, 15 May 2024 19:31:26 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A721CF80224; Wed, 15 May 2024 17:35:54 +0200 (CEST)
+	id E0438F80224; Wed, 15 May 2024 19:31:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
- [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id EE35BF800F5
-	for <alsa-devel@alsa-project.org>; Wed, 15 May 2024 17:35:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE35BF800F5
+X-Spam-Status: No, score=-3.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4F9F9F800E2
+	for <alsa-devel@alsa-project.org>; Wed, 15 May 2024 19:31:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F9F9F800E2
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=pfJOufAp
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id 0798160A77;
+	Wed, 15 May 2024 17:31:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECC77C116B1;
+	Wed, 15 May 2024 17:31:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1715794266;
+	bh=UN45XrcplBiWIwHLzWwPDlPwnn1T/rCPSLHiiDtQLpQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=pfJOufApdasnXCKoXlRIZfpVpNIduLNcO4l4CsOVR8Oj/U8FkU1oZb41CHLYOEnr/
+	 0TWxTSFSUNyBXUTWCPSBgmvfGGHYZEovrs+iM5YQCyXPuAFp6Odd172nQgSjgBRstS
+	 jPaahhwug/vbKHTrsXmAJYERR7fcGFNZr/+xI6be7UJZJAhEBR8JSxDwBlaMaYsM5s
+	 m7767lqDkJm03q7Ti7cgLIaLx3Yu74W2uSpgFfnt5ulY8IBtwX/hLdP5RrLCcUkZPj
+	 1gCcUp97HOn3x4l/Q/VJ79fesygdT8k/r4R0bvT7LrS9wW7X0qjVGSVxag2iyJ/moG
+	 nIEtVb5via//Q==
+From: Mark Brown <broonie@kernel.org>
+To: alsa-devel@alsa-project.org, Zhang Yi <zhangyi@everest-semi.com>
+Cc: tiwai@suse.com, amadeuszx.slawinski@linux.intel.com,
+ yangxiaohua@everest-semi.com, zhuning@everest-semi.com
+In-Reply-To: <20240515062517.23661-1-zhangyi@everest-semi.com>
+References: <20240515062517.23661-1-zhangyi@everest-semi.com>
+Subject: Re: [PATCH] ASoC: codecs: ES8326: solve hp and button detect issue
+Message-Id: <171579426467.205011.15007558060787175576.b4-ty@kernel.org>
+Date: Wed, 15 May 2024 18:31:04 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-From: GitHub issues - edited <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1715787347486447811-webhooks-bot@alsa-project.org>
-References: <1715787347486447811-webhooks-bot@alsa-project.org>
-Subject: Ucm2 device sorting / ordering
-Message-Id: <20240515153554.A721CF80224@alsa1.perex.cz>
-Date: Wed, 15 May 2024 17:35:54 +0200 (CEST)
-Message-ID-Hash: NEP43PVAC6IH2T6LHMTI67MZ2IPNEZSW
-X-Message-ID-Hash: NEP43PVAC6IH2T6LHMTI67MZ2IPNEZSW
-X-MailFrom: github@alsa-project.org
+X-Mailer: b4 0.14-dev
+Message-ID-Hash: PGZ4ZEUH5Z3EU7JBZT7DNUHC5VCVKVHU
+X-Message-ID-Hash: PGZ4ZEUH5Z3EU7JBZT7DNUHC5VCVKVHU
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -60,7 +86,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NEP43PVAC6IH2T6LHMTI67MZ2IPNEZSW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PGZ4ZEUH5Z3EU7JBZT7DNUHC5VCVKVHU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -69,30 +95,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-lib issue #397 was edited from beatboxa:
+On Wed, 15 May 2024 14:25:17 +0800, Zhang Yi wrote:
+> We got an error report about headphone type detection and button detection.
+> We fixed the headphone type detection error by adjusting the condition
+> of setting es8326->hp to 0.And we fixed the button detection error by
+> adjusting micbias and vref.
+> 
+> 
 
-The sort order that devices are probed and ultimately listed in my OS sound settings is reversed--though consistent--from the order that they appear (top to bottom) in the UCM configuration files.  And they also do not appear consistent with configured device priority.
+Applied to
 
-In other words, if the UCM configuration file hypothetically lists the following, from top to bottom:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-1. Device 1 - priority 300
-2. Device 2 - priority 100
-3. Device 3 - priority 200
+Thanks!
 
-These devices will be probed and listed in the OS in the following order:
+[1/1] ASoC: codecs: ES8326: solve hp and button detect issue
+      commit: 714f5df027b085c19c32af6f08a959bf35b9fb7c
 
-1. Device 3
-2. Device 2
-3. Device 1
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-I am currently creating a UCM config file for a device with 32 discreet output channels and 30 discreet input channels (and both stereo and mono device versions of many of these), so the sort order is crucial for user experience in a list this long.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-I originally tried to reorder and rename the devices in the ucm configuration file to make it easier to follow and list correctly in my OS, but then I ran afoul of the alsa-lib rules for naming and ordering.
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-Related:
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-- https://github.com/alsa-project/alsa-ucm-conf/pull/416#issuecomment-2111101525
-- https://github.com/alsa-project/alsa-lib/issues/245#issuecomment-1168910073
+Thanks,
+Mark
 
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/397
-Repository URL: https://github.com/alsa-project/alsa-lib

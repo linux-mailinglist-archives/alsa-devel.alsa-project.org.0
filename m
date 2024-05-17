@@ -2,81 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC5288C9E56
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 May 2024 15:47:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 606308C9E14
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 May 2024 15:24:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0231C820;
-	Mon, 20 May 2024 15:47:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0231C820
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5949E1DA;
+	Mon, 20 May 2024 15:24:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5949E1DA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1716212854;
-	bh=tz2kY6qZxYu8TUGihVyLmMBdD0mSnRDdr1XJJV0fdqw=;
+	s=default; t=1716211454;
+	bh=C+VaKB5ZHbJZl4o5Sv1ldXPb5YUdSFosua8CAo3BsZw=;
 	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=PgtXqppwVIMG8Yi6IvQZUgF0y8iatW4xzuQRI/CJbeAx2SaDpX/dN6Ax7Rq1EX2Y3
-	 Tx+hb3T9Rugz6rUr6VKdwy8QVpguPchQ4D4CLibo8tRmQYhclGejPQRQGBUpKb3uQO
-	 xSNsbvVVzcRToyhhR8SwhTXhEh5H7sy6Mn/OYR1g=
+	b=MlIj7uJ70EdqN2dp6dvAp3whPEa9prILV0YXsb2fgOdHa7+v7f9rBhQcZJF7teWJv
+	 n5/uEsNa7Q69l8Zfg7SlkPWSAaiXqSzS1v0fBEq/z3B4waqu11s6ASYU5fQHgoY/Bq
+	 8Fhw5ngn59FwvFtLUZng0hFtIFy+mpWFifNN/gYY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BEBF9F80634; Mon, 20 May 2024 15:46:25 +0200 (CEST)
+	id DC43AF805E0; Mon, 20 May 2024 15:23:42 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8729EF80630;
-	Mon, 20 May 2024 15:46:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4D0CAF805DA;
+	Mon, 20 May 2024 15:23:42 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4BE0AF800BA; Mon, 20 May 2024 14:56:28 +0200 (CEST)
+	id 5603BF805C1; Mon, 20 May 2024 15:16:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 75DC7F800BA
-	for <alsa-devel@alsa-project.org>; Mon, 20 May 2024 14:56:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 75DC7F800BA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 02209F80578
+	for <alsa-devel@alsa-project.org>; Mon, 20 May 2024 15:16:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02209F80578
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=hQy4PIpg
+ header.s=k20201202 header.b=BzQ7DoyP
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 065AF619C0;
-	Fri, 17 May 2024 11:17:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29952C2BD10;
-	Fri, 17 May 2024 11:17:23 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 1D7DD61D23;
+	Fri, 17 May 2024 15:10:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B40C5C2BD10;
+	Fri, 17 May 2024 15:10:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1715944647;
-	bh=tz2kY6qZxYu8TUGihVyLmMBdD0mSnRDdr1XJJV0fdqw=;
+	s=k20201202; t=1715958647;
+	bh=C+VaKB5ZHbJZl4o5Sv1ldXPb5YUdSFosua8CAo3BsZw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=hQy4PIpgYaKxXAHLGvLX+gUDvsDu0a15TR2Y2mPX//3bbTmVe/LF42kVNmBCWnrIF
-	 fXggLSUVDlRgG8/nB5tFhPY4GpcIiGYQBQRpMMPvtbclDKqH3Qnab61xQFVGHq2E2B
-	 ao1JK8A6/I+vrUgOJv3Dqfry4TbETyrS/EwqZs6+lMa8i3a3TvJF66NVcnL3FOE/d7
-	 EKMK8Lf7bk4KqjpHqxIZJonIMDYbfuZMldEu32/tyybWRpV/5PTq4PLsakYSgjOjj/
-	 szCeeggBtdpenLeZv1HQ0li+bHqGpiJhMedlDwAJ0RCCwi8ibZnRe2zj8+qUn3xZUy
-	 hTr7GqHUkMODg==
-Date: Fri, 17 May 2024 12:17:20 +0100
+	b=BzQ7DoyPmvRaKuzC8/U9zOxkwozvtR4PQqdOvQuPmzncSRKlPkHpoepMbBa/cOuR9
+	 4283tHi1m7Rfh7PQRA4iGAhQUMZvxystgbeTsBkEQd7I3uTmMhG7755C5gu96IVT8R
+	 7s55+t2KehaVrMASMOJOkCHYlFdHKXIVyB4A65LocivAhXMfhUOdXFmbr5QG7GcPdl
+	 DwjjUrSLklu7L51Q+JXbis0MkPy4vBTSrycNp9aIkg/zfWMVucGdVirYgRyKe+KI2L
+	 gFF3Cg3eKDKO55qpnkAqMqTMOZ/55JAoImRrJJ3tSEYaH+7608/9RkIcmrzc2A7DRY
+	 /jqtp6IVFGQ5w==
+Date: Fri, 17 May 2024 16:10:42 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Elinor Montmasson <elinor.montmasson@savoirfairelinux.com>
-Subject: Re: [PATCHv4 7/9] ASoC: fsl-asoc-card: add DT clock "cpu_sysclk"
- with generic codec
-Message-ID: <da74d276-b028-448b-bb28-295de49dbcda@sirena.org.uk>
-References: <20240515135411.343333-1-elinor.montmasson@savoirfairelinux.com>
- <20240515135411.343333-8-elinor.montmasson@savoirfairelinux.com>
- <ffb3624f-2170-4642-aaa5-fb6736a75d59@sirena.org.uk>
- <822567441.349330.1715936735603.JavaMail.zimbra@savoirfairelinux.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH v2] ASoC: rt1320: Add RT1320 SDCA vendor-specific driver
+Message-ID: <a1ce97df-480e-4dc9-88f1-a77c7a716f5b@sirena.org.uk>
+References: <20240517072814.330597-1-shumingf@realtek.com>
+ <e7ff0998-696c-4551-923d-7f04c7e89ba0@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ZuqvFG62+4JL9ncV"
+	protocol="application/pgp-signature"; boundary="qze8JbXR5ZfJaqhV"
 Content-Disposition: inline
-In-Reply-To: 
- <822567441.349330.1715936735603.JavaMail.zimbra@savoirfairelinux.com>
+In-Reply-To: <e7ff0998-696c-4551-923d-7f04c7e89ba0@linux.intel.com>
 X-Cookie: Function reject.
-Message-ID-Hash: TA4RXBJN27HNKTME67DV5HLA5TGH7VC2
-X-Message-ID-Hash: TA4RXBJN27HNKTME67DV5HLA5TGH7VC2
+Message-ID-Hash: 67QUJ6CCE22L63QISXYCP44G7BVCAHZG
+X-Message-ID-Hash: 67QUJ6CCE22L63QISXYCP44G7BVCAHZG
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -84,16 +79,9 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, shengjiu wang <shengjiu.wang@gmail.com>,
- Xiubo Lee <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
- Nicolin Chen <nicoleotsuka@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- linux-sound <linux-sound@vger.kernel.org>,
- devicetree <devicetree@vger.kernel.org>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- alsa-devel <alsa-devel@alsa-project.org>,
- linuxppc-dev <linuxppc-dev@lists.ozlabs.org>
+CC: shumingf@realtek.com, lgirdwood@gmail.com, alsa-devel@alsa-project.org,
+ lars@metafoo.de, flove@realtek.com, oder_chiou@realtek.com,
+ jack.yu@realtek.com, derek.fang@realtek.com
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
@@ -107,56 +95,37 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---ZuqvFG62+4JL9ncV
+--qze8JbXR5ZfJaqhV
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Fri, May 17, 2024 at 05:05:35AM -0400, Elinor Montmasson wrote:
-> From: "Mark Brown" <broonie@kernel.org>
-> > On Wed, May 15, 2024 at 03:54:09PM +0200, Elinor Montmasson wrote:
+On Fri, May 17, 2024 at 09:38:55AM -0500, Pierre-Louis Bossart wrote:
 
-> >> +		struct clk *cpu_sysclk = clk_get(&pdev->dev, "cpu_sysclk");
-> >> +		if (!IS_ERR(cpu_sysclk)) {
-> >> +			priv->cpu_priv.sysclk_freq[TX] = clk_get_rate(cpu_sysclk);
-> >> +			priv->cpu_priv.sysclk_freq[RX] = priv->cpu_priv.sysclk_freq[TX];
-> >> +			clk_put(cpu_sysclk);
-> >> +		}
+> > +static const struct reg_sequence rt1320_blind_write[] = {
+> > +	{ 0xc003, 0xe0 },
+> ...
+> > +	{ 0xd486, 0xc3 },
+> > +};
 
-> > I don't really understand the goal here - this is just reading whatever
-> > frequency happens to be set in the hardware when the driver starts up
-> > which if nothing else seems rather fragile?
+> I would add a comment that the 'blind writes' is an SDCA term to deal
+> with platform-specific initialization, but in this case it seems that
+> all the addresses targeted are in the vendor-specific space
 
-> The driver allow to set the sysclk frequency
-> of the CPU DAI through `priv->cpu_priv.sysclk_freq` when calling
-> `fsl_asoc_card_hw_params()`.
-> Currently it is hard-coded per use-case in the driver.
+TBH it seems perfectly intelligable without knowing anything about SCDA.
 
-> My reasoning was that with a generic codec/compatible, there might
-> be use-cases needing to use this parameter, so I exposed it here via DT.
-
-> Is it a bad idea to expose this parameter ? This is not a requirement for the
-> driver to work, most of the current compatibles do not use this parameter.
-> It is currently used only for `fsl,imx-audio-cs42888`.
-> In that case I can remove this commit.
-
-I'm having a hard time connecting your reply here with my comment.  This
-isn't as far as I can see allowing the frequency to be explicitly
-configured, it's just using whatever value happens to be programmed in
-the clock when the driver starts.
-
---ZuqvFG62+4JL9ncV
+--qze8JbXR5ZfJaqhV
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmZHPMAACgkQJNaLcl1U
-h9A/Mwf/e8Oa99TU5bBwUqPPv4RdS3EWv4/897XflQzPXjxfkxnMFOUUf0EBVm61
-5WnYoirwxy+DfhNF5ubdVm7WNINPuCs1X7mMZcN6aBE4Vo9yw1deDjFV8/s+QSCd
-6JpsmssN8sIOQh+w5Axkp+Qk9JuVRbVI8nFDMhD/tPRUMkUG9mjCLjP3xQoV59+d
-p9ElIEC+zSBWu9HCQW4i19eO+O53iT/9s7jkpXhFBbai02OOzw5q5LcwyL/qh0Zg
-fhOWA9PFrwg7iS7Rknp3Np5Msb09gh86McZtp2htgkkbggFl7ak0nRG+qlfyN0P/
-AKOYQ4agvMxC3FKsb/HmPv9Q+Brc5w==
-=Zf2Q
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmZHc3EACgkQJNaLcl1U
+h9Aw4wf9El+rhnMfzi2WjH2wr57vk6mzDoUtLX06rvIZT+fqDJYdz2mJBMEpsXHs
+h5JXPOGgRHHVamGn6XvOkQYTEm9ekmrg9/eBn2MF7uhQME5hx5WIGYzQnoZWGnmV
+R6dDhPQ6roaxJFM4A7IyXb7wyBNObHomLraZxCKMPBs5sl3gj5Co8/uGVO7xQAKh
+qLUXOhOBPbTilhEYJnGkaWi3W17tXk5Qe2weZ3g+4lXvVPQsAJriaYoZU/b/oPBS
+6l6QO2ekG5gia2SdWgK0reb5dvz1PDBC1Z6hbYETmCXZ0+CuF4M7ASrsEE/+SJ6D
+a2aJBPIJpracy1Vz6bJ0FKdijNgVOw==
+=osqb
 -----END PGP SIGNATURE-----
 
---ZuqvFG62+4JL9ncV--
+--qze8JbXR5ZfJaqhV--

@@ -2,101 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 694418C9D2E
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 May 2024 14:27:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41D5D8C9D32
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 May 2024 14:27:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AAE70DF8;
-	Mon, 20 May 2024 14:27:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AAE70DF8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 92452E82;
+	Mon, 20 May 2024 14:27:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 92452E82
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1716208035;
-	bh=wno3mvyB9rswkIziJtoVknpyO2BS80j9jQ7TD4R4GkA=;
+	s=default; t=1716208068;
+	bh=75cwrOYxMCwkMEJj5WQ4qiiIWRNHOkMsDaWGNf20e1s=;
 	h=References:In-Reply-To:From:Date:Subject:To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Gdloj5CJ+JGa4I6wjYgDAlOok3hOoyYe7lenVw5d5SVggBACOLEUQ2e8QbHp9D9Dq
-	 lJyd+wUcHCDj+UsyAI0kxB+amo60FzEmf/60doZ5GQiJVXgHvckEvorPhJtfq2I9+s
-	 CLcLgiWEs/wDE/pDRJoGd9AktQO+m2Cob5u3ZBhA=
+	b=YxEerVEhpBP/x8eDMWRzH4z6YVRGd9WYQJuR2zeTvOqoPZKSLENEKJnQ0dqdzCtkC
+	 d6zLEdC2qVrMCmUGQNs07iGGwwSk94eHTd33ILjBacJEsE8o3vHJgbk34RXwAJ4voS
+	 W3YZwvE+mO32nCI5WcbgEI/skbUJF4C/OpaIVXeM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 047D4F80578; Mon, 20 May 2024 14:26:43 +0200 (CEST)
+	id A981BF805F8; Mon, 20 May 2024 14:26:47 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4D3FDF805A8;
-	Mon, 20 May 2024 14:26:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F3166F805F3;
+	Mon, 20 May 2024 14:26:46 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1F88AF8026A; Fri, 17 May 2024 07:03:17 +0200 (CEST)
+	id 63B47F8042F; Fri, 17 May 2024 07:03:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-yw1-x1131.google.com (mail-yw1-x1131.google.com
- [IPv6:2607:f8b0:4864:20::1131])
+Received: from mail-vk1-xa34.google.com (mail-vk1-xa34.google.com
+ [IPv6:2607:f8b0:4864:20::a34])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BA609F80171
-	for <alsa-devel@alsa-project.org>; Fri, 17 May 2024 07:02:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BA609F80171
+	by alsa1.perex.cz (Postfix) with ESMTPS id EC6D8F80171
+	for <alsa-devel@alsa-project.org>; Fri, 17 May 2024 07:03:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC6D8F80171
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=clOx+bMy
-Received: by mail-yw1-x1131.google.com with SMTP id
- 00721157ae682-61b2218ab6fso77257967b3.1
+ header.s=20230601 header.b=If6wjk7G
+Received: by mail-vk1-xa34.google.com with SMTP id
+ 71dfb90a1353d-4df7ba13412so219589e0c.1
         for <alsa-devel@alsa-project.org>;
- Thu, 16 May 2024 22:02:48 -0700 (PDT)
+ Thu, 16 May 2024 22:03:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1715922167; x=1716526967;
+        d=gmail.com; s=20230601; t=1715922191; x=1716526991;
  darn=alsa-project.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=tsTiYRTb8kW6XgWbApXaIsMhZYCgNj+s/eoWcnY34Dg=;
-        b=clOx+bMyxT53+iZrrRJ22E7SMy+PLCyXLFlqD3mecpPn88XL2z+l7I1DX97493crBl
-         E7qvcSHSMWW5HU0glnC6VvCj0jSrFLYS81IzMYaiy3LD+5/tO+ssjiJ72omU77PuLTgK
-         uKBPlXDZycMFWqF8JEKpChdWlL8WqbFeddN2bG8bFjkfOq1XOY2czFf7q0nNZuMPdL3m
-         YUuu5f1ke+TafE3nEEHLQ2cY4pGKrXaECTmjMRk4Z3gOnacHyiQJHv7bu4NIctPgXg1m
-         biriw3XSSn+h/BZZjq6+iScL64M4fdahucWzoEJ9q6oVGRVuD9jG8m3xeYk7cmuriUMq
-         4E9g==
+        bh=olvJpcmkbApgR1MlcxrBTc0IASmmv7gHG32Arj+e5lw=;
+        b=If6wjk7GcNjMjaT+4JZX+dhOVbQK4b9rYbDr26AWsROExUMDcZNtpI1Ob2vlWb7A0w
+         2uHkv9BBY00cpvJazLX91L10ykw7VEBVKusx90IK2IK2bF3izmDqJjeguw7ALzE84bZh
+         ws5aGFUFcjlPt6a48ZDc6TWl1XkhkdvlcmjcHqCdWgPOvyEKyGKDAAzthfg/R2QE/zyh
+         YkPKpUQp+A3QjwA+yUCnoJ3treE/dKzZrMBaJpEaE0Ka0/TRP3bEesS95wVoAewMkbZ3
+         EvKdFnwL2+NwbZwEPyH12evl3GZNApbATnjC/rE+VYYHVFw7aHvwxt41n/N+oyQnlq1b
+         bx6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715922167; x=1716526967;
+        d=1e100.net; s=20230601; t=1715922191; x=1716526991;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=tsTiYRTb8kW6XgWbApXaIsMhZYCgNj+s/eoWcnY34Dg=;
-        b=uxffECJZ9u/eXBq+FcNpjXQzRbrDWNVtUGox5PSUxlkr9BeBDt+o9wsYDzvU3LThpJ
-         ciy+dENxCcZpQ6ckk+Vt04onlU37kzoIXsLRiDMJFEbblxntrNZztxC3GFOqCUtp77RM
-         C15qrxbCWxX6osM2UYiIrdQDH+QsYJ8yF2dM2wAXbyT7o5SsaLTqQNEcLR13ALPfZE74
-         bVUF5q55De9kvnphKZVtLvhCOCUyr/VX3HciQXnR61gvouABx/YBbmX8HNATQe1HpDu3
-         lzWCahbK+3V50GHdH/QFWTd0I8DJfTiNlecENzYNKPnlUnflyca0QOc5IdmhLiuaZdUI
-         2pYA==
+        bh=olvJpcmkbApgR1MlcxrBTc0IASmmv7gHG32Arj+e5lw=;
+        b=BiYhVx/9puC06SIgVOxxHyxEnV66RAcJrhC5CJVo+K0jbKxSdU1CcUIzzph+dZBc3E
+         Xft7iSn0hmmi5jtpwPMQMD7734HVq3GQuf5L0ngfpDpfR5tdd8J67HKfwwurRp9JF5j9
+         CB5Dyqd5xKXtP6wFzUd0ZFR9f349eOVm7gBStAohGga1pEVMRJJ+Ur/FsE61BezxmN5O
+         xyHuGtgSNVG+frNbJM9AwVvHRV2phe0Jh0WBkfiFGPH187q+O7hsDEQRRfXVaHgzazSZ
+         9JG6rgSvGSwnkJii7+/l+jIUQhd/9YjJWJFmZT40sfhZnTOKDNTTpr52NAdz2ktdv7qd
+         1l1w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUR+i0TUVFQFFHhY40Ap2yswHObUMXWJDC/VQRt3JNpW8oe7uYH34QoZilB9hZ127mpTwigpTFLFe0JCkBRSEqr65HwZdS07lPGeFg=
-X-Gm-Message-State: AOJu0YyqwsIEIutLmCxiYiIlKquXFMJ9TZ9Voy0nw1gr7PfjPIiw2HIM
-	BOKnaGT/q+nJ4fVzftaYhUdJ0qyb1WubhYfxTNvbk73Ps5Jqcv2MoyB3le/h+0Ixt+iOqkUmm/C
-	rNAiHzcNj7TLNzLdN3jENXL6rz1xDQ7vk
+ AJvYcCVXL85pH7Y0CyQ2UC1IkbsqR3NqfaZPZWX+JIWMne7mG8+1RNBN6xqx8T2DT8Mk10qLUnUmlpua4v2qt/Loq20/iIFI1WvkIFvHUl0=
+X-Gm-Message-State: AOJu0YzD1GogvHXwShEbGC5hbHWJFLwZwerh5KaKYtYQ9fvK08xvuddv
+	v9iassLGz2771cNe2qNdRhQUIOu/cip8A3kPJECExqOETnLZCa8jdgxOyCFib9Nd24PdSRQFPui
+	wZlLRrOG1djaDsVxgVrWxCdHdoaUdIGJa
 X-Google-Smtp-Source: 
- AGHT+IF+b1JaL/KPAWsKTgxSJQRtjK2LbT+CAip6FI2bH5Xb2N2aLbGSoEUAowS5mxecMmyacLreiJo78kD8Q5xliJA=
-X-Received: by 2002:a05:6e02:1989:b0:36a:ff03:d2c5 with SMTP id
- e9e14a558f8ab-36cc14687b1mr243253775ab.3.1715915272643; Thu, 16 May 2024
- 20:07:52 -0700 (PDT)
+ AGHT+IEVcrPXwosj+wanDZMTZek4hmMva48UDxwz+HItd9WQFOvoxwrlMN0tE2PIZK+8YVSrbJRUnpdPKtEEuMHska0=
+X-Received: by 2002:a05:6e02:158b:b0:36c:10b9:a040 with SMTP id
+ e9e14a558f8ab-36cc117a121mr197170665ab.0.1715915290323; Thu, 16 May 2024
+ 20:08:10 -0700 (PDT)
 MIME-Version: 1.0
 References: <20240507173735.3456334-1-festevam@gmail.com>
- <20240507173735.3456334-2-festevam@gmail.com>
-In-Reply-To: <20240507173735.3456334-2-festevam@gmail.com>
+ <20240507173735.3456334-3-festevam@gmail.com>
+In-Reply-To: <20240507173735.3456334-3-festevam@gmail.com>
 From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Fri, 17 May 2024 11:07:41 +0800
+Date: Fri, 17 May 2024 11:07:59 +0800
 Message-ID: 
- <CAA+D8AMyWg=F+NC5hoYXdx4XVxVcyiJRFRLH-5OzCoa3q+=+Pg@mail.gmail.com>
-Subject: Re: [PATCH 2/3] ASoC: fsl: fsl_easrc: Switch to RUNTIME_PM_OPS()
+ <CAA+D8ANa2dPo_fJ4ZOYVKWXi__D7OMkjYgiHVNdRRRoMUEdxOw@mail.gmail.com>
+Subject: Re: [PATCH 3/3] ASoC: fsl: fsl_xcvr: Switch to RUNTIME_PM_OPS()
 To: Fabio Estevam <festevam@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: EIVCXMK7IG4SY33HDXMSOCSERFHR5CRP
-X-Message-ID-Hash: EIVCXMK7IG4SY33HDXMSOCSERFHR5CRP
+Message-ID-Hash: S54IXKDIPHLNWJUUVH4J3IPKBUBETREW
+X-Message-ID-Hash: S54IXKDIPHLNWJUUVH4J3IPKBUBETREW
 X-MailFrom: shengjiu.wang@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -141,56 +141,55 @@ Best regards
 Shengjiu Wang
 
 > ---
->  sound/soc/fsl/fsl_easrc.c | 10 ++++------
+>  sound/soc/fsl/fsl_xcvr.c | 10 ++++------
 >  1 file changed, 4 insertions(+), 6 deletions(-)
 >
-> diff --git a/sound/soc/fsl/fsl_easrc.c b/sound/soc/fsl/fsl_easrc.c
-> index ec53bda46a46..962f30912091 100644
-> --- a/sound/soc/fsl/fsl_easrc.c
-> +++ b/sound/soc/fsl/fsl_easrc.c
-> @@ -1988,7 +1988,7 @@ static void fsl_easrc_remove(struct platform_device=
- *pdev)
+> diff --git a/sound/soc/fsl/fsl_xcvr.c b/sound/soc/fsl/fsl_xcvr.c
+> index c46f64557a7f..5472ace23d82 100644
+> --- a/sound/soc/fsl/fsl_xcvr.c
+> +++ b/sound/soc/fsl/fsl_xcvr.c
+> @@ -1364,7 +1364,7 @@ static void fsl_xcvr_remove(struct platform_device =
+*pdev)
 >         pm_runtime_disable(&pdev->dev);
 >  }
 >
-> -static __maybe_unused int fsl_easrc_runtime_suspend(struct device *dev)
-> +static int fsl_easrc_runtime_suspend(struct device *dev)
+> -static __maybe_unused int fsl_xcvr_runtime_suspend(struct device *dev)
+> +static int fsl_xcvr_runtime_suspend(struct device *dev)
 >  {
->         struct fsl_asrc *easrc =3D dev_get_drvdata(dev);
->         struct fsl_easrc_priv *easrc_priv =3D easrc->private;
-> @@ -2005,7 +2005,7 @@ static __maybe_unused int fsl_easrc_runtime_suspend=
-(struct device *dev)
+>         struct fsl_xcvr *xcvr =3D dev_get_drvdata(dev);
+>         int ret;
+> @@ -1398,7 +1398,7 @@ static __maybe_unused int fsl_xcvr_runtime_suspend(=
+struct device *dev)
 >         return 0;
 >  }
 >
-> -static __maybe_unused int fsl_easrc_runtime_resume(struct device *dev)
-> +static int fsl_easrc_runtime_resume(struct device *dev)
+> -static __maybe_unused int fsl_xcvr_runtime_resume(struct device *dev)
+> +static int fsl_xcvr_runtime_resume(struct device *dev)
 >  {
->         struct fsl_asrc *easrc =3D dev_get_drvdata(dev);
->         struct fsl_easrc_priv *easrc_priv =3D easrc->private;
-> @@ -2086,9 +2086,7 @@ static __maybe_unused int fsl_easrc_runtime_resume(=
-struct device *dev)
+>         struct fsl_xcvr *xcvr =3D dev_get_drvdata(dev);
+>         int ret;
+> @@ -1483,9 +1483,7 @@ static __maybe_unused int fsl_xcvr_runtime_resume(s=
+truct device *dev)
 >  }
 >
->  static const struct dev_pm_ops fsl_easrc_pm_ops =3D {
-> -       SET_RUNTIME_PM_OPS(fsl_easrc_runtime_suspend,
-> -                          fsl_easrc_runtime_resume,
+>  static const struct dev_pm_ops fsl_xcvr_pm_ops =3D {
+> -       SET_RUNTIME_PM_OPS(fsl_xcvr_runtime_suspend,
+> -                          fsl_xcvr_runtime_resume,
 > -                          NULL)
-> +       RUNTIME_PM_OPS(fsl_easrc_runtime_suspend, fsl_easrc_runtime_resum=
-e, NULL)
+> +       RUNTIME_PM_OPS(fsl_xcvr_runtime_suspend, fsl_xcvr_runtime_resume,=
+ NULL)
 >         SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
 >                                 pm_runtime_force_resume)
 >  };
-> @@ -2098,7 +2096,7 @@ static struct platform_driver fsl_easrc_driver =3D =
-{
->         .remove_new =3D fsl_easrc_remove,
+> @@ -1494,7 +1492,7 @@ static struct platform_driver fsl_xcvr_driver =3D {
+>         .probe =3D fsl_xcvr_probe,
 >         .driver =3D {
->                 .name =3D "fsl-easrc",
-> -               .pm =3D &fsl_easrc_pm_ops,
-> +               .pm =3D pm_ptr(&fsl_easrc_pm_ops),
->                 .of_match_table =3D fsl_easrc_dt_ids,
+>                 .name =3D "fsl,imx8mp-audio-xcvr",
+> -               .pm =3D &fsl_xcvr_pm_ops,
+> +               .pm =3D pm_ptr(&fsl_xcvr_pm_ops),
+>                 .of_match_table =3D fsl_xcvr_dt_ids,
 >         },
->  };
+>         .remove_new =3D fsl_xcvr_remove,
 > --
 > 2.34.1
 >

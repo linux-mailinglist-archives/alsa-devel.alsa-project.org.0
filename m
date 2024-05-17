@@ -2,98 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F34218C9E57
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 May 2024 15:47:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A79A8C9E55
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 May 2024 15:47:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E4E91823;
-	Mon, 20 May 2024 15:47:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4E91823
+	by alsa0.perex.cz (Postfix) with ESMTPS id CD155DEE;
+	Mon, 20 May 2024 15:46:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD155DEE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1716212868;
-	bh=qaI1HGeZwQBBafuZfT3T7gHh0pYBlXpnWAg7pywFKjM=;
+	s=default; t=1716212828;
+	bh=TlQMwSG+/gBY7QDcpZ58FdFlwzxX6d2C5yctN9arRp4=;
 	h=Date:From:To:In-Reply-To:References:Subject:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=rQ0sOa9H9PkCwnA6AOWLB/lTvqUSR0ZfvhLH2gMFEwh5XgOqu2SCxPlf0cIZ3dcJX
-	 b2WVWxnqt0Chal70rzMhu6lhoPW2pVjj2nxw7FeTSoTshlP1RJRR3QOR498+xQjK6i
-	 P07Z6rJWZNwzXtvOHLO39wCHK+CSbQMK2iW3lc1w=
+	b=hqZm+XnHB/cbX0Eo77U2Mu/0s7n5NA7cZB0Ky+YkYACnEEiYeVvYXgBfycjuEJRem
+	 c0GE1wRgZ7k2wohnQyFk81efUzkYTRjJFuc+1dtJGlyAVG3hLO3Jfb2xv0swH/1sp6
+	 IIePx5OqL8JC+iSFAwhvKca+65K+ET9uonOKRoAc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7D611F8067A; Mon, 20 May 2024 15:46:28 +0200 (CEST)
+	id B71AEF805EA; Mon, 20 May 2024 15:46:24 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BFD0BF8067A;
-	Mon, 20 May 2024 15:46:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 35C17F80615;
+	Mon, 20 May 2024 15:46:24 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F1C1DF805BD; Mon, 20 May 2024 15:01:34 +0200 (CEST)
+	id 2B5D5F805BE; Mon, 20 May 2024 15:01:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
 Received: from mail.savoirfairelinux.com (mail.savoirfairelinux.com
  [208.88.110.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3901FF8028B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 39779F80588
 	for <alsa-devel@alsa-project.org>; Mon, 20 May 2024 15:01:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3901FF8028B
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 39779F80588
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=savoirfairelinux.com header.i=@savoirfairelinux.com
  header.a=rsa-sha256 header.s=DFC430D2-D198-11EC-948E-34200CB392D2
- header.b=QNEjG5K0
+ header.b=oG1T2vdH
 Received: from localhost (localhost [127.0.0.1])
-	by mail.savoirfairelinux.com (Postfix) with ESMTP id 68ACA9C57A6;
-	Fri, 17 May 2024 05:05:39 -0400 (EDT)
+	by mail.savoirfairelinux.com (Postfix) with ESMTP id 8B8DB9C58EA;
+	Fri, 17 May 2024 05:05:42 -0400 (EDT)
 Received: from mail.savoirfairelinux.com ([127.0.0.1])
  by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10032)
- with ESMTP id j0EVtTFCV_in; Fri, 17 May 2024 05:05:38 -0400 (EDT)
+ with ESMTP id ycSku0e4je0q; Fri, 17 May 2024 05:05:41 -0400 (EDT)
 Received: from localhost (localhost [127.0.0.1])
-	by mail.savoirfairelinux.com (Postfix) with ESMTP id A809E9C5864;
-	Fri, 17 May 2024 05:05:38 -0400 (EDT)
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.savoirfairelinux.com A809E9C5864
+	by mail.savoirfairelinux.com (Postfix) with ESMTP id E1D8D9C591F;
+	Fri, 17 May 2024 05:05:41 -0400 (EDT)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.savoirfairelinux.com E1D8D9C591F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=savoirfairelinux.com; s=DFC430D2-D198-11EC-948E-34200CB392D2;
-	t=1715936738; bh=8SLwMepymaYZWEVQR9qjp1ldhDA0f4QIis7dKy4nHYQ=;
+	t=1715936741; bh=cx6CQV5YfxghVjmPjejucL2olCe90bCSbFqa4g71+0M=;
 	h=Date:From:To:Message-ID:MIME-Version;
-	b=QNEjG5K0CVnFA9ZM/PRvc2Zh6zP52Jks46QB+HzouGEwR8al3i5mGFG0E5hvkLxtW
-	 jfJ0SmCrlxlkZjINYMKaDg0MzSgXZF+dWcIR+U5mF1YLwKUQqxSR/rNglVfpOYRRHe
-	 Q8j7N0STKjp3oer40wADQ2Z3ri5pzW/8IgB9iMEWVcZtBZvRiCaSlT5SxwyLb18z3l
-	 jb4pS4ZMdyOkK+SG2G5CSZn3dOpF0dtrQ4GGm5L2T2yGSMa1QovS+6jG5alPggxGy1
-	 bRttWhmsfaminOQaDm/e93JkQ62jvrh3sCo/c3AU/rSd1IcYreNd6bkHhTYfERy/ds
-	 epm+dfcegME8w==
+	b=oG1T2vdHJ7olkf/IEQ4rw1h56wPiTy9nafFlLPsGCZwsqEJt/hBQwoXKYfPbmqn2h
+	 qZu2NlE4sQ8A4gbFeK5DUxGaN4+8TNLmbIKDfM5+i/QQN7IS+ya2Uh+JmKsmsSkqf5
+	 MBGTtuIp7xLTlE+3yW/sFKWA4LY7drC0AoeY8TdAT7jSKPSGqa4jIqgy8pHLsrqkyh
+	 yAcrOiTjeSJLLtXbpZhHcSON6ooFo3JQVIidV1+HLSXl00uXRf6t6r0H3XspC0vWKO
+	 wEcQ2mrCYmQ0xuC6DEzFord8S+Lfc/I7cQ++SWegOi5kEYBQ0bQ2PDnlLdkJZIuoH9
+	 7VWRve/a3Uxng==
 X-Virus-Scanned: amavis at mail.savoirfairelinux.com
 Received: from mail.savoirfairelinux.com ([127.0.0.1])
  by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10026)
- with ESMTP id ydHCeB7dNc_i; Fri, 17 May 2024 05:05:38 -0400 (EDT)
+ with ESMTP id UkPCSXxrdA7W; Fri, 17 May 2024 05:05:41 -0400 (EDT)
 Received: from mail.savoirfairelinux.com (mail.savoirfairelinux.com
  [192.168.48.237])
-	by mail.savoirfairelinux.com (Postfix) with ESMTP id 7254F9C57A6;
-	Fri, 17 May 2024 05:05:38 -0400 (EDT)
-Date: Fri, 17 May 2024 05:05:38 -0400 (EDT)
+	by mail.savoirfairelinux.com (Postfix) with ESMTP id ABB829C58EA;
+	Fri, 17 May 2024 05:05:41 -0400 (EDT)
+Date: Fri, 17 May 2024 05:05:41 -0400 (EDT)
 From: Elinor Montmasson <elinor.montmasson@savoirfairelinux.com>
 To: Mark Brown <broonie@kernel.org>
 Message-ID: 
- <1607626951.349332.1715936738428.JavaMail.zimbra@savoirfairelinux.com>
-In-Reply-To: <20d8eb96-6346-4341-95ee-74729001c01a@sirena.org.uk>
+ <599489232.349333.1715936741672.JavaMail.zimbra@savoirfairelinux.com>
+In-Reply-To: <ce9a87c6-4a5c-4f0a-a8df-1fdce8c1f5df@sirena.org.uk>
 References: <20240515135411.343333-1-elinor.montmasson@savoirfairelinux.com>
- <20240515135411.343333-9-elinor.montmasson@savoirfairelinux.com>
- <20d8eb96-6346-4341-95ee-74729001c01a@sirena.org.uk>
-Subject: Re: [PATCHv4 8/9] ASoC: fsl-asoc-card: add DT property
- "cpu-system-clock-direction-out"
+ <20240515135411.343333-10-elinor.montmasson@savoirfairelinux.com>
+ <ce9a87c6-4a5c-4f0a-a8df-1fdce8c1f5df@sirena.org.uk>
+Subject: Re: [PATCHv4 9/9] ASoC: dt-bindings: fsl-asoc-card: add compatible
+ for generic codec
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
 X-Mailer: Zimbra 8.8.15_GA_4581 (ZimbraWebClient - GC112
  (Linux)/8.8.15_GA_4581)
-Thread-Topic: ASoC: fsl-asoc-card: add DT property
- "cpu-system-clock-direction-out"
-Thread-Index: GFI3lOelC49AXb+0LrXDbBRGlEMPdA==
-Message-ID-Hash: RFBMNPEFJQGT4BPKCYT473SUXVNT72TV
-X-Message-ID-Hash: RFBMNPEFJQGT4BPKCYT473SUXVNT72TV
+Thread-Topic: ASoC: dt-bindings: fsl-asoc-card: add compatible for generic
+ codec
+Thread-Index: 5nXwooIVrjUMUfEG3TeQl8yJKNJb9Q==
+Message-ID-Hash: 2FVCOU6SHPDHPYS7AF4THGNEB7R67IFZ
+X-Message-ID-Hash: 2FVCOU6SHPDHPYS7AF4THGNEB7R67IFZ
 X-MailFrom: elinor.montmasson@savoirfairelinux.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -124,34 +125,34 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: "Mark Brown" <broonie@kernel.org>
-Sent: Thursday, 16 May, 2024 14:18:00
-> On Wed, May 15, 2024 at 03:54:10PM +0200, Elinor Montmasson wrote:
->> Add new optional DT property "cpu-system-clock-direction-out" to set
->> sysclk direction as "out" for the CPU DAI when using the generic codec.
->> It is set for both Tx and Rx.
->> If not set, the direction is "in".
->> The way the direction value is used is up to the CPU DAI driver
->> implementation.
+Sent: Thursday, 16 May, 2024 14:11:11
+> On Wed, May 15, 2024 at 03:54:11PM +0200, Elinor Montmasson wrote:
 > 
-> This feels like we should be using the clock bindings to specify the
-> clock input of whatever is using the output from the SoC, though that's
-> a lot more work.
+>> Add documentation about new dts bindings following new support
+>> for compatible "fsl,imx-audio-generic".
+> 
+>>    audio-codec:
+>> -    $ref: /schemas/types.yaml#/definitions/phandle
+>> -    description: The phandle of an audio codec
+>> +    $ref: /schemas/types.yaml#/definitions/phandle-array
+>> +    description: |
+>> +      The phandle of an audio codec.
+>> +      If using the "fsl,imx-audio-generic" compatible, give instead a pair of
+>> +      phandles with the spdif_transmitter first (driver SPDIF DIT) and the
+>> +      spdif_receiver second (driver SPDIF DIR).
+>> +    items:
+>> +      maxItems: 1
+> 
+> This description (and the code) don't feel like they're actually generic
+> - they're clearly specific to the bidrectional S/PDIF case.  I'd expect
+> something called -generic to cope with single CODECs as well as double,
+> and not to have any constraints on what those are.
 
-Similarly to patch 7/9, I exposed this parameter because the driver has it, and
-because there might be CPU DAIs needing this parameter.
-Otherwise the cpu sysclk direction will always be IN as a default.
-This parameter could be needed for cases with CPU DAIs, such as an SAI,
-which can provide or consume Tx/Rx clocks.
-For these devices I know the sysclk direction should correspond to
-what was set in the dai format.
-
-This new compatible is intended to be used when there is no codec
-device/driver. There is technically no codec device/driver for which
-the clock input can be set.
-
-Is it a bad idea to allow setting the cpu sysclk direction only ?
-Should the compatible be limited to use-cases where the cpu sysclk
-direction cannot be set by the machine driver ?
+I proposed, in an reply of the v3 patch series to Krzysztof Kozlowski,
+the compatible "fsl,imx-audio-no-codec" instead of "generic".
+Krzysztof thought it was too generic, but it would convey more clearly
+that it is for cases without codec driver.
+Would this other compatible string be more appropriate ?
 
 Best regards,
 Elinor Montmasson

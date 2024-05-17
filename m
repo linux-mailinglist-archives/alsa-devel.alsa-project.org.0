@@ -2,194 +2,133 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41D5D8C9D32
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 May 2024 14:27:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B080C8C9D2D
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 May 2024 14:26:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 92452E82;
-	Mon, 20 May 2024 14:27:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 92452E82
+	by alsa0.perex.cz (Postfix) with ESMTPS id 97685E7D;
+	Mon, 20 May 2024 14:26:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 97685E7D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1716208068;
-	bh=75cwrOYxMCwkMEJj5WQ4qiiIWRNHOkMsDaWGNf20e1s=;
-	h=References:In-Reply-To:From:Date:Subject:To:CC:List-Id:
+	s=default; t=1716207994;
+	bh=Xd2Jzc9mwIY3fDGQjwI6mwax0vuaZXPt9DXSNN8oSBI=;
+	h=From:To:Subject:Date:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=YxEerVEhpBP/x8eDMWRzH4z6YVRGd9WYQJuR2zeTvOqoPZKSLENEKJnQ0dqdzCtkC
-	 d6zLEdC2qVrMCmUGQNs07iGGwwSk94eHTd33ILjBacJEsE8o3vHJgbk34RXwAJ4voS
-	 W3YZwvE+mO32nCI5WcbgEI/skbUJF4C/OpaIVXeM=
+	b=A4XQepHebDVyymXuQ0x/N+tOPgrjZMXcxNo7K8iItghkDRRpLb7pFx2P1YiFRI0Wo
+	 nP6b0KyAkc/55z68a5LA2XyuRuALTxXQoqY0D/AkbPYsADkIc3MupiMVuYtf4JZOBY
+	 cOBHZlCgGUkaAI+FAcIxYBjAAug+Fwd4ALnFs2jA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A981BF805F8; Mon, 20 May 2024 14:26:47 +0200 (CEST)
+	id EE322F805D9; Mon, 20 May 2024 14:25:41 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id F3166F805F3;
-	Mon, 20 May 2024 14:26:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6B98CF805C8;
+	Mon, 20 May 2024 14:25:41 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 63B47F8042F; Fri, 17 May 2024 07:03:41 +0200 (CEST)
+	id ED5AFF80525; Fri, 17 May 2024 07:49:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-vk1-xa34.google.com (mail-vk1-xa34.google.com
- [IPv6:2607:f8b0:4864:20::a34])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EC6D8F80171
-	for <alsa-devel@alsa-project.org>; Fri, 17 May 2024 07:03:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC6D8F80171
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=If6wjk7G
-Received: by mail-vk1-xa34.google.com with SMTP id
- 71dfb90a1353d-4df7ba13412so219589e0c.1
-        for <alsa-devel@alsa-project.org>;
- Thu, 16 May 2024 22:03:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1715922191; x=1716526991;
- darn=alsa-project.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=olvJpcmkbApgR1MlcxrBTc0IASmmv7gHG32Arj+e5lw=;
-        b=If6wjk7GcNjMjaT+4JZX+dhOVbQK4b9rYbDr26AWsROExUMDcZNtpI1Ob2vlWb7A0w
-         2uHkv9BBY00cpvJazLX91L10ykw7VEBVKusx90IK2IK2bF3izmDqJjeguw7ALzE84bZh
-         ws5aGFUFcjlPt6a48ZDc6TWl1XkhkdvlcmjcHqCdWgPOvyEKyGKDAAzthfg/R2QE/zyh
-         YkPKpUQp+A3QjwA+yUCnoJ3treE/dKzZrMBaJpEaE0Ka0/TRP3bEesS95wVoAewMkbZ3
-         EvKdFnwL2+NwbZwEPyH12evl3GZNApbATnjC/rE+VYYHVFw7aHvwxt41n/N+oyQnlq1b
-         bx6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715922191; x=1716526991;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=olvJpcmkbApgR1MlcxrBTc0IASmmv7gHG32Arj+e5lw=;
-        b=BiYhVx/9puC06SIgVOxxHyxEnV66RAcJrhC5CJVo+K0jbKxSdU1CcUIzzph+dZBc3E
-         Xft7iSn0hmmi5jtpwPMQMD7734HVq3GQuf5L0ngfpDpfR5tdd8J67HKfwwurRp9JF5j9
-         CB5Dyqd5xKXtP6wFzUd0ZFR9f349eOVm7gBStAohGga1pEVMRJJ+Ur/FsE61BezxmN5O
-         xyHuGtgSNVG+frNbJM9AwVvHRV2phe0Jh0WBkfiFGPH187q+O7hsDEQRRfXVaHgzazSZ
-         9JG6rgSvGSwnkJii7+/l+jIUQhd/9YjJWJFmZT40sfhZnTOKDNTTpr52NAdz2ktdv7qd
-         1l1w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVXL85pH7Y0CyQ2UC1IkbsqR3NqfaZPZWX+JIWMne7mG8+1RNBN6xqx8T2DT8Mk10qLUnUmlpua4v2qt/Loq20/iIFI1WvkIFvHUl0=
-X-Gm-Message-State: AOJu0YzD1GogvHXwShEbGC5hbHWJFLwZwerh5KaKYtYQ9fvK08xvuddv
-	v9iassLGz2771cNe2qNdRhQUIOu/cip8A3kPJECExqOETnLZCa8jdgxOyCFib9Nd24PdSRQFPui
-	wZlLRrOG1djaDsVxgVrWxCdHdoaUdIGJa
-X-Google-Smtp-Source: 
- AGHT+IEVcrPXwosj+wanDZMTZek4hmMva48UDxwz+HItd9WQFOvoxwrlMN0tE2PIZK+8YVSrbJRUnpdPKtEEuMHska0=
-X-Received: by 2002:a05:6e02:158b:b0:36c:10b9:a040 with SMTP id
- e9e14a558f8ab-36cc117a121mr197170665ab.0.1715915290323; Thu, 16 May 2024
- 20:08:10 -0700 (PDT)
+	by alsa1.perex.cz (Postfix) with ESMTPS id C6E2FF8016B
+	for <alsa-devel@alsa-project.org>; Fri, 17 May 2024 07:49:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6E2FF8016B
+X-SpamFilter-By: ArmorX SpamTrap 5.78 with qID 44H5nU1y92027900,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (rtexh36506.realtek.com.tw[172.21.6.27])
+	by rtits2.realtek.com.tw (8.15.2/2.95/5.92) with ESMTPS id 44H5nU1y92027900
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 17 May 2024 13:49:30 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXH36506.realtek.com.tw (172.21.6.27) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.39; Fri, 17 May 2024 13:49:30 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXMBS01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.35; Fri, 17 May 2024 13:49:30 +0800
+Received: from RTEXMBS01.realtek.com.tw ([fe80::d5b2:56ba:6b47:9975]) by
+ RTEXMBS01.realtek.com.tw ([fe80::d5b2:56ba:6b47:9975%5]) with mapi id
+ 15.01.2507.035; Fri, 17 May 2024 13:49:30 +0800
+From: =?utf-8?B?U2h1bWluZyBb6IyD5pu46YqYXQ==?= <shumingf@realtek.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+        "broonie@kernel.org" <broonie@kernel.org>,
+        "lgirdwood@gmail.com"
+	<lgirdwood@gmail.com>
+Subject: RE: [PATCH] ASoC: rt1320: Add RT1320 SDCA vendor-specific driver
+Thread-Topic: [PATCH] ASoC: rt1320: Add RT1320 SDCA vendor-specific driver
+Thread-Index: AQHapqY7Gzl3mXLKlECvsNyZ4sOznbGXws6AgAFoXKCAAEBygIABPrig
+Date: Fri, 17 May 2024 05:49:29 +0000
+Message-ID: <5a9d28c6e66d495c82546074350ae4ca@realtek.com>
+References: <20240515085939.201081-1-shumingf@realtek.com>
+ <790667c8-2893-47d6-b47a-340ac12af28c@linux.intel.com>
+ <489b4beca9d94cb7ba24a30279a01fa3@realtek.com>
+ <a062accf-f3f3-46b8-a110-588c4a319909@linux.intel.com>
+In-Reply-To: <a062accf-f3f3-46b8-a110-588c4a319909@linux.intel.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+x-originating-ip: [172.22.102.209]
+x-kse-serverinfo: RTEXMBS01.realtek.com.tw, 9
+x-kse-antispam-interceptor-info: fallback
+x-kse-antivirus-interceptor-info: fallback
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-References: <20240507173735.3456334-1-festevam@gmail.com>
- <20240507173735.3456334-3-festevam@gmail.com>
-In-Reply-To: <20240507173735.3456334-3-festevam@gmail.com>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Fri, 17 May 2024 11:07:59 +0800
-Message-ID: 
- <CAA+D8ANa2dPo_fJ4ZOYVKWXi__D7OMkjYgiHVNdRRRoMUEdxOw@mail.gmail.com>
-Subject: Re: [PATCH 3/3] ASoC: fsl: fsl_xcvr: Switch to RUNTIME_PM_OPS()
-To: Fabio Estevam <festevam@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: S54IXKDIPHLNWJUUVH4J3IPKBUBETREW
-X-Message-ID-Hash: S54IXKDIPHLNWJUUVH4J3IPKBUBETREW
-X-MailFrom: shengjiu.wang@gmail.com
+X-KSE-AntiSpam-Interceptor-Info: fallback
+Message-ID-Hash: FZYVET67E4TL3Y6GWRRC5BGWO7U5VEGW
+X-Message-ID-Hash: FZYVET67E4TL3Y6GWRRC5BGWO7U5VEGW
+X-MailFrom: shumingf@realtek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: broonie@kernel.org, alsa-devel@alsa-project.org,
- Fabio Estevam <festevam@denx.de>
+CC: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "lars@metafoo.de" <lars@metafoo.de>, "Flove(HsinFu)" <flove@realtek.com>,
+ Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
+ =?utf-8?B?RGVyZWsgW+aWueW+t+e+qV0=?= <derek.fang@realtek.com>
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: <>
-List-Archive: <>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FZYVET67E4TL3Y6GWRRC5BGWO7U5VEGW/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, May 8, 2024 at 1:37=E2=80=AFAM Fabio Estevam <festevam@gmail.com> w=
-rote:
->
-> From: Fabio Estevam <festevam@denx.de>
->
-> Replace SET_RUNTIME_PM_OPS() with its modern alternative RUNTIME_PM_OPS()=
-.
->
-> The combined usage of pm_ptr() and RUNTIME_PM_OPS() allows the
-> compiler to evaluate if the runtime suspend/resume() functions are used
-> at build time or are simply dead code.
->
-> This allows removing the __maybe_unused notation from the runtime
-> suspend/resume() functions.
->
-> Signed-off-by: Fabio Estevam <festevam@denx.de>
-
-Acked-by: Shengjiu Wang <shengjiu.wang@gmail.com>
-
-Best regards
-Shengjiu Wang
-
-> ---
->  sound/soc/fsl/fsl_xcvr.c | 10 ++++------
->  1 file changed, 4 insertions(+), 6 deletions(-)
->
-> diff --git a/sound/soc/fsl/fsl_xcvr.c b/sound/soc/fsl/fsl_xcvr.c
-> index c46f64557a7f..5472ace23d82 100644
-> --- a/sound/soc/fsl/fsl_xcvr.c
-> +++ b/sound/soc/fsl/fsl_xcvr.c
-> @@ -1364,7 +1364,7 @@ static void fsl_xcvr_remove(struct platform_device =
-*pdev)
->         pm_runtime_disable(&pdev->dev);
->  }
->
-> -static __maybe_unused int fsl_xcvr_runtime_suspend(struct device *dev)
-> +static int fsl_xcvr_runtime_suspend(struct device *dev)
->  {
->         struct fsl_xcvr *xcvr =3D dev_get_drvdata(dev);
->         int ret;
-> @@ -1398,7 +1398,7 @@ static __maybe_unused int fsl_xcvr_runtime_suspend(=
-struct device *dev)
->         return 0;
->  }
->
-> -static __maybe_unused int fsl_xcvr_runtime_resume(struct device *dev)
-> +static int fsl_xcvr_runtime_resume(struct device *dev)
->  {
->         struct fsl_xcvr *xcvr =3D dev_get_drvdata(dev);
->         int ret;
-> @@ -1483,9 +1483,7 @@ static __maybe_unused int fsl_xcvr_runtime_resume(s=
-truct device *dev)
->  }
->
->  static const struct dev_pm_ops fsl_xcvr_pm_ops =3D {
-> -       SET_RUNTIME_PM_OPS(fsl_xcvr_runtime_suspend,
-> -                          fsl_xcvr_runtime_resume,
-> -                          NULL)
-> +       RUNTIME_PM_OPS(fsl_xcvr_runtime_suspend, fsl_xcvr_runtime_resume,=
- NULL)
->         SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
->                                 pm_runtime_force_resume)
->  };
-> @@ -1494,7 +1492,7 @@ static struct platform_driver fsl_xcvr_driver =3D {
->         .probe =3D fsl_xcvr_probe,
->         .driver =3D {
->                 .name =3D "fsl,imx8mp-audio-xcvr",
-> -               .pm =3D &fsl_xcvr_pm_ops,
-> +               .pm =3D pm_ptr(&fsl_xcvr_pm_ops),
->                 .of_match_table =3D fsl_xcvr_dt_ids,
->         },
->         .remove_new =3D fsl_xcvr_remove,
-> --
-> 2.34.1
->
+PiA+PiBPbiBHaXRIdWIgd2UgdGFsa2VkIGFib3V0IHVzaW5nIHRoZSBTRENBIEluaXRpYWxpemF0
+aW9uIHRhYmxlIGNvbWluZw0KPiA+PiBmcm9tIEFDUEksIGlzIHRoaXMgc3RpbGwgc29tZXRoaW5n
+IHlvdSdyZSBpbnRlcmVzdGVkIGluPw0KPiA+DQo+ID4gSWYgdGhlIFNEQ0EgZnVuY3Rpb24gaXMg
+cmVhZHksIHRoZSBjb2RlYyBkcml2ZXIgY291bGQgY2FsbCB0aGUgQVBJIHRvIGRvIHRoZQ0KPiBi
+bGluZCB3cml0ZXMuDQo+IA0KPiBUaGUgY29kZSBJIGhhdmUgaXMgYWJvdXQgcmVhZHksIGl0IGp1
+c3QgbmVlZHMgdG8gYmUgY2xlYW5lZC11cCBhbmQgc3VibWl0dGVkLg0KPiANCj4gQnV0IGp1c3Qg
+dG8gYmUgY2xlYXIsIHRoZSBjb2RlYyBkcml2ZXIgd291bGQgdXNlIHRoZSBBUEkgdG8gcmV0cmll
+dmUgYW4gYXJyYXkgb2YNCj4gKGFkZHJlc3MsIHZhbHVlKSBwYWlyLiBJdCB3b3VsZCBiZSB1cCB0
+byB0aGUgY29kZWMgZHJpdmVyIHRvIGRvIHRoZSB3cml0ZXMgYW5kL29yDQo+IHBhdGNoIHRoZWly
+IHJlZ21hcC4NCg0KVW5kZXJzdG9vZC4gDQpIb3dldmVyLCB0aGUgY3VzdG9tZXIgcmVxdWVzdGVk
+IFJlYWx0ZWsgdG8gc2VuZCB0aGUgcHJpbWFyeSB2ZXJzaW9uIHRvIHVwc3RyZWFtIGZpcnN0Lg0K
+V2UgY291bGQgbW9kaWZ5IHRoZSBjb2RlYyBkcml2ZXIgYWZ0ZXIgdGhlIHBhdGNoZXMgb2YgdGhl
+IFNEQ0EgZnVuY3Rpb24gYXJlIHN1Ym1pdHRlZC4NCg0KPiA+IE9LLCB3aWxsIGFkZCBhIGNvbW1l
+bnQgZm9yIHRoZSB2ZXJzaW9uX2lkLg0KPiA+IEN1cnJlbnRseSwgdGhlIGJsaW5kIHdyaXRlcyBl
+bmFibGVzIHRoZSBiYXNpYyBmdW5jdGlvbiwgbm90IHRoZSBhZHZhbmNlZA0KPiBtb2RlIChzcGVh
+a2VyIHByb3RlY3Rpb24pLg0KPiA+IEhvd2V2ZXIsIFZFUl9CIGhhcyB0aGUgY2FwYWJpbGl0eSB0
+byBlbmFibGUgdGhlIHNwZWFrZXIgcHJvdGVjdGlvbi4NCj4gPiBUaGUgY29kZWMgZHJpdmVyIGNv
+dWxkIHVzZSB0aGUgdmVyc2lvbl9pZCBpZiB0aGUgY3VzdG9tZXIgd2FudHMgdG8gZW5hYmxlDQo+
+IHRoZSBzcGVha2VyIHByb3RlY3Rpb24uDQo+ID4gUmVnYXJkaW5nIERTUCBmaXJtd2FyZSwgdGhl
+IFJPTSBjb2RlIHN0b3JlcyB0aGUgRFNQIEZXIGluc2lkZSB0aGUgY2hpcC4NCj4gPiBUaGUgc3Bl
+YWtlciBwcm90ZWN0aW9uIG5lZWRzIG90aGVyIHBhcmFtZXRlcnMgdG8gc2V0Lg0KPiANCj4gSWYg
+dGhlcmUgaXMgYSBzcGVha2VyIHByb3RlY3Rpb24gcnVubmluZyBvbiB0aGUgY29kZWMgRFNQLCBz
+aG91bGRuJ3QgdGhlcmUgYmUgYQ0KPiBzb3VyY2UgcG9ydCB0byBwYXNzIGFuIGVjaG8gcmVmZXJl
+bmNlIGJhY2sgdG8gdGhlIGhvc3Q/DQoNCkkgY291bGQgY3JlYXRlIHRoZSBjYXB0dXJlIERBSSBm
+b3IgQUVDIGZlZWRiYWNrLg0KDQo=

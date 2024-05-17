@@ -2,81 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F4CA8C9E52
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 May 2024 15:46:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC5288C9E56
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 May 2024 15:47:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CF15D83E;
-	Mon, 20 May 2024 15:46:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CF15D83E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0231C820;
+	Mon, 20 May 2024 15:47:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0231C820
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1716212792;
-	bh=NGy4y9LkeLC6kMLGudcaqdBbS5CppWV4B0ewLsdwhpk=;
+	s=default; t=1716212854;
+	bh=tz2kY6qZxYu8TUGihVyLmMBdD0mSnRDdr1XJJV0fdqw=;
 	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=KUsRYCy/+JJz8TbZjoZCT9YjRyYZ41Svdep1W0C7TpOdtPPptP/5ua7zhDovrz17M
-	 xAf7ng9uYoIeqHZIlLwtzEmSq4tRVVQRHifFBCrIupjRGr9LfUxj4iaW452TxxxVrj
-	 Ata3ISM5VgFyuSangaAT7rHCidIAUhIhihM1oZPs=
+	b=PgtXqppwVIMG8Yi6IvQZUgF0y8iatW4xzuQRI/CJbeAx2SaDpX/dN6Ax7Rq1EX2Y3
+	 Tx+hb3T9Rugz6rUr6VKdwy8QVpguPchQ4D4CLibo8tRmQYhclGejPQRQGBUpKb3uQO
+	 xSNsbvVVzcRToyhhR8SwhTXhEh5H7sy6Mn/OYR1g=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 50A4BF805F5; Mon, 20 May 2024 15:45:53 +0200 (CEST)
+	id BEBF9F80634; Mon, 20 May 2024 15:46:25 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C6721F805F8;
-	Mon, 20 May 2024 15:45:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8729EF80630;
+	Mon, 20 May 2024 15:46:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 361E5F805AD; Mon, 20 May 2024 14:51:29 +0200 (CEST)
+	id 4BE0AF800BA; Mon, 20 May 2024 14:56:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 23E79F8028B
-	for <alsa-devel@alsa-project.org>; Mon, 20 May 2024 14:51:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23E79F8028B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 75DC7F800BA
+	for <alsa-devel@alsa-project.org>; Mon, 20 May 2024 14:56:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 75DC7F800BA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=HrkcH1zG
+ header.s=k20201202 header.b=hQy4PIpg
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 9C6786198D;
-	Fri, 17 May 2024 11:11:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10C68C2BD11;
-	Fri, 17 May 2024 11:11:46 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 065AF619C0;
+	Fri, 17 May 2024 11:17:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29952C2BD10;
+	Fri, 17 May 2024 11:17:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1715944310;
-	bh=NGy4y9LkeLC6kMLGudcaqdBbS5CppWV4B0ewLsdwhpk=;
+	s=k20201202; t=1715944647;
+	bh=tz2kY6qZxYu8TUGihVyLmMBdD0mSnRDdr1XJJV0fdqw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=HrkcH1zGc5nsdF095rPasSd0smJVrBFPzVO1GfGnDndEAQRzzcEtOccP0Lq+THwc4
-	 pAwXQ3f+M6XWsJrDZNt1FvPIfrTYhdCz2SnBp87g4iKe0IaqCqMHvc/yhtKzdgGaJv
-	 dLAUdfS/gP7P/6XMwMIK5GZ43Hj833J7d0dOXLHcvLJKhNfKwWtUm/RnK70V89+VUu
-	 AKcflMk2YxuK7b1Ya1coPH208ZfKUOWyTC39jgyRK1kZ/ASRPGRlTuL0lnElYvRFcD
-	 VX4z/sJPHRJZ4c5hebs5Lf/i0NjNi4TSVrQuPXXHKTI5HQ+wADouLeFLthJoRCZaFs
-	 N+LYX3g6JdEBg==
-Date: Fri, 17 May 2024 12:11:43 +0100
+	b=hQy4PIpgYaKxXAHLGvLX+gUDvsDu0a15TR2Y2mPX//3bbTmVe/LF42kVNmBCWnrIF
+	 fXggLSUVDlRgG8/nB5tFhPY4GpcIiGYQBQRpMMPvtbclDKqH3Qnab61xQFVGHq2E2B
+	 ao1JK8A6/I+vrUgOJv3Dqfry4TbETyrS/EwqZs6+lMa8i3a3TvJF66NVcnL3FOE/d7
+	 EKMK8Lf7bk4KqjpHqxIZJonIMDYbfuZMldEu32/tyybWRpV/5PTq4PLsakYSgjOjj/
+	 szCeeggBtdpenLeZv1HQ0li+bHqGpiJhMedlDwAJ0RCCwi8ibZnRe2zj8+qUn3xZUy
+	 hTr7GqHUkMODg==
+Date: Fri, 17 May 2024 12:17:20 +0100
 From: Mark Brown <broonie@kernel.org>
 To: Elinor Montmasson <elinor.montmasson@savoirfairelinux.com>
-Subject: Re: [PATCHv4 9/9] ASoC: dt-bindings: fsl-asoc-card: add compatible
- for generic codec
-Message-ID: <500db9de-6113-4e73-ba92-6e52ea292b32@sirena.org.uk>
+Subject: Re: [PATCHv4 7/9] ASoC: fsl-asoc-card: add DT clock "cpu_sysclk"
+ with generic codec
+Message-ID: <da74d276-b028-448b-bb28-295de49dbcda@sirena.org.uk>
 References: <20240515135411.343333-1-elinor.montmasson@savoirfairelinux.com>
- <20240515135411.343333-10-elinor.montmasson@savoirfairelinux.com>
- <ce9a87c6-4a5c-4f0a-a8df-1fdce8c1f5df@sirena.org.uk>
- <599489232.349333.1715936741672.JavaMail.zimbra@savoirfairelinux.com>
+ <20240515135411.343333-8-elinor.montmasson@savoirfairelinux.com>
+ <ffb3624f-2170-4642-aaa5-fb6736a75d59@sirena.org.uk>
+ <822567441.349330.1715936735603.JavaMail.zimbra@savoirfairelinux.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="u3ZQHG5Itc4786pl"
+	protocol="application/pgp-signature"; boundary="ZuqvFG62+4JL9ncV"
 Content-Disposition: inline
 In-Reply-To: 
- <599489232.349333.1715936741672.JavaMail.zimbra@savoirfairelinux.com>
+ <822567441.349330.1715936735603.JavaMail.zimbra@savoirfairelinux.com>
 X-Cookie: Function reject.
-Message-ID-Hash: 37LB74VK2K3SNUMMTYXQYPOXCMECQALR
-X-Message-ID-Hash: 37LB74VK2K3SNUMMTYXQYPOXCMECQALR
+Message-ID-Hash: TA4RXBJN27HNKTME67DV5HLA5TGH7VC2
+X-Message-ID-Hash: TA4RXBJN27HNKTME67DV5HLA5TGH7VC2
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -107,41 +107,56 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---u3ZQHG5Itc4786pl
+--ZuqvFG62+4JL9ncV
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Fri, May 17, 2024 at 05:05:41AM -0400, Elinor Montmasson wrote:
+On Fri, May 17, 2024 at 05:05:35AM -0400, Elinor Montmasson wrote:
 > From: "Mark Brown" <broonie@kernel.org>
+> > On Wed, May 15, 2024 at 03:54:09PM +0200, Elinor Montmasson wrote:
 
-> > This description (and the code) don't feel like they're actually generic
-> > - they're clearly specific to the bidrectional S/PDIF case.  I'd expect
-> > something called -generic to cope with single CODECs as well as double,
-> > and not to have any constraints on what those are.
+> >> +		struct clk *cpu_sysclk = clk_get(&pdev->dev, "cpu_sysclk");
+> >> +		if (!IS_ERR(cpu_sysclk)) {
+> >> +			priv->cpu_priv.sysclk_freq[TX] = clk_get_rate(cpu_sysclk);
+> >> +			priv->cpu_priv.sysclk_freq[RX] = priv->cpu_priv.sysclk_freq[TX];
+> >> +			clk_put(cpu_sysclk);
+> >> +		}
 
-> I proposed, in an reply of the v3 patch series to Krzysztof Kozlowski,
-> the compatible "fsl,imx-audio-no-codec" instead of "generic".
-> Krzysztof thought it was too generic, but it would convey more clearly
-> that it is for cases without codec driver.
-> Would this other compatible string be more appropriate ?
+> > I don't really understand the goal here - this is just reading whatever
+> > frequency happens to be set in the hardware when the driver starts up
+> > which if nothing else seems rather fragile?
 
-No.  There is very clearly a CODEC here, it physically exists, we can
-point at it on the board and it has a software representation.  Your
-code is also very specific to the two CODEC case.
+> The driver allow to set the sysclk frequency
+> of the CPU DAI through `priv->cpu_priv.sysclk_freq` when calling
+> `fsl_asoc_card_hw_params()`.
+> Currently it is hard-coded per use-case in the driver.
 
---u3ZQHG5Itc4786pl
+> My reasoning was that with a generic codec/compatible, there might
+> be use-cases needing to use this parameter, so I exposed it here via DT.
+
+> Is it a bad idea to expose this parameter ? This is not a requirement for the
+> driver to work, most of the current compatibles do not use this parameter.
+> It is currently used only for `fsl,imx-audio-cs42888`.
+> In that case I can remove this commit.
+
+I'm having a hard time connecting your reply here with my comment.  This
+isn't as far as I can see allowing the frequency to be explicitly
+configured, it's just using whatever value happens to be programmed in
+the clock when the driver starts.
+
+--ZuqvFG62+4JL9ncV
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmZHO24ACgkQJNaLcl1U
-h9AA9Af/dEW1/sXD0drucKnj3m5nf/uGf/YhJyyfJ/1JSqxnRA/VSoHYc1D6ZDLc
-CYKJEQc19aWqb2hDm2/NebWPZ2nAgbG64R6Mn+Ue1pJ025SpxFd+SD2G9nzkzh2r
-rhP5qrycZhKjkaMvsYxOQCgUZMDup6yEwckX93anIVYxBuz6o1Vx2H4tJkbXIU74
-Q7wz5GIp6xMQNpX7RoCw/wE7IEe2TOmjGl5bPg9kM+V8uqYq/cZIZOnHMXicXoTa
-jRDfO6DaG6nJ/23U8LJW9Ja6BJ+rHeeBtCDVZvcQUff+s/p7D+LzYeghTFOO1xQW
-kN7EAVsua19NtkhnbL1ZsBqhr6EznA==
-=AwEF
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmZHPMAACgkQJNaLcl1U
+h9A/Mwf/e8Oa99TU5bBwUqPPv4RdS3EWv4/897XflQzPXjxfkxnMFOUUf0EBVm61
+5WnYoirwxy+DfhNF5ubdVm7WNINPuCs1X7mMZcN6aBE4Vo9yw1deDjFV8/s+QSCd
+6JpsmssN8sIOQh+w5Axkp+Qk9JuVRbVI8nFDMhD/tPRUMkUG9mjCLjP3xQoV59+d
+p9ElIEC+zSBWu9HCQW4i19eO+O53iT/9s7jkpXhFBbai02OOzw5q5LcwyL/qh0Zg
+fhOWA9PFrwg7iS7Rknp3Np5Msb09gh86McZtp2htgkkbggFl7ak0nRG+qlfyN0P/
+AKOYQ4agvMxC3FKsb/HmPv9Q+Brc5w==
+=Zf2Q
 -----END PGP SIGNATURE-----
 
---u3ZQHG5Itc4786pl--
+--ZuqvFG62+4JL9ncV--

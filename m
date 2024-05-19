@@ -2,122 +2,135 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22EB68CAF36
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 May 2024 15:15:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61CC08CB009
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 May 2024 16:07:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6A51014F;
-	Tue, 21 May 2024 15:15:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A51014F
+	by alsa0.perex.cz (Postfix) with ESMTPS id E529C950;
+	Tue, 21 May 2024 16:07:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E529C950
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1716297333;
-	bh=xBzALiC8QpbiUZ0vIp/DDNJUn3RjiTwJaSILiRdd+3U=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=a92P0jriVaJ8Vez6Hq3tHkiaOq3OmMaKannWDdflPALcU7a3gtf58kadoyGy3dYP1
-	 M56+hyFTa9Qyh31qVRgzi45NrXrq+2TgvjPww4jwIuCiOG0hSQoGfXpEZREXjhY1gv
-	 QiADl5pTeTciKkC+EXK1UiEnOHx/S5YeM/aiH/BE=
+	s=default; t=1716300445;
+	bh=vOmrQBJAdvlGhlh3IQuJFC5nzf12tuwIUaUkDgVZRHA=;
+	h=From:Subject:Date:To:Cc:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=MtX8WL4RwCffVupc0zlbpmCzTHx+yvZmDB1kJUDJKzZ+4FqQxTFcxZiJVZfSej0jL
+	 Vjj9+CoJll6hgnZ2IJMQ6eJjDw3S9oyfav0piJ8GnTzMdFM++n1V7tKhWiEpHNL+d9
+	 RRoPDf0J1rq0KTsZuFztPmjVa3tJntsYLGS/VJ0A=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8798AF805A8; Tue, 21 May 2024 15:15:02 +0200 (CEST)
+	id C60ECF805D2; Tue, 21 May 2024 16:06:45 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 797FDF805AA;
-	Tue, 21 May 2024 15:15:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 94532F805C6;
+	Tue, 21 May 2024 16:06:44 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 52778F8026A; Tue, 21 May 2024 15:14:55 +0200 (CEST)
+	id 46871F8026A; Mon, 20 May 2024 16:43:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [IPv6:2a00:1450:4864:20::12d])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6F0A6F80051
-	for <alsa-devel@alsa-project.org>; Tue, 21 May 2024 15:14:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F0A6F80051
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9189EF8016B
+	for <alsa-devel@alsa-project.org>; Mon, 20 May 2024 16:43:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9189EF8016B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256
- header.s=selector1 header.b=p+BndcQU
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
-	by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 44LBRiTd019430;
-	Tue, 21 May 2024 15:14:48 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
-	message-id:date:mime-version:subject:to:cc:references:from
-	:in-reply-to:content-type:content-transfer-encoding; s=
-	selector1; bh=/JwugDw4q1sV/Kf5SJf4M3YRla9SOKHNH5flwjaLMV4=; b=p+
-	BndcQUREV6vnAs24JULfWquhsrWpIIlgDhAF1nYhHkU7hU+WmPGT9NSS+AuVj3qv
-	IqMklPxg4JOrbgrn8VqHONaWyexs/qy3qJX6aNKBTIMEE3X57GTPfPoyizgzcE1F
-	6Jpuy06CHFYp1h82UjBEQ79OOwH3bb3eNwBjpbead9ZepN0naqcaD+WvNJne7ViK
-	cTrc+Fw5s0Y8PSIA33CfDnt6Tksw57cbmuMi/rfMpMKJDH1LwnoaJnEt3L39Nl9n
-	acn6SklqU2i1tNW0AqfzpbAiyFoNhT3FXgLNEi+QtKSLYsC+Bf6I9kLBzqVF5+M0
-	8isqx80pqOqhLIgV/PXA==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
-	by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3y6n42cc30-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 21 May 2024 15:14:48 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
-	by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 944294002D;
-	Tue, 21 May 2024 15:14:43 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
-	by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0DDD321A8FD;
-	Tue, 21 May 2024 15:13:54 +0200 (CEST)
-Received: from [10.48.86.132] (10.48.86.132) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 21 May
- 2024 15:13:53 +0200
-Message-ID: <7ba9113b-7360-4201-b983-e53e90f2be06@foss.st.com>
-Date: Tue, 21 May 2024 15:12:49 +0200
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=d3fRiRaD
+Received: by mail-lf1-x12d.google.com with SMTP id
+ 2adb3069b0e04-5238fe0cfc9so2623996e87.0
+        for <alsa-devel@alsa-project.org>;
+ Mon, 20 May 2024 07:43:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1716216210; x=1716821010;
+ darn=alsa-project.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Vw+eqC8qYyRv3MIYCjMkS6Jwy9w22sYSmCr6FUkRoZQ=;
+        b=d3fRiRaDSqyIMGqgixi8SqLElKyhhPaZ20pAhrFxpsURwirSplhUP08uWE7Ye6NtxV
+         7+PZY0nf1U1spc56KbQcHWeNBiJIky39ZY5jackXPZxsmfVsr1u8zChncESMH/Y2AlpH
+         8PvxtNE2BHG/7021KpgOUx+H/oGsgwLWj500B+cZet10+qQ6PF5rmwPxj3MkCzz3T1+t
+         X/+k7hcv7r/c3hr6TLMPdEhhMDx1reQkv2m2TozDB8EXWwD4WHtgaORkWDlgJnujXpG0
+         rntq7xSESStP9MxSbQDxJWNnOa3M5xBMk6d6Kbzf1iarVQaMwOs2IvqoT8Vxjwz7wEwc
+         yYpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1716216210; x=1716821010;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Vw+eqC8qYyRv3MIYCjMkS6Jwy9w22sYSmCr6FUkRoZQ=;
+        b=I0OpOwBBoEzYTQAh3WdfUCKklK0yyYVxF1D4kIvtTUs+pNWyAfx5g4h2GNIj0F7MLe
+         xLd+y57M7hQ7SjHyocKeqGkrAzpv+HZLP7MjMMDwzINgOIit3XO4L8gWUuJV12w3WxCj
+         8Ae5AKgVwPGyC2qJDr4wpdbSVXqArbA13QwxuZb1HFvRobQ1ESJjk+ISnM9bdDFUGSkH
+         oqGwz4qEcO7ny0qChT66fgWH/Q59lCFMx7BDnRL8QZySRyiLjVL2cy2LsKNX722J91kn
+         YlIJbX/iBAIleV5Diu/etNSgiW34ppy3+5/sXCRnACes+wVqazSUomgnzBt1kjn8Nv6O
+         D++Q==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV5qNp/axoRBCpQZBf0wsbunJm+dF2KbvpPQPchPkJzUvplEG7YH0ha9DfBTXgkVLdFM+BrgFohgRnaiLGRbUnCfPmdlIPwK7buUt8=
+X-Gm-Message-State: AOJu0Yxyl7yNAuChcTcZs2vGdW1NqE0Sl/QHox/GAgvKoWq7+kSmIr81
+	5Kuk16A4NniVj4+xNfxhsZJDwenPLdjh0hsDd62x4C4q+hx77vkR+RsWBQ==
+X-Google-Smtp-Source: 
+ AGHT+IFTKZlj4vaDpbFg3ISEA24rKauu3cUeaZy4+4egT5W58uNnkMk5KIUOqtmg4LEoq7V+gTWqYA==
+X-Received: by 2002:a05:6402:2695:b0:575:2c30:fe60 with SMTP id
+ 4fb4d7f45d1cf-5752c30ffa6mr2896233a12.10.1716106688326;
+        Sun, 19 May 2024 01:18:08 -0700 (PDT)
+Received: from hex.my.domain (83.8.125.62.ipv4.supernova.orange.pl.
+ [83.8.125.62])
+        by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5733c34e5ccsm13698518a12.95.2024.05.19.01.18.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 19 May 2024 01:18:07 -0700 (PDT)
+From: Artur Weber <aweber.kernel@gmail.com>
+Subject: [PATCH v3 0/8] ASoC: samsung: midas-audio: Add GPIO-based headset
+ jack detection
+Date: Sun, 19 May 2024 10:17:46 +0200
+Message-Id: <20240519-midas-wm1811-gpio-jack-v3-0-0c1736144c0e@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ASoC: dt-bindings: stm32: Ensure compatible pattern
- matches whole string
-To: "Rob Herring (Arm)" <robh@kernel.org>,
-        Arnaud Pouliquen
-	<arnaud.pouliquen@foss.st.com>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark
- Brown <broonie@kernel.org>,
-        Krzysztof Kozlowski
-	<krzysztof.kozlowski+dt@linaro.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-        Alexandre Torgue
-	<alexandre.torgue@foss.st.com>
-CC: <alsa-devel@alsa-project.org>, <linux-sound@vger.kernel.org>,
-        <devicetree@vger.kernel.org>,
-        <linux-stm32@st-md-mailman.stormreply.com>,
-        <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-References: <20240520222705.1742367-1-robh@kernel.org>
-Content-Language: en-US
-From: Olivier MOYSAN <olivier.moysan@foss.st.com>
-In-Reply-To: <20240520222705.1742367-1-robh@kernel.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.48.86.132]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.12.28.16
- definitions=2024-05-21_08,2024-05-21_01,2024-05-17_01
-Message-ID-Hash: H5P5EU5WUL4VES6CVRNDXHURRILTLNP4
-X-Message-ID-Hash: H5P5EU5WUL4VES6CVRNDXHURRILTLNP4
-X-MailFrom: prvs=58716732f3=olivier.moysan@foss.st.com
+X-B4-Tracking: v=1; b=H4sIAKq1SWYC/3XN0Q6CIBTG8VdxXEcDNHRd9R6tCzigngpx0Kjmf
+ PfQrc0bL//fdn5nItEGtJGci4kEmzCiH3KUh4JAr4bOUjS5iWCiYicmqEOjIn073nBOuxE9vSt
+ 4UM2ZEFLz2gKQfDwG2+Jnha+33D3Glw/f9U/iy/onyz0yccqobcAYbWQNur10TuHzCN6RhUxiy
+ zS7jMiMrkwpwTAB0m6ZeZ5/MwkqeAMBAAA=
+To: Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, alsa-devel@alsa-project.org,
+ linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
+ Artur Weber <aweber.kernel@gmail.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1716106686; l=3238;
+ i=aweber.kernel@gmail.com; s=20231030; h=from:subject:message-id;
+ bh=vOmrQBJAdvlGhlh3IQuJFC5nzf12tuwIUaUkDgVZRHA=;
+ b=8XirlovSgTFuyZInY7Ney+LFvrii3NLSjBFIG6JDVzAN3bhN/OId1rINWfUWRG1PFIHDFLUdO
+ lmlBKecojj/BNO4y0F+SmsaVzGnzByslst8HeezuK6mh6DPNsON2UNI
+X-Developer-Key: i=aweber.kernel@gmail.com; a=ed25519;
+ pk=RhDBfWbJEHqDibXbhNEBAnc9FMkyznGxX/hwfhL8bv8=
+X-MailFrom: aweber.kernel@gmail.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: CSVFNK6JHH4MMMTQQJSSO2U3LU4FBQMF
+X-Message-ID-Hash: CSVFNK6JHH4MMMTQQJSSO2U3LU4FBQMF
+X-Mailman-Approved-At: Tue, 21 May 2024 14:06:38 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/H5P5EU5WUL4VES6CVRNDXHURRILTLNP4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CSVFNK6JHH4MMMTQQJSSO2U3LU4FBQMF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -126,34 +139,69 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 5/21/24 00:27, Rob Herring (Arm) wrote:
-> The compatible pattern "st,stm32-sai-sub-[ab]" is missing starting and
-> ending anchors, so any prefix and/or suffix would still be valid.
-> 
-> This also fixes a warning on the example:
-> 
-> Documentation/devicetree/bindings/sound/st,stm32-sai.example.dtb: /example-0/sai@4400b000/audio-controller@4400b004: failed to match any schema with compatible: ['st,stm32-sai-sub-a']
-> 
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> ---
->   Documentation/devicetree/bindings/sound/st,stm32-sai.yaml | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/st,stm32-sai.yaml b/Documentation/devicetree/bindings/sound/st,stm32-sai.yaml
-> index 59df8a832310..f555ccd6b00a 100644
-> --- a/Documentation/devicetree/bindings/sound/st,stm32-sai.yaml
-> +++ b/Documentation/devicetree/bindings/sound/st,stm32-sai.yaml
-> @@ -68,7 +68,7 @@ patternProperties:
->       properties:
->         compatible:
->           description: Compatible for SAI sub-block A or B.
-> -        pattern: "st,stm32-sai-sub-[ab]"
-> +        pattern: "^st,stm32-sai-sub-[ab]$"
->   
->         "#sound-dai-cells":
->           const: 0
+Many of Samsung's Exynos 4 devices share the same midas-audio driver
+to handle the codec setup. While most of these devices, including the
+Midas itself, use the jack detection provided by the WM8994 driver,
+other devices such as the Samsung Galaxy Tab 3 8.0 (lt01) use two GPIOs
+and an ADC channel to determine jack insertion, the jack's type, and
+button presses (for headsets with volume up/down/play buttons).
 
-Reviewed-by: Olivier Moysan <olivier.moysan@foss.st.com>
+In the downstream kernel, this behavior is implemented in the sec-jack
+driver[1], and the per-device settings are configured in *-jack.c files
+in the mach folder (see e.g. the Tab 3's implementation[2]).
 
-Thanks
-Olivier
+This patchset implements this mechanism in the midas_wm1811.c driver,
+and adds new DTS options to allow for its configuration. It also
+enables jack detection for the Samsung Galaxy Tab 3 8.0.
+
+A very similar mechanism was already present in the aries_wm8994.c
+driver[3]; this implementation heavily borrows from it, though there
+are a few extra cleanups as well.
+
+Signed-off-by: Artur Weber <aweber.kernel@gmail.com>
+
+[1] https://github.com/gr8nole/android_kernel_samsung_smdk4x12/blob/lineage-14.1/drivers/misc/sec_jack.c
+[2] https://github.com/gr8nole/android_kernel_samsung_smdk4x12/blob/lineage-14.1/arch/arm/mach-exynos/tab3-jack.c
+[3] https://github.com/torvalds/linux/blob/master/sound/soc/samsung/aries_wm8994.c
+
+---
+Changes in v3:
+- Re-added pipe (|) character to samsung,headset-button-threshold-microvolt
+  description to prevent it from being parsed as a mapping (fixes syntax
+  error)
+- Split out "ASoC: dt-bindings: samsung,midas-audio: Add GPIO-based headset
+  jack detection" into two patches
+- Link to v2: https://lore.kernel.org/r/20240508-midas-wm1811-gpio-jack-v2-0-b4d36cd02c6e@gmail.com
+
+Changes in v2:
+- Added vendor prefix to threshold properties
+- Added separate headset mic bias regulator
+- Changed some cases of dev_err + return with return dev_err_probe
+- Added an extra patch to replace some previous dev_err + return cases
+  with dev_err_probe
+- Moved tab3 DTS wm1811 codec config changes to separate commit
+
+---
+Artur Weber (8):
+      ASoC: dt-bindings: samsung,midas-audio: Add headset mic bias supply
+      ASoC: dt-bindings: samsung,midas-audio: Add GPIO-based headset jack detection
+      ASoC: samsung: midas_wm1811: Add headset mic bias supply support
+      ASoC: samsung: midas_wm1811: Add GPIO-based headset jack detection
+      ASoC: samsung: midas_wm1811: Use dev_err_probe where appropriate
+      ARM: dts: samsung: exynos4212-tab3: Fix headset mic, add jack detection
+      ARM: dts: samsung: exynos4212-tab3: Add MCLK2 clock to WM1811 codec config
+      ARM: dts: samsung: exynos4212-tab3: Drop interrupt from WM1811 codec
+
+ .../bindings/sound/samsung,midas-audio.yaml        |  33 ++
+ arch/arm/boot/dts/samsung/exynos4212-tab3.dtsi     |  31 +-
+ sound/soc/samsung/Kconfig                          |   2 +-
+ sound/soc/samsung/midas_wm1811.c                   | 343 +++++++++++++++++++--
+ 4 files changed, 379 insertions(+), 30 deletions(-)
+---
+base-commit: e67572cd2204894179d89bd7b984072f19313b03
+change-id: 20240502-midas-wm1811-gpio-jack-b10226b17ecc
+
+Best regards,
+-- 
+Artur Weber <aweber.kernel@gmail.com>
+

@@ -2,139 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD84C8C9E58
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 May 2024 15:48:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47FA98C9E15
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 May 2024 15:24:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DB30B822;
-	Mon, 20 May 2024 15:47:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB30B822
+	by alsa0.perex.cz (Postfix) with ESMTPS id D97064E;
+	Mon, 20 May 2024 15:24:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D97064E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1716212882;
-	bh=IDSiFykW0taZ632l5viikw7AmB4aSHraGMUKEA3Fehw=;
-	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
+	s=default; t=1716211467;
+	bh=KhwAmAPou2kkv7BTGP/ipZ+kQymSAtsihPeeYZuhSVs=;
+	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=PYF33gU7Br4xaEv+v3tL+75QHXCrdBPAnylCz+K6m2zKPAlgL5F/jMUtuY//icyDK
-	 8phtYnC5p2fwpJ85QO2c7jBLgiP41K8CGIpmCVtvsJm7NbGfiiNnhFb27+Ol5q6rNg
-	 W8zuwTt58AA1Hc8WB5rm4rEwWNHVmSVw+2LwjVu0=
+	b=rQSFFNBkVQL5705HsG43KRPLHapHmyomsePjrkDMcquU3ZbsPbtOKTcMi6TW9H1bR
+	 dmNtSC46oR+VmhOmM5Ez1yJbJdV2RDmiZGXmozVX8Ozlk9hdVmkRtHvTqGgCGE4f6b
+	 hWkbXqw5r2HAJ0UJ5oNvoJxM+K2Iy67LUzht0mTU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 44ECFF80698; Mon, 20 May 2024 15:46:30 +0200 (CEST)
+	id 97751F805FA; Mon, 20 May 2024 15:23:44 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2675CF80690;
-	Mon, 20 May 2024 15:46:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CE4D5F805FB;
+	Mon, 20 May 2024 15:23:43 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0A074F805AA; Mon, 20 May 2024 14:46:31 +0200 (CEST)
+	id B9438F805C0; Mon, 20 May 2024 15:04:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 93B71F8020D
-	for <alsa-devel@alsa-project.org>; Mon, 20 May 2024 14:46:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93B71F8020D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5C122F80578
+	for <alsa-devel@alsa-project.org>; Mon, 20 May 2024 15:04:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C122F80578
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=A686X+ci
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id ACCAF61326;
-	Sun, 19 May 2024 18:00:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77A46C32781;
-	Sun, 19 May 2024 18:00:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1716141614;
-	bh=IDSiFykW0taZ632l5viikw7AmB4aSHraGMUKEA3Fehw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=A686X+cizeZiLE+4JI83E7j/BvF61nmJ6EnC05sRPeeGtWTVDmj993e3011RvijEd
-	 MD1DzjQ9sf75bv+I6i5SqjLe+UejCKpYZeGH2NJ5QRRC5D91/FIAI21Blc1wYKfCWW
-	 CHuhAjpVG4C7Mj8f5VpmM3QeKrfeMZRxfCIdPdHRxV1qI8u97ZGzkpsoMlRzX3fTS4
-	 xx3RBY/ZfJJuv8hYu02fWBDuzg4pqEqOwUwQnS7uoWvFgNlolvtbqK3fA0T3EoM5Sx
-	 K6uekFyC0yIHfpMQvJGTjFfMpjsPPVrOaWrKnocUnspFUo6v1KK/9EsLE2cTXnmHTF
-	 ya0TlYluPKsqQ==
-Message-ID: <ff003cb8-460b-4a97-b4f7-990244781209@kernel.org>
-Date: Sun, 19 May 2024 20:00:07 +0200
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=jyZ5loay
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1716210256; x=1747746256;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=KhwAmAPou2kkv7BTGP/ipZ+kQymSAtsihPeeYZuhSVs=;
+  b=jyZ5loay5QtkLtQuNi2rP49sZEV6MOzik5nCOKWvI37k1IMpfK+JpXUb
+   flZxEH9CInLZ5kOXX3BG6bO54IQ/IOzl3jtb5Z8xQtrGl5dU+cLsNNCR3
+   XF7wEAvsk40xN2IjpBLyAVkyTF+j7lyYD1Wpn1ldQjO8gdz7+fUhFbSVy
+   B+fl4DIq9G/O9k7Y5iIHIUsD5xyzIJpHgAZO4AQcsB27uz2tGVft0tzfs
+   w4PwQC6KaCOD3h0CIAi/h1MoIL9hgF31gLHTAS0WUD2v15jhLXMB/plY1
+   dLAcypfskXH/hmBhqVTSPnweBcg8F9sUJdNervfJs41O02ssdV06Bu/tV
+   Q==;
+X-CSE-ConnectionGUID: slRlOWajQga3kCIzdRyQ3Q==
+X-CSE-MsgGUID: 6l9lNLERRBGYcl+G55wicw==
+X-IronPort-AV: E=McAfee;i="6600,9927,11077"; a="15210582"
+X-IronPort-AV: E=Sophos;i="6.08,173,1712646000";
+   d="scan'208";a="15210582"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 May 2024 11:41:05 -0700
+X-CSE-ConnectionGUID: qLgz2vTSTBCLpNIiEA+ppQ==
+X-CSE-MsgGUID: u+JH4vW5TYW7ga04PS5/4A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.08,173,1712646000";
+   d="scan'208";a="37243342"
+Received: from unknown (HELO 108735ec233b) ([10.239.97.151])
+  by orviesa004.jf.intel.com with ESMTP; 19 May 2024 11:40:59 -0700
+Received: from kbuild by 108735ec233b with local (Exim 4.96)
+	(envelope-from <lkp@intel.com>)
+	id 1s8lSq-00045c-2r;
+	Sun, 19 May 2024 18:40:56 +0000
+Date: Mon, 20 May 2024 02:40:28 +0800
+From: kernel test robot <lkp@intel.com>
+To: Baojun Xu <baojun.xu@ti.com>, tiwai@suse.de
+Subject: Re: [PATCH v5 1/1] ALSA: hda/tas2781: Add tas2781 hda driver based
+ on SPI
+Message-ID: <202405200222.TIIew7S6-lkp@intel.com>
+References: <20240519150433.760-2-baojun.xu@ti.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/7] ASoC: dt-bindings: document wcd937x Audio Codec
-To: Mohammad Rafi Shaik <quic_mohs@quicinc.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>
-References: <20240516044801.1061838-1-quic_mohs@quicinc.com>
- <20240516044801.1061838-2-quic_mohs@quicinc.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 fv0=
-In-Reply-To: <20240516044801.1061838-2-quic_mohs@quicinc.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: QCJCDAT2HEVGIUYZE6XKGUI4JOPFWC72
-X-Message-ID-Hash: QCJCDAT2HEVGIUYZE6XKGUI4JOPFWC72
-X-MailFrom: krzk@kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240519150433.760-2-baojun.xu@ti.com>
+Message-ID-Hash: EGBADX42QY4BYTG4KCBPAGC6HNHGZF2C
+X-Message-ID-Hash: EGBADX42QY4BYTG4KCBPAGC6HNHGZF2C
+X-MailFrom: lkp@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
- linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, quic_rohkumar@quicinc.com,
- quic_pkumpatl@quicinc.com
+CC: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev, robh+dt@kernel.org,
+ andriy.shevchenko@linux.intel.com, lgirdwood@gmail.com,
+ pierre-louis.bossart@linux.intel.com, kevin-lu@ti.com, shenghao-ding@ti.com,
+ navada@ti.com, 13916275206@139.com, v-po@ti.com, niranjan.hy@ti.com,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ liam.r.girdwood@intel.com, yung-chuan.liao@linux.intel.com, baojun.xu@ti.com,
+ broonie@kernel.org, soyer@irl.hu
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
@@ -147,189 +113,152 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 16/05/2024 06:47, Mohammad Rafi Shaik wrote:
-> From: Prasad Kumpatla <quic_pkumpatl@quicinc.com>
-> 
-> Document the Qualcomm WCD9370/WCD9375 Audio Codec and the
-> Soundwire devices than can be found on Qualcomm QCM6490 based platforms.
-> 
-> The Qualcomm WCD9370/WCD9375 Audio Codec communicates
+Hi Baojun,
 
-Thank you for your patch. There is something to discuss/improve.
+kernel test robot noticed the following build warnings:
 
-> +
-> +  qcom,tx-port-mapping:
-> +    description: |
-> +      Specifies static port mapping between device and host tx ports.
-> +      In the order of the device port index which are adc1_port, adc23_port,
-> +      dmic03_mbhc_port, dmic46_port.
-> +      Supports maximum 4 tx soundwire ports.
-> +
-> +      WCD9370 TX Port 1 (ADC1)               <=> SWR2 Port 2
-> +      WCD9370 TX Port 2 (ADC2, 3)            <=> SWR2 Port 2
-> +      WCD9370 TX Port 3 (DMIC0,1,2,3 & MBHC) <=> SWR2 Port 3
-> +      WCD9370 TX Port 4 (DMIC4,5,6,7)        <=> SWR2 Port 4
-> +
-> +    $ref: /schemas/types.yaml#/definitions/uint32-array
-> +    minItems: 4
-> +    maxItems: 4
-> +    items:
-> +      oneOf:
+[auto build test WARNING on tiwai-sound/for-next]
+[also build test WARNING on tiwai-sound/for-linus rafael-pm/linux-next rafael-pm/bleeding-edge linus/master v6.9 next-20240517]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-oneOf here is not needed. Previously used enum should be fine.
+url:    https://github.com/intel-lab-lkp/linux/commits/Baojun-Xu/ALSA-hda-tas2781-Add-tas2781-hda-driver-based-on-SPI/20240519-230843
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
+patch link:    https://lore.kernel.org/r/20240519150433.760-2-baojun.xu%40ti.com
+patch subject: [PATCH v5 1/1] ALSA: hda/tas2781: Add tas2781 hda driver based on SPI
+config: x86_64-allyesconfig (https://download.01.org/0day-ci/archive/20240520/202405200222.TIIew7S6-lkp@intel.com/config)
+compiler: clang version 18.1.5 (https://github.com/llvm/llvm-project 617a15a9eac96088ae5e9134248d8236e34b91b1)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240520/202405200222.TIIew7S6-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202405200222.TIIew7S6-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> sound/pci/hda/tas2781_spi_fwlib.c:1225:11: warning: result of comparison of constant 13656 with expression of type 'unsigned char' is always false [-Wtautological-constant-out-of-range-compare]
+    1225 |             (reg == TASDEVICE_PAGE_REG(TAS2781_SA_COEFF_SWAP_REG)) &&
+         |              ~~~ ^  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>> sound/pci/hda/tas2781_spi_fwlib.c:1281:11: warning: result of comparison of constant 13660 with expression of type 'unsigned char' is always true [-Wtautological-constant-out-of-range-compare]
+    1281 |             (reg <= (TASDEVICE_PAGE_REG(TAS2781_SA_COEFF_SWAP_REG) + 4)))
+         |              ~~~ ^  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   sound/pci/hda/tas2781_spi_fwlib.c:1280:11: warning: result of comparison of constant 13656 with expression of type 'unsigned char' is always false [-Wtautological-constant-out-of-range-compare]
+    1280 |             (reg >= TASDEVICE_PAGE_REG(TAS2781_SA_COEFF_SWAP_REG)) &&
+         |              ~~~ ^  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   sound/pci/hda/tas2781_spi_fwlib.c:2112:3: warning: variable 'status' is uninitialized when used here [-Wuninitialized]
+    2112 |                 status++;
+         |                 ^~~~~~
+   sound/pci/hda/tas2781_spi_fwlib.c:2050:12: note: initialize the variable 'status' to silence this warning
+    2050 |         int status;
+         |                   ^
+         |                    = 0
+   4 warnings generated.
 
 
-> +        - minimum: 1
-> +          maximum: 4
-> +
-> +  qcom,rx-port-mapping:
-> +    description: |
-> +      Specifies static port mapping between device and host rx ports.
-> +      In the order of device port index which are hph_port, clsh_port,
-> +      comp_port, lo_port, dsd port.
-> +      Supports maximum 5 rx soundwire ports.
-> +
-> +      WCD9370 RX Port 1 (HPH_L/R)       <==>    SWR1 Port 1 (HPH_L/R)
-> +      WCD9370 RX Port 2 (CLSH)          <==>    SWR1 Port 2 (CLSH)
-> +      WCD9370 RX Port 3 (COMP_L/R)      <==>    SWR1 Port 3 (COMP_L/R)
-> +      WCD9370 RX Port 4 (LO)            <==>    SWR1 Port 4 (LO)
-> +      WCD9370 RX Port 5 (DSD_L/R)       <==>    SWR1 Port 5 (DSD)
-> +
-> +    $ref: /schemas/types.yaml#/definitions/uint32-array
-> +    minItems: 5
-> +    maxItems: 5
-> +    items:
-> +      oneOf:
+vim +1225 sound/pci/hda/tas2781_spi_fwlib.c
 
-Again, no need for oneof.
+  1206	
+  1207	static int tasdev_multibytes_chksum(struct tasdevice_priv *tasdevice,
+  1208		unsigned char book, unsigned char page,
+  1209		unsigned char reg, unsigned int len)
+  1210	{
+  1211		struct tas_crc crc_data;
+  1212		unsigned char crc_chksum = 0;
+  1213		unsigned char nBuf1[128];
+  1214		int ret = 0, i;
+  1215		bool in;
+  1216	
+  1217		if ((reg + len - 1) > 127) {
+  1218			ret = -EINVAL;
+  1219			dev_err(tasdevice->dev, "firmware error\n");
+  1220			goto end;
+  1221		}
+  1222	
+  1223		if ((book == TASDEVICE_BOOK_ID(TAS2781_SA_COEFF_SWAP_REG)) &&
+  1224		    (page == TASDEVICE_PAGE_ID(TAS2781_SA_COEFF_SWAP_REG)) &&
+> 1225		    (reg == TASDEVICE_PAGE_REG(TAS2781_SA_COEFF_SWAP_REG)) &&
+  1226		    (len == 4)) {
+  1227			/* DSP swap command, pass */
+  1228			ret = 0;
+  1229			goto end;
+  1230		}
+  1231	
+  1232		in = check_yram(&crc_data, book, page, reg, len);
+  1233		if (!in)
+  1234			goto end;
+  1235	
+  1236		if (len == 1) {
+  1237			dev_err(tasdevice->dev, "firmware error\n");
+  1238			ret = -EINVAL;
+  1239			goto end;
+  1240		}
+  1241	
+  1242		ret = tasdevice_spi_dev_bulk_read(tasdevice,
+  1243			TASDEVICE_REG(book, page, crc_data.offset),
+  1244			nBuf1, crc_data.len);
+  1245		if (ret < 0)
+  1246			goto end;
+  1247	
+  1248		for (i = 0; i < crc_data.len; i++) {
+  1249			if ((book == TASDEVICE_BOOK_ID(TAS2781_SA_COEFF_SWAP_REG)) &&
+  1250			    (page == TASDEVICE_PAGE_ID(TAS2781_SA_COEFF_SWAP_REG)) &&
+  1251			    ((i + crc_data.offset) >=
+  1252				TASDEVICE_PAGE_REG(TAS2781_SA_COEFF_SWAP_REG)) &&
+  1253			    ((i + crc_data.offset) <=
+  1254				(TASDEVICE_PAGE_REG(TAS2781_SA_COEFF_SWAP_REG) + 4)))
+  1255				/* DSP swap command, bypass */
+  1256				continue;
+  1257			else
+  1258				crc_chksum += crc8(tasdevice->crc8_lkp_tbl, &nBuf1[i],
+  1259					1, 0);
+  1260		}
+  1261	
+  1262		ret = crc_chksum;
+  1263	
+  1264	end:
+  1265		return ret;
+  1266	}
+  1267	
+  1268	static int do_singlereg_checksum(struct tasdevice_priv *tasdevice,
+  1269		unsigned char book, unsigned char page,
+  1270		unsigned char reg, unsigned char val)
+  1271	{
+  1272		struct tas_crc crc_data;
+  1273		unsigned int nData1;
+  1274		int ret = 0;
+  1275		bool in;
+  1276	
+  1277		/* DSP swap command, pass */
+  1278		if ((book == TASDEVICE_BOOK_ID(TAS2781_SA_COEFF_SWAP_REG)) &&
+  1279		    (page == TASDEVICE_PAGE_ID(TAS2781_SA_COEFF_SWAP_REG)) &&
+  1280		    (reg >= TASDEVICE_PAGE_REG(TAS2781_SA_COEFF_SWAP_REG)) &&
+> 1281		    (reg <= (TASDEVICE_PAGE_REG(TAS2781_SA_COEFF_SWAP_REG) + 4)))
+  1282			return 0;
+  1283	
+  1284		in = check_yram(&crc_data, book, page, reg, 1);
+  1285		if (!in)
+  1286			return 0;
+  1287		ret = tasdevice_spi_dev_read(tasdevice,
+  1288			TASDEVICE_REG(book, page, reg), &nData1);
+  1289		if (ret < 0)
+  1290			return ret;
+  1291	
+  1292		if (nData1 != val) {
+  1293			dev_err(tasdevice->dev,
+  1294				"B[0x%x]P[0x%x]R[0x%x] W[0x%x], R[0x%x]\n",
+  1295				book, page, reg, val, nData1);
+  1296			tasdevice->err_code |= ERROR_YRAM_CRCCHK;
+  1297			return -EAGAIN;
+  1298		}
+  1299	
+  1300		ret = crc8(tasdevice->crc8_lkp_tbl, &val, 1, 0);
+  1301	
+  1302		return ret;
+  1303	}
+  1304	
 
-> +        - minimum: 1
-> +          maximum: 5
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    soundwire@3210000 {
-> +        reg = <0x03210000 0x2000>;
-> +        #address-cells = <2>;
-> +        #size-cells = <0>;
-> +        wcd937x_rx: codec@0,4 {
-> +            compatible = "sdw20217010a00";
-> +            reg  = <0 4>;
-> +            qcom,rx-port-mapping = <1 2 3 4 5>;
-> +        };
-> +    };
-> +
-> +    soundwire@3230000 {
-> +        reg = <0x03230000 0x2000>;
-> +        #address-cells = <2>;
-> +        #size-cells = <0>;
-> +        wcd937x_tx: codec@0,3 {
-> +            compatible = "sdw20217010a00";
-> +            reg  = <0 3>;
-> +            qcom,tx-port-mapping = <2 2 3 4>;
-> +        };
-> +    };
-> +
-> +...
-> diff --git a/Documentation/devicetree/bindings/sound/qcom,wcd937x.yaml b/Documentation/devicetree/bindings/sound/qcom,wcd937x.yaml
-> new file mode 100644
-> index 000000000000..5c76083691ea
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/qcom,wcd937x.yaml
-> @@ -0,0 +1,80 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/qcom,wcd937x.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm WCD9370/WCD9375 Audio Codec
-> +
-> +maintainers:
-> +  - Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-> +
-> +description:
-> +  Qualcomm WCD9370/WCD9375 Codec is a standalone Hi-Fi audio codec IC.
-> +  It has RX and TX Soundwire slave devices.
-> +
-> +allOf:
-> +  - $ref: dai-common.yaml#
-> +  - $ref: qcom,wcd93xx-common.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - const: qcom,wcd9370-codec
-> +      - items:
-> +          - const: qcom,wcd9375-codec
-> +          - const: qcom,wcd9370-codec
-> +
-> +  vdd-px-supply:
-> +    description: A reference to the 1.8V I/O supply
-> +
-> +required:
-> +  - compatible
-
-I guess VDDPX is not really optional in the hardware is it?
-
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    codec {
-> +        compatible = "qcom,wcd9370-codec";
-> +        pinctrl-names = "default", "sleep";
-> +        pinctrl-0 = <&wcd_reset_n>;
-> +        pinctrl-1 = <&wcd_reset_n_sleep>;
-> +        reset-gpios = <&tlmm 83 0>;
-
-Use defines for common/known flags, like GPIO flags.
-
-> +        vdd-buck-supply = <&vreg_l17b_1p8>;
-> +        vdd-rxtx-supply = <&vreg_l18b_1p8>;
-> +        vdd-px-supply = <&vreg_l18b_1p8>;
-> +        vdd-mic-bias-supply = <&vreg_bob>;
-> +        qcom,micbias1-microvolt = <1800000>;
-> +        qcom,micbias2-microvolt = <1800000>;
-> +        qcom,micbias3-microvolt = <1800000>;
-> +        qcom,micbias4-microvolt = <1800000>;
-> +        qcom,rx-device = <&wcd937x_rx>;
-> +        qcom,tx-device = <&wcd937x_tx>;
-> +        #sound-dai-cells = <1>;
-> +    };
-> +
-> +    /* ... */
-> +
-> +    soundwire@3210000 {
-> +        reg = <0x03210000 0x2000>;
-> +        #address-cells = <2>;
-> +        #size-cells = <0>;
-> +        wcd937x_rx: codec@0,4 {
-> +            compatible = "sdw20217010a00";
-> +            reg  = <0 4>;
-
-Just one space goes before =
-This applies to all places.
-
-> +            qcom,rx-port-mapping = <1 2 3 4 5>;
-> +        };
-> +    };
-> +
-> +    soundwire@3230000 {
-> +        reg = <0x03230000 0x2000>;
-> +        #address-cells = <2>;
-> +        #size-cells = <0>;
-> +        wcd937x_tx: codec@0,3 {
-> +            compatible = "sdw20217010a00";
-> +            reg  = <0 3>;
-
-Best regards,
-Krzysztof
-
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki

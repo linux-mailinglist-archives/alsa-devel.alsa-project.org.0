@@ -2,105 +2,210 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47FA98C9E15
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 May 2024 15:24:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C34AA8C9D40
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 May 2024 14:30:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D97064E;
-	Mon, 20 May 2024 15:24:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D97064E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1AC9FEAB;
+	Mon, 20 May 2024 14:30:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1AC9FEAB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1716211467;
-	bh=KhwAmAPou2kkv7BTGP/ipZ+kQymSAtsihPeeYZuhSVs=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	s=default; t=1716208219;
+	bh=btNve7Yl6KpKMmai+KKO24QFVfRWph5/verbPh2EOR4=;
+	h=From:To:Subject:In-Reply-To:References:Date:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=rQSFFNBkVQL5705HsG43KRPLHapHmyomsePjrkDMcquU3ZbsPbtOKTcMi6TW9H1bR
-	 dmNtSC46oR+VmhOmM5Ez1yJbJdV2RDmiZGXmozVX8Ozlk9hdVmkRtHvTqGgCGE4f6b
-	 hWkbXqw5r2HAJ0UJ5oNvoJxM+K2Iy67LUzht0mTU=
+	b=jic4a4on7d8JB6L8TsO1gwNLx8duUz5ceq8VBagQp7quNjWQREZWQcGl5iS0ziSo/
+	 tzBbPAGWA+EgvZpHihIAb7/oCtZIb/Uaykzx48vXt9xVLRjpzl90ymenb6tAysj1nh
+	 Uc5aXvrhAmEmFMZS18OtpbdGKXG5VHlQ5HtdwG+Y=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 97751F805FA; Mon, 20 May 2024 15:23:44 +0200 (CEST)
+	id 99FE5F80794; Mon, 20 May 2024 14:27:02 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CE4D5F805FB;
-	Mon, 20 May 2024 15:23:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1ED26F80753;
+	Mon, 20 May 2024 14:27:02 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B9438F805C0; Mon, 20 May 2024 15:04:21 +0200 (CEST)
+	id C3ABCF8026A; Mon, 20 May 2024 14:22:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from JPN01-TYC-obe.outbound.protection.outlook.com
+ (mail-tycjpn01on20601.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:2019::601])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5C122F80578
-	for <alsa-devel@alsa-project.org>; Mon, 20 May 2024 15:04:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C122F80578
+	by alsa1.perex.cz (Postfix) with ESMTPS id 96922F8016B
+	for <alsa-devel@alsa-project.org>; Mon, 20 May 2024 14:22:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96922F8016B
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=jyZ5loay
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1716210256; x=1747746256;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=KhwAmAPou2kkv7BTGP/ipZ+kQymSAtsihPeeYZuhSVs=;
-  b=jyZ5loay5QtkLtQuNi2rP49sZEV6MOzik5nCOKWvI37k1IMpfK+JpXUb
-   flZxEH9CInLZ5kOXX3BG6bO54IQ/IOzl3jtb5Z8xQtrGl5dU+cLsNNCR3
-   XF7wEAvsk40xN2IjpBLyAVkyTF+j7lyYD1Wpn1ldQjO8gdz7+fUhFbSVy
-   B+fl4DIq9G/O9k7Y5iIHIUsD5xyzIJpHgAZO4AQcsB27uz2tGVft0tzfs
-   w4PwQC6KaCOD3h0CIAi/h1MoIL9hgF31gLHTAS0WUD2v15jhLXMB/plY1
-   dLAcypfskXH/hmBhqVTSPnweBcg8F9sUJdNervfJs41O02ssdV06Bu/tV
-   Q==;
-X-CSE-ConnectionGUID: slRlOWajQga3kCIzdRyQ3Q==
-X-CSE-MsgGUID: 6l9lNLERRBGYcl+G55wicw==
-X-IronPort-AV: E=McAfee;i="6600,9927,11077"; a="15210582"
-X-IronPort-AV: E=Sophos;i="6.08,173,1712646000";
-   d="scan'208";a="15210582"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 May 2024 11:41:05 -0700
-X-CSE-ConnectionGUID: qLgz2vTSTBCLpNIiEA+ppQ==
-X-CSE-MsgGUID: u+JH4vW5TYW7ga04PS5/4A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,173,1712646000";
-   d="scan'208";a="37243342"
-Received: from unknown (HELO 108735ec233b) ([10.239.97.151])
-  by orviesa004.jf.intel.com with ESMTP; 19 May 2024 11:40:59 -0700
-Received: from kbuild by 108735ec233b with local (Exim 4.96)
-	(envelope-from <lkp@intel.com>)
-	id 1s8lSq-00045c-2r;
-	Sun, 19 May 2024 18:40:56 +0000
-Date: Mon, 20 May 2024 02:40:28 +0800
-From: kernel test robot <lkp@intel.com>
-To: Baojun Xu <baojun.xu@ti.com>, tiwai@suse.de
-Subject: Re: [PATCH v5 1/1] ALSA: hda/tas2781: Add tas2781 hda driver based
- on SPI
-Message-ID: <202405200222.TIIew7S6-lkp@intel.com>
-References: <20240519150433.760-2-baojun.xu@ti.com>
+	dkim=pass (1024-bit key,
+ unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
+ header.s=selector1 header.b=HXlkFbag
+Received: from TYCPR01MB5679.jpnprd01.prod.outlook.com (2603:1096:400:40::10)
+ by TY3PR01MB10013.jpnprd01.prod.outlook.com (2603:1096:400:1de::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.30; Mon, 20 May
+ 2024 09:19:25 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=XcSyTCeo/lJ+kYZAviPDO3UwOeyplaIXo5rGlfsXYHUDZY6GKfXUrJd4w05VUQn6M2KUMLaa9FwbiUz0qsDUJvVuheQM35PoDMm3uGzRxWebl181QVgG6PmwQExSP8OGVHyWgDNKU+5UKYT1QCR9GBh28PerY+EfzuSoo4yHGze6DVkbymfWobjPXGJ4KltAzodArfWcrgx4CcCI+BFS8dkp8O0Xc39M1zG0KksiugwTX5fLY1TkruGQG0m3oNsqVCh8itdkYJ4Pi9Csn6GObFgZeidOnoOa+/uBkiLc+/1I+dwLVJf4Mm04Rwf6i6KqHijV6jhHcbSJZCLwLm2UDg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DHkIZSvnCbUc3fvnf+O3me9rbfE3Dcmhi15E5damm24=;
+ b=OQBO4tgoqdN9hohiHZoOI17YGDvM4l11/mMlbnhI7MUtbk7x+XVMWSzX5HZwrbGRGnqg0fRQCVlik7Rkss9H6hHzF+r+UVMV/c7R5ffgJ0Hh8GHjvN7g6Bf6YNnvdai9KbL/RQNdwariF6uG/fUt8E0XkvxkzntORg1kyxO/NgqZeiyL957sLVX8ado5pIQMdHc6Mk8vcDUq79aPE5t0yS4mGQDIKP44fvemqerSvRUNY8RchC0axLPZPzkQtnm0DVzOldA1L0XZOf6vysYPCgroSNcopbqvV+AGTjZyFf3HJcPQZ4EAaP3X5fWZ1M2OD4Zsa7zP38Mi6WofrThF1g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DHkIZSvnCbUc3fvnf+O3me9rbfE3Dcmhi15E5damm24=;
+ b=HXlkFbagO6pMcRMNFTfm/bcP4j83BsKA3y9mArbJ6dToQy4u15JRJSNxb7elz8Q5EvyA7AxPIoB62a9AQPP24L2mLkE6/eecERb1Tuel6a7Vrqo9rrNA0gSVshOYbXNGthioYpeSc92x3CSebbzHii1ndQiQNkpaHi+a9The6c0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
+ (2603:1096:400:3a9::11) by TYCPR01MB5679.jpnprd01.prod.outlook.com
+ (2603:1096:400:40::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.35; Sun, 19 May
+ 2024 23:11:26 +0000
+Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
+ ([fe80::2f40:537b:2694:7b76]) by TYCPR01MB10914.jpnprd01.prod.outlook.com
+ ([fe80::2f40:537b:2694:7b76%7]) with mapi id 15.20.7587.030; Sun, 19 May 2024
+ 23:11:26 +0000
+Message-ID: <87o791e6si.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Amadeusz =?ISO-8859-2?Q?S=B3awi=F1ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+Subject: Re: [PATCH v2 2/3] ASoC: soc-pcm: Indicate warning if CPU / Codec
+ availability mismatch
+In-Reply-To: <b9cc6106-4f5e-4fd5-b5f4-bc3ed6fbe300@linux.intel.com>
+References: <87o79azh65.wl-kuninori.morimoto.gx@renesas.com>
+	<87le4ezh53.wl-kuninori.morimoto.gx@renesas.com>
+	<b9cc6106-4f5e-4fd5-b5f4-bc3ed6fbe300@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 Emacs/27.1 Mule/6.0
+Content-Type: text/plain; charset=US-ASCII
+Date: Sun, 19 May 2024 23:11:25 +0000
+X-ClientProxiedBy: TYCP286CA0098.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:2b4::19) To TYCPR01MB10914.jpnprd01.prod.outlook.com
+ (2603:1096:400:3a9::11)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240519150433.760-2-baojun.xu@ti.com>
-Message-ID-Hash: EGBADX42QY4BYTG4KCBPAGC6HNHGZF2C
-X-Message-ID-Hash: EGBADX42QY4BYTG4KCBPAGC6HNHGZF2C
-X-MailFrom: lkp@intel.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: 
+	TYCPR01MB10914:EE_|TYCPR01MB5679:EE_|TY3PR01MB10013:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8ee8988c-fd46-483a-e6df-08dc785901f2
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: 
+ BCL:0;ARA:13230031|366007|376005|7416005|52116005|1800799015|38350700005;
+X-Microsoft-Antispam-Message-Info: 
+ =?us-ascii?Q?CE9BoeoJ1sr4ChA7UIj8eAv8qSRP/zaY8GTccZ3x/D9heHjagCFsZB6TJtx4?=
+ =?us-ascii?Q?3fa9Jx1p70xHw/S2kgu8rzrqz6ori+ggXrrcURG/Uj7kCk0x56iZh8VQmpjZ?=
+ =?us-ascii?Q?PTA3fkcuqp6hZNDeE8tG/g3Z3UonDMsWSUFv+oDcKFv+L9VSrXtVTTJxSUR6?=
+ =?us-ascii?Q?VEggQuohGih2HckxKkC36iiZkDj5kU0Uc+Exj/IB1Qrto6hUKD3LGUAbogCZ?=
+ =?us-ascii?Q?4UubPJzUpjqoMyCgJI/KKyQZUTpenCUY+wVkrBDULJ/icP3PU5ds8aqpRrh+?=
+ =?us-ascii?Q?rboUFXu8EcVH5hBAZQlPwjPIC/D0Bh2bg1NKwGfRR6Dk39mAyTTZ5yPwrAA+?=
+ =?us-ascii?Q?YZQMEvoXnzKTakxP3R0dBry51DvJZbNGJ2BptKth/w2ZqT40Sb9AeT2ygkfP?=
+ =?us-ascii?Q?1X10LtJONnpYGconDAok1+3ugtTrFXg9IJZYcBq9kfoBUtd3EWXmJdfYtGb8?=
+ =?us-ascii?Q?4Sap3a9v+jBJsH1B7JvepGRoS/hP0sM4LivTEc6PjYn3p5IjXlg4QV9CjuNm?=
+ =?us-ascii?Q?g4nygwSOnF19mp8IUI5MOe0vS92k+bPXnZCoDhgJnGWHVEagxmwfQ4VY1+oY?=
+ =?us-ascii?Q?YPzftMxPhvSAC0s7g83G4PFxNDYkSxIkwseiObtPExBjFtwPtr2tQgPHPMct?=
+ =?us-ascii?Q?R8wbCSYdg28c7wPqKAIzAf9x3UHqBxNauRnRzRYHFORF+Ed4tA2NIoEyEXsE?=
+ =?us-ascii?Q?T+aN+AHVpAN1J1Djq+BGbmqrePnqQYIx73bt1pe1mAlmz+21WKVLCWXClaHI?=
+ =?us-ascii?Q?SSNFFCJM2PODImXp8pktj33HI+YfapMSYipjALGh9M9+Ws++mmlU6v39BTLp?=
+ =?us-ascii?Q?BOqbCO4P5C6FKkcsaD5nPNFyggyYVrC3BHXTEwnPZqG5E1zbiaCo6XLOvZKm?=
+ =?us-ascii?Q?aoTw7VF+aSpLLw5ZhsCsaygQn9QvwuA8sRg8i/lWcNf+XHkAmFvOn6lhjob3?=
+ =?us-ascii?Q?o+/GiAN4FaPwW+l12GQZWneQGIe6KQyitVTCFOzp4XA5H4Flf0rEzLRF3hKM?=
+ =?us-ascii?Q?Q++s16mtTnqIZ331LOII7qyTJzdKCgMMILu09ZYxvuulzLXFyiWnbQQI/57S?=
+ =?us-ascii?Q?8cejxeVFAG4RbtxO7t3LX8TvPlQ6K8dY0nLYSJFBmdqXp2mWak756643Be/w?=
+ =?us-ascii?Q?imlOIk2nwVKThEybuKECydFh3bY4eShm8RzXLpGeiXfkwWFPanrufyVaYS/I?=
+ =?us-ascii?Q?szY2bJ5Mni63IhfXMQGcCYEtYN32DsweZBzMrpumFDPI8dXtPN2GGXVb9BZ9?=
+ =?us-ascii?Q?Ip73uN0QiTLeH9MKPaRgSiBCLZ0mMJAE1qGS6SabMPq6qGnqUL8vwusyCKtY?=
+ =?us-ascii?Q?U0MQoWMRHtPznkxXy7TqAyq7e8NntEQ3Bx9DlCCcCPsBZg=3D=3D?=
+X-Forefront-Antispam-Report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB10914.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366007)(376005)(7416005)(52116005)(1800799015)(38350700005);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+ =?us-ascii?Q?dslYXatbpri53B68RAlOkkgwsVB0W9N3xpsxsqtSx9ZnWMEV2/lMaanaFjS/?=
+ =?us-ascii?Q?H48iN3O8V3pi7tc90ndbYSRBSEDDDlua4MjXXoxKd4bBgAYBafjKEMGEHqV/?=
+ =?us-ascii?Q?dq8nxcIkn31xDw2FHxqbCch6MYVjb4a6GZeHo6Zcnjm/bG8rOZsxpn7e95nx?=
+ =?us-ascii?Q?4epvc5H3rXEtJoEtGWrxJvIPDJOcxLlyipBsRVOUmHht5NPoQVbulwoGXLhL?=
+ =?us-ascii?Q?OcUvqxHZ1toJ8k54VzusD9DxbzHHxQ9ktvpaAEUk2bdueVFyNY9j+V5O3WSN?=
+ =?us-ascii?Q?MpUK8PUAa1dJm7sGBaRzhtEWMe51GOr4lyzV2hFGpNTtx1w/YEM6vyLJ6OtD?=
+ =?us-ascii?Q?5dzLnmWrLuK8a4xF0ePWfWYUZhTClWr/LIYMGtXLlBM7GKkaQ4uShqdHvGsa?=
+ =?us-ascii?Q?kaBiTaIw8EX+HN4ynONvOvH8KJ+0bYj2QqKwWqLrzvCwAOWwqjJwvls/+IvK?=
+ =?us-ascii?Q?aHnExO/vWJ7YXjrdePR/hGJOkizHfwJrKrJ3OzcyaI+zM3DGO2kGnB7lRQtU?=
+ =?us-ascii?Q?mmfccH/9tTWBpPlx6SeWSIQ8rduXgctutotOfV37a+N8kc45lXtJIAfPOUMJ?=
+ =?us-ascii?Q?s3Le+icmS2v3nDnb3lkxKZJeB5dc7DKp/9q+9JNIOi5VCi5dG3GjIA046cxM?=
+ =?us-ascii?Q?AdlTsLkCBi+G1eYsBB5xqPGL01eKN+G+NTfK56Nf8tC2UZUm7HjzZ0vHSR4t?=
+ =?us-ascii?Q?q+KIJO1fmA9EwsfaaXKzajGpE46m+eBM02+nIN/+cLA/ajM27Vf6m5Al5Pph?=
+ =?us-ascii?Q?5T7PJZt0Mo+IzFU8Xs+9cM7TWJme/8jaEmDgyGUb/yOD2iLCx0LHFv0d3kBd?=
+ =?us-ascii?Q?6ov/VHa3Kyov3Xh8QyJ9UlBxZQ392oVQrH2bAFJW8zvsPoHWkiZy777LO4LG?=
+ =?us-ascii?Q?ypnAoxHbFfNzsjuEU6FFPbWDxORTQ//3HrTkbePwW/uzB82ichhQlgiVFKfu?=
+ =?us-ascii?Q?k+riQlLnIr+4nEbHZCft09MZCdJgrWRCow/stZzcyMzaCL49x8eOuPUAdBGN?=
+ =?us-ascii?Q?bNMOGcm91cIajG6w0xAR6JkmmnqT8gqL/rYiIqnS/rz/AD6k0lIChDMVUSup?=
+ =?us-ascii?Q?lLeXEhnOQN9q5Hj0S/+1zW47qROvWJ7AKepJ89IrEgQcnuB7goSXv1cjKKdM?=
+ =?us-ascii?Q?EcFZL4yEkqsUkvQ3pP8GBSAdFxQxtMKrVtZlhrnBUupi2RjZRSm057+3TaDR?=
+ =?us-ascii?Q?jld/Vd37SFBys4AOytPquBholXzvIWLwKgQxbquHXQEMSgJxbHEVYR/4dB7A?=
+ =?us-ascii?Q?0iBogK7CCj25Dz6P7deSEg4D9lwN94aOHdK1SEY/VT9+6T1FqNl7bdgqH0Yp?=
+ =?us-ascii?Q?f+fU2YD6cK8L4zD7ihxbpf4CiVk4vP0yzfFlAOc613LJuzmD085F36qC7whH?=
+ =?us-ascii?Q?NdcQtm2twMOYuvKxaNsBb2hA/WuzN7fnzE0jc92zF4zvBuAdPYVG3e3DnPCN?=
+ =?us-ascii?Q?1OWdkE4uMHHkcQpZVTrt8/5IfrwHRiu3hwR65nHaRgFhdKb1YD5vJOcVQbDw?=
+ =?us-ascii?Q?eU32vcNNx+YXPLqLzPHT47m/18VLJ11wewWVs/RhcD7q9HVFHcyUN01hTQAy?=
+ =?us-ascii?Q?VC2qp9ol893cyMKx7hhAAWHzCFunC4KQTGEvnSKSxSRrwMsS4wGMEJYHNpCT?=
+ =?us-ascii?Q?rl6UUiJZblGUXD4CG1RiXEY=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 8ee8988c-fd46-483a-e6df-08dc785901f2
+X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB10914.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2024 23:11:26.0697
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ jn3EGIfXh+3N0NYdIxHOTg7CotJioypF2+x7Rmg3IIxbRuVz9wqTwAAjxbO4ZMOL3yQcijvozujVltqQ+rLtfpfvubqZnyNqStWHYQEIG0xKmEzg8z4LEJMAnpTrkPYX
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB5679
+X-OriginatorOrg: renesas.com
+Message-ID-Hash: 6BHG3M6OQ3JIWD5NV3AXWPCDCO6MORGC
+X-Message-ID-Hash: 6BHG3M6OQ3JIWD5NV3AXWPCDCO6MORGC
+X-MailFrom: kuninori.morimoto.gx@renesas.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev, robh+dt@kernel.org,
- andriy.shevchenko@linux.intel.com, lgirdwood@gmail.com,
- pierre-louis.bossart@linux.intel.com, kevin-lu@ti.com, shenghao-ding@ti.com,
- navada@ti.com, 13916275206@139.com, v-po@ti.com, niranjan.hy@ti.com,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- liam.r.girdwood@intel.com, yung-chuan.liao@linux.intel.com, baojun.xu@ti.com,
- broonie@kernel.org, soyer@irl.hu
+CC: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Alper Nebi Yasak <alpernebiyasak@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Banajit Goswami <bgoswami@quicinc.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, Brent Lu <brent.lu@intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>, Hans de Goede <hdegoede@redhat.com>,
+ Jerome Brunet <jbrunet@baylibre.com>, Jiawei Wang <me@jwang.link>,
+ Jonathan Corbet <corbet@lwn.net>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Kevin Hilman <khilman@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Maso Huang <maso.huang@mediatek.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>,
+ Shengjiu Wang <shengjiu.wang@gmail.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>, Takashi Iwai <tiwai@suse.com>,
+ Vinod Koul <vkoul@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ alsa-devel@alsa-project.org, imx@lists.linux.dev, linux-doc@vger.kernel.org,
+ linux-sound@vger.kernel.org
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
@@ -113,152 +218,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Baojun,
 
-kernel test robot noticed the following build warnings:
+Hi Amadeusz
 
-[auto build test WARNING on tiwai-sound/for-next]
-[also build test WARNING on tiwai-sound/for-linus rafael-pm/linux-next rafael-pm/bleeding-edge linus/master v6.9 next-20240517]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+> > +		if ((dai_link->dpcm_playback || dai_link->playback_only) &&
+> > +		    !has_playback_both)
+> > +			dev_warn(rtd->card->dev,
+> > +				 "System reuqsts playback, but not available (%s)."
+> 
+> Typo: reuqsts -> requests
+> 
+> > +				 " Please update Codec driver\n",
+> > +				 dai_link->stream_name);
+> > +		if ((dai_link->dpcm_capture || dai_link->capture_only) &&
+> > +		     !has_capture_both)
+> > +			dev_warn(rtd->card->dev,
+> > +				 "System reuqsts capture, but not available (%s)."
+> 
+> Same here.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Baojun-Xu/ALSA-hda-tas2781-Add-tas2781-hda-driver-based-on-SPI/20240519-230843
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
-patch link:    https://lore.kernel.org/r/20240519150433.760-2-baojun.xu%40ti.com
-patch subject: [PATCH v5 1/1] ALSA: hda/tas2781: Add tas2781 hda driver based on SPI
-config: x86_64-allyesconfig (https://download.01.org/0day-ci/archive/20240520/202405200222.TIIew7S6-lkp@intel.com/config)
-compiler: clang version 18.1.5 (https://github.com/llvm/llvm-project 617a15a9eac96088ae5e9134248d8236e34b91b1)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240520/202405200222.TIIew7S6-lkp@intel.com/reproduce)
+Grr, thank you pointing it.
+Will fix in v3.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202405200222.TIIew7S6-lkp@intel.com/
+Thank you for your help !!
 
-All warnings (new ones prefixed by >>):
-
->> sound/pci/hda/tas2781_spi_fwlib.c:1225:11: warning: result of comparison of constant 13656 with expression of type 'unsigned char' is always false [-Wtautological-constant-out-of-range-compare]
-    1225 |             (reg == TASDEVICE_PAGE_REG(TAS2781_SA_COEFF_SWAP_REG)) &&
-         |              ~~~ ^  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->> sound/pci/hda/tas2781_spi_fwlib.c:1281:11: warning: result of comparison of constant 13660 with expression of type 'unsigned char' is always true [-Wtautological-constant-out-of-range-compare]
-    1281 |             (reg <= (TASDEVICE_PAGE_REG(TAS2781_SA_COEFF_SWAP_REG) + 4)))
-         |              ~~~ ^  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   sound/pci/hda/tas2781_spi_fwlib.c:1280:11: warning: result of comparison of constant 13656 with expression of type 'unsigned char' is always false [-Wtautological-constant-out-of-range-compare]
-    1280 |             (reg >= TASDEVICE_PAGE_REG(TAS2781_SA_COEFF_SWAP_REG)) &&
-         |              ~~~ ^  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   sound/pci/hda/tas2781_spi_fwlib.c:2112:3: warning: variable 'status' is uninitialized when used here [-Wuninitialized]
-    2112 |                 status++;
-         |                 ^~~~~~
-   sound/pci/hda/tas2781_spi_fwlib.c:2050:12: note: initialize the variable 'status' to silence this warning
-    2050 |         int status;
-         |                   ^
-         |                    = 0
-   4 warnings generated.
-
-
-vim +1225 sound/pci/hda/tas2781_spi_fwlib.c
-
-  1206	
-  1207	static int tasdev_multibytes_chksum(struct tasdevice_priv *tasdevice,
-  1208		unsigned char book, unsigned char page,
-  1209		unsigned char reg, unsigned int len)
-  1210	{
-  1211		struct tas_crc crc_data;
-  1212		unsigned char crc_chksum = 0;
-  1213		unsigned char nBuf1[128];
-  1214		int ret = 0, i;
-  1215		bool in;
-  1216	
-  1217		if ((reg + len - 1) > 127) {
-  1218			ret = -EINVAL;
-  1219			dev_err(tasdevice->dev, "firmware error\n");
-  1220			goto end;
-  1221		}
-  1222	
-  1223		if ((book == TASDEVICE_BOOK_ID(TAS2781_SA_COEFF_SWAP_REG)) &&
-  1224		    (page == TASDEVICE_PAGE_ID(TAS2781_SA_COEFF_SWAP_REG)) &&
-> 1225		    (reg == TASDEVICE_PAGE_REG(TAS2781_SA_COEFF_SWAP_REG)) &&
-  1226		    (len == 4)) {
-  1227			/* DSP swap command, pass */
-  1228			ret = 0;
-  1229			goto end;
-  1230		}
-  1231	
-  1232		in = check_yram(&crc_data, book, page, reg, len);
-  1233		if (!in)
-  1234			goto end;
-  1235	
-  1236		if (len == 1) {
-  1237			dev_err(tasdevice->dev, "firmware error\n");
-  1238			ret = -EINVAL;
-  1239			goto end;
-  1240		}
-  1241	
-  1242		ret = tasdevice_spi_dev_bulk_read(tasdevice,
-  1243			TASDEVICE_REG(book, page, crc_data.offset),
-  1244			nBuf1, crc_data.len);
-  1245		if (ret < 0)
-  1246			goto end;
-  1247	
-  1248		for (i = 0; i < crc_data.len; i++) {
-  1249			if ((book == TASDEVICE_BOOK_ID(TAS2781_SA_COEFF_SWAP_REG)) &&
-  1250			    (page == TASDEVICE_PAGE_ID(TAS2781_SA_COEFF_SWAP_REG)) &&
-  1251			    ((i + crc_data.offset) >=
-  1252				TASDEVICE_PAGE_REG(TAS2781_SA_COEFF_SWAP_REG)) &&
-  1253			    ((i + crc_data.offset) <=
-  1254				(TASDEVICE_PAGE_REG(TAS2781_SA_COEFF_SWAP_REG) + 4)))
-  1255				/* DSP swap command, bypass */
-  1256				continue;
-  1257			else
-  1258				crc_chksum += crc8(tasdevice->crc8_lkp_tbl, &nBuf1[i],
-  1259					1, 0);
-  1260		}
-  1261	
-  1262		ret = crc_chksum;
-  1263	
-  1264	end:
-  1265		return ret;
-  1266	}
-  1267	
-  1268	static int do_singlereg_checksum(struct tasdevice_priv *tasdevice,
-  1269		unsigned char book, unsigned char page,
-  1270		unsigned char reg, unsigned char val)
-  1271	{
-  1272		struct tas_crc crc_data;
-  1273		unsigned int nData1;
-  1274		int ret = 0;
-  1275		bool in;
-  1276	
-  1277		/* DSP swap command, pass */
-  1278		if ((book == TASDEVICE_BOOK_ID(TAS2781_SA_COEFF_SWAP_REG)) &&
-  1279		    (page == TASDEVICE_PAGE_ID(TAS2781_SA_COEFF_SWAP_REG)) &&
-  1280		    (reg >= TASDEVICE_PAGE_REG(TAS2781_SA_COEFF_SWAP_REG)) &&
-> 1281		    (reg <= (TASDEVICE_PAGE_REG(TAS2781_SA_COEFF_SWAP_REG) + 4)))
-  1282			return 0;
-  1283	
-  1284		in = check_yram(&crc_data, book, page, reg, 1);
-  1285		if (!in)
-  1286			return 0;
-  1287		ret = tasdevice_spi_dev_read(tasdevice,
-  1288			TASDEVICE_REG(book, page, reg), &nData1);
-  1289		if (ret < 0)
-  1290			return ret;
-  1291	
-  1292		if (nData1 != val) {
-  1293			dev_err(tasdevice->dev,
-  1294				"B[0x%x]P[0x%x]R[0x%x] W[0x%x], R[0x%x]\n",
-  1295				book, page, reg, val, nData1);
-  1296			tasdevice->err_code |= ERROR_YRAM_CRCCHK;
-  1297			return -EAGAIN;
-  1298		}
-  1299	
-  1300		ret = crc8(tasdevice->crc8_lkp_tbl, &val, 1, 0);
-  1301	
-  1302		return ret;
-  1303	}
-  1304	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Best regards
+---
+Renesas Electronics
+Ph.D. Kuninori Morimoto

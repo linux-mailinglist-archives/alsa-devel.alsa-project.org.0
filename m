@@ -2,165 +2,165 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 993928C9E5B
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 May 2024 15:48:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 628B58C9D3E
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 May 2024 14:29:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 27006B60;
-	Mon, 20 May 2024 15:48:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 27006B60
+	by alsa0.perex.cz (Postfix) with ESMTPS id 871061060;
+	Mon, 20 May 2024 14:29:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 871061060
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1716212931;
-	bh=tL1bHXt9/YAqmnqPjn/s8RxMKcWc/S/C/wlJtqQ+WVI=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=U7QuCO8DZedT9sotQxSkAa02oEBqB/H3qVw+tgeLQbqTSPhJhTtqOVnxQuBcoUOuO
-	 JWdA5h46uLSzTdsODnikSCENpFCSAOdDgwinADBJDOnri26EfR07HNvCsZlPsdcDn8
-	 2WRaJGU2Xa7dFURCQWHXlr9WtI4lQO/an9tant0Q=
+	s=default; t=1716208193;
+	bh=OSbUi0CqRkOiAAOt+6CkJX69uH1On0RfyPvCr0fnr4w=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=pRyNxPru0oGVxGLSgdu2ux3qwftt3Ka7IIIb+uGfKefdgcgZ7h1A+BOYoKJB2m3Pv
+	 SzkAi6Xp4JjvpWLpUQiCj5tQkbFwUyTSdleeH6H0qNsrQ+kUVnXV8FqdElFUnlRhXS
+	 bEpl4auRz2a/tyQiHUWj6TJBNrWlY+sNfhcRAevc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BF6AAF806DF; Mon, 20 May 2024 15:46:36 +0200 (CEST)
+	id 2D077F8071C; Mon, 20 May 2024 14:27:01 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 06BCCF805A9;
-	Mon, 20 May 2024 15:46:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DA5AEF80720;
+	Mon, 20 May 2024 14:27:00 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A71EAF805A8; Mon, 20 May 2024 14:42:23 +0200 (CEST)
+	id B6A2AF8026A; Mon, 20 May 2024 14:22:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [IPv6:2a00:1450:4864:20::62f])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-0.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20601.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:2417::601])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 03177F80579
-	for <alsa-devel@alsa-project.org>; Mon, 20 May 2024 14:42:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03177F80579
+	by alsa1.perex.cz (Postfix) with ESMTPS id 33D16F8020D
+	for <alsa-devel@alsa-project.org>; Mon, 20 May 2024 14:21:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33D16F8020D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=rFINDfci
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-a59cdd185b9so1078485266b.1
-        for <alsa-devel@alsa-project.org>;
- Mon, 20 May 2024 05:42:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1716208937; x=1716813737;
- darn=alsa-project.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :from:references:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=X/prEkk7NlB/e4K/D05nDd1aUEil2ACTKtIqCg4p2NQ=;
-        b=rFINDfciGdd6Hw3LZw7BFI/O8CwTCOe4ZD2rPStdr2DPxEpoomJ21JOvmXnIN3lC+o
-         7pE+itDCU/M/ItmDkGA2I2YwPOY6VAM+LfnvaFjqEXsPTVUJRdn6Ckq24x5Tt/bNTnJN
-         udySoBxM1LbZI9rshSUMm7FyudY0uf0N1kYiUrFAeoqTwB6MOMIlkQYOMNOrIwAZQnpm
-         FYyVP70oz96oKdEofGSHoBkmuFW6b8100EARw6evTxZ3lIXW9dlzxuOP8xowLwbBYKY9
-         MoCH7IpiIDbEN2QKB+bJ6NtOrd4D6Fq3sRP749di49seaRdoYftXg470DeG5L7+vLrbo
-         mgIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716208937; x=1716813737;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :from:references:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=X/prEkk7NlB/e4K/D05nDd1aUEil2ACTKtIqCg4p2NQ=;
-        b=udJgBP3w3mge22XleXgwQkprxExo3Fdd9fUcSf7W/NH1A5A5AJ5/5qaLRPIC5BHEA3
-         CKbHxoGN0Ov6AGJywRUdwkNu2ylCr1KMyhutxCcfjPLkMF8jANBdhOdC9niX2L2icujV
-         uSbLaH0FVCA6tj+VoXZhMMmzrIxR8daPYFNTvtLVZEIk94jJO2k0gpyZqRf+yc0t/Lfl
-         PMYFBw2rj1FVJf3vjRrPQwxYtWQ1buBx3CY1+9+EIfxloiUlmQ4Rq4trROT8FSOn71cU
-         3YeAFtFOQQev/ugEDowqxm8O2/hgtFZiA24lpqbnQnpG+9lOsK5x6htLDZQoRSH7tk5K
-         GjUg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWfLHNCndnl4kD8PbbjwN1Y2qJE4Dy/8fXLABVH69/jNidAlVsf19RWUtGeNGpliUU0aTuwjmfofuO8kTrLJ0YAt9poTpKiXkbnpvM=
-X-Gm-Message-State: AOJu0YzrtA4YPHhmc/bJUK5adKBlbiG5p0ZqkLs4WrQsPmGibufkQm3c
-	X4xd4KGNZKubH2f1Bml8ljtPwSngnPHI58lSK/SLC8BqhjImZNl9eG6mEGYAV1yrTwCacIYiyPR
-	8
-X-Google-Smtp-Source: 
- AGHT+IF8d/xOk/RNnnP7/4WfSzB76iIM3cflEPGPzlqVTR7AQEzeW1/6VwsH+L7iXQzc7YUlsDhB5A==
-X-Received: by 2002:a05:600c:4f49:b0:420:12df:1f7e with SMTP id
- 5b1f17b1804b1-420e19e46d4mr48893585e9.9.1716202057408;
-        Mon, 20 May 2024 03:47:37 -0700 (PDT)
-Received: from [192.168.1.20] ([178.197.206.169])
-        by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-41fccfe1277sm405621845e9.42.2024.05.20.03.47.35
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 20 May 2024 03:47:36 -0700 (PDT)
-Message-ID: <4727a091-bc64-46ea-8652-db6797dd93d2@linaro.org>
-Date: Mon, 20 May 2024 12:47:35 +0200
+ unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256
+ header.s=selector2 header.b=iJ4ulR6L
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=E9qOk+qeMTSJxUNtA/2Mh6jlfZ9Y8+QGIXD5GHAWWcs+ydjjX90VnoPZfwxUWfxXcBmgb7x0fSGugCCjS0tMYy43u+wAxBhC/ATaUNcfPR/4nTGb0gBcqErVZm5wHqDxZVNuScHcitfIUOs/GjRVYhtq+t1gS0oYCcbev3zWQ52JFWXf1KXyW5NX+aTekV7BCvUVJOHK1II+Te6ug37BZ5WH1GlZWAkfYZ+fg9RA10gqw+uuKmthPioePXFVR4fYQP73OCx+EY6FWR86GV4AYRJvuMnUIYxqWZQXEkxwE/9ZpnPJ6oud0z9FCSIboWT1yOqkYywFucjRZEDjM2ffsQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=llchwipB6DD9prWXVe0w/+/p1SJHm2B9OJbbOaD538U=;
+ b=SB+tLEoMtw7MzN++jy3MoefGEu52TIPRbxft9Ws/l4Ec0G+mc/WHQ/Nwiuntthzci4SP9jN6OOyzXoxckcoafZZ2NpHGcS4dPitPxp511UU8z0b+7Csq/NeIEuvGuG0JYGlJYJximewYSs18jgORy8WvttY6PHnGReuhMABOwT7BXiIfR/G6Kp7Rab0yZc7ieNqx84ckzrosKkvaBizOCW/NbXVYccuNalOKlP7QDS6tH02jyIc9VWOVgexy1kw+T+LchNhPPAE1QmgQ+vXsxR/pRDOtqOZCZW1XuciG9vjjWsSKvyKb0GWtN5+voFqo5hD3kYbGvFMygYctwgWQ1g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=llchwipB6DD9prWXVe0w/+/p1SJHm2B9OJbbOaD538U=;
+ b=iJ4ulR6LYoNapMnd/E7uy9jFF5ALhSIFV8ltILSVnRpaKvvcUzL33NGjCAcHzpv/l3bNO16Yq8p2tlz4Z/YlppTqJnDZV7JLmZwE+N/Ou7rpljMUmwTKw90+RGhsxyfO9Ds9M2URsMOK/hFHibw6t9EzOMTfBo7tCn86Fj2i20JRKhzpFIuqeLQZr7JGQkK6FzMKLrxJp9hIt64VCDT2E4EE4LzXLHV3BMVg17c9dRjfUhwWeprAbrffSwn8W8xO0DnVdZdfhEBWHld3/aKlWmPwmKG6AyMgRcfuO5Dm/xMsOyfrg4YAcL4xJEBkGrciB9B1I+l4iXGnl1AbWRvBZA==
+Received: from DS7PR03CA0051.namprd03.prod.outlook.com (2603:10b6:5:3b5::26)
+ by IA1PR12MB6283.namprd12.prod.outlook.com (2603:10b6:208:3e5::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.35; Mon, 20 May
+ 2024 11:49:48 +0000
+Received: from CY4PEPF0000EDD3.namprd03.prod.outlook.com
+ (2603:10b6:5:3b5:cafe::8f) by DS7PR03CA0051.outlook.office365.com
+ (2603:10b6:5:3b5::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.33 via Frontend
+ Transport; Mon, 20 May 2024 11:49:48 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ CY4PEPF0000EDD3.mail.protection.outlook.com (10.167.241.207) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7611.14 via Frontend Transport; Mon, 20 May 2024 11:49:47 +0000
+Received: from rnnvmail203.nvidia.com (10.129.68.9) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.4; Mon, 20 May
+ 2024 04:49:33 -0700
+Received: from rnnvmail204.nvidia.com (10.129.68.6) by rnnvmail203.nvidia.com
+ (10.129.68.9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.4; Mon, 20 May
+ 2024 04:49:32 -0700
+Received: from build-spujar-20240506T080629452.internal (10.127.8.9) by
+ mail.nvidia.com (10.129.68.6) with Microsoft SMTP Server id 15.2.1544.4 via
+ Frontend Transport; Mon, 20 May 2024 04:49:32 -0700
+From: Sameer Pujar <spujar@nvidia.com>
+To: <broonie@kernel.org>, <linux-sound@vger.kernel.org>,
+	<alsa-devel@alsa-project.org>
+Subject: [PATCH 0/2] Support Tegra I2S client format conversion
+Date: Mon, 20 May 2024 11:49:00 +0000
+Message-ID: <20240520114902.1663695-1-spujar@nvidia.com>
+X-Mailer: git-send-email 2.45.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] ASoC: dt-bindings: fsl,mqs: Add i.MX95 platform
- support
-To: Shengjiu Wang <shengjiu.wang@nxp.com>, lgirdwood@gmail.com,
- broonie@kernel.org, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- conor+dt@kernel.org, shengjiu.wang@gmail.com, linux-sound@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Xiubo.Lee@gmail.com, festevam@gmail.com, nicoleotsuka@gmail.com,
- perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
- linuxppc-dev@lists.ozlabs.org
-References: <1715939146-13031-1-git-send-email-shengjiu.wang@nxp.com>
- <1715939146-13031-2-git-send-email-shengjiu.wang@nxp.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Content-Language: en-US
-Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
- 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
- D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <1715939146-13031-2-git-send-email-shengjiu.wang@nxp.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: ASVJLGSQTIO2FKTDF7LJGL36PYJL3IBJ
-X-Message-ID-Hash: ASVJLGSQTIO2FKTDF7LJGL36PYJL3IBJ
-X-MailFrom: krzysztof.kozlowski@linaro.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD3:EE_|IA1PR12MB6283:EE_
+X-MS-Office365-Filtering-Correlation-Id: 47b3d90d-1cd1-42f1-2dec-08dc78c2f33e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: 
+	BCL:0;ARA:13230031|36860700004|1800799015|376005|82310400017;
+X-Microsoft-Antispam-Message-Info: 
+	=?us-ascii?Q?YebXEuv+PhmbI6eiWY2laO/0TSIiBHxli5N2ZtB0wmwgkGilzzJVckrKuLKU?=
+ =?us-ascii?Q?cHZjsJGmi1XKIbb8OmSLhEI02+xD6lceD+xifSypSZm+bolNtY1FOAnwASS2?=
+ =?us-ascii?Q?EjVuNU+OOOPodt9Q1Ky23hOz37nOoRab1Tn1PcT1LaU1CAzc+pOG6OXQwinC?=
+ =?us-ascii?Q?mDACyxqpDGPkkNLcusrHIyhtgmKhON+9vu6FfEmxlH0J/krG+mpsbPn7OByG?=
+ =?us-ascii?Q?mFGHXur7gN2D+250gilRYCelbSm1D8bQFg/hW/bIA5yScxAvA4IJWDJa2tWX?=
+ =?us-ascii?Q?k1pjuAHOXX+lmRXS66TUJjEgVKU/7K356W8PY+uikKPtSkhOSae9m7LrkzRA?=
+ =?us-ascii?Q?V3wjhDZ/42yn4HdcVMFk9DRnkGzI9Noqi3tSAOxXUdSPhPfNWoBNFOdouhTa?=
+ =?us-ascii?Q?IxhZfSwI34oqe5gmDt5Vlggm2s1WsVxjkuVxCcnIK3+Ut/FDEcG66qwnopJs?=
+ =?us-ascii?Q?c6fBSh6L1qPti7ziplURp+gii30XkN8TsbN3HukJPgcqUjzW2FkTzVd5fb65?=
+ =?us-ascii?Q?Mulp7EmV4GHTewbxmnKPr6Nh7vtj2OQ3QPs3NGU9KGzbtz9rq5iXTW8YLt3q?=
+ =?us-ascii?Q?cvN94uBXqNfZ8Zv1DIz+EI9l32OMoHwMVbnnMwrVSn/YZdkyeKB7MVqkKwoP?=
+ =?us-ascii?Q?ARKM0ZxqnnuBeeVX/uEgC5TnuErgSb885nn68AXIZX9RJX4aA/IcVg0LNyK7?=
+ =?us-ascii?Q?rhamAz8fHS18uLOlzYLLnv+SDFk8Z/ajNoKFMpAr1VFgO+yIaP4lAAaXPBKh?=
+ =?us-ascii?Q?jzHKMRSF1ObEamajUzSnEgE8D/SR4QWsnaRyS50D+rzXwvvKgeCkph7uezlJ?=
+ =?us-ascii?Q?9kKFtvAgJuqpDkknkvkQb6grhDaMHC4/WfK3u+Nqine3ye8UdgGxwi5Wozu/?=
+ =?us-ascii?Q?vPWcOPUKJPxys699LNiJ3qhSWh4TdlBcf5o47B3jw3pfgNpm6+fboPiJFi3W?=
+ =?us-ascii?Q?JWvdi2Q074hsMqHtbkAuPeLviF+2XBNEJEh720lwouCF8q2fS7AetnPN/YAi?=
+ =?us-ascii?Q?+2QD3WMr7YugM4zGUDMKPG9XKXxVUrjBcf3N2TUdSJeuNStC0GY0muhKoFP8?=
+ =?us-ascii?Q?HjcLttny4oY2Uc3WmUB4SopvfgMJBB+zmsCU0lMgahqDfl+VsYkoh7rm7de0?=
+ =?us-ascii?Q?BaTjbpBpfyVj7pCZOYsnqASH01jbPgaXByGJHslYU82gA8HqReSLPnw05+Rq?=
+ =?us-ascii?Q?+ggl5drafetEkC7ENvsGYnl7RgPD39H+M8Lxdqjom/1NYZAALuMycyavX7or?=
+ =?us-ascii?Q?losrXsCAT6AwesK7OrhRc8+wjMyHkLt08T4yGMkwwymNRn7qb8z6l0Nn0HG6?=
+ =?us-ascii?Q?N5xg/ShA5Of8MRC+UXcJewZzmYKxXdXkE+XuGeKRIi+k9aTY5VPmrXd3z+1j?=
+ =?us-ascii?Q?tlTScM4=3D?=
+X-Forefront-Antispam-Report: 
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230031)(36860700004)(1800799015)(376005)(82310400017);DIR:OUT;SFP:1101;
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2024 11:49:47.8601
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 47b3d90d-1cd1-42f1-2dec-08dc78c2f33e
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
+ TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource: 
+	CY4PEPF0000EDD3.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6283
+Message-ID-Hash: 5IRRFHXPXSZ2FG3UINN3QU2D7H2TFORT
+X-Message-ID-Hash: 5IRRFHXPXSZ2FG3UINN3QU2D7H2TFORT
+X-MailFrom: spujar@nvidia.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
+CC: linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
+ lgirdwood@gmail.com, thierry.reding@gmail.com, jonathanh@nvidia.com,
+ mkumard@nvidia.com, spujar@nvidia.com
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
@@ -173,59 +173,27 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 17/05/2024 11:45, Shengjiu Wang wrote:
-> In order to support the MQS module on i.MX95, a new property
-> "fsl,mqs-ctrl" needs to be added, as there are two MQS instances
-> on the i.MX95 platform, the definition of bit positions in the
-> control register is different. This new property is to distinguish
-> these two instances.
-> 
-> Without this property, the difference of platforms except the
-> i.MX95 was handled by the driver itself. But this new property can
-> also be used for previous platforms.
-> 
-> The MQS only has one control register, the register may be
-> in General Purpose Register memory space, or MQS its own
-> memory space, or controlled by System Manager.
-> The bit position in the register may be different for each
-> platform, there are four parts (bits for module enablement,
-> bits for reset, bits for oversampling ratio, bits for divider ratio).
-> This new property includes all these things.
+The AHUB HW modules are interconnected with CIF which are capable of
+supporting Channel and Sample bit format conversion. Due to this, the
+I2S Client can have different Channel and Sample bit from the hw_params()
+and this config is passed from CIF port of I2S DT node which can help to
+perform this conversion.
 
-...
+- First change to split simple_fixup_sample_fmt to support returning
+  sample format value
+- Second patch to support Tegra I2S client channel and sample format
+  programming based on CIF port from DT node.
 
->  
->    clocks:
->      minItems: 1
-> @@ -45,6 +46,22 @@ properties:
->    resets:
->      maxItems: 1
->  
-> +  fsl,mqs-ctrl:
-> +    $ref: /schemas/types.yaml#/definitions/uint32-array
-> +    minItems: 6
-> +    maxItems: 6
-> +    description: |
-> +      Contains the control register information, defined as,
-> +      Cell #1: register type
-> +               0 - the register in owned register map
-> +               1 - the register in general purpose register map
-> +               2 - the register in control of system manager
-> +      Cell #2: offset of the control register from the syscon
-> +      Cell #3: shift bits for module enable bit
-> +      Cell #4: shift bits for reset bit
-> +      Cell #5: shift bits for oversampling ratio bit
-> +      Cell #6: shift bits for divider ratio control bit
+Mohan Kumar (2):
+  ASoC: simple-card-utils: Split simple_fixup_sample_fmt func
+  ASoC: tegra: I2S client convert formats handling
 
-Thanks for detailed explanation in commit msg, but no, please do not
-describe layout of registers in DTS. For the syscon phandles, you can
-pass an argument (although not 6 arguments...). Usually this is enough.
-For some cases, like you have differences in capabilities of this device
-or its programming model, maybe you need different compatible.
+ include/sound/simple_card_utils.h     |  2 +
+ sound/soc/generic/simple-card-utils.c | 26 +++++++---
+ sound/soc/tegra/tegra210_i2s.c        | 71 +++++++++++++++++++++++++--
+ sound/soc/tegra/tegra210_i2s.h        |  2 +
+ 4 files changed, 91 insertions(+), 10 deletions(-)
 
-If these are different capabilities, sometimes new properties are
-applicable (describing hardware, not register bits...).
-
-Best regards,
-Krzysztof
+-- 
+2.45.1
 

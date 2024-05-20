@@ -2,99 +2,133 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3BB98C9EA8
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 May 2024 16:18:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 977F58C9EB1
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 May 2024 16:22:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4AFDA1F4;
-	Mon, 20 May 2024 16:18:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4AFDA1F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 64FBC1F8;
+	Mon, 20 May 2024 16:22:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 64FBC1F8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1716214735;
-	bh=peHwDBEur7dJUqau/hFcn9UDPW1Y0T9a/a2GeHr150A=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=iALr59BzOk2AjnSMwdixh0PDZeKosvYs1KP6zstGrcH/EiaUrB0IzH7qRVxqn2Hg+
-	 b3328LQQG9/EEfZuLo6nA+N4xsm3C3/CINnQ80II8c2m0l28DmFx5usAHVn0AoNPz8
-	 5r00ljJpymy+iZKKN7gK/5rZdSXwBK68SBn57jhY=
+	s=default; t=1716214931;
+	bh=qxTEu3ici03kyFNg7YUAaRSNbhz1E9XO7pvSyVueYdQ=;
+	h=From:Subject:Date:To:Cc:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=WqCZ2w6F2w7R9+V6U8aNCNsP8mdpjyHx/0TwcMC4I/Z9VrbsHO0Bxv0Vca8lvZZd0
+	 h3ikSyvDegOvFWz4WDZTbRzir0URtK/BYEgHbLG2bqlRdtjczKQoRGMqtkWbVuK7Ty
+	 /UJAlIg2JqQlGObWyQQMT9KQanGV6P3Y9kDxEPoo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EE361F8020D; Mon, 20 May 2024 16:18:17 +0200 (CEST)
+	id CDABBF804B2; Mon, 20 May 2024 16:21:39 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7637FF80588;
-	Mon, 20 May 2024 16:18:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E8845F8051D;
+	Mon, 20 May 2024 16:21:38 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3D4F7F8026A; Mon, 20 May 2024 16:18:14 +0200 (CEST)
+	id 78AB6F804FF; Mon, 20 May 2024 16:20:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [IPv6:2a00:1450:4864:20::330])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B7F93F800BA
-	for <alsa-devel@alsa-project.org>; Mon, 20 May 2024 16:17:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7F93F800BA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2C987F800BA
+	for <alsa-devel@alsa-project.org>; Mon, 20 May 2024 16:20:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C987F800BA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=VoTSaSLX
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1716214689; x=1747750689;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=peHwDBEur7dJUqau/hFcn9UDPW1Y0T9a/a2GeHr150A=;
-  b=VoTSaSLXEiw0nRZYi3zgmV12nRBrzRgEYAwRHpJs89KicHxw04ZH5r6w
-   BXgBbv27ZfwNLUn6K3uvwtXEpIADVZrYkmjoNlPtcqpUs+LdK+TDgGMtD
-   GjZOzQ8ay/taF/m1m6H06Tg52kmBfhOSHYlac7m3RDgolInbuEHAfR30J
-   TDSpyCmNCHM/nN68wUC/RnKDDd4fh2u9YyvKOATqG4ro2TcsspnuTs24D
-   zwtC+EfPl46OAHgJRQeZcSjmzWDCLxkcxKQUE2tzDFbrLLKMaHM4dD/55
-   6T02epjaCf1rXzWzM8MmuLov8DTYF3C7E9PAywKizZL9EC/y+UlvPB190
-   w==;
-X-CSE-ConnectionGUID: BbWh2jmASCqU+1I4yvBT9A==
-X-CSE-MsgGUID: flLs8kXuRmyXOwQ98L4faw==
-X-IronPort-AV: E=McAfee;i="6600,9927,11078"; a="37723593"
-X-IronPort-AV: E=Sophos;i="6.08,175,1712646000";
-   d="scan'208";a="37723593"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 May 2024 07:17:41 -0700
-X-CSE-ConnectionGUID: Wr81R0+tRWepdgQR+P3/ng==
-X-CSE-MsgGUID: RTbAOrwDQYKgvMPTGfeIvQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,175,1712646000";
-   d="scan'208";a="37374847"
-Received: from daliomra-mobl3.amr.corp.intel.com (HELO [10.125.109.51])
- ([10.125.109.51])
-  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 May 2024 07:17:41 -0700
-Message-ID: <0b8bbcf2-2c34-44ba-b493-e81619a89c7b@linux.intel.com>
-Date: Mon, 20 May 2024 09:17:39 -0500
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=FC0/2uQq
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-420180b5898so20049245e9.2
+        for <alsa-devel@alsa-project.org>;
+ Mon, 20 May 2024 07:20:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1716214808; x=1716819608;
+ darn=alsa-project.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Z9CW1lljdTQoniGbKlu71vNrE0DIfBG/7Rx4WjUbuCk=;
+        b=FC0/2uQqevwFg0PwVRg4sG4/AIyDyGyyd9cAyZiCqTP+oYe5Gg2Me/s2Uh25Dl6Fg+
+         DQZIK2ILYyJtFpp2RrJ/d4LtqDw5iRwUO+WxslyM1vqPm/pY/muCoL6aVg1CBpF7M9bx
+         MmYnJwku9Q+Y3ytXw/MtgvqolDJ9Ndr3kGH4hYqqOSNqrNhGwsmdKy6P9pMcfw1sc7KU
+         1Xt9mbgwGaqm3W32yMA7FCRh0nMSUViapMnpppf2CXIof+uz7m6CRwut7GjykmMx++g+
+         PXpWgeAQdmV5Zq6B2pKBg1MGTTCS23qgKnAd4LRvnwIVCJq/bp1/VY9vVPqn8NHS8ZGw
+         RmYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1716214808; x=1716819608;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Z9CW1lljdTQoniGbKlu71vNrE0DIfBG/7Rx4WjUbuCk=;
+        b=RdtvglAgpqXzRYHmjnp3vaLI4zkJ5/0p8xzFJpfAlBm/wcDNxJ3LmbDXSkBrI4DNZI
+         Hz4BUfRkX9f1quWWICvbugBku9f660SSYfBjRjQbjcmgGlAYVBe/0uvfe7KiyalYDn32
+         PVzMuoLJwGGq7T16ucwRsoJyeBNq4RinvjXfKYVjK0ClkTei/8EGouqxVYyJ8yJg0p8P
+         nUsSeh44rf4zUFJQSv0rE3G3RDBVM1UlAr6rkU6li+5TwVmDoQeyOlWZbaTvZ2LvaqBE
+         wkaSyIrFFX5HgN5cb7Hq+maW0ze3m9MTy8TTLxbGQTOk/KgWZlVTHHIcvWYE5hjcmstr
+         9qKg==
+X-Gm-Message-State: AOJu0YxqSEWDsKDzncS8z5oi3sfwgRKbkiBw/sPmu443JyynsCs29pqM
+	ERAdXQLkmqLZRYaLex0kxo51LczYJy0vzr6E/CneGoQT5KwEcmmYOE4neOhj/Ek=
+X-Google-Smtp-Source: 
+ AGHT+IFMFV4mhRBn+UqvYUrYuChKPXu49L17Sxp3FBhQHYS2zeOYK9ww7CxKfAzYZrtdnWG/4vNAQg==
+X-Received: by 2002:a05:600c:3582:b0:418:29d4:1964 with SMTP id
+ 5b1f17b1804b1-41fea539b5amr228948405e9.0.1716214807754;
+        Mon, 20 May 2024 07:20:07 -0700 (PDT)
+Received: from [127.0.1.1] ([178.197.206.169])
+        by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-41fccee962esm421612625e9.31.2024.05.20.07.20.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 20 May 2024 07:20:07 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: [PATCH v4 0/4] ASoC: qcom: x1e80100: Correct channel mapping
+Date: Mon, 20 May 2024 16:19:55 +0200
+Message-Id: 
+ <20240520-asoc-x1e80100-4-channel-mapping-v4-0-f657159b4aad@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] ASoC: rt1320: Add RT1320 SDCA vendor-specific driver
-To: =?UTF-8?B?U2h1bWluZyBb6IyD5pu46YqYXQ==?= <shumingf@realtek.com>,
- "broonie@kernel.org" <broonie@kernel.org>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "lars@metafoo.de" <lars@metafoo.de>, "Flove(HsinFu)" <flove@realtek.com>,
- Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
- =?UTF-8?B?RGVyZWsgW+aWueW+t+e+qV0=?= <derek.fang@realtek.com>,
- "pierre-louis.bossart@intel.com" <pierre-louis.bossart@intel.com>
-References: <20240520091801.399154-1-shumingf@realtek.com>
- <9853cf34-105f-4430-a232-af04c25a834b@linux.intel.com>
- <b5e030a953eb4401862781bd88395ed6@realtek.com>
-Content-Language: en-US
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <b5e030a953eb4401862781bd88395ed6@realtek.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: HEAZWQJKHV2S5K4DXAPPRL23Z3N3OBV3
-X-Message-ID-Hash: HEAZWQJKHV2S5K4DXAPPRL23Z3N3OBV3
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAtcS2YC/43NQQ6CMBCF4auYrh0zLZSCK+9hXJQyQBNsSWsaj
+ OHuFlcaF7r8J5PvPVikYCmy4+7BAiUbrXc5yv2OmVG7gcB2uZlAUaJEBTp6AwunGjkilLB9OZr
+ gqufZugFIyx5F21ClapaVOVBvl9fC+ZJ7tPHmw/01mPh2/d9OHBBaLgwvCLWU3WmyTgd/8GFgG
+ 57EO1j/BkUGjaG+0VWlpRJfYPEONr/BIoNVX6tSStGp9hNc1/UJN2XtNXEBAAA=
+To: James Schulman <james.schulman@cirrus.com>,
+ David Rhodes <david.rhodes@cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Lars-Peter Clausen <lars@metafoo.de>,
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>
+Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2762;
+ i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
+ bh=qxTEu3ici03kyFNg7YUAaRSNbhz1E9XO7pvSyVueYdQ=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBmS1wPkwfDv8/JKSXm0dNPMTxIXDRVFebiRd5tG
+ Rfi7oFbYlyJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZktcDwAKCRDBN2bmhouD
+ 17tuD/9YTQNIoaXe5gRU4/huML2k4qpGKAfAKpOtfIdcefcxlJaUreBhNbG3NgVx5vk9DyxcytT
+ 4lR8EJixZ+qOAz3oqgbZeb+hKf57nDzaYuHsHDp+RCpurlS4ee3d/RSrpgXwsQX8mqwEUkNi/7V
+ fHYqzT1bIu7Qk4GxNOT4g7O7+uDTQD1uZjg86MqsCcIVlV4QlrR0iHYU9iEN8KQcluMYFQzFY3V
+ QDxWUL0HFJVcnnMdcYoflXenzePdya1YT5NV8zKQRxyUM3amY9NowIgsDPR08tMPg26XJ8HfZ+y
+ C5haLVcxWJ3cy+vCKfULweI2/Hrs66Ul8a9A0jwnxrJeR/d9o5qS2262kbS4M1G3MUUl97nPJYA
+ 57WLG6ExPdG6Sl2JF702lsHaRQ/b2PlK9dMddVVY36DRVEg70Su5nwJepl96oElFuOzKGlBh7xq
+ 0JG/ekmw51xfbs9xqQwTs7gDv3GlHd/vfgWnTkbwPiQGNruI1gC1SA0pSK1rZR6P/L6eYjYz0GX
+ 1idoZ2Sc71hQ3YtahfALkRBPhQ/whdQ70roa+R56b8KmX2xciuJMphIA8VFAfRh9l7ib43TzW8m
+ E/XcViADtJ3VhU3iE6yh/D92Jk5RQ405hwgZEOrf59lLc3GMP35wH9R1lgqNu5OAKRlWk3jiVkv
+ YtTPd/n76ZyOkow==
+X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
+ fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+Message-ID-Hash: FFSKKVTFJDWX7MIF4CZY36QNOEUJACIB
+X-Message-ID-Hash: FFSKKVTFJDWX7MIF4CZY36QNOEUJACIB
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -106,7 +140,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HEAZWQJKHV2S5K4DXAPPRL23Z3N3OBV3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FFSKKVTFJDWX7MIF4CZY36QNOEUJACIB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,20 +149,72 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Hi,
 
+First patch is a build dependency.
 
-On 5/20/24 09:05, Shuming [范書銘] wrote:
->>> +static const struct sdw_device_id rt1320_id[] = {
->>> +     SDW_SLAVE_ENTRY_EXT(0x025d, 0x1320, 0x3, 0x0, 0),
->>> +     SDW_SLAVE_ENTRY_EXT(0x025d, 0x1320, 0x3, 0x1, 0),
->>> +     {},
->>
->> Sorry, not following why one of the two entries in the table is an SDCA class
->> device and the other not - both rely on SDCA controls/entities/functions/etc.
->> That doesn't really align with the notion that VA and VB only differ by their DSP
->> capabilities, so not sure what the 0/1 difference means.
-> 
-> VA/VB will use class id 0 because of the hardware issue.
-> VC will fix this and use the class id 1.
+Changes in v4:
+- Rename audioreach_set_channel_mapping -> audioreach_set_default_channel_mapping
+- Link to v3: https://lore.kernel.org/r/20240509-asoc-x1e80100-4-channel-mapping-v3-0-6f874552d7b2@linaro.org
 
-ok, a comment would help.
+Changes in v3:
+- Add missing Charles' Ack
+- Link to v2: https://lore.kernel.org/r/20240508-asoc-x1e80100-4-channel-mapping-v2-0-ccef9a66a572@linaro.org
+
+Changes in v2:
+- Re-work most of the idea according to Srini comments: set channel
+  mapping for backend DAIs, not frontend.
+- Patch #1: no changes
+- Patch #2 is entirely replaced - now channel mapping is implemented in
+  q6apm-lpass-dais.
+- Patch #3: rework to new approach, but most of the code stays.
+- Patch #4: rework significantly, because only backend DAIs is now
+  affected.
+- Link to v1: https://lore.kernel.org/r/20240507-asoc-x1e80100-4-channel-mapping-v1-0-b12c13e0a55d@linaro.org
+
+Description
+===========
+X1E80100 CRD is the first board, which comes with four speakers, so we
+still keep fixing and adding missing pieces.
+
+The board has speaker arranged as left front+back and then right
+front+back.  Using default channel mapping causes front right speaker to
+play left back stream.
+
+Adjust the channel maps for frontend DAIs to fix stereo and four-channel
+playback.
+
+Best regards,
+Krzysztof
+
+---
+Krzysztof Kozlowski (4):
+      ASoC: Constify channel mapping array arguments in set_channel_map()
+      ASoC: qcom: q6apm-lpass-dais: Implement proper channel mapping
+      ASoC: qcom: qdsp6: Set channel mapping instead of fixed defaults
+      ASoC: qcom: x1e80100: Correct channel mapping
+
+ include/sound/cs35l41.h                 |  4 ++--
+ include/sound/soc-dai.h                 |  8 ++++----
+ sound/soc/codecs/adau7118.c             |  6 ++++--
+ sound/soc/codecs/cs35l41-lib.c          |  4 ++--
+ sound/soc/codecs/cs35l41.c              |  3 ++-
+ sound/soc/codecs/max98504.c             |  6 ++++--
+ sound/soc/codecs/wcd9335.c              |  6 ++++--
+ sound/soc/codecs/wcd934x.c              |  6 ++++--
+ sound/soc/qcom/qdsp6/audioreach.c       | 30 +++++++-----------------------
+ sound/soc/qcom/qdsp6/audioreach.h       |  2 +-
+ sound/soc/qcom/qdsp6/q6afe-dai.c        | 16 ++++++++++------
+ sound/soc/qcom/qdsp6/q6apm-dai.c        |  3 +++
+ sound/soc/qcom/qdsp6/q6apm-lpass-dais.c | 21 +++++++++++++--------
+ sound/soc/qcom/x1e80100.c               | 18 ++++++++++++++++++
+ sound/soc/soc-dai.c                     |  4 ++--
+ 15 files changed, 80 insertions(+), 57 deletions(-)
+---
+base-commit: 2b84edefcad14934796fad37b16512b6a2ca467e
+change-id: 20240507-asoc-x1e80100-4-channel-mapping-ea5f02b9e678
+
+Best regards,
+-- 
+Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+

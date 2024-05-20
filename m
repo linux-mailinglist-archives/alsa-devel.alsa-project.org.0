@@ -2,99 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26FB58C9E28
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 May 2024 15:29:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61D3E8C9E1B
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 May 2024 15:25:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BD03DDEC;
-	Mon, 20 May 2024 15:29:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD03DDEC
+	by alsa0.perex.cz (Postfix) with ESMTPS id ADCB1B76;
+	Mon, 20 May 2024 15:24:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ADCB1B76
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1716211761;
-	bh=nw8hp8/8+msTlDJ9UUY927z2ZDGlE1iKI4XjOZa7LQE=;
-	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
+	s=default; t=1716211499;
+	bh=KmZVxGEYbyrP9V7WE809KECo6k1t051ppisGlj+zDQk=;
+	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=msO+4N+XD/sGCnPVMTTZ3etoHmBiR6IDkisZanj4GqJL6xvtRiOBg2ovMQTbCwfjD
-	 K78tAqKjMhUpVz+OFeKpXl02mrEz1dO2EQLEiqjLxDgzTmmEBJEb3rg4tvwSlDItCa
-	 ud7x4VVtPm+jVl1QfFZt0i9qo7K0VoVYeIms9LQA=
+	b=dK5ui07XXiV5MpbvNU+jKpxP73by3zh1f57NUqNtTeG/trgdYDIlL/0EdVT7GTo7a
+	 1szca8mZVuoyG8f9dePw0wTc+6zPwp7G6iKDvv9uliR9QevPxaIKG6N35jteFKuQ3t
+	 4INRSx4bQEPJXAYamvAKtssOLxeZ8TGG8W1RW99o=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C11C3F805FE; Mon, 20 May 2024 15:28:40 +0200 (CEST)
+	id 68475F805BA; Mon, 20 May 2024 15:24:34 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1289BF805E0;
-	Mon, 20 May 2024 15:28:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BEDA7F805D9;
+	Mon, 20 May 2024 15:24:33 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C4C52F805C3; Mon, 20 May 2024 15:20:16 +0200 (CEST)
+	id C8DECF805BF; Mon, 20 May 2024 15:24:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 88CA8F80578
-	for <alsa-devel@alsa-project.org>; Mon, 20 May 2024 15:20:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 88CA8F80578
+	by alsa1.perex.cz (Postfix) with ESMTPS id AA2AFF80578;
+	Mon, 20 May 2024 15:24:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AA2AFF80578
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=dfO5vWpx
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1716211215; x=1747747215;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=nw8hp8/8+msTlDJ9UUY927z2ZDGlE1iKI4XjOZa7LQE=;
-  b=dfO5vWpxh6ggKxXMRDaJKq1RdjSsjmNszlios8/UtPgiartyHYv6VvTq
-   65H0UDHCNhaoRiTsSGjYoO+BrInHAS2ZDZkgpp5BctgnGPSmx/s58O8DO
-   HDlpErD3C7h9OmvcTMtXcVmBjVTg/atPBL0gmkjnExy6KtO3RtERgdogo
-   s1LMCFw+9hxa+adwr6fp4aOMrckLLN1YY6BbPer44S86b1PiN5Opn4nat
-   9Jn6UymYF83RKU5gKyA/VirjvBhpzgmrnQ2Uz6Jj6wpjdcpz/89yF3++s
-   4Fn2EDqjTDq7JPmC/Jev2z3+4SjOt5WWLE6uTgAvgxGLpTqhQ/2xQWKLE
-   w==;
-X-CSE-ConnectionGUID: 3OKS1yE4S62Mbniw8rUxLw==
-X-CSE-MsgGUID: +NX1zo1PRu+TqTZ7oCWsUA==
-X-IronPort-AV: E=McAfee;i="6600,9927,11078"; a="12556244"
-X-IronPort-AV: E=Sophos;i="6.08,175,1712646000";
-   d="scan'208";a="12556244"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 May 2024 06:20:06 -0700
-X-CSE-ConnectionGUID: GpvW/zniQqm/NQHEMYtCbw==
-X-CSE-MsgGUID: 0vol+ruxREWyzvPY49cxmA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,175,1712646000";
-   d="scan'208";a="32977289"
-Received: from daliomra-mobl3.amr.corp.intel.com (HELO [10.125.109.51])
- ([10.125.109.51])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 May 2024 06:20:03 -0700
-Message-ID: <9853cf34-105f-4430-a232-af04c25a834b@linux.intel.com>
-Date: Mon, 20 May 2024 08:19:58 -0500
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=pZqUX0+Q
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id 76EFE61C4B;
+	Mon, 20 May 2024 13:24:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1367C4AF08;
+	Mon, 20 May 2024 13:24:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1716211465;
+	bh=KmZVxGEYbyrP9V7WE809KECo6k1t051ppisGlj+zDQk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=pZqUX0+QMkw5pTpm4DONwaNufkqX3zzWfwapwSgBpkV2TWxHsn+grw39j7Lk9LnXz
+	 AKQRNqjcuPochJglbbEfrX6pcl+TYohqQUm5xtClM3jtnYZvMaTcRqQH3/gDSjKIhI
+	 hZXHw6KGK1csT4XJK/nhON9zaHir+22pxLIQv4zDAtw3T09tos5Cl7DkE59O7AKmU4
+	 qJXyyPd28EWmOZPVqZhGsaStx/28y0DbRTzH1m1lICPu1/t5M2LValnltn1dPD2nlY
+	 34w2l9JfjJg7g8Ezosdoup1VX77pYUISsTmVm25Hnq/NBsijKCTybcfpvNDUXEQm3w
+	 Z2M+KCBHjANSw==
+Date: Mon, 20 May 2024 14:24:18 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Subject: Re: [PATCH 1/6] ASoC: topology: Constify an argument of
+ snd_soc_tplg_component_load()
+Message-ID: <baf1789a-a573-470f-b816-ca9bb0d7f299@sirena.org.uk>
+References: 
+ <f2f983e791d7f941a95556bb147f426a345d84d4.1715526069.git.christophe.jaillet@wanadoo.fr>
+ <1fb69d24-03af-4742-9f44-5a93704f5cfb@sirena.org.uk>
+ <b736e11e-430a-462b-898a-d5e1dcf7f74a@wanadoo.fr>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] ASoC: rt1320: Add RT1320 SDCA vendor-specific driver
-To: shumingf@realtek.com, broonie@kernel.org, lgirdwood@gmail.com
-References: <20240520091801.399154-1-shumingf@realtek.com>
-Content-Language: en-US
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20240520091801.399154-1-shumingf@realtek.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: DDVKZWLZXVFLI45KU5QUU5SPA6JTRBIZ
-X-Message-ID-Hash: DDVKZWLZXVFLI45KU5QUU5SPA6JTRBIZ
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="3ra5j95P2SXUw+yS"
+Content-Disposition: inline
+In-Reply-To: <b736e11e-430a-462b-898a-d5e1dcf7f74a@wanadoo.fr>
+X-Cookie: We are what we are.
+Message-ID-Hash: FAW7FHTXFYJGUX44MBHH3CAYLOAW4IGG
+X-Message-ID-Hash: FAW7FHTXFYJGUX44MBHH3CAYLOAW4IGG
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, lars@metafoo.de, flove@realtek.com,
- oder_chiou@realtek.com, jack.yu@realtek.com, derek.fang@realtek.com,
- pierre-louis.bossart@intel.com
+CC: lgirdwood@gmail.com, tiwai@suse.com, cezary.rojewski@intel.com,
+ pierre-louis.bossart@linux.intel.com, peter.ujfalusi@linux.intel.com,
+ yung-chuan.liao@linux.intel.com, ranjani.sridharan@linux.intel.com,
+ kai.vehmanen@linux.intel.com, srinivas.kandagatla@linaro.org,
+ bgoswami@quicinc.com, daniel.baluta@nxp.com, linux-sound@vger.kernel.org,
+ alsa-devel@alsa-project.org, sound-open-firmware@alsa-project.org,
+ linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
@@ -108,13 +104,40 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
-> +static const struct sdw_device_id rt1320_id[] = {
-> +	SDW_SLAVE_ENTRY_EXT(0x025d, 0x1320, 0x3, 0x0, 0),
-> +	SDW_SLAVE_ENTRY_EXT(0x025d, 0x1320, 0x3, 0x1, 0),
-> +	{},
+--3ra5j95P2SXUw+yS
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Sorry, not following why one of the two entries in the table is an SDCA
-class device and the other not - both rely on SDCA
-controls/entities/functions/etc. That doesn't really align with the
-notion that VA and VB only differ by their DSP capabilities, so not sure
-what the 0/1 difference means.
+On Sat, May 18, 2024 at 10:34:33AM +0200, Christophe JAILLET wrote:
+> Le 14/05/2024 =E0 12:21, Mark Brown a =E9crit=A0:
+
+> > As mentioned in submitting-patches.rst when submitting a patch series
+> > you should supply a cover letter for that patch series which describes
+> > the overall content of the series.  This helps people understand what
+> > they are looking at and how things fit together.
+
+> Ok.
+> I usually do, but I thought that the subjects were self-explanatory enough
+> in this case.
+
+> Do you want me to resend?
+
+It's fine this time.
+
+--3ra5j95P2SXUw+yS
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmZLTwIACgkQJNaLcl1U
+h9Dgigf+O7QTQ4V66dmxfo81LtTtdJ9xws2tiMsQz2yhw40n6x/uUnAI/DpVsJBM
+7bnp8/mWqL0S36pfO4c+ypaAOjI/V0BjVEsLBIEIcyWNHlvicUGTAE0UrkUfeUyt
+zIomDWwKLYl6V7o3dUyUn/CASeVpft1esGq8jlyvp9woke55IKQJIp+iX2H/rfZY
+4XZZ+c37WFAj1VsRKD3drP9PrXrVsVfhAzpcq2ZrPLj5llC0nltM7IgPEfZFXIjG
+VkQ8GS2lNoTHiZHgg+lLtqD2l89Ri4Yl0IS4DT1S/iez2COuCZfadttzQxJbDNUa
+ASeX6pfwcXFqRHE0F6YAYkSzaB53YA==
+=rysW
+-----END PGP SIGNATURE-----
+
+--3ra5j95P2SXUw+yS--

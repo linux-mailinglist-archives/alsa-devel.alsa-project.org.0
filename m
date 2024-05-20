@@ -2,96 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA79B8C9FD5
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 May 2024 17:39:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3E938C9E94
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 May 2024 16:06:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2816114E;
-	Mon, 20 May 2024 17:39:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2816114E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3DC7B829;
+	Mon, 20 May 2024 16:06:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3DC7B829
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1716219596;
-	bh=ToAwIbvzHG0YYLRGugwY07ZmC28i54igLPITw5CgNEo=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1716213997;
+	bh=O2fPoQdesqwbjleNsg+Y+25oUi0CoQz+Z33oQKBT8SI=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=h5gYNzhfwmBRuvTDOYg+mFReoKkHO970SmZVNXqA18oBmShfjteOnt8KeRY8CnxZZ
-	 tc5FR1bwJdMkAg+OyZIiBRKNveBwF1buSXX8OkFBF4VaMmzvk8xNQAsnsAVk63C9Xl
-	 HGWX8fcj066bRAPf65bh0xTrZs7Wf7s/qc7iXrBA=
+	b=XhMdG5CGNdkn+ztUcMV+WYuZbsq+PTuRiSJj+FPx77S7MhmsDBld9kYQeygInX4Hb
+	 OnCxTbbU2yyP3pSAxPdFunTlvq2q7ZVdIY3gLXcwfk4NTNiqfza9cHRJzJM1GnBnUx
+	 MTsNTfM7gDplsCsLPxyOu6vmHiRDV8ojZ9ezXDLs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B47FAF805A8; Mon, 20 May 2024 17:39:24 +0200 (CEST)
+	id 4CFA7F805A0; Mon, 20 May 2024 16:06:07 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 146E0F8055C;
-	Mon, 20 May 2024 17:39:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 28099F8058C;
+	Mon, 20 May 2024 16:06:05 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9BAE7F8026A; Mon, 20 May 2024 17:39:17 +0200 (CEST)
+	id 7FC9AF8026A; Mon, 20 May 2024 16:05:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D3B1BF801F5
-	for <alsa-devel@alsa-project.org>; Mon, 20 May 2024 17:39:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3B1BF801F5
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
- header.s=ti-com-17Q1 header.b=xtDel+lG
-Received: from fllv0035.itg.ti.com ([10.64.41.0])
-	by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 44H9L3aY103227;
-	Fri, 17 May 2024 04:21:03 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
-	s=ti-com-17Q1; t=1715937663;
-	bh=6H5QqjfnbzXi38Mhan1b/OhNz0VkiYrd/rdH/mh5vbs=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References;
-	b=xtDel+lGQgGKOPIJyHlrl3/9jSJjiVQ2c8DSUkT3FlG198EWf3tf27+n3PcQYyQV1
-	 gZI9tkm9oQEUoEN+WeGRjInF+2nAuPzYjXsmcoK5w6wtq4gJCR99UPozdCM+39Mwp7
-	 wyN5wipbdAaTxv9tkb3HNMmpOkUCR+G3grXiykR8=
-Received: from DFLE100.ent.ti.com (dfle100.ent.ti.com [10.64.6.21])
-	by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 44H9L3eI090552
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Fri, 17 May 2024 04:21:03 -0500
-Received: from DFLE115.ent.ti.com (10.64.6.36) by DFLE100.ent.ti.com
- (10.64.6.21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Fri, 17
- May 2024 04:21:02 -0500
-Received: from lelvsmtp6.itg.ti.com (10.180.75.249) by DFLE115.ent.ti.com
- (10.64.6.36) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
- Frontend Transport; Fri, 17 May 2024 04:21:02 -0500
-Received: from LT5CG31242FY.dhcp.ti.com (lt5cg31242fy.dhcp.ti.com
- [10.85.14.114])
-	by lelvsmtp6.itg.ti.com (8.15.2/8.15.2) with ESMTP id 44H9KhXs036740;
-	Fri, 17 May 2024 04:20:57 -0500
-From: Shenghao Ding <shenghao-ding@ti.com>
-To: <broonie@kernel.org>
-CC: <andriy.shevchenko@linux.intel.com>, <lgirdwood@gmail.com>,
-        <perex@perex.cz>, <pierre-louis.bossart@linux.intel.com>,
-        <13916275206@139.com>, <alsa-devel@alsa-project.org>,
-        <linux-kernel@vger.kernel.org>, <liam.r.girdwood@intel.com>,
-        <bard.liao@intel.com>, <yung-chuan.liao@linux.intel.com>,
-        <kevin-lu@ti.com>, <cameron.berkenpas@gmail.com>, <tiwai@suse.de>,
-        <baojun.xu@ti.com>, <soyer@irl.hu>, <Baojun.Xu@fpt.com>,
-        Shenghao Ding <shenghao-ding@ti.com>
-Subject: [RESEND PATCH v5 3/3] ASoC: tas2781: Fix wrong loading calibrated
- data sequence
-Date: Fri, 17 May 2024 17:20:38 +0800
-Message-ID: <20240517092039.688-3-shenghao-ding@ti.com>
-X-Mailer: git-send-email 2.33.0.windows.2
-In-Reply-To: <20240517092039.688-1-shenghao-ding@ti.com>
-References: <20240517092039.688-1-shenghao-ding@ti.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5B340F800BA
+	for <alsa-devel@alsa-project.org>; Mon, 20 May 2024 16:05:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B340F800BA
+X-SpamFilter-By: ArmorX SpamTrap 5.78 with qID 44KE5BEa81440045,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (rtexh36505.realtek.com.tw[172.21.6.25])
+	by rtits2.realtek.com.tw (8.15.2/2.95/5.92) with ESMTPS id 44KE5BEa81440045
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 20 May 2024 22:05:11 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXH36505.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.39; Mon, 20 May 2024 22:05:11 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXMBS01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.35; Mon, 20 May 2024 22:05:10 +0800
+Received: from RTEXMBS01.realtek.com.tw ([fe80::d5b2:56ba:6b47:9975]) by
+ RTEXMBS01.realtek.com.tw ([fe80::d5b2:56ba:6b47:9975%5]) with mapi id
+ 15.01.2507.035; Mon, 20 May 2024 22:05:10 +0800
+From: =?utf-8?B?U2h1bWluZyBb6IyD5pu46YqYXQ==?= <shumingf@realtek.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+        "broonie@kernel.org" <broonie@kernel.org>,
+        "lgirdwood@gmail.com"
+	<lgirdwood@gmail.com>
+CC: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+        "lars@metafoo.de" <lars@metafoo.de>,
+        "Flove(HsinFu)" <flove@realtek.com>,
+        Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
+        =?utf-8?B?RGVyZWsgW+aWueW+t+e+qV0=?= <derek.fang@realtek.com>,
+        "pierre-louis.bossart@intel.com" <pierre-louis.bossart@intel.com>
+Subject: RE: [PATCH v3] ASoC: rt1320: Add RT1320 SDCA vendor-specific driver
+Thread-Topic: [PATCH v3] ASoC: rt1320: Add RT1320 SDCA vendor-specific driver
+Thread-Index: AQHaqpagVGXofaeDr0uvFWrigAEwcbGflYkAgACR9wA=
+Date: Mon, 20 May 2024 14:05:10 +0000
+Message-ID: <b5e030a953eb4401862781bd88395ed6@realtek.com>
+References: <20240520091801.399154-1-shumingf@realtek.com>
+ <9853cf34-105f-4430-a232-af04c25a834b@linux.intel.com>
+In-Reply-To: <9853cf34-105f-4430-a232-af04c25a834b@linux.intel.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+x-originating-ip: [172.22.102.209]
+x-kse-serverinfo: RTEXMBS01.realtek.com.tw, 9
+x-kse-antispam-interceptor-info: fallback
+x-kse-antivirus-interceptor-info: fallback
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Message-ID-Hash: GTLV3WABABY2HGG5BM6JK6Z3IIIUS6TX
-X-Message-ID-Hash: GTLV3WABABY2HGG5BM6JK6Z3IIIUS6TX
-X-MailFrom: shenghao-ding@ti.com
+X-KSE-AntiSpam-Interceptor-Info: fallback
+Message-ID-Hash: 2CNPDT7QCI4XRTGH3EZZ3FPI64ZFU2OR
+X-Message-ID-Hash: 2CNPDT7QCI4XRTGH3EZZ3FPI64ZFU2OR
+X-MailFrom: shumingf@realtek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -103,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GTLV3WABABY2HGG5BM6JK6Z3IIIUS6TX/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2CNPDT7QCI4XRTGH3EZZ3FPI64ZFU2OR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,54 +108,14 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Use the API with correct sequence instead of the wrong one.
-
-Fixes: ef3bcde75d06 ("ASoc: tas2781: Add tas2781 driver")
-Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
-
----
-v5:
- - correct changelog has no much relationship with the patch
-v4:
- - Use the the culprit of the bug itself as the fixes tag
-v3:
- - No changes.
-v2:
- - In the Subject, fixed --> Fix
- - dsp --> DSP
- - Add Fixes tag
- - Changed the copyright year to 2024 in the related files
-v1:
- - Download calibrated data after loading the new DSP config params
- - Call tasdevice_prmg_load instead of tasdevice_prmg_calibdata_load, it
-   is unnecessary to load calibrated data after loading DSP program. Load
-   it after loading DSP config params each time.
----
- sound/soc/codecs/tas2781-i2c.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/sound/soc/codecs/tas2781-i2c.c b/sound/soc/codecs/tas2781-i2c.c
-index b5abff230e43..9350972dfefe 100644
---- a/sound/soc/codecs/tas2781-i2c.c
-+++ b/sound/soc/codecs/tas2781-i2c.c
-@@ -2,7 +2,7 @@
- //
- // ALSA SoC Texas Instruments TAS2563/TAS2781 Audio Smart Amplifier
- //
--// Copyright (C) 2022 - 2023 Texas Instruments Incorporated
-+// Copyright (C) 2022 - 2024 Texas Instruments Incorporated
- // https://www.ti.com
- //
- // The TAS2563/TAS2781 driver implements a flexible and configurable
-@@ -414,7 +414,7 @@ static void tasdevice_fw_ready(const struct firmware *fmw,
- 				__func__, tas_priv->cal_binaryname[i]);
- 	}
- 
--	tasdevice_prmg_calibdata_load(tas_priv, 0);
-+	tasdevice_prmg_load(tas_priv, 0);
- 	tas_priv->cur_prog = 0;
- out:
- 	if (tas_priv->fw_state == TASDEVICE_DSP_FW_FAIL) {
--- 
-2.34.1
-
+PiA+ICtzdGF0aWMgY29uc3Qgc3RydWN0IHNkd19kZXZpY2VfaWQgcnQxMzIwX2lkW10gPSB7DQo+
+ID4gKyAgICAgU0RXX1NMQVZFX0VOVFJZX0VYVCgweDAyNWQsIDB4MTMyMCwgMHgzLCAweDAsIDAp
+LA0KPiA+ICsgICAgIFNEV19TTEFWRV9FTlRSWV9FWFQoMHgwMjVkLCAweDEzMjAsIDB4MywgMHgx
+LCAwKSwNCj4gPiArICAgICB7fSwNCj4gDQo+IFNvcnJ5LCBub3QgZm9sbG93aW5nIHdoeSBvbmUg
+b2YgdGhlIHR3byBlbnRyaWVzIGluIHRoZSB0YWJsZSBpcyBhbiBTRENBIGNsYXNzDQo+IGRldmlj
+ZSBhbmQgdGhlIG90aGVyIG5vdCAtIGJvdGggcmVseSBvbiBTRENBIGNvbnRyb2xzL2VudGl0aWVz
+L2Z1bmN0aW9ucy9ldGMuDQo+IFRoYXQgZG9lc24ndCByZWFsbHkgYWxpZ24gd2l0aCB0aGUgbm90
+aW9uIHRoYXQgVkEgYW5kIFZCIG9ubHkgZGlmZmVyIGJ5IHRoZWlyIERTUA0KPiBjYXBhYmlsaXRp
+ZXMsIHNvIG5vdCBzdXJlIHdoYXQgdGhlIDAvMSBkaWZmZXJlbmNlIG1lYW5zLg0KDQpWQS9WQiB3
+aWxsIHVzZSBjbGFzcyBpZCAwIGJlY2F1c2Ugb2YgdGhlIGhhcmR3YXJlIGlzc3VlLg0KVkMgd2ls
+bCBmaXggdGhpcyBhbmQgdXNlIHRoZSBjbGFzcyBpZCAxLg0KDQo=

@@ -2,92 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3E938C9E94
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 May 2024 16:06:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3BB98C9EA8
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 May 2024 16:18:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3DC7B829;
-	Mon, 20 May 2024 16:06:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3DC7B829
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4AFDA1F4;
+	Mon, 20 May 2024 16:18:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4AFDA1F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1716213997;
-	bh=O2fPoQdesqwbjleNsg+Y+25oUi0CoQz+Z33oQKBT8SI=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
+	s=default; t=1716214735;
+	bh=peHwDBEur7dJUqau/hFcn9UDPW1Y0T9a/a2GeHr150A=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=XhMdG5CGNdkn+ztUcMV+WYuZbsq+PTuRiSJj+FPx77S7MhmsDBld9kYQeygInX4Hb
-	 OnCxTbbU2yyP3pSAxPdFunTlvq2q7ZVdIY3gLXcwfk4NTNiqfza9cHRJzJM1GnBnUx
-	 MTsNTfM7gDplsCsLPxyOu6vmHiRDV8ojZ9ezXDLs=
+	b=iALr59BzOk2AjnSMwdixh0PDZeKosvYs1KP6zstGrcH/EiaUrB0IzH7qRVxqn2Hg+
+	 b3328LQQG9/EEfZuLo6nA+N4xsm3C3/CINnQ80II8c2m0l28DmFx5usAHVn0AoNPz8
+	 5r00ljJpymy+iZKKN7gK/5rZdSXwBK68SBn57jhY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4CFA7F805A0; Mon, 20 May 2024 16:06:07 +0200 (CEST)
+	id EE361F8020D; Mon, 20 May 2024 16:18:17 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 28099F8058C;
-	Mon, 20 May 2024 16:06:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7637FF80588;
+	Mon, 20 May 2024 16:18:17 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7FC9AF8026A; Mon, 20 May 2024 16:05:57 +0200 (CEST)
+	id 3D4F7F8026A; Mon, 20 May 2024 16:18:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5B340F800BA
-	for <alsa-devel@alsa-project.org>; Mon, 20 May 2024 16:05:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B340F800BA
-X-SpamFilter-By: ArmorX SpamTrap 5.78 with qID 44KE5BEa81440045,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (rtexh36505.realtek.com.tw[172.21.6.25])
-	by rtits2.realtek.com.tw (8.15.2/2.95/5.92) with ESMTPS id 44KE5BEa81440045
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 20 May 2024 22:05:11 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXH36505.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.39; Mon, 20 May 2024 22:05:11 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXMBS01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.35; Mon, 20 May 2024 22:05:10 +0800
-Received: from RTEXMBS01.realtek.com.tw ([fe80::d5b2:56ba:6b47:9975]) by
- RTEXMBS01.realtek.com.tw ([fe80::d5b2:56ba:6b47:9975%5]) with mapi id
- 15.01.2507.035; Mon, 20 May 2024 22:05:10 +0800
-From: =?utf-8?B?U2h1bWluZyBb6IyD5pu46YqYXQ==?= <shumingf@realtek.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-        "broonie@kernel.org" <broonie@kernel.org>,
-        "lgirdwood@gmail.com"
-	<lgirdwood@gmail.com>
-CC: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
-        "lars@metafoo.de" <lars@metafoo.de>,
-        "Flove(HsinFu)" <flove@realtek.com>,
-        Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
-        =?utf-8?B?RGVyZWsgW+aWueW+t+e+qV0=?= <derek.fang@realtek.com>,
-        "pierre-louis.bossart@intel.com" <pierre-louis.bossart@intel.com>
-Subject: RE: [PATCH v3] ASoC: rt1320: Add RT1320 SDCA vendor-specific driver
-Thread-Topic: [PATCH v3] ASoC: rt1320: Add RT1320 SDCA vendor-specific driver
-Thread-Index: AQHaqpagVGXofaeDr0uvFWrigAEwcbGflYkAgACR9wA=
-Date: Mon, 20 May 2024 14:05:10 +0000
-Message-ID: <b5e030a953eb4401862781bd88395ed6@realtek.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id B7F93F800BA
+	for <alsa-devel@alsa-project.org>; Mon, 20 May 2024 16:17:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7F93F800BA
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=VoTSaSLX
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1716214689; x=1747750689;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=peHwDBEur7dJUqau/hFcn9UDPW1Y0T9a/a2GeHr150A=;
+  b=VoTSaSLXEiw0nRZYi3zgmV12nRBrzRgEYAwRHpJs89KicHxw04ZH5r6w
+   BXgBbv27ZfwNLUn6K3uvwtXEpIADVZrYkmjoNlPtcqpUs+LdK+TDgGMtD
+   GjZOzQ8ay/taF/m1m6H06Tg52kmBfhOSHYlac7m3RDgolInbuEHAfR30J
+   TDSpyCmNCHM/nN68wUC/RnKDDd4fh2u9YyvKOATqG4ro2TcsspnuTs24D
+   zwtC+EfPl46OAHgJRQeZcSjmzWDCLxkcxKQUE2tzDFbrLLKMaHM4dD/55
+   6T02epjaCf1rXzWzM8MmuLov8DTYF3C7E9PAywKizZL9EC/y+UlvPB190
+   w==;
+X-CSE-ConnectionGUID: BbWh2jmASCqU+1I4yvBT9A==
+X-CSE-MsgGUID: flLs8kXuRmyXOwQ98L4faw==
+X-IronPort-AV: E=McAfee;i="6600,9927,11078"; a="37723593"
+X-IronPort-AV: E=Sophos;i="6.08,175,1712646000";
+   d="scan'208";a="37723593"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 May 2024 07:17:41 -0700
+X-CSE-ConnectionGUID: Wr81R0+tRWepdgQR+P3/ng==
+X-CSE-MsgGUID: RTbAOrwDQYKgvMPTGfeIvQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.08,175,1712646000";
+   d="scan'208";a="37374847"
+Received: from daliomra-mobl3.amr.corp.intel.com (HELO [10.125.109.51])
+ ([10.125.109.51])
+  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 May 2024 07:17:41 -0700
+Message-ID: <0b8bbcf2-2c34-44ba-b493-e81619a89c7b@linux.intel.com>
+Date: Mon, 20 May 2024 09:17:39 -0500
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] ASoC: rt1320: Add RT1320 SDCA vendor-specific driver
+To: =?UTF-8?B?U2h1bWluZyBb6IyD5pu46YqYXQ==?= <shumingf@realtek.com>,
+ "broonie@kernel.org" <broonie@kernel.org>,
+ "lgirdwood@gmail.com" <lgirdwood@gmail.com>
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "lars@metafoo.de" <lars@metafoo.de>, "Flove(HsinFu)" <flove@realtek.com>,
+ Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
+ =?UTF-8?B?RGVyZWsgW+aWueW+t+e+qV0=?= <derek.fang@realtek.com>,
+ "pierre-louis.bossart@intel.com" <pierre-louis.bossart@intel.com>
 References: <20240520091801.399154-1-shumingf@realtek.com>
  <9853cf34-105f-4430-a232-af04c25a834b@linux.intel.com>
-In-Reply-To: <9853cf34-105f-4430-a232-af04c25a834b@linux.intel.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-x-originating-ip: [172.22.102.209]
-x-kse-serverinfo: RTEXMBS01.realtek.com.tw, 9
-x-kse-antispam-interceptor-info: fallback
-x-kse-antivirus-interceptor-info: fallback
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
-X-KSE-AntiSpam-Interceptor-Info: fallback
-Message-ID-Hash: 2CNPDT7QCI4XRTGH3EZZ3FPI64ZFU2OR
-X-Message-ID-Hash: 2CNPDT7QCI4XRTGH3EZZ3FPI64ZFU2OR
-X-MailFrom: shumingf@realtek.com
+ <b5e030a953eb4401862781bd88395ed6@realtek.com>
+Content-Language: en-US
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <b5e030a953eb4401862781bd88395ed6@realtek.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: HEAZWQJKHV2S5K4DXAPPRL23Z3N3OBV3
+X-Message-ID-Hash: HEAZWQJKHV2S5K4DXAPPRL23Z3N3OBV3
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -99,7 +106,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2CNPDT7QCI4XRTGH3EZZ3FPI64ZFU2OR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HEAZWQJKHV2S5K4DXAPPRL23Z3N3OBV3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,14 +115,20 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-PiA+ICtzdGF0aWMgY29uc3Qgc3RydWN0IHNkd19kZXZpY2VfaWQgcnQxMzIwX2lkW10gPSB7DQo+
-ID4gKyAgICAgU0RXX1NMQVZFX0VOVFJZX0VYVCgweDAyNWQsIDB4MTMyMCwgMHgzLCAweDAsIDAp
-LA0KPiA+ICsgICAgIFNEV19TTEFWRV9FTlRSWV9FWFQoMHgwMjVkLCAweDEzMjAsIDB4MywgMHgx
-LCAwKSwNCj4gPiArICAgICB7fSwNCj4gDQo+IFNvcnJ5LCBub3QgZm9sbG93aW5nIHdoeSBvbmUg
-b2YgdGhlIHR3byBlbnRyaWVzIGluIHRoZSB0YWJsZSBpcyBhbiBTRENBIGNsYXNzDQo+IGRldmlj
-ZSBhbmQgdGhlIG90aGVyIG5vdCAtIGJvdGggcmVseSBvbiBTRENBIGNvbnRyb2xzL2VudGl0aWVz
-L2Z1bmN0aW9ucy9ldGMuDQo+IFRoYXQgZG9lc24ndCByZWFsbHkgYWxpZ24gd2l0aCB0aGUgbm90
-aW9uIHRoYXQgVkEgYW5kIFZCIG9ubHkgZGlmZmVyIGJ5IHRoZWlyIERTUA0KPiBjYXBhYmlsaXRp
-ZXMsIHNvIG5vdCBzdXJlIHdoYXQgdGhlIDAvMSBkaWZmZXJlbmNlIG1lYW5zLg0KDQpWQS9WQiB3
-aWxsIHVzZSBjbGFzcyBpZCAwIGJlY2F1c2Ugb2YgdGhlIGhhcmR3YXJlIGlzc3VlLg0KVkMgd2ls
-bCBmaXggdGhpcyBhbmQgdXNlIHRoZSBjbGFzcyBpZCAxLg0KDQo=
+
+
+On 5/20/24 09:05, Shuming [范書銘] wrote:
+>>> +static const struct sdw_device_id rt1320_id[] = {
+>>> +     SDW_SLAVE_ENTRY_EXT(0x025d, 0x1320, 0x3, 0x0, 0),
+>>> +     SDW_SLAVE_ENTRY_EXT(0x025d, 0x1320, 0x3, 0x1, 0),
+>>> +     {},
+>>
+>> Sorry, not following why one of the two entries in the table is an SDCA class
+>> device and the other not - both rely on SDCA controls/entities/functions/etc.
+>> That doesn't really align with the notion that VA and VB only differ by their DSP
+>> capabilities, so not sure what the 0/1 difference means.
+> 
+> VA/VB will use class id 0 because of the hardware issue.
+> VC will fix this and use the class id 1.
+
+ok, a comment would help.

@@ -2,121 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F9598CA057
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 May 2024 17:56:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80EE98CA097
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 May 2024 18:16:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BBA011F4;
-	Mon, 20 May 2024 17:56:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BBA011F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id B0BEF6C0;
+	Mon, 20 May 2024 18:16:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B0BEF6C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1716220591;
-	bh=PKOTCzh7s/Hlw+lCPuwNY7ZQb0fnb29mRHIC+H6JoNQ=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=CYPU1weVwYfdL+Mup2UFlGR8jkj0M2H/CM9Z2UWgLhn8dJm77LMFANRy4/7qa8Mpr
-	 pj/AN9/mrOY8YUVn0r1B8RtXi/F38/cNGVDYcs6460WX6X0nNtRLUWJd9bDom3KY53
-	 FfzpyLMfSplK4fJ0AE/ZiPQ/pwHtI8BQEYhzDVPE=
+	s=default; t=1716221809;
+	bh=UOi1n2UYMr/FQbVKWQcyqklCKnrURV8Jm+y0d+1xmXU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=frI02raEHDIH39B7DK6eqDqdWB/fT0nCa+74VCFCYk8J8XwIj1i/pDY4bO5vVejmm
+	 ULHzYDUrp9TNp+gk5dlyEIOUEKvb65iJXjgYqXlnudZPx306+0QYhM6HZdbJVlPkYq
+	 RvZN/oZHU0uXaVXzbIoq45zaQ2WXPVDyw9stc7Lw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0F3D7F80579; Mon, 20 May 2024 17:55:58 +0200 (CEST)
+	id 80114F805AE; Mon, 20 May 2024 18:16:28 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A4E54F804B2;
-	Mon, 20 May 2024 17:55:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1F750F805A0;
+	Mon, 20 May 2024 18:16:28 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DA634F8026A; Mon, 20 May 2024 17:55:54 +0200 (CEST)
+	id 92330F8026A; Mon, 20 May 2024 18:16:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 578D9F801F5
-	for <alsa-devel@alsa-project.org>; Mon, 20 May 2024 17:55:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 578D9F801F5
+	by alsa1.perex.cz (Postfix) with ESMTPS id F1411F8016B
+	for <alsa-devel@alsa-project.org>; Mon, 20 May 2024 18:16:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1411F8016B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=CIvevKup
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1716220549; x=1747756549;
-  h=message-id:date:mime-version:subject:to:references:from:
-   in-reply-to:content-transfer-encoding;
-  bh=PKOTCzh7s/Hlw+lCPuwNY7ZQb0fnb29mRHIC+H6JoNQ=;
-  b=CIvevKupc7zS1moN3MjbrHYlia7BwOaVHRMhbUidT+FgjK98jjuJeoIu
-   5QRHE6mzQ2pVuFPWz7FxcaTykxjq3sfHqUhsG6xEID4R4Yx4aojtHAxjO
-   aDib6HgA1gtgr5H2Nre6KumEk4lnmYfrPpg2qtdsOViqJG5eTsj8rm8hL
-   zwmSu8eAVjRnf+BRNdWy6yvccXKB00SqfgHeXr/Rkz1d1K349/+Mbf5dG
-   f4LyupSWivk/Zyf7XCBLj8JoeJEER9oplypySpiWxhcb8hFzNx5wJcM6V
-   lwifiptyTLD0LWmuLfaCABsR/b9S089u5s+gc26GTr58QLmvPx1GFWlNp
-   A==;
-X-CSE-ConnectionGUID: g0TAq+WfSgmyI+Uw1Jz64w==
-X-CSE-MsgGUID: 8HSCiK5pQYmxBSNnW+rDCg==
-X-IronPort-AV: E=McAfee;i="6600,9927,11078"; a="12233885"
-X-IronPort-AV: E=Sophos;i="6.08,175,1712646000";
-   d="scan'208";a="12233885"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 May 2024 08:55:42 -0700
-X-CSE-ConnectionGUID: Zk9AkXmXQXCmMVOXmQSITw==
-X-CSE-MsgGUID: 9ILVEuteSYeDWdkOJH4GYQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,175,1712646000";
-   d="scan'208";a="37346120"
-Received: from daliomra-mobl3.amr.corp.intel.com (HELO [10.125.109.51])
- ([10.125.109.51])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 May 2024 08:55:39 -0700
-Message-ID: <77e9221e-05d2-453f-9ce1-ff4a4b53d09d@linux.intel.com>
-Date: Mon, 20 May 2024 10:55:38 -0500
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=ZVIH+1ZK
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id 7AC13CE0B1C;
+	Mon, 20 May 2024 16:16:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40BCFC2BD10;
+	Mon, 20 May 2024 16:16:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1716221763;
+	bh=UOi1n2UYMr/FQbVKWQcyqklCKnrURV8Jm+y0d+1xmXU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ZVIH+1ZKPc7nCIgzITvynSYYWTuhtNjvapabvfzI39kdCUv/cP4aImgHpSanyEI85
+	 fc0TB8ke+DtxyB2CtlKbVnrDZ+ddR8fPUrDgiu1uANtDlzM7XYr/LabR/5B7Owbk9B
+	 4hWwZd/6EdR6d5bT8cObim94znIZbhwjsgTCCHrNHbap8pX+INKZ4MMCPgO7PIan7o
+	 hDxrSRyQfKhn+fdEOfUX72EyR2VWY0B4ikj9one8DIBkv4VQ6jLc7h/YSffPOXtIrt
+	 0+kuwP0OcIO4tSATpnsSyiEcc58emRDd1LfmGCTInzD7GPHZ57rqhnUe52uXrVT0eP
+	 VBwc46NopDv5A==
+Date: Mon, 20 May 2024 11:16:02 -0500
+From: Rob Herring <robh@kernel.org>
+To: Shengjiu Wang <shengjiu.wang@nxp.com>
+Cc: lgirdwood@gmail.com, broonie@kernel.org,
+	krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
+	shengjiu.wang@gmail.com, linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Xiubo.Lee@gmail.com, festevam@gmail.com, nicoleotsuka@gmail.com,
+	perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
+	linuxppc-dev@lists.ozlabs.org
+Subject: Re: [PATCH v2 1/2] ASoC: dt-bindings: fsl,xcvr: Add compatible
+ string for i.MX95
+Message-ID: <20240520161602.GA733483-robh@kernel.org>
+References: <1715656329-8061-1-git-send-email-shengjiu.wang@nxp.com>
+ <1715656329-8061-2-git-send-email-shengjiu.wang@nxp.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/3] ASoC: soc-pcm: Indicate warning if CPU / Codec
- availability mismatch
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- =?UTF-8?Q?Amadeusz_S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Alper Nebi Yasak <alpernebiyasak@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Banajit Goswami <bgoswami@quicinc.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>, Brent Lu <brent.lu@intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Daniel Baluta <daniel.baluta@nxp.com>, Hans de Goede <hdegoede@redhat.com>,
- Jaroslav Kysela <perex@perex.cz>, Jerome Brunet <jbrunet@baylibre.com>,
- Jiawei Wang <me@jwang.link>, Jonathan Corbet <corbet@lwn.net>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Kevin Hilman <khilman@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Maso Huang <maso.huang@mediatek.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>,
- Shengjiu Wang <shengjiu.wang@gmail.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>, Takashi Iwai <tiwai@suse.com>,
- Vinod Koul <vkoul@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
- alsa-devel@alsa-project.org, imx@lists.linux.dev, linux-doc@vger.kernel.org,
- linux-sound@vger.kernel.org
-References: <87msole5wc.wl-kuninori.morimoto.gx@renesas.com>
- <87jzjpe5vh.wl-kuninori.morimoto.gx@renesas.com>
-Content-Language: en-US
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <87jzjpe5vh.wl-kuninori.morimoto.gx@renesas.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: 6LXZFA62P666FU3P66MJWJ7DVQJWQCG3
-X-Message-ID-Hash: 6LXZFA62P666FU3P66MJWJ7DVQJWQCG3
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1715656329-8061-2-git-send-email-shengjiu.wang@nxp.com>
+Message-ID-Hash: XDUHEG3KJHQDTAJM5DHKN77QOJGLAZFV
+X-Message-ID-Hash: XDUHEG3KJHQDTAJM5DHKN77QOJGLAZFV
+X-MailFrom: robh@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -128,7 +91,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6LXZFA62P666FU3P66MJWJ7DVQJWQCG3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XDUHEG3KJHQDTAJM5DHKN77QOJGLAZFV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -137,54 +100,127 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-
-
-On 5/19/24 18:31, Kuninori Morimoto wrote:
-> Current DCPM is checking CPU side availability only, but it should also
-> check Codec availability. But because of long DPCM operation history,
-> it is possible that the some Codec driver check have been bypassed.
+On Tue, May 14, 2024 at 11:12:08AM +0800, Shengjiu Wang wrote:
+> Add compatible string "fsl,imx95-xcvr" for i.MX95 platform.
 > 
-> It should be error, but let's add grace time to update driver.
+> The difference between each platform is in below table.
 > 
-> This patch indicates warning in above case. Each applicable driver need
-> to update during this grace time.
+> +---------+--------+----------+--------+
+> |  SOC	  |  PHY   | eARC/ARC | SPDIF  |
+> +---------+--------+----------+--------+
+> | i.MX8MP |  V1    |  Yes     |  Yes   |
+> +---------+--------+----------+--------+
+> | i.MX93  |  N/A   |  N/A     |  Yes   |
+> +---------+--------+----------+--------+
+> | i.MX95  |  V2    |  N/A     |  Yes   |
+> +---------+--------+----------+--------+
+> 
+> On i.MX95, there are two PLL clock sources, they are the parent
+> clocks of the XCVR root clock. one is for 8kHz series rates, named
+> as 'pll8k', another one is for 11kHz series rates, named as 'pll11k'.
+> They are optional clocks, if there are such clocks, then the driver
+> can switch between them to support more accurate sample rates.
+> 
+> As 'pll8k' and 'pll11k' are optional, then add 'minItems: 4'
+> for clocks and clock-names properties.
+> 
+> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+> ---
+>  .../devicetree/bindings/sound/fsl,xcvr.yaml   | 55 +++++++++++++++----
+>  1 file changed, 45 insertions(+), 10 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/fsl,xcvr.yaml b/Documentation/devicetree/bindings/sound/fsl,xcvr.yaml
+> index 0eb0c1ba8710..70bcde33e986 100644
+> --- a/Documentation/devicetree/bindings/sound/fsl,xcvr.yaml
+> +++ b/Documentation/devicetree/bindings/sound/fsl,xcvr.yaml
+> @@ -22,6 +22,7 @@ properties:
+>      enum:
+>        - fsl,imx8mp-xcvr
+>        - fsl,imx93-xcvr
+> +      - fsl,imx95-xcvr
+>  
+>    reg:
+>      items:
+> @@ -44,18 +45,12 @@ properties:
+>      minItems: 1
+>  
+>    clocks:
+> -    items:
+> -      - description: Peripheral clock
+> -      - description: PHY clock
+> -      - description: SPBA clock
+> -      - description: PLL clock
 
-...
+Leave these here and add pll8k and pll11k.
 
-> +		/*
-> +		 * REMOVE ME
-> +		 *
-> +		 * Current DPCM is checking CPU side only, but both CPU and Codec should be
-> +		 * checked. Indicate warning if there was CPU / Codec mismatch.
-> +		 * To keep compatibility, warning only for now.
-> +		 */
-> +		if ((dai_link->dpcm_playback || dai_link->playback_only) &&
-> +		    !has_playback_both)
-> +			dev_warn(rtd->card->dev,
-> +				 "System requests playback, but not available (%s)."
-> +				 " Please update Codec driver\n",
-> +				 dai_link->stream_name);
-> +		if ((dai_link->dpcm_capture || dai_link->capture_only) &&
-> +		     !has_capture_both)
-> +			dev_warn(rtd->card->dev,
-> +				 "System requests capture, but not available (%s)."
-> +				 " Please update Codec driver\n",
-> +				 dai_link->stream_name);
-> +
+> +    minItems: 4
 
-I mentioned in my previous feedback that this isn't quite right. There
-are cases where the CPU dai reports capabilities that the codec DAI does
-not support - e.g. when the AEC reference is generated in firmware on
-the host DSP.
+Keep this.
 
-And sure enough we get that warning in the first test:
+> +    maxItems: 6
+>  
+>    clock-names:
+> -    items:
+> -      - const: ipg
+> -      - const: phy
+> -      - const: spba
+> -      - const: pll_ipg
+> +    minItems: 4
+> +    maxItems: 6
 
-https://sof-ci.01.org/linuxpr/PR5005/build3040/devicetest/index.html?model=GLK_BOB_DA7219-ipc3&testcase=verify-kernel-boot-log
+Same here.
 
-May 20 13:35:38 jf-glk-bob-da7219-1 kernel: sof_da7219 glk_da7219_def:
-System requests capture, but not available (SSP1-Codec). Please update
-Codec driver
+>  
+>    dmas:
+>      items:
+> @@ -97,6 +92,46 @@ allOf:
+>        properties:
+>          interrupts:
+>            maxItems: 1
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - fsl,imx95-xcvr
+> +    then:
+> +      properties:
+> +        clocks:
+> +          items:
+> +            - description: Peripheral clock
+> +            - description: PHY clock
+> +            - description: SPBA clock
+> +            - description: PLL clock
+> +            - description: PLL clock source for 8kHz series
+> +            - description: PLL clock source for 11kHz series
+> +          minItems: 4
+> +        clock-names:
+> +          items:
+> +            - const: ipg
+> +            - const: phy
+> +            - const: spba
+> +            - const: pll_ipg
+> +            - const: pll8k
+> +            - const: pll11k
+> +          minItems: 4
 
-For those systems, trying to match CPU and codec dais is not going to
-work. Either we skip this verification or we have an escape mechanism to
-avoid triggering errors.
+Drop all this.
+
+> +    else:
+> +      properties:
+> +        clocks:
+> +          items:
+> +            - description: Peripheral clock
+> +            - description: PHY clock
+> +            - description: SPBA clock
+> +            - description: PLL clock
+> +        clock-names:
+> +          items:
+> +            - const: ipg
+> +            - const: phy
+> +            - const: spba
+> +            - const: pll_ipg
+
+And for this case, you just need 'maxItems: 4'.
+
+Rob

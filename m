@@ -2,129 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAE908CB42C
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 May 2024 21:23:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 096758CB389
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 May 2024 20:33:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 246351FE;
-	Tue, 21 May 2024 21:23:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 246351FE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 16D0B826;
+	Tue, 21 May 2024 20:33:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 16D0B826
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1716319427;
-	bh=4N/74mraQC7VEhtz55ALD01JAGltOePrtVxMK+VGzi8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=ZTv8ymmGFMs8LyiKlZuBS6BooSSdh/gWsQvfFLcuRgwEfYz8INsQOPpJMtIpO+SUk
-	 nuTx86hrVUFfF7XS9ZlOSzaHIk3Q2IJm8ct61R1Tlx+B988RZIdRCfE76OOkck3S0c
-	 ziJy2DTdjgrlV63ZYeY503HqbD5OdbGgYyF891bI=
+	s=default; t=1716316438;
+	bh=9oN1+Qiu3ZjosqghZMHoJO8Wg1Ja4YbCGeqa01ozJAg=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=UlPB857qAjZp2PbCtbp5A+KtS4itd4zvZ9ATtfeVHIJ2CFz9fwD6T10pLzovux4sf
+	 1koX4tdKXQDUtYvCn12i00zCeRai+o2Vu8vPDh77AXyeR47SnFr9Qhn/avZbnNH6Qa
+	 jfDei81J1uyMJCkn3IOBqvCDpR3+yx1sggmA61jE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id ED623F805A1; Tue, 21 May 2024 21:23:15 +0200 (CEST)
+	id E72D6F8059F; Tue, 21 May 2024 20:33:25 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 47582F805A8;
-	Tue, 21 May 2024 21:23:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6F0B0F805A8;
+	Tue, 21 May 2024 20:33:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BF8C1F8026A; Tue, 21 May 2024 21:23:11 +0200 (CEST)
+	id 011B6F8026A; Tue, 21 May 2024 20:33:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.0 required=5.0 tests=DATE_IN_PAST_03_06,
-	DKIMWL_WL_HIGH,DKIM_SIGNED,DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 67665F800BA
-	for <alsa-devel@alsa-project.org>; Tue, 21 May 2024 21:23:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67665F800BA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 29FAAF801F5
+	for <alsa-devel@alsa-project.org>; Tue, 21 May 2024 20:33:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29FAAF801F5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=eAWhrYVA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1716319385; x=1747855385;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=4N/74mraQC7VEhtz55ALD01JAGltOePrtVxMK+VGzi8=;
-  b=eAWhrYVAyE5sz5MFa9TqIPkcTGEcdnTp49MF6q4CGEXXxgB6hS5+kZCC
-   E042OH42VR7vRRi7Zsug0I8MkiMjXWEzNwH1VKZU+Wt39DMwroj/ASI+o
-   FbYbrk01SJ9cL23Mr7yLHQkSqK0IxyDN0bUehfikzNBX0jZG+ORFYYp4x
-   gIcuazirsRkvxW8i+CJ0QOdqd1Q+JgHK6Fsmw6PI4KwxRKYsr2gIJjJoI
-   kf6hPJfSL7rerKk7i3fFQVMuxifm+03AR7t3FkubrtmVHSmJZ8a2Fnbyk
-   sDBVkPKtesfkXgB6u+8k58hmHypPKJH3R4fBzQkf/V+abjdzvRZoBZmq+
-   Q==;
-X-CSE-ConnectionGUID: vmQ5gmUFTLaWZ08Hgn++rg==
-X-CSE-MsgGUID: umurKSPZTTy5Yx0afECECQ==
-X-IronPort-AV: E=McAfee;i="6600,9927,11079"; a="12767852"
-X-IronPort-AV: E=Sophos;i="6.08,178,1712646000";
-   d="scan'208";a="12767852"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 May 2024 12:22:57 -0700
-X-CSE-ConnectionGUID: xkUvcTuCT9eN3cXu1ftmOA==
-X-CSE-MsgGUID: HPJ2dTZTQQOdy5EU5YOyow==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,178,1712646000";
-   d="scan'208";a="37980785"
-Received: from rfrazer-mobl3.amr.corp.intel.com (HELO [10.125.109.138])
- ([10.125.109.138])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 May 2024 12:22:55 -0700
-Message-ID: <ec063ea9-3d72-457a-9c73-46c5f5b1f6e4@linux.intel.com>
-Date: Tue, 21 May 2024 11:03:41 -0500
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=uSNDHaLt
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id 0D972CE1093;
+	Tue, 21 May 2024 18:33:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61784C2BD11;
+	Tue, 21 May 2024 18:33:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1716316384;
+	bh=9oN1+Qiu3ZjosqghZMHoJO8Wg1Ja4YbCGeqa01ozJAg=;
+	h=Date:From:To:Subject:References:In-Reply-To:From;
+	b=uSNDHaLtNjHp2bjf1f3dSmtpezQrkutqJSil0Qx1MnHaq9gR0MBDVINkZ4iOz+En/
+	 BA35lwYMXxMvSg/Q/f8amERGWFDhPiKVcWoyAwEd5PRk/a3QiTt13iOBJRu06J3D4g
+	 YUxma3QKyESdLVXxaaJUcnNVuKQQuZvsvO4UsuzQAVlJycrFC9ZJsLgoN3n8aSGIIk
+	 8n+1kDQQxXTEoJ2E//iK82okve78UL/AIZUAyKm3NP/fvk8W9BzV0T3rnALo2sUtxz
+	 huX6UnzXbzV+YhlvxX+fAfWpuysU5m2Q3D3e30eI/95ULOdCsATVaDhY5uW/6lEozx
+	 J78PA6sv6sDmA==
+Date: Tue, 21 May 2024 19:32:59 +0100
+From: Mark Brown <broonie@kernel.org>
+To: linux-sound@vger.kernel.org, dmaengine@vger.kernel.org,
+	alsa-devel@alsa-project.org, miquel.raynal@bootlin.com,
+	perex@perex.cz, tiwai@suse.com, lars@metafoo.de,
+	lgirdwood@gmail.com
+Subject: Re: DMA Transfer Synchronization Issue in Out-of-Tree Sound Card
+ Driver
+Message-ID: <6e01c13f-2bc1-4e08-b50e-9f1307bda92d@sirena.org.uk>
+References: <Zkxb0FTzW6wlnYYO@localhost.localdomain>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/3] ASoC: soc-pcm: Indicate warning if CPU / Codec
- availability mismatch
-To: Mark Brown <broonie@kernel.org>
-Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- =?UTF-8?Q?Amadeusz_S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Alper Nebi Yasak <alpernebiyasak@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Banajit Goswami <bgoswami@quicinc.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>, Brent Lu <brent.lu@intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Daniel Baluta <daniel.baluta@nxp.com>, Hans de Goede <hdegoede@redhat.com>,
- Jaroslav Kysela <perex@perex.cz>, Jerome Brunet <jbrunet@baylibre.com>,
- Jiawei Wang <me@jwang.link>, Jonathan Corbet <corbet@lwn.net>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Kevin Hilman <khilman@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Maso Huang <maso.huang@mediatek.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>,
- Shengjiu Wang <shengjiu.wang@gmail.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>, Takashi Iwai <tiwai@suse.com>,
- Vinod Koul <vkoul@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
- alsa-devel@alsa-project.org, imx@lists.linux.dev, linux-doc@vger.kernel.org,
- linux-sound@vger.kernel.org
-References: <87msole5wc.wl-kuninori.morimoto.gx@renesas.com>
- <87jzjpe5vh.wl-kuninori.morimoto.gx@renesas.com>
- <77e9221e-05d2-453f-9ce1-ff4a4b53d09d@linux.intel.com>
- <87y184cbed.wl-kuninori.morimoto.gx@renesas.com>
- <7b430ea3-3ce8-4ef9-8440-bac02993f676@linux.intel.com>
- <875xv8c6dn.wl-kuninori.morimoto.gx@renesas.com>
- <3e67d62d-fe08-4f55-ab5b-ece8a57154f9@linux.intel.com>
- <1f8e6e3c-a116-48d8-991f-4184d1eebc79@sirena.org.uk>
-Content-Language: en-US
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <1f8e6e3c-a116-48d8-991f-4184d1eebc79@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: 5QQWUMV3XSRWDRB2N5QX7VUPCL2WRJ36
-X-Message-ID-Hash: 5QQWUMV3XSRWDRB2N5QX7VUPCL2WRJ36
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="xueZ6/gZSHePXE0a"
+Content-Disposition: inline
+In-Reply-To: <Zkxb0FTzW6wlnYYO@localhost.localdomain>
+X-Cookie: Eloquence is logic on fire.
+Message-ID-Hash: LVL5PNHNXGSUOY6XUHBBTBK7EKI6XN7C
+X-Message-ID-Hash: LVL5PNHNXGSUOY6XUHBBTBK7EKI6XN7C
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -136,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5QQWUMV3XSRWDRB2N5QX7VUPCL2WRJ36/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LVL5PNHNXGSUOY6XUHBBTBK7EKI6XN7C/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -146,26 +99,61 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
+--xueZ6/gZSHePXE0a
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On 5/21/24 10:12, Mark Brown wrote:
-> On Tue, May 21, 2024 at 08:43:09AM -0500, Pierre-Louis Bossart wrote:
-> 
->> allow me to give you another counter example, beyond the AEC reference I
->> mentioned earlier. It's not uncommon for CPU DAIs to have loopback
->> capabilities, which are used for tests on boards where the codec has no
->> capture capabilities. I think it's a feature that needs to be allowed,
->> not a 'wrong setting'.
-> 
-> This is something we could do properly if we had full digital routing
-> rather than bolting things on the side of the CPU<->CODEC model - having
-> these things where we have to take a CODEC into account even though
-> we're not actually using it is one of the big issues with DPCM.
+On Tue, May 21, 2024 at 10:31:12AM +0200, Louis Chauvet wrote:
 
-No disagreement here, these echo references and loopbacks are ugly to
-support with the dependency between playback and capture directions that
-isn't well handled, e.g. if someone starts to capture before playback
-started.
+> To address this DMA issue, I have created a patch [1] that guarantees the=
+=20
+> completion of the DMA transfer upon the return of xdma_synchronize. This=
+=20
+> means xdma_synchronize now sleeps, but looking at other drivers around it=
+=20
+> appears expected to be able to do so.
 
-For now we're kind of stuck, what I would suggest is just to remove the
-extra check that both CPU and codec dai can support a direction, and
-move on with the other cleanups suggested by Morimoto-san.
+You need to set the nonatomic flag for the PCM to allow this, the
+default is that triggers run in atomic context.
+
+>=20
+> 		switch (command) {
+> 		case SNDRV_PCM_TRIGGER_START:
+> 			/* Synchronize on start, because the trigger stop is called from an IR=
+Q	context	*/
+> 			if (substream->stream =3D=3D SNDRV_PCM_STREAM_PLAYBACK)
+> 				dmaengine_synchronize(my_dev->playback_dma_chan);
+
+If any dmaengine work is needed put it in the generic dmaengine code and
+allow it to be configured there (ideally through discovery through the
+API).
+
+> The problem might be related to the sound driver. Should I avoid manually=
+=20
+> using dmaengine_synchronize? How to achieve the same effect in this case?=
+=20
+> Perhaps there is a more traditional way to properly clean the stream in=
+=20
+> the sound subsystem which I overlooked?
+
+If there's no way of resetting things without blocking then I'm not sure
+you can do much better though I might be forgetting something, it does
+seem like disappointing hardware design and application behaviour.
+
+--xueZ6/gZSHePXE0a
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmZM6NoACgkQJNaLcl1U
+h9CQJgf/SoGgK5fxlN1tBFGIN5h4MwbX7Y5VNEDDebRPlp4d9xf84kvYAyqY83vL
+PJ0Ta78vJLPUxM8CeHXkn5duaLzUAsAtJsn5gtSCBdUy3rhlvMt4v2JkNYE2nZ16
+HilFrOejdfXGebjpHoPP4KocrUTQTSEuiHvOViuql2h4kqbt9PYaz9SATZii7QXT
+cbaLKt7YlY2M8X4FCvy3O782rx7CJRTpK9QMm9SYJ0BMhviRCom084r+dQkuqFn3
+V3MRZukP9UEMr7E8HrTU8NMOeQVoogf7ppb4h5xiQ/tZCAUfvoP4U6j/LZInc0NN
+bNEb/K9hJvM14U9yp/rsw5ub2jhcxQ==
+=Su6g
+-----END PGP SIGNATURE-----
+
+--xueZ6/gZSHePXE0a--

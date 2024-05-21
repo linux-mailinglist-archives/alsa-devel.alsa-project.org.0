@@ -2,112 +2,126 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E903D8CA80E
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 May 2024 08:36:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DB908CA987
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 May 2024 10:02:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 276A6200;
-	Tue, 21 May 2024 08:36:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 276A6200
+	by alsa0.perex.cz (Postfix) with ESMTPS id 65D971FF;
+	Tue, 21 May 2024 10:02:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 65D971FF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1716273415;
-	bh=D2e3UIWaaCZthfsLSaAtaf3JVExndOtoZAyJOWE5QtA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1716278545;
+	bh=dDzr2Kq7YQW0WMi8zQhoYJ7lugqwpbm3uT3tZIkLV88=;
+	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=XlducSFMB0tIlg1pdvTpgEWnfXUXH9zKiNFfs23HF28Xs6Z/l6PJwNPlLB7+w3rnX
-	 xlbX2I/GCkSSXV+t9Dtymi4QgMwUywhDXBaQngPZKTwpTuMRbgxFGGxjiGG0J8YwKx
-	 01Hz34O71OV2DBbYrambBQhAeZzBkkSZ9bcZ1RjM=
+	b=M8oHCfDMMoPQ+3gTP1LehJS5eJ88uwCuLw+LMfRLOsSyerCOv8Gg1aoY4pHGz1hUn
+	 lHdMCwX8qINtaJAEQ1aDBRLEhejRojcJs4PX3oHtpoHcnlB7CQtdTZOC8NDTUb+Hjz
+	 rvs2jEpY7LfUdQieWaW2FlOqM1cT8LxNkJeuhKXE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A4A28F800BA; Tue, 21 May 2024 08:36:22 +0200 (CEST)
+	id 3EF0DF804FF; Tue, 21 May 2024 10:01:53 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BF8C1F804B2;
-	Tue, 21 May 2024 08:36:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C0F29F804FF;
+	Tue, 21 May 2024 10:01:52 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 86F0BF8026A; Tue, 21 May 2024 08:32:56 +0200 (CEST)
+	id 96435F8026A; Tue, 21 May 2024 09:59:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-il1-x130.google.com (mail-il1-x130.google.com
- [IPv6:2607:f8b0:4864:20::130])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EAE69F800BA
-	for <alsa-devel@alsa-project.org>; Tue, 21 May 2024 08:32:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EAE69F800BA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8312DF801F5
+	for <alsa-devel@alsa-project.org>; Tue, 21 May 2024 09:59:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8312DF801F5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=hADz/tMV
-Received: by mail-il1-x130.google.com with SMTP id
- e9e14a558f8ab-36cc579fd48so20381435ab.1
-        for <alsa-devel@alsa-project.org>;
- Mon, 20 May 2024 23:32:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1716273164; x=1716877964;
- darn=alsa-project.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=9v5h6PC3m5viZM1uwwljp97r1zeipYab7bRIWScSl2M=;
-        b=hADz/tMVrP2x3FsRrDZCtUWI0GLJPy+OF0bPVAWe53FKXFprNwBPxiHpoc7zK4yFDL
-         PVKsxTdYxHCWZ30al8eDbCFSP8BQEll8pETqhIn7BsImDE0B+KT/5KxSwaoiq5Hx2aCo
-         iG09C5s773QO6rO0JguurGjTuS8fEAuHHKi/M8DRqU92IUJITykve30nmMmvZG7nShEJ
-         jH3TsDenrcZgjN4hC7jr8uOGzWy+JVN1KpbWsCPg6nh+BQ78yCGMhnqCSubHBckkr3cn
-         hT9TcDSPr7fe6iMaS8Sm4Cfdf4lGOk32VEDKEDSNvo+KSu7f3t6FU/vdWuo8gLxHBHTh
-         C1DQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716273164; x=1716877964;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=9v5h6PC3m5viZM1uwwljp97r1zeipYab7bRIWScSl2M=;
-        b=RdAtcaUdLdXee3bP0Jsv5gjwpjyNfIY0I6WPLyQHLIXvHA5K+IHmTQDyNtKCN/JT8j
-         HBGQ+WbRgbS/dUwEc7y97dOwUAxcY+FW8jSYsTfL2xwarfpCj2UQwklKpaKeOh8W9pd3
-         WMt7u/ElHTj8WPUvEvrnGBaYBgE+N1ZNC/yx4WexFs8Ab/RqsBCgeVKEmSfNPxkwNY6T
-         oxqfXlWTn0NN4pG7glwV6tbrjY2ppLy6W+DcnKKInAtX0IysCfD/zHVxJ3hA2PxwFdrn
-         ut3zsVVhSFBFE4ke3s6Uz9io2jdpV/05QtTTBwY5ZI/FdbvjHJ2TSyImCKQwVGMv+hAp
-         kYeQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUhtyACdMeNBjRo8fRczR3d1vgha0b6e9Cq1MrwA437SXPtAqkpGU8/MObXIJpfKZJN6hX+s+Qsnf5z+tyfNXqiWXHZhhGKn/MhpTs=
-X-Gm-Message-State: AOJu0YxD01jHNljF/SyAwkEYrw/jRiiup7f6KyxFqlnfUtKyIOoFIlp2
-	3vtmQdPdiqq0qejvefqTIQTGHpfnsST0yqlnutpxK4vTLkcbplOYFCqtiCksvomBTGQzHv8c/gs
-	FxeHxwvQEd8iR0i4UzjuUDhiSy7s=
-X-Google-Smtp-Source: 
- AGHT+IHxK0DDX2uyvGgjkFhMSHqcRRzxekD6O/b+tOay3l5GstPgFhvbAwzUrXw/5NT70QAMEfkIjbuJ3XTfQfLanXw=
-X-Received: by 2002:a05:6e02:1fea:b0:36c:4b17:e06a with SMTP id
- e9e14a558f8ab-36cc148e51amr385802135ab.18.1716273163845; Mon, 20 May 2024
- 23:32:43 -0700 (PDT)
+ unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
+ header.s=qcppdkim1 header.b=OUP2FBmq
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
+ 44L2oMkH014910;
+	Tue, 21 May 2024 07:59:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+	message-id:date:mime-version:subject:to:cc:references:from
+	:in-reply-to:content-type:content-transfer-encoding; s=
+	qcppdkim1; bh=zIgpIyur9nbJscUg9pxBqZNwhuZ+nxxWucEn5KNslCk=; b=OU
+	P2FBmquLZAU8vLzq3SPTEqwErmLztNd6QPa3Ermp1e18eDTZk/4UUUXr3TWEbsnW
+	3xDPWLqzTnHeo4EcE2t4EMwS9ZDCHN6/t1CLGb/afx54DWEF33jonBpNoHEA6gxg
+	vlpgRal3dxXcM72V+BUMk/bcK9DOZZ1qdqGM7V05jbpntJcAyMWl4p9IV+exeFhU
+	0UumwDcYbVi4i07Z01HCk7OMIcKMXR43D5uY4vt6eZ8b9gqldnGcPVE08GjrBwxq
+	b1ORaMapANI2dG6miDGZ30OgKxtLfnIdEmqmLz9FoFFgoEt48dr6Gs0V80rUpmAv
+	jWJ+r4tOrTaQNwMFe0vA==
+Received: from nasanppmta04.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3y6pq5d72s-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 21 May 2024 07:59:05 +0000 (GMT)
+Received: from nasanex01c.na.qualcomm.com (nasanex01c.na.qualcomm.com
+ [10.45.79.139])
+	by NASANPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
+ 44L7x46B023233
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 21 May 2024 07:59:04 GMT
+Received: from [10.216.37.160] (10.80.80.8) by nasanex01c.na.qualcomm.com
+ (10.45.79.139) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 21 May
+ 2024 00:58:59 -0700
+Message-ID: <235e966d-ba19-db06-82ea-cd15bff12847@quicinc.com>
+Date: Tue, 21 May 2024 13:28:56 +0530
 MIME-Version: 1.0
-References: <1715939146-13031-1-git-send-email-shengjiu.wang@nxp.com>
- <1715939146-13031-2-git-send-email-shengjiu.wang@nxp.com>
- <4727a091-bc64-46ea-8652-db6797dd93d2@linaro.org>
-In-Reply-To: <4727a091-bc64-46ea-8652-db6797dd93d2@linaro.org>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Tue, 21 May 2024 14:32:32 +0800
-Message-ID: 
- <CAA+D8APgcZo4fhmzft83ZFeG2bfF19Ew5Fi4o5Gqh3Ej=OPCuA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] ASoC: dt-bindings: fsl,mqs: Add i.MX95 platform
- support
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: Shengjiu Wang <shengjiu.wang@nxp.com>, lgirdwood@gmail.com,
- broonie@kernel.org,
-	robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
-	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Xiubo.Lee@gmail.com, festevam@gmail.com,
-	nicoleotsuka@gmail.com, perex@perex.cz, tiwai@suse.com,
-	alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: AHX42IDYHGE6BRGDIPEOI5ZUDMOQA7YR
-X-Message-ID-Hash: AHX42IDYHGE6BRGDIPEOI5ZUDMOQA7YR
-X-MailFrom: shengjiu.wang@gmail.com
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [PATCH v4 1/7] ASoC: dt-bindings: document wcd937x Audio Codec
+Content-Language: en-US
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+        Srinivas Kandagatla
+	<srinivas.kandagatla@linaro.org>,
+        Banajit Goswami <bgoswami@quicinc.com>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        "Rob
+ Herring" <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        "Conor
+ Dooley" <conor+dt@kernel.org>,
+        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
+	<tiwai@suse.com>
+CC: <alsa-devel@alsa-project.org>, <linux-arm-msm@vger.kernel.org>,
+        <linux-sound@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <quic_rohkumar@quicinc.com>,
+        <quic_pkumpatl@quicinc.com>
+References: <20240516044801.1061838-1-quic_mohs@quicinc.com>
+ <20240516044801.1061838-2-quic_mohs@quicinc.com>
+ <ff003cb8-460b-4a97-b4f7-990244781209@kernel.org>
+From: Mohammad Rafi Shaik <quic_mohs@quicinc.com>
+In-Reply-To: <ff003cb8-460b-4a97-b4f7-990244781209@kernel.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nasanex01c.na.qualcomm.com (10.45.79.139)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: szdf7H8SJD3oCrOVaDvgLNb5E0nkuKqr
+X-Proofpoint-ORIG-GUID: szdf7H8SJD3oCrOVaDvgLNb5E0nkuKqr
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.12.28.16
+ definitions=2024-05-21_04,2024-05-21_01,2024-05-17_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0
+ malwarescore=0 adultscore=0 lowpriorityscore=0 priorityscore=1501
+ suspectscore=0 spamscore=0 clxscore=1011 mlxlogscore=999 mlxscore=0
+ bulkscore=0 phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2405010000 definitions=main-2405210059
+Message-ID-Hash: HD6LNB7NAIUPPU45JDWBHJSUQEPGWX7I
+X-Message-ID-Hash: HD6LNB7NAIUPPU45JDWBHJSUQEPGWX7I
+X-MailFrom: quic_mohs@quicinc.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -119,7 +133,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AHX42IDYHGE6BRGDIPEOI5ZUDMOQA7YR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HD6LNB7NAIUPPU45JDWBHJSUQEPGWX7I/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -128,71 +142,208 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, May 20, 2024 at 6:47=E2=80=AFPM Krzysztof Kozlowski
-<krzysztof.kozlowski@linaro.org> wrote:
->
-> On 17/05/2024 11:45, Shengjiu Wang wrote:
-> > In order to support the MQS module on i.MX95, a new property
-> > "fsl,mqs-ctrl" needs to be added, as there are two MQS instances
-> > on the i.MX95 platform, the definition of bit positions in the
-> > control register is different. This new property is to distinguish
-> > these two instances.
-> >
-> > Without this property, the difference of platforms except the
-> > i.MX95 was handled by the driver itself. But this new property can
-> > also be used for previous platforms.
-> >
-> > The MQS only has one control register, the register may be
-> > in General Purpose Register memory space, or MQS its own
-> > memory space, or controlled by System Manager.
-> > The bit position in the register may be different for each
-> > platform, there are four parts (bits for module enablement,
-> > bits for reset, bits for oversampling ratio, bits for divider ratio).
-> > This new property includes all these things.
->
-> ...
->
-> >
-> >    clocks:
-> >      minItems: 1
-> > @@ -45,6 +46,22 @@ properties:
-> >    resets:
-> >      maxItems: 1
-> >
-> > +  fsl,mqs-ctrl:
-> > +    $ref: /schemas/types.yaml#/definitions/uint32-array
-> > +    minItems: 6
-> > +    maxItems: 6
-> > +    description: |
-> > +      Contains the control register information, defined as,
-> > +      Cell #1: register type
-> > +               0 - the register in owned register map
-> > +               1 - the register in general purpose register map
-> > +               2 - the register in control of system manager
-> > +      Cell #2: offset of the control register from the syscon
-> > +      Cell #3: shift bits for module enable bit
-> > +      Cell #4: shift bits for reset bit
-> > +      Cell #5: shift bits for oversampling ratio bit
-> > +      Cell #6: shift bits for divider ratio control bit
->
-> Thanks for detailed explanation in commit msg, but no, please do not
-> describe layout of registers in DTS. For the syscon phandles, you can
-> pass an argument (although not 6 arguments...). Usually this is enough.
-> For some cases, like you have differences in capabilities of this device
-> or its programming model, maybe you need different compatible.
->
-> If these are different capabilities, sometimes new properties are
-> applicable (describing hardware, not register bits...).
->
-The main difference between the two instances on i.MX95 is the register
-difference. looks like I need to use two compatible strings:
-      - fsl,imx95-aonmix-mqs
-      - fsl,imx95-netcmix-mqs
-to distinguish them.
+On 5/19/2024 11:30 PM, Krzysztof Kozlowski wrote:
+> On 16/05/2024 06:47, Mohammad Rafi Shaik wrote:
+>> From: Prasad Kumpatla <quic_pkumpatl@quicinc.com>
+>>
+>> Document the Qualcomm WCD9370/WCD9375 Audio Codec and the
+>> Soundwire devices than can be found on Qualcomm QCM6490 based platforms.
+>>
+>> The Qualcomm WCD9370/WCD9375 Audio Codec communicates
+> 
+> Thank you for your patch. There is something to discuss/improve.
+> 
+Thanks for the review.
+>> +
+>> +  qcom,tx-port-mapping:
+>> +    description: |
+>> +      Specifies static port mapping between device and host tx ports.
+>> +      In the order of the device port index which are adc1_port, adc23_port,
+>> +      dmic03_mbhc_port, dmic46_port.
+>> +      Supports maximum 4 tx soundwire ports.
+>> +
+>> +      WCD9370 TX Port 1 (ADC1)               <=> SWR2 Port 2
+>> +      WCD9370 TX Port 2 (ADC2, 3)            <=> SWR2 Port 2
+>> +      WCD9370 TX Port 3 (DMIC0,1,2,3 & MBHC) <=> SWR2 Port 3
+>> +      WCD9370 TX Port 4 (DMIC4,5,6,7)        <=> SWR2 Port 4
+>> +
+>> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+>> +    minItems: 4
+>> +    maxItems: 4
+>> +    items:
+>> +      oneOf:
+> 
+> oneOf here is not needed. Previously used enum should be fine.
+> 
+okay, will add enum instead oneOf.
+> 
+>> +        - minimum: 1
+>> +          maximum: 4
+>> +
+>> +  qcom,rx-port-mapping:
+>> +    description: |
+>> +      Specifies static port mapping between device and host rx ports.
+>> +      In the order of device port index which are hph_port, clsh_port,
+>> +      comp_port, lo_port, dsd port.
+>> +      Supports maximum 5 rx soundwire ports.
+>> +
+>> +      WCD9370 RX Port 1 (HPH_L/R)       <==>    SWR1 Port 1 (HPH_L/R)
+>> +      WCD9370 RX Port 2 (CLSH)          <==>    SWR1 Port 2 (CLSH)
+>> +      WCD9370 RX Port 3 (COMP_L/R)      <==>    SWR1 Port 3 (COMP_L/R)
+>> +      WCD9370 RX Port 4 (LO)            <==>    SWR1 Port 4 (LO)
+>> +      WCD9370 RX Port 5 (DSD_L/R)       <==>    SWR1 Port 5 (DSD)
+>> +
+>> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+>> +    minItems: 5
+>> +    maxItems: 5
+>> +    items:
+>> +      oneOf:
+> 
+> Again, no need for oneof.
 
-best regards
-Shengjiu Wang
+ACK
 
+> 
+>> +        - minimum: 1
+>> +          maximum: 5
+>> +
+>> +required:
+>> +  - compatible
+>> +  - reg
+>> +
+>> +additionalProperties: false
+>> +
+>> +examples:
+>> +  - |
+>> +    soundwire@3210000 {
+>> +        reg = <0x03210000 0x2000>;
+>> +        #address-cells = <2>;
+>> +        #size-cells = <0>;
+>> +        wcd937x_rx: codec@0,4 {
+>> +            compatible = "sdw20217010a00";
+>> +            reg  = <0 4>;
+>> +            qcom,rx-port-mapping = <1 2 3 4 5>;
+>> +        };
+>> +    };
+>> +
+>> +    soundwire@3230000 {
+>> +        reg = <0x03230000 0x2000>;
+>> +        #address-cells = <2>;
+>> +        #size-cells = <0>;
+>> +        wcd937x_tx: codec@0,3 {
+>> +            compatible = "sdw20217010a00";
+>> +            reg  = <0 3>;
+>> +            qcom,tx-port-mapping = <2 2 3 4>;
+>> +        };
+>> +    };
+>> +
+>> +...
+>> diff --git a/Documentation/devicetree/bindings/sound/qcom,wcd937x.yaml b/Documentation/devicetree/bindings/sound/qcom,wcd937x.yaml
+>> new file mode 100644
+>> index 000000000000..5c76083691ea
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/sound/qcom,wcd937x.yaml
+>> @@ -0,0 +1,80 @@
+>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/sound/qcom,wcd937x.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Qualcomm WCD9370/WCD9375 Audio Codec
+>> +
+>> +maintainers:
+>> +  - Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+>> +
+>> +description:
+>> +  Qualcomm WCD9370/WCD9375 Codec is a standalone Hi-Fi audio codec IC.
+>> +  It has RX and TX Soundwire slave devices.
+>> +
+>> +allOf:
+>> +  - $ref: dai-common.yaml#
+>> +  - $ref: qcom,wcd93xx-common.yaml#
+>> +
+>> +properties:
+>> +  compatible:
+>> +    oneOf:
+>> +      - const: qcom,wcd9370-codec
+>> +      - items:
+>> +          - const: qcom,wcd9375-codec
+>> +          - const: qcom,wcd9370-codec
+>> +
+>> +  vdd-px-supply:
+>> +    description: A reference to the 1.8V I/O supply
+>> +
+>> +required:
+>> +  - compatible
+> 
+> I guess VDDPX is not really optional in the hardware is it?
+> 
+yes right,
+
+The VDDPX is mandatory supply for all usecases.
+
+will add it as required property.
+>> +
+>> +unevaluatedProperties: false
+>> +
+>> +examples:
+>> +  - |
+>> +    codec {
+>> +        compatible = "qcom,wcd9370-codec";
+>> +        pinctrl-names = "default", "sleep";
+>> +        pinctrl-0 = <&wcd_reset_n>;
+>> +        pinctrl-1 = <&wcd_reset_n_sleep>;
+>> +        reset-gpios = <&tlmm 83 0>;
+> 
+> Use defines for common/known flags, like GPIO flags.
+> 
+
+Yes, will use the GPIO flags.
+
+>> +        vdd-buck-supply = <&vreg_l17b_1p8>;
+>> +        vdd-rxtx-supply = <&vreg_l18b_1p8>;
+>> +        vdd-px-supply = <&vreg_l18b_1p8>;
+>> +        vdd-mic-bias-supply = <&vreg_bob>;
+>> +        qcom,micbias1-microvolt = <1800000>;
+>> +        qcom,micbias2-microvolt = <1800000>;
+>> +        qcom,micbias3-microvolt = <1800000>;
+>> +        qcom,micbias4-microvolt = <1800000>;
+>> +        qcom,rx-device = <&wcd937x_rx>;
+>> +        qcom,tx-device = <&wcd937x_tx>;
+>> +        #sound-dai-cells = <1>;
+>> +    };
+>> +
+>> +    /* ... */
+>> +
+>> +    soundwire@3210000 {
+>> +        reg = <0x03210000 0x2000>;
+>> +        #address-cells = <2>;
+>> +        #size-cells = <0>;
+>> +        wcd937x_rx: codec@0,4 {
+>> +            compatible = "sdw20217010a00";
+>> +            reg  = <0 4>;
+> 
+> Just one space goes before =
+> This applies to all places.
+> 
+
+ACK
+
+>> +            qcom,rx-port-mapping = <1 2 3 4 5>;
+>> +        };
+>> +    };
+>> +
+>> +    soundwire@3230000 {
+>> +        reg = <0x03230000 0x2000>;
+>> +        #address-cells = <2>;
+>> +        #size-cells = <0>;
+>> +        wcd937x_tx: codec@0,3 {
+>> +            compatible = "sdw20217010a00";
+>> +            reg  = <0 3>;
+> 
 > Best regards,
 > Krzysztof
->
+> 
+Thanks & Regards,
+Rafi.

@@ -2,114 +2,112 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4BC68CBC18
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 May 2024 09:33:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2852B8CBC1C
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 May 2024 09:33:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B1EEA822;
-	Wed, 22 May 2024 09:32:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1EEA822
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9B5B8829;
+	Wed, 22 May 2024 09:33:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B5B8829
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1716363185;
-	bh=ujtplpDHHre57IF59IvqEB2Kw8dcbdxqOMgfH/r499o=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1716363207;
+	bh=oFnQJmkxU6zrXZGMN96C8wGpspBAUkA02uGJ/ASV8ys=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=BAbVw94UXlfWAlRH3xu5DGoLXnCHTpDVmx/MZWczKdXjnzgt2vu7ucF1Gr/+wg6Et
-	 a8Zs7eYRVTb+9QYMLo77vCCfh+svqJ/kxy+oHU7DIcWPxil0m5ETSU8dr/1o/CmmoC
-	 5vaaUMv+WeU2eW76wBV3T1iPCOTaCmtT+2DqiTBQ=
+	b=KwUmYKSrDBwHQ1Nj/4k/Ry0kQLf6e6SUT92MMVpy0WgrVKvjIk1hspmozrsiw5hD2
+	 qqCL5Yo5QjIp9bgPFWVztZehUbA1PtYqoEYBZhtBeSoRBuv8DCNbEyRwr3YdIR0Y9u
+	 7DwfxpTCBcH5eUnuvuTnfV+XJT8VyewBjPIZgE5Y=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 29B27F80051; Wed, 22 May 2024 09:32:33 +0200 (CEST)
+	id B53B1F805C4; Wed, 22 May 2024 09:32:35 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1DE77F80051;
-	Wed, 22 May 2024 09:32:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3E081F805D2;
+	Wed, 22 May 2024 09:32:35 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5ACCEF8026A; Wed, 22 May 2024 09:30:11 +0200 (CEST)
+	id 0D403F8026A; Wed, 22 May 2024 09:30:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [IPv6:2a00:1450:4864:20::329])
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [IPv6:2a00:1450:4864:20::22d])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C7A0AF80051
-	for <alsa-devel@alsa-project.org>; Wed, 22 May 2024 09:29:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7A0AF80051
+	by alsa1.perex.cz (Postfix) with ESMTPS id A3C9EF80051
+	for <alsa-devel@alsa-project.org>; Wed, 22 May 2024 09:30:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3C9EF80051
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=XpFKv/D5
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-41fe54cb0e3so35326545e9.2
+ header.s=google header.b=Z8jtbkbF
+Received: by mail-lj1-x22d.google.com with SMTP id
+ 38308e7fff4ca-2e719bab882so42392771fa.3
         for <alsa-devel@alsa-project.org>;
- Wed, 22 May 2024 00:29:42 -0700 (PDT)
+ Wed, 22 May 2024 00:30:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1716362979; x=1716967779;
+        d=linaro.org; s=google; t=1716363024; x=1716967824;
  darn=alsa-project.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
+         :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=2U3y/E4W+g6WHZWhWDHN2owdKPMa1Ox2KTg8IP+L8r4=;
-        b=XpFKv/D5v2mgGdYihNYCWCSg1dZVZbW4uJ6ZGEFBjY3ynli3mQHWtBPWE9KBUuIN1H
-         6+JR8vkzs+iwqrBwPQ+pIKbZgg1WK1SqQKQPo4YyrH2jHHnQZTkqRwCUQNItZu9Etiso
-         I7rkapSqMwbW3l66WBn1zNQFjA3JYIyjEnRXRn1+0hCXg77Bh0WN76AyjkKqaLB9RADd
-         opqf2zKEwD6RfXeo8qSdUCT0vgHti0JkD0HkBjY0TaREExjNNRUVEYuscqEYurtwxHFe
-         53/gsv9HGIY0FSFEVE8HbheMp4WDxy1AgNIAlsMf369udZ4Za1yMVD82sXgOznBz/6SC
-         hVGw==
+        bh=tkJXObuZ8bzKgibWqMu1hFns0+SNQYqR2IAV8YRh+qw=;
+        b=Z8jtbkbFq4aNEJphwt/GrAQd6NDtny3JF3m0Uhw4G24mMcvOKzuC3oyRVfaQIm+aFX
+         Jnhj0uABSD60Zn1Iuii58UWqH/oO5VLxLu1IdqHon7R09npDYcP7XqoJaULJVqpPARhE
+         wk/FqTpwPLjjBGVDvsGuVzDVbbKMrh2Tbp/8qzQL8TC32zpfb41c8PQIlUycwNcRYRr7
+         ZlhrD7FUSQ18vlMC7d1TFh2/s3DpTL0+eNLCVKT3Gy7/R+IF8XbBLkxJvyo+hwIdXHMt
+         LwRg+ih9xc1w1vGZ95W8cCEaEpmJ8AhGjffXe85cb31c4d2B1+0doXwYff/m1kzqPG2g
+         5nIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716362979; x=1716967779;
+        d=1e100.net; s=20230601; t=1716363024; x=1716967824;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
+         :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=2U3y/E4W+g6WHZWhWDHN2owdKPMa1Ox2KTg8IP+L8r4=;
-        b=YujAe5v+OHdEx0xhQQnnwKYrtvqXmZzpML1T64Bwxildf7HO+Hkze5qlys8CaxPy6Q
-         UZiP6hlCmQL6YjX+Wplj4B2sYQ6M5DYEw3qHMbOG+LWHuvtW+0eVd3hYvmBG+Dzb2esz
-         bj/kZ/oIfOaUF0Mndp75XNeS9E8VQPqzyXPNmpBcWoH2Ucep0mRr/QiNa0XCu1LEg4Yh
-         DFSI6UAosK/CIkqzG/hzfn615kok/dlBnJlsmeJ6zDdZ+yPzJorW7p2q00GbdE+Z19hQ
-         VdBqiRhkU4C2Z/EkYgeD9ywScgWmENXS/SZvMzGh0+AabtQpFAjCggv6RircRcVKjun7
-         A7gQ==
+        bh=tkJXObuZ8bzKgibWqMu1hFns0+SNQYqR2IAV8YRh+qw=;
+        b=YRAY8/8uEktZk1F7hWsOqeAXVQBVXpv0uwaA/zOnzX9wPDwRJH15Wp+rHT9TPrw1AZ
+         cve8PTRjWP/KueRFmXcvWwL1MHMdOOmJT1X9mte4OYQ2ZhkzeuCllQkN5sYYP02njpSQ
+         zqHRYgmHojD8VwwsCzDiaBwyASiI8kUizlu9JMCSAwyGeMTtxx0uKWZ9vxiRTSUCGstA
+         UHXMDD81HUQKgiVtml/puim9Z3wkij0hE+tw+/mhR5zoIAnaNPlpHkroaslzHVpKZl3u
+         2Drree2mAjU0+knjlWh1dZgNckEPiAyV+jNM2hQhSEkbuxdnVJ4HK7ty9eshJ9Ji7LX1
+         fQCQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUJrs078m/tC3L4rfj94ud++S1XhFqEeu5HV5Nn+1BVFT45kubLTtv8kM4ZqqNUACI36feKRwPh4DCWmKIJjGw0WfwLbwIYWcTARhY=
-X-Gm-Message-State: AOJu0YyAIBqU4m/fFmQL09KYXuFpyR+toUID8+89vA/8eoj3XtwbWvL8
-	7HrSxE7dLbqopu5Lv9DvSuwuT3WCE53CVGxUFALPewE3eBzFuAzVZ10h/g0okFI=
+ AJvYcCWWN3b9DnUGmDGmP6vWJsSnTEkkUkvsP7nzDb3xS6DetH1khlvkH6+ydlvEvyCsmKk+rS5i87uI5A8Igf1Zoo7cPIvQTHqWo3drJFY=
+X-Gm-Message-State: AOJu0Yy4TLFTLxKnrwVUSXaO1apRMPOCyjJns0AXjeO3dYH+7/Wj7h9n
+	A07JkkbeJdzHxs+yO0iZGOKLe6M289h653iwhmhmdqM0/4QNV70q50zINY2Rg5M=
 X-Google-Smtp-Source: 
- AGHT+IHZr6SGdmsYq7oNUSaghJWy+96UkRVzcYcM6OS/e/jllLwc1HzE5OHDTuC/E4zIrh+PfTxRWw==
-X-Received: by 2002:a05:600c:5613:b0:420:1853:68c3 with SMTP id
- 5b1f17b1804b1-420fd3282ddmr6928015e9.20.1716362979042;
-        Wed, 22 May 2024 00:29:39 -0700 (PDT)
+ AGHT+IEReon7mu9xNEVqRMovOLZvHsE91aYxCpyK1LIlKQyVpM36zPsDzSEdKkDkYxk3XU1KDKKERg==
+X-Received: by 2002:a2e:9858:0:b0:2e9:4c17:9c8e with SMTP id
+ 38308e7fff4ca-2e94c17a021mr3286451fa.44.1716363023678;
+        Wed, 22 May 2024 00:30:23 -0700 (PDT)
 Received: from [192.168.1.20] ([178.197.206.169])
         by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-41fccbe8fa6sm489538445e9.2.2024.05.22.00.29.37
+ 5b1f17b1804b1-41fccce25d5sm491678985e9.14.2024.05.22.00.30.22
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 22 May 2024 00:29:38 -0700 (PDT)
-Message-ID: <262fa428-70e9-48d8-b89a-65225c0c7d15@linaro.org>
-Date: Wed, 22 May 2024 09:29:36 +0200
+        Wed, 22 May 2024 00:30:23 -0700 (PDT)
+Message-ID: <af72c0c1-144d-4f04-86ba-d85e5125d261@linaro.org>
+Date: Wed, 22 May 2024 09:30:21 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] ASoC: cdns: Add drivers of Cadence Multi-Channel
- I2S Controller
-To: Xingyu Wu <xingyu.wu@starfivetech.com>, Mark Brown <broonie@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>,
+Subject: Re: [PATCH v3 1/2] ASoC: dt-bindings: Add bindings for Cadence I2S-MC
+ controller
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+To: Xingyu Wu <xingyu.wu@starfivetech.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Claudiu Beznea <Claudiu.Beznea@microchip.com>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
  Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  Conor Dooley <conor.dooley@microchip.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-sound@vger.kernel.org
 References: <20240508070406.286159-1-xingyu.wu@starfivetech.com>
- <20240508070406.286159-3-xingyu.wu@starfivetech.com>
- <NTZPR01MB0956937A2D3D8B97DB1C8E079FEB2@NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+ <20240508070406.286159-2-xingyu.wu@starfivetech.com>
+ <0e7496c4-7dfc-404d-944c-a1869389722b@linaro.org>
 Content-Language: en-US
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -155,12 +153,11 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
  fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
  D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: 
- <NTZPR01MB0956937A2D3D8B97DB1C8E079FEB2@NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn>
+In-Reply-To: <0e7496c4-7dfc-404d-944c-a1869389722b@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: XFYNWALSONUUVGFRO2AXEBN2XMXQ5EHM
-X-Message-ID-Hash: XFYNWALSONUUVGFRO2AXEBN2XMXQ5EHM
+Message-ID-Hash: WHIQE677FBCXCEI5T77PLUW6HU22GX5E
+X-Message-ID-Hash: WHIQE677FBCXCEI5T77PLUW6HU22GX5E
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -173,7 +170,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XFYNWALSONUUVGFRO2AXEBN2XMXQ5EHM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WHIQE677FBCXCEI5T77PLUW6HU22GX5E/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -182,48 +179,59 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 22/05/2024 04:33, Xingyu Wu wrote:
->> Subject: [PATCH v3 2/2] ASoC: cdns: Add drivers of Cadence Multi-Channel I2S
->> Controller
+On 08/05/2024 10:03, Krzysztof Kozlowski wrote:
+> On 08/05/2024 09:04, Xingyu Wu wrote:
+>> Add bindings for the Multi-Channel I2S controller of Cadence.
 >>
->> Add the drivers of Cadence Multi-Channel I2S Controller.
->>
->> The Cadence I2S Controller implements a function of the multi-channel (up to 8-
->> channel) bus. Each stereo channel combines functions of a transmitter and a
->> receiver. Each channel has independent and internal gating, clock and
->> interruption control. It alos support some of these channels are used as playback
->> and others can also be used as record in the same time.
->>
->> The I2S-MC is used on the StarFive JH8100 SoC and add the compatible for this.
+>> The Multi-Channel I2S (I2S-MC) implements a function of the
+>> 8-channel I2S bus interfasce. Each channel can become receiver
+>> or transmitter. Four I2S instances are used on the StarFive
+>> JH8100 SoC. One instance of them is limited to 2 channels, two
+>> instance are limited to 4 channels, and the other one can use
+>> most 8 channels. Add a unique property about
+>> 'starfive,i2s-max-channels' to distinguish each instance.
 >>
 >> Signed-off-by: Xingyu Wu <xingyu.wu@starfivetech.com>
->> ---
->>  MAINTAINERS                      |   6 +
->>  sound/soc/Kconfig                |   1 +
->>  sound/soc/Makefile               |   1 +
->>  sound/soc/cdns/Kconfig           |  18 +
->>  sound/soc/cdns/Makefile          |   3 +
->>  sound/soc/cdns/cdns-i2s-mc-pcm.c | 285 +++++++++++++
->>  sound/soc/cdns/cdns-i2s-mc.c     | 704 +++++++++++++++++++++++++++++++
->>  sound/soc/cdns/cdns-i2s-mc.h     | 151 +++++++
->>  8 files changed, 1169 insertions(+)
->>  create mode 100644 sound/soc/cdns/Kconfig  create mode 100644
->> sound/soc/cdns/Makefile  create mode 100644 sound/soc/cdns/cdns-i2s-mc-
->> pcm.c  create mode 100644 sound/soc/cdns/cdns-i2s-mc.c  create mode 100644
->> sound/soc/cdns/cdns-i2s-mc.h
->>
 > 
-> Hi Mark,
 > 
-> Could you please help to review and give your comment about this I2S driver?
-> Thank you very much!
+>> +
+>> +  starfive,i2s-max-channels:
+>> +    description:
+>> +      Number of I2S max stereo channels supported on the StarFive
+>> +      JH8100 SoC.
+>> +    $ref: /schemas/types.yaml#/definitions/uint32
+>> +    enum: [2, 4, 8]
+>> +
+>> +allOf:
+>> +  - $ref: dai-common.yaml#
+>> +  - if:
+>> +      properties:
+>> +        compatible:
+>> +          contains:
+>> +            const: starfive,jh8100-i2s
+>> +    then:
+>> +      required:
+>> +        - starfive,i2s-max-channels
+>> +    else:
+>> +      properties:
+>> +        starfive,i2s-max-channels: false
+>> +
+>> +required:
 > 
+> I asked to put it after properties: block, not after allOf:. See
+> example-schema for preferred order. Why? Because we are used to it and
+> it makes reading the schema easier for us.
+> 
+> Rest looks good, so with the re-order:
+> 
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-So you are not going to implement my feedback? Then Review tag does not
-stand.
+Since you do not plan to fix it and already started pinging mark, I
+retract my review.
 
-Also, please avoid pings for non-fixes during merge window. It's
-pointless now.
+Unreviewed-by.
+
+Implement the feedback I already asked you BEFORE.
 
 Best regards,
 Krzysztof

@@ -2,79 +2,154 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B31A28CB9D3
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 May 2024 05:34:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 454FB8CBAD0
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 May 2024 07:53:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 326F53E;
-	Wed, 22 May 2024 05:34:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 326F53E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4B2A8820;
+	Wed, 22 May 2024 07:53:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B2A8820
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1716348872;
-	bh=sKtlRUFYk2M0DBX97vIYY6yH/xEycq2nKAFqOke0pNY=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=NAygr8VUDQ94E6xrR88hX3vBdU59gUycfV67fjhI+apj7HwIFgHMQabxBDY28qe+h
-	 oF3lxJrLhRFKDgpDuaZPtAn4ahuhCAL+DVevyvp8NqtExXuKHoUzkPCm+XkJw1EBo2
-	 h3gOhJTz/DzHAiwhu+wBIYj61KQEWAgcx6lqbLEc=
+	s=default; t=1716357212;
+	bh=7rl3MJ2xqObrtTFVmEhG93ja5bgZEDf/8t5zN6tTAgw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=VykRcRXvGTEx/2sF7iGcnwjLC5o3m6HOgbPjef6517SsU+dMMvl1xWEwPV9K93Fj/
+	 Hrc+65czA6f7znCh6//A1rceAJ53ygrNSnCsMBQOB1MfatcCj04SCmHVatUGHljMuM
+	 c612Cf8tLwmhSJ6edPedTOoCPrbovzpea7C9D0a4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 24BF9F805D4; Wed, 22 May 2024 05:33:43 +0200 (CEST)
+	id A848DF805B4; Wed, 22 May 2024 07:53:00 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2DBA0F805CB;
-	Wed, 22 May 2024 05:33:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 114DBF805A9;
+	Wed, 22 May 2024 07:53:00 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 10EE0F8028B; Wed, 22 May 2024 05:30:57 +0200 (CEST)
+	id 2B146F8016B; Wed, 22 May 2024 07:52:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1A815F8026A
-	for <alsa-devel@alsa-project.org>; Wed, 22 May 2024 05:28:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A815F8026A
-Received: from inva020.nxp.com (localhost [127.0.0.1])
-	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id E20011A0E4D;
-	Wed, 22 May 2024 05:28:12 +0200 (CEST)
-Received: from aprdc01srsp001v.ap-rdc01.nxp.com
- (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
-	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 7A31D1A033A;
-	Wed, 22 May 2024 05:28:12 +0200 (CEST)
-Received: from localhost.localdomain (shlinux2.ap.freescale.net
- [10.192.224.44])
-	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 8E96F183B72B;
-	Wed, 22 May 2024 11:28:10 +0800 (+08)
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org,
-	robh+dt@kernel.org,
-	krzysztof.kozlowski+dt@linaro.org,
-	conor+dt@kernel.org,
-	shengjiu.wang@gmail.com,
-	linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Xiubo.Lee@gmail.com,
-	festevam@gmail.com,
-	nicoleotsuka@gmail.com,
+	by alsa1.perex.cz (Postfix) with ESMTPS id D61FAF8016B
+	for <alsa-devel@alsa-project.org>; Wed, 22 May 2024 07:51:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D61FAF8016B
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=A8KY6B1s;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=stvDvwBv;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=xLO+hbK7;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=Zlx6hSj+
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id F13A834B78;
+	Wed, 22 May 2024 05:51:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1716357117;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SO7Vj16TE+7ELY0AackoqSl5lpmUjxZgU0xxRG1lc04=;
+	b=A8KY6B1sAPCgaCksqyKludilYHioqAYWa2RNPJf007qew8hG91ZVa7ooPOvsiKxd6tgwdM
+	2AEqC0CTUlXvYvstZBuJla5TK6cJrqQrpriOqSVasCwd4+wFmEtpKL+K06I9Li8d4s7T7w
+	5jxmN/sZU8dHNDKL2eQcviq0ce38HLA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1716357117;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SO7Vj16TE+7ELY0AackoqSl5lpmUjxZgU0xxRG1lc04=;
+	b=stvDvwBvRE4ShEgkU7CTrGLzoC5mXWO/Uuir21S2sZc4kURkmDbcsZBLcvEcYJdjn1ig5g
+	FX10NvNzDSU0OvAw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1716357115;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SO7Vj16TE+7ELY0AackoqSl5lpmUjxZgU0xxRG1lc04=;
+	b=xLO+hbK7dXzUGVm4DInedFvrzXOZ41IVO1nUhE7z2mPzGUZ0PhZdJlT4r1vEBHWG671JFA
+	0lvA+nr+s3nwchZupX9CBgW7FdTZNp8SFSLigzRTddSGKvvTCSkhf99XXQumJK5AgnXuXM
+	oDFkiZHFSbNZ+pZPRkMdNzeWYgaaMvk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1716357115;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SO7Vj16TE+7ELY0AackoqSl5lpmUjxZgU0xxRG1lc04=;
+	b=Zlx6hSj+1bLyXRLdMnrc7n85ecuPiumwWHZLGvT4BOtIJHK2ojqGYLNcXTCPRWo6lHJnfJ
+	KwKZR1pYpOygowBg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 99761139CB;
+	Wed, 22 May 2024 05:51:55 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id dXOqI/uHTWYZQQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Wed, 22 May 2024 05:51:55 +0000
+Date: Wed, 22 May 2024 07:52:14 +0200
+Message-ID: <87msoiz94h.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mark Brown <broonie@kernel.org>
+Cc: linux-sound@vger.kernel.org,
+	dmaengine@vger.kernel.org,
+	alsa-devel@alsa-project.org,
+	miquel.raynal@bootlin.com,
 	perex@perex.cz,
 	tiwai@suse.com,
-	alsa-devel@alsa-project.org,
-	linuxppc-dev@lists.ozlabs.org
-Subject: [PATCH v2 2/2] ASoC: fsl_mqs: Add i.MX95 platform support
-Date: Wed, 22 May 2024 11:08:25 +0800
-Message-Id: <1716347305-18457-3-git-send-email-shengjiu.wang@nxp.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1716347305-18457-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1716347305-18457-1-git-send-email-shengjiu.wang@nxp.com>
-X-Virus-Scanned: ClamAV using ClamSMTP
-Message-ID-Hash: OQJLYWFKW53REGMDQBBEL3DBGSES6632
-X-Message-ID-Hash: OQJLYWFKW53REGMDQBBEL3DBGSES6632
-X-MailFrom: shengjiu.wang@nxp.com
+	lars@metafoo.de,
+	lgirdwood@gmail.com
+Subject: Re: DMA Transfer Synchronization Issue in Out-of-Tree Sound Card
+ Driver
+In-Reply-To: <6e01c13f-2bc1-4e08-b50e-9f1307bda92d@sirena.org.uk>
+References: <Zkxb0FTzW6wlnYYO@localhost.localdomain>
+	<6e01c13f-2bc1-4e08-b50e-9f1307bda92d@sirena.org.uk>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-3.24 / 50.00];
+	BAYES_HAM(-2.94)[99.75%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,alsa-project.org,bootlin.com,perex.cz,suse.com,metafoo.de,gmail.com];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+Message-ID-Hash: 4TVGO7CKKHQ6G2S3Q75IETH3KHI5Z3FH
+X-Message-ID-Hash: 4TVGO7CKKHQ6G2S3Q75IETH3KHI5Z3FH
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -86,7 +161,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OQJLYWFKW53REGMDQBBEL3DBGSES6632/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4TVGO7CKKHQ6G2S3Q75IETH3KHI5Z3FH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -95,128 +170,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-There are two MQS instances on the i.MX95 platform.
-The definition of bit positions in the control register are
-different. In order to support these MQS modules, define
-two compatible strings to distinguish them.
+On Tue, 21 May 2024 20:32:59 +0200,
+Mark Brown wrote:
+> 
+> On Tue, May 21, 2024 at 10:31:12AM +0200, Louis Chauvet wrote:
+> 
+> > To address this DMA issue, I have created a patch [1] that guarantees the 
+> > completion of the DMA transfer upon the return of xdma_synchronize. This 
+> > means xdma_synchronize now sleeps, but looking at other drivers around it 
+> > appears expected to be able to do so.
+> 
+> You need to set the nonatomic flag for the PCM to allow this, the
+> default is that triggers run in atomic context.
 
-Define different soc data according to compatible strings
+Right, that's a most straightforward solution.  It implies that the
+period updates must be in non-atomic, i.e. use a threaded irq handler
+in most cases.
 
-On i.MX95 one instance in nect-mix is supported by this
-commit, another instance in always-on-mix is not supported,
-which depends on System Manager function readiness.
+If the synchronization is needed for assuring the hardware stop, there
+is an alternative with PCM sync_stop callback, too.  The callback is
+called at each time after a stream gets stopped before the next action
+(that is, either prepare, hw_params or close).  It's only for
+stopping, and there is no similar way for sync of a stream start,
+though.
 
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
----
- sound/soc/fsl/fsl_mqs.c | 46 +++++++++++++++++++++++++++++++++++------
- 1 file changed, 40 insertions(+), 6 deletions(-)
 
-diff --git a/sound/soc/fsl/fsl_mqs.c b/sound/soc/fsl/fsl_mqs.c
-index 60929c36a0e3..c95b84a54dc4 100644
---- a/sound/soc/fsl/fsl_mqs.c
-+++ b/sound/soc/fsl/fsl_mqs.c
-@@ -28,10 +28,16 @@
- #define MQS_CLK_DIV_MASK		(0xFF << 0)
- #define MQS_CLK_DIV_SHIFT		(0)
- 
-+enum reg_type {
-+	TYPE_REG_OWN,  /* module own register space */
-+	TYPE_REG_GPR,  /* register in GPR space */
-+	TYPE_REG_SM,   /* System Manager controls the register */
-+};
-+
- /**
-  * struct fsl_mqs_soc_data - soc specific data
-  *
-- * @use_gpr: control register is in General Purpose Register group
-+ * @type: control register space type
-  * @ctrl_off: control register offset
-  * @en_mask: enable bit mask
-  * @en_shift: enable bit shift
-@@ -43,7 +49,7 @@
-  * @div_shift: clock divider bit shift
-  */
- struct fsl_mqs_soc_data {
--	bool use_gpr;
-+	enum reg_type type;
- 	int  ctrl_off;
- 	int  en_mask;
- 	int  en_shift;
-@@ -200,7 +206,7 @@ static int fsl_mqs_probe(struct platform_device *pdev)
- 	 */
- 	mqs_priv->soc = of_device_get_match_data(&pdev->dev);
- 
--	if (mqs_priv->soc->use_gpr) {
-+	if (mqs_priv->soc->type == TYPE_REG_GPR) {
- 		gpr_np = of_parse_phandle(np, "gpr", 0);
- 		if (!gpr_np) {
- 			dev_err(&pdev->dev, "failed to get gpr node by phandle\n");
-@@ -304,7 +310,7 @@ static const struct dev_pm_ops fsl_mqs_pm_ops = {
- };
- 
- static const struct fsl_mqs_soc_data fsl_mqs_imx8qm_data = {
--	.use_gpr = false,
-+	.type = TYPE_REG_OWN,
- 	.ctrl_off = REG_MQS_CTRL,
- 	.en_mask  = MQS_EN_MASK,
- 	.en_shift = MQS_EN_SHIFT,
-@@ -317,7 +323,7 @@ static const struct fsl_mqs_soc_data fsl_mqs_imx8qm_data = {
- };
- 
- static const struct fsl_mqs_soc_data fsl_mqs_imx6sx_data = {
--	.use_gpr = true,
-+	.type = TYPE_REG_GPR,
- 	.ctrl_off = IOMUXC_GPR2,
- 	.en_mask  = IMX6SX_GPR2_MQS_EN_MASK,
- 	.en_shift = IMX6SX_GPR2_MQS_EN_SHIFT,
-@@ -330,7 +336,7 @@ static const struct fsl_mqs_soc_data fsl_mqs_imx6sx_data = {
- };
- 
- static const struct fsl_mqs_soc_data fsl_mqs_imx93_data = {
--	.use_gpr = true,
-+	.type = TYPE_REG_GPR,
- 	.ctrl_off = 0x20,
- 	.en_mask  = BIT(1),
- 	.en_shift = 1,
-@@ -342,10 +348,38 @@ static const struct fsl_mqs_soc_data fsl_mqs_imx93_data = {
- 	.div_shift = 8,
- };
- 
-+static const struct fsl_mqs_soc_data fsl_mqs_imx95_aon_data = {
-+	.type = TYPE_REG_SM,
-+	.ctrl_off = 0x88,
-+	.en_mask  = BIT(1),
-+	.en_shift = 1,
-+	.rst_mask = BIT(2),
-+	.rst_shift = 2,
-+	.osr_mask = BIT(3),
-+	.osr_shift = 3,
-+	.div_mask = GENMASK(15, 8),
-+	.div_shift = 8,
-+};
-+
-+static const struct fsl_mqs_soc_data fsl_mqs_imx95_netc_data = {
-+	.type = TYPE_REG_GPR,
-+	.ctrl_off = 0x0,
-+	.en_mask  = BIT(2),
-+	.en_shift = 2,
-+	.rst_mask = BIT(3),
-+	.rst_shift = 3,
-+	.osr_mask = BIT(4),
-+	.osr_shift = 4,
-+	.div_mask = GENMASK(16, 9),
-+	.div_shift = 9,
-+};
-+
- static const struct of_device_id fsl_mqs_dt_ids[] = {
- 	{ .compatible = "fsl,imx8qm-mqs", .data = &fsl_mqs_imx8qm_data },
- 	{ .compatible = "fsl,imx6sx-mqs", .data = &fsl_mqs_imx6sx_data },
- 	{ .compatible = "fsl,imx93-mqs", .data = &fsl_mqs_imx93_data },
-+	{ .compatible = "fsl,imx95-aonmix-mqs", .data = &fsl_mqs_imx95_aon_data },
-+	{ .compatible = "fsl,imx95-netcmix-mqs", .data = &fsl_mqs_imx95_netc_data },
- 	{}
- };
- MODULE_DEVICE_TABLE(of, fsl_mqs_dt_ids);
--- 
-2.34.1
+thanks,
 
+Takashi

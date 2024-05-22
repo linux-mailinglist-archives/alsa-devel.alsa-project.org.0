@@ -2,145 +2,131 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F6DF8CD154
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 May 2024 13:37:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79E098CD325
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 May 2024 15:04:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6557D207;
-	Thu, 23 May 2024 13:36:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6557D207
+	by alsa0.perex.cz (Postfix) with ESMTPS id A7A83823;
+	Thu, 23 May 2024 15:04:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A7A83823
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1716464223;
-	bh=RsRAxgtCygUgNHJsQhBo7tVIAJyPh/eD/4LRaq/+G7c=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1716469466;
+	bh=jw4sR51kSbW7rHYB3afXhuNhtkpAyEH1zeZVnVImweU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=VCEwWA5+1DFp8b/zfuSpkj6lycHW0SJzMVQnF0NUiVDFhmAw8yqTQM5ev/WlF2gpj
-	 /0NQQC2NDx+rndBUR2EZrmlWGOs+0W52zXC3C29rTrVIOtM1F2qDMwKLcHclZlIlKG
-	 J/AhN0wiLQISLuradRpu5Zp3H2PEcNlMjfKqHnhc=
+	b=D17rHrWIM40Bk6Ehigh/WCXEGMYajdKtSNKUbvmaXZGLCS+UE0afJVyR/zQDapgh0
+	 jOI77ebc2t4S6hnkIDdVlauKhioiC/s29vlbk+Q235SpLAqt3kLMqLRlCNnBlmr+SG
+	 Xg9b2ohGzKncoaecozdWJnld5FavZxES+U/RsPjg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C995DF805AA; Thu, 23 May 2024 13:36:31 +0200 (CEST)
+	id 30FEFF80588; Thu, 23 May 2024 15:03:54 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 66D6BF805A8;
-	Thu, 23 May 2024 13:36:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7275DF8051F;
+	Thu, 23 May 2024 15:03:54 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 29F24F8026A; Thu, 23 May 2024 13:36:22 +0200 (CEST)
+	id 03C8EF8028B; Thu, 23 May 2024 15:03:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=0.7 required=5.0 tests=DATE_IN_PAST_12_24,
+	DKIMWL_WL_HIGH,DKIM_SIGNED,DKIM_VALID,DKIM_VALID_EF,SPF_HELO_NONE,
+	SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=no autolearn_force=no
+	version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3EBF4F80051
-	for <alsa-devel@alsa-project.org>; Thu, 23 May 2024 13:36:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3EBF4F80051
+	by alsa1.perex.cz (Postfix) with ESMTPS id 580B2F800BA
+	for <alsa-devel@alsa-project.org>; Thu, 23 May 2024 15:03:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 580B2F800BA
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=NlnGadG2;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=Fv1QfaDZ;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=NlnGadG2;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=Fv1QfaDZ
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id DA75922603;
-	Thu, 23 May 2024 11:36:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1716464172;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vhhEjdcH4WaOTJEZIfR5/Uon7VzyFCJi1b1I3aj174M=;
-	b=NlnGadG2HoTrCnkyzfDR4Trm4N6dV6zcRBh2IjCKuJiwSFYhpWfpf0DKYhwRLAySOiied0
-	x/TRAtTKTZ0p8bEdJEqrsBEZ7FncoK9fOqzLBMLH0ksbJtQPqgHB9MN/PxR4+/KAxiUbQN
-	Bd9dZ4x6ebZuvLV0Ch9CIGJai04/f58=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1716464172;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vhhEjdcH4WaOTJEZIfR5/Uon7VzyFCJi1b1I3aj174M=;
-	b=Fv1QfaDZ68lQDaKSiNdxfcgCuHh3U00C4dLHs3caCKt36pN+MCrRlhjSSvE2662g8b6rdL
-	loGslI12OrURRkDQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1716464172;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vhhEjdcH4WaOTJEZIfR5/Uon7VzyFCJi1b1I3aj174M=;
-	b=NlnGadG2HoTrCnkyzfDR4Trm4N6dV6zcRBh2IjCKuJiwSFYhpWfpf0DKYhwRLAySOiied0
-	x/TRAtTKTZ0p8bEdJEqrsBEZ7FncoK9fOqzLBMLH0ksbJtQPqgHB9MN/PxR4+/KAxiUbQN
-	Bd9dZ4x6ebZuvLV0Ch9CIGJai04/f58=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1716464172;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vhhEjdcH4WaOTJEZIfR5/Uon7VzyFCJi1b1I3aj174M=;
-	b=Fv1QfaDZ68lQDaKSiNdxfcgCuHh3U00C4dLHs3caCKt36pN+MCrRlhjSSvE2662g8b6rdL
-	loGslI12OrURRkDQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C968213A6C;
-	Thu, 23 May 2024 11:36:12 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id nP+dMCwqT2YIZgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Thu, 23 May 2024 11:36:12 +0000
-Date: Thu, 23 May 2024 13:36:32 +0200
-Message-ID: <87a5kgbvzz.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	alsa-devel@alsa-project.org
-Subject: Re: [GIT PULL] ASoC fixes for v6.10-merge-window
-In-Reply-To: <285471261b77e5d769b6bb55375edea3.broonie@kernel.org>
-References: <285471261b77e5d769b6bb55375edea3.broonie@kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-3.28 / 50.00];
-	BAYES_HAM(-2.98)[99.90%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_ALL(0.00)[];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[gmail.com,alsa-project.org];
-	RCPT_COUNT_THREE(0.00)[3];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
-Message-ID-Hash: D6CARTBRMVW7YTOIYC24KTPXW67BCBN7
-X-Message-ID-Hash: D6CARTBRMVW7YTOIYC24KTPXW67BCBN7
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=ReZexvGj
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1716469420; x=1748005420;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=jw4sR51kSbW7rHYB3afXhuNhtkpAyEH1zeZVnVImweU=;
+  b=ReZexvGj8WVBpgGH+t5iRAGl/RlPA0FczYvbojfaexmkuWOgDJL0ykHy
+   eptqvnKKEDx1ErqZa4hheuwRGZ9TxLNHP02B8xgQWYTYBg/BDjxJfu18D
+   0wW4sa47/+yF2w5/v/IpvKYDylb2EUegaHSDV5Kn6jkACgGweeLRijaZm
+   7JPyibyvV8MDRPE0YWzuuN9hhDKCvr9FS1ebxbVVF0kLEGdvCEmfx+nNt
+   D7ZpHFHhdVgqZ+s5iyJ4l4slzKA0zvREN9X+P9S4xnIbvZPsXDmMkV3fX
+   dOds7Dt3KIPXWxzix17+eMemmN/OlYQXCwrDrAhi+4nLY5e0jRTp7u+za
+   g==;
+X-CSE-ConnectionGUID: CyBQiOJJQ0aMCT7/kWFyMw==
+X-CSE-MsgGUID: RwnSP/juQyuTC0sXk7GWKA==
+X-IronPort-AV: E=McAfee;i="6600,9927,11081"; a="12632714"
+X-IronPort-AV: E=Sophos;i="6.08,182,1712646000";
+   d="scan'208";a="12632714"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 May 2024 06:03:32 -0700
+X-CSE-ConnectionGUID: c61xu0+GRl2iSbzHX4p83g==
+X-CSE-MsgGUID: E1Ph9vJrQzqtcOJwbDdmDw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.08,182,1712646000";
+   d="scan'208";a="33550436"
+Received: from unknown (HELO [10.125.110.41]) ([10.125.110.41])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 May 2024 06:03:29 -0700
+Message-ID: <37615d72-762e-4ec7-b625-e275a96b2780@linux.intel.com>
+Date: Wed, 22 May 2024 08:35:31 -0500
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/3] ASoC: soc-pcm: Indicate warning if CPU / Codec
+ availability mismatch
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Mark Brown <broonie@kernel.org>
+Cc: =?UTF-8?Q?Amadeusz_S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Alper Nebi Yasak <alpernebiyasak@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Banajit Goswami <bgoswami@quicinc.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, Brent Lu <brent.lu@intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>, Hans de Goede <hdegoede@redhat.com>,
+ Jaroslav Kysela <perex@perex.cz>, Jerome Brunet <jbrunet@baylibre.com>,
+ Jiawei Wang <me@jwang.link>, Jonathan Corbet <corbet@lwn.net>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Kevin Hilman <khilman@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Maso Huang <maso.huang@mediatek.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>,
+ Shengjiu Wang <shengjiu.wang@gmail.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>, Takashi Iwai <tiwai@suse.com>,
+ Vinod Koul <vkoul@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ alsa-devel@alsa-project.org, imx@lists.linux.dev, linux-doc@vger.kernel.org,
+ linux-sound@vger.kernel.org
+References: <87msole5wc.wl-kuninori.morimoto.gx@renesas.com>
+ <87jzjpe5vh.wl-kuninori.morimoto.gx@renesas.com>
+ <77e9221e-05d2-453f-9ce1-ff4a4b53d09d@linux.intel.com>
+ <87y184cbed.wl-kuninori.morimoto.gx@renesas.com>
+ <7b430ea3-3ce8-4ef9-8440-bac02993f676@linux.intel.com>
+ <875xv8c6dn.wl-kuninori.morimoto.gx@renesas.com>
+ <3e67d62d-fe08-4f55-ab5b-ece8a57154f9@linux.intel.com>
+ <1f8e6e3c-a116-48d8-991f-4184d1eebc79@sirena.org.uk>
+ <ec063ea9-3d72-457a-9c73-46c5f5b1f6e4@linux.intel.com>
+ <37341c4c-3a99-4f71-99b3-efda2d2008e8@sirena.org.uk>
+ <878r023epy.wl-kuninori.morimoto.gx@renesas.com>
+Content-Language: en-US
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <878r023epy.wl-kuninori.morimoto.gx@renesas.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: KQR76KS7OM4UPYJ7UBNM6ZBGK4HODMDA
+X-Message-ID-Hash: KQR76KS7OM4UPYJ7UBNM6ZBGK4HODMDA
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -152,7 +138,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/D6CARTBRMVW7YTOIYC24KTPXW67BCBN7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KQR76KS7OM4UPYJ7UBNM6ZBGK4HODMDA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -161,28 +147,50 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 23 May 2024 13:24:23 +0200,
-Mark Brown wrote:
-> 
-> The following changes since commit c3c5ac4bd7d7019f2e3ad1720572d53226fe656e:
-> 
->   ASoC: Intel: updates for 6.10 - part7 (2024-05-10 12:30:12 +0100)
-> 
-> are available in the Git repository at:
-> 
->   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.10-merge-window
-> 
-> for you to fetch changes up to 737ce4fb96206f999ddea7530145fc0e8abd5d31:
-> 
->   ASoC: dt-bindings: stm32: Ensure compatible pattern matches whole string (2024-05-21 12:35:12 +0100)
-> 
-> ----------------------------------------------------------------
-> ASoC: Fixes for v6.10
-> 
-> A bunch of fixes that came in during the merge window, all driver
-> specific and none of them especially remarkable.
 
-Pulled now.  Thanks.
+> In case of ignoring Codec check on DPCM, it allows unexpected direction,
+> I think. For example if it is not using dummy DAI, and in case of CPU can
+> playback/capture, Codec can playback, and user expect playback only,
+> in this case unexpected "capture" will be available. He need to add
+> playback_only flag, but it is not good for me.
+> 
+> Can we avoid validation check if DAI has some kind of new flag, like
+> ignore_pair ?
+> 
+> pseudo code is like this
+> 
+> 	if (valid(cpu, PLAYBACK))
+> 		has_cpu_playback = 1;
+> 
+> 	if (valid(cpu, CAPTURE))
+> 		has_cpu_capture = 1;
+> 
+> 	if (valid(codec, PLAYBACK))
+> 		has_codec_playback = 1;
+> 
+> 	if (valid(codec, CAPTURE))
+> 		has_codec_capture = 1;
+> 
+> 	if (cpu->ignore_pair) {
+> 		has_codec_playback = 1;
+> 		has_codec_capture  = 1;
+> 	}
+> 
+> 	if (codec->ignore_pair) {
+> 		has_cpu_playback = 1;
+> 		has_cpu_capture  = 1;
+> 	}
+> 
+> Or more detail ignore_pair_playback, ignore_pair_capture
 
+There are two options
+a) we don't even try to test the codec-cpu match in terms of
+capabilities. That means the same behavior as today.
+b) we add a chicken bit for platforms to disable the codec-cpu match if
+it breaks specific platforms.
 
-Takashi
+The problem with b) is that we don't know what platforms will break. I
+reported one example that was caught by our CI, but there could be
+additional Chromebooks impacted, who knows.
+
+My vote is a).

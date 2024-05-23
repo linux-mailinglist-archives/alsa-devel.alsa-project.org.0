@@ -2,160 +2,121 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 494F28CE528
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 May 2024 14:20:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBBAF8CE529
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 May 2024 14:20:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7487C206;
-	Fri, 24 May 2024 14:20:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7487C206
+	by alsa0.perex.cz (Postfix) with ESMTPS id F0197208;
+	Fri, 24 May 2024 14:20:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F0197208
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1716553230;
-	bh=Fus6Ppe/8Bf+Q/12no8+yQP5kmLXaP6K3RGALkfKOBo=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
+	s=default; t=1716553247;
+	bh=6Qsfgxn0ZtZxpVvIBFFX1mQlHeNqRm+EvO0tyESQalY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=otoaqOshKcaPHM2KCvMX3jix8M7L2Qi3AhuaDP0+yoQP6LNKvAupl8EDdPaMRj2Vm
-	 otxtf31QeOp1WVtt72N7/i/VtfbEZ3MR+FREd9c1yKCyOMWUEI8mS/Hyx8U6TkLpRV
-	 wD8NHwDveaTn08CwFqbxTKHQUMdKt4SNqsowMTtY=
+	b=rI4B9XzkAx9YyMItj3PSpFZA41l2WYJBYW+WjBcmTGdTO/K3QzWcAstclRX21NqTX
+	 gJROWc0sjY+3o71rKQNVfhlUR2+l72FrA5QPFsDthIcODyPux4QP15lq3262oXPkpR
+	 /99tImAynbOxxVCIOAEFOeyR5HVhrkYcunvTiCD4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 605A9F806C0; Fri, 24 May 2024 14:18:18 +0200 (CEST)
+	id 5AB61F806CD; Fri, 24 May 2024 14:18:18 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BEC28F806AE;
-	Fri, 24 May 2024 14:18:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 99538F806CC;
+	Fri, 24 May 2024 14:18:18 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 95748F8026A; Thu, 23 May 2024 03:49:22 +0200 (CEST)
+	id C987DF8026A; Thu, 23 May 2024 06:10:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn
- (mail-bjschn02on20711.outbound.protection.partner.outlook.cn
- [IPv6:2406:e500:4440:2::711])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-pl1-x635.google.com (mail-pl1-x635.google.com
+ [IPv6:2607:f8b0:4864:20::635])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6D497F80051
-	for <alsa-devel@alsa-project.org>; Thu, 23 May 2024 03:49:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6D497F80051
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Vu0V0PIp6YOzWPqpMY7VZfhgwplPeA714hjtPv47rObQFZs0lLO/ZjwOMJCbRMshVzTJOHe0AcTFfoKuLjz/W2L4xd9CBUkgvIeb6F/VjcCgEaElfNFhbmzEyX6Fm3ivbjweUaW+C6lWEYbXpU9q+c7f7cx3LucQsNuE1d8zSN5aBhT5Y0vIPvN4aT6TjIO9NDr1kXvq8bOU3TFAuAaJiqltwPl8ulUeaZ8+eW0D0dYLsZcdQNKYrQmc0L7hdzizsys0FUEHCdDyV8d9Z8gDBqg2lS3qpW/KGWSg0OEh/hd88ueu3r56K41r5TN46C8w/TJvn3S/hBuURvMejTV0Qw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Vf46/6kYIW3uUV4UPQjL9QVmPC/ACK517YtWT495oXA=;
- b=EBKusfD0dPSkajewqwix3t7L8OVPLpxqX8gcEJhMxYeuB1Eb5C458vzvIf32o1TEArmySG3ekHJtppcdrbNYhJ7zEbOO1fE9/wT2CJEk8k6BFXmzA89vwXLy/wsADtj9bHPw4GVLclSjgU3ovdLrOQzu90ngN+N/y5/xTsCW4IooO4e1q2Y/2zgQQ4WQkar953spVZfZicDM4UGMjPbuYDSSc1KNAags57qXtjr26qo53o0jt87GRAb4Gm1bc4wo/0w2h/OYRzPktWyqb1wA3g5ZNhoc5YHwFRd+MCMnv4DnM5menXoWhNgNnp/hUOHUJx6vnncMnSNIIE7A+fsS7A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Received: from NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510:8::10) by NTZPR01MB1099.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510:1::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7587.37; Thu, 23 May
- 2024 01:48:57 +0000
-Received: from NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn
- ([fe80::e903:99a6:10b7:304d]) by
- NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn ([fe80::e903:99a6:10b7:304d%6])
- with mapi id 15.20.7472.044; Thu, 23 May 2024 01:48:57 +0000
-From: Xingyu Wu <xingyu.wu@starfivetech.com>
-To: Mark Brown <broonie@kernel.org>
-CC: Liam Girdwood <lgirdwood@gmail.com>, Walker Chen
-	<walker.chen@starfivetech.com>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "alsa-devel@alsa-project.org"
-	<alsa-devel@alsa-project.org>, "linux-sound@vger.kernel.org"
-	<linux-sound@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela
-	<perex@perex.cz>, Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
-	<krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
-	<conor.dooley@microchip.com>
-Subject: RE: [PATCH v2 2/2] ASoC: starfive: Add PDM controller support
-Thread-Topic: [PATCH v2 2/2] ASoC: starfive: Add PDM controller support
-Thread-Index: AQHalVkIdRsOCKK/U0GRbtz/T/P037GiqLtwgAChPwCAAOjtUA==
-Date: Thu, 23 May 2024 01:48:56 +0000
-Message-ID: 
- <NTZPR01MB0956E13D4D327B76682E51279FF42@NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn>
-References: <20240423083405.263912-1-xingyu.wu@starfivetech.com>
- <20240423083405.263912-3-xingyu.wu@starfivetech.com>
- <NTZPR01MB0956BAFCBF0EA32824C3350A9FEB2@NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn>
- <297b2034-4e2e-47a7-97bf-53991a102db7@sirena.org.uk>
-In-Reply-To: <297b2034-4e2e-47a7-97bf-53991a102db7@sirena.org.uk>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: NTZPR01MB0956:EE_|NTZPR01MB1099:EE_
-x-ms-office365-filtering-correlation-id: 3d4412f9-93d2-444e-98d8-08dc7aca8269
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: 
- BCL:0;ARA:13230031|7416005|1800799015|41320700004|366007|38070700009;
-x-microsoft-antispam-message-info: 
- ETwNtop60IaaWvwXslC9h+OK7apdTxt/va+4w3Kr50bIgQcBqqNdPT5wwP4AE1xKGHZeNniO0v+o77In/GI1xdFUt9ipKuHmkp2876TgKKAMHFOPgE818kUEeclbFCbxOWS2U0sAzILw3N7CM4NeJaLVaKq07BdeHSP8hefn+rkHBhjsV419SRLTwjZQZ4Ice//g7p/CzYHrY29yIESETrMNJliy0H6Lhirj8mXhmEUCQ/tzjR6hMQx153a+sAiSy4aYQoy8sndW3yMnUqZ9ulgLDks8D9xNtWiqqXEPGdWpgqGHi9fHfhENfWs8IOhNky9L7O6PP7hEbLwTgr7KcT+hJBEgb0ppFuqeDclW067oukB9Ok2di2xpMucSeOSRiZwXHUhqi9T0/w+req+dLtpgocF+8uwdn5OjZGtwXMbm+9ErPLcJBSP0z/ZFGT9QKD7zhySu1RrQkBEKrqf3sQ+3TpYk7l5zbYmn0UsbOOiPQXrhvivLkdHCKhaBwks1se38/ihaeWCPiYIuVtvUV8VYsnwHuAkQ1OADooW9SD+gd1wj9YndqO67KNlpDze8KggLTDMsNbMOQqyA7KO3LSebENllaz+7c+dWxbXTZYe6J9tOSwhlxzBGGl3jhVpl
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230031)(7416005)(1800799015)(41320700004)(366007)(38070700009);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?us-ascii?Q?oPyko5St/rcgjisQUS5cESLxOnDtGs5bbLJMjluHTn2gHn7vDe1LqjO/WRdC?=
- =?us-ascii?Q?f0fZ6q0qksyGURG8zTEiXTW2dWTlqxzwOXi6Hg0UaxqtdpiE/drKdQGuMFYo?=
- =?us-ascii?Q?mlJrgxL7WUiuAHDFLrcVUrwFBK7dGVz2IZvKD128WcojK4XFZbHi3zw/cdVQ?=
- =?us-ascii?Q?0nZ+Oa9pZvyTFrRH1PiNPh9F3PxIeK4h6cRLgvOB8dmT5DN/HFuMfh13i5Hi?=
- =?us-ascii?Q?fsI6B6yUZymHQvnfrLMH8PsXDc1moo6f4jW6d0KWITfAl3Y8r8UkTEE+rhpA?=
- =?us-ascii?Q?Nir5/S6Xofo3QYGaifw0h6ABKw25SnOmlAFea4rnO16stsVIHCZY+E74nLCv?=
- =?us-ascii?Q?ACp58hrU+ANy7i2j9wxAG52Zgvk7fl/iqsVqCITLMHVhm1MQftFqzbUv9GzT?=
- =?us-ascii?Q?RNIKmAHQ9Izki6yo4mwubircpGRVB6vIBquyVSsZJQiYDf8u/yfO9LlZ61Zo?=
- =?us-ascii?Q?QuhfG+lzXwXGphhPSKVevLCzA8mzXralkwDBQrpAFmlLj/UnUN37PlBloFT5?=
- =?us-ascii?Q?JoToKzbOCkeErZXvfQqGJPy2YB+CKlFpSJWIAqK2mRTWgGN3U6Cp7RMjK8yF?=
- =?us-ascii?Q?IfIL9dycyDNjQaBGPTCESihAQcbILRAjXwsWT+8fk60Ik3zySTbzohC523OU?=
- =?us-ascii?Q?aWtmMcFGrospgJ7xfofP0LK+jNiuReMUvy8gr63cqEN4lTgUBsn3UXGnmYSa?=
- =?us-ascii?Q?lDQfjbWQnH5QsaxNZCJxkshRtXSQUyNDd+N6BZkZ2swqrzmPmNfQrPliMI4j?=
- =?us-ascii?Q?wNBAU0TmpHKXjvk47FsgISoAoppkxcDk/BBwRFdR03khGpPqFlzsVwK71W8X?=
- =?us-ascii?Q?pHYZM87/N4msHZxgqG6D1lgev0qC1J4DmxBhvLRCTLS9bvlk8WRLeGFmSU9q?=
- =?us-ascii?Q?c3D+BmF5cTsHJ5YO4LaxcD0NX9vopssjl0ij93RZq2M0WyWdiNsD1zK9/gmP?=
- =?us-ascii?Q?tgaYVM5rs8TSWTcU7OvcBWr4/nVfvfQu6XXso/cRzWX3PrbHnQeVrKXETibA?=
- =?us-ascii?Q?4DNsvPMYRqQK9XEiEurQIAt+mKDp0waC5XuRcHHZBG+043m2ywESoSgvLgFM?=
- =?us-ascii?Q?gmtefmsyBtE9h15nedH9n3dQiPfl+ZhEsgwYYOjAUu70gm7NOymqA/17mYKJ?=
- =?us-ascii?Q?NOOdGFUxMb6GWGxwbpNLBBPT1ZkfO+loo4u6OXjTkc/evq0Zx14Z4Z4A83vz?=
- =?us-ascii?Q?gzAq/wKR/19OsQRjGLR2C6VZ+Ue6EIToC8phnlBKG12p3Qzmg1QG14V4VUsZ?=
- =?us-ascii?Q?q7blnWPIdsKvY7F1GBc6clxCQo/wUAqCC4m1UV4LL8hKmUtcHYrUJ3CMjm40?=
- =?us-ascii?Q?HhdACNYQMwFzmV+wAN73O6dgbfgTcH78Mbn0W10We42veML6v4LHRFkeWTXK?=
- =?us-ascii?Q?YJS7N281JCQDhm5saGlVP5lZtIt4v8FQyivALkZ7Q0crsg52NpH/ILYNVOc2?=
- =?us-ascii?Q?jUZbYpVfnfGu/wECe5Uhg1XiAngAbsAExghpCv2erm7D+x2D6rnVM8Mk5hSb?=
- =?us-ascii?Q?xQDYWk3UM35P5XeWBt1fNd8brvb/2+vpFBL4Ex98xkNmnPjHbhaRTiTqRHVb?=
- =?us-ascii?Q?kuG1AR1B/dXfwE93HvvTc4nKptgO+12KNmf03Ms3?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by alsa1.perex.cz (Postfix) with ESMTPS id 410D8F800BA
+	for <alsa-devel@alsa-project.org>; Thu, 23 May 2024 06:10:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 410D8F800BA
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=N5P+FNzW
+Received: by mail-pl1-x635.google.com with SMTP id
+ d9443c01a7336-1f333e7a669so7758945ad.3
+        for <alsa-devel@alsa-project.org>;
+ Wed, 22 May 2024 21:10:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1716437400; x=1717042200;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=YKSyw6WGP8oc1c5/355QNnMu26FbGL5V8Gm62pHtX8U=;
+        b=N5P+FNzWyH3CVNCoYzJ8eCH+8bmjAKGZVkYBlgxMWSjNC9AAK7BY/xkK13OzxPgFs6
+         tGC+K9TlYMw7p+dUf5YO27u7qidXoDEB0V01+SjvkJpvQqQjWc9rT3ktiZzNAYJGlFcA
+         2lpfB9x5LkA++VmKrLNflhg3i9aYs+a3H7OQMsuJxHnog7isHOcwx8yQAtPPvJdRzDqR
+         xRXnye4E3fpZJOyDJrYGxZ+Qp5wS0MWmGOak2b2zsa5IpevVF8HnUYktydBBstWHzqGU
+         aYt/BWOx58D5v0z9R7irfaBbDkWxSU7LmJcCOFRBFedUKeoiK7221OHnZO6qhIt2DDGZ
+         ++IQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1716437400; x=1717042200;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=YKSyw6WGP8oc1c5/355QNnMu26FbGL5V8Gm62pHtX8U=;
+        b=SHITqUBN5B55o5G16XdNWfWkrJZDGf/hZLbwaeDUB3tP//o7SBD4rvWUWG70bH/oKj
+         xR/07TY9miyMI7Yyt4AtewKnFM7fN1JZdGhgqt7IHh6AFej/Yd5v+FN4r+gJAy+taRFU
+         NNwosDpFqwIsrn41c+ZBZfURSeqPFWpJ841lUFqkPHfDHVxl9jZjGsWqut7eSUPP97an
+         pxZNrI+tQcIapzGx43koIBkX0fj6EGREjS1EyP2BBehNeIqroIbCjbaEJ49GW2RQQxJk
+         UQafDPe+pi33TFtsTeqV0VwzRcr9at7RzMskf79/i5tLqP9oadIYqEo/J3Ok0ksvLarc
+         qn+w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVdezymngs0bKiJVWZv28WfDj4FP5Nf+wd7eBaNPWnWsYzzuWGKNmO4dFGa4fBU90HvdyPIVREU7cVXZ4PfVKoQ8sozwpaZoFLMAWk=
+X-Gm-Message-State: AOJu0YzuvgWXr9z3tlHRpgQt5y73Iu4TOf9u1D3n3sYUb0W9vm9qZdCv
+	PC114SGTxDq+gD7I32tot8w7O1S/LDP7CRWjE23imgNZ+GwrXtZ9
+X-Google-Smtp-Source: 
+ AGHT+IEQwG0Ah8JNIp+nts9Fmu4aOOHwzYGESz0lsmxX20hoewkxC9gHhtTDM/PwZ/pCJm20EjLhtQ==
+X-Received: by 2002:a17:902:d4c3:b0:1f2:fab6:294 with SMTP id
+ d9443c01a7336-1f31c9ea3e1mr42062845ad.56.1716437399762;
+        Wed, 22 May 2024 21:09:59 -0700 (PDT)
+Received: from [0.0.0.0] (42-3-109-144.ptr.netvigator.com. [42.3.109.144])
+        by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-1f3356bf498sm8083705ad.191.2024.05.22.21.09.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 22 May 2024 21:09:59 -0700 (PDT)
+Message-ID: <dd14e3ff-3ff7-426e-88e0-b16a49eafaf0@gmail.com>
+Date: Thu, 23 May 2024 12:09:55 +0800
 MIME-Version: 1.0
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: 
- NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 3d4412f9-93d2-444e-98d8-08dc7aca8269
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 May 2024 01:48:56.9676
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 
- E6+2hJ5hWmCxhQQ4Tg686XWAXRydqDgA0RThNB3T95lWiouuFiqXxctLnJBgi3R+IkOYlI1Fa9NFZ3+/lJ5YIKwZ89mu9QQErP6cEb1Wgw8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: NTZPR01MB1099
-X-MailFrom: xingyu.wu@starfivetech.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/4] ASoC: qcom: display port changes
+To: srinivas.kandagatla@linaro.org, broonie@kernel.org
+Cc: perex@perex.cz, tiwai@suse.com, lgirdwood@gmail.com,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+References: <20240422134354.89291-1-srinivas.kandagatla@linaro.org>
+Content-Language: en-US
+From: Xilin Wu <wuxilin123@gmail.com>
+In-Reply-To: <20240422134354.89291-1-srinivas.kandagatla@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-MailFrom: wuxilin123@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: VCYLEB5P3UO3VYZKCG6M4ZWT6POKZLDQ
-X-Message-ID-Hash: VCYLEB5P3UO3VYZKCG6M4ZWT6POKZLDQ
+Message-ID-Hash: QMFV2TG6CIX5SDYVCR6QVLAV2OBS2JBB
+X-Message-ID-Hash: QMFV2TG6CIX5SDYVCR6QVLAV2OBS2JBB
 X-Mailman-Approved-At: Fri, 24 May 2024 12:17:27 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ECRU46TB6GMUVYVGOAMY5XP25QO4V7XG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QMFV2TG6CIX5SDYVCR6QVLAV2OBS2JBB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -164,35 +125,73 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 22/05/2024 19:23, Mark Brown wrote:
->=20
-> On Wed, May 22, 2024 at 02:11:55AM +0000, Xingyu Wu wrote:
->=20
-> > Could you please help to review and give your comment about this PDM dr=
-iver?
->=20
-> Please don't send content free pings and please allow a reasonable time f=
-or
-> review.  People get busy, go on holiday, attend conferences and so on so =
-unless
-> there is some reason for urgency (like critical bug fixes) please allow a=
-t least a
-> couple of weeks for review.  If there have been review comments then peop=
-le
-> may be waiting for those to be addressed.
->=20
-> Sending content free pings adds to the mail volume (if they are seen at
-> all) which is often the problem and since they can't be reviewed directly=
- if
-> something has gone wrong you'll have to resend the patches anyway, so sen=
-ding
-> again is generally a better approach though there are some other maintain=
-ers
-> who like them - if in doubt look at how patches for the subsystem are nor=
-mally
-> handled.
+On 2024/4/22 21:43, srinivas.kandagatla@linaro.org wrote:
+> From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> 
+> This patchset adds support for.
+> 	1. parse Display Port module tokens from ASoC topology
+> 	2. add support to DP/HDMI Jack events.
+> 	3. fixes a typo in function name in sm8250
+> 
+> Verified these patches on X13s along with changes to tplg in
+> https://git.codelinaro.org/linaro/qcomlt/audioreach-topology/-/tree/topic/x13s-dp?ref_type=heads
+> and ucm changes from https://github.com/Srinivas-Kandagatla/alsa-ucm-conf/tree/topic/x13s-dp
+> 
+> Thanks,
+> Srini
+> 
+> Changes since v1:
+> 	- Fixed unused variable warning.
+> 	- fixed warning 'break;' to avoid fall-through
+> 
+> Srinivas Kandagatla (4):
+>    ASoC: qcom: q6dsp: parse Display port tokens
+>    ASoC: qcom: common: add Display port Jack function
+>    ASoC: qcom: sc8280xp: add Display port Jack
+>    ASoC: qcom: sm8250: fix a typo in function name
+> 
+>   sound/soc/qcom/common.c         | 29 +++++++++++++++++++++++++++++
+>   sound/soc/qcom/common.h         |  3 +++
+>   sound/soc/qcom/qdsp6/topology.c | 26 ++++++++++++++++++++++++++
+>   sound/soc/qcom/sc8280xp.c       | 14 ++++++++++++++
+>   sound/soc/qcom/sm8250.c         |  4 ++--
+>   5 files changed, 74 insertions(+), 2 deletions(-)
+> 
 
-Sorry, you can do it when you have free time. Don't mind.
+Hi Srini,
 
+I tested this series on SM8550 with tplg in [1] and ucm in [2]. But the 
+kernel output errors attached below. Headphone does work properly 
+without DisplayPort in the ucm.
+
+What could be the possible cause of this? Is there any significant 
+change from sc8280xp to sm8550?
+
+-- 
 Thanks,
-Xingyu Wu
+Xilin Wu
+
+[1] 
+https://github.com/edk2-porting/audioreach-topology/blob/sakuramist/QCS8550-AYN-ODIN2.m4
+[2] 
+https://github.com/strongtz/alsa-ucm-conf/blob/odin2/ucm2/Qualcomm/sm8550/HiFi.conf
+
+[ 1552.313713] qcom-apm gprsvc:service:2:1: Error (1) Processing 
+0x01001000 cmd
+[ 1552.313730] qcom-apm gprsvc:service:2:1: DSP returned error[1001000] 1
+[ 1552.314455] qcom-apm gprsvc:service:2:1: Error (1) Processing 
+0x01001006 cmd
+[ 1552.314463] qcom-apm gprsvc:service:2:1: DSP returned error[1001006] 1
+[ 1552.315496] qcom-apm gprsvc:service:2:1: Error (1) Processing 
+0x01001006 cmd
+[ 1552.315506] qcom-apm gprsvc:service:2:1: DSP returned error[1001006] 1
+[ 1552.316033] qcom-apm gprsvc:service:2:1: Error (1) Processing 
+0x01001001 cmd
+[ 1552.316042] qcom-apm gprsvc:service:2:1: DSP returned error[1001001] 1
+[ 1552.316045] q6apm-lpass-dais 
+30000000.remoteproc:glink-edge:gpr:service@1:bedais: Failed to prepare 
+Graph -22
+[ 1552.316047] q6apm-lpass-dais 
+30000000.remoteproc:glink-edge:gpr:service@1:bedais: ASoC: error at 
+snd_soc_pcm_dai_prepare on DISPLAY_PORT_RX_0: -22
+

@@ -2,123 +2,135 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2993C90777E
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jun 2024 17:51:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8284C90778D
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jun 2024 17:53:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 42365A4D;
-	Thu, 13 Jun 2024 17:51:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 42365A4D
+	by alsa0.perex.cz (Postfix) with ESMTPS id DACB3E69;
+	Thu, 13 Jun 2024 17:53:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DACB3E69
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718293875;
-	bh=HHYNBzmrY3K2RD7J4rY+nMkppxrdSNNVabRkntKVknE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=loTrL/XJJc4JgK5BaRuCQq4ZnFfs2GrAeux5xfAhXrzi2Jb0Ft3mOapizZmABlKQR
-	 8jQ7ndLVRcXBOT6PRxhPAkuUN4/GPSlE/RFWwmMYNUB8KEzaGxAb51NvNvwVbP/YZ8
-	 /fh/Ms5bEXUC3IV7HJHZxgPT5tIaSeqYulsiG7t0=
+	s=default; t=1718293995;
+	bh=4zLRKryEPEhLxtkijn6RbgJhMMJkRIFlKDleLaNwm/A=;
+	h=From:Subject:Date:To:Cc:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=M9IgzckSrLhtk6N46+T37H/5UqvDmJXTvqL9UfTZMhA0ud2MQYT1HIVvICG9E+ZQQ
+	 HOFkPNd/kfQi9Y6H2Myq54fafou/d+z406/cWvY32h7nRaZUlVOHQ8rnRnn4sOpyMW
+	 h3o/VqCducLgCOvjsXW7Uu8nW72QExyk3I7ciFsI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6D981F805BA; Thu, 13 Jun 2024 17:50:39 +0200 (CEST)
+	id CFBC7F806D0; Thu, 13 Jun 2024 17:51:07 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9DED6F805B1;
-	Thu, 13 Jun 2024 17:50:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D2801F8057A;
+	Thu, 13 Jun 2024 17:51:06 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 75AFEF8020D; Sat, 25 May 2024 09:12:55 +0200 (CEST)
+	id CA58EF8026A; Sat, 25 May 2024 15:31:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-pg1-x529.google.com (mail-pg1-x529.google.com
- [IPv6:2607:f8b0:4864:20::529])
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [IPv6:2a00:1450:4864:20::532])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 58928F8016B
-	for <alsa-devel@alsa-project.org>; Sat, 25 May 2024 09:12:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 58928F8016B
+	by alsa1.perex.cz (Postfix) with ESMTPS id A8D20F8016B
+	for <alsa-devel@alsa-project.org>; Sat, 25 May 2024 15:28:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8D20F8016B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=KKjj552a
-Received: by mail-pg1-x529.google.com with SMTP id
- 41be03b00d2f7-68195b58daeso1287669a12.2
+ header.s=20230601 header.b=mDJZzsar
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-5755fafa5a7so9240500a12.1
         for <alsa-devel@alsa-project.org>;
- Sat, 25 May 2024 00:12:38 -0700 (PDT)
+ Sat, 25 May 2024 06:28:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1716621156; x=1717225956;
+        d=gmail.com; s=20230601; t=1716643687; x=1717248487;
  darn=alsa-project.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=fb2z3nmHoMhzHbgUsiZMAh19uOQGG1aEzUpQJqiuJ1c=;
-        b=KKjj552aJ4sEqRsPQOgQeRzPSwvMJtTvgBvMokTmVjgibFEIjfkvjOeMGXqfnriBnn
-         OOwenaJKAk5NXoofUMNeqDZRg9T8uanDNqNSz4fZKES9/OZxONF5VdnuYT+AjlVfgWgE
-         TkXSv7b5ylbF3H2zWRwAbvhRQ2WQdYPS+pEJg0x8x41+/4z+Ww/ykehRUiqjjJUPmRT5
-         nJuxah7ILTnjlUEVUcSaIq2ru+MkrwqPnWYIP8ieOKg3qHegbRkyYr7ADxROUxBVVim9
-         UpfG0Ktrt2KvWIb0zyiOzoLFUI9GQ7VOo0nclyeugL8l3eu//hVtCyHIPXq+52+ZTfcB
-         0CSA==
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Mo8+1mx/nA30VwrcIjP4AOPt1PugmzRzdV+Mta/P/KY=;
+        b=mDJZzsarP8PuIG2+3A2zd4vJkelWf0qLbBaN8C6NYhkTEJxq/nLONXUZr7F3mEIl5u
+         1CvTBq5Y9bl7dTHYNFGnTAIKp9+SEaB0zY1Yedy63m9YgAAJS2ZKHOrlOprV24jWuNPo
+         3TKK0BRuzuIbQ3i0pwm5VFe/9/Nz4gs6mLddlUuNSt+s5BDDw4c2CjGMd0Vvb/XLdIHu
+         Xt+dQMN8l4aGzefL2vISqIIygJ7ImlsexS5p9wI+lpFRxz6NBhVjqQNtrrRyOeRnxMS9
+         ZtTZFa2bO8GqwEaMwOc9B5lBs32+Hsp3EjyLybtOrs0dSe2xHTqiuz7fQpS43m2eVvEL
+         RdZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716621156; x=1717225956;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=fb2z3nmHoMhzHbgUsiZMAh19uOQGG1aEzUpQJqiuJ1c=;
-        b=V3Zppm3ynW4CC6n8OcXUMbw4H7LLzNsFYR5jkosLhzb2a4AoVDz2Yq5JltOkOKSNXF
-         C6DA/c7Th02gaFIo7sjzzZVlnY/o+soUo2Yt+yQ0UomDzdiYf2rwf+Al7G7JEfRc4DmD
-         PV0nlRQqkRnTr6ZagSLEU0czFlhfnhABkO7TfrlwkH1EeXeokZYALje/KZrVEO938GHu
-         SnEMD09GmiTVTis7WXCtB5Rwj7T4hEbRCkB4cVii74TCUIEaI8WeUq0csgTId46QObnS
-         /meRLk92mBkqEaPyHeTyYC5DVCppVoWM4dnbreKHipO3LpeAaEAil4eYZQJLS4RRD11h
-         ai2g==
+        d=1e100.net; s=20230601; t=1716643687; x=1717248487;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Mo8+1mx/nA30VwrcIjP4AOPt1PugmzRzdV+Mta/P/KY=;
+        b=PzLLriqivlKpHFmom2glzS8HlCBbQ0QyJ5TvKCcqipOJoy0jGqQAvxeefZokR9j5jm
+         /bn4vHpaN/gCk4ZNaZ3WBAJoIrNboB86IhtFDdWLp71w8iJG+MAgln4E6yqAa+mmmdKD
+         syOK6k/j6YeI266s13mmByd230P5rFr/ybBNLlrN7a1DJ8ZEoFIqWv4pvhGJ/cjteNIS
+         +0WpXfWFU0u9n/Xx6utYEyWXtHJ/aBZkS20bnmOwueXgakDQwWwCB++34r/yfv7bOgOL
+         +nEVyy8CseYx2Jb1uNyLh28FfVo2jgZLrxrU9Yt2XD8wqger84ZYmP0Job5/jFgZsWnY
+         GOYQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXtLQrItioK7a1cD0Fd1H8mrRhymRUVJmGnEnw5aertPYrPk/qE4EaCmcS6d3sqFPgZVDjef+BQyu0VWuCXUQ6oksJw2ICkrQqaayM=
-X-Gm-Message-State: AOJu0YybZcpd4tXCJs/E/yESjuJKiI1TJ2+7/7tUwuMUU76rzdSggPjt
-	tHlU42FTHdJJpyItAqSvVrxw+hrRrdWi3wWv1yBG1TvCU9cSXQjg
+ AJvYcCW02EGMT+ZLJaiPlKHPJchqr0mUC3+uFXbLGbOuub8p3tJnSgsJ75TgXdOnm8ZQQlvPfVKc0ANVtadkDIn/vs8ikAepVj4qMrPGpPU=
+X-Gm-Message-State: AOJu0YyBZS9+imlDQZml63PGp2CbQwIvkxlpgbcDyNlZXRk3wyIDyJ0i
+	IYHSw9szTHK976FhPmA7oW6Jtqk+iiYmAaQSedFekLFpIb8Ja07L
 X-Google-Smtp-Source: 
- AGHT+IFbaXJCkb9zPhfRLTDH3PBTlrYqdvihr2qHgl4nG35A3rX48ISCmRk98SKFBDWl5zW+G4fv0A==
-X-Received: by 2002:a17:902:e5c5:b0:1f4:4d6c:e381 with SMTP id
- d9443c01a7336-1f44d6ce61bmr43987875ad.29.1716621156285;
-        Sat, 25 May 2024 00:12:36 -0700 (PDT)
-Received: from [0.0.0.0] (42-3-109-144.ptr.netvigator.com. [42.3.109.144])
+ AGHT+IE3gmJUIvul4S1O2zw/h8rOZCXQEQULnqDXXH8/XuEr0PvPCteVwNCcdD28vdmFGEI5XQNy4Q==
+X-Received: by 2002:a17:906:48d8:b0:a59:a7b7:2b8e with SMTP id
+ a640c23a62f3a-a62643e0787mr323899366b.29.1716643686789;
+        Sat, 25 May 2024 06:28:06 -0700 (PDT)
+Received: from hex.my.domain (83.8.128.191.ipv4.supernova.orange.pl.
+ [83.8.128.191])
         by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-1f44c9a6fd0sm24441095ad.226.2024.05.25.00.12.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 25 May 2024 00:12:35 -0700 (PDT)
-Message-ID: <21f0f2ac-dada-4e19-a0df-086021320101@gmail.com>
-Date: Sat, 25 May 2024 15:12:28 +0800
+ a640c23a62f3a-a626cda46e1sm251842566b.196.2024.05.25.06.28.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 25 May 2024 06:28:06 -0700 (PDT)
+From: Artur Weber <aweber.kernel@gmail.com>
+Subject: [PATCH v4 0/9] ASoC: samsung: midas-audio: Add GPIO-based headset
+ jack detection
+Date: Sat, 25 May 2024 15:28:04 +0200
+Message-Id: <20240525-midas-wm1811-gpio-jack-v4-0-f488e03bd8c7@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/4] ASoC: qcom: display port changes
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, broonie@kernel.org
-Cc: perex@perex.cz, tiwai@suse.com, lgirdwood@gmail.com,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-References: <20240422134354.89291-1-srinivas.kandagatla@linaro.org>
- <dd14e3ff-3ff7-426e-88e0-b16a49eafaf0@gmail.com>
- <44fad635-1b17-47bc-97f0-9a541e0b4f35@linaro.org>
-Content-Language: en-US
-From: Xilin Wu <wuxilin123@gmail.com>
-In-Reply-To: <44fad635-1b17-47bc-97f0-9a541e0b4f35@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-MailFrom: wuxilin123@gmail.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAGTnUWYC/3XNTQrCMBCG4atI1kYySUyrK+8hLppJ2o7aHxqpS
+ undTQtCFbp8P5hnBhZ8Rz6w42Zgne8pUFPH0NsNwzKrC8/JxWZSSC32QvKKXBb4s4IUgBctNfy
+ a4Y1bEFIaC4lHZPG47XxOrxk+X2KXFB5N957/9DCtX1KtkT1wwX2KzllnErT5qagyuu+wqdhE9
+ nLJpKuMjIzVThl0QqLx/4xaMHBYZVRkBEKiDGiN4ocZx/EDd8zgKEoBAAA=
+To: Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, alsa-devel@alsa-project.org,
+ linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
+ Artur Weber <aweber.kernel@gmail.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1716643685; l=3607;
+ i=aweber.kernel@gmail.com; s=20231030; h=from:subject:message-id;
+ bh=4zLRKryEPEhLxtkijn6RbgJhMMJkRIFlKDleLaNwm/A=;
+ b=lzS2mNI5ljRanb1yQ0vamjZSFmy4b2nQZa2vjTwXuGZWExrbMpjflCts+SmNj5dVCDUH3E5rg
+ KYPnEJ0mCskCVn7yrDhQ8xurQgoxPydl+59q6OdsOXxiyIy1A3xjv1t
+X-Developer-Key: i=aweber.kernel@gmail.com; a=ed25519;
+ pk=RhDBfWbJEHqDibXbhNEBAnc9FMkyznGxX/hwfhL8bv8=
+X-MailFrom: aweber.kernel@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: JQR2KAST6QB3T7ZDR62LQYSQ7HAICNXA
-X-Message-ID-Hash: JQR2KAST6QB3T7ZDR62LQYSQ7HAICNXA
-X-Mailman-Approved-At: Thu, 13 Jun 2024 15:50:35 +0000
+Message-ID-Hash: 7THJ5RXFAVXTJJE4GLIFMONBNMC7GOCX
+X-Message-ID-Hash: 7THJ5RXFAVXTJJE4GLIFMONBNMC7GOCX
+X-Mailman-Approved-At: Thu, 13 Jun 2024 15:51:03 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JQR2KAST6QB3T7ZDR62LQYSQ7HAICNXA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7THJ5RXFAVXTJJE4GLIFMONBNMC7GOCX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -127,161 +139,76 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Srini,
+Many of Samsung's Exynos 4 devices share the same midas-audio driver
+to handle the codec setup. While most of these devices, including the
+Midas itself, use the jack detection provided by the WM8994 driver,
+other devices such as the Samsung Galaxy Tab 3 8.0 (lt01) use two GPIOs
+and an ADC channel to determine jack insertion, the jack's type, and
+button presses (for headsets with volume up/down/play buttons).
 
-On 2024/5/24 20:50, Srinivas Kandagatla wrote:
-> Hi Xilin,
-> 
-> On 23/05/2024 05:09, Xilin Wu wrote:
->>>
->>> Srinivas Kandagatla (4):
->>>    ASoC: qcom: q6dsp: parse Display port tokens
->>>    ASoC: qcom: common: add Display port Jack function
->>>    ASoC: qcom: sc8280xp: add Display port Jack
->>>    ASoC: qcom: sm8250: fix a typo in function name
->>>
->>>   sound/soc/qcom/common.c         | 29 +++++++++++++++++++++++++++++
->>>   sound/soc/qcom/common.h         |  3 +++
->>>   sound/soc/qcom/qdsp6/topology.c | 26 ++++++++++++++++++++++++++
->>>   sound/soc/qcom/sc8280xp.c       | 14 ++++++++++++++
->>>   sound/soc/qcom/sm8250.c         |  4 ++--
->>>   5 files changed, 74 insertions(+), 2 deletions(-)
->>>
->>
->> Hi Srini,
->>
->> I tested this series on SM8550 with tplg in [1] and ucm in [2]. But 
->> the kernel output errors attached below. Headphone does work properly 
->> without DisplayPort in the ucm.
->>
->> What could be the possible cause of this? Is there any significant 
->> change from sc8280xp to sm8550?
->>
->> -- 
->> Thanks,
->> Xilin Wu
->>
->> [1] 
->> https://github.com/edk2-porting/audioreach-topology/blob/sakuramist/QCS8550-AYN-ODIN2.m4
->> [2] 
->> https://github.com/strongtz/alsa-ucm-conf/blob/odin2/ucm2/Qualcomm/sm8550/HiFi.conf
->>
->> [ 1552.313713] qcom-apm gprsvc:service:2:1: Error (1) Processing 
->> 0x01001000 cmd
->> [ 1552.313730] qcom-apm gprsvc:service:2:1: DSP returned error[1001000] 1
->> [ 1552.314455] qcom-apm gprsvc:service:2:1: Error (1) Processing 
-> 
-> Is the DP cable connected?
+In the downstream kernel, this behavior is implemented in the sec-jack
+driver[1], and the per-device settings are configured in *-jack.c files
+in the mach folder (see e.g. the Tab 3's implementation[2]).
 
-I'm sure that the cable is connected and I have desktop on external display.
-If it's not connected, kernel gives the following error when using aplay:
+This patchset implements this mechanism in the midas_wm1811.c driver,
+and adds new DTS options to allow for its configuration. It also
+enables jack detection for the Samsung Galaxy Tab 3 8.0.
 
-hdmi-audio-codec hdmi-audio-codec.1.auto: ASoC: error at 
-snd_soc_dai_hw_params on i2s-hifi: -22
+A very similar mechanism was already present in the aries_wm8994.c
+driver[3]; this implementation heavily borrows from it, though there
+are a few extra cleanups as well.
 
-> 
-> if its not connected the dsp will throw this error.
-> 
-> due to this issue I did workaround this issue by modeling it as 
-> conflicting device to Speaker in x13s ucm.
-> 
-> I see in your ucm setup its not the case.
-> which is why you might be hitting this issue.
-> 
-> Can you try
-> amixer -c 0 cset iface=MIXER,name='DISPLAY_PORT_RX_0 Audio Mixer 
-> MultiMedia2' 1
-> aplay -D plughw:0,1 some-wav-file.wav
-> 
-> both with and without display connected.
-> 
+Signed-off-by: Artur Weber <aweber.kernel@gmail.com>
 
-aplay always gives the following error:
+[1] https://github.com/gr8nole/android_kernel_samsung_smdk4x12/blob/lineage-14.1/drivers/misc/sec_jack.c
+[2] https://github.com/gr8nole/android_kernel_samsung_smdk4x12/blob/lineage-14.1/arch/arm/mach-exynos/tab3-jack.c
+[3] https://github.com/torvalds/linux/blob/master/sound/soc/samsung/aries_wm8994.c
 
-Playing WAVE 'Summer.wav' : Signed 16 bit Little Endian, Rate 44100 Hz, 
-Stereo
-aplay: set_params:1456: Unable to install hw params:
-ACCESS:  RW_INTERLEAVED
-FORMAT:  S16_LE
-SUBFORMAT:  STD
-SAMPLE_BITS: 16
-FRAME_BITS: 32
-CHANNELS: 2
-RATE: 44100
-PERIOD_TIME: (42666 42667)
-PERIOD_SIZE: (1881 1882)
-PERIOD_BYTES: (7524 7528)
-PERIODS: (3 5)
-BUFFER_TIME: (170657 170658)
-BUFFER_SIZE: 7526
-BUFFER_BYTES: 30104
-TICK_TIME: 0
+---
+Changes in v4:
+- Replaced manual regulator toggles with SND_SOC_DAPM_REGULATOR_SUPPLY,
+  both for existing mic bias regulators and for the new headset mic bias
+  regulator
+- Link to v3: https://lore.kernel.org/r/20240519-midas-wm1811-gpio-jack-v3-0-0c1736144c0e@gmail.com
 
-and kernel gives the following when display is connected:
+Changes in v3:
+- Re-added pipe (|) character to samsung,headset-button-threshold-microvolt
+  description to prevent it from being parsed as a mapping (fixes syntax
+  error)
+- Split out "ASoC: dt-bindings: samsung,midas-audio: Add GPIO-based headset
+  jack detection" into two patches
+- Link to v2: https://lore.kernel.org/r/20240508-midas-wm1811-gpio-jack-v2-0-b4d36cd02c6e@gmail.com
 
-[drm:dp_catalog_audio_config_sdp] sdp_cfg = 0x100066
-[drm:dp_catalog_audio_config_sdp] sdp_cfg2 = 0x1b800004
-[drm:dp_audio_hw_params] Header Byte 1: value = 0xce020000, parity_byte 
-= 0xce
-[drm:dp_audio_hw_params] Header Byte 2: value = 0x67010000, parity_byte 
-= 0x0
-[drm:dp_audio_hw_params] Header Byte 3: value = 0x67010000, parity_byte 
-= 0x67
-[drm:dp_audio_hw_params] Header Byte 1: value = 0x67010000, parity_byte 
-= 0x67
-[drm:dp_audio_hw_params] Header Byte 2: value = 0x33443517, parity_byte 
-= 0x35
-[drm:dp_audio_hw_params] Header Byte 3: value = 0x33443517, parity_byte 
-= 0x33
-[drm:dp_audio_hw_params] Header Byte 1: value = 0x84840000, parity_byte 
-= 0x84
-[drm:dp_audio_hw_params] Header Byte 2: value = 0x3344d71b, parity_byte 
-= 0xd7
-[drm:dp_audio_hw_params] Header Byte 3: value = 0x44, parity_byte = 0x33
-[drm:dp_audio_hw_params] Header Byte 1: value = 0xd8050000, parity_byte 
-= 0xd8
-[drm:dp_audio_hw_params] Header Byte 2: value = 0x4b0f, parity_byte = 0x4b
-[drm:dp_audio_hw_params] Header Byte 3: value = 0x4b0f, parity_byte = 0x0
-[drm:dp_audio_hw_params] Header Byte 1: value = 0x71060000, parity_byte 
-= 0x71
-[drm:dp_audio_hw_params] Header Byte 2: value = 0x4b0f, parity_byte = 0x4b
-[drm:dp_catalog_audio_config_acr] select: 0x3, acr_ctrl: 0x80004130
-[drm:dp_catalog_audio_sfe_level] mainlink_level = 0xa08, 
-safe_to_exit_level = 0x8
-[drm:dp_catalog_audio_enable] dp_audio_cfg = 0xc1
-qcom-apm gprsvc:service:2:1: Error (1) Processing 0x01001006 cmd
-qcom-apm gprsvc:service:2:1: DSP returned error[1001006] 1
-qcom-apm gprsvc:service:2:1: Error (1) Processing 0x01001006 cmd
-qcom-apm gprsvc:service:2:1: DSP returned error[1001006] 1
-qcom-apm gprsvc:service:2:1: Error (1) Processing 0x01001001 cmd
-qcom-apm gprsvc:service:2:1: DSP returned error[1001001] 1
-q6apm-lpass-dais 30000000.remoteproc:glink-edge:gpr:service@1:bedais: 
-Failed to prepare Graph -22
-q6apm-lpass-dais 30000000.remoteproc:glink-edge:gpr:service@1:bedais: 
-ASoC: error at snd_soc_pcm_dai_prepare on DISPLAY_PORT_RX_0: -22
-[drm:dp_catalog_audio_enable] dp_audio_cfg = 0xc0
+Changes in v2:
+- Added vendor prefix to threshold properties
+- Added separate headset mic bias regulator
+- Changed some cases of dev_err + return with return dev_err_probe
+- Added an extra patch to replace some previous dev_err + return cases
+  with dev_err_probe
+- Moved tab3 DTS wm1811 codec config changes to separate commit
 
-> 
-> --srini
-> 
-> 
-> 
->> 0x01001006 cmd
->> [ 1552.314463] qcom-apm gprsvc:service:2:1: DSP returned error[1001006] 1
->> [ 1552.315496] qcom-apm gprsvc:service:2:1: Error (1) Processing 
->> 0x01001006 cmd
->> [ 1552.315506] qcom-apm gprsvc:service:2:1: DSP returned error[1001006] 1
->> [ 1552.316033] qcom-apm gprsvc:service:2:1: Error (1) Processing 
->> 0x01001001 cmd
->> [ 1552.316042] qcom-apm gprsvc:service:2:1: DSP returned error[1001001] 1
->> [ 1552.316045] q6apm-lpass-dais 
->> 30000000.remoteproc:glink-edge:gpr:service@1:bedais: Failed to prepare 
->> Graph -22
->> [ 1552.316047] q6apm-lpass-dais 
->> 30000000.remoteproc:glink-edge:gpr:service@1:bedais: ASoC: error at 
->> snd_soc_pcm_dai_prepare on DISPLAY_PORT_RX_0: -22
+---
+Artur Weber (9):
+      ASoC: dt-bindings: samsung,midas-audio: Add headset mic bias supply
+      ASoC: dt-bindings: samsung,midas-audio: Add GPIO-based headset jack detection
+      ASoC: samsung: midas_wm1811: Use SND_SOC_DAPM_REGULATOR_SUPPLY for bias regulators
+      ASoC: samsung: midas_wm1811: Add headset mic bias supply support
+      ASoC: samsung: midas_wm1811: Add GPIO-based headset jack detection
+      ASoC: samsung: midas_wm1811: Use dev_err_probe where appropriate
+      ARM: dts: samsung: exynos4212-tab3: Fix headset mic, add jack detection
+      ARM: dts: samsung: exynos4212-tab3: Add MCLK2 clock to WM1811 codec config
+      ARM: dts: samsung: exynos4212-tab3: Drop interrupt from WM1811 codec
 
+ .../bindings/sound/samsung,midas-audio.yaml        |  33 ++
+ arch/arm/boot/dts/samsung/exynos4212-tab3.dtsi     |  31 +-
+ sound/soc/samsung/Kconfig                          |   2 +-
+ sound/soc/samsung/midas_wm1811.c                   | 348 +++++++++++++++++----
+ 4 files changed, 343 insertions(+), 71 deletions(-)
+---
+base-commit: a38297e3fb012ddfa7ce0321a7e5a8daeb1872b6
+change-id: 20240502-midas-wm1811-gpio-jack-b10226b17ecc
+
+Best regards,
 -- 
-Thanks,
-Xilin Wu
+Artur Weber <aweber.kernel@gmail.com>
 

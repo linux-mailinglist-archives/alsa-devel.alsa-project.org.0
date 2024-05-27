@@ -2,70 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94C958D0A18
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 May 2024 20:43:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4CDA8D0A1A
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 May 2024 20:43:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1923074C;
-	Mon, 27 May 2024 20:43:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1923074C
+	by alsa0.perex.cz (Postfix) with ESMTPS id BBA5FDF6;
+	Mon, 27 May 2024 20:43:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BBA5FDF6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1716835405;
-	bh=Rh67QaYUX6AOAR++bY+3ddLPTJ7PDZJkLa6D0bjdQ0M=;
+	s=default; t=1716835415;
+	bh=xEpbPDiFG2K+IH0Y/rvh7wsZUZ7O1REPFbeWPqsBuJg=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=rqonDIh2x+teb4vfxenMrT1Diehkzx64SwfTCwhywTu1TZtIo8Hj38fpBq1urr3FP
-	 iEmhGzYT3AH1DN9tWBqxdLPfQXe5O5moZq9xkLSKwUCPEz1l65sGi4I7GVhUU+CZX/
-	 30Ymc6ULQHNHGCVx1I4E+0p5hlQrmNZKkd9zE00s=
+	b=IK4cnFO+ixMg7Xo5fiZNcKGlsCmY8aUaYuL+qk+bLtcxEDvDD4+EJhp9ChST931uQ
+	 w7q8G9i6xk99SQHBzpTKv1ULHYv0SnhrVWyCSuaYApxhIonxqV2KTdhNac300jYnNk
+	 C63XWRh5zEkDhXUMqs3nX1XLGbNJcieqht/qYoLI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CAD5AF80494; Mon, 27 May 2024 20:42:53 +0200 (CEST)
+	id 1F37EF805C5; Mon, 27 May 2024 20:43:05 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 33A31F804E5;
-	Mon, 27 May 2024 20:42:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B936EF80578;
+	Mon, 27 May 2024 20:43:04 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D2B61F8026D; Mon, 27 May 2024 20:42:46 +0200 (CEST)
+	id 0D9B5F805B0; Mon, 27 May 2024 20:43:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E61D0F80051
-	for <alsa-devel@alsa-project.org>; Mon, 27 May 2024 20:42:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E61D0F80051
+	by alsa1.perex.cz (Postfix) with ESMTPS id 292CEF8051E
+	for <alsa-devel@alsa-project.org>; Mon, 27 May 2024 20:42:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 292CEF8051E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=itEZHSGG
+ header.s=k20201202 header.b=dSiiFpfC
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 7C7ADCE0F2C;
-	Mon, 27 May 2024 18:42:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97417C2BBFC;
-	Mon, 27 May 2024 18:42:27 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 3EDC961BB5;
+	Mon, 27 May 2024 18:42:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7D13C2BBFC;
+	Mon, 27 May 2024 18:42:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1716835351;
-	bh=Rh67QaYUX6AOAR++bY+3ddLPTJ7PDZJkLa6D0bjdQ0M=;
+	s=k20201202; t=1716835373;
+	bh=xEpbPDiFG2K+IH0Y/rvh7wsZUZ7O1REPFbeWPqsBuJg=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=itEZHSGGyuf8w8JCDVOYg2mqZfPQfEj1Ri9h7bL5IbUFt4+mTaetpThx4H7CUpqiy
-	 GBLj8eIaFQ1xTTPlQps/Vkahp+1rVuv3RT4VCUvmvMnAYpWB1FFvWlJfHvhrXwxJVY
-	 SeDIvYCcsTarca5QJ2lIkGP0q7FBK6DF9QVEsoTb15CvFLA3gL5TsX8bOZAKylhysy
-	 jVthY83qvmstwPTBm5N/v3qEHvYMl5clv2kXrcLi3zr1wppCiPtCGUWNDOIEBTOmPi
-	 LVARwSjwCjR5xpKg0jH7F46lz03HHVvn9Ew5dYC2gQq+xuiq9Nc7mULktB7WliEeZn
-	 esvchSBE8NRhg==
-Message-ID: <71bb5b77-193e-4c69-8ecb-4203b0fd3c6e@kernel.org>
-Date: Mon, 27 May 2024 20:42:25 +0200
+	b=dSiiFpfCIiU7Uo0a5B2wFfsyb6P96fVATzj5DePYbiadg/EpboYLICcveTXOqSKy4
+	 NtCmlpt8iC+3Ks0c80ZLAaJIwpMJHQPV5Ygcjk+bVVTyzr33GIJ2/YjQWDkbS1EXOC
+	 oj9O2C5X8uXmtAzNxJOh25c5TxmLWgUVSGhPE0ASf5Meka0UAAmfz7yKdGJH/B61+o
+	 RlNWDJfUa3VzovLC15lCeBy6bnwsTeQuQF1v5HT1LwnOoG1Okf9p3+0mV0EHnblGaG
+	 y2h/A9HMkym1PAnc8/sQGvx0nd8NStQFZNtjD4lpRlag2mV/GyOOQ+KFhAKymzUp7l
+	 8o5Xl6f8I/yZw==
+Message-ID: <fb49e19b-911c-440a-a83b-f54b828fc304@kernel.org>
+Date: Mon, 27 May 2024 20:42:47 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/9] ASoC: dt-bindings: samsung,midas-audio: Add
- headset mic bias supply
+Subject: Re: [PATCH v4 2/9] ASoC: dt-bindings: samsung,midas-audio: Add
+ GPIO-based headset jack detection
 To: Artur Weber <aweber.kernel@gmail.com>,
  Sylwester Nawrocki <s.nawrocki@samsung.com>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>
@@ -77,7 +77,7 @@ Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-samsung-soc@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht
 References: <20240525-midas-wm1811-gpio-jack-v4-0-f488e03bd8c7@gmail.com>
- <20240525-midas-wm1811-gpio-jack-v4-1-f488e03bd8c7@gmail.com>
+ <20240525-midas-wm1811-gpio-jack-v4-2-f488e03bd8c7@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -123,11 +123,11 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  uZwJCLykjad45hsWcOGk3OcaAGQS6NDlfhM6O9aYNwGL6tGt/6BkRikNOs7VDEa4/HlbaSJo
  7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
  5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
-In-Reply-To: <20240525-midas-wm1811-gpio-jack-v4-1-f488e03bd8c7@gmail.com>
+In-Reply-To: <20240525-midas-wm1811-gpio-jack-v4-2-f488e03bd8c7@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: 6VTZZFBKHWA7PQECIN5GQZMTUC7DTXP5
-X-Message-ID-Hash: 6VTZZFBKHWA7PQECIN5GQZMTUC7DTXP5
+Message-ID-Hash: 72SEXMGD7KYLZ6QWYLCFNETFPQEJKVX2
+X-Message-ID-Hash: 72SEXMGD7KYLZ6QWYLCFNETFPQEJKVX2
 X-MailFrom: krzk@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -140,7 +140,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6VTZZFBKHWA7PQECIN5GQZMTUC7DTXP5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/72SEXMGD7KYLZ6QWYLCFNETFPQEJKVX2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -150,11 +150,13 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 On 25/05/2024 15:28, Artur Weber wrote:
-> Some devices use a separate mic bias supply (also referred to as
-> "ear mic bias") to enable/disable the headset mic.
+> Some Samsung devices that share the midas-audio driver use a GPIO-based
+> approach to headset jack detection, as opposed to using the built-in
+> jack detection provided by the wm8994 driver. This setup uses two GPIOs
+> (one for jack detection and another for key detection) and an ADC
+> channel for determining the jack type or button pressed.
 > 
-> Add the DT property headset-mic-bias-supply to allow for specifying
-> this supply.
+> Add DT configuration values that allow for describing these setups.
 > 
 > Signed-off-by: Artur Weber <aweber.kernel@gmail.com>
 > ---

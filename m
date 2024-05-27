@@ -2,147 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEFC78CFA22
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 May 2024 09:29:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6240B8CFD7F
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 May 2024 11:52:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 10C8C82A;
-	Mon, 27 May 2024 09:29:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 10C8C82A
+	by alsa0.perex.cz (Postfix) with ESMTPS id C06CF7F4;
+	Mon, 27 May 2024 11:51:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C06CF7F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1716794996;
-	bh=Kl2GnBuyQuBgvhfCMlLOdm7ASQcO6ePk3EB+ts82o4g=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:List-Id:
+	s=default; t=1716803525;
+	bh=siXMFcd/YZJ/krD1ElQNCMZYcM6Cs/xuMd+BVeICYQw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=RWGwn/FJNo/VZa2GjoRQHmxKsZ1GSb1Td4FDSyt2fgGEG+VvMBSd8DLIAsLJMkNNv
-	 +/hNdbfD6Kn7DY85kqwG+C6xqViPX49ZPmWmOjPQ4WGCtPLKaeBn5oU5HMASMl84LG
-	 MMkJsFLzT0AR55ZQJzfdTO89rsSZPTKy1a2+Cmu0=
+	b=RhXQS+eULNxcKKaLl0koppGNoV+uODeQQm6oEWQwkPaT77XhkB6DGP0NciuQfaBVh
+	 K3xhY9Pt6GJN0BnpyZfqMWFf1fgJA0yNQDUPekCPFi9HToCmXzRMNvM5uElytH9IW+
+	 EZFeLFsToHW6y09ZOkxS1dCGAhmZk8lmTGVvmyK8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 437E6F8047C; Mon, 27 May 2024 09:29:34 +0200 (CEST)
+	id 028D9F80525; Mon, 27 May 2024 11:51:33 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5352AF80589;
-	Mon, 27 May 2024 09:29:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A7C6FF804FF;
+	Mon, 27 May 2024 11:51:33 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1215DF8026D; Mon, 27 May 2024 09:25:50 +0200 (CEST)
+	id 2D017F8026D; Mon, 27 May 2024 11:51:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_PASS,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 50FE5F80051
-	for <alsa-devel@alsa-project.org>; Mon, 27 May 2024 09:25:20 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
-	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 639E14B93;
-	Mon, 27 May 2024 09:25:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 639E14B93
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
-	t=1716794715; bh=JP1jmp3oHy2EazcUWfK2EK+MJMI+3j8kMee4KTey8kU=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-	b=L9jYX/i1vKqNU0V2fSvMtCeBc5OsK+QViPcpfe9AtsOA2yNcpOBiT6Ac4g9xiGlOm
-	 bLtkPsM+E1ybCyGA5NhMO5Jtd4/XXOWResALkVKXdOlztGBuA1IZ62tS2qu08OGWfo
-	 pT76o4mmmHuBcYFnLKvPlOZrHDZNRJnLxt+oGMG0=
-Received: from [192.168.100.98] (unknown [192.168.100.98])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	(Authenticated sender: perex)
-	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
-	Mon, 27 May 2024 09:24:54 +0200 (CEST)
-Message-ID: <c9d359f3-f1e8-49e6-8118-14894348284c@perex.cz>
-Date: Mon, 27 May 2024 09:24:53 +0200
+	by alsa1.perex.cz (Postfix) with ESMTPS id A4FCAF800BA
+	for <alsa-devel@alsa-project.org>; Mon, 27 May 2024 11:50:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A4FCAF800BA
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=sNH9o6s+
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id E24A4CE0E38;
+	Mon, 27 May 2024 09:50:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6674C2BBFC;
+	Mon, 27 May 2024 09:50:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1716803449;
+	bh=siXMFcd/YZJ/krD1ElQNCMZYcM6Cs/xuMd+BVeICYQw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=sNH9o6s+Q1kmd8WNsDNbk5w8UiLJ7Y5W4l9dTvGR/YJawYoFhQevC5EN46i5dkEba
+	 UjlXSOdtAPoMP3Emf/japi6wch2CYakoaRRURmEdMF2Y48Xoogw5jaiEmThfmlz3j8
+	 exROQHgp/rRTl78+H4bCTEZsJ7i/p4AhrmS1kW2cp1rwezfP10W9ubQb8aPLawk6wX
+	 qV0FJK5rYaHNaI5d+R8kn1pnK11BckEeMrbGWtqclxIES03fReerX6LHDKQr/El57v
+	 xxKMYt4Rbk5TRP2q5g/nqYDwpJ0uiKbRMpkCg3qnrNLkmcD9Wmpew35+jLcPL1v1of
+	 3YBfiSrLiuX0g==
+Date: Mon, 27 May 2024 10:50:42 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Mohammad Rafi Shaik <quic_mohs@quicinc.com>
+Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	Banajit Goswami <bgoswami@quicinc.com>,
+	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, quic_rohkumar@quicinc.com,
+	quic_pkumpatl@quicinc.com
+Subject: Re: [PATCH v2 1/2] ASoC: dt-bindings: qcom,sm8250: Add QCM6490 snd
+ QCS6490 sound card
+Message-ID: <091aa382-32fe-4f5c-8ebb-440afaf37827@sirena.org.uk>
+References: <20240524035350.3118981-1-quic_mohs@quicinc.com>
+ <20240524035350.3118981-2-quic_mohs@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v15 00/16] Add audio support in v4l2 framework
-From: Jaroslav Kysela <perex@perex.cz>
-To: Nicolas Dufresne <nicolas@ndufresne.ca>, Takashi Iwai <tiwai@suse.de>
-Cc: Hans Verkuil <hverkuil@xs4all.nl>, Shengjiu Wang
- <shengjiu.wang@gmail.com>,
- =?UTF-8?Q?Amadeusz_S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Mark Brown <broonie@kernel.org>,
- Sebastian Fricke <sebastian.fricke@collabora.com>,
- Shengjiu Wang <shengjiu.wang@nxp.com>, sakari.ailus@iki.fi,
- tfiga@chromium.org, m.szyprowski@samsung.com, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org, Xiubo.Lee@gmail.com, festevam@gmail.com,
- nicoleotsuka@gmail.com, lgirdwood@gmail.com, tiwai@suse.com,
- alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org
-References: <1710834674-3285-1-git-send-email-shengjiu.wang@nxp.com>
- <20240503094225.47fe4836@sal.lan>
- <CAA+D8APfM3ayXHAPadHLty52PYE9soQM6o780=mZs+R4px-AOQ@mail.gmail.com>
- <22d94c69-7e9f-4aba-ae71-50cc2e5dd8ab@xs4all.nl>
- <51408e79-646d-4d23-bc5b-cd173d363327@linux.intel.com>
- <CAA+D8AM7+SvXBi=LKRqvJkLsrYW=nkHTfFe957z2Qzm89bc48g@mail.gmail.com>
- <cd71e8e8-b4dc-40ed-935e-a84c222997e6@linux.intel.com>
- <CAA+D8AMpLB0N++_iLWLN_qettNz-gKGQz2c2yLsY8qSycibkYg@mail.gmail.com>
- <2f771fe9-7c09-4e74-9b04-de52581133fd@linux.intel.com>
- <CAA+D8AMJKPVR99jzYCR5EsbMa8P95jQrDL=4ayYMuz+Cu1d2mQ@mail.gmail.com>
- <28d423b1-49d8-4180-8394-622b1afd9cd9@perex.cz>
- <850a80b2-d952-4c14-bd0b-98cb5a5c0233@perex.cz>
- <c5dbb765-8c93-4050-84e1-c0f63b43d6c2@xs4all.nl>
- <8a6f84ac-5813-4954-b852-84f5118e607c@perex.cz> <87o7975qcw.wl-tiwai@suse.de>
- <e63ec6c8-7da7-4b87-b7ff-a71ff12dcfc1@perex.cz>
- <a60ee3505e551f3def6cdd7c76942d0fd74bc656.camel@ndufresne.ca>
- <3b9c9649-c657-4636-b4ef-31df82c58bba@perex.cz>
-Content-Language: en-US
-Autocrypt: addr=perex@perex.cz; keydata=
- xsFNBFvNeCsBEACUu2ZgwoGXmVFGukNPWjA68/7eMWI7AvNHpekSGv3z42Iy4DGZabs2Jtvk
- ZeWulJmMOh9ktP9rVWYKL9H54gH5LSdxjYYTQpSCPzM37nisJaksC8XCwD4yTDR+VFCtB5z/
- E7U0qujGhU5jDTne3dZpVv1QnYHlVHk4noKxLjvEQIdJWzsF6e2EMp4SLG/OXhdC9ZeNt5IU
- HQpcKgyIOUdq+44B4VCzAMniaNLKNAZkTQ6Hc0sz0jXdq+8ZpaoPEgLlt7IlztT/MUcH3ABD
- LwcFvCsuPLLmiczk6/38iIjqMtrN7/gP8nvZuvCValLyzlArtbHFH8v7qO8o/5KXX62acCZ4
- aHXaUHk7ahr15VbOsaqUIFfNxpthxYFuWDu9u0lhvEef5tDWb/FX+TOa8iSLjNoe69vMCj1F
- srZ9x2gjbqS2NgGfpQPwwoBxG0YRf6ierZK3I6A15N0RY5/KSFCQvJOX0aW8TztisbmJvX54
- GNGzWurrztj690XLp/clewmfIUS3CYFqKLErT4761BpiK5XWUB4oxYVwc+L8btk1GOCOBVsp
- 4xAVD2m7M+9YKitNiYM4RtFiXwqfLk1uUTEvsaFkC1vu3C9aVDn3KQrZ9M8MBh/f2c8VcKbN
- njxs6x6tOdF5IhUc2E+janDLPZIfWDjYJ6syHadicPiATruKvwARAQABzSBKYXJvc2xhdiBL
- eXNlbGEgPHBlcmV4QHBlcmV4LmN6PsLBjgQTAQgAOBYhBF7f7LZepM3UTvmsRTCsxHw/elMJ
- BQJbzXgrAhsDBQsJCAcCBhUKCQgLAgQWAgMBAh4BAheAAAoJEDCsxHw/elMJDGAP/ReIRiRw
- lSzijpsGF/AslLEljncG5tvb/xHwCxK5JawIpViwwyJss06/IAvdY5vn5AdfUfCl2J+OakaR
- VM/hdHjCYNu4bdBYZQBmEiKsPccZG2YFDRudEmiaoaJ1e8ZsiA3rSf4SiWWsbcBOYHr/unTf
- 4KQsdUHzPUt8Ffi9HrAFzI2wjjiyV5yUGp3x58ZypAIMcKFtA1aDwhA6YmQ6lb8/bC0LTC6l
- cAAS1tj7YF5nFfXsodCOKK5rKf5/QOF0OCD2Gy+mGLNQnq6S+kD+ujQfOLaUHeyfcNBEBxda
- nZID7gzd65bHUMAeWttZr3m5ESrlt2SaNBddbN7NVpVa/292cuwDCLw2j+fAZbiVOYyqMSY4
- LaNqmfa0wJAv30BMKeRAovozJy62j0AnntqrvtDqqvuXgYirj2BEDxx0OhZVqlI8o5qB6rA5
- Pfp2xKRE8Fw3mASYRDNad08JDhJgsR/N5JDGbh4+6sznOA5J63TJ+vCFGM37M5WXInrZJBM3
- ABicmpClXn42zX3Gdf/GMM3SQBrIriBtB9iEHQcRG/F+kkGOY4QDi4BZxo45KraANGmCkDk0
- +xLZVfWh8YOBep+x2Sf83up5IMmIZAtYnxr77VlMYHDWjnpFnfuja+fcnkuzvvy7AHJZUO1A
- aKexwcBjfTxtlX4BiNoK+MgrjYywzsFNBFvNeCsBEACb8FXFMOw1g+IGVicWVB+9AvOLOhqI
- FMhUuDWmlsnT8B/aLxcRVUTXoNgJpt0y0SpWD3eEJOkqjHuvHfk+VhKWDsg6vlNUmF1Ttvob
- 18rce0UH1s+wlE8YX8zFgODbtRx8h/BpykwnuWNTiotu9itlE83yOUbv/kHOPUz4Ul1+LoCf
- V2xXssYSEnNr+uUG6/xPnaTvKj+pC7YCl38Jd5PgxsP3omW2Pi9T3rDO6cztu6VvR9/vlQ8Z
- t0p+eeiGqQV3I+7k+S0J6TxMEHI8xmfYFcaVDlKeA5asxkqu5PDZm3Dzgb0XmFbVeakI0be8
- +mS6s0Y4ATtn/D84PQo4bvYqTsqAAJkApEbHEIHPwRyaXjI7fq5BTXfUO+++UXlBCkiH8Sle
- 2a8IGI1aBzuL7G9suORQUlBCxy+0H7ugr2uku1e0S/3LhdfAQRUAQm+K7NfSljtGuL8RjXWQ
- f3B6Vs7vo+17jOU7tzviahgeRTcYBss3e264RkL62zdZyyArbVbK7uIU6utvv0eYqG9cni+o
- z7CAe7vMbb5KfNOAJ16+znlOFTieKGyFQBtByHkhh86BQNQn77aESJRQdXvo5YCGX3BuRUaQ
- zydmrgwauQTSnIhgLZPv5pphuKOmkzvlCDX+tmaCrNdNc+0geSAXNe4CqYQlSnJv6odbrQlD
- Qotm9QARAQABwsF2BBgBCAAgFiEEXt/stl6kzdRO+axFMKzEfD96UwkFAlvNeCsCGwwACgkQ
- MKzEfD96Uwlkjg/+MZVS4M/vBbIkH3byGId/MWPy13QdDzBvV0WBqfnr6n99lf7tKKp85bpB
- y7KRAPtXu+9WBzbbIe42sxmWJtDFIeT0HJxPn64l9a1btPnaILblE1mrfZYAxIOMk3UZA3PH
- uFdyhQDJbDGi3LklDhsJFTAhBZI5xMSnqhaMmWCL99OWwfyJn2omp8R+lBfAJZR31vW6wzsj
- ssOvKIbgBpV/o3oGyAofIXPYzhY+jhWgOYtiPw9bknu748K+kK3fk0OeEG6doO4leB7LuWig
- dmLZkcLlJzSE6UhEwHZ8WREOMIGJnMF51WcF0A3JUeKpYYEvSJNDEm7dRtpb0x/Y5HIfrg5/
- qAKutAYPY7ClQLu5RHv5uqshiwyfGPaiE8Coyphvd5YbOlMm3mC/DbEstHG7zA89fN9gAzsJ
- 0TFL5lNz1s/fo+//ktlG9H28EHD8WOwkpibsngpvY+FKUGfJgIxpmdXVOkiORWQpndWyRIqw
- k8vz1gDNeG7HOIh46GnKIrQiUXVzAuUvM5vI9YaW3YRNTcn3pguQRt+Tl9Y6G+j+yvuLL173
- m4zRUU6DOygmpQAVYSOJvKAJ07AhQGaWAAi5msM6BcTU4YGcpW7FHr6+xaFDlRHzf1lkvavX
- WoxP1IA1DFuBMeYMzfyi4qDWjXc+C51ZaQd39EulYMh+JVaWRoY=
-In-Reply-To: <3b9c9649-c657-4636-b4ef-31df82c58bba@perex.cz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: OSZUD6UBVVO5ZQK246FAYXTW6DAKYBFC
-X-Message-ID-Hash: OSZUD6UBVVO5ZQK246FAYXTW6DAKYBFC
-X-MailFrom: perex@perex.cz
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="QlFvzjBH2dX8pMN1"
+Content-Disposition: inline
+In-Reply-To: <20240524035350.3118981-2-quic_mohs@quicinc.com>
+X-Cookie: Teutonic:
+Message-ID-Hash: Q5BCHSV7HSAMDQDEXUEVDDIPYOQP7KOW
+X-Message-ID-Hash: Q5BCHSV7HSAMDQDEXUEVDDIPYOQP7KOW
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -154,7 +98,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OSZUD6UBVVO5ZQK246FAYXTW6DAKYBFC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Q5BCHSV7HSAMDQDEXUEVDDIPYOQP7KOW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -163,31 +107,30 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 16. 05. 24 16:50, Jaroslav Kysela wrote:
-> On 15. 05. 24 22:33, Nicolas Dufresne wrote:
 
->> In GFX, they solve this issue with fences. That allow setting up the next
->> operation in the chain before the data has been produced.
-> 
-> The fences look really nicely and seem more modern. It should be possible with
-> dma-buf/sync_file.c interface to handle multiple jobs simultaneously and share
-> the state between user space and kernel driver.
-> 
-> In this case, I think that two non-blocking ioctls should be enough - add a
-> new job with source/target dma buffers guarded by one fence and abort (flush)
-> all active jobs.
-> 
-> I'll try to propose an API extension for the ALSA's compress API in the
-> linux-sound mailing list soon.
+--QlFvzjBH2dX8pMN1
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-I found using sync_file during the implementation to be overkill for resource 
-management, so I proposed a simple queue with the standard poll mechanism.
+On Fri, May 24, 2024 at 09:23:49AM +0530, Mohammad Rafi Shaik wrote:
+> Document the bindings for the Qualcomm QCM6490 IDP and QCS6490 RB3Gen2
+> soc platforms sound card.
 
-https://lore.kernel.org/linux-sound/20240527071133.223066-1-perex@perex.cz/
+This doesn't apply against current code, please check and resend.
 
-					Jaroslav
+--QlFvzjBH2dX8pMN1
+Content-Type: application/pgp-signature; name="signature.asc"
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+-----BEGIN PGP SIGNATURE-----
 
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmZUV3IACgkQJNaLcl1U
+h9Bv5Qf/RC/79S61kz29d+HPO0dv1aYHxWJa9jdbC6za/XxQjXzCqxwmH9Iwl5qp
+u9a60OfG9lV2kVFsr38Eo0Gzp60n3ILfLQ2noRN4QtWDeM4Z3iVA9aYeXvxzGD+T
+YKNQZZAiEaSPL0/yu9rjpZNukGumbB1ZrIkziy2JtxdrYF871n3XM5yJPJxo6AwZ
+ECxwvmPt6QE9jwGhnuUK4dApotHFSC14GG3cuotymq5GKv+5tKpxGYvcbW5ukI3Y
+wEuWMtDErIr8X6Xstk4U8F8smKh4Tw3KjLTL6M4NKZO5hSReesnOe5dZipPjpA5j
+V5vlHp5uPs3a4sXBwXYVlWbM2ICK1g==
+=b4rM
+-----END PGP SIGNATURE-----
+
+--QlFvzjBH2dX8pMN1--

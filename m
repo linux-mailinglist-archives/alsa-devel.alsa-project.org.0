@@ -2,77 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9A0F8CFEF0
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 May 2024 13:29:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D73B8CFF01
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 May 2024 13:30:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0AE87839;
-	Mon, 27 May 2024 13:29:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0AE87839
+	by alsa0.perex.cz (Postfix) with ESMTPS id B96073E7;
+	Mon, 27 May 2024 13:30:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B96073E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1716809383;
-	bh=/A3ym9pXWGkOLvRopdzIUPqfCO8dZ4aqy/ZVag7X6Y4=;
+	s=default; t=1716809447;
+	bh=A4U7/a6tDNb2z9Bw7ObdMESvcNsl/U0/zTUhANgB0a8=;
 	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=uGPqxIXPsLH2qvdjXrJki4qaiuVVGkO0rLVbneE2BVNra1giwt8I8QfDTXRLU6OtH
-	 ioVU8wL7seNp2/3o7H4/mHfpHbBLhOOUEC6T0sBVxlQcOq6Eun0KT4M2o2H1p+TyJ3
-	 sLUUxcGFDEIHBSdf24cRVlCLaT9QnLFFy8AQopvg=
+	b=KcSD7UW4rZXXbNwbFlzjGJAthrlA6oRN7Wr/rmTNIORr/fQqfJa06EDnM+u/GyEmc
+	 SBdSqdeOiJkBVuGJVOIgsJ74TWjtpfq4Oi+vlXwXXcekWyxw0t+MIYDR7Q4bdX+dq0
+	 ZLARQQMticb8WMjFU0HbdWrMPZ/kOJHRQlumGLL0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D8EB0F805F6; Mon, 27 May 2024 13:28:22 +0200 (CEST)
+	id 547CAF806B7; Mon, 27 May 2024 13:28:32 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 02CCDF8060E;
-	Mon, 27 May 2024 13:28:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C807EF806B1;
+	Mon, 27 May 2024 13:28:30 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EC1FBF80149; Mon, 27 May 2024 13:22:52 +0200 (CEST)
+	id 13E9AF80149; Mon, 27 May 2024 13:24:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=unavailable
-	autolearn_force=no version=3.4.6
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=unavailable autolearn_force=no version=3.4.6
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6C06DF8047C
-	for <alsa-devel@alsa-project.org>; Mon, 27 May 2024 13:21:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C06DF8047C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8DC6FF80494
+	for <alsa-devel@alsa-project.org>; Mon, 27 May 2024 13:21:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8DC6FF80494
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=L28ZHMXa
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ header.s=qcppdkim1 header.b=iXZy+1UA
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
 	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 44RACxvZ027753;
-	Mon, 27 May 2024 11:21:05 GMT
+ 44RAwcSL014262;
+	Mon, 27 May 2024 11:21:16 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	w5r3nuxKMn4IEQjsU9v0s0B9+kiIBB+Z1yf5UeMBzZo=; b=L28ZHMXa7Uajo3Rc
-	nNzdvQtDur/9HUU0I+MuS0SZt0l7d9k6gTewITjEKO4xkHo6PfDCy6V2dyrQvf0c
-	picDddzSnpyY8HF//oHUrgGcktrckx7CYLtQC/J0xkqFzMe9OSxwuKzxbwKrnyLp
-	zfKM02R6lW/k3k8pQb/7sTb9E22NuzJSgvC0iVrWRCmKrmMdKvBvdKoqzO7AXqSC
-	b2a76VTChGj4/9qauVsCULJwHjfXplGbut0Mw14pnJBwK0IUAb20AXMbKzDQCZ/D
-	Iol8P2yzdG5+V3FOu+4UaVOqMcGVhsJqdEWaPIZs5dlLUmIHiRtw8hItIbbkMmDC
-	6io0Kw==
-Received: from nasanppmta05.qualcomm.com (i-global254.qualcomm.com
+	sI3jq5Vja0OJpab+dyeOXICSv0mr4fgGsOhLNxjBTNI=; b=iXZy+1UAmLHmbk6G
+	DMqmQI3nR8ArRQ3wVRHqRIBiNW7Ii583Zu8D1gGDaVco6TH5WxWssrZ8n5Abw0jJ
+	OHxwpGdgPfuHNf1vPeXcS82gVshRUKOlbvNCyY0tSUk+UUE0talbhCpSFjgbMZE3
+	2/yf4WFemfOcXTRNrOzziAbI4bDwayknQ8MRIxL1KrFV/KWAnAfIFjbsureohecQ
+	VRwdcha1bzvAo6TnxkPpYeklOwK/i6gYkfxlkP7Vn7hBCkX0LZz6B7B9xO+IpSj/
+	3ToBqM3/xHhMmIROOT3pavIxZD7njOIPyc10RS9l3yNMbu66rWBWBdgOMXXCR7Nu
+	V8kWCg==
+Received: from nasanppmta02.qualcomm.com (i-global254.qualcomm.com
  [199.106.103.254])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3yba2nbn0x-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3yba2muj1x-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 27 May 2024 11:21:05 +0000 (GMT)
+	Mon, 27 May 2024 11:21:15 +0000 (GMT)
 Received: from nasanex01c.na.qualcomm.com (nasanex01c.na.qualcomm.com
  [10.45.79.139])
-	by NASANPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
- 44RBL4hK001013
+	by NASANPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
+ 44RBLEg6031875
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 27 May 2024 11:21:04 GMT
+	Mon, 27 May 2024 11:21:14 GMT
 Received: from hu-mohs-hyd.qualcomm.com (10.80.80.8) by
  nasanex01c.na.qualcomm.com (10.45.79.139) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.9; Mon, 27 May 2024 04:20:59 -0700
+ 15.2.1544.9; Mon, 27 May 2024 04:21:09 -0700
 From: Mohammad Rafi Shaik <quic_mohs@quicinc.com>
 To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
         Banajit Goswami
@@ -90,9 +90,9 @@ CC: <alsa-devel@alsa-project.org>, <linux-arm-msm@vger.kernel.org>,
         <linux-kernel@vger.kernel.org>, <quic_rohkumar@quicinc.com>,
         <quic_pkumpatl@quicinc.com>, Konrad Dybcio <konrad.dybcio@linaro.org>,
         Mohammad Rafi Shaik <quic_mohs@quicinc.com>
-Subject: [RESEND v5 4/7] ASoC: codecs: wcd937x: add basic controls
-Date: Mon, 27 May 2024 16:49:53 +0530
-Message-ID: <20240527111956.444425-5-quic_mohs@quicinc.com>
+Subject: [RESEND v5 5/7] ASoC: codecs: wcd937x: add playback dapm widgets
+Date: Mon, 27 May 2024 16:49:54 +0530
+Message-ID: <20240527111956.444425-6-quic_mohs@quicinc.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240527111956.444425-1-quic_mohs@quicinc.com>
 References: <20240527111956.444425-1-quic_mohs@quicinc.com>
@@ -105,19 +105,19 @@ X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: SJM6cD06LEEb4LSJrkTsOV_kHMKPE_Dh
-X-Proofpoint-GUID: SJM6cD06LEEb4LSJrkTsOV_kHMKPE_Dh
+X-Proofpoint-GUID: tk9-cAxUfB9IDhquQuKsDcXiLYybcIJh
+X-Proofpoint-ORIG-GUID: tk9-cAxUfB9IDhquQuKsDcXiLYybcIJh
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.12.28.16
  definitions=2024-05-27_01,2024-05-24_01,2024-05-17_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 spamscore=0
- phishscore=0 suspectscore=0 mlxlogscore=871 malwarescore=0 impostorscore=0
- lowpriorityscore=0 adultscore=0 priorityscore=1501 mlxscore=0 bulkscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2405170001
- definitions=main-2405270092
-Message-ID-Hash: LPYHNZDB2J6JXY5ITXAETMW5XE4CTL3Y
-X-Message-ID-Hash: LPYHNZDB2J6JXY5ITXAETMW5XE4CTL3Y
+ priorityscore=1501
+ impostorscore=0 adultscore=0 clxscore=1015 lowpriorityscore=0 mlxscore=0
+ malwarescore=0 spamscore=0 bulkscore=0 mlxlogscore=689 suspectscore=0
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2405170001 definitions=main-2405270093
+Message-ID-Hash: MEZ5MJ2DFQY7NT6W4AA7FBCLDECUCEPW
+X-Message-ID-Hash: MEZ5MJ2DFQY7NT6W4AA7FBCLDECUCEPW
 X-MailFrom: quic_mohs@quicinc.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -130,7 +130,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LPYHNZDB2J6JXY5ITXAETMW5XE4CTL3Y/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MEZ5MJ2DFQY7NT6W4AA7FBCLDECUCEPW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -141,7 +141,7 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Prasad Kumpatla <quic_pkumpatl@quicinc.com>
 
-This patch adds basic controls found in WCD9370/WCD9375 codec.
+This patch adds required dapm widgets for playback.
 
 Co-developed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
@@ -149,239 +149,698 @@ Signed-off-by: Prasad Kumpatla <quic_pkumpatl@quicinc.com>
 Co-developed-by: Mohammad Rafi Shaik <quic_mohs@quicinc.com>
 Signed-off-by: Mohammad Rafi Shaik <quic_mohs@quicinc.com>
 ---
- sound/soc/codecs/wcd937x.c | 201 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 201 insertions(+)
+ sound/soc/codecs/wcd937x.c | 667 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 667 insertions(+)
 
 diff --git a/sound/soc/codecs/wcd937x.c b/sound/soc/codecs/wcd937x.c
-index 4470ee0ecae6..293a84a53918 100644
+index 293a84a53918..3b0e4bd4eb4f 100644
 --- a/sound/soc/codecs/wcd937x.c
 +++ b/sound/soc/codecs/wcd937x.c
-@@ -120,6 +120,10 @@ struct wcd937x_priv {
- 	atomic_t ana_clk_count;
- };
- 
-+static const SNDRV_CTL_TLVD_DECLARE_DB_MINMAX(ear_pa_gain, 600, -1800);
-+static const DECLARE_TLV_DB_SCALE(line_gain, 0, 7, 1);
-+static const DECLARE_TLV_DB_SCALE(analog_gain, 0, 25, 1);
-+
- struct wcd937x_mbhc_zdet_param {
- 	u16 ldo_ctl;
- 	u16 noff;
-@@ -476,6 +480,157 @@ static int wcd937x_connect_port(struct wcd937x_sdw_priv *wcd, u8 port_idx, u8 ch
+@@ -342,6 +342,569 @@ static int wcd937x_rx_clk_disable(struct snd_soc_component *component)
  	return 0;
  }
  
-+static int wcd937x_rx_hph_mode_get(struct snd_kcontrol *kcontrol,
-+				   struct snd_ctl_elem_value *ucontrol)
++static int wcd937x_codec_hphl_dac_event(struct snd_soc_dapm_widget *w,
++					struct snd_kcontrol *kcontrol,
++					int event)
 +{
-+	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
++	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
 +	struct wcd937x_priv *wcd937x = snd_soc_component_get_drvdata(component);
++	int hph_mode = wcd937x->hph_mode;
 +
-+	ucontrol->value.integer.value[0] = wcd937x->hph_mode;
-+	return 0;
-+}
++	switch (event) {
++	case SND_SOC_DAPM_PRE_PMU:
++		wcd937x_rx_clk_enable(component);
++		snd_soc_component_update_bits(component,
++					      WCD937X_DIGITAL_CDC_DIG_CLK_CTL,
++					      BIT(0), BIT(0));
++		snd_soc_component_update_bits(component,
++					      WCD937X_DIGITAL_CDC_HPH_GAIN_CTL,
++					      BIT(2), BIT(2));
++		snd_soc_component_update_bits(component,
++					      WCD937X_HPH_RDAC_CLK_CTL1,
++					      BIT(7), 0x00);
++		set_bit(HPH_COMP_DELAY, &wcd937x->status_mask);
++		break;
++	case SND_SOC_DAPM_POST_PMU:
++		if (hph_mode == CLS_AB_HIFI || hph_mode == CLS_H_HIFI)
++			snd_soc_component_update_bits(component,
++						      WCD937X_HPH_NEW_INT_RDAC_HD2_CTL_L,
++						      0x0f, BIT(1));
++		else if (hph_mode == CLS_H_LOHIFI)
++			snd_soc_component_update_bits(component,
++						      WCD937X_HPH_NEW_INT_RDAC_HD2_CTL_L,
++						      0x0f, 0x06);
 +
-+static int wcd937x_rx_hph_mode_put(struct snd_kcontrol *kcontrol,
-+				   struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component =
-+				snd_soc_kcontrol_component(kcontrol);
-+	struct wcd937x_priv *wcd937x = snd_soc_component_get_drvdata(component);
-+	u32 mode_val;
++		if (wcd937x->comp1_enable) {
++			snd_soc_component_update_bits(component,
++						      WCD937X_DIGITAL_CDC_COMP_CTL_0,
++						      BIT(1), BIT(1));
++			snd_soc_component_update_bits(component,
++						      WCD937X_HPH_L_EN,
++						      BIT(5), 0x00);
 +
-+	mode_val = ucontrol->value.enumerated.item[0];
++			if (wcd937x->comp2_enable) {
++				snd_soc_component_update_bits(component,
++							      WCD937X_DIGITAL_CDC_COMP_CTL_0,
++							      BIT(0), BIT(0));
++				snd_soc_component_update_bits(component,
++							      WCD937X_HPH_R_EN, BIT(5), 0x00);
++			}
 +
-+	if (!mode_val)
-+		mode_val = CLS_AB;
++			if (test_bit(HPH_COMP_DELAY, &wcd937x->status_mask)) {
++				usleep_range(5000, 5110);
++				clear_bit(HPH_COMP_DELAY, &wcd937x->status_mask);
++			}
++		} else {
++			snd_soc_component_update_bits(component,
++						      WCD937X_DIGITAL_CDC_COMP_CTL_0,
++						      BIT(1), 0x00);
++			snd_soc_component_update_bits(component,
++						      WCD937X_HPH_L_EN,
++						      BIT(5), BIT(5));
++		}
 +
-+	if (mode_val == wcd937x->hph_mode)
-+		return 0;
-+
-+	switch (mode_val) {
-+	case CLS_H_NORMAL:
-+	case CLS_H_HIFI:
-+	case CLS_H_LP:
-+	case CLS_AB:
-+	case CLS_H_LOHIFI:
-+	case CLS_H_ULP:
-+	case CLS_AB_LP:
-+	case CLS_AB_HIFI:
-+		wcd937x->hph_mode = mode_val;
-+		return 1;
++		snd_soc_component_update_bits(component,
++					      WCD937X_HPH_NEW_INT_HPH_TIMER1,
++					      BIT(1), 0x00);
++		break;
++	case SND_SOC_DAPM_POST_PMD:
++		snd_soc_component_update_bits(component,
++					      WCD937X_HPH_NEW_INT_RDAC_HD2_CTL_L,
++					      0x0f, BIT(0));
++		break;
 +	}
 +
-+	dev_dbg(component->dev, "%s: Invalid HPH Mode\n", __func__);
-+	return -EINVAL;
-+}
-+
-+static int wcd937x_get_compander(struct snd_kcontrol *kcontrol,
-+				 struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
-+	struct wcd937x_priv *wcd937x = snd_soc_component_get_drvdata(component);
-+	struct soc_mixer_control *mc;
-+	bool hphr;
-+
-+	mc = (struct soc_mixer_control *)(kcontrol->private_value);
-+	hphr = mc->shift;
-+
-+	ucontrol->value.integer.value[0] = hphr ? wcd937x->comp2_enable :
-+						  wcd937x->comp1_enable;
 +	return 0;
 +}
 +
-+static int wcd937x_set_compander(struct snd_kcontrol *kcontrol,
-+				 struct snd_ctl_elem_value *ucontrol)
++static int wcd937x_codec_hphr_dac_event(struct snd_soc_dapm_widget *w,
++					struct snd_kcontrol *kcontrol,
++					int event)
 +{
-+	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
++	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
 +	struct wcd937x_priv *wcd937x = snd_soc_component_get_drvdata(component);
-+	struct wcd937x_sdw_priv *wcd = wcd937x->sdw_priv[AIF1_PB];
-+	int value = ucontrol->value.integer.value[0];
-+	struct soc_mixer_control *mc;
-+	int portidx;
-+	bool hphr;
++	int hph_mode = wcd937x->hph_mode;
 +
-+	mc = (struct soc_mixer_control *)(kcontrol->private_value);
-+	hphr = mc->shift;
++	switch (event) {
++	case SND_SOC_DAPM_PRE_PMU:
++		wcd937x_rx_clk_enable(component);
++		snd_soc_component_update_bits(component,
++					      WCD937X_DIGITAL_CDC_DIG_CLK_CTL, BIT(1), BIT(1));
++		snd_soc_component_update_bits(component,
++					      WCD937X_DIGITAL_CDC_HPH_GAIN_CTL, BIT(3), BIT(3));
++		snd_soc_component_update_bits(component,
++					      WCD937X_HPH_RDAC_CLK_CTL1, BIT(7), 0x00);
++		set_bit(HPH_COMP_DELAY, &wcd937x->status_mask);
++		break;
++	case SND_SOC_DAPM_POST_PMU:
++		if (hph_mode == CLS_AB_HIFI || hph_mode == CLS_H_HIFI)
++			snd_soc_component_update_bits(component,
++						      WCD937X_HPH_NEW_INT_RDAC_HD2_CTL_R,
++						      0x0f, BIT(1));
++		else if (hph_mode == CLS_H_LOHIFI)
++			snd_soc_component_update_bits(component,
++						      WCD937X_HPH_NEW_INT_RDAC_HD2_CTL_R,
++						      0x0f, 0x06);
++		if (wcd937x->comp2_enable) {
++			snd_soc_component_update_bits(component,
++						      WCD937X_DIGITAL_CDC_COMP_CTL_0,
++						      BIT(0), BIT(0));
++			snd_soc_component_update_bits(component,
++						      WCD937X_HPH_R_EN, BIT(5), 0x00);
++			if (wcd937x->comp1_enable) {
++				snd_soc_component_update_bits(component,
++							      WCD937X_DIGITAL_CDC_COMP_CTL_0,
++							      BIT(1), BIT(1));
++				snd_soc_component_update_bits(component,
++							      WCD937X_HPH_L_EN,
++							      BIT(5), 0x00);
++			}
 +
-+	if (hphr) {
-+		if (value == wcd937x->comp2_enable)
++			if (test_bit(HPH_COMP_DELAY, &wcd937x->status_mask)) {
++				usleep_range(5000, 5110);
++				clear_bit(HPH_COMP_DELAY, &wcd937x->status_mask);
++			}
++		} else {
++			snd_soc_component_update_bits(component,
++						      WCD937X_DIGITAL_CDC_COMP_CTL_0,
++						      BIT(0), 0x00);
++			snd_soc_component_update_bits(component,
++						      WCD937X_HPH_R_EN,
++						      BIT(5), BIT(5));
++		}
++		snd_soc_component_update_bits(component,
++					      WCD937X_HPH_NEW_INT_HPH_TIMER1,
++					      BIT(1), 0x00);
++		break;
++	case SND_SOC_DAPM_POST_PMD:
++		snd_soc_component_update_bits(component,
++					      WCD937X_HPH_NEW_INT_RDAC_HD2_CTL_R,
++					      0x0f, BIT(0));
++		break;
++	}
++
++	return 0;
++}
++
++static int wcd937x_codec_ear_dac_event(struct snd_soc_dapm_widget *w,
++				       struct snd_kcontrol *kcontrol,
++				       int event)
++{
++	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
++	struct wcd937x_priv *wcd937x = snd_soc_component_get_drvdata(component);
++	int hph_mode = wcd937x->hph_mode;
++
++	switch (event) {
++	case SND_SOC_DAPM_PRE_PMU:
++		wcd937x_rx_clk_enable(component);
++		snd_soc_component_update_bits(component,
++					      WCD937X_DIGITAL_CDC_HPH_GAIN_CTL,
++					      BIT(2), BIT(2));
++		snd_soc_component_update_bits(component,
++					      WCD937X_DIGITAL_CDC_DIG_CLK_CTL,
++					      BIT(0), BIT(0));
++
++		if (hph_mode == CLS_AB_HIFI || hph_mode == CLS_H_HIFI)
++			snd_soc_component_update_bits(component,
++						      WCD937X_HPH_NEW_INT_RDAC_HD2_CTL_L,
++						      0x0f, BIT(1));
++		else if (hph_mode == CLS_H_LOHIFI)
++			snd_soc_component_update_bits(component,
++						      WCD937X_HPH_NEW_INT_RDAC_HD2_CTL_L,
++						      0x0f, 0x06);
++		if (wcd937x->comp1_enable)
++			snd_soc_component_update_bits(component,
++						      WCD937X_DIGITAL_CDC_COMP_CTL_0,
++						      BIT(1), BIT(1));
++		usleep_range(5000, 5010);
++
++		snd_soc_component_update_bits(component, WCD937X_FLYBACK_EN, BIT(2), 0x00);
++		wcd_clsh_ctrl_set_state(wcd937x->clsh_info,
++					WCD_CLSH_EVENT_PRE_DAC,
++					WCD_CLSH_STATE_EAR,
++					hph_mode);
++
++		break;
++	case SND_SOC_DAPM_POST_PMD:
++		if (hph_mode == CLS_AB_HIFI || hph_mode == CLS_H_LOHIFI ||
++		    hph_mode == CLS_H_HIFI)
++			snd_soc_component_update_bits(component,
++						      WCD937X_HPH_NEW_INT_RDAC_HD2_CTL_L,
++						      0x0f, BIT(0));
++		if (wcd937x->comp1_enable)
++			snd_soc_component_update_bits(component,
++						      WCD937X_DIGITAL_CDC_COMP_CTL_0,
++						      BIT(1), 0x00);
++		break;
++	}
++
++	return 0;
++}
++
++static int wcd937x_codec_aux_dac_event(struct snd_soc_dapm_widget *w,
++				       struct snd_kcontrol *kcontrol,
++				       int event)
++{
++	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
++	struct wcd937x_priv *wcd937x = snd_soc_component_get_drvdata(component);
++	int hph_mode = wcd937x->hph_mode;
++
++	switch (event) {
++	case SND_SOC_DAPM_PRE_PMU:
++		wcd937x_rx_clk_enable(component);
++		snd_soc_component_update_bits(component,
++					      WCD937X_DIGITAL_CDC_ANA_CLK_CTL,
++					      BIT(2), BIT(2));
++		snd_soc_component_update_bits(component,
++					      WCD937X_DIGITAL_CDC_DIG_CLK_CTL,
++					      BIT(2), BIT(2));
++		snd_soc_component_update_bits(component,
++					      WCD937X_DIGITAL_CDC_AUX_GAIN_CTL,
++					      BIT(0), BIT(0));
++		wcd_clsh_ctrl_set_state(wcd937x->clsh_info,
++					WCD_CLSH_EVENT_PRE_DAC,
++					WCD_CLSH_STATE_AUX,
++					hph_mode);
++
++		break;
++	case SND_SOC_DAPM_POST_PMD:
++		snd_soc_component_update_bits(component,
++					      WCD937X_DIGITAL_CDC_ANA_CLK_CTL,
++					      BIT(2), 0x00);
++		break;
++	}
++
++	return 0;
++}
++
++static int wcd937x_codec_enable_hphr_pa(struct snd_soc_dapm_widget *w,
++					struct snd_kcontrol *kcontrol,
++					int event)
++{
++	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
++	struct wcd937x_priv *wcd937x = snd_soc_component_get_drvdata(component);
++	int hph_mode = wcd937x->hph_mode;
++
++	switch (event) {
++	case SND_SOC_DAPM_PRE_PMU:
++		wcd_clsh_ctrl_set_state(wcd937x->clsh_info,
++					WCD_CLSH_EVENT_PRE_DAC,
++					WCD_CLSH_STATE_HPHR,
++					hph_mode);
++		snd_soc_component_update_bits(component, WCD937X_ANA_HPH,
++					      BIT(4), BIT(4));
++		usleep_range(100, 110);
++		set_bit(HPH_PA_DELAY, &wcd937x->status_mask);
++		snd_soc_component_update_bits(component,
++					      WCD937X_DIGITAL_PDM_WD_CTL1,
++					      0x07, 0x03);
++		break;
++	case SND_SOC_DAPM_POST_PMU:
++		if (test_bit(HPH_PA_DELAY, &wcd937x->status_mask)) {
++			if (wcd937x->comp2_enable)
++				usleep_range(7000, 7100);
++			else
++				usleep_range(20000, 20100);
++			clear_bit(HPH_PA_DELAY, &wcd937x->status_mask);
++		}
++
++		snd_soc_component_update_bits(component,
++					      WCD937X_HPH_NEW_INT_HPH_TIMER1,
++					      BIT(1), BIT(1));
++		if (hph_mode == CLS_AB || hph_mode == CLS_AB_HIFI)
++			snd_soc_component_update_bits(component,
++						      WCD937X_ANA_RX_SUPPLIES,
++						      BIT(1), BIT(1));
++		enable_irq(wcd937x->hphr_pdm_wd_int);
++		break;
++	case SND_SOC_DAPM_PRE_PMD:
++		disable_irq_nosync(wcd937x->hphr_pdm_wd_int);
++		set_bit(HPH_PA_DELAY, &wcd937x->status_mask);
++		wcd_mbhc_event_notify(wcd937x->wcd_mbhc, WCD_EVENT_PRE_HPHR_PA_OFF);
++		break;
++	case SND_SOC_DAPM_POST_PMD:
++		if (test_bit(HPH_PA_DELAY, &wcd937x->status_mask)) {
++			if (wcd937x->comp2_enable)
++				usleep_range(7000, 7100);
++			else
++				usleep_range(20000, 20100);
++			clear_bit(HPH_PA_DELAY, &wcd937x->status_mask);
++		}
++
++		wcd_mbhc_event_notify(wcd937x->wcd_mbhc, WCD_EVENT_POST_HPHR_PA_OFF);
++		snd_soc_component_update_bits(component,
++					      WCD937X_DIGITAL_PDM_WD_CTL1, 0x07, 0x00);
++		snd_soc_component_update_bits(component, WCD937X_ANA_HPH,
++					      BIT(4), 0x00);
++		wcd_clsh_ctrl_set_state(wcd937x->clsh_info,
++					WCD_CLSH_EVENT_POST_PA,
++					WCD_CLSH_STATE_HPHR,
++					hph_mode);
++		break;
++	}
++
++	return 0;
++}
++
++static int wcd937x_codec_enable_hphl_pa(struct snd_soc_dapm_widget *w,
++					struct snd_kcontrol *kcontrol,
++					int event)
++{
++	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
++	struct wcd937x_priv *wcd937x = snd_soc_component_get_drvdata(component);
++	int hph_mode = wcd937x->hph_mode;
++
++	switch (event) {
++	case SND_SOC_DAPM_PRE_PMU:
++		wcd_clsh_ctrl_set_state(wcd937x->clsh_info,
++					WCD_CLSH_EVENT_PRE_DAC,
++					WCD_CLSH_STATE_HPHL,
++					hph_mode);
++		snd_soc_component_update_bits(component, WCD937X_ANA_HPH,
++					      BIT(5), BIT(5));
++		usleep_range(100, 110);
++		set_bit(HPH_PA_DELAY, &wcd937x->status_mask);
++		snd_soc_component_update_bits(component,
++					      WCD937X_DIGITAL_PDM_WD_CTL0, 0x07, 0x03);
++		break;
++	case SND_SOC_DAPM_POST_PMU:
++		if (test_bit(HPH_PA_DELAY, &wcd937x->status_mask)) {
++			if (!wcd937x->comp1_enable)
++				usleep_range(20000, 20100);
++			else
++				usleep_range(7000, 7100);
++			clear_bit(HPH_PA_DELAY, &wcd937x->status_mask);
++		}
++
++		snd_soc_component_update_bits(component,
++					      WCD937X_HPH_NEW_INT_HPH_TIMER1,
++					      BIT(1), BIT(1));
++		if (hph_mode == CLS_AB || hph_mode == CLS_AB_HIFI)
++			snd_soc_component_update_bits(component,
++						      WCD937X_ANA_RX_SUPPLIES,
++						      BIT(1), BIT(1));
++		enable_irq(wcd937x->hphl_pdm_wd_int);
++		break;
++	case SND_SOC_DAPM_PRE_PMD:
++		disable_irq_nosync(wcd937x->hphl_pdm_wd_int);
++		set_bit(HPH_PA_DELAY, &wcd937x->status_mask);
++		wcd_mbhc_event_notify(wcd937x->wcd_mbhc, WCD_EVENT_PRE_HPHL_PA_OFF);
++		break;
++	case SND_SOC_DAPM_POST_PMD:
++		if (test_bit(HPH_PA_DELAY, &wcd937x->status_mask)) {
++			if (!wcd937x->comp1_enable)
++				usleep_range(20000, 20100);
++			else
++				usleep_range(7000, 7100);
++			clear_bit(HPH_PA_DELAY, &wcd937x->status_mask);
++		}
++
++		wcd_mbhc_event_notify(wcd937x->wcd_mbhc, WCD_EVENT_POST_HPHL_PA_OFF);
++		snd_soc_component_update_bits(component,
++					      WCD937X_DIGITAL_PDM_WD_CTL0, 0x07, 0x00);
++		snd_soc_component_update_bits(component,
++					      WCD937X_ANA_HPH, BIT(5), 0x00);
++		wcd_clsh_ctrl_set_state(wcd937x->clsh_info,
++					WCD_CLSH_EVENT_POST_PA,
++					WCD_CLSH_STATE_HPHL,
++					hph_mode);
++		break;
++	}
++
++	return 0;
++}
++
++static int wcd937x_codec_enable_aux_pa(struct snd_soc_dapm_widget *w,
++				       struct snd_kcontrol *kcontrol,
++				       int event)
++{
++	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
++	struct wcd937x_priv *wcd937x = snd_soc_component_get_drvdata(component);
++	int hph_mode = wcd937x->hph_mode;
++
++	switch (event) {
++	case SND_SOC_DAPM_PRE_PMU:
++		snd_soc_component_update_bits(component,
++					      WCD937X_DIGITAL_PDM_WD_CTL2,
++					      BIT(0), BIT(0));
++		break;
++	case SND_SOC_DAPM_POST_PMU:
++		usleep_range(1000, 1010);
++		if (hph_mode == CLS_AB || hph_mode == CLS_AB_HIFI)
++			snd_soc_component_update_bits(component,
++						      WCD937X_ANA_RX_SUPPLIES,
++						      BIT(1), BIT(1));
++		enable_irq(wcd937x->aux_pdm_wd_int);
++		break;
++	case SND_SOC_DAPM_PRE_PMD:
++		disable_irq_nosync(wcd937x->aux_pdm_wd_int);
++		break;
++	case SND_SOC_DAPM_POST_PMD:
++		usleep_range(2000, 2010);
++		wcd_clsh_ctrl_set_state(wcd937x->clsh_info,
++					WCD_CLSH_EVENT_POST_PA,
++					WCD_CLSH_STATE_AUX,
++					hph_mode);
++		snd_soc_component_update_bits(component,
++					      WCD937X_DIGITAL_PDM_WD_CTL2,
++					      BIT(0), 0x00);
++		break;
++	}
++
++	return 0;
++}
++
++static int wcd937x_codec_enable_ear_pa(struct snd_soc_dapm_widget *w,
++				       struct snd_kcontrol *kcontrol,
++				       int event)
++{
++	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
++	struct wcd937x_priv *wcd937x = snd_soc_component_get_drvdata(component);
++	int hph_mode = wcd937x->hph_mode;
++
++	switch (event) {
++	case SND_SOC_DAPM_PRE_PMU:
++		/* Enable watchdog interrupt for HPHL or AUX depending on mux value */
++		wcd937x->ear_rx_path = snd_soc_component_read(component,
++							      WCD937X_DIGITAL_CDC_EAR_PATH_CTL);
++
++		if (wcd937x->ear_rx_path & EAR_RX_PATH_AUX)
++			snd_soc_component_update_bits(component,
++						      WCD937X_DIGITAL_PDM_WD_CTL2,
++						      BIT(0), BIT(0));
++		else
++			snd_soc_component_update_bits(component,
++						      WCD937X_DIGITAL_PDM_WD_CTL0,
++						      0x07, 0x03);
++		if (!wcd937x->comp1_enable)
++			snd_soc_component_update_bits(component,
++						      WCD937X_ANA_EAR_COMPANDER_CTL,
++						      BIT(7), BIT(7));
++		break;
++	case SND_SOC_DAPM_POST_PMU:
++		usleep_range(6000, 6010);
++		if (hph_mode == CLS_AB || hph_mode == CLS_AB_HIFI)
++			snd_soc_component_update_bits(component,
++						      WCD937X_ANA_RX_SUPPLIES,
++						      BIT(1), BIT(1));
++
++		if (wcd937x->ear_rx_path & EAR_RX_PATH_AUX)
++			enable_irq(wcd937x->aux_pdm_wd_int);
++		else
++			enable_irq(wcd937x->hphl_pdm_wd_int);
++		break;
++	case SND_SOC_DAPM_PRE_PMD:
++		if (wcd937x->ear_rx_path & EAR_RX_PATH_AUX)
++			disable_irq_nosync(wcd937x->aux_pdm_wd_int);
++		else
++			disable_irq_nosync(wcd937x->hphl_pdm_wd_int);
++		break;
++	case SND_SOC_DAPM_POST_PMD:
++		if (!wcd937x->comp1_enable)
++			snd_soc_component_update_bits(component,
++						      WCD937X_ANA_EAR_COMPANDER_CTL,
++						      BIT(7), 0x00);
++		usleep_range(7000, 7010);
++		wcd_clsh_ctrl_set_state(wcd937x->clsh_info,
++					WCD_CLSH_EVENT_POST_PA,
++					WCD_CLSH_STATE_EAR,
++					hph_mode);
++		snd_soc_component_update_bits(component, WCD937X_FLYBACK_EN,
++					      BIT(2), BIT(2));
++
++		if (wcd937x->ear_rx_path & EAR_RX_PATH_AUX)
++			snd_soc_component_update_bits(component,
++						      WCD937X_DIGITAL_PDM_WD_CTL2,
++						      BIT(0), 0x00);
++		else
++			snd_soc_component_update_bits(component,
++						      WCD937X_DIGITAL_PDM_WD_CTL0,
++						      0x07, 0x00);
++		break;
++	}
++
++	return 0;
++}
++
++static int wcd937x_enable_rx1(struct snd_soc_dapm_widget *w,
++			      struct snd_kcontrol *kcontrol,
++			      int event)
++{
++	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
++
++	if (event == SND_SOC_DAPM_POST_PMD) {
++		wcd937x_rx_clk_disable(component);
++		snd_soc_component_update_bits(component,
++					      WCD937X_DIGITAL_CDC_DIG_CLK_CTL,
++					      BIT(0), 0x00);
++	}
++
++	return 0;
++}
++
++static int wcd937x_enable_rx2(struct snd_soc_dapm_widget *w,
++			      struct snd_kcontrol *kcontrol, int event)
++{
++	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
++
++	if (event == SND_SOC_DAPM_POST_PMD) {
++		wcd937x_rx_clk_disable(component);
++		snd_soc_component_update_bits(component,
++					      WCD937X_DIGITAL_CDC_DIG_CLK_CTL,
++					      BIT(1), 0x00);
++	}
++
++	return 0;
++}
++
++static int wcd937x_enable_rx3(struct snd_soc_dapm_widget *w,
++			      struct snd_kcontrol *kcontrol,
++			      int event)
++{
++	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
++
++	if (event == SND_SOC_DAPM_POST_PMD) {
++		usleep_range(6000, 6010);
++		wcd937x_rx_clk_disable(component);
++		snd_soc_component_update_bits(component,
++					      WCD937X_DIGITAL_CDC_DIG_CLK_CTL,
++					      BIT(2), 0x00);
++	}
++
++	return 0;
++}
++
++static int wcd937x_codec_enable_vdd_buck(struct snd_soc_dapm_widget *w,
++					 struct snd_kcontrol *kcontrol,
++					 int event)
++{
++	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
++	struct wcd937x_priv *wcd937x = snd_soc_component_get_drvdata(component);
++	int ret = 0;
++
++	switch (event) {
++	case SND_SOC_DAPM_PRE_PMU:
++		if (test_bit(ALLOW_BUCK_DISABLE, &wcd937x->status_mask)) {
++			dev_err(component->dev, "buck already in enabled state\n");
++			clear_bit(ALLOW_BUCK_DISABLE, &wcd937x->status_mask);
 +			return 0;
-+
-+		wcd937x->comp2_enable = value;
-+	} else {
-+		if (value == wcd937x->comp1_enable)
-+			return 0;
-+
-+		wcd937x->comp1_enable = value;
++		}
++		ret = regulator_enable(wcd937x->buck_supply);
++		if (ret) {
++			dev_err(component->dev, "VDD_BUCK is not enabled\n");
++			return ret;
++		}
++		clear_bit(ALLOW_BUCK_DISABLE, &wcd937x->status_mask);
++		usleep_range(200, 250);
++		break;
++	case SND_SOC_DAPM_POST_PMD:
++		set_bit(ALLOW_BUCK_DISABLE, &wcd937x->status_mask);
++		break;
 +	}
-+
-+	portidx = wcd->ch_info[mc->reg].port_num;
-+
-+	if (value)
-+		wcd937x_connect_port(wcd, portidx, mc->reg, true);
-+	else
-+		wcd937x_connect_port(wcd, portidx, mc->reg, false);
-+
-+	return 1;
-+}
-+
-+static int wcd937x_get_swr_port(struct snd_kcontrol *kcontrol,
-+				struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct soc_mixer_control *mixer = (struct soc_mixer_control *)kcontrol->private_value;
-+	struct snd_soc_component *comp = snd_soc_kcontrol_component(kcontrol);
-+	struct wcd937x_priv *wcd937x = snd_soc_component_get_drvdata(comp);
-+	struct wcd937x_sdw_priv *wcd;
-+	int dai_id = mixer->shift;
-+	int ch_idx = mixer->reg;
-+	int portidx;
-+
-+	wcd = wcd937x->sdw_priv[dai_id];
-+	portidx = wcd->ch_info[ch_idx].port_num;
-+
-+	ucontrol->value.integer.value[0] = wcd->port_enable[portidx];
 +
 +	return 0;
 +}
 +
-+static int wcd937x_set_swr_port(struct snd_kcontrol *kcontrol,
-+				struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct soc_mixer_control *mixer = (struct soc_mixer_control *)kcontrol->private_value;
-+	struct snd_soc_component *comp = snd_soc_kcontrol_component(kcontrol);
-+	struct wcd937x_priv *wcd937x = snd_soc_component_get_drvdata(comp);
-+	struct wcd937x_sdw_priv *wcd;
-+	int dai_id = mixer->shift;
-+	int ch_idx = mixer->reg;
-+	int portidx;
-+	bool enable;
-+
-+	wcd = wcd937x->sdw_priv[dai_id];
-+
-+	portidx = wcd->ch_info[ch_idx].port_num;
-+
-+	enable = ucontrol->value.integer.value[0];
-+
-+	if (enable == wcd->port_enable[portidx]) {
-+		wcd937x_connect_port(wcd, portidx, ch_idx, enable);
-+		return 0;
-+	}
-+
-+	wcd->port_enable[portidx] = enable;
-+	wcd937x_connect_port(wcd, portidx, ch_idx, enable);
-+
-+	return 1;
-+}
-+
-+static const char * const rx_hph_mode_mux_text[] = {
-+	"CLS_H_NORMAL", "CLS_H_INVALID", "CLS_H_HIFI", "CLS_H_LP", "CLS_AB",
-+	"CLS_H_LOHIFI", "CLS_H_ULP", "CLS_AB_LP", "CLS_AB_HIFI",
+ static int wcd937x_get_micb_vout_ctl_val(u32 micb_mv)
+ {
+ 	if (micb_mv < 1000 || micb_mv > 2850) {
+@@ -1349,6 +1912,108 @@ static const struct snd_kcontrol_new wcd937x_snd_controls[] = {
+ 		       wcd937x_get_swr_port, wcd937x_set_swr_port),
+ };
+ 
++static const struct snd_kcontrol_new ear_rdac_switch[] = {
++	SOC_DAPM_SINGLE("Switch", SND_SOC_NOPM, 0, 1, 0)
 +};
 +
-+static const struct soc_enum rx_hph_mode_mux_enum =
-+	SOC_ENUM_SINGLE_EXT(ARRAY_SIZE(rx_hph_mode_mux_text), rx_hph_mode_mux_text);
++static const struct snd_kcontrol_new aux_rdac_switch[] = {
++	SOC_DAPM_SINGLE("Switch", SND_SOC_NOPM, 0, 1, 0)
++};
 +
- /* MBHC related */
- static void wcd937x_mbhc_clk_setup(struct snd_soc_component *component,
- 				   bool enable)
-@@ -1150,6 +1305,50 @@ static void wcd937x_mbhc_deinit(struct snd_soc_component *component)
- 
- /* END MBHC */
- 
-+static const struct snd_kcontrol_new wcd937x_snd_controls[] = {
-+	SOC_SINGLE_TLV("EAR_PA Volume", WCD937X_ANA_EAR_COMPANDER_CTL,
-+		       2, 0x10, 0, ear_pa_gain),
-+	SOC_ENUM_EXT("RX HPH Mode", rx_hph_mode_mux_enum,
-+		     wcd937x_rx_hph_mode_get, wcd937x_rx_hph_mode_put),
++static const struct snd_kcontrol_new hphl_rdac_switch[] = {
++	SOC_DAPM_SINGLE("Switch", SND_SOC_NOPM, 0, 1, 0)
++};
 +
-+	SOC_SINGLE_EXT("HPHL_COMP Switch", SND_SOC_NOPM, 0, 1, 0,
-+		       wcd937x_get_compander, wcd937x_set_compander),
-+	SOC_SINGLE_EXT("HPHR_COMP Switch", SND_SOC_NOPM, 1, 1, 0,
-+		       wcd937x_get_compander, wcd937x_set_compander),
++static const struct snd_kcontrol_new hphr_rdac_switch[] = {
++	SOC_DAPM_SINGLE("Switch", SND_SOC_NOPM, 0, 1, 0)
++};
 +
-+	SOC_SINGLE_TLV("HPHL Volume", WCD937X_HPH_L_EN, 0, 20, 1, line_gain),
-+	SOC_SINGLE_TLV("HPHR Volume", WCD937X_HPH_R_EN, 0, 20, 1, line_gain),
-+	SOC_SINGLE_TLV("ADC1 Volume", WCD937X_ANA_TX_CH1, 0, 20, 0, analog_gain),
-+	SOC_SINGLE_TLV("ADC2 Volume", WCD937X_ANA_TX_CH2, 0, 20, 0, analog_gain),
-+	SOC_SINGLE_TLV("ADC3 Volume", WCD937X_ANA_TX_CH3, 0, 20, 0, analog_gain),
++static const char * const rdac3_mux_text[] = {
++	"RX1", "RX3"
++};
 +
-+	SOC_SINGLE_EXT("HPHL Switch", WCD937X_HPH_L, 0, 1, 0,
-+		       wcd937x_get_swr_port, wcd937x_set_swr_port),
-+	SOC_SINGLE_EXT("HPHR Switch", WCD937X_HPH_R, 0, 1, 0,
-+		       wcd937x_get_swr_port, wcd937x_set_swr_port),
++static const struct soc_enum rdac3_enum =
++	SOC_ENUM_SINGLE(WCD937X_DIGITAL_CDC_EAR_PATH_CTL, 0,
++			ARRAY_SIZE(rdac3_mux_text), rdac3_mux_text);
 +
-+	SOC_SINGLE_EXT("ADC1 Switch", WCD937X_ADC1, 1, 1, 0,
-+		       wcd937x_get_swr_port, wcd937x_set_swr_port),
-+	SOC_SINGLE_EXT("ADC2 Switch", WCD937X_ADC2, 1, 1, 0,
-+		       wcd937x_get_swr_port, wcd937x_set_swr_port),
-+	SOC_SINGLE_EXT("ADC3 Switch", WCD937X_ADC3, 1, 1, 0,
-+		       wcd937x_get_swr_port, wcd937x_set_swr_port),
-+	SOC_SINGLE_EXT("DMIC0 Switch", WCD937X_DMIC0, 1, 1, 0,
-+		       wcd937x_get_swr_port, wcd937x_set_swr_port),
-+	SOC_SINGLE_EXT("DMIC1 Switch", WCD937X_DMIC1, 1, 1, 0,
-+		       wcd937x_get_swr_port, wcd937x_set_swr_port),
-+	SOC_SINGLE_EXT("MBHC Switch", WCD937X_MBHC, 1, 1, 0,
-+		       wcd937x_get_swr_port, wcd937x_set_swr_port),
-+	SOC_SINGLE_EXT("DMIC2 Switch", WCD937X_DMIC2, 1, 1, 0,
-+		       wcd937x_get_swr_port, wcd937x_set_swr_port),
-+	SOC_SINGLE_EXT("DMIC3 Switch", WCD937X_DMIC3, 1, 1, 0,
-+		       wcd937x_get_swr_port, wcd937x_set_swr_port),
-+	SOC_SINGLE_EXT("DMIC4 Switch", WCD937X_DMIC4, 1, 1, 0,
-+		       wcd937x_get_swr_port, wcd937x_set_swr_port),
-+	SOC_SINGLE_EXT("DMIC5 Switch", WCD937X_DMIC5, 1, 1, 0,
-+		       wcd937x_get_swr_port, wcd937x_set_swr_port),
++static const struct snd_kcontrol_new rx_rdac3_mux = SOC_DAPM_ENUM("RDAC3_MUX Mux", rdac3_enum);
++
++static const struct snd_soc_dapm_widget wcd937x_dapm_widgets[] = {
++	/* Input widgets */
++	SND_SOC_DAPM_INPUT("IN1_HPHL"),
++	SND_SOC_DAPM_INPUT("IN2_HPHR"),
++	SND_SOC_DAPM_INPUT("IN3_AUX"),
++
++	SND_SOC_DAPM_SUPPLY("VDD_BUCK", SND_SOC_NOPM, 0, 0,
++			    wcd937x_codec_enable_vdd_buck,
++			    SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMD),
++
++	SND_SOC_DAPM_SUPPLY_S("CLS_H_PORT", 1, SND_SOC_NOPM, 0, 0, NULL, 0),
++
++	/* RX widgets */
++	SND_SOC_DAPM_PGA_E("EAR PGA", WCD937X_ANA_EAR, 7, 0, NULL, 0,
++			   wcd937x_codec_enable_ear_pa,
++			   SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMU |
++			   SND_SOC_DAPM_PRE_PMD | SND_SOC_DAPM_POST_PMD),
++	SND_SOC_DAPM_PGA_E("AUX PGA", WCD937X_AUX_AUXPA, 7, 0, NULL, 0,
++			   wcd937x_codec_enable_aux_pa,
++			   SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMU |
++			   SND_SOC_DAPM_PRE_PMD | SND_SOC_DAPM_POST_PMD),
++	SND_SOC_DAPM_PGA_E("HPHL PGA", WCD937X_ANA_HPH, 7, 0, NULL, 0,
++			   wcd937x_codec_enable_hphl_pa,
++			   SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMU |
++			   SND_SOC_DAPM_PRE_PMD | SND_SOC_DAPM_POST_PMD),
++	SND_SOC_DAPM_PGA_E("HPHR PGA", WCD937X_ANA_HPH, 6, 0, NULL, 0,
++			   wcd937x_codec_enable_hphr_pa,
++			   SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMU |
++			   SND_SOC_DAPM_PRE_PMD | SND_SOC_DAPM_POST_PMD),
++
++	SND_SOC_DAPM_DAC_E("RDAC1", NULL, SND_SOC_NOPM, 0, 0,
++			   wcd937x_codec_hphl_dac_event,
++			   SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMU |
++			   SND_SOC_DAPM_PRE_PMD | SND_SOC_DAPM_POST_PMD),
++	SND_SOC_DAPM_DAC_E("RDAC2", NULL, SND_SOC_NOPM, 0, 0,
++			   wcd937x_codec_hphr_dac_event,
++			   SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMU |
++			   SND_SOC_DAPM_PRE_PMD | SND_SOC_DAPM_POST_PMD),
++	SND_SOC_DAPM_DAC_E("RDAC3", NULL, SND_SOC_NOPM, 0, 0,
++			   wcd937x_codec_ear_dac_event,
++			   SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMU |
++			   SND_SOC_DAPM_PRE_PMD | SND_SOC_DAPM_POST_PMD),
++	SND_SOC_DAPM_DAC_E("RDAC4", NULL, SND_SOC_NOPM, 0, 0,
++			   wcd937x_codec_aux_dac_event,
++			   SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMU |
++			   SND_SOC_DAPM_PRE_PMD | SND_SOC_DAPM_POST_PMD),
++
++	SND_SOC_DAPM_MUX("RDAC3_MUX", SND_SOC_NOPM, 0, 0, &rx_rdac3_mux),
++
++	SND_SOC_DAPM_MIXER_E("RX1", SND_SOC_NOPM, 0, 0, NULL, 0,
++			     wcd937x_enable_rx1, SND_SOC_DAPM_PRE_PMU |
++			     SND_SOC_DAPM_POST_PMD),
++	SND_SOC_DAPM_MIXER_E("RX2", SND_SOC_NOPM, 0, 0, NULL, 0,
++			     wcd937x_enable_rx2, SND_SOC_DAPM_PRE_PMU |
++			     SND_SOC_DAPM_POST_PMD),
++	SND_SOC_DAPM_MIXER_E("RX3", SND_SOC_NOPM, 0, 0, NULL, 0,
++			     wcd937x_enable_rx3, SND_SOC_DAPM_PRE_PMU |
++			     SND_SOC_DAPM_POST_PMD),
++
++	/* RX mixer widgets*/
++	SND_SOC_DAPM_MIXER("EAR_RDAC", SND_SOC_NOPM, 0, 0,
++			   ear_rdac_switch, ARRAY_SIZE(ear_rdac_switch)),
++	SND_SOC_DAPM_MIXER("AUX_RDAC", SND_SOC_NOPM, 0, 0,
++			   aux_rdac_switch, ARRAY_SIZE(aux_rdac_switch)),
++	SND_SOC_DAPM_MIXER("HPHL_RDAC", SND_SOC_NOPM, 0, 0,
++			   hphl_rdac_switch, ARRAY_SIZE(hphl_rdac_switch)),
++	SND_SOC_DAPM_MIXER("HPHR_RDAC", SND_SOC_NOPM, 0, 0,
++			   hphr_rdac_switch, ARRAY_SIZE(hphr_rdac_switch)),
++
++	/* RX output widgets */
++	SND_SOC_DAPM_OUTPUT("EAR"),
++	SND_SOC_DAPM_OUTPUT("AUX"),
++	SND_SOC_DAPM_OUTPUT("HPHL"),
++	SND_SOC_DAPM_OUTPUT("HPHR"),
 +};
 +
  static int wcd937x_set_micbias_data(struct wcd937x_priv *wcd937x)
  {
  	int vout_ctl[3];
-@@ -1316,6 +1515,8 @@ static const struct snd_soc_component_driver soc_codec_dev_wcd937x = {
- 	.name = "wcd937x_codec",
- 	.probe = wcd937x_soc_codec_probe,
+@@ -1517,6 +2182,8 @@ static const struct snd_soc_component_driver soc_codec_dev_wcd937x = {
  	.remove = wcd937x_soc_codec_remove,
-+	.controls = wcd937x_snd_controls,
-+	.num_controls = ARRAY_SIZE(wcd937x_snd_controls),
+ 	.controls = wcd937x_snd_controls,
+ 	.num_controls = ARRAY_SIZE(wcd937x_snd_controls),
++	.dapm_widgets = wcd937x_dapm_widgets,
++	.num_dapm_widgets = ARRAY_SIZE(wcd937x_dapm_widgets),
  	.set_jack = wcd937x_codec_set_jack,
  	.endianness = 1,
  };

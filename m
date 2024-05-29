@@ -2,135 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD867907794
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jun 2024 17:54:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D1169077AC
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jun 2024 18:01:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3C9A2E9D;
-	Thu, 13 Jun 2024 17:53:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C9A2E9D
+	by alsa0.perex.cz (Postfix) with ESMTPS id C89AEA4B;
+	Thu, 13 Jun 2024 18:00:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C89AEA4B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718294047;
-	bh=JqmBRm5p/y60vQho/QixG5OijJiMY4yvo8+3qIYS2Eg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=LklxyY1N5jRJ7PjchEAaNnQicZemxl8dPEwOFycdH+N0IQk4RboNCts9ILcXUc0dI
-	 rb3PvkjDFuZP90et1+eMHgvpmaSFUFkkrZxjG6kOQFyd2zuk2++SV4+l8njGJou7Qc
-	 26G0PkfLkyOpfRZZGDQ0Uh/koZNuFvxcddZ5thPo=
+	s=default; t=1718294465;
+	bh=F6cyAmkItPJMHlzbT5ed2RaRwc0dmuF+iURbDkk2joo=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=Q/mLL/1G8Qx3xuf2NDVCB+k2U95abBcz2FOrebP6emOKwXPFLlHQzweR1wwSx4gMN
+	 1vybh8PGdS8OnVNDZEQ5D31bF6sHHBmxTZhbA/cxg/iNG0zDCZx0Pod8nRFoXUvNYD
+	 GpWAqbwy3TNrlnFDDgIYZIoNPOjl51FI3NhncmnQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CAA58F8076A; Thu, 13 Jun 2024 17:51:16 +0200 (CEST)
+	id 5740AF800FA; Thu, 13 Jun 2024 18:00:34 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5C6A7F805BA;
-	Thu, 13 Jun 2024 17:51:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9E1ECF80579;
+	Thu, 13 Jun 2024 18:00:33 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C8445F801F5; Sat, 25 May 2024 15:32:53 +0200 (CEST)
+	id 97295F80149; Wed, 29 May 2024 17:57:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [IPv6:2a00:1450:4864:20::629])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from lelv0142.ext.ti.com (lelv0142.ext.ti.com [198.47.23.249])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 47417F8051D
-	for <alsa-devel@alsa-project.org>; Sat, 25 May 2024 15:28:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47417F8051D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2A56FF800BA
+	for <alsa-devel@alsa-project.org>; Wed, 29 May 2024 17:57:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A56FF800BA
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=iRHOfnKT
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-a6265d3ccbdso163885266b.0
-        for <alsa-devel@alsa-project.org>;
- Sat, 25 May 2024 06:28:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1716643698; x=1717248498;
- darn=alsa-project.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=xAevoRwyHB/hjeggss8BgF1gg74yCzQU/uk4mIsOlV8=;
-        b=iRHOfnKTaLwQI6I3k5vhxamruamIjWhgVPa/nglKDcn/KNhn4n12MJgl/W6qeFi39s
-         cEiivc6lBGt+4tsfeQBBVadnOPuPdph4vTEVKW7V7D8Qu8qJtHikd+Uw5f8SU7Rpox4D
-         //A3FYG/T2p0vt4ZIZ4qCt9TFg3iWUOWmp4Y7a/isMICWiyR/VWY2Nqa/hNY6o4uNaFm
-         YjfTXB1k91xqPP8SLYLhbmKIMEA7kS9T4bPyFiNIpm3S+MZoYlFUANj6OuG1GsAuha7d
-         faen8f5euqOhrqtvXqgKW/P6LchvLNtSZdd7Q970GixZERMs+HLtM8As6UEulT7y/WKh
-         GwgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716643698; x=1717248498;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=xAevoRwyHB/hjeggss8BgF1gg74yCzQU/uk4mIsOlV8=;
-        b=DmnL6zFc4ILwCdL05x41Z6ZVC6IvGJwVQ1v3CobbMbj/G8p9vHjZLnimrba8q+v3T/
-         qBSIQf0C7AeEhV6us5JZAMllzGDwyFMVjdxXiXj0AmrMBwuf6NqrHC86nj4ANy+/kkM3
-         sS4tY0YuPArHO308Byua9kh8vn4fWBZ2sdN24avj7wwMXd4GT9ZIMZiVp7zTHhDvdcBU
-         mp9rIl3gVb+ZL34hF27kdxe4G7v9CSPXI3kaWSF+tGTTr9H8jbEkRtaz03jZsD4puOTt
-         qyehrgW0oYsEMMgmDZLUBKqPby/V8myeB9AbRIz3sutUcii6STcx/8UHyJ2m77fziQER
-         h7dQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWEQ9Kdaar/WHn+Hn0DCbQvLgz+Co4L5OBqs6WpUmuq59eOF8Q+RqUukR9LpPZBGG8qPJ19PUnV/JxFVBUofed20H8fzeg7VTvmtFE=
-X-Gm-Message-State: AOJu0YwXukEOJ70rALEUFF4Gu3LlHCdd40+OhIDS+P8fVKa+gk3qsp37
-	2A/ZzT7sWZ2lkxgA2NVYSPxB9929nBtvyfyS/nfaRSSzaGu4191L
-X-Google-Smtp-Source: 
- AGHT+IHjDWw31Jpb0flKPT54OLT41uuXKaoyPQviyN3N7/UlfI6Rk1BZIMko/WbbCb3qjGua2q1M2w==
-X-Received: by 2002:a17:906:68c7:b0:a59:ab57:7413 with SMTP id
- a640c23a62f3a-a62651341ffmr304999866b.73.1716643698275;
-        Sat, 25 May 2024 06:28:18 -0700 (PDT)
-Received: from hex.my.domain (83.8.128.191.ipv4.supernova.orange.pl.
- [83.8.128.191])
-        by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a626cda46e1sm251842566b.196.2024.05.25.06.28.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 25 May 2024 06:28:17 -0700 (PDT)
-From: Artur Weber <aweber.kernel@gmail.com>
-Date: Sat, 25 May 2024 15:28:13 +0200
-Subject: [PATCH v4 9/9] ARM: dts: samsung: exynos4212-tab3: Drop interrupt
- from WM1811 codec
+	dkim=pass (1024-bit key,
+ unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
+ header.s=ti-com-17Q1 header.b=Bfx7xSsO
+Received: from lelv0265.itg.ti.com ([10.180.67.224])
+	by lelv0142.ext.ti.com (8.15.2/8.15.2) with ESMTP id 44TFvQiL092772;
+	Wed, 29 May 2024 10:57:26 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+	s=ti-com-17Q1; t=1716998246;
+	bh=VtlZBCIrXk7KWkQBoJWGM8oCenwDZWgPBkeKsS0cLy0=;
+	h=From:To:CC:Subject:Date;
+	b=Bfx7xSsOlRFaxh858qh8x9RRHbVRqngv2ZLfpVerQI7m2JI6dpJ+dAvj3Z6j/nUbD
+	 gjpwBmcEM1MAz9ZGa4wS1hmbvDWr0dct7PFdIPnuIGiNvBavS3kEcA2WCy1DpVYfUi
+	 f99qS9Lu9mMDQr/j8vMAZQYKLM2gy0tT+8IaARNc=
+Received: from DFLE112.ent.ti.com (dfle112.ent.ti.com [10.64.6.33])
+	by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 44TFvQVi032095
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Wed, 29 May 2024 10:57:26 -0500
+Received: from DFLE105.ent.ti.com (10.64.6.26) by DFLE112.ent.ti.com
+ (10.64.6.33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Wed, 29
+ May 2024 10:57:26 -0500
+Received: from lelvsmtp5.itg.ti.com (10.180.75.250) by DFLE105.ent.ti.com
+ (10.64.6.26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
+ Frontend Transport; Wed, 29 May 2024 10:57:26 -0500
+Received: from lelvsmtp5.itg.ti.com ([10.250.165.138])
+	by lelvsmtp5.itg.ti.com (8.15.2/8.15.2) with ESMTP id 44TFvHYp029748;
+	Wed, 29 May 2024 10:57:18 -0500
+From: Baojun Xu <baojun.xu@ti.com>
+To: <tiwai@suse.de>
+CC: <robh+dt@kernel.org>, <andriy.shevchenko@linux.intel.com>,
+        <lgirdwood@gmail.com>, <perex@perex.cz>,
+        <pierre-louis.bossart@linux.intel.com>, <kevin-lu@ti.com>,
+        <shenghao-ding@ti.com>, <navada@ti.com>, <13916275206@139.com>,
+        <v-hampiholi@ti.com>, <v-po@ti.com>, <niranjan.hy@ti.com>,
+        <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>,
+        <liam.r.girdwood@intel.com>, <yung-chuan.liao@linux.intel.com>,
+        <baojun.xu@ti.com>, <broonie@kernel.org>, <soyer@irl.hu>
+Subject: [PATCH v6 0/1] Add tas2781 driver for SPI.
+Date: Wed, 29 May 2024 23:56:52 +0800
+Message-ID: <20240529155653.3037-1-baojun.xu@ti.com>
+X-Mailer: git-send-email 2.43.0.windows.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20240525-midas-wm1811-gpio-jack-v4-9-f488e03bd8c7@gmail.com>
-References: <20240525-midas-wm1811-gpio-jack-v4-0-f488e03bd8c7@gmail.com>
-In-Reply-To: <20240525-midas-wm1811-gpio-jack-v4-0-f488e03bd8c7@gmail.com>
-To: Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Alim Akhtar <alim.akhtar@samsung.com>, alsa-devel@alsa-project.org,
- linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
- Artur Weber <aweber.kernel@gmail.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1716643685; l=1130;
- i=aweber.kernel@gmail.com; s=20231030; h=from:subject:message-id;
- bh=JqmBRm5p/y60vQho/QixG5OijJiMY4yvo8+3qIYS2Eg=;
- b=att6PI+S7xL/90ESu59NSz4LR4vIES/yJXLYib2LgY8EMPIGeok1wNdGajg7ym3EcfPb7CnFU
- Pwld1M2ToFDAxruK69JapsFnNIrDHO+vaCy7Kw72doBiWQPqda/rdnC
-X-Developer-Key: i=aweber.kernel@gmail.com; a=ed25519;
- pk=RhDBfWbJEHqDibXbhNEBAnc9FMkyznGxX/hwfhL8bv8=
-X-MailFrom: aweber.kernel@gmail.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+X-MailFrom: baojun.xu@ti.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: WKYRNB7N3A3QJALVD2VZPPVADKJLAK5B
-X-Message-ID-Hash: WKYRNB7N3A3QJALVD2VZPPVADKJLAK5B
-X-Mailman-Approved-At: Thu, 13 Jun 2024 15:51:03 +0000
+Message-ID-Hash: NI7E3373MK4NXGGF4LTCLAUY52NVWGVU
+X-Message-ID-Hash: NI7E3373MK4NXGGF4LTCLAUY52NVWGVU
+X-Mailman-Approved-At: Thu, 13 Jun 2024 16:00:30 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WKYRNB7N3A3QJALVD2VZPPVADKJLAK5B/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NI7E3373MK4NXGGF4LTCLAUY52NVWGVU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -139,36 +108,47 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-This was initially copied from the Midas DTSI, but there is no
-proof that the same interrupt is also used on the Tab 3. The pin
-listed as the interrupt here is GPIO_HDMI_CEC on the Midas,
-but for the Tab 3 it is the headset button GPIO - GPIO_EAR_SEND_END.
+This patch was used to add TAS2781 devices on SPI support in sound/pci/hda.
+It use ACPI node descript about parameters of TAS2781 on SPI, it like:
+    Scope (_SB.PC00.SPI0)
+    {
+        Device (GSPK)
+        {
+            Name (_HID, "TXNW2781")  // _HID: Hardware ID
+            Method (_CRS, 0, NotSerialized)
+            {
+                Name (RBUF, ResourceTemplate ()
+                {
+                    SpiSerialBusV2 (...)
+                    SpiSerialBusV2 (...)
+                }
+            }
+        }
+    }
 
-Drop the interrupt, since there is no proof that it is used.
+And in platform/x86/serial-multi-instantiate.c, those spi devices will be
+added into system as a single SPI device, so TAS2781 SPI driver will
+probe twice for every single SPI device. And driver will also parser
+mono DSP firmware binary and RCA binary for itself.
 
-Signed-off-by: Artur Weber <aweber.kernel@gmail.com>
----
-Changes in v3:
-- Split out from "[PATCH v2 7/7] ARM: dts: samsung: exynos4212-tab3:
-  Fix up wm1811 codec config"
----
- arch/arm/boot/dts/samsung/exynos4212-tab3.dtsi | 2 --
- 1 file changed, 2 deletions(-)
+Signed-off-by: Baojun Xu <baojun.xu@ti.com>
 
-diff --git a/arch/arm/boot/dts/samsung/exynos4212-tab3.dtsi b/arch/arm/boot/dts/samsung/exynos4212-tab3.dtsi
-index 47e9a230f2e8..20e5e7ba6b92 100644
---- a/arch/arm/boot/dts/samsung/exynos4212-tab3.dtsi
-+++ b/arch/arm/boot/dts/samsung/exynos4212-tab3.dtsi
-@@ -534,8 +534,6 @@ wm1811: audio-codec@1a {
- 		clock-names = "MCLK1", "MCLK2";
- 		interrupt-controller;
- 		#interrupt-cells = <2>;
--		interrupt-parent = <&gpx3>;
--		interrupts = <6 IRQ_TYPE_LEVEL_HIGH>;
- 
- 		gpio-controller;
- 		#gpio-cells = <2>;
+Baojun Xu (1):
+  ALSA: hda/tas2781: Add tas2781 hda driver based on SPI
+
+ drivers/acpi/scan.c                           |    1 +
+ .../platform/x86/serial-multi-instantiate.c   |   12 +
+ sound/pci/hda/Kconfig                         |   14 +
+ sound/pci/hda/Makefile                        |    2 +
+ sound/pci/hda/patch_realtek.c                 |   13 +
+ sound/pci/hda/tas2781-spi.h                   |  148 ++
+ sound/pci/hda/tas2781_hda_spi.c               | 1266 ++++++++++
+ sound/pci/hda/tas2781_spi_fwlib.c             | 2101 +++++++++++++++++
+ 8 files changed, 3557 insertions(+)
+ create mode 100644 sound/pci/hda/tas2781-spi.h
+ create mode 100644 sound/pci/hda/tas2781_hda_spi.c
+ create mode 100644 sound/pci/hda/tas2781_spi_fwlib.c
 
 -- 
-2.45.1
+2.40.1
 

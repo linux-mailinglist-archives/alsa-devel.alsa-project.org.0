@@ -2,112 +2,125 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 414DE8D2AB8
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 May 2024 04:19:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31F4F8D2DF5
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 May 2024 09:16:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9B63C85D;
-	Wed, 29 May 2024 04:19:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B63C85D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6B1B8846;
+	Wed, 29 May 2024 09:16:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B1B8846
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1716949162;
-	bh=jcVK57FbtJeQrFT8gv4gi4N3C+tc4HJy3psQqxo2nOI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1716966978;
+	bh=dtl6IvVIcy95ErncD4IjxYkJnnlytniayWsfALbzAI0=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ZakRjEpCzgIT8oaOALFNm5oTAU3uAYvjVYaCPF5Hx1mx/TIQiUxgdqlSur+KhO5mE
-	 DaQjQFK5pUXV4O8EhNdqTwjI3oMUpG837SO2rIzx8tWJ8jbROc/LewnbEIXj179uDn
-	 gKK4Z3eUoDyQuLAFn7rHSfeFtym4DVEXy/loxdeY=
+	b=QK8pBvvaLWJmRUya3bL++rZDqpZ5SK2oeadJj67MfDxBAySHoJTxO7hekgd0lA6X9
+	 Rc4TMycj2LzA9BS/ULokhdBuw6M+pCCQL91UDLaNtg8yRAdcR0JiOd26+XFAhKlL0D
+	 r5NH6Ii/elytBKUX30ZX3RQNmkjBqsN2ch/hExB8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F2E19F805AA; Wed, 29 May 2024 04:18:51 +0200 (CEST)
+	id 1D5F8F805AC; Wed, 29 May 2024 09:15:45 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 750A7F8055C;
-	Wed, 29 May 2024 04:18:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D3455F8057A;
+	Wed, 29 May 2024 09:15:44 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6CFD8F80149; Wed, 29 May 2024 04:18:46 +0200 (CEST)
+	id 8CB8DF80149; Wed, 29 May 2024 09:12:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-io1-xd2b.google.com (mail-io1-xd2b.google.com
- [IPv6:2607:f8b0:4864:20::d2b])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H2,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_PASS,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 51EEDF800BA
-	for <alsa-devel@alsa-project.org>; Wed, 29 May 2024 04:18:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51EEDF800BA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8EA8AF800BA
+	for <alsa-devel@alsa-project.org>; Wed, 29 May 2024 09:12:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8EA8AF800BA
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=UvswOW3y
-Received: by mail-io1-xd2b.google.com with SMTP id
- ca18e2360f4ac-7e201db9f47so68232539f.3
-        for <alsa-devel@alsa-project.org>;
- Tue, 28 May 2024 19:18:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1716949110; x=1717553910;
- darn=alsa-project.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=g1zuMc6QVmp7ZjCjJt78h2VKZOxHAgfCEmVnh0EIazE=;
-        b=UvswOW3yaaDab0d8pjPBwnrEIgXbO3X7HlmZCTYBo6ZcseYf/cY9e/OFcjpy47uX1Z
-         oMuOjIxxs2BF8MPIcatG4IRma2xqzFJ2y3SCSRjY4bNQ/semOS+ACXPkUoMAFJNYFAEW
-         B+rvxgM36+yq36CUecObZ5I38j2HfgtI+xhT9dWdP/T+6oVs8Qo7yfxolQZOZq8qjcnh
-         Xz+Y5I+BIeUUwyeiZf/AM/tyyH0oIEUP5R74WGpqdsshwPsprGu02Vc9j1b1yBoPX+Qg
-         T/i9AzerE4UH+aikI+Q0BiYoruwfg0fTwcRylMhS6JlLZiYpf2pZxvpJT+HZjf3n9g9T
-         ZxLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1716949110; x=1717553910;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=g1zuMc6QVmp7ZjCjJt78h2VKZOxHAgfCEmVnh0EIazE=;
-        b=m0A9ko2eaE3mVUd+h0dWs4KPWx8t4/R9xd6mZw0qCx+WSCBth0IQNFbfOJ5jxv22ks
-         WENPUE8Nt/I2zIKRTF042EXmIifGMKOq1lC7LQ361bD5EszktCCwydipv0LpiBMX4R0V
-         pyEK17fUC2Ahb191Y8loxBSnMKBA4AFVt1XgxQ/06xY40cB2ukDdJTK1mWOSHIc+vEI7
-         NDaladSEtOUGmvuLTO7tuTpKR+Sci3nMX/FqWzbphdu5jAzbSM21DmASn8c54vk/cyj3
-         aVHi21qUCR6seUJcOde82IINH0BnZRE6Nv6cAbJdSmICuvFQ9PzXJu3QtoJiJuwPYt9S
-         5vFQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXjrPqRxBLYsebs0gtibOu0wf9VbhIwBsEjM9nydHJoFlVV972bRQDeQma6Q63+RN3lukExw6vFyvLdzI3ZNSh5CPnkpzt3vH402H8=
-X-Gm-Message-State: AOJu0YzmEC2gal1SCKSmw5Rz6ZY8/yXEx63YcC0Vvx1IdEPwYHAqFn/U
-	NvV6WpWsDeVcquDtGT/ewQp2uYOqyG09WksRD4inXLmiQz8hj7CJEZpi+niYm4ENNDGVz3us6XV
-	hQetggir3eCIC5It4LO3abIPLvoY=
-X-Google-Smtp-Source: 
- AGHT+IFcF3TNc9ogUWcYtJiiuSJm+fWo3KnUCeZ2Iq6PTOrYl3WLncVJ7quYftqH5wIdf7b86ARTJGK34c1ksQ3R+ik=
-X-Received: by 2002:a92:ca0e:0:b0:374:593f:914a with SMTP id
- e9e14a558f8ab-374593f9523mr79683085ab.4.1716949110033; Tue, 28 May 2024
- 19:18:30 -0700 (PDT)
+	dkim=pass (1024-bit key,
+ unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
+ header.s=ti-com-17Q1 header.b=AE4OmqwQ
+Received: from fllv0034.itg.ti.com ([10.64.40.246])
+	by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id 44T7CU7Z030585;
+	Wed, 29 May 2024 02:12:30 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+	s=ti-com-17Q1; t=1716966750;
+	bh=dtl6IvVIcy95ErncD4IjxYkJnnlytniayWsfALbzAI0=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To;
+	b=AE4OmqwQ5ttpRxtYNP8kLyQ6G+l0QLJW5EvPjDHrX+TV3ECoVhC4XtIcWJcS+M5ED
+	 JpPsI9J/vp6GWMlxMMhhxJG5pqUFf4xcA28SlqKA9aR2lnZlE4hP1jKxnXpcKl+oQP
+	 8k9s+VlWDGDOSarArZ3dpQxXj54TBE4U82iLk7H8=
+Received: from DLEE102.ent.ti.com (dlee102.ent.ti.com [157.170.170.32])
+	by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 44T7CUGF086277
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Wed, 29 May 2024 02:12:30 -0500
+Received: from DLEE101.ent.ti.com (157.170.170.31) by DLEE102.ent.ti.com
+ (157.170.170.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Wed, 29
+ May 2024 02:12:30 -0500
+Received: from DLEE101.ent.ti.com ([fe80::91ee:60bc:bfb7:851c]) by
+ DLEE101.ent.ti.com ([fe80::91ee:60bc:bfb7:851c%18]) with mapi id
+ 15.01.2507.023; Wed, 29 May 2024 02:12:30 -0500
+From: "Ding, Shenghao" <shenghao-ding@ti.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+        "broonie@kernel.org" <broonie@kernel.org>
+CC: "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
+        "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+        "perex@perex.cz"
+	<perex@perex.cz>,
+        "13916275206@139.com" <13916275206@139.com>,
+        "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+        "Salazar, Ivan"
+	<i-salazar@ti.com>,
+        "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>,
+        "Chadha, Jasjot Singh" <j-chadha@ti.com>,
+        "liam.r.girdwood@intel.com" <liam.r.girdwood@intel.com>,
+        "Yue, Jaden"
+	<jaden-yue@ti.com>,
+        "yung-chuan.liao@linux.intel.com"
+	<yung-chuan.liao@linux.intel.com>,
+        "Rao, Dipa" <dipa@ti.com>, "Lu, Kevin"
+	<kevin-lu@ti.com>,
+        "yuhsuan@google.com" <yuhsuan@google.com>,
+        "tiwai@suse.de"
+	<tiwai@suse.de>, "Xu, Baojun" <baojun.xu@ti.com>,
+        "soyer@irl.hu"
+	<soyer@irl.hu>,
+        "Baojun.Xu@fpt.com" <Baojun.Xu@fpt.com>,
+        "judyhsiao@google.com" <judyhsiao@google.com>,
+        "Navada Kanyana, Mukund"
+	<navada@ti.com>,
+        "cujomalainey@google.com" <cujomalainey@google.com>,
+        "Kutty,
+ Aanya" <aanya@ti.com>,
+        "Mahmud, Nayeem" <nayeem.mahmud@ti.com>
+Subject: RE: [EXTERNAL] Re: [PATCH v2] ASoc: tas2781: Playback can work when
+ only RCA binary loading without dsp firmware loading
+Thread-Topic: [EXTERNAL] Re: [PATCH v2] ASoc: tas2781: Playback can work when
+ only RCA binary loading without dsp firmware loading
+Thread-Index: AQHarkWK7iKbbU+59EqlRKOrGPAfoLGrbykAgAJhvRA=
+Date: Wed, 29 May 2024 07:12:29 +0000
+Message-ID: <c55a356b2ab0452db81dbcc36ab36b65@ti.com>
+References: <20240525014727.197-1-shenghao-ding@ti.com>
+ <6a8ab4f6-63be-4284-814a-d853faf000b5@linux.intel.com>
+In-Reply-To: <6a8ab4f6-63be-4284-814a-d853faf000b5@linux.intel.com>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.85.14.171]
+x-exclaimer-md-config: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-References: <1716286416-17621-1-git-send-email-shengjiu.wang@nxp.com>
- <1716286416-17621-2-git-send-email-shengjiu.wang@nxp.com>
- <20240528151536.GA275498-robh@kernel.org>
-In-Reply-To: <20240528151536.GA275498-robh@kernel.org>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Wed, 29 May 2024 10:18:18 +0800
-Message-ID: 
- <CAA+D8AMyf9jEHapNkRdEguhi8T+WVQXhxcF_tESmgbrffvdTxg@mail.gmail.com>
-Subject: Re: [PATCH v3 1/2] ASoC: dt-bindings: fsl,xcvr: Add compatible string
- for i.MX95
-To: Rob Herring <robh@kernel.org>
-Cc: Shengjiu Wang <shengjiu.wang@nxp.com>, lgirdwood@gmail.com,
- broonie@kernel.org,
-	krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
-	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Xiubo.Lee@gmail.com, festevam@gmail.com,
-	nicoleotsuka@gmail.com, perex@perex.cz, tiwai@suse.com,
-	alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: JDPSAV32MTSNJYO54OUX35RSEYRBRIQW
-X-Message-ID-Hash: JDPSAV32MTSNJYO54OUX35RSEYRBRIQW
-X-MailFrom: shengjiu.wang@gmail.com
+Message-ID-Hash: SELGCM3ZEGFWBUXMPRWF6Q2EPWANNUYA
+X-Message-ID-Hash: SELGCM3ZEGFWBUXMPRWF6Q2EPWANNUYA
+X-MailFrom: shenghao-ding@ti.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -119,7 +132,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JDPSAV32MTSNJYO54OUX35RSEYRBRIQW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SELGCM3ZEGFWBUXMPRWF6Q2EPWANNUYA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -128,138 +141,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, May 28, 2024 at 11:15=E2=80=AFPM Rob Herring <robh@kernel.org> wrot=
-e:
->
-> On Tue, May 21, 2024 at 06:13:35PM +0800, Shengjiu Wang wrote:
-> > Add compatible string "fsl,imx95-xcvr" for i.MX95 platform.
-> >
-> > The difference between each platform is in below table.
-> >
-> > +---------+--------+----------+--------+
-> > |  SOC          |  PHY   | eARC/ARC | SPDIF  |
-> > +---------+--------+----------+--------+
-> > | i.MX8MP |  V1    |  Yes     |  Yes   |
-> > +---------+--------+----------+--------+
-> > | i.MX93  |  N/A   |  N/A     |  Yes   |
-> > +---------+--------+----------+--------+
-> > | i.MX95  |  V2    |  N/A     |  Yes   |
-> > +---------+--------+----------+--------+
-> >
-> > On i.MX95, there are two PLL clock sources, they are the parent
-> > clocks of the XCVR root clock. one is for 8kHz series rates, named
-> > as 'pll8k', another one is for 11kHz series rates, named as 'pll11k'.
-> > They are optional clocks, if there are such clocks, then the driver
-> > can switch between them to support more accurate sample rates.
-> >
-> > As 'pll8k' and 'pll11k' are optional, then add 'minItems: 4' for
-> > clocks and clock-names properties.
-> >
-> > On i.MX95, the 'interrupts' configuration has the same constraint
-> > as i.MX93.
-> >
-> > Only on i.MX8MP, the 'resets' is required, but for i.MX95 and i.MX93
-> > there is no such hardware setting.
-> >
-> > Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-> > ---
-> >  .../devicetree/bindings/sound/fsl,xcvr.yaml   | 37 ++++++++++++++++++-
-> >  1 file changed, 36 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/Documentation/devicetree/bindings/sound/fsl,xcvr.yaml b/Do=
-cumentation/devicetree/bindings/sound/fsl,xcvr.yaml
-> > index 0eb0c1ba8710..d1dcc27655eb 100644
-> > --- a/Documentation/devicetree/bindings/sound/fsl,xcvr.yaml
-> > +++ b/Documentation/devicetree/bindings/sound/fsl,xcvr.yaml
-> > @@ -22,6 +22,7 @@ properties:
-> >      enum:
-> >        - fsl,imx8mp-xcvr
-> >        - fsl,imx93-xcvr
-> > +      - fsl,imx95-xcvr
-> >
-> >    reg:
-> >      items:
-> > @@ -49,6 +50,9 @@ properties:
-> >        - description: PHY clock
-> >        - description: SPBA clock
-> >        - description: PLL clock
-> > +      - description: PLL clock source for 8kHz series
-> > +      - description: PLL clock source for 11kHz series
-> > +    minItems: 4
-> >
-> >    clock-names:
-> >      items:
-> > @@ -56,6 +60,9 @@ properties:
-> >        - const: phy
-> >        - const: spba
-> >        - const: pll_ipg
-> > +      - const: pll8k
-> > +      - const: pll11k
-> > +    minItems: 4
-> >
-> >    dmas:
-> >      items:
-> > @@ -79,15 +86,24 @@ required:
-> >    - clock-names
-> >    - dmas
-> >    - dma-names
-> > -  - resets
-> >
-> >  allOf:
-> > +  - if:
-> > +      properties:
-> > +        compatible:
-> > +          contains:
-> > +            const: fsl,imx8mp-xcvr
-> > +    then:
-> > +      required:
-> > +        - resets
-> > +
-> >    - if:
-> >        properties:
-> >          compatible:
-> >            contains:
-> >              enum:
-> >                - fsl,imx93-xcvr
-> > +              - fsl,imx95-xcvr
-> >      then:
-> >        properties:
-> >          interrupts:
-> > @@ -98,6 +114,25 @@ allOf:
-> >          interrupts:
-> >            maxItems: 1
-> >
-> > +  - if:
-> > +      properties:
-> > +        compatible:
-> > +          contains:
-> > +            enum:
-> > +              - fsl,imx95-xcvr
-> > +    then:
-> > +      properties:
-> > +        clocks:
-> > +          maxItems: 6
-> > +        clock-names:
-> > +          maxItems: 6
->
-> 6 is already the max. Drop these and add a 'not' into the if schema (or
-> list out the other compatibles).
-
-Ok, will update it.
-
-best regards
-Shengjiu Wang
->
-> > +    else:
-> > +      properties:
-> > +        clocks:
-> > +          maxItems: 4
-> > +        clock-names:
-> > +          maxItems: 4
-> > +
-> >  additionalProperties: false
-> >
-> >  examples:
-> > --
-> > 2.34.1
-> >
+DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogUGllcnJlLUxvdWlzIEJv
+c3NhcnQgPHBpZXJyZS1sb3Vpcy5ib3NzYXJ0QGxpbnV4LmludGVsLmNvbT4NCj4gU2VudDogTW9u
+ZGF5LCBNYXkgMjcsIDIwMjQgOTo0NCBQTQ0KPiBUbzogRGluZywgU2hlbmdoYW8gPHNoZW5naGFv
+LWRpbmdAdGkuY29tPjsgYnJvb25pZUBrZXJuZWwub3JnDQo+IENjOiBhbmRyaXkuc2hldmNoZW5r
+b0BsaW51eC5pbnRlbC5jb207IGxnaXJkd29vZEBnbWFpbC5jb207DQo+IHBlcmV4QHBlcmV4LmN6
+OyAxMzkxNjI3NTIwNkAxMzkuY29tOyBhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmc7DQo+IFNh
+bGF6YXIsIEl2YW4gPGktc2FsYXphckB0aS5jb20+OyBsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwu
+b3JnOyBDaGFkaGEsDQo+IEphc2pvdCBTaW5naCA8ai1jaGFkaGFAdGkuY29tPjsgbGlhbS5yLmdp
+cmR3b29kQGludGVsLmNvbTsgWXVlLCBKYWRlbg0KPiA8amFkZW4teXVlQHRpLmNvbT47IHl1bmct
+Y2h1YW4ubGlhb0BsaW51eC5pbnRlbC5jb207IFJhbywgRGlwYQ0KPiA8ZGlwYUB0aS5jb20+OyBM
+dSwgS2V2aW4gPGtldmluLWx1QHRpLmNvbT47IHl1aHN1YW5AZ29vZ2xlLmNvbTsNCj4gdGl3YWlA
+c3VzZS5kZTsgWHUsIEJhb2p1biA8YmFvanVuLnh1QHRpLmNvbT47IHNveWVyQGlybC5odTsNCj4g
+QmFvanVuLlh1QGZwdC5jb207IGp1ZHloc2lhb0Bnb29nbGUuY29tOyBOYXZhZGEgS2FueWFuYSwg
+TXVrdW5kDQo+IDxuYXZhZGFAdGkuY29tPjsgY3Vqb21hbGFpbmV5QGdvb2dsZS5jb207IEt1dHR5
+LCBBYW55YQ0KPiA8YWFueWFAdGkuY29tPjsgTWFobXVkLCBOYXllZW0gPG5heWVlbS5tYWhtdWRA
+dGkuY29tPg0KPiBTdWJqZWN0OiBbRVhURVJOQUxdIFJlOiBbUEFUQ0ggdjJdIEFTb2M6IHRhczI3
+ODE6IFBsYXliYWNrIGNhbiB3b3JrIHdoZW4NCj4gb25seSBSQ0EgYmluYXJ5IGxvYWRpbmcgd2l0
+aG91dCBkc3AgZmlybXdhcmUgbG9hZGluZw0KPiANCj4gT24gNS8yNC8yNCAyMDrigIo0NywgU2hl
+bmdoYW8gRGluZyB3cm90ZTogPiBJbiBvbmx5IFJDQSBiaW5hcnkgbG9hZGluZyBjYXNlLA0KPiBv
+bmx5IGRlZmF1bHQgZHNwIHByb2dyYW0gaW5zaWRlIHRoZSA+IGNoaXAgd2lsbCBiZSB3b3JrLiBX
+aGF0IGRvZXMgJ1JDQScNCj4gc3RhbmQgZm9yPyBBbHNvIGNsYXJpZnkgdGhlIGNvbW1pdCB0aXRs
+ZSB3aXRob3V0IGRvdWJsZSBuZWdhdGl2ZXMsIGUu4oCKZy4gIkVuYWJsZQ0KPiBSQ0EtYmFzZWQg
+WmpRY21RUllGcGZwdEJhbm5lclN0YXJ0IFRoaXMgbWVzc2FnZSB3YXMgc2VudCBmcm9tIG91dHNp
+ZGUNCj4gb2YgVGV4YXMgSW5zdHJ1bWVudHMuDQo+IERvIG5vdCBjbGljayBsaW5rcyBvciBvcGVu
+IGF0dGFjaG1lbnRzIHVubGVzcyB5b3UgcmVjb2duaXplIHRoZSBzb3VyY2Ugb2YgdGhpcw0KPiBl
+bWFpbCBhbmQga25vdyB0aGUgY29udGVudCBpcyBzYWZlLiBJZiB5b3Ugd2lzaCB0byByZXBvcnQg
+dGhpcyBtZXNzYWdlIHRvIElUDQo+IFNlY3VyaXR5LCBwbGVhc2UgZm9yd2FyZCB0aGUgbWVzc2Fn
+ZSBhcyBhbiBhdHRhY2htZW50IHRvDQo+IHBoaXNoaW5nQGxpc3QudGkuY29tDQo+IA0KPiBaalFj
+bVFSWUZwZnB0QmFubmVyRW5kDQo+IA0KPiANCj4gT24gNS8yNC8yNCAyMDo0NywgU2hlbmdoYW8g
+RGluZyB3cm90ZToNCj4gPiBJbiBvbmx5IFJDQSBiaW5hcnkgbG9hZGluZyBjYXNlLCBvbmx5IGRl
+ZmF1bHQgZHNwIHByb2dyYW0gaW5zaWRlIHRoZQ0KPiA+IGNoaXAgd2lsbCBiZSB3b3JrLg0KPiAN
+Ci4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4u
+Li4uLi4uLi4uLi4uLi4NCj4gPiAtCWlmICh0YXNfcHJpdi0+Zndfc3RhdGUgPT0gVEFTREVWSUNF
+X0RTUF9GV19GQUlMKSB7DQo+ID4gLQkJLypJZiBEU1AgRlcgZmFpbCwga2NvbnRyb2wgd29uJ3Qg
+YmUgY3JlYXRlZCAqLw0KPiA+IC0JCXRhc2RldmljZV9jb25maWdfaW5mb19yZW1vdmUodGFzX3By
+aXYpOw0KPiA+ICsJaWYgKHRhc19wcml2LT5md19zdGF0ZSA9PSBUQVNERVZJQ0VfUkNBX0ZXX09L
+KSB7DQo+ID4gKwkJLypJZiBEU1AgRlcgZmFpbCwgRFNQIGtjb250cm9sIHdvbid0IGJlIGNyZWF0
+ZWQgKi8NCj4gDQo+IEl0IGxvb2tzIGxpa2UgeW91J3JlIG5vIGxvbmdlciB1c2luZyBQRU5ESU5H
+IGFuZCBGQUlMIHN0YXRlcz8NCj4gVGhlIHN0YXRlIG1hY2hpbmUgaXMgYmVjb21pbmcgcmVhbGx5
+IGhhcmQgdG8gZm9sbG93Lg0KUEVORElORyBhbmQgRkFJTCBzdGF0ZXMgaGF2ZSBiZWVuIHVzZWQg
+aW4gSERBLWJhc2VkIHRhczI1NjMvdGFzMjc4MSBkcml2ZXINCg0KPiANCj4gPiAgCQl0YXNkZXZp
+Y2VfZHNwX3JlbW92ZSh0YXNfcHJpdik7DQo+ID4gIAl9DQo+ID4gIAltdXRleF91bmxvY2soJnRh
+c19wcml2LT5jb2RlY19sb2NrKTsNCj4gPiBAQCAtNDY2LDE0ICs0NzIsMTQgQEAgc3RhdGljIGlu
+dCB0YXNkZXZpY2Vfc3RhcnR1cChzdHJ1Y3QNCj4gPiBzbmRfcGNtX3N1YnN0cmVhbSAqc3Vic3Ry
+ZWFtLCAgew0KPiA+ICAJc3RydWN0IHNuZF9zb2NfY29tcG9uZW50ICpjb2RlYyA9IGRhaS0+Y29t
+cG9uZW50Ow0KPiA+ICAJc3RydWN0IHRhc2RldmljZV9wcml2ICp0YXNfcHJpdiA9DQouLi4uLi4u
+Li4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4u
+Li4uLi4uLi4uLi4uLi4uLi4uDQo=

@@ -2,91 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60A2A8D3CF7
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 May 2024 18:40:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C1328D3D3C
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 May 2024 19:12:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AA32BB6A;
-	Wed, 29 May 2024 18:40:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA32BB6A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 07D346C0;
+	Wed, 29 May 2024 19:12:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 07D346C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1717000814;
-	bh=ykTtw6vKDQHUEg7QWmim2oDDVh/AapNP1ApfV4SD5iQ=;
-	h=Date:From:To:Cc:Subject:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=XNSMuNO/rD747s5eW1LcgKOOAQ8uuoaazYRVKJ/oOJfDW2+x4G6J4eqv343QUB0CS
-	 YONFB5rAyIxY3QKiNu1Xo+jMef6C9pLIFJ4c7cQmUY0XLfSjX2hVlj1D8WiR4l4Y1E
-	 QCW1waxoQpyZwSmCPAkra6UOQrTbrPNZTZOUnkc0=
+	s=default; t=1717002730;
+	bh=9UpR3hGU/5+3bUNpfdSES1Ui6yAXcd8PftieunFAs7w=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=dn/mawOb6hDjolI2NJXuRnRMh+HFSDB8Aa3RtaBzbJ63md5bMFdaXJjR1gf+q/lPZ
+	 F7UzcyFzuxJAlnjoiTaD2fhiobOot/JRO4r+hsl7GftbE6w3aYdEQnNIUmtDxuOSEm
+	 bpcZf8KfbYfwjh0xdh4ZRjZEgmtUSALBDysz/NJs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D435FF804B2; Wed, 29 May 2024 18:39:42 +0200 (CEST)
+	id 55DBAF80149; Wed, 29 May 2024 19:11:38 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 27FF9F8058C;
-	Wed, 29 May 2024 18:39:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DB395F80579;
+	Wed, 29 May 2024 19:11:37 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E71BCF80149; Wed, 29 May 2024 18:39:38 +0200 (CEST)
+	id 46479F80149; Wed, 29 May 2024 19:11:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2C8FAF80051
-	for <alsa-devel@alsa-project.org>; Wed, 29 May 2024 18:39:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C8FAF80051
+	by alsa1.perex.cz (Postfix) with ESMTPS id 635B6F8003A
+	for <alsa-devel@alsa-project.org>; Wed, 29 May 2024 19:11:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 635B6F8003A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=fEy3VYpA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1717000773; x=1748536773;
-  h=date:from:to:cc:subject:message-id:mime-version;
-  bh=ykTtw6vKDQHUEg7QWmim2oDDVh/AapNP1ApfV4SD5iQ=;
-  b=fEy3VYpAV252l0LUvK6v8BBA7eYhuJ75l6Y/IujliOqndPvWwZTuIhR0
-   prHMG7KLX7xAe4MO5Y+64HOmNwBXbTgHvj9awZkHF2Y4jNDGylBrvJMFX
-   FKNxzGNdXMesMG/xsXu1lnObs9oMcaf1Zch0ggsLHN3k1MlFPnWOXBC7V
-   w9ADjpHZ6eiOLldVYUUvJ2zu/NcA99CR3zmHeaADUkMrwV3oU/v2ixjVW
-   jLdAfhHHubXRTChb8JWGyvt8o1v36VehdiIimzr3dUjilbCOixC2l9VWd
-   NvdUEmTbx534Su5JwbX888sqqAUTQxqntrxkQCl2TgQ/fYgeySJAkHw2Y
-   A==;
-X-CSE-ConnectionGUID: HBbj4cwBSoepDIKV/6ihAg==
-X-CSE-MsgGUID: q5JQJXNUQ0mUn6HsCSZS8g==
-X-IronPort-AV: E=McAfee;i="6600,9927,11087"; a="13269262"
-X-IronPort-AV: E=Sophos;i="6.08,198,1712646000";
-   d="scan'208";a="13269262"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 May 2024 09:39:30 -0700
-X-CSE-ConnectionGUID: 7r1iJnGZRQqOCkUmzRhFrA==
-X-CSE-MsgGUID: ErXgLbakTSKS+cFV2AjYBw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,198,1712646000";
-   d="scan'208";a="40390968"
-Received: from unknown (HELO 0610945e7d16) ([10.239.97.151])
-  by orviesa005.jf.intel.com with ESMTP; 29 May 2024 09:39:29 -0700
-Received: from kbuild by 0610945e7d16 with local (Exim 4.96)
-	(envelope-from <lkp@intel.com>)
-	id 1sCMKk-000Dx7-1p;
-	Wed, 29 May 2024 16:39:26 +0000
-Date: Thu, 30 May 2024 00:39:01 +0800
-From: kernel test robot <lkp@intel.com>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	alsa-devel@alsa-project.org
-Subject: [tiwai-sound:for-next 9/10] sound/core/ump.c:694:6: warning:
- variable 'type' is uninitialized when used here
-Message-ID: <202405300035.Fz3pTUG4-lkp@intel.com>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=hyaBnfEC
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id E797A60346;
+	Wed, 29 May 2024 17:11:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C078CC113CC;
+	Wed, 29 May 2024 17:11:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1717002684;
+	bh=9UpR3hGU/5+3bUNpfdSES1Ui6yAXcd8PftieunFAs7w=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=hyaBnfECVPHlH84ACfb81Qj4jMkCnvaRlTS4D1dCP7Sptb8I916D5XPQI5W4y0lhu
+	 1SJK6WYF+Dcpa98zfNGv5ZCAAA/he5RFUCf9DZqN4gH2xMRJK/hS+J43uAAV7ZO+wB
+	 dD9U4hYOQxlPT5rYcwyzNwDBHDGh/B92H20Cvewi5YbDo/RQyVp0wv+idMBh65nFXA
+	 V9VAIUEfWERowJYhSdUX3yDKYOenCu1DDR2Qt93tvkFj/CcoQcwG8ifLKW0d9OnNsv
+	 72OuITvVODc+fG35isNk9t2JNpoayvYY7Ed0TRfq4NeFzjwyrt6eO5bRMpUNgbkU0c
+	 nR/eNzp60w6oQ==
+From: Mark Brown <broonie@kernel.org>
+To: linux-sound@vger.kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de
+In-Reply-To: <20240527194414.166156-1-pierre-louis.bossart@linux.intel.com>
+References: <20240527194414.166156-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 0/4] ASoC: SOF: add missing MODULE_DESCRIPTION
+Message-Id: <171700268349.145451.11791404311765995337.b4-ty@kernel.org>
+Date: Wed, 29 May 2024 18:11:23 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Message-ID-Hash: 3HUBK2NGALCCPKJNEFUYLKGG56YEDVJB
-X-Message-ID-Hash: 3HUBK2NGALCCPKJNEFUYLKGG56YEDVJB
-X-MailFrom: lkp@intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14-dev-2ee9f
+Message-ID-Hash: ZKFAQBOOLXKXX6CJE7A6H5CWOFQ4KTLY
+X-Message-ID-Hash: ZKFAQBOOLXKXX6CJE7A6H5CWOFQ4KTLY
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -98,7 +87,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3HUBK2NGALCCPKJNEFUYLKGG56YEDVJB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZKFAQBOOLXKXX6CJE7A6H5CWOFQ4KTLY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,61 +96,50 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
-head:   e472ffe6ae48ba80461ff1a7bb40f73665a856f0
-commit: 42db3930d4d7384d4e241c928e8cb2a0cdc5589c [9/10] ALSA: ump: Don't accept an invalid UMP protocol number
-config: i386-randconfig-011-20240529 (https://download.01.org/0day-ci/archive/20240530/202405300035.Fz3pTUG4-lkp@intel.com/config)
-compiler: clang version 18.1.5 (https://github.com/llvm/llvm-project 617a15a9eac96088ae5e9134248d8236e34b91b1)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240530/202405300035.Fz3pTUG4-lkp@intel.com/reproduce)
+On Mon, 27 May 2024 14:44:10 -0500, Pierre-Louis Bossart wrote:
+> 'make W=1' now reports missing MODULE_DESCRIPTION lines. This patchset
+> cleans-up all the module definitions and adds MODULE_DESCRIPTION lines
+> as needed.
+> 
+> Pierre-Louis Bossart (4):
+>   ASoC: SOF: stream-ipc: remove unnecessary MODULE_LICENSE
+>   ASoC: SOF: AMD: group all module related information
+>   ASoC: SOF: reorder MODULE_ definitions
+>   ASoC: SOF: add missing MODULE_DESCRIPTION()
+> 
+> [...]
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202405300035.Fz3pTUG4-lkp@intel.com/
+Applied to
 
-All warnings (new ones prefixed by >>):
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
->> sound/core/ump.c:694:6: warning: variable 'type' is uninitialized when used here [-Wuninitialized]
-     694 |         if (type != SNDRV_UMP_EP_INFO_PROTO_MIDI1 &&
-         |             ^~~~
-   sound/core/ump.c:688:19: note: initialize the variable 'type' to silence this warning
-     688 |         unsigned int type;
-         |                          ^
-         |                           = 0
-   1 warning generated.
+Thanks!
 
+[1/4] ASoC: SOF: stream-ipc: remove unnecessary MODULE_LICENSE
+      commit: e30a942861b540e056425a8e31ba801de1ed4f25
+[2/4] ASoC: SOF: AMD: group all module related information
+      commit: b88056df4fcb7b5930d6ee3fef494e8729dcf2b2
+[3/4] ASoC: SOF: reorder MODULE_ definitions
+      commit: 06a2315da0b02db4f2115bc9253daa270571e389
+[4/4] ASoC: SOF: add missing MODULE_DESCRIPTION()
+      commit: 3ff78451b8e446e9a548b98a0d4dd8d24dc5780b
 
-vim +/type +694 sound/core/ump.c
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-   678	
-   679	/**
-   680	 * snd_ump_switch_protocol - switch MIDI protocol
-   681	 * @ump: UMP endpoint
-   682	 * @protocol: protocol to switch to
-   683	 *
-   684	 * Returns 1 if the protocol is actually switched, 0 if unchanged
-   685	 */
-   686	int snd_ump_switch_protocol(struct snd_ump_endpoint *ump, unsigned int protocol)
-   687	{
-   688		unsigned int type;
-   689	
-   690		protocol &= ump->info.protocol_caps;
-   691		if (protocol == ump->info.protocol)
-   692			return 0;
-   693	
- > 694		if (type != SNDRV_UMP_EP_INFO_PROTO_MIDI1 &&
-   695		    type != SNDRV_UMP_EP_INFO_PROTO_MIDI2)
-   696			return 0;
-   697	
-   698		ump->info.protocol = protocol;
-   699		ump_dbg(ump, "New protocol = %x (caps = %x)\n",
-   700			protocol, ump->info.protocol_caps);
-   701		seq_notify_protocol(ump);
-   702		return 1;
-   703	}
-   704	EXPORT_SYMBOL_GPL(snd_ump_switch_protocol);
-   705	
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+

@@ -2,83 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAB0D8D622B
-	for <lists+alsa-devel@lfdr.de>; Fri, 31 May 2024 14:49:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BFD088D625B
+	for <lists+alsa-devel@lfdr.de>; Fri, 31 May 2024 15:06:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 258FD7F4;
-	Fri, 31 May 2024 14:49:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 258FD7F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2C392823;
+	Fri, 31 May 2024 15:06:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2C392823
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1717159752;
-	bh=RpjgYwPDyJuqrExpz1nNP6Ko9Qg4oE1su/7aCIq+LAM=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject:List-Id:
+	s=default; t=1717160779;
+	bh=dx7sosLdw/sMCS1kUDSuJ+V4bIgBHv6xTIsGonpSXe0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Ox3FDsJAZmmVua4WKbtVqHEOsOXP9vXXNy8DEeZzmoOMSq37xolwUONX8dJc5nIEA
-	 YQAd11rSG+pXyqiznPKXRkOW+tZ76gNnMbf5s8jexro0ev6F4PiifX48jtthH8yuI/
-	 sYdNojAOV+9/vG78vVjwIGAYHYWdkaIxpqSZc5Eo=
+	b=eNDg/M+gFVtQhrDT07edTitXnW+rZM+1xuXj+DT31xiw/RP1Qd8lnVL7+nRrJM59M
+	 zlxGImNL5M7LycoPqCruLnUKagABabdQIO29dcMTI7cJIkRQI00E2o8mmFWu0hAhyQ
+	 SzCoNCkADo6GODcq9H3iJgbOcWhkw2dECTPJBFJY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7A767F805D4; Fri, 31 May 2024 14:48:29 +0200 (CEST)
+	id 85750F805AA; Fri, 31 May 2024 15:05:47 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id ED4ECF805D4;
-	Fri, 31 May 2024 14:48:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1D488F80579;
+	Fri, 31 May 2024 15:05:47 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DD3AAF8051D; Fri, 31 May 2024 14:48:25 +0200 (CEST)
+	id 69B03F8026D; Fri, 31 May 2024 15:05:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail.savoirfairelinux.com (mail.savoirfairelinux.com
- [208.88.110.44])
+X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 32365F80589
-	for <alsa-devel@alsa-project.org>; Fri, 31 May 2024 14:48:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 32365F80589
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1DECFF80051
+	for <alsa-devel@alsa-project.org>; Fri, 31 May 2024 15:05:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1DECFF80051
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=savoirfairelinux.com header.i=@savoirfairelinux.com
- header.a=rsa-sha256 header.s=DFC430D2-D198-11EC-948E-34200CB392D2
- header.b=CME5Ful2
-Received: from localhost (localhost [127.0.0.1])
-	by mail.savoirfairelinux.com (Postfix) with ESMTP id 1F9649C096E;
-	Fri, 31 May 2024 08:48:17 -0400 (EDT)
-Received: from mail.savoirfairelinux.com ([127.0.0.1])
- by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10032)
- with ESMTP id wsrHJO9_bBGT; Fri, 31 May 2024 08:48:15 -0400 (EDT)
-Received: from localhost (localhost [127.0.0.1])
-	by mail.savoirfairelinux.com (Postfix) with ESMTP id B31369C2CD8;
-	Fri, 31 May 2024 08:48:15 -0400 (EDT)
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.savoirfairelinux.com B31369C2CD8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=savoirfairelinux.com; s=DFC430D2-D198-11EC-948E-34200CB392D2;
-	t=1717159695; bh=XHYg/xXbggBW6T/eEAZpR4M9NzidJhaQVBYe6V+5Uwo=;
-	h=Date:From:To:Message-ID:MIME-Version;
-	b=CME5Ful22NGYQX5X3G/QGYkgnwUNX4QmgtRMXjjWtkoudDR5OH9Vn2oMnBk9H7Lx+
-	 oBqbJM2GPGCWTnBBVwJvtK3H9XEsrgIIro0fnNxSivQPKzby4UKlAiCdzBQmRB3i2X
-	 r+l6CIrcJ62QWiIDmyt82kiWN2SKbIlE+lRWeXMD73TBcyyBgostjPISQWIyEJxoRY
-	 8pZTcDY4/DNYag52VbveIAaUDKmCLQVmfHsxJqLnTIIQFIwm9NLq1BSVzsItkwMaBE
-	 diSMZ4X/F4wMXc0N05X4P4GoyXrlIV5lwvv1pVNGN3nT1XIcV4TjSZQYX9Ua1MU00J
-	 kkiNgxA9AeNew==
-X-Virus-Scanned: amavis at mail.savoirfairelinux.com
-Received: from mail.savoirfairelinux.com ([127.0.0.1])
- by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10026)
- with ESMTP id 0-nDvHVWvAtj; Fri, 31 May 2024 08:48:15 -0400 (EDT)
-Received: from mail.savoirfairelinux.com (mail.savoirfairelinux.com
- [192.168.48.237])
-	by mail.savoirfairelinux.com (Postfix) with ESMTP id 7FDF39C096E;
-	Fri, 31 May 2024 08:48:15 -0400 (EDT)
-Date: Fri, 31 May 2024 08:48:15 -0400 (EDT)
-From: Elinor Montmasson <elinor.montmasson@savoirfairelinux.com>
-To: Rob Herring <robh@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=dsje7/cZ
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id 926AF62C32;
+	Fri, 31 May 2024 13:05:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20734C116B1;
+	Fri, 31 May 2024 13:05:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1717160735;
+	bh=dx7sosLdw/sMCS1kUDSuJ+V4bIgBHv6xTIsGonpSXe0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=dsje7/cZyyF91s/HghOChQzu65qzn4qwHQZqMG+7mokDXR7Jfvm7kxU94sajwCuJJ
+	 0uPm7PXp/wef7hqUDRdFjTZJQ+2CzrLr4Kx9J4ScNpsgNqIhHGLKwtond52tNpzA9F
+	 gtcvjFtw2rJ3AkXJE5CQR263VaNocoIdKMSy0mAFRvhtRQR5OsCRnh0jynSNMgW9qD
+	 QpWpnRN9bdws2ZYkuR3ZW5iyjv3Nk0gR/juI86Nn8hKyfMy2lIVCoyPk8LTXTIihOP
+	 MFhw/4yL/uqzYm6nmu2C5SptZZVEAsj/4fgQECPspdNjOkih6Bq/tfyhuAEfkIe0sB
+	 khJnx69J6Wa0Q==
+Date: Fri, 31 May 2024 14:05:28 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Elinor Montmasson <elinor.montmasson@savoirfairelinux.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
 	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
 	Conor Dooley <conor+dt@kernel.org>,
 	shengjiu wang <shengjiu.wang@gmail.com>,
@@ -90,25 +75,25 @@ Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
 	linux-kernel <linux-kernel@vger.kernel.org>,
 	alsa-devel <alsa-devel@alsa-project.org>,
 	linuxppc-dev <linuxppc-dev@lists.ozlabs.org>
-Message-ID: 
- <1712008549.701259.1717159695483.JavaMail.zimbra@savoirfairelinux.com>
-In-Reply-To: <20240520183148.GA1250699-robh@kernel.org>
+Subject: Re: [PATCHv4 7/9] ASoC: fsl-asoc-card: add DT clock "cpu_sysclk"
+ with generic codec
+Message-ID: <826f6c22-d1f1-42ce-a8d1-2d5cb894a970@sirena.org.uk>
 References: <20240515135411.343333-1-elinor.montmasson@savoirfairelinux.com>
- <20240515135411.343333-10-elinor.montmasson@savoirfairelinux.com>
- <20240520183148.GA1250699-robh@kernel.org>
-Subject: Re: [PATCHv4 9/9] ASoC: dt-bindings: fsl-asoc-card: add compatible
- for generic codec
+ <20240515135411.343333-8-elinor.montmasson@savoirfairelinux.com>
+ <ffb3624f-2170-4642-aaa5-fb6736a75d59@sirena.org.uk>
+ <822567441.349330.1715936735603.JavaMail.zimbra@savoirfairelinux.com>
+ <da74d276-b028-448b-bb28-295de49dbcda@sirena.org.uk>
+ <1660761484.701255.1717159615755.JavaMail.zimbra@savoirfairelinux.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-X-Mailer: Zimbra 8.8.15_GA_4581 (ZimbraWebClient - GC112
- (Linux)/8.8.15_GA_4581)
-Thread-Topic: ASoC: dt-bindings: fsl-asoc-card: add compatible for generic
- codec
-Thread-Index: 9W7FNkO/DHfWsLN9ZmR/Fd4sK0HmGw==
-Message-ID-Hash: GW3NFGFOXD47LDE2EOVWC3NNUKMRP2FH
-X-Message-ID-Hash: GW3NFGFOXD47LDE2EOVWC3NNUKMRP2FH
-X-MailFrom: elinor.montmasson@savoirfairelinux.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="t5IjrPd8avuXZPeL"
+Content-Disposition: inline
+In-Reply-To: 
+ <1660761484.701255.1717159615755.JavaMail.zimbra@savoirfairelinux.com>
+X-Cookie: Serving suggestion.
+Message-ID-Hash: LBPIBUTOGP6TM2VGNRNCULSYU7BNMU2M
+X-Message-ID-Hash: LBPIBUTOGP6TM2VGNRNCULSYU7BNMU2M
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -120,7 +105,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GW3NFGFOXD47LDE2EOVWC3NNUKMRP2FH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LBPIBUTOGP6TM2VGNRNCULSYU7BNMU2M/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -129,192 +114,75 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: "Rob Herring" <robh@kernel.org>
-Sent: Monday, 20 May, 2024 20:31:48
-> On Wed, May 15, 2024 at 03:54:11PM +0200, Elinor Montmasson wrote:
->> Add documentation about new dts bindings following new support
->> for compatible "fsl,imx-audio-generic".
->> 
->> Some CPU DAI don't require a real audio codec. The new compatible
->> "fsl,imx-audio-generic" allows using the driver with codec drivers
->> SPDIF DIT and SPDIF DIR as dummy codecs.
->> It also allows using not pre-configured audio codecs which
->> don't require specific control through a codec driver.
->> 
->> The new dts properties give the possibility to set some parameters
->> about the CPU DAI usually set through the codec configuration.
->> 
->> Signed-off-by: Elinor Montmasson <elinor.montmasson@savoirfairelinux.com>
->> ---
->>  .../bindings/sound/fsl-asoc-card.yaml         | 96 ++++++++++++++++++-
->>  1 file changed, 92 insertions(+), 4 deletions(-)
->> 
->> diff --git a/Documentation/devicetree/bindings/sound/fsl-asoc-card.yaml
->> b/Documentation/devicetree/bindings/sound/fsl-asoc-card.yaml
->> index 9922664d5ccc..332d8bf96e06 100644
->> --- a/Documentation/devicetree/bindings/sound/fsl-asoc-card.yaml
->> +++ b/Documentation/devicetree/bindings/sound/fsl-asoc-card.yaml
->> @@ -23,6 +23,16 @@ description:
->>    and PCM DAI formats. However, it'll be also possible to support those non
->>    AC'97/I2S/PCM type sound cards, such as S/PDIF audio and HDMI audio, as
->>    long as the driver has been properly upgraded.
->> +  To use CPU DAIs that do not require a codec such as an S/PDIF controller,
->> +  or to use a DAI to output or capture raw I2S/TDM data, you can
->> +  use the compatible "fsl,imx-audio-generic".
->> +
->> +definitions:
->> +  imx-audio-generic-dependency:
->> +    properties:
->> +      compatible:
->> +        contains:
->> +          const: fsl,imx-audio-generic
->>  
->>  maintainers:
->>    - Shengjiu Wang <shengjiu.wang@nxp.com>
->> @@ -81,6 +91,7 @@ properties:
->>                - fsl,imx-audio-wm8960
->>                - fsl,imx-audio-wm8962
->>                - fsl,imx-audio-wm8958
->> +              - fsl,imx-audio-generic
->>  
->>    model:
->>      $ref: /schemas/types.yaml#/definitions/string
->> @@ -93,8 +104,14 @@ properties:
->>        need to add ASRC support via DPCM.
->>  
->>    audio-codec:
->> -    $ref: /schemas/types.yaml#/definitions/phandle
->> -    description: The phandle of an audio codec
->> +    $ref: /schemas/types.yaml#/definitions/phandle-array
->> +    description: |
->> +      The phandle of an audio codec.
->> +      If using the "fsl,imx-audio-generic" compatible, give instead a pair of
->> +      phandles with the spdif_transmitter first (driver SPDIF DIT) and the
->> +      spdif_receiver second (driver SPDIF DIR).
-> 
->       minItems: 1
->       maxItems: 2
-> 
->> +    items:
->> +      maxItems: 1
->>  
->>    audio-cpu:
->>      $ref: /schemas/types.yaml#/definitions/phandle
->> @@ -150,8 +167,8 @@ properties:
->>      description: dai-link uses bit clock inversion.
->>  
->>    mclk-id:
->> -    $ref: /schemas/types.yaml#/definitions/uint32
->> -    description: main clock id, specific for each card configuration.
->> +    $ref: /schemas/types.yaml#/definitions/uint32-array
->> +    description: Main clock id for each codec, specific for each card
->> configuration.
-> 
->       minItems: 1
->       maxItems: 2
->>  
->>    mux-int-port:
->>      $ref: /schemas/types.yaml#/definitions/uint32
->> @@ -167,10 +184,68 @@ properties:
->>      $ref: /schemas/types.yaml#/definitions/phandle
->>      description: The phandle of an CPU DAI controller
->>  
->> +  # Properties relevant only with "fsl,imx-audio-generic" compatible
->> +  dai-tdm-slot-width:
->> +    description: See tdm-slot.txt.
->> +    $ref: /schemas/types.yaml#/definitions/uint32
->> +
->> +  dai-tdm-slot-num:
->> +    description: See tdm-slot.txt.
->> +    $ref: /schemas/types.yaml#/definitions/uint32
->> +
->> +  clocks:
->> +    description: |
->> +      The CPU DAI system clock, used to retrieve
->> +      the CPU DAI system clock frequency with the generic codec.
->> +    maxItems: 1
->> +
->> +  clock-names:
->> +    items:
->> +      - const: cpu_sysclk
->> +
->> +  cpu-system-clock-direction-out:
->> +    description: |
->> +      Specifies cpu system clock direction as 'out' on initialization.
->> +      If not set, direction is 'in'.
->> +    $ref: /schemas/types.yaml#/definitions/flag
->> +
->> +dependencies:
->> +  dai-tdm-slot-width:
->> +    $ref: "#/definitions/imx-audio-generic-dependency"
->> +  dai-tdm-slot-num:
->> +    $ref: "#/definitions/imx-audio-generic-dependency"
->> +  clocks:
->> +    $ref: "#/definitions/imx-audio-generic-dependency"
->> +  cpu-system-clock-direction-out:
->> +    $ref: "#/definitions/imx-audio-generic-dependency"
-> 
-> This works, but is an unusual pattern...
-> 
->> +
->>  required:
->>    - compatible
->>    - model
->>  
->> +allOf:
->> +  - if:
->> +      $ref: "#/definitions/imx-audio-generic-dependency"
->> +    then:
->> +      properties:
->> +        audio-codec:
->> +          items:
->> +            - description: SPDIF DIT phandle
->> +            - description: SPDIF DIR phandle
->> +        mclk-id:
->> +          maxItems: 1
->> +          items:
->> +            minItems: 1
->> +            maxItems: 2
->> +    else:
->> +      properties:
->> +        audio-codec:
->> +          maxItems: 1
->> +        mclk-id:
->> +          maxItems: 1
->> +          items:
->> +            maxItems: 1
-> 
-> 
-> You can handle the dependency like this instead:
-> 
->           dai-tdm-slot-width: false
->           dai-tdm-slot-num: false
-> 
-> 
-> And then you don't need the definitions.
-> 
->> +
->>  unevaluatedProperties: false
->>  
->>  examples:
->> @@ -195,3 +270,16 @@ examples:
->>               "AIN2L", "Line In Jack",
->>               "AIN2R", "Line In Jack";
->>      };
->> +
->> +  - |
->> +    #include <dt-bindings/clock/imx8mn-clock.h>
->> +    sound-spdif-asrc {
->> +      compatible = "fsl,imx-audio-generic";
->> +      model = "spdif-asrc-audio";
->> +      audio-cpu = <&spdif>;
->> +      audio-asrc = <&easrc>;
->> +      audio-codec = <&spdifdit>, <&spdifdir>;
->> +      clocks = <&clk IMX8MN_CLK_SAI5_ROOT>;
->> +      clock-names = "cpu_sysclk";
->> +      cpu-system-clock-direction-out;
->> +    };
->> --
->> 2.34.1
 
-Ok, thank you for the review, I'll make these modifications in v5.
+--t5IjrPd8avuXZPeL
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Fri, May 31, 2024 at 08:46:55AM -0400, Elinor Montmasson wrote:
+> From: "Mark Brown" <broonie@kernel.org>
+> > On Fri, May 17, 2024 at 05:05:35AM -0400, Elinor Montmasson wrote:
+> >> From: "Mark Brown" <broonie@kernel.org>
+> >> > On Wed, May 15, 2024 at 03:54:09PM +0200, Elinor Montmasson wrote:
+
+> >> >> +		struct clk *cpu_sysclk =3D clk_get(&pdev->dev, "cpu_sysclk");
+> >> >> +		if (!IS_ERR(cpu_sysclk)) {
+> >> >> +			priv->cpu_priv.sysclk_freq[TX] =3D clk_get_rate(cpu_sysclk);
+> >> >> +			priv->cpu_priv.sysclk_freq[RX] =3D priv->cpu_priv.sysclk_freq[T=
+X];
+> >> >> +			clk_put(cpu_sysclk);
+> >> >> +		}
+
+> >> > I don't really understand the goal here - this is just reading whate=
+ver
+> >> > frequency happens to be set in the hardware when the driver starts up
+> >> > which if nothing else seems rather fragile?
+
+> >> The driver allow to set the sysclk frequency
+> >> of the CPU DAI through `priv->cpu_priv.sysclk_freq` when calling
+> >> `fsl_asoc_card_hw_params()`.
+> >> Currently it is hard-coded per use-case in the driver.
+
+> >> My reasoning was that with a generic codec/compatible, there might
+> >> be use-cases needing to use this parameter, so I exposed it here via D=
+T.
+> >=20
+> >> Is it a bad idea to expose this parameter ? This is not a requirement =
+for the
+> >> driver to work, most of the current compatibles do not use this parame=
+ter.
+> >> It is currently used only for `fsl,imx-audio-cs42888`.
+> >> In that case I can remove this commit.
+
+> > I'm having a hard time connecting your reply here with my comment.  This
+> > isn't as far as I can see allowing the frequency to be explicitly
+> > configured, it's just using whatever value happens to be programmed in
+> > the clock when the driver starts.
+
+> In v3 I used parameters `cpu-sysclk-freq-rx/tx` to explicitly
+> set the frequency.
+> In its review Rob Herring said that the clock bindings should
+> be used, so that's why I changed it to use this `cpu_sysclk` clock.
+
+So you're trying to use this as the audio clock?  There's no code that
+enables the clock which seems worrying, and I'd expect that if the
+device is using it's own clock the device would be querying it directly
+via the clock API rather than this.  This all seems really confused.
+
+--t5IjrPd8avuXZPeL
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmZZyxcACgkQJNaLcl1U
+h9Be4gf/YfLlU8GPgc+J8qnnUXsGMfa3hyDMKKjkChZ7Z2VgGlh61Y8j3nssb5sV
+qVQOuuv5hD2jNlTKEYoCiiHNIfmOe9GqRtYmsQkk/UYScO0NwovQ7UYpquVtkJFb
+qXgMXiPhACDh+wm1P4G3pHV9gVN/ZOLZcrPtwl2Rv1lK4j7rhZqbT/FD+9aeRu9p
+FpUiNfiwP6l6e8KIgPcDb8tBbqqnS/tLrE6xPk6EfflG+fJM9w3eUm4+tlf0uCcN
+QldOJ1GhYERqM69Sj1g7TWgh/0BZ59EVD8CtX9HPGC5SBYW7Kyf6ew79K8VCd/CR
+TxJMEZjB7AtvR8rBJYzqx8/I1/gToQ==
+=CcoA
+-----END PGP SIGNATURE-----
+
+--t5IjrPd8avuXZPeL--

@@ -2,34 +2,34 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64C628D658E
-	for <lists+alsa-devel@lfdr.de>; Fri, 31 May 2024 17:17:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91F608D6593
+	for <lists+alsa-devel@lfdr.de>; Fri, 31 May 2024 17:17:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9C925B6A;
-	Fri, 31 May 2024 17:16:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9C925B6A
+	by alsa0.perex.cz (Postfix) with ESMTPS id CAEAAE82;
+	Fri, 31 May 2024 17:17:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CAEAAE82
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1717168619;
-	bh=UBHla38SdktH06K6tw23Hv/3z4PtDEuha59XZFTGXfI=;
+	s=default; t=1717168654;
+	bh=gOtGnElFSq5mT3hd0S/cbu75iZAqrJW1dFYWO7O4ta4=;
 	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=WQrx8k5iV36qAstb0mUE8PAB6cNiDkNvPFbrYHIeXWThWgxn+qPb1cvl6xFelKa34
-	 F/OG/NCBmGadnEw2YrrVzHfeBAHyWT8pwn2VUbe0H202itCKVzZ9nroEy9DdQjn8Is
-	 yUT0kiKxxl4mv9YzFE9Ard5Dwz95lyfo1HWjJjgY=
+	b=Rri3DZRcct4jkOQMPmydqkTW/FeMvsOTSKn0Rkr65oYutp9qunv9CpJNFdixVsI6i
+	 CK0IUerUPA4N9wWNQB11N0NQOrs45i5g2mHoysMvy7RXJPVzK6WoJFwsXyAFtsJ3XQ
+	 bT2XLfXJGt06evVfX5K9NP2v91zm2IQ/YYyOvmY0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3EB10F80637; Fri, 31 May 2024 17:15:34 +0200 (CEST)
+	id 1F4C5F80579; Fri, 31 May 2024 17:17:13 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 62A88F80642;
-	Fri, 31 May 2024 17:15:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8BEADF80578;
+	Fri, 31 May 2024 17:17:13 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 222BCF805E6; Fri, 31 May 2024 17:15:28 +0200 (CEST)
+	id C6134F804FF; Fri, 31 May 2024 17:17:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
 	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
@@ -37,41 +37,41 @@ Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
  [67.231.152.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A33A2F80149
-	for <alsa-devel@alsa-project.org>; Fri, 31 May 2024 17:15:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A33A2F80149
+	by alsa1.perex.cz (Postfix) with ESMTPS id DFF08F80496
+	for <alsa-devel@alsa-project.org>; Fri, 31 May 2024 17:15:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DFF08F80496
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=BaJHcd9+
+ header.s=PODMain02222019 header.b=b7WXap1B
 Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
 	by mx0b-001ae601.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 44VB0WSt017940;
-	Fri, 31 May 2024 10:15:13 -0500
+ 44VB0WSv017940;
+	Fri, 31 May 2024 10:15:15 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
 	:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=
-	PODMain02222019; bh=1XiEv/Pq2MMOqPPi3EeuCvNihrrvIYUYU12kCojP/lk=; b=
-	BaJHcd9+HVup1MRXkX/ElNxyEpfILNVyK91xfHmSms6jfi1IzPxlc6aaFGbOa4D9
-	8xyD8qKsOrOZDtenFlVlkW/JCt+biyePHcv39pYhVPcYwrViqAyyzSBFrCRA+nvX
-	RSxVVwaXB0IEfBWu7Do7KwO8Yzvmgg4zxLVRev7+eL9/ueC1n7hyVdeufkCS7UEe
-	sqTbfYGsdG+GVG82WoizhrvHosGiyKlg8PcF5O0oY1dyVkIzByHOMIhv1X/7boxm
-	u6tBpQJTGaSD5DCBGEUoCWQVN77dOfyiQhAOCdpccTT+Gt+JsYGWjHZmIA5w6/1a
-	z3vdXfOlfWi4xN3Re8fZbg==
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3ybcdhe0a6-2
+	PODMain02222019; bh=GNGJ3diEt0SE1XVgokF/gVnc114gsHF6JrOcJW43PNk=; b=
+	b7WXap1BpCUYU8eiPlAU9E1Yl2p8dyvl+qatsknPD5hWP/VNI0Hl+cV1wNibxtNw
+	VLZUU2pD2qnvdwsIgJNSTsaaeGkmjgVoke4unVsOx7E5H2EsqAL0IFijg4AJuBiv
+	7zo4Iu9Yr05+IgQs2SNr6qOWNE/ZhjUQZGx6F2dv0zFcsPSOMD9AlxtlGMxBliRG
+	AXvCycsmoJHeF2OMAqaGAhc1TB/xNk/TRTiCCTuijO2OlLCxWUwNBHm6wWOpLPVq
+	QjLiSQPpzYbY2/j0HKzuEJf8UqEH1W67sMs1EOGr9puT2IMVkN9PHI/SfC9m1gA1
+	h1Lmbb5uYxqnLUwDrVSkYQ==
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3ybcdhe0a3-5
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 31 May 2024 10:15:13 -0500 (CDT)
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+	Fri, 31 May 2024 10:15:14 -0500 (CDT)
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Fri, 31 May
- 2024 16:15:11 +0100
+ 2024 16:15:12 +0100
 Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
  anon-ediex01.ad.cirrus.com (198.61.84.80) with Microsoft SMTP Server id
- 15.2.1544.9 via Frontend Transport; Fri, 31 May 2024 16:15:11 +0100
+ 15.2.1544.9 via Frontend Transport; Fri, 31 May 2024 16:15:12 +0100
 Received: from EDIN6ZZ2FY3.ad.cirrus.com (EDIN6ZZ2FY3.ad.cirrus.com
  [198.61.65.72])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id 57FBC82024B;
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id BE1E0820244;
 	Fri, 31 May 2024 15:15:11 +0000 (UTC)
 From: Simon Trimmer <simont@opensource.cirrus.com>
 To: <tiwai@suse.com>
@@ -81,21 +81,21 @@ CC: <linux-sound@vger.kernel.org>, <alsa-devel@alsa-project.org>,
         <baojun.xu@ti.com>, <kailang@realtek.com>,
         Simon Trimmer
 	<simont@opensource.cirrus.com>
-Subject: [PATCH 5/7] ALSA: hda: hda_component: Change codecs to use component
- parent structure
-Date: Fri, 31 May 2024 16:14:07 +0100
-Message-ID: <20240531151409.80284-6-simont@opensource.cirrus.com>
+Subject: [PATCH 6/7] ALSA: hda: hda_component: Move codec field into the
+ parent
+Date: Fri, 31 May 2024 16:14:08 +0100
+Message-ID: <20240531151409.80284-7-simont@opensource.cirrus.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240531151409.80284-1-simont@opensource.cirrus.com>
 References: <20240531151409.80284-1-simont@opensource.cirrus.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Proofpoint-GUID: iRzukipHaeVfNALX2NvN8ZilusDfbcIF
-X-Proofpoint-ORIG-GUID: iRzukipHaeVfNALX2NvN8ZilusDfbcIF
+X-Proofpoint-GUID: NgQZcOGq6HRXCk7x9H6a8emF0ssgWi2V
+X-Proofpoint-ORIG-GUID: NgQZcOGq6HRXCk7x9H6a8emF0ssgWi2V
 X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: LHHUWOOSSSFJTXWWBCF6L7AIYVA3HIEX
-X-Message-ID-Hash: LHHUWOOSSSFJTXWWBCF6L7AIYVA3HIEX
+Message-ID-Hash: WZD65FYFFWL57IGPU6IDVYURPQBWYS6U
+X-Message-ID-Hash: WZD65FYFFWL57IGPU6IDVYURPQBWYS6U
 X-MailFrom: prvs=3881dca93d=simont@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -108,7 +108,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LHHUWOOSSSFJTXWWBCF6L7AIYVA3HIEX/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WZD65FYFFWL57IGPU6IDVYURPQBWYS6U/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,263 +117,110 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Change the hda_component binding APIs to pass the hds_component_parent
-as the parameter so the array of components can be abstracted.
+There is one codec shared across all of the bound HDA components and a
+copy is usually stashed in the amp driver so it doesn't need to be in
+every hda_component.
 
 Signed-off-by: Simon Trimmer <simont@opensource.cirrus.com>
 ---
- sound/pci/hda/cs35l41_hda.c     | 42 +++++++++++++++++++--------------
- sound/pci/hda/cs35l56_hda.c     | 25 +++++++++++---------
- sound/pci/hda/hda_component.c   |  2 +-
- sound/pci/hda/hda_component.h   |  2 +-
- sound/pci/hda/tas2781_hda_i2c.c | 33 +++++++++++++-------------
- 5 files changed, 57 insertions(+), 47 deletions(-)
+ sound/pci/hda/cs35l41_hda.c     | 7 ++++---
+ sound/pci/hda/cs35l56_hda.c     | 2 +-
+ sound/pci/hda/hda_component.c   | 5 +----
+ sound/pci/hda/hda_component.h   | 2 +-
+ sound/pci/hda/tas2781_hda_i2c.c | 2 +-
+ 5 files changed, 8 insertions(+), 10 deletions(-)
 
 diff --git a/sound/pci/hda/cs35l41_hda.c b/sound/pci/hda/cs35l41_hda.c
-index 031703f010be..ceba4f2c85f1 100644
+index ceba4f2c85f1..ee9f83b737de 100644
 --- a/sound/pci/hda/cs35l41_hda.c
 +++ b/sound/pci/hda/cs35l41_hda.c
-@@ -1419,27 +1419,28 @@ static void cs35l41_acpi_device_notify(acpi_handle handle, u32 event, struct dev
- static int cs35l41_hda_bind(struct device *dev, struct device *master, void *master_data)
- {
- 	struct cs35l41_hda *cs35l41 = dev_get_drvdata(dev);
--	struct hda_component *comps = master_data;
-+	struct hda_component_parent *parent = master_data;
-+	struct hda_component *comp;
- 	unsigned int sleep_flags;
- 	int ret = 0;
- 
--	if (!comps || cs35l41->index < 0 || cs35l41->index >= HDA_MAX_COMPONENTS)
-+	comp = hda_component_from_index(parent, cs35l41->index);
-+	if (!comp)
- 		return -EINVAL;
- 
--	comps = &comps[cs35l41->index];
--	if (comps->dev)
-+	if (comp->dev)
- 		return -EBUSY;
- 
- 	pm_runtime_get_sync(dev);
- 
+@@ -1436,10 +1436,11 @@ static int cs35l41_hda_bind(struct device *dev, struct device *master, void *mas
  	mutex_lock(&cs35l41->fw_mutex);
  
--	comps->dev = dev;
-+	comp->dev = dev;
+ 	comp->dev = dev;
++	cs35l41->codec = parent->codec;
  	if (!cs35l41->acpi_subsystem_id)
  		cs35l41->acpi_subsystem_id = kasprintf(GFP_KERNEL, "%.8x",
--						       comps->codec->core.subsystem_id);
--	cs35l41->codec = comps->codec;
--	strscpy(comps->name, dev_name(dev), sizeof(comps->name));
-+						       comp->codec->core.subsystem_id);
-+	cs35l41->codec = comp->codec;
-+	strscpy(comp->name, dev_name(dev), sizeof(comp->name));
+-						       comp->codec->core.subsystem_id);
+-	cs35l41->codec = comp->codec;
++						       cs35l41->codec->core.subsystem_id);
++
+ 	strscpy(comp->name, dev_name(dev), sizeof(comp->name));
  
  	cs35l41->firmware_type = HDA_CS_DSP_FW_SPK_PROT;
- 
-@@ -1454,13 +1455,13 @@ static int cs35l41_hda_bind(struct device *dev, struct device *master, void *mas
- 
- 	ret = cs35l41_create_controls(cs35l41);
- 
--	comps->playback_hook = cs35l41_hda_playback_hook;
--	comps->pre_playback_hook = cs35l41_hda_pre_playback_hook;
--	comps->post_playback_hook = cs35l41_hda_post_playback_hook;
--	comps->acpi_notify = cs35l41_acpi_device_notify;
--	comps->adev = cs35l41->dacpi;
-+	comp->playback_hook = cs35l41_hda_playback_hook;
-+	comp->pre_playback_hook = cs35l41_hda_pre_playback_hook;
-+	comp->post_playback_hook = cs35l41_hda_post_playback_hook;
-+	comp->acpi_notify = cs35l41_acpi_device_notify;
-+	comp->adev = cs35l41->dacpi;
- 
--	comps->acpi_notifications_supported = cs35l41_dsm_supported(acpi_device_handle(comps->adev),
-+	comp->acpi_notifications_supported = cs35l41_dsm_supported(acpi_device_handle(comp->adev),
- 		CS35L41_DSM_GET_MUTE);
- 
- 	cs35l41->mute_override = cs35l41_get_acpi_mute_state(cs35l41,
-@@ -1469,7 +1470,7 @@ static int cs35l41_hda_bind(struct device *dev, struct device *master, void *mas
+@@ -1470,7 +1471,7 @@ static int cs35l41_hda_bind(struct device *dev, struct device *master, void *mas
  	mutex_unlock(&cs35l41->fw_mutex);
  
  	sleep_flags = lock_system_sleep();
--	if (!device_link_add(&comps->codec->core.dev, cs35l41->dev, DL_FLAG_STATELESS))
-+	if (!device_link_add(&comp->codec->core.dev, cs35l41->dev, DL_FLAG_STATELESS))
+-	if (!device_link_add(&comp->codec->core.dev, cs35l41->dev, DL_FLAG_STATELESS))
++	if (!device_link_add(&cs35l41->codec->core.dev, cs35l41->dev, DL_FLAG_STATELESS))
  		dev_warn(dev, "Unable to create device link\n");
  	unlock_system_sleep(sleep_flags);
  
-@@ -1489,14 +1490,19 @@ static int cs35l41_hda_bind(struct device *dev, struct device *master, void *mas
- static void cs35l41_hda_unbind(struct device *dev, struct device *master, void *master_data)
- {
- 	struct cs35l41_hda *cs35l41 = dev_get_drvdata(dev);
--	struct hda_component *comps = master_data;
-+	struct hda_component_parent *parent = master_data;
-+	struct hda_component *comp;
- 	unsigned int sleep_flags;
- 
--	if (comps[cs35l41->index].dev == dev) {
--		memset(&comps[cs35l41->index], 0, sizeof(*comps));
-+	comp = hda_component_from_index(parent, cs35l41->index);
-+	if (!comp)
-+		return;
-+
-+	if (comp->dev == dev) {
- 		sleep_flags = lock_system_sleep();
- 		device_link_remove(&cs35l41->codec->core.dev, cs35l41->dev);
- 		unlock_system_sleep(sleep_flags);
-+		memset(comp, 0, sizeof(*comp));
- 	}
- }
- 
 diff --git a/sound/pci/hda/cs35l56_hda.c b/sound/pci/hda/cs35l56_hda.c
-index e134ede6c5aa..df4498c77171 100644
+index df4498c77171..cc4aa90db1d1 100644
 --- a/sound/pci/hda/cs35l56_hda.c
 +++ b/sound/pci/hda/cs35l56_hda.c
-@@ -685,20 +685,21 @@ static int cs35l56_hda_fw_load(struct cs35l56_hda *cs35l56)
- static int cs35l56_hda_bind(struct device *dev, struct device *master, void *master_data)
- {
- 	struct cs35l56_hda *cs35l56 = dev_get_drvdata(dev);
--	struct hda_component *comps = master_data;
-+	struct hda_component_parent *parent = master_data;
-+	struct hda_component *comp;
- 	int ret;
- 
--	if (!comps || cs35l56->index < 0 || cs35l56->index >= HDA_MAX_COMPONENTS)
-+	comp = hda_component_from_index(parent, cs35l56->index);
-+	if (!comp)
- 		return -EINVAL;
- 
--	comps = &comps[cs35l56->index];
--	if (comps->dev)
-+	if (comp->dev)
+@@ -697,7 +697,7 @@ static int cs35l56_hda_bind(struct device *dev, struct device *master, void *mas
  		return -EBUSY;
  
--	comps->dev = dev;
--	cs35l56->codec = comps->codec;
--	strscpy(comps->name, dev_name(dev), sizeof(comps->name));
--	comps->playback_hook = cs35l56_hda_playback_hook;
-+	comp->dev = dev;
-+	cs35l56->codec = comp->codec;
-+	strscpy(comp->name, dev_name(dev), sizeof(comp->name));
-+	comp->playback_hook = cs35l56_hda_playback_hook;
- 
- 	ret = cs35l56_hda_fw_load(cs35l56);
- 	if (ret)
-@@ -720,7 +721,8 @@ static int cs35l56_hda_bind(struct device *dev, struct device *master, void *mas
- static void cs35l56_hda_unbind(struct device *dev, struct device *master, void *master_data)
- {
- 	struct cs35l56_hda *cs35l56 = dev_get_drvdata(dev);
--	struct hda_component *comps = master_data;
-+	struct hda_component_parent *parent = master_data;
-+	struct hda_component *comp;
- 
- 	cs35l56_hda_remove_controls(cs35l56);
- 
-@@ -732,8 +734,9 @@ static void cs35l56_hda_unbind(struct device *dev, struct device *master, void *
- 	if (cs35l56->base.fw_patched)
- 		cs_dsp_power_down(&cs35l56->cs_dsp);
- 
--	if (comps[cs35l56->index].dev == dev)
--		memset(&comps[cs35l56->index], 0, sizeof(*comps));
-+	comp = hda_component_from_index(parent, cs35l56->index);
-+	if (comp && (comp->dev == dev))
-+		memset(comp, 0, sizeof(*comp));
- 
- 	cs35l56->codec = NULL;
+ 	comp->dev = dev;
+-	cs35l56->codec = comp->codec;
++	cs35l56->codec = parent->codec;
+ 	strscpy(comp->name, dev_name(dev), sizeof(comp->name));
+ 	comp->playback_hook = cs35l56_hda_playback_hook;
  
 diff --git a/sound/pci/hda/hda_component.c b/sound/pci/hda/hda_component.c
-index d8b9d406676b..da49937a938b 100644
+index da49937a938b..84add31408f7 100644
 --- a/sound/pci/hda/hda_component.c
 +++ b/sound/pci/hda/hda_component.c
-@@ -141,7 +141,7 @@ int hda_component_manager_bind(struct hda_codec *cdc,
- 	for (i = 0; i < ARRAY_SIZE(parent->comps); i++)
- 		parent->comps[i].codec = cdc;
+@@ -134,12 +134,9 @@ static int hda_comp_match_dev_name(struct device *dev, void *data)
+ int hda_component_manager_bind(struct hda_codec *cdc,
+ 			       struct hda_component_parent *parent)
+ {
+-	int i;
+-
+ 	/* Init shared and component specific data */
+ 	memset(parent, 0, sizeof(parent));
+-	for (i = 0; i < ARRAY_SIZE(parent->comps); i++)
+-		parent->comps[i].codec = cdc;
++	parent->codec = cdc;
  
--	return component_bind_all(hda_codec_dev(cdc), &parent->comps);
-+	return component_bind_all(hda_codec_dev(cdc), parent);
+ 	return component_bind_all(hda_codec_dev(cdc), parent);
  }
- EXPORT_SYMBOL_NS_GPL(hda_component_manager_bind, SND_HDA_SCODEC_COMPONENT);
- 
 diff --git a/sound/pci/hda/hda_component.h b/sound/pci/hda/hda_component.h
-index a016f1b942a2..e547e1f1e674 100644
+index e547e1f1e674..dd4dabeae9ee 100644
 --- a/sound/pci/hda/hda_component.h
 +++ b/sound/pci/hda/hda_component.h
-@@ -93,7 +93,7 @@ static inline struct hda_component *hda_component_from_index(struct hda_componen
- static inline void hda_component_manager_unbind(struct hda_codec *cdc,
- 						struct hda_component_parent *parent)
- {
--	component_unbind_all(hda_codec_dev(cdc), &parent->comps);
-+	component_unbind_all(hda_codec_dev(cdc), parent);
- }
+@@ -19,7 +19,6 @@
+ struct hda_component {
+ 	struct device *dev;
+ 	char name[HDA_MAX_NAME_SIZE];
+-	struct hda_codec *codec;
+ 	struct acpi_device *adev;
+ 	bool acpi_notifications_supported;
+ 	void (*acpi_notify)(acpi_handle handle, u32 event, struct device *dev);
+@@ -29,6 +28,7 @@ struct hda_component {
+ };
  
- #endif /* ifndef __HDA_COMPONENT_H__ */
+ struct hda_component_parent {
++	struct hda_codec *codec;
+ 	struct hda_component comps[HDA_MAX_COMPONENTS];
+ };
+ 
 diff --git a/sound/pci/hda/tas2781_hda_i2c.c b/sound/pci/hda/tas2781_hda_i2c.c
-index fdee6592c502..c6c1e8e81972 100644
+index c6c1e8e81972..d7af4fd10714 100644
 --- a/sound/pci/hda/tas2781_hda_i2c.c
 +++ b/sound/pci/hda/tas2781_hda_i2c.c
-@@ -706,20 +706,20 @@ static int tas2781_hda_bind(struct device *dev, struct device *master,
- 	void *master_data)
- {
- 	struct tas2781_hda *tas_hda = dev_get_drvdata(dev);
--	struct hda_component *comps = master_data;
-+	struct hda_component_parent *parent = master_data;
-+	struct hda_component *comp;
- 	struct hda_codec *codec;
- 	unsigned int subid;
- 	int ret;
- 
--	if (!comps || tas_hda->priv->index < 0 ||
--		tas_hda->priv->index >= HDA_MAX_COMPONENTS)
-+	comp = hda_component_from_index(parent, tas_hda->priv->index);
-+	if (!comp)
- 		return -EINVAL;
- 
--	comps = &comps[tas_hda->priv->index];
--	if (comps->dev)
-+	if (comp->dev)
+@@ -719,7 +719,7 @@ static int tas2781_hda_bind(struct device *dev, struct device *master,
+ 	if (comp->dev)
  		return -EBUSY;
  
--	codec = comps->codec;
-+	codec = comp->codec;
+-	codec = comp->codec;
++	codec = parent->codec;
  	subid = codec->core.subsystem_id >> 16;
  
  	switch (subid) {
-@@ -733,13 +733,13 @@ static int tas2781_hda_bind(struct device *dev, struct device *master,
- 
- 	pm_runtime_get_sync(dev);
- 
--	comps->dev = dev;
-+	comp->dev = dev;
- 
--	strscpy(comps->name, dev_name(dev), sizeof(comps->name));
-+	strscpy(comp->name, dev_name(dev), sizeof(comp->name));
- 
- 	ret = tascodec_init(tas_hda->priv, codec, THIS_MODULE, tasdev_fw_ready);
- 	if (!ret)
--		comps->playback_hook = tas2781_hda_playback_hook;
-+		comp->playback_hook = tas2781_hda_playback_hook;
- 
- 	pm_runtime_mark_last_busy(dev);
- 	pm_runtime_put_autosuspend(dev);
-@@ -751,13 +751,14 @@ static void tas2781_hda_unbind(struct device *dev,
- 	struct device *master, void *master_data)
- {
- 	struct tas2781_hda *tas_hda = dev_get_drvdata(dev);
--	struct hda_component *comps = master_data;
--	comps = &comps[tas_hda->priv->index];
--
--	if (comps->dev == dev) {
--		comps->dev = NULL;
--		memset(comps->name, 0, sizeof(comps->name));
--		comps->playback_hook = NULL;
-+	struct hda_component_parent *parent = master_data;
-+	struct hda_component *comp;
-+
-+	comp = hda_component_from_index(parent, tas_hda->priv->index);
-+	if (comp && (comp->dev == dev)) {
-+		comp->dev = NULL;
-+		memset(comp->name, 0, sizeof(comp->name));
-+		comp->playback_hook = NULL;
- 	}
- 
- 	tas2781_hda_remove_controls(tas_hda);
 -- 
 2.34.1
 

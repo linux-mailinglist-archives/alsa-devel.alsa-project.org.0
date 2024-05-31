@@ -2,101 +2,117 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8FAA98D64CA
-	for <lists+alsa-devel@lfdr.de>; Fri, 31 May 2024 16:49:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F3EC8D64C9
+	for <lists+alsa-devel@lfdr.de>; Fri, 31 May 2024 16:49:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3677E868;
-	Fri, 31 May 2024 16:49:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3677E868
+	by alsa0.perex.cz (Postfix) with ESMTPS id AE352E8E;
+	Fri, 31 May 2024 16:49:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE352E8E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1717166979;
-	bh=MG4XTF460ME3QysgJdn6KSQKbYDcjfrewhgJYyzES+8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1717166960;
+	bh=fbwm0L2czEYAPW6jgiLOul/mhTB+DhMoOqJhXVu2zTE=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=N/SU/KAPZuLXufjssg6kS7dYLyKMIpF63pkJBZR0OvHC2F87CcP4pMHqNc+s7D4Bz
-	 lOhjU3jBsvHR3AVieIGYh0grg8FhieXMGSyeYO0XO/ELqHOHn6KSlcD3CPXjmDpnK+
-	 upeolUPouq48OHw3U8V252KknfK7/2aqt7ma7Fkw=
+	b=Tuui/AyewU/n8u+/SaceTiFxQHBYKUIepkr/kQaTYvG5hx4g6kbOSPXnZB5bqf1Jk
+	 NQQ7raIq7TfIl0/ZuscMPuD5xpwssbD5P+H5nAKcnDg58Q7lo4VN4f2NTvaG1fZcZu
+	 mldmfR8pfLIFx3CUQyh/cbOo7fYRRvA5urcptmlc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 31E9DF80580; Fri, 31 May 2024 16:49:06 +0200 (CEST)
+	id 10B75F805C8; Fri, 31 May 2024 16:48:30 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9FD1CF805A0;
-	Fri, 31 May 2024 16:49:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7F7D8F805C0;
+	Fri, 31 May 2024 16:48:30 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 149B7F8047C; Fri, 31 May 2024 16:49:03 +0200 (CEST)
+	id 4B9F9F80494; Fri, 31 May 2024 16:48:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail.savoirfairelinux.com (mail.savoirfairelinux.com
+ [208.88.110.44])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id ABEA4F8003A
-	for <alsa-devel@alsa-project.org>; Fri, 31 May 2024 16:48:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ABEA4F8003A
+	by alsa1.perex.cz (Postfix) with ESMTPS id AB377F80051
+	for <alsa-devel@alsa-project.org>; Fri, 31 May 2024 16:48:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB377F80051
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=kEamQRLc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1717166939; x=1748702939;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=MG4XTF460ME3QysgJdn6KSQKbYDcjfrewhgJYyzES+8=;
-  b=kEamQRLcPIaRgcpnBwoQXTWXRp5HRbvs6Ub+22zARPxI9pqvoRNhhZZu
-   SpTIiCBO6gCj2zgzcHxzuGiM/3WCMuT4X9ecszH1QP7gTDEFpgUDoTBzO
-   Wx0choO6P3ZVOzuI/EKVx4jfD9neD62nHak5hXMuQsCqCKrWTgNhmDJxm
-   xGVE2b6DMY3igPl5a/AUjJ4FCr2uH+9v/zwDXDs3Y8MYhOVj9XumqzzT6
-   WJCPy5AIUzqmXXZSNAEew3BFE+Ukg13acb9txPQRzcfvc3YAnWLYG2tsK
-   1E0WcGzVSfZy53MzEz8KQnAKv5k5Q8CNBu5Dgks7kX4iQLNlz0C2d0yTM
-   g==;
-X-CSE-ConnectionGUID: vL3Zo2JOQY6hFVykn392Qw==
-X-CSE-MsgGUID: 9p8b/E0ITwmwdrMYmTexmw==
-X-IronPort-AV: E=McAfee;i="6600,9927,11088"; a="24288611"
-X-IronPort-AV: E=Sophos;i="6.08,204,1712646000";
-   d="scan'208";a="24288611"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 May 2024 07:47:59 -0700
-X-CSE-ConnectionGUID: eiuozHKnS2iAMwXvlG0LLQ==
-X-CSE-MsgGUID: ztnHMCkNRxanqV1Z1AVwhw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,204,1712646000";
-   d="scan'208";a="59361042"
-Received: from ibganev-desk.amr.corp.intel.com (HELO [10.125.108.40])
- ([10.125.108.40])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 May 2024 07:47:56 -0700
-Message-ID: <f1b6d4d8-1d17-4d1f-ba9d-8b59393a6676@linux.intel.com>
-Date: Fri, 31 May 2024 09:46:55 -0500
+ unprotected) header.d=savoirfairelinux.com header.i=@savoirfairelinux.com
+ header.a=rsa-sha256 header.s=DFC430D2-D198-11EC-948E-34200CB392D2
+ header.b=dOdOJWcE
+Received: from localhost (localhost [127.0.0.1])
+	by mail.savoirfairelinux.com (Postfix) with ESMTP id 36E239C53DB;
+	Fri, 31 May 2024 10:48:14 -0400 (EDT)
+Received: from mail.savoirfairelinux.com ([127.0.0.1])
+ by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10032)
+ with ESMTP id OWmkbaQti6vx; Fri, 31 May 2024 10:48:13 -0400 (EDT)
+Received: from localhost (localhost [127.0.0.1])
+	by mail.savoirfairelinux.com (Postfix) with ESMTP id 328EF9C584C;
+	Fri, 31 May 2024 10:48:13 -0400 (EDT)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.savoirfairelinux.com 328EF9C584C
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=savoirfairelinux.com; s=DFC430D2-D198-11EC-948E-34200CB392D2;
+	t=1717166893; bh=4gJOT2TZM2vOr96kCkDrX091SaTjqssoW8NSELgeEzE=;
+	h=Date:From:To:Message-ID:MIME-Version;
+	b=dOdOJWcEsLtRJnvmZHrd7joAl03hH1oLp9K4prLenwv82raBUOBImRW4hxEktPxXA
+	 EYyPIxUtmyJFKap11cje6hg71HRxQKTFEn+8oTyaqpLhSw6XWZxobCVOr3RKeAyNtn
+	 x6bfE1KhLhAnYzMWhEc/DwzKbfQ6CZQfBckFeP4mRXK/MV0SUpO+GcklsYZTOkb+Kj
+	 XL15epmwTYJ2exGvzlIFi0qyvm+CXfbfeb9JdK32vJSszSUNpgKPGzrW/RVr/BK9LU
+	 LjYSQyTy1TVR+0E/uNLt0Vox/0OiDrYus5FMBOIThFzilOQk0WOgkuVJgf6kRhLJTK
+	 1VeDckfjArpdQ==
+X-Virus-Scanned: amavis at mail.savoirfairelinux.com
+Received: from mail.savoirfairelinux.com ([127.0.0.1])
+ by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10026)
+ with ESMTP id 7DO2Pw_eVkH3; Fri, 31 May 2024 10:48:13 -0400 (EDT)
+Received: from mail.savoirfairelinux.com (mail.savoirfairelinux.com
+ [192.168.48.237])
+	by mail.savoirfairelinux.com (Postfix) with ESMTP id E7B269C53DB;
+	Fri, 31 May 2024 10:48:12 -0400 (EDT)
+Date: Fri, 31 May 2024 10:48:12 -0400 (EDT)
+From: Elinor Montmasson <elinor.montmasson@savoirfairelinux.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	shengjiu wang <shengjiu.wang@gmail.com>,
+	Xiubo Lee <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
+	Nicolin Chen <nicoleotsuka@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	linux-sound <linux-sound@vger.kernel.org>,
+	devicetree <devicetree@vger.kernel.org>,
+	linux-kernel <linux-kernel@vger.kernel.org>,
+	alsa-devel <alsa-devel@alsa-project.org>,
+	linuxppc-dev <linuxppc-dev@lists.ozlabs.org>
+Message-ID: 
+ <1200863744.706237.1717166892907.JavaMail.zimbra@savoirfairelinux.com>
+In-Reply-To: <826f6c22-d1f1-42ce-a8d1-2d5cb894a970@sirena.org.uk>
+References: <20240515135411.343333-1-elinor.montmasson@savoirfairelinux.com>
+ <20240515135411.343333-8-elinor.montmasson@savoirfairelinux.com>
+ <ffb3624f-2170-4642-aaa5-fb6736a75d59@sirena.org.uk>
+ <822567441.349330.1715936735603.JavaMail.zimbra@savoirfairelinux.com>
+ <da74d276-b028-448b-bb28-295de49dbcda@sirena.org.uk>
+ <1660761484.701255.1717159615755.JavaMail.zimbra@savoirfairelinux.com>
+ <826f6c22-d1f1-42ce-a8d1-2d5cb894a970@sirena.org.uk>
+Subject: Re: [PATCHv4 7/9] ASoC: fsl-asoc-card: add DT clock "cpu_sysclk"
+ with generic codec
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] ASoc: tas2781: Enable RCA-based playback without DSP
- firmware download
-To: Shenghao Ding <shenghao-ding@ti.com>, broonie@kernel.org
-Cc: andriy.shevchenko@linux.intel.com, lgirdwood@gmail.com, perex@perex.cz,
- 13916275206@139.com, alsa-devel@alsa-project.org, i-salazar@ti.com,
- linux-kernel@vger.kernel.org, j-chadha@ti.com, liam.r.girdwood@intel.com,
- jaden-yue@ti.com, yung-chuan.liao@linux.intel.com, dipa@ti.com,
- yuhsuan@google.com, tiwai@suse.de, baojun.xu@ti.com, soyer@irl.hu,
- Baojun.Xu@fpt.com, judyhsiao@google.com, navada@ti.com,
- cujomalainey@google.com, aanya@ti.com, nayeem.mahmud@ti.com,
- savyasanchi.shukla@netradyne.com, flaviopr@microsoft.com, jesse-ji@ti.com
-References: <20240531052636.565-1-shenghao-ding@ti.com>
-Content-Language: en-US
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20240531052636.565-1-shenghao-ding@ti.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: CPZISJQNQC4CHQYS7HZ74AOFAUO6JOYG
-X-Message-ID-Hash: CPZISJQNQC4CHQYS7HZ74AOFAUO6JOYG
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+X-Mailer: Zimbra 8.8.15_GA_4581 (ZimbraWebClient - GC112
+ (Linux)/8.8.15_GA_4581)
+Thread-Topic: ASoC: fsl-asoc-card: add DT clock "cpu_sysclk" with generic
+ codec
+Thread-Index: KvvrpDg7ywtOAT1UfAfWnw0nFmtERw==
+Message-ID-Hash: O3U6XOR5TO5GQYPARTANE5DROR76CL3J
+X-Message-ID-Hash: O3U6XOR5TO5GQYPARTANE5DROR76CL3J
+X-MailFrom: elinor.montmasson@savoirfairelinux.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -108,7 +124,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CPZISJQNQC4CHQYS7HZ74AOFAUO6JOYG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/O3U6XOR5TO5GQYPARTANE5DROR76CL3J/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,68 +133,60 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+From: "Mark Brown" <broonie@kernel.org>
+Sent: Friday, 31 May, 2024 15:05:28
+> On Fri, May 31, 2024 at 08:46:55AM -0400, Elinor Montmasson wrote:
+>> From: "Mark Brown" <broonie@kernel.org>
+>> > On Fri, May 17, 2024 at 05:05:35AM -0400, Elinor Montmasson wrote:
+>> >> From: "Mark Brown" <broonie@kernel.org>
+>> >> > On Wed, May 15, 2024 at 03:54:09PM +0200, Elinor Montmasson wrote:
+> 
+>> >> >> +		struct clk *cpu_sysclk = clk_get(&pdev->dev, "cpu_sysclk");
+>> >> >> +		if (!IS_ERR(cpu_sysclk)) {
+>> >> >> +			priv->cpu_priv.sysclk_freq[TX] = clk_get_rate(cpu_sysclk);
+>> >> >> +			priv->cpu_priv.sysclk_freq[RX] = priv->cpu_priv.sysclk_freq[TX];
+>> >> >> +			clk_put(cpu_sysclk);
+>> >> >> +		}
+> 
+>> >> > I don't really understand the goal here - this is just reading whatever
+>> >> > frequency happens to be set in the hardware when the driver starts up
+>> >> > which if nothing else seems rather fragile?
+> 
+>> >> The driver allow to set the sysclk frequency
+>> >> of the CPU DAI through `priv->cpu_priv.sysclk_freq` when calling
+>> >> `fsl_asoc_card_hw_params()`.
+>> >> Currently it is hard-coded per use-case in the driver.
+> 
+>> >> My reasoning was that with a generic codec/compatible, there might
+>> >> be use-cases needing to use this parameter, so I exposed it here via DT.
+>> > 
+>> >> Is it a bad idea to expose this parameter ? This is not a requirement for the
+>> >> driver to work, most of the current compatibles do not use this parameter.
+>> >> It is currently used only for `fsl,imx-audio-cs42888`.
+>> >> In that case I can remove this commit.
+> 
+>> > I'm having a hard time connecting your reply here with my comment.  This
+>> > isn't as far as I can see allowing the frequency to be explicitly
+>> > configured, it's just using whatever value happens to be programmed in
+>> > the clock when the driver starts.
+> 
+>> In v3 I used parameters `cpu-sysclk-freq-rx/tx` to explicitly
+>> set the frequency.
+>> In its review Rob Herring said that the clock bindings should
+>> be used, so that's why I changed it to use this `cpu_sysclk` clock.
+> 
+> So you're trying to use this as the audio clock?  There's no code that
+> enables the clock which seems worrying, and I'd expect that if the
+> device is using it's own clock the device would be querying it directly
+> via the clock API rather than this.  This all seems really confused.
 
-> -enum tasdevice_dsp_fw_state {
-> -	TASDEVICE_DSP_FW_NONE = 0,
-> +enum tasdevice_fw_state {
-> +	/* Driver in startup mode, not load any firmware. */
->  	TASDEVICE_DSP_FW_PENDING,
-> +	/* DSP firmware in the system, but parsing error. */
->  	TASDEVICE_DSP_FW_FAIL,
-> +	/*
-> +	 * Only RCA (Reconfigurable Architecture) firmware load
-> +	 * successfully.
-> +	 */
-> +	TASDEVICE_RCA_FW_OK,
-> +	/* Both RCA and DSP firmware load successfully. */
->  	TASDEVICE_DSP_FW_ALL_OK,
+It's not specifically the audio clock, I am merely using this
+in the machine driver to let the user the possibility
+to configure the CPU DAI sysclock frequency.
+The CPU DAI and codec drivers already manage their
+own clocks.
 
-I appreciate the effort to document the states, but for the RCA cases we
-can have two 'success' states?
-
-> -	tas_priv->fw_state = TASDEVICE_DSP_FW_PENDING;
-> +	tas_priv->fw_state = TASDEVICE_RCA_FW_OK;
->  	scnprintf(tas_priv->coef_binaryname, 64, "%s_coef.bin",
->  		tas_priv->dev_name);
->  	ret = tasdevice_dsp_parser(tas_priv);
->  	if (ret) {
->  		dev_err(tas_priv->dev, "dspfw load %s error\n",
->  			tas_priv->coef_binaryname);
-> -		tas_priv->fw_state = TASDEVICE_DSP_FW_FAIL;
->  		goto out;
->  	}
-> -	tasdevice_dsp_create_ctrls(tas_priv);
-> +
-> +	/*
-> +	 * If no dsp-related kcontrol created, the dsp resource will be freed.
-> +	 */
-> +	ret = tasdevice_dsp_create_ctrls(tas_priv);
-> +	if (ret) {
-> +		dev_err(tas_priv->dev, "dsp controls error\n");
-> +		goto out;
-> +	}
->  
->  	tas_priv->fw_state = TASDEVICE_DSP_FW_ALL_OK;
-
-from this code, it seems that the RCA case goes from RCA_FW_OK to
-TASDEVICE_DSP_FW_ALL_OK, so there's a difference between the two states, no?
-
-
-> @@ -466,14 +474,14 @@ static int tasdevice_startup(struct snd_pcm_substream *substream,
->  {
->  	struct snd_soc_component *codec = dai->component;
->  	struct tasdevice_priv *tas_priv = snd_soc_component_get_drvdata(codec);
-> -	int ret = 0;
->  
-> -	if (tas_priv->fw_state != TASDEVICE_DSP_FW_ALL_OK) {
-> -		dev_err(tas_priv->dev, "DSP bin file not loaded\n");
-> -		ret = -EINVAL;
-> +	switch (tas_priv->fw_state) {
-> +	case TASDEVICE_RCA_FW_OK:
-> +	case TASDEVICE_DSP_FW_ALL_OK:
-> +		return 0;
-> +	default:
-> +		return -EINVAL;
-
-maybe keep the error logs?
-
+I agree it is confused, I am trying to expose a driver option
+for this generic compatible without really knowing a use case where it
+would be needed.
+With the S/PDIF it isn't needed, so I should probably remove this commit.

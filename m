@@ -2,100 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAE1F8D6781
-	for <lists+alsa-devel@lfdr.de>; Fri, 31 May 2024 18:56:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DEEAA8D6A3F
+	for <lists+alsa-devel@lfdr.de>; Fri, 31 May 2024 22:00:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 39AE7B76;
-	Fri, 31 May 2024 18:56:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 39AE7B76
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0933D832;
+	Fri, 31 May 2024 22:00:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0933D832
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1717174581;
-	bh=RH77djBrTwFxe/ywwViYLxao4C1lTcLNgr3/+jlMw7E=;
+	s=default; t=1717185657;
+	bh=jnv5YKLbj+Z2l8vdr8swzLTMD2a39mAbcZlrOzmNvKc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Krw2rNqiJZPrcVAfxt6P3nyVay1sJLzbKXIH3/5/2f3/l8nMfba4WJvHU0POUzIYp
-	 3Z/ymM0of8umI89VavdLWG169Y4BozdAzJF0zm/yYPdcIC+49IhlWKEGGU4mnw24R4
-	 C2j3FF+0ugqwxaS9rzzXVZGyvJpuZwdD+IQjddn0=
+	b=ovg3V/OsvppZI3FGEOhwWBiix7W29rx6Gl2O2eo6fQu/j7wbBvMel+XNcWj5YqwTn
+	 ddhxBZCR5E+wPvbtIfznjssZvl5lM9FwScZstrEF0gAGMi9vULjJ14VWkaa5K0c1IB
+	 kJoI15E+x76/mvzC2FaJNQuU0XYLLkSGcOfzYNSY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E68D1F8051F; Fri, 31 May 2024 18:55:49 +0200 (CEST)
+	id 59F1DF8026D; Fri, 31 May 2024 22:00:25 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 15DC8F8051F;
-	Fri, 31 May 2024 18:55:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D31AAF8051F;
+	Fri, 31 May 2024 22:00:24 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C3CDEF8026D; Fri, 31 May 2024 18:55:43 +0200 (CEST)
+	id 92E3FF8026D; Fri, 31 May 2024 21:59:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C659CF8003A
-	for <alsa-devel@alsa-project.org>; Fri, 31 May 2024 18:55:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C659CF8003A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3527DF8003A
+	for <alsa-devel@alsa-project.org>; Fri, 31 May 2024 21:59:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3527DF8003A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=TwJWdVwE
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 9BD1362AEF;
-	Fri, 31 May 2024 16:55:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B972C32786;
-	Fri, 31 May 2024 16:55:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1717174533;
-	bh=RH77djBrTwFxe/ywwViYLxao4C1lTcLNgr3/+jlMw7E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=TwJWdVwEKQxLLuT2zhjCTU4ofNhZhMJQVWLYsNllbzmiMq4g+3q/az/Usq4y43LMF
-	 hOqKdVWc9tUeRo8JlaOG3viw8wq3006D8Rxih/RtMd6tIkX+7jcI9m3QUyEupqHLb7
-	 9/fXTCFvzSKzAnFIyyoQAJl7Sc79Wz2apuktg47kb417rVbeqJUxup0/AHvwrj5R0k
-	 JdicKCg+5jWkfBM+/gO/px8hBHvP4bnvaDIlNnSzVr32iJbIuPwq+Htln1qwJS55Uf
-	 rQuxZg0TrapwSzjUPs22HW6dEGALSrMySthcq4Y8XGU5ySw0hTiTJdviQTZcsl5hif
-	 EoZ1rzO7n4e0w==
-Date: Fri, 31 May 2024 17:55:27 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Elinor Montmasson <elinor.montmasson@savoirfairelinux.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	shengjiu wang <shengjiu.wang@gmail.com>,
-	Xiubo Lee <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
-	Nicolin Chen <nicoleotsuka@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	linux-sound <linux-sound@vger.kernel.org>,
-	devicetree <devicetree@vger.kernel.org>,
-	linux-kernel <linux-kernel@vger.kernel.org>,
-	alsa-devel <alsa-devel@alsa-project.org>,
-	linuxppc-dev <linuxppc-dev@lists.ozlabs.org>
-Subject: Re: [PATCHv4 7/9] ASoC: fsl-asoc-card: add DT clock "cpu_sysclk"
- with generic codec
-Message-ID: <5d98d8b0-dd48-48dc-9552-b2906e31ce05@sirena.org.uk>
-References: <20240515135411.343333-1-elinor.montmasson@savoirfairelinux.com>
- <20240515135411.343333-8-elinor.montmasson@savoirfairelinux.com>
- <ffb3624f-2170-4642-aaa5-fb6736a75d59@sirena.org.uk>
- <822567441.349330.1715936735603.JavaMail.zimbra@savoirfairelinux.com>
- <da74d276-b028-448b-bb28-295de49dbcda@sirena.org.uk>
- <1660761484.701255.1717159615755.JavaMail.zimbra@savoirfairelinux.com>
- <826f6c22-d1f1-42ce-a8d1-2d5cb894a970@sirena.org.uk>
- <1200863744.706237.1717166892907.JavaMail.zimbra@savoirfairelinux.com>
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=B266ZgMg
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1717185563; x=1748721563;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=jnv5YKLbj+Z2l8vdr8swzLTMD2a39mAbcZlrOzmNvKc=;
+  b=B266ZgMgfyMNtMGIVxc7Ppu/HSZBFv/cxSugRVe4UQslLlAsYDw9x2aF
+   tvQ53I2RgrKlzgoitm4HiINEstyeUwOU+3zT6hli5tyaaNPqJH0ftwr8J
+   WVuW5cy8jvU3Sb/A/fS1c87OWPlWKt2Xzg10i/FUQppbPGr+yIGtT6E2Y
+   xqaPQmuT3+NtNe6QuAk4X/Ti42EEunPA2nrznLIoHqsHQB4ugkAudzx4V
+   9Yt9FRdtvbok/PzSXdlGyv5F+0/UU8T1gDdLq+NK8LRXzk4t/ZottuwLA
+   TfVm3dzNsb3wkKg/VyRLf3BF31l/LtjzLKLEgoEMM1/s9n8rdXMVpF6B9
+   Q==;
+X-CSE-ConnectionGUID: i4Zm4CcjR8282e4MvacLvw==
+X-CSE-MsgGUID: yeh4/JZpSCOjq0GJ3dLJJA==
+X-IronPort-AV: E=McAfee;i="6600,9927,11089"; a="24321221"
+X-IronPort-AV: E=Sophos;i="6.08,205,1712646000";
+   d="scan'208";a="24321221"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 May 2024 12:59:18 -0700
+X-CSE-ConnectionGUID: koVK9twYRRmYVQ1QSc9Rvw==
+X-CSE-MsgGUID: 56AM9RKLQEWQM53t0AqYIQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.08,205,1712646000";
+   d="scan'208";a="36202161"
+Received: from unknown (HELO 0610945e7d16) ([10.239.97.151])
+  by orviesa010.jf.intel.com with ESMTP; 31 May 2024 12:59:15 -0700
+Received: from kbuild by 0610945e7d16 with local (Exim 4.96)
+	(envelope-from <lkp@intel.com>)
+	id 1sD8P9-000HlJ-2z;
+	Fri, 31 May 2024 19:59:11 +0000
+Date: Sat, 1 Jun 2024 03:58:32 +0800
+From: kernel test robot <lkp@intel.com>
+To: Simon Trimmer <simont@opensource.cirrus.com>, tiwai@suse.com
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	linux-sound@vger.kernel.org, alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org, patches@opensource.cirrus.com,
+	soyer@irl.hu, shenghao-ding@ti.com, kevin-lu@ti.com,
+	baojun.xu@ti.com, kailang@realtek.com,
+	Simon Trimmer <simont@opensource.cirrus.com>
+Subject: Re: [PATCH 4/7] ALSA: hda: hda_component: Introduce component parent
+ structure
+Message-ID: <202406010354.ludmQT3O-lkp@intel.com>
+References: <20240531151409.80284-5-simont@opensource.cirrus.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="O3x7E8WE+Xf+WtR6"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: 
- <1200863744.706237.1717166892907.JavaMail.zimbra@savoirfairelinux.com>
-X-Cookie: Serving suggestion.
-Message-ID-Hash: WP6HGMUGWOVXD5G4QUHZALZHVFIPK5TB
-X-Message-ID-Hash: WP6HGMUGWOVXD5G4QUHZALZHVFIPK5TB
-X-MailFrom: broonie@kernel.org
+In-Reply-To: <20240531151409.80284-5-simont@opensource.cirrus.com>
+Message-ID-Hash: WRAUSPVZMDKUA7LPXZJ3DEVEQGF4DKDX
+X-Message-ID-Hash: WRAUSPVZMDKUA7LPXZJ3DEVEQGF4DKDX
+X-MailFrom: lkp@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -107,7 +106,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WP6HGMUGWOVXD5G4QUHZALZHVFIPK5TB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WRAUSPVZMDKUA7LPXZJ3DEVEQGF4DKDX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -116,43 +115,58 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Hi Simon,
 
---O3x7E8WE+Xf+WtR6
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+kernel test robot noticed the following build warnings:
 
-On Fri, May 31, 2024 at 10:48:12AM -0400, Elinor Montmasson wrote:
-> From: "Mark Brown" <broonie@kernel.org>
+[auto build test WARNING on tiwai-sound/for-next]
+[also build test WARNING on tiwai-sound/for-linus linus/master v6.10-rc1 next-20240531]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-> > So you're trying to use this as the audio clock?  There's no code that
-> > enables the clock which seems worrying, and I'd expect that if the
-> > device is using it's own clock the device would be querying it directly
-> > via the clock API rather than this.  This all seems really confused.
+url:    https://github.com/intel-lab-lkp/linux/commits/Simon-Trimmer/ALSA-hda-cs35l56-Component-should-be-unbound-before-deconstruction/20240531-231828
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
+patch link:    https://lore.kernel.org/r/20240531151409.80284-5-simont%40opensource.cirrus.com
+patch subject: [PATCH 4/7] ALSA: hda: hda_component: Introduce component parent structure
+config: arm-defconfig (https://download.01.org/0day-ci/archive/20240601/202406010354.ludmQT3O-lkp@intel.com/config)
+compiler: clang version 14.0.6 (https://github.com/llvm/llvm-project f28c006a5895fc0e329fe15fead81e37457cb1d1)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240601/202406010354.ludmQT3O-lkp@intel.com/reproduce)
 
-> It's not specifically the audio clock, I am merely using this
-> in the machine driver to let the user the possibility
-> to configure the CPU DAI sysclock frequency.
-> The CPU DAI and codec drivers already manage their
-> own clocks.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202406010354.ludmQT3O-lkp@intel.com/
 
-I would expect that if the clocks used by the devices are configured via
-the clock API then the drivers for those devices will configure
-themselves via the clock API.  I still don't understand what this change
-is intended to accomplish.
+All warnings (new ones prefixed by >>):
 
---O3x7E8WE+Xf+WtR6
-Content-Type: application/pgp-signature; name="signature.asc"
+>> sound/pci/hda/hda_component.c:140:27: warning: 'memset' call operates on objects of type 'struct hda_component_parent' while the size is based on a different type 'struct hda_component_parent *' [-Wsizeof-pointer-memaccess]
+           memset(parent, 0, sizeof(parent));
+                  ~~~~~~            ^~~~~~
+   sound/pci/hda/hda_component.c:140:27: note: did you mean to dereference the argument to 'sizeof' (and multiply it by the number of elements)?
+           memset(parent, 0, sizeof(parent));
+                                    ^~~~~~
+   1 warning generated.
 
------BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmZaAP4ACgkQJNaLcl1U
-h9C7Dwf/VLPq1S4H7OOi5cno1DA8yYITCEnfB9hv+QK0u+IGgQEVBH3ZIHElkzjs
-Vqj1WunQBboYBEZjSS67nJ4jCvB6G9AWz8D+yWfWP+YDOs08fCFLNG4pTtc+ooME
-lkLEVgJedtSHdOscDTWWlntBQJEXcWtEKccBh4BOPdqlb2zV/fJywO/shUPPksfA
-ZW7bi8SFI5chXBl+xgKcYaBXfI306bBmQK3ImFZk5o/6j2izLhL703EZXBRFi0yX
-2wjSn+Kxq9sMVe7igXvkQ53pQjVLz+tKaqS0YIEKGVs+nKMs/aihz0ie3wk3yexM
-dDL8RGtQmKuDLwU9/pZho2FiLBkLfg==
-=xMcC
------END PGP SIGNATURE-----
+vim +140 sound/pci/hda/hda_component.c
 
---O3x7E8WE+Xf+WtR6--
+   133	
+   134	int hda_component_manager_bind(struct hda_codec *cdc,
+   135				       struct hda_component_parent *parent)
+   136	{
+   137		int i;
+   138	
+   139		/* Init shared and component specific data */
+ > 140		memset(parent, 0, sizeof(parent));
+   141		for (i = 0; i < ARRAY_SIZE(parent->comps); i++)
+   142			parent->comps[i].codec = cdc;
+   143	
+   144		return component_bind_all(hda_codec_dev(cdc), &parent->comps);
+   145	}
+   146	EXPORT_SYMBOL_NS_GPL(hda_component_manager_bind, SND_HDA_SCODEC_COMPONENT);
+   147	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki

@@ -2,101 +2,123 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FDB88D6594
-	for <lists+alsa-devel@lfdr.de>; Fri, 31 May 2024 17:17:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BDCC28D65C6
+	for <lists+alsa-devel@lfdr.de>; Fri, 31 May 2024 17:32:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C3C43F94;
-	Fri, 31 May 2024 17:17:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C3C43F94
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2EFF4DF6;
+	Fri, 31 May 2024 17:31:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2EFF4DF6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1717168665;
-	bh=3gi9ZseK69241gs30CZ/3efH7Ik+gin5YhpjQoFRXKo=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=cA2coSrbgF1LMkJIrjUyH73Bkj8ZzrIdxWzK7fuD6M6XVNt6+NnBIQ+2KaRSGLYkz
-	 PDEMPC9BcbUzaOlGG9vGshVoQzqzw/oR8QVFciWR0+HbI4IChxwtmVhKy7nkSMSeX9
-	 uhG5PDhHGKqnWflxGkseG6VXe1PlADCHSfNM0OJA=
+	s=default; t=1717169524;
+	bh=hsjA0x6Srt7WNltFPQm36M1XEQClgGGCUWLHMkEXdTw=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=sLKs4NwD9bGgJkcqS+RTtwMaVjXcbFxDUzGMTS8dBbXQc4maO1/Lwe6hbxvF81yJH
+	 t6zIm/ngbj48HkS/O7qa7QvlyaikNE+SuDd7OL7BuaLnpJVdtEgzWA7+BqzRKU9Umc
+	 KoFfGUorImL0vzpqRS5wq7eJDIngZJ6PD+VeuiB4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 64093F805D5; Fri, 31 May 2024 17:17:14 +0200 (CEST)
+	id 061F4F805D2; Fri, 31 May 2024 17:31:14 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B144BF805BE;
-	Fri, 31 May 2024 17:17:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8019EF805C8;
+	Fri, 31 May 2024 17:31:14 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8D263F804FF; Fri, 31 May 2024 17:17:09 +0200 (CEST)
+	id 712E6F80051; Fri, 31 May 2024 17:31:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=unavailable autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E002AF804E5
-	for <alsa-devel@alsa-project.org>; Fri, 31 May 2024 17:15:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E002AF804E5
+	by alsa1.perex.cz (Postfix) with ESMTPS id 964F1F800AC
+	for <alsa-devel@alsa-project.org>; Fri, 31 May 2024 17:30:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 964F1F800AC
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=cFpkplWf
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 44VB0WSw017940;
-	Fri, 31 May 2024 10:15:15 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	PODMain02222019; bh=3QEuMPZ58UQQ/qZnvQF2UXA4/Nl17NjGc0XYDAapMeM=; b=
-	cFpkplWfGxOwUz3vnOXcDZGerlktCy8PNK24Bl/mh3PF0Z8vxGAmTtS3PQ3C81L2
-	PKzk5UJ1hlp2MJuUwVG19lqKDy1Je/cG+Jxyo8pnCwDRxnuzgBCVO4gIeVerQxl9
-	RbUYr8qcj9KHirOnikEzWk1ZkKmdBve8IeMnvW/ZSFVZHluK7SjX/7iQ6tR6I4BO
-	1pRn+Y6dGWqPuU2FgAHQiXMhbd+g48pohhSqSODASzepHtDxu84ssui47KzFTYMc
-	Kp82/oSAPA/cLaARCNFQJngAIBSczu/DP2q9GwbTD3hVJ7kILUn0oYyyPpLhcEsi
-	tAQVe5ejMTniXAeQae7yXQ==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3ybcdhe0a3-6
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 31 May 2024 10:15:15 -0500 (CDT)
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Fri, 31 May
- 2024 16:15:12 +0100
-Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1544.9 via Frontend Transport; Fri, 31 May 2024 16:15:12 +0100
-Received: from EDIN6ZZ2FY3.ad.cirrus.com (EDIN6ZZ2FY3.ad.cirrus.com
- [198.61.65.72])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id 2874882024B;
-	Fri, 31 May 2024 15:15:12 +0000 (UTC)
-From: Simon Trimmer <simont@opensource.cirrus.com>
-To: <tiwai@suse.com>
-CC: <linux-sound@vger.kernel.org>, <alsa-devel@alsa-project.org>,
-        <linux-kernel@vger.kernel.org>, <patches@opensource.cirrus.com>,
-        <soyer@irl.hu>, <shenghao-ding@ti.com>, <kevin-lu@ti.com>,
-        <baojun.xu@ti.com>, <kailang@realtek.com>,
-        Simon Trimmer
-	<simont@opensource.cirrus.com>
-Subject: [PATCH 7/7] ALSA: hda: hda_component: Protect shared data with a
- mutex
-Date: Fri, 31 May 2024 16:14:09 +0100
-Message-ID: <20240531151409.80284-8-simont@opensource.cirrus.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240531151409.80284-1-simont@opensource.cirrus.com>
-References: <20240531151409.80284-1-simont@opensource.cirrus.com>
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=YT+9jQg6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1717169455; x=1748705455;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=hsjA0x6Srt7WNltFPQm36M1XEQClgGGCUWLHMkEXdTw=;
+  b=YT+9jQg6ROLiTIR2loc+gu467/qFCoLB+476yFr805YZDnr0VN6K/X0p
+   klDTAbX4S4ZydlBmfDKNR+0iIOXLFhKVdqwVO6qhqu8wsyTcP4tMFDT1m
+   nTidGRln19bVBDwb2TnH7zUZ04LC3xL0fwANSQK9nfuXpzDei5DzAXCV4
+   6AngJDqIqVubArMxz24GSWqydv91S7IBmjCKzMiAusyZT5lyVRJ+5/Kiz
+   TpYARsJItwZg+1wahSROCSj+c7R/MCkkgeeEklpzGvvsbL55lGeR8mDJu
+   i589FVSV6QpKdRRsn1coVX70qfzixkCD6ZlskosUIyMbUBW3DiT3NyUFi
+   Q==;
+X-CSE-ConnectionGUID: GDXM+urSRzKxB5gBaoyuzA==
+X-CSE-MsgGUID: UHdTOnWcRYy+zpcblqhCfg==
+X-IronPort-AV: E=McAfee;i="6600,9927,11088"; a="13839565"
+X-IronPort-AV: E=Sophos;i="6.08,204,1712646000";
+   d="scan'208";a="13839565"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 May 2024 08:30:50 -0700
+X-CSE-ConnectionGUID: rj6obq2ERMO5QDiPGyKZ2g==
+X-CSE-MsgGUID: q2N5xO0fShaiM6SvMI6SaQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.08,204,1712646000";
+   d="scan'208";a="40627259"
+Received: from black.fi.intel.com ([10.237.72.28])
+  by fmviesa003.fm.intel.com with ESMTP; 31 May 2024 08:30:40 -0700
+Received: by black.fi.intel.com (Postfix, from userid 1003)
+	id 8ED9F228; Fri, 31 May 2024 18:30:39 +0300 (EEST)
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Rob Herring <robh@kernel.org>,
+	Weidong Wang <wangweidong.a@awinic.com>,
+	Mark Brown <broonie@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Shenghao Ding <shenghao-ding@ti.com>,
+	Marco Felsch <m.felsch@pengutronix.de>,
+	Alper Nebi Yasak <alpernebiyasak@gmail.com>,
+	Chancel Liu <chancel.liu@nxp.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	alsa-devel@alsa-project.org,
+	patches@opensource.cirrus.com,
+	linuxppc-dev@lists.ozlabs.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	David Rhodes <david.rhodes@cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	Kevin Lu <kevin-lu@ti.com>,
+	Baojun Xu <baojun.xu@ti.com>,
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	Banajit Goswami <bgoswami@quicinc.com>,
+	Shengjiu Wang <shengjiu.wang@gmail.com>,
+	Xiubo Li <Xiubo.Lee@gmail.com>,
+	Fabio Estevam <festevam@gmail.com>,
+	Nicolin Chen <nicoleotsuka@gmail.com>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Sylwester Nawrocki <s.nawrocki@samsung.com>
+Subject: [PATCH v2 0/6] ASoC: Drop or replace of_gpio.h
+Date: Fri, 31 May 2024 18:29:27 +0300
+Message-ID: <20240531153038.1590171-1-andriy.shevchenko@linux.intel.com>
+X-Mailer: git-send-email 2.43.0.rc1.1336.g36b5255a03ac
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: nGfCjYqswV3BL8JY5UN8bmtU3PwI8r7i
-X-Proofpoint-ORIG-GUID: nGfCjYqswV3BL8JY5UN8bmtU3PwI8r7i
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: C344DTG5TCQVQKFP7H4VLYXLCN5Z627Q
-X-Message-ID-Hash: C344DTG5TCQVQKFP7H4VLYXLCN5Z627Q
-X-MailFrom: prvs=3881dca93d=simont@opensource.cirrus.com
+Message-ID-Hash: HUOHT3E5EL2TMSI37762XCI73INFLILF
+X-Message-ID-Hash: HUOHT3E5EL2TMSI37762XCI73INFLILF
+X-MailFrom: andriy.shevchenko@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -108,7 +130,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/C344DTG5TCQVQKFP7H4VLYXLCN5Z627Q/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HUOHT3E5EL2TMSI37762XCI73INFLILF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,101 +139,47 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The hda_component contains information shared from the amp drivers to
-the codec that can be altered (for example as the driver unloads). Guard
-the update and use of these to prevent use of stale data.
+Replace or drop the legacy header that is subject to remove.
+Not all of them were compile-tested, the series might have
+hidden compilation errors.
 
-Signed-off-by: Simon Trimmer <simont@opensource.cirrus.com>
----
- sound/pci/hda/hda_component.c | 14 +++++++++++++-
- sound/pci/hda/hda_component.h |  4 ++++
- 2 files changed, 17 insertions(+), 1 deletion(-)
+In v2:
+- added tags (Kuninori, Charles)
+- ripped out TAS2781 (it's a mess from GPIO handling perspective)
 
-diff --git a/sound/pci/hda/hda_component.c b/sound/pci/hda/hda_component.c
-index 84add31408f7..21cd6a5eb6b1 100644
---- a/sound/pci/hda/hda_component.c
-+++ b/sound/pci/hda/hda_component.c
-@@ -21,11 +21,13 @@ void hda_component_acpi_device_notify(struct hda_component_parent *parent,
- 	struct hda_component *comp;
- 	int i;
- 
-+	mutex_lock(&parent->mutex);
- 	for (i = 0; i < ARRAY_SIZE(parent->comps); i++) {
- 		comp = hda_component_from_index(parent, i);
- 		if (comp->dev && comp->acpi_notify)
- 			comp->acpi_notify(acpi_device_handle(comp->adev), event, comp->dev);
- 	}
-+	mutex_unlock(&parent->mutex);
- }
- EXPORT_SYMBOL_NS_GPL(hda_component_acpi_device_notify, SND_HDA_SCODEC_COMPONENT);
- 
-@@ -87,6 +89,7 @@ void hda_component_manager_playback_hook(struct hda_component_parent *parent, in
- 	struct hda_component *comp;
- 	int i;
- 
-+	mutex_lock(&parent->mutex);
- 	for (i = 0; i < ARRAY_SIZE(parent->comps); i++) {
- 		comp = hda_component_from_index(parent, i);
- 		if (comp->dev && comp->pre_playback_hook)
-@@ -102,6 +105,7 @@ void hda_component_manager_playback_hook(struct hda_component_parent *parent, in
- 		if (comp->dev && comp->post_playback_hook)
- 			comp->post_playback_hook(comp->dev, action);
- 	}
-+	mutex_unlock(&parent->mutex);
- }
- EXPORT_SYMBOL_NS_GPL(hda_component_manager_playback_hook, SND_HDA_SCODEC_COMPONENT);
- 
-@@ -134,11 +138,19 @@ static int hda_comp_match_dev_name(struct device *dev, void *data)
- int hda_component_manager_bind(struct hda_codec *cdc,
- 			       struct hda_component_parent *parent)
- {
-+	int ret;
-+
- 	/* Init shared and component specific data */
- 	memset(parent, 0, sizeof(parent));
-+	mutex_init(&parent->mutex);
- 	parent->codec = cdc;
- 
--	return component_bind_all(hda_codec_dev(cdc), parent);
-+
-+	mutex_lock(&parent->mutex);
-+	ret = component_bind_all(hda_codec_dev(cdc), parent);
-+	mutex_unlock(&parent->mutex);
-+
-+	return ret;
- }
- EXPORT_SYMBOL_NS_GPL(hda_component_manager_bind, SND_HDA_SCODEC_COMPONENT);
- 
-diff --git a/sound/pci/hda/hda_component.h b/sound/pci/hda/hda_component.h
-index dd4dabeae9ee..9f786608144c 100644
---- a/sound/pci/hda/hda_component.h
-+++ b/sound/pci/hda/hda_component.h
-@@ -11,6 +11,7 @@
- 
- #include <linux/acpi.h>
- #include <linux/component.h>
-+#include <linux/mutex.h>
- #include <sound/hda_codec.h>
- 
- #define HDA_MAX_COMPONENTS	4
-@@ -28,6 +29,7 @@ struct hda_component {
- };
- 
- struct hda_component_parent {
-+	struct mutex mutex;
- 	struct hda_codec *codec;
- 	struct hda_component comps[HDA_MAX_COMPONENTS];
- };
-@@ -93,7 +95,9 @@ static inline struct hda_component *hda_component_from_index(struct hda_componen
- static inline void hda_component_manager_unbind(struct hda_codec *cdc,
- 						struct hda_component_parent *parent)
- {
-+	mutex_lock(&parent->mutex);
- 	component_unbind_all(hda_codec_dev(cdc), parent);
-+	mutex_unlock(&parent->mutex);
- }
- 
- #endif /* ifndef __HDA_COMPONENT_H__ */
+Andy Shevchenko (6):
+  ASoC: codecs: Remove unused of_gpio.h
+  ASoC: fsl: Remove unused of_gpio.h
+  ASoC: rockchip: Remove unused of_gpio.h
+  ASoC: codecs: Replace of_gpio.h by proper one
+  ASoC: generic: Replace of_gpio.h by proper one
+  ASoC: samsung: Replace of_gpio.h by proper one
+
+ sound/soc/codecs/ak4118.c                           | 1 -
+ sound/soc/codecs/ak4458.c                           | 1 -
+ sound/soc/codecs/aw88395/aw88395.c                  | 2 +-
+ sound/soc/codecs/aw88399.c                          | 1 -
+ sound/soc/codecs/cs53l30.c                          | 1 -
+ sound/soc/codecs/max98390.c                         | 1 -
+ sound/soc/codecs/pcm3168a.c                         | 1 -
+ sound/soc/codecs/rk817_codec.c                      | 1 -
+ sound/soc/codecs/tas2552.c                          | 1 -
+ sound/soc/codecs/tas2764.c                          | 1 -
+ sound/soc/codecs/tas2770.c                          | 1 -
+ sound/soc/codecs/tas2780.c                          | 1 -
+ sound/soc/codecs/tlv320adc3xxx.c                    | 1 -
+ sound/soc/codecs/tlv320adcx140.c                    | 1 -
+ sound/soc/codecs/tlv320aic31xx.c                    | 1 -
+ sound/soc/codecs/ts3a227e.c                         | 1 -
+ sound/soc/codecs/wsa883x.c                          | 1 -
+ sound/soc/fsl/imx-es8328.c                          | 1 -
+ sound/soc/fsl/imx-rpmsg.c                           | 2 --
+ sound/soc/generic/audio-graph-card2-custom-sample.c | 3 ++-
+ sound/soc/rockchip/rockchip_i2s.c                   | 1 -
+ sound/soc/rockchip/rockchip_spdif.c                 | 1 -
+ sound/soc/samsung/aries_wm8994.c                    | 2 +-
+ 23 files changed, 4 insertions(+), 24 deletions(-)
+
 -- 
-2.34.1
+2.43.0.rc1.1336.g36b5255a03ac
 

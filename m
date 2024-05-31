@@ -2,117 +2,128 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 091558D64C6
-	for <lists+alsa-devel@lfdr.de>; Fri, 31 May 2024 16:49:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB64F8D650A
+	for <lists+alsa-devel@lfdr.de>; Fri, 31 May 2024 16:59:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 141F8857;
-	Fri, 31 May 2024 16:48:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 141F8857
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5D17CE9D;
+	Fri, 31 May 2024 16:58:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D17CE9D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1717166939;
-	bh=qjG5sk5AW4DnjPOlkdayQAmvAKdwXxis0W1RtTvM0YY=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject:List-Id:
+	s=default; t=1717167536;
+	bh=9+6h3DiodrT9YFrdp+kdRsd+uvX5l44PO21I4T4zFO4=;
+	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=rZMjN1mb4WdK0oAoimN2lZaLFoHpfCnEhXMdq1A3j2rJeHhrs1BHESbxVBtOFHuUo
-	 koj8IijW21nbPbpjJ2qzCedmp3f/FyGoV7BDveB+Kb6LDdhWmhLfR6CLYd+s0WvSDP
-	 PJos4xIKi7m6YWaJTVshVDX4Aw+w22nDx2lG5Xes=
+	b=CB4EYUHf6Rlkm0S7ZAmYmljT2qAqZGBpPIPNyNQMQg7iQBks1yegsaBb5+xd2XlW/
+	 sux8HODD+DhsnFvQbJuXJpu54aQtmPxGFdMOOAjQJIMXOJCcJ010exZ06rNmav0kJX
+	 /8Qeychm6NQmDn8BNp0lB8NWVrh07WyUAxmsGa/w=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1E12CF80587; Fri, 31 May 2024 16:48:26 +0200 (CEST)
+	id 45890F80589; Fri, 31 May 2024 16:58:24 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2B68DF80589;
-	Fri, 31 May 2024 16:48:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 548D7F8059F;
+	Fri, 31 May 2024 16:58:24 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9D1AFF8047C; Fri, 31 May 2024 16:48:21 +0200 (CEST)
+	id 1804EF8026D; Fri, 31 May 2024 16:58:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
 	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail.savoirfairelinux.com (mail.savoirfairelinux.com
- [208.88.110.44])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BEAE5F8003A
-	for <alsa-devel@alsa-project.org>; Fri, 31 May 2024 16:48:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BEAE5F8003A
+	by alsa1.perex.cz (Postfix) with ESMTPS id CFA36F80051
+	for <alsa-devel@alsa-project.org>; Fri, 31 May 2024 16:58:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFA36F80051
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=savoirfairelinux.com header.i=@savoirfairelinux.com
- header.a=rsa-sha256 header.s=DFC430D2-D198-11EC-948E-34200CB392D2
- header.b=SdiCNzQZ
-Received: from localhost (localhost [127.0.0.1])
-	by mail.savoirfairelinux.com (Postfix) with ESMTP id 652479C584C;
-	Fri, 31 May 2024 10:48:15 -0400 (EDT)
-Received: from mail.savoirfairelinux.com ([127.0.0.1])
- by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10032)
- with ESMTP id X9AwXBwr79HS; Fri, 31 May 2024 10:48:14 -0400 (EDT)
-Received: from localhost (localhost [127.0.0.1])
-	by mail.savoirfairelinux.com (Postfix) with ESMTP id CA82F9C58D5;
-	Fri, 31 May 2024 10:48:14 -0400 (EDT)
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.savoirfairelinux.com CA82F9C58D5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=savoirfairelinux.com; s=DFC430D2-D198-11EC-948E-34200CB392D2;
-	t=1717166894; bh=kchiTinbtwESPzQeP7Vb31GmvIj0rK/lVr0ouZd4gSo=;
-	h=Date:From:To:Message-ID:MIME-Version;
-	b=SdiCNzQZ1hd90TLzQQg+YhNcEKlzhtyi0dMmWZsuakVAg4zC8oa8Ln/wuzFtjnZK6
-	 umuqOtoS5gkAHEBujnoCEOKYsXDvBh7k4WB/XCvwIBLWucfTHY73fNM4O9rU+BqSur
-	 biWGtwErgzOoA/ZiQJHHv24hgOQZUfQtinNump2ygkCTh6ox6DlEHxwE85rJMdAjBk
-	 cj9wBia7YVfb9fgXSVg18pbAViYC196NYW9D6jWI18BvnfTAn9m4XWsvWiwaGZEBGM
-	 NVyq3W/ZG6KUkux0S4tKghCh9c2/NGndA3PTc151uQ9mRgg9k7xn+nLrLuDs/1Kzb1
-	 s9Ne6y55WTWOg==
-X-Virus-Scanned: amavis at mail.savoirfairelinux.com
-Received: from mail.savoirfairelinux.com ([127.0.0.1])
- by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10026)
- with ESMTP id f6p0tkYRN10f; Fri, 31 May 2024 10:48:14 -0400 (EDT)
-Received: from mail.savoirfairelinux.com (mail.savoirfairelinux.com
- [192.168.48.237])
-	by mail.savoirfairelinux.com (Postfix) with ESMTP id 8F58C9C584C;
-	Fri, 31 May 2024 10:48:14 -0400 (EDT)
-Date: Fri, 31 May 2024 10:48:14 -0400 (EDT)
-From: Elinor Montmasson <elinor.montmasson@savoirfairelinux.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	shengjiu wang <shengjiu.wang@gmail.com>,
-	Xiubo Lee <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
-	Nicolin Chen <nicoleotsuka@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	linux-sound <linux-sound@vger.kernel.org>,
-	devicetree <devicetree@vger.kernel.org>,
-	linux-kernel <linux-kernel@vger.kernel.org>,
-	alsa-devel <alsa-devel@alsa-project.org>,
-	linuxppc-dev <linuxppc-dev@lists.ozlabs.org>
-Message-ID: 
- <1220272166.706254.1717166894551.JavaMail.zimbra@savoirfairelinux.com>
-In-Reply-To: <291daed8-a2e1-44d4-9a71-5bca2c585720@sirena.org.uk>
-References: <20240515135411.343333-1-elinor.montmasson@savoirfairelinux.com>
- <20240515135411.343333-10-elinor.montmasson@savoirfairelinux.com>
- <ce9a87c6-4a5c-4f0a-a8df-1fdce8c1f5df@sirena.org.uk>
- <599489232.349333.1715936741672.JavaMail.zimbra@savoirfairelinux.com>
- <500db9de-6113-4e73-ba92-6e52ea292b32@sirena.org.uk>
- <1598202415.701258.1717159684103.JavaMail.zimbra@savoirfairelinux.com>
- <291daed8-a2e1-44d4-9a71-5bca2c585720@sirena.org.uk>
-Subject: Re: [PATCHv4 9/9] ASoC: dt-bindings: fsl-asoc-card: add compatible
- for generic codec
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=cgV8psTi
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
+ 44V9Swso003313;
+	Fri, 31 May 2024 09:58:06 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=PODMain02222019; bh=hxGvSEqlUm/4Gr1/Y7
+	FisaucBu8jAHnTKI/Obg6VI9c=; b=cgV8psTiVp2etlgNlYKT/Xz5UTa72Adwnp
+	Mz2p1O9qHqFUPa15bt9k4vOaw0BFh7bPfJ1p4wP2ArTWshr7L1GtTFZWa18VmbEX
+	efyhNCr7LGDVTGEkFIdZ0+fQ7lrmWR08B7gFutkTdq4gik7dVbbMx17C3hPbsiqX
+	FCCs7+w31Fz3cjSd/vTp8fxiOXlBH0SixpDYUeNAgOZyC/WqXTvNGN/y23eabUCD
+	5uteqKIcoNKlQlCxYfRo5l/rbU0dUpjor+W6lYVOnFoOCyW4y/NdaGcm+icIdEzg
+	FzQyVFTV5U46MBSRn9vkeAmsXDfnV3tfBs9CiTKaysNGvNIL1WOg==
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3ybdcwwwuu-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 31 May 2024 09:58:06 -0500 (CDT)
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Fri, 31 May
+ 2024 15:58:04 +0100
+Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1544.9 via Frontend Transport; Fri, 31 May 2024 15:58:04 +0100
+Received: from opensource.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPS id 05CBE820244;
+	Fri, 31 May 2024 14:58:04 +0000 (UTC)
+Date: Fri, 31 May 2024 14:58:02 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+CC: Rob Herring <robh@kernel.org>, Weidong Wang <wangweidong.a@awinic.com>,
+        Mark Brown <broonie@kernel.org>,
+        Uwe =?iso-8859-1?Q?Kleine-K=F6nig?=
+	<u.kleine-koenig@pengutronix.de>,
+        Shenghao Ding <shenghao-ding@ti.com>,
+        "Marco Felsch" <m.felsch@pengutronix.de>,
+        Alper Nebi Yasak
+	<alpernebiyasak@gmail.com>,
+        Chancel Liu <chancel.liu@nxp.com>,
+        "Kuninori
+ Morimoto" <kuninori.morimoto.gx@renesas.com>,
+        <linux-sound@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <alsa-devel@alsa-project.org>, <patches@opensource.cirrus.com>,
+        <linuxppc-dev@lists.ozlabs.org>, <imx@lists.linux.dev>,
+        <linux-arm-kernel@lists.infradead.org>,
+        <linux-rockchip@lists.infradead.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>,
+        "James
+ Schulman" <james.schulman@cirrus.com>,
+        David Rhodes
+	<david.rhodes@cirrus.com>,
+        Richard Fitzgerald <rf@opensource.cirrus.com>,
+        Kevin Lu <kevin-lu@ti.com>, Baojun Xu <baojun.xu@ti.com>,
+        Srinivas Kandagatla
+	<srinivas.kandagatla@linaro.org>,
+        Banajit Goswami <bgoswami@quicinc.com>,
+        Shengjiu Wang <shengjiu.wang@gmail.com>,
+        Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
+        Nicolin Chen <nicoleotsuka@gmail.com>,
+ Shawn Guo <shawnguo@kernel.org>,
+        Sascha Hauer <s.hauer@pengutronix.de>,
+        Pengutronix Kernel Team <kernel@pengutronix.de>,
+        Heiko Stuebner
+	<heiko@sntech.de>,
+        Sylwester Nawrocki <s.nawrocki@samsung.com>
+Subject: Re: [PATCH v1 1/6] ASoC: codecs: Remove unused of_gpio.h
+Message-ID: <ZlnleuSae2C6/WRU@opensource.cirrus.com>
+References: <20240530230037.1156253-1-andriy.shevchenko@linux.intel.com>
+ <20240530230037.1156253-2-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-X-Mailer: Zimbra 8.8.15_GA_4581 (ZimbraWebClient - GC112
- (Linux)/8.8.15_GA_4581)
-Thread-Topic: ASoC: dt-bindings: fsl-asoc-card: add compatible for generic
- codec
-Thread-Index: fUODjmUMbozLiD+24hweZL0h4n337g==
-Message-ID-Hash: 5JW3XLSUTEXECNBY6B7BJUO6OF5F4E4Z
-X-Message-ID-Hash: 5JW3XLSUTEXECNBY6B7BJUO6OF5F4E4Z
-X-MailFrom: elinor.montmasson@savoirfairelinux.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20240530230037.1156253-2-andriy.shevchenko@linux.intel.com>
+X-Proofpoint-GUID: QOHrrhhsAlL1BvB8LD1NFqOZRJaPkXqI
+X-Proofpoint-ORIG-GUID: QOHrrhhsAlL1BvB8LD1NFqOZRJaPkXqI
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: 3YY2TD7MQAIRC5NZUA4R2CBNZT23S324
+X-Message-ID-Hash: 3YY2TD7MQAIRC5NZUA4R2CBNZT23S324
+X-MailFrom: prvs=38813a1e1d=ckeepax@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -124,7 +135,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5JW3XLSUTEXECNBY6B7BJUO6OF5F4E4Z/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3YY2TD7MQAIRC5NZUA4R2CBNZT23S324/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -133,23 +144,15 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: "Mark Brown" <broonie@kernel.org>
-Sent: Friday, 31 May, 2024 15:14:13
-
-> On Fri, May 31, 2024 at 08:48:04AM -0400, Elinor Montmasson wrote:
+On Fri, May 31, 2024 at 01:58:47AM +0300, Andy Shevchenko wrote:
+> of_gpio.h is deprecated and subject to remove. The drivers in question
+> don't use it, simply remove the unused header.
 > 
->> Then maybe it's not be a good idea to make this compatible generic
->> for this contribution.
->> The original intention is to bring support for the S/PDIF,
->> so maybe the contribution should focus on this use case?
->> In that case, would changing the compatible for "fsl,imx-audio-spdif-card"
->> be acceptable?
->> "fsl,imx-audio-spdif" is already used for the `imx-spdif.c`
->> which does not use the ASRC.
-> 
-> Why not just use the existing compatible - why would someone not want to
-> be able to use the ASRC if it's available in their system?
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> ---
+>  sound/soc/codecs/cs53l30.c        | 1 -
 
-That's true but it will be a problem if both `fsl-asoc-card.c` and
-`imx-spdif.c` drivers have the same compatible, and they don't
-have the same DT properties.
+Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+
+Thanks,
+Charles

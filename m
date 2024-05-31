@@ -2,77 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EF268D65D3
-	for <lists+alsa-devel@lfdr.de>; Fri, 31 May 2024 17:33:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A9528D65D5
+	for <lists+alsa-devel@lfdr.de>; Fri, 31 May 2024 17:33:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7547BFAA;
-	Fri, 31 May 2024 17:32:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7547BFAA
+	by alsa0.perex.cz (Postfix) with ESMTPS id C4FF115FA;
+	Fri, 31 May 2024 17:33:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4FF115FA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1717169589;
-	bh=SGwfez3lrOf2K/YTWirwKNhphy+WK2Ug6UhveRqerj0=;
+	s=default; t=1717169602;
+	bh=sA6qI//FTL7pgyGldUMsd1jU+l556RY52OWXWgjHnto=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=OqOCMwaCDzWj7sy8pM/8g1gsRDiseaA7Hwcvno5JHBpA0cXgJIPc0+peB702GrleS
-	 n5aXKapGXLBnjmcdYcyf2FgLzAq+H0xbWDNHdVUV2hLLEh1tSaubmpQkKH88YvxCqs
-	 mMdwrXwgMXjHNWS+k32lJgStTofKgqTw8JJUTVsU=
+	b=cYpaF+CsEzkz170c92VEZmp4rn7wShjVWmlxamb9ntuRDzebhIrYbO2tlVms/Olsj
+	 ohKdGYbBBBbMLZ8HZTuXZ2BVes/k52u890BjUFrSzX74InBPNVASOZp3Y4fgRkEYRO
+	 oxpF7rieNyW6Rdc9cN34GVm2lq8ebFjCZdtn3o+c=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 04709F80685; Fri, 31 May 2024 17:31:25 +0200 (CEST)
+	id 6DC5AF8069A; Fri, 31 May 2024 17:31:27 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C7340F8065A;
-	Fri, 31 May 2024 17:31:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DD0AFF8067C;
+	Fri, 31 May 2024 17:31:26 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 295CEF8026D; Fri, 31 May 2024 17:31:10 +0200 (CEST)
+	id 3CAE4F8026D; Fri, 31 May 2024 17:31:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_NONE,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1C00DF80496
-	for <alsa-devel@alsa-project.org>; Fri, 31 May 2024 17:30:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C00DF80496
+	by alsa1.perex.cz (Postfix) with ESMTPS id 36224F80051
+	for <alsa-devel@alsa-project.org>; Fri, 31 May 2024 17:31:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36224F80051
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=O3pySoyb
+ header.s=Intel header.b=fbSaCZcm
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1717169459; x=1748705459;
+  t=1717169468; x=1748705468;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=SGwfez3lrOf2K/YTWirwKNhphy+WK2Ug6UhveRqerj0=;
-  b=O3pySoyb9oe47XYuT+6md8i3Wzt1JXfwqxKLTan1Q4iThA5EcR6uSRf7
-   9MxEq7RvCAYv6FLDC1ocPTZJe7toDHSK8bN9cdV1lVdKhMvUrxhTcqW/J
-   5UNfIkWIRg4y39x1DRuYRQ8cz9oZRfmf3prdtfFDZNkvhmzAF5gneksIN
-   +D+PlXRLGkxbS5DBWp1br4/mZZ2AwblrLLkNQBThicS628H7wb0onjLYv
-   RdZ6OBrto5ENlHflZW+DS9H78H8inpA2ghSwP5k0oSWMWQM+1MFanP0Va
-   8FaoEyG8P5VZuL4mR1iOBWsXilhbIy+A0yDNI7qfOrZq9zvoohphiGFQR
-   Q==;
-X-CSE-ConnectionGUID: wTEDQ1/4T6KiW8zTb7RdQQ==
-X-CSE-MsgGUID: 61aWrccRQoOoF2m2D1ef5w==
-X-IronPort-AV: E=McAfee;i="6600,9927,11088"; a="24348173"
+  bh=sA6qI//FTL7pgyGldUMsd1jU+l556RY52OWXWgjHnto=;
+  b=fbSaCZcm8N8HKi8gZrGKas/ywWbCiuAMkq9uLNWe4WW/skW13gqpSov2
+   Qc6XDzYfEzZJ8vh61K/97s4JYOijMbr6MdABnQlsNTiL7//rl/irRRxKf
+   rxihGcALNR1gSOjcz0xkP4arqjXoG68OpEYeiUx/Sl0SHIMNcuWMWKdal
+   n84qHNfrPWUYxirx9H+LL6E5JsqfJi2QVUmf0ZN8t3swyuMj+sXF+zbHr
+   g2ZjXitwYguo8Y9O7rN4Moi7JdxiJLfbbdNgy8yi6G5JSEOIBLf3zrms3
+   vrugG0amxNEBCWBRUV0jmY1RIQCPXDtRZ20j6gvm6w9iLydRYW/BcrsAz
+   w==;
+X-CSE-ConnectionGUID: BXQAdjb4QmOC8092JIEjRQ==
+X-CSE-MsgGUID: Kt4Q4TR3Rt2xGo+XTOOC6Q==
+X-IronPort-AV: E=McAfee;i="6600,9927,11088"; a="13839675"
 X-IronPort-AV: E=Sophos;i="6.08,204,1712646000";
-   d="scan'208";a="24348173"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+   d="scan'208";a="13839675"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  31 May 2024 08:30:57 -0700
-X-CSE-ConnectionGUID: R+7+mf/zRxCcV6DbRi4D6A==
-X-CSE-MsgGUID: +8jCcKrWQP6iKzrYNSNOUw==
+X-CSE-ConnectionGUID: hHqXtMjBQrmkR3of3UKpuQ==
+X-CSE-MsgGUID: 7H/Fjvj9SyuUz1KNLZXrwg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.08,204,1712646000";
-   d="scan'208";a="73678789"
+   d="scan'208";a="40627351"
 Received: from black.fi.intel.com ([10.237.72.28])
-  by orviesa001.jf.intel.com with ESMTP; 31 May 2024 08:30:49 -0700
+  by fmviesa003.fm.intel.com with ESMTP; 31 May 2024 08:30:49 -0700
 Received: by black.fi.intel.com (Postfix, from userid 1003)
-	id EA704679; Fri, 31 May 2024 18:30:39 +0300 (EEST)
+	id 04665692; Fri, 31 May 2024 18:30:39 +0300 (EEST)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Charles Keepax <ckeepax@opensource.cirrus.com>,
 	Rob Herring <robh@kernel.org>,
@@ -111,16 +111,16 @@ Cc: Liam Girdwood <lgirdwood@gmail.com>,
 	Pengutronix Kernel Team <kernel@pengutronix.de>,
 	Heiko Stuebner <heiko@sntech.de>,
 	Sylwester Nawrocki <s.nawrocki@samsung.com>
-Subject: [PATCH v2 5/6] ASoC: generic: Replace of_gpio.h by proper one
-Date: Fri, 31 May 2024 18:29:32 +0300
-Message-ID: <20240531153038.1590171-6-andriy.shevchenko@linux.intel.com>
+Subject: [PATCH v2 6/6] ASoC: samsung: Replace of_gpio.h by proper one
+Date: Fri, 31 May 2024 18:29:33 +0300
+Message-ID: <20240531153038.1590171-7-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.43.0.rc1.1336.g36b5255a03ac
 In-Reply-To: <20240531153038.1590171-1-andriy.shevchenko@linux.intel.com>
 References: <20240531153038.1590171-1-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: PO4HIS2XYTVXEOF5PE6AIPIBD2VBRUFM
-X-Message-ID-Hash: PO4HIS2XYTVXEOF5PE6AIPIBD2VBRUFM
+Message-ID-Hash: HGNGPRX6I3GMUYSVK6RSDOHNAEIYVWHU
+X-Message-ID-Hash: HGNGPRX6I3GMUYSVK6RSDOHNAEIYVWHU
 X-MailFrom: andriy.shevchenko@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -133,7 +133,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PO4HIS2XYTVXEOF5PE6AIPIBD2VBRUFM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HGNGPRX6I3GMUYSVK6RSDOHNAEIYVWHU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -146,27 +146,28 @@ of_gpio.h is deprecated and subject to remove.
 The driver doesn't use it directly, replace it
 with what is really being used.
 
-Acked-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- sound/soc/generic/audio-graph-card2-custom-sample.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ sound/soc/samsung/aries_wm8994.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/generic/audio-graph-card2-custom-sample.c b/sound/soc/generic/audio-graph-card2-custom-sample.c
-index 1b6ccd2de964..8e5a51098490 100644
---- a/sound/soc/generic/audio-graph-card2-custom-sample.c
-+++ b/sound/soc/generic/audio-graph-card2-custom-sample.c
-@@ -5,8 +5,9 @@
- // Copyright (C) 2020 Renesas Electronics Corp.
- // Copyright (C) 2020 Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
- //
-+#include <linux/device.h>
-+#include <linux/mod_devicetable.h>
+diff --git a/sound/soc/samsung/aries_wm8994.c b/sound/soc/samsung/aries_wm8994.c
+index a548ac33dd94..01716df0c842 100644
+--- a/sound/soc/samsung/aries_wm8994.c
++++ b/sound/soc/samsung/aries_wm8994.c
+@@ -1,11 +1,11 @@
+ // SPDX-License-Identifier: GPL-2.0+
+ #include <linux/extcon.h>
++#include <linux/gpio/consumer.h>
+ #include <linux/iio/consumer.h>
+ #include <linux/input-event-codes.h>
+ #include <linux/mfd/wm8994/registers.h>
  #include <linux/module.h>
+ #include <linux/of.h>
 -#include <linux/of_gpio.h>
- #include <linux/platform_device.h>
- #include <sound/graph_card.h>
- 
+ #include <linux/regulator/consumer.h>
+ #include <sound/jack.h>
+ #include <sound/pcm_params.h>
 -- 
 2.43.0.rc1.1336.g36b5255a03ac
 

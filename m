@@ -2,75 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B38F28D7FF5
-	for <lists+alsa-devel@lfdr.de>; Mon,  3 Jun 2024 12:28:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8BB68D7FF6
+	for <lists+alsa-devel@lfdr.de>; Mon,  3 Jun 2024 12:29:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 088F7845;
-	Mon,  3 Jun 2024 12:28:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 088F7845
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2962E1DF;
+	Mon,  3 Jun 2024 12:29:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2962E1DF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1717410536;
-	bh=67gZRlZBaTdb8h6ch3REGCduvNYrqRietV9ZHi2R820=;
+	s=default; t=1717410557;
+	bh=GFqX5r9hkOet5jHFaGDfztMJVt5pXGz34ax6hpUonoQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ppZNQ7p4bP+xCQ6RcRwYlyA8MqqKrXQ/uW1sHUefUmIPfEttfa9TEWUClKJIcP/Px
-	 YJHEyECrzM+tAC64wFeHbvTBqCkomZ9c1bavDIfPha0Re0hrwbtnouWjzWTgZ5u4KG
-	 dBye85uBC5bakNxP7imDZr48xqsLGolTHNGLcX1g=
+	b=c18ejWEHp3DeenrvZ80Y0VBu1MURg0LX5x+YiKKlF53bn5k6F126/WJgOjDF2rJU4
+	 PmMFRD0qcMeoOSkr4r1biqXoYNgrZJmbGri6fAeIEoxchmLZ+eEKe3iLBkGWa5vkv0
+	 0k3b4R6dDdRcIQ2Yae/vdBUCWK9f/2sudh996uY4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0DC48F805E9; Mon,  3 Jun 2024 12:27:58 +0200 (CEST)
+	id 98090F80612; Mon,  3 Jun 2024 12:28:01 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A4BD7F805F0;
-	Mon,  3 Jun 2024 12:27:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CC397F805FD;
+	Mon,  3 Jun 2024 12:28:00 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 00B39F80496; Mon,  3 Jun 2024 12:27:50 +0200 (CEST)
+	id 28536F8025A; Mon,  3 Jun 2024 12:27:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_NONE,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
+	SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BD773F800FA
-	for <alsa-devel@alsa-project.org>; Mon,  3 Jun 2024 12:27:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD773F800FA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 72CB8F80236
+	for <alsa-devel@alsa-project.org>; Mon,  3 Jun 2024 12:27:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 72CB8F80236
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=RUTIRvov
+ header.s=Intel header.b=bS8C5R91
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1717410464; x=1748946464;
+  t=1717410468; x=1748946468;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=67gZRlZBaTdb8h6ch3REGCduvNYrqRietV9ZHi2R820=;
-  b=RUTIRvovDgHz43t3rwO1WqR2Ht97jBqmXKH/2LroAeVkkWJGC9usYoTX
-   AjCYSVA1ujECJFs9kv2cSJFEOsm4WVbC/dZxRfj2zGukbBQK1IsDJAVhH
-   5WZ0+3aON/wPQ3aejKqLfBMS5AOlZtvktVJz7ApAjF1Z2Em6qDuyQuvYn
-   BKux1SOVYIcgZJNXhr995ucqaRJSHIvDQhjM6MgFu8FEa9VmsqVesVRA5
-   e5YlVUzlxceEzVGVIjcgJHGmvOj7BY4MyFu5X2vj94n2UdkSXPNFWeonB
-   w0buvAdqBNGhwSOzqBuUwTgIulB20gjJ3fHb6Y8ovJTciJdM8uOt8CLfn
-   Q==;
-X-CSE-ConnectionGUID: 9efDAc0sRtmK2odysyuPYw==
-X-CSE-MsgGUID: 4b/VttfSStqSe8stfdG1IA==
-X-IronPort-AV: E=McAfee;i="6600,9927,11091"; a="14017221"
+  bh=GFqX5r9hkOet5jHFaGDfztMJVt5pXGz34ax6hpUonoQ=;
+  b=bS8C5R91DKG9NxWOSQ7W5np5rGQDXrp/12PqnR11NR6uBEBO2rzoZu6o
+   DFcZ4B9cvs2IOrL81IgQpOgtyKtu2yIgBYj/9Z4bYXFrrxqE8pBRE5IQR
+   lu72YzDnSS98fdmjLy7HxkY8WhhwF2aWqsgNleCv8Co5xi64WTpRb3eyo
+   w7419VbvK/i2JseHLHUFt5viJYtm2lqptX2nJBptgxgqXQ+XE5RdeeVfo
+   b1EIurluN2qN8wmdTxpiKLhqkvTPCPWJCVvAzDsRbMF0bgId/CIzHBfze
+   qCNK2hSYfGYeTXs9mIJ6muYQ8/hZFB4UfJaBYTn5jrxUFDEhbuD771dg5
+   A==;
+X-CSE-ConnectionGUID: Y/6wltOuQ6GmAGs60RgGJw==
+X-CSE-MsgGUID: uMdPgm5uROCOtwBiPJ4MCA==
+X-IronPort-AV: E=McAfee;i="6600,9927,11091"; a="14017231"
 X-IronPort-AV: E=Sophos;i="6.08,211,1712646000";
-   d="scan'208";a="14017221"
+   d="scan'208";a="14017231"
 Received: from orviesa008.jf.intel.com ([10.64.159.148])
   by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jun 2024 03:27:42 -0700
-X-CSE-ConnectionGUID: IKnj8+OsS4m1S9+F3bv42g==
-X-CSE-MsgGUID: zuxYrlauT5e6p3GtU3jHtg==
+ 03 Jun 2024 03:27:45 -0700
+X-CSE-ConnectionGUID: FptEqLsIStuFGfizIt204Q==
+X-CSE-MsgGUID: 1hlQtdrKTgqqzIUQECmNXw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.08,211,1712646000";
-   d="scan'208";a="37430042"
+   d="scan'208";a="37430047"
 Received: from dev2 (HELO DEV2.igk.intel.com) ([10.237.148.94])
-  by orviesa008.jf.intel.com with ESMTP; 03 Jun 2024 03:27:40 -0700
+  by orviesa008.jf.intel.com with ESMTP; 03 Jun 2024 03:27:42 -0700
 From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
  <amadeuszx.slawinski@linux.intel.com>
 To: Mark Brown <broonie@kernel.org>
@@ -84,17 +84,17 @@ Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
 	Jason Montleon <jmontleo@redhat.com>,
 	=?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
  <amadeuszx.slawinski@linux.intel.com>
-Subject: [PATCH 2/4] ASoC: Intel: avs: Fix route override
-Date: Mon,  3 Jun 2024 12:28:16 +0200
-Message-Id: <20240603102818.36165-3-amadeuszx.slawinski@linux.intel.com>
+Subject: [PATCH 3/4] ASoC: topology: Do not assign fields that are already set
+Date: Mon,  3 Jun 2024 12:28:17 +0200
+Message-Id: <20240603102818.36165-4-amadeuszx.slawinski@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240603102818.36165-1-amadeuszx.slawinski@linux.intel.com>
 References: <20240603102818.36165-1-amadeuszx.slawinski@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: NVRTQON52FZO3YBOZYXDODB6WNONVQBA
-X-Message-ID-Hash: NVRTQON52FZO3YBOZYXDODB6WNONVQBA
+Message-ID-Hash: HOE2DXYWNIPZNHHSQND6FNFANBQDFS2H
+X-Message-ID-Hash: HOE2DXYWNIPZNHHSQND6FNFANBQDFS2H
 X-MailFrom: amadeuszx.slawinski@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -107,7 +107,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NVRTQON52FZO3YBOZYXDODB6WNONVQBA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HOE2DXYWNIPZNHHSQND6FNFANBQDFS2H/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -116,59 +116,32 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Instead of overriding existing memory strings that may be too short,
-just allocate needed memory and point the route at it.
+The routes are allocated with kzalloc(), so all fields are zeroed by
+default, skip unnecessary assignments.
 
-Reported-by: Jason Montleon <jmontleo@redhat.com>
-Link: https://github.com/thesofproject/avs-topology-xml/issues/22#issuecomment-2127892605
 Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
 Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 ---
- sound/soc/intel/avs/topology.c | 19 +++++++++++++++----
- 1 file changed, 15 insertions(+), 4 deletions(-)
+ sound/soc/soc-topology.c | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
 
-diff --git a/sound/soc/intel/avs/topology.c b/sound/soc/intel/avs/topology.c
-index 02bae207f6ece..b6c5d94a15548 100644
---- a/sound/soc/intel/avs/topology.c
-+++ b/sound/soc/intel/avs/topology.c
-@@ -1545,8 +1545,8 @@ static int avs_route_load(struct snd_soc_component *comp, int index,
- {
- 	struct snd_soc_acpi_mach *mach = dev_get_platdata(comp->card->dev);
- 	size_t len = SNDRV_CTL_ELEM_ID_NAME_MAXLEN;
--	char buf[SNDRV_CTL_ELEM_ID_NAME_MAXLEN];
- 	int ssp_port, tdm_slot;
-+	char *buf;
+diff --git a/sound/soc/soc-topology.c b/sound/soc/soc-topology.c
+index 75d9395a18ed4..1db540aaad451 100644
+--- a/sound/soc/soc-topology.c
++++ b/sound/soc/soc-topology.c
+@@ -1072,11 +1072,7 @@ static int soc_tplg_dapm_graph_elems_load(struct soc_tplg *tplg,
+ 			break;
+ 		}
  
- 	/* See parse_link_formatted_string() for dynamic naming when(s). */
- 	if (!avs_mach_singular_ssp(mach))
-@@ -1557,13 +1557,24 @@ static int avs_route_load(struct snd_soc_component *comp, int index,
- 		return 0;
- 	tdm_slot = avs_mach_ssp_tdm(mach, ssp_port);
- 
-+	buf = devm_kzalloc(comp->card->dev, len, GFP_KERNEL);
-+	if (!buf)
-+		return -ENOMEM;
- 	avs_ssp_sprint(buf, len, route->source, ssp_port, tdm_slot);
--	strscpy((char *)route->source, buf, len);
-+	route->source = buf;
-+
-+	buf = devm_kzalloc(comp->card->dev, len, GFP_KERNEL);
-+	if (!buf)
-+		return -ENOMEM;
- 	avs_ssp_sprint(buf, len, route->sink, ssp_port, tdm_slot);
--	strscpy((char *)route->sink, buf, len);
-+	route->sink = buf;
-+
- 	if (route->control) {
-+		buf = devm_kzalloc(comp->card->dev, len, GFP_KERNEL);
-+		if (!buf)
-+			return -ENOMEM;
- 		avs_ssp_sprint(buf, len, route->control, ssp_port, tdm_slot);
--		strscpy((char *)route->control, buf, len);
-+		route->control = buf;
- 	}
- 
- 	return 0;
+-		/* set to NULL atm for tplg users */
+-		route->connected = NULL;
+-		if (strnlen(elem->control, SNDRV_CTL_ELEM_ID_NAME_MAXLEN) == 0) {
+-			route->control = NULL;
+-		} else {
++		if (strnlen(elem->control, SNDRV_CTL_ELEM_ID_NAME_MAXLEN) != 0) {
+ 			route->control = devm_kmemdup(tplg->dev, elem->control,
+ 						      min(strlen(elem->control),
+ 							  SNDRV_CTL_ELEM_ID_NAME_MAXLEN),
 -- 
 2.34.1
 

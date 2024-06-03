@@ -2,111 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76F708D81F9
-	for <lists+alsa-devel@lfdr.de>; Mon,  3 Jun 2024 14:12:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 681568D824F
+	for <lists+alsa-devel@lfdr.de>; Mon,  3 Jun 2024 14:33:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9330C7F8;
-	Mon,  3 Jun 2024 14:12:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9330C7F8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9D8B484C;
+	Mon,  3 Jun 2024 14:32:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D8B484C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1717416775;
-	bh=lfdsBvkspToag3c/bUTNykKvotNjW4bx0y0kYS1g6DI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=nqs6liO8AsCoxKrEBjhQ7EXy2rqijjEqKckgOSMwYU+xysy5NQvwy+ZQ4RiZkg5l8
-	 5Wl5YCGXxT1bxGTwDzxH1jZyNgHU7iH580UOlQNgMSa/cxPFZqVvqUVVXJMSaIEVe9
-	 9VZaiYen/lLseH9k8vre1Schf1/YNOSDpCaMJ6TE=
+	s=default; t=1717417988;
+	bh=Z6gzK40Tr5pMhZZtIC99f8/GM2gQz6amBeERw55iMko=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=Zb8iikq2FwGNN6kbZA+90c9yk6j+HDrTkzxT2iF2REyb1uCEyElr+9YkRwLDStZu4
+	 5U4K89NZCiHTEgH/yD1ZxJbjAgkTTn7z2dti5UGxg/RDnDO1lIVJzT+IqEg3xIfZLa
+	 El9TpEU6YN7GcWRU4wu4sIhRd2TyeGfHu51H8Zeo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6861DF805AD; Mon,  3 Jun 2024 14:12:23 +0200 (CEST)
+	id 6F701F805A1; Mon,  3 Jun 2024 14:32:37 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 22417F805A0;
-	Mon,  3 Jun 2024 14:12:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CACAEF8058C;
+	Mon,  3 Jun 2024 14:32:36 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8A4C3F8025A; Mon,  3 Jun 2024 14:12:18 +0200 (CEST)
+	id 9E45DF80236; Mon,  3 Jun 2024 14:32:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8C9CCF80088
-	for <alsa-devel@alsa-project.org>; Mon,  3 Jun 2024 14:12:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C9CCF80088
+	by alsa1.perex.cz (Postfix) with ESMTPS id E5926F800AC
+	for <alsa-devel@alsa-project.org>; Mon,  3 Jun 2024 14:32:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5926F800AC
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=J+nACH0N
+ header.s=k20201202 header.b=g55rAM0t
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 200A7CE0B7D;
-	Mon,  3 Jun 2024 12:12:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59BD0C32789;
-	Mon,  3 Jun 2024 12:11:56 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id A218260DC5;
+	Mon,  3 Jun 2024 12:32:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F299C2BD10;
+	Mon,  3 Jun 2024 12:32:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1717416719;
-	bh=lfdsBvkspToag3c/bUTNykKvotNjW4bx0y0kYS1g6DI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=J+nACH0N3OERh+uTdpTd1+TVluP5kqPo1Oo6tP+KKUeE9/WuE3z4YTlDgEbmH21BT
-	 y05bLUgOC9kWbCtFyTKUHDjyCuOp76EPRI4Ek1Elm8x73DFX4vxQNCam2Z5iNfe/i7
-	 DgK57ezDygRoz1qvg80prkeWuwYbsAGEM/lw1FSZtn0IwWGS6V5bpELYdRihxIuEDu
-	 yCzNwpkOKwxFA4Gpe4aTKPPb0fS8fagSmk8H+u+G4evgQcpDec454LGPaiDVosjDoD
-	 L4lo8iXqMi9pGez80iYHdgyfF6yzIpwYJRPND3ajsezj5jioK2gwh6xO5byJJnE0Ob
-	 flE6jrZ1Z5vbQ==
-Date: Mon, 3 Jun 2024 13:11:53 +0100
-From: Mark Brown <broonie@kernel.org>
-To: "Ding, Shenghao" <shenghao-ding@ti.com>
-Cc: "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
-	"lgirdwood@gmail.com" <lgirdwood@gmail.com>,
-	"perex@perex.cz" <perex@perex.cz>,
-	"pierre-louis.bossart@linux.intel.com"
- <pierre-louis.bossart@linux.intel.com>,
-	"13916275206@139.com" <13916275206@139.com>,
-	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"liam.r.girdwood@intel.com" <liam.r.girdwood@intel.com>,
-	"tiwai@suse.de" <tiwai@suse.de>, "Xu, Baojun" <baojun.xu@ti.com>,
-	"soyer@irl.hu" <soyer@irl.hu>,
-	"Baojun.Xu@fpt.com" <Baojun.Xu@fpt.com>,
-	"yuhsuan@google.com" <yuhsuan@google.com>,
-	"Yue, Jaden" <jaden-yue@ti.com>, "Lo, Henry" <henry.lo@ti.com>,
-	"Navada Kanyana, Mukund" <navada@ti.com>,
-	"Hari, Raj" <s-hari@ti.com>,
-	"zhourui@huaqin.com" <zhourui@huaqin.com>
-Subject: Re: [EXTERNAL] Re: [PATCH v6] ASoC: tas2781: Fix wrong loading
- calibrated data sequence
-Message-ID: <90d891b7-1978-4a6c-86c6-bb693ce764d0@sirena.org.uk>
-References: <20240518141546.1742-1-shenghao-ding@ti.com>
- <171623322336.94469.13172149100331733795.b4-ty@kernel.org>
- <138b621eeccc47329ec5fc808790667f@ti.com>
+	s=k20201202; t=1717417941;
+	bh=Z6gzK40Tr5pMhZZtIC99f8/GM2gQz6amBeERw55iMko=;
+	h=From:To:Cc:Subject:Date:From;
+	b=g55rAM0txzQDEHqkYAlVenCl0JcFw7yKN3UQBi7w6P5ksgu8lF8AhRLjwKl2/5ywK
+	 fHnLpr2OliQwr+DMWr1xPFs0asqAl7m4BC+jaOP02u8oqaLSS6AXO9839HSjuWl5W+
+	 jHbHIp/UOJJRI0MzWNowB/uVfgXCRttePyDIS+/vQD56Hjxw2CvDw6oFs/CDf/3Hcb
+	 B4yl1PYdkWS7Ysk/AL7mgHpnZpbRBTi/ZCRXZ+Jw8AuL/y7WCCqXkKZAQ261qvpviR
+	 ei18VbdJvrAXNMcaj2QqkMCrPsLpDmLFEjZS7hEjjhIfFjBYkbHvgmnAbtzYO5SbHM
+	 JBmnDLsWUT5xg==
+Received: from johan by xi.lan with local (Exim 4.97.1)
+	(envelope-from <johan+linaro@kernel.org>)
+	id 1sE6rL-000000007wp-204Q;
+	Mon, 03 Jun 2024 14:32:19 +0200
+From: Johan Hovold <johan+linaro@kernel.org>
+To: Vinod Koul <vkoul@kernel.org>
+Cc: Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Sanyog Kale <sanyog.r.kale@intel.com>,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	Johan Hovold <johan+linaro@kernel.org>
+Subject: [PATCH] soundwire: bus: suppress probe deferral errors
+Date: Mon,  3 Jun 2024 14:31:27 +0200
+Message-ID: <20240603123127.30477-1-johan+linaro@kernel.org>
+X-Mailer: git-send-email 2.44.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="t56nSOAk9HiTDqnB"
-Content-Disposition: inline
-In-Reply-To: <138b621eeccc47329ec5fc808790667f@ti.com>
-X-Cookie: Don't let your status become too quo!
-Message-ID-Hash: BI4XZTNT2DU3EWXLY5LEQ2R6NU6JUZR3
-X-Message-ID-Hash: BI4XZTNT2DU3EWXLY5LEQ2R6NU6JUZR3
-X-MailFrom: broonie@kernel.org
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: 6KEMTNGIGUUA4YNTJWA5DDJJELSMFU4S
+X-Message-ID-Hash: 6KEMTNGIGUUA4YNTJWA5DDJJELSMFU4S
+X-MailFrom: johan+linaro@kernel.org
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BI4XZTNT2DU3EWXLY5LEQ2R6NU6JUZR3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6KEMTNGIGUUA4YNTJWA5DDJJELSMFU4S/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,43 +99,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Use dev_err_probe() to avoid logging errors on probe deferral:
 
---t56nSOAk9HiTDqnB
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+	wsa884x-codec sdw:4:0:0217:0204:00:0: Probe of wsa884x-codec failed: -517
 
-On Sun, Jun 02, 2024 at 01:11:39PM +0000, Ding, Shenghao wrote:
+Signed-off-by: Johan Hovold <johan+linaro@kernel.org>
+---
+ drivers/soundwire/bus_type.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-> One of my customers requested tas2781 driver in kernel 6.10 to be merged =
-into kernel 6.1.=20
-> I wondered how I  can handle this. May I resubmit the whole code into lat=
-est 6.1 branch?
-> Looking forward to your reply. Thanks.
+diff --git a/drivers/soundwire/bus_type.c b/drivers/soundwire/bus_type.c
+index c32faace618f..8c3746f0d527 100644
+--- a/drivers/soundwire/bus_type.c
++++ b/drivers/soundwire/bus_type.c
+@@ -112,9 +112,9 @@ static int sdw_drv_probe(struct device *dev)
+ 		if (!name)
+ 			name = drv->driver.name;
+ 
+-		dev_err(dev, "Probe of %s failed: %d\n", name, ret);
+ 		dev_pm_domain_detach(dev, false);
+-		return ret;
++
++		return dev_err_probe(dev, ret, "Probe of %s failed\n", name);
+ 	}
+ 
+ 	mutex_lock(&slave->sdw_dev_lock);
+-- 
+2.44.1
 
-You'd need to do something yourself - the stable kernels themselves
-don't add new features, and I think v6.1 is not updated any more anyway.
-The usual thing would be to do a backport and then publish it somehow,
-some vendors have git trees they use (some use github), some share
-patches via e-mail but there's a bunch of options there.
-
-If this is for some OS vendor (or for use with a specific OS) you may be
-able to work directly with them to add the driver, some OSs are open to
-that but some aren't.
-
---t56nSOAk9HiTDqnB
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmZdswgACgkQJNaLcl1U
-h9DcVgf/RD2+kBh2SKALVqSZ99xuZFSd990nWdqi3Aim8rirFq0UVLho/uxX8/9+
-+LdSe+lxv7oe6obTwdi+HHSOGc6dT21CKgpTXNLEyMid6W44zfVbSJdD6f7g4CXD
-35MolBudlb3YCMfWttDYYeLzeBH1WG2dT9v1CK5R5zbhUGStgkU3ckg/QStOV0n6
-0yLlupgJnhL+VeBtqvxaqgj7DMbDcoyKK4Fo5z1R2/fyJt0pJey7fzk2vUZVwH62
-Zg0P7cGy3P+T58UnYIrkLWOFxdQ4V3X67q10waHTOFk/X3pkS0zqsavhxBE4R+Bp
-fWaKvle81uJXipvaT4SJs34ce76yfA==
-=cwAZ
------END PGP SIGNATURE-----
-
---t56nSOAk9HiTDqnB--

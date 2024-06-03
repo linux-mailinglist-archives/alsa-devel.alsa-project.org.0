@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 932D68D8026
-	for <lists+alsa-devel@lfdr.de>; Mon,  3 Jun 2024 12:37:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 210748D801F
+	for <lists+alsa-devel@lfdr.de>; Mon,  3 Jun 2024 12:36:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D0E66E64;
-	Mon,  3 Jun 2024 12:37:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D0E66E64
+	by alsa0.perex.cz (Postfix) with ESMTPS id F329883E;
+	Mon,  3 Jun 2024 12:36:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F329883E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1717411038;
-	bh=oUtizzgKM4/3Y9KkrNWL/XebKvCrh4DHO7Gq6YBmIoQ=;
+	s=default; t=1717411005;
+	bh=tyHcTilPJBf1ZtldFADW7DKJj5yP1ToJmKxXcIXtfGI=;
 	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=a8qgaQjUirX+3voUILzZLhC6ykjjgwB3Ao8HQO8yfiSqhma8xxk9Lu3+GCJKe7N9v
-	 cEMfPkj5L79G3HIGjMw53A3X/l8hcq/wmPs+BeVLaYehsEyeIHXjQ3CRDVl/DLisnf
-	 0h2EXDu/Z7w7AVLFhtc5NFDnjO6HCzz7a+KUeIGQ=
+	b=A54JXElbE/QEsNI27Fb8qMjkDiB1VPPReNiB23l9V1zT1552poXx1AiwNtP7uco3j
+	 pEQnwhsA1lrqn+fHIIexMEBN4ADqKV/71f6kYUhRb837/Nz6+brCVobhqaeAaSobX/
+	 UzfAs/nTvqZIehnogQ1HKEqhT8+AuHyqdj1ETae4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0A094F8065A; Mon,  3 Jun 2024 12:35:51 +0200 (CEST)
+	id 04918F805FC; Mon,  3 Jun 2024 12:35:46 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C0AFDF8063C;
-	Mon,  3 Jun 2024 12:35:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 21540F805E8;
+	Mon,  3 Jun 2024 12:35:46 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E3BB2F805C7; Mon,  3 Jun 2024 12:35:43 +0200 (CEST)
+	id D68F5F804E5; Mon,  3 Jun 2024 12:35:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -37,41 +37,41 @@ Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
  [67.231.149.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5534EF804B2
-	for <alsa-devel@alsa-project.org>; Mon,  3 Jun 2024 12:35:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5534EF804B2
+	by alsa1.perex.cz (Postfix) with ESMTPS id B39B6F80496
+	for <alsa-devel@alsa-project.org>; Mon,  3 Jun 2024 12:35:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B39B6F80496
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=KoaRP/Ar
+ header.s=PODMain02222019 header.b=HqjbIreP
 Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
 	by mx0a-001ae601.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 4535l7pe018316;
-	Mon, 3 Jun 2024 05:35:33 -0500
+ 4535SpqV028069;
+	Mon, 3 Jun 2024 05:35:31 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
 	:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=
-	PODMain02222019; bh=HzZ9klruY/Ztssobbt7j7Ac2UZsl8E8kYKbpCSTaTdA=; b=
-	KoaRP/Arn34eI38X4XNrs23UxtjOxXaXqHhTstt979gLF5BYDetUofnr9UBgBJU0
-	4qZW5XwFDaMOAi40QnaFDZgH5bzT4GJl+GguM3p/IZlToVGmIS9WujDoBpv8NqZz
-	42Cd0G/yP7bqNJoM2pMspW4jfRPyQXI+YZy3NJVF15M0wJJzjCa6RGWha4BBNhgb
-	vXzXjyfC6+LN+dc/JOtXQazvO5p27qH6zSapadA5ienWao8Z70tLrRe6i1ZAYByf
-	H+HPwgwnc1PEn6DO2yUxxXIkcnAztQ6bzK/T3dXO4caW+OAWInbfJzznNGjVgK5v
-	2kubmP9aKnE7+APngHNCGQ==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3yg11xscbq-6
+	PODMain02222019; bh=+0kLEE8LRxxWUa9qJB+cByKX7sWs5TP2HYGpu4CAWoU=; b=
+	HqjbIrePigF45RLHqnlnRFfAo4N1yaSqaJNKtfIrC+6fR0NaFXnOoUac00Q3M2Zd
+	NGAp7gWv6cTAwN80EwoPyW+kOqKEsEakKtclvVBP63MgBwG0CwoNYkeh4WZgIiQE
+	OVpZ7++CJyQG+phhQHVm0bR8RHkkqEg9+ijQTvtmDefiDJ5pXo2csp8ArYGuEGkL
+	BCIQgf1xN8hVkVLQJluGcgSGazAcCmepMl2LlVRLegqGvsPV+X8n/jzmv1wg/Yo+
+	8CWFUNGQG/au7xVh+557ntOOBP5Mhcr6Iz1TZuH1aqYhYwCmwGyEhxuSXDxYXhIF
+	Yuihb1i0Rb3MziqxL439cg==
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3yg11xscbs-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 03 Jun 2024 05:35:33 -0500 (CDT)
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+	Mon, 03 Jun 2024 05:35:31 -0500 (CDT)
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 3 Jun 2024
- 11:35:28 +0100
+ 11:35:29 +0100
 Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
- anon-ediex01.ad.cirrus.com (198.61.84.80) with Microsoft SMTP Server id
- 15.2.1544.9 via Frontend Transport; Mon, 3 Jun 2024 11:35:28 +0100
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1544.9 via Frontend Transport; Mon, 3 Jun 2024 11:35:29 +0100
 Received: from EDIN6ZZ2FY3.ad.cirrus.com (EDIN6ZZ2FY3.ad.cirrus.com
  [198.61.64.166])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id 8205E820249;
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id DBD1982024A;
 	Mon,  3 Jun 2024 10:35:28 +0000 (UTC)
 From: Simon Trimmer <simont@opensource.cirrus.com>
 To: <tiwai@suse.com>
@@ -81,21 +81,21 @@ CC: <linux-sound@vger.kernel.org>, <alsa-devel@alsa-project.org>,
         <baojun.xu@ti.com>, <kailang@realtek.com>,
         Simon Trimmer
 	<simont@opensource.cirrus.com>
-Subject: [PATCH 6/7] ALSA: hda: hda_component: Move codec field into the
- parent
-Date: Mon, 3 Jun 2024 11:35:23 +0100
-Message-ID: <20240603103524.32442-7-simont@opensource.cirrus.com>
+Subject: [PATCH 7/7] ALSA: hda: hda_component: Protect shared data with a
+ mutex
+Date: Mon, 3 Jun 2024 11:35:24 +0100
+Message-ID: <20240603103524.32442-8-simont@opensource.cirrus.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240603103524.32442-1-simont@opensource.cirrus.com>
 References: <20240603103524.32442-1-simont@opensource.cirrus.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Proofpoint-GUID: znmTngXIww7_pS2_kFgRvYih2P0oyzUO
-X-Proofpoint-ORIG-GUID: znmTngXIww7_pS2_kFgRvYih2P0oyzUO
+X-Proofpoint-GUID: 0nwIrSmRf_IfMTA0X0QcMZBbFF3xBT3x
+X-Proofpoint-ORIG-GUID: 0nwIrSmRf_IfMTA0X0QcMZBbFF3xBT3x
 X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: HVA5IOK4XAVYSU5SXOCOPDSVD6M3HKJ5
-X-Message-ID-Hash: HVA5IOK4XAVYSU5SXOCOPDSVD6M3HKJ5
+Message-ID-Hash: FTYME2WVCJLFUOE5MYDTAEAN74WESDSI
+X-Message-ID-Hash: FTYME2WVCJLFUOE5MYDTAEAN74WESDSI
 X-MailFrom: prvs=388426604e=simont@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -108,7 +108,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HVA5IOK4XAVYSU5SXOCOPDSVD6M3HKJ5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FTYME2WVCJLFUOE5MYDTAEAN74WESDSI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,110 +117,100 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-There is one codec shared across all of the bound HDA components and a
-copy is usually stashed in the amp driver so it doesn't need to be in
-every hda_component.
+The hda_component contains information shared from the amp drivers to
+the codec that can be altered (for example as the driver unloads). Guard
+the update and use of these to prevent use of stale data.
 
 Signed-off-by: Simon Trimmer <simont@opensource.cirrus.com>
 ---
- sound/pci/hda/cs35l41_hda.c     | 7 ++++---
- sound/pci/hda/cs35l56_hda.c     | 2 +-
- sound/pci/hda/hda_component.c   | 5 +----
- sound/pci/hda/hda_component.h   | 2 +-
- sound/pci/hda/tas2781_hda_i2c.c | 2 +-
- 5 files changed, 8 insertions(+), 10 deletions(-)
+ sound/pci/hda/hda_component.c | 13 ++++++++++++-
+ sound/pci/hda/hda_component.h |  4 ++++
+ 2 files changed, 16 insertions(+), 1 deletion(-)
 
-diff --git a/sound/pci/hda/cs35l41_hda.c b/sound/pci/hda/cs35l41_hda.c
-index ceba4f2c85f1..ee9f83b737de 100644
---- a/sound/pci/hda/cs35l41_hda.c
-+++ b/sound/pci/hda/cs35l41_hda.c
-@@ -1436,10 +1436,11 @@ static int cs35l41_hda_bind(struct device *dev, struct device *master, void *mas
- 	mutex_lock(&cs35l41->fw_mutex);
- 
- 	comp->dev = dev;
-+	cs35l41->codec = parent->codec;
- 	if (!cs35l41->acpi_subsystem_id)
- 		cs35l41->acpi_subsystem_id = kasprintf(GFP_KERNEL, "%.8x",
--						       comp->codec->core.subsystem_id);
--	cs35l41->codec = comp->codec;
-+						       cs35l41->codec->core.subsystem_id);
-+
- 	strscpy(comp->name, dev_name(dev), sizeof(comp->name));
- 
- 	cs35l41->firmware_type = HDA_CS_DSP_FW_SPK_PROT;
-@@ -1470,7 +1471,7 @@ static int cs35l41_hda_bind(struct device *dev, struct device *master, void *mas
- 	mutex_unlock(&cs35l41->fw_mutex);
- 
- 	sleep_flags = lock_system_sleep();
--	if (!device_link_add(&comp->codec->core.dev, cs35l41->dev, DL_FLAG_STATELESS))
-+	if (!device_link_add(&cs35l41->codec->core.dev, cs35l41->dev, DL_FLAG_STATELESS))
- 		dev_warn(dev, "Unable to create device link\n");
- 	unlock_system_sleep(sleep_flags);
- 
-diff --git a/sound/pci/hda/cs35l56_hda.c b/sound/pci/hda/cs35l56_hda.c
-index df4498c77171..cc4aa90db1d1 100644
---- a/sound/pci/hda/cs35l56_hda.c
-+++ b/sound/pci/hda/cs35l56_hda.c
-@@ -697,7 +697,7 @@ static int cs35l56_hda_bind(struct device *dev, struct device *master, void *mas
- 		return -EBUSY;
- 
- 	comp->dev = dev;
--	cs35l56->codec = comp->codec;
-+	cs35l56->codec = parent->codec;
- 	strscpy(comp->name, dev_name(dev), sizeof(comp->name));
- 	comp->playback_hook = cs35l56_hda_playback_hook;
- 
 diff --git a/sound/pci/hda/hda_component.c b/sound/pci/hda/hda_component.c
-index 8c11c8b37799..1a9950b76866 100644
+index 1a9950b76866..7b19cb38b4e0 100644
 --- a/sound/pci/hda/hda_component.c
 +++ b/sound/pci/hda/hda_component.c
-@@ -134,12 +134,9 @@ static int hda_comp_match_dev_name(struct device *dev, void *data)
+@@ -21,11 +21,13 @@ void hda_component_acpi_device_notify(struct hda_component_parent *parent,
+ 	struct hda_component *comp;
+ 	int i;
+ 
++	mutex_lock(&parent->mutex);
+ 	for (i = 0; i < ARRAY_SIZE(parent->comps); i++) {
+ 		comp = hda_component_from_index(parent, i);
+ 		if (comp->dev && comp->acpi_notify)
+ 			comp->acpi_notify(acpi_device_handle(comp->adev), event, comp->dev);
+ 	}
++	mutex_unlock(&parent->mutex);
+ }
+ EXPORT_SYMBOL_NS_GPL(hda_component_acpi_device_notify, SND_HDA_SCODEC_COMPONENT);
+ 
+@@ -87,6 +89,7 @@ void hda_component_manager_playback_hook(struct hda_component_parent *parent, in
+ 	struct hda_component *comp;
+ 	int i;
+ 
++	mutex_lock(&parent->mutex);
+ 	for (i = 0; i < ARRAY_SIZE(parent->comps); i++) {
+ 		comp = hda_component_from_index(parent, i);
+ 		if (comp->dev && comp->pre_playback_hook)
+@@ -102,6 +105,7 @@ void hda_component_manager_playback_hook(struct hda_component_parent *parent, in
+ 		if (comp->dev && comp->post_playback_hook)
+ 			comp->post_playback_hook(comp->dev, action);
+ 	}
++	mutex_unlock(&parent->mutex);
+ }
+ EXPORT_SYMBOL_NS_GPL(hda_component_manager_playback_hook, SND_HDA_SCODEC_COMPONENT);
+ 
+@@ -134,11 +138,18 @@ static int hda_comp_match_dev_name(struct device *dev, void *data)
  int hda_component_manager_bind(struct hda_codec *cdc,
  			       struct hda_component_parent *parent)
  {
--	int i;
--
++	int ret;
++
  	/* Init shared and component specific data */
  	memset(parent, 0, sizeof(*parent));
--	for (i = 0; i < ARRAY_SIZE(parent->comps); i++)
--		parent->comps[i].codec = cdc;
-+	parent->codec = cdc;
++	mutex_init(&parent->mutex);
+ 	parent->codec = cdc;
  
- 	return component_bind_all(hda_codec_dev(cdc), parent);
+-	return component_bind_all(hda_codec_dev(cdc), parent);
++	mutex_lock(&parent->mutex);
++	ret = component_bind_all(hda_codec_dev(cdc), parent);
++	mutex_unlock(&parent->mutex);
++
++	return ret;
  }
+ EXPORT_SYMBOL_NS_GPL(hda_component_manager_bind, SND_HDA_SCODEC_COMPONENT);
+ 
 diff --git a/sound/pci/hda/hda_component.h b/sound/pci/hda/hda_component.h
-index e547e1f1e674..dd4dabeae9ee 100644
+index dd4dabeae9ee..9f786608144c 100644
 --- a/sound/pci/hda/hda_component.h
 +++ b/sound/pci/hda/hda_component.h
-@@ -19,7 +19,6 @@
- struct hda_component {
- 	struct device *dev;
- 	char name[HDA_MAX_NAME_SIZE];
--	struct hda_codec *codec;
- 	struct acpi_device *adev;
- 	bool acpi_notifications_supported;
- 	void (*acpi_notify)(acpi_handle handle, u32 event, struct device *dev);
-@@ -29,6 +28,7 @@ struct hda_component {
+@@ -11,6 +11,7 @@
+ 
+ #include <linux/acpi.h>
+ #include <linux/component.h>
++#include <linux/mutex.h>
+ #include <sound/hda_codec.h>
+ 
+ #define HDA_MAX_COMPONENTS	4
+@@ -28,6 +29,7 @@ struct hda_component {
  };
  
  struct hda_component_parent {
-+	struct hda_codec *codec;
++	struct mutex mutex;
+ 	struct hda_codec *codec;
  	struct hda_component comps[HDA_MAX_COMPONENTS];
  };
+@@ -93,7 +95,9 @@ static inline struct hda_component *hda_component_from_index(struct hda_componen
+ static inline void hda_component_manager_unbind(struct hda_codec *cdc,
+ 						struct hda_component_parent *parent)
+ {
++	mutex_lock(&parent->mutex);
+ 	component_unbind_all(hda_codec_dev(cdc), parent);
++	mutex_unlock(&parent->mutex);
+ }
  
-diff --git a/sound/pci/hda/tas2781_hda_i2c.c b/sound/pci/hda/tas2781_hda_i2c.c
-index c6c1e8e81972..d7af4fd10714 100644
---- a/sound/pci/hda/tas2781_hda_i2c.c
-+++ b/sound/pci/hda/tas2781_hda_i2c.c
-@@ -719,7 +719,7 @@ static int tas2781_hda_bind(struct device *dev, struct device *master,
- 	if (comp->dev)
- 		return -EBUSY;
- 
--	codec = comp->codec;
-+	codec = parent->codec;
- 	subid = codec->core.subsystem_id >> 16;
- 
- 	switch (subid) {
+ #endif /* ifndef __HDA_COMPONENT_H__ */
 -- 
 2.34.1
 

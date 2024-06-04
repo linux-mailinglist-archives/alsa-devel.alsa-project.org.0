@@ -2,83 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A85E8FB182
-	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jun 2024 13:56:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C06D8FB189
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jun 2024 13:56:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 04EEA844;
-	Tue,  4 Jun 2024 13:56:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04EEA844
+	by alsa0.perex.cz (Postfix) with ESMTPS id A3BEF7F1;
+	Tue,  4 Jun 2024 13:56:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A3BEF7F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1717502190;
-	bh=LdzwRA2zt1sdxlgICbUNcoNJjJj5QNDuiBm+ykHeT2I=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1717502212;
+	bh=tXhLaowrcYMXzmicpuj4T6jEZTq866kBwfpJR7KjHYw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ZrrWvtsnoLByTRzIA6gQ2Nl50j6/YaaaTnasKpjhdUeBpYphfzYIJ1TkpwHJULw5D
-	 lBv+iTSE5SF/71j2txYLtDqpiPpA/6LkvwFVxf/inoJ9HsHkAWKr1uW5rW5z/P1tyy
-	 akPiDx+hZ/RpDWAHCYnJuRo2L+zdYGbUIUaqHe3k=
+	b=vYScPZZsb9aFtEAL5LYDoqux3mnMog8kOzYMTRgWcgstynceC7xxzmbMxFkOtNkPE
+	 i6dNjNvfRY6VnRWQOmuXTsrjQgI66T6AGfITmkvkF7o1iS5KJjL2CCss7foha/PfyZ
+	 PFsN1JsEDRJe5zZRJaNnniU2cc9236Hax4HSjEX0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 624F5F805B1; Tue,  4 Jun 2024 13:55:58 +0200 (CEST)
+	id 99968F805E3; Tue,  4 Jun 2024 13:56:26 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 784DBF804FF;
-	Tue,  4 Jun 2024 13:55:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 39EC8F805AA;
+	Tue,  4 Jun 2024 13:56:26 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 460B3F805B1; Tue,  4 Jun 2024 13:54:38 +0200 (CEST)
+	id 11857F802DB; Tue,  4 Jun 2024 13:56:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 06FEFF8051E
-	for <alsa-devel@alsa-project.org>; Tue,  4 Jun 2024 13:54:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06FEFF8051E
+	by alsa1.perex.cz (Postfix) with ESMTPS id DA1DBF800FA
+	for <alsa-devel@alsa-project.org>; Tue,  4 Jun 2024 13:56:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA1DBF800FA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=ZoUP+ECi
+ header.s=k20201202 header.b=dgYh7/YR
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 3953CCE111F;
-	Tue,  4 Jun 2024 11:54:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14409C4AF09;
-	Tue,  4 Jun 2024 11:54:28 +0000 (UTC)
+	by sin.source.kernel.org (Postfix) with ESMTP id 7A04FCE10BD;
+	Tue,  4 Jun 2024 11:56:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E591C4AF08;
+	Tue,  4 Jun 2024 11:56:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1717502070;
-	bh=LdzwRA2zt1sdxlgICbUNcoNJjJj5QNDuiBm+ykHeT2I=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=ZoUP+ECieXEgVV4klAEPccmVfu/HbxNZIrdDj4ZZDQ06BPnGiroGpm4+IFjRXrdo/
-	 4lQIOxSWgu4aoQLJzlVQXJzvroX20LSCcAYeXdBU4qZYCBlNaZJWaccC+aoQhoxLKi
-	 rAXl7YCg7ajSZvHLWa9p52jqb9EhThle/Em+lvHkbKgWtuHR3N5qvw5sitQUEgOzAp
-	 Bdcxd9jMNlUFIj+Yp0b1mrr/03S232UWuKmRUhEo7c/BmzVblWkRO4dutKD56HMcq4
-	 EAOA6EuMQY5cixULdX+8Ia/iyViCJzyG8tK18nlymV0jJflJTa1N4DpluTugJb8tlG
-	 PjTc6ZndHOWRw==
+	s=k20201202; t=1717502174;
+	bh=tXhLaowrcYMXzmicpuj4T6jEZTq866kBwfpJR7KjHYw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=dgYh7/YRAhKIjwsFQx2Yz+cbECMwgft3/F98XxETZRu4tkigfPDgdpb1Zqzo5wWfO
+	 91p0Qofhs1+TJT3TaZ7vnos/RbQEgcOAv3xdN0ZcGQkANtWaYR5bVJPwlB1EMlWA3G
+	 xjzZ/pl+BYxugx6nwsQKw7hT6789Mfa2DG+oQeSlErvJfCyt1chADHod/anBD/W/cH
+	 u4BUqhHUMeO5xdDxpkD6Vg+ptIeJ6pKeZTXeFiujIBFN8LmR2UtJ+49F8iALj4IzCE
+	 N0T5PLrZaHmdy9IxX3axhsfuxENX0Qp1U/fg62ScSWH+m1lj+bzrWss6DIRi41W5Cf
+	 k2ZoKfOCDSreg==
+Date: Tue, 4 Jun 2024 12:56:09 +0100
 From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, Jack Yu <jack.yu@realtek.com>
-Cc: alsa-devel@alsa-project.org, lars@metafoo.de,
- "Flove(HsinFu)" <flove@realtek.com>, Oder Chiou <oder_chiou@realtek.com>,
- =?utf-8?q?Shuming_=5B=E8=8C=83=E6=9B=B8=E9=8A=98=5D?= <shumingf@realtek.com>,
- =?utf-8?q?Derek_=5B=E6=96=B9=E5=BE=B7=E7=BE=A9=5D?= <derek.fang@realtek.com>,
- bard.liao@intel.com
-In-Reply-To: <c66a6bd6d220426793096b42baf85437@realtek.com>
-References: <c66a6bd6d220426793096b42baf85437@realtek.com>
-Subject: Re: [PATCH] ASoC: rt722-sdca-sdw: add silence detection register
- as volatile
-Message-Id: <171750206879.24919.2074757265447693223.b4-ty@kernel.org>
-Date: Tue, 04 Jun 2024 12:54:28 +0100
+To: Jeff Johnson <quic_jjohnson@quicinc.com>
+Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	Banajit Goswami <bgoswami@quicinc.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org,
+	kernel@quicinc.com
+Subject: Re: [PATCH] ASoC: qcom: add missing MODULE_DESCRIPTION() macro
+Message-ID: <0bd0a518-4d85-4251-9bf9-d056dc3d7b08@sirena.org.uk>
+References: <20240603-md-snd-soc-qcom-sdw-v1-1-101ea8bcdd38@quicinc.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14-dev-d4707
-Message-ID-Hash: RUTAQGCLIGFHIHFHHCDSGRBM6WR3CLY6
-X-Message-ID-Hash: RUTAQGCLIGFHIHFHHCDSGRBM6WR3CLY6
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="SHcC+f3LwF29Fsqc"
+Content-Disposition: inline
+In-Reply-To: <20240603-md-snd-soc-qcom-sdw-v1-1-101ea8bcdd38@quicinc.com>
+X-Cookie: Is it clean in other dimensions?
+Message-ID-Hash: ZJNEUCUMRQSXYFFFZEH4MK3BI5ZKD6KV
+X-Message-ID-Hash: ZJNEUCUMRQSXYFFFZEH4MK3BI5ZKD6KV
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -91,7 +93,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RUTAQGCLIGFHIHFHHCDSGRBM6WR3CLY6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZJNEUCUMRQSXYFFFZEH4MK3BI5ZKD6KV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,36 +102,32 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 03 Jun 2024 10:47:16 +0000, Jack Yu wrote:
-> Including silence detection register as volatile.
-> 
-> 
 
-Applied to
+--SHcC+f3LwF29Fsqc
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+On Mon, Jun 03, 2024 at 05:16:07PM -0700, Jeff Johnson wrote:
+> make allmodconfig && make W=1 C=1 reports:
+> WARNING: modpost: missing MODULE_DESCRIPTION() in sound/soc/qcom/snd-soc-qcom-sdw.o
 
-Thanks!
+Is anyone getting any value from these MODULE_DESCRIPTION()s?  This all
+just seems like a huge amount of noise and I'm having trouble thinking
+of a use case.
 
-[1/1] ASoC: rt722-sdca-sdw: add silence detection register as volatile
-      commit: 968c974c08106fcf911d8d390d0f049af855d348
+--SHcC+f3LwF29Fsqc
+Content-Type: application/pgp-signature; name="signature.asc"
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+-----BEGIN PGP SIGNATURE-----
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmZfANgACgkQJNaLcl1U
+h9DD7Qf/Wbjd2t6/LWhnHPaYr8UDzVQzgJXS+fzgQ9Lou2WkHI9D2KV19uaMUqmV
+ACLaw7+m3lBGyG+FkxREZCucSN1wLhS7mPM2+41IaRAQ6/bj1LLQovR1vrwOyUcu
+bWJ+VFJLo2Yl+NIje4Z16Mg+f9QT7/VvR0Spz2LZXLwmTjis/GVwSY9I/v4ZiaTt
+dHeWr3dhPWNRnBx4PggQs0OyO3Ky4gxPVN1qfp7eiSLe9rOC3qcYsi5hdx50kVdy
+ViqX56cl1qJ2HfUZmbCVc43IViRnhVfgtrkKLTdtsM/acBnMl5oFDUkmL8+lOOFe
+V1/zKaMwRJMzabvh16khcsrHchaMSw==
+=Mgl8
+-----END PGP SIGNATURE-----
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+--SHcC+f3LwF29Fsqc--

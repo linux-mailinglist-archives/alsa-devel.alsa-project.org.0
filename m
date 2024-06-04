@@ -2,86 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5CE38FAE91
-	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jun 2024 11:18:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 404AD8FAEB3
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jun 2024 11:25:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 97087EAB;
-	Tue,  4 Jun 2024 11:17:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 97087EAB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9138EEBE;
+	Tue,  4 Jun 2024 11:25:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9138EEBE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1717492679;
-	bh=FCrFtvGT7nfYDArMK5ytnHOL+AVDEQiP/9i3bDpr0hA=;
+	s=default; t=1717493138;
+	bh=WFpT7tceC4LqEAg6Pkh4MT4mrzlDn7hYSXs9KJvIZoI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=u4RkieRLPx8LpcbNGn7URcYNcKkJQn1PaIDYPCZaajlBUsXUTzrjZ0BmrIyf5Vu2p
-	 WoBIhkfTVHWu3CGS/Cp52eX4uGiQClDSizfik8jmTEyFgDk0lPdCUlNjdiW21Bah/5
-	 a9dT7kTjY0Dz5etT6t0IrVrqybmjU0h1LbeT2Ip4=
+	b=poLOfhKvZdMKAvouxmL4fAKcVznVLaV2u6hdDIBcP0aDihsP1ev3dn4DnT4awqfE9
+	 sZKKLNXuN+muqVSEbWurfs5S9paPdJ6EO6i3H3qkIRhOoU5F9Z1/fnlsqdEmAS2SAF
+	 uGzeuTh8Gu5IxuZMv7pYxPWwxeQUTCPFctdedofU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3524FF8059F; Tue,  4 Jun 2024 11:17:39 +0200 (CEST)
+	id 66EB9F804B2; Tue,  4 Jun 2024 11:25:06 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 05491F8051F;
-	Tue,  4 Jun 2024 11:17:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4574DF804B2;
+	Tue,  4 Jun 2024 11:25:06 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 503FBF802DB; Tue,  4 Jun 2024 11:17:35 +0200 (CEST)
+	id 43DAAF802DB; Tue,  4 Jun 2024 11:25:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E19DFF80088
-	for <alsa-devel@alsa-project.org>; Tue,  4 Jun 2024 11:17:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E19DFF80088
+	by alsa1.perex.cz (Postfix) with ESMTPS id 05904F800FA
+	for <alsa-devel@alsa-project.org>; Tue,  4 Jun 2024 11:24:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 05904F800FA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=L3YGOQUL
+ header.s=k20201202 header.b=u0buvv/Z
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 9F1F660F23;
-	Tue,  4 Jun 2024 09:17:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52111C2BBFC;
-	Tue,  4 Jun 2024 09:17:22 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id D7F7F6121A;
+	Tue,  4 Jun 2024 09:24:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1041C4AF07;
+	Tue,  4 Jun 2024 09:24:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1717492642;
-	bh=FCrFtvGT7nfYDArMK5ytnHOL+AVDEQiP/9i3bDpr0hA=;
+	s=k20201202; t=1717493097;
+	bh=WFpT7tceC4LqEAg6Pkh4MT4mrzlDn7hYSXs9KJvIZoI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=L3YGOQULFYzsdRUHxPDwrS0zuMsIKMDkRsByuPi3yXGkmGiKwxqZme5r7pqSeB8xb
-	 D8vsUY1rbs2KS6EaMvEOYpFTFpkX1u1H4LhNh4MP/kFmsO5Bt3v1doMjiCz9OWCDTn
-	 ZRuywir2hsfdLVWK7/vQtTv+6wd8rFJDcBNxB7hYb6+JOnBSKNf0lwk+r90Dg12qSg
-	 m+gdgqCMA+opVFr+bGwSXHursv8ZjOB2JH1+fblDh9h1LMaNujBgYDgRygEFNdv0ki
-	 wjBeqI1ZIpl549F832GSb1f+hp9Vp51ZHNVcFirChjnBTWOC6ZBudBb20H73DQBfiq
-	 6IjoFe9Qd/dHA==
+	b=u0buvv/ZD4+IABHIJF1b4BtB7fxBDaInn/gV6Z1zzhSJHxTaRtaDWrri/pSqWLx4M
+	 J84Ri/AnMKxLOheT9Iic1h+hjKttdoRzPH5S6u/tjlqkmue2+zxrfq3DBS1KfXk2zz
+	 cBChwZdQZ1BURbmoF1is4SYUv5Gq6Z06ydcqxXGCdzS0RTZrgeqTTMyE7Jls2ZmUVa
+	 uZVm/mudAF4Mu/uk16uW6lgIQ3XULdrCiBkeX8eA+5KTTnlcqA8Qwzt+uNMawLLGz2
+	 8oRSQm6o4/toaHAH3/NlqPT2X/tXme2mmbZ8q4HlszKu8JG4nWAKqNjjNOLrxoXv74
+	 W9s90+G1cPbFA==
 Received: from johan by xi.lan with local (Exim 4.97.1)
 	(envelope-from <johan@kernel.org>)
-	id 1sEQIC-000000001XF-28Nh;
-	Tue, 04 Jun 2024 11:17:21 +0200
-Date: Tue, 4 Jun 2024 11:17:20 +0200
+	id 1sEQPX-000000001er-2o5n;
+	Tue, 04 Jun 2024 11:24:56 +0200
+Date: Tue, 4 Jun 2024 11:24:55 +0200
 From: Johan Hovold <johan@kernel.org>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Cc: Johan Hovold <johan+linaro@kernel.org>, Vinod Koul <vkoul@kernel.org>,
 	Bard Liao <yung-chuan.liao@linux.intel.com>,
 	Sanyog Kale <sanyog.r.kale@intel.com>, alsa-devel@alsa-project.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/4] soundwire: bus: clean up probe warnings
-Message-ID: <Zl7boEkMpQaELARP@hovoldconsulting.com>
+Subject: Re: [PATCH v2 4/4] soundwire: bus: drop redundant probe debug message
+Message-ID: <Zl7dZ-4ysKC-jSA6@hovoldconsulting.com>
 References: <20240604075213.20815-1-johan+linaro@kernel.org>
- <20240604075213.20815-4-johan+linaro@kernel.org>
- <8dd7cadc-138c-4ef5-b06f-7177550b1215@linux.intel.com>
+ <20240604075213.20815-5-johan+linaro@kernel.org>
+ <e1c63097-b628-4c97-add6-40fa479a7806@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <8dd7cadc-138c-4ef5-b06f-7177550b1215@linux.intel.com>
-Message-ID-Hash: 3LGRTX7BYWI3DYFHTBRFKYCI46IRFDY5
-X-Message-ID-Hash: 3LGRTX7BYWI3DYFHTBRFKYCI46IRFDY5
+In-Reply-To: <e1c63097-b628-4c97-add6-40fa479a7806@linux.intel.com>
+Message-ID-Hash: TJ7QZEHUM2CXUERKUMS6R2CUUQBL476W
+X-Message-ID-Hash: TJ7QZEHUM2CXUERKUMS6R2CUUQBL476W
 X-MailFrom: johan@kernel.org
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
@@ -93,7 +93,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3LGRTX7BYWI3DYFHTBRFKYCI46IRFDY5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TJ7QZEHUM2CXUERKUMS6R2CUUQBL476W/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,35 +102,26 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, Jun 04, 2024 at 10:33:02AM +0200, Pierre-Louis Bossart wrote:
+On Tue, Jun 04, 2024 at 10:37:17AM +0200, Pierre-Louis Bossart wrote:
 > On 6/4/24 02:52, Johan Hovold wrote:
-> > Clean up the probe warning messages by using a common succinct format
-> > (e.g. without __func__ and with a space after ':').
+> > Drop the redundant probe debug message which is already provided by
+> > driver core. Whether probe succeeded can also be determined through
+> > sysfs.
 
-> > @@ -123,7 +123,7 @@ static int sdw_drv_probe(struct device *dev)
-> >  	/* init the dynamic sysfs attributes we need */
-> >  	ret = sdw_slave_sysfs_dpn_init(slave);
-> >  	if (ret < 0)
-> > -		dev_warn(dev, "Slave sysfs init failed:%d\n", ret);
-> > +		dev_warn(dev, "failed to initialise sysfs: %d\n", ret);
+> > @@ -152,8 +152,6 @@ static int sdw_drv_probe(struct device *dev)
 > >  
-> >  	/*
-> >  	 * Check for valid clk_stop_timeout, use DisCo worst case value of
-> > @@ -147,7 +147,7 @@ static int sdw_drv_probe(struct device *dev)
-> >  	if (drv->ops && drv->ops->update_status) {
-> >  		ret = drv->ops->update_status(slave, slave->status);
-> >  		if (ret < 0)
-> > -			dev_warn(dev, "%s: update_status failed with status %d\n", __func__, ret);
-> > +			dev_warn(dev, "failed to update status: %d\n", ret);
+> >  	mutex_unlock(&slave->sdw_dev_lock);
+> >  
+> > -	dev_dbg(dev, "probe complete\n");
+> > -
+> >  	return 0;
+> >  }
 > 
-> the __func__ does help IMHO, 'failed to update status' is way too general...
+> I don't see the point of removing this, we've used it for the last 5
+> years to figure out when the probe complete vs. when the device becomes
+> attached. It's a simple log that helped us immensely with race
+> conditions, etc.
 
-Error messages printed with dev_warn will include the device and driver
-names so this message will be quite specific still.
-
-> Replacing 'with status' by ":" is fine, but do we really care about 10
-> chars in a log?
-
-It's not primarily about the numbers of characters but about consistency.
+Fair enough. Soundwire probing is indeed a bit of a mess.
 
 Johan

@@ -2,99 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0971F8FB4F8
-	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jun 2024 16:14:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2378A8FB50E
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jun 2024 16:19:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 82C35845;
-	Tue,  4 Jun 2024 16:14:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 82C35845
+	by alsa0.perex.cz (Postfix) with ESMTPS id BE41B850;
+	Tue,  4 Jun 2024 16:19:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE41B850
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1717510496;
-	bh=iVOugYKn7JrUfO3QEOy+kzL6OYvpAfOwiffJa4uP3LU=;
+	s=default; t=1717510781;
+	bh=Ldo8Rxw3b/CMs8cXyF5xLOYbN3yefyXw5+4N7TYJbfc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=qrwWz3dfAYM/5++E3bn5Aq6lbbLghyZmnn6kcwcbcGYJTZuBzlHfdWFot5/nY0qrk
-	 aae386NQG2tX850lu9jYNqRAS8WQMfDKjfTSTm9Wm1FhOFA7WOb4XL7fg1GLz4uIGg
-	 mBlZv9+xU1bTiVZpdbtjwko1XYWy7rbC5y9DIfsQ=
+	b=tKLdB6d5fFODAxyXe/MI4NCOqhnXOEwRDvjXpGXBTSw1j6UPOtBfslikwsJll1Gvh
+	 qLVEV2ydOsgmswLY0PVL7vnHvp4u/4vyYV4kYK9ehZI29IwRgfMsOEt/ViOfrHmPmW
+	 6KL6c5z0WTm0mr/WhqWlyAyTZMMZeocfh8laoX6A=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A656FF805B0; Tue,  4 Jun 2024 16:14:35 +0200 (CEST)
+	id CEB66F805AD; Tue,  4 Jun 2024 16:19:09 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 233F0F80525;
-	Tue,  4 Jun 2024 16:14:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3A407F8059F;
+	Tue,  4 Jun 2024 16:19:09 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A27BBF802DB; Tue,  4 Jun 2024 16:14:29 +0200 (CEST)
+	id 689B0F802DB; Tue,  4 Jun 2024 16:19:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DF715F8003A
-	for <alsa-devel@alsa-project.org>; Tue,  4 Jun 2024 16:14:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF715F8003A
+	by alsa1.perex.cz (Postfix) with ESMTPS id DE1DFF8003A
+	for <alsa-devel@alsa-project.org>; Tue,  4 Jun 2024 16:19:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE1DFF8003A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=LVvN9rbf
+ header.s=k20201202 header.b=X9lQ2NZv
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id A6A5ACE0EC5;
-	Tue,  4 Jun 2024 14:14:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAF87C2BBFC;
-	Tue,  4 Jun 2024 14:14:11 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 6447B6111C;
+	Tue,  4 Jun 2024 14:19:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 166C7C2BBFC;
+	Tue,  4 Jun 2024 14:19:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1717510454;
-	bh=iVOugYKn7JrUfO3QEOy+kzL6OYvpAfOwiffJa4uP3LU=;
+	s=k20201202; t=1717510740;
+	bh=Ldo8Rxw3b/CMs8cXyF5xLOYbN3yefyXw5+4N7TYJbfc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=LVvN9rbfPBO/0wuL1Gxzvlr218zVOgeXZIwwXFH5yarRgJhJ0wiV3JZ9MRDJua+30
-	 w5Zb0f+obcHyjt48riQOs59snxIDB7f6zRo4F0UXyVAXZlcrhp//BW/TiwU1DvN7pY
-	 4dvTioW0KgviHa0GFQxUdaUNMwGYH9lEsqFYrkR2kH5NJnfh+TzRVCKRWngmYZrw3y
-	 +oWWyBVhL2x4dICw4p+L5gBevRXC/ghdaRAIs2gFD3LoYL0tfjnVQj2x6DhyTEbqdH
-	 ZTxgtzdYofQP2n2snyobO0SklJdqEc0sszRPeuOrPsa+dMNaSCt9BE7uh+vUHmnM8V
-	 1p7oBqC5YJGvA==
-Date: Tue, 4 Jun 2024 15:14:09 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Jeff Johnson <quic_jjohnson@quicinc.com>
-Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-	Banajit Goswami <bgoswami@quicinc.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org,
-	kernel@quicinc.com
-Subject: Re: [PATCH] ASoC: qcom: add missing MODULE_DESCRIPTION() macro
-Message-ID: <1acb74e5-e768-40f0-9eff-06b37c0d79ee@sirena.org.uk>
-References: <20240603-md-snd-soc-qcom-sdw-v1-1-101ea8bcdd38@quicinc.com>
- <0bd0a518-4d85-4251-9bf9-d056dc3d7b08@sirena.org.uk>
- <be0ee1bc-336f-4960-a54c-8bb71449fd1c@quicinc.com>
+	b=X9lQ2NZvSiAyqnvz6+FAHzAA9+SGGSX849IKWndqIhJ/k6JMZHLMK7A/6Sb5oRNFO
+	 IzBJRP8s1BjhX0LYLmmFhgU34jw6Zb31Oh37nJt6iV/2A1xz0kWtqMYz7DbYU/qgnK
+	 8NUBytOtBMqm2SYHcB+qqsjqndBvkUpDKv9WulLNm9hMWK/5N5WAcc0AZQ1ZliEzyu
+	 9A8A0G22fwr0iJUaLitX2ib+Wqr9OmyL+vAaiipOv9bWoyxaWDzE6DVNJPMgVChkRz
+	 7osTqt3Dev6fRmI8Pc3PDbJgIpGa2CzKzAO0GaYTEtDEW7wXjYNc45vDod41RlfUto
+	 hlTY16X33DSBA==
+Received: from johan by xi.lan with local (Exim 4.97.1)
+	(envelope-from <johan@kernel.org>)
+	id 1sEV06-000000002X3-1SkF;
+	Tue, 04 Jun 2024 16:18:59 +0200
+Date: Tue, 4 Jun 2024 16:18:58 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: Johan Hovold <johan+linaro@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Sanyog Kale <sanyog.r.kale@intel.com>, alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 3/4] soundwire: bus: clean up probe warnings
+Message-ID: <Zl8iUmOfrjw3gWVX@hovoldconsulting.com>
+References: <20240604075213.20815-1-johan+linaro@kernel.org>
+ <20240604075213.20815-4-johan+linaro@kernel.org>
+ <8dd7cadc-138c-4ef5-b06f-7177550b1215@linux.intel.com>
+ <Zl7boEkMpQaELARP@hovoldconsulting.com>
+ <970501b1-09ae-4f2c-a078-2b4f23fe460e@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="E1LT8wVf0uletdZD"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <be0ee1bc-336f-4960-a54c-8bb71449fd1c@quicinc.com>
-X-Cookie: Is it clean in other dimensions?
-Message-ID-Hash: G67PLHC43UOFRKOE634GZXZ2WJGRF66H
-X-Message-ID-Hash: G67PLHC43UOFRKOE634GZXZ2WJGRF66H
-X-MailFrom: broonie@kernel.org
+In-Reply-To: <970501b1-09ae-4f2c-a078-2b4f23fe460e@linux.intel.com>
+Message-ID-Hash: ABEXDKKL3NK4MYEZYNM2CNRSSWHYNSZY
+X-Message-ID-Hash: ABEXDKKL3NK4MYEZYNM2CNRSSWHYNSZY
+X-MailFrom: johan@kernel.org
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/G67PLHC43UOFRKOE634GZXZ2WJGRF66H/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ABEXDKKL3NK4MYEZYNM2CNRSSWHYNSZY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -103,43 +104,57 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Tue, Jun 04, 2024 at 03:43:46PM +0200, Pierre-Louis Bossart wrote:
+> On 6/4/24 11:17, Johan Hovold wrote:
+> > On Tue, Jun 04, 2024 at 10:33:02AM +0200, Pierre-Louis Bossart wrote:
+> >> On 6/4/24 02:52, Johan Hovold wrote:
+> >>> Clean up the probe warning messages by using a common succinct format
+> >>> (e.g. without __func__ and with a space after ':').
+> > 
+> >>> @@ -123,7 +123,7 @@ static int sdw_drv_probe(struct device *dev)
+> >>>  	/* init the dynamic sysfs attributes we need */
+> >>>  	ret = sdw_slave_sysfs_dpn_init(slave);
+> >>>  	if (ret < 0)
+> >>> -		dev_warn(dev, "Slave sysfs init failed:%d\n", ret);
+> >>> +		dev_warn(dev, "failed to initialise sysfs: %d\n", ret);
+> >>>  
+> >>>  	/*
+> >>>  	 * Check for valid clk_stop_timeout, use DisCo worst case value of
+> >>> @@ -147,7 +147,7 @@ static int sdw_drv_probe(struct device *dev)
+> >>>  	if (drv->ops && drv->ops->update_status) {
+> >>>  		ret = drv->ops->update_status(slave, slave->status);
+> >>>  		if (ret < 0)
+> >>> -			dev_warn(dev, "%s: update_status failed with status %d\n", __func__, ret);
+> >>> +			dev_warn(dev, "failed to update status: %d\n", ret);
+> >>
+> >> the __func__ does help IMHO, 'failed to update status' is way too general...
+> > 
+> > Error messages printed with dev_warn will include the device and driver
+> > names so this message will be quite specific still.
+> 
+> The goal isn't to be 'quite specific' but rather 'completely
+> straightforward'. Everyone can lookup a function name in a xref tool and
+>  quickly find out what happened. Doing 'git grep' on message logs isn't
+> great really, and over time logs tend to be copy-pasted. Just look at
+> the number of patches where we had to revisit the dev_err logs to make
+> then really unique/useful.
 
---E1LT8wVf0uletdZD
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Error message should be self-contained and give user's some idea of what
+went wrong and not leak implementation details like function names (and
+be greppable, which "%s:" is not).
 
-On Tue, Jun 04, 2024 at 06:59:31AM -0700, Jeff Johnson wrote:
-> On 6/4/2024 4:56 AM, Mark Brown wrote:
+> >> Replacing 'with status' by ":" is fine, but do we really care about 10
+> >> chars in a log?
+> > 
+> > It's not primarily about the numbers of characters but about consistency.
+> 
+> I am advocating for inclusion of __func__ everywhere...It's simpler for
+> remote support and bug chasing.
 
-> > Is anyone getting any value from these MODULE_DESCRIPTION()s?  This all
-> > just seems like a huge amount of noise and I'm having trouble thinking
-> > of a use case.
+A quick grep seems to suggest you're in a small minority here with some
+5k of 65k dev_err() including __func__.
 
-> https://bugzilla.kernel.org/show_bug.cgi?id=10770
+[ And there's only 55 out of 750 dev_err() like that in
+drivers/soundwire, which is inconsistent at best. ]
 
-Please include human readable descriptions of things like commits and
-issues being discussed in e-mail in your mails, this makes them much
-easier for humans to read especially when they have no internet access.
-I do frequently catch up on my mail on flights or while otherwise
-travelling so this is even more pressing for me than just being about
-making things a bit easier to read.
-
-and I'm not seeing anything in the above link that articulates an actual
-use case.
-
---E1LT8wVf0uletdZD
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmZfITAACgkQJNaLcl1U
-h9BjoAf+Pt5R2AGb3L49fmvqs4QBC7DTDl0IfBvfjbP60Ie+ncNVy1kZeGH4J61H
-UnjJKq+c4rqo5OJ6/KXpHBACnpIb/Vbh4KrHPny3//T/mFaSmkAIYWLu1jH/p16V
-n+LcWdJDLOGUZKptOyNVilyFnrQdrhIa1lDnlHRTK6HSMTHggcqzILghk8hHV9sC
-ttLpxQ2yENnuXiyRe/UXq74Sl24O9J3pxWuFzZ5gV65Cjdr56kPTvtrWOj4pybi6
-px66fMIjkGxun3KVxeimDxFY1aNRoJ1VEmz2oZMVtXfBkUndEewCNAcTQVWCFmNd
-b8dWF7/eccrOklt47h6sXrkCFiV/CQ==
-=XAOE
------END PGP SIGNATURE-----
-
---E1LT8wVf0uletdZD--
+Johan

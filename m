@@ -2,120 +2,116 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79C0F9077E9
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jun 2024 18:10:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D8479077EC
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jun 2024 18:11:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D63ED1933;
-	Thu, 13 Jun 2024 18:10:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D63ED1933
+	by alsa0.perex.cz (Postfix) with ESMTPS id A2EEEB60;
+	Thu, 13 Jun 2024 18:10:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A2EEEB60
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718295037;
-	bh=gVVjzQEnwulxP6p2n3DNbWZtJ9u5mkA9OKA5av56/Jo=;
-	h=From:Date:Subject:To:Cc:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=VXp0U8ezSry6qcQ11y2ty5SzKjFQ0CeLRrV5uYpL11CCrh1HI12OY+DfCwNM6tqwQ
-	 QTsO84P5ZEqNBVvhSb+2lNQiynPv65j5S/t5R5i7EpvfTT8gzF6EHt90LWe9ZgbtFl
-	 W6bvxG80jy2spyH4ZKAFYn1Ugt/g2ZDNdM6AsDpU=
+	s=default; t=1718295062;
+	bh=hrPyDWov6xubY4MSU7mruhDQjHQ2rXnYw17/VTNpAHE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=Fv1526TCGTUdAlC6FSHzvqFgfvjPTYJChGbvnOJVHludXDkJg0N/XSEopuQw9uJdY
+	 9Sd73gbU7br7AASx9Vi8SJFv6l/1JNb32MMUgehbXojaIArRK88vVZ7x1y7ZAlnJHt
+	 mqv3pBOAMR+LqWrecfI/yVdQHUlXr5midT2zUt7Y=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 73A74F8982F; Thu, 13 Jun 2024 18:03:25 +0200 (CEST)
+	id DD893F8983A; Thu, 13 Jun 2024 18:03:29 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 59024F89827;
-	Thu, 13 Jun 2024 18:03:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 28904F89857;
+	Thu, 13 Jun 2024 18:03:28 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 247E6F802DB; Wed,  5 Jun 2024 19:01:47 +0200 (CEST)
+	id 7F073F802DB; Wed,  5 Jun 2024 19:12:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-il1-x12f.google.com (mail-il1-x12f.google.com
- [IPv6:2607:f8b0:4864:20::12f])
+Received: from mail-yb1-xb34.google.com (mail-yb1-xb34.google.com
+ [IPv6:2607:f8b0:4864:20::b34])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 98994F800AC
-	for <alsa-devel@alsa-project.org>; Wed,  5 Jun 2024 19:01:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 98994F800AC
+	by alsa1.perex.cz (Postfix) with ESMTPS id E9E2EF800AC
+	for <alsa-devel@alsa-project.org>; Wed,  5 Jun 2024 19:11:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9E2EF800AC
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=howett-net.20230601.gappssmtp.com
  header.i=@howett-net.20230601.gappssmtp.com header.a=rsa-sha256
- header.s=20230601 header.b=md9SmzpL
-Received: by mail-il1-x12f.google.com with SMTP id
- e9e14a558f8ab-36dd6110186so129465ab.0
+ header.s=20230601 header.b=wF601YpM
+Received: by mail-yb1-xb34.google.com with SMTP id
+ 3f1490d57ef6-dfa65af5367so94433276.1
         for <alsa-devel@alsa-project.org>;
- Wed, 05 Jun 2024 10:01:40 -0700 (PDT)
+ Wed, 05 Jun 2024 10:11:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=howett-net.20230601.gappssmtp.com; s=20230601; t=1717606898;
- x=1718211698; darn=alsa-project.org;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ic5/Q9DGD7GTOr6LxBzJwWL6y3a9HZDUzW6mjHtSYSI=;
-        b=md9SmzpLJVd9hjuwSGM2m9nblL2ja5Skjuu/sveAyyUJ6X7/G0ynjkwFXRO+nBTzmL
-         bRJXfjeY+PmhpqU/Ky6gIGAYl31Vb/vmISi6jyXrM7UxfmQ4gyMAeWfBS22qhcSDFMnq
-         zcr/tr38y76/yMLb+QE1p0X00V6SlJlhYfrATEFtKLteD2wCJCJaRQPdJcrqqgtMtl6I
-         0eUyKNszeFLTcS75nZ3rbtAGStH2ZOfCDECMK3RFD33Jr2ODpg8kqM0kdhzgl/E3NjSR
-         Qr+AyCWsng9AgTbT2RxNVUauihhxEprolNqT82ogTRtql0EYR+G3BGSApHc5zSiDqivC
-         a8gg==
+        d=howett-net.20230601.gappssmtp.com; s=20230601; t=1717607514;
+ x=1718212314; darn=alsa-project.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=hrPyDWov6xubY4MSU7mruhDQjHQ2rXnYw17/VTNpAHE=;
+        b=wF601YpMHd8Fos3k5ViA01DAiGZ09oBb60Cn2PKNC3e87uyPrwh/Uhy6ellmfwh+RK
+         hYLfB5h85HgQq3cK1DdnUe5cd0/PAstVHcyA7q0RfWYP/pBPm45MOskVL5FSJqr8okWG
+         lyL3EzDVZrI/TPGlmP6W8FwPIKJKU6N5CSosxHfCXwPhTXjJqDjWxgh/UiP2JYW9jKBx
+         7w64w9yErFDuf9zYiNFx7ReNmo1ER8TUmb97k3BQQODNUVEJYsSM7djtXlgEOpBbl89l
+         QQYCgxd/9/fh+jbZx7D5m6vI9QloZuCOdZeLYu/lpN1JwLJ0XzlfRtX20/9t1S8dg9rC
+         FqBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717606898; x=1718211698;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Ic5/Q9DGD7GTOr6LxBzJwWL6y3a9HZDUzW6mjHtSYSI=;
-        b=uER0JnVHNpJhs5F6j1VjsY1WzufQew6o4kcIK9t3LGvqn8TLDLmxCR3bwT8EBVK3Pp
-         pkz34TmFmn1oGzLMkId83OkefUQuuYmSH90P8S4Ao0n01WS3bowPpuKx0bFk+/FfBsQ/
-         BlIpM3dVxO8f9cLwP4X+eNRDhbuycE44H+6cAiOf/XZ3is5uWzJLLJJuCO5UcNaHIjH0
-         zf8NjehzgM9hrkprwwHKXpd/uQ7E7xo1i2cK8U3vzStcIG+39On3+u4lZpDbQ6k9wLvk
-         WeJoh7u8KTv0ADl+MT90Oa1uSRn5oMep+JdRh3X7i7PmYggRqVXhrAz2dfpEo5JRiPSC
-         GWCQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXGry+CtTXVjmahzCOcciE/2TDqWnibTyhy9rfDhfkSwM+vc7bz760qH9Vdo4/4FLhxGGOkihciqV6OWAPwzRwDP5cQ9QnF3XP9dEo=
-X-Gm-Message-State: AOJu0YzaPMB4LIuIwR5cx1oVS2OpwT8FHG1b2NEDhneCSToV+/TILFkX
-	M2J0Lzvs+Wyi2WI3U1FBMG8Z4vtNnwzs7iQLmE92uZGxdBfRwSri6sPrjkQ5Gw==
+        d=1e100.net; s=20230601; t=1717607514; x=1718212314;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=hrPyDWov6xubY4MSU7mruhDQjHQ2rXnYw17/VTNpAHE=;
+        b=Qff1V0S9Mlqsce4RrppJ1tnuY+pJPq8xIfYYP/oF8ExEJpulEmo8fH15vllxnMceFk
+         jDfrzX3w74R2JERVXCGTmXJ9WcY8jG6k+qhy9JmX9j90NFp/gOL44V4HhWem03vsjSvz
+         8OUzu3fUzXmbxg1tXVwdONZ0d8SZQXhrlhwfoq46gXL4GiWXyUau1MQdOl8jU6fw6v6c
+         ILUYdBS9Rhicxi8YLjOolmol+gdvMYnotK1SO8IneuL6MtlNG61skdEX1k0eGoptLccD
+         JoBSSv6iSH5yuZRcJrcmxDzAzkJN/2PdKUjfQ5wt6PJykFgGmbGlLwYnGGmdDpNfepOS
+         Nrag==
+X-Gm-Message-State: AOJu0YypXDyU0uRCkgpzfz771gDVhDqZxiZWYN/9UOiTDv6I+JLzxi0C
+	d3cx65lLsHLTeXsPGAv8uXBo6Ona9kDG7bx6tLB69rZEoXOz0T6Z+X+16HqQS41nnYtAA1GruON
+	PVyF94sQ7J6Zb0lLRA6GWJFHJMVZp7tf3kcKo
 X-Google-Smtp-Source: 
- AGHT+IEiS5HIqr+o/mc9AmHnQp5gWvjHsZeOEJPC58/fdM+hkuhR4eFJneB0qy6mLCztojFCGlYnNw==
-X-Received: by 2002:a92:c26a:0:b0:374:7fb7:7e56 with SMTP id
- e9e14a558f8ab-374b1e13c87mr34265195ab.0.1717606898500;
-        Wed, 05 Jun 2024 10:01:38 -0700 (PDT)
-Received: from [127.0.0.1] ([2600:1700:df50:a7c1::6f8])
-        by smtp.googlemail.com with ESMTPSA id
- e9e14a558f8ab-3748a1dda21sm27119775ab.3.2024.06.05.10.01.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 05 Jun 2024 10:01:37 -0700 (PDT)
-From: "Dustin L. Howett" <dustin@howett.net>
-Date: Wed, 05 Jun 2024 12:01:32 -0500
-Subject: [PATCH] ALSA: hda/realtek: Remove Framework Laptop 16 from quirks
+ AGHT+IGBvm2jqELBqv+grs3Kqq2GulmvVKbrTv3dhK80LZathl1G27hH7Ar+ABN9doS7tCSS5v3HY+xTrJRjEZNzwQk=
+X-Received: by 2002:a5b:14d:0:b0:dfa:c421:c7f with SMTP id
+ 3f1490d57ef6-dfacac47a04mr3320526276.17.1717607513856;
+ Wed, 05 Jun 2024 10:11:53 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: 
+References: 
  <20240605-alsa-hda-realtek-remove-framework-laptop-16-from-quirks-v1-1-11d47fe8ec4d@howett.net>
-X-B4-Tracking: v=1; b=H4sIAOuZYGYC/x2NQQrDIBBFrxJm3QEjjYFepXQx0UkjarRjmhZC7
- l7p6vHe4v8DKovnCrfuAOHdV5/XJv2lA7vQ+mT0rjlopa/KqAEpVsLFEQpT3Dg0prwzzkKJP1k
- CRipbLtib1nLC19tLqOisUdqMdhp4hLZehGf//T/fH+f5AzIMw5WJAAAA
-To: Mario Limonciello <mario.limonciello@amd.com>,
- alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.de>
-Cc: Kieran Levin <ktl@frame.work>, "Dustin L. Howett" <dustin@howett.net>
-X-Mailer: b4 0.13.0
+ <2099135f-871a-4d8e-a957-6bc374407fd8@amd.com>
+In-Reply-To: <2099135f-871a-4d8e-a957-6bc374407fd8@amd.com>
+From: Dustin Howett <dustin@howett.net>
+Date: Wed, 5 Jun 2024 12:11:42 -0500
+Message-ID: 
+ <CA+BfgNLHM66-K6i-mQoAFWdSouSqA8BO=CerMNu2v693HMks_g@mail.gmail.com>
+Subject: Re: [PATCH] ALSA: hda/realtek: Remove Framework Laptop 16 from quirks
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.de>,
+	Kieran Levin <ktl@frame.work>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-MailFrom: dustin@howett.net
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: EOU4EP3BVG54Y2RZN2HE7EAM4QRQYZ7O
-X-Message-ID-Hash: EOU4EP3BVG54Y2RZN2HE7EAM4QRQYZ7O
-X-Mailman-Approved-At: Thu, 13 Jun 2024 16:03:15 +0000
+Message-ID-Hash: 6EFSOR5A3DE6EPOKUNFRXCOS5PRW2ZYX
+X-Message-ID-Hash: 6EFSOR5A3DE6EPOKUNFRXCOS5PRW2ZYX
+X-Mailman-Approved-At: Thu, 13 Jun 2024 16:03:16 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EOU4EP3BVG54Y2RZN2HE7EAM4QRQYZ7O/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6EFSOR5A3DE6EPOKUNFRXCOS5PRW2ZYX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -124,34 +120,22 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The Framework Laptop 16 does not have a combination headphone/headset
-3.5mm jack; however, applying the pincfg from the Laptop 13 (nid=0x19)
-erroneously informs hda that the node is present.
+On Wed, Jun 5, 2024 at 12:03=E2=80=AFPM Mario Limonciello
+<mario.limonciello@amd.com> wrote:
+>
+> On 6/5/2024 12:01, Dustin L. Howett wrote:
+> > The Framework Laptop 16 does not have a combination headphone/headset
+> > 3.5mm jack; however, applying the pincfg from the Laptop 13 (nid=3D0x19=
+)
+> > erroneously informs hda that the node is present.
+>
+> But doesn't the audio card work this way?
 
-Fixes: 8804fa04a492 ("ALSA: hda/realtek: Add Framework laptop 16 to quirks")
-Signed-off-by: Dustin L. Howett <dustin@howett.net>
----
- sound/pci/hda/patch_realtek.c | 1 -
- 1 file changed, 1 deletion(-)
+I don't believe so - the audio expansion card enumerates as a USB
+device that is picked up by snd-usb-audio.
+A headset microphone connected to the audio expansion card seems to
+continue working properly even with this pinctrl change (synthetically
+tested on my Framework Laptop 13, mind you -- it is not a perfect test
+:)).
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index e3c0b9d5552d..127f5933abd7 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -10605,7 +10605,6 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x8086, 0x2081, "Intel NUC 10", ALC256_FIXUP_INTEL_NUC10),
- 	SND_PCI_QUIRK(0x8086, 0x3038, "Intel NUC 13", ALC295_FIXUP_CHROME_BOOK),
- 	SND_PCI_QUIRK(0xf111, 0x0001, "Framework Laptop", ALC295_FIXUP_FRAMEWORK_LAPTOP_MIC_NO_PRESENCE),
--	SND_PCI_QUIRK(0xf111, 0x0005, "Framework Laptop", ALC295_FIXUP_FRAMEWORK_LAPTOP_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0xf111, 0x0006, "Framework Laptop", ALC295_FIXUP_FRAMEWORK_LAPTOP_MIC_NO_PRESENCE),
- 
- #if 0
-
----
-base-commit: 7b44d5381e541de3da3cee2e948456b250f41f25
-change-id: 20240605-alsa-hda-realtek-remove-framework-laptop-16-from-quirks-dc60267cb5e7
-
-Best regards,
--- 
-Dustin L. Howett <dustin@howett.net>
-
+d

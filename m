@@ -2,88 +2,127 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BE098FC6AD
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jun 2024 10:38:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA28E8FC853
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jun 2024 11:49:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6C027950;
-	Wed,  5 Jun 2024 10:37:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C027950
+	by alsa0.perex.cz (Postfix) with ESMTPS id 74E90868;
+	Wed,  5 Jun 2024 11:49:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 74E90868
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1717576686;
-	bh=ODoK20LE2tDxy3cgXLqZ9Y47PiHB//xebafiA0+PEhc=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=FpVrtG0ZARb7TZsWORlEIgJQzJwsYDHB4fxXPiu+UdoCFUpnOGKCy6fafT4ouUdqv
-	 hKneP3G/gQLpS/N/96qEy09106YDjEjESxp7Gak8ZL2OD1TGVLRWrRCG+jI9Q9D2Nf
-	 9el7w+TURXOZ7UsfcXQxpPxJKTLOLJGTs4ffiKBg=
+	s=default; t=1717580986;
+	bh=Hcboqt/mCTVI1F3jHOS4TQJM3QuLm78ZsIrceEwB3No=;
+	h=From:Date:Subject:To:Cc:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=DKZWoF6vMkIhqSr7bH27adAohZYlm1Z6GmIWiVxRgLnOcSuLEkWUIvfW5WS4QQ8KJ
+	 NJitMvaswo3zWXC2mKidAlo1OFTwqLhdEneoRap7Gqf7EsQzgYmlywPcLGlgOl43De
+	 mT3bLKZnKsgf+DaeibUF5hAmUbPnOqQ5C7UHfnTw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4AAECF805AA; Wed,  5 Jun 2024 10:37:34 +0200 (CEST)
+	id 515BAF805AE; Wed,  5 Jun 2024 11:49:15 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 912CEF804E5;
-	Wed,  5 Jun 2024 10:37:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 494BFF8059F;
+	Wed,  5 Jun 2024 11:49:14 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3D666F802DB; Wed,  5 Jun 2024 10:35:52 +0200 (CEST)
+	id BD245F800FA; Wed,  5 Jun 2024 11:43:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0
-	tests=RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [IPv6:2a00:1450:4864:20::22a])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7426EF8003A
-	for <alsa-devel@alsa-project.org>; Wed,  5 Jun 2024 10:35:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7426EF8003A
-X-SpamFilter-By: ArmorX SpamTrap 5.78 with qID 4558ZYlB41294963,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (rtexh36506.realtek.com.tw[172.21.6.27])
-	by rtits2.realtek.com.tw (8.15.2/2.95/5.92) with ESMTPS id 4558ZYlB41294963
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 5 Jun 2024 16:35:34 +0800
-Received: from RTEXMBS05.realtek.com.tw (172.21.6.98) by
- RTEXH36506.realtek.com.tw (172.21.6.27) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.39; Wed, 5 Jun 2024 16:35:35 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXMBS05.realtek.com.tw (172.21.6.98) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.35; Wed, 5 Jun 2024 16:35:34 +0800
-Received: from RTEXMBS01.realtek.com.tw ([fe80::d5b2:56ba:6b47:9975]) by
- RTEXMBS01.realtek.com.tw ([fe80::d5b2:56ba:6b47:9975%5]) with mapi id
- 15.01.2507.035; Wed, 5 Jun 2024 16:35:34 +0800
-From: Jack Yu <jack.yu@realtek.com>
-To: Mark Brown <broonie@kernel.org>
-CC: "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
-        "alsa-devel@alsa-project.org"
-	<alsa-devel@alsa-project.org>,
-        "lars@metafoo.de" <lars@metafoo.de>,
-        "Flove(HsinFu)" <flove@realtek.com>,
-        Oder Chiou <oder_chiou@realtek.com>,
-        =?big5?B?U2h1bWluZyBbrVOu0bvKXQ==?= <shumingf@realtek.com>,
-        =?big5?B?RGVyZWsgW6TovHe4cV0=?= <derek.fang@realtek.com>
-Subject: RE: [PATCH] ASoC: rt1318: Add RT1318 audio amplifier driver
-Thread-Topic: [PATCH] ASoC: rt1318: Add RT1318 audio amplifier driver
-Thread-Index: Adq2Rs/8n9D0p31EQZaWG09Bfd/1V///5GUAgAFOiKA=
-Date: Wed, 5 Jun 2024 08:35:34 +0000
-Message-ID: <ec0216e7174f46a19b23c1b256486514@realtek.com>
-References: <c6d0e09de01c4804bfff6efe92fff04c@realtek.com>
- <0c681db6-6a5c-416e-9c60-4b72e2eb172d@sirena.org.uk>
-In-Reply-To: <0c681db6-6a5c-416e-9c60-4b72e2eb172d@sirena.org.uk>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-x-originating-ip: [172.22.102.102]
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
+	by alsa1.perex.cz (Postfix) with ESMTPS id 11B44F800FA
+	for <alsa-devel@alsa-project.org>; Wed,  5 Jun 2024 11:41:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 11B44F800FA
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=cWm4/NjP
+Received: by mail-lj1-x22a.google.com with SMTP id
+ 38308e7fff4ca-2eaa80cb573so53671871fa.1
+        for <alsa-devel@alsa-project.org>;
+ Wed, 05 Jun 2024 02:41:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1717580453; x=1718185253;
+ darn=alsa-project.org;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=N2ukym6a7idvbhiMPUeFxPFQ9JMmthq9JaArWccCKyo=;
+        b=cWm4/NjP6jtxd4siAYB+oqx9NYFHi3p73a6w7lZbnC6hZlhJOwF2k7WVTTNKm9VRze
+         v9UAXnstxe9hWCm+n2b3zfGLtNaaauPLHweKPlEMbxv7q+0WBJKdWgPvkTIvWAIZe4/1
+         e2qMjM1IA3+G+rv/NJmR/CJhGsuEnuU+yZHBq2AqZN6XqN6IQTgyMQq+HOG3YFel4LHA
+         wEOWBNfaR3zDdJ410s1OylsE9zUNqNFT6Xa0wC/Wjdef8afLcQ2+k0TNMNlSTHuU8wRA
+         DCcZippapj+wfwESO6W0DIx3clng+k/xUBGZY78w2142WC8eDJgPRZ7h7m+uWXO1731n
+         ESuA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1717580453; x=1718185253;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=N2ukym6a7idvbhiMPUeFxPFQ9JMmthq9JaArWccCKyo=;
+        b=ma1Q9W4X+s0QvqtiLataKEMQ+I8qKXKEJp1SywzvJsUxiIezwbddzon0VrNLCj7fCu
+         UtwNnSL3C7/zuf3iRyJU9Own0TaHoBhUDjYvEnbZoSLgq7Ft7MlQtwAHarMD3N/aDcEJ
+         YMP45dB3QuovNjhARTrIkh74xDwQA1CemNG8gjLT7xroIEN9/Wc+hLXubMj7CFVrt6SB
+         gOZSnMvz3YBlnRfzmq3YNmW9xcqtv0GbmWCFCSREJn7zDcud8VU8Vbk+u5/sq5959Q1R
+         Px8QfWrMnmj7iA0i/YYBTLpuKk8UAYjVUKHlbwfXSKEHtvBYe8z+AYFstTrWO38GWyVB
+         hb5A==
+X-Gm-Message-State: AOJu0Yx/vQTQdcxe2cw+xzZZ1gziAuf/f1R8cUUJJTOgel8HULXJjilg
+	K8hE0wlIzEO44Kr7BiAvB3b5HpaiT4oC9BPVnYOi6Hkm/ike2srDtvbOGvnxkiU=
+X-Google-Smtp-Source: 
+ AGHT+IFMcjnS3DnsYbqQlASFRzhCm5EUynN8y8SEbAtGYnAGKbONFNfagI8RnrgkTFcQSK2RQsYS/g==
+X-Received: by 2002:a2e:3c0f:0:b0:2ea:7a2a:c044 with SMTP id
+ 38308e7fff4ca-2eac7a54157mr10681711fa.37.1717580453531;
+        Wed, 05 Jun 2024 02:40:53 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:8261:5fff:fe11:bdda])
+        by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4215814f0besm14561375e9.43.2024.06.05.02.40.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 05 Jun 2024 02:40:53 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Date: Wed, 05 Jun 2024 11:40:51 +0200
+Subject: [PATCH] ASoC: dt-bindings: amlogic,gx-sound-card: drop minItems
+ for audio-widgets
 MIME-Version: 1.0
-Message-ID-Hash: WAFGD4OO35MT2C2MRXZ7JFE4DRVEXQ4M
-X-Message-ID-Hash: WAFGD4OO35MT2C2MRXZ7JFE4DRVEXQ4M
-X-MailFrom: jack.yu@realtek.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: 
+ <20240605-topic-amlogic-upstream-bindings-fixes-audio-widgets-v1-1-65bd7cc2e09b@linaro.org>
+X-B4-Tracking: v=1; b=H4sIAKIyYGYC/x2MQQrCMBAAv1L27MKmqAe/Ih62yTYu2CRkUxVK/
+ 97Q0zAwzAYmVcXgMWxQ5aumOXVxlwH8m1MU1NAdRhqvdKcbtlzUIy+fHDvXYq0KLzhpCpqi4ax
+ /MeQ1aMafhijNkEgczz6wown6uVQ5sz5+vvb9AKX1oeaFAAAA
+To: Jerome Brunet <jbrunet@baylibre.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Neil Armstrong <neil.armstrong@linaro.org>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1312;
+ i=neil.armstrong@linaro.org; h=from:subject:message-id;
+ bh=Hcboqt/mCTVI1F3jHOS4TQJM3QuLm78ZsIrceEwB3No=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBmYDKkt2DGUfinkqCMwZEThmnPMR3bgoN1YFiAvLEI
+ czAZEUeJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCZmAypAAKCRB33NvayMhJ0aPrEA
+ CuKabcMnfZApG9Ja4UOCYeP0CSfWmNy2Y7L2lZfzWotJsMv4VpYAuKJ8itU2PgMfzoR1CX+UL7zPFU
+ Mg+vioYU2EJ6P4CGDlYfl/35ZWobModRrHWugri3CgoecgPWqDPm0o6pwyKTy8SibKvVtS+Y+eJgI3
+ FznWEHipHGIqi54kjex98EPJyPogfKS7z1YI+7pjKb8p33uvgKEbqDx9lRv21vAXwCHyQBvY4iSDc7
+ ohq/FhOlDt84sRC3aR9sse+qMK9/Ca1OsEVVpLeODncPM7QHwkQA8851CGFbTkCS/C0cvpGew1UjGJ
+ QdC+kPB4L4iTjmK+ptzbL2DJM6eYbY1yI9lSbJ+jPcJeGZph/D0KMp2Vap2KfFlG+ie9f1IN43xOQm
+ fgofKD9pML5aAutw+451YZQbo6Tc2QoQpRZBjto+IpTFt6FuBaC2uahR0yBE+I5Il0IvqUIooxihOl
+ M3y0tv5+fNmeEbnLAOlD9+7TWyd3h8nfo0LBVx4kSz/FnmQo0rsR7oL2SrXEcHhr5T8uXoxiKAUYHC
+ vqwQaOBBSwMNeyW2jvJee0ARwJVm3HhTk3GtFS/fPh2VZvdJrA0b6scDmsVcmOsIHELP0bPY2OK0sN
+ 9WVwvlKF42oOaTuBA5r6HLDwXWr37rfKyKnJLuX5LQK73vw5f2VbS/y/SmJA==
+X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
+ fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
+Message-ID-Hash: FLRYPSJAK3EP6Y7SYGJLLDFH4UDD6HNY
+X-Message-ID-Hash: FLRYPSJAK3EP6Y7SYGJLLDFH4UDD6HNY
+X-MailFrom: neil.armstrong@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -95,7 +134,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WAFGD4OO35MT2C2MRXZ7JFE4DRVEXQ4M/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FLRYPSJAK3EP6Y7SYGJLLDFH4UDD6HNY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,54 +143,35 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBNYXJrIEJyb3duIDxicm9vbmll
-QGtlcm5lbC5vcmc+DQo+IFNlbnQ6IFR1ZXNkYXksIEp1bmUgNCwgMjAyNCA4OjM4IFBNDQo+IFRv
-OiBKYWNrIFl1IDxqYWNrLnl1QHJlYWx0ZWsuY29tPg0KPiBDYzogbGdpcmR3b29kQGdtYWlsLmNv
-bTsgYWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnOyBsYXJzQG1ldGFmb28uZGU7DQo+IEZsb3Zl
-KEhzaW5GdSkgPGZsb3ZlQHJlYWx0ZWsuY29tPjsgT2RlciBDaGlvdSA8b2Rlcl9jaGlvdUByZWFs
-dGVrLmNvbT47DQo+IFNodW1pbmcgW61TrtG7yl0gPHNodW1pbmdmQHJlYWx0ZWsuY29tPjsgRGVy
-ZWsgW6TovHe4cV0NCj4gPGRlcmVrLmZhbmdAcmVhbHRlay5jb20+DQo+IFN1YmplY3Q6IFJlOiBb
-UEFUQ0hdIEFTb0M6IHJ0MTMxODogQWRkIFJUMTMxOCBhdWRpbyBhbXBsaWZpZXIgZHJpdmVyDQo+
-IA0KPiBPbiBUdWUsIEp1biAwNCwgMjAyNCBhdCAwNjoxNzowMkFNICswMDAwLCBKYWNrIFl1IHdy
-b3RlOg0KPiANCj4gPiArc3RhdGljIGludCBydDEzMThfaW5pdF9wdXQoc3RydWN0IHNuZF9rY29u
-dHJvbCAqa2NvbnRyb2wsDQo+ID4gKwkJc3RydWN0IHNuZF9jdGxfZWxlbV92YWx1ZSAqdWNvbnRy
-b2wpIHsNCj4gPiArCXN0cnVjdCBzbmRfc29jX2NvbXBvbmVudCAqY29tcG9uZW50ID0NCj4gc25k
-X3NvY19rY29udHJvbF9jb21wb25lbnQoa2NvbnRyb2wpOw0KPiA+ICsJc3RydWN0IHJ0MTMxOF9w
-cml2ICpydDEzMTggPQ0KPiA+ICtzbmRfc29jX2NvbXBvbmVudF9nZXRfZHJ2ZGF0YShjb21wb25l
-bnQpOw0KPiA+ICsNCj4gPiArCXJ0MTMxOC0+cnQxMzE4X2luaXQgPSB1Y29udHJvbC0+dmFsdWUu
-aW50ZWdlci52YWx1ZVswXTsNCj4gPiArDQo+ID4gKwlpZiAocnQxMzE4LT5ydDEzMThfaW5pdCkN
-Cj4gPiArCQlydDEzMThfcmVnX2luaXQoY29tcG9uZW50KTsNCj4gPiArDQo+ID4gKwlyZXR1cm4g
-MDsNCj4gPiArfQ0KPiANCj4gU28gdGhpcyBjb250cm9sIHJlc2V0cyB0aGUgQ09ERUMgLSB3aGF0
-J3MgdGhlIHN0b3J5IGhlcmU/ICBSZWFsbHkgaXQgc2hvdWxkIGJlIGENCj4gYm9vbGVhbiwgYW5k
-IGlmIHlvdSBydW4gbWl4ZXItdGVzdCBpdCdsbCB0ZWxsIHlvdSB5b3UncmUgbm90IHJldHVybmlu
-ZyAxIGZvciB2YWx1ZQ0KPiBjaGFuZ2VzIC0gcGxlYXNlIHJ1biBtaXhlci10ZXN0LCB0aGVyZSBh
-cmUgYSBudW1iZXIgb2Ygb3RoZXIgZXJyb3JzIHRoYXQgaXQgd2lsbA0KPiBkZXRlY3QgaGVyZS4N
-Cj4gDQpJIHdpbGwgcmVtb3ZlIHRoaXMgY29udHJvbCBzaW5jZSBpdCdzIG9ubHkgZm9yIGludGVy
-bmFsIHRlc3RpbmcgcHVycG9zZS4NCg0KPiA+ICtzdGF0aWMgaW50IHJ0MTMxOF9kdm9sX3B1dChz
-dHJ1Y3Qgc25kX2tjb250cm9sICprY29udHJvbCwNCj4gPiArCQlzdHJ1Y3Qgc25kX2N0bF9lbGVt
-X3ZhbHVlICp1Y29udHJvbCkgew0KPiA+ICsJc3RydWN0IHNuZF9zb2NfY29tcG9uZW50ICpjb21w
-b25lbnQgPQ0KPiBzbmRfc29jX2tjb250cm9sX2NvbXBvbmVudChrY29udHJvbCk7DQo+ID4gKwlz
-dHJ1Y3QgcnQxMzE4X3ByaXYgKnJ0MTMxOCA9DQo+ID4gK3NuZF9zb2NfY29tcG9uZW50X2dldF9k
-cnZkYXRhKGNvbXBvbmVudCk7DQo+ID4gKw0KPiA+ICsJcnQxMzE4LT5ydDEzMThfZHZvbCA9IHVj
-b250cm9sLT52YWx1ZS5pbnRlZ2VyLnZhbHVlWzBdOw0KPiA+ICsNCj4gPiArCWlmIChydDEzMTgt
-PnJ0MTMxOF9kdm9sIDw9IFJUMTMxOF9EVk9MX1NURVApIHsNCj4gPiArCQlyZWdtYXBfd3JpdGUo
-cnQxMzE4LT5yZWdtYXAsIFJUMTMxOF9EQV9WT0xfTF84LA0KPiBydDEzMTgtPnJ0MTMxOF9kdm9s
-ID4+IDgpOw0KPiA+ICsJCXJlZ21hcF93cml0ZShydDEzMTgtPnJlZ21hcCwgUlQxMzE4X0RBX1ZP
-TF9MXzFfNywNCj4gcnQxMzE4LT5ydDEzMThfZHZvbCAmIDB4ZmYpOw0KPiA+ICsJCXJlZ21hcF93
-cml0ZShydDEzMTgtPnJlZ21hcCwgUlQxMzE4X0RBX1ZPTF9SXzgsDQo+IHJ0MTMxOC0+cnQxMzE4
-X2R2b2wgPj4gOCk7DQo+ID4gKwkJcmVnbWFwX3dyaXRlKHJ0MTMxOC0+cmVnbWFwLCBSVDEzMThf
-REFfVk9MX1JfMV83LA0KPiA+ICtydDEzMTgtPnJ0MTMxOF9kdm9sICYgMHhmZik7DQo+IA0KPiBU
-aGlzIHdpbGwgaGFwcGlseSBhY2NlcHQgbmVnYXRpdmUgdmFsdWVzIHdoaWNoIHlvdSBwcm9iYWJs
-eSBkb24ndCB3YW50Lg0KDQpJJ2xsIGRvIG1vZGlmaWNhdGlvbiByZWdhcmRpbmcgdG8gaXQuDQoN
-Cj4gDQo+ID4gKwl9IGVsc2Ugew0KPiA+ICsJCXJ0MTMxOC0+cnQxMzE4X2R2b2wgPSBSVDEzMThf
-RFZPTF9TVEVQOw0KPiA+ICsJCWRldl9lcnIoY29tcG9uZW50LT5kZXYsICJVbnN1cHBvcnRlZCB2
-b2x1bWUgZ2FpblxuIik7DQo+IA0KPiBUaGUgZHJpdmVyIHNob3VsZG4ndCBhbGxvdyB1c2Vyc3Bh
-Y2UgdG8gc3BhbSB0aGUga2VybmVsIGxvZyBsaWtlIHRoaXMsIGl0IGNhbiBiZQ0KPiB1c2VkIHRv
-IG1hc2sgaXNzdWVzLg0KPiANCkknbGwgcmVtb3ZlIHRoaXMgImVsc2UiIGNvbmRpdGlvbi4NCg0K
-PiA+ICtzdGF0aWMgY29uc3Qgc3RydWN0IHNuZF9rY29udHJvbF9uZXcgcnQxMzE4X3NuZF9jb250
-cm9sc1tdID0gew0KPiA+ICsJU09DX1NJTkdMRV9FWFQoInJ0MTMxOCBkaWdpdGFsIHZvbHVtZSIs
-IFNORF9TT0NfTk9QTSwgMCwgMzgzLCAwLA0KPiA+ICsJCXJ0MTMxOF9kdm9sX2dldCwgcnQxMzE4
-X2R2b2xfcHV0KSwNCj4gDQo+IE5vIG5lZWQgdG8gaW5jbHVkZSB0aGUgcGFydCBudW1iZXIgaW4g
-Y29udHJvbHMsIHVzZXJzIGFyZW4ndCBnb2luZyB0byBjYXJlLg0KPiBUaGUgZ2VuZXJhbCBzdHls
-ZSBmb3IgQUxTQSBjb250cm9scyBpcyBjYXBpdGFsaXNlZCB0b28uDQpXaWxsIHJlbW92ZSBwYXJ0
-IG51bWJlci4NCg0K
+Like "audio-routing" drop the minItems: 2 from the "audio-widgets", because
+any limit here - lower or upper- is rather meaningless.
+
+This will also fix `dtbs_check` warnings like:
+sound: audio-widgets: ['Speaker', '7J4-14 LEFT', 'Speaker', '7J4-11 RIGHT'] is too long
+
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+---
+ Documentation/devicetree/bindings/sound/amlogic,gx-sound-card.yaml | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/Documentation/devicetree/bindings/sound/amlogic,gx-sound-card.yaml b/Documentation/devicetree/bindings/sound/amlogic,gx-sound-card.yaml
+index d4277d342e69..0ecdaf7190e9 100644
+--- a/Documentation/devicetree/bindings/sound/amlogic,gx-sound-card.yaml
++++ b/Documentation/devicetree/bindings/sound/amlogic,gx-sound-card.yaml
+@@ -23,7 +23,6 @@ properties:
+ 
+   audio-widgets:
+     $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+-    minItems: 2
+     description: |-
+       A list off component DAPM widget. Each entry is a pair of strings,
+       the first being the widget type, the second being the widget name
+
+---
+base-commit: c3f38fa61af77b49866b006939479069cd451173
+change-id: 20240605-topic-amlogic-upstream-bindings-fixes-audio-widgets-00e1afcda10b
+
+Best regards,
+-- 
+Neil Armstrong <neil.armstrong@linaro.org>
+

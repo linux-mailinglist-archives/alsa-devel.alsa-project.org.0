@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23F708FD957
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jun 2024 23:44:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BEF658FD95F
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jun 2024 23:45:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 656AF846;
-	Wed,  5 Jun 2024 23:44:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 656AF846
+	by alsa0.perex.cz (Postfix) with ESMTPS id 323507F1;
+	Wed,  5 Jun 2024 23:45:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 323507F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1717623888;
-	bh=TCvAx/XM79I+r42mKUlMSvUzDjqwLUgg2X9peC5/Qoo=;
+	s=default; t=1717623953;
+	bh=3MQrdpD7iV1KDjW3kAGXieRxnfAenZ67QSUIaKCrQHg=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=VqcUiUn0p2gQ40U2msocZc8SzUcTPXMzXD5tu7GVhB9mY+Sierf1cCl1d7E2o7Kzy
-	 FE7e13irh8sFUbpIXGeLNkTQFkLK/HrT5ReLJpzQbBAt9MmYtY/5lHY/gyWdauUc6R
-	 r2yb1tb0wh0RIiu/G42tw0XBUCk1j+mlqsF6Dc0I=
+	b=dsIW24NhwK87adHqSNtCNp0/ktEQAwWFwTlN+VeZES+ng/omuuBJieaXk9UrNwm2H
+	 lynuXS80qJlkuKo1kRL283z71agSDF4aaUX1ISX8Kvzyrqcyt9xshlKy+niJPpkS3R
+	 EpzAu8oytzilvEfw1CTC+NO0Ebmdi1BxEVP57EQc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 068E3F804FF; Wed,  5 Jun 2024 23:44:15 +0200 (CEST)
+	id 54621F80602; Wed,  5 Jun 2024 23:45:24 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 801FDF8059F;
-	Wed,  5 Jun 2024 23:44:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 737AAF805AA;
+	Wed,  5 Jun 2024 23:45:21 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D9FBDF804E5; Wed,  5 Jun 2024 23:40:50 +0200 (CEST)
+	id CD47CF804B0; Wed,  5 Jun 2024 23:41:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,45 +35,46 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	autolearn=ham autolearn_force=no version=3.4.6
 Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 60C95F8003A
-	for <alsa-devel@alsa-project.org>; Wed,  5 Jun 2024 23:38:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60C95F8003A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 829D9F8025A
+	for <alsa-devel@alsa-project.org>; Wed,  5 Jun 2024 23:38:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 829D9F8025A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=rxgN1+VY
+ header.s=k20201202 header.b=E+7S62m6
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id C34B2CE19AC;
-	Wed,  5 Jun 2024 21:38:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0131C4AF07;
-	Wed,  5 Jun 2024 21:38:15 +0000 (UTC)
+	by sin.source.kernel.org (Postfix) with ESMTP id 1A360CE1942;
+	Wed,  5 Jun 2024 21:38:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0DC8C32786;
+	Wed,  5 Jun 2024 21:38:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1717623496;
-	bh=TCvAx/XM79I+r42mKUlMSvUzDjqwLUgg2X9peC5/Qoo=;
+	s=k20201202; t=1717623503;
+	bh=3MQrdpD7iV1KDjW3kAGXieRxnfAenZ67QSUIaKCrQHg=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=rxgN1+VYaZZfdNXyEQ68EukPeA4+iRn7ZZOKgY4xZ/ee+q9NUSObMkP+RrWfHViej
-	 FCpo3pecGhogkBGQC9M+djI4Z0OUdOQBxYOKbk/5M2Q5FqwQePeCfTeDyjFKyVp1Jm
-	 AOauq9cDJ86N+10qn6SZWb4QPKPsCHtcKFF369wH+l72q7VZZWj6YDE8H7M/3iWUp4
-	 pBW5cV+dvv5LJM9jXV2i5GLii0iYXCLmtNlyrqrXEy2AQS1A1RfpYgMqJOaf3I3jvb
-	 W4x0+Cl+HhICmB5Pm7738RXSCE6tflelAz8phmdPTAAwbnrXYZ8osNStiB4vhKmqJe
-	 P3MBcAcmPWaMw==
+	b=E+7S62m6lA8IdAbQgaEptCdtxVdC1fz9DQH2aTPGIFeEJTbQx/pNcxI5iqcoLw1El
+	 YEFDW1VXwUvj+dVKegDaRqjkYtKhtbftfgO3dfS4G9rDsFP7llqWjwGFXqcVIUFiRC
+	 gWq44QH6CvrGkCwbsmWPu8ZMHhR2BMNIZtwINpfyuOM9vUZ1i0YQGuet6KSlB7mWdc
+	 kciNgB6nSVZUdQtn2MS8cWJT5mw77HRG9j7zvK+rxF9if7WWjORnQb3r9nazZSOG95
+	 0Yu7R1Khusw3p/6QP+iXQxNT95xbn5yWGXnwDeO4HFPAepVGoUYTwac0arLL5vkdq5
+	 4mWb551VaDEtQ==
 From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>
-In-Reply-To: <87bk4qh6h8.wl-kuninori.morimoto.gx@renesas.com>
-References: <87bk4qh6h8.wl-kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH 00/11] ASoC: simple-card: sync support
-Message-Id: <171762349538.565712.3175877075532659931.b4-ty@kernel.org>
-Date: Wed, 05 Jun 2024 22:38:15 +0100
+To: lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
+ srinivas.kandagatla@linaro.org, linux@treblig.org
+Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20240601225446.183505-1-linux@treblig.org>
+References: <20240601225446.183505-1-linux@treblig.org>
+Subject: Re: [PATCH 0/3] Dead structs in sound/soc/codecs
+Message-Id: <171762350145.565712.5432496930272405498.b4-ty@kernel.org>
+Date: Wed, 05 Jun 2024 22:38:21 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.14-dev-d4707
-Message-ID-Hash: AIQKIGCGDGAQXMAINESZ5EXKCXJP6FC4
-X-Message-ID-Hash: AIQKIGCGDGAQXMAINESZ5EXKCXJP6FC4
+Message-ID-Hash: YBHDSEFIK4KS34ZYQCJJ4ZXSTWMGQ4JJ
+X-Message-ID-Hash: YBHDSEFIK4KS34ZYQCJJ4ZXSTWMGQ4JJ
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -86,7 +87,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AIQKIGCGDGAQXMAINESZ5EXKCXJP6FC4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YBHDSEFIK4KS34ZYQCJJ4ZXSTWMGQ4JJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -95,13 +96,18 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 28 May 2024 05:04:58 +0000, Kuninori Morimoto wrote:
-> We have simle-card / audio-graph / audio-graph2, basically these supports
-> same feature but is using different DT style.
+On Sat, 01 Jun 2024 23:54:43 +0100, linux@treblig.org wrote:
+> Clean out a bunch of old structs in sound/soc/codecs.
+> Build tested only.
 > 
-> Because we are using 3 drivers, some feature was added to one driver,
-> but other drivers doesn't have it. This patch set try to sync it on these
-> 3 drivers.
+> Signed-off-by: Dr. David Alan Gilbert <linux@treblig.org>
+> 
+> 
+> Dr. David Alan Gilbert (3):
+>   ASoC: codecs: lpass-rx-macro: remove unused struct
+>     'rx_macro_reg_mask_val'
+>   ASoC: codecs: wm0010: remove unused struct 'wm0010_spi_msg'
+>   ASoC: codecs: cx2072x: remove unused struct 'cx2072x_eq_ctrl'
 > 
 > [...]
 
@@ -111,28 +117,12 @@ Applied to
 
 Thanks!
 
-[01/11] ASoC: simple-card-utils: remove both playback/capture_only check
-        commit: 45919c28134519080a85a5fb66d0f65955ef7572
-[02/11] ASoC: audio-graph-card2: add ep_to_port() / port_to_ports()
-        commit: 72999a1b6663f1ff604e79aea54f168f78e2441a
-[03/11] ASoC: audio-graph-card2: remove ports node name check
-        commit: 33ae57277ce08b83c65c18a09bf09499de613c01
-[04/11] ASoC: audio-graph-card2: expand dai_link property part
-        commit: 844de7eebe97a1c277f8a408457712086c957195
-[05/11] ASoC: audio-graph-card2: merge graph_parse_mclk_fs() into graph_link_init()
-        commit: f2d7e85962baf410b1bbbb4cf23a1ca59261ef76
-[06/11] ASoC: audio-graph-card: add ep_to_port() / port_to_ports()
-        commit: df23fcd56bb75ab522350bd8cb52bde9067aea45
-[07/11] ASoC: audio-graph-card: remove ports node name check
-        commit: 84c9601a92b755f869ac811607402e5b2162c225
-[08/11] ASoC: audio-graph-card: enable playback/capture_only property
-        commit: f23bac6e6913eed9eb831b4893255ea862d40ea5
-[09/11] ASoC: audio-graph-card: merge graph_parse_mclk_fs() into graph_link_init()
-        commit: a0174c88386b48bea7c35bc5a927f7057cb45d38
-[10/11] ASoC: simple-audio-card: enable playback/capture_only property
-        commit: 42d37e8de8f2d121481a65e6a3e10f6387c0ad4c
-[11/11] ASoC: simple-audio-card: merge simple_parse_mclk_fs() into simple_link_init()
-        commit: c4cfe1136d6edf8970ccdd944b7f86f7aa3edb77
+[1/3] ASoC: codecs: lpass-rx-macro: remove unused struct 'rx_macro_reg_mask_val'
+      commit: 44e55f9de9950dba091401898a931fc1a3a99146
+[2/3] ASoC: codecs: wm0010: remove unused struct 'wm0010_spi_msg'
+      commit: 62ccbe8cbe2a1b6911ec47bea8b1510dc1f82dd5
+[3/3] ASoC: codecs: cx2072x: remove unused struct 'cx2072x_eq_ctrl'
+      commit: 8080dde80a2d3657529c2172471c06cfcd9a228e
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,79 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BEF658FD95F
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jun 2024 23:45:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45B898FD961
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jun 2024 23:46:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 323507F1;
-	Wed,  5 Jun 2024 23:45:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 323507F1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6901CDEE;
+	Wed,  5 Jun 2024 23:46:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6901CDEE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1717623953;
-	bh=3MQrdpD7iV1KDjW3kAGXieRxnfAenZ67QSUIaKCrQHg=;
+	s=default; t=1717623990;
+	bh=8hay60Greow1omChJOGvvYkdjMVtVCAHBT0W/Ohlr/Y=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=dsIW24NhwK87adHqSNtCNp0/ktEQAwWFwTlN+VeZES+ng/omuuBJieaXk9UrNwm2H
-	 lynuXS80qJlkuKo1kRL283z71agSDF4aaUX1ISX8Kvzyrqcyt9xshlKy+niJPpkS3R
-	 EpzAu8oytzilvEfw1CTC+NO0Ebmdi1BxEVP57EQc=
+	b=X5z0pqy1GRVj5Q9WRiyYH5pyYCSNXm+6AQBbpBlCowSw4YKNoUuYMSmxFwGV0BYY1
+	 j6nYDVA7T6JPvRKGTNiG/Myu5bBQU14Bbaub6PDYlqnihUoskmANbUE4FqdmGHcQ0S
+	 rfQTBVa2sbn3LuUZ+Wa4tvuMRsnPL4XId/90Cyz0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 54621F80602; Wed,  5 Jun 2024 23:45:24 +0200 (CEST)
+	id 754A7F8059F; Wed,  5 Jun 2024 23:45:27 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 737AAF805AA;
-	Wed,  5 Jun 2024 23:45:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2DEDDF8058C;
+	Wed,  5 Jun 2024 23:45:23 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CD47CF804B0; Wed,  5 Jun 2024 23:41:04 +0200 (CEST)
+	id 39EFDF802DB; Wed,  5 Jun 2024 23:41:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 829D9F8025A
-	for <alsa-devel@alsa-project.org>; Wed,  5 Jun 2024 23:38:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 829D9F8025A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8A6B9F80496
+	for <alsa-devel@alsa-project.org>; Wed,  5 Jun 2024 23:38:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A6B9F80496
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=E+7S62m6
+ header.s=k20201202 header.b=TKdvPWUa
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 1A360CE1942;
-	Wed,  5 Jun 2024 21:38:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0DC8C32786;
-	Wed,  5 Jun 2024 21:38:21 +0000 (UTC)
+	by sin.source.kernel.org (Postfix) with ESMTP id 089D2CE19BE;
+	Wed,  5 Jun 2024 21:38:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E725CC2BD11;
+	Wed,  5 Jun 2024 21:38:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1717623503;
-	bh=3MQrdpD7iV1KDjW3kAGXieRxnfAenZ67QSUIaKCrQHg=;
+	s=k20201202; t=1717623506;
+	bh=8hay60Greow1omChJOGvvYkdjMVtVCAHBT0W/Ohlr/Y=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=E+7S62m6lA8IdAbQgaEptCdtxVdC1fz9DQH2aTPGIFeEJTbQx/pNcxI5iqcoLw1El
-	 YEFDW1VXwUvj+dVKegDaRqjkYtKhtbftfgO3dfS4G9rDsFP7llqWjwGFXqcVIUFiRC
-	 gWq44QH6CvrGkCwbsmWPu8ZMHhR2BMNIZtwINpfyuOM9vUZ1i0YQGuet6KSlB7mWdc
-	 kciNgB6nSVZUdQtn2MS8cWJT5mw77HRG9j7zvK+rxF9if7WWjORnQb3r9nazZSOG95
-	 0Yu7R1Khusw3p/6QP+iXQxNT95xbn5yWGXnwDeO4HFPAepVGoUYTwac0arLL5vkdq5
-	 4mWb551VaDEtQ==
+	b=TKdvPWUa35aZm/YidZOLUclkifjdNdJ4sK3LN9XTkOV+0/UEqGfwMZKdwZZ8rZrMK
+	 zrCngkF3t4ikRnDHdIrvv5atgc/esY7h1Te52fLbSeeYgGH8MAZa6gsBbd1K/pkIQ8
+	 q8XDwCyb4aInC9jaOC2UQ6uJU4G2h8MiG7DIXDIVDHVZ+mZ+Cnb1A0+1RRw6H18gHK
+	 YIY9TNXKJMtFfh5DPvqaYQSOMt9vljSO3ZAFnfhtMcYtSkxJk67b4ddmy8LdbJM1pA
+	 dIiG689+qgW540wYbbt1x9IOP4B+9Bzc8/8Os8z/sNNuSURDxY9hbn7h4oCMvmtt1k
+	 A4/iWSdPf3IIw==
 From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
- srinivas.kandagatla@linaro.org, linux@treblig.org
-Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20240601225446.183505-1-linux@treblig.org>
-References: <20240601225446.183505-1-linux@treblig.org>
-Subject: Re: [PATCH 0/3] Dead structs in sound/soc/codecs
-Message-Id: <171762350145.565712.5432496930272405498.b4-ty@kernel.org>
-Date: Wed, 05 Jun 2024 22:38:21 +0100
+To: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+ Baojun Xu <baojun.xu@ti.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Ricard Wanderlof <ricard.wanderlof@axis.com>
+Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, kernel@axis.com
+In-Reply-To: <20240528-tlv320adc3xxx-dt-gpio-fix-v1-1-209fb2c2f86f@axis.com>
+References: <20240528-tlv320adc3xxx-dt-gpio-fix-v1-1-209fb2c2f86f@axis.com>
+Subject: Re: [PATCH] dt-bindings: sound: tlv320adc3xxx: Fix incorrect GPIO
+ description
+Message-Id: <171762350367.565712.5511446466309082536.b4-ty@kernel.org>
+Date: Wed, 05 Jun 2024 22:38:23 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.14-dev-d4707
-Message-ID-Hash: YBHDSEFIK4KS34ZYQCJJ4ZXSTWMGQ4JJ
-X-Message-ID-Hash: YBHDSEFIK4KS34ZYQCJJ4ZXSTWMGQ4JJ
+Message-ID-Hash: PYFD3HH4DLBBZJLVPBOWI4EI5VWN5I5P
+X-Message-ID-Hash: PYFD3HH4DLBBZJLVPBOWI4EI5VWN5I5P
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -87,7 +91,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YBHDSEFIK4KS34ZYQCJJ4ZXSTWMGQ4JJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PYFD3HH4DLBBZJLVPBOWI4EI5VWN5I5P/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,20 +100,13 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sat, 01 Jun 2024 23:54:43 +0100, linux@treblig.org wrote:
-> Clean out a bunch of old structs in sound/soc/codecs.
-> Build tested only.
+On Tue, 28 May 2024 17:40:04 +0200, Ricard Wanderlof wrote:
+> Fix the description for the ti,dmdin-gpio1 and ti,dmclk-gpio2
+> properties to correctly describe that when configured as general
+> purpose outputs (ADC3XXX_GPIO_GPO), the pins are available via
+> the GPIO framework.
 > 
-> Signed-off-by: Dr. David Alan Gilbert <linux@treblig.org>
 > 
-> 
-> Dr. David Alan Gilbert (3):
->   ASoC: codecs: lpass-rx-macro: remove unused struct
->     'rx_macro_reg_mask_val'
->   ASoC: codecs: wm0010: remove unused struct 'wm0010_spi_msg'
->   ASoC: codecs: cx2072x: remove unused struct 'cx2072x_eq_ctrl'
-> 
-> [...]
 
 Applied to
 
@@ -117,12 +114,8 @@ Applied to
 
 Thanks!
 
-[1/3] ASoC: codecs: lpass-rx-macro: remove unused struct 'rx_macro_reg_mask_val'
-      commit: 44e55f9de9950dba091401898a931fc1a3a99146
-[2/3] ASoC: codecs: wm0010: remove unused struct 'wm0010_spi_msg'
-      commit: 62ccbe8cbe2a1b6911ec47bea8b1510dc1f82dd5
-[3/3] ASoC: codecs: cx2072x: remove unused struct 'cx2072x_eq_ctrl'
-      commit: 8080dde80a2d3657529c2172471c06cfcd9a228e
+[1/1] dt-bindings: sound: tlv320adc3xxx: Fix incorrect GPIO description
+      commit: 39d762edd1f353c4446dbce83a18da4e491cc48e
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

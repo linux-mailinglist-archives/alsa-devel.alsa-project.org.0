@@ -2,83 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45B898FD961
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jun 2024 23:46:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5924A8FD960
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jun 2024 23:46:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6901CDEE;
-	Wed,  5 Jun 2024 23:46:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6901CDEE
+	by alsa0.perex.cz (Postfix) with ESMTPS id E584B83B;
+	Wed,  5 Jun 2024 23:46:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E584B83B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1717623990;
-	bh=8hay60Greow1omChJOGvvYkdjMVtVCAHBT0W/Ohlr/Y=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=X5z0pqy1GRVj5Q9WRiyYH5pyYCSNXm+6AQBbpBlCowSw4YKNoUuYMSmxFwGV0BYY1
-	 j6nYDVA7T6JPvRKGTNiG/Myu5bBQU14Bbaub6PDYlqnihUoskmANbUE4FqdmGHcQ0S
-	 rfQTBVa2sbn3LuUZ+Wa4tvuMRsnPL4XId/90Cyz0=
+	s=default; t=1717623972;
+	bh=yrMbNY2Gr7i5mUw30Jlna/5JAKzdrHFu4hvA2gyNBkg=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=OY/YOngRyuadfSJJLLoQBXLBZlMwpnnLAbCiw1SWcLBpPCOg+wBqee1/Pq9/fNGJZ
+	 Wyk5ZyTn0RO1Z/hCdtGmCS3Jn9pNtklu/4UrPFwiXi6k5Hg7Xx9X/Ykg6u7x1nLhsL
+	 YortVrTXctrnDDkWRtTG/dQedxVAhVRzJG3nCQtU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 754A7F8059F; Wed,  5 Jun 2024 23:45:27 +0200 (CEST)
+	id F0FF6F805D2; Wed,  5 Jun 2024 23:45:25 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2DEDDF8058C;
-	Wed,  5 Jun 2024 23:45:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8E354F805D8;
+	Wed,  5 Jun 2024 23:45:22 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 39EFDF802DB; Wed,  5 Jun 2024 23:41:08 +0200 (CEST)
+	id 714F5F8025A; Wed,  5 Jun 2024 23:41:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8A6B9F80496
-	for <alsa-devel@alsa-project.org>; Wed,  5 Jun 2024 23:38:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A6B9F80496
+	by alsa1.perex.cz (Postfix) with ESMTPS id 82534F802DB
+	for <alsa-devel@alsa-project.org>; Wed,  5 Jun 2024 23:38:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82534F802DB
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=TKdvPWUa
+ header.s=k20201202 header.b=lQxwQXuR
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 089D2CE19BE;
-	Wed,  5 Jun 2024 21:38:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E725CC2BD11;
-	Wed,  5 Jun 2024 21:38:23 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 0106D61B1C;
+	Wed,  5 Jun 2024 21:38:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9B38C4AF09;
+	Wed,  5 Jun 2024 21:38:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1717623506;
-	bh=8hay60Greow1omChJOGvvYkdjMVtVCAHBT0W/Ohlr/Y=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=TKdvPWUa35aZm/YidZOLUclkifjdNdJ4sK3LN9XTkOV+0/UEqGfwMZKdwZZ8rZrMK
-	 zrCngkF3t4ikRnDHdIrvv5atgc/esY7h1Te52fLbSeeYgGH8MAZa6gsBbd1K/pkIQ8
-	 q8XDwCyb4aInC9jaOC2UQ6uJU4G2h8MiG7DIXDIVDHVZ+mZ+Cnb1A0+1RRw6H18gHK
-	 YIY9TNXKJMtFfh5DPvqaYQSOMt9vljSO3ZAFnfhtMcYtSkxJk67b4ddmy8LdbJM1pA
-	 dIiG689+qgW540wYbbt1x9IOP4B+9Bzc8/8Os8z/sNNuSURDxY9hbn7h4oCMvmtt1k
-	 A4/iWSdPf3IIw==
+	s=k20201202; t=1717623509;
+	bh=yrMbNY2Gr7i5mUw30Jlna/5JAKzdrHFu4hvA2gyNBkg=;
+	h=From:To:In-Reply-To:References:Subject:Date:From;
+	b=lQxwQXuRvfm9OWCFsbHuZEiWtVU5w6nccY6yS+rlo0rS2J+6lU3V/M6LSrtC2U0NK
+	 l9brby4WmHNVoLDfTQn/MnwGvLoeFge6FjifxDqZTg3+7dw2P42pu3rwCcnk0Fo8LR
+	 djuvepdmdBlyxG0uerykdOmWo4+bePL3hzmdc8Ei4+0mU7ry8ttbAhtWAxpKXQLLgB
+	 Uu+PWn93L1CKJR4v/j05j+462Wa74MvY6sfGYtzT0dzNImxNELgR00pFp1Tt/7C7Zb
+	 yS8YotY8URtKUMYU24Enw0Fugh7uPxyYALCETLFebOTPKfkjyghDGIAufUNb5sMnB1
+	 Nkj1PnPb5aKLg==
 From: Mark Brown <broonie@kernel.org>
-To: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
- Baojun Xu <baojun.xu@ti.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Ricard Wanderlof <ricard.wanderlof@axis.com>
-Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, kernel@axis.com
-In-Reply-To: <20240528-tlv320adc3xxx-dt-gpio-fix-v1-1-209fb2c2f86f@axis.com>
-References: <20240528-tlv320adc3xxx-dt-gpio-fix-v1-1-209fb2c2f86f@axis.com>
-Subject: Re: [PATCH] dt-bindings: sound: tlv320adc3xxx: Fix incorrect GPIO
- description
-Message-Id: <171762350367.565712.5511446466309082536.b4-ty@kernel.org>
-Date: Wed, 05 Jun 2024 22:38:23 +0100
+To: lgirdwood@gmail.com, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
+ shengjiu.wang@gmail.com, linux-sound@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Xiubo.Lee@gmail.com, festevam@gmail.com, nicoleotsuka@gmail.com,
+ perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
+ linuxppc-dev@lists.ozlabs.org, Shengjiu Wang <shengjiu.wang@nxp.com>
+In-Reply-To: <1716972002-2315-1-git-send-email-shengjiu.wang@nxp.com>
+References: <1716972002-2315-1-git-send-email-shengjiu.wang@nxp.com>
+Subject: Re: [PATCH v4 0/2] ASoC: fsl_xcvr: Support i.MX95 platform
+Message-Id: <171762350655.565712.3068600680938105880.b4-ty@kernel.org>
+Date: Wed, 05 Jun 2024 22:38:26 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.14-dev-d4707
-Message-ID-Hash: PYFD3HH4DLBBZJLVPBOWI4EI5VWN5I5P
-X-Message-ID-Hash: PYFD3HH4DLBBZJLVPBOWI4EI5VWN5I5P
+Message-ID-Hash: 5EMANZ6UJSQ2NNKM34VKUUR3DNWQUF24
+X-Message-ID-Hash: 5EMANZ6UJSQ2NNKM34VKUUR3DNWQUF24
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -91,7 +91,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PYFD3HH4DLBBZJLVPBOWI4EI5VWN5I5P/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5EMANZ6UJSQ2NNKM34VKUUR3DNWQUF24/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,13 +100,15 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 28 May 2024 17:40:04 +0200, Ricard Wanderlof wrote:
-> Fix the description for the ti,dmdin-gpio1 and ti,dmclk-gpio2
-> properties to correctly describe that when configured as general
-> purpose outputs (ADC3XXX_GPIO_GPO), the pins are available via
-> the GPIO framework.
+On Wed, 29 May 2024 16:40:00 +0800, Shengjiu Wang wrote:
+> On i.MX95 wakeup domain, there is one instance of Audio XCVR
+> supporting SPDIF mode with a connection to the Audio XCVR physical
+> interface.
 > 
+> changes in v4:
+> - refine the constarint for 'clocks' according to Rob's comments
 > 
+> [...]
 
 Applied to
 
@@ -114,8 +116,10 @@ Applied to
 
 Thanks!
 
-[1/1] dt-bindings: sound: tlv320adc3xxx: Fix incorrect GPIO description
-      commit: 39d762edd1f353c4446dbce83a18da4e491cc48e
+[1/2] ASoC: dt-bindings: fsl,xcvr: Add compatible string for i.MX95
+      commit: fc1277335ffa0d180c76ddccf5fe27fc75674e67
+[2/2] ASoC: fsl_xcvr: Add support for i.MX95 platform
+      commit: f13b349e3c70320ef5a86edfc888a6feb612abb0
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

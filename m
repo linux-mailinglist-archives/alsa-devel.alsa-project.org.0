@@ -2,77 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE4638FD9C6
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jun 2024 00:17:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 896128FD9B6
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jun 2024 00:16:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1B1E5E9D;
-	Thu,  6 Jun 2024 00:17:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1B1E5E9D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2717CB60;
+	Thu,  6 Jun 2024 00:16:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2717CB60
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1717625862;
-	bh=81hqptQlE/LEM/MdYuEb48YnMieQd2hcNEosrso0DUw=;
+	s=default; t=1717625788;
+	bh=wn+WM6bIVhW767mtc2MZ19cATq9dvFlmfYEDJLezjxw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=XRjc2gDcZzfbo6TnT7xvS1HJDDCnn52KXU6fhZrBUfdyw3BfG/U0fnd3iGgG2jBPs
-	 m8qL9z72Tm4wm5iU+QMkRFOnux1hb700vOf2QPZ7DCK6MX0REuvo63zF8lcGmIrXCX
-	 yRy7+S4cguSm060f2ELgrJu1g6NVHMGCvTVBE03s=
+	b=VWZLwz+toOOWvD1p0NDqm00/joYjHKp3zWT3OkrkWRpZu2+EeX/p8Fl0tI8JskDbH
+	 Tg3AWwdpWaYkRcxdhnYEYuFp0GOJ8hIzXsRpNOGsOWec+A1REHF2q3pOHKQa4ojqmp
+	 Xmn0Hg3OTxEhhG4pF+IgNNQFdZ1JSSZEx14Tf3+Y=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3089EF806AA; Thu,  6 Jun 2024 00:15:39 +0200 (CEST)
+	id D4420F805F6; Thu,  6 Jun 2024 00:15:29 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0101BF806A4;
-	Thu,  6 Jun 2024 00:15:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 01A89F805F4;
+	Thu,  6 Jun 2024 00:15:28 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5387EF8025A; Thu,  6 Jun 2024 00:15:20 +0200 (CEST)
+	id 239BBF804E5; Thu,  6 Jun 2024 00:15:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
 	SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id AFFA6F804B2
-	for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2024 00:15:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AFFA6F804B2
+	by alsa1.perex.cz (Postfix) with ESMTPS id A9E19F8025A
+	for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2024 00:15:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9E19F8025A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=R/coSh1y
+ header.s=Intel header.b=Q3LQNlh7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1717625708; x=1749161708;
+  t=1717625706; x=1749161706;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=81hqptQlE/LEM/MdYuEb48YnMieQd2hcNEosrso0DUw=;
-  b=R/coSh1yH10m4GtxOV5lbE2dQeDRP5sTQY9BvK+E9tyXNIYjv5hU3IT8
-   G//QAuAa4sg4E0qBUyqRqeJqPxd7+9NUGM/nt10SXJbBpV8lvvDHVI5RO
-   JA6tyaIB93S9+I5O4piskuU48V9QZwdxR8r2YKbXSEtpj8Q33ARSSMXoe
-   UjVE/obEAPDushugn0+J6UvLOo2+N7n4h3B4Bu/jUQRlPYb/eIvEPWDFY
-   W1sBUZ/gpW6n4pDdxOEl24vX/96YVYscHaCAxxKMv0EYqzEXJfQUrNB1o
-   2FAdUFnSFAl3rLu/bFZD0ayuRSBNgkb91Q84AAs243QgG3Z0v0N+2MaAr
-   w==;
-X-CSE-ConnectionGUID: xvtWiYguQcKO3KibWHE4fQ==
-X-CSE-MsgGUID: Pt0t4UGmTcqfIhe/mzmwOg==
-X-IronPort-AV: E=McAfee;i="6600,9927,11094"; a="14218717"
+  bh=wn+WM6bIVhW767mtc2MZ19cATq9dvFlmfYEDJLezjxw=;
+  b=Q3LQNlh7bNDkgpviR+vATQDPHWoFZ/kR6WF33BzQKHc/OF/3Z6qEvnJk
+   xCT6NWW3/hFyRNO7Ij2uitO9H9lhLaCtw7pFhjRpJxoKNsCilpc5j1NOz
+   ZD3G2q6EPPAWvRX8zXeVHiYjz0+6mjHvVASyd2ECmC5SLwWz9vasuvZIK
+   0Ep818p1Ph+Klrq7lQxG78gbvaW5sfsUpJVSsZCqYm0m/oFR+Ub7OBOur
+   K3V6jJkAq0cM/DGccbvMkK41TpEGRHN+8mD7HCQ08AaGhTrGF7GDONSoo
+   AtNMh0izH2zEdJyFrF7JJrQEGlF/WzTeYc2uyl/lBg3sK5AIZMu0WoSrF
+   Q==;
+X-CSE-ConnectionGUID: 657yJrVYSd6e/W5+ykvpeg==
+X-CSE-MsgGUID: GoURtIxCTGON9nnru1Itvg==
+X-IronPort-AV: E=McAfee;i="6600,9927,11094"; a="24895491"
 X-IronPort-AV: E=Sophos;i="6.08,217,1712646000";
-   d="scan'208";a="14218717"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jun 2024 15:14:58 -0700
-X-CSE-ConnectionGUID: t3Uw16VJSqWd0O8yE01ocw==
-X-CSE-MsgGUID: G+RGTNK3RGqRQhdhfEVyug==
+   d="scan'208";a="24895491"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Jun 2024 15:15:01 -0700
+X-CSE-ConnectionGUID: vDuyce6qQEmb/WWiwbWzNg==
+X-CSE-MsgGUID: D4oVJiRMQfCTDAoI5HxSPg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.08,217,1712646000";
-   d="scan'208";a="37621428"
+   d="scan'208";a="38168542"
 Received: from black.fi.intel.com ([10.237.72.28])
-  by fmviesa007.fm.intel.com with ESMTP; 05 Jun 2024 15:14:49 -0700
+  by orviesa006.jf.intel.com with ESMTP; 05 Jun 2024 15:14:49 -0700
 Received: by black.fi.intel.com (Postfix, from userid 1003)
-	id C9DEC44F; Thu, 06 Jun 2024 01:14:47 +0300 (EEST)
+	id DB91D56E; Thu, 06 Jun 2024 01:14:47 +0300 (EEST)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Charles Keepax <ckeepax@opensource.cirrus.com>,
 	Rob Herring <robh@kernel.org>,
@@ -112,16 +112,16 @@ Cc: Liam Girdwood <lgirdwood@gmail.com>,
 	Pengutronix Kernel Team <kernel@pengutronix.de>,
 	Heiko Stuebner <heiko@sntech.de>,
 	Sylwester Nawrocki <s.nawrocki@samsung.com>
-Subject: [PATCH v2 3/6] ASoC: rockchip: Remove unused of_gpio.h
-Date: Thu,  6 Jun 2024 00:27:26 +0300
-Message-ID: <20240605221446.2624964-4-andriy.shevchenko@linux.intel.com>
+Subject: [PATCH v2 4/6] ASoC: codecs: Replace of_gpio.h by proper one
+Date: Thu,  6 Jun 2024 00:27:27 +0300
+Message-ID: <20240605221446.2624964-5-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.43.0.rc1.1336.g36b5255a03ac
 In-Reply-To: <20240605221446.2624964-1-andriy.shevchenko@linux.intel.com>
 References: <20240605221446.2624964-1-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 7LHEQAQGEMFNMBELE7YRCO5OCQVHNNWT
-X-Message-ID-Hash: 7LHEQAQGEMFNMBELE7YRCO5OCQVHNNWT
+Message-ID-Hash: 6MWYEPQNGGQXPHQL34EW4AMRDC7K7G5A
+X-Message-ID-Hash: 6MWYEPQNGGQXPHQL34EW4AMRDC7K7G5A
 X-MailFrom: andriy.shevchenko@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -134,7 +134,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7LHEQAQGEMFNMBELE7YRCO5OCQVHNNWT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6MWYEPQNGGQXPHQL34EW4AMRDC7K7G5A/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -143,39 +143,46 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-of_gpio.h is deprecated and subject to remove. The drivers in question
-don't use it, simply remove the unused header.
+of_gpio.h is deprecated and subject to remove.
+The driver doesn't use it directly, replace it
+with what is really being used.
 
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- sound/soc/rockchip/rockchip_i2s.c   | 1 -
- sound/soc/rockchip/rockchip_spdif.c | 1 -
- 2 files changed, 2 deletions(-)
+ sound/soc/codecs/aw88395/aw88395.c | 2 +-
+ sound/soc/codecs/aw88399.c         | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/rockchip/rockchip_i2s.c b/sound/soc/rockchip/rockchip_i2s.c
-index b0c3ef030e06..b378f870b3ad 100644
---- a/sound/soc/rockchip/rockchip_i2s.c
-+++ b/sound/soc/rockchip/rockchip_i2s.c
-@@ -11,7 +11,6 @@
- #include <linux/mfd/syscon.h>
- #include <linux/delay.h>
- #include <linux/of.h>
--#include <linux/of_gpio.h>
- #include <linux/clk.h>
- #include <linux/pinctrl/consumer.h>
- #include <linux/pm_runtime.h>
-diff --git a/sound/soc/rockchip/rockchip_spdif.c b/sound/soc/rockchip/rockchip_spdif.c
-index 1a24b78e9e02..eb9d5dee196e 100644
---- a/sound/soc/rockchip/rockchip_spdif.c
-+++ b/sound/soc/rockchip/rockchip_spdif.c
-@@ -11,7 +11,6 @@
+diff --git a/sound/soc/codecs/aw88395/aw88395.c b/sound/soc/codecs/aw88395/aw88395.c
+index 3c459a67ad0c..be6ebcb51cca 100644
+--- a/sound/soc/codecs/aw88395/aw88395.c
++++ b/sound/soc/codecs/aw88395/aw88395.c
+@@ -8,9 +8,9 @@
+ // Author: Weidong Wang <wangweidong.a@awinic.com>
+ //
  
- #include <linux/module.h>
- #include <linux/delay.h>
++#include <linux/gpio/consumer.h>
+ #include <linux/i2c.h>
+ #include <linux/firmware.h>
 -#include <linux/of_gpio.h>
- #include <linux/clk.h>
- #include <linux/pm_runtime.h>
- #include <linux/mfd/syscon.h>
+ #include <linux/regmap.h>
+ #include <sound/soc.h>
+ #include "aw88395.h"
+diff --git a/sound/soc/codecs/aw88399.c b/sound/soc/codecs/aw88399.c
+index df6d52a1cfef..5d8481612eab 100644
+--- a/sound/soc/codecs/aw88399.c
++++ b/sound/soc/codecs/aw88399.c
+@@ -8,9 +8,9 @@
+ //
+ 
+ #include <linux/crc32.h>
++#include <linux/gpio/consumer.h>
+ #include <linux/i2c.h>
+ #include <linux/firmware.h>
+-#include <linux/of_gpio.h> 
+ #include <linux/regmap.h>
+ #include <sound/soc.h>
+ #include "aw88399.h"
 -- 
 2.43.0.rc1.1336.g36b5255a03ac
 

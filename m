@@ -2,92 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F40E8FDE2D
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jun 2024 07:41:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 425A78FDF4D
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jun 2024 09:07:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 356071DC;
-	Thu,  6 Jun 2024 07:40:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 356071DC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4C838845;
+	Thu,  6 Jun 2024 09:07:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C838845
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1717652464;
-	bh=UIEH/DD7DhbfRcFqusFUd2gYIuUUzLvSwJU33ex8DKg=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=m+UHYXxtNvuTIkrPA35Z0mDfhlJANfP+RXgevhnzYruk4k/BTMsEVp4mPS1u44sRS
-	 x83HAireLo/omevF/9UxQWxXYmtLFM2eGOkjovCPXZcfJR4oNBj/Hh10FIr1wNuBzd
-	 mbmdjnHvrCP8BhIGZXK8SSaajoB89LN95/qoa6VY=
+	s=default; t=1717657674;
+	bh=2OUU5c+0oHQOjiWiuROmSRGh8j3BqgUxQjKXgFVzcJo=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=qamC74arO4QkQELqWNX8xBKl0SquY92awhHrcr4n8sjFAjEJ59mVPtZLbC/NEFWUg
+	 JLfrHbsCaBGeS+tRQ6+GUcQxR64XhQv9RMPR34ErWZihQmstpUk7edU/4V8I+Kr8Rx
+	 mlIgvNo8AGfwtG+T0jKk1u36dhwpIqILVLG4tauQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CE9E6F804B0; Thu,  6 Jun 2024 07:40:32 +0200 (CEST)
+	id 1484CF8059F; Thu,  6 Jun 2024 09:07:32 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 54397F80589;
-	Thu,  6 Jun 2024 07:40:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C1BB9F80579;
+	Thu,  6 Jun 2024 09:07:32 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B8B41F8025A; Thu,  6 Jun 2024 07:36:37 +0200 (CEST)
+	id 3AEABF8025A; Thu,  6 Jun 2024 09:06:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No,
- score=-0.0 required=5.0 tests=RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_PASS,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from cpanel.siel.si (cpanel.siel.si [46.19.9.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 351C4F8001D
-	for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2024 07:36:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 351C4F8001D
-X-SpamFilter-By: ArmorX SpamTrap 5.78 with qID 4565aHRA12431500,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (rtexh36506.realtek.com.tw[172.21.6.27])
-	by rtits2.realtek.com.tw (8.15.2/2.95/5.92) with ESMTPS id 4565aHRA12431500
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 6 Jun 2024 13:36:17 +0800
-Received: from RTEXMBS04.realtek.com.tw (172.21.6.97) by
- RTEXH36506.realtek.com.tw (172.21.6.27) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.39; Thu, 6 Jun 2024 13:36:18 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXMBS04.realtek.com.tw (172.21.6.97) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.35; Thu, 6 Jun 2024 13:36:17 +0800
-Received: from RTEXMBS01.realtek.com.tw ([fe80::d5b2:56ba:6b47:9975]) by
- RTEXMBS01.realtek.com.tw ([fe80::d5b2:56ba:6b47:9975%5]) with mapi id
- 15.01.2507.035; Thu, 6 Jun 2024 13:36:17 +0800
-From: Jack Yu <jack.yu@realtek.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-        "broonie@kernel.org" <broonie@kernel.org>,
-        "lgirdwood@gmail.com"
-	<lgirdwood@gmail.com>
-CC: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
-        "lars@metafoo.de" <lars@metafoo.de>,
-        "Flove(HsinFu)" <flove@realtek.com>,
-        Oder Chiou <oder_chiou@realtek.com>,
-        =?utf-8?B?U2h1bWluZyBb6IyD5pu46YqYXQ==?=
-	<shumingf@realtek.com>,
-        =?utf-8?B?RGVyZWsgW+aWueW+t+e+qV0=?=
-	<derek.fang@realtek.com>
-Subject: RE: [PATCH v2] ASoC: rt1318: Add RT1318 audio amplifier driver
-Thread-Topic: [PATCH v2] ASoC: rt1318: Add RT1318 audio amplifier driver
-Thread-Index: Adq3MgPPaXwXWALDRgGDWFIu2GO5hv//27IA//6ZcEA=
-Date: Thu, 6 Jun 2024 05:36:17 +0000
-Message-ID: <4b432ac70eb5487ea4be8d701803079d@realtek.com>
-References: <11f7e2c1a77f418a9965b96b81f6e660@realtek.com>
- <bc781eb4-ac0b-4750-83fa-44bf371cea5b@linux.intel.com>
-In-Reply-To: <bc781eb4-ac0b-4750-83fa-44bf371cea5b@linux.intel.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-x-originating-ip: [172.22.102.102]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	by alsa1.perex.cz (Postfix) with ESMTPS id E9D23F80088
+	for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2024 09:06:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9D23F80088
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=norik.com header.i=@norik.com header.a=rsa-sha256
+ header.s=default header.b=qYmUcVRW
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=norik.com;
+	s=default; h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:Subject:
+	Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
+	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=+eJtUnrby00UuoYKS4VrVufy1eG1BTDW7IZPCyp/z7Y=; b=qYmUcVRWvbjX5/xj0PoVu+tz2N
+	jF2ZU0UEQ8d2sOcVbXn6+BRC6fxCQ3uCDkQqloOgx/H//mS7FxUesSahfTYB77SffP0Y8q2Ui4PPQ
+	1+wzk/MuOoI7sh8+K62MAQwQIoD60b/KelCtq7E/H/l+5GCgsUeQEjiStKxJQYwdk2SgJc87C3j8k
+	drPOCeszU7JTRglLz6u5OJuhYqWui+ku6zqKHXE5HTkcwh/VpYQa+jmmvLLSmeUU87SdrIssT6F6n
+	J2c++EF+JabD5uKDDnyFRhQenPhaRww3+/TOEzbnZ0m/Yb04vYULkbub+23QD3TmSOgyxUiSGxR1v
+	ZIgunZlw==;
+Received: from [89.212.21.243] (port=46262 helo=localhost.localdomain)
+	by cpanel.siel.si with esmtpsa  (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.96.2)
+	(envelope-from <primoz.fiser@norik.com>)
+	id 1sF7Cw-00BN3X-31;
+	Thu, 06 Jun 2024 09:06:46 +0200
+From: Primoz Fiser <primoz.fiser@norik.com>
+To: Peter Ujfalusi <peter.ujfalusi@gmail.com>,
+	Jarkko Nikula <jarkko.nikula@bitmer.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	alsa-devel@alsa-project.org,
+	linux-omap@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: upstream@lists.phytec.de
+Subject: [PATCH] ASoC: ti: omap-hdmi: Fix too long driver name
+Date: Thu,  6 Jun 2024 09:06:45 +0200
+Message-Id: <20240606070645.3519459-1-primoz.fiser@norik.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Message-ID-Hash: 6AD47N56MHADVNWXDI5MHIJEDNTSDAKU
-X-Message-ID-Hash: 6AD47N56MHADVNWXDI5MHIJEDNTSDAKU
-X-MailFrom: jack.yu@realtek.com
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - cpanel.siel.si
+X-AntiAbuse: Original Domain - alsa-project.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - norik.com
+X-Get-Message-Sender-Via: cpanel.siel.si: authenticated_id:
+ primoz.fiser@norik.com
+X-Authenticated-Sender: cpanel.siel.si: primoz.fiser@norik.com
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+Message-ID-Hash: UMSRQQRVCX2EER4YQ4ARBXNMT2Q2VB6Z
+X-Message-ID-Hash: UMSRQQRVCX2EER4YQ4ARBXNMT2Q2VB6Z
+X-MailFrom: primoz.fiser@norik.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -99,7 +105,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6AD47N56MHADVNWXDI5MHIJEDNTSDAKU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UMSRQQRVCX2EER4YQ4ARBXNMT2Q2VB6Z/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,9 +114,33 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-PiBFeHRlcm5hbCBtYWlsLg0KPiANCj4gDQo+IA0KPiA+ICtzdGF0aWMgc3RydWN0IHJlZ19zZXF1
-ZW5jZSBpbml0X2xpc3RbXSA9IHsNCj4gPiArICAgICB7IDB4NDEwMDE4ODgsIDB4MDB9LA0KPiA+
-ICsgICAgIHsgMHgwMDAwQzEyMSwgMHgwQn0sDQo+IA0KPiArICAgICAgIHsgMHgwMDAwQzEyMSwg
-MHgwQiwgMTAwfSwNCj4gDQo+IGluIHRoZSB2MSwgdGhpcyByZWdpc3RlciBuZWVkZWQgYSAxMDB1
-cyBkZWxheSwgaXMgdGhpcyBubyBsb25nZXIgcmVxdWlyZWQ/DQo+IA0KWWVzLCBJIGRpZCB0ZXN0
-IHllc3RlcmRheSBhbmQgdGhpcyBkZWxheSBjb3VsZCBiZSBpZ25vcmVkLg0K
+Set driver name to DRV_NAME. This simplifies the code and gets rid of
+the following error messages:
+
+  ASoC: driver name too long 'HDMI 58040000.encoder' -> 'HDMI_58040000_e'
+
+Signed-off-by: Primoz Fiser <primoz.fiser@norik.com>
+---
+ sound/soc/ti/omap-hdmi.c | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
+
+diff --git a/sound/soc/ti/omap-hdmi.c b/sound/soc/ti/omap-hdmi.c
+index 639bc83f4263..3f35eedeea41 100644
+--- a/sound/soc/ti/omap-hdmi.c
++++ b/sound/soc/ti/omap-hdmi.c
+@@ -354,11 +354,7 @@ static int omap_hdmi_audio_probe(struct platform_device *pdev)
+ 	if (!card)
+ 		return -ENOMEM;
+ 
+-	card->name = devm_kasprintf(dev, GFP_KERNEL,
+-				    "HDMI %s", dev_name(ad->dssdev));
+-	if (!card->name)
+-		return -ENOMEM;
+-
++	card->name = DRV_NAME;
+ 	card->owner = THIS_MODULE;
+ 	card->dai_link =
+ 		devm_kzalloc(dev, sizeof(*(card->dai_link)), GFP_KERNEL);
+-- 
+2.25.1
+

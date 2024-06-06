@@ -2,129 +2,112 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C08EC8FE08C
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jun 2024 10:07:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E99FC8FE268
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jun 2024 11:19:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A36DE84D;
-	Thu,  6 Jun 2024 10:07:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A36DE84D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 43EC97F8;
+	Thu,  6 Jun 2024 11:19:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 43EC97F8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1717661263;
-	bh=1y0aJBMNzzU/0LQjfOvpee00DXAiGgdtWGL31QFkJrc=;
-	h=From:Date:Subject:To:Cc:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=HbNMtxTgG0Qj4tOPfLSWShQa4DIJKGbkSQKkvhrj+mtQJofR8WIp94QErjA5jnUb7
-	 yuHR9aDK43l0B49Be+xI+NPIiQFfchxlFx0l/wG2rfmqtw5jqEdbsk2vGJ0+A2zhGV
-	 eYKHc8naY5ohus4BWiYwqi5Sd1XrvrjiKY6BVb+I=
+	s=default; t=1717665595;
+	bh=r872hk76aQr0n4O8MujB1oCORR4MPudLMN6k8jgi0lg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=s1OPntUQTbP42nVUT4yOBdWPTq2qlD/+PdjWGgd7VEcogMDnHLxM5XSyRpfUcs1iH
+	 mTRCMO2sP1QqyEoBozH2/ePTTGW25Tj4iW/+0RrQeOb5zHjgyrzuI7GEgWGCOfZL+0
+	 z5z3UFdF6ODNvqobxYc4jRbt01+0dAXZKewhY38E=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 71A4EF80587; Thu,  6 Jun 2024 10:07:12 +0200 (CEST)
+	id 99905F804E5; Thu,  6 Jun 2024 11:19:16 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D63C7F8025A;
-	Thu,  6 Jun 2024 10:07:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1B2FCF804E5;
+	Thu,  6 Jun 2024 11:19:16 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8A019F8025A; Thu,  6 Jun 2024 10:07:07 +0200 (CEST)
+	id 936E3F8025A; Thu,  6 Jun 2024 11:18:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_SBL_CSS,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=no
 	autolearn_force=no version=3.4.6
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [IPv6:2a00:1450:4864:20::42a])
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [IPv6:2a00:1450:4864:20::131])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5822DF8001D
-	for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2024 10:07:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5822DF8001D
+	by alsa1.perex.cz (Postfix) with ESMTPS id E1CEFF8003A
+	for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2024 11:18:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1CEFF8003A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=Nk6WgXEq
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-3550134ef25so680082f8f.1
+ header.s=google header.b=MLNtr2Ns
+Received: by mail-lf1-x131.google.com with SMTP id
+ 2adb3069b0e04-52b8b7b8698so915782e87.1
         for <alsa-devel@alsa-project.org>;
- Thu, 06 Jun 2024 01:07:00 -0700 (PDT)
+ Thu, 06 Jun 2024 02:18:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1717661220; x=1718266020;
+        d=linaro.org; s=google; t=1717665500; x=1718270300;
  darn=alsa-project.org;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=u7hiYkj91RUaU+iS0uljhHNfGcki3QtOOpKSiUyUuf4=;
-        b=Nk6WgXEqYW5Ra3Fm8Okq3xQyEEQjL5/FJESK0vMbU4dNkAp3mp7xver3KjufZYeNZf
-         dPVEX/HUQiq0NVJ16omIO0oJs7LnjAVaGMzlWTbbFWGJLiMxySapHO4rPR4s3y6qOsi6
-         C9IDLlC6mo0wkKAtZGKLjuVwGMzO9gSuWDQRUG/qB6g5u6ZupU47SAFRtPrx28+0d27I
-         UsJMzFGrD4i4qHOPQrrIieeFGqsKHbf7aKEOtCvBcjQXqiT/EK0+vSIzoRy1sDO+XWIw
-         VaiY5flQ/EWRIdoV5Kr+qaP8AX+ijS7RNVnMmiBy9bIbKw9oxvcejQZOfIha7xht90Qi
-         +zIw==
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=NYWa3RzbG0HUx/GfVkXqV1gm2vwpRDwUlnvYYRSC6iY=;
+        b=MLNtr2NsfOEeSM9UFSY2h+znELKdpNUiluGqYQC7N3RT8DXDL8TY+azP5Q8+3xy5x0
+         sU/hT9wpuQIRvcLmWZ9j7Oiwlw0k4TP6nFbfD0PdLGsh8PnwtRfczIieOG84RDWhTe6Z
+         DeEDOYhhQW24couVEGu8kUGBjBKgVGFzRjuyG9EIQHfNpoQiJ3qdvrI2CQnYhhUkcZnI
+         aCTb7CPRhpdAKnlCgDdH1M0pcKEiiIRaTmrKIBI9/GEYwn+1wyHvodKmAn+YoZ3kpeIx
+         C3C1cg89+LpOU6s7jzLoCbCsYjVay7lQtkNTxIklHuvvMugaUVEhPYrE+XoYnyLVD5Y0
+         JCxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717661220; x=1718266020;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=u7hiYkj91RUaU+iS0uljhHNfGcki3QtOOpKSiUyUuf4=;
-        b=bt4196cpU3gJGVLeedtVNasqID1crdZvtnzxMFdd45Hl6jDFEUqvO7v7W42YMRdTa5
-         HyWS5J4OunU1X2W++O6Wtn7wADukIJH+93CzMboDOcTDzCSxltcKTXmLXVXX9HxeTlxn
-         ITu9e1JPqlUyavb0ANFccFyXKq/AWvFMujAUE5iFvnbciTcma4t3XRrNfEptqz4mWQLb
-         v8L9pssFxQPKY+/DiEUKkhBrzw609f5p9R0bOaHgVfpM7bBCbqKuMxjc0lkAlyStGuZp
-         siIgvV3v2eNlvpkmvTwAdA+pGIy9EYdEsUhw9m9DpLbKm3QAlROLX5O2arYtJUmm8mj7
-         dUlQ==
-X-Gm-Message-State: AOJu0Yzu+MWi7KwuydHvgBOhxStNWf+om+fRhoE4CzgTOKz1IyG6XN1+
-	Ng2WKdANrSGnv+n2O/74nG13UKcfA2bfsED0RkHtwDN+UX9nBdbKc+FqZgBhvY8=
+        d=1e100.net; s=20230601; t=1717665500; x=1718270300;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=NYWa3RzbG0HUx/GfVkXqV1gm2vwpRDwUlnvYYRSC6iY=;
+        b=CQseD82hVbkZHPYPZ2eK6AAnaRniMQG7NKUn7U25ZB5Qf0b9D6awLbQTGXG6VpiW0S
+         v6nZcqAKj0nTB4NAd8FJcgmC3sjScbe6OFTH+6JFJPDWvwDt3HLqpSt5s2KOlqoo4xDG
+         Qaco4cSWhMk3zgsSSsxCRUx9xMHM3Xp85uf6naw+RaR2SNye/U3rjDQ7owBcnXQYghCt
+         uasvyFPDpLuaAgp6TMMypScc7J2XSNTaiHeUcp3ExNKM40xKjc7LhV3R2PPyeuTSiq4a
+         Qjf35zYjomDbQtaPMzvMqBGKODMUEGij8LqkbnwMIRYki7X17PeHPNuFK1lv1z980mDy
+         nhiQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWjwCQylGqsBEUovIoDM8DwlXO96smmLaxHN6DK1g4+ETMOcOA9ER/I2/BlN1dymZUIm+dmYmnXI7v8MuGLL7i3cJx+QjCXUbvC/+I=
+X-Gm-Message-State: AOJu0YzxUw3zFmMiiLe4hU2S6RBh8YbtKh4Ihqmi8uaujIzo/kFrrMOY
+	NvGCt+RFHLHjjhITZeZ5dFIiURYsX4hnl7WIVXx9BWOzJvV5K82qjYsMvqtY3g0=
 X-Google-Smtp-Source: 
- AGHT+IEZYO9oq1GhQAcOgxg+qi6W3zUjN5wlcTNOdZBAx1Esog+GP3ZmqjC+yd5zkil3a/PtA/bsPA==
-X-Received: by 2002:adf:f00c:0:b0:355:39d:f82 with SMTP id
- ffacd0b85a97d-35e8ef5f8efmr3724702f8f.53.1717661219564;
-        Thu, 06 Jun 2024 01:06:59 -0700 (PDT)
-Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:8261:5fff:fe11:bdda])
-        by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-35ef5e989besm861205f8f.76.2024.06.06.01.06.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 06 Jun 2024 01:06:59 -0700 (PDT)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Thu, 06 Jun 2024 10:06:58 +0200
-Subject: [PATCH v2] ASoC: dt-bindings: convert amlogic,g12a-tohdmitx to
- dt-schema
+ AGHT+IE6z/kG5jsknCvlfvxK3SmNh7Dq1i0rEsSxpui1SZZ37TNlbM5BwOQyTCYbxW9qJHmS/x12VA==
+X-Received: by 2002:a05:6512:281c:b0:52b:7917:9966 with SMTP id
+ 2adb3069b0e04-52bab4b0abemr3952237e87.8.1717665500062;
+        Thu, 06 Jun 2024 02:18:20 -0700 (PDT)
+Received: from [192.168.1.195] ([5.133.47.210])
+        by smtp.googlemail.com with ESMTPSA id
+ ffacd0b85a97d-35ef5d6990csm1035951f8f.58.2024.06.06.02.18.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 06 Jun 2024 02:18:19 -0700 (PDT)
+Message-ID: <11803812-56cd-48d0-a0fc-8ca99d6f79d5@linaro.org>
+Date: Thu, 6 Jun 2024 10:18:18 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: 
- <20240606-topic-amlogic-upstream-bindings-convert-g12a-tohdmitx-v2-1-70d44fa30790@linaro.org>
-X-B4-Tracking: v=1; b=H4sIACFuYWYC/6WOQQrDIBREr1Jc95coMZiueo+ShdFf8yHRoFZSQ
- u5emyt0NbxhmJmdJYyEid0vO4tYKFHwFcT1wsykvUMgW5mJRrRN10jIYSUDepmDq/peU46oFxj
- JW/IugQm+YMzguNA1PNmF8gZWyaaXquNWKVa714gv2s7d51B5opRD/Jw3Cv+5/y4WDhxGJbnhv
- UTR8sdMXsdwC9Gx4TiOL3m2HqD7AAAA
-To: Jerome Brunet <jbrunet@baylibre.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Neil Armstrong <neil.armstrong@linaro.org>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3894;
- i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=1y0aJBMNzzU/0LQjfOvpee00DXAiGgdtWGL31QFkJrc=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBmYW4h9Jzln7/TviHyxOE5x5rMDExs9dXnNCJXaGS3
- u6lM2XiJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCZmFuIQAKCRB33NvayMhJ0ZD/EA
- CU3evx4cxhODhk+lefwnpVuu5JQUFqdnm0RFajEvCjdkk6pyM4dAtAS7LwQiZQlWqsFHImZN7sFKLh
- RpA+AHshG8+uektkvJdA5EXvjBF5iaRmv2KtXZHyd5a++PBpgdXRfUuS/rvSxvSGcG7rjswT3newSt
- nxPqDqKpwIpcG/8oBgctbunISD4hNChY0JqbIgtm97dK9MOac7jh9QGLQ2PUh6ctjHecQLFAuv+hiA
- WGcRo+2C0llKaFGnqk6uktleLuZKPAxDp/VRK0lVhFv/FS2PmmT1r3d/itr4LM4OSl3IWnn2ydl25Y
- 9mSbQEj0X0hGAtki6jOfdkHpQA1iCGq5WZvjpY4sJbEEf2XfDvQXbxbPaUFrQM6H+ghtUK6sSnDkBu
- KKvzjdH8LPULBtWd4bncC/vUhVUGR+9+cqvvs3ZwpySSEnNueQyDxWUQjBsPkdeK3uXDSsxn3b1rPB
- 6MZR3sJca4ihf9LtAQREuESburCE2IFoo4SMmm5T0px4pGDzt2KCn8lx1CGHB7eH+CsvUtoGt0eaDH
- w87hjqRMO4FXc0uXQsSqG5oHikVJdUhrWpfd59HMa4H0KtWY3L/HUmnRuCl0bojZxQdEGb39eAZFqy
- yFtPk0WEeP+eKFjFQxH1bxco7TD+e2FgGyestVNvpsdwBadPfjJ4dBS/FibA==
-X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
- fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
-Message-ID-Hash: RQ2RGGUY4ZQDQNZZJ3WC22IXL6CNQGI2
-X-Message-ID-Hash: RQ2RGGUY4ZQDQNZZJ3WC22IXL6CNQGI2
-X-MailFrom: neil.armstrong@linaro.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/4] ASoC: qcom: display port changes
+To: Xilin Wu <wuxilin123@gmail.com>, broonie@kernel.org
+Cc: perex@perex.cz, tiwai@suse.com, lgirdwood@gmail.com,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+References: <20240422134354.89291-1-srinivas.kandagatla@linaro.org>
+ <dd14e3ff-3ff7-426e-88e0-b16a49eafaf0@gmail.com>
+ <44fad635-1b17-47bc-97f0-9a541e0b4f35@linaro.org>
+ <21f0f2ac-dada-4e19-a0df-086021320101@gmail.com>
+Content-Language: en-US
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+In-Reply-To: <21f0f2ac-dada-4e19-a0df-086021320101@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: VPHQAEFS6VM7WZNXJMAX5ZTTM4UTIWNF
+X-Message-ID-Hash: VPHQAEFS6VM7WZNXJMAX5ZTTM4UTIWNF
+X-MailFrom: srinivas.kandagatla@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -136,7 +119,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RQ2RGGUY4ZQDQNZZJ3WC22IXL6CNQGI2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VPHQAEFS6VM7WZNXJMAX5ZTTM4UTIWNF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -145,152 +128,178 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Convert text bindings to dt-schema format for the Amlogic TX HDMI
-control glue.
+Hi Xilin
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
----
-Changes in v2:
-- re-order properties and required
-- switch to unevaluatedProperties and drop sound-name-prefix
-- Add review tag
-- Link to v1: https://lore.kernel.org/r/20240605-topic-amlogic-upstream-bindings-convert-g12a-tohdmitx-v1-1-b851c195e241@linaro.org
----
- .../bindings/sound/amlogic,g12a-tohdmitx.txt       | 58 ----------------------
- .../bindings/sound/amlogic,g12a-tohdmitx.yaml      | 54 ++++++++++++++++++++
- 2 files changed, 54 insertions(+), 58 deletions(-)
+On 25/05/2024 08:12, Xilin Wu wrote:
+> Hi Srini,
+> 
+> On 2024/5/24 20:50, Srinivas Kandagatla wrote:
+>> Hi Xilin,
+>>
+>> On 23/05/2024 05:09, Xilin Wu wrote:
+>>>>
+>>>> Srinivas Kandagatla (4):
+>>>>    ASoC: qcom: q6dsp: parse Display port tokens
+>>>>    ASoC: qcom: common: add Display port Jack function
+>>>>    ASoC: qcom: sc8280xp: add Display port Jack
+>>>>    ASoC: qcom: sm8250: fix a typo in function name
+>>>>
+>>>>   sound/soc/qcom/common.c         | 29 +++++++++++++++++++++++++++++
+>>>>   sound/soc/qcom/common.h         |  3 +++
+>>>>   sound/soc/qcom/qdsp6/topology.c | 26 ++++++++++++++++++++++++++
+>>>>   sound/soc/qcom/sc8280xp.c       | 14 ++++++++++++++
+>>>>   sound/soc/qcom/sm8250.c         |  4 ++--
+>>>>   5 files changed, 74 insertions(+), 2 deletions(-)
+>>>>
+>>>
+>>> Hi Srini,
+>>>
+>>> I tested this series on SM8550 with tplg in [1] and ucm in [2]. But 
+>>> the kernel output errors attached below. Headphone does work properly 
+>>> without DisplayPort in the ucm.
+>>>
+>>> What could be the possible cause of this? Is there any significant 
+>>> change from sc8280xp to sm8550?
+>>>
+>>> -- 
+>>> Thanks,
+>>> Xilin Wu
+>>>
+>>> [1] 
+>>> https://github.com/edk2-porting/audioreach-topology/blob/sakuramist/QCS8550-AYN-ODIN2.m4
+>>> [2] 
 
-diff --git a/Documentation/devicetree/bindings/sound/amlogic,g12a-tohdmitx.txt b/Documentation/devicetree/bindings/sound/amlogic,g12a-tohdmitx.txt
-deleted file mode 100644
-index 4e8cd7eb7cec..000000000000
---- a/Documentation/devicetree/bindings/sound/amlogic,g12a-tohdmitx.txt
-+++ /dev/null
-@@ -1,58 +0,0 @@
--* Amlogic HDMI Tx control glue
--
--Required properties:
--- compatible: "amlogic,g12a-tohdmitx" or
--	      "amlogic,sm1-tohdmitx"
--- reg: physical base address of the controller and length of memory
--       mapped region.
--- #sound-dai-cells: should be 1.
--- resets: phandle to the dedicated reset line of the hdmitx glue.
--
--Example on the S905X2 SoC:
--
--tohdmitx: audio-controller@744 {
--	compatible = "amlogic,g12a-tohdmitx";
--	reg = <0x0 0x744 0x0 0x4>;
--	#sound-dai-cells = <1>;
--	resets = <&clkc_audio AUD_RESET_TOHDMITX>;
--};
--
--Example of an 'amlogic,axg-sound-card':
--
--sound {
--	compatible = "amlogic,axg-sound-card";
--
--[...]
--
--	dai-link-x {
--		sound-dai = <&tdmif_a>;
--		dai-format = "i2s";
--		dai-tdm-slot-tx-mask-0 = <1 1>;
--
--		codec-0 {
--			sound-dai = <&tohdmitx TOHDMITX_I2S_IN_A>;
--		};
--
--		codec-1 {
--			sound-dai = <&external_dac>;
--		};
--	};
--
--	dai-link-y {
--		sound-dai = <&tdmif_c>;
--		dai-format = "i2s";
--		dai-tdm-slot-tx-mask-0 = <1 1>;
--
--		codec {
--			sound-dai = <&tohdmitx TOHDMITX_I2S_IN_C>;
--		};
--	};
--
--	dai-link-z {
--		sound-dai = <&tohdmitx TOHDMITX_I2S_OUT>;
--
--		codec {
--			sound-dai = <&hdmi_tx>;
--		};
--	};
--};
-diff --git a/Documentation/devicetree/bindings/sound/amlogic,g12a-tohdmitx.yaml b/Documentation/devicetree/bindings/sound/amlogic,g12a-tohdmitx.yaml
-new file mode 100644
-index 000000000000..b4b78475c5b8
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/amlogic,g12a-tohdmitx.yaml
-@@ -0,0 +1,54 @@
-+# SPDX-License-Identifier: GPL-2.0
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/amlogic,g12a-tohdmitx.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Amlogic G12a HDMI TX Control Glue
-+
-+maintainers:
-+  - Jerome Brunet <jbrunet@baylibre.com>
-+
-+allOf:
-+  - $ref: dai-common.yaml#
-+
-+properties:
-+  $nodename:
-+    pattern: "^audio-controller@.*"
-+
-+  compatible:
-+    oneOf:
-+      - items:
-+          - const: amlogic,g12a-tohdmitx
-+      - items:
-+          - enum:
-+              - amlogic,sm1-tohdmitx
-+          - const: amlogic,g12a-tohdmitx
-+
-+  reg:
-+    maxItems: 1
-+
-+  resets:
-+    maxItems: 1
-+
-+  "#sound-dai-cells":
-+    const: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - resets
-+  - "#sound-dai-cells"
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/reset/amlogic,meson-g12a-audio-reset.h>
-+
-+    tohdmitx: audio-controller@744 {
-+        compatible = "amlogic,g12a-tohdmitx";
-+        reg = <0x744 0x4>;
-+        resets = <&clkc_audio AUD_RESET_TOHDMITX>;
-+        #sound-dai-cells = <1>;
-+    };
+For sm8550 you would need this patch for tplg
 
----
-base-commit: c3f38fa61af77b49866b006939479069cd451173
-change-id: 20240605-topic-amlogic-upstream-bindings-convert-g12a-tohdmitx-d85095861d88
+https://git.codelinaro.org/krzysztof.kozlowski/audioreach-topology/-/commit/d8ef47bc85700a7cdfabee5e06808d9f359b0a26
 
-Best regards,
--- 
-Neil Armstrong <neil.armstrong@linaro.org>
+can you try this as the Container CAP Id changed for platforms from sm8550.
 
+Kryzstof verified Display port tplg and these patches on x1e80100.
+
+
+thanks,
+srini
+
+>>> https://github.com/strongtz/alsa-ucm-conf/blob/odin2/ucm2/Qualcomm/sm8550/HiFi.conf
+>>>
+>>> [ 1552.313713] qcom-apm gprsvc:service:2:1: Error (1) Processing 
+>>> 0x01001000 cmd
+>>> [ 1552.313730] qcom-apm gprsvc:service:2:1: DSP returned 
+>>> error[1001000] 1
+>>> [ 1552.314455] qcom-apm gprsvc:service:2:1: Error (1) Processing 
+>>
+>> Is the DP cable connected?
+> 
+> I'm sure that the cable is connected and I have desktop on external 
+> display.
+> If it's not connected, kernel gives the following error when using aplay:
+> 
+> hdmi-audio-codec hdmi-audio-codec.1.auto: ASoC: error at 
+> snd_soc_dai_hw_params on i2s-hifi: -22
+> 
+>>
+>> if its not connected the dsp will throw this error.
+>>
+>> due to this issue I did workaround this issue by modeling it as 
+>> conflicting device to Speaker in x13s ucm.
+>>
+>> I see in your ucm setup its not the case.
+>> which is why you might be hitting this issue.
+>>
+>> Can you try
+>> amixer -c 0 cset iface=MIXER,name='DISPLAY_PORT_RX_0 Audio Mixer 
+>> MultiMedia2' 1
+>> aplay -D plughw:0,1 some-wav-file.wav
+>>
+>> both with and without display connected.
+>>
+> 
+> aplay always gives the following error:
+> 
+> Playing WAVE 'Summer.wav' : Signed 16 bit Little Endian, Rate 44100 Hz, 
+> Stereo
+> aplay: set_params:1456: Unable to install hw params:
+> ACCESS:  RW_INTERLEAVED
+> FORMAT:  S16_LE
+> SUBFORMAT:  STD
+> SAMPLE_BITS: 16
+> FRAME_BITS: 32
+> CHANNELS: 2
+> RATE: 44100
+> PERIOD_TIME: (42666 42667)
+> PERIOD_SIZE: (1881 1882)
+> PERIOD_BYTES: (7524 7528)
+> PERIODS: (3 5)
+> BUFFER_TIME: (170657 170658)
+> BUFFER_SIZE: 7526
+> BUFFER_BYTES: 30104
+> TICK_TIME: 0
+> 
+> and kernel gives the following when display is connected:
+> 
+> [drm:dp_catalog_audio_config_sdp] sdp_cfg = 0x100066
+> [drm:dp_catalog_audio_config_sdp] sdp_cfg2 = 0x1b800004
+> [drm:dp_audio_hw_params] Header Byte 1: value = 0xce020000, parity_byte 
+> = 0xce
+> [drm:dp_audio_hw_params] Header Byte 2: value = 0x67010000, parity_byte 
+> = 0x0
+> [drm:dp_audio_hw_params] Header Byte 3: value = 0x67010000, parity_byte 
+> = 0x67
+> [drm:dp_audio_hw_params] Header Byte 1: value = 0x67010000, parity_byte 
+> = 0x67
+> [drm:dp_audio_hw_params] Header Byte 2: value = 0x33443517, parity_byte 
+> = 0x35
+> [drm:dp_audio_hw_params] Header Byte 3: value = 0x33443517, parity_byte 
+> = 0x33
+> [drm:dp_audio_hw_params] Header Byte 1: value = 0x84840000, parity_byte 
+> = 0x84
+> [drm:dp_audio_hw_params] Header Byte 2: value = 0x3344d71b, parity_byte 
+> = 0xd7
+> [drm:dp_audio_hw_params] Header Byte 3: value = 0x44, parity_byte = 0x33
+> [drm:dp_audio_hw_params] Header Byte 1: value = 0xd8050000, parity_byte 
+> = 0xd8
+> [drm:dp_audio_hw_params] Header Byte 2: value = 0x4b0f, parity_byte = 0x4b
+> [drm:dp_audio_hw_params] Header Byte 3: value = 0x4b0f, parity_byte = 0x0
+> [drm:dp_audio_hw_params] Header Byte 1: value = 0x71060000, parity_byte 
+> = 0x71
+> [drm:dp_audio_hw_params] Header Byte 2: value = 0x4b0f, parity_byte = 0x4b
+> [drm:dp_catalog_audio_config_acr] select: 0x3, acr_ctrl: 0x80004130
+> [drm:dp_catalog_audio_sfe_level] mainlink_level = 0xa08, 
+> safe_to_exit_level = 0x8
+> [drm:dp_catalog_audio_enable] dp_audio_cfg = 0xc1
+> qcom-apm gprsvc:service:2:1: Error (1) Processing 0x01001006 cmd
+> qcom-apm gprsvc:service:2:1: DSP returned error[1001006] 1
+> qcom-apm gprsvc:service:2:1: Error (1) Processing 0x01001006 cmd
+> qcom-apm gprsvc:service:2:1: DSP returned error[1001006] 1
+> qcom-apm gprsvc:service:2:1: Error (1) Processing 0x01001001 cmd
+> qcom-apm gprsvc:service:2:1: DSP returned error[1001001] 1
+> q6apm-lpass-dais 30000000.remoteproc:glink-edge:gpr:service@1:bedais: 
+> Failed to prepare Graph -22
+> q6apm-lpass-dais 30000000.remoteproc:glink-edge:gpr:service@1:bedais: 
+> ASoC: error at snd_soc_pcm_dai_prepare on DISPLAY_PORT_RX_0: -22
+> [drm:dp_catalog_audio_enable] dp_audio_cfg = 0xc0
+> 
+>>
+>> --srini
+>>
+>>
+>>
+>>> 0x01001006 cmd
+>>> [ 1552.314463] qcom-apm gprsvc:service:2:1: DSP returned 
+>>> error[1001006] 1
+>>> [ 1552.315496] qcom-apm gprsvc:service:2:1: Error (1) Processing 
+>>> 0x01001006 cmd
+>>> [ 1552.315506] qcom-apm gprsvc:service:2:1: DSP returned 
+>>> error[1001006] 1
+>>> [ 1552.316033] qcom-apm gprsvc:service:2:1: Error (1) Processing 
+>>> 0x01001001 cmd
+>>> [ 1552.316042] qcom-apm gprsvc:service:2:1: DSP returned 
+>>> error[1001001] 1
+>>> [ 1552.316045] q6apm-lpass-dais 
+>>> 30000000.remoteproc:glink-edge:gpr:service@1:bedais: Failed to 
+>>> prepare Graph -22
+>>> [ 1552.316047] q6apm-lpass-dais 
+>>> 30000000.remoteproc:glink-edge:gpr:service@1:bedais: ASoC: error at 
+>>> snd_soc_pcm_dai_prepare on DISPLAY_PORT_RX_0: -22
+> 

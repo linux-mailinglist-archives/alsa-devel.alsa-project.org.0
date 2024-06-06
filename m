@@ -2,118 +2,114 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E24DA8FF0EC
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jun 2024 17:41:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E7D08FF362
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jun 2024 19:11:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6297DDFA;
-	Thu,  6 Jun 2024 17:41:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6297DDFA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 62D1E844;
+	Thu,  6 Jun 2024 19:11:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62D1E844
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1717688502;
-	bh=gE1Kj3xuMoCiY4bdyzCrXSApgzBD60tymyxKW4bbTTM=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject:List-Id:
+	s=default; t=1717693877;
+	bh=M70tp6532oErosXvST9jh7Vo9666z4tcB3oOndDwuWo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=qLSOOh9IEZ7B1dMG4MIsPFFAik1cs/Sy2Sxu52FXN0dTB4coBcCJdQSD2nXiAudkx
-	 wel+8pSucwBiugOsGn0Qcpb97k8E2ZwKJ47YcmEtwR5OD4NK1TguFwBo4BSyflqO8E
-	 bCQsZMQ4pJbCmsoNpoyuRmJnoB9S5ZantKZ0v12o=
+	b=DplCN1DoqecFB1S5WRHcHSW6EGcb/E65jEP8srgtKLW33rqhPcJjYKZ68frLhEKI+
+	 71sXhKSk/U/UTVti9R3gogaDP42OR3epzclqXM12thue6UlNixaSqEg2AALoA6NM6M
+	 9yFcJG7zSAa/C76bH1J+/sjtqCaqajhqW3c8FtkY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9A2C8F804FF; Thu,  6 Jun 2024 17:41:10 +0200 (CEST)
+	id 4129EF805B2; Thu,  6 Jun 2024 19:10:46 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2D63AF805A1;
-	Thu,  6 Jun 2024 17:41:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E201EF80589;
+	Thu,  6 Jun 2024 19:10:45 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3BEC9F804E5; Thu,  6 Jun 2024 17:39:38 +0200 (CEST)
+	id 2F022F804E5; Thu,  6 Jun 2024 19:10:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail.savoirfairelinux.com (mail.savoirfairelinux.com
- [208.88.110.44])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 37049F80171
-	for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2024 17:39:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37049F80171
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9338EF80171
+	for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2024 19:10:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9338EF80171
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=savoirfairelinux.com header.i=@savoirfairelinux.com
- header.a=rsa-sha256 header.s=DFC430D2-D198-11EC-948E-34200CB392D2
- header.b=MNHRvRGF
-Received: from localhost (localhost [127.0.0.1])
-	by mail.savoirfairelinux.com (Postfix) with ESMTP id 2698D9C2AA2;
-	Thu,  6 Jun 2024 11:39:25 -0400 (EDT)
-Received: from mail.savoirfairelinux.com ([127.0.0.1])
- by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10032)
- with ESMTP id HrID-BG8ze49; Thu,  6 Jun 2024 11:39:24 -0400 (EDT)
-Received: from localhost (localhost [127.0.0.1])
-	by mail.savoirfairelinux.com (Postfix) with ESMTP id 888079C5ABA;
-	Thu,  6 Jun 2024 11:39:24 -0400 (EDT)
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.savoirfairelinux.com 888079C5ABA
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=Cvn5t/dn
+Received: by mail-lf1-x132.google.com with SMTP id
+ 2adb3069b0e04-52b962c4bb6so1804587e87.3
+        for <alsa-devel@alsa-project.org>;
+ Thu, 06 Jun 2024 10:10:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=savoirfairelinux.com; s=DFC430D2-D198-11EC-948E-34200CB392D2;
-	t=1717688364; bh=rYRVIIw22ZVkSQXnTBWHvN7qfAPVVfCh/LRBnQMA1mw=;
-	h=Date:From:To:Message-ID:MIME-Version;
-	b=MNHRvRGFyj67QeHiozGPa24sXXRlCMyLfd7jNHNA5jveZIw1fEh2VzMUM8F1eT+rD
-	 lwk4iYhNLjA70F5wA6ZGWuYV1MwyONWNZ2Q1TL0NzdGiF/A9Coxc95tA+hAB7T/QgI
-	 kmBgd1NfRVqUpiQYsNGpvBhNTskeGmFZiWy5RGkC1qoLweYdojg5mUdmi+fAy0oLpN
-	 M0eDRwuz8BImBwfN/U453mrzZAC6ZxfpCbriv2KLdHhPn7ez/mfuhAFaKY/4oA/lBe
-	 s9Ra9Q6ckJDy1JDMXHijrmuj7Hm4RpGtGTPK5RfzonZdM6fnBRN9O9STLBPYkp7KoY
-	 gbNO0HthXgqYw==
-X-Virus-Scanned: amavis at mail.savoirfairelinux.com
-Received: from mail.savoirfairelinux.com ([127.0.0.1])
- by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10026)
- with ESMTP id ijXDkcF8BT_c; Thu,  6 Jun 2024 11:39:24 -0400 (EDT)
-Received: from mail.savoirfairelinux.com (mail.savoirfairelinux.com
- [192.168.48.237])
-	by mail.savoirfairelinux.com (Postfix) with ESMTP id 457D19C2AA2;
-	Thu,  6 Jun 2024 11:39:24 -0400 (EDT)
-Date: Thu, 6 Jun 2024 11:39:24 -0400 (EDT)
-From: Elinor Montmasson <elinor.montmasson@savoirfairelinux.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	shengjiu wang <shengjiu.wang@gmail.com>,
-	Xiubo Lee <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
-	Nicolin Chen <nicoleotsuka@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	linux-sound <linux-sound@vger.kernel.org>,
-	devicetree <devicetree@vger.kernel.org>,
-	linux-kernel <linux-kernel@vger.kernel.org>,
-	alsa-devel <alsa-devel@alsa-project.org>,
-	linuxppc-dev <linuxppc-dev@lists.ozlabs.org>
-Message-ID: 
- <1976575756.1264121.1717688364234.JavaMail.zimbra@savoirfairelinux.com>
-In-Reply-To: <47a7a618-31d5-4dfc-9b6b-9426c6409e80@sirena.org.uk>
-References: <20240515135411.343333-1-elinor.montmasson@savoirfairelinux.com>
- <ce9a87c6-4a5c-4f0a-a8df-1fdce8c1f5df@sirena.org.uk>
- <599489232.349333.1715936741672.JavaMail.zimbra@savoirfairelinux.com>
- <500db9de-6113-4e73-ba92-6e52ea292b32@sirena.org.uk>
- <1598202415.701258.1717159684103.JavaMail.zimbra@savoirfairelinux.com>
- <291daed8-a2e1-44d4-9a71-5bca2c585720@sirena.org.uk>
- <1220272166.706254.1717166894551.JavaMail.zimbra@savoirfairelinux.com>
- <47a7a618-31d5-4dfc-9b6b-9426c6409e80@sirena.org.uk>
-Subject: Re: [PATCHv4 9/9] ASoC: dt-bindings: fsl-asoc-card: add compatible
- for generic codec
+        d=gmail.com; s=20230601; t=1717693823; x=1718298623;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=vfcPheLV0NZCmf87grsxqRgL031WLMyzJrb0w/6enLU=;
+        b=Cvn5t/dnXPcYuctsomK6H6ilRaiPRX7rYMpJt59qPh0ZmdueiMcjPd5jo6coyX56Gj
+         cuOQwCM+4FypZI7tjOKaih0yw1YcnMzYYuDhylHiFlZiidT46/ba25KLSuL9ORDX/VjK
+         VUzN//OdRx92dKE0YgYYiGs3FRh+m/lyqQA3TgncXa8qiXjcZZM0qU4ejVI+c9hqL6Yx
+         n1qKEiAaoxBQNG5sCqdVwhjcUttgPftvBiXC/oy9hBo2+VsPynge6hBRBjDeF+Ag5hHN
+         +XoJsHNoZM02RAlGfECiIOF5m2L9ZV6fhegGaLxlL2GCKidIg8T3EPpam59c+GlMDiqj
+         EOiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1717693823; x=1718298623;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=vfcPheLV0NZCmf87grsxqRgL031WLMyzJrb0w/6enLU=;
+        b=uyuiE0bm2gb4AowirrrZ7ONFjrkNw305lOdpPejRaxbJIor/qKICAFKKhn7wEYppMQ
+         b23DHzeA23UI4WfwuVYF9n4mY67Q6iVxoM1oSAkWo2WLnrRKm4KPcdFKUb6U10rR99OK
+         nC4uvfHQs4RQfG14SIfPdAnIum2TCCSXibiuquP+3LDHausmz6Vm4yFrC/7kAaMTOC78
+         e72jpXghs6AJ68LJJFLO624w4qGF8tOJHVZr7X0aKZYiDJ0EFOr23dmyDMewRdfUafLM
+         dX+r/LwNmzwp1kCJheDglmt21SdMbFaHw1N1EUZh1/mIgoJhi/Ou5GCuq/rm+J+dN8RW
+         8RNA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWzh/gF+/8fN/vL+9+JVQ14vUAsd2ygicyxIZZBtJMYh3lMulggyH9IlITJJCYEY/B60UGUKUxSbMzggw0uugdt6vF8ZS3zlRmphAY=
+X-Gm-Message-State: AOJu0Yzg7C1m+tKedKIRN5dBbw9gmPdzYcxmC8aJYgDnpjmM7s6mInNj
+	wlHRQGyiDj4U9Ujhp8RxKONHvo2Hb8dXgnchC92H8QevviRaXPJZ
+X-Google-Smtp-Source: 
+ AGHT+IHjAV1sRFdp+OWciQrMCzE/Ou7KGCZoDPrUBVN8JEZkK68c3eqRAB4TI9M5ylBpowsDZcF8Qg==
+X-Received: by 2002:a05:6512:3f09:b0:51f:3e0c:ace3 with SMTP id
+ 2adb3069b0e04-52bb9f785d9mr227002e87.16.1717693822817;
+        Thu, 06 Jun 2024 10:10:22 -0700 (PDT)
+Received: from [10.0.0.42] (host-85-29-124-88.kaisa-laajakaista.fi.
+ [85.29.124.88])
+        by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-52bb423cf28sm246062e87.194.2024.06.06.10.10.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 06 Jun 2024 10:10:22 -0700 (PDT)
+Message-ID: <6a88c1b3-b3d0-48d0-a620-b17464cb559e@gmail.com>
+Date: Thu, 6 Jun 2024 20:13:55 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-X-Mailer: Zimbra 8.8.15_GA_4581 (ZimbraWebClient - GC112
- (Linux)/8.8.15_GA_4581)
-Thread-Topic: ASoC: dt-bindings: fsl-asoc-card: add compatible for generic
- codec
-Thread-Index: M+CiOw9Z1pP82SMivcOcvVDKOApGiw==
-Message-ID-Hash: HQILGYOQC6BMQWEQAMMV7EHL62DQ6MVI
-X-Message-ID-Hash: HQILGYOQC6BMQWEQAMMV7EHL62DQ6MVI
-X-MailFrom: elinor.montmasson@savoirfairelinux.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] ASoC: ti: davinci-mcasp: Set min period size using
+ FIFO config
+To: Jai Luthra <j-luthra@ti.com>, Lars-Peter Clausen <lars@metafoo.de>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+ alsa-devel@alsa-project.org
+References: <20240604-asoc_next-v1-0-e895c88e744d@ti.com>
+ <20240604-asoc_next-v1-2-e895c88e744d@ti.com>
+Content-Language: en-US
+From: =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@gmail.com>
+In-Reply-To: <20240604-asoc_next-v1-2-e895c88e744d@ti.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: 3ZNZGYMRKQAUZNX6IHEUD47TKHIQA2OP
+X-Message-ID-Hash: 3ZNZGYMRKQAUZNX6IHEUD47TKHIQA2OP
+X-MailFrom: peter.ujfalusi@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -125,7 +121,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HQILGYOQC6BMQWEQAMMV7EHL62DQ6MVI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3ZNZGYMRKQAUZNX6IHEUD47TKHIQA2OP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -134,20 +130,80 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-> From: "Mark Brown" <broonie@kernel.org>
-> Sent: Friday, 31 May, 2024 18:06:30
+Hi,
 
-> On Fri, May 31, 2024 at 10:48:14AM -0400, Elinor Montmasson wrote:
->> From: "Mark Brown" <broonie@kernel.org>
+On 6/4/24 1:01 PM, Jai Luthra wrote:
+> The minimum period size was enforced to 64 as older devices integrating
+> McASP with EDMA used an internal FIFO of 64 samples.
 > 
->> > Why not just use the existing compatible - why would someone not want to
->> > be able to use the ASRC if it's available in their system?
+> With UDMA based platforms this internal McASP FIFO is optional, as the
+> DMA engine internally does some buffering which is already accounted for
+> when registering the platform. So we should read the actual FIFO
+> configuration (txnumevt/rxnumevt) instead of hardcoding frames.min to
+> 64.
 > 
->> That's true but it will be a problem if both `fsl-asoc-card.c` and
->> `imx-spdif.c` drivers have the same compatible, and they don't
->> have the same DT properties.
+> Signed-off-by: Jai Luthra <j-luthra@ti.com>
+> ---
+>  sound/soc/ti/davinci-mcasp.c | 9 +++++++--
+>  1 file changed, 7 insertions(+), 2 deletions(-)
 > 
-> So merge the two then?
+> diff --git a/sound/soc/ti/davinci-mcasp.c b/sound/soc/ti/davinci-mcasp.c
+> index 1e760c315521..2a53fb7e72eb 100644
+> --- a/sound/soc/ti/davinci-mcasp.c
+> +++ b/sound/soc/ti/davinci-mcasp.c
+> @@ -70,6 +70,7 @@ struct davinci_mcasp_context {
+>  struct davinci_mcasp_ruledata {
+>  	struct davinci_mcasp *mcasp;
+>  	int serializers;
+> +	u8 numevt;
+>  };
+>  
+>  struct davinci_mcasp {
+> @@ -1470,12 +1471,13 @@ static int davinci_mcasp_hw_rule_format(struct snd_pcm_hw_params *params,
+>  static int davinci_mcasp_hw_rule_min_periodsize(
+>  		struct snd_pcm_hw_params *params, struct snd_pcm_hw_rule *rule)
+>  {
+> +	struct davinci_mcasp_ruledata *rd = rule->private;
+>  	struct snd_interval *period_size = hw_param_interval(params,
+>  						SNDRV_PCM_HW_PARAM_PERIOD_SIZE);
+>  	struct snd_interval frames;
+>  
+>  	snd_interval_any(&frames);
+> -	frames.min = 64;
+> +	frames.min = rd->numevt;
 
-It would avoid having duplicate drivers yes, I will do this for the v5 of this contribution.
-Thank you for the review.
+64 was a nice number ;)
+
+>  	frames.integer = 1;
+>  
+>  	return snd_interval_refine(period_size, &frames);
+> @@ -1516,6 +1518,9 @@ static int davinci_mcasp_startup(struct snd_pcm_substream *substream,
+>  		if (mcasp->serial_dir[i] == dir)
+>  			max_channels++;
+>  	}
+> +	ruledata->numevt = (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) ?
+> +				   mcasp->txnumevt :
+> +				   mcasp->rxnumevt;
+
+Do this at the same location where the rest of the ruledata members are
+initialized, or
+
+>  	ruledata->serializers = max_channels;
+>  	ruledata->mcasp = mcasp;
+>  	max_channels *= tdm_slots;
+> @@ -1591,7 +1596,7 @@ static int davinci_mcasp_startup(struct snd_pcm_substream *substream,
+>  
+>  	snd_pcm_hw_rule_add(substream->runtime, 0,
+>  			    SNDRV_PCM_HW_PARAM_PERIOD_SIZE,
+> -			    davinci_mcasp_hw_rule_min_periodsize, NULL,
+> +			    davinci_mcasp_hw_rule_min_periodsize, ruledata,
+
+You could just pass a pointer to txnumevt/rxnumevt directly...
+
+>  			    SNDRV_PCM_HW_PARAM_PERIOD_SIZE, -1);
+>  
+>  	return 0;
+> 
+
+-- 
+Péter

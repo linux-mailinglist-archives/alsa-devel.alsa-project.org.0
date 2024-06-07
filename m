@@ -2,175 +2,111 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E389900031
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2024 12:04:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF7B590015E
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2024 12:59:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DF12B846;
-	Fri,  7 Jun 2024 12:04:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF12B846
+	by alsa0.perex.cz (Postfix) with ESMTPS id B80C7846;
+	Fri,  7 Jun 2024 12:59:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B80C7846
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1717754686;
-	bh=2ETKfb8VK13PTpYLFe3lnJNuwIXowCxaZWOea5Pv7io=;
-	h=From:Date:Subject:References:In-Reply-To:To:CC:List-Id:
+	s=default; t=1717757966;
+	bh=pRUs8VmuZj5e7PO+Pf05N+Dt+BF9X0+42xniTidkx1Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=LQij/N33iXZ5eeeF52CAP+2BRdPoSZtuHCFodWSGd4u9DhGvdIle/z0ZSxtxHtInB
-	 3Mwzul4MsgpPi8mz+CwUrLr4PB4oQvRkZsUdXH9z2MO62eyRy7qtOCiW+v3oiQ6M1b
-	 UDXjA6IU4cio606o+IBsDficZHpI9x1+VM7vR3jc=
+	b=HefTOe3ev3IFCGm0tLltfP+6wI+8CrOWqUsfXgyIvwnRclSirJpBF3BQm1fGQDBW+
+	 2Qf0ORy1aQ6eROkE4CW9GdcggSEo5k+avjUEIOzuJESyxAklWbNOhgdcOF7ytErMJf
+	 zJmmdI5JMcDu9qeM1mzPYgvYXV/HKkpV1/DiB2kE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B2AA4F805BD; Fri,  7 Jun 2024 12:03:44 +0200 (CEST)
+	id 1EC2AF805B0; Fri,  7 Jun 2024 12:58:53 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CC299F805E9;
-	Fri,  7 Jun 2024 12:03:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6597CF8010C;
+	Fri,  7 Jun 2024 12:58:53 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A7F62F804B2; Fri,  7 Jun 2024 12:02:15 +0200 (CEST)
+	id 62D5AF804B2; Fri,  7 Jun 2024 12:58:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from EUR03-AM7-obe.outbound.protection.outlook.com
- (mail-am7eur03on20601.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:260e::601])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [IPv6:2a00:1450:4864:20::131])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A6A71F80171
-	for <alsa-devel@alsa-project.org>; Fri,  7 Jun 2024 12:01:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6A71F80171
+	by alsa1.perex.cz (Postfix) with ESMTPS id F1151F800AC
+	for <alsa-devel@alsa-project.org>; Fri,  7 Jun 2024 12:58:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1151F800AC
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=axis.com header.i=@axis.com header.a=rsa-sha256
- header.s=selector1 header.b=roTqp7YB
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KW4s/o1dK9+1Sply5NjHK8/xNHLSQXxzioB1DyXN23aBRoCkEQp/UWVYI0R0x3+9G6+DcUgsSFoH5kWSUnfa5obji1T8KmYe/lkXE6O3RFfg9AyTJaxB89YxYSy3ZY6GDFL5Ldot76Idb7ko08hayPbJ0AI+bXkH7qTZ+ck0XvYn0K98RZ8IRSlxMWPMDE7+6F0yLOIpZ7Z9+NB8QSPmDhC6tu8HAte25e0FFG9hjGCZhaNu25K0LdLAjuCMrDh4kbqXD7L/QKV6S7zeLusmCHhJFULZYJEPveGV5+Mpl6ONBZljeNCmTp6A5gGyOj9CU9XnFXrKif2XOTG4XnPmhw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=g1ZWXcyDO3jwG8kkAMerrUqvg4yIbozd2NQHtmO25kY=;
- b=BpAYKNLMHBeFZzGtdeO5klOne34KpMacY9A7GQvCWNR7YFnNE+4zJRUFzqZ1mAzmAnIm5Ije4+K1M6Cpo7woR7PnlmWaAvcQ3MP9FpFxo/aPjWZiwUN9aWGC5wXK1W0QvOV6st0YuYFUub/ZegW0phInNxq+nPNufJevnDOIWB1NFyTxud6Y01izzdk8WKWkT+uf9VVvbimztc1tVbPUcadHacyijsWaQHWrxiYGyhh51ZFzKdgLkDbJbApx0o1wG/P9Z+BxlkBYHOC+JfJfyXOa2w+jaLnfthxUYXsXj9QAxqr5mrY4aCGvRv2o0JQQJ1sqabjc78N3p5Wf7MxgNA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 195.60.68.100) smtp.rcpttodomain=alsa-project.org smtp.mailfrom=axis.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=axis.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=g1ZWXcyDO3jwG8kkAMerrUqvg4yIbozd2NQHtmO25kY=;
- b=roTqp7YB2Jz+2DUX+vlnRMdqasHyLnrz4yeaS8gl37mbrKT5IEQFcHubTsB5qcVZltEf6LMmJg25enhhVn6A5MrZwTWPAAlZqgRDjiM0Rg0tYWPUjbjshHmB6mH1baDOdZV/b/d55WEifHE2PPFidfN1Ka0b5O88xA45jtIUy3Y=
-Received: from AS9PR06CA0147.eurprd06.prod.outlook.com (2603:10a6:20b:467::19)
- by DBAPR02MB6152.eurprd02.prod.outlook.com (2603:10a6:10:18b::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7633.34; Fri, 7 Jun
- 2024 10:00:56 +0000
-Received: from AMS0EPF00000195.eurprd05.prod.outlook.com
- (2603:10a6:20b:467:cafe::ab) by AS9PR06CA0147.outlook.office365.com
- (2603:10a6:20b:467::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7656.18 via Frontend
- Transport; Fri, 7 Jun 2024 10:00:56 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 195.60.68.100)
- smtp.mailfrom=axis.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=axis.com;
-Received-SPF: Pass (protection.outlook.com: domain of axis.com designates
- 195.60.68.100 as permitted sender) receiver=protection.outlook.com;
- client-ip=195.60.68.100; helo=mail.axis.com; pr=C
-Received: from mail.axis.com (195.60.68.100) by
- AMS0EPF00000195.mail.protection.outlook.com (10.167.16.215) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7633.15 via Frontend Transport; Fri, 7 Jun 2024 10:00:56 +0000
-Received: from se-mail02w.axis.com (10.20.40.8) by se-mail01w.axis.com
- (10.20.40.7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 7 Jun
- 2024 12:00:55 +0200
-Received: from se-intmail01x.se.axis.com (10.0.5.60) by se-mail02w.axis.com
- (10.20.40.8) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Fri, 7 Jun 2024 12:00:55 +0200
-Received: from pc49102-2217.se.axis.com (pc49102-2217.se.axis.com [10.88.7.5])
-	by se-intmail01x.se.axis.com (Postfix) with ESMTP id DD2A93349;
-	Fri,  7 Jun 2024 12:00:55 +0200 (CEST)
-Received: by pc49102-2217.se.axis.com (Postfix, from userid 9470)
-	id D74706476FDE; Fri,  7 Jun 2024 12:00:55 +0200 (CEST)
-From: Ricard Wanderlof <ricard.wanderlof@axis.com>
-Date: Fri, 7 Jun 2024 12:00:46 +0200
-Subject: [PATCH v2 2/2] tlv320adc3xxx: Add support for using MICBIAS pins
- as GPO
+	dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=MEBCc6Q+
+Received: by mail-lf1-x131.google.com with SMTP id
+ 2adb3069b0e04-52b9dda4906so2823698e87.2
+        for <alsa-devel@alsa-project.org>;
+ Fri, 07 Jun 2024 03:58:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1717757919; x=1718362719;
+ darn=alsa-project.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=pBhIdhEhaQ9KQdEpMg8LTKp34tylqUHftSlF1gdJzgw=;
+        b=MEBCc6Q+gRFutmrY81x5WCQ0zJjPpXrNeVV07hB1yXZSBXlIZFhypQSLt5l2vXLydD
+         Hzl/05YKIWxSGkJ6wFPT4J/dwhTdL10nqiRYdAO12zxQJuFbRr84rKQeupWU4+i9sWcr
+         LJmKXiDTY09lh0nbGZXdLKgQkVLwvIoWo9Uu1I4AzR1rY0MMD4zSimEQLwb6s6VFipcK
+         jiB6EWzvYTJfkCtRYYGWx0+ax3TlTtbXG+xNd/px4tRITU4uj2MycohHupm09kCIFMhR
+         KhIfd4ON9xO1l8aH3cJG/B1gzpwvmZZpxan6W6i5YvGKfz8UR3qygrWdI+rlYV64je64
+         ofMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1717757919; x=1718362719;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=pBhIdhEhaQ9KQdEpMg8LTKp34tylqUHftSlF1gdJzgw=;
+        b=BYToB9MmGCQBCafDXDC9/DRZwYx5Wtlhcxp/SjM/9kgwIzJdTiSC0reuhVLEKnhRTn
+         nuOJzJgYAHljS9xU5BtwCarCPqBIq3F9JvX9zKbM7802dJDKG/YwFgs32pyiQrru7zAR
+         oZpNZmNTQBX0lo5wNhp5iD0rk7NG94GI7LUJrvU2QLJRV4qaaP4dXWMc/EbCrj3M9X+F
+         1WOhwaqhcJI9DtJcYuN3W4j+UVpQbHcQYUk4rspK1pXbYcT+BFGdzusJL88u5loa9Jal
+         drZ3pFrXrvvBOa0e46VSwYL94D+qKYtA4Wh8SnnMQaa/eKZX+FwsQJleSB+3PSpR/4PC
+         PRug==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWqL2mJTKyrXfMS6CO/FAUtJBjJmpN0l2W1lOGKTrThd+Fe5YIvHOCOmFPPS5o4oZmBs/0efha9Sn5Bqy4lDK6jHOqG5a3E/Lg+d4k=
+X-Gm-Message-State: AOJu0Yye2cDGF6vxbNbI9wWJgSJ/bmlXdxO+fGqt+OhmQ/TZUFNi0f09
+	9wvWhTCZpxAMVb9M1axyQizfgXIqvXlh5o7412BDlsyUdoJw684tdHP/su+OzpE=
+X-Google-Smtp-Source: 
+ AGHT+IGwurAV2ObQ2ikkqbB73N/NRCRyMNzsURTroyyeyk3A/xI2ByWyFDa/AOI35OfN6jvpgbWzjw==
+X-Received: by 2002:ac2:4d89:0:b0:516:c5c2:cba8 with SMTP id
+ 2adb3069b0e04-52bb9f64ccemr1690971e87.12.1717757919391;
+        Fri, 07 Jun 2024 03:58:39 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (dzdbxzyyyyyyyyyyyykxt-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::227])
+        by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-52bb434dde7sm494604e87.309.2024.06.07.03.58.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 07 Jun 2024 03:58:38 -0700 (PDT)
+Date: Fri, 7 Jun 2024 13:58:37 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: srinivas.kandagatla@linaro.org
+Cc: broonie@kernel.org, perex@perex.cz, lgirdwood@gmail.com,
+	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org,
+	krzk+dt@kernel.org, neil.armstrong@linaro.org, krzysztof.kozlowski@linaro.org
+Subject: Re: [PATCH v2 1/2] ASoC: codecs: lpass-macro: add helpers to get
+ codec version
+Message-ID: <gda23tcdsoddyamedjd5sej4fhpjru65fqbhk4htc35kqyr3ts@glxyvqqw6x75>
+References: <20240606122559.116698-1-srinivas.kandagatla@linaro.org>
+ <20240606122559.116698-2-srinivas.kandagatla@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20240607-tlv320adc3xxx-micbias-gpo-v2-2-b140a45ffffe@axis.com>
-References: <20240607-tlv320adc3xxx-micbias-gpo-v2-0-b140a45ffffe@axis.com>
-In-Reply-To: <20240607-tlv320adc3xxx-micbias-gpo-v2-0-b140a45ffffe@axis.com>
-To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
-	Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>, Baojun Xu
-	<baojun.xu@ti.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Ricard Wanderlof
-	<ricardw@axis.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
-	<tiwai@suse.com>
-CC: <alsa-devel@alsa-project.org>, <linux-sound@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Ricard
- Wanderlof" <ricard.wanderlof@axis.com>, <kernel@axis.com>
-X-Mailer: b4 0.13.0
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AMS0EPF00000195:EE_|DBAPR02MB6152:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4cac7c60-98e5-44a9-d4d1-08dc86d8b986
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: 
-	BCL:0;ARA:13230031|36860700004|376005|82310400017|7416005|1800799015|921011;
-X-Microsoft-Antispam-Message-Info: 
-	=?utf-8?B?Y0k4WWVDMndpd0xGV1hGeFlHRUhmdE1MZ1ptY2JUM2pqZ0VxNjJrQUpPTVgy?=
- =?utf-8?B?bk1HZk1OaC9lV05HMEFzaDdiQlFzdVlGRHdzOVFaRnRGU1dXWnlsY2hnMkZ1?=
- =?utf-8?B?aVc0VlhaWnNWT1ZoMThwWDZWYno3NktGejlDTWZBMDc1RFF2dW5vNG1rQ2kz?=
- =?utf-8?B?bGNQRmV2UjA1azNsdDlpZ1RoZzIvZXJFWEwvUm4rbm9TejVvRndqdWp4c0VC?=
- =?utf-8?B?VHo0QkxpR3lrKzJ0T05Da1NWWmpuRHJHRkVmcmdIUmZiTkNFSlMrcFU4aFFm?=
- =?utf-8?B?bDE2N2wvd1lVMXFzSW5jbDZXdW4vbDJMcVpsUWVETXM0cFJjMGd2NWNpcCts?=
- =?utf-8?B?VGpPSEVHOHhLNlV6WGRlc0xWdEk5TjFZbzhjVGZBU3YyWVJjSFlyN0FPaTg2?=
- =?utf-8?B?bkpXTm1WL2JyWnh3S1FLY2lnYWdzKzR0c3hNSjEweWRWS0IydjcxdGtCbjZt?=
- =?utf-8?B?UkhIVzRWQ2FZeUVsd2V0WDA0SDl3T1ozaFloemgyZUgyZzBySDNEVmIxbE5U?=
- =?utf-8?B?Q1hxU0t6YUNVOTdFaUgrYjB2MllLVTVsQ3BHZlBWVzJhWldmUU9JTUpNUlhR?=
- =?utf-8?B?UUN4dHVoR2htWmR5OTVnN3FRdGN3aDVZeTgxNUlIYWg0TUZwMnpyRVhjUStn?=
- =?utf-8?B?WXJIUHlRR1FMekdsWmdIWFU4RHZSQ29uckwzelkrUzR6UWtNNkZBeU1RNFdD?=
- =?utf-8?B?MlpMai96NlFGUGlqMEt2dkx3dXFnUnhDOFBGZmlTL0NYWGRTV1Z4RTNFS2ta?=
- =?utf-8?B?T2JkOXJoMHVYYSt1d2ZZbXFna3QzVFc3djBJL0Fhd2NjbzBpcURENi9pblZK?=
- =?utf-8?B?SzlCZ3grSWd4eXd6OUx0MTFSVDczUVI4STYybElOUVljUWtSN3NXbWZXVVIx?=
- =?utf-8?B?b2E5MXdVUE02b3M4WTdZdG91QUZxbXJrckpzQUhxQ0RQZEdlRjZWNnpOV1FU?=
- =?utf-8?B?cWZhODA3VzY2Vm03Y2NDUmExNWYwaTVtY21PTXJnNSttbUw0Qm05aEwrSUJ3?=
- =?utf-8?B?L3VzRWdEWVpkVWJ1V0VORHpmSG5lQVI2TmlIT2RuYVZTSG83Ny9Ld25aOTNu?=
- =?utf-8?B?aU9OdUdoVUVDL3VoWXMxTzdpYlRLSkJCMG14RHJWdWpCdG5idkVPenhSK29r?=
- =?utf-8?B?bVNVZVhFL2xmZGlpZUxXV3JhRmFZSll6eTZqVFI3clRXa1huQ3BnSzRTZFlO?=
- =?utf-8?B?dFJMOWlpUFM0QllIQXFkY0JKd3dpbzNJSnFoSEE2dC81SE1HemxjaXhyZE8r?=
- =?utf-8?B?cjZkTmpNcGltYWxNRmVhZTI2dytYci9rZ0lpL0txRHd5dnQ0dTUydFdlYitQ?=
- =?utf-8?B?WWNrNi94NkRwVUF0akEyWnIxTXlTMUM4eXNRYldvRVp5RERhS0xMaExycHZV?=
- =?utf-8?B?NXVMdERqcWdVRWVuaExYZ3hsZGp4VUg5OG1QSXF6S0U2NUN1ZWErc1U5ZFFE?=
- =?utf-8?B?VGIrMWJRUERYbzkwNlJqOGhBYkVaZkQrbXVOcWw1c1l2dzdvYmh4NURrOSsy?=
- =?utf-8?B?a0RrRmZzbXNWKzdGMFpmZk00WjBEK2ppTW9jTzhndEEyTEVHRFVDbTVEdnZX?=
- =?utf-8?B?RW8zQytVd0VaVU5CekwwL25XQkduNlgvTXNwZWR6RkZxZHQvMlFOTHBlaHh4?=
- =?utf-8?B?MXM4N0o5eDZFdjhNcElUTDRmd0JWckZhUHIyQkRKZzY0WUlqNjUxQ2ZIQUtU?=
- =?utf-8?B?aEUrQXNVVk9XU29ZSFBqb2o1RFVucllHY3o5Qm4xS3hwNUhwUG8zUDM0QXhE?=
- =?utf-8?B?MVlNZmNtdEdSNVQwcFNIRnJ0N2k1eCtkMlBSdmxFL3I2WHU5Yi9YT21iaWsz?=
- =?utf-8?B?UXpGUWJmQUE1dWlXOHUzRGtHaGs4cEE0Q3dEUy90V3JucDVnbHVrTjJPbzVq?=
- =?utf-8?B?cC91UnZDRGh1TDBBUVpoVERPR0hGK1Q2dElpZEZRaWVtSWtQRWV0ODQrR3R2?=
- =?utf-8?Q?lJ6X8zcGceM=3D?=
-X-Forefront-Antispam-Report: 
-	CIP:195.60.68.100;CTRY:SE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.axis.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(36860700004)(376005)(82310400017)(7416005)(1800799015)(921011);DIR:OUT;SFP:1101;
-X-OriginatorOrg: axis.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2024 10:00:56.3134
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 4cac7c60-98e5-44a9-d4d1-08dc86d8b986
-X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
- TenantId=78703d3c-b907-432f-b066-88f7af9ca3af;Ip=[195.60.68.100];Helo=[mail.axis.com]
-X-MS-Exchange-CrossTenant-AuthSource: 
-	AMS0EPF00000195.eurprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBAPR02MB6152
-Message-ID-Hash: ENRIBL37T2JIWZPE5NA3PVDVX4G7HPU5
-X-Message-ID-Hash: ENRIBL37T2JIWZPE5NA3PVDVX4G7HPU5
-X-MailFrom: Ricard.Wanderlof@axis.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240606122559.116698-2-srinivas.kandagatla@linaro.org>
+Message-ID-Hash: ZGTINEVMXPU5I7QINEGBZWGMVTZK7ENW
+X-Message-ID-Hash: ZGTINEVMXPU5I7QINEGBZWGMVTZK7ENW
+X-MailFrom: dmitry.baryshkov@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -182,7 +118,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ENRIBL37T2JIWZPE5NA3PVDVX4G7HPU5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZGTINEVMXPU5I7QINEGBZWGMVTZK7ENW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -191,216 +127,174 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add boolean ti,micbias1-gpo and ti,micbias2-gpo devicetree properties.
+On Thu, Jun 06, 2024 at 01:25:58PM +0100, srinivas.kandagatla@linaro.org wrote:
+> From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> 
+> LPASS Digital codec have changes in register layout across multiple
+> versions. Add a proper way read the codec version allowint all the lpass
+> macro drivers (tx, rx, wsa, va) to configure the registers correctly.
+> 
+> LPASS VA macro has the required registers to read the codec version.
+> Read the the version and make it available to other lpass codec macros
+> using the common helper functions.
+> 
+> Existing method of using LPASS IP version is not accurate as the same
+> the codec versioning is totally independent of LPASS IP block versions.
 
-When set, the respective MICBIAS pins can be used as general purpose
-outputs controlled via the GPIO framework, in addition to the two
-configurable GPIO pins.
+So it's possible for two platforms have the same LPASS IP version, but
+different codec versions?
 
-This is useful in applications where the MICBIAS functionality is
-not required, but it is useful to have a couple of extra GPIO pins.
+> 
+> These helper functions should be able to provide a convient way to get
+> the codec version, and will help scale the drivers in right direction.
+> 
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> ---
+>  sound/soc/codecs/lpass-macro-common.c | 14 +++++++++++
+>  sound/soc/codecs/lpass-macro-common.h | 35 +++++++++++++++++++++++++++
+>  sound/soc/codecs/lpass-va-macro.c     | 29 ++++++++++++++++++++++
+>  3 files changed, 78 insertions(+)
+> 
+> diff --git a/sound/soc/codecs/lpass-macro-common.c b/sound/soc/codecs/lpass-macro-common.c
+> index da1b422250b8..a640bf88a6cd 100644
+> --- a/sound/soc/codecs/lpass-macro-common.c
+> +++ b/sound/soc/codecs/lpass-macro-common.c
+> @@ -11,6 +11,8 @@
+>  
+>  #include "lpass-macro-common.h"
+>  
+> +static int lpass_codec_version;
+> +
+>  struct lpass_macro *lpass_macro_pds_init(struct device *dev)
+>  {
+>  	struct lpass_macro *l_pds;
+> @@ -66,5 +68,17 @@ void lpass_macro_pds_exit(struct lpass_macro *pds)
+>  }
+>  EXPORT_SYMBOL_GPL(lpass_macro_pds_exit);
+>  
+> +void lpass_macro_set_codec_version(int version)
+> +{
+> +	lpass_codec_version = version;
+> +}
+> +EXPORT_SYMBOL_GPL(lpass_macro_set_codec_version);
+> +
+> +int lpass_macro_get_codec_version(void)
+> +{
+> +	return lpass_codec_version;
+> +}
+> +EXPORT_SYMBOL_GPL(lpass_macro_get_codec_version);
 
-The voltage on the respective MICBIAS pin in the active state is
-governed by the ti,micbias1-vg and ti,micbias2-vg properties,
-respectively (same properties as when the pins are used as
-MICBIAS pins).
+Is it really just a global variable, no locking, no device?
 
-Signed-off-by: Ricard Wanderlof <ricard.wanderlof@axis.com>
----
- sound/soc/codecs/tlv320adc3xxx.c | 105 +++++++++++++++++++++++++++++++--------
- 1 file changed, 84 insertions(+), 21 deletions(-)
+> +
+>  MODULE_DESCRIPTION("Common macro driver");
+>  MODULE_LICENSE("GPL");
+> diff --git a/sound/soc/codecs/lpass-macro-common.h b/sound/soc/codecs/lpass-macro-common.h
+> index d98718b3dc4b..f6f1bfe8eb77 100644
+> --- a/sound/soc/codecs/lpass-macro-common.h
+> +++ b/sound/soc/codecs/lpass-macro-common.h
+> @@ -18,6 +18,18 @@ enum lpass_version {
+>  	LPASS_VER_11_0_0,
+>  };
+>  
+> +enum lpass_codec_version {
+> +	LPASS_CODEC_VERSION_1_0 = 1,
+> +	LPASS_CODEC_VERSION_1_1,
+> +	LPASS_CODEC_VERSION_1_2,
+> +	LPASS_CODEC_VERSION_2_0,
+> +	LPASS_CODEC_VERSION_2_1,
+> +	LPASS_CODEC_VERSION_2_5,
+> +	LPASS_CODEC_VERSION_2_6,
+> +	LPASS_CODEC_VERSION_2_7,
+> +	LPASS_CODEC_VERSION_2_8,
+> +};
+> +
+>  struct lpass_macro {
+>  	struct device *macro_pd;
+>  	struct device *dcodec_pd;
+> @@ -25,5 +37,28 @@ struct lpass_macro {
+>  
+>  struct lpass_macro *lpass_macro_pds_init(struct device *dev);
+>  void lpass_macro_pds_exit(struct lpass_macro *pds);
+> +void lpass_macro_set_codec_version(int version);
+> +int lpass_macro_get_codec_version(void);
+> +
+> +static inline const char *lpass_macro_get_codec_version_string(int version)
+> +{
+> +	switch (version) {
+> +	case LPASS_CODEC_VERSION_2_0:
+> +		return "v2.0";
+> +	case LPASS_CODEC_VERSION_2_1:
+> +		return "v2.1";
+> +	case LPASS_CODEC_VERSION_2_5:
+> +		return "v2.5";
+> +	case LPASS_CODEC_VERSION_2_6:
+> +		return "v2.6";
+> +	case LPASS_CODEC_VERSION_2_7:
+> +		return "v2.7";
+> +	case LPASS_CODEC_VERSION_2_8:
+> +		return "v2.8";
+> +	default:
+> +		break;
+> +	}
+> +	return "NA";
+> +}
+>  
+>  #endif /* __LPASS_MACRO_COMMON_H__ */
+> diff --git a/sound/soc/codecs/lpass-va-macro.c b/sound/soc/codecs/lpass-va-macro.c
+> index 6eceeff10bf6..0ae9e6377e3a 100644
+> --- a/sound/soc/codecs/lpass-va-macro.c
+> +++ b/sound/soc/codecs/lpass-va-macro.c
+> @@ -1461,6 +1461,33 @@ static int va_macro_validate_dmic_sample_rate(u32 dmic_sample_rate,
+>  	return dmic_sample_rate;
+>  }
+>  
+> +static void va_macro_set_lpass_codec_version(struct va_macro *va)
+> +{
+> +	int core_id_0 = 0, core_id_1 = 0, core_id_2 = 0, version;
+> +
+> +	regmap_read(va->regmap, CDC_VA_TOP_CSR_CORE_ID_0, &core_id_0);
+> +	regmap_read(va->regmap, CDC_VA_TOP_CSR_CORE_ID_1, &core_id_1);
+> +	regmap_read(va->regmap, CDC_VA_TOP_CSR_CORE_ID_2, &core_id_2);
+> +
+> +	if ((core_id_0 == 0x01) && (core_id_1 == 0x0F))
+> +		version = LPASS_CODEC_VERSION_2_0;
+> +	if ((core_id_0 == 0x02) && (core_id_1 == 0x0E))
+> +		version = LPASS_CODEC_VERSION_2_1;
+> +	if ((core_id_0 == 0x02) && (core_id_1 == 0x0F) && (core_id_2 == 0x50 || core_id_2 == 0x51))
+> +		version = LPASS_CODEC_VERSION_2_5;
+> +	if ((core_id_0 == 0x02) && (core_id_1 == 0x0F) && (core_id_2 == 0x60 || core_id_2 == 0x61))
+> +		version = LPASS_CODEC_VERSION_2_6;
+> +	if ((core_id_0 == 0x02) && (core_id_1 == 0x0F) && (core_id_2 == 0x70 || core_id_2 == 0x71))
+> +		version = LPASS_CODEC_VERSION_2_7;
+> +	if ((core_id_0 == 0x02) && (core_id_1 == 0x0F) && (core_id_2 == 0x80 || core_id_2 == 0x81))
+> +		version = LPASS_CODEC_VERSION_2_8;
+> +
+> +	lpass_macro_set_codec_version(version);
+> +
+> +	dev_info(va->dev, "LPASS Codec Version %s\n",
+> +			lpass_macro_get_codec_version_string(version));
 
-diff --git a/sound/soc/codecs/tlv320adc3xxx.c b/sound/soc/codecs/tlv320adc3xxx.c
-index e100cc9f5c19..182955bccebc 100644
---- a/sound/soc/codecs/tlv320adc3xxx.c
-+++ b/sound/soc/codecs/tlv320adc3xxx.c
-@@ -40,9 +40,10 @@
-  */
- 
- #define ADC3XXX_MICBIAS_PINS		2
-+#define ADC3XXX_GPIO_PINS		2
- 
- /* Number of GPIO pins exposed via the gpiolib interface */
--#define ADC3XXX_GPIOS_MAX		2
-+#define ADC3XXX_GPIOS_MAX		(ADC3XXX_MICBIAS_PINS + ADC3XXX_GPIO_PINS)
- 
- #define ADC3XXX_RATES		SNDRV_PCM_RATE_8000_96000
- #define ADC3XXX_FORMATS		(SNDRV_PCM_FMTBIT_S16_LE | \
-@@ -321,7 +322,8 @@ struct adc3xxx {
- 	struct gpio_desc *rst_pin;
- 	unsigned int pll_mode;
- 	unsigned int sysclk;
--	unsigned int gpio_cfg[ADC3XXX_GPIOS_MAX]; /* value+1 (0 => not set)  */
-+	unsigned int gpio_cfg[ADC3XXX_GPIO_PINS]; /* value+1 (0 => not set)  */
-+	unsigned int micbias_gpo[ADC3XXX_MICBIAS_PINS]; /* 1 => pin is GPO */
- 	unsigned int micbias_vg[ADC3XXX_MICBIAS_PINS];
- 	int master;
- 	u8 page_no;
-@@ -329,7 +331,7 @@ struct adc3xxx {
- 	struct gpio_chip gpio_chip;
- };
- 
--static const unsigned int adc3xxx_gpio_ctrl_reg[ADC3XXX_GPIOS_MAX] = {
-+static const unsigned int adc3xxx_gpio_ctrl_reg[ADC3XXX_GPIO_PINS] = {
- 	ADC3XXX_GPIO1_CTRL,
- 	ADC3XXX_GPIO2_CTRL
- };
-@@ -960,14 +962,23 @@ static int adc3xxx_gpio_request(struct gpio_chip *chip, unsigned int offset)
- 	if (offset >= ADC3XXX_GPIOS_MAX)
- 		return -EINVAL;
- 
--	/* GPIO1 is offset 0, GPIO2 is offset 1 */
--	/* We check here that the GPIO pins are either not configured in the
--	 * DT, or that they purposely are set as outputs.
--	 * (Input mode not yet implemented).
--	 */
--	if (adc3xxx->gpio_cfg[offset] != 0 &&
--	    adc3xxx->gpio_cfg[offset] != ADC3XXX_GPIO_GPO + 1)
--		return -EINVAL;
-+	if (offset >= 0 && offset < ADC3XXX_GPIO_PINS) {
-+		/* GPIO1 is offset 0, GPIO2 is offset 1 */
-+		/* We check here that the GPIO pins are either not configured
-+		 * in the DT, or that they purposely are set as outputs.
-+		 * (Input mode not yet implemented).
-+		 */
-+		if (adc3xxx->gpio_cfg[offset] != 0 &&
-+		    adc3xxx->gpio_cfg[offset] != ADC3XXX_GPIO_GPO + 1)
-+			return -EINVAL;
-+	} else if (offset >= ADC3XXX_GPIO_PINS && offset < ADC3XXX_GPIOS_MAX) {
-+		/* MICBIAS1 is offset 2, MICBIAS2 is offset 3 */
-+		/* We check here if the MICBIAS pins are in fact configured
-+		 * as GPOs.
-+		 */
-+		if (!adc3xxx->micbias_gpo[offset - ADC3XXX_GPIO_PINS])
-+			return -EINVAL;
-+	}
- 
- 	return 0;
- }
-@@ -977,6 +988,21 @@ static int adc3xxx_gpio_direction_out(struct gpio_chip *chip,
- {
- 	struct adc3xxx *adc3xxx = gpiochip_get_data(chip);
- 
-+	/* For the MICBIAS pins, they are by definition outputs. */
-+	if (offset >= ADC3XXX_GPIO_PINS) {
-+		unsigned int vg;
-+		unsigned int micbias = offset - ADC3XXX_GPIO_PINS;
-+
-+		if (value)
-+			vg = adc3xxx->micbias_vg[micbias];
-+		else
-+			vg = ADC3XXX_MICBIAS_OFF;
-+		return regmap_update_bits(adc3xxx->regmap,
-+					   ADC3XXX_MICBIAS_CTRL,
-+					   ADC3XXX_MICBIAS_MASK << adc3xxx_micbias_shift[micbias],
-+					   vg << adc3xxx_micbias_shift[micbias]);
-+	}
-+
- 	/* Set GPIO output function. */
- 	return regmap_update_bits(adc3xxx->regmap,
- 				  adc3xxx_gpio_ctrl_reg[offset],
-@@ -1005,9 +1031,17 @@ static int adc3xxx_gpio_get(struct gpio_chip *chip, unsigned int offset)
- 	unsigned int regval;
- 	int ret;
- 
--	/* We only allow output pins, so just read the value set in the output
--	 * pin register field.
--	 */
-+	/* We only allow output pins, so just read the value prevously set. */
-+	if (offset >= ADC3XXX_GPIO_PINS) {
-+		/* MICBIAS pins */
-+		unsigned int micbias = offset - ADC3XXX_GPIO_PINS;
-+
-+		ret = regmap_read(adc3xxx->regmap, ADC3XXX_MICBIAS_CTRL, &regval);
-+		if (ret)
-+			return ret;
-+		return ((regval >> adc3xxx_micbias_shift[micbias]) & ADC3XXX_MICBIAS_MASK) !=
-+		       ADC3XXX_MICBIAS_OFF;
-+	}
- 	ret = regmap_read(adc3xxx->regmap, adc3xxx_gpio_ctrl_reg[offset], &regval);
- 	if (ret)
- 		return ret;
-@@ -1049,7 +1083,7 @@ static void adc3xxx_init_gpio(struct adc3xxx *adc3xxx)
- 	 * This allows us to set up things which are not software
- 	 * controllable GPIOs, such as PDM microphone I/O,
- 	 */
--	for (gpio = 0; gpio < ADC3XXX_GPIOS_MAX; gpio++) {
-+	for (gpio = 0; gpio < ADC3XXX_GPIO_PINS; gpio++) {
- 		unsigned int cfg = adc3xxx->gpio_cfg[gpio];
- 
- 		if (cfg) {
-@@ -1061,9 +1095,15 @@ static void adc3xxx_init_gpio(struct adc3xxx *adc3xxx)
- 		}
- 	}
- 
--	/* Set up micbias voltage */
-+	/* Set up micbias voltage. */
-+	/* If pin is configured as GPO, set off initially. */
- 	for (micbias = 0; micbias < ADC3XXX_MICBIAS_PINS; micbias++) {
--		unsigned int vg = adc3xxx->micbias_vg[micbias];
-+		unsigned int vg;
-+
-+		if (adc3xxx->micbias_gpo[micbias])
-+			vg = ADC3XXX_MICBIAS_OFF;
-+		else
-+			vg = adc3xxx->micbias_vg[micbias];
- 
- 		regmap_update_bits(adc3xxx->regmap,
- 				   ADC3XXX_MICBIAS_CTRL,
-@@ -1091,8 +1131,19 @@ static int adc3xxx_parse_dt_gpio(struct adc3xxx *adc3xxx,
- 	return 0;
- }
- 
--static int adc3xxx_parse_dt_micbias(struct adc3xxx *adc3xxx,
--				    const char *propname, unsigned int *vg)
-+static int adc3xxx_parse_dt_micbias_gpo(struct adc3xxx *adc3xxx,
-+					const char *propname,
-+					unsigned int *cfg)
-+{
-+	struct device *dev = adc3xxx->dev;
-+	struct device_node *np = dev->of_node;
-+
-+	*cfg = of_property_read_bool(np, propname);
-+	return 0;
-+}
-+
-+static int adc3xxx_parse_dt_micbias_vg(struct adc3xxx *adc3xxx,
-+				       const char *propname, unsigned int *vg)
- {
- 	struct device *dev = adc3xxx->dev;
- 	struct device_node *np = dev->of_node;
-@@ -1383,16 +1434,28 @@ static int adc3xxx_i2c_probe(struct i2c_client *i2c)
- 		dev_dbg(dev, "Enabled MCLK, freq %lu Hz\n", clk_get_rate(adc3xxx->mclk));
- 	}
- 
-+	/* Configure mode for DMDIN/GPIO1 pin */
- 	ret = adc3xxx_parse_dt_gpio(adc3xxx, "ti,dmdin-gpio1", &adc3xxx->gpio_cfg[0]);
- 	if (ret < 0)
- 		goto err_unprepare_mclk;
-+	/* Configure mode for DMCLK/GPIO2 pin */
- 	ret = adc3xxx_parse_dt_gpio(adc3xxx, "ti,dmclk-gpio2", &adc3xxx->gpio_cfg[1]);
- 	if (ret < 0)
- 		goto err_unprepare_mclk;
--	ret = adc3xxx_parse_dt_micbias(adc3xxx, "ti,micbias1-vg", &adc3xxx->micbias_vg[0]);
-+	/* Configure mode for MICBIAS1: as Mic Bias output or GPO */
-+	ret = adc3xxx_parse_dt_micbias_gpo(adc3xxx, "ti,micbias1-gpo", &adc3xxx->micbias_gpo[0]);
-+	if (ret < 0)
-+		goto err_unprepare_mclk;
-+	/* Configure mode for MICBIAS2: as Mic Bias output or GPO */
-+	ret = adc3xxx_parse_dt_micbias_gpo(adc3xxx, "ti,micbias2-gpo", &adc3xxx->micbias_gpo[1]);
-+	if (ret < 0)
-+		goto err_unprepare_mclk;
-+	/* Configure voltage for MICBIAS1 pin (ON voltage when used as GPO) */
-+	ret = adc3xxx_parse_dt_micbias_vg(adc3xxx, "ti,micbias1-vg", &adc3xxx->micbias_vg[0]);
- 	if (ret < 0)
- 		goto err_unprepare_mclk;
--	ret = adc3xxx_parse_dt_micbias(adc3xxx, "ti,micbias2-vg", &adc3xxx->micbias_vg[1]);
-+	/* Configure voltage for MICBIAS2 pin (ON voltage when used as GPO) */
-+	ret = adc3xxx_parse_dt_micbias_vg(adc3xxx, "ti,micbias2-vg", &adc3xxx->micbias_vg[1]);
- 	if (ret < 0)
- 		goto err_unprepare_mclk;
- 
+dev_dbg, please.
+
+> +}
+> +
+>  static int va_macro_probe(struct platform_device *pdev)
+>  {
+>  	struct device *dev = &pdev->dev;
+> @@ -1554,6 +1581,8 @@ static int va_macro_probe(struct platform_device *pdev)
+>  			goto err_npl;
+>  	}
+>  
+> +	va_macro_set_lpass_codec_version(va);
+> +
+>  	if (va->has_swr_master) {
+>  		/* Set default CLK div to 1 */
+>  		regmap_update_bits(va->regmap, CDC_VA_TOP_CSR_SWR_MIC_CTL0,
+> -- 
+> 2.21.0
+> 
 
 -- 
-2.30.2
-
+With best wishes
+Dmitry

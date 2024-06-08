@@ -2,111 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7BF090110D
-	for <lists+alsa-devel@lfdr.de>; Sat,  8 Jun 2024 11:14:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A917F901161
+	for <lists+alsa-devel@lfdr.de>; Sat,  8 Jun 2024 14:00:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 55B8C839;
-	Sat,  8 Jun 2024 11:14:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 55B8C839
+	by alsa0.perex.cz (Postfix) with ESMTPS id D2998822;
+	Sat,  8 Jun 2024 14:00:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D2998822
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1717838070;
-	bh=eVab9dY4pSAIshPG2LfxmqFFlszomKgU2u38kNf82Fc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1717848032;
+	bh=DzZItR/XD7N9LswW4+TMkpca7KLSfzsgxdoa43ZNfDo=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Vfwhr0ZFwhB6qxjK7qgUCjWwonHgBMkwKPxH8HNxQm1lsY8ajczU2wPIjPLLMJVIr
-	 lohDo01yvyFFbhjslwb1fHhrqOGOryhDYnIEDxu+abe/b1xg3+yNTBTe0aNREmUDDi
-	 v65+KzD0zOso1ClF7seRJu2WZ3LOsj+VIGifDnkQ=
+	b=b3oRbJfZxPa5WNNMTyJQS9pGkK0mn5nF7TiWcM03q+jnGH3hvEggnMQtYCtRsuXef
+	 FWKH825R68AvYRxGTItoow9uRLnKjIMnvQ8EN5J0ZHwpMOdqZfghDZWlcE3gQhVXzg
+	 iFNW1rpJ/gsLGITqSa5QUmJEYyOJ8ub5HXaCP6Qs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8192DF80567; Sat,  8 Jun 2024 11:14:08 +0200 (CEST)
+	id 33675F805A9; Sat,  8 Jun 2024 14:00:03 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C5C1FF80558;
-	Sat,  8 Jun 2024 11:14:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B48FCF80578;
+	Sat,  8 Jun 2024 14:00:02 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 29B0AF804D6; Sat,  8 Jun 2024 11:12:18 +0200 (CEST)
+	id 96414F804D6; Sat,  8 Jun 2024 13:59:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.7 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_SBL_CSS,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [IPv6:2a00:1450:4864:20::52f])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9C5DCF8010C
-	for <alsa-devel@alsa-project.org>; Sat,  8 Jun 2024 11:12:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9C5DCF8010C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6285DF80107
+	for <alsa-devel@alsa-project.org>; Sat,  8 Jun 2024 13:58:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6285DF80107
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=z8lbgXhj
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-57a4d7ba501so3571171a12.2
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=U6GINMJk
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id 12646CE1EA1
+	for <alsa-devel@alsa-project.org>; Sat,  8 Jun 2024 11:58:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08EC5C4AF08
+	for <alsa-devel@alsa-project.org>; Sat,  8 Jun 2024 11:58:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1717847928;
+	bh=DzZItR/XD7N9LswW4+TMkpca7KLSfzsgxdoa43ZNfDo=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=U6GINMJkSlCE41KfeaZzFXTUrtZxDWSXH4JVhX9PcTRg4CT1avrA0pw1g0YxTg+fF
+	 5Lw2IPNc2TvxHCn+i8eJQ1TOt3YG0aFTLFFOIKVFqp0VA2d9XBPYKboK/U2ris6OLJ
+	 VxRnzshbIdkdGrSHwAkXMBmENZDuiPnK8np3YjX532syJvdkUznNMAUhCMVbmX6AES
+	 35YDLDksqui+QvpJqmnVTv6Hj9gwpxaIjXWc55Y6Zi3tbDvy4GUpAYQTnVx5rgTwLU
+	 2rNhqpUkDBpUX82vypdGoTqT7YYRweE5D5YagB39ysDYJRdVKazSaXEmNfFq12Fbsu
+	 femu34yk9gODA==
+Received: by mail-oo1-f47.google.com with SMTP id
+ 006d021491bc7-5ba84b73b6aso280757eaf.2
         for <alsa-devel@alsa-project.org>;
- Sat, 08 Jun 2024 02:12:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1717837923; x=1718442723;
- darn=alsa-project.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=B0UpUKnkWpc6C7/avXDFr5uyhktb5SegGLRIL+r2gqA=;
-        b=z8lbgXhjQwjZDGLPg0BzieA47UKr6gHEhhdcL3CECbejWAqZ5Bwiz/c9CKJljQDvPv
-         lXH2Noz5QhzxxAWiXeO9dBu4WtsZneT1sFTMfYTLeSYrY6HpiyfqVgxKU+MGsFp2pl8t
-         ZfSX4modM+25OP/NKfDTUk1OsJp35pL1gVK8JnC/HKvkEKfHjxVeuiX0RrBoK7MZ1le5
-         2d0/41ZIo5MsOrZWC4xk3E7ZhuTJkuu8PMIwDSOS+AK294nH9YJZ/imB3Wbr9kX9i+Nf
-         rc2axXM2cwFAiFK3c9WUCasFPb188mcEFD3d/jPppb8bVpuQNOJX+ofOqvjutMAVWymu
-         vU5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717837923; x=1718442723;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=B0UpUKnkWpc6C7/avXDFr5uyhktb5SegGLRIL+r2gqA=;
-        b=IA3h9E6VsJfsIuU3Ar8YCtqdvYSMo8yRXnRVGR+iMDPlxA7CWdHjNv5DBhgemb3MG6
-         VOXdgOYnO9XnZS3mOmuMLTSCiJzDdlQP+FtU7TOrjQZ3aGM00o5LD7LTiGyDwYY8pLIF
-         focyS6ASDYyvcOSV/pcybhbrnVAnjNDco5SnNFe23kJmL9G28Jh1eVisGGwnvBG6M7lG
-         /CxtpI29OyvLsIfDJxSu06M2itz8mU+9y3sAiaceSBjLLp2jRovYbx7QNXnqlgxsLnKv
-         FzFSf1h+zHVeqONXuEOzDdorIyWmVVuKTp+OynNQtnZn9QKyb37ulqyxy3/4U6vL0Azj
-         u+FQ==
+ Sat, 08 Jun 2024 04:58:48 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AJvYcCXVsXcEQxEnl2EMt2wvvdBYWOVmgSqjvbabm7h1BuBgZFxifEGkI/YCwHS0exPyV9JQIyUKcZ6lh7IPqZTyB4DAHzqd5CXIvax7Cuc=
-X-Gm-Message-State: AOJu0YzU02OQZaAP2ZrV+9bzik0/qGDhungSLLmDzSYUxHtaimp7fDTw
-	Oo3DbPJKYAb3Ai9nAwB4M47B/loZX1hKmNJwnypbwikl3QYFHddyJGf/Nvo+K6o=
+ AJvYcCWg1jpbn/ZTuRuWoMYgq6G8dTHBX3UXrMX5eQZ4jAlIlNVLMHK9QkyVS4NV/zWZBypZ2LcwZM3Qkupbd3a5ONstUfuthbbfxD1QZWQ=
+X-Gm-Message-State: AOJu0YwxYKac8uhKDsx3xgJYDJOCtkTqHHy9wqIU3cJzV1Zb43/ApEsh
+	MDFI/LeenBrpUbP9Gfs08W7DlfFukFXE+JYAZ4yfHV/1loK6n9p+XcUXwfSC8rVh80kfQIcMOkJ
+	RPtgN6ZLJHW6Uut4/qD8X7oCKBJM=
 X-Google-Smtp-Source: 
- AGHT+IGgJ9P7gtdKHjyuziQT+ntOGPCdrCq5wKDE9BsBfE7IbIX651xKkM9jSh5hxO3HmLkhGM90xw==
-X-Received: by 2002:a50:8714:0:b0:57c:6c98:b622 with SMTP id
- 4fb4d7f45d1cf-57c6c98b85amr620690a12.38.1717837922899;
-        Sat, 08 Jun 2024 02:12:02 -0700 (PDT)
-Received: from [192.168.1.195] ([5.133.47.210])
-        by smtp.googlemail.com with ESMTPSA id
- 4fb4d7f45d1cf-57aae20238asm3998372a12.73.2024.06.08.02.12.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 08 Jun 2024 02:12:02 -0700 (PDT)
-Message-ID: <3ea05a12-27a8-46df-9fb3-28501404a399@linaro.org>
-Date: Sat, 8 Jun 2024 10:12:01 +0100
+ AGHT+IHOgfE8EAt38vVrthEz/6qkdGWnaA9HHRM1PPC9eDL1nE44LwGfWGO+Utqm9g98PDm86I2O3dR5lHLvECcfzt4=
+X-Received: by 2002:a05:6820:d13:b0:5ba:ca86:a025 with SMTP id
+ 006d021491bc7-5baca86a2a3mr2925804eaf.0.1717847927247; Sat, 08 Jun 2024
+ 04:58:47 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/4] ASoC: qcom: display port changes
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: broonie@kernel.org, perex@perex.cz, lgirdwood@gmail.com,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, krzk+dt@kernel.org
-References: <20240606104922.114229-1-srinivas.kandagatla@linaro.org>
- <i6jwqycgywrq42u4km6pjppgvvhsbvuh7m6mzyqy2qcge32ihy@n3lrowkyouv2>
-Content-Language: en-US
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <i6jwqycgywrq42u4km6pjppgvvhsbvuh7m6mzyqy2qcge32ihy@n3lrowkyouv2>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: FTYQW2PFR4RV2XTMTJAGYLRQIODVCS63
-X-Message-ID-Hash: FTYQW2PFR4RV2XTMTJAGYLRQIODVCS63
-X-MailFrom: srinivas.kandagatla@linaro.org
+References: <20240528192936.16180-1-pierre-louis.bossart@linux.intel.com>
+ <20240528192936.16180-2-pierre-louis.bossart@linux.intel.com>
+ <CAJZ5v0g8aW5FBbceYJDvDrMHRxT6i71O_LTWKALb=qr+m1BJ7w@mail.gmail.com>
+ <998d53cf-c22b-4706-93af-ab38802dc531@linux.intel.com>
+In-Reply-To: <998d53cf-c22b-4706-93af-ab38802dc531@linux.intel.com>
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+Date: Sat, 8 Jun 2024 13:58:34 +0200
+X-Gmail-Original-Message-ID: 
+ <CAJZ5v0jVpLNLiQ3uHEA9+MWWHv91Yov5hC8uhTg5+z3mK08Yuw@mail.gmail.com>
+Message-ID: 
+ <CAJZ5v0jVpLNLiQ3uHEA9+MWWHv91Yov5hC8uhTg5+z3mK08Yuw@mail.gmail.com>
+Subject: Re: [PATCH 1/3] ACPI: utils: introduce acpi_get_local_u64_address()
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, linux-sound@vger.kernel.org,
+	alsa-devel@alsa-project.org, tiwai@suse.de, broonie@kernel.org,
+	vkoul@kernel.org, andriy.shevchenko@linux.intel.com,
+	=?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>, Len Brown <lenb@kernel.org>,
+	"open list:ACPI" <linux-acpi@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: PU3U3WLM3DQLSVYXCXJL52CTFIWERCWI
+X-Message-ID-Hash: PU3U3WLM3DQLSVYXCXJL52CTFIWERCWI
+X-MailFrom: rafael@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -118,7 +111,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FTYQW2PFR4RV2XTMTJAGYLRQIODVCS63/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PU3U3WLM3DQLSVYXCXJL52CTFIWERCWI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -127,107 +120,61 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Thanks Dmitry for testing this out.
+On Fri, Jun 7, 2024 at 10:33=E2=80=AFPM Pierre-Louis Bossart
+<pierre-louis.bossart@linux.intel.com> wrote:
+>
+>
+>
+> On 6/7/24 20:51, Rafael J. Wysocki wrote:
+> > On Tue, May 28, 2024 at 9:29=E2=80=AFPM Pierre-Louis Bossart
+> > <pierre-louis.bossart@linux.intel.com> wrote:
+> >>
+> >> The ACPI _ADR is a 64-bit value. We changed the definitions in commit
+> >> ca6f998cf9a2 ("ACPI: bus: change _ADR representation to 64 bits") but
+> >> some helpers still assume the value is a 32-bit value.
+> >>
+> >> This patch adds a new helper to extract the full 64-bits. The existing
+> >> 32-bit helper is kept for backwards-compatibility and cases where the
+> >> _ADR is known to fit in a 32-bit value.
+> >>
+> >> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.=
+com>
+> >> Reviewed-by: P=C3=A9ter Ujfalusi <peter.ujfalusi@linux.intel.com>
+> >> Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+> >
+> > Do you want me to apply this or do you want me to route it along with
+> > the rest of the series?
+> >
+> > In the latter case feel free to add
+> >
+> > Acked-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+>
+> Thanks Rafael. I think it's easier if Mark Brown takes the series in
+> ASoC, I have additional ASoC patches that use the u64 helper.
+>
+> Mark?
+>
+>
+> >>
+> >> +int acpi_get_local_u64_address(acpi_handle handle, u64 *addr)
+> >> +{
+> >> +       acpi_status status;
+> >> +
+> >> +       status =3D acpi_evaluate_integer(handle, METHOD_NAME__ADR, NUL=
+L, addr);
+> >> +       if (ACPI_FAILURE(status))
+> >> +               return -ENODATA;
+> >> +       return 0;
+> >> +}
+> >> +EXPORT_SYMBOL(acpi_get_local_u64_address);
+> >
+> > I'd prefer EXPORT_SYMBOL_GPL() here unless you absolutely cannot live w=
+ith it.
+>
+> I don't mind, but the existing helper was using EXPORT_SYMBOL so I just
+> copied. It'd be odd to have two helpers that only differ by the argument
+> size use a different EXPORT_ macro, no? Not to mention that the
+> get_local address uses EXPORT_SYMBOL but would become a wrapper for an
+> EXPORT_SYMBOL_GPL. That gives me a headache...
 
-On 08/06/2024 03:23, Dmitry Baryshkov wrote:
-> On Thu, Jun 06, 2024 at 11:49:18AM +0100, srinivas.kandagatla@linaro.org wrote:
->> From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
->>
->> This patchset adds support for.
->> 	1. parse Display Port module tokens from ASoC topology
->> 	2. add support to DP/HDMI Jack events.
->> 	3. fixes a typo in function name in sm8250
->>
->> Verified these patches on X13s along with changes to tplg in
->> https://git.codelinaro.org/linaro/qcomlt/audioreach-topology/-/tree/topic/x13s-dp?ref_type=heads
->> and ucm changes from https://github.com/Srinivas-Kandagatla/alsa-ucm-conf/tree/topic/x13s-dp
->>
->> x1e80100 is verified by Krzysztof with his changes in tplg
->>
->> https://git.codelinaro.org/linaro/qcomlt/audioreach-topology/-/merge_requests/7/commits
->>
->> Thanks,
->> Srini
->>
-> 
-> I have been testing this patchset on X13s, switching between speakers,
-> connected and disconnected DP output.
-> 
-
-This series changed the Jack event names by removing HDMI string from it 
-as suggested, did you update the UCM to reflect this?
-I have pushed changes required to 
-https://github.com/Srinivas-Kandagatla/alsa-ucm-conf/tree/topic/x13s-dp
-
-
-Can you also try to  clean the asound.state restart the pipewire.
-
-> - Once the DSP got into the state, where I could not further get it to
->    work until the reboot:
-> 
-> rohan pipewire[1749]: spa.alsa: set_hw_params: Invalid argument
-> rohan pipewire[1749]: pw.node: (alsa_output.platform-sound.HiFi__hw_SC8280XPLENOVOX_1__sink-48) suspended -> error (Start error: Invalid argument)
-> rohan kernel: qcom-apm gprsvc:service:2:1: Error (1) Processing 0x01001006 cmd
-> rohan kernel: qcom-apm gprsvc:service:2:1: DSP returned error[1001006] 1
-> rohan kernel: qcom-apm gprsvc:service:2:1: Error (1) Processing 0x01001006 cmd
-> rohan kernel: qcom-apm gprsvc:service:2:1: DSP returned error[1001006] 1
-> rohan kernel: qcom-apm gprsvc:service:2:1: Error (1) Processing 0x01001001 cmd
-> rohan kernel: qcom-apm gprsvc:service:2:1: DSP returned error[1001001] 1
-> rohan kernel: q6apm-lpass-dais 3000000.remoteproc:glink-edge:gpr:service@1:bedais: Failed to prepare Graph -22
-> rohan kernel: q6apm-lpass-dais 3000000.remoteproc:glink-edge:gpr:service@1:bedais: ASoC: error at snd_soc_pcm_dai_prepare on WSA_CODEC_DMA_RX_0: -22
-> rohan pipewire[1749]: spa.alsa: set_hw_params: Invalid argument
-> rohan kernel: qcom-apm gprsvc:service:2:1: Error (1) Processing 0x01001006 cmd
-> rohan kernel: qcom-apm gprsvc:service:2:1: DSP returned error[1001006] 1
-> rohan kernel: qcom-apm gprsvc:service:2:1: Error (1) Processing 0x01001006 cmd
-> rohan kernel: qcom-apm gprsvc:service:2:1: DSP returned error[1001006] 1
-> rohan kernel: qcom-apm gprsvc:service:2:1: Error (1) Processing 0x01001001 cmd
-> rohan kernel: qcom-apm gprsvc:service:2:1: DSP returned error[1001001] 1
-> rohan kernel: q6apm-lpass-dais 3000000.remoteproc:glink-edge:gpr:service@1:bedais: Failed to prepare Graph -22
-> rohan kernel: q6apm-lpass-dais 3000000.remoteproc:glink-edge:gpr:service@1:bedais: ASoC: error at snd_soc_pcm_dai_prepare on WSA_CODEC_DMA_RX_0: -22
-> rohan kernel: qcom-apm gprsvc:service:2:1: Error (1) Processing 0x01001006 cmd
-> rohan kernel: qcom-apm gprsvc:service:2:1: DSP returned error[1001006] 1
-> rohan kernel: qcom-apm gprsvc:service:2:1: Error (1) Processing 0x01001006 cmd
-> rohan kernel: qcom-apm gprsvc:service:2:1: DSP returned error[1001006] 1
-> rohan kernel: qcom-apm gprsvc:service:2:1: Error (1) Processing 0x01001001 cmd
-> rohan kernel: qcom-apm gprsvc:service:2:1: DSP returned error[1001001] 1
-> 
-> 
-> - Once in a while during startup PipeWire will try opening the
->    incorrect DAI and then fail with:
-> 
-> rohan kernel: hdmi-audio-codec hdmi-audio-codec.8.auto: ASoC: error at snd_soc_dai_hw_params on i2s-hifi: -22
-> rohan kernel: hdmi-audio-codec hdmi-audio-codec.8.auto: ASoC: error at snd_soc_dai_hw_params on i2s-hifi: -22
-> 
->    I think this happens if previously I have selected DP as an output,
->    then closed gnome session, unplugged the cable and tried logging in
->    again.
-> 
-> Generally, it looks like even though the Jack is reporting
-> 'unplugged', sound daemon still can switch to to the disabled output
-I think this is to do with ucm changes requried for new jack name.
-
-> (or the audio card can be left in the stale state).  In case of DP
-> this frequently results in audio daemon or DSP failures.
-> 
-> So, the DP implementation needs to be made more robust, so that if
-> DP output gets selected when the cable is unplugged, the driver will not
-> attempt to configure the DSP.
-
-I have tested this with
-
-kernel: 
-https://git.codelinaro.org/srinivas.kandagatla/linux/-/tree/dp/sc8280xp-6.10-rc1?ref_type=heads
-ucm: https://github.com/Srinivas-Kandagatla/alsa-ucm-conf/tree/topic/x13s-dp
-tplg: 
-https://git.codelinaro.org/linaro/qcomlt/audioreach-topology/-/tree/topic/x13s-dp?ref_type=heads
-
-
-with the above on my x13s, I can properly do switching between dp0,dp1 
-and speakers with no issues.
-
-Can you try them?
-
-thanks,
-Srini
-
-> 
+OK, fair enough.

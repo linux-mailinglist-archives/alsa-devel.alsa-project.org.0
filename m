@@ -2,90 +2,109 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64DBF900DD3
-	for <lists+alsa-devel@lfdr.de>; Sat,  8 Jun 2024 00:00:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C03BD900F42
+	for <lists+alsa-devel@lfdr.de>; Sat,  8 Jun 2024 04:24:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A4889847;
-	Sat,  8 Jun 2024 00:00:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A4889847
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6E200851;
+	Sat,  8 Jun 2024 04:24:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E200851
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1717797650;
-	bh=y150U5xq5qY1Ynt2HAmIdz9hMVvuRo0oKK6kNH1FLjg=;
+	s=default; t=1717813468;
+	bh=8jjq1gHnAInkHjlnzVHU3k3WOM8rwgC8BW9P44ujf30=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=geI6aGaWh1Rfp83m21ca5d6ErbCMoJ9c5+6ahgFjhPp7thGn8PJZv16jtFWEwrEQR
-	 7vQh5HDSComDW5ZY8kFsne9carOvRo/icEXTgLXbiNMEHsYEmTuiNtvFcVbRIqDlkh
-	 lw8rLaycQXMJjGr9kos5XuHoxR2Uie8clK4/YNHk=
+	b=KmdqeTy4rtaqMx6e5foXODfUN8AGClUNLhU3WMGWAODG49WRAadiUSu2dcj0RlzxQ
+	 3RBCmVn92BxjEKB0nasgAL+jPTCp/tUcm+M+tuTyBB1Q8C3GW8D3Wjzvp4o9M2/GEp
+	 /ers6+zol5+nEQc9P9QjSFq3AlJtt/Xen1AnyRAg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7E505F805AA; Sat,  8 Jun 2024 00:00:21 +0200 (CEST)
+	id AFDD4F805A1; Sat,  8 Jun 2024 04:23:56 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C8CB9F8058C;
-	Sat,  8 Jun 2024 00:00:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6C0E3F80589;
+	Sat,  8 Jun 2024 04:23:56 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 56D6EF804D6; Sat,  8 Jun 2024 00:00:11 +0200 (CEST)
+	id EBFDAF804D6; Sat,  8 Jun 2024 04:23:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [IPv6:2a00:1450:4864:20::129])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id AA962F800AC
-	for <alsa-devel@alsa-project.org>; Sat,  8 Jun 2024 00:00:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AA962F800AC
+	by alsa1.perex.cz (Postfix) with ESMTPS id B52C3F800AC
+	for <alsa-devel@alsa-project.org>; Sat,  8 Jun 2024 04:23:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B52C3F800AC
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=JJT8mVM7
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 524826207D;
-	Fri,  7 Jun 2024 21:59:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D350C32782;
-	Fri,  7 Jun 2024 21:59:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1717797598;
-	bh=y150U5xq5qY1Ynt2HAmIdz9hMVvuRo0oKK6kNH1FLjg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=JJT8mVM71YBv1FMI9RzlTppOqjMlJND79eJH8cwlad6KFykXM53wN05xBPj1mli8F
-	 u3d3Ps2qyZDKDaj7uVHV84F+6OFx7d0L3Ozz0ZE4xwaIH/KYVefkKGJl41RvaSffD2
-	 XkiYcix09suVmd6Jx//BjrT26l6eFVp9ybyxzWmC3Tw1XS5zOioGI6sy1daRgZkUyx
-	 whhj2bWZLMQaXpvRcNqpRPV8JA/gRm+ECx1P98aMLxNUH8A7kblS1Q2MGLJrZEx/pe
-	 Ytz3c5oiKl74UpDhW1T4h6CgECPecukhdJjvqioxVnBU1QZNlnmM8/DnPI03/UBi+3
-	 P/zsBdr3ODQYg==
-Date: Fri, 7 Jun 2024 22:59:54 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, linux-sound@vger.kernel.org,
-	alsa-devel@alsa-project.org, tiwai@suse.de, vkoul@kernel.org,
-	andriy.shevchenko@linux.intel.com,
-	=?iso-8859-1?Q?P=E9ter?= Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Len Brown <lenb@kernel.org>,
-	"open list:ACPI" <linux-acpi@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 1/3] ACPI: utils: introduce acpi_get_local_u64_address()
-Message-ID: <ZmOC2rDhOmxBQ9VI@finisterre.sirena.org.uk>
-References: <20240528192936.16180-1-pierre-louis.bossart@linux.intel.com>
- <20240528192936.16180-2-pierre-louis.bossart@linux.intel.com>
- <CAJZ5v0g8aW5FBbceYJDvDrMHRxT6i71O_LTWKALb=qr+m1BJ7w@mail.gmail.com>
- <998d53cf-c22b-4706-93af-ab38802dc531@linux.intel.com>
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=ifRuU92V
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-52b8b7b8698so3344733e87.1
+        for <alsa-devel@alsa-project.org>;
+ Fri, 07 Jun 2024 19:23:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1717813422; x=1718418222;
+ darn=alsa-project.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=r9V+yvJSOPxV6HkhRzMGuSvkZwjbSgJnARuZIs0WNJg=;
+        b=ifRuU92V7Dph/cYcrjhPi88WO24gSftui6dkntIosrZN2Nib98PW/rqeP66y7mkT9P
+         iOOd5oZfL4GXYmxAn7X5ozffAMYyp0Dkb/Nwtu5FFepqygUS5wfgETegGGEAfsPF22ru
+         FYrXmUCDd2MOyVCoiVmA6VY4RKeC0K1LJGxU/mWWrN4BlvaChN9tLNJxzhP0T01umUq1
+         M2MPbBMNTPkXU3co7myDXiRMbOO9Hm2Jg9hZI8lUalhjBzr/ncAKc2BlUja3Dd+HjfWY
+         cNi88Wb5hXlTQ2w/XxhsZRsjyUiTdLFKGxjGlrdgko/Br0GHoZAJH6JRzvfa4JQlxdzr
+         geAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1717813422; x=1718418222;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=r9V+yvJSOPxV6HkhRzMGuSvkZwjbSgJnARuZIs0WNJg=;
+        b=Al7gFA1OL4OsZ359M8bZTZYguHAOs4VRtgxGeYzD/4Hhb4xpSjx5vkII/MYNNm2pUs
+         Ahomo6lxKVXPIYbl6WTKCVZJrrfnnmTKADeqsJ7GKLShzWqoNN5OiEipQ/GUyc8d769q
+         +5zvMNJjrUP+q6LSm+7vVIY2o0tAdVcL/fKJmQ/YRmtasD5WpikMvC7WYCXlnvWXhmK8
+         emwjO2ByB+7VVDOtjmCC10Snd8oqRD/56iV8keCAdWOox8A9WFRCU7zx0Euza2iG+Ucp
+         +aQv+yqf5xjBT3PkZ3VJwpcRIK2RfMvZu8kLAa1fbknqTvbsCWq5PQXhOnhKZK5cN12f
+         ChtA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCURwRRtqAouXrJLucbhfH9+ut+CazVM6aURLe409fcn3ffEKCKWJdbGLIC9wYD4ZFUVg2gN4AUTSKKfUBS7K5XAo0z8yhmKJ78PZtk=
+X-Gm-Message-State: AOJu0YzuNu2QlFw/x1yCRGx3nzTjjxIP0VIe7xduqPuweCX6g8qPjxpe
+	aAatwPRlGgINIHJcvuHPmC9RtjXE2CM3qth8MaLquy+REC0bV6Q4x+BjAW+gwaQ=
+X-Google-Smtp-Source: 
+ AGHT+IErTuWuRC95/TFbpSXncWl4vvSDO39M3dhsa+Ymd9gZ9Y5tyCiwQrYM+fotBE75ODyhxZSJPg==
+X-Received: by 2002:a05:6512:2526:b0:52c:812b:6e72 with SMTP id
+ 2adb3069b0e04-52c812b70acmr60133e87.1.1717813421804;
+        Fri, 07 Jun 2024 19:23:41 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (dzdbxzyyyyyyyyyyyykxt-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::227])
+        by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-52bb423cf1dsm708744e87.203.2024.06.07.19.23.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 07 Jun 2024 19:23:41 -0700 (PDT)
+Date: Sat, 8 Jun 2024 05:23:39 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: srinivas.kandagatla@linaro.org
+Cc: broonie@kernel.org, perex@perex.cz, lgirdwood@gmail.com,
+	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org,
+	krzk+dt@kernel.org
+Subject: Re: [PATCH v3 0/4] ASoC: qcom: display port changes
+Message-ID: <i6jwqycgywrq42u4km6pjppgvvhsbvuh7m6mzyqy2qcge32ihy@n3lrowkyouv2>
+References: <20240606104922.114229-1-srinivas.kandagatla@linaro.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="LB93vw5p49CVxXfi"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <998d53cf-c22b-4706-93af-ab38802dc531@linux.intel.com>
-X-Cookie: Your love life will be... interesting.
-Message-ID-Hash: XRSFCE66M3JY7JNWYY4Y6SIGSIDJRUP6
-X-Message-ID-Hash: XRSFCE66M3JY7JNWYY4Y6SIGSIDJRUP6
-X-MailFrom: broonie@kernel.org
+In-Reply-To: <20240606104922.114229-1-srinivas.kandagatla@linaro.org>
+Message-ID-Hash: KSMVYPWR7TKVC6ICRUX3COH6U6NM3ZN4
+X-Message-ID-Hash: KSMVYPWR7TKVC6ICRUX3COH6U6NM3ZN4
+X-MailFrom: dmitry.baryshkov@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -97,7 +116,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XRSFCE66M3JY7JNWYY4Y6SIGSIDJRUP6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KSMVYPWR7TKVC6ICRUX3COH6U6NM3ZN4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -106,41 +125,78 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Thu, Jun 06, 2024 at 11:49:18AM +0100, srinivas.kandagatla@linaro.org wrote:
+> From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> 
+> This patchset adds support for.
+> 	1. parse Display Port module tokens from ASoC topology
+> 	2. add support to DP/HDMI Jack events.
+> 	3. fixes a typo in function name in sm8250
+> 
+> Verified these patches on X13s along with changes to tplg in 
+> https://git.codelinaro.org/linaro/qcomlt/audioreach-topology/-/tree/topic/x13s-dp?ref_type=heads
+> and ucm changes from https://github.com/Srinivas-Kandagatla/alsa-ucm-conf/tree/topic/x13s-dp
+> 
+> x1e80100 is verified by Krzysztof with his changes in tplg 
+> 
+> https://git.codelinaro.org/linaro/qcomlt/audioreach-topology/-/merge_requests/7/commits
+> 
+> Thanks,
+> Srini
+> 
 
---LB93vw5p49CVxXfi
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+I have been testing this patchset on X13s, switching between speakers,
+connected and disconnected DP output.
 
-On Fri, Jun 07, 2024 at 10:33:00PM +0200, Pierre-Louis Bossart wrote:
-> On 6/7/24 20:51, Rafael J. Wysocki wrote:
+- Once the DSP got into the state, where I could not further get it to
+  work until the reboot:
 
-> > Do you want me to apply this or do you want me to route it along with
-> > the rest of the series?
+rohan pipewire[1749]: spa.alsa: set_hw_params: Invalid argument
+rohan pipewire[1749]: pw.node: (alsa_output.platform-sound.HiFi__hw_SC8280XPLENOVOX_1__sink-48) suspended -> error (Start error: Invalid argument)
+rohan kernel: qcom-apm gprsvc:service:2:1: Error (1) Processing 0x01001006 cmd
+rohan kernel: qcom-apm gprsvc:service:2:1: DSP returned error[1001006] 1
+rohan kernel: qcom-apm gprsvc:service:2:1: Error (1) Processing 0x01001006 cmd
+rohan kernel: qcom-apm gprsvc:service:2:1: DSP returned error[1001006] 1
+rohan kernel: qcom-apm gprsvc:service:2:1: Error (1) Processing 0x01001001 cmd
+rohan kernel: qcom-apm gprsvc:service:2:1: DSP returned error[1001001] 1
+rohan kernel: q6apm-lpass-dais 3000000.remoteproc:glink-edge:gpr:service@1:bedais: Failed to prepare Graph -22
+rohan kernel: q6apm-lpass-dais 3000000.remoteproc:glink-edge:gpr:service@1:bedais: ASoC: error at snd_soc_pcm_dai_prepare on WSA_CODEC_DMA_RX_0: -22
+rohan pipewire[1749]: spa.alsa: set_hw_params: Invalid argument
+rohan kernel: qcom-apm gprsvc:service:2:1: Error (1) Processing 0x01001006 cmd
+rohan kernel: qcom-apm gprsvc:service:2:1: DSP returned error[1001006] 1
+rohan kernel: qcom-apm gprsvc:service:2:1: Error (1) Processing 0x01001006 cmd
+rohan kernel: qcom-apm gprsvc:service:2:1: DSP returned error[1001006] 1
+rohan kernel: qcom-apm gprsvc:service:2:1: Error (1) Processing 0x01001001 cmd
+rohan kernel: qcom-apm gprsvc:service:2:1: DSP returned error[1001001] 1
+rohan kernel: q6apm-lpass-dais 3000000.remoteproc:glink-edge:gpr:service@1:bedais: Failed to prepare Graph -22
+rohan kernel: q6apm-lpass-dais 3000000.remoteproc:glink-edge:gpr:service@1:bedais: ASoC: error at snd_soc_pcm_dai_prepare on WSA_CODEC_DMA_RX_0: -22
+rohan kernel: qcom-apm gprsvc:service:2:1: Error (1) Processing 0x01001006 cmd
+rohan kernel: qcom-apm gprsvc:service:2:1: DSP returned error[1001006] 1
+rohan kernel: qcom-apm gprsvc:service:2:1: Error (1) Processing 0x01001006 cmd
+rohan kernel: qcom-apm gprsvc:service:2:1: DSP returned error[1001006] 1
+rohan kernel: qcom-apm gprsvc:service:2:1: Error (1) Processing 0x01001001 cmd
+rohan kernel: qcom-apm gprsvc:service:2:1: DSP returned error[1001001] 1
 
-> > In the latter case feel free to add
 
-> > Acked-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+- Once in a while during startup PipeWire will try opening the
+  incorrect DAI and then fail with:
 
-> Thanks Rafael. I think it's easier if Mark Brown takes the series in
-> ASoC, I have additional ASoC patches that use the u64 helper.
+rohan kernel: hdmi-audio-codec hdmi-audio-codec.8.auto: ASoC: error at snd_soc_dai_hw_params on i2s-hifi: -22
+rohan kernel: hdmi-audio-codec hdmi-audio-codec.8.auto: ASoC: error at snd_soc_dai_hw_params on i2s-hifi: -22
 
-> Mark?
+  I think this happens if previously I have selected DP as an output,
+  then closed gnome session, unplugged the cable and tried logging in
+  again.
 
-Sure, no problem taking it via ASoC.
+Generally, it looks like even though the Jack is reporting
+'unplugged', sound daemon still can switch to to the disabled output
+(or the audio card can be left in the stale state).  In case of DP
+this frequently results in audio daemon or DSP failures.
 
---LB93vw5p49CVxXfi
-Content-Type: application/pgp-signature; name="signature.asc"
+So, the DP implementation needs to be made more robust, so that if
+DP output gets selected when the cable is unplugged, the driver will not
+attempt to configure the DSP.
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmZjgtkACgkQJNaLcl1U
-h9CzQgf/bzAA0c9gFMT6UUp49/iI3Ki58T1R6v9d85wC7P6o2x7ZxcqY+VTfrGnk
-DPCDNhIxHvWMXWlRrl9J1UVSQUt5FatD8+HyD5wRMUsOIbt9Llyow4Inds6vCjhT
-eerz25yq4Dp3eNU3xGZLnatDScFONvNVQbKZ6lSkpSojlRIJMipglXmSn9yVAwk8
-/p6kY3CbVA/sa98u6DqQQxqH05GkADSTNOSPUXzsXB65yl8wy8wn3nTEAH0thiZc
-Fh8ffR/J/k7jKok+h02cIxbTOd6WZ1S7qK783GKhAYrDynLW92KlrajAsFqXxa8B
-lihr6cHLXz8kOSWrwD+x6Ff4za8GRQ==
-=UueQ
------END PGP SIGNATURE-----
-
---LB93vw5p49CVxXfi--
+-- 
+With best wishes
+Dmitry

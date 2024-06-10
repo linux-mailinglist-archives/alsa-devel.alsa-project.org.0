@@ -2,30 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6091B902528
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jun 2024 17:15:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F37479025B6
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jun 2024 17:32:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 58B64852;
-	Mon, 10 Jun 2024 17:14:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 58B64852
+	by alsa0.perex.cz (Postfix) with ESMTPS id 79135B65;
+	Mon, 10 Jun 2024 17:32:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79135B65
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718032504;
-	bh=fPnKg9UID+mW1zrXenYbwf76f9AMLdNbTU/wD+Y1ggE=;
-	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=hxdWz93ZUxtN89yTREWBGR36fZYgZsHfR+7uTHOGFsBO5NzEGea1DtGCQD58TtKfG
-	 iCuwmt+aylAM3P+aDh79ZPczfVnol7EJ1AeoUWTu5SpqKdW1M6TZRhalKyA/InS2il
-	 sZJjPQTODWYRpqPJisHlYJ6gNlREV/Jnpi8gYQoc=
+	s=default; t=1718033547;
+	bh=aYbNbBFHiYx2Zv1mXu+yI//b+XG//zhg+Qgg/MlAAgo=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=H16O8RBrQUt2hnsQYwm3raK6kPsjV+RalD5V3veixTiXmUpbjCLUDNrWO5dlxSQgY
+	 jDP3ySrRk+R4qBT0aBRe56Dek3NTJfZ7MJkmCOrHQEO1VzMVP4AkQEImULOHWHf+iD
+	 64vdnwHjSg/uCFOKthbFU/4PyZmgVTRsYstZzuc8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6971AF805A1; Mon, 10 Jun 2024 17:14:32 +0200 (CEST)
+	id B83CBF805E9; Mon, 10 Jun 2024 17:31:46 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 11C8DF805B4;
-	Mon, 10 Jun 2024 17:14:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C15A1F805D2;
+	Mon, 10 Jun 2024 17:31:45 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 77B33F805A9; Mon, 10 Jun 2024 17:14:01 +0200 (CEST)
+	id D2373F8057A; Mon, 10 Jun 2024 17:31:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -37,60 +36,57 @@ Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
  [67.231.152.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0BF00F80578
-	for <alsa-devel@alsa-project.org>; Mon, 10 Jun 2024 17:13:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0BF00F80578
+	by alsa1.perex.cz (Postfix) with ESMTPS id CF54BF80579
+	for <alsa-devel@alsa-project.org>; Mon, 10 Jun 2024 17:31:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CF54BF80579
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=oYDXvN+f
+ header.s=PODMain02222019 header.b=X9u5FuGc
 Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
 	by mx0b-001ae601.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 45AEOLGM023981;
-	Mon, 10 Jun 2024 10:13:57 -0500
+ 45AEOLHY023981;
+	Mon, 10 Jun 2024 10:31:26 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=PODMain02222019; bh=FmhsMKY9VRZDBt7z9T
-	hX2z5wmJchEAJOWcoteS0TQMo=; b=oYDXvN+fJav+XWjOxDewopJK5uVYcLEOzz
-	ImNfoVFw45H3EOgwD5kGR4ZyvpZKjQmG49NzrQ/FpXnNqCD4cx9HUO0pqQKz1SuA
-	+W4oMlc+g9FbYSUJAeTyjvDr1ObNDwmW4D0diujZb68xToMXNe9NOmHfQrtD7q+A
-	kwRp0uCMnRe9LEnJPkwd2cwDjpNVMEz/ExqfwOExlmJjuMBivA8oaZgv8AEd83bt
-	S1nwrJnsjwIRqpI6d7HGsJ8EWNYtRPLT+rgysDp3J+tnVU+NYG5Rg/ultP1EYpNd
-	dYi/90EcrY7G80iJhfuITf9/ClRkpdCEmEUAuIJl3weorNuRdRfA==
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=PODMain02222019; bh=i2HcqK+ELboYchfz
+	lK0TDw4MXiEXi/QPmMumecRlwnY=; b=X9u5FuGcaSzwE44nbxQs2aZudrlFAnoe
+	gWkgVNO6AGk/1j8ucnTgusiOjCKYeh9MpNUjaBgSkOQvFLX4w4ppk9dsJJvUB2ZE
+	iqwCJNJU+kL7aqICayRQRPxTF1u0WWxfQe/lDrMLkNR2K3Po5SbYvxDP/SImuNX/
+	oYLJm53yLxS0q8NgPcjGzoXhFctSPTFaN1WJmii9OR3JLBddEFsFr4Nlo64dVl6w
+	7HTcqTMXYJsnB6ghMXtgy1b4+mFXgT2SzVAVjdA8mgcGsKL3Sw1g4zSGtvCYnEDI
+	4bnk7oa0kjBaALSKmC3oICLNCa92y3zecQ+WoCwhahQXL4ZWXbnz0A==
 Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3ymkqhstn6-1
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3ymkqhsu8t-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 10 Jun 2024 10:13:57 -0500 (CDT)
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
+	Mon, 10 Jun 2024 10:31:26 -0500 (CDT)
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
  (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 10 Jun
- 2024 16:13:48 +0100
+ 2024 16:31:24 +0100
 Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
- anon-ediex01.ad.cirrus.com (198.61.84.80) with Microsoft SMTP Server id
- 15.2.1544.9 via Frontend Transport; Mon, 10 Jun 2024 16:13:48 +0100
-Received: from opensource.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPS id A6B54820249;
-	Mon, 10 Jun 2024 15:13:48 +0000 (UTC)
-Date: Mon, 10 Jun 2024 15:13:47 +0000
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1544.9 via Frontend Transport; Mon, 10 Jun 2024 16:31:24 +0100
+Received: from ediswws07.ad.cirrus.com (ediswws07.ad.cirrus.com
+ [198.90.208.14])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id B7844820249;
+	Mon, 10 Jun 2024 15:31:24 +0000 (UTC)
 From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-CC: Lee Jones <lee@kernel.org>, Richard Fitzgerald <rf@opensource.cirrus.com>,
-        <patches@opensource.cirrus.com>, <linux-kernel@vger.kernel.org>,
-        <alsa-devel@alsa-project.org>
-Subject: Re: [PATCH 2/2] mfd: madera: Simplify with
- spi_get_device_match_data()
-Message-ID: <ZmcYK6JNAzjFAukn@opensource.cirrus.com>
-References: <20240606142457.130553-1-krzysztof.kozlowski@linaro.org>
- <20240606142457.130553-2-krzysztof.kozlowski@linaro.org>
+To: <perex@perex.cz>
+CC: <pierre-louis.bossart@linux.intel.com>, <bard.liao@intel.com>,
+        <patches@opensource.cirrus.com>, <alsa-devel@alsa-project.org>
+Subject: [PATCH 1/2] sof-soundwire: Add missing match for cs42l43 speakers
+Date: Mon, 10 Jun 2024 16:31:23 +0100
+Message-ID: <20240610153124.1329052-1-ckeepax@opensource.cirrus.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20240606142457.130553-2-krzysztof.kozlowski@linaro.org>
-X-Proofpoint-GUID: aejApCCrLxPpTbOgXJWX5wnk5n1pe2Nx
-X-Proofpoint-ORIG-GUID: aejApCCrLxPpTbOgXJWX5wnk5n1pe2Nx
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-GUID: x-5GVfKKQpxsgSS0DNGHRjOVI3wPv7aw
+X-Proofpoint-ORIG-GUID: x-5GVfKKQpxsgSS0DNGHRjOVI3wPv7aw
 X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: BEII4WXXFYZZW3AYQAJFMMJGVR7N6OHD
-X-Message-ID-Hash: BEII4WXXFYZZW3AYQAJFMMJGVR7N6OHD
+Message-ID-Hash: N4LOTNTVDZTWCY7I6AR5MIHSQD5GJFG6
+X-Message-ID-Hash: N4LOTNTVDZTWCY7I6AR5MIHSQD5GJFG6
 X-MailFrom: prvs=3891f53e6a=ckeepax@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -103,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BEII4WXXFYZZW3AYQAJFMMJGVR7N6OHD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/N4LOTNTVDZTWCY7I6AR5MIHSQD5GJFG6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,13 +108,28 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, Jun 06, 2024 at 04:24:57PM +0200, Krzysztof Kozlowski wrote:
-> Use spi_get_device_match_data() helper to simplify a bit the driver.
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> ---
+The cs42l43 reports as cs42l43-spk in the speaker case, the regex in
+sof-soundwire needs updated to recognise that.
 
-Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Fixes: 035d9206cffd ("sof-soundwire: Add basic support for cs42l43's speaker")
+Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+---
+ ucm2/sof-soundwire/sof-soundwire.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks,
-Charles
+diff --git a/ucm2/sof-soundwire/sof-soundwire.conf b/ucm2/sof-soundwire/sof-soundwire.conf
+index 31492e3..2f61d11 100644
+--- a/ucm2/sof-soundwire/sof-soundwire.conf
++++ b/ucm2/sof-soundwire/sof-soundwire.conf
+@@ -21,7 +21,7 @@ Define {
+ 
+ DefineRegex {
+ 	SpeakerCodec {
+-		Regex " spk:([a-z0-9]+(-sdca)?)"
++		Regex " spk:([a-z0-9]+((-sdca)|(-spk))?)"
+ 		String "${CardComponents}"
+ 	}
+ 	SpeakerChannels {
+-- 
+2.39.2
+

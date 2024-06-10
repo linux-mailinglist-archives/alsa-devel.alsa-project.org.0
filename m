@@ -2,72 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B902902CDC
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jun 2024 02:00:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0C09902CED
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jun 2024 02:01:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 18C76950;
-	Tue, 11 Jun 2024 02:00:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 18C76950
+	by alsa0.perex.cz (Postfix) with ESMTPS id E299B82A;
+	Tue, 11 Jun 2024 02:01:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E299B82A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718064040;
-	bh=QVgWaaYEEcsUT6bvDe9VM8T2WMmhn1VpGiCa8jvulI4=;
+	s=default; t=1718064092;
+	bh=ltXX8jP7pn8uVpu5KSPpn79cIYm5HfBGTiCUp+UHg9k=;
 	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=rA+22zCoJRFspGf5JkKgCbcJjuhP1W9zep5TmvBUQUQbYniMjOPJdTI14QGNrVvI1
-	 REZiWae22OWF3PgpK/Rd7Oj8azkEvO1x2PlGLuqfs0Wz8EmoX3gbxm+Ggpbgd+srbU
-	 QU/1sAfM3etuCM0WagqFJxuZl8ak66dAq5ojy89k=
+	b=nV/TUzfFxlNy+8LMOrJGYnLERHW5LyZkt4rea0QVAxSeIyUEuD24c8TOD+KqD101M
+	 bAZXgbyWA+ozTiXiFrB4hq4AW5AmKwXeGGkCDhv9gozmQuBiTnidv+nIBpRqzP90Tb
+	 3OMMd8DGJ+0g5Kj3q4w54vlMiHWWO7NsGWI7NFMQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A4B91F806AD; Tue, 11 Jun 2024 01:58:57 +0200 (CEST)
+	id A2AE7F80735; Tue, 11 Jun 2024 01:59:04 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3477FF806B2;
-	Tue, 11 Jun 2024 01:58:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B3C54F8071F;
+	Tue, 11 Jun 2024 01:59:03 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 78E3BF8057A; Tue, 11 Jun 2024 01:58:45 +0200 (CEST)
+	id E7CB6F80617; Tue, 11 Jun 2024 01:58:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 10F8FF80587
+	by alsa1.perex.cz (Postfix) with ESMTPS id 64254F805A0
 	for <alsa-devel@alsa-project.org>; Tue, 11 Jun 2024 01:58:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10F8FF80587
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64254F805A0
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=CTjCOqX3
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ header.s=qcppdkim1 header.b=h/nbkS8X
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
 	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 45ADCdJ1016219;
+ 45AEUotC030832;
 	Mon, 10 Jun 2024 23:58:23 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
 	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=VKPJYciOWdn4CHsMb0ZGUDDG
-	nNrSGe/49oKInxiIGdw=; b=CTjCOqX3VWhEzg9J0JuYLS49halpP+Z2yfKwsOfL
-	vxbVMs1VOjwV5BwZG2xjfVpIj5WRP57AmfupRUYkpHxljH/6/CSqOTGJG9pPEhBU
-	WSvaKamri6l0icrfnsIdUPROEBMMUucWyzDNLV9IwWFMG7h9fZF+Wc4gxOo+zLyK
-	CBrY1Um+A0jiRcyxo18GpzJjyuqU7wqjtfy3HO0MJZC3JQPwN/Z6DUnFqsX09L/r
-	K54+CrHTdl5jvl/pGdiWC1khlZ6iTJKZyzgUsbWAugSHu7xQ/GylwQzEtyCk53NQ
-	n/ZFdEml3D1t/ZtpMJw9VgQaRJ7pbm0l+evE3cHBIr9igg==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+	:references:subject:to; s=qcppdkim1; bh=AN6ZcvMWlqNjOXpEc6FdiWAh
+	kqYqJERCJ3muWeL5xeM=; b=h/nbkS8XRomzg6IXJp1wa+T40Xj9UOd1LOc4Ah3l
+	bElmnPXiIa8apRstW99DIJqUP8hynI6wEiCFoGKcfmFJBm+OVkwWFCvjZI8aUF9g
+	MHnPXhncmVi+2f5eC1w/aquOd+6ngonm/jsR0QMWBy7NoiPi8B8aEomoZRl32Z+7
+	HdKzo+v+ZX5TzXKbTEmcEqUk7HuoDUUkionqufT+jZywCmmUwFbX4EpMtakJqbcE
+	LTIMP6ZmCR6Xq7T2uZrwg1gkZEmb5kNePp98gb5jpu5ytOhxh1QyzoOlGu1/1EVC
+	H+RUn6tiursN4U2JLhJoOfp25Q2z2JJmXtgV5pNtJ2mRww==
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3ymgfk5ekq-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3ymevxcwt2-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
 	Mon, 10 Jun 2024 23:58:23 +0000 (GMT)
 Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
  [10.47.209.197])
-	by NALASPPMTA05.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
- 45ANwLDi001482
+	by NALASPPMTA02.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
+ 45ANwM5D016542
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 10 Jun 2024 23:58:21 GMT
+	Mon, 10 Jun 2024 23:58:22 GMT
 Received: from hu-wcheng-lv.qualcomm.com (10.49.16.6) by
  nalasex01b.na.qualcomm.com (10.47.209.197) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
@@ -82,10 +82,10 @@ CC: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
         <linux-sound@vger.kernel.org>, <linux-usb@vger.kernel.org>,
         <linux-arm-msm@vger.kernel.org>, <linux-doc@vger.kernel.org>,
         <alsa-devel@alsa-project.org>, Wesley Cheng <quic_wcheng@quicinc.com>
-Subject: [PATCH v23 09/32] usb: dwc3: Specify maximum number of XHCI
- interrupters
-Date: Mon, 10 Jun 2024 16:57:45 -0700
-Message-ID: <20240610235808.22173-10-quic_wcheng@quicinc.com>
+Subject: [PATCH v23 10/32] usb: host: xhci-plat: Set XHCI max interrupters if
+ property is present
+Date: Mon, 10 Jun 2024 16:57:46 -0700
+Message-ID: <20240610235808.22173-11-quic_wcheng@quicinc.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20240610235808.22173-1-quic_wcheng@quicinc.com>
 References: <20240610235808.22173-1-quic_wcheng@quicinc.com>
@@ -97,19 +97,19 @@ X-ClientProxiedBy: nalasex01a.na.qualcomm.com (10.47.209.196) To
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: 8u-3A7QwHi_XpJh_GioEhAG49tgVZLRt
-X-Proofpoint-ORIG-GUID: 8u-3A7QwHi_XpJh_GioEhAG49tgVZLRt
+X-Proofpoint-ORIG-GUID: W6bUAoCMdOpeDAyBAEcvVEQe02zkLMAu
+X-Proofpoint-GUID: W6bUAoCMdOpeDAyBAEcvVEQe02zkLMAu
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
  definitions=2024-06-10_07,2024-06-10_01,2024-05-17_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- clxscore=1015 priorityscore=1501 phishscore=0 adultscore=0 spamscore=0
- malwarescore=0 mlxlogscore=920 suspectscore=0 impostorscore=0 bulkscore=0
- mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ mlxlogscore=999 mlxscore=0
+ impostorscore=0 adultscore=0 phishscore=0 malwarescore=0 clxscore=1015
+ suspectscore=0 priorityscore=1501 spamscore=0 bulkscore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
  engine=8.19.0-2405170001 definitions=main-2406100177
-Message-ID-Hash: P7SK2NCZQBPA4HAFJ3WLF57EZOSMZBPQ
-X-Message-ID-Hash: P7SK2NCZQBPA4HAFJ3WLF57EZOSMZBPQ
+Message-ID-Hash: VOCD4LN6G66K7KNMDDUYMB7PH4NE3CD4
+X-Message-ID-Hash: VOCD4LN6G66K7KNMDDUYMB7PH4NE3CD4
 X-MailFrom: quic_wcheng@quicinc.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -122,7 +122,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/P7SK2NCZQBPA4HAFJ3WLF57EZOSMZBPQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VOCD4LN6G66K7KNMDDUYMB7PH4NE3CD4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -131,94 +131,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Allow for the DWC3 host driver to pass along XHCI property that defines
-how many interrupters to allocate.  This is in relation for the number of
-event rings that can be potentially used by other processors within the
-system.
+Some platforms may want to limit the number of XHCI interrupters allocated.
+This is passed to xhci-plat as a device property.  Ensure that this is read
+and the max_interrupters field is set.
 
-Acked-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
 Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
 ---
- drivers/usb/dwc3/core.c | 12 ++++++++++++
- drivers/usb/dwc3/core.h |  2 ++
- drivers/usb/dwc3/host.c |  3 +++
- 3 files changed, 17 insertions(+)
+ drivers/usb/host/xhci-plat.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/usb/dwc3/core.c b/drivers/usb/dwc3/core.c
-index 7ee61a89520b..7aa6f9700757 100644
---- a/drivers/usb/dwc3/core.c
-+++ b/drivers/usb/dwc3/core.c
-@@ -1573,6 +1573,7 @@ static void dwc3_get_properties(struct dwc3 *dwc)
- 	u8			tx_thr_num_pkt_prd = 0;
- 	u8			tx_max_burst_prd = 0;
- 	u8			tx_fifo_resize_max_num;
-+	u16			num_hc_interrupters;
- 	const char		*usb_psy_name;
- 	int			ret;
+diff --git a/drivers/usb/host/xhci-plat.c b/drivers/usb/host/xhci-plat.c
+index 3d071b875308..1c12cadc02a1 100644
+--- a/drivers/usb/host/xhci-plat.c
++++ b/drivers/usb/host/xhci-plat.c
+@@ -258,6 +258,8 @@ int xhci_plat_probe(struct platform_device *pdev, struct device *sysdev, const s
  
-@@ -1595,6 +1596,9 @@ static void dwc3_get_properties(struct dwc3 *dwc)
- 	 */
- 	tx_fifo_resize_max_num = 6;
+ 		device_property_read_u32(tmpdev, "imod-interval-ns",
+ 					 &xhci->imod_interval);
++		device_property_read_u16(tmpdev, "num-hc-interrupters",
++					 &xhci->max_interrupters);
+ 	}
  
-+	/* default to a single XHCI interrupter */
-+	num_hc_interrupters = 1;
-+
- 	dwc->maximum_speed = usb_get_maximum_speed(dev);
- 	dwc->max_ssp_rate = usb_get_maximum_ssp_rate(dev);
- 	dwc->dr_mode = usb_get_dr_mode(dev);
-@@ -1648,6 +1652,12 @@ static void dwc3_get_properties(struct dwc3 *dwc)
- 				&tx_thr_num_pkt_prd);
- 	device_property_read_u8(dev, "snps,tx-max-burst-prd",
- 				&tx_max_burst_prd);
-+	device_property_read_u16(dev, "num-hc-interrupters",
-+				&num_hc_interrupters);
-+	/* DWC3 core allowed to have a max of 8 interrupters */
-+	if (num_hc_interrupters > 8)
-+		num_hc_interrupters = 8;
-+
- 	dwc->do_fifo_resize = device_property_read_bool(dev,
- 							"tx-fifo-resize");
- 	if (dwc->do_fifo_resize)
-@@ -1736,6 +1746,8 @@ static void dwc3_get_properties(struct dwc3 *dwc)
- 	dwc->imod_interval = 0;
- 
- 	dwc->tx_fifo_resize_max_num = tx_fifo_resize_max_num;
-+
-+	dwc->num_hc_interrupters = num_hc_interrupters;
- }
- 
- /* check whether the core supports IMOD */
-diff --git a/drivers/usb/dwc3/core.h b/drivers/usb/dwc3/core.h
-index 3781c736c1a1..95e6989d116e 100644
---- a/drivers/usb/dwc3/core.h
-+++ b/drivers/usb/dwc3/core.h
-@@ -1077,6 +1077,7 @@ struct dwc3_scratchpad_array {
-  * @tx_max_burst_prd: max periodic ESS transmit burst size
-  * @tx_fifo_resize_max_num: max number of fifos allocated during txfifo resize
-  * @clear_stall_protocol: endpoint number that requires a delayed status phase
-+ * @num_hc_interrupters: number of host controller interrupters
-  * @hsphy_interface: "utmi" or "ulpi"
-  * @connected: true when we're connected to a host, false otherwise
-  * @softconnect: true when gadget connect is called, false when disconnect runs
-@@ -1318,6 +1319,7 @@ struct dwc3 {
- 	u8			tx_max_burst_prd;
- 	u8			tx_fifo_resize_max_num;
- 	u8			clear_stall_protocol;
-+	u16			num_hc_interrupters;
- 
- 	const char		*hsphy_interface;
- 
-diff --git a/drivers/usb/dwc3/host.c b/drivers/usb/dwc3/host.c
-index a171b27a7845..3e5687d6d631 100644
---- a/drivers/usb/dwc3/host.c
-+++ b/drivers/usb/dwc3/host.c
-@@ -180,6 +180,9 @@ int dwc3_host_init(struct dwc3 *dwc)
- 	if (DWC3_VER_IS_WITHIN(DWC3, ANY, 300A))
- 		props[prop_idx++] = PROPERTY_ENTRY_BOOL("quirk-broken-port-ped");
- 
-+	props[prop_idx++] = PROPERTY_ENTRY_U16("num-hc-interrupters",
-+						dwc->num_hc_interrupters);
-+
- 	if (prop_idx) {
- 		ret = device_create_managed_software_node(&xhci->dev, props, NULL);
- 		if (ret) {
+ 	/*

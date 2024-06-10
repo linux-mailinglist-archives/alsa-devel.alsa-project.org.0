@@ -2,97 +2,114 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C1AA9025B4
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jun 2024 17:32:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B96BD9025C5
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jun 2024 17:36:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9512A83E;
-	Mon, 10 Jun 2024 17:32:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9512A83E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 15520847;
+	Mon, 10 Jun 2024 17:36:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 15520847
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718033535;
-	bh=quN3GCu727mkYwNqw2GpV6NVVObYioBkxAul5I2vmcY=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1718033809;
+	bh=Ah1Pc9Tx+SfASALqTWximD0HQRflB2G4Tq5TvplHIfo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=A4ooGNDdSg6Sxtq+307QbK6VgYYHt38kMH0jT4Sa1l/1HobBul5ULn8uhlZxXAtXu
-	 O/KcJKqF/S51f2QJqeePjAZ3QbS2TtVGV0dH2Ld4wTU7HjK7CQBo1A18CQ2uwX30wj
-	 yjK48BZOAKcvL0lV8CW2YjD7vaBp1JHTndiADtYk=
+	b=HP6HGpB5xE7RoF9KsWbMKFPTD+WpUZbqol4AZrptX3LNIrACYN+L3FWXRLfE3AfjO
+	 hjEvq982MQ0QmoQqvJDv2EJVtTbqQ1G0/u5mQduwEwzzBWwRyYO0gARA5hBIu6mRu1
+	 mkXeZeESgBJoFQZUIRgq1nMLbQ1xY3OcsIOuEv8s=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A80E8F80580; Mon, 10 Jun 2024 17:31:44 +0200 (CEST)
+	id 86956F805AF; Mon, 10 Jun 2024 17:36:17 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A67D9F80588;
-	Mon, 10 Jun 2024 17:31:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BCEECF805AE;
+	Mon, 10 Jun 2024 17:36:16 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 31B19F80580; Mon, 10 Jun 2024 17:31:38 +0200 (CEST)
+	id F11A2F8057A; Mon, 10 Jun 2024 17:36:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_SBL_CSS,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=no
 	autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [IPv6:2a00:1450:4864:20::630])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9F314F80448
-	for <alsa-devel@alsa-project.org>; Mon, 10 Jun 2024 17:31:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F314F80448
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0B04DF800D0
+	for <alsa-devel@alsa-project.org>; Mon, 10 Jun 2024 17:36:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0B04DF800D0
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=GGB/tdz9
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 45AEOUoD024008;
-	Mon, 10 Jun 2024 10:31:26 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	PODMain02222019; bh=NAQiw9Lfn5b4wkQDfb7cAGW02PiLIbTJ52todkMah9A=; b=
-	GGB/tdz9Dsas8EwC4/AEYYeLrptM/V3iSIuPtjBvtr5TBm/0DkV4PQ2J5fqFoXtL
-	J55OBFO9zzFX64kNVc2tahtjLoQuBPrqYiCP8toeslyOkZ+bRfJupEwpcHro5ly6
-	ACHnnKCaMQccjcA+MREdL7LFlWYjpT+2rXCm6SGRU7N5AA4kaXmE2VJfjhKjBTyy
-	ZhloJZyoNKH1x2OIcP+9beyMV/2DT2zqJJEDkdCgIX+h7ejf2k/nFSd9C/NkpuB0
-	IVpS0wZ1wuorfkg0yN7kfIL8ZGE4Wi+Uzsn67b+WkAL3WJkz94kFff5REr1GQ6za
-	+fCrrrGsJRg48Dvc8j/YHQ==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3ymkqhsu8s-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 10 Jun 2024 10:31:26 -0500 (CDT)
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 10 Jun
- 2024 16:31:24 +0100
-Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1544.9 via Frontend Transport; Mon, 10 Jun 2024 16:31:24 +0100
-Received: from ediswws07.ad.cirrus.com (ediswws07.ad.cirrus.com
- [198.90.208.14])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id C92F982F2A2;
-	Mon, 10 Jun 2024 15:31:24 +0000 (UTC)
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: <perex@perex.cz>
-CC: <pierre-louis.bossart@linux.intel.com>, <bard.liao@intel.com>,
-        <patches@opensource.cirrus.com>, <alsa-devel@alsa-project.org>
-Subject: [PATCH 2/2] sof-soundwire: Add support for cs42l43/cs35l56 bridge
- configuration
-Date: Mon, 10 Jun 2024 16:31:24 +0100
-Message-ID: <20240610153124.1329052-2-ckeepax@opensource.cirrus.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20240610153124.1329052-1-ckeepax@opensource.cirrus.com>
-References: <20240610153124.1329052-1-ckeepax@opensource.cirrus.com>
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=vHU7YOVl
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-a6e349c0f2bso389818466b.2
+        for <alsa-devel@alsa-project.org>;
+ Mon, 10 Jun 2024 08:36:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1718033766; x=1718638566;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=/+E80Q5rdxeGOmqKds9oqdRbVVK3jiXABymm7gK6I9o=;
+        b=vHU7YOVl84V6a8IWz2JY6uBBYhjLsnaOUVN2oe9P/nnbPs7kNOvtrTbxVddkdb3rs5
+         ACNK31FH9UHpnzGkCB+4LCObXmeowRpMhahHKVIWEO0zkduvF9fC8/MwDTtkalBInOd/
+         2UdrhhhWqXYaB2XrK06aVvxx3lC+E3Yn9vV9PrUeC1Mw6BhuOzdt5zaAgLT/jNHsQjOX
+         PZ3nWTRRPi2aDopiMDTIV5bbBewkE4jZRJ+BoS8s2Lz2tCNRmSrOXoiZX4zLpM1YXFKm
+         5Ziwi/MHloaaEh5ECoPR58SM5r3eQPUceWnZPAr5xCq84o8f2EjNu6xQbIQ1SRnLW40D
+         J9uA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1718033766; x=1718638566;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=/+E80Q5rdxeGOmqKds9oqdRbVVK3jiXABymm7gK6I9o=;
+        b=i7R3NNWQJBn7O3xzeSjbTJLICurFhz8ybc4x/znvhdX3o2GKetQ+CxnsJJTzsWlRvd
+         C9VIXjbDX8O6kbEEHtHuinAqWVeYHrd/Ze087C2++hidS6c5tLjYUHGpFXD5Qmwws/TR
+         GKZLoPp/xxYSGlMXzWlPKNhOSPCbofkm5IfCQ/wK6nfB6L35dPB0fmG28HnjSK3a3Td8
+         fwoyITPhjO+gMe078yWygc2PyNMtHTqRweB7+uRa5F9fyCCLd8HAcW5QZnvETNZhPM7J
+         65wx1k0E8rvou6VfXadQebdtLxFwvKWYNbNKTV2FXt6cknecEiCxtMgNQRZDIqaM3yA/
+         f4Mw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUSVA5XLWSrM9brKHeqQqwi34YVYakNId8wJT07PLTozfqIxT19YfKK+UBTOntEuWzLjzqCMp+NoXWWfGBsfEtSKjQx95N7lEdgHXA=
+X-Gm-Message-State: AOJu0YwZTX4DDUMcMRvYHI2oduelOr3FrBS/QYwgR7kuex15t9eB3KRx
+	0O/9EkYCdET+bRfMTythoV055WxB7CGXnsPnsMrbrH0u3z7CqMOStYdllM6whKY=
+X-Google-Smtp-Source: 
+ AGHT+IGECHz6J6eLlLoS1mhmDrqUcykuz5pFaLMgXUzzL7Qbv358E5AMAFWML4yz8R0kd+585prxAQ==
+X-Received: by 2002:a17:907:76d4:b0:a6f:23a:9151 with SMTP id
+ a640c23a62f3a-a6f023a9299mr421078866b.55.1718033766498;
+        Mon, 10 Jun 2024 08:36:06 -0700 (PDT)
+Received: from [192.168.1.195] ([5.133.47.210])
+        by smtp.googlemail.com with ESMTPSA id
+ a640c23a62f3a-a6e00b47420sm486088366b.42.2024.06.10.08.36.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 10 Jun 2024 08:36:05 -0700 (PDT)
+Message-ID: <ab5c2a6d-6819-48eb-a3c5-178fa37204bb@linaro.org>
+Date: Mon, 10 Jun 2024 16:36:05 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: SMD9oyIG2ZCEdUKqeqQS8jKspMA6NfIb
-X-Proofpoint-ORIG-GUID: SMD9oyIG2ZCEdUKqeqQS8jKspMA6NfIb
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: ORZ5VEENF7N556XXIRLASZSNQKPHCZ3E
-X-Message-ID-Hash: ORZ5VEENF7N556XXIRLASZSNQKPHCZ3E
-X-MailFrom: prvs=3891f53e6a=ckeepax@opensource.cirrus.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/4] ASoC: qcom: display port changes
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: broonie@kernel.org, perex@perex.cz, lgirdwood@gmail.com,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, krzk+dt@kernel.org
+References: <20240606104922.114229-1-srinivas.kandagatla@linaro.org>
+ <i6jwqycgywrq42u4km6pjppgvvhsbvuh7m6mzyqy2qcge32ihy@n3lrowkyouv2>
+ <3ea05a12-27a8-46df-9fb3-28501404a399@linaro.org>
+ <CAA8EJpqMk9vujHAmF+xSKBDzR1LM9w-M7a8vxcCkXey9VpHBhA@mail.gmail.com>
+Content-Language: en-US
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+In-Reply-To: 
+ <CAA8EJpqMk9vujHAmF+xSKBDzR1LM9w-M7a8vxcCkXey9VpHBhA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: ETM3KCB7SRDW66FLQEQEUL72P27TUKNI
+X-Message-ID-Hash: ETM3KCB7SRDW66FLQEQEUL72P27TUKNI
+X-MailFrom: srinivas.kandagatla@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -104,7 +121,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ORZ5VEENF7N556XXIRLASZSNQKPHCZ3E/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ETM3KCB7SRDW66FLQEQEUL72P27TUKNI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,98 +130,81 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The cs42l43 has both a SPI master and an I2S interface, in some
-configurations 2 cs35l56 amplifiers are connected to these to provide
-bass speakers whilst the cs42l43's internal speaker drivers are used for
-the tweeters. Add UCM configuration for this type of system.
 
-Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
----
- ucm2/sof-soundwire/cs35l56-bridge.conf | 61 ++++++++++++++++++++++++++
- ucm2/sof-soundwire/sof-soundwire.conf  |  2 +-
- 2 files changed, 62 insertions(+), 1 deletion(-)
- create mode 100644 ucm2/sof-soundwire/cs35l56-bridge.conf
 
-diff --git a/ucm2/sof-soundwire/cs35l56-bridge.conf b/ucm2/sof-soundwire/cs35l56-bridge.conf
-new file mode 100644
-index 0000000..6fafc80
---- /dev/null
-+++ b/ucm2/sof-soundwire/cs35l56-bridge.conf
-@@ -0,0 +1,61 @@
-+# Use case Configuration for sof-soundwire card
-+
-+LibraryConfig.remap.Config {
-+	ctl.default.map {
-+		"name='cs42l43 Bridge Switch'" {
-+			"name='AMPL Speaker Switch'".vindex.0 0
-+			"name='AMPR Speaker Switch'".vindex.1 0
-+		}
-+		"name='cs42l43 Bridge Volume'" {
-+			"name='AMPL Speaker Volume'".vindex.0 0
-+			"name='AMPR Speaker Volume'".vindex.1 0
-+		}
-+	}
-+}
-+
-+SectionDevice."Speaker" {
-+	Comment "Speaker"
-+
-+	ConflictingDevice [
-+		"Headphones"
-+	]
-+
-+	EnableSequence [
-+		cset "name='cs42l43 Speaker L Input 1' 'ASPRX1'"
-+		cset "name='cs42l43 Speaker R Input 1' 'ASPRX2'"
-+		cset "name='cs42l43 ASPTX1 Input' 'DP5RX1'"
-+		cset "name='cs42l43 ASPTX2 Input' 'DP5RX2'"
-+
-+		cset "name='AMPL ASP1 TX1 Source' 'DSP1TX1'"
-+		cset "name='AMPL ASP1 TX2 Source' 'None'"
-+		cset "name='AMPL ASP1 TX3 Source' 'None'"
-+		cset "name='AMPL ASP1 TX4 Source' 'None'"
-+
-+		cset "name='AMPR ASP1 TX1 Source' 'None'"
-+		cset "name='AMPR ASP1 TX2 Source' 'DSP1TX1'"
-+		cset "name='AMPR ASP1 TX3 Source' 'None'"
-+		cset "name='AMPR ASP1 TX4 Source' 'None'"
-+
-+		cset "name='cs42l43 Speaker Digital Switch' 1"
-+		cset "name='cs42l43 Speaker Digital Volume' 128"
-+	]
-+
-+	DisableSequence [
-+		cset "name='cs42l43 Speaker Digital Switch' 0"
-+
-+		cset "name='AMPL ASP1 TX2 Source' 'None'"
-+		cset "name='AMPR ASP1 TX1 Source' 'None'"
-+
-+		cset "name='cs42l43 ASPTX1 Input' 'None'"
-+		cset "name='cs42l43 ASPTX2 Input' 'None'"
-+		cset "name='cs42l43 Speaker L Input 1' 'None'"
-+		cset "name='cs42l43 Speaker R Input 1' 'None'"
-+	]
-+
-+	Value {
-+		PlaybackPriority 100
-+		PlaybackPCM "hw:${CardId},0"
-+		PlaybackMixer "default:${CardId}"
-+		PlaybackMixerElem "cs42l43 Bridge"
-+	}
-+}
-diff --git a/ucm2/sof-soundwire/sof-soundwire.conf b/ucm2/sof-soundwire/sof-soundwire.conf
-index 2f61d11..2ede1cd 100644
---- a/ucm2/sof-soundwire/sof-soundwire.conf
-+++ b/ucm2/sof-soundwire/sof-soundwire.conf
-@@ -21,7 +21,7 @@ Define {
- 
- DefineRegex {
- 	SpeakerCodec {
--		Regex " spk:([a-z0-9]+((-sdca)|(-spk))?)"
-+		Regex " spk:([a-z0-9]+((-sdca)|(-spk)|(-bridge))?)"
- 		String "${CardComponents}"
- 	}
- 	SpeakerChannels {
--- 
-2.39.2
+On 08/06/2024 15:56, Dmitry Baryshkov wrote:
+> On Sat, 8 Jun 2024 at 12:12, Srinivas Kandagatla
+> <srinivas.kandagatla@linaro.org> wrote:
+>>
+>> Thanks Dmitry for testing this out.
+>>
+>> On 08/06/2024 03:23, Dmitry Baryshkov wrote:
+>>> On Thu, Jun 06, 2024 at 11:49:18AM +0100, srinivas.kandagatla@linaro.org wrote:
+>>>> From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+>>>>
+>>>> This patchset adds support for.
+>>>>       1. parse Display Port module tokens from ASoC topology
+>>>>       2. add support to DP/HDMI Jack events.
+>>>>       3. fixes a typo in function name in sm8250
+>>>>
+>>>> Verified these patches on X13s along with changes to tplg in
+>>>> https://git.codelinaro.org/linaro/qcomlt/audioreach-topology/-/tree/topic/x13s-dp?ref_type=heads
+>>>> and ucm changes from https://github.com/Srinivas-Kandagatla/alsa-ucm-conf/tree/topic/x13s-dp
+>>>>
+>>>> x1e80100 is verified by Krzysztof with his changes in tplg
+>>>>
+>>>> https://git.codelinaro.org/linaro/qcomlt/audioreach-topology/-/merge_requests/7/commits
+>>>>
+>>>> Thanks,
+>>>> Srini
+>>>>
+>>>
+>>> I have been testing this patchset on X13s, switching between speakers,
+>>> connected and disconnected DP output.
+>>>
+>>
+>> This series changed the Jack event names by removing HDMI string from it
+>> as suggested, did you update the UCM to reflect this?
+> 
+> Yes, I did. The pipewire properly reports 'unconnected' state, but
+> nothing stops user from selecting the unconnected device / verb.
 
+No, the jack events should prevent that from happening. You should not 
+see them in output devices in settings->Sound.
+
+
+> 
+>> I have pushed changes required to
+>> https://github.com/Srinivas-Kandagatla/alsa-ucm-conf/tree/topic/x13s-dp
+>>
+...
+
+>> kernel:
+>> https://git.codelinaro.org/srinivas.kandagatla/linux/-/tree/dp/sc8280xp-6.10-rc1?ref_type=heads
+>> ucm: https://github.com/Srinivas-Kandagatla/alsa-ucm-conf/tree/topic/x13s-dp
+>> tplg:
+>> https://git.codelinaro.org/linaro/qcomlt/audioreach-topology/-/tree/topic/x13s-dp?ref_type=heads
+>>
+>>
+>> with the above on my x13s, I can properly do switching between dp0,dp1
+>> and speakers with no issues.
+> 
+> Have you tried switching to the unconnected sink? Starting the
+> pipewire when the previously selected sink is now disconnected?
+> 
+>>
+>> Can you try them?
+> 
+> Is the changing of the JACK names the only change in the UCM? compared
+> to your previous version?
+
+Yes.
+
+> 
+> I've used the following topology, fom the topology repo / x13s-dp branch
+> 
+> 5206af2e1915b8dba52da2e59fb5ebff audioreach-tplg.bin
+> 
+> 
+> 
+> 

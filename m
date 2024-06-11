@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE729907805
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jun 2024 18:15:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B64D9077FD
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jun 2024 18:14:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E6444A4B;
-	Thu, 13 Jun 2024 18:15:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E6444A4B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7043EDF8;
+	Thu, 13 Jun 2024 18:14:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7043EDF8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718295332;
-	bh=8jD5Mvn4JnvcGDrCagOrGGZetRPfvF4h/uJysM7SORY=;
-	h=From:Date:Subject:References:In-Reply-To:To:CC:List-Id:
+	s=default; t=1718295284;
+	bh=KOWpJtHBV4XE8VhY7yrO/kJc+8536QocG6HEWhHlh4g=;
+	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=t8Rs6my/y3eg3OfFuQmKEd1VJKztakeTruIWhQ59+Hr9ZJnfyLqAbBibSU+oTIuoL
-	 gibM9ZggWZPCnGk0LqKLuOk9omjWfJ+72CtwmmQnC9J9CJpGputMXdoJriyPcQtNEY
-	 NV4WTsUYI/RCv54rtPbwsz+acg34OeIjEB2t440w=
+	b=O9kfgXM2CpyoCX+FwdMyVhaXSiqNGGsRyF6zkA6zIzy19+IoPu7QQJiOp67Lj2d7b
+	 lcjX0jj4Yt292jAZKsvM9tCFUM9sMlIj5B81kOIpYIxrmdRfdU+g5B2mTxoCsJL9m4
+	 Wu9EgNO/w0jf3jaYpGEfxg91oyTiiKvU5x3Nq9iI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B6C68F80C07; Thu, 13 Jun 2024 18:05:26 +0200 (CEST)
+	id ABCFAF89923; Thu, 13 Jun 2024 18:05:16 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 784A3F8995F;
-	Thu, 13 Jun 2024 18:05:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BCE4DF8992B;
+	Thu, 13 Jun 2024 18:05:15 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4D798F80579; Tue, 11 Jun 2024 14:36:52 +0200 (CEST)
+	id 600AAF8057A; Tue, 11 Jun 2024 14:35:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,79 +33,65 @@ X-Spam-Status: No, score=-2.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
 	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
+Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A0E86F8057A
-	for <alsa-devel@alsa-project.org>; Tue, 11 Jun 2024 14:36:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0E86F8057A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 00F27F80579
+	for <alsa-devel@alsa-project.org>; Tue, 11 Jun 2024 14:35:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00F27F80579
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
- header.s=ti-com-17Q1 header.b=UOVolnY7
+ header.s=ti-com-17Q1 header.b=Nhcx8DHA
 Received: from fllv0035.itg.ti.com ([10.64.41.0])
-	by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 45BCaa6a088100;
-	Tue, 11 Jun 2024 07:36:36 -0500
+	by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id 45BCZWRd047923;
+	Tue, 11 Jun 2024 07:35:32 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
-	s=ti-com-17Q1; t=1718109396;
-	bh=Xi+lXeC9oOPY560HM6ndHndJe00tZZ8g5JUpqfg8mMc=;
-	h=From:Date:Subject:References:In-Reply-To:To:CC;
-	b=UOVolnY7O4t53trTs4QTtefjTo6wP3vqPGib4PgyPlWj8IeWuogyvRFXv90TmBdxt
-	 CbJhXk6Qm63Sy+GCb2d5tsxn+/oNZGO5Xl3UABgBR5imCpyvLfI8PBYrdwqu2WVzgw
-	 k8CQRQN4lRnO6Kd2QdU6HbmfL2DKT6v7nSe5ItCA=
-Received: from DFLE112.ent.ti.com (dfle112.ent.ti.com [10.64.6.33])
-	by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 45BCaamY116897
+	s=ti-com-17Q1; t=1718109332;
+	bh=KOWpJtHBV4XE8VhY7yrO/kJc+8536QocG6HEWhHlh4g=;
+	h=Date:From:To:CC:Subject:References:In-Reply-To;
+	b=Nhcx8DHA/kSRjceH/kbOpERTMx87jQRTzlsoYjbgvjz43SrXNNW7tR4t4/Hqg797q
+	 VCqL4tvR7/jF9LSr4Vma2FpVhXWhxrFIvfYoifJWz8mVRLcl6nDraflpVRXs9+aBwU
+	 Kh1o2mfDAMVuzIuHQ4Zj5iGtNz5MqvehV0L4n3lI=
+Received: from DLEE105.ent.ti.com (dlee105.ent.ti.com [157.170.170.35])
+	by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 45BCZWuJ116422
 	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 11 Jun 2024 07:36:36 -0500
-Received: from DFLE103.ent.ti.com (10.64.6.24) by DFLE112.ent.ti.com
- (10.64.6.33) with Microsoft SMTP Server (version=TLS1_2,
+	Tue, 11 Jun 2024 07:35:32 -0500
+Received: from DLEE112.ent.ti.com (157.170.170.23) by DLEE105.ent.ti.com
+ (157.170.170.35) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Tue, 11
- Jun 2024 07:36:36 -0500
-Received: from lelvsmtp6.itg.ti.com (10.180.75.249) by DFLE103.ent.ti.com
- (10.64.6.24) with Microsoft SMTP Server (version=TLS1_2,
+ Jun 2024 07:35:31 -0500
+Received: from lelvsmtp5.itg.ti.com (10.180.75.250) by DLEE112.ent.ti.com
+ (157.170.170.23) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
- Frontend Transport; Tue, 11 Jun 2024 07:36:35 -0500
+ Frontend Transport; Tue, 11 Jun 2024 07:35:31 -0500
 Received: from localhost (jluthra.dhcp.ti.com [172.24.227.116])
-	by lelvsmtp6.itg.ti.com (8.15.2/8.15.2) with ESMTP id 45BCaZcw105946;
-	Tue, 11 Jun 2024 07:36:35 -0500
+	by lelvsmtp5.itg.ti.com (8.15.2/8.15.2) with ESMTP id 45BCZV1O121832;
+	Tue, 11 Jun 2024 07:35:31 -0500
+Date: Tue, 11 Jun 2024 18:05:30 +0530
 From: Jai Luthra <j-luthra@ti.com>
-Date: Tue, 11 Jun 2024 18:02:56 +0530
-Subject: [PATCH v3 2/2] ASoC: ti: davinci-mcasp: Set min period size using
- FIFO config
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20240611-asoc_next-v3-2-fcfd84b12164@ti.com>
-References: <20240611-asoc_next-v3-0-fcfd84b12164@ti.com>
-In-Reply-To: <20240611-asoc_next-v3-0-fcfd84b12164@ti.com>
-To: Lars-Peter Clausen <lars@metafoo.de>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
-        Mark
- Brown <broonie@kernel.org>,
-        Peter Ujfalusi <peter.ujfalusi@gmail.com>
-CC: <linux-sound@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+To: Mark Brown <broonie@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>
+CC: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+        Liam
+ Girdwood <lgirdwood@gmail.com>,
+        Peter Ujfalusi <peter.ujfalusi@gmail.com>,
+        <linux-sound@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
         <alsa-devel@alsa-project.org>, Devarsh Thakkar <devarsht@ti.com>,
         Vignesh
  Raghavendra <vigneshr@ti.com>,
-        Jayesh Choudhary <j-choudhary@ti.com>, Jai
- Luthra <j-luthra@ti.com>
-X-Mailer: b4 0.12.4
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2013; i=j-luthra@ti.com;
- h=from:subject:message-id; bh=8jD5Mvn4JnvcGDrCagOrGGZetRPfvF4h/uJysM7SORY=;
- b=owEBbQKS/ZANAwAIAUPekfkkmnFFAcsmYgBmaETOYhZakNd8NUjZCV3kKA2TKaPzDcRwgvD8M
- qVxONW06W+JAjMEAAEIAB0WIQRN4NgY5dV16NRar8VD3pH5JJpxRQUCZmhEzgAKCRBD3pH5JJpx
- RSG8D/9sFwAIG62LqXVjYS9r25876+BBOXvMsmJ49kxUk+X5EKAsXm97vxjtGIlIP+88MUuc7CT
- tPKRTE+PH4RSEfGbtL7SsmRg40kUTtXMzu2aUSKF3TE1MbHYqfWX4HnxArhiHv7EL175L84kU+F
- xkHcHo5VBOA+xAvWXA/jxQdY4tLUeLDJJbe5h4d+tjr1jx04melwPcwMgt8kjOSa79xPr23VhJV
- 2E6lUKdotTaonOA0ZLWuNx5vFcSehwG5zj/9lbGLzo+o5texet91cetc856dpwV5iZ7JLVIUvh8
- qVLOpNRL4kwt4zP4Ym7Sx5Or2Pg3P+DGbQ7z6tiZwR1mqWIKvIutfpeRaOByaduLu8n0jB5+/n3
- JsYMUoEH2WHlhWS6nNDu3zb7RpWoyUSP+bz1796Jyxr0j8Szf/7Lwl/2W9OnGNURwP1xmadY+TI
- IrrR20e3oM+SmgPICEV1o1P9GcodfaHr+ALuhWagi41WbQv5AxjkrXepNkpviZNnPm6S8D86j0E
- 0R8ymjNggQcg6pI56GTUtqPPCI1BYTVMQOgQyP2GjV/hSTXbsbaCIwsk0HXqOr6kPRklmo/GPvp
- LcsbmBe0cRjRBBvQ1IuJWpXp9tfCEiI0nk0iPdIkz2mvr9qbLQ3MooLbJETU9TUTAAwn1xFdAzq
- ZgXHztXo8cnQtcA==
-X-Developer-Key: i=j-luthra@ti.com; a=openpgp;
- fpr=4DE0D818E5D575E8D45AAFC543DE91F9249A7145
+        Jayesh Choudhary <j-choudhary@ti.com>
+Subject: Re: Re: [PATCH v2 1/2] ALSA: dmaengine: Synchronize dma channel in
+ prepare()
+Message-ID: <e55jugzdtzgiqvvmvtgyp3rovthvl3ky2o4quuxvswt3w5nshr@stuqxwmbpnpo>
+References: <20240610-asoc_next-v2-0-b52aaf5d67c4@ti.com>
+ <20240610-asoc_next-v2-1-b52aaf5d67c4@ti.com>
+ <3557bd0f-86b4-4dce-90dd-59303f4f1154@metafoo.de>
+ <ZmgpUFy5-_5n_zyd@finisterre.sirena.org.uk>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="a2pm5t3dxnjeog5a"
+Content-Disposition: inline
+In-Reply-To: <ZmgpUFy5-_5n_zyd@finisterre.sirena.org.uk>
 X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
 X-MailFrom: j-luthra@ti.com
 X-Mailman-Rule-Hits: nonmember-moderation
@@ -113,15 +99,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: UMAS5UYOROFNOKUFWQOEMJEPK3T6VOTP
-X-Message-ID-Hash: UMAS5UYOROFNOKUFWQOEMJEPK3T6VOTP
+Message-ID-Hash: Q5NVANC7JBRCRMKELAREX5DDKH7SIBJ3
+X-Message-ID-Hash: Q5NVANC7JBRCRMKELAREX5DDKH7SIBJ3
 X-Mailman-Approved-At: Thu, 13 Jun 2024 16:05:05 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UMAS5UYOROFNOKUFWQOEMJEPK3T6VOTP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Q5NVANC7JBRCRMKELAREX5DDKH7SIBJ3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -130,61 +116,61 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The minimum period size was enforced to 64 as older devices integrating
-McASP with EDMA used an internal FIFO of 64 samples.
+--a2pm5t3dxnjeog5a
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-With UDMA based platforms this internal McASP FIFO is optional, as the
-DMA engine internally does some buffering which is already accounted for
-when registering the platform. So we should read the actual FIFO
-configuration (txnumevt/rxnumevt) instead of hardcoding frames.min to
-64.
+Hi Lars, Mark,
 
-Acked-by: Peter Ujfalusi <peter.ujfalusi@gmail.com>
-Signed-off-by: Jai Luthra <j-luthra@ti.com>
----
- sound/soc/ti/davinci-mcasp.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+On Jun 11, 2024 at 11:39:12 +0100, Mark Brown wrote:
+> On Mon, Jun 10, 2024 at 05:45:52PM -0700, Lars-Peter Clausen wrote:
+> > On 6/10/24 03:56, Jai Luthra wrote:
+>=20
+> > > Sometimes the stream may be stopped due to XRUN events, in which case
+> > > the userspace can call snd_pcm_drop() and snd_pcm_prepare() to stop a=
+nd
+> > > start the stream again.
+>=20
+> > > In these cases, we must wait for the DMA channel to synchronize before
+> > > marking the stream as prepared for playback, as the DMA channel gets
+> > > stopped by snd_pcm_drop() without any synchronization.
+>=20
+> > We should really implement the sync_stop() PCM callback and let the ALSA
+> > core let care of the sync.
+>=20
+> Good point, that's a better idea.
 
-diff --git a/sound/soc/ti/davinci-mcasp.c b/sound/soc/ti/davinci-mcasp.c
-index 1e760c315521..2b1ed91a736c 100644
---- a/sound/soc/ti/davinci-mcasp.c
-+++ b/sound/soc/ti/davinci-mcasp.c
-@@ -1472,10 +1472,11 @@ static int davinci_mcasp_hw_rule_min_periodsize(
- {
- 	struct snd_interval *period_size = hw_param_interval(params,
- 						SNDRV_PCM_HW_PARAM_PERIOD_SIZE);
-+	u8 numevt = *((u8 *)rule->private);
- 	struct snd_interval frames;
- 
- 	snd_interval_any(&frames);
--	frames.min = 64;
-+	frames.min = numevt;
- 	frames.integer = 1;
- 
- 	return snd_interval_refine(period_size, &frames);
-@@ -1490,6 +1491,7 @@ static int davinci_mcasp_startup(struct snd_pcm_substream *substream,
- 	u32 max_channels = 0;
- 	int i, dir, ret;
- 	int tdm_slots = mcasp->tdm_slots;
-+	u8 *numevt;
- 
- 	/* Do not allow more then one stream per direction */
- 	if (mcasp->substreams[substream->stream])
-@@ -1589,9 +1591,12 @@ static int davinci_mcasp_startup(struct snd_pcm_substream *substream,
- 			return ret;
- 	}
- 
-+	numevt = (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) ?
-+			 &mcasp->txnumevt :
-+			 &mcasp->rxnumevt;
- 	snd_pcm_hw_rule_add(substream->runtime, 0,
- 			    SNDRV_PCM_HW_PARAM_PERIOD_SIZE,
--			    davinci_mcasp_hw_rule_min_periodsize, NULL,
-+			    davinci_mcasp_hw_rule_min_periodsize, numevt,
- 			    SNDRV_PCM_HW_PARAM_PERIOD_SIZE, -1);
- 
- 	return 0;
+Thanks for the suggestion, sending a v3 with the change.
 
--- 
-2.43.0
+Peter,
+I've kept your R-by intact as it is a minor change.
 
+
+--=20
+Thanks,
+Jai
+
+GPG Fingerprint: 4DE0 D818 E5D5 75E8 D45A AFC5 43DE 91F9 249A 7145
+
+--a2pm5t3dxnjeog5a
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEETeDYGOXVdejUWq/FQ96R+SSacUUFAmZoRI8ACgkQQ96R+SSa
+cUWdgg/8CE3gIScDM3oCtEbZLGwD4OSB1rjOChUtnO5P0OPRFipfhafhKyDsKtcZ
+JlU9aFk+lazrHXLzQNrR2Uz9ljyhm1fc3FH+OCi04cTlRlu6Eees02ZwbQaSGV1g
+kDQumGpedl0oh5+dc5eTypM3CzJpmTIumJYruaGqQzj0f9P2gyOMuvrlVorwQef7
+Q3aWIZOJrj+F0hAchTFUN+1jW9IGnQJLnr1kPTurHP8wntJGjMV8bE00Jji5iZCE
+/zxtqWpMB/tG8Utl41W6dV3UJ7esQFhtX+xyihclFEVfvHli+k6HNtIG4aPAf82K
+LNzhGRLDAeUq7EmPk7x3GHVkRhJ2A4RbLBSfYhhHOEfO7B+WPnZqCCj9WjL1UUwJ
+of3PUoqDV6jHX0kkzb+2Oe0p4YtcIUhlwBWlFXJd4Pe8tGd6ISc2IznTGCViun0P
+YHVH5hWEBf4iuax1gvCiaRCE/VUJIQNs6gMTNlwq/6HiP9yJQm4C8v7rgPFZz8a4
+QzfaCwpopSB1husKft8lmrLb8brM1ca4iHTuqJToZuQ4dEsOI7GvNodhuVY1XVGE
+YJrze66Vn1qZMJHj1zJ3P8bbqWX5I4VuhcOKUv7BoPLMotefjCPUrLQ/F+xcwW3Q
+TbFHBLZBaR3lYNgBq/b0D6LebzUzhCwqBQNAwlosRMs7KmgpZi0=
+=iOPb
+-----END PGP SIGNATURE-----
+
+--a2pm5t3dxnjeog5a--

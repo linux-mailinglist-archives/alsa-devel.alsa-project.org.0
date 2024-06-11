@@ -2,34 +2,33 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 830D0902F98
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jun 2024 06:43:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D92C490342D
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jun 2024 09:47:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E4122850;
-	Tue, 11 Jun 2024 06:42:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4122850
+	by alsa0.perex.cz (Postfix) with ESMTPS id 71E7184D;
+	Tue, 11 Jun 2024 09:47:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 71E7184D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718080982;
-	bh=tdXTvR04YG95vGC2ed5np4cY7vgENhLoagNUvO9j+Qg=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=nhxHFGeBUhCU4nf5FtSv/dKSt9R6PHKTOkFWGTzTpyOmLBvz0W7KKUvi5c5U7Slca
-	 K/HZviTJtKDDNxYBVNwGJ42hWqqTzYtjiyk7TtWcv38LOyaEUNTuLs/lsJjR8S9e10
-	 XLKOWhCs88Dg4LCJI7wajM1WB1W9AiVjPg4Biv8M=
+	s=default; t=1718092042;
+	bh=KYXwkV7c/bPtlWVVNa3FqDeuCVfhvpj+GgJs/yjEk4M=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=jofKcNx+N6gJT0e3R6s9l/w4moKwzhNXdmfqYhUKEZxNXyFdK/at8N3NBbHWDI9+d
+	 z/FPH8zySSceBUz96y4EY8SWhKR7uYY1aRHKa4wfrDbm9xX+tWRf61/u+MZwViKbRm
+	 6p6tECPo5vOX7EQKJD3cCDbCl7pgH9Tdd8m608Bw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1E4A9F8059F; Tue, 11 Jun 2024 06:42:31 +0200 (CEST)
+	id 268C9F805B0; Tue, 11 Jun 2024 09:46:50 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 90E9EF805B2;
-	Tue, 11 Jun 2024 06:42:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 117B2F805AC;
+	Tue, 11 Jun 2024 09:46:50 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 30259F8057A; Tue, 11 Jun 2024 06:40:20 +0200 (CEST)
+	id 259A0F80580; Tue, 11 Jun 2024 09:46:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
 	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
@@ -37,49 +36,42 @@ Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 94A0EF8010C
-	for <alsa-devel@alsa-project.org>; Tue, 11 Jun 2024 06:40:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94A0EF8010C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2189CF80578
+	for <alsa-devel@alsa-project.org>; Tue, 11 Jun 2024 09:46:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2189CF80578
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=GQ10t7eF
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ header.s=qcppdkim1 header.b=phl5OF5p
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
 	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 45B3AsR9001377;
-	Tue, 11 Jun 2024 04:40:07 GMT
+ 45B2sEZp004782;
+	Tue, 11 Jun 2024 07:46:25 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	R46nk5Y8f5YTvCdl64rWRkPICciSGOAHSIkHk+Ko2+w=; b=GQ10t7eFboebjCCY
-	95eg3icGoCg+jlFS6YFrmkgBVzuL43kPhpokmGkI1R0a7S32JNntLmvedCbqJGd0
-	hWH5KLsigHU/z6yLVo2XU60m8btu5dNr8+IUlm73tr5l2tZ2lovlwehKqIlAWn8t
-	6rmR18NmtwhCD0t0LDUZaZYpc2WqITRRokDiFYFZNCZPA9MvfUYEFV4ZWsLTF+nO
-	r9ERzXF7OvWUnB7pbbz1RS4SCC1etngJ1a9xjpa1njCGPq4rG8Dd4IeBoRH02HAi
-	czkrV6mVkch4C30crp4usqaUzXh+FIUbOBZN/zBkuc57zoL55lhumTPUI7A+Lmi6
-	2KWYhQ==
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=/oIEzahvZHJr/HDCqTTDLf
+	ktPUFuY2YJdqN+Q9hmrmQ=; b=phl5OF5pWHYtpu5yFa0hh4cdXyaI0sc2DKXS2j
+	U008w7i5ejmYh3vYV5msHX4IKHy/2ONry19c6xQp+BqOvlRu4ATd0tHfo4OVDjOV
+	JzfCu5URe4JGjGrko3vuZbDpFwBqKAMPxVhBFedc0ipnfSPkiEpFCsUOK1Eeb9K3
+	z3IE17vM4yWeUXL04+Gkrn1LXnIAQ2R0LGzi4yfS0z+UF7YSG+2uJkMbaofk09QA
+	QkRna71ZAIEXjepzkwgtPSF0xMXZiggyPnxKC6qBU95uARIEwmV4a+RKykcbwjR3
+	snlGEaAI+hP48FfPho3dbk2k76hsXsY8RHpwEd4l+uPzDocw==
 Received: from nasanppmta01.qualcomm.com (i-global254.qualcomm.com
  [199.106.103.254])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3yme8rwsxs-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3ymd0ee941-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 11 Jun 2024 04:40:06 +0000 (GMT)
+	Tue, 11 Jun 2024 07:46:25 +0000 (GMT)
 Received: from nasanex01c.na.qualcomm.com (nasanex01c.na.qualcomm.com
  [10.45.79.139])
 	by NASANPPMTA01.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
- 45B4e58O005393
+ 45B7kOYg017491
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 11 Jun 2024 04:40:06 GMT
-Received: from [10.216.24.176] (10.80.80.8) by nasanex01c.na.qualcomm.com
- (10.45.79.139) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 10 Jun
- 2024 21:39:54 -0700
-Message-ID: <33772eab-74c6-c5c3-fa25-3a643a2f9c57@quicinc.com>
-Date: Tue, 11 Jun 2024 10:09:52 +0530
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Subject: Re: [RESEND v5 6/7] ASoC: codecs: wcd937x: add capture dapm widgets
-Content-Language: en-US
+	Tue, 11 Jun 2024 07:46:24 GMT
+Received: from hu-mohs-hyd.qualcomm.com (10.80.80.8) by
+ nasanex01c.na.qualcomm.com (10.45.79.139) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.9; Tue, 11 Jun 2024 00:46:19 -0700
+From: Mohammad Rafi Shaik <quic_mohs@quicinc.com>
 To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
         Banajit Goswami
 	<bgoswami@quicinc.com>,
@@ -94,33 +86,34 @@ To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
 CC: <alsa-devel@alsa-project.org>, <linux-arm-msm@vger.kernel.org>,
         <linux-sound@vger.kernel.org>, <devicetree@vger.kernel.org>,
         <linux-kernel@vger.kernel.org>, <quic_rohkumar@quicinc.com>,
-        <quic_pkumpatl@quicinc.com>, Konrad Dybcio <konrad.dybcio@linaro.org>
-References: <20240527111956.444425-1-quic_mohs@quicinc.com>
- <20240527111956.444425-7-quic_mohs@quicinc.com>
- <ba911ebd-aef5-46af-ace1-84d13bee6876@linaro.org>
-From: Mohammad Rafi Shaik <quic_mohs@quicinc.com>
-In-Reply-To: <ba911ebd-aef5-46af-ace1-84d13bee6876@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+        <quic_pkumpatl@quicinc.com>,
+        Mohammad Rafi Shaik <quic_mohs@quicinc.com>
+Subject: [PATCH v6 0/7] ASoC: codecs: wcd937x: add wcd937x audio codec support
+Date: Tue, 11 Jun 2024 13:15:50 +0530
+Message-ID: <20240611074557.604250-1-quic_mohs@quicinc.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
  nasanex01c.na.qualcomm.com (10.45.79.139)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: KrdaIhs0KhVaQSe_Yq6TEnDlFBkT1WmU
-X-Proofpoint-GUID: KrdaIhs0KhVaQSe_Yq6TEnDlFBkT1WmU
+X-Proofpoint-GUID: _TGTFeKk33Ej8NXuWmF1PDBdaobimq5p
+X-Proofpoint-ORIG-GUID: _TGTFeKk33Ej8NXuWmF1PDBdaobimq5p
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-06-10_08,2024-06-10_01,2024-05-17_01
+ definitions=2024-06-11_03,2024-06-11_01,2024-05-17_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 adultscore=0
- suspectscore=0 bulkscore=0 phishscore=0 spamscore=0 lowpriorityscore=0
- priorityscore=1501 mlxlogscore=775 impostorscore=0 mlxscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2405170001 definitions=main-2406110033
-Message-ID-Hash: AE7FJCCE7LPXPFHH4K3BS6XDGPBTNRHF
-X-Message-ID-Hash: AE7FJCCE7LPXPFHH4K3BS6XDGPBTNRHF
+ phishscore=0 mlxlogscore=622
+ lowpriorityscore=15 priorityscore=1501 malwarescore=0 suspectscore=0
+ adultscore=0 spamscore=0 mlxscore=0 clxscore=1015 bulkscore=15
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2405170001 definitions=main-2406110058
+Message-ID-Hash: F6GD6H2G2ZZY4TIEOXSG6U7YASPN5HSR
+X-Message-ID-Hash: F6GD6H2G2ZZY4TIEOXSG6U7YASPN5HSR
 X-MailFrom: quic_mohs@quicinc.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -133,7 +126,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AE7FJCCE7LPXPFHH4K3BS6XDGPBTNRHF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/F6GD6H2G2ZZY4TIEOXSG6U7YASPN5HSR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -142,151 +135,79 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 6/10/2024 12:35 PM, Srinivas Kandagatla wrote:
-> 
-> 
-> On 27/05/2024 12:19, Mohammad Rafi Shaik wrote:
->> +static int __wcd937x_codec_enable_micbias(struct snd_soc_dapm_widget *w,
->> +                      int event)
->> +{
->> +    struct snd_soc_component *component = 
->> snd_soc_dapm_to_component(w->dapm);
->> +    int micb_num;
->> +
->> +    if (strnstr(w->name, "MIC BIAS1", sizeof("MIC BIAS1")))
->> +        micb_num = MIC_BIAS_1;
->> +    else if (strnstr(w->name, "MIC BIAS2", sizeof("MIC BIAS2")))
->> +        micb_num = MIC_BIAS_2;
->> +    else if (strnstr(w->name, "MIC BIAS3", sizeof("MIC BIAS3")))
->> +        micb_num = MIC_BIAS_3;
->> +    else
->> +        return -EINVAL;
->> +
-> See last comment..
-> 
->> +    switch (event) {
->> +    case SND_SOC_DAPM_PRE_PMU:
->> +        wcd937x_micbias_control(component, micb_num,
->> +                    MICB_ENABLE, true);
->> +        break;
->> +    case SND_SOC_DAPM_POST_PMU:
->> +        usleep_range(1000, 1100);
->> +        break;
->> +    case SND_SOC_DAPM_POST_PMD:
->> +        wcd937x_micbias_control(component, micb_num,
->> +                    MICB_DISABLE, true);
->> +        break;
->> +    }
->> +
->> +    return 0;
->> +}
->> +
->> +static int wcd937x_codec_enable_micbias(struct snd_soc_dapm_widget *w,
->> +                    struct snd_kcontrol *kcontrol,
->> +                    int event)
->> +{
->> +    return __wcd937x_codec_enable_micbias(w, event);
->> +}
->> +
->> +static int __wcd937x_codec_enable_micbias_pullup(struct 
->> snd_soc_dapm_widget *w,
->> +                         int event)
->> +{
->> +    struct snd_soc_component *component = 
->> snd_soc_dapm_to_component(w->dapm);
->> +    int micb_num;
->> +
->> +    if (strnstr(w->name, "VA MIC BIAS1", sizeof("VA MIC BIAS1")))
->> +        micb_num = MIC_BIAS_1;
->> +    else if (strnstr(w->name, "VA MIC BIAS2", sizeof("VA MIC BIAS2")))
->> +        micb_num = MIC_BIAS_2;
->> +    else if (strnstr(w->name, "VA MIC BIAS3", sizeof("VA MIC BIAS3")))
->> +        micb_num = MIC_BIAS_3;
->> +    else
->> +        return -EINVAL;
->> +
-> same..
->> +    switch (event) {
->> +    case SND_SOC_DAPM_PRE_PMU:
->> +        wcd937x_micbias_control(component, micb_num, 
->> MICB_PULLUP_ENABLE, true);
->> +        break;
->> +    case SND_SOC_DAPM_POST_PMU:
->> +        usleep_range(1000, 1100);
->> +        break;
->> +    case SND_SOC_DAPM_POST_PMD:
->> +        wcd937x_micbias_control(component, micb_num, 
->> MICB_PULLUP_DISABLE, true);
->> +        break;
->> +    }
->> +
->> +    return 0;
->> +}
->> +
-> 
-> ...
-> 
->>   static const struct snd_soc_dapm_widget wcd937x_dapm_widgets[] = {
-> ...> +    /* MIC_BIAS widgets */
->> +    SND_SOC_DAPM_SUPPLY("MIC BIAS1", SND_SOC_NOPM, 0, 0,
-> Please use shift here like
->          SND_SOC_DAPM_SUPPLY("MIC BIAS1", SND_SOC_NOPM, MIC_BIAS_1, 0,
->          SND_SOC_DAPM_SUPPLY("MIC BIAS2", SND_SOC_NOPM, MIC_BIAS_2, 0,
-> 
-> to avoid doing a string compares on wideget name.
-> 
-> --srini
-> 
+This patchset adds support for Qualcomm WCD9370/WCD9375 codec.
 
-ACK
+Qualcomm WCD9370/WCD9375 Codec is a standalone Hi-Fi audio codec IC
+connected over SoundWire. This device has two SoundWire devices, RX and
+TX respectively supporting 3 x ADCs, ClassH, Ear, Aux PA, 2xHPH,
+6 DMICs and MBHC.
 
-Will remove the string compares on widget name and will use the shift here.
+For codec driver to be functional it would need both tx and rx Soundwire devices
+to be up and this is taken care by using device component framework and device-links
+are used to ensure proper pm dependencies. Ex tx does not enter suspend
+before rx or codec is suspended.
 
-Thanks & Regards,
-Rafi.
+This patchset along with other SoundWire patches on the list
+have been tested on QCM6490 IDP device.
 
->> +                wcd937x_codec_enable_micbias,
->> +                SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMU |
->> +                SND_SOC_DAPM_POST_PMD),
->> +    SND_SOC_DAPM_SUPPLY("MIC BIAS2", SND_SOC_NOPM, 0, 0,
->> +                wcd937x_codec_enable_micbias,
->> +                SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMU |
->> +                SND_SOC_DAPM_POST_PMD),
->> +    SND_SOC_DAPM_SUPPLY("MIC BIAS3", SND_SOC_NOPM, 0, 0,
->> +                wcd937x_codec_enable_micbias,
->> +                SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMU |
->> +                SND_SOC_DAPM_POST_PMD),
->> +
->>       SND_SOC_DAPM_SUPPLY("VDD_BUCK", SND_SOC_NOPM, 0, 0,
->>                   wcd937x_codec_enable_vdd_buck,
->>                   SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMD),
->> @@ -2007,11 +2312,101 @@ static const struct snd_soc_dapm_widget 
->> wcd937x_dapm_widgets[] = {
->>       SND_SOC_DAPM_MIXER("HPHR_RDAC", SND_SOC_NOPM, 0, 0,
->>                  hphr_rdac_switch, ARRAY_SIZE(hphr_rdac_switch)),
->> +    /* TX output widgets */
->> +    SND_SOC_DAPM_OUTPUT("ADC1_OUTPUT"),
->> +    SND_SOC_DAPM_OUTPUT("ADC2_OUTPUT"),
->> +    SND_SOC_DAPM_OUTPUT("ADC3_OUTPUT"),
->> +    SND_SOC_DAPM_OUTPUT("WCD_TX_OUTPUT"),
->> +
->>       /* RX output widgets */
->>       SND_SOC_DAPM_OUTPUT("EAR"),
->>       SND_SOC_DAPM_OUTPUT("AUX"),
->>       SND_SOC_DAPM_OUTPUT("HPHL"),
->>       SND_SOC_DAPM_OUTPUT("HPHR"),
->> +
->> +    /* MIC_BIAS pull up widgets */
->> +    SND_SOC_DAPM_SUPPLY("VA MIC BIAS1", SND_SOC_NOPM, 0, 0,
->> +                wcd937x_codec_enable_micbias_pullup,
->> +                SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMU |
->> +                SND_SOC_DAPM_POST_PMD),
->> +    SND_SOC_DAPM_SUPPLY("VA MIC BIAS2", SND_SOC_NOPM, 0, 0,
->> +                wcd937x_codec_enable_micbias_pullup,
->> +                SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMU |
->> +                SND_SOC_DAPM_POST_PMD),
->> +    SND_SOC_DAPM_SUPPLY("VA MIC BIAS3", SND_SOC_NOPM, 0, 0,
->> +                wcd937x_codec_enable_micbias_pullup,
->> +                SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMU |
->> +                SND_SOC_DAPM_POST_PMD),
+Changes since v5:
+ - Remove the string compare in MIC BIAS widget settings as suggested by Srinivas Kandagatla
+ - Fixed Unbalanced pm_runtime_enable! in wcd937x-sdw soundwire slave.
+
+Changes since v4:
+ - Removed volatile/read-only registers from defaults list
+ - Added wcd939x_volatile_register() with only volatile registers
+ - Added a wcd939x_readable_register() with read-only and read-write registers, so cache does it's job
+ - Fixed Spurious events for mixer controls and validated with mixer selftest tool
+ - Used TLV instead of enum for ear_pa_gain mixer control
+ - Used enum constraints instead of OneOf in dt-binding patch
+ - Added vdd-px supply property as non optional in dt-binding patch
+ - Reworked and done driver cleanup
+ 
+Changes since v3:
+ - Fixed dt binding check errors.
+ - Added constraints on values in v4-0001 binding patch as suggested by Krzysztof
+ - Change the patch sequence soundwire driver first then codec driver
+ - Added missing .remove soundwire driver function
+ - Reworked and done driver cleanup
+
+Changes since v2:
+ - Used common qcom,wcd93xx-common.yaml. removed duplicate properties.
+ - Merged bindings patches "v2-0001" and "v2-0003" in single patch for easy review.
+ - Fixed dt binding check errors.
+ - Added missing "qcom,wcd9375-codec" in v3-0001 dt binding patch.
+ - Added constraints on values in v3-0001 binding patch as suggested by Krzysztof
+ - Fix the typo mistake in v2 cover letter
+ 
+Changes since v1:
+ - Split the patch per driver for easier review as suggested by Krzysztof
+ - Used devm_gpiod_get api to get reset gpio as suggested by Krzysztof
+
+Prasad Kumpatla (7):
+  ASoC: dt-bindings: document wcd937x Audio Codec
+  ASoC: codecs: wcd937x-sdw: add SoundWire driver
+  ASoC: codecs: wcd937x: add wcd937x codec driver
+  ASoC: codecs: wcd937x: add basic controls
+  ASoC: codecs: wcd937x: add playback dapm widgets
+  ASoC: codecs: wcd937x: add capture dapm widgets
+  ASoC: codecs: wcd937x: add audio routing and Kconfig
+
+ .../bindings/sound/qcom,wcd937x-sdw.yaml      |   91 +
+ .../bindings/sound/qcom,wcd937x.yaml          |   82 +
+ sound/soc/codecs/Kconfig                      |   20 +
+ sound/soc/codecs/Makefile                     |    7 +
+ sound/soc/codecs/wcd937x-sdw.c                | 1136 +++++++
+ sound/soc/codecs/wcd937x.c                    | 3011 +++++++++++++++++
+ sound/soc/codecs/wcd937x.h                    |  653 ++++
+ 7 files changed, 5000 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/qcom,wcd937x-sdw.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/qcom,wcd937x.yaml
+ create mode 100644 sound/soc/codecs/wcd937x-sdw.c
+ create mode 100644 sound/soc/codecs/wcd937x.c
+ create mode 100644 sound/soc/codecs/wcd937x.h
+
+
+base-commit: d35b2284e966c0bef3e2182a5c5ea02177dd32e4
+-- 
+2.25.1
 

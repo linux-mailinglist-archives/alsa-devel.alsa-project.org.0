@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EA609038BC
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jun 2024 12:20:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A93799038BE
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jun 2024 12:20:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D5B70E85;
-	Tue, 11 Jun 2024 12:20:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D5B70E85
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1BE74E94;
+	Tue, 11 Jun 2024 12:20:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1BE74E94
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718101216;
-	bh=w/yxPxCvkaDeWtKKMpFlZEVsnhxa4e1/eJvbybjHLrE=;
+	s=default; t=1718101231;
+	bh=ObekRkrSe+EOUnd7QDGCxutmXFSACDEnV0vZ5NWpVeI=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=WIrSXiZNuFQDrLu60wpn5LBTO2TPkpzgPQ2ETrT5KtA2cM1ZklmF9wANfRzyedrLE
-	 ZqsSynnHiV+WKnjGBmwbkCdVqK44cnSSurIx5XKn5yjhckfqpn7FuyU9nzgVpJWsxO
-	 YAzqhXHEj+DrfMpI0a3dLBukcwFcpsiSt+PKfoUs=
+	b=QRhytEm4ee4zz+B3BUwO1ffG+D0B0AeiXlCt9Vp7IE6p0Hf0QKbOowfV08TEXijVI
+	 +jIif8AtcC4R+wZBjfVidUUzwfpyIIT0E+dOwK5plZcucK1kaE8I36fdPdGlKHeMqV
+	 S6bdiy/YQXe/6msUq24eBma1NRvU7tr4vTz8yobQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0709CF805AE; Tue, 11 Jun 2024 12:19:45 +0200 (CEST)
+	id 5976AF805EB; Tue, 11 Jun 2024 12:19:49 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 46D54F805AB;
-	Tue, 11 Jun 2024 12:19:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E7B63F805D3;
+	Tue, 11 Jun 2024 12:19:48 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 887D0F80580; Tue, 11 Jun 2024 12:19:41 +0200 (CEST)
+	id 305D1F80580; Tue, 11 Jun 2024 12:19:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -38,50 +38,45 @@ Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 300A4F8010C
-	for <alsa-devel@alsa-project.org>; Tue, 11 Jun 2024 12:19:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 300A4F8010C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5F67BF80578
+	for <alsa-devel@alsa-project.org>; Tue, 11 Jun 2024 12:19:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5F67BF80578
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=BqBHRojf
+ header.s=k20201202 header.b=dLykSCqG
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id AD2DFCE1AA7;
+	by sin.source.kernel.org (Postfix) with ESMTP id 98D87CE16D3;
+	Tue, 11 Jun 2024 10:19:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B92FC4AF49;
 	Tue, 11 Jun 2024 10:19:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBB9BC2BD10;
-	Tue, 11 Jun 2024 10:19:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1718101170;
-	bh=w/yxPxCvkaDeWtKKMpFlZEVsnhxa4e1/eJvbybjHLrE=;
+	s=k20201202; t=1718101172;
+	bh=ObekRkrSe+EOUnd7QDGCxutmXFSACDEnV0vZ5NWpVeI=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=BqBHRojfxWBJxHMMY8/swGUpBo8czC2/+DcqD1cxVFPHLamyhEjgOs3lWpEcDw6hT
-	 467sC4Tcdemtc9jX9HV8WTGIUxxcouz72HxLi7DpaMP1Q+TgodAGTLT/FH7nEPyRx9
-	 n3jC0XkBo5PyfatcDJIsI76TwUiROfk3tG8pa1FrhgTz9yTGSGTySDqc4PdDD4y5Bu
-	 qPUgNsBktIyQdkxLB25GWOAwTANPZ35+RMmM1OD0rXJblWnMc0wC05eYWc1LYsQOvv
-	 jp/xvRw6WKMLAcFAGK3p4+vMm8mnrcTfOoFxRNUFOGyULalKIC8jxg0ol+JH5R33RY
-	 to4VzzHl7zCfw==
+	b=dLykSCqGe3xH86nN9q+DmRwCYXkBbeYMSYAXpxblzRQi2rMOm9WqSqEpQm30HR3a6
+	 iYFCVtn24t6yMkkTji0QPmi3aox9b7cTeTEPn8kVqKrcZOTg7BD14/nV63AF+RhBRX
+	 +1c63asOGFAx9dnXj6xk3U+cOUYUzJ/yXfz5ZtuHlwATAdvak/ZqFXJ17mTWiWFebg
+	 C7krFPmUAd77WPwTqCdRDsEAQYX6SbkVKcTFzgnAjcueI0ClQGYHpW4zP/fZZkRlLy
+	 GkcmQl3X+aUrvRjn+PGqfV6652N/uSCNm/LnT6gjuSUcsr0frd2WPsxEVmqccbX7vl
+	 GOtHzHWtXjDNw==
 From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Mohammad Rafi Shaik <quic_mohs@quicinc.com>
-Cc: alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
- linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, quic_rohkumar@quicinc.com,
- quic_pkumpatl@quicinc.com
-In-Reply-To: <20240524035535.3119208-1-quic_mohs@quicinc.com>
-References: <20240524035535.3119208-1-quic_mohs@quicinc.com>
-Subject: Re: [PATCH v5 0/7] ASoC: codecs: wcd937x: add wcd937x audio codec
- support
-Message-Id: <171810116692.177725.17513047102055843084.b4-ty@kernel.org>
-Date: Tue, 11 Jun 2024 11:19:26 +0100
+To: linux-sound@vger.kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de, rafael@kernel.org,
+ vkoul@kernel.org, andriy.shevchenko@linux.intel.com
+In-Reply-To: <20240528192936.16180-1-pierre-louis.bossart@linux.intel.com>
+References: <20240528192936.16180-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 0/3] ACPI/ALSA/soundwire: add
+ acpi_get_local_u64_address() helper
+Message-Id: <171810117047.177725.11786144644878657909.b4-ty@kernel.org>
+Date: Tue, 11 Jun 2024 11:19:30 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.14-dev-4c370
-Message-ID-Hash: IR4O4LOJG6TXUN4BKVKRT6EC5OXO7KZD
-X-Message-ID-Hash: IR4O4LOJG6TXUN4BKVKRT6EC5OXO7KZD
+Message-ID-Hash: TZWLUCDZ3WEXC2HUKUFVXM3EFCHEDPUL
+X-Message-ID-Hash: TZWLUCDZ3WEXC2HUKUFVXM3EFCHEDPUL
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -94,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IR4O4LOJG6TXUN4BKVKRT6EC5OXO7KZD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TZWLUCDZ3WEXC2HUKUFVXM3EFCHEDPUL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -103,13 +98,16 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 24 May 2024 09:25:28 +0530, Mohammad Rafi Shaik wrote:
-> This patchset adds support for Qualcomm WCD9370/WCD9375 codec.
+On Tue, 28 May 2024 14:29:32 -0500, Pierre-Louis Bossart wrote:
+> The acpi_get_local_address() helper assumes a 32-bit ADR is used. If
+> we want to use this helper for SoundWire/SDCA ASoC codecs, we need an
+> extension where the native 64-bits are used. This patchset suggests a
+> new helper, acpi_get_local_address() may be renamed if desired in a
+> folow-up patch.
 > 
-> Qualcomm WCD9370/WCD9375 Codec is a standalone Hi-Fi audio codec IC
-> connected over SoundWire. This device has two SoundWire devices, RX and
-> TX respectively supporting 3 x ADCs, ClassH, Ear, Aux PA, 2xHPH,
-> 6 DMICs and MBHC.
+> The path of least resistance would be to merge this patchset in the
+> ASoC tree, since I have additional changes for ASoC/SDCA (SoundWire
+> Device Class) that depend on the new helper.
 > 
 > [...]
 
@@ -119,20 +117,12 @@ Applied to
 
 Thanks!
 
-[1/7] ASoC: dt-bindings: document wcd937x Audio Codec
-      commit: 27173bb0b64461acf4e00f1bae3b15d8d2348c14
-[2/7] ASoC: codecs: wcd937x-sdw: add SoundWire driver
-      commit: c99a515ff15380ec5f8827049914145ba908e8da
-[3/7] ASoC: codecs: wcd937x: add wcd937x codec driver
-      commit: 9be3ec196da41b20b624ae4ed0303df58548644e
-[4/7] ASoC: codecs: wcd937x: add basic controls
-      commit: 82be8c62a38c6a44e64ecb29d7a9b5cb35c6cad4
-[5/7] ASoC: codecs: wcd937x: add playback dapm widgets
-      commit: 57fe69db7a015e828ec69d819707c5b8eac6d052
-[6/7] ASoC: codecs: wcd937x: add capture dapm widgets
-      commit: 8ee78493be89c42d016f941a9b00c203ec08daab
-[7/7] ASoC: codecs: wcd937x: add audio routing and Kconfig
-      commit: 313e978df7fc38b9e949ac5933d0d9d56d5e8a9c
+[1/3] ACPI: utils: introduce acpi_get_local_u64_address()
+      commit: 0b7e448119428e1dcb854abb5855f66966fb82dc
+[2/3] soundwire: slave: simplify code with acpi_get_local_u64_address()
+      commit: b6212f9bf489daf9716aed0e8c4dc6a807ce839f
+[3/3] ALSA: hda: intel-sdw-acpi: use acpi_get_local_u64_address()
+      commit: 9b7dc68eeba04d20f4a1733e791bc71355423612
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

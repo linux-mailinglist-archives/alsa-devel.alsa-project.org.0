@@ -2,84 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 393A89040F3
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jun 2024 18:13:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18BD1904108
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jun 2024 18:19:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8080284C;
-	Tue, 11 Jun 2024 18:13:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8080284C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 44F26A4A;
+	Tue, 11 Jun 2024 18:18:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 44F26A4A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718122400;
-	bh=lVBMd7pm9KnAnJVO5KwX7pdV0VQZjI/8zsuxqHZxuZI=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1718122747;
+	bh=BXCo5tYRXnp4nFR9iSjOtaso98PV85SmlYISucj3UX4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=frk6lSJdmWJnyb5uIOGWILNcE27jbKFkpC0iXzUcDAZHYSbvM5NxxOas1pdjxWVTS
-	 O+zNGnwpNcHKbzVH/Ij9CHe6qQR+m37iKmGidu5cGRH9zZG/T4pSnTRUIKYVxaem3b
-	 DDg267yYDp7Ggi3nD7p4UiqlVx2yF+v2zEahfFA0=
+	b=k1M5p76jETd9aWksBCh4ajMmqaLewrDlaIZwhdORV8PaGVSDE6ocxrEw4U2YOVtD7
+	 EErIK3VLhWMMcInSNt6huLfyGWU6D3utYlQm7nzCI4aJgtqIlJ8RGYEpwyN4cCC6MX
+	 egOrAT8doUGm2N6YE8Gk59pSU8Dz6FL2Sk7mG+sk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 85A3CF805BB; Tue, 11 Jun 2024 18:13:00 +0200 (CEST)
+	id 0654CF805B5; Tue, 11 Jun 2024 18:18:35 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 01A8EF8057A;
-	Tue, 11 Jun 2024 18:12:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 47078F8010C;
+	Tue, 11 Jun 2024 18:18:35 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2C305F80587; Tue, 11 Jun 2024 18:12:56 +0200 (CEST)
+	id 1BDB8F8057A; Tue, 11 Jun 2024 18:18:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+X-Spam-Status: No, score=-2.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E5C03F80579
-	for <alsa-devel@alsa-project.org>; Tue, 11 Jun 2024 18:12:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5C03F80579
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9CA3BF8010C
+	for <alsa-devel@alsa-project.org>; Tue, 11 Jun 2024 18:18:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9CA3BF8010C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=c9GqljWc
+ header.s=k20201202 header.b=ohSHEeJv
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 0CD8160ECB;
-	Tue, 11 Jun 2024 16:12:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C61AC2BD10;
-	Tue, 11 Jun 2024 16:12:43 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id F0A0460F2A;
+	Tue, 11 Jun 2024 16:18:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19E1EC32789;
+	Tue, 11 Jun 2024 16:18:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1718122366;
-	bh=lVBMd7pm9KnAnJVO5KwX7pdV0VQZjI/8zsuxqHZxuZI=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=c9GqljWcvRQt3/EKlJttpU1QC1HOVjeOWs6uRGNz23eqhtMpvApL3cKvpnh1z4J2A
-	 8A7quZLUGinBRsPmjn/XBH8XuBMjWQp/oyhgXFwztx/hn+sK0B/M/7qqrQXchpkm3+
-	 PJ/YknSmL6mv1/z2T03VkMNKHWP0ESjYYPBoAGve501O22U0HiJvCTN0VYUKKL3/+G
-	 Lzb7V8npJrQMAbmRLv2oIN2UMmVP29QHLS/svL4E88wQyWH9LhqMvr2bNRUH8Prs5i
-	 QnVu43UYPJ31ItOgKjRv1SOOv75MHwVE+23vlqpfSHlHOgZ+XpBTvmLFBTOmanZyQ2
-	 Qlb5UrbXwKXqQ==
+	s=k20201202; t=1718122705;
+	bh=BXCo5tYRXnp4nFR9iSjOtaso98PV85SmlYISucj3UX4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ohSHEeJvbrchG5opz8XOjoL5wWczUKYg/j0J10BezKCKdWUHh+2BGYj+2R2VF18Mi
+	 XxjPWUSuAVLzYTuQ4L1Id7Wk/3W+3mvM8csSpYEc2KuP9ce/ryb2HxUA1lkkXJbnAk
+	 ycthwzrpLuDUuTuRkh4XlaBNI7nC+cxs+PpO8vDpg/C5wHFcqKDsn8W16QnZi0tH5Z
+	 DIW824tseUEYQgmEu7R2mIUAN258cQpMsEFlGEu5cwIdxRTn3rfzKktZUsav89+1o0
+	 AvPQP/2fbiglHKN++jvchzmV0lV14dKFjLkz9KQ4wYWeH0PdcZS9myKs7/inZQrZC/
+	 7oaaF+7qiwjyw==
+Date: Tue, 11 Jun 2024 17:18:23 +0100
 From: Mark Brown <broonie@kernel.org>
-To: =?utf-8?q?Amadeusz_S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
- alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- Jason Montleon <jmontleo@redhat.com>
-In-Reply-To: <20240603102818.36165-1-amadeuszx.slawinski@linux.intel.com>
-References: <20240603102818.36165-1-amadeuszx.slawinski@linux.intel.com>
-Subject: Re: [PATCH 0/4] ASoC: topology: Fix route memory corruption
-Message-Id: <171812236450.201359.3019210915105428447.b4-ty@kernel.org>
-Date: Tue, 11 Jun 2024 17:12:44 +0100
+To: Mohammad Rafi Shaik <quic_mohs@quicinc.com>
+Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	Banajit Goswami <bgoswami@quicinc.com>,
+	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, quic_rohkumar@quicinc.com,
+	quic_pkumpatl@quicinc.com
+Subject: Re: [PATCH v5 0/7] ASoC: codecs: wcd937x: add wcd937x audio codec
+ support
+Message-ID: <Zmh4z2F6Q0Z5tWnz@finisterre.sirena.org.uk>
+References: <20240524035535.3119208-1-quic_mohs@quicinc.com>
+ <171810116692.177725.17513047102055843084.b4-ty@kernel.org>
+ <9a14cb7b-8d6a-14b3-1d3a-b61086e4d4a9@quicinc.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.14-dev-4c370
-Message-ID-Hash: XUGSX2ZYOPUFVQPRALVE3LFU25GGUYYN
-X-Message-ID-Hash: XUGSX2ZYOPUFVQPRALVE3LFU25GGUYYN
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="9kuz/Ng8fSpME3+T"
+Content-Disposition: inline
+In-Reply-To: <9a14cb7b-8d6a-14b3-1d3a-b61086e4d4a9@quicinc.com>
+X-Cookie: Your love life will be... interesting.
+Message-ID-Hash: 2XXX2HTPLQIIJWOQC6XR5355MF3FBOJ7
+X-Message-ID-Hash: 2XXX2HTPLQIIJWOQC6XR5355MF3FBOJ7
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -92,7 +98,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XUGSX2ZYOPUFVQPRALVE3LFU25GGUYYN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2XXX2HTPLQIIJWOQC6XR5355MF3FBOJ7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -101,48 +107,36 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 03 Jun 2024 12:28:14 +0200, Amadeusz Sławiński wrote:
-> Originally reported here:
-> https://github.com/thesofproject/avs-topology-xml/issues/22#issuecomment-2127892605
-> There is various level of failure there, first of all when topology
-> loads routes, it points directly into FW file, but it may be freed after
-> topology load. After fixing the above, when avs driver parses topology
-> it should allocate its own memory, as target strings can be shorter than
-> needed. Also clean up soc_tplg_dapm_graph_elems_load() a bit.
-> 
-> [...]
 
-Applied to
+--9kuz/Ng8fSpME3+T
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+On Tue, Jun 11, 2024 at 05:43:19PM +0530, Mohammad Rafi Shaik wrote:
+> On 6/11/2024 3:49 PM, Mark Brown wrote:
 
-Thanks!
+> > If any updates are required or you are submitting further changes they
+> > should be sent as incremental updates against current git, existing
+> > patches will not be replaced.
 
-[1/4] ASoC: topology: Fix references to freed memory
-      commit: 97ab304ecd95c0b1703ff8c8c3956dc6e2afe8e1
-[2/4] ASoC: Intel: avs: Fix route override
-      commit: fd660b1bd015e5aa9a558ee04088f2431010548d
-[3/4] ASoC: topology: Do not assign fields that are already set
-      commit: daf0b99d4720c9f05bdb81c73b2efdb43fa9def3
-[4/4] ASoC: topology: Clean up route loading
-      commit: e0e7bc2cbee93778c4ad7d9a792d425ffb5af6f7
+> if possible please revert v5 and pick new v6 patch set.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+As mentioned above please send incremental fixes for any issues, there's
+already other changes on top of these.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+--9kuz/Ng8fSpME3+T
+Content-Type: application/pgp-signature; name="signature.asc"
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+-----BEGIN PGP SIGNATURE-----
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmZoeM4ACgkQJNaLcl1U
+h9Cnawf/fREWTBnC0LJb0pWn2slZjuzkeDdemDwGEzINKR+3GWRSgkj7g8EfveZZ
+uhpb4kMAETtZZFdqNipbdCdCn0rykBEAg1htIkvk8aCKlDiMKw18vomFlGCHuMyL
+OJU3W0Bdj7gK/9It4OcoR5niYSCX8Qga0y+lanU+7yBgVX/tBlJCWduiQamUwig7
+tzbtQB+/w+rIFk8hOTD7YDN2L3meLPqHqLxZxAf2VGFwti3ZazGFdDcQTPwFEGgL
+uIPG39uCwDr3g1tmX0mcNgg2mOBnWNLreXER2BxaduXePl3qacANXkFpwD3BxNvn
+sC6Abb/j+iurQFMG0e5eZVdgLBc3Pg==
+=qvv7
+-----END PGP SIGNATURE-----
 
-Thanks,
-Mark
-
+--9kuz/Ng8fSpME3+T--

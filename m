@@ -2,83 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19FE2903A0F
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jun 2024 13:28:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78CF7903A26
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jun 2024 13:32:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 37DB5852;
-	Tue, 11 Jun 2024 13:28:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 37DB5852
+	by alsa0.perex.cz (Postfix) with ESMTPS id DE421A4A;
+	Tue, 11 Jun 2024 13:32:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE421A4A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718105310;
-	bh=cd4O11S0fpkvNr4NAbwVmuRK/tJ0PCOPtUoXM4xVmeI=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1718105557;
+	bh=OnCmFVAhBCd6GUVnj8XGIwoQY2qJ3+hZAJEHD8rdoAw=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=QsxEB9YEgvRx/Fd0gwaL1C+HvX635Q8XQEFCzjwtXQ19bx4wnI6Xwlg7b0CdczTw4
-	 WAWVJqI/RrLJB3r4ERRqXkT94Xcwm0TLmihCzbRhXa+HcZyBl7s1ARE5MftUBHheAV
-	 K9fghsSNpczrVRf/tmmMloHiWsQecDjoIIXPCi48=
+	b=eS3C+wo0rnIx1oEgkZN7Kds9ihOH3mR79DQKlC0ad50H+z3S0eY/DWLqJfZzo/mz5
+	 Ir6qE69wPJPiubEpoTgZA1yu03G1Vsr1sLKW2krkpYzeCdhcaCOgFY9W14VwJC9bej
+	 J8EAyKURSoh3cFqnY9m68P6t+GCbw7TdyXMDkx8g=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D4A7EF805B0; Tue, 11 Jun 2024 13:27:57 +0200 (CEST)
+	id 1AB24F805B6; Tue, 11 Jun 2024 13:32:06 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0285DF805A9;
-	Tue, 11 Jun 2024 13:27:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E49B6F805B3;
+	Tue, 11 Jun 2024 13:32:05 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A988EF8057A; Tue, 11 Jun 2024 13:27:52 +0200 (CEST)
+	id 3D3B3F8057A; Tue, 11 Jun 2024 13:32:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5B720F8010C
-	for <alsa-devel@alsa-project.org>; Tue, 11 Jun 2024 13:27:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B720F8010C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2C5DDF800D0
+	for <alsa-devel@alsa-project.org>; Tue, 11 Jun 2024 13:31:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C5DDF800D0
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=rXHd5M7D
+ header.s=k20201202 header.b=VAPR5LKt
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 1F94B60DD4;
-	Tue, 11 Jun 2024 11:27:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37CE7C2BD10;
-	Tue, 11 Jun 2024 11:27:45 +0000 (UTC)
+	by sin.source.kernel.org (Postfix) with ESMTP id 083D8CE1ADA;
+	Tue, 11 Jun 2024 11:31:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D952C2BD10;
+	Tue, 11 Jun 2024 11:31:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1718105266;
-	bh=cd4O11S0fpkvNr4NAbwVmuRK/tJ0PCOPtUoXM4xVmeI=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=rXHd5M7DgMnZ3U6Oc9RrSco/yGI9l43PdndMsUvMVsxMx5ny+T9RqicpGD3vOULD7
-	 RdIy8TTovDcamDDcliDNiePTvbs+fOUWZwQzG8fOs5HoTyACrl+oArndiFyxHVEzU7
-	 dTkYH5suIQOVyKKNHws53bAn3g/zUkTx9HLk4V6kHm+T9u79+aoIYXToiLq597CJle
-	 K/uqY8fkSNGnGkgcaYWeXpZGxAOjZLUaGM7upW0mas3+gS1h0vNm6j9mPgXtnHYi0q
-	 k87nfjpWye0x7Z/k+2Cdw+DwaRgnqwFScUxw8qdqolniwLmZ6cFiqTGmAr9gy5V3qy
-	 pMEXLZM5mQf/w==
-From: Mark Brown <broonie@kernel.org>
-To: pierre-louis.bossart@linux.intel.com,
- Thomas GENTY <tomlohave@gmail.com>
-Cc: cezary.rojewski@intel.com, liam.r.girdwood@linux.intel.com,
- peter.ujfalusi@linux.intel.com, yung-chuan.liao@linux.intel.com,
- alsa-devel@alsa-project.org, Hans de Goede <hdegoede@redhat.com>
-In-Reply-To: <20240608170251.99936-1-tomlohave@gmail.com>
-References: <20240608170251.99936-1-tomlohave@gmail.com>
-Subject: Re: [PATCH] bytcr_rt5640 : inverse jack detect for Archos 101
- cesium
-Message-Id: <171810526493.189859.12616105829980501168.b4-ty@kernel.org>
-Date: Tue, 11 Jun 2024 12:27:44 +0100
-MIME-Version: 1.0
+	s=k20201202; t=1718105503;
+	bh=OnCmFVAhBCd6GUVnj8XGIwoQY2qJ3+hZAJEHD8rdoAw=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+	b=VAPR5LKtdZJ6ltEsaabGN+ZyGfFgpu+JS10QeGq3FnDRMjJ2/hX3jobTHRnsIn1RT
+	 vPf5p22bqGFbojZ9HcMlb1sxHIag/WuW1y7fk58G0YX7HaBTw+BX1yvq96yE7Bc4Hl
+	 SKizL1thSGFnmhmiktsJ/NaoWPiCCjopEGaVm+sxBTxX59fQkCp2vdH2YH2sDfQ18J
+	 lHdh3C8qQfbvUL6VWpNnZW9AF636vlKCHwWvuKVOOpg9ob8f3ilfE4EJ8OZWbj7RRU
+	 +NfW1ubhfQMgnpZmj0OSbzoPwMAmUpUtOTPxgS7G8SfF9Z+rcWA2DIblkXjZvyrU/g
+	 5xneH846+zizw==
+Date: Tue, 11 Jun 2024 05:31:42 -0600
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14-dev-4c370
-Message-ID-Hash: RHFCBHXVUXMMQC76ATPPG25ONJ2AUM5Q
-X-Message-ID-Hash: RHFCBHXVUXMMQC76ATPPG25ONJ2AUM5Q
-X-MailFrom: broonie@kernel.org
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>
+Cc: Takashi Iwai <tiwai@suse.com>, Russell King <linux@armlinux.org.uk>,
+ Jaroslav Kysela <perex@perex.cz>, Michael Ellerman <mpe@ellerman.id.au>,
+ Vladimir Zapolskiy <vz@mleia.com>, Chancel Liu <chancel.liu@nxp.com>,
+ linux-arm-kernel@lists.infradead.org, Mark Brown <broonie@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-sound@vger.kernel.org,
+ alsa-devel@alsa-project.org, Arnd Bergmann <arnd@arndb.de>,
+ linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, devicetree@vger.kernel.org
+In-Reply-To: <20240611094810.27475-2-piotr.wojtaszczyk@timesys.com>
+References: <[PATCH] ASoC: fsl: Add i2s and pcm drivers for LPC32xx CPUs>
+ <20240611094810.27475-1-piotr.wojtaszczyk@timesys.com>
+ <20240611094810.27475-2-piotr.wojtaszczyk@timesys.com>
+Message-Id: <171810550202.1047088.17292010858616719651.robh@kernel.org>
+Subject: Re: [Patch v2 2/2] ASoC: dt-bindings: lpc32xx: Add lpc32xx i2s DT
+ binding
+Message-ID-Hash: QHVFKWOVG4EQX3TVJ2I5FZG62KDDYMLR
+X-Message-ID-Hash: QHVFKWOVG4EQX3TVJ2I5FZG62KDDYMLR
+X-MailFrom: robh@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -90,7 +96,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RHFCBHXVUXMMQC76ATPPG25ONJ2AUM5Q/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QHVFKWOVG4EQX3TVJ2I5FZG62KDDYMLR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,38 +105,44 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sat, 08 Jun 2024 19:02:51 +0200, Thomas GENTY wrote:
-> When headphones are plugged in, they appear absent; when they are removed,
-> they appear present.
-> Add a specific entry in bytcr_rt5640 for this device
+
+On Tue, 11 Jun 2024 11:47:52 +0200, Piotr Wojtaszczyk wrote:
+> Add nxp,lpc3220-i2s DT binding documentation.
 > 
+> Signed-off-by: Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>
+> ---
+> Changes for v2:
+> - Added maintainers field
+> - Dropped clock-names
+> - Dropped unused unneded interrupts field
+> 
+>  .../bindings/sound/nxp,lpc3220-i2s.yaml       | 47 +++++++++++++++++++
+>  1 file changed, 47 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/nxp,lpc3220-i2s.yaml
 > 
 
-Applied to
+My bot found errors running 'make dt_binding_check' on your patch:
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+yamllint warnings/errors:
 
-Thanks!
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/nxp,lpc3220-i2s.example.dtb: i2s@20094000: 'clock-names' does not match any of the regexes: 'pinctrl-[0-9]+'
+	from schema $id: http://devicetree.org/schemas/sound/nxp,lpc3220-i2s.yaml#
 
-[1/1] bytcr_rt5640 : inverse jack detect for Archos 101 cesium
-      commit: e3209a1827646daaab744aa6a5767b1f57fb5385
+doc reference errors (make refcheckdocs):
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20240611094810.27475-2-piotr.wojtaszczyk@timesys.com
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+pip3 install dtschema --upgrade
 
-Thanks,
-Mark
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 

@@ -2,100 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0B4690509F
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jun 2024 12:44:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B9F79050AD
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jun 2024 12:47:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 43CC3DE5;
-	Wed, 12 Jun 2024 12:44:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 43CC3DE5
+	by alsa0.perex.cz (Postfix) with ESMTPS id C1647DFA;
+	Wed, 12 Jun 2024 12:47:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C1647DFA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718189053;
-	bh=ysAXpRLhIcT/GOAm7v/+Clr4iJrJuvUTzEBkH6BAlaE=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
+	s=default; t=1718189237;
+	bh=WOFMFihXVv9KxbsCnwWds020toilnkak1LojX92RAOc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=N5UGchQuTNDTNHXwmnZDWhrcynYRq50F3lfxm7KEGxku0qov0cNYX/L4uSblO6SZo
-	 DokBqnaO+xQcip061TMAPmjPrgHSpSMFTFQW66uR4PjSB1RRPp114hADlqGFSqvMtb
-	 uPPEZ0d0uKV8sXqt0jRjVcBvTNQbuFuma1owUZZg=
+	b=T+UlmGiIHpeVDRpD6CV7+hOEKdT6nP5+uPLRx++MOdE4hez1EcaRmxi1cPJidPyED
+	 H8bAhjDfCukaxM7IEXnk8Na6WgpgkxwiYkQl9yoaNqYABuBireH3XDsMm9zgU3huih
+	 8y5/oCZbDUrSjedwTRsi1zCMIusyYFsYcCyfDWgI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3CA0CF8010C; Wed, 12 Jun 2024 12:43:40 +0200 (CEST)
+	id 9CD4EF805B3; Wed, 12 Jun 2024 12:46:44 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7B973F805B3;
-	Wed, 12 Jun 2024 12:43:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1D438F805B0;
+	Wed, 12 Jun 2024 12:46:44 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7CC2DF8057A; Wed, 12 Jun 2024 12:42:29 +0200 (CEST)
+	id CD9ACF8057A; Wed, 12 Jun 2024 12:46:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 60900F80448
-	for <alsa-devel@alsa-project.org>; Wed, 12 Jun 2024 12:42:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60900F80448
+	by alsa1.perex.cz (Postfix) with ESMTPS id 05964F8010C
+	for <alsa-devel@alsa-project.org>; Wed, 12 Jun 2024 12:46:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 05964F8010C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=FDP387qa
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 45C30uPm015315;
-	Wed, 12 Jun 2024 05:42:17 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	PODMain02222019; bh=GB7rgou2Iel3eL2Pod465DGSIZnJ8g2kdqSbhokKaDo=; b=
-	FDP387qawdvdjsY/G6Px6OYneGHTYH3KsLCn1IlrgtmL1dl/co5vN79AI/prskd7
-	JB8UrhAbzj0aRJY6G/vfZg8fhp5xS0MJvhF89Qiaed5XEFXz5UHo+Kj1jZoGt8z0
-	vdc+/H/z55mIuDnRnS+szx6/G2NlO0rGKbcfVb3nhIY1BftE7B5AOKP/ZIiURhPs
-	DquddngIVGznY4waLw/vyuN9LzWMIgaG8WfrfniVA+uB5l9L62O/hPzQWYO+7pi5
-	/X7m6cfzXrQxjx+BE0WRvRjX8VFT/wPUvw/WtJfA+hR2u/ErHMYrVRGVTXAKTNib
-	ya9yYJMuB6qWoFGDpJ4qng==
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3ymkqhuvrt-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 12 Jun 2024 05:42:17 -0500 (CDT)
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 12 Jun
- 2024 11:42:15 +0100
-Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1544.9 via Frontend Transport; Wed, 12 Jun 2024 11:42:15 +0100
-Received: from [198.90.208.18] (ediswws06.ad.cirrus.com [198.90.208.18])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id 941D2820248;
-	Wed, 12 Jun 2024 10:42:15 +0000 (UTC)
-Message-ID: <92f2d6c6-2d63-42eb-ae91-59a14831145a@opensource.cirrus.com>
-Date: Wed, 12 Jun 2024 11:42:15 +0100
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=gkKqrD4z
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id 1294D61307;
+	Wed, 12 Jun 2024 10:46:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C626C3277B;
+	Wed, 12 Jun 2024 10:46:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1718189192;
+	bh=WOFMFihXVv9KxbsCnwWds020toilnkak1LojX92RAOc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=gkKqrD4zpN6yMzvHKEaL/9kx1szbkzOReGWgSrMjUCc8hr4Zkxz55XKU05RXVCzTz
+	 a7qDQVrCnqIiETIFgMXrPh5Q2tCh3l4Hf2EZsh/GMejl+JRCQbtMbSRzWsU1wlsc8O
+	 Og6GY1BNOlgdtJg3oFmABMSZ4sgy7NDdQwbaYO2Q2yd5EBy6heZKw2xMCQNd4rfI8Q
+	 2tov1EOfoiYBIsZldE/ZS864wNMEXe+8j3ReKJnzsVNsrwOwvrwJbAulWPkVRe6z1W
+	 +SLCDEuD364gt5TUECU1I5mH6PPzUHhJsjwl0y0NvxktTnDKrXB9Hd2Cf2xD3LA1zY
+	 NJHsGf6eYxZQQ==
+Date: Wed, 12 Jun 2024 11:46:29 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Shenghao Ding <shenghao-ding@ti.com>
+Cc: andriy.shevchenko@linux.intel.com, lgirdwood@gmail.com, perex@perex.cz,
+	pierre-louis.bossart@linux.intel.com, 13916275206@139.com,
+	zhourui@huaqin.com, alsa-devel@alsa-project.org, i-salazar@ti.com,
+	linux-kernel@vger.kernel.org, j-chadha@ti.com,
+	liam.r.girdwood@intel.com, jaden-yue@ti.com,
+	yung-chuan.liao@linux.intel.com, dipa@ti.com, yuhsuan@google.com,
+	henry.lo@ti.com, tiwai@suse.de, baojun.xu@ti.com, soyer@irl.hu,
+	Baojun.Xu@fpt.com, judyhsiao@google.com, navada@ti.com,
+	cujomalainey@google.com, aanya@ti.com, nayeem.mahmud@ti.com,
+	savyasanchi.shukla@netradyne.com, flaviopr@microsoft.com,
+	jesse-ji@ti.com, darren.ye@mediatek.com
+Subject: Re: [RESEND PATCH v4] ASoc: tas2781: Enable RCA-based playback
+ without DSP firmware download
+Message-ID: <Zml8hVjRf-aH3Rif@finisterre.sirena.org.uk>
+References: <20240612082332.1407-1-shenghao-ding@ti.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ASoC: cs35l56: Disconnect ASP1 TX sources when ASP1 DAI
- is hooked up
-To: Mark Brown <broonie@kernel.org>
-CC: <linux-kernel@vger.kernel.org>, <patches@opensource.cirrus.com>,
-        <alsa-devel@alsa-project.org>, <linux-sound@vger.kernel.org>
-References: <20240611145746.1454663-1-rf@opensource.cirrus.com>
- <Zmh3VmRfGEU6pGps@finisterre.sirena.org.uk>
- <36219997-397b-4a26-96ee-7527fb6eb024@opensource.cirrus.com>
- <Zml2FfjbO4Vgk0jy@finisterre.sirena.org.uk>
-Content-Language: en-GB
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-In-Reply-To: <Zml2FfjbO4Vgk0jy@finisterre.sirena.org.uk>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: G7tYJZmFjGeC2vFlZ_S6TRIyENKswo-P
-X-Proofpoint-ORIG-GUID: G7tYJZmFjGeC2vFlZ_S6TRIyENKswo-P
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: FF6WX4IMYBBITAEKV32EEDZ66FMVTNU6
-X-Message-ID-Hash: FF6WX4IMYBBITAEKV32EEDZ66FMVTNU6
-X-MailFrom: prvs=3893b14233=rf@opensource.cirrus.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="iS94sJ3zuV/6KtTn"
+Content-Disposition: inline
+In-Reply-To: <20240612082332.1407-1-shenghao-ding@ti.com>
+X-Cookie: Your love life will be... interesting.
+Message-ID-Hash: AL3H73LWWF27OIOWMTAVUCVST7JW7WUY
+X-Message-ID-Hash: AL3H73LWWF27OIOWMTAVUCVST7JW7WUY
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -107,7 +98,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FF6WX4IMYBBITAEKV32EEDZ66FMVTNU6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AL3H73LWWF27OIOWMTAVUCVST7JW7WUY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -116,42 +107,32 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 12/06/2024 11:19, Mark Brown wrote:
-> On Wed, Jun 12, 2024 at 10:19:06AM +0100, Richard Fitzgerald wrote:
->> On 11/06/2024 17:12, Mark Brown wrote:
-> 
->>> This doesn't seem particularly different to any other unhelpful chip
->>> default, I'm not sure why it'd be so urgent that we'd hard code a
-> 
->> I'm not sure I understand the objection here. Are you objecting to the
->> patch itself, or that I marked it as a Fixes?
-> 
-> Both I guess, but mainly the patch itself - we generally have an
-> extremely high bar for setting defaults different to the chip defaults
-> to avoid issues with differing use cases.
 
-But that's somewhat part of the problem. There's no such thing as a chip
-default for the cs35l56 because for Windows reasons the firmware patches
-up all the registers on boot to setup a hardcoded use-case configuration
-so that the Windows SDCA drivers can be generic and don't need knowledge
-of chip-specific registers. The firmware is customized per end-product,
-so the initial register state can vary.
+--iS94sJ3zuV/6KtTn
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-The driver currently attempts to sync-up the mixer registers with what
-the firmware set them to, which means that the initial starting state
-of the ALSA controls can vary between products using the cs35l56, and
-in theory even between revisions of the firmware if there was a need
-to change the routing setup for Windows. We don't really need to do
-that on Linux - it has a use-case manager and ALSA controls for this
-stuff, and the code to do all the syncing-up adds a lot of driver
-complexity. We want to remove that complexity, and instead patch the
-registers back to silicon defaults - obliterate the Windows use-case
-setup and use standard Linux mechanisms to setup what is required.
+On Wed, Jun 12, 2024 at 04:23:30PM +0800, Shenghao Ding wrote:
+> In only RCA (Reconfigurable Architecture) binary case, no DSP program will
+> be working inside tas2563/tas2781, that is dsp-bypass mode, do not support
+> speaker protection, and audio acoustic algorithms in this mode.
 
-However, the mixer settings were already causing a bunch of log
-warnings. So I decided to split this fix off so it's not dependent on a
-big code revert.
+Pierre keeps raising issues with this which I've not seen addressed, why
+is it being resent?
 
-I can send a V2 of this patch with this long explanation of the
-background. I didn't put it all in V1 because it never occurred to me
-that defaulting the mixer sources would be controversial.
+--iS94sJ3zuV/6KtTn
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmZpfIUACgkQJNaLcl1U
+h9AooQf+Iw5jLH4Gh/aBFIoOYIWjICQbjH8maeOHa5qj92O5m8HHwNMcBxkCFC5c
+F9wKm9ezkjaDJjCUHUN0CEkQT+Sr0YjFt3gb553rLUlkIk1zJVRz7xx9DOJpQuKf
+5KNwTaxxmk04KlXOid/wQr/UoxtaZhfXnFUi4wgPK4zqjdR9NYOz9/jeEpnejeg+
+E9CcglGUWsDJjZSWQ/juh0YQT7/Gizbo3+FYNvJgNptP+u1igGOSygYJ+aK1V5Su
+085X8ot2ioS1oFnFZFcAB0Lj/Djo6vTlPmanzAXpy6uWAtkxbm1gQKxgnDB6EBPL
+nXqbEBZvUCTo6dhmFRR0X22eQuOJtw==
+=E8aj
+-----END PGP SIGNATURE-----
+
+--iS94sJ3zuV/6KtTn--

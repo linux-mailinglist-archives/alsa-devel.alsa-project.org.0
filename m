@@ -2,99 +2,126 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4843F905830
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jun 2024 18:09:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29DAC90584B
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jun 2024 18:16:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AD6F5A4D;
-	Wed, 12 Jun 2024 18:09:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD6F5A4D
+	by alsa0.perex.cz (Postfix) with ESMTPS id BE8E686F;
+	Wed, 12 Jun 2024 18:16:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE8E686F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718208565;
-	bh=a0+JRhui/mzRBvsXaE6goUUceXxYT5/pPcxYVCj0tFM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=h4rcEF7DklZyx8b7w3HfAUmlV+K7RG9gogdtxJ15JR2gaKQgm7i340PXNNflG0Sx0
-	 U0LbYDRb+DcvLDNP4xaJQEs02sSYLfU41NYTJN3R0FjT5rW1OLrV3VGKTxwhC2bq/0
-	 F5dFW8AEOLgv7zOsoPzxdVag9uEfRtjWqaq12muc=
+	s=default; t=1718208984;
+	bh=S8W7K+CbTCWOVMiwjDUJ4bB3I7rUO/YpjtJH+mZNADs=;
+	h=From:Subject:Date:To:Cc:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=MMdApTBTvrSClr3pWXp4MDDCpuUZn0x5lyNF0hPzqmCdNUlBNxKWbuR1/RRx+4Pzx
+	 +KVe9Tzg2A/+h+Nz5MkoxAlgCLgxydjz02RVs08Lt7PYfofnbce8dmeL3FnSqbqAjk
+	 NLJ6mZST01icxvvecjt5K4y7QUOQzi7EhaCpQSoE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 68FE5F805B1; Wed, 12 Jun 2024 18:08:54 +0200 (CEST)
+	id 1DC72F805AF; Wed, 12 Jun 2024 18:15:53 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A762AF805B3;
-	Wed, 12 Jun 2024 18:08:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3341FF805B6;
+	Wed, 12 Jun 2024 18:15:53 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0C54EF8057A; Wed, 12 Jun 2024 18:08:50 +0200 (CEST)
+	id 65637F80587; Wed, 12 Jun 2024 18:15:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [IPv6:2a00:1450:4864:20::630])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7DEF8F80578
-	for <alsa-devel@alsa-project.org>; Wed, 12 Jun 2024 18:08:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7DEF8F80578
+	by alsa1.perex.cz (Postfix) with ESMTPS id F1F1AF8010C
+	for <alsa-devel@alsa-project.org>; Wed, 12 Jun 2024 18:15:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1F1AF8010C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=fduz68V9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1718208528; x=1749744528;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=a0+JRhui/mzRBvsXaE6goUUceXxYT5/pPcxYVCj0tFM=;
-  b=fduz68V9BDt57ynPSES4xXp04NuTnYoOXfLxEXB1swRpedLd1NMIpwcZ
-   dkyxyRb570uebyb5QIbHa9PbJk3mMHylNg9F7cyEytJptLI6OEhbB8TVv
-   pZp2R/VquOyNDnqTYUV4GcNcqoIifwLTH/YsPdkJbc2kgCPdBFTSi6t/W
-   EZHz1RjBY7JedRQ71R4W2n2Rir5qhJKT1ahwNYinu33weu2uqaL9PKHQX
-   CeO0Zm6qakrIpFHV/ISgtnaagfrMmOwMFfsm0aGVz+cLp1hG4U/zVXFB1
-   ss0yRXcy5lobN0kHqpzo+RNmnyyOzEFFc/GmghWO1oTP6lm9FI8/usK2D
-   w==;
-X-CSE-ConnectionGUID: Lfv1DfevSUOo1YZz+C5D/g==
-X-CSE-MsgGUID: Dr4Ho6Q2S+KcHyPlySr6Ig==
-X-IronPort-AV: E=McAfee;i="6700,10204,11101"; a="32468043"
-X-IronPort-AV: E=Sophos;i="6.08,233,1712646000";
-   d="scan'208";a="32468043"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jun 2024 09:08:40 -0700
-X-CSE-ConnectionGUID: 1kIeo6NkSp6h2KVIDqBwxA==
-X-CSE-MsgGUID: ffJj8BVXTMOhmswojMoMNg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,233,1712646000";
-   d="scan'208";a="44745063"
-Received: from bergbenj-mobl1.ger.corp.intel.com (HELO [10.245.246.94])
- ([10.245.246.94])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jun 2024 09:08:37 -0700
-Message-ID: <c835bf25-39b8-4f7a-9c77-33367085670e@linux.intel.com>
-Date: Wed, 12 Jun 2024 18:08:34 +0200
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=y6hcNMZV
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-a6ef8e62935so6961366b.3
+        for <alsa-devel@alsa-project.org>;
+ Wed, 12 Jun 2024 09:15:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1718208942; x=1718813742;
+ darn=alsa-project.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=uoI+mpU13JCyzG8g8jngPvrXKHq/j3BN7+6DsbOktX8=;
+        b=y6hcNMZVmNnWMqtkF2dcb1B1Pn8wC3Zec0u56QoLNBIz1Q5YyiTTVe3fa7Id1/zaa2
+         dOb0iMOR0/P8E8Nh4FETu1f7swGNnrqMgzpCjojFWiX4SRk/QDqwRGvfJfQyjtHnx9Yw
+         SWz7QsZVuRnmkpsbsQqsM1C2tIge9GROUaHLCnHCCY3FRRCEmgWtPdDUK9YiROB/gJyd
+         xScFNPKPDJuON+e3M6rEe7mPX1Ffd41zhRYXDDfYLZhCfK23l+x7WIvrl949avtf/dwl
+         P63fiKOsAprTUTJl67j+iR4OJgk3bo92S74kzua6Pqo4JO/zoFoojtpBvFKjBXNJMdxs
+         RPlg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1718208942; x=1718813742;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=uoI+mpU13JCyzG8g8jngPvrXKHq/j3BN7+6DsbOktX8=;
+        b=SxtwwAyangcaJu4FdcEneFcd6/xo2hrMdYhdz/3ssuzZZnY19Pp+vi69I3Y1jKccp2
+         H65JGoB/mqHLwCv6SCQ4ygWVd9A5bQQ84wlv+yzeuFFffIiPCvQtXl00mO3hXmpWPpXQ
+         kBrVgU7IT6s5DB58hWUdF5M2z6Q5xytHkyfFBg49LZnWjREK2wSqF6S5TqpiGqMj4XDx
+         LCSNjKbIdfsrN1idi6jM1Mot/slxqpT1WoXn5c++sGxVRPP9k0RAKgdKmEu5u8Yo4c+e
+         qADFV7IS9tQwCsNs4hK/Hu2ARWrAtSkALV4NuDfUJBKGjRV6nqVgi0CixJzJ8QSKJqyH
+         TvYw==
+X-Gm-Message-State: AOJu0YyAkjxf5SzN5vALqe1iqO1oT8cRblGTi9bZshBXyrkkkdBsfEQj
+	pYBRvr1tW+nV7sP/DFgoaPcWC1txx3LI1regekgOGZdMMYH5wPDijVPjnCbXRrM=
+X-Google-Smtp-Source: 
+ AGHT+IG86zbnTALGEKGr5DGUHm7Yun4FREYBEDclFkXp1ilvu4L3gPQ5D8xASxCJCIUVoRly0RH4MA==
+X-Received: by 2002:a17:906:b18:b0:a6f:529b:9f26 with SMTP id
+ a640c23a62f3a-a6f529bb0d5mr682366b.5.1718208941896;
+        Wed, 12 Jun 2024 09:15:41 -0700 (PDT)
+Received: from [127.0.1.1] ([178.197.219.137])
+        by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a6efd6cfb74sm624815866b.20.2024.06.12.09.15.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 12 Jun 2024 09:15:41 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: [PATCH 00/23] ASoC: codecs: wcd family: cleanups
+Date: Wed, 12 Jun 2024 18:15:13 +0200
+Message-Id: <20240612-asoc-wcd9xxx-wide-cleanups-v1-0-0d15885b2a06@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/5] ASoC: SOF: Intel: add initial support for PTL
-To: Mark Brown <broonie@kernel.org>
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de,
- Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
- =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>
-References: <20240612065858.53041-1-pierre-louis.bossart@linux.intel.com>
- <20240612065858.53041-3-pierre-louis.bossart@linux.intel.com>
- <ZmnGWdZ0GrE9lnk2@finisterre.sirena.org.uk>
-Content-Language: en-US
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <ZmnGWdZ0GrE9lnk2@finisterre.sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: ZUU4GEQNJMXAGCIPGPFX2LBEUN25K5GO
-X-Message-ID-Hash: ZUU4GEQNJMXAGCIPGPFX2LBEUN25K5GO
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJHJaWYC/x3MQQqEMAwAwK9Izga0iuB+ZfEQ06gBqdKgFsS/W
+ zzOZW4wiSoGv+KGKKeabiGjLgvghcIsqD4bXOXaqqsdkm2MF/s+pYSXekFehcKxG1JDNPXcete
+ MkIM9yqTpy//D87wOgz1qbAAAAA==
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2583;
+ i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
+ bh=S8W7K+CbTCWOVMiwjDUJ4bB3I7rUO/YpjtJH+mZNADs=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBmacmUy4ZhwcsNN5ef9fwEeimbTsFh1cX36leb0
+ edlF44HmoeJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZmnJlAAKCRDBN2bmhouD
+ 18KgD/sF5nD4+A9CLX+ovRafBVJ2AwWU/TBGB8tRnijFMArMGx6iW3XEp+04nhYitHj5rzrOwaZ
+ 4c9h44wtD7SNq3eMEJjU6+lWwIRzxBEWen9f1Y3/4NBCjElKCiPIumYQXNX3r0tbap6toreRriL
+ DA3TGRPGGg5CwJdBVGeX+o5TE4B59tio2pAKtUnNnfrLtx359JwUEiU0z2anrXQkn7cQmkzM437
+ hm2VSnMKPqqK1e2vWg0wEGthtbCtxOp0MEMYQwjf2SOqpE31n0/Un2aho0ZH8kzVFcO0Fz4S2Vh
+ N7NEf9FNGBPBbYaFFw1HM+qQemv8eMtEf2OzArThkHX7buCjICSl4voR6TPT1O1g7lt+93Ovhxx
+ Fu+5CU/eIR8gRxCOWQcWgm0d7lWi3IpfvwAVRiYkNE82sl7ldsspPaFbYlUd+VcRWt07anJnpJP
+ 9C0VK+L1/0rA1QBcE3vlozHXlYuCGdPVq1iLVdcrK8pUzOC0QwfoCxFsPQG4G85ZzFahe5teDCV
+ tjianYWqGQRt9sHIFfVD0vhYOjeI5LGkK3wRDlbtC6xkPk/qfh2XmWRCUc5ZM5HwpdG8ohxYC+H
+ q0lthtbajyArVWYaDFYcOeXR+9Ze/zg6Q+9Et8I9EkgGo1n12RA/luDSceOLb7z5nl4qI2aElhL
+ BO8JGWefrTvVLxA==
+X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
+ fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+Message-ID-Hash: BHH7Y6RAAAVHTPBPDFM77NI5VEO5U7YX
+X-Message-ID-Hash: BHH7Y6RAAAVHTPBPDFM77NI5VEO5U7YX
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -106,7 +133,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZUU4GEQNJMXAGCIPGPFX2LBEUN25K5GO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BHH7Y6RAAAVHTPBPDFM77NI5VEO5U7YX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,32 +142,63 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Hi,
 
+Set of simple cleanups from similar issues in all Qualcomm WCD93xx
+codecs.
 
-On 6/12/24 18:01, Mark Brown wrote:
-> On Wed, Jun 12, 2024 at 08:58:55AM +0200, Pierre-Louis Bossart wrote:
->> Clone LNL for now.
-> 
-> There's a dependency somewhere I think:
-> 
-> In file included from /build/stage/linux/sound/soc/sof/intel/pci-ptl.c:10:
-> /build/stage/linux/include/linux/pci.h:1063:51: error: ‘PCI_DEVICE_ID_INTEL_HDA_
-> PTL’ undeclared here (not in a function); did you mean ‘PCI_DEVICE_ID_INTEL_HDA_
-> MTL’?
->  1063 |         .vendor = PCI_VENDOR_ID_##vend, .device = PCI_DEVICE_ID_##vend##
-> _##dev, \
->       |                                                   ^~~~~~~~~~~~~~
-> /build/stage/linux/sound/soc/sof/intel/pci-ptl.c:52:11: note: in expansion of ma
-> cro ‘PCI_DEVICE_DATA’
->    52 |         { PCI_DEVICE_DATA(INTEL, HDA_PTL, &ptl_desc) }, /* PTL */>       |           ^~~~~~~~~~~~~~~
+The first patch "ASoC: codecs: wcd-mbhc: Constify passed MBHC reg
+fields" is a requirement for few others, but except this they are
+independent.
 
-Yes indeed there is a dependency, I mentioned it in the cover letter
+Best regards,
+Krzysztof
 
+---
+Krzysztof Kozlowski (23):
+      ASoC: codecs: wcd-mbhc: Constify passed MBHC reg fields
+      ASoC: codecs: wcd9335: Drop unused state container fields
+      ASoC: codecs: wcd9335: Constify static data
+      ASoC: codecs: wcd9335: Handle nicer probe deferral and simplify with dev_err_probe()
+      ASoC: codecs: wcd9335: Drop unneeded error message
+      ASoC: codecs: wcd9335: Drop unused dmic rate handling
+      ASoC: codecs: wcd934x: Drop unused interp path enum
+      ASoC: codecs: wcd934x: Constify static data
+      ASoC: codecs: wcd934x: Drop unused mic bias voltage fields
+      ASoC: codecs: wcd934x: Handle nicer probe deferral and simplify with dev_err_probe()
+      ASoC: codecs: wcd937x: Constify static data
+      ASoC: codecs: wcd937x: Constify wcd937x_sdw_ch_info
+      ASoC: codecs: wcd937x: Drop unused enums, defines and types
+      ASoC: codecs: wcd937x: Drop unused state container fields
+      ASoC: codecs: wcd937x: Drop unused chipid member
+      ASoC: codecs: wcd938x: Constify static data
+      ASoC: codecs: wcd938x: Constify wcd938x_sdw_ch_info
+      ASoC: codecs: wcd938x: Drop unused RX/TX direction enum
+      ASoC: codecs: wcd938x: Drop unused num_ports field
+      ASoC: codecs: wcd939x: Constify static data
+      ASoC: codecs: wcd939x: Constify wcd939x_sdw_ch_info
+      ASoC: codecs: wcd939x: Drop unused RX/TX direction enum
+      ASoC: codecs: wcd939x: Drop unused num_ports field
 
-"
-This patchset depends on the first patch of "[PATCH 0/3] ALSA/PCI: add
-PantherLake audio support"
-"
+ sound/soc/codecs/wcd-mbhc-v2.c |  4 +-
+ sound/soc/codecs/wcd-mbhc-v2.h |  4 +-
+ sound/soc/codecs/wcd9335.c     | 98 ++++++++----------------------------------
+ sound/soc/codecs/wcd934x.c     | 42 ++++++------------
+ sound/soc/codecs/wcd937x-sdw.c |  4 +-
+ sound/soc/codecs/wcd937x.c     | 25 +++++------
+ sound/soc/codecs/wcd937x.h     | 31 +------------
+ sound/soc/codecs/wcd938x-sdw.c |  4 +-
+ sound/soc/codecs/wcd938x.c     |  6 +--
+ sound/soc/codecs/wcd938x.h     |  7 +--
+ sound/soc/codecs/wcd939x-sdw.c |  4 +-
+ sound/soc/codecs/wcd939x.c     |  8 ++--
+ sound/soc/codecs/wcd939x.h     |  8 +---
+ 13 files changed, 60 insertions(+), 185 deletions(-)
+---
+base-commit: f453294266a3f90f72b91c30b76ca67c5dbf6019
+change-id: 20240612-asoc-wcd9xxx-wide-cleanups-a3aaf9c4d23b
 
-We don't add PCI IDs every week but when we do we'll need an update of
-pci_ids.h prior to ALSA- and ASoC-specific patches.
+Best regards,
+-- 
+Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+

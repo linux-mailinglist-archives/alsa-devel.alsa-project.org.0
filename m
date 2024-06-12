@@ -2,98 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16559905882
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jun 2024 18:21:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0330790587B
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jun 2024 18:20:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 31A23E9D;
-	Wed, 12 Jun 2024 18:20:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 31A23E9D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 71D7CEBE;
+	Wed, 12 Jun 2024 18:20:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 71D7CEBE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718209260;
-	bh=DfQrCy7EPdHobgPyU9Z15QMCzkozExD4qQYmVl1720A=;
+	s=default; t=1718209211;
+	bh=zKXd+91xEq5pfFCX7DOuH5v5v4sMaD9C4FPc04gU9r4=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Pj/W5S3Vvx0KhwniY8LjpfAK/6bsdm0okX7UtTgvJ/5h5p6igtR1iUmu75gvBjTVH
-	 85D5POeB0DJn0gxaRYsizSTKnUJxc80CY3K/Nbp11VFESPULJqchaFSi1YSYd1MKvB
-	 V8x4n3ttgX6HHGNlBtwPIu3YmBHoJDmwxcygX6wk=
+	b=qfkjGAHJSjNmS4dKRMCxx++LFwoHKb0Ols4INUvn5RkXXikIXbikbk5vif74t6OdF
+	 lwdnH61nn35tYt7XKGZW56gZr4pWsJ7VFqQczZVLQCE2jL28mMDOCWnSex4IJqoiaG
+	 XAO/45b3NReirLrTtEKGSdITIKH4cwpTg6mUpX+M=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BD30CF89664; Wed, 12 Jun 2024 18:16:33 +0200 (CEST)
+	id BA3C0F80C6D; Wed, 12 Jun 2024 18:16:28 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3CE6CF8961A;
-	Wed, 12 Jun 2024 18:16:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3D517F80C22;
+	Wed, 12 Jun 2024 18:16:28 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 211A6F80760; Wed, 12 Jun 2024 18:16:19 +0200 (CEST)
+	id 0CD68F806E5; Wed, 12 Jun 2024 18:16:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [IPv6:2a00:1450:4864:20::52c])
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [IPv6:2a00:1450:4864:20::634])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A6D9AF80678
-	for <alsa-devel@alsa-project.org>; Wed, 12 Jun 2024 18:16:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6D9AF80678
+	by alsa1.perex.cz (Postfix) with ESMTPS id 31C6EF80695
+	for <alsa-devel@alsa-project.org>; Wed, 12 Jun 2024 18:16:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31C6EF80695
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=r4TsAXHV
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-57cad4475e0so1140649a12.1
+ header.s=google header.b=mNidMt+U
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-a6efe62f583so6327166b.3
         for <alsa-devel@alsa-project.org>;
- Wed, 12 Jun 2024 09:16:04 -0700 (PDT)
+ Wed, 12 Jun 2024 09:16:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1718208963; x=1718813763;
+        d=linaro.org; s=google; t=1718208964; x=1718813764;
  darn=alsa-project.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=a2qLhgW8KCLNLm5E9+T5V7rINfGXJY8In7L0xJk0yrk=;
-        b=r4TsAXHVmHkS6CIj/jRzvgBRkoB2Ee4OX8sbLGwTshs1pwOxUWYNuStijjDbGicVvK
-         7vEMD4CEywtfbM49+3qX7Fj09x+dxg4gC3EB/TWQ1hO0kPsC7W3TE9+JVdxgeqHRd0Iv
-         ZZeCs+aqzlJlbp3C80yRtEFgyjeqBIqXKVVD4OR96Bxg5rgZQZQ/uOQZaBvwzUq97zd9
-         qlBtKyQlCLq3xfhwOZJc4ybk83iQ810UPvEHABCRM75gddnzy/JSDxnfdHuqRU0y8xW1
-         3WFGS0nT2nFEwEvFw0aLr3bOmETxmgPyLghxr/2EeTiuKrpEXXkD5CVT0kJ0VRGG374X
-         jXIg==
+        bh=SiX6Sbf9ddGFk6daznvxWZY69rEFKNMVZ2nde0CgHqI=;
+        b=mNidMt+UxRoR5xz38p+rJBGIHKCUgLcv7enkCK7J07tRUy/swYxWZV+VItNBWkCm1/
+         uW7beifqjy5vh0KilFJE6R21eUYvi+uEg1yZY66zcaMl7iIhpm0FzX3y5tIAVOH38KjZ
+         5ZDNknk53Mf1oEHFUz06hE/m7pMI7x5bu6BBUt110ccShepWAlvH9D/rnI73ihhyjQQr
+         xDKmMPeTQMpwtAl8L8MXs5X+x1a7Jkmxt9HlghN9j98cETGjz3Wy4LqQoe2ZpE9xEcXj
+         d/Hvcpn693v+byyUndhh9CVJ7qX2hfNrZ20bWfWAc594OHAYQJDYYysYuj0FHOTmhKw3
+         YiRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718208963; x=1718813763;
+        d=1e100.net; s=20230601; t=1718208964; x=1718813764;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=a2qLhgW8KCLNLm5E9+T5V7rINfGXJY8In7L0xJk0yrk=;
-        b=AlLaSymZPpPZrUsBclA8Edn6EXJoA6wwa2zhUGpKn1Hw0q+i6+9h9gdT4bae/gcm2L
-         Y/DZTfx/lyQ4dtfl0/B8nrLdx3cosP4VWlgs4hz1oH586oBOBln7rPUPvlTRUGnm7wXL
-         lUkt1ga99wqcLOZb3JjFBOxlq1uG5hHpx7te08LoqpbX4mV4uYmJyGpgRU1BJeDK/dsY
-         8lJNth3aHLhr0FmAYk2p4JtzOgQLZ6bhvARVItXiml5waOuia0kzdOOUusSqBIawvsU6
-         4bGRVQ4I3792xn+f7r7p+iTTc9Q88Kx8WI8FHoOlsfFrjXoS770bg27cmakd9TqhBaWw
-         W2TQ==
-X-Gm-Message-State: AOJu0YzWdQ5pAefJLwsybwwMJXjGmc1HzQnWF+Tx9a3GD3bBO3rdbFOw
-	eOYH/ErqF9I1Yv/dMhhSkexSXNw92VUufEr45jfrlGlLvzh9Fm1Njq4SIgXudPw=
+        bh=SiX6Sbf9ddGFk6daznvxWZY69rEFKNMVZ2nde0CgHqI=;
+        b=VDf/Y+57VrbFlvI/rna6m30ySe1JVXmIfM74gIq/sPBwaRmhZy0+ij6jOh/eDN4zeo
+         akHmPAKfS0618n2fn8nzX+F8YslHCDUuqwHEAvRtxfQBcbwwKJGMKgeLeeQQEHPXTcSV
+         PZc/qVokSKE8HV9/DD2FwXtAoQqMc8ys2v0KjgYbcrcK04gBwFO+QFTjk5eAeiRDygjK
+         ODClW2PkCoc04smGtfXosB9WsNvlCGuMp1oAqoqzl5VXSs7CZZmyvl8EHOZ/98A3++Ai
+         shC2ERJIhSZ1YsXUJPYSNLPlaJJIyaUa7svx2FBsg1oxQjmWH0tzm3J3QQu/I+PKURfj
+         Uk2g==
+X-Gm-Message-State: AOJu0YyS3gz66uMR5HcjryLBtNdZiwwpHL/54BchlvJsqKx8b3Rkz5JE
+	FV3jtiF7hMtaiXguBDfOWwE5N17t62GEKuudN97j5Z5nPA3nmo7JJKp5BS5EmJg=
 X-Google-Smtp-Source: 
- AGHT+IEaxDscDTCz98NySxu5kWNh8RbOVnW92/hmTae69P40NS2kQrWhez3Q7lBBRuGgxN9hl/EswQ==
-X-Received: by 2002:a17:906:27d6:b0:a6f:4232:4370 with SMTP id
- a640c23a62f3a-a6f523ed34cmr9882066b.5.1718208963267;
-        Wed, 12 Jun 2024 09:16:03 -0700 (PDT)
+ AGHT+IGiiOo8DvyESFXAfcAnuf1NGFEdhUpYILJtrfGZXuVCuhwhQWT5bCBjkKfscjQ0XSUs8MlYHA==
+X-Received: by 2002:a17:906:c349:b0:a6f:22ea:55b6 with SMTP id
+ a640c23a62f3a-a6f47d5cf04mr139036266b.65.1718208964688;
+        Wed, 12 Jun 2024 09:16:04 -0700 (PDT)
 Received: from [127.0.1.1] ([178.197.219.137])
         by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a6efd6cfb74sm624815866b.20.2024.06.12.09.16.01
+ a640c23a62f3a-a6efd6cfb74sm624815866b.20.2024.06.12.09.16.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 12 Jun 2024 09:16:02 -0700 (PDT)
+        Wed, 12 Jun 2024 09:16:04 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Date: Wed, 12 Jun 2024 18:15:28 +0200
-Subject: [PATCH 15/23] ASoC: codecs: wcd937x: Drop unused chipid member
+Date: Wed, 12 Jun 2024 18:15:29 +0200
+Subject: [PATCH 16/23] ASoC: codecs: wcd938x: Constify static data
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 Message-Id: 
- <20240612-asoc-wcd9xxx-wide-cleanups-v1-15-0d15885b2a06@linaro.org>
+ <20240612-asoc-wcd9xxx-wide-cleanups-v1-16-0d15885b2a06@linaro.org>
 References: <20240612-asoc-wcd9xxx-wide-cleanups-v1-0-0d15885b2a06@linaro.org>
 In-Reply-To: 
  <20240612-asoc-wcd9xxx-wide-cleanups-v1-0-0d15885b2a06@linaro.org>
@@ -105,25 +105,25 @@ Cc: alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
  linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2010;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1144;
  i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
- bh=DfQrCy7EPdHobgPyU9Z15QMCzkozExD4qQYmVl1720A=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBmacmke3u0kf8lnyb0s0QfPL8aI/2dH2R1t684n
- kmKyhh8/siJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZmnJpAAKCRDBN2bmhouD
- 1x8cD/9qfnVnoulRcTk6aU0YK+dtSPJsmk9BsXwzTqwP6Ehddbn+CarFRP2bjWywEuweaxNGAl+
- QaGdzy8AFkLtQzgtJFZr3nf/CShN+mvfOIH2zK7VmnhYihL4+AW6RS+Y8Bm21xvFFGbZejrOKQa
- 9l3kfbRn5+8s5ZIxIQ+zba/V+sZsG9fAYIAO560YoCCejowEl60W7uJ3+yntEBo2ADlE1xsdnCw
- OH9NOL0L+V24troQbqXV2v+tN6txvfka2NGDrIDNfVoFfipZlijd/8I14YSnoZwFgBARcyqCFyg
- CoZX8HVQLxLFfo1ljtLJAahgmZQ/XRDZj13hM/TF52MaYuV/zaSW1Jyw63Qn2lAn+0zvojZobnG
- 7RXw8KUbnOBc+tecVdA441Nz68RKgnx0M9r4EOl0j9rb2TwsfeT3vjGJHU3sxxbwnzamMTqK3m3
- JVSrInxoo4VVwvrCbRTNk7WA+a20B4A/jhRwUq8//Gtusg7D4jt9ahU9OOy/aTo7fEECG1ZYF61
- ysCZxeUFm2vdapjO40MtZC+DJjmeuCCaN7p0jYl+UTgiKPR4bJHo/qy/zXr67r/0bkl1BF9LzAs
- DEVKCINiuMNGwbtL//wTaiUlfmVwvC5RxShzuz32ycPERp750AWQkqX4ZBNGAJq6kL5/W8+Cts7
- TSWOUyWEsbCbCRg==
+ bh=zKXd+91xEq5pfFCX7DOuH5v5v4sMaD9C4FPc04gU9r4=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBmacmlSsu/q1HO0eaUx9PgU+Dxz56B2dOlI+KPw
+ SXkBY21VYKJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZmnJpQAKCRDBN2bmhouD
+ 1yyVD/sEH+iwt0IY8qp1uSeTqpdM8WJOxtJQKO07crLnieq69XT6lz0MVNvBufuf1+jprRqGX4v
+ G+vYXNWTc2+wT34jYp4HAVPIkd5O/+jrCJ2Fvc+D+l7/guwa6h7qp1K+K+AHgbPnrpLd3yWalYp
+ LX9cWjSDD3e5vaqhn6Aj8UCMdTTy6uSqdr+Eu+MxpJoUb0+bhxmiJoCuAd5VDvxWYh5RguxjN92
+ aRShTmq5mkX7ivZVE40xXJs3SYstK17V5HnByrTJwLNBWVZGGtvGmgFk7XQbrUAz44kSvOmkiyy
+ LmVGLnZXVsA34h8P6QhaIcQU1K5HS1nNqmVgOslpjqbgn8X2543TlhR6PwncLlfT+O/ZPwu3qb6
+ pn7Pduxpcz3NZiNctj6N/5SxqJ/2//NN6UWsYqvTg8oVEJJlEKIxTx6fp+uDaf1Y6WsPNqhE5vr
+ EWMkoZA5/sh6D6A8NS0lwMpO/bgUuyXUFVu+5+RhTuTp8PrfAmCsALZAHKj1ioheTwKbKzPOwh8
+ eXFODdsxR3TlMLou1tiByjgTfS81dywRci/lTwsS8j8RKTLgiKdD+KkuVVaDcFG0BQ9XWkHAUdr
+ WB7JMNouzyG8LBZYzEIxeT+tAtaamYudAG3LzvraWM1USEsCt0RbSul5XqhNbUr3ZmdgF5gmAFW
+ gfuek37KPhyfRQw==
 X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
  fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-Message-ID-Hash: 5SB5B5PYBYVG7VI56GHKVTU5WV32EZ7T
-X-Message-ID-Hash: 5SB5B5PYBYVG7VI56GHKVTU5WV32EZ7T
+Message-ID-Hash: YBCXTEW5MYCSH4TGN3S2DWI6WZ3VC4CH
+X-Message-ID-Hash: YBCXTEW5MYCSH4TGN3S2DWI6WZ3VC4CH
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -136,7 +136,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5SB5B5PYBYVG7VI56GHKVTU5WV32EZ7T/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YBCXTEW5MYCSH4TGN3S2DWI6WZ3VC4CH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -145,59 +145,36 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The driver stores the read chipid in 'struct wcd937x_priv' but never
-needs it after.
+Driver does not modify few static data (MBHC reg fields, IRQ chip), so
+make them const for code safety.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- sound/soc/codecs/wcd937x.c | 13 ++++++-------
- 1 file changed, 6 insertions(+), 7 deletions(-)
+ sound/soc/codecs/wcd938x.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/codecs/wcd937x.c b/sound/soc/codecs/wcd937x.c
-index 96e2989f9722..4beb70bc4d8c 100644
---- a/sound/soc/codecs/wcd937x.c
-+++ b/sound/soc/codecs/wcd937x.c
-@@ -99,7 +99,6 @@ struct wcd937x_priv {
- 	s32 pullup_ref[WCD937X_MAX_MICBIAS];
- 	u32 hph_mode;
- 	int ear_rx_path;
--	u32 chipid;
- 	u32 micb1_mv;
- 	u32 micb2_mv;
- 	u32 micb3_mv;
-@@ -2539,6 +2538,7 @@ static int wcd937x_soc_codec_probe(struct snd_soc_component *component)
- 	struct device *dev = component->dev;
- 	unsigned long time_left;
- 	int i, ret;
-+	u32 chipid;
+diff --git a/sound/soc/codecs/wcd938x.c b/sound/soc/codecs/wcd938x.c
+index 73387152ce02..124c18712422 100644
+--- a/sound/soc/codecs/wcd938x.c
++++ b/sound/soc/codecs/wcd938x.c
+@@ -221,7 +221,7 @@ struct wcd938x_mbhc_zdet_param {
+ 	u16 btn7;
+ };
  
- 	time_left = wait_for_completion_timeout(&tx_sdw_dev->initialization_complete,
- 						msecs_to_jiffies(5000));
-@@ -2552,11 +2552,10 @@ static int wcd937x_soc_codec_probe(struct snd_soc_component *component)
- 	if (ret < 0)
- 		return ret;
+-static struct wcd_mbhc_field wcd_mbhc_fields[WCD_MBHC_REG_FUNC_MAX] = {
++static const struct wcd_mbhc_field wcd_mbhc_fields[WCD_MBHC_REG_FUNC_MAX] = {
+ 	WCD_MBHC_FIELD(WCD_MBHC_L_DET_EN, WCD938X_ANA_MBHC_MECH, 0x80),
+ 	WCD_MBHC_FIELD(WCD_MBHC_GND_DET_EN, WCD938X_ANA_MBHC_MECH, 0x40),
+ 	WCD_MBHC_FIELD(WCD_MBHC_MECH_DETECTION_TYPE, WCD938X_ANA_MBHC_MECH, 0x20),
+@@ -3027,7 +3027,7 @@ static irqreturn_t wcd938x_wd_handle_irq(int irq, void *data)
+ 	return IRQ_HANDLED;
+ }
  
--	wcd937x->chipid = (snd_soc_component_read(component,
--				WCD937X_DIGITAL_EFUSE_REG_0) & 0x1e) >> 1;
--	if (wcd937x->chipid != CHIPID_WCD9370 &&
--	    wcd937x->chipid != CHIPID_WCD9375) {
--		dev_err(dev, "Got unknown chip id: 0x%x\n", wcd937x->chipid);
-+	chipid = (snd_soc_component_read(component,
-+					 WCD937X_DIGITAL_EFUSE_REG_0) & 0x1e) >> 1;
-+	if (chipid != CHIPID_WCD9370 && chipid != CHIPID_WCD9375) {
-+		dev_err(dev, "Got unknown chip id: 0x%x\n", chipid);
- 		pm_runtime_put(dev);
- 		return -EINVAL;
- 	}
-@@ -2605,7 +2604,7 @@ static int wcd937x_soc_codec_probe(struct snd_soc_component *component)
- 	disable_irq_nosync(wcd937x->hphl_pdm_wd_int);
- 	disable_irq_nosync(wcd937x->aux_pdm_wd_int);
+-static struct irq_chip wcd_irq_chip = {
++static const struct irq_chip wcd_irq_chip = {
+ 	.name = "WCD938x",
+ };
  
--	if (wcd937x->chipid == CHIPID_WCD9375) {
-+	if (chipid == CHIPID_WCD9375) {
- 		ret = snd_soc_dapm_new_controls(dapm, wcd9375_dapm_widgets,
- 						ARRAY_SIZE(wcd9375_dapm_widgets));
- 		if (ret < 0) {
 
 -- 
 2.43.0

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE0F39055BD
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jun 2024 16:50:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C0739055F6
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jun 2024 16:58:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1A65DDEC;
-	Wed, 12 Jun 2024 16:50:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A65DDEC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 215FEE65;
+	Wed, 12 Jun 2024 16:58:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 215FEE65
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718203852;
-	bh=A3ALZuSC7JFA7FKUWJ7dtEFKaiBbbWF3EU24yn8PEOM=;
+	s=default; t=1718204297;
+	bh=Syu7BB0zsaZPs6cikFGcro90qjIg1ejbMOeCL8FHf6M=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=UdfRm1haQKyCXpB+INX0ZXMY64PZnOwi/Yxfvs7209V26hEV9ATQ+EU2F8tb4k7J1
-	 mty6gzZojQvKBrWrJAz83fRh91rQS/evxEUVluNobshxw+R/TyvJLvHVcP9SCgAHyT
-	 Kze1aiaaokh0KudhndYHwLf8pc3WK1VmtCLRh0W0=
+	b=HpKT+LtQ/eYpd83tFX+nfi1PlvX+8plZpHE5NoukSj4hjc2KLdTtmm4yxb/B5dV8p
+	 GdSKMCzlUPE76psWyTe1mrWgLiI6PWeUvj2bmoJZUUPdbR5lI7MIBC59RNUzJsvy/J
+	 NgZItjpZyI0JC6x7OFohI2Qr2AxR74RuMw3kx3gs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EBB05F805A1; Wed, 12 Jun 2024 16:50:20 +0200 (CEST)
+	id 785BDF805C0; Wed, 12 Jun 2024 16:57:45 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 52815F8059F;
-	Wed, 12 Jun 2024 16:50:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BD4A1F805AA;
+	Wed, 12 Jun 2024 16:57:44 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2E0A4F8057A; Wed, 12 Jun 2024 16:50:16 +0200 (CEST)
+	id 76545F8057A; Wed, 12 Jun 2024 16:57:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,51 +33,52 @@ X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_NONE,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A48ECF80578
-	for <alsa-devel@alsa-project.org>; Wed, 12 Jun 2024 16:50:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A48ECF80578
+	by alsa1.perex.cz (Postfix) with ESMTPS id B86F8F80448
+	for <alsa-devel@alsa-project.org>; Wed, 12 Jun 2024 16:57:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B86F8F80448
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=FQWYqBm/
+ header.s=Intel header.b=Y8F6CtMa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1718203813; x=1749739813;
+  t=1718204260; x=1749740260;
   h=message-id:date:mime-version:subject:to:cc:references:
    from:in-reply-to:content-transfer-encoding;
-  bh=A3ALZuSC7JFA7FKUWJ7dtEFKaiBbbWF3EU24yn8PEOM=;
-  b=FQWYqBm/HM+UDNhf6rN56zj/H2Kch/OkGquhahTVOuk4YXHvtjcyBANw
-   trT0oxMk+mFfWZBjO3ktJI8fenkLGhcbSoKBs2buWvxFaiBOkuoCg/kKK
-   RGuUVDRMY3pQRwpXvruc3k7L0AXqY0nAODBc92fMwuIuE3UtQaWBKufRu
-   4ZTmY/oce0DlvGH0XnFCPv6KFL3anwY77vxvJpVE0VDgcUoTxUjqwKbOP
-   ER1rWpuTXI/QGa/pbvNxHl44L+iU1NkrRrGNbXrErQLwIvcNriTAmvuMQ
-   dIhO5JVf4wNlB3RQpKF5XQBi2C2gLCdRZRx0VtFYUU4RyR6d4JBif1Fn3
-   w==;
-X-CSE-ConnectionGUID: V4VY/JCgTnCYe7mw5Q8EMw==
-X-CSE-MsgGUID: 7KJwyh0mSa2Rmtz5m0TJGQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11101"; a="25603912"
+  bh=Syu7BB0zsaZPs6cikFGcro90qjIg1ejbMOeCL8FHf6M=;
+  b=Y8F6CtMa+eohFrp7IWADTTr/976qbYbh0EQ3ThsJ+RpZVbAulQ1Jia5g
+   B4FlsBcZ/FqJ9ZynNwQr0f0AmgImuYYmXyxScFExGqq6t8k7rl+S5Hio/
+   q+NMO/aM1f93GknsCk7LCgYrM7GgYYy+RLb8P+LaYGuBdMLhZ02fE4e3C
+   u4ans1TCrxF+dMDAEep1tyyblIHgmyhiQvFc38wX5dNsg+sHaDpuUOUos
+   FixT6P/Ne/UkjjCBe6GssL9XzAi/nYg+q8+bCgKdcOl+yUMTPv/0lulP7
+   hqQWR8GnXxZAUZHNdLY78ijO3h4qY9S+GNzDnWG7xuXMcHoXqbBYz2rWJ
+   A==;
+X-CSE-ConnectionGUID: HOGztSkXRealfGm47nannA==
+X-CSE-MsgGUID: Nq4dshUSTMuxPaYtfGhDBw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11101"; a="18798688"
 X-IronPort-AV: E=Sophos;i="6.08,233,1712646000";
-   d="scan'208";a="25603912"
+   d="scan'208";a="18798688"
 Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jun 2024 07:50:09 -0700
-X-CSE-ConnectionGUID: sIB8IIaFR/u7dDoKj/j2Iw==
-X-CSE-MsgGUID: V8mahd+5QBSIdsk5KEyVLQ==
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jun 2024 07:57:34 -0700
+X-CSE-ConnectionGUID: ZXmtThsIQQ6tImepGZ/AOw==
+X-CSE-MsgGUID: /g+wx0HGThGiYikLxyvHkA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.08,233,1712646000";
-   d="scan'208";a="39925635"
+   d="scan'208";a="39927202"
 Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.94.0.53])
  ([10.94.0.53])
   by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jun 2024 07:50:04 -0700
-Message-ID: <80fefd6b-0f3a-4f6a-869e-fd2225315801@linux.intel.com>
-Date: Wed, 12 Jun 2024 16:50:01 +0200
+ 12 Jun 2024 07:57:29 -0700
+Message-ID: <d5c6fff6-68ab-4248-814b-41b77d7105c8@linux.intel.com>
+Date: Wed, 12 Jun 2024 16:57:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v23 00/32] Introduce QC USB SND audio offloading support
+Subject: Re: [PATCH v23 17/32] ALSA: usb-audio: Do not allow USB offload path
+ if PCM device is in use
 Content-Language: en-US
 To: Wesley Cheng <quic_wcheng@quicinc.com>, srinivas.kandagatla@linaro.org,
  mathias.nyman@intel.com, perex@perex.cz, conor+dt@kernel.org,
@@ -89,13 +90,14 @@ Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, linux-doc@vger.kernel.org,
  alsa-devel@alsa-project.org
 References: <20240610235808.22173-1-quic_wcheng@quicinc.com>
+ <20240610235808.22173-18-quic_wcheng@quicinc.com>
 From: =?UTF-8?Q?Amadeusz_S=C5=82awi=C5=84ski?=
  <amadeuszx.slawinski@linux.intel.com>
-In-Reply-To: <20240610235808.22173-1-quic_wcheng@quicinc.com>
+In-Reply-To: <20240610235808.22173-18-quic_wcheng@quicinc.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: NFJDPBTAZCC36QH4HJVYOMVZMCXFIGHW
-X-Message-ID-Hash: NFJDPBTAZCC36QH4HJVYOMVZMCXFIGHW
+Message-ID-Hash: ZPSSI3PXEOO2XBQ7HAZ3XNSDTMCYRKB5
+X-Message-ID-Hash: ZPSSI3PXEOO2XBQ7HAZ3XNSDTMCYRKB5
 X-MailFrom: amadeuszx.slawinski@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -108,7 +110,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NFJDPBTAZCC36QH4HJVYOMVZMCXFIGHW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZPSSI3PXEOO2XBQ7HAZ3XNSDTMCYRKB5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,42 +120,17 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 On 6/11/2024 1:57 AM, Wesley Cheng wrote:
+> Add proper checks and updates to the USB substream once receiving a USB QMI
+> stream enable request.  If the substream is already in use from the non
+> offload path, reject the stream enable request.  In addition, update the
+> USB substream opened parameter when enabling the offload path, so the
+> non offload path can be blocked.
+> 
+> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
+> ---
+>   sound/usb/qcom/qc_audio_offload.c | 15 ++++++++++++++-
+>   1 file changed, 14 insertions(+), 1 deletion(-)
 
-> Wesley Cheng (32):
->    ASoC: Add SOC USB APIs for adding an USB backend
->    ASoC: dt-bindings: qcom,q6dsp-lpass-ports: Add USB_RX port
->    ASoC: qcom: qdsp6: Introduce USB AFE port to q6dsp
->    ASoC: qdsp6: q6afe: Increase APR timeout
->    ASoC: qcom: qdsp6: Add USB backend ASoC driver for Q6
->    ALSA: usb-audio: Introduce USB SND platform op callbacks
->    ALSA: usb-audio: Export USB SND APIs for modules
->    ALSA: usb-audio: Save UAC sample size information
->    usb: dwc3: Specify maximum number of XHCI interrupters
->    usb: host: xhci-plat: Set XHCI max interrupters if property is present
->    ALSA: usb-audio: qcom: Add USB QMI definitions
->    ALSA: usb-audio: qcom: Introduce QC USB SND offloading support
->    ALSA: usb-audio: Check for support for requested audio format
->    ASoC: usb: Add PCM format check API for USB backend
->    ASoC: qcom: qdsp6: Ensure PCM format is supported by USB audio device
->    ALSA: usb-audio: Prevent starting of audio stream if in use
->    ALSA: usb-audio: Do not allow USB offload path if PCM device is in use
->    ASoC: dt-bindings: Update example for enabling USB offload on SM8250
->    ALSA: usb-audio: qcom: Populate PCM and USB chip information
->    ASoC: qcom: qdsp6: Add support to track available USB PCM devices
->    ASoC: Introduce SND kcontrols to select sound card and PCM device
->    ASoC: qcom: qdsp6: Add SOC USB offload select get/put callbacks
->    ASoC: Introduce SND kcontrols to track USB offloading state
->    ASoC: qcom: qdsp6: Add PCM ops to track current state
->    ASoC: usb: Create SOC USB SND jack kcontrol
->    ASoC: qcom: qdsp6: Add headphone jack for offload connection status
->    ASoC: usb: Fetch ASoC sound card information
->    ALSA: usb-audio: Add USB offloading capable kcontrol
->    ALSA: usb-audio: Allow for rediscovery of connected USB SND devices
->    ALSA: usb-audio: qcom: Use card and PCM index from QMI request
->    ASoC: usb: Rediscover USB SND devices on USB port add
->    ASoC: doc: Add documentation for SOC USB
+Patch title is missing qcom part and it clearly touches QCOM code.
+ALSA: usb-audio: qcom:
 
-I'm not sure how other reviewers feel about this, but is there any 
-chance to group patches in some logical order? It is bit hard to review 
-when I need to jump from generic ALSA to ASoC then QCOM code and then 
-there are dt-bindings mixed in between and back again.

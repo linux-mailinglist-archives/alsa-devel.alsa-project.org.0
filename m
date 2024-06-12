@@ -2,85 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 880969057EF
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jun 2024 18:02:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4843F905830
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jun 2024 18:09:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4E77EA4D;
-	Wed, 12 Jun 2024 18:02:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4E77EA4D
+	by alsa0.perex.cz (Postfix) with ESMTPS id AD6F5A4D;
+	Wed, 12 Jun 2024 18:09:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD6F5A4D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718208139;
-	bh=koJhvF9uRyo4fkWk7z9zsznr3icpU4UOgpXk1pXcWRM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1718208565;
+	bh=a0+JRhui/mzRBvsXaE6goUUceXxYT5/pPcxYVCj0tFM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Bx17cbIhM8xdg+7e7fW85lDEqJMGcWYsEZqLTJVbPX7QY1/fsYVXQj5DMOC1GqVra
-	 IPSzOJ6p/kCE4ZTjSEmbpKyITCG/MHQfPvkFV9ZCbJyUpYR2o9HgPhzzO35RSxebNs
-	 Y10cYcgoIBWtKFE/+uNtluBzYKeDyyfxrCifuiCY=
+	b=h4rcEF7DklZyx8b7w3HfAUmlV+K7RG9gogdtxJ15JR2gaKQgm7i340PXNNflG0Sx0
+	 U0LbYDRb+DcvLDNP4xaJQEs02sSYLfU41NYTJN3R0FjT5rW1OLrV3VGKTxwhC2bq/0
+	 F5dFW8AEOLgv7zOsoPzxdVag9uEfRtjWqaq12muc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 613B7F805BD; Wed, 12 Jun 2024 18:01:47 +0200 (CEST)
+	id 68FE5F805B1; Wed, 12 Jun 2024 18:08:54 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9732FF805AC;
-	Wed, 12 Jun 2024 18:01:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A762AF805B3;
+	Wed, 12 Jun 2024 18:08:53 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E8034F8057A; Wed, 12 Jun 2024 18:01:41 +0200 (CEST)
+	id 0C54EF8057A; Wed, 12 Jun 2024 18:08:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_NONE,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 46B2FF8010C
-	for <alsa-devel@alsa-project.org>; Wed, 12 Jun 2024 18:01:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46B2FF8010C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7DEF8F80578
+	for <alsa-devel@alsa-project.org>; Wed, 12 Jun 2024 18:08:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7DEF8F80578
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=f+aevC0c
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 4DC6A614BD;
-	Wed, 12 Jun 2024 16:01:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2315DC116B1;
-	Wed, 12 Jun 2024 16:01:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1718208093;
-	bh=koJhvF9uRyo4fkWk7z9zsznr3icpU4UOgpXk1pXcWRM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=f+aevC0c/6uTMbQ4l2iksrbcZQCXoh+0WiYKrF921TK+LAJ0BKaiN8JHG+sZTK0+E
-	 eAKDF/M4UEV5T0KcXsS3zAI9wfUCYihuuX6zZ8/LU5j03HXtCxviwmEEzXN0zIrJRQ
-	 Trm5h8m2jDnNw1ATBz6IwQlx6MQg7nYQ4qtUEuOHLDrJa1hKi/qcGEFoDE/d0OVDsJ
-	 0U3OFOCLapZx6EN9tVfY6s4Ktb24J8SeJXs+FJNvPFjb7wV4TAqSi7icy33nQu8aEr
-	 yydVCw/rOG08g3IXABt92exDSXeSa2G3l41Hqpvb4u4fLT8ypwV9SC7QubGJZ8pS3h
-	 glsrl1x3HCM1Q==
-Date: Wed, 12 Jun 2024 17:01:29 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de,
-	Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
-	=?iso-8859-1?Q?P=E9ter?= Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=fduz68V9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1718208528; x=1749744528;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=a0+JRhui/mzRBvsXaE6goUUceXxYT5/pPcxYVCj0tFM=;
+  b=fduz68V9BDt57ynPSES4xXp04NuTnYoOXfLxEXB1swRpedLd1NMIpwcZ
+   dkyxyRb570uebyb5QIbHa9PbJk3mMHylNg9F7cyEytJptLI6OEhbB8TVv
+   pZp2R/VquOyNDnqTYUV4GcNcqoIifwLTH/YsPdkJbc2kgCPdBFTSi6t/W
+   EZHz1RjBY7JedRQ71R4W2n2Rir5qhJKT1ahwNYinu33weu2uqaL9PKHQX
+   CeO0Zm6qakrIpFHV/ISgtnaagfrMmOwMFfsm0aGVz+cLp1hG4U/zVXFB1
+   ss0yRXcy5lobN0kHqpzo+RNmnyyOzEFFc/GmghWO1oTP6lm9FI8/usK2D
+   w==;
+X-CSE-ConnectionGUID: Lfv1DfevSUOo1YZz+C5D/g==
+X-CSE-MsgGUID: Dr4Ho6Q2S+KcHyPlySr6Ig==
+X-IronPort-AV: E=McAfee;i="6700,10204,11101"; a="32468043"
+X-IronPort-AV: E=Sophos;i="6.08,233,1712646000";
+   d="scan'208";a="32468043"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jun 2024 09:08:40 -0700
+X-CSE-ConnectionGUID: 1kIeo6NkSp6h2KVIDqBwxA==
+X-CSE-MsgGUID: ffJj8BVXTMOhmswojMoMNg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.08,233,1712646000";
+   d="scan'208";a="44745063"
+Received: from bergbenj-mobl1.ger.corp.intel.com (HELO [10.245.246.94])
+ ([10.245.246.94])
+  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jun 2024 09:08:37 -0700
+Message-ID: <c835bf25-39b8-4f7a-9c77-33367085670e@linux.intel.com>
+Date: Wed, 12 Jun 2024 18:08:34 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 2/5] ASoC: SOF: Intel: add initial support for PTL
-Message-ID: <ZmnGWdZ0GrE9lnk2@finisterre.sirena.org.uk>
+To: Mark Brown <broonie@kernel.org>
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de,
+ Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
+ =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>
 References: <20240612065858.53041-1-pierre-louis.bossart@linux.intel.com>
  <20240612065858.53041-3-pierre-louis.bossart@linux.intel.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="QTJB/OyqEFSB6dAf"
-Content-Disposition: inline
-In-Reply-To: <20240612065858.53041-3-pierre-louis.bossart@linux.intel.com>
-X-Cookie: A Smith & Wesson beats four aces.
-Message-ID-Hash: 7XH4MS5GTYCZLX4GOCD5OOZWWBA5MX5J
-X-Message-ID-Hash: 7XH4MS5GTYCZLX4GOCD5OOZWWBA5MX5J
-X-MailFrom: broonie@kernel.org
+ <ZmnGWdZ0GrE9lnk2@finisterre.sirena.org.uk>
+Content-Language: en-US
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <ZmnGWdZ0GrE9lnk2@finisterre.sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: ZUU4GEQNJMXAGCIPGPFX2LBEUN25K5GO
+X-Message-ID-Hash: ZUU4GEQNJMXAGCIPGPFX2LBEUN25K5GO
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -92,7 +106,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7XH4MS5GTYCZLX4GOCD5OOZWWBA5MX5J/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZUU4GEQNJMXAGCIPGPFX2LBEUN25K5GO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,45 +116,31 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---QTJB/OyqEFSB6dAf
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jun 12, 2024 at 08:58:55AM +0200, Pierre-Louis Bossart wrote:
-> Clone LNL for now.
+On 6/12/24 18:01, Mark Brown wrote:
+> On Wed, Jun 12, 2024 at 08:58:55AM +0200, Pierre-Louis Bossart wrote:
+>> Clone LNL for now.
+> 
+> There's a dependency somewhere I think:
+> 
+> In file included from /build/stage/linux/sound/soc/sof/intel/pci-ptl.c:10:
+> /build/stage/linux/include/linux/pci.h:1063:51: error: ‘PCI_DEVICE_ID_INTEL_HDA_
+> PTL’ undeclared here (not in a function); did you mean ‘PCI_DEVICE_ID_INTEL_HDA_
+> MTL’?
+>  1063 |         .vendor = PCI_VENDOR_ID_##vend, .device = PCI_DEVICE_ID_##vend##
+> _##dev, \
+>       |                                                   ^~~~~~~~~~~~~~
+> /build/stage/linux/sound/soc/sof/intel/pci-ptl.c:52:11: note: in expansion of ma
+> cro ‘PCI_DEVICE_DATA’
+>    52 |         { PCI_DEVICE_DATA(INTEL, HDA_PTL, &ptl_desc) }, /* PTL */>       |           ^~~~~~~~~~~~~~~
 
-There's a dependency somewhere I think:
+Yes indeed there is a dependency, I mentioned it in the cover letter
 
-In file included from /build/stage/linux/sound/soc/sof/intel/pci-ptl.c:10:
-/build/stage/linux/include/linux/pci.h:1063:51: error: =E2=80=98PCI_DEVICE_=
-ID_INTEL_HDA_
-PTL=E2=80=99 undeclared here (not in a function); did you mean =E2=80=98PCI=
-_DEVICE_ID_INTEL_HDA_
-MTL=E2=80=99?
- 1063 |         .vendor =3D PCI_VENDOR_ID_##vend, .device =3D PCI_DEVICE_ID=
-_##vend##
-_##dev, \
-      |                                                   ^~~~~~~~~~~~~~
-/build/stage/linux/sound/soc/sof/intel/pci-ptl.c:52:11: note: in expansion =
-of ma
-cro =E2=80=98PCI_DEVICE_DATA=E2=80=99
-   52 |         { PCI_DEVICE_DATA(INTEL, HDA_PTL, &ptl_desc) }, /* PTL */
-      |           ^~~~~~~~~~~~~~~
 
---QTJB/OyqEFSB6dAf
-Content-Type: application/pgp-signature; name="signature.asc"
+"
+This patchset depends on the first patch of "[PATCH 0/3] ALSA/PCI: add
+PantherLake audio support"
+"
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmZpxlgACgkQJNaLcl1U
-h9CAQgf9Hs8BaVfHcGEf8NBixx3jvjRXrQbsSmyieNXwrywCjaBi1XyuhcSVlm8x
-9SLdzSgSwvRrfc/dJp9JZ6KPXCfy8Oa8eTig4d3fOdH1OTNzi0ozbujoBQJsK4Q+
-FpOI5TgoPVTIyB83Jw5veJcBJ6z226XuBWLIuEolMXOxiGnEF36F2SWJR1YsoWvV
-mb6AMh7Z0/24I59pKQkYtRMCNDUb+ZTVI5JpUZsY6eN2ZMpTemK0qVdQB73Js6rz
-LKT9apbpusHbhINzUJhxlW0VUkvjCDwhwieHxiqc2PWJSm2O6eomkGQ68AeFCNo9
-0VY870zURF8U1LbuEd1unijh8E75tA==
-=CtkJ
------END PGP SIGNATURE-----
-
---QTJB/OyqEFSB6dAf--
+We don't add PCI IDs every week but when we do we'll need an update of
+pci_ids.h prior to ALSA- and ASoC-specific patches.

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEB64904BE4
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jun 2024 08:48:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB48F904BED
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jun 2024 08:49:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DE017E82;
-	Wed, 12 Jun 2024 08:48:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE017E82
+	by alsa0.perex.cz (Postfix) with ESMTPS id 14570EC1;
+	Wed, 12 Jun 2024 08:49:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 14570EC1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718174933;
-	bh=kMKRUMZi3LwsLYnKnwrFIcZsrJQPpEX0yid2nCNeb9c=;
+	s=default; t=1718174979;
+	bh=K3REjYBdhUytlfX6yr7AapN87zMzEFQ8tErxN8v8WQU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=lcub3aCP2uety98AedxzHEZmFpdNNJr2yN0VbgxVJzJbYKj3o1dQqDB5qpr8mj22l
-	 /4vvU3XLPpbUR5cVUKmSZTA4gZb5A9U/cvfa61MaUQEmOrUk0981c3q8PsazTaVgcf
-	 0cDwUgGOQA2w2NW8DTCCgAMvHBHUsWeNbyRlbBFo=
+	b=icUAVzweb+nyuSthDxcBFq1FqRXaCdwarEnSH29m/18lIcPr4wyhmTtVmN27Rec3i
+	 1A18oLbZnxyxCBYGjgssL+wOD7IYlpUEZKE5XGLHT9X/jRXJKYnLOCHHJB1YkNaXkh
+	 7mUmstkcAeZMWjRCWKBSGgyKrC0sHgXZHJC8XS0c=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3D1DBF805BF; Wed, 12 Jun 2024 08:48:21 +0200 (CEST)
+	id 658A4F8061D; Wed, 12 Jun 2024 08:48:33 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1B4EDF8058C;
-	Wed, 12 Jun 2024 08:48:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1DE4FF80619;
+	Wed, 12 Jun 2024 08:48:33 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F3601F80588; Wed, 12 Jun 2024 08:48:07 +0200 (CEST)
+	id DC1E0F8057A; Wed, 12 Jun 2024 08:48:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -36,43 +36,43 @@ X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A61CCF80578
-	for <alsa-devel@alsa-project.org>; Wed, 12 Jun 2024 08:47:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A61CCF80578
+	by alsa1.perex.cz (Postfix) with ESMTPS id C1221F8057A
+	for <alsa-devel@alsa-project.org>; Wed, 12 Jun 2024 08:47:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1221F8057A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=XA6g3G0k
+ header.s=Intel header.b=ALGgtaXt
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1718174879; x=1749710879;
+  t=1718174881; x=1749710881;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=kMKRUMZi3LwsLYnKnwrFIcZsrJQPpEX0yid2nCNeb9c=;
-  b=XA6g3G0kdmw7MorqwttZ59bvaLGXuPGiDKBtvkOPVmmU4QfRdorSHj5y
-   AYP7ClWlAyIb/JTfdMcc0JlwT0bFDYI6nyml2ssa+aHuK/ipskEXu+F3Z
-   YOxAMqYt32LiqmdNXheBJSPexxWhJT5WQ1pmesiuDkKJONGqcVjGHjxu1
-   19YJmmIIuNPrQJ21cCoUZjTRjXpFT+y9wJXH2Q4S2Qz/MJUFpWO3xpc70
-   8zUwYETNJ6hL2UAs0C/rehv7TCmbtA0aMmjfktSf/zE6diDRuKYC9uExJ
-   gwmDkdlPsZriv69LMteazXN0jtFrR00fY7qFGh2err5lNH30C+uO27yu4
-   g==;
-X-CSE-ConnectionGUID: Zc/+35X/SCKPIFYqqc7vsw==
-X-CSE-MsgGUID: 90kjWN9iTBaLcuL8CN232w==
-X-IronPort-AV: E=McAfee;i="6600,9927,11100"; a="15145893"
+  bh=K3REjYBdhUytlfX6yr7AapN87zMzEFQ8tErxN8v8WQU=;
+  b=ALGgtaXt2o7BtMndTGzq3qNnSe8QxPX+Jf0pwRoJ6NexEJrOySsIIxLK
+   LaaEX8GlZ1IQe/67sBOredqJ24vvCD9bvTVzAfB+TzEon90L3C7Y7x/F4
+   aV8CoF5RCPxMz6xUu2g4g0fj+lHhmpb52r+K7qo6Lv9Ag7S4ut3Kcb7z8
+   uWCWtBvjufT1qOkyLMRBe8pwahk/zSGxfJ20CSvBgdNT+6ZMv62hTPBNH
+   Pnv4RzeUj27/t2q76n6KwvM0ouc/LwO+siF3yoApjQ5Ae5g1O2C9slgie
+   /aSh54J6SNMKMJkOq0pqvsXuy/mi6jk2MlVvuyhlIrKbCO6Vc9Ou8M7w5
+   w==;
+X-CSE-ConnectionGUID: XEUI+ta5RgmWTGZ5Q5xgjg==
+X-CSE-MsgGUID: qmnPzNhXRmeKvSM4vogeWw==
+X-IronPort-AV: E=McAfee;i="6600,9927,11100"; a="15145903"
 X-IronPort-AV: E=Sophos;i="6.08,232,1712646000";
-   d="scan'208";a="15145893"
+   d="scan'208";a="15145903"
 Received: from fmviesa010.fm.intel.com ([10.60.135.150])
   by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jun 2024 23:47:39 -0700
-X-CSE-ConnectionGUID: g5eXDeh/QVGCnIy6nEcnYg==
-X-CSE-MsgGUID: bD8F6WK6Tv+6Ka3TOlGgRQ==
+ 11 Jun 2024 23:47:42 -0700
+X-CSE-ConnectionGUID: PFjMVl1zS6G5lgxo5Jy2Ww==
+X-CSE-MsgGUID: xv6cDRKMRNSYOUqPFS/5WA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.08,232,1712646000";
-   d="scan'208";a="39751209"
+   d="scan'208";a="39751245"
 Received: from iklimasz-mobl1.ger.corp.intel.com (HELO
  pbossart-mobl6.intel.com) ([10.245.246.56])
   by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jun 2024 23:47:36 -0700
+ 11 Jun 2024 23:47:39 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
 Cc: tiwai@suse.de,
@@ -83,17 +83,17 @@ Cc: tiwai@suse.de,
 	=?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
 	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
 	Bard Liao <yung-chuan.liao@linux.intel.com>
-Subject: [PATCH 1/3] PCI: pci_ids: add INTEL_HDA_PTL
-Date: Wed, 12 Jun 2024 08:47:07 +0200
-Message-ID: <20240612064709.51141-2-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 2/3] ALSA: hda: hda-intel: add PantherLake support
+Date: Wed, 12 Jun 2024 08:47:08 +0200
+Message-ID: <20240612064709.51141-3-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240612064709.51141-1-pierre-louis.bossart@linux.intel.com>
 References: <20240612064709.51141-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 7O2J7JWAB5DFDJU7GEO4ZP4HIEKIW7YP
-X-Message-ID-Hash: 7O2J7JWAB5DFDJU7GEO4ZP4HIEKIW7YP
+Message-ID-Hash: F2VJFFODJVSRETLXJNGR6QNX36XPH3QI
+X-Message-ID-Hash: F2VJFFODJVSRETLXJNGR6QNX36XPH3QI
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -106,7 +106,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7O2J7JWAB5DFDJU7GEO4ZP4HIEKIW7YP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/F2VJFFODJVSRETLXJNGR6QNX36XPH3QI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,7 +115,7 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-More PCI ids for Intel audio.
+One more PCI ID.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
@@ -123,21 +123,22 @@ Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 ---
- include/linux/pci_ids.h | 1 +
- 1 file changed, 1 insertion(+)
+ sound/pci/hda/hda_intel.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/include/linux/pci_ids.h b/include/linux/pci_ids.h
-index 942a587bb97e..0168c6a60148 100644
---- a/include/linux/pci_ids.h
-+++ b/include/linux/pci_ids.h
-@@ -3112,6 +3112,7 @@
- #define PCI_DEVICE_ID_INTEL_HDA_LNL_P	0xa828
- #define PCI_DEVICE_ID_INTEL_S21152BB	0xb152
- #define PCI_DEVICE_ID_INTEL_HDA_BMG	0xe2f7
-+#define PCI_DEVICE_ID_INTEL_HDA_PTL	0xe428
- #define PCI_DEVICE_ID_INTEL_HDA_CML_R	0xf0c8
- #define PCI_DEVICE_ID_INTEL_HDA_RKL_S	0xf1c8
- 
+diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
+index 3500108f6ba3..b33602e64d17 100644
+--- a/sound/pci/hda/hda_intel.c
++++ b/sound/pci/hda/hda_intel.c
+@@ -2495,6 +2495,8 @@ static const struct pci_device_id azx_ids[] = {
+ 	{ PCI_DEVICE_DATA(INTEL, HDA_ARL_S, AZX_DRIVER_SKL | AZX_DCAPS_INTEL_SKYLAKE) },
+ 	/* Arrow Lake */
+ 	{ PCI_DEVICE_DATA(INTEL, HDA_ARL, AZX_DRIVER_SKL | AZX_DCAPS_INTEL_SKYLAKE) },
++	/* Panther Lake */
++	{ PCI_DEVICE_DATA(INTEL, HDA_PTL, AZX_DRIVER_SKL | AZX_DCAPS_INTEL_LNL) },
+ 	/* Apollolake (Broxton-P) */
+ 	{ PCI_DEVICE_DATA(INTEL, HDA_APL, AZX_DRIVER_SKL | AZX_DCAPS_INTEL_BROXTON) },
+ 	/* Gemini-Lake */
 -- 
 2.43.0
 

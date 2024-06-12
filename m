@@ -2,99 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4378904C3C
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jun 2024 09:01:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E04E904E1B
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jun 2024 10:27:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6403FE9F;
-	Wed, 12 Jun 2024 09:00:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6403FE9F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3E019FAA;
+	Wed, 12 Jun 2024 10:26:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3E019FAA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718175669;
-	bh=tqqJI6wD144Ba0q2mBEunzNzlWBhDW4D6RtTx5VSFGA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=nnj+mcTtgF89PB4tT0DRxwetzeNgIKdJ9Du1lxhuF5xk2Rzk17smX283DL4Pb5KKX
-	 jkPxasHJWASwy4goLybaBcWBVrRSHnhci5LC2rN3qeb/YNRWWYRS468XAxbeo13kqM
-	 2hAxQJNBenoiIR0iL9uLKvItBczQYcZWVRYaIy8A=
+	s=default; t=1718180829;
+	bh=j4IikM/8f0WxPsoP5Y1ret6QW1ddPJ5haXColS9GWeI=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=nUMcom2WtHhLSRpt7Y3HIdGUtTF45xu5jFXKnLuiYuMDhCuenXwG/zzCuH8eoksro
+	 HusUjEHSBDDx1Q4mp02jIxqf/bKByeaSIIVZWvozHwMICMWLqRQoMt40sB/dAX55VX
+	 yT8H7tI0qW16UC77ObZVvDz/fdgR4vq7yVmYLTHo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 34770F805BE; Wed, 12 Jun 2024 09:00:49 +0200 (CEST)
+	id 66CE6F80589; Wed, 12 Jun 2024 10:26:37 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1FBFFF805E2;
-	Wed, 12 Jun 2024 09:00:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C4D3DF8058C;
+	Wed, 12 Jun 2024 10:26:36 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3940BF805B3; Wed, 12 Jun 2024 09:00:39 +0200 (CEST)
+	id 79381F80587; Wed, 12 Jun 2024 10:24:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_NONE,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_PASS,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 225DFF805A1
-	for <alsa-devel@alsa-project.org>; Wed, 12 Jun 2024 08:59:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 225DFF805A1
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9B61EF8010C
+	for <alsa-devel@alsa-project.org>; Wed, 12 Jun 2024 10:23:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B61EF8010C
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=gDPk4Avj
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1718175582; x=1749711582;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=tqqJI6wD144Ba0q2mBEunzNzlWBhDW4D6RtTx5VSFGA=;
-  b=gDPk4AvjySeI/BlJ+4HMt8SwdeX1JhFz6PTfysah3/yiQMuq+GrggpbI
-   kwHhH7UyJHop7M4MgPoMZ7vU8TC4NC7ejt/0JrfmxrL5gzpQiKKDltjMu
-   45Gns2dXP6QkMj1cPPzHBuCDOZHRkr582omcZ+Y3nZZ1vlgAtDbEkK4Hd
-   6MPKcJvhQFMFb0XNPJ+k2PAlk8PdgFpyvh3yFNOoXArwp4rLwBs+GmbpG
-   lV7KmK6teDVy7Cptu5WoGwG/5B1KmAJ+8ldehQULpd4icdu0fed5PtDpj
-   g/IstrpM9p/1v0hRhQjRju03t0/pwW+dN0VN/jHWC6k1UIDsJNR9ixf3p
-   A==;
-X-CSE-ConnectionGUID: GXzRlIThS9mgf2XLRyw76Q==
-X-CSE-MsgGUID: mANrZS6ISJOsifusria/ag==
-X-IronPort-AV: E=McAfee;i="6600,9927,11100"; a="15147466"
-X-IronPort-AV: E=Sophos;i="6.08,232,1712646000";
-   d="scan'208";a="15147466"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jun 2024 23:59:39 -0700
-X-CSE-ConnectionGUID: i1Lq8sxqQ5SNHprafjtX/Q==
-X-CSE-MsgGUID: txqi0e+5RE6oFKEVUDCIoQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,232,1712646000";
-   d="scan'208";a="70486901"
-Received: from iklimasz-mobl1.ger.corp.intel.com (HELO
- pbossart-mobl6.intel.com) ([10.245.246.56])
-  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jun 2024 23:59:37 -0700
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Cc: tiwai@suse.de,
-	broonie@kernel.org,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	linux-pci@vger.kernel.org,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	=?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [PATCH 5/5] ASoC: Intel: soc-acpi-intel-ptl-match: Add rt722 support
-Date: Wed, 12 Jun 2024 08:58:58 +0200
-Message-ID: <20240612065858.53041-6-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240612065858.53041-1-pierre-louis.bossart@linux.intel.com>
-References: <20240612065858.53041-1-pierre-louis.bossart@linux.intel.com>
+	dkim=pass (1024-bit key,
+ unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
+ header.s=ti-com-17Q1 header.b=p7hrNP3E
+Received: from lelv0266.itg.ti.com ([10.180.67.225])
+	by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 45C8NjE6123708;
+	Wed, 12 Jun 2024 03:23:45 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+	s=ti-com-17Q1; t=1718180625;
+	bh=SXg9W8qnUhziZySsDuvS+9nZfVaC8vrFqmChdl2skTM=;
+	h=From:To:CC:Subject:Date;
+	b=p7hrNP3EEz95Ebp8fUg/AlR8Y0Jy0hA+jKms+EJ86h8zAcsK9hKXinUHIwWruo8ck
+	 m0l5mq1FO8bF+/AQuV+Bi6dUHjSu/QVuD3WEpXChd3OPW+cQlsXgl1RN9zHdediTrs
+	 ZIFyo+eIuwl2yqfpzqPtoHtqYPKVWObUpv8Fdprg=
+Received: from DLEE100.ent.ti.com (dlee100.ent.ti.com [157.170.170.30])
+	by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 45C8NjT0048263
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Wed, 12 Jun 2024 03:23:45 -0500
+Received: from DLEE108.ent.ti.com (157.170.170.38) by DLEE100.ent.ti.com
+ (157.170.170.30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Wed, 12
+ Jun 2024 03:23:45 -0500
+Received: from lelvsmtp6.itg.ti.com (10.180.75.249) by DLEE108.ent.ti.com
+ (157.170.170.38) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
+ Frontend Transport; Wed, 12 Jun 2024 03:23:45 -0500
+Received: from LT5CG31242FY.dhcp.ti.com ([10.250.160.158])
+	by lelvsmtp6.itg.ti.com (8.15.2/8.15.2) with ESMTP id 45C8NZhi099797;
+	Wed, 12 Jun 2024 03:23:35 -0500
+From: Shenghao Ding <shenghao-ding@ti.com>
+To: <broonie@kernel.org>
+CC: <andriy.shevchenko@linux.intel.com>, <lgirdwood@gmail.com>,
+        <perex@perex.cz>, <pierre-louis.bossart@linux.intel.com>,
+        <13916275206@139.com>, <zhourui@huaqin.com>,
+        <alsa-devel@alsa-project.org>, <i-salazar@ti.com>,
+        <linux-kernel@vger.kernel.org>, <j-chadha@ti.com>,
+        <liam.r.girdwood@intel.com>, <jaden-yue@ti.com>,
+        <yung-chuan.liao@linux.intel.com>, <dipa@ti.com>,
+ <yuhsuan@google.com>,
+        <henry.lo@ti.com>, <tiwai@suse.de>, <baojun.xu@ti.com>,
+ <soyer@irl.hu>,
+        <Baojun.Xu@fpt.com>, <judyhsiao@google.com>, <navada@ti.com>,
+        <cujomalainey@google.com>, <aanya@ti.com>, <nayeem.mahmud@ti.com>,
+        <savyasanchi.shukla@netradyne.com>, <flaviopr@microsoft.com>,
+        <jesse-ji@ti.com>, <darren.ye@mediatek.com>,
+        Shenghao Ding
+	<shenghao-ding@ti.com>
+Subject: [RESEND PATCH v4] ASoc: tas2781: Enable RCA-based playback without
+ DSP firmware download
+Date: Wed, 12 Jun 2024 16:23:30 +0800
+Message-ID: <20240612082332.1407-1-shenghao-ding@ti.com>
+X-Mailer: git-send-email 2.33.0.windows.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: Z2YNMDIVTOLWQHK3YXPYBQOJZKRVUE3P
-X-Message-ID-Hash: Z2YNMDIVTOLWQHK3YXPYBQOJZKRVUE3P
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+Content-Type: text/plain
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Message-ID-Hash: IQT5EOY6JLGKLVN6C2WDMNBFFMOQSVIY
+X-Message-ID-Hash: IQT5EOY6JLGKLVN6C2WDMNBFFMOQSVIY
+X-MailFrom: shenghao-ding@ti.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -106,7 +108,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Z2YNMDIVTOLWQHK3YXPYBQOJZKRVUE3P/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IQT5EOY6JLGKLVN6C2WDMNBFFMOQSVIY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,93 +117,190 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
+In only RCA (Reconfigurable Architecture) binary case, no DSP program will
+be working inside tas2563/tas2781, that is dsp-bypass mode, do not support
+speaker protection, and audio acoustic algorithms in this mode.
 
-This patch adds match table for rt722 multiple
-function codec on link 0.
+Fixes: ef3bcde75d06 ("ASoC: tas2781: Add tas2781 driver")
+Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
 
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- .../intel/common/soc-acpi-intel-ptl-match.c   | 49 +++++++++++++++++++
- 1 file changed, 49 insertions(+)
+v4:
+ - add a description of what the state machine looks like.
+ - Remove TASDEVICE_DSP_FW_NONE because of unused.
+ - Remove stray change.
+ - Fix broken indentation.
+v3:
+ - Add description on RCA is Reconfigurable Architecture.
+ - Add the description on enabling
+ - Reword the commit
+ - Remove question mark in the comments.
+ - Add spaces in comments.
+v2:
+ - Correct comment.
+ - Add Fixes.
+ - Move header file to the first.
+v1:
+ - Split out the different logical changes into different patches.
+ - rename tasdevice_dsp_fw_state -> tasdevice_fw_state, the fw are not
+   only DSP fw, but also RCA(Reconfigurable data, such as acoustic data
+   and register setting, etc).
+ - Add TASDEVICE_RCA_FW_OK in tasdevice_fw_state to identify the state
+   that only RCA binary file has been download successfully, but DSP fw
+   is not loaded or loading failure.
+ - Add the this strategy into tasdevice_tuning_switch.
+ - If one side of the if/else has a braces both should in
+   tasdevice_tuning_switch.
+ - Identify whehter both RCA and DSP have been loaded or only RCA has
+   been loaded in tasdevice_fw_ready.
+ - Add check fw load status in tasdevice_startup.
+ - remove ret in tasdevice_startup to make the code neater.
+---
+ include/sound/tas2781-dsp.h       | 11 ++++++++--
+ sound/soc/codecs/tas2781-fmwlib.c | 18 +++++++++++-----
+ sound/soc/codecs/tas2781-i2c.c    | 34 +++++++++++++++++++------------
+ 3 files changed, 43 insertions(+), 20 deletions(-)
 
-diff --git a/sound/soc/intel/common/soc-acpi-intel-ptl-match.c b/sound/soc/intel/common/soc-acpi-intel-ptl-match.c
-index ce4234fd3895..d01646f52d1f 100644
---- a/sound/soc/intel/common/soc-acpi-intel-ptl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-ptl-match.c
-@@ -22,6 +22,31 @@ static const struct snd_soc_acpi_endpoint single_endpoint = {
- 	.group_id = 0,
+diff --git a/include/sound/tas2781-dsp.h b/include/sound/tas2781-dsp.h
+index 7fba7ea26a4b..3cda9da14f6d 100644
+--- a/include/sound/tas2781-dsp.h
++++ b/include/sound/tas2781-dsp.h
+@@ -117,10 +117,17 @@ struct tasdevice_fw {
+ 	struct device *dev;
  };
  
-+/*
-+ * RT722 is a multi-function codec, three endpoints are created for
-+ * its headset, amp and dmic functions.
-+ */
-+static const struct snd_soc_acpi_endpoint rt722_endpoints[] = {
-+	{
-+		.num = 0,
-+		.aggregated = 0,
-+		.group_position = 0,
-+		.group_id = 0,
-+	},
-+	{
-+		.num = 1,
-+		.aggregated = 0,
-+		.group_position = 0,
-+		.group_id = 0,
-+	},
-+	{
-+		.num = 2,
-+		.aggregated = 0,
-+		.group_position = 0,
-+		.group_id = 0,
-+	},
-+};
-+
- static const struct snd_soc_acpi_adr_device rt711_sdca_0_adr[] = {
- 	{
- 		.adr = 0x000030025D071101ull,
-@@ -31,6 +56,24 @@ static const struct snd_soc_acpi_adr_device rt711_sdca_0_adr[] = {
+-enum tasdevice_dsp_fw_state {
+-	TASDEVICE_DSP_FW_NONE = 0,
++enum tasdevice_fw_state {
++	/* Driver in startup mode, not load any firmware. */
+ 	TASDEVICE_DSP_FW_PENDING,
++	/* DSP firmware in the system, but parsing error. */
+ 	TASDEVICE_DSP_FW_FAIL,
++	/*
++	 * Only RCA (Reconfigurable Architecture) firmware load
++	 * successfully.
++	 */
++	TASDEVICE_RCA_FW_OK,
++	/* Both RCA and DSP firmware load successfully. */
+ 	TASDEVICE_DSP_FW_ALL_OK,
+ };
+ 
+diff --git a/sound/soc/codecs/tas2781-fmwlib.c b/sound/soc/codecs/tas2781-fmwlib.c
+index 265a8ca25cbb..838d29fead96 100644
+--- a/sound/soc/codecs/tas2781-fmwlib.c
++++ b/sound/soc/codecs/tas2781-fmwlib.c
+@@ -2324,14 +2324,21 @@ void tasdevice_tuning_switch(void *context, int state)
+ 	struct tasdevice_fw *tas_fmw = tas_priv->fmw;
+ 	int profile_cfg_id = tas_priv->rcabin.profile_cfg_id;
+ 
+-	if (tas_priv->fw_state == TASDEVICE_DSP_FW_FAIL) {
+-		dev_err(tas_priv->dev, "DSP bin file not loaded\n");
++	/*
++	 * Only RCA-based Playback can still work with no dsp program running
++	 * inside the chip.
++	 */
++	switch (tas_priv->fw_state) {
++	case TASDEVICE_RCA_FW_OK:
++	case TASDEVICE_DSP_FW_ALL_OK:
++		break;
++	default:
+ 		return;
  	}
- };
  
-+static const struct snd_soc_acpi_adr_device rt722_0_single_adr[] = {
-+	{
-+		.adr = 0x000030025d072201ull,
-+		.num_endpoints = ARRAY_SIZE(rt722_endpoints),
-+		.endpoints = rt722_endpoints,
-+		.name_prefix = "rt722"
+ 	if (state == 0) {
+-		if (tas_priv->cur_prog < tas_fmw->nr_programs) {
+-			/*dsp mode or tuning mode*/
++		if (tas_fmw && tas_priv->cur_prog < tas_fmw->nr_programs) {
++			/* dsp mode or tuning mode */
+ 			profile_cfg_id = tas_priv->rcabin.profile_cfg_id;
+ 			tasdevice_select_tuningprm_cfg(tas_priv,
+ 				tas_priv->cur_prog, tas_priv->cur_conf,
+@@ -2340,9 +2347,10 @@ void tasdevice_tuning_switch(void *context, int state)
+ 
+ 		tasdevice_select_cfg_blk(tas_priv, profile_cfg_id,
+ 			TASDEVICE_BIN_BLK_PRE_POWER_UP);
+-	} else
++	} else {
+ 		tasdevice_select_cfg_blk(tas_priv, profile_cfg_id,
+ 			TASDEVICE_BIN_BLK_PRE_SHUTDOWN);
 +	}
-+};
+ }
+ EXPORT_SYMBOL_NS_GPL(tasdevice_tuning_switch,
+ 	SND_SOC_TAS2781_FMWLIB);
+diff --git a/sound/soc/codecs/tas2781-i2c.c b/sound/soc/codecs/tas2781-i2c.c
+index 9350972dfefe..9c3c89cb36de 100644
+--- a/sound/soc/codecs/tas2781-i2c.c
++++ b/sound/soc/codecs/tas2781-i2c.c
+@@ -380,23 +380,32 @@ static void tasdevice_fw_ready(const struct firmware *fmw,
+ 	mutex_lock(&tas_priv->codec_lock);
+ 
+ 	ret = tasdevice_rca_parser(tas_priv, fmw);
+-	if (ret)
++	if (ret) {
++		tasdevice_config_info_remove(tas_priv);
+ 		goto out;
++	}
+ 	tasdevice_create_control(tas_priv);
+ 
+ 	tasdevice_dsp_remove(tas_priv);
+ 	tasdevice_calbin_remove(tas_priv);
+-	tas_priv->fw_state = TASDEVICE_DSP_FW_PENDING;
++	tas_priv->fw_state = TASDEVICE_RCA_FW_OK;
+ 	scnprintf(tas_priv->coef_binaryname, 64, "%s_coef.bin",
+ 		tas_priv->dev_name);
+ 	ret = tasdevice_dsp_parser(tas_priv);
+ 	if (ret) {
+ 		dev_err(tas_priv->dev, "dspfw load %s error\n",
+ 			tas_priv->coef_binaryname);
+-		tas_priv->fw_state = TASDEVICE_DSP_FW_FAIL;
+ 		goto out;
+ 	}
+-	tasdevice_dsp_create_ctrls(tas_priv);
 +
-+static const struct snd_soc_acpi_link_adr ptl_rt722_only[] = {
-+	{
-+		.mask = BIT(0),
-+		.num_adr = ARRAY_SIZE(rt722_0_single_adr),
-+		.adr_d = rt722_0_single_adr,
-+	},
-+	{}
-+};
-+
- static const struct snd_soc_acpi_link_adr ptl_rvp[] = {
- 	{
- 		.mask = BIT(0),
-@@ -67,6 +110,12 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_ptl_sdw_machines[] = {
- 		.drv_name = "sof_sdw",
- 		.sof_tplg_filename = "sof-ptl-rt711.tplg",
- 	},
-+	{
-+		.link_mask = BIT(0),
-+		.links = ptl_rt722_only,
-+		.drv_name = "sof_sdw",
-+		.sof_tplg_filename = "sof-ptl-rt722-l0.tplg",
-+	},
- 	{},
- };
- EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_ptl_sdw_machines);
++	/*
++	 * If no dsp-related kcontrol created, the dsp resource will be freed.
++	 */
++	ret = tasdevice_dsp_create_ctrls(tas_priv);
++	if (ret) {
++		dev_err(tas_priv->dev, "dsp controls error\n");
++		goto out;
++	}
+ 
+ 	tas_priv->fw_state = TASDEVICE_DSP_FW_ALL_OK;
+ 
+@@ -417,9 +426,8 @@ static void tasdevice_fw_ready(const struct firmware *fmw,
+ 	tasdevice_prmg_load(tas_priv, 0);
+ 	tas_priv->cur_prog = 0;
+ out:
+-	if (tas_priv->fw_state == TASDEVICE_DSP_FW_FAIL) {
+-		/*If DSP FW fail, kcontrol won't be created */
+-		tasdevice_config_info_remove(tas_priv);
++	if (tas_priv->fw_state == TASDEVICE_RCA_FW_OK) {
++		/* If DSP FW fail, DSP kcontrol won't be created. */
+ 		tasdevice_dsp_remove(tas_priv);
+ 	}
+ 	mutex_unlock(&tas_priv->codec_lock);
+@@ -466,14 +474,14 @@ static int tasdevice_startup(struct snd_pcm_substream *substream,
+ {
+ 	struct snd_soc_component *codec = dai->component;
+ 	struct tasdevice_priv *tas_priv = snd_soc_component_get_drvdata(codec);
+-	int ret = 0;
+ 
+-	if (tas_priv->fw_state != TASDEVICE_DSP_FW_ALL_OK) {
+-		dev_err(tas_priv->dev, "DSP bin file not loaded\n");
+-		ret = -EINVAL;
++	switch (tas_priv->fw_state) {
++	case TASDEVICE_RCA_FW_OK:
++	case TASDEVICE_DSP_FW_ALL_OK:
++		return 0;
++	default:
++		return -EINVAL;
+ 	}
+-
+-	return ret;
+ }
+ 
+ static int tasdevice_hw_params(struct snd_pcm_substream *substream,
 -- 
-2.43.0
+2.34.1
 

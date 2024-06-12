@@ -2,90 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DE06904EB2
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jun 2024 11:02:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B887D904F03
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jun 2024 11:20:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3131F851;
-	Wed, 12 Jun 2024 11:02:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3131F851
+	by alsa0.perex.cz (Postfix) with ESMTPS id B39EC83E;
+	Wed, 12 Jun 2024 11:19:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B39EC83E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718182930;
-	bh=o0TGIfrL0BIDHP+PXqRoBvvtBo0YeMmoILmfw4xHa+A=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=OmkmmLfpKnydy2ZdzeRGqkRnERtVEB+1gfni0+mYKEiDdTA6h68KORnTGpsfdci53
-	 EBqbvAsXUCYK4vQfrc2nPiZ0sBg5LPz8FuYcqpO1g0hAhblpPdMq8edemze/6eagiv
-	 tPkaQm2mPagAP+R6k3RrZBzdlgpt3qirdl9uKfxA=
+	s=default; t=1718183999;
+	bh=F0A4d3hGnN6+nvgQFbeYftwbhwXUE8Wyx+tNtqKxuVU=;
+	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=BPhX/xu839yuShDrVUXrr/tCkYCogNQtqRpViiHoaHjKZXDi/3sPPNmiVsYQXq0AN
+	 lMjmiqFaKyK2I1sni/+BH6misurg7DKBQVgTkeOqD4PFLddfGGpwFmBIxWzSaKfUGg
+	 9IZOowmOry2EJLriV1B6wXodD7D+EY1VaKypL8TA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 09068F805BD; Wed, 12 Jun 2024 11:01:36 +0200 (CEST)
+	id E0CC2F805C1; Wed, 12 Jun 2024 11:19:27 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A2C90F805A0;
-	Wed, 12 Jun 2024 11:01:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5E70DF805B3;
+	Wed, 12 Jun 2024 11:19:27 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A4569F80580; Wed, 12 Jun 2024 11:01:25 +0200 (CEST)
+	id 33C4EF8057A; Wed, 12 Jun 2024 11:19:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No,
- score=-0.0 required=5.0 tests=RCVD_IN_VALIDITY_RPBL_BLOCKED,
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL_BLOCKED,
 	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id AAA13F8010C
-	for <alsa-devel@alsa-project.org>; Wed, 12 Jun 2024 11:01:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AAA13F8010C
-X-SpamFilter-By: ArmorX SpamTrap 5.78 with qID 45C917TU01144276,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (rtexh36505.realtek.com.tw[172.21.6.25])
-	by rtits2.realtek.com.tw (8.15.2/2.95/5.92) with ESMTPS id 45C917TU01144276
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 12 Jun 2024 17:01:07 +0800
-Received: from RTEXMBS04.realtek.com.tw (172.21.6.97) by
- RTEXH36505.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.39; Wed, 12 Jun 2024 17:01:07 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXMBS04.realtek.com.tw (172.21.6.97) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.35; Wed, 12 Jun 2024 17:01:07 +0800
-Received: from RTEXMBS01.realtek.com.tw ([fe80::d5b2:56ba:6b47:9975]) by
- RTEXMBS01.realtek.com.tw ([fe80::d5b2:56ba:6b47:9975%5]) with mapi id
- 15.01.2507.035; Wed, 12 Jun 2024 17:01:07 +0800
-Content-Type: multipart/mixed;
-	boundary="_000_7e502e9a9dd94122a1b60deb5ceb60fbrealtekcom_"
-From: Jack Yu <jack.yu@realtek.com>
-To: "broonie@kernel.org" <broonie@kernel.org>,
-        "lgirdwood@gmail.com"
-	<lgirdwood@gmail.com>
-CC: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
-        "lars@metafoo.de" <lars@metafoo.de>,
-        "Flove(HsinFu)" <flove@realtek.com>,
-        Oder Chiou <oder_chiou@realtek.com>,
-        =?big5?B?U2h1bWluZyBbrVOu0bvKXQ==?=
-	<shumingf@realtek.com>,
-        =?big5?B?RGVyZWsgW6TovHe4cV0=?=
-	<derek.fang@realtek.com>,
-        Jack Yu <jack.yu@realtek.com>
-Subject: [PATCH] ASoC: rt722-sdca-sdw: add debounce time for type detection
-Thread-Topic: [PATCH] ASoC: rt722-sdca-sdw: add debounce time for type
- detection
-Thread-Index: Adq8pw81RUwpJGeGQBieqeDzttKg8A==
-Date: Wed, 12 Jun 2024 09:01:07 +0000
-Message-ID: <7e502e9a9dd94122a1b60deb5ceb60fb@realtek.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-TNEF-Correlator: <7e502e9a9dd94122a1b60deb5ceb60fb@realtek.com>
-x-originating-ip: [172.22.102.102]
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8B6CEF80578
+	for <alsa-devel@alsa-project.org>; Wed, 12 Jun 2024 11:19:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B6CEF80578
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=UoJHKpBi
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
+ 45C30uMP015315;
+	Wed, 12 Jun 2024 04:19:13 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	PODMain02222019; bh=vcNSGSbVY6Ikenk/caiUKmLsl6LeZS9uRP4qAW5SnA0=; b=
+	UoJHKpBid2CjyABmHjWnr29CPJ2VooyQ+kXLs5cbbD5rKACwcuLGzoCLnMhJl86n
+	+qotEEvy33oncuWIOruFyVZGWqXBKFv/4lRUCHxQUlsyx7EYNRJRwwd8cmc3/D58
+	7GLtv2OvinXfA722/Tw6LOPgwSA2QxxSXMkTouNctsP6gTbAYcJ0TQsGYmop9il3
+	Sny94klAYbkkUAiPmhGzKXNgBc69pZLnC8KKYascS702fqyugdI9Fc5IRpa0E78H
+	E+nY1f5lWhP9wdhr6bTEYsuADFVO2wwHIWqeq0AMmQucPc6k7AgA5eOgvB/y0UsB
+	A1eG2GAF3nX/wYAdsoKA/g==
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3ymkqhutf2-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 12 Jun 2024 04:19:13 -0500 (CDT)
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 12 Jun
+ 2024 10:19:06 +0100
+Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1544.9 via Frontend Transport; Wed, 12 Jun 2024 10:19:06 +0100
+Received: from [198.90.208.18] (ediswws06.ad.cirrus.com [198.90.208.18])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id A316F820248;
+	Wed, 12 Jun 2024 09:19:06 +0000 (UTC)
+Message-ID: <36219997-397b-4a26-96ee-7527fb6eb024@opensource.cirrus.com>
+Date: Wed, 12 Jun 2024 10:19:06 +0100
 MIME-Version: 1.0
-Message-ID-Hash: TJY7XYGUVQ6FBA6F54QIKQWJV6SSIIUF
-X-Message-ID-Hash: TJY7XYGUVQ6FBA6F54QIKQWJV6SSIIUF
-X-MailFrom: jack.yu@realtek.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ASoC: cs35l56: Disconnect ASP1 TX sources when ASP1 DAI
+ is hooked up
+To: Mark Brown <broonie@kernel.org>
+CC: <linux-kernel@vger.kernel.org>, <patches@opensource.cirrus.com>,
+        <alsa-devel@alsa-project.org>, <linux-sound@vger.kernel.org>
+References: <20240611145746.1454663-1-rf@opensource.cirrus.com>
+ <Zmh3VmRfGEU6pGps@finisterre.sirena.org.uk>
+Content-Language: en-GB
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+In-Reply-To: <Zmh3VmRfGEU6pGps@finisterre.sirena.org.uk>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: vQsCTsFBVzalywJRQxJATsNxxml4b8AZ
+X-Proofpoint-ORIG-GUID: vQsCTsFBVzalywJRQxJATsNxxml4b8AZ
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: 5JVFLXNSDN66JJH4XIIA33PBXKJGBJGX
+X-Message-ID-Hash: 5JVFLXNSDN66JJH4XIIA33PBXKJGBJGX
+X-MailFrom: prvs=3893b14233=rf@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -97,7 +105,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TJY7XYGUVQ6FBA6F54QIKQWJV6SSIIUF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5JVFLXNSDN66JJH4XIIA33PBXKJGBJGX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -106,118 +114,30 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
---_000_7e502e9a9dd94122a1b60deb5ceb60fbrealtekcom_
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
+On 11/06/2024 17:12, Mark Brown wrote:
+> On Tue, Jun 11, 2024 at 03:57:46PM +0100, Richard Fitzgerald wrote:
+>> If the ASP1 DAI is hooked up by the machine driver the ASP TX mixer
+>> sources should be initialized to disconnected.
+>>
+>> The silicon default is for the mixer source registers to default to
+>> a collection of monitoring sources. The problem with this is that it
+>> causes the DAPM graph to initialize with the capture path connected
+>> to a valid source widget, even though nothing setup a path. When the
+>> ASP DAI is connected as a codec-to-codec link this will cause the other
+>> codec to power-up even though nothing is using it.
+>>
+>> Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+>> Fixes: dfd2ffb37399 ("ASoC: cs35l56: Prevent overwriting firmware ASP config")
+> 
+> This doesn't seem particularly different to any other unhelpful chip
+> default, I'm not sure why it'd be so urgent that we'd hard code a
 
-QWRkIGRlYm91bmNlIHRpbWUgaW4gaGVhZHNldCB0eXBlIGRldGVjdGlvbiBmb3IgYmV0dGVyIHBl
-cmZvcm1hbmNlLg0KDQpTaWduZWQtb2ZmLWJ5OiBKYWNrIFl1IDxqYWNrLnl1QHJlYWx0ZWsuY29t
-Pg0KLS0tDQogc291bmQvc29jL2NvZGVjcy9ydDcyMi1zZGNhLXNkdy5jIHwgMiArLQ0KIDEgZmls
-ZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQ0KDQpkaWZmIC0tZ2l0IGEv
-c291bmQvc29jL2NvZGVjcy9ydDcyMi1zZGNhLXNkdy5jIGIvc291bmQvc29jL2NvZGVjcy9ydDcy
-Mi1zZGNhLXNkdy5jDQppbmRleCBmNzNlZTNiZjkwZjUuLjg3MzU0YmIxNTY0ZSAxMDA2NDQNCi0t
-LSBhL3NvdW5kL3NvYy9jb2RlY3MvcnQ3MjItc2RjYS1zZHcuYw0KKysrIGIvc291bmQvc29jL2Nv
-ZGVjcy9ydDcyMi1zZGNhLXNkdy5jDQpAQCAtMzUyLDcgKzM1Miw3IEBAIHN0YXRpYyBpbnQgcnQ3
-MjJfc2RjYV9pbnRlcnJ1cHRfY2FsbGJhY2soc3RydWN0IHNkd19zbGF2ZSAqc2xhdmUsDQogDQog
-CWlmIChzdGF0dXMtPnNkY2FfY2FzY2FkZSAmJiAhcnQ3MjItPmRpc2FibGVfaXJxKQ0KIAkJbW9k
-X2RlbGF5ZWRfd29yayhzeXN0ZW1fcG93ZXJfZWZmaWNpZW50X3dxLA0KLQkJCSZydDcyMi0+amFj
-a19kZXRlY3Rfd29yaywgbXNlY3NfdG9famlmZmllcygzMCkpOw0KKwkJCSZydDcyMi0+amFja19k
-ZXRlY3Rfd29yaywgbXNlY3NfdG9famlmZmllcygyODApKTsNCiANCiAJbXV0ZXhfdW5sb2NrKCZy
-dDcyMi0+ZGlzYWJsZV9pcnFfbG9jayk7DQogDQotLSANCjIuMzQuMQ0KDQo=
+I'm not sure I understand the objection here. Are you objecting to the
+patch itself, or that I marked it as a Fixes?
 
---_000_7e502e9a9dd94122a1b60deb5ceb60fbrealtekcom_
-Content-Disposition: attachment; filename="winmail.dat"
-Content-Transfer-Encoding: base64
-Content-Type: application/ms-tnef; name="winmail.dat"
+> default?  There were some other devices with things like bypass routes
+> set up.  The capture path getting spuriously triggered feels like
+> something that should just be sorted in general (TBH I thought that
+> worked OK but it's been quite some time since I looked properly).
 
-eJ8+Iu0+AQaQCAAEAAAAAAABAAEAAQeQBgAIAAAAtgMAAAAAAAC5AAEJgAEAIQAAAEE3OTRGNEIx
-RTg4RjQzNDc5RjNFRDAzQzQzMkVBODkxAEEHAQ2ABAACAAAAAgACAAEFgAMADgAAAOgHBgAMAAkA
-AQAHAAMAFQEBIIADAA4AAADoBwYADAAJAAEABwADABUBAQiABwAYAAAASVBNLk1pY3Jvc29mdCBN
-YWlsLk5vdGUAMQgBBIABAEMAAABbUEFUQ0hdIEFTb0M6IHJ0NzIyLXNkY2Etc2R3OiBhZGQgZGVi
-b3VuY2UgdGltZSBmb3IgdHlwZSBkZXRlY3Rpb24AixYBC4ABACEAAABBNzk0RjRCMUU4OEY0MzQ3
-OUYzRUQwM0M0MzJFQTg5MQBBBwEDkAYAkBIAAEQAAAACAX8AAQAAAC8AAAA8N2U1MDJlOWE5ZGQ5
-NDEyMmExYjYwZGViNWNlYjYwZmJAcmVhbHRlay5jb20+AAALAB8OAAAAAAIBCRABAAAACgMAAAYD
-AADJBAAATFpGdcXH+cJhAApmYmlkBAAAY2PAcGcxMjUyAP4DQ/B0ZXh0AfcCpAPjAgAEY2gKwHNl
-dDAg7wdtAoMAUBFNMgqABrQCgJZ9CoAIyDsJYjE5DsC/CcMWcgoyFnECgBViKgmwcwnwBJBhdAWy
-DlADYHOibwGAIEV4EcFuGDBdBlJ2BJAXtgIQcgDAdH0IUG4aMRAgBcAFoBtkZJogA1IgECIXslx2
-CJDkd2sLgGQ1HVME8AdADRdwMApxF/Jia21rBnMBkAAgIEJNX0LgRUdJTn0K/AHxC/E4IEFkHGAB
-AAbgdW4qYxngdAdxIAuAIGiYZWFkEgEcwHlwGeB7AQAQIGMicAIgHHAFsWI3EhAboiOQchrjIjEu
-XBpsC4BlCoEl5FNpZwkYUGQtGTBmLWJ5CDogSgDQayBZdQggPGonsS55dUCfCXAHQBAgKGAFoG0+
-JdU2LSngJdUgGSAiIGQvmRkgYy8FoAWBcy8AIGEBwDItc2QeUCvxd4EpICB8IDIgKyoHnjEccAMQ
-GeAZlGQsLYGPC4ASAAAgJCEoKykucucBAB5wLwMtKSXcDeABINIgKeBnaQVAYSrhKr/9K81iMg8z
-HyXVHbEQMBxwBDczCeAzYmY5MCBmNS4uODdANTTAYmIxNTY0GeAekb04oDQpeDHvNT82Rys8kGc0
-Lzr/NkdAQDGAODAy/Cw3LOA/tD9xH2EicCyQ1wuABUAzI18sAl9BIQSQlHJ1BTBfHlFsYiex/igf
-YEJgJAAqgCxgQbALYOkaMCAqQ/MsKhYqFgaQhiBDMRiAdXMtPkHDBx5QHkEBACAmJiAhPTMkPg3h
-AaAecEIAcnGVMFYgBGFfL7FheQmALF93BbBDIXkfYGVt0F9wb3cEkF8BEQ5QlwiQAjBJ8HFEti0m
-R5XfKDJJcSPiSfMucG0SAD3QMl8YkF9qMVEIkHMo8DMwKSkWIDw1TH9Nj5lOlzI4TzlFN211ECG+
-XyIgCQBDEU/2SAlfVIIHUu85wSXVMi4zNC4PAFAl6xVCWYAAAB8AQgABAAAAEAAAAEoAYQBjAGsA
-IABZAHUAAAAfAGUAAQAAACgAAABqAGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBt
-AAAAHwBkAAEAAAAKAAAAUwBNAFQAUAAAAAAAAgFBAAEAAABaAAAAAAAAAIErH6S+oxAZnW4A3QEP
-VAIAAACASgBhAGMAawAgAFkAdQAAAFMATQBUAFAAAABqAGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0
-AGUAawAuAGMAbwBtAAAAAAAfAAJdAQAAACgAAABqAGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUA
-awAuAGMAbwBtAAAAHwDlXwEAAAAwAAAAcwBpAHAAOgBqAGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0
-AGUAawAuAGMAbwBtAAAAHwAaDAEAAAAQAAAASgBhAGMAawAgAFkAdQAAAB8AHwwBAAAAKAAAAGoA
-YQBjAGsALgB5AHUAQAByAGUAYQBsAHQAZQBrAC4AYwBvAG0AAAAfAB4MAQAAAAoAAABTAE0AVABQ
-AAAAAAACARkMAQAAAFoAAAAAAAAAgSsfpL6jEBmdbgDdAQ9UAgAAAIBKAGEAYwBrACAAWQB1AAAA
-UwBNAFQAUAAAAGoAYQBjAGsALgB5AHUAQAByAGUAYQBsAHQAZQBrAC4AYwBvAG0AAAAAAB8AAV0B
-AAAAKAAAAGoAYQBjAGsALgB5AHUAQAByAGUAYQBsAHQAZQBrAC4AYwBvAG0AAAALAEA6AQAAAB8A
-GgABAAAAEgAAAEkAUABNAC4ATgBvAHQAZQAAAAAAAwDxPwQEAAALAEA6AQAAAAMA/T+2AwAAAgEL
-MAEAAAAQAAAAp5T0seiPQ0efPtA8Qy6okQMAFwABAAAAQAA5AIALtg+nvNoBQAAIMMduxg+nvNoB
-CwApAAAAAAAfANk/AQAAAAACAABBAGQAZAAgAGQAZQBiAG8AdQBuAGMAZQAgAHQAaQBtAGUAIABp
-AG4AIABoAGUAYQBkAHMAZQB0ACAAdAB5AHAAZQAgAGQAZQB0AGUAYwB0AGkAbwBuACAAZgBvAHIA
-IABiAGUAdAB0AGUAcgAgAHAAZQByAGYAbwByAG0AYQBuAGMAZQAuAA0ACgANAAoAUwBpAGcAbgBl
-AGQALQBvAGYAZgAtAGIAeQA6ACAASgBhAGMAawAgAFkAdQAgADwAagBhAGMAawAuAHkAdQBAAHIA
-ZQBhAGwAdABlAGsALgBjAG8AbQA+AA0ACgAtAC0ALQANAAoAIABzAG8AdQBuAGQALwBzAG8AYwAv
-AGMAbwBkAGUAYwBzAC8AcgB0ADcAMgAyAC0AcwBkAGMAYQAtAHMAZAB3AC4AYwAgAHwAIAAyACAA
-KwAtAA0ACgAgADEAIABmAGkAbABlACAAYwBoAGEAbgBnAGUAZAAsACAAMQAgAGkAbgBzAGUAcgB0
-AGkAbwBuACgAKwApACwAIAAxACAAZABlAGwAZQB0AGkAbwBuACgALQApAA0ACgANAAoAZABpAGYA
-ZgAgAC0ALQBnAGkAdAAgAGEALwBzAG8AdQBuAGQALwBzAG8AYwAvAGMAbwBkAGUAYwBzAC8AcgB0
-ADcAMgAyAC0AcwBkAGMAYQAAAAsAAIAIIAYAAAAAAMAAAAAAAABGAAAAABSFAAABAAAAHwAAgIYD
-AgAAAAAAwAAAAAAAAEYBAAAAHgAAAGEAYwBjAGUAcAB0AGwAYQBuAGcAdQBhAGcAZQAAAAAAAQAA
-ABoAAAB6AGgALQBUAFcALAAgAGUAbgAtAFUAUwAAAAAAAwAAgAggBgAAAAAAwAAAAAAAAEYBAAAA
-MgAAAEUAeABjAGgAYQBuAGcAZQBBAHAAcABsAGkAYwBhAHQAaQBvAG4ARgBsAGEAZwBzAAAAAAAg
-AAAASAAAgAggBgAAAAAAwAAAAAAAAEYBAAAAIgAAAE4AZQB0AHcAbwByAGsATQBlAHMAcwBhAGcA
-ZQBJAGQAAAAAAKPAtEfOlldHWDsI3Iq+MlsfAACAE4/yQfSDFEGlhO7bWmsL/wEAAAAWAAAAQwBs
-AGkAZQBuAHQASQBuAGYAbwAAAAAAAQAAACoAAABDAGwAaQBlAG4AdAA9AE0AUwBFAHgAYwBoAGEA
-bgBnAGUAUgBQAEMAAAAAAB8A+j8BAAAAEAAAAEoAYQBjAGsAIABZAHUAAAAfADcAAQAAAIYAAABb
-AFAAQQBUAEMASABdACAAQQBTAG8AQwA6ACAAcgB0ADcAMgAyAC0AcwBkAGMAYQAtAHMAZAB3ADoA
-IABhAGQAZAAgAGQAZQBiAG8AdQBuAGMAZQAgAHQAaQBtAGUAIABmAG8AcgAgAHQAeQBwAGUAIABk
-AGUAdABlAGMAdABpAG8AbgAAAAAAHwA9AAEAAAACAAAAAAAAAAMANgAAAAAAAgFxAAEAAAAWAAAA
-Adq8pw81RUwpJGeGQBieqeDzttKg8AAAHwBwAAEAAACGAAAAWwBQAEEAVABDAEgAXQAgAEEAUwBv
-AEMAOgAgAHIAdAA3ADIAMgAtAHMAZABjAGEALQBzAGQAdwA6ACAAYQBkAGQAIABkAGUAYgBvAHUA
-bgBjAGUAIAB0AGkAbQBlACAAZgBvAHIAIAB0AHkAcABlACAAZABlAHQAZQBjAHQAaQBvAG4AAAAA
-AB8ANRABAAAAXgAAADwANwBlADUAMAAyAGUAOQBhADkAZABkADkANAAxADIAMgBhADEAYgA2ADAA
-ZABlAGIANQBjAGUAYgA2ADAAZgBiAEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAD4AAAAAAAMA3j+2
-AwAAAwATEgAAAAACAQCAE4/yQfSDFEGlhO7bWmsL/wEAAAAuAAAASABlAGEAZABlAHIAQgBvAGQA
-eQBGAHIAYQBnAG0AZQBuAHQATABpAHMAdAAAAAAAAQAAACIAAAABAAoAAAAEAAAAAAAAABQAAAAA
-AAAAAAAAAP////8AAAAAAAALAACAE4/yQfSDFEGlhO7bWmsL/wEAAAAcAAAASABhAHMAUQB1AG8A
-dABlAGQAVABlAHgAdAAAAAAAAAALAACAE4/yQfSDFEGlhO7bWmsL/wEAAAAoAAAASQBzAFEAdQBv
-AHQAZQBkAFQAZQB4AHQAQwBoAGEAbgBnAGUAZAAAAAAAAABAAAcwzsS5D6e82gECAQsAAQAAABAA
-AACnlPSx6I9DR58+0DxDLqiRAwAmAAAAAAALAAYMAAAAAAIBEDABAAAARgAAAAAAAADb6cRKJKDn
-QZMbKrsrs21MBwBMt30NVaF5RL5zhTli0AClAAAAaWD3AAAyrzgFSrBORoDHxzgiug9aAAAB17lG
-AAAAAAIBEzABAAAAEAAAAEVMKSRnhkAYnqng87bSoPACARQwAQAAAAwAAAA0AAAAcGTud0EAAAAf
-APg/AQAAABAAAABKAGEAYwBrACAAWQB1AAAAHwAiQAEAAAAGAAAARQBYAAAAAAAfACNAAQAAALYA
-AAAvAE8APQBSAFQARQBYAEMASAAvAE8AVQA9AEUAWABDAEgAQQBOAEcARQAgAEEARABNAEkATgBJ
-AFMAVABSAEEAVABJAFYARQAgAEcAUgBPAFUAUAAgACgARgBZAEQASQBCAE8ASABGADIAMwBTAFAA
-RABMAFQAKQAvAEMATgA9AFIARQBDAEkAUABJAEUATgBUAFMALwBDAE4APQBVAFMARQBSADUAOQA4
-ADYANQAxADAAOQAAAAAAHwAkQAEAAAAGAAAARQBYAAAAAAAfACVAAQAAALYAAAAvAE8APQBSAFQA
-RQBYAEMASAAvAE8AVQA9AEUAWABDAEgAQQBOAEcARQAgAEEARABNAEkATgBJAFMAVABSAEEAVABJ
-AFYARQAgAEcAUgBPAFUAUAAgACgARgBZAEQASQBCAE8ASABGADIAMwBTAFAARABMAFQAKQAvAEMA
-TgA9AFIARQBDAEkAUABJAEUATgBUAFMALwBDAE4APQBVAFMARQBSADUAOQA4ADYANQAxADAAOQAA
-AAAAHwAwQAEAAAAQAAAASgBhAGMAawAgAFkAdQAAAB8AMUABAAAAEAAAAEoAYQBjAGsAIABZAHUA
-AAAfADhAAQAAABAAAABKAGEAYwBrACAAWQB1AAAAHwA5QAEAAAAQAAAASgBhAGMAawAgAFkAdQAA
-AAMAWUAAAAAAAwBaQAAAAAADAAlZAQAAAB8ACl0BAAAAKAAAAGoAYQBjAGsALgB5AHUAQAByAGUA
-YQBsAHQAZQBrAC4AYwBvAG0AAAAfAAtdAQAAACgAAABqAGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0
-AGUAawAuAGMAbwBtAAAAHwAAgB+k6zOoei5Cvnt54amOVLMBAAAAOAAAAEMAbwBuAHYAZQByAHMA
-YQB0AGkAbwBuAEkAbgBkAGUAeABUAHIAYQBjAGsAaQBuAGcARQB4AAAAAQAAACQBAABJAEkAPQBb
-AEMASQBEAD0AMgA0ADIAOQA0AGMANAA1AC0AOAA2ADYANwAtADEAOAA0ADAALQA5AGUAYQA5AC0A
-ZQAwAGYAMwBiADYAZAAyAGEAMABmADAAOwBJAEQAWABIAEUAQQBEAD0ARABBAEIAQwBBADcAMABG
-ADMANQA7AEkARABYAEMATwBVAE4AVAA9ADEAXQA7AFAAUwA9AFUAbgBrAG4AbwB3AG4AOwBWAGUA
-cgBzAGkAbwBuAD0AVgBlAHIAcwBpAG8AbgAgADEANQAuADEAIAAoAEIAdQBpAGwAZAAgADIANQAw
-ADcALgAwACkALAAgAFMAdABhAGcAZQA9AEgANAA7AFUAUAA9ADEAMAA7AEQAUAA9ADEAQwA1AAAA
-CwAAgAggBgAAAAAAwAAAAAAAAEYAAAAAgoUAAAAAAAADAA00/T8AAB8AAICGAwIAAAAAAMAAAAAA
-AABGAQAAACAAAAB4AC0AbQBzAC0AaABhAHMALQBhAHQAdABhAGMAaAAAAAEAAAACAAAAAAAAAB8A
-AICGAwIAAAAAAMAAAAAAAABGAQAAACIAAAB4AC0AbwByAGkAZwBpAG4AYQB0AGkAbgBnAC0AaQBw
-AAAAAAABAAAAIgAAAFsAMQA3ADIALgAyADIALgAxADAAMgAuADEAMAAyAF0AAAAAADJk
 
---_000_7e502e9a9dd94122a1b60deb5ceb60fbrealtekcom_--

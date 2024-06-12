@@ -2,101 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E04E904E1B
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jun 2024 10:27:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DE06904EB2
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jun 2024 11:02:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3E019FAA;
-	Wed, 12 Jun 2024 10:26:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3E019FAA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3131F851;
+	Wed, 12 Jun 2024 11:02:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3131F851
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718180829;
-	bh=j4IikM/8f0WxPsoP5Y1ret6QW1ddPJ5haXColS9GWeI=;
+	s=default; t=1718182930;
+	bh=o0TGIfrL0BIDHP+PXqRoBvvtBo0YeMmoILmfw4xHa+A=;
 	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=nUMcom2WtHhLSRpt7Y3HIdGUtTF45xu5jFXKnLuiYuMDhCuenXwG/zzCuH8eoksro
-	 HusUjEHSBDDx1Q4mp02jIxqf/bKByeaSIIVZWvozHwMICMWLqRQoMt40sB/dAX55VX
-	 yT8H7tI0qW16UC77ObZVvDz/fdgR4vq7yVmYLTHo=
+	b=OmkmmLfpKnydy2ZdzeRGqkRnERtVEB+1gfni0+mYKEiDdTA6h68KORnTGpsfdci53
+	 EBqbvAsXUCYK4vQfrc2nPiZ0sBg5LPz8FuYcqpO1g0hAhblpPdMq8edemze/6eagiv
+	 tPkaQm2mPagAP+R6k3RrZBzdlgpt3qirdl9uKfxA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 66CE6F80589; Wed, 12 Jun 2024 10:26:37 +0200 (CEST)
+	id 09068F805BD; Wed, 12 Jun 2024 11:01:36 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C4D3DF8058C;
-	Wed, 12 Jun 2024 10:26:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A2C90F805A0;
+	Wed, 12 Jun 2024 11:01:35 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 79381F80587; Wed, 12 Jun 2024 10:24:06 +0200 (CEST)
+	id A4569F80580; Wed, 12 Jun 2024 11:01:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_PASS,SPF_PASS,
+X-Spam-Status: No,
+ score=-0.0 required=5.0 tests=RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9B61EF8010C
-	for <alsa-devel@alsa-project.org>; Wed, 12 Jun 2024 10:23:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B61EF8010C
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
- header.s=ti-com-17Q1 header.b=p7hrNP3E
-Received: from lelv0266.itg.ti.com ([10.180.67.225])
-	by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 45C8NjE6123708;
-	Wed, 12 Jun 2024 03:23:45 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
-	s=ti-com-17Q1; t=1718180625;
-	bh=SXg9W8qnUhziZySsDuvS+9nZfVaC8vrFqmChdl2skTM=;
-	h=From:To:CC:Subject:Date;
-	b=p7hrNP3EEz95Ebp8fUg/AlR8Y0Jy0hA+jKms+EJ86h8zAcsK9hKXinUHIwWruo8ck
-	 m0l5mq1FO8bF+/AQuV+Bi6dUHjSu/QVuD3WEpXChd3OPW+cQlsXgl1RN9zHdediTrs
-	 ZIFyo+eIuwl2yqfpzqPtoHtqYPKVWObUpv8Fdprg=
-Received: from DLEE100.ent.ti.com (dlee100.ent.ti.com [157.170.170.30])
-	by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 45C8NjT0048263
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Wed, 12 Jun 2024 03:23:45 -0500
-Received: from DLEE108.ent.ti.com (157.170.170.38) by DLEE100.ent.ti.com
- (157.170.170.30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Wed, 12
- Jun 2024 03:23:45 -0500
-Received: from lelvsmtp6.itg.ti.com (10.180.75.249) by DLEE108.ent.ti.com
- (157.170.170.38) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
- Frontend Transport; Wed, 12 Jun 2024 03:23:45 -0500
-Received: from LT5CG31242FY.dhcp.ti.com ([10.250.160.158])
-	by lelvsmtp6.itg.ti.com (8.15.2/8.15.2) with ESMTP id 45C8NZhi099797;
-	Wed, 12 Jun 2024 03:23:35 -0500
-From: Shenghao Ding <shenghao-ding@ti.com>
-To: <broonie@kernel.org>
-CC: <andriy.shevchenko@linux.intel.com>, <lgirdwood@gmail.com>,
-        <perex@perex.cz>, <pierre-louis.bossart@linux.intel.com>,
-        <13916275206@139.com>, <zhourui@huaqin.com>,
-        <alsa-devel@alsa-project.org>, <i-salazar@ti.com>,
-        <linux-kernel@vger.kernel.org>, <j-chadha@ti.com>,
-        <liam.r.girdwood@intel.com>, <jaden-yue@ti.com>,
-        <yung-chuan.liao@linux.intel.com>, <dipa@ti.com>,
- <yuhsuan@google.com>,
-        <henry.lo@ti.com>, <tiwai@suse.de>, <baojun.xu@ti.com>,
- <soyer@irl.hu>,
-        <Baojun.Xu@fpt.com>, <judyhsiao@google.com>, <navada@ti.com>,
-        <cujomalainey@google.com>, <aanya@ti.com>, <nayeem.mahmud@ti.com>,
-        <savyasanchi.shukla@netradyne.com>, <flaviopr@microsoft.com>,
-        <jesse-ji@ti.com>, <darren.ye@mediatek.com>,
-        Shenghao Ding
-	<shenghao-ding@ti.com>
-Subject: [RESEND PATCH v4] ASoc: tas2781: Enable RCA-based playback without
- DSP firmware download
-Date: Wed, 12 Jun 2024 16:23:30 +0800
-Message-ID: <20240612082332.1407-1-shenghao-ding@ti.com>
-X-Mailer: git-send-email 2.33.0.windows.2
+	by alsa1.perex.cz (Postfix) with ESMTPS id AAA13F8010C
+	for <alsa-devel@alsa-project.org>; Wed, 12 Jun 2024 11:01:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AAA13F8010C
+X-SpamFilter-By: ArmorX SpamTrap 5.78 with qID 45C917TU01144276,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (rtexh36505.realtek.com.tw[172.21.6.25])
+	by rtits2.realtek.com.tw (8.15.2/2.95/5.92) with ESMTPS id 45C917TU01144276
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 12 Jun 2024 17:01:07 +0800
+Received: from RTEXMBS04.realtek.com.tw (172.21.6.97) by
+ RTEXH36505.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.39; Wed, 12 Jun 2024 17:01:07 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXMBS04.realtek.com.tw (172.21.6.97) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.35; Wed, 12 Jun 2024 17:01:07 +0800
+Received: from RTEXMBS01.realtek.com.tw ([fe80::d5b2:56ba:6b47:9975]) by
+ RTEXMBS01.realtek.com.tw ([fe80::d5b2:56ba:6b47:9975%5]) with mapi id
+ 15.01.2507.035; Wed, 12 Jun 2024 17:01:07 +0800
+Content-Type: multipart/mixed;
+	boundary="_000_7e502e9a9dd94122a1b60deb5ceb60fbrealtekcom_"
+From: Jack Yu <jack.yu@realtek.com>
+To: "broonie@kernel.org" <broonie@kernel.org>,
+        "lgirdwood@gmail.com"
+	<lgirdwood@gmail.com>
+CC: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+        "lars@metafoo.de" <lars@metafoo.de>,
+        "Flove(HsinFu)" <flove@realtek.com>,
+        Oder Chiou <oder_chiou@realtek.com>,
+        =?big5?B?U2h1bWluZyBbrVOu0bvKXQ==?=
+	<shumingf@realtek.com>,
+        =?big5?B?RGVyZWsgW6TovHe4cV0=?=
+	<derek.fang@realtek.com>,
+        Jack Yu <jack.yu@realtek.com>
+Subject: [PATCH] ASoC: rt722-sdca-sdw: add debounce time for type detection
+Thread-Topic: [PATCH] ASoC: rt722-sdca-sdw: add debounce time for type
+ detection
+Thread-Index: Adq8pw81RUwpJGeGQBieqeDzttKg8A==
+Date: Wed, 12 Jun 2024 09:01:07 +0000
+Message-ID: <7e502e9a9dd94122a1b60deb5ceb60fb@realtek.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-TNEF-Correlator: <7e502e9a9dd94122a1b60deb5ceb60fb@realtek.com>
+x-originating-ip: [172.22.102.102]
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Message-ID-Hash: IQT5EOY6JLGKLVN6C2WDMNBFFMOQSVIY
-X-Message-ID-Hash: IQT5EOY6JLGKLVN6C2WDMNBFFMOQSVIY
-X-MailFrom: shenghao-ding@ti.com
+Message-ID-Hash: TJY7XYGUVQ6FBA6F54QIKQWJV6SSIIUF
+X-Message-ID-Hash: TJY7XYGUVQ6FBA6F54QIKQWJV6SSIIUF
+X-MailFrom: jack.yu@realtek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -108,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IQT5EOY6JLGKLVN6C2WDMNBFFMOQSVIY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TJY7XYGUVQ6FBA6F54QIKQWJV6SSIIUF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,190 +106,118 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-In only RCA (Reconfigurable Architecture) binary case, no DSP program will
-be working inside tas2563/tas2781, that is dsp-bypass mode, do not support
-speaker protection, and audio acoustic algorithms in this mode.
+--_000_7e502e9a9dd94122a1b60deb5ceb60fbrealtekcom_
+Content-Type: text/plain; charset="big5"
+Content-Transfer-Encoding: base64
 
-Fixes: ef3bcde75d06 ("ASoC: tas2781: Add tas2781 driver")
-Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
+QWRkIGRlYm91bmNlIHRpbWUgaW4gaGVhZHNldCB0eXBlIGRldGVjdGlvbiBmb3IgYmV0dGVyIHBl
+cmZvcm1hbmNlLg0KDQpTaWduZWQtb2ZmLWJ5OiBKYWNrIFl1IDxqYWNrLnl1QHJlYWx0ZWsuY29t
+Pg0KLS0tDQogc291bmQvc29jL2NvZGVjcy9ydDcyMi1zZGNhLXNkdy5jIHwgMiArLQ0KIDEgZmls
+ZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQ0KDQpkaWZmIC0tZ2l0IGEv
+c291bmQvc29jL2NvZGVjcy9ydDcyMi1zZGNhLXNkdy5jIGIvc291bmQvc29jL2NvZGVjcy9ydDcy
+Mi1zZGNhLXNkdy5jDQppbmRleCBmNzNlZTNiZjkwZjUuLjg3MzU0YmIxNTY0ZSAxMDA2NDQNCi0t
+LSBhL3NvdW5kL3NvYy9jb2RlY3MvcnQ3MjItc2RjYS1zZHcuYw0KKysrIGIvc291bmQvc29jL2Nv
+ZGVjcy9ydDcyMi1zZGNhLXNkdy5jDQpAQCAtMzUyLDcgKzM1Miw3IEBAIHN0YXRpYyBpbnQgcnQ3
+MjJfc2RjYV9pbnRlcnJ1cHRfY2FsbGJhY2soc3RydWN0IHNkd19zbGF2ZSAqc2xhdmUsDQogDQog
+CWlmIChzdGF0dXMtPnNkY2FfY2FzY2FkZSAmJiAhcnQ3MjItPmRpc2FibGVfaXJxKQ0KIAkJbW9k
+X2RlbGF5ZWRfd29yayhzeXN0ZW1fcG93ZXJfZWZmaWNpZW50X3dxLA0KLQkJCSZydDcyMi0+amFj
+a19kZXRlY3Rfd29yaywgbXNlY3NfdG9famlmZmllcygzMCkpOw0KKwkJCSZydDcyMi0+amFja19k
+ZXRlY3Rfd29yaywgbXNlY3NfdG9famlmZmllcygyODApKTsNCiANCiAJbXV0ZXhfdW5sb2NrKCZy
+dDcyMi0+ZGlzYWJsZV9pcnFfbG9jayk7DQogDQotLSANCjIuMzQuMQ0KDQo=
 
----
-v4:
- - add a description of what the state machine looks like.
- - Remove TASDEVICE_DSP_FW_NONE because of unused.
- - Remove stray change.
- - Fix broken indentation.
-v3:
- - Add description on RCA is Reconfigurable Architecture.
- - Add the description on enabling
- - Reword the commit
- - Remove question mark in the comments.
- - Add spaces in comments.
-v2:
- - Correct comment.
- - Add Fixes.
- - Move header file to the first.
-v1:
- - Split out the different logical changes into different patches.
- - rename tasdevice_dsp_fw_state -> tasdevice_fw_state, the fw are not
-   only DSP fw, but also RCA(Reconfigurable data, such as acoustic data
-   and register setting, etc).
- - Add TASDEVICE_RCA_FW_OK in tasdevice_fw_state to identify the state
-   that only RCA binary file has been download successfully, but DSP fw
-   is not loaded or loading failure.
- - Add the this strategy into tasdevice_tuning_switch.
- - If one side of the if/else has a braces both should in
-   tasdevice_tuning_switch.
- - Identify whehter both RCA and DSP have been loaded or only RCA has
-   been loaded in tasdevice_fw_ready.
- - Add check fw load status in tasdevice_startup.
- - remove ret in tasdevice_startup to make the code neater.
----
- include/sound/tas2781-dsp.h       | 11 ++++++++--
- sound/soc/codecs/tas2781-fmwlib.c | 18 +++++++++++-----
- sound/soc/codecs/tas2781-i2c.c    | 34 +++++++++++++++++++------------
- 3 files changed, 43 insertions(+), 20 deletions(-)
+--_000_7e502e9a9dd94122a1b60deb5ceb60fbrealtekcom_
+Content-Disposition: attachment; filename="winmail.dat"
+Content-Transfer-Encoding: base64
+Content-Type: application/ms-tnef; name="winmail.dat"
 
-diff --git a/include/sound/tas2781-dsp.h b/include/sound/tas2781-dsp.h
-index 7fba7ea26a4b..3cda9da14f6d 100644
---- a/include/sound/tas2781-dsp.h
-+++ b/include/sound/tas2781-dsp.h
-@@ -117,10 +117,17 @@ struct tasdevice_fw {
- 	struct device *dev;
- };
- 
--enum tasdevice_dsp_fw_state {
--	TASDEVICE_DSP_FW_NONE = 0,
-+enum tasdevice_fw_state {
-+	/* Driver in startup mode, not load any firmware. */
- 	TASDEVICE_DSP_FW_PENDING,
-+	/* DSP firmware in the system, but parsing error. */
- 	TASDEVICE_DSP_FW_FAIL,
-+	/*
-+	 * Only RCA (Reconfigurable Architecture) firmware load
-+	 * successfully.
-+	 */
-+	TASDEVICE_RCA_FW_OK,
-+	/* Both RCA and DSP firmware load successfully. */
- 	TASDEVICE_DSP_FW_ALL_OK,
- };
- 
-diff --git a/sound/soc/codecs/tas2781-fmwlib.c b/sound/soc/codecs/tas2781-fmwlib.c
-index 265a8ca25cbb..838d29fead96 100644
---- a/sound/soc/codecs/tas2781-fmwlib.c
-+++ b/sound/soc/codecs/tas2781-fmwlib.c
-@@ -2324,14 +2324,21 @@ void tasdevice_tuning_switch(void *context, int state)
- 	struct tasdevice_fw *tas_fmw = tas_priv->fmw;
- 	int profile_cfg_id = tas_priv->rcabin.profile_cfg_id;
- 
--	if (tas_priv->fw_state == TASDEVICE_DSP_FW_FAIL) {
--		dev_err(tas_priv->dev, "DSP bin file not loaded\n");
-+	/*
-+	 * Only RCA-based Playback can still work with no dsp program running
-+	 * inside the chip.
-+	 */
-+	switch (tas_priv->fw_state) {
-+	case TASDEVICE_RCA_FW_OK:
-+	case TASDEVICE_DSP_FW_ALL_OK:
-+		break;
-+	default:
- 		return;
- 	}
- 
- 	if (state == 0) {
--		if (tas_priv->cur_prog < tas_fmw->nr_programs) {
--			/*dsp mode or tuning mode*/
-+		if (tas_fmw && tas_priv->cur_prog < tas_fmw->nr_programs) {
-+			/* dsp mode or tuning mode */
- 			profile_cfg_id = tas_priv->rcabin.profile_cfg_id;
- 			tasdevice_select_tuningprm_cfg(tas_priv,
- 				tas_priv->cur_prog, tas_priv->cur_conf,
-@@ -2340,9 +2347,10 @@ void tasdevice_tuning_switch(void *context, int state)
- 
- 		tasdevice_select_cfg_blk(tas_priv, profile_cfg_id,
- 			TASDEVICE_BIN_BLK_PRE_POWER_UP);
--	} else
-+	} else {
- 		tasdevice_select_cfg_blk(tas_priv, profile_cfg_id,
- 			TASDEVICE_BIN_BLK_PRE_SHUTDOWN);
-+	}
- }
- EXPORT_SYMBOL_NS_GPL(tasdevice_tuning_switch,
- 	SND_SOC_TAS2781_FMWLIB);
-diff --git a/sound/soc/codecs/tas2781-i2c.c b/sound/soc/codecs/tas2781-i2c.c
-index 9350972dfefe..9c3c89cb36de 100644
---- a/sound/soc/codecs/tas2781-i2c.c
-+++ b/sound/soc/codecs/tas2781-i2c.c
-@@ -380,23 +380,32 @@ static void tasdevice_fw_ready(const struct firmware *fmw,
- 	mutex_lock(&tas_priv->codec_lock);
- 
- 	ret = tasdevice_rca_parser(tas_priv, fmw);
--	if (ret)
-+	if (ret) {
-+		tasdevice_config_info_remove(tas_priv);
- 		goto out;
-+	}
- 	tasdevice_create_control(tas_priv);
- 
- 	tasdevice_dsp_remove(tas_priv);
- 	tasdevice_calbin_remove(tas_priv);
--	tas_priv->fw_state = TASDEVICE_DSP_FW_PENDING;
-+	tas_priv->fw_state = TASDEVICE_RCA_FW_OK;
- 	scnprintf(tas_priv->coef_binaryname, 64, "%s_coef.bin",
- 		tas_priv->dev_name);
- 	ret = tasdevice_dsp_parser(tas_priv);
- 	if (ret) {
- 		dev_err(tas_priv->dev, "dspfw load %s error\n",
- 			tas_priv->coef_binaryname);
--		tas_priv->fw_state = TASDEVICE_DSP_FW_FAIL;
- 		goto out;
- 	}
--	tasdevice_dsp_create_ctrls(tas_priv);
-+
-+	/*
-+	 * If no dsp-related kcontrol created, the dsp resource will be freed.
-+	 */
-+	ret = tasdevice_dsp_create_ctrls(tas_priv);
-+	if (ret) {
-+		dev_err(tas_priv->dev, "dsp controls error\n");
-+		goto out;
-+	}
- 
- 	tas_priv->fw_state = TASDEVICE_DSP_FW_ALL_OK;
- 
-@@ -417,9 +426,8 @@ static void tasdevice_fw_ready(const struct firmware *fmw,
- 	tasdevice_prmg_load(tas_priv, 0);
- 	tas_priv->cur_prog = 0;
- out:
--	if (tas_priv->fw_state == TASDEVICE_DSP_FW_FAIL) {
--		/*If DSP FW fail, kcontrol won't be created */
--		tasdevice_config_info_remove(tas_priv);
-+	if (tas_priv->fw_state == TASDEVICE_RCA_FW_OK) {
-+		/* If DSP FW fail, DSP kcontrol won't be created. */
- 		tasdevice_dsp_remove(tas_priv);
- 	}
- 	mutex_unlock(&tas_priv->codec_lock);
-@@ -466,14 +474,14 @@ static int tasdevice_startup(struct snd_pcm_substream *substream,
- {
- 	struct snd_soc_component *codec = dai->component;
- 	struct tasdevice_priv *tas_priv = snd_soc_component_get_drvdata(codec);
--	int ret = 0;
- 
--	if (tas_priv->fw_state != TASDEVICE_DSP_FW_ALL_OK) {
--		dev_err(tas_priv->dev, "DSP bin file not loaded\n");
--		ret = -EINVAL;
-+	switch (tas_priv->fw_state) {
-+	case TASDEVICE_RCA_FW_OK:
-+	case TASDEVICE_DSP_FW_ALL_OK:
-+		return 0;
-+	default:
-+		return -EINVAL;
- 	}
--
--	return ret;
- }
- 
- static int tasdevice_hw_params(struct snd_pcm_substream *substream,
--- 
-2.34.1
+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
+MAEAAAAQAAAAp5T0seiPQ0efPtA8Qy6okQMAFwABAAAAQAA5AIALtg+nvNoBQAAIMMduxg+nvNoB
+CwApAAAAAAAfANk/AQAAAAACAABBAGQAZAAgAGQAZQBiAG8AdQBuAGMAZQAgAHQAaQBtAGUAIABp
+AG4AIABoAGUAYQBkAHMAZQB0ACAAdAB5AHAAZQAgAGQAZQB0AGUAYwB0AGkAbwBuACAAZgBvAHIA
+IABiAGUAdAB0AGUAcgAgAHAAZQByAGYAbwByAG0AYQBuAGMAZQAuAA0ACgANAAoAUwBpAGcAbgBl
+AGQALQBvAGYAZgAtAGIAeQA6ACAASgBhAGMAawAgAFkAdQAgADwAagBhAGMAawAuAHkAdQBAAHIA
+ZQBhAGwAdABlAGsALgBjAG8AbQA+AA0ACgAtAC0ALQANAAoAIABzAG8AdQBuAGQALwBzAG8AYwAv
+AGMAbwBkAGUAYwBzAC8AcgB0ADcAMgAyAC0AcwBkAGMAYQAtAHMAZAB3AC4AYwAgAHwAIAAyACAA
+KwAtAA0ACgAgADEAIABmAGkAbABlACAAYwBoAGEAbgBnAGUAZAAsACAAMQAgAGkAbgBzAGUAcgB0
+AGkAbwBuACgAKwApACwAIAAxACAAZABlAGwAZQB0AGkAbwBuACgALQApAA0ACgANAAoAZABpAGYA
+ZgAgAC0ALQBnAGkAdAAgAGEALwBzAG8AdQBuAGQALwBzAG8AYwAvAGMAbwBkAGUAYwBzAC8AcgB0
+ADcAMgAyAC0AcwBkAGMAYQAAAAsAAIAIIAYAAAAAAMAAAAAAAABGAAAAABSFAAABAAAAHwAAgIYD
+AgAAAAAAwAAAAAAAAEYBAAAAHgAAAGEAYwBjAGUAcAB0AGwAYQBuAGcAdQBhAGcAZQAAAAAAAQAA
+ABoAAAB6AGgALQBUAFcALAAgAGUAbgAtAFUAUwAAAAAAAwAAgAggBgAAAAAAwAAAAAAAAEYBAAAA
+MgAAAEUAeABjAGgAYQBuAGcAZQBBAHAAcABsAGkAYwBhAHQAaQBvAG4ARgBsAGEAZwBzAAAAAAAg
+AAAASAAAgAggBgAAAAAAwAAAAAAAAEYBAAAAIgAAAE4AZQB0AHcAbwByAGsATQBlAHMAcwBhAGcA
+ZQBJAGQAAAAAAKPAtEfOlldHWDsI3Iq+MlsfAACAE4/yQfSDFEGlhO7bWmsL/wEAAAAWAAAAQwBs
+AGkAZQBuAHQASQBuAGYAbwAAAAAAAQAAACoAAABDAGwAaQBlAG4AdAA9AE0AUwBFAHgAYwBoAGEA
+bgBnAGUAUgBQAEMAAAAAAB8A+j8BAAAAEAAAAEoAYQBjAGsAIABZAHUAAAAfADcAAQAAAIYAAABb
+AFAAQQBUAEMASABdACAAQQBTAG8AQwA6ACAAcgB0ADcAMgAyAC0AcwBkAGMAYQAtAHMAZAB3ADoA
+IABhAGQAZAAgAGQAZQBiAG8AdQBuAGMAZQAgAHQAaQBtAGUAIABmAG8AcgAgAHQAeQBwAGUAIABk
+AGUAdABlAGMAdABpAG8AbgAAAAAAHwA9AAEAAAACAAAAAAAAAAMANgAAAAAAAgFxAAEAAAAWAAAA
+Adq8pw81RUwpJGeGQBieqeDzttKg8AAAHwBwAAEAAACGAAAAWwBQAEEAVABDAEgAXQAgAEEAUwBv
+AEMAOgAgAHIAdAA3ADIAMgAtAHMAZABjAGEALQBzAGQAdwA6ACAAYQBkAGQAIABkAGUAYgBvAHUA
+bgBjAGUAIAB0AGkAbQBlACAAZgBvAHIAIAB0AHkAcABlACAAZABlAHQAZQBjAHQAaQBvAG4AAAAA
+AB8ANRABAAAAXgAAADwANwBlADUAMAAyAGUAOQBhADkAZABkADkANAAxADIAMgBhADEAYgA2ADAA
+ZABlAGIANQBjAGUAYgA2ADAAZgBiAEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAD4AAAAAAAMA3j+2
+AwAAAwATEgAAAAACAQCAE4/yQfSDFEGlhO7bWmsL/wEAAAAuAAAASABlAGEAZABlAHIAQgBvAGQA
+eQBGAHIAYQBnAG0AZQBuAHQATABpAHMAdAAAAAAAAQAAACIAAAABAAoAAAAEAAAAAAAAABQAAAAA
+AAAAAAAAAP////8AAAAAAAALAACAE4/yQfSDFEGlhO7bWmsL/wEAAAAcAAAASABhAHMAUQB1AG8A
+dABlAGQAVABlAHgAdAAAAAAAAAALAACAE4/yQfSDFEGlhO7bWmsL/wEAAAAoAAAASQBzAFEAdQBv
+AHQAZQBkAFQAZQB4AHQAQwBoAGEAbgBnAGUAZAAAAAAAAABAAAcwzsS5D6e82gECAQsAAQAAABAA
+AACnlPSx6I9DR58+0DxDLqiRAwAmAAAAAAALAAYMAAAAAAIBEDABAAAARgAAAAAAAADb6cRKJKDn
+QZMbKrsrs21MBwBMt30NVaF5RL5zhTli0AClAAAAaWD3AAAyrzgFSrBORoDHxzgiug9aAAAB17lG
+AAAAAAIBEzABAAAAEAAAAEVMKSRnhkAYnqng87bSoPACARQwAQAAAAwAAAA0AAAAcGTud0EAAAAf
+APg/AQAAABAAAABKAGEAYwBrACAAWQB1AAAAHwAiQAEAAAAGAAAARQBYAAAAAAAfACNAAQAAALYA
+AAAvAE8APQBSAFQARQBYAEMASAAvAE8AVQA9AEUAWABDAEgAQQBOAEcARQAgAEEARABNAEkATgBJ
+AFMAVABSAEEAVABJAFYARQAgAEcAUgBPAFUAUAAgACgARgBZAEQASQBCAE8ASABGADIAMwBTAFAA
+RABMAFQAKQAvAEMATgA9AFIARQBDAEkAUABJAEUATgBUAFMALwBDAE4APQBVAFMARQBSADUAOQA4
+ADYANQAxADAAOQAAAAAAHwAkQAEAAAAGAAAARQBYAAAAAAAfACVAAQAAALYAAAAvAE8APQBSAFQA
+RQBYAEMASAAvAE8AVQA9AEUAWABDAEgAQQBOAEcARQAgAEEARABNAEkATgBJAFMAVABSAEEAVABJ
+AFYARQAgAEcAUgBPAFUAUAAgACgARgBZAEQASQBCAE8ASABGADIAMwBTAFAARABMAFQAKQAvAEMA
+TgA9AFIARQBDAEkAUABJAEUATgBUAFMALwBDAE4APQBVAFMARQBSADUAOQA4ADYANQAxADAAOQAA
+AAAAHwAwQAEAAAAQAAAASgBhAGMAawAgAFkAdQAAAB8AMUABAAAAEAAAAEoAYQBjAGsAIABZAHUA
+AAAfADhAAQAAABAAAABKAGEAYwBrACAAWQB1AAAAHwA5QAEAAAAQAAAASgBhAGMAawAgAFkAdQAA
+AAMAWUAAAAAAAwBaQAAAAAADAAlZAQAAAB8ACl0BAAAAKAAAAGoAYQBjAGsALgB5AHUAQAByAGUA
+YQBsAHQAZQBrAC4AYwBvAG0AAAAfAAtdAQAAACgAAABqAGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0
+AGUAawAuAGMAbwBtAAAAHwAAgB+k6zOoei5Cvnt54amOVLMBAAAAOAAAAEMAbwBuAHYAZQByAHMA
+YQB0AGkAbwBuAEkAbgBkAGUAeABUAHIAYQBjAGsAaQBuAGcARQB4AAAAAQAAACQBAABJAEkAPQBb
+AEMASQBEAD0AMgA0ADIAOQA0AGMANAA1AC0AOAA2ADYANwAtADEAOAA0ADAALQA5AGUAYQA5AC0A
+ZQAwAGYAMwBiADYAZAAyAGEAMABmADAAOwBJAEQAWABIAEUAQQBEAD0ARABBAEIAQwBBADcAMABG
+ADMANQA7AEkARABYAEMATwBVAE4AVAA9ADEAXQA7AFAAUwA9AFUAbgBrAG4AbwB3AG4AOwBWAGUA
+cgBzAGkAbwBuAD0AVgBlAHIAcwBpAG8AbgAgADEANQAuADEAIAAoAEIAdQBpAGwAZAAgADIANQAw
+ADcALgAwACkALAAgAFMAdABhAGcAZQA9AEgANAA7AFUAUAA9ADEAMAA7AEQAUAA9ADEAQwA1AAAA
+CwAAgAggBgAAAAAAwAAAAAAAAEYAAAAAgoUAAAAAAAADAA00/T8AAB8AAICGAwIAAAAAAMAAAAAA
+AABGAQAAACAAAAB4AC0AbQBzAC0AaABhAHMALQBhAHQAdABhAGMAaAAAAAEAAAACAAAAAAAAAB8A
+AICGAwIAAAAAAMAAAAAAAABGAQAAACIAAAB4AC0AbwByAGkAZwBpAG4AYQB0AGkAbgBnAC0AaQBw
+AAAAAAABAAAAIgAAAFsAMQA3ADIALgAyADIALgAxADAAMgAuADEAMAAyAF0AAAAAADJk
 
+--_000_7e502e9a9dd94122a1b60deb5ceb60fbrealtekcom_--

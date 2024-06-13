@@ -2,83 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E084905CB5
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jun 2024 22:22:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F27590633C
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jun 2024 07:03:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2B654846;
-	Wed, 12 Jun 2024 22:21:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B654846
+	by alsa0.perex.cz (Postfix) with ESMTPS id EBCB0E65;
+	Thu, 13 Jun 2024 07:02:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EBCB0E65
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718223727;
-	bh=MWggHuDmnRYrL6/F/g0nQyheyownkHUkefYD5cQ+7EU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1718254980;
+	bh=V8dLypkcp5xQxsStqf+DKspRtOxwD1f4T+BQAhzBgr8=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=jfLlO2ph25uD8LEVJXhH9tNO7Eu+YZAIo3cgMWqJagtlJ31h4k5ZvFX08OOFL+Snj
-	 9J/1S8aQ4adf8q+hLda6UDYHbsfiQYkLX5Gui99nJOJbb91eSM+Jan8z8ORXPPiLLC
-	 NZdfjY/gFcmoM8bbCaxPxcng9HtESdXc0cxoiJrU=
+	b=SOMjhVaXksIXvdTy8iqtPgNnI1HjQ9dcT6X4EG/qAduvkdVS7zVq24qTi1V6IECP+
+	 tOVWTd+8BZA0vXHe0rjdYPOx3iZuvAdQd21GITRK/zagz3aB5l/Yd3TVeNalG7Hv75
+	 fd/9mz9gxB0iBfGb6bkk41Ojz3oWJXUwKMFonoK8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D5257F805EB; Wed, 12 Jun 2024 22:21:20 +0200 (CEST)
+	id 86BBCF805B5; Thu, 13 Jun 2024 07:02:26 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 234ADF805D4;
-	Wed, 12 Jun 2024 22:21:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7A342F805B2;
+	Thu, 13 Jun 2024 07:02:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E1AF4F805C3; Wed, 12 Jun 2024 22:21:16 +0200 (CEST)
+	id 9D6EBF8057A; Thu, 13 Jun 2024 07:00:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_NONE,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EBA6CF805B0
-	for <alsa-devel@alsa-project.org>; Wed, 12 Jun 2024 22:21:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EBA6CF805B0
+	by alsa1.perex.cz (Postfix) with ESMTPS id 54819F800D0
+	for <alsa-devel@alsa-project.org>; Thu, 13 Jun 2024 06:59:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54819F800D0
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=dDy8K6tz
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 9F30FCE22A5;
-	Wed, 12 Jun 2024 20:21:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E05D1C32786;
-	Wed, 12 Jun 2024 20:21:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1718223667;
-	bh=MWggHuDmnRYrL6/F/g0nQyheyownkHUkefYD5cQ+7EU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=dDy8K6tzIR2SW38mTPuGne/59hM0GYaWIWx++6nRhpxUcQvdYeOWmQYITGsROmCbg
-	 RLRNSy3f/W0Lu6Q0pVB2ldComQ7iqf96XMvmFczK5evPGziHapzFZYmuZg2qsEjTRe
-	 o2K9jJghL3hxrS1byOebezsWYFePPNmeBJQ5Xl6fSraFKhhPMTws7MZisx0OUlX+jb
-	 W0trPF8GArt0iYZMhiaku6yqk7EeBd2psHvmBc6kOY6cC/1iqmAq3nm315WywKoEOV
-	 E8mi/5300RFGzcGtDKG9F6yvfNVFTi+20ZvHXN48GjV5sj51QLh/fzDd8LWeP+gRcu
-	 y6IZsnXUPVYZQ==
-From: Mark Brown <broonie@kernel.org>
-To: Lars-Peter Clausen <lars@metafoo.de>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Peter Ujfalusi <peter.ujfalusi@gmail.com>, Jai Luthra <j-luthra@ti.com>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
- alsa-devel@alsa-project.org, Devarsh Thakkar <devarsht@ti.com>,
- Vignesh Raghavendra <vigneshr@ti.com>,
- Jayesh Choudhary <j-choudhary@ti.com>
-In-Reply-To: <20240611-asoc_next-v3-0-fcfd84b12164@ti.com>
-References: <20240611-asoc_next-v3-0-fcfd84b12164@ti.com>
-Subject: Re: [PATCH v3 0/2] Fixes for McASP and dmaengine_pcm
-Message-Id: <171822366586.240528.375456084176371266.b4-ty@kernel.org>
-Date: Wed, 12 Jun 2024 21:21:05 +0100
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=XPRii03P
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1718254795; x=1749790795;
+  h=message-id:date:mime-version:subject:from:to:cc:
+   references:in-reply-to:content-transfer-encoding;
+  bh=V8dLypkcp5xQxsStqf+DKspRtOxwD1f4T+BQAhzBgr8=;
+  b=XPRii03PH/x3eBWgJDUDQvzyec5nIzEwtCNa86zHbE5X09F3vWeixyrr
+   yo0IPrWyIacjM2ZMRvkXL6SXY2LpN3sy+6tVRJrpfF637Fukl3zQ+Mr+8
+   EncMUvp7Yz1tTRkC9b4ScesPH/saGiqHfeDub1vSu/mBEJpL3IBp6rH3a
+   1vAOHzwmj0VVjog+g9t3jLGPf9LE6BPk5QEV795kQdVUhSdd9ogLEQTDJ
+   nnH+WiX9qqDQiEHXNy9QEmbBhjNpCCKyrt/YrDsciW52nUMT+toCUpc4E
+   uzzDYUB/2YehugApvwpEPfkr0QVwFqb3eTE0TyF4m8DbzQNsm1IRuBe8Y
+   A==;
+X-CSE-ConnectionGUID: 6bKFeEm9QBy6jOkvrWgZcg==
+X-CSE-MsgGUID: 9EEqqwyWTH6V+7vIQXphkg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11101"; a="12047619"
+X-IronPort-AV: E=Sophos;i="6.08,234,1712646000";
+   d="scan'208";a="12047619"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jun 2024 21:59:49 -0700
+X-CSE-ConnectionGUID: OlBiDGCZRui7Jm1Ng2skjw==
+X-CSE-MsgGUID: M4o1H2zJQVGnLeBJCEcdmQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.08,234,1712646000";
+   d="scan'208";a="63191562"
+Received: from fdefranc-mobl3.ger.corp.intel.com (HELO [10.245.246.108])
+ ([10.245.246.108])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jun 2024 21:59:47 -0700
+Message-ID: <d1baeec6-87f5-4784-8cbf-b26a9de441e9@linux.intel.com>
+Date: Thu, 13 Jun 2024 06:59:44 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14-dev-4c370
-Message-ID-Hash: MVY65OMW2NNBXLCMRLLW7JEE36GAZVQ5
-X-Message-ID-Hash: MVY65OMW2NNBXLCMRLLW7JEE36GAZVQ5
-X-MailFrom: broonie@kernel.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/5] ASoC: SOF: Intel: add initial support for PTL
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de,
+ Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
+ =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>
+References: <20240612065858.53041-1-pierre-louis.bossart@linux.intel.com>
+ <20240612065858.53041-3-pierre-louis.bossart@linux.intel.com>
+ <ZmnGWdZ0GrE9lnk2@finisterre.sirena.org.uk>
+ <c835bf25-39b8-4f7a-9c77-33367085670e@linux.intel.com>
+Content-Language: en-US
+In-Reply-To: <c835bf25-39b8-4f7a-9c77-33367085670e@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: WP4ABOKQ5D4CXXGESAYQ4IKTCWRDIDW7
+X-Message-ID-Hash: WP4ABOKQ5D4CXXGESAYQ4IKTCWRDIDW7
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -90,7 +107,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MVY65OMW2NNBXLCMRLLW7JEE36GAZVQ5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WP4ABOKQ5D4CXXGESAYQ4IKTCWRDIDW7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,43 +116,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 11 Jun 2024 18:02:54 +0530, Jai Luthra wrote:
-> This series fixes two patches:
+
+
+On 6/12/24 18:08, Pierre-Louis Bossart wrote:
 > 
-> 1. Fix the dmaengine API usage by calling dmaengine_synchronize() after
->    dmaengine_terminate_async() when xrun events occur in application
-> 2. Use the McASP AFIFO property from DT to refine the period size,
->    instead of hardcoding minimum to 64 samples
 > 
-> [...]
+> On 6/12/24 18:01, Mark Brown wrote:
+>> On Wed, Jun 12, 2024 at 08:58:55AM +0200, Pierre-Louis Bossart wrote:
+>>> Clone LNL for now.
+>>
+>> There's a dependency somewhere I think:
+>>
+>> In file included from /build/stage/linux/sound/soc/sof/intel/pci-ptl.c:10:
+>> /build/stage/linux/include/linux/pci.h:1063:51: error: ‘PCI_DEVICE_ID_INTEL_HDA_
+>> PTL’ undeclared here (not in a function); did you mean ‘PCI_DEVICE_ID_INTEL_HDA_
+>> MTL’?
+>>  1063 |         .vendor = PCI_VENDOR_ID_##vend, .device = PCI_DEVICE_ID_##vend##
+>> _##dev, \
+>>       |                                                   ^~~~~~~~~~~~~~
+>> /build/stage/linux/sound/soc/sof/intel/pci-ptl.c:52:11: note: in expansion of ma
+>> cro ‘PCI_DEVICE_DATA’
+>>    52 |         { PCI_DEVICE_DATA(INTEL, HDA_PTL, &ptl_desc) }, /* PTL */>       |           ^~~~~~~~~~~~~~~
+> 
+> Yes indeed there is a dependency, I mentioned it in the cover letter
+> 
+> 
+> "
+> This patchset depends on the first patch of "[PATCH 0/3] ALSA/PCI: add
+> PantherLake audio support"
+> "
+> 
+> We don't add PCI IDs every week but when we do we'll need an update of
+> pci_ids.h prior to ALSA- and ASoC-specific patches.
 
-Applied to
+There's another problem reported by the Intel build bot
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+https://lore.kernel.org/oe-kbuild-all/202406131144.L6gW0I47-lkp@intel.com/
 
-Thanks!
-
-[1/2] ALSA: dmaengine: Synchronize dma channel after drop()
-      commit: e8343410ddf08fc36a9b9cc7c51a4e53a262d4c6
-[2/2] ASoC: ti: davinci-mcasp: Set min period size using FIFO config
-      commit: c5dcf8ab10606e76c1d8a0ec77f27d84a392e874
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+When I modified the order of patches I broke the intermediate
+compilation. The ACPI machine definition needs to come first.
+I'll send a v2, sorry about that.

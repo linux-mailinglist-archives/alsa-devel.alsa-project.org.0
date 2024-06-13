@@ -2,106 +2,109 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A739D9069D3
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jun 2024 12:19:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 341F19069DB
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jun 2024 12:21:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 299D3E66;
-	Thu, 13 Jun 2024 12:19:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 299D3E66
+	by alsa0.perex.cz (Postfix) with ESMTPS id 721CADFA;
+	Thu, 13 Jun 2024 12:21:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 721CADFA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718273976;
-	bh=YUvQFJH1xmyseUhBIv/gGjLJET5MmLDldQznxc2OK4o=;
+	s=default; t=1718274078;
+	bh=QNkIEu51DQcZ/rYzs3XDlNauHS42tIn5fBb8WrbdE9I=;
 	h=Date:From:Subject:To:Cc:References:In-Reply-To:Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=LGCZIZdXW5YSkBtpi19VArWgYCULgYqfo0wTmYOe3EPpeO81ARNeATHDcSvz13caI
-	 Rzu31myhi+K1+uZDS+1BIx8WDMRwxEoYB+AQnU11KIt4wx1ZQ/gCTsLC53E04txS+t
-	 h0APQU20qUfTe+HBg+bCwXWJqbxx7CJc14rRP9JM=
+	b=LatmbYmdzV1kyzj5b4cCtS+wLxjL/CeGzJAbRj0cDWRC9VqcJTQa9OE/zSaFWl9j/
+	 lrbevzBBxWExm8s69MjBL39La0d9ckLz1rOsew6939J16ek4o7AjfAN5cI3LHUn3yg
+	 vhzcQpCu1u0ZlU5OLQYAN/vt2lSIdKZ0Ezs4Ylkw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4ABAFF805B3; Thu, 13 Jun 2024 12:19:02 +0200 (CEST)
+	id 363E7F805AC; Thu, 13 Jun 2024 12:20:41 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A5665F805B3;
-	Thu, 13 Jun 2024 12:19:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C0E21F805AC;
+	Thu, 13 Jun 2024 12:20:41 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EDFC9F8057A; Thu, 13 Jun 2024 12:18:56 +0200 (CEST)
+	id 62C2CF8057A; Thu, 13 Jun 2024 12:20:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [IPv6:2a00:1450:4864:20::129])
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [IPv6:2a00:1450:4864:20::62f])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2E494F80578
-	for <alsa-devel@alsa-project.org>; Thu, 13 Jun 2024 12:18:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E494F80578
+	by alsa1.perex.cz (Postfix) with ESMTPS id B46A4F80448
+	for <alsa-devel@alsa-project.org>; Thu, 13 Jun 2024 12:20:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B46A4F80448
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=DDbORvcN
-Received: by mail-lf1-x129.google.com with SMTP id
- 2adb3069b0e04-52ca342d6f3so366083e87.2
+ header.s=google header.b=KaQ6z74T
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-a6f13dddf7eso110651866b.0
         for <alsa-devel@alsa-project.org>;
- Thu, 13 Jun 2024 03:18:42 -0700 (PDT)
+ Thu, 13 Jun 2024 03:20:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1718273921; x=1718878721;
+        d=linaro.org; s=google; t=1718274034; x=1718878834;
  darn=alsa-project.org;
         h=content-transfer-encoding:in-reply-to:organization:autocrypt
          :content-language:references:cc:to:subject:reply-to:from:user-agent
          :mime-version:date:message-id:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=gz8Jr9tAelbj0mz7l81bvUL2cfeH6O4EAvWrEVqr2pk=;
-        b=DDbORvcNG9Vyo5YvMMpv8AbEnjJ3DZ/ljRKR+5JxNONWcl5egrlIXVchPfblwMI6Ju
-         CpA7M1NgoN2708jHkzCiRXCoKZ1nTN6dsZkwxwFptyjr/raEMsFZPibReSDWhVgfZ363
-         /AxHfk0rUEj8iG7ti6d2ipnt4Z9tr+jt4pioYKc4Jli6Li0jEFyZGq+bcR+6QnKVWV6I
-         QID5jgHs7cN1s9+YjmweOk2TnmMnqldETXX9quF0+tj9h1xhOsciyfKone8z97FWehC9
-         Mew8jM1DwNb+Gbr/LrtNgUnjColvNt4XI6tbWRwJJWKMBG4BWaxwA0q6ivgHoxedw8Wm
-         WTgw==
+        bh=8QZ+NCLQgLbaVK6YbbCv1p2KuIYd+8NexPeaQHEj57A=;
+        b=KaQ6z74TYpt3sRyKpZFsusEOl6MYjiKJiNBaXjYkVlhSe1Afg2Mb+JzijOq72RIsHP
+         XeUdGxcY5YwxnD/6LbS2U0/0Borgla0eBx7Bs3Rq+mKKdrakK9+ZDrPP0bAT1LP6I6P0
+         huIJ+gcI88fOKHBOdWGBLBGCxkIYHNYkQAESoVQZx18eX4NfKPABKshQIckh6kW5C4Gz
+         M5HlzoyTXqsIm6ixhBLmrmFnN0XfUYN/bEJT4aPeA4mDrv8oBeUwgQu34FoRl5dBQ5Dd
+         +a6JeEDCFm8xI9bL3bR2T3Gyq5DUtNVRkzQNnN0GfZyMhZq6NNriLSLYse2dDSU9E1VS
+         3/PQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718273921; x=1718878721;
+        d=1e100.net; s=20230601; t=1718274034; x=1718878834;
         h=content-transfer-encoding:in-reply-to:organization:autocrypt
          :content-language:references:cc:to:subject:reply-to:from:user-agent
          :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=gz8Jr9tAelbj0mz7l81bvUL2cfeH6O4EAvWrEVqr2pk=;
-        b=XxfU2GQyGIayIXAFifpFPvfSyOowKrNeI73QwI0GEIKIJmc6MCxSfGUp0eGeVadVBF
-         lHuA5AoBf+6Exw0eq4KrJkqDm7Uo1PApsLQGDMn2hWn1ZkOeefyrMaj+xLk3mqP3E8w3
-         zYXSaqwQaZdyVJbgIPx/hf4vSq3ANtBCDJujHPYGVotbFQJynTmR6iofrQ2WKKFC+2rt
-         oYflhiSLJsHc9Lb/6e34f3X/5OWe972DUDorzRv8ED/gOVau28s5SVZccVA4aponuf7z
-         9oNhyG7Y0nC5Dz6dSHqEIRiEdAh+O4kIR7BO8bP2U2qLa1OGYT6kIua8bYL0U/Mad8ZE
-         qHiw==
+        bh=8QZ+NCLQgLbaVK6YbbCv1p2KuIYd+8NexPeaQHEj57A=;
+        b=BO/JE8Hi5PTyZ0b5QGfLX9kLhOfa53TUVG0OmxE3aWCVmL6Du2UQlXdX9f0jOHPzab
+         NujMulXiw1fy950f6oBPrO8JxR/UdRFXqrfrTb9qj/lsqDvszY/rGFNHbi9bnEDvGlLg
+         BsklGIkYk2mgMbc//MIi56DJ0wc6IPGCw1XIjx+kEbwP/5G4xbC5kXJbBwxnowakm5eX
+         xNlWfhph55BQBbsFEMxKD8e+gz8VG3LcBSbN/pSGS8fVuofYvw0POpZqAg8mvI2Q4Q74
+         qIcGQMEd2ckifSupoKalZhbxnseJaYI8+frIM0Dt7szy7mtoiCycvm2mpKOeBdyjjnbF
+         7W3w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV7dLo5gMnZOqvyRdQ4gALl2QC4hZrdEVmQp/RziYj2zeFFGbRDcwW3gbzX2WOEz6mOaOzpBqrp98xfZpewjEq1s/Rpy3uRwMg/evM=
-X-Gm-Message-State: AOJu0YzHUjlj0hLvINQocgmqSI9n0/R4hkHb4NVNcLm42hD044JOonuq
-	D6J4w74+YLolfPsW33MJXYSeV9pe+KHsk7Jb7/Mvw9qjJqV2Iu82QoJXat5UMr0=
+ AJvYcCW/o6+8Khr6OZcT1CBwvMRGIlKPo7BWUnjjctJ+fwcAnRfSwFFmfFCJTVfE777Gp1gb/7NlFclHbPZjOyIVo45xz7PkHx7JJo+480Y=
+X-Gm-Message-State: AOJu0YzH86iwvwDBxNj7WDvBkru+ws2puhHy3t+ALLN8iGMUMKWErOiK
+	gQsxHwUw2R3lGk18ORz45ZqFS1W8aQ8yYMWktQkGvBK7DKZTfkPaSX15htgeCzs=
 X-Google-Smtp-Source: 
- AGHT+IEbD7oLf2BGEVhBB1lM7YbvXMhQDVXURKeZcbq+vbGXByyf1yn3I2TC3HslUJg3wVBZrQ9hmA==
-X-Received: by 2002:ac2:518c:0:b0:52c:247d:2cfa with SMTP id
- 2adb3069b0e04-52c9a3b8da6mr2924093e87.13.1718273921419;
-        Thu, 13 Jun 2024 03:18:41 -0700 (PDT)
+ AGHT+IHhLuwN6s2pgs2GbMvTpm2SCanz1Hu7FntRJZJCf6/a3NbHRkedsMTRJiQMmKNGepEbJ6+n2Q==
+X-Received: by 2002:a17:906:7f94:b0:a6f:277c:d890 with SMTP id
+ a640c23a62f3a-a6f4801378bmr263358366b.56.1718274034038;
+        Thu, 13 Jun 2024 03:20:34 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:982:cbb0:7d7b:a9a3:893:f3c7?
  ([2a01:e0a:982:cbb0:7d7b:a9a3:893:f3c7])
         by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-422874e73b1sm57037815e9.45.2024.06.13.03.18.40
+ a640c23a62f3a-a6f5952f85fsm42543366b.11.2024.06.13.03.20.33
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 13 Jun 2024 03:18:41 -0700 (PDT)
-Message-ID: <9d7285d2-0dec-4d6f-a3f2-1490261c7206@linaro.org>
-Date: Thu, 13 Jun 2024 12:18:40 +0200
+        Thu, 13 Jun 2024 03:20:33 -0700 (PDT)
+Message-ID: <b0670c4a-9663-4ed9-8eac-45efce5527f4@linaro.org>
+Date: Thu, 13 Jun 2024 12:20:32 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: neil.armstrong@linaro.org
-Subject: Re: [PATCH v2 0/2] ASoC: codecs: lpass: add support for v2.5 rx macro
-To: srinivas.kandagatla@linaro.org, broonie@kernel.org
-Cc: perex@perex.cz, lgirdwood@gmail.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- krzk+dt@kernel.org, krzysztof.kozlowski@linaro.org
-References: <20240606122559.116698-1-srinivas.kandagatla@linaro.org>
+Subject: Re: [PATCH v3 0/3] ASoC: codecs: lpass: add support for v2.5 rx macro
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Banajit Goswami <bgoswami@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org, krzysztof.kozlowski@linaro.org,
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+ alsa-devel@alsa-project.org
+References: <20240612-lpass-codec-v25-v1-0-9f40611a1370@linaro.org>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -128,11 +131,11 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20240606122559.116698-1-srinivas.kandagatla@linaro.org>
+In-Reply-To: <20240612-lpass-codec-v25-v1-0-9f40611a1370@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: OL64TW4SP4UDUZ3PBCX4JRSUGZIUEGVL
-X-Message-ID-Hash: OL64TW4SP4UDUZ3PBCX4JRSUGZIUEGVL
+Message-ID-Hash: KIP3OTAW5WC4FYYHDMTGOKU2XGOIBBSU
+X-Message-ID-Hash: KIP3OTAW5WC4FYYHDMTGOKU2XGOIBBSU
 X-MailFrom: neil.armstrong@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -146,7 +149,7 @@ Reply-To: neil.armstrong@linaro.org
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OL64TW4SP4UDUZ3PBCX4JRSUGZIUEGVL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KIP3OTAW5WC4FYYHDMTGOKU2XGOIBBSU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -155,9 +158,7 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 06/06/2024 14:25, srinivas.kandagatla@linaro.org wrote:
-> From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-> 
+On 12/06/2024 18:57, Srinivas Kandagatla wrote:
 > This patchset adds support to reading codec version and also adds
 > support for v2.5 codec version in rx macro.
 > 
@@ -175,20 +176,29 @@ On 06/06/2024 14:25, srinivas.kandagatla@linaro.org wrote:
 > Thanks,
 > Srini
 > 
-> Changes since v1:
->   - renamed all 2_6 variables with 2.5
->   - expanded checks for versions from 2.5 till 2.8
+> Changes since v2:
+> 	- added some locking around version variable.
+> 	- split 2.5 changes to a new patch.
 > 
-> Srinivas Kandagatla (2):
->    ASoC: codecs: lpass-macro: add helpers to get codec version
->    ASoC: codec: lpass-rx-macro: add suppor for 2.5 codec version
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> ---
+> Srinivas Kandagatla (3):
+>        ASoC: codecs: lpass-macro: add helpers to get codec version
+>        ASoC: codec: lpass-rx-macro: prepare driver to accomdate new codec versions
+>        ASoC: codec: lpass-rx-macro: add support for 2.5 codec version
 > 
->   sound/soc/codecs/lpass-macro-common.c |  14 +
->   sound/soc/codecs/lpass-macro-common.h |  35 ++
->   sound/soc/codecs/lpass-rx-macro.c     | 565 +++++++++++++++++++-------
+>   sound/soc/codecs/lpass-macro-common.c |  23 ++
+>   sound/soc/codecs/lpass-macro-common.h |  35 +++
+>   sound/soc/codecs/lpass-rx-macro.c     | 555 ++++++++++++++++++++++++----------
 >   sound/soc/codecs/lpass-va-macro.c     |  29 ++
->   4 files changed, 488 insertions(+), 155 deletions(-)
+>   4 files changed, 490 insertions(+), 152 deletions(-)
+> ---
+> base-commit: 1613e604df0cd359cf2a7fbd9be7a0bcfacfabd0
+> change-id: 20240612-lpass-codec-v25-4e960abd661f
 > 
+> Best regards,
+
+[replied to the wrong version, tested v3]
 
 Tested-by: Neil Armstrong <neil.armstrong@linaro.org> # on SM8650-HDK
 

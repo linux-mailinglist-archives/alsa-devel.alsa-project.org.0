@@ -2,66 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCC9F9063D7
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jun 2024 08:12:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A2F19063D8
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jun 2024 08:13:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D1D0586E;
-	Thu, 13 Jun 2024 08:12:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D1D0586E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7964BE94;
+	Thu, 13 Jun 2024 08:12:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7964BE94
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718259167;
-	bh=JbmWVngXwcaJEHJKElEnPeeTu8Gv+Zs1/2yu+j/TneE=;
+	s=default; t=1718259180;
+	bh=j4ClvL6FaMVD56wFlQzFJBIAUXrLe45mPNT8LnZVQ70=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=IW7OURubFunPMm2naO28P6Nii1yisjZHbOHvOw2eSZ8ByZgdlSTkacMWFGbS/qTr4
-	 R1GU0WYBKqvdHAohst9zW8uueU3xguukdiMHBllnkWmTmskbi+w5Xz7yE/UTRCT3R8
-	 b1eHlvul+ye1nbR/rHwxwbu/V3WyNEODHCEnWXZg=
+	b=vSHgGFhtFggun5DSfvi8ltypCXJRoXT9vqOh9OcoI6ZHPG2zYLngbVl0g2Jepl7N5
+	 4gIknaeG4zz/qVjAWF06KiENto5VbXO82Vn+N+BsREMx6G7Ize8XiJLezAY7iEJgw3
+	 BeEOYnA5+vfqqPn5oFH0mBDPV0RM0GG79TYeuOQQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 25AEFF805D2; Thu, 13 Jun 2024 08:12:16 +0200 (CEST)
+	id D315AF805E4; Thu, 13 Jun 2024 08:12:17 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8EBD8F805B3;
-	Thu, 13 Jun 2024 08:12:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6E123F805D5;
+	Thu, 13 Jun 2024 08:12:17 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A653DF8057A; Thu, 13 Jun 2024 08:11:16 +0200 (CEST)
+	id 65968F8057A; Thu, 13 Jun 2024 08:11:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BD3E6F80448
-	for <alsa-devel@alsa-project.org>; Thu, 13 Jun 2024 08:11:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD3E6F80448
+	by alsa1.perex.cz (Postfix) with ESMTPS id 570B9F800D0
+	for <alsa-devel@alsa-project.org>; Thu, 13 Jun 2024 08:11:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 570B9F800D0
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=iGEc7dtJ
+ header.s=k20201202 header.b=LprQBLnD
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 0A18B614ED;
-	Thu, 13 Jun 2024 06:11:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EA25C2BBFC;
-	Thu, 13 Jun 2024 06:11:02 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id BC1876188C;
+	Thu, 13 Jun 2024 06:11:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B71BC32789;
+	Thu, 13 Jun 2024 06:11:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1718259067;
-	bh=JbmWVngXwcaJEHJKElEnPeeTu8Gv+Zs1/2yu+j/TneE=;
+	s=k20201202; t=1718259100;
+	bh=j4ClvL6FaMVD56wFlQzFJBIAUXrLe45mPNT8LnZVQ70=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=iGEc7dtJIh6HXvyl39LmgZqjGsWuXvaUI1Avje37b9ogUwB2WNyEVWdc2D5/1DI3N
-	 7BR9xBcDQex0HzFbvyegeFSPltG6NOV+TkWHzPUHBtTh7i2Gk1uNcZLSc1XCSjZx8K
-	 8i9TcpEzKbVZ5HgCakQJBf45ZCk5MByJH8Afq4sXDOvGNe35nGZ0wQB0777K8ySU/d
-	 0vx2bkEK7NjRYLu/rl6g0dIHD7qwMrakrYbOJj30GKHKqSL4gZzcLdTgWtWTQJCK5o
-	 FPYVKzQV2grAKg101Hpz1wYRyzFkTYp6lOiORNnz2iVQB9GtGWTdavS0jJJViZa01H
-	 RWRPS+r15jSbA==
-Message-ID: <038eaf17-7806-4be4-b98d-e936afa1001f@kernel.org>
-Date: Thu, 13 Jun 2024 08:11:00 +0200
+	b=LprQBLnDa3HwEkf6Vg45HSmbPrPotcRy4SUBXgn6lUdAXDiAKnM7Cdk3LPW7DamGA
+	 DOBFkRf6RqgeDXSumYJsc+mmcrYHSmbnaoIgwqtKQ1hsuV1SqtY7r1GdEx7ZBfcJyY
+	 M8sp3JtcePmkDAGajRInvY3poRHNWzUCWwusMShxesIBd0zSbxbe/yzPBkXaTYwugE
+	 MwPNYFz1E/Ftr/tmfCGiEEnzupZP2eOSZhRhd6hBgmBuU0TCP2+Z9EwyioQCW2G2ho
+	 uUVQVnfNUfFb6zUpEAf2t1jPfXWrwrFDj3z+cE7WXGRYV/imiCkxcqGuZJvl6UfpEr
+	 EJxgAEV6hZU5A==
+Message-ID: <4df3b4c2-df61-4cdc-8aab-d2c57080b8c0@kernel.org>
+Date: Thu, 13 Jun 2024 08:11:33 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [Patch v2 2/2] ASoC: dt-bindings: lpc32xx: Add lpc32xx i2s DT
@@ -78,8 +78,8 @@ Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org
 References: <20240611094810.27475-1-piotr.wojtaszczyk@timesys.com>
  <20240611094810.27475-2-piotr.wojtaszczyk@timesys.com>
- <51eeec03-47da-44b5-a21e-f280d0c4b47c@kernel.org>
- <CAG+cZ06EN4Uw7Cy+kwsiPzu16Kp7tsF19Oit6oN6GUcSe464JQ@mail.gmail.com>
+ <1ea92ff0-7e2d-4a9f-bef4-d50fc93b86e6@kernel.org>
+ <CAG+cZ07jpi0dobjf8JYt263qqy1tYWAvzsV9cgKaAW05mBoCeQ@mail.gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -126,11 +126,11 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
  5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
 In-Reply-To: 
- <CAG+cZ06EN4Uw7Cy+kwsiPzu16Kp7tsF19Oit6oN6GUcSe464JQ@mail.gmail.com>
+ <CAG+cZ07jpi0dobjf8JYt263qqy1tYWAvzsV9cgKaAW05mBoCeQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: PIJOJJ2NR3VLEBNK665F73AQJKEICSIG
-X-Message-ID-Hash: PIJOJJ2NR3VLEBNK665F73AQJKEICSIG
+Message-ID-Hash: Q4YPTPRVSXKGOXB6LG4Y6SCGZH32NJTM
+X-Message-ID-Hash: Q4YPTPRVSXKGOXB6LG4Y6SCGZH32NJTM
 X-MailFrom: krzk@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -143,7 +143,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PIJOJJ2NR3VLEBNK665F73AQJKEICSIG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Q4YPTPRVSXKGOXB6LG4Y6SCGZH32NJTM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -152,20 +152,14 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 12/06/2024 10:06, Piotr Wojtaszczyk wrote:
-> On Tue, Jun 11, 2024 at 12:45 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
->>> Changes for v2:
->>> - Added maintainers field
->>> - Dropped clock-names
->>> - Dropped unused unneded interrupts field
->>
->> Does the device has interrupts or not? This should justify decision, not
->> current usage by drivers.
-> Yes the device has interrupts but feeding data FIFOs is handled by DMA
-> (amba-pl08x.c).
-> Should I declare interrupts despite they are not used in the compatible driver?
+On 12/06/2024 10:02, Piotr Wojtaszczyk wrote:
+> On Tue, Jun 11, 2024 at 12:18 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>> I do not see my comment about DAI being addressed.
+> Were you asking if it's a DAI? yes it is.
+> 
 
-Yes.
+Then you miss $ref to dai-common and defining sound-dai-cells like in
+other bindings.
 
 Best regards,
 Krzysztof

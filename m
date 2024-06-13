@@ -2,99 +2,136 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B3579063A8
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jun 2024 07:59:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCC9F9063D7
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jun 2024 08:12:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A2B86BC0;
-	Thu, 13 Jun 2024 07:59:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A2B86BC0
+	by alsa0.perex.cz (Postfix) with ESMTPS id D1D0586E;
+	Thu, 13 Jun 2024 08:12:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D1D0586E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718258353;
-	bh=jA+p+c2oxMuJwrkeiL5Elamxl7w5DxZPj3FunEj/30I=;
+	s=default; t=1718259167;
+	bh=JbmWVngXwcaJEHJKElEnPeeTu8Gv+Zs1/2yu+j/TneE=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=T1FWOXlPy8L/B7tsiRvmUkEEMdOagQUAClGZdUpT5GEJ5y2iMpJEgfMMdH3vqwORv
-	 gPdj7EUPmuDblYhyEJSRk6HxEsX4tPAbIGo9Cpdy4Yn+N5GhjBmFOXDpyJgq2/bln6
-	 dYJO46x51PTAz+Z92Tk1+R16mej8m7BXemqrKFiM=
+	b=IW7OURubFunPMm2naO28P6Nii1yisjZHbOHvOw2eSZ8ByZgdlSTkacMWFGbS/qTr4
+	 R1GU0WYBKqvdHAohst9zW8uueU3xguukdiMHBllnkWmTmskbi+w5Xz7yE/UTRCT3R8
+	 b1eHlvul+ye1nbR/rHwxwbu/V3WyNEODHCEnWXZg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 99505F805BD; Thu, 13 Jun 2024 07:58:41 +0200 (CEST)
+	id 25AEFF805D2; Thu, 13 Jun 2024 08:12:16 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1E72DF805B3;
-	Thu, 13 Jun 2024 07:58:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8EBD8F805B3;
+	Thu, 13 Jun 2024 08:12:15 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3ADD1F8057A; Thu, 13 Jun 2024 07:58:34 +0200 (CEST)
+	id A653DF8057A; Thu, 13 Jun 2024 08:11:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_NONE,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5959EF800D0
-	for <alsa-devel@alsa-project.org>; Thu, 13 Jun 2024 07:58:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5959EF800D0
+	by alsa1.perex.cz (Postfix) with ESMTPS id BD3E6F80448
+	for <alsa-devel@alsa-project.org>; Thu, 13 Jun 2024 08:11:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD3E6F80448
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=IBMLLDbH
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1718258306; x=1749794306;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=jA+p+c2oxMuJwrkeiL5Elamxl7w5DxZPj3FunEj/30I=;
-  b=IBMLLDbHA+WQrozPgW7XxIka5nDUibwfBd3tJAAmFCRgy31TIa3l5aVt
-   Omjnmw1WEDoH7Ktdn1YHRcuWU5WE78GBqBCpyFx7M/n6FcG3ddXUHkKau
-   M55+bKcv8U34QnYc8shyZVZgoJzqp9e5wmG/R0bQnFmif+J0N1fvlOLH3
-   H47ML71XB8uLLX39EsRkDWcMnikdDVvNHdRhLuPMGNKHauQ54Beext0wg
-   7qYWLOcksQFgaYivyMGvIYCrQ7IK7O1mPMivTOVQFTqaba+NXBehnyQ4I
-   zRuXvmO7pIwLoE65R8YirqYnDxhWlGXoNQEAb5VaZAxU63RWoRKaGklXw
-   w==;
-X-CSE-ConnectionGUID: btdO/zDdQWa6XzEL8CpNow==
-X-CSE-MsgGUID: H98tWkTaTYW0ZnK1uABYHQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11101"; a="15209748"
-X-IronPort-AV: E=Sophos;i="6.08,234,1712646000";
-   d="scan'208";a="15209748"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jun 2024 22:58:21 -0700
-X-CSE-ConnectionGUID: Zcd9rqi0SdK20b0RSg7x4w==
-X-CSE-MsgGUID: nYuz97NVQGavObsJQDCE8w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,234,1712646000";
-   d="scan'208";a="77480061"
-Received: from fdefranc-mobl3.ger.corp.intel.com (HELO [10.245.246.108])
- ([10.245.246.108])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jun 2024 22:58:18 -0700
-Message-ID: <507e9f6a-7113-4781-8a6d-27e4b87dbe24@linux.intel.com>
-Date: Thu, 13 Jun 2024 07:58:15 +0200
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=iGEc7dtJ
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id 0A18B614ED;
+	Thu, 13 Jun 2024 06:11:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EA25C2BBFC;
+	Thu, 13 Jun 2024 06:11:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1718259067;
+	bh=JbmWVngXwcaJEHJKElEnPeeTu8Gv+Zs1/2yu+j/TneE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=iGEc7dtJIh6HXvyl39LmgZqjGsWuXvaUI1Avje37b9ogUwB2WNyEVWdc2D5/1DI3N
+	 7BR9xBcDQex0HzFbvyegeFSPltG6NOV+TkWHzPUHBtTh7i2Gk1uNcZLSc1XCSjZx8K
+	 8i9TcpEzKbVZ5HgCakQJBf45ZCk5MByJH8Afq4sXDOvGNe35nGZ0wQB0777K8ySU/d
+	 0vx2bkEK7NjRYLu/rl6g0dIHD7qwMrakrYbOJj30GKHKqSL4gZzcLdTgWtWTQJCK5o
+	 FPYVKzQV2grAKg101Hpz1wYRyzFkTYp6lOiORNnz2iVQB9GtGWTdavS0jJJViZa01H
+	 RWRPS+r15jSbA==
+Message-ID: <038eaf17-7806-4be4-b98d-e936afa1001f@kernel.org>
+Date: Thu, 13 Jun 2024 08:11:00 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] ASoC: topology: Fix references to freed memory
-To: =?UTF-8?Q?Amadeusz_S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>, Mark Brown <broonie@kernel.org>
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
- alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- Jason Montleon <jmontleo@redhat.com>
-References: <20240603102818.36165-1-amadeuszx.slawinski@linux.intel.com>
- <20240603102818.36165-2-amadeuszx.slawinski@linux.intel.com>
+Subject: Re: [Patch v2 2/2] ASoC: dt-bindings: lpc32xx: Add lpc32xx i2s DT
+ binding
+To: Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Vladimir Zapolskiy <vz@mleia.com>,
+ Russell King <linux@armlinux.org.uk>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Arnd Bergmann <arnd@arndb.de>,
+ Chancel Liu <chancel.liu@nxp.com>, Michael Ellerman <mpe@ellerman.id.au>,
+ linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org
+References: <20240611094810.27475-1-piotr.wojtaszczyk@timesys.com>
+ <20240611094810.27475-2-piotr.wojtaszczyk@timesys.com>
+ <51eeec03-47da-44b5-a21e-f280d0c4b47c@kernel.org>
+ <CAG+cZ06EN4Uw7Cy+kwsiPzu16Kp7tsF19Oit6oN6GUcSe464JQ@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20240603102818.36165-2-amadeuszx.slawinski@linux.intel.com>
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 fv0=
+In-Reply-To: 
+ <CAG+cZ06EN4Uw7Cy+kwsiPzu16Kp7tsF19Oit6oN6GUcSe464JQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: RRF5LK7UKOLA7XTPQJWEW74ERAO2MPU5
-X-Message-ID-Hash: RRF5LK7UKOLA7XTPQJWEW74ERAO2MPU5
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+Message-ID-Hash: PIJOJJ2NR3VLEBNK665F73AQJKEICSIG
+X-Message-ID-Hash: PIJOJJ2NR3VLEBNK665F73AQJKEICSIG
+X-MailFrom: krzk@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -106,7 +143,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RRF5LK7UKOLA7XTPQJWEW74ERAO2MPU5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PIJOJJ2NR3VLEBNK665F73AQJKEICSIG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,97 +152,21 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On 12/06/2024 10:06, Piotr Wojtaszczyk wrote:
+> On Tue, Jun 11, 2024 at 12:45 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>>> Changes for v2:
+>>> - Added maintainers field
+>>> - Dropped clock-names
+>>> - Dropped unused unneded interrupts field
+>>
+>> Does the device has interrupts or not? This should justify decision, not
+>> current usage by drivers.
+> Yes the device has interrupts but feeding data FIFOs is handled by DMA
+> (amba-pl08x.c).
+> Should I declare interrupts despite they are not used in the compatible driver?
 
+Yes.
 
-On 6/3/24 12:28, Amadeusz Sławiński wrote:
-> Most users after parsing a topology file, release memory used by it, so
-> having pointer references directly into topology file contents is wrong.
-> Use devm_kmemdup(), to allocate memory as needed.
-> 
-> Reported-by: Jason Montleon <jmontleo@redhat.com>
-> Link: https://github.com/thesofproject/avs-topology-xml/issues/22#issuecomment-2127892605
-> Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
-> Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
-> ---
-
-This patch breaks the Intel SOF CI in spectacular ways, with the widgets
-names completely garbled with noise such as
-
-host-copier.5.playbackpid.socket
-host-copier.5.playbackrt@linux.intel.com>
-dai-copier.HDA.iDisp3.playbackrun_t:s0
-host-copier.31.playback\xff`\x86\xba\x034\x89\xff\xff@N\x83\xb83\x89\xff\xff\x10\x84\xe9\x8b\xff\xff\xff\xffS\x81ی\xff\xff\xff\xff\x0f
-
-https://github.com/thesofproject/linux/pull/5057#issuecomment-2164470192
-
-I am going to revert this patchset in the SOF tree.
-
->  sound/soc/soc-topology.c | 27 ++++++++++++++++++++++-----
->  1 file changed, 22 insertions(+), 5 deletions(-)
-> 
-> diff --git a/sound/soc/soc-topology.c b/sound/soc/soc-topology.c
-> index 90ca37e008b32..75d9395a18ed4 100644
-> --- a/sound/soc/soc-topology.c
-> +++ b/sound/soc/soc-topology.c
-> @@ -1060,15 +1060,32 @@ static int soc_tplg_dapm_graph_elems_load(struct soc_tplg *tplg,
->  			break;
->  		}
->  
-> -		route->source = elem->source;
-> -		route->sink = elem->sink;
-> +		route->source = devm_kmemdup(tplg->dev, elem->source,
-> +					     min(strlen(elem->source),
-> +						 SNDRV_CTL_ELEM_ID_NAME_MAXLEN),
-> +					     GFP_KERNEL);
-> +		route->sink = devm_kmemdup(tplg->dev, elem->sink,
-> +					   min(strlen(elem->sink), SNDRV_CTL_ELEM_ID_NAME_MAXLEN),
-> +					   GFP_KERNEL);
-> +		if (!route->source || !route->sink) {
-> +			ret = -ENOMEM;
-> +			break;
-> +		}
->  
->  		/* set to NULL atm for tplg users */
->  		route->connected = NULL;
-> -		if (strnlen(elem->control, SNDRV_CTL_ELEM_ID_NAME_MAXLEN) == 0)
-> +		if (strnlen(elem->control, SNDRV_CTL_ELEM_ID_NAME_MAXLEN) == 0) {
->  			route->control = NULL;
-> -		else
-> -			route->control = elem->control;
-> +		} else {
-> +			route->control = devm_kmemdup(tplg->dev, elem->control,
-> +						      min(strlen(elem->control),
-> +							  SNDRV_CTL_ELEM_ID_NAME_MAXLEN),
-> +						      GFP_KERNEL);
-> +			if (!route->control) {
-> +				ret = -ENOMEM;
-> +				break;
-> +			}
-> +		}
->  
->  		/* add route dobj to dobj_list */
->  		route->dobj.type = SND_SOC_DOBJ_GRAPH;
-
-97ab304ecd95c0b1703ff8c8c3956dc6e2afe8e1 is the first bad commit
-commit 97ab304ecd95c0b1703ff8c8c3956dc6e2afe8e1
-Author: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
-Date:   Mon Jun 3 12:28:15 2024 +0200
-
-    ASoC: topology: Fix references to freed memory
-
-    Most users after parsing a topology file, release memory used by it, so
-    having pointer references directly into topology file contents is wrong.
-    Use devm_kmemdup(), to allocate memory as needed.
-
-    Reported-by: Jason Montleon <jmontleo@redhat.com>
-    Link:
-https://github.com/thesofproject/avs-topology-xml/issues/22#issuecomment-2127892605
-    Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
-    Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
-    Link:
-https://lore.kernel.org/r/20240603102818.36165-2-amadeuszx.slawinski@linux.intel.com
-    Signed-off-by: Mark Brown <broonie@kernel.org>
-
- sound/soc/soc-topology.c | 27 ++++++++++++++++++++++-----
- 1 file changed, 22 insertions(+), 5 deletions(-)
+Best regards,
+Krzysztof
 

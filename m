@@ -2,80 +2,110 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D8299077BC
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jun 2024 18:04:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E5759074E2
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jun 2024 16:14:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 96ADFDE5;
-	Thu, 13 Jun 2024 18:04:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 96ADFDE5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 978DB851;
+	Thu, 13 Jun 2024 16:14:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 978DB851
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718294654;
-	bh=7CCd+ELQS0Pw7I+mbe5/2yK4WvO7RYXmFWE2193Egq4=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=spwdfg/8krGf9xSjiLsTcFvrH9ev/E8N+p6OIeQ2SI9eQ1Lv1tohZWDEe14M3g9Pf
-	 UXXyko0WAMf9KXURs1Q38IB84VDhoPCJksYpLCaOefFyXg0A/NHC3YjuAGHyHnykHj
-	 odoWQhM4cTDRFXaruLtEbK06T0G1ifkJF8FOyGa0=
+	s=default; t=1718288092;
+	bh=CInWd528BXasi1+5+au2tfhCmdaxQ8gKYmLl+MQTNa4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=g9arR/aWWLhfzr9w6tgZ+3RaTIxWQCQoquhFVshOUrTefcfIRz7lo1BcG6hrK+eDQ
+	 Gp9w5Gp9izzDSsaVHadU7RtcQ1G3sMhSn6LKbqjfYHWiNWSVFtU6lCjhdNGFZOIaoK
+	 4/PsBw50sCi0Tl/VrtrB3kBeVpDOd2R86AWeQ5vM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5BF28F8062D; Thu, 13 Jun 2024 18:01:56 +0200 (CEST)
+	id 58977F80589; Thu, 13 Jun 2024 16:14:19 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 67A93F80722;
-	Thu, 13 Jun 2024 18:01:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 762D8F805B1;
+	Thu, 13 Jun 2024 16:14:19 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B5864F802DB; Tue,  4 Jun 2024 04:20:04 +0200 (CEST)
+	id 7E3DAF80448; Thu, 13 Jun 2024 16:14:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.7 required=5.0 tests=RCVD_IN_DNSWL_LOW,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail78-39.sinamail.sina.com.cn (mail78-39.sinamail.sina.com.cn
- [219.142.78.39])
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_NONE,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2B2C5F80088
-	for <alsa-devel@alsa-project.org>; Tue,  4 Jun 2024 04:19:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B2C5F80088
-Received: from unknown (HELO zy-virtual-machine.localdomain)([116.233.72.63])
-	by sina.net (10.75.30.235) with ESMTP
-	id 665E79C30002F642; Tue, 4 Jun 2024 10:19:49 +0800 (CST)
-X-Sender: zhangyi@everest-semi.com
-X-Auth-ID: zhangyi@everest-semi.com
-Authentication-Results: sina.net;
-	 spf=none smtp.mailfrom=zhangyi@everest-semi.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=zhangyi@everest-semi.com
-X-SMAIL-MID: F5FA6652DF9A444D9A15FF87BE51FAD7
-X-SMAIL-UIID: F5FA6652DF9A444D9A15FF87BE51FAD7-20240604-101949
-From: Zhang Yi <zhangyi@everest-semi.com>
-To: alsa-devel@alsa-project.org,
-	broonie@kernel.org
-Cc: tiwai@suse.com,
-	amadeuszx.slawinski@linux.intel.com,
-	yangxiaohua@everest-semi.com,
-	zhuning@everest-semi.com,
-	zhangyi@everest-semi.com
-Subject: [PATCH] ASoC: codecs: ES8326: Slove headphone detection issue
-Date: Tue,  4 Jun 2024 10:19:46 +0800
-Message-Id: <20240604021946.2911-1-zhangyi@everest-semi.com>
-X-Mailer: git-send-email 2.17.1
-X-MailFrom: zhangyi@everest-semi.com
-X-Mailman-Rule-Hits: nonmember-moderation
+	by alsa1.perex.cz (Postfix) with ESMTPS id A224BF800FA
+	for <alsa-devel@alsa-project.org>; Thu, 13 Jun 2024 16:14:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A224BF800FA
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=IgrBYvp9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1718288048; x=1749824048;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=CInWd528BXasi1+5+au2tfhCmdaxQ8gKYmLl+MQTNa4=;
+  b=IgrBYvp9YFd/U+1zk08u+KoHlyHI+/+g48dP1R8XaeGHlnA2KmZLzCFO
+   /0MjLTgDY/yCyhj1L9lpWhKjcAHgaIKmO99kepqjsJT2/bSa7RZjDLDRk
+   Gpn/EeAHb8mlBrfjTLYXt/PFlA9L6JSV9hjmL4mtKZCYYOvkPEUmWwJBP
+   naZAJNXa2+uJb25vB3oxreof+SB7bbVjM5r0pzukhX7CB+NsZOieQLzvz
+   7Xevschl+U7EDfEWcGHqMsCJAZDArHqROQoG2TCL3Ay+5oa/4sTC99NLW
+   XKMhxCZtNMbyMLVp9rpkHB5BKi+H/nwzlKNkj3gO0XEh1CcqMnvsiar3V
+   Q==;
+X-CSE-ConnectionGUID: /AvQT+0WQsuhZN7KODTssA==
+X-CSE-MsgGUID: Yor2vkKQQXeW+h6+qOTRDg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11101"; a="40520777"
+X-IronPort-AV: E=Sophos;i="6.08,235,1712646000";
+   d="scan'208";a="40520777"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jun 2024 07:13:57 -0700
+X-CSE-ConnectionGUID: 92SZQ1hBREqie1YlJOFJ5g==
+X-CSE-MsgGUID: z7XC62rQQo2U4+p4lRhGpg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.08,235,1712646000";
+   d="scan'208";a="40859658"
+Received: from fdefranc-mobl3.ger.corp.intel.com (HELO [10.245.246.108])
+ ([10.245.246.108])
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jun 2024 07:13:54 -0700
+Message-ID: <27668c46-5a44-4e14-8219-5fba6a5c4610@linux.intel.com>
+Date: Thu, 13 Jun 2024 16:13:52 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ASoC: topology: Fix route memory corruption
+To: =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
+ =?UTF-8?Q?Amadeusz_S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>, Mark Brown <broonie@kernel.org>
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>, Takashi Iwai
+ <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
+ alsa-devel@alsa-project.org, linux-sound@vger.kernel.org
+References: <20240613090126.841189-1-amadeuszx.slawinski@linux.intel.com>
+ <0fdbae0e-e540-4c35-a555-5b2607526115@linux.intel.com>
+Content-Language: en-US
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <0fdbae0e-e540-4c35-a555-5b2607526115@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: LLRYQX36JOOM4CJ55BGMTAIYFNXPCC6I
+X-Message-ID-Hash: LLRYQX36JOOM4CJ55BGMTAIYFNXPCC6I
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: NPRUU5FCIGI3ZEDSRYAS7LSRTPPZSU6Q
-X-Message-ID-Hash: NPRUU5FCIGI3ZEDSRYAS7LSRTPPZSU6Q
-X-Mailman-Approved-At: Thu, 13 Jun 2024 16:01:38 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NPRUU5FCIGI3ZEDSRYAS7LSRTPPZSU6Q/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LLRYQX36JOOM4CJ55BGMTAIYFNXPCC6I/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -84,37 +114,61 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-When switching between OMTP and CTIA headset, we can hear pop noise.
-To solve this issue, We modified the configuration for headphone detection
 
-Signed-off-by: Zhang Yi <zhangyi@everest-semi.com>
----
- sound/soc/codecs/es8326.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/codecs/es8326.c b/sound/soc/codecs/es8326.c
-index 3031699a14c4..4d87bebca5c1 100755
---- a/sound/soc/codecs/es8326.c
-+++ b/sound/soc/codecs/es8326.c
-@@ -857,12 +857,16 @@ static void es8326_jack_detect_handler(struct work_struct *work)
- 			 * set auto-check mode, then restart jack_detect_work after 400ms.
- 			 * Don't report jack status.
- 			 */
--			regmap_write(es8326->regmap, ES8326_INT_SOURCE,
--					(ES8326_INT_SRC_PIN9 | ES8326_INT_SRC_BUTTON));
-+			regmap_write(es8326->regmap, ES8326_INT_SOURCE, 0x00);
- 			regmap_update_bits(es8326->regmap, ES8326_HPDET_TYPE, 0x03, 0x01);
-+			regmap_update_bits(es8326->regmap, ES8326_HPDET_TYPE, 0x10, 0x00);
- 			es8326_enable_micbias(es8326->component);
- 			usleep_range(50000, 70000);
- 			regmap_update_bits(es8326->regmap, ES8326_HPDET_TYPE, 0x03, 0x00);
-+			regmap_update_bits(es8326->regmap, ES8326_HPDET_TYPE, 0x10, 0x10);
-+			usleep_range(50000, 70000);
-+			regmap_write(es8326->regmap, ES8326_INT_SOURCE,
-+					(ES8326_INT_SRC_PIN9 | ES8326_INT_SRC_BUTTON));
- 			regmap_write(es8326->regmap, ES8326_SYS_BIAS, 0x1f);
- 			regmap_update_bits(es8326->regmap, ES8326_HP_DRIVER_REF, 0x0f, 0x08);
- 			queue_delayed_work(system_wq, &es8326->jack_detect_work,
--- 
-2.17.1
+On 6/13/24 13:11, Péter Ujfalusi wrote:
+> 
+> 
+> On 13/06/2024 12:01, Amadeusz Sławiński wrote:
+>> It was reported that recent fix for memory corruption during topology
+>> load, causes corruption in other cases. Instead of being overeager with
+>> checking topology, assume that it is properly formatted and just
+>> duplicate strings.
+> 
+> Reviewed-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 
+Test results look much better indeed with
+https://github.com/thesofproject/linux/pull/5057
+
+
+Tested-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+
+> 
+>> Reported-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+>> Closes: https://lore.kernel.org/linux-sound/171812236450.201359.3019210915105428447.b4-ty@kernel.org/T/#m8c4bd5abf453960fde6f826c4b7f84881da63e9d
+>> Suggested-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
+>> Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
+>> ---
+>>  sound/soc/soc-topology.c | 12 +++---------
+>>  1 file changed, 3 insertions(+), 9 deletions(-)
+>>
+>> diff --git a/sound/soc/soc-topology.c b/sound/soc/soc-topology.c
+>> index 0225bc5fc425a..4b166294602fa 100644
+>> --- a/sound/soc/soc-topology.c
+>> +++ b/sound/soc/soc-topology.c
+>> @@ -1052,21 +1052,15 @@ static int soc_tplg_dapm_graph_elems_load(struct soc_tplg *tplg,
+>>  			break;
+>>  		}
+>>  
+>> -		route->source = devm_kmemdup(tplg->dev, elem->source,
+>> -					     min(strlen(elem->source), maxlen),
+>> -					     GFP_KERNEL);
+>> -		route->sink = devm_kmemdup(tplg->dev, elem->sink,
+>> -					   min(strlen(elem->sink), maxlen),
+>> -					   GFP_KERNEL);
+>> +		route->source = devm_kstrdup(tplg->dev, elem->source, GFP_KERNEL);
+>> +		route->sink = devm_kstrdup(tplg->dev, elem->sink, GFP_KERNEL);
+>>  		if (!route->source || !route->sink) {
+>>  			ret = -ENOMEM;
+>>  			break;
+>>  		}
+>>  
+>>  		if (strnlen(elem->control, maxlen) != 0) {
+>> -			route->control = devm_kmemdup(tplg->dev, elem->control,
+>> -						      min(strlen(elem->control), maxlen),
+>> -						      GFP_KERNEL);
+>> +			route->control = devm_kstrdup(tplg->dev, elem->control, GFP_KERNEL);
+>>  			if (!route->control) {
+>>  				ret = -ENOMEM;
+>>  				break;
+> 

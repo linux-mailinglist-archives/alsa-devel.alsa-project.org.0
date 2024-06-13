@@ -2,109 +2,116 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 679479071C9
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jun 2024 14:40:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 539159071FE
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jun 2024 14:43:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CB747DE5;
-	Thu, 13 Jun 2024 14:40:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CB747DE5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7FB34DE5;
+	Thu, 13 Jun 2024 14:43:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7FB34DE5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718282456;
-	bh=1huBxxS455lFb9lb95aj5aHQLKb1A7Gghj5h9+l71k0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1718282590;
+	bh=Ba0f2L0qBaPnNOoB5ZkJeLek3EUUQwCaD5yKAe23nSU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ZuhTyjiiSxYG516uHr7h/t4Pm1chD0+pgXkUrF7zXGf99qqq8cGGuvrhGkWYWh7HZ
-	 c98Io7Vi+Eryg+QAT2eqS7i8/wA0r9osPVsV7dpYJSWCwd55gc9XQnYITbmkHVvrNb
-	 sZN30wBv3yQdkG8ykW/CxCL77iYYu9PsSsML13jg=
+	b=smxHqGt6+BkXL8BCUy5GUFav4P8+I45e7vByUXzvH1EFjLER60Pb4BIFeSMP9kzTM
+	 tWKx92w+u5dtQXlPzskUgs4wwHwTTLgTcNeAalQwCRx3GiTVwW8Z4hCFXsPASsNjPj
+	 Z4ceneytm2Q57OVaYYe5mm2FyINlF33PprmRf/LM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 72FDDF805AD; Thu, 13 Jun 2024 14:40:25 +0200 (CEST)
+	id 61BF0F8057A; Thu, 13 Jun 2024 14:42:47 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C4D27F8057A;
-	Thu, 13 Jun 2024 14:40:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DD20BF805B4;
+	Thu, 13 Jun 2024 14:42:46 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 98608F8057A; Thu, 13 Jun 2024 14:40:21 +0200 (CEST)
+	id C2ED3F8057A; Thu, 13 Jun 2024 14:42:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_SBL_CSS,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=no
 	autolearn_force=no version=3.4.6
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [IPv6:2a00:1450:4864:20::22b])
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [IPv6:2a00:1450:4864:20::535])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 900CEF80578
-	for <alsa-devel@alsa-project.org>; Thu, 13 Jun 2024 14:40:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 900CEF80578
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1BDE3F800D0
+	for <alsa-devel@alsa-project.org>; Thu, 13 Jun 2024 14:42:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1BDE3F800D0
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=Fc75JVC1
-Received: by mail-lj1-x22b.google.com with SMTP id
- 38308e7fff4ca-2ebeefb9a7fso9765491fa.0
+ header.s=google header.b=Gb6jHr9b
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-57cad452f8bso982097a12.2
         for <alsa-devel@alsa-project.org>;
- Thu, 13 Jun 2024 05:40:17 -0700 (PDT)
+ Thu, 13 Jun 2024 05:42:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1718282416; x=1718887216;
+        d=linaro.org; s=google; t=1718282560; x=1718887360;
  darn=alsa-project.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=U3ih0pRkamLgGn89/coTp+mG03B+Ar2meens0mN7r6I=;
-        b=Fc75JVC1WKZ2DNHqcbkeBsJfkAEzV/D1H0ZB56QWkQ2XIEFbKf1QEeNH0ea5sGDP3l
-         6QH9xLyr8IdH3T2tIw+Gmxd3lL5TVtPoxQntLSDC07I7GNyk+sgoAhGgA+r+TjbZmIrf
-         mdoMH/2hfwF2Rj4SBo5vhoT2EGlLW39rJ3GtAHElIr/kxhtG4ogV9yrJ/NudopJOxi6I
-         TD9mnfcm5I/T4GpQOF0EInBI9MT72w0cK684bcEzh8fo8zwACxNMbzCheByNDmpivIj1
-         7+F0guzmE6jRpMwmy9jfxhAj9bULGNQgABWsSoAqwozhKpW65UnBZl3kq7Lk3iR+2Pn6
-         ElBQ==
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=zDen0vJUW+xT9L+oF3bv30VDdb8wwl+RQxO77NA+7JU=;
+        b=Gb6jHr9bX1qBMZ+1L2l54ZwZK7XaRVg+5tY4QYc+wlIDrgPOfcsdDliTk9oM95G8aA
+         dxQEZXUe8dfeoVTPCHd+kLl6xhhmGOyKdLKJE+UbGV7ANvOI7MJaYw3VxWFYqzDVLa2j
+         SiS31/40jfj6wtnls1z/Js1aNez+oo5yyyu6HEduQRM5cG9CIvB+8HW6TUzQrT64zi+u
+         xYj2yw9lunHWhtbJXOV/nGpcozGl0Vez9iRw7f4MftPfXpCuRqJS6ktSnIDqwgervazh
+         TPZ1w7aFvaJwKwjtEfDzmHs52ZbD1ocjKFsxFiIG6qtFhNBW4YJ6X1W+eMYhpGlMl4IE
+         CWBw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718282416; x=1718887216;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=U3ih0pRkamLgGn89/coTp+mG03B+Ar2meens0mN7r6I=;
-        b=TfGS8FYNGY4sEKYdP55hE4T3sYYYj8oTdOJ3eXsQKv3cTHwpGT6UfGZN6QwdZGvzoW
-         y/clHzCPAjrYoWXhhYjPxq2Cfa9o9crieihXxHk/CDG2yC6rDwWDHBrcDTjw2Dy97jue
-         PKAB6NihUAeB/S5cqmoxqRjHljYP3vE0ZZhAXyeTeJKYdw5hNSSimh31A7JxMX8jQY67
-         tbdJ+2a3U5QXSi6j57vpMRmU0k6KdFSuBSyxCm8ULLPKjeT9vSDjeZQvnd+nrpqHXR4r
-         CdoaYwlmTXZy2MKpb1coZA5/SB9xjD/boEfDV6Kjw89yedHb/NjDbt4qRhurXeW4a5Bf
-         ZRaw==
+        d=1e100.net; s=20230601; t=1718282560; x=1718887360;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=zDen0vJUW+xT9L+oF3bv30VDdb8wwl+RQxO77NA+7JU=;
+        b=WDqZC5IRuJ75SU18qQBlaU32Hyk74mXmcNo1Lze/dJ8dtcFCmE5zRySoUmn8xfIH/0
+         ZqnRdlzwz5PeUZc7QccY2bvfqKwLSYfB76tl/ucThgzYFQIH0KrM3NM+oxQYNdD0xoQ/
+         +glH/wMAK+anKcX5D49PB5pu62Q2Nu7xahmRv3GJpMbUQ3WCqQ6Gmci14TQYWHgWzeKB
+         Iq73vDSm0oyMX+4rGeiho/s85fscU7dmVnew1MW59i4BvftCNJimapTCUjpIzsYgXSuf
+         LNGxgzb52XUb8YyAJvaPcfI9W7+LB3X1g8uukFxArsQxe4Ucv3qAwI9IXUgZkXLKfb1f
+         aJzg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXVahh7Dcgh+Tvpm4KnIz8WSiWMawoAsduUV6HD2FOJ+BtH+KIIW6TEEjF/8ysX0wqF8NLqsnscyGWqjiMtmCtV9VHCjWkWCuVBnIs=
-X-Gm-Message-State: AOJu0YyS7s+l7NIB/E5HnJjcxIqOtpsYdLY5NE/gI8Phv7HYvA9kxAo3
-	Ez1+a6u52AZAvvpKSIqbKce7skfNDcbDpFOEoFrdstUE62ug87aAjjZm/lE19E8=
+ AJvYcCX7ApFh8VTymGYJadYjgdtUCIYpPqs9pkStIgwjZTnl9SakwJnMEvxJlHZvn2Gfd7Oh5+LYbTaiq+SDdm9osi7Dq9xG/dl/GG6EOYE=
+X-Gm-Message-State: AOJu0Yx6dp686eFOL9RwIjZ6krVvhadELWypjoj5bZuW+FymN1EyBNMP
+	nKjeqUAC/juTfwB3bz311kLlhBNeKBRkK9k4/OX53+UbNZYVfe+zyrFwtuLZtD8=
 X-Google-Smtp-Source: 
- AGHT+IEqq49c8cGicA+OdVdYsOlsGoIcr/1WK+4fWR/h8LRWQ3o9Z/xoaT075/lNiMhPVaQRL6RyNA==
-X-Received: by 2002:a05:651c:1258:b0:2eb:dd0b:b9ec with SMTP id
- 38308e7fff4ca-2ebfc932783mr26945561fa.20.1718282415951;
-        Thu, 13 Jun 2024 05:40:15 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (dzdbxzyyyyyyyyyyybrhy-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
-        by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2ec05c05d3csm2060981fa.43.2024.06.13.05.40.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 13 Jun 2024 05:40:15 -0700 (PDT)
-Date: Thu, 13 Jun 2024 15:40:14 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: srinivas.kandagatla@linaro.org
-Cc: broonie@kernel.org, perex@perex.cz, lgirdwood@gmail.com,
-	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org,
-	krzk+dt@kernel.org
-Subject: Re: [PATCH v3 0/4] ASoC: qcom: display port changes
-Message-ID: <3q77jowqtvnlsrskzbmt627mgoebnkld2tswjaby6tfluadszn@v7vcgkgagyiy>
-References: <20240606104922.114229-1-srinivas.kandagatla@linaro.org>
+ AGHT+IHhniSGyoEipOniastD+bMxg3ST8u3KBQmi75/UrvUJzOGUDP3BZAKq+V+k4xmYl27dFY/zmQ==
+X-Received: by 2002:a17:906:dfe6:b0:a6e:f91f:672c with SMTP id
+ a640c23a62f3a-a6f47f8c006mr276509466b.25.1718282559957;
+        Thu, 13 Jun 2024 05:42:39 -0700 (PDT)
+Received: from [192.168.1.195] ([5.133.47.210])
+        by smtp.googlemail.com with ESMTPSA id
+ a640c23a62f3a-a6f56fa6a1esm68319166b.216.2024.06.13.05.42.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 13 Jun 2024 05:42:39 -0700 (PDT)
+Message-ID: <4de45d93-6ffe-4357-9aca-b9fadb3850f3@linaro.org>
+Date: Thu, 13 Jun 2024 13:42:38 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240606104922.114229-1-srinivas.kandagatla@linaro.org>
-Message-ID-Hash: ARWVJB5ZSZUWNCIL6HMAMNVJYARTEYK3
-X-Message-ID-Hash: ARWVJB5ZSZUWNCIL6HMAMNVJYARTEYK3
-X-MailFrom: dmitry.baryshkov@linaro.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ASoC: q6apm-lpass-dai: close graph on prepare errors
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Cc: Banajit Goswami <bgoswami@quicinc.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>
+References: <20240613-q6apm-fixes-v1-1-d88953675ab3@linaro.org>
+ <CAA8EJpq7SN5J8Ye8nGfbJdKAC5Ws61iKMu6QO9ebnRV6q3EVNQ@mail.gmail.com>
+Content-Language: en-US
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+In-Reply-To: 
+ <CAA8EJpq7SN5J8Ye8nGfbJdKAC5Ws61iKMu6QO9ebnRV6q3EVNQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: WHKS4ER44FHSBEQJZFBDRNS5CEJKRFV6
+X-Message-ID-Hash: WHKS4ER44FHSBEQJZFBDRNS5CEJKRFV6
+X-MailFrom: srinivas.kandagatla@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -116,7 +123,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ARWVJB5ZSZUWNCIL6HMAMNVJYARTEYK3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WHKS4ER44FHSBEQJZFBDRNS5CEJKRFV6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -125,62 +132,16 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, Jun 06, 2024 at 11:49:18AM +0100, srinivas.kandagatla@linaro.org wrote:
-> From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-> 
-> This patchset adds support for.
-> 	1. parse Display Port module tokens from ASoC topology
-> 	2. add support to DP/HDMI Jack events.
-> 	3. fixes a typo in function name in sm8250
-> 
-> Verified these patches on X13s along with changes to tplg in 
-> https://git.codelinaro.org/linaro/qcomlt/audioreach-topology/-/tree/topic/x13s-dp?ref_type=heads
-> and ucm changes from https://github.com/Srinivas-Kandagatla/alsa-ucm-conf/tree/topic/x13s-dp
-> 
-> x1e80100 is verified by Krzysztof with his changes in tplg 
-> 
-> https://git.codelinaro.org/linaro/qcomlt/audioreach-topology/-/merge_requests/7/commits
 
-Together with [1] and corresponding DT changes:
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Tested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org> # X13s
+On 13/06/2024 13:37, Dmitry Baryshkov wrote:
+> [...]
+> 
+>> ---
+>> base-commit: 1613e604df0cd359cf2a7fbd9be7a0bcfacfabd0
+> Note: this didn't go to linux-arm-msm, probably because of the use of
+> an outdated tree for submission. This commit is v6.10-rc1, it probably
+True I sent my patches on top if rc1 which is why b4 did not pick up all 
+Cc's.
 
-Note, patch [1] is required to get the switching between Speakers and DP
-work in a stable way, so I'd consider for it to be a dependency for this
-series.
-
-[1] https://lore.kernel.org/linux-sound/20240613-q6apm-fixes-v1-1-d88953675ab3@linaro.org/
-
-> 
-> Thanks,
-> Srini
-> 
-> Changes since v2:
->  - remove hdmi references.
->  - added more DP jacks
->  - added some comments in code
->  - added x1e80100 patch to this series
-> 
-> Krzysztof Kozlowski (1):
->   ASoC: qcom: x1e80100: Add USB DisplayPort plug support
-> 
-> Srinivas Kandagatla (3):
->   ASoC: qcom: q6dsp: parse Display port tokens
->   ASoC: qcom: common: add Display port Jack function
->   ASoC: qcom: sc8280xp: add Display port Jack
-> 
->  sound/soc/qcom/common.c         | 35 +++++++++++++++++++++++++++++++++
->  sound/soc/qcom/common.h         |  3 +++
->  sound/soc/qcom/qdsp6/topology.c | 26 ++++++++++++++++++++++++
->  sound/soc/qcom/sc8280xp.c       | 15 ++++++++++++++
->  sound/soc/qcom/x1e80100.c       | 20 +++++++++++++++++++
->  5 files changed, 99 insertions(+)
-> 
-> -- 
-> 2.43.0
-> 
-
--- 
-With best wishes
-Dmitry
+--srini

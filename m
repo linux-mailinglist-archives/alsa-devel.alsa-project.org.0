@@ -2,104 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10D2790658E
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jun 2024 09:47:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B44DA90673B
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jun 2024 10:43:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1A463E64;
-	Thu, 13 Jun 2024 09:47:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A463E64
+	by alsa0.perex.cz (Postfix) with ESMTPS id CC969EC0;
+	Thu, 13 Jun 2024 10:43:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC969EC0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718264850;
-	bh=SWhtuMvx4uGhi/2J1+eQKjWpE4vQF+jCSZC4acIXW4M=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1718268202;
+	bh=7QmIuu0FaN0bN1zTvR+QZvTGyyI/2TExNVK08dOeDN8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Gu4uHL4EJHa8utwV/Jxm2UWVz/76jxd3gPsxJrlwPINbKiTWGa/dr0QS0WqsDm6N/
-	 1rciffrrUriuduhglDQxbMDKQ8Qf8zDr8PRkL/FO6TqVYgKQR8CW/zsHUzJ9DWkR5X
-	 kWPWpOHETVryp6wtDtp0hcVCRl/MPIFJLYQBlUVA=
+	b=ZhJFo2el9Wup0Xq0s3sPOO4GNdE9wQBV18gyCGAQGfQrPK1QQNHaqDGumvLzhmwOd
+	 nmMODaUNV8nkFzXqIz8LVwFRsHmgNvcwWGLy1H+bobv7w1t/xaTURGsbGg+kocMl4o
+	 fNFSees0RdI46l5df2A+h7oneY8j5ZX9pVB2NP7c=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 63940F805B5; Thu, 13 Jun 2024 09:46:58 +0200 (CEST)
+	id 10070F805B3; Thu, 13 Jun 2024 10:42:50 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 99311F805B4;
-	Thu, 13 Jun 2024 09:46:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3C5CDF805B2;
+	Thu, 13 Jun 2024 10:42:50 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CF8B0F8057A; Thu, 13 Jun 2024 09:46:22 +0200 (CEST)
+	id EE063F800D0; Thu, 13 Jun 2024 10:42:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_NONE,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 434FEF80448
-	for <alsa-devel@alsa-project.org>; Thu, 13 Jun 2024 09:46:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 434FEF80448
+	by alsa1.perex.cz (Postfix) with ESMTPS id 45B6AF800D0
+	for <alsa-devel@alsa-project.org>; Thu, 13 Jun 2024 10:42:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 45B6AF800D0
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=JtgJik6c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1718264773; x=1749800773;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=SWhtuMvx4uGhi/2J1+eQKjWpE4vQF+jCSZC4acIXW4M=;
-  b=JtgJik6cClzb7WOclMjbaCx0S9HNV6w73P0u6+6TDe0CmRTOIBBQrf8I
-   vnLH6XOYUHhvzy+tWuNnmJ8o0BOcip7RR5o3TRaQlXx3J271K0bW4rKzW
-   M6y1/f+9VjjFJLozJ2VACAhYvv5n4OgZni5MLUc45UEhPJVR3ZN9inFOM
-   EOxvUMOlSWGxU2+Mttbv5+BrrsELk+E0pgH7c5sMV8pHH+MLtHKLggNkm
-   ziClViXYF1NBiS8IXY6r9KyuKd/QYL5mFHFWHpHhSiJlkUwvTROgxyHPw
-   47Fg72HL4LuDU8wjvBMhVws5quAC7eiNDgdaGM6PJ8520jFE0K57mzG9s
-   g==;
-X-CSE-ConnectionGUID: qQXRtsSITqyos+jKcbFh6w==
-X-CSE-MsgGUID: Ph36CvriTlaIaeORdVnBrw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11101"; a="32555158"
-X-IronPort-AV: E=Sophos;i="6.08,234,1712646000";
-   d="scan'208";a="32555158"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jun 2024 00:46:10 -0700
-X-CSE-ConnectionGUID: G7+f6gn+QjydAvijR9Jdfg==
-X-CSE-MsgGUID: I60iyNO4Qg2NYql1SQsh2g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,234,1712646000";
-   d="scan'208";a="71264693"
-Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.94.8.107])
- ([10.94.8.107])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jun 2024 00:46:04 -0700
-Message-ID: <ca1e1063-e1bd-4e03-a7cd-91985e9954e9@linux.intel.com>
-Date: Thu, 13 Jun 2024 09:46:02 +0200
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=jcMF/OjT
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id 012CDCE2488;
+	Thu, 13 Jun 2024 08:42:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B38F6C2BBFC;
+	Thu, 13 Jun 2024 08:42:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1718268147;
+	bh=7QmIuu0FaN0bN1zTvR+QZvTGyyI/2TExNVK08dOeDN8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=jcMF/OjTNkF66n03Y99hAsw53ROiV7aeezz22FjXnDrVHjxri6jcLNN6SgePjf7va
+	 lFT7vOgwGOI+3eMZ3N4uO8ljeEiBpsFu4YoPb2wlFWnZtrQ2hGDn5fHJd2EvGTX23Y
+	 s5qHq98hjCbXTlegZdqHjDAEErf+hNtpHMalQ5GBiMnczqnVUaa7twb6d4v4Zy/+fD
+	 1Nws36UzB3d9J3i3oPpdcbiWJi4fvxnZG5gerSdhPLzxFFvaIHdvJURQnTmgsoOBaF
+	 7cslgEKe7x8hak0qHvLvIfyYYJ2ydRTcZGRAp+QlpIeTQkGr3vDRrSz2WU4jU+Xo3O
+	 HQ6flxwjltPSA==
+From: Mark Brown <broonie@kernel.org>
+To: lgirdwood@gmail.com, Jack Yu <jack.yu@realtek.com>
+Cc: alsa-devel@alsa-project.org, lars@metafoo.de,
+ "Flove(HsinFu)" <flove@realtek.com>, Oder Chiou <oder_chiou@realtek.com>,
+ =?utf-8?q?Shuming_=5B=E8=8C=83=E6=9B=B8=E9=8A=98=5D?= <shumingf@realtek.com>,
+ =?utf-8?q?Derek_=5B=E6=96=B9=E5=BE=B7=E7=BE=A9=5D?= <derek.fang@realtek.com>
+In-Reply-To: <7e502e9a9dd94122a1b60deb5ceb60fb@realtek.com>
+References: <7e502e9a9dd94122a1b60deb5ceb60fb@realtek.com>
+Subject: Re: [PATCH] ASoC: rt722-sdca-sdw: add debounce time for type
+ detection
+Message-Id: <171826814643.249517.14817476126359716211.b4-ty@kernel.org>
+Date: Thu, 13 Jun 2024 09:42:26 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v23 32/32] ASoC: doc: Add documentation for SOC USB
-Content-Language: en-US
-To: Wesley Cheng <quic_wcheng@quicinc.com>, srinivas.kandagatla@linaro.org,
- mathias.nyman@intel.com, perex@perex.cz, conor+dt@kernel.org,
- corbet@lwn.net, broonie@kernel.org, lgirdwood@gmail.com, krzk+dt@kernel.org,
- Thinh.Nguyen@synopsys.com, bgoswami@quicinc.com, tiwai@suse.com,
- robh@kernel.org, gregkh@linuxfoundation.org
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-doc@vger.kernel.org,
- alsa-devel@alsa-project.org
-References: <20240610235808.22173-1-quic_wcheng@quicinc.com>
- <20240610235808.22173-33-quic_wcheng@quicinc.com>
- <5be51e1f-70c9-4bbc-96fa-1e50e441bd35@linux.intel.com>
- <408d9e8e-0f40-7e66-54be-2f8d2c0783a3@quicinc.com>
-From: =?UTF-8?Q?Amadeusz_S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-In-Reply-To: <408d9e8e-0f40-7e66-54be-2f8d2c0783a3@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: SOLT6J3YYHEA72U56EUO5NSMBBT6CRBJ
-X-Message-ID-Hash: SOLT6J3YYHEA72U56EUO5NSMBBT6CRBJ
-X-MailFrom: amadeuszx.slawinski@linux.intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14-dev-4c370
+Message-ID-Hash: KBUITW2J4YOZVY3ZRHPMMMMR5A6HIVVQ
+X-Message-ID-Hash: KBUITW2J4YOZVY3ZRHPMMMMR5A6HIVVQ
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -111,7 +90,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SOLT6J3YYHEA72U56EUO5NSMBBT6CRBJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KBUITW2J4YOZVY3ZRHPMMMMR5A6HIVVQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,199 +99,36 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 6/12/2024 9:28 PM, Wesley Cheng wrote:
-> Hi Amadeusz,
+On Wed, 12 Jun 2024 09:01:07 +0000, Jack Yu wrote:
+> Add debounce time in headset type detection for better performance.
 > 
-> On 6/12/2024 7:47 AM, Amadeusz Sławiński wrote:
->> On 6/11/2024 1:58 AM, Wesley Cheng wrote:
->>
->> (...)
->>
->>> +In the case where the USB offload driver is unbounded, while USB SND is
->>
->> unbounded -> unbound
->>
->> (...)
->>
->>> +SOC USB and USB Sound Kcontrols
->>> +===============================
->>> +Details
->>> +-------
->>> +SOC USB and USB sound expose a set of SND kcontrols for applications 
->>> to select
->>> +and fetch the current offloading status for the ASoC platform sound 
->>> card. Kcontrols
->>> +are split between two layers:
->>> +
->>> +    - USB sound - Notifies the sound card number for the ASoC 
->>> platform sound
->>> +      card that it is registered to for supporting audio offload.
->>> +
->>> +    - SOC USB - Maintains the current status of the offload path, 
->>> and device
->>> +      (USB sound card and PCM device) information.  This would be 
->>> the main
->>> +      card that applications can read to determine offloading 
->>> capabilities.
->>> +
->>> +Implementation
->>> +--------------
->>> +
->>> +**Example:**
->>> +
->>> +  **Sound Cards**:
->>> +
->>> +    ::
->>> +
->>> +      0 [SM8250MTPWCD938]: sm8250 - SM8250-MTP-WCD9380-WSA8810-VA-D
->>> +                     SM8250-MTP-WCD9380-WSA8810-VA-DMIC
->>> +      1 [C320M          ]: USB-Audio - Plantronics C320-M
->>> +                     Plantronics Plantronics C320-M at 
->>> usb-xhci-hcd.1.auto-1, full speed
->>> +
->>> +
->>> +  **Platform Sound Card** - card#0:
->>> +
->>> +    ::
->>> +
->>> +      USB Offload Playback Route Card Select  1 (range -1->32)
->>> +      USB Offload Playback Route PCM Select   0 (range -1->255)
->>> +      USB Offload Playback Route Card Status  -1 (range -1->32)
->>> +      USB Offload Playback Route PCM Status   -1 (range -1->255)
->>> +
->>> +
->>> +  **USB Sound Card** - card#1:
->>> +
->>> +    ::
->>> +
->>> +      USB Offload Playback Capable Card         0 (range -1->32)
->>> +
->>> +
->>> +The platform sound card(card#0) kcontrols are created as part of 
->>> adding the SOC
->>> +USB device using **snd_soc_usb_add_port()**.  The following 
->>> kcontrols are defined
->>> +as:
->>> +
->>> +  - ``USB Offload Playback Route Card Status`` **(R)**: USB sound 
->>> card device index
->>> +    that defines which USB SND resources are currently offloaded.  
->>> If -1 is seen, it
->>> +    signifies that offload is not active.
->>> +  - ``USB Offload Playback Route PCM Status`` **(R)**: USB PCM 
->>> device index
->>> +    that defines which USB SND resources are currently offloaded.  
->>> If -1 is seen, it
->>> +    signifies that offload is not active.
->>> +  - ``USB Offload Playback Route Card Select`` **(R/W)**: USB sound 
->>> card index which
->>> +    selects the USB device to initiate offloading on.  If no value 
->>> is written to the
->>> +    kcontrol, then the last USB device discovered card index will be 
->>> chosen.
->>
->> I see only one kcontrol, what if hardware is capable of offloading on 
->> more cards, is it possible to do offloading on more than one device?
->>
->>> +  - ``USB Offload Playback Route PCM Select`` **(R/W)**: USB PCM 
->>> index which selects
->>> +    the USB device to initiate offloading on.  If no value is 
->>> written to the
->>> +    kcontrol, then the last USB device discovered PCM zero index 
->>> will be chosen.
->>> +
->>> +The USB sound card(card#1) kcontrols are created as USB audio 
->>> devices are plugged
->>> +into the physical USB port and enumerated.  The kcontrols are 
->>> defined as:
->>> +
->>> +  - ``USB Offload Playback Capable Card`` **(R)**: Provides the 
->>> sound card
->>> +    number/index that supports USB offloading.  Further/follow up 
->>> queries about
->>> +    the current offload state can be handled by reading the offload 
->>> status
->>> +    kcontrol exposed by the platform card.
->>> +
->>
->>
->> Why do we need to some magic between cards? I feel like whole kcontrol 
->> thing is overengineered a bit - I'm not sure I understand the need to 
->> do linking between cards. It would feel a lot simpler if USB card 
->> exposed one "USB Offload" kcontrol on USB card if USB controller 
->> supports offloading and allowed to set it to true/false to allow user 
->> to choose if they want to do offloading on device.
->>
->> (...)
-> 
-> Based on feedback from Pierre, what I understood is that for some 
-> applications, there won't be an order on which sound card is 
-> queried/opened first.
 > 
 
-Yes if you have multiple cards, they are probed in random order.
+Applied to
 
-> So the end use case example given was if an application opened the USB 
-> sound card first, it can see if there is an offload path available.  If 
-> there is then it can enable the offload path on the corresponding card 
-> if desired.
-> 
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-This still doesn't explain why you need to link cards using controls. 
-What would not work with simple "Enable Offload" with true/false values 
-on USB card that works while you do have above routing controls?
+Thanks!
 
->>> +Mixer Examples
->>> +--------------
->>> +
->>> +    ::
->>> +
->>> +      tinymix -D 0 set 'USB Offload Playback Route Card Select' 2
->>> +      tinymix -D 0 set 'USB Offload Playback Route PCM Select' 0
->>> +
->>> +
->>> +    ::
->>> +
->>> +      tinymix -D 0 get 'USB Offload Playback Route Card Select'
->>> +      --> 2 (range -1->32)
->>> +      tinymix -D 0 get 'USB Offload Playback Route PCM Select'
->>> +      --> 0 (range -1->255)
->>> +
->>> +    ::
->>> +
->>> +      tinymix -D 0 get 'USB Offload Playback Route Card Status'
->>> +      --> 2 (range -1->32)   [OFFLD active]
->>> +      --> -1 (range -1->32) [OFFLD idle]
->>> +      tinymix -D 0 get 'USB Offload Playback Route PCM Status'
->>> +      --> 0 (range -1->255)   [OFFLD active]
->>> +      --> -1 (range -1->255) [OFFLD idle]
->>> +
->>> +    ::
->>> +
->>> +      tinymix -D 1 get 'USB Offload Playback Capable Card'
->>> +      --> 0 (range -1->32)
->>>
->>
->> Yes, looking at examples again, I'm still not sure I understand. There 
->> are two cards and you do linking between them, this feels broken by 
->> design. From my point of view USB Offload should be property of USB 
->> card and not involve any other card in a system.
->>
-> 
-> Main benefit to having two cards (keeping one for USB SND and another 
-> for the ASoC platform sound card) is that current applications won't 
-> break.  The behavior is the same, in that if something opens the USB 
-> sound card, it will go through the same non-offloaded path.  During 
-> initial reviews, I think this was a big point where folks wanted the USB 
-> PCM path to still be an option.
-> 
+[1/1] ASoC: rt722-sdca-sdw: add debounce time for type detection
+      commit: f3b198e4788fcc8d03ed0c8bd5e3856c6a5760c5
 
-I'm not against having two cards, in fact I hope that USB card looks and 
-behaves the same as before this patch set, with only difference being 
-controls for enabling offload.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-> If applications want to add the offload capabilities to its environment, 
-> they can enable it as an additional feature.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-That sounds fine to me.
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 

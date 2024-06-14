@@ -2,126 +2,137 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44FBC90C332
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2024 07:50:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81B7890C342
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2024 07:54:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B008D832;
-	Tue, 18 Jun 2024 07:50:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B008D832
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0BC6E86F;
+	Tue, 18 Jun 2024 07:54:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0BC6E86F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718689817;
-	bh=QCq79d13E0tz2njJOcLY9mxviKHMKKd7mCV9RIVP2Sg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1718690065;
+	bh=LuXmN9tx1+9vM/aOgvWFhrlm3ooXyRad8K9vUy2MI7U=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=BYNfLyek24wqPDH95AvQACegvzUfF1XzWf6mh+RCkCbdm0Bgq8v4bL4fGS05V5No2
-	 /fPbNboRZ9ERdA4FErgC48RH9fDIAH0Ec65dpmDCH0Yu+fhWuQeeZuRv2URD/B5mCw
-	 B15BPCLqnBhic4Kuvy0icdQ5F5r4CRuWERM6WZWg=
+	b=qqh9YaJen35W6PDDmzg2CvOKQUHB29tnzgcamS2557Q3rlWmtjM7L8L8tVTIO+rdd
+	 XseiasqZi25Sy8Z6D0sIhVI4ELSQGujqAPzUH8I4IUOqas6btSPFR5oWKnLVZmL5hZ
+	 g6GTEUbc6BDhYXvpi6OfZkjEk9FMVv1tmSaUUqw8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 56CC8F805C2; Tue, 18 Jun 2024 07:49:38 +0200 (CEST)
+	id 2C69BF805B6; Tue, 18 Jun 2024 07:53:53 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E9C2CF805C1;
-	Tue, 18 Jun 2024 07:49:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1078CF805B4;
+	Tue, 18 Jun 2024 07:53:50 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C3089F80496; Fri, 14 Jun 2024 18:25:11 +0200 (CEST)
+	id 50585F80448; Fri, 14 Jun 2024 18:35:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-qv1-xf2b.google.com (mail-qv1-xf2b.google.com
- [IPv6:2607:f8b0:4864:20::f2b])
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [IPv6:2a00:1450:4864:20::52c])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DACC2F800ED
-	for <alsa-devel@alsa-project.org>; Fri, 14 Jun 2024 18:25:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DACC2F800ED
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2438CF800E9
+	for <alsa-devel@alsa-project.org>; Fri, 14 Jun 2024 18:35:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2438CF800E9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=timesys-com.20230601.gappssmtp.com
  header.i=@timesys-com.20230601.gappssmtp.com header.a=rsa-sha256
- header.s=20230601 header.b=mzhRxEzC
-Received: by mail-qv1-xf2b.google.com with SMTP id
- 6a1803df08f44-6afbf9c9bc0so14197916d6.3
+ header.s=20230601 header.b=mx0ju5oX
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-57a44c2ce80so2798707a12.0
         for <alsa-devel@alsa-project.org>;
- Fri, 14 Jun 2024 09:25:03 -0700 (PDT)
+ Fri, 14 Jun 2024 09:35:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=timesys-com.20230601.gappssmtp.com; s=20230601; t=1718382302;
- x=1718987102; darn=alsa-project.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
+        d=timesys-com.20230601.gappssmtp.com; s=20230601; t=1718382916;
+ x=1718987716; darn=alsa-project.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=AJ9BKcjtQxEX9HY4AyHldVS/pYAF0bNjL6ygRqtnenQ=;
-        b=mzhRxEzC4Gc017O2LajEhBHgDKaR0ATs2PD10L9MO2zYHdbQyLBHB1XoPTfSI4mx5n
-         aci+nbPnOGTY/K4Jl35a5gwYxKyHzHtuhGvnj8nqzxoftD5JB0tyW46UHshRlaXGYBDe
-         7/9yZuEBbdmegdceowwZ66+aFZDhxOY3Sme8TW4GrbbLNriVFxSBA2nr592lxf3oy2Ls
-         REeM8ISJ9Xe4CozCXehySLf6kakAqSBzy0SMIk6whn9J6hXIVqPrYY+Z7KN+K0v8RDhb
-         BnNvCOPI95B86S2oAagcHMquVuR6XZeXfBssyubrF3ig4HiOpLYqpGRi3g0DUIp1Y55s
-         z+FQ==
+        bh=SYP4VucbC2/Jnuz/5Y5TpJxKEc0YEshxNGoLKrFr67Y=;
+        b=mx0ju5oXE09xqEWB/XI77d33YSFHCidmEBequMFaFjI6k4ufMClW334n1rhG6X3ct0
+         W1NLXfi5ZWsqEgkREiDTYMaNSBCXXsKToM2TOwVjlgtjz/IFg/nzDxbOUdgfPHObUOtn
+         +6x6Ce8z6IuUZuoLlBkaNLq17Go7w5oVPdmCvrlKwJ29p+tz3K4iw7mn8fBCfXrO3m87
+         hCuI3IEuMqgytMHmzall/wzS/ZBkSs4iIbZSuKMnALaPkVSHrNCRI5+wTQPVOordkYWQ
+         wkU4BUBzCTfOs1Xq+/CEI+s/psRbQOeCnghHBsWYMhswyFhS7X6XSMfacGKf8vJbawOB
+         TOdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718382302; x=1718987102;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20230601; t=1718382916; x=1718987716;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=AJ9BKcjtQxEX9HY4AyHldVS/pYAF0bNjL6ygRqtnenQ=;
-        b=Beqxl1KPwuV+xCTWHpMtBVUwAWd38A3vi14gmPM4Qsrfteg7ZKodlrPN8G9pq7mD1b
-         NoTUov62n3EGMlWkbGUEBDJadnGPfHeUrZTW6PxeLxILw5WwJswPQ+BVa8vd35rCtI6L
-         dCjcxXQ3KLx8GXy/fKF9glwb3NMEniRDfuZUbVgrQzy+XlhZzKfCkYvfVtcbSFugeEl1
-         2YzgRwB3bFdojIX12F79pD9mFXoPzXbM+YdwsF1PbTawvtKLmNcGj5Po0mUs4UhDCrg5
-         1bdkqY777oS/hiui6bUA0K5tXbFm9lRmjrp+jCJ3mwoJ5ERLwgfQRC91sLNA1qHvzXsF
-         PlLg==
+        bh=SYP4VucbC2/Jnuz/5Y5TpJxKEc0YEshxNGoLKrFr67Y=;
+        b=s1akym0UeowS8K5xBRgsRihTouhcj1i9HBUolLaJvjEp30qVc9ExCQwpN2GNPyKM9L
+         qZWBwg6e/t5Ctm2pHdyHv6cL07FN4Zzxw9ot+JG8kuk3hb0kCsMGOCbuiscSPHGXwO++
+         Km8OdPpMl5nIlhlk61FHPrPzZN9YKImkGcFWPFreiIJuNME8bwdV4SGgXBsJLAFkD0TF
+         3nlyXUUSM3vBW4GaQ55utEw/MzfkLalX5eRVm/4c/GwwoMeR4k5ozvihcVmllrov5pJg
+         jZAzVH9BWCZFQAoPCOPb5XQsjZw+WPhJQZL4hr6lBE842L7+pzl51TK9YP8+rkCFU89N
+         0JvQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW1AcxJpKr+ZwicJqLeZ9GxEPUS12KGNY4v3sBg6GRSLBUuJQXP8ia5wN3UhsYGg5LSNRylRH3lcx50AESflTcMPiQ8S/6XL5rrit8=
-X-Gm-Message-State: AOJu0Yy58yImaBD0LWMeEN00XlAOoGdszlMvWQPZK6JCXNsc2i9cIQ2t
-	WkRTXOQPHrGYeEG9xBeoTxmO/lB0LlVizJnTGlfiGlpY6dMJsoMZX/6mgXEYdnLr7TnWeTKxZmU
-	XJbR1+tBiAVKWjSBuKpmyjq6l8Hsmw4oibSxFJDt9/yi3zFTYdp4=
+ AJvYcCX3/BSlzV0+nsAqlKB/HfeWI9i8JgGvMNzgGDDo8D9iGIgM2r8vodG1qvNEa3g7bIfMMPuKLALX4YMqszb7Ibf9KGKlRNbZcz7dHAo=
+X-Gm-Message-State: AOJu0YzkcVdGU84ICOuYLb9f5ggrvsGsiExL/PihYqb9Ayqjv7Y4xrBG
+	Zs8hmoYhOFxHdatxDcwt0sMR5wCllsOUHbVDqZ1Y30VfQkAl5BAkNgF0cKDXbF0=
 X-Google-Smtp-Source: 
- AGHT+IFxjsSmHmfjxcdx9LWJjlcnDzbmg6MTEjpCpU1mp7pLjF7m25ZdRpimxrXWgRWc3HiQ8GE0JCG3qf8CO/aq5Sg=
-X-Received: by 2002:ad4:448e:0:b0:6b0:820c:2d50 with SMTP id
- 6a1803df08f44-6b2afc722c8mr36483566d6.1.1718382302054; Fri, 14 Jun 2024
- 09:25:02 -0700 (PDT)
-MIME-Version: 1.0
-References: <20240611094810.27475-1-piotr.wojtaszczyk@timesys.com>
- <Zmgor8accyAiUkUO@finisterre.sirena.org.uk>
-In-Reply-To: <Zmgor8accyAiUkUO@finisterre.sirena.org.uk>
+ AGHT+IFQDhA6L9B70v4e6G80Nc6QL8RMeX1jv/kC5wcXSX1xgpnIA6zLuA7OULi82c0Ut96o3OIgbQ==
+X-Received: by 2002:a50:a6ca:0:b0:579:e7c5:1001 with SMTP id
+ 4fb4d7f45d1cf-57cbd68ffe3mr1913077a12.23.1718382915504;
+        Fri, 14 Jun 2024 09:35:15 -0700 (PDT)
+Received: from localhost.localdomain ([91.216.213.152])
+        by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-57cb72da156sm2462893a12.22.2024.06.14.09.35.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 14 Jun 2024 09:35:15 -0700 (PDT)
 From: Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>
-Date: Fri, 14 Jun 2024 18:24:50 +0200
-Message-ID: 
- <CAG+cZ06B+AexqvwZtNP5FX50AmghAFLa=1ebxmKLvMoyVJ529w@mail.gmail.com>
-Subject: Re: [Patch v2 1/2] ASoC: fsl: Add i2s and pcm drivers for LPC32xx
- CPUs
-To: Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Vladimir Zapolskiy <vz@mleia.com>, Russell King <linux@armlinux.org.uk>,
- Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>, Chancel Liu <chancel.liu@nxp.com>,
- Arnd Bergmann <arnd@arndb.de>,
-	Michael Ellerman <mpe@ellerman.id.au>, linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, alsa-devel@alsa-project.org,
+To: 
+Cc: Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Vladimir Zapolskiy <vz@mleia.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	"J.M.B. Downing" <jonathan.downing@nautel.com>,
+	Chancel Liu <chancel.liu@nxp.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	alsa-devel@alsa-project.org,
 	linuxppc-dev@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Subject: [PATCH v3 0/4] Add audio support for LPC32XX CPUs
+Date: Fri, 14 Jun 2024 18:34:48 +0200
+Message-Id: <20240614163500.386747-1-piotr.wojtaszczyk@timesys.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20240611094810.27475-1-piotr.wojtaszczyk@timesys.com>
+References: <20240611094810.27475-1-piotr.wojtaszczyk@timesys.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-MailFrom: piotr.wojtaszczyk@timesys.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: A6BMITY2H46LY357D33YQWXC26LCAEWI
-X-Message-ID-Hash: A6BMITY2H46LY357D33YQWXC26LCAEWI
-X-Mailman-Approved-At: Tue, 18 Jun 2024 05:28:22 +0000
+Message-ID-Hash: SEDQJU6DUKNODLAWIB6LTJDANYO6XBLN
+X-Message-ID-Hash: SEDQJU6DUKNODLAWIB6LTJDANYO6XBLN
+X-Mailman-Approved-At: Tue, 18 Jun 2024 05:28:24 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/A6BMITY2H46LY357D33YQWXC26LCAEWI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SEDQJU6DUKNODLAWIB6LTJDANYO6XBLN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -130,20 +141,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, Jun 11, 2024 at 12:36=E2=80=AFPM Mark Brown <broonie@kernel.org> wr=
-ote:
-> > +config SND_SOC_FSL_LPC3XXX
-> > +     tristate "SoC Audio for NXP LPC32XX CPUs"
-> > +     depends on ARCH_LPC32XX && SND_SOC
->
-> On a quick scan I can't see any architecture dependency for build,
-> please add an || COMPILE_TEST for improved coverage.  As for all the
-> other things enabled in this Kconfig file there is no need to explicitly
-> depend on SND_SOC.
-Ok. Later I will add a sound card driver to phytec3250 board which uses
-arch/arm/configs/lpc32xx_defconfig config file so that the COMPILE_TEST
-won't be needed.
+This pach set is to bring back audio to machines with a LPC32XX CPU.
+The legacy LPC32XX SoC used to have audio spport in linux 2.6.27.
+The support was dropped due to lack of interest from mainaeners.
 
---
-Piotr Wojtaszczyk
-Timesys
+Piotr Wojtaszczyk (4):
+  ASoC: dt-bindings: lpc32xx: Add lpc32xx i2s DT binding
+  ARM: dts: lpc32xx: Add missing properties for the i2s interfaces
+  ARM: lpc32xx: Add pl08x virtual dma channels for spi and i2s
+  ASoC: fsl: Add i2s and pcm drivers for LPC32xx CPUs
+
+ .../bindings/sound/nxp,lpc3220-i2s.yaml       |  69 +++
+ MAINTAINERS                                   |   8 +
+ arch/arm/boot/dts/nxp/lpc/lpc32xx.dtsi        |   8 +
+ arch/arm/mach-lpc32xx/phy3250.c               | 111 ++++-
+ sound/soc/fsl/Kconfig                         |   7 +
+ sound/soc/fsl/Makefile                        |   2 +
+ sound/soc/fsl/lpc3xxx-i2s.c                   | 393 ++++++++++++++++++
+ sound/soc/fsl/lpc3xxx-i2s.h                   |  79 ++++
+ sound/soc/fsl/lpc3xxx-pcm.c                   |  74 ++++
+ 9 files changed, 750 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/nxp,lpc3220-i2s.yaml
+ create mode 100644 sound/soc/fsl/lpc3xxx-i2s.c
+ create mode 100644 sound/soc/fsl/lpc3xxx-i2s.h
+ create mode 100644 sound/soc/fsl/lpc3xxx-pcm.c
+
+-- 
+2.25.1
+

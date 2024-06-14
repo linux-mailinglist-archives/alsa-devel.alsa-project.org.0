@@ -2,101 +2,54 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AA0C908C97
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jun 2024 15:39:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA0FF908CE8
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jun 2024 16:01:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5B33DE0F;
-	Fri, 14 Jun 2024 15:38:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B33DE0F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5EB18E69;
+	Fri, 14 Jun 2024 16:01:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5EB18E69
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718372340;
-	bh=u0Pld7VS0YmCobVMo0pOStkpmZXg0M+QSo81aH/qNK0=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=JY8rht4lF3eiYNUonGYbAfX0cXz7cfPyNsZ8nmGjN/bwNPkuRzDef9JVzG8QlcEf9
-	 q9rTOLRNkzY+HThX+oujr3RiTBcDWMK7pUrxlEvdxsAVoCmbNSs9JBbeoG7+pb3Ma/
-	 9lFwQL5hD5btMOt+wimvLzWt3D/+vu3DOM0Lco28=
+	s=default; t=1718373700;
+	bh=MtL2GWzTwGXVulv1Cxc7BtwWIo1xhhy2dYFGH8Z8mxQ=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=HbsjLBjjnizdCjH8BuF2snIIuVz8ipFCzW8+4YXtRpjCe4EYuMKgFovvEK+PDRKRy
+	 GkR5aJal7sWtSsyU3zKAyIP/3IkT8Zaxift4GNo+sHB8c/NvJoJLOVhPST1fE7hAei
+	 QO2RhTkjbb8NbPzQyiGbQM8fcho0zHiOyqQSdJfo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4D21DF80578; Fri, 14 Jun 2024 15:38:28 +0200 (CEST)
+	id B992AF80496; Fri, 14 Jun 2024 16:01:07 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id F091EF805AC;
-	Fri, 14 Jun 2024 15:38:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 14C14F80448;
+	Fri, 14 Jun 2024 16:01:07 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D09AAF80496; Fri, 14 Jun 2024 15:37:20 +0200 (CEST)
+	id A1148F80448; Fri, 14 Jun 2024 16:01:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_PASS,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D57EDF800FA
-	for <alsa-devel@alsa-project.org>; Fri, 14 Jun 2024 15:37:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D57EDF800FA
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
- header.s=ti-com-17Q1 header.b=qsc0Gga+
-Received: from fllv0034.itg.ti.com ([10.64.40.246])
-	by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id 45EDb0F8007894;
-	Fri, 14 Jun 2024 08:37:00 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
-	s=ti-com-17Q1; t=1718372220;
-	bh=T3YkJsT3Hc4Z2zgHHmFgxOzHXB9Rs80mHXjgcjlcqgQ=;
-	h=From:To:CC:Subject:Date;
-	b=qsc0Gga+6ysltMrh/riAhuyJ0O24Te06rFNZG9n+66wxSPjjCZch220nW41D9ghlO
-	 joLSL0MpjOUEIXDb0spzlGQlCNA9icWTNSUqPPDLWKDFiNuOVxEgmEz10Atk1nPyFM
-	 26FlZX8bnZFs8O1XZgZlOAeBSsLTvUpo2n9Z3bFo=
-Received: from DFLE100.ent.ti.com (dfle100.ent.ti.com [10.64.6.21])
-	by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 45EDb0GF095466
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Fri, 14 Jun 2024 08:37:00 -0500
-Received: from DFLE103.ent.ti.com (10.64.6.24) by DFLE100.ent.ti.com
- (10.64.6.21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Fri, 14
- Jun 2024 08:37:00 -0500
-Received: from lelvsmtp6.itg.ti.com (10.180.75.249) by DFLE103.ent.ti.com
- (10.64.6.24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
- Frontend Transport; Fri, 14 Jun 2024 08:37:00 -0500
-Received: from LT5CG31242FY.dhcp.ti.com ([10.250.160.158])
-	by lelvsmtp6.itg.ti.com (8.15.2/8.15.2) with ESMTP id 45EDaobb001845;
-	Fri, 14 Jun 2024 08:36:51 -0500
-From: Shenghao Ding <shenghao-ding@ti.com>
-To: <broonie@kernel.org>
-CC: <andriy.shevchenko@linux.intel.com>, <lgirdwood@gmail.com>,
-        <perex@perex.cz>, <pierre-louis.bossart@linux.intel.com>,
-        <13916275206@139.com>, <zhourui@huaqin.com>,
-        <alsa-devel@alsa-project.org>, <i-salazar@ti.com>,
-        <linux-kernel@vger.kernel.org>, <j-chadha@ti.com>,
-        <liam.r.girdwood@intel.com>, <jaden-yue@ti.com>,
-        <yung-chuan.liao@linux.intel.com>, <dipa@ti.com>,
- <yuhsuan@google.com>,
-        <henry.lo@ti.com>, <tiwai@suse.de>, <baojun.xu@ti.com>,
- <soyer@irl.hu>,
-        <Baojun.Xu@fpt.com>, <judyhsiao@google.com>, <navada@ti.com>,
-        <cujomalainey@google.com>, <aanya@ti.com>, <nayeem.mahmud@ti.com>,
-        <savyasanchi.shukla@netradyne.com>, <flaviopr@microsoft.com>,
-        <jesse-ji@ti.com>, <darren.ye@mediatek.com>,
-        Shenghao Ding
-	<shenghao-ding@ti.com>
-Subject: [PATCH v5] ASoc: tas2781: Enable RCA-based playback without DSP
- firmware download
-Date: Fri, 14 Jun 2024 21:36:45 +0800
-Message-ID: <20240614133646.910-1-shenghao-ding@ti.com>
-X-Mailer: git-send-email 2.33.0.windows.2
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=no autolearn_force=no version=3.4.6
+Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
+ [207.180.221.201])
+	by alsa1.perex.cz (Postfix) with ESMTP id B1C65F800E9
+	for <alsa-devel@alsa-project.org>; Fri, 14 Jun 2024 16:00:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B1C65F800E9
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Message-ID-Hash: OEX22CCCBEU37WOJE3TO22ZDUT5SBEYU
-X-Message-ID-Hash: OEX22CCCBEU37WOJE3TO22ZDUT5SBEYU
-X-MailFrom: shenghao-ding@ti.com
+Content-Transfer-Encoding: base64
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1718373657292700768-webhooks-bot@alsa-project.org>
+References: <1718373657292700768-webhooks-bot@alsa-project.org>
+Subject: mic not working on xps 13 9340 (2024)
+Message-Id: <20240614140102.A1148F80448@alsa1.perex.cz>
+Date: Fri, 14 Jun 2024 16:01:02 +0200 (CEST)
+Message-ID-Hash: S2GYR3XORHE2QATACH2WJTXDSNQXI6WL
+X-Message-ID-Hash: S2GYR3XORHE2QATACH2WJTXDSNQXI6WL
+X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -108,7 +61,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OEX22CCCBEU37WOJE3TO22ZDUT5SBEYU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/S2GYR3XORHE2QATACH2WJTXDSNQXI6WL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,201 +70,71 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-In only loading RCA (Reconfigurable Architecture) binary case, no DSP
-program will be working inside tas2563/tas2781, that is dsp-bypass mode,
-do not support speaker protection, or audio acoustic algorithms in this
-mode.
-
-Fixes: ef3bcde75d06 ("ASoC: tas2781: Add tas2781 driver")
-Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-
----
-v5:
- - Add reviewed-by information.
- - Add comments on it is not an error in case of RCA-Only, ie, failure
- to load DSP firmware.
-v4:
- - Add a description of what the state machine looks like.
- - Remove TASDEVICE_DSP_FW_NONE because of unused.
- - Remove stray change.
- - Fix broken indentation.
-v3:
- - Add description on RCA is Reconfigurable Architecture.
- - Add the description on enabling
- - Reword the commit
- - Remove question mark in the comments.
- - Add spaces in comments.
-v2:
- - Correct comment.
- - Add Fixes.
- - Move header file to the first.
-v1:
- - Split out the different logical changes into different patches.
- - rename tasdevice_dsp_fw_state -> tasdevice_fw_state, the fw are not
-   only DSP fw, but also RCA(Reconfigurable data, such as acoustic data
-   and register setting, etc).
- - Add TASDEVICE_RCA_FW_OK in tasdevice_fw_state to identify the state
-   that only RCA binary file has been download successfully, but DSP fw
-   is not loaded or loading failure.
- - Add the this strategy into tasdevice_tuning_switch.
- - If one side of the if/else has a braces both should in
-   tasdevice_tuning_switch.
- - Identify whehter both RCA and DSP have been loaded or only RCA has
-   been loaded in tasdevice_fw_ready.
- - Add check fw load status in tasdevice_startup.
- - remove ret in tasdevice_startup to make the code neater.
----
- include/sound/tas2781-dsp.h       | 11 +++++++--
- sound/soc/codecs/tas2781-fmwlib.c | 18 ++++++++++----
- sound/soc/codecs/tas2781-i2c.c    | 39 ++++++++++++++++++++-----------
- 3 files changed, 48 insertions(+), 20 deletions(-)
-
-diff --git a/include/sound/tas2781-dsp.h b/include/sound/tas2781-dsp.h
-index 7fba7ea26a4b..3cda9da14f6d 100644
---- a/include/sound/tas2781-dsp.h
-+++ b/include/sound/tas2781-dsp.h
-@@ -117,10 +117,17 @@ struct tasdevice_fw {
- 	struct device *dev;
- };
- 
--enum tasdevice_dsp_fw_state {
--	TASDEVICE_DSP_FW_NONE = 0,
-+enum tasdevice_fw_state {
-+	/* Driver in startup mode, not load any firmware. */
- 	TASDEVICE_DSP_FW_PENDING,
-+	/* DSP firmware in the system, but parsing error. */
- 	TASDEVICE_DSP_FW_FAIL,
-+	/*
-+	 * Only RCA (Reconfigurable Architecture) firmware load
-+	 * successfully.
-+	 */
-+	TASDEVICE_RCA_FW_OK,
-+	/* Both RCA and DSP firmware load successfully. */
- 	TASDEVICE_DSP_FW_ALL_OK,
- };
- 
-diff --git a/sound/soc/codecs/tas2781-fmwlib.c b/sound/soc/codecs/tas2781-fmwlib.c
-index 265a8ca25cbb..838d29fead96 100644
---- a/sound/soc/codecs/tas2781-fmwlib.c
-+++ b/sound/soc/codecs/tas2781-fmwlib.c
-@@ -2324,14 +2324,21 @@ void tasdevice_tuning_switch(void *context, int state)
- 	struct tasdevice_fw *tas_fmw = tas_priv->fmw;
- 	int profile_cfg_id = tas_priv->rcabin.profile_cfg_id;
- 
--	if (tas_priv->fw_state == TASDEVICE_DSP_FW_FAIL) {
--		dev_err(tas_priv->dev, "DSP bin file not loaded\n");
-+	/*
-+	 * Only RCA-based Playback can still work with no dsp program running
-+	 * inside the chip.
-+	 */
-+	switch (tas_priv->fw_state) {
-+	case TASDEVICE_RCA_FW_OK:
-+	case TASDEVICE_DSP_FW_ALL_OK:
-+		break;
-+	default:
- 		return;
- 	}
- 
- 	if (state == 0) {
--		if (tas_priv->cur_prog < tas_fmw->nr_programs) {
--			/*dsp mode or tuning mode*/
-+		if (tas_fmw && tas_priv->cur_prog < tas_fmw->nr_programs) {
-+			/* dsp mode or tuning mode */
- 			profile_cfg_id = tas_priv->rcabin.profile_cfg_id;
- 			tasdevice_select_tuningprm_cfg(tas_priv,
- 				tas_priv->cur_prog, tas_priv->cur_conf,
-@@ -2340,9 +2347,10 @@ void tasdevice_tuning_switch(void *context, int state)
- 
- 		tasdevice_select_cfg_blk(tas_priv, profile_cfg_id,
- 			TASDEVICE_BIN_BLK_PRE_POWER_UP);
--	} else
-+	} else {
- 		tasdevice_select_cfg_blk(tas_priv, profile_cfg_id,
- 			TASDEVICE_BIN_BLK_PRE_SHUTDOWN);
-+	}
- }
- EXPORT_SYMBOL_NS_GPL(tasdevice_tuning_switch,
- 	SND_SOC_TAS2781_FMWLIB);
-diff --git a/sound/soc/codecs/tas2781-i2c.c b/sound/soc/codecs/tas2781-i2c.c
-index 9350972dfefe..c64d458e524e 100644
---- a/sound/soc/codecs/tas2781-i2c.c
-+++ b/sound/soc/codecs/tas2781-i2c.c
-@@ -380,23 +380,37 @@ static void tasdevice_fw_ready(const struct firmware *fmw,
- 	mutex_lock(&tas_priv->codec_lock);
- 
- 	ret = tasdevice_rca_parser(tas_priv, fmw);
--	if (ret)
-+	if (ret) {
-+		tasdevice_config_info_remove(tas_priv);
- 		goto out;
-+	}
- 	tasdevice_create_control(tas_priv);
- 
- 	tasdevice_dsp_remove(tas_priv);
- 	tasdevice_calbin_remove(tas_priv);
--	tas_priv->fw_state = TASDEVICE_DSP_FW_PENDING;
-+	/*
-+	 * The baseline is the RCA-only case, and then the code attempts to
-+	 * load DSP firmware but in case of failures just keep going, i.e.
-+	 * failing to load DSP firmware is NOT an error.
-+	 */
-+	tas_priv->fw_state = TASDEVICE_RCA_FW_OK;
- 	scnprintf(tas_priv->coef_binaryname, 64, "%s_coef.bin",
- 		tas_priv->dev_name);
- 	ret = tasdevice_dsp_parser(tas_priv);
- 	if (ret) {
- 		dev_err(tas_priv->dev, "dspfw load %s error\n",
- 			tas_priv->coef_binaryname);
--		tas_priv->fw_state = TASDEVICE_DSP_FW_FAIL;
- 		goto out;
- 	}
--	tasdevice_dsp_create_ctrls(tas_priv);
-+
-+	/*
-+	 * If no dsp-related kcontrol created, the dsp resource will be freed.
-+	 */
-+	ret = tasdevice_dsp_create_ctrls(tas_priv);
-+	if (ret) {
-+		dev_err(tas_priv->dev, "dsp controls error\n");
-+		goto out;
-+	}
- 
- 	tas_priv->fw_state = TASDEVICE_DSP_FW_ALL_OK;
- 
-@@ -417,9 +431,8 @@ static void tasdevice_fw_ready(const struct firmware *fmw,
- 	tasdevice_prmg_load(tas_priv, 0);
- 	tas_priv->cur_prog = 0;
- out:
--	if (tas_priv->fw_state == TASDEVICE_DSP_FW_FAIL) {
--		/*If DSP FW fail, kcontrol won't be created */
--		tasdevice_config_info_remove(tas_priv);
-+	if (tas_priv->fw_state == TASDEVICE_RCA_FW_OK) {
-+		/* If DSP FW fail, DSP kcontrol won't be created. */
- 		tasdevice_dsp_remove(tas_priv);
- 	}
- 	mutex_unlock(&tas_priv->codec_lock);
-@@ -466,14 +479,14 @@ static int tasdevice_startup(struct snd_pcm_substream *substream,
- {
- 	struct snd_soc_component *codec = dai->component;
- 	struct tasdevice_priv *tas_priv = snd_soc_component_get_drvdata(codec);
--	int ret = 0;
- 
--	if (tas_priv->fw_state != TASDEVICE_DSP_FW_ALL_OK) {
--		dev_err(tas_priv->dev, "DSP bin file not loaded\n");
--		ret = -EINVAL;
-+	switch (tas_priv->fw_state) {
-+	case TASDEVICE_RCA_FW_OK:
-+	case TASDEVICE_DSP_FW_ALL_OK:
-+		return 0;
-+	default:
-+		return -EINVAL;
- 	}
--
--	return ret;
- }
- 
- static int tasdevice_hw_params(struct snd_pcm_substream *substream,
--- 
-2.34.1
-
+YWxzYS1wcm9qZWN0L2Fsc2EtdWNtLWNvbmYgaXNzdWUgIzQyNSB3YXMgb3BlbmVkIGZyb20gbmV5
+YjoKCkhlbGxvLA0KDQpUaGUgdmVyc2lvbiAxLjIuMTIgc2VlbXMgdG8gZml4IHRoZSBzcGVha2Vy
+IG9mIHRoZSB4cHMgMTMgOTQzMCAoMjAyNCksIGJ1dCB0aGVyZSBzZWVtcyB0byBzdGlsbCBiZSBh
+IHByb2JsZW0gb24gdGhlIGludGVncmF0ZWQgbWljcm9waG9uZSwgdGhlIG1pYyBhcHBlYXJzIGJ1
+dCB0aGVpciBzZWVtcyB0byBiZSBubyBzb3VuZCByZWNvcmRlZCA6wqANCg0KYGBgc2hlbGwNCuKd
+ryBhbWl4ZXIgLWMgMCBpbmZvDQpDYXJkIHN5c2RlZmF1bHQ6MCAnc29mc291bmR3aXJlJy8nSW50
+ZWwgU291bmR3aXJlIFNPRicNCiAgTWl4ZXIgbmFtZQk6ICdJbnRlbCBNZXRlb3IgTGFrZSBIRE1J
+Jw0KICBDb21wb25lbnRzCTogJ0hEQTo4MDg2MjgxZCw4MDg2MDEwMSwwMDEwMDAwMCBjZmctc3Br
+OjIgY2ZnLWFtcDoyIHNwazpydDEzMTggbWljOnJ0NzE1LXNkY2EnDQogIENvbnRyb2xzICAgICAg
+OiA0MA0KICBTaW1wbGUgY3RybHMgIDogMTkNCmBgYA0KDQpgYGBzaGVsbA0K4p2vIGxzcGNpDQow
+MDAwOjAwOjAwLjAgSG9zdCBicmlkZ2U6IEludGVsIENvcnBvcmF0aW9uIERldmljZSA3ZDAxIChy
+ZXYgMDQpDQowMDAwOjAwOjAyLjAgVkdBIGNvbXBhdGlibGUgY29udHJvbGxlcjogSW50ZWwgQ29y
+cG9yYXRpb24gTWV0ZW9yIExha2UtUCBbSW50ZWwgQXJjIEdyYXBoaWNzXSAocmV2IDA4KQ0KMDAw
+MDowMDowNC4wIFNpZ25hbCBwcm9jZXNzaW5nIGNvbnRyb2xsZXI6IEludGVsIENvcnBvcmF0aW9u
+IE1ldGVvciBMYWtlLVAgRHluYW1pYyBUdW5pbmcgVGVjaG5vbG9neSAocmV2IDA0KQ0KMDAwMDow
+MDowNS4wIE11bHRpbWVkaWEgY29udHJvbGxlcjogSW50ZWwgQ29ycG9yYXRpb24gTWV0ZW9yIExh
+a2UgSVBVIChyZXYgMDQpDQowMDAwOjAwOjA2LjAgU3lzdGVtIHBlcmlwaGVyYWw6IEludGVsIENv
+cnBvcmF0aW9uIFJTVCBWTUQgTWFuYWdlZCBDb250cm9sbGVyDQowMDAwOjAwOjA3LjAgUENJIGJy
+aWRnZTogSW50ZWwgQ29ycG9yYXRpb24gTWV0ZW9yIExha2UtUCBUaHVuZGVyYm9sdCA0IFBDSSBF
+eHByZXNzIFJvb3QgUG9ydCAjMCAocmV2IDEwKQ0KMDAwMDowMDowNy4zIFBDSSBicmlkZ2U6IElu
+dGVsIENvcnBvcmF0aW9uIE1ldGVvciBMYWtlLVAgVGh1bmRlcmJvbHQgNCBQQ0kgRXhwcmVzcyBS
+b290IFBvcnQgIzMgKHJldiAxMCkNCjAwMDA6MDA6MDguMCBTeXN0ZW0gcGVyaXBoZXJhbDogSW50
+ZWwgQ29ycG9yYXRpb24gTWV0ZW9yIExha2UtUCBHYXVzc2lhbiAmIE5ldXJhbC1OZXR3b3JrIEFj
+Y2VsZXJhdG9yIChyZXYgMjApDQowMDAwOjAwOjBhLjAgU2lnbmFsIHByb2Nlc3NpbmcgY29udHJv
+bGxlcjogSW50ZWwgQ29ycG9yYXRpb24gTWV0ZW9yIExha2UtUCBQbGF0Zm9ybSBNb25pdG9yaW5n
+IFRlY2hub2xvZ3kgKHJldiAwMSkNCjAwMDA6MDA6MGIuMCBQcm9jZXNzaW5nIGFjY2VsZXJhdG9y
+czogSW50ZWwgQ29ycG9yYXRpb24gTWV0ZW9yIExha2UgTlBVIChyZXYgMDQpDQowMDAwOjAwOjBk
+LjAgVVNCIGNvbnRyb2xsZXI6IEludGVsIENvcnBvcmF0aW9uIE1ldGVvciBMYWtlLVAgVGh1bmRl
+cmJvbHQgNCBVU0IgQ29udHJvbGxlciAocmV2IDEwKQ0KMDAwMDowMDowZC4yIFVTQiBjb250cm9s
+bGVyOiBJbnRlbCBDb3Jwb3JhdGlvbiBNZXRlb3IgTGFrZS1QIFRodW5kZXJib2x0IDQgTkhJICMw
+IChyZXYgMTApDQowMDAwOjAwOjBkLjMgVVNCIGNvbnRyb2xsZXI6IEludGVsIENvcnBvcmF0aW9u
+IE1ldGVvciBMYWtlLVAgVGh1bmRlcmJvbHQgNCBOSEkgIzEgKHJldiAxMCkNCjAwMDA6MDA6MGUu
+MCBSQUlEIGJ1cyBjb250cm9sbGVyOiBJbnRlbCBDb3Jwb3JhdGlvbiBWb2x1bWUgTWFuYWdlbWVu
+dCBEZXZpY2UgTlZNZSBSQUlEIENvbnRyb2xsZXIgSW50ZWwgQ29ycG9yYXRpb24NCjAwMDA6MDA6
+MTIuMCBTZXJpYWwgY29udHJvbGxlcjogSW50ZWwgQ29ycG9yYXRpb24gTWV0ZW9yIExha2UtUCBJ
+bnRlZ3JhdGVkIFNlbnNvciBIdWIgKHJldiAyMCkNCjAwMDA6MDA6MTQuMCBVU0IgY29udHJvbGxl
+cjogSW50ZWwgQ29ycG9yYXRpb24gTWV0ZW9yIExha2UtUCBVU0IgMy4yIEdlbiAyeDEgeEhDSSBI
+b3N0IENvbnRyb2xsZXIgKHJldiAyMCkNCjAwMDA6MDA6MTQuMiBSQU0gbWVtb3J5OiBJbnRlbCBD
+b3Jwb3JhdGlvbiBEZXZpY2UgN2U3ZiAocmV2IDIwKQ0KMDAwMDowMDoxNS4wIFNlcmlhbCBidXMg
+Y29udHJvbGxlcjogSW50ZWwgQ29ycG9yYXRpb24gTWV0ZW9yIExha2UtUCBTZXJpYWwgSU8gSTJD
+IENvbnRyb2xsZXIgIzAgKHJldiAyMCkNCjAwMDA6MDA6MTUuMiBTZXJpYWwgYnVzIGNvbnRyb2xs
+ZXI6IEludGVsIENvcnBvcmF0aW9uIE1ldGVvciBMYWtlLVAgU2VyaWFsIElPIEkyQyBDb250cm9s
+bGVyICMyIChyZXYgMjApDQowMDAwOjAwOjE2LjAgQ29tbXVuaWNhdGlvbiBjb250cm9sbGVyOiBJ
+bnRlbCBDb3Jwb3JhdGlvbiBNZXRlb3IgTGFrZS1QIENTTUUgSEVDSSAjMSAocmV2IDIwKQ0KMDAw
+MDowMDoxYy4wIFBDSSBicmlkZ2U6IEludGVsIENvcnBvcmF0aW9uIERldmljZSA3ZTNmIChyZXYg
+MjApDQowMDAwOjAwOjFlLjAgQ29tbXVuaWNhdGlvbiBjb250cm9sbGVyOiBJbnRlbCBDb3Jwb3Jh
+dGlvbiBNZXRlb3IgTGFrZS1QIFNlcmlhbCBJTyBVQVJUIENvbnRyb2xsZXIgIzAgKHJldiAyMCkN
+CjAwMDA6MDA6MWYuMCBJU0EgYnJpZGdlOiBJbnRlbCBDb3Jwb3JhdGlvbiBEZXZpY2UgN2UwMiAo
+cmV2IDIwKQ0KMDAwMDowMDoxZi4zIE11bHRpbWVkaWEgYXVkaW8gY29udHJvbGxlcjogSW50ZWwg
+Q29ycG9yYXRpb24gTWV0ZW9yIExha2UtUCBIRCBBdWRpbyBDb250cm9sbGVyIChyZXYgMjApDQow
+MDAwOjAwOjFmLjQgU01CdXM6IEludGVsIENvcnBvcmF0aW9uIE1ldGVvciBMYWtlLVAgU01CdXMg
+Q29udHJvbGxlciAocmV2IDIwKQ0KMDAwMDowMDoxZi41IFNlcmlhbCBidXMgY29udHJvbGxlcjog
+SW50ZWwgQ29ycG9yYXRpb24gTWV0ZW9yIExha2UtUCBTUEkgQ29udHJvbGxlciAocmV2IDIwKQ0K
+MDAwMDo3MTowMC4wIE5ldHdvcmsgY29udHJvbGxlcjogSW50ZWwgQ29ycG9yYXRpb24gV2ktRmkg
+Nyg4MDIuMTFiZSkgQVgxNzc1Ki9BWDE3OTAqL0JFMjAqL0JFNDAxL0JFMTc1MCogMngyIChyZXYg
+MWEpDQoxMDAwMDplMDowNi4wIFBDSSBicmlkZ2U6IEludGVsIENvcnBvcmF0aW9uIERldmljZSA3
+ZTRkIChyZXYgMjApDQoxMDAwMDplMTowMC4wIE5vbi1Wb2xhdGlsZSBtZW1vcnkgY29udHJvbGxl
+cjogTWljcm9uIFRlY2hub2xvZ3kgSW5jIDI1NTAgTlZNZSBTU0QgKERSQU0tbGVzcykgKHJldiAw
+MSkNCmBgYA0KDQpgYGBzaGVsbA0K4p2vIGFyZWNvcmQgLWwNCioqKiogTGlzdGUgZGVzIHDDqXJp
+cGjDqXJpcXVlcyBtYXTDqXJpZWxzIENBUFRVUkUgKioqKg0KY2FydGUgMCA6IHNvZnNvdW5kd2ly
+ZSBbc29mLXNvdW5kd2lyZV0sIHDDqXJpcGjDqXJpcXVlIDMgOiBBbXAgZmVlZGJhY2sgKCopIFtd
+DQogIFNvdXMtcMOpcmlwaMOpcmlxdWVzIDogMS8xDQogIFNvdXMtcMOpcmlwaMOpcmlxdWUgIzAg
+OiBzdWJkZXZpY2UgIzANCmNhcnRlIDAgOiBzb2Zzb3VuZHdpcmUgW3NvZi1zb3VuZHdpcmVdLCBw
+w6lyaXBow6lyaXF1ZSA0IDogTWljcm9waG9uZSAoKikgW10NCiAgU291cy1ww6lyaXBow6lyaXF1
+ZXMgOiAwLzENCiAgU291cy1ww6lyaXBow6lyaXF1ZSAjMCA6IHN1YmRldmljZSAjMA0KYGBgCgpJ
+c3N1ZSBVUkwgICAgIDogaHR0cHM6Ly9naXRodWIuY29tL2Fsc2EtcHJvamVjdC9hbHNhLXVjbS1j
+b25mL2lzc3Vlcy80MjUKUmVwb3NpdG9yeSBVUkw6IGh0dHBzOi8vZ2l0aHViLmNvbS9hbHNhLXBy
+b2plY3QvYWxzYS11Y20tY29uZgo=

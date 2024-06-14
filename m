@@ -2,83 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C01529094D5
-	for <lists+alsa-devel@lfdr.de>; Sat, 15 Jun 2024 01:46:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 130BC9094D8
+	for <lists+alsa-devel@lfdr.de>; Sat, 15 Jun 2024 01:47:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 91C5EB76;
-	Sat, 15 Jun 2024 01:45:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 91C5EB76
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5FF5AE72;
+	Sat, 15 Jun 2024 01:47:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5FF5AE72
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718408759;
-	bh=NUdjis44A+P8r9hqKdMvkCt7Jj4IXY5URCzPLgFWQaY=;
+	s=default; t=1718408831;
+	bh=95jnULNHIyAe8VUlUTuzjPrBvu1cqlweV8jZzxqurCY=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ZiQYQEEkJkg+mSQ1bFmSenGyAJdWmrD27rNZSph9gDzkQEdeH3+nwk517Iq650cIt
-	 KE3sQiGpJxrxlzGpFPQl67pd2ai8tgroowE9o86DIIe5+t3+injH82esQM3u1/TM6Q
-	 gTPiybybJTJfUEN7NakZckRiQrc2ZRtuDbAs7VdQ=
+	b=QJZbMwUh5zrimYh/X5Wp2QtqRy/ykibKo/8Pq9jaQo/euD5mBiuIEdAR5kc+Z9AqY
+	 9e33+KI7T51gPU/+apXY2GE6GCSKufeSt8wTFCUG79BVFKAHO98gGPcv3tp/7cEkCM
+	 De7MpKTeh4xLYvcYyOUR27grvZ8A0xQm/dtQQBdo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 907F9F805A9; Sat, 15 Jun 2024 01:45:27 +0200 (CEST)
+	id 58C7BF805BB; Sat, 15 Jun 2024 01:46:38 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C87E2F805B1;
-	Sat, 15 Jun 2024 01:45:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BE350F800D0;
+	Sat, 15 Jun 2024 01:46:37 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 92EA8F80448; Sat, 15 Jun 2024 01:43:50 +0200 (CEST)
+	id B3D34F80448; Sat, 15 Jun 2024 01:43:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EF680F800D0
-	for <alsa-devel@alsa-project.org>; Sat, 15 Jun 2024 01:43:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF680F800D0
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3E4BFF800E9
+	for <alsa-devel@alsa-project.org>; Sat, 15 Jun 2024 01:43:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E4BFF800E9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=ib6YR8D2
+ header.s=k20201202 header.b=a7JyT5I9
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 1A3C562023;
+	by sin.source.kernel.org (Postfix) with ESMTP id 42CD9CE2BA5;
+	Fri, 14 Jun 2024 23:43:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47EC9C3277B;
 	Fri, 14 Jun 2024 23:43:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C877C3277B;
-	Fri, 14 Jun 2024 23:43:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1718408621;
-	bh=NUdjis44A+P8r9hqKdMvkCt7Jj4IXY5URCzPLgFWQaY=;
+	s=k20201202; t=1718408623;
+	bh=95jnULNHIyAe8VUlUTuzjPrBvu1cqlweV8jZzxqurCY=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=ib6YR8D2txQiOT/1hRIvvDZQ4hkUJFGvlV3KKqIQaHAvtz8nm0BrTvpSBeGizAi+m
-	 WIdeZ1Y7IwOGA6iCN2xDI5OnhqGe3SJ6atAfU0Lepvf41WEqDQG4U0kQgXYuScpMj+
-	 yd2nF7kjKdcWsokxaijDY/9/TBvqYh5W7lvqPma6Bd4U2iyrUZqFv3+2kjvm+HfK2L
-	 D+AXpycj2Xr+o5He2j5HIdeOVlkSWtNj72S4T3Pfk/Htd+/XP/lCzmNMw2SO2RZXgW
-	 oXECI3/UbArOGz0Ynr6XLoO74xYoXgPUfQXlOq35h751xqvrYWh8EFQNKE8oNMu/Y4
-	 lMJG+hB5LdvuA==
+	b=a7JyT5I9e6bfXybPWmdE8M6QwyH1I47W6EQ9pZsZXKvLmUwKZpRjgIOyP4VFXmyzP
+	 yX9aB2Fb0pw/pZwxZtuf5fW0dUJyrLzEJaP3vd2N+d1tXfPZIP5ZWfz4S2IDlTrU3X
+	 nZo5PEFQJ5uD8BLXHQE6eI9A6LnClMSwcTqCjNaAVMIHMznSwwcNwN3CBjoQcdsPu6
+	 rqCPeYg4cyZUlEuNDOL1lrdXqZAjVJA31Qe973+84XbC4tIOek4WoQoBRRrnKnRwTL
+	 WkNZ0unTfo/Y9hj+MlgEt6aJIFVFOM0L/9Zhc8XwdkPMEFLbZtYH15AkwN9jmXJyyc
+	 syMXXvk5EfLug==
 From: Mark Brown <broonie@kernel.org>
-To: Banajit Goswami <bgoswami@quicinc.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Cc: dmitry.baryshkov@linaro.org, alsa-devel@alsa-project.org,
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20240613-q6apm-fixes-v1-1-d88953675ab3@linaro.org>
-References: <20240613-q6apm-fixes-v1-1-d88953675ab3@linaro.org>
-Subject: Re: [PATCH] ASoC: q6apm-lpass-dai: close graph on prepare errors
-Message-Id: <171840862015.307440.8711592846059609297.b4-ty@kernel.org>
-Date: Sat, 15 Jun 2024 00:43:40 +0100
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Cc: linux-kernel@vger.kernel.org, patches@opensource.cirrus.com,
+ alsa-devel@alsa-project.org, linux-sound@vger.kernel.org
+In-Reply-To: <20240613132527.46537-1-rf@opensource.cirrus.com>
+References: <20240613132527.46537-1-rf@opensource.cirrus.com>
+Subject: Re: [PATCH v2] ASoC: cs35l56: Disconnect ASP1 TX sources when ASP1
+ DAI is hooked up
+Message-Id: <171840862302.307440.2310063714501102380.b4-ty@kernel.org>
+Date: Sat, 15 Jun 2024 00:43:43 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.14-dev-0bd45
-Message-ID-Hash: QNHKHNALCEF5GZJEHSMGZ2CUYBC26EKB
-X-Message-ID-Hash: QNHKHNALCEF5GZJEHSMGZ2CUYBC26EKB
+Message-ID-Hash: BKTDD5S243JJRD2I44REWX4QTQ6Z3F4H
+X-Message-ID-Hash: BKTDD5S243JJRD2I44REWX4QTQ6Z3F4H
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -91,7 +88,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QNHKHNALCEF5GZJEHSMGZ2CUYBC26EKB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BKTDD5S243JJRD2I44REWX4QTQ6Z3F4H/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,14 +97,23 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 13 Jun 2024 13:13:05 +0100, Srinivas Kandagatla wrote:
-> There is an issue around with error handling and graph management with
-> the exising code, none of the error paths close the graph, which result in
-> leaving the loaded graph in dsp, however the driver thinks otherwise.
+On Thu, 13 Jun 2024 14:25:27 +0100, Richard Fitzgerald wrote:
+> If the ASP1 DAI is hooked up by the machine driver the ASP TX mixer
+> sources should be initialized to disconnected. There aren't currently
+> any available products using the ASP so this doesn't affect any
+> existing systems.
 > 
-> This can have a nasty side effect specially when we try to load the same
-> graph to dsp, dsp returns error which leaves the board with no sound and
-> requires restart.
+> The cs35l56 does not have any fixed default for the mixer source
+> registers. When the cs35l56 boots, its firmware patches these registers
+> to setup a system-specific routing; this is so that Windows can use
+> generic SDCA drivers instead of needing knowledge of chip-specific
+> registers. The setup varies between end-products, which each have
+> customized firmware, and so the default register state varies between
+> end-products. It can also change if the firmware on an end-product is
+> upgraded - for example if a change was needed to the routing for Windows
+> use-cases. It must be emphasized that the settings applied by the
+> firmware are not internal magic tuning; they are statically implementing
+> use-case setup that on Linux would be done via ALSA controls.
 > 
 > [...]
 
@@ -117,8 +123,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: q6apm-lpass-dai: close graph on prepare errors
-      commit: be1fae62cf253a5b67526cee9fbc07689b97c125
+[1/1] ASoC: cs35l56: Disconnect ASP1 TX sources when ASP1 DAI is hooked up
+      commit: 8af49868e51ed1ba117b74728af12abe1eda82e5
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

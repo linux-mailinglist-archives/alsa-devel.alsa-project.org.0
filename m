@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6AF69090B6
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jun 2024 18:44:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BFB849090C9
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jun 2024 18:54:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C34B8BC0;
-	Fri, 14 Jun 2024 18:44:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C34B8BC0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 754B9DF8;
+	Fri, 14 Jun 2024 18:53:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 754B9DF8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718383490;
-	bh=OGecIESkxQlGPPHFvJKS/1V4WaNGOExMXfaeDU81YVM=;
+	s=default; t=1718384045;
+	bh=fPlz7/O4CHKldDLCxbpg3ui9wtblMgB3TXnLBn0vSI8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=b5kCsvnzWQLy28dVvYlAw7elWMffJZL4wUHuaAsfdmsJ1npbnfIVI+Ucr4T/fkhGI
-	 ZAvb24Kt8B9FmjTkLPHxAJ29TXKfgCQgqGyekBX3ZCM4BatRmieZ8oY6fDQjyUkvUo
-	 r5gF+8VpQO66Ao+CvGGbBUl78ZVNBmnVVGo+Qe34=
+	b=hlExErN4LbBr2ku6pkZ7BHYHIOkIZhdCBT5HB46tEzjsxyCXXF9h5BfoX+wTlUayo
+	 4a/RO87Ja1NiHJXjaTrR5RKNchiT6GH5+RZ4YC9TQ+jupmja4NFz7bRqik7myJ9Hi7
+	 8dgwMIZcKgStQq1QXU0/rrSZ3iD62U7M1BDhogDE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D9B03F800ED; Fri, 14 Jun 2024 18:44:19 +0200 (CEST)
+	id 042BDF805AE; Fri, 14 Jun 2024 18:53:33 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 270DCF8058C;
-	Fri, 14 Jun 2024 18:44:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6CB53F805AA;
+	Fri, 14 Jun 2024 18:53:33 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 78948F80448; Fri, 14 Jun 2024 18:44:15 +0200 (CEST)
+	id 0B9A8F80448; Fri, 14 Jun 2024 18:53:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,32 +35,31 @@ X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	version=3.4.6
 Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 932E8F800ED
-	for <alsa-devel@alsa-project.org>; Fri, 14 Jun 2024 18:44:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 932E8F800ED
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0B26AF800E9
+	for <alsa-devel@alsa-project.org>; Fri, 14 Jun 2024 18:52:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0B26AF800E9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=hL+l8FUI
+ header.s=k20201202 header.b=CpFq6UCC
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 1F429CE2BE4;
-	Fri, 14 Jun 2024 16:43:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56300C2BD10;
-	Fri, 14 Jun 2024 16:43:47 +0000 (UTC)
+	by sin.source.kernel.org (Postfix) with ESMTP id D46D1CE2C46;
+	Fri, 14 Jun 2024 16:51:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29068C2BD10;
+	Fri, 14 Jun 2024 16:51:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1718383428;
-	bh=OGecIESkxQlGPPHFvJKS/1V4WaNGOExMXfaeDU81YVM=;
+	s=k20201202; t=1718383907;
+	bh=fPlz7/O4CHKldDLCxbpg3ui9wtblMgB3TXnLBn0vSI8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=hL+l8FUIXR9ASHQf9xeEPHt7CfdJYNX0X2a16Kb6dXovnPp+k2I7dQZVJz+bHAS+w
-	 /Akw4bgdYCbPoCYPoxyXVhpR07QLakzGw+lOuLOCEcwc4m6XbzkVwX996ca3rr7kcm
-	 ZekEHG9V5TCkNvXESp+C05L37+ynL56sBerph8iI/t5rhWxp+D44Fo5+P42u35Gl0K
-	 7dhB+rmHkWPUfnZ28d9jgrO3szh5oJ5ZQY2ImBXkHINHxIt+m8b3G8wRkGcMlTbQL6
-	 yUuCucQDUEkjvZjxu10iU71nkcLMlqu5oTEbzmsM1vD1k2Y6LXTCZz2aWqsZ/1SvcG
-	 l+KTBfQzjR8yQ==
-Date: Fri, 14 Jun 2024 17:43:44 +0100
+	b=CpFq6UCC7cqq4TL2Q4voaO/eWCDtFrzYqrhpIB1METf7ygd32ZxG5reEb08aI2/2l
+	 EOxJV0ZJspzfFvIBXYmPTqrYT27w3rTiKkm+0qK4iCpyuG7O8YAUweHKhCa8wqWvjd
+	 cjod0053tLA2spwX/oQuoY0BJCQ8ikbCbbKxI3lw3enf1LhXAA6RU9YT5281LMbTRV
+	 BM47sjqNEhDV2l7quJAsEP4p/QiQyrdWTMeDPgyTL6Vqsm+ScmxescTGkW2jxGxXvb
+	 /Uf4o81uIhzqasU0dnRZVZ0nFTzxCL9yCWfUrzi+KZa3C2Rw0AIU1tMb3tNPV6KEG3
+	 lW5zitAlFmhCw==
+Date: Fri, 14 Jun 2024 17:51:43 +0100
 From: Mark Brown <broonie@kernel.org>
 To: Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>
 Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
@@ -69,24 +68,28 @@ Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
 	Vladimir Zapolskiy <vz@mleia.com>,
 	Russell King <linux@armlinux.org.uk>,
 	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	"J.M.B. Downing" <jonathan.downing@nautel.com>,
 	Chancel Liu <chancel.liu@nxp.com>, Arnd Bergmann <arnd@arndb.de>,
 	Michael Ellerman <mpe@ellerman.id.au>, linux-sound@vger.kernel.org,
 	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org, alsa-devel@alsa-project.org,
 	linuxppc-dev@lists.ozlabs.org
-Subject: Re: [PATCH v3 0/4] Add audio support for LPC32XX CPUs
-Message-ID: <ZmxzQLbzuEupDkiJ@finisterre.sirena.org.uk>
+Subject: Re: [Patch v2 1/2] ASoC: fsl: Add i2s and pcm drivers for LPC32xx
+ CPUs
+Message-ID: <Zmx1H5MyjWvoRdwz@finisterre.sirena.org.uk>
 References: <20240611094810.27475-1-piotr.wojtaszczyk@timesys.com>
- <20240614163500.386747-1-piotr.wojtaszczyk@timesys.com>
+ <Zmgor8accyAiUkUO@finisterre.sirena.org.uk>
+ <CAG+cZ06B+AexqvwZtNP5FX50AmghAFLa=1ebxmKLvMoyVJ529w@mail.gmail.com>
+ <Zmxy-xA3YDU06Eht@finisterre.sirena.org.uk>
+ <CAG+cZ05KomezPn0bAuZWrfO=rbyLdCU8_Xx11oEihUaD97gF8w@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="4uEH+YoQX+igcbHZ"
+	protocol="application/pgp-signature"; boundary="7aeyEfJwNjSnCeXl"
 Content-Disposition: inline
-In-Reply-To: <20240614163500.386747-1-piotr.wojtaszczyk@timesys.com>
+In-Reply-To: 
+ <CAG+cZ05KomezPn0bAuZWrfO=rbyLdCU8_Xx11oEihUaD97gF8w@mail.gmail.com>
 X-Cookie: Your love life will be... interesting.
-Message-ID-Hash: E6VS3EHY7UR34HVGLC2DJWG2CR4JPB4A
-X-Message-ID-Hash: E6VS3EHY7UR34HVGLC2DJWG2CR4JPB4A
+Message-ID-Hash: CBPGVVQX4RN3T5J4IFZHTPUL5ZXZIPMI
+X-Message-ID-Hash: CBPGVVQX4RN3T5J4IFZHTPUL5ZXZIPMI
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -99,7 +102,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/E6VS3EHY7UR34HVGLC2DJWG2CR4JPB4A/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CBPGVVQX4RN3T5J4IFZHTPUL5ZXZIPMI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,33 +112,44 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---4uEH+YoQX+igcbHZ
-Content-Type: text/plain; charset=us-ascii
+--7aeyEfJwNjSnCeXl
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Jun 14, 2024 at 06:34:48PM +0200, Piotr Wojtaszczyk wrote:
-> This pach set is to bring back audio to machines with a LPC32XX CPU.
-> The legacy LPC32XX SoC used to have audio spport in linux 2.6.27.
-> The support was dropped due to lack of interest from mainaeners.
+On Fri, Jun 14, 2024 at 06:46:46PM +0200, Piotr Wojtaszczyk wrote:
+> On Fri, Jun 14, 2024 at 6:42=E2=80=AFPM Mark Brown <broonie@kernel.org> w=
+rote:
+> > On Fri, Jun 14, 2024 at 06:24:50PM +0200, Piotr Wojtaszczyk wrote:
 
-Please don't send new patches in reply to old patches or serieses, this
-makes it harder for both people and tools to understand what is going
-on - it can bury things in mailboxes and make it difficult to keep track
-of what current patches are, both for the new patches and the old ones.
+> > > Ok. Later I will add a sound card driver to phytec3250 board which us=
+es
+> > > arch/arm/configs/lpc32xx_defconfig config file so that the COMPILE_TE=
+ST
+> > > won't be needed.
 
---4uEH+YoQX+igcbHZ
+> > Why would a defconfig affect the Kconfig?
+
+> I guess when lpc32xx_defconfig enables the SND_SOC_FSL_LPC3XXX then the
+> COMPILE_TEST won't be needed or does it?
+
+The whole point of COMPILE_TEST is to allow the driver to be covered
+when people aren't building for whatever specific platform would
+actually use it.
+
+--7aeyEfJwNjSnCeXl
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmZscz8ACgkQJNaLcl1U
-h9BWvgf/f+S9NLVWH8/lPOJWNtq9tQndYQy8OK5iMAQJm7mKL0A4ttTTMYMYnh9h
-tL3EW+ywS15IBWgG89JDmI9AuB9nWQKgmQIqjVuGW+54g1EYmViI28IteOGUZnv4
-xSF8N2Ak+ag00veuwAnYp3oMDUbtZ/VpEcoBj6Na+QDI5ok19cDT4Vqo0lWSMTn8
-9liaCr84fAjnbULZLuudLqd4wrhxbBtaYwCQ+iH2tW/N4j04iuTdop7ogfilTi/0
-ZsZOYX4xC1lJ1EbS7qpQSTsA5aDQQ7BwwzOE43HOhzTLoOcVVEl2a5dmZkSHNNDc
-2R617vs7FjbtGTrFUOVMTAzD01F8lQ==
-=TUpG
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmZsdR4ACgkQJNaLcl1U
+h9CNrQf/QOGnPQlIqhyNGJmHt+OTyAKxvU02FdwW1IOOW6yQBj4UO9d4k7nblhEn
+F7Vtbh6YUxU664IKdVLn2n6JwvOzBu2sPuLmm0JQgsZnlOB23KNWgw7yoZdgPL9m
+tKbUe6KCBHoMU/LJe+m2nm9qhAlTXlL4Uf1xgJQ3TK9c2neuko0efOtWy97OE8Oc
+PxHGfc5fFxAjEtnOQq47Nj0/fKCzXF3HLOseOx+KibzpUMgVZJTdVilroWPHOGXa
+u9aMHOWsdypZIO6rRaAjhslOpENc0zW4+v4gaWtRD8mmsiKzvQuZTB6zo/vMTTfA
+GUx5oQKpFeCMxaFkBGj6dCVLbitmgQ==
+=r/9i
 -----END PGP SIGNATURE-----
 
---4uEH+YoQX+igcbHZ--
+--7aeyEfJwNjSnCeXl--

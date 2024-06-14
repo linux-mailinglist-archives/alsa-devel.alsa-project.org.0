@@ -2,95 +2,114 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFB849090C9
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jun 2024 18:54:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 042E59090FE
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jun 2024 19:06:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 754B9DF8;
-	Fri, 14 Jun 2024 18:53:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 754B9DF8
+	by alsa0.perex.cz (Postfix) with ESMTPS id C092A845;
+	Fri, 14 Jun 2024 19:06:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C092A845
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718384045;
-	bh=fPlz7/O4CHKldDLCxbpg3ui9wtblMgB3TXnLBn0vSI8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1718384790;
+	bh=8KzlyxUtiQH9n4+dt2WeZEnMMpuBU8HGGEn+yCT/YA4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=hlExErN4LbBr2ku6pkZ7BHYHIOkIZhdCBT5HB46tEzjsxyCXXF9h5BfoX+wTlUayo
-	 4a/RO87Ja1NiHJXjaTrR5RKNchiT6GH5+RZ4YC9TQ+jupmja4NFz7bRqik7myJ9Hi7
-	 8dgwMIZcKgStQq1QXU0/rrSZ3iD62U7M1BDhogDE=
+	b=SuztwH3mJPw6A4f/TRJWGbKDj+sQ4irkLlYKwuNGfitQEVQkgPsAUuHN+ksvjjy+P
+	 qqfu4EjBnWRKBIN0I8GjgCNANE1KUR5/sGDccnUfeeRUDdXskemhRtx+AdFCPfKPjO
+	 5ue1XkUh1UQdbRNYfXL8Lpf70OaJLcMHXnRkqwDc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 042BDF805AE; Fri, 14 Jun 2024 18:53:33 +0200 (CEST)
+	id 5A7CEF805B3; Fri, 14 Jun 2024 19:05:59 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6CB53F805AA;
-	Fri, 14 Jun 2024 18:53:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9AA55F805AD;
+	Fri, 14 Jun 2024 19:05:58 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0B9A8F80448; Fri, 14 Jun 2024 18:53:27 +0200 (CEST)
+	id D6986F80448; Fri, 14 Jun 2024 19:05:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [IPv6:2a00:1450:4864:20::430])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0B26AF800E9
-	for <alsa-devel@alsa-project.org>; Fri, 14 Jun 2024 18:52:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0B26AF800E9
+	by alsa1.perex.cz (Postfix) with ESMTPS id 348C6F800ED
+	for <alsa-devel@alsa-project.org>; Fri, 14 Jun 2024 19:05:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 348C6F800ED
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=CpFq6UCC
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id D46D1CE2C46;
-	Fri, 14 Jun 2024 16:51:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29068C2BD10;
-	Fri, 14 Jun 2024 16:51:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1718383907;
-	bh=fPlz7/O4CHKldDLCxbpg3ui9wtblMgB3TXnLBn0vSI8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=CpFq6UCC7cqq4TL2Q4voaO/eWCDtFrzYqrhpIB1METf7ygd32ZxG5reEb08aI2/2l
-	 EOxJV0ZJspzfFvIBXYmPTqrYT27w3rTiKkm+0qK4iCpyuG7O8YAUweHKhCa8wqWvjd
-	 cjod0053tLA2spwX/oQuoY0BJCQ8ikbCbbKxI3lw3enf1LhXAA6RU9YT5281LMbTRV
-	 BM47sjqNEhDV2l7quJAsEP4p/QiQyrdWTMeDPgyTL6Vqsm+ScmxescTGkW2jxGxXvb
-	 /Uf4o81uIhzqasU0dnRZVZ0nFTzxCL9yCWfUrzi+KZa3C2Rw0AIU1tMb3tNPV6KEG3
-	 lW5zitAlFmhCw==
-Date: Fri, 14 Jun 2024 17:51:43 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Vladimir Zapolskiy <vz@mleia.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Chancel Liu <chancel.liu@nxp.com>, Arnd Bergmann <arnd@arndb.de>,
-	Michael Ellerman <mpe@ellerman.id.au>, linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, alsa-devel@alsa-project.org,
-	linuxppc-dev@lists.ozlabs.org
-Subject: Re: [Patch v2 1/2] ASoC: fsl: Add i2s and pcm drivers for LPC32xx
- CPUs
-Message-ID: <Zmx1H5MyjWvoRdwz@finisterre.sirena.org.uk>
-References: <20240611094810.27475-1-piotr.wojtaszczyk@timesys.com>
- <Zmgor8accyAiUkUO@finisterre.sirena.org.uk>
- <CAG+cZ06B+AexqvwZtNP5FX50AmghAFLa=1ebxmKLvMoyVJ529w@mail.gmail.com>
- <Zmxy-xA3YDU06Eht@finisterre.sirena.org.uk>
- <CAG+cZ05KomezPn0bAuZWrfO=rbyLdCU8_Xx11oEihUaD97gF8w@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="7aeyEfJwNjSnCeXl"
-Content-Disposition: inline
+ unprotected) header.d=baylibre-com.20230601.gappssmtp.com
+ header.i=@baylibre-com.20230601.gappssmtp.com header.a=rsa-sha256
+ header.s=20230601 header.b=qNZVGKdC
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-35f225ac23bso2343569f8f.0
+        for <alsa-devel@alsa-project.org>;
+ Fri, 14 Jun 2024 10:05:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1718384746;
+ x=1718989546; darn=alsa-project.org;
+        h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=ZU9Tq2gv3Xr+OOG2Lgc2duprsrRaO/sCpRyvLtLfjWU=;
+        b=qNZVGKdClVnv9YJFqhyMgavOE3suEgznBX5cn1AwnptUEAzxG8L1z+g7Hirz5gW2Vs
+         NqAWuWYA7TR4mqd4efXrOA7CAVr46Di51DutavJcGbI4cDmYKBgOQl/GmdXvrytQD1tn
+         saAzVoAgUvnOrxMcotXmLi5DymA25VwlWrT4dvCZdIE7glTnTetEA7G1/gtJCza2h1kR
+         DAbdklIAQnGmz8sP9buVJfQoGFI6ZE4Gaw9ZKujnmpMLKkXfHcxGEeXAMRGg3fmbm0oc
+         ciFcuFoHyaX39CCaljYKNTxny6j2CLXXzWXXxPCmGGNMft7nPsjB7IbKjNyj1JZTetDB
+         8xIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1718384746; x=1718989546;
+        h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
+         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=ZU9Tq2gv3Xr+OOG2Lgc2duprsrRaO/sCpRyvLtLfjWU=;
+        b=SApvjbSvvVndj3Db2FlfcG5RtnpvfH0Rb3ubd5O1aoyYCUQW2Q6lOEhjzoPjsKY4Fo
+         hXfl1OHyt7Yt5/hPAKZwf+5zBfHSFFDVhwc7S+txdqxxc9ytcRvIkWyzw5dd5xDz+G0c
+         O4PxPHD38GpDoPqCriGtMgSXKEGBWKxvTsmqj1rwrtAkJE74ln/54HN/2PvWrVoY8+zz
+         478wO3T5Irz2OHPl22uc0X/iUJt4KOepK0OIMPIWNVEEsw74ZT2Wm+K/Ln1e8CPb7XX+
+         I2XIkyVwRtly8IbjdOeujXPUO74cnLZoy9psdiHWRi6xEL4omJ3KMJTtpnLShoLdT/5o
+         Makw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVsVY7bR6nTHWYqkJglRxTSmsupWZiyfMJaqphRHNroJ7mOO8ORXujzZpT//OT6VQuEppFWLHcddCPAm+sEoxTI/eTQz8WBwyqVpLY=
+X-Gm-Message-State: AOJu0YzQd41MiNQ9xDcCgZlk0IUXt9dG41dQ25KQkcgdS9c/2lqbk4U+
+	TfhiDesPVVu0ICy6ITPc4r+VOTK4pvPzYSfSHgONOf7YfyQtVhbrnFP3RCD39GQ=
+X-Google-Smtp-Source: 
+ AGHT+IEiODVYEmrk+Rx+CKhFGkqkyheheemcrZvIKgkrbQLv/Jnn/OxMF175J3qFIGVvLOazoNSL1w==
+X-Received: by 2002:adf:e2d1:0:b0:360:7c17:5936 with SMTP id
+ ffacd0b85a97d-3607c175a00mr2323310f8f.58.1718384745808;
+        Fri, 14 Jun 2024 10:05:45 -0700 (PDT)
+Received: from localhost ([2a01:e0a:3c5:5fb1:5374:7bd2:13de:845])
+        by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-360750f0d71sm4896045f8f.86.2024.06.14.10.05.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 14 Jun 2024 10:05:45 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,  Mark Brown <broonie@kernel.org>,
+  Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>,  Kevin Hilman <khilman@baylibre.com>,
+  Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+  alsa-devel@alsa-project.org,  linux-sound@vger.kernel.org,
+  devicetree@vger.kernel.org,  linux-kernel@vger.kernel.org,
+  linux-arm-kernel@lists.infradead.org,  linux-amlogic@lists.infradead.org
+Subject: Re: [PATCH RFC 1/3] ASoC: dt-bindings: amlogic,axg-sound-card:
+ document clocks and clock-names
 In-Reply-To: 
- <CAG+cZ05KomezPn0bAuZWrfO=rbyLdCU8_Xx11oEihUaD97gF8w@mail.gmail.com>
-X-Cookie: Your love life will be... interesting.
-Message-ID-Hash: CBPGVVQX4RN3T5J4IFZHTPUL5ZXZIPMI
-X-Message-ID-Hash: CBPGVVQX4RN3T5J4IFZHTPUL5ZXZIPMI
-X-MailFrom: broonie@kernel.org
+ <20240614-topic-amlogic-upstream-bindings-fixes-audio-snd-card-v1-1-9f57d9e01834@linaro.org>
+	(Neil Armstrong's message of "Fri, 14 Jun 2024 18:24:01 +0200")
+References: 
+ <20240614-topic-amlogic-upstream-bindings-fixes-audio-snd-card-v1-0-9f57d9e01834@linaro.org>
+	<20240614-topic-amlogic-upstream-bindings-fixes-audio-snd-card-v1-1-9f57d9e01834@linaro.org>
+Date: Fri, 14 Jun 2024 19:05:44 +0200
+Message-ID: <1j7cerihef.fsf@starbuckisacylon.baylibre.com>
+MIME-Version: 1.0
+Content-Type: text/plain
+Message-ID-Hash: 66ONS2OU33RJQ5V7USUFURYTL6K4T7ZV
+X-Message-ID-Hash: 66ONS2OU33RJQ5V7USUFURYTL6K4T7ZV
+X-MailFrom: jbrunet@baylibre.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -102,7 +121,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CBPGVVQX4RN3T5J4IFZHTPUL5ZXZIPMI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/66ONS2OU33RJQ5V7USUFURYTL6K4T7ZV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -111,45 +130,89 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Fri 14 Jun 2024 at 18:24, Neil Armstrong <neil.armstrong@linaro.org> wrote:
 
---7aeyEfJwNjSnCeXl
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+> The sound card design is based on 3 reference PLL frequencies that
+> are the root of all clock rates calculations.
+>
+> Today, those 3 frequencies are specified in DT via assigned-clocks,
+> because they correspond to the basic audio use-case.
+>
+> It makes no sense to setup clock rates for a sound card without
+> referencing the clocks for the sound card, mainly because at
+> some point more complex audio use cases will be supported
+> and those root rates would need to change.
+>
+> To solve this situation, let's legitimize the presence of assigned-clocks
+> in the sound card by documenting those clocks, as it describes a true
+> dependency of the sound card and paths the way of more complex
+> audio uses-cases involving those root frequencies.
+>
+> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+> ---
+>  .../devicetree/bindings/sound/amlogic,axg-sound-card.yaml    | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/sound/amlogic,axg-sound-card.yaml b/Documentation/devicetree/bindings/sound/amlogic,axg-sound-card.yaml
+> index 5db718e4d0e7..676ff2731b86 100644
+> --- a/Documentation/devicetree/bindings/sound/amlogic,axg-sound-card.yaml
+> +++ b/Documentation/devicetree/bindings/sound/amlogic,axg-sound-card.yaml
+> @@ -26,6 +26,18 @@ properties:
+>        A list off component DAPM widget. Each entry is a pair of strings,
+>        the first being the widget type, the second being the widget name
+>  
+> +  clocks:
+> +    maxItems: 3
+> +    description:
+> +      Base PLL clocks of audio susbsytem, used to configure base clock
+> +      frequencies for different audio use-cases.
+> +
+> +  clock-names:
+> +    items:
+> +      - const: mpll0
+> +      - const: mpll1
+> +      - const: mpll2
+> +
 
-On Fri, Jun 14, 2024 at 06:46:46PM +0200, Piotr Wojtaszczyk wrote:
-> On Fri, Jun 14, 2024 at 6:42=E2=80=AFPM Mark Brown <broonie@kernel.org> w=
-rote:
-> > On Fri, Jun 14, 2024 at 06:24:50PM +0200, Piotr Wojtaszczyk wrote:
+Thanks a lot for this series. This is going in the right direction
+but requiring 3 clocks or naming them (whatever the name) is not
+appropriate.
 
-> > > Ok. Later I will add a sound card driver to phytec3250 board which us=
-es
-> > > arch/arm/configs/lpc32xx_defconfig config file so that the COMPILE_TE=
-ST
-> > > won't be needed.
+The purpose is for the sound card to get the necessary base rates it
+needs for its operation.
 
-> > Why would a defconfig affect the Kconfig?
+So far it has always been 3 clocks because of the 3 usual family rates
+and enough PLLs are available. But this is not required. There could be
+none (very unlikely but possible if fixed clocks are or with slave setups),
+one (probable on a1 from what I can tell), or even more than 3, if one
+needs supports for unusual rates.
 
-> I guess when lpc32xx_defconfig enables the SND_SOC_FSL_LPC3XXX then the
-> COMPILE_TEST won't be needed or does it?
+Also the PLLs are not necessarily the mplls, HiFi PLL is used on some
+device. It could even be the GP0 or external slave clocks which is why
+putting a limit the number of clocks would be arbitrary.
 
-The whole point of COMPILE_TEST is to allow the driver to be covered
-when people aren't building for whatever specific platform would
-actually use it.
+I think the following would better describe the HW:
 
---7aeyEfJwNjSnCeXl
-Content-Type: application/pgp-signature; name="signature.asc"
+clocks: true
+assigned-clocks: true
+assigned-clock-parents: true
+assigned-clock-rates: true
 
------BEGIN PGP SIGNATURE-----
+Maybe just 'clocks: true' is enough since the presence of would allow
+'assigned-clocks'
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmZsdR4ACgkQJNaLcl1U
-h9CNrQf/QOGnPQlIqhyNGJmHt+OTyAKxvU02FdwW1IOOW6yQBj4UO9d4k7nblhEn
-F7Vtbh6YUxU664IKdVLn2n6JwvOzBu2sPuLmm0JQgsZnlOB23KNWgw7yoZdgPL9m
-tKbUe6KCBHoMU/LJe+m2nm9qhAlTXlL4Uf1xgJQ3TK9c2neuko0efOtWy97OE8Oc
-PxHGfc5fFxAjEtnOQq47Nj0/fKCzXF3HLOseOx+KibzpUMgVZJTdVilroWPHOGXa
-u9aMHOWsdypZIO6rRaAjhslOpENc0zW4+v4gaWtRD8mmsiKzvQuZTB6zo/vMTTfA
-GUx5oQKpFeCMxaFkBGj6dCVLbitmgQ==
-=r/9i
------END PGP SIGNATURE-----
+For sure, clock-names is not useful, for axg of gx compatible card at least.
+All inputs are equal to the card, so index are enough if the card needed
+to change rates are runtime (but it is very unlikely to happen, the
+whole axg or gx system are meant to operate with fixed PLLs so it would
+not be compatible)
 
---7aeyEfJwNjSnCeXl--
+>  patternProperties:
+>    "^dai-link-[0-9]+$":
+>      type: object
+
+PS: I just noticed that my reply to your previous series was private.
+    It was not meant to be. Sorry about that.
+
+-- 
+Jerome

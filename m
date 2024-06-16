@@ -2,69 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9479A909E81
-	for <lists+alsa-devel@lfdr.de>; Sun, 16 Jun 2024 18:24:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5EBE909E9E
+	for <lists+alsa-devel@lfdr.de>; Sun, 16 Jun 2024 18:39:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D8CF59F6;
-	Sun, 16 Jun 2024 18:24:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D8CF59F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 11CD7847;
+	Sun, 16 Jun 2024 18:39:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 11CD7847
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718555092;
-	bh=+3eKN6rwa93XJe6m7zUD58lUDjbYzISB9+7MIO6PQkI=;
+	s=default; t=1718555991;
+	bh=Ve8yIU93CqGV39jXDILXAr1Dw2HZhuoVS9gFsFaAPjY=;
 	h=Date:To:Cc:References:Subject:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Folb0Ch1nVnh3UOu5N/Jq2hcDriSmdjYmv+nglmkIA9DOOpLe6MHjeHiQJTHpPCiE
-	 U9SaJOe1ajLit+HBFV30cyHxDSH7y9lwd/jJoqVm3Y3wEM2VmxU87ppaqTaZZtgrCt
-	 f5JZjnNvw4QSHodaqQV75AnbCHZYLffzKXjzFqso=
+	b=BA5Eu4Yady+KmyATfOlvI9r6UnU04iUp0BqW49NnE+vrh5thqcuoi0q7w3HIRKM3y
+	 dxpkNF31UKSJqwn48W3rbKSI4lSf5kev9aql832yxtxi8E9slOF7X3xvqalgnxyWuL
+	 HEGtYtelJL7v2YKF+ePAvgQsV7XZJwAZL1dGK68E=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 44783F805B1; Sun, 16 Jun 2024 18:24:19 +0200 (CEST)
+	id B3632F805BA; Sun, 16 Jun 2024 18:39:18 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8C3B7F805A0;
-	Sun, 16 Jun 2024 18:24:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 591ECF805B2;
+	Sun, 16 Jun 2024 18:39:18 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8C901F8023A; Sun, 16 Jun 2024 18:24:14 +0200 (CEST)
+	id 8CE94F8023A; Sun, 16 Jun 2024 18:39:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.7 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_LOW,
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
 	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,RCVD_IN_SBL_CSS,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=no autolearn_force=no version=3.4.6
-Received: from mout.web.de (mout.web.de [212.227.15.3])
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mout.web.de (mout.web.de [212.227.15.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
  server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C627EF800ED
-	for <alsa-devel@alsa-project.org>; Sun, 16 Jun 2024 18:24:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C627EF800ED
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6043EF800ED
+	for <alsa-devel@alsa-project.org>; Sun, 16 Jun 2024 18:39:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6043EF800ED
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=web.de header.i=markus.elfring@web.de
- header.a=rsa-sha256 header.s=s29768273 header.b=bD9LHZb/
+ header.a=rsa-sha256 header.s=s29768273 header.b=LRYU4Ya/
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
-	s=s29768273; t=1718555045; x=1719159845; i=markus.elfring@web.de;
-	bh=+3eKN6rwa93XJe6m7zUD58lUDjbYzISB9+7MIO6PQkI=;
+	s=s29768273; t=1718555939; x=1719160739; i=markus.elfring@web.de;
+	bh=wudiCjAOYzPYvYnle3vZvnR9d5fYg6NR06qnTJaJVK0=;
 	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
 	 Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
 	 cc:content-transfer-encoding:content-type:date:from:message-id:
 	 mime-version:reply-to:subject:to;
-	b=bD9LHZb/jXzlnbFe1kyTrUHjMGINmgFPq8/NJ7FopDSJLkuBfrx2eah7cLPZgxOI
-	 rsx/XUHI1ZoKlfvpCEXdRPpyf+5ZYf2/TUx6BG3dKelWKsynURwSCAvJRnfsWRd4Q
-	 1PVHg1lofDfZT3NIi/1l8mo6q8WOZ40L/k/udXNvBUNllWzahY7jc0PZkabhp/dem
-	 GDgTkDshbDsB09Fznv40hJf8sMp02ySXHQp2yLqtfK9maruQZqeHHoT/VmBmmg3Em
-	 MDQsSVkKcHa9kfaG4UrYjQlKwE8cdEzNQZVa+j3Gwdltv6arZhkBG0yUP0/4PbtSP
-	 WTUW22ieG1YWrimHZQ==
+	b=LRYU4Ya/NlKd7Ue3BC6ogTAICvgU+RRa9ZKQIFZKyE6ST0eN7mG+GQ1UXVW/5X9f
+	 T2JQvdVjDcBE7uXeG3jpRDpP/kVpgUMz7Ol1bAUnvViSiah5tapnoJesX2WqTq/wU
+	 zKCdtkDq7k19BiLMPyCZj0G97IMITHKS2g330UAos3y2NXzRs0vvS8wrFw0hhqPkY
+	 vHfKBMxboFRt5E0mRkGifg4go1jSLaNfmd8IE9FICzmoJLgU2uuRB1dP2Fg/BBnq9
+	 BcYh2J4oHr6kfmj5HTIK4A72iBe2dJd4NUrE3p6QacJ0KulLMNvekKCcRyTDKB1E1
+	 rWnlWsAwxpy1884N9Q==
 X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
 Received: from [192.168.178.21] ([94.31.83.95]) by smtp.web.de (mrweb006
- [213.165.67.108]) with ESMTPSA (Nemesis) id 1MXXND-1rsrEY39pP-00N8Ks; Sun, 16
- Jun 2024 18:24:05 +0200
-Message-ID: <24260b3c-fb0a-40b7-a88a-e2ff4897d085@web.de>
-Date: Sun, 16 Jun 2024 18:23:49 +0200
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1M7Nmq-1sJyJD2UqS-00FC0k; Sun, 16
+ Jun 2024 18:38:59 +0200
+Message-ID: <6e1dd5d1-8c5d-44f5-99e8-f42cfbdeee04@web.de>
+Date: Sun, 16 Jun 2024 18:38:58 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Konrad Dybcio <konrad.dybcio@linaro.org>,
@@ -80,32 +80,32 @@ To: Konrad Dybcio <konrad.dybcio@linaro.org>,
  Takashi Iwai <tiwai@suse.com>
 Cc: LKML <linux-kernel@vger.kernel.org>,
  Rohit kumar <quic_rohkumar@quicinc.com>
-References: <20240611074557.604250-3-quic_mohs@quicinc.com>
-Subject: Re: [PATCH v6 2/7] ASoC: codecs: wcd937x-sdw: add SoundWire driver
+References: <20240611074557.604250-4-quic_mohs@quicinc.com>
+Subject: Re: [PATCH v6 3/7] ASoC: codecs: wcd937x: add wcd937x codec driver
 Content-Language: en-GB
 From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <20240611074557.604250-3-quic_mohs@quicinc.com>
+In-Reply-To: <20240611074557.604250-4-quic_mohs@quicinc.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:6TBVlJ9i5HBMK36G4jUvHsDGVuWICB2AUlHnyRXxxfNWJWLr4vb
- 0Rf8fC5cbcaGtmSyKbQ8btm3s+jHAl9V+NBO5UsaUV0BM3+v2/eidWtox0eHbZb46ndck3r
- LQ/d8O62ag1fLKydU6BtgcIZkDuot9lQl6aVF/qEoU1yJ6DIKNDDswigJAXsrAL2BSjzNun
- 6bd5U3CgpX43v72WCAjxQ==
-UI-OutboundReport: notjunk:1;M01:P0:0JQCIjcD+oc=;AKWulCgs6tJ2+LteSqQxGxIOR/o
- OThAHDcZlr+HJJLfkYrtjPnAwACVAUeoJrzNP79FzN2yawhvBDhDPn3xKqGNjh0pGzpLk50m2
- f8XVZTJrLvPoRTUGv++ulKbBqI/wY8eqLzQMBQGDNdTQXat3Axx+k9BNzdESCneNq9MH/Vck0
- 1BB5uvuUPvoIr3eIRDCN2GN1ZC/NKCCGmoThxDYoLJyeCcFlj6H+VYIKQgoHGzngt0RYAo2EY
- 1zrvZZ+Vy063YulZKMEZ22ir7xTAcE1clkBnHAZ1GP59a1NHenC6e99ozX+0dTee4qwcjVf1q
- uW9z6uWh4kPbrHjuCyIP9sYUAM9xAJbzETRISuM533R+jJWAQRE7aJz7OpBwdwBJHpznNywc5
- /XiJkuZhfZbWspCxR4k7or7VTFwb7mwpgZpoNsxNbwCkFZ8dT8ND5FTybo2EOW3nZpwVIfQFu
- /MAKwZqZBryk5OcoD8g3brQwTytGO9dLPM1ao1e88YpF0KFM2xe7iW+dm0IKM9cPBQj3JdqH5
- zL0uOcdLQy6C0J/stdgfqwZJ7YkJfBc3cirt0uttnttjfhoABQmdBC/iW/VaDDJWmamXvOLM1
- CEAeuuZyfCiw4iJx10wnNnhqi/KoGBWT2MNVS36K2bEaFVuV4cTsPEfkQ69BoT2WqB0+Uhtg3
- neCSyPf8PxUBrzceyLQIV5IWA62XrUcuRsQYOZzT3HzfvV+Ww9g0nsu4vRFgCX3F4j2ta1NPj
- DadMTGqC8mDy9Utpseb1W7uWS3uXwP55fcw8+XYgc1NdB1f3sybS/G1Lx208oCVzIZjPCyUuw
- XgvGFRuS3zKuHk+uUc+U/wByTW+LE0JE3uCbKMpCcfdws=
-Message-ID-Hash: OAKNVMLB633YNPIEKW3IOYWKVOYLSQQO
-X-Message-ID-Hash: OAKNVMLB633YNPIEKW3IOYWKVOYLSQQO
+X-Provags-ID: V03:K1:DxjFdTY6dURt0KEX55cU8ZQXbycMmIZXVImma0+UYHSWLc+e/Fp
+ uofnWVfLZSwRA42OKWA49bvBypqU2bLZmL5Tm4RfVjZqJxGSma6umsikvlaSwdwT8STBOOU
+ bjLAq/o/pt5Onqa0XiaTx8dR9gytaRtyQgPG73b6wYLQqpF8wC6XkfwZzgt2X9xQTxexBAl
+ pzJTx6Xwd/XWG8QcYuBgQ==
+UI-OutboundReport: notjunk:1;M01:P0:yMyHnsAA4Lw=;9MPvPvd28adjFquP7iieLl71KLY
+ hT3k0TZ40I8hMXmZBOihrEGMPtQdxP/3gRIeK2aFeBy21jjAqqdFNf4JzUm2K8F9ZZhNMUaw+
+ a1y1ld9aGoEMJTeF5+R9XwoqX4+qaebaxPxH9AdFs5x7rC2MQZryUcBwuMuuqTustPY3Z30Ni
+ Rp9KB1sVGS+fjKUEcU4gmdbKx/3EU4fMQTnUjAGqzXNAepC3L40LXzUIakmKQ4Uvz5vYcM0FV
+ FeFjkbB2urvG7h+9yHN54jFxtYVgYQJPMKQxLM+3AadJ65jeIEw2HfgIp8miRF7UBeqFnWAfw
+ w5k8SVVn7t08yvg+6G0TFeEGnCthuTl3XTOqg8rKO5vg5Jkllo1A4nJqyIhi0QOaTITdw5h/Z
+ HVL7aqyDsK1w5aG3jKzsQ4IDW0pfyl86GmTsbZox3pg6vgwwEKUSuuzxIDI7rC/hYGx018pjT
+ M7TKifdfxCX+PUR33Ms01abxgv9DMewmbQRqZEk/aXmtcWkPpSpwo0m6pXnrZSXHs6FGysld2
+ le2swTUllZ9P4Tq9b2D9eeEurFeabzr72abDmO2hNdVIYzIhA9eZUS5KUabjqgFe9XduGKmkm
+ pDmtUs7SEImSX+Gyb951McPqMj0xa/7Y0wQbr85bmiX55j3f1TXolY0tYkwZaIxdNHUpSd/at
+ gXC4QYo+mA+VRKNitlQzquM2omOtvyeBEmrG8/l3irWT/KToHycR9wrWhF0a8lrhUNxOfsJlP
+ fJDG4406/B50iLFYVDy96tORt3OFSlypS1v9I4MXWMdtGxCMjCnr4dF+Xr8Wo7OnjNIwB45nk
+ 82hlsm102bNohgtfzb/tLtxPo/ZNw1/GAIw5LSktA+tzQ=
+Message-ID-Hash: 24H6RL2NE5QDMDK7ABSZKZGZOWIN36YX
+X-Message-ID-Hash: 24H6RL2NE5QDMDK7ABSZKZGZOWIN36YX
 X-MailFrom: Markus.Elfring@web.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -118,7 +118,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OAKNVMLB633YNPIEKW3IOYWKVOYLSQQO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/24H6RL2NE5QDMDK7ABSZKZGZOWIN36YX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -127,12 +127,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-> This patch adds support to SoundWire devices on WCD9370/WCD9375 Codec.
+> This patch adds basic SoundWire codec driver to support for
+> WCD9370/WCD9375 TX and RX devices.
 =E2=80=A6
 
 Please improve such a change description with an imperative wording.
 https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Do=
 cumentation/process/submitting-patches.rst?h=3Dv6.10-rc3#n94
+
+
+=E2=80=A6
+> +++ b/sound/soc/codecs/wcd937x.c
+> @@ -0,0 +1,1677 @@
+=E2=80=A6
+> +static int wcd937x_mbhc_micb_adjust_voltage(struct snd_soc_component *c=
+omponent,
+> +					    int req_volt, int micb_num)
+> +{
+=E2=80=A6
+> +	mutex_lock(&wcd937x->micb_lock);
+> +	/*
+> +	 * If requested micbias voltage is same as current micbias
+=E2=80=A6
+> +exit:
+> +	mutex_unlock(&wcd937x->micb_lock);
+> +	return ret;
+> +}
+=E2=80=A6
+
+Would you become interested to apply a statement like =E2=80=9Cguard(mutex=
+)(&wcd937x->micb_lock);=E2=80=9D?
+https://elixir.bootlin.com/linux/v6.10-rc3/source/include/linux/mutex.h#L1=
+96
 
 Regards,
 Markus

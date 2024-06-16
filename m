@@ -2,128 +2,120 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B03FD90C936
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2024 13:25:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6614F90C938
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2024 13:26:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4898AE67;
-	Tue, 18 Jun 2024 13:25:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4898AE67
+	by alsa0.perex.cz (Postfix) with ESMTPS id C21B8A4D;
+	Tue, 18 Jun 2024 13:26:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C21B8A4D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718709958;
-	bh=FLuaLPSxdc133WnTVEOu+S2w+iO0qN6ohvmaKluToUw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=b0Bd08U1KDw+d2A/gFe96+3kZ+mmTIIagJDyZyALt/p7UpjszGKoNGeoetTKyZeC6
-	 REJ/bT0kJSQId63pdo57D3qYUeV7TCMtOjYak2KoM9qYWC/i2RMLE15RgYiCLuMR7T
-	 7yFkksXxib4aq5E3fgw/HSA7n/GxrmeauhXGU0eI=
+	s=default; t=1718709980;
+	bh=3156DIFjETCUi5nKVvfuBuAomo8aSmJgHYXpWsdSxO4=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=g/mM/xLjKFNgqGZip/YGOxE72CQMII2TxULqZjEWHXpEa5WuPDva1RVBEKeF/BIIG
+	 cjEFChbyaXEHt88JIqqvaqJgn0USulY5FuNXTH/AKIUmTIyth0orRE+zYSRuLETAjT
+	 W/wtbyiZ9Cp6VfNajjza8kWYBFNMAqKll3Wc0e4o=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7691EF805B0; Tue, 18 Jun 2024 13:25:21 +0200 (CEST)
+	id 64AC6F80600; Tue, 18 Jun 2024 13:25:26 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D0469F805D9;
-	Tue, 18 Jun 2024 13:25:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 24812F805EC;
+	Tue, 18 Jun 2024 13:25:26 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E5F50F80448; Fri, 14 Jun 2024 18:47:01 +0200 (CEST)
+	id 94C99F8023A; Sun, 16 Jun 2024 17:46:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-qk1-x72b.google.com (mail-qk1-x72b.google.com
- [IPv6:2607:f8b0:4864:20::72b])
+X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-pg1-x534.google.com (mail-pg1-x534.google.com
+ [IPv6:2607:f8b0:4864:20::534])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 35819F800E9
-	for <alsa-devel@alsa-project.org>; Fri, 14 Jun 2024 18:46:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35819F800E9
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2327CF800FA
+	for <alsa-devel@alsa-project.org>; Sun, 16 Jun 2024 17:45:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2327CF800FA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=timesys-com.20230601.gappssmtp.com
- header.i=@timesys-com.20230601.gappssmtp.com header.a=rsa-sha256
- header.s=20230601 header.b=JHBh0ddi
-Received: by mail-qk1-x72b.google.com with SMTP id
- af79cd13be357-7955f3d4516so307195285a.1
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=ksDTo6OD
+Received: by mail-pg1-x534.google.com with SMTP id
+ 41be03b00d2f7-6e40d54e4a3so2772342a12.0
         for <alsa-devel@alsa-project.org>;
- Fri, 14 Jun 2024 09:46:58 -0700 (PDT)
+ Sun, 16 Jun 2024 08:45:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=timesys-com.20230601.gappssmtp.com; s=20230601; t=1718383617;
- x=1718988417; darn=alsa-project.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Yqs2Bs766IBEpVDwqnHittM7JULZRUAPIPpoZOOswLI=;
-        b=JHBh0ddi+CPGC/PsRLdQ3QM7lTc902r59HdxZTGz3XvM+pp87wgh2O/FL98rKKfyrh
-         yyJDPY9TPxXA+xZ1v1smar9RmODMl6SoNa44LR3i0e7TrXI8Yes8XU8JcifB5Sp2KGyd
-         8idUL/qZ9W9e8jTOrcMCvbH3b13Vmv93G/vJGwMRZ51q5CgI0u23wZyAIAmg5/P++21W
-         FuQDkdg994y3QFYeH4YsRLWcLpK49A8y7k2O1wu1ITAkUqxXEIh4UyVH4h7CCi4hzGbY
-         HmRldcI7hJbApR4xSwOXAt+pEjQzOObtIW5WZnDP7hV1645zccyZOg7xIQuNqjeLb12F
-         c5/A==
+        d=gmail.com; s=20230601; t=1718552756; x=1719157556;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=e7fp8UlyhTZugwgUTVEakWeUaqJf9C1Xu5hu6Y3OppA=;
+        b=ksDTo6ODq1kakKMNnESm+VwM8fWE0gW6eFPJLHEIfJ5e1m4ByNOWmOskvW5e5iwuUL
+         gl7Egrrzwc8tYAr3Yre0tPq1wMW4ledmEpKvEGOsq8CKhDAB8Jt9uGDSc0Wtzl3TCjx+
+         mf7HZ13j2mG8+92yC98G5YWytYZ7ZQf0J93LBFMaBcWjPkb2n72R7w4ILSR5USjt1KnL
+         07x9g+vIUsKyrVg/kPdHAqk7HVadTlhxnG9EInJKwQQYh49NAvytZRGgYiuIVwZ3RGYA
+         Ay0a2L/b42q+qfPkK3yfJfoDIohHhMPGveaSa8w9tR7k2jZ/rvMhX29PBGsNStZ5epvl
+         +d7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718383617; x=1718988417;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Yqs2Bs766IBEpVDwqnHittM7JULZRUAPIPpoZOOswLI=;
-        b=eZIz3E2j9PZ61+VqiAuj8yc8EFGK1ZXFpni1k9SI8EefXE3ZOfsEOey6Zfg42VT4/3
-         N73OLjU+oDPUoNhyBWzL1JTQaPLRb+MHqu/TmA2bZkd1fBaU/s1Zsv94PQVSYJIu3UVW
-         tBzSL7IqpX0OZnj3t23wCarHp1vhkezDrGeFl/SkSCe8VWk6/sPJRRW7lj904b8B/Y9g
-         u7fbcGRXYbli9Hb8lb59+2H+nmrDaKQXA7cWpzHnRSWNWKnm7PYf8eSIK+7XyzTueAle
-         VkDmwW4grQvXUZrMzt9+YhF3clKxz+80lTtl4cE8BmX4BNRf2XK0VbA2G3Mu9O1MV2fu
-         ccTw==
+        d=1e100.net; s=20230601; t=1718552756; x=1719157556;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=e7fp8UlyhTZugwgUTVEakWeUaqJf9C1Xu5hu6Y3OppA=;
+        b=l2mmvUyABggksN2B2ZdIuaDF37aFeShEwDA9tMFfSgd/hRguNfoS9tDYq7wQjJ5Kc9
+         wI+yGBVZzgW5iHBQPX43iJfVoAZbnuPX1keZaE8uPLl4mRwXgZBTsC8JGx7H1pfqXaZC
+         YkKR2QjgiOP3ELqRQayXO1BBWzyL+zyx8YpvBc8920ZdP+D8gINnLsVKKIg95T30ByhJ
+         s4rxCT4Cq4xA1GmRb5kl+jjhU6xRlD3V+Usatn7mIs3xNkCkUB0DeHxOM414DGC5jF+1
+         a3d02Zt2auefk9yJehKjUhnHIsCbLoabmgCSiKISfit+1nJbliP1l2fMsG33j0mlxcXd
+         quSg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXozoelw+73vuC0UGiUaG6CGWTH3Wb99NgKlNVb2XwOLEew8CIndzZMWPmLVR9SrXSg63Aqf5iL1P+ym1mFnkr1HHIdGfjH5duCg/I=
-X-Gm-Message-State: AOJu0YzEw1eu7PZpNOohlWX+JsgK20AKmF1rd7Fmlo2a3TrNCCBPecSZ
-	qhd+WHdg3AjVPxg5M19jLmMox2sh11EwDKwjpRUFn+kg+VBTaQZzHoNt8zttHp1QX7Zw4u0DGtA
-	p87b9/ALX4Ra/CW2fstp6vSYQNQNivXcekvDe/A==
+ AJvYcCXIchztWPyd3jT6uKJt5Q8SkoykiR8svdzhcWK372+4KQhm6g/qrKyhjQH0mdBsschdjI1/zx2HiShIIoLSlcN9B1ba3x0KZF7Sil8=
+X-Gm-Message-State: AOJu0YzegKPH/l9mZS7fs/XOOGt6QTjj3FOFzw73ZLOtlt14vQ5KKOOV
+	kbdFw/H7sjPcoBaMhuC2DLQ97DJwWNZkSxU0zuC3C9LvB+ElKX7G
 X-Google-Smtp-Source: 
- AGHT+IG0IJ7dklCKXgFvzQnpQNQ7ndgkvwrYf/nZPEe1c+OWwBjZSeclPr61zSJ2azVgXqhXLF4vvSLpkv+cY1EpiAk=
-X-Received: by 2002:a0c:c486:0:b0:6af:33ed:87de with SMTP id
- 6a1803df08f44-6b2af2eef89mr48619646d6.20.1718383617492; Fri, 14 Jun 2024
- 09:46:57 -0700 (PDT)
+ AGHT+IEeNwqXRCUbagaIZHN5sqtN03OgsiynC+a+Fqu36/lStwWRvh4U2rCQN9zhCCob0OV/1fcstw==
+X-Received: by 2002:a05:6a20:7f95:b0:1b7:8d72:d00c with SMTP id
+ adf61e73a8af0-1bae7ea1002mr7842615637.31.1718552755613;
+        Sun, 16 Jun 2024 08:45:55 -0700 (PDT)
+Received: from localhost.localdomain
+ ([2409:40c1:10da:1462:7d9e:737e:f8b0:47ad])
+        by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-705ccb90a33sm6063560b3a.187.2024.06.16.08.45.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 16 Jun 2024 08:45:55 -0700 (PDT)
+From: Amit Vadhavana <av2082000@gmail.com>
+To: srinivas.kandagatla@linaro.org,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	rbmarliere@gmail.com,
+	skhan@linuxfoundation.org
+Cc: linux-kernel-mentees@lists.linuxfoundation.org,
+	av2082000@gmail.com
+Subject: [PATCH] slimbus: Fix struct and documentation alignment in stream.c
+Date: Sun, 16 Jun 2024 21:15:31 +0530
+Message-Id: <20240616154531.38232-1-av2082000@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20240611094810.27475-1-piotr.wojtaszczyk@timesys.com>
- <Zmgor8accyAiUkUO@finisterre.sirena.org.uk>
- <CAG+cZ06B+AexqvwZtNP5FX50AmghAFLa=1ebxmKLvMoyVJ529w@mail.gmail.com>
- <Zmxy-xA3YDU06Eht@finisterre.sirena.org.uk>
-In-Reply-To: <Zmxy-xA3YDU06Eht@finisterre.sirena.org.uk>
-From: Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>
-Date: Fri, 14 Jun 2024 18:46:46 +0200
-Message-ID: 
- <CAG+cZ05KomezPn0bAuZWrfO=rbyLdCU8_Xx11oEihUaD97gF8w@mail.gmail.com>
-Subject: Re: [Patch v2 1/2] ASoC: fsl: Add i2s and pcm drivers for LPC32xx
- CPUs
-To: Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Vladimir Zapolskiy <vz@mleia.com>, Russell King <linux@armlinux.org.uk>,
- Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>, Chancel Liu <chancel.liu@nxp.com>,
- Arnd Bergmann <arnd@arndb.de>,
-	Michael Ellerman <mpe@ellerman.id.au>, linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, alsa-devel@alsa-project.org,
-	linuxppc-dev@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-MailFrom: piotr.wojtaszczyk@timesys.com
+Content-Transfer-Encoding: 8bit
+X-MailFrom: av2082000@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: Q6ODB4STNR4DU3LM6ZAQM4ZNFXCYOEPK
-X-Message-ID-Hash: Q6ODB4STNR4DU3LM6ZAQM4ZNFXCYOEPK
-X-Mailman-Approved-At: Tue, 18 Jun 2024 11:25:16 +0000
+Message-ID-Hash: TLF3QEU5KWLJOUQPDSZFIRZXUWNX6BKJ
+X-Message-ID-Hash: TLF3QEU5KWLJOUQPDSZFIRZXUWNX6BKJ
+X-Mailman-Approved-At: Tue, 18 Jun 2024 11:25:23 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Q6ODB4STNR4DU3LM6ZAQM4ZNFXCYOEPK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TLF3QEU5KWLJOUQPDSZFIRZXUWNX6BKJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -132,28 +124,48 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, Jun 14, 2024 at 6:42=E2=80=AFPM Mark Brown <broonie@kernel.org> wro=
-te:
->
-> On Fri, Jun 14, 2024 at 06:24:50PM +0200, Piotr Wojtaszczyk wrote:
-> > On Tue, Jun 11, 2024 at 12:36=E2=80=AFPM Mark Brown <broonie@kernel.org=
-> wrote:
->
-> > > On a quick scan I can't see any architecture dependency for build,
-> > > please add an || COMPILE_TEST for improved coverage.  As for all the
-> > > other things enabled in this Kconfig file there is no need to explici=
-tly
-> > > depend on SND_SOC.
->
-> > Ok. Later I will add a sound card driver to phytec3250 board which uses
-> > arch/arm/configs/lpc32xx_defconfig config file so that the COMPILE_TEST
-> > won't be needed.
->
-> Why would a defconfig affect the Kconfig?
-I guess when lpc32xx_defconfig enables the SND_SOC_FSL_LPC3XXX then the
-COMPILE_TEST won't be needed or does it?
+The placement of the `segdist_codes` array documentation was corrected
+to conform with kernel documentation guidelines. The `@segdist_codes`
+was placed incorrectly within the struct `segdist_code` documentation
+block, which led to a potential misinterpretation of the code structure.
 
+The `segdist_codes` array documentation was moved outside the struct
+block, and a separate comment block was provided for it. This change
+ensures that clarity and proper alignment with kernel documentation
+standards are maintained.
 
---=20
-Piotr Wojtaszczyk
-Timesys
+A kernel-doc warning was addressed:
+    ./drivers/slimbus/stream.c:49: warning: Excess struct member 'segdist_codes' description in 'segdist_code'
+
+Signed-off-by: Amit Vadhavana <av2082000@gmail.com>
+---
+ drivers/slimbus/stream.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/slimbus/stream.c b/drivers/slimbus/stream.c
+index 1d6b38657917..62661211a409 100644
+--- a/drivers/slimbus/stream.c
++++ b/drivers/slimbus/stream.c
+@@ -18,7 +18,6 @@
+  *		and the first slot of the next  consecutive Segment.
+  * @segdist_code: Segment Distribution Code SD[11:0]
+  * @seg_offset_mask: Segment offset mask in SD[11:0]
+- * @segdist_codes: List of all possible Segmet Distribution codes.
+  */
+ static const struct segdist_code {
+ 	int ratem;
+@@ -26,7 +25,10 @@ static const struct segdist_code {
+ 	int segdist_code;
+ 	u32 seg_offset_mask;
+ 
+-} segdist_codes[] = {
++};
++
++/* segdist_codes - List of all possible Segment Distribution codes. */
++static const struct segdist_code segdist_codes[] = {
+ 	{1,	1536,	0x200,	 0xdff},
+ 	{2,	768,	0x100,	 0xcff},
+ 	{4,	384,	0x080,	 0xc7f},
+-- 
+2.25.1
+

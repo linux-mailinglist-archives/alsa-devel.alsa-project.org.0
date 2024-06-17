@@ -2,93 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0DD590B396
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jun 2024 17:12:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4E5390B4ED
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jun 2024 17:45:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D0735DEE;
-	Mon, 17 Jun 2024 17:12:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D0735DEE
+	by alsa0.perex.cz (Postfix) with ESMTPS id F36F5847;
+	Mon, 17 Jun 2024 17:45:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F36F5847
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718637154;
-	bh=c2l65HkG5wWoE4gvFa3Xd9MQQwsOzngmzKfqDFLx+BU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=AO0zC5zHtNXpO1pLznGEZl87w4k20kmYOLLeB+t7lasz/zmI6yvk+ratz7yqr5SGi
-	 zrI2kxrX2Bi3kbmIVVpMREWF1IT6L2mwAgGzRwkp70IWfAJBmVIGInduZgxfgboiBI
-	 aqRn0Y/xNQ0yRZ+8fOF913W7Gn+h0yrfmChrm6mU=
+	s=default; t=1718639121;
+	bh=5EBDDBE1vnWBgN770hldZP0JQKfpjmzXK7XyfzJtl+c=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=CcZtwaahZyd1GdWqFWY/02klYR+jQabZ/WixF4EZF350gUp/E6xoWzMR+l6kdxKJm
+	 q2xAUrRCvTQc9wzSMtoNFtQaIKmIphADlWeRREIbnwESqH9aXm00/65YC9LMGKkWsv
+	 uJd6qYJzc4MHv3B11JKGdh386IQdalnUc706m43s=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4B139F805B4; Mon, 17 Jun 2024 17:12:02 +0200 (CEST)
+	id 791E6F80656; Mon, 17 Jun 2024 17:43:52 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 88F01F805B0;
-	Mon, 17 Jun 2024 17:12:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AE2CCF80649;
+	Mon, 17 Jun 2024 17:43:51 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D9EC0F8023A; Mon, 17 Jun 2024 17:11:56 +0200 (CEST)
+	id 78E43F8023A; Mon, 17 Jun 2024 17:43:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 276A0F8016E
-	for <alsa-devel@alsa-project.org>; Mon, 17 Jun 2024 17:11:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 276A0F8016E
+	by alsa1.perex.cz (Postfix) with ESMTPS id A548AF80154
+	for <alsa-devel@alsa-project.org>; Mon, 17 Jun 2024 17:43:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A548AF80154
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=ApXnwqAB
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 46D2E61316;
-	Mon, 17 Jun 2024 15:11:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82B13C2BD10;
-	Mon, 17 Jun 2024 15:11:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1718637109;
-	bh=c2l65HkG5wWoE4gvFa3Xd9MQQwsOzngmzKfqDFLx+BU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ApXnwqABH87245LT9xnbQPQulb1S2YrlrNw7q/uLmCi2Dzp7mAGeCUmerFoG3pEGB
-	 3foWtSFA1S1QOLSndaMhXqEgiKtxK1q5cCa9xuurOvQ5pzvA2TAv4YU2bBECg182Zm
-	 gr9pP7KEe5LKKE8QUboNs0oI94DDUuDt0FSBYiqVHw6N6zWw4FKvANg6pKTxtCmzwS
-	 Ths7xKFjeSv6ZK8zUBs/Lz1bRfLad9yM+OXtjDsDDe2+sksYfImWbHjBxXFkO2Nj61
-	 6zF/7j/XYkPAxnoDOU/10YoSqEEbDG3VriZq6hM30T9tdTaBhQrNuYq+gZv8y/oVSk
-	 XkCohegN1aLww==
-Date: Mon, 17 Jun 2024 16:11:42 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-	Banajit Goswami <bgoswami@quicinc.com>,
-	Cezary Rojewski <cezary.rojewski@intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
-	alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH 0/6] ASoC: Few constifications (mostly arguments)
-Message-ID: <c170d555-068a-4927-b997-df74cc88386f@sirena.org.uk>
-References: 
- <20240617-n-asoc-const-auto-selectable-formats-v1-0-8004f346ee38@linaro.org>
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=fyewrraM
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
+ 45HFYCxq023861;
+	Mon, 17 Jun 2024 10:43:12 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=PODMain02222019; bh=X91mzxfXMCn2bJmd
+	FzbP55B/9zkijFCsomFlIi3vsw4=; b=fyewrraMYY0/Dq9nZjlT2y7t1Y1pe0Xr
+	oCowargM2HLrfEGT3BZ3NA0YQ6vQRsCLJdSIRXdRyq9bA/s9mnVhKsgm+Y9vtmB9
+	bFl0FZSYLh+n3Dpew5u5wiVE+eYv1fJC4cxql6PmjjHexml6MlWALH66gWcXWia8
+	sqalZkMJIXG+hN90KicIfhktQ3Me15rxLwz08ZJdKiC0OfM8HLl22+mQ/GCe4T5H
+	zbgllvYRaXOVqtE06iN+NddkYajV+0inAojsP/HtKD/WnccXQtB3vzk66FaSmbis
+	F/a5ErFe19MW5kOS9/RTa3+kKzwBUKrjpVXKuPMocEDtq5z+JpqT5Q==
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3ys7cjt0f9-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 17 Jun 2024 10:43:12 -0500 (CDT)
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 17 Jun
+ 2024 16:42:55 +0100
+Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1544.9 via Frontend Transport; Mon, 17 Jun 2024 16:42:55 +0100
+Received: from EDIN6ZZ2FY3.ad.cirrus.com (EDIN6ZZ2FY3.ad.cirrus.com
+ [198.61.65.31])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id CCF43820248;
+	Mon, 17 Jun 2024 15:42:54 +0000 (UTC)
+From: Simon Trimmer <simont@opensource.cirrus.com>
+To: <tiwai@suse.com>
+CC: <linux-sound@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+        <linux-kernel@vger.kernel.org>, <patches@opensource.cirrus.com>,
+        <soyer@irl.hu>, <shenghao-ding@ti.com>, <kevin-lu@ti.com>,
+        <baojun.xu@ti.com>, Simon Trimmer <simont@opensource.cirrus.com>
+Subject: [PATCH v3 0/4] ALSA: hda: Improvements to hda_component
+Date: Mon, 17 Jun 2024 16:41:01 +0100
+Message-ID: <20240617154105.108635-1-simont@opensource.cirrus.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="1J3/j5gC6/pQaKDG"
-Content-Disposition: inline
-In-Reply-To: 
- <20240617-n-asoc-const-auto-selectable-formats-v1-0-8004f346ee38@linaro.org>
-X-Cookie: Life is the urge to ecstasy.
-Message-ID-Hash: T6DGF6SLIGEOPPP45L35CV73C7ILYNWT
-X-Message-ID-Hash: T6DGF6SLIGEOPPP45L35CV73C7ILYNWT
-X-MailFrom: broonie@kernel.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-GUID: gySmoCg_5vijXd0aN3iIlPqZ_KDUeChw
+X-Proofpoint-ORIG-GUID: gySmoCg_5vijXd0aN3iIlPqZ_KDUeChw
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: JFCCJNKFYOVEYDVP5JGNLONBWREFIOET
+X-Message-ID-Hash: JFCCJNKFYOVEYDVP5JGNLONBWREFIOET
+X-MailFrom: prvs=389839efd0=simont@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -100,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/T6DGF6SLIGEOPPP45L35CV73C7ILYNWT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JFCCJNKFYOVEYDVP5JGNLONBWREFIOET/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,45 +110,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+This series of patches moves duplicated members from the
+instanced component structures into a new parent structure and
+introduces locking so that consumers of the interface do not use
+stale data.
 
---1J3/j5gC6/pQaKDG
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Changes in v3:
+ - These Fixes separated from this series to make them easier
+   to manage:
+   https://lore.kernel.org/all/20240613133713.75550-1-simont@opensource.cirrus.com/
 
-On Mon, Jun 17, 2024 at 03:03:18PM +0200, Krzysztof Kozlowski wrote:
-> Make few pointers in ASoC functions as pointers to const, so the code is
-> clearer to read, a bit safer and allows further constifications (e.g.
-> placing some data as rodata).
->=20
-> Best regards,
-> Krzysztof
->=20
-> ---
-> Krzysztof Kozlowski (6):
->       ASoC: Constify of_phandle_args in snd_soc_dai_driver
->       ASoC: Constify of_phandle_args in snd_soc_dai_link_component
->       ASoC: Constify passed data to core function
->       ASoC: Constify DAI passed to get_channel_map
->       ASoC: Constify return of snd_soc_dai_get_pcm_stream()
->       ALSA: Cleanup trailing white-spaces
+Simon Trimmer (4):
+  ALSA: hda: hda_component: Introduce component parent structure
+  ALSA: hda: hda_component: Change codecs to use component parent structure
+  ALSA: hda: hda_component: Move codec field into the parent
+  ALSA: hda: hda_component: Protect shared data with a mutex
 
-Why is this random ALSA patch which seems off topic for the rest of the
-series mixed in here?
+ sound/pci/hda/cs35l41_hda.c     | 43 +++++++++++--------
+ sound/pci/hda/cs35l56_hda.c     | 25 ++++++-----
+ sound/pci/hda/hda_component.c   | 75 ++++++++++++++++++++-------------
+ sound/pci/hda/hda_component.h   | 48 ++++++++++++++-------
+ sound/pci/hda/patch_realtek.c   | 17 ++++----
+ sound/pci/hda/tas2781_hda_i2c.c | 33 ++++++++-------
+ 6 files changed, 141 insertions(+), 100 deletions(-)
 
---1J3/j5gC6/pQaKDG
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmZwUi0ACgkQJNaLcl1U
-h9BMQAf/bJSvIQSVTUNlyDYtm4cJXPIGSd0VJpZ6L3QlT+3fER4Uvg30WJxer5l4
-ezqeVpZ1pszgFgRbXW2fnP3gZTj1rHGdJNn4A7A8fPZQ6wSmpIwmXA3I+Bq1SNha
-00ei+bcuvA22oRcvewGoITM9Z3fKQj84xGuyD5yTW0xQM6T06b/d+C+HuRMwxBNI
-Vg5TL6LTAW+Xr4mQOQYAzWXVwrZ9sDL/4P4M+BVUJZp3N8SjMclxtF9uL5NZaaKp
-LoViWMYrRW6WV13dnalrsdHNZ7dcH39OG0wITHq/Ci3vJgHXtskc+xHYexXecqPW
-XKWaaMZjFh5IPXIZWLkmGN7UY75I9Q==
-=NmAB
------END PGP SIGNATURE-----
-
---1J3/j5gC6/pQaKDG--
+-- 
+2.34.1

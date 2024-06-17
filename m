@@ -2,160 +2,113 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E58C90ADE9
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jun 2024 14:27:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D79A90AE01
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jun 2024 14:33:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C01D3843;
-	Mon, 17 Jun 2024 14:26:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C01D3843
+	by alsa0.perex.cz (Postfix) with ESMTPS id 02CA9DEE;
+	Mon, 17 Jun 2024 14:32:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 02CA9DEE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718627221;
-	bh=0yH54hdRmJm1LYRknv1AkPHR6e6a/3XtHrSym3izFec=;
+	s=default; t=1718627588;
+	bh=SZu+21b3EOadKSJGfSaiut50TflCHmgMEiyIEWkOcys=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Uw/cBVO7bnQ7sDqB66hxKZxR3zYNWfxTCxtGLDu1ynZvGby0P+xjLtbjt3uGuekK3
-	 HMGX9T3K9IYeMhoSy03cz/YIiOG0mCIBzPQ8CF21UpPkHaFJmJXSZbQiWk8eKgC4ct
-	 re2jBxuSGAIG3SAA0k/G+m6V3cAPxzt9aq7AG+JU=
+	b=Z3bwZnTKkHxkC6NNyrPWvv+avi5Hw/JGXGcU6Z9ALIcMSS5+yxJF0eBDB6/TBOKDs
+	 34CUGc+lL2kF/96upr6rfLCHgzm2Jm8a2CWVu7Q5EU4QpRJkIt2eLwT+Uqr/6TGpoy
+	 C1Gi0dvu7kRcTaxVzoLIaWiooyhq4zmPkx3wkorg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 40AF6F805AE; Mon, 17 Jun 2024 14:26:32 +0200 (CEST)
+	id A7F19F8058C; Mon, 17 Jun 2024 14:32:36 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5FEA8F8016E;
-	Mon, 17 Jun 2024 14:26:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EDE94F80154;
+	Mon, 17 Jun 2024 14:32:35 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 674D5F8023A; Mon, 17 Jun 2024 14:26:18 +0200 (CEST)
+	id 1DB13F8023A; Mon, 17 Jun 2024 14:32:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [IPv6:2a00:1450:4864:20::62c])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_MSPIKE_H3,
+	RCVD_IN_MSPIKE_WL,RCVD_IN_SBL_CSS,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=no autolearn_force=no
+	version=3.4.6
+Received: from mout.web.de (mout.web.de [212.227.17.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A908AF8016E
-	for <alsa-devel@alsa-project.org>; Mon, 17 Jun 2024 14:26:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A908AF8016E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 02DD3F80154
+	for <alsa-devel@alsa-project.org>; Mon, 17 Jun 2024 14:32:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02DD3F80154
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=y6Z+EjJs
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-a6269885572so916831166b.1
-        for <alsa-devel@alsa-project.org>;
- Mon, 17 Jun 2024 05:26:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1718627168; x=1719231968;
- darn=alsa-project.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=D1W3TjI82LPT0GMJMb8ibh1Cs/OuD6DN8HxB363KGxc=;
-        b=y6Z+EjJsFPW5yDyb9WBPEtfN6fez4zNbxK4JjSxCfV33A1LzV2OCmOfyDyPu4jxGWm
-         XNNAo9HwZcPfXX/3Yfw83DvV+c8jwj8iDYAJFFAtUs6b4EXY2dMq9CqWkWEEJ0JihRWY
-         hvylDBlMB1vfEh2jczah42MbCPdej6N5/PZSxV8fR/nZ/J5sZMa/XcBzq619mYwJCmmS
-         rCn+JAOrxesgiPWObde9VIamTzFf2rpbbkbesi15H+zI5zlJs5ZWv791tIUkm4iHG+jF
-         cwhjNmRFXBAqQIxZJMwL32THQg9pUJSJIsdXnYiacAFhocSr7KR4M4DtV6E+OQBJIcN1
-         RbgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718627168; x=1719231968;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=D1W3TjI82LPT0GMJMb8ibh1Cs/OuD6DN8HxB363KGxc=;
-        b=ErJBnWH9HG4aXCFX5tj5oWLHBvMBCWeWt2sWfgFnmAOLgty6u6cOyFSR0/ir6VO3y9
-         OD/7xeNXx1NzUr5NAbLPTyY7Ojgz0U1WxqBY2HcvHHv6d+v4x9P6sEvA1RUF4fcDxZHg
-         iaaQRUqrQpySPEv3yJPfrGLtKsDj3JU1OeeSADFy8XhsIssxytjq5hgkHcKPV5340iBU
-         8KlB8qzm0WMg9iVNQzE3mQMp48W8/95nX5fAhLNaccz/fVloyEenTDMiFiPOHuI1bMcK
-         KS1OGS84XCzLRSHYsgKwRxRZnqccdwALS8vv5FzsIQFiathSo3aCp9lGuYdJ3EmkKCnO
-         HAQQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVAR2nTZ8KUKOiflwPimChNo1niiZhm6WXl4kQSD1g+pqtMgxW0MnopQD2R0GcI6ZGhgRLecCPtXNLd1/uDwq/BM1sDtZYxj7KhqUw=
-X-Gm-Message-State: AOJu0YxUXOTmkfhVYmlvUEQqFaGG2wLF2emOzzwd21TwptJlOuJG/SZV
-	7WcbOnocqibWjPd1PcYwiPkQfmb4mo8+Sbn92BwlfUrpef5EsUSQh5tEntdLcNg=
-X-Google-Smtp-Source: 
- AGHT+IGfNYZp4goCNHzgFZHaZHzhHrawdVbekNhioTdJBl+uUoNamZcee565J1kZhGwnpwUKwgH3Ng==
-X-Received: by 2002:a17:906:414e:b0:a6f:92d2:24b2 with SMTP id
- a640c23a62f3a-a6f92d22574mr643266b.25.1718627168158;
-        Mon, 17 Jun 2024 05:26:08 -0700 (PDT)
-Received: from [192.168.0.18] ([78.10.207.147])
-        by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a6f56da336fsm505971466b.41.2024.06.17.05.26.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 17 Jun 2024 05:26:07 -0700 (PDT)
-Message-ID: <a2d25f72-84bb-4ef6-8254-1df8da0bf808@linaro.org>
-Date: Mon, 17 Jun 2024 14:26:06 +0200
+ unprotected) header.d=web.de header.i=markus.elfring@web.de
+ header.a=rsa-sha256 header.s=s29768273 header.b=C897/DBW
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+	s=s29768273; t=1718627543; x=1719232343; i=markus.elfring@web.de;
+	bh=SZu+21b3EOadKSJGfSaiut50TflCHmgMEiyIEWkOcys=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=C897/DBWZf1CbuvUCm5dAxJ9NPEVeHtsXU29NX/+eMumtMjGnJJ7Wp6HuVzQAq40
+	 Wiu81HXcYrjpcDpccoFpEGHJfR4KiuA4KVwsewC63ogy8KloBcVm6AlTUamov/EFr
+	 HvSdrAygEjibnlT0lfrw0jZrB2CmENTj60JUcgyMXygW7FtdDNf7x+4flTJ4RbXFs
+	 6xscsA4pT03Z67Nr4J6uwyH0IJg3UOlriA6LUJZUHgVhH9rxP64u13EmOBLcjyWKe
+	 SVGCe2MP9s6CkNwmfI+4EJGP2SX2vLQShjoWgW+8LKgjLExaJXvAeTX3pt3oJo8Ct
+	 oKPBPKH6i7yScmVjXA==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from [192.168.178.21] ([94.31.83.95]) by smtp.web.de (mrweb106
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1MZB07-1roiM21AYL-00OQmw; Mon, 17
+ Jun 2024 14:32:23 +0200
+Message-ID: <919c9f61-f884-4aae-9dca-9e0d863c34a8@web.de>
+Date: Mon, 17 Jun 2024 14:32:21 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] ASoC: Constify DAI ops auto_selectable_formats
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Support Opensource <support.opensource@diasemi.com>,
- Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
- Baojun Xu <baojun.xu@ti.com>, linux-sound@vger.kernel.org,
- linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
-References: <20240617092152.244981-1-krzysztof.kozlowski@linaro.org>
- <20240617092152.244981-2-krzysztof.kozlowski@linaro.org>
- <20240617132436.640e5310@bootlin.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Content-Language: en-US
-Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
- 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
- D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <20240617132436.640e5310@bootlin.com>
+Subject: Re: [v6 3/7] ASoC: codecs: wcd937x: add wcd937x codec driver
+To: Mark Brown <broonie@kernel.org>, alsa-devel@alsa-project.org,
+ linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org
+Cc: Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Mohammad Rafi Shaik <quic_mohs@quicinc.com>,
+ Prasad Kumpatla <quic_pkumpatl@quicinc.com>,
+ Banajit Goswami <bgoswami@quicinc.com>, Conor Dooley <conor+dt@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Takashi Iwai <tiwai@suse.com>, LKML <linux-kernel@vger.kernel.org>,
+ Rohit kumar <quic_rohkumar@quicinc.com>
+References: <20240611074557.604250-4-quic_mohs@quicinc.com>
+ <6e1dd5d1-8c5d-44f5-99e8-f42cfbdeee04@web.de>
+ <a6d17f27-51f4-47a5-8798-37bcdf3b103d@sirena.org.uk>
+Content-Language: en-GB
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <a6d17f27-51f4-47a5-8798-37bcdf3b103d@sirena.org.uk>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: J7JPDKDESYJ653U72G3AR4G6LNXGOOV3
-X-Message-ID-Hash: J7JPDKDESYJ653U72G3AR4G6LNXGOOV3
-X-MailFrom: krzysztof.kozlowski@linaro.org
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:oDEJkjUPAIlsV7AVUDwOgL/buRmui/li+1rQnY3ZUutBcaSilQa
+ 2PfoBEenwXHssLsnbrpNbLdar/Mh6Eyngc73oReWAS965iNWMFL8SBi3iVl0l87RkJz+kS6
+ ctOUUlfrXcboE7cb8AVxQj4+PTqAN+UwCfe/7LIgsXEgWjBWtAnqpC2ostWXFjToXgEjSJM
+ 5v4DO/wWq0aITpIRWIBcw==
+UI-OutboundReport: notjunk:1;M01:P0:4GwFPzN+sU0=;S6bpsAzm4afugR5kRmJsyhi4MIJ
+ n1RZ4mG0AsibYjNbATV4nsOoT25bKJS5170HqLLv0LLZBk10lDjvgU8LJJAFZdCeFtDUxyY7t
+ wtM/XUhgAz4G8YX5A4doawtftrHLxkuB0gbw9mCP90sK/2IamTq/E48T0E/jkP4YZtv1qLrrA
+ yEdDTCIkPEe0AEjm2l0grxbF8SqMKIquUD+8UevdHBk8HW/0cztWcYD0WK98UzddwivzXdrP3
+ XCiUoxIHZU7FsLFIDG1a9aE1IdN+25v/pNO7HRPMU4hhq/F9OW5GIzKdGFknqYshV0wgoHROL
+ 77G6uHZTMyexC5BoE1cL50Wd4ni7Ty/Ok6rWUbvgoA8LiKSQslhu7Za7evqNlpcfT35jgqORX
+ olGEsb9DdFat/UNzy79AWCjtMWI9cxh6/8YMrnoFW5BpKPmhn57MVTOEIOi8d/fJp3jvVv27r
+ TnBM8cS/XMrAKX9D3EGIPZNoa8s6vL3zBTrs4IppxxsesONmlO55aZiNGYzyuHK+Q1UJMValC
+ 3jRpGJoNxmhf8ia54hZhs2/MkO+rK3Ebq4ZbRbmySIP8WDvTGVCQz5/uPRnZmimrbMydkT7rW
+ AoUe2wRX5VF77w6Z6rYVpZ8KeARR6vUJBLA64HdakIaLOrZQOnwFRDPkO8IWSl3sVHGpTco5m
+ y+JeUuyv1toUR/CWEH+XAakZ6mBkB2DIVbIgu+AxHtaT3kSJXo9xEtzAjxoOaQSxjMppzkXVn
+ 46KSqGnSxiRBZflddVv9HIXTPgPtu6DEU2BNsAVfiQ9h1umsmJ3ApumRj3jX0Zv/ew4+ncYzB
+ C0auqCReTkzFbFksOdhFdZBg0qyVOJlhXRwdFvWfuGFEU=
+Message-ID-Hash: KTDHCQHKEY5CKNJG5XHGAJY3QLGAJ6YT
+X-Message-ID-Hash: KTDHCQHKEY5CKNJG5XHGAJY3QLGAJ6YT
+X-MailFrom: Markus.Elfring@web.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -167,7 +120,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/J7JPDKDESYJ653U72G3AR4G6LNXGOOV3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KTDHCQHKEY5CKNJG5XHGAJY3QLGAJ6YT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -176,34 +129,21 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 17/06/2024 13:24, Herve Codina wrote:
-> Hi Krzysztof,
-> 
-> On Mon, 17 Jun 2024 11:21:52 +0200
-> Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org> wrote:
-> 
->> The static arrays passed as 'auto_selectable_formats' are not modified
->> by the drivers nor by the core code, so make it const for code safety.
+>>> This patch adds basic SoundWire codec driver to support for
+>>> WCD9370/WCD9375 TX and RX devices.
+>> =E2=80=A6
 >>
->> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
->> ---
->>  sound/soc/codecs/ak4613.c          | 2 +-
->>  sound/soc/codecs/da7213.c          | 2 +-
->>  sound/soc/codecs/hdmi-codec.c      | 2 +-
->>  sound/soc/codecs/idt821034.c       | 2 +-
->>  sound/soc/codecs/pcm3168a.c        | 2 +-
->>  sound/soc/codecs/peb2466.c         | 2 +-
->>  sound/soc/generic/test-component.c | 2 +-
->>  sound/soc/sh/fsi.c                 | 2 +-
->>  sound/soc/sh/rcar/core.c           | 2 +-
->>  sound/soc/soc-utils.c              | 2 +-
->>  10 files changed, 10 insertions(+), 10 deletions(-)
->>
-> 
-> I think you miss sound/soc/codecs/framer-codec.c
+>> Please improve such a change description with an imperative wording.
+>> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
+/Documentation/process/submitting-patches.rst?h=3Dv6.10-rc3#n94
+>
+> Feel free to ignore Markus, he has a long history of sending
+> unhelpful review comments and continues to ignore repeated requests
+> to stop.
 
-Yes, indeed, thanks!
+Does such feedback indicate that you find advice from the referenced infor=
+mation source
+also questionable anyhow?
 
-Best regards,
-Krzysztof
-
+Regards,
+Markus

@@ -2,113 +2,114 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D79A90AE01
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jun 2024 14:33:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF05990AE71
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jun 2024 14:59:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 02CA9DEE;
-	Mon, 17 Jun 2024 14:32:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 02CA9DEE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2403BB65;
+	Mon, 17 Jun 2024 14:59:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2403BB65
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718627588;
-	bh=SZu+21b3EOadKSJGfSaiut50TflCHmgMEiyIEWkOcys=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Z3bwZnTKkHxkC6NNyrPWvv+avi5Hw/JGXGcU6Z9ALIcMSS5+yxJF0eBDB6/TBOKDs
-	 34CUGc+lL2kF/96upr6rfLCHgzm2Jm8a2CWVu7Q5EU4QpRJkIt2eLwT+Uqr/6TGpoy
-	 C1Gi0dvu7kRcTaxVzoLIaWiooyhq4zmPkx3wkorg=
+	s=default; t=1718629157;
+	bh=/lItPURxNp+cgV/Wgl9KGudHbV4MInxrsKfiHjZnra4=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=T5Ze/LjCMC5tGuPreo0SP3YjuP6n+5tjEJAlYaPCWg+ivNKbfuIsPlJCe3LNy4k1X
+	 otOYyPO6uYZCe6Im9ADYawj5jY+eFGaMbs9HVgvprqCqFi0dChIdCaHTAh/JZIPruG
+	 Cyl2qY18bWPz7yiDZA2iwCGWGwaIalBeSuUlVe2s=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A7F19F8058C; Mon, 17 Jun 2024 14:32:36 +0200 (CEST)
+	id 8669DF805AB; Mon, 17 Jun 2024 14:58:53 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EDE94F80154;
-	Mon, 17 Jun 2024 14:32:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 45D9CF805AA;
+	Mon, 17 Jun 2024 14:58:46 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1DB13F8023A; Mon, 17 Jun 2024 14:32:31 +0200 (CEST)
+	id 8F327F80266; Mon, 17 Jun 2024 14:57:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: ***
-X-Spam-Status: No, score=3.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_MSPIKE_H3,
-	RCVD_IN_MSPIKE_WL,RCVD_IN_SBL_CSS,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=no autolearn_force=no
-	version=3.4.6
-Received: from mout.web.de (mout.web.de [212.227.17.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
- server-digest SHA256)
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [IPv6:2a00:1450:4864:20::533])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 02DD3F80154
-	for <alsa-devel@alsa-project.org>; Mon, 17 Jun 2024 14:32:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02DD3F80154
+	by alsa1.perex.cz (Postfix) with ESMTPS id 18C44F80154
+	for <alsa-devel@alsa-project.org>; Mon, 17 Jun 2024 14:57:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18C44F80154
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=web.de header.i=markus.elfring@web.de
- header.a=rsa-sha256 header.s=s29768273 header.b=C897/DBW
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
-	s=s29768273; t=1718627543; x=1719232343; i=markus.elfring@web.de;
-	bh=SZu+21b3EOadKSJGfSaiut50TflCHmgMEiyIEWkOcys=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=C897/DBWZf1CbuvUCm5dAxJ9NPEVeHtsXU29NX/+eMumtMjGnJJ7Wp6HuVzQAq40
-	 Wiu81HXcYrjpcDpccoFpEGHJfR4KiuA4KVwsewC63ogy8KloBcVm6AlTUamov/EFr
-	 HvSdrAygEjibnlT0lfrw0jZrB2CmENTj60JUcgyMXygW7FtdDNf7x+4flTJ4RbXFs
-	 6xscsA4pT03Z67Nr4J6uwyH0IJg3UOlriA6LUJZUHgVhH9rxP64u13EmOBLcjyWKe
-	 SVGCe2MP9s6CkNwmfI+4EJGP2SX2vLQShjoWgW+8LKgjLExaJXvAeTX3pt3oJo8Ct
-	 oKPBPKH6i7yScmVjXA==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from [192.168.178.21] ([94.31.83.95]) by smtp.web.de (mrweb106
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1MZB07-1roiM21AYL-00OQmw; Mon, 17
- Jun 2024 14:32:23 +0200
-Message-ID: <919c9f61-f884-4aae-9dca-9e0d863c34a8@web.de>
-Date: Mon, 17 Jun 2024 14:32:21 +0200
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=WNGI3uIY
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-57c68c3f8adso5191408a12.1
+        for <alsa-devel@alsa-project.org>;
+ Mon, 17 Jun 2024 05:57:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1718629059; x=1719233859;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=wltUW9+VLrM5U01BwAIqP+6lmMQklBsMXf/514OJe+Q=;
+        b=WNGI3uIYiJpucBouzA9lOgw10klZzWV4jZ0g7bi4xnGNraV9xZ7nB34Ilho4iOG2Nl
+         hGsCaVja0Prxkg5vxwsJQXrsICidqyMlGazBjXKz98nmPQFmuiEaDQ0RBenN6u6BFDDb
+         6I20R6RBUMBA4/OoiY9lZkQX3uZ2nCiJX+p4HVri7iNULjZ+4oCr5r/SUno36HE4/Pch
+         JSDcw0PXI0VCkS60Sc+Wvmqo8eSTpCU33ZkZqQMVpWUr4uUPJfA+gepKYkcVRWnCfCOK
+         OAEdJTrqwTGtkls0rvgHHPo33vnwwckICKeq8x/+9diuXr3j3MZ5qMhy8EDrVDrlizR4
+         8xYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1718629059; x=1719233859;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=wltUW9+VLrM5U01BwAIqP+6lmMQklBsMXf/514OJe+Q=;
+        b=W6ic2e8Ntn3IMMUMVdOznsqgV2Um1zW8eF8kaChAwhl3zrj7+GG7kD0SZz5dZp8ygy
+         ZTVUrdyGBkn6MFNhmR+FK5fzyTLp3N0O55t54q8rP7RPW4k0QN1w3mlp8ZOld4CjLZlO
+         NQ+xeZdLB9yxj85HIHVQqus6fHjzSp6wFjPA1x4my+tiCTd5XF5Wygh9DcNJacBgt+1n
+         uWgsKcG538nMfU2Uaefdr8CpD7KCRMXsTmx9oiaa3OCnH1OiG6rUdVXbUC4S1cFWzAlj
+         NgsInsJdO/QwwYgbSbZnovzVURy3igBK3PK+oDPQGI6oOkvwq3nPInz5Zi9R3LQezo7x
+         ZuFw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUWt4r2HgglhNcKWFVoX40qn/TTIThp7Dn4dJRne+UM9G0mFKMtSKnZ4S2cL2aX4IBnc41dAaemG52VYA8E5kieypFnWUhTAmWQD1M=
+X-Gm-Message-State: AOJu0YxEyCvr2vM8ZdLSiMrC1r66VRLAtWHOwBf629hFaMLETJtEL9BF
+	ZI0wiPfyqW21jr4RkZCdSYvcu10pQ2yK97zfRHCQjqSb9GU6O7ueLvNFIV2zNXw=
+X-Google-Smtp-Source: 
+ AGHT+IHGYIv40eueTM2EmQXXq34NC5RI+q9LQWXTkgQPpugKqiNuOI0eJtyNgnoQfTPALXvl5fhCJg==
+X-Received: by 2002:a05:6402:5204:b0:57c:db99:a131 with SMTP id
+ 4fb4d7f45d1cf-57cdb99a240mr4397657a12.29.1718629058691;
+        Mon, 17 Jun 2024 05:57:38 -0700 (PDT)
+Received: from krzk-bin.. ([78.10.207.147])
+        by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-57cb7439070sm6428860a12.85.2024.06.17.05.57.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 17 Jun 2024 05:57:38 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Support Opensource <support.opensource@diasemi.com>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Shenghao Ding <shenghao-ding@ti.com>,
+	Kevin Lu <kevin-lu@ti.com>,
+	Baojun Xu <baojun.xu@ti.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	alsa-devel@alsa-project.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: [PATCH v2 1/2] ASoC: soc-dai.h: Constify DAI ops
+ auto_selectable_formats
+Date: Mon, 17 Jun 2024 14:57:34 +0200
+Message-ID: <20240617125735.582963-1-krzysztof.kozlowski@linaro.org>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [v6 3/7] ASoC: codecs: wcd937x: add wcd937x codec driver
-To: Mark Brown <broonie@kernel.org>, alsa-devel@alsa-project.org,
- linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org
-Cc: Konrad Dybcio <konrad.dybcio@linaro.org>,
- Mohammad Rafi Shaik <quic_mohs@quicinc.com>,
- Prasad Kumpatla <quic_pkumpatl@quicinc.com>,
- Banajit Goswami <bgoswami@quicinc.com>, Conor Dooley <conor+dt@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Takashi Iwai <tiwai@suse.com>, LKML <linux-kernel@vger.kernel.org>,
- Rohit kumar <quic_rohkumar@quicinc.com>
-References: <20240611074557.604250-4-quic_mohs@quicinc.com>
- <6e1dd5d1-8c5d-44f5-99e8-f42cfbdeee04@web.de>
- <a6d17f27-51f4-47a5-8798-37bcdf3b103d@sirena.org.uk>
-Content-Language: en-GB
-From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <a6d17f27-51f4-47a5-8798-37bcdf3b103d@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:oDEJkjUPAIlsV7AVUDwOgL/buRmui/li+1rQnY3ZUutBcaSilQa
- 2PfoBEenwXHssLsnbrpNbLdar/Mh6Eyngc73oReWAS965iNWMFL8SBi3iVl0l87RkJz+kS6
- ctOUUlfrXcboE7cb8AVxQj4+PTqAN+UwCfe/7LIgsXEgWjBWtAnqpC2ostWXFjToXgEjSJM
- 5v4DO/wWq0aITpIRWIBcw==
-UI-OutboundReport: notjunk:1;M01:P0:4GwFPzN+sU0=;S6bpsAzm4afugR5kRmJsyhi4MIJ
- n1RZ4mG0AsibYjNbATV4nsOoT25bKJS5170HqLLv0LLZBk10lDjvgU8LJJAFZdCeFtDUxyY7t
- wtM/XUhgAz4G8YX5A4doawtftrHLxkuB0gbw9mCP90sK/2IamTq/E48T0E/jkP4YZtv1qLrrA
- yEdDTCIkPEe0AEjm2l0grxbF8SqMKIquUD+8UevdHBk8HW/0cztWcYD0WK98UzddwivzXdrP3
- XCiUoxIHZU7FsLFIDG1a9aE1IdN+25v/pNO7HRPMU4hhq/F9OW5GIzKdGFknqYshV0wgoHROL
- 77G6uHZTMyexC5BoE1cL50Wd4ni7Ty/Ok6rWUbvgoA8LiKSQslhu7Za7evqNlpcfT35jgqORX
- olGEsb9DdFat/UNzy79AWCjtMWI9cxh6/8YMrnoFW5BpKPmhn57MVTOEIOi8d/fJp3jvVv27r
- TnBM8cS/XMrAKX9D3EGIPZNoa8s6vL3zBTrs4IppxxsesONmlO55aZiNGYzyuHK+Q1UJMValC
- 3jRpGJoNxmhf8ia54hZhs2/MkO+rK3Ebq4ZbRbmySIP8WDvTGVCQz5/uPRnZmimrbMydkT7rW
- AoUe2wRX5VF77w6Z6rYVpZ8KeARR6vUJBLA64HdakIaLOrZQOnwFRDPkO8IWSl3sVHGpTco5m
- y+JeUuyv1toUR/CWEH+XAakZ6mBkB2DIVbIgu+AxHtaT3kSJXo9xEtzAjxoOaQSxjMppzkXVn
- 46KSqGnSxiRBZflddVv9HIXTPgPtu6DEU2BNsAVfiQ9h1umsmJ3ApumRj3jX0Zv/ew4+ncYzB
- C0auqCReTkzFbFksOdhFdZBg0qyVOJlhXRwdFvWfuGFEU=
-Message-ID-Hash: KTDHCQHKEY5CKNJG5XHGAJY3QLGAJ6YT
-X-Message-ID-Hash: KTDHCQHKEY5CKNJG5XHGAJY3QLGAJ6YT
-X-MailFrom: Markus.Elfring@web.de
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: KJ7HMNI7YDGYEQZGSVCEALR5HX65VHZ5
+X-Message-ID-Hash: KJ7HMNI7YDGYEQZGSVCEALR5HX65VHZ5
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -120,7 +121,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KTDHCQHKEY5CKNJG5XHGAJY3QLGAJ6YT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KJ7HMNI7YDGYEQZGSVCEALR5HX65VHZ5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -129,21 +130,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
->>> This patch adds basic SoundWire codec driver to support for
->>> WCD9370/WCD9375 TX and RX devices.
->> =E2=80=A6
->>
->> Please improve such a change description with an imperative wording.
->> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
-/Documentation/process/submitting-patches.rst?h=3Dv6.10-rc3#n94
->
-> Feel free to ignore Markus, he has a long history of sending
-> unhelpful review comments and continues to ignore repeated requests
-> to stop.
+The core ASoC code does not modify contents of the
+'auto_selectable_formats' array passed in 'struct snd_soc_dai_ops', so
+make it const for code safety.
 
-Does such feedback indicate that you find advice from the referenced infor=
-mation source
-also questionable anyhow?
+Reviewed-by: Herve Codina <herve.codina@bootlin.com>
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-Regards,
-Markus
+---
+
+Changes in v2:
+1. Add Rb tag
+---
+ include/sound/soc-dai.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/include/sound/soc-dai.h b/include/sound/soc-dai.h
+index 15ef268c9845..279223c4ef5e 100644
+--- a/include/sound/soc-dai.h
++++ b/include/sound/soc-dai.h
+@@ -361,7 +361,7 @@ struct snd_soc_dai_ops {
+ 	 * see
+ 	 *	snd_soc_dai_get_fmt()
+ 	 */
+-	u64 *auto_selectable_formats;
++	const u64 *auto_selectable_formats;
+ 	int num_auto_selectable_formats;
+ 
+ 	/* probe ordering - for components with runtime dependencies */
+-- 
+2.43.0
+

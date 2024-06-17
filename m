@@ -2,155 +2,158 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B078190A733
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jun 2024 09:32:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF2FA90A734
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jun 2024 09:32:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9AEA5868;
-	Mon, 17 Jun 2024 09:32:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9AEA5868
+	by alsa0.perex.cz (Postfix) with ESMTPS id 26C8A847;
+	Mon, 17 Jun 2024 09:32:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 26C8A847
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718609552;
-	bh=l6EXHT8moxb9IOOPxR9jNaR3YmY6OrdA8+NL59K+qwk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=H4oM0YRbZirEXFGPEkncjUbfNlXkSyhnW2olhc1qNbjd0q6v7t1VVe1F7ecLGjZVt
-	 cnwiYXrJ4ybOqAxc4p42HVJrujTSIIl2tYagsgsZkfPUfY9WqS0VRc1yjWnesXzT0q
-	 9RJNOnAc3xcLBy02CIExp9ZRllB40v6/SRK+2MWA=
+	s=default; t=1718609575;
+	bh=zstUqW0O9iyGwmgmUj/fo5AIT5C2CiL9XT1ogom/D5g=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=gukVcqnFJae8Gs/eu8XNtAC7FSBIzLjzqRc6c3qpEjRU8Xcm1D45pRox8r2c86l6H
+	 XXwwobDYOU4KBiID0u5yJEAN5NFpLcobRAiEV9i9if5xwWc8UdDjXCxb5/08x8sCsM
+	 OV/Vj0lHGzJeYVArcLLZIaLtzB7NkFlhX0erAgAc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2AC06F805B5; Mon, 17 Jun 2024 09:32:01 +0200 (CEST)
+	id 41EF1F805B3; Mon, 17 Jun 2024 09:32:05 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 40327F805AF;
-	Mon, 17 Jun 2024 09:31:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 25172F805DA;
+	Mon, 17 Jun 2024 09:32:04 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 55B2BF8023A; Mon, 17 Jun 2024 09:27:42 +0200 (CEST)
+	id B86DDF8023A; Mon, 17 Jun 2024 09:29:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [IPv6:2a00:1450:4864:20::62b])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on20625.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:200a::625])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 93C60F8016E
-	for <alsa-devel@alsa-project.org>; Mon, 17 Jun 2024 09:27:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93C60F8016E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8DF9DF800ED
+	for <alsa-devel@alsa-project.org>; Mon, 17 Jun 2024 09:28:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8DF9DF800ED
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=xPzh/tCV
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-a6f177b78dcso514629966b.1
-        for <alsa-devel@alsa-project.org>;
- Mon, 17 Jun 2024 00:27:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1718609247; x=1719214047;
- darn=alsa-project.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=EuYxtY6j33Xmhdf578gv73N2zuipaut5w8KeOq7kRrU=;
-        b=xPzh/tCV0rx1k12wni+3cdx442KPJPqOoau4XU/7xFeKcmwsh9w8zlXWcmpwhURp4/
-         4AZ8S8mH7XtaDoFRsHMh3xWzeZgQ0ccyqrZkoYWAtnFEK8ISEHZRuJ2rXB88/3ElhTUu
-         fu/DvmIYIT1k1DFeip7k47IgerATin/CiFX7wua++PVbgVvCVxkHj6hknNxzfU5z6nc7
-         i4Vf3GaIkD6oe985dzcViWKhfayXUzSxw6zlzHn6yYMrr25GLkwxZ/zp14MVzg8xprDK
-         2SBJrtBKVsk4MMyV66hAVWX3zW7Z4cF1aa/uaWD150O9KOoBn2MjFUrzhkkKSsg6+TAl
-         ztKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718609247; x=1719214047;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=EuYxtY6j33Xmhdf578gv73N2zuipaut5w8KeOq7kRrU=;
-        b=qV65lDKterW7UBHIQ4/vdIHpGZAUMgE18NDXa4bH8lCj8SdaZPVKpc/n9vFcmRsiL/
-         TcsNRDQwcjp0n0r+b5XxSjS5Obu8do1HvUk2TJfHOzsENLqWlP4We3kbgi/05D0XxV4Y
-         30vCU1FbWVJpYgPya6rL9d6on+cbhAxKLiqLwkJcUtuBl2GoY0FcIadErcD6QkLE9pAf
-         UNlv32gKKDeW7/yL+1jrodK9/ZVORaL4JdwBRIwfUFTaAATYWjLSXhtHzpNCaydUd98O
-         uuCLY4SaMeWEvOnbhM4hV60Of5IyjL1GMDBG72f6+4xAm0FCnO7a3Q3HWv/uy8H20yf1
-         q+9A==
-X-Gm-Message-State: AOJu0Yx45SNH2WF4mb4qeze8JkDpJ4IV9FY7pqlhRAiqudmnD5Neq/0Z
-	WKZB+9Xw46M9eoZ3fYhxBeEypWVBcdlcU+otBxhfrVlSmufRm/Z1TiLFJXnZ8eE=
-X-Google-Smtp-Source: 
- AGHT+IH5A6uolPaYfONK5JYnUughksjTsVqBEyLwJRyqdNoxko+8aHRaBZAJH6nzQy85QyjF7lZrLQ==
-X-Received: by 2002:a17:907:a80e:b0:a6f:6d98:d4bc with SMTP id
- a640c23a62f3a-a6f6d98d6bemr550014166b.61.1718609246914;
-        Mon, 17 Jun 2024 00:27:26 -0700 (PDT)
-Received: from [192.168.0.18] ([78.10.207.147])
-        by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-57cb72e9921sm6015291a12.52.2024.06.17.00.27.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 17 Jun 2024 00:27:26 -0700 (PDT)
-Message-ID: <d1ecbb02-41d6-430a-a22f-22709048ba95@linaro.org>
-Date: Mon, 17 Jun 2024 09:27:25 +0200
+	dkim=pass (1024-bit key,
+ unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
+ header.s=selector1 header.b=vyCyQtyd
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=XrilXAXz0s7Ej++EGw1K/6BVnyy99RT7wKipBsGe2V0tvxMGW29dcyUIuJumA8y9Fb3GvVGURCYy1DY3d4Pr+L3cy7G4YsY0CYRC9PKyFmlz6TkOzTLxfIuXZSQFTsev+0nQ2EU/BBH2I9Af/7JZYBpsFdWQtGt4WkIgcIhmglLaDyzWrLE8vWyJ8puiij/MngAuu/2lP/K5Q2bjt2+6au1g7U5DpbJJYN1/iosesnUQ3Cas5te7d4GS8MQDNf8gJw+ccvhApq+pdy5JiOp/HM/y8keU5CmdpHW4DrC+miTDlC+NQF7My6Y+xW6l1upofc/iml0kDoBQyCT6ytI6aQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/XZg0p/QGUq5x7BRVUEh9zpe9JOJie1jgoF6ipXy9YU=;
+ b=TAdFuzU8Df8LfvNwQbrr+j3XM3RSFq5Zjfxh3+BrzXKzlvt5urfFPHxgdT6LXkBhrXHBi40OpxR1Nrjz3oy7RZsGizZ+YrByecqwk3OLkAurFhRDADxy42n4idlGMYds+Isdri1NXcMxQXOj0Pt03/RJxSnx2rWozA+8krMO13/Ag64J1GygV7l42oUW1Yc4RZByGMF9eHr1mSzcqerVDbHy33pCCm7mlNKNcdgMxpYc97kcDzfbAKRy/avJ3044PYJjW5Z+Ngbg4fCEz3KS6PolqSoJWI9XKZhS0g10cW6i5PVmj5xFj85EaoYuOf/5uRhVslam0td3f6gBW0qwEQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/XZg0p/QGUq5x7BRVUEh9zpe9JOJie1jgoF6ipXy9YU=;
+ b=vyCyQtydebcK48pl+T+j0WhLskGiGPd5i1WtuT8BjkC+nYPZIF/09UW6VtM3u9NGKmjvOdyNRO71tOwStiSB6r24vF8k3iaW74xTjDiORJGL57+Rr6QImsyoro3EKFcTQMdY4oAG2qtgCKb8QEbMddK0PD4SLhiA3oed8rs0vEw=
+Received: from BYAPR06CA0072.namprd06.prod.outlook.com (2603:10b6:a03:14b::49)
+ by CH3PR12MB9453.namprd12.prod.outlook.com (2603:10b6:610:1c9::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.30; Mon, 17 Jun
+ 2024 07:28:50 +0000
+Received: from SJ1PEPF00001CE0.namprd05.prod.outlook.com
+ (2603:10b6:a03:14b:cafe::98) by BYAPR06CA0072.outlook.office365.com
+ (2603:10b6:a03:14b::49) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.30 via Frontend
+ Transport; Mon, 17 Jun 2024 07:28:49 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ1PEPF00001CE0.mail.protection.outlook.com (10.167.242.8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7677.15 via Frontend Transport; Mon, 17 Jun 2024 07:28:49 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 17 Jun
+ 2024 02:28:48 -0500
+Received: from vijendar-X570-GAMING-X.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39
+ via Frontend Transport; Mon, 17 Jun 2024 02:28:45 -0500
+From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+To: <broonie@kernel.org>
+CC: <alsa-devel@alsa-project.org>, <venkataprasad.potturu@amd.com>,
+	<Basavaraj.Hiregoudar@amd.com>, <Sunil-kumar.Dommati@amd.com>, "Vijendar
+ Mukunda" <Vijendar.Mukunda@amd.com>, Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, "Syed Saba
+ Kareem" <Syed.SabaKareem@amd.com>, "open list:SOUND - SOC LAYER / DYNAMIC
+ AUDIO POWER MANAGEM..." <linux-sound@vger.kernel.org>, open list
+	<linux-kernel@vger.kernel.org>
+Subject: [PATCH 1/8] ASoC: amd: acp: add a null check for chip_pdev structure
+Date: Mon, 17 Jun 2024 12:58:34 +0530
+Message-ID: <20240617072844.871468-1-Vijendar.Mukunda@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] ASoC: dt-bindings: ak4619: Add initial DT binding
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, devicetree@vger.kernel.org,
- Khanh Le <khanh.le.xr@renesas.com>
-References: <877ceotnrg.wl-kuninori.morimoto.gx@renesas.com>
- <874j9stnpk.wl-kuninori.morimoto.gx@renesas.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Content-Language: en-US
-Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
- 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
- D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <874j9stnpk.wl-kuninori.morimoto.gx@renesas.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: SKZHZW5MO4RDJKUGUXPVBI3TRAIWSXQL
-X-Message-ID-Hash: SKZHZW5MO4RDJKUGUXPVBI3TRAIWSXQL
-X-MailFrom: krzysztof.kozlowski@linaro.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB04.amd.com: Vijendar.Mukunda@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE0:EE_|CH3PR12MB9453:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5e953331-0078-4f72-7c24-08dc8e9f21be
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: 
+	BCL:0;ARA:13230037|36860700010|376011|1800799021|82310400023;
+X-Microsoft-Antispam-Message-Info: 
+	=?us-ascii?Q?w3EVr2N9d4O72QbAoqm/Jd8cI4KDeOxR8tCHXAYMLSBI105efVdT+L2RhlOU?=
+ =?us-ascii?Q?bMHEGUxof62aR6d9vg2L7qYopcU2WaZisGpTyjXUdXbPRjY6i851YSi3xh+6?=
+ =?us-ascii?Q?bfbzmDQzWTa0h18rujXtv2raDS5eIiIs9KjlyUXsvAjPGt5kA6QO9172kfpx?=
+ =?us-ascii?Q?YtX4FCS1dRvg5eEB30+Tt6g8SsumBCgW653ki4S3+SkyjW6U7sRQm4OEPWtt?=
+ =?us-ascii?Q?H8KjEdtx2s/p3l00AfHI/QrQNYzRYktOGxhHH5kR0NQOZp/wWA6ltwzlWaVX?=
+ =?us-ascii?Q?d4H51w26lf7cI94Z7AfJLeKBiadZ9nnnFfv5FOSf5j+P8V6w85cw5D93oZpo?=
+ =?us-ascii?Q?FUl4mZwPet+bBbLwzctCTKpbYce89v/31KL+zSSeZI6D3UdRWcmD8jx8KboI?=
+ =?us-ascii?Q?4Oc7bsuJadvtw1lmCN7Ry8F0tzU1g1OAqhC5Jw9/F0nqAtTQ5jZQbMQCgebO?=
+ =?us-ascii?Q?UPzTEmgh4WQiYWv1ehuwU/TkiR4MGkuX1B3IjXGdfNoGVkyMfiD064EmZWRa?=
+ =?us-ascii?Q?o39eKdEUIszy6ecXvJjKsUBpFt4aztPsui3PX/2W5Msnbff4m5fTDUx0ZhnR?=
+ =?us-ascii?Q?ujcjPwKxpNnFU3UJcVlfMde8m1qc77NEWB6lfFxNcwJ78penzjmhH4T+pRQE?=
+ =?us-ascii?Q?+wJjq1FruYk/W251futbjHVXPbgprrPxldDHuuRk3bftA4/u06N6Vz6FOhKB?=
+ =?us-ascii?Q?gSiPA/oWwdilsyIWPU3+/87wHoMtLzNSoZIR+e3+SrzNBLhUYbMPCSMaGYkh?=
+ =?us-ascii?Q?x+TuHHZs5QMpHfJRPFiyOveeyt5oxwhLZwYoUkdN+6kgCQI6iT8qH06+Mt+B?=
+ =?us-ascii?Q?B0mQtOvlQEBEVUHy94YzxY49atn8UiwNCNgsfFSvRKybvAuWIQgzQ3d5bnnb?=
+ =?us-ascii?Q?70v3MTgGjpTiPRwx5+4EL6udikN9GOU8kEppZtJo8/GANhoBfWIccB3LnTCN?=
+ =?us-ascii?Q?FhPMIV6/HrhXjsjaUdQoGPBxdz+R9D5TDNFtJikggXztPnxGKlu8/WdXJA2c?=
+ =?us-ascii?Q?Hc2KCSJ2qCnqzU9inPbD1kp/kt2+vAEnhdIVTaExdtxLyPcq8phAbOswm8iB?=
+ =?us-ascii?Q?b5qrAZheuXHF1PvGFJLdZf4C7vpBXOefe4uEbBZOgsb6sOI5o0+0TYj0/T4i?=
+ =?us-ascii?Q?VmH9zxV8YDALlRk/O1RFsAXA8UPWBD4e8p3Q67PVSyC/Dw7uiofRtUW07fQQ?=
+ =?us-ascii?Q?afZNn6LzteQDxoRcjbqvFTSy9VdZxSjhDuc6gEwx/uz23m7K+Pjp0Rq257Jc?=
+ =?us-ascii?Q?9+fVcbKS9t7CulNNc20AYmru7Edltm8m6qQqj5IToVB3pxPQacRYlCRyZkC8?=
+ =?us-ascii?Q?41Zkk64+5ZAY5rQhYnEPlO2iDgVJMnyViBJ0QjLtZhWeRqejxC956YncZFHU?=
+ =?us-ascii?Q?aXHYmJ0YnOez6xi4lcV5bRTZwtSs2SL3vh7Hcuxz0YQypEs4qA=3D=3D?=
+X-Forefront-Antispam-Report: 
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230037)(36860700010)(376011)(1800799021)(82310400023);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2024 07:28:49.5437
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 5e953331-0078-4f72-7c24-08dc8e9f21be
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
+ TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: 
+	SJ1PEPF00001CE0.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9453
+Message-ID-Hash: 7LG6UZP4F653KRB5TWWOU24FNAU7E26F
+X-Message-ID-Hash: 7LG6UZP4F653KRB5TWWOU24FNAU7E26F
+X-MailFrom: Vijendar.Mukunda@amd.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -162,7 +165,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SKZHZW5MO4RDJKUGUXPVBI3TRAIWSXQL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7LG6UZP4F653KRB5TWWOU24FNAU7E26F/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -171,84 +174,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 17/06/2024 02:30, Kuninori Morimoto wrote:
-> This patch add ak4619 DT binding
+When acp platform device creation is skipped, chip->chip_pdev value will
+remain NULL. Add NULL check for chip->chip_pdev structure in
+snd_acp_resume() function to avoid null pointer dereference.
 
-Please do not use "This commit/patch/change", but imperative mood. See
-longer explanation here:
-https://elixir.bootlin.com/linux/v5.17.1/source/Documentation/process/submitting-patches.rst#L95
+Fixes: 088a40980efb ("ASoC: amd: acp: add pm ops support for acp pci driver")
+Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+---
+ sound/soc/amd/acp/acp-pci.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-Just "Add Asahi Kasei AK4619 audio codec bindings.". With the full stop.
-
-> 
-> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> ---
->  .../devicetree/bindings/sound/ak4619.yaml     | 48 +++++++++++++++++++
->  1 file changed, 48 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/ak4619.yaml
-
-Missing vendor prefix. Filenames use compatible syntax.
-
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/ak4619.yaml b/Documentation/devicetree/bindings/sound/ak4619.yaml
-> new file mode 100644
-> index 0000000000000..b6afc008f745e
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/ak4619.yaml
-> @@ -0,0 +1,48 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/ak4619.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: AK4619 I2C transmitter
-> +
-> +maintainers:
-> +  - Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> +  - Khanh Le <khanh.le.xr@renesas.com>
-> +
-> +allOf:
-> +  - $ref: dai-common.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: asahi-kasei,ak4619
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  "#sound-dai-cells":
-> +    const: 0
-> +
-> +  ports:
-> +    $ref: audio-graph-port.yaml#/definitions/ports
-> +
-> +  port:
-> +    $ref: audio-graph-port.yaml#
-> +    unevaluatedProperties: false
-
-Why do you have both ports and port?
-
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    i2c {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +        ak4619: codec@10 {
-> +            compatible = "asahi-kasei,ak4619";
-> +            reg = <0x10>;
-
-Make the example complete - include all properties.
-
-
-Best regards,
-Krzysztof
+diff --git a/sound/soc/amd/acp/acp-pci.c b/sound/soc/amd/acp/acp-pci.c
+index ad320b29e87d..aa3e72d13451 100644
+--- a/sound/soc/amd/acp/acp-pci.c
++++ b/sound/soc/amd/acp/acp-pci.c
+@@ -199,10 +199,12 @@ static int __maybe_unused snd_acp_resume(struct device *dev)
+ 	ret = acp_init(chip);
+ 	if (ret)
+ 		dev_err(dev, "ACP init failed\n");
+-	child = chip->chip_pdev->dev;
+-	adata = dev_get_drvdata(&child);
+-	if (adata)
+-		acp_enable_interrupts(adata);
++	if (chip->chip_pdev) {
++		child = chip->chip_pdev->dev;
++		adata = dev_get_drvdata(&child);
++		if (adata)
++			acp_enable_interrupts(adata);
++	}
+ 	return ret;
+ }
+ 
+-- 
+2.34.1
 

@@ -2,126 +2,172 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A88E790DDD4
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2024 22:53:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FD8E90E038
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jun 2024 01:53:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2DF21843;
-	Tue, 18 Jun 2024 22:52:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2DF21843
+	by alsa0.perex.cz (Postfix) with ESMTPS id 899EDE0D;
+	Wed, 19 Jun 2024 01:52:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 899EDE0D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718743981;
-	bh=Hi06hPfdn3udo4YD/TXcS150lCLSlF8kHt7+6Esd+M8=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
+	s=default; t=1718754787;
+	bh=B0B2Kg1KtuY14AWuc+dTr6OgjzDDLHvqySHtO5B9iV0=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Pqbr1TPaSyB4i4Wmlyd/5z069P8t00qz6L72lTJtluJ22U8qeZOxqUjtRnUzLOc20
-	 SmlSVXJduPJUQ8Fg0zKn0ArB95JkYBRV7uTHe6JZI9g/Zx6y7xD5U+uZjKGAdzHL57
-	 v2oORba8YMGcDsfsDyPTQKlhaZXNt1YaYFMg+QXA=
+	b=Ven0YEqVZMuEJtr4Q3eeVlHBUzMqCLe3smfZ+yVfc2y8XulTTS9CkYhcFnbx6dtdP
+	 hrL1aKF8b+A53HDfAq5gyOqic5IpbUV5sqqIVGYvAkeCyhyoEhwe38sYHag0YxEoMe
+	 +I2YGYVrxn+QEzjHS2QbQpfRjJdN/NsI27Bv6CbI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E0A37F805A0; Tue, 18 Jun 2024 22:52:29 +0200 (CEST)
+	id ED4DCF8059F; Wed, 19 Jun 2024 01:52:35 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 55D4EF805AF;
-	Tue, 18 Jun 2024 22:52:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4961DF805B0;
+	Wed, 19 Jun 2024 01:52:35 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 52577F8023A; Tue, 18 Jun 2024 22:52:24 +0200 (CEST)
+	id 80BADF8023A; Wed, 19 Jun 2024 01:50:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from JPN01-TYC-obe.outbound.protection.outlook.com
+ (mail-tycjpn01on20601.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:2019::601])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4A63DF800FA
-	for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2024 22:52:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A63DF800FA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 93A9CF800ED
+	for <alsa-devel@alsa-project.org>; Wed, 19 Jun 2024 01:50:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93A9CF800ED
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=lyreBND0
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 45IBi8V2005389;
-	Tue, 18 Jun 2024 20:52:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	/pGKFLivsmybOVo2YC+Rib89/pjxJijeCpoCj7hnxew=; b=lyreBND0smqY0Lgz
-	mWqMtiFwJzazXeuI/RSZ+g0+0WBPMyN5l0zrYFFpTLRTyos+ASlUn7PE8eK0Ok+K
-	XvjqqmwHYBiadYINBrZMR5FuDfRFVQtxOFCCr40bTLS0zLcq9TA6Ue75Kl28moC6
-	KXt3TU+C1gFsiLwOoki4tL9wMTisKLXE/lwsOXWwQ5l7qbu2FnY3PR1VOA8P4SX+
-	SOkoKoaALQeEMrdyyVYZpzn08N5pcWddWmNW5jsPXqWs0VsZV2jRe+NYzFTSxQD+
-	PdT1qCB4IKLjGdzvNprCmiU0SKgrXbGnGpWnUvaHm/qK0mnHDZ4vvLU+1cl3LC67
-	xlEmrQ==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3yu9m6sajc-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 18 Jun 2024 20:52:06 +0000 (GMT)
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
-	by NALASPPMTA01.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
- 45IKq5up010378
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 18 Jun 2024 20:52:05 GMT
-Received: from [10.110.93.116] (10.80.80.8) by nalasex01b.na.qualcomm.com
- (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 18 Jun
- 2024 13:52:03 -0700
-Message-ID: <eb6370ea-47a0-3659-3c10-cb7f95e3e520@quicinc.com>
-Date: Tue, 18 Jun 2024 13:52:03 -0700
+	dkim=pass (1024-bit key,
+ unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
+ header.s=selector1 header.b=CFpPq+Mt
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=MVijkhPfxe8ikJbFkdG51Qbxjlcglo1yFl60S4hSgP2H7YL/DiareyzuWQEctr5m1WO4UmbGlUSwQN987vy88vsIvpFMcZBnjiR7Ed8KqfLhWvXbIq+t74Cqpv4995bMF48QkIm1h1comiNqFQGICxFeqfNPW7v4d6LWjd5Lq3vFBvGbcSYr3BCkK6sKXsGv5hAHLyGuXfW81LIuQh1mpKUgNzEWib1jrFRC59L5fr2TTEINfmia8O2TO+arXYHf1f6ENBgArZJUKgBGCjuI8j/++aCfILnvFP/Zg+4a2LoTb2pW1sszs6FvAb6uQ6ZzbU1ECY892JmFlNVCSDaNxQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UiMgvPAGiUoKqfn6XkE089lp/OYPq1OpWXdhkNw0AMc=;
+ b=U4cHljwPR89qLvac0reZWngXUnF+CFkmhVD0GhPMZ6avgfJFXPum7p/Is7e6Vh0Lz34B7DxmCojMF2mVkQm5H3ZtJkrCgOdMTVQLCX/ZPlK7q0vplmJstpksBir8nqPs7CCuEBQ8mVugxtODNmRZvKYjBWU75odI4mlHo+6kTIhC3xg+di2NdWM15FkXMAD7fXY0Muqd4ThORBA1cPb2UdWESeR6yvV3VOl7JvJoJiVITv7jvFkJRTJwmz5BEb05bjTgyRJp492EI5Ycy9tJbqWlcrT7Jya7AfBr9v6TzEhCTY+2ZP9AT0XYeBsa7Q6DXxXjEUoAd2+aW+tr24G27Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UiMgvPAGiUoKqfn6XkE089lp/OYPq1OpWXdhkNw0AMc=;
+ b=CFpPq+MtNr9ZCd+NGV9GlRH+Q39PPwA0nJop0ya2c2EVxO0LRjQ+WcRapqIo+j8uwMDQScIrAL/ECBKKsb2VDLkvIB5aLhe9XquvusZDDL6tVbE/7tyCnSp2boXhB7tSH5aI9XtBkTlcTyy4U7Iv6RyOjCX/4hxTQMcNiUrKIdE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
+ (2603:1096:400:3a9::11) by OS3PR01MB8620.jpnprd01.prod.outlook.com
+ (2603:1096:604:19a::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7677.31; Tue, 18 Jun
+ 2024 23:50:22 +0000
+Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
+ ([fe80::c568:1028:2fd1:6e11]) by TYCPR01MB10914.jpnprd01.prod.outlook.com
+ ([fe80::c568:1028:2fd1:6e11%4]) with mapi id 15.20.7677.030; Tue, 18 Jun 2024
+ 23:50:22 +0000
+Message-ID: <87tthpx135.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH 0/5] ASoC: dt-bindings: rename akXXXX to
+ asahi-kasei,akXXXX
+In-Reply-To: <87sexb3yfo.wl-kuninori.morimoto.gx@renesas.com>
+References: <87sexb3yfo.wl-kuninori.morimoto.gx@renesas.com>
+User-Agent: Wanderlust/2.15.9 Emacs/29.3 Mule/6.0
+Content-Type: text/plain; charset=US-ASCII
+Date: Tue, 18 Jun 2024 23:50:22 +0000
+X-ClientProxiedBy: TYWPR01CA0051.jpnprd01.prod.outlook.com
+ (2603:1096:400:17f::7) To TYCPR01MB10914.jpnprd01.prod.outlook.com
+ (2603:1096:400:3a9::11)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Subject: Re: [PATCH v23 32/32] ASoC: doc: Add documentation for SOC USB
-Content-Language: en-US
-To: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
-	<amadeuszx.slawinski@linux.intel.com>,
-        <srinivas.kandagatla@linaro.org>, <mathias.nyman@intel.com>,
-        <perex@perex.cz>, <conor+dt@kernel.org>, <corbet@lwn.net>,
-        <broonie@kernel.org>, <lgirdwood@gmail.com>, <krzk+dt@kernel.org>,
-        <Thinh.Nguyen@synopsys.com>, <bgoswami@quicinc.com>, <tiwai@suse.com>,
-        <robh@kernel.org>, <gregkh@linuxfoundation.org>
-CC: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-sound@vger.kernel.org>, <linux-usb@vger.kernel.org>,
-        <linux-arm-msm@vger.kernel.org>, <linux-doc@vger.kernel.org>,
-        <alsa-devel@alsa-project.org>
-References: <20240610235808.22173-1-quic_wcheng@quicinc.com>
- <20240610235808.22173-33-quic_wcheng@quicinc.com>
- <5be51e1f-70c9-4bbc-96fa-1e50e441bd35@linux.intel.com>
- <408d9e8e-0f40-7e66-54be-2f8d2c0783a3@quicinc.com>
- <ca1e1063-e1bd-4e03-a7cd-91985e9954e9@linux.intel.com>
- <096d59a0-5e18-092c-c9ae-d98130226f06@quicinc.com>
- <368d9019-2c96-468e-b472-7e1127f76213@linux.intel.com>
-From: Wesley Cheng <quic_wcheng@quicinc.com>
-In-Reply-To: <368d9019-2c96-468e-b472-7e1127f76213@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: DeJ37znB1cfWADYf-25KNa9cNl2mA-Qo
-X-Proofpoint-ORIG-GUID: DeJ37znB1cfWADYf-25KNa9cNl2mA-Qo
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-06-18_04,2024-06-17_01,2024-05-17_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 impostorscore=0
- spamscore=0 lowpriorityscore=0 mlxscore=0 suspectscore=0 adultscore=0
- bulkscore=0 mlxlogscore=999 clxscore=1015 priorityscore=1501
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2405170001 definitions=main-2406180154
-Message-ID-Hash: BBOGY2ACAT5GVWCTDKPCUEPQ6PUIU3MI
-X-Message-ID-Hash: BBOGY2ACAT5GVWCTDKPCUEPQ6PUIU3MI
-X-MailFrom: quic_wcheng@quicinc.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYCPR01MB10914:EE_|OS3PR01MB8620:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3727d589-fafd-4faa-2f81-08dc8ff16b01
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: 
+	BCL:0;ARA:13230037|366013|1800799021|52116011|376011|38350700011;
+X-Microsoft-Antispam-Message-Info: 
+	=?us-ascii?Q?06Ms0y5AwzKHM+YA4ueIewID+FGj4wJaUxJ+wwDq4S1ypKvi7BX/V5SJr75q?=
+ =?us-ascii?Q?SvDyq4T5iJA1XMHoaFgp3T+AtMNiz9HYD4UeHCT48PhmolB5Fyv+TcjSG8Zt?=
+ =?us-ascii?Q?iWA6DdhvCali5rYY3iCpgDLy0Jm4Iz9BVScfFLHkNu0m4sQH6Dv0wJrtPNwL?=
+ =?us-ascii?Q?j2caFJVNG3XNLMPbXXafYGltH+tW/v2H+NeSHIxleXgejcqeuFTYR2JGMjVi?=
+ =?us-ascii?Q?Sumw/M/ZU0wQwyWYIi776Bh9/75Qs+Tfvc3VbzyYzFNe8U8ZSNJCtl3SYlu9?=
+ =?us-ascii?Q?O55YvDp8ckiiecwEz/hzwnVJ5+jXZcpoga4+OJH0pfy2N+dWXuuIPzfappRI?=
+ =?us-ascii?Q?U7NAcH8K7fiGLCK1N7fCmO7KHDfH2/Z4YdYd+UsXAKdo/TtEk9ywymk1qlYl?=
+ =?us-ascii?Q?cm7ZgcqDwEE3pITbEnjLyHBwm3aNR2i369/Hi2l5HKZfSjQEHbEvbw2oqnNW?=
+ =?us-ascii?Q?M/hq60/VrmB4jL+G7BKvDIlLnncV1r/RxkfVCrZalN+IqQoqdGdT3S3MwdRT?=
+ =?us-ascii?Q?EB165GFkCywrIo4h3AlSZxx2ML61nZBfchyy+TQF5EhzL5BYV6G2MOgEi6x1?=
+ =?us-ascii?Q?oMa1f+sAOrGR0iwpMU3SGUOYMi9pfa7+DvqrQRBhNrPiQ1BJNb6NiVqc7aaA?=
+ =?us-ascii?Q?IzroASA4ylhZ3Lq3EWsFmKz4KzkM92QqwMtppaxbIo5SxhR3ztGjyTvDshQe?=
+ =?us-ascii?Q?Iq5ZnYqIXp4Y+Cp9ksaE51QosKM1uUPyyKZAV1vFcYSH4NugaUznCXn+WuLg?=
+ =?us-ascii?Q?IbXo2+PIX2JzDnbShIrGdyl/xsGf5WHOYI882hpxPbJkFY9DgB6PSq4gIQkF?=
+ =?us-ascii?Q?UTV8pYwhgeDeoGQ8c15y4o0DJQInwdcc2KLkgUOp4UTO1ZzDTXuJXMcqmEkd?=
+ =?us-ascii?Q?SQPA5ASh1HeD6kGuviuxBlQuTaxWVZicX2YJoVwpTQjrHPnhuFF3SqjOcxRz?=
+ =?us-ascii?Q?OiCSJnnF1eVTxCkC46Dq5bxjZoTt1a6YracXyI3UM51UOWtI3X2+MWJWMEP6?=
+ =?us-ascii?Q?7rvn4DU2gRJBEXP6988bIVJ03FK/z2FCJomQOzMBwP0wZqry+dL2sRy9CTw5?=
+ =?us-ascii?Q?IV274y0ONMkzKRCjzAjN0aMRBoBQN+qh1/QVTCb2Qq6BEjg+ZjS3kN3Jw2kI?=
+ =?us-ascii?Q?qMm7qnkSjG+ejwsqk38WOoYK6lLk9j7qjU22d3vZEomdU0bG0gnrNMqH5ea5?=
+ =?us-ascii?Q?Fk7IzMo0NCOI/itXPz8WPPqu/22RHqAZA3oR95CGz71Y7W5rDRwhIKSkthEU?=
+ =?us-ascii?Q?uu95unOy853sSsVq6oDCkrZIMIX2hn2klpUZ4QfB4dFEB/QSO+XZpy3rdh3W?=
+ =?us-ascii?Q?0K9MzuC1sm6iXmbOQjx4dnTTiWdgdhUwRJeLgWaU5HzEqJ7Un3Ta4/n8kzra?=
+ =?us-ascii?Q?2gMkon0=3D?=
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB10914.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230037)(366013)(1800799021)(52116011)(376011)(38350700011);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?us-ascii?Q?T/81ITGpSWqtY5tA+LqHVisseeHuzKtAlcp+N/4XIrKL/OEgsTk4bAsJ/qUG?=
+ =?us-ascii?Q?vCcQfQpLfc4AHfU0j1A4FmCZ9yS/0MKzZJaLKOYnRc6I49Wm//F7ShX5uivr?=
+ =?us-ascii?Q?T0EPM76SfDSlJwzEmMnJg3zg1cpocIfqEesuK9BGOKNTUY31oz4fhq3r4K/V?=
+ =?us-ascii?Q?3dZm8BQ5cdLiA5pWswgT17hz2hSm+iHMAG476Su8jCi6T3uDA3KHSGff8vu/?=
+ =?us-ascii?Q?mBIKaI+pUL9uQIEDDztlLnA4ja91Bq44ThFsIMzTkIcnZ7qCdagozC8y+h5J?=
+ =?us-ascii?Q?C/KTKz+pPqUP5oBX11ooMUPNkvzpXrn8agtOhsoOfMLCVXdOiGjJvFfX2zjj?=
+ =?us-ascii?Q?lQKi6kFkMmRf4Dzu4Sp1ahF13IpdYcW1PQvw97TPfJMed+ZtDkSK5x+PXsnJ?=
+ =?us-ascii?Q?TdnpKGI8joTNoGQ4TD/Xd/gxz/pMxypsS3ktaohbDfAwqJtXrsP6Jljrq4+C?=
+ =?us-ascii?Q?yxvUS1jY6qb2jjO94kxwbhhp2JIxYEYGIkxhgKqyj1vTMUcMrZYgrmy0CI8h?=
+ =?us-ascii?Q?JbI07f4Etr2jXgi8rXUvAA3KOGdLeyO11fCR7RC6g5kRuGApyQTeTbYqSmML?=
+ =?us-ascii?Q?0Bf7ruBgS/BYQvV4xyq7/l/KeLD4J+q6DYYMxFC06pdVeSU8uwkHNELOHXoT?=
+ =?us-ascii?Q?U8eAyN6yC719Vkl1sX5T6L/dz4FHmiD1x1CiXNgeiZA2NBRsQ+Wz+Y22WmeS?=
+ =?us-ascii?Q?qYq/8mb07mGZaICfowlOglcf0YLNN0RoFdLvGw+aP/Vms4FVCz0PTRtg/dIh?=
+ =?us-ascii?Q?wb9E1eQiVYF7BiMoDQrEob9hr1Ck1HI4UC0Yho8WI1YgQSmu3jx6/wLwc9vP?=
+ =?us-ascii?Q?UAgo/BrERfETIfdZ6PZJAK8jWolw4dACQVnXTmo+CVijicMQkB4eQnFV9RYd?=
+ =?us-ascii?Q?1YdsuZKOtnMujykjquFThbe/ePNmdGujJz5eJVpTBvXz960krnBQpfvoNibi?=
+ =?us-ascii?Q?MWf5L7STqGK7NuTpdDXrNLaanIIwbGeEJTDJSbkKll3mpdRUGsQuOBNANlYE?=
+ =?us-ascii?Q?vrAnGNWDks7QpJgTPcNl1UvgEwsWan1mXMWEHEqdJs2vyvzpgdjw3D5z5yjF?=
+ =?us-ascii?Q?37MNpDEKKZvaeMVkel43oLR6iCuw3BIcG8ypZ3OpX1ORqU1Tx/xFu1nPPabx?=
+ =?us-ascii?Q?fCC50XMsYsbRCg2/iJOr/e1ShmbkY6++MibFl/2aR5fAbdiRkIe2QQMXp8Zk?=
+ =?us-ascii?Q?Bg7XbKHfJ/j53OfTZxcZ0zBHiR46NYT5L0UjMCg1ljS0bK63KXUaeY5vTBex?=
+ =?us-ascii?Q?QNvUNOINUYBCtrk8SndAnWt5I/fN0Af1rK5XKP7tgaucKmf1SS785rb9vuf1?=
+ =?us-ascii?Q?FLSi0AlyeF1vmSeHwq5d8w281YJ+4/umDtVgrGp7C1tZZ2baQGZppfCV2/u1?=
+ =?us-ascii?Q?Aymf+V1QmRaXNiX+WbM7Si6RZDSyG/aAG9zs41YtjBXZKWt0/bMUU42zRW2J?=
+ =?us-ascii?Q?WihdSpt30+hKVrgIZrT6tRQMnck7L2XIhA6i9dslarLhSgAXYX1OwZGlSqgF?=
+ =?us-ascii?Q?C6dmtBI1GVyYy83zDz8u/682+U2F4LCdevDqI+ep+l5NghwQWFTAqPOecqSQ?=
+ =?us-ascii?Q?4ez2rNsH23g89gD+sGnxn0Vds36MmImklOpmXraWZKP3VbZRTaLurPdtdWjj?=
+ =?us-ascii?Q?5P4dJpx1oW+5Q6RF4LCQLa4=3D?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 3727d589-fafd-4faa-2f81-08dc8ff16b01
+X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB10914.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2024 23:50:22.6004
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ HjqX8zkIxb+vuod8PzS4/tntSc2/bVcVms7MYHdburVx+okpSSpecQ0f+1P1ts6YwmiyT8oJm2u4u2tcMfhYnJViZEu/IQokS9Pc/OIogADOxWT+OPgNtjew59XtB+/u
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3PR01MB8620
+Message-ID-Hash: WQVTPW3KGECD5MKW36GSNPSL5TATQMBW
+X-Message-ID-Hash: WQVTPW3KGECD5MKW36GSNPSL5TATQMBW
+X-MailFrom: kuninori.morimoto.gx@renesas.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -133,7 +179,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BBOGY2ACAT5GVWCTDKPCUEPQ6PUIU3MI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WQVTPW3KGECD5MKW36GSNPSL5TATQMBW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -142,240 +188,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Amadeusz,
 
-On 6/18/2024 4:42 AM, Amadeusz Sławiński wrote:
-> On 6/17/2024 7:02 PM, Wesley Cheng wrote:
->> Hi Amadeusz,
->>
->> On 6/13/2024 12:46 AM, Amadeusz Sławiński wrote:
->>> On 6/12/2024 9:28 PM, Wesley Cheng wrote:
->>>> Hi Amadeusz,
->>>>
->>>> On 6/12/2024 7:47 AM, Amadeusz Sławiński wrote:
->>>>> On 6/11/2024 1:58 AM, Wesley Cheng wrote:
->>>>>
->>>>> (...)
->>>>>
->>>>>> +In the case where the USB offload driver is unbounded, while USB 
->>>>>> SND is
->>>>>
->>>>> unbounded -> unbound
->>>>>
->>>>> (...)
->>>>>
->>>>>> +SOC USB and USB Sound Kcontrols
->>>>>> +===============================
->>>>>> +Details
->>>>>> +-------
->>>>>> +SOC USB and USB sound expose a set of SND kcontrols for 
->>>>>> applications to select
->>>>>> +and fetch the current offloading status for the ASoC platform 
->>>>>> sound card. Kcontrols
->>>>>> +are split between two layers:
->>>>>> +
->>>>>> +    - USB sound - Notifies the sound card number for the ASoC 
->>>>>> platform sound
->>>>>> +      card that it is registered to for supporting audio offload.
->>>>>> +
->>>>>> +    - SOC USB - Maintains the current status of the offload path, 
->>>>>> and device
->>>>>> +      (USB sound card and PCM device) information.  This would be 
->>>>>> the main
->>>>>> +      card that applications can read to determine offloading 
->>>>>> capabilities.
->>>>>> +
->>>>>> +Implementation
->>>>>> +--------------
->>>>>> +
->>>>>> +**Example:**
->>>>>> +
->>>>>> +  **Sound Cards**:
->>>>>> +
->>>>>> +    ::
->>>>>> +
->>>>>> +      0 [SM8250MTPWCD938]: sm8250 - SM8250-MTP-WCD9380-WSA8810-VA-D
->>>>>> +                     SM8250-MTP-WCD9380-WSA8810-VA-DMIC
->>>>>> +      1 [C320M          ]: USB-Audio - Plantronics C320-M
->>>>>> +                     Plantronics Plantronics C320-M at 
->>>>>> usb-xhci-hcd.1.auto-1, full speed
->>>>>> +
->>>>>> +
->>>>>> +  **Platform Sound Card** - card#0:
->>>>>> +
->>>>>> +    ::
->>>>>> +
->>>>>> +      USB Offload Playback Route Card Select  1 (range -1->32)
->>>>>> +      USB Offload Playback Route PCM Select   0 (range -1->255)
->>>>>> +      USB Offload Playback Route Card Status  -1 (range -1->32)
->>>>>> +      USB Offload Playback Route PCM Status   -1 (range -1->255)
->>>>>> +
->>>>>> +
->>>>>> +  **USB Sound Card** - card#1:
->>>>>> +
->>>>>> +    ::
->>>>>> +
->>>>>> +      USB Offload Playback Capable Card         0 (range -1->32)
->>>>>> +
->>>>>> +
->>>>>> +The platform sound card(card#0) kcontrols are created as part of 
->>>>>> adding the SOC
->>>>>> +USB device using **snd_soc_usb_add_port()**.  The following 
->>>>>> kcontrols are defined
->>>>>> +as:
->>>>>> +
->>>>>> +  - ``USB Offload Playback Route Card Status`` **(R)**: USB sound 
->>>>>> card device index
->>>>>> +    that defines which USB SND resources are currently offloaded. 
->>>>>> If -1 is seen, it
->>>>>> +    signifies that offload is not active.
->>>>>> +  - ``USB Offload Playback Route PCM Status`` **(R)**: USB PCM 
->>>>>> device index
->>>>>> +    that defines which USB SND resources are currently offloaded. 
->>>>>> If -1 is seen, it
->>>>>> +    signifies that offload is not active.
->>>>>> +  - ``USB Offload Playback Route Card Select`` **(R/W)**: USB 
->>>>>> sound card index which
->>>>>> +    selects the USB device to initiate offloading on.  If no 
->>>>>> value is written to the
->>>>>> +    kcontrol, then the last USB device discovered card index will 
->>>>>> be chosen.
->>>>>
->>>>> I see only one kcontrol, what if hardware is capable of offloading 
->>>>> on more cards, is it possible to do offloading on more than one 
->>>>> device?
->>>>>
->>>>>> +  - ``USB Offload Playback Route PCM Select`` **(R/W)**: USB PCM 
->>>>>> index which selects
->>>>>> +    the USB device to initiate offloading on.  If no value is 
->>>>>> written to the
->>>>>> +    kcontrol, then the last USB device discovered PCM zero index 
->>>>>> will be chosen.
->>>>>> +
->>>>>> +The USB sound card(card#1) kcontrols are created as USB audio 
->>>>>> devices are plugged
->>>>>> +into the physical USB port and enumerated.  The kcontrols are 
->>>>>> defined as:
->>>>>> +
->>>>>> +  - ``USB Offload Playback Capable Card`` **(R)**: Provides the 
->>>>>> sound card
->>>>>> +    number/index that supports USB offloading.  Further/follow up 
->>>>>> queries about
->>>>>> +    the current offload state can be handled by reading the 
->>>>>> offload status
->>>>>> +    kcontrol exposed by the platform card.
->>>>>> +
->>>>>
->>>>>
->>>>> Why do we need to some magic between cards? I feel like whole 
->>>>> kcontrol thing is overengineered a bit - I'm not sure I understand 
->>>>> the need to do linking between cards. It would feel a lot simpler 
->>>>> if USB card exposed one "USB Offload" kcontrol on USB card if USB 
->>>>> controller supports offloading and allowed to set it to true/false 
->>>>> to allow user to choose if they want to do offloading on device.
->>>>>
->>>>> (...)
->>>>
->>>> Based on feedback from Pierre, what I understood is that for some 
->>>> applications, there won't be an order on which sound card is 
->>>> queried/opened first.
->>>>
->>>
->>> Yes if you have multiple cards, they are probed in random order.
->>>
->>>> So the end use case example given was if an application opened the 
->>>> USB sound card first, it can see if there is an offload path 
->>>> available. If there is then it can enable the offload path on the 
->>>> corresponding card if desired.
->>>>
->>>
->>> This still doesn't explain why you need to link cards using controls. 
->>> What would not work with simple "Enable Offload" with true/false 
->>> values on USB card that works while you do have above routing controls?
->>>
->>
->> Sorry for the late response.
->>
->> I think either way, even with the "Enable Offload" kcontrol in USB 
->> SND, we'd need a way to link these cards, because if you have multiple 
->> USB audio devices connected, and say... your offload mechanism only 
->> supports one stream.  Then I assume we'd still need to way to 
->> determine if that stream can be enabled for that USB SND device or not.
->>
->> Since the USB SND isn't really the entity maintaining the offload 
->> path, I went with the decision to add that route selection to the ASoC 
->> platform card. It would have access to all the parameters supported by 
->> the audio DSP.
->>
-> 
-> Problem with card selection is that it will most likely work in pretty 
-> random way during reboots and similar scenarios.
-> 
-> Taking from your example:
->      USB Offload Playback Route Card Select  1 (range -1->32)
->      USB Offload Playback Route PCM Select   0 (range -1->255)
->      USB Offload Playback Route Card Status  -1 (range -1->32)
->      USB Offload Playback Route PCM Status   -1 (range -1->255)
-> 
-> This tells that hw:1,0 will be offloaded USB card. What happens if after 
-> reboot the USB card and offload card change places, the control will be 
-> pointing at its owner... Another scenario to consider is that user 
-> attaches two USB cards and only first one does offload. Now what happens 
-> when they enumerate in different order after reboot (swapping places)? 
-> Taking into the account that most systems restore previous values of 
-> controls in some way - this will point at wrong card.
+Hi Mark
 
-That sounds like a problem that would exist with current USB SND 
-implementation too?  Removing the offloading perspective, how does the 
-system ensure that the previous setting stays persistent?  For example, 
-as you mentioned, depending on which USB device enumerates first, the 
-sound card may be different so cards will be switched.
+> Kuninori Morimoto (5):
+>   ASoC: dt-bindings: rename ak4118.txt to asahi-kasei,ak4118.txt
+>   ASoC: dt-bindings: rename ak5386.txt to asahi-kasei,ak5386.txt
+>   ASoC: dt-bindings: rename ak4375.yaml to asahi-kasei,ak4375.yaml
+>   ASoC: dt-bindings: rename ak4613.yaml to asahi-kasei,ak4613.yaml
+>   ASoC: dt-bindings: rename ak4642.yaml to asahi-kasei,ak4642.yaml
 
-I think I mentioned this previously in another discussion, but I think 
-the idea was that with the
-USB Offload Playback Capable Card
+As Krzysztof mentioned, [1/5][2/5] can be ignored, but should I send
+v2 patch for it ?
 
-kcontrol, would allow the system to at least know there is an offload 
-capable path pointing to the ASoC platform card, and fetch more detailed 
-information about which device is selected for offloading, etc...
+And as Krzysztof mentioned, indeed there are some yamls which doesn't have
+vendor prefix. I can do some things for them, but I think it can be other
+patch-set, but is it OK ?
 
-> 
-> In my opinion Offload capability should be the capability of the 
-> endpoint - in this case USB card (even if in the background it needs to 
-> talk to some other device) and it should be exposed as such. Currently 
-> you are mixing capabilities of your audio card with capabilities of USB 
-> card.
-> 
-> And adding more controls will not make it easy to use from end user 
-> perspective. Most users will most likely want for the devices to perform 
-> offload automatically if possible to save power and just have control to 
-> disable it in case they want to test if it works better without it in 
-> case of some problems.
 
-I agree with you that we need to keep the controls at a minimum, but I 
-think what I have in place is fairly reasonable.  If we switch to having 
-the USB SND controlling things, we'd save maybe one control?  I think 
-keeping the offload status controls are still fairly valuable in both 
-scenarios, as userspace may need to verify which USB SND card is being 
-offloaded.
-
-> 
-> Additional question what happens if you want to offload two usb cards, 
-> currently the above set of controls allows you to only point at one 
-> card, will you be adding additional set of above controls dynamically 
-> for each USB card attached?
-> 
-
-It would depend on the number of offload streams that folks may be 
-supporting on their platform.  In our case we only have one available 
-stream, so applications would need to switch between the two devices 
-using the card/pcm selector.
-
-In this case, there will be only one set of controls to select the 
-card/pcm device.  As of now (I think I'll change to to add another 
-separate set of controls per stream) if you did support multiple 
-streams, then the current card/PCM device selector would take in 
-multiple arugments. (ie for two streams the kcontrol can take in two values)
-
-Thanks
-Wesley Cheng
+Thank you for your help !!
+Best regards
+---
+Kuninori Morimoto

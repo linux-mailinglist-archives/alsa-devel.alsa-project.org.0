@@ -2,164 +2,142 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 456DA90C705
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2024 12:32:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1670D90C706
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2024 12:32:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D6951A4D;
-	Tue, 18 Jun 2024 12:32:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6951A4D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3E90CE67;
+	Tue, 18 Jun 2024 12:32:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3E90CE67
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718706746;
-	bh=SSxtrx0QUg2Wx7cvN+gJuUD0e6TauR5b527O69izf+k=;
+	s=default; t=1718706768;
+	bh=/ys+bjqqD1jEwnaX5eooAb6vP41QS2L8Ystc6G/3Okc=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=EAQ00bLvzUBwXwvUvlQM8/35tRRVKf0+n4huYlX8cOuWfsrSVP+4awcuKBAgjnaJk
-	 a/aQocNhSrCcY9qNQptZ08o0PAZhYsi4ngYCxXNykIckzo5cPJzOJ5Te30z7xAWclH
-	 xXJDCaHewcUmURGv2v9O0OFZqzUcd58GreEuckmo=
+	b=X5wOE3eK9nVCZFAQ6FErQyafmxqhGm5CNGUGrcyEfhT59CyjUO+WHVWbAOPA4rz9M
+	 UVLt2923szcJ0aheriLNSl9iBA4BnILgQFiX+VDjMQExEbMz0oNUiTD+SPnRi+Rx0X
+	 wMMBcJiBC0j7kJUMTj8XCiNK/O+Lb7mtBW7y9oTg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B03E5F805D6; Tue, 18 Jun 2024 12:31:52 +0200 (CEST)
+	id 7EFDFF805DA; Tue, 18 Jun 2024 12:31:55 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C04E8F805AE;
-	Tue, 18 Jun 2024 12:31:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BDAA4F805CB;
+	Tue, 18 Jun 2024 12:31:51 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1D148F8023A; Tue, 18 Jun 2024 11:53:03 +0200 (CEST)
+	id 1664DF8023A; Tue, 18 Jun 2024 11:57:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EED93F800ED
-	for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2024 11:52:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EED93F800ED
+	by alsa1.perex.cz (Postfix) with ESMTPS id C3ACBF800FA
+	for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2024 11:57:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3ACBF800FA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=RFpSx1KN;
+ header.s=susede2_rsa header.b=mWzsE0sL;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=RVXQeHxu;
+ header.s=susede2_ed25519 header.b=9q142RpF;
 	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=RFpSx1KN;
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=yTlOkA2W;
 	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=RVXQeHxu
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ header.s=susede2_ed25519 header.b=kQIDlds9
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 600D8219C4;
-	Tue, 18 Jun 2024 09:52:36 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id D22521F397;
+	Tue, 18 Jun 2024 09:56:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1718704356;
+	t=1718704620;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=y72GhFWTBnlWQ6W2vqBZp1TnCwscWwZaxfHEyJk338M=;
-	b=RFpSx1KNc+zFAkDpUOhpDz361bKkyU3rlSd5lRzvTNmah6qCrpBEBaMxNEl5WR+dpbs+I4
-	FziXUki7Q7pRl6/dqVxTCq2gzPcAnJWW0gFRcwXza3KMEXnwJsybNyXuPBsY7hUMGxuY/R
-	yjscNPr2Rrjtvd59Z/HXKg+1w7HFH+s=
+	bh=9XjegkDcO+7VnhzOVHWcjKauUPMpSmzCKuij49TBWI4=;
+	b=mWzsE0sLYIoLpLQQcaZ5wkPYNLt54u6WsLpDBJH6CGciNh/w0xjfK2F0TrELIaoMpRqpRK
+	afZpNnkVQGZCl8eDkQ5Ld3rSA/6F7BbMdnHENrx384SE9nnplJWeJICCiwaGtCKynTuOuE
+	XC9Q6Y8yHix7Ef/m9OvYSyPTwQ44Dnk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1718704356;
+	s=susede2_ed25519; t=1718704620;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=y72GhFWTBnlWQ6W2vqBZp1TnCwscWwZaxfHEyJk338M=;
-	b=RVXQeHxuT5Ek/u0/7nY6WyZIOLCYod/khkacKNSPRm3AesNLjFxbXHNRd1/aJGTrJYc9+5
-	rf+MGTsb2brax4DQ==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=RFpSx1KN;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=RVXQeHxu
+	bh=9XjegkDcO+7VnhzOVHWcjKauUPMpSmzCKuij49TBWI4=;
+	b=9q142RpFGJURyNqrTehQEQpdpPZhXCg6pKxvoqK2sASnJJBU6yMxyxq5G1cvuMav316Gy6
+	Ne1+4RLKZRsC2xBQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1718704356;
+	t=1718704619;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=y72GhFWTBnlWQ6W2vqBZp1TnCwscWwZaxfHEyJk338M=;
-	b=RFpSx1KNc+zFAkDpUOhpDz361bKkyU3rlSd5lRzvTNmah6qCrpBEBaMxNEl5WR+dpbs+I4
-	FziXUki7Q7pRl6/dqVxTCq2gzPcAnJWW0gFRcwXza3KMEXnwJsybNyXuPBsY7hUMGxuY/R
-	yjscNPr2Rrjtvd59Z/HXKg+1w7HFH+s=
+	bh=9XjegkDcO+7VnhzOVHWcjKauUPMpSmzCKuij49TBWI4=;
+	b=yTlOkA2W0qJjhuYUt/wRDLo7yE0dtzqCB4phbIi2DkGSGRxfWfWDjBlSQQqhRlgsSwHI8s
+	v4I0FP8RGL7HZkRYfOTKpHevhGujI4+Fe5d+EHEXZNsAE4PBFTGIAwvn459+0K94fsBlXL
+	ndEjQGGs2tJOxF6DL8bWJKW40gm1ZAw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1718704356;
+	s=susede2_ed25519; t=1718704619;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=y72GhFWTBnlWQ6W2vqBZp1TnCwscWwZaxfHEyJk338M=;
-	b=RVXQeHxuT5Ek/u0/7nY6WyZIOLCYod/khkacKNSPRm3AesNLjFxbXHNRd1/aJGTrJYc9+5
-	rf+MGTsb2brax4DQ==
+	bh=9XjegkDcO+7VnhzOVHWcjKauUPMpSmzCKuij49TBWI4=;
+	b=kQIDlds9FypFRNmjJgrsXsY0XfizLgGfP9urfX2diLzU1IihmQ2B2gdaPLpO7oZVhik2jc
+	aazo39Z2Qk5R7WBA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3BFD513AA0;
-	Tue, 18 Jun 2024 09:52:36 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B8C3613AA0;
+	Tue, 18 Jun 2024 09:56:59 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id AWgbDuRYcWaAIAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Tue, 18 Jun 2024 09:52:36 +0000
-Date: Tue, 18 Jun 2024 11:53:02 +0200
-Message-ID: <87le327f29.wl-tiwai@suse.de>
+	id wt2NLOtZcWbVIQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Tue, 18 Jun 2024 09:56:59 +0000
+Date: Tue, 18 Jun 2024 11:57:25 +0200
+Message-ID: <87iky67euy.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Simon Trimmer <simont@opensource.cirrus.com>
-Cc: <tiwai@suse.com>,
-	<linux-sound@vger.kernel.org>,
-	<alsa-devel@alsa-project.org>,
-	<linux-kernel@vger.kernel.org>,
-	<patches@opensource.cirrus.com>,
-	<soyer@irl.hu>,
-	<shenghao-ding@ti.com>,
-	<kevin-lu@ti.com>,
-	<baojun.xu@ti.com>
-Subject: Re: [PATCH v3 0/4] ALSA: hda: Improvements to hda_component
-In-Reply-To: <20240617154105.108635-1-simont@opensource.cirrus.com>
-References: <20240617154105.108635-1-simont@opensource.cirrus.com>
+To: Kailang <kailang@realtek.com>
+Cc: " (alsa-devel@alsa-project.org)" <alsa-devel@alsa-project.org>
+Subject: Re: Add more codec ID to no shutup list
+In-Reply-To: <8d86f61e7d6f4a03b311e4eb4e5caaef@realtek.com>
+References: <8d86f61e7d6f4a03b311e4eb4e5caaef@realtek.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Queue-Id: 600D8219C4
-X-Spamd-Result: default: False [-3.51 / 50.00];
+X-Spamd-Result: default: False [-3.30 / 50.00];
 	BAYES_HAM(-3.00)[99.99%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
 	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
 	NEURAL_HAM_SHORT(-0.20)[-1.000];
 	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	DWL_DNSWL_BLOCKED(0.00)[suse.de:dkim];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCPT_COUNT_SEVEN(0.00)[10];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns]
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-Message-ID-Hash: 2AROOERG5WYTI5X7DN6YCHDUY2CRKGXU
-X-Message-ID-Hash: 2AROOERG5WYTI5X7DN6YCHDUY2CRKGXU
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWO(0.00)[2];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_DN_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+Message-ID-Hash: 7W4POQTFVZEV4S2I2HO6QOSG7BIZMQ3M
+X-Message-ID-Hash: 7W4POQTFVZEV4S2I2HO6QOSG7BIZMQ3M
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -172,7 +150,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2AROOERG5WYTI5X7DN6YCHDUY2CRKGXU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7W4POQTFVZEV4S2I2HO6QOSG7BIZMQ3M/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -181,26 +159,15 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 17 Jun 2024 17:41:01 +0200,
-Simon Trimmer wrote:
+On Tue, 18 Jun 2024 09:41:41 +0200,
+Kailang wrote:
 > 
-> This series of patches moves duplicated members from the
-> instanced component structures into a new parent structure and
-> introduces locking so that consumers of the interface do not use
-> stale data.
+> Hi Takashi,
 > 
-> Changes in v3:
->  - These Fixes separated from this series to make them easier
->    to manage:
->    https://lore.kernel.org/all/20240613133713.75550-1-simont@opensource.cirrus.com/
-> 
-> Simon Trimmer (4):
->   ALSA: hda: hda_component: Introduce component parent structure
->   ALSA: hda: hda_component: Change codecs to use component parent structure
->   ALSA: hda: hda_component: Move codec field into the parent
->   ALSA: hda: hda_component: Protect shared data with a mutex
+> Attach patch will add more codec ID to no shutup list.
+> Many Thanks.
 
-Applied all patches now to for-next branch.  Thanks.
+Thanks, applied now.
 
 
 Takashi

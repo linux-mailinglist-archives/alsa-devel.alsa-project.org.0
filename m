@@ -2,102 +2,126 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3DBF90DB91
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2024 20:30:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A88E790DDD4
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2024 22:53:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 37A8B832;
-	Tue, 18 Jun 2024 20:30:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 37A8B832
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2DF21843;
+	Tue, 18 Jun 2024 22:52:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2DF21843
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718735413;
-	bh=7bLhYkjr29u1uDPZatu2b4bFKJXc72SlCcgNPXPtuAk=;
-	h=References:In-Reply-To:From:Date:Subject:To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=R4BF6wsIweM2WwlKtPVTq5lV29B30xwK58TN8y8/OEGCosWISQxTVNnzdmzyIQF+S
-	 qochEwA2fXNbDvidcQn22jTXxEA2uHXalQ/RuDx9Osw7Ew1Dt4AQgYUjDV6dGxLrEM
-	 0iD2BCsQ/V0mvVPZw2sEyFCyfSsg30xN9hA3x3RI=
+	s=default; t=1718743981;
+	bh=Hi06hPfdn3udo4YD/TXcS150lCLSlF8kHt7+6Esd+M8=;
+	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=Pqbr1TPaSyB4i4Wmlyd/5z069P8t00qz6L72lTJtluJ22U8qeZOxqUjtRnUzLOc20
+	 SmlSVXJduPJUQ8Fg0zKn0ArB95JkYBRV7uTHe6JZI9g/Zx6y7xD5U+uZjKGAdzHL57
+	 v2oORba8YMGcDsfsDyPTQKlhaZXNt1YaYFMg+QXA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 221A2F805AF; Tue, 18 Jun 2024 20:29:40 +0200 (CEST)
+	id E0A37F805A0; Tue, 18 Jun 2024 22:52:29 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7470EF805A8;
-	Tue, 18 Jun 2024 20:29:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 55D4EF805AF;
+	Tue, 18 Jun 2024 22:52:29 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 58A3BF8023A; Tue, 18 Jun 2024 20:29:34 +0200 (CEST)
+	id 52577F8023A; Tue, 18 Jun 2024 22:52:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,
-	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-pl1-x634.google.com (mail-pl1-x634.google.com
- [IPv6:2607:f8b0:4864:20::634])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 68CE7F800FA
-	for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2024 20:29:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68CE7F800FA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4A63DF800FA
+	for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2024 22:52:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A63DF800FA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=MdYli37Y
-Received: by mail-pl1-x634.google.com with SMTP id
- d9443c01a7336-1f6a837e9a3so37029975ad.1
-        for <alsa-devel@alsa-project.org>;
- Tue, 18 Jun 2024 11:29:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1718735359; x=1719340159;
- darn=alsa-project.org;
-        h=content-transfer-encoding:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=MAj5IAF5CrMHySHXsmIl0rXFNcX7IEdGTt5pWkrJE9c=;
-        b=MdYli37YMgS2YaSGmo1vU3PwhPAjk6jxVyi0g2Fw8mHdhW9ukNpg4GRFLhf4TH+5ol
-         HaI3Xx/OSdyw3l/PMDkOqW3/Dm1583xPAcPzlH/aH7c/69lqeh8IYa74iQmwtKvVeiOc
-         oqJ12PIuZYF66c0FIXFe1yi5PtLjDhwgeMID3r1g99ohsr4G8cjXu4BHsq1yh8yLxEt4
-         Uy1NkFDld59L+3CO3f5sfMdyJSkDB1B6NISLnqoNQSAJ+TAQ6bIiPXwGdjjAioELth5b
-         lLTNZRMWYuTmgcYQPbZX6svIeuKFqIxXrQSt3saLmevjKTAP34jtOD3wLd590aWOZege
-         UIog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718735359; x=1719340159;
-        h=content-transfer-encoding:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=MAj5IAF5CrMHySHXsmIl0rXFNcX7IEdGTt5pWkrJE9c=;
-        b=f6avuMVTRugQwaKrZO19VTHV+Kfo+19bF1X8JyCjlCBk6bLfLjR4i7jXYMNP3lcUIN
-         xCYHA4gU8LabMZEvUzRGcwhcF1iJHk9K6PdDvUo8BxxbeDuE7l3q+/H8IUsXWXKhVnll
-         RYsAy9nSPiruf5ESfJeLQcOoaRSUL0obYBuXkEzPtOR4hxoJNdmdq++fknFdQibi4kiZ
-         cK9nOhInN6nnvXBvi4PJMEh3gg2xRA1iV8GaLWG6sbm413e1d0G/POhqnq9XvhvFc8yQ
-         wGgDrGk5B6oY87Y6iIRN2Wfk98OcjjnlT70z+wbqedehtQ2YLc0CskID0t0ND90PHJU5
-         GjqA==
-X-Gm-Message-State: AOJu0YxMTvqnYFXfJ5hiJw1p0W4t8fHNYXcEluE53de4ostM1pBBgsVr
-	sxGJu6JDQinSvg1HNHDeLiHHULTWEzwQJWRSO9CfpLQ2QKdh2gqqg500mC1ox/2ZkbuPV9ulbko
-	XE0JMT/qRUqc11iiNQJxwasLO6zn+wzj0
-X-Google-Smtp-Source: 
- AGHT+IGcqy3ANaEvMzwjmiRYJuZoaWMij1YFNLBJG6J8tsRBw0zOZgUOgXQ2lYSffU/wc27o2xeQQHKy8ljBC8PRUM4=
-X-Received: by 2002:a17:903:2385:b0:1f9:8c1f:d535 with SMTP id
- d9443c01a7336-1f9aa470be1mr4560445ad.58.1718735359395; Tue, 18 Jun 2024
- 11:29:19 -0700 (PDT)
+ unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
+ header.s=qcppdkim1 header.b=lyreBND0
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
+ 45IBi8V2005389;
+	Tue, 18 Jun 2024 20:52:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	/pGKFLivsmybOVo2YC+Rib89/pjxJijeCpoCj7hnxew=; b=lyreBND0smqY0Lgz
+	mWqMtiFwJzazXeuI/RSZ+g0+0WBPMyN5l0zrYFFpTLRTyos+ASlUn7PE8eK0Ok+K
+	XvjqqmwHYBiadYINBrZMR5FuDfRFVQtxOFCCr40bTLS0zLcq9TA6Ue75Kl28moC6
+	KXt3TU+C1gFsiLwOoki4tL9wMTisKLXE/lwsOXWwQ5l7qbu2FnY3PR1VOA8P4SX+
+	SOkoKoaALQeEMrdyyVYZpzn08N5pcWddWmNW5jsPXqWs0VsZV2jRe+NYzFTSxQD+
+	PdT1qCB4IKLjGdzvNprCmiU0SKgrXbGnGpWnUvaHm/qK0mnHDZ4vvLU+1cl3LC67
+	xlEmrQ==
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3yu9m6sajc-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 18 Jun 2024 20:52:06 +0000 (GMT)
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+	by NALASPPMTA01.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
+ 45IKq5up010378
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 18 Jun 2024 20:52:05 GMT
+Received: from [10.110.93.116] (10.80.80.8) by nalasex01b.na.qualcomm.com
+ (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 18 Jun
+ 2024 13:52:03 -0700
+Message-ID: <eb6370ea-47a0-3659-3c10-cb7f95e3e520@quicinc.com>
+Date: Tue, 18 Jun 2024 13:52:03 -0700
 MIME-Version: 1.0
-References: 
- <CAES_P+_=Yx3_0mMyRDjMEYEV=2rx69ry1PFzBE=-VVUvvPOvEg@mail.gmail.com>
-In-Reply-To: 
- <CAES_P+_=Yx3_0mMyRDjMEYEV=2rx69ry1PFzBE=-VVUvvPOvEg@mail.gmail.com>
-From: noman pouigt <variksla@gmail.com>
-Date: Tue, 18 Jun 2024 11:29:07 -0700
-Message-ID: 
- <CAES_P+_nBpA=DaoCYPV0v=X7pqwF=EsD3BztM62T-GDOd9ATOg@mail.gmail.com>
-Subject: Re: aloop driver introducing glitches
-To: alsa-devel@alsa-project.org, perex@perex.cz, tiwai@suse.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: 7XDBWHWBS62TJKAEDAMNC44TOR5MGHTT
-X-Message-ID-Hash: 7XDBWHWBS62TJKAEDAMNC44TOR5MGHTT
-X-MailFrom: variksla@gmail.com
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+Subject: Re: [PATCH v23 32/32] ASoC: doc: Add documentation for SOC USB
+Content-Language: en-US
+To: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+	<amadeuszx.slawinski@linux.intel.com>,
+        <srinivas.kandagatla@linaro.org>, <mathias.nyman@intel.com>,
+        <perex@perex.cz>, <conor+dt@kernel.org>, <corbet@lwn.net>,
+        <broonie@kernel.org>, <lgirdwood@gmail.com>, <krzk+dt@kernel.org>,
+        <Thinh.Nguyen@synopsys.com>, <bgoswami@quicinc.com>, <tiwai@suse.com>,
+        <robh@kernel.org>, <gregkh@linuxfoundation.org>
+CC: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-sound@vger.kernel.org>, <linux-usb@vger.kernel.org>,
+        <linux-arm-msm@vger.kernel.org>, <linux-doc@vger.kernel.org>,
+        <alsa-devel@alsa-project.org>
+References: <20240610235808.22173-1-quic_wcheng@quicinc.com>
+ <20240610235808.22173-33-quic_wcheng@quicinc.com>
+ <5be51e1f-70c9-4bbc-96fa-1e50e441bd35@linux.intel.com>
+ <408d9e8e-0f40-7e66-54be-2f8d2c0783a3@quicinc.com>
+ <ca1e1063-e1bd-4e03-a7cd-91985e9954e9@linux.intel.com>
+ <096d59a0-5e18-092c-c9ae-d98130226f06@quicinc.com>
+ <368d9019-2c96-468e-b472-7e1127f76213@linux.intel.com>
+From: Wesley Cheng <quic_wcheng@quicinc.com>
+In-Reply-To: <368d9019-2c96-468e-b472-7e1127f76213@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: DeJ37znB1cfWADYf-25KNa9cNl2mA-Qo
+X-Proofpoint-ORIG-GUID: DeJ37znB1cfWADYf-25KNa9cNl2mA-Qo
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-06-18_04,2024-06-17_01,2024-05-17_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 impostorscore=0
+ spamscore=0 lowpriorityscore=0 mlxscore=0 suspectscore=0 adultscore=0
+ bulkscore=0 mlxlogscore=999 clxscore=1015 priorityscore=1501
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2405170001 definitions=main-2406180154
+Message-ID-Hash: BBOGY2ACAT5GVWCTDKPCUEPQ6PUIU3MI
+X-Message-ID-Hash: BBOGY2ACAT5GVWCTDKPCUEPQ6PUIU3MI
+X-MailFrom: quic_wcheng@quicinc.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -109,7 +133,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7XDBWHWBS62TJKAEDAMNC44TOR5MGHTT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BBOGY2ACAT5GVWCTDKPCUEPQ6PUIU3MI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,442 +142,240 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-adding debug logs. I don't see any problem
-with the logs below but still I can see in the
-recorded data there are missing frames or
-corruption.
+Hi Amadeusz,
 
-# cat /proc/asound/Loopback/cable#0
-Cable 0 substream 0:
-  valid: 3
-  running: 3
-  pause: 0
-  Playback
-    buffer_size: 96000
-    buffer_pos: 72576
-    silent_size: 0
-    period_size: 24000
-    bytes_per_sec: 192000
-    sample_align: 4
-    rate_shift: 100000
-    update_pending: 0
-    irq_pos: 576000
-    period_frac: 24000000
-    last_jiffies: 4613492552 (4613492610)
-    timer_expires: 4613492674
-  Capture
-    buffer_size: 96000
-    buffer_pos: 73152
-    silent_size: 0
-    period_size: 24000
-    bytes_per_sec: 192000
-    sample_align: 4
-    rate_shift: 100000
-    update_pending: 0
-    irq_pos: 1152000
-    period_frac: 24000000
-    last_jiffies: 4613492552 (4613492610)
-    timer_expires: 4613492671
-Cable 0 substream 1:
-  inactive
-Cable 0 substream 2:
-  inactive
-Cable 0 substream 3:
-  inactive
-Cable 0 substream 4:
-  inactive
-Cable 0 substream 5:
-  inactive
-Cable 0 substream 6:
-  inactive
-Cable 0 substream 7:
-  inactive
-# cat /proc/asound/Loopback/cable#0
-Cable 0 substream 0:
-  valid: 3
-  running: 3
-  pause: 0
-  Playback
-    buffer_size: 96000
-    buffer_pos: 48768
-    silent_size: 0
-    period_size: 24000
-    bytes_per_sec: 192000
-    sample_align: 4
-    rate_shift: 100000
-    update_pending: 0
-    irq_pos: 768000
-    period_frac: 24000000
-    last_jiffies: 4613494928 (4613495026)
-    timer_expires: 4613495049
-  Capture
-    buffer_size: 96000
-    buffer_pos: 49344
-    silent_size: 0
-    period_size: 24000
-    bytes_per_sec: 192000
-    sample_align: 4
-    rate_shift: 100000
-    update_pending: 0
-    irq_pos: 1344000
-    period_frac: 24000000
-    last_jiffies: 4613494928 (4613495026)
-    timer_expires: 4613495046
-Cable 0 substream 1:
-  inactive
-Cable 0 substream 2:
-  inactive
-Cable 0 substream 3:
-  inactive
-Cable 0 substream 4:
-  inactive
-Cable 0 substream 5:
-  inactive
-Cable 0 substream 6:
-  inactive
-Cable 0 substream 7:
-  inactive
-# cat /proc/asound/Loopback/cable#0
-Cable 0 substream 0:
-  valid: 3
-  running: 3
-  pause: 0
-  Playback
-    buffer_size: 96000
-    buffer_pos: 48768
-    silent_size: 0
-    period_size: 24000
-    bytes_per_sec: 192000
-    sample_align: 4
-    rate_shift: 100000
-    update_pending: 0
-    irq_pos: 768000
-    period_frac: 24000000
-    last_jiffies: 4613495928 (4613495963)
-    timer_expires: 4613496049
-  Capture
-    buffer_size: 96000
-    buffer_pos: 49344
-    silent_size: 0
-    period_size: 24000
-    bytes_per_sec: 192000
-    sample_align: 4
-    rate_shift: 100000
-    update_pending: 0
-    irq_pos: 1344000
-    period_frac: 24000000
-    last_jiffies: 4613495928 (4613495963)
-    timer_expires: 4613496046
-Cable 0 substream 1:
-  inactive
-Cable 0 substream 2:
-  inactive
-Cable 0 substream 3:
-  inactive
-Cable 0 substream 4:
-  inactive
-Cable 0 substream 5:
-  inactive
-Cable 0 substream 6:
-  inactive
-Cable 0 substream 7:
-  inactive
-# cat /proc/asound/Loopback/cable#0
-Cable 0 substream 0:
-  valid: 3
-  running: 3
-  pause: 0
-  Playback
-    buffer_size: 96000
-    buffer_pos: 1152
-    silent_size: 0
-    period_size: 24000
-    bytes_per_sec: 192000
-    sample_align: 4
-    rate_shift: 100000
-    update_pending: 0
-    irq_pos: 1152000
-    period_frac: 24000000
-    last_jiffies: 4613496680 (4613496783)
-    timer_expires: 4613496799
-  Capture
-    buffer_size: 96000
-    buffer_pos: 1728
-    silent_size: 0
-    period_size: 24000
-    bytes_per_sec: 192000
-    sample_align: 4
-    rate_shift: 100000
-    update_pending: 0
-    irq_pos: 1728000
-    period_frac: 24000000
-    last_jiffies: 4613496680 (4613496783)
-    timer_expires: 4613496796
-Cable 0 substream 1:
-  inactive
-Cable 0 substream 2:
-  inactive
-Cable 0 substream 3:
-  inactive
-Cable 0 substream 4:
-  inactive
-Cable 0 substream 5:
-  inactive
-Cable 0 substream 6:
-  inactive
-Cable 0 substream 7:
-  inactive
-# cat /proc/asound/Loopback/cable#0
-Cable 0 substream 0:
-  valid: 3
-  running: 3
-  pause: 0
-  Playback
-    buffer_size: 96000
-    buffer_pos: 72576
-    silent_size: 0
-    period_size: 24000
-    bytes_per_sec: 192000
-    sample_align: 4
-    rate_shift: 100000
-    update_pending: 0
-    irq_pos: 576000
-    period_frac: 24000000
-    last_jiffies: 4613497552 (4613497610)
-    timer_expires: 4613497674
-  Capture
-    buffer_size: 96000
-    buffer_pos: 73152
-    silent_size: 0
-    period_size: 24000
-    bytes_per_sec: 192000
-    sample_align: 4
-    rate_shift: 100000
-    update_pending: 0
-    irq_pos: 1152000
-    period_frac: 24000000
-    last_jiffies: 4613497552 (4613497610)
-    timer_expires: 4613497671
-Cable 0 substream 1:
-  inactive
-Cable 0 substream 2:
-  inactive
-Cable 0 substream 3:
-  inactive
-Cable 0 substream 4:
-  inactive
-Cable 0 substream 5:
-  inactive
-Cable 0 substream 6:
-  inactive
-Cable 0 substream 7:
-  inactive
-# cat /proc/asound/Loopback/cable#0
-Cable 0 substream 0:
-  valid: 3
-  running: 3
-  pause: 0
-  Playback
-    buffer_size: 96000
-    buffer_pos: 49536
-    silent_size: 0
-    period_size: 24000
-    bytes_per_sec: 192000
-    sample_align: 4
-    rate_shift: 100000
-    update_pending: 0
-    irq_pos: 1536000
-    period_frac: 24000000
-    last_jiffies: 4613498432 (4613498501)
-    timer_expires: 4613498549
-  Capture
-    buffer_size: 96000
-    buffer_pos: 50112
-    silent_size: 0
-    period_size: 24000
-    bytes_per_sec: 192000
-    sample_align: 4
-    rate_shift: 100000
-    update_pending: 0
-    irq_pos: 2112000
-    period_frac: 24000000
-    last_jiffies: 4613498432 (4613498501)
-    timer_expires: 4613498546
-Cable 0 substream 1:
-  inactive
-Cable 0 substream 2:
-  inactive
-Cable 0 substream 3:
-  inactive
-Cable 0 substream 4:
-  inactive
-Cable 0 substream 5:
-  inactive
-Cable 0 substream 6:
-  inactive
-Cable 0 substream 7:
-  inactive
-# cat /proc/asound/Loopback/cable#0
-Cable 0 substream 0:
-  valid: 3
-  running: 3
-  pause: 0
-  Playback
-    buffer_size: 96000
-    buffer_pos: 25152
-    silent_size: 0
-    period_size: 24000
-    bytes_per_sec: 192000
-    sample_align: 4
-    rate_shift: 100000
-    update_pending: 0
-    irq_pos: 1152000
-    period_frac: 24000000
-    last_jiffies: 4613499305 (4613499373)
-    timer_expires: 4613499424
-  Capture
-    buffer_size: 96000
-    buffer_pos: 25728
-    silent_size: 0
-    period_size: 24000
-    bytes_per_sec: 192000
-    sample_align: 4
-    rate_shift: 100000
-    update_pending: 0
-    irq_pos: 1728000
-    period_frac: 24000000
-    last_jiffies: 4613499305 (4613499373)
-    timer_expires: 4613499421
-Cable 0 substream 1:
-  inactive
-Cable 0 substream 2:
-  inactive
-Cable 0 substream 3:
-  inactive
-Cable 0 substream 4:
-  inactive
-Cable 0 substream 5:
-  inactive
-Cable 0 substream 6:
-  inactive
-Cable 0 substream 7:
-  inactive
-# cat /proc/asound/Loopback/cable#0
-Cable 0 substream 0:
-  valid: 3
-  running: 3
-  pause: 0
-  Playback
-    buffer_size: 96000
-    buffer_pos: 384
-    silent_size: 0
-    period_size: 24000
-    bytes_per_sec: 192000
-    sample_align: 4
-    rate_shift: 100000
-    update_pending: 0
-    irq_pos: 384000
-    period_frac: 24000000
-    last_jiffies: 4613500176 (4613500195)
-    timer_expires: 4613500299
-  Capture
-    buffer_size: 96000
-    buffer_pos: 960
-    silent_size: 0
-    period_size: 24000
-    bytes_per_sec: 192000
-    sample_align: 4
-    rate_shift: 100000
-    update_pending: 0
-    irq_pos: 960000
-    period_frac: 24000000
-    last_jiffies: 4613500176 (4613500195)
-    timer_expires: 4613500296
-Cable 0 substream 1:
-  inactive
-Cable 0 substream 2:
-  inactive
-Cable 0 substream 3:
-  inactive
-Cable 0 substream 4:
-  inactive
-Cable 0 substream 5:
-  inactive
-Cable 0 substream 6:
-  inactive
-Cable 0 substream 7:
-  inactive
-# cat /proc/asound/Loopback/cable#0
-Cable 0 substream 0:
-  valid: 3
-  running: 3
-  pause: 0
-  Playback
-    buffer_size: 96000
-    buffer_pos: 48768
-    silent_size: 0
-    period_size: 24000
-    bytes_per_sec: 192000
-    sample_align: 4
-    rate_shift: 100000
-    update_pending: 0
-    irq_pos: 768000
-    period_frac: 24000000
-    last_jiffies: 4613500928 (4613500964)
-    timer_expires: 4613501049
-  Capture
-    buffer_size: 96000
-    buffer_pos: 49344
-    silent_size: 0
-    period_size: 24000
-    bytes_per_sec: 192000
-    sample_align: 4
-    rate_shift: 100000
-    update_pending: 0
-    irq_pos: 1344000
-    period_frac: 24000000
-    last_jiffies: 4613500928 (4613500964)
-    timer_expires: 4613501046
-Cable 0 substream 1:
-  inactive
-Cable 0 substream 2:
-  inactive
-Cable 0 substream 3:
-  inactive
-Cable 0 substream 4:
-  inactive
-Cable 0 substream 5:
-  inactive
-Cable 0 substream 6:
-  inactive
-Cable 0 substream 7:
-  inactive
+On 6/18/2024 4:42 AM, Amadeusz Sławiński wrote:
+> On 6/17/2024 7:02 PM, Wesley Cheng wrote:
+>> Hi Amadeusz,
+>>
+>> On 6/13/2024 12:46 AM, Amadeusz Sławiński wrote:
+>>> On 6/12/2024 9:28 PM, Wesley Cheng wrote:
+>>>> Hi Amadeusz,
+>>>>
+>>>> On 6/12/2024 7:47 AM, Amadeusz Sławiński wrote:
+>>>>> On 6/11/2024 1:58 AM, Wesley Cheng wrote:
+>>>>>
+>>>>> (...)
+>>>>>
+>>>>>> +In the case where the USB offload driver is unbounded, while USB 
+>>>>>> SND is
+>>>>>
+>>>>> unbounded -> unbound
+>>>>>
+>>>>> (...)
+>>>>>
+>>>>>> +SOC USB and USB Sound Kcontrols
+>>>>>> +===============================
+>>>>>> +Details
+>>>>>> +-------
+>>>>>> +SOC USB and USB sound expose a set of SND kcontrols for 
+>>>>>> applications to select
+>>>>>> +and fetch the current offloading status for the ASoC platform 
+>>>>>> sound card. Kcontrols
+>>>>>> +are split between two layers:
+>>>>>> +
+>>>>>> +    - USB sound - Notifies the sound card number for the ASoC 
+>>>>>> platform sound
+>>>>>> +      card that it is registered to for supporting audio offload.
+>>>>>> +
+>>>>>> +    - SOC USB - Maintains the current status of the offload path, 
+>>>>>> and device
+>>>>>> +      (USB sound card and PCM device) information.  This would be 
+>>>>>> the main
+>>>>>> +      card that applications can read to determine offloading 
+>>>>>> capabilities.
+>>>>>> +
+>>>>>> +Implementation
+>>>>>> +--------------
+>>>>>> +
+>>>>>> +**Example:**
+>>>>>> +
+>>>>>> +  **Sound Cards**:
+>>>>>> +
+>>>>>> +    ::
+>>>>>> +
+>>>>>> +      0 [SM8250MTPWCD938]: sm8250 - SM8250-MTP-WCD9380-WSA8810-VA-D
+>>>>>> +                     SM8250-MTP-WCD9380-WSA8810-VA-DMIC
+>>>>>> +      1 [C320M          ]: USB-Audio - Plantronics C320-M
+>>>>>> +                     Plantronics Plantronics C320-M at 
+>>>>>> usb-xhci-hcd.1.auto-1, full speed
+>>>>>> +
+>>>>>> +
+>>>>>> +  **Platform Sound Card** - card#0:
+>>>>>> +
+>>>>>> +    ::
+>>>>>> +
+>>>>>> +      USB Offload Playback Route Card Select  1 (range -1->32)
+>>>>>> +      USB Offload Playback Route PCM Select   0 (range -1->255)
+>>>>>> +      USB Offload Playback Route Card Status  -1 (range -1->32)
+>>>>>> +      USB Offload Playback Route PCM Status   -1 (range -1->255)
+>>>>>> +
+>>>>>> +
+>>>>>> +  **USB Sound Card** - card#1:
+>>>>>> +
+>>>>>> +    ::
+>>>>>> +
+>>>>>> +      USB Offload Playback Capable Card         0 (range -1->32)
+>>>>>> +
+>>>>>> +
+>>>>>> +The platform sound card(card#0) kcontrols are created as part of 
+>>>>>> adding the SOC
+>>>>>> +USB device using **snd_soc_usb_add_port()**.  The following 
+>>>>>> kcontrols are defined
+>>>>>> +as:
+>>>>>> +
+>>>>>> +  - ``USB Offload Playback Route Card Status`` **(R)**: USB sound 
+>>>>>> card device index
+>>>>>> +    that defines which USB SND resources are currently offloaded. 
+>>>>>> If -1 is seen, it
+>>>>>> +    signifies that offload is not active.
+>>>>>> +  - ``USB Offload Playback Route PCM Status`` **(R)**: USB PCM 
+>>>>>> device index
+>>>>>> +    that defines which USB SND resources are currently offloaded. 
+>>>>>> If -1 is seen, it
+>>>>>> +    signifies that offload is not active.
+>>>>>> +  - ``USB Offload Playback Route Card Select`` **(R/W)**: USB 
+>>>>>> sound card index which
+>>>>>> +    selects the USB device to initiate offloading on.  If no 
+>>>>>> value is written to the
+>>>>>> +    kcontrol, then the last USB device discovered card index will 
+>>>>>> be chosen.
+>>>>>
+>>>>> I see only one kcontrol, what if hardware is capable of offloading 
+>>>>> on more cards, is it possible to do offloading on more than one 
+>>>>> device?
+>>>>>
+>>>>>> +  - ``USB Offload Playback Route PCM Select`` **(R/W)**: USB PCM 
+>>>>>> index which selects
+>>>>>> +    the USB device to initiate offloading on.  If no value is 
+>>>>>> written to the
+>>>>>> +    kcontrol, then the last USB device discovered PCM zero index 
+>>>>>> will be chosen.
+>>>>>> +
+>>>>>> +The USB sound card(card#1) kcontrols are created as USB audio 
+>>>>>> devices are plugged
+>>>>>> +into the physical USB port and enumerated.  The kcontrols are 
+>>>>>> defined as:
+>>>>>> +
+>>>>>> +  - ``USB Offload Playback Capable Card`` **(R)**: Provides the 
+>>>>>> sound card
+>>>>>> +    number/index that supports USB offloading.  Further/follow up 
+>>>>>> queries about
+>>>>>> +    the current offload state can be handled by reading the 
+>>>>>> offload status
+>>>>>> +    kcontrol exposed by the platform card.
+>>>>>> +
+>>>>>
+>>>>>
+>>>>> Why do we need to some magic between cards? I feel like whole 
+>>>>> kcontrol thing is overengineered a bit - I'm not sure I understand 
+>>>>> the need to do linking between cards. It would feel a lot simpler 
+>>>>> if USB card exposed one "USB Offload" kcontrol on USB card if USB 
+>>>>> controller supports offloading and allowed to set it to true/false 
+>>>>> to allow user to choose if they want to do offloading on device.
+>>>>>
+>>>>> (...)
+>>>>
+>>>> Based on feedback from Pierre, what I understood is that for some 
+>>>> applications, there won't be an order on which sound card is 
+>>>> queried/opened first.
+>>>>
+>>>
+>>> Yes if you have multiple cards, they are probed in random order.
+>>>
+>>>> So the end use case example given was if an application opened the 
+>>>> USB sound card first, it can see if there is an offload path 
+>>>> available. If there is then it can enable the offload path on the 
+>>>> corresponding card if desired.
+>>>>
+>>>
+>>> This still doesn't explain why you need to link cards using controls. 
+>>> What would not work with simple "Enable Offload" with true/false 
+>>> values on USB card that works while you do have above routing controls?
+>>>
+>>
+>> Sorry for the late response.
+>>
+>> I think either way, even with the "Enable Offload" kcontrol in USB 
+>> SND, we'd need a way to link these cards, because if you have multiple 
+>> USB audio devices connected, and say... your offload mechanism only 
+>> supports one stream.  Then I assume we'd still need to way to 
+>> determine if that stream can be enabled for that USB SND device or not.
+>>
+>> Since the USB SND isn't really the entity maintaining the offload 
+>> path, I went with the decision to add that route selection to the ASoC 
+>> platform card. It would have access to all the parameters supported by 
+>> the audio DSP.
+>>
+> 
+> Problem with card selection is that it will most likely work in pretty 
+> random way during reboots and similar scenarios.
+> 
+> Taking from your example:
+>      USB Offload Playback Route Card Select  1 (range -1->32)
+>      USB Offload Playback Route PCM Select   0 (range -1->255)
+>      USB Offload Playback Route Card Status  -1 (range -1->32)
+>      USB Offload Playback Route PCM Status   -1 (range -1->255)
+> 
+> This tells that hw:1,0 will be offloaded USB card. What happens if after 
+> reboot the USB card and offload card change places, the control will be 
+> pointing at its owner... Another scenario to consider is that user 
+> attaches two USB cards and only first one does offload. Now what happens 
+> when they enumerate in different order after reboot (swapping places)? 
+> Taking into the account that most systems restore previous values of 
+> controls in some way - this will point at wrong card.
 
-On Fri, Jun 14, 2024 at 7:50=E2=80=AFPM noman pouigt <variksla@gmail.com> w=
-rote:
->
-> Hello Folks,
->
-> I wanted to use aloop driver to dump playback
-> audio data to a file in userspace for debugging
-> without data being sent to hardware (just as a
-> debug feature for future use).
->
-> Command flow is this:
-> 1. aloop capture device is started using below command
-> first: "arec -D hw:0,1 /data/rec.wav &"
->
-> 2. using aplay, userspace sends the playback data.
-> "aplay -D hw:0,0 /data/test.wav"
->
-> Using jiffies. Wondering if changing rate_shift
-> (don't know what is that for) will help?
->
-> However, even in this simple setup I can see aloop driver
-> is corrupting the data and sinetone sent from playback
-> has glitches. I have tried different period sizes as well
-> but nothing worked. Wondering if this is by design i.e.
-> if the aloop driver shouldn't be used for this purpose?
-> Any debug steps will be highly appreciated.
->
-> Thanks for your help,
+That sounds like a problem that would exist with current USB SND 
+implementation too?  Removing the offloading perspective, how does the 
+system ensure that the previous setting stays persistent?  For example, 
+as you mentioned, depending on which USB device enumerates first, the 
+sound card may be different so cards will be switched.
+
+I think I mentioned this previously in another discussion, but I think 
+the idea was that with the
+USB Offload Playback Capable Card
+
+kcontrol, would allow the system to at least know there is an offload 
+capable path pointing to the ASoC platform card, and fetch more detailed 
+information about which device is selected for offloading, etc...
+
+> 
+> In my opinion Offload capability should be the capability of the 
+> endpoint - in this case USB card (even if in the background it needs to 
+> talk to some other device) and it should be exposed as such. Currently 
+> you are mixing capabilities of your audio card with capabilities of USB 
+> card.
+> 
+> And adding more controls will not make it easy to use from end user 
+> perspective. Most users will most likely want for the devices to perform 
+> offload automatically if possible to save power and just have control to 
+> disable it in case they want to test if it works better without it in 
+> case of some problems.
+
+I agree with you that we need to keep the controls at a minimum, but I 
+think what I have in place is fairly reasonable.  If we switch to having 
+the USB SND controlling things, we'd save maybe one control?  I think 
+keeping the offload status controls are still fairly valuable in both 
+scenarios, as userspace may need to verify which USB SND card is being 
+offloaded.
+
+> 
+> Additional question what happens if you want to offload two usb cards, 
+> currently the above set of controls allows you to only point at one 
+> card, will you be adding additional set of above controls dynamically 
+> for each USB card attached?
+> 
+
+It would depend on the number of offload streams that folks may be 
+supporting on their platform.  In our case we only have one available 
+stream, so applications would need to switch between the two devices 
+using the card/pcm selector.
+
+In this case, there will be only one set of controls to select the 
+card/pcm device.  As of now (I think I'll change to to add another 
+separate set of controls per stream) if you did support multiple 
+streams, then the current card/PCM device selector would take in 
+multiple arugments. (ie for two streams the kcontrol can take in two values)
+
+Thanks
+Wesley Cheng

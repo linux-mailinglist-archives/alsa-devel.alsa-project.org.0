@@ -2,107 +2,106 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC5BB90CAD1
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2024 14:01:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4898F90D499
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2024 16:23:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C1BFBDEE;
-	Tue, 18 Jun 2024 14:01:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C1BFBDEE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 94F84B65;
+	Tue, 18 Jun 2024 16:23:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 94F84B65
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718712070;
-	bh=jc50N0RnVWNFD2GgL6AtQC0sltoDiHKgy3x3xfHb+ew=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=NT7j/vHU1AOp61zI3bXocSvSgq15uUQt+dkpirkeDuleXiEI1OagvRVpFkdJBotDk
-	 +Z1UBzWqLmK+qot80jboPHboQFdI2lsJuE6U35mEWzLbg6rwG7ECVdVH0+Qug9Mu1t
-	 OTQbQ8GMiqfD399U3LIldGjY6TVED0M1gUUl7qAs=
+	s=default; t=1718720603;
+	bh=5a6B7OS5y/6qcp1oPN+ywcFiRxZ6JJXCwOzY6VEkxZg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=OiXodX+d8HnW3iLhuT1L/t0CeOaUxp5BExdtmHWqwdMddKoBrlqg+hVMguL2bRRhm
+	 9buZUVroUo7WWRM25ECqUZEtr/yBedWlq4SITLNotZs2Ee02No9pfel6jwyHTaAGRS
+	 St1bs0UyP4BPZHC9e1+2cwJd0hq5sjJb4EG9LLhI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E2742F805AC; Tue, 18 Jun 2024 14:00:38 +0200 (CEST)
+	id 5519CF805F9; Tue, 18 Jun 2024 16:22:23 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2CB02F805B4;
-	Tue, 18 Jun 2024 14:00:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A3888F805E9;
+	Tue, 18 Jun 2024 16:22:22 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BF61AF8023A; Tue, 18 Jun 2024 14:00:28 +0200 (CEST)
+	id 6BF8AF8023A; Tue, 18 Jun 2024 14:44:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,RCVD_IN_DNSWL_LOW,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-pj1-x1029.google.com (mail-pj1-x1029.google.com
+ [IPv6:2607:f8b0:4864:20::1029])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5EDA6F800FA
-	for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2024 14:00:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5EDA6F800FA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 68891F800FA
+	for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2024 14:41:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68891F800FA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256
- header.s=selector1 header.b=S/tXZM8/
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
-	by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 45IA2Cuf014186;
-	Tue, 18 Jun 2024 14:00:20 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=selector1; bh=pRncs9djhWB9Ja92W3g41f
-	UBElkvpH4tn5xTWy10eG0=; b=S/tXZM8/EV++30E8fS2Xvuf5Z0QCJH1k5K8+Ri
-	8pgtJS+4aBG+qT56h/wb62Zh9qFZS6ZpM3AYtfqQfmRvCJC+OUudFZSnYzxBTV5A
-	OPWgbBc16XtxSPw6+Eqj7IkhNMH8waXw0NBrJhDemrIj9ShGqi1cl1Yqqc6cMhDa
-	syihGUqouebz49ENPUyKnIg1KlC7HMkuOY/N0uJEZFmbkJzcZR4Apu6a8ONLM4+g
-	2HGECQaxT3S7spWfvLdhF85cARpW/9N7awzOb3NueNgw5ouowHK+nu/eIjPBH4JH
-	f5zN719srZ3DNUwt/8KClIR0l9PK94D/yvHXTDPT8C9d/Ruw==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
-	by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ys035k7pb-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 18 Jun 2024 14:00:20 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
-	by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 720F040044;
-	Tue, 18 Jun 2024 14:00:14 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
-	by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 55CFD21682C;
-	Tue, 18 Jun 2024 13:59:24 +0200 (CEST)
-Received: from localhost (10.252.27.64) by SHFDAG1NODE1.st.com (10.75.129.69)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 18 Jun
- 2024 13:59:24 +0200
-From: Olivier Moysan <olivier.moysan@foss.st.com>
-To: Olivier Moysan <olivier.moysan@foss.st.com>,
-        Arnaud Pouliquen
-	<arnaud.pouliquen@foss.st.com>,
-        Jonathan Cameron <jic23@kernel.org>,
-        Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-        Alexandre Torgue
-	<alexandre.torgue@foss.st.com>,
-        Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-CC: <alsa-devel@alsa-project.org>, <linux-iio@vger.kernel.org>,
-        <devicetree@vger.kernel.org>,
-        <linux-stm32@st-md-mailman.stormreply.com>,
-        <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH] dt-bindings: iio: stm32: dfsdm: fix dtbs warnings on dfsdm
- audio port
-Date: Tue, 18 Jun 2024 13:59:12 +0200
-Message-ID: <20240618115912.706912-1-olivier.moysan@foss.st.com>
-X-Mailer: git-send-email 2.25.1
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=VV3Hwg34
+Received: by mail-pj1-x1029.google.com with SMTP id
+ 98e67ed59e1d1-2c2d25b5432so4190940a91.2
+        for <alsa-devel@alsa-project.org>;
+ Tue, 18 Jun 2024 05:41:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1718714436; x=1719319236;
+ darn=alsa-project.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=5a6B7OS5y/6qcp1oPN+ywcFiRxZ6JJXCwOzY6VEkxZg=;
+        b=VV3Hwg349w8NlyLXvc51cE39NByOHq4A0NaRrpAJpZ0YXQjMaqqahMeplXF0QRs0TM
+         viDKSeVTo8cjyT1rIM/xIpLkU+MaOrXzRrLj0SctHiIR2UkRF44kbRuBADWYsNGZ/83L
+         KC5R0wT7woPh3qgIaIxYj+JzFxjeJNHQtufNjy02L8D4K5lEwmp9Rg6MBMtBwfhTlpzA
+         GdyAGh6WYAiQMRqo5rDaQk4LYGmP7mYJ1VkwGbaNH1GAsVrxtG5X5gqJHDPRSpkzx0i7
+         nwNdVQOAkju48Le6w1wsVUlqCnhbfNNTksvHkWEakPhtn+vHHjD7VPNQCyPopWxVQgV1
+         7pwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1718714436; x=1719319236;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=5a6B7OS5y/6qcp1oPN+ywcFiRxZ6JJXCwOzY6VEkxZg=;
+        b=bZMV06znWsNfANNSDKTJiUqoWVbPxEr/UBC8z1Oga4HCdCNqlLRbRj3Td10Us562Az
+         FwMBIfpWPD8Jkn/s6XLzSDnltUXP9oaS4HUHqkaYgfMRrAyFyi6PmHtvGhUUdXSorCCB
+         RMt7+Qg09ild8whEvXx9sjPd8i5FgXtuBA7EXFtLIJ3uzA6KO23P0sBHDqWHP69RJnOV
+         zYErgx4D7UkzXyY21u79hTI77tWhCH+CPq1meyyBaQS86Fd8aXC8GuyGLvCsoGyV7ZKQ
+         jcES0T4BQja/2Wp1wJaO8ayLdNzhXxqZU6ThGsB8+Gl2SuDG0EJz9f0TRbIU8Yy9fJcf
+         vHXA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVubMgYXJTJDh9BoY007ouAQg+gcqKrbfECEh7d7QRGkPANpwlBivP6KqZTIXCUkdqj3ShVg5715veDEErd4B520MSChVlkyGy+2Lo=
+X-Gm-Message-State: AOJu0Yy+0X+PESvvt0amu6qd6/6nJ04lLJK6paVfO9+vViesQYGS6MR/
+	tk8958L/ti8BloW8Bu32/S+CHc5oVbAkez5/F2N7yr0cdz2hOkJmIIZwrTbNJ2vtkv00oS5KLz7
+	ERlnpgF8b9pR88zXV6ALdwK0XvbY=
+X-Google-Smtp-Source: 
+ AGHT+IHzJ+FQXBDprzDLivYXPnBaHoSRGyFKlPdv4yqmqIcli49NimXBrXz6EdcJ6mVtfetMmC1KIax8TCU52XOcrsY=
+X-Received: by 2002:a17:90b:253:b0:2c7:6305:9905 with SMTP id
+ 98e67ed59e1d1-2c76305b4aemr956131a91.10.1718714435549; Tue, 18 Jun 2024
+ 05:40:35 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.252.27.64]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-06-18_02,2024-06-17_01,2024-05-17_01
-Message-ID-Hash: LEAFHSF5NBXB5CQTFXZEZFPUJMDR6H4U
-X-Message-ID-Hash: LEAFHSF5NBXB5CQTFXZEZFPUJMDR6H4U
-X-MailFrom: prvs=68998c6755=olivier.moysan@foss.st.com
+References: <20240615125457.167844-1-rauty@altlinux.org>
+ <2c9ba341bc95d4b9010bf5f8794c0d14b1c57dc9.camel@irl.hu>
+In-Reply-To: <2c9ba341bc95d4b9010bf5f8794c0d14b1c57dc9.camel@irl.hu>
+From: Rauty <rautyrauty@gmail.com>
+Date: Tue, 18 Jun 2024 15:39:58 +0300
+Message-ID: 
+ <CAGpJQTHoBAixmxta2WuZfjHjiK9GXF=hkfPyV7PBD5rt9Z_0WA@mail.gmail.com>
+Subject: Re: [PATCH v2] ALSA: hda/realtek: Enable headset mic on IdeaPad
+ 330-17IKB 81DM
+To: Gergo Koteles <soyer@irl.hu>, alsa-devel@alsa-project.org, tiwai@suse.com
+Cc: perex@perex.cz, kailang@realtek.com, sbinding@opensource.cirrus.com,
+	luke@ljones.dev, shenghao-ding@ti.com, simont@opensource.cirrus.com,
+	foss@athaariq.my.id, rf@opensource.cirrus.com, wzhd@ustc.edu,
+	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Message-ID-Hash: ZJTBYE62TCKLRJVJR2UU3L4AUBFPZSZK
+X-Message-ID-Hash: ZJTBYE62TCKLRJVJR2UU3L4AUBFPZSZK
+X-MailFrom: rautyrauty@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -114,7 +113,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LEAFHSF5NBXB5CQTFXZEZFPUJMDR6H4U/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZJTBYE62TCKLRJVJR2UU3L4AUBFPZSZK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -123,31 +122,15 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Fix warnings on DFSDM dtbs check
-Unevaluated properties are not allowed ('dfsdm-dai' was unexpected)
-'port' does not match any of the regexes: 'pinctrl-[0-9]+'
+On Sun, 16 Jun 2024 at 10:38, Takashi Iwai <tiwai@suse.de> wrote:
+> Your From address and Signed-off-by address are different.
+> Could you try to align them?
 
-Fixes: 11183ac07a74 ("dt-bindings: stm32: convert dfsdm to json-schema")
-Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
----
- .../devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml       | 4 ++++
- 1 file changed, 4 insertions(+)
+Ok.
 
-diff --git a/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml b/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
-index c1b1324fa132..2722edab1d9a 100644
---- a/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
-+++ b/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
-@@ -246,6 +246,10 @@ patternProperties:
-                     From common IIO binding. Used to pipe external sigma delta
-                     modulator or internal ADC output to DFSDM channel.
- 
-+                port:
-+                  $ref: /schemas/sound/audio-graph-port.yaml#
-+                  unevaluatedProperties: false
-+
-               required:
-                 - compatible
-                 - "#sound-dai-cells"
--- 
-2.25.1
+On Sun, 16 Jun 2024 at 21:08, Gergo Koteles <soyer@irl.hu> wrote:
+> There are some similar collisions with Lenovo laptops.
+> Please see commit 0ac32a396e4f41e88df76ce2282423188a2d2ed0 for an
+> example how to handle one.
 
+Yes, you're right. I'll do the same and send v3.

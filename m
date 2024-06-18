@@ -2,79 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46A8A90D4A4
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2024 16:23:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7205490D4B1
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2024 16:24:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 602D4DF6;
-	Tue, 18 Jun 2024 16:23:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 602D4DF6
+	by alsa0.perex.cz (Postfix) with ESMTPS id EBB1FDFA;
+	Tue, 18 Jun 2024 16:24:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EBB1FDFA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718720629;
+	s=default; t=1718720679;
 	bh=0rziP/IoVXP3TfzQU7TMnmqKwrX7EBGqSRuKglqc2j8=;
 	h=From:Subject:Date:To:Cc:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=qCP5ofxOp3JSaUqY87dwRNiXX3GsD49Uo0qZ8dl2MCQwafVMWi9g7zFUpTZJPO5p4
-	 exXaAYqW+/vULBHzIbjkn94nwFghMJ3/apK5gEfmneJzdNbuqvPKLQcMv7Qx8fOvMf
-	 BwrJr3VcHCI9mdjczUJoBYaKxeSCoMtl8vNgqQlM=
+	b=URAbZtZxIcyFgZz7DwdCM4vM/SI2GD4/aEX+hbaMfopg3yrbf7AMhIr5ZQ2P+DyMf
+	 Cuy02TVNkNRv3MRSfEWClSlzryBPyZPxEaU0+WyLqyrn0co5/nMzyOi17nYE9dnsHf
+	 WC2RjEQhnI+jqvC1eIcpQv7yrMnLd7dyQcKAtXkM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C3E0CF80619; Tue, 18 Jun 2024 16:22:24 +0200 (CEST)
+	id B52DAF806A2; Tue, 18 Jun 2024 16:22:25 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7EE8EF8061F;
-	Tue, 18 Jun 2024 16:22:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5353BF80635;
+	Tue, 18 Jun 2024 16:22:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B0E28F80266; Tue, 18 Jun 2024 16:20:21 +0200 (CEST)
+	id D1D0DF804D6; Tue, 18 Jun 2024 16:20:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: ***
-X-Spam-Status: No, score=3.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_SBL_CSS,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=no
-	autolearn_force=no version=3.4.6
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [IPv6:2a00:1450:4864:20::331])
+X-Spam-Status: No, score=3.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_MSPIKE_H2,RCVD_IN_SBL_CSS,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
+Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com
+ [209.85.208.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 98E6EF80587
-	for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2024 16:15:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 98E6EF80587
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4AF27F80269
+	for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2024 16:15:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4AF27F80269
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=JExa4W6M
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-421a1b834acso46444255e9.3
+ header.s=google header.b=cy9KHhGM
+Received: by mail-lj1-f174.google.com with SMTP id
+ 38308e7fff4ca-2ead2c6b50bso60203221fa.0
         for <alsa-devel@alsa-project.org>;
- Tue, 18 Jun 2024 07:15:44 -0700 (PDT)
+ Tue, 18 Jun 2024 07:15:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1718719964; x=1719324764;
+        d=linaro.org; s=google; t=1718719616; x=1719324416;
  darn=alsa-project.org;
         h=cc:to:content-transfer-encoding:mime-version:message-id:date
          :subject:from:from:to:cc:subject:date:message-id:reply-to;
         bh=BuVWP4GVK7L2zp39JVZyz0tyrIh2tPWyuf/GeYuNsvk=;
-        b=JExa4W6M45u6q2bBVtHpvDpGrMxKdApHG+anC2Ma1PpO4Zc8MGligtLFVTA05DFDw5
-         mqqAVGHmDZDoxIyXGGxZCpRuXwyWyGfYlvWImF23Ot8KzgUARzdlmTdpEBSbWj3jZBgM
-         pOLtjEbtEYSLlo1KROAKMRQbQgxV7Hugn14sSCwE0L+MMkP8Lw8UNlJXdvDMH4bEJ621
-         AlS+FUhgjK71Zv3NyUy3sfzetuXAWcT++w6KW/GYa4xyN+ioIaDSfBq0y4N5xeeG5Bvt
-         dr9reb0RcWpcu6BFJiVVUOo+QM+l7/uPIAEbthEMNEBnuS0BKzPPRmJQVfKnG6vz6z6K
-         9L8g==
+        b=cy9KHhGM6sbRGAAm7NIHGNPYdSOZFmCvlv3PhBCgnkp1eALKaeeMw8J4s5C7wFb6Wk
+         PRpI+g8ilSqVuT193UmPBIpH+axFZW/Yl9sPEVJcy8G6GCQsHnEBrYGSzKkhqZIPug9E
+         eb+0IkgPWjh5++2Tw633X8lVOT6RB4w84UGd8pKsngeX0FpfxVo4HQ+oSlqSFTkCd2b3
+         PXYcl4+3B2eXn426LptQqFh902rf4X6uZWNHYIsrDmv5B4j4SDoq+ijEcX4dVgV2yqoG
+         RMgzoSm4PuNac6HTT6Sjhwcnh/fdTdEFCSUvJlMN8bRpNzeHpNhg+KV57BVlSM3pHfP3
+         EU0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718719964; x=1719324764;
+        d=1e100.net; s=20230601; t=1718719616; x=1719324416;
         h=cc:to:content-transfer-encoding:mime-version:message-id:date
          :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
         bh=BuVWP4GVK7L2zp39JVZyz0tyrIh2tPWyuf/GeYuNsvk=;
-        b=JfGiqurHawSP4GHGae8Pu9C88/ZaDFZSx2K0y/e/Iu2lRxl/MP1iZea8dZ8YOHK0yC
-         9bB7R0C+Fb3+ZwxPMDNu0t3w8kG6mhdveAl5kdhvijifsshwehkcz35lBeuS4c9YEb/c
-         ekZpBvIkyQTiKntC8aYQPW4u6rI7h+Jym4/G0D34+UmBGjUw4a2HfUxAHdi0+eF20y6j
-         0zAnl43pwvt/fUkkLlimSg+xX4/pnllh4XgWJnBtZv6X5XuI9cr+DrLYToSLpuhgA0rr
-         zymrY4gF3Wu8WxBsm/bxo/l2r+Xf5U6eHXmhqTdNvAHdBq3pb9oqffNtJvMEHJZQHeAc
-         iJ8g==
-X-Gm-Message-State: AOJu0YzZl0VUHOVYjgNueHieiHBgfGj47DsEbDSe7pCrPxxPm421KF7i
-	r/mbtu1Ef/ox1b+DtjQAbJd1aVPELBzOYEr/i/EgUCHLWhEdtiR4l9OEQEH3YHAU5H0/3tYPSo8
-	uQG4=
+        b=Nj0xziWNNcPCGhOdyXH0+OR/yR425Rtuq+jAYUhz332p12cWKyUkns8+p+d5n41gt8
+         aLotkJmrhw0IH37jg6dQ4ccLHudSe60ez+9C/XjnRwJ1i3wjrF5ILpLGzYQqelZI36y4
+         LyCPOy2lHClTaYHgCFnXAGB0Wk1r+4o91LfP8hP0KFvGfq235yInnXEFr0JqJeqmeqpQ
+         LRiB0QQ7t+be2iF17Bovad3yiFwbqd5uDxNj5ROyJM4s6Uj2vxiuJHcM00wEkN/DA8Ci
+         qH1sLUrD65eKBM66E3zVZo1pyr3A+Gu/YpYbslE5+jiB4/t3Nh+mZAt6AhpAhZgkTvE/
+         wQ3Q==
+X-Gm-Message-State: AOJu0Yz50fERUrWUsqer/EkTfzZATrCWqlrFXr38CQB95/Y7k0x1Hs3e
+	3aKY/HkBOeRkV3dDY3Hbd+2CR2+WMZdhA+uHLhCVImu6LNQ/Emm4OI/SRkqDfhZCWhvk0Fyh+lb
+	Jurw=
 X-Google-Smtp-Source: 
  AGHT+IHtLz8KllMMtdCRU487RnyWpaHO2FxTL+sG63GWh7A5oH2EYJFnivoVxsZYulKG+Tu4+suuqA==
 X-Received: by 2002:a50:9518:0:b0:57d:32d:cacd with SMTP id

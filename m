@@ -2,133 +2,115 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74B5490FD45
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jun 2024 09:05:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E3D090FD47
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jun 2024 09:06:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B307CDE5;
-	Thu, 20 Jun 2024 09:05:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B307CDE5
+	by alsa0.perex.cz (Postfix) with ESMTPS id A2D38DF6;
+	Thu, 20 Jun 2024 09:06:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A2D38DF6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718867141;
-	bh=ArMZUZTzqM9vkT4dgfxTpgAfn+DNat7a6cauftDSfcg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1718867185;
+	bh=dJEzkSyweazjJTKUEf1BqydnD1RQQNyHb5AgSblIfdE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=m+vTFVnfDLBh+Et2gbC4zUcDR0GX26wcX0bsXGPG//c9MBsZeWBVfMpdtrf4csjAf
-	 JHr4biP6SaGonQvPxm71WDlx3QnAzUFxO7S58FSxjQNY7/9JNhvJKBHVeY9eCClcvq
-	 3fbUm+hpHE/eObvOwoyJDhKwg8Ity8M7PDsCy9MQ=
+	b=uYwAi6gv3uI9QPsRm2HFWuUDl0Ye72XOIOYaNhbdhIrtu55QBZZex1sueABL5wsXV
+	 Iy3u8EmJlyghQYUI2ctjavt6btsd3CFOfs9tPLSlBOZ+ZZ9ks9TC25FD5q7hdbkYOb
+	 XXG7g7+xobMe64wXMXQ6mCDyWGfTZxB/DDfQn37g=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 800EAF801EB; Thu, 20 Jun 2024 09:05:09 +0200 (CEST)
+	id 44D31F805A1; Thu, 20 Jun 2024 09:05:53 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E5955F805B1;
-	Thu, 20 Jun 2024 09:05:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1AA46F80269;
+	Thu, 20 Jun 2024 09:05:53 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5C0B2F8023A; Thu, 20 Jun 2024 09:01:25 +0200 (CEST)
+	id C609EF8023A; Thu, 20 Jun 2024 09:05:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [IPv6:2a00:1450:4864:20::634])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 11E5EF80154
-	for <alsa-devel@alsa-project.org>; Thu, 20 Jun 2024 09:01:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 11E5EF80154
+	by alsa1.perex.cz (Postfix) with ESMTPS id D8ED0F80236
+	for <alsa-devel@alsa-project.org>; Thu, 20 Jun 2024 09:05:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8ED0F80236
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=qQOjxifb
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 3FBEFCE23A8;
-	Thu, 20 Jun 2024 07:01:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B20F2C2BD10;
-	Thu, 20 Jun 2024 07:00:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1718866865;
-	bh=ArMZUZTzqM9vkT4dgfxTpgAfn+DNat7a6cauftDSfcg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=qQOjxifbjj/u+M1+2R/hK6xxP78TQbQeKJSRLF61tjvmf9jVPKPLCnQ+SFdzpWhsA
-	 s1ky4XgrVhhRBY41CmGAFem63zsy2fAySItXfbnpAI1euc2cOjaKf9SpL8aauaygSl
-	 7EAaDn4Eg1VayxyoAAW0QZfPZEHCM8zYM3kvyWrM2ifF8Twko2xy800iGRcr0vtT4d
-	 zoOxvaVOSbB0eDVgAyWz43Q+3yKzxKLtOVsJMHqFOBOn125GSq9ONB6wAlTf8OJStf
-	 Dzmn6n4jG/diYy5znz3vSG93tGtKbD2YuxTOoTB3o6MXWSrpAxEljbcxuCIxTRrVX4
-	 gAbmWIEMXRWpw==
-Message-ID: <fc05397e-44d4-423b-8a2a-436a49be3597@kernel.org>
-Date: Thu, 20 Jun 2024 09:00:56 +0200
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=ZMmmB5Rd
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-a6f85f82ffeso52273066b.0
+        for <alsa-devel@alsa-project.org>;
+ Thu, 20 Jun 2024 00:05:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1718867136; x=1719471936;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=dJEzkSyweazjJTKUEf1BqydnD1RQQNyHb5AgSblIfdE=;
+        b=ZMmmB5RdsQnWJK7A+vGxrK8m5eIcSH4OZSbVwLtSFYEyqCxj38UX68M2jsRm+49roH
+         qOPvp6cCAfyAzXKRMfuVJCxfrBRy1SCZBhwH95wa6h3RCqZUwK5NcxZVmSNkOeis3THO
+         lnbGpevJA/GVDGYERBmR6X+iI0yKoeZBH4MrMO3iGGxc2Z3Pi3pUBS89ByfJPvYatcln
+         ZmfWLjdRgSZFFugCZbO1CjdBosdvOSRK0UyTWb4d4r69XXyOOQjZIGryx05VWx63B07E
+         V60pjBEDR/FZj+C58/RhNxZw39rB9xqDvbV0cQBmlgZI3ZeTjkePyTk3hpqEc1783XKR
+         J+VQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1718867136; x=1719471936;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=dJEzkSyweazjJTKUEf1BqydnD1RQQNyHb5AgSblIfdE=;
+        b=kw5OQTw9xcDE2Z+EC4JHVSxgKHtWHhnF5Jjf8MDsi7NGyn7TFD7pIz2mJpJfre1E2X
+         2YI98L8ufkQpQDFRzDuJjuCRpdam/bDkAzqKZaiC1YrCuZ44X9MZoEmUw4pm1SSOsLf1
+         0B9Qfyarb0zsVCoFbZvoseXGZmaTSRIkGG9S4qVFNHXhvfHzFcrmu9EsUre0sdiXokOH
+         /P49tIBzToQ4Q/2c7DWJMZMF42GsENX15W7VV7jPxue7m5PVV60Hyj7pHIzC3ff7Qe0v
+         AIjzl520cyFl6fu4TgUv6FDX7NJJ1l/cX5QGCTWYDke1zvFwgJxsXm4nPCCb1qTGzLhM
+         LYBw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVlBi9J6W6SH1Xo0uSaJXLXr3pwIogbTx47/kVzG8fS+gafltNpKfio4SsbkkMZDzJcNf3pyQuCkcN3xdFKqiauWFa0K5Bgyeu4ZvQ=
+X-Gm-Message-State: AOJu0YxetoVWLONIEBR4ybV8C2CgOIfBplxWkbe5Uqt7YR24mMy7iue5
+	2bO7JJoL69fvN8NhtnQZaH0TM2M+7ee/027vRRS7R4CygEG9OAypf4LPnsUib77LWGuTKTpjj4Q
+	/53ftB2zZSoZjs+dOtHmjiFDYkSU=
+X-Google-Smtp-Source: 
+ AGHT+IH9Zi075xLIea9HUNdZOY2FI+hFSTobEwSf38cByPkAEGv6hOZRLG60t8CtapdTRB2mmitpm6FhzBhArR1rZmc=
+X-Received: by 2002:a17:906:81cf:b0:a6f:7826:41ea with SMTP id
+ a640c23a62f3a-a6fab646fa0mr230471066b.39.1718867135834; Thu, 20 Jun 2024
+ 00:05:35 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ASoC: dt-bindings: add missing vender prefix on filename
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Andrew Davis <afd@ti.com>, Baojun Xu <baojun.xu@ti.com>,
- Conor Dooley <conor+dt@kernel.org>,
- Daniel Beer <daniel.beer@igorinstitute.com>,
- Fabio Estevam <festevam@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Kevin Lu <kevin-lu@ti.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh@kernel.org>, Shenghao Ding <shenghao-ding@ti.com>,
- Shi Fu <shifu0704@thundersoft.com>, Takashi Iwai <tiwai@suse.com>,
- Vincent Knecht <vincent.knecht@mailoo.org>
-Cc: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-sound@vger.kernel.org, patches@opensource.cirrus.com
 References: <87wmmkpi6w.wl-kuninori.morimoto.gx@renesas.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 fv0=
 In-Reply-To: <87wmmkpi6w.wl-kuninori.morimoto.gx@renesas.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: C5JSXXIWDUCBHQCMMNDBFJL5CTTALTBV
-X-Message-ID-Hash: C5JSXXIWDUCBHQCMMNDBFJL5CTTALTBV
-X-MailFrom: krzk@kernel.org
+From: Daniel Baluta <daniel.baluta@gmail.com>
+Date: Thu, 20 Jun 2024 10:05:23 +0300
+Message-ID: 
+ <CAEnQRZCKR6G4-fP7YVsjLvpKNHBQGNYa4TwxS0U0hdheFjxxBw@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: dt-bindings: add missing vender prefix on filename
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: Andrew Davis <afd@ti.com>, Baojun Xu <baojun.xu@ti.com>,
+ Conor Dooley <conor+dt@kernel.org>,
+	Daniel Beer <daniel.beer@igorinstitute.com>,
+ Fabio Estevam <festevam@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Kevin Lu <kevin-lu@ti.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+	Shenghao Ding <shenghao-ding@ti.com>, Shi Fu <shifu0704@thundersoft.com>,
+	Takashi Iwai <tiwai@suse.com>, Vincent Knecht <vincent.knecht@mailoo.org>,
+ alsa-devel@alsa-project.org,
+	devicetree@vger.kernel.org, linux-sound@vger.kernel.org,
+	patches@opensource.cirrus.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: HGNZBIGDVRBSBFCO45WGOZOXYT7IS54P
+X-Message-ID-Hash: HGNZBIGDVRBSBFCO45WGOZOXYT7IS54P
+X-MailFrom: daniel.baluta@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -140,7 +122,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/C5JSXXIWDUCBHQCMMNDBFJL5CTTALTBV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HGNZBIGDVRBSBFCO45WGOZOXYT7IS54P/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -149,16 +131,12 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 20/06/2024 02:32, Kuninori Morimoto wrote:
+On Thu, Jun 20, 2024 at 3:32=E2=80=AFAM Kuninori Morimoto
+<kuninori.morimoto.gx@renesas.com> wrote:
+>
 > Many Sound yaml files doesn't have vender prefix on filename.
 > Add missing vender prefix for these files.
-> 
+>
 > Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-Thanks.
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-
-Best regards,
-Krzysztof
-
+Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5914D90FF6B
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jun 2024 10:50:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7569F90FF6D
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jun 2024 10:51:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E1F4FE64;
-	Thu, 20 Jun 2024 10:50:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E1F4FE64
+	by alsa0.perex.cz (Postfix) with ESMTPS id C911283E;
+	Thu, 20 Jun 2024 10:51:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C911283E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718873453;
-	bh=/gkMygh09ZpiD7BTBSHMvPXyxlus217LmQzwwIIdnOk=;
+	s=default; t=1718873476;
+	bh=rBkSeB69MknRRW1vvLLHZBCUsHjl3fAMU+GE38ZYnJk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=JG0owrJA2KAFS6sms/HUv3VgDSsePmEzgZbX+oDG6SLQTnezUC19HOZGeR6eOM9pQ
-	 E78+t1ftyQOo+1IRwAwjOYlqTWz2v+5pz1WPfbBfyT2qU11YEvigl0Tc/BWa+N7OUW
-	 1J4KPEHop+JdxuEUtPo/pJHSxfizGTVHPm5cNs2Y=
+	b=QnEGklJ/lhZ54AW04ZjKH/r4yoi8s1q1K7CnybC8MKBFIrzo4I2lA202Mjs7SbVz5
+	 fo81woBueNvs8fWkT4ahOKgxh+LiAMdLQfObksC3rDPRawZQLm+atAKJpmbOGSYJFu
+	 E10jc3HHb7G6uiuODyLvDiZqVDHfCL9+psQaDar4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 95FADF805A9; Thu, 20 Jun 2024 10:50:06 +0200 (CEST)
+	id CA504F8060A; Thu, 20 Jun 2024 10:50:12 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7D35CF800ED;
-	Thu, 20 Jun 2024 10:50:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4A185F80606;
+	Thu, 20 Jun 2024 10:50:11 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AFCADF80266; Thu, 20 Jun 2024 10:43:40 +0200 (CEST)
+	id A399BF804F2; Thu, 20 Jun 2024 10:43:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -37,27 +37,27 @@ Received: from relay7-d.mail.gandi.net (relay7-d.mail.gandi.net
  [217.70.183.200])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A79ACF804F2
-	for <alsa-devel@alsa-project.org>; Thu, 20 Jun 2024 10:43:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A79ACF804F2
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1BB23F80587
+	for <alsa-devel@alsa-project.org>; Thu, 20 Jun 2024 10:43:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1BB23F80587
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=BYraRfk7
-Received: by mail.gandi.net (Postfix) with ESMTPA id 5E33D20012;
-	Thu, 20 Jun 2024 08:43:18 +0000 (UTC)
+ header.s=gm1 header.b=ew1lZeu1
+Received: by mail.gandi.net (Postfix) with ESMTPA id 806CD20016;
+	Thu, 20 Jun 2024 08:43:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1718872999;
+	t=1718873000;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=YDLRcTY0BkTaFAdlLFjztJqIMTmDai9TLYinXM16row=;
-	b=BYraRfk7fEz5L1838NbMQUtgasaGC3yafWba1AA59mzifxKYEytwkNwf8SyIWpTY3kgf6B
-	XVylMtJ5iP8zPd51l9KZueVKs9oinG3sl6rbBmqPv7N/6EmTdGrluo/VNLTg6qjw1NVJ5K
-	FxI9ONYG7CI54wUSXtP8pOp/P6Q7OuDTS/4XCYA8fJ3iZ5xX/HN37b9QFIO0OqRZskePlB
-	L91Bt6v+i5rN5HUE8T5+kkQFZ0M0AKz8O/Spdg6uN9XAhBPsCZbP6cwciBfrvrhyDFvpEf
-	ggReD1B+0vtfuCPOfKDWeEOU4Tr4aTq27ArjK8IYP4XQs5WublUbr+biTu74ig==
+	bh=LQir0ryB/8aPBX/LEL6U1QothG+zRSSIaipi9sCzLmY=;
+	b=ew1lZeu1oYh7noJ/c69BVNsPhRCTgkWHP3qwLlXxKKhYbGmkbHKPiXHyqURBfmqSYorKIm
+	ScesK+S0610KGyeAzFMxdNifl136+7dKBnmCpdCAx8UtdDbqgk4Q+K/Fu8MmcJRUnXyEco
+	aI8lxmr++LgOF8ZbFK5gZ80NcQ9Srn7oGRytUndRQtMbXrE1E9D2/NzYn3JAciPjbe/nV0
+	fbWdYz4bqFuodE7bo8he2o4vth9amo92zSTDN+52ISW+898gFDU65YN4FIhuQ+i1cfnnOz
+	LNJdsvWx4mTDJytFSARmGafznmz15swgkXh4wv7MOz2vBe4XOfKuwD+RIbgu2w==
 From: Herve Codina <herve.codina@bootlin.com>
 To: Herve Codina <herve.codina@bootlin.com>,
 	Liam Girdwood <lgirdwood@gmail.com>,
@@ -80,18 +80,18 @@ Cc: alsa-devel@alsa-project.org,
 	linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: [PATCH 08/10] soc: fsl: cpm1: qmc: Introduce
- qmc_chan_count_phandles()
-Date: Thu, 20 Jun 2024 10:42:55 +0200
-Message-ID: <20240620084300.397853-9-herve.codina@bootlin.com>
+Subject: [PATCH 09/10] dt-bindings: sound: fsl,qmc-audio: Add support for
+ multiple QMC channels per DAI
+Date: Thu, 20 Jun 2024 10:42:56 +0200
+Message-ID: <20240620084300.397853-10-herve.codina@bootlin.com>
 X-Mailer: git-send-email 2.45.0
 In-Reply-To: <20240620084300.397853-1-herve.codina@bootlin.com>
 References: <20240620084300.397853-1-herve.codina@bootlin.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-GND-Sasl: herve.codina@bootlin.com
-Message-ID-Hash: I26R3EO5LCWO4O3PBJYB5HZDZWEAOZEF
-X-Message-ID-Hash: I26R3EO5LCWO4O3PBJYB5HZDZWEAOZEF
+Message-ID-Hash: ROIVK4OW4WHSR6YCXMM6AK2KPLEREBM2
+X-Message-ID-Hash: ROIVK4OW4WHSR6YCXMM6AK2KPLEREBM2
 X-MailFrom: herve.codina@bootlin.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -104,7 +104,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/I26R3EO5LCWO4O3PBJYB5HZDZWEAOZEF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ROIVK4OW4WHSR6YCXMM6AK2KPLEREBM2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,54 +113,92 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-No function in the QMC API is available to get the number of phandles
-present in a phandle list.
+The QMC audio uses one QMC channel per DAI and uses this QMC channel to
+transmit interleaved audio channel samples.
 
-Fill this lack introducing qmc_chan_count_phandles().
+In order to work in non-interleave mode, a QMC audio DAI needs to use
+multiple QMC channels. In that case, the DAI maps each QMC channel to
+exactly one audio channel.
+
+Allow QMC audio DAIs with multiple QMC channels attached.
 
 Signed-off-by: Herve Codina <herve.codina@bootlin.com>
 ---
- drivers/soc/fsl/qe/qmc.c | 13 +++++++++++++
- include/soc/fsl/qe/qmc.h |  2 ++
- 2 files changed, 15 insertions(+)
+ .../bindings/sound/fsl,qmc-audio.yaml         | 41 ++++++++++++++++---
+ 1 file changed, 35 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/soc/fsl/qe/qmc.c b/drivers/soc/fsl/qe/qmc.c
-index e23d60018400..76bb496305a0 100644
---- a/drivers/soc/fsl/qe/qmc.c
-+++ b/drivers/soc/fsl/qe/qmc.c
-@@ -1777,6 +1777,19 @@ static struct qmc_chan *qmc_chan_get_from_qmc(struct device_node *qmc_np, unsign
- 	return qmc_chan;
- }
+diff --git a/Documentation/devicetree/bindings/sound/fsl,qmc-audio.yaml b/Documentation/devicetree/bindings/sound/fsl,qmc-audio.yaml
+index b522ed7dcc51..a23e49198c37 100644
+--- a/Documentation/devicetree/bindings/sound/fsl,qmc-audio.yaml
++++ b/Documentation/devicetree/bindings/sound/fsl,qmc-audio.yaml
+@@ -12,7 +12,9 @@ maintainers:
+ description: |
+   The QMC audio is an ASoC component which uses QMC (QUICC Multichannel
+   Controller) channels to transfer the audio data.
+-  It provides as many DAI as the number of QMC channel used.
++  It provides several DAIs. For each DAI, the DAI is working in interleaved mode
++  if only one QMC channel is used by the DAI or it is working in non-interleaved
++  mode if several QMC channels are used by the DAI.
  
-+int qmc_chan_count_phandles(struct device_node *np, const char *phandles_name)
-+{
-+	int count;
-+
-+	/* phandles are fixed args phandles with one arg */
-+	count = of_count_phandle_with_args(np, phandles_name, NULL);
-+	if (count < 0)
-+		return count;
-+
-+	return count / 2;
-+}
-+EXPORT_SYMBOL(qmc_chan_count_phandles);
-+
- struct qmc_chan *qmc_chan_get_byphandles_index(struct device_node *np,
- 					       const char *phandles_name,
- 					       int index)
-diff --git a/include/soc/fsl/qe/qmc.h b/include/soc/fsl/qe/qmc.h
-index 0fa7205145ce..294e42ea8d4c 100644
---- a/include/soc/fsl/qe/qmc.h
-+++ b/include/soc/fsl/qe/qmc.h
-@@ -16,6 +16,8 @@ struct device_node;
- struct device;
- struct qmc_chan;
+ allOf:
+   - $ref: dai-common.yaml#
+@@ -45,12 +47,19 @@ patternProperties:
+       fsl,qmc-chan:
+         $ref: /schemas/types.yaml#/definitions/phandle-array
+         items:
+-          - items:
+-              - description: phandle to QMC node
+-              - description: Channel number
++          items:
++            - description: phandle to QMC node
++            - description: Channel number
++        minItems: 1
+         description:
+-          Should be a phandle/number pair. The phandle to QMC node and the QMC
+-          channel to use for this DAI.
++          Should be a phandle/number pair list. The list of phandle to QMC node
++          and the QMC channel pair to use for this DAI.
++          If only one phandle/number pair is provided, this DAI works in
++          interleaved mode, i.e. audio channels for this DAI are interleaved in
++          the QMC channel. If more than one pair is provided, this DAI works
++          in non-interleave mode. In that case the first audio channel uses the
++          the first QMC channel, the second audio channel uses the second QMC
++          channel, etc...
  
-+int qmc_chan_count_phandles(struct device_node *np, const char *phandles_name);
-+
- struct qmc_chan *qmc_chan_get_byphandles_index(struct device_node *np,
- 					       const char *phandles_name,
- 					       int index);
+     required:
+       - reg
+@@ -79,6 +88,11 @@ examples:
+             reg = <17>;
+             fsl,qmc-chan = <&qmc 17>;
+         };
++        dai@18 {
++            reg = <18>;
++            /* Non-interleaved mode */
++            fsl,qmc-chan = <&qmc 18>, <&qmc 19>;
++        };
+     };
+ 
+     sound {
+@@ -115,4 +129,19 @@ examples:
+                 dai-tdm-slot-rx-mask = <0 0 1 0 1 0 1 0 1>;
+             };
+         };
++        simple-audio-card,dai-link@2 {
++            reg = <2>;
++            format = "dsp_b";
++            cpu {
++                sound-dai = <&audio_controller 18>;
++            };
++            codec {
++                sound-dai = <&codec3>;
++                dai-tdm-slot-num = <2>;
++                dai-tdm-slot-width = <8>;
++                /* TS 9, 10 */
++                dai-tdm-slot-tx-mask = <0 0 0 0 0 0 0 0 0 1 1>;
++                dai-tdm-slot-rx-mask = <0 0 0 0 0 0 0 0 0 1 1>;
++            };
++        };
+     };
 -- 
 2.45.0
 

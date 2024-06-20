@@ -2,158 +2,116 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7B7590FE50
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jun 2024 10:08:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5481390FE56
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jun 2024 10:08:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 447B0B6A;
-	Thu, 20 Jun 2024 10:08:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 447B0B6A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 90AA5E68;
+	Thu, 20 Jun 2024 10:08:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 90AA5E68
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718870919;
-	bh=ss1+EZEKro2sZjXPDmzIZh1iD2THxjhpN0tqtg7dODk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1718870930;
+	bh=S8QVhNlYqwY0mp7fvMRUSvmspg5AnOSJ/oJNb895TMQ=;
+	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=if0HYn9MsUOfCMALZpIq+XEUsfiZu9aLPXobqTDn+jLdtuZH5u8wAXg9LoE6+KYug
-	 elgvtzOzJBh3N1MkLx0/FgfX2XLmCk+TYxAnjdGzwOvTZ3i8nWXYZaYUy3jdFP+fI5
-	 S90XY3kRZa0F2F/uIoBI3+d56p0CDkNbuOAS4uxU=
+	b=hK8lLVDHVfCKYpa0WZCF+i9xJxdKa5cMXZ1Bna8Nh/k1UEovdtpHrvvYiZ/syKogH
+	 6dy/Du0QO54Vd3bdp/xaTfRUZ6RDRrq2GuxI+7VWvBM6r+8O4GYIHv52RS4AbRuIFo
+	 3hTWvva26zZUdw0SEmI4UeEo67TenLmUOIy2N2gU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4BF66F805AA; Thu, 20 Jun 2024 10:08:07 +0200 (CEST)
+	id D6D12F805E6; Thu, 20 Jun 2024 10:08:14 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id AD7E4F80578;
-	Thu, 20 Jun 2024 10:08:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 292C5F805D8;
+	Thu, 20 Jun 2024 10:08:14 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0F4B0F80266; Thu, 20 Jun 2024 09:58:50 +0200 (CEST)
+	id EF495F8023A; Thu, 20 Jun 2024 10:05:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=unavailable autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8D226F801EB
-	for <alsa-devel@alsa-project.org>; Thu, 20 Jun 2024 09:58:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D226F801EB
+	by alsa1.perex.cz (Postfix) with ESMTPS id CC17BF801EB
+	for <alsa-devel@alsa-project.org>; Thu, 20 Jun 2024 10:04:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC17BF801EB
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=eSI3kgrX;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=U0TFmWih;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=aiVC72NL;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=GD3Cmcsr
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id E662E2175B;
-	Thu, 20 Jun 2024 07:58:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1718870318;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=EyrXaIdP3ULci40nIjouHmuwVCbTd4pFecrGu85K7I8=;
-	b=eSI3kgrXJleHkiIdP/2m6XxnZcWfn+zH0RKAHxObCYQqi4LGMg9iKlzaMxWBdclGF1+sku
-	FxyU2GUEdb2WLUTzm1XhV4TO6WwpBB4sxs/KaTaym16EUAAGHoytYgfhaaPZHnTgNIr7br
-	+zXzlWqd9Cce1IU5ZWdkMyQS/zmnxL4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1718870318;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=EyrXaIdP3ULci40nIjouHmuwVCbTd4pFecrGu85K7I8=;
-	b=U0TFmWihW0QiE6iZQPyFE6bYxQQB1y4OOkh9m0tkg8VNKxBxyoSMB1Sk95kHaSDjV26kyl
-	dCILQw3AF17rhFCA==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=aiVC72NL;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=GD3Cmcsr
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1718870317;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=EyrXaIdP3ULci40nIjouHmuwVCbTd4pFecrGu85K7I8=;
-	b=aiVC72NLOzdGINgU/hGK0xP8yZ1gPt2Gan3xdvs9EYVFUj23O+srdI0Tvzvs6RHaX6eTwE
-	PKD/EOMM9qxz1oKFbX8ywJ63oouEQTm3psi+fbglHCC8HNL3TuRCmOh38FBXfaq7B7H94U
-	NHb2QE8bJGNoXaD+i90F8aPm2P9o7PE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1718870317;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=EyrXaIdP3ULci40nIjouHmuwVCbTd4pFecrGu85K7I8=;
-	b=GD3CmcsrZfgWqdJD7aPewrr5fZ8GgdFjogIdMrQMhqWI3DZMHWkqkkIJXZkuy3YJ3/lgME
-	G9U3YwCQ6WDZd6Cg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A702B13AC1;
-	Thu, 20 Jun 2024 07:58:37 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 8ontJS3hc2axVwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Thu, 20 Jun 2024 07:58:37 +0000
-Date: Thu, 20 Jun 2024 09:59:03 +0200
-Message-ID: <87cyoc2gfs.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Simon Trimmer <simont@opensource.cirrus.com>
-Cc: <tiwai@suse.com>,
-	<linux-sound@vger.kernel.org>,
-	<alsa-devel@alsa-project.org>,
-	<linux-kernel@vger.kernel.org>,
-	<patches@opensource.cirrus.com>
-Subject: Re: [PATCH] ALSA: hda: cs35l56: Select SERIAL_MULTI_INSTANTIATE
-In-Reply-To: <20240619161602.117452-1-simont@opensource.cirrus.com>
-References: <20240619161602.117452-1-simont@opensource.cirrus.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Queue-Id: E662E2175B
-X-Spamd-Result: default: False [-5.50 / 50.00];
-	BAYES_HAM(-2.99)[99.96%];
-	DWL_DNSWL_MED(-2.00)[suse.de:dkim];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-Message-ID-Hash: JDYZKZHOIVBMLPMQY5ZLOZY3QUHYSG7M
-X-Message-ID-Hash: JDYZKZHOIVBMLPMQY5ZLOZY3QUHYSG7M
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256
+ header.s=selector1 header.b=yFFFpxI+
+Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
+	by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
+ 45K75doe021903;
+	Thu, 20 Jun 2024 10:04:45 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=selector1; bh=
+	29Qvz1Xviwr3psGJQapaZwCmNwh9pWS+KTq7s99H4m8=; b=yFFFpxI+oGQEFLU1
+	NxJS4ZOjNzsIrzXacuzADB19sgKM7Rx2PamHDZ8FnAlMVvcVv9peIdFCAbLj0unA
+	1zkuu3Dn9IcAe5nI7P84EOd6xUBLPCRRiiw5LjXQaKCCxZRfx8ZIAw7XruPWrKc9
+	lEvRg+5wZrV/KBP8KCi40WDQ9czGSu7XdUiX3y3siZtNg7OLfsUQhQqzXaUxjreV
+	shi+XKVTC/CNOUA43/TFDo+6ZqVgY2A80WDBYV8mLhchjvIbtTUDCvEv+r3Mhu7t
+	1QBsAzIZLLb7dzqfQDzoe9suHGxkjTIeb+fBIwsViGEBpPm3eEXyppSuK5TcPP00
+	AB7JsQ==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+	by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3yuj9n72a4-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 20 Jun 2024 10:04:45 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+	by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 24E944002D;
+	Thu, 20 Jun 2024 10:04:40 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+	by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 4894B215132;
+	Thu, 20 Jun 2024 10:03:46 +0200 (CEST)
+Received: from [10.48.86.132] (10.48.86.132) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 20 Jun
+ 2024 10:03:45 +0200
+Message-ID: <4734e915-9ea7-4e65-a9ef-bc1e88c40e76@foss.st.com>
+Date: Thu, 20 Jun 2024 10:03:44 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/8] dt-bindings: iio: dfsdm: move to backend framework
+To: Conor Dooley <conor@kernel.org>
+CC: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+        Jonathan Cameron
+	<jic23@kernel.org>,
+        Lars-Peter Clausen <lars@metafoo.de>, Rob Herring
+	<robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+	<conor+dt@kernel.org>,
+        Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+        Alexandre
+ Torgue <alexandre.torgue@foss.st.com>,
+        Fabrice Gasnier
+	<fabrice.gasnier@foss.st.com>,
+        <alsa-devel@alsa-project.org>, <linux-iio@vger.kernel.org>,
+        <devicetree@vger.kernel.org>,
+        <linux-stm32@st-md-mailman.stormreply.com>,
+        <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+References: <20240618160836.945242-1-olivier.moysan@foss.st.com>
+ <20240618160836.945242-5-olivier.moysan@foss.st.com>
+ <20240618-footwear-impotence-5284985a609d@spud>
+Content-Language: en-US
+From: Olivier MOYSAN <olivier.moysan@foss.st.com>
+In-Reply-To: <20240618-footwear-impotence-5284985a609d@spud>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.48.86.132]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-06-20_04,2024-06-19_01,2024-05-17_01
+Message-ID-Hash: FSRGDCH4PY6GNLJV6LOT7EITSGDWSPTV
+X-Message-ID-Hash: FSRGDCH4PY6GNLJV6LOT7EITSGDWSPTV
+X-MailFrom: prvs=690171046d=olivier.moysan@foss.st.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -165,7 +123,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JDYZKZHOIVBMLPMQY5ZLOZY3QUHYSG7M/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FSRGDCH4PY6GNLJV6LOT7EITSGDWSPTV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -174,19 +132,221 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 19 Jun 2024 18:16:02 +0200,
-Simon Trimmer wrote:
-> 
-> The ACPI IDs used in the CS35L56 HDA drivers are all handled by the
-> serial multi-instantiate driver which starts multiple Linux device
-> instances from a single ACPI Device() node.
-> 
-> As serial multi-instantiate is not an optional part of the system add it
-> as a dependency in Kconfig so that it is not overlooked.
-> 
-> Signed-off-by: Simon Trimmer <simont@opensource.cirrus.com>
+Hi Conor,
 
-Applied now to for-linus branch.  Thanks.
+On 6/18/24 20:10, Conor Dooley wrote:
+> On Tue, Jun 18, 2024 at 06:08:30PM +0200, Olivier Moysan wrote:
+>> Change the DFSDM binding to use the new IIO backend framework,
+>> along with the adoption of IIO generic channels.
+>> This binding change allows to add scaling support to the DFSDM.
+>>
+>> Keep the legacy binding as deprecated for backward compatibility.
+>>
+>> The io-backends property is supported only in generic IIO channel
+>> binding.
+>>
+>> - Channel description with the generic binding (Audio and Analog):
+>>
+>>    Properties supersed by generic properties:
+>>      st,adc-channels: becomes "reg" property in channel node
+>>      st,adc-channel-names: becomes "label" property in channel node
+>>    Properties moved to channel child node:
+>>      st,adc-channel-types, st,adc-channel-clk-src, st,adc-alt-channel
+>>
+>> - Analog binding:
+>>
+>>    DFSDM filter channel is configured as an IIO backend consumer.
+>>    Add io-backends property in channel child nodes.
+>>
+>>    DFSDM is no more configured as a channel consumer from SD modulator.
+>>    Use of io-channels in DFSDM node is deprecated.
+>>
+>> - Audio binding:
+>>
+>>    DFSDM audio DAI is configured as a channel consumer from DFSDM filter.
+>>    No change compare to legacy.
+>>
+>> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
+>> ---
+>>   .../bindings/iio/adc/st,stm32-dfsdm-adc.yaml  | 158 +++++++++++++++++-
+>>   1 file changed, 152 insertions(+), 6 deletions(-)
+>>
+>> diff --git a/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml b/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
+>> index c1b1324fa132..dd414bab74c1 100644
+>> --- a/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
+>> +++ b/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
+>> @@ -102,9 +102,11 @@ patternProperties:
+>>           items:
+>>             minimum: 0
+>>             maximum: 7
+>> +        deprecated: true
+>>   
+>>         st,adc-channel-names:
+>>           description: List of single-ended channel names.
+>> +        deprecated: true
+>>   
+>>         st,filter-order:
+>>           description: |
+>> @@ -118,6 +120,12 @@ patternProperties:
+>>         "#io-channel-cells":
+>>           const: 1
+>>   
+>> +      '#address-cells':
+>> +        const: 1
+>> +
+>> +      '#size-cells':
+>> +        const: 0
+>> +
+>>         st,adc-channel-types:
+>>           description: |
+>>             Single-ended channel input type.
+>> @@ -128,6 +136,7 @@ patternProperties:
+>>           items:
+>>             enum: [ SPI_R, SPI_F, MANCH_R, MANCH_F ]
+>>           $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+>> +        deprecated: true
+>>   
+>>         st,adc-channel-clk-src:
+>>           description: |
+>> @@ -139,6 +148,7 @@ patternProperties:
+>>           items:
+>>             enum: [ CLKIN, CLKOUT, CLKOUT_F, CLKOUT_R ]
+>>           $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+>> +        deprecated: true
+>>   
+>>         st,adc-alt-channel:
+>>           description:
+>> @@ -147,6 +157,7 @@ patternProperties:
+>>             If not set, channel n is connected to SPI input n.
+>>             If set, channel n is connected to SPI input n + 1.
+>>           type: boolean
+>> +        deprecated: true
+>>   
+>>         st,filter0-sync:
+>>           description:
+>> @@ -165,11 +176,65 @@ patternProperties:
+>>         - compatible
+>>         - reg
+>>         - interrupts
+>> -      - st,adc-channels
+>> -      - st,adc-channel-names
+>>         - st,filter-order
+>>         - "#io-channel-cells"
+>>   
+>> +    patternProperties:
+>> +      "^channel@([0-9]|1[0-9])$":
+>> +        type: object
+>> +        $ref: adc.yaml
+>> +        description: Represents the external channels which are connected to the DFSDM.
+>> +
+>> +        properties:
+>> +          reg:
+>> +            items:
+>> +              minimum: 0
+>> +              maximum: 8
+>> +
+>> +          label:
+>> +            description:
+>> +              Unique name to identify which channel this is.
+>> +
+>> +          st,adc-channel-types:
+>> +            description: |
+>> +              Single-ended channel input type.
+>> +              - "SPI_R": SPI with data on rising edge (default)
+>> +              - "SPI_F": SPI with data on falling edge
+>> +              - "MANCH_R": manchester codec, rising edge = logic 0, falling edge = logic 1
+>> +              - "MANCH_F": manchester codec, rising edge = logic 1, falling edge = logic 0
+>> +            items:
+>> +              enum: [ SPI_R, SPI_F, MANCH_R, MANCH_F ]
+>> +            $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+> 
+> Why is this an array? And why is the property plural? Can a channel have
+> more than one type?
+> 
+
+You are right. In channel node context, this property is no more an 
+array. It has to be managed as a single string (This is already the case 
+in the driver). I will change the type in binding and the name, to 
+reflect this.
+
+>> +
+>> +          st,adc-channel-clk-src:
+>> +            description: |
+>> +              Conversion clock source.
+>> +              - "CLKIN": external SPI clock (CLKIN x)
+>> +              - "CLKOUT": internal SPI clock (CLKOUT) (default)
+>> +              - "CLKOUT_F": internal SPI clock divided by 2 (falling edge).
+>> +              - "CLKOUT_R": internal SPI clock divided by 2 (rising edge).
+>> +            items:
+>> +              enum: [ CLKIN, CLKOUT, CLKOUT_F, CLKOUT_R ]
+>> +            $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+> 
+> Ditto here, but s/type/clock source/
+> 
+
+Same here.
+
+> Thanks,
+> Conor.
+> 
+>> +
+>> +          st,adc-alt-channel:
+>> +            description:
+>> +              Must be defined if two sigma delta modulators are
+>> +              connected on same SPI input.
+>> +              If not set, channel n is connected to SPI input n.
+>> +              If set, channel n is connected to SPI input n + 1.
+>> +            type: boolean
+>> +
+>> +          io-backends:
+>> +            description:
+>> +              From common IIO binding.
+> 
+> Drop this from the description.
+> 
+>> Used to pipe external sigma delta
+>> +              modulator or internal ADC backend to DFSDM channel.
+>> +
+>> +        required:
+>> +          - reg
+>> +
+>> +        additionalProperties: false
+>> +
+>>       allOf:
+>>         - if:
+>>             properties:
+>> @@ -199,9 +264,19 @@ patternProperties:
+>>                 description:
+>>                   From common IIO binding. Used to pipe external sigma delta
+>>                   modulator or internal ADC output to DFSDM channel.
+>> +              deprecated: true
+>>   
+>> -          required:
+>> -            - io-channels
+>> +          if:
+>> +            required:
+>> +              - st,adc-channels
+>> +          then:
+>> +            required:
+>> +              - io-channels
+>> +
+>> +          patternProperties:
+>> +            "^channel@([0-9]|1[0-9])$":
+>> +              required:
+>> +                - io-backends
+> 
+> Why is this here, rather than with reg above? Only some channels require
+> a backend?
+
+The io-backends property is required only when we use st,stm32-dfsdm-adc 
+compatible. In other words, when we are in an analog use case. In this 
+case the channel is a consumer of a backend (typically a sd modulator)
+In an audio use case (compatible st,stm32-dfsdm-dmic) the backend is not 
+required.
+
+BRs
+Olivier
 
 
-Takashi
+
+

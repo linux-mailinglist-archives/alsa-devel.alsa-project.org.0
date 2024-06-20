@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FD679105D3
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jun 2024 15:27:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 358C59105D7
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jun 2024 15:27:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 04EA4E82;
-	Thu, 20 Jun 2024 15:27:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04EA4E82
+	by alsa0.perex.cz (Postfix) with ESMTPS id 37FCEE64;
+	Thu, 20 Jun 2024 15:27:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 37FCEE64
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718890038;
-	bh=RvP66MGZQKO50spCBDsPb9yVYBK+JXQ7W1AFlr+gI/g=;
+	s=default; t=1718890059;
+	bh=3ubglKc/KOQfIaZlNmwQ0fJ7AXhD9dtSkMjUYfLv3QM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=MdWJsLYwpywWV2TAdCaAj42dNyWSnUALEFL50GBx6oR+k9cluy/13etGlGvj6Nwz+
-	 bAd6rq5nvqhA2ynpP7DQdUdf7FEqYxF+ZKa+bbf2UHFSmZGN6G7qZX1mc/fUc5DMML
-	 Q1ExSM5hd1dK5yvbWEqE2zWMfxdKzR0Hdi4zV18g=
+	b=dpW7J2rnn62U2klB8ogVJzlNegNGjBwuErx2u1wS2fsuZSNywt/Pf3EonoR55vGed
+	 8g2o3/1RKZCRaqQJiC3SN1bjpdfEdJwAMeYHd/1v9H/5UrUxFTOp6hooGGoZDnS2fZ
+	 3tezjsW860d84BfUSno5nYw+bPmnbd2lB1X/CR4U=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 83D92F805AC; Thu, 20 Jun 2024 15:26:45 +0200 (CEST)
+	id 4A649F805F0; Thu, 20 Jun 2024 15:26:46 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B0D8FF8059F;
-	Thu, 20 Jun 2024 15:26:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AD4FFF805E3;
+	Thu, 20 Jun 2024 15:26:45 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9EC97F80269; Thu, 20 Jun 2024 15:26:34 +0200 (CEST)
+	id 7E2F2F80266; Thu, 20 Jun 2024 15:26:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -39,42 +39,42 @@ Received: from mail.savoirfairelinux.com (mail.savoirfairelinux.com
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 25715F8023A
-	for <alsa-devel@alsa-project.org>; Thu, 20 Jun 2024 15:26:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25715F8023A
+	by alsa1.perex.cz (Postfix) with ESMTPS id F1A9DF80154
+	for <alsa-devel@alsa-project.org>; Thu, 20 Jun 2024 15:26:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1A9DF80154
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=savoirfairelinux.com header.i=@savoirfairelinux.com
  header.a=rsa-sha256 header.s=DFC430D2-D198-11EC-948E-34200CB392D2
- header.b=B5L9UxOR
+ header.b=HsgPvPPT
 Received: from localhost (localhost [127.0.0.1])
-	by mail.savoirfairelinux.com (Postfix) with ESMTP id 042249C3240;
-	Thu, 20 Jun 2024 09:26:28 -0400 (EDT)
+	by mail.savoirfairelinux.com (Postfix) with ESMTP id C17259C5B16;
+	Thu, 20 Jun 2024 09:26:30 -0400 (EDT)
 Received: from mail.savoirfairelinux.com ([127.0.0.1])
  by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10032)
- with ESMTP id iMhGuKzcpnbW; Thu, 20 Jun 2024 09:26:27 -0400 (EDT)
+ with ESMTP id fl0eZEgRxpZp; Thu, 20 Jun 2024 09:26:30 -0400 (EDT)
 Received: from localhost (localhost [127.0.0.1])
-	by mail.savoirfairelinux.com (Postfix) with ESMTP id 10B2E9C57BB;
-	Thu, 20 Jun 2024 09:26:27 -0400 (EDT)
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.savoirfairelinux.com 10B2E9C57BB
+	by mail.savoirfairelinux.com (Postfix) with ESMTP id 02A289C54A9;
+	Thu, 20 Jun 2024 09:26:30 -0400 (EDT)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.savoirfairelinux.com 02A289C54A9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=savoirfairelinux.com; s=DFC430D2-D198-11EC-948E-34200CB392D2;
-	t=1718889987; bh=ao0WzsH9C9Fs3h30ZfBXgXnzt2j72vf6eP80hXlg++o=;
+	t=1718889990; bh=QtA/pIJ8bF/vOwhsCRzTiYA82D2ZNAC429FN7VFxLnA=;
 	h=From:To:Date:Message-Id:MIME-Version;
-	b=B5L9UxORS1oQU7YxuD78I9ddj3NppF6gbtdxlkF69ABYmslCDJUkO6QPb5kzuF/an
-	 wjBp/YaDJHaEOyrdG8dj146t/dhA6IrbSyu69Y880FcT1o59LGp7YHVSMXSpCS+g7Z
-	 r9Q6fFWzxM6hNo10PdgPIW4vfq3hOhbNzZ72e9Za5RDFwm3ZzYKFUimq2/ryAxup6H
-	 DVc1NI9ipllgfWtKDdyyIce+pFSoBmc63pTOpvDuhnAeQQOK8GY96Sm7TI7r2qcYnL
-	 I24CNqChjRb7G+idfO5tWmNuIp+GK6/LhHeFje6dFMg4XfsqhSufD6A5o8mrRZtL8j
-	 Wts0ToO6nq5kw==
+	b=HsgPvPPTwoDHCG+RqNaaAdISoR3KxyHv0RlIXdjQtLwF4UX9EpmKxHFIxmkXt0laX
+	 jSqcjZVnw+b5DoQepHdGe38tkkUkiAqkp6KK2FsF4FsHFbdTg/ab8sUeTwZYI5dALC
+	 ffiigX34O60QNabSPcsrS2UZgUNOqZ1aqHMCjpwqVLjJ7BvF1F3AgItiT3Qf5lyK/M
+	 mzbApItI6inGQzwQ33wAZc6y+ZVGejrBHeYyzZxoynIYNFE6MzT9HP6mn0v9AV0eyR
+	 fw1HlujxwHJqU1B+vZXOur5cvVP4mFDhGhQgjbymZNwLGvL3RGtAXUTgqeB7gMMGBs
+	 FqYBLbsvJHMeA==
 X-Virus-Scanned: amavis at mail.savoirfairelinux.com
 Received: from mail.savoirfairelinux.com ([127.0.0.1])
  by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10026)
- with ESMTP id 5L5N86gzCHlc; Thu, 20 Jun 2024 09:26:26 -0400 (EDT)
+ with ESMTP id UvN-nFUPYSQE; Thu, 20 Jun 2024 09:26:29 -0400 (EDT)
 Received: from gerard.rennes.sfl
  (lmontsouris-657-1-69-118.w80-15.abo.wanadoo.fr [80.15.101.118])
-	by mail.savoirfairelinux.com (Postfix) with ESMTPSA id 34E9A9C5625;
-	Thu, 20 Jun 2024 09:26:24 -0400 (EDT)
+	by mail.savoirfairelinux.com (Postfix) with ESMTPSA id 22B9B9C5B16;
+	Thu, 20 Jun 2024 09:26:27 -0400 (EDT)
 From: Elinor Montmasson <elinor.montmasson@savoirfairelinux.com>
 To: Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>,
@@ -102,17 +102,17 @@ Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
 	linuxppc-dev@lists.ozlabs.org,
 	Elinor Montmasson <elinor.montmasson@savoirfairelinux.com>,
 	Philip-Dylan <philip-dylan.gleonec@savoirfairelinux.com>
-Subject: [PATCHv5 2/9] ASoC: fsl-asoc-card: add support for dai links with
- multiple codecs
-Date: Thu, 20 Jun 2024 15:25:04 +0200
-Message-Id: <20240620132511.4291-3-elinor.montmasson@savoirfairelinux.com>
+Subject: [PATCHv5 3/9] ASoC: fsl-asoc-card: add second dai link component for
+ codecs
+Date: Thu, 20 Jun 2024 15:25:05 +0200
+Message-Id: <20240620132511.4291-4-elinor.montmasson@savoirfairelinux.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240620132511.4291-1-elinor.montmasson@savoirfairelinux.com>
 References: <20240620132511.4291-1-elinor.montmasson@savoirfairelinux.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: K5FVODGLSTWUG3VK32HUVE2EJ4LFSNBP
-X-Message-ID-Hash: K5FVODGLSTWUG3VK32HUVE2EJ4LFSNBP
+Message-ID-Hash: B4FOJ4BSGHKFCDJZ3ZWAUPOVDTTCRF4J
+X-Message-ID-Hash: B4FOJ4BSGHKFCDJZ3ZWAUPOVDTTCRF4J
 X-MailFrom: elinor.montmasson@savoirfairelinux.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -125,7 +125,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/K5FVODGLSTWUG3VK32HUVE2EJ4LFSNBP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/B4FOJ4BSGHKFCDJZ3ZWAUPOVDTTCRF4J/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -134,8 +134,13 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add support for dai links using multiple codecs for multi-codec
-use cases.
+Add a second dai link component for codecs that will be used for use
+cases with 2 codecs.
+It is needed for future integration of the SPDIF support, which will
+use spdif_receiver and spdif_transmitter drivers.
+
+To prevent deferring in use cases using only one codec, also set
+by default the number of codecs to 1 for the relevant dai links.
 
 Co-developed-by: Philip-Dylan Gleonec <philip-dylan.gleonec@savoirfairelinu=
 x.com>
@@ -143,77 +148,42 @@ Signed-off-by: Philip-Dylan Gleonec <philip-dylan.gleonec@savoirfairelinux.=
 com>
 Signed-off-by: Elinor Montmasson <elinor.montmasson@savoirfairelinux.com>
 ---
- sound/soc/fsl/fsl-asoc-card.c | 19 +++++++++++--------
- 1 file changed, 11 insertions(+), 8 deletions(-)
+ sound/soc/fsl/fsl-asoc-card.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/sound/soc/fsl/fsl-asoc-card.c b/sound/soc/fsl/fsl-asoc-card.c
-index eb67689dcd6e..e8003fbc8092 100644
+index e8003fbc8092..805e2030bde4 100644
 --- a/sound/soc/fsl/fsl-asoc-card.c
 +++ b/sound/soc/fsl/fsl-asoc-card.c
-@@ -542,6 +542,7 @@ static int fsl_asoc_card_late_probe(struct snd_soc_card=
- *card)
- static int fsl_asoc_card_probe(struct platform_device *pdev)
- {
- 	struct device_node *cpu_np, *codec_np, *asrc_np;
-+	struct snd_soc_dai_link_component *codec_comp;
- 	struct device_node *np =3D pdev->dev.of_node;
- 	struct platform_device *asrc_pdev =3D NULL;
- 	struct device_node *bitclkprovider =3D NULL;
-@@ -552,6 +553,7 @@ static int fsl_asoc_card_probe(struct platform_device *=
+@@ -296,7 +296,7 @@ static int be_hw_params_fixup(struct snd_soc_pcm_runtim=
+e *rtd,
+=20
+ SND_SOC_DAILINK_DEFS(hifi,
+ 	DAILINK_COMP_ARRAY(COMP_EMPTY()),
+-	DAILINK_COMP_ARRAY(COMP_EMPTY()),
++	DAILINK_COMP_ARRAY(COMP_EMPTY(), COMP_EMPTY()),
+ 	DAILINK_COMP_ARRAY(COMP_EMPTY()));
+=20
+ SND_SOC_DAILINK_DEFS(hifi_fe,
+@@ -306,7 +306,7 @@ SND_SOC_DAILINK_DEFS(hifi_fe,
+=20
+ SND_SOC_DAILINK_DEFS(hifi_be,
+ 	DAILINK_COMP_ARRAY(COMP_EMPTY()),
+-	DAILINK_COMP_ARRAY(COMP_EMPTY()));
++	DAILINK_COMP_ARRAY(COMP_EMPTY(), COMP_EMPTY()));
+=20
+ static const struct snd_soc_dai_link fsl_asoc_card_dai[] =3D {
+ 	/* Default ASoC DAI Link*/
+@@ -622,6 +622,8 @@ static int fsl_asoc_card_probe(struct platform_device *=
 pdev)
- 	const char *codec_dai_name;
- 	const char *codec_dev_name;
- 	u32 asrc_fmt =3D 0;
-+	int codec_idx;
- 	u32 width;
- 	int ret;
 =20
-@@ -816,10 +818,10 @@ static int fsl_asoc_card_probe(struct platform_device=
- *pdev)
+ 	memcpy(priv->dai_link, fsl_asoc_card_dai,
+ 	       sizeof(struct snd_soc_dai_link) * ARRAY_SIZE(priv->dai_link));
++	priv->dai_link[0].num_codecs =3D 1;
++	priv->dai_link[2].num_codecs =3D 1;
 =20
- 	/* Normal DAI Link */
- 	priv->dai_link[0].cpus->of_node =3D cpu_np;
--	priv->dai_link[0].codecs->dai_name =3D codec_dai_name;
-+	priv->dai_link[0].codecs[0].dai_name =3D codec_dai_name;
-=20
- 	if (!fsl_asoc_card_is_ac97(priv))
--		priv->dai_link[0].codecs->of_node =3D codec_np;
-+		priv->dai_link[0].codecs[0].of_node =3D codec_np;
- 	else {
- 		u32 idx;
-=20
-@@ -830,11 +832,11 @@ static int fsl_asoc_card_probe(struct platform_device=
- *pdev)
- 			goto asrc_fail;
- 		}
-=20
--		priv->dai_link[0].codecs->name =3D
-+		priv->dai_link[0].codecs[0].name =3D
- 				devm_kasprintf(&pdev->dev, GFP_KERNEL,
- 					       "ac97-codec.%u",
- 					       (unsigned int)idx);
--		if (!priv->dai_link[0].codecs->name) {
-+		if (!priv->dai_link[0].codecs[0].name) {
- 			ret =3D -ENOMEM;
- 			goto asrc_fail;
- 		}
-@@ -848,10 +850,11 @@ static int fsl_asoc_card_probe(struct platform_device=
- *pdev)
- 		/* DPCM DAI Links only if ASRC exists */
- 		priv->dai_link[1].cpus->of_node =3D asrc_np;
- 		priv->dai_link[1].platforms->of_node =3D asrc_np;
--		priv->dai_link[2].codecs->dai_name =3D codec_dai_name;
--		priv->dai_link[2].codecs->of_node =3D codec_np;
--		priv->dai_link[2].codecs->name =3D
--				priv->dai_link[0].codecs->name;
-+		for_each_link_codecs((&(priv->dai_link[2])), codec_idx, codec_comp) {
-+			codec_comp->dai_name =3D priv->dai_link[0].codecs[codec_idx].dai_name;
-+			codec_comp->of_node =3D priv->dai_link[0].codecs[codec_idx].of_node;
-+			codec_comp->name =3D priv->dai_link[0].codecs[codec_idx].name;
-+		}
- 		priv->dai_link[2].cpus->of_node =3D cpu_np;
- 		priv->dai_link[2].dai_fmt =3D priv->dai_fmt;
- 		priv->card.num_links =3D 3;
+ 	priv->card.dapm_routes =3D audio_map;
+ 	priv->card.num_dapm_routes =3D ARRAY_SIZE(audio_map);
 --=20
 2.34.1
 

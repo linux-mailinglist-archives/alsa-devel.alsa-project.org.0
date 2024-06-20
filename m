@@ -2,62 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA13E90FF64
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jun 2024 10:50:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63CDB90FF7C
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jun 2024 10:52:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6C7DE86E;
-	Thu, 20 Jun 2024 10:50:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C7DE86E
+	by alsa0.perex.cz (Postfix) with ESMTPS id B7E6293A;
+	Thu, 20 Jun 2024 10:52:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7E6293A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718873426;
-	bh=qIFtrk4+jNTGagJEvJP5YHoAWF+6D2TUEBk4+yKW9OU=;
+	s=default; t=1718873539;
+	bh=AxIKPqTO+wF+1yoEnfWDUj8D8R3BzcUWs0scf2kg4mU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=JiucN/4mrCrEcZhmsBcdq8Vc6Q0CWtIoGp0E7TpD/9OSSg028YDyLHK8Zyp/+TK7+
-	 td+ay12GgVv5jJWizcAYUgT6k0SQeEsY5RmOIgyWbspz7sRt/zd1w2zA97PvENho/Q
-	 HpoDwricogiCJuJfGAF3uULAXg0QArdPcXpcKuw4=
+	b=eEZ4LgR0yzBCx9VNybOmi1n/7TfyHwNoaN3e8UuSqpnmPUXVM6vKMSxTrIceXQKZo
+	 lNHKmIfv2A2NAprz3NGKYpS/8egzI9WhCB4adaLRWj4r+rS63gQMP5s/cvfh7zPFOa
+	 c9zU2CA96UJc5VMxW7LD0ZyQVdBl5+ki7QmaF7yU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3A92BF805BD; Thu, 20 Jun 2024 10:49:56 +0200 (CEST)
+	id B791FF806A0; Thu, 20 Jun 2024 10:50:34 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 77D1FF805A8;
-	Thu, 20 Jun 2024 10:49:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 77763F8069E;
+	Thu, 20 Jun 2024 10:50:33 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5C929F80589; Thu, 20 Jun 2024 10:43:35 +0200 (CEST)
+	id 53310F80236; Thu, 20 Jun 2024 10:47:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	DKIM_VALID_AU,DKIM_VALID_EF,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
 Received: from relay7-d.mail.gandi.net (relay7-d.mail.gandi.net
- [217.70.183.200])
+ [IPv6:2001:4b98:dc4:8::227])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F245FF80266
-	for <alsa-devel@alsa-project.org>; Thu, 20 Jun 2024 10:43:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F245FF80266
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1C977F80269
+	for <alsa-devel@alsa-project.org>; Thu, 20 Jun 2024 10:43:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C977F80269
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=AWbHokCp
-Received: by mail.gandi.net (Postfix) with ESMTPA id B86202000E;
-	Thu, 20 Jun 2024 08:43:12 +0000 (UTC)
+ header.s=gm1 header.b=e9ggyz3+
+Received: by mail.gandi.net (Postfix) with ESMTPA id D358620011;
+	Thu, 20 Jun 2024 08:43:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1718872993;
+	t=1718872994;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Qz56XJSUWFIXioYtOWzibVEtfgyCjJ8wlnP/M2Ai9vM=;
-	b=AWbHokCpxotyrZuw1NlkQ2ZXO2viJ65ahJRtBSnWBWLVA0yV09QVhY4z1epYHtYnt+NMMK
-	vcc9NB9k6m9ZXdTniL8PM42Klu3XTbN5b7nKj8uCG1c0phhmvoDKsLql4RwftbhAK9zBey
-	SugYVBLETSYrliS9FpbxOkplqU4Rjxy94IYiQgYeTk0c6AL9zIkGWuK6+pTh9ALYTeqv+9
-	X1q/R0ydUxz6VkGtTx0erij7w1jgFtXLXvIaS/8DczmSEHQPVrX2lA05jkRaXaOcS3g/tm
-	DoiQFKfku+oAuzBglYeE/Y7x9BfLNjO/WpnIq6eq2Cz5etK8YiyV7zJI/dDzfA==
+	bh=EFI+0E0euoS+1MCJ9IhOD3qEiKcvASTCp8dMcDFqcOg=;
+	b=e9ggyz3+6HHiSIpE/iQE79+VB+G+1HKI0ClqW79MRrOOy8T7fXlAMKw4WIXXKungvubb4f
+	U4bQHzxdmr2RKQEFz7Ov7VRzFfEwisFMTpCTGNProk/T0XFUTxjNZCdMxvPAziN9d1nIrx
+	AQ8LWvEtHlG6sX5m0Lgl5XAdkY1B75R3ePcdks7wQWyGgQvV61TcANwNfHhFLkHaGPWYD3
+	VvUVP6D/eMJ0FUCS9UTI5fhfUrlJLSCsiLsMRVeRGnrqcgk70lTKCqjEey9n1RNyJcrTji
+	PGroAx7J9W8cJSGP+WiJ7byUQ3mgfEY8T3KT/M01rmvh9DatmlZG4FDwFnkV6w==
 From: Herve Codina <herve.codina@bootlin.com>
 To: Herve Codina <herve.codina@bootlin.com>,
 	Liam Girdwood <lgirdwood@gmail.com>,
@@ -80,18 +78,18 @@ Cc: alsa-devel@alsa-project.org,
 	linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: [PATCH 03/10] ASoC: fsl: fsl_qmc_audio: Split channel buffer and PCM
- pointer handling
-Date: Thu, 20 Jun 2024 10:42:50 +0200
-Message-ID: <20240620084300.397853-4-herve.codina@bootlin.com>
+Subject: [PATCH 04/10] ASoC: fsl: fsl_qmc_audio: Identify the QMC channel
+ involved in completion routines
+Date: Thu, 20 Jun 2024 10:42:51 +0200
+Message-ID: <20240620084300.397853-5-herve.codina@bootlin.com>
 X-Mailer: git-send-email 2.45.0
 In-Reply-To: <20240620084300.397853-1-herve.codina@bootlin.com>
 References: <20240620084300.397853-1-herve.codina@bootlin.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-GND-Sasl: herve.codina@bootlin.com
-Message-ID-Hash: YGZCM7UHOVH6A4VK36ZEMQZVOKS5JPAO
-X-Message-ID-Hash: YGZCM7UHOVH6A4VK36ZEMQZVOKS5JPAO
+Message-ID-Hash: JQLPQB6AIWDXCYCJYWAYTJUB7DMGMT5F
+X-Message-ID-Hash: JQLPQB6AIWDXCYCJYWAYTJUB7DMGMT5F
 X-MailFrom: herve.codina@bootlin.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -104,7 +102,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YGZCM7UHOVH6A4VK36ZEMQZVOKS5JPAO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JQLPQB6AIWDXCYCJYWAYTJUB7DMGMT5F/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,189 +111,225 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The driver mixes some internal values for channel DMA buffer handling
-and PCM pointer handling. In the currently supported interleaved mode,
-this mix does not lead to any issues but in order to prepare the
-support for the non-interleaved mode, having them clearly separated will
-ease the support and avoid additional computation to convert values used
-in channel DMA buffer management in values usable for PCM pointer.
+The current QMC audio driver uses only one QMC channel per DAI. The
+context used by QMC channel transfer (read and write) completion
+routines does not contains any QMC channel and the only one available
+per DAI is used to schedule the next transfer.
+This works pretty well with only one QMC channel per DAI.
 
-Use a specific set of variable for PCM pointer handling and an other set
-for channel DMA buffer.
+The future support for non-inlerleave mode will use several QMC channel
+per DAI. In that case, QMC channel transfer completion routines need to
+identify the QMC channel related to the completion.
+
+In order to fill this lack, even if identifying the current QMC channel
+among several QMC channels is not needed for the current code, add one
+indirection level and introduce the qmc_dai_chan data structrure.
+This structure contains the QMC channel involved in the completion and
+refererences to the runtime context (capture and playback) used by the
+DAI.
 
 Signed-off-by: Herve Codina <herve.codina@bootlin.com>
 ---
- sound/soc/fsl/fsl_qmc_audio.c | 84 +++++++++++++++++++----------------
- 1 file changed, 46 insertions(+), 38 deletions(-)
+ sound/soc/fsl/fsl_qmc_audio.c | 72 +++++++++++++++++++++++------------
+ 1 file changed, 47 insertions(+), 25 deletions(-)
 
 diff --git a/sound/soc/fsl/fsl_qmc_audio.c b/sound/soc/fsl/fsl_qmc_audio.c
-index 917a32389f3d..e8281e548746 100644
+index e8281e548746..b07770257bad 100644
 --- a/sound/soc/fsl/fsl_qmc_audio.c
 +++ b/sound/soc/fsl/fsl_qmc_audio.c
-@@ -35,11 +35,16 @@ struct qmc_audio {
+@@ -17,13 +17,19 @@
+ #include <sound/pcm_params.h>
+ #include <sound/soc.h>
  
- struct qmc_dai_prtd {
- 	struct qmc_dai *qmc_dai;
--	dma_addr_t dma_buffer_start;
--	dma_addr_t period_ptr_submitted;
--	dma_addr_t period_ptr_ended;
--	dma_addr_t dma_buffer_end;
--	size_t period_size;
++struct qmc_dai_chan {
++	struct qmc_dai_prtd *prtd_tx;
++	struct qmc_dai_prtd *prtd_rx;
++	struct qmc_chan *qmc_chan;
++};
 +
-+	snd_pcm_uframes_t buffer_ended;
-+	snd_pcm_uframes_t buffer_size;
-+	snd_pcm_uframes_t period_size;
-+
-+	dma_addr_t ch_dma_addr_start;
-+	dma_addr_t ch_dma_addr_current;
-+	dma_addr_t ch_dma_addr_end;
-+	size_t ch_dma_size;
-+
- 	struct snd_pcm_substream *substream;
+ struct qmc_dai {
+ 	char *name;
+ 	int id;
+ 	struct device *dev;
+-	struct qmc_chan *qmc_chan;
+ 	unsigned int nb_tx_ts;
+ 	unsigned int nb_rx_ts;
++	struct qmc_dai_chan chan;
  };
  
-@@ -65,13 +70,17 @@ static int qmc_audio_pcm_hw_params(struct snd_soc_component *component,
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	struct qmc_dai_prtd *prtd = substream->runtime->private_data;
+ struct qmc_audio {
+@@ -86,9 +92,12 @@ static int qmc_audio_pcm_hw_params(struct snd_soc_component *component,
  
--	prtd->dma_buffer_start = runtime->dma_addr;
--	prtd->dma_buffer_end = runtime->dma_addr + params_buffer_bytes(params);
--	prtd->period_size = params_period_bytes(params);
--	prtd->period_ptr_submitted = prtd->dma_buffer_start;
--	prtd->period_ptr_ended = prtd->dma_buffer_start;
- 	prtd->substream = substream;
- 
-+	prtd->buffer_ended = 0;
-+	prtd->buffer_size = params_buffer_size(params);
-+	prtd->period_size = params_period_size(params);
-+
-+	prtd->ch_dma_addr_start = runtime->dma_addr;
-+	prtd->ch_dma_addr_end = runtime->dma_addr + params_buffer_bytes(params);
-+	prtd->ch_dma_addr_current = prtd->ch_dma_addr_start;
-+	prtd->ch_dma_size = params_period_bytes(params);
-+
- 	return 0;
- }
- 
-@@ -80,16 +89,16 @@ static void qmc_audio_pcm_write_complete(void *context)
- 	struct qmc_dai_prtd *prtd = context;
+ static void qmc_audio_pcm_write_complete(void *context)
+ {
+-	struct qmc_dai_prtd *prtd = context;
++	struct qmc_dai_chan *chan = context;
++	struct qmc_dai_prtd *prtd;
  	int ret;
  
--	prtd->period_ptr_ended += prtd->period_size;
--	if (prtd->period_ptr_ended >= prtd->dma_buffer_end)
--		prtd->period_ptr_ended = prtd->dma_buffer_start;
-+	prtd->buffer_ended += prtd->period_size;
-+	if (prtd->buffer_ended >= prtd->buffer_size)
-+		prtd->buffer_ended = 0;
++	prtd = chan->prtd_tx;
++
+ 	prtd->buffer_ended += prtd->period_size;
+ 	if (prtd->buffer_ended >= prtd->buffer_size)
+ 		prtd->buffer_ended = 0;
+@@ -97,9 +106,10 @@ static void qmc_audio_pcm_write_complete(void *context)
+ 	if (prtd->ch_dma_addr_current >= prtd->ch_dma_addr_end)
+ 		prtd->ch_dma_addr_current = prtd->ch_dma_addr_start;
  
--	prtd->period_ptr_submitted += prtd->period_size;
--	if (prtd->period_ptr_submitted >= prtd->dma_buffer_end)
--		prtd->period_ptr_submitted = prtd->dma_buffer_start;
-+	prtd->ch_dma_addr_current += prtd->ch_dma_size;
-+	if (prtd->ch_dma_addr_current >= prtd->ch_dma_addr_end)
-+		prtd->ch_dma_addr_current = prtd->ch_dma_addr_start;
- 
- 	ret = qmc_chan_write_submit(prtd->qmc_dai->qmc_chan,
--				    prtd->period_ptr_submitted, prtd->period_size,
-+				    prtd->ch_dma_addr_current, prtd->ch_dma_size,
- 				    qmc_audio_pcm_write_complete, prtd);
+-	ret = qmc_chan_write_submit(prtd->qmc_dai->qmc_chan,
++	ret = qmc_chan_write_submit(prtd->qmc_dai->chan.qmc_chan,
+ 				    prtd->ch_dma_addr_current, prtd->ch_dma_size,
+-				    qmc_audio_pcm_write_complete, prtd);
++				    qmc_audio_pcm_write_complete,
++				    &prtd->qmc_dai->chan);
  	if (ret) {
  		dev_err(prtd->qmc_dai->dev, "write_submit failed %d\n",
-@@ -104,21 +113,21 @@ static void qmc_audio_pcm_read_complete(void *context, size_t length, unsigned i
- 	struct qmc_dai_prtd *prtd = context;
+ 			ret);
+@@ -110,9 +120,12 @@ static void qmc_audio_pcm_write_complete(void *context)
+ 
+ static void qmc_audio_pcm_read_complete(void *context, size_t length, unsigned int flags)
+ {
+-	struct qmc_dai_prtd *prtd = context;
++	struct qmc_dai_chan *chan = context;
++	struct qmc_dai_prtd *prtd;
  	int ret;
  
--	if (length != prtd->period_size) {
-+	if (length != prtd->ch_dma_size) {
++	prtd = chan->prtd_rx;
++
+ 	if (length != prtd->ch_dma_size) {
  		dev_err(prtd->qmc_dai->dev, "read complete length = %zu, exp %zu\n",
--			length, prtd->period_size);
-+			length, prtd->ch_dma_size);
- 	}
+ 			length, prtd->ch_dma_size);
+@@ -126,9 +139,10 @@ static void qmc_audio_pcm_read_complete(void *context, size_t length, unsigned i
+ 	if (prtd->ch_dma_addr_current >= prtd->ch_dma_addr_end)
+ 		prtd->ch_dma_addr_current = prtd->ch_dma_addr_start;
  
--	prtd->period_ptr_ended += prtd->period_size;
--	if (prtd->period_ptr_ended >= prtd->dma_buffer_end)
--		prtd->period_ptr_ended = prtd->dma_buffer_start;
-+	prtd->buffer_ended += prtd->period_size;
-+	if (prtd->buffer_ended >= prtd->buffer_size)
-+		prtd->buffer_ended = 0;
- 
--	prtd->period_ptr_submitted += prtd->period_size;
--	if (prtd->period_ptr_submitted >= prtd->dma_buffer_end)
--		prtd->period_ptr_submitted = prtd->dma_buffer_start;
-+	prtd->ch_dma_addr_current += prtd->ch_dma_size;
-+	if (prtd->ch_dma_addr_current >= prtd->ch_dma_addr_end)
-+		prtd->ch_dma_addr_current = prtd->ch_dma_addr_start;
- 
- 	ret = qmc_chan_read_submit(prtd->qmc_dai->qmc_chan,
--				   prtd->period_ptr_submitted, prtd->period_size,
-+				   prtd->ch_dma_addr_current, prtd->ch_dma_size,
- 				   qmc_audio_pcm_read_complete, prtd);
+-	ret = qmc_chan_read_submit(prtd->qmc_dai->qmc_chan,
++	ret = qmc_chan_read_submit(prtd->qmc_dai->chan.qmc_chan,
+ 				   prtd->ch_dma_addr_current, prtd->ch_dma_size,
+-				   qmc_audio_pcm_read_complete, prtd);
++				   qmc_audio_pcm_read_complete,
++				   &prtd->qmc_dai->chan);
  	if (ret) {
  		dev_err(prtd->qmc_dai->dev, "read_submit failed %d\n",
-@@ -144,7 +153,7 @@ static int qmc_audio_pcm_trigger(struct snd_soc_component *component,
+ 			ret);
+@@ -151,10 +165,13 @@ static int qmc_audio_pcm_trigger(struct snd_soc_component *component,
+ 	switch (cmd) {
+ 	case SNDRV_PCM_TRIGGER_START:
  		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
++			prtd->qmc_dai->chan.prtd_tx = prtd;
++
  			/* Submit first chunk ... */
- 			ret = qmc_chan_write_submit(prtd->qmc_dai->qmc_chan,
--						    prtd->period_ptr_submitted, prtd->period_size,
-+						    prtd->ch_dma_addr_current, prtd->ch_dma_size,
- 						    qmc_audio_pcm_write_complete, prtd);
+-			ret = qmc_chan_write_submit(prtd->qmc_dai->qmc_chan,
++			ret = qmc_chan_write_submit(prtd->qmc_dai->chan.qmc_chan,
+ 						    prtd->ch_dma_addr_current, prtd->ch_dma_size,
+-						    qmc_audio_pcm_write_complete, prtd);
++						    qmc_audio_pcm_write_complete,
++						    &prtd->qmc_dai->chan);
  			if (ret) {
  				dev_err(component->dev, "write_submit failed %d\n",
-@@ -153,13 +162,13 @@ static int qmc_audio_pcm_trigger(struct snd_soc_component *component,
- 			}
- 
- 			/* ... prepare next one ... */
--			prtd->period_ptr_submitted += prtd->period_size;
--			if (prtd->period_ptr_submitted >= prtd->dma_buffer_end)
--				prtd->period_ptr_submitted = prtd->dma_buffer_start;
-+			prtd->ch_dma_addr_current += prtd->ch_dma_size;
-+			if (prtd->ch_dma_addr_current >= prtd->ch_dma_addr_end)
-+				prtd->ch_dma_addr_current = prtd->ch_dma_addr_start;
+ 					ret);
+@@ -167,19 +184,23 @@ static int qmc_audio_pcm_trigger(struct snd_soc_component *component,
+ 				prtd->ch_dma_addr_current = prtd->ch_dma_addr_start;
  
  			/* ... and send it */
- 			ret = qmc_chan_write_submit(prtd->qmc_dai->qmc_chan,
--						    prtd->period_ptr_submitted, prtd->period_size,
-+						    prtd->ch_dma_addr_current, prtd->ch_dma_size,
- 						    qmc_audio_pcm_write_complete, prtd);
+-			ret = qmc_chan_write_submit(prtd->qmc_dai->qmc_chan,
++			ret = qmc_chan_write_submit(prtd->qmc_dai->chan.qmc_chan,
+ 						    prtd->ch_dma_addr_current, prtd->ch_dma_size,
+-						    qmc_audio_pcm_write_complete, prtd);
++						    qmc_audio_pcm_write_complete,
++						    &prtd->qmc_dai->chan);
  			if (ret) {
  				dev_err(component->dev, "write_submit failed %d\n",
-@@ -169,7 +178,7 @@ static int qmc_audio_pcm_trigger(struct snd_soc_component *component,
+ 					ret);
+ 				return ret;
+ 			}
  		} else {
++			prtd->qmc_dai->chan.prtd_rx = prtd;
++
  			/* Submit first chunk ... */
- 			ret = qmc_chan_read_submit(prtd->qmc_dai->qmc_chan,
--						   prtd->period_ptr_submitted, prtd->period_size,
-+						   prtd->ch_dma_addr_current, prtd->ch_dma_size,
- 						   qmc_audio_pcm_read_complete, prtd);
+-			ret = qmc_chan_read_submit(prtd->qmc_dai->qmc_chan,
++			ret = qmc_chan_read_submit(prtd->qmc_dai->chan.qmc_chan,
+ 						   prtd->ch_dma_addr_current, prtd->ch_dma_size,
+-						   qmc_audio_pcm_read_complete, prtd);
++						   qmc_audio_pcm_read_complete,
++						   &prtd->qmc_dai->chan);
  			if (ret) {
  				dev_err(component->dev, "read_submit failed %d\n",
-@@ -178,13 +187,13 @@ static int qmc_audio_pcm_trigger(struct snd_soc_component *component,
- 			}
- 
- 			/* ... prepare next one ... */
--			prtd->period_ptr_submitted += prtd->period_size;
--			if (prtd->period_ptr_submitted >= prtd->dma_buffer_end)
--				prtd->period_ptr_submitted = prtd->dma_buffer_start;
-+			prtd->ch_dma_addr_current += prtd->ch_dma_size;
-+			if (prtd->ch_dma_addr_current >= prtd->ch_dma_addr_end)
-+				prtd->ch_dma_addr_current = prtd->ch_dma_addr_start;
+ 					ret);
+@@ -192,9 +213,10 @@ static int qmc_audio_pcm_trigger(struct snd_soc_component *component,
+ 				prtd->ch_dma_addr_current = prtd->ch_dma_addr_start;
  
  			/* ... and send it */
- 			ret = qmc_chan_read_submit(prtd->qmc_dai->qmc_chan,
--						   prtd->period_ptr_submitted, prtd->period_size,
-+						   prtd->ch_dma_addr_current, prtd->ch_dma_size,
- 						   qmc_audio_pcm_read_complete, prtd);
+-			ret = qmc_chan_read_submit(prtd->qmc_dai->qmc_chan,
++			ret = qmc_chan_read_submit(prtd->qmc_dai->chan.qmc_chan,
+ 						   prtd->ch_dma_addr_current, prtd->ch_dma_size,
+-						   qmc_audio_pcm_read_complete, prtd);
++						   qmc_audio_pcm_read_complete,
++						   &prtd->qmc_dai->chan);
  			if (ret) {
  				dev_err(component->dev, "write_submit failed %d\n",
-@@ -215,8 +224,7 @@ static snd_pcm_uframes_t qmc_audio_pcm_pointer(struct snd_soc_component *compone
- {
- 	struct qmc_dai_prtd *prtd = substream->runtime->private_data;
+ 					ret);
+@@ -489,7 +511,7 @@ static int qmc_dai_hw_params(struct snd_pcm_substream *substream,
+ 	if (substream->stream == SNDRV_PCM_STREAM_CAPTURE) {
+ 		chan_param.mode = QMC_TRANSPARENT;
+ 		chan_param.transp.max_rx_buf_size = params_period_bytes(params);
+-		ret = qmc_chan_set_param(qmc_dai->qmc_chan, &chan_param);
++		ret = qmc_chan_set_param(qmc_dai->chan.qmc_chan, &chan_param);
+ 		if (ret) {
+ 			dev_err(dai->dev, "set param failed %d\n",
+ 				ret);
+@@ -520,23 +542,23 @@ static int qmc_dai_trigger(struct snd_pcm_substream *substream, int cmd,
+ 	case SNDRV_PCM_TRIGGER_START:
+ 	case SNDRV_PCM_TRIGGER_RESUME:
+ 	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+-		ret = qmc_chan_start(qmc_dai->qmc_chan, direction);
++		ret = qmc_chan_start(qmc_dai->chan.qmc_chan, direction);
+ 		if (ret)
+ 			return ret;
+ 		break;
  
--	return bytes_to_frames(substream->runtime,
--			       prtd->period_ptr_ended - prtd->dma_buffer_start);
-+	return prtd->buffer_ended;
- }
+ 	case SNDRV_PCM_TRIGGER_STOP:
+-		ret = qmc_chan_stop(qmc_dai->qmc_chan, direction);
++		ret = qmc_chan_stop(qmc_dai->chan.qmc_chan, direction);
+ 		if (ret)
+ 			return ret;
+-		ret = qmc_chan_reset(qmc_dai->qmc_chan, direction);
++		ret = qmc_chan_reset(qmc_dai->chan.qmc_chan, direction);
+ 		if (ret)
+ 			return ret;
+ 		break;
  
- static int qmc_audio_of_xlate_dai_name(struct snd_soc_component *component,
+ 	case SNDRV_PCM_TRIGGER_SUSPEND:
+ 	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+-		ret = qmc_chan_stop(qmc_dai->qmc_chan, direction);
++		ret = qmc_chan_stop(qmc_dai->chan.qmc_chan, direction);
+ 		if (ret)
+ 			return ret;
+ 		break;
+@@ -613,10 +635,10 @@ static int qmc_audio_dai_parse(struct qmc_audio *qmc_audio, struct device_node *
+ 	if (!qmc_dai->name)
+ 		return -ENOMEM;
+ 
+-	qmc_dai->qmc_chan = devm_qmc_chan_get_byphandle(qmc_audio->dev, np,
+-							"fsl,qmc-chan");
+-	if (IS_ERR(qmc_dai->qmc_chan)) {
+-		ret = PTR_ERR(qmc_dai->qmc_chan);
++	qmc_dai->chan.qmc_chan = devm_qmc_chan_get_byphandle(qmc_audio->dev, np,
++							     "fsl,qmc-chan");
++	if (IS_ERR(qmc_dai->chan.qmc_chan)) {
++		ret = PTR_ERR(qmc_dai->chan.qmc_chan);
+ 		return dev_err_probe(qmc_audio->dev, ret,
+ 				     "dai %d get QMC channel failed\n", qmc_dai->id);
+ 	}
+@@ -624,7 +646,7 @@ static int qmc_audio_dai_parse(struct qmc_audio *qmc_audio, struct device_node *
+ 	qmc_soc_dai_driver->id = qmc_dai->id;
+ 	qmc_soc_dai_driver->name = qmc_dai->name;
+ 
+-	ret = qmc_chan_get_info(qmc_dai->qmc_chan, &info);
++	ret = qmc_chan_get_info(qmc_dai->chan.qmc_chan, &info);
+ 	if (ret) {
+ 		dev_err(qmc_audio->dev, "dai %d get QMC channel info failed %d\n",
+ 			qmc_dai->id, ret);
 -- 
 2.45.0
 

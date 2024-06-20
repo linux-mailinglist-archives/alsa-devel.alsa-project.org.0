@@ -2,151 +2,136 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2067C91DF1B
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Jul 2024 14:25:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B5DE91DF08
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Jul 2024 14:23:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A396727AB;
-	Mon,  1 Jul 2024 14:25:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A396727AB
+	by alsa0.perex.cz (Postfix) with ESMTPS id A3B0223D1;
+	Mon,  1 Jul 2024 14:22:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A3B0223D1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1719836740;
-	bh=T0AdqBMK9lkL1kcLkmUERSGkLaTYUdQ6VqLsNTB1DZU=;
+	s=default; t=1719836586;
+	bh=RuFo+rj7IH+rMOczKL4ih3dsBtps5oyKpsIg/YRyQz0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=DjTpKiKcy/tWXB1IIcgcyNsJtutw6Ib7EXY57i3Cd5/ozDuTOOAr0tFMJZ4H23Rkx
-	 +NoixN4CyrdH/c2tfF/Dh6W+/WLOMXH1z21wZQ/ED0Zviv7iaK6n1iKrYluXWc4Yzp
-	 5iVsH/v0b8GyT1txWdTjxRUw0pAVqnZqGEez4J6E=
+	b=GF+yr7vMfEge/+nnvx+fNKUtmNCUCIF78WlU6+Ir0ViAHX3C15BzR3OmBb4WCHdB2
+	 g8hFKz9ZodDmC6e5JFB0dgeDtv/JjyTmRM2b/aCGR1xPdHMVo47jE4EuHk5+KvzQGz
+	 ZGFI5Pbg2i5X99h5g9JiqMp5d30eKNiZZEcuaO9o=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BBC98F896CC; Mon,  1 Jul 2024 14:21:04 +0200 (CEST)
+	id 21D25F8074C; Mon,  1 Jul 2024 14:20:28 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6DA9EF896DE;
-	Mon,  1 Jul 2024 14:21:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 332FEF8074C;
+	Mon,  1 Jul 2024 14:20:28 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C517DF8023A; Thu, 20 Jun 2024 20:01:11 +0200 (CEST)
+	id 89E53F801EB; Thu, 20 Jun 2024 19:58:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [IPv6:2a00:1450:4864:20::62b])
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com
+ [IPv6:2607:f8b0:4864:20::431])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5A79BF800ED
-	for <alsa-devel@alsa-project.org>; Thu, 20 Jun 2024 20:01:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A79BF800ED
+	by alsa1.perex.cz (Postfix) with ESMTPS id 56BE8F801EB
+	for <alsa-devel@alsa-project.org>; Thu, 20 Jun 2024 19:58:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56BE8F801EB
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=timesys-com.20230601.gappssmtp.com
- header.i=@timesys-com.20230601.gappssmtp.com header.a=rsa-sha256
- header.s=20230601 header.b=RGeH7ANd
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-a6fb696d2e5so135954366b.3
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=XME0/YLT
+Received: by mail-pf1-x431.google.com with SMTP id
+ d2e1a72fcca58-7046211e455so847222b3a.3
         for <alsa-devel@alsa-project.org>;
- Thu, 20 Jun 2024 11:01:08 -0700 (PDT)
+ Thu, 20 Jun 2024 10:58:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=timesys-com.20230601.gappssmtp.com; s=20230601; t=1718906468;
- x=1719511268; darn=alsa-project.org;
+        d=gmail.com; s=20230601; t=1718906314; x=1719511114;
+ darn=alsa-project.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Qz8kTOxdaIm1u93eV0Is+4r0vyFAn21pP7Hjv/L4wvo=;
-        b=RGeH7ANdGTVeErsyuG6kZcGexQH7RgRFrZMNh28sTNsIaH1YDKarBu/4VvgRtzWTeO
-         oVsMg/QT70RybCDGpVV13VqjWyZPIsLfESheEl/Grxm9slYJjCZtkWnRCYT12d0F+SOs
-         f0Vdrsuxf7pZOrreOGcAPNhJETbSOYG+J0v4b7z4eCZpaekor2X/ntCekGa3PTOPiAGH
-         3FCobTChVaoCesFdYgsbre6IQ2PtRxS1rbP3SwSCUYQtN2mKe+udmXIPkfOebM1s0uW9
-         bjehK5o9ptJp1qSp+JKFLFaRUBtYEEaz1LGGXvzcC0zyLMiN1VLpiocwpulXA6ZOIBCo
-         ciGQ==
+        bh=FW85PghmUwc3BgHXRaYJ+DzXpmwYGv3Aew2YdRltNsw=;
+        b=XME0/YLTSqCKRNcpkkjstXmn9kA8qdPjgdDJwmMj2NmZULvWRGcrwD5Zhhu6uR2+LZ
+         4u7n3IsNGX/Z4mWCgbCAF+oJCy8xSh0CIVLMCvO/PZnCeGQDNiPDXelaaQSLi9bYI0Ju
+         yqV23apRjR2OVUtf21BUKrQ3pDfkw+a9nnW9Yym8ALgtB1mMp5mu83/gKerIwMxKC2p6
+         4wcw6y/z7yXMCt22/SuE6+fir5TFbrpN4nyPpviBJevYthUWjGjTt/0Ey0rWXG/owZyI
+         TKfkMARiHLNbvsEWq909MkRn1edSLi8fuLxjMMYc7XX+HymzKQn/WSjcAA0ruSV3Q4wO
+         pc7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718906468; x=1719511268;
+        d=1e100.net; s=20230601; t=1718906314; x=1719511114;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=Qz8kTOxdaIm1u93eV0Is+4r0vyFAn21pP7Hjv/L4wvo=;
-        b=ZT9x+R0wMyrtaPw6NpU9JUolSCqfMQrqJ1eOLcA1ad+4jGc/Os6I+bjuXpGeLtpA2U
-         bsADLicb57FJi1/BQCDN6n1pHeJCcIzISsH4arqP/zWUSoWM9UReGCmEZFnuAJaev20U
-         ZZD5iqFa/mfeCyHUPNWqE+kJexIU8pOuXLkBCu7SK2qUACrGgRjJDlH8KV59hJ2qTv9o
-         d4qpsq5iB6kyjWQTpeSebXp0sSPqUNSnxMBEsjMMY9hrtezG6OrWEUAMqKziTHIui5xO
-         zbRqI5qeY5FN+ynbV6j10VgJ0E0wGP/qnNgwTZ2MALS153vSSt/FA2WS9CsDkGkrQK6y
-         192g==
+        bh=FW85PghmUwc3BgHXRaYJ+DzXpmwYGv3Aew2YdRltNsw=;
+        b=CP2qky9Jdb0bcOG/lClYod2WCcJWQwZhlxcHA4hCAhl5vLf+A6muPWDDHFHLN53+y0
+         XzhIqkmK0EdHXmHw7W5NFxYMWUnFc+BPMBH5sn9MJPV2++ATsV2hQ34veDahdGQO5t9h
+         +Z2Q5P0uFvTJVCrktwtNRmdlpnh9Ms8EmDkgmEAVD7Wb5ONXOtRaYshVBuCQC1g+wsnC
+         nSgjspTOpaiSZxGCDIJu49odrYRxa5VbB4RNm05/+9GDLvjCW+D7gRnrm64TIjsdSK9B
+         FaMFQZrSQoZBeEOcT/8riHUzbw7HeSAr5kb3KxMLjRSG9BH/g5TzQQN7OsnmYiqvQ8aH
+         IODw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW1pLM4BpcfVrY6bLyh+O4L8CpE+VHAPK8Fqc2NpuycOSQua4bOF4TpMcyJO5AfWX/Kjp/ZPRMp8EYwhFWgtxvPXayE5x5FwSOxL94=
-X-Gm-Message-State: AOJu0Yy6Mr2d2EnWbn03NELydSH2uzGkJEzY8c2iIzrNbo0FSqNxlMz5
-	Q8RVewSvs+hDoJIn8In3KgYLyY9JWP0fHGVUVYD6bnhjFdVIcaimyhI+DPh8YvI=
+ AJvYcCX59TBze/BlOCLDRaxyMyX3Gn9LxNdF9WjkFSUAMm9pPV2EfqKWK5YiwYqnflU3pWI05se4lEQAM1QLWieuJQUWbiUsL6BIh5mGQmM=
+X-Gm-Message-State: AOJu0Yz/fDphxHWpa5BAo6zINPlEQ3qyeZx5chedfLbJ5ason4uLMVXw
+	twruIwhHU/DeDN/L76McAyuzzL43cfxP5GecxyVG1Dvbx0bevbQN
 X-Google-Smtp-Source: 
- AGHT+IG8eY8d/PSntzHXSfPtqV/wO9neoC+Na07hB+VY1pAoMYT9SP6YNE1GHB/rvuCByUpgceEg7w==
-X-Received: by 2002:a17:907:a80f:b0:a6f:b67d:959e with SMTP id
- a640c23a62f3a-a6fb67d9870mr344459666b.53.1718906468099;
-        Thu, 20 Jun 2024 11:01:08 -0700 (PDT)
-Received: from localhost.localdomain ([91.216.213.152])
+ AGHT+IEoH3Qng23SGIOniQLh/mfoKH0d8yH2qow3ztjr66B8CysNLSQkypEK4r+/80Kz1cmwQvxiZw==
+X-Received: by 2002:a05:6a20:7291:b0:1b5:cf26:ecfd with SMTP id
+ adf61e73a8af0-1bcbb426fb3mr7450803637.24.1718906314118;
+        Thu, 20 Jun 2024 10:58:34 -0700 (PDT)
+Received: from localhost ([216.228.127.128])
         by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a6f56f42e80sm781370766b.186.2024.06.20.11.01.06
+ 41be03b00d2f7-6fee2d34cc2sm11211938a12.64.2024.06.20.10.58.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 20 Jun 2024 11:01:07 -0700 (PDT)
-From: Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>
-To: Vinod Koul <vkoul@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"J.M.B. Downing" <jonathan.downing@nautel.com>,
-	Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
-	Vladimir Zapolskiy <vz@mleia.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Richard Weinberger <richard@nod.at>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
+        Thu, 20 Jun 2024 10:58:33 -0700 (PDT)
+From: Yury Norov <yury.norov@gmail.com>
+To: linux-kernel@vger.kernel.org,
 	Jaroslav Kysela <perex@perex.cz>,
 	Takashi Iwai <tiwai@suse.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Yangtao Li <frank.li@vivo.com>,
-	Li Zetao <lizetao1@huawei.com>,
-	Chancel Liu <chancel.liu@nxp.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	dmaengine@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	alsa-devel@alsa-project.org,
-	linuxppc-dev@lists.ozlabs.org,
+	Daniel Mack <zonque@gmail.com>,
+	Cezary Rojewski <cezary.rojewski@intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Yury Norov <yury.norov@gmail.com>,
+	Kees Cook <keescook@chromium.org>,
 	linux-sound@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	linux-i2c@vger.kernel.org,
-	linux-mtd@lists.infradead.org
-Cc: Markus Elfring <Markus.Elfring@web.de>
-Subject: [Patch v4 10/10] i2x: pnx: Use threaded irq to fix warning from
- del_timer_sync()
-Date: Thu, 20 Jun 2024 19:56:41 +0200
-Message-Id: <20240620175657.358273-11-piotr.wojtaszczyk@timesys.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240620175657.358273-1-piotr.wojtaszczyk@timesys.com>
-References: <20240620175657.358273-1-piotr.wojtaszczyk@timesys.com>
+	alsa-devel@alsa-project.org
+Cc: Alexey Klimov <alexey.klimov@linaro.org>,
+	Bart Van Assche <bvanassche@acm.org>,
+	Jan Kara <jack@suse.cz>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Matthew Wilcox <willy@infradead.org>,
+	Mirsad Todorovac <mirsad.todorovac@alu.unizg.hr>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	Sergey Shtylyov <s.shtylyov@omp.ru>,
+	Takashi Iwai <tiwai@suse.de>
+Subject: [PATCH v4 30/40] ALSA: use atomic find_bit() functions where
+ applicable
+Date: Thu, 20 Jun 2024 10:56:53 -0700
+Message-ID: <20240620175703.605111-31-yury.norov@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20240620175703.605111-1-yury.norov@gmail.com>
+References: <20240620175703.605111-1-yury.norov@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-MailFrom: piotr.wojtaszczyk@timesys.com
+X-MailFrom: yury.norov@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: MYEKMEDGDBSIROIPZ3SHDEUDM33TXKYM
-X-Message-ID-Hash: MYEKMEDGDBSIROIPZ3SHDEUDM33TXKYM
-X-Mailman-Approved-At: Mon, 01 Jul 2024 12:20:18 +0000
+Message-ID-Hash: MH7KOFKDWSQPLC5JWCYTGQBFSMJCZTZ6
+X-Message-ID-Hash: MH7KOFKDWSQPLC5JWCYTGQBFSMJCZTZ6
+X-Mailman-Approved-At: Mon, 01 Jul 2024 12:20:06 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MYEKMEDGDBSIROIPZ3SHDEUDM33TXKYM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MH7KOFKDWSQPLC5JWCYTGQBFSMJCZTZ6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -155,30 +140,85 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-When del_timer_sync() is called in an interrupt context it throws a warning
-because of potential deadlock. Threaded irq handler fixes the potential
-problem.
+ALSA code tests each bit in bitmaps in a for-loop. Switch it to
+using dedicated atomic find_bit() API.
 
-Signed-off-by: Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>
+Signed-off-by: Yury Norov <yury.norov@gmail.com>
+Acked-by: Takashi Iwai <tiwai@suse.de>
 ---
- drivers/i2c/busses/i2c-pnx.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/pci/hda/hda_codec.c |  8 ++++----
+ sound/usb/caiaq/audio.c   | 14 ++++++--------
+ 2 files changed, 10 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/i2c/busses/i2c-pnx.c b/drivers/i2c/busses/i2c-pnx.c
-index a12525b3186b..b2ab6fb168bf 100644
---- a/drivers/i2c/busses/i2c-pnx.c
-+++ b/drivers/i2c/busses/i2c-pnx.c
-@@ -718,8 +718,8 @@ static int i2c_pnx_probe(struct platform_device *pdev)
- 		ret = alg_data->irq;
- 		goto out_clock;
- 	}
--	ret = devm_request_irq(&pdev->dev, alg_data->irq, i2c_pnx_interrupt,
--			       0, pdev->name, alg_data);
-+	ret = devm_request_threaded_irq(&pdev->dev, alg_data->irq, NULL, i2c_pnx_interrupt,
-+					IRQF_ONESHOT, pdev->name, alg_data);
- 	if (ret)
- 		goto out_clock;
+diff --git a/sound/pci/hda/hda_codec.c b/sound/pci/hda/hda_codec.c
+index 325e8f0b99a8..7201afa82990 100644
+--- a/sound/pci/hda/hda_codec.c
++++ b/sound/pci/hda/hda_codec.c
+@@ -7,6 +7,7 @@
  
+ #include <linux/init.h>
+ #include <linux/delay.h>
++#include <linux/find_atomic.h>
+ #include <linux/slab.h>
+ #include <linux/mutex.h>
+ #include <linux/module.h>
+@@ -3263,10 +3264,9 @@ static int get_empty_pcm_device(struct hda_bus *bus, unsigned int type)
+ 
+ #ifdef CONFIG_SND_DYNAMIC_MINORS
+ 	/* non-fixed slots starting from 10 */
+-	for (i = 10; i < 32; i++) {
+-		if (!test_and_set_bit(i, bus->pcm_dev_bits))
+-			return i;
+-	}
++	i = find_and_set_next_bit(bus->pcm_dev_bits, 32, 10);
++	if (i < 32)
++		return i;
+ #endif
+ 
+ 	dev_warn(bus->card->dev, "Too many %s devices\n",
+diff --git a/sound/usb/caiaq/audio.c b/sound/usb/caiaq/audio.c
+index 4981753652a7..93ecd5cfcb7d 100644
+--- a/sound/usb/caiaq/audio.c
++++ b/sound/usb/caiaq/audio.c
+@@ -4,6 +4,7 @@
+ */
+ 
+ #include <linux/device.h>
++#include <linux/find_atomic.h>
+ #include <linux/spinlock.h>
+ #include <linux/slab.h>
+ #include <linux/init.h>
+@@ -610,7 +611,7 @@ static void read_completed(struct urb *urb)
+ 	struct snd_usb_caiaq_cb_info *info = urb->context;
+ 	struct snd_usb_caiaqdev *cdev;
+ 	struct device *dev;
+-	struct urb *out = NULL;
++	struct urb *out;
+ 	int i, frame, len, send_it = 0, outframe = 0;
+ 	unsigned long flags;
+ 	size_t offset = 0;
+@@ -625,17 +626,14 @@ static void read_completed(struct urb *urb)
+ 		return;
+ 
+ 	/* find an unused output urb that is unused */
+-	for (i = 0; i < N_URBS; i++)
+-		if (test_and_set_bit(i, &cdev->outurb_active_mask) == 0) {
+-			out = cdev->data_urbs_out[i];
+-			break;
+-		}
+-
+-	if (!out) {
++	i = find_and_set_bit(&cdev->outurb_active_mask, N_URBS);
++	if (i >= N_URBS) {
+ 		dev_err(dev, "Unable to find an output urb to use\n");
+ 		goto requeue;
+ 	}
+ 
++	out = cdev->data_urbs_out[i];
++
+ 	/* read the recently received packet and send back one which has
+ 	 * the same layout */
+ 	for (frame = 0; frame < FRAMES_PER_URB; frame++) {
 -- 
-2.25.1
+2.43.0
 

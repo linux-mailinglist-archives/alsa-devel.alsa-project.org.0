@@ -2,107 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5EE09910008
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jun 2024 11:12:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A91BE910255
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jun 2024 13:15:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 67F30DE5;
-	Thu, 20 Jun 2024 11:12:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 67F30DE5
+	by alsa0.perex.cz (Postfix) with ESMTPS id E3216E67;
+	Thu, 20 Jun 2024 13:15:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E3216E67
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718874765;
-	bh=c4D7Z9CR9MfOFr8x4TqhuN903N+QSpMF6a7kToVGrDc=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=oC3fjSbFtvU0QTDa8czpiGtTEu7BNJWsJnYGbUDFWTg449hYX+5EM/PKnqzk1QbXL
-	 IrNfxQnzq+gBSlLhpeNIqNULfh3Yaz3SYTuK8cmiOzFwM6sIspQt/2E6UGLr9zjE5x
-	 WrygP+/RfXrbsvZotMIddmhIsgQjGD2yya4uyOtQ=
+	s=default; t=1718882147;
+	bh=WafxhliPRyEtdHu8XM3VmHwl4v4hXdKq5VAzEfEn33A=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=QgL8yJJisHsafyBKtKa0GYO0F44QplGL6AysUyygvwv5hoEZoUCydeRGTlGe6fVbr
+	 +e5TviakYPY7diFrZa1GcXkxdUcXlZlezVSf2H5t2s84+bdcViVsyntonshe+7A2iA
+	 eesWHfqE9bgqlcEWNYIIp/elwuPisnoKkJ6WivOI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1A52AF805AC; Thu, 20 Jun 2024 11:12:11 +0200 (CEST)
+	id 9EBD5F805CB; Thu, 20 Jun 2024 13:15:05 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 52F88F805A1;
-	Thu, 20 Jun 2024 11:12:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 28D59F805C2;
+	Thu, 20 Jun 2024 13:15:05 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 84D90F8023A; Thu, 20 Jun 2024 11:11:09 +0200 (CEST)
+	id 94C0BF8023A; Thu, 20 Jun 2024 13:13:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [IPv6:2a00:1450:4864:20::335])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 25DEAF80154
-	for <alsa-devel@alsa-project.org>; Thu, 20 Jun 2024 11:10:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25DEAF80154
+	by alsa1.perex.cz (Postfix) with ESMTPS id A24BFF80154
+	for <alsa-devel@alsa-project.org>; Thu, 20 Jun 2024 13:13:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A24BFF80154
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=jg3zdH1h
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-4217a96de38so5262795e9.1
-        for <alsa-devel@alsa-project.org>;
- Thu, 20 Jun 2024 02:10:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1718874651; x=1719479451;
- darn=alsa-project.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=PHBkJAins6g8k8CRgVDBSrncktJoQ1zQZ+ZidiRGnrM=;
-        b=jg3zdH1hiQKvoR7y16lGg76Ggp87MiG7g7GAMgOfuZ9lfL9OIvnvgypYFSGdzGOCw6
-         23BvJc77I+mrf5TqZWl3Pr6NYo8yLsCuUortSuAyVhtGl3xvCXfRsKtxZlXJgk7H1Af+
-         s7ok+rcGgtgK3pksOUVKVlri7oAQZxq2kA1pyh5K7EcV0rZs3zXaEVSQsMvqVPdedcXo
-         k7Ag0shoP52USadNamsUpYu4ux7IjfmA257Hg7yUeo5azC4pcBEnkHf93X1nD3GOCCGd
-         zc1lugsu+j/9nkpNStFCzmGTMrHq2lVOY2myZhcT3FFwbgb1gES4VfDct5+oqaHjNaQT
-         5yNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718874651; x=1719479451;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=PHBkJAins6g8k8CRgVDBSrncktJoQ1zQZ+ZidiRGnrM=;
-        b=WqLyssCD5Kd4DXabllC+/5QoVaHLgk7GM8aGqTPep7NVo6CY425gIhnSiUujoUBBQE
-         Ry0wwvl/eQIUzWwYEtV8ufxbubXEyXLX0yBXXkocHeunFs8vKPaE279owLQFaT/9nTdr
-         +KEJ4EHlIAssDWBiYocxdhVumqjbAzOjnDI00KnVDLHDJSqKdWa0l9mvfuXe0QFFMOE1
-         m/AulXjDlbofafEfevdND+8W5eDC7PU8H1MUsTWrANbcoTYG26cWoG/ecXekFKAaJjd+
-         EE5KyWi+T7e4icPv/DSqL8o0W5Ca89ZbfkoeHNPYCEz1EeHYAE/lCZATCuxynRtUGJV+
-         cPHg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX7oCwBDBHWd3zebihyJvXP0XxEGc4LZSP4lbVmTW0q3AW0D+1W4puw9rQiP/MDiMNkodeQ0wtPzpYUsFBYh9wZPHkqhulY8ASuCF4=
-X-Gm-Message-State: AOJu0YwYXfsyDYbue9tyEH7+5UYLyMjbp2dhjR5ssR4w4y5Gceg/wysn
-	0NTGPKJNOKV3RvBJy4ct0fuKbKVNYOwnR4znHiLihndpxP3+vLaM9fSEHZBBnvY=
-X-Google-Smtp-Source: 
- AGHT+IGbAsr4VCtVmR91oxpzAar7lPnAha8zhGqOQi2bz0FL/BFRbaDZAys1bZaV9FZphUYTqCbqqA==
-X-Received: by 2002:a05:600c:158c:b0:422:dfb0:8644 with SMTP id
- 5b1f17b1804b1-4247529bc07mr38253855e9.33.1718874651188;
-        Thu, 20 Jun 2024 02:10:51 -0700 (PDT)
-Received: from krzk-bin.. ([178.197.219.137])
-        by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4247ef50750sm8238195e9.14.2024.06.20.02.10.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 20 Jun 2024 02:10:50 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-To: Vinod Koul <vkoul@kernel.org>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Sanyog Kale <sanyog.r.kale@intel.com>,
-	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [PATCH] soundwire: bus: simplify by using local slave->prop
-Date: Thu, 20 Jun 2024 11:10:46 +0200
-Message-ID: <20240620091046.12426-1-krzysztof.kozlowski@linaro.org>
-X-Mailer: git-send-email 2.43.0
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=EQVhvBka
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id CB360CE2470;
+	Thu, 20 Jun 2024 11:13:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 773C9C2BD10;
+	Thu, 20 Jun 2024 11:13:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1718882008;
+	bh=WafxhliPRyEtdHu8XM3VmHwl4v4hXdKq5VAzEfEn33A=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=EQVhvBkaTcXX2ugHc17DdJJc7uPAkD9nnqJwFgZs70Ecvo6vXRpWKDhF7TSy4CRwp
+	 1ojtSM346+GaTunvzBOUKPBziDD/AjuHyfGx9ewjcA/0IsfV0ITMbhvhPHAKVwTupn
+	 H4/Z4Qv5i4pF3oN1Qxz1Lb2FpO0R2RR9JYFfBou6vNiKdSzPKxRTgRMUg/M21K0E+N
+	 LT6JmRJdafRDy0I6yV7uHVzUWuJMiQCJCq83jEchamCaYxuZve2Eu42YswQUex57Ru
+	 4mGJ7083usdaziEGFYVRUd2FEqa+bFXifKlzvG4FG3uRHJZjQz/+f8G4WJ6gVQKB8y
+	 QM2hyUrkzWF0g==
+From: Mark Brown <broonie@kernel.org>
+To: lgirdwood@gmail.com, Jack Yu <jack.yu@realtek.com>
+Cc: alsa-devel@alsa-project.org, lars@metafoo.de,
+ "Flove(HsinFu)" <flove@realtek.com>, Oder Chiou <oder_chiou@realtek.com>,
+ =?utf-8?q?Shuming_=5B=E8=8C=83=E6=9B=B8=E9=8A=98=5D?= <shumingf@realtek.com>,
+ =?utf-8?q?Derek_=5B=E6=96=B9=E5=BE=B7=E7=BE=A9=5D?= <derek.fang@realtek.com>
+In-Reply-To: <11f7e2c1a77f418a9965b96b81f6e660@realtek.com>
+References: <11f7e2c1a77f418a9965b96b81f6e660@realtek.com>
+Subject: Re: [PATCH v2] ASoC: rt1318: Add RT1318 audio amplifier driver
+Message-Id: <171888200619.41155.11200893860620854951.b4-ty@kernel.org>
+Date: Thu, 20 Jun 2024 12:13:26 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: UNCR7ROULTESYYIVLGNV2C4ORLYENRRG
-X-Message-ID-Hash: UNCR7ROULTESYYIVLGNV2C4ORLYENRRG
-X-MailFrom: krzysztof.kozlowski@linaro.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14-dev-d4707
+Message-ID-Hash: U7FW2YMIAE5I2RFXSWTK2FFMLOGM2X7T
+X-Message-ID-Hash: U7FW2YMIAE5I2RFXSWTK2FFMLOGM2X7T
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -114,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UNCR7ROULTESYYIVLGNV2C4ORLYENRRG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/U7FW2YMIAE5I2RFXSWTK2FFMLOGM2X7T/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -123,45 +98,36 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The sdw_initialize_slave() function stores 'slave->prop' as local 'prop'
-variable, so use it in all applicable places to make code a bit simpler.
+On Wed, 05 Jun 2024 10:20:41 +0000, Jack Yu wrote:
+> This is the initial i2s-based amplifier driver for rt1318.
+> 
+> 
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
----
- drivers/soundwire/bus.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Applied to
 
-diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
-index 191e6cc6f962..263ca32f0c5c 100644
---- a/drivers/soundwire/bus.c
-+++ b/drivers/soundwire/bus.c
-@@ -1410,7 +1410,7 @@ static int sdw_initialize_slave(struct sdw_slave *slave)
- 		}
- 	}
- 	if ((slave->bus->prop.quirks & SDW_MASTER_QUIRKS_CLEAR_INITIAL_PARITY) &&
--	    !(slave->prop.quirks & SDW_SLAVE_QUIRKS_INVALID_INITIAL_PARITY)) {
-+	    !(prop->quirks & SDW_SLAVE_QUIRKS_INVALID_INITIAL_PARITY)) {
- 		/* Clear parity interrupt before enabling interrupt mask */
- 		status = sdw_read_no_pm(slave, SDW_SCP_INT1);
- 		if (status < 0) {
-@@ -1436,7 +1436,7 @@ static int sdw_initialize_slave(struct sdw_slave *slave)
- 	 * device-dependent, it might e.g. only be enabled in
- 	 * steady-state after a couple of frames.
- 	 */
--	val = slave->prop.scp_int1_mask;
-+	val = prop->scp_int1_mask;
- 
- 	/* Enable SCP interrupts */
- 	ret = sdw_update_no_pm(slave, SDW_SCP_INTMASK1, val, val);
-@@ -1447,7 +1447,7 @@ static int sdw_initialize_slave(struct sdw_slave *slave)
- 	}
- 
- 	/* No need to continue if DP0 is not present */
--	if (!slave->prop.dp0_prop)
-+	if (!prop->dp0_prop)
- 		return 0;
- 
- 	/* Enable DP0 interrupts */
--- 
-2.43.0
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+
+Thanks!
+
+[1/1] ASoC: rt1318: Add RT1318 audio amplifier driver
+      commit: fe1ff61487ace69cd4e680e36169c90667eb9624
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 

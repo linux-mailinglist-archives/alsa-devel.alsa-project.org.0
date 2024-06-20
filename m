@@ -2,215 +2,146 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19EE891DEFB
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Jul 2024 14:22:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D39C91DEFF
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Jul 2024 14:22:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6DCE32393;
-	Mon,  1 Jul 2024 14:21:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6DCE32393
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3C64E23D3;
+	Mon,  1 Jul 2024 14:22:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C64E23D3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1719836519;
-	bh=AaGeTjrw0FfF+0h9/U20FA8dwnbicgFR6M2oz4CBhwo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Mmkfw4SVE+l2qDn3UB4sURXxdmexaWURYaFT7xGODBC3Q7PANdnqgEV0GPmL1JEFb
-	 QRXzU7p1ZLX6ggyIgEh1VLurvn8GETLEBhzHMhn3tPmGoYckm7yCPCcKInDF0XlA+4
-	 xBSgThsMeJPPNcvVXGRdymeOhYmgfomfGEoSqMqM=
+	s=default; t=1719836531;
+	bh=lL5HxCJiZymjowcOr7xVA2M7Te/xs6i3j2oxZgMh+rs=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=fjI8WnDDoYKgFgD2iHHEr1uvS/JiDsltWCWjBP4RW+S2UPnjMIE5Sybl3zPBEmM6y
+	 OFgrpTFUrLkflJ8AB6tUlzeMivYTG2REEiPdmvQFkE71MGOYQBSat6YvOStFKc4fiD
+	 tcGK46iIIgv5ZnSB7oqOWtovVXujzg8aMZ3f91zI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0A7A7F806AA; Mon,  1 Jul 2024 14:20:14 +0200 (CEST)
+	id 2C8CFF806D2; Mon,  1 Jul 2024 14:20:18 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 693A5F806A0;
-	Mon,  1 Jul 2024 14:20:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3E000F806CA;
+	Mon,  1 Jul 2024 14:20:18 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E8270F80269; Thu, 20 Jun 2024 19:57:39 +0200 (CEST)
+	id 759EAF8023A; Thu, 20 Jun 2024 19:57:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-pg1-x536.google.com (mail-pg1-x536.google.com
- [IPv6:2607:f8b0:4864:20::536])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [IPv6:2a00:1450:4864:20::52c])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C6550F80236
+	by alsa1.perex.cz (Postfix) with ESMTPS id C3F50F80266
 	for <alsa-devel@alsa-project.org>; Thu, 20 Jun 2024 19:57:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6550F80236
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3F50F80266
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=V+6r938s
-Received: by mail-pg1-x536.google.com with SMTP id
- 41be03b00d2f7-6e3ff7c4cc8so879912a12.3
+ unprotected) header.d=timesys-com.20230601.gappssmtp.com
+ header.i=@timesys-com.20230601.gappssmtp.com header.a=rsa-sha256
+ header.s=20230601 header.b=25raIcO/
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-57d07673185so1098848a12.1
         for <alsa-devel@alsa-project.org>;
  Thu, 20 Jun 2024 10:57:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1718906235; x=1719511035;
- darn=alsa-project.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=93DcC67mVeY/+nPj/RabbHCmpdvAxDoR+WvyjbP4Fv8=;
-        b=V+6r938slJAlfQ6TDLNgicZXgJ+3IbgWMqXa3S2drBZSCfTeDRSF97p6DVH9tRk3Rv
-         d8eiZ517SKbgUUuamQBpXAkDUJu1KNSu4reQC23G+K/Ku0uQQimL25NU+0Ib3SRFshD6
-         AZMwFCeP8+IjfW6BOxf1KmyuJ8Fq3XQrkos7qaMDncrZVS1lF1JSFhgLCiOE5Q8UkkEv
-         xSrdOf6RnxT7e16fhWV1SGfYrxXGNwZGIf4nqglWQgn6P+J93AXl7FGEbpH+I7j9ryFZ
-         tsWjhD/qQrlC+zLXQb3zpjHShDML4xdSywyrTxlpllZvzdK8414td+gRgTTjXWzjIuCB
-         0fIA==
+        d=timesys-com.20230601.gappssmtp.com; s=20230601; t=1718906235;
+ x=1719511035; darn=alsa-project.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=UP/GNN9hhxz4nMUGrLaNfWrPk3mVaVMWtBi9huNJxPk=;
+        b=25raIcO/uGAgg3FtFHQKGIGmzo1JmlOMnyXZH1E5oPYs7eNtUfbmnH4WQCtmSbRrUm
+         XtnVTkWsvtxu882lo3iwAQVE+TAXvSfErcThr3uYfH8UIBI8VrTXuoAwdizkUEmA+p/3
+         OiP/VPKjgK5wZ5eMrgJ5xK7vDaGwt+C+FoaPrSTiCx8xezMHACNm+VqKFPVDUlOKYCKl
+         ElNO7L3Xy/ll7eDmm5IboohWPKFgkoF05KybQZ2cdtMWANFnwJ3IN/aZ41wIVUiwcwhu
+         50YnGpjo40C9U59I1KpnQqkFHZanuDlsmOD8nAIGD1/2WfCdAcON3qqGz2fegcBacPyL
+         Pyag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20230601; t=1718906235; x=1719511035;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=93DcC67mVeY/+nPj/RabbHCmpdvAxDoR+WvyjbP4Fv8=;
-        b=Rw1oqJdW21Tymy0e212zGiUubwQF+9KIy2bo/CoKYh+VKTo4aQO3IIR1bsAawL/4O5
-         gyNav5TTvNduKYylY241TIwOGkdGNmYnWCjQDbcMLWTGo+85WIvkt8/DUCYv56jcM77x
-         lO5KmTD+ZgngK+NJPnopwKV1BeFtiPdYl1lsHkzhbrZ77sZOz82Otnkq51CcGak4zlbZ
-         A1fayXMqW/NLzN8L07wrQ17SZaNvR5MrVScaepvcCjGZ2jwqpHm8M3yrLZq3OaYRUyMz
-         P57mKup0fQCuSr/hElfZTjCwEKq7lql28ECyjfxZHpPMNOcb7FEVjXf2glD2vnTLSDkO
-         v5OA==
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=UP/GNN9hhxz4nMUGrLaNfWrPk3mVaVMWtBi9huNJxPk=;
+        b=mA/PwjT+xClYxiyiiV60COX2zlPIKyYmrRnMOCEZv9kaN+YwAIC0tVNCjSuZTd3Cln
+         kNBV30q88O0heKja+DY7bXwnSyaeWMaZm7BVuqqnHvmjV9PM08lKX6LyUI8XiJ4tDNDB
+         N4pVEp444YRv2FqLFB5KKaS/fQ7OP/BFW9BP1B3zn/Sn3PgGcd9IPLv0Xoq5Hhap49Q0
+         9IM0a7OnRfI8Sy+5xUDeGSDxsdyiVlGvyi7FipO1b2R8hSGFyOH3nKG0Pt9VfJ5daCLu
+         JcffDUPJdocjvIjrNoQaQJaAOvtjQb6gYEIR+oBsnjpHshRBVU9zPo8Je1GmkO5FcP19
+         DL3A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVEgVGAHcSYXi/TWsPZu3j5tk289fislwRcyTHd2vI4RYH/Xk/WE5AjjxRi1UolV8o5dhdyNT9NFsw5oYoSBzn2wBDjvS9zrAHKTxw=
-X-Gm-Message-State: AOJu0YwH2uzn0KGKW3RKxlqciCYfMAcUOnWfhMBPpk+tzch+cySgzPqh
-	zyl+fFkwks6gGBSAXcMLJpifcBCJgNm1cH4TnUWmw1uf447MVoQ7
+ AJvYcCXcO0EaPANYhqxrCWttFxxflfyqI2paBA824Qbq0nrxp/tEyIAgYWcF1L4RtVBany3Vem/t9K0lPuZRdgcW7rtoJfxEdXbZxQnHAN8=
+X-Gm-Message-State: AOJu0Yysa358QsRBCrn9UnXFWYvpS6NOlwNQapQCCWDchUCeankHxNbj
+	rM5dSHq1yTqP5mIKuMqveDaFdOkf8lqBZpN7XfCwIVd2VZ1DmdSyrUEwayRCp7M=
 X-Google-Smtp-Source: 
- AGHT+IF9ITZbJ7vVNEYTX8RCffN7BEtSM9imchEPcbZOZxImDJdvzQARxKbAqm1aXg+Hi0vjNW3ABQ==
-X-Received: by 2002:a17:902:f687:b0:1f6:fcd9:5b86 with SMTP id
- d9443c01a7336-1f9aa3ecca8mr64371665ad.12.1718906234591;
-        Thu, 20 Jun 2024 10:57:14 -0700 (PDT)
-Received: from localhost ([216.228.127.128])
+ AGHT+IHwzCxasTWecNI2BQg/1Mqv76qvz0pqMMUj9hgHTBodTuDhBkY00q2aX9YgUG43J9U17WwHFQ==
+X-Received: by 2002:a17:906:a09:b0:a6e:f7bf:712e with SMTP id
+ a640c23a62f3a-a6fab618973mr379689666b.27.1718906235388;
+        Thu, 20 Jun 2024 10:57:15 -0700 (PDT)
+Received: from localhost.localdomain ([91.216.213.152])
         by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-1f9d28ce155sm15196715ad.259.2024.06.20.10.57.13
+ a640c23a62f3a-a6f56f42e80sm781370766b.186.2024.06.20.10.57.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Thu, 20 Jun 2024 10:57:14 -0700 (PDT)
-From: Yury Norov <yury.norov@gmail.com>
-To: linux-kernel@vger.kernel.org,
-	"David S. Miller" <davem@davemloft.net>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	"James E.J. Bottomley" <jejb@linux.ibm.com>,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	"Md. Haris Iqbal" <haris.iqbal@ionos.com>,
-	Akinobu Mita <akinobu.mita@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Borislav Petkov <bp@alien8.de>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Christian Brauner <brauner@kernel.org>,
-	Damien Le Moal <damien.lemoal@opensource.wdc.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	David Disseldorp <ddiss@suse.de>,
-	Edward Cree <ecree.xilinx@gmail.com>,
-	Eric Dumazet <edumazet@google.com>,
-	Fenghua Yu <fenghua.yu@intel.com>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Gregory Greenman <gregory.greenman@intel.com>,
-	Hans Verkuil <hverkuil@xs4all.nl>,
-	Hans de Goede <hdegoede@redhat.com>,
-	Hugh Dickins <hughd@google.com>,
-	Ingo Molnar <mingo@redhat.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Jens Axboe <axboe@kernel.dk>,
-	Jiri Pirko <jiri@resnulli.us>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Kalle Valo <kvalo@kernel.org>,
-	Karsten Graul <kgraul@linux.ibm.com>,
-	Karsten Keil <isdn@linux-pingi.de>,
-	Kees Cook <keescook@chromium.org>,
-	Leon Romanovsky <leon@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Martin Habets <habetsm.xilinx@gmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Michal Simek <monstr@monstr.eu>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Oliver Neukum <oneukum@suse.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ping-Ke Shih <pkshih@realtek.com>,
-	Rich Felker <dalias@libc.org>,
+From: Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>
+To: Vinod Koul <vkoul@kernel.org>,
 	Rob Herring <robh@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Shuai Xue <xueshuai@linux.alibaba.com>,
-	Stanislaw Gruszka <stf_xl@wp.pl>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	Wenjia Zhang <wenjia@linux.ibm.com>,
-	Will Deacon <will@kernel.org>,
-	Yoshinori Sato <ysato@users.sourceforge.jp>,
-	GR-QLogic-Storage-Upstream@marvell.com,
-	alsa-devel@alsa-project.org,
-	ath10k@lists.infradead.org,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"J.M.B. Downing" <jonathan.downing@nautel.com>,
+	Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
+	Vladimir Zapolskiy <vz@mleia.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Yangtao Li <frank.li@vivo.com>,
+	Li Zetao <lizetao1@huawei.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Chancel Liu <chancel.liu@nxp.com>,
 	dmaengine@vger.kernel.org,
-	iommu@lists.linux.dev,
-	kvm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-block@vger.kernel.org,
-	linux-bluetooth@vger.kernel.org,
-	linux-hyperv@vger.kernel.org,
-	linux-m68k@lists.linux-m68k.org,
-	linux-media@vger.kernel.org,
-	linux-mips@vger.kernel.org,
-	linux-net-drivers@amd.com,
-	linux-pci@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	linux-sh@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	linux-wireless@vger.kernel.org,
+	alsa-devel@alsa-project.org,
 	linuxppc-dev@lists.ozlabs.org,
-	mpi3mr-linuxdrv.pdl@broadcom.com,
-	netdev@vger.kernel.org,
-	sparclinux@vger.kernel.org,
-	x86@kernel.org
-Cc: Yury Norov <yury.norov@gmail.com>,
-	Alexey Klimov <alexey.klimov@linaro.org>,
-	Bart Van Assche <bvanassche@acm.org>,
-	Jan Kara <jack@suse.cz>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Mirsad Todorovac <mirsad.todorovac@alu.unizg.hr>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Sergey Shtylyov <s.shtylyov@omp.ru>
-Subject: [PATCH v4 02/40] lib/find: add test for atomic find_bit() ops
-Date: Thu, 20 Jun 2024 10:56:25 -0700
-Message-ID: <20240620175703.605111-3-yury.norov@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240620175703.605111-1-yury.norov@gmail.com>
-References: <20240620175703.605111-1-yury.norov@gmail.com>
+	linux-sound@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	linux-i2c@vger.kernel.org,
+	linux-mtd@lists.infradead.org
+Cc: Markus Elfring <Markus.Elfring@web.de>
+Subject: [Patch v4 00/10] Add audio support for LPC32XX CPUs
+Date: Thu, 20 Jun 2024 19:56:31 +0200
+Message-Id: <20240620175657.358273-1-piotr.wojtaszczyk@timesys.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-MailFrom: yury.norov@gmail.com
+X-MailFrom: piotr.wojtaszczyk@timesys.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: REBPW6UOCY2TLSH3YLYRLYEBR5EHXRTV
-X-Message-ID-Hash: REBPW6UOCY2TLSH3YLYRLYEBR5EHXRTV
+Message-ID-Hash: N2WJ62JZ5RNBUNQJ3VHYCZKTRKOXGRHV
+X-Message-ID-Hash: N2WJ62JZ5RNBUNQJ3VHYCZKTRKOXGRHV
 X-Mailman-Approved-At: Mon, 01 Jul 2024 12:20:06 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/REBPW6UOCY2TLSH3YLYRLYEBR5EHXRTV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/N2WJ62JZ5RNBUNQJ3VHYCZKTRKOXGRHV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -219,100 +150,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add basic functionality test for new API.
+This pach set is to bring back audio to machines with a LPC32XX CPU.
+The legacy LPC32XX SoC used to have audio spport in linux 2.6.27.
+The support was dropped due to lack of interest from mainaeners.
 
-Signed-off-by: Yury Norov <yury.norov@gmail.com>
----
- lib/test_bitmap.c | 62 +++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 62 insertions(+)
+Piotr Wojtaszczyk (10):
+  dt-bindings: dma: pl08x: Add dma-cells description
+  dt-bindings: dma: Add lpc32xx DMA mux binding
+  ASoC: dt-bindings: lpc32xx: Add lpc32xx i2s DT binding
+  ARM: dts: lpc32xx: Add missing dma and i2s properties
+  clk: lpc32xx: initialize regmap using parent syscon
+  dmaengine: Add dma router for pl08x in LPC32XX SoC
+  ARM: lpc32xx: Remove pl08x platform data in favor for device tree
+  mtd: rawnand: lpx32xx: Request DMA channels using DT entries
+  ASoC: fsl: Add i2s and pcm drivers for LPC32xx CPUs
+  i2x: pnx: Use threaded irq to fix warning from del_timer_sync()
 
-diff --git a/lib/test_bitmap.c b/lib/test_bitmap.c
-index 65a75d58ed9e..405f79dd2266 100644
---- a/lib/test_bitmap.c
-+++ b/lib/test_bitmap.c
-@@ -6,6 +6,7 @@
- #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
- 
- #include <linux/bitmap.h>
-+#include <linux/find_atomic.h>
- #include <linux/init.h>
- #include <linux/kernel.h>
- #include <linux/module.h>
-@@ -221,6 +222,65 @@ static void __init test_zero_clear(void)
- 	expect_eq_pbl("", bmap, 1024);
- }
- 
-+static void __init test_find_and_bit(void)
-+{
-+	unsigned long w, w_part, bit, cnt = 0;
-+	DECLARE_BITMAP(bmap, EXP1_IN_BITS);
-+
-+	/*
-+	 * Test find_and_clear{_next}_bit() and corresponding
-+	 * iterators
-+	 */
-+	bitmap_copy(bmap, exp1, EXP1_IN_BITS);
-+	w = bitmap_weight(bmap, EXP1_IN_BITS);
-+
-+	for_each_test_and_clear_bit(bit, bmap, EXP1_IN_BITS)
-+		cnt++;
-+
-+	expect_eq_uint(w, cnt);
-+	expect_eq_uint(0, bitmap_weight(bmap, EXP1_IN_BITS));
-+
-+	bitmap_copy(bmap, exp1, EXP1_IN_BITS);
-+	w = bitmap_weight(bmap, EXP1_IN_BITS);
-+	w_part = bitmap_weight(bmap, EXP1_IN_BITS / 3);
-+
-+	cnt = 0;
-+	bit = EXP1_IN_BITS / 3;
-+	for_each_test_and_clear_bit_from(bit, bmap, EXP1_IN_BITS)
-+		cnt++;
-+
-+	expect_eq_uint(bitmap_weight(bmap, EXP1_IN_BITS), bitmap_weight(bmap, EXP1_IN_BITS / 3));
-+	expect_eq_uint(w_part, bitmap_weight(bmap, EXP1_IN_BITS));
-+	expect_eq_uint(w - w_part, cnt);
-+
-+	/*
-+	 * Test find_and_set{_next}_bit() and corresponding
-+	 * iterators
-+	 */
-+	bitmap_copy(bmap, exp1, EXP1_IN_BITS);
-+	w = bitmap_weight(bmap, EXP1_IN_BITS);
-+	cnt = 0;
-+
-+	for_each_test_and_set_bit(bit, bmap, EXP1_IN_BITS)
-+		cnt++;
-+
-+	expect_eq_uint(EXP1_IN_BITS - w, cnt);
-+	expect_eq_uint(EXP1_IN_BITS, bitmap_weight(bmap, EXP1_IN_BITS));
-+
-+	bitmap_copy(bmap, exp1, EXP1_IN_BITS);
-+	w = bitmap_weight(bmap, EXP1_IN_BITS);
-+	w_part = bitmap_weight(bmap, EXP1_IN_BITS / 3);
-+	cnt = 0;
-+
-+	bit = EXP1_IN_BITS / 3;
-+	for_each_test_and_set_bit_from(bit, bmap, EXP1_IN_BITS)
-+		cnt++;
-+
-+	expect_eq_uint(EXP1_IN_BITS - bitmap_weight(bmap, EXP1_IN_BITS),
-+			EXP1_IN_BITS / 3 - bitmap_weight(bmap, EXP1_IN_BITS / 3));
-+	expect_eq_uint(EXP1_IN_BITS * 2 / 3 - (w - w_part), cnt);
-+}
-+
- static void __init test_find_nth_bit(void)
- {
- 	unsigned long b, bit, cnt = 0;
-@@ -1482,6 +1542,8 @@ static void __init selftest(void)
- 	test_for_each_clear_bitrange_from();
- 	test_for_each_set_clump8();
- 	test_for_each_set_bit_wrap();
-+
-+	test_find_and_bit();
- }
- 
- KSTM_MODULE_LOADERS(test_bitmap);
+ .../devicetree/bindings/dma/arm-pl08x.yaml    |   7 +
+ .../bindings/dma/nxp,lpc3220-dmamux.yaml      |  56 +++
+ .../bindings/sound/nxp,lpc3220-i2s.yaml       |  73 ++++
+ MAINTAINERS                                   |  21 +
+ arch/arm/boot/dts/nxp/lpc/lpc32xx.dtsi        |  53 ++-
+ arch/arm/mach-lpc32xx/phy3250.c               |  54 ---
+ drivers/clk/Kconfig                           |   1 +
+ drivers/clk/nxp/clk-lpc32xx.c                 |  10 +-
+ drivers/dma/Kconfig                           |   9 +
+ drivers/dma/Makefile                          |   1 +
+ drivers/dma/lpc32xx-dmamux.c                  | 195 +++++++++
+ drivers/i2c/busses/i2c-pnx.c                  |   4 +-
+ drivers/mtd/nand/raw/lpc32xx_mlc.c            |  10 +-
+ drivers/mtd/nand/raw/lpc32xx_slc.c            |  10 +-
+ sound/soc/fsl/Kconfig                         |   7 +
+ sound/soc/fsl/Makefile                        |   2 +
+ sound/soc/fsl/lpc3xxx-i2s.c                   | 376 ++++++++++++++++++
+ sound/soc/fsl/lpc3xxx-i2s.h                   |  79 ++++
+ sound/soc/fsl/lpc3xxx-pcm.c                   |  73 ++++
+ 19 files changed, 954 insertions(+), 87 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/dma/nxp,lpc3220-dmamux.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/nxp,lpc3220-i2s.yaml
+ create mode 100644 drivers/dma/lpc32xx-dmamux.c
+ create mode 100644 sound/soc/fsl/lpc3xxx-i2s.c
+ create mode 100644 sound/soc/fsl/lpc3xxx-i2s.h
+ create mode 100644 sound/soc/fsl/lpc3xxx-pcm.c
+
 -- 
-2.43.0
+2.25.1
 

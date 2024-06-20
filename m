@@ -2,55 +2,133 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96CEE90FB60
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jun 2024 04:41:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74B5490FD45
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jun 2024 09:05:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E8FDBDEC;
-	Thu, 20 Jun 2024 04:41:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8FDBDEC
+	by alsa0.perex.cz (Postfix) with ESMTPS id B307CDE5;
+	Thu, 20 Jun 2024 09:05:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B307CDE5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718851292;
-	bh=iPckXq+QmhuOv+aBF8464Aojs2fh1w5Z1XbJSsYttaM=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=nGVKyoJBDCHlKOnF+nwQe+UDDCiot33Iw7d2xSYwS+X4nT1zh1Ex1jilrJvcTazxU
-	 Rtd9gj/fnwmHepxOaDJ6uYdbxDU9VcAjcNB7uf5rHB3URovGIOqJBzdBTonqEidyjQ
-	 4+sc/DpPvpQ8Sgf87THCgtE473udXhsp8R/qI6OQ=
+	s=default; t=1718867141;
+	bh=ArMZUZTzqM9vkT4dgfxTpgAfn+DNat7a6cauftDSfcg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=m+vTFVnfDLBh+Et2gbC4zUcDR0GX26wcX0bsXGPG//c9MBsZeWBVfMpdtrf4csjAf
+	 JHr4biP6SaGonQvPxm71WDlx3QnAzUFxO7S58FSxjQNY7/9JNhvJKBHVeY9eCClcvq
+	 3fbUm+hpHE/eObvOwoyJDhKwg8Ity8M7PDsCy9MQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 182F0F80589; Thu, 20 Jun 2024 04:41:11 +0200 (CEST)
+	id 800EAF801EB; Thu, 20 Jun 2024 09:05:09 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 98E2BF805B0;
-	Thu, 20 Jun 2024 04:41:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E5955F805B1;
+	Thu, 20 Jun 2024 09:05:08 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4330CF8023A; Thu, 20 Jun 2024 04:41:06 +0200 (CEST)
+	id 5C0B2F8023A; Thu, 20 Jun 2024 09:01:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=no autolearn_force=no version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
- [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id 99FC5F80154
-	for <alsa-devel@alsa-project.org>; Thu, 20 Jun 2024 04:41:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99FC5F80154
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 11E5EF80154
+	for <alsa-devel@alsa-project.org>; Thu, 20 Jun 2024 09:01:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 11E5EF80154
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=qQOjxifb
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id 3FBEFCE23A8;
+	Thu, 20 Jun 2024 07:01:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B20F2C2BD10;
+	Thu, 20 Jun 2024 07:00:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1718866865;
+	bh=ArMZUZTzqM9vkT4dgfxTpgAfn+DNat7a6cauftDSfcg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=qQOjxifbjj/u+M1+2R/hK6xxP78TQbQeKJSRLF61tjvmf9jVPKPLCnQ+SFdzpWhsA
+	 s1ky4XgrVhhRBY41CmGAFem63zsy2fAySItXfbnpAI1euc2cOjaKf9SpL8aauaygSl
+	 7EAaDn4Eg1VayxyoAAW0QZfPZEHCM8zYM3kvyWrM2ifF8Twko2xy800iGRcr0vtT4d
+	 zoOxvaVOSbB0eDVgAyWz43Q+3yKzxKLtOVsJMHqFOBOn125GSq9ONB6wAlTf8OJStf
+	 Dzmn6n4jG/diYy5znz3vSG93tGtKbD2YuxTOoTB3o6MXWSrpAxEljbcxuCIxTRrVX4
+	 gAbmWIEMXRWpw==
+Message-ID: <fc05397e-44d4-423b-8a2a-436a49be3597@kernel.org>
+Date: Thu, 20 Jun 2024 09:00:56 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ASoC: dt-bindings: add missing vender prefix on filename
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Andrew Davis <afd@ti.com>, Baojun Xu <baojun.xu@ti.com>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Daniel Beer <daniel.beer@igorinstitute.com>,
+ Fabio Estevam <festevam@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Kevin Lu <kevin-lu@ti.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>, Shenghao Ding <shenghao-ding@ti.com>,
+ Shi Fu <shifu0704@thundersoft.com>, Takashi Iwai <tiwai@suse.com>,
+ Vincent Knecht <vincent.knecht@mailoo.org>
+Cc: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-sound@vger.kernel.org, patches@opensource.cirrus.com
+References: <87wmmkpi6w.wl-kuninori.morimoto.gx@renesas.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGVBBMBCgA/AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJgPO8PBQkUX63hAAoJEBuTQ307
+ QWKbBn8P+QFxwl7pDsAKR1InemMAmuykCHl+XgC0LDqrsWhAH5TYeTVXGSyDsuZjHvj+FRP+
+ gZaEIYSw2Yf0e91U9HXo3RYhEwSmxUQ4Fjhc9qAwGKVPQf6YuQ5yy6pzI8brcKmHHOGrB3tP
+ /MODPt81M1zpograAC2WTDzkICfHKj8LpXp45PylD99J9q0Y+gb04CG5/wXs+1hJy/dz0tYy
+ iua4nCuSRbxnSHKBS5vvjosWWjWQXsRKd+zzXp6kfRHHpzJkhRwF6ArXi4XnQ+REnoTfM5Fk
+ VmVmSQ3yFKKePEzoIriT1b2sXO0g5QXOAvFqB65LZjXG9jGJoVG6ZJrUV1MVK8vamKoVbUEe
+ 0NlLl/tX96HLowHHoKhxEsbFzGzKiFLh7hyboTpy2whdonkDxpnv/H8wE9M3VW/fPgnL2nPe
+ xaBLqyHxy9hA9JrZvxg3IQ61x7rtBWBUQPmEaK0azW+l3ysiNpBhISkZrsW3ZUdknWu87nh6
+ eTB7mR7xBcVxnomxWwJI4B0wuMwCPdgbV6YDUKCuSgRMUEiVry10xd9KLypR9Vfyn1AhROrq
+ AubRPVeJBf9zR5UW1trJNfwVt3XmbHX50HCcHdEdCKiT9O+FiEcahIaWh9lihvO0ci0TtVGZ
+ MCEtaCE80Q3Ma9RdHYB3uVF930jwquplFLNF+IBCn5JRzsFNBFVDXDQBEADNkrQYSREUL4D3
+ Gws46JEoZ9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLue
+ MNsWLJBvBaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6ei
+ OMheesVS5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wA
+ GldWsRxbf3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA
+ 6z6lBZn0WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9
+ YegxWKvXXHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt
+ 91pFzBSOIpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gU
+ BLHFTg2hYnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/
+ JoFzZ4B0p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu
+ 4vXVFBYIGmpyNPYzRm0QPwARAQABwsF8BBgBCgAmAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtB
+ YpsFAmA872oFCRRflLYACgkQG5NDfTtBYpvScw/9GrqBrVLuJoJ52qBBKUBDo4E+5fU1bjt0
+ Gv0nh/hNJuecuRY6aemU6HOPNc2t8QHMSvwbSF+Vp9ZkOvrM36yUOufctoqON+wXrliEY0J4
+ ksR89ZILRRAold9Mh0YDqEJc1HmuxYLJ7lnbLYH1oui8bLbMBM8S2Uo9RKqV2GROLi44enVt
+ vdrDvo+CxKj2K+d4cleCNiz5qbTxPUW/cgkwG0lJc4I4sso7l4XMDKn95c7JtNsuzqKvhEVS
+ oic5by3fbUnuI0cemeizF4QdtX2uQxrP7RwHFBd+YUia7zCcz0//rv6FZmAxWZGy5arNl6Vm
+ lQqNo7/Poh8WWfRS+xegBxc6hBXahpyUKphAKYkah+m+I0QToCfnGKnPqyYIMDEHCS/RfqA5
+ t8F+O56+oyLBAeWX7XcmyM6TGeVfb+OZVMJnZzK0s2VYAuI0Rl87FBFYgULdgqKV7R7WHzwD
+ uZwJCLykjad45hsWcOGk3OcaAGQS6NDlfhM6O9aYNwGL6tGt/6BkRikNOs7VDEa4/HlbaSJo
+ 7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
+ 5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
+In-Reply-To: <87wmmkpi6w.wl-kuninori.morimoto.gx@renesas.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1718851262444810867-webhooks-bot@alsa-project.org>
-References: <1718851262444810867-webhooks-bot@alsa-project.org>
-Subject: ALSA volume control ignored for "4c4a:4155 Jieli Technology USB
- Composite Device"
-Message-Id: <20240620024106.4330CF8023A@alsa1.perex.cz>
-Date: Thu, 20 Jun 2024 04:41:06 +0200 (CEST)
-Message-ID-Hash: CYSG6A62JJID5N2V5YUDW43CELEZDF36
-X-Message-ID-Hash: CYSG6A62JJID5N2V5YUDW43CELEZDF36
-X-MailFrom: github@alsa-project.org
+Message-ID-Hash: C5JSXXIWDUCBHQCMMNDBFJL5CTTALTBV
+X-Message-ID-Hash: C5JSXXIWDUCBHQCMMNDBFJL5CTTALTBV
+X-MailFrom: krzk@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -62,7 +140,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CYSG6A62JJID5N2V5YUDW43CELEZDF36/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/C5JSXXIWDUCBHQCMMNDBFJL5CTTALTBV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -71,96 +149,16 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-lib issue #401 was opened from davidmcnabnz:
+On 20/06/2024 02:32, Kuninori Morimoto wrote:
+> Many Sound yaml files doesn't have vender prefix on filename.
+> Add missing vender prefix for these files.
+> 
+> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-I just purchased a generic USB audio interface, which shows up in `lsusb` as:
-```
-4c4a:4155 Jieli Technology USB Composite Device
-```
-The device on the whole seems to _simply just work_. But the level control for the stereo capture seems to be completely ignored, both in `alsamixer` and `pavucontrol`.
+Thanks.
 
-My setup is Debian GNU/Linux 12 (bookworm), standard apt including contrib.
-General stack is wireplumber and pipewire, implementing JACK via pw-jack and pipewire-pulse. This is working very well for my music work.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-Lastly, below is a paste of my currently installed packages relevant to ALSA and JACK.
+Best regards,
+Krzysztof
 
-Grateful if anyone can advise.
-
-Cheers
-David
-
-```
-ii  a2jmidid                                 9-3                                  amd64        Daemon for exposing legacy ALSA MIDI in JACK MIDI systems
-ii  aj-snapshot                              0.9.9-4                              amd64        make snapshots of JACK connections
-ii  alsa-tools                               1.2.5-3                              amd64        Console based ALSA utilities for specific hardware
-ii  alsa-tools-gui                           1.2.5-3                              amd64        GUI based ALSA utilities for specific hardware
-ii  alsa-topology-conf                       1.2.5.1-2                            all          ALSA topology configuration files
-ii  alsa-ucm-conf                            1.2.8-1                              all          ALSA Use Case Manager configuration files
-ii  alsa-utils                               1.2.8-1                              amd64        Utilities for configuring and using ALSA
-ii  drumstick-data                           2.7.2-1                              all          Qt5/C++ wrapper for ALSA Sequencer (data files)
-ii  gir1.2-cvc-1.0:amd64                     5.6.1-1                              amd64        Introspection data for Cinnamon pulseaudio abstraction
-ii  gnome-remote-desktop                     43.3-1                               amd64        Remote desktop daemon for GNOME using PipeWire
-ii  gstreamer1.0-alsa:amd64                  1.22.0-3+deb12u1                     amd64        GStreamer plugin for ALSA
-ii  gstreamer1.0-pipewire:amd64              0.3.65-3+deb12u1                     amd64        GStreamer 1.0 plugin for the PipeWire multimedia server
-ii  jack-midi-clock                          0.4.3-1+b1                           amd64        JACK client that sends MIDI beat clock pulses
-ii  jack-mixer                               17-2+b2                              amd64        GTK+ JACK audio mixer application (Python 3)
-ii  jack-tools                               20131226-1.1                         amd64        various JACK tools: dl, record, scope, osc, plumbing, udp, play, transport
-ii  jackd                                    5+nmu1                               all          JACK Audio Connection Kit (default server package)
-ii  jackd2                                   1.9.21~dfsg-3                        amd64        JACK Audio Connection Kit (server and example clients)
-ii  jackd2-firewire                          1.9.21~dfsg-3                        amd64        JACK Audio Connection Kit (FFADO backend)
-ii  jackmeter                                0.4-1+b2                             amd64        a basic command line meter for the JACK audio system
-ii  jacktrip                                 1.7.0+ds-1                           amd64        high-quality system for audio network performances (cmdline)
-ii  klick                                    0.12.2-4.1                           amd64        advanced metronome for JACK
-ii  kmetronome                               1.3.1-1                              amd64        ALSA MIDI Metronome
-ii  libasound2:amd64                         1.2.8-1+b1                           amd64        shared library for ALSA applications
-ii  libasound2:i386                          1.2.8-1+b1                           i386         shared library for ALSA applications
-ii  libasound2-data                          1.2.8-1                              all          Configuration files and profiles for ALSA drivers
-ii  libasound2-dev:amd64                     1.2.8-1+b1                           amd64        shared library for ALSA applications -- development files
-ii  libasound2-plugins:amd64                 1.2.7.1-1                            amd64        ALSA library additional plugins
-ii  libasound2-plugins:i386                  1.2.7.1-1                            i386         ALSA library additional plugins
-ii  libatopology2:amd64                      1.2.8-1+b1                           amd64        shared library for handling ALSA topology definitions
-ii  libcanberra-pulse:amd64                  0.30-10                              amd64        PulseAudio backend for libcanberra
-ii  libclalsadrv2                            2.0.0-3.1                            amd64        ALSA driver C++ access library
-ii  libcvc0:amd64                            5.6.1-1                              amd64        Cinnamon pulseaudio abstraction library
-ii  libdrumstick-alsa2:amd64                 2.7.2-1                              amd64        Qt5/C++ wrapper for ALSA Sequencer (shared library)
-ii  libdrumstick-widgets2:amd64              2.7.2-1                              amd64        Qt5/C++ wrapper for ALSA Sequencer (widgets)
-ii  libjack-jackd2-0:amd64                   1.9.21~dfsg-3                        amd64        JACK Audio Connection Kit (libraries)
-ii  libjack-jackd2-0:i386                    1.9.21~dfsg-3                        i386         JACK Audio Connection Kit (libraries)
-ii  libjack-jackd2-dev:amd64                 1.9.21~dfsg-3                        amd64        JACK Audio Connection Kit (development files)
-ii  libpipewire-0.3-0:amd64                  0.3.65-3+deb12u1                     amd64        libraries for the PipeWire multimedia server
-ii  libpipewire-0.3-common                   0.3.65-3+deb12u1                     all          libraries for the PipeWire multimedia server - common files
-ii  libpipewire-0.3-modules:amd64            0.3.65-3+deb12u1                     amd64        libraries for the PipeWire multimedia server - modules
-ii  libpulse-mainloop-glib0:amd64            16.1+dfsg1-2+b1                      amd64        PulseAudio client libraries (glib support)
-ii  libpulse0:amd64                          16.1+dfsg1-2+b1                      amd64        PulseAudio client libraries
-ii  libpulse0:i386                           16.1+dfsg1-2+b1                      i386         PulseAudio client libraries
-ii  libpulsedsp:amd64                        16.1+dfsg1-2+b1                      amd64        PulseAudio OSS pre-load library
-ii  libspa-0.2-bluetooth:amd64               0.3.65-3+deb12u1                     amd64        libraries for the PipeWire multimedia server - bluetooth plugins
-ii  libspa-0.2-modules:amd64                 0.3.65-3+deb12u1                     amd64        libraries for the PipeWire multimedia server Simple Plugin API - modules
-ii  libzita-alsa-pcmi0:amd64                 0.6.1-1                              amd64        C++ wrapper around the ALSA API
-ii  lsp-plugins-jack                         1.2.5-1                              amd64        LSP (Linux Studio Plugins) audio-plugins (standalone JACK clients)
-ii  mudita24                                 1.0.3+svn13-7                        amd64        ALSA GUI control tool for Envy24 (ice1712) soundcards
-ii  multimedia-jack                          0.10                                 all          JACK (Jack Audio Connection Kit) and ALSA related packages
-ii  pavucontrol                              5.0-2                                amd64        PulseAudio Volume Control
-ii  pipewire:amd64                           0.3.65-3+deb12u1                     amd64        audio and video processing engine multimedia server
-ii  pipewire-alsa:amd64                      0.3.65-3+deb12u1                     amd64        PipeWire ALSA plugin
-ii  pipewire-audio                           0.3.65-3+deb12u1                     all          recommended set of PipeWire packages for a standard audio desktop use
-ii  pipewire-bin                             0.3.65-3+deb12u1                     amd64        PipeWire multimedia server - programs
-ii  pipewire-jack:amd64                      0.3.65-3+deb12u1                     amd64        PipeWire JACK plugin
-ii  pipewire-pulse                           0.3.65-3+deb12u1                     amd64        PipeWire PulseAudio daemon
-ii  pulseaudio-utils                         16.1+dfsg1-2+b1                      amd64        Command line tools for the PulseAudio sound server
-ii  qasconfig                                0.23.0-1                             amd64        ALSA configuration browser
-ii  qashctl                                  0.23.0-1                             amd64        mixer for ALSA's High level Control Interface
-ii  qasmixer                                 0.23.0-1                             amd64        ALSA mixer for the desktop
-ii  qjackctl                                 0.9.9-1                              amd64        User interface for controlling the JACK sound server
-ii  silentjack                               0.3-2+b2                             amd64        silence detector for the JACK audio system
-ii  wireplumber                              0.4.13-1                             amd64        modular session / policy manager for PipeWire
-ii  xjadeo                                   0.8.12-1                             amd64        Video player with JACK sync
-ii  zita-ajbridge                            0.8.4-1                              amd64        alsa to jack bridge
-ii  zita-alsa-pcmi-utils                     0.6.1-1                              amd64        Two simple demo programs zita-alsa-pcmi library
-ii  zita-lrx                                 0.1.2-1                              amd64        Command line jack application providing crossover filters
-ii  zita-mu1                                 0.3.3-2                              amd64        organise stereo monitoring for Jack Audio Connection Kit
-ii  zita-njbridge                            0.4.8-1                              amd64        Jack clients to transmit multichannel audio over a local IP network
-```
-
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/401
-Repository URL: https://github.com/alsa-project/alsa-lib

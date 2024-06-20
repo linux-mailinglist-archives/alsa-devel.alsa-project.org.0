@@ -2,95 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E85B4910256
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jun 2024 13:16:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 224B0910355
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jun 2024 13:48:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 946EE205;
-	Thu, 20 Jun 2024 13:15:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 946EE205
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1ED14AE8;
+	Thu, 20 Jun 2024 13:48:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1ED14AE8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718882165;
-	bh=41V5qM2Xc8+hKW6MPPByw1cyUc6zgZCcguLz9Xf3LIg=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=U+tx0HM4ckI2GydQEfg5UK6p6UjtTIDmaK7wwliwDGQ65npFOeRXg44EevRPmf22s
-	 K8im3KTXDtznWuhtWTIqV7nVfSTUP1DVYB/S+ck7/2bgOmwZ2uLqYRp4005inW9xsk
-	 NiIEeyGCegNRxLYvMC8b/sCcd3v4lCv7twcRvfaA=
+	s=default; t=1718884101;
+	bh=rbeOxems1FuSby3UK5MmTHjuVfReL3BNUB/fTrMgsSQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=stI+EeCZzfitX3Xa0Me6DNo40l4kJRKRdOwq7o3hDwdNNCez/pwKnG6Qa3yS01Zdb
+	 1mBuhgnyYLoN89UWL7fnBQTzj+LyY+wbqyJIWW0aEiw7ALR7KDWYJHSKhoUm1kXbJZ
+	 iArNDp1zrQW6msXB9JLu4cKA8DKWucUNUnp6CAt4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5202BF805F1; Thu, 20 Jun 2024 13:15:06 +0200 (CEST)
+	id 2AF1EF805A0; Thu, 20 Jun 2024 13:47:49 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9D05DF805F8;
-	Thu, 20 Jun 2024 13:15:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DADC4F805AC;
+	Thu, 20 Jun 2024 13:47:48 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2D863F8023A; Thu, 20 Jun 2024 13:14:30 +0200 (CEST)
+	id DC0ADF8023A; Thu, 20 Jun 2024 13:47:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_NONE,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5A65AF800ED
-	for <alsa-devel@alsa-project.org>; Thu, 20 Jun 2024 13:14:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A65AF800ED
+	by alsa1.perex.cz (Postfix) with ESMTPS id A4DF9F801EB
+	for <alsa-devel@alsa-project.org>; Thu, 20 Jun 2024 13:47:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A4DF9F801EB
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=XdSeCAg4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1718882064; x=1750418064;
-  h=message-id:date:mime-version:subject:to:references:from:
-   in-reply-to:content-transfer-encoding;
-  bh=41V5qM2Xc8+hKW6MPPByw1cyUc6zgZCcguLz9Xf3LIg=;
-  b=XdSeCAg4hneaYYSHHoqUYvCnc8BmvC/F8cd+JdWcSdF6CTpGSUGWifK0
-   v8e8PcKW0d/owpSYi1cVzXrmOM8phSe1xbbZ/Ets4F/6JkDht9064e/R0
-   NpdmAU27CICJqEGS+wbXUE0sR+zxiYXKLGZzSGB3/28EAFshpv3qfWECe
-   UYBQrYpDz6+8csAU9RG79TeIvZrlsJob+sfbP6gGWC1yrEYnp+BYQ9R1n
-   k2Rl4mEkLlLCOHqrHvYQPx46+fkqzLH1vzPnbzH/GlzI7WnG5tRyvUbGi
-   2LKjGkOUpMBbC57/7EL8jIs2+d7eydc/wOExHflboI3te8wQJow+Lbjhi
-   Q==;
-X-CSE-ConnectionGUID: 5fQPK2thS4Osizu1PWPYDg==
-X-CSE-MsgGUID: 2rotYaLMS9OFYtKQJ1kHTA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11108"; a="12161664"
-X-IronPort-AV: E=Sophos;i="6.08,252,1712646000";
-   d="scan'208";a="12161664"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jun 2024 04:14:19 -0700
-X-CSE-ConnectionGUID: v4ovnh61T3ukPwlwybUEKA==
-X-CSE-MsgGUID: opO1isRZRx6et/8qXf718w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.08,252,1712646000";
-   d="scan'208";a="46660974"
-Received: from lfiedoro-mobl.ger.corp.intel.com (HELO [10.245.246.65])
- ([10.245.246.65])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jun 2024 04:14:17 -0700
-Message-ID: <6f51ef55-54a7-4dfc-b203-77bc48790c62@linux.intel.com>
-Date: Thu, 20 Jun 2024 13:14:15 +0200
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=ND7yUXF0
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id 6A0756218E;
+	Thu, 20 Jun 2024 11:47:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFA6EC4AF0B;
+	Thu, 20 Jun 2024 11:47:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1718884044;
+	bh=rbeOxems1FuSby3UK5MmTHjuVfReL3BNUB/fTrMgsSQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=ND7yUXF05VcA9LHJDB+fZ/aK7w4Kib15dQY470C2WchRa7f6li1bXbBO7PlFuwsEu
+	 N9j3Su5Ul3f0pdNS6FH5Xv3s76ln1SFife/y2RYbFklB++NE5XJGKAgAWA7LR3X+5E
+	 d5KhaDN2vba9O0Dxsk9olM8EFYgl8sQUi4JGJ4HDskgJuFIVMfN+aWygBQP6BWoCX5
+	 AlWAeW0knBdARv3YUpkTnpC5LaG9OdRFkUHW2E5RFC6rXp+yIRC7X2fwxzj2iTPRV7
+	 50D2ixnxkLzb0UCm2k11DBNUSEj/aAjvD8DK7o/4xsb4fubk8T6c4GQzerB5GF3ACL
+	 nokANLX6c73Rg==
+From: Mark Brown <broonie@kernel.org>
+To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Cc: alsa-devel@alsa-project.org, venkataprasad.potturu@amd.com,
+ Basavaraj.Hiregoudar@amd.com, Sunil-kumar.Dommati@amd.com,
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Syed Saba Kareem <Syed.SabaKareem@amd.com>,
+ "open list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <linux-sound@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>
+In-Reply-To: <20240617072844.871468-1-Vijendar.Mukunda@amd.com>
+References: <20240617072844.871468-1-Vijendar.Mukunda@amd.com>
+Subject: Re: (subset) [PATCH 1/8] ASoC: amd: acp: add a null check for
+ chip_pdev structure
+Message-Id: <171888404167.51171.12647863943133504224.b4-ty@kernel.org>
+Date: Thu, 20 Jun 2024 12:47:21 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] soundwire: bus: simplify by using local slave->prop
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>,
- Sanyog Kale <sanyog.r.kale@intel.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-References: <20240620091046.12426-1-krzysztof.kozlowski@linaro.org>
-Content-Language: en-US
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20240620091046.12426-1-krzysztof.kozlowski@linaro.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: 2TEIPBCRSFTIEICCT4S7XVMSQIWZPB33
-X-Message-ID-Hash: 2TEIPBCRSFTIEICCT4S7XVMSQIWZPB33
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+X-Mailer: b4 0.14-dev-d4707
+Message-ID-Hash: P2F7BJKSRVZLOELBZLSONSU5VKLHEQ5G
+X-Message-ID-Hash: P2F7BJKSRVZLOELBZLSONSU5VKLHEQ5G
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -102,7 +93,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2TEIPBCRSFTIEICCT4S7XVMSQIWZPB33/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/P2F7BJKSRVZLOELBZLSONSU5VKLHEQ5G/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -111,48 +102,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-
-
-On 6/20/24 11:10, Krzysztof Kozlowski wrote:
-> The sdw_initialize_slave() function stores 'slave->prop' as local 'prop'
-> variable, so use it in all applicable places to make code a bit simpler.
+On Mon, 17 Jun 2024 12:58:34 +0530, Vijendar Mukunda wrote:
+> When acp platform device creation is skipped, chip->chip_pdev value will
+> remain NULL. Add NULL check for chip->chip_pdev structure in
+> snd_acp_resume() function to avoid null pointer dereference.
 > 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-
-> ---
->  drivers/soundwire/bus.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
 > 
-> diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
-> index 191e6cc6f962..263ca32f0c5c 100644
-> --- a/drivers/soundwire/bus.c
-> +++ b/drivers/soundwire/bus.c
-> @@ -1410,7 +1410,7 @@ static int sdw_initialize_slave(struct sdw_slave *slave)
->  		}
->  	}
->  	if ((slave->bus->prop.quirks & SDW_MASTER_QUIRKS_CLEAR_INITIAL_PARITY) &&
-> -	    !(slave->prop.quirks & SDW_SLAVE_QUIRKS_INVALID_INITIAL_PARITY)) {
-> +	    !(prop->quirks & SDW_SLAVE_QUIRKS_INVALID_INITIAL_PARITY)) {
->  		/* Clear parity interrupt before enabling interrupt mask */
->  		status = sdw_read_no_pm(slave, SDW_SCP_INT1);
->  		if (status < 0) {
-> @@ -1436,7 +1436,7 @@ static int sdw_initialize_slave(struct sdw_slave *slave)
->  	 * device-dependent, it might e.g. only be enabled in
->  	 * steady-state after a couple of frames.
->  	 */
-> -	val = slave->prop.scp_int1_mask;
-> +	val = prop->scp_int1_mask;
->  
->  	/* Enable SCP interrupts */
->  	ret = sdw_update_no_pm(slave, SDW_SCP_INTMASK1, val, val);
-> @@ -1447,7 +1447,7 @@ static int sdw_initialize_slave(struct sdw_slave *slave)
->  	}
->  
->  	/* No need to continue if DP0 is not present */
-> -	if (!slave->prop.dp0_prop)
-> +	if (!prop->dp0_prop)
->  		return 0;
->  
->  	/* Enable DP0 interrupts */
+
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+
+Thanks!
+
+[1/8] ASoC: amd: acp: add a null check for chip_pdev structure
+      commit: 98d919dfee1cc402ca29d45da642852d7c9a2301
+[2/8] ASoC: amd: acp: remove i2s configuration check in acp_i2s_probe()
+      commit: 70fa3900c3ed92158628710e81d274e5cb52f92b
+[3/8] ASoC: amd: acp: move chip->flag variable assignment
+      commit: 379bcd2c9197bf2c429434e8a01cea0ee1852316
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+

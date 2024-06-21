@@ -2,128 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A9FD91156D
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jun 2024 00:07:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B385991171F
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jun 2024 02:07:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2549D868;
-	Fri, 21 Jun 2024 00:06:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2549D868
+	by alsa0.perex.cz (Postfix) with ESMTPS id E56F0DEE;
+	Fri, 21 Jun 2024 02:06:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E56F0DEE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718921223;
-	bh=gVYQl3pGyFlk05T7rufNWSVGMuubCIbjo9ynHZOlX0A=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
+	s=default; t=1718928429;
+	bh=VNSCHiO08SIk0htqWDW6NDFuvYyhidq/ovhyfUV5Kwg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=dNtOpf8k9w8veQjiiHm8XasSLuPr1iB3Lp59k+rZbOpjVi9tiIhKIXa7OyZ940P6R
-	 JKwE5fIxsZanMVKaTHH0Q1KNDWecojL73eezADUi/Y8Syt9/IQjx+jvwdAZ98upL5j
-	 ElrYG6GwPUJeSzUsgYwEktK+Le50/BEEeG0OABf4=
+	b=ovaUZAcmCmbNX+viG1Gv/98I9UrMy2ixAaCdqcAYd6v9fQ411ItT5AzR96f5xVsHE
+	 SrZOXfnb70o+7RefTatiqyz4REI4Urf62YX/qt1yHlyPkBp5M1j3d8Gvp/YR18fUs+
+	 lPNAqxnAvJw0diwpBhxyM0crULoGRaaU3VzvZFcA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A445EF805A8; Fri, 21 Jun 2024 00:06:31 +0200 (CEST)
+	id 17E2EF805B6; Fri, 21 Jun 2024 02:06:37 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0199EF805AF;
-	Fri, 21 Jun 2024 00:06:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6E108F805B0;
+	Fri, 21 Jun 2024 02:06:37 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 37792F8023A; Fri, 21 Jun 2024 00:04:29 +0200 (CEST)
+	id DEE97F8023A; Fri, 21 Jun 2024 02:06:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8B8C5F801EB
-	for <alsa-devel@alsa-project.org>; Fri, 21 Jun 2024 00:04:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B8C5F801EB
+	by alsa1.perex.cz (Postfix) with ESMTPS id A1D9BF801EB
+	for <alsa-devel@alsa-project.org>; Fri, 21 Jun 2024 02:06:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1D9BF801EB
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=mWDGsyVY
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 45KHKsWA010564;
-	Thu, 20 Jun 2024 22:04:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	2xhWTtdjB/pWg5xkVHFabX0MQ0bplv4y9hWfHxdmgnU=; b=mWDGsyVYfgWL0pCN
-	aY+M+Q3hSAPS/RzgrdgML04H2m6wdmu3woRrJYaY11Zo0LMNh318rDUkpy9TMPVb
-	EzFlkFRRSptZnPDPg8F1Xhua8EsM5VMu/Vif6uUEw4T+7Pmh6XNldDLJyKSmy7c2
-	bILB61CH2dvwss4IQOE2w2FCDqeAS6ffVkPBPdHdwR9XiXuph8ewyzVxyGN1ePi6
-	/pI8tNM53I3uWxVhDNnX7xZvYHmTigrqmXdbdlHsveA/ogHo7bxVZDovYw+/HU3t
-	mC/b7j9Kpmnh12RFIm1VidQsLB+UR2DvnkUYQS5OIsYqbh0jk0uRc90eNeA6NVbi
-	E8Dk5Q==
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3yvrrc8qr6-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 20 Jun 2024 22:04:06 +0000 (GMT)
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
-	by NALASPPMTA04.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
- 45KM45pr006861
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 20 Jun 2024 22:04:05 GMT
-Received: from [10.110.23.35] (10.80.80.8) by nalasex01b.na.qualcomm.com
- (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 20 Jun
- 2024 15:04:04 -0700
-Message-ID: <c7a95157-1b71-1489-3657-8fe67f9acb4e@quicinc.com>
-Date: Thu, 20 Jun 2024 15:04:04 -0700
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=HneLpggF
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id DFF75CE288F;
+	Fri, 21 Jun 2024 00:06:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E3A7C2BD10;
+	Fri, 21 Jun 2024 00:06:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1718928375;
+	bh=VNSCHiO08SIk0htqWDW6NDFuvYyhidq/ovhyfUV5Kwg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=HneLpggF5aKAge/YLzIW5cLkwl1JRmjRPAHCL9AVCFqQnPr25XKP9Z/YFuOrHFRQM
+	 Z8WthZPFSd05AbkIJE7UTae1fx3IHUq3s75yr3U83zQfEU7QtJmzJG4jZ8kmRpLC7g
+	 GnaeNLH2rHkUxgRcg5o5IBMpWKQ/TttntERYGpR3LDYgcAM/3dsaPM6l7wBTgQGhA/
+	 neiEPwmWUsUSVCSmbh9khUQsFK/ciT5j9FvzPL9Bf9Mf7fJu9oYg+fsrARZuPkG5Mc
+	 9+IhU4KVKb2ttRGmnF0TsxJugRTTvceAmV7z+zF4iyxnLV1CDS4yio89WNd6nDyYyV
+	 k6sIw0QXHXRaA==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Fabio Estevam <festevam@gmail.com>,
+ Russell King <linux@armlinux.org.uk>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Nicolin Chen <nicoleotsuka@gmail.com>,
+ Elinor Montmasson <elinor.montmasson@savoirfairelinux.com>
+Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
+ linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ linuxppc-dev@lists.ozlabs.org,
+ Philip-Dylan <philip-dylan.gleonec@savoirfairelinux.com>
+In-Reply-To: <20240620132511.4291-1-elinor.montmasson@savoirfairelinux.com>
+References: <20240620132511.4291-1-elinor.montmasson@savoirfairelinux.com>
+Subject: Re: (subset) [PATCHv5 0/9] ASoC: fsl-asoc-card: add S/PDIF
+ controller
+Message-Id: <171892836830.273016.4379202325839599426.b4-ty@kernel.org>
+Date: Fri, 21 Jun 2024 01:06:08 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Subject: Re: [PATCH v23 32/32] ASoC: doc: Add documentation for SOC USB
-Content-Language: en-US
-To: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
-	<amadeuszx.slawinski@linux.intel.com>,
-        <srinivas.kandagatla@linaro.org>, <mathias.nyman@intel.com>,
-        <perex@perex.cz>, <conor+dt@kernel.org>, <corbet@lwn.net>,
-        <broonie@kernel.org>, <lgirdwood@gmail.com>, <krzk+dt@kernel.org>,
-        <Thinh.Nguyen@synopsys.com>, <bgoswami@quicinc.com>, <tiwai@suse.com>,
-        <robh@kernel.org>, <gregkh@linuxfoundation.org>
-CC: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-sound@vger.kernel.org>, <linux-usb@vger.kernel.org>,
-        <linux-arm-msm@vger.kernel.org>, <linux-doc@vger.kernel.org>,
-        <alsa-devel@alsa-project.org>
-References: <20240610235808.22173-1-quic_wcheng@quicinc.com>
- <20240610235808.22173-33-quic_wcheng@quicinc.com>
- <5be51e1f-70c9-4bbc-96fa-1e50e441bd35@linux.intel.com>
- <408d9e8e-0f40-7e66-54be-2f8d2c0783a3@quicinc.com>
- <ca1e1063-e1bd-4e03-a7cd-91985e9954e9@linux.intel.com>
- <096d59a0-5e18-092c-c9ae-d98130226f06@quicinc.com>
- <368d9019-2c96-468e-b472-7e1127f76213@linux.intel.com>
- <eb6370ea-47a0-3659-3c10-cb7f95e3e520@quicinc.com>
- <510468c7-b181-48d0-bf2d-3e478b2f2aca@linux.intel.com>
-From: Wesley Cheng <quic_wcheng@quicinc.com>
-In-Reply-To: <510468c7-b181-48d0-bf2d-3e478b2f2aca@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: fkjkoaaKb0pnjbw8a4G2aIcuXdMzPNuF
-X-Proofpoint-ORIG-GUID: fkjkoaaKb0pnjbw8a4G2aIcuXdMzPNuF
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-06-20_10,2024-06-20_04,2024-05-17_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- impostorscore=0 mlxlogscore=999 spamscore=0 lowpriorityscore=0
- phishscore=0 bulkscore=0 adultscore=0 mlxscore=0 suspectscore=0
- malwarescore=0 clxscore=1015 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.19.0-2406140001 definitions=main-2406200162
-Message-ID-Hash: F6AVRT224ICDATWFUBDQWQTSLW3BMWKE
-X-Message-ID-Hash: F6AVRT224ICDATWFUBDQWQTSLW3BMWKE
-X-MailFrom: quic_wcheng@quicinc.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14-dev-d4707
+Message-ID-Hash: MEPJPHQUUDHB6CSP2OC6A4OUPNPSP4EL
+X-Message-ID-Hash: MEPJPHQUUDHB6CSP2OC6A4OUPNPSP4EL
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -135,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/F6AVRT224ICDATWFUBDQWQTSLW3BMWKE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MEPJPHQUUDHB6CSP2OC6A4OUPNPSP4EL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -144,298 +110,46 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Amaduesz,
+On Thu, 20 Jun 2024 15:25:02 +0200, Elinor Montmasson wrote:
+> This is the v5 of the series of patches aiming to make the machine
+> driver `fsl-asoc-card` compatible with S/PDIF controllers on imx boards.
+> The main goal is to allow the use of S/PDIF controllers with ASRC
+> modules.
+> 
+> The `imx-spdif` machine driver already has specific support for S/PDIF
+> controllers but doesn't support using an ASRC with it. However, the
+> `fsl-asoc-card` machine driver has the necessary code to create a sound
+> card which can use an ASRC module.
+> It is then possible to extend the support for S/PDIF audio cards by
+> merging the `imx-spdif` driver into `fsl-asoc-card`.
+> 
+> [...]
 
-On 6/19/2024 12:52 AM, Amadeusz Sławiński wrote:
-> On 6/18/2024 10:52 PM, Wesley Cheng wrote:
->> Hi Amadeusz,
->>
->> On 6/18/2024 4:42 AM, Amadeusz Sławiński wrote:
->>> On 6/17/2024 7:02 PM, Wesley Cheng wrote:
->>>> Hi Amadeusz,
->>>>
->>>> On 6/13/2024 12:46 AM, Amadeusz Sławiński wrote:
->>>>> On 6/12/2024 9:28 PM, Wesley Cheng wrote:
->>>>>> Hi Amadeusz,
->>>>>>
->>>>>> On 6/12/2024 7:47 AM, Amadeusz Sławiński wrote:
->>>>>>> On 6/11/2024 1:58 AM, Wesley Cheng wrote:
->>>>>>>
->>>>>>> (...)
->>>>>>>
->>>>>>>> +In the case where the USB offload driver is unbounded, while 
->>>>>>>> USB SND is
->>>>>>>
->>>>>>> unbounded -> unbound
->>>>>>>
->>>>>>> (...)
->>>>>>>
->>>>>>>> +SOC USB and USB Sound Kcontrols
->>>>>>>> +===============================
->>>>>>>> +Details
->>>>>>>> +-------
->>>>>>>> +SOC USB and USB sound expose a set of SND kcontrols for 
->>>>>>>> applications to select
->>>>>>>> +and fetch the current offloading status for the ASoC platform 
->>>>>>>> sound card. Kcontrols
->>>>>>>> +are split between two layers:
->>>>>>>> +
->>>>>>>> +    - USB sound - Notifies the sound card number for the ASoC 
->>>>>>>> platform sound
->>>>>>>> +      card that it is registered to for supporting audio offload.
->>>>>>>> +
->>>>>>>> +    - SOC USB - Maintains the current status of the offload 
->>>>>>>> path, and device
->>>>>>>> +      (USB sound card and PCM device) information.  This would 
->>>>>>>> be the main
->>>>>>>> +      card that applications can read to determine offloading 
->>>>>>>> capabilities.
->>>>>>>> +
->>>>>>>> +Implementation
->>>>>>>> +--------------
->>>>>>>> +
->>>>>>>> +**Example:**
->>>>>>>> +
->>>>>>>> +  **Sound Cards**:
->>>>>>>> +
->>>>>>>> +    ::
->>>>>>>> +
->>>>>>>> +      0 [SM8250MTPWCD938]: sm8250 - 
->>>>>>>> SM8250-MTP-WCD9380-WSA8810-VA-D
->>>>>>>> +                     SM8250-MTP-WCD9380-WSA8810-VA-DMIC
->>>>>>>> +      1 [C320M          ]: USB-Audio - Plantronics C320-M
->>>>>>>> +                     Plantronics Plantronics C320-M at 
->>>>>>>> usb-xhci-hcd.1.auto-1, full speed
->>>>>>>> +
->>>>>>>> +
->>>>>>>> +  **Platform Sound Card** - card#0:
->>>>>>>> +
->>>>>>>> +    ::
->>>>>>>> +
->>>>>>>> +      USB Offload Playback Route Card Select  1 (range -1->32)
->>>>>>>> +      USB Offload Playback Route PCM Select   0 (range -1->255)
->>>>>>>> +      USB Offload Playback Route Card Status  -1 (range -1->32)
->>>>>>>> +      USB Offload Playback Route PCM Status   -1 (range -1->255)
->>>>>>>> +
->>>>>>>> +
->>>>>>>> +  **USB Sound Card** - card#1:
->>>>>>>> +
->>>>>>>> +    ::
->>>>>>>> +
->>>>>>>> +      USB Offload Playback Capable Card         0 (range -1->32)
->>>>>>>> +
->>>>>>>> +
->>>>>>>> +The platform sound card(card#0) kcontrols are created as part 
->>>>>>>> of adding the SOC
->>>>>>>> +USB device using **snd_soc_usb_add_port()**.  The following 
->>>>>>>> kcontrols are defined
->>>>>>>> +as:
->>>>>>>> +
->>>>>>>> +  - ``USB Offload Playback Route Card Status`` **(R)**: USB 
->>>>>>>> sound card device index
->>>>>>>> +    that defines which USB SND resources are currently 
->>>>>>>> offloaded. If -1 is seen, it
->>>>>>>> +    signifies that offload is not active.
->>>>>>>> +  - ``USB Offload Playback Route PCM Status`` **(R)**: USB PCM 
->>>>>>>> device index
->>>>>>>> +    that defines which USB SND resources are currently 
->>>>>>>> offloaded. If -1 is seen, it
->>>>>>>> +    signifies that offload is not active.
->>>>>>>> +  - ``USB Offload Playback Route Card Select`` **(R/W)**: USB 
->>>>>>>> sound card index which
->>>>>>>> +    selects the USB device to initiate offloading on.  If no 
->>>>>>>> value is written to the
->>>>>>>> +    kcontrol, then the last USB device discovered card index 
->>>>>>>> will be chosen.
->>>>>>>
->>>>>>> I see only one kcontrol, what if hardware is capable of 
->>>>>>> offloading on more cards, is it possible to do offloading on more 
->>>>>>> than one device?
->>>>>>>
->>>>>>>> +  - ``USB Offload Playback Route PCM Select`` **(R/W)**: USB 
->>>>>>>> PCM index which selects
->>>>>>>> +    the USB device to initiate offloading on.  If no value is 
->>>>>>>> written to the
->>>>>>>> +    kcontrol, then the last USB device discovered PCM zero 
->>>>>>>> index will be chosen.
->>>>>>>> +
->>>>>>>> +The USB sound card(card#1) kcontrols are created as USB audio 
->>>>>>>> devices are plugged
->>>>>>>> +into the physical USB port and enumerated.  The kcontrols are 
->>>>>>>> defined as:
->>>>>>>> +
->>>>>>>> +  - ``USB Offload Playback Capable Card`` **(R)**: Provides the 
->>>>>>>> sound card
->>>>>>>> +    number/index that supports USB offloading.  Further/follow 
->>>>>>>> up queries about
->>>>>>>> +    the current offload state can be handled by reading the 
->>>>>>>> offload status
->>>>>>>> +    kcontrol exposed by the platform card.
->>>>>>>> +
->>>>>>>
->>>>>>>
->>>>>>> Why do we need to some magic between cards? I feel like whole 
->>>>>>> kcontrol thing is overengineered a bit - I'm not sure I 
->>>>>>> understand the need to do linking between cards. It would feel a 
->>>>>>> lot simpler if USB card exposed one "USB Offload" kcontrol on USB 
->>>>>>> card if USB controller supports offloading and allowed to set it 
->>>>>>> to true/false to allow user to choose if they want to do 
->>>>>>> offloading on device.
->>>>>>>
->>>>>>> (...)
->>>>>>
->>>>>> Based on feedback from Pierre, what I understood is that for some 
->>>>>> applications, there won't be an order on which sound card is 
->>>>>> queried/opened first.
->>>>>>
->>>>>
->>>>> Yes if you have multiple cards, they are probed in random order.
->>>>>
->>>>>> So the end use case example given was if an application opened the 
->>>>>> USB sound card first, it can see if there is an offload path 
->>>>>> available. If there is then it can enable the offload path on the 
->>>>>> corresponding card if desired.
->>>>>>
->>>>>
->>>>> This still doesn't explain why you need to link cards using 
->>>>> controls. What would not work with simple "Enable Offload" with 
->>>>> true/false values on USB card that works while you do have above 
->>>>> routing controls?
->>>>>
->>>>
->>>> Sorry for the late response.
->>>>
->>>> I think either way, even with the "Enable Offload" kcontrol in USB 
->>>> SND, we'd need a way to link these cards, because if you have 
->>>> multiple USB audio devices connected, and say... your offload 
->>>> mechanism only supports one stream.  Then I assume we'd still need 
->>>> to way to determine if that stream can be enabled for that USB SND 
->>>> device or not.
->>>>
->>>> Since the USB SND isn't really the entity maintaining the offload 
->>>> path, I went with the decision to add that route selection to the 
->>>> ASoC platform card. It would have access to all the parameters 
->>>> supported by the audio DSP.
->>>>
->>>
->>> Problem with card selection is that it will most likely work in 
->>> pretty random way during reboots and similar scenarios.
->>>
->>> Taking from your example:
->>>      USB Offload Playback Route Card Select  1 (range -1->32)
->>>      USB Offload Playback Route PCM Select   0 (range -1->255)
->>>      USB Offload Playback Route Card Status  -1 (range -1->32)
->>>      USB Offload Playback Route PCM Status   -1 (range -1->255)
->>>
->>> This tells that hw:1,0 will be offloaded USB card. What happens if 
->>> after reboot the USB card and offload card change places, the control 
->>> will be pointing at its owner... Another scenario to consider is that 
->>> user attaches two USB cards and only first one does offload. Now what 
->>> happens when they enumerate in different order after reboot (swapping 
->>> places)? Taking into the account that most systems restore previous 
->>> values of controls in some way - this will point at wrong card.
->>
->> That sounds like a problem that would exist with current USB SND 
->> implementation too?  Removing the offloading perspective, how does the 
->> system ensure that the previous setting stays persistent?  For 
->> example, as you mentioned, depending on which USB device enumerates 
->> first, the sound card may be different so cards will be switched.
->>
-> 
-> It works because there is no control pointing at other card. My main 
-> problem is with controls which have card and pcm id of other card in it.
-> 
->> I think I mentioned this previously in another discussion, but I think 
->> the idea was that with the
->> USB Offload Playback Capable Card
->>
->> kcontrol, would allow the system to at least know there is an offload 
->> capable path pointing to the ASoC platform card, and fetch more 
->> detailed information about which device is selected for offloading, 
->> etc...
->>
-> 
-> This works only in your design, where USB Offload is backed by card, 
-> what happens if it is backed by something else?
-> 
->>>
->>> In my opinion Offload capability should be the capability of the 
->>> endpoint - in this case USB card (even if in the background it needs 
->>> to talk to some other device) and it should be exposed as such. 
->>> Currently you are mixing capabilities of your audio card with 
->>> capabilities of USB card.
->>>
->>> And adding more controls will not make it easy to use from end user 
->>> perspective. Most users will most likely want for the devices to 
->>> perform offload automatically if possible to save power and just have 
->>> control to disable it in case they want to test if it works better 
->>> without it in case of some problems.
->>
->> I agree with you that we need to keep the controls at a minimum, but I 
->> think what I have in place is fairly reasonable.  If we switch to 
->> having the USB SND controlling things, we'd save maybe one control?  I 
->> think keeping the offload status controls are still fairly valuable in 
->> both scenarios, as userspace may need to verify which USB SND card is 
->> being offloaded.
->>
-> 
-> It should be able to tell which one is being offloaded by examining 
-> which USB card has Offload control set to true.
-> 
-> I would assume that USB cards that cannot perform Offload have no 
-> control at all, as it is unneeded. And ones that can do, have Offload 
-> control. And ones actively being Offloaded have it set to true, 
-> otherwise to false.
-> 
-> End user has no need to know where it is offloaded. I'm not HW person, 
-> but I would assume that it is even unlikely that someone will design HW, 
-> where it is possible to Offload one endpoint to two different places, as 
-> this complicates things a lot, but if it were possible, from design 
-> perspective it would make a lot more sense to set it in Offloaded USB 
-> card settings, instead of some seemingly unrelated controller card 
-> device. And that is assuming that all solutions use some other card 
-> device to perform Offload.
-> 
->>>
->>> Additional question what happens if you want to offload two usb 
->>> cards, currently the above set of controls allows you to only point 
->>> at one card, will you be adding additional set of above controls 
->>> dynamically for each USB card attached?
->>>
->>
->> It would depend on the number of offload streams that folks may be 
->> supporting on their platform.  In our case we only have one available 
->> stream, so applications would need to switch between the two devices 
->> using the card/pcm selector.
->>
->> In this case, there will be only one set of controls to select the 
->> card/pcm device.  As of now (I think I'll change to to add another 
->> separate set of controls per stream) if you did support multiple 
->> streams, then the current card/PCM device selector would take in 
->> multiple arugments. (ie for two streams the kcontrol can take in two 
->> values)
->>
-> 
-> Then it is implementation detail of your device, and it should be 
-> implemented as controls in your device instead of as part of generic API.
-> 
+Applied to
 
-I initially had it as part of the device specific files, but I did get 
-some feedback on [1], it might be better to have generic control names, 
-hence the reason for moving into soc-usb.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-I'll spend some time to evaluate your suggestion about moving the logic 
-to control the offloading from USB SND versus ASoC, since there are 
-valid points.  However, before I do that, I just want to make sure folks 
-are also inline with that thinking.  I've had to put a lot of effort 
-moving things around such as the previous example, and now you've 
-suggested to move it back to the vendor specific drivers.
+Thanks!
 
-@Pierre, since you've helped with providing a lot of valuable input in 
-the previous revisions on the kcontrol uses, what do you think about the 
-proposal from Amadeusz?  Basically shifting the offload device selection 
-into USB SND from the ASoC USB BE driver, and having this per USB SND 
-device.
+[1/9] ASoC: fsl-asoc-card: set priv->pdev before using it
+      commit: 90f3feb24172185f1832636264943e8b5e289245
 
-[1] 
-https://lore.kernel.org/linux-usb/20231017200109.11407-30-quic_wcheng@quicinc.com/
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+

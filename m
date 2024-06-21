@@ -2,94 +2,109 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B385991171F
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jun 2024 02:07:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E864911868
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jun 2024 04:22:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E56F0DEE;
-	Fri, 21 Jun 2024 02:06:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E56F0DEE
+	by alsa0.perex.cz (Postfix) with ESMTPS id BA311B65;
+	Fri, 21 Jun 2024 04:22:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA311B65
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718928429;
-	bh=VNSCHiO08SIk0htqWDW6NDFuvYyhidq/ovhyfUV5Kwg=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1718936539;
+	bh=K6TXBBkcuGG3+1AOnlgP+3FCiMsThHscvB97VY8MFhM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ovaUZAcmCmbNX+viG1Gv/98I9UrMy2ixAaCdqcAYd6v9fQ411ItT5AzR96f5xVsHE
-	 SrZOXfnb70o+7RefTatiqyz4REI4Urf62YX/qt1yHlyPkBp5M1j3d8Gvp/YR18fUs+
-	 lPNAqxnAvJw0diwpBhxyM0crULoGRaaU3VzvZFcA=
+	b=a3j7dy9CdqtiIjImXIfwaB+aCQEPoPHNPgDHLzaYDRFbrgRpsc6htyap4Ltm6T83v
+	 lBagoerdhoFB2kAfhZGnS66nZ3sABbCAXLx53hn0mi65iCrgnKi26T8u9gg3XSYLaQ
+	 Pyqh1PzE8nbdbNbzqP49GMuW6V7bnywHN6QVXeO8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 17E2EF805B6; Fri, 21 Jun 2024 02:06:37 +0200 (CEST)
+	id 2354BF8059F; Fri, 21 Jun 2024 04:21:47 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6E108F805B0;
-	Fri, 21 Jun 2024 02:06:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D5FC3F805A8;
+	Fri, 21 Jun 2024 04:21:47 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DEE97F8023A; Fri, 21 Jun 2024 02:06:32 +0200 (CEST)
+	id B52B3F8023A; Fri, 21 Jun 2024 04:21:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
 	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Received: from mail-il1-x133.google.com (mail-il1-x133.google.com
+ [IPv6:2607:f8b0:4864:20::133])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A1D9BF801EB
-	for <alsa-devel@alsa-project.org>; Fri, 21 Jun 2024 02:06:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1D9BF801EB
+	by alsa1.perex.cz (Postfix) with ESMTPS id B6097F801EB
+	for <alsa-devel@alsa-project.org>; Fri, 21 Jun 2024 04:21:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6097F801EB
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=HneLpggF
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id DFF75CE288F;
-	Fri, 21 Jun 2024 00:06:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E3A7C2BD10;
-	Fri, 21 Jun 2024 00:06:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1718928375;
-	bh=VNSCHiO08SIk0htqWDW6NDFuvYyhidq/ovhyfUV5Kwg=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=HneLpggF5aKAge/YLzIW5cLkwl1JRmjRPAHCL9AVCFqQnPr25XKP9Z/YFuOrHFRQM
-	 Z8WthZPFSd05AbkIJE7UTae1fx3IHUq3s75yr3U83zQfEU7QtJmzJG4jZ8kmRpLC7g
-	 GnaeNLH2rHkUxgRcg5o5IBMpWKQ/TttntERYGpR3LDYgcAM/3dsaPM6l7wBTgQGhA/
-	 neiEPwmWUsUSVCSmbh9khUQsFK/ciT5j9FvzPL9Bf9Mf7fJu9oYg+fsrARZuPkG5Mc
-	 9+IhU4KVKb2ttRGmnF0TsxJugRTTvceAmV7z+zF4iyxnLV1CDS4yio89WNd6nDyYyV
-	 k6sIw0QXHXRaA==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>, Fabio Estevam <festevam@gmail.com>,
- Russell King <linux@armlinux.org.uk>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
- Nicolin Chen <nicoleotsuka@gmail.com>,
- Elinor Montmasson <elinor.montmasson@savoirfairelinux.com>
-Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
- linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- linuxppc-dev@lists.ozlabs.org,
- Philip-Dylan <philip-dylan.gleonec@savoirfairelinux.com>
-In-Reply-To: <20240620132511.4291-1-elinor.montmasson@savoirfairelinux.com>
-References: <20240620132511.4291-1-elinor.montmasson@savoirfairelinux.com>
-Subject: Re: (subset) [PATCHv5 0/9] ASoC: fsl-asoc-card: add S/PDIF
- controller
-Message-Id: <171892836830.273016.4379202325839599426.b4-ty@kernel.org>
-Date: Fri, 21 Jun 2024 01:06:08 +0100
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=M9C+NC0Y
+Received: by mail-il1-x133.google.com with SMTP id
+ e9e14a558f8ab-376208fbe7bso5757045ab.3
+        for <alsa-devel@alsa-project.org>;
+ Thu, 20 Jun 2024 19:21:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1718936490; x=1719541290;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=aSk8h7hKbIPqaEw4OuvVmqhytgxXbEHflO4uc1Iybpk=;
+        b=M9C+NC0YuLAcCsM2WLnPneFSRA4bkgsN7HFgJlYkLW7HmwJcfSYt3SY5OpRrZExiBz
+         tOEu73SdGyN71Mjiq1dzat76kwpkz/zck90xwVsymE6GC978kWNXojdGGrs5Z/xhvmQH
+         FvuwP4/qnyJ4x2yRRFsd31sH+Q1JVqq4ddLKp196rPQk8FhJZ+NyhSsNHbKY/U6htJY7
+         wnGAjYHhUmu7Aei5vJ1Wu0BrgH8h4rrBr6VWCeN8XcRhApfPePFe0mTwn96hT/r2cTLu
+         uvMYMPrkoleUXJ5aBN01uCP30vKgxKFFMKsHU5zurm5UY8Vil+P1x9fdl9tvCrc8G8Y8
+         oZHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1718936490; x=1719541290;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=aSk8h7hKbIPqaEw4OuvVmqhytgxXbEHflO4uc1Iybpk=;
+        b=YiYwnwVnqZzM9Pcs+Brq1HrNStGu74GLduPgkRvJeO1SVAqMAlBNIk9WpwlWQizLJT
+         EP7MyJm6a6fFS3yOYHvKb3mtlG6wTi/wIx9/UcxXJtmPpS8Q6fgEI9xIbtGyB8kfaQG1
+         g3QaMbSaDKG622eRVD9Q+Kkhnx+MpIA3qEwhNOrnWNCKyB1AuamTq+nz48aBrSIw0q6C
+         G2nXiCMOEhVc80ZxYLhryU4WZDE5gM+cRvRxi/xyhSGPjMcy1SWbm1mXWNUrJxuBXKZw
+         4c7cysxAuffM12iWE4JsfTHSsqsnylbls4pS3WKwdpbTxbzKT9u+lmf++4LPLl1SLwQw
+         mfsQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWKwdoXIsxrt3yvr48IlmYQYj7HbMoahUXrpfuSauZOn082C8j5Wk7vmrNGVxnYuJ3qTr53Uv6p4ShhQ9cRW/b6xGbsYG8TrEJyerg=
+X-Gm-Message-State: AOJu0YwzbsExDsKWK4PnTRInoWYlFy8JenSxeg/iifp1dWQbGSdhdDpo
+	XsPvfGuixeD4LXQ6qSKw4+jWe14N9a9IO5QvC2lfMysuPbMUuKhAV8HGMRQWhiuAb8/epqrLhup
+	2qCRwryH0TzHkVZNCSvshpyc2zIY=
+X-Google-Smtp-Source: 
+ AGHT+IGmfVNJDop2DudLdwqs9uZVTjlcrH2ShhifeWXIuD43SSv94NurFFxYTdFRVLVT3Fyp2S1okJmsNyfPB0Oapa0=
+X-Received: by 2002:a92:c269:0:b0:374:abf8:4f65 with SMTP id
+ e9e14a558f8ab-3761d74e1d1mr72390415ab.32.1718936490164; Thu, 20 Jun 2024
+ 19:21:30 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14-dev-d4707
-Message-ID-Hash: MEPJPHQUUDHB6CSP2OC6A4OUPNPSP4EL
-X-Message-ID-Hash: MEPJPHQUUDHB6CSP2OC6A4OUPNPSP4EL
-X-MailFrom: broonie@kernel.org
+References: <1718851218-27803-1-git-send-email-shengjiu.wang@nxp.com>
+ <87frt82gj7.wl-tiwai@suse.de>
+In-Reply-To: <87frt82gj7.wl-tiwai@suse.de>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Fri, 21 Jun 2024 10:21:19 +0800
+Message-ID: 
+ <CAA+D8APZ8-3NFceuQeTnEL-K4reUGGfrgyG63jyjydFA6o_4MA@mail.gmail.com>
+Subject: Re: [RESEND PATCH] ALSA: dmaengine_pcm: terminate dmaengine before
+ synchronize
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Shengjiu Wang <shengjiu.wang@nxp.com>, lars@metafoo.de, perex@perex.cz,
+ tiwai@suse.com,
+	broonie@kernel.org, linux-sound@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+	alsa-devel@alsa-project.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: JZCCMPLZTSDHRIHRZKOC6ZAFEPZRTP6R
+X-Message-ID-Hash: JZCCMPLZTSDHRIHRZKOC6ZAFEPZRTP6R
+X-MailFrom: shengjiu.wang@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -101,7 +116,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MEPJPHQUUDHB6CSP2OC6A4OUPNPSP4EL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JZCCMPLZTSDHRIHRZKOC6ZAFEPZRTP6R/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,46 +125,66 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 20 Jun 2024 15:25:02 +0200, Elinor Montmasson wrote:
-> This is the v5 of the series of patches aiming to make the machine
-> driver `fsl-asoc-card` compatible with S/PDIF controllers on imx boards.
-> The main goal is to allow the use of S/PDIF controllers with ASRC
-> modules.
-> 
-> The `imx-spdif` machine driver already has specific support for S/PDIF
-> controllers but doesn't support using an ASRC with it. However, the
-> `fsl-asoc-card` machine driver has the necessary code to create a sound
-> card which can use an ASRC module.
-> It is then possible to extend the support for S/PDIF audio cards by
-> merging the `imx-spdif` driver into `fsl-asoc-card`.
-> 
-> [...]
+On Thu, Jun 20, 2024 at 3:56=E2=80=AFPM Takashi Iwai <tiwai@suse.de> wrote:
+>
+> On Thu, 20 Jun 2024 04:40:18 +0200,
+> Shengjiu Wang wrote:
+> >
+> > When dmaengine supports pause function, in suspend state,
+> > dmaengine_pause() is called instead of dmaengine_terminate_async(),
+> >
+> > In end of playback stream, the runtime->state will go to
+> > SNDRV_PCM_STATE_DRAINING, if system suspend & resume happen
+> > at this time, application will not resume playback stream, the
+> > stream will be closed directly, the dmaengine_terminate_async()
+> > will not be called before the dmaengine_synchronize(), which
+> > violates the call sequence for dmaengine_synchronize().
+>
+> Hmm, I can't follow this state change.
+> Do you mean that:
+> - snd_pcm_drain() is performed for a playback stream
+> - while draining operation, the system goes to suspend
+> - the system resumes (but the application doesn't call resume yet)
+> - The stream is closed (without calling resume)
+> ??
 
-Applied to
+yes. this is the case.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+>
+> If so, it's rather an inconsistent PCM state in the core side, and can
+> be fixed by a simple call like below:
+>
+> -- 8< --
+> --- a/sound/core/pcm_native.c
+> +++ b/sound/core/pcm_native.c
+> @@ -2700,6 +2700,7 @@ void snd_pcm_release_substream(struct snd_pcm_subst=
+ream *substream)
+>         if (substream->ref_count > 0)
+>                 return;
+>
+> +       snd_pcm_resume(substream);
+>         snd_pcm_drop(substream);
+>         if (substream->hw_opened) {
+>                 if (substream->runtime->state !=3D SNDRV_PCM_STATE_OPEN)
+> -- 8< --
+>
+> This will be no-op for the PCM device without SNDRV_PCM_INFO_RESUME.
+>
+> But, this may need more rework, too; admittedly it imposes the
+> unnecessary resume of the stream although it shall be stopped and
+> closed immediately after that.  We may have some optimization in
+> addition.
 
-Thanks!
+The suspended_state is not cleared that the resume may be called again
+at the end of stream.
 
-[1/9] ASoC: fsl-asoc-card: set priv->pdev before using it
-      commit: 90f3feb24172185f1832636264943e8b5e289245
+Will you push the code?
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Best regards
+Shengjiu Wang
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+>
+>
+> thanks,
+>
+> Takashi

@@ -2,68 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21C9B911B4C
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jun 2024 08:18:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6952A911B69
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jun 2024 08:20:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 99BAC208;
-	Fri, 21 Jun 2024 08:17:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 99BAC208
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6FFCA82C;
+	Fri, 21 Jun 2024 08:19:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6FFCA82C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718950687;
-	bh=grR7DKj1v9NfUIVXQ/wA7b9FGj3wa+ylhebh9dYyMss=;
+	s=default; t=1718950802;
+	bh=iOKs0kuwYeauur49traV6Ei5QgiBo+V6ci2r2oGoz5Y=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=cvA2cnuZ8C+s0ZDceqeTHW5OHH8/l004dtBavZbZ2GNQMt+DSSbnO4BXRiUr0IC1J
-	 qsbEjdqUdyxdZGeDSQdqqjypxHCuVt59mZCaRzsZxbHpisqnZM9J0dl1orJxaq4zQQ
-	 c6UsgvwH95jqKMptwxqfxU/EdpdH5UlLAPRsdB4Y=
+	b=dQGOZ40N8m1rkPDvitcq77DjaaVRTNJwSyX0COPLIyt8unkmB2lJ047N7Ps2cBl3t
+	 eBE4jy6988e4RB82pu5fIcL91EaPg41kwRJv8V7Hg0FT89z45YRyATydtYUoawjOst
+	 Z83w74cwiVG/+i64XIQWf4A6q2yYVHkOssHFRzG4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BF8ACF805B4; Fri, 21 Jun 2024 08:17:35 +0200 (CEST)
+	id A7012F805BA; Fri, 21 Jun 2024 08:19:31 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E2EFEF805B0;
-	Fri, 21 Jun 2024 08:17:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 68C8DF805AE;
+	Fri, 21 Jun 2024 08:19:30 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 13FE5F8023A; Fri, 21 Jun 2024 08:17:31 +0200 (CEST)
+	id E2623F8023A; Fri, 21 Jun 2024 08:19:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7A3E7F800ED
-	for <alsa-devel@alsa-project.org>; Fri, 21 Jun 2024 08:17:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A3E7F800ED
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2543FF8010C
+	for <alsa-devel@alsa-project.org>; Fri, 21 Jun 2024 08:19:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2543FF8010C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Y6ZF7uWa
+ header.s=k20201202 header.b=CQ5+RO+e
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 70D9062411;
-	Fri, 21 Jun 2024 06:17:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0083FC2BBFC;
-	Fri, 21 Jun 2024 06:17:11 +0000 (UTC)
+	by sin.source.kernel.org (Postfix) with ESMTP id E4DD8CE2B38;
+	Fri, 21 Jun 2024 06:18:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22111C2BBFC;
+	Fri, 21 Jun 2024 06:18:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1718950645;
-	bh=grR7DKj1v9NfUIVXQ/wA7b9FGj3wa+ylhebh9dYyMss=;
+	s=k20201202; t=1718950735;
+	bh=iOKs0kuwYeauur49traV6Ei5QgiBo+V6ci2r2oGoz5Y=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Y6ZF7uWao4h0Z17eZa8wQq/f0CTLyIVLWxIxqI5M6ALQOA6cuCSaTBHAqQFZMZL+D
-	 kDhCosVLaUyMk7fOJk+2lX7iobozai1v+8kmLHUPGKkI23lF3imFBxToa5NSjT5DCS
-	 KRioXx8CNZhk3Uu3zcRwvplrSxVbhOXRtye772hXYPjghPx0xexG7eZG4pGMihkVbj
-	 DAFrfCPCcM1MjpfKOlwj+PT/KlZjKjSh7lYyrfaoAmc1NZ3pXtpaJPCJJP4RQNnXUL
-	 9Iue/Ar7rXj/FIW4StHM8iMP5BqjyvWpQ+nYQ+i5w2/ngX36xc6Zp9KtbZIwp8A4Ia
-	 PexX5ULbTzcgA==
-Message-ID: <6aafffd6-4c1f-4041-abe0-9b17d669467f@kernel.org>
-Date: Fri, 21 Jun 2024 08:17:09 +0200
+	b=CQ5+RO+eixfOSNiyNe6mYshUgJvT0bBT4RbBHfzXKwWoWUVDdMTdin7bNvMeociBa
+	 nsxe1skVxv8y216/k3GjD97zpMhRmVcHnKNoQQjUEIDFLDXLOx3HazsbPRQpp8Wgtd
+	 URk3Blz7BFahR8cKNcyHmn2uxfK86Y/OqF9sI1Q245ew1hsIEgxFDimmiZ9+leoFKN
+	 bFTDPzHrfjIDkH0vL43WSNL6GWH6QcG//xXqawpgJXcVrGqP+6n8pqSHSc0LN28WsZ
+	 IWtKNkMhQE4HAfPFsV1PtgcWsaTID0wJ9ME+tjwO5TMqWlHdX4Miz81t8+Qz01ZGXY
+	 CxmBFLYjgBjFg==
+Message-ID: <f49c5ee8-6bdb-481b-a131-a6478526f1e1@kernel.org>
+Date: Fri, 21 Jun 2024 08:18:41 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [Patch v4 02/10] dt-bindings: dma: Add lpc32xx DMA mux binding
+Subject: Re: [Patch v4 03/10] ASoC: dt-bindings: lpc32xx: Add lpc32xx i2s DT
+ binding
 To: Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
  Vinod Koul <vkoul@kernel.org>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
@@ -85,7 +87,7 @@ To: Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
  linux-mtd@lists.infradead.org
 Cc: Markus Elfring <Markus.Elfring@web.de>
 References: <20240620175657.358273-1-piotr.wojtaszczyk@timesys.com>
- <20240620175657.358273-3-piotr.wojtaszczyk@timesys.com>
+ <20240620175657.358273-4-piotr.wojtaszczyk@timesys.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -131,11 +133,11 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  uZwJCLykjad45hsWcOGk3OcaAGQS6NDlfhM6O9aYNwGL6tGt/6BkRikNOs7VDEa4/HlbaSJo
  7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
  5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
-In-Reply-To: <20240620175657.358273-3-piotr.wojtaszczyk@timesys.com>
+In-Reply-To: <20240620175657.358273-4-piotr.wojtaszczyk@timesys.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: ZNJO42IITJZUCIKRPRA7WECRBLK33K5O
-X-Message-ID-Hash: ZNJO42IITJZUCIKRPRA7WECRBLK33K5O
+Message-ID-Hash: K66Z2G3IRFCEWYLNUK5FD5T6Y3ROOC2T
+X-Message-ID-Hash: K66Z2G3IRFCEWYLNUK5FD5T6Y3ROOC2T
 X-MailFrom: krzk@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -148,7 +150,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZNJO42IITJZUCIKRPRA7WECRBLK33K5O/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/K66Z2G3IRFCEWYLNUK5FD5T6Y3ROOC2T/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -158,95 +160,26 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 On 20/06/2024 19:56, Piotr Wojtaszczyk wrote:
-> LPC32XX SoCs use pl080 dma controller which have few request signals
-> multiplexed between peripherals. This binding describes how devices can
-> use the multiplexed request signals.
+> Add nxp,lpc3220-i2s DT binding documentation.
 > 
 > Signed-off-by: Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>
 
-> +
-> +properties:
-> +  "#dma-cells":
-> +    const: 3
-> +    description: |
-> +      First two cells same as for device pointed in dma-masters.
-> +      Third cell represents mux value for the request.
-> +
-> +  compatible:
-> +    const: nxp,lpc3220-dmamux
+Thanks for doing this. Appreciated.
 
-Please put compatible first in the list of properties (and follow the
-same order in "required"). It's the most important piece, so we want it
-to be the first to see. It also follows the convention of DTS, where
-compatible is expected to be first.
-
-> +
-> +  dma-masters:
-> +    description: phandle to a dma node compatible with arm,pl080
-
-maxItems: 1
-
-> +
-> +  reg:
-> +    maxItems: 1
-
-Keep reg after compatible.
-
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - dma-masters
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    syscon@40004000 {
-> +      compatible = "nxp,lpc3220-creg", "syscon", "simple-mfd";
-> +      reg = <0x40004000 0x114>;
-> +      ranges = <0 0x40004000 0x114>;
-> +      #address-cells = <1>;
-> +      #size-cells = <1>;
-
-Drop the node above (you will see Rob's warning). Alternatively, this
-schema could skip the example and the nxp,lpc3220-creg could have one
-complete example for entire device with children.
-
-> +
-> +      dma-router@7c {
-> +        compatible = "nxp,lpc3220-dmamux";
-> +        reg = <0x7c 0x8>;
-> +        #dma-cells = <3>;
-> +        dma-masters = <&dma>;
-> +      };
-> +    };
-> +
-> +...
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index aacccb376c28..f7adf9f66dfa 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -2396,6 +2396,15 @@ F:	drivers/usb/host/ohci-nxp.c
->  F:	drivers/watchdog/pnx4008_wdt.c
->  N:	lpc32xx
 >  
-> +ARM/LPC32XX DMAMUX SUPPORT
-
-This should be just "LPC32XX DMAMUX SUPPORT"
-
+> +FREESCALE SOC LPC32XX SOUND DRIVERS
 > +M:	J.M.B. Downing <jonathan.downing@nautel.com>
 > +M:	Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>
 > +R:	Vladimir Zapolskiy <vz@mleia.com>
-> +L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
+> +L:	alsa-devel@alsa-project.org (moderated for non-subscribers)
+> +L:	linuxppc-dev@lists.ozlabs.org
 > +S:	Maintained
-> +F:	Documentation/devicetree/bindings/dma/nxp,lpc3220-dmamux.yaml
+> +F:	Documentation/devicetree/bindings/sound/nxp,lpc3220-i2s.yaml
 > +N:	lpc32xx
 
-I think this entry is only foor DMAMUX so the last "N:" is not appropriate.
+Drop the last "N:".
 
-You are welcomed to help maintaining the platform. Add yourself to
-appropriate place of LPC32xx ARM.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
 Best regards,
 Krzysztof

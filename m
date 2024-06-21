@@ -2,97 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2906D911ED0
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jun 2024 10:31:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8301912168
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jun 2024 12:01:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9318DB65;
-	Fri, 21 Jun 2024 10:30:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9318DB65
+	by alsa0.perex.cz (Postfix) with ESMTPS id AA079B6A;
+	Fri, 21 Jun 2024 12:00:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA079B6A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1718958668;
-	bh=vSTWYIkS8dZPp1gyV6GgsipcJv/f0Yiu+CBMvpyDKyU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=DZoW963YYfY4V/mDaoBdVqlVaPaFdSUhS7bMJSYWPjQ90fuKmoNkF9ylcTgf9hqLg
-	 GCGt2J4dIpCgEj+t4Vlg8t+M7x2fgdJ6mnwG0JVznN51J3VO1jciw7mRyaEjpJHgSZ
-	 Vc2/IuVg9G86sdXY/8smLSRXCVVQBV8RAf3Xdvm0=
+	s=default; t=1718964068;
+	bh=yIT38m0X5h/xAUdgyo6UZokPqNben8J1c7EywYPzAcw=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=Op/d0ZwyH3WDzBZTtGF41cvzPrpQPw516DAIzgu3jZTrSQWKzoTED/wqwwGepP9Rx
+	 LsBF3i1QwnnBxuQcy0KIp/qL9GNxk4aEhxahfPb52HD8hd50UHhQJ6CvpvcORiesUS
+	 FaOHomtdaZnn/hXnLwqSIQGo+vrbkv3Po8pB/PD8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1C0C0F80588; Fri, 21 Jun 2024 10:30:48 +0200 (CEST)
+	id 2704FF805A0; Fri, 21 Jun 2024 12:00:37 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1BA2EF805B0;
-	Fri, 21 Jun 2024 10:30:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D6438F805A0;
+	Fri, 21 Jun 2024 12:00:36 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7595FF8023A; Fri, 21 Jun 2024 10:30:41 +0200 (CEST)
+	id DD908F8023A; Fri, 21 Jun 2024 11:58:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from relay7-d.mail.gandi.net (relay7-d.mail.gandi.net
- [217.70.183.200])
-	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D4102F8010C
-	for <alsa-devel@alsa-project.org>; Fri, 21 Jun 2024 10:30:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4102F8010C
+	by alsa1.perex.cz (Postfix) with ESMTPS id E5F1DF800ED
+	for <alsa-devel@alsa-project.org>; Fri, 21 Jun 2024 11:58:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5F1DF800ED
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=EljBfq25
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 5A3F020003;
-	Fri, 21 Jun 2024 08:30:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1718958625;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vSTWYIkS8dZPp1gyV6GgsipcJv/f0Yiu+CBMvpyDKyU=;
-	b=EljBfq25UCP0bJHtLSMj6/zCXY9oAvfd8m3m3+oKaAfE3R3qGzQiLP70Dtf5/E0BjVhlr2
-	3kYdj9Zcv07uvUjSc4PGieGFVRuZUnscRqClY9e/dC3+32DNYqrg906mhGNAV5dsydSZgJ
-	j7J764uUg9PaG/QdPDX592lZI7xKQ5B2ClV75xzBfXbuB3zLdIpVqHskurQKcAnpdiWewl
-	tpt0EvOPrnXwY7VIkoAA1L3G8YNvuSl+O84XjndxPwFS4GJ7mxjNtxLKG6RvpNnEUyw/Ym
-	ukwKPd7JhZmPkutWlro7UbvnVkRYcyRd+4x/8l1ml1W5kY1Tk29IDHTpcFDWyA==
-Date: Fri, 21 Jun 2024 10:30:19 +0200
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, "J.M.B.
- Downing" <jonathan.downing@nautel.com>, Vladimir Zapolskiy <vz@mleia.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Russell King <linux@armlinux.org.uk>, Michael Turquette
- <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Andi Shyti
- <andi.shyti@kernel.org>, Richard Weinberger <richard@nod.at>, Vignesh
- Raghavendra <vigneshr@ti.com>, Jaroslav Kysela <perex@perex.cz>, Takashi
- Iwai <tiwai@suse.com>, Arnd Bergmann <arnd@arndb.de>, Yangtao Li
- <frank.li@vivo.com>, Li Zetao <lizetao1@huawei.com>, Chancel Liu
- <chancel.liu@nxp.com>, Michael Ellerman <mpe@ellerman.id.au>,
- dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
- linux-sound@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-i2c@vger.kernel.org, linux-mtd@lists.infradead.org, Markus Elfring
- <Markus.Elfring@web.de>
-Subject: Re: [Patch v4 08/10] mtd: rawnand: lpx32xx: Request DMA channels
- using DT entries
-Message-ID: <20240621103019.783271f4@xps-13>
-In-Reply-To: <20240620175657.358273-9-piotr.wojtaszczyk@timesys.com>
-References: <20240620175657.358273-1-piotr.wojtaszczyk@timesys.com>
-	<20240620175657.358273-9-piotr.wojtaszczyk@timesys.com>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-pc-linux-gnu)
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=mlSNNs7R
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id A934E624F1;
+	Fri, 21 Jun 2024 09:58:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 811E9C2BBFC;
+	Fri, 21 Jun 2024 09:58:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1718963907;
+	bh=yIT38m0X5h/xAUdgyo6UZokPqNben8J1c7EywYPzAcw=;
+	h=From:To:In-Reply-To:References:Subject:Date:From;
+	b=mlSNNs7Rcj3RJam78NY9YP8LdXzuuBK4GaRNqDpQ8ljcb35Us/tDqm8D5OoE7S+cl
+	 Aw57zgrvYhInOBxlEvWqOndAJZbOCSqhWYx9fvDjTPlgS3BtG0VIDg1lYtqKhKcw05
+	 1igAuhzrobVoClbgEZdhLgHh5S9HpnHszFglGULr6UMaREeojNxhYZSyfjNDWRVK9e
+	 e/vqOHhl1gmfnVuqcowBYJ6nGQtztm/zq++dEPUiZ3A50k//7j+Q9nuUwJSSOIDesa
+	 cxZoNKBDJIpeuiAUjfu3EovMylZi4HoYgZ+SoTeXyqWTd0jozkiG+I3datYGJdW4Qk
+	 ARBLZDFKR1stA==
+From: Vinod Koul <vkoul@kernel.org>
+To: Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Sanyog Kale <sanyog.r.kale@intel.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20240620091046.12426-1-krzysztof.kozlowski@linaro.org>
+References: <20240620091046.12426-1-krzysztof.kozlowski@linaro.org>
+Subject: Re: [PATCH] soundwire: bus: simplify by using local slave->prop
+Message-Id: <171896390510.263874.7819997619365288749.b4-ty@kernel.org>
+Date: Fri, 21 Jun 2024 15:28:25 +0530
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-GND-Sasl: miquel.raynal@bootlin.com
-Message-ID-Hash: NRJKSK2OUBA6B2WPPOKR3UCOMMTGDRUR
-X-Message-ID-Hash: NRJKSK2OUBA6B2WPPOKR3UCOMMTGDRUR
-X-MailFrom: miquel.raynal@bootlin.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13.0
+Message-ID-Hash: DWZM6NJ5SICLBUUO35GVSSDCEZB7PD6K
+X-Message-ID-Hash: DWZM6NJ5SICLBUUO35GVSSDCEZB7PD6K
+X-MailFrom: vkoul@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -104,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NRJKSK2OUBA6B2WPPOKR3UCOMMTGDRUR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DWZM6NJ5SICLBUUO35GVSSDCEZB7PD6K/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,17 +98,19 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Piotr,
 
-piotr.wojtaszczyk@timesys.com wrote on Thu, 20 Jun 2024 19:56:39 +0200:
+On Thu, 20 Jun 2024 11:10:46 +0200, Krzysztof Kozlowski wrote:
+> The sdw_initialize_slave() function stores 'slave->prop' as local 'prop'
+> variable, so use it in all applicable places to make code a bit simpler.
+> 
+> 
 
-> Move away from pl08x platform data towards device tree.
->=20
-> Signed-off-by: Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>
+Applied, thanks!
 
-I don't see any change regarding the NAND controller node in the device
-tree, is there any dependency with other patches from the same patchset
-or may I apply this directly to nand/next?
+[1/1] soundwire: bus: simplify by using local slave->prop
+      commit: 5a4c1f0207d8925c45a516d8dc85f0dd70c020ef
 
-Thanks,
-Miqu=C3=A8l
+Best regards,
+-- 
+Vinod Koul <vkoul@kernel.org>
+

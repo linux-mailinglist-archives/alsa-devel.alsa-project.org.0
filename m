@@ -2,122 +2,112 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A79E5913418
-	for <lists+alsa-devel@lfdr.de>; Sat, 22 Jun 2024 15:06:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E6A1913426
+	for <lists+alsa-devel@lfdr.de>; Sat, 22 Jun 2024 15:13:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EBD79844;
-	Sat, 22 Jun 2024 15:06:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EBD79844
+	by alsa0.perex.cz (Postfix) with ESMTPS id A166E93A;
+	Sat, 22 Jun 2024 15:13:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A166E93A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1719061612;
-	bh=fZzXD+VBy/TnjHfeespdwqsqQcRvbT0wXeFDsY6VBSE=;
-	h=Subject:From:In-Reply-To:Date:Cc:References:To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=ti637YrO/zdRONYZT0Y3qLSCe6t+pLkhuck+V4YBCZT5lwfrX4eUoCr+u1Lw4Dx/Q
-	 xQ4lGcnVGHlSc54K1uSG88rWw+Q7oLLXw6nk5cVsmDP3BBgyf3BcGUAMxnkbfmnSeg
-	 lfg/5bn+p0+tb/TaDNHDFn8M25WoxKpAbmMUB3rw=
+	s=default; t=1719062012;
+	bh=fMZOVwSkUO7k/6NzpVr+ymgny6UN69nrUxytY4/yDUs=;
+	h=From:To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=S3OkHB67wQx2E8JdXKUy5dpd4x0Y1Ht2QwLeaM6pgCVs1MsPn3GsDoiXp167Ze2Zk
+	 rQhywcnS85l00V1G/z45m6Zqa9zKt/tXVnSb4zHTSK8pVTfQJnew2O9qUYlTOImqtA
+	 CvziEWNAw6uebrEpb7FVVP625qhkgpA1qipliApo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 812EFF805BB; Sat, 22 Jun 2024 15:06:12 +0200 (CEST)
+	id 29591F80154; Sat, 22 Jun 2024 15:13:00 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9935BF805AF;
-	Sat, 22 Jun 2024 15:06:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4CDC1F805A8;
+	Sat, 22 Jun 2024 15:13:00 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 63A94F8023A; Sat, 22 Jun 2024 15:06:07 +0200 (CEST)
+	id 44789F8023A; Sat, 22 Jun 2024 15:12:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [IPv6:2a00:1450:4864:20::42c])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [IPv6:2a00:1450:4864:20::52c])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DA367F80236
-	for <alsa-devel@alsa-project.org>; Sat, 22 Jun 2024 15:06:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA367F80236
+	by alsa1.perex.cz (Postfix) with ESMTPS id 23AC7F800ED
+	for <alsa-devel@alsa-project.org>; Sat, 22 Jun 2024 15:12:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23AC7F800ED
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=jFR+Ve1h
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-3629c517da9so2892489f8f.2
+ header.s=20230601 header.b=C8IgvAzX
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-57d1d45ba34so3145904a12.3
         for <alsa-devel@alsa-project.org>;
- Sat, 22 Jun 2024 06:06:03 -0700 (PDT)
+ Sat, 22 Jun 2024 06:12:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1719061562; x=1719666362;
+        d=gmail.com; s=20230601; t=1719061971; x=1719666771;
  darn=alsa-project.org;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ZrytYasAxCaCe6tWDwhrVic7gXvGWpWw0egqVhOW2rc=;
-        b=jFR+Ve1hFnLxSAb2L3Gh//qilJ5yJNBpt0/Lp+wgNUKy0S8MIPmizdqrjQSYhYt+lc
-         7WOMJzPydhvu/sWeCWkCDzrXcdfnvMEZKO1TZ5WSbfTSSFPyfr5eiugJ4cFkyqiUBN8g
-         yy4rr6nEXxguBacf1VZ9Wx+LkPyYzue3CZbY7pxWf5cQ/MPo2wTlUpRylO0Gqd/2VPkn
-         yuDZOdmTG27XhUVFGjn//FwzmuRq4tvuUskeeZbQX3B+1QVeDWMw6NifeQnX9jsFmRjD
-         EnS6hUaAwBkg1seHFxW6Ipj/JfLN8wYts9yk/DlGtfejwPlPpbbW8PUtwMdGP1+q+heq
-         /6zw==
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=OTN5xRdMTo257fXeGJOwcxZkvaWjWVZcWAGIdTJL3eI=;
+        b=C8IgvAzXYUkpxT85ZinHBiDKDiaG0IXwLm9fzW4eVoIqEToww/ZZRDRYCssXX9yAiV
+         MIS9SHpbiuT4Y8CBlFRPNrndxmnvEoF25jH9mDt7HrcWZ5NuIl18a8Eba3JdszaKGxNB
+         18hMtXF/VKqOxfF7qh7tj7ep0Hz3zQwffD7i9qN+9b2JLgKdKL+9ie3iExBRIK9Wr1Ak
+         b/g15wSVEVon2OsJfYxKy5V8kYbvf4EzkTcua06Fo8dmh/f0dbBik+sAtfmliDABY1K2
+         fOpG49xKFVd3luoHvY8xlyjkkDvRopRjAfwYgFtdT3hLpCgNrDzwVWaYIj+owheEGvCF
+         ydUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719061562; x=1719666362;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=ZrytYasAxCaCe6tWDwhrVic7gXvGWpWw0egqVhOW2rc=;
-        b=N+/3jIpbvN+UkAawPbN7dxpnTkJpkUoKoSax+I8L+pAnZHA072eZs/MV5s17mKXxeG
-         tM+jFd0VfS+wyxDqzQAcQsqRsXDrm6+ou6+rMywqGfr8pXyBqMzQJzxzDaRifSgXMsVX
-         unL1q/ym9CwzzB+9qDA0Q6CQVd92SXdX/yv3YV9nHpxARRDPRRWmjmBLsWLI7vCpas5T
-         josLZKvYy2yDm/x6mrxNxTDaa1L+71hmUoBddlOUNnkCflKSgGgB1F1xEvwl6u57aYX9
-         WvbfYP49VnRjxrVJHQCevuAxSMsokqF5/YA8nmI2elrLaE9RbKMp+UxEx7wLqgXPHMKo
-         +0pA==
+        d=1e100.net; s=20230601; t=1719061971; x=1719666771;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=OTN5xRdMTo257fXeGJOwcxZkvaWjWVZcWAGIdTJL3eI=;
+        b=XUXHG94KmJfF/m4XmijSlRHVlVFvW4pbXNvRPGjS8yVnvwwKlyAZwCOmhVrj663wnK
+         wVRINN0hjtl+ne3JbN+/7nOC9D3IX24hGYiKD/igHIQcAwyKIA9KRuTYSlcf8bcqNawq
+         Sze7J1MAQhzRkfMe4/8P/mQMKr1pMpZshEnx+9RHEfpaZX9Y0fTVhtUU8Lq/Yf41XJGd
+         EBvaVm/cThguh4lJUpSBjsPbEsbk0tykjJjzms0UTUOty8lPV6hW0rf8H2VMcAV58AyH
+         6VjGjEKYhqIvK0TBrQK1CL1uKsL3PKs0BR49ZzfuT6VuHD35bJQq7jbsUo8SSlHg4ypf
+         nlxg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUC0tCnwOTISYe5g4HJuSh0ntrULcjPd0Rjxh6EdL5qxiyAyDfHkY05rNnttWRKzEnjzL5A5H6aeN+iSJTB4Z3Z2YCldGyT007/5Os=
-X-Gm-Message-State: AOJu0Yx4cl6X0EeJacVSAz5zBKe/rHjuBiMRpTdt1ZVAJdKJicPkNwT+
-	Lgj1hIfZlehCa9ubhHwvKMdSd2QTJFJagl0RicU+kMLXhc8B04Jn
+ AJvYcCW65KUA2aTKjHzESRLMEkYyhIL5U4wrFpaC1sIwkh+qJoZXYZwD2Vnpacoe3exJC6S+GORiwy0oRYdeSeWkdWYu+rH75Id62dLEj/c=
+X-Gm-Message-State: AOJu0YyH5w156DQAv3mM1I8GfIzE+mNGGn7+MoP37dPzECsJqaoSnj0s
+	1kQPquaJzKeDgrio/UUudPUYePtjUwj+SQtn4HaFZfvkCe1MmBA9
 X-Google-Smtp-Source: 
- AGHT+IGexro+lYSB8P9rFaqT/pj2wNDLwJM8cIt6lN/oXLdliRgMk3yRPZse8PG+bDDqHUZ0S41s6g==
-X-Received: by 2002:adf:e6d2:0:b0:362:8dad:c6a4 with SMTP id
- ffacd0b85a97d-36319990496mr9020616f8f.57.1719061562130;
-        Sat, 22 Jun 2024 06:06:02 -0700 (PDT)
-Received: from smtpclient.apple ([167.99.200.149])
+ AGHT+IHB5Bz3teh5Z84HK5+rxEUXquqMp40SWEfL2tioAgJRIcWmyz8qvStURlgdhynjRCjs5tO10g==
+X-Received: by 2002:a17:906:d96d:b0:a72:440d:35ac with SMTP id
+ a640c23a62f3a-a72440d3626mr8968366b.61.1719061970665;
+        Sat, 22 Jun 2024 06:12:50 -0700 (PDT)
+Received: from toolbox.. ([87.200.95.144])
         by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-366383f6722sm4494637f8f.24.2024.06.22.06.05.59
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Sat, 22 Jun 2024 06:06:01 -0700 (PDT)
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3774.600.62\))
-Subject: Re: [PATCH 2/2] ASoC: Add support for ti,pcm5242 to the pcm512x
- driver
+ a640c23a62f3a-a6fcf42a724sm197708166b.16.2024.06.22.06.12.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 22 Jun 2024 06:12:50 -0700 (PDT)
 From: Christian Hewitt <christianshewitt@gmail.com>
-In-Reply-To: <57f0036c-4412-48fa-a6f9-3fa721717be9@sirena.org.uk>
-Date: Sat, 22 Jun 2024 17:05:47 +0400
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
- Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Shenghao Ding <shenghao-ding@ti.com>,
- Kevin Lu <kevin-lu@ti.com>,
- Baojun Xu <baojun.xu@ti.com>,
- Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>,
- linux-sound@vger.kernel.org,
- devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- alsa-devel@alsa-project.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <CE6B5FD2-790B-431F-BC69-4429CE26802A@gmail.com>
-References: <20240622124603.2606770-1-christianshewitt@gmail.com>
- <20240622124603.2606770-3-christianshewitt@gmail.com>
- <57f0036c-4412-48fa-a6f9-3fa721717be9@sirena.org.uk>
-To: Mark Brown <broonie@kernel.org>
-X-Mailer: Apple Mail (2.3774.600.62)
-Message-ID-Hash: WTJ6TJI2ZG6KIAY7HUCDGV7MQDPSHG7O
-X-Message-ID-Hash: WTJ6TJI2ZG6KIAY7HUCDGV7MQDPSHG7O
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Shenghao Ding <shenghao-ding@ti.com>,
+	Kevin Lu <kevin-lu@ti.com>,
+	Baojun Xu <baojun.xu@ti.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	alsa-devel@alsa-project.org
+Subject: [PATCH v2 0/2] ASoC: add compatible for ti,pcm5242
+Date: Sat, 22 Jun 2024 13:12:43 +0000
+Message-Id: <20240622131245.2607533-1-christianshewitt@gmail.com>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: A45XU7TOJZ4XZ5ZODU5OV7GEF7Y6RZA6
+X-Message-ID-Hash: A45XU7TOJZ4XZ5ZODU5OV7GEF7Y6RZA6
 X-MailFrom: christianshewitt@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -130,7 +120,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WTJ6TJI2ZG6KIAY7HUCDGV7MQDPSHG7O/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/A45XU7TOJZ4XZ5ZODU5OV7GEF7Y6RZA6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -139,25 +129,22 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-> On 22 Jun 2024, at 5:03=E2=80=AFPM, Mark Brown <broonie@kernel.org> =
-wrote:
->=20
-> On Sat, Jun 22, 2024 at 12:46:03PM +0000, Christian Hewitt wrote:
->> Add a compatible string to enable support for the ti,pcm5242 DAC chip
->> in the pcm512x driver.
->>=20
->> Signed-off-by: Christian Hewitt <christianshewitt@gmail.com>
->> ---
->> sound/soc/codecs/pcm512x-i2c.c | 2 ++
->> 1 file changed, 2 insertions(+)
->=20
-> The device appears to have SPI support too like the other devices in =
-the
-> family, why not add the ID for SPI as well:
->=20
->   https://www.ti.com/product/PCM5242
+Update bindings and add a driver compatible for the pcm5242
+chip used on the Odroid HiFi-Shield2 i2c mezzanine board.
 
-Okay, will do. I need to send v2 anyway as I fat-fingered the chip
-number in the bindings patch subject/description :(
+v2 adds a compatible to the SPI variant at Mark's suggestion
+and fixes the binding patch title/description which I managed
+to fat-finger in v1.
 
-Christian=
+Christian Hewitt (2):
+  dt-bindings: sound: add ti,pcm5242 to pcm512x
+  ASoC: Add support for ti,pcm5242 to the pcm512x driver
+
+ Documentation/devicetree/bindings/sound/pcm512x.txt | 2 +-
+ sound/soc/codecs/pcm512x-i2c.c                      | 2 ++
+ sound/soc/codecs/pcm512x-spi.c                      | 2 ++
+ 3 files changed, 5 insertions(+), 1 deletion(-)
+
+-- 
+2.34.1
+

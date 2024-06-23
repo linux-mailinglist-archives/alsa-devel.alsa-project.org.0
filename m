@@ -2,67 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C84B9139E0
-	for <lists+alsa-devel@lfdr.de>; Sun, 23 Jun 2024 13:12:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECBA69139E1
+	for <lists+alsa-devel@lfdr.de>; Sun, 23 Jun 2024 13:12:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AD3F4AE8;
-	Sun, 23 Jun 2024 13:12:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD3F4AE8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 06000E66;
+	Sun, 23 Jun 2024 13:12:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 06000E66
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1719141145;
-	bh=X1N5KktZMxFxNzUuXrv3gjBkIdpW53T6s/AuXDJL9Lc=;
+	s=default; t=1719141158;
+	bh=5OKeTdayfOzgq6z3/8he9g3R7WgcX3TAzqL0zI/7dhY=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=N6kPOcpoUVr+zU/F84/ZMU7tAN3BygZEUE4FdUQ4eIYhNBffnRODdPO3KxyzvfWMa
-	 H/QZGFWRsbeQCRTHhp5SFx1pPNWrfb6YxGB4YZTE4UGdvt0v2KnWDuQF19C66/pXYP
-	 AG1bzfJisqN6W+lDWiTAdrYDHc+0sep+JCIAlkcw=
+	b=gvi2DDs2NaygyRvnbzuq/JB0OEPAc38DcB3ZY+f9T/1ILIXJI7yZYDh6pJLQ1yFEe
+	 J4BxFToKpKvvolClezyr3KjukHK9I3uJlmzpf2ZNxgRZNYxTW+OIsEcP80T+sSHiAm
+	 DpxZVXzsmJGUcCXgL8vnDGe1waV0M1Xx/hX8y9Hw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 85892F805B6; Sun, 23 Jun 2024 13:11:53 +0200 (CEST)
+	id D2087F805E1; Sun, 23 Jun 2024 13:11:55 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 44110F805A9;
-	Sun, 23 Jun 2024 13:11:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 31724F805C7;
+	Sun, 23 Jun 2024 13:11:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 65949F80495; Sun, 23 Jun 2024 13:09:51 +0200 (CEST)
+	id 78A94F80495; Sun, 23 Jun 2024 13:11:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 734C2F800E4
-	for <alsa-devel@alsa-project.org>; Sun, 23 Jun 2024 13:09:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 734C2F800E4
+	by alsa1.perex.cz (Postfix) with ESMTPS id D8876F800E4
+	for <alsa-devel@alsa-project.org>; Sun, 23 Jun 2024 13:11:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8876F800E4
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=tNimWF2Z
+ header.s=k20201202 header.b=uxYfrQ6a
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id ADCB3CE0E26;
-	Sun, 23 Jun 2024 11:09:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 858FCC2BD10;
-	Sun, 23 Jun 2024 11:09:35 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id B864661DAC;
+	Sun, 23 Jun 2024 11:10:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DACE0C2BD10;
+	Sun, 23 Jun 2024 11:10:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1719140984;
-	bh=X1N5KktZMxFxNzUuXrv3gjBkIdpW53T6s/AuXDJL9Lc=;
+	s=k20201202; t=1719141058;
+	bh=5OKeTdayfOzgq6z3/8he9g3R7WgcX3TAzqL0zI/7dhY=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=tNimWF2Z2UyMXLPSz33qU80q5yWMjhwAtm5dOatydFTvpLKbkCi2bbTI51j3LLSY3
-	 m3QZAPzDYnIkhIiDCdL1JACpUHG7dho6JQSrBdamUJmxq59+JTkjgJzkEVD4GitpXK
-	 IqL0BaTo0TyEbC2FESE2Al6IyzzphzRAnjTLyJTbPTRlR2urNfO5kRRdO576AE/XEm
-	 DMLyZ7Z4sxrAlrRgRBIeNapaztIdI5YwYTKX7mkZ7PkdkLLftWopMGcYvpM2JfUdcs
-	 LlfXKvPH9J/k2Tar9jRS/QeiA80PUQJYSrrj/DhysFTuqDBeHjrelVDSrbB36iZ5/7
-	 2vo92aOvMZaeg==
-Message-ID: <17a0efe3-72fa-4d13-b3b0-90e6640308f3@kernel.org>
-Date: Sun, 23 Jun 2024 13:09:33 +0200
+	b=uxYfrQ6a9pNvtge508wbaoSbZyXmO2/l/THnxvtE4NjpjtIa8JFS6YcHHrHtezCy+
+	 aRPno+PRHWybpKtKquXxVSoOzPcsU1hlx31iE8vhlWklVNF5zAYihAbDpBr66yPCD0
+	 Bq19OVeAD6Pfmf6y9BN3SnFeAlsOMyiiyYAQTR91ks83a/0sKJYut5wPn3pAvDuPuK
+	 H5Bv3LUWJCF4KJwlTxNTRfaXOagncsBq/tqQksy/G8NWQli+oFMpjAwiR+SFCldz9i
+	 2duCjRvJuVriq4zXAsxfahxIwoU10vpIS/wuE8nKSJPJzGjew6GcrUrC7HeHb8dTJw
+	 cz8lZb3uPOv2Q==
+Message-ID: <2c32e077-48ef-4d08-99ce-9072a339740c@kernel.org>
+Date: Sun, 23 Jun 2024 13:10:48 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCHv5 7/9] ASoC: dt-bindings: imx-audio-spdif: remove binding
+Subject: Re: [PATCHv5 8/9] arm64: dts: imx8m: update spdif sound card node
+ properties
 To: Elinor Montmasson <elinor.montmasson@savoirfairelinux.com>,
  Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -80,7 +83,7 @@ Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
  linuxppc-dev@lists.ozlabs.org,
  Philip-Dylan <philip-dylan.gleonec@savoirfairelinux.com>
 References: <20240620132511.4291-1-elinor.montmasson@savoirfairelinux.com>
- <20240620132511.4291-8-elinor.montmasson@savoirfairelinux.com>
+ <20240620132511.4291-9-elinor.montmasson@savoirfairelinux.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -126,11 +129,11 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  uZwJCLykjad45hsWcOGk3OcaAGQS6NDlfhM6O9aYNwGL6tGt/6BkRikNOs7VDEa4/HlbaSJo
  7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
  5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
-In-Reply-To: <20240620132511.4291-8-elinor.montmasson@savoirfairelinux.com>
+In-Reply-To: <20240620132511.4291-9-elinor.montmasson@savoirfairelinux.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: EEYIWNB4J63D6YVIBHCN3KARBR6ZGTYF
-X-Message-ID-Hash: EEYIWNB4J63D6YVIBHCN3KARBR6ZGTYF
+Message-ID-Hash: RZLIBZQQGLFNS5EGBOWXPFT2T45C3K2N
+X-Message-ID-Hash: RZLIBZQQGLFNS5EGBOWXPFT2T45C3K2N
 X-MailFrom: krzk@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -143,7 +146,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EEYIWNB4J63D6YVIBHCN3KARBR6ZGTYF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RZLIBZQQGLFNS5EGBOWXPFT2T45C3K2N/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -153,14 +156,18 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 On 20/06/2024 15:25, Elinor Montmasson wrote:
-> imx-audio-spdif was merged into the fsl-asoc-card driver, and therefore
-> removed.
+> Following merge of imx-spdif driver into fsl-asoc-card:
+> * update properties to match those used by fsl-asoc-card.
+> * S/PDIF in/out dummy codecs must now be declared explicitly, add and
+>   use them.
+> 
+> These modifications were tested only on an imx8mn-evk board.
 
-So what happens with all existing users (e.g. DTS)? They become
-invalid/not supported?
+So new DTS will not work on old kernel... Can you at least explain why
+this is needed and what benefits this make? You change hardware
+description, so whatever you merged in drivers is not really relevant, I
+would say.
 
-After quick look, I do not see backwards compatibility in the driver and
-above commit msg tells me nothing about ABI break.
 
 Best regards,
 Krzysztof

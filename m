@@ -2,70 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F2169139BC
-	for <lists+alsa-devel@lfdr.de>; Sun, 23 Jun 2024 13:08:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C84B9139E0
+	for <lists+alsa-devel@lfdr.de>; Sun, 23 Jun 2024 13:12:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 31EE384A;
-	Sun, 23 Jun 2024 13:08:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 31EE384A
+	by alsa0.perex.cz (Postfix) with ESMTPS id AD3F4AE8;
+	Sun, 23 Jun 2024 13:12:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD3F4AE8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1719140921;
-	bh=+M4chnujTGXjSxADVGgYQyDo0ZhysUpMH08sqJDaoIA=;
+	s=default; t=1719141145;
+	bh=X1N5KktZMxFxNzUuXrv3gjBkIdpW53T6s/AuXDJL9Lc=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=pj1PCXJfKAGXjNwfzFUIXVM2khzb3n1JYKGnM7fC0AZ0bBAFTwhJz48Em0lA5B1rW
-	 NYu/eOqijxShnAaXQwnVmp3hqPLQybDy9EzgJLOAbGnsZsi5Pjgjzd6FDxEB28YvaN
-	 LBf/Vdg493IAS0ozwjYsuf3vqO0L2CxLHbxsKv/E=
+	b=N6kPOcpoUVr+zU/F84/ZMU7tAN3BygZEUE4FdUQ4eIYhNBffnRODdPO3KxyzvfWMa
+	 H/QZGFWRsbeQCRTHhp5SFx1pPNWrfb6YxGB4YZTE4UGdvt0v2KnWDuQF19C66/pXYP
+	 AG1bzfJisqN6W+lDWiTAdrYDHc+0sep+JCIAlkcw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 470EEF805AF; Sun, 23 Jun 2024 13:08:20 +0200 (CEST)
+	id 85892F805B6; Sun, 23 Jun 2024 13:11:53 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A0FF9F80588;
-	Sun, 23 Jun 2024 13:08:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 44110F805A9;
+	Sun, 23 Jun 2024 13:11:53 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 31C92F80495; Sun, 23 Jun 2024 13:08:13 +0200 (CEST)
+	id 65949F80495; Sun, 23 Jun 2024 13:09:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E18C5F8013D
-	for <alsa-devel@alsa-project.org>; Sun, 23 Jun 2024 13:08:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E18C5F8013D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 734C2F800E4
+	for <alsa-devel@alsa-project.org>; Sun, 23 Jun 2024 13:09:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 734C2F800E4
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=aj7KS6CL
+ header.s=k20201202 header.b=tNimWF2Z
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 47025CE01F9;
-	Sun, 23 Jun 2024 11:07:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B726DC2BD10;
-	Sun, 23 Jun 2024 11:07:48 +0000 (UTC)
+	by sin.source.kernel.org (Postfix) with ESMTP id ADCB3CE0E26;
+	Sun, 23 Jun 2024 11:09:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 858FCC2BD10;
+	Sun, 23 Jun 2024 11:09:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1719140876;
-	bh=+M4chnujTGXjSxADVGgYQyDo0ZhysUpMH08sqJDaoIA=;
+	s=k20201202; t=1719140984;
+	bh=X1N5KktZMxFxNzUuXrv3gjBkIdpW53T6s/AuXDJL9Lc=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=aj7KS6CLYgjKAVhpExivrjQ98PXJ8c4eFVrJQ0JRTTnW5AnN9PfbPjqYAp3I3szV8
-	 gLeuBUMMTNQqUMqdgM7r+DClmt02oGIWbfzOIE0TNzPYujhQfqHM63IriO142XKuLx
-	 79hf8O22EoKcJAonpkW7VD5ZTZ8GJ2lm+AJr27bpMG+GwnfBHTv5L3K7t4SClRR6wO
-	 A2kwqWdXl815dH/x5LGqz0aH15Nkgll4/ECCbywslTtKt9yH5eGYIXojqhlJA4HBFH
-	 PrgKNQzr0Oy8KIN4J6dJ2MoZm4+fsPHv5bNZGimj5a/YzLdSuS43+pFqKAskLOkCAd
-	 M4G6y6ZfBc43w==
-Message-ID: <6fcbd97b-4172-48a9-bcdb-3bdf35aba8f7@kernel.org>
-Date: Sun, 23 Jun 2024 13:07:46 +0200
+	b=tNimWF2Z2UyMXLPSz33qU80q5yWMjhwAtm5dOatydFTvpLKbkCi2bbTI51j3LLSY3
+	 m3QZAPzDYnIkhIiDCdL1JACpUHG7dho6JQSrBdamUJmxq59+JTkjgJzkEVD4GitpXK
+	 IqL0BaTo0TyEbC2FESE2Al6IyzzphzRAnjTLyJTbPTRlR2urNfO5kRRdO576AE/XEm
+	 DMLyZ7Z4sxrAlrRgRBIeNapaztIdI5YwYTKX7mkZ7PkdkLLftWopMGcYvpM2JfUdcs
+	 LlfXKvPH9J/k2Tar9jRS/QeiA80PUQJYSrrj/DhysFTuqDBeHjrelVDSrbB36iZ5/7
+	 2vo92aOvMZaeg==
+Message-ID: <17a0efe3-72fa-4d13-b3b0-90e6640308f3@kernel.org>
+Date: Sun, 23 Jun 2024 13:09:33 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCHv5 6/9] ASoC: dt-bindings: fsl-asoc-card: add compatible
- string for spdif
+Subject: Re: [PATCHv5 7/9] ASoC: dt-bindings: imx-audio-spdif: remove binding
 To: Elinor Montmasson <elinor.montmasson@savoirfairelinux.com>,
  Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -83,7 +80,7 @@ Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
  linuxppc-dev@lists.ozlabs.org,
  Philip-Dylan <philip-dylan.gleonec@savoirfairelinux.com>
 References: <20240620132511.4291-1-elinor.montmasson@savoirfairelinux.com>
- <20240620132511.4291-7-elinor.montmasson@savoirfairelinux.com>
+ <20240620132511.4291-8-elinor.montmasson@savoirfairelinux.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -129,11 +126,11 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  uZwJCLykjad45hsWcOGk3OcaAGQS6NDlfhM6O9aYNwGL6tGt/6BkRikNOs7VDEa4/HlbaSJo
  7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
  5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
-In-Reply-To: <20240620132511.4291-7-elinor.montmasson@savoirfairelinux.com>
+In-Reply-To: <20240620132511.4291-8-elinor.montmasson@savoirfairelinux.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: TUDNVECLQVEHHROVDIFMALD6MZPTD32C
-X-Message-ID-Hash: TUDNVECLQVEHHROVDIFMALD6MZPTD32C
+Message-ID-Hash: EEYIWNB4J63D6YVIBHCN3KARBR6ZGTYF
+X-Message-ID-Hash: EEYIWNB4J63D6YVIBHCN3KARBR6ZGTYF
 X-MailFrom: krzk@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -146,7 +143,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TUDNVECLQVEHHROVDIFMALD6MZPTD32C/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EEYIWNB4J63D6YVIBHCN3KARBR6ZGTYF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -156,119 +153,14 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 On 20/06/2024 15:25, Elinor Montmasson wrote:
-> The S/PDIF audio card support was merged from imx-spdif into the
-> fsl-asoc-card driver, making it possible to use an S/PDIF with an ASRC.
-> Add the new compatible and update properties.
+> imx-audio-spdif was merged into the fsl-asoc-card driver, and therefore
+> removed.
 
-Please use standard email subjects, so with the PATCH keyword in the
-title. `git format-patch -v5` helps here to create proper versioned
-patches. Another useful tool is b4.
+So what happens with all existing users (e.g. DTS)? They become
+invalid/not supported?
 
-> 
-> Signed-off-by: Elinor Montmasson <elinor.montmasson@savoirfairelinux.com>
-> ---
->  .../bindings/sound/fsl-asoc-card.yaml         | 30 ++++++++++++++++---
->  1 file changed, 26 insertions(+), 4 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/fsl-asoc-card.yaml b/Documentation/devicetree/bindings/sound/fsl-asoc-card.yaml
-> index 9922664d5ccc..f2e28b32808e 100644
-> --- a/Documentation/devicetree/bindings/sound/fsl-asoc-card.yaml
-> +++ b/Documentation/devicetree/bindings/sound/fsl-asoc-card.yaml
-> @@ -33,6 +33,7 @@ properties:
->        - items:
->            - enum:
->                - fsl,imx-sgtl5000
-> +              - fsl,imx-sabreauto-spdif
->                - fsl,imx25-pdk-sgtl5000
->                - fsl,imx53-cpuvo-sgtl5000
->                - fsl,imx51-babbage-sgtl5000
-> @@ -54,6 +55,7 @@ properties:
->                - fsl,imx6q-ventana-sgtl5000
->                - fsl,imx6sl-evk-wm8962
->                - fsl,imx6sx-sdb-mqs
-> +              - fsl,imx6sx-sdb-spdif
->                - fsl,imx6sx-sdb-wm8962
->                - fsl,imx7d-evk-wm8960
->                - karo,tx53-audio-sgtl5000
-> @@ -65,6 +67,7 @@ properties:
->                - fsl,imx-audio-sgtl5000
->                - fsl,imx-audio-wm8960
->                - fsl,imx-audio-wm8962
-> +              - fsl,imx-audio-spdif
-
-This does not look right. It's quite generic, so now you allow any
-variant to be used with this fallback.
-
-Please do not grow more this list of all possible combinations and
-instead add specific lists. Otherwise, please explain why this is valid
-hardware:
-"fsl,imx7d-evk-wm8960", "fsl,imx-audio-spdif"
-
-
->        - items:
->            - enum:
->                - fsl,imx-audio-ac97
-> @@ -81,6 +84,7 @@ properties:
->                - fsl,imx-audio-wm8960
->                - fsl,imx-audio-wm8962
->                - fsl,imx-audio-wm8958
-> +              - fsl,imx-audio-spdif
-
-Fallbacks should not be used alone. Why this is needed? The compatible
-is already documented, so now you create duplicated binding.
-
-This is very confusing.
-
->  
->    model:
->      $ref: /schemas/types.yaml#/definitions/string
-> @@ -93,8 +97,15 @@ properties:
->        need to add ASRC support via DPCM.
->  
->    audio-codec:
-> -    $ref: /schemas/types.yaml#/definitions/phandle
-> -    description: The phandle of an audio codec
-> +    $ref: /schemas/types.yaml#/definitions/phandle-array
-> +    description: |
-> +      The phandle of an audio codec.
-> +      With "fsl,imx-audio-spdif", either SPDIF audio codec spdif_transmitter,
-> +      spdif_receiver or both.
-> +    minItems: 1
-> +    maxItems: 2
-> +    items:
-> +      maxItems: 1
->  
->    audio-cpu:
->      $ref: /schemas/types.yaml#/definitions/phandle
-> @@ -150,8 +161,10 @@ properties:
->      description: dai-link uses bit clock inversion.
->  
->    mclk-id:
-> -    $ref: /schemas/types.yaml#/definitions/uint32
-> -    description: main clock id, specific for each card configuration.
-> +    $ref: /schemas/types.yaml#/definitions/uint32-array
-> +    description: Main clock id for each codec, specific for each card configuration.
-> +    minItems: 1
-> +    maxItems: 2
->  
->    mux-int-port:
->      $ref: /schemas/types.yaml#/definitions/uint32
-> @@ -195,3 +208,12 @@ examples:
->               "AIN2L", "Line In Jack",
->               "AIN2R", "Line In Jack";
->      };
-> +
-> +  - |
-> +    sound-spdif-asrc {
-> +      compatible = "fsl,imx-audio-spdif";
-> +      model = "spdif-asrc-audio";
-> +      audio-cpu = <&spdif>;
-> +      audio-asrc = <&easrc>;
-> +      audio-codec = <&spdifdit>, <&spdifdir>;
-> +    };
-
-Do not introduce another indentation style. Look what is above.
-
+After quick look, I do not see backwards compatibility in the driver and
+above commit msg tells me nothing about ABI break.
 
 Best regards,
 Krzysztof

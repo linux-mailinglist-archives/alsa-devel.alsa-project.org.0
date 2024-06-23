@@ -2,88 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A303913BE9
-	for <lists+alsa-devel@lfdr.de>; Sun, 23 Jun 2024 17:02:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B87A913C05
+	for <lists+alsa-devel@lfdr.de>; Sun, 23 Jun 2024 17:16:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C17C7DE5;
-	Sun, 23 Jun 2024 17:02:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C17C7DE5
+	by alsa0.perex.cz (Postfix) with ESMTPS id DA078A4A;
+	Sun, 23 Jun 2024 17:15:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA078A4A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1719154978;
-	bh=ISrxbHoDsgdg8jZ5QeZIYDTqqYNzfT5aOQ66p+EPqGo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=SaV1+JNInM4Rp4ys45yd+IIa8yU3W1O7Z7Shc5jU6r0aPwz5gDM1YFQmb5MfclErn
-	 jI4l9sFFdHQ8m22cnkvfKs4uyGLDBDryiAdlXHvF/InXyTEkrQeiCRQZtuGzJRltQg
-	 z404xhuRxb2bOY4Pb+HlT6Z7GgLCU6CVRZS2/gXc=
+	s=default; t=1719155762;
+	bh=VTtHoMRrh/CknLnrTiA6cISWe0B7QIazQmbA5Bs4n5g=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=GRoxipZAw7nzBz3WLdDlAmTPz44NEf91soZg6fLJSYr5QlK3E8npnwV/4TTTVvEoA
+	 dQo53P9K17Bz8ufYwWKohzTO0/by8ZIIwqcLUPJLgSvQqlMdMVDaq4vaf+q0NJ1YZU
+	 Z5i+rpXbw5NAB25vA3K5gH7RTux3t5gE3ttZLx2c=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CBFACF805BD; Sun, 23 Jun 2024 17:02:25 +0200 (CEST)
+	id F3A8EF805AC; Sun, 23 Jun 2024 17:15:30 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 38A24F805B6;
-	Sun, 23 Jun 2024 17:02:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 73B19F8049C;
+	Sun, 23 Jun 2024 17:15:30 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E9FCCF80495; Sun, 23 Jun 2024 17:02:20 +0200 (CEST)
+	id D9990F80495; Sun, 23 Jun 2024 17:15:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	SPF_HELO_PASS,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from msa.smtpout.orange.fr (msa-211.smtpout.orange.fr
+ [193.252.23.211])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 93CEEF80154
-	for <alsa-devel@alsa-project.org>; Sun, 23 Jun 2024 17:02:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93CEEF80154
+	by alsa1.perex.cz (Postfix) with ESMTPS id 15CD9F800E4
+	for <alsa-devel@alsa-project.org>; Sun, 23 Jun 2024 17:15:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 15CD9F800E4
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=AUTDTxB0
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id BA6FECE0EB9;
-	Sun, 23 Jun 2024 15:02:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4865CC2BD10;
-	Sun, 23 Jun 2024 15:02:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1719154928;
-	bh=ISrxbHoDsgdg8jZ5QeZIYDTqqYNzfT5aOQ66p+EPqGo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=AUTDTxB066M0zP5PMnojHiP1J9VHW5O8wI8HefXUNgg6ViyiR7lynsdfZGq264K6U
-	 IW4Ea5yErWl4FfQyuG8vIAehENxpLg5icImCG8oxz/qLBjTQb4Bk6kpJANxvEJ5wYD
-	 PrjphOlKGgCzYIfmAOr+12xKh6tN5iTDr5+UcorXUOpyjdZwJ3AwiULMN4GHkAJqDb
-	 eUWjQBZsXWE03LxzzGgbyxGgKNRMqdXdlwAfGxljoGFPOlFJDE3iYqcLDS3uBRj4JN
-	 efREL+yQKPQTMEGlMmIqSlWt+v2fJnjLEdxB1bweeVrR9fdjtANEtfQWZVXgb08OJ2
-	 Qy6wWz68wH1GA==
-Date: Sun, 23 Jun 2024 16:01:57 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Olivier Moysan <olivier.moysan@foss.st.com>
-Cc: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>, Lars-Peter Clausen
- <lars@metafoo.de>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Fabrice Gasnier
- <fabrice.gasnier@foss.st.com>, <alsa-devel@alsa-project.org>,
- <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 4/8] dt-bindings: iio: dfsdm: move to backend framework
-Message-ID: <20240623160157.2bed9ff9@jic23-huawei>
-In-Reply-To: <20240618160836.945242-5-olivier.moysan@foss.st.com>
-References: <20240618160836.945242-1-olivier.moysan@foss.st.com>
-	<20240618160836.945242-5-olivier.moysan@foss.st.com>
-X-Mailer: Claws Mail 4.3.0 (GTK 3.24.42; x86_64-pc-linux-gnu)
+ unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.a=rsa-sha256
+ header.s=t20230301 header.b=QCd1Vmfi
+Received: from fedora.home ([86.243.222.230])
+	by smtp.orange.fr with ESMTPA
+	id LOvzs9RlN2GQtLOvzsbDUH; Sun, 23 Jun 2024 17:15:19 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
+	s=t20230301; t=1719155719;
+	bh=6xc2xyXmsrpTItWg6IptTdpN90W19e46SCweNrwd4z4=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=QCd1Vmfi7/8s3qsK8bcJq1V3dXy73L7NZiNWiMW2h/YlojSzlRfWprMCDw3ibhUk2
+	 W6vX3VEQsVlKfW1edVOsjY6V/EhNgQNszuWZH/BS9yyRwaR5+yQ93jQIHmSm/+j79y
+	 YOoAdA2eMSBy5sq7mRbob3AguiMoy95CsrbLvgDwD7u4z4DKAAaxq2diqhomNZoN+H
+	 eQ8JcyJ128zs2PY923RLqCPMgGbdeBEKLbcGAyV8G5PIc4fQuPgO7zgICNwhoFv+jv
+	 6muz8tudmTkaRTOLabI5bXCM2DXdgFRef7pHsEL4PUEvn7CllwapiA6mL99TA6Z+dZ
+	 N798nWjA/7hPw==
+X-ME-Helo: fedora.home
+X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
+X-ME-Date: Sun, 23 Jun 2024 17:15:19 +0200
+X-ME-IP: 86.243.222.230
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+To: Cezary Rojewski <cezary.rojewski@intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: linux-kernel@vger.kernel.org,
+	kernel-janitors@vger.kernel.org,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org
+Subject: [PATCH] ASoC: Intel: sst: Constify struct intel_sst_ops
+Date: Sun, 23 Jun 2024 17:15:11 +0200
+Message-ID: 
+ <098acdf266b2f4a922d6a624e9032ec24a09093c.1719155688.git.christophe.jaillet@wanadoo.fr>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: ZW2ODENQSDQWMO7PHMUQI3ZKKR3K7SZX
-X-Message-ID-Hash: ZW2ODENQSDQWMO7PHMUQI3ZKKR3K7SZX
-X-MailFrom: jic23@kernel.org
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: AVRDRDRRLNEQD4JLHIK6F6HQGS2QCL5K
+X-Message-ID-Hash: AVRDRDRRLNEQD4JLHIK6F6HQGS2QCL5K
+X-MailFrom: christophe.jaillet@wanadoo.fr
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -95,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZW2ODENQSDQWMO7PHMUQI3ZKKR3K7SZX/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AVRDRDRRLNEQD4JLHIK6F6HQGS2QCL5K/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,39 +106,56 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 18 Jun 2024 18:08:30 +0200
-Olivier Moysan <olivier.moysan@foss.st.com> wrote:
+'struct intel_sst_ops' is not modified in this driver.
 
-> Change the DFSDM binding to use the new IIO backend framework,
-> along with the adoption of IIO generic channels.
-> This binding change allows to add scaling support to the DFSDM.
-> 
-> Keep the legacy binding as deprecated for backward compatibility.
-> 
-> The io-backends property is supported only in generic IIO channel
-> binding.
-> 
-> - Channel description with the generic binding (Audio and Analog):
-> 
->   Properties supersed by generic properties:
-superseded
+Constifying this structure moves some data to a read-only section, so
+increase overall security.
 
->     st,adc-channels: becomes "reg" property in channel node
->     st,adc-channel-names: becomes "label" property in channel node
->   Properties moved to channel child node:
->     st,adc-channel-types, st,adc-channel-clk-src, st,adc-alt-channel
-> 
-> - Analog binding:
-> 
->   DFSDM filter channel is configured as an IIO backend consumer.
->   Add io-backends property in channel child nodes.
-> 
->   DFSDM is no more configured as a channel consumer from SD modulator.
->   Use of io-channels in DFSDM node is deprecated.
-> 
-> - Audio binding:
-> 
->   DFSDM audio DAI is configured as a channel consumer from DFSDM filter.
->   No change compare to legacy.
-> 
-> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
+On a x86_64, with allmodconfig:
+Before:
+======
+   text	   data	    bss	    dec	    hex	filename
+  12250	   1000	    112	  13362	   3432	sound/soc/intel/atom/sst/sst.o
+
+After:
+=====
+   text	   data	    bss	    dec	    hex	filename
+  12378	    888	    112	  13378	   3442	sound/soc/intel/atom/sst/sst.o
+
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+---
+Compile tested-only
+---
+ sound/soc/intel/atom/sst/sst.c | 2 +-
+ sound/soc/intel/atom/sst/sst.h | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/sound/soc/intel/atom/sst/sst.c b/sound/soc/intel/atom/sst/sst.c
+index e0357d257c6c..ff03fde12151 100644
+--- a/sound/soc/intel/atom/sst/sst.c
++++ b/sound/soc/intel/atom/sst/sst.c
+@@ -158,7 +158,7 @@ static int sst_save_dsp_context_v2(struct intel_sst_drv *sst)
+ }
+ 
+ 
+-static struct intel_sst_ops mrfld_ops = {
++static const struct intel_sst_ops mrfld_ops = {
+ 	.interrupt = intel_sst_interrupt_mrfld,
+ 	.irq_thread = intel_sst_irq_thread_mrfld,
+ 	.clear_interrupt = intel_sst_clear_intr_mrfld,
+diff --git a/sound/soc/intel/atom/sst/sst.h b/sound/soc/intel/atom/sst/sst.h
+index 126903e126e4..e0db7434543c 100644
+--- a/sound/soc/intel/atom/sst/sst.h
++++ b/sound/soc/intel/atom/sst/sst.h
+@@ -391,7 +391,7 @@ struct intel_sst_drv {
+ 	unsigned int		csr_value;
+ 	void			*fw_in_mem;
+ 	struct sst_sg_list	fw_sg_list, library_list;
+-	struct intel_sst_ops	*ops;
++	const struct intel_sst_ops	*ops;
+ 	struct sst_info		info;
+ 	struct pm_qos_request	*qos;
+ 	unsigned int		use_dma;
+-- 
+2.45.2
+

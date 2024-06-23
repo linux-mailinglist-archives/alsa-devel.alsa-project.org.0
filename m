@@ -2,79 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA647913D3C
-	for <lists+alsa-devel@lfdr.de>; Sun, 23 Jun 2024 19:23:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 422F4913D41
+	for <lists+alsa-devel@lfdr.de>; Sun, 23 Jun 2024 19:24:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3E800EAB;
-	Sun, 23 Jun 2024 19:23:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3E800EAB
+	by alsa0.perex.cz (Postfix) with ESMTPS id CE15C847;
+	Sun, 23 Jun 2024 19:24:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE15C847
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1719163392;
-	bh=Forj5XhRH3uV4vJJQYS/LVUyREwgZsaM1YGmaz5sfQg=;
+	s=default; t=1719163468;
+	bh=FFR/1c1wfsHIvFV5vtSMY0ZRCwh3bSTMRyZbp5Z9kdo=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=WCl4dmOZDzHGL0rNRz/cKp5bfEx2//uNJRhakla39m0a1+l0ZN5da6r+k70Vjucpw
-	 KbCPoYi2m19C7bB9wUx3ozqcPIXV2KumtCOmtrHs8KKn6mKAv8E6oQ4kOj0iyeXvkC
-	 0LTBXqTHoD6l67aJSgxLT5Z/AsWUJkm+Orfn5CL8=
+	b=EP/G/cu+JC/zMh/dn7rlKgiQb+550/mFSdob94nkkidgelyyQ33MrjhHTEGMq2uTa
+	 7NZTOES0U22zq+4yP3Ww9jtAZIHcztdRTRCnXXd8U316Da+Uf5H8RDBGj9fJez1goX
+	 ScpRd5/0vcB4bSGQAtI3MuIaRNiuKOdasdDVlSho=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3A642F805FF; Sun, 23 Jun 2024 19:22:11 +0200 (CEST)
+	id 753B3F805E9; Sun, 23 Jun 2024 19:23:43 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8FFA8F805E9;
-	Sun, 23 Jun 2024 19:22:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 64B16F805C3;
+	Sun, 23 Jun 2024 19:23:43 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BA7F7F8058C; Sun, 23 Jun 2024 19:22:04 +0200 (CEST)
+	id 75EF2F80588; Sun, 23 Jun 2024 19:23:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+X-Spam-Status: No, score=-2.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=unavailable autolearn_force=no
+	version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C6508F80495
-	for <alsa-devel@alsa-project.org>; Sun, 23 Jun 2024 19:21:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6508F80495
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6C2B5F8049C
+	for <alsa-devel@alsa-project.org>; Sun, 23 Jun 2024 19:21:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C2B5F8049C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=p3SjiZTY
+ header.s=k20201202 header.b=KUI9ou/l
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 3404362557;
-	Sun, 23 Jun 2024 17:21:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D533C2BD10;
-	Sun, 23 Jun 2024 17:21:49 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 639766255B;
+	Sun, 23 Jun 2024 17:21:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D2DFC2BD10;
+	Sun, 23 Jun 2024 17:21:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1719163310;
-	bh=Forj5XhRH3uV4vJJQYS/LVUyREwgZsaM1YGmaz5sfQg=;
+	s=k20201202; t=1719163315;
+	bh=FFR/1c1wfsHIvFV5vtSMY0ZRCwh3bSTMRyZbp5Z9kdo=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=p3SjiZTY9vSSQhiRynn+3++nSIt9JrU5+9sbXsi5hbOH9iQ/P33zsCa5XXQy4D9NQ
-	 remTyo5SzzDimPpXgp0GdgDfYrWhfGf66ChjPI4IZoWf363cNtgpy/VPG1jFBTQYB+
-	 zszRnG0e8vxs1FI3oq0Sr2+yWU4UDWyubH1ODmfFOmmlLZl+jX/nvSoiT5fTFzIn5D
-	 kYngjln+Kh09QTyl1D8qcSufi/i9op8+lXAIH/7BktrQ+lwloo4TGL9cwaihcCIEiA
-	 ieIl6TMVjg7xK0t6AuQSdLZ/4taaGLxGqt9GGqZEdmHvyVKLViMQTzB0a08IZHtS8w
-	 gRdadcJiuUGDw==
+	b=KUI9ou/lCpJs2B8R55lqMzNuyG6my4REWiPS5mSVqgUxoHCMbvRZ59mJ5+srhJ4Rs
+	 zEsrjsoQksLBeZUyxiNuPeovhEnmVv4ps8SYMrG9HJYli6cVGecKYnb7df1Kg2PvY9
+	 gE5td45ZidxZ0xetz0vEhr9v7yydWNC8+4rufUD77OliPYvHm/EvfJqFpPxVYpXEjA
+	 r9JDLO5q6EJdHaNP8kJzPqe1iFKThB2Zte3s/2xvd2t7kBj4LrUoVdumWeL/m7fvng
+	 XWCcxqxMrEEk+hu15H5r/XEIPWMWaXBj+KvuNb/vdHw/XKWAefu10+cMRhuhXbmWOQ
+	 a9LWiP984ezxg==
 From: Mark Brown <broonie@kernel.org>
-To: srinivas.kandagatla@linaro.org
-Cc: perex@perex.cz, lgirdwood@gmail.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- krzk+dt@kernel.org
-In-Reply-To: <20240606104922.114229-1-srinivas.kandagatla@linaro.org>
-References: <20240606104922.114229-1-srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH v3 0/4] ASoC: qcom: display port changes
-Message-Id: <171916330923.350242.338813871607705802.b4-ty@kernel.org>
-Date: Sun, 23 Jun 2024 18:21:49 +0100
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: 
+ <20240612-asoc-wcd9xxx-wide-cleanups-v1-0-0d15885b2a06@linaro.org>
+References: <20240612-asoc-wcd9xxx-wide-cleanups-v1-0-0d15885b2a06@linaro.org>
+Subject: Re: [PATCH 00/23] ASoC: codecs: wcd family: cleanups
+Message-Id: <171916331297.350242.2469313252117376450.b4-ty@kernel.org>
+Date: Sun, 23 Jun 2024 18:21:52 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.14-dev-d4707
-Message-ID-Hash: BD6Q7JNXFKB2YTYGJTIH4ZN7BYFB5GDG
-X-Message-ID-Hash: BD6Q7JNXFKB2YTYGJTIH4ZN7BYFB5GDG
+Message-ID-Hash: DU474LESCKS6BN4Z5HDEVOFHAG64TBKA
+X-Message-ID-Hash: DU474LESCKS6BN4Z5HDEVOFHAG64TBKA
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -87,7 +91,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BD6Q7JNXFKB2YTYGJTIH4ZN7BYFB5GDG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DU474LESCKS6BN4Z5HDEVOFHAG64TBKA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,15 +100,13 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 06 Jun 2024 11:49:18 +0100, srinivas.kandagatla@linaro.org wrote:
-> This patchset adds support for.
-> 	1. parse Display Port module tokens from ASoC topology
-> 	2. add support to DP/HDMI Jack events.
-> 	3. fixes a typo in function name in sm8250
+On Wed, 12 Jun 2024 18:15:13 +0200, Krzysztof Kozlowski wrote:
+> Set of simple cleanups from similar issues in all Qualcomm WCD93xx
+> codecs.
 > 
-> Verified these patches on X13s along with changes to tplg in
-> https://git.codelinaro.org/linaro/qcomlt/audioreach-topology/-/tree/topic/x13s-dp?ref_type=heads
-> and ucm changes from https://github.com/Srinivas-Kandagatla/alsa-ucm-conf/tree/topic/x13s-dp
+> The first patch "ASoC: codecs: wcd-mbhc: Constify passed MBHC reg
+> fields" is a requirement for few others, but except this they are
+> independent.
 > 
 > [...]
 
@@ -114,14 +116,52 @@ Applied to
 
 Thanks!
 
-[1/4] ASoC: qcom: q6dsp: parse Display port tokens
-      commit: 6d620e50bb055e072c8c50cf95cd397fc24378c2
-[2/4] ASoC: qcom: common: add Display port Jack function
-      commit: 735db4ea16caaebf8e4884ec0c2e419c96391ac8
-[3/4] ASoC: qcom: sc8280xp: add Display port Jack
-      commit: 7e815bb9abd16f99c987987242a9fe13dfa0f052
-[4/4] ASoC: qcom: x1e80100: Add USB DisplayPort plug support
-      commit: 24790a3cd1bdc083f9989f2fdb223f6494ebc99c
+[01/23] ASoC: codecs: wcd-mbhc: Constify passed MBHC reg fields
+        commit: e565ab184946650f19afb9fe74f8be84fcb6d210
+[02/23] ASoC: codecs: wcd9335: Drop unused state container fields
+        commit: 60ce48f5311103dd7a09e12d0b75d7ec44e291d9
+[03/23] ASoC: codecs: wcd9335: Constify static data
+        commit: b2ff7c88bf751fa502f5707f0b7b047afcba87dc
+[04/23] ASoC: codecs: wcd9335: Handle nicer probe deferral and simplify with dev_err_probe()
+        commit: 4a03b5dbad466c902d522f3405daa4e5d80578c5
+[05/23] ASoC: codecs: wcd9335: Drop unneeded error message
+        commit: 3ed4beba49463997eb9a4afa0d46ece7dc5dbf19
+[06/23] ASoC: codecs: wcd9335: Drop unused dmic rate handling
+        commit: 1d1cda22da5db03a0c794d139e06519e3a94f815
+[07/23] ASoC: codecs: wcd934x: Drop unused interp path enum
+        commit: 1bce5c586ba56dfa6acf8d13f0f608f5f5d717bd
+[08/23] ASoC: codecs: wcd934x: Constify static data
+        commit: 5ad81bf49a18dc22bd7e1c56f67be9b5eb50267c
+[09/23] ASoC: codecs: wcd934x: Drop unused mic bias voltage fields
+        commit: a252188244aeff72e4331abba2fee6b9093c847b
+[10/23] ASoC: codecs: wcd934x: Handle nicer probe deferral and simplify with dev_err_probe()
+        commit: 9ea22713227397b56a2b36a68c8bda13f0b43d70
+[11/23] ASoC: codecs: wcd937x: Constify static data
+        commit: 0ad42c04e9b223d913ad4b1463c0f1cdc00f3cc5
+[12/23] ASoC: codecs: wcd937x: Constify wcd937x_sdw_ch_info
+        commit: c8ed66cbc3b7ccd9e5ae98b06023c1fe3e834ca8
+[13/23] ASoC: codecs: wcd937x: Drop unused enums, defines and types
+        commit: d8e746719d705427e69c7f0ac2ca20aaf560a03e
+[14/23] ASoC: codecs: wcd937x: Drop unused state container fields
+        commit: c2d9fd2e94588eb83f8855e942d77b5f539c5a5f
+[15/23] ASoC: codecs: wcd937x: Drop unused chipid member
+        commit: 6dc7b8a10419a267cd5eb7ac2bb407f7fc7865e2
+[16/23] ASoC: codecs: wcd938x: Constify static data
+        commit: 424e6bc4328b39a924cc2acb251868cfd23fe369
+[17/23] ASoC: codecs: wcd938x: Constify wcd938x_sdw_ch_info
+        commit: af57d5e3b58886ee5efc6ba9d0e25c8d1d3c3c37
+[18/23] ASoC: codecs: wcd938x: Drop unused RX/TX direction enum
+        commit: 43e7400f6bf51ecedf4ddad942cd812fe351ce74
+[19/23] ASoC: codecs: wcd938x: Drop unused num_ports field
+        commit: 3f1deca19e68e48bd89a72c4fe648275d9af574b
+[20/23] ASoC: codecs: wcd939x: Constify static data
+        commit: 8e5d5b2c96fadecdaebff5afcbb7f51580701122
+[21/23] ASoC: codecs: wcd939x: Constify wcd939x_sdw_ch_info
+        commit: f49100faccb5d2ffb4c9e5e4bba6173f5ac43d22
+[22/23] ASoC: codecs: wcd939x: Drop unused RX/TX direction enum
+        commit: 2642b6aa9d0f43c52c83461bc7ae4917336e7643
+[23/23] ASoC: codecs: wcd939x: Drop unused num_ports field
+        commit: 34935cd4721f0492eafbc516dd1fc7f5f687fa76
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

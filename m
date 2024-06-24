@@ -2,111 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CDC8914DC7
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jun 2024 14:55:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E986E914E7D
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jun 2024 15:29:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CDB351E7;
-	Mon, 24 Jun 2024 14:55:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CDB351E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 81A5E851;
+	Mon, 24 Jun 2024 15:28:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 81A5E851
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1719233714;
-	bh=DOxpGDRPXOULudQMfRyURG+LRWh3ynkAOi8ERNjON/s=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1719235749;
+	bh=KtYCEeq8JRhBkkEXlVP+XorOG+4SzhjWy5Mxmxnw4WE=;
+	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Zgzw3tXpjs2FM91LXgyCeRUB+Gt60k3g3+vMnOtgv6AkkLvggSueF22QMx7xg7kmI
-	 9FSzmKafEv8Rvc+1HU7eujDBeF81oqHZ+XV3P4AopK6ab3vUL3g1CB34ZnhDSi5Zi1
-	 ViD7gU/9hoIsobB7fdS6NYoTeDE0VD10lb/p9tQk=
+	b=lrS+BPqOxsuqZphCWjOklStPE60r+qEsa5A2tWHo1ZUJ4XTcn9a5F8ZXNulvwNN7K
+	 /iTKN0mF1gqYhmg0EhfM6pBSZ0CLSvLCaYYffw+fPGKksWCgvHZR05+mwPmB1fFXRj
+	 L8OtlUnbTAx5mw7N2p1ZU4XalKnbzi5XPsDJBBcU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 35F58F805A9; Mon, 24 Jun 2024 14:54:42 +0200 (CEST)
+	id E2C1EF805AF; Mon, 24 Jun 2024 15:28:36 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2FB25F805B1;
-	Mon, 24 Jun 2024 14:54:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A1144F805AF;
+	Mon, 24 Jun 2024 15:28:35 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4DB3CF80495; Mon, 24 Jun 2024 14:54:37 +0200 (CEST)
+	id 3A787F80495; Mon, 24 Jun 2024 15:28:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-yb1-xb29.google.com (mail-yb1-xb29.google.com
- [IPv6:2607:f8b0:4864:20::b29])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 88D9EF800E4
-	for <alsa-devel@alsa-project.org>; Mon, 24 Jun 2024 14:54:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 88D9EF800E4
+	by alsa1.perex.cz (Postfix) with ESMTPS id 64AEBF800ED
+	for <alsa-devel@alsa-project.org>; Mon, 24 Jun 2024 15:28:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64AEBF800ED
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=e/pkAeOO
-Received: by mail-yb1-xb29.google.com with SMTP id
- 3f1490d57ef6-df4d5d0b8d0so3782260276.2
-        for <alsa-devel@alsa-project.org>;
- Mon, 24 Jun 2024 05:54:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1719233672; x=1719838472;
- darn=alsa-project.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=T4MhoPIjswsMp7f7a8/ndhL9pANhZJFzHy+iV0sTzTk=;
-        b=e/pkAeOOgvz4dzenOi9U/qouARMGuNu1Hp3yKB+i5EsYWj9yXnmh5rzXR+dDBL7wcP
-         6trYygfDBIkxORYAKAARDLJgEdCZiWtdJnNT777wzYXUyz7H9C6YnyI9RaLxSLm6N2ZQ
-         G+hQxaFnL4f6gXnIwmoe43G9Ast34+ot6A7tzMNBIEtlFjt7KjS4MbemaIbpezfl4n7i
-         r46PzvcHvBXcPSIlRusx4o3O+WJfr2Mp0vlRKKpRLP0NsAF5YMlBTkFAqgCu/LxH91ff
-         VGjjf3i1J/o/tMbOI3QI4Ku5W3bfEQxykIh3k4rySJow6FRLfy9mggBMPcNpcNDH/bBi
-         xSQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719233672; x=1719838472;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=T4MhoPIjswsMp7f7a8/ndhL9pANhZJFzHy+iV0sTzTk=;
-        b=TLCe+rHqx+JzUxR01T/2y66MxzAx5aJdeZUfYucP54hBOvLIc6P8NUNATmy4f9NpN0
-         icWQYP1LJy/BGwUGQ/LJjQQYM/w2YXq02Vl60npLFl5eHZFaTPqJxHGE6t1fGBT8KO0a
-         Tr131Jpy6jlNCq6UrnaargPhZs8eKD47xgQ6divvno01+Yxtxt1LkARQ0GP+c7TveRXx
-         4mWw1PHWnwhvkpOxqRFOYHP2hQ4qByJQZTz0TVLaHJjyB/L4KWMcn6GYfZZuZ+zRxoRk
-         p42DQ4nHYLYWzNj5VGE0aR/3ujjYjk0yZZRlVNnrzunmiP4YPTHCHbeX+G2m8ZLlG03B
-         fLAw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWjPuF3ZG4fVNHWVK4NAxT8AIm/P17t3KxRadlLD79IeMVoJ+dD0vO+p9tGURfh5mWe4TNIuiMut2/AjowaF2siUHIPPAxaYRgc8h4=
-X-Gm-Message-State: AOJu0YyPorHTDjJYeECudTEiCBG72px+xvE4gYYh6UbEovO5ZbJSmrdC
-	mEck8Fn3Y9lERpQYxrpYrI14YrK2ztM5RSCL0ef35pRh3NVeDU0VD7d2DAo6tE+o+ZFVRlalHpt
-	ZlT1Nqf6TfbPQVACLOF7TNLBBEgUcm4rfSbcCmw==
-X-Google-Smtp-Source: 
- AGHT+IEEe2Wox3jWC9RV0LVT1QsuSsNWmLHgdKtfDBvlgM6eb1pktgBqHVRKocFL/tWEa8Hwpz7Px1YRrvmHbynoaFc=
-X-Received: by 2002:a5b:bce:0:b0:df4:476e:7577 with SMTP id
- 3f1490d57ef6-e03040182b2mr3570101276.60.1719233672328; Mon, 24 Jun 2024
- 05:54:32 -0700 (PDT)
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=IeobTVvw
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
+ 45O7jFln001265;
+	Mon, 24 Jun 2024 08:28:04 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=PODMain02222019; bh=OxGydhnFWd50JeZqTj
+	odUxtVhoYb7kohs0XAF/4HDQU=; b=IeobTVvwhOzlNW/D7vfckZXva6Sg4C2lh+
+	zHXcmhf6tm2yenFztbSk96wsVHsAgLw6SebGcFBYYpjxy8oEkpKQ1zPwuC0B/Bu+
+	e9jiTDlBruZOLv1cYmnG70XGIjXWnVpw0b62G6x+0qBIu1U7z8eY0/FeLjMeZg5u
+	V/yw1Q8ToeEBLbfPV53/RsTTE5Xj3P6CSZeKoOt7BxXYSmtyjA3IR9hmBiDCCxQj
+	YytDewIQ4NXQl6hZm+lrmRri/lGVFstuJjk4m+tZ+B31wElmqiDFpTPYFVqMBnEU
+	LtUdLhwJ3AuBXckdiymyftAPgIoq7Ivl2ijZIvEER7r6cndL2ICA==
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3ywv0x9mnj-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 24 Jun 2024 08:28:04 -0500 (CDT)
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 24 Jun
+ 2024 14:28:01 +0100
+Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1544.9 via Frontend Transport; Mon, 24 Jun 2024 14:28:01 +0100
+Received: from opensource.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPS id B0806820248;
+	Mon, 24 Jun 2024 13:28:01 +0000 (UTC)
+Date: Mon, 24 Jun 2024 14:28:00 +0100
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Jaroslav Kysela <perex@perex.cz>
+CC: <pierre-louis.bossart@linux.intel.com>, <bard.liao@intel.com>,
+        <patches@opensource.cirrus.com>, <alsa-devel@alsa-project.org>
+Subject: Re: [PATCH alsa-ucm-conf 2/2] sof-soundwire: Add support for
+ cs42l43/cs35l56 bridge configuration
+Message-ID: <Znl0YIGSDmtP1fIs@opensource.cirrus.com>
+References: <20240624122041.952863-1-ckeepax@opensource.cirrus.com>
+ <20240624122041.952863-2-ckeepax@opensource.cirrus.com>
+ <ba0f2827-fdf8-4496-b782-fa4129958a9a@perex.cz>
 MIME-Version: 1.0
-References: <20240619-lpass-wsa-vi-v2-0-7aff3f97a490@linaro.org>
- <20240619-lpass-wsa-vi-v2-2-7aff3f97a490@linaro.org>
- <hz5eqta4ttzsnwttqzqrec4vcwvyleoow7thoiym3g3wjsfqk4@tx23nktde3gh>
- <fe75671f-c292-44b7-9024-15e0825c55c2@linaro.org>
-In-Reply-To: <fe75671f-c292-44b7-9024-15e0825c55c2@linaro.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 24 Jun 2024 15:54:20 +0300
-Message-ID: 
- <CAA8EJpoLE5zUEvC4-q8h5KH=c_ucew=py5TV2qCTaSEQNQeQzQ@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] ASoC: codecs:lpass-wsa-macro: Fix logic of
- enabling vi channels
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Cc: Banajit Goswami <bgoswami@quicinc.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org,
-	linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Manikantan R <quic_manrav@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
-Message-ID-Hash: WFXHA7WNOFW32BVAVKBFCPSJCYG5TVBU
-X-Message-ID-Hash: WFXHA7WNOFW32BVAVKBFCPSJCYG5TVBU
-X-MailFrom: dmitry.baryshkov@linaro.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <ba0f2827-fdf8-4496-b782-fa4129958a9a@perex.cz>
+X-Proofpoint-ORIG-GUID: QH1IIVBeWPZIGfOx_fVyRPHR-QdqbVkP
+X-Proofpoint-GUID: QH1IIVBeWPZIGfOx_fVyRPHR-QdqbVkP
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: W7LIQN4FMMEUPEBTB3O7YU54FNDZGWDC
+X-Message-ID-Hash: W7LIQN4FMMEUPEBTB3O7YU54FNDZGWDC
+X-MailFrom: prvs=3905e7e383=ckeepax@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -118,7 +102,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WFXHA7WNOFW32BVAVKBFCPSJCYG5TVBU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/W7LIQN4FMMEUPEBTB3O7YU54FNDZGWDC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -127,48 +111,48 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 24 Jun 2024 at 15:35, Srinivas Kandagatla
-<srinivas.kandagatla@linaro.org> wrote:
->
->
->
-> On 20/06/2024 21:28, Dmitry Baryshkov wrote:
-> > On Wed, Jun 19, 2024 at 02:42:01PM GMT, Srinivas Kandagatla wrote:
-> >> Existing code only configures one of WSA_MACRO_TX0 or WSA_MACRO_TX1
-> >> paths eventhough we enable both of them. Fix this bug by adding proper
-> >> checks and rearranging some of the common code to able to allow setting
-> >> both TX0 and TX1 paths
-> >
-> > Same question. What is the observed issue? Corrupted audio? Cracking?
-> > Under/overruns?
->
-> two Issues with existing code which are addressed by these two patches.
->
-> -> only one channels gets enabled on VI feedback path instead of 2
-> channels. resulting in 1 channel recording instead of 2.
-> -> rate is not set correctly for the VI record path.
+On Mon, Jun 24, 2024 at 02:41:45PM +0200, Jaroslav Kysela wrote:
+> On 24. 06. 24 14:20, Charles Keepax wrote:
+> > The cs42l43 has both a SPI master and an I2S interface, in some
+> > configurations 2 cs35l56 amplifiers are connected to these to provide
+> > bass speakers whilst the cs42l43's internal speaker drivers are used for
+> > the tweeters. Add UCM configuration for this type of system.
+> > 
+> > Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+> > ---
+> >   ucm2/sof-soundwire/cs35l56-bridge.conf | 61 ++++++++++++++++++++++++++
+> >   ucm2/sof-soundwire/sof-soundwire.conf  |  2 +-
+> >   2 files changed, 62 insertions(+), 1 deletion(-)
+> >   create mode 100644 ucm2/sof-soundwire/cs35l56-bridge.conf
+> > 
+> > diff --git a/ucm2/sof-soundwire/cs35l56-bridge.conf b/ucm2/sof-soundwire/cs35l56-bridge.conf
+> > new file mode 100644
+> > index 0000000..6fafc80
+> > --- /dev/null
+> > +++ b/ucm2/sof-soundwire/cs35l56-bridge.conf
+> > @@ -0,0 +1,61 @@
+> > +# Use case Configuration for sof-soundwire card
+> > +
+> > +LibraryConfig.remap.Config {
+> > +	ctl.default.map {
+> > +		"name='cs42l43 Bridge Switch'" {
+> > +			"name='AMPL Speaker Switch'".vindex.0 0
+> > +			"name='AMPR Speaker Switch'".vindex.1 0
+> 
+> The logical/abstract names should not contains any chip or specific hardware
+> identification. Just use "Speaker Switch" and "Speaker Volume" to not
+> confuse users.
+> 
 
-Thanks. This should be a part of the commit message.
+Can do.
 
->
->
-> --srini
->
->
-> >
-> >>
-> >> Fixes: 2c4066e5d428 ("ASoC: codecs: lpass-wsa-macro: add dapm widgets and route")
-> >> Co-developed-by: Manikantan R <quic_manrav@quicinc.com>
-> >> Signed-off-by: Manikantan R <quic_manrav@quicinc.com>
-> >> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-> >> ---
-> >>   sound/soc/codecs/lpass-wsa-macro.c | 112 ++++++++++++++++++++++---------------
-> >>   1 file changed, 68 insertions(+), 44 deletions(-)
-> >>
-> >
+> For my information - "AMPL/R Speaker Volume" is digital or analog volume control?
+> 
 
+It's a digital volume, although I guess technically its
+controlled by firmware in this case, so in the future it could
+be updated to actually control the analog volume, but I am not
+aware of any plans to do so.
 
-
--- 
-With best wishes
-Dmitry
+Thanks,
+Charles

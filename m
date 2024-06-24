@@ -2,95 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E986E914E7D
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jun 2024 15:29:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E42B91524D
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jun 2024 17:29:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 81A5E851;
-	Mon, 24 Jun 2024 15:28:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 81A5E851
+	by alsa0.perex.cz (Postfix) with ESMTPS id A599A844;
+	Mon, 24 Jun 2024 17:29:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A599A844
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1719235749;
-	bh=KtYCEeq8JRhBkkEXlVP+XorOG+4SzhjWy5Mxmxnw4WE=;
-	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1719242994;
+	bh=Z8b/An1gpBRx3EBNEgucKedKqJ1Ejw6k10nsaOGsUbQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=lrS+BPqOxsuqZphCWjOklStPE60r+qEsa5A2tWHo1ZUJ4XTcn9a5F8ZXNulvwNN7K
-	 /iTKN0mF1gqYhmg0EhfM6pBSZ0CLSvLCaYYffw+fPGKksWCgvHZR05+mwPmB1fFXRj
-	 L8OtlUnbTAx5mw7N2p1ZU4XalKnbzi5XPsDJBBcU=
+	b=tC4DEM2A70JxcjTk4Qq8LSc5b/QyKF/GG2scFs3O3yGj3IMTyxN+OhdMxii6GZBtE
+	 n9+h7Q7e2Ud8DHpLmD9ENq3/vBXyE93wkQzPmkPG7AGgJ0uoU2jakSmYStAKx1PlEC
+	 9VeoXovgX57JNc6dBBjcRHusgiT/i4wxngXyEGUE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E2C1EF805AF; Mon, 24 Jun 2024 15:28:36 +0200 (CEST)
+	id E44E2F805C5; Mon, 24 Jun 2024 17:29:20 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A1144F805AF;
-	Mon, 24 Jun 2024 15:28:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 160F9F805B4;
+	Mon, 24 Jun 2024 17:29:20 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3A787F80495; Mon, 24 Jun 2024 15:28:27 +0200 (CEST)
+	id 5110EF8049C; Mon, 24 Jun 2024 17:29:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 64AEBF800ED
-	for <alsa-devel@alsa-project.org>; Mon, 24 Jun 2024 15:28:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64AEBF800ED
+	by alsa1.perex.cz (Postfix) with ESMTPS id F3E69F800E4
+	for <alsa-devel@alsa-project.org>; Mon, 24 Jun 2024 17:29:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3E69F800E4
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=IeobTVvw
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 45O7jFln001265;
-	Mon, 24 Jun 2024 08:28:04 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=PODMain02222019; bh=OxGydhnFWd50JeZqTj
-	odUxtVhoYb7kohs0XAF/4HDQU=; b=IeobTVvwhOzlNW/D7vfckZXva6Sg4C2lh+
-	zHXcmhf6tm2yenFztbSk96wsVHsAgLw6SebGcFBYYpjxy8oEkpKQ1zPwuC0B/Bu+
-	e9jiTDlBruZOLv1cYmnG70XGIjXWnVpw0b62G6x+0qBIu1U7z8eY0/FeLjMeZg5u
-	V/yw1Q8ToeEBLbfPV53/RsTTE5Xj3P6CSZeKoOt7BxXYSmtyjA3IR9hmBiDCCxQj
-	YytDewIQ4NXQl6hZm+lrmRri/lGVFstuJjk4m+tZ+B31wElmqiDFpTPYFVqMBnEU
-	LtUdLhwJ3AuBXckdiymyftAPgIoq7Ivl2ijZIvEER7r6cndL2ICA==
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3ywv0x9mnj-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 24 Jun 2024 08:28:04 -0500 (CDT)
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 24 Jun
- 2024 14:28:01 +0100
-Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1544.9 via Frontend Transport; Mon, 24 Jun 2024 14:28:01 +0100
-Received: from opensource.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPS id B0806820248;
-	Mon, 24 Jun 2024 13:28:01 +0000 (UTC)
-Date: Mon, 24 Jun 2024 14:28:00 +0100
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Jaroslav Kysela <perex@perex.cz>
-CC: <pierre-louis.bossart@linux.intel.com>, <bard.liao@intel.com>,
-        <patches@opensource.cirrus.com>, <alsa-devel@alsa-project.org>
-Subject: Re: [PATCH alsa-ucm-conf 2/2] sof-soundwire: Add support for
- cs42l43/cs35l56 bridge configuration
-Message-ID: <Znl0YIGSDmtP1fIs@opensource.cirrus.com>
-References: <20240624122041.952863-1-ckeepax@opensource.cirrus.com>
- <20240624122041.952863-2-ckeepax@opensource.cirrus.com>
- <ba0f2827-fdf8-4496-b782-fa4129958a9a@perex.cz>
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=KCEUnjAl
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1719242945; x=1750778945;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=Z8b/An1gpBRx3EBNEgucKedKqJ1Ejw6k10nsaOGsUbQ=;
+  b=KCEUnjAlJkDKpNsJ/UdsUftDnZjWh+ff75Q44ZXY9TPrUPlmR0KdPpKH
+   k35d0NVHi5qLYnDAM/0vywIgT2uCEYCZ7lWIevWM+8F76t/WoCOLZogsw
+   yI/nJKbqNz1hO1KskndIZy+vo84B724e+TkeOB3UTzjdsM+m/nLfIbI2p
+   MzVATuHog5SMhJL3OxL3OqkHxsepDatsM2NZ9oH5XME67t+i0dhRbv3GI
+   hibN8HN6iqD8TwEgPyCA5PBCcjwENK6D6MwZ2e09r6XkZOXInMpje7zmF
+   EbP9NMFdVi0hB2OuLxwAMTFDd+YOSBou0SwNBs878/6DcegX8b1CbykGd
+   Q==;
+X-CSE-ConnectionGUID: CORmntvKRpKS87Kj6VA4XQ==
+X-CSE-MsgGUID: fLAT7N/qSGOhJEuuzYSLvQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11113"; a="19121768"
+X-IronPort-AV: E=Sophos;i="6.08,262,1712646000";
+   d="scan'208";a="19121768"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jun 2024 08:29:00 -0700
+X-CSE-ConnectionGUID: GI/hu555S7+wE0XC4sZLFA==
+X-CSE-MsgGUID: 2w5dN8AwQeatpRI/PILLdw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.08,262,1712646000";
+   d="scan'208";a="47703946"
+Received: from ksztyber-mobl2.ger.corp.intel.com (HELO [10.245.246.230])
+ ([10.245.246.230])
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jun 2024 08:28:57 -0700
+Message-ID: <7372501f-0393-4ba5-9e05-71d59dc1449b@linux.intel.com>
+Date: Mon, 24 Jun 2024 17:26:32 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <ba0f2827-fdf8-4496-b782-fa4129958a9a@perex.cz>
-X-Proofpoint-ORIG-GUID: QH1IIVBeWPZIGfOx_fVyRPHR-QdqbVkP
-X-Proofpoint-GUID: QH1IIVBeWPZIGfOx_fVyRPHR-QdqbVkP
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: W7LIQN4FMMEUPEBTB3O7YU54FNDZGWDC
-X-Message-ID-Hash: W7LIQN4FMMEUPEBTB3O7YU54FNDZGWDC
-X-MailFrom: prvs=3905e7e383=ckeepax@opensource.cirrus.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] ASoC: SOF: ipc4-topology: Use correct queue_id for
+ requesting input pin format
+To: Mark Brown <broonie@kernel.org>
+Cc: linux-sound@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.de,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, stable@vger.kernel.org
+References: <20240624121519.91703-1-pierre-louis.bossart@linux.intel.com>
+ <20240624121519.91703-3-pierre-louis.bossart@linux.intel.com>
+ <ec992bf9-667c-48a4-81ed-3a1232123987@sirena.org.uk>
+Content-Language: en-US
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <ec992bf9-667c-48a4-81ed-3a1232123987@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: UTW7SQJMTPERVTD2EEMPFKTA7KIQJUFF
+X-Message-ID-Hash: UTW7SQJMTPERVTD2EEMPFKTA7KIQJUFF
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -102,7 +106,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/W7LIQN4FMMEUPEBTB3O7YU54FNDZGWDC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UTW7SQJMTPERVTD2EEMPFKTA7KIQJUFF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -111,48 +115,23 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, Jun 24, 2024 at 02:41:45PM +0200, Jaroslav Kysela wrote:
-> On 24. 06. 24 14:20, Charles Keepax wrote:
-> > The cs42l43 has both a SPI master and an I2S interface, in some
-> > configurations 2 cs35l56 amplifiers are connected to these to provide
-> > bass speakers whilst the cs42l43's internal speaker drivers are used for
-> > the tweeters. Add UCM configuration for this type of system.
-> > 
-> > Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-> > ---
-> >   ucm2/sof-soundwire/cs35l56-bridge.conf | 61 ++++++++++++++++++++++++++
-> >   ucm2/sof-soundwire/sof-soundwire.conf  |  2 +-
-> >   2 files changed, 62 insertions(+), 1 deletion(-)
-> >   create mode 100644 ucm2/sof-soundwire/cs35l56-bridge.conf
-> > 
-> > diff --git a/ucm2/sof-soundwire/cs35l56-bridge.conf b/ucm2/sof-soundwire/cs35l56-bridge.conf
-> > new file mode 100644
-> > index 0000000..6fafc80
-> > --- /dev/null
-> > +++ b/ucm2/sof-soundwire/cs35l56-bridge.conf
-> > @@ -0,0 +1,61 @@
-> > +# Use case Configuration for sof-soundwire card
-> > +
-> > +LibraryConfig.remap.Config {
-> > +	ctl.default.map {
-> > +		"name='cs42l43 Bridge Switch'" {
-> > +			"name='AMPL Speaker Switch'".vindex.0 0
-> > +			"name='AMPR Speaker Switch'".vindex.1 0
+
+
+On 6/24/24 14:36, Mark Brown wrote:
+> On Mon, Jun 24, 2024 at 02:15:18PM +0200, Pierre-Louis Bossart wrote:
+>> Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+>> Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+>> Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+>> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+>> Cc: <stable@vger.kernel.org> # v6.8+
+>> ---
 > 
-> The logical/abstract names should not contains any chip or specific hardware
-> identification. Just use "Speaker Switch" and "Speaker Volume" to not
-> confuse users.
-> 
+> Please put fixes at the start of serieses, or send them separately -
+> it makes things much easier to handle if they're separate.  This ensures
+> that the fixes don't end up with spurious dependencies on non-fix
+> changes.
 
-Can do.
-
-> For my information - "AMPL/R Speaker Volume" is digital or analog volume control?
-> 
-
-It's a digital volume, although I guess technically its
-controlled by firmware in this case, so in the future it could
-be updated to actually control the analog volume, but I am not
-aware of any plans to do so.
-
-Thanks,
-Charles
+Agree, I wasn't sure if this was really linux-stable material, this
+patch fixes problems on to-be-released topologies but it doesn't have
+any effect on existing user setups. At the same time, it certainly fixes
+a conceptual bug. Not sure if the tag is needed for those cases?

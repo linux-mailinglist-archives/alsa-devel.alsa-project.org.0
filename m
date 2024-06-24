@@ -2,85 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69D9F914A3C
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jun 2024 14:37:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1817E914A4A
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jun 2024 14:38:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BFE0F822;
-	Mon, 24 Jun 2024 14:37:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BFE0F822
+	by alsa0.perex.cz (Postfix) with ESMTPS id 43F99741;
+	Mon, 24 Jun 2024 14:38:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 43F99741
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1719232637;
-	bh=VhurbZFA7Gb2R3cH1kKEN0MzJ83p+dO1GdwBiN0/gWo=;
+	s=default; t=1719232710;
+	bh=5VPx4voAM1j1D9PzeWsrAkqElvUIEYBdZlBVSM6s6LY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=HgauiOC8VFjpW0SzbSQl9Xa3ylFe3IAZ9CJaXWhYhWZ+hSB1mtD2KqWrtc5JY9wPo
-	 wbRCvG5Bh9JI7RY6fQcp0ixUndHf2fbsg3B7CBOW3MLXCykQylcMbWx4/b4rLrqqtQ
-	 iUjxSqsGeDdMOuoxdUMOj5UG65R70tm/04cu1xb0=
+	b=K9sSHqIF9pQfd1slZnof4sY1wWedGb6olv15OL+3TYTM59xn+5tISgGkCCYX5mKWm
+	 2qxj4+QV5CCX8SwFHabZCHMAZBwR4wScwUfA9Tbhs8591uh51Y9RZgsQobWRTeKqMV
+	 aGgoRLRSGqA4QQ9gPA/3uAEftPUuD7w3qUc6X214=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 75F57F80154; Mon, 24 Jun 2024 14:36:41 +0200 (CEST)
+	id 3822FF805A0; Mon, 24 Jun 2024 14:37:58 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 78930F805AF;
-	Mon, 24 Jun 2024 14:36:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7FCD6F80423;
+	Mon, 24 Jun 2024 14:37:58 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 82D54F80495; Mon, 24 Jun 2024 14:36:37 +0200 (CEST)
+	id CABB3F80495; Mon, 24 Jun 2024 14:37:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9EA44F800E4
-	for <alsa-devel@alsa-project.org>; Mon, 24 Jun 2024 14:36:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9EA44F800E4
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3CF5BF80154
+	for <alsa-devel@alsa-project.org>; Mon, 24 Jun 2024 14:37:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3CF5BF80154
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=V4gMb4kg
+ header.s=k20201202 header.b=JR/w7tM5
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 0257460B34;
-	Mon, 24 Jun 2024 12:36:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDFB6C32781;
-	Mon, 24 Jun 2024 12:36:28 +0000 (UTC)
+	by sin.source.kernel.org (Postfix) with ESMTP id 2FDB0CE11AA;
+	Mon, 24 Jun 2024 12:37:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22161C32781;
+	Mon, 24 Jun 2024 12:37:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1719232590;
-	bh=VhurbZFA7Gb2R3cH1kKEN0MzJ83p+dO1GdwBiN0/gWo=;
+	s=k20201202; t=1719232661;
+	bh=5VPx4voAM1j1D9PzeWsrAkqElvUIEYBdZlBVSM6s6LY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=V4gMb4kgV4cGzMttn8KHyuP8htrKOo4XQD2tUbLsqByayHguV46787kuw4Mi9jjyc
-	 D3lxr1Q66qpkY8irbGfqo/hybxWFN12QIlUoNkPWkrjTu/NtsL9s6r1UR6bkokuHcI
-	 daHlrICrdsCzeQYZO+Qp6AsrFWqsxkzcXbvV2cNZT0Uccn9O9ZowrH8PJ4m7kfBEZt
-	 25xqGr/cYHY/QaS3Zbp49IAP+V+D4Kiy8P4wTsafs/WatZI0PbK6U80FYI1afzLQKU
-	 STziVuCXOvwQ1PTW9IDIDjH95A6hJG4lHIGuOQ4XqfWJjmj/GV8ZSlIwbwVQw3uVml
-	 NbWGQl8ngvWWQ==
-Date: Mon, 24 Jun 2024 13:36:25 +0100
+	b=JR/w7tM5pfqe0FfoumNp+iJVobXORI3HI2C2LWn3w1IMh73DH21CX6Tl86TmYB0MF
+	 O/c0pfVZjdJXWoJAzgrGQX+YUqAFgEK18RtCewVIgwRY4Grs9qg7DU5XEohFeeliww
+	 KBPA6n6p06tfkx+2Npyz0I0fgAvUzcC1Bb2j6/ItqfXQRr4sOh+pC3w3yHFRUuLJQW
+	 jRGs0fabQywc5l8bcvSGmwLVxNg0LEuwr4UDNcbDHwunhlLaViV2XBLUeKlIA33qpL
+	 N+CUWK3JwsQ21u4gD5ZwNmp37sps/tEdeYVkYATRdyqiGHmzV+xiqOHJWADmVUpAAd
+	 um4IYbvMuLBGw==
+Date: Mon, 24 Jun 2024 13:37:37 +0100
 From: Mark Brown <broonie@kernel.org>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Cc: linux-sound@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.de,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>, stable@vger.kernel.org
-Subject: Re: [PATCH 2/3] ASoC: SOF: ipc4-topology: Use correct queue_id for
- requesting input pin format
-Message-ID: <ec992bf9-667c-48a4-81ed-3a1232123987@sirena.org.uk>
-References: <20240624121519.91703-1-pierre-louis.bossart@linux.intel.com>
- <20240624121519.91703-3-pierre-louis.bossart@linux.intel.com>
+	Brent Lu <brent.lu@intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>
+Subject: Re: [PATCH 2/4] ASoC: Intel: maxim-common: add max_98373_get_tx_mask
+ function
+Message-ID: <f3b5caee-a27e-42f9-b541-4f6bf8e8d2f2@sirena.org.uk>
+References: <20240624121119.91552-1-pierre-louis.bossart@linux.intel.com>
+ <20240624121119.91552-3-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="5pBrGhTLrwRGNC0f"
+	protocol="application/pgp-signature"; boundary="0XbT4Ni5LjwX/prS"
 Content-Disposition: inline
-In-Reply-To: <20240624121519.91703-3-pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20240624121119.91552-3-pierre-louis.bossart@linux.intel.com>
 X-Cookie: Allow 6 to 8 weeks for delivery.
-Message-ID-Hash: QLWX3NKTFB4PRV422OGFN6D2MEKB76RH
-X-Message-ID-Hash: QLWX3NKTFB4PRV422OGFN6D2MEKB76RH
+Message-ID-Hash: KBP674KQHXIFC3Z6FQ4HSMEPWYFV5R6B
+X-Message-ID-Hash: KBP674KQHXIFC3Z6FQ4HSMEPWYFV5R6B
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -93,7 +90,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QLWX3NKTFB4PRV422OGFN6D2MEKB76RH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KBP674KQHXIFC3Z6FQ4HSMEPWYFV5R6B/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -103,36 +100,32 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---5pBrGhTLrwRGNC0f
+--0XbT4Ni5LjwX/prS
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Jun 24, 2024 at 02:15:18PM +0200, Pierre-Louis Bossart wrote:
-> Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-> Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-> Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> Cc: <stable@vger.kernel.org> # v6.8+
-> ---
+On Mon, Jun 24, 2024 at 02:11:17PM +0200, Pierre-Louis Bossart wrote:
+> From: Brent Lu <brent.lu@intel.com>
+>=20
+> Add a helper function max_98373_get_tx_mask() to get tx mask from
+> max98373 ACPI device properties at runtime.
 
-Please put fixes at the start of serieses, or send them separately -
-it makes things much easier to handle if they're separate.  This ensures
-that the fixes don't end up with spurious dependencies on non-fix
-changes.
+Similarly here.
 
---5pBrGhTLrwRGNC0f
+--0XbT4Ni5LjwX/prS
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmZ5aEkACgkQJNaLcl1U
-h9CWEwf/Wtk/DTzMdgsjQzFf2YB0zOwvpw0DSBQgZpLSkWnOvPb0k6o/wsMhK07l
-AtUfI6rSUzBTQ6fBhRDyLvYMGGDeyDZXcP8zQUUbk83zws7Mq9dSbBZR2JB8r9UK
-D39PW7vG4mz7U8xWeiZUQcvpkDFb0gPCjXCd0DcZrRmBl1KPFwRYjQ6nogAZ0nVy
-xvwwQEpmnp9yLMriXcBz53npaaiHj8CnGkwbp8i7tDn1ZOte/JM9LNYeJCI34ZIN
-iQyezU3Wo4CRdFvPw1kqY0N6wRcgi1f8hrnYz5A2oQoekmEpIR7Xoo9mFFpJvWNg
-H25FDFbhmMOLCH6c0FhZ5+phfpsj4A==
-=zJlx
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmZ5aJAACgkQJNaLcl1U
+h9BwDAf+Ix6++u8cXGwWway2Gm2lKl9P0MaeP04OPNNlDMKYSdjxi3+20X4fYzeX
+O690a4nWmsc3/YoCfUKP94J+LbK2HrZit1P0uRBxdz1E/ZvHXziYqFblLF9IcTPm
+VnmYsN0K/EUbsnVNpy4OB5fUc8/b2Xx995RQg8AqORm3ALJvtQfTwW0a65zEUW7A
+MUQ1v/+f7sev9QQ9w5BHCSfBHxXNw6xulzgQuDBhG5bnm6lFCl1nLQOc4wx6vk26
+bWehSKMtnmsOkT3JIkz2lAajWzE7cYgFhudPzCmj+rpypMQxnlAG+7nqn32Nipxf
+ZlVlM95oh9LDWQkeyghm07fke1lvvw==
+=KjHY
 -----END PGP SIGNATURE-----
 
---5pBrGhTLrwRGNC0f--
+--0XbT4Ni5LjwX/prS--

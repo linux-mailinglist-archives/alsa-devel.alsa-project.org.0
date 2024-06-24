@@ -2,117 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4187F914A36
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jun 2024 14:35:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69D9F914A3C
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jun 2024 14:37:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D807D84C;
-	Mon, 24 Jun 2024 14:35:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D807D84C
+	by alsa0.perex.cz (Postfix) with ESMTPS id BFE0F822;
+	Mon, 24 Jun 2024 14:37:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BFE0F822
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1719232547;
-	bh=rZnyITRnxDG6Nk4huYfxna9K9Qbnrk3RLW9XoXc0NcI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1719232637;
+	bh=VhurbZFA7Gb2R3cH1kKEN0MzJ83p+dO1GdwBiN0/gWo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=VW462U+0yBL1K03UiDYPzQPWYZRbaJltKsjxnczhIWhcVWOSBLZsLxlqBd/g/+WHg
-	 DdpijgbnP6YFlocRhlty/596jblcx+wmxOwHPbPjMexVt13Ov7Cr7RUes2akp43WSI
-	 nbiY1810UuSsNgvoIMD5v0kuYHq+Ii7Et2lHXRqM=
+	b=HgauiOC8VFjpW0SzbSQl9Xa3ylFe3IAZ9CJaXWhYhWZ+hSB1mtD2KqWrtc5JY9wPo
+	 wbRCvG5Bh9JI7RY6fQcp0ixUndHf2fbsg3B7CBOW3MLXCykQylcMbWx4/b4rLrqqtQ
+	 iUjxSqsGeDdMOuoxdUMOj5UG65R70tm/04cu1xb0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 80E47F804D6; Mon, 24 Jun 2024 14:35:15 +0200 (CEST)
+	id 75F57F80154; Mon, 24 Jun 2024 14:36:41 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 840F1F80589;
-	Mon, 24 Jun 2024 14:35:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 78930F805AF;
+	Mon, 24 Jun 2024 14:36:40 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EC4AFF80495; Mon, 24 Jun 2024 14:35:10 +0200 (CEST)
+	id 82D54F80495; Mon, 24 Jun 2024 14:36:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: ***
-X-Spam-Status: No, score=3.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_SBL_CSS,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=no autolearn_force=no
-	version=3.4.6
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [IPv6:2a00:1450:4864:20::331])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F339BF800E4
-	for <alsa-devel@alsa-project.org>; Mon, 24 Jun 2024 14:35:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F339BF800E4
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9EA44F800E4
+	for <alsa-devel@alsa-project.org>; Mon, 24 Jun 2024 14:36:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9EA44F800E4
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=wyvDXFGT
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-424798859dfso35681885e9.0
-        for <alsa-devel@alsa-project.org>;
- Mon, 24 Jun 2024 05:35:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1719232507; x=1719837307;
- darn=alsa-project.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=gQUUsxjRwH4QDpNTDMmqo2rmvQGvXKLqsN4S6BTa2C4=;
-        b=wyvDXFGTthd2cIOe1LHnoQCmmQoHFl7OoFQEsCn10lGLLtHtK3CXlOOUXMkrg7+lad
-         +u9iDOIFZIIEXIpPvk1qCYiiOEYH1Hnk9YHAKSVT88sdzlSiB43gpUes6mVxrokniPPp
-         JudBI3H2eaxuu+XrJhMt1b48+Od2RKPmyV2dkDdv2SLzcaK9kYO2nwXZ4hANjsOGx3dk
-         l4gXGAEcsqLaaKTkYdQ/K1z8bk3+4xiBqxK+odSMNevJUjRCfDP0vJ/v5l17GtGeBVNC
-         gU/EYQVz/s0zdsKM40pHo26D1BTQyi55FzESSuuj2PvvEQZ/yxohX6x56MT85dcd7jeg
-         HLLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719232507; x=1719837307;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=gQUUsxjRwH4QDpNTDMmqo2rmvQGvXKLqsN4S6BTa2C4=;
-        b=Z16Dvl5ViivdJL1HwHrLv5tvHzMgAA6Xu3WroGzCa5Ak2yphBWAJ//2edyvL/c4aFe
-         0BSQGDcflNBgQHGC05LaK9JrkCkY4ydyjETP+aNAd95LZyVHzjfuQ4QaZ315LowmwMBB
-         hfwNWvdqVxHi4AxmIux4q9fTnJJ8wPFqfa3fQDuzeIDtUxaFTYfJ96t7n6NJDCrOi8Th
-         RZ5EQsUaqdZFZru+R5MHKKsjZCnGSuwlHcDViwZbkf0c8I6/BRXUahQSkLnS8+8Jt792
-         y7qmTNeExY6dgcNIgnOjI1vIk1+U8UHhOl67Ap3lMCJz5OiQ3ZV3Fh46WwFe5SyJT1We
-         Bogg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUuC2NAWjB8QLgWQqpnVny+BtvbEy5Zv7njR/Wn4B7zGCzgf/vEb/MuS7ctc3DRzkmfzL5+8ibOpMyqJYsJFB7LKUhBOF1+j7p+xYM=
-X-Gm-Message-State: AOJu0YwciXuascx3RXWr0rl9G6eGJtbhI67fPUnru9Ij5AtPtQ/YHwK2
-	dnvVjQZjNHTcAZK4t/BJ/B/AoOqTvDYK6jcGa9ay0pyGaxorLjfgfOF8hvPEqjY=
-X-Google-Smtp-Source: 
- AGHT+IF7U0TSjuU2VtHCgQSadIQvNwhYOOe7AZZqFDBcNxrvKuelGClpZLjx79kGC+fjpLQNkiUjVQ==
-X-Received: by 2002:a7b:cc89:0:b0:421:7f4d:525f with SMTP id
- 5b1f17b1804b1-4248cc35da7mr30272805e9.24.1719232506864;
-        Mon, 24 Jun 2024 05:35:06 -0700 (PDT)
-Received: from [192.168.1.195] ([5.133.47.210])
-        by smtp.googlemail.com with ESMTPSA id
- 5b1f17b1804b1-4248179d506sm131135415e9.6.2024.06.24.05.35.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 24 Jun 2024 05:35:06 -0700 (PDT)
-Message-ID: <fe75671f-c292-44b7-9024-15e0825c55c2@linaro.org>
-Date: Mon, 24 Jun 2024 13:35:05 +0100
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=V4gMb4kg
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id 0257460B34;
+	Mon, 24 Jun 2024 12:36:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDFB6C32781;
+	Mon, 24 Jun 2024 12:36:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1719232590;
+	bh=VhurbZFA7Gb2R3cH1kKEN0MzJ83p+dO1GdwBiN0/gWo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=V4gMb4kgV4cGzMttn8KHyuP8htrKOo4XQD2tUbLsqByayHguV46787kuw4Mi9jjyc
+	 D3lxr1Q66qpkY8irbGfqo/hybxWFN12QIlUoNkPWkrjTu/NtsL9s6r1UR6bkokuHcI
+	 daHlrICrdsCzeQYZO+Qp6AsrFWqsxkzcXbvV2cNZT0Uccn9O9ZowrH8PJ4m7kfBEZt
+	 25xqGr/cYHY/QaS3Zbp49IAP+V+D4Kiy8P4wTsafs/WatZI0PbK6U80FYI1afzLQKU
+	 STziVuCXOvwQ1PTW9IDIDjH95A6hJG4lHIGuOQ4XqfWJjmj/GV8ZSlIwbwVQw3uVml
+	 NbWGQl8ngvWWQ==
+Date: Mon, 24 Jun 2024 13:36:25 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: linux-sound@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.de,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>, stable@vger.kernel.org
+Subject: Re: [PATCH 2/3] ASoC: SOF: ipc4-topology: Use correct queue_id for
+ requesting input pin format
+Message-ID: <ec992bf9-667c-48a4-81ed-3a1232123987@sirena.org.uk>
+References: <20240624121519.91703-1-pierre-louis.bossart@linux.intel.com>
+ <20240624121519.91703-3-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] ASoC: codecs:lpass-wsa-macro: Fix logic of
- enabling vi channels
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Banajit Goswami <bgoswami@quicinc.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
- Manikantan R <quic_manrav@quicinc.com>
-References: <20240619-lpass-wsa-vi-v2-0-7aff3f97a490@linaro.org>
- <20240619-lpass-wsa-vi-v2-2-7aff3f97a490@linaro.org>
- <hz5eqta4ttzsnwttqzqrec4vcwvyleoow7thoiym3g3wjsfqk4@tx23nktde3gh>
-Content-Language: en-US
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <hz5eqta4ttzsnwttqzqrec4vcwvyleoow7thoiym3g3wjsfqk4@tx23nktde3gh>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: UFBEDVLDEO2LT5R5BSY3HLIJTILBAFOM
-X-Message-ID-Hash: UFBEDVLDEO2LT5R5BSY3HLIJTILBAFOM
-X-MailFrom: srinivas.kandagatla@linaro.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="5pBrGhTLrwRGNC0f"
+Content-Disposition: inline
+In-Reply-To: <20240624121519.91703-3-pierre-louis.bossart@linux.intel.com>
+X-Cookie: Allow 6 to 8 weeks for delivery.
+Message-ID-Hash: QLWX3NKTFB4PRV422OGFN6D2MEKB76RH
+X-Message-ID-Hash: QLWX3NKTFB4PRV422OGFN6D2MEKB76RH
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -124,7 +93,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UFBEDVLDEO2LT5R5BSY3HLIJTILBAFOM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QLWX3NKTFB4PRV422OGFN6D2MEKB76RH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -134,35 +103,36 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
+--5pBrGhTLrwRGNC0f
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 20/06/2024 21:28, Dmitry Baryshkov wrote:
-> On Wed, Jun 19, 2024 at 02:42:01PM GMT, Srinivas Kandagatla wrote:
->> Existing code only configures one of WSA_MACRO_TX0 or WSA_MACRO_TX1
->> paths eventhough we enable both of them. Fix this bug by adding proper
->> checks and rearranging some of the common code to able to allow setting
->> both TX0 and TX1 paths
-> 
-> Same question. What is the observed issue? Corrupted audio? Cracking?
-> Under/overruns?
+On Mon, Jun 24, 2024 at 02:15:18PM +0200, Pierre-Louis Bossart wrote:
+> Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+> Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+> Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> Cc: <stable@vger.kernel.org> # v6.8+
+> ---
 
-two Issues with existing code which are addressed by these two patches.
+Please put fixes at the start of serieses, or send them separately -
+it makes things much easier to handle if they're separate.  This ensures
+that the fixes don't end up with spurious dependencies on non-fix
+changes.
 
--> only one channels gets enabled on VI feedback path instead of 2 
-channels. resulting in 1 channel recording instead of 2.
--> rate is not set correctly for the VI record path.
+--5pBrGhTLrwRGNC0f
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
 
---srini
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmZ5aEkACgkQJNaLcl1U
+h9CWEwf/Wtk/DTzMdgsjQzFf2YB0zOwvpw0DSBQgZpLSkWnOvPb0k6o/wsMhK07l
+AtUfI6rSUzBTQ6fBhRDyLvYMGGDeyDZXcP8zQUUbk83zws7Mq9dSbBZR2JB8r9UK
+D39PW7vG4mz7U8xWeiZUQcvpkDFb0gPCjXCd0DcZrRmBl1KPFwRYjQ6nogAZ0nVy
+xvwwQEpmnp9yLMriXcBz53npaaiHj8CnGkwbp8i7tDn1ZOte/JM9LNYeJCI34ZIN
+iQyezU3Wo4CRdFvPw1kqY0N6wRcgi1f8hrnYz5A2oQoekmEpIR7Xoo9mFFpJvWNg
+H25FDFbhmMOLCH6c0FhZ5+phfpsj4A==
+=zJlx
+-----END PGP SIGNATURE-----
 
-
-> 
->>
->> Fixes: 2c4066e5d428 ("ASoC: codecs: lpass-wsa-macro: add dapm widgets and route")
->> Co-developed-by: Manikantan R <quic_manrav@quicinc.com>
->> Signed-off-by: Manikantan R <quic_manrav@quicinc.com>
->> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
->> ---
->>   sound/soc/codecs/lpass-wsa-macro.c | 112 ++++++++++++++++++++++---------------
->>   1 file changed, 68 insertions(+), 44 deletions(-)
->>
-> 
+--5pBrGhTLrwRGNC0f--

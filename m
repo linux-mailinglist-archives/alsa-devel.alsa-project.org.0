@@ -2,115 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF4B3916BB4
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jun 2024 17:05:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D877916BC1
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jun 2024 17:05:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E2DA986F;
-	Tue, 25 Jun 2024 17:04:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E2DA986F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2FDE083B;
+	Tue, 25 Jun 2024 17:05:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2FDE083B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1719327902;
-	bh=v3xu1DyFwNeeSa36sjEB5FbyVITtkfo92n3t1SkftD4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1719327935;
+	bh=x6PiOVKBL/VRTyNl3kxAorSe69knhY64lihvUcTKE/M=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ixk9YDAZaZHrEGia3ZWxyxDbV6Z7NiftxJgCRG8rdZC7OhaOca5ljfu9OISKLdmfJ
-	 FdkVqsVK9blrTDAkt4tjOXqy8e/qH2xF2ulvTw0bgAfq9qPlk4KI4428GwN0uwQNFl
-	 JATPTtMUEOfhIcWX21Si+leTLs5MjHiiXW0ddJnU=
+	b=XHg+vwHQuSWfQB8YEgbX9rCiB9kKkJWr9XOlAqM8v3GVdC+ieHvZybRWrhMPaExHH
+	 IWRK7wXuAP94LB1tAvhCTWgEVmEQJMycqXFJEdSUBxWq9ftPSUxowtRT4eRsY9S2SY
+	 fOz0J3gAZ/0KLmUBq4g2ShUAKRcjrH6rgDWo3T64=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C0BE0F805B0; Tue, 25 Jun 2024 17:04:21 +0200 (CEST)
+	id BF3FCF80589; Tue, 25 Jun 2024 17:04:57 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A74B5F805AF;
-	Tue, 25 Jun 2024 17:04:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1909CF80603;
+	Tue, 25 Jun 2024 17:04:28 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EEFD4F80495; Tue, 25 Jun 2024 16:51:12 +0200 (CEST)
+	id 7A502F800ED; Tue, 25 Jun 2024 16:59:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-pj1-x102f.google.com (mail-pj1-x102f.google.com
- [IPv6:2607:f8b0:4864:20::102f])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 86124F800ED
-	for <alsa-devel@alsa-project.org>; Tue, 25 Jun 2024 16:48:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 86124F800ED
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2FD22F800ED
+	for <alsa-devel@alsa-project.org>; Tue, 25 Jun 2024 16:54:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2FD22F800ED
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=WTjejh/P
-Received: by mail-pj1-x102f.google.com with SMTP id
- 98e67ed59e1d1-2c722e54db8so4336045a91.2
-        for <alsa-devel@alsa-project.org>;
- Tue, 25 Jun 2024 07:48:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1719326891; x=1719931691;
- darn=alsa-project.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=NOLeFvsL8kaSRtWwF8htq+fPtKSdafeifT9BbsLcc+c=;
-        b=WTjejh/P3pVuQ6qonlwUuwiJdSpVoD0rkI2PsssdFrmavwCLJ5WGodSTWe8zoX4OCq
-         9mzuTYB+T/Z4x4HH5DxqNN8q1kvX/pZ8FPkO/90s8eQ76CrA81jskWrfhWN9Bb7SMZL1
-         jf1dbiI0+/FXOsoS8291BbnyMCM9hYFsw15cAqiLwKElP2X2gzvFltBvNTBiLZvOiLWC
-         RC93H8DhHGVNH5r3nYScz9xXzwJbiMyL+84rKd4zPzvZb2Qen5y4yUaF/C7vqdGubwBS
-         e1OdIWqe+o7fx/IRwP07IqfpN9w2d+dxe+msZ9BkdXodU2o313s19s8UDFKAowUS/f8H
-         eerQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719326891; x=1719931691;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=NOLeFvsL8kaSRtWwF8htq+fPtKSdafeifT9BbsLcc+c=;
-        b=Agit9houdOkM7zUUTbL7vE4YIS1SMOq9qwh51ytSm5clZdtKcE6HqCV9xgq8Y99y33
-         Ba68JXOla4vq8Snjb5/63ewabGTdXVz+CJ5npb+cusKgNlfH9nda4l7uxJjZSscItvjq
-         17Q9OzCU/nomhno6RHISbkjBAfD5/UTt/i1i0VhOJyA7kdlNuDcvNu/b6lDl4OAJLGSz
-         Py/RZBfcis2TXVpAUbcqAMb9GBGMVh2YoYJVgfnlODJBEj/90nfRW/Bry6QSwYScThdp
-         /CbKAHsXiFdBZzdSkqC6epFLAI5ObHIE/aY8Sv/3Gl6Z4i3lTDaG5vlh1vB6B+H/I9Td
-         G6HQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWkUGXJhThxtsI13i2mdEwymmKQQLftY1a0uQ/aHxtomRJcjBcjj8yPW26PP56vYGCMg0zcxBuhIjLYDQB2kqwMtMIsQGT36cPd6ZE=
-X-Gm-Message-State: AOJu0YxbiwRoDPhhEn1FYqPyoW2b5IdM3KHu8EhOjo6n4xRlxkTEzAWt
-	MX2IJDmTYkd5ajl3fb8iFspnbuqq63xAXFaXKTeDxT0cE25AoYDckT8Nvv4ihedfM62JW9AXE9O
-	ricIXjPNHgDjuwjGs+x6uM5FO69k=
-X-Google-Smtp-Source: 
- AGHT+IHax0feeXZDhhj1vgHv8F+uvxmxFaFY3EcB0Z+QwjASVPOeq3SNfifA3ETfuRKkRYInUfBM0vmfIqxQTzvpnUs=
-X-Received: by 2002:a17:90a:df08:b0:2c8:431e:4105 with SMTP id
- 98e67ed59e1d1-2c86140975dmr6924152a91.26.1719326891318; Tue, 25 Jun 2024
- 07:48:11 -0700 (PDT)
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=Jrq9S2Je
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id D3F2ACE1ACB;
+	Tue, 25 Jun 2024 14:54:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79C24C32782;
+	Tue, 25 Jun 2024 14:54:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1719327244;
+	bh=x6PiOVKBL/VRTyNl3kxAorSe69knhY64lihvUcTKE/M=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=Jrq9S2JeYg6qD057OpL9jY3ZletVuxC3sA4DKCYsqyg6DNLaJu7tnnIPOrwpCZbk9
+	 oTTJm/bmlvPfUctVgczafiquv6WtemADFCxbkwu8/PYxFtoOqOK4yvPWflPmsA3rSV
+	 ifRbws3FUiF5ln+TWrMRUtswvV5Y7djdFjWSDANwNMOxot3DDOlOgYSVTyIrzzHlkJ
+	 ilaFFGHKoY6TjsB1/l3F+x2l9hRhfSnZathUtsJvBGU/VdtiIDOBsPCiCbSnQfvd72
+	 6Whz+OREdYLnBP46QW/ctBsJjLOuYl1+LOxivxzkD7gDJbo62ziRJKSxhgGSUDjRer
+	 XQM1ZR4Ft/EFw==
+From: Mark Brown <broonie@kernel.org>
+To: alsa-devel@alsa-project.org, Zhang Yi <zhangyi@everest-semi.com>
+Cc: tiwai@suse.com, amadeuszx.slawinski@linux.intel.com,
+ yangxiaohua@everest-semi.com, zhuning@everest-semi.com
+In-Reply-To: <20240624030607.4307-1-zhangyi@everest-semi.com>
+References: <20240624030607.4307-1-zhangyi@everest-semi.com>
+Subject: Re: (subset) [PATCH 0/4] ASoC: codecs: ES8326: Solving headphone
+ detection and
+Message-Id: <171932724322.283378.1009779697136689899.b4-ty@kernel.org>
+Date: Tue, 25 Jun 2024 15:54:03 +0100
 MIME-Version: 1.0
-References: <20240615125457.167844-1-rauty@altlinux.org>
- <2c9ba341bc95d4b9010bf5f8794c0d14b1c57dc9.camel@irl.hu>
- <CAGpJQTHoBAixmxta2WuZfjHjiK9GXF=hkfPyV7PBD5rt9Z_0WA@mail.gmail.com>
- <CAGpJQTGqxEkfp003QLsp-syUgzDFCmHSmNaoOaem0ZMVf7_=bg@mail.gmail.com>
- <c0a9e15e7926e098bdea97a7d31c32427e0910c9.camel@irl.hu>
- <871q4lm9dp.wl-tiwai@suse.de>
- <CAGpJQTFF=gKN2h105dGhBOEhN0Q1Tpj5hJWpSdQ_-nCoUTzj5A@mail.gmail.com>
- <87tthhktdz.wl-tiwai@suse.de> <87sex1kt6t.wl-tiwai@suse.de>
- <CAGpJQTGR5WKuHUFGFUC286TUkOXYgcqigZRDb4K5deyE9uuz8w@mail.gmail.com>
- <87msn9ksj6.wl-tiwai@suse.de>
-In-Reply-To: <87msn9ksj6.wl-tiwai@suse.de>
-From: Rauty <rautyrauty@gmail.com>
-Date: Tue, 25 Jun 2024 17:47:34 +0300
-Message-ID: 
- <CAGpJQTHajQnOr7Tr8cmMyjBqGw1sg_-SwSuAhnz-yFHZdPukGw@mail.gmail.com>
-Subject: Re: [PATCH v2] ALSA: hda/realtek: Enable headset mic on IdeaPad
- 330-17IKB 81DM
-To: Takashi Iwai <tiwai@suse.de>
-Cc: wzhd@ustc.edu, Gergo Koteles <soyer@irl.hu>, alsa-devel@alsa-project.org,
-	tiwai@suse.com, perex@perex.cz, kailang@realtek.com,
-	sbinding@opensource.cirrus.com, luke@ljones.dev, shenghao-ding@ti.com,
-	simont@opensource.cirrus.com, foss@athaariq.my.id, rf@opensource.cirrus.com,
-	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Message-ID-Hash: K7AIW7PXX2J2AGCQA5CUCJ5JDDI3R62Y
-X-Message-ID-Hash: K7AIW7PXX2J2AGCQA5CUCJ5JDDI3R62Y
-X-MailFrom: rautyrauty@gmail.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14-dev-d4707
+Message-ID-Hash: 7BFAWRHP4GVYFNBQYPTNGBQSGYXSBEKM
+X-Message-ID-Hash: 7BFAWRHP4GVYFNBQYPTNGBQSGYXSBEKM
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -122,7 +87,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/K7AIW7PXX2J2AGCQA5CUCJ5JDDI3R62Y/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7BFAWRHP4GVYFNBQYPTNGBQSGYXSBEKM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -131,7 +96,48 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 25 Jun 2024 at 17:25, Takashi Iwai <tiwai@suse.de> wrote:
-> Great.  Could you also give the one for IdeaPad 330?
+On Mon, 24 Jun 2024 11:06:03 +0800, Zhang Yi wrote:
+> We propose four patches to solve headphone detection and suspend issues.
+> And there are several registers that should be read-only registers. So
+> we create es8326_writeable_register, and set these registers to false.
+> 
+> Zhang Yi (4):
+>   ASoC: codecs: ES8326: Slove headphone detection issue
+>   ASoC: codecs: ES8326: codec can't enter suspend issue
+>   ASoC: codecs: ES8326: Minimize the pop noise
+>   ASoC: codecs: ES8326: regcache_sync error issue
+> 
+> [...]
 
-http://alsa-project.org/db/?f=cb04b699a8aaa07e0bd992dfc92accb993dc0a97
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+
+Thanks!
+
+[1/4] ASoC: codecs: ES8326: Slove headphone detection issue
+      commit: 4eed78198b30c4c5975e454e7b1e6e25a7ac7353
+[3/4] ASoC: codecs: ES8326: Minimize the pop noise
+      commit: 7e7dbdee96cbc660e7e8d3d9d7a512acaa6ca69d
+[4/4] ASoC: codecs: ES8326: regcache_sync error issue
+      commit: 34fa846f52f9fbef8aa262d3b39e71188e8dd884
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+

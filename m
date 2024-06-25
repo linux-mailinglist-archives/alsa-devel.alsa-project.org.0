@@ -2,114 +2,127 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6F81916EB7
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jun 2024 19:01:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 904BB916EB8
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jun 2024 19:01:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 25DCAA4B;
-	Tue, 25 Jun 2024 19:01:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 25DCAA4B
+	by alsa0.perex.cz (Postfix) with ESMTPS id EC79DDEE;
+	Tue, 25 Jun 2024 19:01:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC79DDEE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1719334903;
-	bh=IgGwHrHuFpbFHTEvgUPbclMeTRgHKAPJp73FYsZVpTQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=cxTFOLPe6hgZlWxCQZTDy96lDMoczxmJe4Jv22DlcEkJ3xDhHkFXB3xzZU4N3fxG6
-	 Aoeh/YXO6bLQLX1oWlK/1vCoE6+ZOsg9NWEdGASt+CdWsFi22JxBio8fnTiSYe2FQe
-	 G/pTH0aON1ELdEYqTL5odTHLlsA/r7yk8gw9HkcE=
+	s=default; t=1719334910;
+	bh=0vBGYw+FS13AvBeDigAqz04da28vVKpsvEKRngqhcFc=;
+	h=From:Subject:Date:To:Cc:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=iFChQ+lAvAxowxg8PKmAfWYiOz7eff3HrHOX69gfX0VXe625gHBqA1ZnesyVh9Yt4
+	 /qTFUCp/PLrlpAuZsyA1U2/nlfXfUOIp8x+6/dEUkQaEqBgB4ogZV8BjZffvU26Pk4
+	 JEA25FHTP6IspYlojMUMSfA+7fFoGFeqXL4HO684=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7485BF805D2; Tue, 25 Jun 2024 19:01:03 +0200 (CEST)
+	id 528F6F805F6; Tue, 25 Jun 2024 19:01:25 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0DE94F805DF;
-	Tue, 25 Jun 2024 19:01:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EA710F805F0;
+	Tue, 25 Jun 2024 19:01:24 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 43628F800ED; Tue, 25 Jun 2024 18:57:55 +0200 (CEST)
+	id 333BEF804F2; Tue, 25 Jun 2024 18:59:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [IPv6:2a00:1450:4864:20::329])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [IPv6:2a00:1450:4864:20::331])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 963C2F8013D
-	for <alsa-devel@alsa-project.org>; Tue, 25 Jun 2024 18:57:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 963C2F8013D
+	by alsa1.perex.cz (Postfix) with ESMTPS id DF7CCF8013D
+	for <alsa-devel@alsa-project.org>; Tue, 25 Jun 2024 18:59:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF7CCF8013D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=oySDwBFF
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-4249196a361so18384695e9.0
+ header.s=google header.b=gcKCFYU6
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-4249196a361so18392345e9.0
         for <alsa-devel@alsa-project.org>;
- Tue, 25 Jun 2024 09:57:43 -0700 (PDT)
+ Tue, 25 Jun 2024 09:59:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1719334662; x=1719939462;
+        d=linaro.org; s=google; t=1719334741; x=1719939541;
  darn=alsa-project.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=LRIDFf691thT58ox/N/VuEZHKFWQnoUZUCRyx39jn5s=;
-        b=oySDwBFFInQs38DvGK9I+Gd/rL3aFGbzVxYqkZhMETLSOlgBc3ljm0iWxN5yiKcv7/
-         qFFRy5OTVZlAG50ZB8DdVFegeJTOeOyQ/ADtmoJ4DCBpQcmf32ZRI49AvVoQiSUs4RNp
-         AAEQlYLcOXLoFyWnysRfStc+/kLxn1I+W3LYYMdGyaJhzUlSrT/9GL8Ww5Yr8WXud8+M
-         CVyKesmpRXSt0JlmJwQSAL1tG6T3ii7fvl1ysxfl0q/94XvoHj82bQBFYn7RRKW++xX5
-         zbXz4zTVFQb413p0XJlZ8oCeZ31t52rqjZ3kI1zWKT/i3Ds5m0yLjJCQqnxcs84O9D44
-         LQlA==
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=wYBu4PobMIgdfTY6h2udvW8/PZ7jirC6Sa9duUD35vA=;
+        b=gcKCFYU6QMuqDW0xjHjMhOI8DgIkAZzurqKqRmfdvHj/7wDj+PSE+zmlKC+Q18pbp4
+         nRpVlTLctCqXICG1ohRXcnIu0v3wppj6c7CJSJ90zMj/bsd/1ZpnqMITlnzWYzGlERwA
+         DRR0dbbssX2h9oq/UIXWiXhjYwFuMfvthpgyub5AdORIW9WH5/acC8TcIboBP4Lv5CWy
+         LXv0qOFjzBZ9STHLIFu7qBT1TlY3APylXtAkc8zzUD7c/Z7MoOVF7nRBETG8LwJyvZ/Z
+         97Fl6bqVhju/zpBl63DWo9EEX61MJXLLoJcKOTWq+tmt7fJDzYEJrWxBAIvQ6LG8N2pn
+         J9TQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719334662; x=1719939462;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=LRIDFf691thT58ox/N/VuEZHKFWQnoUZUCRyx39jn5s=;
-        b=BwNQSQJWZmkHdq6YLbSiHNTSqg9x/puYo67fr3f6wEBOKTctcX8rx3HebXyreGK4C7
-         NJIxxVB8DYpGIhvOHFD7BYRkgu2NxOHHK8IIdW8F6+nVvBrjM1vmjFRgFQX2Hd7KmPls
-         fdQIUUCY6jkkh7W3ma7KnFjUHoIevnyD13N+yWVxo+mViLcA/Uacwa7tzGMEXFJftGxa
-         B+QfgyKndo2QN5tGO1FjHTFqLcNsrEelJD/misf3562JnIuhm8u4ct+YgSUoCLS+SJPj
-         jJmtQtuQrqNucvm1nlSaRVymnPGV6v4Tpy+GhwIzFXcEdqBI21Kd039xIhonTeyPWTd9
-         YS9A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVir/V3OaSQyF289jyJuMvloDyw7Ap8imGcbyDI4+Oav5UwD1htin+gV1KrZ+F70c1yfA5ZyhBvOUPDml2/VSjmOsl2YWv0/Uua1Q0=
-X-Gm-Message-State: AOJu0YzhgPwXYXu/VBvGaFvqqEHaFpmUJzk0rmPFlZ+UKxIiLmHR4qpx
-	EtWWxyruv1KDHC1CPfnphPJaCgapRUWmYr0YrIcH9NuvWvO8fo8NrxdtyR4XtrM=
+        d=1e100.net; s=20230601; t=1719334741; x=1719939541;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=wYBu4PobMIgdfTY6h2udvW8/PZ7jirC6Sa9duUD35vA=;
+        b=oL1wYmG9ts47vPpSx1GfOJ0SQ5rLaxe8Z+XDJR1pN4xpRxvPgzrGdL80ZaIKYagZfv
+         rk4nnHyhOFQ+cFBP+DVt6NbGpCbIQ7homB/ngG4nMe4wh8FVYCsDVVNNpJCbFCl5hjSj
+         F80CcFcjoKVWmGFXClP59JU1CENYwmfjYNKiuES6D5QgBoflBjjg7fhyB+JaQYQrESTB
+         uyTaeJODbzeztxAdGTgtnpgGmrri/0JH2BuG6uUC40+4QaLmxSVx4jc4J8nPsnLHnUz3
+         IIGc0yOUt0+g8OFF73tohpuQGQDQ9KARfPxXPsCKDp3N7ZaVJQw5f5f396s9g4E2Dmha
+         3JFQ==
+X-Gm-Message-State: AOJu0YxrsB+TY5hS3N1mOpYD7S63w8odOrcmU/3ZcxfQFfL1F7kWKgG4
+	J6d1+yyB2QXlJf30YS0RIJ1GG5VsIv+tYLibhKFicdYkQHqUDaScRtOafCSJ7GI=
 X-Google-Smtp-Source: 
- AGHT+IE/O1fv/lIki0Fwzrt9YYS/r8AY/7+8D+IqPaAgKoFLSWyy9JqVUr3ddgb2fUcIuTZSME2ZbA==
-X-Received: by 2002:a5d:46c2:0:b0:360:9cf4:58ce with SMTP id
- ffacd0b85a97d-366e96b22damr4696741f8f.46.1719334662267;
-        Tue, 25 Jun 2024 09:57:42 -0700 (PDT)
-Received: from krzk-bin.. ([178.197.219.137])
+ AGHT+IHUaZ4mU5uGRN6j2ODv5sXzv2DRzpZrCreP4h6HdLbJU4FVwUS3Cc230v3XgR70R7RUWfR18w==
+X-Received: by 2002:a05:600c:3589:b0:424:8f97:8069 with SMTP id
+ 5b1f17b1804b1-4248f978134mr44997055e9.30.1719334741557;
+        Tue, 25 Jun 2024 09:59:01 -0700 (PDT)
+Received: from [127.0.1.1] ([178.197.219.137])
         by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3663a8cb6d2sm13360519f8f.111.2024.06.25.09.57.41
+ 5b1f17b1804b1-4247d211881sm217969785e9.46.2024.06.25.09.59.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 25 Jun 2024 09:57:41 -0700 (PDT)
+        Tue, 25 Jun 2024 09:59:01 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-	Banajit Goswami <bgoswami@quicinc.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	alsa-devel@alsa-project.org,
-	linux-arm-msm@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [PATCH 2/2] ASoC: codecs: lpass-macro: Use enum for handling codec
- version
-Date: Tue, 25 Jun 2024 18:57:36 +0200
-Message-ID: <20240625165736.722106-2-krzysztof.kozlowski@linaro.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240625165736.722106-1-krzysztof.kozlowski@linaro.org>
-References: <20240625165736.722106-1-krzysztof.kozlowski@linaro.org>
+Subject: [PATCH 0/3] ASoC: codecs: lpass-wsa-macro: Add support for newer
+ v2.5 version
+Date: Tue, 25 Jun 2024 18:58:44 +0200
+Message-Id: 
+ <20240625-qcom-audio-wsa-second-speaker-v1-0-f65ffdfc368c@linaro.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 5BJK6YWAV52J2RXA3AQVQRWDCSJUU4NQ
-X-Message-ID-Hash: 5BJK6YWAV52J2RXA3AQVQRWDCSJUU4NQ
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAET3emYC/x3MQQrCQAwF0KuUrA20wVbwKuIiTr4axJk6oSqU3
+ t3B5du8lQLVEXTsVqp4e3jJDcOuo3TXfAO7NZP0su8nGfmVypN1MS/8CeVAKtk4ZugDlYFBRxO
+ T6XChdswVV//+/9N5236ZDh7mbwAAAA==
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1026;
+ i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
+ bh=0vBGYw+FS13AvBeDigAqz04da28vVKpsvEKRngqhcFc=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBmevdNqq0tv4A+3jbslGVS16UU0/GvICniNq4Ei
+ PT5Vap/DYeJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZnr3TQAKCRDBN2bmhouD
+ 1zi8D/915nG8Gwp4TP87gu4KBRwPlUmNpiWoj8gHPtuVIS6jh0QBpQUTXzQ/C2S32sF8UdLdKMe
+ hqlquS0dgTs4d8Msz37Lzhp5DI8a+zi+mNJBebnjG0AGyh4hXsqKkfkoq3kTWmohZL8/0mw4gCY
+ 4FnM/Ao2ntzbtIMO2gfC9JtMVJ8nPidHbg1OInc/sWRe0ikvPbD2adiEhc6L3SW5obK11AYD5vL
+ /HE55KcB/ydOrf757QTvSzWxL7FD5Y7YAZVuvFcJg1W7GY3SzpXSh+ErCqark2aXyE05Srxxpnz
+ SGtz+QlKxmtm8oVWBJCr3jgVAFaJmlQauDTyHQQ0xQb6SBmgrWhp/T9jOGeo6WCNldslTfdv1r2
+ VE+eYW9n8o1ZeXJSMnNNJVbg2lymCoih3s2llEFmiAyfDXQAXL37ZEE/hfugAL1LbI8UMuzOcB9
+ oPzkfAFYaFcGiz9Z8troMAfdFYF1q/r77UIykqtc6YMh2JMt/s9xpwFC4cRa/kuZILsUo25CmTa
+ sUzeC031pmeLAmZpTYt+R+mzcwiNsPGF1BdtySfpqDaUkaH1PHPr8+3cMPUvjr56Io+Df2kapX3
+ cLryfj737fFANY/ogpfPY1WKIT3pRwsGmHDadYdO5E2wQl/LMN8uaMU2ehbD2rOHCmLtdTfkSjC
+ 8l/6EQbkEtTj3fA==
+X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
+ fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+Message-ID-Hash: GADZOOSFOOQM7HQWGS7UVCGDWUQJ6KNH
+X-Message-ID-Hash: GADZOOSFOOQM7HQWGS7UVCGDWUQJ6KNH
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -122,7 +135,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5BJK6YWAV52J2RXA3AQVQRWDCSJUU4NQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GADZOOSFOOQM7HQWGS7UVCGDWUQJ6KNH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -131,80 +144,36 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Replace 'int' with proper 'enum lpass_codec_version' in every place
-which handles the parsed codec version (not raw register values!) to be
-explicit about contents of the variable.  This makes code easier to read
-and compilers could check missing switch cases.
+Hi,
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+LPASS codec v2.5 and newer have differences in registers which we did
+not implement so far.  Lack of proper support is visible during
+playback: on SoCs with v2.6 (e.g. Qualcomm SM8550) only one speaker
+plays.
+
+Add missing bits for v2.5 and newer codecs.
+
+This is similar work to already merged:
+https://lore.kernel.org/all/20240612-lpass-codec-v25-v4-0-f63d3676dbc4@linaro.org/
+
+No dependencies.
+
+Best regards,
+Krzysztof
+
 ---
- sound/soc/codecs/lpass-macro-common.c | 8 ++++----
- sound/soc/codecs/lpass-macro-common.h | 4 ++--
- sound/soc/codecs/lpass-rx-macro.c     | 2 +-
- 3 files changed, 7 insertions(+), 7 deletions(-)
+Krzysztof Kozlowski (3):
+      ASoC: codecs: lpass-wsa-macro: Drop unused define
+      ASoC: codecs: lpass-wsa-macro: Prepare to accommodate new codec versions
+      ASoC: codecs: lpass-wsa-macro: Correct support for newer v2.5 version
 
-diff --git a/sound/soc/codecs/lpass-macro-common.c b/sound/soc/codecs/lpass-macro-common.c
-index 8b038a99a8f9..6e3b8d0897dd 100644
---- a/sound/soc/codecs/lpass-macro-common.c
-+++ b/sound/soc/codecs/lpass-macro-common.c
-@@ -12,7 +12,7 @@
- #include "lpass-macro-common.h"
- 
- static DEFINE_MUTEX(lpass_codec_mutex);
--static int lpass_codec_version;
-+static enum lpass_codec_version lpass_codec_version;
- 
- struct lpass_macro *lpass_macro_pds_init(struct device *dev)
- {
-@@ -69,7 +69,7 @@ void lpass_macro_pds_exit(struct lpass_macro *pds)
- }
- EXPORT_SYMBOL_GPL(lpass_macro_pds_exit);
- 
--void lpass_macro_set_codec_version(int version)
-+void lpass_macro_set_codec_version(enum lpass_codec_version version)
- {
- 	mutex_lock(&lpass_codec_mutex);
- 	lpass_codec_version = version;
-@@ -77,9 +77,9 @@ void lpass_macro_set_codec_version(int version)
- }
- EXPORT_SYMBOL_GPL(lpass_macro_set_codec_version);
- 
--int lpass_macro_get_codec_version(void)
-+enum lpass_codec_version lpass_macro_get_codec_version(void)
- {
--	int ver;
-+	enum lpass_codec_version ver;
- 
- 	mutex_lock(&lpass_codec_mutex);
- 	ver = lpass_codec_version;
-diff --git a/sound/soc/codecs/lpass-macro-common.h b/sound/soc/codecs/lpass-macro-common.h
-index 94697d0ba8c9..3aa9737f2737 100644
---- a/sound/soc/codecs/lpass-macro-common.h
-+++ b/sound/soc/codecs/lpass-macro-common.h
-@@ -38,8 +38,8 @@ struct lpass_macro {
- 
- struct lpass_macro *lpass_macro_pds_init(struct device *dev);
- void lpass_macro_pds_exit(struct lpass_macro *pds);
--void lpass_macro_set_codec_version(int version);
--int lpass_macro_get_codec_version(void);
-+void lpass_macro_set_codec_version(enum lpass_codec_version version);
-+enum lpass_codec_version lpass_macro_get_codec_version(void);
- 
- static inline const char *lpass_macro_get_codec_version_string(int version)
- {
-diff --git a/sound/soc/codecs/lpass-rx-macro.c b/sound/soc/codecs/lpass-rx-macro.c
-index 1c3429f004ed..320e3261c151 100644
---- a/sound/soc/codecs/lpass-rx-macro.c
-+++ b/sound/soc/codecs/lpass-rx-macro.c
-@@ -642,7 +642,7 @@ struct rx_macro {
- 	int rx_mclk_users;
- 	int clsh_users;
- 	int rx_mclk_cnt;
--	int codec_version;
-+	enum lpass_codec_version codec_version;
- 	int rxn_reg_stride;
- 	bool is_ear_mode_on;
- 	bool hph_pwr_mode;
+ sound/soc/codecs/lpass-wsa-macro.c | 644 ++++++++++++++++++++++++++++++-------
+ 1 file changed, 521 insertions(+), 123 deletions(-)
+---
+base-commit: d585065ee5b64c60496a2403bafee1540cb319ec
+change-id: 20240625-qcom-audio-wsa-second-speaker-ee1a5d2d267b
+
+Best regards,
 -- 
-2.43.0
+Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 

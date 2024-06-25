@@ -2,100 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 904BB916EB8
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jun 2024 19:01:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D77C9916EB9
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jun 2024 19:02:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EC79DDEE;
-	Tue, 25 Jun 2024 19:01:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC79DDEE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6693FA4A;
+	Tue, 25 Jun 2024 19:02:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6693FA4A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1719334910;
-	bh=0vBGYw+FS13AvBeDigAqz04da28vVKpsvEKRngqhcFc=;
-	h=From:Subject:Date:To:Cc:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=iFChQ+lAvAxowxg8PKmAfWYiOz7eff3HrHOX69gfX0VXe625gHBqA1ZnesyVh9Yt4
-	 /qTFUCp/PLrlpAuZsyA1U2/nlfXfUOIp8x+6/dEUkQaEqBgB4ogZV8BjZffvU26Pk4
-	 JEA25FHTP6IspYlojMUMSfA+7fFoGFeqXL4HO684=
+	s=default; t=1719334939;
+	bh=vF37Z0aZiJEeLWEKoNSeoRo+xDDMR/tNEztnp1b16K4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=a4hMVAE8O84kamugPzX47NgohCtyZZaRpluIp+73k6WXfYB5i04Kf0mLmAVgX/M5H
+	 e8abISZClgfKRpfcxq3d3Qp9IcTyYBO02ZBo2+ibFQpPqB9Smk1hgmI3tTv0UmKckb
+	 OR586ZBEgyT91ct9m/ciootQmPBv0Ph2wIXCEeC4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 528F6F805F6; Tue, 25 Jun 2024 19:01:25 +0200 (CEST)
+	id 3B6FAF805C0; Tue, 25 Jun 2024 19:01:59 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EA710F805F0;
-	Tue, 25 Jun 2024 19:01:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3D991F805B6;
+	Tue, 25 Jun 2024 19:01:58 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 333BEF804F2; Tue, 25 Jun 2024 18:59:11 +0200 (CEST)
+	id 7ED0BF804D6; Tue, 25 Jun 2024 18:59:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [IPv6:2a00:1450:4864:20::331])
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [IPv6:2a00:1450:4864:20::22d])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DF7CCF8013D
-	for <alsa-devel@alsa-project.org>; Tue, 25 Jun 2024 18:59:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF7CCF8013D
+	by alsa1.perex.cz (Postfix) with ESMTPS id A60BFF80423
+	for <alsa-devel@alsa-project.org>; Tue, 25 Jun 2024 18:59:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A60BFF80423
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=gcKCFYU6
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-4249196a361so18392345e9.0
+ header.s=google header.b=UcR1Z7aw
+Received: by mail-lj1-x22d.google.com with SMTP id
+ 38308e7fff4ca-2ec52fbb50aso42181641fa.3
         for <alsa-devel@alsa-project.org>;
- Tue, 25 Jun 2024 09:59:02 -0700 (PDT)
+ Tue, 25 Jun 2024 09:59:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1719334741; x=1719939541;
+        d=linaro.org; s=google; t=1719334743; x=1719939543;
  darn=alsa-project.org;
-        h=cc:to:content-transfer-encoding:mime-version:message-id:date
-         :subject:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=wYBu4PobMIgdfTY6h2udvW8/PZ7jirC6Sa9duUD35vA=;
-        b=gcKCFYU6QMuqDW0xjHjMhOI8DgIkAZzurqKqRmfdvHj/7wDj+PSE+zmlKC+Q18pbp4
-         nRpVlTLctCqXICG1ohRXcnIu0v3wppj6c7CJSJ90zMj/bsd/1ZpnqMITlnzWYzGlERwA
-         DRR0dbbssX2h9oq/UIXWiXhjYwFuMfvthpgyub5AdORIW9WH5/acC8TcIboBP4Lv5CWy
-         LXv0qOFjzBZ9STHLIFu7qBT1TlY3APylXtAkc8zzUD7c/Z7MoOVF7nRBETG8LwJyvZ/Z
-         97Fl6bqVhju/zpBl63DWo9EEX61MJXLLoJcKOTWq+tmt7fJDzYEJrWxBAIvQ6LG8N2pn
-         J9TQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719334741; x=1719939541;
-        h=cc:to:content-transfer-encoding:mime-version:message-id:date
-         :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=wYBu4PobMIgdfTY6h2udvW8/PZ7jirC6Sa9duUD35vA=;
-        b=oL1wYmG9ts47vPpSx1GfOJ0SQ5rLaxe8Z+XDJR1pN4xpRxvPgzrGdL80ZaIKYagZfv
-         rk4nnHyhOFQ+cFBP+DVt6NbGpCbIQ7homB/ngG4nMe4wh8FVYCsDVVNNpJCbFCl5hjSj
-         F80CcFcjoKVWmGFXClP59JU1CENYwmfjYNKiuES6D5QgBoflBjjg7fhyB+JaQYQrESTB
-         uyTaeJODbzeztxAdGTgtnpgGmrri/0JH2BuG6uUC40+4QaLmxSVx4jc4J8nPsnLHnUz3
-         IIGc0yOUt0+g8OFF73tohpuQGQDQ9KARfPxXPsCKDp3N7ZaVJQw5f5f396s9g4E2Dmha
-         3JFQ==
-X-Gm-Message-State: AOJu0YxrsB+TY5hS3N1mOpYD7S63w8odOrcmU/3ZcxfQFfL1F7kWKgG4
-	J6d1+yyB2QXlJf30YS0RIJ1GG5VsIv+tYLibhKFicdYkQHqUDaScRtOafCSJ7GI=
+        bh=re76ACXG9OmJmqLT6FZEpdvG6nPrWdtBRKUnS+4yqic=;
+        b=UcR1Z7aweAZDGu4AugYhsFBmQlBWc578AXTphzBeod31dOoHOT0hqOZTjbR+jWXR5F
+         b4rMAcmRzPGhSoV1BNidUkcyWxloTAGXs+EyxaPxzLbZhTymI9XIvNjtj/hgyyU1WPiT
+         SuhMM5xlYhOfcDtzpjk2Ll2eI1vFBBPFetkkaNlM5yxUpYHZPt2BJfzTPFuIui/8GUgn
+         NdW/MnY786UZBTahtiZkyDu7yLHpLVcX80cmQaCpOALkej5gURJjbDEhjY28LD/EHpbG
+         lBvPQePRwkMMNvH0j475r0I6dkHNBcj9f1FfsYphUtN+BdG65kxXaYWAPATZNgNzcElo
+         ZAww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1719334743; x=1719939543;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=re76ACXG9OmJmqLT6FZEpdvG6nPrWdtBRKUnS+4yqic=;
+        b=JlA7K4qHuLAJNacZJNRr7BUAObS7G74vdtIA1E69U5wPreakTjNWLd00s59luVTXSb
+         bAz6J9jVaKaRz4j6oMh9H/TONdprD+NOPJnwM3It5YCE1QvnktZCe1sIZGZGcsdy/Ux7
+         9PDIb5dOK7/hzkxquyfFeKH0QdUfQsKTK966g53uXAJvwv+yZU2Bd6/4Ji7lHqaMhYG8
+         6RHhVcLfdtQEWb/5w1rO+Lj3DwUhS+lF310b+dwFGXPzpAbpKtOVmK8QHUpOZIf8fnOh
+         0M/hiLWvfs/Ig08srDV32OBABy5dApHUnyzanNeCSQNmMOql4PZgTBbYFHCSFROr3BNk
+         jhHw==
+X-Gm-Message-State: AOJu0YxtfjJx375xDKYrEE9JBWzSQW/8fsvy4oFc1pi4awJqk0WnivDB
+	RCnxTf0Vw5GWRVhvTgSa700DhJJaZDPcu2fOqKJ3zkXp4GOM6AP0zn/E/+KMma4=
 X-Google-Smtp-Source: 
- AGHT+IHUaZ4mU5uGRN6j2ODv5sXzv2DRzpZrCreP4h6HdLbJU4FVwUS3Cc230v3XgR70R7RUWfR18w==
-X-Received: by 2002:a05:600c:3589:b0:424:8f97:8069 with SMTP id
- 5b1f17b1804b1-4248f978134mr44997055e9.30.1719334741557;
-        Tue, 25 Jun 2024 09:59:01 -0700 (PDT)
+ AGHT+IGR7Qhyf8Y3HWNl1SPoUEbvvo2YHcOxUjAhBJioVQV9vrofLD/WBQj8YIQ9FREJo6iOttG1lg==
+X-Received: by 2002:ac2:515d:0:b0:52b:c233:113c with SMTP id
+ 2adb3069b0e04-52ce1835167mr5952139e87.17.1719334743050;
+        Tue, 25 Jun 2024 09:59:03 -0700 (PDT)
 Received: from [127.0.1.1] ([178.197.219.137])
         by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4247d211881sm217969785e9.46.2024.06.25.09.59.00
+ 5b1f17b1804b1-4247d211881sm217969785e9.46.2024.06.25.09.59.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 25 Jun 2024 09:59:01 -0700 (PDT)
+        Tue, 25 Jun 2024 09:59:02 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [PATCH 0/3] ASoC: codecs: lpass-wsa-macro: Add support for newer
- v2.5 version
-Date: Tue, 25 Jun 2024 18:58:44 +0200
-Message-Id: 
- <20240625-qcom-audio-wsa-second-speaker-v1-0-f65ffdfc368c@linaro.org>
+Date: Tue, 25 Jun 2024 18:58:45 +0200
+Subject: [PATCH 1/3] ASoC: codecs: lpass-wsa-macro: Drop unused define
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAET3emYC/x3MQQrCQAwF0KuUrA20wVbwKuIiTr4axJk6oSqU3
- t3B5du8lQLVEXTsVqp4e3jJDcOuo3TXfAO7NZP0su8nGfmVypN1MS/8CeVAKtk4ZugDlYFBRxO
- T6XChdswVV//+/9N5236ZDh7mbwAAAA==
+Message-Id: 
+ <20240625-qcom-audio-wsa-second-speaker-v1-1-f65ffdfc368c@linaro.org>
+References: 
+ <20240625-qcom-audio-wsa-second-speaker-v1-0-f65ffdfc368c@linaro.org>
+In-Reply-To: 
+ <20240625-qcom-audio-wsa-second-speaker-v1-0-f65ffdfc368c@linaro.org>
 To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
  Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
  Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
@@ -104,25 +105,25 @@ Cc: alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
  linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1026;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=701;
  i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
- bh=0vBGYw+FS13AvBeDigAqz04da28vVKpsvEKRngqhcFc=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBmevdNqq0tv4A+3jbslGVS16UU0/GvICniNq4Ei
- PT5Vap/DYeJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZnr3TQAKCRDBN2bmhouD
- 1zi8D/915nG8Gwp4TP87gu4KBRwPlUmNpiWoj8gHPtuVIS6jh0QBpQUTXzQ/C2S32sF8UdLdKMe
- hqlquS0dgTs4d8Msz37Lzhp5DI8a+zi+mNJBebnjG0AGyh4hXsqKkfkoq3kTWmohZL8/0mw4gCY
- 4FnM/Ao2ntzbtIMO2gfC9JtMVJ8nPidHbg1OInc/sWRe0ikvPbD2adiEhc6L3SW5obK11AYD5vL
- /HE55KcB/ydOrf757QTvSzWxL7FD5Y7YAZVuvFcJg1W7GY3SzpXSh+ErCqark2aXyE05Srxxpnz
- SGtz+QlKxmtm8oVWBJCr3jgVAFaJmlQauDTyHQQ0xQb6SBmgrWhp/T9jOGeo6WCNldslTfdv1r2
- VE+eYW9n8o1ZeXJSMnNNJVbg2lymCoih3s2llEFmiAyfDXQAXL37ZEE/hfugAL1LbI8UMuzOcB9
- oPzkfAFYaFcGiz9Z8troMAfdFYF1q/r77UIykqtc6YMh2JMt/s9xpwFC4cRa/kuZILsUo25CmTa
- sUzeC031pmeLAmZpTYt+R+mzcwiNsPGF1BdtySfpqDaUkaH1PHPr8+3cMPUvjr56Io+Df2kapX3
- cLryfj737fFANY/ogpfPY1WKIT3pRwsGmHDadYdO5E2wQl/LMN8uaMU2ehbD2rOHCmLtdTfkSjC
- 8l/6EQbkEtTj3fA==
+ bh=vF37Z0aZiJEeLWEKoNSeoRo+xDDMR/tNEztnp1b16K4=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBmevdR2h79GggPHusd3v4VoaUckqX1xpQHoZro9
+ O3/5py+BuSJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZnr3UQAKCRDBN2bmhouD
+ 17waEACaU+lphVs4h28nyJ272D/X1VUo+55FfxobbeqYsSpPQ51epzL42gqR6bZv/EAhLTwpt9p
+ tIis5PZNOFo84hb8oeOmO+BOQJ2mLXJlXxZqQIyKY5up0QeZVRjsPhiuKEfXgBEMCHNHfHFMN3+
+ HphpHgIKzGKXUYKrhe9Ymyz9/idKlT7q+YbJ8kaIMSNGHAmxhnBio7z87BR0u4oepsPiMYb4XRk
+ 6OwBj/p0uW9Ux2VOb7qn33XJvVRAxJXLVDQIsktfSKvVKaNQWBZouBalLkU7PpAXhxbZt85qgrA
+ X2TgQkWpNalV4iUINTzg1xdLleD6++IOMBvrfyLtotLRV95YQwZjjqCgPXCjVJJJzZTUeVBpJgN
+ M8F9oqkjDzJVvPd+85LopPzGg/LN7PeJwumRXczq8KZ6un/s+JJNOrYMadyjc39bULymJ7P/CxJ
+ IUne9tVtpFoyvXGI6sivNZ0ZlWhPzMo4ysolyQZW6t/VAXU17mxWsZguBDEbwgNlZZSfbWd1Axu
+ AgYjSR37ujOpePfPwL+Qw6/fnZxEtLxoGTvXQ6szdtfzkY7r4AaN3GdZ1IxXqOewTt5Lo8iaOi2
+ zGCzV+jMP4w2wcumATat+vyR/pQ/kSw8Xd/n8tGi2foCCe6J3y3xQXqUt/Y3zKtvNRPwfDa0TN7
+ KvinIJNSTw+speg==
 X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
  fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-Message-ID-Hash: GADZOOSFOOQM7HQWGS7UVCGDWUQJ6KNH
-X-Message-ID-Hash: GADZOOSFOOQM7HQWGS7UVCGDWUQJ6KNH
+Message-ID-Hash: WLIDS2QIVNX3AO5OX7IJPXK4XE5BRC7B
+X-Message-ID-Hash: WLIDS2QIVNX3AO5OX7IJPXK4XE5BRC7B
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -135,7 +136,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GADZOOSFOOQM7HQWGS7UVCGDWUQJ6KNH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WLIDS2QIVNX3AO5OX7IJPXK4XE5BRC7B/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -144,36 +145,26 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi,
+WSA_MACRO_MUX_INP_MASK2 define is not used.
 
-LPASS codec v2.5 and newer have differences in registers which we did
-not implement so far.  Lack of proper support is visible during
-playback: on SoCs with v2.6 (e.g. Qualcomm SM8550) only one speaker
-plays.
-
-Add missing bits for v2.5 and newer codecs.
-
-This is similar work to already merged:
-https://lore.kernel.org/all/20240612-lpass-codec-v25-v4-0-f63d3676dbc4@linaro.org/
-
-No dependencies.
-
-Best regards,
-Krzysztof
-
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
-Krzysztof Kozlowski (3):
-      ASoC: codecs: lpass-wsa-macro: Drop unused define
-      ASoC: codecs: lpass-wsa-macro: Prepare to accommodate new codec versions
-      ASoC: codecs: lpass-wsa-macro: Correct support for newer v2.5 version
+ sound/soc/codecs/lpass-wsa-macro.c | 1 -
+ 1 file changed, 1 deletion(-)
 
- sound/soc/codecs/lpass-wsa-macro.c | 644 ++++++++++++++++++++++++++++++-------
- 1 file changed, 521 insertions(+), 123 deletions(-)
----
-base-commit: d585065ee5b64c60496a2403bafee1540cb319ec
-change-id: 20240625-qcom-audio-wsa-second-speaker-ee1a5d2d267b
+diff --git a/sound/soc/codecs/lpass-wsa-macro.c b/sound/soc/codecs/lpass-wsa-macro.c
+index 6ce309980cd1..d12aff62a868 100644
+--- a/sound/soc/codecs/lpass-wsa-macro.c
++++ b/sound/soc/codecs/lpass-wsa-macro.c
+@@ -235,7 +235,6 @@
+ #define NUM_INTERPOLATORS 2
+ #define WSA_NUM_CLKS_MAX	5
+ #define WSA_MACRO_MCLK_FREQ 19200000
+-#define WSA_MACRO_MUX_INP_MASK2 0x38
+ #define WSA_MACRO_MUX_CFG_OFFSET 0x8
+ #define WSA_MACRO_MUX_CFG1_OFFSET 0x4
+ #define WSA_MACRO_RX_COMP_OFFSET 0x40
 
-Best regards,
 -- 
-Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+2.43.0
 

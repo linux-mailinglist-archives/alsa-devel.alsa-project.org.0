@@ -2,89 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1AC3B917B04
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Jun 2024 10:31:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 989A99184DD
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Jun 2024 16:52:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E54C4A4D;
-	Wed, 26 Jun 2024 10:31:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E54C4A4D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7BD1CDEE;
+	Wed, 26 Jun 2024 16:52:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7BD1CDEE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1719390703;
-	bh=c2eZp2N/fV31ACo04o80AUxQrRyVo19/lGqLN/ybKF8=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=LTQOHt3k+Va88UrF3m/jVr686hnhbOgE0lsLvPT/aD0jZaTcKdLVseed7b2gZ6LOo
-	 3uQBsmWfZm9DB8633GKVaz8NYZTUsWhKimXQMRA8wcnRb0W/SKs8Ys7YxARP3LPkpo
-	 xJE/yd/M7GmQU3dW2XXqUgP814HPNfSHIiKF19OI=
+	s=default; t=1719413551;
+	bh=EmrOuKlP9+a0u3gAUhglDb1ETNcSp4UHvd18zX8Qr2Y=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=nzBmwSeK/gVpGQWcrnfJvCoeDhPYoSxBAzWlOm/IJupOq2nQ/0AcmT0K7+9C2nhCc
+	 9nq3r9cWezILKtZAZKL7Ra66grJI6EV30jOfBvIGWHQMx2twsEcgoWQQnnfa3rGRzX
+	 dKL5/sWScmsJ1dU5xKih7nMai9W9a+Wt8AOOZxFQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6B648F80495; Wed, 26 Jun 2024 10:31:12 +0200 (CEST)
+	id 4F932F805A9; Wed, 26 Jun 2024 16:52:00 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EE705F8059F;
-	Wed, 26 Jun 2024 10:31:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3D7D9F805B0;
+	Wed, 26 Jun 2024 16:51:59 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1EC05F80423; Wed, 26 Jun 2024 10:27:00 +0200 (CEST)
+	id 95B82F80423; Wed, 26 Jun 2024 16:51:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	RCVD_IN_MSPIKE_H2,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D25A1F800ED
-	for <alsa-devel@alsa-project.org>; Wed, 26 Jun 2024 10:25:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D25A1F800ED
-X-SpamFilter-By: ArmorX SpamTrap 5.78 with qID 45Q8PYEH01330695,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (rtexh36505.realtek.com.tw[172.21.6.25])
-	by rtits2.realtek.com.tw (8.15.2/3.02/5.92) with ESMTPS id 45Q8PYEH01330695
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 26 Jun 2024 16:25:34 +0800
-Received: from RTEXDAG02.realtek.com.tw (172.21.6.101) by
- RTEXH36505.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.39; Wed, 26 Jun 2024 16:25:35 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXDAG02.realtek.com.tw (172.21.6.101) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.35; Wed, 26 Jun 2024 16:25:34 +0800
-Received: from RTEXMBS01.realtek.com.tw ([fe80::d5b2:56ba:6b47:9975]) by
- RTEXMBS01.realtek.com.tw ([fe80::d5b2:56ba:6b47:9975%5]) with mapi id
- 15.01.2507.035; Wed, 26 Jun 2024 16:25:34 +0800
-Content-Type: multipart/mixed;
-	boundary="_000_9a7a3a66cbcb426487ca6f558f45e922realtekcom_"
-From: Jack Yu <jack.yu@realtek.com>
-To: "broonie@kernel.org" <broonie@kernel.org>,
-        "lgirdwood@gmail.com"
-	<lgirdwood@gmail.com>
-CC: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
-        "lars@metafoo.de" <lars@metafoo.de>,
-        "Flove(HsinFu)" <flove@realtek.com>,
-        Oder Chiou <oder_chiou@realtek.com>,
-        =?big5?B?U2h1bWluZyBbrVOu0bvKXQ==?=
-	<shumingf@realtek.com>,
-        =?big5?B?RGVyZWsgW6TovHe4cV0=?=
-	<derek.fang@realtek.com>,
-        "flowind_wang@compal.com" <flowind_wang@compal.com>
-Subject: [PATCH] ASoC: rt5645: fix issue of random interrupt from push-button
-Thread-Topic: [PATCH] ASoC: rt5645: fix issue of random interrupt from
- push-button
-Thread-Index: AdrHomWXcLl4j8MpQUupbeGU20SwFQ==
-Date: Wed, 26 Jun 2024 08:25:34 +0000
-Message-ID: <9a7a3a66cbcb426487ca6f558f45e922@realtek.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-TNEF-Correlator: <9a7a3a66cbcb426487ca6f558f45e922@realtek.com>
-x-originating-ip: [172.22.102.102]
+	by alsa1.perex.cz (Postfix) with ESMTPS id B04BCF8016E
+	for <alsa-devel@alsa-project.org>; Wed, 26 Jun 2024 16:50:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B04BCF8016E
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=KuhA6brg
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id E856ACE1F77;
+	Wed, 26 Jun 2024 14:50:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A382FC116B1;
+	Wed, 26 Jun 2024 14:50:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1719413437;
+	bh=EmrOuKlP9+a0u3gAUhglDb1ETNcSp4UHvd18zX8Qr2Y=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=KuhA6brg0mkyhFFvzx50d8HLTpE7JOOQy4jyRmjs6zpvc9TAx7ecs1jyJ7ETWg+4p
+	 EYKWApOos/Wl7UXP2SQ2GtolMlQz8MLWoy8DJzqGziOJbf1ZidsJBB4Lvmp2b25PSJ
+	 JcpEvaJpS48/ogK9d+gaokVddQFywHvUX2abaaLs0RKBJQeLBtuTFK/XxDljxTdq6A
+	 GJyxB36TkhUk3Qw+1jToIwLNC3rmZibwpHrXlH6JR65g030wHd1+sD4+6dtoauiw/X
+	 xi7porStEWnfzGZ/2+b+Y8lqBgFCIVzodxhC9uadGofG/P0aVfzTzOB1e58g/otMn3
+	 J3WWXCQ7iE4aQ==
+From: Mark Brown <broonie@kernel.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: 
+ <20240625-qcom-audio-wsa-second-speaker-v1-0-f65ffdfc368c@linaro.org>
+References: 
+ <20240625-qcom-audio-wsa-second-speaker-v1-0-f65ffdfc368c@linaro.org>
+Subject: Re: [PATCH 0/3] ASoC: codecs: lpass-wsa-macro: Add support for
+ newer v2.5 version
+Message-Id: <171941343537.1374758.899867570385507706.b4-ty@kernel.org>
+Date: Wed, 26 Jun 2024 15:50:35 +0100
 MIME-Version: 1.0
-Message-ID-Hash: XXRGVECEPZWCJVJP75POYB5F6NIH4LS2
-X-Message-ID-Hash: XXRGVECEPZWCJVJP75POYB5F6NIH4LS2
-X-MailFrom: jack.yu@realtek.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14-dev-d4707
+Message-ID-Hash: FRURE4YMIMLYBMU55KTWPPYDJBVOAHQU
+X-Message-ID-Hash: FRURE4YMIMLYBMU55KTWPPYDJBVOAHQU
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -96,7 +92,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XXRGVECEPZWCJVJP75POYB5F6NIH4LS2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FRURE4YMIMLYBMU55KTWPPYDJBVOAHQU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -105,177 +101,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
---_000_9a7a3a66cbcb426487ca6f558f45e922realtekcom_
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
+On Tue, 25 Jun 2024 18:58:44 +0200, Krzysztof Kozlowski wrote:
+> LPASS codec v2.5 and newer have differences in registers which we did
+> not implement so far.  Lack of proper support is visible during
+> playback: on SoCs with v2.6 (e.g. Qualcomm SM8550) only one speaker
+> plays.
+> 
+> Add missing bits for v2.5 and newer codecs.
+> 
+> [...]
 
-TW9kaWZ5IHJlZ2lzdGVyIHNldHRpbmcgc2VxdWVuY2Ugb2YgZW5hYmxpbmcgaW5saW5lIGNvbW1h
-bmQNCnRvIGZpeCBpc3N1ZSBvZiByYW5kb20gaW50ZXJydXB0IGZyb20gcHVzaC1idXR0b24uDQoN
-ClNpZ25lZC1vZmYtYnk6IEphY2sgWXUgPGphY2sueXVAcmVhbHRlay5jb20+DQotLS0NCiBzb3Vu
-ZC9zb2MvY29kZWNzL3J0NTY0NS5jIHwgMjQgKysrKysrKysrKysrKysrKysrLS0tLS0tDQogc291
-bmQvc29jL2NvZGVjcy9ydDU2NDUuaCB8ICA2ICsrKysrKw0KIDIgZmlsZXMgY2hhbmdlZCwgMjQg
-aW5zZXJ0aW9ucygrKSwgNiBkZWxldGlvbnMoLSkNCg0KZGlmZiAtLWdpdCBhL3NvdW5kL3NvYy9j
-b2RlY3MvcnQ1NjQ1LmMgYi9zb3VuZC9zb2MvY29kZWNzL3J0NTY0NS5jDQppbmRleCBjZGI3ZmY3
-MDIwZTkuLjUxMTg3YjFlMGVkMiAxMDA2NDQNCi0tLSBhL3NvdW5kL3NvYy9jb2RlY3MvcnQ1NjQ1
-LmMNCisrKyBiL3NvdW5kL3NvYy9jb2RlY3MvcnQ1NjQ1LmMNCkBAIC04MSw3ICs4MSw3IEBAIHN0
-YXRpYyBjb25zdCBzdHJ1Y3QgcmVnX3NlcXVlbmNlIGluaXRfbGlzdFtdID0gew0KIHN0YXRpYyBj
-b25zdCBzdHJ1Y3QgcmVnX3NlcXVlbmNlIHJ0NTY1MF9pbml0X2xpc3RbXSA9IHsNCiAJezB4ZjYs
-CTB4MDEwMH0sDQogCXtSVDU2NDVfUFdSX0FOTEcxLCAweDAyfSwNCi0Je1JUNTY0NV9JTF9DTUQz
-LCAweDAwMTh9LA0KKwl7UlQ1NjQ1X0lMX0NNRDMsIDB4NjcyOH0sDQogfTsNCiANCiBzdGF0aWMg
-Y29uc3Qgc3RydWN0IHJlZ19kZWZhdWx0IHJ0NTY0NV9yZWdbXSA9IHsNCkBAIC0zMTMwLDIwICsz
-MTMwLDMyIEBAIHN0YXRpYyB2b2lkIHJ0NTY0NV9lbmFibGVfcHVzaF9idXR0b25faXJxKHN0cnVj
-dCBzbmRfc29jX2NvbXBvbmVudCAqY29tcG9uZW50LA0KIAlib29sIGVuYWJsZSkNCiB7DQogCXN0
-cnVjdCBzbmRfc29jX2RhcG1fY29udGV4dCAqZGFwbSA9IHNuZF9zb2NfY29tcG9uZW50X2dldF9k
-YXBtKGNvbXBvbmVudCk7DQorCWludCByZXQ7DQogDQogCWlmIChlbmFibGUpIHsNCiAJCXNuZF9z
-b2NfZGFwbV9mb3JjZV9lbmFibGVfcGluKGRhcG0sICJBREMgTCBwb3dlciIpOw0KIAkJc25kX3Nv
-Y19kYXBtX2ZvcmNlX2VuYWJsZV9waW4oZGFwbSwgIkFEQyBSIHBvd2VyIik7DQogCQlzbmRfc29j
-X2RhcG1fc3luYyhkYXBtKTsNCiANCisJCXNuZF9zb2NfY29tcG9uZW50X3VwZGF0ZV9iaXRzKGNv
-bXBvbmVudCwgUlQ1NjUwXzRCVE5fSUxfQ01EMiwNCisJCQlSVDU2NDVfRU5fNEJUTl9JTF9NQVNL
-IHwgUlQ1NjQ1X1JTVF80QlROX0lMX01BU0ssDQorCQkJUlQ1NjQ1X0VOXzRCVE5fSUxfRU4gfCBS
-VDU2NDVfUlNUXzRCVE5fSUxfUlNUKTsNCisJCXVzbGVlcF9yYW5nZSgxMDAwMCwgMTUwMDApOw0K
-KwkJc25kX3NvY19jb21wb25lbnRfdXBkYXRlX2JpdHMoY29tcG9uZW50LCBSVDU2NTBfNEJUTl9J
-TF9DTUQyLA0KKwkJCVJUNTY0NV9FTl80QlROX0lMX01BU0sgfCBSVDU2NDVfUlNUXzRCVE5fSUxf
-TUFTSywNCisJCQlSVDU2NDVfRU5fNEJUTl9JTF9FTiB8IFJUNTY0NV9SU1RfNEJUTl9JTF9OT1JN
-KTsNCisJCW1zbGVlcCg1MCk7DQorCQlyZXQgPSBzbmRfc29jX2NvbXBvbmVudF9yZWFkKGNvbXBv
-bmVudCwgUlQ1NjQ1X0lOVF9JUlFfU1QpOw0KKwkJcHJfZGVidWcoIiVzIHJlYWQgJXggPSAleFxu
-IiwgX19mdW5jX18sIFJUNTY0NV9JTlRfSVJRX1NULA0KKwkJCXNuZF9zb2NfY29tcG9uZW50X3Jl
-YWQoY29tcG9uZW50LCBSVDU2NDVfSU5UX0lSUV9TVCkpOw0KKwkJc25kX3NvY19jb21wb25lbnRf
-d3JpdGUoY29tcG9uZW50LCBSVDU2NDVfSU5UX0lSUV9TVCwgcmV0KTsNCisJCXJldCA9IHNuZF9z
-b2NfY29tcG9uZW50X3JlYWQoY29tcG9uZW50LCBSVDU2NTBfNEJUTl9JTF9DTUQxKTsNCisJCXBy
-X2RlYnVnKCIlcyByZWFkICV4ID0gJXhcbiIsIF9fZnVuY19fLCBSVDU2NTBfNEJUTl9JTF9DTUQx
-LA0KKwkJCXNuZF9zb2NfY29tcG9uZW50X3JlYWQoY29tcG9uZW50LCBSVDU2NTBfNEJUTl9JTF9D
-TUQxKSk7DQorCQlzbmRfc29jX2NvbXBvbmVudF93cml0ZShjb21wb25lbnQsIFJUNTY1MF80QlRO
-X0lMX0NNRDEsIHJldCk7DQogCQlzbmRfc29jX2NvbXBvbmVudF91cGRhdGVfYml0cyhjb21wb25l
-bnQsIFJUNTY1MF80QlROX0lMX0NNRDEsIDB4MywgMHgzKTsNCiAJCXNuZF9zb2NfY29tcG9uZW50
-X3VwZGF0ZV9iaXRzKGNvbXBvbmVudCwNCiAJCQkJCVJUNTY0NV9JTlRfSVJRX1NULCAweDgsIDB4
-OCk7DQotCQlzbmRfc29jX2NvbXBvbmVudF91cGRhdGVfYml0cyhjb21wb25lbnQsDQotCQkJCQlS
-VDU2NTBfNEJUTl9JTF9DTUQyLCAweDgwMDAsIDB4ODAwMCk7DQotCQlzbmRfc29jX2NvbXBvbmVu
-dF9yZWFkKGNvbXBvbmVudCwgUlQ1NjUwXzRCVE5fSUxfQ01EMSk7DQotCQlwcl9kZWJ1ZygiJXMg
-cmVhZCAleCA9ICV4XG4iLCBfX2Z1bmNfXywgUlQ1NjUwXzRCVE5fSUxfQ01EMSwNCi0JCQlzbmRf
-c29jX2NvbXBvbmVudF9yZWFkKGNvbXBvbmVudCwgUlQ1NjUwXzRCVE5fSUxfQ01EMSkpOw0KIAl9
-IGVsc2Ugew0KIAkJc25kX3NvY19jb21wb25lbnRfdXBkYXRlX2JpdHMoY29tcG9uZW50LCBSVDU2
-NTBfNEJUTl9JTF9DTUQyLCAweDgwMDAsIDB4MCk7DQogCQlzbmRfc29jX2NvbXBvbmVudF91cGRh
-dGVfYml0cyhjb21wb25lbnQsIFJUNTY0NV9JTlRfSVJRX1NULCAweDgsIDB4MCk7DQpkaWZmIC0t
-Z2l0IGEvc291bmQvc29jL2NvZGVjcy9ydDU2NDUuaCBiL3NvdW5kL3NvYy9jb2RlY3MvcnQ1NjQ1
-LmgNCmluZGV4IDkwODE2YjJjNTQ4OS4uYmVmNzRiMjlmZDU0IDEwMDY0NA0KLS0tIGEvc291bmQv
-c29jL2NvZGVjcy9ydDU2NDUuaA0KKysrIGIvc291bmQvc29jL2NvZGVjcy9ydDU2NDUuaA0KQEAg
-LTIwMTEsNiArMjAxMSwxMiBAQA0KICNkZWZpbmUgUlQ1NjQ1X1pDRF9IUF9ESVMJCQkoMHgwIDw8
-IDE1KQ0KICNkZWZpbmUgUlQ1NjQ1X1pDRF9IUF9FTgkJCSgweDEgPDwgMTUpDQogDQorLyogQnV0
-dG9ucyBJbmxpbmUgQ29tbWFuZCBGdW5jdGlvbiAyICgweGUwKSAqLw0KKyNkZWZpbmUgUlQ1NjQ1
-X0VOXzRCVE5fSUxfTUFTSwkJCSgweDEgPDwgMTUpDQorI2RlZmluZSBSVDU2NDVfRU5fNEJUTl9J
-TF9FTgkJCSgweDEgPDwgMTUpDQorI2RlZmluZSBSVDU2NDVfUlNUXzRCVE5fSUxfTUFTSwkJCSgw
-eDEgPDwgMTQpDQorI2RlZmluZSBSVDU2NDVfUlNUXzRCVE5fSUxfUlNUCQkJKDB4MCA8PCAxNCkN
-CisjZGVmaW5lIFJUNTY0NV9SU1RfNEJUTl9JTF9OT1JNCQkJKDB4MSA8PCAxNCkNCiANCiAvKiBD
-b2RlYyBQcml2YXRlIFJlZ2lzdGVyIGRlZmluaXRpb24gKi8NCiAvKiBEQUMgQURDIERpZ2l0YWwg
-Vm9sdW1lICgweDAwKSAqLw0KLS0gDQoyLjM0LjENCg0K
+Applied to
 
---_000_9a7a3a66cbcb426487ca6f558f45e922realtekcom_
-Content-Disposition: attachment; filename="winmail.dat"
-Content-Transfer-Encoding: base64
-Content-Type: application/ms-tnef; name="winmail.dat"
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-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
-hAhQJQMgfkaU8TXyNFHnIQpgafAq/i/g5uhdht3p3+7Pimvwz/fx34hu87c09F/1b37z5yf/92/4
-f4xl9t9V2OuBCFAFgfQgUAUQdtQBB/AiJvIDz9gA7XLuR/6iREFtIG0CTkQp0NgAB0AgVgbwdT8H
-gO3CgVHuON8BJVUyLngzNC4TkCj7FUIGYB8AQgABAAAAEAAAAEoAYQBjAGsAIABZAHUAAAAfAGUA
-AQAAACgAAABqAGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAAHwBkAAEAAAAK
-AAAAUwBNAFQAUAAAAAAAAgFBAAEAAABaAAAAAAAAAIErH6S+oxAZnW4A3QEPVAIAAACASgBhAGMA
-awAgAFkAdQAAAFMATQBUAFAAAABqAGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBt
-AAAAAAAfAAJdAQAAACgAAABqAGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAA
-HwDlXwEAAAAwAAAAcwBpAHAAOgBqAGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBt
-AAAAHwAaDAEAAAAQAAAASgBhAGMAawAgAFkAdQAAAB8AHwwBAAAAKAAAAGoAYQBjAGsALgB5AHUA
-QAByAGUAYQBsAHQAZQBrAC4AYwBvAG0AAAAfAB4MAQAAAAoAAABTAE0AVABQAAAAAAACARkMAQAA
-AFoAAAAAAAAAgSsfpL6jEBmdbgDdAQ9UAgAAAIBKAGEAYwBrACAAWQB1AAAAUwBNAFQAUAAAAGoA
-YQBjAGsALgB5AHUAQAByAGUAYQBsAHQAZQBrAC4AYwBvAG0AAAAAAB8AAV0BAAAAKAAAAGoAYQBj
-AGsALgB5AHUAQAByAGUAYQBsAHQAZQBrAC4AYwBvAG0AAAALAEA6AQAAAB8AGgABAAAAEgAAAEkA
-UABNAC4ATgBvAHQAZQAAAAAAAwDxPwQEAAALAEA6AQAAAAMA/T+2AwAAAgELMAEAAAAQAAAAGUxb
-NKwFSUGIlG1jG82gLwMAFwABAAAAQAA5AACTIGqix9oBQAAIMGNoPWqix9oBCwApAAAAAAAfANk/
-AQAAAAACAABNAG8AZABpAGYAeQAgAHIAZQBnAGkAcwB0AGUAcgAgAHMAZQB0AHQAaQBuAGcAIABz
-AGUAcQB1AGUAbgBjAGUAIABvAGYAIABlAG4AYQBiAGwAaQBuAGcAIABpAG4AbABpAG4AZQAgAGMA
-bwBtAG0AYQBuAGQADQAKAHQAbwAgAGYAaQB4ACAAaQBzAHMAdQBlACAAbwBmACAAcgBhAG4AZABv
-AG0AIABpAG4AdABlAHIAcgB1AHAAdAAgAGYAcgBvAG0AIABwAHUAcwBoAC0AYgB1AHQAdABvAG4A
-LgANAAoADQAKAFMAaQBnAG4AZQBkAC0AbwBmAGYALQBiAHkAOgAgAEoAYQBjAGsAIABZAHUAIAA8
-AGoAYQBjAGsALgB5AHUAQAByAGUAYQBsAHQAZQBrAC4AYwBvAG0APgANAAoALQAtAC0ADQAKACAA
-cwBvAHUAbgBkAC8AcwBvAGMALwBjAG8AZABlAGMAcwAvAHIAdAA1ADYANAA1AC4AYwAgAHwAIAAy
-ADQAIAArACsAKwArACsAKwArACsAKwArACsAKwArACsAKwArACsAKwAtAC0ALQAtAC0ALQANAAoA
-IABzAG8AdQBuAGQALwBzAG8AYwAvAGMAbwBkAGUAYwBzAC8AcgB0ADUANgA0ADUALgBoACAAfAAg
-ACAANgAAAAsAAIAIIAYAAAAAAMAAAAAAAABGAAAAABSFAAABAAAAHwAAgIYDAgAAAAAAwAAAAAAA
-AEYBAAAAHgAAAGEAYwBjAGUAcAB0AGwAYQBuAGcAdQBhAGcAZQAAAAAAAQAAABoAAAB6AGgALQBU
-AFcALAAgAGUAbgAtAFUAUwAAAAAAAwAAgAggBgAAAAAAwAAAAAAAAEYBAAAAMgAAAEUAeABjAGgA
-YQBuAGcAZQBBAHAAcABsAGkAYwBhAHQAaQBvAG4ARgBsAGEAZwBzAAAAAAAgAAAASAAAgAggBgAA
-AAAAwAAAAAAAAEYBAAAAIgAAAE4AZQB0AHcAbwByAGsATQBlAHMAcwBhAGcAZQBJAGQAAAAAAEg1
-oiEPUONCTpoI3JW5jN0fAACAE4/yQfSDFEGlhO7bWmsL/wEAAAAWAAAAQwBsAGkAZQBuAHQASQBu
-AGYAbwAAAAAAAQAAACoAAABDAGwAaQBlAG4AdAA9AE0AUwBFAHgAYwBoAGEAbgBnAGUAUgBQAEMA
-AAAAAB8A+j8BAAAAEAAAAEoAYQBjAGsAIABZAHUAAAAfADcAAQAAAIoAAABbAFAAQQBUAEMASABd
-ACAAQQBTAG8AQwA6ACAAcgB0ADUANgA0ADUAOgAgAGYAaQB4ACAAaQBzAHMAdQBlACAAbwBmACAA
-cgBhAG4AZABvAG0AIABpAG4AdABlAHIAcgB1AHAAdAAgAGYAcgBvAG0AIABwAHUAcwBoAC0AYgB1
-AHQAdABvAG4AAAAAAB8APQABAAAAAgAAAAAAAAADADYAAAAAAAIBcQABAAAAFgAAAAHax6Jll3C5
-eI/DKUFLqW3hlNtEsBUAAB8AcAABAAAAigAAAFsAUABBAFQAQwBIAF0AIABBAFMAbwBDADoAIABy
-AHQANQA2ADQANQA6ACAAZgBpAHgAIABpAHMAcwB1AGUAIABvAGYAIAByAGEAbgBkAG8AbQAgAGkA
-bgB0AGUAcgByAHUAcAB0ACAAZgByAG8AbQAgAHAAdQBzAGgALQBiAHUAdAB0AG8AbgAAAAAAHwA1
-EAEAAABeAAAAPAA5AGEANwBhADMAYQA2ADYAYwBiAGMAYgA0ADIANgA0ADgANwBjAGEANgBmADUA
-NQA4AGYANAA1AGUAOQAyADIAQAByAGUAYQBsAHQAZQBrAC4AYwBvAG0APgAAAAAAAwDeP7YDAAAD
-ABMSAAAAAAIBAIATj/JB9IMUQaWE7ttaawv/AQAAAC4AAABIAGUAYQBkAGUAcgBCAG8AZAB5AEYA
-cgBhAGcAbQBlAG4AdABMAGkAcwB0AAAAAAABAAAAIgAAAAEACgAAAAQAAAAAAAAAFAAAAAAAAAAA
-AAAA/////wAAAAAAAAsAAIATj/JB9IMUQaWE7ttaawv/AQAAABwAAABIAGEAcwBRAHUAbwB0AGUA
-ZABUAGUAeAB0AAAAAAAAAAsAAIATj/JB9IMUQaWE7ttaawv/AQAAACgAAABJAHMAUQB1AG8AdABl
-AGQAVABlAHgAdABDAGgAYQBuAGcAZQBkAAAAAAAAAEAABzDeWgtqosfaAQIBCwABAAAAEAAAABlM
-WzSsBUlBiJRtYxvNoC8DACYAAAAAAAsABgwAAAAAAgEQMAEAAABGAAAAAAAAANvpxEokoOdBkxsq
-uyuzbUwHAEy3fQ1VoXlEvnOFOWLQAKUAAABpYPcAADKvOAVKsE5GgMfHOCK6D1oAAAHXuWIAAAAA
-AgETMAEAAAAQAAAAcLl4j8MpQUupbeGU20SwFQIBFDABAAAADAAAAOkAAAAj+TNqTQAAAB8A+D8B
-AAAAEAAAAEoAYQBjAGsAIABZAHUAAAAfACJAAQAAAAYAAABFAFgAAAAAAB8AI0ABAAAAtgAAAC8A
-TwA9AFIAVABFAFgAQwBIAC8ATwBVAD0ARQBYAEMASABBAE4ARwBFACAAQQBEAE0ASQBOAEkAUwBU
-AFIAQQBUAEkAVgBFACAARwBSAE8AVQBQACAAKABGAFkARABJAEIATwBIAEYAMgAzAFMAUABEAEwA
-VAApAC8AQwBOAD0AUgBFAEMASQBQAEkARQBOAFQAUwAvAEMATgA9AFUAUwBFAFIANQA5ADgANgA1
-ADEAMAA5AAAAAAAfACRAAQAAAAYAAABFAFgAAAAAAB8AJUABAAAAtgAAAC8ATwA9AFIAVABFAFgA
-QwBIAC8ATwBVAD0ARQBYAEMASABBAE4ARwBFACAAQQBEAE0ASQBOAEkAUwBUAFIAQQBUAEkAVgBF
-ACAARwBSAE8AVQBQACAAKABGAFkARABJAEIATwBIAEYAMgAzAFMAUABEAEwAVAApAC8AQwBOAD0A
-UgBFAEMASQBQAEkARQBOAFQAUwAvAEMATgA9AFUAUwBFAFIANQA5ADgANgA1ADEAMAA5AAAAAAAf
-ADBAAQAAABAAAABKAGEAYwBrACAAWQB1AAAAHwAxQAEAAAAQAAAASgBhAGMAawAgAFkAdQAAAB8A
-OEABAAAAEAAAAEoAYQBjAGsAIABZAHUAAAAfADlAAQAAABAAAABKAGEAYwBrACAAWQB1AAAAAwBZ
-QAAAAAADAFpAAAAAAAMACVkBAAAAHwAKXQEAAAAoAAAAagBhAGMAawAuAHkAdQBAAHIAZQBhAGwA
-dABlAGsALgBjAG8AbQAAAB8AC10BAAAAKAAAAGoAYQBjAGsALgB5AHUAQAByAGUAYQBsAHQAZQBr
-AC4AYwBvAG0AAAAfAACAH6TrM6h6LkK+e3nhqY5UswEAAAA4AAAAQwBvAG4AdgBlAHIAcwBhAHQA
-aQBvAG4ASQBuAGQAZQB4AFQAcgBhAGMAawBpAG4AZwBFAHgAAAABAAAAJAEAAEkASQA9AFsAQwBJ
-AEQAPQA4AGYANwA4AGIAOQA3ADAALQAyADkAYwAzAC0ANABiADQAMQAtAGEAOQA2AGQALQBlADEA
-OQA0AGQAYgA0ADQAYgAwADEANQA7AEkARABYAEgARQBBAEQAPQBEAEEAQwA3AEEAMgA2ADUAOQA3
-ADsASQBEAFgAQwBPAFUATgBUAD0AMQBdADsAUABTAD0AVQBuAGsAbgBvAHcAbgA7AFYAZQByAHMA
-aQBvAG4APQBWAGUAcgBzAGkAbwBuACAAMQA1AC4AMQAgACgAQgB1AGkAbABkACAAMgA1ADAANwAu
-ADAAKQAsACAAUwB0AGEAZwBlAD0ASAA0ADsAVQBQAD0AMQAwADsARABQAD0AMQBDADUAAAALAACA
-CCAGAAAAAADAAAAAAAAARgAAAACChQAAAAAAAAMADTT9PwAAHwAAgIYDAgAAAAAAwAAAAAAAAEYB
-AAAAIAAAAHgALQBtAHMALQBoAGEAcwAtAGEAdAB0AGEAYwBoAAAAAQAAAAIAAAAAAAAAHwAAgIYD
-AgAAAAAAwAAAAAAAAEYBAAAAIgAAAHgALQBvAHIAaQBnAGkAbgBhAHQAaQBuAGcALQBpAHAAAAAA
-AAEAAAAiAAAAWwAxADcAMgAuADIAMgAuADEAMAAyAC4AMQAwADIAXQAAAAAAjsE=
+Thanks!
 
---_000_9a7a3a66cbcb426487ca6f558f45e922realtekcom_--
+[1/3] ASoC: codecs: lpass-wsa-macro: Drop unused define
+      commit: 04f4de6f68eec73595682f32952467591f0cc016
+[2/3] ASoC: codecs: lpass-wsa-macro: Prepare to accommodate new codec versions
+      commit: 5dcf442bbbcada62631f5a376c44ff794596c2f0
+[3/3] ASoC: codecs: lpass-wsa-macro: Correct support for newer v2.5 version
+      commit: 727de4fbc5466c7150482b532f2b7f7e514134f3
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+

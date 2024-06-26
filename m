@@ -2,86 +2,157 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90D67919894
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Jun 2024 21:53:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9D7C9198C7
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Jun 2024 22:12:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3880A192E;
-	Wed, 26 Jun 2024 21:53:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3880A192E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 044B71912;
+	Wed, 26 Jun 2024 22:12:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 044B71912
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1719431618;
-	bh=lzU+cik77CuctsT3z+aF1e9wxYmZGia/8jYGIDA2mE0=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1719432754;
+	bh=HKV/TsQWPi+gku8UaAqLiGA7FvYWPTpWbOn3UqGMNls=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=aeSiP5Qbu+esWxCaSjGbgk3KQ/mv6CiibuRaBUCq8JXc2n8HRtG7UPOMRtyvnqozC
-	 I7KfuInu9QWPT1uPAGUoi0ysVW6yKmiqC0h5KeW/xQdl7TEZ5nHorzc2e+0PTlWUTH
-	 55rIkph7yCi0v6Br0uWBdLe9UvNKj6eDTyaZPIH0=
+	b=QMTvHMsSV0EHLhTgYqg1hb21XkISZCOZG7MMa5cQ79b+LI9S9MO8URHw4f8Q3X5A/
+	 6UCuRlafYhQ33yN17Fd59yaH4dGQQ45yMGqan4xTrRV5m8LeT8nsEINDMghsqV1TB8
+	 5r7vFPgvVALpwRqsPS570Ej5jgRnkeKEpGD8ybg4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 14CD9F805C0; Wed, 26 Jun 2024 21:53:05 +0200 (CEST)
+	id 7D7D3F805AF; Wed, 26 Jun 2024 22:12:03 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B9450F805D3;
-	Wed, 26 Jun 2024 21:53:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DC41AF805B1;
+	Wed, 26 Jun 2024 22:12:02 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1F43AF80423; Wed, 26 Jun 2024 21:53:00 +0200 (CEST)
+	id B08A6F80423; Wed, 26 Jun 2024 22:11:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CC19FF800E4
-	for <alsa-devel@alsa-project.org>; Wed, 26 Jun 2024 21:52:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC19FF800E4
+	by alsa1.perex.cz (Postfix) with ESMTPS id EBE87F800ED
+	for <alsa-devel@alsa-project.org>; Wed, 26 Jun 2024 22:11:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EBE87F800ED
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=kKM1xyfB
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id D9161CE20C2;
-	Wed, 26 Jun 2024 19:52:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20C30C4AF0A;
-	Wed, 26 Jun 2024 19:52:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1719431570;
-	bh=lzU+cik77CuctsT3z+aF1e9wxYmZGia/8jYGIDA2mE0=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=kKM1xyfBbSsNz2NF3csL/onKLZNJlgxmBOv8MFxtKYjRpqLXbVXZA9aXL+ZYO5Snp
-	 YfKrVeYU+dRM3SLaAJg85cYNf3vTuffq9P6G7pEC2wxzSG+lVDrSY7IFBer88MDmtT
-	 a7fsZM+wWpPAwR1edxi3VW+X2yTJVOZ4apfle98KUmFsLNGnUCLx9ueSLXqc+y3C/h
-	 CnxbT8O6VDz7+zL9fiCrhXBvnNsxUVDOAsFuZJh42Ogx+IMl7w4r44xdB12hjaN3yS
-	 uu7tEbLRTnQliSGTP21HnIdGSRsdpw9FgX8hV7ZsqBO4MvIWaigWvtqrYhrx+6G8S2
-	 tX/6eELbmgsdw==
-From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Aleksandr Mishin <amishin@t-argos.ru>
-Cc: Banajit Goswami <bgoswami@quicinc.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>,
- Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>,
- Venkata Prasad Potturu <quic_potturu@quicinc.com>,
- alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org
-In-Reply-To: <20240605104953.12072-1-amishin@t-argos.ru>
-References: <20240605104953.12072-1-amishin@t-argos.ru>
-Subject: Re: [PATCH] ASoC: qcom: Adjust issues in case of DT error in
- asoc_qcom_lpass_cpu_platform_probe()
-Message-Id: <171943156785.1690751.333640951846227902.b4-ty@kernel.org>
-Date: Wed, 26 Jun 2024 20:52:47 +0100
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14-dev-d4707
-Message-ID-Hash: K47H5QFQJN4B3G52K6VYPMAI24VPB5RX
-X-Message-ID-Hash: K47H5QFQJN4B3G52K6VYPMAI24VPB5RX
-X-MailFrom: broonie@kernel.org
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=Yiv1CYVJ;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=V/bHTPzV;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=v7Oouutx;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=3hhIChBF
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id E2EE921AB7;
+	Wed, 26 Jun 2024 20:11:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1719432712;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=s2k6B3pblDhexdaEUfKSKYpKd9LZrY1yXUkdJeI6I7M=;
+	b=Yiv1CYVJ8nFhLeiaOyb7ER2jeSPOlLMlLqU5pGa6VlL7q0qB3PDNPxJG2T+1JKIGPrm6Dw
+	zxlWeK8w4tbWCn4+xCSO2T4pRUrqNvD3gchLJfenDjbJMe0DOBP35lt8DSZFcaYZqiowKL
+	mPDMypmogLpvPFfacwXheY0Y7n/iaMQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1719432712;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=s2k6B3pblDhexdaEUfKSKYpKd9LZrY1yXUkdJeI6I7M=;
+	b=V/bHTPzV9AI9u14H9cowCX8J/j1QKtP9OZWQfoL9Th8UMg49Pz00RqEfbLJpZWe0cOQntn
+	v2oXvat4ViQQj+Ag==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=v7Oouutx;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=3hhIChBF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1719432711;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=s2k6B3pblDhexdaEUfKSKYpKd9LZrY1yXUkdJeI6I7M=;
+	b=v7Oouutx2wS5ePxpGoHjoDHJkFeekqkF7CsszPlC3z3Nyk2uh0da80wgslSdLsxmYfyFGP
+	sF+eaejCna4HhfMIzejY3Evz7s46xlalYCtekjKvLEncqrtuUhH6yXvZEpapKksNhIkUm0
+	XCgxOuXn7TvbKMsi1peR9Johi/G8N8U=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1719432711;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=s2k6B3pblDhexdaEUfKSKYpKd9LZrY1yXUkdJeI6I7M=;
+	b=3hhIChBFq+xInlLG4yoEJ53hyI7lHqYI6GuRVYtfthhKjxx0qUAZbpE3r4lvFeTgtC8N2F
+	IMTZL925fs5oZACA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A16CF13AAD;
+	Wed, 26 Jun 2024 20:11:51 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id PmI8Jgd2fGb+PwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Wed, 26 Jun 2024 20:11:51 +0000
+Date: Wed, 26 Jun 2024 22:12:19 +0200
+Message-ID: <87sewzh3a4.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	alsa-devel@alsa-project.org
+Subject: Re: [GIT PULL] ASoC fixes for v6.10-rc5
+In-Reply-To: <45ac83fae7eec4c6a7e297e2f27295df.broonie@kernel.org>
+References: <45ac83fae7eec4c6a7e297e2f27295df.broonie@kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Queue-Id: E2EE921AB7
+X-Spamd-Result: default: False [-3.51 / 50.00];
+	BAYES_HAM(-3.00)[99.98%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_ALL(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[gmail.com,alsa-project.org];
+	RCPT_COUNT_THREE(0.00)[3];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+Message-ID-Hash: 7X4OENFSIR6RB4L2LFH6LJFW2PJEXDO7
+X-Message-ID-Hash: 7X4OENFSIR6RB4L2LFH6LJFW2PJEXDO7
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -93,7 +164,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/K47H5QFQJN4B3G52K6VYPMAI24VPB5RX/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7X4OENFSIR6RB4L2LFH6LJFW2PJEXDO7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,43 +173,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 05 Jun 2024 13:49:53 +0300, Aleksandr Mishin wrote:
-> If IORESOURCE_MEM "lpass-rxtx-cdc-dma-lpm" or "lpass-va-cdc-dma-lpm"
-> resources is not provided in Device Tree due to any error,
-> platform_get_resource_byname() will return NULL which is later
-> dereferenced. According to sound/qcom,lpass-cpu.yaml, these resources
-> are provided, but DT can be broken due to any error. In such cases driver
-> must be able to protect itself, since the DT is external data for the
-> driver.
-> Adjust this issues by adding NULL return check.
+On Wed, 26 Jun 2024 20:10:32 +0200,
+Mark Brown wrote:
 > 
-> [...]
+> The following changes since commit c3f38fa61af77b49866b006939479069cd451173:
+> 
+>   Linux 6.10-rc2 (2024-06-02 15:44:56 -0700)
+> 
+> are available in the Git repository at:
+> 
+>   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.10-rc5
+> 
+> for you to fetch changes up to 68f97fe330e01450ace63da0ce5cab676fc97f9a:
+> 
+>   ASoC: rt5645: fix issue of random interrupt from push-button (2024-06-26 16:34:48 +0100)
+> 
+> ----------------------------------------------------------------
+> ASoC: Fixes for v6.10
+> 
+> A relatively large batch of updates, largely due to the long interval
+> since I last sent fixes due to various travel and holidays.  There's a
+> lot of driver specific fixes and quirks in here, none of them too major,
+> and also some fixes for recently introduced memory safety issues in the
+> topology code.
 
-Applied to
+Pulled now.  Thanks.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Thanks!
-
-[1/1] ASoC: qcom: Adjust issues in case of DT error in asoc_qcom_lpass_cpu_platform_probe()
-      commit: f9f7f29f64454bb20896c7d918c3abc3a1aa487b
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+Takashi

@@ -2,139 +2,145 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 391DE91DF54
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Jul 2024 14:32:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 384EC91DF55
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Jul 2024 14:32:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A52AD299D;
-	Mon,  1 Jul 2024 14:32:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A52AD299D
+	by alsa0.perex.cz (Postfix) with ESMTPS id BA2062BDC;
+	Mon,  1 Jul 2024 14:32:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA2062BDC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1719837141;
-	bh=q8pm1cQ32txw1WRPKTanNTmvRox3c7g4AlMuHhl+D20=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=YaZ2qMD6+RvUN6g5QqRqdBpaX9qRxXxs2GyVLAbhPig0ErwDjwT0Mgt5yDGKQe5ws
-	 jjM2oa4eiXTifBurPzPdFvs6of/aBh+7LzLIYU9zNtb15vHjtWbXuNMv4tcijIjCVW
-	 XDozeppnMsS/h3SEpW9sXtfNy2aMcPk0R0OW3Hpo=
+	s=default; t=1719837150;
+	bh=7o3IDq7dMnCJpDffLvbMK0yGcnevSZjTsnurFpsaims=;
+	h=From:To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=CsvhWlRFvntRx4leg202x3uH0CUl3yjHlZGb9UfETFwy2v9TfU753zATVWeqnBSGU
+	 X1Z8Q3RV37AuKt72kQBdz172Zu2OdYFmlOHW9ITTQE8ore5ZlAt86ziFjGVz/SYsiq
+	 o/K8BigmmTIdfr5wV+zZQEwpuJAhBubGpAZBY/FQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 34B38F806EC; Mon,  1 Jul 2024 14:23:07 +0200 (CEST)
+	id E6185F80735; Mon,  1 Jul 2024 14:23:10 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 68292F806EC;
-	Mon,  1 Jul 2024 14:23:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A31DAF8072A;
+	Mon,  1 Jul 2024 14:23:09 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F3B1BF800E4; Thu, 27 Jun 2024 13:06:17 +0200 (CEST)
+	id D3C08F80423; Thu, 27 Jun 2024 17:01:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-qv1-xf35.google.com (mail-qv1-xf35.google.com
- [IPv6:2607:f8b0:4864:20::f35])
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [IPv6:2a00:1450:4864:20::52b])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E991EF800E4
-	for <alsa-devel@alsa-project.org>; Thu, 27 Jun 2024 13:06:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E991EF800E4
+	by alsa1.perex.cz (Postfix) with ESMTPS id ACDE1F800ED
+	for <alsa-devel@alsa-project.org>; Thu, 27 Jun 2024 17:01:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ACDE1F800ED
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=timesys-com.20230601.gappssmtp.com
  header.i=@timesys-com.20230601.gappssmtp.com header.a=rsa-sha256
- header.s=20230601 header.b=ugzqdyiH
-Received: by mail-qv1-xf35.google.com with SMTP id
- 6a1803df08f44-6b5932383e0so3472886d6.0
+ header.s=20230601 header.b=06sTh3A3
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-57d4ee2aaabso2069689a12.2
         for <alsa-devel@alsa-project.org>;
- Thu, 27 Jun 2024 04:06:06 -0700 (PDT)
+ Thu, 27 Jun 2024 08:01:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=timesys-com.20230601.gappssmtp.com; s=20230601; t=1719486365;
- x=1720091165; darn=alsa-project.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=q8pm1cQ32txw1WRPKTanNTmvRox3c7g4AlMuHhl+D20=;
-        b=ugzqdyiH04uDUpvGX0aoUZf5bSuBwE0PiGoVg9rl6knjXQLAXunRWKyAwoWFFqG9J4
-         pQiQfwJA4Y8QaRsZvMGp54sT3UeCZZPa5ERyzUjnxLfU4QKbob5yZWCX58XTeUuc0Ry/
-         gVbWd1mnUguMBQ2YK2T/rb/Q+i9h9J7aMaifGJqG0o4BhwrgC0Jwbxu/TMOXPJ4OAm0H
-         pjP0rTu2a6Yrno3qHS8sMY3hwyyGSbrl5alcMDAz9P2D6pJUAxkDuRmlS3n9vZQsZX+Q
-         Wi0We37zwUkdivUlKAyo0uyOiq+Lxs2LChI/XGX5cIKSRUmNN861Z2aTxIB3AJ2PDeAN
-         u86g==
+        d=timesys-com.20230601.gappssmtp.com; s=20230601; t=1719500464;
+ x=1720105264; darn=alsa-project.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=1Y7Vm7BbdgByjIx2Tu22DX4H6N9MAc4rl5R9/LnNe7E=;
+        b=06sTh3A3Brj4JV1HLolkcE7sB86oqVvxva1D6xOnyqvLt4AJdIyg2WzhzySD8zC40O
+         Ly9hhsQtcQ2g+IYa9FKMjPujuL6YGvcK1fYuX47vgpGaEVDphtcgDI1D3ufmn92w2AMZ
+         1LzS+ZHl9EsluRuC9c0DE5X/1CoUIV+2ic0cM/KBPNx1cfKPVugz2cucFry8cRkvRsg3
+         p7OjZ0X7cDYCC6e0vgjRLP5J81C1zJe4vHYadCGBunBZ7HjNl5h0a23QDOtmElKEPy5G
+         QPIPeQ9n3hQDUPfsM6OeHKyT6xU2Bfpx2874cMeRgIXOdao+K4ewsjJDn3KOUESEukh/
+         bdag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719486365; x=1720091165;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=q8pm1cQ32txw1WRPKTanNTmvRox3c7g4AlMuHhl+D20=;
-        b=SK5zpvPfER1vNoAi/A6NlJlvXb3I23g8MCJKZffu/01T6qPuKuT6cXhmAA1VrMtkOF
-         PN9n0C7QieAMtH7Uk41V1Yi5le6anMzVZl10+c8sUqWToa0vbqS0TzwWqQOc1JzfjOJC
-         HLTJL4mMf94F8lpK7OMvcC5Hoaz33Y9Uto+ftxFvUssMGLEkWh5/MASRdIEVO0Q6jnhj
-         v0cs3UDlb4KgZU1KbZeMvNIWpfJJ92SyQihSf7NeQt/pxlS83iQBc3dTD6fnLg1aMjMa
-         K5Ea4RS0MyNpfd7TKiLJ8lXNBdwtjeCF2z6UxyT4WDmr93+i6hxO+z00sI/HeqZ/T2sP
-         fOJw==
+        d=1e100.net; s=20230601; t=1719500464; x=1720105264;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=1Y7Vm7BbdgByjIx2Tu22DX4H6N9MAc4rl5R9/LnNe7E=;
+        b=bVz8QMy029WwPGI/w7Z3+HWmmdI7nzZE/6lC6q02pwHaicDl+6dmzgw5EkIRtWSAxn
+         0XZSibdQWI6WOfwETFUfx9yHJoKwPToSEIx6Aytgmk4/utZjrxHfJPj37SSfZkovWEg6
+         lo/ovUtiqWo1EN3+XXpCf87o4DqkTewRn4DCoXk/9BU6RseqVekY8xSMPoZv5XeqXXzh
+         p8y1csMTCvlAoGC7+WlIAYnDtmPdvWYxaIbaK6lpOait50H/lRwuzxV2IGkYv4fQuK39
+         1mOPSNESqh24hd6cCtnrSqPxNuSTfLvp9aWZ/gF8z1UMw2IsewOmfwaueREJ2N2DJ4Lf
+         dyjg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWtkOtLF1iIjpi6nCbm6R/jv8O/j0e1CbIjRgz8P2VrsMD3/swkf9YEorHNncdznBwlhjMRPCE2KhZT6hQ56kaa2/lANSVVv2+m4Xo=
-X-Gm-Message-State: AOJu0Yy1pcyZ1XHmy/MhxC5AySDdf6cslvdcb9IdbpW7P9AZDXTcPFr+
-	rDkv8Vcab8cqmMAmYdDFHtzNOMIwJT+vLch3kgi982q03UAQLXC0sFGPdj5Dh9DQ8OKW7dREGpv
-	w/CAaPSqqfa6QZ4UaCV9IyDYRPlzYAhJIQtalVw==
+ AJvYcCXxVBPOiHU6CJBi6GYDjs0eD71wAE77/Mf/ikrk7/Q3+4yge7eeaPtEog+f3iazacEMOWg6ing/RBk4zVVFhS+9GbipHk65BnkQU8s=
+X-Gm-Message-State: AOJu0YxQVTZUG2j4ovD+Nlg6AxgtekmV9ESr7EpSouv2Z/CtLJulKpM+
+	gTbPaFTqyFGrHYg/chXffTmXWRCvrpyd6wSQDIFGPSbyysi/PtP6iBbu6U6oIFg=
 X-Google-Smtp-Source: 
- AGHT+IG2MNKNNOGC761uBwvpqX9lGsPO6rQNPCNWhEy1V6ZqnINWb303gmPma/KMWKNSmIVuRVUQ+Leug+4DoYkVHJE=
-X-Received: by 2002:a0c:f2cd:0:b0:6b4:f7bb:6d69 with SMTP id
- 6a1803df08f44-6b56380939dmr109313566d6.32.1719486364821; Thu, 27 Jun 2024
- 04:06:04 -0700 (PDT)
-MIME-Version: 1.0
-References: <20240620175657.358273-1-piotr.wojtaszczyk@timesys.com>
- <20240620175657.358273-11-piotr.wojtaszczyk@timesys.com>
- <jgqhlnysuwajlfxjwetas53jzdk6nnmewead2xzyt3xngwpcvl@xbooed6cwlq4>
- <CAG+cZ04suU53wR5f0PhudgNmkxTRtwEXTS1cWH1o9_rTNM94Cg@mail.gmail.com>
- <73yvglxha45d5ft74m3y5fdmkgatm2yftvhza2msg4ombjz42f@wz43pubhbpdz>
-In-Reply-To: <73yvglxha45d5ft74m3y5fdmkgatm2yftvhza2msg4ombjz42f@wz43pubhbpdz>
+ AGHT+IFg9G5Qjr/NcWh7E3bulgGsi4BkD4axF+tIY1ZpcMPEHOlYWD36DNqKEQ2BHT5YOG2H3Pk0zw==
+X-Received: by 2002:a17:906:c2d5:b0:a6f:b9d3:343a with SMTP id
+ a640c23a62f3a-a7245df6b0dmr710793766b.71.1719500464181;
+        Thu, 27 Jun 2024 08:01:04 -0700 (PDT)
+Received: from localhost.localdomain ([91.216.213.152])
+        by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a729d7ca289sm67189066b.222.2024.06.27.08.01.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Jun 2024 08:01:03 -0700 (PDT)
 From: Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>
-Date: Thu, 27 Jun 2024 13:05:53 +0200
-Message-ID: 
- <CAG+cZ05uam3LkvLXG3xAc8FY_p6jx4p=zinNeWbkKUbcLxSTrg@mail.gmail.com>
-Subject: Re: [Patch v4 10/10] i2x: pnx: Use threaded irq to fix warning from
- del_timer_sync()
-To: Andi Shyti <andi.shyti@kernel.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+To: Vinod Koul <vkoul@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
 	"J.M.B. Downing" <jonathan.downing@nautel.com>,
- Vladimir Zapolskiy <vz@mleia.com>,
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+	Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
+	Vladimir Zapolskiy <vz@mleia.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
 	Russell King <linux@armlinux.org.uk>,
- Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Miquel Raynal <miquel.raynal@bootlin.com>,
-	Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
- Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>, Arnd Bergmann <arnd@arndb.de>,
- Yangtao Li <frank.li@vivo.com>,
-	Li Zetao <lizetao1@huawei.com>, Chancel Liu <chancel.liu@nxp.com>,
-	Michael Ellerman <mpe@ellerman.id.au>, dmaengine@vger.kernel.org,
- devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
-	linux-sound@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-i2c@vger.kernel.org, linux-mtd@lists.infradead.org,
-	Markus Elfring <Markus.Elfring@web.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Yangtao Li <frank.li@vivo.com>,
+	Li Zetao <lizetao1@huawei.com>,
+	Chancel Liu <chancel.liu@nxp.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Corentin Labbe <clabbe@baylibre.com>,
+	dmaengine@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	alsa-devel@alsa-project.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-sound@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	linux-i2c@vger.kernel.org,
+	linux-mtd@lists.infradead.org
+Subject: [Patch v5 00/12] Add audio support for LPC32XX CPUs
+Date: Thu, 27 Jun 2024 17:00:18 +0200
+Message-Id: <20240627150046.258795-1-piotr.wojtaszczyk@timesys.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-MailFrom: piotr.wojtaszczyk@timesys.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: QGYTJSGN34Y5SW7C23XN3V4SIQZP5BPB
-X-Message-ID-Hash: QGYTJSGN34Y5SW7C23XN3V4SIQZP5BPB
+Message-ID-Hash: ZS3SWJFC6QCQ6HWVKXZMLJQ7VURWBPCQ
+X-Message-ID-Hash: ZS3SWJFC6QCQ6HWVKXZMLJQ7VURWBPCQ
 X-Mailman-Approved-At: Mon, 01 Jul 2024 12:23:04 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QGYTJSGN34Y5SW7C23XN3V4SIQZP5BPB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZS3SWJFC6QCQ6HWVKXZMLJQ7VURWBPCQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -143,64 +149,52 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, Jun 25, 2024 at 11:12=E2=80=AFPM Andi Shyti <andi.shyti@kernel.org>=
- wrote:
->
-> Hi Piotr,
->
-> On Fri, Jun 21, 2024 at 02:08:03PM GMT, Piotr Wojtaszczyk wrote:
-> > On Fri, Jun 21, 2024 at 12:57=E2=80=AFAM Andi Shyti <andi.shyti@kernel.=
-org> wrote:
-> > > On Thu, Jun 20, 2024 at 07:56:41PM GMT, Piotr Wojtaszczyk wrote:
-> > > > When del_timer_sync() is called in an interrupt context it throws a=
- warning
-> > > > because of potential deadlock. Threaded irq handler fixes the poten=
-tial
-> > > > problem.
-> > > >
-> > > > Signed-off-by: Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>
-> > >
-> > > did you run into a lockdep splat?
-> > >
-> > > Anything against using del_timer(), instead? Have you tried?
-> >
-> > I didn't get a lockdep splat but console was flooded with warnings from
-> > https://github.com/torvalds/linux/blob/v6.10-rc4/kernel/time/timer.c#L1=
-655
-> > In the linux kernel v5.15 I didn't see these warnings.
-> >
-> > I'm not a maintainer of the driver and I didn't do any research on
-> > what kind of impact
-> > would have using del_timer() instad. Maybe Vladimir Zapolskiy will know=
- that.
->
-> Your patch is definitely correct, no doubt about that.
->
-> And I don't have anything aginast changing irq handlers to
-> threaded handlers. But I would be careful at doing that depending
-> on the use of the controller and for accepting such change I
-> would need an ack from someone who knows the device. Vladimir,
-> perhaps?
->
-> There are cases where using threaded handlers are not totally
-> right, for example when the controller is used at early boot for
-> power management handling. I don't think it's the case for this
-> driver, but I can't be 100% sure.
->
-> If you were able to see the flood of WARN_ON's, would be
-> interesting to know how it behaves with del_timer(). Mind
-> giving it a test?
->
-> Thanks,
-> Andi
+This pach set is to bring back audio to machines with a LPC32XX CPU.
+The legacy LPC32XX SoC used to have audio spport in linux 2.6.27.
+The support was dropped due to lack of interest from mainaeners.
 
-I took some time to take a closer look at this and it turns out that the
-timer is used only to exit from the wait_for_completion(), after each
-del_timer_sync() there is a complete() call. So I will remove the timer
-all together and replace wait_for_completion() with
-wait_for_completion_timeout()
+Piotr Wojtaszczyk (12):
+  dt-bindings: dma: pl08x: Add dma-cells description
+  dt-bindings: dma: Add lpc32xx DMA mux binding
+  ASoC: dt-bindings: lpc32xx: Add lpc32xx i2s DT binding
+  ARM: dts: lpc32xx: Use simple-mfd for clock control block
+  ARM: dts: lpc32xx: Add missing dma properties
+  ARM: dts: lpc32xx: Add missing i2s properties
+  clk: lpc32xx: initialize regmap using parent syscon
+  dmaengine: Add dma router for pl08x in LPC32XX SoC
+  ARM: lpc32xx: Remove pl08x platform data in favor for device tree
+  mtd: rawnand: lpx32xx: Request DMA channels using DT entries
+  ASoC: fsl: Add i2s and pcm drivers for LPC32xx CPUs
+  i2x: pnx: Fix potential deadlock warning from del_timer_sync() call in
+    isr
 
+ .../devicetree/bindings/dma/arm-pl08x.yaml    |   7 +
+ .../bindings/dma/nxp,lpc3220-dmamux.yaml      |  49 +++
+ .../bindings/sound/nxp,lpc3220-i2s.yaml       |  73 ++++
+ MAINTAINERS                                   |  20 +
+ arch/arm/boot/dts/nxp/lpc/lpc32xx.dtsi        |  53 ++-
+ arch/arm/mach-lpc32xx/phy3250.c               |  54 ---
+ drivers/clk/Kconfig                           |   1 +
+ drivers/clk/nxp/clk-lpc32xx.c                 |  26 +-
+ drivers/dma/Kconfig                           |   9 +
+ drivers/dma/Makefile                          |   1 +
+ drivers/dma/lpc32xx-dmamux.c                  | 195 +++++++++
+ drivers/i2c/busses/i2c-pnx.c                  |  48 +--
+ drivers/mtd/nand/raw/lpc32xx_mlc.c            |  26 +-
+ drivers/mtd/nand/raw/lpc32xx_slc.c            |  26 +-
+ sound/soc/fsl/Kconfig                         |   7 +
+ sound/soc/fsl/Makefile                        |   2 +
+ sound/soc/fsl/lpc3xxx-i2s.c                   | 375 ++++++++++++++++++
+ sound/soc/fsl/lpc3xxx-i2s.h                   |  79 ++++
+ sound/soc/fsl/lpc3xxx-pcm.c                   |  72 ++++
+ 19 files changed, 993 insertions(+), 130 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/dma/nxp,lpc3220-dmamux.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/nxp,lpc3220-i2s.yaml
+ create mode 100644 drivers/dma/lpc32xx-dmamux.c
+ create mode 100644 sound/soc/fsl/lpc3xxx-i2s.c
+ create mode 100644 sound/soc/fsl/lpc3xxx-i2s.h
+ create mode 100644 sound/soc/fsl/lpc3xxx-pcm.c
 
---=20
-Piotr Wojtaszczyk
-Timesys
+-- 
+2.25.1
+

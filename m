@@ -2,177 +2,111 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A592E91BBD4
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jun 2024 11:46:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 947A391BC07
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jun 2024 11:59:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0696E22AE;
-	Fri, 28 Jun 2024 11:46:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0696E22AE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 94A4122AE;
+	Fri, 28 Jun 2024 11:59:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 94A4122AE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1719568010;
-	bh=mO1yvHTc3NKf8j77zNlIQV0mpQ8DhtbhBhLeaPmCUCU=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1719568758;
+	bh=ucYPMV442p30SxLxZMrLgQRWfuQy7jPceEvUT16eTtw=;
+	h=From:To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=DV09m5vP8MzBhBCWP9p7MBLcfKd7RUyricmaIF8s6MQt3OvUd+FY8plllIFIjbN0T
-	 vetOLm6UlB7oGuhwv1NNNmd5C28WVmsfgrNt1dmLZA/hyX0Bqunhy57vWwX+4/qHgx
-	 ivtU1hfnw79WaJZAwUkja8j+bMfcqORi6vD1ohuU=
+	b=IVEhLmRrNRh8QrWglK/COTL+3zdvoSGWUmarbXxYtNSKiAz2Y3mG2jyTggMumLLK5
+	 wArxil70NnkrCBySU8L2vYqhN2viU1glyXJJ+P2jhWDbxTo78wagnoHJqDP32wkB+H
+	 9VGT4ZKopCW3WedW3fovowzodFegENxOEEyrkTvg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7DDE4F805BA; Fri, 28 Jun 2024 11:46:18 +0200 (CEST)
+	id 49DCBF80587; Fri, 28 Jun 2024 11:58:46 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D7628F805B1;
-	Fri, 28 Jun 2024 11:46:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BEEF2F80587;
+	Fri, 28 Jun 2024 11:58:46 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C3C49F80423; Fri, 28 Jun 2024 11:44:31 +0200 (CEST)
+	id 77062F80495; Fri, 28 Jun 2024 11:58:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FORGED_SPF_HELO,SPF_HELO_PASS,
-	T_SPF_PERMERROR,URIBL_BLOCKED shortcircuit=no autolearn=no
-	autolearn_force=no version=3.4.6
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05on20601.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2613::601])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [IPv6:2a00:1450:4864:20::436])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A53E2F800E4
-	for <alsa-devel@alsa-project.org>; Fri, 28 Jun 2024 11:44:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A53E2F800E4
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8239DF800E4
+	for <alsa-devel@alsa-project.org>; Fri, 28 Jun 2024 11:58:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8239DF800E4
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256
- header.s=selector2 header.b=HKd9Xynk
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=c4SjnD0lMUKYwOavDtP79N7NUynHuP8UMKmsGd02bPcVMzQy4mEHn0bYE7tN2MUEivdLpjvSjreP1Ga20cfP7D5kXIOJfDI9cZZZ5n9t2xpGgwMatx6X0NPcLvs/hxWRy5i5udxPNepRyp24LlME5Yj4l7jyonwFmADXDa3Ikawk5aSpLI6Utw6WJcmatT5an+laVIBCo3eQdNvCZZfrDz7YNnRg4gltrbAkgeTwHraTp5Xayo9YhXbK3vOfMInUAHmr8HqPaIaWfUZfzwbo0YxeBIUA4IE/d26AzA9YgF2JZnKBehcsfmV3A7YC9+WYNk0524KCG+ifFf+q8howtA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uAs2Y1hllEPnEtkbRstwmGKu0em8iRigETu7W2hnzl4=;
- b=gDgMB2hHDL2Ywib9OAgf6ydQRNjAUX2O/gSaNsafrOzTIjxtqFBhx/DW9NXd7DMeOnx2MC9mDouxxOqMF1CmspnSNZXr0y9j2epdmO1RXl5B60p8mSOaaEZXM93N6zcYQXtPqlIdDjuMQ0yxu8cRbnXJxw/sQ2Wxqqm/YPmmet0z9aM8Q/uoPGdgr+mOCGS8vkzJHbjgQRgWeLcHT5BuZXCiKt74/deuIc2jmZstKX/yv5vPLusIfTrLltZ4fnW+rJW5ELSfjh6C4M41rTK/okMjAe0aD8+6pPwds3xO8j8w8Xb++/PnPWAySBJQZLLZ6PaapI5m3d5wKMVYxcencQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uAs2Y1hllEPnEtkbRstwmGKu0em8iRigETu7W2hnzl4=;
- b=HKd9XynkrB8AWJZC2M0xZcc4xreve6yX4Jpe0Vbbm3XhvWR0ZLTFW2W1Nxrh14HjoIyumrFE2WoZxH+PDIGN/CoGVd3b5cUw4T1QexM9g0ENBkrXDgcUZaUzzzgqxVdzGBnrpjL6QL8qag89Gbae7arUd2iA1P634xRMpEGF54o=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from DB9PR04MB9498.eurprd04.prod.outlook.com (2603:10a6:10:360::21)
- by PA1PR04MB10170.eurprd04.prod.outlook.com (2603:10a6:102:463::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7719.26; Fri, 28 Jun
- 2024 09:44:22 +0000
-Received: from DB9PR04MB9498.eurprd04.prod.outlook.com
- ([fe80::24fa:6f9:8247:c5dc]) by DB9PR04MB9498.eurprd04.prod.outlook.com
- ([fe80::24fa:6f9:8247:c5dc%7]) with mapi id 15.20.7698.025; Fri, 28 Jun 2024
- 09:44:22 +0000
-From: Chancel Liu <chancel.liu@nxp.com>
-To: shengjiu.wang@gmail.com,
-	Xiubo.Lee@gmail.com,
-	festevam@gmail.com,
-	nicoleotsuka@gmail.com,
-	lgirdwood@gmail.com,
-	broonie@kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com,
+	dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=gk2JcjOf
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-366e70d0330so327010f8f.1
+        for <alsa-devel@alsa-project.org>;
+ Fri, 28 Jun 2024 02:58:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1719568715; x=1720173515;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=qnCrcRP7t2cWM1AO0t9JWEwOXAFYL4HbHcO1KAiAVOo=;
+        b=gk2JcjOfl8WnNcyszK3jPOqYarwV8kQ0kXbSH+mJ54e0T16ueYoVf8UldLpWU9kRB7
+         KwyHl2w8OWpnR+Xi0ih82zvIm1q512swgPv43+/OIvBfBCN3MO3UiIKhmRDJ/qHesFIJ
+         gwWBqRUwKSge1fatb5C6HxlCX3RG9nTBfwn2xJB532w+TaIWlPwuW1RFKEKK60miqVJn
+         AUD/oK4y1Uujl/e+kMUpVcULZHRv8UAC6L8vx3zTzMxNI3LrjdFBvEnN6YeeSiH5c6KW
+         4iza5OMoMoxBhHEXvXD60rMGFuTStDYer+AUmk+//+NngyflRQneuJpaFzeAqga6Agmz
+         MQUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1719568715; x=1720173515;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=qnCrcRP7t2cWM1AO0t9JWEwOXAFYL4HbHcO1KAiAVOo=;
+        b=AyNr2sLrXXt8NKRJtWbamKAKI9zBhCOzsk0yss46Yyi0q4ta0NjFicg4IiJ3RUHktv
+         fFRF1BDNLnDqdIco8aHUP7UNGv/KgU3E7PHb80BB6N7cVhGk7EOxJu7EjXbhzG1HKrqy
+         yox0ztaYVduaqvIn86r4Aipzrd+eY7NyMrpVcNh2IrpAl7y1efBbmfRHXtSOVRRaQK9Q
+         5KPOb1kIjp+3NJVd5N7HLA5AiCOys087qTrEHQSiarB+ieZ7/ec2s6IE0XZa83lJTbta
+         0jvhHewHsiOQD3NVOadDcfoNPV8l7J6F6YWPCDbvJdpF1fN6eRFA/6EQnA/3/cAojRKm
+         wchA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXxncXEGpcF0A0m7LdFn+URTTB10i5rrVN6S5FrghloTgti2hGNwmmbSGTtavAFNj66uKG+dqv4GQjG6Xq2VVEBXsmOFdjlbiArQuc=
+X-Gm-Message-State: AOJu0YyFJdoAXlSDqOw2OLlRkepu3/31ukQv+asrACMKLOVvxCO1BZc4
+	X2xMy40QpOUc/iWnHlRkS4ewuCsvYLRXKk4udPRbDSaGkmvNgfl0zZ2cAKwpugQ=
+X-Google-Smtp-Source: 
+ AGHT+IGj5zErCya6zo4TRvSCsMgDrJeZu+46l03p6bj9wmdPmAbzwhqn1j9jubXkm8l8eNFE6EkAUA==
+X-Received: by 2002:a05:6000:156a:b0:367:434f:ca9a with SMTP id
+ ffacd0b85a97d-367434fcca3mr3973868f8f.0.1719568714852;
+        Fri, 28 Jun 2024 02:58:34 -0700 (PDT)
+Received: from krzk-bin.. ([178.197.219.137])
+        by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3675a0e13d4sm1760802f8f.56.2024.06.28.02.58.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Jun 2024 02:58:34 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	Banajit Goswami <bgoswami@quicinc.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
 	alsa-devel@alsa-project.org,
-	linuxppc-dev@lists.ozlabs.org,
+	linux-arm-msm@vger.kernel.org,
 	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Cc: Chancel Liu <chancel.liu@nxp.com>
-Subject: [PATCH] ASoC: fsl_xcvr: Improve suspend/resume flow in
- fsl_xcvr_trigger()
-Date: Fri, 28 Jun 2024 18:43:54 +0900
-Message-ID: <20240628094354.780720-1-chancel.liu@nxp.com>
+Subject: [PATCH 1/2] ASoC: codecs: lpass-rx-macro: Fix using NULL pointer in
+ probe() dev_err
+Date: Fri, 28 Jun 2024 11:58:30 +0200
+Message-ID: <20240628095831.207942-1-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.43.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SG2PR04CA0203.apcprd04.prod.outlook.com
- (2603:1096:4:187::22) To DB9PR04MB9498.eurprd04.prod.outlook.com
- (2603:10a6:10:360::21)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB9PR04MB9498:EE_|PA1PR04MB10170:EE_
-X-MS-Office365-Filtering-Correlation-Id: 005cc989-b24f-4ffa-c8b8-08dc9756e3bc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: 
-	BCL:0;ARA:13230040|1800799024|366016|52116014|376014|7416014|38350700014|921020;
-X-Microsoft-Antispam-Message-Info: 
-	=?us-ascii?Q?EwC/dHQF6wHd+qZsjYNvy6oejPX4psruiFYuVNdiMw/k4M1dTijb5rNaNfNY?=
- =?us-ascii?Q?7n3cMAe+LqAuKe+2EG2+ZNftwCcfCefTCcVXhPSpDoDgIRLpIOtDOzVh8mHb?=
- =?us-ascii?Q?GkPaJi/Et4z5UejKGBFBnW6/53KXj8AnBrBdG601rqTN+sWSvDFFH/d8CY99?=
- =?us-ascii?Q?ynRLQ5WEiQtKRtpRR4/ECLTrrSvMeFDinXRa7L7F+IYixPYcvdmX6czl9x/l?=
- =?us-ascii?Q?OMXHcoLW6npuJHDvejJ31rZh7WJbO5bfuccXDAdIdLK0XhgbXLOGEXZ48AFQ?=
- =?us-ascii?Q?/9FMrSJLKJ26jCOQtzFLXIrw+rLuDFhGh7dcfyb2EefNpHjiv3mIMqEJxpW3?=
- =?us-ascii?Q?WmMAhSFanvF03UKx9y+8SsDAKaTz6Hvd1NKB4OWdMn7wWYb3amFR1oTAQdMm?=
- =?us-ascii?Q?CH9ERLqcIsauYTD8Dzwa8W1+jSrft4qvtNXo7yeJ0YqrdeqC3FglQT3gn8S2?=
- =?us-ascii?Q?RcgbJzT1t2E/HU7U2N8GXGnobO311ogd/MN0zy6L3RCfy/e9VMLxX/tNjIrY?=
- =?us-ascii?Q?EE59EJl1Bfkn+8G6uurjk6/qcxK+Y9WFjihtMpIQljspvUKvnegjS6kNqP7Q?=
- =?us-ascii?Q?uNGWwMd0rdKEmKREGbLb0QOil03lK010CgL0jwaDr0qQAoB877Kj2TcShJ1l?=
- =?us-ascii?Q?uADfW2JpgQSll2HjDma4C7PY84D4WhJzW3W/IBxDR8+7epfKwwB9TsZls6Gj?=
- =?us-ascii?Q?uGhdU7aaA0YfaVF/8G7PvMGbQt7HZsIhaJazUhaxMxSqyNqRkPibUU9EGUDb?=
- =?us-ascii?Q?bJPZIE4UACgZa2P24W+LaWHYHVGkje1K6Jzc3bP92IX4h0sYJF2efT6GtMJz?=
- =?us-ascii?Q?Oa2UlJZhk0ViJZRjhPPWyW8s5u1MS7Mhu/NRjmmDnweXe64Ol9RN41IGXVBV?=
- =?us-ascii?Q?K0ySxaGzRQjsYxQnTHyqUBSQ16/Qlw1e3iWWgNtRVRWhj/HcG18NI8N+dEzn?=
- =?us-ascii?Q?6GWEGAuloR5GrucGK9MtberuRZ10hWukYXk8PtRaDqPRoT2dG41Qq6+lMndX?=
- =?us-ascii?Q?ABIemid1r4g2OZO4T+nRf0z9ERY9qd4bmjrEYT7V7aNSRKWDgc0ONID5q7x5?=
- =?us-ascii?Q?arar1+18lbeum2nhWhQ5+EfAc/YPq1dkDUiarTomc5WHE3n3qHXFsctwNumS?=
- =?us-ascii?Q?kKh1fyWgVKyInQ0Di9AmotYr0xNCYqW1T1OL3Tts7oFS8dKi3zY+vIPJ86pR?=
- =?us-ascii?Q?c6lXchheLeOZscUF4HOIq32ajfKJqVDQMg0VUStHoZv5YqsapNYrWoyQrMns?=
- =?us-ascii?Q?P+KLhR9UYolRzAbfyAqkg3tHrUK+gLLPYqycwv9gDL3IFqFhrEjFE/DGi7x5?=
- =?us-ascii?Q?kx4XD1a/hfZj0iD57wltJlYpLTZZ4a6UPjP7KVGMBQk83DP2b9TfZY/p9wNS?=
- =?us-ascii?Q?ZnTFjnrjApf5ZrVKcpdXoSNUggKXz9kYWU4+XMsO6RuZMg5EUUg3920oLGX6?=
- =?us-ascii?Q?VDnCEwtqj7A=3D?=
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR04MB9498.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(52116014)(376014)(7416014)(38350700014)(921020);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?GYKHdQvnQp2YjOMivuL3/rxjHXyCgfkiWq5TVIKbnX44sJyCFWMgS622648N?=
- =?us-ascii?Q?D0b3JlihWwdAJ8kf2K1nC4JsD381mfGQGdWQpsg0y6qT99b9WnAfSJNPxaNf?=
- =?us-ascii?Q?94mz8JXvlCJpqut37aQb7Nv5Sy4ChUfH1vfEs82oRyYAMtEOTVG16wmE0k6f?=
- =?us-ascii?Q?9/3/lgWUpbLvUpsAeFI7kUsPK/cRGl0QPSaH96yKv8m+DLdCPbc6Zd3FPkQu?=
- =?us-ascii?Q?KcS+r4LiuBMhjimm49nWNGkdqGNRv2MF/SwFHjJaHK+3r/gcFJ/bWQb+dZ55?=
- =?us-ascii?Q?WnGti/vllg0cTimE2F/gw3GK8z/Mk29zhjjxB/1ROhV1tzkRU+L34Pqn/ml4?=
- =?us-ascii?Q?mL+AR8QjZytUBxdwddfc0emFY2mPp7r5yGq1thXGTkbwUYv9s+OgQowhOz41?=
- =?us-ascii?Q?9BYnyVY6z6bBOlqT6Hz16e+62xyb2j7u19cgti4HLTdMsMUtk0xaEsA6T/aD?=
- =?us-ascii?Q?JvJaBSRCmr313/Y7L2mPL7m7NklMTB4PKBTeld3bqO3TeZWAJXUvvQVLM8c7?=
- =?us-ascii?Q?jkN5mvwJskVuqicyArmcQjbLjwETPFv0fU0g706UsfvXz3pRH7P1813AEIQS?=
- =?us-ascii?Q?kDS1/WArCKxesv6D1jcAw2mvZ/R1uIpwgpPZ951a+k2Gaf45eiR9+XpdXc4C?=
- =?us-ascii?Q?H6xuJ4a5qeKNduq4awLXuMuZ/tu7yeQfXNG6F2vuvXDAu9SzuTsaZsucrmK5?=
- =?us-ascii?Q?JRxd7W+Oo3sAVztz3lJjGwLWe+H84RPw/MrRJQlMfyUXxlNhoZBcGLolhbRc?=
- =?us-ascii?Q?YfRtQSgadDCVIEPfPfGEGdX/+ZTnRHTnRZsNSaCn36pv2bqdkKhVi5J0ADe5?=
- =?us-ascii?Q?nD+X6Dl4DUsBbIsH/clt+EyRrWcuEcR2telrtOSr6w1v9hLkoPJ3pWbgFJGm?=
- =?us-ascii?Q?AtqJdXDTlLx0GpkSI+gtvhuMssOGmelL9WjkFU0i7bFFZn3OPf88n05nirgk?=
- =?us-ascii?Q?an+sSrCDE9NEocZ98PIk98HQ/2KegEtG5Jn19qhYtDxJTgSQ44qkq06hIN9B?=
- =?us-ascii?Q?GzaAVodMk10p3pqZW2bWn3YGmq8l3HwU04/99Vmh4KEChBs2CIm8A5bE+atW?=
- =?us-ascii?Q?MmTgGdoM3N+KA2UScAxzg2SgUXtpFhxY0IOxtBldZefpjngnAecw8Kk1ttCu?=
- =?us-ascii?Q?ITTWMhlRwzRhYsrhYmIc2MBTff6BNRPf3pVGMnhRcUjYoTeF13aHfxRQdUie?=
- =?us-ascii?Q?ZoYW9ZGPIEKnnIwp5zotCg2sb37/Z2uNqIFdr5hYRzYtKpOqV7guW5H/2gaC?=
- =?us-ascii?Q?63dp39u5ZIvyYlGueTZxINSsX085L29jMiyF3mXUjZaEtxv5a20i9RWpUDP8?=
- =?us-ascii?Q?2zbvUiz2e46j2K8RKyXb6nGuDOAVs3Dq4uHDg+Ehofy9B5nLHqIx546LuWCO?=
- =?us-ascii?Q?u7rP81+K7gdqN2A+xjy0F0POLMUfTvnBogTUQ0t+gp2rTAvMv0k1NkZtXYTE?=
- =?us-ascii?Q?fsnREYXNCTu+so4Ozjynrv5917Rjxqd9h1h5n7ERsGGto5SOIqNayAiugdt+?=
- =?us-ascii?Q?zLtlVNvQ53kIlj9lpp/1GyJt1R3N94Wssy6V5L2DBG438se22zWafl9VAgLB?=
- =?us-ascii?Q?EKX9Si8A5nUxFs2tMdF+IJoXaqGwhtgP+S+4ZGl1?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 005cc989-b24f-4ffa-c8b8-08dc9756e3bc
-X-MS-Exchange-CrossTenant-AuthSource: DB9PR04MB9498.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jun 2024 09:44:22.5045
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- 0dW6Hh6dR7kzN549E15zs6Z6I+3QsxlxG/AcHGsOzE9zOqS4A9rTKS5wKmJBGVlR5V7sNTHiHTd98pDbPAjPlw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB10170
-Message-ID-Hash: O4NYKYGBUQ3SB2HQFJAQSBCRWKC7Q3U6
-X-Message-ID-Hash: O4NYKYGBUQ3SB2HQFJAQSBCRWKC7Q3U6
-X-MailFrom: chancel.liu@nxp.com
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: ONK6YXF5OATUQJTL2WORJOALEA7BOUHF
+X-Message-ID-Hash: ONK6YXF5OATUQJTL2WORJOALEA7BOUHF
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -184,7 +118,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/O4NYKYGBUQ3SB2HQFJAQSBCRWKC7Q3U6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ONK6YXF5OATUQJTL2WORJOALEA7BOUHF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -193,103 +127,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-In the current flow all interrupts are disabled in runtime suspend
-phase. However interrupts enablement only exists in fsl_xcvr_prepare().
-After resume fsl_xcvr_prepare() may not be called so it will cause all
-interrupts still disabled even if resume from suspend. Interrupts
-should be explictily enabled after resume.
+The 'rx->dev' is assigned closer to the end of the probe() function, so
+the dev_err() must not use it - it is still NULL at this point.  Instead
+there is already a local 'dev' variable.
 
-Also, DPATH reset setting only exists in fsl_xcvr_prepare(). After
-resume from suspend DPATH should be reset otherwise there'll be channel
-swap issue.
-
-Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
+Fixes: dbacef05898d ("ASoC: codec: lpass-rx-macro: prepare driver to accomdate new codec versions")
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- sound/soc/fsl/fsl_xcvr.c | 43 +++++++++++++++++++++-------------------
- 1 file changed, 23 insertions(+), 20 deletions(-)
+ sound/soc/codecs/lpass-rx-macro.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/fsl/fsl_xcvr.c b/sound/soc/fsl/fsl_xcvr.c
-index 337da46a2f90..bf9a4e90978e 100644
---- a/sound/soc/fsl/fsl_xcvr.c
-+++ b/sound/soc/fsl/fsl_xcvr.c
-@@ -529,16 +529,6 @@ static int fsl_xcvr_prepare(struct snd_pcm_substream *substream,
+diff --git a/sound/soc/codecs/lpass-rx-macro.c b/sound/soc/codecs/lpass-rx-macro.c
+index 08308a63d1b7..8d4a61f7debc 100644
+--- a/sound/soc/codecs/lpass-rx-macro.c
++++ b/sound/soc/codecs/lpass-rx-macro.c
+@@ -3843,7 +3843,7 @@ static int rx_macro_probe(struct platform_device *pdev)
+ 				rx_2_5_defaults, sizeof(rx_2_5_defaults));
  		break;
+ 	default:
+-		dev_err(rx->dev, "Unsupported Codec version (%d)\n", rx->codec_version);
++		dev_err(dev, "Unsupported Codec version (%d)\n", rx->codec_version);
+ 		ret = -EINVAL;
+ 		goto err;
  	}
- 
--	ret = regmap_update_bits(xcvr->regmap, FSL_XCVR_EXT_IER0,
--				 FSL_XCVR_IRQ_EARC_ALL, FSL_XCVR_IRQ_EARC_ALL);
--	if (ret < 0) {
--		dev_err(dai->dev, "Error while setting IER0: %d\n", ret);
--		return ret;
--	}
--
--	/* set DPATH RESET */
--	m_ctl |= FSL_XCVR_EXT_CTRL_DPTH_RESET(tx);
--	v_ctl |= FSL_XCVR_EXT_CTRL_DPTH_RESET(tx);
- 	ret = regmap_update_bits(xcvr->regmap, FSL_XCVR_EXT_CTRL, m_ctl, v_ctl);
- 	if (ret < 0) {
- 		dev_err(dai->dev, "Error while setting EXT_CTRL: %d\n", ret);
-@@ -679,6 +669,15 @@ static int fsl_xcvr_trigger(struct snd_pcm_substream *substream, int cmd,
- 	case SNDRV_PCM_TRIGGER_START:
- 	case SNDRV_PCM_TRIGGER_RESUME:
- 	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
-+		/* set DPATH RESET */
-+		ret = regmap_update_bits(xcvr->regmap, FSL_XCVR_EXT_CTRL,
-+					 FSL_XCVR_EXT_CTRL_DPTH_RESET(tx),
-+					 FSL_XCVR_EXT_CTRL_DPTH_RESET(tx));
-+		if (ret < 0) {
-+			dev_err(dai->dev, "Failed to set DPATH RESET: %d\n", ret);
-+			return ret;
-+		}
-+
- 		if (tx) {
- 			switch (xcvr->mode) {
- 			case FSL_XCVR_MODE_EARC:
-@@ -711,6 +710,13 @@ static int fsl_xcvr_trigger(struct snd_pcm_substream *substream, int cmd,
- 			return ret;
- 		}
- 
-+		ret = regmap_update_bits(xcvr->regmap, FSL_XCVR_EXT_IER0,
-+					 FSL_XCVR_IRQ_EARC_ALL, FSL_XCVR_IRQ_EARC_ALL);
-+		if (ret < 0) {
-+			dev_err(dai->dev, "Error while setting IER0: %d\n", ret);
-+			return ret;
-+		}
-+
- 		/* clear DPATH RESET */
- 		ret = regmap_update_bits(xcvr->regmap, FSL_XCVR_EXT_CTRL,
- 					 FSL_XCVR_EXT_CTRL_DPTH_RESET(tx),
-@@ -733,6 +739,13 @@ static int fsl_xcvr_trigger(struct snd_pcm_substream *substream, int cmd,
- 			return ret;
- 		}
- 
-+		ret = regmap_update_bits(xcvr->regmap, FSL_XCVR_EXT_IER0,
-+					 FSL_XCVR_IRQ_EARC_ALL, 0);
-+		if (ret < 0) {
-+			dev_err(dai->dev, "Failed to clear IER0: %d\n", ret);
-+			return ret;
-+		}
-+
- 		if (tx) {
- 			switch (xcvr->mode) {
- 			case FSL_XCVR_MODE_SPDIF:
-@@ -1411,16 +1424,6 @@ static int fsl_xcvr_runtime_suspend(struct device *dev)
- 	struct fsl_xcvr *xcvr = dev_get_drvdata(dev);
- 	int ret;
- 
--	/*
--	 * Clear interrupts, when streams starts or resumes after
--	 * suspend, interrupts are enabled in prepare(), so no need
--	 * to enable interrupts in resume().
--	 */
--	ret = regmap_update_bits(xcvr->regmap, FSL_XCVR_EXT_IER0,
--				 FSL_XCVR_IRQ_EARC_ALL, 0);
--	if (ret < 0)
--		dev_err(dev, "Failed to clear IER0: %d\n", ret);
--
- 	if (!xcvr->soc_data->spdif_only) {
- 		/* Assert M0+ reset */
- 		ret = regmap_update_bits(xcvr->regmap, FSL_XCVR_EXT_CTRL,
 -- 
 2.43.0
 

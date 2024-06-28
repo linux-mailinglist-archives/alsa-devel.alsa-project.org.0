@@ -2,92 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85AF091BE85
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jun 2024 14:28:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4E9691BE8C
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jun 2024 14:28:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0F11122CD;
-	Fri, 28 Jun 2024 14:27:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F11122CD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1B40E2366;
+	Fri, 28 Jun 2024 14:28:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1B40E2366
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1719577683;
-	bh=b27QyUJ5iOMLnb1ywUx1HGcm5LsMzNtf07lcBa/92Zs=;
+	s=default; t=1719577707;
+	bh=3ts2gQuK9q5ifIXWwqQcZskJHVRf4IEqgfVfvltT1No=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=V0/1BybdjAiIGo2KOIU5+iMwm0LV8EudyDbFkHYV3TMpinLObP4wmoVpX/U1AVft5
-	 5fIkMHY2Gs5kMo0WvG973NT/sBEQEvCADG0oNKEyYuqMSh+ISgVe0AGfgGWeU+MKhl
-	 BavRrZ9AirIkPTkqVbycu9v8G7pnKiwfm/Ba9eDo=
+	b=kapXwkbRrGDOZnUi9T153pWvXzmt3oXaUxIk8qyicjNpBb81Ck8ig8xCYiQDr/JwF
+	 GHOaVj9q5oJ7M73YzHmFeAdUz3m4ug1NNJ/6ODh04473m2bWV22FKYHYsCiAd4MCWE
+	 uOk7H6iHVcLLwsB3ut09mJTwCiPPzfnmyfUq0CcU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EC12BF805C8; Fri, 28 Jun 2024 14:27:25 +0200 (CEST)
+	id 74210F805FB; Fri, 28 Jun 2024 14:27:27 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id AB662F805D8;
-	Fri, 28 Jun 2024 14:27:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EC8F9F8061C;
+	Fri, 28 Jun 2024 14:27:22 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2509BF8049C; Fri, 28 Jun 2024 14:24:47 +0200 (CEST)
+	id 269C0F8016E; Fri, 28 Jun 2024 14:24:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	RCVD_IN_DNSWL_NONE,SPF_HELO_NONE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [IPv6:2a00:1450:4864:20::435])
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [IPv6:2a00:1450:4864:20::129])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7456DF8013D
-	for <alsa-devel@alsa-project.org>; Fri, 28 Jun 2024 14:24:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7456DF8013D
+	by alsa1.perex.cz (Postfix) with ESMTPS id EAD3EF80423
+	for <alsa-devel@alsa-project.org>; Fri, 28 Jun 2024 14:24:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EAD3EF80423
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=baylibre-com.20230601.gappssmtp.com
  header.i=@baylibre-com.20230601.gappssmtp.com header.a=rsa-sha256
- header.s=20230601 header.b=R6Xivc7M
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-366de090da9so316512f8f.1
+ header.s=20230601 header.b=R/re6OqR
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-52cdebf9f53so544200e87.2
         for <alsa-devel@alsa-project.org>;
- Fri, 28 Jun 2024 05:24:38 -0700 (PDT)
+ Fri, 28 Jun 2024 05:24:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1719577477;
- x=1720182277; darn=alsa-project.org;
+        d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1719577478;
+ x=1720182278; darn=alsa-project.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=lnFOU1sbIqgovk5xhdHMfKNOv2vMSdFoRWRnoLUU7uY=;
-        b=R6Xivc7MbM5sas63zGyYJq6ny9o1uuAPxJbZmHcejczSFRg30ktB6lqm389furFFXJ
-         7BeIm2S8vonAHO/A5VxvImQE2p1qV2s1fjCFxnwv9H8fwtb9tu2wf82Y+HaOrBF2VEUu
-         hxexvHZGXf/wooaSCjpcL+8AmW8ArlDVKPaAbaBb1iF9MlbiEba/rz2PbTN0LF0ifo2U
-         uLDf05GOH1tvRjYDh40kKPdOy1PH9THcx1AzMvJ1y21pofyTc9HMYsBhYKO//tKWg4du
-         1btFDRkiajM84R6iE6stZxmw2rX/rYPYQEIasYnCpzpbH9dT4McdcWvney+ikuPT/o2z
-         Eqmw==
+        bh=d8ilixuBZasrX5oPlMOZzvZHztGbrS/qDv+nWurvrjo=;
+        b=R/re6OqR4YVTXQ/OYflb53IMYsVAPZl/qot2iYKVqujuOZ90GrlNibwMS81yZelvQS
+         lqIBdcMzxMd4PSmx+PDiWsc3dfuz1qZq3/NyUAV7zX7KBq2lLz/pUuWiT4VxreusjHNo
+         ZyBttZZG1qk/mzbq9KJsBgNDYSaHLgIwugzevq49OjplJDrMobj7hmuV56H50wubmpbc
+         pLU37DwI04niWvF4LgnTpsTFLh/PzOsBUtsyAFF79cvfAoOJqixpQfiBEo0YLOuicjWK
+         u5VyVACTIu6MCZPeRGhWcKCEbXCDZ4urbuaal9RHrxBU8DzwnXas4BRkEB7rca6xBfuo
+         bYJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719577477; x=1720182277;
+        d=1e100.net; s=20230601; t=1719577478; x=1720182278;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=lnFOU1sbIqgovk5xhdHMfKNOv2vMSdFoRWRnoLUU7uY=;
-        b=NDWUWkHr6bP4bLJRmLA+Y5vdNo3UmvUFJFFqmCPtEF8shMmKcbZ/J9LNEosGDcG7kV
-         w3zd99X+Z+HPg8O/3vzXUWEUQY5SrT3VO910uz6bWVrwZZns4ghFOwjVmCL+9UQLyNsx
-         kxsEf1XYfEye34roAJZ4+eouJ6fF8XNzhzpE9OZP78S3TBcoT8i+m3GDWNF8hgmjNKIn
-         rYp0x0KblDMdx5pR/2XCccSrhsh98yRuigU8OX+IUsfO7eb2JMHzVR0cxec+xkJGqIIK
-         lUt3H5ucKfwzluG0xYcbNhsvyuWxJko44lm+ZcSh8tmS9C8zVSHe8k//grVp9NpGkfq9
-         c9zQ==
+        bh=d8ilixuBZasrX5oPlMOZzvZHztGbrS/qDv+nWurvrjo=;
+        b=d65JFib4JAzv/lG82kSYiu/4QrjHChJHHVzKH8irsmB95P7uzztMZIG4u+5nxFv1aB
+         uUJEmRqg93PmGF13EvVZuj10CTnyKAcqd8h2Bf8rF7xWbaDRmJXNIEjcFd8VU4Eq5Wgk
+         r35B4slvUmcKxhB8+H4Sj1V3ydT+3S9hchLBPqCojtibqw+iaOrOXj4K3EAb8tYmhjGZ
+         mzbEBmbwcFkIeoXMRhF8s8NVCrlJZN07fV+0Zq3/NJSGyVtgGTxH+DCISpsjHce9tTAi
+         P0MVK6sh81HQZN+A6mjFXKliL8JwKCLlrj7AczMJfamUvjNzZcfryOCyTV/XbiX61CEL
+         WB+A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVuElyCwfb6+Z7NGMCA+F32PvSD+3KvI3kKd4jizAUlsnsHUckZHV++P2oohspIUmox5Z/MtyPiPxuBjqQ33AZbTF1IuZJeR5s6xXU=
-X-Gm-Message-State: AOJu0YzZhYV058iU8GlXVKPPzPYHj1x4AT2ZpBRSQtxOibcd7aGAWCJd
-	7iBBOy2xu7hHIKy8Oro0X3lqGyhh/71Mtt/AHwzJd+dKmv67GMQSV7DSyoWVsa8=
+ AJvYcCVHhro2GPOdhL7XJFZiKBID3/iSeRZ5O4OLNpyksWb6hREca2cHKiXnilZkiNhvy7X8u6sLYddsuNes4NbO5ohEGKU49JFtpdWw0LQ=
+X-Gm-Message-State: AOJu0YzjybrxWmDGQ/v4A21aqOZrbr26GQkF3vezLphGvbfIhrfAiqmx
+	0bfpheiQIzIz45u4PYbp0LocSGKb+m7/244n0/c289yKbgOsw2+365cziAVxwEs=
 X-Google-Smtp-Source: 
- AGHT+IHcx4P02qa9MVJ93L8rnvMkCnp9jNt5pVErQKhpVoNe+nIx6+jrMgw0cTPvYrDqw0YMkFWn9A==
-X-Received: by 2002:adf:e682:0:b0:367:5280:a40a with SMTP id
- ffacd0b85a97d-3675280a593mr2487589f8f.42.1719577477194;
-        Fri, 28 Jun 2024 05:24:37 -0700 (PDT)
+ AGHT+IHQNBdkp5sVhDZMNMGLlSLyCBg5ncNtuAz2wpbbCQJUMGI2AenlpBNeQiXbs7+OnFlxLeSLDQ==
+X-Received: by 2002:ac2:4c84:0:b0:52e:7125:c70a with SMTP id
+ 2adb3069b0e04-52e7125c847mr3014350e87.47.1719577478429;
+        Fri, 28 Jun 2024 05:24:38 -0700 (PDT)
 Received: from toaster.lan ([2a01:e0a:3c5:5fb1:78b7:4c75:7e6e:807f])
         by smtp.googlemail.com with ESMTPSA id
- ffacd0b85a97d-3675a0cd623sm2179013f8f.16.2024.06.28.05.24.36
+ ffacd0b85a97d-3675a0cd623sm2179013f8f.16.2024.06.28.05.24.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Jun 2024 05:24:36 -0700 (PDT)
+        Fri, 28 Jun 2024 05:24:37 -0700 (PDT)
 From: Jerome Brunet <jbrunet@baylibre.com>
 To: Mark Brown <broonie@kernel.org>,
 	Liam Girdwood <lgirdwood@gmail.com>,
@@ -97,17 +97,18 @@ Cc: Jerome Brunet <jbrunet@baylibre.com>,
 	alsa-devel@alsa-project.org,
 	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/3] ALSA: pcm: add support for 128kHz sample rate
-Date: Fri, 28 Jun 2024 14:23:06 +0200
-Message-ID: <20240628122429.2018059-2-jbrunet@baylibre.com>
+Subject: [PATCH 2/3] ALSA: IEC958 definition for consumer status channel
+ update
+Date: Fri, 28 Jun 2024 14:23:07 +0200
+Message-ID: <20240628122429.2018059-3-jbrunet@baylibre.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240628122429.2018059-1-jbrunet@baylibre.com>
 References: <20240628122429.2018059-1-jbrunet@baylibre.com>
 MIME-Version: 1.0
 X-Patchwork-Bot: notify
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 4RNNOQOD7GDXBMF6SZ5ZUYGG2XRZXGFW
-X-Message-ID-Hash: 4RNNOQOD7GDXBMF6SZ5ZUYGG2XRZXGFW
+Message-ID-Hash: NRM2MHCXEUTEQCA5K7XKUTI2U623WIZT
+X-Message-ID-Hash: NRM2MHCXEUTEQCA5K7XKUTI2U623WIZT
 X-MailFrom: jbrunet@baylibre.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -120,7 +121,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4RNNOQOD7GDXBMF6SZ5ZUYGG2XRZXGFW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NRM2MHCXEUTEQCA5K7XKUTI2U623WIZT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -129,72 +130,47 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The usual sample rate possible on an SPDIF link are
-32k, 44.1k, 48k, 88.2k, 96k, 172.4k and 192k.
-
-With higher bandwidth variant, such as eARC, and the introduction of 8
-channels mode, the spdif frame rate may be multiplied by 4. This happens
-when the interface use an IEC958_SUBFRAME format.
-
-The spdif 8 channel mode rate list is:
-128k, 176.4k, 192k, 352.8k, 384k, 705.4k and 768k.
-
-All are already supported by ASLA expect for the 128kHz one.
-Add support for it but do not insert it the SNDRV_PCM_RATE_8000_192000
-macro. Doing so would silently add 128k support to a lot of HW which
-probably do not support it.
+Add 128kHz, 352.4kHz, 384kHz and 705.6kHz.
+These definitions have been found working on eARC using a Murideo
+Seven Generator.
 
 Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
 ---
- include/sound/pcm.h     | 13 +++++++------
- sound/core/pcm_native.c |  6 +++---
- 2 files changed, 10 insertions(+), 9 deletions(-)
 
-diff --git a/include/sound/pcm.h b/include/sound/pcm.h
-index 3edd7a7346da..9cda92b34eda 100644
---- a/include/sound/pcm.h
-+++ b/include/sound/pcm.h
-@@ -116,12 +116,13 @@ struct snd_pcm_ops {
- #define SNDRV_PCM_RATE_64000		(1U<<8)		/* 64000Hz */
- #define SNDRV_PCM_RATE_88200		(1U<<9)		/* 88200Hz */
- #define SNDRV_PCM_RATE_96000		(1U<<10)	/* 96000Hz */
--#define SNDRV_PCM_RATE_176400		(1U<<11)	/* 176400Hz */
--#define SNDRV_PCM_RATE_192000		(1U<<12)	/* 192000Hz */
--#define SNDRV_PCM_RATE_352800		(1U<<13)	/* 352800Hz */
--#define SNDRV_PCM_RATE_384000		(1U<<14)	/* 384000Hz */
--#define SNDRV_PCM_RATE_705600		(1U<<15)	/* 705600Hz */
--#define SNDRV_PCM_RATE_768000		(1U<<16)	/* 768000Hz */
-+#define SNDRV_PCM_RATE_128000		(1U<<11)	/* 128000Hz */
-+#define SNDRV_PCM_RATE_176400		(1U<<12)	/* 176400Hz */
-+#define SNDRV_PCM_RATE_192000		(1U<<13)	/* 192000Hz */
-+#define SNDRV_PCM_RATE_352800		(1U<<14)	/* 352800Hz */
-+#define SNDRV_PCM_RATE_384000		(1U<<15)	/* 384000Hz */
-+#define SNDRV_PCM_RATE_705600		(1U<<16)	/* 705600Hz */
-+#define SNDRV_PCM_RATE_768000		(1U<<17)	/* 768000Hz */
- 
- #define SNDRV_PCM_RATE_CONTINUOUS	(1U<<30)	/* continuous range */
- #define SNDRV_PCM_RATE_KNOT		(1U<<31)	/* supports more non-continuous rates */
-diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
-index 521ba56392a0..87eeb9b7f54a 100644
---- a/sound/core/pcm_native.c
-+++ b/sound/core/pcm_native.c
-@@ -2410,13 +2410,13 @@ static int snd_pcm_hw_rule_sample_bits(struct snd_pcm_hw_params *params,
- 	return snd_interval_refine(hw_param_interval(params, rule->var), &t);
- }
- 
--#if SNDRV_PCM_RATE_5512 != 1 << 0 || SNDRV_PCM_RATE_192000 != 1 << 12
-+#if SNDRV_PCM_RATE_5512 != 1 << 0 || SNDRV_PCM_RATE_768000 != 1 << 17
- #error "Change this table"
- #endif
- 
- static const unsigned int rates[] = {
--	5512, 8000, 11025, 16000, 22050, 32000, 44100,
--	48000, 64000, 88200, 96000, 176400, 192000, 352800, 384000, 705600, 768000
-+	5512, 8000, 11025, 16000, 22050, 32000, 44100, 48000, 64000, 88200,
-+	96000, 128000, 176400, 192000, 352800, 384000, 705600, 768000,
- };
- 
- const struct snd_pcm_hw_constraint_list snd_pcm_known_rates = {
+ NOTE: This patch needs to be reviewed/acked by someone with access
+       to the IEC958 spec, to confirm the values inserted below.
+
+ include/sound/asoundef.h | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/include/sound/asoundef.h b/include/sound/asoundef.h
+index 9fdeac19dadb..09b2c3dffb30 100644
+--- a/include/sound/asoundef.h
++++ b/include/sound/asoundef.h
+@@ -110,18 +110,22 @@
+ #define IEC958_AES2_CON_SOURCE_UNSPEC	(0<<0)	/* unspecified */
+ #define IEC958_AES2_CON_CHANNEL		(15<<4)	/* mask - channel number */
+ #define IEC958_AES2_CON_CHANNEL_UNSPEC	(0<<4)	/* unspecified */
+-#define IEC958_AES3_CON_FS		(15<<0)	/* mask - sample frequency */
++#define IEC958_AES3_CON_FS		((1<<7) | (15<<0)) /* mask - sample frequency */
+ #define IEC958_AES3_CON_FS_44100	(0<<0)	/* 44.1kHz */
+ #define IEC958_AES3_CON_FS_NOTID	(1<<0)	/* non indicated */
+ #define IEC958_AES3_CON_FS_48000	(2<<0)	/* 48kHz */
+ #define IEC958_AES3_CON_FS_32000	(3<<0)	/* 32kHz */
+ #define IEC958_AES3_CON_FS_22050	(4<<0)	/* 22.05kHz */
++#define IEC958_AES3_CON_FS_384000	(5<<0)	/* 384kHz */
+ #define IEC958_AES3_CON_FS_24000	(6<<0)	/* 24kHz */
+ #define IEC958_AES3_CON_FS_88200	(8<<0)	/* 88.2kHz */
+ #define IEC958_AES3_CON_FS_768000	(9<<0)	/* 768kHz */
+ #define IEC958_AES3_CON_FS_96000	(10<<0)	/* 96kHz */
+ #define IEC958_AES3_CON_FS_176400	(12<<0)	/* 176.4kHz */
++#define IEC958_AES3_CON_FS_352400	(13<<0) /* 352.4kHz */
+ #define IEC958_AES3_CON_FS_192000	(14<<0)	/* 192kHz */
++#define IEC958_AES3_CON_FS_128000	((1<<7) | (11<<0)) /* 128kHz */
++#define IEC958_AES3_CON_FS_705600	((1<<7) | (13<<0)) /* 705.6kHz */
+ #define IEC958_AES3_CON_CLOCK		(3<<4)	/* mask - clock accuracy */
+ #define IEC958_AES3_CON_CLOCK_1000PPM	(0<<4)	/* 1000 ppm */
+ #define IEC958_AES3_CON_CLOCK_50PPM	(1<<4)	/* 50 ppm */
 -- 
 2.43.0
 

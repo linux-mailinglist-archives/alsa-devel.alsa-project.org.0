@@ -2,161 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9259791B6EE
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jun 2024 08:21:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1EEB91B6EF
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jun 2024 08:22:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0020FF53;
-	Fri, 28 Jun 2024 08:21:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0020FF53
+	by alsa0.perex.cz (Postfix) with ESMTPS id 27F3221DF;
+	Fri, 28 Jun 2024 08:22:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 27F3221DF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1719555704;
-	bh=z9UIB5rrLY/cxp9IDsiz9q0oKv8hf241y0FJMc9qyfg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Rg5LyVZ2jmpzS7FMINpufnfeF+x2M5vG0vOJP/Hhl35fb3MD+wdMSjbxR5aD0srVC
-	 k3f1FtABeYuZJ/41UP7X2EUPGDNUzd0LMEfCFO/GSe/onVNJ4B8NwkYGvPZwa3DF5O
-	 fg9qwmKBzZBLnfKYVsWkOqEfnGRBYUjUVf8uXYQE=
+	s=default; t=1719555740;
+	bh=y3OfKL/mIWCD2CU0dUGjLIhEKka14zVDGf/boSGV1qQ=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=faaDkhMUScyQVLxm3Tr5okRc+tF7Riww+9DzBOcASoaj/JFOH+DTIuV56uNnh4jio
+	 NjmXko60oldOrnozFxl7h6cV6EjdMCg8phzhmD37/e69q5tct9NWSkfTqd4+oGFy0e
+	 f0jtd8wAawOhRWHLD9MtjcVog23rejSfIUaA3kW8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3E04AF805B2; Fri, 28 Jun 2024 08:21:13 +0200 (CEST)
+	id 15F13F80588; Fri, 28 Jun 2024 08:21:49 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A4227F805C6;
-	Fri, 28 Jun 2024 08:21:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C5CE7F805B5;
+	Fri, 28 Jun 2024 08:21:48 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 329EBF80423; Fri, 28 Jun 2024 08:21:08 +0200 (CEST)
+	id A8090F8049C; Fri, 28 Jun 2024 08:21:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [IPv6:2a00:1450:4864:20::22d])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
+	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+	autolearn=unavailable autolearn_force=no version=3.4.6
+Received: from smtp51.i.mail.ru (smtp51.i.mail.ru [95.163.41.87])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 329F5F8013D
-	for <alsa-devel@alsa-project.org>; Fri, 28 Jun 2024 08:17:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 329F5F8013D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7B25DF805BB
+	for <alsa-devel@alsa-project.org>; Fri, 28 Jun 2024 08:18:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7B25DF805BB
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=QSx5GEUc
-Received: by mail-lj1-x22d.google.com with SMTP id
- 38308e7fff4ca-2ec002caf3eso3289661fa.1
-        for <alsa-devel@alsa-project.org>;
- Thu, 27 Jun 2024 23:17:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1719555447; x=1720160247;
- darn=alsa-project.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=cvL1Kpr+Y0kubwCGNWw6QnVBNlgmQ51dGFE/mo0TWS4=;
-        b=QSx5GEUcLtZHggD303vJO4W98RUV1vN7XbnNxxLuvtvrBzl6IzUXniLtTWqAjVs82R
-         HGzWxn0h3l8EDFeWYZE7UINJqoDw1QdLZVYv6/WSzCJAOM7hnBDckBggcTOn5hBeI3eS
-         8BF6M9bZUCQXCvt8TJ+UmNkMh2Eg8e5U/kg0oqrgmrJbxv2s8n9g9DKxxzWSzBKCXTmA
-         IPDhSOk88eYkJoS6QqAQ7PPJ2K1I9LiZGsp/AOpOdFMqFueqWJ/lfiHEUWCl5gIoXSsQ
-         q7x+wCCbqBO2ZQLiJNnnnphTkAcln9JwOzqVO+VnvnENvuEA3mCZuH5qFXB9cRZdhUPe
-         gigg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719555447; x=1720160247;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=cvL1Kpr+Y0kubwCGNWw6QnVBNlgmQ51dGFE/mo0TWS4=;
-        b=od33TPthKnch/rTeoaUsbunh5bX7R0D+S4zEGCn2m9SbwP+8JBg1Z4WVbIHSKEeETz
-         ImNwimn/jcEqfDVMr16MFgKDHw2NTODVfYdd+xG9dPndcqQvMqUqb/7zK5OZmAzNdgS+
-         ll7Nbc4mTM/S/qnJUkM/JmnJ825d0c+nWGuo7JtJgBzKJCcESYklitYI09ckXTR4Xdb8
-         pLtGaxM+zOtmBf8q+VaQLPlnmHOLh4/fqVs9OQjCR6Bu6ix92gKCiQUaP73b82M7/L9a
-         SDnXZ62Ugu9iMavfZcegtZt1UdXBYtqPQFlJWAWQ1ksVwTPs84vClsxBt9ImEYBs9N4r
-         hJcA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWROUOT83nS6Jov5EPOueUuWkE4sVP3TIv7mGp3DbFiI/H2/8bp4FpuMtHVI7Fn501IAIlkaid+Z5XPWXJGHCVjCivgx74UJ69obsc=
-X-Gm-Message-State: AOJu0YykGLIJvJbWO2KZZEvbL4O7JKfWgjsRPyr7RGPVcfPqKKSVnRPM
-	riGi6rbS3Cp8kblDXxhU5OpsXAKY41khuhW8Ly36pJuRiVmtD9iMlDDs516QsmIzhGaugG6cYc7
-	T
-X-Google-Smtp-Source: 
- AGHT+IGctVcgVA83EGYdDu70N8ryw4vx7TISaUQGYnxOzUZXWrpgYGOAAhjn8A4wHTQl74HS5QgbvA==
-X-Received: by 2002:a2e:8193:0:b0:2ec:2038:925d with SMTP id
- 38308e7fff4ca-2ec5b2c4f38mr108962601fa.1.1719555447004;
-        Thu, 27 Jun 2024 23:17:27 -0700 (PDT)
-Received: from [192.168.1.20] ([178.197.219.137])
-        by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4256af5ba67sm20005225e9.19.2024.06.27.23.17.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 27 Jun 2024 23:17:26 -0700 (PDT)
-Message-ID: <53a591ef-caf8-4494-a672-0ee95d8dfd68@linaro.org>
-Date: Fri, 28 Jun 2024 08:17:24 +0200
+ unprotected) header.d=inbox.ru header.i=@inbox.ru header.a=rsa-sha256
+ header.s=mail4 header.b=rXx6PiNN
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=inbox.ru;
+	s=mail4; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:Cc:
+	To:From:From:Sender:Reply-To:To:Cc:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive:
+	X-Cloud-Ids:Disposition-Notification-To;
+	bh=ge1m5xNnSjp5O705qLECpZaJUXZrf8RDfmnJN/mnCGg=; t=1719555519; x=1719645519;
+	b=rXx6PiNNRXEWtrTqiMUi7zc51JI+vMXLpIuw/g9DckOlN9O+dkIunjSfxbuL//DtKBWz5jiK/WL
+	1hkciLaUAUMNz6E4zlTMBk/HrPmtcZH3kTfBM2yRtgi922YvGiEF3fQaEZEHgnRu4X4wy5KZNWLVr
+	Kh5hfkOdhsijYXfCxdB90LIE2UYPqLK3lSTBAlqynuxuklXVnrSC8T9lfWs6KV43w2UQFUDXX8Jmi
+	eXkZK37gCLe5ZZrWIKM+uLRhO5GezXuSKJovcFtb04hl4F75Kp6vjruxfRcJNDtbVAd2bno23+MAx
+	3x60pQaDFEokrhvTdDRRUK2TZdL91e7y/cUQ==;
+Received: by smtp51.i.mail.ru with esmtpa (envelope-from <fido_max@inbox.ru>)
+	id 1sN4wO-0000000DKRj-3U8Q; Fri, 28 Jun 2024 09:18:37 +0300
+From: Maxim Kochetkov <fido_max@inbox.ru>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+	Andy Shevchenko <andy.shevchenko@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	John Hsu <KCHSU0@nuvoton.com>
+Cc: Maxim Kochetkov <fido_max@inbox.ru>,
+	linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	alsa-devel@alsa-project.org
+Subject: [PATCH v2 0/2] Add master clock handling for nau8824
+Date: Fri, 28 Jun 2024 09:17:45 +0300
+Message-ID: <20240628061750.11141-1-fido_max@inbox.ru>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7/7] arm64: dts: qcom: qrb4210-rb2: add HDMI audio
- playback support
-To: Alexey Klimov <alexey.klimov@linaro.org>, linux-sound@vger.kernel.org,
- srinivas.kandagatla@linaro.org, bgoswami@quicinc.com, lgirdwood@gmail.com,
- broonie@kernel.org
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- andersson@kernel.org, konrad.dybcio@linaro.org, perex@perex.cz,
- tiwai@suse.com, linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, elder@linaro.org, dmitry.baryshkov@linaro.org,
- caleb.connolly@linaro.org, linux-kernel@vger.kernel.org
-References: <20240628010715.438471-1-alexey.klimov@linaro.org>
- <20240628010715.438471-8-alexey.klimov@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Content-Language: en-US
-Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
- 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
- D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <20240628010715.438471-8-alexey.klimov@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: LXZ2UYD3DUURBBBILSATWLMXYASXCCWN
-X-Message-ID-Hash: LXZ2UYD3DUURBBBILSATWLMXYASXCCWN
-X-MailFrom: krzysztof.kozlowski@linaro.org
+Content-Transfer-Encoding: 8bit
+Authentication-Results: smtp51.i.mail.ru;
+ auth=pass smtp.auth=fido_max@inbox.ru smtp.mailfrom=fido_max@inbox.ru
+X-Mailru-Src: smtp
+X-7564579A: 78E4E2B564C1792B
+X-77F55803: 
+ 4F1203BC0FB41BD9749DDC91F62168F9434C08151801B152E33043C08F8D7FF8182A05F538085040B75E958E13EECA91AC8EDD30083ED68E5B7803034921C6E57BD3776DDB6887748E62883BDF625A9B
+X-7FA49CB5: 
+ FF5795518A3D127A4AD6D5ED66289B5278DA827A17800CE757AEC41D7AA04458EA1F7E6F0F101C67BD4B6F7A4D31EC0BCC500DACC3FED6E28638F802B75D45FF8AA50765F79006379A6B93796C91DCB58638F802B75D45FF36EB9D2243A4F8B5A6FCA7DBDB1FC311F39EFFDF887939037866D6147AF826D83C6E4B3470113C446682DC0906D38882DEF22AD61BD8707C20879F7C8C5043D14489FFFB0AA5F4BFA417C69337E82CC2CC7F00164DA146DAFE8445B8C89999728AA50765F79006377C70927E34808485389733CBF5DBD5E9C8A9BA7A39EFB766F5D81C698A659EA7CC7F00164DA146DA9985D098DBDEAEC86089696B24BB1D19F6B57BC7E6449061A352F6E88A58FB86F5D81C698A659EA7E827F84554CEF5019E625A9149C048EE9ECD01F8117BC8BEE2021AF6380DFAD18AA50765F790063735872C767BF85DA227C277FBC8AE2E8BDCE939D40DBB93CA75ECD9A6C639B01B4E70A05D1297E1BBCB5012B2E24CD356
+X-C1DE0DAB: 
+ 0D63561A33F958A5ACF5F6CCAA16077E5002B1117B3ED69690200D2D90457A39B74D9144D44E4FCF823CB91A9FED034534781492E4B8EEADF1165EFABA1780A6C79554A2A72441328621D336A7BC284946AD531847A6065A17B107DEF921CE79BDAD6C7F3747799A
+X-C8649E89: 
+ 1C3962B70DF3F0ADE00A9FD3E00BEEDF77DD89D51EBB7742D3581295AF09D3DF87807E0823442EA2ED31085941D9CD0AF7F820E7B07EA4CFC936A6000BFCC5EC7E936901FCABE1E64C628756CA9BDA33FE87FE105843AC59FB7A4CF61EC7A84F44A12D68860EECB7B3683851FD3713BC896C0CB3C25AE39F07416E56C15988D2146D90F64BF3396102C26D483E81D6BEEB84411BD425175970A7FB4ED9620804ADE12199CE9660BE
+X-D57D3AED: 
+ 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu530nj6fImhcD4MUrOEAnl0W826KZ9Q+tr5ycPtXkTV4k65bRjmOUUP8cvGozZ33TWg5HZplvhhXbhDGzqmQDTd6OAevLeAnq3Ra9uf7zvY2zzsIhlcp/Y7m53TZgf2aB4JOg4gkr2biojOl9CAQoHe3lFbbuTUPvMtA==
+X-Mailru-Sender: 
+ 689FA8AB762F7393C6D0B12EA33CAA9BB0D3F26E3BD54D41A12365E67D9B78B74F465673F7486D3C90DE4A6105A3658D481B2AED7BCCC0A49AE3A01A4DD0D55C6C99E19F044156F45FEEDEB644C299C0ED14614B50AE0675
+X-Mras: Ok
+Message-ID-Hash: 6Z3E7AS5UA7MPPRZGFDEWSXHLJKBSEWB
+X-Message-ID-Hash: 6Z3E7AS5UA7MPPRZGFDEWSXHLJKBSEWB
+X-MailFrom: fido_max@inbox.ru
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -168,7 +111,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LXZ2UYD3DUURBBBILSATWLMXYASXCCWN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6Z3E7AS5UA7MPPRZGFDEWSXHLJKBSEWB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -177,42 +120,24 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 28/06/2024 03:07, Alexey Klimov wrote:
-> Add sound node, dsp-related pieces and LPASS pinctrl to enable
-> HDMI audio support on Qualcomm QRB4210 RB2 board. That is the
-> only sound output supported for now.
-> 
-> Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
-> ---
->  arch/arm64/boot/dts/qcom/qrb4210-rb2.dts | 73 ++++++++++++++++++++++++
->  1 file changed, 73 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/qrb4210-rb2.dts b/arch/arm64/boot/dts/qcom/qrb4210-rb2.dts
-> index 2c39bb1b97db..9f4dde927be4 100644
-> --- a/arch/arm64/boot/dts/qcom/qrb4210-rb2.dts
-> +++ b/arch/arm64/boot/dts/qcom/qrb4210-rb2.dts
-> @@ -6,6 +6,8 @@
->  /dts-v1/;
->  
->  #include <dt-bindings/leds/common.h>
-> +#include <dt-bindings/sound/qcom,q6afe.h>
-> +#include <dt-bindings/sound/qcom,q6asm.h>
->  #include <dt-bindings/usb/pd.h>
->  #include "sm4250.dtsi"
->  #include "pm6125.dtsi"
-> @@ -230,6 +232,10 @@ lt9611_out: endpoint {
->  	};
->  };
->  
-> +&lpass_tlmm {
-> +	status = "okay";
+nau8824 has external MCLK pin. So add enable/disable external clock
+management.
 
-Why LPASS TLMM was disabled? I do not see any missing resource.
+Signed-off-by: Maxim Kochetkov <fido_max@inbox.ru>
+---
+Changes in v2:
+- move the devm_clk_get() to the nau8824_read_device()
 
-Drop.
+---
+Maxim Kochetkov (2):
+  ASoC: codecs: nau8824: Add master clock handling
+  ASoC: dt-bindings: nau8824: Add master clock handling
 
+ .../bindings/sound/nuvoton,nau8824.yaml       |  8 +++++++
+ sound/soc/codecs/nau8824.c                    | 21 +++++++++++++++++--
+ sound/soc/codecs/nau8824.h                    |  1 +
+ 3 files changed, 28 insertions(+), 2 deletions(-)
 
-
-Best regards,
-Krzysztof
+-- 
+2.45.2
 

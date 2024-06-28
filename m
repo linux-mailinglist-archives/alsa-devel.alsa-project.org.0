@@ -2,130 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56FB091B460
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jun 2024 03:00:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1570C91B5B1
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jun 2024 06:22:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6A5311D7;
-	Fri, 28 Jun 2024 03:00:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A5311D7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3100C211C;
+	Fri, 28 Jun 2024 06:22:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3100C211C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1719536439;
-	bh=k/O1dWo/zAC1tNUGUZJKfZkv4B/bidKsE11l9K373b8=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=MbyOvys/evef76uHPPhlW/mJomCgW5ZuQbpNbEcl5x6J+csh37P3BlI2mwzBBL0uh
-	 kHUXmOFM1pqsTL+6LnKuCs2FsELOgP12dzj70wRjgivGTy4SLUZQSBr2laj/stcdq4
-	 C37Vid6eZRs24jol0GNLYO7Ws5/aCd1/Qm+aUym0=
+	s=default; t=1719548563;
+	bh=rLi4Ae4LAdb6FwLFBCoU3WLwlSQ0orL9rDZjzF1uDG4=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=kagS2tgi9s/dvAnj4203KiOtf1trjhkKr7t2Je90N/XUO62DOieg20bz/NIUeUTAg
+	 R8vlbaUEGd0vJ5/qgCU70+yIBKLimesHGPoYZQVR+84VIK4gogltMGQ60bmXXjlhJs
+	 RnlvMA+ZodBQuu9zdTI8OFIgwkLC+uMszoj1ixKI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C2EAEF80588; Fri, 28 Jun 2024 03:00:07 +0200 (CEST)
+	id 2D855F805B6; Fri, 28 Jun 2024 06:22:21 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6789FF804F2;
-	Fri, 28 Jun 2024 03:00:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9C4A2F805A8;
+	Fri, 28 Jun 2024 06:22:21 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A6CF5F80423; Fri, 28 Jun 2024 02:59:26 +0200 (CEST)
+	id BBF6CF80423; Fri, 28 Jun 2024 06:19:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
 	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
+Received: from lelv0142.ext.ti.com (lelv0142.ext.ti.com [198.47.23.249])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6CA69F800E4
-	for <alsa-devel@alsa-project.org>; Fri, 28 Jun 2024 02:59:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6CA69F800E4
+	by alsa1.perex.cz (Postfix) with ESMTPS id E3158F80154
+	for <alsa-devel@alsa-project.org>; Fri, 28 Jun 2024 06:19:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3158F80154
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=QfFnqfq8
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 45RKDOaH010655;
-	Fri, 28 Jun 2024 00:59:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	k/O1dWo/zAC1tNUGUZJKfZkv4B/bidKsE11l9K373b8=; b=QfFnqfq8tG7g6dfm
-	efc93a6syk0bnFKBqUzBuwinQmJsjh1TXeXZYJnENI9EYFTJncgPd5jnWCyCdCMW
-	0+usnKLImAGRgku8/UPVsFk8atD9uGmoRDIkGOCdospSSs9En3p4GcVqr5zauBQ/
-	HxhhyHJv/2h1sjdsXmvJ+V43GwOiNrQ6KY6eQHLHeTekkCqosx0aWtr/gnqJfXQ6
-	db+C/EBH7WkH90heksU4eX0Hk++o0aZ5GlSpyBS4CafcJrxeo9cHbfAeQ4yOt7P/
-	gHDcsdnhk1MKiDXMjY+tlP/8DfhCfj76/fCXoPKWScTrROXmWP08uM1Fz3qqWtMt
-	PexYtA==
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 400bdqdt5h-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 28 Jun 2024 00:59:15 +0000 (GMT)
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
-	by NALASPPMTA03.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
- 45S0xDuK008732
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 28 Jun 2024 00:59:13 GMT
-Received: from [10.71.115.79] (10.80.80.8) by nalasex01b.na.qualcomm.com
- (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 27 Jun
- 2024 17:59:12 -0700
-Message-ID: <fd8f1eb0-4b21-4697-8175-a61bc3858852@quicinc.com>
-Date: Thu, 27 Jun 2024 17:59:12 -0700
+	dkim=pass (1024-bit key,
+ unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
+ header.s=ti-com-17Q1 header.b=wMgqSfJJ
+Received: from fllv0034.itg.ti.com ([10.64.40.246])
+	by lelv0142.ext.ti.com (8.15.2/8.15.2) with ESMTP id 45S4IwmK000785;
+	Thu, 27 Jun 2024 23:18:58 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+	s=ti-com-17Q1; t=1719548338;
+	bh=xeiV/FSKjQkomCqQUaxNFXfkAU/rev6oaqKIycHgbik=;
+	h=From:To:CC:Subject:Date;
+	b=wMgqSfJJwTapqvtcDo+Bfdn9yaw9ncP8rlgy5dboNKzku0x53yx77vCQPPRVgp3bp
+	 Za99ooDRbNyasBzTwTTptu6kIvrgvR6wAC3JyQHXslkFqI7uu9o8v6vNEMOSX+BjFK
+	 hpS9pwi2h4adfbk4pRxfh2t3W/SkeQ5+Dsb+Etb4=
+Received: from DFLE103.ent.ti.com (dfle103.ent.ti.com [10.64.6.24])
+	by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 45S4Iwpk088387
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Thu, 27 Jun 2024 23:18:58 -0500
+Received: from DFLE100.ent.ti.com (10.64.6.21) by DFLE103.ent.ti.com
+ (10.64.6.24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Thu, 27
+ Jun 2024 23:18:58 -0500
+Received: from lelvsmtp6.itg.ti.com (10.180.75.249) by DFLE100.ent.ti.com
+ (10.64.6.21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
+ Frontend Transport; Thu, 27 Jun 2024 23:18:58 -0500
+Received: from LT5CG31242FY.dhcp.ti.com ([10.250.160.158])
+	by lelvsmtp6.itg.ti.com (8.15.2/8.15.2) with ESMTP id 45S4Im47090090;
+	Thu, 27 Jun 2024 23:18:49 -0500
+From: Shenghao Ding <shenghao-ding@ti.com>
+To: <broonie@kernel.org>
+CC: <andriy.shevchenko@linux.intel.com>, <lgirdwood@gmail.com>,
+        <perex@perex.cz>, <pierre-louis.bossart@linux.intel.com>,
+        <13916275206@139.com>, <zhourui@huaqin.com>,
+        <alsa-devel@alsa-project.org>, <i-salazar@ti.com>,
+        <linux-kernel@vger.kernel.org>, <j-chadha@ti.com>,
+        <liam.r.girdwood@intel.com>, <jaden-yue@ti.com>,
+        <yung-chuan.liao@linux.intel.com>, <dipa@ti.com>,
+ <yuhsuan@google.com>,
+        <henry.lo@ti.com>, <tiwai@suse.de>, <baojun.xu@ti.com>,
+ <soyer@irl.hu>,
+        <Baojun.Xu@fpt.com>, <judyhsiao@google.com>, <navada@ti.com>,
+        <cujomalainey@google.com>, <aanya@ti.com>, <nayeem.mahmud@ti.com>,
+        <savyasanchi.shukla@netradyne.com>, <flaviopr@microsoft.com>,
+        <jesse-ji@ti.com>, <darren.ye@mediatek.com>,
+        Shenghao Ding
+	<shenghao-ding@ti.com>
+Subject: [PATCH v1] ASoc: tas2781: Add new Kontrol to set tas2563 digital gain
+Date: Fri, 28 Jun 2024 12:18:43 +0800
+Message-ID: <20240628041844.1776-1-shenghao-ding@ti.com>
+X-Mailer: git-send-email 2.33.0.windows.2
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v23 32/32] ASoC: doc: Add documentation for SOC USB
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-        =?UTF-8?Q?Amadeusz_S=C5=82awi=C5=84ski?=
-	<amadeuszx.slawinski@linux.intel.com>,
-        <srinivas.kandagatla@linaro.org>, <mathias.nyman@intel.com>,
-        <perex@perex.cz>, <conor+dt@kernel.org>, <corbet@lwn.net>,
-        <broonie@kernel.org>, <lgirdwood@gmail.com>, <krzk+dt@kernel.org>,
-        <Thinh.Nguyen@synopsys.com>, <bgoswami@quicinc.com>, <tiwai@suse.com>,
-        <robh@kernel.org>, <gregkh@linuxfoundation.org>
-CC: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-sound@vger.kernel.org>, <linux-usb@vger.kernel.org>,
-        <linux-arm-msm@vger.kernel.org>, <linux-doc@vger.kernel.org>,
-        <alsa-devel@alsa-project.org>
-References: <20240610235808.22173-1-quic_wcheng@quicinc.com>
- <20240610235808.22173-33-quic_wcheng@quicinc.com>
- <5be51e1f-70c9-4bbc-96fa-1e50e441bd35@linux.intel.com>
- <408d9e8e-0f40-7e66-54be-2f8d2c0783a3@quicinc.com>
- <ca1e1063-e1bd-4e03-a7cd-91985e9954e9@linux.intel.com>
- <096d59a0-5e18-092c-c9ae-d98130226f06@quicinc.com>
- <368d9019-2c96-468e-b472-7e1127f76213@linux.intel.com>
- <eb6370ea-47a0-3659-3c10-cb7f95e3e520@quicinc.com>
- <510468c7-b181-48d0-bf2d-3e478b2f2aca@linux.intel.com>
- <c7a95157-1b71-1489-3657-8fe67f9acb4e@quicinc.com>
- <90463a4e-c2e7-4b59-9a79-23533b4acd1e@linux.intel.com>
-Content-Language: en-US
-From: Wesley Cheng <quic_wcheng@quicinc.com>
-In-Reply-To: <90463a4e-c2e7-4b59-9a79-23533b4acd1e@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: I7ji9nTic-FHqo6aBSK-W7atlFLOSzuU
-X-Proofpoint-GUID: I7ji9nTic-FHqo6aBSK-W7atlFLOSzuU
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-06-27_16,2024-06-27_03,2024-05-17_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 mlxlogscore=999
- adultscore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0 malwarescore=0
- mlxscore=0 suspectscore=0 priorityscore=1501 clxscore=1015 phishscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2406140001
- definitions=main-2406280005
-Message-ID-Hash: QZCHWY33VQNU7Z2E7ME433ZI2HDOXWCY
-X-Message-ID-Hash: QZCHWY33VQNU7Z2E7ME433ZI2HDOXWCY
-X-MailFrom: quic_wcheng@quicinc.com
+Content-Type: text/plain
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Message-ID-Hash: ULSI6CXCY7KJM42F3P5LRU7TXNT5UOPH
+X-Message-ID-Hash: ULSI6CXCY7KJM42F3P5LRU7TXNT5UOPH
+X-MailFrom: shenghao-ding@ti.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -137,7 +107,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QZCHWY33VQNU7Z2E7ME433ZI2HDOXWCY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ULSI6CXCY7KJM42F3P5LRU7TXNT5UOPH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -146,76 +116,528 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Pierre,
+Requriment from customer to add new kcontrol to set tas2563 digital gain
+and set "Speaker Force Firmware Load" as the common kcontrol for both
+tas27871 and tas2563.
 
-On 6/21/2024 1:27 AM, Pierre-Louis Bossart wrote:
->
->
->> I'll spend some time to evaluate your suggestion about moving the logic
->> to control the offloading from USB SND versus ASoC, since there are
->> valid points.  However, before I do that, I just want to make sure folks
->> are also inline with that thinking.  I've had to put a lot of effort
->> moving things around such as the previous example, and now you've
->> suggested to move it back to the vendor specific drivers.
->>
->> @Pierre, since you've helped with providing a lot of valuable input in
->> the previous revisions on the kcontrol uses, what do you think about the
->> proposal from Amadeusz?  Basically shifting the offload device selection
->> into USB SND from the ASoC USB BE driver, and having this per USB SND
->> device.
->>
->> [1]
->> https://lore.kernel.org/linux-usb/20231017200109.11407-30-quic_wcheng@quicinc.com/
-> This thread is very hard to follow, I am not sure I fully understood the
-> initial proposal, and I am not sure I follow Amadeusz' either.
->
-> There are really multiple layers to deal with
->
-> a) is the controller able to support the offload path? IIRC this is
-> embedded in an obscure XHCI property, it would make sense to expose it
-> as a control, or component string, of the USB card.
+Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
 
-If a component string/tag is desired, I already have some way of doing that.  I can add it to the USB card.
+---
+v1:
+ - Changed the copyright year to 2024 in tas2781-tlv.h.
+ - Changed the copyright year to 2024 in tas2781.h.
+ - Set "Speaker Force Firmware Load" as the common kcontrol for for both
+   tas27871 and tas2563, that is tasdevice_snd_controls.
+ - Only tas2781_snd_controls only for gain setting.
+ - Add tas2563_dvc_tlv kcontrol for tas2563 digital gain setting.
+ - In codec probe, for tas2563, loading tas2563 gain control; for tas2781,
+   loading tas2781 gain control.
+---
+ include/sound/tas2781-tlv.h    | 262 ++++++++++++++++++++++++++++++++-
+ include/sound/tas2781.h        |   3 +-
+ sound/soc/codecs/tas2781-i2c.c | 135 ++++++++++++++++-
+ 3 files changed, 392 insertions(+), 8 deletions(-)
 
->
-> b) is there a companion card capable of dealing with the offload path?
-> Since the presence of this card may depend on driver probe, there should
-> be a control on the USB card. userspace could detect changes to this
-> control and detect if that path is or is no longer enabled.
-
-So currently, the "USB Offload Playback Capable Card" kcontrol (on the USB card) will determine if there is an offload path.  However, this differs than what Amadeusz is suggesting, in that he wants a single kcontrol created for EACH USB card identified (per USB audio device), and a simple enable/disable control to determine if the offload path is enabled for that card/pcm stream.
-
-It would be a simpler approach for the userspace, and if the card that handles the offload card isn't present, then these enable/disable control will be set to "disabled," and even if users attempt to set the control, it won't go through.
-
->
-> c) which PCM device is actually offloaded? This could be plural for some
-> implementations. The mapping between PCM devices exposed by the USB
-> card, and those exposed by the companion card, should be known to
-> userspace. I am not sure how this would be done though, a variable
-> number of controls is a sure way to confuse userspace.
-
-Expanding on Amadeusz's suggestion, my idea is to have an enable/disable kcontrol per USB stream.  For example, one USB card could have multiple PCM devices (USB streams).  So we would have something like:
-
-PCM Offload Playback Enable Stream#0  enable/disable
-
-PCM Offload Playback Enable Stream#1  enable/disable
-
-....
-
-So we'd know which USB card and PCM device is selected for USB SND.  However, I see what you're getting at in case there are multiple supported streams, because userspace needs to know which ASoC card/pcm combination corresponds to which USB device/combination.
-
-What do you think about having a USB card kcontrol to display the mapped ASoC card and PCM indexes?
-
-PCM Offload Playback Enable Stream Mapping#0  0, 1 (ASoC card#0, PCM device#1)
-
-To summarize, if we did this, I'd plan to remove all the kcontrols in ASoC card, and have the following in the USB card for an USB audio device that supports one USB stream:
-
-PCM Offload Playback Enable Stream#0  enable/disable
-
-PCM Offload Playback Enable Stream Mapping#0  0, 1 (ASoC card#0, PCM device#1)
-
-
-Thanks
-
-Wesley Cheng
+diff --git a/include/sound/tas2781-tlv.h b/include/sound/tas2781-tlv.h
+index 1dc59005d241..99c41bfc7827 100644
+--- a/include/sound/tas2781-tlv.h
++++ b/include/sound/tas2781-tlv.h
+@@ -2,7 +2,7 @@
+ //
+ // ALSA SoC Texas Instruments TAS2781 Audio Smart Amplifier
+ //
+-// Copyright (C) 2022 - 2023 Texas Instruments Incorporated
++// Copyright (C) 2022 - 2024 Texas Instruments Incorporated
+ // https://www.ti.com
+ //
+ // The TAS2781 driver implements a flexible and configurable
+@@ -17,5 +17,265 @@
+ 
+ static const __maybe_unused DECLARE_TLV_DB_SCALE(dvc_tlv, -10000, 100, 0);
+ static const DECLARE_TLV_DB_SCALE(amp_vol_tlv, 1100, 50, 0);
++static const DECLARE_TLV_DB_SCALE(tas2563_dvc_tlv, -12150, 50, 1);
+ 
++/* pow(10, db/20) * pow(2,30) */
++static const unsigned char tas2563_dvc_table[][4] = {
++	{ 0X00, 0X00, 0X00, 0X00 }, /* -121.5db */
++	{ 0X00, 0X00, 0X03, 0XBC }, /* -121.0db */
++	{ 0X00, 0X00, 0X03, 0XF5 }, /* -120.5db */
++	{ 0X00, 0X00, 0X04, 0X31 }, /* -120.0db */
++	{ 0X00, 0X00, 0X04, 0X71 }, /* -119.5db */
++	{ 0X00, 0X00, 0X04, 0XB4 }, /* -119.0db */
++	{ 0X00, 0X00, 0X04, 0XFC }, /* -118.5db */
++	{ 0X00, 0X00, 0X05, 0X47 }, /* -118.0db */
++	{ 0X00, 0X00, 0X05, 0X97 }, /* -117.5db */
++	{ 0X00, 0X00, 0X05, 0XEC }, /* -117.0db */
++	{ 0X00, 0X00, 0X06, 0X46 }, /* -116.5db */
++	{ 0X00, 0X00, 0X06, 0XA5 }, /* -116.0db */
++	{ 0X00, 0X00, 0X07, 0X0A }, /* -115.5db */
++	{ 0X00, 0X00, 0X07, 0X75 }, /* -115.0db */
++	{ 0X00, 0X00, 0X07, 0XE6 }, /* -114.5db */
++	{ 0X00, 0X00, 0X08, 0X5E }, /* -114.0db */
++	{ 0X00, 0X00, 0X08, 0XDD }, /* -113.5db */
++	{ 0X00, 0X00, 0X09, 0X63 }, /* -113.0db */
++	{ 0X00, 0X00, 0X09, 0XF2 }, /* -112.5db */
++	{ 0X00, 0X00, 0X0A, 0X89 }, /* -112.0db */
++	{ 0X00, 0X00, 0X0B, 0X28 }, /* -111.5db */
++	{ 0X00, 0X00, 0X0B, 0XD2 }, /* -111.0db */
++	{ 0X00, 0X00, 0X0C, 0X85 }, /* -110.5db */
++	{ 0X00, 0X00, 0X0D, 0X43 }, /* -110.0db */
++	{ 0X00, 0X00, 0X0E, 0X0C }, /* -109.5db */
++	{ 0X00, 0X00, 0X0E, 0XE1 }, /* -109.0db */
++	{ 0X00, 0X00, 0X0F, 0XC3 }, /* -108.5db */
++	{ 0X00, 0X00, 0X10, 0XB2 }, /* -108.0db */
++	{ 0X00, 0X00, 0X11, 0XAF }, /* -107.5db */
++	{ 0X00, 0X00, 0X12, 0XBC }, /* -107.0db */
++	{ 0X00, 0X00, 0X13, 0XD8 }, /* -106.5db */
++	{ 0X00, 0X00, 0X15, 0X05 }, /* -106.0db */
++	{ 0X00, 0X00, 0X16, 0X44 }, /* -105.5db */
++	{ 0X00, 0X00, 0X17, 0X96 }, /* -105.0db */
++	{ 0X00, 0X00, 0X18, 0XFB }, /* -104.5db */
++	{ 0X00, 0X00, 0X1A, 0X76 }, /* -104.0db */
++	{ 0X00, 0X00, 0X1C, 0X08 }, /* -103.5db */
++	{ 0X00, 0X00, 0X1D, 0XB1 }, /* -103.0db */
++	{ 0X00, 0X00, 0X1F, 0X73 }, /* -102.5db */
++	{ 0X00, 0X00, 0X21, 0X51 }, /* -102.0db */
++	{ 0X00, 0X00, 0X23, 0X4A }, /* -101.5db */
++	{ 0X00, 0X00, 0X25, 0X61 }, /* -101.0db */
++	{ 0X00, 0X00, 0X27, 0X98 }, /* -100.5db */
++	{ 0X00, 0X00, 0X29, 0XF1 }, /* -100.0db */
++	{ 0X00, 0X00, 0X2C, 0X6D }, /* -99.5db */
++	{ 0X00, 0X00, 0X2F, 0X0F }, /* -99.0db */
++	{ 0X00, 0X00, 0X31, 0XD9 }, /* -98.5db */
++	{ 0X00, 0X00, 0X34, 0XCD }, /* -98.0db */
++	{ 0X00, 0X00, 0X37, 0XEE }, /* -97.5db */
++	{ 0X00, 0X00, 0X3B, 0X3F }, /* -97.0db */
++	{ 0X00, 0X00, 0X3E, 0XC1 }, /* -96.5db */
++	{ 0X00, 0X00, 0X42, 0X79 }, /* -96.0db */
++	{ 0X00, 0X00, 0X46, 0X6A }, /* -95.5db */
++	{ 0X00, 0X00, 0X4A, 0X96 }, /* -95.0db */
++	{ 0X00, 0X00, 0X4F, 0X01 }, /* -94.5db */
++	{ 0X00, 0X00, 0X53, 0XAF }, /* -94.0db */
++	{ 0X00, 0X00, 0X58, 0XA5 }, /* -93.5db */
++	{ 0X00, 0X00, 0X5D, 0XE6 }, /* -93.0db */
++	{ 0X00, 0X00, 0X63, 0X76 }, /* -92.5db */
++	{ 0X00, 0X00, 0X69, 0X5B }, /* -92.0db */
++	{ 0X00, 0X00, 0X6F, 0X99 }, /* -91.5db */
++	{ 0X00, 0X00, 0X76, 0X36 }, /* -91.0db */
++	{ 0X00, 0X00, 0X7D, 0X37 }, /* -90.5db */
++	{ 0X00, 0X00, 0X84, 0XA2 }, /* -90.0db */
++	{ 0X00, 0X00, 0X8C, 0X7E }, /* -89.5db */
++	{ 0X00, 0X00, 0X94, 0XD1 }, /* -89.0db */
++	{ 0X00, 0X00, 0X9D, 0XA3 }, /* -88.5db */
++	{ 0X00, 0X00, 0XA6, 0XFA }, /* -88.0db */
++	{ 0X00, 0X00, 0XB0, 0XDF }, /* -87.5db */
++	{ 0X00, 0X00, 0XBB, 0X5A }, /* -87.0db */
++	{ 0X00, 0X00, 0XC6, 0X74 }, /* -86.5db */
++	{ 0X00, 0X00, 0XD2, 0X36 }, /* -86.0db */
++	{ 0X00, 0X00, 0XDE, 0XAB }, /* -85.5db */
++	{ 0X00, 0X00, 0XEB, 0XDC }, /* -85.0db */
++	{ 0X00, 0X00, 0XF9, 0XD6 }, /* -84.5db */
++	{ 0X00, 0X01, 0X08, 0XA4 }, /* -84.0db */
++	{ 0X00, 0X01, 0X18, 0X52 }, /* -83.5db */
++	{ 0X00, 0X01, 0X28, 0XEF }, /* -83.0db */
++	{ 0X00, 0X01, 0X3A, 0X87 }, /* -82.5db */
++	{ 0X00, 0X01, 0X4D, 0X2A }, /* -82.0db */
++	{ 0X00, 0X01, 0X60, 0XE8 }, /* -81.5db */
++	{ 0X00, 0X01, 0X75, 0XD1 }, /* -81.0db */
++	{ 0X00, 0X01, 0X8B, 0XF7 }, /* -80.5db */
++	{ 0X00, 0X01, 0XA3, 0X6E }, /* -80.0db */
++	{ 0X00, 0X01, 0XBC, 0X48 }, /* -79.5db */
++	{ 0X00, 0X01, 0XD6, 0X9B }, /* -79.0db */
++	{ 0X00, 0X01, 0XF2, 0X7E }, /* -78.5db */
++	{ 0X00, 0X02, 0X10, 0X08 }, /* -78.0db */
++	{ 0X00, 0X02, 0X2F, 0X51 }, /* -77.5db */
++	{ 0X00, 0X02, 0X50, 0X76 }, /* -77.0db */
++	{ 0X00, 0X02, 0X73, 0X91 }, /* -76.5db */
++	{ 0X00, 0X02, 0X98, 0XC0 }, /* -76.0db */
++	{ 0X00, 0X02, 0XC0, 0X24 }, /* -75.5db */
++	{ 0X00, 0X02, 0XE9, 0XDD }, /* -75.0db */
++	{ 0X00, 0X03, 0X16, 0X0F }, /* -74.5db */
++	{ 0X00, 0X03, 0X44, 0XDF }, /* -74.0db */
++	{ 0X00, 0X03, 0X76, 0X76 }, /* -73.5db */
++	{ 0X00, 0X03, 0XAA, 0XFC }, /* -73.0db */
++	{ 0X00, 0X03, 0XE2, 0XA0 }, /* -72.5db */
++	{ 0X00, 0X04, 0X1D, 0X8F }, /* -72.0db */
++	{ 0X00, 0X04, 0X5B, 0XFD }, /* -71.5db */
++	{ 0X00, 0X04, 0X9E, 0X1D }, /* -71.0db */
++	{ 0X00, 0X04, 0XE4, 0X29 }, /* -70.5db */
++	{ 0X00, 0X05, 0X2E, 0X5A }, /* -70.0db */
++	{ 0X00, 0X05, 0X7C, 0XF2 }, /* -69.5db */
++	{ 0X00, 0X05, 0XD0, 0X31 }, /* -69.0db */
++	{ 0X00, 0X06, 0X28, 0X60 }, /* -68.5db */
++	{ 0X00, 0X06, 0X85, 0XC8 }, /* -68.0db */
++	{ 0X00, 0X06, 0XE8, 0XB9 }, /* -67.5db */
++	{ 0X00, 0X07, 0X51, 0X86 }, /* -67.0db */
++	{ 0X00, 0X07, 0XC0, 0X8A }, /* -66.5db */
++	{ 0X00, 0X08, 0X36, 0X21 }, /* -66.0db */
++	{ 0X00, 0X08, 0XB2, 0XB0 }, /* -65.5db */
++	{ 0X00, 0X09, 0X36, 0XA1 }, /* -65.0db */
++	{ 0X00, 0X09, 0XC2, 0X63 }, /* -64.5db */
++	{ 0X00, 0X0A, 0X56, 0X6D }, /* -64.0db */
++	{ 0X00, 0X0A, 0XF3, 0X3C }, /* -63.5db */
++	{ 0X00, 0X0B, 0X99, 0X56 }, /* -63.0db */
++	{ 0X00, 0X0C, 0X49, 0X48 }, /* -62.5db */
++	{ 0X00, 0X0D, 0X03, 0XA7 }, /* -62.0db */
++	{ 0X00, 0X0D, 0XC9, 0X11 }, /* -61.5db */
++	{ 0X00, 0X0E, 0X9A, 0X2D }, /* -61.0db */
++	{ 0X00, 0X0F, 0X77, 0XAD }, /* -60.5db */
++	{ 0X00, 0X10, 0X62, 0X4D }, /* -60.0db */
++	{ 0X00, 0X11, 0X5A, 0XD5 }, /* -59.5db */
++	{ 0X00, 0X12, 0X62, 0X16 }, /* -59.0db */
++	{ 0X00, 0X13, 0X78, 0XF0 }, /* -58.5db */
++	{ 0X00, 0X14, 0XA0, 0X50 }, /* -58.0db */
++	{ 0X00, 0X15, 0XD9, 0X31 }, /* -57.5db */
++	{ 0X00, 0X17, 0X24, 0X9C }, /* -57.0db */
++	{ 0X00, 0X18, 0X83, 0XAA }, /* -56.5db */
++	{ 0X00, 0X19, 0XF7, 0X86 }, /* -56.0db */
++	{ 0X00, 0X1B, 0X81, 0X6A }, /* -55.5db */
++	{ 0X00, 0X1D, 0X22, 0XA4 }, /* -55.0db */
++	{ 0X00, 0X1E, 0XDC, 0X98 }, /* -54.5db */
++	{ 0X00, 0X20, 0XB0, 0XBC }, /* -54.0db */
++	{ 0X00, 0X22, 0XA0, 0X9D }, /* -53.5db */
++	{ 0X00, 0X24, 0XAD, 0XE0 }, /* -53.0db */
++	{ 0X00, 0X26, 0XDA, 0X43 }, /* -52.5db */
++	{ 0X00, 0X29, 0X27, 0X9D }, /* -52.0db */
++	{ 0X00, 0X2B, 0X97, 0XE3 }, /* -51.5db */
++	{ 0X00, 0X2E, 0X2D, 0X27 }, /* -51.0db */
++	{ 0X00, 0X30, 0XE9, 0X9A }, /* -50.5db */
++	{ 0X00, 0X33, 0XCF, 0X8D }, /* -50.0db */
++	{ 0X00, 0X36, 0XE1, 0X78 }, /* -49.5db */
++	{ 0X00, 0X3A, 0X21, 0XF3 }, /* -49.0db */
++	{ 0X00, 0X3D, 0X93, 0XC3 }, /* -48.5db */
++	{ 0X00, 0X41, 0X39, 0XD3 }, /* -48.0db */
++	{ 0X00, 0X45, 0X17, 0X3B }, /* -47.5db */
++	{ 0X00, 0X49, 0X2F, 0X44 }, /* -47.0db */
++	{ 0X00, 0X4D, 0X85, 0X66 }, /* -46.5db */
++	{ 0X00, 0X52, 0X1D, 0X50 }, /* -46.0db */
++	{ 0X00, 0X56, 0XFA, 0XE8 }, /* -45.5db */
++	{ 0X00, 0X5C, 0X22, 0X4E }, /* -45.0db */
++	{ 0X00, 0X61, 0X97, 0XE1 }, /* -44.5db */
++	{ 0X00, 0X67, 0X60, 0X44 }, /* -44.0db */
++	{ 0X00, 0X6D, 0X80, 0X60 }, /* -43.5db */
++	{ 0X00, 0X73, 0XFD, 0X65 }, /* -43.0db */
++	{ 0X00, 0X7A, 0XDC, 0XD7 }, /* -42.5db */
++	{ 0X00, 0X82, 0X24, 0X8A }, /* -42.0db */
++	{ 0X00, 0X89, 0XDA, 0XAB }, /* -41.5db */
++	{ 0X00, 0X92, 0X05, 0XC6 }, /* -41.0db */
++	{ 0X00, 0X9A, 0XAC, 0XC8 }, /* -40.5db */
++	{ 0X00, 0XA3, 0XD7, 0X0A }, /* -40.0db */
++	{ 0X00, 0XAD, 0X8C, 0X52 }, /* -39.5db */
++	{ 0X00, 0XB7, 0XD4, 0XDD }, /* -39.0db */
++	{ 0X00, 0XC2, 0XB9, 0X65 }, /* -38.5db */
++	{ 0X00, 0XCE, 0X43, 0X28 }, /* -38.0db */
++	{ 0X00, 0XDA, 0X7B, 0XF1 }, /* -37.5db */
++	{ 0X00, 0XE7, 0X6E, 0X1E }, /* -37.0db */
++	{ 0X00, 0XF5, 0X24, 0XAC }, /* -36.5db */
++	{ 0X01, 0X03, 0XAB, 0X3D }, /* -36.0db */
++	{ 0X01, 0X13, 0X0E, 0X24 }, /* -35.5db */
++	{ 0X01, 0X23, 0X5A, 0X71 }, /* -35.0db */
++	{ 0X01, 0X34, 0X9D, 0XF8 }, /* -34.5db */
++	{ 0X01, 0X46, 0XE7, 0X5D }, /* -34.0db */
++	{ 0X01, 0X5A, 0X46, 0X27 }, /* -33.5db */
++	{ 0X01, 0X6E, 0XCA, 0XC5 }, /* -33.0db */
++	{ 0X01, 0X84, 0X86, 0X9F }, /* -32.5db */
++	{ 0X01, 0X9B, 0X8C, 0X27 }, /* -32.0db */
++	{ 0X01, 0XB3, 0XEE, 0XE5 }, /* -31.5db */
++	{ 0X01, 0XCD, 0XC3, 0X8C }, /* -31.0db */
++	{ 0X01, 0XE9, 0X20, 0X05 }, /* -30.5db */
++	{ 0X02, 0X06, 0X1B, 0X89 }, /* -30.0db */
++	{ 0X02, 0X24, 0XCE, 0XB0 }, /* -29.5db */
++	{ 0X02, 0X45, 0X53, 0X85 }, /* -29.0db */
++	{ 0X02, 0X67, 0XC5, 0XA2 }, /* -28.5db */
++	{ 0X02, 0X8C, 0X42, 0X3F }, /* -28.0db */
++	{ 0X02, 0XB2, 0XE8, 0X55 }, /* -27.5db */
++	{ 0X02, 0XDB, 0XD8, 0XAD }, /* -27.0db */
++	{ 0X03, 0X07, 0X36, 0X05 }, /* -26.5db */
++	{ 0X03, 0X35, 0X25, 0X29 }, /* -26.0db */
++	{ 0X03, 0X65, 0XCD, 0X13 }, /* -25.5db */
++	{ 0X03, 0X99, 0X57, 0X0C }, /* -25.0db */
++	{ 0X03, 0XCF, 0XEE, 0XCF }, /* -24.5db */
++	{ 0X04, 0X09, 0XC2, 0XB0 }, /* -24.0db */
++	{ 0X04, 0X47, 0X03, 0XC1 }, /* -23.5db */
++	{ 0X04, 0X87, 0XE5, 0XFB }, /* -23.0db */
++	{ 0X04, 0XCC, 0XA0, 0X6D }, /* -22.5db */
++	{ 0X05, 0X15, 0X6D, 0X68 }, /* -22.0db */
++	{ 0X05, 0X62, 0X8A, 0XB3 }, /* -21.5db */
++	{ 0X05, 0XB4, 0X39, 0XBC }, /* -21.0db */
++	{ 0X06, 0X0A, 0XBF, 0XD4 }, /* -20.5db */
++	{ 0X06, 0X66, 0X66, 0X66 }, /* -20.0db */
++	{ 0X06, 0XC7, 0X7B, 0X36 }, /* -19.5db */
++	{ 0X07, 0X2E, 0X50, 0XA6 }, /* -19.0db */
++	{ 0X07, 0X9B, 0X3D, 0XF6 }, /* -18.5db */
++	{ 0X08, 0X0E, 0X9F, 0X96 }, /* -18.0db */
++	{ 0X08, 0X88, 0XD7, 0X6D }, /* -17.5db */
++	{ 0X09, 0X0A, 0X4D, 0X2F }, /* -17.0db */
++	{ 0X09, 0X93, 0X6E, 0XB8 }, /* -16.5db */
++	{ 0X0A, 0X24, 0XB0, 0X62 }, /* -16.0db */
++	{ 0X0A, 0XBE, 0X8D, 0X70 }, /* -15.5db */
++	{ 0X0B, 0X61, 0X88, 0X71 }, /* -15.0db */
++	{ 0X0C, 0X0E, 0X2B, 0XB0 }, /* -14.5db */
++	{ 0X0C, 0XC5, 0X09, 0XAB }, /* -14.0db */
++	{ 0X0D, 0X86, 0XBD, 0X8D }, /* -13.5db */
++	{ 0X0E, 0X53, 0XEB, 0XB3 }, /* -13.0db */
++	{ 0X0F, 0X2D, 0X42, 0X38 }, /* -12.5db */
++	{ 0X10, 0X13, 0X79, 0X87 }, /* -12.0db */
++	{ 0X11, 0X07, 0X54, 0XF9 }, /* -11.5db */
++	{ 0X12, 0X09, 0XA3, 0X7A }, /* -11.0db */
++	{ 0X13, 0X1B, 0X40, 0X39 }, /* -10.5db */
++	{ 0X14, 0X3D, 0X13, 0X62 }, /* -10.0db */
++	{ 0X15, 0X70, 0X12, 0XE1 }, /* -9.5db */
++	{ 0X16, 0XB5, 0X43, 0X37 }, /* -9.0db */
++	{ 0X18, 0X0D, 0XB8, 0X54 }, /* -8.5db */
++	{ 0X19, 0X7A, 0X96, 0X7F }, /* -8.0db */
++	{ 0X1A, 0XFD, 0X13, 0X54 }, /* -7.5db */
++	{ 0X1C, 0X96, 0X76, 0XC6 }, /* -7.0db */
++	{ 0X1E, 0X48, 0X1C, 0X37 }, /* -6.5db */
++	{ 0X20, 0X13, 0X73, 0X9E }, /* -6.0db */
++	{ 0X21, 0XFA, 0X02, 0XBF }, /* -5.5db */
++	{ 0X23, 0XFD, 0X66, 0X78 }, /* -5.0db */
++	{ 0X26, 0X1F, 0X54, 0X1C }, /* -4.5db */
++	{ 0X28, 0X61, 0X9A, 0XE9 }, /* -4.0db */
++	{ 0X2A, 0XC6, 0X25, 0X91 }, /* -3.5db */
++	{ 0X2D, 0X4E, 0XFB, 0XD5 }, /* -3.0db */
++	{ 0X2F, 0XFE, 0X44, 0X48 }, /* -2.5db */
++	{ 0X32, 0XD6, 0X46, 0X17 }, /* -2.0db */
++	{ 0X35, 0XD9, 0X6B, 0X02 }, /* -1.5db */
++	{ 0X39, 0X0A, 0X41, 0X5F }, /* -1.0db */
++	{ 0X3C, 0X6B, 0X7E, 0X4F }, /* -0.5db */
++	{ 0X40, 0X00, 0X00, 0X00 }, /* 0.0db */
++	{ 0X43, 0XCA, 0XD0, 0X22 }, /* 0.5db */
++	{ 0X47, 0XCF, 0X26, 0X7D }, /* 1.0db */
++	{ 0X4C, 0X10, 0X6B, 0XA5 }, /* 1.5db */
++	{ 0X50, 0X92, 0X3B, 0XE3 }, /* 2.0db */
++	{ 0X55, 0X58, 0X6A, 0X46 }, /* 2.5db */
++	{ 0X5A, 0X67, 0X03, 0XDF }, /* 3.0db */
++	{ 0X5F, 0XC2, 0X53, 0X32 }, /* 3.5db */
++	{ 0X65, 0X6E, 0XE3, 0XDB }, /* 4.0db */
++	{ 0X6B, 0X71, 0X86, 0X68 }, /* 4.5db */
++	{ 0X71, 0XCF, 0X54, 0X71 }, /* 5.0db */
++	{ 0X78, 0X8D, 0XB4, 0XE9 }, /* 5.5db */
++	{ 0XFF, 0XFF, 0XFF, 0XFF }, /* 6.0db */
++};
+ #endif
+diff --git a/include/sound/tas2781.h b/include/sound/tas2781.h
+index cd8ce522b78e..3275575f5bfb 100644
+--- a/include/sound/tas2781.h
++++ b/include/sound/tas2781.h
+@@ -2,7 +2,7 @@
+ //
+ // ALSA SoC Texas Instruments TAS2563/TAS2781 Audio Smart Amplifier
+ //
+-// Copyright (C) 2022 - 2023 Texas Instruments Incorporated
++// Copyright (C) 2022 - 2024 Texas Instruments Incorporated
+ // https://www.ti.com
+ //
+ // The TAS2563/TAS2781 driver implements a flexible and configurable
+@@ -50,6 +50,7 @@
+ #define TASDEVICE_I2CChecksum		TASDEVICE_REG(0x0, 0x0, 0x7E)
+ 
+ /* Volume control */
++#define TAS2563_DVC_LVL			TASDEVICE_REG(0x00, 0x02, 0x0C)
+ #define TAS2781_DVC_LVL			TASDEVICE_REG(0x0, 0x0, 0x1A)
+ #define TAS2781_AMP_LEVEL		TASDEVICE_REG(0x0, 0x0, 0x03)
+ #define TAS2781_AMP_LEVEL_MASK		GENMASK(5, 1)
+diff --git a/sound/soc/codecs/tas2781-i2c.c b/sound/soc/codecs/tas2781-i2c.c
+index 4d1a0d836e77..4960ab6577f7 100644
+--- a/sound/soc/codecs/tas2781-i2c.c
++++ b/sound/soc/codecs/tas2781-i2c.c
+@@ -30,6 +30,7 @@
+ #include <sound/tas2781.h>
+ #include <sound/tlv.h>
+ #include <sound/tas2781-tlv.h>
++#include <asm/unaligned.h>
+ 
+ static const struct i2c_device_id tasdevice_id[] = {
+ 	{ "tas2563", TAS2563 },
+@@ -103,7 +104,7 @@ static int tas2781_amp_putvol(struct snd_kcontrol *kcontrol,
+ 	return tasdevice_amp_putvol(tas_priv, ucontrol, mc);
+ }
+ 
+-static int tas2781_force_fwload_get(struct snd_kcontrol *kcontrol,
++static int tasdev_force_fwload_get(struct snd_kcontrol *kcontrol,
+ 	struct snd_ctl_elem_value *ucontrol)
+ {
+ 	struct snd_soc_component *component =
+@@ -118,7 +119,7 @@ static int tas2781_force_fwload_get(struct snd_kcontrol *kcontrol,
+ 	return 0;
+ }
+ 
+-static int tas2781_force_fwload_put(struct snd_kcontrol *kcontrol,
++static int tasdev_force_fwload_put(struct snd_kcontrol *kcontrol,
+ 	struct snd_ctl_elem_value *ucontrol)
+ {
+ 	struct snd_soc_component *component =
+@@ -127,18 +128,114 @@ static int tas2781_force_fwload_put(struct snd_kcontrol *kcontrol,
+ 		snd_soc_component_get_drvdata(component);
+ 	bool change, val = (bool)ucontrol->value.integer.value[0];
+ 
++	mutex_lock(&tas_priv->codec_lock);
+ 	if (tas_priv->force_fwload_status == val)
+ 		change = false;
+ 	else {
+ 		change = true;
+ 		tas_priv->force_fwload_status = val;
+ 	}
++	mutex_unlock(&tas_priv->codec_lock);
+ 	dev_dbg(tas_priv->dev, "%s : Force FWload %s\n", __func__,
+ 		tas_priv->force_fwload_status ? "ON" : "OFF");
+ 
+ 	return change;
+ }
+ 
++static int tas2563_digital_gain_get(
++	struct snd_kcontrol *kcontrol,
++	struct snd_ctl_elem_value *ucontrol)
++{
++	struct soc_mixer_control *mc =
++		(struct soc_mixer_control *)kcontrol->private_value;
++	struct snd_soc_component *codec = snd_soc_kcontrol_component(kcontrol);
++	struct tasdevice_priv *tas_dev = snd_soc_component_get_drvdata(codec);
++	unsigned int l = 0, r = mc->max;
++	unsigned int target, ar_mid, mid, ar_l, ar_r;
++	unsigned int reg = mc->reg;
++	unsigned char data[4];
++	int ret;
++
++	mutex_lock(&tas_dev->codec_lock);
++	/* Read the primary device */
++	ret =  tasdevice_dev_bulk_read(tas_dev, 0, reg, data, 4);
++	if (ret) {
++		dev_err(tas_dev->dev, "%s, get AMP vol error\n", __func__);
++		goto out;
++	}
++
++	target = get_unaligned_be32(&data[0]);
++
++	while (r > 1 + l) {
++		mid = (l + r) / 2;
++		ar_mid = get_unaligned_be32(tas2563_dvc_table[mid]);
++		if (target < ar_mid)
++			r = mid;
++		else
++			l = mid;
++	}
++
++	ar_l = get_unaligned_be32(tas2563_dvc_table[l]);
++	ar_r = get_unaligned_be32(tas2563_dvc_table[r]);
++
++	/* find out the member same as or closer to the current volume */
++	ucontrol->value.integer.value[0] =
++		abs(target - ar_l) <= abs(target - ar_r) ? l : r;
++out:
++	mutex_unlock(&tas_dev->codec_lock);
++	return 0;
++}
++
++static int tas2563_digital_gain_put(
++	struct snd_kcontrol *kcontrol,
++	struct snd_ctl_elem_value *ucontrol)
++{
++	struct soc_mixer_control *mc =
++		(struct soc_mixer_control *)kcontrol->private_value;
++	struct snd_soc_component *codec = snd_soc_kcontrol_component(kcontrol);
++	struct tasdevice_priv *tas_dev = snd_soc_component_get_drvdata(codec);
++	unsigned int reg = mc->reg;
++	unsigned int volrd, volwr;
++	int vol = ucontrol->value.integer.value[0];
++	int max = mc->max, i, ret = 1;
++	unsigned char data[4];
++
++	vol = clamp(vol, 0, max);
++	mutex_lock(&tas_dev->codec_lock);
++	/* Read the primary device */
++	ret =  tasdevice_dev_bulk_read(tas_dev, 0, reg, data, 4);
++	if (ret) {
++		dev_err(tas_dev->dev, "%s, get AMP vol error\n", __func__);
++		goto out;
++	}
++
++	volrd = get_unaligned_be32(&data[0]);
++	volwr = get_unaligned_be32(tas2563_dvc_table[vol]);
++
++	if (volrd == volwr) {
++		ret = 0;
++		goto out;
++	}
++
++	for (i = 0; i < tas_dev->ndev; i++) {
++		ret = tasdevice_dev_bulk_write(tas_dev, i, reg,
++			(unsigned char *)tas2563_dvc_table[vol], 4);
++		if (ret)
++			dev_err(tas_dev->dev,
++				"%s, set digital vol error in device %d\n",
++				__func__, i);
++	}
++
++out:
++	mutex_unlock(&tas_dev->codec_lock);
++	return ret;
++}
++
++static const struct snd_kcontrol_new tasdevice_snd_controls[] = {
++	SOC_SINGLE_BOOL_EXT("Speaker Force Firmware Load", 0,
++		tasdev_force_fwload_get, tasdev_force_fwload_put),
++};
++
+ static const struct snd_kcontrol_new tas2781_snd_controls[] = {
+ 	SOC_SINGLE_RANGE_EXT_TLV("Speaker Analog Gain", TAS2781_AMP_LEVEL,
+ 		1, 0, 20, 0, tas2781_amp_getvol,
+@@ -146,8 +243,13 @@ static const struct snd_kcontrol_new tas2781_snd_controls[] = {
+ 	SOC_SINGLE_RANGE_EXT_TLV("Speaker Digital Gain", TAS2781_DVC_LVL,
+ 		0, 0, 200, 1, tas2781_digital_getvol,
+ 		tas2781_digital_putvol, dvc_tlv),
+-	SOC_SINGLE_BOOL_EXT("Speaker Force Firmware Load", 0,
+-		tas2781_force_fwload_get, tas2781_force_fwload_put),
++};
++
++static const struct snd_kcontrol_new tas2563_snd_controls[] = {
++	SOC_SINGLE_RANGE_EXT_TLV("Speaker Digital Gain", TAS2563_DVC_LVL, 0,
++		0, ARRAY_SIZE(tas2563_dvc_table) - 1, 0,
++		tas2563_digital_gain_get, tas2563_digital_gain_put,
++		tas2563_dvc_tlv),
+ };
+ 
+ static int tasdevice_set_profile_id(struct snd_kcontrol *kcontrol,
+@@ -578,6 +680,27 @@ static struct snd_soc_dai_driver tasdevice_dai_driver[] = {
+ static int tasdevice_codec_probe(struct snd_soc_component *codec)
+ {
+ 	struct tasdevice_priv *tas_priv = snd_soc_component_get_drvdata(codec);
++	int rc;
++
++	if (tas_priv->chip_id == TAS2781) {
++		rc = snd_soc_add_component_controls(codec,
++			tas2781_snd_controls,
++			ARRAY_SIZE(tas2781_snd_controls));
++		if (rc < 0) {
++			dev_err(tas_priv->dev, "%s: Add control err rc = %d",
++				__func__, rc);
++			return rc;
++		}
++	} else {
++		rc = snd_soc_add_component_controls(codec,
++			tas2563_snd_controls,
++			ARRAY_SIZE(tas2563_snd_controls));
++		if (rc < 0) {
++			dev_err(tas_priv->dev, "%s: Add control err rc = %d",
++				__func__, rc);
++			return rc;
++		}
++	}
+ 
+ 	tas_priv->name_prefix = codec->name_prefix;
+ 	return tascodec_init(tas_priv, codec, THIS_MODULE, tasdevice_fw_ready);
+@@ -605,8 +728,8 @@ static const struct snd_soc_component_driver
+ 	soc_codec_driver_tasdevice = {
+ 	.probe			= tasdevice_codec_probe,
+ 	.remove			= tasdevice_codec_remove,
+-	.controls		= tas2781_snd_controls,
+-	.num_controls		= ARRAY_SIZE(tas2781_snd_controls),
++	.controls		= tasdevice_snd_controls,
++	.num_controls		= ARRAY_SIZE(tasdevice_snd_controls),
+ 	.dapm_widgets		= tasdevice_dapm_widgets,
+ 	.num_dapm_widgets	= ARRAY_SIZE(tasdevice_dapm_widgets),
+ 	.dapm_routes		= tasdevice_audio_map,
+-- 
+2.34.1
 

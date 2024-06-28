@@ -2,112 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 851AC91C0B9
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jun 2024 16:20:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 317D691C2D4
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jun 2024 17:43:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 69019233F;
-	Fri, 28 Jun 2024 16:20:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 69019233F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 770F82346;
+	Fri, 28 Jun 2024 17:43:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 770F82346
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1719584410;
-	bh=X5an3abTWdvL8qtlTK3g1nKT+T6J9UFiLnTAbmQhG/I=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1719589432;
+	bh=ymvFz0WiHcyx8yRoT9Izl+kSBov6O15ewnJVOROeaBE=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=SB8xS6QC0ks1oI5U73GEDi7HUR8YJjxUHt400np+ceqN3bZxFE18+R4f27feqTUle
-	 Rqdtd992XvWvZTDAA0tF3zLfCf6C2WDjrTpdyDr5/BketCddpiaTbbrgcvaywV+2c3
-	 canltEgD7W4OvFyUTfif9CrWJBjvliv7xuAVU9Ac=
+	b=RuVh6P9duBmR8Wejo2cqivMFdJ773N5Opv+g0E+ZlWqxHqwPUT9Osv80LZMg98D7P
+	 fpXEioRsZTpHsYIwz8w4uf4Sh+uo/HO6U/7KEG1+VJVIdeQvI7ugFQ1ex7+cSA1lwP
+	 ehEanvHCF5fu6hFac+xTHtjOsaCJUYnLDBpTZuaA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 789DDF805B0; Fri, 28 Jun 2024 16:19:38 +0200 (CEST)
+	id 6CF4BF805B5; Fri, 28 Jun 2024 17:43:21 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 05644F805AF;
-	Fri, 28 Jun 2024 16:19:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DA1CEF805AF;
+	Fri, 28 Jun 2024 17:43:20 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8D824F80423; Fri, 28 Jun 2024 16:17:44 +0200 (CEST)
+	id A67A6F80423; Fri, 28 Jun 2024 17:42:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
+	SPF_HELO_NONE shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mail-yw1-x1129.google.com (mail-yw1-x1129.google.com
- [IPv6:2607:f8b0:4864:20::1129])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0A282F800E4
-	for <alsa-devel@alsa-project.org>; Fri, 28 Jun 2024 16:17:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A282F800E4
+	by alsa1.perex.cz (Postfix) with ESMTPS id 349DCF80154
+	for <alsa-devel@alsa-project.org>; Fri, 28 Jun 2024 17:42:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 349DCF80154
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=fVncJFBs
-Received: by mail-yw1-x1129.google.com with SMTP id
- 00721157ae682-64361817e78so6531457b3.1
-        for <alsa-devel@alsa-project.org>;
- Fri, 28 Jun 2024 07:17:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1719584251; x=1720189051;
- darn=alsa-project.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=DGMldhhxstZD2VHINPtgUkJtig9Dn80WfHZSFwMmp2Q=;
-        b=fVncJFBs8F986zLwtyqYxbyux9J1s5GYiZt4icobb8vjQ858TkxtlnKCWXneIxEVcE
-         MNXww3a8S0Wg1Eqetvsqsdcq5kJnI700T9YhWMJTmYdXktm/ClvP7pJroQ1FQkSMmW6f
-         yIlhuN+r3MINc4FQt8mGKdE2j7DuoSlLCm/BSnK+eokUkIrwdUeoB/U5l02uJsPZd/Qa
-         mhVNbbOr+ZG+F5OXNDJdt6+A53lOIXxVr1Oj6waUunAKazYYt+OSs3kgpkIybMctKiCq
-         YjAf9DwJKjW0LAnJ9lzkoBJjd/qrMdczfh4egL4xAHOkzGOhAVlo4PyOvnRHT4//NXSX
-         P63A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719584251; x=1720189051;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=DGMldhhxstZD2VHINPtgUkJtig9Dn80WfHZSFwMmp2Q=;
-        b=BH3CkdaDk3Cjtu7NFectesXU2aA2sovsDii1pNwpCcgo8f1/j5DKEiJDh5d/djA3ky
-         nQGLeJ3lE+LEjpe9DEC5Wx9zj4wKjBo8Rz33lfBY92WhBrQLMJVFEs2QxjCjuS/7BEik
-         IcnYiIRzKdaOdsOaV7lf7f+f738hO9ReG14cg2tx09aH/jgoU6/3G7A0dJV20glPe1R3
-         C57GpiRBEAS7yO7R21hHSUy0cbOqYH/3wdO3dlZnuZ+IHxML5Uxk3TyZtPdV72PsCEko
-         CVFcOxdKRa4p6VMZgMeicMUedL4Fmf3Wz6AAhtGLaHQVXfypyDyus7FK2cc8jFBH2eZH
-         9sXA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVUVuoZWfBmpezqt8TfeQfdlRleKHmvOegu5X3Qe3IDFvMwBrN5qhCKtqS9Bv80F7tOMeTwsp7SWEa1h7kQH4FkX34Z3IsOlRTmDhM=
-X-Gm-Message-State: AOJu0YyhXNkwuGMc6WLMiuL++U8ifMEZc5BwJrbDl6w5yLUSvHs/+B4E
-	SAHS+Z4RO3jMnd3ZT2V2FqMGKWkRYjveQiFGN94GuBW2dp58RaMllOsFYnUHzFpv4d5BBHHhxZt
-	LHvmmhF55Csze4w04kfXXKKEGhSL6eRlUYcEwXg==
-X-Google-Smtp-Source: 
- AGHT+IEnqc4gKd8d3/4CtY+9Z2dX/nIjYsaIb1fXkGgwuAAIIiovBHfJVK2XUUGwxWXGgo5SDGMIF1irekTJMnwHlS8=
-X-Received: by 2002:a81:de4d:0:b0:627:778f:b0a8 with SMTP id
- 00721157ae682-643aba4654bmr165212747b3.42.1719584250582; Fri, 28 Jun 2024
- 07:17:30 -0700 (PDT)
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=rzY8Jmtw
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id B46DDCE3CBF;
+	Fri, 28 Jun 2024 15:41:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3050C116B1;
+	Fri, 28 Jun 2024 15:41:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1719589317;
+	bh=ymvFz0WiHcyx8yRoT9Izl+kSBov6O15ewnJVOROeaBE=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+	b=rzY8JmtwoJdmMtk9RXZxz8vnwgshHYk7ndL2ZeeDIB8Y/LDD+LnD3Xhu3jRlF/MSR
+	 XQNQ862xw/gQbwO8MNvKUl90+jqBoyr6ZmBhgfQWQF7L02ArzBcA6ZcCzTAii+NhcW
+	 Kc12z6630APpVbOyfpVkw1/ERzpAYUAWWQqzIyCfSmf2nVOIBPvxef242o7MsLKsdn
+	 WpdwOxQWSM5bjA+FHh++46yVvY8n2VQpQ/q3qFLhWQ1LbZVNM8bd8sI8+RxWGxowyc
+	 cdBcME+0xYyLcuVzGSo/UEWm9eV4cR9GDqZNECO4TlkYQ8PLNnvGn1X2DlkztqxDz/
+	 Q/VFvez8+lr8Q==
+Date: Fri, 28 Jun 2024 09:41:56 -0600
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-References: 
- <20240627-b4-qcom-audio-lpass-codec-cleanups-v1-0-ede31891d238@linaro.org>
- <20240627-b4-qcom-audio-lpass-codec-cleanups-v1-2-ede31891d238@linaro.org>
- <grpb57rhum4auor3n66mqd2tpmd52gzofbdog3vlmxlamfxv5a@2mhfkigl6ek2>
- <1fa1da22-07a5-4d76-b4c7-fc16e3df4b32@linaro.org>
-In-Reply-To: <1fa1da22-07a5-4d76-b4c7-fc16e3df4b32@linaro.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Fri, 28 Jun 2024 17:17:20 +0300
-Message-ID: 
- <CAA8EJpq_2RUs3go6JZ+uVuJ5PJKzv0e2T8uS5QJMrB_JUAtNPw@mail.gmail.com>
-Subject: Re: [PATCH 2/4] ASoC: codecs: lpass-rx-macro: Keep static
- regmap_config as const
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@quicinc.com>,
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org,
-	linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Message-ID-Hash: GZ4NIMN2GNA5Z3GPQZ3R6RASXHL43S3R
-X-Message-ID-Hash: GZ4NIMN2GNA5Z3GPQZ3R6RASXHL43S3R
-X-MailFrom: dmitry.baryshkov@linaro.org
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Alexey Klimov <alexey.klimov@linaro.org>
+Cc: devicetree@vger.kernel.org, elder@linaro.org, conor+dt@kernel.org,
+ tiwai@suse.com, andersson@kernel.org, perex@perex.cz, lgirdwood@gmail.com,
+ bgoswami@quicinc.com, broonie@kernel.org, caleb.connolly@linaro.org,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ konrad.dybcio@linaro.org, linux-arm-msm@vger.kernel.org, krzk+dt@kernel.org,
+ srinivas.kandagatla@linaro.org, dmitry.baryshkov@linaro.org,
+ krzysztof.kozlowski@linaro.org, linux-sound@vger.kernel.org
+In-Reply-To: <20240628010715.438471-1-alexey.klimov@linaro.org>
+References: <20240628010715.438471-1-alexey.klimov@linaro.org>
+Message-Id: <171958904690.3122888.14426656364563321881.robh@kernel.org>
+Subject: Re: [PATCH 0/7] qrb4210-rb2: add HDMI audio playback support
+Message-ID-Hash: WURCGMCODD2MEJQR5K5I7S4GQ2OYG2ER
+X-Message-ID-Hash: WURCGMCODD2MEJQR5K5I7S4GQ2OYG2ER
+X-MailFrom: robh@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -119,7 +91,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GZ4NIMN2GNA5Z3GPQZ3R6RASXHL43S3R/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WURCGMCODD2MEJQR5K5I7S4GQ2OYG2ER/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -128,92 +100,61 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 28 Jun 2024 at 11:39, Krzysztof Kozlowski
-<krzysztof.kozlowski@linaro.org> wrote:
->
-> On 28/06/2024 10:34, Dmitry Baryshkov wrote:
-> > On Thu, Jun 27, 2024 at 05:23:44PM GMT, Krzysztof Kozlowski wrote:
-> >> The driver has static 'struct regmap_config', which is then customized
-> >> depending on device version.  This works fine, because there should not
-> >> be two devices in a system simultaneously and even less likely that such
-> >> two devices would have different versions, thus different regmap config.
-> >> However code is cleaner and more obvious when static data in the driver
-> >> is also const - it serves as a template.
-> >>
-> >> Mark the 'struct regmap_config' as const and duplicate it in the probe()
-> >> with devm_kmemdup to allow customizing per detected device variant.
-> >>
-> >> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> >> ---
-> >>  sound/soc/codecs/lpass-rx-macro.c | 17 +++++++++++++----
-> >>  1 file changed, 13 insertions(+), 4 deletions(-)
-> >
-> > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> >
-> >>
-> >> diff --git a/sound/soc/codecs/lpass-rx-macro.c b/sound/soc/codecs/lpass-rx-macro.c
-> >> index 59fe76b13cdb..3d8149665439 100644
-> >> --- a/sound/soc/codecs/lpass-rx-macro.c
-> >> +++ b/sound/soc/codecs/lpass-rx-macro.c
-> >> @@ -1662,7 +1662,7 @@ static bool rx_is_readable_register(struct device *dev, unsigned int reg)
-> >>      return rx_is_rw_register(dev, reg);
-> >>  }
-> >>
-> >> -static struct regmap_config rx_regmap_config = {
-> >> +static const struct regmap_config rx_regmap_config = {
-> >>      .name = "rx_macro",
-> >>      .reg_bits = 16,
-> >>      .val_bits = 32, /* 8 but with 32 bit read/write */
-> >> @@ -3765,6 +3765,7 @@ static const struct snd_soc_component_driver rx_macro_component_drv = {
-> >>  static int rx_macro_probe(struct platform_device *pdev)
-> >>  {
-> >>      struct reg_default *reg_defaults;
-> >> +    struct regmap_config *reg_config;
-> >>      struct device *dev = &pdev->dev;
-> >>      kernel_ulong_t flags;
-> >>      struct rx_macro *rx;
-> >> @@ -3851,14 +3852,22 @@ static int rx_macro_probe(struct platform_device *pdev)
-> >>              goto err;
-> >>      }
-> >>
-> >> -    rx_regmap_config.reg_defaults = reg_defaults;
-> >> -    rx_regmap_config.num_reg_defaults = def_count;
-> >> +    reg_config = devm_kmemdup(dev, &rx_regmap_config, sizeof(*reg_config),
-> >> +                              GFP_KERNEL);
-> >> +    if (!reg_config) {
-> >> +            ret = -ENOMEM;
-> >> +            goto err;
-> >> +    }
-> >>
-> >> -    rx->regmap = devm_regmap_init_mmio(dev, base, &rx_regmap_config);
-> >> +    reg_config->reg_defaults = reg_defaults;
-> >> +    reg_config->num_reg_defaults = def_count;
-> >> +
-> >> +    rx->regmap = devm_regmap_init_mmio(dev, base, reg_config);
-> >>      if (IS_ERR(rx->regmap)) {
-> >>              ret = PTR_ERR(rx->regmap);
-> >>              goto err;
-> >>      }
-> >> +    devm_kfree(dev, reg_config);
-> >>      devm_kfree(dev, reg_defaults);
-> >
-> > Seeing devm_kfree in the non-error path makes me feel strange. Maybe
-> > it's one of the rare occasions when I can say that __free is suitable
-> > here.
->
-> These would have a bit different meaning in such case. The __free would
-> not clean it in this spot, but on exit from the scope. I wanted to
-> kfree() here, because the config (and reg_defaults) are not used by past
-> regmap_init. I mentioned it briefly in previous patch msg.
->
-> To me this code is readable and obvious - past this point nothing uses
-> that allocation. However maybe instead of devm(), the code would be
-> easier to read if non-devm-malloc + __free()?
 
-Yes, that's what I was thinking about. But it's definitely an optional
-topic. Your code is correct.
+On Fri, 28 Jun 2024 02:07:08 +0100, Alexey Klimov wrote:
+> First time I am doing anything like this. This series adds
+> mising pieces here and there to allow addition of sensible
+> sound card in qrb4210-rb2.dts and enable HDMI audio playback there.
+> 
+> It is planned in future to add support for other outputs and capture --
+> analog audio support.
+> 
+> The series depends on Srini's sm4250 lpi pinctrl driver:
+> c2e5a25e8d88 (pinctrl: qcom: Introduce SM4250 LPI pinctrl driver, 2024-06-22)
+> 2ffa7a354662 (dt-bindings: pinctrl: qcom: Add SM4250 pinctrl, 2024-06-22)
+> As far as I understood it was already accepted and will go through pinctrl tree.
+> 
+> Alexey Klimov (7):
+>   ASoC: dt-bindings: qcom,sm8250: add qrb4210-rb2-sndcard
+>   ASoC: qcom: sm8250: add qrb4210-rb2-sndcard compatible string
+>   ASoC: qcom: sm8250: add handling of secondary MI2S clock
+>   arm64: dts: qcom: sm6115: add apr, its services and simple sound node
+>   arm64: dts: qcom: sm6115: add LPASS LPI pin controller
+>   arm64: dts: qcom: sm6115: add description of lpi_i2s2 pins
+>   arm64: dts: qcom: qrb4210-rb2: add HDMI audio playback support
+> 
+>  .../bindings/sound/qcom,sm8250.yaml           |   1 +
+>  arch/arm64/boot/dts/qcom/qrb4210-rb2.dts      |  73 ++++++++++++
+>  arch/arm64/boot/dts/qcom/sm6115.dtsi          | 112 ++++++++++++++++++
+>  sound/soc/qcom/sm8250.c                       |  19 +++
+>  4 files changed, 205 insertions(+)
+> 
+> --
+> 2.45.2
+> 
+> 
+> 
 
 
--- 
-With best wishes
-Dmitry
+My bot found new DTB warnings on the .dts files added or changed in this
+series.
+
+Some warnings may be from an existing SoC .dtsi. Or perhaps the warnings
+are fixed by another series. Ultimately, it is up to the platform
+maintainer whether these warnings are acceptable or not. No need to reply
+unless the platform maintainer has comments.
+
+If you already ran DT checks and didn't see these error(s), then
+make sure dt-schema is up to date:
+
+  pip3 install dtschema --upgrade
+
+
+New warnings running 'make CHECK_DTBS=y qcom/qrb4210-rb2.dtb' for 20240628010715.438471-1-alexey.klimov@linaro.org:
+
+arch/arm64/boot/dts/qcom/qrb4210-rb2.dtb: /soc@0/pinctrl@a7c0000: failed to match any schema with compatible: ['qcom,sm4250-lpass-lpi-pinctrl']
+
+
+
+
+
